@@ -28,13 +28,13 @@ import { questionCatalog } from '../question-catalog.js';
 import { visibleQuestionCount } from '../../../src/data/curriculum.js';
 import { MAX_SOURCES, REQUEST_DEADLINE_MS } from './config.js';
 import { loadCorpus, warmCorpus } from './corpus.js';
-import { heuristicPlan, runPlanner, asksForFiles, fileKindIn } from './planner.js';
-import { searchCorpus, selectDocs, isCovered, toSource, numberSources, snippetNeedles } from './retrieve.js';
+import { heuristicPlan, runPlanner, asksForFiles, fileKindIn, isFollowUp } from './planner.js';
+import { searchCorpus, selectDocs, isCovered, chooseSearch, toSource, numberSources, snippetNeedles } from './retrieve.js';
 import { retrieveGuide, guideRoutes, loadGuide, examDocs, thaiShortDate } from './guide.js';
 import { pickQuiz } from './quiz.js';
 import { buildActionCard } from './actions.js';
 import { findPapers, papersCard } from './papers.js';
-import { findFiles, filesCard, pageSource } from './library.js';
+import { findFiles, filesCard, filesLead, pageSource } from './library.js';
 import { describeImage } from './vision.js';
 import { writeAnswer } from './writer.js';
 import { SYSTEM_PROMPT, turnNote, writerMessages } from './prompt.js';
@@ -175,11 +175,12 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     const plan = await plannerP;
     let intent = plan.intent;
     if (plan.source === 'model' && intent !== 'chat') {
-      found = searchCorpus(corpus, {
+      const planned = searchCorpus(corpus, {
         text: `${plan.query_th} ${imageText}`.trim(),
         terms: plan.terms_en,
         wikiQueries: [plan.query_th, heuristic.query_th],
       });
+      found = chooseSearch(found, planned, { followUp: isFollowUp(question) });
     } else if (intent !== 'chat' && !found) {
       found = searchCorpus(corpus, { text: heuristic.query_th, wikiQueries: [heuristic.query_th] });
     }
@@ -241,8 +242,8 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       if (lib.items.length) {
         cards.push(filesCard(lib.items));
         files = {
+          lead: filesLead(lib.items),
           count: lib.items.length,
-          titles: lib.items.slice(0, 4).map((f) => f.title),
           // what the card shows may be repeated in the text (see the number check)
           shown: lib.items.map((f) => `${f.title} ${f.pages || ''} ${f.page || ''} ${f.subjectName} ${f.lecturer}`).join('\n'),
         };
@@ -361,7 +362,6 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       quizMissing,
       action,
       actionMissing,
-      files,
       filesMissing,
       relatedFiles,
       papers: papers.length,
@@ -379,15 +379,22 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       if (timing.firstDelta === null) timing.firstDelta = since();
       send('delta', { text });
     };
-    const result = await writeAnswer({
-      system: SYSTEM_PROMPT,
-      messages: writerMessages(messages, numbered.contextBlocks, note),
-      onDelta: (raw) => emit(filter.push(raw)),
-      signal: sig,
-      env,
-      fetchImpl: D.fetchImpl,
-    });
-    emit(filter.flush());
+    let result;
+    if (files) {
+      // the card is the answer, introduced by a line made from it
+      emit(files.lead);
+      result = { ok: true, model: 'card' };
+    } else {
+      result = await writeAnswer({
+        system: SYSTEM_PROMPT,
+        messages: writerMessages(messages, numbered.contextBlocks, note),
+        onDelta: (raw) => emit(filter.push(raw)),
+        signal: sig,
+        env,
+        fetchImpl: D.fetchImpl,
+      });
+      emit(filter.flush());
+    }
 
     const log = {
       ms: since(),

@@ -1,0 +1,36 @@
+// ============================================================
+// ai-chat retrieval eval — questions as students type them
+// ============================================================
+// Each case in tests/fixtures/ai-retrieval-eval.json is a question as a
+// student types it and the plan the planner (the production model) made for
+// it, saved so the run needs no network. The search runs exactly as in the
+// route: the question as typed, the planner's reading, chooseSearch() between
+// them. A case passes when one of the first two cited sources is about what
+// was asked (the `expect` pattern, read against title, topic and heading).
+//
+// Measured 2026-10-28 on 30 common questions: 23 passed before the fixes that
+// came with this file, 29 after. Add a case whenever a student question finds
+// the wrong sources; never loosen one. A case marked `todo` is a known miss.
+
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+
+import { loadCorpus } from '../../api/_lib/ai/corpus.js';
+import { searchCorpus, selectDocs, chooseSearch } from '../../api/_lib/ai/retrieve.js';
+import { heuristicPlan } from '../../api/_lib/ai/planner.js';
+
+const cases = JSON.parse(readFileSync(new URL('../fixtures/ai-retrieval-eval.json', import.meta.url), 'utf8'));
+const corpus = await loadCorpus();
+const label = (r) => `${r.doc.title || ''} | ${r.doc.topic || ''} | ${r.doc.heading || ''}`;
+
+for (const c of cases) {
+  test(c.q, { todo: c.todo || false }, () => {
+    const typedQuery = heuristicPlan([{ role: 'user', content: c.q }]).query_th;
+    const typed = searchCorpus(corpus, { text: typedQuery, wikiQueries: [typedQuery] });
+    const planned = searchCorpus(corpus, { text: c.plan.query_th, terms: c.plan.terms_en, wikiQueries: [c.plan.query_th, typedQuery] });
+    const top = selectDocs(chooseSearch(typed, planned).ranked).slice(0, 2).map(label);
+    const about = new RegExp(c.expect, 'i');
+    assert.ok(top.some((t) => about.test(t)), `expected ${c.expect}, cited:\n${top.join('\n')}`);
+  });
+}

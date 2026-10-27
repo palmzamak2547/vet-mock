@@ -1,0 +1,434 @@
+[
+  {
+    "q": "อาการของโรคไข้หัดสุนัขมีอะไรบ้าง",
+    "plan": {
+      "query_th": "อาการของโรคไข้หัดสุนัข (canine distemper) มีอะไรบ้าง",
+      "terms_en": [
+        "canine distemper",
+        "distemper",
+        "CDV",
+        "neurological signs",
+        "respiratory signs"
+      ]
+    },
+    "expect": "distemper"
+  },
+  {
+    "q": "ลำไส้อักเสบติดต่อในสุนัขรักษายังไง",
+    "plan": {
+      "query_th": "ลำไส้อักเสบติดต่อในสุนัข (canine parvovirus) รักษาอย่างไร",
+      "terms_en": [
+        "canine parvovirus",
+        "parvoviral enteritis",
+        "CPV",
+        "treatment",
+        "fluid therapy",
+        "dog"
+      ]
+    },
+    "expect": "parvo|CVE|viral enteritis"
+  },
+  {
+    "q": "โรคพิษสุนัขบ้าระยะฟักตัวกี่วัน",
+    "plan": {
+      "query_th": "โรคพิษสุนัขบ้ามีระยะฟักตัวกี่วัน",
+      "terms_en": [
+        "rabies",
+        "incubation period",
+        "lyssavirus",
+        "dog",
+        "zoonosis"
+      ]
+    },
+    "expect": "rabies|พิษสุนัขบ้า"
+  },
+  {
+    "q": "ไข้หัดแมวเกิดจากเชื้ออะไร",
+    "plan": {
+      "query_th": "ไข้หัดแมว (feline panleukopenia) เกิดจากเชื้ออะไร",
+      "terms_en": [
+        "feline panleukopenia virus",
+        "feline parvovirus",
+        "FPV",
+        "parvovirus",
+        "cat"
+      ]
+    },
+    "expect": "FPV|panleukopenia|ไข้หัดแมว"
+  },
+  {
+    "q": "โรคเยื่อบุช่องท้องอักเสบติดต่อในแมววินิจฉัยยังไง",
+    "plan": {
+      "query_th": "วินิจฉัยโรคเยื่อบุช่องท้องอักเสบติดต่อในแมว (FIP) อย่างไร",
+      "terms_en": [
+        "FIP",
+        "feline infectious peritonitis",
+        "coronavirus",
+        "diagnosis",
+        "effusion",
+        "RT-PCR"
+      ]
+    },
+    "expect": "FIP|infectious peritonitis"
+  },
+  {
+    "q": "โรคไข้หวัดนกในสัตว์ปีกมีอาการอะไร",
+    "plan": {
+      "query_th": "โรคไข้หวัดนกในสัตว์ปีกมีอาการอะไร",
+      "terms_en": [
+        "avian influenza",
+        "bird flu",
+        "poultry",
+        "clinical signs",
+        "H5N1"
+      ]
+    },
+    "expect": "avian influenza|ไข้หวัดนก"
+  },
+  {
+    "q": "โรคปากและเท้าเปื่อยในโคมีอาการอะไร",
+    "plan": {
+      "query_th": "โรคปากและเท้าเปื่อยในโคมีอาการอะไรบ้าง",
+      "terms_en": [
+        "foot-and-mouth disease",
+        "FMD",
+        "cattle",
+        "clinical signs",
+        "vesicles"
+      ]
+    },
+    "expect": "FMD|foot.and.mouth|ปากและเท้าเปื่อย|ปากเท้าเปื่อย"
+  },
+  {
+    "q": "โรคเลปโตสไปโรซิสติดต่อยังไง",
+    "plan": {
+      "query_th": "โรคเลปโตสไปโรซิส (leptospirosis) ติดต่อได้อย่างไร",
+      "terms_en": [
+        "leptospirosis",
+        "Leptospira",
+        "transmission",
+        "zoonosis",
+        "urine"
+      ]
+    },
+    "expect": "leptospir|เลปโต"
+  },
+  {
+    "q": "พยาธิหนอนหัวใจในสุนัขป้องกันยังไง",
+    "plan": {
+      "query_th": "การป้องกันพยาธิหนอนหัวใจในสุนัขทำอย่างไร",
+      "terms_en": [
+        "heartworm",
+        "Dirofilaria immitis",
+        "prevention",
+        "canine",
+        "macrolide"
+      ]
+    },
+    "expect": "heartworm|dirofilaria|หนอนหัวใจ"
+  },
+  {
+    "q": "โรคเต้านมอักเสบในโคนมเกิดจากเชื้ออะไร",
+    "plan": {
+      "query_th": "โรคเต้านมอักเสบในโคนมเกิดจากเชื้ออะไร",
+      "terms_en": [
+        "mastitis",
+        "bovine",
+        "dairy cow",
+        "Staphylococcus aureus",
+        "Streptococcus",
+        "Escherichia coli"
+      ]
+    },
+    "expect": "mastitis|เต้านมอักเสบ"
+  },
+  {
+    "q": "อหิวาต์แอฟริกาในสุกรมีอาการอะไร",
+    "plan": {
+      "query_th": "อหิวาต์แอฟริกาในสุกร (African Swine Fever) มีอาการอะไรบ้าง",
+      "terms_en": [
+        "African swine fever",
+        "ASF",
+        "pig",
+        "hemorrhagic fever",
+        "clinical signs"
+      ]
+    },
+    "expect": "african swine fever|(^|[^a-z])asf([^a-z]|$)"
+  },
+  {
+    "q": "โรค PRRS ในสุกรควบคุมยังไง",
+    "plan": {
+      "query_th": "โรค PRRS ในสุกรควบคุมอย่างไร",
+      "terms_en": [
+        "PRRS",
+        "porcine reproductive and respiratory syndrome",
+        "swine",
+        "control",
+        "biosecurity",
+        "vaccination"
+      ]
+    },
+    "expect": "PRRS"
+  },
+  {
+    "q": "ไข้เห็บในสุนัขรักษาด้วยยาอะไร",
+    "plan": {
+      "query_th": "ไข้เห็บในสุนัข (ehrlichiosis) รักษาด้วยยาอะไร",
+      "terms_en": [
+        "ehrlichiosis",
+        "Ehrlichia canis",
+        "tick fever",
+        "doxycycline",
+        "dog"
+      ]
+    },
+    "expect": "ehrlichi|babesi|anaplasm|hepatozoon|blood (parasite|infection)|rickettsial"
+  },
+  {
+    "q": "ภาวะไตวายเรื้อรังในแมวรักษายังไง",
+    "plan": {
+      "query_th": "การรักษาภาวะไตวายเรื้อรังในแมวทำอย่างไร",
+      "terms_en": [
+        "chronic kidney disease",
+        "CKD",
+        "cat",
+        "feline",
+        "treatment",
+        "management"
+      ]
+    },
+    "expect": "CKD|chronic kidney|ไตวายเรื้อรัง"
+  },
+  {
+    "q": "โรคเบาหวานในสุนัขรักษายังไง",
+    "plan": {
+      "query_th": "โรคเบาหวานในสุนัขรักษาอย่างไร",
+      "terms_en": [
+        "diabetes mellitus",
+        "dog",
+        "insulin therapy",
+        "canine",
+        "treatment"
+      ]
+    },
+    "expect": "(^|[^a-z])dm([^a-z]|$)|diabetes|เบาหวาน|insulin"
+  },
+  {
+    "q": "คุชชิ่งในสุนัขวินิจฉัยยังไง",
+    "plan": {
+      "query_th": "วินิจฉัยโรคคุชชิ่ง (hyperadrenocorticism) ในสุนัขได้อย่างไร",
+      "terms_en": [
+        "Cushing's syndrome",
+        "hyperadrenocorticism",
+        "dog",
+        "ACTH stimulation test",
+        "low-dose dexamethasone suppression",
+        "diagnosis"
+      ]
+    },
+    "expect": "hyperadrenocorticism|cushing"
+  },
+  {
+    "q": "ภาวะกระเพาะบิดในสุนัขรักษายังไง",
+    "plan": {
+      "query_th": "ภาวะกระเพาะบิดในสุนัข (GDV) รักษาอย่างไร",
+      "terms_en": [
+        "gastric dilatation volvulus",
+        "GDV",
+        "dog",
+        "gastric decompression",
+        "gastropexy"
+      ]
+    },
+    "expect": "GDV|gastric dilatation|กระเพาะบิด"
+  },
+  {
+    "q": "นิ่วในกระเพาะปัสสาวะแมวเกิดจากอะไร",
+    "plan": {
+      "query_th": "นิ่วในกระเพาะปัสสาวะแมวเกิดจากอะไร",
+      "terms_en": [
+        "urolithiasis",
+        "cat",
+        "struvite",
+        "calcium oxalate",
+        "bladder stone",
+        "feline"
+      ]
+    },
+    "expect": "urolith|นิ่ว|struvite|FLUTD|oxalate"
+  },
+  {
+    "q": "โรคแท้งติดต่อในโคเกิดจากเชื้ออะไร",
+    "plan": {
+      "query_th": "โรคแท้งติดต่อในโคเกิดจากเชื้ออะไร",
+      "terms_en": [
+        "Brucella abortus",
+        "brucellosis",
+        "cattle",
+        "abortion",
+        "zoonosis"
+      ]
+    },
+    "expect": "brucell"
+  },
+  {
+    "q": "วัณโรคในโคตรวจยังไง",
+    "plan": {
+      "query_th": "วัณโรคในโคตรวจวินิจฉัยอย่างไร",
+      "terms_en": [
+        "bovine tuberculosis",
+        "Mycobacterium bovis",
+        "tuberculin test",
+        "diagnosis",
+        "cattle"
+      ]
+    },
+    "expect": "tuberculosis|วัณโรค"
+  },
+  {
+    "q": "โรคนิวคาสเซิลในไก่มีอาการอะไร",
+    "plan": {
+      "query_th": "โรคนิวคาสเซิลในไก่มีอาการอะไรบ้าง",
+      "terms_en": [
+        "Newcastle disease",
+        "avian paramyxovirus",
+        "chicken",
+        "clinical signs",
+        "poultry"
+      ]
+    },
+    "expect": "newcastle|นิวคาสเซิล"
+  },
+  {
+    "q": "ไข้สามวันในโคมีอาการอะไร",
+    "plan": {
+      "query_th": "ไข้สามวันในโค (bovine ephemeral fever) มีอาการอะไรบ้าง",
+      "terms_en": [
+        "bovine ephemeral fever",
+        "three-day sickness",
+        "cattle",
+        "clinical signs",
+        "arbovirus"
+      ]
+    },
+    "expect": "ephemeral|ไข้สามวัน"
+  },
+  {
+    "q": "โรคคอบวมในโคกระบือเกิดจากเชื้ออะไร",
+    "plan": {
+      "query_th": "โรคคอบวมในโคกระบือเกิดจากเชื้ออะไร",
+      "terms_en": [
+        "hemorrhagic septicemia",
+        "Pasteurella multocida",
+        "cattle",
+        "buffalo",
+        "bacterial disease"
+      ]
+    },
+    "expect": "hemorrhagic septicemia|คอบวม|pasteurell"
+  },
+  {
+    "q": "ภาวะไข้น้ำนมในโครักษายังไง",
+    "plan": {
+      "query_th": "ภาวะไข้น้ำนมในโครักษาอย่างไร",
+      "terms_en": [
+        "milk fever",
+        "hypocalcemia",
+        "cattle",
+        "parturient paresis",
+        "calcium therapy"
+      ]
+    },
+    "expect": "milk fever|hypocalc|ไข้น้ำนม"
+  },
+  {
+    "q": "โรคลัมปีสกินในโคติดต่อยังไง",
+    "plan": {
+      "query_th": "โรคลัมปีสกินในโคติดต่ออย่างไร",
+      "terms_en": [
+        "lumpy skin disease",
+        "LSD",
+        "Capripoxvirus",
+        "transmission",
+        "cattle",
+        "vectors"
+      ]
+    },
+    "expect": "lumpy|(^|[^a-z])lsd([^a-z]|$)|ลัมปี"
+  },
+  {
+    "q": "พยาธิในเลือดโคมีอะไรบ้าง",
+    "plan": {
+      "query_th": "พยาธิในเลือดของโคมีอะไรบ้าง",
+      "terms_en": [
+        "blood parasites",
+        "cattle",
+        "Trypanosoma",
+        "Babesia",
+        "Anaplasma",
+        "Theileria"
+      ]
+    },
+    "expect": "trypanosom|babesi|anaplasm|theileri|blood parasite|พยาธิในเลือด",
+    "todo": "equine blood-parasite pages outrank the bovine notes: needs species-aware ranking"
+  },
+  {
+    "q": "การให้วัคซีนลูกสุนัขเริ่มเมื่อไหร่",
+    "plan": {
+      "query_th": "การให้วัคซีนในลูกสุนัขเริ่มให้เมื่ออายุเท่าไหร่",
+      "terms_en": [
+        "puppy vaccination",
+        "vaccination schedule",
+        "dog",
+        "core vaccine",
+        "immunization"
+      ]
+    },
+    "expect": "puppy|ลูกสุนัข|WSAVA|vaccination program|small animal vaccination|vaccine guideline"
+  },
+  {
+    "q": "โรคหัวใจ HCM ในแมวมีอาการอะไร",
+    "plan": {
+      "query_th": "โรคหัวใจ HCM ในแมวมีอาการอะไร",
+      "terms_en": [
+        "hypertrophic cardiomyopathy",
+        "HCM",
+        "cat",
+        "feline",
+        "clinical signs"
+      ]
+    },
+    "expect": "HCM|hypertrophic cardiomyopathy"
+  },
+  {
+    "q": "ขี้เรื้อนเปียกในสุนัขรักษายังไง",
+    "plan": {
+      "query_th": "ขี้เรื้อนเปียกในสุนัขรักษาอย่างไร",
+      "terms_en": [
+        "demodectic mange",
+        "Demodex canis",
+        "generalized demodicosis",
+        "ivermectin",
+        "amitraz",
+        "miticide"
+      ]
+    },
+    "expect": "demodex|demodicosis|ขี้เรื้อนเปียก"
+  },
+  {
+    "q": "โรคหวัดแมวเกิดจากเชื้ออะไร",
+    "plan": {
+      "query_th": "โรคหวัดแมว (feline upper respiratory disease) เกิดจากเชื้ออะไร",
+      "terms_en": [
+        "feline upper respiratory disease",
+        "FHV-1",
+        "FCV",
+        "feline herpesvirus",
+        "calicivirus",
+        "Chlamydia felis"
+      ]
+    },
+    "expect": "upper respiratory|FURI|FURD|หวัดแมว"
+  }
+]
