@@ -10,7 +10,10 @@ export function Header({ theme, onTheme, onNew, onHistory, hasChat }) {
         <span className="brand-word">VetMock</span>
         <GlyphText text="AI" className="brand-ai" />
       </a>
-      <span className="preview-tag"><GlyphText text="Research preview" /></span>
+      <span className="preview-tag">
+        <GlyphText text="Research preview" className="tag-long" />
+        <GlyphText text="Preview" className="tag-short" />
+      </span>
       <nav className="hdr-actions" aria-label="เมนู">
         {hasChat && (
           <button type="button" className="icon-btn" onClick={onNew} aria-label="แชทใหม่" title="แชทใหม่"><IconNew /></button>

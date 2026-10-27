@@ -26,9 +26,18 @@ function Spinner() {
   return <span className="spin" aria-hidden="true">{SPIN[i]}</span>;
 }
 
+// a shown card is centred on its chip, then slid back inside the window
+function placeCard(e) {
+  const b = e.currentTarget;
+  const r = b.getBoundingClientRect();
+  const w = Math.min(300, innerWidth - 32);
+  const left = r.left + r.width / 2 - w / 2;
+  b.style.setProperty('--dx', `${Math.round(Math.min(Math.max(16, left), innerWidth - 16 - w) - left)}px`);
+}
+
 function Cite({ n, source, onPick }) {
   return (
-    <button type="button" className="cite" onClick={() => onPick(n)} aria-label={`แหล่งที่ ${n}: ${source?.title || ''}`}>
+    <button type="button" className="cite" onClick={() => onPick(n)} onPointerEnter={placeCard} onFocus={placeCard} aria-label={`แหล่งที่ ${n}: ${source?.title || ''}`}>
       {n}
       {source && (
         <span className="cite-card" role="tooltip">

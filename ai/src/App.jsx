@@ -404,7 +404,8 @@ export default function App() {
         {mode === 'landing' && (
           <section ref={heroRef} className="hero">
             <h1 className="hero-title">ถามให้ลึก</h1>
-            <p className="hero-sub">ตอบจากคลังความรู้ VetMock พร้อมแหล่งอ้างอิง</p>
+            {/* a narrow phone breaks between the two phrases, never inside แหล่งอ้างอิง */}
+            <p className="hero-sub"><span className="nb">ตอบจากคลังความรู้ VetMock</span> <span className="nb">พร้อมแหล่งอ้างอิง</span></p>
           </section>
         )}
         {mode === 'chat' && (
