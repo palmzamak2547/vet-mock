@@ -34,6 +34,7 @@ import { retrieveGuide, guideRoutes, loadGuide, examDocs, thaiShortDate } from '
 import { pickQuiz } from './quiz.js';
 import { buildActionCard } from './actions.js';
 import { findPapers, papersCard } from './papers.js';
+import { findFiles, filesCard, pageSource } from './library.js';
 import { describeImage } from './vision.js';
 import { writeAnswer } from './writer.js';
 import { SYSTEM_PROMPT, turnNote, writerMessages } from './prompt.js';
@@ -57,6 +58,10 @@ export const ERROR_MESSAGES = Object.freeze({
 // A question that asks about evidence: worth a literature search when the
 // course material does not answer it.
 const RESEARCHY = /(งานวิจัย|การศึกษา|ศึกษาพบ|หลักฐาน|ความชุก|อุบัติการณ์|ล่าสุด|evidence|stud(?:y|ies)|trial|prevalence|incidence|meta-?analysis|recent|latest)/i;
+
+// How long an answer waits for the study library before it starts writing
+// (warm: 0.2 to 0.5 s for the search and the page text).
+const LIBRARY_BUDGET_MS = 900;
 
 let countsPending = null;
 /** Deliverable questions per subject, counted the way the subject cards count. */
@@ -184,10 +189,28 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     if (intent === 'answer' && (routes.exam || routes.whatsNew || routes.subjects)) intent = 'guide';
     const needles = found ? snippetNeedles(found.concepts) : [];
 
+    // ── the study library ───────────────────────────────────────────────
+    // Started now, awaited just before the sources go out: files for a request
+    // for files, the matching slide pages for an answer. It never fails a turn.
+    const libraryP = ['files', 'answer', 'research'].includes(intent)
+      ? findFiles({
+        terms: plan.terms_en.length ? plan.terms_en : latinTerms(`${question} ${plan.query_th}`),
+        needles,
+        subjects: plan.subjects,
+        kind: plan.files?.kind || '',
+        title: plan.files?.title || '',
+        files: intent === 'files',
+      }, { env, fetchImpl: D.fetchImpl, signal: sig })
+      : null;
+
     // ── what this turn needs ────────────────────────────────────────────
     const sources = [];
     const cards = [];
     let covered = false;
+    let files = null;
+    let filesMissing = null;
+    let relatedFiles = 0;
+    let lateLibrary = null;
     let quiz = null;
     let quizMissing = null;
     let action = null;
@@ -207,6 +230,27 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
         quizMissing = plan.subjects.length
           ? 'วิชาที่ขอยังไม่มีข้อสอบในคลังที่แสดงในแชทได้'
           : 'ยังไม่รู้ว่าต้องการข้อสอบวิชาหรือหัวข้อไหน ให้ถามนิสิตกลับ';
+      }
+    } else if (intent === 'files') {
+      // the card is the answer; the writer only introduces it
+      const lib = await libraryP;
+      if (lib.items.length) {
+        cards.push(filesCard(lib.items));
+        files = {
+          count: lib.items.length,
+          titles: lib.items.slice(0, 4).map((f) => f.title),
+          // what the card shows may be repeated in the text (see the number check)
+          shown: lib.items.map((f) => `${f.title} ${f.pages || ''} ${f.page || ''} ${f.subjectName} ${f.lecturer}`).join('\n'),
+        };
+        covered = true;
+      } else {
+        filesMissing = lib.failed ? 'เปิดห้องสมุดไม่สำเร็จในครั้งนี้' : 'ห้องสมุดยังไม่มีไฟล์ที่เปิดให้ทุกคนที่ตรงกับที่ขอ';
+        // a subject was named: its shelf is the next best door
+        const r = plan.subjects[0] ? buildActionCard({ type: 'library', subject: plan.subjects[0] }, { corpus, rng: D.rng }) : {};
+        if (r.card) {
+          cards.push(r.card);
+          action = { label: r.card.label, say: r.card.say };
+        }
       }
     } else if (intent === 'action') {
       const wikiTop = found?.ranked.find((x) => x.doc.kind === 'wiki' && x.coverage >= 0.5)?.doc;
@@ -273,13 +317,27 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     }
     if (intent === 'answer' || intent === 'research') {
       // Papers lead a research answer, with up to three of VetMock's own
-      // sources after them; an ordinary answer keeps the course first.
-      const room = intent === 'research' ? Math.min(3, MAX_SOURCES - papers.length) : MAX_SOURCES - papers.length;
+      // sources after them; an ordinary answer keeps the course first, then
+      // the lecturer's own slide pages, then papers. The library gets a
+      // moment, not the answer's start: if it is slower, its card follows
+      // during the answer and its pages are left out of this one.
+      let budget;
+      const lib = await Promise.race([libraryP, new Promise((r) => { budget = setTimeout(r, LIBRARY_BUDGET_MS, null); })])
+        .finally(() => clearTimeout(budget)) || { items: [], pages: [] };
+      if (!lib.items.length && !lib.pages.length) lateLibrary = libraryP;
+      const slideSources = lib.pages.map((p) => pageSource(p, { needles }));
+      const room = Math.max(0, (intent === 'research' ? Math.min(3, MAX_SOURCES - papers.length) : MAX_SOURCES - papers.length) - slideSources.length);
       const corpusSources = selected.slice(0, room).map((r) => toSource(r, { needles }));
       const paperSources = papers.map((p) => toSource({ kind: 'paper', paper: p }));
-      sources.push(...(intent === 'research' ? [...paperSources, ...corpusSources] : [...corpusSources, ...paperSources]));
+      sources.push(...(intent === 'research' ? [...paperSources, ...corpusSources, ...slideSources] : [...corpusSources, ...slideSources, ...paperSources]));
+      // a slide page holding every search term is VetMock material on the topic
+      if (slideSources.length) covered = true;
+      if (lib.items.length) relatedFiles = lib.items.length;
+      if (papers.length) cards.push(papersCard(papers));
+      if (lib.items.length) cards.push(filesCard(lib.items, { related: true }));
+    } else if (papers.length) {
+      cards.push(papersCard(papers));
     }
-    if (papers.length) cards.push(papersCard(papers));
 
     // ── sources, cards ──────────────────────────────────────────────────
     const numbered = numberSources(sources.slice(0, MAX_SOURCES));
@@ -299,6 +357,9 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       quizMissing,
       action,
       actionMissing,
+      files,
+      filesMissing,
+      relatedFiles,
       papers: papers.length,
       researchFailed,
       unmatched: intent === 'answer' || intent === 'research' ? found?.unmatched || [] : [],
@@ -336,6 +397,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       covered,
       quiz: quiz?.count || 0,
       papers: papers.length,
+      files: files?.count || relatedFiles,
       actions: action ? 1 : 0,
       chars: shown.length,
       filtered: filter.dropped(),
@@ -359,7 +421,14 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       imageText,
       quiz ? String(quiz.count) : '',
       papers.length ? String(papers.length) : '',
+      files ? `${files.count}\n${files.shown}` : '',
     ].join('\n');
+    // a library that missed the start still shows its decks, before the end
+    if (lateLibrary) {
+      const lib = await lateLibrary;
+      if (lib.items.length) send('cards', { items: [filesCard(lib.items, { related: true })] });
+    }
+
     const check = computeCheck(shown, {
       sourceCount: numbered.items.length,
       context: numbered.contextText,

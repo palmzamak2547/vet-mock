@@ -34,6 +34,7 @@ import { checkLimits } from './_lib/ai/limits.js';
 import { openStream } from './_lib/ai/sse.js';
 import { runChat, chatStats, ERROR_MESSAGES } from './_lib/ai/pipeline.js';
 import { warmCorpus } from './_lib/ai/corpus.js';
+import { warmLibrary } from './_lib/ai/library.js';
 
 // Literal on purpose: the platform reads this object statically from the
 // source, so an imported constant would be invisible to it and the function
@@ -63,6 +64,9 @@ export default async function handler(req, res) {
     // ?warm=1 (sent when a student starts typing) must reach an instance, so it is
     // never cached: it builds the corpus while they type instead of after they send
     const warm = /[?&]warm=1/.test(req.url || '');
+    // ...and opens the connection to the study library and wakes its search,
+    // so the first answer's slides are not the ones that miss the start
+    if (warm) await warmLibrary();
     res.setHeader('Cache-Control', complete && !warm ? 'public, s-maxage=600, stale-while-revalidate=3600' : 'no-store');
     return res.status(200).json({ ok: true, configured: cfg.configured, stats });
   }

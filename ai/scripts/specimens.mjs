@@ -22,6 +22,7 @@ let sharpLib = null;
 const sharp = (...a) => (sharpLib ??= createRequire(path.join(ROOT, 'package.json'))('sharp'))(...a);
 
 const N = 64; // dots per side: one CSS pixel each on a 64 px plate
+const SMALL = 24; // the closed deck's cards
 
 // crop and clear are fractions of the source image: [x0, y0, x1, y1]
 export const PLATES = {
@@ -39,7 +40,7 @@ export const PLATES = {
 };
 
 /** Ink density 0..1 on a white-padded square, N x N. */
-export async function density({ src, crop, clear = [] }) {
+export async function density({ src, crop, clear = [] }, n = N) {
   const file = path.join(ROOT, 'public', src);
   const { width: W, height: H } = await sharp(file).metadata();
   const [x0, y0, x1, y1] = crop.map((f, i) => Math.round(f * (i % 2 ? H : W)));
@@ -64,8 +65,8 @@ export async function density({ src, crop, clear = [] }) {
   const oy = Math.round((side - bh) / 2);
   for (let y = 0; y < bh; y++) raw.copy(sq, (oy + y) * side + ox, (by0 + y) * w + bx0, (by0 + y) * w + bx0 + bw);
   // sharp hands a one-channel raw input back as sRGB unless told otherwise
-  const small = await sharp(sq, { raw: { width: side, height: side, channels: 1 } }).resize(N, N, { kernel: 'lanczos3' }).toColourspace('b-w').raw().toBuffer();
-  if (small.length !== N * N) throw new Error(`expected ${N * N} grey bytes, got ${small.length}`);
+  const small = await sharp(sq, { raw: { width: side, height: side, channels: 1 } }).resize(n, n, { kernel: 'lanczos3' }).toColourspace('b-w').raw().toBuffer();
+  if (small.length !== n * n) throw new Error(`expected ${n * n} grey bytes, got ${small.length}`);
   const d = Float32Array.from(small, (v) => 1 - v / 255);
   // levels over the inked pixels only, so paper stays paper
   const ink = [...d].filter((v) => v > 0.04).sort((a, b) => a - b);
@@ -113,7 +114,11 @@ async function main() {
     const bits = atkinson(await density(plate));
     const file = path.join(OUT, `${key}.svg`);
     fs.writeFileSync(file, svg(bits));
-    console.log(`${key.padEnd(8)} ${String(fs.statSync(file).size).padStart(6)} B  ${bits.reduce((s, b) => s + b, 0)} dots`);
+    // the tiny card in the closed sources deck: 24 dots, one per pixel there
+    // (inked a little heavier: at 24 dots a light engraving thins to a few specks)
+    const small = atkinson((await density(plate, SMALL)).map((v) => v ** 0.75), SMALL);
+    fs.writeFileSync(path.join(OUT, `${key}-s.svg`), svg(small, SMALL));
+    console.log(`${key.padEnd(8)} ${String(fs.statSync(file).size).padStart(6)} B  ${bits.reduce((s, b) => s + b, 0)} dots, small ${small.reduce((s, b) => s + b, 0)}`);
     previews.push(bits);
   }
   const at = process.argv.indexOf('--preview');
