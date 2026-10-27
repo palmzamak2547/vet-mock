@@ -3,14 +3,17 @@ import { IconImage, IconMic, IconSend, IconStop, IconClose } from './icons.jsx';
 import { CAN_LISTEN, TOUCH } from '../lib/env.js';
 import { listen } from '../lib/speech.js';
 import { prepareImage } from '../lib/image.js';
+import { graphemes } from '../lib/graphemes.js';
 
 const MAX = 4000;
+const later = (ms, timer) => new Promise((r) => { timer.id = setTimeout(r, ms); });
 
 // The box you type in. It is uncontrolled while you type (a keystroke never
 // waits on React), reports caret position to the ocean so the water ripples
 // under your words, takes a photo (button, paste or drop) and, where the
-// browser can, your voice.
-const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, onFocusChange, onRipple, onListen, placeholder, autoFocus }, ref) {
+// browser can, your voice. On the landing page it types example questions
+// (`ghost`) where the placeholder sits; → takes the one shown.
+const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, onFocusChange, onRipple, onListen, onTyping, placeholder, ghost, autoFocus }, ref) {
   const ta = useRef(null);
   const box = useRef(null);
   const file = useRef(null);
@@ -21,19 +24,51 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
   const [drag, setDrag] = useState(false);
   const rec = useRef(null);
   const measure = useRef(null);
+  const ghostEl = useRef(null);
+  const ghostText = useRef('');
+
+  const fill = (text) => {
+    if (!ta.current) return;
+    ta.current.value = text;
+    grow();
+    setHasText(!!text.trim());
+    ta.current.focus();
+  };
 
   useImperativeHandle(ref, () => ({
     focus: () => ta.current?.focus(),
-    fill: (text) => {
-      if (!ta.current) return;
-      ta.current.value = text;
-      grow();
-      setHasText(!!text.trim());
-      ta.current.focus();
-    },
+    fill,
     rect: () => box.current?.getBoundingClientRect(),
     el: () => box.current,
   }));
+
+  // the example question: the old one fades, the new one is typed piece by
+  // piece at a person's pace (marks never float alone: graphemes)
+  useEffect(() => {
+    const el = ghostEl.current;
+    if (!el) return undefined;
+    const timer = { id: 0 };
+    let alive = true;
+    ghostText.current = ghost || '';
+    (async () => {
+      if (el.textContent) { el.classList.add('is-out'); await later(220, timer); }
+      if (!alive) return;
+      el.textContent = '';
+      el.classList.remove('is-out');
+      box.current?.classList.toggle('has-ghost', !!ghost);
+      if (!ghost) return;
+      await later(280, timer);
+      for (const g of graphemes(ghost)) {
+        if (!alive) return;
+        el.textContent += g;
+        await later(g === ' ' ? 90 : 34 + Math.random() * 32, timer);
+      }
+    })();
+    return () => { alive = false; clearTimeout(timer.id); };
+  }, [ghost]);
+
+  // anything in the box (text, a photo, the microphone) holds the show still
+  useEffect(() => { onTyping?.(hasText || !!image || listening); }, [hasText, image, listening, onTyping]);
 
   const grow = () => {
     const el = ta.current;
@@ -79,6 +114,12 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
   };
 
   const onKey = (e) => {
+    // → on an empty box takes the example question it is showing (like a shell's suggestion)
+    if (e.key === 'ArrowRight' && !ta.current.value && ghostText.current && box.current?.classList.contains('has-ghost')) {
+      e.preventDefault();
+      fill(ghostText.current);
+      return;
+    }
     // Thai input methods use Enter to commit a word: never send mid-composition
     if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) {
       if (TOUCH) return; // on a phone, Enter is a new line; the send button sends
@@ -125,7 +166,7 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
   return (
     <div
       ref={box}
-      className={`composer${drag ? ' is-drag' : ''}${busy ? ' is-busy' : ''}`}
+      className={`composer${drag ? ' is-drag' : ''}${busy ? ' is-busy' : ''}${hasText ? ' has-text' : ''}${image ? ' has-image' : ''}${listening ? ' is-listening' : ''}`}
       onDragOver={(e) => { if ([...e.dataTransfer.types].includes('Files')) { e.preventDefault(); setDrag(true); } }}
       onDragLeave={() => setDrag(false)}
       onDrop={(e) => { e.preventDefault(); setDrag(false); const f = e.dataTransfer.files?.[0]; if (f) takeFile(f); }}
@@ -142,6 +183,7 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
         </div>
       )}
       <label className="sr-only" htmlFor="composer-input">ข้อความ</label>
+      <div ref={ghostEl} className="composer-ghost" aria-hidden="true" />
       <textarea
         id="composer-input"
         ref={ta}

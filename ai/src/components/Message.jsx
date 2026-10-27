@@ -3,6 +3,7 @@ import { Markdown, inline } from '../lib/markdown.jsx';
 import { IconArrowOut, IconCheck, IconCopy, IconRetry, IconSpeaker, IconStop, IconBook, IconShare } from './icons.jsx';
 import ShareMenu, { toast } from './ShareMenu.jsx';
 import { speak } from '../lib/speech.js';
+import { speciesOf } from '../lib/species.js';
 
 export const KIND = {
   wiki: 'VetWiki',
@@ -50,6 +51,13 @@ function Cite({ n, source, onPick }) {
   );
 }
 
+// "ข้อสอบ, COM5" not "ข้อสอบ, ข้อสอบ COM5": a subtitle that repeats the kind drops it
+function kindLine(s) {
+  const kind = KIND[s.kind] || s.kind;
+  const sub = s.subtitle && s.subtitle.startsWith(kind) ? s.subtitle.slice(kind.length).replace(/^[\s,]+/, '') : s.subtitle;
+  return sub ? `${kind}, ${sub}` : kind;
+}
+
 function Sources({ items, open, setOpen, highlight }) {
   if (!items?.length) return null;
   return (
@@ -75,19 +83,30 @@ function Sources({ items, open, setOpen, highlight }) {
       </button>
       {open && (
         <ol className="sources-list">
-          {items.map((s, i) => (
+          {items.map((s, i) => {
+            const sp = speciesOf(s);
+            return (
             <li key={s.n} id={`src-${s.n}`} className={`source k-${s.kind}${highlight === s.n ? ' is-hi' : ''}`} style={{ '--i': i }}>
               <a href={s.url} target="_blank" rel="noopener noreferrer">
-                <span className="source-n">{s.n}</span>
+                {sp ? (
+                  // the animal the source is about, from VetMock's own engravings (scripts/specimens.mjs)
+                  <span className="plate">
+                    <span className="plate-ink" aria-hidden="true" style={{ '--plate': `url(/art/specimens/${sp}.svg)` }} />
+                    <span className="source-n">{s.n}</span>
+                  </span>
+                ) : (
+                  <span className="source-n">{s.n}</span>
+                )}
                 <span className="source-body">
-                  <span className="source-kind">{KIND[s.kind] || s.kind}{s.subtitle ? `, ${s.subtitle}` : ''}</span>
+                  <span className="source-kind">{kindLine(s)}</span>
                   <span className="source-title">{s.title}</span>
                   {s.snippet && <span className="source-snip">{s.snippet}</span>}
                 </span>
                 <IconArrowOut size={16} className="source-out" />
               </a>
             </li>
-          ))}
+            );
+          })}
         </ol>
       )}
     </section>
@@ -192,6 +211,28 @@ function Card({ card }) {
   return null;
 }
 
+/** What went wrong, and the way back. The button already says ลองอีกครั้ง, so the
+ *  message does not; after a rate limit the button counts down to when it may. */
+function ErrorNote({ text, retryAt, onRetry }) {
+  const [now, setNow] = useState(() => Date.now());
+  const left = retryAt ? Math.ceil((retryAt - now) / 1000) : 0;
+  useEffect(() => {
+    if (left <= 0) return undefined;
+    const id = setTimeout(() => setNow(Date.now()), 1000);
+    return () => clearTimeout(id);
+  }, [left, now]);
+  return (
+    <div className="msg-error" role="alert">
+      <p>{onRetry ? text.replace(/\s*ลอง(?:ใหม่)?อีกครั้ง$/, '') : text}</p>
+      {onRetry && (
+        <button type="button" className="btn" onClick={onRetry} disabled={left > 0}>
+          <IconRetry size={16} /> {left > 0 ? `ลองอีกครั้งใน ${left} วินาที` : 'ลองอีกครั้ง'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 /** The rendered answer as HTML for pasting elsewhere: citation chips become [n]. */
 function htmlFor(el) {
   if (!el) return '';
@@ -239,12 +280,7 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
       )}
       {m.content && <div ref={body}><Markdown text={m.content} streaming={streaming} sources={sources} flagged={flagged} Cite={CiteBound} /></div>}
       {m.cards?.map((c, i) => <Card key={i} card={c} />)}
-      {m.error && (
-        <div className="msg-error" role="alert">
-          <p>{m.error}</p>
-          {last && <button type="button" className="btn" onClick={onRetry}><IconRetry size={16} /> ลองอีกครั้ง</button>}
-        </div>
-      )}
+      {m.error && <ErrorNote text={m.error} retryAt={m.retryAt} onRetry={last ? onRetry : null} />}
       {m.stopped && <p className="ground-note">หยุดแล้ว</p>}
       {flagged.size > 0 && m.done && <p className="ground-note">ตัวเลขที่ขีดเส้นประ ไม่พบในแหล่งที่อ้าง</p>}
       <Sources items={sources} open={open} setOpen={setOpen} highlight={hi} />

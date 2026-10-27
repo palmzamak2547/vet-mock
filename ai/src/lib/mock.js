@@ -40,9 +40,10 @@ export async function mockChat({ messages, signal, on }) {
     return;
   }
   on('sources', { covered: true, items: [
-    { n: 1, kind: 'wiki', title: 'Rabies', subtitle: 'COM5', subject: 'com5', url: 'https://vetmock.com/wiki/com5/rabies', snippet: 'ระยะฟักตัวขึ้นกับตำแหน่งที่ถูกกัดและปริมาณเชื้อ' },
+    { n: 1, kind: 'wiki', title: 'Rabies ในสุนัข', subtitle: 'COM5', subject: 'com5', url: 'https://vetmock.com/wiki/com5/rabies', snippet: 'ระยะฟักตัวขึ้นกับตำแหน่งที่ถูกกัดและปริมาณเชื้อ' },
     { n: 2, kind: 'note', title: 'Rabies: clinical signs', subtitle: 'โน้ต COM5', subject: 'com5', url: 'https://vetmock.com/', snippet: 'furious form และ paralytic form' },
-    { n: 3, kind: 'paper', title: 'Rabies in dogs: a review', subtitle: 'Vet J 2024', url: 'https://pubmed.ncbi.nlm.nih.gov/', snippet: 'Incubation period in dogs varies widely.' },
+    { n: 3, kind: 'question', title: 'แมวถูกกัดเมื่อ 3 วันก่อน ควรทำอย่างไร', subtitle: 'ข้อสอบ COM5', subject: 'com5', url: 'https://vetmock.com/', snippet: 'post-exposure prophylaxis' },
+    { n: 4, kind: 'paper', title: 'Rabies in cattle: a review', subtitle: 'Vet J 2024', url: 'https://pubmed.ncbi.nlm.nih.gov/', snippet: 'Incubation period varies widely.' },
   ] });
   on('status', { phase: 'write', label: 'เรียบเรียงคำตอบ' });
   await wait(300, signal);

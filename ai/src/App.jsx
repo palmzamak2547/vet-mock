@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { createOcean } from './ocean/index.js';
 import Composer from './components/Composer.jsx';
 import Message from './components/Message.jsx';
+import HeroWord from './components/HeroWord.jsx';
 import { Header, History, Specimen, Footer } from './components/Chrome.jsx';
 import { IconDown } from './components/icons.jsx';
 import { Toasts } from './components/ShareMenu.jsx';
@@ -12,6 +13,17 @@ import { reducedMotion } from './lib/env.js';
 import './styles/app.css';
 
 const SUGGEST = ['ระยะฟักตัวของ rabies ในสุนัข', 'ขอข้อสอบ COM5 5 ข้อ', 'หางานวิจัย PRRSV ล่าสุด', 'VetMock มีอะไรใหม่'];
+// The landing page's one moving line: the hero's last word and the box's example
+// question change together, one beat at a time (the word leads, the question
+// answers it). Two rounds, then it rests on ถามให้ลึก: it stops on its own
+// (WCAG 2.2.2), and pauses while you type. Examples differ from SUGGEST.
+const SHOW = [
+  { word: 'ลึก', ask: 'ทำไมแมวไวต่อยาพาราเซตามอล' },
+  { word: 'คม', ask: 'แยก parvo กับ distemper ยังไง' },
+  { word: 'ชัด', ask: 'อธิบาย VHS แบบเข้าใจง่าย' },
+  { word: 'รู้ที่มา', ask: 'ขนาดยา meloxicam ในสุนัข' },
+];
+const BEAT_MS = 4400;
 const THEME_COLOR = { dark: '#010c19', light: '#faf7f1' };
 const blank = () => ({ id: newId(), title: '', messages: [] });
 
@@ -38,6 +50,9 @@ export default function App() {
   const [canSpeak, setCanSpeak] = useState(false);
   const [online, setOnline] = useState(() => navigator.onLine !== false);
   const [away, setAway] = useState(false);
+  const [beat, setBeat] = useState(-1); // -1: at rest
+  const typing = useRef(false);
+  const nextBeat = useRef(() => {});
 
   const mode = chat.messages.length ? 'chat' : 'landing';
   // ?bare: the sea alone (film plates, OG frames, visual review)
@@ -208,6 +223,27 @@ export default function App() {
     document.title = chat.title ? `${chat.title} – VetMock AI` : 'VetMock AI';
   }, [chat.title]);
 
+  // ── the landing show (see SHOW) ─────────────────────────
+  useEffect(() => {
+    if (mode !== 'landing' || bare || reducedMotion()) return undefined;
+    let n = 0;
+    let budget = SHOW.length * 2;
+    let t = 0;
+    const step = () => {
+      clearTimeout(t);
+      if (typing.current || document.hidden) { t = setTimeout(step, 1200); return; }
+      if (n >= budget) { setBeat(-1); return; }
+      setBeat(n % SHOW.length);
+      n++;
+      t = setTimeout(step, BEAT_MS);
+    };
+    // a tap on the word: the next beat now (and one more, even after the show ended)
+    nextBeat.current = () => { if (!typing.current) { budget = Math.max(budget, n + 1); step(); } };
+    t = setTimeout(step, 1800);
+    return () => { clearTimeout(t); nextBeat.current = () => {}; setBeat(-1); };
+  }, [mode, bare]);
+  const onHeroSwap = useCallback((x, y) => oceanRef.current?.ripple(x, y), []);
+
   // ── sending ─────────────────────────────────────────────
   const update = useCallback((id, fn) => {
     setChat((c) => ({ ...c, messages: c.messages.map((m) => (m.id === id ? fn(m) : m)) }));
@@ -291,7 +327,11 @@ export default function App() {
       await Promise.race([settled, new Promise((r) => setTimeout(r, 4000))]);
     } catch (e) {
       if (e?.name === 'AbortError') update(asstId, (m) => ({ ...m, stopped: true, status: null }));
-      else update(asstId, (m) => ({ ...m, error: e?.message || 'ระบบตอบไม่ได้ในตอนนี้', status: null }));
+      else {
+        // a rate limit says when to come back: the retry button waits that long
+        const retryAt = e?.retryAfter > 0 ? Date.now() + Math.min(e.retryAfter, 600) * 1000 : 0;
+        update(asstId, (m) => ({ ...m, error: e?.message || 'ระบบตอบไม่ได้ในตอนนี้', retryAt, status: null }));
+      }
     } finally {
       cancelAnimationFrame(raf);
       update(asstId, (m) => ({ ...m, content: buf || m.content, done: true, status: null }));
@@ -360,7 +400,7 @@ export default function App() {
 
   // tap on open water: name the animal under the finger
   const tapOcean = (e) => {
-    if (e.target.closest('button, a, textarea, input, label, .composer, .msg, .card, .ftr, .hdr')) return;
+    if (e.target.closest('button, a, textarea, input, label, .composer, .msg, .card, .ftr, .hdr, .hw')) return;
     const info = oceanRef.current?.hit(e.clientX, e.clientY, specimenRef.current);
     if (info) setSpecimen(info);
   };
@@ -403,7 +443,10 @@ export default function App() {
       <main className="stage" onPointerDown={tapOcean}>
         {mode === 'landing' && (
           <section ref={heroRef} className="hero">
-            <h1 className="hero-title">ถามให้ลึก</h1>
+            <h1 className="hero-title">
+              <span className="sr-only">ถามให้ลึก</span>
+              <span aria-hidden="true">ถามให้<HeroWord word={beat >= 0 ? SHOW[beat].word : 'ลึก'} onSwap={onHeroSwap} onTap={() => nextBeat.current()} /></span>
+            </h1>
             {/* a narrow phone breaks between the two phrases, never inside แหล่งอ้างอิง */}
             <p className="hero-sub"><span className="nb">ตอบจากคลังความรู้ VetMock</span> <span className="nb">พร้อมแหล่งอ้างอิง</span></p>
           </section>
@@ -431,6 +474,8 @@ export default function App() {
             onRipple={(x, y) => oceanRef.current?.ripple(x, y)}
             onListen={(on) => { const c = composerRef.current?.rect(); oceanRef.current?.setMode(on ? 'listening' : 'idle', c ? { x: c.left + c.width / 2, y: c.top + c.height / 2 } : null); }}
             placeholder="ถามเรื่องสัตว์ ยา โรค หรืองานวิจัย"
+            ghost={mode === 'landing' && beat >= 0 ? SHOW[beat].ask : null}
+            onTyping={(busyBox) => { typing.current = busyBox; }}
             autoFocus={mode === 'landing'}
           />
           {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
