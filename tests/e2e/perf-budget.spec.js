@@ -230,12 +230,13 @@ test.describe('performance budgets', () => {
         await settlePage(page, network);
         set.push(await readShifts(page));
 
-        // The results: from confirming the submit until the score is drawn and settled.
+        // The results: from "ดูผลลัพธ์ →" until the score is drawn and settled. A practice set with every
+        // answer in opens its result at once (5.163.0); the "ส่งข้อสอบ?" check is for a paper or for blanks.
         await page.locator('.vmx-option').first().click();
-        await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
-        await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toBeVisible();
+        const toResults = page.getByRole('button', { name: /ดูผลลัพธ์/ });
+        await expect(toResults).toBeVisible();
         await markShifts(page);
-        await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
+        await toResults.click();
         await expect(page.getByText(/Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/)).toBeVisible();
         await settlePage(page, network);
         results.push(await readShifts(page));

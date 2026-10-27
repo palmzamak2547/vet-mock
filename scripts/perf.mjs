@@ -269,16 +269,16 @@ const SCENARIOS = {
     await page.keyboard.press('Escape');
     await page.getByRole('dialog').waitFor({ state: 'hidden' });
 
-    // Finish the set: answer the rest, send it in, and see the result.
+    // Finish the set: answer the rest and see the result. A practice set with every answer in ends on
+    // "ดูผลลัพธ์ →" and opens its result at once (5.163.0); the "ส่งข้อสอบ?" check is for a paper or blanks.
     await page.locator('.vmx-option').first().click();
     await page.getByRole('button', { name: /ข้อถัดไป/ }).first().click();
     await page.waitForFunction(() => /^3\b/.test(document.querySelector('.vmx-progress strong')?.textContent || ''));
     await page.locator('.vmx-option').first().click();
-    await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
-    await page.getByRole('heading', { name: 'ส่งข้อสอบ?' }).waitFor();
+    await page.getByRole('button', { name: /ดูผลลัพธ์/ }).waitFor();
     const results = await timed(
       page,
-      () => page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click(),
+      () => page.getByRole('button', { name: /ดูผลลัพธ์/ }).click(),
       () => page.getByText(/Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/).waitFor(),
     );
     interactions.push(results);
