@@ -87,16 +87,17 @@ export function searchCorpus(corpus, { text, terms = [], wikiQueries = [] } = {}
   // from a section about some other angle.
   const unmatched = read.concepts.filter((c, i) => c.core && idf[i] === 0).map((c) => c.label).slice(0, 5);
   // An article whose title names other animals than the one asked about steps
-  // back (it stays in, for when nothing else exists): the canine enteritis
-  // treatment section outranked the feline panleukopenia lecture's for a
-  // question about cats, and equine blood parasites a question about cattle.
+  // back, and is cited only when nothing on the asked animal answers (see
+  // selectDocs): the canine enteritis treatment section outranked the feline
+  // panleukopenia lecture's for a question about cats, and fowlpox pages (FPV
+  // is also fowlpox virus) were cited beside it.
   const asked = new Set(read.concepts.map((c) => c.species).filter(Boolean));
   const ranked = results.map((r) => {
     const doc = corpus.docs[r.i];
     if (!asked.size) return { ...r, doc };
     const named = speciesIn(doc.title);
-    const other = named.size > 0 && ![...named].some((s) => asked.has(s));
-    return { ...r, doc, score: other ? r.score * SPECIES_ELSEWHERE : r.score };
+    const elsewhere = named.size > 0 && ![...named].some((s) => asked.has(s));
+    return elsewhere ? { ...r, doc, elsewhere, score: r.score * SPECIES_ELSEWHERE } : { ...r, doc };
   }).sort((a, b) => b.score - a.score || a.i - b.i);
   return { ...read, anyRare, unmatched, ranked };
 }
@@ -116,11 +117,12 @@ export function selectDocs(ranked, { max = MAX_SOURCES, kinds = null } = {}) {
   const out = [];
   const perKind = {};
   const perGroup = {};
+  // Half the question answered, and not a distant tail of the ranking.
+  const answers = (r) => r.coverage >= 0.5 && r.score >= top * 0.2 && (!kinds || kinds.has(r.doc.kind));
+  const onAnimal = ranked.some((r) => !r.elsewhere && answers(r));
   for (const r of ranked) {
     if (out.length >= max) break;
-    if (kinds && !kinds.has(r.doc.kind)) continue;
-    // Half the question answered, and not a distant tail of the ranking.
-    if (r.coverage < 0.5 || r.score < top * 0.2) continue;
+    if (!answers(r) || (r.elsewhere && onAnimal)) continue;
     const k = r.doc.kind;
     const g = groupKey(r.doc);
     if ((perKind[k] || 0) >= (KIND_CAP[k] || 3)) continue;

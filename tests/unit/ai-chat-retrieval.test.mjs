@@ -15,7 +15,7 @@ import { searchCorpus, selectDocs, isCovered, toSource, numberSources, snippetNe
 import { retrieveGuide, loadReleases, guideRoutes, thaiShortDate } from '../../api/_lib/ai/guide.js';
 import { pickQuiz, toQuizQuestion } from '../../api/_lib/ai/quiz.js';
 import { buildActionCard } from '../../api/_lib/ai/actions.js';
-import { buildConcepts } from '../../api/_lib/ai/concepts.js';
+import { buildConcepts, speciesIn } from '../../api/_lib/ai/concepts.js';
 import { questionCatalog } from '../../api/_lib/question-catalog.js';
 import { isQuestionDeliverable, BLOCKED_QUESTIONS } from '../../src/data/question-delivery.generated.js';
 import { decodeQuizSet } from '../../src/lib/share-link.js';
@@ -154,4 +154,10 @@ test('an action button exists only when the catalog validator accepts it', () =>
   assert.equal(buildActionCard({ type: 'library', subject: 'one-health' }, { corpus }).card.url, 'https://vetmock.com/app/library?subject=one-health');
   assert.equal(buildActionCard({ type: 'wiki', wiki: { subject: 'com5', topic: 'rabies' } }, { corpus }).card.url, 'https://vetmock.com/wiki/com5/rabies');
   assert.equal(buildActionCard({ type: 'wiki', wiki: { subject: 'com5', topic: 'nope' } }, { corpus }).card, null);
+});
+
+test('a title names an animal only where the word stands alone, as in a question', () => {
+  assert.deepEqual([...speciesIn('Rabies — โรคพิษสุนัขบ้า')], [], 'สุนัข inside พิษสุนัขบ้า is the disease');
+  assert.deepEqual([...speciesIn('6 Canine heartworm — พยาธิหนอนหัวใจในสุนัข')], ['สุนัข']);
+  assert.deepEqual([...speciesIn('โรคฝีดาษไก่ (Fowlpox)')], ['สัตว์ปีก'], 'a chicken page is a poultry page');
 });

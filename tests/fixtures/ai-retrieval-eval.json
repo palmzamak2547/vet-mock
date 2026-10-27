@@ -11,7 +11,8 @@
         "respiratory signs"
       ]
     },
-    "expect": "distemper"
+    "expect": "distemper",
+    "never": "rinderpest|ephemeral|peste des petits"
   },
   {
     "q": "ลำไส้อักเสบติดต่อในสุนัขรักษายังไง",
@@ -54,7 +55,8 @@
         "cat"
       ]
     },
-    "expect": "FPV|panleukopenia|ไข้หัดแมว"
+    "expect": "FPV|panleukopenia|ไข้หัดแมว",
+    "never": "fowlpox|ฝีดาษ"
   },
   {
     "q": "โรคเยื่อบุช่องท้องอักเสบติดต่อในแมววินิจฉัยยังไง",
@@ -154,7 +156,8 @@
         "clinical signs"
       ]
     },
-    "expect": "african swine fever|(^|[^a-z])asf([^a-z]|$)"
+    "expect": "african swine fever|(^|[^a-z])asf([^a-z]|$)",
+    "never": "fowl cholera|อหิวาต์ไก่|อหิวาต์สัตว์ปีก"
   },
   {
     "q": "โรค PRRS ในสุกรควบคุมยังไง",
@@ -212,7 +215,8 @@
         "treatment"
       ]
     },
-    "expect": "(^|[^a-z])dm([^a-z]|$)|diabetes|เบาหวาน|insulin"
+    "expect": "(^|[^a-z])dm([^a-z]|$)|diabetes|เบาหวาน|insulin",
+    "never": "addison"
   },
   {
     "q": "คุชชิ่งในสุนัขวินิจฉัยยังไง",
@@ -371,7 +375,7 @@
       ]
     },
     "expect": "trypanosom|babesi|anaplasm|theileri|blood parasite|พยาธิในเลือด",
-    "todo": "equine blood-parasite pages outrank the bovine notes: needs species-aware ranking"
+    "never": "equine|ม้า"
   },
   {
     "q": "การให้วัคซีนลูกสุนัขเริ่มเมื่อไหร่",
@@ -430,5 +434,297 @@
       ]
     },
     "expect": "upper respiratory|FURI|FURD|หวัดแมว"
+  },
+  {
+    "q": "ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข",
+    "plan": {
+      "query_th": "ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข",
+      "terms_en": [
+        "pyometra",
+        "dog",
+        "antibiotic",
+        "cefazolin",
+        "E. coli",
+        "canine"
+      ]
+    },
+    "expect": "pyometra"
+  },
+  {
+    "q": "meloxicam ในแมวใช้ได้ไหม",
+    "plan": {
+      "query_th": "meloxicam ในแมวใช้ได้ไหม",
+      "terms_en": [
+        "meloxicam",
+        "cat",
+        "NSAID",
+        "feline"
+      ]
+    },
+    "expect": "meloxicam|nsaid",
+    "todo": "weak on 2026-10-28: the corpus has little on this; check before tuning ranking"
+  },
+  {
+    "q": "ค่า BUN creatinine สูงในแมวบอกอะไร",
+    "plan": {
+      "query_th": "ค่า BUN และ creatinine สูงในแมวบ่งบอกถึงอะไร",
+      "terms_en": [
+        "BUN",
+        "creatinine",
+        "azotemia",
+        "feline",
+        "renal failure"
+      ]
+    },
+    "expect": "azotemia|creatinine|lab markers|renal",
+    "todo": "weak on 2026-10-28: the corpus has little on this; check before tuning ranking"
+  },
+  {
+    "q": "การวินิจฉัย FeLV กับ FIV ในแมว",
+    "plan": {
+      "query_th": "การวินิจฉัยโรค FeLV และ FIV ในแมวทำอย่างไร",
+      "terms_en": [
+        "FeLV",
+        "FIV",
+        "feline leukemia virus",
+        "feline immunodeficiency virus",
+        "diagnosis",
+        "cat"
+      ]
+    },
+    "expect": "felv|fiv|retrovirus"
+  },
+  {
+    "q": "กายวิภาคของกระเพาะรูเมนในโค",
+    "plan": {
+      "query_th": "กายวิภาคของกระเพาะรูเมนในโคเป็นอย่างไร",
+      "terms_en": [
+        "rumen",
+        "rumen anatomy",
+        "cattle",
+        "stomach",
+        "forestomach"
+      ]
+    },
+    "expect": "rumen|forestomach|รูเมน",
+    "todo": "weak on 2026-10-28: the corpus has little on this; check before tuning ranking"
+  },
+  {
+    "q": "วงจรชีวิตของพยาธิตัวตืด Dipylidium",
+    "plan": {
+      "query_th": "วงจรชีวิตของพยาธิตัวตืด Dipylidium caninum เป็นอย่างไร",
+      "terms_en": [
+        "Dipylidium caninum",
+        "tapeworm",
+        "life cycle",
+        "Ctenocephalides felis",
+        "flea",
+        "cysticercoid"
+      ]
+    },
+    "expect": "helminth|dipylidium|ตืด"
+  },
+  {
+    "q": "กลไกการเกิด hypoglycemia ในลูกสุกร",
+    "plan": {
+      "query_th": "กลไกการเกิด hypoglycemia ในลูกสุกร",
+      "terms_en": [
+        "hypoglycemia",
+        "piglet",
+        "neonatal hypoglycemia",
+        "gluconeogenesis",
+        "glycogen"
+      ]
+    },
+    "expect": "piglet|ลูกสุกร|neonatal",
+    "todo": "weak on 2026-10-28: the corpus has little on this; check before tuning ranking"
+  },
+  {
+    "q": "การวางยาสลบในกระต่ายต้องระวังอะไร",
+    "plan": {
+      "query_th": "การวางยาสลบในกระต่ายต้องระวังอะไรบ้าง",
+      "terms_en": [
+        "rabbit anesthesia",
+        "anesthesia",
+        "rabbit",
+        "premedication",
+        "airway"
+      ]
+    },
+    "expect": "rabbit anesthe|กระต่าย.*(ยาสลบ|anesthe)|exotic anesthe",
+    "todo": "weak on 2026-10-28: the corpus has little on this; check before tuning ranking"
+  },
+  {
+    "q": "โรคที่พบบ่อยในเต่าบก",
+    "plan": {
+      "query_th": "โรคที่พบบ่อยในเต่าบกมีอะไรบ้าง",
+      "terms_en": [
+        "tortoise",
+        "reptile",
+        "common diseases",
+        "metabolic bone disease",
+        "respiratory infection"
+      ]
+    },
+    "expect": "chelonian|เต่า|tortoise|turtle"
+  },
+  {
+    "q": "ภาวะ hyperthyroidism ในแมวรักษายังไง",
+    "plan": {
+      "query_th": "การรักษา hyperthyroidism ในแมวทำอย่างไร",
+      "terms_en": [
+        "hyperthyroidism",
+        "cat",
+        "methimazole",
+        "radioiodine",
+        "thyroidectomy"
+      ]
+    },
+    "expect": "hyperthyroid|ไทรอยด์"
+  },
+  {
+    "q": "การตรวจปัสสาวะในสุนัขดูอะไรบ้าง",
+    "plan": {
+      "query_th": "การตรวจปัสสาวะในสุนัขดูอะไรบ้าง",
+      "terms_en": [
+        "urinalysis",
+        "urine sediment",
+        "urine specific gravity",
+        "dog",
+        "urine dipstick"
+      ]
+    },
+    "expect": "urinalysis|ปัสสาวะ|usg"
+  },
+  {
+    "q": "วัคซีนที่จำเป็นในแมว",
+    "plan": {
+      "query_th": "วัคซีนที่จำเป็นในแมวมีอะไรบ้าง",
+      "terms_en": [
+        "feline vaccination",
+        "core vaccines",
+        "FVRCP",
+        "rabies",
+        "FeLV"
+      ]
+    },
+    "expect": "vaccin|วัคซีน"
+  },
+  {
+    "q": "การผ่าตัดทำหมันสุนัขเพศเมีย",
+    "plan": {
+      "query_th": "การผ่าตัดทำหมันสุนัขเพศเมีย (ovariohysterectomy) มีขั้นตอนและข้อควรระวังอย่างไร",
+      "terms_en": [
+        "ovariohysterectomy",
+        "spay",
+        "canine",
+        "ovariectomy",
+        "surgical technique"
+      ]
+    },
+    "expect": "ovh|ovariohysterectomy|ovariectomy|neutering|ทำหมัน"
+  },
+  {
+    "q": "ภาวะช็อกในสุนัขให้สารน้ำยังไง",
+    "plan": {
+      "query_th": "การให้สารน้ำในสุนัขที่อยู่ในภาวะช็อก (shock) ควรให้อย่างไร",
+      "terms_en": [
+        "shock",
+        "fluid therapy",
+        "dog",
+        "canine",
+        "resuscitation",
+        "crystalloid"
+      ]
+    },
+    "expect": "shock|ช็อก"
+  },
+  {
+    "q": "โรค Marek ในไก่",
+    "plan": {
+      "query_th": "โรค Marek ในไก่คืออะไร สาเหตุ อาการ และการป้องกัน",
+      "terms_en": [
+        "Marek's disease",
+        "gallid alphaherpesvirus 2",
+        "lymphoproliferative",
+        "poultry",
+        "vaccination"
+      ]
+    },
+    "expect": "marek"
+  },
+  {
+    "q": "พยาธิในม้าที่พบบ่อย",
+    "plan": {
+      "query_th": "พยาธิในม้าที่พบบ่อยมีอะไรบ้าง",
+      "terms_en": [
+        "horse parasites",
+        "equine helminths",
+        "strongyles",
+        "Parascaris equorum",
+        "cyathostomins",
+        "gastrointestinal parasites"
+      ]
+    },
+    "expect": "equine parasites|strongyle|cyathostom"
+  },
+  {
+    "q": "โรค IBD ในแมว",
+    "plan": {
+      "query_th": "โรค IBD (inflammatory bowel disease) ในแมว มีสาเหตุ อาการ การวินิจฉัย และการรักษาอย่างไร",
+      "terms_en": [
+        "inflammatory bowel disease",
+        "IBD",
+        "feline",
+        "chronic enteropathy",
+        "lymphoplasmacytic enteritis"
+      ]
+    },
+    "expect": "ibd|inflammatory bowel"
+  },
+  {
+    "q": "ยาถ่ายพยาธิในโคมีอะไรบ้าง",
+    "plan": {
+      "query_th": "ยาถ่ายพยาธิในโคมีอะไรบ้าง",
+      "terms_en": [
+        "anthelmintic",
+        "cattle",
+        "dewormer",
+        "ivermectin",
+        "albendazole",
+        "fenbendazole"
+      ]
+    },
+    "expect": "ยาถ่ายพยาธิ|anthelmintic|febantel|benzimidazole|parasites in ruminant"
+  },
+  {
+    "q": "อาการแพ้ยาในสุนัข",
+    "plan": {
+      "query_th": "อาการแพ้ยาในสุนัขมีอาการอย่างไรและรักษาอย่างไร",
+      "terms_en": [
+        "adverse drug reaction",
+        "drug allergy",
+        "dog",
+        "hypersensitivity",
+        "anaphylaxis"
+      ]
+    },
+    "expect": "adverse drug reaction|hypersensitivity|แพ้ยา"
+  },
+  {
+    "q": "การตรวจ CBC ในสุนัขดูอะไรบ้าง",
+    "plan": {
+      "query_th": "การตรวจ CBC ในสุนัขดูอะไรบ้าง",
+      "terms_en": [
+        "CBC",
+        "complete blood count",
+        "dog",
+        "hematology",
+        "erythrogram",
+        "leukogram"
+      ]
+    },
+    "expect": "cbc|complete blood count|โลหิตวิทยา|hematolog",
+    "todo": "weak on 2026-10-28: the corpus has little on this; check before tuning ranking"
   }
 ]
