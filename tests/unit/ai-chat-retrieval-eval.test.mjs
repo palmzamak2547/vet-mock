@@ -9,8 +9,10 @@
 // was asked (the `expect` pattern, read against title, topic and heading).
 //
 // Measured 2026-10-28 on 30 common questions: 23 passed before the fixes that
-// came with this file, 29 after. Add a case whenever a student question finds
-// the wrong sources; never loosen one. A case marked `todo` is a known miss.
+// came with this file, 29 after; 20 more from other fields (drugs, labs,
+// anatomy, exotics): 14 pass, 6 are gaps the corpus has little on. Add a case
+// whenever a student question finds the wrong sources; never loosen one. A
+// case marked `todo` is a known miss, with the reason.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
