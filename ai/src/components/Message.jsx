@@ -211,6 +211,28 @@ function Card({ card }) {
   return null;
 }
 
+/** What went wrong, and the way back. The button already says ลองอีกครั้ง, so the
+ *  message does not; after a rate limit the button counts down to when it may. */
+function ErrorNote({ text, retryAt, onRetry }) {
+  const [now, setNow] = useState(() => Date.now());
+  const left = retryAt ? Math.ceil((retryAt - now) / 1000) : 0;
+  useEffect(() => {
+    if (left <= 0) return undefined;
+    const id = setTimeout(() => setNow(Date.now()), 1000);
+    return () => clearTimeout(id);
+  }, [left, now]);
+  return (
+    <div className="msg-error" role="alert">
+      <p>{onRetry ? text.replace(/\s*ลอง(?:ใหม่)?อีกครั้ง$/, '') : text}</p>
+      {onRetry && (
+        <button type="button" className="btn" onClick={onRetry} disabled={left > 0}>
+          <IconRetry size={16} /> {left > 0 ? `ลองอีกครั้งใน ${left} วินาที` : 'ลองอีกครั้ง'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 /** The rendered answer as HTML for pasting elsewhere: citation chips become [n]. */
 function htmlFor(el) {
   if (!el) return '';
@@ -258,12 +280,7 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
       )}
       {m.content && <div ref={body}><Markdown text={m.content} streaming={streaming} sources={sources} flagged={flagged} Cite={CiteBound} /></div>}
       {m.cards?.map((c, i) => <Card key={i} card={c} />)}
-      {m.error && (
-        <div className="msg-error" role="alert">
-          <p>{m.error}</p>
-          {last && <button type="button" className="btn" onClick={onRetry}><IconRetry size={16} /> ลองอีกครั้ง</button>}
-        </div>
-      )}
+      {m.error && <ErrorNote text={m.error} retryAt={m.retryAt} onRetry={last ? onRetry : null} />}
       {m.stopped && <p className="ground-note">หยุดแล้ว</p>}
       {flagged.size > 0 && m.done && <p className="ground-note">ตัวเลขที่ขีดเส้นประ ไม่พบในแหล่งที่อ้าง</p>}
       <Sources items={sources} open={open} setOpen={setOpen} highlight={hi} />

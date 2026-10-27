@@ -327,7 +327,11 @@ export default function App() {
       await Promise.race([settled, new Promise((r) => setTimeout(r, 4000))]);
     } catch (e) {
       if (e?.name === 'AbortError') update(asstId, (m) => ({ ...m, stopped: true, status: null }));
-      else update(asstId, (m) => ({ ...m, error: e?.message || 'ระบบตอบไม่ได้ในตอนนี้', status: null }));
+      else {
+        // a rate limit says when to come back: the retry button waits that long
+        const retryAt = e?.retryAfter > 0 ? Date.now() + Math.min(e.retryAfter, 600) * 1000 : 0;
+        update(asstId, (m) => ({ ...m, error: e?.message || 'ระบบตอบไม่ได้ในตอนนี้', retryAt, status: null }));
+      }
     } finally {
       cancelAnimationFrame(raf);
       update(asstId, (m) => ({ ...m, content: buf || m.content, done: true, status: null }));

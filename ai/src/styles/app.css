@@ -636,7 +636,8 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   text-decoration: none;
   transition: transform var(--dur-press) var(--ease-out), opacity var(--dur-quick) var(--ease-out);
 }
-.btn:active { transform: scale(0.96); }
+.btn:active:not(:disabled) { transform: scale(0.96); }
+.btn:disabled { opacity: 0.5; cursor: default; font-variant-numeric: tabular-nums; }
 .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
 .link { color: var(--accent); font-size: 14px; min-height: 36px; text-decoration: underline; text-underline-offset: 3px; }
 .link.danger { color: var(--warn); }

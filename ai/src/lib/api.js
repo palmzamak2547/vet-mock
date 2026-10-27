@@ -73,7 +73,7 @@ export async function chat({ messages, image = null, signal, on }) {
     });
   } catch (e) {
     if (e?.name === 'AbortError') throw e;
-    throw new ChatError('เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง', 'network');
+    throw new ChatError('เชื่อมต่อไม่ได้ เช็กอินเทอร์เน็ตก่อน', 'network');
   }
   if (!res.ok || !res.body) {
     let j = {};
