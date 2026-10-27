@@ -359,11 +359,27 @@ function table(rows) {
 
 const git = (...args) => { try { return execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return ''; } };
 
+// A laptop on battery runs JavaScript slower: on 27 Oct, unplugged at 31% with OneDrive syncing, the build that
+// recorded 2.1 s for the article's LCP on 22 Oct read 9 to 14 s. Windows only; anywhere else this says no.
+function onBattery() {
+  if (process.platform !== 'win32') return false;
+  try {
+    const status = execFileSync('powershell', ['-NoProfile', '-Command',
+      'Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SystemInformation]::PowerStatus.PowerLineStatus'],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 15_000 });
+    return status.trim() === 'Offline';
+  } catch { return false; }
+}
+
 async function main() {
   const names = Object.keys(SCENARIOS).filter((n) => !ONLY || ONLY.includes(n));
   if (!names.length) { console.error(`perf: no scenario matches --only=${ONLY} (have ${Object.keys(SCENARIOS).join(', ')})`); process.exit(2); }
   if (ONLY && UPDATE) { console.error('perf: --update measures every scenario; drop --only'); process.exit(2); }
   if (HEADLESS && UPDATE) { console.error('perf: a headless run is not comparable with a baseline taken with the GPU; --update refused'); process.exit(2); }
+  if (onBattery()) {
+    if (UPDATE) { console.error('perf: this laptop is on battery, which slows every timing; plug it in, then --update'); process.exit(2); }
+    log('perf: warning: on battery; timings run slower than a baseline taken plugged in');
+  }
 
   // A headless run has no GPU compositing: its numbers are printed but never judged against a baseline taken with one.
   const baseline = !HEADLESS && fs.existsSync(BASELINE) ? JSON.parse(fs.readFileSync(BASELINE, 'utf8')) : null;
