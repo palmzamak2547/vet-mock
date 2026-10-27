@@ -3,6 +3,7 @@ import { Markdown, inline } from '../lib/markdown.jsx';
 import { IconArrowOut, IconCheck, IconCopy, IconRetry, IconSpeaker, IconStop, IconBook, IconShare } from './icons.jsx';
 import ShareMenu, { toast } from './ShareMenu.jsx';
 import { speak } from '../lib/speech.js';
+import { speciesOf } from '../lib/species.js';
 
 export const KIND = {
   wiki: 'VetWiki',
@@ -50,6 +51,13 @@ function Cite({ n, source, onPick }) {
   );
 }
 
+// "ข้อสอบ, COM5" not "ข้อสอบ, ข้อสอบ COM5": a subtitle that repeats the kind drops it
+function kindLine(s) {
+  const kind = KIND[s.kind] || s.kind;
+  const sub = s.subtitle && s.subtitle.startsWith(kind) ? s.subtitle.slice(kind.length).replace(/^[\s,]+/, '') : s.subtitle;
+  return sub ? `${kind}, ${sub}` : kind;
+}
+
 function Sources({ items, open, setOpen, highlight }) {
   if (!items?.length) return null;
   return (
@@ -75,19 +83,30 @@ function Sources({ items, open, setOpen, highlight }) {
       </button>
       {open && (
         <ol className="sources-list">
-          {items.map((s, i) => (
+          {items.map((s, i) => {
+            const sp = speciesOf(s);
+            return (
             <li key={s.n} id={`src-${s.n}`} className={`source k-${s.kind}${highlight === s.n ? ' is-hi' : ''}`} style={{ '--i': i }}>
               <a href={s.url} target="_blank" rel="noopener noreferrer">
-                <span className="source-n">{s.n}</span>
+                {sp ? (
+                  // the animal the source is about, from VetMock's own engravings (scripts/specimens.mjs)
+                  <span className="plate">
+                    <span className="plate-ink" aria-hidden="true" style={{ '--plate': `url(/art/specimens/${sp}.svg)` }} />
+                    <span className="source-n">{s.n}</span>
+                  </span>
+                ) : (
+                  <span className="source-n">{s.n}</span>
+                )}
                 <span className="source-body">
-                  <span className="source-kind">{KIND[s.kind] || s.kind}{s.subtitle ? `, ${s.subtitle}` : ''}</span>
+                  <span className="source-kind">{kindLine(s)}</span>
                   <span className="source-title">{s.title}</span>
                   {s.snippet && <span className="source-snip">{s.snippet}</span>}
                 </span>
                 <IconArrowOut size={16} className="source-out" />
               </a>
             </li>
-          ))}
+            );
+          })}
         </ol>
       )}
     </section>

@@ -79,6 +79,28 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   letter-spacing: -0.01em;
   animation: rise 900ms var(--ease-out) both;
 }
+.hero-title { white-space: nowrap; }
+/* the changing word: each piece is its own box, so a glyph standing in for it
+   (centred, in the accent) never moves the line */
+.hw { display: inline-block; text-align: left; transition: width 560ms var(--ease-spring); }
+.hw-ink { display: inline-block; white-space: nowrap; }
+.hw-c { position: relative; display: inline-block; }
+.hw-c.is-g, .hw-c.is-gone { color: transparent; }
+.hw-c.is-g::after {
+  content: attr(data-g);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.58em;
+  line-height: 1;
+  color: var(--accent);
+}
+:root[data-theme='dark'] .hw-c.is-g::after { text-shadow: 0 0 0.35em color-mix(in srgb, var(--accent) 70%, transparent); }
 .hero-sub {
   margin: var(--s2) 0 0;
   color: var(--text-2);
@@ -179,6 +201,36 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   scrollbar-color: var(--line) transparent;
 }
 .composer textarea::placeholder { color: var(--text-3); opacity: 1; }
+/* the example question typed where the placeholder sits (landing page); one
+   line, same metrics as the textarea, never takes a pointer */
+.composer-ghost {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 16px 18px 2px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out), filter 200ms var(--ease-out);
+}
+.composer-ghost.is-out { opacity: 0; filter: blur(2px); }
+.composer:not(:focus-within) .composer-ghost:not(:empty)::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.16em;
+  background: var(--accent);
+  animation: caret 1s steps(1) infinite;
+}
+.composer.has-ghost textarea::placeholder { color: transparent; }
+.composer.has-text .composer-ghost, .composer.has-image .composer-ghost, .composer.is-listening .composer-ghost { visibility: hidden; }
 .composer textarea:focus-visible { outline: none; }
 .composer-row { display: flex; align-items: center; padding: 4px 10px 10px 8px; gap: 4px; }
 .composer-tools { display: flex; gap: 2px; }
@@ -395,6 +447,46 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   color: var(--bg);
   background: var(--kind, var(--accent));
 }
+/* a specimen plate: the animal the source is about, dithered one bit (one dot
+   per CSS pixel) from VetMock's own engravings and inked in the kind's colour
+   through a mask, so one file serves both themes. It develops under a scan
+   line as the list deals out. */
+.plate {
+  position: relative;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--kind, var(--accent)) 10%, transparent);
+}
+.plate-ink {
+  position: absolute;
+  inset: 0;
+  background: var(--kind, var(--accent));
+  -webkit-mask: var(--plate) center / 100% 100% no-repeat;
+  mask: var(--plate) center / 100% 100% no-repeat;
+  animation: develop 680ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 160ms);
+}
+.plate::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--kind, var(--accent));
+  box-shadow: 0 0 10px var(--kind, var(--accent));
+  opacity: 0;
+  animation: scan 680ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 160ms);
+}
+@keyframes develop { from { clip-path: inset(0 0 100% 0); } }
+@keyframes scan { 0% { top: 0; opacity: 0.85; } 88% { opacity: 0.85; } 100% { top: 100%; opacity: 0; } }
+.plate .source-n { position: absolute; left: 4px; top: 4px; min-width: 20px; height: 20px; border-radius: 5px; font-size: 11px; }
+@media (max-width: 420px) { .plate { width: 52px; height: 52px; border-radius: 10px; } }
+@media (prefers-reduced-motion: reduce) { .plate-ink { animation: none; } .plate::after { display: none; } }
 .source-body { display: grid; gap: 2px; min-width: 0; flex: 1; }
 .source-kind { font-size: 12.5px; color: var(--text-3); line-height: 1.4; }
 .source-title { font-size: 15px; font-weight: 500; line-height: 1.45; }
