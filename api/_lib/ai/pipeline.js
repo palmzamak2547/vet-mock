@@ -28,7 +28,7 @@ import { questionCatalog } from '../question-catalog.js';
 import { visibleQuestionCount } from '../../../src/data/curriculum.js';
 import { MAX_SOURCES, REQUEST_DEADLINE_MS } from './config.js';
 import { loadCorpus, warmCorpus } from './corpus.js';
-import { heuristicPlan, runPlanner } from './planner.js';
+import { heuristicPlan, runPlanner, asksForFiles, fileKindIn } from './planner.js';
 import { searchCorpus, selectDocs, isCovered, toSource, numberSources, snippetNeedles } from './retrieve.js';
 import { retrieveGuide, guideRoutes, loadGuide, examDocs, thaiShortDate } from './guide.js';
 import { pickQuiz } from './quiz.js';
@@ -187,6 +187,10 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     // thought: its answer is in the timetable or the changelog, not the notes.
     const routes = guideRoutes(question);
     if (intent === 'answer' && (routes.exam || routes.whatsNew || routes.subjects)) intent = 'guide';
+    // "ขอสไลด์ rabies" asks for files in so many words; a model that read it as a
+    // question about rabies (it did, in production) does not get the last word
+    if ((intent === 'answer' || intent === 'research') && asksForFiles(question)) intent = 'files';
+    const fileAsk = intent === 'files' ? plan.files || { kind: fileKindIn(question), title: '' } : null;
     const needles = found ? snippetNeedles(found.concepts) : [];
 
     // ── the study library ───────────────────────────────────────────────
@@ -197,10 +201,10 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
         terms: plan.terms_en.length ? plan.terms_en : latinTerms(`${question} ${plan.query_th}`),
         needles,
         subjects: plan.subjects,
-        kind: plan.files?.kind || '',
-        title: plan.files?.title || '',
+        kind: fileAsk?.kind || '',
+        title: fileAsk?.title || '',
         files: intent === 'files',
-      }, { env, fetchImpl: D.fetchImpl, signal: sig })
+      }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500 })
       : null;
 
     // ── what this turn needs ────────────────────────────────────────────
