@@ -218,10 +218,36 @@ export default function App() {
     abortRef.current = ctl;
     const o = oceanRef.current;
     requestAnimationFrame(() => o?.setMode('thinking', pointFor(asstId)));
+    // Paced reveal: the network may hand over a whole paragraph at once; the
+    // reader still sees it flow. Text appears at a reading pace (96 chars/s)
+    // or faster when a backlog builds, draining any backlog within 0.45 s
+    // (0.25 s once the stream has ended), so the page never lags the network
+    // by more than half a second. A cut never lands inside a Thai cluster.
     let buf = '';
+    let shown = 0;
     let raf = 0;
+    let last = 0;
+    let ended = false;
     let lastPulse = 0;
-    const flush = () => { raf = 0; update(asstId, (m) => ({ ...m, content: buf })); if (pinned.current) requestAnimationFrame(() => scrollToEnd()); };
+    const instant = reducedMotion();
+    let settle = null;
+    const settled = new Promise((r) => { settle = r; });
+    const tick = (now) => {
+      raf = 0;
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 1 / 60;
+      last = now;
+      const backlog = buf.length - shown;
+      if (backlog > 0) {
+        const rate = instant ? Infinity : Math.max(96, backlog / (ended ? 0.25 : 0.45));
+        shown = Math.min(buf.length, shown + Math.max(1, Math.ceil(rate * dt)));
+        while (shown < buf.length && /[ัิ-ฺ็-๎]/.test(buf[shown])) shown++;
+        update(asstId, (m) => ({ ...m, content: buf.slice(0, shown) }));
+        if (pinned.current) scrollToEnd();
+      }
+      if (shown < buf.length || !ended) raf = requestAnimationFrame(tick);
+      else settle();
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
     try {
       await callChat({
         messages: history,
@@ -239,16 +265,20 @@ export default function App() {
               const el = document.querySelector(`[data-mid="${asstId}"]`)?.getBoundingClientRect();
               if (el) o?.pulse(el.left + 12, Math.min(window.innerHeight - 40, el.bottom));
             }
-            if (!raf) raf = requestAnimationFrame(flush);
+            kick();
           } else if (ev === 'cards') update(asstId, (m) => ({ ...m, cards: [...(m.cards || []), ...(d?.items || [])] }));
           else if (ev === 'check') update(asstId, (m) => ({ ...m, check: d }));
-          else if (ev === 'done') update(asstId, (m) => ({ ...m, done: true, status: null }));
-          else if (ev === 'error') update(asstId, (m) => ({ ...m, error: d?.message || 'ระบบตอบไม่ได้ในตอนนี้', done: true, status: null }));
+          else if (ev === 'error') update(asstId, (m) => ({ ...m, error: d?.message || 'ระบบตอบไม่ได้ในตอนนี้', status: null }));
         },
       });
+      // the answer is complete: let the reveal finish before the actions appear
+      ended = true;
+      kick();
+      // a hidden tab pauses animation frames: never hold the turn open on it
+      await Promise.race([settled, new Promise((r) => setTimeout(r, 4000))]);
     } catch (e) {
-      if (e?.name === 'AbortError') update(asstId, (m) => ({ ...m, stopped: true, done: true, status: null }));
-      else update(asstId, (m) => ({ ...m, error: e?.message || 'ระบบตอบไม่ได้ในตอนนี้', done: true, status: null }));
+      if (e?.name === 'AbortError') update(asstId, (m) => ({ ...m, stopped: true, status: null }));
+      else update(asstId, (m) => ({ ...m, error: e?.message || 'ระบบตอบไม่ได้ในตอนนี้', status: null }));
     } finally {
       cancelAnimationFrame(raf);
       update(asstId, (m) => ({ ...m, content: buf || m.content, done: true, status: null }));
