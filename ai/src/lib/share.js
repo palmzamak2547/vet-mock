@@ -49,6 +49,7 @@ export function shareText(question, answerMd, { sources = [], limit = 2000, maxS
   ].filter(Boolean).join('\n\n');
   const head = question.trim();
   let body = plainText(answerMd, { citations: list.length > 0 });
+  if (list.length && list.length < sources.length) body = keepCitations(body, new Set(list.map((s) => s.n)));
   const room = Math.max(240, limit - head.length - tail.length - 6);
   if (body.length > room) {
     const cut = body.slice(0, room);
@@ -58,7 +59,35 @@ export function shareText(question, answerMd, { sources = [], limit = 2000, maxS
   return `${head}\n\n${body}\n\n${tail}`;
 }
 
+/** A citation mark keeps only the numbers still listed below it ([2, 5] with
+ *  sources 1 to 3 kept reads [2]); a mark left with none goes. */
+function keepCitations(text, kept) {
+  return text.replace(/(\s*)\[(\d{1,2}(?:\s*[,–-]\s*\d{1,2})*)\](?!\()/g, (mark, space, inner) => {
+    const nums = inner.split(/\s*,\s*/).flatMap((part) => {
+      const [a, b = a] = part.split(/\s*[–-]\s*/).map(Number);
+      return Array.from({ length: Math.max(0, b - a) + 1 }, (_, i) => a + i);
+    }).filter((n) => kept.has(n));
+    return nums.length ? `${space}[${nums.join(', ')}]` : '';
+  });
+}
+
 export const lineUrl = (text) => `https://line.me/R/share?text=${encodeURIComponent(text)}`;
+
+// line.me answers 414 once its URL passes about 8,190 bytes (measured 2026-10-28)
+// and a Thai letter is 9 bytes encoded, so the text is fitted to the encoded size:
+// the answer is shortened first, the source list only when the sources alone do not fit.
+const LINE_URL_MAX = 8000;
+
+export function lineShareUrl(question, answerMd, sources = []) {
+  let url = '';
+  for (const maxSources of [8, 5, 3, 1, 0]) {
+    for (let limit = 2000; limit >= 400; limit -= 100) {
+      url = lineUrl(shareText(question, answerMd, { sources, limit, maxSources }));
+      if (url.length <= LINE_URL_MAX) return url;
+    }
+  }
+  return url;
+}
 
 /** A study file as one line of an export: its title, then where it opens. */
 const fileLabel = (f) => `${f.title}${f.page > 1 ? ` (หน้า ${f.page})` : ''}`;

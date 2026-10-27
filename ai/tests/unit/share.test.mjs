@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { plainText, shareText, lineUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile } from '../../src/lib/share.js';
+import { plainText, shareText, lineUrl, lineShareUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile } from '../../src/lib/share.js';
 
 test('share text with no sources strips markdown and citations, ends with the address', () => {
   const t = shareText('ระยะฟักตัว rabies', '**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]');
@@ -71,4 +71,36 @@ test('calendar links and files are well formed', () => {
 test('plain text keeps the answer readable: breaks, bullets, tables, no markers', () => {
   const md = '## หัวข้อ\n\n**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]\n- ระยะสอง\n\n| ระยะ | อาการ |\n| --- | --- |\n| A | B |\n\nดู [VetWiki](https://vetmock.com/wiki) *Lyssavirus*';
   assert.equal(plainText(md), 'หัวข้อ\n\nRabies ฟักตัว 1 ถึง 3 เดือน\n\n• ระยะแรก\n• ระยะสอง\n\nระยะ / อาการ\nA / B\n\nดู VetWiki (https://vetmock.com/wiki) Lyssavirus');
+});
+
+// a long Thai answer with eight sources: about 13 KB as a LINE URL before fitting
+const longQ = 'อาการของไข้หัดสุนัขมีอะไรบ้าง';
+const longMd = Array.from({ length: 40 }, (_, i) => `ย่อหน้า ${i + 1} ${'อาการทางระบบประสาทของไข้หัดสุนัข [1] '.repeat(6)}`).join('\n\n');
+const eight = Array.from({ length: 8 }, (_, i) => ({ n: i + 1, title: `CIRD complex + Canine Distemper บทที่ ${i + 1}`, subtitle: 'อาการทางคลินิกและการวินิจฉัย' }));
+
+test('the LINE link fits line.me (414 past about 8,190 bytes) and keeps every source and the link', () => {
+  const url = lineShareUrl(longQ, longMd, eight);
+  assert.ok(url.length <= 8000, String(url.length));
+  const text = decodeURIComponent(url.split('text=')[1]);
+  assert.ok(text.includes('แหล่งที่มา\n1. ') && text.includes('\n8. CIRD'), 'all eight sources');
+  assert.ok(/\n…\n/.test(text), 'marked as cut');
+  assert.ok(text.endsWith('ถามต่อที่ https://ai.vetmock.com'));
+});
+
+test('a short answer goes to LINE whole', () => {
+  const sources = [{ n: 1, title: 'Rabies' }];
+  assert.equal(decodeURIComponent(lineShareUrl('q', 'สั้น [1]', sources).split('text=')[1]), shareText('q', 'สั้น [1]', { sources }));
+});
+
+test('with only some sources listed, citation marks keep only the listed numbers', () => {
+  const sources = [1, 2, 3, 4, 5].map((n) => ({ n, title: `S${n}` }));
+  const t = shareText('q', 'ก [1] ข [2, 5] ค [4–5] ง [3]', { sources, maxSources: 3 });
+  assert.ok(t.startsWith('q\n\nก [1] ข [2] ค ง [3]\n\n'), t);
+  assert.ok(t.includes('3. S3') && !t.includes('4. S4'));
+});
+
+test('the calendar reminder stays well inside Google Calendar\'s URL limit (400 past about 16 KB)', () => {
+  const details = shareText(longQ, longMd, { sources: eight, limit: 900, maxSources: 3 });
+  const url = googleCalendarUrl(`ทบทวน: ${longQ}`, details, new Date('2026-10-29T13:00:00Z'));
+  assert.ok(url.length < 14000, String(url.length));
 });

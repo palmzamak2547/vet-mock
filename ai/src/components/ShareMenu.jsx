@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { IN_APP } from '../lib/env.js';
 import {
-  shareText, lineUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes,
+  shareText, lineShareUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes,
   googleCalendarUrl, icsFile, download, copyRich,
 } from '../lib/share.js';
 
@@ -33,7 +33,7 @@ export default function ShareMenu({ question, answer, sources, quiz, files = [],
   const open = (url) => window.open(url, '_blank', 'noopener,noreferrer');
 
   const items = [
-    { id: 'line', name: 'LINE', act: 'ส่งข้อความ', href: lineUrl(shareText(question, answer, { sources })) },
+    { id: 'line', name: 'LINE', act: 'ส่งข้อความ', href: lineShareUrl(question, answer, sources) },
     {
       id: 'notion', name: 'Notion', act: 'วางในหน้าใหม่',
       run: async () => {
