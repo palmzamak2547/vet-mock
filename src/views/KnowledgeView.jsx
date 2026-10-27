@@ -247,7 +247,7 @@ function ProvenancePanel({ prov, history, sections, atHistory, onJump, onClose }
 
 // ================= INDEX =================
 // Exported for tests: mounted alone, its own state can be driven.
-export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null, readingChecklist = null }) {
+export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null, readingChecklist = null, missing = false }) {
   // Survive the stale-deploy reload. When a subject chunk fails to load, the
   // app reloads to pick up a fresh deploy — correct, and not something to
   // remove — but it took the student's search term with it, so a recovery in
@@ -427,6 +427,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         <p className="vw-lede">
           ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้วมีแหล่งให้ตามไปอ่าน และหัวข้อย่อยที่ไม่ได้ตรวจทานมีป้ายบอกไว้
         </p>
+        {missing && <p className="vw-missing" role="status">ไม่พบบทความตามลิงก์นี้ ลิงก์อาจเก่าหรือพิมพ์ผิด ค้นหาจากสารบัญด้านล่างได้</p>}
         <ul className="vw-totals" aria-label="ในคลังนี้">
           <li><b>{SHELF_TOTALS.topics.toLocaleString('en-US')}</b>หัวข้อ</li>
           <li><b>{SHELF_TOTALS.sections.toLocaleString('en-US')}</b>หัวข้อย่อย</li>
@@ -1276,6 +1277,11 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     const [s, t] = at.isWiki && !(openNonce > actedOnOpenNonce) ? [at.subject, at.topic] : [subject, topic];
     return s && t && topics.some((x) => x.id === `${s}--${t}`) ? `${s}--${t}` : null;
   });
+  // A link to an article the shelf does not have (renamed, mistyped) opened the index without a word (27 Oct).
+  const [missing, setMissing] = useState(() => {
+    const at = typeof window !== 'undefined' ? parseWikiPath(window.location.pathname) : { isWiki: false };
+    return Boolean(at.isWiki && at.subject && at.topic && !topics.some((x) => x.id === `${at.subject}--${at.topic}`));
+  });
   // The open-article effect below reads App's subject/topic; on mount those
   // only count when they name the article in the URL.
   const mountedRef = useRef(false);
@@ -1346,7 +1352,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
 
   // Opening an article ends a subject request (the search card's VetWiki
   // button): coming back, the index opens in the reader's own view again.
-  const openTopic = (id) => { setIndexFocus(null); setOpenId(id); syncUrl(id); window.scrollTo({ top: 0, behavior: 'auto' }); };
+  const openTopic = (id) => { setMissing(false); setIndexFocus(null); setOpenId(id); syncUrl(id); window.scrollTo({ top: 0, behavior: 'auto' }); };
   // A search hit's matched heading: the article, at that section. WikiArticle
   // scrolls to the address's #section once the article has loaded.
   const openSection = (id, sectionId) => {
@@ -1434,7 +1440,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     // cleared search and the asked-for subject starts open.
     return (
       <WikiIndex topics={topics} onOpen={openTopic} onOpenSection={openSection} goHome={goHome} readingChecklist={readingChecklist}
-        key={indexFocus ? `focus-${indexFocus.nonce}` : 'index'} focusSubject={indexFocus?.subject || null} />
+        key={indexFocus ? `focus-${indexFocus.nonce}` : 'index'} focusSubject={indexFocus?.subject || null} missing={missing && !indexFocus} />
     );
   }
 
