@@ -6855,7 +6855,8 @@ body.vmx-reading .vmx-pdf-body {
   font-size: 14px;
   color: var(--clr-ink-soft);
 }
-.vmx-extdoc-notice {
+.vmx-extdoc-notice,
+.vw-missing {
   border: 1px solid var(--clr-sage);
   border-radius: 10px;
   background: var(--clr-sage-soft);

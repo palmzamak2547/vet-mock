@@ -603,6 +603,18 @@ test.describe('VetMock smoke flow', () => {
     expect(consoleErrors, `Unexpected console errors on the VetWiki history:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
+  // A link to an article the shelf does not have used to land on the index
+  // without a word (27 Oct sweep); the index now says so, and a real article
+  // never shows the notice.
+  test('a VetWiki link to a missing article says so on the index', async ({ page }) => {
+    await page.goto('/wiki/com5/no-such-article');
+    await expect(page.getByRole('heading', { level: 1, name: 'VetWiki' })).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator('.vw-missing')).toContainText('ไม่พบบทความตามลิงก์นี้');
+    await page.goto('/wiki/com5/rabies');
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator('.vw-missing')).toHaveCount(0);
+  });
+
   // The Encyclopédie tree at the foot of the index opens the map: every
   // topic as a link; Escape closes it and gives focus back to the tree.
   test('the VetWiki map lists every topic and opens one', async ({ page }) => {
