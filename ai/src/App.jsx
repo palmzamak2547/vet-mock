@@ -37,7 +37,7 @@ export default function App() {
   const specimenRef = useRef(null);
   const abortRef = useRef(null);
   const flipRef = useRef(null);
-  const pinned = useRef(true);
+  const pinned = useRef(false); // follow the newest line? only after the jump button
 
   const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'dark');
   const [chat, setChat] = useState(blank);
@@ -161,11 +161,19 @@ export default function App() {
       // the header turns to glass once the page moves under it
       root.toggleAttribute('data-scrolled', window.scrollY > 4);
       if (modeRef.current === 'landing') { if (!raf) raf = requestAnimationFrame(() => { raf = 0; syncRects(); }); return; }
-      const nearBottom = window.innerHeight + window.scrollY >= root.scrollHeight - 140;
-      pinned.current = nearBottom;
-      setAway(!nearBottom);
+      checkAway();
     };
+    // The reader steers. Following the newest line is only ever switched on by
+    // the jump button, and any move of the reader's own (wheel up, a finger on
+    // the page, keys that go up) switches it off at once, before the next frame
+    // could pull the page back down.
+    const letGo = () => { pinned.current = false; };
+    const onWheel = (e) => { if (e.deltaY < 0) letGo(); };
+    const onKey = (e) => { if (['ArrowUp', 'PageUp', 'Home'].includes(e.key) && e.target === document.body) letGo(); };
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('wheel', onWheel, { passive: true });
+    window.addEventListener('touchmove', letGo, { passive: true });
+    window.addEventListener('keydown', onKey);
     const ro = new ResizeObserver(on);
     if (dockRef.current) ro.observe(dockRef.current);
     return () => {
@@ -173,10 +181,13 @@ export default function App() {
       vv?.removeEventListener('resize', on);
       vv?.removeEventListener('scroll', keyboard);
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchmove', letGo);
+      window.removeEventListener('keydown', onKey);
       ro.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [syncRects]);
+  }, [syncRects]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useLayoutEffect(() => {
     syncRects();
@@ -253,6 +264,24 @@ export default function App() {
     window.scrollTo({ top: document.documentElement.scrollHeight, behavior: smooth && !reducedMotion() ? 'smooth' : 'auto' });
   };
 
+  // A new turn starts at the top of the screen: the question just under the
+  // header, the answer flowing down beneath it (the last turn is tall enough
+  // for this, .turn-last). Reading goes down the page, so the page never chases
+  // the answer's end on its own.
+  const anchorTurn = (id, smooth = true) => {
+    const el = document.querySelector(`[data-mid="${id}"]`);
+    if (!el) return;
+    const head = document.querySelector('.hdr')?.offsetHeight || 60;
+    const top = el.getBoundingClientRect().top + window.scrollY - head - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: smooth && !reducedMotion() ? 'smooth' : 'auto' });
+  };
+
+  // is there more answer below the screen? (shows the jump button)
+  const checkAway = () => {
+    const root = document.documentElement;
+    setAway(root.scrollHeight - (window.innerHeight + window.scrollY) > 160);
+  };
+
   const pointFor = (id) => {
     const el = document.querySelector(`[data-mid="${id}"]`);
     const r = el?.getBoundingClientRect();
@@ -291,7 +320,9 @@ export default function App() {
         shown = Math.min(buf.length, shown + Math.max(1, Math.ceil(rate * dt)));
         while (shown < buf.length && /[ัิ-ฺ็-๎]/.test(buf[shown])) shown++;
         update(asstId, (m) => ({ ...m, content: buf.slice(0, shown) }));
+        // only a reader who asked to follow (the jump button) is followed
         if (pinned.current) scrollToEnd();
+        else checkAway();
       }
       if (shown < buf.length || !ended) raf = requestAnimationFrame(tick);
       else settle();
@@ -336,7 +367,7 @@ export default function App() {
       cancelAnimationFrame(raf);
       update(asstId, (m) => ({ ...m, content: buf || m.content, done: true, status: null }));
       // the actions row arrives with the last line: keep it in view if you were following
-      if (pinned.current) requestAnimationFrame(() => scrollToEnd(true));
+      requestAnimationFrame(() => { if (pinned.current) scrollToEnd(true); else checkAway(); });
       setBusy(false);
       abortRef.current = null;
       o?.setMode(document.activeElement?.id === 'composer-input' ? 'focus' : 'idle');
@@ -362,8 +393,9 @@ export default function App() {
       .map((m) => ({ role: m.role, content: m.content }))
       .slice(-12);
     setChat((c) => ({ ...c, title: c.title || titleFor(text), messages: [...c.messages, userMsg, asst] }));
-    pinned.current = true;
-    requestAnimationFrame(() => scrollToEnd(true));
+    pinned.current = false;
+    // two frames: the turn is rendered (and the landing-to-chat glide begun) first
+    requestAnimationFrame(() => requestAnimationFrame(() => anchorTurn(userMsg.id)));
     run(history, asst.id, image ? { mediaType: image.mediaType, data: image.data } : null);
   }, [busy, chat.messages, run]);
 
@@ -377,6 +409,8 @@ export default function App() {
     const keep = msgs.slice(0, msgs.lastIndexOf(lastUser) + 1);
     const asst = { id: newId(), role: 'assistant', content: '', status: { phase: 'plan', label: 'กำลังอ่านคำถาม' }, cards: [] };
     setChat((c) => ({ ...c, messages: [...keep, asst] }));
+    pinned.current = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => anchorTurn(lastUser.id)));
     const history = keep.filter((m) => m.content && !m.error).map((m) => ({ role: m.role, content: m.content })).slice(-12);
     run(history, asst.id, null);
   };
@@ -395,7 +429,10 @@ export default function App() {
     if (busy) stop();
     setChat({ id: c.id, title: c.title, messages: c.messages.map((m) => ({ ...m, done: true, status: null })) });
     setHistoryOpen(false);
-    requestAnimationFrame(() => scrollToEnd());
+    // a past chat opens on its last question, ready to read down
+    const lastUser = [...c.messages].reverse().find((m) => m.role === 'user');
+    pinned.current = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => (lastUser ? anchorTurn(lastUser.id, false) : scrollToEnd())));
   };
 
   // tap on open water: name the animal under the finger
@@ -454,14 +491,14 @@ export default function App() {
         {mode === 'chat' && (
           <div ref={threadRef} className="thread" role="log" aria-live="off">
             {chat.messages.map((m, i) => (
-              <div key={m.id} data-mid={m.id}>
+              <div key={m.id} data-mid={m.id} className={i === chat.messages.length - 1 && m.role === 'assistant' ? 'turn-last' : undefined}>
                 <Message m={m} last={i === chat.messages.length - 1} onRetry={retry} canSpeak={canSpeak} streaming={busy && i === chat.messages.length - 1} question={m.role === 'assistant' ? chat.messages[i - 1]?.content || '' : ''} />
               </div>
             ))}
           </div>
         )}
         <div ref={dockRef} className="dock">
-          {mode === 'chat' && away && busy && (
+          {mode === 'chat' && away && (
             <button type="button" className="jump" onClick={() => { pinned.current = true; scrollToEnd(true); }} aria-label="ไปที่คำตอบล่าสุด"><IconDown size={18} /></button>
           )}
           <Composer

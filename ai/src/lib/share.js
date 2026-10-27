@@ -11,9 +11,10 @@
 const SITE = 'https://ai.vetmock.com';
 
 /** Markdown to plain text that still reads like the answer: paragraphs and line
- *  breaks kept, bullets as •, table rows as cells joined by ' / ', citation
- *  marks and emphasis markers removed, links as 'text (url)'. */
-export function plainText(md) {
+ *  breaks kept, bullets as •, table rows as cells joined by ' / ', emphasis
+ *  markers removed, links as 'text (url)'. Citation marks [n] are removed,
+ *  unless `citations` (the text then carries its numbered sources below). */
+export function plainText(md, { citations = false } = {}) {
   const src = String(md || '').replace(/```\w*\n?/g, '');
   const out = [];
   for (const line of src.split(/\r?\n/)) {
@@ -21,7 +22,7 @@ export function plainText(md) {
     let l = line.replace(/^\s*#{1,6}\s+/, '').replace(/^>\s?/, '');
     if (/^\s*\|.*\|\s*$/.test(l)) l = l.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()).filter(Boolean).join(' / ');
     l = l.replace(/^(\s*)[-*•]\s+/, '$1• ').replace(/^(\s*)(\d+)[.)]\s+/, '$1$2. ');
-    l = l.replace(/\s*\[(\d{1,2}(?:\s*[,–-]\s*\d{1,2})*)\](?!\()/g, '');
+    if (!citations) l = l.replace(/\s*\[(\d{1,2}(?:\s*[,–-]\s*\d{1,2})*)\](?!\()/g, '');
     l = l.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '$1 ($2)');
     l = l.replace(/\*\*|__|`/g, '').replace(/(^|[\s(])[*_]([^*_\n]+)[*_](?=[\s).,:;!?]|$)/g, '$1$2');
     out.push(l.replace(/[ \t]+$/, '').replace(/ {2,}/g, ' '));
@@ -29,18 +30,32 @@ export function plainText(md) {
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-/** Plain text for a chat app: question, answer, where to ask more. LINE's share
- *  URL carries the text in the query, so it is cut on a word under ~1,400 chars. */
-export function shareText(question, answerMd, limit = 1400) {
-  const body = plainText(answerMd);
-  let text = `${question.trim()}\n\n${body}`;
-  if (text.length > limit) {
-    let cut = text.slice(0, limit);
-    const br = Math.max(cut.lastIndexOf('\n'), cut.lastIndexOf(' '));
-    if (br > limit * 0.7) cut = cut.slice(0, br);
-    text = `${cut}…`;
+/** A source as one line: number and title, and what tells two sources with one
+ *  title apart (two sections of one lecture clip read as the same title). */
+export const sourceLabel = (s) => `${s.title}${s.subtitle && s.subtitle !== s.title ? `, ${s.subtitle}` : ''}`;
+
+/**
+ * Plain text for a chat app or a calendar note: the question, the answer with
+ * its citation numbers, the numbered sources they point to, where to ask more.
+ * LINE's share URL carries the text in the query, so a long answer is cut where
+ * a paragraph or a bullet ends (never mid-sentence) and marked with "…"; the
+ * sources and the link are never the part that is cut.
+ */
+export function shareText(question, answerMd, { sources = [], limit = 2000, maxSources = 8 } = {}) {
+  const list = sources.slice(0, maxSources);
+  const tail = [
+    list.length ? `แหล่งที่มา\n${list.map((s) => `${s.n}. ${sourceLabel(s)}`).join('\n')}` : '',
+    `ถามต่อที่ ${SITE}`,
+  ].filter(Boolean).join('\n\n');
+  const head = question.trim();
+  let body = plainText(answerMd, { citations: list.length > 0 });
+  const room = Math.max(240, limit - head.length - tail.length - 6);
+  if (body.length > room) {
+    const cut = body.slice(0, room);
+    const end = Math.max(cut.lastIndexOf('\n\n'), cut.lastIndexOf('\n'));
+    body = `${(end > room * 0.5 ? cut.slice(0, end) : cut.slice(0, Math.max(cut.lastIndexOf(' '), Math.floor(room * 0.8)))).trim()}\n…`;
   }
-  return `${text}\n\nถามต่อที่ ${SITE}`;
+  return `${head}\n\n${body}\n\n${tail}`;
 }
 
 export const lineUrl = (text) => `https://line.me/R/share?text=${encodeURIComponent(text)}`;
@@ -51,7 +66,7 @@ const fileLabel = (f) => `${f.title}${f.page > 1 ? ` (หน้า ${f.page})` :
 /** Markdown with the sources as a numbered link list and the files as a list
  *  of links that open at their page (Notion keeps both). */
 export function markdownWithSources(question, answerMd, sources = [], files = []) {
-  const src = sources.length ? `\n\n**แหล่งที่มา**\n${sources.map((s) => `${s.n}. [${s.title}](${s.url})`).join('\n')}` : '';
+  const src = sources.length ? `\n\n**แหล่งที่มา**\n${sources.map((s) => `${s.n}. [${sourceLabel(s).replace(/[[\]]/g, '')}](${s.url})`).join('\n')}` : '';
   const fl = files.length ? `\n\n**สไลด์และเอกสาร**\n${files.map((f) => `- [${fileLabel(f)}](${f.open})`).join('\n')}` : '';
   return `## ${question.trim()}\n\n${answerMd.trim()}${src}${fl}\n\n_จาก ${SITE}_`;
 }
@@ -61,7 +76,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
 /** Rich text for Google Docs: the rendered answer's HTML plus linked sources and files. */
 export function htmlWithSources(question, answerHtml, sources = [], files = []) {
   const src = sources.length
-    ? `<p><strong>แหล่งที่มา</strong></p><ol>${sources.map((s) => `<li><a href="${esc(s.url)}">${esc(s.title)}</a></li>`).join('')}</ol>`
+    ? `<p><strong>แหล่งที่มา</strong></p><ol>${sources.map((s) => `<li><a href="${esc(s.url)}">${esc(sourceLabel(s))}</a></li>`).join('')}</ol>`
     : '';
   const fl = files.length
     ? `<p><strong>สไลด์และเอกสาร</strong></p><ul>${files.map((f) => `<li><a href="${esc(f.open)}">${esc(fileLabel(f))}</a></li>`).join('')}</ul>`

@@ -31,6 +31,40 @@ export function warm() {
   fetch(`${API_URL}?warm=1`, { method: 'GET', keepalive: true }).catch(() => { warmed = false; });
 }
 
+// the microphone's speech-to-text route lives beside the chat route
+export const TRANSCRIBE_URL = API_URL.replace(/ai-chat$/, 'ai-transcribe');
+
+/** Can the server transcribe right now? (the recorder is offered only if so) */
+export async function transcribeAvailable() {
+  try {
+    const r = await fetch(TRANSCRIBE_URL, { headers: { Accept: 'application/json' } });
+    return r.ok && (await r.json()).available === true;
+  } catch {
+    return false;
+  }
+}
+
+/** A recorded question (16 kHz WAV) as text, from Thai ASR. */
+export async function transcribe(wav, signal) {
+  const audio = await new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = () => reject(new ChatError('อ่านเสียงที่อัดไว้ไม่ได้', 'input'));
+    r.readAsDataURL(wav);
+  });
+  let res;
+  try {
+    res = await fetch(TRANSCRIBE_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ audio }), signal });
+  } catch (e) {
+    if (e?.name === 'AbortError') throw e;
+    throw new ChatError('เชื่อมต่อไม่ได้ เช็กอินเทอร์เน็ตก่อน', 'network');
+  }
+  let j = {};
+  try { j = await res.json(); } catch { /* not JSON */ }
+  if (!res.ok) throw new ChatError(j.message || 'ถอดเสียงไม่สำเร็จ ลองอีกครั้ง', j.error || 'http', { status: res.status, retryAfter: j.retryAfter });
+  return String(j.text || '').trim();
+}
+
 export async function health(signal) {
   const res = await fetch(API_URL, { method: 'GET', signal, headers: { Accept: 'application/json' } });
   if (!res.ok) throw new ChatError('health', 'http', { status: res.status });

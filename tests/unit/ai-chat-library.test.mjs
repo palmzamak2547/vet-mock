@@ -200,3 +200,15 @@ test('two uploads of the same title are one file', async () => {
   assert.equal(r.items.length, 1);
   assert.equal(r.items[0].title, 'Canine and Feline Medicine (58-66)');
 });
+
+test('a syllabus that names the topic does not sit beside an answer', () => {
+  const docs = [
+    { slug: 'cdv', title: 'Canine Distemper', kind: 'slide', subject: 'com5', page_count: 28, hits: 7 },
+    { slug: 'syl', title: 'course syllabus', kind: 'handout', subject: 'vet-path-2', page_count: 14, hits: 3 },
+    { slug: 'wsava', title: 'WSAVA 2025 Vaccine Guideline', kind: 'guideline', subject: 'immuno', page_count: 40, hits: 11 },
+  ];
+  const ranked = rankFiles(docs, { terms: ['canine distemper'] });
+  const syl = ranked.find((d) => d.slug === 'syl');
+  assert.ok(syl.score < 3.5, `syllabus score ${syl.score.toFixed(2)} is under the floor`);
+  assert.equal(ranked[0].slug, 'cdv');
+});
