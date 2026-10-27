@@ -11,7 +11,8 @@
         "respiratory signs"
       ]
     },
-    "expect": "distemper"
+    "expect": "distemper",
+    "never": "rinderpest|ephemeral|peste des petits"
   },
   {
     "q": "ลำไส้อักเสบติดต่อในสุนัขรักษายังไง",
@@ -54,7 +55,8 @@
         "cat"
       ]
     },
-    "expect": "FPV|panleukopenia|ไข้หัดแมว"
+    "expect": "FPV|panleukopenia|ไข้หัดแมว",
+    "never": "fowlpox|ฝีดาษ"
   },
   {
     "q": "โรคเยื่อบุช่องท้องอักเสบติดต่อในแมววินิจฉัยยังไง",
@@ -154,7 +156,8 @@
         "clinical signs"
       ]
     },
-    "expect": "african swine fever|(^|[^a-z])asf([^a-z]|$)"
+    "expect": "african swine fever|(^|[^a-z])asf([^a-z]|$)",
+    "never": "fowl cholera|อหิวาต์ไก่|อหิวาต์สัตว์ปีก"
   },
   {
     "q": "โรค PRRS ในสุกรควบคุมยังไง",
@@ -212,7 +215,8 @@
         "treatment"
       ]
     },
-    "expect": "(^|[^a-z])dm([^a-z]|$)|diabetes|เบาหวาน|insulin"
+    "expect": "(^|[^a-z])dm([^a-z]|$)|diabetes|เบาหวาน|insulin",
+    "never": "addison"
   },
   {
     "q": "คุชชิ่งในสุนัขวินิจฉัยยังไง",
@@ -371,7 +375,7 @@
       ]
     },
     "expect": "trypanosom|babesi|anaplasm|theileri|blood parasite|พยาธิในเลือด",
-    "todo": "equine blood-parasite pages outrank the bovine notes: needs species-aware ranking"
+    "never": "equine|ม้า"
   },
   {
     "q": "การให้วัคซีนลูกสุนัขเริ่มเมื่อไหร่",

@@ -131,6 +131,9 @@ const FAMILY = {
   'ลูกม้า': 'ม้า', 'แม่ม้า': 'ม้า', 'พ่อม้า': 'ม้า', 'ไก่': 'สัตว์ปีก', 'เป็ด': 'สัตว์ปีก', 'นก': 'สัตว์ปีก', 'แพะ': 'แกะ',
 };
 const family = (head) => FAMILY[head] || head;
+// An animal inside a disease's name is usually that animal's disease (ฝีดาษไก่,
+// อหิวาต์สุกร, วัวบ้า); in these it is the carrier, and the disease is anyone's.
+const ANY_ANIMAL = new Set(['พิษสุนัขบ้า', 'ฉี่หนู']);
 
 const speciesCache = new Map();
 /** The animal families a text (an article or clip title) names, word-aligned as in a question. */
@@ -140,8 +143,11 @@ export function speciesIn(text) {
   if (out) return out;
   const q = normalizeQuery(key);
   const segs = segmentWords(q).filter((s) => s.wordLike && s.word.trim());
-  out = new Set(groupMatches(q, new Set(segs.map((s) => s.start)), new Set(segs.map((s) => s.end)))
-    .filter((m) => m.g.species).map((m) => family(m.g.head)));
+  const groups = groupMatches(q, new Set(segs.map((s) => s.start)), new Set(segs.map((s) => s.end)));
+  const wide = groups.filter((m) => ANY_ANIMAL.has(m.g.head)).flatMap((m) => m.spans);
+  out = new Set(groups
+    .filter((m) => m.g.species && m.spans.some((s) => !wide.some((w) => w.start <= s.start && s.end <= w.end)))
+    .map((m) => family(m.g.head)));
   if (speciesCache.size > 5000) speciesCache.clear();
   speciesCache.set(key, out);
   return out;

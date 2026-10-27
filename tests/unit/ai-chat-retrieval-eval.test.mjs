@@ -9,7 +9,7 @@
 // was asked (the `expect` pattern, read against title, topic and heading).
 //
 // Measured 2026-10-28 on 30 common questions: 23 passed before the fixes that
-// came with this file, 29 after; 20 more from other fields (drugs, labs,
+// came with this file, 30 after; 20 more from other fields (drugs, labs,
 // anatomy, exotics): 14 pass, 6 are gaps the corpus has little on. Add a case
 // whenever a student question finds the wrong sources; never loosen one. A
 // case marked `todo` is a known miss, with the reason.
@@ -31,8 +31,13 @@ for (const c of cases) {
     const typedQuery = heuristicPlan([{ role: 'user', content: c.q }]).query_th;
     const typed = searchCorpus(corpus, { text: typedQuery, wikiQueries: [typedQuery] });
     const planned = searchCorpus(corpus, { text: c.plan.query_th, terms: c.plan.terms_en, wikiQueries: [c.plan.query_th, typedQuery] });
-    const top = selectDocs(chooseSearch(typed, planned).ranked).slice(0, 2).map(label);
+    const cited = selectDocs(chooseSearch(typed, planned).ranked).map(label);
     const about = new RegExp(c.expect, 'i');
-    assert.ok(top.some((t) => about.test(t)), `expected ${c.expect}, cited:\n${top.join('\n')}`);
+    assert.ok(cited.slice(0, 2).some((t) => about.test(t)), `expected ${c.expect}, cited:\n${cited.slice(0, 2).join('\n')}`);
+    // `never`: what must not be cited at all (another disease that shares a word or an abbreviation)
+    if (c.never) {
+      const wrong = new RegExp(c.never, 'i');
+      assert.ok(!cited.some((t) => wrong.test(t)), `cited ${c.never}:\n${cited.join('\n')}`);
+    }
   });
 }
