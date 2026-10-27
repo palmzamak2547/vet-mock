@@ -5,7 +5,7 @@
    reading text or a full-screen backdrop. Press feedback is transform-only
    (scale 0.96 at 160 ms ease-out). Hover motion only on fine pointers.      */
 
-.app { position: relative; min-height: 100dvh; isolation: isolate; }
+.app { position: relative; min-height: 100svh; isolation: isolate; }
 html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 
 /* ── header ───────────────────────────────────────────── */
@@ -19,12 +19,14 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   align-items: center;
   gap: var(--s3);
 }
-.mode-chat .hdr {
+/* glass once something can pass under it: always in a chat, on the landing page once scrolled */
+.mode-chat .hdr, :root[data-scrolled] .hdr {
   background: var(--glass);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   backdrop-filter: blur(20px) saturate(150%);
   border-bottom: 1px solid var(--glass-edge);
 }
+.hdr { border-bottom: 1px solid transparent; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); min-height: 44px; }
 .brand img { width: 28px; height: 28px; border-radius: 7px; }
 .brand-word { font-family: 'Inter', var(--font-ui); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
@@ -226,7 +228,9 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 .tool:disabled, .send:disabled { pointer-events: none; }
 
 /* ── thread ───────────────────────────────────────────── */
-.mode-chat .stage { padding: calc(84px + var(--safe-t)) 0 calc(190px + var(--safe-b)); }
+/* --dock-h is the dock's measured height (App.jsx), so a growing box never covers the last line */
+.mode-chat .stage { padding: calc(84px + var(--safe-t)) 0 calc(var(--dock-h, 112px) + 56px + max(var(--s3), var(--safe-b)) + var(--kb, 0px)); }
+:root:has(.mode-chat) { scroll-padding: calc(72px + var(--safe-t)) 0 calc(var(--dock-h, 112px) + 32px + var(--kb, 0px)); }
 .thread {
   width: min(720px, calc(100% - 2 * var(--s4)));
   margin: 0 auto;
@@ -629,36 +633,27 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 .specimen-sci { font-family: 'Inter', var(--font-ui); font-style: italic; font-size: 13px; color: var(--text-2); text-shadow: 0 1px 12px var(--bg); }
 
 /* ── footer: the floor of the sea ─────────────────────── */
+/* one centred column, the width of the box above; the water darkens (or pales,
+   in light) under the words so nothing swims through a number you are reading */
 .ftr {
   position: relative;
   z-index: var(--z-content);
-  width: min(1080px, calc(100% - 2 * var(--s4)));
-  margin: 0 auto;
-  padding: var(--s6) 0 calc(var(--s6) + var(--safe-b));
+  padding: var(--s7) max(var(--s4), calc((100% - 680px) / 2)) calc(var(--s6) + var(--safe-b));
   color: var(--text-2);
   display: grid;
-  gap: var(--s6);
-}
-.ftr-band {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.15;
-  color: var(--text-3);
-  opacity: 0.8;
-  overflow: hidden;
+  gap: var(--s5);
   text-align: center;
-  user-select: none;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 84%, transparent) var(--s7));
 }
-.ftr-stats { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5); }
-@media (min-width: 760px) { .ftr-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ftr-stats { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); }
+@media (min-width: 560px) { .ftr-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .ftr-stats div { display: grid; gap: 2px; }
 .ftr-stats dt { font-size: 13px; color: var(--text-3); order: 2; }
-.ftr-stats dd { margin: 0; font-family: var(--font-mono); font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; order: 1; }
-.ftr-links { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
+.ftr-stats dd { margin: 0; font-family: var(--font-mono); font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.9rem); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; order: 1; }
+.ftr-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--s5); }
 .ftr-links a { color: var(--text-2); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; }
 @media (hover: hover) and (pointer: fine) { .ftr-links a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 4px; } }
-.ftr-note { margin: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s5); font-size: 13px; color: var(--text-3); padding-top: var(--s4); border-top: 1px solid var(--line); }
+.ftr-note { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px var(--s4); font-size: 13px; color: var(--text-3); padding-top: var(--s4); border-top: 1px solid var(--line); }
 
 /* ── small screens ────────────────────────────────────── */
 @media (max-width: 560px) {
@@ -677,10 +672,10 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 
 /* no glass support, or a reader who asked for less transparency */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .composer, .mode-chat .hdr { background: var(--raise); }
+  .composer, .mode-chat .hdr, :root[data-scrolled] .hdr { background: var(--raise); }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .composer, .mode-chat .hdr { background: var(--raise); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .composer, .mode-chat .hdr, :root[data-scrolled] .hdr { background: var(--raise); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-contrast: more) {
   :root { --glass-edge: var(--text-3); }

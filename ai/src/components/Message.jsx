@@ -45,7 +45,20 @@ function Sources({ items, open, setOpen, highlight }) {
   if (!items?.length) return null;
   return (
     <section className={`sources${open ? ' is-open' : ''}`} aria-label="แหล่งที่มา">
-      <button type="button" className="sources-head" onClick={() => setOpen(!open)} aria-expanded={open}>
+      <button
+        type="button"
+        className="sources-head"
+        aria-expanded={open}
+        onClick={(e) => {
+          setOpen(!open);
+          // opened low on the screen: bring the list up instead of opening it under the box
+          const r = e.currentTarget.getBoundingClientRect();
+          if (!open && r.top > innerHeight * 0.55) {
+            const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+            requestAnimationFrame(() => window.scrollBy({ top: r.top - innerHeight * 0.3, behavior }));
+          }
+        }}
+      >
         <span className="deck" aria-hidden="true">
           {items.slice(0, 4).map((s, i) => <span key={s.n} className={`deck-card k-${s.kind}`} style={{ '--i': i }} />)}
         </span>

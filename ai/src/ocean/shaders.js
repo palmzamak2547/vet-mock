@@ -284,7 +284,10 @@ void main() {
     col = vec3(w);
     if (w > 0.2) idx = u_water0 + (w > 0.62 ? 2.0 : (w > 0.38 ? 1.0 : 0.0));
   }
-  gl_FragColor = vec4(col, (idx + 0.5) / 255.0);
+  // the glyph index rides in an 8-bit channel: k / 255 is stored exactly on every
+  // GPU, and the readers round. (idx + 0.5) / 255 sat on a rounding tie: Apple GPUs
+  // stored idx + 1, which turned every empty cell of water into a grey tile.
+  gl_FragColor = vec4(col, idx / 255.0);
 }
 `;
 
@@ -303,7 +306,7 @@ void main() {
     vec2 o = vec2(float(i), float(j));
     float w = exp(-dot(o, o) / 2.4);
     vec4 d = texture2D(u_cell, (c + o) / u_cells);
-    float idx = floor(d.a * 255.0);
+    float idx = floor(d.a * 255.0 + 0.5);
     float obj = step(0.5, idx) * step(idx, u_water0 - 0.5);
     float spark = 1.0 - step(0.5, abs(idx - u_spark));
     float mote = 1.0 - step(0.5, abs(idx - u_spark - 1.0));
@@ -347,7 +350,7 @@ void main() {
   vec2 cell = floor(p / u_cellPx);
   vec2 local = (p - cell * u_cellPx) / u_cellPx;
   vec4 d = texture2D(u_cell, vec2((cell.x + 0.5) / u_cells.x, 1.0 - (cell.y + 0.5) / u_cells.y));
-  float idx = floor(d.a * 255.0);
+  float idx = floor(d.a * 255.0 + 0.5);
   vec3 col = d.rgb;
   vec3 glow = texture2D(u_glow, vec2(p.x / (u_cells.x * u_cellPx), 1.0 - p.y / (u_cells.y * u_cellPx))).rgb;
 

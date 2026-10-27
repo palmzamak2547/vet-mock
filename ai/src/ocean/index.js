@@ -52,13 +52,15 @@ const mix3 = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], 
 const cellFor = (w) => clamp(7 + ((w - 375) * 2.5) / 1065, 7, 9.5);
 
 export async function createOcean(canvas, opts = {}) {
-  const gl = createGL(canvas, !!opts.allowSoftware);
-  if (!gl) throw new Error('webgl-unavailable');
-
   const family = '"Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace';
   if (document.fonts?.load) {
     await Promise.race([document.fonts.load(`500 12px "Geist Mono"`), new Promise((r) => setTimeout(r, 1500))]).catch(() => {});
   }
+  // The context is opaque (alpha: false): from the moment it exists, an undrawn
+  // canvas shows black. So it is made only once the first frame can follow at
+  // once; until then the canvas shows its CSS background, the page's own colour.
+  const gl = createGL(canvas, !!opts.allowSoftware);
+  if (!gl) throw new Error('webgl-unavailable');
 
   const reduced = !!opts.reducedMotion;
   const manual = !!opts.manual;
@@ -115,7 +117,6 @@ export async function createOcean(canvas, opts = {}) {
   let qualityLevel = 0;
   let ema = 1 / 60;
   let slowFor = 0;
-  let fastFor = 0;
   let skip = false;
   let warm = 0;
 
@@ -148,10 +149,17 @@ export async function createOcean(canvas, opts = {}) {
 
   function resize() {
     const rect = canvas.getBoundingClientRect();
-    W = Math.max(1, Math.round(rect.width || window.innerWidth));
-    H = Math.max(1, Math.round(rect.height || window.innerHeight));
-    dpr = Math.min(window.devicePixelRatio || 1, dprCap());
-    cellCss = (opts.cell || cellFor(W)) + (qualityLevel >= 2 ? 2 : 0);
+    const w = Math.max(1, Math.round(rect.width || window.innerWidth));
+    const h = Math.max(1, Math.round(rect.height || window.innerHeight));
+    const d = Math.min(window.devicePixelRatio || 1, dprCap());
+    const c = (opts.cell || cellFor(w)) + (qualityLevel >= 2 ? 2 : 0);
+    // Setting canvas.width clears the picture, and phones fire resize while you
+    // scroll (toolbars, keyboard): when nothing changed, keep the frame.
+    if (sceneT && w === W && h === H && d === dpr && c === cellCss) return;
+    W = w;
+    H = h;
+    dpr = d;
+    cellCss = c;
     cellPx = Math.max(6, Math.round(cellCss * dpr));
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
@@ -180,7 +188,8 @@ export async function createOcean(canvas, opts = {}) {
       atlasKey = key;
     }
     if (fresh) populate();
-    if (!running || reduced) renderOnce();
+    // the buffer was just cleared to black: draw now, before the page is painted
+    renderOnce();
   }
 
   /** Keep the same animals through a resize: positions follow the viewport,
@@ -424,11 +433,13 @@ export async function createOcean(canvas, opts = {}) {
   }
 
   // ── quality ladder ────────────────────────────────────────
+  // Down only. Stepping back up once frames are fast again made a device on the
+  // edge swing between two levels, and every step redraws the grid.
   function observe(dt) {
     warm += dt;
     if (warm < 2.5) return; // shader compile, font and atlas work
     ema += (dt - ema) * smooth(dt, 1);
-    if (ema > 1 / 38) { slowFor += dt; fastFor = 0; } else if (ema < 1 / 55) { fastFor += dt; slowFor = 0; }
+    slowFor = ema > 1 / 38 ? slowFor + dt : 0;
     if (slowFor > 2 && qualityLevel < 4) {
       qualityLevel++;
       slowFor = 0;
@@ -436,12 +447,6 @@ export async function createOcean(canvas, opts = {}) {
       if (qualityLevel === 4) { stop(); renderOnce(); opts.onQuality?.(qualityLevel); return; }
       resize();
       opts.onQuality?.(qualityLevel);
-    }
-    if (fastFor > 12 && qualityLevel > 0 && qualityLevel < 3) {
-      qualityLevel--;
-      fastFor = 0;
-      warm = 1.5;
-      resize();
     }
   }
 

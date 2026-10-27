@@ -126,7 +126,7 @@ html {
 
 body {
   margin: 0;
-  min-height: 100dvh;
+  min-height: 100svh;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-ui);
@@ -154,12 +154,15 @@ img, svg, canvas { display: block; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* the ocean sits behind everything and never takes a pointer */
+/* the ocean sits behind everything and never takes a pointer. Its height is the
+   large viewport: phone toolbars sliding away while you scroll do not resize it
+   (a resize redraws the whole grid and moves every animal). */
 .ocean {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  height: 100lvh;
   z-index: var(--z-ocean);
   pointer-events: none;
   background: var(--bg);
