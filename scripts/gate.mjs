@@ -548,8 +548,11 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   if (built !== 0) return finish('the build failed', 1);
   if (moved('phase B')) return finish('tree changed', 1);
 
-  // C — lints that read dist/, then the size budgets (perf-budgets.json), which read its manifest
-  const distSteps = [...resolveSteps(scripts, 'lint:dist'), ...resolveSteps(scripts, 'perf:budget')];
+  // C — lints that read dist/, then the size budgets (perf-budgets.json), which read its manifest. A project
+  // that defines no perf:budget script (a throwaway fixture repository) simply has none; this repository's
+  // package.json is pinned to define it by tests/unit/gate.test.mjs.
+  const budgetSteps = scripts['perf:budget'] ? resolveSteps(scripts, 'perf:budget') : [];
+  const distSteps = [...resolveSteps(scripts, 'lint:dist'), ...budgetSteps];
   log(`\n── phase C (dist): ${distSteps.length} step(s)`);
   t = Date.now();
   let distFailed = 0;

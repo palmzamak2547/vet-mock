@@ -349,7 +349,7 @@ test('--audit is a warn-only tail step that never changes a green verdict', () =
 });
 
 // ── A throwaway repository for the end-to-end cases ───────────────────
-function fixture({ stale = false, tzBound = false, e2eWrites = false, overBudget = false } = {}) {
+function fixture({ stale = false, tzBound = false, e2eWrites = false, overBudget = false, budgetScript = true } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vetmock-gate-'));
   const put = (rel, text) => {
     fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
@@ -362,7 +362,7 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false, overBudget
       'lint:ok': 'node scripts/ok.mjs',
       'lint:stale': 'node scripts/stale.mjs --check',
       'lint:dist': 'node scripts/dist.mjs',
-      'perf:budget': 'node scripts/budget.mjs',
+      ...(budgetScript ? { 'perf:budget': 'node scripts/budget.mjs' } : {}),
       'test:unit': 'node --test tests/unit/*.test.mjs',
       build: 'node scripts/build.mjs',
       'test:e2e:chromium': 'node scripts/e2e.mjs chromium',
@@ -484,6 +484,18 @@ test('phase C runs the size budgets after lint:dist, and a breach stops the gate
     assert.match(r.out, /✗ gate: 1 dist step\(s\) failed/);
     assert.doesNotMatch(r.out, /E2E /, 'no browser ran');
   } finally { over.done(); }
+});
+
+// A throwaway repository that defines no perf:budget script (gate-native-artifacts.test.mjs builds one) has
+// no budgets to check; the gate does not fail on that. This repository's own package.json is pinned above.
+test('a project without a perf:budget script runs phase C on lint:dist alone', () => {
+  const f = fixture({ budgetScript: false });
+  try {
+    const r = gate(f.dir);
+    assert.equal(r.status, 0, r.out);
+    assert.match(r.out, /phase C \(dist\): 1 step\(s\)/);
+    assert.doesNotMatch(r.out, /BUDGET ran/);
+  } finally { f.done(); }
 });
 
 // The full matrix runs in CI on every pull request; locally the default gate

@@ -57,12 +57,13 @@ and each ran a ~70 min local gate; now:
      `tests/unit/perf-budget.test.mjs` rejects a budget that is not its measured value plus the rule (3%, or 0.01 for
      CLS), so a looser number cannot be typed in. A breach is fixed at its cause, never rerun.
    - *`npm run perf`* is by hand, never in CI (a runner has no GPU, and headless Chromium times transform and opacity
-     animations on the main thread): headed Chromium with the GPU, 4x CPU throttle, 390x844 touch, median of 5, under
-     `C:\dev\heavy-gate.lock`. It measures the slowest interaction (answer, next, the exam map, a tab bar navigation),
-     LCP of Home and of an article, long tasks over 50 ms and frame times, against `perf-baseline.json`; a metric fails
-     only above max(3 x its median absolute deviation, 5%, 2 ms) after the slower scenario is measured again.
-     `npm run perf -- --update` records a new baseline after a change that moves timings on purpose.
-     **Every release pull request body includes the table it prints** (it is also saved in `test-results/perf/last.md`).
+     animations on the main thread): headed Chromium with the GPU, 4x CPU throttle, 390x844 touch, median of 5, with
+     nothing heavy running beside it. It measures the slowest interaction (answer, next, the exam map, a tab bar
+     navigation), LCP of Home and of an article, long tasks over 50 ms and frame times, against `perf-baseline.json`; a
+     metric fails only above max(3 x its median absolute deviation, 5%, 2 ms) after the slower scenario is measured
+     again. `npm run perf -- --update` records a new baseline after a change that moves timings on purpose.
+     **A pull request that changes motion, an interaction or a heavy screen includes the table it prints** (also saved
+     in `test-results/perf/last.md`); other releases need no local run (step 3).
 
 Rules that stay:
 

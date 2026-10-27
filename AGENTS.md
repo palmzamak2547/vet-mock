@@ -4,7 +4,8 @@
 
 Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 while six finished changes waited for the machine-wide lock (other projects' 35-45 min gates) or the 4 GB free-RAM floor; CI already runs everything the local gate runs plus WebKit, Firefox and Postgres, free on GitHub; and the local gate had not caught the recent red runs (#42 failed in a spec it never touched, #48 on WebKit, which the local gate does not run).
 
-- No local gate before a pull request: CI is the gate. `C:\dev\heavy-gate.lock` is for genuinely heavy local runs (REA, Gradle, local perf runs), not for releases. Run a spec locally only to debug a CI failure.
+- No local gate before a pull request: CI is the gate. Run a spec locally only to debug a CI failure.
+- Since 22 Oct 21:35 (Palm, for every project) no run waits on `C:\dev\heavy-gate.lock` or a free-RAM floor, also where an older note below still says to take it. Every gate step and production check stays.
 - The main ruleset no longer requires an up-to-date branch, and the Queue workflow is disabled (its bot updates left runs in `action_required`; #45 sat 215 min). A pull request merges when its own checks pass; rebase only when GitHub reports a conflict.
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).

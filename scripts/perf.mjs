@@ -8,7 +8,7 @@
 //   npm run perf -- --only=wiki      one scenario (journey, wiki); nothing is written
 //   npm run perf -- --url=http://127.0.0.1:4173   measure a server that is already running
 // Flags: --runs=N (default 5)  --cpu=N CPU slowdown (default 4)  --no-confirm (no second look at a
-// slower scenario)  --no-lock (the caller already holds the heavy-gate lock)  --headless (numbers only)
+// slower scenario)  --headless (numbers only)
 //
 // Never in CI. A GitHub runner has no GPU, and headless Chromium ticks transform and opacity
 // animations on the main thread, so a timing taken there says nothing about a phone. This runs
@@ -29,11 +29,10 @@
 // the median, 2 ms). The floor is 1 for a count, 8 ms for an interaction (Event Timing rounds to
 // 8 ms) and one display refresh for a frame time (a frame is a whole number of refreshes): see
 // FLOORS in scripts/lib/perf-logic.mjs. Timings are noisy, so a scenario that looks slower is
-// measured again and the runs pooled before anything is called a regression. Every release pull
-// request carries the table this prints (it is also saved in test-results/perf/last.md).
-//
-// This machine is shared: the run takes C:\dev\heavy-gate.lock (VMX_HEAVY_LOCK moves it, --no-lock
-// skips it), waits for it while it is fresh, and needs 4 GB of free memory.
+// measured again and the runs pooled before anything is called a regression. A pull request that
+// changes motion, an interaction or a heavy screen carries the table this prints (it is also saved in
+// test-results/perf/last.md). Run it while nothing heavy runs beside it: a build or a test suite on the
+// same machine slows every timing.
 import fs from 'node:fs';
 import net from 'node:net';
 import os from 'node:os';
@@ -60,50 +59,11 @@ const URL_ARG = opt('url', '');
 const BASELINE = path.join(ROOT, 'perf-baseline.json');
 const VIEWPORT = { width: 390, height: 844 };
 const DPR = 3;
-const MIN_FREE_BYTES = 4 * 1024 ** 3;
-const LOCK_STALE_MS = 45 * 60_000;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const log = (...a) => console.log(...a);
 
 // ── The machine ────────────────────────────────────────────────────────
-
-const LOCK = has('no-lock') ? null
-  : (process.env.VMX_HEAVY_LOCK || (process.platform === 'win32' && fs.existsSync('C:/dev') ? 'C:/dev/heavy-gate.lock' : null));
-
-async function takeLock() {
-  if (!LOCK) return () => {};
-  const mine = `vetmock-perf pid=${process.pid} ${new Date().toISOString()}\n`;
-  let told = false;
-  for (;;) {
-    if (os.freemem() < MIN_FREE_BYTES) {
-      log(`waiting: ${(os.freemem() / 1024 ** 3).toFixed(1)} GB free, ${(MIN_FREE_BYTES / 1024 ** 3).toFixed(0)} GB needed`);
-      await sleep(60_000);
-      continue;
-    }
-    try {
-      fs.writeFileSync(LOCK, mine, { flag: 'wx' });
-      break;
-    } catch (error) {
-      if (error.code !== 'EEXIST') throw error;
-    }
-    let age = 0;
-    let holder = '';
-    try { age = Date.now() - fs.statSync(LOCK).mtimeMs; holder = fs.readFileSync(LOCK, 'utf8').trim(); } catch { continue; }
-    if (age >= LOCK_STALE_MS) {
-      console.error(`${LOCK} is ${Math.round(age / 60_000)} min old (${holder}). A lock that old is probably left over; remove it yourself if its owner is gone.`);
-      process.exit(2);
-    }
-    if (!told) { log(`waiting for ${LOCK} (${holder}, ${Math.round(age / 60_000)} min old)`); told = true; }
-    await sleep(60_000);
-  }
-  const release = () => {
-    try { if (fs.readFileSync(LOCK, 'utf8') === mine) fs.unlinkSync(LOCK); } catch { /* already gone */ }
-  };
-  process.once('exit', release);
-  for (const signal of ['SIGINT', 'SIGTERM']) process.once(signal, () => { release(); process.exit(130); });
-  return release;
-}
 
 function freePort() {
   return new Promise((resolve, reject) => {
@@ -408,7 +368,6 @@ async function main() {
   // A headless run has no GPU compositing: its numbers are printed but never judged against a baseline taken with one.
   const baseline = !HEADLESS && fs.existsSync(BASELINE) ? JSON.parse(fs.readFileSync(BASELINE, 'utf8')) : null;
   if (HEADLESS) log('perf: --headless: numbers only, nothing is compared with perf-baseline.json');
-  const release = await takeLock();
   const server = await startServer();
   const browser = await chromium.launch(HEADLESS ? {} : {
     headless: false,
@@ -451,7 +410,7 @@ async function main() {
     const dirty = git('status', '--porcelain', '--', 'src', 'public', 'index.html', 'atlas.html', 'vite.config.js') ? ' (+ uncommitted changes)' : '';
     const heading = `npm run perf at ${commit}${dirty}: ${HEADLESS ? 'headless' : 'headed'} Chromium ${browser.version()}, ${CPU}x CPU, ${VIEWPORT.width}x${VIEWPORT.height} touch, ${RUNS} runs${slower.length && CONFIRM && !UPDATE ? ' (slower scenarios pooled with a second set)' : ''}, ~${hz} Hz`;
     log(`\n${heading}\n\n${table(rows)}\n`);
-    // The table is what a release pull request body carries; the raw runs stay for looking into a number.
+    // The table is what the pull request body carries; the raw runs stay for looking into a number.
     const saved = path.join(ROOT, 'test-results', 'perf');
     fs.mkdirSync(saved, { recursive: true });
     fs.writeFileSync(path.join(saved, 'last.md'), `${heading}\n\n${table(rows)}\n`);
@@ -507,7 +466,6 @@ async function main() {
   } finally {
     await browser.close();
     server.stop();
-    release();
   }
   return code;
 }
