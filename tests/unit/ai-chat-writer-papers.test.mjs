@@ -154,6 +154,15 @@ test('the output filter drops CJK and emoji and fixes a middle dot split across 
   assert.equal(plainText('Family · Genus **bold** [12:30-13:00]'), 'Family, Genus bold (12:30-13:00)');
 });
 
+test('a stray Vietnamese word goes, even split across chunks; English words split across chunks stay whole', () => {
+  const f = createOutputFilter();
+  let out = '';
+  for (const chunk of ['วัคซีนรวม cù', 'ng CAV และ fluid ther', 'apy ', 'ของ được ', 'สี café au lait']) out += f.push(chunk);
+  out += f.flush();
+  assert.equal(out, 'วัคซีนรวม CAV และ fluid therapy ของ สี café au lait');
+  assert.ok(f.dropped() > 0);
+});
+
 // ── papers ───────────────────────────────────────────────────────────────
 const EFETCH = `<?xml version="1.0"?><PubmedArticleSet>
 <PubmedArticle><MedlineCitation><PMID Version="1">111</PMID><Article><Abstract>
