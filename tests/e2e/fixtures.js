@@ -15,7 +15,7 @@
 // test.use({ pinCalendar: false }): Playwright's clock and this shim do not
 // stack (the shim would re-offset the clock's instant). The unit pin
 // tests/unit/e2e-clock-pin.test.mjs allows the opt-out only beside page.clock.
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 
 export * from '@playwright/test';
 
@@ -45,4 +45,17 @@ export const test = base.extend({
     await use(context);
   },
 });
+
+// The practice settings' own count box. On WebKit under load a typed count was sometimes written over by a
+// render that landed between the keystroke and its input event (CI, 27 Oct: "ข้อ 5 จาก 10" after typing 5),
+// so the count is typed again until the start button names it. Returns that button.
+export async function setPracticeCount(page, n) {
+  const box = page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ });
+  const start = page.getByRole('button', { name: new RegExp(`เริ่มฝึก ${n} ข้อ`) });
+  await expect(async () => {
+    await box.fill(String(n));
+    await expect(start).toBeVisible({ timeout: 1_000 });
+  }).toPass({ timeout: 15_000 });
+  return start;
+}
 
