@@ -197,18 +197,21 @@ export class TextIndex {
       score *= Math.pow(Math.max(coverage, 0.05), 0.75);
       if (boost) score *= boost(d) || 1;
       const facet = facetWords.length > 0 && facetWords.some((w) => this.headings[d].includes(w));
-      results.push({ i: d, score, coverage, matched: s.matched, facet });
+      results.push({ i: d, score, coverage, matched: s.matched, facet, about: s.rare });
       const g = this.groups[d];
       if (g && score > (groupTop.get(g)?.score || 0)) groupTop.set(g, { score, coverage });
     }
     // The section headed with what the question asks for (Treatment,
     // Diagnosis, อาการ ...) is the answer inside an article that is about the
     // question, even when a sibling repeats the disease name more often: it
-    // takes most of its article's best score before the facet lift.
+    // takes most of its article's best score before the facet lift. "About"
+    // means the section or its article's title names the rare part of the
+    // question: an emergency lecture with one DKA section once lifted its
+    // Addison treatment section to the top answer for treating diabetes.
     for (const r of results) {
       if (!r.facet) continue;
       const top = this.groups[r.i] ? groupTop.get(this.groups[r.i]) : null;
-      if (top && top.score * 0.9 > r.score) {
+      if (top && top.score * 0.9 > r.score && (r.about || !anyRare)) {
         r.score = top.score * 0.9;
         r.coverage = Math.max(r.coverage, top.coverage * 0.9);
       }

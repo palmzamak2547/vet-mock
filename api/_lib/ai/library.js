@@ -326,6 +326,20 @@ export function filesCard(items, { related = false } = {}) {
 }
 
 /**
+ * The line above a files card, made from the card itself: it cannot name a
+ * file that is not there or say what a file does not (a model introducing the
+ * rabies deck added that rabies "ออกสอบบ่อย", production 2026-10-28).
+ */
+export function filesLead(items) {
+  const f = items[0];
+  const meta = [f.subjectName, f.pages ? `${f.pages} หน้า` : ''].filter(Boolean).join(', ');
+  const parts = [`ไฟล์ที่ตรงที่สุดคือ${f.kindLabel} **${f.title}**${meta ? ` (${meta})` : ''}`];
+  if (f.page > 1) parts.push(`เปิดแล้วไปที่หน้า ${f.page} ซึ่งตรงกับคำค้น`);
+  parts.push(items.length > 1 ? `การ์ดด้านล่างมี ${items.length} ไฟล์ กดเปิดหรือดาวน์โหลดได้` : 'กดเปิดหรือดาวน์โหลดจากการ์ดด้านล่างได้');
+  return parts.join(' ');
+}
+
+/**
  * One small search while the student is still typing: the TLS connection
  * (kept alive by fetch) and the database's plan and pages are warm by the
  * time the question arrives. Cold, the first search measured 1.2 to 1.8 s;

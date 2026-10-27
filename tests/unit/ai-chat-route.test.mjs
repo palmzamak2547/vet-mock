@@ -181,6 +181,20 @@ async function turn(messages, { plan, answer = ['ลองทำดู'], fetchE
   return events;
 }
 
+test('a planner reading that finds nothing does not take the typed question\'s sources away', async () => {
+  const q = 'อาการของโรคไข้หัดสุนัขมีอะไรบ้าง';
+  const stray = { intent: 'answer', query_th: 'quantum chromodynamics ของ gluon คืออะไร', terms_en: ['quantum chromodynamics', 'gluon'], subjects: [] };
+  const events = await turn([{ role: 'user', content: q }], { plan: stray });
+  const sources = events.find((e) => e.event === 'sources').data;
+  assert.equal(sources.covered, true);
+  assert.match(sources.items[0].title, /distemper/i, sources.items.map((s) => s.title).join('\n'));
+  // a follow-up has no reading of its own: the planner's stands, and says not covered
+  const follow = await turn([
+    { role: 'user', content: q }, { role: 'assistant', content: 'ไข้หัดสุนัขมีอาการ...' }, { role: 'user', content: 'แล้วในแมวล่ะ' },
+  ], { plan: stray });
+  assert.equal(follow.find((e) => e.event === 'sources').data.covered, false);
+});
+
 test('a quiz request gets a card of real questions before the answer', async () => {
   const events = await turn([{ role: 'user', content: 'ขอข้อสอบ COM5 5 ข้อ' }], { plan: { intent: 'quiz', query_th: 'ขอข้อสอบ COM V 5 ข้อ', terms_en: [], subjects: ['com5'], quiz_n: 5 } });
   const names = events.map((e) => e.event);

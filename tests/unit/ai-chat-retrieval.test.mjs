@@ -42,6 +42,19 @@ test('a rabies incubation question cites rabies material, from more than the wik
   assert.deepEqual(found.unmatched, []);
 });
 
+test('a disease the question names keeps its own lecture first when the planner adds its genus', () => {
+  // production 2026-10-28: "morbillivirus" counted as part of the question, the
+  // distemper clips fell under half coverage and rinderpest questions were cited
+  const { found, selected } = pick('อาการของโรคไข้หัดสุนัข (canine distemper) มีอะไรบ้าง', ['canine distemper', 'distemper', 'morbillivirus', 'dog', 'clinical signs']);
+  assert.ok(isCovered(selected));
+  assert.match(String(selected[0].doc.title), /distemper/i, where(selected[0]));
+  const about = selected.map((r) => `${r.doc.title} ${r.doc.topic || ''} ${r.doc.heading || ''}`);
+  assert.ok(about.every((a) => !/rinderpest|ephemeral|ruminant/i.test(a)), about.join('\n'));
+  assert.equal(found.concepts.find((c) => c.label === 'morbillivirus').core, false);
+  // with nothing named in the question, the planner's term is still what it is about
+  assert.equal(buildConcepts('อาการเป็นอย่างไร', { extraTerms: ['leptospirosis'] }).concepts.find((c) => c.label === 'leptospirosis').core, true);
+});
+
 test('a treatment question lands on the treatment section of the right article', () => {
   const { selected } = pick('รักษาลำไส้อักเสบจากพาร์โวไวรัสในลูกสุนัขยังไง', ['canine parvovirus', 'treatment']);
   assert.ok(selected.slice(0, 3).some((r) => r.doc.kind === 'wiki' && r.doc.topic === 'cve' && /treatment/i.test(r.doc.heading)), selected.map(where).join('\n'));

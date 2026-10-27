@@ -25,7 +25,7 @@
 
 import { retrieveForQuestion } from '../../../src/lib/vetwiki/retrieve.js';
 import { MAX_SOURCES, CONTEXT_CHARS, SNIPPET_CHARS } from './config.js';
-import { buildConcepts, snippetNeedles } from './concepts.js';
+import { buildConcepts, snippetNeedles, speciesIn } from './concepts.js';
 import { subjectName, topicLabel, questionText } from './corpus.js';
 import { guideSubtitle } from './guide.js';
 import { wikiLink, videoLink, questionSetLink, viewLink } from './links.js';
@@ -35,6 +35,8 @@ import { clip, contextText, plainText, snippetAround } from './text.js';
 const CONTEXT_CAP = { wiki: 2400, note: 2000, video: 2000, question: 1300, guide: 2600, paper: 1600, library: 1500 };
 // How many of each kind an answer may cite.
 const KIND_CAP = { wiki: 4, note: 3, video: 3, question: 2 };
+// What an article about another animal keeps of its score.
+const SPECIES_ELSEWHERE = 0.75;
 const KIND_LABEL = { wiki: 'VetWiki', note: 'สรุปบทเรียน', video: 'สรุปคลิปเลกเชอร์', question: 'ข้อสอบในคลัง', guide: 'ข้อมูลของ VetMock', paper: 'งานวิจัย', library: 'หน้าสไลด์หรือเอกสารจากห้องสมุด VetMock' };
 
 /** Section id → corpus position, built once per corpus. */
@@ -84,7 +86,19 @@ export function searchCorpus(corpus, { text, terms = [], wikiQueries = [] } = {}
   // model is told, so "Norberg angle" is answered as not covered rather than
   // from a section about some other angle.
   const unmatched = read.concepts.filter((c, i) => c.core && idf[i] === 0).map((c) => c.label).slice(0, 5);
-  return { ...read, anyRare, unmatched, ranked: results.map((r) => ({ ...r, doc: corpus.docs[r.i] })) };
+  // An article whose title names other animals than the one asked about steps
+  // back (it stays in, for when nothing else exists): the canine enteritis
+  // treatment section outranked the feline panleukopenia lecture's for a
+  // question about cats, and equine blood parasites a question about cattle.
+  const asked = new Set(read.concepts.map((c) => c.species).filter(Boolean));
+  const ranked = results.map((r) => {
+    const doc = corpus.docs[r.i];
+    if (!asked.size) return { ...r, doc };
+    const named = speciesIn(doc.title);
+    const other = named.size > 0 && ![...named].some((s) => asked.has(s));
+    return { ...r, doc, score: other ? r.score * SPECIES_ELSEWHERE : r.score };
+  }).sort((a, b) => b.score - a.score || a.i - b.i);
+  return { ...read, anyRare, unmatched, ranked };
 }
 
 const groupKey = (d) => (d.kind === 'video' ? `v:${d.videoId}` : d.kind === 'question' ? `q:${d.subject}:${d.topic}` : `${d.kind}:${d.subject}:${d.topic}`);
@@ -121,6 +135,19 @@ export function selectDocs(ranked, { max = MAX_SOURCES, kinds = null } = {}) {
 /** Does the selection answer the core of the question? */
 export function isCovered(selected) {
   return selected.some((r) => r.coverage >= 0.6 && r.score >= 3);
+}
+
+/**
+ * The search an answer cites from: the planner's reading, unless it finds
+ * nothing that answers the question while the question as typed does (one
+ * stray term once turned a distemper question into rinderpest citations). A
+ * follow-up ("แล้วในแมวล่ะ") has no reading of its own, so there the planner's
+ * stands.
+ */
+export function chooseSearch(typed, planned, { followUp = false } = {}) {
+  if (!typed || followUp) return planned;
+  const answers = (f) => isCovered(selectDocs(f.ranked));
+  return !answers(planned) && answers(typed) ? typed : planned;
 }
 
 // "[30:23-30:51]" or "[1:02:03" at the start of a clip heading → seconds.

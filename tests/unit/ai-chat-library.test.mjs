@@ -12,7 +12,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { garbled, rankFiles, searchPhrases, fileLinks, findFiles, pageSource, subjectLabel } from '../../api/_lib/ai/library.js';
+import { garbled, rankFiles, searchPhrases, fileLinks, findFiles, pageSource, subjectLabel, filesLead } from '../../api/_lib/ai/library.js';
 import { heuristicPlan, parsePlan, fileKindIn, asksForFiles } from '../../api/_lib/ai/planner.js';
 import { runChat } from '../../api/_lib/ai/pipeline.js';
 
@@ -163,7 +163,17 @@ test('a files turn: the card carries the files, before the short introduction', 
   assert.ok(names.indexOf('cards') < names.indexOf('delta'));
   assert.equal(events.find((e) => e.event === 'sources').data.items.length, 0);
   assert.equal(events.find((e) => e.event === 'sources').data.covered, true);
+  // the line above the card is made from the card, not written by the model
+  const text = events.filter((e) => e.event === 'delta').map((e) => e.data.text).join('');
+  assert.equal(text, filesLead(card.items));
+  assert.deepEqual(events.find((e) => e.event === 'check').data, { ungrounded: [], invalidCitations: [] });
   assert.equal(events.at(-1).event, 'done');
+});
+
+test('the line above a files card names the first file as the card shows it', () => {
+  const rabies = { title: 'Rabies', kindLabel: 'สไลด์', subjectName: 'COM V', pages: 34, page: 12 };
+  assert.equal(filesLead([rabies, rabies, rabies]), 'ไฟล์ที่ตรงที่สุดคือสไลด์ **Rabies** (COM V, 34 หน้า) เปิดแล้วไปที่หน้า 12 ซึ่งตรงกับคำค้น การ์ดด้านล่างมี 3 ไฟล์ กดเปิดหรือดาวน์โหลดได้');
+  assert.equal(filesLead([{ title: 'Reproduction in swine (VCA60-68)', kindLabel: 'ข้อสอบเก่า', subjectName: '', pages: null, page: null }]), 'ไฟล์ที่ตรงที่สุดคือข้อสอบเก่า **Reproduction in swine (VCA60-68)** กดเปิดหรือดาวน์โหลดจากการ์ดด้านล่างได้');
 });
 
 test('an answer turn: slide pages join the sources, their decks a related card', async () => {
