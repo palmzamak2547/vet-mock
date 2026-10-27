@@ -26,11 +26,14 @@ on:
 # Cancel in-flight runs when new commits land on the same ref —
 # saves Action minutes on rapid-fire pushes.
 concurrency:
-  group: build-${{ github.ref }}
   # A newer push replaces a pull request's run. On main every merge is a deploy that Vercel holds
-  # until build and smoke pass, so it is never cancelled: on 22 Oct #58 merged, #48 merged a
-  # minute later, #58's Build was cancelled, its deployment failed its checks and was not promoted,
-  # and #48's commit (vca/ only) was skipped by the Ignored Build Step, so #58 never went live.
+  # until build and smoke pass, so each main commit gets a group of its own and is never cancelled
+  # or replaced: on 22 Oct #58 merged, #48 merged a minute later, #58's Build was cancelled, its
+  # deployment failed its checks and was not promoted, and #48's commit (vca/ only) was skipped by
+  # the Ignored Build Step, so #58 never went live. One shared main group without cancel-in-progress
+  # was not enough: GitHub keeps one pending run per group and cancels the older pending one
+  # (a9e175ac, ef444c33 the same day).
+  group: build-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:

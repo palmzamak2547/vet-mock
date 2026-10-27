@@ -30,6 +30,26 @@ function mix(from, to, u) {
 /** The parameters of a still pose, the frame its image shows. */
 export const stillPose = (pose) => poseAt(pose, (STATES[pose]?.duration || 4) * STILL_AT);
 
+// Building the rig (an SVG string parsed into a few hundred nodes) was the
+// costly step, and it ran inside the answer tap: under a 4x CPU throttle the
+// tap's event time went 184 to 232 ms and long tasks 142 to 275 ms (5.160.0,
+// headed, median of 5). One rig is built ahead, in idle time, and reused:
+// a reaction only moves it into place.
+let spare = null;
+export function warmRig() {
+  if (!spare && typeof document !== 'undefined') spare = createRig2D(document.createElement('div'), { label: 'Mochi' });
+}
+function takeRig(host) {
+  const rig = spare || createRig2D(document.createElement('div'), { label: 'Mochi' });
+  spare = null;
+  host.append(rig.element);
+  return rig;
+}
+function giveBack(rig) {
+  rig.element.remove();
+  if (!spare) spare = rig;
+}
+
 /**
  * Plays `state` once inside `host`, ends on `pose`'s still, removes itself and
  * calls onDone. Returns a stop function (also safe after it finished).
@@ -42,7 +62,7 @@ export function playMochi(host, { state, pose, onDone }) {
   const still = stillPose(pose);
   const end = state === pose ? stillT : meta.duration;
   const blend = state === pose ? 0 : BLEND_S;
-  const rig = createRig2D(host, { label: 'Mochi' });
+  const rig = takeRig(host);
   rig.element.setAttribute('aria-hidden', 'true');
   let raf = 0;
   let t0 = null;
@@ -55,7 +75,7 @@ export function playMochi(host, { state, pose, onDone }) {
     document.removeEventListener('visibilitychange', onVisibility);
     // The still comes back first, then the rig leaves: no frame shows neither.
     onDone?.();
-    rig.destroy();
+    giveBack(rig);
   }
   const frame = (now) => {
     if (done) return;

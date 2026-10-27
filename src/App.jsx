@@ -60,6 +60,8 @@ import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/shar
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
 import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
+import { streakMoment, stashStreakMoment } from './lib/streak-moment.js';
+import { weekTrack } from './lib/study-record.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { viewTitle } from './lib/nav.js';
@@ -2210,12 +2212,16 @@ export default function App() {
       question_versions: Object.fromEntries(detailedEntries.map(entry => [entry.questionId, entry.questionVersion])),
     } : null;
     let savedStreak = null;
+    let streakBefore = null;
+    let historyAfter = null;
     const saved = changeUserData(current => {
       const identity = entry => `${entry.date}:${entry.subject || ''}:${entry.questionId}`;
       const known = new Set(current.history.map(identity));
       newEntries = newEntries.filter(entry => !known.has(identity(entry)));
       const patch = { history: [...current.history, ...newEntries] };
+      historyAfter = patch.history;
       if (newEntries.length) {
+        streakBefore = current.streakData;
         savedStreak = updateStreak(current.streakData.lastDate, current.streakData.streak, current.streakData.freezeUsedAt);
         patch.streakData = savedStreak;
         if (runResult && !current.pendingExamResults.some(entry => entry.id === runResult.id)) {
@@ -2238,6 +2244,16 @@ export default function App() {
         try { window.dispatchEvent(new CustomEvent('vmx-streak-freeze-used', { detail: newStreak.streak })); } catch {}
       }
     }
+    // What this set did to the day count, for its results page (the first
+    // set of a day says so there; lib/streak-moment.js). Only a saved set.
+    try {
+      const week = newEntries.length > 0 ? weekTrack(historyAfter, completedAt) : null;
+      const moment = week ? streakMoment(streakBefore, savedStreak) : null;
+      stashStreakMoment(moment && { ...moment, week }, completedAt);
+      // Inside the Android app: today is done (its reminder and home-screen
+      // widget follow). Undefined on the web.
+      if (week) window.VetMockApp?.studyDay?.({ streak: savedStreak.streak, answeredToday: week.at(-1).count, day: week.at(-1).date });
+    } catch { stashStreakMoment(null, completedAt); }
 
     // XP + Daily Quests + Night-rank promotion + Auto-promote wrong → SR.
     // Wrapped in try/catch so a single throw can't block the
