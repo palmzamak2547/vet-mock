@@ -21,9 +21,9 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 }
 /* glass once something can pass under it: always in a chat, on the landing page once scrolled */
 .mode-chat .hdr, :root[data-scrolled] .hdr {
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  backdrop-filter: blur(20px) saturate(150%);
+  background: var(--glass-thin);
+  -webkit-backdrop-filter: blur(11px) saturate(140%);
+  backdrop-filter: blur(11px) saturate(140%);
   border-bottom: 1px solid var(--glass-edge);
 }
 .hdr { border-bottom: 1px solid transparent; }
@@ -128,7 +128,7 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   content: '';
   position: absolute;
   inset: -28px -50vw calc(-1 * max(var(--s3), var(--safe-b)) - 4px);
-  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 88%, transparent) 46%);
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 72%, transparent) 46%);
   z-index: -1;
   pointer-events: none;
 }
@@ -727,8 +727,9 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 .specimen-sci { font-family: 'Inter', var(--font-ui); font-style: italic; font-size: 13px; color: var(--text-2); text-shadow: 0 1px 12px var(--bg); }
 
 /* ── footer: the floor of the sea ─────────────────────── */
-/* one centred column, the width of the box above; the water darkens (or pales,
-   in light) under the words so nothing swims through a number you are reading */
+/* one centred column, the width of the box above. The water dims (or pales, in
+   light) under the words, but stays see-through: the animals still pass behind,
+   the numbers stay readable (Palm 10-27: translucent beats opaque) */
 .ftr {
   position: relative;
   z-index: var(--z-content);
@@ -737,7 +738,7 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   display: grid;
   gap: var(--s5);
   text-align: center;
-  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 84%, transparent) var(--s7));
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 58%, transparent) var(--s7));
 }
 .ftr-stats { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); }
 @media (min-width: 560px) { .ftr-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
