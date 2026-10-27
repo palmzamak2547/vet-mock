@@ -77,8 +77,17 @@ export default async function handler(req, res) {
   }
   const sendLink = (body, cacheSeconds = 0) => {
     if (url.searchParams.get('open') === '1') {
+      // &dl=1[&name=] (VetMock AI's download button): the blob stream labels
+      // the bytes as an attachment under that name (it sanitises the name
+      // itself). Only the label changes, never which bytes; other stores open
+      // as they are.
+      let location = body.url;
+      if (url.searchParams.get('dl') === '1' && location.startsWith('/api/library-blob?')) {
+        const name = String(url.searchParams.get('name') || '').slice(0, 150);
+        location += `&dl=1${name ? `&name=${encodeURIComponent(name)}` : ''}`;
+      }
       res.statusCode = 302;
-      res.setHeader('Location', body.url);
+      res.setHeader('Location', location);
       res.setHeader('Cache-Control', 'no-store');
       return res.end();
     }

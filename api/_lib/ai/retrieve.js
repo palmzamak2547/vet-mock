@@ -32,10 +32,10 @@ import { wikiLink, videoLink, questionSetLink, viewLink } from './links.js';
 import { clip, contextText, plainText, snippetAround } from './text.js';
 
 // What one source may contribute to the model's context, by kind.
-const CONTEXT_CAP = { wiki: 2400, note: 2000, video: 2000, question: 1300, guide: 2600, paper: 1600 };
+const CONTEXT_CAP = { wiki: 2400, note: 2000, video: 2000, question: 1300, guide: 2600, paper: 1600, library: 1500 };
 // How many of each kind an answer may cite.
 const KIND_CAP = { wiki: 4, note: 3, video: 3, question: 2 };
-const KIND_LABEL = { wiki: 'VetWiki', note: 'สรุปบทเรียน', video: 'สรุปคลิปเลกเชอร์', question: 'ข้อสอบในคลัง', guide: 'ข้อมูลของ VetMock', paper: 'งานวิจัย' };
+const KIND_LABEL = { wiki: 'VetWiki', note: 'สรุปบทเรียน', video: 'สรุปคลิปเลกเชอร์', question: 'ข้อสอบในคลัง', guide: 'ข้อมูลของ VetMock', paper: 'งานวิจัย', library: 'หน้าสไลด์หรือเอกสารจากห้องสมุด VetMock' };
 
 /** Section id → corpus position, built once per corpus. */
 function wikiPositions(corpus) {

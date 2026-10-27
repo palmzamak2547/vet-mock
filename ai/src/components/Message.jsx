@@ -1,6 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { Markdown, inline } from '../lib/markdown.jsx';
-import { IconArrowOut, IconCheck, IconCopy, IconRetry, IconSpeaker, IconStop, IconBook, IconShare } from './icons.jsx';
+import { IconArrowOut, IconCheck, IconCopy, IconRetry, IconSpeaker, IconStop, IconBook, IconShare, IconDownload } from './icons.jsx';
+import { IN_APP } from '../lib/env.js';
 import ShareMenu, { toast } from './ShareMenu.jsx';
 import { speak } from '../lib/speech.js';
 import { speciesOf } from '../lib/species.js';
@@ -76,8 +77,16 @@ function Sources({ items, open, setOpen, highlight }) {
           }
         }}
       >
+        {/* the closed deck: a card per source, a pixel animal on the ones that name a species */}
         <span className="deck" aria-hidden="true">
-          {items.slice(0, 4).map((s, i) => <span key={s.n} className={`deck-card k-${s.kind}`} style={{ '--i': i }} />)}
+          {items.slice(0, 4).map((s, i) => {
+            const sp = speciesOf(s);
+            return (
+              <span key={s.n} className={`deck-card k-${s.kind}${sp ? ' has-plate' : ''}`} style={{ '--i': i }}>
+                {sp && <span className="deck-ink" style={{ '--plate': `url(/art/specimens/${sp}-s.svg)` }} />}
+              </span>
+            );
+          })}
         </span>
         <span>แหล่งที่มา {items.length}</span>
       </button>
@@ -204,10 +213,70 @@ function PapersCard({ card }) {
   );
 }
 
+const fmtSize = (b) => (!b ? '' : b >= 1e6 ? `${(b / 1e6).toFixed(b >= 1e7 ? 0 : 1)} MB` : `${Math.max(1, Math.round(b / 1e3))} KB`);
+
+/** One study file: what it is, where the topic is in it, and two ways in. */
+function FileRow({ f, i }) {
+  const sp = speciesOf({ title: f.title, subject: f.subjectName });
+  const meta = [f.kindLabel, f.subjectName, f.lecturer, f.pages ? `${f.pages} หน้า` : '', [f.format, fmtSize(f.bytes)].filter(Boolean).join(' ')].filter(Boolean);
+  return (
+    <li className={`file kf-${f.kind}`} style={{ '--i': i }}>
+      {sp ? (
+        <span className="plate file-thumb" aria-hidden="true">
+          <span className="plate-ink" style={{ '--plate': `url(/art/specimens/${sp}.svg)` }} />
+        </span>
+      ) : (
+        // a page with its corner turned: the format, and how many pages
+        <span className="file-sheet file-thumb" aria-hidden="true">
+          <span className="file-sheet-format">{f.format || 'FILE'}</span>
+          {f.pages ? <span className="file-sheet-pages">{f.pages}</span> : null}
+        </span>
+      )}
+      <div className="file-body">
+        <a className="file-title" href={f.open} target="_blank" rel="noopener noreferrer">{f.title}</a>
+        <span className="file-meta">{meta.join(', ')}</span>
+        {f.snippet && (
+          <p className="file-snip">{f.page > 1 ? <span className="file-page">หน้า {f.page}</span> : null}{f.snippet}</p>
+        )}
+        <div className="file-actions">
+          <a className="chip-btn" href={f.open} target="_blank" rel="noopener noreferrer">
+            <IconArrowOut size={15} /> {f.page > 1 ? `เปิดหน้า ${f.page}` : 'เปิด'}
+          </a>
+          {/* in-app browsers do not save files; there the file opens and saves from its own viewer */}
+          {!IN_APP && (
+            <a className="chip-btn" href={f.download} rel="noopener">
+              <IconDownload size={15} /> ดาวน์โหลด
+            </a>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
+/** Files from the study library: the answer to "ขอสไลด์...", or the decks
+ *  behind an answer (related), each opened at the page that discusses it. */
+function FilesCard({ card }) {
+  const items = card.items || [];
+  if (!items.length) return null;
+  return (
+    <section className={`card files${card.related ? ' is-related' : ''}`} aria-label={card.related ? 'สไลด์ที่เกี่ยวข้อง' : 'สไลด์และเอกสาร'}>
+      <div className="card-head">
+        <span className="card-kind">{card.related ? 'สไลด์ที่เกี่ยวข้อง' : 'สไลด์และเอกสาร'}</span>
+        <span className="card-title">{items.length} ไฟล์ จากห้องสมุด VetMock</span>
+      </div>
+      <ol className="file-list">
+        {items.map((f, i) => <FileRow key={f.slug} f={f} i={i} />)}
+      </ol>
+    </section>
+  );
+}
+
 function Card({ card }) {
   if (card.type === 'quiz') return <QuizCard card={card} />;
   if (card.type === 'action') return <ActionCard card={card} />;
   if (card.type === 'papers') return <PapersCard card={card} />;
+  if (card.type === 'files') return <FilesCard card={card} />;
   return null;
 }
 
@@ -302,6 +371,7 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
               answer={m.content}
               sources={sources}
               quiz={(m.cards || []).filter((c) => c.type === 'quiz').flatMap((c) => c.questions || [])}
+              files={(m.cards || []).filter((c) => c.type === 'files').flatMap((c) => c.items || [])}
               getHtml={() => htmlFor(body.current)}
               onClose={() => setSharing(false)}
             />

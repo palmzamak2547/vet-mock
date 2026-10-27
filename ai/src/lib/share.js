@@ -45,20 +45,28 @@ export function shareText(question, answerMd, limit = 1400) {
 
 export const lineUrl = (text) => `https://line.me/R/share?text=${encodeURIComponent(text)}`;
 
-/** Markdown with the sources as a numbered link list (Notion keeps both). */
-export function markdownWithSources(question, answerMd, sources = []) {
+/** A study file as one line of an export: its title, then where it opens. */
+const fileLabel = (f) => `${f.title}${f.page > 1 ? ` (หน้า ${f.page})` : ''}`;
+
+/** Markdown with the sources as a numbered link list and the files as a list
+ *  of links that open at their page (Notion keeps both). */
+export function markdownWithSources(question, answerMd, sources = [], files = []) {
   const src = sources.length ? `\n\n**แหล่งที่มา**\n${sources.map((s) => `${s.n}. [${s.title}](${s.url})`).join('\n')}` : '';
-  return `## ${question.trim()}\n\n${answerMd.trim()}${src}\n\n_จาก ${SITE}_`;
+  const fl = files.length ? `\n\n**สไลด์และเอกสาร**\n${files.map((f) => `- [${fileLabel(f)}](${f.open})`).join('\n')}` : '';
+  return `## ${question.trim()}\n\n${answerMd.trim()}${src}${fl}\n\n_จาก ${SITE}_`;
 }
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
-/** Rich text for Google Docs: the rendered answer's HTML plus linked sources. */
-export function htmlWithSources(question, answerHtml, sources = []) {
+/** Rich text for Google Docs: the rendered answer's HTML plus linked sources and files. */
+export function htmlWithSources(question, answerHtml, sources = [], files = []) {
   const src = sources.length
     ? `<p><strong>แหล่งที่มา</strong></p><ol>${sources.map((s) => `<li><a href="${esc(s.url)}">${esc(s.title)}</a></li>`).join('')}</ol>`
     : '';
-  return `<h2>${esc(question.trim())}</h2>${answerHtml}${src}<p><em>จาก ${SITE}</em></p>`;
+  const fl = files.length
+    ? `<p><strong>สไลด์และเอกสาร</strong></p><ul>${files.map((f) => `<li><a href="${esc(f.open)}">${esc(fileLabel(f))}</a></li>`).join('')}</ul>`
+    : '';
+  return `<h2>${esc(question.trim())}</h2>${answerHtml}${src}${fl}<p><em>จาก ${SITE}</em></p>`;
 }
 
 /** Anki "Basic" notes, tab separated, one per line; tabs and newlines inside a

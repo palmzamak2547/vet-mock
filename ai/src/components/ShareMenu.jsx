@@ -10,7 +10,7 @@ export const toast = (text) => window.dispatchEvent(new CustomEvent('vmai:toast'
 /** One answer, sent where the student keeps things. Order follows use: a Thai
  *  student's first move is LINE, then notes, then review. Download-based
  *  targets are left out inside in-app browsers, which do not save files. */
-export default function ShareMenu({ question, answer, sources, quiz, getHtml, onClose, anchor }) {
+export default function ShareMenu({ question, answer, sources, quiz, files = [], getHtml, onClose, anchor }) {
   const panel = useRef(null);
   const [placeAbove, setPlaceAbove] = useState(true);
 
@@ -36,7 +36,7 @@ export default function ShareMenu({ question, answer, sources, quiz, getHtml, on
     {
       id: 'notion', name: 'Notion', act: 'วางในหน้าใหม่',
       run: async () => {
-        await navigator.clipboard.writeText(markdownWithSources(question, answer, sources));
+        await navigator.clipboard.writeText(markdownWithSources(question, answer, sources, files));
         open('https://www.notion.so/new');
         done('คัดลอกแล้ว วางในหน้า Notion ได้เลย');
       },
@@ -44,7 +44,7 @@ export default function ShareMenu({ question, answer, sources, quiz, getHtml, on
     {
       id: 'google-docs', name: 'Google Docs', act: 'วางในเอกสารใหม่',
       run: async () => {
-        await copyRich(htmlWithSources(question, getHtml(), sources), markdownWithSources(question, answer, sources));
+        await copyRich(htmlWithSources(question, getHtml(), sources, files), markdownWithSources(question, answer, sources, files));
         open('https://docs.new');
         done('คัดลอกแล้ว วางใน Google Docs ได้เลย');
       },

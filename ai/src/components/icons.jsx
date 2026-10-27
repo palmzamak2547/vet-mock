@@ -24,3 +24,4 @@ export const IconTrash = (p) => <S {...p}><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8
 export const IconDown = (p) => <S {...p}><path d="M12 5v14M6 13l6 6 6-6" /></S>;
 export const IconShare = (p) => <S {...p}><path d="M12 15V3.5" /><path d="M7.5 8L12 3.5 16.5 8" /><path d="M5 12.5v5A2.5 2.5 0 007.5 20h9a2.5 2.5 0 002.5-2.5v-5" /></S>;
 export const IconBook = (p) => <S {...p}><path d="M4 5.5A1.5 1.5 0 015.5 4H11v16H5.5A1.5 1.5 0 014 18.5zM20 5.5A1.5 1.5 0 0018.5 4H13v16h5.5a1.5 1.5 0 001.5-1.5z" /></S>;
+export const IconDownload = (p) => <S {...p}><path d="M12 4v11" /><path d="M7.5 10.5L12 15l4.5-4.5" /><path d="M5 19.5h14" /></S>;
