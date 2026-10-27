@@ -18,6 +18,8 @@ import {
 } from '../lib/external-doc-client.js';
 import { rememberViewIntent } from '../lib/feature-registry.js';
 import { CALENDAR_YEARS } from '../lib/exam-calendar.js';
+import { usualStudyTime } from '../lib/study-reminder.js';
+import ReminderPicker from '../components/ReminderPicker.jsx';
 import { ankiText } from '../lib/anki-export.js';
 import { loadPins } from '../lib/pinboard.js';
 import { stillWrong, historyKey } from '../lib/wrong-pool.js';
@@ -134,7 +136,8 @@ function DocsSection({ user, setView }) {
   );
 }
 
-function CalendarSection({ selectedYear }) {
+function CalendarSection({ selectedYear, history }) {
+  const usual = useMemo(() => usualStudyTime(history), [history]);
   const [year, setYear] = useState(CALENDAR_YEARS.includes(selectedYear) ? selectedYear : CALENDAR_YEARS.at(-1));
   const [copied, setCopied] = useState(false);
   const feed = `${ORIGIN}/api/calendar?year=${year}`;
@@ -174,6 +177,10 @@ function CalendarSection({ selectedYear }) {
         {!CALENDAR_YEARS.includes(selectedYear) && selectedYear != null && (
           <p className="vmx-conn-note">ตอนนี้มีตารางสอบของปี {CALENDAR_YEARS.join(' และปี ')}</p>
         )}
+      </Card>
+      <Card logo={<span className="vmx-conn-logo is-glyph"><NavIcon name="exam" size={24} /></span>} title="เตือนทำโจทย์ทุกวัน">
+        <p className="vmx-conn-does">เลือกเวลาที่สะดวก แล้วเพิ่มนัดที่ซ้ำทุกวันลงปฏิทินของคุณ</p>
+        <ReminderPicker usual={usual} />
       </Card>
     </section>
   );
@@ -248,7 +255,7 @@ export default function ConnectAppsView({ goHome, setView, user, history, select
       <h1>เชื่อมแอป</h1>
       <p className="vmx-conn-lead">ใช้ VetMock คู่กับแอปที่คุณใช้อยู่แล้ว</p>
       <DocsSection user={user} setView={setView} />
-      <CalendarSection selectedYear={Number(selectedYear) || null} />
+      <CalendarSection selectedYear={Number(selectedYear) || null} history={history} />
       <AnkiSection history={history} />
     </div>
   );

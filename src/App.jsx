@@ -62,6 +62,7 @@ import { recordQuestEvent } from './lib/quests.js';
 import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
 import { streakMoment, stashStreakMoment } from './lib/streak-moment.js';
 import { weekTrack } from './lib/study-record.js';
+import { usualStudyTime } from './lib/study-reminder.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { viewTitle } from './lib/nav.js';
@@ -1073,6 +1074,7 @@ export default function App() {
       // without being added here.
       import('./components/ImageAnnotator.jsx').catch(() => {});
       import('./components/QComments.jsx').catch(() => {});
+      import('./components/ReminderPicker.jsx').catch(() => {});
       // The 3D mascot viewer is the one exception: it carries all of three.js,
       // loads only on a tap and sits behind its own ErrorBoundary in Results.
       // Confetti is cosmetic, but its import is a bare .then() in ResultsView,
@@ -2249,7 +2251,7 @@ export default function App() {
     try {
       const week = newEntries.length > 0 ? weekTrack(historyAfter, completedAt) : null;
       const moment = week ? streakMoment(streakBefore, savedStreak) : null;
-      stashStreakMoment(moment && { ...moment, week }, completedAt);
+      stashStreakMoment(moment && { ...moment, week, usual: usualStudyTime(historyAfter, completedAt) }, completedAt);
       // Inside the Android app: today is done (its reminder and home-screen
       // widget follow). Undefined on the web.
       if (week) window.VetMockApp?.studyDay?.({ streak: savedStreak.streak, answeredToday: week.at(-1).count, day: week.at(-1).date });
