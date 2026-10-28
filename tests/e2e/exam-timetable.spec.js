@@ -9,6 +9,27 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
+// Safari on iPad drew right-aligned and centred Thai lines starting at their
+// anchor (Palm's iPad, 28 Oct): the semester, the issue date and every room
+// ran off the page. Playwright's WebKit does not reproduce it, so the page must
+// never ask the canvas to align Thai text at all; card.text places it itself.
+test('the printed page never relies on canvas alignment for Thai text', async ({ page }) => {
+  await page.addInitScript(() => {
+    const seen = (window.__thaiAligns = []);
+    const fill = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, ...rest) {
+      if (/[฀-๿]/.test(String(text))) seen.push(this.textAlign);
+      return fill.call(this, text, ...rest);
+    };
+  });
+  await page.goto('/app/schedule');
+  await page.getByRole('button', { name: 'ดาวน์โหลดตารางสอบ' }).click();
+  await expect(page.locator('.vmx-timetable-preview')).toHaveAttribute('data-state', 'ready', { timeout: 60_000 });
+  const aligns = await page.evaluate(() => [...new Set(window.__thaiAligns)]);
+  expect(aligns.length).toBeGreaterThan(0);
+  expect(aligns.filter((a) => a !== 'left' && a !== 'start')).toEqual([]);
+});
+
 // The suite's pinned day (25 Sep) is after the last midterm paper, so the
 // page to print is the finals.
 test('the exam timetable downloads as an A4 PDF whose layout check is clean', async ({ page }) => {
