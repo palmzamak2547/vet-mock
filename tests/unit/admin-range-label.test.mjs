@@ -55,6 +55,7 @@ const STUBS = {
     'export const checkIsAdmin = () => globalThis.__vmxAdmin.checkIsAdmin();',
     'export const adminRpc = (name, args) => globalThis.__vmxAdmin.rpc(name, args);',
     "export const isForbidden = (err) => err?.code === '42501' || /forbidden/i.test(String(err?.message || ''));",
+    'export const systemStatus = () => new Promise(() => {});',
   ].join('\n'),
   '../lib/supabase.js': 'export const hasSupabase = true;',
   '../components/PrivateNotes.jsx': 'export default function PrivateNotes() { return null; }',

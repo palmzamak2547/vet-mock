@@ -29,4 +29,13 @@ export async function adminRpc(name, args = {}) {
   return data;
 }
 
+/** The outside services' check (api/system-status.js); the server repeats the admin gate. */
+export async function systemStatus() {
+  const sb = await client();
+  const { data: { session } = {} } = (await sb?.auth.getSession()) || {};
+  const res = await fetch('/api/system-status', { headers: { Authorization: `Bearer ${session?.access_token || ''}` } });
+  if (!res.ok) throw Object.assign(new Error(`ระบบตอบ ${res.status}`), { code: String(res.status) });
+  return res.json();
+}
+
 export const isForbidden = (err) => err?.code === '42501' || /forbidden/i.test(String(err?.message || ''));

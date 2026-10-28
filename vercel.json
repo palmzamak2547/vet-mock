@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "ignoreCommand": "[ \"$VERCEL_ENV\" = production ] || exit 0; git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':!docs' ':!.github' ':!.claude' ':!research' ':!vca' ':!ai' ':!mobile' ':!tests' ':!playwright.config.js' ':(exclude,glob)*.md' || exit 1",
+  "crons": [
+    { "path": "/api/ai-chat?warm=1", "schedule": "17 3 * * *" }
+  ],
   "functions": {
     "api/ai-chat.js": {
       "regions": [
