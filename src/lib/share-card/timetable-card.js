@@ -63,8 +63,10 @@ function paintsSerifWeight() {
 
 /** Right-aligned by the ink: a closing mark (the ์ of "ศัลย์") inks past the advance. */
 function textRight(card, str, x, y, style, role) {
-  card.style({ ...style, align: 'right' });
-  const over = Math.max(0, card.ctx.measureText(String(str)).actualBoundingBoxRight ?? 0);
+  // Measured left-aligned: card.text never relies on the canvas's own alignment.
+  card.style({ ...style, align: 'left' });
+  const m = card.ctx.measureText(String(str));
+  const over = Math.max(0, (m.actualBoundingBoxRight ?? m.width) - m.width);
   return card.text(str, x - over, y, { ...style, align: 'right' }, role);
 }
 

@@ -1,0 +1,231 @@
+[
+  {
+    "q": "ORT ในไก่ เกิดจากเชื้ออะไร มีอาการอย่างไร และควบคุมป้องกันอย่างไร",
+    "plan": {"query_th":"ORT ในไก่ เกิดจากเชื้ออะไร มีอาการอย่างไร และควบคุมป้องกันอย่างไร","terms_en":["Ornithobacterium rhinotracheale","ORT","turkey","chicken","respiratory disease","biosecurity"],"subjects":["avian-medicine","poultry"]},
+    "library": {
+      "search": {
+        "ornithobacterium rhinotracheale": [
+          {"slug":"advanced-clinical-chemistry-pcr-based-application-for-vet-medicine-ii-gs-12c770","page":58,"hits":1},
+          {"slug":"ae-adeno-salmo-omphalitis-ascites-staph-717e8d","page":4,"hits":1},
+          {"slug":"ornithobacteriosis-ort-3-พ-ย-69-1e5d09","page":2,"hits":1}
+        ],
+        "ornithobacterium rhinotracheale ort": [
+          {"slug":"advanced-clinical-chemistry-pcr-based-application-for-vet-medicine-ii-gs-12c770","page":58,"hits":1},
+          {"slug":"ae-adeno-salmo-omphalitis-ascites-staph-717e8d","page":4,"hits":1},
+          {"slug":"ornithobacteriosis-ort-3-พ-ย-69-1e5d09","page":2,"hits":1}
+        ],
+        "ควบคุม": [
+          {"slug":"นโยบายภาครัฐ-และการป้องกัน-ควบคุมและกำจัดโรคระบาดสัตว์-114020","page":1,"hits":55},
+          {"slug":"muscular-system-laboratory-handout-a59da4","page":10,"hits":33},
+          {"slug":"นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย-b24d2d","page":3,"hits":30},
+          {"slug":"5-standard-of-milk-industry-and-milk-products-sj-2026-4b3e8a","page":7,"hits":29},
+          {"slug":"กฎหมายเกี่ยวกับยา-และการควบคุมการใช้ยาในสัตว์-1adf00","page":1,"hits":28},
+          {"slug":"ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี-8eb6c9","page":10,"hits":27},
+          {"slug":"7-disease-control-prevention-and-eradication-การควบคุม-ป้องกัน-และกำจัดโรค-41006c","page":1,"hits":22},
+          {"slug":"fiqc-sp-e3-7c4d8c","page":1,"hits":20},
+          {"slug":"fiqc-sp-e2-45b7c8","page":1,"hits":18},
+          {"slug":"vca-archive-58e5c90b1f74c9fc","page":4,"hits":15}
+        ]
+      },
+      "docs": [
+        {"slug":"5-standard-of-milk-industry-and-milk-products-sj-2026-4b3e8a","title":"5. Standard of milk industry and milk products SJ 2026","kind":"slide","subject":"milk-meat-hygiene","year":5,"page_count":89},
+        {"slug":"7-disease-control-prevention-and-eradication-การควบคุม-ป้องกัน-และกำจัดโรค-41006c","title":"7. Disease Control, Prevention and Eradication (การควบคุม ป้องกัน และกำจัดโรค)","kind":"slide","subject":"epidemiology","year":5,"page_count":57},
+        {"slug":"กฎหมายเกี่ยวกับยา-และการควบคุมการใช้ยาในสัตว์-1adf00","title":"กฎหมายเกี่ยวกับยา และการควบคุมการใช้ยาในสัตว์","kind":"slide","subject":"vet-juris","year":4,"page_count":123},
+        {"slug":"ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี-8eb6c9","title":"ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี","kind":"handout","subject":"milk-meat-hygiene","year":5,"page_count":76},
+        {"slug":"นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย-b24d2d","title":"นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย","kind":"slide","subject":"epidemiology","year":5,"page_count":44},
+        {"slug":"นโยบายภาครัฐ-และการป้องกัน-ควบคุมและกำจัดโรคระบาดสัตว์-114020","title":"นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์","kind":"slide","subject":"epidemiology","year":5,"page_count":63},
+        {"slug":"advanced-clinical-chemistry-pcr-based-application-for-vet-medicine-ii-gs-12c770","title":"Advanced clinical chemistry : PCR-based application for vet medicine II (GS)","kind":"slide","subject":"vet-clin-chem","year":3,"page_count":64},
+        {"slug":"ae-adeno-salmo-omphalitis-ascites-staph-717e8d","title":"AE Adeno Salmo Omphalitis Ascites Staph","kind":"slide","subject":"avian-medicine","year":5,"page_count":228},
+        {"slug":"fiqc-sp-e2-45b7c8","title":"FIQC_SP_E2","kind":"slide","subject":"food-industry","year":5,"page_count":55},
+        {"slug":"fiqc-sp-e3-7c4d8c","title":"FIQC_SP_E3","kind":"slide","subject":"food-industry","year":5,"page_count":91},
+        {"slug":"muscular-system-laboratory-handout-a59da4","title":"Muscular system: Laboratory handout","kind":"handout","subject":"vet-anat-1","year":1,"page_count":99},
+        {"slug":"ornithobacteriosis-ort-3-พ-ย-69-1e5d09","title":"Ornithobacteriosis (ORT) (3 พ.ย. 69)","kind":"slide","subject":"avian-medicine","year":5,"page_count":32},
+        {"slug":"vca-archive-58e5c90b1f74c9fc","title":"VCA VPHJUR 2025_F.pdf","kind":"handout","subject":"vca","year":5,"page_count":134}
+      ]
+    },
+    "first": "ornithobacteriosis-ort-3-พ-ย-69-1e5d09",
+    "never": "นโยบายภาครัฐ|Disease Control, Prevention"
+  },
+  {
+    "q": "ในการจัดการอะควาเรียม ทำไม pH และอุณหภูมิจึงมีผลต่อความเป็นพิษของแอมโมเนีย",
+    "plan": {"query_th":"ในการจัดการอะควาเรียม ทำไม pH และอุณหภูมิจึงมีผลต่อความเป็นพิษของแอมโมเนีย","terms_en":["ammonia toxicity","unionized ammonia","pH","temperature","aquarium","fish"],"subjects":["aquatic-clinic"]},
+    "library": {
+      "search": {
+        "ammonia toxicity unionized ammonia": [],
+        "ammonia toxicity": [
+          {"slug":"vca-archive-5a6d56c4a1069867","page":8,"hits":4},
+          {"slug":"vca-archive-2822ef8283d748d0","page":16,"hits":3},
+          {"slug":"vca-archive-a09ae4d9b8512242","page":20,"hits":3},
+          {"slug":"vca-archive-a6f3f9c10b38224a","page":9,"hits":3},
+          {"slug":"common-household-products-and-industrial-toxicants-i-c7e7ad","page":15,"hits":2},
+          {"slug":"vca-archive-0c6945f17781b4d1","page":83,"hits":2},
+          {"slug":"vca-archive-df1f9c06925063cc","page":7,"hits":2},
+          {"slug":"herbicides-and-fungicides-a755cc","page":15,"hits":1},
+          {"slug":"metabolism-016b80","page":69,"hits":1}
+        ],
+        "แอมโมเนีย": [
+          {"slug":"aquarium-management-สรุปภาษาไทย-20-ต-ค-69-4b3d76","page":4,"hits":8},
+          {"slug":"metabolism-of-protein-and-amino-acid-sa-08c799","page":6,"hits":7},
+          {"slug":"cn-การทำความสะอาดและฆ่าเชื้อโรคและการจัดการควบคุมแมลงและสัตว์ฟันแทะในฟาร์มสัตว์ป-3e120f","page":17,"hits":4},
+          {"slug":"vca-archive-2822ef8283d748d0","page":7,"hits":3},
+          {"slug":"vca-archive-8c7536e863292103","page":25,"hits":3},
+          {"slug":"vca-archive-a09ae4d9b8512242","page":11,"hits":3},
+          {"slug":"vca-archive-a6f3f9c10b38224a","page":2,"hits":3},
+          {"slug":"vca-archive-ca611e90796fb60b","page":38,"hits":3},
+          {"slug":"vca-archive-ee2e6f4c98503466","page":34,"hits":3},
+          {"slug":"avian-pathogenic-e-coli-7b243b","page":18,"hits":2}
+        ]
+      },
+      "docs": [
+        {"slug":"aquarium-management-สรุปภาษาไทย-20-ต-ค-69-4b3d76","title":"Aquarium Management สรุปภาษาไทย (20 ต.ค. 69)","kind":"slide","subject":"aquatic-clinic","year":5,"page_count":57},
+        {"slug":"avian-pathogenic-e-coli-7b243b","title":"Avian Pathogenic E.coli","kind":"handout","subject":"avian-medicine","year":5,"page_count":51},
+        {"slug":"cn-การทำความสะอาดและฆ่าเชื้อโรคและการจัดการควบคุมแมลงและสัตว์ฟันแทะในฟาร์มสัตว์ป-3e120f","title":"CN การทำความสะอาดและฆ่าเชื้อโรคและการจัดการควบคุมแมลงและสัตว์ฟันแทะในฟาร์มสัตว์ปีก","kind":"slide","subject":"poultry","year":4,"page_count":54},
+        {"slug":"common-household-products-and-industrial-toxicants-i-c7e7ad","title":"Common household products and industrial toxicants I","kind":"slide","subject":"vet-tox","year":3,"page_count":53},
+        {"slug":"herbicides-and-fungicides-a755cc","title":"Herbicides and fungicides","kind":"slide","subject":"vet-tox","year":3,"page_count":21},
+        {"slug":"metabolism-016b80","title":"metabolism","kind":"handout","subject":"vet-physio-3","year":2,"page_count":72},
+        {"slug":"metabolism-of-protein-and-amino-acid-sa-08c799","title":"Metabolism of protein and amino acid (SA)","kind":"handout","subject":"biochem-2","year":2,"page_count":114},
+        {"slug":"vca-archive-0c6945f17781b4d1","title":"(VCA67) Aquatic animal medicine (Ornamental fish) VCA 2024 pdf.pdf","kind":"handout","subject":"vca","year":5,"page_count":96},
+        {"slug":"vca-archive-2822ef8283d748d0","title":"Aquatic medicine (VCA58-67).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":32},
+        {"slug":"vca-archive-5a6d56c4a1069867","title":"เฉลย Vetku 80 - ไฮโซแตงกวา.pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":952},
+        {"slug":"vca-archive-8c7536e863292103","title":"AVIAN MEDICINE (58-66).pdf","kind":"handout","subject":"vca","year":5,"page_count":34},
+        {"slug":"vca-archive-a09ae4d9b8512242","title":"Aquatic medicine (VCA58-68).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":36},
+        {"slug":"vca-archive-a6f3f9c10b38224a","title":"Aqua medicine ปี 58-66.pdf","kind":"handout","subject":"vca","year":5,"page_count":24},
+        {"slug":"vca-archive-ca611e90796fb60b","title":"Avian medicine (VCA58-68).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":48},
+        {"slug":"vca-archive-df1f9c06925063cc","title":"Aqua medicine ปี 58-65.pdf","kind":"handout","subject":"vca","year":5,"page_count":20},
+        {"slug":"vca-archive-ee2e6f4c98503466","title":"Avian medicine (VCA58-67).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":44}
+      ]
+    },
+    "first": "aquarium-management-สรุปภาษาไทย-20-ต-ค-69-4b3d76",
+    "cites": "Aquarium Management"
+  },
+  {
+    "q": "หลักการดูแลโลมาหรือพะยูนที่เกยตื้นในประเทศไทยมีอะไรบ้าง",
+    "plan": {"query_th":"หลักการดูแลโลมาหรือพะยูนที่เกยตื้นในประเทศไทยมีอะไรบ้าง","terms_en":["dolphin","dugong","stranding","marine mammal","rescue","Thailand"],"subjects":["aquatic-clinic","exotic"]},
+    "library": {
+      "search": {
+        "dolphin dugong": [],
+        "dolphin": [
+          {"slug":"conservation-aquatic-animal-management-medicine-marine-mammals-2026-52bd37","page":6,"hits":8},
+          {"slug":"21-1-pathology-of-zoo-amp-wildlife-lab-48fbd1","page":3,"hits":3},
+          {"slug":"14-2-lab-neuropathol-d06ab1","page":2,"hits":2},
+          {"slug":"course-syllabus-8c34b0","page":13,"hits":2},
+          {"slug":"vp-ii-2025-digital-slide-lab-23e0e1","page":5,"hits":2},
+          {"slug":"02-1-2024-vp-ii-lecture-cardiovascular-system-4f9c40","page":3,"hits":1},
+          {"slug":"03-1-pathology-of-respiratory-system-2024-part-1-3704c3","page":19,"hits":1},
+          {"slug":"07-1-hepatobililary-pathology-part-1-703473","page":2,"hits":1},
+          {"slug":"10-2-integumentary-system-lecture-note-a5aa1c","page":64,"hits":1},
+          {"slug":"15-neuropathol-02-fac39a","page":23,"hits":1}
+        ],
+        "ประเทศไทย": [
+          {"slug":"class-14-gtci-report-2023-03975a","page":2,"hits":40},
+          {"slug":"class-8-human-achievement-report-thailand-c04e3c","page":5,"hits":33},
+          {"slug":"class-8-การพัฒนาช่องทางและเพิ่มทักษะเด็กและเยาวชน-c53b21","page":4,"hits":23},
+          {"slug":"5100101-class-7-สังคมสูงวัย-ประเด็นท้าทายและแนวทางการรับมือ-a09987","page":2,"hits":22},
+          {"slug":"3-สมุดพ่อพันธุ์โคนม-กรมปศุสัตว์-fb2639","page":3,"hits":13},
+          {"slug":"นโยบายภาครัฐ-และการป้องกัน-ควบคุมและกำจัดโรคระบาดสัตว์-114020","page":20,"hits":13},
+          {"slug":"5100101-ความไม่สอดคล้องในตลาดแรงงานไทย-ทำงานต่ำระดับ-e6342e","page":2,"hits":12},
+          {"slug":"7-disease-control-prevention-and-eradication-การควบคุม-ป้องกัน-และกำจัดโรค-41006c","page":3,"hits":10},
+          {"slug":"swine-viruses-ko-เอกสารประกอบการสอน-6b79cd","page":2,"hits":10},
+          {"slug":"vca-archive-adb9411df0ac5006","page":57,"hits":10}
+        ]
+      },
+      "docs": [
+        {"slug":"02-1-2024-vp-ii-lecture-cardiovascular-system-4f9c40","title":"02.1 2024-VP II-Lecture-Cardiovascular system","kind":"slide","subject":"vet-path-2","year":3,"page_count":59},
+        {"slug":"03-1-pathology-of-respiratory-system-2024-part-1-3704c3","title":"03.1 Pathology of respiratory system 2024 Part 1","kind":"handout","subject":"vet-path-2","year":3,"page_count":35},
+        {"slug":"07-1-hepatobililary-pathology-part-1-703473","title":"07.1 Hepatobililary Pathology Part 1","kind":"handout","subject":"vet-path-2","year":3,"page_count":88},
+        {"slug":"10-2-integumentary-system-lecture-note-a5aa1c","title":"10.2 Integumentary system lecture note","kind":"slide","subject":"vet-path-2","year":3,"page_count":77},
+        {"slug":"14-2-lab-neuropathol-d06ab1","title":"14.2 LAB-Neuropathol","kind":"handout","subject":"vet-path-2","year":3,"page_count":14},
+        {"slug":"15-neuropathol-02-fac39a","title":"15 Neuropathol 02","kind":"handout","subject":"vet-path-2","year":3,"page_count":97},
+        {"slug":"21-1-pathology-of-zoo-amp-wildlife-lab-48fbd1","title":"21.1 Pathology of ZOO&WILDLIFE LAB","kind":"handout","subject":"vet-path-2","year":3,"page_count":19},
+        {"slug":"3-สมุดพ่อพันธุ์โคนม-กรมปศุสัตว์-fb2639","title":"3_สมุดพ่อพันธุ์โคนม กรมปศุสัตว์","kind":"summary","subject":"practrum","year":4,"page_count":116},
+        {"slug":"5100101-ความไม่สอดคล้องในตลาดแรงงานไทย-ทำงานต่ำระดับ-e6342e","title":"5100101 ความไม่สอดคล้องในตลาดแรงงานไทย (ทำงานต่ำระดับ)","kind":"handout","subject":"5100101","year":null,"page_count":57},
+        {"slug":"5100101-class-7-สังคมสูงวัย-ประเด็นท้าทายและแนวทางการรับมือ-a09987","title":"5100101 Class 7 สังคมสูงวัย ประเด็นท้าทายและแนวทางการรับมือ","kind":"slide","subject":"5100101","year":null,"page_count":84},
+        {"slug":"7-disease-control-prevention-and-eradication-การควบคุม-ป้องกัน-และกำจัดโรค-41006c","title":"7. Disease Control, Prevention and Eradication (การควบคุม ป้องกัน และกำจัดโรค)","kind":"slide","subject":"epidemiology","year":5,"page_count":57},
+        {"slug":"นโยบายภาครัฐ-และการป้องกัน-ควบคุมและกำจัดโรคระบาดสัตว์-114020","title":"นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์","kind":"slide","subject":"epidemiology","year":5,"page_count":63},
+        {"slug":"class-14-gtci-report-2023-03975a","title":"Class 14 GTCI Report 2023","kind":"handout","subject":"5100101","year":null,"page_count":41},
+        {"slug":"class-8-การพัฒนาช่องทางและเพิ่มทักษะเด็กและเยาวชน-c53b21","title":"Class 8 การพัฒนาช่องทางและเพิ่มทักษะเด็กและเยาวชน","kind":"handout","subject":"5100101","year":null,"page_count":63},
+        {"slug":"class-8-human-achievement-report-thailand-c04e3c","title":"Class 8 Human Achievement Report (Thailand)","kind":"handout","subject":"5100101","year":null,"page_count":174},
+        {"slug":"conservation-aquatic-animal-management-medicine-marine-mammals-2026-52bd37","title":"Conservation Aquatic Animal Management & Medicine: marine mammals (2026)","kind":"slide","subject":"aquatic-clinic","year":5,"page_count":110},
+        {"slug":"course-syllabus-8c34b0","title":"course syllabus","kind":"handout","subject":"vet-path-2","year":3,"page_count":14},
+        {"slug":"swine-viruses-ko-เอกสารประกอบการสอน-6b79cd","title":"Swine viruses_KO_เอกสารประกอบการสอน","kind":"handout","subject":"vet-microbio-2","year":3,"page_count":28},
+        {"slug":"vca-archive-adb9411df0ac5006","title":"VCA 2026_Animal Ectoparasite_Sonthaya.pdf","kind":"handout","subject":"vca","year":5,"page_count":159},
+        {"slug":"vp-ii-2025-digital-slide-lab-23e0e1","title":"VP II 2025 digital slide LAB","kind":"slide","subject":"vet-path-2","year":3,"page_count":6}
+      ]
+    },
+    "first": "conservation-aquatic-animal-management-medicine-marine-mammals-2026-52bd37"
+  },
+  {
+    "q": "ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข",
+    "plan": {"query_th":"ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข","terms_en":["pyometra","dog","antibiotic","cefazolin","E. coli","canine"],"subjects":[]},
+    "library": {
+      "search": {
+        "pyometra dog": [
+          {"slug":"12-1-reproductive-lect-1-da0357","page":2,"hits":4},
+          {"slug":"vca-archive-5a6d56c4a1069867","page":676,"hits":2},
+          {"slug":"1-gi-enterobacterales-536172","page":19,"hits":1},
+          {"slug":"19-1-bone-joint-lecture-4a18af","page":45,"hits":1},
+          {"slug":"enteric-protozoa-dr-woraporn-9e0f6a","page":19,"hits":1},
+          {"slug":"gastrointestinal-system-6bda34","page":23,"hits":1},
+          {"slug":"l5-higher-bacteria-d59698","page":24,"hits":1},
+          {"slug":"mucosoflagellates-dr-woraporn-ee66e6","page":16,"hits":1},
+          {"slug":"pdf-content-physical-examination-of-dogs-and-cats-cliniciansbrief-afcc58","page":7,"hits":1}
+        ],
+        "pyometra": [
+          {"slug":"vca-archive-5a6d56c4a1069867","page":21,"hits":20},
+          {"slug":"12-1-reproductive-lect-1-da0357","page":2,"hits":6},
+          {"slug":"lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f","page":11,"hits":6},
+          {"slug":"vca-archive-3ec44c0b970bc4c4","page":2,"hits":3},
+          {"slug":"vca-archive-5b271343b5ff3096","page":10,"hits":3},
+          {"slug":"vca-archive-ecadbc52017d351e","page":3,"hits":3},
+          {"slug":"vca-archive-eef3558c37c2eae2","page":4,"hits":3},
+          {"slug":"เอกสารประกอบการบรรยาย-อ-กฤษ-2-50126a","page":25,"hits":3},
+          {"slug":"mucosoflagellates-dr-woraporn-ee66e6","page":12,"hits":2},
+          {"slug":"vca-archive-05f639d61b178330","page":4,"hits":2}
+        ],
+        "ยาปฏิชีวนะ": [
+          {"slug":"vca-archive-9a31ae2ed9be9802","page":2,"hits":15},
+          {"slug":"milk-book-updated-4-a2202c","page":8,"hits":13},
+          {"slug":"vca-archive-c544e5285460fc2c","page":2,"hits":13},
+          {"slug":"vca-archive-cbf00bbdbc275fa1","page":6,"hits":7},
+          {"slug":"vca-archive-ce5158ba0d88b4fc","page":4,"hits":6},
+          {"slug":"vca-archive-e0df9648176620f4","page":8,"hits":6},
+          {"slug":"2-04-24-lab-sample-collection-handling-and-preparation-lab-protocol-at-400fef","page":1,"hits":5},
+          {"slug":"vca-archive-4944535e4fcfabc9","page":7,"hits":5},
+          {"slug":"vca-archive-6c1b819be688f9eb","page":6,"hits":5},
+          {"slug":"vca-archive-78e2953c26432555","page":2,"hits":5}
+        ]
+      },
+      "docs": [
+        {"slug":"12-1-reproductive-lect-1-da0357","title":"12.1 Reproductive-lect-1","kind":"handout","subject":"vet-path-2","year":3,"page_count":56},
+        {"slug":"19-1-bone-joint-lecture-4a18af","title":"19.1 Bone-Joint-lecture","kind":"slide","subject":"vet-path-2","year":3,"page_count":52},
+        {"slug":"1-gi-enterobacterales-536172","title":"1_GI Enterobacterales","kind":"handout","subject":"vet-microbio-2","year":3,"page_count":40},
+        {"slug":"2-04-24-lab-sample-collection-handling-and-preparation-lab-protocol-at-400fef","title":"2-04-24_Lab_Sample collection, handling and preparation_Lab protocol_AT","kind":"handout","subject":"vet-microbio-1","year":2,"page_count":5},
+        {"slug":"เอกสารประกอบการบรรยาย-อ-กฤษ-2-50126a","title":"เอกสารประกอบการบรรยาย อ กฤษ (2)","kind":"slide","subject":"vet-juris","year":4,"page_count":61},
+        {"slug":"enteric-protozoa-dr-woraporn-9e0f6a","title":"Enteric Protozoa (Dr. Woraporn)","kind":"handout","subject":"com5","year":4,"page_count":48},
+        {"slug":"gastrointestinal-system-6bda34","title":"Gastrointestinal system","kind":"slide","subject":"com1","year":4,"page_count":79},
+        {"slug":"l5-higher-bacteria-d59698","title":"L5 Higher Bacteria","kind":"handout","subject":"vet-microbio-1","year":2,"page_count":31},
+        {"slug":"lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f","title":"Lecture 7: ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า","kind":"slide","subject":"equine-repro","year":5,"page_count":41},
+        {"slug":"milk-book-updated-4-a2202c","title":"Milk Book (updated 4)","kind":"handout","subject":"milk-meat-hygiene","year":5,"page_count":166},
+        {"slug":"mucosoflagellates-dr-woraporn-ee66e6","title":"Mucosoflagellates (Dr. Woraporn)","kind":"handout","subject":"vet-parasit-1","year":2,"page_count":20},
+        {"slug":"pdf-content-physical-examination-of-dogs-and-cats-cliniciansbrief-afcc58","title":"PDF content - physical examination of dogs and cats (cliniciansbrief)","kind":"pastpaper","subject":"principles-vet-med","year":3,"page_count":8},
+        {"slug":"vca-archive-05f639d61b178330","title":"Reproduction in ruminants (VCA58-67).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":28},
+        {"slug":"vca-archive-3ec44c0b970bc4c4","title":"repro in dog cat-VCA 58 - 66.pdf","kind":"handout","subject":"vca","year":5,"page_count":20},
+        {"slug":"vca-archive-4944535e4fcfabc9","title":"Rum Med (VCA_66-58).pdf","kind":"handout","subject":"vca","year":5,"page_count":63},
+        {"slug":"vca-archive-5a6d56c4a1069867","title":"เฉลย Vetku 80 - ไฮโซแตงกวา.pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":952},
+        {"slug":"vca-archive-5b271343b5ff3096","title":"Reproduction in dogs and cats (VCA58-68).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":28},
+        {"slug":"vca-archive-6c1b819be688f9eb","title":"Swine medicine (VCA58-67).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":37},
+        {"slug":"vca-archive-78e2953c26432555","title":"VCA-Rum Med (_65-58).pdf","kind":"handout","subject":"vca","year":5,"page_count":59},
+        {"slug":"vca-archive-9a31ae2ed9be9802","title":"ข้อสอบเพิ่มเติม(Entomology)","kind":"pastpaper","subject":"vca","year":5,"page_count":54},
+        {"slug":"vca-archive-c544e5285460fc2c","title":"ข้อสอบเพิ่มเติม(Entomology).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":56},
+        {"slug":"vca-archive-cbf00bbdbc275fa1","title":"VETKU ข้อสอบเล่ม 8.pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":1073},
+        {"slug":"vca-archive-ce5158ba0d88b4fc","title":"Ruminant Medicine (VCA58-67).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":54},
+        {"slug":"vca-archive-e0df9648176620f4","title":"Ruminant Medicine (VCA58-68).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":60},
+        {"slug":"vca-archive-ecadbc52017d351e","title":"VCA-58-67-สูติสัตว์เล็ก2025.pdf","kind":"handout","subject":"vca","year":5,"page_count":23},
+        {"slug":"vca-archive-eef3558c37c2eae2","title":"Reproduction in dogs and cats (VCA58-67).pdf","kind":"pastpaper","subject":"vca","year":5,"page_count":21}
+      ]
+    },
+    "first": "vca-archive-3ec44c0b970bc4c4",
+    "every": "repro",
+    "never": "Entomology|Sample collection|ในม้า"
+  }
+]

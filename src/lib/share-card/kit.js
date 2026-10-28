@@ -219,11 +219,21 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
     return card.text(str, x, y, style, role);
   };
 
-  /** Draw one line at a baseline; returns its ink box. */
+  /**
+   * Draw one line at a baseline; returns its ink box. Right and centre are
+   * placed here from the measured advance and the text is always drawn
+   * left-aligned. Safari on iPad ignored textAlign for Thai lines (Palm's
+   * iPad, 28 Oct 2026: every right-aligned or centred Thai line started at
+   * its anchor and ran off the page, while Latin numerals aligned), and a
+   * left-aligned advance measures the same in every engine.
+   */
   card.text = (str, x, y, style = {}, role = 'text') => {
-    card.style(style);
+    const align = style.align ?? 'left';
+    card.style({ ...style, align: 'left' });
     const s = String(str);
-    ctx.fillText(s, x, y);
+    const m = ctx.measureText(s);
+    const at = align === 'right' ? x - m.width : align === 'center' ? x - m.width / 2 : x;
+    ctx.fillText(s, at, y);
     // `embolden`: a stroke in the text's own ink, for an engine that paints a
     // variable face's default weight whatever weight it was asked for. A
     // card that does not set it gets fauxBold's, decided once per card.
@@ -237,14 +247,13 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
       ctx.lineWidth = stroke;
       ctx.lineJoin = 'round';
       ctx.strokeStyle = ctx.fillStyle;
-      ctx.strokeText(s, x, y);
+      ctx.strokeText(s, at, y);
       ctx.restore();
     }
-    const m = ctx.measureText(s);
     const box = {
       role, text: s, size: style.size ?? SIZE.s, family: style.family ?? FAMILY.label,
-      left: x - (m.actualBoundingBoxLeft ?? 0),
-      right: x + (m.actualBoundingBoxRight ?? m.width),
+      left: at - (m.actualBoundingBoxLeft ?? 0),
+      right: at + (m.actualBoundingBoxRight ?? m.width),
       top: y - (m.actualBoundingBoxAscent ?? 0),
       bottom: y + (m.actualBoundingBoxDescent ?? 0),
     };
@@ -395,9 +404,10 @@ export function masthead(card, left, right) {
   if (right) {
     const style = { weight: 500, size: SIZE.xs, family: FAMILY.label, color: card.pal.soft, align: 'right' };
     // Set by the ink: a closing mark (the ์ of "สัตว์") inks past the advance
-    // and left the live area by 5 px.
-    card.style(style);
-    const over = Math.max(0, card.ctx.measureText(String(right)).actualBoundingBoxRight ?? 0);
+    // and left the live area by 5 px. Measured left-aligned (see card.text).
+    card.style({ ...style, align: 'left' });
+    const m = card.ctx.measureText(String(right));
+    const over = Math.max(0, (m.actualBoundingBoxRight ?? m.width) - m.width);
     card.text(right, live.right - over, y, style, 'masthead');
   }
   rule(card, y + 22);

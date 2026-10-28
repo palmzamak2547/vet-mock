@@ -4,7 +4,7 @@
 //
 // What this provides:
 //   • One-call audio synthesis using Microsoft Edge neural voices
-//     (Premwadee Thai / Aria English) regardless of browser.
+//     (Niwat Thai / Aria English) regardless of browser.
 //   • Aggressive IndexedDB caching keyed by hash(lang+rate+text). A Q
 //     played once is instant on every replay across sessions.
 //   • Cancellable playback so navigating to a new Q stops audio mid-flight.

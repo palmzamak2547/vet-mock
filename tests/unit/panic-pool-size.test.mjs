@@ -216,9 +216,10 @@ test('a year-5 compilation row that names no paper is in Panic band 1, not band 
 // examOrigin says a cohort sat the paper or marked the point, while the
 // past-paper regex does not read that wording. The swine rows recalled after
 // the seniors' final ("ไฟนอล Vet 85 บันทึกหลังสอบ"), the zoonoses recalled
-// sections and the avian points "บันทึกไว้ในสรุปสรุป" were all band 2. Until
-// isPastPaperQuestion reads src/data/exam-origins.js, the tag is what brings
-// them in, and it never makes one a sat paper.
+// sections and the avian points "บันทึกไว้ในสรุปสรุป" were all band 2. Since
+// 2026-10-28 isPastPaperQuestion reads src/data/exam-origins.js for typed
+// rows, so a filed paper is band 0 on its own; exam guidance still needs the
+// tag, and the tag never makes one a sat paper.
 test('a row whose examOrigin is filed as a paper or as exam guidance is never band 2', async () => {
   const { panicRank, isPastPaperQuestion } = await import('../../src/lib/question-metadata.js');
   const { originEntry } = await import('../../src/data/exam-origins.js');

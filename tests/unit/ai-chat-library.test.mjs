@@ -43,6 +43,26 @@ test('a deck named for the topic beats a long compilation that mentions it often
   assert.equal(rankFiles(docs.filter((d) => d.slug !== 'rabies'), { terms: ['rabies'], subjects: ['com5'] })[0].subject, 'zoonoses');
 });
 
+test('a title naming the specific term beats titles naming only words every lecture uses', () => {
+  // production 2026-10-28, "ORT ในไก่ ... ควบคุมป้องกันอย่างไร": the policy deck's title
+  // says ควบคุม and ป้องกัน and the search for ควบคุม found 55 of its 63 pages
+  const docs = [
+    { slug: 'policy', title: 'นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์', kind: 'slide', subject: 'epidemiology', page_count: 63, hits: 55, found: [{ hits: 55, weight: 0.4 }] },
+    { slug: 'ort', title: 'Ornithobacteriosis (ORT) (3 พ.ย. 69)', kind: 'slide', subject: 'avian-medicine', page_count: 32, hits: 1, found: [{ hits: 1, weight: 1 }] },
+    { slug: 'report', title: 'Class 8 Human Achievement Report (Thailand)', kind: 'handout', subject: '5100101', page_count: 174, hits: 33, found: [{ hits: 33, weight: 0.4 }] },
+  ];
+  // what termSpecificity measures against ORT's idf in VetMock's own text
+  const specificity = (t) => ({ ort: 1, ควบคุม: 0.4, ป้องกัน: 0.34, โรค: 0.25, การ: 0.1 }[t] ?? 1);
+  const ranked = rankFiles(docs, { terms: ['ORT', 'ควบคุม', 'ป้องกัน', 'โรค', 'การ'], specificity });
+  assert.equal(ranked[0].slug, 'ort', ranked.map((d) => `${d.slug} ${d.score.toFixed(2)}`).join(', '));
+  assert.ok(ranked[0].titleHit, 'the deck named for ORT names the topic');
+  const policy = ranked.find((d) => d.slug === 'policy');
+  assert.ok(!policy.titleHit, 'ควบคุม and ป้องกัน in a title do not name the topic');
+  assert.ok(!ranked.find((d) => d.slug === 'report').titleHit, 'ORT is a word: "Report" does not hold it');
+  // with no specificity measured, every term counts in full, as before
+  assert.ok(rankFiles(docs, { terms: ['ORT', 'ควบคุม'] }).find((d) => d.slug === 'policy').titleHit);
+});
+
 test('search phrases: specific English first, then the pair, then the strongest Thai term', () => {
   assert.deepEqual(searchPhrases({ terms: ['rabies', 'incubation period'], needles: ['ระยะฟักตัว', 'rabies'] }), ['rabies', 'rabies incubation period', 'ระยะฟักตัว']);
   assert.deepEqual(searchPhrases({ terms: [], needles: ['พิษสุนัขบ้า'] }), ['พิษสุนัขบ้า']);

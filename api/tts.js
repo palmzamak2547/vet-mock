@@ -34,11 +34,15 @@ export const config = {
   maxDuration: 10,
 };
 
-// Voice mapping. Premwadee/Niwat = Thai neural; Aria/Jenny = US English
-// neural. We pick female voices by default (Aria, Premwadee) since
-// female voices test better for clinical content clarity.
+// Voice mapping. Edge has two Thai neural voices, Premwadee (female) and
+// Niwat (male); Aria is US English. Thai was Premwadee until 29 Oct 2026:
+// measured that night from Bangkok with msedge-tts 2.1.1, Premwadee closed
+// the socket before turn.end on a two-sentence stem in 9 of 12 tries (three
+// output formats), so a long question waited ~2.7 s and then fell to the
+// device voice. Niwat read the same stem 6 of 6. A short line works in both,
+// which is why a one-word probe never showed it.
 const VOICE_MAP = {
-  th: 'th-TH-PremwadeeNeural',
+  th: 'th-TH-NiwatNeural',
   en: 'en-US-AriaNeural',
 };
 
