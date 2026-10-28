@@ -17,10 +17,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { voiceFor } from '../../src/lib/tts-voices.js';
 
-// ── The key both engines used before the extraction (verbatim) ──────────
-async function legacyHashKey({ text, lang, rate }) {
-  const data = new TextEncoder().encode(`${lang}|${Number(rate).toFixed(2)}|${text}`);
+// ── The key both engines used before the extraction (verbatim), plus the ──
+// voice prefix the Edge engine adds since 5.172.1.
+async function legacyHashKey({ text, lang, rate, voice = '' }) {
+  const data = new TextEncoder().encode(`${voice ? `${voice}|` : ''}${lang}|${Number(rate).toFixed(2)}|${text}`);
   if (typeof crypto?.subtle?.digest !== 'function') {
     // Fallback: simple FNV-1a 32-bit hash
     let h = 2166136261;
@@ -99,8 +101,9 @@ const ENGINES = [
     db: 'vmx-tts',
     endpoint: '/api/tts',
     load: async () => (await import(`../../src/lib/tts-edge.js?t=${++seq}`)).getEdgeAudio,
-    // The Edge engine keys on the rate it is given.
-    legacyKey: ({ text, lang, rate = 1.0 }) => legacyHashKey({ text, lang, rate }),
+    // The Edge engine keys on the rate it is given, and since 5.172.1 on the
+    // voice /api/tts speaks, so a voice change retires clips cached in the old one.
+    legacyKey: ({ text, lang, rate = 1.0 }) => legacyHashKey({ text, lang, rate, voice: voiceFor(lang) }),
   },
   {
     name: 'iApp',
@@ -246,6 +249,24 @@ for (const engine of ENGINES) {
     } finally { env.restore(); }
   });
 }
+
+// The Thai voice moved from Premwadee to Niwat (5.169.3). A clip cached in
+// the old voice must not play inside a question read in the new one: a long
+// stem fetched fresh in Niwat and its short options from a Premwadee cache.
+test('Edge: a clip cached in another voice is fetched again, not mixed into the question', async () => {
+  const env = install();
+  try {
+    const get = await ENGINES[0].load();
+    const data = new Map();
+    env.idb.dbs.set('vmx-tts', data);
+    const p = PHRASES[0];
+    data.set(await legacyHashKey(p), { audio: new Uint8Array([9]).buffer, ts: Date.now(), bytes: 1 });
+    data.set(await legacyHashKey({ ...p, voice: 'th-TH-PremwadeeNeural' }), { audio: new Uint8Array([9]).buffer, ts: Date.now(), bytes: 1 });
+    const got = await get(p);
+    assert.notDeepEqual([...new Uint8Array(got)], [9], 'a clip in another voice played');
+    assert.equal(env.calls.length, 1, 'the phrase is fetched in the current voice');
+  } finally { env.restore(); }
+});
 
 test('one IndexedDB implementation serves both voices', () => {
   const read = (p) => readFileSync(new URL(p, import.meta.url), 'utf8');

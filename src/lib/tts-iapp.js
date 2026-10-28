@@ -20,7 +20,7 @@
 //     (b) The last call didn't return 503 "iapp not configured"
 //         (cached for the session so we don't keep hammering an
 //         endpoint that needs a key set in Vercel env).
-//   On failure → ladder to Edge Premwadee → Web Speech.
+//   On failure → ladder to Edge (Niwat) → Web Speech.
 //
 // When to bail:
 //   503 from server (no IAPP_API_KEY set) → mark provider unavailable

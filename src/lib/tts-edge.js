@@ -4,7 +4,7 @@
 //
 // What this provides:
 //   • One-call audio synthesis using Microsoft Edge neural voices
-//     (Premwadee Thai / Aria English) regardless of browser.
+//     (Niwat Thai / Aria English) regardless of browser.
 //   • Aggressive IndexedDB caching keyed by hash(lang+rate+text). A Q
 //     played once is instant on every replay across sessions.
 //   • Cancellable playback so navigating to a new Q stops audio mid-flight.
@@ -21,6 +21,7 @@
 // ============================================================
 
 import { audioCacheKey, createAudioCache } from './tts-cache.js';
+import { voiceFor } from './tts-voices.js';
 
 const FETCH_TIMEOUT_MS = 8000;
 // Cached MP3 chunks live in their own database ('vmx-tts'), bounded and
@@ -33,7 +34,7 @@ const cache = createAudioCache({ dbName: 'vmx-tts' });
  * @throws on network/timeout/non-200
  */
 export async function getEdgeAudio({ text, lang, rate = 1.0 }, signal) {
-  const key = await audioCacheKey({ text, lang, rate });
+  const key = await audioCacheKey({ text, lang, rate, voice: voiceFor(lang) });
 
   // A hit younger than 30 days plays from the device; an older one is
   // dropped and fetched fresh, which also picks up the voice updates
