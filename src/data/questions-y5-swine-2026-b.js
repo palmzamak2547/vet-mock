@@ -92,7 +92,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-gi-viral",
+    "topic": "swine-ileitis-bacti",
     "year": 5,
     "type": "mcq",
     "q": "การจัดการอาหารเพื่อควบคุม hemolytic E. coli คือข้อใด",
@@ -116,7 +116,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-gi-viral",
+    "topic": "swine-ileitis-bacti",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดตรงกับกลไกที่ทำให้ pH อุจจาระของสุกรต่างกันระหว่างการติดเชื้อแบคทีเรียกับไวรัส",
@@ -455,7 +455,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-cns",
+    "topic": "swine-prv-je",
     "year": 5,
     "type": "mcq",
     "q": "โรค Aujeszky's disease หรือ AD ในสุกร ทำให้เกิดความผิดปกติเด่นในระบบใดบ้าง",
@@ -480,7 +480,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-cns",
+    "topic": "swine-prv-je",
     "year": 5,
     "type": "mcq",
     "q": "การแยกสุกรที่ทำวัคซีน ADV ชนิด gE-deleted ออกจากสุกรที่ติดเชื้อธรรมชาติ อ่านผลตรวจแบบใด",
