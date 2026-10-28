@@ -1883,7 +1883,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'equine-acupuncture', examScope: 'final', label: 'Veterinary acupuncture in equine', icon: '🪡', lecturer: 'Weerapongse Tangjitjaroen', lecturer_year: 2026, lecturerNote: 'ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา 2569' },
         { id: 'equine-lameness', examScope: 'final', label: 'Equine lameness + Diagnostic analgesia', icon: '🐎', lecturer: 'Teerapol Chinkangsadarn', lecturer_year: 2026 },
         { id: 'equine-hoof', examScope: 'final', label: 'Pathologic hoof', icon: '🐴', lecturer: 'Teerapol Chinkangsadarn', lecturer_year: 2026 },
-        { id: 'equine-tendon', examScope: 'final', label: 'Tendon injuries', icon: '💪', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'equine-tendon', examScope: 'final', label: 'Tendon injuries', icon: '💪', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา 2569' },
         { id: 'equine-anesthesia', examScope: 'final', label: 'Equine anesthesia', icon: '💉', lecturer: 'Sawita Santiviparat', lecturer_year: 2026 },
         { id: 'equine-dentistry', examScope: 'both', label: 'Equine dentistry', icon: '🦷', lecturer: 'Teerapol Chinkangsadarn', lecturer_year: 2026, lecturerNote: 'ตารางสอน Vet 86 วาง Equine Dentistry and Oral surgery วันที่ 3 จาก 9 คาบก่อนสอบกลางภาค' },
         { id: 'equine-gi', examScope: 'both', label: 'GI anatomy / physiology / exam / medical mgmt', icon: '🐴', lecturer: 'Sawita Santiviparat', lecturer_year: 2026, lecturerNote: 'ปกสไลด์ EQUINE GASTROINTESTINAL SYSTEM I และ II ระบุ Instructor: Sawita Santiviparat และตารางสอน Vet 86 ระบุ SS ทั้งสองคาบ' },
@@ -1956,7 +1956,7 @@ export const SUBJECTS_BY_YEAR = {
           // the PDF audit could not confirm it from either paper. Contested evidence takes
           // 'both': it shows in either pile rather than being hidden from one of them.
           label: 'Epidemiological approach to zoonoses', icon: '🔍', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
-        { id: 'zoo-mycoses', examScope: 'final', label: 'Mycoses (text + sporotrichosis)', icon: '🍄', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ประมวลรายวิชา 2569 วาง Mycozoonoses วันที่ 2 ต.ค. 69 หลังสอบกลางภาค (รุ่นก่อนเรียนก่อนสอบ)', lecturerNoteKind: 'caveat' },
+        { id: 'zoo-mycoses', examScope: 'final', label: 'Mycoses (text + sporotrichosis)', icon: '🍄', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026, lecturerNote: 'ประมวลรายวิชา 2569 วาง Mycozoonoses วันที่ 2 ต.ค. 69 หลังสอบกลางภาค (รุ่นก่อนเรียนก่อนสอบ)', lecturerNoteKind: 'caveat' },
         { id: 'zoo-prion', examScope: 'final', label: 'Prion diseases', icon: '🧠', lecturer: 'Taradon Luangtongkum', lecturer_year: 2026, lecturerNote: 'ประมวลรายวิชา 3109504 ปีการศึกษา 2569' },
         { id: 'zoo-bacterial', examScope: 'final', label: 'Bacterial zoonoses', icon: '🦠', lecturer: 'Taradon Luangtongkum', lecturer_year: 2026, lecturerNote: 'ประมวลรายวิชา 3109504 ปีการศึกษา 2569' },
         { id: 'zoo-rickettsial', examScope: 'midterm', label: 'Rickettsial zoonoses', icon: '🦠', lecturer: 'Kamonpan Charoenkul', lecturer_year: 2026, lecturerNote: 'ปกสไลด์ Rickettsia zoonoses ระบุ Kamonpan Charoenkul สอนวันที่ 10 ก.ย. 69 ตารางเรียนเดิมวางไว้ 28 ส.ค.' },

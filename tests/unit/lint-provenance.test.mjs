@@ -209,11 +209,24 @@ test('a compilation row sat a paper exactly when its origin is filed as one, and
   assert.ok(typed.length > 500, `only ${typed.length} compilation rows with a filed origin, so the bank did not load`);
   assert.deepEqual(typed.filter((q) => isPastPaperQuestion(q) !== (originEntry(q.examOrigin).kind === 'paper')).map((q) => q.id), []);
   // The rows the switch lifted on 2026-10-28: the Vet 85 swine final recall
-  // reads "ไฟนอล", which no pattern matched. Band 0 now, and the interim tag
-  // that held them in band 1 is gone, or each would be paper AND aligned.
+  // reads "ไฟนอล", which no pattern matched. The compilation rows are band 0,
+  // with the interim tag gone, or each would be paper AND aligned. Since
+  // 5.171.4 the bank also holds four of those Vet 85 essays in their own format
+  // (209058, 209060, 209062, 209063), so the twelve MCQs written from them are
+  // exam-aligned: one sat question is counted once, and Panic serves the
+  // essay first and its MCQs right after.
   const swineFinal = rows.filter((q) => String(q.examOrigin || '').startsWith('Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ'));
   assert.equal(swineFinal.length, 22);
-  assert.deepEqual(swineFinal.filter((q) => !isPastPaperQuestion(q) || q.tags?.includes(MARKER)).map((q) => q.id), []);
+  const compiled = swineFinal.filter((q) => q.sourceType === 'student-compilation');
+  assert.equal(compiled.length, 10);
+  assert.deepEqual(compiled.filter((q) => !isPastPaperQuestion(q) || q.tags?.includes(MARKER)).map((q) => q.id), []);
+  const rewrites = swineFinal.filter((q) => q.sourceType === 'exam-aligned');
+  assert.equal(rewrites.length, 12);
+  assert.deepEqual(rewrites.filter((q) => isPastPaperQuestion(q) || !q.tags?.includes(MARKER)).map((q) => q.id), []);
+  for (const id of [209058, 209060, 209062, 209063]) {
+    const essay = rows.find((q) => q.id === id);
+    assert.ok(essay && isPastPaperQuestion(essay) && /Vet 85/.test(essay.examOrigin), `#${id} holds a Vet 85 essay as a sat paper`);
+  }
   // Rule 11 is what notices a predicate that went back to the wording: here
   // the lint's map files an origin as a paper that isPastPaperQuestion has
   // never seen, so the two disagree.
