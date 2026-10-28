@@ -50,6 +50,9 @@ export const PALETTES = {
     gridMinor: 'rgba(147,69,75,0.1)', gridMajor: 'rgba(147,69,75,0.22)', trace: '#355a39',
     // Stains on the daily slides and the score scale's fill.
     right: '#4a6b4a', rightEdge: '#6f8f6a', wrong: '#b4555b', wrongEdge: '#d08a8e',
+    // The printed timetable's near-white page (timetable-card.js): a printer
+    // wastes ink on a tinted sheet and stops short of its edge anyway.
+    print: '#fffdf9',
   },
   dark: {
     bg: '#1a1612', ink: '#f0e6d2', soft: '#bcb19e', rule: 'rgba(240,230,210,0.2)', faint: 'rgba(240,230,210,0.07)',
@@ -114,14 +117,17 @@ function scratchCanvas(frame) {
   return scratch.get(k);
 }
 
-export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = false } = {}) {
+// `scale` draws the same layout at more pixels (the A4 timetable prints at 2x);
+// every coordinate and every recorded box stays in the frame's own units.
+export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = false, scale = 1 } = {}) {
   const canvas = dry ? scratchCanvas(frame) : document.createElement('canvas');
   if (!dry) {
-    canvas.width = frame.w;
-    canvas.height = frame.h;
+    canvas.width = Math.round(frame.w * scale);
+    canvas.height = Math.round(frame.h * scale);
   }
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('canvas 2d context unavailable');
+  if (!dry && scale !== 1) ctx.scale(scale, scale);
   const pal = PALETTES[theme] || PALETTES.light;
   const boxes = [];
   // dry: a trial layout. Text is still set (its boxes are what a trial is
@@ -178,6 +184,16 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
     card.style(style);
     const s = String(str);
     ctx.fillText(s, x, y);
+    // `embolden`: a stroke in the text's own ink, for an engine that paints a
+    // variable face's default weight whatever weight it was asked for.
+    if (style.embolden && !dry) {
+      ctx.save();
+      ctx.lineWidth = style.embolden;
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = ctx.fillStyle;
+      ctx.strokeText(s, x, y);
+      ctx.restore();
+    }
     const m = ctx.measureText(s);
     const box = {
       role, text: s, size: style.size ?? SIZE.s, family: style.family ?? FAMILY.label,

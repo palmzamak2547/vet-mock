@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { SEMESTER, examTitle, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import { examTimetable } from '../lib/exam-timetable.js';
 import WeekTimetable from '../components/WeekTimetable.jsx';
 import AcademicCalendar from '../components/AcademicCalendar.jsx';
 // Phase 2 perf: use precomputed counts instead of QB. ScheduleView
@@ -13,8 +14,13 @@ import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
 import BackBar from '../components/BackBar.jsx';
 import FeatureTip from '../components/FeatureTip.jsx';
 
+// The printable page pulls in the share-card kit and its fonts: loaded on the tap.
+const TimetableSheet = lazy(() => import('../components/TimetableSheet.jsx'));
+
 export default function ScheduleView({ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, setSelectedPhase, selectedYear = 4, selectedPhase, customQuestions = [] }) {
   const [showPast, setShowPast] = useState(false);
+  // The period is read on the tap, so a page left open past midnight prints today's date.
+  const [printTable, setPrintTable] = useState(null);
   const [, setTick] = useState(0);
   const yearKey = `y${selectedYear}`;
   const allExams = getUpcomingExams(yearKey);
@@ -79,12 +85,24 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
 
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
         <span>ตารางสอบ ปี {selectedYear} ({exams.length})</span>
-        {pastCount > 0 && (
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
-            {showPast ? `ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `แสดงสอบที่ผ่านแล้ว (${pastCount})`}
-          </button>
-        )}
+        <span style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {allExams.length > 0 && (
+            <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setPrintTable(examTimetable(selectedYear))}>
+              ดาวน์โหลดตารางสอบ
+            </button>
+          )}
+          {pastCount > 0 && (
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
+              {showPast ? `ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `แสดงสอบที่ผ่านแล้ว (${pastCount})`}
+            </button>
+          )}
+        </span>
       </div>
+      {printTable && (
+        <Suspense fallback={null}>
+          <TimetableSheet table={printTable} onClose={() => setPrintTable(null)} />
+        </Suspense>
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 30 }}>
         {exams.map((exam) => {
