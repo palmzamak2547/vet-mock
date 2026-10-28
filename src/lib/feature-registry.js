@@ -101,7 +101,7 @@ export const FEATURES = [
   {
     id: 'sr-session', category: 'practice', primary: true,
     label: 'ทบทวนตามรอบ', labelEn: 'Spaced Repetition', icon: '🧠',
-    hint: 'ข้อที่ผิดหรือลังเลจะกลับมาตามรอบที่เหมาะสม',
+    hint: 'ข้อที่ผิดซ้ำจะกลับมาตามรอบที่เหมาะสม',
     kw: 'sr spaced repetition anki flashcard ทบทวน review จำ',
     invoke: { kind: 'view', view: 'sr-session' },
   },
@@ -351,14 +351,14 @@ export const FEATURES = [
   {
     id: 'contribute', category: 'tools',
     label: 'ช่วยเติมเนื้อหา', labelEn: 'Contribute', icon: '🤝',
-    hint: 'ส่ง slide / notes / past paper',
+    hint: 'ส่งสไลด์ โน้ต หรือแนวข้อสอบ',
     kw: 'contribute ช่วย เติม เนื้อหา ส่ง slide donate บริจาค',
     invoke: { kind: 'view', view: 'contribute' },
   },
   {
     id: 'question-manager', category: 'tune',
     label: 'เพิ่ม/แก้ข้อสอบเอง', labelEn: 'Question Manager', icon: '✏️',
-    hint: 'สร้างข้อสอบ custom',
+    hint: 'สร้างข้อสอบของคุณเอง',
     kw: 'manage edit custom question จัดการ เพิ่ม แก้ ข้อสอบ สร้าง',
     invoke: { kind: 'view', view: 'question-manager' },
   },
