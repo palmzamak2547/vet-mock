@@ -9,6 +9,7 @@
 
 import { createStore } from './storage.js';
 import { isDay, localDay, previousDay, daysBetween } from './dates.js';
+import { SERVED_SUBJECT } from '../data/domains.js';
 
 export const PROGRESS_KEY = 'vca:progress:v1';
 
@@ -55,10 +56,14 @@ export function recordAnswers(state, answers) {
 }
 
 /** Seen, known and attempt counts, for one domain or (domainId null) for everything. */
+// Answers to questions the site no longer serves (until 28 ต.ค. 2569 it also drew from VetMock's
+// course banks) stay in the record, untouched, but count nowhere: every served key is a VCA one.
+const served = (key) => key.startsWith(`${SERVED_SUBJECT}:`);
+
 export function statsFor(state, domainId = null) {
   let seen = 0; let known = 0; let attempts = 0; let correct = 0;
-  for (const e of Object.values(state.q)) {
-    if (domainId && e.d !== domainId) continue;
+  for (const [key, e] of Object.entries(state.q)) {
+    if (!served(key) || (domainId && e.d !== domainId)) continue;
     seen += 1; known += e.l; attempts += e.n; correct += e.c;
   }
   return { seen, known, wrong: seen - known, attempts, correct, accuracy: seen ? known / seen : null };
@@ -68,7 +73,7 @@ export function statsFor(state, domainId = null) {
 export function wrongKeys(state, domainIds = null) {
   const only = domainIds ? new Set(domainIds) : null;
   return Object.entries(state.q)
-    .filter(([, e]) => !e.l && (!only || only.has(e.d)))
+    .filter(([key, e]) => served(key) && !e.l && (!only || only.has(e.d)))
     .sort((a, b) => b[1].t - a[1].t)
     .map(([key]) => key);
 }

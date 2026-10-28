@@ -29,7 +29,7 @@ import { visibleQuestionCount } from '../../../src/data/curriculum.js';
 import { MAX_SOURCES, REQUEST_DEADLINE_MS } from './config.js';
 import { loadCorpus, warmCorpus } from './corpus.js';
 import { heuristicPlan, runPlanner, asksForFiles, fileKindIn, isFollowUp } from './planner.js';
-import { searchCorpus, selectDocs, isCovered, chooseSearch, toSource, numberSources, snippetNeedles } from './retrieve.js';
+import { searchCorpus, selectDocs, isCovered, chooseSearch, toSource, numberSources, snippetNeedles, termSpecificity, questionTopic, animalShare } from './retrieve.js';
 import { retrieveGuide, guideRoutes, loadGuide, examDocs, thaiShortDate } from './guide.js';
 import { pickQuiz } from './quiz.js';
 import { buildActionCard } from './actions.js';
@@ -171,11 +171,13 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     send('status', { phase: 'search', label: STATUS.search });
     await yieldToSocket();
     const corpus = await loadCorpus();
-    let found = heuristic.intent === 'chat' ? null : searchCorpus(corpus, { text: heuristic.query_th, wikiQueries: [heuristic.query_th] });
+    const typed = heuristic.intent === 'chat' ? null : searchCorpus(corpus, { text: heuristic.query_th, wikiQueries: [heuristic.query_th] });
+    let found = typed;
+    let planned = null;
     const plan = await plannerP;
     let intent = plan.intent;
     if (plan.source === 'model' && intent !== 'chat') {
-      const planned = searchCorpus(corpus, {
+      planned = searchCorpus(corpus, {
         text: `${plan.query_th} ${imageText}`.trim(),
         terms: plan.terms_en,
         wikiQueries: [plan.query_th, heuristic.query_th],
@@ -205,6 +207,9 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
         kind: fileAsk?.kind || '',
         title: fileAsk?.title || '',
         files: intent === 'files',
+        specificity: found ? termSpecificity(corpus, found, typed, planned) : null,
+        topic: found ? questionTopic(corpus, found) : null,
+        animal: found ? animalShare(found) : null,
       }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500 })
       : null;
 

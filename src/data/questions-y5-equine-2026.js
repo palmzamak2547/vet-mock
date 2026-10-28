@@ -19,7 +19,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "apocrine-gland"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ต่อมเหงื่อที่พบทั่วผิวหนังส่วนที่มีขนของม้าเป็นชนิดใด และเหงื่อมีลักษณะอย่างไร",
@@ -43,7 +43,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "permanent-hair"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ขนกลุ่มใดของม้าไม่ผลัดตามฤดูกาล และงอกต่อเนื่องประมาณ 2 ถึง 5 มิลลิเมตรต่อเดือน",
@@ -67,7 +67,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "skin-anatomy"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ผิวหนังที่มีขนของม้าบางที่สุดที่บริเวณใด",
@@ -91,7 +91,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Oxyuris-equi"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "การเก็บตัวอย่างด้วย surface adhesive tape เหมาะกับการตรวจหาสิ่งใดมากที่สุด",
@@ -115,7 +115,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "grey-horse"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ม้าสีเทา (grey) เสี่ยงต่อโรคใดเป็นพิเศษ",
@@ -139,7 +139,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "pruritus"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Pruritic visual analogue scale (PVAS) ใช้ประเมินสิ่งใดในเคสผิวหนังม้า",
@@ -163,7 +163,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "newborn-foal"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ลูกม้าแรกเกิดมีลักษณะกีบอย่างไร",
@@ -187,7 +187,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "mange"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Chorioptes bovis ในม้ามักทำให้เกิดรอยโรคที่บริเวณใด",
@@ -211,7 +211,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "anemia"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "เหาที่ก่อโรคในม้า คือชนิดใด และอาจนำไปสู่อาการทางระบบใด",
@@ -235,7 +235,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "tail-rubbing"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ม้าถูหางกับผนังคอกบ่อย มีรอยโรคบริเวณฝีเย็บและโคนหาง ควรนึกถึงโรคใดเป็นอันดับต้น",
@@ -259,7 +259,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "hypersensitivity-type"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Culicoides hypersensitivity ในม้าจัดเป็น hypersensitivity ชนิดใด และรอยโรคเด่นอยู่ที่ใด",
@@ -284,7 +284,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "cutaneous-habronemiasis"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "วงจรชีวิตของ Habronema spp. ที่ทำให้เกิด summer sores เป็นอย่างไร",
@@ -308,7 +308,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ivermectin"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "การใช้ยาถ่ายพยาธิสำหรับ cutaneous habronemiasis คือข้อใด",
@@ -332,7 +332,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "eosinophilic-dermatitis"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-parasites",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ผล biopsy ที่เข้าได้กับ cutaneous habronemiasis คือข้อใด",
@@ -357,7 +357,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "mud-fever"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-infectious",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Dermatophilosis จาก Dermatophilus congolensis มีกลุ่มอาการหลัก 2 แบบ คือข้อใด",
@@ -381,7 +381,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "paintbrush-crust"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-infectious",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดตรงกับลักษณะรอยโรคของ dermatophilosis",
@@ -406,7 +406,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "incubation-period"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-infectious",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Coital exanthema จาก EHV-3 มีระยะฟักตัวและคำแนะนำการพักผสมพันธุ์อย่างไร",
@@ -430,7 +430,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "latent-carrier"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-infectious",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับม้าที่เป็นพาหะแฝง (latent carrier) ของ EHV-3",
@@ -454,7 +454,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "young-horse"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-infectious",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Viral papillomatosis หรือหูดในม้า มีลักษณะอย่างไร",
@@ -479,7 +479,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "immunodeficiency"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-infectious",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "หูดจากไวรัสในม้ามักหายเองในระยะเวลาใด และควรสงสัยอะไรถ้าไม่หาย",
@@ -503,7 +503,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "bovine-papillomavirus"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "เนื้องอกผิวหนังที่พบบ่อยที่สุดในม้าและไวรัสที่สัมพันธ์กันคือข้อใด",
@@ -527,7 +527,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "fibroblastic-sarcoid"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดจับคู่รูปแบบทางคลินิกของ sarcoid กับลักษณะได้ถูกต้อง",
@@ -551,7 +551,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "tumor-prevalence"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Squamous cell carcinoma ในม้า มีลักษณะทางระบาดวิทยาอย่างไร",
@@ -576,7 +576,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "EcPV-2"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ปัจจัยเสี่ยงของ squamous cell carcinoma ในม้า คือข้อใด",
@@ -601,7 +601,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "predilection-site"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "Melanoma ในม้าพบมากในกลุ่มใด และตำแหน่งที่พบบ่อยคือที่ใด",
@@ -625,7 +625,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "surgical-excision"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "แนวทางการรักษา melanoma ในม้า คือข้อใด",
@@ -649,7 +649,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "skin-nodule"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ก้อนของ eosinophilic granuloma ในม้ามีลักษณะอย่างไร",
@@ -674,7 +674,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ACTH"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "PPID หรือ equine Cushing's disease ในม้าเกิดจากพยาธิกำเนิดใด",
@@ -698,7 +698,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "pergolide"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-tumors",
+    "topic": "equine-derm",
     "year": 5,
     "type": "mcq",
     "q": "ยาหลักในการรักษา PPID และขนาดเริ่มต้น คือข้อใด",
@@ -1002,7 +1002,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "blood-pressure"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ophth",
+    "topic": "equine-anesthesia",
     "year": 5,
     "type": "mcq",
     "q": "ตามค่าอ้างอิงที่ระบุ ค่าเป้าหมายขณะวางยาสลบม้าข้อใดถูกต้อง",
@@ -1025,7 +1025,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "PaCO2"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ophth",
+    "topic": "equine-anesthesia",
     "year": 5,
     "type": "mcq",
     "q": "ค่า PaCO2 ที่ยอมรับได้ระหว่างวางยาสลบม้าอยู่ในช่วงใด",
@@ -1046,8 +1046,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "diagnostic-workup",
       "Woo-technique",
-      "AGID",
-      "อิงแนวข้อสอบ"
+      "AGID"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1071,8 +1070,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "PCR",
       "sensitivity-specificity",
-      "screening-test",
-      "อิงแนวข้อสอบ"
+      "screening-test"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1095,8 +1093,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105275,
     "tags": [
       "test-result-interpretation",
-      "client-communication",
-      "อิงแนวข้อสอบ"
+      "client-communication"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1119,8 +1116,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105276,
     "tags": [
       "radiographic-views",
-      "fetlock",
-      "อิงแนวข้อสอบ"
+      "fetlock"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1143,8 +1139,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105278,
     "tags": [
       "tendon-ultrasound",
-      "ultrasound-zone",
-      "อิงแนวข้อสอบ"
+      "ultrasound-zone"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -3796,7 +3791,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "anesthetic-monitoring"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "การผ่าตัดม้าแบบ field surgery ต่างจาก hospital-based surgery อย่างไร",
@@ -3820,7 +3815,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "surgical-site-preparation"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "เหตุใดจึงไม่ควรโกนขนม้าเตรียมผ่าตัดล่วงหน้าเกิน 2 ชั่วโมงก่อนผ่าตัด",
@@ -3844,7 +3839,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ventral-midline-celiotomy"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "การเตรียมโกนขนและ scrub สำหรับผ่าตัด colic ครอบคลุมบริเวณใด",
@@ -3868,7 +3863,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "brachial-plexus"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ในการจัดท่า lateral recumbency สำหรับผ่าตัดม้า เหตุใดจึงต้องดึงขาหน้าด้านล่างไปข้างหน้า",
@@ -3892,7 +3887,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "aseptic-technique"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดตรงกับคำแนะนำเรื่องการปูผ้าคลุม (draping) ในการผ่าตัดม้าท่านอน",
@@ -3916,7 +3911,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "stocks-restraint"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดเป็นข้อควรระวังของการจัดม้าเข้าซองสำหรับผ่าตัดท่ายืน (standing surgery)",
@@ -4037,7 +4032,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "TPR"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ข้อมูลใดจากการตรวจร่างกายที่สำคัญที่สุดก่อนผ่าตัดม้า",
@@ -4061,7 +4056,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "preoperative-prophylaxis"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-intro",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ลูกม้าที่ยังฉีดวัคซีนไม่ครบชุดและต้องเข้ารับการผ่าตัด ควรจัดการอย่างไร",
@@ -4086,7 +4081,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "epithelialization"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ความแตกต่างของการหายของแผลแบบ second intention ระหว่างม้าและ pony คือข้อใด",
@@ -4110,7 +4105,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "EGT"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ลักษณะการตอบสนองแบบอักเสบของม้าเมื่อเทียบกับ pony เป็นอย่างไร",
@@ -4134,7 +4129,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "distal-limb-wound"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "Exuberant granulation tissue (EGT) ในม้ามักพบที่ตำแหน่งใดมากที่สุด",
@@ -4159,7 +4154,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "pressure-bandage"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดคือแนวทางการจัดการ EGT",
@@ -4184,7 +4179,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "หลักการพันผ้าพันแผลที่ขาม้า เป็นอย่างไร",
@@ -4209,7 +4204,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "Half limb bandage ในม้าพันครอบคลุมตั้งแต่ตำแหน่งใดถึงตำแหน่งใด",
@@ -4234,7 +4229,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "Full limb bandage ในขาหลังของม้าพันขึ้นไปถึงระดับใด",
@@ -4259,7 +4254,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "Robert Jones bandage ที่พันเสร็จสมบูรณ์ควรมีลักษณะอย่างไร",
@@ -4284,7 +4279,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ชั้น primary layer ของ Robert Jones bandage ควรวางสำลีอย่างไร",
@@ -4308,7 +4303,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "PVC-splint"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "PVC pipe splint มีคุณสมบัติเด่นและข้อควรระวังอย่างไร",
@@ -4332,7 +4327,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "fiberglass-cast"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ข้อจำกัดของ fiberglass casting material ในการทำ splint คือข้อใด",
@@ -4356,7 +4351,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "truncal-wound"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "Stent (tie-over) bandage เหมาะกับแผลบริเวณใด",
@@ -4380,7 +4375,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "post-celiotomy-care"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "Abdominal bandage หลังผ่าตัดเปิดช่องท้องในม้าพันคลุมบริเวณใด",
@@ -4404,7 +4399,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "subcutaneous-emphysema"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "นอกจากปกป้องแผลแล้ว head bandage ในม้ายังมีประโยชน์อย่างไร",
@@ -4428,7 +4423,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "pressure-sore"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ในการพัน carpal bandage แบบ figure-of-eight เหตุใดจึงต้องเว้นบริเวณ accessory carpal bone ไว้",
@@ -4452,7 +4447,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "tensile-strength"
     ],
     "subject": "equine-medicine",
-    "topic": "equine-ortho",
+    "topic": "equine-surgery-wound",
     "year": 5,
     "type": "mcq",
     "q": "ในการหายของแผลในม้า ความแข็งแรงของแผล (tensile strength) เป็นอย่างไร",
