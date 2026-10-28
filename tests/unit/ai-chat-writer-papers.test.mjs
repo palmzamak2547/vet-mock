@@ -154,6 +154,12 @@ test('the output filter drops CJK and emoji and fixes a middle dot split across 
   assert.equal(plainText('Family · Genus **bold** [12:30-13:00]'), 'Family, Genus bold (12:30-13:00)');
 });
 
+test('a replacement character or control code the model writes never reaches the page', () => {
+  const f = createOutputFilter();
+  const out = f.push('แผลที่ใบหน้า�หรือคอ\u0007 จึงมีระยะฟักตัวสั้นกว่า\n- ข้อถัดไป') + f.flush();
+  assert.equal(out, 'แผลที่ใบหน้าหรือคอ จึงมีระยะฟักตัวสั้นกว่า\n- ข้อถัดไป');
+});
+
 test('a stray Vietnamese word goes, even split across chunks; English words split across chunks stay whole', () => {
   const f = createOutputFilter();
   let out = '';

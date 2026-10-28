@@ -27,6 +27,12 @@ const CJK_G = /[　-〿぀-ヿ㐀-䶿一-鿿豈-﫿！-｠ｦ-ﾟ]/g;
 // and not ♀ ♂ (U+2640, U+2642), which the notes use for sex.
 const EMOJI_G = /(?:[\u{1F000}-\u{1FAFF}]|[☀-☿♃-➿]|[⬀-⯿]|[⌚⌛⏩-⏳⏸-⏺]|ℹ|️|‍|⃣)/gu;
 
+// The replacement character and control codes: a model trained on text with
+// broken encodings writes U+FFFD itself now and then ("ใบหน้า�หรือคอ" on a
+// phone, 10-28), and PDF text layers carry it too. Never part of an answer.
+const BROKEN_G = /[�\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g;
+export const stripBroken = (s) => String(s ?? '').replace(BROKEN_G, '');
+
 export const stripCJK = (s) => String(s ?? '').replace(CJK_G, '');
 export const stripEmoji = (s) => String(s ?? '').replace(EMOJI_G, '');
 export const countCJK = (s) => (String(s ?? '').match(CJK_G) || []).length;
@@ -156,7 +162,7 @@ export function createOutputFilter() {
   // indents a new line (markdown code and nested lists need indentation).
   let lastChar = '';
   const strip = (s) => {
-    const out = s.replace(CJK_G, '').replace(EMOJI_G, '');
+    const out = s.replace(CJK_G, '').replace(EMOJI_G, '').replace(BROKEN_G, '');
     dropped += s.length - out.length;
     return out;
   };
