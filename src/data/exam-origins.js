@@ -26,18 +26,19 @@
 // this map; a new string gets a new entry. scripts/lint-provenance.mjs fails
 // on an origin missing from here.
 //
-// isPastPaperQuestion does NOT read this map yet. Switching typed rows from
-// the regex to `kind === 'paper'` changes band 0 for real students, so it
-// waits until the 2569 midterms are over, and lint-provenance prints the
-// exact rows that switch would move. Until then, a row whose origin is filed
-// here as `paper` or `aligned` but that the predicate leaves in band 2 carries
-// the "อิงแนวข้อสอบ" tag: it under-claims into band 1 rather than over-claim
-// a paper. When the switch lands, remove that tag from the rows it lifts to
-// band 0, or they become both a paper and aligned, which the lint refuses.
+// isPastPaperQuestion reads this map for every row that carries a sourceType
+// (2026-10-28, after the 2569 midterms): `kind === 'paper'` is a sat paper,
+// any other kind is not, whatever the wording. That lifted 65 recalled rows
+// the regex could not read ("ไฟนอล", "บันทึกหลังสอบ", "recalled matching
+// section") from band 1 to band 0 and moved none out; their interim
+// "อิงแนวข้อสอบ" tag came off with the switch, or each would have been both a
+// paper and aligned, which the lint refuses. An origin filed as `aligned`
+// still needs that tag to reach band 1. lint-provenance rule 11 fails if the
+// predicate stops reading the map.
 //
 // Entries on legacy rows with no sourceType mirror what the regex already
-// reads for them; their documents were not re-read in this pass, and the
-// switch above does not touch those rows.
+// reads for them; their documents were not re-read in this pass, and those
+// rows are still decided by the regex.
 // ============================================================
 
 /** Every value `sourceType` may take, and what it claims. */

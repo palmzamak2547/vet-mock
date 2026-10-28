@@ -2,7 +2,7 @@
 // Provenance is a reviewed vocabulary, not free text
 // ============================================================
 // Whether a question counts as a sat paper, and so where Panic Mode puts it,
-// is still decided by a regex reading human phrasing in `examOrigin`, and it
+// was decided by a regex reading human phrasing in `examOrigin`, and it
 // guessed wrong both ways: "Swine Medicine midterm study notes" counted as a paper
 // because it says "midterm", while 95 rows naming a recalled paper or a
 // senior's exam guidance sat in band 2 because their wording ("บันทึกหลังสอบ",
@@ -10,8 +10,9 @@
 // showed them.
 //
 // src/data/exam-origins.js files every exact examOrigin string once, by a
-// person, as one of four kinds. This file holds that map, and
-// scripts/lint-provenance.mjs which enforces it, to the live bank.
+// person, as one of four kinds, and since 2026-10-28 that entry, not the
+// wording, decides every row that carries a sourceType. This file holds that
+// map, and scripts/lint-provenance.mjs which enforces it, to the live bank.
 // ============================================================
 
 import assert from 'node:assert/strict';
@@ -121,15 +122,18 @@ test('a row that is both a sat paper and marked fails unless it was reviewed', (
   assert.deepEqual(lintOnly([both], { reviewedPastAndAligned: [both.id] }).errors, []);
 });
 
-test('a paper or exam guidance left in band 2 fails, and the tag clears it', () => {
-  const recalled = row({
-    sourceType: 'student-compilation',
-    examOrigin: 'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1',
-  });
-  assert.match(lintOnly([recalled]).errors.join('\n'), /filed as paper but the row is in band 2/);
-  assert.deepEqual(lintOnly([{ ...recalled, tags: [MARKER] }]).errors, []);
+test('a paper or exam guidance left in band 2 fails: guidance needs the tag, an untyped paper a sourceType', () => {
+  const origin = 'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1';
+  // Typed, the filed entry decides: a sat paper, band 0, no tag needed.
+  const recalled = row({ sourceType: 'student-compilation', examOrigin: origin });
+  assert.equal(isPastPaperQuestion(recalled), true);
+  assert.deepEqual(lintOnly([recalled]).errors, []);
+  // With no sourceType the regex still decides, and it cannot read "ไฟนอล".
+  const untyped = row({ examOrigin: origin });
+  assert.match(lintOnly([untyped]).errors.join('\n'), /filed as paper but the row is in band 2.*give it a sourceType/);
   const guidance = row({ sourceType: 'student-compilation', examOrigin: 'แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป Avian Medicine' });
-  assert.match(lintOnly([guidance]).errors.join('\n'), /filed as aligned but the row is in band 2/);
+  assert.match(lintOnly([guidance]).errors.join('\n'), /filed as aligned but the row is in band 2.*tag it/);
+  assert.deepEqual(lintOnly([{ ...guidance, tags: [MARKER] }]).errors, []);
 });
 
 test('the short spelling alone fails, because band 1 cannot read it', () => {
@@ -148,9 +152,10 @@ test('an exam-aligned row without the marker fails', () => {
 test('a row counted as a paper through an origin filed as something else fails', () => {
   // "summary", not "study notes": the predicate no longer reads study notes as
   // a paper (next test), so this fixture has to be a wording the regex still
-  // misreads, or it would prove nothing about rule 8.
+  // misreads, or it would prove nothing about rule 8. Untyped, because a typed
+  // row is decided by its filed origin and rule 11 holds it there.
   const origins = { 'Poultry midterm summary (Vet 85)': { kind: 'source-doc' } };
-  const notes = row({ sourceType: 'student-compilation', examOrigin: 'Poultry midterm summary (Vet 85)' });
+  const notes = row({ examOrigin: 'Poultry midterm summary (Vet 85)' });
   assert.match(lintOnly([notes], { origins }).errors.join('\n'), /counted as a sat paper through examOrigin/);
   assert.deepEqual(lintOnly([notes], { origins, knownOverclaims: [notes.id] }).errors, []);
 });
@@ -198,12 +203,23 @@ test('the budgets may only fall', () => {
   assert.ok(BUDGETS.noSourceType > 0 && BUDGETS.pastPaperWithoutOrigin > 0);
 });
 
-test('reading the map for typed rows would lift only band-1 rows, and drop only the known over-claim', () => {
-  const { switchPreview } = checkProvenance(rows);
-  assert.ok(switchPreview.into.length > 0);
-  assert.deepEqual(switchPreview.into.filter((q) => !q.tags?.includes(MARKER)).map((q) => q.id), [],
-    'a row the switch would lift does not carry the interim tag');
-  assert.deepEqual(switchPreview.outOf.map((q) => q.id), [...KNOWN_ORIGIN_OVERCLAIMS]);
+test('a typed row sat a paper exactly when its origin is filed as one, and the lint fails if that stops', () => {
+  const typed = rows.filter((q) => q.sourceType && !['past-paper', 'lecture-derived'].includes(q.sourceType) && originEntry(q.examOrigin));
+  assert.ok(typed.length > 500, `only ${typed.length} typed rows with a filed origin, so the bank did not load`);
+  assert.deepEqual(typed.filter((q) => isPastPaperQuestion(q) !== (originEntry(q.examOrigin).kind === 'paper')).map((q) => q.id), []);
+  // The rows the switch lifted on 2026-10-28: the Vet 85 swine final recall
+  // reads "ไฟนอล", which no pattern matched. Band 0 now, and the interim tag
+  // that held them in band 1 is gone, or each would be paper AND aligned.
+  const swineFinal = rows.filter((q) => String(q.examOrigin || '').startsWith('Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ'));
+  assert.equal(swineFinal.length, 22);
+  assert.deepEqual(swineFinal.filter((q) => !isPastPaperQuestion(q) || q.tags?.includes(MARKER)).map((q) => q.id), []);
+  // Rule 11 is what notices a predicate that went back to the wording: here
+  // the lint's map files an origin as a paper that isPastPaperQuestion has
+  // never seen, so the two disagree.
+  const origin = 'Swine Medicine ไฟนอล Vet 99 บันทึกหลังสอบ';
+  const stale = row({ sourceType: 'student-compilation', examOrigin: origin, tags: [MARKER] });
+  const origins = { [origin]: { kind: 'paper', cohort: 99, paper: 'final' } };
+  assert.match(lintOnly([stale], { origins }).errors.join('\n'), /stopped reading src\/data\/exam-origins\.js/);
 });
 
 test('lint:all runs lint:provenance (through lint:data)', () => {

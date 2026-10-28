@@ -2,6 +2,8 @@
 // validators. Keeping these predicates in one dependency-light module avoids
 // count drift when legacy question banks are migrated incrementally.
 
+import { originEntry } from '../data/exam-origins.js';
+
 export const UNASSIGNED_TOPIC = '__unassigned__';
 
 const PAST_PAPER_SOURCE_PATTERN = /ข้อสอบ(?:เก่า)?|\b(?:FINAL|MID)\s*86\b|past\s*(?:paper|exam)/i;
@@ -38,6 +40,14 @@ export function isPastPaperQuestion(question) {
   // at all, and panicRank put them behind freshly written items. "อิงแนวข้อสอบ"
   // is still not a paper and still does not count — it names no cohort.
   const origin = String(question?.examOrigin || '');
+  // A typed row answers through src/data/exam-origins.js, where a person read
+  // the document and filed its exact origin. The wording is not guessed at:
+  // "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ" names a sat paper the pattern
+  // below cannot read, and 65 recalled items (22 swine finals, 25 zoonoses)
+  // sat in band 1 behind it until 2026-10-28. lint:provenance fails on an
+  // unfiled origin, so the pattern only decides legacy rows and fixtures.
+  const filed = question?.sourceType ? originEntry(origin) : null;
+  if (filed) return filed.kind === 'paper';
   const originNamesAPaper = !NON_PAPER_ORIGIN_PATTERN.test(origin) && PAST_PAPER_ORIGIN_PATTERN.test(origin);
   // The free-text `source` fallback stays for LEGACY rows only — the ones with
   // no sourceType at all. It matches the bare word ข้อสอบ, which appears in

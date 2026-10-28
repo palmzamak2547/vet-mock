@@ -2033,8 +2033,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "avian-influenza",
       "hemagglutinin",
-      "cross-protection",
-      "อิงแนวข้อสอบ"
+      "cross-protection"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2084,8 +2083,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105858,
     "tags": [
       "avian-influenza",
-      "control-zone",
-      "อิงแนวข้อสอบ"
+      "control-zone"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2135,8 +2133,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105860,
     "tags": [
       "vertical-transmission",
-      "CIA",
-      "อิงแนวข้อสอบ"
+      "CIA"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",

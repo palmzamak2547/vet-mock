@@ -6043,7 +6043,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "avian-ai": {
-        "mcq": 1,
+        "mcq": 4,
         "tf": 0,
         "match": 0,
         "writing": 6
@@ -6337,7 +6337,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "zoo-corona": {
-        "mcq": 9,
+        "mcq": 10,
         "tf": 0,
         "match": 0,
         "writing": 3
@@ -7383,7 +7383,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "aqua-disease-control": {
-        "mcq": 23,
+        "mcq": 26,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -7435,7 +7435,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "equine-poa": {
-        "mcq": 2,
+        "mcq": 7,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -7467,7 +7467,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "eqrepro-pregnancy": {
-        "mcq": 15,
+        "mcq": 16,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -7497,7 +7497,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "eqrepro-endometritis": {
-        "mcq": 3,
+        "mcq": 9,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -7519,24 +7519,42 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 6
       },
       "swine-pcv2": {
-        "mcq": 4,
+        "mcq": 9,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "swine-csf": {
-        "mcq": 1,
+        "mcq": 3,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "swine-ileitis-bacti": {
-        "mcq": 1,
+        "mcq": 6,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "swine-fmd": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "swine-asf": {
+        "mcq": 3,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "swine-prv-je": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "swine-greasypig": {
         "mcq": 1,
         "tf": 0,
         "match": 0,
@@ -7667,7 +7685,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "zoonoses": {
       "zoo-bacterial": {
-        "mcq": 2,
+        "mcq": 26,
         "tf": 0,
         "match": 0,
         "writing": 0
