@@ -85,10 +85,14 @@ refusals into Thai a student can act on (`problemText`).
 ## Questions: from the main bank to a domain
 
 `scripts/build-bank.mjs` runs before every dev, build and test. It reads the registry and the
-delivery gate (`isQuestionDeliverable`), keeps learner-ready multiple-choice questions, maps
-each to an exam domain (`src/data/domains.js`; an unmapped deliverable subject fails the tests),
-and writes each domain as an index and shards. A question's kind (`vca`, `paper`, `aligned`,
-`lecture`, `course`) decides its badge; `paper` means a real sat paper, named by `examOrigin`.
+delivery gate (`isQuestionDeliverable`) and keeps VCA material only (Palm, 28 Oct 2026): the
+main bank's VCA subject, each question named by a row of `VCA_SOURCES` in `src/data/domains.js`
+(a recalled round, a compilation of past papers, a set adapted from one, the "VCA ผ่านชัวร์" set)
+or kept out by `NOT_VCA`; a VCA question nothing names stops the build. VetMock's course banks
+never reach the site. It keeps learner-ready multiple-choice questions, maps each by its VCA
+topic to an exam domain, and writes each domain as an index and shards; a domain with no question
+is left off the site. The source's kind decides the badge: `paper` for questions people sat,
+`vca` for sets reworded or adapted from them.
 
 **Index and shards** (`src/lib/bank-index.js` is the one place that knows the layout; the writer
 is `scripts/bank-shards.mjs`). A domain used to be one file of megabytes, fetched whole to draw ten
@@ -162,8 +166,9 @@ The code ships with the community off. In order, each step the owner's call:
   (`npm run test:db`).
 - **A practice feature:** stays in `lib/`, `components/` and `pages/`, and keeps working with
   no account and no network.
-- **A subject in the main bank:** map it in `src/data/domains.js` or list it in
-  `EXCLUDED_SUBJECTS` with a reason.
+- **A new VCA source** (the next round's recall, another compilation): a row in `VCA_SOURCES`
+  in `src/data/domains.js`, matched on the questions' own provenance fields, and a new VCA topic
+  a rule in its domain. Data only: no page changes.
 
 ## Checks
 

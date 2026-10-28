@@ -76,12 +76,19 @@ test('recordAnswers is a fold over recordAnswer', () => {
 const state = normalizeProgress({
   v: 1,
   q: {
-    'a:1': { d: 'swine', n: 2, c: 1, l: 1, t: 10 },
-    'a:2': { d: 'swine', n: 1, c: 0, l: 0, t: 30 },
-    'b:1': { d: 'equine', n: 3, c: 1, l: 0, t: 20 },
-    'b:2': { d: 'equine', n: 1, c: 1, l: 1, t: 40 },
+    'vca:1': { d: 'swine', n: 2, c: 1, l: 1, t: 10 },
+    'vca:2': { d: 'swine', n: 1, c: 0, l: 0, t: 30 },
+    'vca:3': { d: 'equine', n: 3, c: 1, l: 0, t: 20 },
+    'vca:4': { d: 'equine', n: 1, c: 1, l: 1, t: 40 },
   },
   days: { '2026-10-15': 3, '2026-10-16': 5 },
+});
+
+test('answers to questions the site no longer serves count nowhere, and stay in the record', () => {
+  const old = { ...state, q: { ...state.q, 'com5:12': { d: 'small-animal', n: 4, c: 1, l: 0, t: 50 } } };
+  assert.deepEqual(statsFor(old), statsFor(state));
+  assert.deepEqual(wrongKeys(old), wrongKeys(state));
+  assert.ok(old.q['com5:12'], 'nothing is deleted');
 });
 
 test('statsFor counts seen, known and wrong by the last answer', () => {
@@ -91,8 +98,8 @@ test('statsFor counts seen, known and wrong by the last answer', () => {
 });
 
 test('wrongKeys lists last-wrong questions, newest first', () => {
-  assert.deepEqual(wrongKeys(state), ['a:2', 'b:1']);
-  assert.deepEqual(wrongKeys(state, ['equine']), ['b:1']);
+  assert.deepEqual(wrongKeys(state), ['vca:2', 'vca:3']);
+  assert.deepEqual(wrongKeys(state, ['equine']), ['vca:3']);
   assert.deepEqual(wrongKeys(state, []), []);
 });
 

@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **6,786** |
-| Questions retained but fail-closed pending answer, scope, or figure review | 77 |
-| Total questions in source banks | 6,863 |
+| **Questions ready for learners** | **6,899** |
+| Questions retained but fail-closed pending answer, scope, or figure review | 78 |
+| Total questions in source banks | 6,977 |
 | Question banks (files) | 95 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 4,207 |
+| — year 5 | 4,320 |
 
-Consistency: source banks **6863**, learner-ready **6786**, fail-closed **77**, registry sums to **6863**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **6977**, learner-ready **6899**, fail-closed **78**, registry sums to **6977**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -38,7 +38,7 @@ Consistency: source banks **6863**, learner-ready **6786**, fail-closed **77**, 
 
 ## Curriculum
 
-86 subjects, 1058 topics in the taxonomy.
+86 subjects, 1060 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
@@ -91,7 +91,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | swine-clinic | 107 | 94 | 0 | 87.9% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
-| vca | 578 | 90 | 90 | 15.6% |
+| vca | 691 | 90 | 90 | 13.0% |
 | vet-dev-anat | 26 | 0 | 0 | 0.0% |
 | vet-histo | 104 | 0 | 0 | 0.0% |
 | vet-imaging | 35 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 367 | 355 | 0 | 96.7% |
-| **All** | 6786 | 4234 | 334 | 62.4% |
+| **All** | 6899 | 4234 | 334 | 61.4% |

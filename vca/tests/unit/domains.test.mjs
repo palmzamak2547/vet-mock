@@ -1,9 +1,9 @@
-// The nineteen domains and how the main bank's subjects map onto them. A question lands in
-// exactly one domain or in none, and a subject with questions is either mapped or excluded on
-// purpose: a new course bank is a decision, not a gap.
+// The nineteen domains, and what the site serves: VCA material only. A question lands in exactly
+// one domain or in none; a VCA question is named by a source or kept out on purpose; and no
+// other subject's question reaches the site: a new source is a decision, not a gap.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { FAMILIES, DOMAINS, DOMAIN_BY_ID, EXCLUDED_SUBJECTS, MAPPED_SUBJECTS, thPlain, domainOf } from '../../src/data/domains.js';
+import { FAMILIES, DOMAINS, DOMAIN_BY_ID, MAPPED_SUBJECTS, NOT_VCA, SERVED_SUBJECT, VCA_SOURCES, thPlain, domainOf, vcaSource } from '../../src/data/domains.js';
 import { CATALOG } from '../../src/generated/catalog.js';
 import { SUBJECT_COVERS } from '../../../src/data/subject-covers.js';
 
@@ -35,11 +35,13 @@ test('thPlain strips the line-break marks', () => {
   for (const d of DOMAINS) assert.ok(!thPlain(d.th).includes('|'));
 });
 
-test('a subject + topic rule wins over a subject rule', () => {
+test('a VCA topic decides the domain; nothing else does', () => {
   assert.equal(domainOf({ subject: 'vca', topic: 'swine' }), 'swine');
   assert.equal(domainOf({ subject: 'vca', topic: 'neurology' }), 'neuro-ophtho');
   assert.equal(domainOf({ subject: 'vca', topic: 'dogcat' }), 'small-animal');
-  assert.equal(domainOf({ subject: 'com1', topic: 'anything' }), 'small-animal');
+  assert.equal(domainOf({ subject: 'vca', topic: 'imaging' }), 'imaging');
+  assert.equal(domainOf({ subject: 'vca', topic: 'pathology' }), 'pathology');
+  assert.equal(domainOf({ subject: 'com1', topic: 'anything' }), null, 'a course bank maps nowhere');
   assert.equal(domainOf({ subject: 'vca', topic: 'no-such-topic' }), null);
   assert.equal(domainOf({ subject: 'no-such-subject' }), null);
   assert.equal(domainOf(null), null);
@@ -57,19 +59,28 @@ test('every rule is claimed by exactly one domain', () => {
   }
 });
 
-test('every mapped subject maps, and none is also excluded', () => {
-  assert.deepEqual(MAPPED_SUBJECTS, [...new Set(MAPPED_SUBJECTS)]);
-  for (const subject of MAPPED_SUBJECTS) {
-    const subjectWide = domainOf({ subject });
-    const byTopic = DOMAINS.some((d) => d.from.some((r) => r.subject === subject && r.topic));
-    assert.ok(subjectWide || byTopic, `${subject} maps nowhere`);
-    assert.ok(!(subject in EXCLUDED_SUBJECTS), `${subject} is both mapped and excluded`);
-  }
-  for (const [subject, why] of Object.entries(EXCLUDED_SUBJECTS)) assert.ok(why.trim(), `${subject}: a reason`);
+test('every rule names a VCA topic, so the site maps nothing but VCA questions', () => {
+  assert.deepEqual(MAPPED_SUBJECTS, [SERVED_SUBJECT]);
+  for (const d of DOMAINS) for (const r of d.from) assert.ok(r.subject === SERVED_SUBJECT && r.topic, `${d.id}: ${JSON.stringify(r)}`);
 });
 
-test('every subject with servable questions is mapped or excluded (generator report)', () => {
-  assert.deepEqual(CATALOG.unmapped, {}, `map these in src/data/domains.js or list them in EXCLUDED_SUBJECTS: ${JSON.stringify(CATALOG.unmapped)}`);
+test('the VCA sources and the exclusions are named, explained and told apart', () => {
+  const ids = [...VCA_SOURCES, ...NOT_VCA].map((s) => s.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const s of VCA_SOURCES) assert.ok(['paper', 'vca'].includes(s.kind) && s.th.trim(), s.id);
+  for (const s of NOT_VCA) assert.ok(s.th.trim(), s.id);
+  const q = (fields) => ({ subject: 'vca', ...fields });
+  assert.equal(vcaSource(q({ examOrigin: 'VCA รอบ 1/2569 หมวด 3 (บันทึกหลังสอบ)' })), 'recall');
+  assert.equal(vcaSource(q({ examOrigin: 'ข้อสอบเก่า VCA ที่รุ่นพี่บันทึกหลังสอบ รวบรวมในชุด Super สรุป (@Fukfangfluffy_channel)' })), 'compilation');
+  assert.equal(vcaSource(q({ source: 'แบบฝึกปรับจาก Swine medicine (VCA58-68).pdf หน้า 3 ข้อ 2' })), 'compilation-adapted');
+  assert.equal(vcaSource(q({ source: '@Fukfangfluffy_channel, VCA ผ่านชัวร์' })), 'vca-sure');
+  assert.equal(vcaSource(q({ examOrigin: 'Vet 80 past paper · Vet 83 update commentary' })), 'not:vet80-final');
+  assert.equal(vcaSource(q({ source: 'written from a lecture' })), null, 'a VCA question nothing names');
+  assert.equal(vcaSource({ subject: 'com5', examOrigin: 'VCA รอบ 1/2569 หมวด 2 (บันทึกหลังสอบ)' }), null, 'another subject is never served');
+});
+
+test('every served VCA question has a domain (generator report)', () => {
+  assert.deepEqual(CATALOG.unmapped, {}, `map these topics in src/data/domains.js: ${JSON.stringify(CATALOG.unmapped)}`);
 });
 
 test('every domain\'s bookplate is one of the main app\'s covers', () => {

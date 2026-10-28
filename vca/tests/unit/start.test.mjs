@@ -44,7 +44,8 @@ test('a full mock part: 150 questions, three hours, spread as the exam asks', as
   const counts = countBy(session.items);
   assert.deepEqual(counts, Object.fromEntries(Object.entries(allocate(sizes, 150, EXAM_WEIGHTS)).filter(([, n]) => n)));
   for (const id of ALL_DOMAINS) assert.ok(counts[id] >= 1, `${id} is in the paper`);
-  assert.ok(counts.ruminant > counts.imaging, 'ruminant, asked most, outweighs imaging');
+  assert.ok(counts.ruminant > (counts.imaging || 0), 'ruminant, asked most, outweighs imaging');
+  for (const d of BANK.domains) assert.ok(d.count > 0, `${d.id}: a domain on the site holds questions`);
   assert.ok(counts['micro-immuno'] <= CARD_BY_ID['micro-immuno'].count, 'never more than a domain holds');
 });
 
@@ -52,8 +53,9 @@ test('mixing by the bank instead follows the domains\' sizes', async () => {
   const res = await startSet({ mode: 'mock', size: 100, mix: 'bank', perQuestion: 0 });
   const counts = countBy(res.session.items);
   assert.deepEqual(counts, Object.fromEntries(Object.entries(allocate(sizes, 100)).filter(([, n]) => n)));
+  // The largest domain draws the most, give or take the one question rounding can move.
   const largest = BANK.domains.slice().sort((a, b) => b.count - a.count)[0].id;
-  assert.equal(Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0], largest);
+  assert.ok(counts[largest] >= Math.max(...Object.values(counts)) - 1, `${largest} draws about the most`);
   assert.equal(res.session.limitSec, null, 'perQuestion 0 is untimed');
 });
 
@@ -126,7 +128,7 @@ test('quick-start domains come in proportion to how often the exam asks them', (
     }
   }
   assert.ok(picks.ruminant > picks.zoonoses, `ruminant ${picks.ruminant} vs zoonoses ${picks.zoonoses}`);
-  assert.ok(picks.theriogenology > picks.imaging, `therio ${picks.theriogenology} vs imaging ${picks.imaging}`);
+  assert.ok(picks.theriogenology > (picks.imaging || 0), `therio ${picks.theriogenology} vs imaging ${picks.imaging}`);
   assert.equal(Object.keys(picks).length, ALL_DOMAINS.length, 'every domain turns up');
 });
 
@@ -147,8 +149,11 @@ test('a source cuts the pool by what each question came from', async () => {
 
 test('a topic list cuts the pool to those topics', async () => {
   const { CATALOG } = await import('../../src/generated/catalog.js');
-  const row = CATALOG.domains.swine.shown[0];
-  const res = await startSet({ mode: 'practice', size: 10, domains: ['swine'], topics: row.keys });
+  // A domain whose questions sit on more than one topic, cut to its first topic.
+  const card = BANK.domains.find((d) => CATALOG.domains[d.id].topics.length >= 2);
+  assert.ok(card, 'a domain with two topics or more');
+  const row = { keys: [CATALOG.domains[card.id].topics[0].key], n: CATALOG.domains[card.id].topics[0].n };
+  const res = await startSet({ mode: 'practice', size: 10, domains: [card.id], topics: row.keys });
   assert.ok(res.session.items.length >= 1 && res.session.items.length <= Math.min(10, row.n));
   assert.ok(res.session.items.every((it) => row.keys.includes(topicOf(it))), 'every question is on one of the topics');
 });
@@ -172,9 +177,10 @@ test('wrong and unseen read the progress record by key', async () => {
 
 test('asking for more than the pool holds gives the pool, each question once', async () => {
   progressStore.set(emptyProgress());
-  const res = await startSet({ mode: 'practice', size: 500, domains: ['imaging'] });
-  assert.equal(res.session.items.length, CARD_BY_ID.imaging.count);
-  assert.equal(new Set(res.session.items.map((it) => it.key)).size, CARD_BY_ID.imaging.count);
+  const smallest = BANK.domains.slice().sort((a, b) => a.count - b.count)[0];
+  const res = await startSet({ mode: 'practice', size: smallest.count + 100, domains: [smallest.id] });
+  assert.equal(res.session.items.length, smallest.count);
+  assert.equal(new Set(res.session.items.map((it) => it.key)).size, smallest.count);
 });
 
 test('a domain list keeps a set to those domains, and a card\'s count is the index\'s', async () => {

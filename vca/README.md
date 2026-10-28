@@ -1,7 +1,9 @@
 # VetMock VCA
 
 The exam hub at **vca.vetmock.com**: practice and timed mock exams for the Thai veterinary
-licensing exam (VCA), drawn from the VetMock bank and arranged by the domains the exam asks.
+licensing exam (VCA), drawn from the VCA material in the VetMock bank (papers recalled after each
+round, the cohorts' VCA compilations, sourced VCA sets; never VetMock's own course questions) and
+arranged by the domains the exam asks.
 It is its own Vite + React app, deployed as its own Vercel project, like `research/`.
 
 How it is put together, what it shares with VetMock and what it keeps to itself, and how to
@@ -32,11 +34,15 @@ Run from `vca/`.
   before every dev, build and test run, so counts on the site always come from the bank. A page
   reads the index to draw a set and fetches only the shards that hold the questions drawn
   (`src/lib/bank.js`; ARCHITECTURE.md, "Questions").
-- `src/data/domains.js` maps course subjects and VCA topics onto the 19 exam domains. A new
-  subject in the main bank is either mapped there or listed in `EXCLUDED_SUBJECTS` with a reason;
-  `tests/unit/domains.test.mjs` fails while a deliverable subject is neither.
-- `src/data/exam.js` holds the rounds the evaluation centre has announced, with sources. Add the
-  next year's rounds when the centre publishes them (it announced 2569's on 17 Nov 2568).
+- `src/data/domains.js` says what the site serves and where it goes: only the main bank's VCA
+  subject, each question named by a row of `VCA_SOURCES` (or kept out by `NOT_VCA`, with the
+  reason /about prints), and its VCA topic decides one of the 19 exam domains. A VCA question no
+  row names stops the build, so a new source is a decision, not a gap; a domain with no question
+  yet is left off the site. Answers given to questions the site no longer serves stay in a
+  student's record and count nowhere (`lib/progress.js`).
+- `src/data/exam.js` holds the rounds announced so far, with sources: the evaluation centre's, and
+  round 1/2570 on the faculty's word (28 Oct 2569), with no hours and no results day until the
+  centre publishes 2570 (it announced 2569's on 17 Nov 2568); then replace it with the centre's.
 - `src/data/almanac.js` is the cohorts' record of questions per subject, 2558 to 2568, transcribed
   from the CUVET almanac. The tests check every sum against the printed tables. It weights mock
   exams "as the exam asks" and feeds the exam page.
