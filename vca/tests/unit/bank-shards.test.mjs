@@ -20,7 +20,8 @@ process.env.VCA_BUILD_QUIET = '1';
 const { DOMAIN_ITEMS } = await import('../../scripts/build-bank.mjs');
 
 test('every domain was built, and the shards add up to the bank', () => {
-  assert.deepEqual([...DOMAIN_ITEMS.keys()], BANK.domains.map((d) => d.id));
+  // A domain with no question yet is built empty and kept off the site.
+  assert.deepEqual([...DOMAIN_ITEMS].filter(([, items]) => items.length).map(([id]) => id), BANK.domains.map((d) => d.id));
   let total = 0;
   for (const card of BANK.domains) {
     const { questions } = readDomain(card);

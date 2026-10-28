@@ -15,8 +15,10 @@
 //                                       topic rows its page lists (names cleaned in lib/topic-label.js)
 //   src/generated/library.js            the VCA documents, shelved by field
 //
-// Only learner-ready multiple-choice questions enter: the same isQuestionDeliverable gate the
-// main app uses, so a question held for answer or figure review is never served here either.
+// Only VCA material enters (domains.js, VCA_SOURCES): the main bank's VCA subject, each question
+// named by a source; a VCA question no source names stops the build. And only learner-ready
+// multiple-choice questions: the same isQuestionDeliverable gate the main app uses, so a question
+// held for answer or figure review is never served here either.
 //
 // Usage: node scripts/build-bank.mjs [--quiet]
 //
@@ -44,8 +46,7 @@ const { isQuestionDeliverable, BLOCKED_QUESTIONS } = await load('src/data/questi
 const { SUBJECTS } = await load('src/data/curriculum.js');
 const { SUBJECT_COVERS } = await load('src/data/subject-covers.js');
 const { VCA_MATERIALS } = await load('src/data/vca-materials.js');
-const { isPastPaperQuestion, isExamAlignedQuestion } = await load('src/lib/question-metadata.js');
-const { DOMAINS, FAMILIES, EXCLUDED_SUBJECTS, MAPPED_SUBJECTS, domainOf, thPlain } = await import(pathToFileURL(path.join(APP, 'src/data/domains.js')).href);
+const { DOMAINS, FAMILIES, MAPPED_SUBJECTS, NOT_VCA, SERVED_SUBJECT, VCA_SOURCES, domainOf, thPlain, vcaSource } = await import(pathToFileURL(path.join(APP, 'src/data/domains.js')).href);
 const { DISCIPLINES, GENERAL_SHELF, shelfOf, yearsOf, formatOf } = await import(pathToFileURL(path.join(APP, 'src/data/disciplines.js')).href);
 const { topicRows, TOPICS_LISTED } = await import(pathToFileURL(path.join(APP, 'src/lib/topic-label.js')).href);
 
@@ -71,14 +72,9 @@ export function rejection(q) {
   return null;
 }
 
-function kindOf(q) {
-  // The VCA bank is VCA guidance, except the papers students recalled after sitting the exam.
-  if (q.subject === 'vca') return isPastPaperQuestion(q) ? 'paper' : 'vca';
-  if (isPastPaperQuestion(q)) return 'paper';
-  if (isExamAlignedQuestion(q)) return 'aligned';
-  if (/^lecture/.test(q.sourceType || '')) return 'lecture';
-  return 'course';
-}
+// The badge: a paper people sat, or a VCA set reworded or adapted from one (VCA_SOURCES.kind).
+const SOURCE_BY_ID = Object.fromEntries(VCA_SOURCES.map((s) => [s.id, s]));
+const kindOf = (q) => SOURCE_BY_ID[vcaSource(q)].kind;
 
 // A figure the question points at by path is copied next to the bank; inline SVG stays inline.
 // Directories are updated in place: new files written, stale ones removed afterwards. Deleting
@@ -130,15 +126,21 @@ function refsOf(q) {
 
 const ready = [];
 const out = { held: 0, type: 0, answer: 0, empty: 0, passage: 0 };
-const excludedBySubject = {};
+// Left out because they are not VCA material, counted as the main app counts them (learner-ready
+// questions only): the course banks as one line, NOT_VCA one line each.
+const notServed = { course: 0, ...Object.fromEntries(NOT_VCA.map((s) => [s.id, 0])) };
+const bySource = Object.fromEntries(VCA_SOURCES.map((s) => [s.id, 0]));
+const unclassified = [];
 const unmapped = {};
 for (const q of all) {
-  const inScope = MAPPED_SUBJECTS.includes(q.subject);
-  if (!inScope) {
-    // Counted as the main app counts them: learner-ready questions only.
-    if (!isQuestionDeliverable(q)) continue;
-    if (EXCLUDED_SUBJECTS[q.subject]) excludedBySubject[q.subject] = (excludedBySubject[q.subject] || 0) + 1;
-    else unmapped[q.subject] = (unmapped[q.subject] || 0) + 1;
+  if (q.subject !== SERVED_SUBJECT) {
+    if (isQuestionDeliverable(q)) notServed.course += 1;
+    continue;
+  }
+  const source = vcaSource(q);
+  if (!source) { unclassified.push(`${q.id} (${q.examOrigin || q.source || 'no provenance'})`); continue; }
+  if (source.startsWith('not:')) {
+    if (isQuestionDeliverable(q)) notServed[source.slice(4)] += 1;
     continue;
   }
   const why = rejection(q);
@@ -146,6 +148,10 @@ for (const q of all) {
   const domain = domainOf(q);
   if (!domain) { unmapped[`${q.subject}/${q.topic || '?'}`] = (unmapped[`${q.subject}/${q.topic || '?'}`] || 0) + 1; continue; }
   ready.push({ q, domain });
+  bySource[source] += 1;
+}
+if (unclassified.length) {
+  throw new Error(`VCA questions no source names (add a VCA_SOURCES or NOT_VCA row in vca/src/data/domains.js): ${unclassified.slice(0, 5).join(', ')}${unclassified.length > 5 ? ` and ${unclassified.length - 5} more` : ''}`);
 }
 
 // ── names the cards and the review panel show ──────────────────────────────────────────────
@@ -187,8 +193,11 @@ for (const d of DOMAINS) {
   const items = ready.filter((x) => x.domain === d.id).map((x) => x.q).sort(byKey).map(record);
   DOMAIN_ITEMS.set(d.id, items);
   const files = shardDomain(d.id, items);
-  for (const shard of files.shards) writeIfChanged(path.join(BANK_DIR, shard.name), shard.body);
-  writeIfChanged(path.join(BANK_DIR, files.indexName), files.indexBody);
+  // A domain with no question yet writes nothing (and is not on the site; see BANK below).
+  if (items.length) {
+    for (const shard of files.shards) writeIfChanged(path.join(BANK_DIR, shard.name), shard.body);
+    writeIfChanged(path.join(BANK_DIR, files.indexName), files.indexBody);
+  }
   const kinds = { vca: 0, paper: 0, aligned: 0, lecture: 0, course: 0 };
   const topics = {};
   const subjects = {};
@@ -302,9 +311,11 @@ const years = docs.map((d) => d.years?.from).filter(Boolean);
 const BANK = {
   total,
   kinds: totalsByKind,
+  sources: bySource,
   held: heldInScope,
   families: FAMILIES.map((f) => ({ ...f, th: thPlain(f.th), thw: f.th })),
-  domains: domainCards.map(({ topics, subjects, shown, ...card }) => card),
+  // A domain with no question yet is not on the site: no plate, no page, no draw.
+  domains: domainCards.filter((d) => d.count > 0).map(({ topics, subjects, shown, ...card }) => card),
   subjects: subjectNames,
   library: {
     documents: LIBRARY.documents, papers: LIBRARY.papers, handouts: LIBRARY.handouts, pages: LIBRARY.pages,
@@ -317,7 +328,9 @@ const CATALOG = {
   // rows the domain page draws, ready to draw: { label, n, keys }.
   domains: Object.fromEntries(domainCards.map((d) => [d.id, { topics: d.topics, subjects: d.subjects, shown: d.shown }])),
   left: out,
-  excludedSubjects: Object.entries(excludedBySubject).map(([id, n]) => ({ id, n, why: EXCLUDED_SUBJECTS[id], name: SUBJECTS.find((x) => x.id === id)?.name || id })),
+  notServed: Object.entries(notServed).filter(([, n]) => n).map(([id, n]) => ({ id, n, why: NOT_VCA.find((s) => s.id === id)?.th || null })),
+  // The VCA topics' names, for /about's list of where each domain's questions sit.
+  topicNames: Object.fromEntries(Object.entries(topicNames).filter(([key]) => key.startsWith(`${SERVED_SUBJECT}/`))),
   unmapped,
 };
 writeIfChanged(path.join(GEN_DIR, 'bank.js'), `${banner}export const BANK = ${JSON.stringify(BANK)};\n\nexport const SAMPLES = ${JSON.stringify(samples)};\n`);
@@ -326,7 +339,8 @@ writeIfChanged(path.join(GEN_DIR, 'catalog.js'), `${banner}export const CATALOG 
 if (!QUIET) {
   const kb = (n) => `${(n / 1024).toFixed(0)} KB`;
   console.log(`vca bank: ${total} questions in ${DOMAINS.length} domains (vca ${totalsByKind.vca}, past papers ${totalsByKind.paper}), held in scope ${heldInScope}`);
-  console.log(`  left out: ${Object.entries(out).filter(([, n]) => n).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}; excluded subjects ${Object.values(excludedBySubject).reduce((a, b) => a + b, 0)}`);
+  console.log(`  sources: ${Object.entries(bySource).map(([k, n]) => `${k} ${n}`).join(', ')}; not VCA material: ${Object.entries(notServed).map(([k, n]) => `${k} ${n}`).join(', ')}`);
+  console.log(`  left out: ${Object.entries(out).filter(([, n]) => n).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}`);
   if (Object.keys(unmapped).length) console.warn(`  ⚠ not mapped to a domain: ${JSON.stringify(unmapped)} (map them in vca/src/data/domains.js)`);
   console.log(`  ${domainCards.map((d) => `${d.id} ${d.count} (${d.shards} shards, ${kb(d.bytes)})`).join(', ')}`);
   console.log(`  ${domainCards.reduce((n, d) => n + d.shards, 0)} shards of up to ${SHARD_SIZE} questions and ${domainCards.length} indexes in public/bank`);
