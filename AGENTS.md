@@ -51,6 +51,12 @@ Palm's goal: which items and which kinds of item recurred across cohorts. The da
   - `paintsSerifWeight()` in timetable-card.js detects it by ink, and `card.text`'s new `embolden` stroke stands in for the weight.
   - The older share cards draw their Thai headings regular on Safari for the same reason. They are not changed yet.
 - **Open, Palm's call.** The class LINE (20 Jul) says morning papers start at 9:00 after the 17 Jul review. The faculty table copied into `EXAM_SCHEDULE` says 08:30.
+- **Review fixes 5.172.2 (2026-10-29, branch `claude/timetable-review-fixes`).**
+  - `periodOf(exams, now)` is the pure period picker. A paper with no `term` joins the termed period within 28 days, and the title comes from the termed papers. A time that does not parse is past only once its Bangkok day ends (`paperOverMs`). Same-day papers sort by start time (`compareExams`, also the page's order).
+  - `rowMetrics` (pure) keeps regular rows (66-118 px), else sets the page compact: a smaller title, 36 px week headers, rows from 60 px. 16 papers fit cleanly in two or three weeks in all three engines. Rows past `BODY_BOTTOM`, a cut room or a cut course name are layout findings (`data-layout` "tight"). Two lines of 22 px Thai cannot go under about 58 px: WebKit measures a stacked mark (ชั่) 28 px above the baseline.
+  - The sheet is warmed at idle on the schedule page and has its own boundary: a failed load leaves a note with a retry, and the page stays. `importFresh` (chunk-error.js) re-imports the failed URL under `?retry=N`. A failed *dependency* chunk stays failed in Chromium and WebKit until a reload (measured on the dev server), so a second failure while online also offers "โหลดหน้านี้ใหม่".
+  - On the dev server React StrictMode draws the sheet twice: e2e assertions must not count on one draw.
+  - Home's chip (`getTopMilestone`) names the open window that closes first (deadline, then registration, payment, checkpoint on a tie) and prints `shortTh`. Milestones and campus events count Bangkok days (`describeMilestone`).
 
 ## Bug sweep and e2e flakes — 2026-10-27 (Claude Code)
 

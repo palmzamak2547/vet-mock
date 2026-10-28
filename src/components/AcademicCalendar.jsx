@@ -13,7 +13,7 @@
 import { useState } from 'react';
 import {
   ACADEMIC_MILESTONES, COURSE_GROUPS, SEMESTER,
-  fmtThaiRange, fmtThaiDate, getActiveMilestones, getUpcomingEvents,
+  describeMilestone, fmtThaiRange, fmtThaiDate, getActiveMilestones, getUpcomingEvents, semesterLabelTh,
 } from '../data/schedule.js';
 
 const KIND_LABEL = {
@@ -69,24 +69,6 @@ function MilestoneRow({ m }) {
   );
 }
 
-/** Day offsets + open/closed state for a milestone, same arithmetic
- *  getActiveMilestones uses — so the full list and the "relevant now" list
- *  describe a window identically. */
-function describeMilestone(m, now = new Date()) {
-  const today = new Date(now); today.setHours(0, 0, 0, 0);
-  const day = 24 * 60 * 60 * 1000;
-  const start = new Date(m.start); start.setHours(0, 0, 0, 0);
-  const end = new Date(m.end); end.setHours(0, 0, 0, 0);
-  const daysLeftToEnd = Math.round((end - today) / day);
-  return {
-    ...m,
-    daysLeft: Math.round((start - today) / day),
-    daysLeftToEnd,
-    active: start <= today && today <= end,
-    past: daysLeftToEnd < 0,
-  };
-}
-
 /** งานที่ประกาศผ่านสโมสร/ฝ่ายนิสิต — มีวัน เวลา ห้อง และลิงก์ข้อมูลจริง */
 function EventRow({ e }) {
   const soon = e.daysLeft <= 7;
@@ -136,6 +118,9 @@ export default function AcademicCalendar({ year = 5 }) {
   const active = getActiveMilestones(14);
   const events = getUpcomingEvents(year, 60);
   const group = COURSE_GROUPS[`y${year}`];
+  // The box sits under the next term's registration rows, so it names the
+  // term its code registers, from the group's own data.
+  const groupTerm = group ? semesterLabelTh(group.semester) : '';
   // The full list must carry real offsets too — the row renders "อีก N วัน"
   // from them, so blanking them printed the literal string "null".
   // NB: pass through an arrow — `.map(describeMilestone)` would hand the array
@@ -188,7 +173,7 @@ export default function AcademicCalendar({ year = 5 }) {
       {group && (
         <div style={{ marginTop: 14, padding: '13px 15px', borderRadius: 'var(--r-md, 12px)', background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 6 }}>
-            ลงทะเบียนทั้งชุดด้วยรหัสกลุ่ม{' '}
+            {groupTerm ? `${groupTerm}: ` : ''}ลงทะเบียนทั้งชุดด้วยรหัสกลุ่ม{' '}
             <span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)' }}>{group.groupCode}</span>
           </div>
           <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.65 }}>

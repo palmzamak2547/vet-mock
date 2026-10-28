@@ -7,7 +7,7 @@
 // page above it lists, so the sheet and the page can never disagree.
 // ============================================================
 
-import { SEMESTER, calendarDay, bangkokDate, examTitle, getUpcomingExams, msUntilExam, parseExamStart } from '../data/schedule.js';
+import { SEMESTER, bangkokDate, bangkokMs, calendarDay, compareExams, examTitle, getUpcomingExams, parseExamStart } from '../data/schedule.js';
 import { SUBJECTS, announced } from '../data/curriculum.js';
 import { SUBJECT_COVERS } from '../data/subject-covers.js';
 
@@ -22,7 +22,7 @@ const PERIOD_DAYS = 28;
 
 /** "3 ชั่วโมง", "1 ชั่วโมง 30 นาที", "45 นาที", or '' when unknown. */
 export function durationLabel(minutes) {
-  const m = Number(minutes);
+  const m = Math.round(Number(minutes));
   if (!Number.isFinite(m) || m <= 0) return '';
   const h = Math.floor(m / 60);
   const rest = m % 60;
@@ -82,16 +82,37 @@ function weekOf(date) {
 }
 
 /**
- * The period a printed timetable covers, or null when the year has no papers.
- * A paper is past once it has ended (its own duration, else three hours).
+ * The moment a paper is over: its start plus its own duration, three hours
+ * when it has none. A time that does not parse ("~2 ชม.") says nothing about
+ * the hour, so that paper is over only when its Bangkok day is: at 11:00 it
+ * may not even have started.
  */
-export function examTimetable(year, now = new Date()) {
-  const all = getUpcomingExams(`y${year}`, now);
+export function paperOverMs(exam) {
+  const start = parseExamStart(exam.time);
+  if (!start) return bangkokMs(exam.date, 24);
+  return bangkokMs(exam.date, start.hour, start.minute) + (exam.duration_min || 180) * 60_000;
+}
+
+/**
+ * The exam period a page covers, from any list of papers (null when empty):
+ * the next paper not yet over, else the last one, and the papers of its term
+ * within PERIOD_DAYS of it. A paper with no `term` (an off-timetable lab
+ * paper, a row the faculty left unmarked) joins the period it sits in, and
+ * the period's term, so its title, comes from the papers that carry one: the
+ * next paper's own, else that of the termed paper nearest it.
+ */
+export function periodOf(exams, now = new Date()) {
+  const all = [...exams].sort(compareExams);
   if (!all.length) return null;
-  const ended = (e) => msUntilExam(e, now) + (e.duration_min || 180) * 60_000 <= 0;
-  const anchor = all.find((e) => !ended(e)) || all[all.length - 1];
-  const near = (e) => Math.abs(calendarDay(e.date) - calendarDay(anchor.date)) <= PERIOD_DAYS * DAY_MS;
-  const rows = all.filter((e) => e.term === anchor.term && near(e)).map((e) => row(e, ended(e)));
+  const at = new Date(now).getTime();
+  const over = (e) => paperOverMs(e) <= at;
+  const anchor = all.find((e) => !over(e)) || all.at(-1);
+  const gap = (e) => Math.abs(calendarDay(e.date) - calendarDay(anchor.date));
+  const near = all.filter((e) => gap(e) <= PERIOD_DAYS * DAY_MS);
+  // Nearest first; of two as near, the one not yet over.
+  const termed = near.filter((e) => e.term).sort((a, b) => (gap(a) - gap(b)) || (over(a) - over(b)));
+  const term = anchor.term || termed[0]?.term || null;
+  const rows = near.filter((e) => !e.term || e.term === term).map((e) => row(e, over(e)));
 
   const weeks = [];
   for (const r of rows) {
@@ -104,22 +125,33 @@ export function examTimetable(year, now = new Date()) {
     w.range = dateRangeLabel(w.rows[0].date, w.rows.at(-1).date, { year: false });
   }
 
-  const cohort = cohortOf(year);
-  const term = anchor.term || null;
-  const issued = bangkokDate(now);
   return {
-    year: Number(year),
     term,
     title: TITLES[term] || 'ตารางสอบ',
-    kicker: `ชั้นปีที่ ${year}${cohort ? ` (${cohort})` : ''}`,
-    semester: SEMESTER?.labelTh || '',
     range: dateRangeLabel(rows[0].date, rows.at(-1).date),
     subjects: new Set(rows.map((r) => r.subject)).size,
     rows,
     weeks,
+  };
+}
+
+/**
+ * The period a printed timetable covers for one year, read on Bangkok's
+ * clock from the rows the page lists, or null when the year has no papers.
+ */
+export function examTimetable(year, now = new Date()) {
+  const period = periodOf(getUpcomingExams(`y${year}`, now), now);
+  if (!period) return null;
+  const cohort = cohortOf(year);
+  const issued = bangkokDate(now);
+  return {
+    year: Number(year),
+    ...period,
+    kicker: `ชั้นปีที่ ${year}${cohort ? ` (${cohort})` : ''}`,
+    semester: SEMESTER?.labelTh || '',
     issued: dateRangeLabel(issued, issued),
     edition: SEMESTER?.examTableTh || '',
     source: SEMESTER?.sourceNote || '',
-    file: `vetmock-exam-timetable-y${year}-${term || 'exams'}-${SEMESTER?.id || issued}`,
+    file: `vetmock-exam-timetable-y${year}-${period.term || 'exams'}-${SEMESTER?.id || issued}`,
   };
 }

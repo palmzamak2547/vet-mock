@@ -30,16 +30,30 @@ function readAsDataUrl(blob) {
 // ponytail: one smaller retry for a phone whose canvas cap is under 8.7 MP.
 const SCALES = [2, 1.25];
 
+// A canvas's memory goes when it has no pixels: iOS counts every canvas still
+// alive against one budget, and the failed 2x page (35 MB) was still held
+// while the 1.25x one was drawn.
+const release = (canvas) => {
+  if (!canvas) return;
+  canvas.width = 0;
+  canvas.height = 0;
+};
+
 async function drawPage(table) {
   await ensureCardFonts();
   for (const scale of SCALES) {
+    let canvas = null;
     try {
       const { card, problems } = await drawTimetable(table, { scale });
-      const png = await toBlob(card.canvas, 'image/png');
-      const jpeg = await toBlob(card.canvas, 'image/jpeg', 0.92);
+      canvas = card.canvas;
+      const png = await toBlob(canvas, 'image/png');
+      const jpeg = await toBlob(canvas, 'image/jpeg', 0.92);
       return { png, jpeg, clean: problems.length === 0 };
     } catch {
       // Next scale.
+    } finally {
+      // Encoded or failed, the page lives on as its two files.
+      release(canvas);
     }
   }
   throw new Error('the page could not be drawn');
@@ -62,6 +76,9 @@ export default function TimetableSheet({ table, onClose }) {
     setState('rendering');
     drawPage(table)
       .then(async (drawn) => {
+        // A sheet closed while the page was drawing has already run its
+        // cleanup: a URL made now would never be revoked.
+        if (!alive) return;
         const src = inApp ? await readAsDataUrl(drawn.png) : URL.createObjectURL(drawn.png);
         if (!src.startsWith('data:')) url = src;
         if (!alive) return;
