@@ -140,3 +140,36 @@ test('an exam card names its month in Thai and never fades its text', () => {
   assert.equal(view.card.props.style.opacity, undefined, 'no opacity on the card at all');
   assert.match(source, /className="vmx-inline-action vmx-schedule-report"/, 'the report link gets its 44px class');
 });
+
+// The printable sheet is its own chunk. A tap that cannot load it leaves a
+// note on the page (tests/e2e/exam-timetable.spec.js drives the real one);
+// here, what the note says in each case.
+function sheetNote({ error, repeated = false, onLine = true }) {
+  const deps = {
+    h, Fragment: 'Fragment', useState: (init) => [typeof init === 'function' ? init() : init, () => {}], useEffect: () => {},
+    navigator: { onLine }, isChunkLoadError: (e) => /dynamically imported module|module script/i.test(e.message),
+  };
+  const Note = new Function(...Object.keys(deps), `${code}\nreturn SheetFailure;`)(...Object.values(deps));
+  const tree = Note({ error, repeated, onRetry() {} });
+  const buttons = [];
+  find(tree, (node) => { if (node.type === 'button') buttons.push(textOf(node)); return false; });
+  return { role: tree.props.role, text: textOf(find(tree, (node) => node.type === 'span')), buttons };
+}
+
+test('a sheet that cannot load leaves a note that says why and offers a retry', () => {
+  const missing = new TypeError('Failed to fetch dynamically imported module: https://vetmock.com/assets/TimetableSheet-abc.js');
+  const offline = sheetNote({ error: missing, onLine: false });
+  assert.equal(offline.role, 'alert');
+  assert.match(offline.text, /^ยังไม่ได้ต่ออินเทอร์เน็ต/);
+  assert.deepEqual(offline.buttons, ['ลองอีกครั้ง']);
+  assert.deepEqual(sheetNote({ error: missing }).buttons, ['ลองอีกครั้ง']);
+  assert.match(sheetNote({ error: missing }).text, /^โหลดตารางสอบฉบับพิมพ์ไม่สำเร็จ/);
+  // A second failure while online: a piece shared with other screens stays
+  // failed until the page loads again, so that is offered too.
+  assert.deepEqual(sheetNote({ error: missing, repeated: true }).buttons, ['โหลดหน้านี้ใหม่', 'ลองอีกครั้ง']);
+  assert.deepEqual(sheetNote({ error: missing, repeated: true, onLine: false }).buttons, ['ลองอีกครั้ง']);
+  // A sheet that loaded but broke is not a download problem.
+  const broke = sheetNote({ error: new TypeError("Cannot read properties of undefined (reading 'rows')"), repeated: true });
+  assert.match(broke.text, /^เปิดตารางสอบฉบับพิมพ์ไม่สำเร็จ/);
+  assert.deepEqual(broke.buttons, ['ลองอีกครั้ง']);
+});
