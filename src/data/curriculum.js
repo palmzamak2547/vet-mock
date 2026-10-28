@@ -1787,10 +1787,10 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'milk-borne-pathogens', examScope: 'midterm', label: 'Milk-borne pathogens & diseases', icon: '🦠', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
         { id: 'milk-industry-std', examScope: 'midterm', label: 'Standard of milk industry & products', icon: '🏭', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
         { id: 'milk-processing', examScope: 'midterm', label: 'Processing & manufacturing technology', icon: '⚙️', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
-        { id: 'milk-cleaning', examScope: 'midterm',  // the lecture list puts cleaning after the
-          // midterm week, but the Mid 86 paper itself examines it: 10 of the 25 questions in
-          // its set F are CIP sequence, the 4-hour stop rule, 85°C sanitising, the phenol
-          // coefficient table and iodophores. A real past paper outranks a lecture date.
+        { id: 'milk-cleaning', examScope: 'both',  // the 2569 timetable (3109503) teaches this
+          // on 30 Sep, after the 21-25 Sep midterm, so it is on Vet 86's final; Vet 85 also sat it
+          // at the final (1 Oct 2025). It stays on the midterm too because the Mid 86 compilation's
+          // set F asks it (CIP sequence, the 4-hour stop rule, 85°C sanitising, phenol coefficient).
           label: 'Cleaning & disinfectants in MCC', icon: '🧼', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
         { id: 'meat-hygiene-intro', examScope: 'final', label: 'Meat hygiene intro', icon: '🥩', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-seafood', examScope: 'final', label: 'Seafood hygiene', icon: '🐟', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
