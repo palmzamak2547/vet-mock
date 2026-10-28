@@ -62,7 +62,17 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "Swine Medicine final Vet 78, Vet 81 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81], paper: 'final' },
+  "Swine Medicine final Vet 78, Vet 81, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81, 85], paper: 'final' },
+  "Swine Medicine final Vet 80, Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 84], paper: 'final' },
+  "Swine Medicine final Vet 80, Vet 81, Vet 83, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 81, 83, 85], paper: 'final' },
+  "Swine Medicine final Vet 78 บันทึกหลังสอบ": { kind: 'paper', cohort: 78, paper: 'final' },
+  "Swine Medicine final Vet 80 บันทึกหลังสอบ": { kind: 'paper', cohort: 80, paper: 'final' },
+  "Swine Medicine final Vet 80, Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 83], paper: 'final' },
+  "Swine Medicine final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
+  "Swine Medicine final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
   "VCA รอบ 1/2569 หมวด 2 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
+  "VCA รอบ 1/2569 หมวด 3 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้": { kind: 'paper', cohort: null, paper: null },
   "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)": { kind: 'paper', cohort: 85, paper: 'station' },

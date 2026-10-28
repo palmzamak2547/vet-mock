@@ -185,6 +185,91 @@ export const SOURCE_DOCS = [
     match: /อธิภู,พรชลิต/,
     editions: [{ id: '4p', pages: 4 }],
   },
+  // Swine Medicine FINAL sources from the Vet 84 folder (sunsun84), page counts from the files, 29 ต.ค. 2569.
+  // swine med final2: the Vet 80 final screenshots (16 Nov 2020); a plain 11-page copy holds the same
+  // screenshots, the 12-page copy is the one the inventory keyed.
+  {
+    slug: 'swine-med-final2-vet80', subject: 'swine-clinic', title: 'swine med final2',
+    match: /\bswine med final2\b/,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  // The 9-page compilation in the Vet 84 swine folder: a recall of a sat final by parts and points; it does not name its cohort.
+  {
+    slug: 'swine-final-recall-unnamed', subject: 'swine-clinic', title: 'สรุปปลายภาค Swine รุ่นพี่',
+    match: /สรุปปลายภาค Swine รุ่นพี่/,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'swine-final-recall-vet78', subject: 'swine-clinic', title: 'สรุปรวมข้อสอบปลายภาค Swine Vet 78',
+    match: /สรุปรวมข้อสอบปลายภาค Swine Vet 78/,
+    editions: [{ id: '2p', pages: 2 }],
+  },
+  {
+    slug: 'swine-final-handwritten-vet83', subject: 'swine-clinic', title: 'swine med final ฉบับเขียนมือ Vet 83',
+    match: /swine med final ฉบับเขียนมือ Vet 83/,
+    editions: [{ id: '26p', pages: 26 }],
+  },
+  // Swine Med Final.pdf and its starred copy: 25 pages each, same pages.
+  {
+    slug: 'swine-med-final-chat', subject: 'swine-clinic', title: 'Swine Med Final',
+    match: /\bSwine Med Final\b/,
+    editions: [{ id: '25p', pages: 25 }],
+  },
+  // Aj. Roongtham's 2024 decks, the ones the Vet 84 folder marked.
+  {
+    slug: 'swine-roongtham-deck6-2024', subject: 'swine-clinic', title: 'deck 6 (Roongtham, 2024)',
+    match: /deck 6 \(Roongtham, 2024\)/,
+    editions: [{ id: '85p', pages: 85 }],
+  },
+  {
+    slug: 'swine-roongtham-deck65-csf', subject: 'swine-clinic', title: 'CSF supplement deck 6.5 (Roongtham)',
+    match: /CSF supplement deck 6\.5 \(Roongtham\)/,
+    editions: [{ id: '7p', pages: 7 }],
+  },
+  {
+    slug: 'swine-roongtham-deck7-2024', subject: 'swine-clinic', title: 'ASF deck 7 (Roongtham, 2024)',
+    match: /deck 7 \(Roongtham, 2024\)/,
+    editions: [{ id: '78p', pages: 78 }],
+  },
+  // Aj. Pornchalit's and Aj. Suphot's decks as the Vet 84 folder holds them (2020-2024 editions).
+  {
+    slug: 'swine-pornchalit-deck1-2024', subject: 'swine-clinic', title: 'Swine Medicine lecture note, deck 1 (Pornchalit, 2024)',
+    match: /deck 1 \(Pornchalit, 2024\)/,
+    editions: [{ id: '335p', pages: 335 }],
+  },
+  {
+    slug: 'swine-suphot-deck2-2024', subject: 'swine-clinic', title: 'Swine Enteric Diseases, deck 2 (Suphot, 2024)',
+    match: /deck 2 \(Suphot, 2024\)/,
+    editions: [{ id: '131p', pages: 131 }],
+  },
+  {
+    slug: 'swine-fmd-deck3-2020', subject: 'swine-clinic', title: 'FMD swine med, deck 3 (2020)',
+    match: /FMD swine med, deck 3 \(2020\)/,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'swine-suphot-deck4-pcv2-2021', subject: 'swine-clinic', title: 'PCV2, deck 4 (Suphot, 2021)',
+    match: /deck 4 \(Suphot, 2021\)/,
+    editions: [{ id: '27p', pages: 27 }],
+  },
+  // Vet 81's annotated summary of the Pornchalit and Suphot parts; it marks which items Vet 81 sat.
+  {
+    slug: 'swine-med-pa-vet81', subject: 'swine-clinic', title: 'SWINE MEDICINE PA (Vet 81 annotated copy)',
+    match: /SWINE MEDICINE PA\b/,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  // Vet 84's Pornchalit question, photographed from the exam Google Form.
+  {
+    slug: 'swine-final-gform-vet84', subject: 'swine-clinic', title: 'Google Form ปลายภาค Swine ส่วนพรชลิต Vet 84',
+    match: /Google Form ปลายภาค Swine ส่วนพรชลิต Vet 84/,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  // Kimchi85's Vet 85 final recall: p.2 Aj. Suphot's essays, p.3 Aj. Roongtham's written items.
+  {
+    slug: 'swine-final-recall-vet85', subject: 'swine-clinic', title: 'หมูกระทุตุ๊ต๊ะ ไฟนอล',
+    match: /หมูกระทุตุ๊ต๊ะ ไฟนอล/,
+    editions: [{ id: '3p', pages: 3 }],
+  },
   // Kimchii #85 notes; 18 of its pages are pages of Aqua Med Mid 86.
   {
     slug: 'aquatic-med-mid86-kimchii', subject: 'aquatic-clinic', title: 'AQUATIC MED MID 86 🏅',

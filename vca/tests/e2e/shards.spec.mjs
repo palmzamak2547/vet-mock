@@ -64,7 +64,9 @@ test('a set reopened after a reload fetches its own shards and no others', async
 });
 
 test('a reopened set whose shards cannot be had says so, and the button gets them', async ({ page, pageErrors }) => {
-  await page.goto('/practice?d=imaging&n=10');
+  // The smallest domain that still fills a set of ten, picked by size.
+  const small = BANK.domains.slice().sort((a, b) => a.count - b.count).find((d) => d.count >= 10);
+  await page.goto(`/practice?d=${small.id}&n=10`);
   await page.locator('.builder-sum button.btn-ink').click();
   await expect(page.locator('.run-card [role="radio"]').first()).toBeVisible({ timeout: 30_000 });
   const stem = await page.locator('.q-stem').first().innerText();
@@ -78,7 +80,7 @@ test('a reopened set whose shards cannot be had says so, and the button gets the
   await expect(page.locator('.q-stem').first()).toHaveText(stem);
   // The browser logs a load that failed; here that is the point of the test, and nothing else.
   expect(pageErrors.length).toBeGreaterThan(0);
-  expect(pageErrors.every((m) => /ERR_CONNECTION_FAILED .*\/bank\/imaging-\d\./.test(m))).toBe(true);
+  expect(pageErrors.every((m) => new RegExp(`ERR_CONNECTION_FAILED .*/bank/${small.id}-\\d+\\.`).test(m))).toBe(true);
   pageErrors.length = 0;
 });
 
@@ -150,12 +152,16 @@ test('the bank shows its first page at once, says the rest is coming, and answer
 });
 
 test('with nothing typed the bank, once complete, lists every question and offers more', async ({ page }) => {
-  await page.goto('/bank?d=juris');
-  await expect(page.locator('.bank-status')).toContainText('54 ข้อ', { timeout: 20_000 });
+  // The largest domain, by the bank's own count, so a new paper in the bank does not break the test.
+  const big = BANK.domains.slice().sort((a, b) => b.count - a.count)[0];
+  const size = big.count;
+  expect(size).toBeGreaterThan(30);
+  await page.goto(`/bank?d=${big.id}`);
+  await expect(page.locator('.bank-status')).toContainText(`${size} ข้อ`, { timeout: 20_000 });
   await expect(page.locator('.bank-status')).not.toContainText('กำลังโหลดที่เหลือ');
   await expect(page.locator('.bk')).toHaveCount(30);
   await page.locator('.more button').click();
-  await expect(page.locator('.bk')).toHaveCount(54);
+  await expect(page.locator('.bk')).toHaveCount(size);
 });
 
 test('a shard that fails leaves the first page, says the rest did not come, and the button finishes it', async ({ page, pageErrors }) => {

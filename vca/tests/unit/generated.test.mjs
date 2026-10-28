@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { BANK, SAMPLES } from '../../src/generated/bank.js';
 import { CATALOG } from '../../src/generated/catalog.js';
 import { LIBRARY } from '../../src/generated/library.js';
-import { MAPPED_SUBJECTS, EXCLUDED_SUBJECTS } from '../../src/data/domains.js';
+import { MAPPED_SUBJECTS, NOT_VCA, SERVED_SUBJECT, VCA_SOURCES, vcaSource } from '../../src/data/domains.js';
 import { readDomain } from '../support/bank-files.mjs';
 
 const APP = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -137,9 +137,9 @@ test('cards carry what the wall shows', () => {
 
 test('the catalog explains everything left out', () => {
   assert.deepEqual(Object.keys(CATALOG.left).sort(), ['answer', 'empty', 'held', 'passage', 'type']);
-  for (const x of CATALOG.excludedSubjects) {
-    assert.ok(x.id in EXCLUDED_SUBJECTS, `${x.id} is excluded on purpose`);
-    assert.ok(x.n > 0 && x.why && x.name);
+  for (const x of CATALOG.notServed) {
+    assert.ok(x.id === 'course' || NOT_VCA.some((s) => s.id === x.id), `${x.id} is kept out on purpose`);
+    assert.ok(x.n > 0 && (x.id === 'course' || x.why));
   }
   for (const d of BANK.domains) {
     const detail = CATALOG.domains[d.id];
@@ -178,15 +178,22 @@ test('counts reconcile with the main bank', async () => {
   const { BANK_REGISTRY } = await import('../../../src/data/bank-registry.generated.js');
   const { isQuestionDeliverable } = await import('../../../src/data/question-delivery.generated.js');
   let inScope = 0;
-  const excluded = {};
+  const notServed = {};
+  const bySource = {};
   for (const bank of BANK_REGISTRY) {
     for (const q of await bank.load()) {
-      if (MAPPED_SUBJECTS.includes(q.subject)) inScope += 1;
-      else if (q.subject in EXCLUDED_SUBJECTS && isQuestionDeliverable(q)) excluded[q.subject] = (excluded[q.subject] || 0) + 1;
+      const source = vcaSource(q);
+      if (q.subject !== SERVED_SUBJECT) { if (isQuestionDeliverable(q)) notServed.course = (notServed.course || 0) + 1; continue; }
+      assert.ok(source, `${q.subject}:${q.id} has a VCA source or a reason to stay out`);
+      if (source.startsWith('not:')) { if (isQuestionDeliverable(q)) notServed[source.slice(4)] = (notServed[source.slice(4)] || 0) + 1; continue; }
+      inScope += 1;
+      bySource[source] = (bySource[source] || 0) + 1;
     }
   }
   const leftOut = sum(Object.values(CATALOG.left));
   const unplaced = sum(Object.entries(CATALOG.unmapped).filter(([k]) => k.includes('/')).map(([, n]) => n));
-  assert.equal(BANK.total + leftOut + unplaced, inScope, 'every in-scope question is served or accounted for');
-  assert.deepEqual(Object.fromEntries(CATALOG.excludedSubjects.map((x) => [x.id, x.n])), excluded);
+  assert.equal(BANK.total + leftOut + unplaced, inScope, 'every VCA question is served or accounted for');
+  assert.deepEqual(Object.fromEntries(CATALOG.notServed.map((x) => [x.id, x.n])), notServed);
+  assert.equal(sum(Object.values(BANK.sources)), BANK.total, 'every served question has one source');
+  for (const s of VCA_SOURCES) assert.ok(BANK.sources[s.id] <= (bySource[s.id] || 0), `${s.id}: served at most what the bank holds`);
 });

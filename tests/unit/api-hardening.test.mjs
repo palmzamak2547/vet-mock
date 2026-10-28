@@ -33,14 +33,14 @@ async function withFetch(stub, fn) {
 
 // ── /api/tts ────────────────────────────────────────────────────────
 test('the voice lookup answers only for real languages', () => {
-  assert.equal(voiceFor('th'), 'th-TH-PremwadeeNeural');
+  assert.equal(voiceFor('th'), 'th-TH-NiwatNeural');
   assert.equal(voiceFor('en'), 'en-US-AriaNeural');
   // Prototype keys used to come back as Object methods, then went upstream
   // as the voice name.
-  assert.equal(voiceFor('constructor'), 'th-TH-PremwadeeNeural');
-  assert.equal(voiceFor('__proto__'), 'th-TH-PremwadeeNeural');
-  assert.equal(voiceFor('toString'), 'th-TH-PremwadeeNeural');
-  assert.equal(voiceFor(undefined), 'th-TH-PremwadeeNeural');
+  assert.equal(voiceFor('constructor'), 'th-TH-NiwatNeural');
+  assert.equal(voiceFor('__proto__'), 'th-TH-NiwatNeural');
+  assert.equal(voiceFor('toString'), 'th-TH-NiwatNeural');
+  assert.equal(voiceFor(undefined), 'th-TH-NiwatNeural');
 });
 
 test('a rate that is not a number plays at the default pace, not at "NaN%"', () => {

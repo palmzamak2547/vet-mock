@@ -15,7 +15,8 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105576,
     "tags": [
       "lawsonia-intracellularis",
-      "proliferative-enteropathy"
+      "proliferative-enteropathy",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -31,14 +32,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 0,
     "explain": "Ileitis หรือ proliferative enteropathy เกิดจาก Lawsonia intracellularis ส่วน Brachyspira hyodysenteriae เป็นเชื้อของ swine dysentery ซึ่งอยู่ใน DDx ชุดเดียวกันแต่คนละโรค Yersinia enterocolitica ก็อยู่ในชุด DDx เช่นกันแต่ไม่ใช่สาเหตุของ ileitis ส่วน Salmonella Choleraesuis ทำให้เกิด septicemic salmonellosis ไม่ใช่รอยโรคหนาตัวของลำไส้เล็กแบบ ileitis",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105577,
     "tags": [
       "brachyspira-hyodysenteriae",
-      "swine-dysentery"
+      "swine-dysentery",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -54,7 +56,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 1,
     "explain": "โรค swine dysentery เกิดจาก Brachyspira hyodysenteriae ขณะที่ Lawsonia intracellularis เป็นเชื้อของ ileitis ซึ่งเป็นอีกโรคหนึ่งในชุด DDx เดียวกัน hemolytic E. coli มักทำให้ท้องเสียเป็นน้ำมากกว่ามูกเลือด ส่วน Yersinia enterocolitica เป็นตัวที่สามในชุด DDx แต่ไม่ใช่เชื้อของ swine dysentery",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
@@ -62,7 +64,8 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "lawsonia-intracellularis",
       "ELISA",
-      "IPMA"
+      "IPMA",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -78,14 +81,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 3,
     "explain": "การวินิจฉัยแบ่งเป็นสองฝั่งชัดเจน ฝั่ง antigen ใช้ fecal PCR, bacterial culture และ fecal count ส่วนฝั่ง antibody ใช้ ELISA และ IPMA ซึ่งเป็นการตรวจภูมิต่อ ileitis Fecal PCR กับ culture เป็นการตรวจหาตัวเชื้อไม่ใช่ภูมิคุ้มกัน histopathology เป็นการดูรอยโรคในเนื้อเยื่อ และ dark-field microscopy เป็นเทคนิคดูเชื้อเกลียวสด ไม่ใช่การตรวจ antibody",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105580,
     "tags": [
       "escherichia-coli",
-      "dietary-fiber"
+      "dietary-fiber",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -101,7 +105,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 0,
     "explain": "diet management ของ hemolytic E. coli คือใส่อาหารที่มี fiber สูงขึ้นและ protein ลดลง เพราะ protein ที่ย่อยไม่หมดเป็นสารตั้งต้นให้ E. coli ในลำไส้ส่วนท้าย ตัวเลือกที่เพิ่ม protein จึงสวนทางกับคำตอบ ส่วนการเพิ่มไขมันและการเพิ่มแป้งไม่ใช่แนวทางของโรคนี้",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
@@ -132,7 +136,8 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "differential-diagnosis",
       "salmonellosis",
-      "CSF"
+      "CSF",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -148,14 +153,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 3,
     "explain": "อาการร่วมของทั้งสามโรคคือ diarrhea, lymph node บวมโต, cyanosis, ซึม, เบื่ออาหาร, respiratory sign และไข้สูง ซึ่งเป็นเหตุผลที่สามโรคนี้แยกจากกันด้วยอาการอย่างเดียวไม่ได้ ตุ่มน้ำที่กีบและจมูกเป็นรอยโรคของกลุ่ม vesicular disease เช่น FMD ไม่ใช่สามโรคนี้ อาการเดินวนและกล้ามเนื้อสั่นชี้ไปทางโรคระบบประสาท ส่วนขนร่วงทั้งตัวและตาบอดไม่ใช่ภาพของโรคใดในสามโรคนี้",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105584,
     "tags": [
       "salmonellosis",
-      "disease-distribution-pattern"
+      "disease-distribution-pattern",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -171,7 +177,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 0,
     "explain": "Salmonella เป็นโรคแบคทีเรีย มักเกิดโรคแบบกระจุกและมี distribution ในฟาร์มต่ำ ขณะที่ PCV และ swine fever เป็นโรคไวรัสจึงมี distribution ในฟาร์มสูง ตัวเลือกที่สลับข้างจึงผิด การบอกว่าทั้งสามโรคกระจายเท่ากันทำให้ข้อมูลนี้ใช้แยกโรคไม่ได้เลย ส่วนการผูกโรคกับช่วงอายุแบบตายตัวไม่จริงในทางปฏิบัติ",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
@@ -179,7 +185,8 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "button-ulcer",
       "turkey-egg-kidney",
-      "CSF"
+      "CSF",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -195,14 +202,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 1,
     "explain": "Salmonella และ swine fever พบ hemorrhagic lymph node, button ulcer, hemorrhage ที่ผิวหนัง และ turkey egg kidney ร่วมกัน จึงเป็นคู่ที่แยกยากที่สุดในสามโรค vesicle ที่ลิ้นและ erosion ที่กีบเป็นภาพของโรคกลุ่มตุ่มน้ำอย่าง FMD ส่วน interstitial pneumonia และรอยโรค granuloma หรือ abscess ไม่ใช่จุดร่วมของสองโรคนี้",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105586,
     "tags": [
       "viral-etiology",
-      "antimicrobial-use"
+      "antimicrobial-use",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -218,14 +226,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 2,
     "explain": "PCV และ swine fever เป็นโรค virus จึงไม่ตอบสนองต่อยาปฏิชีวนะ ซึ่งต่างจาก Salmonella ที่เป็นแบคทีเรีย ข้อที่บอกว่าเป็นแบคทีเรียดื้อยาฟังดูเข้าเค้าแต่ผิดชนิดของเชื้อ ปรสิตในเลือดเข้ากับ Mycoplasma suis มากกว่า และสารพิษเชื้อราทำให้เกิดภาพ mycotoxicosis ซึ่งไม่ใช่โรคติดเชื้อที่กำลังพูดถึง หมายเหตุว่าการให้ยาปฏิชีวนะยังมีที่ใช้เพื่อคุมการติดเชื้อแทรกซ้อน",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105587,
     "tags": [
       "fmd",
-      "sample-collection"
+      "sample-collection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -241,14 +250,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 3,
     "explain": "ตัวอย่างที่ใช้ยืนยัน FMD คือ tissue ของตุ่มน้ำส่งตรวจ PCR และ serum ส่งตรวจ ELISA ซึ่งเป็นการแยกหน้าที่ระหว่างการหาตัวเชื้อกับการหาภูมิคุ้มกัน ซีรัมจากสุกรที่หายป่วยแล้วเหมาะกับ ELISA ไม่ใช่ PCR เพราะช่วงนั้นมักตรวจไม่พบไวรัสแล้ว อุจจาระและน้ำนมไม่ใช่ตัวอย่างที่ใช้ยืนยัน FMD",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105588,
     "tags": [
       "fmd",
-      "swine-vesicular-disease"
+      "swine-vesicular-disease",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -264,7 +274,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 0,
     "explain": "DDx ของ FMD มีสองโรคคือ vesicular stomatitis และ swine vesicular disease เพราะทั้งคู่ทำให้เกิดตุ่มน้ำที่ปากและกีบเหมือนกันจนแยกด้วยตาไม่ได้ ต้องอาศัยห้องปฏิบัติการ PED ทำให้ท้องเสียรุนแรงแต่ไม่มีตุ่มน้ำ atrophic rhinitis ทำให้จมูกบิดเบี้ยวจากการทำลายกระดูก turbinate และ APP เป็นโรคปอดเฉียบพลัน ทั้งสามข้อไม่ทำให้เกิดรอยโรคตุ่มน้ำ",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
@@ -272,7 +282,8 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "fmd",
       "killed-vaccine",
-      "serotype-matching"
+      "serotype-matching",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -288,14 +299,15 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 1,
     "explain": "การควบคุมการระบาดใช้ vaccine เชื้อตายโดยเลือกให้ตรงกับ serotype ที่กำลังระบาด เพราะ FMD มีหลาย serotype และภูมิคุ้มกันข้าม serotype แทบไม่มี วัคซีน FMD ที่ใช้ในสุกรเป็นชนิดเชื้อตาย ตัวเลือกที่ระบุวัคซีนเชื้อเป็นจึงผิดชนิด ส่วนการงดทำวัคซีนขัดกับแผนการควบคุมที่ให้ทำวัคซีนปูพรม",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {
     "id": 105590,
     "tags": [
       "fmd",
-      "secondary-bacterial-infection"
+      "secondary-bacterial-infection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -311,7 +323,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "answer": 2,
     "explain": "ให้ยาปฏิชีวนะเพื่อป้องกัน secondary infection เพราะรอยโรคตุ่มน้ำที่แตกออกเป็นทางเข้าของแบคทีเรีย ยาปฏิชีวนะไม่มีฤทธิ์ต่อไวรัสจึงฆ่า FMD virus ไม่ได้ ไม่ได้ทำหน้าที่กระตุ้นภูมิคุ้มกันซึ่งเป็นงานของวัคซีน และไม่ได้ลดการขับเชื้อไวรัสออกจากตัวสัตว์",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
   },
   {

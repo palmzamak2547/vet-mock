@@ -239,12 +239,13 @@ export function buildConcepts(text, { extraTerms = [] } = {}) {
     if (g) {
       if (have.has(`g:${g.gi}`)) continue;
       have.add(`g:${g.gi}`);
-      concepts.push({ key: `g:${g.gi}`, label: term, kind: 'alias', forms: g.g.corpus, weight: g.g.generic ? 0.4 : g.g.species ? 0.5 : 0.9, core: !g.g.generic && !named, generic: g.g.generic, species: g.g.species ? family(g.g.head) : null });
+      // extra: the planner's, not the student's (retrieve.js termSpecificity)
+      concepts.push({ key: `g:${g.gi}`, label: term, kind: 'alias', forms: g.g.corpus, weight: g.g.generic ? 0.4 : g.g.species ? 0.5 : 0.9, core: !g.g.generic && !named, generic: g.g.generic, species: g.g.species ? family(g.g.head) : null, extra: true });
       continue;
     }
     if (have.has(`l:${term}`) || CHAT_STOPWORDS.has(term)) continue;
     have.add(`l:${term}`);
-    concepts.push(latinConcept(term, 0.9, !named));
+    concepts.push({ ...latinConcept(term, 0.9, !named), extra: true });
   }
 
   // What kind of answer is wanted, read off the question without the names it
