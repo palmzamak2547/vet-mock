@@ -4,7 +4,7 @@ import PanicCard from '../components/PanicCard.jsx';
 import { hasPanicCard } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
 import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
-import { oldContentLine, phaseLabel, timetableTerm } from '../lib/current-phase.js';
+import { oldContentLine, phaseLabel, timetableStatus } from '../lib/current-phase.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
@@ -340,7 +340,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const wrapUp = onOpenWrapUp ? wrapUpFor(subject, selectedYear, paperPhase) : null;
   // ...unless the timetable itself is a past year's: then every paper in it
   // reads as sat, and last year's wrap-up, labelled, is all there is to read.
-  const pastYearTable = Boolean(wrapUp && !wrapUp.own && wrapUp.term === timetableTerm());
+  const pastYearTable = Boolean(wrapUp) && timetableStatus(selectedYear).status === 'stale-year';
   const showWrapUp = Boolean(wrapUp && (pastYearTable
     || wrapUpStillAhead(subject, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(paperPhase))));
 
@@ -697,7 +697,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             key="panic"
             subjectId={subject}
             subjectName={subjectMeta?.name}
-            kicker={`ปี ${selectedYear} ${phaseLabel(paperPhase)}`}
+            kicker={`ปี ${selectedYear}${selectedPhase ? ` ${phaseLabel(selectedPhase)}` : ''}`}
             questionCount={panicCount}
             onStart={onStartPanic}
           />

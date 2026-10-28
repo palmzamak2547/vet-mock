@@ -25,7 +25,7 @@
 // The palette is transcribed from the printed set. If the source files carry
 // exact values, re-sample them rather than eyeballing these again.
 // ============================================================
-import { paperContent } from '../lib/current-phase.js';
+import { isOwnTerm, termsUpToNow } from '../lib/current-phase.js';
 
 /**
  * Which subjects show their card on which paper: the term of the timetable
@@ -141,15 +141,18 @@ export function panicCardFor(subjectId) {
   return PANIC_CARDS[subjectId] || null;
 }
 
-// The lists as term → year → phase → subject, read fresh each time.
-const listedSubjects = () => Object.fromEntries(Object.entries(PANIC_CARD_PAPERS).map(([term, years]) => [term,
-  Object.fromEntries(Object.entries(years).map(([year, phases]) => [year,
-    Object.fromEntries(Object.entries(phases).map(([phase, { cards = [] }]) => [phase, Object.fromEntries(cards.map((id) => [id, true]))]))]))]));
-
-/** Which term's list puts this subject's card on the paper: { term, own }, or null. */
+/** Which term's list puts this subject's card on the paper: { term, own }, or
+ *  null. The newest term that has a list for the paper decides, its noCard
+ *  included; an earlier term's list stands in only when no later one names the
+ *  paper at all. */
 export function panicCardPaper(subjectId, selectedYear, selectedPhase, now = new Date()) {
-  const hit = PANIC_CARDS[subjectId] ? paperContent(listedSubjects(), subjectId, selectedYear, selectedPhase, now) : null;
-  return hit ? { term: hit.term, own: hit.own } : null;
+  if (!PANIC_CARDS[subjectId]) return null;
+  for (const term of termsUpToNow(PANIC_CARD_PAPERS)) {
+    const list = PANIC_CARD_PAPERS[term]?.[selectedYear]?.[selectedPhase];
+    if (!list) continue;
+    return list.cards?.includes(subjectId) ? { term, own: isOwnTerm(term, selectedYear, now) } : null;
+  }
+  return null;
 }
 
 /** Whether this subject's card shows on the paper the student is in. */

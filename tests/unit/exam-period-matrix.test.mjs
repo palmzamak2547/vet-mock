@@ -278,3 +278,23 @@ test('a newer term\'s content replaces the old the moment it is filed, and a ter
     delete WRAPUPS['2570-1'];
   }
 });
+
+test('a later term that lists a paper decides its panic cards, its noCard included, and term 1 content is this year\'s under term 2', () => {
+  const was = SEMESTER.id;
+  const now = new Date('2026-12-20T10:00:00+07:00');
+  PANIC_CARD_PAPERS['2570-1'] = { 5: { '1-mid': { cards: [], noCard: ['zoonoses'] } } };
+  try {
+    SEMESTER.id = '2570-1';
+    // 2570-1 lists the midterm and leaves zoonoses out on purpose: 2569's card does not come back.
+    assert.equal(panicCardPaper('zoonoses', 5, '1-mid', now), null);
+    // A paper 2570-1 does not list at all falls back to the newest list that has it.
+    delete PANIC_CARD_PAPERS['2570-1'];
+    assert.deepEqual(panicCardPaper('zoonoses', 5, '1-mid', now), { term: '2569-1', own: false });
+    // Term 2 of the same school year: term 1's content is the same cohort's, no "รุ่นก่อน".
+    SEMESTER.id = '2569-2';
+    assert.equal(wrapUpFor('zoonoses', 5, '1-mid', now).own, true);
+  } finally {
+    SEMESTER.id = was;
+    delete PANIC_CARD_PAPERS['2570-1'];
+  }
+});

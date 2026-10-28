@@ -864,6 +864,12 @@ export function lecturerSetFor(subjectId, selectedYear, selectedPhase, now = new
   return hit ? { ...hit.value, source: { term: hit.term, own: hit.own } } : null;
 }
 
+/** This subject's set for one paper of one given term, or null: a wrap-up reads
+ *  the formats of the set from its own term, never another year's. */
+export function lecturerSetIn(term, subjectId, selectedYear, selectedPhase) {
+  return LECTURER_SETS_BY_PAPER[term]?.[selectedYear]?.[selectedPhase]?.[subjectId] || null;
+}
+
 export function hasLecturerSet(subjectId, selectedYear, selectedPhase, now = new Date()) {
   return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase, now));
 }

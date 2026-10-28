@@ -1503,7 +1503,8 @@ export default function App() {
     if (saved.mode) setMode(saved.mode);
     if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
     if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
-    if ('selectedPhase' in saved) setSelectedPhase(saved.selectedPhase);
+    // null means nothing was narrowed then; it must not erase the kept pick.
+    if (saved.selectedPhase) setSelectedPhase(saved.selectedPhase);
     if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
     if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
     setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');

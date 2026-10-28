@@ -15,7 +15,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { lecturerSetFor, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
 import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
-import { termYearLabel } from '../lib/current-phase.js';
+import { oldYearTag, termYearLabel } from '../lib/current-phase.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { RevealTimingToggle, REVEAL_ROW, REVEAL_END, REVEAL_LABELS, writeRevealTiming } from './AnswerReveal.jsx';
@@ -23,9 +23,9 @@ import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIN
 import { lecturerCount } from '../lib/lecturer-count.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
-function thaiDate(iso) {
-  const [, m, d] = String(iso || '').split('-').map(Number);
-  return m ? `${d} ${TH_MONTH[m - 1]}` : '';
+function thaiDate(iso, withYear = false) {
+  const [y, m, d] = String(iso || '').split('-').map(Number);
+  return m ? `${d} ${TH_MONTH[m - 1]}${withYear && y ? ` ${y + 543}` : ''}` : '';
 }
 
 // Save bytes under a name. Eight lines kept here rather than importing
@@ -157,7 +157,7 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         {/* Another year's set: its date, the counts lecturers announced and their
             formats are that year's, so the year leads the line (lib/current-phase.js). */}
         {set.source?.own === false ? `${termYearLabel(set.source.term)}: ` : ''}
-        {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)]} {thaiDate(set.examDate)}{set.source?.own === false ? ` ${set.source.term.split('-')[0]}` : ''} — {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้{set.source?.own === false ? 'ในปีนั้น' : ''}
+        {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)]} {thaiDate(set.examDate, set.source?.own === false)} — {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้{set.source?.own === false ? 'ในปีนั้น' : ''}
       </p>
       {/* One switch for every format: instantFeedback is what choice and
           true/false read (ExamView revealAnswer), the stored reveal timing is
@@ -214,9 +214,9 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                 </Fragment>
               ))}
               <span className={`vmx-lect-chip${lec.announced ? '' : ' is-unannounced'}`}>
-                {formatLabel}{lec.count ? ` ${lec.count} ข้อ` : ''}
+                {formatLabel}{lec.count ? ` ${lec.count} ข้อ` : ''}{oldYearTag(set.source)}
               </span>
-              <span className="vmx-lect-note">{lec.note}</span>
+              <span className="vmx-lect-note">{set.source?.own === false ? `${termYearLabel(set.source.term)}: ` : ''}{lec.note}</span>
             </header>
 
             <div className="vmx-lect-strip" role="list" aria-label={`สไลด์ที่ ${lec.name} สอน`}>
@@ -302,7 +302,7 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                   className="vmx-lect-btn"
                   onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: categoryOf(lec.format), numQuestions: lec.count })}
                 >
-                  จำลองชุด {lec.count} ข้อ
+                  จำลองชุด {lec.count} ข้อ{oldYearTag(set.source)}
                 </button>
               )}
               {pastInFormat > 0 && (

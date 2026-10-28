@@ -68,6 +68,14 @@ test('only the timetable picks a paper: after the final, and with nothing update
   assert.equal(detectCurrentPhase(at('2027-04-10T10:00:00+07:00'), 5), null, 'no month guesses ปลายภาค');
 });
 
+test('SEMESTER.id names the school year its own exam periods sit in', () => {
+  // A term id left behind while its dates move on would file this year's content as last year's.
+  const [be, sem] = SEMESTER.id.split('-').map(Number);
+  const start = new Date(`${SEMESTER.midtermPeriod.start}T00:00:00+07:00`);
+  const ce = start.getFullYear() - (sem === 2 ? 1 : 0);
+  assert.equal(be - 543, ce, `${SEMESTER.id} against a midterm starting ${SEMESTER.midtermPeriod.start}`);
+});
+
 test('every paper in the timetable sits inside SEMESTER\'s period for its term', () => {
   // The rule reads both: the timetable for its years, SEMESTER for the rest.
   // A new term's SEMESTER with last term's rows (or the reverse) fails here.

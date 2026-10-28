@@ -105,8 +105,26 @@ function termOrdinal(term) {
   return year && (sem === 1 || sem === 2) ? year * 2 + sem - 1 : null;
 }
 
+const schoolYear = (term) => String(term || '').split('-')[0];
+
 /** 'ปีการศึกษา 2569' for '2569-1'. */
-export const termYearLabel = (term) => `ปีการศึกษา ${String(term || '').split('-')[0]}`;
+export const termYearLabel = (term) => `ปีการศึกษา ${schoolYear(term)}`;
+
+/** The terms a registry files content under, up to this one, newest first. */
+export function termsUpToNow(registry) {
+  const here = termOrdinal(SEMESTER?.id);
+  if (here == null) return [];
+  return Object.keys(registry || {})
+    .filter((term) => termOrdinal(term) != null && termOrdinal(term) <= here)
+    .sort((a, b) => termOrdinal(b) - termOrdinal(a));
+}
+
+/** Whether content filed under `term` is this school year's: the same year as
+ *  the timetable's term (term 1's content under term 2 is the same cohort's),
+ *  and the timetable is not itself a past year's. */
+export function isOwnTerm(term, year, now = new Date()) {
+  return schoolYear(term) === schoolYear(SEMESTER?.id) && timetableStatus(year, now).status !== 'stale-year';
+}
 
 /**
  * Written content for one paper of one subject (wrap-ups, lecturer sets, panic
@@ -123,14 +141,10 @@ export const termYearLabel = (term) => `ปีการศึกษา ${String(
  * the year (oldContentLine) beside everything tied to that paper.
  */
 export function paperContent(registry, subject, year, phase, now = new Date()) {
-  const here = termOrdinal(SEMESTER?.id);
-  if (phaseOrder(phase) < 0 || here == null) return null;
-  const terms = Object.keys(registry || {})
-    .filter((term) => termOrdinal(term) != null && termOrdinal(term) <= here)
-    .sort((a, b) => termOrdinal(b) - termOrdinal(a));
-  for (const term of terms) {
+  if (phaseOrder(phase) < 0) return null;
+  for (const term of termsUpToNow(registry)) {
     const value = registry[term]?.[year]?.[phase]?.[subject];
-    if (value) return { value, term, own: term === SEMESTER.id && timetableStatus(year, now).status !== 'stale-year' };
+    if (value) return { value, term, own: isOwnTerm(term, year, now) };
   }
   return null;
 }
@@ -138,6 +152,12 @@ export function paperContent(registry, subject, year, phase, now = new Date()) {
 /** The line over content that is another year's: its year, and that it may not match this one. */
 export function oldContentLine(source) {
   return source && !source.own ? `จาก${termYearLabel(source.term)} (รุ่นก่อน) อาจไม่ตรงกับปีนี้` : null;
+}
+
+/** ' (ปี 2569)' after each fact of another year's content (a format, an
+ *  announced count), '' for this year's. */
+export function oldYearTag(source) {
+  return source && !source.own ? ` (ปี ${schoolYear(source.term)})` : '';
 }
 
 /** The paper whose written content a page shows: the paper the sets are

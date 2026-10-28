@@ -15,9 +15,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { loadWrapUp, selfNumbered } from '../data/exam-wrapups.js';
-import { lecturerSetFor, FORMAT_LABEL } from '../data/lecturer-sets.js';
+import { lecturerSetIn, FORMAT_LABEL } from '../data/lecturer-sets.js';
 import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
-import { oldContentLine } from '../lib/current-phase.js';
+import { oldContentLine, oldYearTag, termYearLabel } from '../lib/current-phase.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
@@ -36,9 +36,11 @@ const anchorId = (topic, n) => `wrap-${topic}-${n}`;
 
 // What the lecturer sets know about each topic: the deck's cover, its
 // library slug and the format that part of the paper takes.
-function deckIndex(subject, year, phase) {
+// The set filed beside the wrap-up, in the same term: another year's formats
+// must not stand behind this year's page, nor this year's behind an old one.
+function deckIndex(subject, year, phase, term) {
   const map = new Map();
-  for (const lec of lecturerSetFor(subject, year, phase)?.lecturers || []) {
+  for (const lec of (term ? lecturerSetIn(term, subject, year, phase) : null)?.lecturers || []) {
     for (const s of lec.sessions) {
       for (const deck of s.decks) {
         for (const topic of deck.topics) {
@@ -93,7 +95,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     return () => { live = false; };
   }, [subject, selectedYear, selectedPhase]);
 
-  const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase), [subject, selectedYear, selectedPhase]);
+  const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase, data?.source?.term), [subject, selectedYear, selectedPhase, data?.source?.term]);
   const covers = LECTURE_COVERS[subject] || {};
   const kindTable = Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE[selectedPhase]?.[subject] || {};
 
@@ -181,8 +183,8 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           <section key={g.id} className="vmx-wrap-group" aria-label={g.lecturer}>
             <header className="vmx-wrap-group-head">
               <h2>{g.lecturer}</h2>
-              <span className="vmx-lect-chip">{formatLabel}</span>
-              {g.formatNote && <p className="vmx-wrap-group-note">{g.formatNote}</p>}
+              <span className="vmx-lect-chip">{formatLabel}{oldYearTag(data.source)}</span>
+              {g.formatNote && <p className="vmx-wrap-group-note">{data.source?.own === false ? `${termYearLabel(data.source.term)}: ` : ''}{g.formatNote}</p>}
             </header>
 
             {g.items.map((it) => {

@@ -1387,7 +1387,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 onClick={() => {
                   if (lastSession) {
                     if (setSelectedYear && Number.isFinite(lastSession.selectedYear)) setSelectedYear(lastSession.selectedYear);
-                    if (setSelectedPhase && 'selectedPhase' in lastSession) setSelectedPhase(lastSession.selectedPhase);
+                    if (setSelectedPhase && lastSession.selectedPhase) setSelectedPhase(lastSession.selectedPhase);
                     if (setMode) setMode(lastSession.mode || 'quick');
                     if (setSubject) setSubject(lastSession.subject);
                     if (setTopic) setTopic(lastSession.topic || null);
