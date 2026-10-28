@@ -25,9 +25,24 @@ export const PINNED_NOW = '2026-09-25T18:15:00+07:00';
 // A spec that seeds vmx-selected-phase means a pick made at the pinned instant,
 // so it is anchored there (hooks/useSelectedPhase.js) and stays put, as a
 // student's own pick does, instead of moving to the final the moment Home loads
-// (every midterm had ended by 18:15). A spec that tests the move itself opts
-// out with test.use({ phasePickedAtPin: false }).
+// (every midterm had ended by 18:15). The anchor is written beside the seed,
+// never on its own: a store a spec means to leave empty stays empty (the origin
+// move posts nothing for one). A spec that tests the move itself opts out with
+// test.use({ phasePickedAtPin: false }).
 const PINNED_ANCHOR = phaseAnchor(new Date(PINNED_NOW));
+
+function anchorSeededPhases(anchor) {
+  try {
+    const store = window.localStorage;
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function setItem(key, value) {
+      set.call(this, key, value);
+      if (this === store && key === 'vmx-selected-phase' && this.getItem('vmx-phase-anchor') == null) {
+        set.call(this, 'vmx-phase-anchor', JSON.stringify(anchor));
+      }
+    };
+  } catch { /* an opaque origin has no storage to seed */ }
+}
 
 // Exported for the specs that build contexts of their own (perf-budget.spec.js opens several per
 // test, each as empty as a first visit) and for scripts/perf.mjs: both must read the same calendar.
@@ -51,11 +66,7 @@ export const test = base.extend({
   phasePickedAtPin: [true, { option: true }],
   context: async ({ context, pinCalendar, phasePickedAtPin }, use) => {
     if (pinCalendar) await context.addInitScript(installPinnedCalendar, { pinned: Date.parse(PINNED_NOW) });
-    if (phasePickedAtPin) {
-      await context.addInitScript((anchor) => {
-        try { window.localStorage.setItem('vmx-phase-anchor', JSON.stringify(anchor)); } catch { /* opaque origin */ }
-      }, PINNED_ANCHOR);
-    }
+    if (phasePickedAtPin) await context.addInitScript(anchorSeededPhases, PINNED_ANCHOR);
     await use(context);
   },
 });
