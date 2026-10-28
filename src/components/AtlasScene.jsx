@@ -6,6 +6,15 @@ import { loadAtlasAsset } from '../lib/atlas-cache.js';
 import { atlasFitDistance, atlasMotionValue } from '../lib/atlas-workspace.js';
 import { atlasIsTap } from '../lib/atlas.js';
 
+// Each cut axis names the pair of sides the planes divide. 'z' keeps the
+// legacy plane; the pose-verified specimens may also cut perpendicular to
+// the other two display axes, flipping to peel the opposite side.
+const CLIP_NORMALS = {
+  x: new T.Vector3(1, 0, 0),
+  y: new T.Vector3(0, 1, 0),
+  z: new T.Vector3(0, 0, -1),
+};
+
 // Comparison shares one WebGL context, with independently clipped viewports.
 export default function AtlasScene({
   specimen,
@@ -17,6 +26,8 @@ export default function AtlasScene({
   coloured,
   ghost,
   cut,
+  cutAxis,
+  cutSide,
   command,
   onSelect,
   onStatus,
@@ -35,6 +46,8 @@ export default function AtlasScene({
     coloured,
     ghost,
     cut,
+    cutAxis,
+    cutSide,
     command,
     onSelect,
     onStatus,
@@ -253,6 +266,38 @@ export default function AtlasScene({
       view.controls.update();
       syncing = false;
     }
+    // A clinic preset looks at the whole specimen from a named direction;
+    // both panes take their own preset and animate together.
+    function clinic(view, preset) {
+      if (!view.model || !preset) return;
+      view.model.updateMatrixWorld(true);
+      const box = new T.Box3();
+      for (const mesh of view.meshes) if (mesh.visible) box.expandByObject(mesh);
+      if (box.isEmpty()) return;
+      const sphere = box.getBoundingSphere(new T.Sphere());
+      const direction = new T.Vector3(...preset.direction).normalize();
+      const fromPosition = view.camera.position.clone();
+      const fromTarget = view.controls.target.clone();
+      view.controls.target.copy(sphere.center);
+      view.camera.position.copy(sphere.center).addScaledVector(
+        direction,
+        atlasFitDistance(sphere.radius, view.camera.fov, view.camera.aspect) * 1.1,
+      );
+      view.fittedExplosion = targetExplosion;
+      if (reducedMotion.matches) {
+        view.cameraMotion = null;
+      } else {
+        view.cameraMotion = {
+          fromPosition, fromTarget, position: view.camera.position.clone(),
+          target: view.controls.target.clone(), started: performance.now(),
+        };
+        view.camera.position.copy(fromPosition);
+        view.controls.target.copy(fromTarget);
+      }
+      syncing = true;
+      view.controls.update();
+      syncing = false;
+    }
     // A quality change reloads both views; each gets back the camera it had.
     // A comparison that joins a primary already on screen takes the primary's
     // camera instead, because the two move together.
@@ -319,6 +364,8 @@ export default function AtlasScene({
       if (reducedMotion.matches) displayedExplosion = targetExplosion;
       views.forEach((view, index) => {
         if (!view.model) return;
+        view.clipping.normal.copy(CLIP_NORMALS[value.cutAxis || 'z']);
+        if (value.cutSide === -1) view.clipping.normal.negate();
         view.clipping.constant = 1.4 - (value.cut / 100) * 2.8;
         for (const mesh of view.meshes) {
           mesh.visible = index > 0 || visible.has(mesh.name);
@@ -347,6 +394,11 @@ export default function AtlasScene({
           placeParts(targetExplosion);
           views.forEach((view, index) => fit(view, kind === 'focus' && index === 0,
             kind === 'reset', view.fittedExplosion !== targetExplosion));
+          placeParts(displayedExplosion);
+        }
+        if (kind === 'clinic') {
+          placeParts(targetExplosion);
+          views.forEach((view) => clinic(view, view.data.clinicViews?.find((item) => item.id === value.command.preset)));
           placeParts(displayedExplosion);
         }
         if (['left', 'right', 'up', 'down', 'zoom-in', 'zoom-out'].includes(kind)) {
@@ -640,7 +692,7 @@ export default function AtlasScene({
   }, [specimen.id, quality, comparison?.id]);
   useEffect(() => {
     engine.current?.sync();
-  }, [selected, visibleIds, exploded, coloured, ghost, cut, command]);
+  }, [selected, visibleIds, exploded, coloured, ghost, cut, cutAxis, cutSide, command]);
   return (
     <div className={`vmx-atlas-scene-host${comparison ? ' is-comparing' : ''}`} ref={host}>
       <div

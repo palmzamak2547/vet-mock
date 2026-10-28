@@ -128,6 +128,15 @@ const definitions = [
     scope:
       'โครงกระดูกแมวที่ศิลปินสลักเพื่อเป็นฐานงาน ecorche เป็นการตีความรูปร่าง ไม่ใช่สแกนตัวอย่างจริง เก็บผิวเป็นชิ้นเดียวทั้งตัว ไม่แยกชื่อกระดูกแต่ละชิ้น และไม่ระบุสายพันธุ์ อายุ หรือเพศ ใช้ดูรูปร่างรวมและเทียบกับสัตว์ชนิดอื่น',
     reading: ATLAS_READING.map((book) => ({ ...book, locator: 'อ่านประกอบระบบกระดูกและข้อต่อของแมว' })),
+    // Verified from the source geometry: the head end is the wide skull blob
+    // at +Y (the tail tapers thin at -Y) and the side profile faces -Z, the
+    // direction the poster camera sees. The narrow X axis is left–right.
+    clinicViews: [
+      { id: 'head', label: 'จากปลายหัว', direction: [0, 1, 0.3] },
+      { id: 'tail', label: 'จากปลายหาง', direction: [0, -1, 0.3] },
+      { id: 'side-a', label: 'ด้านข้าง A', direction: [0.3, 0.35, -1] },
+      { id: 'side-b', label: 'ด้านข้าง B', direction: [0.3, 0.35, 1] },
+    ],
   },
   {
     id: 'feline-ecorche-westerly',
@@ -152,6 +161,13 @@ const definitions = [
     scope:
       'ชั้นกล้ามเนื้อแมวที่ศิลปินสลัก (ผิวถอดแสดงกล้ามเนื้อ) เป็นการตีความรูปร่าง ไม่ใช่สแกนตัวอย่างจริง เก็บผิวเป็นชิ้นเดียวทั้งตัว ไม่แยกชื่อกล้ามเนื้อแต่ละมัด ไม่ระบุสายพันธุ์ อายุ หรือเพศ และไม่ได้จัดตำแหน่งร่วมกับโมเดลโครงกระดูก',
     reading: ATLAS_READING.map((book) => ({ ...book, locator: 'อ่านประกอบระบบกล้ามเนื้อของแมว' })),
+    // The ecorche shares the skeleton sculpt's standing pose and display axes.
+    clinicViews: [
+      { id: 'head', label: 'จากปลายหัว', direction: [0, 1, 0.3] },
+      { id: 'tail', label: 'จากปลายหาง', direction: [0, -1, 0.3] },
+      { id: 'side-a', label: 'ด้านข้าง A', direction: [0.3, 0.35, -1] },
+      { id: 'side-b', label: 'ด้านข้าง B', direction: [0.3, 0.35, 1] },
+    ],
   },
   {
     id: 'canine-skull-nih282',
