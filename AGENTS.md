@@ -10,6 +10,17 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
 
+## Exam recurrence data — 2026-10-28 (Claude Code)
+
+Palm's goal: which items and which kinds of item recurred across cohorts. The data layer is in; nothing reads it yet.
+
+- **Where.** `scripts/regen-exam-recurrence.mjs` writes `src/data/exam-recurrence.generated.js` (in `regen:all` after q-counts; `lint:exam-recurrence` in lint:data fails CI when stale). Per subject and topic: the cohorts that sat past-paper items, by paper, with the question keys behind every number, plus same-item clusters across the bank. Its header holds the rules and the measurement.
+- **One parser.** `src/lib/exam-origin-parse.js` reads `{ cohort, paper, year }` from `examOrigin`, and from `source` only for an explicit post-exam record ("บันทึกหลังสอบของรุ่นพี่ Vet 85"). A file label ("Mid 86", "Final 86", "TJ86", "ชีทรุ่นพี่ 86") never names a sitting cohort, and neither does a compilation's author ("รวบรวมโดยรุ่นพี่ Vet 85", "(Vet 85 compilation)"); `verified` is never read (it cites VET86 lecture recordings). It leaves 30 EXAM_ORIGINS entries unattributed that the map files as 86 or 85 off such labels; a unit test fails if it ever names a cohort the map does not. For a label-only origin the generator takes the cohort filed in `exam-origins.js` unless it is the label's own number, so the years-1-4 lane's 85/84 corrections of the TJ86 entries count once filed (then run `npm run regen:all`).
+- **Same item** is stem plus key, with guards for polarity, numbers, species, named terms and template keys, joined by complete linkage (two distinct items are never one). 20 of 20 sampled pairs were one item. Fixture pairs: `tests/fixtures/exam-recurrence-pairs.json`.
+- **Measured.** 2,341 learner-ready past-paper items; 901 name the cohort that sat them; 15 topics were sat by 2 or more cohorts; 11 clusters span cohorts, 10 of them the Vet 80 Y5 mixed final against the Vet 81 Patho prac final (the two papers also share stems with different keys). Whether that is a reused paper or one mislabelled compilation is open: check both source files before any label counts it.
+- **For content lanes.** Name the sitting cohort in `examOrigin` with a designator and the paper ("Equine Med midterm recall (Vet 85)"); leave the cohort out when the document does not say, never write the compilation's. A near duplicate from a different cohort is recurrence evidence: allow-list it in lint:dupes, never merge it.
+- **Any label must read as history** ("เคยออก N รุ่น"), never as what will be asked.
+
 ## VetMock AI, ai.vetmock.com (research preview) — 2026-10-27/28 (Claude Code)
 
 - **Where.** `ai/` is its own Vite app (Vercel project `vetmock-ai`, root `ai`, git-linked to main, domain ai.vetmock.com by a Cloudflare CNAME); its CI check is "AI" (`.github/workflows/ai.yml`). The answer route `api/ai-chat.js` + `api/_lib/ai/*` and the microphone's `api/ai-transcribe.js` live in the main vetmock project, pinned to sin1 in `vercel.json`. Read `ai/README.md` and `ai/ARCHITECTURE.md` first. Shipped in #77, #78, #81, #84, #85.

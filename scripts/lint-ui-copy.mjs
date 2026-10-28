@@ -5,7 +5,8 @@
 // Usage: node scripts/lint-ui-copy.mjs [--write] [--list]
 //
 // Four rules over the copy in src/views, src/components, src/lib (not
-// *.generated.*), src/hooks, src/App.jsx and src/main.jsx:
+// *.generated.*), src/hooks, src/App.jsx, src/main.jsx and src/data/og-covers.js (the
+// link previews and palette hints, where 7 promises slipped through on 2026-10-28):
 //
 //   1. No middle dot (·). The app separates clauses with a space, a comma or
 //      a word. Budget 0.
@@ -47,7 +48,7 @@ import { fileURLToPath } from 'node:url';
 import { parse } from '@babel/parser';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const SCANNED = ['src/views', 'src/components', 'src/lib', 'src/hooks', 'src/App.jsx', 'src/main.jsx'];
+export const SCANNED = ['src/views', 'src/components', 'src/lib', 'src/hooks', 'src/App.jsx', 'src/main.jsx', 'src/data/og-covers.js'];
 export const BUDGET_FILE = 'docs/ui-copy-budget.json';
 const NOTE = 'lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ, หน้าหลัก and three dots (write เช็ก, อัป, หน้าแรก and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. "allow" names text that keeps a middle dot on purpose, with the reason.';
 
