@@ -30,6 +30,7 @@
 // one deck). `alsoTopics` are topics that belong to the lecturer's part but have
 // no deck of their own to show.
 // ============================================================
+import { paperInTimetable, timetableTerm } from '../lib/current-phase.js';
 
 export const FORMAT_LABEL = {
   tf: 'ถูกผิด',
@@ -846,31 +847,36 @@ const Y5_MIDTERM = {
 };
 
 /**
- * The sets, per paper: year, then phase (lib/current-phase.js), then subject.
- * A set shows only while its paper is the one in scope, and a paper with no
- * entry has none. The final's sets go in as one more phase key; no code changes.
+ * The sets, per paper: the term of the timetable (SEMESTER.id), then year,
+ * then phase (lib/current-phase.js), then subject. A set shows only while its
+ * paper is the one in scope and on this term's timetable, so a new term's
+ * '1-mid' never shows last year's sessions. A paper with no entry has none.
+ * The final's sets go in as one more phase key; no code changes.
  */
 export const LECTURER_SETS_BY_PAPER = {
-  5: { '1-mid': Y5_MIDTERM },
+  '2569-1': { 5: { '1-mid': Y5_MIDTERM } },
 };
 
-/** This subject's set for one paper, or null. */
+/** This subject's set for one paper of this term, or null. */
 export function lecturerSetFor(subjectId, selectedYear, selectedPhase) {
-  return LECTURER_SETS_BY_PAPER[selectedYear]?.[selectedPhase]?.[subjectId] || null;
+  return LECTURER_SETS_BY_PAPER[timetableTerm()]?.[selectedYear]?.[selectedPhase]?.[subjectId] || null;
 }
 
-/** Whether this subject has a lecturer set for the scope the student is in. */
-export function hasLecturerSet(subjectId, selectedYear, selectedPhase) {
-  return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase));
+/** Whether the page shows this subject's set: there is one for the paper in
+ *  scope, and the paper is on this term's timetable, not a past year's. */
+export function hasLecturerSet(subjectId, selectedYear, selectedPhase, now = new Date()) {
+  return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase)) && paperInTimetable(selectedYear, selectedPhase, now);
 }
 
-/** Every paper's sets (of one subject, or all), for what does not depend on
+/** Every term's sets (of one subject, or all), for what does not depend on
  *  the paper: a lecturer's name, the session a recording is. */
 export function allLecturerSets(subjectId = null) {
   const out = [];
-  for (const papers of Object.values(LECTURER_SETS_BY_PAPER)) {
-    for (const sets of Object.values(papers)) {
-      for (const [id, set] of Object.entries(sets)) if (!subjectId || id === subjectId) out.push(set);
+  for (const years of Object.values(LECTURER_SETS_BY_PAPER)) {
+    for (const papers of Object.values(years)) {
+      for (const sets of Object.values(papers)) {
+        for (const [id, set] of Object.entries(sets)) if (!subjectId || id === subjectId) out.push(set);
+      }
     }
   }
   return out;

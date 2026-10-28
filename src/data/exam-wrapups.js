@@ -8,44 +8,52 @@
 // script, never edited by hand) and is loaded lazily: the index below is all
 // the boot chunk carries.
 //
-// Scope: a wrap-up is written for one paper, so they are kept per paper and
-// one shows only while its paper is the one in scope, like the lecturer sets
-// and the panic cards. A paper with no entry has no wrap-ups. The final's go
-// in as one more phase key under the year; no code changes.
+// Scope: a wrap-up is written for one paper, so they are filed by the term of
+// the timetable (SEMESTER.id), then year, then phase, and one shows only while
+// its paper is the one in scope and on this term's timetable, like the lecturer
+// sets and the panic cards. A paper with no entry has no wrap-ups, and a new
+// term's '1-mid' never shows last year's. The final's go in as one more phase
+// key; no code changes.
 // ============================================================
+import { paperInTimetable, timetableTerm } from '../lib/current-phase.js';
 
-/** The wrap-ups, per paper: year, then phase (lib/current-phase.js), then subject. */
+/** The wrap-ups, per paper: term, then year, then phase (lib/current-phase.js), then subject. */
 export const WRAPUPS = {
-  5: {
-    '1-mid': {
-      'avian-medicine': () => import('./wrapups/avian-medicine.js'),
-      'one-health': () => import('./wrapups/one-health.js'),
-      'food-industry': () => import('./wrapups/food-industry.js'),
-      'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
-      'equine-repro': () => import('./wrapups/equine-repro.js'),
-      'equine-medicine': () => import('./wrapups/equine-medicine.js'),
-      'swine-clinic': () => import('./wrapups/swine-clinic.js'),
-      'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
-      'zoonoses': () => import('./wrapups/zoonoses.js'),
+  '2569-1': {
+    5: {
+      '1-mid': {
+        'avian-medicine': () => import('./wrapups/avian-medicine.js'),
+        'one-health': () => import('./wrapups/one-health.js'),
+        'food-industry': () => import('./wrapups/food-industry.js'),
+        'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
+        'equine-repro': () => import('./wrapups/equine-repro.js'),
+        'equine-medicine': () => import('./wrapups/equine-medicine.js'),
+        'swine-clinic': () => import('./wrapups/swine-clinic.js'),
+        'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
+        'zoonoses': () => import('./wrapups/zoonoses.js'),
+      },
     },
   },
 };
 
-const loaderFor = (subject, year, phase) => WRAPUPS[year]?.[phase]?.[subject] || null;
+const thisTerm = () => WRAPUPS[timetableTerm()] || {};
+const loaderFor = (subject, year, phase) => thisTerm()[year]?.[phase]?.[subject] || null;
 
-/** The subjects with a wrap-up for one paper. */
+/** The subjects with a wrap-up for one paper of this term. */
 export function wrapUpSubjects(year, phase) {
-  return Object.keys(WRAPUPS[year]?.[phase] || {});
+  return Object.keys(thisTerm()[year]?.[phase] || {});
 }
 
-/** Every wrap-up of every paper, as { year, phase, subject }. */
+/** Every wrap-up of this term's papers, as { year, phase, subject }. */
 export function wrapUpPapers() {
-  return Object.entries(WRAPUPS).flatMap(([year, phases]) => Object.entries(phases)
+  return Object.entries(thisTerm()).flatMap(([year, phases]) => Object.entries(phases)
     .flatMap(([phase, subjects]) => Object.keys(subjects).map((subject) => ({ year: Number(year), phase, subject }))));
 }
 
-export function hasWrapUp(subject, year, phase) {
-  return Boolean(loaderFor(subject, year, phase));
+/** Whether the page shows this subject's wrap-up: there is one for the paper,
+ *  and the paper is on this term's timetable, not a past year's. */
+export function hasWrapUp(subject, year, phase, now = new Date()) {
+  return Boolean(loaderFor(subject, year, phase)) && paperInTimetable(year, phase, now);
 }
 
 /**

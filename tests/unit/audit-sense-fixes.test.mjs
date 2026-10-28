@@ -571,7 +571,7 @@ test('every panic card names a real subject and agrees with its course code', as
   // On every paper that shows cards, a subject of that term is either carded
   // or deliberately not examined. Nothing may be simply absent, which is how a
   // subject quietly loses its card.
-  for (const [year, phases] of Object.entries(PANIC_CARD_PAPERS)) {
+  for (const [year, phases] of Object.values(PANIC_CARD_PAPERS).flatMap((years) => Object.entries(years))) {
     for (const [phase, { cards, noCard }] of Object.entries(phases)) {
       const semester = PHASES.find((p) => p.id === phase)?.semester;
       assert.ok(semester, `${phase} is a phase`);

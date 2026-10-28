@@ -57,7 +57,8 @@ test('UI-20: TBD and blank lecturers show nothing; a lecturer with no set keeps 
 });
 
 test('UI-20: every lecturer-set topic resolves to its own lecturer across all set subjects', () => {
-  const everySet = Object.values(LECTURER_SETS_BY_PAPER).flatMap((phases) => Object.values(phases).flatMap((sets) => Object.entries(sets)));
+  const everySet = Object.values(LECTURER_SETS_BY_PAPER).flatMap((years) => Object.values(years))
+    .flatMap((phases) => Object.values(phases).flatMap((sets) => Object.entries(sets)));
   assert.equal(everySet.length, allLecturerSets().length);
   for (const [sid, set] of everySet) {
     const subj = SUBJECTS.find((s) => s.id === sid);

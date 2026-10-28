@@ -23,9 +23,10 @@ import { buildExamPool } from '../../src/lib/exam-pool.js';
 import { wrapUpPapers } from '../../src/data/exam-wrapups.js';
 import { lecturerCount, topicPractice } from '../../src/lib/lecturer-count.js';
 import { LECTURER_SETS_BY_PAPER } from '../../src/data/lecturer-sets.js';
+import { SEMESTER } from '../../src/data/semester.js';
 
 // Every lecturer set of every paper, as { year, phase, subject }.
-const SET_PAPERS = Object.entries(LECTURER_SETS_BY_PAPER).flatMap(([year, phases]) => Object.entries(phases)
+const SET_PAPERS = Object.entries(LECTURER_SETS_BY_PAPER[SEMESTER.id] || {}).flatMap(([year, phases]) => Object.entries(phases)
   .flatMap(([phase, sets]) => Object.keys(sets).map((subject) => ({ year: Number(year), phase, subject }))));
 
 let WrapUpView;

@@ -6,6 +6,11 @@ import path from 'node:path';
 import { WRAPUPS, wrapUpPapers, hasWrapUp, loadWrapUp, selfNumbered, wrapUpStillAhead } from '../../src/data/exam-wrapups.js';
 import { lecturerSetFor } from '../../src/data/lecturer-sets.js';
 import { PHASES } from '../../src/lib/current-phase.js';
+import { SEMESTER } from '../../src/data/semester.js';
+
+// A moment inside the term the content is filed under, so these never depend on the day CI runs.
+const IN_TERM = new Date('2026-10-28T23:00:00+07:00');
+const TERM = WRAPUPS[SEMESTER.id] || {};
 import * as curriculum from '../../src/data/curriculum.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
@@ -30,13 +35,15 @@ test('a wrap-up shows only for the paper it was written for', () => {
   const papers = wrapUpPapers();
   assert.ok(papers.length >= 9);
   for (const { year, phase, subject } of papers) {
-    assert.equal(hasWrapUp(subject, year, phase), true);
+    assert.equal(hasWrapUp(subject, year, phase, IN_TERM), true);
     for (const other of PHASES.map((p) => p.id)) {
-      assert.equal(hasWrapUp(subject, year, other), Boolean(WRAPUPS[year][other]?.[subject]), `${subject} on ${other}`);
+      assert.equal(hasWrapUp(subject, year, other, IN_TERM), Boolean(TERM[year][other]?.[subject]), `${subject} on ${other}`);
     }
-    assert.equal(hasWrapUp(subject, year + 1, phase), Boolean(WRAPUPS[year + 1]?.[phase]?.[subject]));
+    assert.equal(hasWrapUp(subject, year + 1, phase, IN_TERM), Boolean(TERM[year + 1]?.[phase]?.[subject]));
+    // Past the term, a past year's table: nothing written for its papers shows.
+    assert.equal(hasWrapUp(subject, year, phase, new Date('2027-08-15T10:00:00+07:00')), false);
   }
-  assert.equal(hasWrapUp('no-such-subject', 5, '1-mid'), false);
+  assert.equal(hasWrapUp('no-such-subject', 5, '1-mid', IN_TERM), false);
   assert.equal(hasWrapUp('zoonoses'), false, 'no paper named, no wrap-up');
 });
 

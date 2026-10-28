@@ -46,7 +46,7 @@ Inputs, in the order they settle a disagreement:
    evidence of fact.
 
 Write it into `src/data/lecturer-sets.js` under the paper it is for,
-`LECTURER_SETS_BY_PAPER[year][phase]` (the final of 1/2569 is `5` → `'1-final'`;
+`LECTURER_SETS_BY_PAPER[term][year][phase]` (the final of 1/2569 is `'2569-1'` → `5` → `'1-final'`;
 a new paper is one more key, no code): subject → lecturers → sessions →
 decks. A deck names its `cover` (an id into `LECTURE_COVERS` in `art.js`), its
 `topics`, and optionally its `doc` (the `library_docs` slug, so the cover opens
@@ -131,11 +131,11 @@ writing more questions.
 - The ingest refuses unknown topics, an unknown lecturer id, an exam date that
   disagrees with `lecturer-sets.js`, an over-long bullet, a forbidden token, or
   **any bullet without a source**. So `lecturer-sets.js` must exist first.
-- Register the subject under its paper, `WRAPUPS[year][phase]` in
+- Register the subject under its paper, `WRAPUPS[term][year][phase]` in
   `src/data/exam-wrapups.js`; the view (`src/views/WrapUpView.jsx`), the
   topic-screen card and the Home strip are already generic and show it only
   while that paper is in scope. The subject's Panic card shows on a paper once
-  it is listed in that paper's `cards` in `PANIC_CARD_PAPERS`
+  it is listed in that paper's `cards` in `PANIC_CARD_PAPERS[term][year][phase]`
   (`src/data/panic-cards.js`); `lint:panic-cards` names any subject of that
   term that is neither carded nor on its `noCard` list (not on that paper, or its card is not drawn yet).
 

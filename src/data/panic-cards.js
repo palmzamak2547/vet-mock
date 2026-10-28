@@ -25,24 +25,28 @@
 // The palette is transcribed from the printed set. If the source files carry
 // exact values, re-sample them rather than eyeballing these again.
 // ============================================================
+import { paperInTimetable, timetableTerm } from '../lib/current-phase.js';
 
 /**
- * Which subjects show their card on which paper: year, then phase
- * (lib/current-phase.js). A card only shows while its paper is the one in
- * scope, and a paper with no entry shows none. The final goes in as one more
- * phase key; no code changes. `noCard` names the subjects taught that term
+ * Which subjects show their card on which paper: the term of the timetable
+ * (SEMESTER.id), then year, then phase (lib/current-phase.js). A card only
+ * shows while its paper is the one in scope and on this term's timetable, and
+ * a paper with no entry shows none. The final goes in as one more phase key;
+ * no code changes. `noCard` names the subjects taught that term
  * that deliberately show no card on that paper (they do not sit it, or their
  * card is not drawn yet), so the lint can tell "deliberately absent" from
  * "forgotten".
  */
 export const PANIC_CARD_PAPERS = {
-  5: {
-    '1-mid': {
-      cards: ['one-health', 'avian-medicine', 'food-industry', 'milk-meat-hygiene', 'equine-medicine', 'equine-repro', 'swine-clinic', 'aquatic-clinic', 'zoonoses'],
-      // Not every subject taught in the term is examined at midterm. These two
-      // are not, so they get no card: that is the syllabus, not a gap in the
-      // artwork, and nobody draws two cards that should not exist.
-      noCard: ['epidemiology', 'poa-clinical'],
+  '2569-1': {
+    5: {
+      '1-mid': {
+        cards: ['one-health', 'avian-medicine', 'food-industry', 'milk-meat-hygiene', 'equine-medicine', 'equine-repro', 'swine-clinic', 'aquatic-clinic', 'zoonoses'],
+        // Not every subject taught in the term is examined at midterm. These two
+        // are not, so they get no card: that is the syllabus, not a gap in the
+        // artwork, and nobody draws two cards that should not exist.
+        noCard: ['epidemiology', 'poa-clinical'],
+      },
     },
   },
 };
@@ -136,8 +140,10 @@ export function panicCardFor(subjectId) {
   return PANIC_CARDS[subjectId] || null;
 }
 
-/** Whether this subject's card shows on the paper the student is in. */
-export function hasPanicCard(subjectId, selectedYear, selectedPhase) {
+/** Whether this subject's card shows on the paper the student is in: listed
+ *  for that paper of this term, and the paper is on this term's timetable. */
+export function hasPanicCard(subjectId, selectedYear, selectedPhase, now = new Date()) {
   return Boolean(PANIC_CARDS[subjectId]
-    && PANIC_CARD_PAPERS[selectedYear]?.[selectedPhase]?.cards?.includes(subjectId));
+    && PANIC_CARD_PAPERS[timetableTerm()]?.[selectedYear]?.[selectedPhase]?.cards?.includes(subjectId))
+    && paperInTimetable(selectedYear, selectedPhase, now);
 }

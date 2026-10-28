@@ -316,11 +316,14 @@ pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they sho
 - **Not split is never silent.** `unsplitNotice(state)` is the one line: Home shows it under the
   subject header, and the header pill reads ไม่แยกช่วงสอบ on every page. Under a paper, a topic
   whose paper nobody recorded keeps its place and is tagged ยังไม่ระบุช่วงสอบ.
-- **Content is kept per paper.** `WRAPUPS` (exam-wrapups.js), `LECTURER_SETS_BY_PAPER`
-  (lecturer-sets.js) and `PANIC_CARD_PAPERS` (panic-cards.js) are keyed year, then phase. The
-  final's content is one more key and no code; a paper with no key hides only that section. Read
-  them through `hasWrapUp`, `loadWrapUp`, `lecturerSetFor` and `hasPanicCard`, and name the paper in
-  copy through `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค.
+- **Content is kept per paper, per term.** `WRAPUPS` (exam-wrapups.js), `LECTURER_SETS_BY_PAPER`
+  (lecturer-sets.js) and `PANIC_CARD_PAPERS` (panic-cards.js) are keyed term (SEMESTER.id), then
+  year, then phase, and show only while `paperInTimetable(year, phase)` holds. The same phase id
+  names next year's paper, so 2569's midterm sets never come back next August. The final's content
+  is one more key and no code; a paper with no key hides only that section. Read them through
+  `hasWrapUp`, `loadWrapUp`, `hasLecturerSet`, `lecturerSetFor` and `hasPanicCard`, and name the
+  paper in copy through `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค. Home's
+  "ไม่มีสอบ..." on a card is claimed only for a paper the timetable holds.
 - **The back office shows the state.** `/app/admin` → ช่วงสอบ (`lib/exam-period-report.js`): each
   year's status, its papers, what to fill in, and both-paper topics with no paper. It is a page,
   never a CI check that fails by the calendar.

@@ -82,14 +82,17 @@ const REGISTRIES = [
   ['src/data/panic-cards.js', PANIC_CARD_PAPERS],
 ];
 
-test('the wrap-ups, lecturer sets and panic cards are kept per paper: year, then phase', () => {
+test('the wrap-ups, lecturer sets and panic cards are kept per paper: term, then year, then phase', () => {
   const years = new Set(YEARS.map((y) => String(y.id)));
   const phases = new Set(PHASES.map((p) => p.id));
   for (const [file, registry] of REGISTRIES) {
     assert.ok(Object.keys(registry).length > 0, `${file}: empty`);
-    for (const [year, papers] of Object.entries(registry)) {
-      assert.ok(years.has(year), `${file}: ${year} is not a year`);
-      for (const phase of Object.keys(papers)) assert.ok(phases.has(phase), `${file}: ${phase} is not a phase`);
+    for (const [term, byYear] of Object.entries(registry)) {
+      assert.match(term, /^[0-9]{4}-[12]$/, `${file}: ${term} is not a term like SEMESTER.id`);
+      for (const [year, papers] of Object.entries(byYear)) {
+        assert.ok(years.has(year), `${file}: ${year} is not a year`);
+        for (const phase of Object.keys(papers)) assert.ok(phases.has(phase), `${file}: ${phase} is not a phase`);
+      }
     }
   }
 });
@@ -112,25 +115,30 @@ test('no registry or reader pins one paper, and no label names a paper it was no
   assert.doesNotMatch(read('src/views/TopicSelectView.jsx'), />ข้อสอบกลางภาค/);
 });
 
-test('a paper shows what its own key holds, so a final needs one entry and no code', () => {
-  // A paper nobody has written for shows nothing; never another paper's.
-  assert.equal(hasWrapUp('zoonoses', 99, '1-final'), false);
-  assert.equal(hasLecturerSet('zoonoses', 99, '1-final'), false);
-  assert.equal(hasPanicCard('zoonoses', 99, '1-final'), false);
-  WRAPUPS[99] = { '1-final': { zoonoses: async () => ({ WRAPUP: { subject: 'zoonoses' } }) } };
-  LECTURER_SETS_BY_PAPER[99] = { '1-final': { zoonoses: { lecturers: [] } } };
-  PANIC_CARD_PAPERS[99] = { '1-final': { cards: ['zoonoses'], noCard: [] } };
+test('a paper shows what its own key holds, only on its own term\'s timetable, so a final needs one entry and no code', () => {
+  const term = SEMESTER.id;
+  const keep = { w: WRAPUPS[term][5]['1-final'], l: LECTURER_SETS_BY_PAPER[term][5]['1-final'], p: PANIC_CARD_PAPERS[term][5]['1-final'] };
+  const shows = (now) => [hasWrapUp('zoonoses', 5, '1-final', now), hasLecturerSet('zoonoses', 5, '1-final', now), hasPanicCard('zoonoses', 5, '1-final', now)];
+  WRAPUPS[term][5]['1-final'] = { zoonoses: async () => ({ WRAPUP: { subject: 'zoonoses' } }) };
+  LECTURER_SETS_BY_PAPER[term][5]['1-final'] = { zoonoses: { lecturers: [] } };
+  PANIC_CARD_PAPERS[term][5]['1-final'] = { cards: ['zoonoses'], noCard: [] };
+  WRAPUPS['2570-1'] = { 5: { '1-mid': { epidemiology: async () => null } } };
   try {
-    assert.equal(hasWrapUp('zoonoses', 99, '1-final'), true);
-    assert.equal(hasWrapUp('zoonoses', 99, '1-mid'), false);
-    assert.ok(lecturerSetFor('zoonoses', 99, '1-final'));
-    assert.equal(hasLecturerSet('zoonoses', 99, '1-mid'), false);
-    assert.equal(hasPanicCard('zoonoses', 99, '1-final'), true);
-    assert.equal(hasPanicCard('zoonoses', 99, '1-mid'), false);
+    assert.deepEqual(shows(OCT_28), [true, true, true], 'one key each, and the final has its content');
+    assert.equal(hasWrapUp('epidemiology', 5, '1-final', OCT_28), false, 'the final shows only what its own key holds');
+    assert.equal(hasLecturerSet('zoonoses', 4, '1-final', OCT_28), false, 'another year shows nothing');
+    // A past year's table: the same phase id names next year's paper, which this content was not written for.
+    assert.deepEqual(shows(at('2027-08-15T10:00:00+07:00')), [false, false, false]);
+    // Content filed under another term never shows under this one.
+    assert.equal(hasWrapUp('epidemiology', 5, '1-mid', at('2026-09-01T10:00:00+07:00')), false);
+    // A year with no timetable shows nothing written for a paper.
+    assert.equal(hasPanicCard('zoonoses', 2, '1-final', OCT_28), false);
   } finally {
-    delete WRAPUPS[99];
-    delete LECTURER_SETS_BY_PAPER[99];
-    delete PANIC_CARD_PAPERS[99];
+    const put = (reg, v) => { if (v === undefined) delete reg[term][5]['1-final']; else reg[term][5]['1-final'] = v; };
+    put(WRAPUPS, keep.w);
+    put(LECTURER_SETS_BY_PAPER, keep.l);
+    put(PANIC_CARD_PAPERS, keep.p);
+    delete WRAPUPS['2570-1'];
   }
 });
 

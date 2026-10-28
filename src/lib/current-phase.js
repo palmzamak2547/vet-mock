@@ -78,6 +78,18 @@ export function detectCurrentPhase(now = new Date(), year = null) {
   return timetableStatus(year, now).current;
 }
 
+/** Whether this term's timetable for `year` has `phase` as one of its papers,
+ *  and is not a past year's. Content written for one paper (wrap-ups, lecturer
+ *  sets, panic cards) and any claim about which subjects sit it hold only then:
+ *  the same phase id names next year's paper too. */
+export function paperInTimetable(year, phase, now = new Date()) {
+  const { status, papers } = timetableStatus(year, now);
+  return status !== 'stale-year' && papers.some((p) => p.id === phase);
+}
+
+/** The term the timetable belongs to, the key the per-paper content is filed under. */
+export const timetableTerm = () => SEMESTER?.id || null;
+
 /** What a pick is anchored to: when it was made, and which timetable was in. */
 export const phaseAnchor = (now = new Date()) => ({ at: now.getTime(), term: SEMESTER?.id || null });
 

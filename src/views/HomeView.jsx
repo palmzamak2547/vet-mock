@@ -64,7 +64,7 @@ import ExamCountdown from '../components/ExamCountdown.jsx';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
-import { phaseLabel, unsplitNotice } from '../lib/current-phase.js';
+import { paperInTimetable, phaseLabel, unsplitNotice } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -216,8 +216,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
      // subjects sits a paper". A year-3 student was shown "ไม่มีสอบกลางภาค"
      // on all nine cards, พยาธิวิทยา and เภสัชวิทยา included, which is simply
      // untrue. Absent data must render as nothing, never as a claim.
+    // ...and only for a paper this term's timetable holds: picking เทอม 2
+    // กลางภาค under term 1's table matched term 1's midterm rows and told every
+    // term-2 card ไม่มีสอบกลางภาค.
     const yearExams = EXAM_SCHEDULE[`y${selectedYear}`] || [];
-    const hasTimetable = yearExams.length > 0;
+    const hasTimetable = yearExams.length > 0 && paperInTimetable(selectedYear, selectedPhase);
     const byPhase = new Map();
     if (phaseScope && hasTimetable) {
       for (const exam of yearExams) {

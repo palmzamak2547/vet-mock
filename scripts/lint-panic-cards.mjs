@@ -61,10 +61,12 @@ for (const [id, card] of Object.entries(PANIC_CARDS)) {
 // Per paper: a subject taught that term with neither a card nor an entry on
 // the no-card list has been forgotten rather than deliberately left out.
 let papers = 0;
-for (const [year, phases] of Object.entries(PANIC_CARD_PAPERS)) {
+for (const [term, years] of Object.entries(PANIC_CARD_PAPERS)) {
+  if (!/^[0-9]{4}-[12]$/.test(term)) { errors.push(`${term}: not a term like 2569-1 (SEMESTER.id)`); continue; }
+  for (const [year, phases] of Object.entries(years)) {
   for (const [phase, { cards = [], noCard = [] }] of Object.entries(phases)) {
     papers += 1;
-    const where = `year ${year} ${phase}`;
+    const where = `${term} year ${year} ${phase}`;
     const semester = PHASES.find((p) => p.id === phase)?.semester;
     if (!semester) { errors.push(`${where}: ${phase} is not a phase (${PHASES.map((p) => p.id).join(', ')})`); continue; }
     const inScope = (SUBJECTS_BY_YEAR[year] || []).filter((s) => s.semester === semester);
@@ -82,6 +84,7 @@ for (const [year, phases] of Object.entries(PANIC_CARD_PAPERS)) {
     for (const id of excused) {
       if (!byId.has(id)) errors.push(`${where}: ${id} is on the no-card list, but is not a subject taught that term`);
     }
+  }
   }
 }
 
