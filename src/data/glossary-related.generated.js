@@ -235,7 +235,10 @@ export const GLOSSARY_RELATED = {
   106298,
   202480,
   105583,
-  8356
+  8356,
+  209001,
+  209009,
+  209062
  ],
  "jaundice|universal": [
   1023,
@@ -382,6 +385,8 @@ export const GLOSSARY_RELATED = {
   105003,
   8406,
   105585,
+  209060,
+  209061,
   6213,
   6223,
   6401,
@@ -1404,6 +1409,8 @@ export const GLOSSARY_RELATED = {
   105577,
   105580,
   105599,
+  209060,
+  209061,
   104010,
   104015,
   6075,
@@ -2525,7 +2532,8 @@ export const GLOSSARY_RELATED = {
   105627,
   105629,
   105633,
-  105643
+  105643,
+  209016
  ],
  "atrophic rhinitis|swine": [
   202356,
@@ -2543,7 +2551,15 @@ export const GLOSSARY_RELATED = {
   8357
  ],
  "exudative epidermitis|swine": [
-  105598
+  105598,
+  209037,
+  209038,
+  209039,
+  209040,
+  209041,
+  209042,
+  209043,
+  209049
  ],
  "ileitis|swine": [
   202356,
@@ -2551,7 +2567,8 @@ export const GLOSSARY_RELATED = {
   105577,
   105579,
   105643,
-  8351
+  8351,
+  209058
  ],
  "mma|swine": [
   91522,
@@ -2587,7 +2604,10 @@ export const GLOSSARY_RELATED = {
   105584,
   105586,
   105591,
-  105600
+  105600,
+  209004,
+  209054,
+  209062
  ],
  "ped|swine": [
   92022,
@@ -2617,7 +2637,11 @@ export const GLOSSARY_RELATED = {
   105594,
   105600,
   105609,
-  8353
+  8353,
+  209004,
+  209016,
+  209054,
+  209055
  ],
  "psy|swine": [
   92007
@@ -2647,7 +2671,9 @@ export const GLOSSARY_RELATED = {
   105577,
   105621,
   105643,
-  8351
+  8351,
+  209058,
+  209059
  ],
  "tge|swine": [
   105600,

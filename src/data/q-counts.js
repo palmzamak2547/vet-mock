@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 6899;
-export const QB_SOURCE_TOTAL = 6977;
+export const QB_TOTAL = 6964;
+export const QB_SOURCE_TOTAL = 7042;
 export const QB_BLOCKED_TOTAL = 78;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -47,7 +47,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 107,
+  'swine-clinic': 172,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 691,
@@ -97,7 +97,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 107,
+  'swine-clinic': 172,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 691,
@@ -145,7 +145,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 94,
+  'swine-clinic': 159,
   'swine-herd': 27,
   'swine-repro': 29,
   'vca': 254,
@@ -227,7 +227,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 62,
+    'swine-clinic': 127,
     'swine-herd': 11,
     'swine-repro': 18,
     'vca': 254,
@@ -278,7 +278,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'milk-meat-hygiene': 29,
     'one-health': 35,
     'surg1': 29,
-    'swine-clinic': 75,
+    'swine-clinic': 140,
     'swine-herd': 16,
     'swine-repro': 18,
     'vca': 691,
@@ -352,7 +352,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 1859,
+    5: 1924,
   },
   '2-mid': {
     1: 297,
@@ -833,14 +833,15 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-asf': 3,
-      'swine-csf': 3,
-      'swine-fmd': 4,
-      'swine-greasypig': 1,
-      'swine-ileitis-bacti': 6,
-      'swine-pcv2': 9,
+      'swine-asf': 17,
+      'swine-csf': 19,
+      'swine-fmd': 6,
+      'swine-greasypig': 13,
+      'swine-ileitis-bacti': 10,
+      'swine-pcv2': 10,
       'swine-pornchalit-set': 46,
-      'swine-prv-je': 3,
+      'swine-prv-je': 15,
+      'swine-repro': 4,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -1804,14 +1805,15 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-asf': 3,
-      'swine-csf': 3,
-      'swine-fmd': 4,
-      'swine-greasypig': 1,
+      'swine-asf': 17,
+      'swine-csf': 19,
+      'swine-fmd': 2,
+      'swine-greasypig': 13,
       'swine-ileitis-bacti': 6,
-      'swine-pcv2': 9,
+      'swine-pcv2': 6,
       'swine-pornchalit-set': 23,
-      'swine-prv-je': 3,
+      'swine-prv-je': 15,
+      'swine-repro': 4,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -2221,7 +2223,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 4320,
+  5: 4385,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2233,7 +2235,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 4320,
+  5: 4385,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2716,16 +2718,17 @@ export const Q_COUNTS_BY_TOPIC = {
     "__unassigned__": 40,
   },
   "swine-clinic": {
-    "swine-asf": 3,
+    "swine-asf": 17,
     "swine-cns": 8,
-    "swine-csf": 3,
-    "swine-fmd": 4,
+    "swine-csf": 19,
+    "swine-fmd": 6,
     "swine-gi-viral": 12,
-    "swine-greasypig": 1,
-    "swine-ileitis-bacti": 6,
-    "swine-pcv2": 9,
+    "swine-greasypig": 13,
+    "swine-ileitis-bacti": 10,
+    "swine-pcv2": 10,
     "swine-pornchalit-set": 46,
-    "swine-prv-je": 3,
+    "swine-prv-je": 15,
+    "swine-repro": 4,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3249,15 +3252,16 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "__unassigned__": 40,
   },
   "swine-clinic": {
-    "swine-asf": 3,
-    "swine-csf": 3,
-    "swine-fmd": 4,
+    "swine-asf": 17,
+    "swine-csf": 19,
+    "swine-fmd": 2,
     "swine-gi-viral": 11,
-    "swine-greasypig": 1,
+    "swine-greasypig": 13,
     "swine-ileitis-bacti": 6,
-    "swine-pcv2": 9,
+    "swine-pcv2": 6,
     "swine-pornchalit-set": 23,
-    "swine-prv-je": 3,
+    "swine-prv-je": 15,
+    "swine-repro": 4,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3420,4 +3424,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-28T19:58:28.903Z
+// Built: 2026-10-28T20:32:08.920Z
