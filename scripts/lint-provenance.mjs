@@ -20,17 +20,21 @@
 //   6. a row that is both a sat paper and marked, outside the fifty that
 //      were reviewed as naming their paper;
 //   7. a band-2 row whose origin is filed as a paper or as exam guidance:
-//      Panic Mode never shows it, and the fix is the tag;
+//      Panic Mode never shows it. Exam guidance needs the tag; a paper can
+//      only be left there by a row with no sourceType, which needs one;
 //   8. a row counted as a sat paper through its examOrigin while that origin
-//      is filed as not a paper (one known row, cleared when the predicate
-//      reads the map);
+//      is filed as not a paper (only a row with no sourceType can, since
+//      typed rows are decided by the map);
 //   9. more rows without a sourceType, or more past-paper rows without an
 //      examOrigin, than the budget. Both budgets may only fall;
 //  10. a figure that does not resolve under public/, or more figures
-//      without a real imageAlt than FIGURE_ALT_BUDGET (checkFigures).
-//
-// It also prints what switching isPastPaperQuestion to the map would move,
-// so that switch can be made after the exams against a reviewed list.
+//      without a real imageAlt than FIGURE_ALT_BUDGET (checkFigures);
+//  11. a compilation row whose sat-paper status disagrees with its filed
+//      origin. Since 2026-10-28 isPastPaperQuestion reads this map for those
+//      rows instead of the wording; this is the guard that it keeps doing so;
+//  12. an origin filed as a paper that its wording does not show, outside
+//      REVIEWED_MAP_ONLY_PAPERS: the map makes such rows sat papers on its
+//      own, so a mis-filing would otherwise pass every other rule.
 // ============================================================
 
 import fs from 'node:fs';
@@ -48,6 +52,7 @@ import {
 import {
   isExamAlignedQuestion,
   isPastPaperQuestion,
+  originWordingNamesAPaper,
   panicRank,
 } from '../src/lib/question-metadata.js';
 
@@ -87,6 +92,22 @@ export const KNOWN_SHORT_SPELLING = Object.freeze([]);
 // "lecture slides" as documents, which is what lifted #105636 out of band 0.
 export const KNOWN_ORIGIN_OVERCLAIMS = Object.freeze([]);
 
+// Origins filed as a paper whose wording the pattern cannot read as one. On a
+// compilation row the map alone makes these sat papers, so filing a new one
+// must be a decision somebody reviewed with the document open, never a side
+// effect of the map (rule 12). Reviewed 2026-10-28; each is the seniors' own
+// record of a paper they sat ("บันทึกหลังสอบ", "recalled ... section").
+export const REVIEWED_MAP_ONLY_PAPERS = Object.freeze([
+  'Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 85)',
+  'บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)',
+  'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1',
+  'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 2 ไม่มีเฉลย',
+  'Zoonoses (Vet 85) recalled matching section',
+  'Zoonoses (Vet 85) recalled choice section',
+  'Zoonoses (Vet 85) recalled short-answer section',
+  'Zoonoses (Vet 85) recalled item noted on the coronaviruses slide',
+]);
+
 const label = (q) => `${q.subject || '?'} #${q.id}`;
 const carries = (q, text) => (Array.isArray(q.tags) && q.tags.some((t) => String(t).includes(text)))
   || String(q.verified || '').includes(text)
@@ -120,12 +141,15 @@ export function checkProvenance(rows, {
   reviewedPastAndAligned = REVIEWED_PAST_AND_ALIGNED,
   knownShortSpelling = KNOWN_SHORT_SPELLING,
   knownOverclaims = KNOWN_ORIGIN_OVERCLAIMS,
+  reviewedMapOnly = REVIEWED_MAP_ONLY_PAPERS,
 } = {}) {
   const errors = [];
   const warnings = [];
   const reviewed = new Set(reviewedPastAndAligned);
   const knownShort = new Set(knownShortSpelling);
   const knownOver = new Set(knownOverclaims);
+  const mapOnlyReviewed = new Set(reviewedMapOnly);
+  const mapOnlySeen = new Set();
   const entryOf = (origin) => (typeof origin === 'string' && Object.hasOwn(origins, origin) ? origins[origin] : null);
 
   // 2. the map itself
@@ -136,7 +160,7 @@ export function checkProvenance(rows, {
   const seen = { short: new Set(), both: new Set(), over: new Set() };
   let noSourceType = 0;
   let pastPaperWithoutOrigin = 0;
-  const switchPreview = { into: [], outOf: [] };
+  const byMap = { paper: 0, other: 0 };
 
   for (const q of rows) {
     const origin = q.examOrigin;
@@ -185,11 +209,13 @@ export function checkProvenance(rows, {
 
     // 7. a paper or exam guidance hidden in band 2
     if (entry && (entry.kind === 'paper' || entry.kind === 'aligned') && panicRank(q) === 2) {
-      errors.push(`${label(q)}: examOrigin "${origin}" is filed as ${entry.kind} but the row is in band 2, so Panic Mode never shows it; tag it "${MARKER}"`);
+      const fix = entry.kind === 'paper' && !typed ? 'give it a sourceType, so its filed origin decides' : `tag it "${MARKER}"`;
+      errors.push(`${label(q)}: examOrigin "${origin}" is filed as ${entry.kind} but the row is in band 2, so Panic Mode never shows it; ${fix}`);
     }
 
-    // 8. counted as a paper through an origin filed as something else
-    if (q.sourceType !== 'past-paper' && past && entry && entry.kind !== 'paper') {
+    // 8. counted as a paper through an origin filed as something else (typed
+    // rows are rule 11's)
+    if (!typed && past && entry && entry.kind !== 'paper') {
       seen.over.add(q.id);
       if (!knownOver.has(q.id)) {
         errors.push(`${label(q)}: counted as a sat paper through examOrigin "${origin}", which is filed as ${entry.kind}`);
@@ -199,11 +225,20 @@ export function checkProvenance(rows, {
     // 9. ratchets
     if (past && !hasOrigin) pastPaperWithoutOrigin++;
 
-    // What reading the map for typed rows would change.
-    if (typed && q.sourceType !== 'past-paper' && q.sourceType !== 'lecture-derived') {
-      const byMap = entry?.kind === 'paper';
-      if (byMap && !past) switchPreview.into.push(q);
-      if (!byMap && past) switchPreview.outOf.push(q);
+    // 11. a compilation row's filed origin decides whether it sat a paper
+    if (q.sourceType === 'student-compilation' && entry) {
+      const paper = entry.kind === 'paper';
+      byMap[paper ? 'paper' : 'other']++;
+      if (paper !== past) {
+        errors.push(`${label(q)}: examOrigin "${origin}" is filed as ${entry.kind} but isPastPaperQuestion says ${past ? 'it sat a paper' : 'it did not'}; the predicate stopped reading src/data/exam-origins.js`);
+      }
+      // 12. ...and a paper only the map can read is a reviewed decision
+      if (paper && !originWordingNamesAPaper(origin)) {
+        mapOnlySeen.add(String(origin));
+        if (!mapOnlyReviewed.has(String(origin))) {
+          errors.push(`${label(q)}: examOrigin "${origin}" is filed as a paper, and nothing in its wording says so; open the document, then add it to REVIEWED_MAP_ONLY_PAPERS or file it as what it is`);
+        }
+      }
     }
   }
 
@@ -222,6 +257,8 @@ export function checkProvenance(rows, {
     const stale = list.filter((id) => !set.has(id));
     if (stale.length) warnings.push(`${what}: ${stale.join(', ')} no longer need${stale.length === 1 ? 's' : ''} listing; delete ${stale.length === 1 ? 'it' : 'them'}`);
   }
+  const staleMapOnly = [...mapOnlyReviewed].filter((o) => !mapOnlySeen.has(o));
+  if (staleMapOnly.length) warnings.push(`REVIEWED_MAP_ONLY_PAPERS: ${staleMapOnly.map((o) => `"${o}"`).join(', ')} no longer need listing; delete them`);
   const unused = Object.keys(origins).filter((o) => !used.has(o));
   if (unused.length) warnings.push(`${unused.length} filed origin(s) no row uses any more: ${unused.slice(0, 5).map((o) => `"${o}"`).join(', ')}`);
 
@@ -236,8 +273,9 @@ export function checkProvenance(rows, {
       shortSpelling: seen.short.size,
       pastAndAligned: seen.both.size,
       overclaims: seen.over.size,
+      typedPaperByMap: byMap.paper,
+      typedOtherByMap: byMap.other,
     },
-    switchPreview,
   };
 }
 
@@ -304,14 +342,12 @@ async function main() {
   const rows = [];
   for (const entry of BANK_REGISTRY) for (const q of await entry.load()) rows.push(q);
   const { provenance, figureCheck, errors, warnings } = lintRows(rows);
-  const { counts, switchPreview } = provenance;
+  const { counts } = provenance;
 
-  const bySubject = (list) => Object.entries(list.reduce((acc, q) => ({ ...acc, [q.subject]: (acc[q.subject] || 0) + 1 }), {}))
-    .map(([s, n]) => `${s} ${n}`).join(', ') || 'none';
   console.log(`lint:provenance: ${counts.rows} rows, ${counts.origins} filed origins in use`);
   console.log(`  no sourceType ${counts.noSourceType}/${BUDGETS.noSourceType}, past paper without examOrigin ${counts.pastPaperWithoutOrigin}/${BUDGETS.pastPaperWithoutOrigin}`);
   console.log(`  reviewed past-and-marked ${counts.pastAndAligned}, short spelling alone ${counts.shortSpelling}, origin over-claims ${counts.overclaims}`);
-  console.log(`  if typed rows read the map: into band 0 ${switchPreview.into.length} (${bySubject(switchPreview.into)}); out of band 0 ${switchPreview.outOf.map(label).join(', ') || 'none'}`);
+  console.log(`  typed rows decided by the map: ${counts.typedPaperByMap} sat a paper, ${counts.typedOtherByMap} did not`);
   console.log(`  figures ${figureCheck.counts.figures}: missing on disk ${figureCheck.counts.missing}, without imageAlt ${figureCheck.counts.withoutAlt}/${FIGURE_ALT_BUDGET}`);
   for (const w of warnings) console.log(`⚠️  ${w}`);
   if (errors.length) {

@@ -515,6 +515,8 @@ Avoid:
   and old question scope. Counts beside launch buttons must use the pool's rule.
   Provenance sourceType means how material arrived; examOrigin names the sat paper.
   Correct evidenced data and guard the invariant; do not loosen a predicate or ratchet.
+  A student-compilation row sits a paper only by its filed entry in src/data/exam-origins.js (5.171.3);
+  a new paper origin its wording does not show needs REVIEWED_MAP_ONLY_PAPERS (lint-provenance rule 12).
 - Before lecture-summary edits, read docs/SUMMARY-CHECK-STANDARD.md and the
   fact-check ledger. Do not infer missing facts, terms, units, timestamps or lecturer
   names. Preserve genuine quotations and evidence pointers; no blind corpus rewrite.
