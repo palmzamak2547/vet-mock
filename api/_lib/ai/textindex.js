@@ -28,10 +28,28 @@
 //     must not outrank the short section that is ABOUT the question.
 // ============================================================
 
-import { normalizeQuery } from '../../../src/lib/vetwiki/query-terms.js';
+import { normalizeQuery, hasThai, latinPattern, latinProbe } from '../../../src/lib/vetwiki/query-terms.js';
 
 const TF_CAP = 8;
 const CACHE_LIMIT = 600;
+// A concept is one of the rare things a question names when its idf is at
+// least this share of the most specific core concept's (the specificity gate).
+export const RARE_SHARE = 0.55;
+
+/**
+ * One search term as a form this index looks for: Thai as text, a Latin term
+ * as a whole word or phrase, normalised as concepts.js reads the planner's
+ * terms (so "ORT" is found in "(ORT)" and never inside "report").
+ */
+export function termForm(term) {
+  const t = normalizeQuery(term);
+  if (hasThai(t)) {
+    const thai = t.replace(/\s+/g, '');
+    return thai.length >= 2 ? { thai } : null;
+  }
+  const latin = t.replace(/[^a-z0-9 .'-]/g, ' ').replace(/\s+/g, ' ').trim();
+  return latin.length >= 2 ? { probe: latinProbe(latin), re: new RegExp(latinPattern(latin), 'g') } : null;
+}
 
 export class TextIndex {
   /** @param {Array<{ title?: string, text?: string, heading?: string }>} docs */
@@ -144,7 +162,7 @@ export class TextIndex {
     const ceiling = Math.log(1 + N);
     const coreIdf = concepts.map((c, i) => (c.core && idf[i] > 0 ? idf[i] : 0));
     const maxCore = Math.max(0, ...coreIdf);
-    const rare = concepts.map((c, i) => c.core && idf[i] > 0 && idf[i] >= 0.55 * maxCore);
+    const rare = concepts.map((c, i) => c.core && idf[i] > 0 && idf[i] >= RARE_SHARE * maxCore);
     const anyRare = rare.some(Boolean);
     // A core concept the corpus never uses weighs the most: it is the part of
     // the question nothing here answers, and it keeps coverage honest.

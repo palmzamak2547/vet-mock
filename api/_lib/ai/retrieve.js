@@ -26,6 +26,7 @@
 import { retrieveForQuestion } from '../../../src/lib/vetwiki/retrieve.js';
 import { MAX_SOURCES, CONTEXT_CHARS, SNIPPET_CHARS } from './config.js';
 import { buildConcepts, snippetNeedles, speciesIn } from './concepts.js';
+import { termForm } from './textindex.js';
 import { subjectName, topicLabel, questionText } from './corpus.js';
 import { guideSubtitle } from './guide.js';
 import { wikiLink, videoLink, questionSetLink, viewLink } from './links.js';
@@ -75,7 +76,7 @@ export function wikiNominations(corpus, questions) {
  */
 export function searchCorpus(corpus, { text, terms = [], wikiQueries = [] } = {}) {
   const read = buildConcepts(text, { extraTerms: terms });
-  if (!read.concepts.length) return { ...read, ranked: [], anyRare: false, unmatched: [] };
+  if (!read.concepts.length) return { ...read, ranked: [], anyRare: false, unmatched: [], idf: [] };
   const boost = wikiNominations(corpus, wikiQueries.length ? wikiQueries : [text]);
   const { results, anyRare, idf } = corpus.index.rank(read.concepts, {
     facetWords: read.facetWords,
@@ -91,15 +92,97 @@ export function searchCorpus(corpus, { text, terms = [], wikiQueries = [] } = {}
   // selectDocs): the canine enteritis treatment section outranked the feline
   // panleukopenia lecture's for a question about cats, and fowlpox pages (FPV
   // is also fowlpox virus) were cited beside it.
-  const asked = new Set(read.concepts.map((c) => c.species).filter(Boolean));
+  const share = animalShare(read);
   const ranked = results.map((r) => {
     const doc = corpus.docs[r.i];
-    if (!asked.size) return { ...r, doc };
-    const named = speciesIn(doc.title);
-    const elsewhere = named.size > 0 && ![...named].some((s) => asked.has(s));
-    return elsewhere ? { ...r, doc, elsewhere, score: r.score * SPECIES_ELSEWHERE } : { ...r, doc };
+    const s = share(doc.title);
+    return s < 1 ? { ...r, doc, elsewhere: true, score: r.score * s } : { ...r, doc };
   }).sort((a, b) => b.score - a.score || a.i - b.i);
-  return { ...read, anyRare, unmatched, ranked };
+  return { ...read, anyRare, unmatched, ranked, idf };
+}
+
+/**
+ * What a title keeps of its score for the animals it names: SPECIES_ELSEWHERE
+ * when it names only animals the question (`asked`, its concepts) does not
+ * ask about, else 1. The study library's card uses the same rule.
+ */
+export function animalShare(asked) {
+  const want = new Set((asked?.concepts || []).map((c) => c.species).filter(Boolean));
+  return (title) => {
+    if (!want.size) return 1;
+    const named = speciesIn(title);
+    return named.size > 0 && ![...named].some((s) => want.has(s)) ? SPECIES_ELSEWHERE : 1;
+  };
+}
+
+/**
+ * What a file beside the answer must cover: the most specific whole term the
+ * question itself names, a disease, organism or drug it names or a Latin term
+ * it types (ORT, HCM), as the forms to look for; null when it has none. Thai
+ * word tokens are left out (the segmenter cuts some into fragments), and so
+ * are the planner's extra terms. "ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข" names
+ * ยาฆ่าเชื้อ and pyometra; pyometra is the rarer, and a deck that only says
+ * ยาฆ่าเชื้อ on its pages (an entomology question set did) is not about it.
+ */
+export function questionTopic(corpus, asked) {
+  const idf = asked?.idf || [];
+  const ceiling = Math.log(1 + corpus.docs.length);
+  let best = null;
+  (asked?.concepts || []).forEach((c, i) => {
+    const typedLatin = c.kind === 'word' && c.forms.length > 0 && c.forms.every((f) => f.re);
+    if (!(c.named || typedLatin) || c.extra) return;
+    const v = idf[i] > 0 ? idf[i] : ceiling;
+    if (!best || v > best.idf) best = { idf: v, label: c.label, forms: c.forms };
+  });
+  return best;
+}
+
+const formKey = (f) => (f.thai ? `t:${f.thai}` : `r:${f.re.source}`);
+
+/**
+ * How specific a search term is for a turn, 0 to 1: the idf over VetMock's own
+ * text of the concept the term names, as a share of the most specific core
+ * concept the question itself names (the planner's extra terms aside), 1 when
+ * at least as rare. A share of RARE_SHARE or more is one of the rare things
+ * asked, as the index counts them. One thing is one concept: leptospirosis is
+ * as specific as เลปโตสไปโรซิส, the concept these searches (`asked`, the search
+ * the answer cites from, and `others`) scored; a term outside them is counted
+ * by itself, and one no text uses is fully specific.
+ * For "ORT ในไก่ ... ควบคุมป้องกันอย่างไร": ORT 1 (in ~8 of 17,195 documents),
+ * ควบคุม 0.39 (~870). The study library weighs its title words and search
+ * phrases by it (library.js rankFiles). Counted by library titles instead,
+ * ควบคุม is in 8 of 2,128 and ORT in 1: too close to tell apart.
+ */
+export function termSpecificity(corpus, asked, ...others) {
+  const idf = asked?.idf || [];
+  const most = (keep) => Math.max(0, ...(asked?.concepts || []).map((c, i) => (c.core && idf[i] > 0 && keep(c) ? idf[i] : 0)));
+  // the topic is what the question names; a rare planner phrase ("rumen anatomy") is not it
+  const top = most((c) => !c.extra) || most(() => true);
+  if (!top) return () => 1;
+  const n = corpus.docs.length;
+  // what a concept no text uses weighs (as in the index's coverage)
+  const ceiling = Math.log(1 + n);
+  const ofConcept = new Map();
+  for (const s of [asked, ...others]) {
+    (s?.concepts || []).forEach((c, i) => {
+      const v = s.idf[i] > 0 ? s.idf[i] : ceiling;
+      for (const f of c.forms) if (!ofConcept.has(formKey(f))) ofConcept.set(formKey(f), v);
+    });
+  }
+  const memo = new Map();
+  return (term) => {
+    const form = termForm(String(term || ''));
+    const key = form ? formKey(form) : '';
+    if (!memo.has(key)) {
+      let v = form ? ofConcept.get(key) : ceiling;
+      if (v === undefined) {
+        const df = corpus.index.hits(form).size;
+        v = df ? Math.log(1 + n / df) : ceiling;
+      }
+      memo.set(key, Math.min(1, v / top));
+    }
+    return memo.get(key);
+  };
 }
 
 const groupKey = (d) => (d.kind === 'video' ? `v:${d.videoId}` : d.kind === 'question' ? `q:${d.subject}:${d.topic}` : `${d.kind}:${d.subject}:${d.topic}`);
