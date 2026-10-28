@@ -28,30 +28,16 @@
 
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { voiceFor } from '../src/lib/tts-voices.js';
 
 export const config = {
   runtime: 'nodejs',
   maxDuration: 10,
 };
 
-// Voice mapping. Edge has two Thai neural voices, Premwadee (female) and
-// Niwat (male); Aria is US English. Thai was Premwadee until 29 Oct 2026:
-// measured that night from Bangkok with msedge-tts 2.1.1, Premwadee closed
-// the socket before turn.end on a two-sentence stem in 9 of 12 tries (three
-// output formats), so a long question waited ~2.7 s and then fell to the
-// device voice. Niwat read the same stem 6 of 6. A short line works in both,
-// which is why a one-word probe never showed it.
-const VOICE_MAP = {
-  th: 'th-TH-NiwatNeural',
-  en: 'en-US-AriaNeural',
-};
-
-// Own-property lookup only. `lang` is caller-supplied, and a plain index
-// also answers for 'constructor' or '__proto__' — with an Object method,
-// which then went upstream as the voice name. Anything unknown is Thai.
-export function voiceFor(lang) {
-  return Object.prototype.hasOwnProperty.call(VOICE_MAP, lang) ? VOICE_MAP[lang] : VOICE_MAP.th;
-}
+// The voices live in src/lib/tts-voices.js, shared with the browser's audio
+// cache so a voice change also retires the clips cached in the old voice.
+export { voiceFor };
 
 // Edge TTS rate format: "+10%" / "-5%" / "0%" relative to the default pace.
 // A rate that is not a finite number (absent, a string) means the default —
