@@ -30,6 +30,7 @@ const GENERATORS = [
   { script: 'regen-exam-papers.mjs', out: 'src/data/exam-papers.generated.js' },
   { script: 'regen-bank-registry.mjs', out: 'src/data/bank-registry.generated.js' },
   { script: 'regen-question-delivery.mjs', out: 'src/data/question-delivery.generated.js' },
+  { script: 'regen-exam-recurrence.mjs', out: 'src/data/exam-recurrence.generated.js' },
   { script: 'regen-mochi-poses.mjs', out: 'src/data/mochi-poses.generated.js' },
   { script: 'regen-glossary-related.mjs', out: 'src/data/glossary-related.generated.js' },
   { script: 'regen-written-questions.mjs', out: 'api/_lib/written-questions.generated.json' },

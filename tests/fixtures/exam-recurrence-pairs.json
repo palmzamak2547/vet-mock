@@ -1,0 +1,405 @@
+{
+  "note": "Copied from the question bank on 2026-10-28 for tests/unit/exam-recurrence.test.mjs. Each pair was read by hand: `same` pairs are one item recorded twice, `distinct` pairs are two items the stems alone would join.",
+  "same": [
+    {
+      "why": "a foal aged by its incisors, recalled by Vet 85 and by Vet 81 in different words",
+      "pair": [
+        {
+          "subject": "equine-medicine",
+          "id": 207526,
+          "type": "mcq",
+          "q": "ลูกม้าตัวหนึ่งอ้าปากให้ตรวจ เห็นฟันตัดน้ำนมคู่ central incisor (I1) ขึ้นเต็มที่แล้ว และเริ่มเห็น intermediate incisor (I2) โผล่ขึ้นมาถัดออกไปด้านข้าง ประเมินอายุได้ประมาณเท่าใด",
+          "options": [
+            "ประมาณ 6 วัน",
+            "ประมาณ 6 สัปดาห์",
+            "ประมาณ 6 เดือน",
+            "ประมาณ 12 เดือน",
+            "ประมาณ 18 เดือน"
+          ],
+          "answer": 1
+        },
+        {
+          "subject": "equine-medicine",
+          "id": 207546,
+          "type": "mcq",
+          "q": "ลูกม้าในภาพอ้าปากให้เห็นฟันตัดชุดน้ำนมของขากรรไกรบน ซี่กลางขึ้นเต็มซี่แล้ว และซี่ถัดออกไปทางข้างเพิ่งโผล่พ้นขอบเหงือกขึ้นมา ลูกม้าตัวนี้อายุประมาณเท่าใด",
+          "options": [
+            "ประมาณ 6 วัน",
+            "ประมาณ 6 สัปดาห์",
+            "ประมาณ 6 เดือน",
+            "ประมาณ 1 ปี",
+            "ประมาณ 1 ปีครึ่ง"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "why": "the PRRS item on the Vet 80 and Vet 81 papers, filed under two subjects",
+      "pair": [
+        {
+          "subject": "swine-clinic",
+          "id": 8018,
+          "type": "mcq",
+          "q": "ข้อใดไม่ถูกต้องเกี่ยวกับโรค Porcine Reproductive and Respiratory Syndrome (PRRS)",
+          "options": [
+            "Late-term abortion, generalized lymphadenopathy",
+            "Respiratory syndrome in piglets, no effect to boar",
+            "In utero infection from infected semen, local-isolate PRRSV induced hemorrhage of renal surface",
+            "Highly pathogenic PRRS virus induced lesions similar to acute classical swine fever",
+            "ผิดทุกข้อ"
+          ],
+          "answer": 1
+        },
+        {
+          "subject": "livestock-pathology",
+          "id": 8218,
+          "type": "mcq",
+          "q": "ข้อใด ไม่ถูกต้อง เกี่ยวกับโรค Porcine reproductive and respiratory syndrome (PRRS)",
+          "options": [
+            "Late-term abortion, Generalized lymphadenopathy",
+            "Respiratory syndrome in piglets, No effect in boar",
+            "In utero infection from infected semen, Thai-isolate PRRSV induced hemorrhage of renal surface",
+            "Highly pathogenic PRRS virus-induced lesions similar to acute classical swine fever",
+            "ผิดทุกข้อ"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "why": "Hansen type I disc disease named two ways; each term appears in the other item",
+      "pair": [
+        {
+          "subject": "com3",
+          "id": 1535,
+          "type": "mcq",
+          "q": "IVDD ที่เกิดจาก annulus fibrosus แตก + nucleus pulposus ออกมากดไขสันหลัง พบในสุนัขพันธุ์ใด",
+          "options": [
+            "Cocker spaniels, Collie",
+            "Great Danes, Doberman Pinchers",
+            "Dachshund, Basset Hounds",
+            "Pomeranian, Chi Hua Hua",
+            "Bull terrier, Bulldog"
+          ],
+          "answer": 2,
+          "explain": "Hansen Type I IVDD (extrusion) = chondrodystrophoid breeds — Dachshund, Basset, Beagle, Corgi, Frenchie, Lhasa Apso, acute onset T12-L2 hot spot, Type II (protrusion) = non-chondrodystrophoid (Lab, GSD)"
+        },
+        {
+          "subject": "com3",
+          "id": 1390,
+          "type": "mcq",
+          "q": "Hansen Type I IVDD (acute extrusion ของ nucleus pulposus) มักเกิดในสุนัขพันธุ์ใด",
+          "options": [
+            "Dachshund + Basset Hound (chondrodystrophic — disc calcify เร็ว, extrude ฉับพลัน)",
+            "Pomeranian + Chihuahua (toy breed — IVDD พบน้อยกว่า; รูปร่าง normal)",
+            "Bull Terrier + Bulldog (brachycephalic but not chondrodystrophic)",
+            "Cocker Spaniel + Collie (medium breed — Hansen Type II พบบ่อยกว่า)",
+            "Great Dane + Doberman Pinscher (large breed — เป็น Wobbler / DLSS แทน)"
+          ],
+          "answer": 0,
+          "explain": "Hansen classification ของ IVDD:\n\n✓ Type I (acute extrusion) = chondrodystrophic breeds:\n• Dachshund (#1, lifetime risk 19-24%)\n• Pekingese, Shih Tzu, Lhasa Apso\n• Beagle, Basset Hound\n• French Bulldog, Corgi\n• Cocker Spaniel\n• Pathology: disc calcify ตั้งแต่ <1 ปี → annulus crack → nucleus extrude เข้า canal\n• Onset: acute (sec-hours), severe pain, paresis-paralysis\n• Site: T11-L3 (60-65%) > cervical (15-20%)\n\n✓ Type II (chronic protrusion) = non-chondrodystrophic:\n• German Shepherd, Doberman, Labrador\n• Onset: chronic, progressive\n• Site: lumbosacral common\n\n💡 Type I → emergency, surgical decompression ดีที่สุดถ้า deep pain absent < 48 hr"
+        }
+      ]
+    },
+    {
+      "why": "the same fluid-rate sum; a short key that carries its number",
+      "pair": [
+        {
+          "subject": "com3",
+          "id": 1525,
+          "type": "mcq",
+          "q": "แมว 4 kg, dehydrate 7%, แก้ deficit ภายใน 4 ชม., maintenance 8 ml/hr, ตั้ง rate น้ำเกลือเท่าใด",
+          "options": [
+            "68 ml/hr",
+            "78 ml/hr",
+            "88 ml/hr",
+            "98 ml/hr",
+            "108 ml/hr"
+          ],
+          "answer": 1
+        },
+        {
+          "subject": "com3",
+          "id": 1371,
+          "type": "mcq",
+          "q": "แมวเพศผู้ 4 กก. ขาดน้ำ 7%, ต้องการแก้ deficit ใน 4 ชม. + maintenance 8 ml/hr, IV rate ที่ตั้งคือ",
+          "options": [
+            "68 ml/hr (deficit ÷ 4 + half maintenance — calculation off)",
+            "78 ml/hr (deficit 280 ml ÷ 4 hr = 70 + maintenance 8 = 78 ml/hr)",
+            "88 ml/hr (deficit หน่วยผิดเป็น × 1.1 — over-estimate)",
+            "98 ml/hr (deficit ÷ 3 + maint = wrong time interval)",
+            "108 ml/hr (deficit ÷ 2 + maint = ทำใน 2 hr — เร็วเกินไป)"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "why": "one true/false statement about CRD in two banks",
+      "pair": [
+        {
+          "subject": "poultry",
+          "id": 1742,
+          "type": "tf",
+          "q": "Chronic respiratory disease (CRD) เกิดจาก Mycoplasma gallisepticum หรือ M. synoviae",
+          "answer": true
+        },
+        {
+          "subject": "avian-medicine",
+          "id": 206041,
+          "type": "tf",
+          "q": "Chronic respiratory disease (CRD) ในไก่เกิดจากการติดเชื้อ Mycoplasma gallisepticum หรือ Mycoplasma synoviae",
+          "answer": true
+        }
+      ]
+    }
+  ],
+  "distinct": [
+    {
+      "why": "sulfosalicylic acid and picric acid: the same frame about two reagents",
+      "pair": [
+        {
+          "subject": "biochem-1",
+          "id": 72041,
+          "type": "mcq",
+          "q": "เพราะเหตุใด เมื่อเติมกรด sulfosalicylic เข้มข้นลงในสารละลายไข่ขาว จึงเกิดตะกอน",
+          "options": [
+            "โปรตีนไข่ขาวมีประจุลบจับกับประจุลบของกรด",
+            "โปรตีนไข่ขาว (ในภาวะกรด มีประจุบวก) จับกับประจุลบของกรด เกิดตะกอน",
+            "โปรตีนไข่ขาวเกิดการเสียสภาพจากความร้อน",
+            "เกลือดูดน้ำออก ทำให้โปรตีนจับตัวเป็นก้อน",
+            "โปรตีนไข่ขาวถูก hydrolyze เป็นกรดอะมิโน"
+          ],
+          "answer": 1
+        },
+        {
+          "subject": "biochem-1",
+          "id": 72042,
+          "type": "mcq",
+          "q": "เพราะเหตุใด เมื่อเติม Picric acid ลงในสารละลายไข่ขาว จึงเกิดตะกอน",
+          "options": [
+            "โปรตีนไข่ขาว (มีประจุบวกในภาวะกรด) จับกับประจุลบ (picrate) เกิดตะกอน",
+            "โปรตีนไข่ขาวมีประจุลบจับกับประจุลบของ picric acid",
+            "โปรตีนไข่ขาวเกิดการเสียสภาพจากแสง",
+            "เกลือดูดน้ำออก ทำให้โปรตีนจับตัวเป็นก้อน",
+            "โปรตีนไข่ขาวถูกออกซิไดซ์"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "why": "a dog case and a cat case with the same first step",
+      "pair": [
+        {
+          "subject": "com3",
+          "id": 1539,
+          "type": "mcq",
+          "q": "สุนัขพุดเดิ้ลถูกรถชน, BP เบา HR 180 CRT 3, สิ่งที่ควรเริ่มดำเนินการในเบื้องต้น",
+          "options": [
+            "Dexamethasone administration",
+            "Antibiotic administration",
+            "Hind limb radiography",
+            "Blood transfusion",
+            "Aggressive crystalloid therapy"
+          ],
+          "answer": 4
+        },
+        {
+          "subject": "com3",
+          "id": 1332,
+          "type": "mcq",
+          "q": "แมวเคส trauma (mm ซีด, prolonged CRT, สงสัย hypovolemic shock จาก hemoabdomen), สิ่งที่ควรเริ่มดำเนินการในเบื้องต้นคือ",
+          "options": [
+            "Dexamethasone administration (steroid ใน shock — ตำราเก่า, เลิกใช้แล้ว)",
+            "Antibiotic administration (broad-spectrum coverage รอ culture ก่อน)",
+            "Aggressive crystalloid therapy (LRS bolus 10-15 ml/kg ในแมว, repeat ตาม response)",
+            "Hindlimb radiography (image หลัง stabilize เท่านั้น เพื่อหา fracture/hemorrhage)",
+            "Blood transfusion (ใช้ถ้า PCV < 20% หรือ ongoing severe hemorrhage)"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "why": "two questions whose only shared word is the answer B-mode",
+      "pair": [
+        {
+          "subject": "swine-repro",
+          "id": 91512,
+          "type": "mcq",
+          "q": "Ultrasound mode ใดที่นิยมใช้มากที่สุดในการตรวจการตั้งท้องสุกร เพราะเร็ว ง่าย และแม่นยำสุด?",
+          "options": [
+            "A-mode (pulse echo)",
+            "B-mode (real-time)",
+            "D-mode (Doppler)",
+            "M-mode"
+          ],
+          "answer": 1
+        },
+        {
+          "subject": "vet-imaging",
+          "id": 91003,
+          "type": "mcq",
+          "q": "Mode of display ของ ultrasound ที่นิยมใช้มากที่สุดในการทำ real-time imaging คือ",
+          "options": [
+            "A-mode (amplitude)",
+            "M-mode (motion)",
+            "B-mode (brightness)",
+            "Doppler mode",
+            "Power Doppler mode"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "why": "a supplement and a spot-on product: the keys name two different acts",
+      "pair": [
+        {
+          "subject": "vet-juris",
+          "id": 93020,
+          "type": "mcq",
+          "q": "ในกรณีที่ท่านเป็นผู้ประกอบวิชาชีพการสัตวแพทย์ ซึ่งต้องการผลิตและขายอาหารเสริมสำหรับสุนัข ซึ่งมีส่วนประกอบของวิตามิน แร่ธาตุ และกรดอะมิโน ให้โดยการผสมในอาหารให้สุนัขกิน ซึ่งผลิตภัณฑ์ดังกล่าว ไม่แสดงสรรพคุณบำบัด บรรเทา หรือรักษาโรค ในกรณีนี้ท่านต้องดำเนินการอย่างไร",
+          "options": [
+            "ต้องจดแจ้งผลิตภัณฑ์ดังกล่าวต่อสัตวแพทยสภา",
+            "สามารถผลิตและขายได้โดยไม่ต้องขึ้นทะเบียนหรือจดแจ้ง",
+            "ต้องขึ้นทะเบียนผลิตภัณฑ์ดังกล่าวเพื่อรับใบสำคัญการขึ้นทะเบียนตำรับยา ตามพระราชบัญญัติยา",
+            "ต้องขึ้นทะเบียนผลิตภัณฑ์ดังกล่าวเพื่อรับใบสำคัญการขึ้นทะเบียนอาหาร ตามพระราชบัญญัติอาหาร",
+            "ต้องขึ้นทะเบียนผลิตภัณฑ์ดังกล่าวเพื่อรับใบสำคัญการขึ้นทะเบียนอาหารสัตว์ ตามพระราชบัญญัติควบคุมคุณภาพอาหารสัตว์"
+          ],
+          "answer": 4
+        },
+        {
+          "subject": "vet-juris",
+          "id": 93022,
+          "type": "mcq",
+          "q": "ในกรณีที่ท่านเป็นผู้ประกอบวิชาชีพการสัตวแพทย์ ซึ่งต้องการนำเข้าผลิตภัณฑ์ที่มีข้อบ่งใช้เพื่อกำจัดเห็บและหมัดในสุนัข โดยให้โดยการหยดลงบนหลังสุนัข (spot-on) โดยผลิตภัณฑ์ดังกล่าวไม่สามารถดูดซึมเข้าสู่ระบบหมุนเวียนโลหิตของสุนัขได้ ในกรณีนี้ท่านต้องดำเนินการอย่างไร",
+          "options": [
+            "ต้องจดแจ้งผลิตภัณฑ์ดังกล่าวต่อสัตวแพทยสภา",
+            "สามารถนำเข้าและขายได้โดยไม่ต้องขึ้นทะเบียนหรือจดแจ้ง",
+            "ต้องขึ้นทะเบียนผลิตภัณฑ์ดังกล่าวเพื่อรับใบสำคัญการขึ้นทะเบียนตำรับยา ตามพระราชบัญญัติยา",
+            "ต้องขึ้นทะเบียนผลิตภัณฑ์ดังกล่าวเพื่อรับใบสำคัญการขึ้นทะเบียน ตามพระราชบัญญัติวิชาชีพการสัตวแพทย์",
+            "ต้องขึ้นทะเบียนผลิตภัณฑ์ดังกล่าวเพื่อรับใบสำคัญการขึ้นทะเบียนวัตถุอันตราย ตามพระราชบัญญัติควบคุมวัตถุอันตราย"
+          ],
+          "answer": 4
+        }
+      ]
+    },
+    {
+      "why": "viral diseases of the gut and of the airways: one essay frame, two questions",
+      "pair": [
+        {
+          "subject": "swine-clinic",
+          "id": 202350,
+          "type": "short",
+          "q": "โรคระบบทางเดินอาหารที่เกิดจากเชื้อไวรัสในสุกรมีโรคใดบ้าง และมีแนวทางแก้ไขอย่างไร",
+          "model_answer": "โรคระบบทางเดินอาหารจากไวรัสในสุกรที่สำคัญได้แก่ transmissible gastroenteritis หรือ TGE, porcine epidemic diarrhoea หรือ PED และ rotavirus แนวทางแก้ไขแบ่งเป็นสองส่วน ส่วนแรกคือลดปริมาณเชื้อก่อโรค ทำได้โดยจัดการ pig flow แบบ all in all out แบ่งกลุ่มสุกรเป็น unit ทำ biosecurity อย่างเข้มงวดเพื่อไม่ให้เชื้อจากภายนอกเข้าฟาร์ม ใช้ยาต้านจุลชีพอย่างสมเหตุผลเพื่อคุมการติดเชื้อแทรกซ้อนและหมุนเวียนกลุ่มยาไม่ให้ดื้อ และใช้น้ำเชื้อจากพ่อพันธุ์เพื่อลดการสัมผัสระหว่างพ่อพันธุ์กับแม่พันธุ์ ส่วนที่สองคือเพิ่มภูมิคุ้มกันโรค ทำได้โดยวางโปรแกรมวัคซีนให้เหมาะสม จัดการความสะอาดของโรงเรือนและระบบระบายอากาศ จัดการอาหารและน้ำให้มีคุณภาพ และลดความเครียดของสุกร สำหรับโรคเฉพาะ TGE เกิดจาก alpha coronavirus ทำให้ลูกสุกรแรกเกิดท้องเสียอย่างรุนแรง อาเจียน อุจจาระเป็นก้อนนมไม่ย่อย และมีอัตราตายสูงมากในลูกอายุต่ำกว่า 2 สัปดาห์ ติดต่อทาง faecal oral route PED เกิดจาก alpha coronavirus เช่นกัน อาการคล้าย TGE แต่ความรุนแรงลดลงเมื่อลูกสุกรอายุมากขึ้น ปัญหาหลักคือการจัดการเล้าคลอดที่ไม่ดีพอและแม่สุกรสาวที่ยังไม่มีภูมิ ป้องกันโดยให้แม่สุกรอุ้มท้องกินอุจจาระหรือซากลูกสุกรป่วยที่ปั่นเพื่อสร้าง passive immunity และทำวัคซีนที่ 4 และ 2 สัปดาห์ก่อนคลอด ส่วน rotavirus เกิดจาก rotavirus group A, B, C และ E ทำให้ลูกสุกรอายุราว 7 วันท้องเสีย แต่มีอัตราตายต่ำกว่า TGE ป้องกันด้วย autogenous vaccine เพราะยังไม่มีวัคซีนสำเร็จรูปจำหน่ายในประเทศ แล้วส่งภูมิต่อให้ลูกทาง colostrum"
+        },
+        {
+          "subject": "swine-clinic",
+          "id": 202351,
+          "type": "short",
+          "q": "โรคระบบทางเดินหายใจที่เกิดจากเชื้อไวรัสในสุกรมีโรคใดบ้าง และมีแนวทางแก้ไขอย่างไร",
+          "model_answer": "โรคระบบทางเดินหายใจจากไวรัสในสุกรที่สำคัญได้แก่ porcine cytomegalovirus, porcine respiratory coronavirus และ swine influenza แนวทางแก้ไขใช้กรอบเดียวกับกลุ่มทางเดินอาหาร คือลดปริมาณเชื้อก่อโรคด้วยการจัดการ pig flow ทำ biosecurity ใช้ยาต้านจุลชีพอย่างสมเหตุผล และใช้น้ำเชื้อจากพ่อพันธุ์ กับเพิ่มภูมิคุ้มกันโรคด้วยการทำวัคซีน จัดการโรงเรือนและการระบายอากาศ จัดการอาหารและน้ำ และลดความเครียด สำหรับโรคเฉพาะ porcine cytomegalovirus เกิดจาก beta herpesvirus อาศัยอยู่ที่ nasal mucus gland ในโพรงจมูก ทำให้เกิด inclusion body rhinitis ลูกสุกรจาม มีน้ำมูก แคระแกร็น และอาจลุกลามเป็นปอดอักเสบ ป้องกันด้วย autogenous vaccine และการทำ acclimatization ในสุกรทดแทนก่อนนำเข้าฝูง ไม่มีแนวทางรักษาโรคโดยตรง แต่ใช้การลดอาการและป้องกันการติดเชื้อแทรกซ้อน porcine respiratory coronavirus เกิดจาก alpha coronavirus ทำให้เกิด pneumonia ที่ส่วนมากอาการไม่รุนแรง ป้องกันด้วย autogenous vaccine ร่วมกับการจัดการ เช่น biosecurity และระบบ all in all out ส่วน swine influenza เกิดจาก influenza virus type A ที่พบมากคือ H1N1, H3N2 และ H1N2 ทำลาย epithelium ของทางเดินหายใจจนเปิดทางให้เกิดการติดเชื้อแทรกซ้อน ในแม่พันธุ์อาจทำให้แท้งได้ อาการเด่นคือป่วยพร้อมกันทั้งคอก มีไข้ ไอ หายใจลำบาก การรักษาเป็นแบบประคับประคอง ป้องกันด้วยวัคซีนซึ่งต้องปรับ antigen ตามสายพันธุ์ที่ระบาด และตรวจติดตามเชื้อทาง serology เพื่อดูสายพันธุ์ที่หมุนเวียนในฟาร์ม"
+        }
+      ]
+    },
+    {
+      "why": "with and without patient housing",
+      "pair": [
+        {
+          "subject": "vet-juris",
+          "id": 93007,
+          "type": "mcq",
+          "q": "ขนาดพื้นที่ของสถานพยาบาลสัตว์ประเภทที่มีที่พักสัตว์ป่วย ต้องมีขนาดพื้นที่ไม่น้อยกว่าเท่าใด",
+          "options": [
+            "60 ตร.ม.",
+            "70 ตร.ม.",
+            "80 ตร.ม.",
+            "90 ตร.ม."
+          ],
+          "answer": 3
+        },
+        {
+          "subject": "vet-juris",
+          "id": 93010,
+          "type": "mcq",
+          "q": "ขนาดพื้นที่ของสถานพยาบาลสัตว์ประเภทที่ไม่มีที่พักสัตว์ป่วย ต้องมีขนาดพื้นที่ไม่น้อยกว่าเท่าใด",
+          "options": [
+            "20 ตร.ม.",
+            "30 ตร.ม.",
+            "40 ตร.ม.",
+            "50 ตร.ม."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "why": "2 and 6 degrees: keys that differ in their number",
+      "pair": [
+        {
+          "subject": "milk-meat-hygiene",
+          "id": 105679,
+          "type": "mcq",
+          "q": "ระหว่างการขนส่งน้ำนมดิบ อุณหภูมิของน้ำนมควรเปลี่ยนแปลงได้ไม่เกินเท่าใด",
+          "options": [
+            "0.5 องศาเซลเซียส",
+            "2 องศาเซลเซียส",
+            "5 องศาเซลเซียส",
+            "10 องศาเซลเซียส"
+          ],
+          "answer": 1
+        },
+        {
+          "subject": "milk-meat-hygiene",
+          "id": 105684,
+          "type": "mcq",
+          "q": "ข้อกำหนดของสหภาพยุโรปกำหนดอุณหภูมิน้ำนมดิบใน cooling tank ไว้ไม่เกินเท่าใด",
+          "options": [
+            "4 องศาเซลเซียส",
+            "6 องศาเซลเซียส",
+            "8 องศาเซลเซียส",
+            "10 องศาเซลเซียส"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "why": "two items keyed \"All correct\", which says nothing about either",
+      "pair": [
+        {
+          "subject": "poultry",
+          "id": 1748,
+          "type": "mcq",
+          "q": "Infectious coryza",
+          "options": [
+            "มี 3 serovars: A, B, C (or I, II, III)",
+            "ก่อรอยโรคที่ URT เป็นหลัก",
+            "พบบ่อยในไก่ไข่ (layers)",
+            "ต้องการ NAD จาก Staph aureus บน blood agar (satellite)",
+            "All correct"
+          ],
+          "answer": 4
+        },
+        {
+          "subject": "poultry",
+          "id": 1749,
+          "type": "mcq",
+          "q": "Infectious coryza vaccine",
+          "options": [
+            "Serovars A และ C เท่านั้นที่มีใช้ในไทย",
+            "ฉีดที่ 8-10 wk + 12-14 wk",
+            "ฉีด SC ใกล้ส่วนหัว",
+            "All correct",
+            "All incorrect"
+          ],
+          "answer": 3
+        }
+      ]
+    }
+  ]
+}
