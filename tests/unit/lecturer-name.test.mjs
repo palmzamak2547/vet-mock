@@ -24,8 +24,10 @@ const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8')
 test('UI-20: the equine topic cards name each lecturer the way the lecturer section does', () => {
   const eq = SUBJECTS.find((s) => s.id === 'equine-medicine');
   const setNames = new Set(lecturerSetFor('equine-medicine', 5, '1-mid').lecturers.flatMap((l) => l.name.split(' และ ')));
-  // Every topic on the midterm screen, where both sections are drawn.
-  const midterm = eq.topics.filter((t) => t.examScope === 'midterm' && !t.hidden);
+  // Every topic on the midterm screen, where both sections are drawn. Since
+  // 5.167.2 the equine midterm topics are 'both' (the final's POA part draws
+  // on every topic), and a 'both' topic shows on the midterm screen too.
+  const midterm = eq.topics.filter((t) => ['midterm', 'both'].includes(t.examScope) && !t.hidden);
   assert.ok(midterm.length >= 7);
   for (const t of midterm) {
     const label = topicLecturerLabel('equine-medicine', t.lecturer);
