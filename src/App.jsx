@@ -2981,7 +2981,12 @@ export default function App() {
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
   const landingPickSubject = (year, subjectId) => {
     try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
-    if (year != null) setSelectedYear(year);
+    // A pick belongs to the year it was made for, so another year starts with
+    // none rather than re-reading this one's (lib/current-phase.js).
+    if (year != null) {
+      if (Number(year) !== Number(selectedYear)) setSelectedPhase(null);
+      setSelectedYear(year);
+    }
     setMode('quick');
     setPracticeMode('all');
     setSubject(subjectId);
@@ -3242,7 +3247,7 @@ export default function App() {
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}
-              {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
+              {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView, phaseStatus }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, setView, onSignedOut: goHome }} />}

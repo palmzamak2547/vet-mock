@@ -34,10 +34,12 @@ const PHASES = [
 // Where to go after a pick: the topic screen sends a student here when the
 // subject has nothing on the paper in scope, and gets them back afterwards
 // (lib/phase-return.js). Everyone else still lands on Home.
-export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }) {
+export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, setSelectedPhase, setView, phaseStatus = null }) {
   const yearMeta = YEARS.find((y) => y.id === selectedYear);
   const subjects = SUBJECTS_BY_YEAR[selectedYear] || [];
-  const currentPhase = detectCurrentPhase(new Date(), selectedYear);
+  // The same answer every other page reads (App's phaseStatus), so the badge
+  // and the filter can never disagree; the rule itself when shown alone.
+  const currentPhase = phaseStatus ? phaseStatus.current : detectCurrentPhase(new Date(), selectedYear);
   const returnView = peekPhaseReturn();
   const leaveTo = (view) => { takePhaseReturn(); setView(view); };
 
@@ -116,7 +118,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
             with no paper still to come in it, nothing is recommended. */}
         {currentPhase
           ? 'ระบบแนะนำช่วงสอบที่กำลังจะมาถึงตามตารางสอบ คุณเลือกช่วงอื่นได้ตลอด'
-          : 'ยังไม่มีตารางสอบที่มีสอบรออยู่ของชั้นปีนี้ ระบบจึงยังไม่แนะนำช่วงสอบ คุณเลือกเองได้ตลอด'}
+          : 'ยังไม่มีตารางสอบที่มีสอบรออยู่ของชั้นปีนี้ จึงยังไม่แยกข้อสอบตามช่วงสอบ ช่วงที่เลือกไว้จะใช้เมื่อมีตารางสอบ'}
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

@@ -64,7 +64,7 @@ import ExamCountdown from '../components/ExamCountdown.jsx';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
-import { paperInTimetable, phaseLabel, unsplitNotice } from '../lib/current-phase.js';
+import { movedNotice, paperInTimetable, unsplitNotice } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -170,7 +170,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
   // A pick the timetable cannot back narrows nothing; the line below says so.
   const unsplit = unsplitNotice(phaseStatus);
-  const movedFrom = phaseMeta ? phaseStatus?.advancedFrom : null;
+  const moved = phaseMeta ? movedNotice(phaseStatus) : null;
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
   // Special case: semester === 0 means cross-semester (e.g. VCA license
@@ -1193,10 +1193,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           current one, or the timetable has no paper to back it, so nothing is
           narrowed (lib/current-phase.js). It says so and asks nothing:
           เปลี่ยน above is there for a student who wants another. */}
-      {(movedFrom || unsplit) && (
-        <p className="vmx-phase-moved" role="status">
-          {movedFrom ? `เปลี่ยนเป็น${phaseLabel(selectedPhase)}ให้แล้ว เพราะ${phaseLabel(movedFrom)}สอบไปแล้ว` : unsplit}
-        </p>
+      {(moved || unsplit) && (
+        <p className="vmx-phase-moved" role="status">{moved || unsplit}</p>
       )}
       <SubjectGrid
         subjects={yearSubjects}

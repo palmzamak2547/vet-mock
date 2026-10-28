@@ -72,6 +72,15 @@ export function timetableStatus(year, now = new Date()) {
   return { status: t < lastEnd + STALE_AFTER_DAYS * DAY_MS ? 'term-over' : 'stale-year', current: null, papers };
 }
 
+/** The line Home shows once after a pick moved: what it is now and why. */
+export function movedNotice(state) {
+  if (!state?.advancedFrom || !state.filtered) return null;
+  const to = phaseLabel(state.phase);
+  return state.movedBecause === 'sat'
+    ? `เปลี่ยนเป็น${to}ให้แล้ว เพราะ${phaseLabel(state.advancedFrom)}สอบไปแล้ว`
+    : `เปลี่ยนเป็น${to}ให้แล้ว ตามตารางสอบ`;
+}
+
 /** The paper current or next at `now` for `year`, or null when the year's
  *  timetable has none still to come. */
 export function detectCurrentPhase(now = new Date(), year = null) {
@@ -127,35 +136,40 @@ function pickedBeside(anchor, year) {
  * pick and `anchor` comes from phaseAnchor() at the moment it was made.
  *
  *   reason 'timetable'       narrowed to the timetable's current paper
- *   reason 'student-choice'  narrowed to the student's own pick: the current
- *                            paper, one still ahead, a finished one picked to
- *                            revise while the paper current then still is, or
- *                            one picked when the timetable had none to offer
- *   reason 'not-chosen'      no pick, nothing narrowed (year 6, a first visit)
+ *   reason 'student-choice'  narrowed to the student's own pick: one still
+ *                            ahead, or a finished one picked to revise while
+ *                            the paper current then still is
+ *   reason 'not-chosen'      no pick while the timetable has a paper: nothing
+ *                            narrowed, as before (a first visit)
  *   reason 'no-timetable' | 'term-over' | 'stale-year'
  *                            the timetable has no paper still to come, so
- *                            nothing is narrowed: a pick the timetable cannot
- *                            back never empties a set. The pick is kept, and
- *                            moves on by itself once a timetable is in.
+ *                            nothing is narrowed, whoever picked: a table that
+ *                            is missing or last year's never empties a set,
+ *                            and unsplitNotice() says so. The pick is kept,
+ *                            and moves on by itself once a timetable is in.
+ *   reason 'not-applicable'  a year without papers (ปี 6 rotations)
  *
  * A pick whose paper is over moves to the current paper: `saved` and `anchor`
- * are what to store, and `advancedFrom` is what the pick was.
+ * are what to store, `advancedFrom` is what the pick was, and `movedBecause`
+ * is 'sat' when the timetable shows that paper over, else 'timetable'.
  */
-export function phaseState({ saved = null, anchor = null } = {}, year = null, now = new Date()) {
+export function phaseState({ saved = null, anchor = null } = {}, year = null, now = new Date(), { phased = true } = {}) {
   const { status, current, papers } = timetableStatus(year, now);
-  const base = { current, status, saved, anchor, advancedFrom: null };
+  const base = { current, status, saved, anchor, advancedFrom: null, movedBecause: null };
   const at = phaseOrder(saved);
+  if (!phased) return { ...base, phase: null, filtered: false, reason: 'not-applicable' };
+  if (!current) return { ...base, saved: at < 0 ? null : saved, phase: null, filtered: false, reason: status };
   if (at < 0) return { ...base, saved: null, phase: null, filtered: false, reason: 'not-chosen' };
   if (saved === current) return { ...base, phase: saved, filtered: true, reason: 'timetable' };
-  const picked = pickedBeside(anchor, year);
-  if (!current) {
-    if (picked === NONE) return { ...base, phase: saved, filtered: true, reason: 'student-choice' };
-    return { ...base, phase: null, filtered: false, reason: status };
-  }
   const own = papers.find((p) => p.id === saved);
-  const ahead = own ? own.end > now.getTime() : namesLaterPaper(saved, anchor, current);
-  if (ahead || picked === current) return { ...base, phase: saved, filtered: true, reason: 'student-choice' };
-  return { ...base, saved: current, anchor: phaseAnchor(now), phase: current, filtered: true, reason: 'timetable', advancedFrom: saved };
+  // A pick this timetable has no window for names a later paper only when its
+  // anchor says so; one saved before anchors existed is last school year's.
+  const ahead = own ? own.end > now.getTime() : Boolean(anchor) && namesLaterPaper(saved, anchor, current);
+  if (ahead || pickedBeside(anchor, year) === current) return { ...base, phase: saved, filtered: true, reason: 'student-choice' };
+  return {
+    ...base, saved: current, anchor: phaseAnchor(now), phase: current, filtered: true, reason: 'timetable',
+    advancedFrom: saved, movedBecause: own ? 'sat' : 'timetable',
+  };
 }
 
 const UNSPLIT = {
@@ -164,9 +178,9 @@ const UNSPLIT = {
   'stale-year': 'ยังไม่มีตารางสอบของปีการศึกษานี้',
 };
 
-/** The one line a page shows when a pick cannot narrow anything for want of
- *  a timetable, or null. It says what is not done, never that the rest is
- *  complete (AGENTS.md Rule 10). */
+/** The one line a page shows when nothing is narrowed for want of a
+ *  timetable, picked or not, or null. It says what is not done, never that the
+ *  rest is complete (AGENTS.md Rule 10). */
 export function unsplitNotice(state) {
   const head = state && !state.filtered ? UNSPLIT[state.reason] : null;
   return head ? `${head} จึงแสดงข้อสอบโดยไม่แยกช่วงสอบ` : null;

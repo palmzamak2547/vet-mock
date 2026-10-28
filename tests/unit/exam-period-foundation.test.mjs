@@ -38,7 +38,10 @@ test('a pick for a paper still ahead stays, and a revision pick stays until its 
   for (const phase of ['1-final', '2-mid', '2-final']) {
     const s = phaseState(pick(phase, '2026-10-20T10:00:00+07:00'), 5, OCT_28);
     assert.deepEqual([s.phase, s.filtered, s.advancedFrom], [phase, true, null]);
-    assert.equal(phaseState(pick(phase), 5, OCT_28).advancedFrom, null, `${phase} saved before anchors existed`);
+    // Saved before anchors existed: the final is this term's and stays; a term-2 pick is read as last
+    // school year's (its paper is not on this term's table) and follows the timetable, without claiming it was sat.
+    const legacy = phaseState(pick(phase), 5, OCT_28);
+    assert.deepEqual([legacy.phase, legacy.movedBecause], phase === '1-final' ? ['1-final', null] : ['1-final', 'timetable'], `${phase} saved before anchors existed`);
   }
   // กลางภาค picked in October to revise: made after its paper ended, so it stays...
   assert.deepEqual(brief(phaseState(pick('1-mid', '2026-10-20T10:00:00+07:00'), 5, OCT_28)), ['1-mid', 'student-choice', null]);
@@ -49,8 +52,9 @@ test('a pick for a paper still ahead stays, and a revision pick stays until its 
   assert.equal(phaseState(pick('1-mid', '2026-09-25T18:15:00+07:00'), 5, at('2026-09-23T10:00:00+07:00')).advancedFrom, null);
 });
 
-test('no phase (year 6) is left alone, and a value that is not a phase is cleared', () => {
-  assert.deepEqual(brief(phaseState(pick(null), 6, OCT_28)), [null, 'not-chosen', null]);
+test('no phase is left alone, ปี 6 has none to pick, and a value that is not a phase is cleared', () => {
+  assert.deepEqual(brief(phaseState(pick(null), 5, OCT_28)), [null, 'not-chosen', null]);
+  assert.deepEqual(brief(phaseState(pick('1-mid'), 6, OCT_28, { phased: false })), [null, 'not-applicable', null]);
   const junk = phaseState(pick('preclinic'), 5, OCT_28);
   assert.deepEqual([junk.phase, junk.saved, junk.filtered], [null, null, false]);
 });
@@ -146,7 +150,7 @@ test('App keeps the pick through the hook that settles it, and Home says when it
   const app = read('src/App.jsx');
   assert.doesNotMatch(app, /useLocalStorage\('vmx-selected-phase'/);
   assert.match(app, /useSelectedPhase\(selectedYear\)/);
-  assert.ok(read('src/views/HomeView.jsx').includes('(movedFrom || unsplit) && ('));
+  assert.ok(read('src/views/HomeView.jsx').includes('(moved || unsplit) && ('));
   assert.ok(read('src/components/HeaderBar.jsx').includes('unsplitNotice(phaseStatus)'));
   // Every view narrows by the same answer: App hands down the hook's phase, never the stored pick.
   assert.doesNotMatch(read('src/App.jsx'), /vmx-selected-phase/);

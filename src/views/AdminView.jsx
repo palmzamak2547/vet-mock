@@ -306,7 +306,7 @@ function ExamPeriods() {
     <section id="ad-period" className="ad-card">
       <div className="ad-card-head">
         <h2>ช่วงสอบ</h2>
-        <p>ตารางสอบในระบบคือ {reportTerm()} แอปแยกข้อสอบตามช่วงสอบเฉพาะชั้นปีที่ตารางสอบยังมีสอบรออยู่ ชั้นปีอื่นแสดงโดยไม่แยกช่วงสอบ และนิสิตเห็นข้อความบอก</p>
+        <p>ตารางสอบในระบบคือ {reportTerm()} แอปแยกข้อสอบตามช่วงสอบเฉพาะชั้นปีที่ตารางสอบยังมีสอบรออยู่ ชั้นปีและช่วงอื่นแสดงโดยไม่แยกช่วงสอบ แม้นิสิตจะเลือกช่วงไว้ และนิสิตเห็นข้อความบอกทุกหน้า</p>
       </div>
       <div className="ad-tablewrap">
         <table className="ad-table">
@@ -318,9 +318,15 @@ function ExamPeriods() {
                 <td>
                   {r.status === 'timetable' ? `${STATUS_LABEL.timetable}: ${r.papers.find((p) => p.id === r.current)?.label || ''}` : STATUS_LABEL[r.status]}
                   {STATUS_TODO[r.status] && <div className="ad-muted">ต้องเติม: {STATUS_TODO[r.status]}</div>}
+                  {r.nextTableBy && <div className="ad-muted">ตารางสอบเทอมหน้ายังไม่อยู่ในระบบ หลัง {day(r.nextTableBy)} จะไม่แยกช่วงสอบจนกว่าจะเติม</div>}
                 </td>
                 <td>{r.papers.length ? r.papers.map((p) => <div key={p.id}>{p.label}: {day(p.start)} ถึง {day(p.end)}{p.over ? ' (สอบแล้ว)' : ''}</div>) : <span className="ad-muted">ไม่มี</span>}</td>
-                <td>{r.unscoped.length ? r.unscoped.join(', ') : <span className="ad-muted">ไม่มี</span>}</td>
+                <td>
+                  {r.unscoped.length
+                    ? r.unscoped.map((u) => `${subjectName(u.subject)} ${u.topics}`).join(', ')
+                    : <span className="ad-muted">ไม่มีในวิชาเทอมนี้</span>}
+                  {r.otherTermTopics > 0 && <div className="ad-muted">วิชาเทอมอื่นอีก {r.otherTermTopics} หัวข้อ</div>}
+                </td>
               </tr>
             ))}
           </tbody>

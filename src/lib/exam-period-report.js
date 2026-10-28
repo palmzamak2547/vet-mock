@@ -2,12 +2,12 @@
 // exam-period-report.js — what the back office says about the papers
 // ============================================================
 // The admin's view of lib/current-phase.js: for each year, whether the app is
-// narrowing by a paper or not and why, the timetable's own papers, and the
-// topics whose paper nobody has recorded. It is a page to read, never a
-// check that fails by the calendar (AGENTS.md: CI turns red only for code).
+// narrowing by a paper or not and why, the timetable's own papers, when the
+// next term's table is needed, and the topics whose paper nobody has recorded.
+// It is a page to read, never a check that fails by the calendar (AGENTS.md:
+// CI turns red only for code).
 // ============================================================
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
-import { SUBJECT_PAPERS } from '../data/exam-papers.generated.js';
 import { SEMESTER } from '../data/semester.js';
 import { phaseLabel, timetableStatus } from './current-phase.js';
 import { scopeForTopic } from './exam-scope.js';
@@ -27,24 +27,27 @@ export const STATUS_TODO = {
 };
 
 /**
- * One row per year that has subjects: { year, label, status, current,
- * papers: [{ id, label, start, end, over }], unscoped: ['subject/topic'],
- * subjects }. `unscoped` lists the visible topics with no paper of their
- * own, their subject's, or the timetable's.
+ * One row per year that has papers to sit (not ปี 6's rotations):
+ *   { year, label, status, current, papers: [{ id, label, start, end, over }],
+ *     nextTableBy, unscoped: [{ subject, topics }], unscopedTopics, otherTermTopics }
+ * `nextTableBy` is when this term's last paper ends, after which nothing is
+ * split until the next term's table is in. `unscoped` counts, per subject of
+ * this term, the visible topics with no paper of their own, their subject's,
+ * or the timetable's; `otherTermTopics` counts the same in the other term's
+ * subjects, which need one before that term starts.
  */
 export function examPeriodReport(now = new Date()) {
   const t = now.getTime();
-  // A scaffold year (ปี 6, rotations) has no phase screen at all, so it has no
-  // timetable to fill in either.
+  const term = Number(String(SEMESTER?.id || '').split('-')[1]) || null;
   return YEARS.filter((y) => !y.scaffold && (SUBJECTS_BY_YEAR[y.id] || []).length).map((y) => {
     const { status, current, papers } = timetableStatus(y.id, now);
     const unscoped = [];
+    let otherTermTopics = 0;
     for (const s of SUBJECTS_BY_YEAR[y.id] || []) {
-      // Only a subject that sits both papers needs its topics split.
-      if (SUBJECT_PAPERS[s.id] !== 'both') continue;
-      for (const topic of s.topics || []) {
-        if (!topic.hidden && !scopeForTopic(s.id, topic.id)) unscoped.push(`${s.id}/${topic.id}`);
-      }
+      const count = (s.topics || []).filter((topic) => !topic.hidden && !scopeForTopic(s.id, topic.id)).length;
+      if (!count) continue;
+      if (s.semester === term || s.semester === 0) unscoped.push({ subject: s.id, topics: count });
+      else otherTermTopics += count;
     }
     return {
       year: y.id,
@@ -52,8 +55,10 @@ export function examPeriodReport(now = new Date()) {
       status,
       current,
       papers: papers.map((p) => ({ ...p, label: phaseLabel(p.id), over: p.end <= t })),
+      nextTableBy: status === 'timetable' ? Math.max(...papers.map((p) => p.end)) : null,
       unscoped,
-      subjects: (SUBJECTS_BY_YEAR[y.id] || []).length,
+      unscopedTopics: unscoped.reduce((n, u) => n + u.topics, 0),
+      otherTermTopics,
     };
   });
 }

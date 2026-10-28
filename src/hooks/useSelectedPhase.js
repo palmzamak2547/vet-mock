@@ -17,13 +17,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import { storage } from './useStorage.js';
 import { phaseAnchor, phaseState } from '../lib/current-phase.js';
+import { YEARS } from '../data/curriculum.js';
 
 export const PHASE_KEY = 'vmx-selected-phase';
 export const PHASE_ANCHOR_KEY = 'vmx-phase-anchor';
 // A paper can end while the app is open (the zoonoses midterm ends 11:30).
 const TICK_MS = 60_000;
 
-const settle = (stored, year) => phaseState(stored, year);
+// A scaffold year (ปี 6, rotations) has no papers to narrow by or announce.
+const settle = (stored, year) => phaseState(stored, year, new Date(),
+  { phased: !YEARS.find((y) => y.id === Number(year))?.scaffold });
 const same = (a, b) => a.saved === b.saved && a.anchor === b.anchor && a.phase === b.phase
   && a.filtered === b.filtered && a.reason === b.reason && a.current === b.current;
 
@@ -35,8 +38,11 @@ export function useSelectedPhase(year) {
   useEffect(() => {
     const tick = () => setState((s) => {
       const next = settle(s, year);
-      // An earlier move stays announced until the next pick.
-      const kept = next.advancedFrom ? next : { ...next, advancedFrom: s.advancedFrom };
+      // An earlier move stays announced until the next pick, or until the
+      // phase changes another way (a different year).
+      const stay = next.phase === s.phase;
+      const kept = next.advancedFrom ? next
+        : { ...next, advancedFrom: stay ? s.advancedFrom : null, movedBecause: stay ? s.movedBecause : null };
       return same(kept, s) && kept.advancedFrom === s.advancedFrom ? s : kept;
     });
     tick();

@@ -308,14 +308,20 @@ pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they sho
   Reasons: `timetable`, `student-choice`, `not-chosen` (no pick), and the three statuses above,
   which narrow nothing.
 - **A saved pick follows it, and data never empties a set.** A pick whose paper is over moves to
-  the current paper, and Home says so in one line. A pick for the current paper or one ahead
-  stays; a finished paper picked to revise stays while the paper current then still is; a pick
-  made when the timetable had nothing to offer stays as the student's own word. A pick the
-  timetable cannot back narrows nothing and is kept, so it moves on by itself when a table is in.
-  `vmx-phase-anchor` is `{ at, term }`: when the pick was made, against which SEMESTER.
-- **Not split is never silent.** `unsplitNotice(state)` is the one line: Home shows it under the
-  subject header, and the header pill reads ไม่แยกช่วงสอบ on every page. Under a paper, a topic
-  whose paper nobody recorded keeps its place and is tagged ยังไม่ระบุช่วงสอบ.
+  the current paper, and Home says so in one line (`movedNotice`: "...สอบไปแล้ว" only when the
+  timetable shows that paper over, else "ตามตารางสอบ"). A pick for the current paper or one
+  ahead stays, and a finished paper picked to revise stays while the paper current then still
+  is. With no paper still to come in the timetable nothing is narrowed, whoever picked and when:
+  last year's table and topic scopes never filter this year's cohort. The pick is kept, so it
+  moves on by itself once a table is in. A pick saved before anchors existed that this term's
+  table has no window for (a term-2 pick under term 1's table) is read as last school year's and
+  follows the timetable. `vmx-phase-anchor` is `{ at, term }`: when the pick was made, against
+  which SEMESTER. Choosing another year on the landing page starts that year with no pick.
+- **Not split is never silent.** `unsplitNotice(state)` is the one line, for every state the
+  timetable cannot back, with or without a pick: Home shows it under the subject header, and the
+  header pill reads ไม่แยกช่วงสอบ on every page with a header. ปี 6 (rotations) has no papers and
+  no line. Under a paper, a topic whose paper nobody recorded keeps its place and is tagged
+  ยังไม่ระบุช่วงสอบ. The phase screen's badge reads the same state as every other page.
 - **Content is kept per paper, per term.** `WRAPUPS` (exam-wrapups.js), `LECTURER_SETS_BY_PAPER`
   (lecturer-sets.js) and `PANIC_CARD_PAPERS` (panic-cards.js) are keyed term (SEMESTER.id), then
   year, then phase, and show only while `paperInTimetable(year, phase)` holds. The same phase id
@@ -325,8 +331,9 @@ pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they sho
   paper in copy through `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค. Home's
   "ไม่มีสอบ..." on a card is claimed only for a paper the timetable holds.
 - **The back office shows the state.** `/app/admin` → ช่วงสอบ (`lib/exam-period-report.js`): each
-  year's status, its papers, what to fill in, and both-paper topics with no paper. It is a page,
-  never a CI check that fails by the calendar.
+  year's status, its papers, the moment the next term's table is needed, what to fill in, and per
+  subject the topics with no paper (this term's subjects named, the other term's counted). It is
+  a page, never a CI check that fails by the calendar.
 - **Guards.** `tests/unit/exam-period-matrix.test.mjs` (saved pick × eight moments from Sep 2026 to
   Feb 2028 with nothing updated × years 5, 4, 2: the paper, the badge, the line, a non-empty set
   for every subject that has questions, and the same matrix under TZ=UTC, Bangkok and Los
