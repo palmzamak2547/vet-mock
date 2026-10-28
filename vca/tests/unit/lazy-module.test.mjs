@@ -129,7 +129,7 @@ test('the address built from a retried error carries one retry query, not a pile
 
 test('the catalog and the library load through the retrying loader', async () => {
   const catalog = await loadCatalog();
-  assert.ok(catalog.domains.swine.shown.length >= 4, 'swine lists its topics');
+  for (const d of DOMAIN_CARDS) assert.ok(catalog.domains[d.id]?.topics.length > 0, `${d.id} has its topics`);
   assert.equal(await loadCatalog(), catalog, 'kept after the first load');
   const library = await loadLibrary();
   assert.ok(library.docs.length > 0 && library.shelves.length > 0);
