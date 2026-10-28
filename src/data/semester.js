@@ -17,5 +17,7 @@ export const SEMESTER = {
   midtermPeriod: { start: '2026-09-21', end: '2026-09-25', labelTh: 'สอบกลางภาค 21-25 ก.ย. 69' },
   finalPeriod: { start: '2026-11-23', end: '2026-12-04', labelTh: 'สอบปลายภาค 23 พ.ย. - 4 ธ.ค. 69' },
   sourceNote: 'ตามมติที่ประชุมคณะกรรมการบริหารคณะสัตวแพทยศาสตร์ จุฬาฯ ครั้งที่ 10/2569 (22 ก.ค. 69)',
+  // The faculty's own exam tables the rows in schedule.js were copied from.
+  examTableTh: 'ตารางสอบของคณะ ฉบับปรับปรุง 20 ก.ค. 69',
   updatedAt: '2026-07-31',
 };

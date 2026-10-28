@@ -28,6 +28,19 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - **Specimen plates.** `node ai/scripts/specimens.mjs [--preview out.png]` makes the 64 and 24 dot SVG masks from VetMock's own bookplates; `lib/species.js` decides which source names which animal.
 - **Preview builds of old branches.** A branch cut before #77 has no `ai/`, and the `vetmock-ai` project mails "Root Directory ai does not exist" when it is pushed; harmless.
 
+## Printable exam timetable 5.167.0 — 2026-10-28 (Claude Code)
+
+- **What and where.** The "ดาวน์โหลดตารางสอบ" button on the timetable page opens `src/components/TimetableSheet.jsx` (lazy). It draws one A4 page per exam period:
+  - `src/lib/exam-timetable.js` picks the period: the papers of the term still to come within 28 days of the next one, else the last period.
+  - `src/lib/share-card/timetable-card.js` draws the page with the share-card kit at 2x, giving 2480x3508 px, 300 dpi.
+  - PDF through the already-installed pdf-lib (lazy, the JPEG fills one A4 page); PNG through `deliverCard`.
+  - The kit's layout check guards the page: the sheet's `data-layout`, e2e `tests/e2e/exam-timetable.spec.js`.
+- **Data.** Rows come from `EXAM_SCHEDULE`. The footer cites `SEMESTER.examTableTh` and `sourceNote`, so update those with the table. Semester 2/2569 registration dates are in `ACADEMIC_MILESTONES` (ids `s2-*`).
+- **WebKit paints a variable font's default weight.** Measured with Playwright WebKit: the Thai serif ("VetMock Card Serif", variable 300-900) lays out at the requested weight but paints the regular instance, so 400 and 700 ink the same pixels.
+  - `paintsSerifWeight()` in timetable-card.js detects it by ink, and `card.text`'s new `embolden` stroke stands in for the weight.
+  - The older share cards draw their Thai headings regular on Safari for the same reason. They are not changed yet.
+- **Open, Palm's call.** The class LINE (20 Jul) says morning papers start at 9:00 after the 17 Jul review. The faculty table copied into `EXAM_SCHEDULE` says 08:30.
+
 ## Bug sweep and e2e flakes — 2026-10-27 (Claude Code)
 
 - Sweep of vetmock.com (57 routes on a Chromium phone and a WebKit iPhone, 210 VetWiki articles, every year x phase x subject topic list, VCA's pages): clean except a missing VetWiki article opening the index silently (5.164.1, #82). Production client error counts (`private.client_error_counts`, 14 days): one render TypeError on topic-select on 23 Oct (5.163.3), no stack kept, not reproduced.

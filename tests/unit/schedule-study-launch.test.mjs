@@ -30,6 +30,7 @@ function render({ phase = '1-mid', examId, countOverrides = {}, noteSubjects, cu
     useState: init => [typeof init === 'function' ? init() : init, () => {}],
     useEffect: () => {},
     WeekTimetable: 'WeekTimetable', AcademicCalendar: 'AcademicCalendar', BackBar: 'BackBar', FeatureTip: 'FeatureTip',
+    lazy: () => 'TimetableSheet', Suspense: 'Suspense', examTimetable: () => null,
     getUpcomingExams: () => exam ? [{ ...exam, daysLeft: 1 }] : [],
   };
   const View = new Function(...Object.keys(deps), `${code}\nreturn ScheduleView;`)(...Object.values(deps));

@@ -8437,6 +8437,15 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-share-preview[data-state="rendering"] { animation: none; }
 }
 
+/* ── Exam timetable sheet (components/TimetableSheet.jsx) ───────────
+   The preview is the A4 page that leaves, so it keeps the sheet's shape. */
+.vmx-timetable-lede { margin: 0; text-align: center; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-timetable-preview {
+  aspect-ratio: 1240 / 1754; width: min(100%, calc(60dvh * 1240 / 1754));
+  border-radius: 6px;
+}
+.vmx-timetable-preview img { object-fit: contain; }
+
 /* ── Phase Wrapped page (views/PhaseWrappedView.jsx) ─────────────── */
 .vmx-wrapped { max-width: 560px; margin: 0 auto; padding: 8px 0 max(40px, env(safe-area-inset-bottom)); display: grid; gap: 18px; }
 .vmx-wrapped-head h1 { margin: 0; font-family: var(--vmx-display); font-size: clamp(24px, 6vw, 30px); line-height: 1.35; color: var(--clr-ink); }
