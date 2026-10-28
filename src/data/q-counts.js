@@ -1626,7 +1626,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'zoonoses': {
       'zoo-ai-basic': 9,
-      'zoo-corona': 12,
+      'zoo-corona': 13,
       'zoo-ebola-nipah': 11,
       'zoo-helminthic': 24,
       'zoo-intro': 12,
@@ -1639,7 +1639,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': {
-      'aqua-disease-control': 23,
+      'aqua-disease-control': 26,
       'aqua-fish-diseases': 12,
       'aqua-shrimp-diseases': 9,
     },
@@ -1712,7 +1712,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-intro': 30,
       'equine-nutrition': 12,
       'equine-parasites': 20,
-      'equine-poa': 2,
+      'equine-poa': 7,
       'equine-respi': 12,
     },
     'equine-repro': {
@@ -1789,11 +1789,14 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-csf': 1,
-      'swine-ileitis-bacti': 1,
-      'swine-pcv2': 4,
+      'swine-asf': 3,
+      'swine-csf': 3,
+      'swine-fmd': 4,
+      'swine-greasypig': 1,
+      'swine-ileitis-bacti': 6,
+      'swine-pcv2': 9,
       'swine-pornchalit-set': 23,
-      'swine-prv-je': 1,
+      'swine-prv-je': 3,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -1861,7 +1864,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'wildlife-act-2562': 5,
     },
     'zoonoses': {
-      'zoo-bacterial': 2,
+      'zoo-bacterial': 26,
       'zoo-mycoses': 13,
     },
   },
@@ -2872,7 +2875,7 @@ export const Q_COUNTS_BY_TOPIC = {
 export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
     "aqua-amphibian": 1,
-    "aqua-disease-control": 23,
+    "aqua-disease-control": 26,
     "aqua-fish-biology": 9,
     "aqua-fish-diseases": 12,
     "aqua-frog-diseases": 1,
@@ -3040,7 +3043,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "equine-intro": 30,
     "equine-nutrition": 12,
     "equine-parasites": 20,
-    "equine-poa": 2,
+    "equine-poa": 7,
     "equine-respi": 12,
   },
   "equine-repro": {
@@ -3219,12 +3222,15 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "__unassigned__": 40,
   },
   "swine-clinic": {
-    "swine-csf": 1,
+    "swine-asf": 3,
+    "swine-csf": 3,
+    "swine-fmd": 4,
     "swine-gi-viral": 11,
-    "swine-ileitis-bacti": 1,
-    "swine-pcv2": 4,
+    "swine-greasypig": 1,
+    "swine-ileitis-bacti": 6,
+    "swine-pcv2": 9,
     "swine-pornchalit-set": 23,
-    "swine-prv-je": 1,
+    "swine-prv-je": 3,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3321,8 +3327,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
   "zoonoses": {
     "zoo-ai-basic": 9,
-    "zoo-bacterial": 2,
-    "zoo-corona": 12,
+    "zoo-bacterial": 26,
+    "zoo-corona": 13,
     "zoo-ebola-nipah": 11,
     "zoo-helminthic": 24,
     "zoo-intro": 12,
@@ -3384,4 +3390,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-28T17:01:12.810Z
+// Built: 2026-10-28T17:23:43.777Z
