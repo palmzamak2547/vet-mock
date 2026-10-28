@@ -112,7 +112,11 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         textAlign: 'center',
         lineHeight: 1.6,
       }}>
-        ระบบแนะนำช่วงสอบที่กำลังจะมาถึงตามตารางสอบ คุณเลือกช่วงอื่นได้ตลอด
+        {/* The badge comes from the timetable alone (lib/current-phase.js);
+            with no paper still to come in it, nothing is recommended. */}
+        {currentPhase
+          ? 'ระบบแนะนำช่วงสอบที่กำลังจะมาถึงตามตารางสอบ คุณเลือกช่วงอื่นได้ตลอด'
+          : 'ยังไม่มีตารางสอบที่มีสอบรออยู่ของชั้นปีนี้ ระบบจึงยังไม่แนะนำช่วงสอบ คุณเลือกเองได้ตลอด'}
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

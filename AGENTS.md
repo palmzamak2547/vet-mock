@@ -289,35 +289,50 @@ Rules that follow from it, and they are not negotiable:
   because unmapped topics are still shown. `audit-sense-fixes.test.mjs` pins both halves.
 
 **Which paper is current, and everything that follows it** (Palm, 2026-10-28: "สิ่งที่เรามีปัญหา
-ตลอดเรื่อง Vetmock ของเราเคยไม่ตรงกับกลางภาค ปลายภาค ปัจจุบัน วันนี้ต้องแก้ไขให้หมดสิ้นไปครับ").
+ตลอดเรื่อง Vetmock ของเราเคยไม่ตรงกับกลางภาค ปลายภาค ปัจจุบัน วันนี้ต้องแก้ไขให้หมดสิ้นไปครับ", then
+"อย่าให้logic เพี้ยนหรือขัดกัน เช่น พอไปปีหน้าและผมไม่ได้ททำเพิ่มแล้ว กลายเป็นว่าคนไม่เห็นข้อสอบเลย",
+and "ถ้าช่วงสอบที่ระบบเลือกไม่มีข้อมูลในตารางสอบ ให้ไม่กรองเลย คือเห็นทุกข้อ ทำได้แต่ต้องบอกดีๆ แยกชัดๆ").
 Until then a saved กลางภาค never moved, and the wrap-ups, lecturer sets and panic cards were
 pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they showed nothing.
 
-- **One rule.** `detectCurrentPhase(now, year)` in `src/lib/current-phase.js`: the paper whose
-  last exam has not ended, from that year's timetable on Bangkok's clock (`PAPER_WINDOWS` in
-  `exam-papers.generated.js`, so the boot chunk never loads schedule.js), then SEMESTER's exam
-  periods, then the month table (`PHASES`, the only one; phase-wrapped.js reads it). After a
-  final, the next term's midterm. Import it; never write a second rule.
-- **A saved pick follows it.** App keeps `vmx-selected-phase` through `hooks/useSelectedPhase.js`:
-  `settlePhase` moves a pick whose paper is over to the current paper, on load and every minute,
-  and Home says so in one line (`phaseAdvancedFrom`); nothing is asked. A pick for the current
-  paper or one ahead stays, and a pick made after its own paper ended (revising the midterm in
-  October) stays until the paper current then ends; `vmx-phase-anchor` tells them apart. E2E
-  seeds are anchored to the pinned instant by `tests/e2e/fixtures.js`; a spec that tests the move
-  opts out with `phasePickedAtPin: false` (`phase-advance.spec.js`).
+- **Only the timetable picks a paper.** `timetableStatus(year, now)` in `src/lib/current-phase.js`:
+  the paper whose last exam has not ended, from that year's own timetable on Bangkok's clock
+  (`PAPER_WINDOWS` in `exam-papers.generated.js`, so the boot chunk never loads schedule.js).
+  Neither SEMESTER's exam periods nor the month picks one. With no paper still to come the
+  status says why: `no-timetable` (no table for the year), `term-over` (every paper sat, the next
+  term's table not in), `stale-year` (150 days past the last paper: a past year's table).
+- **One answer for every surface.** `phaseState({ saved, anchor }, year, now)` returns
+  `{ phase, filtered, reason, current, advancedFrom }`. App keeps the pick with
+  `hooks/useSelectedPhase.js` and hands every view `selectedPhase` = the phase when `filtered`,
+  else null, so practice sets, counts, the badge and the three registries cannot disagree.
+  Reasons: `timetable`, `student-choice`, `not-chosen` (no pick), and the three statuses above,
+  which narrow nothing.
+- **A saved pick follows it, and data never empties a set.** A pick whose paper is over moves to
+  the current paper, and Home says so in one line. A pick for the current paper or one ahead
+  stays; a finished paper picked to revise stays while the paper current then still is; a pick
+  made when the timetable had nothing to offer stays as the student's own word. A pick the
+  timetable cannot back narrows nothing and is kept, so it moves on by itself when a table is in.
+  `vmx-phase-anchor` is `{ at, term }`: when the pick was made, against which SEMESTER.
+- **Not split is never silent.** `unsplitNotice(state)` is the one line: Home shows it under the
+  subject header, and the header pill reads ไม่แยกช่วงสอบ on every page. Under a paper, a topic
+  whose paper nobody recorded keeps its place and is tagged ยังไม่ระบุช่วงสอบ.
 - **Content is kept per paper.** `WRAPUPS` (exam-wrapups.js), `LECTURER_SETS_BY_PAPER`
   (lecturer-sets.js) and `PANIC_CARD_PAPERS` (panic-cards.js) are keyed year, then phase. The
-  final's content is one more phase key and no code; a paper with no key shows nothing, never
-  another paper's. Read them through `hasWrapUp`, `loadWrapUp`, `lecturerSetFor` and
-  `hasPanicCard` with the year and phase in scope, and name the paper in copy through
-  `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค.
-- **Guards.** `tests/unit/exam-period-foundation.test.mjs` fails on a single-paper scope in a
-  registry or its readers, a label that hard-codes the paper, a saved pick that does not advance,
-  and timetable rows outside SEMESTER's periods. `lint:exam-scope` also holds every topic of a
-  subject with a paper still ahead to the topic budget, and runs
-  `audit-scope-contradictions.mjs --check` (midterm against final, in the timetable's years,
-  budget 10, may only shrink).
-- **A new term:** update SEMESTER and EXAM_SCHEDULE together, then `npm run regen:exam-papers`.
+  final's content is one more key and no code; a paper with no key hides only that section. Read
+  them through `hasWrapUp`, `loadWrapUp`, `lecturerSetFor` and `hasPanicCard`, and name the paper in
+  copy through `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค.
+- **The back office shows the state.** `/app/admin` → ช่วงสอบ (`lib/exam-period-report.js`): each
+  year's status, its papers, what to fill in, and both-paper topics with no paper. It is a page,
+  never a CI check that fails by the calendar.
+- **Guards.** `tests/unit/exam-period-matrix.test.mjs` (saved pick × eight moments from Sep 2026 to
+  Feb 2028 with nothing updated × years 5, 4, 2: the paper, the badge, the line, a non-empty set
+  for every subject that has questions, and the same matrix under TZ=UTC, Bangkok and Los
+  Angeles); `exam-period-foundation.test.mjs` (a single-paper scope in a registry or reader, a
+  label that hard-codes the paper, timetable rows outside SEMESTER's periods); `lint:exam-scope`
+  (every topic of a subject with a paper still ahead, and `audit-scope-contradictions.mjs --check`,
+  midterm against final, budget 10, may only shrink); `tests/e2e/phase-advance.spec.js`.
+- **A new term:** the `vetmock-new-term` skill. In short: SEMESTER and EXAM_SCHEDULE together,
+  `npm run regen:exam-papers`, then the topics' `examScope`, then check /app/admin → ช่วงสอบ.
 
 ---
 

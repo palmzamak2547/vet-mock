@@ -64,7 +64,7 @@ import ExamCountdown from '../components/ExamCountdown.jsx';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
-import { phaseLabel } from '../lib/current-phase.js';
+import { phaseLabel, unsplitNotice } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -105,7 +105,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseAdvancedFrom = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -168,6 +168,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // years they were announced to.
   const nextEvent = getUpcomingEvents(selectedYear, 21)[0] || null;
   const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
+  // A pick the timetable cannot back narrows nothing; the line below says so.
+  const unsplit = unsplitNotice(phaseStatus);
+  const movedFrom = phaseMeta ? phaseStatus?.advancedFrom : null;
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
   // Special case: semester === 0 means cross-semester (e.g. VCA license
@@ -1170,7 +1173,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         <span>เลือกวิชา</span>
         <span className="vmx-subject-scope">
           {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` ${phaseMeta.short}` : ''}
-        {phaseMeta && setSelectedPhase && (
+        {(phaseMeta || unsplit) && setSelectedPhase && (
           <button
             type="button"
             className="vmx-inline-action vmx-subject-scope-action"
@@ -1182,12 +1185,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         )}
         </span>
       </div>
-      {/* The saved pick named a paper that is over, so the app moved it to the
-          current one (hooks/useSelectedPhase.js). It says so once, and asks
-          nothing: เปลี่ยน above is there for a student who wants another. */}
-      {phaseAdvancedFrom && phaseMeta && (
+      {/* What the paper filter is doing, when it is not what the student last
+          saw: the saved pick named a paper that is over and moved to the
+          current one, or the timetable has no paper to back it, so nothing is
+          narrowed (lib/current-phase.js). It says so and asks nothing:
+          เปลี่ยน above is there for a student who wants another. */}
+      {(movedFrom || unsplit) && (
         <p className="vmx-phase-moved" role="status">
-          เปลี่ยนเป็น{phaseLabel(selectedPhase)}ให้แล้ว เพราะ{phaseLabel(phaseAdvancedFrom)}สอบไปแล้ว
+          {movedFrom ? `เปลี่ยนเป็น${phaseLabel(selectedPhase)}ให้แล้ว เพราะ${phaseLabel(movedFrom)}สอบไปแล้ว` : unsplit}
         </p>
       )}
       <SubjectGrid

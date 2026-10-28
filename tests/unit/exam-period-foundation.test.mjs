@@ -7,7 +7,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PHASES, detectCurrentPhase, settlePhase } from '../../src/lib/current-phase.js';
+import { PHASES, detectCurrentPhase, phaseState, timetableStatus } from '../../src/lib/current-phase.js';
 import { EXAM_SCHEDULE, SEMESTER } from '../../src/data/schedule.js';
 import { WRAPUPS, hasWrapUp } from '../../src/data/exam-wrapups.js';
 import { LECTURER_SETS_BY_PAPER, hasLecturerSet, lecturerSetFor } from '../../src/data/lecturer-sets.js';
@@ -18,45 +18,50 @@ const at = (s) => new Date(s);
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const OCT_28 = at('2026-10-28T23:00:00+07:00');
 
+const pick = (saved, iso, term = SEMESTER.id) => ({ saved, anchor: iso ? { at: Date.parse(iso), term } : null });
+const brief = (s) => [s.phase, s.reason, s.advancedFrom];
+
 test('a saved กลางภาค moves to the final once the midterm is over, and says what it was', () => {
-  assert.deepEqual(settlePhase({ phase: '1-mid' }, 5, OCT_28), { phase: '1-final', anchor: '1-final', advancedFrom: '1-mid' });
-  assert.deepEqual(settlePhase({ phase: '1-mid', anchor: '1-mid' }, 5, OCT_28), { phase: '1-final', anchor: '1-final', advancedFrom: '1-mid' });
+  assert.deepEqual(brief(phaseState(pick('1-mid'), 5, OCT_28)), ['1-final', 'timetable', '1-mid']);
+  const moved = phaseState(pick('1-mid', '2026-09-01T10:00:00+07:00'), 5, OCT_28);
+  assert.deepEqual(brief(moved), ['1-final', 'timetable', '1-mid']);
+  assert.equal(moved.saved, '1-final', 'the move is what gets stored');
+  assert.equal(moved.anchor.at, OCT_28.getTime(), 'anchored to the moment it moved');
   // The minute the year's last midterm ends (zoonoses, 25 Sep 11:30), not at midnight.
-  assert.equal(settlePhase({ phase: '1-mid', anchor: '1-mid' }, 5, at('2026-09-25T11:29:00+07:00')).phase, '1-mid');
-  assert.equal(settlePhase({ phase: '1-mid', anchor: '1-mid' }, 5, at('2026-09-25T11:30:00+07:00')).phase, '1-final');
+  assert.equal(phaseState(pick('1-mid'), 5, at('2026-09-25T11:29:00+07:00')).phase, '1-mid');
+  assert.equal(phaseState(pick('1-mid'), 5, at('2026-09-25T11:30:00+07:00')).phase, '1-final');
   // Each year by its own timetable: year 4 sits food safety until 16:00.
-  assert.equal(settlePhase({ phase: '1-mid', anchor: '1-mid' }, 4, at('2026-09-25T12:00:00+07:00')).phase, '1-mid');
-  // After the final, the next term's midterm.
-  assert.equal(settlePhase({ phase: '1-final', anchor: '1-final' }, 5, at('2026-12-04T12:00:00+07:00')).phase, '2-mid');
+  assert.equal(phaseState(pick('1-mid'), 4, at('2026-09-25T12:00:00+07:00')).phase, '1-mid');
 });
 
 test('a pick for a paper still ahead stays, and a revision pick stays until its own moment passes', () => {
   for (const phase of ['1-final', '2-mid', '2-final']) {
-    assert.deepEqual(settlePhase({ phase, anchor: '1-final' }, 5, OCT_28), { phase, anchor: '1-final', advancedFrom: null });
-    assert.equal(settlePhase({ phase }, 5, OCT_28).advancedFrom, null, `${phase} saved before anchors existed`);
+    const s = phaseState(pick(phase, '2026-10-20T10:00:00+07:00'), 5, OCT_28);
+    assert.deepEqual([s.phase, s.filtered, s.advancedFrom], [phase, true, null]);
+    assert.equal(phaseState(pick(phase), 5, OCT_28).advancedFrom, null, `${phase} saved before anchors existed`);
   }
   // กลางภาค picked in October to revise: made after its paper ended, so it stays...
-  assert.equal(settlePhase({ phase: '1-mid', anchor: '1-final' }, 5, OCT_28).phase, '1-mid');
-  // ...until the final it was picked beside is over too.
-  assert.equal(settlePhase({ phase: '1-mid', anchor: '1-final' }, 5, at('2026-12-05T09:00:00+07:00')).phase, '2-mid');
-  // A pick ahead outlives the paper it was picked beside.
-  assert.equal(settlePhase({ phase: '2-final', anchor: '1-final' }, 5, at('2026-12-05T09:00:00+07:00')).phase, '2-final');
+  assert.deepEqual(brief(phaseState(pick('1-mid', '2026-10-20T10:00:00+07:00'), 5, OCT_28)), ['1-mid', 'student-choice', null]);
+  // ...until the final it was picked beside is over too, and then nothing is guessed.
+  assert.deepEqual(brief(phaseState(pick('1-mid', '2026-10-20T10:00:00+07:00'), 5, at('2026-12-05T09:00:00+07:00'))), [null, 'term-over', null]);
   // A spec that sets its clock back (midterm week) keeps a pick anchored later.
-  assert.equal(settlePhase({ phase: '1-final', anchor: '1-final' }, 5, at('2026-09-23T10:00:00+07:00')).advancedFrom, null);
-  assert.equal(settlePhase({ phase: '1-mid', anchor: '1-final' }, 5, at('2026-09-23T10:00:00+07:00')).advancedFrom, null);
+  assert.equal(phaseState(pick('1-final', '2026-09-25T18:15:00+07:00'), 5, at('2026-09-23T10:00:00+07:00')).advancedFrom, null);
+  assert.equal(phaseState(pick('1-mid', '2026-09-25T18:15:00+07:00'), 5, at('2026-09-23T10:00:00+07:00')).advancedFrom, null);
 });
 
-test('no phase (year 6) and a value that is not a phase are left alone', () => {
-  assert.deepEqual(settlePhase({ phase: null }, 6, OCT_28), { phase: null, anchor: null, advancedFrom: null });
-  assert.equal(settlePhase({ phase: 'preclinic' }, 5, OCT_28).phase, 'preclinic');
+test('no phase (year 6) is left alone, and a value that is not a phase is cleared', () => {
+  assert.deepEqual(brief(phaseState(pick(null), 6, OCT_28)), [null, 'not-chosen', null]);
+  const junk = phaseState(pick('preclinic'), 5, OCT_28);
+  assert.deepEqual([junk.phase, junk.saved, junk.filtered], [null, null, false]);
 });
 
-test('after the final the next paper is the next term\'s midterm, and a stale timetable falls back to the months', () => {
+test('only the timetable picks a paper: after the final, and with nothing updated, nothing is guessed', () => {
   assert.equal(detectCurrentPhase(at('2026-12-04T11:29:00+07:00'), 5), '1-final');
-  assert.equal(detectCurrentPhase(at('2026-12-04T11:30:00+07:00'), 5), '2-mid');
-  assert.equal(detectCurrentPhase(at('2026-12-20T10:00:00+07:00'), 5), '2-mid', 'December is not ปลายภาค once it is sat');
-  assert.equal(detectCurrentPhase(at('2027-04-10T10:00:00+07:00'), 5), '2-final');
-  assert.equal(detectCurrentPhase(at('2027-07-10T10:00:00+07:00'), 5), '1-mid', 'a timetable does not speak for the year after it');
+  assert.equal(detectCurrentPhase(at('2026-12-04T11:30:00+07:00'), 5), null);
+  assert.equal(timetableStatus(5, at('2026-12-20T10:00:00+07:00')).status, 'term-over', 'December, the next term not in yet');
+  assert.equal(timetableStatus(5, at('2027-07-10T10:00:00+07:00')).status, 'stale-year', "a past year's table");
+  assert.equal(timetableStatus(2, OCT_28).status, 'no-timetable', 'no year-2 papers in the timetable');
+  assert.equal(detectCurrentPhase(at('2027-04-10T10:00:00+07:00'), 5), null, 'no month guesses ปลายภาค');
 });
 
 test('every paper in the timetable sits inside SEMESTER\'s period for its term', () => {
@@ -133,7 +138,10 @@ test('App keeps the pick through the hook that settles it, and Home says when it
   const app = read('src/App.jsx');
   assert.doesNotMatch(app, /useLocalStorage\('vmx-selected-phase'/);
   assert.match(app, /useSelectedPhase\(selectedYear\)/);
-  assert.match(read('src/views/HomeView.jsx'), /phaseAdvancedFrom && phaseMeta/);
+  assert.ok(read('src/views/HomeView.jsx').includes('(movedFrom || unsplit) && ('));
+  assert.ok(read('src/components/HeaderBar.jsx').includes('unsplitNotice(phaseStatus)'));
+  // Every view narrows by the same answer: App hands down the hook's phase, never the stored pick.
+  assert.doesNotMatch(read('src/App.jsx'), /vmx-selected-phase/);
   // The rule stays out of the boot chunk's way: no timetable import.
   assert.doesNotMatch(read('src/lib/current-phase.js'), /data\/schedule\.js/);
 });

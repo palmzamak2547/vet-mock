@@ -3,7 +3,7 @@ import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { hasPanicCard } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
-import { scopeForPhase, questionInScope, phaseForCourse } from '../lib/exam-scope.js';
+import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse } from '../lib/exam-scope.js';
 import { phaseLabel } from '../lib/current-phase.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
@@ -754,12 +754,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // null for TBD, which gets no button at all.
           const lecturerLabel = topicLecturerLabel(subject, t.lecturer);
           const lecturer = lecturerChip(lecturerLabel, lecturerLabel ? findInstructor?.(t.lecturer) : null);
+          // Under a paper, a topic whose paper nobody has recorded is kept (an
+          // unknown is never filtered out) and says so, apart from the topics
+          // that are on this paper.
+          const unscoped = Boolean(paperScope) && !scopeForTopic(subject, t.id);
           const primaryLabelBase = hasQuestions
             ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
             : hasNotesForTopic
               ? `อ่าน Notes ${t.label}`
               : `หัวข้อ ${t.label} ยังไม่มีเนื้อหาพร้อมใช้`;
-          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
+          const primaryLabel = `${primaryLabelBase}${unscoped ? ', ยังไม่ระบุช่วงสอบ' : ''}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
           const openPrimary = () => {
             if (hasQuestions) choose(t.id);
             else if (hasNotesForTopic) runStudyAction(t.resources.notes);
@@ -785,6 +789,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               >
                 {isRead && <span className="vmx-topic-read" aria-hidden="true" title="อ่านแล้ว">✓</span>}
                 <span className="title">{t.label}</span>
+                {unscoped && <span className="vmx-topic-unscoped">ยังไม่ระบุช่วงสอบ</span>}
                 <span className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
                   {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? (hasWikiForTopic ? 'มีสรุปและ VetWiki' : 'มีสรุป') : 'รอเนื้อหาเพิ่ม'}
                 </span>

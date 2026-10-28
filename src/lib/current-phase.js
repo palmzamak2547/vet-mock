@@ -8,21 +8,24 @@
 // ahead. And a pick, once saved, never moved at all.
 //
 // THE RULE, the one every phase-dependent surface reads: the paper whose last
-// exam has not ended yet, from the year's own timetable on Bangkok's clock
-// (data/exam-papers.generated.js, generated from schedule.js). A year with no
-// timetable of its own uses the faculty's exam periods in SEMESTER. The month
-// table answers only for dates neither covers. After a term's final the next
-// paper is the next term's midterm.
+// exam has not ended yet, from that year's own exam timetable on Bangkok's
+// clock (data/exam-papers.generated.js, generated from schedule.js). Nothing
+// else picks a paper: not the faculty's exam periods, not the month. Palm,
+// 2026-10-28: "อย่าให้ logic เพี้ยนหรือขัดกัน เช่น พอไปปีหน้าและผมไม่ได้ทำเพิ่มแล้ว
+// กลายเป็นว่าคนไม่เห็นข้อสอบเลย". So where the timetable has no paper still to
+// come (no timetable for the year, the term is over, a past year's table)
+// nothing is narrowed and the page says why, in one line.
 //
-// A student's saved pick follows the rule through settlePhase (App keeps it
-// with hooks/useSelectedPhase.js): a pick naming a paper that is over moves to
+// phaseState() is the answer App hands to every view. A saved pick follows the
+// rule (hooks/useSelectedPhase.js): a pick naming a paper that is over moves to
 // the current one and says so once; a pick for a paper still ahead stays.
 // ============================================================
 import { SEMESTER } from '../data/semester.js';
 import { PAPER_WINDOWS } from '../data/exam-papers.generated.js';
 
-/** The four papers of a school year, in the order a year sits them. The
- *  months are the fallback for dates no timetable covers. */
+/** The four papers of a school year, in the order a year sits them. `months`
+ *  are the calendar slices the end-of-phase recap groups by (phase-wrapped.js);
+ *  they never pick a paper. */
 export const PHASES = Object.freeze([
   { id: '1-mid', semester: 1, scope: 'midterm', label: 'เทอม 1 กลางภาค', months: [8, 9, 10] },
   { id: '1-final', semester: 1, scope: 'final', label: 'เทอม 1 ปลายภาค', months: [11, 12] },
@@ -37,85 +40,122 @@ export const phaseOrder = (id) => ORDER.get(id) ?? -1;
 /** 'เทอม 1 ปลายภาค' for '1-final', '' for anything that is not a phase. */
 export const phaseLabel = (id) => PHASES[phaseOrder(id)]?.label || '';
 
-// The timetable is Bangkok's clock (UTC+7 all year), whatever the device says.
-const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
-// A timetable speaks for its own term and the break either side of it, not
-// for the year before or after it.
-const LEAD_DAYS = 150;
-
-function bangkokMs(date) {
-  const [y, m, d] = String(date).split('-').map(Number);
-  return Date.UTC(y, m - 1, d) - BANGKOK_OFFSET_MS;
-}
+// A term's timetable still speaks for the break after it (the next term's is
+// not in yet); past that it is a past year's table.
+const STALE_AFTER_DAYS = 150;
 
 function semesterNumber() {
   const n = Number(String(SEMESTER?.id || '').split('-')[1]);
   return n === 1 || n === 2 ? n : null;
 }
 
-/** The two papers of the current term, each as { start, end } in epoch ms. */
-function termWindows(year) {
-  const own = PAPER_WINDOWS[year];
-  if (own?.midterm && own?.final) {
-    return { mid: { start: own.midterm[0], end: own.midterm[1] }, fin: { start: own.final[0], end: own.final[1] } };
-  }
-  // The faculty's own exam periods, for years without a timetable here.
-  const period = (p) => (p?.start && p?.end ? { start: bangkokMs(p.start), end: bangkokMs(p.end) + DAY_MS } : null);
-  const smid = period(SEMESTER?.midtermPeriod);
-  const sfin = period(SEMESTER?.finalPeriod);
-  return smid && sfin ? { mid: smid, fin: sfin } : null;
-}
-
-function monthPhase(now) {
-  const m = new Date(now.getTime() + BANGKOK_OFFSET_MS).getUTCMonth() + 1;
-  // June and July belong to no paper: a break, and in a break the useful
-  // answer is the paper you are walking INTO.
-  return PHASES.find((p) => p.months.includes(m))?.id || '1-mid';
-}
-
 /**
- * The paper current or next at `now` for `year`: the one still ahead in the
- * current term's timetable, otherwise the month table.
+ * Where a year's timetable stands at `now`:
+ *   status 'timetable'     the paper current or next is `current`
+ *   status 'no-timetable'  this year has no exam timetable here
+ *   status 'term-over'     every paper in it has ended; the next term's is not in yet
+ *   status 'stale-year'    its last paper ended long ago: a past year's table
+ * `papers` are the timetable's own, [{ id, start, end }] in epoch ms.
  */
-export function detectCurrentPhase(now = new Date(), year = null) {
+export function timetableStatus(year, now = new Date()) {
   const sem = semesterNumber();
-  const windows = sem ? termWindows(year) : null;
-  if (windows) {
-    const t = now.getTime();
-    if (t >= windows.mid.start - LEAD_DAYS * DAY_MS && t < windows.mid.end) return `${sem}-mid`;
-    if (t >= windows.mid.end && t < windows.fin.end) return `${sem}-final`;
-    // After the final the next paper is the next term's midterm, while the
-    // month table still names this term (it says ปลายภาค for all of December).
-    if (t >= windows.fin.end && t < windows.fin.end + LEAD_DAYS * DAY_MS) {
-      const m = monthPhase(now);
-      return m.startsWith(`${sem}-`) ? `${sem === 1 ? 2 : 1}-mid` : m;
-    }
-  }
-  return monthPhase(now);
+  const own = sem ? PAPER_WINDOWS[year] : null;
+  const papers = own
+    ? [['mid', own.midterm], ['final', own.final]].filter(([, w]) => w).map(([kind, [start, end]]) => ({ id: `${sem}-${kind}`, start, end }))
+    : [];
+  if (!papers.length) return { status: 'no-timetable', current: null, papers };
+  const t = now.getTime();
+  const next = papers.find((p) => t < p.end);
+  if (next) return { status: 'timetable', current: next.id, papers };
+  const lastEnd = Math.max(...papers.map((p) => p.end));
+  return { status: t < lastEnd + STALE_AFTER_DAYS * DAY_MS ? 'term-over' : 'stale-year', current: null, papers };
+}
+
+/** The paper current or next at `now` for `year`, or null when the year's
+ *  timetable has none still to come. */
+export function detectCurrentPhase(now = new Date(), year = null) {
+  return timetableStatus(year, now).current;
+}
+
+/** What a pick is anchored to: when it was made, and which timetable was in. */
+export const phaseAnchor = (now = new Date()) => ({ at: now.getTime(), term: SEMESTER?.id || null });
+
+// Where a paper sits in time, as one comparable number: the school year and
+// term of `term` ('2569-1'), then the phase's own term and paper. A pick names
+// the paper of the school year it was made in.
+function paperOrdinal(phase, term) {
+  const [year, sem] = String(term || '').split('-').map(Number);
+  const p = PHASES[phaseOrder(phase)];
+  if (!year || !(sem === 1 || sem === 2) || !p) return null;
+  return (year * 2 + p.semester - 1) * 2 + (p.scope === 'final' ? 1 : 0);
+}
+
+// A pick the timetable has no window for is ahead when the paper it names
+// comes after the current one. Without an anchor, the order within the year.
+function namesLaterPaper(saved, anchor, current) {
+  const named = paperOrdinal(saved, anchor?.term);
+  const now = paperOrdinal(current, SEMESTER?.id);
+  if (named != null && now != null) return named > now;
+  return phaseOrder(saved) > phaseOrder(current);
+}
+
+const NONE = 'none';
+// The paper that was current when the pick was made, read against the same
+// timetable: NONE when there was none, null when the pick predates anchors or
+// the timetable has changed since (another term's table answers nothing).
+function pickedBeside(anchor, year) {
+  if (!anchor || anchor.term !== (SEMESTER?.id || null) || !Number.isFinite(anchor.at)) return null;
+  return timetableStatus(year, new Date(anchor.at)).current || NONE;
 }
 
 /**
- * A saved pick, settled against `now`. `anchor` is the paper that was current
- * when the pick was made (null for a pick saved before anchors existed, which
- * counts as made before its own paper).
+ * The one answer every phase-dependent surface reads: the paper a year is
+ * narrowed to, whether it is narrowed at all, and why. `saved` is the stored
+ * pick and `anchor` comes from phaseAnchor() at the moment it was made.
  *
- * - A pick for the current paper, or one still ahead, stays.
- * - A pick made after its own paper ended (revising the midterm in October)
- *   stays until the paper current at that moment ends too.
- * - Anything else names a paper that is over: it moves to the current paper,
- *   and `advancedFrom` says what it was, so the page can say so once.
- * - null (no phase scoping) and anything that is not a phase are left alone.
+ *   reason 'timetable'       narrowed to the timetable's current paper
+ *   reason 'student-choice'  narrowed to the student's own pick: the current
+ *                            paper, one still ahead, a finished one picked to
+ *                            revise while the paper current then still is, or
+ *                            one picked when the timetable had none to offer
+ *   reason 'not-chosen'      no pick, nothing narrowed (year 6, a first visit)
+ *   reason 'no-timetable' | 'term-over' | 'stale-year'
+ *                            the timetable has no paper still to come, so
+ *                            nothing is narrowed: a pick the timetable cannot
+ *                            back never empties a set. The pick is kept, and
+ *                            moves on by itself once a timetable is in.
  *
- * ponytail: papers are ordered within one school year, so a pick from last
- * year that sits later in the order (a May ปลายภาค seen again in August)
- * stays. The year a student picked is just as stale then; promote the year
- * and the phase together when cohorts move up on their own.
+ * A pick whose paper is over moves to the current paper: `saved` and `anchor`
+ * are what to store, and `advancedFrom` is what the pick was.
  */
-export function settlePhase({ phase = null, anchor = null } = {}, year = null, now = new Date()) {
-  const at = phaseOrder(phase);
-  if (at < 0) return { phase, anchor, advancedFrom: null };
-  const current = detectCurrentPhase(now, year);
-  if (at >= phaseOrder(current) || anchor === current) return { phase, anchor: anchor ?? current, advancedFrom: null };
-  return { phase: current, anchor: current, advancedFrom: phase };
+export function phaseState({ saved = null, anchor = null } = {}, year = null, now = new Date()) {
+  const { status, current, papers } = timetableStatus(year, now);
+  const base = { current, status, saved, anchor, advancedFrom: null };
+  const at = phaseOrder(saved);
+  if (at < 0) return { ...base, saved: null, phase: null, filtered: false, reason: 'not-chosen' };
+  if (saved === current) return { ...base, phase: saved, filtered: true, reason: 'timetable' };
+  const picked = pickedBeside(anchor, year);
+  if (!current) {
+    if (picked === NONE) return { ...base, phase: saved, filtered: true, reason: 'student-choice' };
+    return { ...base, phase: null, filtered: false, reason: status };
+  }
+  const own = papers.find((p) => p.id === saved);
+  const ahead = own ? own.end > now.getTime() : namesLaterPaper(saved, anchor, current);
+  if (ahead || picked === current) return { ...base, phase: saved, filtered: true, reason: 'student-choice' };
+  return { ...base, saved: current, anchor: phaseAnchor(now), phase: current, filtered: true, reason: 'timetable', advancedFrom: saved };
+}
+
+const UNSPLIT = {
+  'no-timetable': 'ยังไม่มีตารางสอบของชั้นปีนี้',
+  'term-over': 'สอบของเทอมนี้ครบแล้ว และยังไม่มีตารางสอบเทอมหน้า',
+  'stale-year': 'ยังไม่มีตารางสอบของปีการศึกษานี้',
+};
+
+/** The one line a page shows when a pick cannot narrow anything for want of
+ *  a timetable, or null. It says what is not done, never that the rest is
+ *  complete (AGENTS.md Rule 10). */
+export function unsplitNotice(state) {
+  const head = state && !state.filtered ? UNSPLIT[state.reason] : null;
+  return head ? `${head} จึงแสดงข้อสอบโดยไม่แยกช่วงสอบ` : null;
 }

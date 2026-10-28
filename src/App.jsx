@@ -653,9 +653,11 @@ export default function App() {
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
   // semesters of the year (used as fallback for Y6 which is block-based).
-  // A saved pick whose paper is over moves to the current paper on its own
-  // (hooks/useSelectedPhase.js); phaseAdvancedFrom is what Home says it was.
-  const [selectedPhase, setSelectedPhase, phaseAdvancedFrom] = useSelectedPhase(selectedYear);
+  // The paper every view narrows by comes from one rule (lib/current-phase.js
+  // phaseState, through hooks/useSelectedPhase.js): null whenever nothing is
+  // narrowed, including when the timetable has no paper to back the pick.
+  // phaseStatus says why, for the lines that tell the student.
+  const [selectedPhase, setSelectedPhase, phaseStatus] = useSelectedPhase(selectedYear);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
   // Voice-settings modal — triggered from CommandPalette "Voice Settings"
@@ -3095,6 +3097,7 @@ export default function App() {
               selectedYear={selectedYear}
               selectedYearStored={selectedYearStored}
               selectedPhase={selectedPhase}
+              phaseStatus={phaseStatus}
               setPaletteOpen={setPaletteOpen}
               bookmarks={bookmarks}
               setPracticeMode={setPracticeMode}
@@ -3176,7 +3179,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseAdvancedFrom, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
