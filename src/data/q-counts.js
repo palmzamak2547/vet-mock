@@ -81,7 +81,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'equine-medicine': 455,
   'equine-repro': 183,
   'exotic': 108,
-  'food-industry': 273,
+  'food-industry': 289,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 67,
@@ -189,7 +189,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 70,
+    'swine-clinic': 65,
     'swine-herd': 22,
     'swine-repro': 17,
     'vca': 254,
@@ -209,13 +209,14 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com5': 10,
     'comp-repro-clinic': 48,
     'engprof': 1,
-    'equine-medicine': 12,
+    'equine-medicine': 233,
     'equine-repro': 78,
     'exotic': 34,
     'food-industry': 1,
     'food-safety-y4': 21,
     'herd-health-rum': 33,
     'livestock-pathology': 67,
+    'milk-meat-hygiene': 24,
     'one-health': 11,
     'poultry': 69,
     'practrum': 17,
@@ -226,14 +227,14 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 82,
+    'swine-clinic': 62,
     'swine-herd': 11,
     'swine-repro': 18,
     'vca': 254,
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 71,
+    'zoonoses': 43,
   },
 };
 
@@ -254,7 +255,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'milk-meat-hygiene': 804,
     'one-health': 153,
     'surg1': 29,
-    'swine-clinic': 83,
+    'swine-clinic': 78,
     'swine-herd': 31,
     'swine-repro': 17,
     'vca': 691,
@@ -269,21 +270,22 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com2': 39,
     'engprof1': 30,
     'epidemiology': 100,
-    'equine-medicine': 52,
+    'equine-medicine': 455,
     'equine-repro': 105,
-    'food-industry': 34,
+    'food-industry': 50,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
+    'milk-meat-hygiene': 29,
     'one-health': 35,
     'surg1': 29,
-    'swine-clinic': 95,
+    'swine-clinic': 75,
     'swine-herd': 16,
     'swine-repro': 18,
     'vca': 691,
     'vet-histo': 104,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 113,
+    'zoonoses': 81,
   },
   '2-mid': {
     'biochem-1': 271,
@@ -343,14 +345,14 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 139,
-    5: 3558,
+    5: 3553,
   },
   '1-final': {
     1: 297,
     2: 104,
     3: 62,
     4: 302,
-    5: 1463,
+    5: 1859,
   },
   '2-mid': {
     1: 297,
@@ -515,8 +517,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-cns': 11,
-      'swine-gi-viral': 14,
+      'swine-cns': 8,
+      'swine-gi-viral': 12,
       'swine-pornchalit-set': 46,
       'swine-resp-viral': 12,
     },
@@ -735,10 +737,17 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'equine-medicine': {
       'equine-anesthesia': 4,
+      'equine-colic-bestfit': 48,
+      'equine-dentistry': 40,
+      'equine-gi': 37,
       'equine-infectious': 6,
+      'equine-intro': 101,
+      'equine-nutrition': 55,
       'equine-ophth': 7,
       'equine-ortho': 16,
+      'equine-parasites': 78,
       'equine-poa': 10,
+      'equine-respi': 44,
       'equine-tumors': 9,
     },
     'equine-repro': {
@@ -751,6 +760,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'eqrepro-surgery': 8,
     },
     'food-industry': {
+      'fiqc-aquatic': 16,
       'fiqc-haccp': 17,
       'fiqc-poultry-export': 17,
     },
@@ -798,6 +808,9 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'tuberculosis-bovine': 2,
       'urinary-calculi': 2,
     },
+    'milk-meat-hygiene': {
+      'milk-cleaning': 29,
+    },
     'one-health': {
       'oh-amr': 10,
       'oh-env-carcinogen': 1,
@@ -822,14 +835,13 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'swine-clinic': {
       'swine-asf': 3,
-      'swine-cns': 11,
       'swine-csf': 3,
       'swine-fmd': 4,
-      'swine-gi-viral': 14,
       'swine-greasypig': 1,
-      'swine-ileitis-bacti': 4,
+      'swine-ileitis-bacti': 6,
       'swine-pcv2': 9,
       'swine-pornchalit-set': 46,
+      'swine-prv-je': 3,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -933,12 +945,10 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'zoonoses': {
       'zoo-bacterial': 35,
-      'zoo-eid-cuvet': 4,
       'zoo-eid-wildlife': 9,
       'zoo-epi-approach': 16,
       'zoo-mycoses': 17,
       'zoo-prion': 4,
-      'zoo-protozoal': 28,
     },
   },
   '2-mid': {
@@ -1564,7 +1574,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-cns': 1,
       'swine-gi-viral': 11,
       'swine-pornchalit-set': 23,
       'swine-resp-viral': 12,
@@ -1713,7 +1722,14 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'stifle-exam': 1,
     },
     'equine-medicine': {
+      'equine-colic-bestfit': 13,
+      'equine-dentistry': 26,
+      'equine-gi': 4,
+      'equine-intro': 30,
+      'equine-nutrition': 12,
+      'equine-parasites': 20,
       'equine-poa': 2,
+      'equine-respi': 12,
     },
     'equine-repro': {
       'eqrepro-ai': 11,
@@ -1767,6 +1783,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'tuberculosis-bovine': 2,
       'urinary-calculi': 2,
     },
+    'milk-meat-hygiene': {
+      'milk-cleaning': 11,
+    },
     'one-health': {
       'oh-risk-analysis': 7,
     },
@@ -1786,12 +1805,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-cns': 1,
       'swine-csf': 1,
-      'swine-gi-viral': 11,
       'swine-ileitis-bacti': 1,
       'swine-pcv2': 4,
       'swine-pornchalit-set': 23,
+      'swine-prv-je': 1,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -1864,7 +1882,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'zoonoses': {
       'zoo-bacterial': 2,
       'zoo-mycoses': 13,
-      'zoo-protozoal': 17,
     },
   },
   '2-mid': {
@@ -2214,7 +2231,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 4304,
+  5: 4320,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2699,14 +2716,15 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "swine-clinic": {
     "swine-asf": 3,
-    "swine-cns": 11,
+    "swine-cns": 8,
     "swine-csf": 3,
     "swine-fmd": 4,
-    "swine-gi-viral": 14,
+    "swine-gi-viral": 12,
     "swine-greasypig": 1,
-    "swine-ileitis-bacti": 4,
+    "swine-ileitis-bacti": 6,
     "swine-pcv2": 9,
     "swine-pornchalit-set": 46,
+    "swine-prv-je": 3,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3230,12 +3248,12 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "__unassigned__": 40,
   },
   "swine-clinic": {
-    "swine-cns": 1,
     "swine-csf": 1,
     "swine-gi-viral": 11,
     "swine-ileitis-bacti": 1,
     "swine-pcv2": 4,
     "swine-pornchalit-set": 23,
+    "swine-prv-je": 1,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3398,4 +3416,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-28T16:55:17.491Z
+// Built: 2026-10-28T17:00:50.230Z

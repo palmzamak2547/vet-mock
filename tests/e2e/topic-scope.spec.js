@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../../src/data/q-counts.js';
 
 // The topic list must show the paper the student picked, and only that paper.
 //
@@ -83,14 +84,13 @@ async function cardCount(page, thaiName) {
 
 test('a subject card counts the paper, not the whole subject', async ({ page, context }) => {
   await seed(context, '1-final');
-  // Milk Hygiene is a midterm-only subject: 457 on the midterm, none on the final.
-  expect(await cardCount(page, 'สุขศาสตร์น้ำนม')).toBe(0);
-  // Zero for this paper is not "no content": the course has its notes to read.
-  await expect(page.locator('.vmx-subject-card', { hasText: 'สุขศาสตร์น้ำนม' }).first().locator('.count')).toHaveText('มีสรุปให้อ่าน');
-  // Equine medicine has both, and the final is the smaller pile.
-  const eqFinal = await cardCount(page, 'เวชปฏิบัติม้า');
-  expect(eqFinal).toBeGreaterThan(0);
-  expect(eqFinal).toBeLessThan(338);
+  // Milk Hygiene's final holds only the milk-cleaning topic, a small part of the
+  // subject, so the card must show that pile and not the whole subject. The
+  // numbers come from the generated counts, so new questions do not break this.
+  const milkFinal = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-final']['milk-meat-hygiene'] || 0;
+  expect(milkFinal).toBeLessThan(Q_VISIBLE_COUNTS_BY_SUBJECT['milk-meat-hygiene']);
+  expect(await cardCount(page, 'สุขศาสตร์น้ำนม')).toBe(milkFinal);
+  expect(await cardCount(page, 'เวชปฏิบัติม้า')).toBe(Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-final']['equine-medicine'] || 0);
 });
 
 test('the other paper gets its own number', async ({ page, context }) => {
@@ -98,6 +98,8 @@ test('the other paper gets its own number', async ({ page, context }) => {
   expect(await cardCount(page, 'สุขศาสตร์น้ำนม')).toBeGreaterThan(0);
   // Epidemiology sits no midterm paper.
   expect(await cardCount(page, 'ระบาดวิทยา')).toBe(0);
+  // Zero for this paper is not "no content": the course has its notes to read.
+  await expect(page.locator('.vmx-subject-card', { hasText: 'ระบาดวิทยา' }).first().locator('.count')).toHaveText('มีสรุปให้อ่าน');
 });
 
 test('with no paper picked the card still shows the whole subject', async ({ page, context }) => {

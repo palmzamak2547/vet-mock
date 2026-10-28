@@ -38,7 +38,7 @@ Consistency: source banks **6977**, learner-ready **6899**, fail-closed **78**, 
 
 ## Curriculum
 
-86 subjects, 1054 topics in the taxonomy.
+86 subjects, 1060 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
@@ -88,7 +88,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | surg1 | 29 | 3 | 3 | 10.3% |
 | surg2 | 18 | 1 | 1 | 5.6% |
 | surg3 | 40 | 0 | 0 | 0.0% |
-| swine-clinic | 107 | 99 | 0 | 92.5% |
+| swine-clinic | 107 | 94 | 0 | 87.9% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
 | vca | 691 | 90 | 90 | 13.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 367 | 355 | 0 | 96.7% |
-| **All** | 6899 | 4292 | 334 | 62.2% |
+| **All** | 6899 | 4287 | 334 | 62.1% |

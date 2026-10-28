@@ -1161,7 +1161,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "swine-clinic": {
       "swine-gi-viral": {
-        "mcq": 12,
+        "mcq": 10,
         "tf": 0,
         "match": 0,
         "writing": 2
@@ -1173,7 +1173,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "swine-cns": {
-        "mcq": 10,
+        "mcq": 7,
         "tf": 0,
         "match": 0,
         "writing": 1
@@ -2598,8 +2598,50 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       }
     },
     "equine-medicine": {
+      "equine-intro": {
+        "mcq": 101,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-gi": {
+        "mcq": 37,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-colic-bestfit": {
+        "mcq": 45,
+        "tf": 0,
+        "match": 0,
+        "writing": 3
+      },
+      "equine-nutrition": {
+        "mcq": 55,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-parasites": {
+        "mcq": 77,
+        "tf": 0,
+        "match": 1,
+        "writing": 0
+      },
+      "equine-dentistry": {
+        "mcq": 40,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "equine-poa": {
         "mcq": 10,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-respi": {
+        "mcq": 44,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -2679,19 +2721,15 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       }
     },
+    "milk-meat-hygiene": {
+      "milk-cleaning": {
+        "mcq": 26,
+        "tf": 3,
+        "match": 0,
+        "writing": 0
+      }
+    },
     "swine-clinic": {
-      "swine-gi-viral": {
-        "mcq": 12,
-        "tf": 0,
-        "match": 0,
-        "writing": 2
-      },
-      "swine-cns": {
-        "mcq": 10,
-        "tf": 0,
-        "match": 0,
-        "writing": 1
-      },
       "swine-pornchalit-set": {
         "mcq": 30,
         "tf": 0,
@@ -2711,7 +2749,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "swine-ileitis-bacti": {
-        "mcq": 4,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -2728,52 +2766,14 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 0
       },
+      "swine-prv-je": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "swine-greasypig": {
         "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      }
-    },
-    "zoonoses": {
-      "zoo-protozoal": {
-        "mcq": 28,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-bacterial": {
-        "mcq": 35,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-prion": {
-        "mcq": 4,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-eid-wildlife": {
-        "mcq": 9,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-mycoses": {
-        "mcq": 17,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-eid-cuvet": {
-        "mcq": 4,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-epi-approach": {
-        "mcq": 16,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -2981,6 +2981,38 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       }
     },
+    "zoonoses": {
+      "zoo-bacterial": {
+        "mcq": 35,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-prion": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-eid-wildlife": {
+        "mcq": 9,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-mycoses": {
+        "mcq": 17,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-epi-approach": {
+        "mcq": 16,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      }
+    },
     "food-industry": {
       "fiqc-haccp": {
         "mcq": 17,
@@ -2990,6 +3022,12 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "fiqc-poultry-export": {
         "mcq": 17,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "fiqc-aquatic": {
+        "mcq": 16,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -6361,12 +6399,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "tf": 0,
         "match": 0,
         "writing": 6
-      },
-      "swine-cns": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
       }
     },
     "zoonoses": {
@@ -7474,11 +7506,53 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       }
     },
     "equine-medicine": {
+      "equine-intro": {
+        "mcq": 30,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-nutrition": {
+        "mcq": 12,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-dentistry": {
+        "mcq": 26,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-gi": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "equine-poa": {
         "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 0
+      },
+      "equine-respi": {
+        "mcq": 12,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "equine-parasites": {
+        "mcq": 19,
+        "tf": 0,
+        "match": 1,
+        "writing": 0
+      },
+      "equine-colic-bestfit": {
+        "mcq": 10,
+        "tf": 0,
+        "match": 0,
+        "writing": 3
       }
     },
     "equine-repro": {
@@ -7525,13 +7599,15 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       }
     },
-    "swine-clinic": {
-      "swine-gi-viral": {
-        "mcq": 10,
+    "milk-meat-hygiene": {
+      "milk-cleaning": {
+        "mcq": 11,
         "tf": 0,
         "match": 0,
-        "writing": 1
-      },
+        "writing": 0
+      }
+    },
+    "swine-clinic": {
       "swine-pornchalit-set": {
         "mcq": 17,
         "tf": 0,
@@ -7556,28 +7632,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 0
       },
-      "swine-cns": {
+      "swine-prv-je": {
         "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      }
-    },
-    "zoonoses": {
-      "zoo-protozoal": {
-        "mcq": 17,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-bacterial": {
-        "mcq": 2,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "zoo-mycoses": {
-        "mcq": 13,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -7718,6 +7774,20 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "food-hygiene": {
         "mcq": 11,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      }
+    },
+    "zoonoses": {
+      "zoo-bacterial": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-mycoses": {
+        "mcq": 13,
         "tf": 0,
         "match": 0,
         "writing": 0
