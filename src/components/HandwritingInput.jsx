@@ -236,7 +236,7 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
       });
       const data = await res.json().catch(() => null);
       if (!alive.current) return;
-      if (res.status === 503) { setStatus(/capacity/i.test(data?.error || '') ? 'วันนี้ใช้อ่านลายมือครบโควตาแล้ว พรุ่งนี้ใช้ได้อีก พิมพ์หรือพูดได้ตามเดิม' : 'อ่านลายมือไม่ได้ตอนนี้ พิมพ์หรือพูดได้ตามเดิม'); return; }
+      if (res.status === 503) { setStatus(/capacity/i.test(data?.error || '') ? 'วันนี้ใช้อ่านลายมือครบโควตาแล้ว พรุ่งนี้ใช้ได้อีก พิมพ์ตอบได้ตามเดิม' : 'อ่านลายมือไม่ได้ตอนนี้ พิมพ์ตอบได้ตามเดิม'); return; }
       if (res.status === 429) { setStatus('ใช้บ่อยเกินไป รอสักครู่แล้วลองใหม่'); return; }
       if (!res.ok || typeof data?.text !== 'string') { setStatus('อ่านไม่สำเร็จ ลองอีกครั้ง'); return; }
       const text = data.text.trim();
