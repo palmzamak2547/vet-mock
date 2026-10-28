@@ -16,7 +16,7 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - **The admin card is the only alarm.** The app hides outside failures from students by design: device voice, no microphone, hidden connect buttons. `/app/admin` "ระบบภายนอก" reads `/api/system-status`, which is admin only (`isAdmin` in `api/_lib/app-backend.js`, checked before any probe). Checks live in `api/_lib/system-status.js`; add a row when a feature gains an outside dependency. Probe at real size: Premwadee passed a one-word synthesis while it dropped question stems.
 - **Edge read-aloud.**
   - From 21 Oct the handshake needed Sec-MS-GEC v2. msedge-tts 2.1.1 brought English back on production (#102).
-  - After that, Premwadee dropped two-sentence Thai stems: 9 of 12 tries, with the server closing before turn.end after about 2.7 s. Niwat read them 6 of 6. #106 moves Thai to Niwat and waits on Palm, because it changes the voice to male.
+  - After that, Premwadee dropped two-sentence Thai stems: 9 of 12 tries, with the server closing before turn.end after about 2.7 s. Niwat read them 6 of 6, so Thai reads in Niwat, a male voice, since 5.169.3 (#106). The voices live in `src/lib/tts-voices.js`, and the browser's clip cache keys on the voice since 5.172.1 (#117), so a voice change retires the clips cached in the old one.
   - `tests/unit/api-hardening.test.mjs` pins the voice.
 - **Supabase is on the free plan**, which pauses a project after about a week idle. A daily Vercel cron calls `/api/ai-chat?warm=1`, which runs one `library_search`.
 - **Client error counts are consent-gated**, as PrivacyView promises, so zero is not health. On 28 Oct the pipeline was proven end to end: one probe row was written through the API and then deleted.
