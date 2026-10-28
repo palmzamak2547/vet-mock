@@ -57,6 +57,29 @@ structures do not receive substitute geometry or selectable placeholders.
   site provided the files now used in the workstation pipeline below.
   Free access stated in an article is not a verified redistribution license.
 
+### westerly: Feline Skeleton Dec and Feline Ecorche Dec (Sketchfab)
+
+- Skeleton: https://sketchfab.com/3d-models/feline-skeleton-dec-a5d0bb8f55dc4f49b103cd20d65e0b17 (uid
+  `a5d0bb8f55dc4f49b103cd20d65e0b17`), downloaded through the logged-in download panel
+  27 October 2026: `feline_skeleton_dec.glb`, 19,767,568 bytes, SHA-256
+  `b2be07592effdcc6a7786057d1dd7774d530a6c61ea7f4523b7322a8869d25c9`.
+- Ecorche: https://sketchfab.com/3d-models/feline-ecorche-dec-4c08824eb4914ff4b6e71b4dc2ba080e (uid
+  `4c08824eb4914ff4b6e71b4dc2ba080e`), downloaded through the logged-in download panel
+  28 October 2026: `feline_ecorche_dec.glb`, 12,866,656 bytes, SHA-256
+  `c687f23ab0df293de6d0695736539dc5cc99bd9a0134048909b6f936a1a12e35`.
+- Both models are by westerly; the public API and download panel publish CC BY 4.0. Both are
+  artist sculpts (the skeleton is described by its author as a base for an ecorche study), not
+  scans; their scope text and attribution state this. Neither is registered to the other.
+- Each export carries meshes that all cover the whole body (eight for the skeleton, five for the
+  ecorche): the source OBJ was split at the 65,535-vertex boundary, so the chunks are export
+  fragments, not anatomical parts. The assembly merges them into one surface and keeps every
+  triangle; each specimen is published as a whole-body display source, not as selectable
+  bones or individually named muscles.
+- Reproduce with `node scripts/assemble-atlas-feline.mjs <source.glb>`, then
+  `node scripts/convert-atlas-specimen.mjs <specimen-id> <assembled.glb> 0,0,0` — the author
+  poses both sculpts standing on their own feet, so display keeps the source orientation —
+  and `npm run regen:atlas`.
+
 ### Other inspected candidates
 
 - Pixelbeaker, `3D Canine Anatomy: Normal Abdomen`, Sketchfab UID

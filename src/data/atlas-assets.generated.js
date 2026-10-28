@@ -1025,5 +1025,51 @@ export const ATLAS_ASSETS = Object.freeze({
         "originalName": "edinburgh-horse.stl"
       }
     ]
+  },
+  "feline-ecorche-westerly": {
+    "poster": "/atlas/feline-ecorche-westerly-2efdc259df7a.webp",
+    "profiles": {
+      "quick": {
+        "model": "/atlas/feline-ecorche-westerly-quick-0dff1517b872.glb",
+        "bytes": 683136,
+        "sha256": "0dff1517b872a46de025931641eacce783944dabc111fdfbfe4fd5b3e0271679",
+        "triangles": 39816
+      },
+      "detail": {
+        "model": "/atlas/feline-ecorche-westerly-detail-607078aa25e4.glb",
+        "bytes": 2214700,
+        "sha256": "607078aa25e407e4f598feb931130056d990a68eed1a786e4b555762b133e7c9",
+        "triangles": 96202
+      }
+    },
+    "parts": [
+      {
+        "id": "specimen",
+        "originalName": "specimen"
+      }
+    ]
+  },
+  "feline-skeleton-westerly": {
+    "poster": "/atlas/feline-skeleton-westerly-d6d49a660c01.webp",
+    "profiles": {
+      "quick": {
+        "model": "/atlas/feline-skeleton-westerly-quick-12f6198511e9.glb",
+        "bytes": 589464,
+        "sha256": "12f6198511e9147ba77446e19f952a23be7ef06af9a9f8b7744924a417bbf638",
+        "triangles": 36546
+      },
+      "detail": {
+        "model": "/atlas/feline-skeleton-westerly-detail-d0a582d12437.glb",
+        "bytes": 951228,
+        "sha256": "d0a582d124374cb6d658ccede550cc6aaaa8ce85efae3446e8c41d297d48eca4",
+        "triangles": 56900
+      }
+    },
+    "parts": [
+      {
+        "id": "specimen",
+        "originalName": "skeleton"
+      }
+    ]
   }
 });
