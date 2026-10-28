@@ -1026,6 +1026,29 @@ export const ATLAS_ASSETS = Object.freeze({
       }
     ]
   },
+  "feline-ecorche-westerly": {
+    "poster": "/atlas/feline-ecorche-westerly-2efdc259df7a.webp",
+    "profiles": {
+      "quick": {
+        "model": "/atlas/feline-ecorche-westerly-quick-0dff1517b872.glb",
+        "bytes": 683136,
+        "sha256": "0dff1517b872a46de025931641eacce783944dabc111fdfbfe4fd5b3e0271679",
+        "triangles": 39816
+      },
+      "detail": {
+        "model": "/atlas/feline-ecorche-westerly-detail-607078aa25e4.glb",
+        "bytes": 2214700,
+        "sha256": "607078aa25e407e4f598feb931130056d990a68eed1a786e4b555762b133e7c9",
+        "triangles": 96202
+      }
+    },
+    "parts": [
+      {
+        "id": "specimen",
+        "originalName": "specimen"
+      }
+    ]
+  },
   "feline-skeleton-westerly": {
     "poster": "/atlas/feline-skeleton-westerly-d6d49a660c01.webp",
     "profiles": {

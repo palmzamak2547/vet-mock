@@ -1,0 +1,23 @@
+{
+  "id": "feline-ecorche-westerly",
+  "source": "https://sketchfab.com/3d-models/feline-ecorche-dec-4c08824eb4914ff4b6e71b4dc2ba080e",
+  "license": "CC BY 4.0",
+  "copyright": "westerly",
+  "licenseText": "Feline Ecorche Dec by westerly is licensed under Creative Commons Attribution 4.0 International (https://creativecommons.org/licenses/by/4.0/). Converted from the original GLB; display coordinates and mesh resolution modified.",
+  "representation": "One whole-body ecorche surface (skin removed, muscle layer) merged from the five export chunks the source OBJ was split into at its 65,535-vertex boundary. Not segmented into individually named muscles; an artist sculpt, not a scan of a real specimen, and not registered to the skeleton specimen.",
+  "original": {
+    "filename": "feline_ecorche_dec.glb",
+    "bytes": 12866656,
+    "sha256": "c687f23ab0df293de6d0695736539dc5cc99bd9a0134048909b6f936a1a12e35"
+  },
+  "sourceChunks": [
+    "Object_2",
+    "Object_3",
+    "Object_4",
+    "Object_5",
+    "Object_6"
+  ],
+  "sourceUnits": null,
+  "sourceCheckedAt": "2026-10-28",
+  "derivation": "Merged the whole-body export chunks into one surface, keeping every source triangle; display conversion is separately recorded in the provenance ledger."
+}

@@ -163,3 +163,26 @@ output hashes and simplification parameters are in
 `feline-skeleton-westerly-source.json`. The model is an artist's sculpt
 published as a base for an ecorche study, not a scan of a real specimen, and
 is not segmented into individually named bones.
+
+## Feline ecorche, westerly (Sketchfab)
+
+Applies to `feline-ecorche-westerly-*` geometry and poster files.
+
+Creator: westerly. Source model:
+https://sketchfab.com/3d-models/feline-ecorche-dec-4c08824eb4914ff4b6e71b4dc2ba080e
+Author profile: https://sketchfab.com/westerly
+
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+
+Changes: the source GLB carries five whole-body export chunks split at the
+OBJ 65,535-vertex boundary; they were merged into one surface with every
+source triangle kept, then converted to quick/detail glTF display levels with
+normalized coordinates, 16-bit position quantisation and recomputed display
+normals, and a static poster generated from the same geometry. Input hash,
+output hashes and simplification parameters are in
+`feline-ecorche-westerly-provenance.json`; the merge record is in
+`feline-ecorche-westerly-source.json`. The model is an artist's sculpt of the
+muscle layer (skin removed), not a scan of a real specimen; it is not
+segmented into individually named muscles and is not registered to the
+skeleton specimen.

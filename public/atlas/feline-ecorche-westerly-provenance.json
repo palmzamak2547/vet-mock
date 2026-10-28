@@ -1,0 +1,72 @@
+{
+  "id": "feline-ecorche-westerly",
+  "sources": [
+    {
+      "filename": "feline-ecorche-westerly-assembled.glb",
+      "sha256": "0b14ff1b579311067d4e6d02bc033a5993aa3f68c23fd50ef9b2c246bacff38e",
+      "bytes": 9139976
+    }
+  ],
+  "sourceBounds": [
+    [
+      -0.36500483751296997,
+      -1.0438759326934814,
+      -2.03395676612854
+    ],
+    [
+      0.36521583795547485,
+      0.8988521695137024,
+      1.9836925268173218
+    ]
+  ],
+  "sourceToDisplay": {
+    "rotationDegreesXYZ": [
+      0,
+      0,
+      0
+    ],
+    "center": [
+      0.0001055002212524414,
+      -0.07251188158988953,
+      -0.02513211965560913
+    ],
+    "scale": 0.4978035299177494
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/feline-ecorche-westerly-quick-0dff1517b872.glb",
+      "bytes": 683136,
+      "gzipBytes": 525503,
+      "sha256": "0dff1517b872a46de025931641eacce783944dabc111fdfbfe4fd5b3e0271679",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "specimen",
+          "sourceTriangles": 451202,
+          "triangles": 39816,
+          "vertices": 36843,
+          "error": 0.0029966223519295454
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/feline-ecorche-westerly-detail-607078aa25e4.glb",
+      "bytes": 2214700,
+      "gzipBytes": 1210715,
+      "sha256": "607078aa25e407e4f598feb931130056d990a68eed1a786e4b555762b133e7c9",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "specimen",
+          "sourceTriangles": 451202,
+          "triangles": 96202,
+          "vertices": 88179,
+          "error": 0.0009948305087164044
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/feline-ecorche-westerly-2efdc259df7a.webp"
+}
