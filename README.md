@@ -48,8 +48,9 @@ npm run dev
 <!-- content-stats:end -->
 
 **เทอมปัจจุบัน:** ภาคการศึกษาต้น 2569 — Vet 86 = ชั้นปีที่ 5
-ย้ายรุ่นทุกต้นปีการศึกษาที่ `CURRENT_YEAR` ใน `src/data/curriculum.js` ที่เดียว
-(`SEMESTER` ใน `schedule.js` และ default ของ `getUpcomingExams` อิงจากตรงนั้น)
+ขึ้นเทอมใหม่และปีการศึกษาใหม่ต้องแก้หลายไฟล์ (`SEMESTER` ใน `src/data/semester.js`,
+`EXAM_SCHEDULE` ใน `src/data/schedule.js`, `examScope` ของหัวข้อ, test ที่ตรึงวันที่ไว้)
+ดูลำดับใน [`docs/HANDOVER.md`](./docs/HANDOVER.md) หัวข้อ 5
 
 ---
 
@@ -154,10 +155,12 @@ gate fail = ห้ามอ้างว่าพร้อม release; `npm run g
 registry แล้วรัน gates
 
 ### เพิ่มตารางสอบ
-แก้ `EXAM_SCHEDULE` ใน `src/data/schedule.js`:
+แก้ `EXAM_SCHEDULE` ใน `src/data/schedule.js` แล้วรัน `npm run regen:exam-papers`
+ทุกแถวของเทอมปัจจุบันต้องมี `term` (แถวที่ไม่มี นับถอยหลังและช่วงสอบจะข้ามไป)
+และแถวของเทอมก่อนต้องเอา `term` ออก ลำดับเต็มอยู่ใน `docs/HANDOVER.md` หัวข้อ 5:
 ```js
 {
-  id: 'com5-mid', code: '3107510', subject: 'com5',
+  id: 'com5-mid', code: '3107510', subject: 'com5', term: 'midterm',
   title: 'COM V — Midterm',
   date: '2026-09-21', time: '08:30-10:30', duration_min: 120,
   location: 'VET6 807',

@@ -11,6 +11,7 @@
 // ============================================================
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 import { available as transcribeAvailable, providers as transcribeProviders } from '../ai-transcribe.js';
+import { voiceFor } from '../tts.js';
 import { externalCapabilities } from './external-connections.js';
 import { rateLimit } from './rate-limit.js';
 
@@ -19,7 +20,11 @@ const CHECK_MS = 8000;
 const HANDOVER = 'https://github.com/palmzamak2547/vet-mock/blob/main/docs/HANDOVER.md';
 const IAPP_TTS = 'https://api.iapp.co.th/v3/store/audio/tts';
 const DOMAIN_RDAP = 'https://rdap.verisign.com/com/v1/domain/vetmock.com';
-const DEFAULT_FEEDBACK_EMAIL = 'palmzamak2547@gmail.com'; // the fallback in api/send-feedback.js
+const DEFAULT_FEEDBACK_EMAIL = 'palmzamak2547@gmail.com'; // the fallbacks in api/send-feedback.js
+const DEFAULT_FEEDBACK_FROM = 'VetMock <onboarding@resend.dev>';
+// A question-length stem: Premwadee passed a one-word probe while it dropped
+// two-sentence stems (28 Oct 2026), so the probe reads what students hear.
+const VOICE_PROBE = 'สุนัขเพศผู้อายุ 5 ปี มีอาการซึมและเบื่ออาหารมาสามวัน ผลตรวจเลือดพบค่าเอนไซม์ตับสูง ข้อใดเป็นการวินิจฉัยที่เป็นไปได้มากที่สุด';
 
 const daysUntil = (iso, now) => Math.floor((Date.parse(iso) - now) / DAY);
 const thaiDate = (iso) => new Date(iso).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' });
@@ -28,7 +33,7 @@ const signal = () => AbortSignal.timeout(CHECK_MS);
 async function edgeSynth(text) {
   const tts = new MsEdgeTTS();
   try {
-    await tts.setMetadata('th-TH-PremwadeeNeural', OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+    await tts.setMetadata(voiceFor('th'), OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
     const out = await tts.toStream(text);
     const stream = out.audioStream || out;
     let bytes = 0;
@@ -51,8 +56,8 @@ const CHECKS = [
     fix: 'บริการฟรีที่ไม่มีสัญญา ระหว่างนี้ปุ่มอ่านออกเสียงใช้เสียงของเครื่อง อัปเดต msedge-tts แล้วลองใหม่',
     async run({ synth }, r) {
       try {
-        const bytes = await synth('ทดสอบ');
-        return bytes > 0 ? r('ok', `สังเคราะห์คำทดสอบได้ ${bytes.toLocaleString('en-US')} ไบต์`) : r('down', 'ได้ไฟล์เสียงว่าง');
+        const bytes = await synth(VOICE_PROBE);
+        return bytes > 0 ? r('ok', `อ่านโจทย์ทดสอบภาษาไทยได้ ${bytes.toLocaleString('en-US')} ไบต์ (${voiceFor('th')})`) : r('down', 'ได้ไฟล์เสียงว่าง');
       } catch (e) {
         return r('down', `Microsoft ไม่ตอบ: ${String(e?.message || e).slice(0, 120)}`);
       }
@@ -154,8 +159,11 @@ const CHECKS = [
     fix: 'สร้างคีย์ที่ resend.com แล้วตั้ง RESEND_API_KEY และ FEEDBACK_EMAIL ใน Vercel',
     async run({ env }, r) {
       const to = env.FEEDBACK_EMAIL || DEFAULT_FEEDBACK_EMAIL;
+      const from = env.FEEDBACK_FROM || DEFAULT_FEEDBACK_FROM;
+      // Resend's shared test sender delivers only to the Resend account's own address.
+      const shared = from.includes('@resend.dev') ? ' ผู้ส่งเป็นที่อยู่ทดสอบของ Resend จึงส่งได้เฉพาะอีเมลเจ้าของบัญชี Resend' : '';
       return env.RESEND_API_KEY
-        ? r('ok', `ส่งไปที่ ${to}${env.FEEDBACK_EMAIL ? '' : ' (ค่าเริ่มต้นในโค้ด)'}`)
+        ? r('ok', `ส่งไปที่ ${to}${env.FEEDBACK_EMAIL ? '' : ' (ค่าเริ่มต้นในโค้ด)'}${shared}`)
         : r('down', 'ไม่ได้ตั้ง RESEND_API_KEY หน้าแจ้งปัญหาจึงส่งอีเมลไม่ได้');
     },
   },

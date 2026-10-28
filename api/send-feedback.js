@@ -143,7 +143,9 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
       method: 'POST',
       headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from: 'VetMock <onboarding@resend.dev>',
+        // Resend's shared sender reaches only the Resend account's own inbox; a
+        // successor verifies a domain in Resend and sets FEEDBACK_FROM (docs/HANDOVER.md).
+        from: process.env.FEEDBACK_FROM || 'VetMock <onboarding@resend.dev>',
         to: [toEmail],
         reply_to: fromEmail || undefined,
         subject: `[VetMock ${type}] ${subject || 'Message from user'}`,
