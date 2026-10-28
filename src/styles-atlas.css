@@ -1235,3 +1235,56 @@
 .vmx-atlas-systems > span { font-size: 0.78rem; color: var(--clr-ink-soft); }
 .vmx-atlas-systems button:focus-visible,
 .vmx-atlas-system-toggle:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+
+.vmx-atlas-clinic {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px 12px;
+}
+.vmx-atlas-clinic > .vmx-atlas-eyebrow {
+  margin-right: 4px;
+}
+.vmx-atlas-clinic button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  color: var(--clr-ink);
+  background: var(--clr-surface);
+  font-size: var(--text-sm);
+}
+.vmx-atlas-clinic button[aria-pressed='true'] {
+  background: var(--clr-surface-2);
+  color: var(--clr-sage-text);
+}
+.vmx-atlas-clinic button:hover:not(:disabled) {
+  background: var(--clr-surface-2);
+}
+.vmx-atlas-cut-axis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  color: var(--clr-ink-soft);
+  font-size: var(--text-sm);
+}
+.vmx-atlas-cut-axis button {
+  min-height: 36px;
+  padding: 4px 12px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  color: var(--clr-ink);
+  background: var(--clr-surface);
+  font-size: var(--text-sm);
+}
+.vmx-atlas-cut-axis button[aria-pressed='true'] {
+  background: var(--clr-surface-2);
+  color: var(--clr-sage-text);
+}
+.vmx-atlas-cut-axis button:hover:not(:disabled) {
+  background: var(--clr-surface-2);
+}

@@ -51,7 +51,10 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
   const [exploded, setExploded] = useState(0),
     [coloured, setColoured] = useState(true),
     [ghost, setGhost] = useState(false),
-    [cut, setCut] = useState(0);
+    [cut, setCut] = useState(0),
+    [cutAxis, setCutAxis] = useState('z'),
+    [cutSide, setCutSide] = useState(1),
+    [clinicView, setClinicView] = useState('');
   const [quality, setQuality] = useState('quick'),
     [staticMode, setStaticMode] = useState(false),
     [attempt, setAttempt] = useState(0);
@@ -93,11 +96,18 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     ).values(),
   ];
   const run = useCallback((kind) => setCommand({ kind, seq: ++sequence.current }), []);
+  const runClinic = (id) => {
+    setClinicView(id);
+    setCommand({ kind: 'clinic', preset: id, seq: ++sequence.current });
+  };
   const reset = useCallback(() => {
     setHidden([]);
     setIsolated(recall);
     setExploded(0);
     setCut(0);
+    setCutAxis('z');
+    setCutSide(1);
+    setClinicView('');
     setGhost(false);
     run('reset');
   }, [recall, run]);
@@ -183,6 +193,9 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     setIsolated(false);
     setExploded(0);
     setCut(0);
+    setCutAxis('z');
+    setCutSide(1);
+    setClinicView('');
     setGhost(false);
     setQuery('');
     setNotice('');
@@ -483,6 +496,9 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
             data-comparison-state={
               comparison ? (staticMode ? 'static' : status.views?.[1]?.kind || 'loading') : 'none'
             }
+            data-cut-axis={specimen.clinicViews && cut > 0 ? cutAxis : undefined}
+            data-cut-side={specimen.clinicViews && cut > 0 && cutSide === -1 ? 'flipped' : undefined}
+            data-camera-view={clinicView || undefined}
           >
             <div className={`vmx-atlas-posters${comparison ? ' is-comparing' : ''}`}>
               {[specimen, comparison].filter(Boolean).map((item, index) => (
@@ -508,7 +524,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               <Suspense fallback={null}>
                 <AtlasScene
                   key={attempt}
-                  {...{ specimen, comparison, quality, exploded, coloured, ghost, cut, command, visibleIds }}
+                  {...{ specimen, comparison, quality, exploded, coloured, ghost, cut, cutAxis, cutSide, command, visibleIds }}
                   selected={part.id}
                   onSelect={recall ? () => {} : selectPart}
                   onStatus={setStatus}
@@ -642,6 +658,25 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               <Download size={18} aria-hidden="true" />
             </button>
           </div>
+          {specimen.clinicViews && !recall && (
+            <div className="vmx-atlas-clinic" role="group" aria-label="มุมมองคลินิก">
+              <span className="vmx-atlas-eyebrow">
+                <GraduationCap size={14} aria-hidden="true" />
+                มุมมองคลินิก
+              </span>
+              {specimen.clinicViews.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  disabled={!ready}
+                  aria-pressed={clinicView === preset.id}
+                  onClick={() => runClinic(preset.id)}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+          )}
           <div className="vmx-atlas-stage-footer">
             <span>
               {staticMode
@@ -717,6 +752,34 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                   aria-label="ระดับการเปิดผิวโมเดล"
                 />
               </label>
+              {specimen.clinicViews && cut > 0 && (
+                <div className="vmx-atlas-cut-axis" role="group" aria-label="แนวหน้าตัด">
+                  <span>แนวหน้าตัด</span>
+                  {[
+                    ['x', 'ซ้าย–ขวา'],
+                    ['y', 'หัว–หาง'],
+                    ['z', 'หลัง–ท้อง'],
+                  ].map(([axis, label]) => (
+                    <button
+                      key={axis}
+                      type="button"
+                      disabled={!ready || recall}
+                      aria-pressed={cutAxis === axis}
+                      onClick={() => setCutAxis(axis)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    disabled={!ready || recall}
+                    aria-pressed={cutSide === -1}
+                    onClick={() => setCutSide((side) => -side)}
+                  >
+                    สลับด้าน
+                  </button>
+                </div>
+              )}
               <p>การเปิดผิวช่วยดูช่องว่างในโมเดล ไม่ใช่ภาพ CT ตัดขวางหรือข้อมูลเนื้อเยื่อภายใน</p>
             </div>
           </details>
