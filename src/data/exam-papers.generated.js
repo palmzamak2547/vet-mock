@@ -38,3 +38,17 @@ export const SUBJECT_PAPERS = Object.freeze({
 /** Years whose exam timetable is published, so "not listed here" means "sits
  *  no written paper" rather than "we have not got that year's timetable". */
 export const PAPER_COVERED_YEARS = Object.freeze([4, 5]);
+
+/** When each year's papers run, epoch ms on Bangkok's clock: the first
+ *  paper's day at 00:00 to the end of the last paper. lib/current-phase.js
+ *  reads this, so the boot chunk never loads the timetable itself. */
+export const PAPER_WINDOWS = Object.freeze({
+  4: {
+    midterm: [1789923600000, 1790326800000], // 2026-09-21 00:00 to 2026-09-25 16:00
+    final: [1795366800000, 1796268600000], // 2026-11-23 00:00 to 2026-12-03 10:30
+  },
+  5: {
+    midterm: [1789923600000, 1790310600000], // 2026-09-21 00:00 to 2026-09-25 11:30
+    final: [1795366800000, 1796358600000], // 2026-11-23 00:00 to 2026-12-04 11:30
+  },
+});

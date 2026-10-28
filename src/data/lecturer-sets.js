@@ -30,9 +30,7 @@
 // one deck). `alsoTopics` are topics that belong to the lecturer's part but have
 // no deck of their own to show.
 // ============================================================
-
-/** The exam these sets are for. A set only shows while this is the scope. */
-export const LECTURER_SET_SCOPE = { year: 5, phase: '1-mid' };
+import { paperContent } from '../lib/current-phase.js';
 
 export const FORMAT_LABEL = {
   tf: 'ถูกผิด',
@@ -42,7 +40,8 @@ export const FORMAT_LABEL = {
   all: 'ทุกประเภท',
 };
 
-export const LECTURER_SETS = {
+// ปี 5 เทอม 1 กลางภาค. Registered per paper in LECTURER_SETS_BY_PAPER below.
+const Y5_MIDTERM = {
   // One Health 3109502 — timetable in the students' course file (ONE HEALTH
   // MID 86, page 2): six Wednesday sessions 5 ส.ค. to 16 ก.ย., midterm the
   // week of 21 ก.ย. What each lecturer said about the paper comes from the
@@ -847,11 +846,46 @@ export const LECTURER_SETS = {
   },
 };
 
-/** Whether this subject has a lecturer set for the scope the student is in. */
-export function hasLecturerSet(subjectId, selectedYear, selectedPhase) {
-  return Boolean(LECTURER_SETS[subjectId])
-    && Number(selectedYear) === LECTURER_SET_SCOPE.year
-    && selectedPhase === LECTURER_SET_SCOPE.phase;
+/**
+ * The sets, per paper: the term of the timetable (SEMESTER.id), then year,
+ * then phase (lib/current-phase.js), then subject. A set shows while its paper
+ * is the one in scope. A term with none for that paper shows the newest earlier
+ * term's set of the same kind, labelled with its year (its dates, counts and
+ * formats are that year's), until this term's goes in as one more key.
+ */
+export const LECTURER_SETS_BY_PAPER = {
+  '2569-1': { 5: { '1-mid': Y5_MIDTERM } },
+};
+
+/** This subject's set for one paper, this term's or the newest earlier one of
+ *  the same kind, with `source: { term, own }`; or null. */
+export function lecturerSetFor(subjectId, selectedYear, selectedPhase, now = new Date()) {
+  const hit = paperContent(LECTURER_SETS_BY_PAPER, subjectId, selectedYear, selectedPhase, now);
+  return hit ? { ...hit.value, source: { term: hit.term, own: hit.own } } : null;
+}
+
+/** This subject's set for one paper of one given term, or null: a wrap-up reads
+ *  the formats of the set from its own term, never another year's. */
+export function lecturerSetIn(term, subjectId, selectedYear, selectedPhase) {
+  return LECTURER_SETS_BY_PAPER[term]?.[selectedYear]?.[selectedPhase]?.[subjectId] || null;
+}
+
+export function hasLecturerSet(subjectId, selectedYear, selectedPhase, now = new Date()) {
+  return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase, now));
+}
+
+/** Every term's sets (of one subject, or all), for what does not depend on
+ *  the paper: a lecturer's name, the session a recording is. */
+export function allLecturerSets(subjectId = null) {
+  const out = [];
+  for (const years of Object.values(LECTURER_SETS_BY_PAPER)) {
+    for (const papers of Object.values(years)) {
+      for (const sets of Object.values(papers)) {
+        for (const [id, set] of Object.entries(sets)) if (!subjectId || id === subjectId) out.push(set);
+      }
+    }
+  }
+  return out;
 }
 
 /** Every topic id in a lecturer's part of the paper, decks and alsoTopics alike. */

@@ -131,9 +131,10 @@ test('B09: after the midterms end the picker recommends the final', () => {
   assert.equal(detectCurrentPhase(at('2026-09-25T10:00:00+07:00'), 5), '1-mid', 'the zoonoses paper is still being sat');
   assert.equal(detectCurrentPhase(at('2026-09-25T12:00:00+07:00'), 5), '1-final', 'year 5 sat its last midterm at 11:30');
   assert.equal(detectCurrentPhase(at('2026-09-25T12:00:00+07:00'), 4), '1-mid', 'year 4 sits food safety at 13:00');
-  assert.equal(detectCurrentPhase(at('2026-10-15T10:00:00+07:00'), 2), '1-final', 'a year without a timetable follows the faculty exam periods');
+  // Only a timetable picks a paper (Palm, 28 Oct: next year with nothing updated must not hide questions).
+  assert.equal(detectCurrentPhase(at('2026-10-15T10:00:00+07:00'), 2), null, 'a year without a timetable is recommended no paper');
   assert.equal(detectCurrentPhase(at('2026-08-10T10:00:00+07:00'), 5), '1-mid', 'the start of term looks ahead to the midterm');
-  assert.equal(detectCurrentPhase(at('2027-01-15T10:00:00+07:00'), 5), '2-mid', 'past the timetable the month heuristic answers');
+  assert.equal(detectCurrentPhase(at('2027-01-15T10:00:00+07:00'), 5), null, 'past the timetable nothing is guessed from the month');
   for (const [name, src] of [['PhaseSelectView', PHASE], ['YearSelectView', YEAR]]) {
     assert.doesNotMatch(src, /detectCurrentPhase\(\)/, `${name} must pass the year it recommends for`);
   }

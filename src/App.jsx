@@ -22,6 +22,8 @@ const notesReturnFrom = (state) => ({
   path: typeof state?.vmxNotesPath === 'string' ? state.vmxNotesPath : null,
 });
 import { useLocalStorage } from './hooks/useStorage.js';
+import { useSelectedPhase } from './hooks/useSelectedPhase.js';
+import { contentPhase } from './lib/current-phase.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
@@ -652,7 +654,14 @@ export default function App() {
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
   // semesters of the year (used as fallback for Y6 which is block-based).
-  const [selectedPhase, setSelectedPhase] = useLocalStorage('vmx-selected-phase', null);
+  // The paper every view narrows by comes from one rule (lib/current-phase.js
+  // phaseState, through hooks/useSelectedPhase.js): null whenever nothing is
+  // narrowed, including when the timetable has no paper to back the pick.
+  // phaseStatus says why, for the lines that tell the student.
+  const [selectedPhase, setSelectedPhase, phaseStatus] = useSelectedPhase(selectedYear);
+  // The paper whose wrap-up, lecturer set and panic card the pages show: the
+  // paper narrowed to, else the kept pick when nothing can be narrowed.
+  const paperPhase = contentPhase(phaseStatus);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
   // Voice-settings modal — triggered from CommandPalette "Voice Settings"
@@ -1494,7 +1503,8 @@ export default function App() {
     if (saved.mode) setMode(saved.mode);
     if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
     if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
-    if ('selectedPhase' in saved) setSelectedPhase(saved.selectedPhase);
+    // null means nothing was narrowed then; it must not erase the kept pick.
+    if (saved.selectedPhase) setSelectedPhase(saved.selectedPhase);
     if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
     if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
     setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
@@ -1901,6 +1911,9 @@ export default function App() {
       ? new Set(overrides.onlyTopics)
       : null;
     const _onlyPastPaper = overrides.onlyPastPaper === true;
+    // A lecturer card or wrap-up names its own paper: its set is served on the
+    // paper its count was printed from.
+    const _selectedPhase = 'selectedPhase' in overrides ? overrides.selectedPhase : selectedPhase;
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
@@ -1952,7 +1965,7 @@ export default function App() {
       topic: _topic,
       questionCategory: _questionCategory,
       selectedYear,
-      selectedPhase,
+      selectedPhase: _selectedPhase,
       onlyTopics: _onlyTopics,
       onlyPastPaper: _onlyPastPaper,
       bookmarks,
@@ -2962,6 +2975,7 @@ export default function App() {
       numQuestions: wanted || PANIC_SUBJECT_MAX,
       useTimer: category !== 'writing',
       timePerQ: category === 'tf' ? 45 : 60,
+      selectedPhase: paperPhase,
     });
   };
   // The pre-exam wrap-up of one subject (WrapUpView). The subject is set so
@@ -2976,7 +2990,12 @@ export default function App() {
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
   const landingPickSubject = (year, subjectId) => {
     try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
-    if (year != null) setSelectedYear(year);
+    // A pick belongs to the year it was made for, so another year starts with
+    // none rather than re-reading this one's (lib/current-phase.js).
+    if (year != null) {
+      if (Number(year) !== Number(selectedYear)) setSelectedPhase(null);
+      setSelectedYear(year);
+    }
     setMode('quick');
     setPracticeMode('all');
     setSubject(subjectId);
@@ -3092,6 +3111,7 @@ export default function App() {
               selectedYear={selectedYear}
               selectedYearStored={selectedYearStored}
               selectedPhase={selectedPhase}
+              phaseStatus={phaseStatus}
               setPaletteOpen={setPaletteOpen}
               bookmarks={bookmarks}
               setPracticeMode={setPracticeMode}
@@ -3173,14 +3193,14 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -3191,7 +3211,8 @@ export default function App() {
                   goBack={() => setView('topic-select')}
                   onStartTopic={startLecturerPractice}
                   onOpenDoc={openLibraryReader}
-                  selectedPhase={selectedPhase}
+                  selectedYear={selectedYear}
+                  selectedPhase={paperPhase}
                 />
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
@@ -3235,7 +3256,7 @@ export default function App() {
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}
-              {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
+              {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView, phaseStatus }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, setView, onSignedOut: goHome }} />}

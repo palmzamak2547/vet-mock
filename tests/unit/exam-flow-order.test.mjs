@@ -113,7 +113,7 @@ function appAt(state = {}) {
     offerBankRetry: async () => false,
     mode: 'quick', subject: 'all', topic: null, practiceMode: 'all', questionCategory: 'all',
     numQuestions: 10, useTimer: true, timePerQ: 60, panicPending: false,
-    selectedYear: 5, selectedPhase: null,
+    selectedYear: 5, selectedPhase: null, paperPhase: null,
     customQuestions: [], bookmarks: [], analytics: null, history: [], QB: [],
     finishingRef: { current: false },
     examStartRequestRef: { current: null }, examStartContextRef: { current: 'config' },
@@ -253,6 +253,19 @@ function hookAt(props) {
   });
   return vm.runInContext(`${src}\nuseExamSession`, ctx)(props);
 }
+
+test('a lecturer set draws from the paper its set belongs to, even when nothing is narrowed', async () => {
+  // No timetable: the exam filter is off, but the set on screen is the kept
+  // pick's, so the pool is that paper's too.
+  let phase;
+  const app = appAt({
+    QB: [tfItem], selectedPhase: null, paperPhase: '1-mid',
+    buildExamPool: (args) => { phase = args.selectedPhase; return [tfItem]; },
+  });
+  app.startLecturerPractice(LECTURER);
+  await app.started();
+  assert.equal(phase, '1-mid');
+});
 
 test('the clock a launcher names is the clock the session runs and saves', async () => {
   // App builds the hook with sessionBudget from `mode`; a stale 'exam' is the

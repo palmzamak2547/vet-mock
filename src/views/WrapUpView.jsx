@@ -15,7 +15,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { loadWrapUp, selfNumbered } from '../data/exam-wrapups.js';
-import { LECTURER_SETS, FORMAT_LABEL } from '../data/lecturer-sets.js';
+import { lecturerSetIn, FORMAT_LABEL } from '../data/lecturer-sets.js';
+import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { oldContentLine, oldYearTag, termYearLabel } from '../lib/current-phase.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
@@ -34,9 +36,11 @@ const anchorId = (topic, n) => `wrap-${topic}-${n}`;
 
 // What the lecturer sets know about each topic: the deck's cover, its
 // library slug and the format that part of the paper takes.
-function deckIndex(subject) {
+// The set filed beside the wrap-up, in the same term: another year's formats
+// must not stand behind this year's page, nor this year's behind an old one.
+function deckIndex(subject, year, phase, term) {
   const map = new Map();
-  for (const lec of LECTURER_SETS[subject]?.lecturers || []) {
+  for (const lec of (term ? lecturerSetIn(term, subject, year, phase) : null)?.lecturers || []) {
     for (const s of lec.sessions) {
       for (const deck of s.decks) {
         for (const topic of deck.topics) {
@@ -73,7 +77,7 @@ const readMode = () => {
   try { return localStorage.getItem(MODE_KEY) === 'keys' ? 'keys' : 'full'; } catch { return 'full'; }
 };
 
-export default function WrapUpView({ subject, subjectName = '', goBack, onStartTopic = null, onOpenDoc = null, selectedPhase = '1-mid' }) {
+export default function WrapUpView({ subject, subjectName = '', goBack, onStartTopic = null, onOpenDoc = null, selectedYear = null, selectedPhase = null }) {
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
   const [mode, setMode] = useState(readMode);
@@ -85,13 +89,13 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     let live = true;
     setData(null);
     setFailed(false);
-    loadWrapUp(subject)
+    loadWrapUp(subject, selectedYear, selectedPhase)
       .then((w) => { if (live) { if (w) setData(w); else setFailed(true); } })
       .catch(() => { if (live) setFailed(true); });
     return () => { live = false; };
-  }, [subject]);
+  }, [subject, selectedYear, selectedPhase]);
 
-  const decks = useMemo(() => deckIndex(subject), [subject]);
+  const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase, data?.source?.term), [subject, selectedYear, selectedPhase, data?.source?.term]);
   const covers = LECTURE_COVERS[subject] || {};
   const kindTable = Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE[selectedPhase]?.[subject] || {};
 
@@ -146,7 +150,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
       <BackBar onBack={goBack} label="หน้าหัวข้อ" />
 
       <header className="vmx-wrap-hero">
-        <div className="vmx-wrap-eyebrow">Wrap-up กลางภาค</div>
+        <div className="vmx-wrap-eyebrow">Wrap-up {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)] || ''}</div>
+        {/* Another year's wrap-up: the exam date below and the emphasis are that year's. */}
+        {oldContentLine(data.source) && <p className="vmx-old-content">{oldContentLine(data.source)}</p>}
         <h1>{subjectName || subject}</h1>
         <div className="vmx-wrap-meta">
           <span className="vmx-wrap-pill">สอบ {thaiDate(data.exam?.date)} {data.exam?.time || ''}</span>
@@ -177,8 +183,8 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           <section key={g.id} className="vmx-wrap-group" aria-label={g.lecturer}>
             <header className="vmx-wrap-group-head">
               <h2>{g.lecturer}</h2>
-              <span className="vmx-lect-chip">{formatLabel}</span>
-              {g.formatNote && <p className="vmx-wrap-group-note">{g.formatNote}</p>}
+              <span className="vmx-lect-chip">{formatLabel}{oldYearTag(data.source)}</span>
+              {g.formatNote && <p className="vmx-wrap-group-note">{data.source?.own === false ? `${termYearLabel(data.source.term)}: ` : ''}{g.formatNote}</p>}
             </header>
 
             {g.items.map((it) => {

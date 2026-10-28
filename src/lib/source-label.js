@@ -12,7 +12,7 @@
 // unaffected. Anything this cannot recognise is returned untouched, because
 // an honest raw pointer beats a pretty guess.
 // ============================================================
-import { LECTURER_SETS } from '../data/lecturer-sets.js';
+import { allLecturerSets } from '../data/lecturer-sets.js';
 // Course name and date of every summarised clip, generated from
 // video-summaries-meta.js by scripts/regen-clip-labels.mjs. The meta itself is
 // about 270 KB and must not load with every question's source chip.
@@ -28,7 +28,7 @@ const thaiDate = (iso) => {
  *  timetabled sessions (One Health 9 and 16 ก.ย. share a video). */
 const SESSIONS = (() => {
   const map = new Map();
-  for (const set of Object.values(LECTURER_SETS)) {
+  for (const set of allLecturerSets()) {
     for (const lec of set.lecturers) {
       for (const s of lec.sessions) {
         if (!s.videoId) continue;

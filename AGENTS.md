@@ -321,6 +321,71 @@ Rules that follow from it, and they are not negotiable:
   ปลายภาค"* (what is excluded), never *"เฉพาะกลางภาค"* (that what remains is exhaustive),
   because unmapped topics are still shown. `audit-sense-fixes.test.mjs` pins both halves.
 
+**Which paper is current, and everything that follows it** (Palm, 2026-10-28: "สิ่งที่เรามีปัญหา
+ตลอดเรื่อง Vetmock ของเราเคยไม่ตรงกับกลางภาค ปลายภาค ปัจจุบัน วันนี้ต้องแก้ไขให้หมดสิ้นไปครับ", then
+"อย่าให้logic เพี้ยนหรือขัดกัน เช่น พอไปปีหน้าและผมไม่ได้ททำเพิ่มแล้ว กลายเป็นว่าคนไม่เห็นข้อสอบเลย",
+and "ถ้าช่วงสอบที่ระบบเลือกไม่มีข้อมูลในตารางสอบ ให้ไม่กรองเลย คือเห็นทุกข้อ ทำได้แต่ต้องบอกดีๆ แยกชัดๆ").
+Until then a saved กลางภาค never moved, and the wrap-ups, lecturer sets and panic cards were
+pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they showed nothing.
+
+- **Only the timetable picks a paper.** `timetableStatus(year, now)` in `src/lib/current-phase.js`:
+  the paper whose last exam has not ended, from that year's own timetable on Bangkok's clock
+  (`PAPER_WINDOWS` in `exam-papers.generated.js`, so the boot chunk never loads schedule.js).
+  Neither SEMESTER's exam periods nor the month picks one. With no paper still to come the
+  status says why: `no-timetable` (no table for the year), `term-over` (every paper sat, the next
+  term's table not in), `stale-year` (150 days past the last paper: a past year's table).
+- **One answer for every surface.** `phaseState({ saved, anchor }, year, now)` returns
+  `{ phase, filtered, reason, current, advancedFrom }`. App keeps the pick with
+  `hooks/useSelectedPhase.js` and hands every view `selectedPhase` = the phase when `filtered`,
+  else null, so practice sets, counts, the badge and the three registries cannot disagree.
+  Reasons: `timetable`, `student-choice`, `not-chosen` (no pick), and the three statuses above,
+  which narrow nothing.
+- **A saved pick follows it, and data never empties a set.** A pick whose paper is over moves to
+  the current paper, and Home says so in one line (`movedNotice`: "...สอบไปแล้ว" only when the
+  timetable shows that paper over, else "ตามตารางสอบ"). A pick for the current paper or one
+  ahead stays, and a finished paper picked to revise stays while the paper current then still
+  is. With no paper still to come in the timetable nothing is narrowed, whoever picked and when:
+  last year's table and topic scopes never filter this year's cohort. The pick is kept, so it
+  moves on by itself once a table is in. A pick saved before anchors existed that this term's
+  table has no window for (a term-2 pick under term 1's table) is read as last school year's and
+  follows the timetable. `vmx-phase-anchor` is `{ at, term }`: when the pick was made, against
+  which SEMESTER. Choosing another year on the landing page starts that year with no pick.
+- **Not split is never silent.** `unsplitNotice(state)` is the one line, for every state the
+  timetable cannot back, with or without a pick: Home shows it under the subject header, and the
+  header pill reads ไม่แยกช่วงสอบ on every page with a header. ปี 6 (rotations) has no papers and
+  no line. Under a paper, a topic whose paper nobody recorded keeps its place and is tagged
+  ยังไม่ระบุช่วงสอบ. The phase screen's badge reads the same state as every other page.
+- **Content is kept per paper, per term, and last year's is never thrown away.** `WRAPUPS`
+  (exam-wrapups.js), `LECTURER_SETS_BY_PAPER` (lecturer-sets.js) and `PANIC_CARD_PAPERS`
+  (panic-cards.js) are keyed term (SEMESTER.id), then year, then phase. `paperContent` returns this
+  term's entry for the paper, else the newest earlier term's for the same paper, with
+  `{ term, own }`; a later term's entry replaces it the moment it is filed (Palm, 29 Oct, "อ้าว" at
+  hiding it). Content that is not `own` (another school year's: this year is the later of
+  SEMESTER's and the calendar's, which turns on 1 August) carries
+  `oldContentLine`, "จากปีการศึกษา 2569 (รุ่นก่อน) อาจไม่ตรงกับปีนี้", and its paper-bound facts show
+  their year: the lecturer-set intro leads with the year and dates the exam, the wrap-up's exam
+  date prints its year. The paper whose content a page shows is `contentPhase(state)`: the paper
+  narrowed to, else the kept pick, so a pick in a no-data year still opens its paper's content
+  (and its practice buttons serve on that paper, as their counts are printed). The final's content
+  is one more key and no code; a paper with no entry anywhere hides only that section. Read them
+  through `wrapUpFor`, `loadWrapUp`, `lecturerSetFor` and `panicCardPaper` (or their `has*`), and
+  name the paper in copy through `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค.
+  Home's "ไม่มีสอบ..." on a card is claimed only for a paper the timetable holds.
+- **The back office shows the state.** `/app/admin` → ช่วงสอบ (`lib/exam-period-report.js`): each
+  year's status, its papers, the moment the next term's table is needed, what to fill in, which
+  year's wrap-ups, lecturer sets and panic cards each paper uses, and per subject the topics with
+  no paper (this term's subjects named, the other term's counted). It is a page, never a CI check
+  that fails by the calendar.
+- **Guards.** `tests/unit/exam-period-matrix.test.mjs` (saved pick × eight moments from Sep 2026 to
+  Feb 2028 with nothing updated × years 5, 4, 2: the paper, the badge, the line, a non-empty set
+  for every subject that has questions, and the same matrix under TZ=UTC, Bangkok and Los
+  Angeles); `exam-period-foundation.test.mjs` (a single-paper scope in a registry or reader, a
+  label that hard-codes the paper, timetable rows outside SEMESTER's periods); `lint:exam-scope`
+  (every topic of a subject with a paper still ahead, and `audit-scope-contradictions.mjs --check`,
+  midterm against final, budget 10, may only shrink); `tests/e2e/phase-advance.spec.js`.
+- **A new term:** the `vetmock-new-term` skill. In short: SEMESTER and EXAM_SCHEDULE together,
+  `npm run regen:exam-papers`, then the topics' `examScope`, then check /app/admin → ช่วงสอบ.
+
 ---
 
 ## 🔀 Gitflow & parallel harnesses

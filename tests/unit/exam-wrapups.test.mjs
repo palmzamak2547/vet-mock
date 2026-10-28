@@ -3,8 +3,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { WRAPUP_SUBJECTS, WRAPUP_SCOPE, hasWrapUp, loadWrapUp, selfNumbered, wrapUpStillAhead } from '../../src/data/exam-wrapups.js';
-import { LECTURER_SETS } from '../../src/data/lecturer-sets.js';
+import { WRAPUPS, wrapUpPapers, hasWrapUp, wrapUpFor, loadWrapUp, selfNumbered, wrapUpStillAhead } from '../../src/data/exam-wrapups.js';
+import { lecturerSetFor } from '../../src/data/lecturer-sets.js';
+import { PHASES } from '../../src/lib/current-phase.js';
+import { SEMESTER } from '../../src/data/semester.js';
+
+// A moment inside the term the content is filed under, so these never depend on the day CI runs.
+const IN_TERM = new Date('2026-10-28T23:00:00+07:00');
+const TERM = WRAPUPS[SEMESTER.id] || {};
 import * as curriculum from '../../src/data/curriculum.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
@@ -26,22 +32,31 @@ function topicsOf(subject) {
 }
 
 test('a wrap-up shows only for the paper it was written for', () => {
-  for (const s of WRAPUP_SUBJECTS) {
-    assert.equal(hasWrapUp(s, WRAPUP_SCOPE.year, WRAPUP_SCOPE.phase), true);
-    assert.equal(hasWrapUp(s, WRAPUP_SCOPE.year, '1-final'), false);
-    assert.equal(hasWrapUp(s, 4, WRAPUP_SCOPE.phase), false);
+  const papers = wrapUpPapers();
+  assert.ok(papers.length >= 9);
+  for (const { year, phase, subject } of papers) {
+    assert.equal(hasWrapUp(subject, year, phase, IN_TERM), true);
+    for (const other of PHASES.map((p) => p.id)) {
+      assert.equal(hasWrapUp(subject, year, other, IN_TERM), Boolean(TERM[year][other]?.[subject]), `${subject} on ${other}`);
+    }
+    assert.equal(hasWrapUp(subject, year + 1, phase, IN_TERM), Boolean(TERM[year + 1]?.[phase]?.[subject]));
+    // Past the term, a past year's table: the wrap-up still opens, marked as that year's.
+    assert.deepEqual(wrapUpFor(subject, year, phase, new Date('2027-08-15T10:00:00+07:00'))?.own, false);
   }
-  assert.equal(hasWrapUp('no-such-subject'), false);
+  assert.equal(hasWrapUp('no-such-subject', 5, '1-mid', IN_TERM), false);
+  assert.equal(hasWrapUp('zoonoses'), false, 'no paper named, no wrap-up');
 });
 
-for (const subject of WRAPUP_SUBJECTS) {
-  test(`${subject}: every item is a curriculum topic of a lecturer in the set, sourced, and clean`, async () => {
-    const w = await loadWrapUp(subject);
+for (const { year, phase, subject } of wrapUpPapers()) {
+  test(`${subject} ${phase}: every item is a curriculum topic of a lecturer in the set, sourced, and clean`, async () => {
+    const w = await loadWrapUp(subject, year, phase);
+    const set = lecturerSetFor(subject, year, phase);
     assert.ok(w, 'loads');
+    assert.ok(set, 'the same paper has a lecturer set');
     assert.equal(w.subject, subject);
-    assert.equal(w.exam.date, LECTURER_SETS[subject].examDate, 'exam date matches the lecturer set');
+    assert.equal(w.exam.date, set.examDate, 'exam date matches the lecturer set');
     const topics = topicsOf(subject);
-    const lecturerIds = new Set(LECTURER_SETS[subject].lecturers.map((l) => l.id));
+    const lecturerIds = new Set(set.lecturers.map((l) => l.id));
     assert.ok(w.groups.length >= 1);
     let items = 0;
     for (const g of w.groups) {
@@ -71,8 +86,8 @@ test('a list the lecturer numbered is not numbered twice', () => {
 });
 
 test('no shipped keyword glues a heading onto its first list item', async () => {
-  for (const subject of WRAPUP_SUBJECTS) {
-    const w = await loadWrapUp(subject);
+  for (const { year, phase, subject } of wrapUpPapers()) {
+    const w = await loadWrapUp(subject, year, phase);
     for (const g of w.groups) {
       for (const it of g.items) {
         for (const k of it.keywords) {
@@ -155,8 +170,8 @@ test('every question a wrap-up cites is live, and "ข้อสอบเก่�
   const byId = await bankById();
   const faults = [];
   let cites = 0;
-  for (const subject of WRAPUP_SUBJECTS) {
-    const w = await loadWrapUp(subject);
+  for (const { year, phase, subject } of wrapUpPapers()) {
+    const w = await loadWrapUp(subject, year, phase);
     cites += wrapUpCites(JSON.stringify(w)).length;
     faults.push(...wrapUpCiteFaults(w, byId).map((f) => `${subject}: ${f}`));
   }
@@ -166,7 +181,7 @@ test('every question a wrap-up cites is live, and "ข้อสอบเก่�
 
 test('deleting a question a wrap-up cites fails that check', async () => {
   const byId = await bankById();
-  const w = await loadWrapUp('milk-meat-hygiene');
+  const w = await loadWrapUp('milk-meat-hygiene', 5, '1-mid');
   const [first] = wrapUpCites(JSON.stringify(w));
   assert.ok(first, 'the milk wrap-up cites questions');
   assert.deepEqual(wrapUpCiteFaults(w, byId).filter((f) => f.includes(` ${first.id} `)), []);

@@ -31,7 +31,7 @@ test('UI-22: the LecturerSets fallback is a skeleton, not a bare loading line', 
 });
 
 test('UI-22: the skeleton reserves one card per lecturer in the set, in the real card classes', () => {
-  assert.match(view, /const lecturerCount = LECTURER_SETS\[subject\]\?\.lecturers\?\.length \|\| 1;/);
+  assert.match(view, /const lecturerCount = lecturerSetFor\(subject, selectedYear, paperPhase\)\?\.lecturers\?\.length \|\| 1;/);
   const fn = view.slice(view.indexOf('function LecturerSetsSkeleton'));
   assert.ok(fn.length > 0, 'LecturerSetsSkeleton is gone');
   const body = fn.slice(0, fn.indexOf('\n}\n'));

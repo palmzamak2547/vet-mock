@@ -10,11 +10,7 @@
 // Pure helpers here. The poster is drawn by lib/share-card/phase-card.js
 // and shown by <PhaseWrappedView />.
 //
-// Phase ID convention (mirrors PhaseSelectView's PHASES):
-//   '1-mid'   · เทอม 1 กลางภาค · sem 1 midterm  · months 8-10
-//   '1-final' · เทอม 1 ปลายภาค · sem 1 final    · months 11-12
-//   '2-mid'   · เทอม 2 กลางภาค · sem 2 midterm  · months 2-3
-//   '2-final' · เทอม 2 ปลายภาค · sem 2 final    · months 4-5
+// Phase ids and their months are lib/current-phase.js PHASES, the one table.
 //
 // A "completed" phase = today is AFTER the last exam date for
 // that phase. We surface its wrapped card until the user dismisses
@@ -26,17 +22,16 @@
 
 import { EXAM_SCHEDULE } from '../data/schedule.js';
 import { CURRENT_YEAR } from '../data/curriculum.js';
+import { PHASES } from './current-phase.js';
 
 // ── Phase metadata ────────────────────────────────────────────
-// Months mirror PhaseSelectView's heuristic. Ordering matters for
-// "current phase" detection — first match wins, but we also fall
-// back gracefully when today lands between phases.
-export const PHASE_DEFS = [
-  { id: '1-mid',   label: 'เทอม 1 กลางภาค', months: [8, 9, 10],  semester: 1, kind: 'mid'   },
-  { id: '1-final', label: 'เทอม 1 ปลายภาค', months: [11, 12],    semester: 1, kind: 'final' },
-  { id: '2-mid',   label: 'เทอม 2 กลางภาค', months: [1, 2, 3],   semester: 2, kind: 'mid'   },
-  { id: '2-final', label: 'เทอม 2 ปลายภาค', months: [4, 5],      semester: 2, kind: 'final' },
-];
+// The one phase table (lib/current-phase.js). The recap groups papers into
+// phases by its months and, past a finished phase's window, recaps the phase
+// whose months hold today: a look back, where current-phase.js answers which
+// paper is ahead.
+export const PHASE_DEFS = PHASES.map(({ id, label, months, semester, scope }) => (
+  { id, label, months, semester, kind: scope === 'midterm' ? 'mid' : 'final' }
+));
 
 // Window (in days) after a phase ends during which the wrapped
 // banner stays visible. 21 days lets returning users still see

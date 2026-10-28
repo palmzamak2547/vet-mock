@@ -51,7 +51,7 @@
     "lint:answer-voice": "node scripts/lint-answer-voice.mjs",
     "lint:art": "node scripts/lint-art.mjs",
     "lint:og": "node scripts/lint-og.mjs",
-    "lint:exam-scope": "node scripts/lint-exam-scope.mjs && node scripts/regen-exam-papers.mjs --check",
+    "lint:exam-scope": "node scripts/lint-exam-scope.mjs && node scripts/regen-exam-papers.mjs --check && node scripts/audit-scope-contradictions.mjs --check",
     "lint:provenance": "node scripts/lint-provenance.mjs",
     "regen:exam-papers": "node scripts/regen-exam-papers.mjs",
     "lint:glossary": "node scripts/lint-glossary.mjs",

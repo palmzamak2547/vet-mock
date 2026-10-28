@@ -552,17 +552,15 @@ test('the home screen folds its two coaching surfaces into one row', () => {
 // ── Panic cards, 2026-09-13 ────────────────────────────────────────────────
 
 test('every panic card names a real subject and agrees with its course code', async () => {
-  const { PANIC_CARDS, PANIC_CARD_SCOPE, PANIC_CARDS_NOT_EXAMINED } =
-    await import('../../src/data/panic-cards.js');
-  const inScope = (SUBJECTS_BY_YEAR[PANIC_CARD_SCOPE.year] || [])
-    .filter((s) => s.semester === PANIC_CARD_SCOPE.semester);
-  const byId = new Map(inScope.map((s) => [s.id, s]));
+  const { PANIC_CARDS, PANIC_CARD_PAPERS } = await import('../../src/data/panic-cards.js');
+  const { PHASES } = await import('../../src/lib/current-phase.js');
+  const all = new Map(Object.values(SUBJECTS_BY_YEAR).flat().map((s) => [s.id, s]));
 
   // The code is printed on the artwork AND stored in the curriculum. Two
   // copies of one fact drift; a student reads both.
   for (const [id, card] of Object.entries(PANIC_CARDS)) {
-    const subject = byId.get(id);
-    assert.ok(subject, `${id} must be a subject taught in the card's own term`);
+    const subject = all.get(id);
+    assert.ok(subject, `${id} must be a real subject`);
     assert.equal(String(card.code), String(subject.code),
       `${id}: the card says ${card.code}, the curriculum says ${subject.code}`);
     assert.match(card.paper, /^#[0-9a-f]{6}$/i);
@@ -570,16 +568,29 @@ test('every panic card names a real subject and agrees with its course code', as
     assert.ok(card.en && card.th, `${id} needs both titles for its accessible name`);
   }
 
-  // A subject is either carded or deliberately not examined. Nothing may be
-  // simply absent, which is how a subject quietly loses its card.
-  const excused = new Set(PANIC_CARDS_NOT_EXAMINED);
-  for (const s of inScope) {
-    assert.ok(PANIC_CARDS[s.id] || excused.has(s.id),
-      `${s.id} is taught this term with neither a card nor a place on the not-examined list`);
-  }
-  for (const id of excused) {
-    assert.ok(!PANIC_CARDS[id], `${id} cannot be both carded and not examined`);
-    assert.ok(byId.has(id), `${id} is marked not-examined but is not taught this term`);
+  // On every paper that shows cards, a subject of that term is either carded
+  // or deliberately not examined. Nothing may be simply absent, which is how a
+  // subject quietly loses its card.
+  for (const [year, phases] of Object.values(PANIC_CARD_PAPERS).flatMap((years) => Object.entries(years))) {
+    for (const [phase, { cards, noCard }] of Object.entries(phases)) {
+      const semester = PHASES.find((p) => p.id === phase)?.semester;
+      assert.ok(semester, `${phase} is a phase`);
+      const inScope = (SUBJECTS_BY_YEAR[year] || []).filter((s) => s.semester === semester);
+      const byId = new Map(inScope.map((s) => [s.id, s]));
+      const excused = new Set(noCard);
+      for (const id of cards) {
+        assert.ok(PANIC_CARDS[id], `${phase}: ${id} is listed but has no card`);
+        assert.ok(byId.has(id), `${phase}: ${id} is not taught that term`);
+      }
+      for (const s of inScope) {
+        assert.ok(cards.includes(s.id) || excused.has(s.id),
+          `${phase}: ${s.id} is taught that term with neither a card nor a place on the no-card list`);
+      }
+      for (const id of excused) {
+        assert.ok(!cards.includes(id), `${phase}: ${id} cannot be both carded and on the no-card list`);
+        assert.ok(byId.has(id), `${phase}: ${id} is on the no-card list but is not taught that term`);
+      }
+    }
   }
 });
 
@@ -612,10 +623,8 @@ test('a panic session is scoped to its own subject', () => {
 
 test('the card shows only for the exam it was drawn for', () => {
   const view = src('src/views/TopicSelectView.jsx');
-  assert.ok(view.includes('Number(selectedYear) === PANIC_CARD_SCOPE.year'));
-  assert.ok(view.includes('selectedPhase === PANIC_CARD_SCOPE.phase'));
-  assert.ok(view.includes('panicCardFor(subject)'),
-    'a subject with no card must not render an empty slot');
+  assert.ok(view.includes('hasPanicCard(subject, selectedYear, paperPhase)'),
+    'the paper in scope decides, and a subject with no card must not render an empty slot');
   // Placement: before the tabs, or it is not the first thing on the screen.
   assert.ok(view.indexOf('vmx-panic-card-slot') < view.indexOf('className="vmx-section-tabs"'),
     'the card belongs above the tabs');
