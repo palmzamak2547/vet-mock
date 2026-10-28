@@ -30,7 +30,7 @@
 
 import { SUBJECTS } from '../../../src/data/curriculum.js';
 import { EXTERNAL_COURSES } from '../../../src/data/library-courses.js';
-import { clip } from './text.js';
+import { clip, stripBroken } from './text.js';
 
 const SITE = 'https://vetmock.com';
 const TIMEOUT_MS = 1400;
@@ -184,7 +184,7 @@ const inList = (values) => `(${values.map((v) => `"${String(v).replace(/["\\]/g,
 
 /** A snippet as the card shows it: one line, never garbled, marked when cut. */
 export function tidySnippet(s) {
-  let t = String(s || '').replace(/\s+/g, ' ').trim();
+  let t = stripBroken(s).replace(/\s+/g, ' ').trim();
   if (!t || garbled(t)) return '';
   // library_search returns a 200-character window from 60 before the match;
   // a full window started mid-text (a cut English word is dropped; Thai has
