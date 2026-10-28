@@ -10,6 +10,22 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
 
+## Succession and silent-breakage audit — 2026-10-28/29 (Claude Code)
+
+- **Runbook.** `docs/HANDOVER.md`, in Thai, for a successor who is not a developer. It covers accounts, the admin page, a calendar, the term and August rollover (with what students see when it is skipped), a fix per status row and the handover checklist. Update it when an account, a key or a rollover step changes.
+- **The admin card is the only alarm.** The app hides outside failures from students by design: device voice, no microphone, hidden connect buttons. `/app/admin` "ระบบภายนอก" reads `/api/system-status`, which is admin only (`isAdmin` in `api/_lib/app-backend.js`, checked before any probe). Checks live in `api/_lib/system-status.js`; add a row when a feature gains an outside dependency. Probe at real size: Premwadee passed a one-word synthesis while it dropped question stems.
+- **Edge read-aloud.**
+  - From 21 Oct the handshake needed Sec-MS-GEC v2. msedge-tts 2.1.1 brought English back on production (#102).
+  - After that, Premwadee dropped two-sentence Thai stems: 9 of 12 tries, with the server closing before turn.end after about 2.7 s. Niwat read them 6 of 6. #106 moves Thai to Niwat and waits on Palm, because it changes the voice to male.
+  - `tests/unit/api-hardening.test.mjs` pins the voice.
+- **Supabase is on the free plan**, which pauses a project after about a week idle. A daily Vercel cron calls `/api/ai-chat?warm=1`, which runs one `library_search`.
+- **Client error counts are consent-gated**, as PrivacyView promises, so zero is not health. On 28 Oct the pipeline was proven end to end: one probe row was written through the API and then deleted.
+- **Feedback mail** is sent from `onboarding@resend.dev`, which delivers only to the Resend account owner. `FEEDBACK_FROM` takes a verified domain's sender.
+- **Domain:** vetmock.com is at Cloudflare Registrar, expires 2027-09-25, and its DNSSEC DS is present. The 10-12 note that says "DS pending" is stale.
+- **Only on Palm's laptop:** `.mcv/` (the MyCourseVille pull) and `work/exam-content-pipeline/scripts/` (`ingest-wrapup.mjs`, `apply-fact-fixes.mjs`).
+- **Open, Palm's call:** iApp credit (0), a Cloudflare token with Workers AI for the microphone, Gemini credit (the dark Mochi voice), Drive and Notion OAuth credentials, Web Analytics (a cost), and handing over every account.
+- **Evidence:** the shared notes of the 28 Oct lanes (`succession-lane-findings.md`, `succession-inventory.md`, `wording-audit.md`), outside the repo. The rollover risks the inventory found in the phase rule (term rows, panic sets each August, wrap-ups returning) were sent to the exam-period lane.
+
 ## VetMock AI, ai.vetmock.com (research preview) — 2026-10-27/28 (Claude Code)
 
 - **Where.** `ai/` is its own Vite app (Vercel project `vetmock-ai`, root `ai`, git-linked to main, domain ai.vetmock.com by a Cloudflare CNAME); its CI check is "AI" (`.github/workflows/ai.yml`). The answer route `api/ai-chat.js` + `api/_lib/ai/*` and the microphone's `api/ai-transcribe.js` live in the main vetmock project, pinned to sin1 in `vercel.json`. Read `ai/README.md` and `ai/ARCHITECTURE.md` first. Shipped in #77, #78, #81, #84, #85.
