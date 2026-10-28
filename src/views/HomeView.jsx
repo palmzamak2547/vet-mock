@@ -1646,8 +1646,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     className="vmx-vitals-row"
                     title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? `, ${topMilestone.endTimeTh}` : ''}`}
                   >
+                    {/* The window's short name (schedule.js shortTh): the full
+                        title spent half the chip on "ภาคปลาย: ". The cap is the
+                        longest short name, so only a narrow rail cuts one. */}
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {truncateThai(topMilestone.titleTh, 20)}
+                      {truncateThai(topMilestone.shortTh || topMilestone.titleTh, 28)}
                     </span>
                     <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-rose-text)' }}>
                       {topMilestone.active

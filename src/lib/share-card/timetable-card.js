@@ -12,7 +12,7 @@
 // ============================================================
 
 import { createCard, rule, logoMark, picture, layoutProblems, FAMILY } from './kit.js';
-import { wrapLines } from '../canvas-wrap.js';
+import { wrapLines, inkMetrics } from '../canvas-wrap.js';
 
 /** A4 at 150 px per inch, drawn at SCALE (300 dpi). */
 export const A4 = {
@@ -25,15 +25,72 @@ const POINTS = { w: 595.28, h: 841.89 };
 // Smallest sizes on paper: 22 px is 10.6 pt, 20 px is 9.6 pt.
 const MIN = { thai: 22, latin: 20 };
 const FRAME = 40;
-const BODY_BOTTOM = 1466;
+export const BODY_BOTTOM = 1466;
 const NOTES_TOP = 1486;
 const SIGN_BASELINE = 1668;
-const WEEK_H = 58;
-const WEEK_GAP = 14;
 const VIGNETTE_X = 300;
+// The course code and about eighteen letters of the English name: what the
+// room line leaves on its line however long the room is.
+const LINE_TWO_MIN = 300;
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const THAI = /[฀-๿]/u;
+
+// A page with more papers than regular rows hold is set compact: a smaller
+// title closer to the rows, shorter week headers, and rows down to 60 px.
+// Below that two lines of 22 px Thai cannot clear each other: a stacked mark
+// (ชั่) stands 28 px above its baseline in WebKit, a vowel below (ุ) 8 px
+// under it.
+// `top`: the kicker's top; the issue stamp sits 4 below it. The regular
+// title is fitted to 680 px, so "ตารางสอบปลายภาค" sets at about 77.
+const HEAD = {
+  regular: { top: 150, title: 96, titleMin: 64, before: 30, after: 22 },
+  compact: { top: 136, title: 64, titleMin: 56, before: 18, after: 12 },
+};
+export const ROWS = {
+  regular: { min: 66, max: 118, weekH: 58, weekGap: 14, week: { size: 26, range: 24, base: 36, rule: 28 } },
+  compact: { min: 60, max: 66, weekH: 36, weekGap: 6, week: { size: 24, range: 22, base: 28, rule: 20 } },
+};
+
+/** Baselines (from the row's middle) and type sizes for a row `h` tall. */
+function rowStyle(h) {
+  if (h >= ROWS.regular.min) {
+    return {
+      lines: [-5, 27], date: [-5, 25], pad: 8,
+      numeral: clamp(Math.round(h * 0.54), 40, 62),
+      name: clamp(Math.round(h * 0.31), 25, 34),
+      time: clamp(Math.round(h * 0.29), 24, 31),
+    };
+  }
+  return { lines: [-4, 24], date: [-7, 23], pad: 4, numeral: clamp(Math.round(h * 0.54), 32, 40), name: 23, time: MIN.thai };
+}
+
+/**
+ * Where the rows go. `top` is where the body starts under the regular title
+ * and under the compact one ({ regular, compact }, or one number for both);
+ * `rows` papers in `weeks` week groups (a header each when there are two or
+ * more) share what is left above `bottom`. Regular rows when they fit, else
+ * compact ones; `fits` is false when even those pass `bottom`, and `end` is
+ * where the last row ends. `mode` forces one. Pure: numbers in, numbers out.
+ */
+export function rowMetrics({ top, bottom = BODY_BOTTOM, rows, weeks, mode }) {
+  const tops = typeof top === 'number' ? { regular: top, compact: top } : top;
+  const plan = (kind) => {
+    const r = ROWS[kind];
+    const headers = weeks > 1 ? weeks * r.weekH + (weeks - 1) * r.weekGap : 0;
+    const ideal = Math.floor((bottom - tops[kind] - headers) / Math.max(1, rows));
+    const h = clamp(ideal, r.min, r.max);
+    return {
+      compact: kind === 'compact', top: tops[kind], h, headers,
+      weekH: r.weekH, weekGap: r.weekGap, week: r.week,
+      end: tops[kind] + headers + rows * h, fits: ideal >= r.min,
+      ...rowStyle(h),
+    };
+  };
+  if (mode) return plan(mode);
+  const regular = plan('regular');
+  return regular.fits ? regular : plan('compact');
+}
 
 /**
  * WebKit lays the variable Thai serif out at the weight it is asked for but
@@ -82,14 +139,14 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 /** A small label on a tinted pill, right edge at `right`; returns its left edge. */
-function pill(card, str, right, baseline, { color, fill }) {
+function pill(card, str, right, baseline, { color, fill, padY = 8 }) {
   const style = { weight: 600, size: MIN.thai, color };
   card.style(style);
   const m = card.ctx.measureText(str);
   const pad = 12;
   const w = card.measure(str) + pad * 2;
-  const up = (m.actualBoundingBoxAscent ?? 18) + 8;
-  const down = (m.actualBoundingBoxDescent ?? 6) + 8;
+  const up = (m.actualBoundingBoxAscent ?? 18) + padY;
+  const down = (m.actualBoundingBoxDescent ?? 6) + padY;
   if (!card.dry) {
     card.ctx.fillStyle = fill;
     roundRect(card.ctx, right - w, baseline - up, w, up + down, (up + down) / 2);
@@ -127,18 +184,27 @@ function vignette(card, img, cover, cx, cy, d, past) {
   ctx.restore();
 }
 
-function drawRow(card, r, img, top, h, f, { showDate }) {
+/**
+ * One paper's row. Each line of the course text is bounded by the right
+ * column on its own line: the name by the session and time, the code and the
+ * English name by the room. Returns what had to be cut from what a student
+ * needs (the name, the room), for the layout check.
+ */
+function drawRow(card, r, img, top, m, { showDate, bold }) {
   const { ctx, pal } = card;
   const { left, right } = A4.live;
+  const { h } = m;
   const mid = top + h / 2;
+  const [one, two] = m.lines.map((dy) => mid + dy);
   const ink = r.past ? pal.soft : pal.ink;
+  const cut = [];
 
   // The paper's own colour as a thin bar: decoration, never text.
   if (r.color && !card.dry) {
     ctx.save();
     ctx.globalAlpha = r.past ? 0.4 : 1;
     ctx.fillStyle = r.color;
-    roundRect(ctx, left, top + 14, 5, h - 28, 2.5);
+    roundRect(ctx, left, top + Math.min(14, h * 0.2), 5, h - 2 * Math.min(14, h * 0.2), 2.5);
     ctx.fill();
     ctx.restore();
   }
@@ -146,43 +212,113 @@ function drawRow(card, r, img, top, h, f, { showDate }) {
   if (showDate) {
     // Day numerals right-aligned, so 1 and 30 end on one edge.
     const dayRight = left + 98;
-    card.text(String(r.day), dayRight, mid + f.numeral * 0.35, { weight: 800, size: f.numeral, family: FAMILY.numeral, color: ink, align: 'right' }, 'row');
-    card.text(r.weekday, dayRight + 14, mid - 5, { weight: 600, size: MIN.thai, color: ink }, 'row');
-    card.text(r.month, dayRight + 14, mid + 25, { weight: 500, size: MIN.thai, color: pal.soft }, 'row');
+    card.text(String(r.day), dayRight, mid + m.numeral * 0.35, { weight: 800, size: m.numeral, family: FAMILY.numeral, color: ink, align: 'right' }, 'row');
+    card.text(r.weekday, dayRight + 14, mid + m.date[0], { weight: 600, size: MIN.thai, color: ink }, 'row');
+    card.text(r.month, dayRight + 14, mid + m.date[1], { weight: 500, size: MIN.thai, color: pal.soft }, 'row');
   }
 
   const d = Math.min(86, h - 20);
   vignette(card, img, r.cover, VIGNETTE_X + d / 2, mid, d, r.past);
 
-  // The right column first: the course text takes what it leaves.
-  const timeStyle = { weight: 600, size: f.time, family: FAMILY.numeral, color: ink };
+  // The right column first; the course text takes what it leaves on each line.
+  const timeStyle = { weight: 600, size: m.time, family: FAMILY.numeral, color: ink };
   const subStyle = { weight: 500, size: MIN.thai, color: pal.soft };
-  const sub = [r.room, r.duration].filter(Boolean).join(', ');
-  const timeBox = textRight(card, r.time, right, mid - 5, timeStyle, 'row');
+  const codeStyle = { ...subStyle, weight: 600 };
+  const timeBox = textRight(card, r.time, right, one, timeStyle, 'row');
   const tag = r.past ? 'สอบแล้ว' : r.session;
   const tagLeft = tag
-    ? pill(card, tag, timeBox.left - 12, mid - 5, r.past
-      ? { color: pal.soft, fill: pal.faint }
-      : { color: r.session === 'เช้า' ? pal.sage : pal.gold, fill: pal.faint })
+    ? pill(card, tag, timeBox.left - 12, one, r.past
+      ? { color: pal.soft, fill: pal.faint, padY: m.pad }
+      : { color: r.session === 'เช้า' ? pal.sage : pal.gold, fill: pal.faint, padY: m.pad })
     : timeBox.left;
-  const subBox = textRight(card, sub, right, mid + 27, subStyle, 'row');
-  const column = Math.min(tagLeft, subBox.left);
 
   const x = VIGNETTE_X + d + 26;
-  const width = column - 28 - x;
-  const size = card.fit(r.name, width, { weight: 600, family: FAMILY.serif, max: f.name, min: MIN.thai });
-  line(card, r.name, x, mid - 5, width, { weight: 600, size, family: FAMILY.serif, color: ink, embolden: f.bold(size, 600, r.name) });
+  // The room line leaves the code and the start of the English name their
+  // width. Past that it drops the duration when the time already says it
+  // (13:00–16:00 is three hours), then is cut, and a cut room is a finding.
+  const codeW = r.code ? widthOf(card, r.code, codeStyle) : 0;
+  const enW = r.nameEn ? widthOf(card, r.nameEn, subStyle) : 0;
+  const keep = Math.min(LINE_TWO_MIN, codeW + (r.code && r.nameEn ? 14 : 0) + enW);
+  const room = roomLine(card, r, right - x - 28 - keep, subStyle, { compact: m.compact });
+  if (room.cut) cut.push(`the room "${r.room}" is cut to fit its line`);
+  const subLeft = room.text ? textRight(card, room.text, right, two, subStyle, 'row').left : right;
+
+  const nameWidth = tagLeft - 28 - x;
+  const size = card.fit(r.name, nameWidth, { weight: 600, family: FAMILY.serif, max: m.name, min: MIN.thai });
+  const name = line(card, r.name, x, one, nameWidth, { weight: 600, size, family: FAMILY.serif, color: ink, embolden: bold(size, 600, r.name) });
+  if (name.cut) cut.push(`the name "${r.name}" is cut to fit its line`);
   // The course code first, so a long English name is what gets cut.
-  const code = r.code ? line(card, r.code, x, mid + 27, width, { ...subStyle, weight: 600 }) : null;
+  const width = subLeft - 28 - x;
+  const code = r.code ? line(card, r.code, x, two, width, codeStyle) : null;
   const ex = code ? code.right + 14 : x;
-  if (r.nameEn) line(card, r.nameEn, ex, mid + 27, x + width - ex, subStyle);
+  if (r.nameEn && x + width - ex > 0) line(card, r.nameEn, ex, two, x + width - ex, subStyle);
+  return cut;
 }
+
+/**
+ * The room and duration as one line no wider than `width`: whole when it
+ * fits; else the room alone when the time gives the duration, which compact
+ * rows always do; else the room cut with an ellipsis (`cut`).
+ */
+function roomLine(card, r, width, style, { compact }) {
+  const ranged = /\d–\d/.test(r.time);
+  const full = [r.room, r.duration].filter(Boolean).join(', ');
+  const tries = compact && ranged ? [r.room] : ranged ? [full, r.room] : [full];
+  card.style(style);
+  for (const t of tries) if (card.measure(t) <= width) return { text: t, cut: false };
+  const last = tries.at(-1);
+  if (width <= 0) return { text: '', cut: Boolean(last) };
+  const [first = ''] = wrapLines(card.measure, last, width, { maxLines: 1 });
+  return { text: first, cut: ellipsized(first, last) };
+}
+
+const ellipsized = (shown, whole) => shown.endsWith('…') && !String(whole).trimEnd().endsWith('…');
 
 /** One line at a baseline, cut with an ellipsis where it would pass `width`. */
 function line(card, str, x, baseline, width, style) {
   card.style(style);
   const [first = ''] = wrapLines(card.measure, String(str), width, { maxLines: 1 });
-  return card.textInk(first, x, baseline, style, 'row');
+  return { ...card.textInk(first, x, baseline, style, 'row'), cut: ellipsized(first, str) };
+}
+
+/**
+ * The title block: the kicker, the title and the range left, the issue
+ * stamp right, then a double rule. Returns where the body starts. With
+ * `draw: false` it only measures, at the same sizes and gaps, so the page can
+ * pick its title before anything is drawn.
+ */
+function head(card, table, { compact, bold, draw }) {
+  const { ctx, pal } = card;
+  const { left, right } = A4.live;
+  const s = compact ? HEAD.compact : HEAD.regular;
+  const set = (str, top, width, style, opts = {}) => {
+    if (draw) return card.para(str, left, top, width, style, { maxLines: 1, balance: false, ...opts }).lineBottom;
+    card.style(style);
+    const { ascent, descent } = inkMetrics(ctx);
+    return top + ascent + descent;
+  };
+  const kicker = set(table.kicker, s.top, 640, { weight: 600, size: 26, color: pal.sage });
+  const titleSize = card.fit(table.title, 680, { weight: 700, family: FAMILY.serif, max: s.title, min: s.titleMin });
+  const title = set(table.title, kicker + 12, 680, { weight: 700, size: titleSize, family: FAMILY.serif, embolden: bold(titleSize, 700, table.title) }, { leading: 1.2 });
+  const subtitle = set(`${table.range}, ${table.subjects} วิชา`, title + 16, 680, { weight: 500, size: 28, color: pal.soft });
+
+  const stamp = { w: 236, h: 120, top: s.top + 4 };
+  if (draw) {
+    const sx = right - stamp.w;
+    ctx.strokeStyle = pal.ink;
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, sx, stamp.top, stamp.w, stamp.h, 10);
+    ctx.stroke();
+    card.text('ฉบับวันที่', sx + stamp.w / 2, stamp.top + 44, { weight: 500, size: MIN.thai, color: pal.soft, align: 'center' }, 'stamp');
+    card.text(table.issued, sx + stamp.w / 2, stamp.top + 92, { weight: 600, size: 32, family: FAMILY.serif, align: 'center' }, 'stamp');
+  }
+
+  const y = Math.max(subtitle, stamp.top + stamp.h) + s.before;
+  if (draw) {
+    rule(card, y, { color: pal.ink, width: 3 });
+    rule(card, y + 7, { color: pal.ink, width: 1 });
+  }
+  return y + 7 + s.after;
 }
 
 /**
@@ -197,8 +333,11 @@ export async function drawTimetable(table, { scale = SCALE } = {}) {
   const { ctx, pal } = card;
   const { left, right } = A4.live;
 
+  // One unit past the page on both edges: at 1.25x the page is 2192.5 device
+  // pixels tall on a canvas of 2193, and the unpainted half row printed as a
+  // grey line along the bottom.
   ctx.fillStyle = pal.print || pal.bg;
-  ctx.fillRect(0, 0, A4.w, A4.h);
+  ctx.fillRect(0, 0, A4.w + 1, A4.h + 1);
   // A hairline frame inside the printer's margin.
   ctx.strokeStyle = pal.rule;
   ctx.lineWidth = 1.5;
@@ -210,59 +349,44 @@ export async function drawTimetable(table, { scale = SCALE } = {}) {
   textRight(card, table.semester, right, 92, { weight: 500, size: 24, color: pal.soft }, 'masthead');
   rule(card, 116);
 
-  // Title block, with the issue date stamped on the right.
-  const kicker = card.para(table.kicker, left, 150, 640, { weight: 600, size: 26, color: pal.sage }, { maxLines: 1, balance: false });
-  const titleSize = card.fit(table.title, 680, { weight: 700, family: FAMILY.serif, max: 96, min: 64 });
-  const title = card.para(table.title, left, kicker.lineBottom + 12, 680, { weight: 700, size: titleSize, family: FAMILY.serif, embolden: bold(titleSize, 700, table.title) }, { maxLines: 1, balance: false, leading: 1.2 });
-  const subtitle = card.para(`${table.range}, ${table.subjects} วิชา`, left, title.lineBottom + 16, 680, { weight: 500, size: 28, color: pal.soft }, { maxLines: 1, balance: false });
-
-  const stamp = { w: 236, h: 120, top: 154 };
-  const sx = right - stamp.w;
-  ctx.strokeStyle = pal.ink;
-  ctx.lineWidth = 1.5;
-  roundRect(ctx, sx, stamp.top, stamp.w, stamp.h, 10);
-  ctx.stroke();
-  card.text('ฉบับวันที่', sx + stamp.w / 2, stamp.top + 44, { weight: 500, size: MIN.thai, color: pal.soft, align: 'center' }, 'stamp');
-  card.text(table.issued, sx + stamp.w / 2, stamp.top + 92, { weight: 600, size: 32, family: FAMILY.serif, align: 'center' }, 'stamp');
-
-  let y = Math.max(subtitle.lineBottom, stamp.top + stamp.h) + 30;
-  rule(card, y, { color: pal.ink, width: 3 });
-  rule(card, y + 7, { color: pal.ink, width: 1 });
-  y += 7 + 22;
-
-  // Rows share what is left above the notes.
-  const showWeeks = table.weeks.length > 1;
+  // The title block is measured both ways first: the page is set compact
+  // only when the regular rows would not fit under the regular title.
   const n = table.rows.length;
-  const headers = showWeeks ? table.weeks.length * WEEK_H + (table.weeks.length - 1) * WEEK_GAP : 0;
-  const h = clamp(Math.floor((BODY_BOTTOM - y - headers) / n), 66, 118);
-  const f = {
-    numeral: clamp(Math.round(h * 0.54), 40, 62),
-    name: clamp(Math.round(h * 0.31), 25, 34),
-    time: clamp(Math.round(h * 0.29), 24, 31),
-    bold,
-  };
+  const weeks = table.weeks.length;
+  const plan = rowMetrics({
+    top: { regular: head(card, table, { compact: false, bold, draw: false }), compact: head(card, table, { compact: true, bold, draw: false }) },
+    rows: n, weeks,
+  });
+  let y = head(card, table, { compact: plan.compact, bold, draw: true });
+  // The rows share what is left above the notes, from where the title ended.
+  const m = rowMetrics({ top: y, rows: n, weeks, mode: plan.compact ? 'compact' : 'regular' });
+  const cut = [];
 
   let i = 0;
   for (const [w, week] of table.weeks.entries()) {
-    if (showWeeks) {
-      if (w > 0) y += WEEK_GAP;
-      const label = card.text(week.label, left, y + 36, { weight: 700, size: 26, family: FAMILY.serif, color: pal.sage, embolden: bold(26, 700, week.label) }, 'week');
-      const range = card.text(week.range, label.right + 16, y + 36, { weight: 500, size: 24, color: pal.soft }, 'week');
-      rule(card, y + 28, { from: range.right + 18, to: right });
-      y += WEEK_H;
+    if (weeks > 1) {
+      if (w > 0) y += m.weekGap;
+      const wk = m.week;
+      const label = card.text(week.label, left, y + wk.base, { weight: 700, size: wk.size, family: FAMILY.serif, color: pal.sage, embolden: bold(wk.size, 700, week.label) }, 'week');
+      const range = card.text(week.range, label.right + 16, y + wk.base, { weight: 500, size: wk.range, color: pal.soft }, 'week');
+      rule(card, y + wk.rule, { from: range.right + 18, to: right });
+      y += m.weekH;
     }
     week.rows.forEach((r, k) => {
       const showDate = k === 0 || week.rows[k - 1].date !== r.date;
-      drawRow(card, r, art[i], y, h, f, { showDate });
+      cut.push(...drawRow(card, r, art[i], y, m, { showDate, bold }));
       const next = week.rows[k + 1];
       if (next) {
         // Two papers on one day share the date: a shorter rule between them.
-        rule(card, y + h, { from: next.date === r.date ? VIGNETTE_X : left + 20, to: right, width: 1 });
+        rule(card, y + m.h, { from: next.date === r.date ? VIGNETTE_X : left + 20, to: right, width: 1 });
       }
-      y += h;
+      y += m.h;
       i += 1;
     });
   }
+  // Rows that pass the body run under the notes' rule, where no text box
+  // records them: the check says so itself.
+  if (y > BODY_BOTTOM) cut.push(`the rows end at ${Math.round(y)}, past the body's end at ${BODY_BOTTOM}`);
 
   // Notes, then the signature, inside the frame.
   rule(card, NOTES_TOP, { color: pal.ink, width: 1 });
@@ -278,7 +402,7 @@ export async function drawTimetable(table, { scale = SCALE } = {}) {
   card.text('VetMock', left + 42, SIGN_BASELINE, { weight: 600, size: 24, family: FAMILY.numeral }, 'footer');
   textRight(card, 'vetmock.com/app/schedule', right, SIGN_BASELINE, { weight: 500, size: MIN.thai, color: pal.soft }, 'footer');
 
-  const problems = layoutProblems(card.boxes, { minThai: MIN.thai, minLatin: MIN.latin, frame: A4 });
+  const problems = [...layoutProblems(card.boxes, { minThai: MIN.thai, minLatin: MIN.latin, frame: A4 }), ...cut];
   return { card, problems };
 }
 

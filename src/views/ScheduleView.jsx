@@ -13,14 +13,75 @@ import { buildExamPool } from '../lib/exam-pool.js';
 import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
 import BackBar from '../components/BackBar.jsx';
 import FeatureTip from '../components/FeatureTip.jsx';
+import ErrorBoundary from '../components/ErrorBoundary.jsx';
+import { importFresh, isChunkLoadError } from '../lib/chunk-error.js';
 
-// The printable page pulls in the share-card kit and its fonts: loaded on the tap.
-const TimetableSheet = lazy(() => import('../components/TimetableSheet.jsx'));
+// The printable page pulls in the share-card kit and its fonts, so it is its
+// own chunk: warmed when this page is idle, loaded on the tap otherwise. The
+// warm-up and the tap share one import, and a failed one is dropped so the
+// next try fetches again.
+let sheetModule = null;
+function loadSheet() {
+  if (!sheetModule) {
+    sheetModule = importFresh(() => import('../components/TimetableSheet.jsx'))
+      .catch((err) => { sheetModule = null; throw err; });
+  }
+  return sheetModule;
+}
+
+// What a tap that could not open the sheet leaves on the page, in place of
+// the sheet: the page and its exam cards stay, and the wording follows the
+// connection while it shows. A retry fetches the sheet afresh where the
+// browser allows it (chunk-error.js importFresh), but WebKit keeps a failed
+// import, as Chromium does for a piece the sheet shares with other screens, so
+// a second failure while online offers to load the page again (nothing on
+// this page is lost by it).
+function SheetFailure({ error, repeated, onRetry }) {
+  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine !== false);
+  useEffect(() => {
+    const sync = () => setOnline(navigator.onLine !== false);
+    window.addEventListener('online', sync);
+    window.addEventListener('offline', sync);
+    return () => {
+      window.removeEventListener('online', sync);
+      window.removeEventListener('offline', sync);
+    };
+  }, []);
+  const chunk = isChunkLoadError(error);
+  const reload = chunk && online && repeated;
+  const text = !chunk
+    ? 'เปิดตารางสอบฉบับพิมพ์ไม่สำเร็จ กดลองอีกครั้ง'
+    : !online
+      ? 'ยังไม่ได้ต่ออินเทอร์เน็ต จึงเปิดตารางสอบฉบับพิมพ์ไม่ได้ ต่ออินเทอร์เน็ตแล้วกดลองอีกครั้ง'
+      : reload
+        ? 'ยังโหลดตารางสอบฉบับพิมพ์ไม่ได้ โหลดหน้านี้ใหม่แล้วลองอีกครั้ง'
+        : 'โหลดตารางสอบฉบับพิมพ์ไม่สำเร็จ กดลองอีกครั้ง';
+  return (
+    <div role="alert" className="vmx-timetable-failed" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, margin: '0 0 14px', padding: '10px 12px', borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 14, color: 'var(--clr-ink)', lineHeight: 1.6 }}>
+      <span style={{ flex: '1 1 16em', minWidth: 0 }}>{text}</span>
+      {reload && <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => window.location.reload()}>โหลดหน้านี้ใหม่</button>}
+      <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onRetry}>ลองอีกครั้ง</button>
+    </div>
+  );
+}
 
 export default function ScheduleView({ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, setSelectedPhase, selectedYear = 4, selectedPhase, customQuestions = [] }) {
   const [showPast, setShowPast] = useState(false);
   // The period is read on the tap, so a page left open past midnight prints today's date.
   const [printTable, setPrintTable] = useState(null);
+  // React.lazy keeps a rejected import for good, so a failed sheet is given a
+  // fresh lazy component on the next try.
+  const [TimetableSheet, setTimetableSheet] = useState(() => lazy(loadSheet));
+  const [sheetFailure, setSheetFailure] = useState(null);
+  // Failed opens since the sheet last opened.
+  const [sheetFailures, setSheetFailures] = useState(0);
+  const openSheet = () => {
+    if (sheetFailure) {
+      setTimetableSheet(() => lazy(loadSheet));
+      setSheetFailure(null);
+    }
+    setPrintTable(examTimetable(selectedYear));
+  };
   const [, setTick] = useState(0);
   const yearKey = `y${selectedYear}`;
   const allExams = getUpcomingExams(yearKey);
@@ -30,6 +91,19 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
     const id = setInterval(() => setTick((n) => n + 1), 60_000);
     return () => clearInterval(id);
   }, [hasImminent]);
+  // Warm the sheet while the page is idle, as lazy-views.js warms the offline
+  // game: the worker's cache then has it for a tap made offline later. Never
+  // while offline or saving data, where it would only cache a failure.
+  useEffect(() => {
+    if (typeof window === 'undefined' || navigator.connection?.saveData) return undefined;
+    const ric = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
+    const cic = window.cancelIdleCallback || clearTimeout;
+    const id = ric(() => {
+      if (navigator.onLine === false || navigator.connection?.saveData) return;
+      loadSheet().catch(() => {});
+    }, { timeout: 5000 });
+    return () => cic(id);
+  }, []);
   const pastCount = allExams.filter((e) => e.daysLeft < 0).length;
   const exams = showPast ? allExams : allExams.filter((e) => e.daysLeft >= 0);
 
@@ -87,7 +161,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
         <span>ตารางสอบ ปี {selectedYear} ({exams.length})</span>
         <span style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {allExams.length > 0 && (
-            <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setPrintTable(examTimetable(selectedYear))}>
+            <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={openSheet}>
               ดาวน์โหลดตารางสอบ
             </button>
           )}
@@ -98,11 +172,17 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           )}
         </span>
       </div>
-      {printTable && (
-        <Suspense fallback={null}>
-          <TimetableSheet table={printTable} onClose={() => setPrintTable(null)} />
-        </Suspense>
+      {/* Its own boundary, as ResultsView keeps one round its 3D viewer: a
+          sheet that fails to load or draw leaves a note here, never the
+          whole page's error card in place of the timetable. */}
+      {printTable && !sheetFailure && (
+        <ErrorBoundary fallback={null} onError={(err) => { setSheetFailure(err); setSheetFailures((n) => n + 1); setPrintTable(null); }}>
+          <Suspense fallback={null}>
+            <TimetableSheet table={printTable} onClose={() => { setPrintTable(null); setSheetFailures(0); }} />
+          </Suspense>
+        </ErrorBoundary>
       )}
+      {sheetFailure && <SheetFailure error={sheetFailure} repeated={sheetFailures > 1} onRetry={openSheet} />}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 30 }}>
         {exams.map((exam) => {

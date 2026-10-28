@@ -388,9 +388,20 @@ export function shortCountdown(exam, now = new Date()) {
   return { kind: 'soon', text: `อีก ${hours} ชม.` };
 }
 
+// Papers in the order they are sat: by day, then by start time within the
+// day, so two papers on one day never print afternoon first. A time that does
+// not parse comes after the timed papers of its day.
+const startMinutes = (exam) => {
+  const s = parseExamStart(exam.time);
+  return s ? s.hour * 60 + s.minute : 24 * 60;
+};
+export function compareExams(a, b) {
+  return (calendarDay(a.date) - calendarDay(b.date)) || (startMinutes(a) - startMinutes(b));
+}
+
 // Helper: get upcoming exams sorted by date. daysLeft counts Bangkok
 // calendar days from `now`: 0 on the paper's own day in Bangkok, whatever
-// zone the device is set to. dateObj is only the sort key.
+// zone the device is set to.
 export function getUpcomingExams(year = `y${CURRENT_YEAR}`, now = new Date()) {
   const today = bangkokDate(now);
   const list = EXAM_SCHEDULE[year] || [];
@@ -400,7 +411,7 @@ export function getUpcomingExams(year = `y${CURRENT_YEAR}`, now = new Date()) {
       dateObj: new Date(e.date),
       daysLeft: calendarDaysBetween(today, e.date),
     }))
-    .sort((a, b) => a.dateObj - b.dateObj);
+    .sort(compareExams);
 }
 
 export function getNextExam(year = `y${CURRENT_YEAR}`, now = new Date()) {
@@ -503,9 +514,12 @@ EXAM_SCHEDULE.y4 = [...(EXAM_SCHEDULE.y4 || []),
   { id: 'y4-com2-final', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — ปลายภาค', date: '2026-12-03', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🐩', color: '#6b5b8e' },
 ];
 
-/** ทะเบียนกลุ่มรายวิชา — ลงทะเบียนทั้งชุดด้วยรหัสกลุ่มเดียว */
+/** ทะเบียนกลุ่มรายวิชา — ลงทะเบียนทั้งชุดด้วยรหัสกลุ่มเดียว
+ *  `semester` is the term the code registers (an id like SEMESTER.id): the box
+ *  sits under the next term's registration rows, so it names its own. */
 export const COURSE_GROUPS = {
   y5: {
+    semester: '2569-1',
     groupCode: '3190501',
     condition: 'G',
     courseCount: 11,
@@ -549,15 +563,19 @@ export const CLASS_TIMETABLE = {
   ],
 };
 
-/** ปฏิทินลงทะเบียน/ชำระเงิน ภาคต้น 2569 (ระบบทวิภาค) */
+/** ปฏิทินลงทะเบียน/ชำระเงิน ภาคต้น 2569 (ระบบทวิภาค)
+ *  `shortTh` is what Home's chip prints: the title fits a phone's chip only
+ *  half-read ("ภาคปลาย: แสดงความ…"), so each window carries a short name of
+ *  its own that still says which term it is for. */
 export const ACADEMIC_MILESTONES = [
-  { id: 'reg-r1', start: '2026-06-22', end: '2026-07-05', titleTh: 'แสดงความจำนงลงทะเบียน รอบที่ 1', kind: 'registration' },
-  { id: 'reg-r2', start: '2026-07-16', end: '2026-07-20', titleTh: 'ดูผลรอบ 1 + แสดงความจำนง รอบที่ 2', kind: 'registration' },
-  { id: 'reg-r3', start: '2026-07-24', end: '2026-07-29', titleTh: 'ดูผลรอบ 2 + แสดงความจำนง รอบที่ 3', kind: 'registration' },
-  { id: 'reg-r3-result', start: '2026-07-31', end: '2026-08-02', titleTh: 'ประกาศผลการแสดงความจำนง รอบที่ 3', kind: 'registration' },
+  { id: 'reg-r1', start: '2026-06-22', end: '2026-07-05', titleTh: 'แสดงความจำนงลงทะเบียน รอบที่ 1', shortTh: 'แสดงความจำนง รอบ 1', kind: 'registration' },
+  { id: 'reg-r2', start: '2026-07-16', end: '2026-07-20', titleTh: 'ดูผลรอบ 1 + แสดงความจำนง รอบที่ 2', shortTh: 'แสดงความจำนง รอบ 2', kind: 'registration' },
+  { id: 'reg-r3', start: '2026-07-24', end: '2026-07-29', titleTh: 'ดูผลรอบ 2 + แสดงความจำนง รอบที่ 3', shortTh: 'แสดงความจำนง รอบ 3', kind: 'registration' },
+  { id: 'reg-r3-result', start: '2026-07-31', end: '2026-08-02', titleTh: 'ประกาศผลการแสดงความจำนง รอบที่ 3', shortTh: 'ผลแสดงความจำนง รอบ 3', kind: 'registration' },
   {
     id: 'late-reg', start: '2026-08-03', end: '2026-08-14',
     titleTh: 'ลงทะเบียนสาย เพิ่ม/เปลี่ยนตอน/ลดรายวิชา',
+    shortTh: 'ลงทะเบียนสาย',
     kind: 'registration',
     warnTh: 'ลงทะเบียนช่วงนี้ต้องชำระค่าปรับลงทะเบียนสายตามประกาศ',
     endTimeTh: 'ปิด 20.00 น.',
@@ -565,43 +583,45 @@ export const ACADEMIC_MILESTONES = [
   {
     id: 'payment', start: '2026-06-22', end: '2026-08-16',
     titleTh: 'ชำระค่าเล่าเรียน ผ่านแอป CUNEX',
+    shortTh: 'ชำระค่าเล่าเรียน',
     kind: 'payment',
     endTimeTh: 'ปิด 23.00 น. ของวันที่ 16 ส.ค. 69',
     noteTh: 'เลือกสถานะรายการเป็น "ลงทะเบียนปกติ" — กรณีลาพัก/รักษาสถานภาพให้เลือก "รักษาสถานภาพ" (ป.ตรี 1,000 บาท/ภาค) และต้องยื่นคำร้องที่ทะเบียนคณะก่อน',
     warnTh: 'ในแอป CUNEX จะแจ้งวันที่ 2 ส.ค. 69 ก่อน (รอบแรก) ถ้ายังไม่ชำระให้รออัปเดตวันใหม่ (16 ส.ค. 69)',
   },
-  { id: 'cr52-1', start: '2026-08-14', end: '2026-08-14', titleTh: 'ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 1 (CR52)', kind: 'checkpoint' },
-  { id: 'cr52-2', start: '2026-08-20', end: '2026-08-28', titleTh: 'ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 2 (CR52)', kind: 'checkpoint' },
-  { id: 'drop-last', start: '2026-09-11', end: '2026-09-11', titleTh: 'วันสุดท้ายของการลดรายวิชา (W)', kind: 'deadline' },
+  { id: 'cr52-1', start: '2026-08-14', end: '2026-08-14', titleTh: 'ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 1 (CR52)', shortTh: 'ตรวจรายชื่อ ครั้งที่ 1', kind: 'checkpoint' },
+  { id: 'cr52-2', start: '2026-08-20', end: '2026-08-28', titleTh: 'ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 2 (CR52)', shortTh: 'ตรวจรายชื่อ ครั้งที่ 2', kind: 'checkpoint' },
+  { id: 'drop-last', start: '2026-09-11', end: '2026-09-11', titleTh: 'วันสุดท้ายของการลดรายวิชา (W)', shortTh: 'วันสุดท้ายลดรายวิชา', kind: 'deadline' },
 
   // ── ภาคปลาย 2569: กำหนดการลงทะเบียนเรียนสำหรับนิสิตปัจจุบัน ──
   // สำนักงานการทะเบียน ประกาศ 19 ต.ค. 2569 (ระบบทวิภาค/นานาชาติ). Times as printed.
   {
     id: 's2-reg-r1', start: '2026-10-26', end: '2026-11-08',
-    titleTh: 'ภาคปลาย: แสดงความจำนงลงทะเบียน รอบที่ 1', kind: 'registration',
+    titleTh: 'ภาคปลาย: แสดงความจำนงลงทะเบียน รอบที่ 1', shortTh: 'แสดงความจำนง รอบ 1 ภาคปลาย', kind: 'registration',
     endTimeTh: 'เปิด 00.01 น. ปิด 23.59 น.',
     noteTh: 'แสดงความจำนงรอบที่ 1-3 แล้ว ถือว่าทำตามหน้าที่ ไม่เสียค่าปรับลงทะเบียนสาย',
   },
   {
     id: 's2-payment', start: '2026-10-27', end: '2027-01-17',
-    titleTh: 'ภาคปลาย: ชำระค่าเล่าเรียน ผ่านแอป CUNEX', kind: 'payment',
+    titleTh: 'ภาคปลาย: ชำระค่าเล่าเรียน ผ่านแอป CUNEX', shortTh: 'ชำระค่าเล่าเรียน ภาคปลาย', kind: 'payment',
     endTimeTh: 'ปิด 23.00 น. ของวันที่ 17 ม.ค. 70',
   },
-  { id: 's2-reg-r1-result', start: '2026-12-08', end: '2026-12-13', titleTh: 'ภาคปลาย: ดูผลการแสดงความจำนง รอบที่ 1', kind: 'registration', endTimeTh: 'ปิด 23.59 น.' },
-  { id: 's2-reg-r2', start: '2026-12-14', end: '2026-12-20', titleTh: 'ภาคปลาย: แสดงความจำนงลงทะเบียน รอบที่ 2', kind: 'registration', endTimeTh: 'เปิด 12.00 น. ปิด 23.59 น.' },
-  { id: 's2-reg-r3', start: '2026-12-24', end: '2026-12-29', titleTh: 'ภาคปลาย: ดูผลรอบ 2 + แสดงความจำนง รอบที่ 3', kind: 'registration', endTimeTh: 'เปิด 12.00 น. ปิด 12.00 น. ของวันที่ 29 ธ.ค.' },
-  { id: 's2-reg-r3-result', start: '2026-12-29', end: '2027-01-03', titleTh: 'ภาคปลาย: ดูผลการแสดงความจำนง รอบที่ 3', kind: 'registration', endTimeTh: 'เปิด 15.00 น. ปิด 23.59 น.' },
+  { id: 's2-reg-r1-result', start: '2026-12-08', end: '2026-12-13', titleTh: 'ภาคปลาย: ดูผลการแสดงความจำนง รอบที่ 1', shortTh: 'ผลแสดงความจำนง รอบ 1 ภาคปลาย', kind: 'registration', endTimeTh: 'ปิด 23.59 น.' },
+  { id: 's2-reg-r2', start: '2026-12-14', end: '2026-12-20', titleTh: 'ภาคปลาย: แสดงความจำนงลงทะเบียน รอบที่ 2', shortTh: 'แสดงความจำนง รอบ 2 ภาคปลาย', kind: 'registration', endTimeTh: 'เปิด 12.00 น. ปิด 23.59 น.' },
+  { id: 's2-reg-r3', start: '2026-12-24', end: '2026-12-29', titleTh: 'ภาคปลาย: ดูผลรอบ 2 + แสดงความจำนง รอบที่ 3', shortTh: 'แสดงความจำนง รอบ 3 ภาคปลาย', kind: 'registration', endTimeTh: 'เปิด 12.00 น. ปิด 12.00 น. ของวันที่ 29 ธ.ค.' },
+  { id: 's2-reg-r3-result', start: '2026-12-29', end: '2027-01-03', titleTh: 'ภาคปลาย: ดูผลการแสดงความจำนง รอบที่ 3', shortTh: 'ผลแสดงความจำนง รอบ 3 ภาคปลาย', kind: 'registration', endTimeTh: 'เปิด 15.00 น. ปิด 23.59 น.' },
   {
     id: 's2-late-reg', start: '2027-01-04', end: '2027-01-15',
     titleTh: 'ภาคปลาย: ลงทะเบียนสาย เพิ่ม/เปลี่ยนตอน/ลดรายวิชา',
+    shortTh: 'ลงทะเบียนสาย ภาคปลาย',
     kind: 'registration',
     warnTh: 'ลงทะเบียนช่วงนี้ต้องชำระค่าปรับลงทะเบียนสายตามประกาศ',
     endTimeTh: 'ปิด 20.00 น.',
     noteTh: 'ตรวจรอบเวลาเพิ่ม-ลดที่ตารางเวลาของสำนักงานการทะเบียน',
   },
-  { id: 's2-cr52-1', start: '2027-01-04', end: '2027-01-15', titleTh: 'ภาคปลาย: ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 1 (CR52)', kind: 'checkpoint' },
-  { id: 's2-cr52-2', start: '2027-01-21', end: '2027-01-29', titleTh: 'ภาคปลาย: ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 2 (CR52)', kind: 'checkpoint' },
-  { id: 's2-drop-last', start: '2027-02-12', end: '2027-02-12', titleTh: 'ภาคปลาย: วันสุดท้ายของการลดรายวิชา', kind: 'deadline', endTimeTh: 'ปิด 23.59 น.' },
+  { id: 's2-cr52-1', start: '2027-01-04', end: '2027-01-15', titleTh: 'ภาคปลาย: ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 1 (CR52)', shortTh: 'ตรวจรายชื่อ ครั้งที่ 1 ภาคปลาย', kind: 'checkpoint' },
+  { id: 's2-cr52-2', start: '2027-01-21', end: '2027-01-29', titleTh: 'ภาคปลาย: ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 2 (CR52)', shortTh: 'ตรวจรายชื่อ ครั้งที่ 2 ภาคปลาย', kind: 'checkpoint' },
+  { id: 's2-drop-last', start: '2027-02-12', end: '2027-02-12', titleTh: 'ภาคปลาย: วันสุดท้ายของการลดรายวิชา', shortTh: 'วันสุดท้ายลดรายวิชา ภาคปลาย', kind: 'deadline', endTimeTh: 'ปิด 23.59 น.' },
 ];
 
 // ── Helpers: ตารางเรียน + ปฏิทินการศึกษา ─────────────────────────────
@@ -668,32 +688,59 @@ export function getCurrentClass(year = 5, date = new Date()) {
   return classesOn(year, ymd, dow).find((c) => c.start <= hhmm && hhmm < c.end) || null;
 }
 
+/**
+ * A registrar window on Bangkok's calendar: days until it opens and until its
+ * last day, whether it is open today, whether it has closed. The registrar's
+ * dates are Bangkok's, so "today" is Bangkok's day, never the device's
+ * midnight: a phone set to another zone counted every window a day off.
+ * The schedule page's full list and its "relevant now" list both read this.
+ */
+export function describeMilestone(m, now = new Date()) {
+  const today = bangkokDate(now);
+  const daysLeft = calendarDaysBetween(today, m.start);
+  const daysLeftToEnd = calendarDaysBetween(today, m.end);
+  return { ...m, daysLeft, daysLeftToEnd, active: daysLeft <= 0 && daysLeftToEnd >= 0, past: daysLeftToEnd < 0 };
+}
+
 /** หมุดปฏิทินที่ "เกี่ยวกับตอนนี้" — กำลังเปิดอยู่ หรือจะถึงใน N วัน
  *  คืนค่าเรียงตามความใกล้ พร้อม daysLeft / daysLeftToEnd / active */
-export function getActiveMilestones(withinDays = 10, now = new Date()) {
-  const today = new Date(now); today.setHours(0, 0, 0, 0);
-  const day = 24 * 60 * 60 * 1000;
-  return ACADEMIC_MILESTONES
-    .map((m) => {
-      const s = new Date(m.start); s.setHours(0, 0, 0, 0);
-      const e = new Date(m.end); e.setHours(0, 0, 0, 0);
-      return {
-        ...m,
-        daysLeft: Math.round((s - today) / day),
-        daysLeftToEnd: Math.round((e - today) / day),
-        active: s <= today && today <= e,
-      };
-    })
+export function getActiveMilestones(withinDays = 10, now = new Date(), milestones = ACADEMIC_MILESTONES) {
+  return milestones
+    .map((m) => describeMilestone(m, now))
     .filter((m) => m.active || (m.daysLeft > 0 && m.daysLeft <= withinDays))
     .sort((a, b) => (a.active === b.active ? a.daysLeft - b.daysLeft : (a.active ? -1 : 1)));
 }
 
-/** หมุดที่ควรเตือนที่สุดหนึ่งอัน — เดดไลน์/การชำระเงินที่กำลังเปิดมาก่อน */
-export function getTopMilestone(now = new Date()) {
-  const list = getActiveMilestones(10, now);
-  if (list.length === 0) return null;
-  const urgent = list.find((m) => m.active && (m.kind === 'payment' || m.kind === 'deadline'));
-  return urgent || list[0];
+// Which of two windows closing on the same day to name first: a deadline is
+// one day only, a registration round reopens only next round, and the
+// payment window runs the longest.
+const KIND_URGENCY = ['deadline', 'registration', 'payment', 'checkpoint'];
+const urgencyOf = (m) => {
+  const i = KIND_URGENCY.indexOf(m.kind);
+  return i < 0 ? KIND_URGENCY.length : i;
+};
+
+/**
+ * หมุดที่ควรเตือนที่สุดหนึ่งอัน: the open window that closes first, by kind
+ * when two close the same day; with none open, the next to open within ten
+ * days. The term's payment window stays open for months, so naming it
+ * whenever it was open hid every registration round that closed inside it;
+ * it is named when it is the one closing first.
+ */
+export function getTopMilestone(now = new Date(), milestones = ACADEMIC_MILESTONES) {
+  const list = getActiveMilestones(10, now, milestones);
+  const open = list.filter((m) => m.active)
+    .sort((a, b) => (a.daysLeftToEnd - b.daysLeftToEnd) || (urgencyOf(a) - urgencyOf(b)));
+  if (open.length) return open[0];
+  return list.sort((a, b) => (a.daysLeft - b.daysLeft) || (urgencyOf(a) - urgencyOf(b)))[0] || null;
+}
+
+// A term's name from its id ('2569-1'), the current term as SEMESTER names it.
+const TERM_NAMES_TH = { 1: 'ภาคการศึกษาต้น', 2: 'ภาคการศึกษาปลาย', 3: 'ภาคฤดูร้อน' };
+export function semesterLabelTh(id) {
+  if (id && id === SEMESTER.id) return SEMESTER.labelTh;
+  const m = /^(\d{4})-([1-3])$/.exec(String(id ?? ''));
+  return m ? `${TERM_NAMES_TH[m[2]]} ${m[1]}` : '';
 }
 
 /** ฟอร์แมตช่วงวันแบบสั้น: "3 - 14 ส.ค. 69" / "11 ก.ย. 69" */
@@ -746,16 +793,13 @@ export const CAMPUS_EVENTS = [
   },
 ];
 
-/** กิจกรรมที่ยังไม่ผ่าน (และตรงกับชั้นปี) เรียงตามวัน */
+/** กิจกรรมที่ยังไม่ผ่าน (และตรงกับชั้นปี) เรียงตามวัน
+ *  daysLeft counts Bangkok calendar days, as the milestones do. */
 export function getUpcomingEvents(year = 5, withinDays = 60, now = new Date()) {
-  const today = new Date(now); today.setHours(0, 0, 0, 0);
-  const day = 24 * 60 * 60 * 1000;
+  const today = bangkokDate(now);
   return CAMPUS_EVENTS
     .filter((e) => !e.audienceYears || e.audienceYears.includes(Number(year)))
-    .map((e) => {
-      const d = new Date(e.date); d.setHours(0, 0, 0, 0);
-      return { ...e, daysLeft: Math.round((d - today) / day) };
-    })
+    .map((e) => ({ ...e, daysLeft: calendarDaysBetween(today, e.date) }))
     .filter((e) => e.daysLeft >= 0 && e.daysLeft <= withinDays)
     .sort((a, b) => a.daysLeft - b.daysLeft);
 }

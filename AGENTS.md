@@ -10,6 +10,22 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
 
+## Succession and silent-breakage audit — 2026-10-28/29 (Claude Code)
+
+- **No hand-on burden.** Palm's aim (28 Oct): VetMock keeps running for years with nobody looking after it, without passing a burden to anyone. Prefer, in order: automate it, then fail safe and say so plainly to the student, then data a non-coder can edit, and only then document it. `docs/HANDOVER.md` (Thai, "ถ้าไม่มีคนดูแล") is the shortest page that says what runs alone, what stops and how, and where to look. Update it when an account, a key or a rollover step changes.
+- **The admin card is the only alarm.** The app hides outside failures from students by design: device voice, no microphone, hidden connect buttons. `/app/admin` "ระบบภายนอก" reads `/api/system-status`, which is admin only (`isAdmin` in `api/_lib/app-backend.js`, checked before any probe). Checks live in `api/_lib/system-status.js`; add a row when a feature gains an outside dependency. Probe at real size: Premwadee passed a one-word synthesis while it dropped question stems.
+- **Edge read-aloud.**
+  - From 21 Oct the handshake needed Sec-MS-GEC v2. msedge-tts 2.1.1 brought English back on production (#102).
+  - After that, Premwadee dropped two-sentence Thai stems: 9 of 12 tries, with the server closing before turn.end after about 2.7 s. Niwat read them 6 of 6, so Thai reads in Niwat, a male voice, since 5.169.3 (#106). The voices live in `src/lib/tts-voices.js`, and the browser's clip cache keys on the voice since 5.172.1 (#117), so a voice change retires the clips cached in the old one.
+  - `tests/unit/api-hardening.test.mjs` pins the voice.
+- **Supabase is on the free plan**, which pauses a project after about a week idle. A daily Vercel cron calls `/api/ai-chat?warm=1`, which runs one `library_search`.
+- **Client error counts are consent-gated**, as PrivacyView promises, so zero is not health. On 28 Oct the pipeline was proven end to end: one probe row was written through the API and then deleted.
+- **Feedback mail** is sent from `onboarding@resend.dev`, which delivers only to the Resend account owner. `FEEDBACK_FROM` takes a verified domain's sender.
+- **Domain:** vetmock.com is at Cloudflare Registrar, expires 2027-09-25, and its DNSSEC DS is present. The 10-12 note that says "DS pending" is stale.
+- **Only on Palm's laptop:** `.mcv/` (the MyCourseVille pull) and `work/exam-content-pipeline/scripts/` (`ingest-wrapup.mjs`, `apply-fact-fixes.mjs`).
+- **Open, Palm's call:** iApp credit (0), a Cloudflare token with Workers AI for the microphone, Gemini credit (the dark Mochi voice), Drive and Notion OAuth credentials, Web Analytics (a cost), and handing over every account.
+- **Evidence:** the shared notes of the 28 Oct lanes (`succession-lane-findings.md`, `succession-inventory.md`, `wording-audit.md`), outside the repo. The rollover risks the inventory found in the phase rule (term rows, panic sets each August, wrap-ups returning) were sent to the exam-period lane.
+
 ## Exam recurrence data — 2026-10-28 (Claude Code)
 
 Palm's goal: which items and which kinds of item recurred across cohorts. The data layer is in; nothing reads it yet.
@@ -51,6 +67,12 @@ Palm's goal: which items and which kinds of item recurred across cohorts. The da
   - `paintsSerifWeight()` in timetable-card.js detects it by ink, and `card.text`'s new `embolden` stroke stands in for the weight.
   - The older share cards draw their Thai headings regular on Safari for the same reason. They are not changed yet.
 - **Open, Palm's call.** The class LINE (20 Jul) says morning papers start at 9:00 after the 17 Jul review. The faculty table copied into `EXAM_SCHEDULE` says 08:30.
+- **Review fixes 5.172.2 (2026-10-29, branch `claude/timetable-review-fixes`).**
+  - `periodOf(exams, now)` is the pure period picker. A paper with no `term` joins the termed period within 28 days, and the title comes from the termed papers. A time that does not parse is past only once its Bangkok day ends (`paperOverMs`). Same-day papers sort by start time (`compareExams`, also the page's order).
+  - `rowMetrics` (pure) keeps regular rows (66-118 px), else sets the page compact: a smaller title, 36 px week headers, rows from 60 px. 16 papers fit cleanly in two or three weeks in all three engines. Rows past `BODY_BOTTOM`, a cut room or a cut course name are layout findings (`data-layout` "tight"). Two lines of 22 px Thai cannot go under about 58 px: WebKit measures a stacked mark (ชั่) 28 px above the baseline.
+  - The sheet is warmed at idle on the schedule page and has its own boundary: a failed load leaves a note with a retry, and the page stays. `importFresh` (chunk-error.js) re-imports the failed URL under `?retry=N`. A failed *dependency* chunk stays failed in Chromium and WebKit until a reload (measured on the dev server), so a second failure while online also offers "โหลดหน้านี้ใหม่".
+  - On the dev server React StrictMode draws the sheet twice: e2e assertions must not count on one draw.
+  - Home's chip (`getTopMilestone`) names the open window that closes first (deadline, then registration, payment, checkpoint on a tie) and prints `shortTh`. Milestones and campus events count Bangkok days (`describeMilestone`).
 
 ## Bug sweep and e2e flakes — 2026-10-27 (Claude Code)
 
