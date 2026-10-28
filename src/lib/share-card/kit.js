@@ -41,6 +41,46 @@ export const POST = {
 };
 export const SIZE = { xs: 36, s: 48, m: 72, l: 108, xl: 162, xxl: 243, hero: 365 };
 
+const THAI = /[฀-๿]/u;
+
+/**
+ * WebKit lays the variable Thai serif out at the weight it is asked for but
+ * paints its default instance: measured 2026-10-28 in Playwright's WebKit,
+ * "ตารางสอบ" at 400 and at 700 inked the same pixels, so every card's Thai
+ * heading came out regular on iPhones and Macs. Read by ink, after the fonts
+ * load, so an engine that paints the weight (or a fallback face, offline) is
+ * left alone.
+ */
+export function paintsSerifWeight() {
+  const c = document.createElement('canvas');
+  c.width = 320;
+  c.height = 64;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  if (!x) return true;
+  const ink = (weight) => {
+    x.clearRect(0, 0, c.width, c.height);
+    x.font = `${weight} 40px ${CARD_SERIF}`;
+    x.fillText('ตารางสอบ', 4, 46);
+    const d = x.getImageData(0, 0, c.width, c.height).data;
+    let n = 0;
+    for (let i = 3; i < d.length; i += 4) if (d[i] > 128) n += 1;
+    return n;
+  };
+  // A canvas that cannot be read back (a test double, a privacy mode) keeps the plain weight.
+  try {
+    const regular = ink(400);
+    return regular === 0 || ink(700) / regular > 1.15;
+  } catch {
+    return true;
+  }
+}
+
+/** The stroke that stands in for a Thai serif weight the engine will not paint (0 when it paints it). */
+export function fauxBold({ weight = 400, size = SIZE.s, family = CARD_LABEL } = {}, text, painted) {
+  if (painted || family !== CARD_SERIF || weight < 600 || !THAI.test(String(text))) return 0;
+  return size * (weight >= 700 ? 0.04 : 0.028);
+}
+
 export const PALETTES = {
   light: {
     bg: '#f6efe4', ink: '#2b2419', soft: '#5c5246', rule: 'rgba(43,36,25,0.18)', faint: 'rgba(43,36,25,0.07)',
@@ -185,10 +225,16 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
     const s = String(str);
     ctx.fillText(s, x, y);
     // `embolden`: a stroke in the text's own ink, for an engine that paints a
-    // variable face's default weight whatever weight it was asked for.
-    if (style.embolden && !dry) {
+    // variable face's default weight whatever weight it was asked for. A
+    // card that does not set it gets fauxBold's, decided once per card.
+    let stroke = dry ? 0 : style.embolden ?? fauxBold(style, s, false);
+    if (stroke && style.embolden === undefined) {
+      if (card.paintsWeight === undefined) card.paintsWeight = paintsSerifWeight();
+      if (card.paintsWeight) stroke = 0;
+    }
+    if (stroke) {
       ctx.save();
-      ctx.lineWidth = style.embolden;
+      ctx.lineWidth = stroke;
       ctx.lineJoin = 'round';
       ctx.strokeStyle = ctx.fillStyle;
       ctx.strokeText(s, x, y);
