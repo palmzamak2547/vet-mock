@@ -235,7 +235,7 @@ export const FEATURES = [
     // rail already has the library itself.
     id: 'external-docs', category: 'learn', rail: false,
     label: 'เอกสารภายนอก', labelEn: 'External docs', icon: '🔗',
-    hint: 'อ่านเอกสารและชีตของ Google หรือหน้าของ Notion ที่แชร์เป็นลิงก์ ในแอป',
+    hint: 'อ่านเอกสารและชีตของ Google ที่แชร์เป็นลิงก์ ในแอป',
     kw: 'external docs notion google doc docs sheet sheets drive เอกสารภายนอก ลิงก์ link วาง paste เชื่อมบัญชี',
     invoke: { kind: 'view', view: 'library', intent: 'external' },
   },
@@ -351,7 +351,7 @@ export const FEATURES = [
   {
     id: 'contribute', category: 'tools',
     label: 'ช่วยเติมเนื้อหา', labelEn: 'Contribute', icon: '🤝',
-    hint: 'ส่งสไลด์ โน้ต หรือแนวข้อสอบ',
+    hint: 'ส่งโจทย์เข้าคลังให้ช่วยกันตรวจ',
     kw: 'contribute ช่วย เติม เนื้อหา ส่ง slide donate บริจาค',
     invoke: { kind: 'view', view: 'contribute' },
   },

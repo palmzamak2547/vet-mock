@@ -34,7 +34,7 @@ export const DICT = {
 
     heroEyebrow: 'Made by Chula vet students, for Chula vet students',
     heroL1: 'Practise subject by subject', heroL2: '', heroEm: 'before exam day.',
-    heroSub: 'Practice questions written from what you study. Every explanation gives the reasoning and where the answer comes from, and many walk through why the other options are wrong. Free, and you can start without an account.',
+    heroSub: 'Practice questions written from what you study. Explanations give the reasoning and where the answer comes from, and many walk through why the other options are wrong. Free, and you can start without an account.',
     heroCta1: 'Start Practicing', heroCta2: 'Browse subjects',
     statOpen: 'questions open today', statSubjects: 'subjects', statNotes: 'topics with sourced notes',
     statsLabel: 'What is in the app today',
@@ -67,8 +67,8 @@ export const DICT = {
     wallDrag: 'You can move the notes.',
     wallAnswerHead: 'VetMock keeps it in one place.',
     wallAnswers: [
-      'Practice questions in every subject, written from what you study',
-      'Every wrong option explained, with where the answer comes from',
+      'Practice questions by subject, written from what you study',
+      'Explanations with their reasoning, and where the answer comes from',
       'Panic Mode for the night before, sized to the time you have',
       'A radiograph lab and a 3D Atlas built from real scans',
     ],
@@ -77,9 +77,9 @@ export const DICT = {
     howHead: 'Every question in the bank works like this',
     howSteps: [
       { key: 'bank', title: 'Written from what you study', body: 'Questions written and compiled from lecture slides, textbooks and the year-group sheets students share, from year 1 to year 5. Timed or untimed, by subject or by topic, on your phone while you wait for the bus.' },
-      { key: 'why', title: 'Every wrong option, explained', body: 'Not just which answer is right. Each wrong option gets the line that says why, so the next time two answers look alike you can tell them apart yourself.' },
+      { key: 'why', title: 'Explanations that give the reasoning', body: 'Not just which answer is right. Each explanation gives the reasoning, and many say why each wrong option is wrong, so the next time two answers look alike you can tell them apart yourself.' },
       { key: 'source', title: 'The source sits under every answer', body: 'Every question says where it came from. One written from a class recording opens that recording at the minute it cites, and the subject\'s document shelf opens from under the answer, so you can check for yourself instead of trusting anyone\'s summary.' },
-      { key: 'review', title: 'Missed questions come back as you start to forget', body: 'What you get wrong or are unsure about goes into review and returns on a spaced schedule. Keep getting it right and the gaps grow.' },
+      { key: 'review', title: 'Missed questions come back as you start to forget', body: 'A question you get wrong a second time goes into review by itself and returns on a spaced schedule. Keep getting it right and the gaps grow. Star the ones you are unsure about to practise them again.' },
     ],
     howBankLabel: 'Subjects with the most questions right now',
     howReviewLabel: 'If you keep answering correctly',
@@ -196,7 +196,7 @@ export const DICT = {
 
     heroEyebrow: 'ทำโดยนิสิตสัตวแพทย์จุฬา ให้นิสิตสัตวแพทย์จุฬา',
     heroL1: 'ซ้อมโจทย์ทีละวิชา', heroL2: '', heroEm: 'ก่อนถึงวันสอบ',
-    heroSub: 'โจทย์ฝึกที่เขียนจากเนื้อหาที่เรียน ทุกเฉลยบอกเหตุผลและที่มาของคำตอบ หลายข้อไล่ให้ด้วยว่าตัวเลือกอื่นผิดตรงไหน ฟรี ไม่ต้องสมัครก็เริ่มได้',
+    heroSub: 'โจทย์ฝึกที่เขียนจากเนื้อหาที่เรียน เฉลยบอกเหตุผลและที่มาของคำตอบ หลายข้อไล่ให้ด้วยว่าตัวเลือกอื่นผิดตรงไหน ฟรี ไม่ต้องสมัครก็เริ่มได้',
     heroCta1: 'เริ่มฝึกเลย', heroCta2: 'ดูรายวิชา',
     statOpen: 'ข้อ ให้ฝึกวันนี้', statSubjects: 'วิชา', statNotes: 'หัวข้อมีโน้ตพร้อมที่มา',
     statsLabel: 'ในแอปตอนนี้มี',
