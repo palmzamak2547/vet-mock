@@ -941,7 +941,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "equine-medicine": {
       "equine-intro": {
-        "mcq": 101,
+        "mcq": 86,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -965,7 +965,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "equine-parasites": {
-        "mcq": 77,
+        "mcq": 70,
         "tf": 0,
         "match": 1,
         "writing": 0
@@ -2581,7 +2581,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "equine-medicine": {
       "equine-intro": {
-        "mcq": 101,
+        "mcq": 86,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -2605,7 +2605,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "equine-parasites": {
-        "mcq": 77,
+        "mcq": 70,
         "tf": 0,
         "match": 1,
         "writing": 0
@@ -2628,32 +2628,26 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 0
       },
-      "equine-infectious": {
-        "mcq": 6,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "equine-tumors": {
-        "mcq": 9,
+      "equine-derm": {
+        "mcq": 29,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "equine-ophth": {
-        "mcq": 7,
+        "mcq": 5,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "equine-anesthesia": {
-        "mcq": 4,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
-      "equine-ortho": {
-        "mcq": 16,
+      "equine-surgery-wound": {
+        "mcq": 24,
         "tf": 0,
         "match": 0,
         "writing": 0
