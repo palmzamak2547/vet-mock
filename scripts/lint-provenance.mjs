@@ -29,9 +29,12 @@
 //      examOrigin, than the budget. Both budgets may only fall;
 //  10. a figure that does not resolve under public/, or more figures
 //      without a real imageAlt than FIGURE_ALT_BUDGET (checkFigures);
-//  11. a typed row whose sat-paper status disagrees with its filed origin.
-//      Since 2026-10-28 isPastPaperQuestion reads this map for typed rows
-//      instead of the wording; this is the guard that it keeps doing so.
+//  11. a compilation row whose sat-paper status disagrees with its filed
+//      origin. Since 2026-10-28 isPastPaperQuestion reads this map for those
+//      rows instead of the wording; this is the guard that it keeps doing so;
+//  12. an origin filed as a paper that its wording does not show, outside
+//      REVIEWED_MAP_ONLY_PAPERS: the map makes such rows sat papers on its
+//      own, so a mis-filing would otherwise pass every other rule.
 // ============================================================
 
 import fs from 'node:fs';
@@ -49,6 +52,7 @@ import {
 import {
   isExamAlignedQuestion,
   isPastPaperQuestion,
+  originWordingNamesAPaper,
   panicRank,
 } from '../src/lib/question-metadata.js';
 
@@ -88,6 +92,22 @@ export const KNOWN_SHORT_SPELLING = Object.freeze([]);
 // "lecture slides" as documents, which is what lifted #105636 out of band 0.
 export const KNOWN_ORIGIN_OVERCLAIMS = Object.freeze([]);
 
+// Origins filed as a paper whose wording the pattern cannot read as one. On a
+// compilation row the map alone makes these sat papers, so filing a new one
+// must be a decision somebody reviewed with the document open, never a side
+// effect of the map (rule 12). Reviewed 2026-10-28; each is the seniors' own
+// record of a paper they sat ("บันทึกหลังสอบ", "recalled ... section").
+export const REVIEWED_MAP_ONLY_PAPERS = Object.freeze([
+  'Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 85)',
+  'บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)',
+  'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1',
+  'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 2 ไม่มีเฉลย',
+  'Zoonoses (Vet 85) recalled matching section',
+  'Zoonoses (Vet 85) recalled choice section',
+  'Zoonoses (Vet 85) recalled short-answer section',
+  'Zoonoses (Vet 85) recalled item noted on the coronaviruses slide',
+]);
+
 const label = (q) => `${q.subject || '?'} #${q.id}`;
 const carries = (q, text) => (Array.isArray(q.tags) && q.tags.some((t) => String(t).includes(text)))
   || String(q.verified || '').includes(text)
@@ -121,12 +141,15 @@ export function checkProvenance(rows, {
   reviewedPastAndAligned = REVIEWED_PAST_AND_ALIGNED,
   knownShortSpelling = KNOWN_SHORT_SPELLING,
   knownOverclaims = KNOWN_ORIGIN_OVERCLAIMS,
+  reviewedMapOnly = REVIEWED_MAP_ONLY_PAPERS,
 } = {}) {
   const errors = [];
   const warnings = [];
   const reviewed = new Set(reviewedPastAndAligned);
   const knownShort = new Set(knownShortSpelling);
   const knownOver = new Set(knownOverclaims);
+  const mapOnlyReviewed = new Set(reviewedMapOnly);
+  const mapOnlySeen = new Set();
   const entryOf = (origin) => (typeof origin === 'string' && Object.hasOwn(origins, origin) ? origins[origin] : null);
 
   // 2. the map itself
@@ -202,12 +225,19 @@ export function checkProvenance(rows, {
     // 9. ratchets
     if (past && !hasOrigin) pastPaperWithoutOrigin++;
 
-    // 11. a typed row's filed origin decides whether it sat a paper
-    if (typed && entry && q.sourceType !== 'past-paper' && q.sourceType !== 'lecture-derived') {
+    // 11. a compilation row's filed origin decides whether it sat a paper
+    if (q.sourceType === 'student-compilation' && entry) {
       const paper = entry.kind === 'paper';
       byMap[paper ? 'paper' : 'other']++;
       if (paper !== past) {
         errors.push(`${label(q)}: examOrigin "${origin}" is filed as ${entry.kind} but isPastPaperQuestion says ${past ? 'it sat a paper' : 'it did not'}; the predicate stopped reading src/data/exam-origins.js`);
+      }
+      // 12. ...and a paper only the map can read is a reviewed decision
+      if (paper && !originWordingNamesAPaper(origin)) {
+        mapOnlySeen.add(String(origin));
+        if (!mapOnlyReviewed.has(String(origin))) {
+          errors.push(`${label(q)}: examOrigin "${origin}" is filed as a paper, and nothing in its wording says so; open the document, then add it to REVIEWED_MAP_ONLY_PAPERS or file it as what it is`);
+        }
       }
     }
   }
@@ -227,6 +257,8 @@ export function checkProvenance(rows, {
     const stale = list.filter((id) => !set.has(id));
     if (stale.length) warnings.push(`${what}: ${stale.join(', ')} no longer need${stale.length === 1 ? 's' : ''} listing; delete ${stale.length === 1 ? 'it' : 'them'}`);
   }
+  const staleMapOnly = [...mapOnlyReviewed].filter((o) => !mapOnlySeen.has(o));
+  if (staleMapOnly.length) warnings.push(`REVIEWED_MAP_ONLY_PAPERS: ${staleMapOnly.map((o) => `"${o}"`).join(', ')} no longer need listing; delete them`);
   const unused = Object.keys(origins).filter((o) => !used.has(o));
   if (unused.length) warnings.push(`${unused.length} filed origin(s) no row uses any more: ${unused.slice(0, 5).map((o) => `"${o}"`).join(', ')}`);
 

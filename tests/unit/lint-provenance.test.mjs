@@ -31,6 +31,7 @@ import {
   BUDGETS,
   KNOWN_ORIGIN_OVERCLAIMS,
   KNOWN_SHORT_SPELLING,
+  REVIEWED_MAP_ONLY_PAPERS,
   checkProvenance,
 } from '../../scripts/lint-provenance.mjs';
 import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
@@ -203,9 +204,9 @@ test('the budgets may only fall', () => {
   assert.ok(BUDGETS.noSourceType > 0 && BUDGETS.pastPaperWithoutOrigin > 0);
 });
 
-test('a typed row sat a paper exactly when its origin is filed as one, and the lint fails if that stops', () => {
-  const typed = rows.filter((q) => q.sourceType && !['past-paper', 'lecture-derived'].includes(q.sourceType) && originEntry(q.examOrigin));
-  assert.ok(typed.length > 500, `only ${typed.length} typed rows with a filed origin, so the bank did not load`);
+test('a compilation row sat a paper exactly when its origin is filed as one, and the lint fails if that stops', () => {
+  const typed = rows.filter((q) => q.sourceType === 'student-compilation' && originEntry(q.examOrigin));
+  assert.ok(typed.length > 500, `only ${typed.length} compilation rows with a filed origin, so the bank did not load`);
   assert.deepEqual(typed.filter((q) => isPastPaperQuestion(q) !== (originEntry(q.examOrigin).kind === 'paper')).map((q) => q.id), []);
   // The rows the switch lifted on 2026-10-28: the Vet 85 swine final recall
   // reads "ไฟนอล", which no pattern matched. Band 0 now, and the interim tag
@@ -227,4 +228,35 @@ test('lint:all runs lint:provenance (through lint:data)', () => {
   assert.equal(scripts['lint:provenance'], 'node scripts/lint-provenance.mjs');
   assert.ok(scripts['lint:all'].split(' && ').includes('npm run lint:data'));
   assert.ok(scripts['lint:data'].split(' && ').includes('npm run lint:provenance'));
+});
+
+test('a row written FROM material is never a sat paper, whatever paper its origin names', () => {
+  // The map may file an origin as a paper because the item it was written from
+  // was sat. A row re-typed exam-aligned (the avian rewrites of sat items the
+  // bank already holds as past papers) or written from slides stays off band 0.
+  const origin = 'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1';
+  for (const sourceType of ['exam-aligned', 'lecture', 'practice', 'lecture-verified-draft', 'lecture-derived']) {
+    assert.equal(isPastPaperQuestion(row({ sourceType, examOrigin: origin })), false, sourceType);
+  }
+  assert.equal(isPastPaperQuestion(row({ sourceType: 'student-compilation', examOrigin: origin })), true);
+  for (const id of [105856, 105858, 105860]) {
+    const q = rows.find((r) => r.id === id);
+    assert.equal(q.sourceType, 'exam-aligned', `#${id}`);
+    assert.equal(isPastPaperQuestion(q), false, `#${id} is a rewrite of a sat item the bank already holds`);
+  }
+});
+
+test('rule 12: a paper origin its wording does not show needs a review, and a reviewed one passes', () => {
+  const origin = 'Avian Medicine ข้อสอบที่จำมาได้ Vet 99';
+  const origins = { [origin]: { kind: 'paper', cohort: 99, paper: null } };
+  const recalled = row({ sourceType: 'student-compilation', examOrigin: origin });
+  // isPastPaperQuestion reads the real map, which has never heard of this
+  // origin, so rule 11 fires too; rule 12 is the one that names the review.
+  assert.match(lintOnly([recalled], { origins }).errors.join('\n'), /REVIEWED_MAP_ONLY_PAPERS/);
+  assert.doesNotMatch(lintOnly([recalled], { origins, reviewedMapOnly: [origin] }).errors.join('\n'), /REVIEWED_MAP_ONLY_PAPERS/);
+  // A wording that already says "final" is no map-only decision.
+  const said = 'Avian Medicine final recall Vet 99';
+  assert.doesNotMatch(lintOnly([row({ sourceType: 'student-compilation', examOrigin: said })], { origins: { [said]: { kind: 'paper', cohort: 99, paper: 'final' } } }).errors.join('\n'), /REVIEWED_MAP_ONLY_PAPERS/);
+  // Every reviewed origin is still filed as a paper and still unreadable by the wording.
+  for (const o of REVIEWED_MAP_ONLY_PAPERS) assert.equal(originEntry(o)?.kind, 'paper', o);
 });

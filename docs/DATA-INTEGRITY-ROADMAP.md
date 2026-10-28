@@ -46,8 +46,9 @@
 
 - **B1** `sourceType` / `examOrigin` เป็น controlled vocabulary + validate ตอน ingest
   ตอนนี้ predicate ต้องเดาจาก regex บนภาษาคน ซึ่ง**พังมาแล้ว 3 รอบ** ทั้งขาดและเกิน
-  สถานะ 28 ต.ค. 2569 (5.169.3): แถวที่มี `sourceType` ตัดสินจาก `src/data/exam-origins.js` แล้ว ไม่เดาจากถ้อยคำ
-  ยก 65 ข้อที่ regex อ่าน "ไฟนอล" / "บันทึกหลังสอบ" ไม่ออกขึ้น band 0 และไม่มีข้อไหนหลุดออก
+  สถานะ 28 ต.ค. 2569 (5.171.3): แถวที่มี `sourceType` ตัดสินจาก `src/data/exam-origins.js` แล้ว ไม่เดาจากถ้อยคำ
+  ยก 55 ข้อที่ regex อ่าน "ไฟนอล" / "บันทึกหลังสอบ" ไม่ออกขึ้น band 0 และไม่มีข้อไหนหลุดออก
+  นี่ไม่ใช่การ "แก้ predicate ให้หลวม": ถ้อยคำเลิกเป็นตัวตัดสิน และการ file ที่มาใหม่เป็น paper ที่ถ้อยคำไม่บอกเอง ต้องผ่าน `REVIEWED_MAP_ONLY_PAPERS` (lint ข้อ 12)
   `lint-provenance` ข้อ 11 ล้มทันทีถ้า predicate เลิกอ่าน map ส่วนแถว legacy ที่ไม่มี `sourceType` ยังใช้ regex
 - **B2** marker "เขียนจากสรุปรุ่นพี่" ให้อยู่ field เดียว สะกดเดียว
   ตอนนี้อยู่ใน `tags` / `verified` / `examOrigin` และมี 2 สะกด

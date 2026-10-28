@@ -2033,7 +2033,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "avian-influenza",
       "hemagglutinin",
-      "cross-protection"
+      "cross-protection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2050,7 +2051,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "explain": "วัคซีน H5N3 สามารถนำมาใช้ป้องกัน H5N1 ได้ เพราะมี H5 เหมือนกัน แม้ว่า N จะต่างกันก็ยังให้การป้องกันโรคได้ ซึ่งสอดคล้องกับหลักที่ว่าวัคซีนเชื้อตายเน้นให้ H ตรงกับสายพันธุ์ที่ระบาด ส่วน N ไม่ตรงก็ยังมีประสิทธิภาพพอใช้ได้ ตัวเลือกที่บอกว่าคุ้มทุก subtype ก็เกินจริง เพราะการคุ้มโรคผูกกับ H ไม่ใช่ครอบคลุมทั้งหมด",
     "verified": "KFC MED Mid น.14, น.15",
     "sourcePages": [{ "doc": "kfc-med-mid", "edition": "17p", "page": 14 }, { "doc": "kfc-med-mid", "edition": "17p", "page": 15 }],
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine"
   },
   {
@@ -2083,7 +2084,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105858,
     "tags": [
       "avian-influenza",
-      "control-zone"
+      "control-zone",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2100,7 +2102,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "explain": "มาตรการหลักคือการกำจัดโรค โดยกำหนดพื้นที่รอบจุดเกิดโรคเป็นเขตเฝ้าระวังรัศมี 10 กิโลเมตร แบ่งเป็น 5 กิโลเมตรแรกที่ต้องเก็บตัวอย่างมาตรวจ ตัวไหนผลบวกให้ทำลายทิ้ง และ 5 กิโลเมตรถัดมาที่เฝ้าระวังโดยการสังเกตอาการ ร่วมกับการฆ่าสัตว์ป่วยและควบคุมการเคลื่อนย้ายในเขตโรคระบาด",
     "verified": "KFC MED Mid น.14, น.15",
     "sourcePages": [{ "doc": "kfc-med-mid", "edition": "17p", "page": 14 }, { "doc": "kfc-med-mid", "edition": "17p", "page": 15 }],
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine"
   },
   {
@@ -2133,7 +2135,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105860,
     "tags": [
       "vertical-transmission",
-      "CIA"
+      "CIA",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2150,7 +2153,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "explain": "ไวรัสที่ติดผ่านไข่ได้แก่ chicken infectious anemia (CIA), inclusion body hepatitis (IBH), reovirus, avian encephalomyelitis (AE), egg drop syndrome (EDS), avian leukosis และ reticuloendotheliosis ส่วนแบคทีเรียคือ Salmonella, Mycoplasma และ E. coli สำหรับ IBV และ ILT ติดต่อทาง aerosol และการสัมผัส ส่วน infectious coryza เป็น horizontal transmission ทาง direct contact และ airborne",
     "verified": "KFC MED Mid น.16",
     "sourcePages": [{ "doc": "kfc-med-mid", "edition": "17p", "page": 16 }],
-    "sourceType": "student-compilation",
+    "sourceType": "exam-aligned",
     "examOrigin": "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine"
   },
   {

@@ -6043,7 +6043,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "avian-ai": {
-        "mcq": 4,
+        "mcq": 1,
         "tf": 0,
         "match": 0,
         "writing": 6
@@ -7467,7 +7467,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "eqrepro-pregnancy": {
-        "mcq": 16,
+        "mcq": 15,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -7497,7 +7497,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "eqrepro-endometritis": {
-        "mcq": 9,
+        "mcq": 3,
         "tf": 0,
         "match": 0,
         "writing": 0

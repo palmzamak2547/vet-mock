@@ -2814,7 +2814,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "id": 105548,
     "tags": [
       "chronic-active-endometritis",
-      "endometrial-biopsy"
+      "endometrial-biopsy",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
@@ -2953,7 +2954,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "id": 105554,
     "tags": [
       "innate-immunity",
-      "uterine-clearance"
+      "uterine-clearance",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
@@ -2977,7 +2979,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "tags": [
       "Caslick-vulvoplasty",
       "perineal-conformation",
-      "pneumovagina"
+      "pneumovagina",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
@@ -3025,7 +3028,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "tags": [
       "cloprostenol",
       "luteolysis",
-      "uterine-clearance"
+      "uterine-clearance",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
@@ -3048,7 +3052,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "id": 105558,
     "tags": [
       "metritis",
-      "postpartum-disease"
+      "postpartum-disease",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
@@ -3094,7 +3099,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "id": 105560,
     "tags": [
       "intrauterine-fluid",
-      "diestrus"
+      "diestrus",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
@@ -3141,7 +3147,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "tags": [
       "early-blastocyst",
       "uterotubal-junction",
-      "PGE2"
+      "PGE2",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",

@@ -25,8 +25,12 @@ export function questionTopicId(question) {
 // still-older banks compatible until metadata is normalized.
 export function isPastPaperQuestion(question) {
   if (question?.sourceType === 'past-paper') return true;
-  // `lecture-derived` is written from the recording, never sat by anyone.
-  if (question?.sourceType === 'lecture-derived') return false;
+  // Every other declared sourceType but one names material nobody sat:
+  // `lecture-derived` is written from the recording, `exam-aligned` from what a
+  // compilation marked, `lecture`, `practice` and `lecture-verified-draft` from
+  // the course material (SOURCE_TYPES in src/data/exam-origins.js). A paper
+  // origin on such a row says what it was written FROM, not that it was sat.
+  if (question?.sourceType && question.sourceType !== 'student-compilation') return false;
   // Anything else — most often `student-compilation` — still has to answer for
   // itself through examOrigin. The two markers say DIFFERENT things:
   // sourceType is how the question reached us, examOrigin is whose paper it
@@ -40,15 +44,16 @@ export function isPastPaperQuestion(question) {
   // at all, and panicRank put them behind freshly written items. "อิงแนวข้อสอบ"
   // is still not a paper and still does not count — it names no cohort.
   const origin = String(question?.examOrigin || '');
-  // A typed row answers through src/data/exam-origins.js, where a person read
-  // the document and filed its exact origin. The wording is not guessed at:
-  // "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ" names a sat paper the pattern
-  // below cannot read, and 65 recalled items (22 swine finals, 25 zoonoses)
-  // sat in band 1 behind it until 2026-10-28. lint:provenance fails on an
-  // unfiled origin, so the pattern only decides legacy rows and fixtures.
+  // A compilation row answers through src/data/exam-origins.js, where a person
+  // read the document and filed its exact origin. The wording is not guessed
+  // at: "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ" names a sat paper the
+  // pattern below cannot read, and 55 recalled items (22 swine finals, 25
+  // zoonoses) sat in band 1 behind it until 2026-10-28. lint:provenance fails
+  // on an unfiled origin, and on a new origin filed as a paper that only the
+  // map can read until a person adds it to its reviewed list.
   const filed = question?.sourceType ? originEntry(origin) : null;
   if (filed) return filed.kind === 'paper';
-  const originNamesAPaper = !NON_PAPER_ORIGIN_PATTERN.test(origin) && PAST_PAPER_ORIGIN_PATTERN.test(origin);
+  const originNamesAPaper = originWordingNamesAPaper(origin);
   // The free-text `source` fallback stays for LEGACY rows only — the ones with
   // no sourceType at all. It matches the bare word ข้อสอบ, which appears in
   // plenty of compilation citations, so letting a typed row reach it counted
@@ -56,6 +61,12 @@ export function isPastPaperQuestion(question) {
   // to earn it through examOrigin, which names a cohort or does not.
   if (question?.sourceType) return originNamesAPaper;
   return originNamesAPaper || PAST_PAPER_SOURCE_PATTERN.test(String(question?.source || ''));
+}
+
+/** Whether an origin's wording alone reads as a sat paper: the rule for rows with no sourceType. */
+export function originWordingNamesAPaper(origin) {
+  const text = String(origin || '');
+  return !NON_PAPER_ORIGIN_PATTERN.test(text) && PAST_PAPER_ORIGIN_PATTERN.test(text);
 }
 
 // Questions written FROM a senior cohort's compilation — the starred and
