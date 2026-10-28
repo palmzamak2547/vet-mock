@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { WRAPUPS, wrapUpPapers, hasWrapUp, loadWrapUp, selfNumbered, wrapUpStillAhead } from '../../src/data/exam-wrapups.js';
+import { WRAPUPS, wrapUpPapers, hasWrapUp, wrapUpFor, loadWrapUp, selfNumbered, wrapUpStillAhead } from '../../src/data/exam-wrapups.js';
 import { lecturerSetFor } from '../../src/data/lecturer-sets.js';
 import { PHASES } from '../../src/lib/current-phase.js';
 import { SEMESTER } from '../../src/data/semester.js';
@@ -40,8 +40,8 @@ test('a wrap-up shows only for the paper it was written for', () => {
       assert.equal(hasWrapUp(subject, year, other, IN_TERM), Boolean(TERM[year][other]?.[subject]), `${subject} on ${other}`);
     }
     assert.equal(hasWrapUp(subject, year + 1, phase, IN_TERM), Boolean(TERM[year + 1]?.[phase]?.[subject]));
-    // Past the term, a past year's table: nothing written for its papers shows.
-    assert.equal(hasWrapUp(subject, year, phase, new Date('2027-08-15T10:00:00+07:00')), false);
+    // Past the term, a past year's table: the wrap-up still opens, marked as that year's.
+    assert.deepEqual(wrapUpFor(subject, year, phase, new Date('2027-08-15T10:00:00+07:00'))?.own, false);
   }
   assert.equal(hasWrapUp('no-such-subject', 5, '1-mid', IN_TERM), false);
   assert.equal(hasWrapUp('zoonoses'), false, 'no paper named, no wrap-up');

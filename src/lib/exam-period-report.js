@@ -9,8 +9,39 @@
 // ============================================================
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { SEMESTER } from '../data/semester.js';
-import { phaseLabel, timetableStatus } from './current-phase.js';
+import { phaseLabel, termYearLabel, timetableStatus } from './current-phase.js';
 import { scopeForTopic } from './exam-scope.js';
+import { wrapUpFor } from '../data/exam-wrapups.js';
+import { lecturerSetFor } from '../data/lecturer-sets.js';
+import { panicCardPaper } from '../data/panic-cards.js';
+
+const KINDS = [
+  ['wrap-up', (s, y, p, now) => wrapUpFor(s, y, p, now)],
+  ['lecturer set', (s, y, p, now) => lecturerSetFor(s, y, p, now)?.source],
+  ['panic card', (s, y, p, now) => panicCardPaper(s, y, p, now)],
+];
+
+/** Per paper of this year's timetable: which year's written content each kind
+ *  uses, e.g. "เทอม 1 ปลายภาค: wrap-up ปีการศึกษา 2569 (รุ่นก่อน) 9 วิชา". */
+function contentInUse(year, phases, now) {
+  return phases.map((phase) => {
+    const parts = [];
+    for (const [kind, find] of KINDS) {
+      const byTerm = new Map();
+      for (const s of SUBJECTS_BY_YEAR[year] || []) {
+        const hit = find(s.id, year, phase, now);
+        if (!hit) continue;
+        const key = `${hit.term}|${hit.own}`;
+        byTerm.set(key, (byTerm.get(key) || 0) + 1);
+      }
+      for (const [key, subjects] of byTerm) {
+        const [term, own] = key.split('|');
+        parts.push(`${kind} ${termYearLabel(term)}${own === 'true' ? '' : ' (รุ่นก่อน)'} ${subjects} วิชา`);
+      }
+    }
+    return { phase, label: phaseLabel(phase), parts };
+  });
+}
 
 export const STATUS_LABEL = {
   timetable: 'แยกตามช่วงสอบ ตามตารางสอบ',
@@ -59,6 +90,9 @@ export function examPeriodReport(now = new Date()) {
       unscoped,
       unscopedTopics: unscoped.reduce((n, u) => n + u.topics, 0),
       otherTermTopics,
+      // The paper students are on, else every paper of the table: whose year's
+      // wrap-ups, lecturer sets and panic cards those pages show.
+      content: contentInUse(y.id, current ? [current] : papers.map((p) => p.id), now),
     };
   });
 }

@@ -1459,6 +1459,7 @@ html, body {
 .vmx-subject-scope { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-sm); font-weight: 400; }
 .vmx-subject-scope-action { min-height: var(--touch-min); padding-inline: 8px; display: inline-flex; align-items: center; color: var(--clr-sage-text); font-size: inherit; font-weight: 600; }
 .vmx-phase-moved { margin: -6px 0 14px; color: var(--clr-ink-soft); font-size: var(--text-sm); line-height: 1.5; }
+.vmx-old-content { margin: 4px 0 10px; color: var(--clr-gold-text); font-size: var(--text-sm); font-weight: 600; line-height: 1.5; }
 .vmx-group-preview-icon { width: 44px; height: 44px; flex: 0 0 44px; display: grid; place-items: center; border-radius: 50%; background: var(--clr-surface-2); color: var(--clr-sage-text); }
 @media (max-width: 600px) {
   .vmx-hero { margin-bottom: 16px; }

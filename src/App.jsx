@@ -23,6 +23,7 @@ const notesReturnFrom = (state) => ({
 });
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useSelectedPhase } from './hooks/useSelectedPhase.js';
+import { contentPhase } from './lib/current-phase.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
@@ -658,6 +659,9 @@ export default function App() {
   // narrowed, including when the timetable has no paper to back the pick.
   // phaseStatus says why, for the lines that tell the student.
   const [selectedPhase, setSelectedPhase, phaseStatus] = useSelectedPhase(selectedYear);
+  // The paper whose wrap-up, lecturer set and panic card the pages show: the
+  // paper narrowed to, else the kept pick when nothing can be narrowed.
+  const paperPhase = contentPhase(phaseStatus);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
   // Voice-settings modal — triggered from CommandPalette "Voice Settings"
@@ -1906,6 +1910,9 @@ export default function App() {
       ? new Set(overrides.onlyTopics)
       : null;
     const _onlyPastPaper = overrides.onlyPastPaper === true;
+    // A lecturer card or wrap-up names its own paper: its set is served on the
+    // paper its count was printed from.
+    const _selectedPhase = 'selectedPhase' in overrides ? overrides.selectedPhase : selectedPhase;
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
@@ -1957,7 +1964,7 @@ export default function App() {
       topic: _topic,
       questionCategory: _questionCategory,
       selectedYear,
-      selectedPhase,
+      selectedPhase: _selectedPhase,
       onlyTopics: _onlyTopics,
       onlyPastPaper: _onlyPastPaper,
       bookmarks,
@@ -2967,6 +2974,7 @@ export default function App() {
       numQuestions: wanted || PANIC_SUBJECT_MAX,
       useTimer: category !== 'writing',
       timePerQ: category === 'tf' ? 45 : 60,
+      selectedPhase: paperPhase,
     });
   };
   // The pre-exam wrap-up of one subject (WrapUpView). The subject is set so
@@ -3191,7 +3199,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -3203,7 +3211,7 @@ export default function App() {
                   onStartTopic={startLecturerPractice}
                   onOpenDoc={openLibraryReader}
                   selectedYear={selectedYear}
-                  selectedPhase={selectedPhase}
+                  selectedPhase={paperPhase}
                 />
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}

@@ -61,10 +61,10 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 // out in Palm's friend's review.
 import NextActionCard from '../components/NextActionCard.jsx';
 import ExamCountdown from '../components/ExamCountdown.jsx';
-import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
+import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
-import { movedNotice, paperInTimetable, unsplitNotice } from '../lib/current-phase.js';
+import { contentPhase, movedNotice, paperInTimetable, termYearLabel, unsplitNotice } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -189,10 +189,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // minus the ones already sat. Deliberately NOT memoised: the tick below
   // re-renders Home every minute or five, and that is what makes the strip
   // disappear on its own when a paper ends. The list is a handful of items.
-  const wrapSubjects = yearSubjects.filter((s) => (
-    hasWrapUp(s.id, selectedYear, selectedPhase)
-    && wrapUpStillAhead(s.id, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(selectedPhase))
-  ));
+  // The paper is the one whose content the pages show (the kept pick when
+  // nothing is narrowed), and another year's wrap-up carries its year.
+  const paperPhase = contentPhase(phaseStatus) ?? selectedPhase;
+  const wrapSubjects = yearSubjects
+    .map((s) => ({ ...s, wrapUp: wrapUpFor(s.id, selectedYear, paperPhase) }))
+    .filter((s) => s.wrapUp
+      && wrapUpStillAhead(s.id, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(paperPhase)));
   // The current-term sets follow the phase picked at the top of the page —
   // the one control the app already had, the same one the subject grid and
   // the exam countdown obey. No phase = the whole semester. A course with
@@ -1151,7 +1154,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             <span className="vmx-wrap-strip-label">Wrap-up ก่อนสอบ</span>
             {wrapSubjects.map((s) => (
               <button key={s.id} type="button" className="vmx-wrap-strip-btn" onClick={() => onOpenWrapUp(s.id, s.name)}>
-                {s.name}
+                {s.name}{s.wrapUp.own ? '' : ` (${termYearLabel(s.wrapUp.term)})`}
               </button>
             ))}
           </div>

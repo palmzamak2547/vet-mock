@@ -310,7 +310,7 @@ function ExamPeriods() {
       </div>
       <div className="ad-tablewrap">
         <table className="ad-table">
-          <thead><tr><th>ชั้นปี</th><th>ตอนนี้</th><th>ช่วงสอบในตาราง</th><th>หัวข้อที่ยังไม่ระบุช่วงสอบ</th></tr></thead>
+          <thead><tr><th>ชั้นปี</th><th>ตอนนี้</th><th>ช่วงสอบในตาราง</th><th>เนื้อหาที่ใช้</th><th>หัวข้อที่ยังไม่ระบุช่วงสอบ</th></tr></thead>
           <tbody>
             {rows.map((r) => (
               <tr key={r.year}>
@@ -321,6 +321,7 @@ function ExamPeriods() {
                   {r.nextTableBy && <div className="ad-muted">ตารางสอบเทอมหน้ายังไม่อยู่ในระบบ หลัง {day(r.nextTableBy)} จะไม่แยกช่วงสอบจนกว่าจะเติม</div>}
                 </td>
                 <td>{r.papers.length ? r.papers.map((p) => <div key={p.id}>{p.label}: {day(p.start)} ถึง {day(p.end)}{p.over ? ' (สอบแล้ว)' : ''}</div>) : <span className="ad-muted">ไม่มี</span>}</td>
+                <td>{r.content.some((c) => c.parts.length) ? r.content.map((c) => <div key={c.phase}>{c.label}: {c.parts.join(", ") || "ยังไม่มี"}</div>) : <span className="ad-muted">ยังไม่มี</span>}</td>
                 <td>
                   {r.unscoped.length
                     ? r.unscoped.map((u) => `${subjectName(u.subject)} ${u.topics}`).join(', ')

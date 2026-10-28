@@ -18,6 +18,10 @@ import { SEMESTER } from '../../src/data/semester.js';
 import { SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { buildExamPool } from '../../src/lib/exam-pool.js';
+import { contentPhase, oldContentLine } from '../../src/lib/current-phase.js';
+import { WRAPUPS, wrapUpFor } from '../../src/data/exam-wrapups.js';
+import { LECTURER_SETS_BY_PAPER, lecturerSetFor } from '../../src/data/lecturer-sets.js';
+import { PANIC_CARD_PAPERS, panicCardPaper } from '../../src/data/panic-cards.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 
 const TIMES = {
@@ -212,5 +216,65 @@ test('the matrix is the same on a device in UTC and in Bangkok', () => {
     const run = spawnSync(process.execPath, ['--input-type=module', '-e', script], { env: { ...process.env, TZ }, encoding: 'utf8', cwd: here.replace(/[\\/]tests[\\/]unit[\\/].*$/, '') });
     assert.equal(run.status, 0, run.stderr);
     assert.equal(run.stdout.trim(), expected, `TZ=${TZ}`);
+  }
+});
+
+// Palm, 29 Oct ("อ้าว", at hiding all of it next year): with nothing updated,
+// a year's written content for a paper (wrap-up, lecturer set, panic card)
+// stays, from the newest term that has it, and says which year it is from.
+// A newer term's content takes over the moment it is filed.
+const LATER = ['2027-08-15T10:00:00+07:00', '2027-10-01T10:00:00+07:00', '2027-11-25T10:00:00+07:00', '2027-12-20T10:00:00+07:00'];
+
+test('Aug to Dec 2027, nothing updated: a ปี 5 pick opens 2569 content, labelled with its year', () => {
+  const term = SEMESTER.id;
+  const fake = { w: WRAPUPS[term][5]['1-final'], l: LECTURER_SETS_BY_PAPER[term][5]['1-final'], p: PANIC_CARD_PAPERS[term][5]['1-final'] };
+  WRAPUPS[term][5]['1-final'] = { ...(fake.w || {}), zoonoses: async () => ({ WRAPUP: { subject: 'zoonoses' } }) };
+  LECTURER_SETS_BY_PAPER[term][5]['1-final'] = { ...(fake.l || {}), zoonoses: { examDate: '2026-11-26', lecturers: [] } };
+  PANIC_CARD_PAPERS[term][5]['1-final'] = fake.p || { cards: ['zoonoses'], noCard: [] };
+  try {
+    for (const iso of LATER) {
+      const now = new Date(iso);
+      for (const phase of ['1-mid', '1-final']) {
+        // The pick narrows nothing (the table is last year's), and it still names the paper whose content opens.
+        const state = phaseState({ saved: phase }, 5, now);
+        assert.deepEqual([state.filtered, contentPhase(state)], [false, phase], `${iso} ${phase}`);
+        const wrap = wrapUpFor('zoonoses', 5, phase, now);
+        const set = lecturerSetFor('zoonoses', 5, phase, now);
+        const card = panicCardPaper('zoonoses', 5, phase, now);
+        for (const [what, hit] of [['wrap-up', wrap], ['lecturer set', set?.source], ['panic card', card]]) {
+          assert.ok(hit, `${iso} ${phase}: the ${what} is still there`);
+          assert.deepEqual([hit.term, hit.own], [term, false], `${iso} ${phase}: the ${what} is 2569's, marked as such`);
+        }
+        assert.equal(oldContentLine(wrap), `จากปีการศึกษา ${term.split('-')[0]} (รุ่นก่อน) อาจไม่ตรงกับปีนี้`);
+      }
+    }
+    // No pick: nothing to open, and nothing narrowed.
+    assert.equal(contentPhase(phaseState({ saved: null }, 5, new Date(LATER[2]))), null);
+  } finally {
+    const put = (reg, v) => { if (v === undefined) delete reg[term][5]['1-final']; else reg[term][5]['1-final'] = v; };
+    put(WRAPUPS, fake.w);
+    put(LECTURER_SETS_BY_PAPER, fake.l);
+    put(PANIC_CARD_PAPERS, fake.p);
+  }
+});
+
+test('a newer term\'s content replaces the old the moment it is filed, and a term with none of its own falls back to the same paper', () => {
+  const was = SEMESTER.id;
+  const now = new Date('2027-11-25T10:00:00+07:00');
+  WRAPUPS['2570-1'] = { 5: { '1-final': { zoonoses: async () => null } } };
+  try {
+    SEMESTER.id = '2570-1';
+    // This term has a final wrap-up for zoonoses: it is used, not 2569's.
+    assert.equal(wrapUpFor('zoonoses', 5, '1-final', now).term, '2570-1');
+    // This term has no midterm one: 2569's midterm, labelled; never another term's paper.
+    const mid = wrapUpFor('zoonoses', 5, '1-mid', now);
+    assert.deepEqual([mid.term, mid.own], ['2569-1', false]);
+    assert.equal(wrapUpFor('zoonoses', 5, '2-mid', now), null, 'a term-2 midterm never borrows the term-1 one');
+    // A future term's content never shows early.
+    SEMESTER.id = '2569-1';
+    assert.equal(wrapUpFor('zoonoses', 5, '1-final', now), null);
+  } finally {
+    SEMESTER.id = was;
+    delete WRAPUPS['2570-1'];
   }
 });

@@ -17,6 +17,7 @@ import BackBar from '../components/BackBar.jsx';
 import { loadWrapUp, selfNumbered } from '../data/exam-wrapups.js';
 import { lecturerSetFor, FORMAT_LABEL } from '../data/lecturer-sets.js';
 import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { oldContentLine } from '../lib/current-phase.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
@@ -148,6 +149,8 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
 
       <header className="vmx-wrap-hero">
         <div className="vmx-wrap-eyebrow">Wrap-up {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)] || ''}</div>
+        {/* Another year's wrap-up: the exam date below and the emphasis are that year's. */}
+        {oldContentLine(data.source) && <p className="vmx-old-content">{oldContentLine(data.source)}</p>}
         <h1>{subjectName || subject}</h1>
         <div className="vmx-wrap-meta">
           <span className="vmx-wrap-pill">สอบ {thaiDate(data.exam?.date)} {data.exam?.time || ''}</span>

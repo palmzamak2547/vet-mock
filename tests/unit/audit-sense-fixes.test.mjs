@@ -623,7 +623,7 @@ test('a panic session is scoped to its own subject', () => {
 
 test('the card shows only for the exam it was drawn for', () => {
   const view = src('src/views/TopicSelectView.jsx');
-  assert.ok(view.includes('hasPanicCard(subject, selectedYear, selectedPhase)'),
+  assert.ok(view.includes('hasPanicCard(subject, selectedYear, paperPhase)'),
     'the paper in scope decides, and a subject with no card must not render an empty slot');
   // Placement: before the tabs, or it is not the first thing on the screen.
   assert.ok(view.indexOf('vmx-panic-card-slot') < view.indexOf('className="vmx-section-tabs"'),

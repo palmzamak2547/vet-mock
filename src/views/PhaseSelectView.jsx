@@ -118,7 +118,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
             with no paper still to come in it, nothing is recommended. */}
         {currentPhase
           ? 'ระบบแนะนำช่วงสอบที่กำลังจะมาถึงตามตารางสอบ คุณเลือกช่วงอื่นได้ตลอด'
-          : 'ยังไม่มีตารางสอบที่มีสอบรออยู่ของชั้นปีนี้ จึงยังไม่แยกข้อสอบตามช่วงสอบ ช่วงที่เลือกไว้จะใช้เมื่อมีตารางสอบ'}
+          : 'ยังไม่มีตารางสอบที่มีสอบรออยู่ของชั้นปีนี้ จึงยังไม่แยกข้อสอบตามช่วงสอบ ช่วงที่เลือกไว้ใช้เปิด wrap-up และชุดข้อสอบแยกตามอาจารย์ของช่วงนั้น'}
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

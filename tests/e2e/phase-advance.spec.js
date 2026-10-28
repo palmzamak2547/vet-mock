@@ -62,6 +62,24 @@ test.describe('the timetable has no paper still to come', () => {
   }
 });
 
+// Palm, 29 Oct: next year with nothing added still shows last year's written
+// content for the paper picked, labelled with its year, never hidden.
+test.describe('next August with nothing updated', () => {
+  test.use({ pinCalendar: false, phasePickedAtPin: false });
+
+  test('the midterm pick opens 2569 wrap-up and lecturer sets, each labelled with its year', async ({ page, context }) => {
+    await page.clock.install({ time: new Date('2027-08-15T10:00:00+07:00') });
+    await seed(context, '1-mid');
+    await page.goto('/app');
+    await expect(page.locator('.vmx-subject-grid')).toBeVisible({ timeout: 20000 });
+    await page.locator('.vmx-subject-card', { hasText: 'อายุรศาสตร์สัตว์ปีก' }).first().click();
+    const line = 'จากปีการศึกษา 2569 (รุ่นก่อน) อาจไม่ตรงกับปีนี้';
+    await expect(page.locator('.vmx-wrap-entry .vmx-old-content')).toHaveText(line, { timeout: 20000 });
+    await expect(page.locator('.vmx-lect-block .vmx-old-content')).toHaveText(line);
+    await expect(page.locator('.vmx-lect-intro')).toContainText('ปีการศึกษา 2569');
+  });
+});
+
 test('a pick made after its paper ended stays, and nothing is announced', async ({ page, context }) => {
   // The fixture anchors a seeded pick to the pinned instant: revising the midterm after it.
   await seed(context, '1-mid');

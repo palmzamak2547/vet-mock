@@ -30,7 +30,7 @@
 // one deck). `alsoTopics` are topics that belong to the lecturer's part but have
 // no deck of their own to show.
 // ============================================================
-import { paperInTimetable, timetableTerm } from '../lib/current-phase.js';
+import { paperContent } from '../lib/current-phase.js';
 
 export const FORMAT_LABEL = {
   tf: 'ถูกผิด',
@@ -848,24 +848,24 @@ const Y5_MIDTERM = {
 
 /**
  * The sets, per paper: the term of the timetable (SEMESTER.id), then year,
- * then phase (lib/current-phase.js), then subject. A set shows only while its
- * paper is the one in scope and on this term's timetable, so a new term's
- * '1-mid' never shows last year's sessions. A paper with no entry has none.
- * The final's sets go in as one more phase key; no code changes.
+ * then phase (lib/current-phase.js), then subject. A set shows while its paper
+ * is the one in scope. A term with none for that paper shows the newest earlier
+ * term's set of the same kind, labelled with its year (its dates, counts and
+ * formats are that year's), until this term's goes in as one more key.
  */
 export const LECTURER_SETS_BY_PAPER = {
   '2569-1': { 5: { '1-mid': Y5_MIDTERM } },
 };
 
-/** This subject's set for one paper of this term, or null. */
-export function lecturerSetFor(subjectId, selectedYear, selectedPhase) {
-  return LECTURER_SETS_BY_PAPER[timetableTerm()]?.[selectedYear]?.[selectedPhase]?.[subjectId] || null;
+/** This subject's set for one paper, this term's or the newest earlier one of
+ *  the same kind, with `source: { term, own }`; or null. */
+export function lecturerSetFor(subjectId, selectedYear, selectedPhase, now = new Date()) {
+  const hit = paperContent(LECTURER_SETS_BY_PAPER, subjectId, selectedYear, selectedPhase, now);
+  return hit ? { ...hit.value, source: { term: hit.term, own: hit.own } } : null;
 }
 
-/** Whether the page shows this subject's set: there is one for the paper in
- *  scope, and the paper is on this term's timetable, not a past year's. */
 export function hasLecturerSet(subjectId, selectedYear, selectedPhase, now = new Date()) {
-  return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase)) && paperInTimetable(selectedYear, selectedPhase, now);
+  return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase, now));
 }
 
 /** Every term's sets (of one subject, or all), for what does not depend on

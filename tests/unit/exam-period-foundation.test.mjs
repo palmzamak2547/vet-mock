@@ -131,8 +131,9 @@ test('a paper shows what its own key holds, only on its own term\'s timetable, s
     assert.deepEqual(shows(OCT_28), [true, true, true], 'one key each, and the final has its content');
     assert.equal(hasWrapUp('epidemiology', 5, '1-final', OCT_28), false, 'the final shows only what its own key holds');
     assert.equal(hasLecturerSet('zoonoses', 4, '1-final', OCT_28), false, 'another year shows nothing');
-    // A past year's table: the same phase id names next year's paper, which this content was not written for.
-    assert.deepEqual(shows(at('2027-08-15T10:00:00+07:00')), [false, false, false]);
+    // A past year's table: the content still shows, and says it is another year's.
+    assert.deepEqual(shows(at('2027-08-15T10:00:00+07:00')), [true, true, true]);
+    assert.equal(lecturerSetFor('zoonoses', 5, '1-final', at('2027-08-15T10:00:00+07:00')).source.own, false);
     // Content filed under another term never shows under this one.
     assert.equal(hasWrapUp('epidemiology', 5, '1-mid', at('2026-09-01T10:00:00+07:00')), false);
     // A year with no timetable shows nothing written for a paper.

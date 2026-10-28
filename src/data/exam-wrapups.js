@@ -9,13 +9,13 @@
 // the boot chunk carries.
 //
 // Scope: a wrap-up is written for one paper, so they are filed by the term of
-// the timetable (SEMESTER.id), then year, then phase, and one shows only while
-// its paper is the one in scope and on this term's timetable, like the lecturer
-// sets and the panic cards. A paper with no entry has no wrap-ups, and a new
-// term's '1-mid' never shows last year's. The final's go in as one more phase
-// key; no code changes.
+// the timetable (SEMESTER.id), then year, then phase, and one shows while its
+// paper is the one in scope, like the lecturer sets and the panic cards. A term
+// with none for that paper shows the newest earlier term's wrap-up of the same
+// kind (lib/current-phase.js paperContent), labelled with its year, until this
+// term's goes in as one more key; no code changes.
 // ============================================================
-import { paperInTimetable, timetableTerm } from '../lib/current-phase.js';
+import { paperContent, timetableTerm } from '../lib/current-phase.js';
 
 /** The wrap-ups, per paper: term, then year, then phase (lib/current-phase.js), then subject. */
 export const WRAPUPS = {
@@ -37,7 +37,6 @@ export const WRAPUPS = {
 };
 
 const thisTerm = () => WRAPUPS[timetableTerm()] || {};
-const loaderFor = (subject, year, phase) => thisTerm()[year]?.[phase]?.[subject] || null;
 
 /** The subjects with a wrap-up for one paper of this term. */
 export function wrapUpSubjects(year, phase) {
@@ -50,10 +49,15 @@ export function wrapUpPapers() {
     .flatMap(([phase, subjects]) => Object.keys(subjects).map((subject) => ({ year: Number(year), phase, subject }))));
 }
 
-/** Whether the page shows this subject's wrap-up: there is one for the paper,
- *  and the paper is on this term's timetable, not a past year's. */
+/** The wrap-up a page offers for one paper, this term's or the newest earlier
+ *  one of the same kind: { load, term, own }, or null. */
+export function wrapUpFor(subject, year, phase, now = new Date()) {
+  const hit = paperContent(WRAPUPS, subject, year, phase, now);
+  return hit ? { load: hit.value, term: hit.term, own: hit.own } : null;
+}
+
 export function hasWrapUp(subject, year, phase, now = new Date()) {
-  return Boolean(loaderFor(subject, year, phase)) && paperInTimetable(year, phase, now);
+  return Boolean(wrapUpFor(subject, year, phase, now));
 }
 
 /**
@@ -99,10 +103,11 @@ export function wrapUpStillAhead(subjectId, papers = [], endMsOf = () => Infinit
   return mine.some((e) => endMsOf(e) > nowMs);
 }
 
-/** The subject's wrap-up for one paper, or null when it has none. */
-export async function loadWrapUp(subject, year, phase) {
-  const load = loaderFor(subject, year, phase);
-  if (!load) return null;
-  const mod = await load();
-  return mod.WRAPUP || null;
+/** The subject's wrap-up for one paper, or null when it has none. `source`
+ *  says which term's it is, so a page can name another year's. */
+export async function loadWrapUp(subject, year, phase, now = new Date()) {
+  const hit = wrapUpFor(subject, year, phase, now);
+  if (!hit) return null;
+  const mod = await hit.load();
+  return mod.WRAPUP ? { ...mod.WRAPUP, source: { term: hit.term, own: hit.own } } : null;
 }

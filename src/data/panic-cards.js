@@ -25,14 +25,15 @@
 // The palette is transcribed from the printed set. If the source files carry
 // exact values, re-sample them rather than eyeballing these again.
 // ============================================================
-import { paperInTimetable, timetableTerm } from '../lib/current-phase.js';
+import { paperContent } from '../lib/current-phase.js';
 
 /**
  * Which subjects show their card on which paper: the term of the timetable
- * (SEMESTER.id), then year, then phase (lib/current-phase.js). A card only
- * shows while its paper is the one in scope and on this term's timetable, and
- * a paper with no entry shows none. The final goes in as one more phase key;
- * no code changes. `noCard` names the subjects taught that term
+ * (SEMESTER.id), then year, then phase (lib/current-phase.js). A card shows
+ * while its paper is the one in scope; a term with no list for that paper uses
+ * the newest earlier term's list of the same kind. The card carries nothing
+ * dated, and the session it opens is this year's pool. The final goes in as
+ * one more phase key; no code changes. `noCard` names the subjects taught that term
  * that deliberately show no card on that paper (they do not sit it, or their
  * card is not drawn yet), so the lint can tell "deliberately absent" from
  * "forgotten".
@@ -140,10 +141,18 @@ export function panicCardFor(subjectId) {
   return PANIC_CARDS[subjectId] || null;
 }
 
-/** Whether this subject's card shows on the paper the student is in: listed
- *  for that paper of this term, and the paper is on this term's timetable. */
+// The lists as term → year → phase → subject, read fresh each time.
+const listedSubjects = () => Object.fromEntries(Object.entries(PANIC_CARD_PAPERS).map(([term, years]) => [term,
+  Object.fromEntries(Object.entries(years).map(([year, phases]) => [year,
+    Object.fromEntries(Object.entries(phases).map(([phase, { cards = [] }]) => [phase, Object.fromEntries(cards.map((id) => [id, true]))]))]))]));
+
+/** Which term's list puts this subject's card on the paper: { term, own }, or null. */
+export function panicCardPaper(subjectId, selectedYear, selectedPhase, now = new Date()) {
+  const hit = PANIC_CARDS[subjectId] ? paperContent(listedSubjects(), subjectId, selectedYear, selectedPhase, now) : null;
+  return hit ? { term: hit.term, own: hit.own } : null;
+}
+
+/** Whether this subject's card shows on the paper the student is in. */
 export function hasPanicCard(subjectId, selectedYear, selectedPhase, now = new Date()) {
-  return Boolean(PANIC_CARDS[subjectId]
-    && PANIC_CARD_PAPERS[timetableTerm()]?.[selectedYear]?.[selectedPhase]?.cards?.includes(subjectId))
-    && paperInTimetable(selectedYear, selectedPhase, now);
+  return Boolean(panicCardPaper(subjectId, selectedYear, selectedPhase, now));
 }

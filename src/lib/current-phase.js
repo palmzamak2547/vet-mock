@@ -99,6 +99,54 @@ export function paperInTimetable(year, phase, now = new Date()) {
 /** The term the timetable belongs to, the key the per-paper content is filed under. */
 export const timetableTerm = () => SEMESTER?.id || null;
 
+// '2569-1' as one comparable number, or null.
+function termOrdinal(term) {
+  const [year, sem] = String(term || '').split('-').map(Number);
+  return year && (sem === 1 || sem === 2) ? year * 2 + sem - 1 : null;
+}
+
+/** 'ปีการศึกษา 2569' for '2569-1'. */
+export const termYearLabel = (term) => `ปีการศึกษา ${String(term || '').split('-')[0]}`;
+
+/**
+ * Written content for one paper of one subject (wrap-ups, lecturer sets, panic
+ * cards), from a registry filed term → year → phase → subject: this term's when
+ * it has some, else the newest earlier term's for the same paper (เทอม 1
+ * ปลายภาค for เทอม 1 ปลายภาค: a subject is taught in one term, so the same
+ * phase is the same kind of paper, and another term's paper is a different
+ * course's). Palm, 29 Oct: next year with nothing added must still have last
+ * year's, told apart plainly, never hidden. A later term's content replaces it
+ * the moment it is filed, with no code change.
+ *
+ * Returns { value, term, own } or null. `own` is false for another term's
+ * content, or when the timetable itself is a past year's: the page then names
+ * the year (oldContentLine) beside everything tied to that paper.
+ */
+export function paperContent(registry, subject, year, phase, now = new Date()) {
+  const here = termOrdinal(SEMESTER?.id);
+  if (phaseOrder(phase) < 0 || here == null) return null;
+  const terms = Object.keys(registry || {})
+    .filter((term) => termOrdinal(term) != null && termOrdinal(term) <= here)
+    .sort((a, b) => termOrdinal(b) - termOrdinal(a));
+  for (const term of terms) {
+    const value = registry[term]?.[year]?.[phase]?.[subject];
+    if (value) return { value, term, own: term === SEMESTER.id && timetableStatus(year, now).status !== 'stale-year' };
+  }
+  return null;
+}
+
+/** The line over content that is another year's: its year, and that it may not match this one. */
+export function oldContentLine(source) {
+  return source && !source.own ? `จาก${termYearLabel(source.term)} (รุ่นก่อน) อาจไม่ตรงกับปีนี้` : null;
+}
+
+/** The paper whose written content a page shows: the paper the sets are
+ *  narrowed to, else the student's kept pick when nothing can be narrowed. */
+export function contentPhase(state) {
+  if (state?.filtered) return state.phase;
+  return phaseOrder(state?.saved) >= 0 ? state.saved : null;
+}
+
 /** What a pick is anchored to: when it was made, and which timetable was in. */
 export const phaseAnchor = (now = new Date()) => ({ at: now.getTime(), term: SEMESTER?.id || null });
 
