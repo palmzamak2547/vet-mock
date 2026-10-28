@@ -8,7 +8,7 @@ import { useProgress } from '../lib/hooks.js';
 import { statsFor, daysToExam, dailyPace, progressStore } from '../lib/progress.js';
 import { localDay } from '../lib/dates.js';
 import { num, thaiDay } from '../lib/format.js';
-import { upcomingRound } from '../data/exam.js';
+import { upcomingRounds } from '../data/exam.js';
 
 export function Plan({ compact = false }) {
   const progress = useProgress();
@@ -17,12 +17,14 @@ export function Plan({ compact = false }) {
   // Until the student sets a date, the plan reads from the next announced round: the date is
   // known, and an empty plan asked for it twice (home and the exam page). Nothing is stored
   // until they choose; the announced round stays one tap away once another date is set.
-  const round = upcomingRound(localDay());
+  const rounds = upcomingRounds(localDay());
+  const round = rounds[0] || null;
   const assumed = !progress.examDate && round ? round : null;
   const date = progress.examDate || assumed?.parts[0].date || null;
   const days = daysToExam({ ...progress, examDate: date }, localDay());
   const pace = dailyPace(left, days);
-  const suggest = round && progress.examDate && progress.examDate !== round.parts[0].date ? round : null;
+  // Every announced round the chosen date is not, so a student sitting a later round finds it too.
+  const suggest = rounds.filter((r) => r.parts[0].date !== date);
   // A heavy daily amount gets a smaller first goal beside it: the past papers and VCA-style
   // questions, the closest thing to the paper itself.
   const heavy = pace != null && pace > 40;
@@ -38,11 +40,11 @@ export function Plan({ compact = false }) {
           <input type="date" value={date || ''} min={localDay()} onChange={(e) => setDate(e.target.value)} />
         </label>
         {assumed && <span className="hint plan-assumed">ใช้วันสอบรอบ {assumed.id} ไว้ก่อน เปลี่ยนได้</span>}
-        {suggest && (
-          <button type="button" className="chip plan-suggest" onClick={() => setDate(suggest.parts[0].date)}>
-            <Icon name="calendar" size={16} />ใช้รอบ {suggest.id} <span className="plan-suggest-d">{thaiDay(suggest.parts[0].date)}</span>
+        {suggest.map((r) => (
+          <button key={r.id} type="button" className="chip plan-suggest" onClick={() => setDate(r.parts[0].date)}>
+            <Icon name="calendar" size={16} />ใช้รอบ {r.id} <span className="plan-suggest-d">{thaiDay(r.parts[0].date)}</span>
           </button>
-        )}
+        ))}
       </div>
       <div className="plan-out" aria-live="polite">
         {days == null ? (

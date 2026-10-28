@@ -4,12 +4,12 @@ import { test, expect, answer } from './fixtures.mjs';
 test('a mock opened from the menu runs at the exam pace', async ({ page }) => {
   await page.goto('/practice?mode=mock');
   await expect(page.locator('.builder-form')).toBeVisible();
-  // 54 seconds a question, the paper's own pace, unless the student picks another.
-  await expect(page.locator('input[name="perq"]:checked')).toHaveValue('54');
+  // 72 seconds a question, the paper's own pace (180 minutes over 150), unless the student picks another.
+  await expect(page.locator('input[name="perq"]:checked')).toHaveValue('72');
 });
 
 test('a 25-question mock exam from start to result', async ({ page, isMobile }) => {
-  await page.goto('/practice?mode=mock&n=25&s=54');
+  await page.goto('/practice?mode=mock&n=25&s=72');
   const go = page.locator('.builder-sum button.btn-ink');
   await expect(go).toBeEnabled();
   await go.click();
