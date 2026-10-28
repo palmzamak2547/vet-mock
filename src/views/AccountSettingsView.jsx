@@ -576,7 +576,7 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
           <Card>
             <h3 style={cardHeading}>แอปที่เชื่อมไว้</h3>
             <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-              ดูหรือยกเลิกการเชื่อม Google Drive และ Notion และเพิ่มตารางสอบเข้าปฏิทิน
+              เพิ่มตารางสอบเข้าปฏิทิน และดูแอปที่เชื่อมไว้
             </p>
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('connect-apps')}>เปิดหน้าเชื่อมแอป</button>
           </Card>

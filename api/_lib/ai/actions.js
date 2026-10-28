@@ -58,7 +58,7 @@ export function buildActionCard(request, { corpus = null, rng = Math.random } = 
       card: {
         type: 'action',
         label: `เริ่มฝึก ${name} ${picked.length} ข้อ`,
-        say: `สุ่มข้อสอบจริงจากคลัง ${name} ${picked.length} ข้อ แล้วเปิดในหน้าทำข้อสอบของ VetMock`,
+        say: `สุ่มโจทย์ฝึกจากคลัง ${name} ${picked.length} ข้อ แล้วเปิดในหน้าทำข้อสอบของ VetMock`,
         url,
       },
     };

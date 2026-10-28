@@ -316,8 +316,8 @@ export default function ProfileView({
       <div className="vmx-dash-card vmx-profile-card">
         <h2>การตั้งค่า</h2>
         <Row
-          label="เสียงอ่านออก"
-          note="ความเร็วและเสียงพากย์"
+          label="ตั้งค่าเสียงอ่าน"
+          note="ความเร็วและช่วงพักของเสียงอ่าน"
           onClick={onVoiceSettings}
         />
         {/* Theme + motion: ThemePicker is the app's one owner of both, and it
@@ -329,7 +329,7 @@ export default function ProfileView({
         </div>
         <Row
           label="เชื่อมแอป"
-          note="ตารางสอบเข้าปฏิทิน การ์ด Anki ไฟล์จาก Drive และ Notion"
+          note="ตารางสอบเข้าปฏิทิน การ์ด Anki และแอปที่เชื่อมได้"
           onClick={() => setView('connect-apps')}
         />
         {user && (
