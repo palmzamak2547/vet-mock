@@ -1046,8 +1046,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "diagnostic-workup",
       "Woo-technique",
-      "AGID",
-      "อิงแนวข้อสอบ"
+      "AGID"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1071,8 +1070,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "PCR",
       "sensitivity-specificity",
-      "screening-test",
-      "อิงแนวข้อสอบ"
+      "screening-test"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1095,8 +1093,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105275,
     "tags": [
       "test-result-interpretation",
-      "client-communication",
-      "อิงแนวข้อสอบ"
+      "client-communication"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1119,8 +1116,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105276,
     "tags": [
       "radiographic-views",
-      "fetlock",
-      "อิงแนวข้อสอบ"
+      "fetlock"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1143,8 +1139,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105278,
     "tags": [
       "tendon-ultrasound",
-      "ultrasound-zone",
-      "อิงแนวข้อสอบ"
+      "ultrasound-zone"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",

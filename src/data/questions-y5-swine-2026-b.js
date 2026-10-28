@@ -15,8 +15,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105576,
     "tags": [
       "lawsonia-intracellularis",
-      "proliferative-enteropathy",
-      "อิงแนวข้อสอบ"
+      "proliferative-enteropathy"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -39,8 +38,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105577,
     "tags": [
       "brachyspira-hyodysenteriae",
-      "swine-dysentery",
-      "อิงแนวข้อสอบ"
+      "swine-dysentery"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -64,8 +62,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "lawsonia-intracellularis",
       "ELISA",
-      "IPMA",
-      "อิงแนวข้อสอบ"
+      "IPMA"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -88,8 +85,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105580,
     "tags": [
       "escherichia-coli",
-      "dietary-fiber",
-      "อิงแนวข้อสอบ"
+      "dietary-fiber"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -112,8 +108,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105582,
     "tags": [
       "fecal-pH",
-      "secretory-diarrhea",
-      "อิงแนวข้อสอบ"
+      "secretory-diarrhea"
     ],
     "subject": "swine-clinic",
     "topic": "swine-ileitis-bacti",
@@ -137,8 +132,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "differential-diagnosis",
       "salmonellosis",
-      "CSF",
-      "อิงแนวข้อสอบ"
+      "CSF"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -161,8 +155,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105584,
     "tags": [
       "salmonellosis",
-      "disease-distribution-pattern",
-      "อิงแนวข้อสอบ"
+      "disease-distribution-pattern"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -186,8 +179,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "button-ulcer",
       "turkey-egg-kidney",
-      "CSF",
-      "อิงแนวข้อสอบ"
+      "CSF"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -210,8 +202,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105586,
     "tags": [
       "viral-etiology",
-      "antimicrobial-use",
-      "อิงแนวข้อสอบ"
+      "antimicrobial-use"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
@@ -234,8 +225,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105587,
     "tags": [
       "fmd",
-      "sample-collection",
-      "อิงแนวข้อสอบ"
+      "sample-collection"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -258,8 +248,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105588,
     "tags": [
       "fmd",
-      "swine-vesicular-disease",
-      "อิงแนวข้อสอบ"
+      "swine-vesicular-disease"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -283,8 +272,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "fmd",
       "killed-vaccine",
-      "serotype-matching",
-      "อิงแนวข้อสอบ"
+      "serotype-matching"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -307,8 +295,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105590,
     "tags": [
       "fmd",
-      "secondary-bacterial-infection",
-      "อิงแนวข้อสอบ"
+      "secondary-bacterial-infection"
     ],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -331,8 +318,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105591,
     "tags": [
       "ASF",
-      "PCR-interpretation",
-      "อิงแนวข้อสอบ"
+      "PCR-interpretation"
     ],
     "subject": "swine-clinic",
     "topic": "swine-asf",
@@ -355,8 +341,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105592,
     "tags": [
       "ASF",
-      "sample-collection",
-      "อิงแนวข้อสอบ"
+      "sample-collection"
     ],
     "subject": "swine-clinic",
     "topic": "swine-asf",
@@ -379,8 +364,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105593,
     "tags": [
       "CSF",
-      "DIVA",
-      "อิงแนวข้อสอบ"
+      "DIVA"
     ],
     "subject": "swine-clinic",
     "topic": "swine-csf",
@@ -403,8 +387,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105594,
     "tags": [
       "ASF",
-      "attenuated-vaccine",
-      "อิงแนวข้อสอบ"
+      "attenuated-vaccine"
     ],
     "subject": "swine-clinic",
     "topic": "swine-asf",
@@ -427,8 +410,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105595,
     "tags": [
       "CSF",
-      "transplacental-infection",
-      "อิงแนวข้อสอบ"
+      "transplacental-infection"
     ],
     "subject": "swine-clinic",
     "topic": "swine-csf",
@@ -451,8 +433,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105596,
     "tags": [
       "aujeszky-disease",
-      "viral-tropism",
-      "อิงแนวข้อสอบ"
+      "viral-tropism"
     ],
     "subject": "swine-clinic",
     "topic": "swine-prv-je",
@@ -476,8 +457,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "tags": [
       "aujeszky-disease",
       "DIVA",
-      "gE-deleted-vaccine",
-      "อิงแนวข้อสอบ"
+      "gE-deleted-vaccine"
     ],
     "subject": "swine-clinic",
     "topic": "swine-prv-je",
@@ -500,8 +480,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105598,
     "tags": [
       "exudative-epidermitis",
-      "age-predilection",
-      "อิงแนวข้อสอบ"
+      "age-predilection"
     ],
     "subject": "swine-clinic",
     "topic": "swine-greasypig",
@@ -524,8 +503,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105599,
     "tags": [
       "mycoplasma-suis",
-      "hemolytic-anemia",
-      "อิงแนวข้อสอบ"
+      "hemolytic-anemia"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
