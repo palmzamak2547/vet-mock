@@ -30,7 +30,7 @@ export async function mockChat({ messages, signal, on }) {
   await wait(900, signal);
   if (/ข้อสอบ|quiz/i.test(q)) {
     on('sources', { covered: true, items: [] });
-    on('delta', { text: 'ข้อสอบจริงจากคลัง 2 ข้อ ลองทำดู' });
+    on('delta', { text: 'โจทย์ฝึกจากคลัง 2 ข้อ ลองทำดู' });
     on('cards', { items: [{ type: 'quiz', title: 'COM5', questions: [
       { id: 'mock-1', stem: 'เชื้อใดเป็นสาเหตุของโรคพิษสุนัขบ้า', options: ['Lyssavirus', 'Parvovirus', 'Morbillivirus', 'Coronavirus'], answer: 0, explain: 'Rabies virus อยู่ในสกุล Lyssavirus', subject: 'com5', url: 'https://vetmock.com/' },
       { id: 'mock-2', stem: 'สัตว์ชนิดใด**ไม่ใช่**พาหะหลักของ rabies ในไทย', options: ['สุนัข', 'แมว', 'ปลา', 'วัว'], answer: 2, explain: null, subject: 'com5', url: 'https://vetmock.com/' },

@@ -33,8 +33,8 @@ export const DICT = {
     ctxChip: 'CUVET / Semester 1, 2026',
 
     heroEyebrow: 'Made by Chula vet students, for Chula vet students',
-    heroL1: 'Practise every subject', heroL2: '', heroEm: 'before exam day.',
-    heroSub: 'Practice questions written from what you study. Every explanation says why the other options are wrong and where the answer comes from. Free, and you can start without an account.',
+    heroL1: 'Practise subject by subject', heroL2: '', heroEm: 'before exam day.',
+    heroSub: 'Practice questions written from what you study. Explanations give the reasoning and where the answer comes from, and many walk through why the other options are wrong. Free, and you can start without an account.',
     heroCta1: 'Start Practicing', heroCta2: 'Browse subjects',
     statOpen: 'questions open today', statSubjects: 'subjects', statNotes: 'topics with sourced notes',
     statsLabel: 'What is in the app today',
@@ -67,8 +67,8 @@ export const DICT = {
     wallDrag: 'You can move the notes.',
     wallAnswerHead: 'VetMock keeps it in one place.',
     wallAnswers: [
-      'Practice questions in every subject, written from what you study',
-      'Every wrong option explained, with where the answer comes from',
+      'Practice questions by subject, written from what you study',
+      'Explanations with their reasoning, and where the answer comes from',
       'Panic Mode for the night before, sized to the time you have',
       'A radiograph lab and a 3D Atlas built from real scans',
     ],
@@ -77,9 +77,9 @@ export const DICT = {
     howHead: 'Every question in the bank works like this',
     howSteps: [
       { key: 'bank', title: 'Written from what you study', body: 'Questions written and compiled from lecture slides, textbooks and the year-group sheets students share, from year 1 to year 5. Timed or untimed, by subject or by topic, on your phone while you wait for the bus.' },
-      { key: 'why', title: 'Every wrong option, explained', body: 'Not just which answer is right. Each wrong option gets the line that says why, so the next time two answers look alike you can tell them apart yourself.' },
+      { key: 'why', title: 'Explanations that give the reasoning', body: 'Not just which answer is right. Each explanation gives the reasoning, and many say why each wrong option is wrong, so the next time two answers look alike you can tell them apart yourself.' },
       { key: 'source', title: 'The source sits under every answer', body: 'Every question says where it came from. One written from a class recording opens that recording at the minute it cites, and the subject\'s document shelf opens from under the answer, so you can check for yourself instead of trusting anyone\'s summary.' },
-      { key: 'review', title: 'Missed questions come back as you start to forget', body: 'What you get wrong or are unsure about goes into review and returns on a spaced schedule. Keep getting it right and the gaps grow.' },
+      { key: 'review', title: 'Missed questions come back as you start to forget', body: 'A question you get wrong a second time goes into review by itself and returns on a spaced schedule. Keep getting it right and the gaps grow. Star the ones you are unsure about to practise them again.' },
     ],
     howBankLabel: 'Subjects with the most questions right now',
     howReviewLabel: 'If you keep answering correctly',
@@ -195,8 +195,8 @@ export const DICT = {
     ctxChip: 'CUVET / ภาคต้น 2569',
 
     heroEyebrow: 'ทำโดยนิสิตสัตวแพทย์จุฬา ให้นิสิตสัตวแพทย์จุฬา',
-    heroL1: 'ซ้อมโจทย์ทุกวิชา', heroL2: '', heroEm: 'ก่อนถึงวันสอบ',
-    heroSub: 'โจทย์ฝึกที่เขียนจากเนื้อหาที่เรียน ทุกเฉลยบอกว่าทำไมข้ออื่นถึงผิด และคำตอบมาจากไหน ฟรี ไม่ต้องสมัครก็เริ่มได้',
+    heroL1: 'ซ้อมโจทย์ทีละวิชา', heroL2: '', heroEm: 'ก่อนถึงวันสอบ',
+    heroSub: 'โจทย์ฝึกที่เขียนจากเนื้อหาที่เรียน เฉลยบอกเหตุผลและที่มาของคำตอบ หลายข้อไล่ให้ด้วยว่าตัวเลือกอื่นผิดตรงไหน ฟรี ไม่ต้องสมัครก็เริ่มได้',
     heroCta1: 'เริ่มฝึกเลย', heroCta2: 'ดูรายวิชา',
     statOpen: 'ข้อ ให้ฝึกวันนี้', statSubjects: 'วิชา', statNotes: 'หัวข้อมีโน้ตพร้อมที่มา',
     statsLabel: 'ในแอปตอนนี้มี',
@@ -229,8 +229,8 @@ export const DICT = {
     wallDrag: 'ลากโน้ตไปมาได้',
     wallAnswerHead: 'VetMock รวมไว้ให้ในที่เดียว',
     wallAnswers: [
-      'โจทย์ฝึกทุกวิชา เขียนจากเนื้อหาที่เรียน',
-      'เฉลยทุกตัวเลือกที่ผิด พร้อมบอกว่าคำตอบมาจากไหน',
+      'โจทย์ฝึกรายวิชา เขียนจากเนื้อหาที่เรียน',
+      'เฉลยพร้อมเหตุผล และบอกว่าคำตอบมาจากไหน',
       'Panic Mode สำหรับคืนก่อนสอบ จัดชุดให้พอดีเวลาที่มี',
       'แล็บภาพรังสีและ Atlas 3D จากภาพสแกนจริง',
     ],
@@ -238,10 +238,10 @@ export const DICT = {
 
     howHead: 'ทุกข้อในคลัง ทำงานแบบนี้',
     howSteps: [
-      { key: 'bank', title: 'เขียนจากเนื้อหาที่เรียนจริง', body: 'โจทย์เขียนและเรียบเรียงจากสไลด์เลกเชอร์ ตำรา และชีตสรุปที่นิสิตแบ่งปันกัน ครบตั้งแต่ปี 1 ถึงปี 5 จะจับเวลาหรือไม่จับก็ได้ เลือกเป็นวิชาหรือเป็นหัวข้อ ทำบนมือถือตอนรอรถก็ได้' },
-      { key: 'why', title: 'เฉลยไล่ทีละตัวเลือก', body: 'ไม่ได้บอกแค่ข้อไหนถูก ตัวเลือกที่ผิดทุกข้อมีเหตุผลว่าผิดตรงไหน รอบหน้าเจอสองข้อที่หน้าตาคล้ายกัน จะแยกออกได้เอง' },
+      { key: 'bank', title: 'เขียนจากเนื้อหาที่เรียนจริง', body: 'โจทย์เขียนและเรียบเรียงจากสไลด์เลกเชอร์ ตำรา และชีตสรุปที่นิสิตแบ่งปันกัน มีตั้งแต่ปี 1 ถึงปี 5 จะจับเวลาหรือไม่จับก็ได้ เลือกเป็นวิชาหรือเป็นหัวข้อ ทำบนมือถือตอนรอรถก็ได้' },
+      { key: 'why', title: 'เฉลยบอกเหตุผล', body: 'ไม่ได้บอกแค่ข้อไหนถูก เฉลยบอกเหตุผล และหลายข้อไล่ให้ว่าตัวเลือกที่ผิดผิดตรงไหน รอบหน้าเจอสองข้อที่หน้าตาคล้ายกัน จะแยกออกได้เอง' },
       { key: 'source', title: 'ที่มาอยู่ใต้ทุกเฉลย', body: 'ทุกข้อบอกว่ามาจากไหน ข้อที่เขียนจากคลิปคาบเรียนเปิดคลิปตรงนาทีนั้นได้ และเปิดชั้นเอกสารของวิชาได้จากใต้เฉลย เช็กเองได้ ไม่ต้องเชื่อสรุปของใคร' },
-      { key: 'review', title: 'ข้อที่พลาด กลับมาเองตอนใกล้ลืม', body: 'ข้อที่ตอบผิดหรือไม่มั่นใจจะเข้ารอบทบทวน แล้วกลับมาตามรอบความจำ ยิ่งตอบถูกต่อกัน ยิ่งเว้นห่างขึ้น' },
+      { key: 'review', title: 'ข้อที่พลาด กลับมาเองตอนใกล้ลืม', body: 'ข้อที่ตอบผิดซ้ำเป็นครั้งที่สองจะเข้ารอบทบทวนเอง แล้วกลับมาตามรอบความจำ ยิ่งตอบถูกต่อกัน ยิ่งเว้นห่างขึ้น ข้อที่ไม่มั่นใจกดดาวเก็บไว้ทำซ้ำได้' },
     ],
     howBankLabel: 'วิชาที่มีโจทย์มากที่สุดตอนนี้',
     howReviewLabel: 'ถ้าตอบถูกต่อกัน ข้อนี้จะกลับมา',
@@ -281,7 +281,7 @@ export const DICT = {
       { key: 'videos', title: 'สรุปคลิปเลกเชอร์', body: 'อ่านสรุปก่อน แล้วกระโดดไปช่วงในคลิปที่ต้องการ' },
       { key: 'library', title: 'สไลด์และชีตรวมไว้ที่เดียว', body: 'เปิดสไลด์เลกเชอร์และชีตของรุ่นในแอป ขีดเขียนและไฮไลต์ได้เอง' },
       { key: 'groups', title: 'ติวกับเพื่อน', body: 'ตั้งกลุ่ม แข่งทำชุดเดียวกัน แล้วดูว่าใครต้องทวนหัวข้อไหนอีก' },
-      { key: 'badges', title: 'สตรีคและเหรียญ', body: 'รางวัลเล็ก ๆ ของการมาทุกวัน ทำต่อเนื่อง 7 วัน ครบพันข้อ ทำหลังสี่ทุ่มครบ 50 ข้อ หรือครบ 50 ข้อใน Panic Mode' },
+      { key: 'badges', title: 'วันต่อเนื่องและเหรียญ', body: 'รางวัลเล็ก ๆ ของการมาทุกวัน ทำต่อเนื่อง 7 วัน ครบพันข้อ ทำหลังสี่ทุ่มครบ 50 ข้อ หรือครบ 50 ข้อใน Panic Mode' },
     ],
     demoExamQ: (i, n) => `ข้อ ${i} จาก ${n}`,
 

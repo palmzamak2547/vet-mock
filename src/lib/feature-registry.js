@@ -101,7 +101,7 @@ export const FEATURES = [
   {
     id: 'sr-session', category: 'practice', primary: true,
     label: 'ทบทวนตามรอบ', labelEn: 'Spaced Repetition', icon: '🧠',
-    hint: 'ข้อที่ผิดหรือลังเลจะกลับมาตามรอบที่เหมาะสม',
+    hint: 'ข้อที่ผิดซ้ำจะกลับมาตามรอบที่เหมาะสม',
     kw: 'sr spaced repetition anki flashcard ทบทวน review จำ',
     invoke: { kind: 'view', view: 'sr-session' },
   },
@@ -197,7 +197,7 @@ export const FEATURES = [
   {
     id: 'schedule', category: 'learn',
     label: 'ตารางเรียน & สอบ', labelEn: 'Class & exam schedule', icon: '📅',
-    hint: 'ตารางเรียน นับถอยหลังสอบ และเนื้อหาออกสอบ',
+    hint: 'ตารางเรียน ตารางสอบ และนับถอยหลังวันสอบ',
     kw: 'schedule class exam ตาราง เรียน สอบ countdown ปฏิทิน calendar',
     hideOnScaffold: true,
     invoke: { kind: 'view', view: 'schedule' },
@@ -235,7 +235,7 @@ export const FEATURES = [
     // rail already has the library itself.
     id: 'external-docs', category: 'learn', rail: false,
     label: 'เอกสารภายนอก', labelEn: 'External docs', icon: '🔗',
-    hint: 'อ่านเอกสารและชีตของ Google หรือหน้าของ Notion ในแอป ทั้งลิงก์ที่แชร์ไว้และบัญชีที่เชื่อม',
+    hint: 'อ่านเอกสารและชีตของ Google ที่แชร์เป็นลิงก์ ในแอป',
     kw: 'external docs notion google doc docs sheet sheets drive เอกสารภายนอก ลิงก์ link วาง paste เชื่อมบัญชี',
     invoke: { kind: 'view', view: 'library', intent: 'external' },
   },
@@ -351,14 +351,14 @@ export const FEATURES = [
   {
     id: 'contribute', category: 'tools',
     label: 'ช่วยเติมเนื้อหา', labelEn: 'Contribute', icon: '🤝',
-    hint: 'ส่ง slide / notes / past paper',
+    hint: 'ส่งโจทย์เข้าคลังให้ช่วยกันตรวจ',
     kw: 'contribute ช่วย เติม เนื้อหา ส่ง slide donate บริจาค',
     invoke: { kind: 'view', view: 'contribute' },
   },
   {
     id: 'question-manager', category: 'tune',
     label: 'เพิ่ม/แก้ข้อสอบเอง', labelEn: 'Question Manager', icon: '✏️',
-    hint: 'สร้างข้อสอบ custom',
+    hint: 'สร้างข้อสอบของคุณเอง',
     kw: 'manage edit custom question จัดการ เพิ่ม แก้ ข้อสอบ สร้าง',
     invoke: { kind: 'view', view: 'question-manager' },
   },
@@ -395,7 +395,7 @@ export const FEATURES = [
   {
     id: 'about', category: 'tools',
     label: 'เกี่ยวกับ VetMock', labelEn: 'About', icon: 'ℹ️',
-    hint: 'เกี่ยวกับ VetMock + changelog',
+    hint: 'VetMock คืออะไร ฟีเจอร์ที่ใช้ได้ และคนที่ช่วยกันทำ',
     kw: 'about info เกี่ยวกับ changelog version',
     invoke: { kind: 'view', view: 'about' },
   },
@@ -412,7 +412,7 @@ export const FEATURES = [
     // registry so the home grid's preview of each group keeps its cards.
     id: 'connect-apps', category: 'tools',
     label: 'เชื่อมแอป', labelEn: 'Connected apps', icon: '🔗',
-    hint: 'ตารางสอบเข้าปฏิทิน การ์ด Anki และไฟล์จาก Drive หรือ Notion',
+    hint: 'ตารางสอบเข้าปฏิทิน การ์ด Anki และแอปที่เชื่อมได้',
     kw: 'connect apps เชื่อมแอป google drive notion calendar ปฏิทิน ตารางสอบ anki การ์ด outlook apple ics เชื่อมบัญชี',
     invoke: { kind: 'view', view: 'connect-apps' },
   },
