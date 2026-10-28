@@ -2,7 +2,8 @@
 // recalled and sorted them after each sitting. Transcribed as printed in "VCA ALMANAC, CUVET:
 // สถิติจำนวนข้อสอบ VCA ปี 58 ถึง 68" (15 ต.ค. 2569), Table 1, which copies the shared sheet
 // "รวมมิตร VCA" that eleven cohorts kept in turn. These are not official figures: each year's
-// record holds the questions people remembered and could place, about 250 of the 400.
+// record holds the questions people remembered and could place, about 250 a year (the paper is
+// 150 questions a part, two parts, by the faculty's 2569 account; older papers may have differed).
 // tests/unit/almanac.test.mjs checks every sum below against the ones printed in the almanac.
 //
 // A cell is a count; [a, b] where the sheet wrote two counts (Surgery as ortho + soft tissue);

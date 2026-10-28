@@ -2,7 +2,7 @@
 // Facebook and X on a desk), Google Calendar and any .ics calendar, and the flashcard and
 // spreadsheet apps a set can be exported to (Anki, Quizlet, Google Sheets, Notion).
 
-import { FORMAT, SOURCES, roundCalendar } from '../data/exam.js';
+import { FORMAT, SOURCES, allDay, roundCalendar } from '../data/exam.js';
 import { LETTERS } from './format.js';
 import { cleanExplain } from './explain.js';
 
@@ -83,8 +83,11 @@ export function googleCalendarUrl(round, part) {
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: `สอบ VCA หมวด ${part.part} (รอบ ${round.id})`,
-    dates: `${utc(part.date, part.from)}/${utc(part.date, part.to)}`,
-    details: `${FORMAT.perPart} ข้อ ${FORMAT.minutesPerPart / 60} ชั่วโมง ตรวจประกาศล่าสุดได้ที่ ${SOURCES[round.source].url}\nซ้อมได้ที่ ${SITE}/exam`,
+    // Unannounced hours: an all-day event (end exclusive), as the calendar file does.
+    dates: part.from
+      ? `${utc(part.date, part.from)}/${utc(part.date, part.to)}`
+      : allDay(part.date).join('/'),
+    details: `${part.from ? '' : `ช่วง${part.slot} เวลารอประกาศ `}${FORMAT.perPart} ข้อ ${FORMAT.minutesPerPart / 60} ชั่วโมง ตรวจประกาศล่าสุดได้ที่ ${SOURCES.council.url}\nซ้อมได้ที่ ${SITE}/exam`,
     ctz: 'Asia/Bangkok',
   });
   return `https://calendar.google.com/calendar/render?${params}`;

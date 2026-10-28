@@ -69,7 +69,7 @@ test('/session with no set to run goes to the set builder, frame and all', async
 });
 
 test('the set builder names the domains หมวดวิชา and a part of the paper หมวด', async ({ page }) => {
-  await page.goto('/practice?mode=mock&n=200');
+  await page.goto('/practice?mode=mock&n=150');
   await expect(page.locator('.builder-sum .sum-list')).toContainText('หมวดวิชา');
   await expect(page.locator('.builder-sum .sum-real')).toContainText('ข้อสอบจริง 1 หมวด');
 });

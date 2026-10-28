@@ -8,7 +8,7 @@ import { CountUp } from '../components/CountUp.jsx';
 import { Figure, Nw, Words, BusyLabel } from '../components/bits.jsx';
 import { useStartGuard } from '../components/StartGuard.jsx';
 import { CARD_BY_ID } from '../lib/bank.js';
-import { EXAM_SECONDS, FORMAT, SOURCES, resultsLag, upcomingRound } from '../data/exam.js';
+import { EXAM_SECONDS, FORMAT, PASS_MARK, SOURCES, partTime, resultsLag, upcomingRounds } from '../data/exam.js';
 import { artSet } from '../lib/art.js';
 import { googleCalendarUrl, saveRoundCalendar } from '../lib/connect.js';
 import { Sheet } from '../components/Sheet.jsx';
@@ -37,11 +37,11 @@ function countdown(round, today) {
 function Ticket({ part, i, round }) {
   const d = Number(part.date.slice(8, 10));
   return (
-    <article className="ticket glass" style={{ '--i': i }} data-tilt="5" data-sheen aria-label={`หมวด ${part.part} ${thaiDay(part.date, SHORT)} ${part.from} ถึง ${part.to}`}>
+    <article className="ticket glass" style={{ '--i': i }} data-tilt="5" data-sheen aria-label={`หมวด ${part.part} ${thaiDay(part.date, SHORT)} ${partTime(part)}`}>
       <div className="ticket-main">
         <p className="ticket-k">หมวด <b>{part.part}</b></p>
         <p className="ticket-date">{thaiDay(part.date, SHORT)}</p>
-        <p className="ticket-time">{part.from}–{part.to}</p>
+        <p className="ticket-time">{partTime(part)}</p>
         <p className="ticket-meta"><span>{FORMAT.perPart} ข้อ</span><span>{FORMAT.minutesPerPart / 60} ชั่วโมง</span></p>
       </div>
       <div className="ticket-stub" aria-hidden="true">
@@ -105,7 +105,7 @@ export default function Exam() {
   useTitle('สนามสอบ');
   const progress = useProgress();
   const today = useToday();
-  const round = upcomingRound(today);
+  const [round = null, next = null] = upcomingRounds(today);
   const days = countdown(round, today);
   // Once the round is under way its first day has passed: the day to count to is the last.
   const examDay = round ? (round.parts[0].date >= today ? round.parts[0].date : round.parts[round.parts.length - 1].date) : null;
@@ -162,7 +162,8 @@ export default function Exam() {
                   <><span className="xhero-pre">อีก</span><CountUp className="xhero-n" value={days} duration={1400} /><span className="xhero-unit">วัน</span></>
                 )}
               </h1>
-              <p className="xhero-sub"><Nw>สอบ VCA รอบ {round.id}</Nw> <Nw>ประกาศผล {thaiDay(round.results)}</Nw></p>
+              <p className="xhero-sub"><Nw>สอบ VCA รอบ {round.id}</Nw> {round.results ? <Nw>ประกาศผล {thaiDay(round.results)}</Nw> : <Nw>ยังไม่ประกาศวันประกาศผล</Nw>}</p>
+              {next && <p className="xhero-next"><Nw>รอบถัดไป {next.id}</Nw> <Nw>{next.parts.map((p) => thaiDay(p.date, { day: 'numeric' })).join('–')} {thaiDay(next.parts[0].date, { month: 'short', year: 'numeric' })}</Nw> <Nw>{SOURCES[next.source].short}</Nw></p>}
               <div className="xhero-actions">
                 <button type="button" className="btn btn-ink btn-lg" onClick={setMine} disabled={mine} aria-pressed={mine}>
                   {mine ? <><Icon name="check" />ตั้งเป็นวันสอบแล้ว</> : <><Icon name="target" />ใช้เป็นวันสอบของฉัน</>}
@@ -177,7 +178,9 @@ export default function Exam() {
                 />
               </div>
               <p className="xhero-src">
-                <a href={SOURCES[round.source].url} target="_blank" rel="noopener noreferrer" className="text-link">ประกาศศูนย์ประเมินฯ ที่ 10/2568 <Icon name="arrowUpRight" size={14} /></a>
+                {SOURCES[round.source].url
+                  ? <a href={SOURCES[round.source].url} target="_blank" rel="noopener noreferrer" className="text-link">{SOURCES[round.source].short} <Icon name="arrowUpRight" size={14} /></a>
+                  : SOURCES[round.source].short}
               </p>
             </>
           ) : (
@@ -198,9 +201,9 @@ export default function Exam() {
       </section>
 
       <section className="wrap band glass" aria-label="รูปแบบข้อสอบ" data-reveal>
-        <Figure value={FORMAT.perPart} unit="ข้อ"><Nw>ต่อหมวดของข้อสอบ</Nw> <Nw>มี<b>สองหมวด</b></Nw></Figure>
-        <Figure value={FORMAT.minutesPerPart / 60} unit="ชม.">เวลาสอบต่อหมวด</Figure>
-        <Figure value={EXAM_SECONDS} unit="วินาที">ต่อข้อ</Figure>
+        <Figure value={FORMAT.perPart} unit="ข้อ"><Nw>ต่อหมวดของข้อสอบ</Nw> <Nw>มี<b>สองหมวด</b></Nw> <Nw>ความจำ {FORMAT.recall.join('–')} ข้อ</Nw> <Nw>ประยุกต์ {FORMAT.applied.join('–')} ข้อ</Nw></Figure>
+        <Figure value={FORMAT.minutesPerPart / 60} unit="ชม."><Nw>เวลาสอบต่อหมวด</Nw> <Nw>{EXAM_SECONDS} วินาทีต่อข้อ</Nw></Figure>
+        <Figure value={FORMAT.passPercent} unit="%"><Nw>เกณฑ์ผ่านต่อหมวด</Nw> <Nw>{PASS_MARK} จาก {FORMAT.perPart} ข้อ</Nw></Figure>
         <Figure value={FORMAT.feePerPart} unit="บาท">ค่าสมัครสอบต่อหมวด</Figure>
       </section>
 
@@ -216,7 +219,7 @@ export default function Exam() {
               : <><Icon name="timer" />เริ่มสนามจริง</>}
           </button>
           <button type="button" className="btn btn-glass btn-lg glass" onClick={() => rehearse(50)} disabled={!!busy}>
-            <BusyLabel busy={busy?.size === 50}>ฉบับสั้น <span className="btn-meta">50 ข้อ 45 นาที</span></BusyLabel>
+            <BusyLabel busy={busy?.size === 50}>ฉบับสั้น <span className="btn-meta">50 ข้อ {Math.round((50 * EXAM_SECONDS) / 60)} นาที</span></BusyLabel>
           </button>
         </div>
         {failed && <p className="notice notice-error"><Icon name="info" />โหลดข้อสอบไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>}
@@ -257,7 +260,7 @@ export default function Exam() {
         </ol>
         <p className="asks-legend">
           <span><span className="tr tr-up">▲</span><span className="tr tr-down">▼</span> ปี 68 เทียบค่าเฉลี่ยปี 66–67</span>
-          <span>แต่ละปีบันทึกได้ราว <Nw>{num(Math.round(asks.total))} จาก {num(FORMAT.perPart * 2)} ข้อ</Nw></span>
+          <span>แต่ละปีบันทึกได้ราว <Nw>{num(Math.round(asks.total))} ข้อ</Nw></span>
         </p>
       </section>
 

@@ -31,18 +31,18 @@ test('the builder offers a full part and the exam pace', () => {
   assert.deepEqual(ALL_DOMAINS, BANK.domains.map((d) => d.id));
 });
 
-test('a full mock part: 200 questions, three hours, spread as the exam asks', async () => {
+test('a full mock part: 150 questions, three hours, spread as the exam asks', async () => {
   progressStore.set(emptyProgress());
   const res = await startSet({ mode: 'mock', size: FORMAT.perPart });
   assert.equal(res.ok, true);
   const { session } = res;
-  assert.equal(session.items.length, 200);
-  assert.equal(new Set(session.items.map((it) => it.key)).size, 200, 'no question twice');
-  assert.equal(session.limitSec, 200 * 54);
+  assert.equal(session.items.length, 150);
+  assert.equal(new Set(session.items.map((it) => it.key)).size, 150, 'no question twice');
+  assert.equal(session.limitSec, 150 * 72, 'three hours');
   assert.equal(session.meta.mix, 'exam');
   assert.equal(sessionStore.get().id, session.id, 'the set is stored for the session page');
   const counts = countBy(session.items);
-  assert.deepEqual(counts, Object.fromEntries(Object.entries(allocate(sizes, 200, EXAM_WEIGHTS)).filter(([, n]) => n)));
+  assert.deepEqual(counts, Object.fromEntries(Object.entries(allocate(sizes, 150, EXAM_WEIGHTS)).filter(([, n]) => n)));
   for (const id of ALL_DOMAINS) assert.ok(counts[id] >= 1, `${id} is in the paper`);
   assert.ok(counts.ruminant > counts.imaging, 'ruminant, asked most, outweighs imaging');
   assert.ok(counts['micro-immuno'] <= CARD_BY_ID['micro-immuno'].count, 'never more than a domain holds');

@@ -19,6 +19,8 @@
 .xhero-sub { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 22px; font-size: 18px; line-height: 1.6; color: var(--ink-2); }
 .xhero-sub .nw:first-child { color: var(--ink); font-weight: 600; }
 .xhero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.xhero-next { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--ink-3); }
+.xhero-next .nw:first-child { color: var(--ink-2); font-weight: 600; }
 .xhero-src { margin-top: 16px; font-size: 14px; }
 .xhero-src .text-link { color: var(--ink-3); }
 
@@ -172,9 +174,9 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 @keyframes ticket-in { from { opacity: 0; translate: 70px 90px; rotate: 12deg; } }
 @keyframes grow-x { from { transform: scaleX(0); } }
 @keyframes cell-in { from { opacity: 0; transform: scale(.55); } }
-.xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src { animation: rise-in 900ms var(--ease-out) both; }
+.xhero .kicker, .xhero-h, .xhero-sub, .xhero-next, .xhero-actions, .xhero-src { animation: rise-in 900ms var(--ease-out) both; }
 .xhero-h { animation-delay: 80ms; }
-.xhero-sub { animation-delay: 220ms; }
+.xhero-sub, .xhero-next { animation-delay: 220ms; }
 .xhero-actions { animation-delay: 320ms; }
 .xhero-src { animation-delay: 420ms; }
 .ticket { animation: ticket-in 1150ms var(--ease-out) both; animation-delay: calc(260ms + var(--i, 0) * 150ms); }
@@ -186,7 +188,7 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 @media (max-width: 760px) { [data-reveal].is-in .alm-v:not(.is-near) { animation: none; } }
 .reveal-ready [data-reveal]:not(.is-in) .alm-v { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
-  .xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src, .ticket, [data-reveal].is-in .ask-bar i, [data-reveal].is-in .alm-v { animation: none; }
+  .xhero .kicker, .xhero-h, .xhero-sub, .xhero-next, .xhero-actions, .xhero-src, .ticket, [data-reveal].is-in .ask-bar i, [data-reveal].is-in .alm-v { animation: none; }
   .reveal-ready [data-reveal]:not(.is-in) .ask-bar i { transform: none; }
   .reveal-ready [data-reveal]:not(.is-in) .alm-v { opacity: 1; }
 }
