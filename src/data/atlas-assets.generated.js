@@ -1025,5 +1025,28 @@ export const ATLAS_ASSETS = Object.freeze({
         "originalName": "edinburgh-horse.stl"
       }
     ]
+  },
+  "feline-skeleton-westerly": {
+    "poster": "/atlas/feline-skeleton-westerly-d6d49a660c01.webp",
+    "profiles": {
+      "quick": {
+        "model": "/atlas/feline-skeleton-westerly-quick-12f6198511e9.glb",
+        "bytes": 589464,
+        "sha256": "12f6198511e9147ba77446e19f952a23be7ef06af9a9f8b7744924a417bbf638",
+        "triangles": 36546
+      },
+      "detail": {
+        "model": "/atlas/feline-skeleton-westerly-detail-d0a582d12437.glb",
+        "bytes": 951228,
+        "sha256": "d0a582d124374cb6d658ccede550cc6aaaa8ce85efae3446e8c41d297d48eca4",
+        "triangles": 56900
+      }
+    },
+    "parts": [
+      {
+        "id": "specimen",
+        "originalName": "skeleton"
+      }
+    ]
   }
 });

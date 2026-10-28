@@ -57,6 +57,23 @@ structures do not receive substitute geometry or selectable placeholders.
   site provided the files now used in the workstation pipeline below.
   Free access stated in an article is not a verified redistribution license.
 
+### westerly: Feline Skeleton Dec (Sketchfab)
+
+- Model: https://sketchfab.com/3d-models/feline-skeleton-dec-a5d0bb8f55dc4f49b103cd20d65e0b17 (uid
+  `a5d0bb8f55dc4f49b103cd20d65e0b17`), by westerly, public API and download panel both publish
+  CC BY 4.0. Downloaded through the logged-in download panel 27 October 2026:
+  `feline_skeleton_dec.glb`, 19,767,568 bytes, SHA-256
+  `b2be07592effdcc6a7786057d1dd7774d530a6c61ea7f4523b7322a8869d25c9`.
+- The export carries eight meshes, each covering the whole body: the source OBJ was split at the
+  65,535-vertex boundary, so the chunks are export fragments, not anatomical parts. The assembly
+  merges them into one surface and keeps every triangle; the specimen is published as a whole-body
+  display source, not as selectable bones. The model is an artist sculpt (a skeleton base for an
+  ecorche study), not a scan; its scope text and attribution state this.
+- Reproduce with `node scripts/assemble-atlas-feline.mjs <feline_skeleton_dec.glb>`, then
+  `node scripts/convert-atlas-specimen.mjs feline-skeleton-westerly <assembled.glb> 0,0,0` — the
+  author poses the skeleton standing on its own feet, so display keeps the source orientation —
+  and `npm run regen:atlas`.
+
 ### Other inspected candidates
 
 - Pixelbeaker, `3D Canine Anatomy: Normal Abdomen`, Sketchfab UID

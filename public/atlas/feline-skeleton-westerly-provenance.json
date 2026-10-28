@@ -1,0 +1,72 @@
+{
+  "id": "feline-skeleton-westerly",
+  "sources": [
+    {
+      "filename": "assembled.glb",
+      "sha256": "8e36083499ab9e70d184ec6a19e97bae8c719ab87a80378785e0b429d1414029",
+      "bytes": 14029052
+    }
+  ],
+  "sourceBounds": [
+    [
+      -0.32889360189437866,
+      -1.0423611402511597,
+      -1.9691343307495117
+    ],
+    [
+      0.32904312014579773,
+      0.8869098424911499,
+      1.9751819372177124
+    ]
+  ],
+  "sourceToDisplay": {
+    "rotationDegreesXYZ": [
+      0,
+      0,
+      0
+    ],
+    "center": [
+      0.00007475912570953369,
+      -0.07772564888000488,
+      0.003023803234100342
+    ],
+    "scale": 0.5070587306201835
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/feline-skeleton-westerly-quick-12f6198511e9.glb",
+      "bytes": 589464,
+      "gzipBytes": 464387,
+      "sha256": "12f6198511e9147ba77446e19f952a23be7ef06af9a9f8b7744924a417bbf638",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "skeleton",
+          "sourceTriangles": 691152,
+          "triangles": 36546,
+          "vertices": 30675,
+          "error": 0.002982228295877576
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/feline-skeleton-westerly-detail-d0a582d12437.glb",
+      "bytes": 951228,
+      "gzipBytes": 759740,
+      "sha256": "d0a582d124374cb6d658ccede550cc6aaaa8ce85efae3446e8c41d297d48eca4",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "skeleton",
+          "sourceTriangles": 691152,
+          "triangles": 56900,
+          "vertices": 50645,
+          "error": 0.0009809351759031415
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/feline-skeleton-westerly-d6d49a660c01.webp"
+}
