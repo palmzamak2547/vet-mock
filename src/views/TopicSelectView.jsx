@@ -1,9 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
-import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
+import { hasPanicCard } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
 import { scopeForPhase, questionInScope, phaseForCourse } from '../lib/exam-scope.js';
+import { phaseLabel } from '../lib/current-phase.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
@@ -13,7 +14,7 @@ import { takeRelatedReturn } from '../lib/related-return.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
-import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
+import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { getUpcomingExams } from '../data/schedule.js';
@@ -327,21 +328,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, selectedPhase));
   // How many lecturer cards the section will draw, so its loading skeleton
   // takes the same space and the topic list below it does not jump.
-  const lecturerCount = LECTURER_SETS[subject]?.lecturers?.length || 1;
+  const lecturerCount = lecturerSetFor(subject, selectedYear, selectedPhase)?.lecturers?.length || 1;
   // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
   // topics tab the week of the exam, above the lecturer block.
   // Gone once its paper is sat, the same rule as Home's strip.
   const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase)
     && wrapUpStillAhead(subject, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(selectedPhase)));
 
-  // Only for the exam these cards were drawn for. A card that showed all year
-  // would stop meaning "this is the one coming up".
-  const showPanicCard = Boolean(
-    onStartPanic
-    && panicCardFor(subject)
-    && Number(selectedYear) === PANIC_CARD_SCOPE.year
-    && selectedPhase === PANIC_CARD_SCOPE.phase,
-  );
+  // Only on a paper the card is listed for (panic-cards.js). A card that
+  // showed all year would stop meaning "this is the one coming up".
+  const showPanicCard = Boolean(onStartPanic && hasPanicCard(subject, selectedYear, selectedPhase));
   // What a tap actually opens. Panic narrows to the questions from a real
   // paper plus the ones written from what a senior cohort marked, so the
   // number is a property of the subject and differs a lot between them. A
@@ -630,12 +626,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       )}
       {showLecturers && (
         <div className="vmx-lect-block">
-          <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
+          <div className="vmx-section-label">ข้อสอบ{paperLabel}แยกตามอาจารย์ผู้สอน</div>
           <Suspense fallback={<LecturerSetsSkeleton count={lecturerCount} />}>
             <LecturerSets
               subject={subject}
               topics={topics}
               onOpenDoc={onOpenDoc}
+              selectedYear={selectedYear}
               selectedPhase={selectedPhase}
               onStart={onStartLecturer}
               onOpenInstructor={openInstructorFor}
@@ -689,6 +686,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             key="panic"
             subjectId={subject}
             subjectName={subjectMeta?.name}
+            kicker={`ปี ${selectedYear} ${phaseLabel(selectedPhase)}`}
             questionCount={panicCount}
             onStart={onStartPanic}
           />

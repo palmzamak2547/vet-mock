@@ -13,7 +13,8 @@
 // opening an empty session.
 // ============================================================
 import { Fragment, useEffect, useState } from 'react';
-import { LECTURER_SETS, LECTURER_SET_SCOPE, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
+import { lecturerSetFor, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
+import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { RevealTimingToggle, REVEAL_ROW, REVEAL_END, REVEAL_LABELS, writeRevealTiming } from './AnswerReveal.jsx';
@@ -46,8 +47,8 @@ const DownloadGlyph = () => (
   </svg>
 );
 
-export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, onOpenDoc = null, selectedPhase = LECTURER_SET_SCOPE.phase, instantFeedback = true, setInstantFeedback = null }) {
-  const set = LECTURER_SETS[subject];
+export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, onOpenDoc = null, selectedYear = null, selectedPhase = null, instantFeedback = true, setInstantFeedback = null }) {
+  const set = lecturerSetFor(subject, selectedYear, selectedPhase);
 
   // The deck's own slides: a deck names its library_docs slug
   // (lecturer-sets.js) and the catalog row supplies the reader payload.
@@ -152,7 +153,7 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
   return (
     <div className="vmx-lect-list">
       <p className="vmx-lect-intro">
-        กลางภาค {thaiDate(set.examDate)} — {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้
+        {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)]} {thaiDate(set.examDate)} — {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้
       </p>
       {/* One switch for every format: instantFeedback is what choice and
           true/false read (ExamView revealAnswer), the stored reveal timing is

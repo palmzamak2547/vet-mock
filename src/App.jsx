@@ -22,6 +22,7 @@ const notesReturnFrom = (state) => ({
   path: typeof state?.vmxNotesPath === 'string' ? state.vmxNotesPath : null,
 });
 import { useLocalStorage } from './hooks/useStorage.js';
+import { useSelectedPhase } from './hooks/useSelectedPhase.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
@@ -652,7 +653,9 @@ export default function App() {
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
   // semesters of the year (used as fallback for Y6 which is block-based).
-  const [selectedPhase, setSelectedPhase] = useLocalStorage('vmx-selected-phase', null);
+  // A saved pick whose paper is over moves to the current paper on its own
+  // (hooks/useSelectedPhase.js); phaseAdvancedFrom is what Home says it was.
+  const [selectedPhase, setSelectedPhase, phaseAdvancedFrom] = useSelectedPhase(selectedYear);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
   // Voice-settings modal — triggered from CommandPalette "Voice Settings"
@@ -3173,7 +3176,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseAdvancedFrom, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -3191,6 +3194,7 @@ export default function App() {
                   goBack={() => setView('topic-select')}
                   onStartTopic={startLecturerPractice}
                   onOpenDoc={openLibraryReader}
+                  selectedYear={selectedYear}
                   selectedPhase={selectedPhase}
                 />
               )}

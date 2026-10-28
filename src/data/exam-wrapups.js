@@ -8,29 +8,44 @@
 // script, never edited by hand) and is loaded lazily: the index below is all
 // the boot chunk carries.
 //
-// Scope: a wrap-up is written for one paper. It shows only while that paper
-// is the one in scope, like the lecturer sets and the panic cards.
+// Scope: a wrap-up is written for one paper, so they are kept per paper and
+// one shows only while its paper is the one in scope, like the lecturer sets
+// and the panic cards. A paper with no entry has no wrap-ups. The final's go
+// in as one more phase key under the year; no code changes.
 // ============================================================
 
-/** The exam these wrap-ups are for. */
-export const WRAPUP_SCOPE = { year: 5, phase: '1-mid' };
-
-const LOADERS = {
-  'avian-medicine': () => import('./wrapups/avian-medicine.js'),
-  'one-health': () => import('./wrapups/one-health.js'),
-  'food-industry': () => import('./wrapups/food-industry.js'),
-  'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
-  'equine-repro': () => import('./wrapups/equine-repro.js'),
-  'equine-medicine': () => import('./wrapups/equine-medicine.js'),
-  'swine-clinic': () => import('./wrapups/swine-clinic.js'),
-  'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
-  'zoonoses': () => import('./wrapups/zoonoses.js'),
+/** The wrap-ups, per paper: year, then phase (lib/current-phase.js), then subject. */
+export const WRAPUPS = {
+  5: {
+    '1-mid': {
+      'avian-medicine': () => import('./wrapups/avian-medicine.js'),
+      'one-health': () => import('./wrapups/one-health.js'),
+      'food-industry': () => import('./wrapups/food-industry.js'),
+      'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
+      'equine-repro': () => import('./wrapups/equine-repro.js'),
+      'equine-medicine': () => import('./wrapups/equine-medicine.js'),
+      'swine-clinic': () => import('./wrapups/swine-clinic.js'),
+      'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
+      'zoonoses': () => import('./wrapups/zoonoses.js'),
+    },
+  },
 };
 
-export const WRAPUP_SUBJECTS = Object.keys(LOADERS);
+const loaderFor = (subject, year, phase) => WRAPUPS[year]?.[phase]?.[subject] || null;
 
-export function hasWrapUp(subject, year = WRAPUP_SCOPE.year, phase = WRAPUP_SCOPE.phase) {
-  return Boolean(LOADERS[subject]) && Number(year) === WRAPUP_SCOPE.year && phase === WRAPUP_SCOPE.phase;
+/** The subjects with a wrap-up for one paper. */
+export function wrapUpSubjects(year, phase) {
+  return Object.keys(WRAPUPS[year]?.[phase] || {});
+}
+
+/** Every wrap-up of every paper, as { year, phase, subject }. */
+export function wrapUpPapers() {
+  return Object.entries(WRAPUPS).flatMap(([year, phases]) => Object.entries(phases)
+    .flatMap(([phase, subjects]) => Object.keys(subjects).map((subject) => ({ year: Number(year), phase, subject }))));
+}
+
+export function hasWrapUp(subject, year, phase) {
+  return Boolean(loaderFor(subject, year, phase));
 }
 
 /**
@@ -76,9 +91,9 @@ export function wrapUpStillAhead(subjectId, papers = [], endMsOf = () => Infinit
   return mine.some((e) => endMsOf(e) > nowMs);
 }
 
-/** The subject's wrap-up, or null when it has none. */
-export async function loadWrapUp(subject) {
-  const load = LOADERS[subject];
+/** The subject's wrap-up for one paper, or null when it has none. */
+export async function loadWrapUp(subject, year, phase) {
+  const load = loaderFor(subject, year, phase);
   if (!load) return null;
   const mod = await load();
   return mod.WRAPUP || null;

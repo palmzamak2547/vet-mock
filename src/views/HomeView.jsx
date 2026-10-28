@@ -64,6 +64,7 @@ import ExamCountdown from '../components/ExamCountdown.jsx';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
+import { phaseLabel } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -104,7 +105,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseAdvancedFrom = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -1181,6 +1182,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         )}
         </span>
       </div>
+      {/* The saved pick named a paper that is over, so the app moved it to the
+          current one (hooks/useSelectedPhase.js). It says so once, and asks
+          nothing: เปลี่ยน above is there for a student who wants another. */}
+      {phaseAdvancedFrom && phaseMeta && (
+        <p className="vmx-phase-moved" role="status">
+          เปลี่ยนเป็น{phaseLabel(selectedPhase)}ให้แล้ว เพราะ{phaseLabel(phaseAdvancedFrom)}สอบไปแล้ว
+        </p>
+      )}
       <SubjectGrid
         subjects={yearSubjects}
         // Phase 2/3 perf: SubjectGrid uses precomputed visible counts

@@ -16,10 +16,18 @@
 // stack (the shim would re-offset the clock's instant). The unit pin
 // tests/unit/e2e-clock-pin.test.mjs allows the opt-out only beside page.clock.
 import { test as base, expect } from '@playwright/test';
+import { detectCurrentPhase } from '../../src/lib/current-phase.js';
 
 export * from '@playwright/test';
 
 export const PINNED_NOW = '2026-09-25T18:15:00+07:00';
+
+// A spec that seeds vmx-selected-phase means a pick made at the pinned instant,
+// so it is anchored to the paper current then (hooks/useSelectedPhase.js) and
+// stays put, as a student's own pick does, instead of moving to the final the
+// moment Home loads (every midterm had ended by 18:15). A spec that tests the
+// move itself opts out with test.use({ phasePickedAtPin: false }).
+const PINNED_PAPER = detectCurrentPhase(new Date(PINNED_NOW), 5);
 
 // Exported for the specs that build contexts of their own (perf-budget.spec.js opens several per
 // test, each as empty as a first visit) and for scripts/perf.mjs: both must read the same calendar.
@@ -40,8 +48,14 @@ export function installPinnedCalendar({ pinned }) {
 
 export const test = base.extend({
   pinCalendar: [true, { option: true }],
-  context: async ({ context, pinCalendar }, use) => {
+  phasePickedAtPin: [true, { option: true }],
+  context: async ({ context, pinCalendar, phasePickedAtPin }, use) => {
     if (pinCalendar) await context.addInitScript(installPinnedCalendar, { pinned: Date.parse(PINNED_NOW) });
+    if (phasePickedAtPin) {
+      await context.addInitScript((paper) => {
+        try { window.localStorage.setItem('vmx-phase-anchor', JSON.stringify(paper)); } catch { /* opaque origin */ }
+      }, PINNED_PAPER);
+    }
     await use(context);
   },
 });

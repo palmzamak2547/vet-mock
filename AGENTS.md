@@ -288,6 +288,37 @@ Rules that follow from it, and they are not negotiable:
   ปลายภาค"* (what is excluded), never *"เฉพาะกลางภาค"* (that what remains is exhaustive),
   because unmapped topics are still shown. `audit-sense-fixes.test.mjs` pins both halves.
 
+**Which paper is current, and everything that follows it** (Palm, 2026-10-28: "สิ่งที่เรามีปัญหา
+ตลอดเรื่อง Vetmock ของเราเคยไม่ตรงกับกลางภาค ปลายภาค ปัจจุบัน วันนี้ต้องแก้ไขให้หมดสิ้นไปครับ").
+Until then a saved กลางภาค never moved, and the wrap-ups, lecturer sets and panic cards were
+pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they showed nothing.
+
+- **One rule.** `detectCurrentPhase(now, year)` in `src/lib/current-phase.js`: the paper whose
+  last exam has not ended, from that year's timetable on Bangkok's clock (`PAPER_WINDOWS` in
+  `exam-papers.generated.js`, so the boot chunk never loads schedule.js), then SEMESTER's exam
+  periods, then the month table (`PHASES`, the only one; phase-wrapped.js reads it). After a
+  final, the next term's midterm. Import it; never write a second rule.
+- **A saved pick follows it.** App keeps `vmx-selected-phase` through `hooks/useSelectedPhase.js`:
+  `settlePhase` moves a pick whose paper is over to the current paper, on load and every minute,
+  and Home says so in one line (`phaseAdvancedFrom`); nothing is asked. A pick for the current
+  paper or one ahead stays, and a pick made after its own paper ended (revising the midterm in
+  October) stays until the paper current then ends; `vmx-phase-anchor` tells them apart. E2E
+  seeds are anchored to the pinned instant by `tests/e2e/fixtures.js`; a spec that tests the move
+  opts out with `phasePickedAtPin: false` (`phase-advance.spec.js`).
+- **Content is kept per paper.** `WRAPUPS` (exam-wrapups.js), `LECTURER_SETS_BY_PAPER`
+  (lecturer-sets.js) and `PANIC_CARD_PAPERS` (panic-cards.js) are keyed year, then phase. The
+  final's content is one more phase key and no code; a paper with no key shows nothing, never
+  another paper's. Read them through `hasWrapUp`, `loadWrapUp`, `lecturerSetFor` and
+  `hasPanicCard` with the year and phase in scope, and name the paper in copy through
+  `phaseLabel` or `EXAM_SCOPE_LABEL`, never a literal กลางภาค.
+- **Guards.** `tests/unit/exam-period-foundation.test.mjs` fails on a single-paper scope in a
+  registry or its readers, a label that hard-codes the paper, a saved pick that does not advance,
+  and timetable rows outside SEMESTER's periods. `lint:exam-scope` also holds every topic of a
+  subject with a paper still ahead to the topic budget, and runs
+  `audit-scope-contradictions.mjs --check` (midterm against final, in the timetable's years,
+  budget 10, may only shrink).
+- **A new term:** update SEMESTER and EXAM_SCHEDULE together, then `npm run regen:exam-papers`.
+
 ---
 
 ## 🔀 Gitflow & parallel harnesses

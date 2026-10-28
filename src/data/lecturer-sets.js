@@ -31,9 +31,6 @@
 // no deck of their own to show.
 // ============================================================
 
-/** The exam these sets are for. A set only shows while this is the scope. */
-export const LECTURER_SET_SCOPE = { year: 5, phase: '1-mid' };
-
 export const FORMAT_LABEL = {
   tf: 'ถูกผิด',
   match: 'จับคู่',
@@ -42,7 +39,8 @@ export const FORMAT_LABEL = {
   all: 'ทุกประเภท',
 };
 
-export const LECTURER_SETS = {
+// ปี 5 เทอม 1 กลางภาค. Registered per paper in LECTURER_SETS_BY_PAPER below.
+const Y5_MIDTERM = {
   // One Health 3109502 — timetable in the students' course file (ONE HEALTH
   // MID 86, page 2): six Wednesday sessions 5 ส.ค. to 16 ก.ย., midterm the
   // week of 21 ก.ย. What each lecturer said about the paper comes from the
@@ -847,11 +845,35 @@ export const LECTURER_SETS = {
   },
 };
 
+/**
+ * The sets, per paper: year, then phase (lib/current-phase.js), then subject.
+ * A set shows only while its paper is the one in scope, and a paper with no
+ * entry has none. The final's sets go in as one more phase key; no code changes.
+ */
+export const LECTURER_SETS_BY_PAPER = {
+  5: { '1-mid': Y5_MIDTERM },
+};
+
+/** This subject's set for one paper, or null. */
+export function lecturerSetFor(subjectId, selectedYear, selectedPhase) {
+  return LECTURER_SETS_BY_PAPER[selectedYear]?.[selectedPhase]?.[subjectId] || null;
+}
+
 /** Whether this subject has a lecturer set for the scope the student is in. */
 export function hasLecturerSet(subjectId, selectedYear, selectedPhase) {
-  return Boolean(LECTURER_SETS[subjectId])
-    && Number(selectedYear) === LECTURER_SET_SCOPE.year
-    && selectedPhase === LECTURER_SET_SCOPE.phase;
+  return Boolean(lecturerSetFor(subjectId, selectedYear, selectedPhase));
+}
+
+/** Every paper's sets (of one subject, or all), for what does not depend on
+ *  the paper: a lecturer's name, the session a recording is. */
+export function allLecturerSets(subjectId = null) {
+  const out = [];
+  for (const papers of Object.values(LECTURER_SETS_BY_PAPER)) {
+    for (const sets of Object.values(papers)) {
+      for (const [id, set] of Object.entries(sets)) if (!subjectId || id === subjectId) out.push(set);
+    }
+  }
+  return out;
 }
 
 /** Every topic id in a lecturer's part of the paper, decks and alsoTopics alike. */

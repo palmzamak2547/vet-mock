@@ -1,41 +1,52 @@
 // ============================================================
-// current-phase.js — which exam phase to recommend today
+// current-phase.js — which paper is current or next, per year
 // ============================================================
 // The phase picker used to guess from the month alone: August to October was
 // เทอม 1 กลางภาค. The faculty sat every year-4 and year-5 midterm by 25 Sep, so
 // for the rest of September and all of October the picker pre-selected and
 // badged a paper that had already been written, while the final was the one
-// ahead.
+// ahead. And a pick, once saved, never moved at all.
 //
-// The recommendation now comes from the published timetable: the paper whose
-// last exam has not ended yet. A year with no timetable of its own uses the
-// faculty's exam periods in SEMESTER. The month table is the last resort, for
-// dates the current timetable does not cover.
+// THE RULE, the one every phase-dependent surface reads: the paper whose last
+// exam has not ended yet, from the year's own timetable on Bangkok's clock
+// (data/exam-papers.generated.js, generated from schedule.js). A year with no
+// timetable of its own uses the faculty's exam periods in SEMESTER. The month
+// table answers only for dates neither covers. After a term's final the next
+// paper is the next term's midterm.
+//
+// A student's saved pick follows the rule through settlePhase (App keeps it
+// with hooks/useSelectedPhase.js): a pick naming a paper that is over moves to
+// the current one and says so once; a pick for a paper still ahead stays.
 // ============================================================
-import { EXAM_SCHEDULE, parseExamStart } from '../data/schedule.js';
 import { SEMESTER } from '../data/semester.js';
+import { PAPER_WINDOWS } from '../data/exam-papers.generated.js';
 
-const PHASE_MONTHS = [
-  { id: '1-mid', months: [8, 9, 10] },
-  { id: '1-final', months: [11, 12] },
-  { id: '2-mid', months: [2, 3] },
-  { id: '2-final', months: [4, 5] },
-];
+/** The four papers of a school year, in the order a year sits them. The
+ *  months are the fallback for dates no timetable covers. */
+export const PHASES = Object.freeze([
+  { id: '1-mid', semester: 1, scope: 'midterm', label: 'เทอม 1 กลางภาค', months: [8, 9, 10] },
+  { id: '1-final', semester: 1, scope: 'final', label: 'เทอม 1 ปลายภาค', months: [11, 12] },
+  { id: '2-mid', semester: 2, scope: 'midterm', label: 'เทอม 2 กลางภาค', months: [1, 2, 3] },
+  { id: '2-final', semester: 2, scope: 'final', label: 'เทอม 2 ปลายภาค', months: [4, 5] },
+]);
+const ORDER = new Map(PHASES.map((p, i) => [p.id, i]));
+
+/** 0 to 3 in the order a year sits its papers, -1 for anything that is not a phase. */
+export const phaseOrder = (id) => ORDER.get(id) ?? -1;
+
+/** 'เทอม 1 ปลายภาค' for '1-final', '' for anything that is not a phase. */
+export const phaseLabel = (id) => PHASES[phaseOrder(id)]?.label || '';
 
 // The timetable is Bangkok's clock (UTC+7 all year), whatever the device says.
 const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
-// A timetable speaks for the term it belongs to, not for the year before it.
+// A timetable speaks for its own term and the break either side of it, not
+// for the year before or after it.
 const LEAD_DAYS = 150;
 
-function bangkokMs(date, hour = 0, minute = 0) {
+function bangkokMs(date) {
   const [y, m, d] = String(date).split('-').map(Number);
-  return Date.UTC(y, m - 1, d, hour, minute) - BANGKOK_OFFSET_MS;
-}
-
-function examEnd(exam) {
-  const start = parseExamStart(exam.time) || { hour: 8, minute: 0 };
-  return bangkokMs(exam.date, start.hour, start.minute) + (exam.duration_min || 180) * 60 * 1000;
+  return Date.UTC(y, m - 1, d) - BANGKOK_OFFSET_MS;
 }
 
 function semesterNumber() {
@@ -45,18 +56,10 @@ function semesterNumber() {
 
 /** The two papers of the current term, each as { start, end } in epoch ms. */
 function termWindows(year) {
-  const papers = (EXAM_SCHEDULE[`y${year}`] || []).filter((e) => e?.date && (e.term === 'midterm' || e.term === 'final'));
-  const span = (term) => {
-    const list = papers.filter((e) => e.term === term);
-    if (!list.length) return null;
-    return {
-      start: Math.min(...list.map((e) => bangkokMs(e.date))),
-      end: Math.max(...list.map(examEnd)),
-    };
-  };
-  const mid = span('midterm');
-  const fin = span('final');
-  if (mid && fin) return { mid, fin };
+  const own = PAPER_WINDOWS[year];
+  if (own?.midterm && own?.final) {
+    return { mid: { start: own.midterm[0], end: own.midterm[1] }, fin: { start: own.final[0], end: own.final[1] } };
+  }
   // The faculty's own exam periods, for years without a timetable here.
   const period = (p) => (p?.start && p?.end ? { start: bangkokMs(p.start), end: bangkokMs(p.end) + DAY_MS } : null);
   const smid = period(SEMESTER?.midtermPeriod);
@@ -65,18 +68,15 @@ function termWindows(year) {
 }
 
 function monthPhase(now) {
-  const m = now.getMonth() + 1;
-  const found = PHASE_MONTHS.find((p) => p.months.includes(m));
-  if (found) return found.id;
-  // Uncovered months are semester breaks, and in a break the useful answer is
-  // the phase you are walking INTO. June-July is the long break before
-  // semester 1; January is the gap before semester 2's midterm.
-  return m === 1 ? '2-mid' : '1-mid';
+  const m = new Date(now.getTime() + BANGKOK_OFFSET_MS).getUTCMonth() + 1;
+  // June and July belong to no paper: a break, and in a break the useful
+  // answer is the paper you are walking INTO.
+  return PHASES.find((p) => p.months.includes(m))?.id || '1-mid';
 }
 
 /**
- * The phase to recommend at `now` for `year`: the paper still ahead in the
- * current term's timetable, otherwise the month heuristic.
+ * The paper current or next at `now` for `year`: the one still ahead in the
+ * current term's timetable, otherwise the month table.
  */
 export function detectCurrentPhase(now = new Date(), year = null) {
   const sem = semesterNumber();
@@ -85,6 +85,37 @@ export function detectCurrentPhase(now = new Date(), year = null) {
     const t = now.getTime();
     if (t >= windows.mid.start - LEAD_DAYS * DAY_MS && t < windows.mid.end) return `${sem}-mid`;
     if (t >= windows.mid.end && t < windows.fin.end) return `${sem}-final`;
+    // After the final the next paper is the next term's midterm, while the
+    // month table still names this term (it says ปลายภาค for all of December).
+    if (t >= windows.fin.end && t < windows.fin.end + LEAD_DAYS * DAY_MS) {
+      const m = monthPhase(now);
+      return m.startsWith(`${sem}-`) ? `${sem === 1 ? 2 : 1}-mid` : m;
+    }
   }
   return monthPhase(now);
+}
+
+/**
+ * A saved pick, settled against `now`. `anchor` is the paper that was current
+ * when the pick was made (null for a pick saved before anchors existed, which
+ * counts as made before its own paper).
+ *
+ * - A pick for the current paper, or one still ahead, stays.
+ * - A pick made after its own paper ended (revising the midterm in October)
+ *   stays until the paper current at that moment ends too.
+ * - Anything else names a paper that is over: it moves to the current paper,
+ *   and `advancedFrom` says what it was, so the page can say so once.
+ * - null (no phase scoping) and anything that is not a phase are left alone.
+ *
+ * ponytail: papers are ordered within one school year, so a pick from last
+ * year that sits later in the order (a May ปลายภาค seen again in August)
+ * stays. The year a student picked is just as stale then; promote the year
+ * and the phase together when cohorts move up on their own.
+ */
+export function settlePhase({ phase = null, anchor = null } = {}, year = null, now = new Date()) {
+  const at = phaseOrder(phase);
+  if (at < 0) return { phase, anchor, advancedFrom: null };
+  const current = detectCurrentPhase(now, year);
+  if (at >= phaseOrder(current) || anchor === current) return { phase, anchor: anchor ?? current, advancedFrom: null };
+  return { phase: current, anchor: current, advancedFrom: phase };
 }

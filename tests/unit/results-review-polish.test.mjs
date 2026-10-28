@@ -228,7 +228,10 @@ test('COPY-03: the Panic card, the night rank, the Results promotion and Study B
 
 test('COPY-03: the replacement wording says the same thing, clause for clause', () => {
   const text = (file) => read(file).replace(/<\/?strong>/g, '');
-  assert.ok(text('../../src/components/PanicCard.jsx').includes('<span className="vmx-panic-kicker">ปี 5 เทอม 1 กลางภาค</span>'));
+  // The kicker names the paper in scope ("ปี 5 เทอม 1 กลางภาค"), built where the card is placed.
+  assert.ok(text('../../src/components/PanicCard.jsx').includes('<span className="vmx-panic-kicker">{kicker}</span>'));
+  assert.ok(text('../../src/views/TopicSelectView.jsx').includes('kicker={`ปี ${selectedYear} ${phaseLabel(selectedPhase)}`}'));
+  assert.ok(text('../../src/lib/current-phase.js').includes("label: 'เทอม 1 กลางภาค'"));
   const rank = text('../../src/components/NightRankCard.jsx');
   assert.ok(rank.includes('ตอบดึกสะสม {nightCount} ข้อ อีก {progress.needed} ข้อได้เป็น {progress.next.label}'));
   assert.ok(rank.includes('ตอบดึกสะสม {nightCount} ข้อ ได้ยศสูงสุดแล้ว คืนนี้พักได้'));

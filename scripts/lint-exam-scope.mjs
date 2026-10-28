@@ -27,7 +27,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const load = (rel) => import(pathToFileURL(path.join(ROOT, rel)).href);
 
 const { SUBJECTS, SUBJECTS_BY_YEAR } = await load('src/data/curriculum.js');
-const { EXAM_SCHEDULE } = await load('src/data/schedule.js');
+const { EXAM_SCHEDULE, msUntilExam } = await load('src/data/schedule.js');
 const { BANK_REGISTRY } = await load('src/data/bank-registry.generated.js');
 const { EXAM_SCOPES, scopeOfQuestion, scopeForTopic } = await load('src/lib/exam-scope.js');
 
@@ -102,27 +102,45 @@ for (const subject of SUBJECTS) {
 }
 
 // ── the split, where a subject sits both papers ───────────────────
-// Only the current teaching years are held to this: a subject nobody is
-// studying this year has nothing to separate yet.
-const CURRENT_YEARS = [4, 5];
+// Only the years the timetable covers are held to this: a subject nobody is
+// sitting a paper for this year has nothing to separate yet. The years come
+// from the timetable itself, so a new cohort's table needs no edit here.
+const CURRENT_YEARS = [...new Set([...papers.values()].map((r) => r.year))].sort();
 const currentSubjectIds = new Set(
   CURRENT_YEARS.flatMap((y) => (SUBJECTS_BY_YEAR[y] || []).map((s) => s.id)),
 );
+
+// A subject whose next paper has not been sat yet, one or both papers: every
+// topic of it must resolve to a paper, or a student who picks that paper gets
+// the topic by default. Counted against the same budget.
+const now = new Date();
+const aheadSubjects = new Set();
+for (const entries of Object.values(EXAM_SCHEDULE)) {
+  for (const e of entries || []) {
+    if (e?.subject && e.term && msUntilExam(e, now) + (e.duration_min || 180) * 60_000 > 0) aheadSubjects.add(e.subject);
+  }
+}
 
 // Budget: unscoped topics in both-paper subjects of the current years. It may
 // only go down. Lower it whenever a batch is mapped; never raise it.
 const UNSCOPED_TOPIC_BUDGET = 0;
 
 const unscopedTopics = [];
+let aheadTopics = 0;
 for (const subject of SUBJECTS) {
-  if (!currentSubjectIds.has(subject.id)) continue;
   const rec = papers.get(subject.id);
-  if (!rec?.midterm || !rec?.final) continue; // one paper or none: no split to make
+  // Both papers in a covered year: the split to make. A paper still ahead:
+  // whatever it sits, its topics must say so.
+  const split = currentSubjectIds.has(subject.id) && rec?.midterm && rec?.final;
+  const ahead = aheadSubjects.has(subject.id);
+  if (!split && !ahead) continue;
   for (const topic of subject.topics || []) {
     if (topic.hidden) continue;
+    if (ahead) aheadTopics += 1;
     if (!scopeForTopic(subject.id, topic.id)) unscopedTopics.push(`${subject.id}/${topic.id}`);
   }
 }
+console.log(`papers still ahead: ${aheadSubjects.size} subject(s), ${aheadTopics} topic(s) checked for a paper`);
 if (unscopedTopics.length > UNSCOPED_TOPIC_BUDGET) {
   err('exam-scope coverage',
     `${unscopedTopics.length} topic(s) in both-paper subjects do not say which paper they sit `

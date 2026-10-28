@@ -19,7 +19,7 @@
 // "อ.น.สพ.ดร." — or null when there is nobody to show (TBD, blank).
 // ============================================================
 
-import { LECTURER_SETS } from '../data/lecturer-sets.js';
+import { allLecturerSets } from '../data/lecturer-sets.js';
 
 const clean = (s) => String(s).replace(/\s*\([^)]*\)\s*$/, '').trim();
 
@@ -33,13 +33,13 @@ function samePerson(a, b) {
 }
 
 function fromSet(subjectId, person) {
-  const set = LECTURER_SETS[subjectId];
-  if (!set) return null;
-  for (const lec of set.lecturers) {
-    const people = Array.isArray(lec.lecturers) && lec.lecturers.length ? lec.lecturers : [lec.lecturer];
-    const names = people.length > 1 ? lec.name.split(' และ ') : [lec.name];
-    const i = people.findIndex((p) => p && samePerson(p, person));
-    if (i >= 0) return names[i] || lec.name;
+  for (const set of allLecturerSets(subjectId)) {
+    for (const lec of set.lecturers) {
+      const people = Array.isArray(lec.lecturers) && lec.lecturers.length ? lec.lecturers : [lec.lecturer];
+      const names = people.length > 1 ? lec.name.split(' และ ') : [lec.name];
+      const i = people.findIndex((p) => p && samePerson(p, person));
+      if (i >= 0) return names[i] || lec.name;
+    }
   }
   return null;
 }

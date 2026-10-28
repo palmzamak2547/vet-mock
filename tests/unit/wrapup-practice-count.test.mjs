@@ -20,9 +20,13 @@ import assert from 'node:assert/strict';
 import { loadModule, mount, settle, findAll, textOf } from '../helpers/fake-react.mjs';
 import { loadQB, QB } from '../../src/data/questions.js';
 import { buildExamPool } from '../../src/lib/exam-pool.js';
-import { WRAPUP_SUBJECTS, WRAPUP_SCOPE } from '../../src/data/exam-wrapups.js';
+import { wrapUpPapers } from '../../src/data/exam-wrapups.js';
 import { lecturerCount, topicPractice } from '../../src/lib/lecturer-count.js';
-import { LECTURER_SETS } from '../../src/data/lecturer-sets.js';
+import { LECTURER_SETS_BY_PAPER } from '../../src/data/lecturer-sets.js';
+
+// Every lecturer set of every paper, as { year, phase, subject }.
+const SET_PAPERS = Object.entries(LECTURER_SETS_BY_PAPER).flatMap(([year, phases]) => Object.entries(phases)
+  .flatMap(([phase, sets]) => Object.keys(sets).map((subject) => ({ year: Number(year), phase, subject }))));
 
 let WrapUpView;
 let LecturerSets;
@@ -40,14 +44,14 @@ before(async () => {
   })).default;
 });
 
-const served = (subject, topics, questionCategory, onlyPastPaper = false) => buildExamPool({
+const served = (subject, topics, questionCategory, onlyPastPaper = false, { year, phase } = {}) => buildExamPool({
   questions: QB,
   practiceMode: 'all',
   subject,
   topic: null,
   questionCategory: questionCategory || 'all',
-  selectedYear: WRAPUP_SCOPE.year,
-  selectedPhase: WRAPUP_SCOPE.phase,
+  selectedYear: year,
+  selectedPhase: phase,
   onlyTopics: new Set(topics),
   onlyPastPaper,
 }).length;
@@ -64,10 +68,11 @@ test('lecturerCount: all sums the kinds and skips the markers; match adds covers
   assert.deepEqual(topicPractice({}, ['c'], 'tf'), { format: 'all', count: 0, fellBack: false });
 });
 
-for (const subject of WRAPUP_SUBJECTS) {
-  test(`${subject}: every wrap-up practice button serves the number it prints`, async () => {
+for (const paper of wrapUpPapers()) {
+  const { year, phase, subject } = paper;
+  test(`${subject} ${phase}: every wrap-up practice button serves the number it prints`, async () => {
     const calls = [];
-    const inst = mount(WrapUpView, { subject, subjectName: subject, goBack: () => {}, onStartTopic: (a) => calls.push(a), selectedPhase: WRAPUP_SCOPE.phase });
+    const inst = mount(WrapUpView, { subject, subjectName: subject, goBack: () => {}, onStartTopic: (a) => calls.push(a), selectedYear: year, selectedPhase: phase });
     const tree = await settle(inst);
     const articles = findAll(tree, (n) => n.type === 'article' && String(n.props.className || '').includes('vmx-wrap-item'));
     assert.ok(articles.length > 0, `${subject}: the wrap-up rendered no items`);
@@ -76,7 +81,7 @@ for (const subject of WRAPUP_SUBJECTS) {
       const topic = String(art.props.id).replace(/^wrap-/, '').replace(/-\d+$/, '');
       const btn = findAll(art, (n) => n.type === 'button' && String(n.props.className || '').includes('vmx-lect-btn'))[0];
       if (!btn) {
-        const any = served(subject, [topic], 'all');
+        const any = served(subject, [topic], 'all', false, paper);
         if (any > 0) problems.push(`${topic}: no button, the session serves ${any}`);
         continue;
       }
@@ -87,7 +92,7 @@ for (const subject of WRAPUP_SUBJECTS) {
       const m = /\((\d+) (ข้อ|ชุด)\)/.exec(textOf(btn));
       assert.ok(m, `${topic}: the button carries no count: "${textOf(btn)}"`);
       const shown = Number(m[1]);
-      const pool = served(subject, topics, questionCategory);
+      const pool = served(subject, topics, questionCategory, false, paper);
       if (shown !== pool) problems.push(`${topic}: button says ${shown} (${questionCategory}), the session serves ${pool}`);
       if (questionCategory !== 'match' && m[2] === 'ชุด') problems.push(`${topic}: counts ชุด for ${questionCategory}`);
     }
@@ -98,10 +103,11 @@ for (const subject of WRAPUP_SUBJECTS) {
 
 // The lecturer card now reads the shared helper too; its buttons must still
 // serve exactly what they print (it had 0 mismatches before the move).
-for (const subject of Object.keys(LECTURER_SETS)) {
-  test(`${subject}: every lecturer-card button serves the number it prints`, () => {
+for (const paper of SET_PAPERS) {
+  const { year, phase, subject } = paper;
+  test(`${subject} ${phase}: every lecturer-card button serves the number it prints`, () => {
     const calls = [];
-    const inst = mount(LecturerSets, { subject, topics: [], onStart: (a) => calls.push(a), selectedPhase: WRAPUP_SCOPE.phase });
+    const inst = mount(LecturerSets, { subject, topics: [], onStart: (a) => calls.push(a), selectedYear: year, selectedPhase: phase });
     const buttons = findAll(inst.tree, (n) => n.type === 'button' && /vmx-lect-(cover-hit|btn)/.test(String(n.props.className || '')));
     assert.ok(buttons.length > 0, `${subject}: no lecturer buttons`);
     const problems = [];
@@ -113,7 +119,7 @@ for (const subject of Object.keys(LECTURER_SETS)) {
       if (!a || a.numQuestions) continue; // the fixed-size mock set prints its size, not a pool
       const m = /(\d+) (?:ข้อ|ชุด)\)?$/.exec(textOf(btn).trim());
       assert.ok(m, `${subject}: a button carries no count: "${textOf(btn)}"`);
-      const pool = served(subject, a.topics, a.questionCategory, Boolean(a.pastPaperOnly));
+      const pool = served(subject, a.topics, a.questionCategory, Boolean(a.pastPaperOnly), paper);
       if (Number(m[1]) !== pool) problems.push(`${a.topics.join(',')} ${a.questionCategory}${a.pastPaperOnly ? ' past' : ''}: says ${m[1]}, serves ${pool}`);
     }
     inst.unmount();
