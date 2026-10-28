@@ -88,6 +88,11 @@ export default defineConfig({
       },
       output: {
         manualChunks(id) {
+          // Vite's preload helper is imported by every chunk that lazy-loads.
+          // Unclaimed, Rollup filed it inside data-video-summaries-barrel, so
+          // each first load fetched the 40 KB summaries index (14 KB gzip)
+          // for one small function. vendor-react loads on first paint anyway.
+          if (id.includes('vite/preload-helper')) return 'vendor-react'
           if (id.includes('node_modules')) {
             if (/[\\/]node_modules[\\/]three[\\/]/.test(id)) return 'vendor-atlas'
             if (/[\\/]node_modules[\\/]lucide-react[\\/]/.test(id)) return 'vendor-icons'
