@@ -182,6 +182,20 @@ function rowLabels(q) {
   return findAll(QSourceChip({ q }), (n) => typeof n.type === 'function' && n.type.name === 'Row').map((n) => n.props.label);
 }
 
+// The stored origin keeps its "·" (exam-origins.js keys it that way); the
+// student reads a comma. 445 questions printed the dot under the stem on
+// 28 Oct 2026, from examOrigin and verified alike.
+test('no question shows a middle dot in its source, closed or open', () => {
+  const dotted = QB.filter((q) => [q.examOrigin, q.verified, q.source].some((v) => typeof v === 'string' && v.includes('·')));
+  assert.ok(dotted.length > 0, 'the bank still stores dotted origins, so this test reads real rows');
+  for (const q of dotted) {
+    for (const open of [false, true]) {
+      const { text } = renderChip(q, { open });
+      assert.ok(!text.includes('·'), `${q.subject}#${q.id} (${open ? 'open' : 'closed'}): ${text.slice(0, 120)}`);
+    }
+  }
+});
+
 test('the source panel reads in Thai, with no internal ids or status words', () => {
   // A row with every citation field: source, verified, a flag and tags.
   const full = bankRow('com5', 568);

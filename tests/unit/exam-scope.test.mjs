@@ -8,7 +8,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  scopeForPhase, scopeForTopic, scopeOfQuestion, questionInScope, countByScope, EXAM_SCOPES,
+  scopeForPhase, scopeForTopic, scopeOfQuestion, questionInScope, countByScope, EXAM_SCOPES, originPaperNote,
 } from '../../src/lib/exam-scope.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
 
@@ -108,4 +108,15 @@ test('a question cannot sit on a paper its own lecture is not on', () => {
   );
   // A topic with no scope of its own keeps everything, as always.
   assert.equal(questionInScope({ subject: 'nope', topic: 'nope', examScope: 'midterm' }, 'midterm'), true);
+});
+
+test('the source-label note reads a paper named in Thai, and stays quiet when the papers agree', () => {
+  // "ไฟนอล" is how the Vet 85 swine recall names the final. The note is the
+  // only place a student learns that a source's paper and this year's differ,
+  // so a name it cannot read is a note that silently never appears.
+  const thaiFinal = 'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1';
+  assert.match(originPaperNote({ subject: 'swine-clinic', topic: 'swine-gi-viral', examOrigin: thaiFinal }), /ระบุปลายภาค/);
+  assert.equal(originPaperNote({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: thaiFinal }), null);
+  assert.match(originPaperNote({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'Swine มิดเทอม Vet 85' }), /ระบุกลางภาค/);
+  assert.equal(originPaperNote({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'อิงแนวข้อสอบ' }), null);
 });

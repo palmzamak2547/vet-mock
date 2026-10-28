@@ -64,11 +64,15 @@ test('UI-14: every note that mentions ไม่ออกสอบ or หลั�
   }
 });
 
-test('UI-14: the seven off-the-paper notes named in the audit keep their mark', () => {
+test('UI-14: the off-the-paper notes named in the audit keep their mark', () => {
+  // The audit named seven. fiqc-aquatic and swine-trichinosis left the list in
+  // 5.167.2: their "ไม่ออกสอบ" came from a 2024 handout, and Vet 86's 2569
+  // timetables teach both after the midterm (28 Oct and 16 Oct 69), so they
+  // are final topics now and carry no caveat.
   for (const k of [
     'epidemiology:epidem-eid-pandemic', 'epidemiology:epidem-economics',
     'aquatic-clinic:aqua-fish-diseases', 'aquatic-clinic:aqua-aquarium-vet',
-    'food-industry:fiqc-aquatic', 'zoonoses:zoo-mycoses', 'swine-clinic:swine-trichinosis',
+    'zoonoses:zoo-mycoses',
   ]) {
     assert.ok(NOTES.has(k), `${k} lost its note`);
     assert.equal(NOTES.get(k).lecturerNoteKind, 'caveat', `${k} is not flagged`);

@@ -121,13 +121,14 @@ function DomainCard({ card, progress, lead = false }) {
   );
 }
 
+// Only the kinds the bank holds: since 28 ต.ค. 2569 the site serves VCA material alone.
 const KIND_ROWS = [
   { kind: 'vca', th: 'แนว VCA' },
   { kind: 'paper', th: 'ข้อสอบเก่า' },
   { kind: 'aligned', th: 'อิงแนวข้อสอบ' },
   { kind: 'lecture', th: 'จากเลกเชอร์' },
   { kind: 'course', th: 'คลังรายวิชา' },
-];
+].filter((r) => BANK.kinds[r.kind] > 0);
 
 export function Home() {
   useTitle('');

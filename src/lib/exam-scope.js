@@ -185,8 +185,9 @@ export function countByScope(questions) {
  * fact covers the whole course) and "รุ่นก่อนหน้าสอบ" would not be true of
  * those. Returns that sentence, or null when the two agree or neither is known.
  */
-const ORIGIN_NAMES_FINAL = /final|ปลายภาค/i;
-const ORIGIN_NAMES_MID = /\bmid(?:term)?\b|กลางภาค/i;
+// The Thai transliterations too: "Swine Medicine ไฟนอล Vet 85" names the final.
+const ORIGIN_NAMES_FINAL = /final|ปลายภาค|ไฟนอล/i;
+const ORIGIN_NAMES_MID = /\bmid(?:term)?\b|กลางภาค|มิดเทอม/i;
 
 export function originPaperNote(question) {
   const scope = scopeOfQuestion(question);

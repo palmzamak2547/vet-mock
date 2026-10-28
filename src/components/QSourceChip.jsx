@@ -27,6 +27,10 @@ import NavIcon from './NavIcon.jsx';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
 
+// Stored origins join their parts with "·" (exam-origins.js keys them that
+// way); a student reads commas. The stored text is never rewritten.
+const readable = (s) => String(s).replace(/\s*·\s*/g, ', ');
+
 export default function QSourceChip({ q, store }) {
   const [open, setOpen] = useState(false);
   const sourceDocumentUrl = archivedSourceUrl(q?.sourceDocument) || googleDriveSourceUrl(q?.sourceDocument?.url);
@@ -49,9 +53,9 @@ export default function QSourceChip({ q, store }) {
   // humanSource like the verified row does: "WRttiWQ7D9s [28:22]" is stored,
   // "คาบ 3 (2 ก.ย.) นาที 28:22" is what the นิสิต sees.
   const paperNote = originPaperNote(q);
-  const summary = q.examOrigin
+  const summary = readable(q.examOrigin
     ? q.examOrigin
-    : (typeof q.source === 'string' ? humanSource(q.source).replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
+    : (typeof q.source === 'string' ? humanSource(q.source).replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง')));
   const moments = open ? momentsByClip(q) : [];
 
   return (
@@ -128,10 +132,10 @@ export default function QSourceChip({ q, store }) {
               humanSource: they store "7XyI0SjnuBA [12:34]" and the student
               reads "คาบ 1 (4 ส.ค.) นาที 12:34". */}
           {q.source && (
-            <Row label="ที่มา" value={humanSource(q.source)} />
+            <Row label="ที่มา" value={readable(humanSource(q.source))} />
           )}
           {q.verified && (
-            <Row label="ตรวจกับ" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
+            <Row label="ตรวจกับ" value={readable(humanSource(q.verified))} icon="✓" iconColor="var(--clr-sage)" />
           )}
           {/* Each cited moment of a recording opens that clip at that second.
               A new tab, so the question the student is on stays where it is. */}
@@ -167,7 +171,7 @@ export default function QSourceChip({ q, store }) {
           {q.flag?.note && (
             <Row
               label={q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}
-              value={q.flag.note}
+              value={readable(q.flag.note)}
               icon="⚠️"
               iconColor={
                 q.flag.severity === 'major' ? 'var(--clr-rose)'

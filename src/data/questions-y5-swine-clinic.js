@@ -109,7 +109,7 @@ export const QB_Y5_SWINE_CLINIC = [
     model_answer: 'สุกรที่เกิด septicemia มีผิวหนังส่วนปลายเขียวคล้ำ (cyanosis) เช่น ที่ใบหู จมูก ขา และท้อง และมีจุดเลือดออกตั้งแต่ petechial ถึง ecchymotic haemorrhage ตามผิวหนังและอวัยวะต่างๆ ร่วมกับมีไข้ อาจพบอาการทางประสาท เช่น สั่นและตีขา หรือตายเฉียบพลัน',
     verified: 'swine clin prac p.1 Q7 (annotated "cyanosis / haemorrhage")' },
 
-  { id: 8357, subject: 'swine-clinic', topic: 'swine-cns', year: 5,
+  { id: 8357, subject: 'swine-clinic', topic: 'swine-prv-je', year: 5,
     source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #8',
     tags: ['Pseudorabies', 'Aujeszky', 'age-specific signs'], type: 'mcq',

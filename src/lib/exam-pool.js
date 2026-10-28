@@ -252,7 +252,7 @@ export function buildExamPool({
   // the point: a student who names a topic has asked for exactly that content,
   // so when the filter would empty their pool the never-empty guard hands it
   // straight back. Filtering before the topic step instead gave 0 questions
-  // for หัวข้อ fiqc-aquatic under เทอม 1 กลางภาค — the syllabus marks it
+  // for หัวข้อ fiqc-aquatic under เทอม 1 กลางภาค — a 2024 handout marked it
   // "ไม่ออกสอบ — handout only", which is a reason to keep it out of a WHOLE-
   // subject set, not a reason to refuse the student who asked for it by name.
   const wantedScope = scopeForPhase(phaseForCourse(subject, selectedYear, selectedPhase));

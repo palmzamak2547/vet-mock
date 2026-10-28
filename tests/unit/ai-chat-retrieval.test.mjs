@@ -11,7 +11,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { loadCorpus, isQuizzable } from '../../api/_lib/ai/corpus.js';
-import { searchCorpus, selectDocs, isCovered, toSource, numberSources, snippetNeedles, headingSeconds } from '../../api/_lib/ai/retrieve.js';
+import { searchCorpus, selectDocs, isCovered, toSource, numberSources, snippetNeedles, headingSeconds, questionTopic, animalShare } from '../../api/_lib/ai/retrieve.js';
 import { retrieveGuide, loadReleases, guideRoutes, thaiShortDate } from '../../api/_lib/ai/guide.js';
 import { pickQuiz, toQuizQuestion } from '../../api/_lib/ai/quiz.js';
 import { buildActionCard } from '../../api/_lib/ai/actions.js';
@@ -160,4 +160,19 @@ test('a title names an animal only where the word stands alone, as in a question
   assert.deepEqual([...speciesIn('Rabies — โรคพิษสุนัขบ้า')], [], 'สุนัข inside พิษสุนัขบ้า is the disease');
   assert.deepEqual([...speciesIn('6 Canine heartworm — พยาธิหนอนหัวใจในสุนัข')], ['สุนัข']);
   assert.deepEqual([...speciesIn('โรคฝีดาษไก่ (Fowlpox)')], ['สัตว์ปีก'], 'a chicken page is a poultry page');
+});
+
+test('a related file covers the most specific whole term the question names, on the asked animal', () => {
+  const topic = (question, terms = []) => questionTopic(corpus, searchCorpus(corpus, { text: question, terms, wikiQueries: [question] }))?.label ?? null;
+  // two names, ยาฆ่าเชื้อ and pyometra: the rarer one is what a file must cover
+  assert.equal(topic('ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข', ['pyometra', 'dog', 'antibiotic']), 'pyometra');
+  // a Latin term the student typed beats a broader name beside it (หัวใจ)
+  assert.equal(topic('โรคหัวใจ HCM ในแมวมีอาการอะไร', ['hypertrophic cardiomyopathy', 'HCM']), 'hcm');
+  // a planner term is never the topic, and Thai words alone (เกย is a cut piece of เกยตื้น) give none
+  assert.equal(topic('หลักการดูแลโลมาหรือพะยูนที่เกยตื้นในประเทศไทยมีอะไรบ้าง'), null);
+  // the asked animal keeps a deck, another animal's steps back
+  const share = animalShare(searchCorpus(corpus, { text: 'ยาฆ่าเชื้อที่ใช้รักษา pyometra ในสุนัข', wikiQueries: [] }));
+  assert.equal(share('Reproduction in dogs and cats (VCA58-67)'), 1);
+  assert.ok(share('Lecture 7: ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า') < 1);
+  assert.equal(share('ข้อสอบเพิ่มเติม(Entomology)'), 1, 'no animal named, nothing to step back for');
 });

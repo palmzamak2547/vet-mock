@@ -56,8 +56,8 @@ export default function VoiceSettings({ onClose }) {
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ปรับเสียงพูดข้อสอบ</h2>
           <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
-            ค่าจะ apply ทันทีที่กด 🔊 ครั้งต่อไป (ไม่ต้อง refresh).
-            {' '}เก็บไว้ในเครื่องนี้เท่านั้น (ไม่ sync ข้ามอุปกรณ์).
+            ค่าที่ตั้งใช้กับการกด 🔊 ครั้งต่อไป ไม่ต้องโหลดหน้าใหม่
+            {' '}เก็บไว้ในเครื่องนี้เท่านั้น ไม่ซิงก์ไปเครื่องอื่น
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export default function VoiceSettings({ onClose }) {
 
         <SliderRow
           label="พักท้ายข้อ"
-          hint={`หยุดหลังตัวเลือกสุดท้ายก่อนปุ่ม onEnd (default ${DEFAULT_TTS_PREFS.afterLast} ms)`}
+          hint={`หยุดหลังอ่านตัวเลือกสุดท้าย (ค่าเริ่มต้น ${DEFAULT_TTS_PREFS.afterLast} มิลลิวินาที)`}
           value={prefs.afterLast}
           min={0}
           max={500}
@@ -108,7 +108,7 @@ export default function VoiceSettings({ onClose }) {
 
         <div className="vmx-btn-row" style={{ marginTop: 16, justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reset} type="button">
-            ↺ คืนค่า default
+            ↺ คืนค่าเริ่มต้น
           </button>
           <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={onClose} type="button">
             เสร็จ

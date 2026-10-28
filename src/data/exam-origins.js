@@ -26,18 +26,23 @@
 // this map; a new string gets a new entry. scripts/lint-provenance.mjs fails
 // on an origin missing from here.
 //
-// isPastPaperQuestion does NOT read this map yet. Switching typed rows from
-// the regex to `kind === 'paper'` changes band 0 for real students, so it
-// waits until the 2569 midterms are over, and lint-provenance prints the
-// exact rows that switch would move. Until then, a row whose origin is filed
-// here as `paper` or `aligned` but that the predicate leaves in band 2 carries
-// the "อิงแนวข้อสอบ" tag: it under-claims into band 1 rather than over-claim
-// a paper. When the switch lands, remove that tag from the rows it lifts to
-// band 0, or they become both a paper and aligned, which the lint refuses.
+// isPastPaperQuestion reads this map for every student-compilation row
+// (2026-10-28, after the 2569 midterms): `kind === 'paper'` is a sat paper,
+// any other kind is not, whatever the wording. Every other sourceType is never
+// a paper except past-paper itself. That lifted 55 recalled rows the regex
+// could not read ("ไฟนอล", "บันทึกหลังสอบ", "recalled matching section") from
+// band 1 to band 0 and moved none out; their interim "อิงแนวข้อสอบ" tag came
+// off, or each would have been both a paper and aligned, which the lint
+// refuses. Ten more were kept in band 1: three avian rows are rewrites of sat
+// items the bank already holds as past papers (re-typed exam-aligned), and the
+// two Equine Repro origins below were re-filed as aligned. An origin filed as
+// `aligned` still needs the tag to reach band 1. lint-provenance rule 11 fails
+// if the predicate stops reading the map, and rule 12 if a new paper origin
+// that only the map can read has not been reviewed.
 //
 // Entries on legacy rows with no sourceType mirror what the regex already
-// reads for them; their documents were not re-read in this pass, and the
-// switch above does not touch those rows.
+// reads for them; their documents were not re-read in this pass, and those
+// rows are still decided by the regex.
 // ============================================================
 
 /** Every value `sourceType` may take, and what it claims. */
@@ -57,7 +62,17 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "Swine Medicine final Vet 78, Vet 81 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81], paper: 'final' },
+  "Swine Medicine final Vet 78, Vet 81, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81, 85], paper: 'final' },
+  "Swine Medicine final Vet 80, Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 84], paper: 'final' },
+  "Swine Medicine final Vet 80, Vet 81, Vet 83, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 81, 83, 85], paper: 'final' },
+  "Swine Medicine final Vet 78 บันทึกหลังสอบ": { kind: 'paper', cohort: 78, paper: 'final' },
+  "Swine Medicine final Vet 80 บันทึกหลังสอบ": { kind: 'paper', cohort: 80, paper: 'final' },
+  "Swine Medicine final Vet 80, Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 83], paper: 'final' },
+  "Swine Medicine final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
+  "Swine Medicine final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
   "VCA รอบ 1/2569 หมวด 2 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
+  "VCA รอบ 1/2569 หมวด 3 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้": { kind: 'paper', cohort: null, paper: null },
   "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)": { kind: 'paper', cohort: 85, paper: 'station' },
@@ -90,8 +105,6 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Reproduction midterm recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Equine Reproduction midterm (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Equine Repro mid-term recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
-  "Equine Repro (Vet 85) recalled exam point": { kind: 'paper', cohort: 85, paper: null },
-  "Equine Repro (Vet 85) reconstructed case set": { kind: 'paper', cohort: 85, paper: null },
   "FIQC final recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'final' },
   "Milk Hygiene mid-term recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Milk Hygiene mid-term recall (Vet 85, recurring topic)": { kind: 'paper', cohort: 85, paper: 'midterm' },
@@ -182,6 +195,11 @@ export const EXAM_ORIGINS = Object.freeze({
 
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
+  // Filed as papers until 2026-10-28. Their rows cite "Equine Repro Final (Vet 85)" pp. 3-5, the
+  // document 21 "study summary" rows cite, and no page names the paper they sat on; one explanation
+  // opens "สรุปเน้นว่า". Under-claimed to band 1 until the document itself shows a sat paper.
+  "Equine Repro (Vet 85) recalled exam point": { kind: 'aligned' },
+  "Equine Repro (Vet 85) reconstructed case set": { kind: 'aligned' },
   "จุดที่รุ่นพี่ Vet 85 ทำเครื่องหมายว่าข้อสอบใช้ชื่อโรคในสรุปสรุป": { kind: 'aligned' },
   "แนวข้อเขียนที่รุ่นพี่ Vet 85 คัดมาจากสรุปรุ่นก่อนหน้าและบันทึกว่าอาจารย์สอนเน้น": { kind: 'aligned' },
   "แนวข้อเขียนที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป Avian Medicine": { kind: 'aligned' },

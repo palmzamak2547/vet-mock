@@ -9,7 +9,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { PALETTES, thaiDate, layoutProblems, fitCard, STORY, POST, LIVE, SIZE } from '../../src/lib/share-card/kit.js';
+import { PALETTES, thaiDate, layoutProblems, fitCard, STORY, POST, LIVE, SIZE, FAMILY, fauxBold } from '../../src/lib/share-card/kit.js';
 import { academicYear, phaseLine } from '../../src/lib/share-card/phase-card.js';
 import { studyTime, subjectRows } from '../../src/lib/phase-wrapped.js';
 import { dailyTitle, dailyLine } from '../../src/lib/share-card/daily-card.js';
@@ -32,6 +32,20 @@ test('every colour a card sets text in reads at 4.5:1 on its paper, light and da
       assert.ok(c >= 4.5, `${theme}.${key} ${p[key]} on ${p.bg} is ${c.toFixed(2)}:1`);
     }
   }
+});
+
+// WebKit paints the variable Thai serif at its default weight (AGENTS.md,
+// printable timetable 5.167.0), so Safari drew every card's Thai heading
+// regular. The kit strokes those headings in their own ink instead.
+test('a Thai serif heading gets a stroke where the engine paints only the regular weight', () => {
+  const near = (a, b) => Math.abs(a - b) < 1e-9;
+  const heading = { weight: 700, size: 100, family: FAMILY.serif };
+  assert.ok(near(fauxBold(heading, 'ตารางสอบ', false), 4));
+  assert.ok(near(fauxBold({ ...heading, weight: 600 }, 'สรุปช่วงสอบ', false), 2.8));
+  assert.equal(fauxBold(heading, 'ตารางสอบ', true), 0, 'an engine that paints the weight is left alone');
+  assert.equal(fauxBold(heading, 'VetMock 2026', false), 0, 'Latin and numerals come from static faces');
+  assert.equal(fauxBold({ ...heading, weight: 500 }, 'ข้อ', false), 0, 'body text stays regular');
+  assert.equal(fauxBold({ ...heading, family: FAMILY.label }, 'ข้อ', false), 0, 'the label face paints its weights');
 });
 
 test('dates print in Thai with the Buddhist year; the academic year turns in June', () => {

@@ -29,12 +29,13 @@ const TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const EVICT_THROTTLE_MS = 30_000;
 
 /**
- * Cache key for one synthesized chunk: hash of lang + rate + text.
- * SHA-256 truncated to 16 bytes of hex (128 bits, plenty for a cache
- * key); FNV-1a 32-bit when WebCrypto is unavailable.
+ * Cache key for one synthesized chunk: hash of the voice (when the caller
+ * names one) + lang + rate + text, so a new voice never meets clips cached in
+ * the old one. SHA-256 truncated to 16 bytes of hex (128 bits, plenty for a
+ * cache key); FNV-1a 32-bit when WebCrypto is unavailable.
  */
-export async function audioCacheKey({ text, lang, rate }) {
-  const data = new TextEncoder().encode(`${lang}|${Number(rate).toFixed(2)}|${text}`);
+export async function audioCacheKey({ text, lang, rate, voice = '' }) {
+  const data = new TextEncoder().encode(`${voice ? `${voice}|` : ''}${lang}|${Number(rate).toFixed(2)}|${text}`);
   if (typeof crypto?.subtle?.digest !== 'function') {
     let h = 2166136261;
     for (let i = 0; i < data.length; i++) {

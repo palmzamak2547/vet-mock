@@ -29,6 +29,13 @@ are 60-120 lines each.
   `pages` parameter, at most 20 pages a call.
 - Anything the lecturer announced that is not in a recording (a class-chat
   screenshot, a deck cover).
+- A whole archive (a classmate's OneDrive, a senior's Drive) gets one
+  inventory before anything is read:
+  `node scripts/archive-inventory.mjs <root> --out=<inventory.json> --library=<sha-list.json>`.
+  It records the path, size and `sha256_16` of every file, sorts each into exam,
+  summary, syllabus, deck, goodnotes, textbook or outside, flags what the
+  library already holds, and names the PDF pages whose Thai text layer is
+  damaged and must be rendered before anything is quoted from them.
 
 ## 1. Establish what the paper is
 
