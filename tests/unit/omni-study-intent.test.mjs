@@ -156,10 +156,12 @@ test('the card\'s practice count is what the topic screen shows, for every cours
 });
 
 test('a course of the selected year outside the chosen period says so', () => {
-  // milk-meat-hygiene (year 5) holds nothing for เทอม 1 ปลายภาค: its topic
-  // screen shows no set there, so the card offers none and names the reason.
-  for (const [q, id, year] of [['ข้อสอบ milk-meat-hygiene', 'milk-meat-hygiene', 5], ['ข้อสอบ com5', 'com5', 4]]) {
-    const r = detectStudyIntent(q, { selectedYear: year, selectedPhase: '1-final' });
+  // epidemiology (year 5) sits only the final, so it holds nothing for เทอม 1
+  // กลางภาค: its topic screen shows no set there, so the card offers none and
+  // names the reason. (milk-meat-hygiene was the example until its cleaning
+  // topic joined the final in 5.167.1.)
+  for (const [q, id, year, phase] of [['ข้อสอบ epidemiology', 'epidemiology', 5, '1-mid'], ['ข้อสอบ com5', 'com5', 4, '1-final']]) {
+    const r = detectStudyIntent(q, { selectedYear: year, selectedPhase: phase });
     const main = r?.subjects.find((s) => s.meta.id === id);
     assert.ok(main, `${id}: the course keeps its card`);
     const { actions, missing } = studyActions(main, r.want, null);
