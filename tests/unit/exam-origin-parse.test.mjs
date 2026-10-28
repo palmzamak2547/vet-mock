@@ -165,14 +165,19 @@ test('Thai spelled with a decomposed sara am still reads', () => {
 
 // The hand-filed map is a person's reading of the same strings. The parser
 // may say less than the filing (it leaves "Final 86" labels and compilation
-// authors unattributed), but where it names a cohort it must name the one
-// the filing names, or the statistics would carry a cohort nobody filed.
-test('wherever the parser names a cohort, EXAM_ORIGINS files that same cohort as a paper', () => {
+// authors unattributed), but where it names a cohort for a filed paper it
+// must name the one the filing names, or the statistics would carry a cohort
+// nobody filed. An origin filed as another kind may still name a cohort in
+// its wording ("Equine Repro (Vet 85) recalled exam point" was re-filed as
+// aligned): the filing keeps that row out of the evidence altogether
+// (tests/unit/exam-recurrence.test.mjs holds the generator to it).
+test('wherever the parser names a cohort for a filed paper, EXAM_ORIGINS files that same cohort', () => {
   const conflicts = [];
   for (const [text, entry] of Object.entries(EXAM_ORIGINS)) {
+    if (entry.kind !== 'paper') continue;
     const parsed = read(text);
     if (parsed.cohort == null) continue;
-    const filed = entry.kind === 'paper' ? cohortList(entry.cohort) : [];
+    const filed = cohortList(entry.cohort);
     if (JSON.stringify(cohortList(parsed.cohort)) !== JSON.stringify(filed)) {
       conflicts.push(`${text}: parsed ${JSON.stringify(parsed.cohort)}, filed ${entry.kind} ${JSON.stringify(entry.cohort ?? null)}`);
     }

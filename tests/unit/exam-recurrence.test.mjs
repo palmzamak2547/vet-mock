@@ -32,6 +32,9 @@ test('evidence is a filed paper, or a past paper by the predicate when nothing i
   assert.equal(isPaperEvidence({ examOrigin: 'อิงแนวข้อสอบ', sourceType: 'exam-aligned' }), false);
   assert.equal(isPaperEvidence({ examOrigin: 'Avian Medicine final study notes (Vet 85 compilation)', sourceType: 'student-compilation' }), false);
   assert.equal(isPaperEvidence({ examOrigin: 'Mock 1 Part I' }), false);
+  // The filing wins over the wording: a recalled point re-filed as aligned names
+  // Vet 85 but is not a paper Vet 85 sat.
+  assert.equal(isPaperEvidence({ examOrigin: 'Equine Repro (Vet 85) recalled exam point', sourceType: 'student-compilation', tags: ['อิงแนวข้อสอบ'] }), false);
   assert.equal(isPaperEvidence({ sourceType: 'past-paper', source: 'Zoonosis Mid 86.pdf หน้า 2 (บันทึกหลังสอบของรุ่นพี่ Vet 85)' }), true);
   assert.equal(isPaperEvidence({ sourceType: 'lecture-derived', source: 'Zoonosis Mid 86.pdf หน้า 2' }), false);
 });

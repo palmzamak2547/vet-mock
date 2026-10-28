@@ -1430,7 +1430,7 @@ export const EXAM_RECURRENCE = {
   },
   "equine-repro": {
     "cohorts": [85],
-    "items": 135,
+    "items": 128,
     "topics": {
       "eqrepro-ai": {
         "cohorts": [85],
@@ -1472,11 +1472,10 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 9,
+        "items": 3,
         "sat": {
           "85": {
             "midterm": ["equine-repro:105535", "equine-repro:105536", "equine-repro:105537"],
-            "unknown": ["equine-repro:105548", "equine-repro:105554", "equine-repro:105555", "equine-repro:105557", "equine-repro:105558", "equine-repro:105560"],
           },
         },
         "unattributed": [],
@@ -1534,12 +1533,11 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 16,
+        "items": 15,
         "sat": {
           "85": {
             "midterm": ["equine-repro:105513", "equine-repro:105518", "equine-repro:105519", "equine-repro:105522", "equine-repro:105547"],
             "final": ["equine-repro:105433", "equine-repro:105437", "equine-repro:105438", "equine-repro:105439", "equine-repro:105440", "equine-repro:105441", "equine-repro:105442", "equine-repro:105443", "equine-repro:105444", "equine-repro:105445"],
-            "unknown": ["equine-repro:105562"],
           },
         },
         "unattributed": [],
