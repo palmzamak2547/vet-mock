@@ -2661,6 +2661,14 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       }
     },
+    "milk-meat-hygiene": {
+      "milk-cleaning": {
+        "mcq": 26,
+        "tf": 3,
+        "match": 0,
+        "writing": 0
+      }
+    },
     "swine-clinic": {
       "swine-gi-viral": {
         "mcq": 12,
@@ -7430,6 +7438,14 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "eqrepro-endometritis": {
         "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      }
+    },
+    "milk-meat-hygiene": {
+      "milk-cleaning": {
+        "mcq": 11,
         "tf": 0,
         "match": 0,
         "writing": 0

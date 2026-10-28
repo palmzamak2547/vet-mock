@@ -216,6 +216,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-safety-y4': 21,
     'herd-health-rum': 33,
     'livestock-pathology': 67,
+    'milk-meat-hygiene': 24,
     'one-health': 11,
     'poultry': 69,
     'practrum': 17,
@@ -274,6 +275,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-industry': 34,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
+    'milk-meat-hygiene': 29,
     'one-health': 35,
     'surg1': 29,
     'swine-clinic': 95,
@@ -350,7 +352,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 1350,
+    5: 1379,
   },
   '2-mid': {
     1: 297,
@@ -794,6 +796,9 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'transition-cow-management': 1,
       'tuberculosis-bovine': 2,
       'urinary-calculi': 2,
+    },
+    'milk-meat-hygiene': {
+      'milk-cleaning': 29,
     },
     'one-health': {
       'oh-amr': 10,
@@ -1751,6 +1756,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'transition-cow-management': 1,
       'tuberculosis-bovine': 2,
       'urinary-calculi': 2,
+    },
+    'milk-meat-hygiene': {
+      'milk-cleaning': 11,
     },
     'one-health': {
       'oh-risk-analysis': 7,
@@ -3368,4 +3376,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-17T16:34:50.964Z
+// Built: 2026-10-28T15:39:38.304Z
