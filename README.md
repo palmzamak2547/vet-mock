@@ -50,7 +50,7 @@ npm run dev
 **เทอมปัจจุบัน:** ภาคการศึกษาต้น 2569 — Vet 86 = ชั้นปีที่ 5
 ขึ้นเทอมใหม่และปีการศึกษาใหม่ต้องแก้หลายไฟล์ (`SEMESTER` ใน `src/data/semester.js`,
 `EXAM_SCHEDULE` ใน `src/data/schedule.js`, `examScope` ของหัวข้อ, test ที่ตรึงวันที่ไว้)
-ดูลำดับใน [`docs/HANDOVER.md`](./docs/HANDOVER.md) หัวข้อ 5
+ดูลำดับใน [`docs/HANDOVER.md`](./docs/HANDOVER.md) หัวข้อ "ถ้ามีคนอยากช่วย"
 
 ---
 
@@ -157,7 +157,7 @@ registry แล้วรัน gates
 ### เพิ่มตารางสอบ
 แก้ `EXAM_SCHEDULE` ใน `src/data/schedule.js` แล้วรัน `npm run regen:exam-papers`
 ทุกแถวของเทอมปัจจุบันต้องมี `term` (แถวที่ไม่มี นับถอยหลังและช่วงสอบจะข้ามไป)
-และแถวของเทอมก่อนต้องเอา `term` ออก ลำดับเต็มอยู่ใน `docs/HANDOVER.md` หัวข้อ 5:
+และแถวของเทอมก่อนต้องเอา `term` ออก ลำดับเต็มอยู่ใน `docs/HANDOVER.md` หัวข้อ "ถ้ามีคนอยากช่วย":
 ```js
 {
   id: 'com5-mid', code: '3107510', subject: 'com5', term: 'midterm',

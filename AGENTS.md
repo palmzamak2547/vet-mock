@@ -12,7 +12,7 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 
 ## Succession and silent-breakage audit — 2026-10-28/29 (Claude Code)
 
-- **Runbook.** `docs/HANDOVER.md`, in Thai, for a successor who is not a developer. It covers accounts, the admin page, a calendar, the term and August rollover (with what students see when it is skipped), a fix per status row and the handover checklist. Update it when an account, a key or a rollover step changes.
+- **No hand-on burden.** Palm's aim (28 Oct): VetMock keeps running for years with nobody looking after it, without passing a burden to anyone. Prefer, in order: automate it, then fail safe and say so plainly to the student, then data a non-coder can edit, and only then document it. `docs/HANDOVER.md` (Thai, "ถ้าไม่มีคนดูแล") is the shortest page that says what runs alone, what stops and how, and where to look. Update it when an account, a key or a rollover step changes.
 - **The admin card is the only alarm.** The app hides outside failures from students by design: device voice, no microphone, hidden connect buttons. `/app/admin` "ระบบภายนอก" reads `/api/system-status`, which is admin only (`isAdmin` in `api/_lib/app-backend.js`, checked before any probe). Checks live in `api/_lib/system-status.js`; add a row when a feature gains an outside dependency. Probe at real size: Premwadee passed a one-word synthesis while it dropped question stems.
 - **Edge read-aloud.**
   - From 21 Oct the handshake needed Sec-MS-GEC v2. msedge-tts 2.1.1 brought English back on production (#102).

@@ -149,7 +149,7 @@ const CHECKS = [
   },
   {
     id: 'signing', name: 'กุญแจเซ็นผลสอบและรายงานข้อผิดพลาด', doc: 'signing',
-    fix: 'ตั้งค่าเดียวกับกุญแจที่ฐานข้อมูลใช้ตรวจ ตาม HANDOVER หัวข้อกุญแจเซ็น',
+    fix: 'ตั้งค่าเดียวกับกุญแจที่ฐานข้อมูลใช้ตรวจ ตามหัวข้อกุญแจเซ็นผลสอบในคู่มือ',
     async run({ env }, r) {
       return env.VETMOCK_RPC_SIGNING_KEY ? r('ok', 'ตั้งไว้แล้ว') : r('down', 'ไม่ได้ตั้ง VETMOCK_RPC_SIGNING_KEY ผลสอบ ห้องแข่ง และรายงานข้อผิดพลาดจึงบันทึกไม่ได้');
     },
@@ -169,7 +169,7 @@ const CHECKS = [
   },
   {
     id: 'connectors', name: 'เชื่อม Google Drive และ Notion', doc: 'connectors',
-    fix: 'สร้าง OAuth client แล้วตั้งค่าใน Vercel ตาม HANDOVER หัวข้อเชื่อมบัญชี',
+    fix: 'สร้าง OAuth client แล้วตั้งค่าใน Vercel ตามหัวข้อเชื่อม Google Drive และ Notion ในคู่มือ',
     async run({ env }, r) {
       const { connect } = externalCapabilities(env);
       const missing = [['google', 'Google Drive'], ['notion', 'Notion']].filter(([p]) => !connect[p]).map(([, label]) => label);
