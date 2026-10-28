@@ -247,7 +247,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'avian-medicine': 495,
     'com1': 4,
     'com2': 14,
-    'equine-medicine': 403,
+    'equine-medicine': 381,
     'equine-repro': 97,
     'food-industry': 239,
     'food-safety-y4': 15,
@@ -345,7 +345,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 139,
-    5: 3440,
+    5: 3418,
   },
   '1-final': {
     1: 297,
@@ -425,9 +425,9 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-colic-bestfit': 48,
       'equine-dentistry': 40,
       'equine-gi': 37,
-      'equine-intro': 101,
+      'equine-intro': 86,
       'equine-nutrition': 55,
-      'equine-parasites': 78,
+      'equine-parasites': 71,
       'equine-respi': 44,
     },
     'equine-repro': {
@@ -733,19 +733,18 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'epidem-test-agreement': 7,
     },
     'equine-medicine': {
-      'equine-anesthesia': 4,
+      'equine-anesthesia': 6,
       'equine-colic-bestfit': 48,
       'equine-dentistry': 40,
+      'equine-derm': 29,
       'equine-gi': 37,
-      'equine-infectious': 6,
-      'equine-intro': 101,
+      'equine-intro': 86,
       'equine-nutrition': 55,
-      'equine-ophth': 7,
-      'equine-ortho': 16,
-      'equine-parasites': 78,
+      'equine-ophth': 5,
+      'equine-parasites': 71,
       'equine-poa': 10,
       'equine-respi': 44,
-      'equine-tumors': 9,
+      'equine-surgery-wound': 24,
     },
     'equine-repro': {
       'eqrepro-ai': 11,
@@ -2448,19 +2447,18 @@ export const Q_COUNTS_BY_TOPIC = {
     "epidem-test-agreement": 7,
   },
   "equine-medicine": {
-    "equine-anesthesia": 4,
+    "equine-anesthesia": 6,
     "equine-colic-bestfit": 48,
     "equine-dentistry": 40,
+    "equine-derm": 29,
     "equine-gi": 37,
-    "equine-infectious": 6,
-    "equine-intro": 101,
+    "equine-intro": 86,
     "equine-nutrition": 55,
-    "equine-ophth": 7,
-    "equine-ortho": 16,
-    "equine-parasites": 78,
+    "equine-ophth": 5,
+    "equine-parasites": 71,
     "equine-poa": 10,
     "equine-respi": 44,
-    "equine-tumors": 9,
+    "equine-surgery-wound": 24,
   },
   "equine-repro": {
     "eqrepro-ai": 11,
@@ -3386,4 +3384,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-28T16:10:16.228Z
+// Built: 2026-10-28T17:01:12.810Z

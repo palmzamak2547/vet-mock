@@ -69,7 +69,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 100 | 60 | 0 | 60.0% |
-| equine-medicine | 455 | 455 | 0 | 100.0% |
+| equine-medicine | 455 | 402 | 0 | 88.4% |
 | equine-repro | 183 | 155 | 7 | 84.7% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 289 | 50 | 0 | 17.3% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 367 | 355 | 0 | 96.7% |
-| **All** | 6786 | 4287 | 334 | 63.2% |
+| **All** | 6786 | 4234 | 334 | 62.4% |
