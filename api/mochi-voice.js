@@ -12,17 +12,8 @@
 // ============================================================
 
 import { allowedOrigin, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
-import { authenticatedUser, backendConfig } from './_lib/app-backend.js';
+import { authenticatedUser, isAdmin } from './_lib/app-backend.js';
 import { voiceConfig, monthKey, secondsToMonthEnd, mintToken, searchKnowledge } from './_lib/mochi-voice.js';
-
-async function isAdmin(token, env = process.env) {
-  const { url, key } = backendConfig(env);
-  const res = await fetch(`${url}/rest/v1/rpc/is_admin`, {
-    method: 'POST', headers: { apikey: key, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: '{}', signal: AbortSignal.timeout(6000),
-  });
-  return res.ok && (await res.json()) === true;
-}
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');

@@ -18,6 +18,16 @@ export async function authenticatedUser(req, env = process.env) {
   return user?.id ? { userId: user.id, token } : null;
 }
 
+/** True only for an account in admin_users; the database decides (is_admin RPC). */
+export async function isAdmin(token, env = process.env) {
+  const { url, key } = backendConfig(env);
+  const res = await fetch(`${url}/rest/v1/rpc/is_admin`, {
+    method: 'POST', headers: { apikey: key, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: '{}', signal: AbortSignal.timeout(6000),
+  });
+  return res.ok && (await res.json()) === true;
+}
+
 export function signAppPayload(purpose, data, env = process.env) {
   const key = env.VETMOCK_RPC_SIGNING_KEY;
   if (!key) throw new Error('signing-unavailable');

@@ -19,7 +19,7 @@
 // ============================================================
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { checkIsAdmin, adminRpc, isForbidden } from '../lib/admin-api.js';
+import { checkIsAdmin, adminRpc, isForbidden, systemStatus } from '../lib/admin-api.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { qualityFlags, rankQuestions, answerDistribution, fillDaily, wrongRate } from '../lib/question-quality.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
@@ -35,7 +35,7 @@ import '../styles-admin.css';
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
 const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
 const SECTIONS = [
-  ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
+  ['status', 'ระบบภายนอก'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
   ['content', 'คลัง'], ['community', 'ชุมชน'], ['feedback', 'ระบบแจ้งปัญหา'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
 ];
 const KIND_LABEL = { feature: 'ฟีเจอร์', add: 'เพิ่ม', fix: 'แก้บั๊ก', content: 'เนื้อหา', change: 'ปรับ' };
@@ -147,6 +147,63 @@ function DailyChart({ daily, days }) {
 function Flags({ flags }) {
   if (!flags.length) return <span className="ad-muted">—</span>;
   return <span className="ad-flags">{flags.map((f) => <span key={f.key} className={`ad-flag ${f.tone}`}>{f.label}</span>)}</span>;
+}
+
+const STATE_FLAG = { ok: ['good', 'ปกติ'], warn: ['warn', 'ควรดู'], down: ['alarm', 'ใช้ไม่ได้'], off: ['info', 'ปิดอยู่'] };
+
+/**
+ * Every outside service a feature needs (api/system-status.js). The app hides
+ * or falls back when one fails, so this card is the only place that says a
+ * credit ran out or a token expired. Its own fetch fails alone.
+ */
+function SystemStatus({ tick }) {
+  const [state, setState] = useState({ loading: true });
+  useEffect(() => {
+    let alive = true;
+    setState((s) => ({ ...s, loading: true }));
+    systemStatus().then((body) => { if (alive) setState({ body }); }).catch((error) => { if (alive) setState({ error }); });
+    return () => { alive = false; };
+  }, [tick]);
+  const checks = state.body?.checks || [];
+  const problems = checks.filter((c) => c.state === 'down' || c.state === 'warn').length;
+  return (
+    <section id="ad-status" className="ad-card">
+      <div className="ad-card-head">
+        <h2>ระบบภายนอก</h2>
+        <p>
+          บริการที่ฟีเจอร์ต้องใช้ ตรวจสดทุกครั้งที่เปิดหน้านี้ ถ้าตัวไหนใช้ไม่ได้ แอปจะหลบไปใช้ทางสำรองหรือซ่อนปุ่มโดยไม่บอกนิสิต จึงต้องดูจากตรงนี้
+          {state.body ? `, ตรวจเมื่อ ${fmtWhen(state.body.checkedAt)}` : ''}
+        </p>
+      </div>
+      {state.error ? (
+        <div className="ad-empty">ตรวจไม่สำเร็จ ({state.error.message}) กดดึงใหม่เพื่อลองอีกครั้ง</div>
+      ) : !state.body ? (
+        <div className="ad-skeleton" style={{ width: '60%' }} />
+      ) : (
+        <>
+          <p className="ad-muted" role="status">{problems ? `มี ${problems} อย่างที่ต้องจัดการ` : 'ทุกอย่างที่ตรวจได้ใช้ได้ปกติ'}</p>
+          <div className="ad-tablewrap">
+            <table className="ad-table">
+              <thead><tr><th>บริการ</th><th>สถานะ</th><th>รายละเอียด</th><th>ต้องทำอะไร</th></tr></thead>
+              <tbody>
+                {checks.map((c) => {
+                  const [tone, label] = STATE_FLAG[c.state] || STATE_FLAG.down;
+                  return (
+                    <tr key={c.id}>
+                      <td>{c.name}</td>
+                      <td><span className={`ad-flag ${tone}`}>{label}</span></td>
+                      <td>{c.detail}</td>
+                      <td>{c.fix ? <>{c.fix} <a href={c.doc} target="_blank" rel="noreferrer">วิธีทำ</a></> : <span className="ad-muted">—</span>}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+    </section>
+  );
 }
 
 /** {a: 3, b: 5} -> chips "a 3", "b 5". For the small breakdowns. */
@@ -468,6 +525,8 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
       <nav className="ad-nav" aria-label="ส่วนของหน้า">
         {SECTIONS.map(([id, label]) => <a key={id} href={`#ad-${id}`}>{label}</a>)}
       </nav>
+
+      <SystemStatus tick={tick} />
 
       {failed && !rangeStatus && !isForbidden(failed) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {failed.message}</p></div>}
       {bankFailed && <div className="ad-card" role="status"><p className="ad-muted">โหลดข้อความโจทย์ไม่ครบ สถิติและโจทย์ที่โหลดได้ยังแสดงตามเดิม ตรวจการเชื่อมต่อแล้วโหลดหน้าใหม่เพื่อลองอีกครั้ง</p><button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reloadBank}>โหลดหน้าใหม่</button></div>}
