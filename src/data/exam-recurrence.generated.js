@@ -2859,44 +2859,66 @@ export const EXAM_RECURRENCE = {
     },
   },
   "swine-clinic": {
-    "cohorts": [80, 85],
-    "items": 75,
+    "cohorts": [78, 80, 81, 83, 84, 85],
+    "items": 140,
     "topics": {
       "swine-asf": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [80, 83, 85],
+        "first": 80,
         "last": 85,
-        "items": 3,
+        "items": 17,
         "sat": {
+          "80": {
+            "final": ["swine-clinic:209007", "swine-clinic:209008", "swine-clinic:209009", "swine-clinic:209010", "swine-clinic:209011", "swine-clinic:209012", "swine-clinic:209013", "swine-clinic:209014", "swine-clinic:209015"],
+          },
+          "83": {
+            "final": ["swine-clinic:209013", "swine-clinic:209051"],
+          },
           "85": {
             "final": ["swine-clinic:105591", "swine-clinic:105592", "swine-clinic:105594"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["swine-clinic:209033", "swine-clinic:209034", "swine-clinic:209035", "swine-clinic:209036"],
       },
       "swine-csf": {
-        "cohorts": [80, 85],
-        "first": 80,
+        "cohorts": [78, 80, 85],
+        "first": 78,
         "last": 85,
-        "items": 3,
+        "items": 19,
         "sat": {
+          "78": {
+            "final": ["swine-clinic:209048", "swine-clinic:209050"],
+          },
           "80": {
+            "final": ["swine-clinic:209000", "swine-clinic:209001", "swine-clinic:209002", "swine-clinic:209003", "swine-clinic:209004", "swine-clinic:209005", "swine-clinic:209006"],
             "unknown": ["swine-clinic:8028"],
           },
           "85": {
             "final": ["swine-clinic:105593", "swine-clinic:105595"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["swine-clinic:209020", "swine-clinic:209021", "swine-clinic:209022", "swine-clinic:209023", "swine-clinic:209024", "swine-clinic:209025", "swine-clinic:209026"],
       },
       "swine-fmd": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [78, 80, 81, 83, 85],
+        "first": 78,
         "last": 85,
-        "items": 4,
+        "items": 6,
         "sat": {
+          "78": {
+            "final": ["swine-clinic:209063"],
+          },
+          "80": {
+            "final": ["swine-clinic:209064"],
+          },
+          "81": {
+            "final": ["swine-clinic:209063"],
+          },
+          "83": {
+            "final": ["swine-clinic:209064"],
+          },
           "85": {
-            "final": ["swine-clinic:105587", "swine-clinic:105588", "swine-clinic:105589", "swine-clinic:105590"],
+            "final": ["swine-clinic:105587", "swine-clinic:105588", "swine-clinic:105589", "swine-clinic:105590", "swine-clinic:209063"],
           },
         },
         "unattributed": [],
@@ -2918,40 +2940,62 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["swine-clinic:8354"],
       },
       "swine-greasypig": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [78, 85],
+        "first": 78,
         "last": 85,
-        "items": 1,
+        "items": 13,
         "sat": {
+          "78": {
+            "final": ["swine-clinic:209049"],
+          },
           "85": {
             "final": ["swine-clinic:105598"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["swine-clinic:209037", "swine-clinic:209038", "swine-clinic:209039", "swine-clinic:209040", "swine-clinic:209041", "swine-clinic:209042", "swine-clinic:209043", "swine-clinic:209044", "swine-clinic:209045", "swine-clinic:209046", "swine-clinic:209047"],
       },
       "swine-ileitis-bacti": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [78, 80, 81, 83, 85],
+        "first": 78,
         "last": 85,
-        "items": 6,
+        "items": 10,
         "sat": {
+          "78": {
+            "final": ["swine-clinic:209058", "swine-clinic:209060"],
+          },
+          "80": {
+            "final": ["swine-clinic:209059", "swine-clinic:209061"],
+          },
+          "81": {
+            "final": ["swine-clinic:209058", "swine-clinic:209060"],
+          },
+          "83": {
+            "final": ["swine-clinic:209059", "swine-clinic:209061"],
+          },
           "85": {
-            "final": ["swine-clinic:105576", "swine-clinic:105577", "swine-clinic:105579", "swine-clinic:105580", "swine-clinic:105582"],
+            "final": ["swine-clinic:105576", "swine-clinic:105577", "swine-clinic:105579", "swine-clinic:105580", "swine-clinic:105582", "swine-clinic:209058", "swine-clinic:209060"],
           },
         },
         "unattributed": ["swine-clinic:8351"],
       },
       "swine-pcv2": {
-        "cohorts": [80, 85],
+        "cohorts": [80, 81, 83, 85],
         "first": 80,
         "last": 85,
-        "items": 9,
+        "items": 10,
         "sat": {
           "80": {
+            "final": ["swine-clinic:209062"],
             "unknown": ["swine-clinic:8016", "swine-clinic:8020", "swine-clinic:8040", "swine-clinic:8042"],
           },
+          "81": {
+            "final": ["swine-clinic:209062"],
+          },
+          "83": {
+            "final": ["swine-clinic:209062"],
+          },
           "85": {
-            "final": ["swine-clinic:105583", "swine-clinic:105584", "swine-clinic:105585", "swine-clinic:105586", "swine-clinic:105599"],
+            "final": ["swine-clinic:105583", "swine-clinic:105584", "swine-clinic:105585", "swine-clinic:105586", "swine-clinic:105599", "swine-clinic:209062"],
           },
         },
         "unattributed": [],
@@ -2973,16 +3017,43 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["swine-clinic:8350", "swine-clinic:8352", "swine-clinic:8353", "swine-clinic:8355", "swine-clinic:8356", "swine-clinic:8358", "swine-clinic:8359"],
       },
       "swine-prv-je": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [80, 83, 85],
+        "first": 80,
         "last": 85,
-        "items": 3,
+        "items": 15,
         "sat": {
+          "80": {
+            "final": ["swine-clinic:209016", "swine-clinic:209017", "swine-clinic:209018", "swine-clinic:209019"],
+          },
+          "83": {
+            "final": ["swine-clinic:209019"],
+          },
           "85": {
             "final": ["swine-clinic:105596", "swine-clinic:105597"],
           },
         },
-        "unattributed": ["swine-clinic:8357"],
+        "unattributed": ["swine-clinic:8357", "swine-clinic:209027", "swine-clinic:209028", "swine-clinic:209029", "swine-clinic:209030", "swine-clinic:209031", "swine-clinic:209032", "swine-clinic:209052", "swine-clinic:209053"],
+      },
+      "swine-repro": {
+        "cohorts": [78, 80, 81, 84],
+        "first": 78,
+        "last": 84,
+        "items": 4,
+        "sat": {
+          "78": {
+            "final": ["swine-clinic:209054"],
+          },
+          "80": {
+            "final": ["swine-clinic:209055"],
+          },
+          "81": {
+            "final": ["swine-clinic:209054"],
+          },
+          "84": {
+            "final": ["swine-clinic:209055"],
+          },
+        },
+        "unattributed": ["swine-clinic:209056", "swine-clinic:209057"],
       },
       "swine-resp-viral": {
         "cohorts": [80, 85],
