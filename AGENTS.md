@@ -327,7 +327,8 @@ pinned to `{ year: 5, phase: '1-mid' }`, so under ปลายภาค they sho
   (panic-cards.js) are keyed term (SEMESTER.id), then year, then phase. `paperContent` returns this
   term's entry for the paper, else the newest earlier term's for the same paper, with
   `{ term, own }`; a later term's entry replaces it the moment it is filed (Palm, 29 Oct, "อ้าว" at
-  hiding it). Content that is not `own` (another term's, or a past year's timetable) carries
+  hiding it). Content that is not `own` (another school year's: this year is the later of
+  SEMESTER's and the calendar's, which turns on 1 August) carries
   `oldContentLine`, "จากปีการศึกษา 2569 (รุ่นก่อน) อาจไม่ตรงกับปีนี้", and its paper-bound facts show
   their year: the lecturer-set intro leads with the year and dates the exam, the wrap-up's exam
   date prints its year. The paper whose content a page shows is `contentPhase(state)`: the paper

@@ -119,11 +119,21 @@ export function termsUpToNow(registry) {
     .sort((a, b) => termOrdinal(b) - termOrdinal(a));
 }
 
-/** Whether content filed under `term` is this school year's: the same year as
- *  the timetable's term (term 1's content under term 2 is the same cohort's),
- *  and the timetable is not itself a past year's. */
+// The school year on Bangkok's calendar: a new one begins on 1 August, when
+// the next cohort starts term 1.
+function calendarSchoolYear(now) {
+  const b = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+  return b.getUTCFullYear() + 543 - (b.getUTCMonth() < 7 ? 1 : 0);
+}
+
+/** Whether content filed under `term` is this school year's. This school year
+ *  is the later of the timetable's (SEMESTER filed early in July counts) and
+ *  the calendar's (a SEMESTER nobody moved on stops counting on 1 August).
+ *  Term 1's content under term 2 is the same cohort's. `year` is unused: one
+ *  school year serves every class year. */
 export function isOwnTerm(term, year, now = new Date()) {
-  return schoolYear(term) === schoolYear(SEMESTER?.id) && timetableStatus(year, now).status !== 'stale-year';
+  const current = Math.max(Number(schoolYear(SEMESTER?.id)) || 0, calendarSchoolYear(now));
+  return Number(schoolYear(term)) === current;
 }
 
 /**

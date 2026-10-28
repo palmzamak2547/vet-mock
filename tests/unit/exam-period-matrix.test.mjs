@@ -298,3 +298,21 @@ test('a later term that lists a paper decides its panic cards, its noCard includ
     delete PANIC_CARD_PAPERS['2570-1'];
   }
 });
+
+test('"this year" is the later of the timetable\'s school year and the calendar\'s, so an unmoved term labels last year\'s content from 1 August', () => {
+  const was = SEMESTER.id;
+  try {
+    // Term 2 of 2569 never moved on: on 20 Aug and 22 Sep 2027 (the 2570 midterm) 2569's midterm content is last year's.
+    SEMESTER.id = '2569-2';
+    for (const iso of ['2027-08-20T10:00:00+07:00', '2027-09-22T10:00:00+07:00']) {
+      assert.equal(wrapUpFor('zoonoses', 5, '1-mid', new Date(iso)).own, false, iso);
+    }
+    // ...while in January it is still this cohort's own term-1 content.
+    assert.equal(wrapUpFor('zoonoses', 5, '1-mid', new Date('2027-01-15T10:00:00+07:00')).own, true);
+    // A new term filed early in July counts from then: 2569's content is already last year's.
+    SEMESTER.id = '2570-1';
+    assert.equal(wrapUpFor('zoonoses', 5, '1-mid', new Date('2027-07-20T10:00:00+07:00')).own, false);
+  } finally {
+    SEMESTER.id = was;
+  }
+});
