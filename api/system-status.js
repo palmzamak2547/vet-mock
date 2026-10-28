@@ -5,7 +5,9 @@ import { authenticatedUser, isAdmin } from './_lib/app-backend.js';
 import { allowedOrigin } from './_lib/rate-limit.js';
 import { runChecks } from './_lib/system-status.js';
 
-export const config = { runtime: 'nodejs', maxDuration: 20 };
+// Sign-in (8 s) and the admin check (6 s) run before any probe, then every
+// check at once (8 s each, 9 s at most): 23 s worst case.
+export const config = { runtime: 'nodejs', maxDuration: 30 };
 
 export default async function handler(req, res, deps = {}) {
   res.setHeader('Cache-Control', 'private, no-store');
