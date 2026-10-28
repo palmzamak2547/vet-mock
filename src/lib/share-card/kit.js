@@ -247,9 +247,21 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
       ctx.lineWidth = stroke;
       ctx.lineJoin = 'round';
       ctx.strokeStyle = ctx.fillStyle;
-      ctx.strokeText(s, at, y);
+      // Only the Thai runs: Latin letters and digits come from static faces
+      // every engine paints at weight, and a stroke made "1" and "42" heavy.
+      let offset = 0;
+      for (const run of s.split(/([฀-๿]+)/u)) {
+        if (!run) continue;
+        if (THAI.test(run)) ctx.strokeText(run, at + offset, y);
+        offset += ctx.measureText(run).width;
+      }
       ctx.restore();
     }
+    // The box is the fill's ink; the stroke reaches about 2 px past it at the
+    // largest heading. Counted in, a heading flush with the live edge and the
+    // lines of one paragraph at the house leading read as leaving the area or
+    // running into each other (layoutProblems allows 1 px), and the timetable
+    // and the recap went from clean to tight on WebKit (29 Oct 2026).
     const box = {
       role, text: s, size: style.size ?? SIZE.s, family: style.family ?? FAMILY.label,
       left: at - (m.actualBoundingBoxLeft ?? 0),
