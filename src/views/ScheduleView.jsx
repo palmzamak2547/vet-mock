@@ -31,10 +31,11 @@ function loadSheet() {
 
 // What a tap that could not open the sheet leaves on the page, in place of
 // the sheet: the page and its exam cards stay, and the wording follows the
-// connection while it shows. A retry fetches the sheet afresh, but a piece it
-// shares with other screens that failed too stays failed in Chromium and
-// WebKit until the page loads again, so a second failure while online offers
-// that (nothing on this page is lost by it).
+// connection while it shows. A retry fetches the sheet afresh where the
+// browser allows it (chunk-error.js importFresh), but WebKit keeps a failed
+// import, as Chromium does for a piece the sheet shares with other screens, so
+// a second failure while online offers to load the page again (nothing on
+// this page is lost by it).
 function SheetFailure({ error, repeated, onRetry }) {
   const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine !== false);
   useEffect(() => {

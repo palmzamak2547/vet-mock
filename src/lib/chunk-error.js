@@ -10,7 +10,10 @@ export function isChunkLoadError(error) {
 // importing the same URL again rejects without a request, so a retry once the
 // connection is back fails until a reload. Its error names the URL (Firefox's
 // too), and that URL under a fresh query is a new module and a new fetch.
-// WebKit fetches the original again itself, and its error names no URL.
+// WebKit's error names no URL, so there is nothing to fetch afresh. On the
+// dev server it fetched the original again by itself; from a production build
+// Playwright's WebKit fetched a chunk that once failed no more, on a retry or
+// after a reload (29 Oct).
 // questions.js importBank does the same for question banks.
 let retrySerial = 0;
 
