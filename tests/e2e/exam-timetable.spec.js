@@ -18,14 +18,17 @@ test('the exam timetable downloads as an A4 PDF whose layout check is clean', as
   const preview = dialog.locator('.vmx-timetable-preview');
   await expect(preview).toHaveAttribute('data-state', 'ready', { timeout: 60_000 });
   await expect(preview).toHaveAttribute('data-layout', 'clean');
+  // The status line clears after 3.2 s, and Firefox delivered the download
+  // event to Playwright later than that (vetmock.com, 28 Oct: the line was
+  // already empty when read after the event). So it is watched from the click.
   const [download] = await Promise.all([
     page.waitForEvent('download'),
+    expect(dialog.getByRole('status')).toHaveText('ดาวน์โหลด PDF แล้ว'),
     dialog.getByRole('button', { name: 'ดาวน์โหลด PDF' }).click(),
   ]);
   expect(download.suggestedFilename()).toBe('vetmock-exam-timetable-y5-final-2569-1.pdf');
   const bytes = fs.readFileSync(await download.path());
   expect(bytes.subarray(0, 5).toString('latin1')).toBe('%PDF-');
-  await expect(dialog.getByRole('status')).toHaveText('ดาวน์โหลด PDF แล้ว');
   await dialog.getByRole('button', { name: 'ปิด' }).click();
   await expect(dialog).toBeHidden();
 });
