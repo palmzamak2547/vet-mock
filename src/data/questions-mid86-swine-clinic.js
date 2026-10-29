@@ -112,6 +112,7 @@ export const QUESTIONS_MID86_SWINE_CLINIC = [
     "explain": "โครงคำตอบต้องครบห้าหัวข้อตามที่โจทย์ระบุ ห้ามข้ามหัวข้อใดหัวข้อหนึ่ง\n\nตัวเลขและคำเฉพาะที่ควรใส่คือ ตายภายใน 6 ถึง 8 ชั่วโมงในแบบ peracute, ไข้เกิน 104 องศาฟาเรนไฮต์, bacterial isolation เป็น gold standard และ DIVA vaccine ที่ตัด ApxIV",
     "source": "Swine Med Mid 86.pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
+    "examOrigin": "Swine Medicine Vet 78, Vet 80 final และ Vet 85 midterm บันทึกหลังสอบ",
     "verified": "Swine Med Mid 86.pdf p.5 โจทย์ข้อ 1 ของ อ.พรชลิต \"โรคเยื่อหุ้มปอดและปอดอักเสบในสุกร (APP) สาเหตุ อาการ การวินิจฉัย การรักษา การควบคุมและป้องกันโรค\" (พาร์ทนี้ 37.5 คะแนน)",
     "tags": [
       "app",
@@ -140,6 +141,7 @@ export const QUESTIONS_MID86_SWINE_CLINIC = [
     "explain": "โจทย์กำหนดจำนวนไว้ชัดว่า 5 ข้อ ให้เขียนเป็นข้อ ๆ สั้น ๆ แล้วต่อท้ายแต่ละข้อด้วยเหตุผลหนึ่งประโยคว่าทำไมจึงทำให้การควบคุมล้มเหลว",
     "source": "Swine Med Mid 86.pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
+    "examOrigin": "Swine Medicine Vet 78, Vet 80 final และ Vet 85 midterm บันทึกหลังสอบ",
     "verified": "Swine Med Mid 86.pdf p.5 โจทย์ข้อ 2 ของ อ.พรชลิต \"จงบอกปัจจัยทางการจัดการที่ทำให้การควบคุมและป้องกันโรคเยื่อหุ้มปอดและปอดอักเสบในสุกร (APP) ไม่ได้ผล เขียนมา 5 ข้อ\"",
     "tags": [
       "app",

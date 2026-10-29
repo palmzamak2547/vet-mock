@@ -32,6 +32,7 @@ export const QB_Y5_SWINE_0924 = [
     "explain": "รอยโรคปอดสามชนิดแยกกันที่ตำแหน่งและเยื่อหุ้มปอด M. hyopneumoniae กับ pneumonic pasteurellosis อยู่ที่ส่วน cranioventral ทั้งคู่ แต่ M. hyopneumoniae เป็นสีม่วงเทาและเนื้อแน่นแบบ meaty ส่วน pasteurellosis มีเส้นแบ่งเขตชัดและเยื่อหุ้มปอดยังใสและแห้ง ขณะที่ APP เป็นเนื้อตายปนเลือด กระจายได้ทั่วปอด และมีเยื่อ fibrin สีเหลืองทำให้ปอดติดผนังช่องอก\n\nGlaesserella parasuis ให้ polyserositis กับ arthritis เหมือน M. hyorhinis แต่มี meningitis เพิ่มเข้ามา ส่วน atrophic rhinitis เป็นรอยโรคที่จมูก และจมูกที่บิดแล้วไม่กลับคืน",
     "source": "Swine Med Mid 86(1).pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
+    "examOrigin": "Swine Medicine Vet 78 final และ Vet 85 midterm บันทึกหลังสอบ",
     "verified": "Swine Med Mid 86(1).pdf p.5 โจทย์ข้อ 3 ของ อ.พรชลิต ที่พิมพ์ไว้ว่า จงบอกรอยโรค (พยาธิสภาพ) ที่สำคัญของเชื้อต่อไปนี้ ข้อย่อยพิมพ์ 3.1 ถึง 3.5 (กระดาษสะกด Actinobacillus pleuroneumoniae, Haemophillus parasuis, Pneumonis pasteurellosis และ Atropic rhinitis) ส่วน 3.6 ถึง 3.9 เป็นลายมือที่เติมภายหลัง ไม่อยู่ในโจทย์",
     "tags": [
       "lesions",

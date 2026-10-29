@@ -76,6 +76,10 @@ export const EXAM_ORIGINS = Object.freeze({
   "Swine Medicine final Vet 80, Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 83], paper: 'final' },
   "Swine Medicine final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
   "Swine Medicine final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  // The APP essays and the lesion question sat Vet 78's final (and Vet 80's, with the control failures folded into
+  // one essay) and Vet 85's midterm: one origin names every cohort, so the paper is left null.
+  "Swine Medicine Vet 78, Vet 80 final และ Vet 85 midterm บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 80, 85], paper: null },
+  "Swine Medicine Vet 78 final และ Vet 85 midterm บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 85], paper: null },
   "VCA รอบ 1/2569 หมวด 2 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "VCA รอบ 1/2569 หมวด 3 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine": { kind: 'paper', cohort: 85, paper: 'midterm' },
