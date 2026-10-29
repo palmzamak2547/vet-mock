@@ -9,19 +9,19 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **6,964** |
+| **Questions ready for learners** | **7,185** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 78 |
-| Total questions in source banks | 7,042 |
-| Question banks (files) | 96 |
+| Total questions in source banks | 7,263 |
+| Question banks (files) | 98 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 297 |
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 4,385 |
+| — year 5 | 4,606 |
 
-Consistency: source banks **7042**, learner-ready **6964**, fail-closed **78**, registry sums to **7042**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **7263**, learner-ready **7185**, fail-closed **78**, registry sums to **7263**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -69,7 +69,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 100 | 60 | 0 | 60.0% |
-| equine-medicine | 455 | 402 | 0 | 88.4% |
+| equine-medicine | 594 | 541 | 0 | 91.1% |
 | equine-repro | 183 | 155 | 7 | 84.7% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 289 | 50 | 0 | 17.3% |
@@ -88,7 +88,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | surg1 | 29 | 3 | 3 | 10.3% |
 | surg2 | 18 | 1 | 1 | 5.6% |
 | surg3 | 40 | 0 | 0 | 0.0% |
-| swine-clinic | 172 | 111 | 0 | 64.5% |
+| swine-clinic | 254 | 158 | 0 | 62.2% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
 | vca | 691 | 90 | 90 | 13.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 367 | 355 | 0 | 96.7% |
-| **All** | 6964 | 4251 | 334 | 61.0% |
+| **All** | 7185 | 4437 | 334 | 61.8% |

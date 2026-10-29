@@ -62,6 +62,11 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  "Equine Med & Surg midterm บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'midterm' },
+  "Equine Med & Surg final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
+  "Equine Med & Surg final Vet 84": { kind: 'paper', cohort: 84, paper: 'final' },
+  "Equine Med & Surg final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "Swine Medicine final Vet 78, Vet 81 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81], paper: 'final' },
   "Swine Medicine final Vet 78, Vet 81, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81, 85], paper: 'final' },
   "Swine Medicine final Vet 80, Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 84], paper: 'final' },
@@ -195,6 +200,9 @@ export const EXAM_ORIGINS = Object.freeze({
 
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
+  "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
+  "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
   // Filed as papers until 2026-10-28. Their rows cite "Equine Repro Final (Vet 85)" pp. 3-5, the
   // document 21 "study summary" rows cite, and no page names the paper they sat on; one explanation
   // opens "สรุปเน้นว่า". Under-claimed to band 1 until the document itself shows a sat paper.

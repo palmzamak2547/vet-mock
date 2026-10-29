@@ -1319,9 +1319,24 @@ export const EXAM_RECURRENCE = {
     },
   },
   "equine-medicine": {
-    "cohorts": [81, 85],
-    "items": 124,
+    "cohorts": [81, 83, 84, 85],
+    "items": 253,
     "topics": {
+      "equine-anesthesia": {
+        "cohorts": [83, 85],
+        "first": 83,
+        "last": 85,
+        "items": 11,
+        "sat": {
+          "83": {
+            "final": ["equine-medicine:209576"],
+          },
+          "85": {
+            "final": ["equine-medicine:209584"],
+          },
+        },
+        "unattributed": ["equine-medicine:209570", "equine-medicine:209571", "equine-medicine:209577", "equine-medicine:209578", "equine-medicine:209579", "equine-medicine:209580", "equine-medicine:209581", "equine-medicine:209582", "equine-medicine:209583"],
+      },
       "equine-colic-bestfit": {
         "cohorts": [85],
         "first": 85,
@@ -1333,6 +1348,18 @@ export const EXAM_RECURRENCE = {
           },
         },
         "unattributed": [],
+      },
+      "equine-colic-surgery": {
+        "cohorts": [84],
+        "first": 84,
+        "last": 84,
+        "items": 4,
+        "sat": {
+          "84": {
+            "final": ["equine-medicine:209585", "equine-medicine:209586"],
+          },
+        },
+        "unattributed": ["equine-medicine:209568", "equine-medicine:209569"],
       },
       "equine-dentistry": {
         "cohorts": [81, 85],
@@ -1354,43 +1381,75 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 4,
+        "items": 6,
         "sat": {
           "85": {
             "midterm": ["equine-medicine:202383", "equine-medicine:202398", "equine-medicine:202399", "equine-medicine:202405"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["equine-medicine:209625", "equine-medicine:209626"],
+      },
+      "equine-infectious": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 1,
+        "sat": {},
+        "unattributed": ["equine-medicine:209567"],
       },
       "equine-intro": {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 30,
+        "items": 31,
         "sat": {
           "85": {
             "midterm": ["equine-medicine:105284", "equine-medicine:105285", "equine-medicine:202367", "equine-medicine:202368", "equine-medicine:202369", "equine-medicine:202370", "equine-medicine:202371", "equine-medicine:202372", "equine-medicine:202373", "equine-medicine:202374", "equine-medicine:202375", "equine-medicine:202376", "equine-medicine:202377", "equine-medicine:202378", "equine-medicine:202379", "equine-medicine:202380", "equine-medicine:202381", "equine-medicine:202382", "equine-medicine:202454", "equine-medicine:207496", "equine-medicine:207497", "equine-medicine:207498", "equine-medicine:207499", "equine-medicine:207500", "equine-medicine:207501", "equine-medicine:207502", "equine-medicine:207503"],
           },
         },
-        "unattributed": ["equine-medicine:202031", "equine-medicine:202032", "equine-medicine:202044"],
+        "unattributed": ["equine-medicine:202031", "equine-medicine:202032", "equine-medicine:202044", "equine-medicine:209627"],
+      },
+      "equine-lameness": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 18,
+        "sat": {},
+        "unattributed": ["equine-medicine:209600", "equine-medicine:209601", "equine-medicine:209602", "equine-medicine:209603", "equine-medicine:209604", "equine-medicine:209605", "equine-medicine:209606", "equine-medicine:209607", "equine-medicine:209608", "equine-medicine:209609", "equine-medicine:209610", "equine-medicine:209611", "equine-medicine:209612", "equine-medicine:209613", "equine-medicine:209614", "equine-medicine:209615", "equine-medicine:209633", "equine-medicine:209634"],
+      },
+      "equine-neonatal": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 54,
+        "sat": {},
+        "unattributed": ["equine-medicine:209513", "equine-medicine:209514", "equine-medicine:209515", "equine-medicine:209516", "equine-medicine:209517", "equine-medicine:209518", "equine-medicine:209519", "equine-medicine:209520", "equine-medicine:209521", "equine-medicine:209522", "equine-medicine:209523", "equine-medicine:209524", "equine-medicine:209525", "equine-medicine:209526", "equine-medicine:209527", "equine-medicine:209528", "equine-medicine:209529", "equine-medicine:209530", "equine-medicine:209531", "equine-medicine:209532", "equine-medicine:209533", "equine-medicine:209534", "equine-medicine:209535", "equine-medicine:209536", "equine-medicine:209537", "equine-medicine:209538", "equine-medicine:209539", "equine-medicine:209540", "equine-medicine:209541", "equine-medicine:209542", "equine-medicine:209543", "equine-medicine:209544", "equine-medicine:209545", "equine-medicine:209546", "equine-medicine:209547", "equine-medicine:209548", "equine-medicine:209549", "equine-medicine:209550", "equine-medicine:209551", "equine-medicine:209552", "equine-medicine:209553", "equine-medicine:209554", "equine-medicine:209555", "equine-medicine:209556", "equine-medicine:209557", "equine-medicine:209558", "equine-medicine:209559", "equine-medicine:209560", "equine-medicine:209561", "equine-medicine:209562", "equine-medicine:209563", "equine-medicine:209564", "equine-medicine:209565", "equine-medicine:209566"],
       },
       "equine-nutrition": {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 12,
+        "items": 14,
         "sat": {
           "85": {
             "midterm": ["equine-medicine:105308", "equine-medicine:105318", "equine-medicine:105323", "equine-medicine:202387", "equine-medicine:202388", "equine-medicine:202389", "equine-medicine:202390", "equine-medicine:202391", "equine-medicine:202392", "equine-medicine:202393"],
           },
         },
-        "unattributed": ["equine-medicine:202076", "equine-medicine:202077"],
+        "unattributed": ["equine-medicine:202076", "equine-medicine:202077", "equine-medicine:209623", "equine-medicine:209624"],
+      },
+      "equine-ophth": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 17,
+        "sat": {},
+        "unattributed": ["equine-medicine:209500", "equine-medicine:209501", "equine-medicine:209502", "equine-medicine:209503", "equine-medicine:209504", "equine-medicine:209505", "equine-medicine:209506", "equine-medicine:209507", "equine-medicine:209508", "equine-medicine:209509", "equine-medicine:209510", "equine-medicine:209511", "equine-medicine:209512", "equine-medicine:209572", "equine-medicine:209573", "equine-medicine:209574", "equine-medicine:209575"],
       },
       "equine-parasites": {
         "cohorts": [81, 85],
         "first": 81,
         "last": 85,
-        "items": 20,
+        "items": 24,
         "sat": {
           "81": {
             "quiz": ["equine-medicine:207554", "equine-medicine:207555", "equine-medicine:207556", "equine-medicine:207557", "equine-medicine:207558", "equine-medicine:207559", "equine-medicine:207560", "equine-medicine:207561", "equine-medicine:207562", "equine-medicine:207563", "equine-medicine:207564", "equine-medicine:207565", "equine-medicine:207566", "equine-medicine:207567"],
@@ -1399,20 +1458,21 @@ export const EXAM_RECURRENCE = {
             "midterm": ["equine-medicine:202394", "equine-medicine:202395", "equine-medicine:202396", "equine-medicine:202397", "equine-medicine:207568", "equine-medicine:207569"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["equine-medicine:209635", "equine-medicine:209636", "equine-medicine:209637", "equine-medicine:209638"],
       },
       "equine-poa": {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 7,
+        "items": 22,
         "sat": {
           "85": {
             "midterm": ["equine-medicine:202384", "equine-medicine:202385"],
+            "final": ["equine-medicine:209599", "equine-medicine:209628", "equine-medicine:209629"],
             "station": ["equine-medicine:105273", "equine-medicine:105274", "equine-medicine:105275", "equine-medicine:105276", "equine-medicine:105278"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["equine-medicine:209587", "equine-medicine:209588", "equine-medicine:209592", "equine-medicine:209593", "equine-medicine:209594", "equine-medicine:209595", "equine-medicine:209596", "equine-medicine:209597", "equine-medicine:209598", "equine-medicine:209630", "equine-medicine:209631", "equine-medicine:209632"],
       },
       "equine-respi": {
         "cohorts": [85],
@@ -4292,6 +4352,13 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     "members": [
       ["equine-medicine:207526", [85]],
       ["equine-medicine:207546", [81]],
+    ],
+  },
+  {
+    "cohorts": [84],
+    "members": [
+      ["equine-medicine:209585", [84]],
+      ["equine-medicine:209586", [84]],
     ],
   },
   {

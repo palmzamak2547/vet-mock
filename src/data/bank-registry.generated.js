@@ -191,6 +191,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-equine-2026.js', export: 'QUESTIONS_Y5_EQUINE_2026', year: 5, count: 189,
     subjects: ['equine-medicine'],
     load: () => import('./questions-y5-equine-2026.js').then((m) => m.QUESTIONS_Y5_EQUINE_2026) },
+  { file: 'questions-y5-equine-final-recall.js', export: 'QUESTIONS_Y5_EQUINE_FINAL_RECALL', year: 5, count: 139,
+    subjects: ['equine-medicine'],
+    load: () => import('./questions-y5-equine-final-recall.js').then((m) => m.QUESTIONS_Y5_EQUINE_FINAL_RECALL) },
   { file: 'questions-y5-final-mixed.js', export: 'QB_Y5_FINAL_MIXED', year: 5, count: 60,
     subjects: ['aquatic-clinic', 'avian-medicine', 'livestock-pathology', 'rec-adv-bioscience', 'ruminant-clinical', 'swine-clinic', 'vca', 'zoonoses'],
     load: () => import('./questions-y5-final-mixed.js').then((m) => m.QB_Y5_FINAL_MIXED) },
@@ -260,6 +263,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-swine-clinic.js', export: 'QB_Y5_SWINE_CLINIC', year: 5, count: 10,
     subjects: ['swine-clinic'],
     load: () => import('./questions-y5-swine-clinic.js').then((m) => m.QB_Y5_SWINE_CLINIC) },
+  { file: 'questions-y5-swine-final-marked.js', export: 'QUESTIONS_Y5_SWINE_FINAL_MARKED', year: 5, count: 82,
+    subjects: ['swine-clinic'],
+    load: () => import('./questions-y5-swine-final-marked.js').then((m) => m.QUESTIONS_Y5_SWINE_FINAL_MARKED) },
   { file: 'questions-y5-swine-final-recall.js', export: 'QUESTIONS_Y5_SWINE_FINAL_RECALL', year: 5, count: 65,
     subjects: ['swine-clinic'],
     load: () => import('./questions-y5-swine-final-recall.js').then((m) => m.QUESTIONS_Y5_SWINE_FINAL_RECALL) },
@@ -298,4 +304,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-10-28T20:32:06.480Z — 96 banks · 7042 Qs
+// Built: 2026-10-29T01:49:10.810Z — 98 banks · 7263 Qs
