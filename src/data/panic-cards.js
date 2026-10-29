@@ -48,6 +48,12 @@ export const PANIC_CARD_PAPERS = {
         // artwork, and nobody draws two cards that should not exist.
         noCard: ['epidemiology', 'poa-clinical'],
       },
+      '1-final': {
+        cards: ['one-health', 'avian-medicine', 'food-industry', 'milk-meat-hygiene', 'equine-medicine', 'equine-repro', 'swine-clinic', 'aquatic-clinic', 'zoonoses'],
+        // Epidemiology sits this paper, but its card is not drawn yet. POA is
+        // examined through the term (examScope 'continuous'), with no written paper.
+        noCard: ['epidemiology', 'poa-clinical'],
+      },
     },
   },
 };
