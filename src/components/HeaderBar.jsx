@@ -28,6 +28,7 @@ import ThemePicker from './ThemePicker.jsx';
 import NavIcon from './NavIcon.jsx';
 import { commandShortcutLabel } from '../lib/nav.js';
 import Wordmark from './Wordmark.jsx';
+import { unsplitNotice } from '../lib/current-phase.js';
 
 // XP chip — Lv N · XXX XP · thin progress bar. Lazy because the
 // gamification isn't critical for first paint.
@@ -44,7 +45,7 @@ const PHASE_PILL_LABELS = {
 
 export default function HeaderBar({
   view, setView, goHome,
-  selectedYear, selectedYearStored, selectedPhase,
+  selectedYear, selectedYearStored, selectedPhase, phaseStatus = null,
   setPaletteOpen,
   bookmarks, setPracticeMode, setMode,
   streakData,
@@ -52,7 +53,10 @@ export default function HeaderBar({
   theme, themePref, setTheme, palette, setPalette,
 }) {
   const showYear = selectedYearStored !== null && view !== 'year-select';
-  const showPhase = selectedPhase && view !== 'phase-select' && view !== 'year-select';
+  // A pick the timetable cannot back narrows nothing, and the pill says so on
+  // every page, in the place the paper would be (lib/current-phase.js).
+  const unsplit = selectedPhase ? null : unsplitNotice(phaseStatus);
+  const showPhase = Boolean(selectedPhase || unsplit) && view !== 'phase-select' && view !== 'year-select';
   const savedCount = bookmarks?.length || 0;
   const shortcutLabel = commandShortcutLabel();
   // Home on a phone opens the way a super-app home does: a full-width search
@@ -96,9 +100,10 @@ export default function HeaderBar({
                 type="button"
                 className="vmx-context-pill"
                 onClick={() => setView('phase-select')}
-                aria-label="สลับช่วงสอบ"
+                aria-label={unsplit ? `${unsplit}, สลับช่วงสอบ` : 'สลับช่วงสอบ'}
+                title={unsplit || undefined}
               >
-                {PHASE_PILL_LABELS[selectedPhase] || selectedPhase}
+                {unsplit ? 'ไม่แยกช่วงสอบ' : (PHASE_PILL_LABELS[selectedPhase] || selectedPhase)}
                 <span className="vmx-context-caret" aria-hidden="true" />
               </button>
             )}

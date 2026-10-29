@@ -27,6 +27,7 @@ import { QB_TOTAL, QB_BLOCKED_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUN
 import { CHANGELOG, SCOPE_LABELS } from '../data/changelog-all.js';
 import { hasSupabase } from '../lib/supabase.js';
 import PrivateNotes from '../components/PrivateNotes.jsx';
+import { examPeriodReport, reportTerm, STATUS_LABEL, STATUS_TODO } from '../lib/exam-period-report.js';
 // The back-office styles travel with this lazy chunk: one account opens
 // this page, so they are not part of the stylesheet every student's boot
 // waits for. Every rule in it is scoped to .ad-* (tests/unit/boot-weight).
@@ -35,7 +36,7 @@ import '../styles-admin.css';
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
 const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
 const SECTIONS = [
-  ['status', 'ระบบภายนอก'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
+  ['status', 'ระบบภายนอก'], ['period', 'ช่วงสอบ'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
   ['content', 'คลัง'], ['community', 'ชุมชน'], ['feedback', 'ระบบแจ้งปัญหา'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
 ];
 const KIND_LABEL = { feature: 'ฟีเจอร์', add: 'เพิ่ม', fix: 'แก้บั๊ก', content: 'เนื้อหา', change: 'ปรับ' };
@@ -352,6 +353,47 @@ function UserDetail({ row, bank, onClose }) {
 }
 
 /** The whole release history, searchable, twenty at a time. */
+// Which paper each year is narrowed to, from the build's own timetable, and
+// what to fill in where nothing can be (lib/current-phase.js). Read from the
+// build, so it shows even when the database is unreachable.
+function ExamPeriods() {
+  const rows = useMemo(() => examPeriodReport(), []);
+  const day = (ms) => fmtWhen(new Date(ms).toISOString());
+  return (
+    <section id="ad-period" className="ad-card">
+      <div className="ad-card-head">
+        <h2>ช่วงสอบ</h2>
+        <p>ตารางสอบในระบบคือ {reportTerm()} แอปแยกข้อสอบตามช่วงสอบเฉพาะชั้นปีที่ตารางสอบยังมีสอบรออยู่ ชั้นปีและช่วงอื่นแสดงโดยไม่แยกช่วงสอบ แม้นิสิตจะเลือกช่วงไว้ และนิสิตเห็นข้อความบอกทุกหน้า</p>
+      </div>
+      <div className="ad-tablewrap">
+        <table className="ad-table">
+          <thead><tr><th>ชั้นปี</th><th>ตอนนี้</th><th>ช่วงสอบในตาราง</th><th>เนื้อหาที่ใช้</th><th>หัวข้อที่ยังไม่ระบุช่วงสอบ</th></tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.year}>
+                <td>{r.label}</td>
+                <td>
+                  {r.status === 'timetable' ? `${STATUS_LABEL.timetable}: ${r.papers.find((p) => p.id === r.current)?.label || ''}` : STATUS_LABEL[r.status]}
+                  {STATUS_TODO[r.status] && <div className="ad-muted">ต้องเติม: {STATUS_TODO[r.status]}</div>}
+                  {r.nextTableBy && <div className="ad-muted">ตารางสอบเทอมหน้ายังไม่อยู่ในระบบ หลัง {day(r.nextTableBy)} จะไม่แยกช่วงสอบจนกว่าจะเติม</div>}
+                </td>
+                <td>{r.papers.length ? r.papers.map((p) => <div key={p.id}>{p.label}: {day(p.start)} ถึง {day(p.end)}{p.over ? ' (สอบแล้ว)' : ''}</div>) : <span className="ad-muted">ไม่มี</span>}</td>
+                <td>{r.content.some((c) => c.parts.length) ? r.content.map((c) => <div key={c.phase}>{c.label}: {c.parts.join(", ") || "ยังไม่มี"}</div>) : <span className="ad-muted">ยังไม่มี</span>}</td>
+                <td>
+                  {r.unscoped.length
+                    ? r.unscoped.map((u) => `${subjectName(u.subject)} ${u.topics}`).join(', ')
+                    : <span className="ad-muted">ไม่มีในวิชาเทอมนี้</span>}
+                  {r.otherTermTopics > 0 && <div className="ad-muted">วิชาเทอมอื่นอีก {r.otherTermTopics} หัวข้อ</div>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
 function Releases() {
   const [q, setQ] = useState('');
   const [shown, setShown] = useState(20);
@@ -531,6 +573,8 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
       {failed && !rangeStatus && !isForbidden(failed) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {failed.message}</p></div>}
       {bankFailed && <div className="ad-card" role="status"><p className="ad-muted">โหลดข้อความโจทย์ไม่ครบ สถิติและโจทย์ที่โหลดได้ยังแสดงตามเดิม ตรวจการเชื่อมต่อแล้วโหลดหน้าใหม่เพื่อลองอีกครั้ง</p><button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reloadBank}>โหลดหน้าใหม่</button></div>}
       {!data && !failed && <div className="ad-card"><div className="ad-skeleton" style={{ width: '40%', marginBottom: 10 }} /><div className="ad-skeleton" style={{ width: '70%' }} /></div>}
+
+      <ExamPeriods />
 
       {data && (
         <>

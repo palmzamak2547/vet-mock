@@ -61,9 +61,10 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 // out in Palm's friend's review.
 import NextActionCard from '../components/NextActionCard.jsx';
 import ExamCountdown from '../components/ExamCountdown.jsx';
-import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
+import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
+import { contentPhase, movedNotice, paperInTimetable, termYearLabel, unsplitNotice } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -104,7 +105,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -167,6 +168,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // years they were announced to.
   const nextEvent = getUpcomingEvents(selectedYear, 21)[0] || null;
   const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
+  // A pick the timetable cannot back narrows nothing; the line below says so.
+  const unsplit = unsplitNotice(phaseStatus);
+  const moved = phaseMeta ? movedNotice(phaseStatus) : null;
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
   // Special case: semester === 0 means cross-semester (e.g. VCA license
@@ -185,10 +189,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // minus the ones already sat. Deliberately NOT memoised: the tick below
   // re-renders Home every minute or five, and that is what makes the strip
   // disappear on its own when a paper ends. The list is a handful of items.
-  const wrapSubjects = yearSubjects.filter((s) => (
-    hasWrapUp(s.id, selectedYear, selectedPhase)
-    && wrapUpStillAhead(s.id, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(selectedPhase))
-  ));
+  // The paper is the one whose content the pages show (the kept pick when
+  // nothing is narrowed), and another year's wrap-up carries its year.
+  const paperPhase = contentPhase(phaseStatus) ?? selectedPhase;
+  const wrapSubjects = yearSubjects
+    .map((s) => ({ ...s, wrapUp: wrapUpFor(s.id, selectedYear, paperPhase) }))
+    .filter((s) => s.wrapUp
+      && wrapUpStillAhead(s.id, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(paperPhase)));
   // The current-term sets follow the phase picked at the top of the page —
   // the one control the app already had, the same one the subject grid and
   // the exam countdown obey. No phase = the whole semester. A course with
@@ -212,8 +219,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
      // subjects sits a paper". A year-3 student was shown "ไม่มีสอบกลางภาค"
      // on all nine cards, พยาธิวิทยา and เภสัชวิทยา included, which is simply
      // untrue. Absent data must render as nothing, never as a claim.
+    // ...and only for a paper this term's timetable holds: picking เทอม 2
+    // กลางภาค under term 1's table matched term 1's midterm rows and told every
+    // term-2 card ไม่มีสอบกลางภาค.
     const yearExams = EXAM_SCHEDULE[`y${selectedYear}`] || [];
-    const hasTimetable = yearExams.length > 0;
+    const hasTimetable = yearExams.length > 0 && paperInTimetable(selectedYear, selectedPhase);
     const byPhase = new Map();
     if (phaseScope && hasTimetable) {
       for (const exam of yearExams) {
@@ -1144,7 +1154,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             <span className="vmx-wrap-strip-label">Wrap-up ก่อนสอบ</span>
             {wrapSubjects.map((s) => (
               <button key={s.id} type="button" className="vmx-wrap-strip-btn" onClick={() => onOpenWrapUp(s.id, s.name)}>
-                {s.name}
+                {s.name}{s.wrapUp.own ? '' : ` (${termYearLabel(s.wrapUp.term)})`}
               </button>
             ))}
           </div>
@@ -1169,7 +1179,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         <span>เลือกวิชา</span>
         <span className="vmx-subject-scope">
           {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` ${phaseMeta.short}` : ''}
-        {phaseMeta && setSelectedPhase && (
+        {(phaseMeta || unsplit) && setSelectedPhase && (
           <button
             type="button"
             className="vmx-inline-action vmx-subject-scope-action"
@@ -1181,6 +1191,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         )}
         </span>
       </div>
+      {/* What the paper filter is doing, when it is not what the student last
+          saw: the saved pick named a paper that is over and moved to the
+          current one, or the timetable has no paper to back it, so nothing is
+          narrowed (lib/current-phase.js). It says so and asks nothing:
+          เปลี่ยน above is there for a student who wants another. */}
+      {(moved || unsplit) && (
+        <p className="vmx-phase-moved" role="status">{moved || unsplit}</p>
+      )}
       <SubjectGrid
         subjects={yearSubjects}
         // Phase 2/3 perf: SubjectGrid uses precomputed visible counts
@@ -1369,7 +1387,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 onClick={() => {
                   if (lastSession) {
                     if (setSelectedYear && Number.isFinite(lastSession.selectedYear)) setSelectedYear(lastSession.selectedYear);
-                    if (setSelectedPhase && 'selectedPhase' in lastSession) setSelectedPhase(lastSession.selectedPhase);
+                    if (setSelectedPhase && lastSession.selectedPhase) setSelectedPhase(lastSession.selectedPhase);
                     if (setMode) setMode(lastSession.mode || 'quick');
                     if (setSubject) setSubject(lastSession.subject);
                     if (setTopic) setTopic(lastSession.topic || null);

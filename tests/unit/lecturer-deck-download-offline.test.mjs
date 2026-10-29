@@ -75,7 +75,7 @@ function fakeBrowser({ response }) {
 }
 
 async function pressDownload() {
-  const inst = mount(LecturerSets, { subject: 'one-health', topics: [], onStart: () => {}, onOpenDoc: () => {}, selectedPhase: '1-mid' });
+  const inst = mount(LecturerSets, { subject: 'one-health', topics: [], onStart: () => {}, onOpenDoc: () => {}, selectedYear: 5, selectedPhase: '1-mid' });
   await settle(inst);
   const btn = findAll(inst.tree, (n) => n.type === 'button' && n.props['aria-label'] === 'ดาวน์โหลดสไลด์ Role of Veterinarians in One Health')[0];
   assert.ok(btn, 'the deck download button did not render');

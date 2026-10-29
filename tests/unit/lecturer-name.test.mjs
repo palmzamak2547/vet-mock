@@ -16,14 +16,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { topicLecturerLabel } from '../../src/lib/lecturer-name.js';
-import { LECTURER_SETS, lecturerTopics } from '../../src/data/lecturer-sets.js';
+import { allLecturerSets, lecturerSetFor, LECTURER_SETS_BY_PAPER, lecturerTopics } from '../../src/data/lecturer-sets.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
 
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 test('UI-20: the equine topic cards name each lecturer the way the lecturer section does', () => {
   const eq = SUBJECTS.find((s) => s.id === 'equine-medicine');
-  const setNames = new Set(LECTURER_SETS['equine-medicine'].lecturers.flatMap((l) => l.name.split(' และ ')));
+  const setNames = new Set(lecturerSetFor('equine-medicine', 5, '1-mid').lecturers.flatMap((l) => l.name.split(' และ ')));
   // Every topic on the midterm screen, where both sections are drawn. Since
   // 5.167.2 the equine midterm topics are 'both' (the final's POA part draws
   // on every topic), and a 'both' topic shows on the midterm screen too.
@@ -57,7 +57,10 @@ test('UI-20: TBD and blank lecturers show nothing; a lecturer with no set keeps 
 });
 
 test('UI-20: every lecturer-set topic resolves to its own lecturer across all set subjects', () => {
-  for (const [sid, set] of Object.entries(LECTURER_SETS)) {
+  const everySet = Object.values(LECTURER_SETS_BY_PAPER).flatMap((years) => Object.values(years))
+    .flatMap((phases) => Object.values(phases).flatMap((sets) => Object.entries(sets)));
+  assert.equal(everySet.length, allLecturerSets().length);
+  for (const [sid, set] of everySet) {
     const subj = SUBJECTS.find((s) => s.id === sid);
     for (const lec of set.lecturers) {
       for (const id of lecturerTopics(lec)) {

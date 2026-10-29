@@ -14,7 +14,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { keyTerm } from '../../src/lib/wrap-keyline.js';
-import { WRAPUP_SUBJECTS, loadWrapUp, selfNumbered } from '../../src/data/exam-wrapups.js';
+import { wrapUpPapers, loadWrapUp, selfNumbered } from '../../src/data/exam-wrapups.js';
 
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
@@ -27,8 +27,8 @@ test('UI-19: a "Term — explanation" line splits at its first dash and loses no
 
 test('UI-19: over every shipped wrap-up, the split is lossless and lands where the audit counted', async () => {
   const perSubject = {};
-  for (const s of WRAPUP_SUBJECTS) {
-    const d = await loadWrapUp(s);
+  for (const { year, phase, subject: s } of wrapUpPapers()) {
+    const d = await loadWrapUp(s, year, phase);
     let lines = 0;
     let terms = 0;
     for (const g of d.groups) {

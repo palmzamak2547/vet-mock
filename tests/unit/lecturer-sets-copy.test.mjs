@@ -71,7 +71,7 @@ function fakeBrowser(status) {
   globalThis.URL.revokeObjectURL = () => {};
 }
 
-const props = (extra = {}) => ({ subject: 'one-health', topics: [], onStart: () => {}, onOpenDoc: () => {}, selectedPhase: '1-mid', ...extra });
+const props = (extra = {}) => ({ subject: 'one-health', topics: [], onStart: () => {}, onOpenDoc: () => {}, selectedYear: 5, selectedPhase: '1-mid', ...extra });
 
 async function downloadNote(status) {
   fakeBrowser(status);

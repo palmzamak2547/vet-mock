@@ -20,7 +20,7 @@ import { sameGenerated } from './lib/same-generated.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'src/data/exam-papers.generated.js');
-const { EXAM_SCHEDULE } = await import(pathToFileURL(path.join(ROOT, 'src/data/schedule.js')).href);
+const { EXAM_SCHEDULE, bangkokMs, parseExamStart } = await import(pathToFileURL(path.join(ROOT, 'src/data/schedule.js')).href);
 
 const papers = new Map();
 for (const entries of Object.values(EXAM_SCHEDULE)) {
@@ -48,6 +48,27 @@ const coveredYears = Object.keys(EXAM_SCHEDULE)
   .filter((n) => Number.isFinite(n))
   .sort((a, b) => a - b);
 
+// When each year's two papers run, for lib/current-phase.js: from the first
+// paper's day at 00:00 to the end of the last one (its own duration, else
+// three hours), on Bangkok's clock. A paper is over when its last exam ends.
+const iso = (ms) => new Date(ms + 7 * 3_600_000).toISOString().slice(0, 16).replace('T', ' ');
+const windows = [];
+for (const year of coveredYears) {
+  const span = (term) => {
+    const list = (EXAM_SCHEDULE[`y${year}`] || []).filter((e) => e?.date && e.term === term);
+    if (!list.length) return null;
+    const start = Math.min(...list.map((e) => bangkokMs(e.date)));
+    const end = Math.max(...list.map((e) => {
+      const t = parseExamStart(e.time) || { hour: 8, minute: 0 };
+      return bangkokMs(e.date, t.hour, t.minute) + (e.duration_min || 180) * 60_000;
+    }));
+    return `[${start}, ${end}], // ${iso(start)} to ${iso(end)}`;
+  };
+  const mid = span('midterm');
+  const fin = span('final');
+  if (mid || fin) windows.push(`  ${year}: {\n${mid ? `    midterm: ${mid}\n` : ''}${fin ? `    final: ${fin}\n` : ''}  },`);
+}
+
 const body = rows.map(([s, v]) => `  '${s}': '${v}',`).join('\n');
 const file = `// ============================================================
 // exam-papers.generated.js — AUTO-GENERATED, do NOT hand-edit
@@ -71,6 +92,13 @@ ${body}
 /** Years whose exam timetable is published, so "not listed here" means "sits
  *  no written paper" rather than "we have not got that year's timetable". */
 export const PAPER_COVERED_YEARS = Object.freeze([${coveredYears.join(', ')}]);
+
+/** When each year's papers run, epoch ms on Bangkok's clock: the first
+ *  paper's day at 00:00 to the end of the last paper. lib/current-phase.js
+ *  reads this, so the boot chunk never loads the timetable itself. */
+export const PAPER_WINDOWS = Object.freeze({
+${windows.join('\n')}
+});
 `;
 
 if (process.argv.includes('--check')) {

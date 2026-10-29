@@ -1,9 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
-import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
+import { hasPanicCard } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
-import { scopeForPhase, questionInScope, phaseForCourse } from '../lib/exam-scope.js';
+import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { oldContentLine, phaseLabel, timetableStatus } from '../lib/current-phase.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
@@ -13,9 +14,9 @@ import { takeRelatedReturn } from '../lib/related-return.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
-import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
+import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
-import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
+import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { getUpcomingExams } from '../data/schedule.js';
 import { examEndMs } from '../lib/exam-countdown.js';
 import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
@@ -64,12 +65,15 @@ function lecturerChip(label, profile) {
   return { kind: 'text', text: label.name };
 }
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
   // The period narrows a course of the student's own year only; another
   // year's course opens whole (phaseForCourse), as its study card counts it
   // and as the config pool serves it. Every period-driven number and notice
   // below reads this one value.
   const selectedPhase = phaseForCourse(subject, selectedYear, chosenPhase);
+  // The paper whose wrap-up, lecturer set and panic card this page shows: the
+  // one narrowed to, else the kept pick (lib/current-phase.js contentPhase).
+  const paperPhase = phaseForCourse(subject, selectedYear, chosenPaper);
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -324,24 +328,25 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 
   // The paper split by lecturer, only where the class has been told how each
   // part is written and only while that paper is the one in scope.
-  const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, selectedPhase));
+  const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, paperPhase));
+  // Another year's set says so over the block (its dates and formats are that year's).
+  const lecturerSource = showLecturers ? lecturerSetFor(subject, selectedYear, paperPhase)?.source : null;
   // How many lecturer cards the section will draw, so its loading skeleton
   // takes the same space and the topic list below it does not jump.
-  const lecturerCount = LECTURER_SETS[subject]?.lecturers?.length || 1;
+  const lecturerCount = lecturerSetFor(subject, selectedYear, paperPhase)?.lecturers?.length || 1;
   // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
   // topics tab the week of the exam, above the lecturer block.
   // Gone once its paper is sat, the same rule as Home's strip.
-  const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase)
-    && wrapUpStillAhead(subject, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(selectedPhase)));
+  const wrapUp = onOpenWrapUp ? wrapUpFor(subject, selectedYear, paperPhase) : null;
+  // ...unless the timetable itself is a past year's: then every paper in it
+  // reads as sat, and last year's wrap-up, labelled, is all there is to read.
+  const pastYearTable = Boolean(wrapUp) && timetableStatus(selectedYear).status === 'stale-year';
+  const showWrapUp = Boolean(wrapUp && (pastYearTable
+    || wrapUpStillAhead(subject, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(paperPhase))));
 
-  // Only for the exam these cards were drawn for. A card that showed all year
-  // would stop meaning "this is the one coming up".
-  const showPanicCard = Boolean(
-    onStartPanic
-    && panicCardFor(subject)
-    && Number(selectedYear) === PANIC_CARD_SCOPE.year
-    && selectedPhase === PANIC_CARD_SCOPE.phase,
-  );
+  // Only on a paper the card is listed for (panic-cards.js). A card that
+  // showed all year would stop meaning "this is the one coming up".
+  const showPanicCard = Boolean(onStartPanic && hasPanicCard(subject, selectedYear, paperPhase));
   // What a tap actually opens. Panic narrows to the questions from a real
   // paper plus the ones written from what a senior cohort marked, so the
   // number is a property of the subject and differs a lot between them. A
@@ -616,6 +621,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         <section className="vmx-wrap-entry" aria-label="Wrap-up ก่อนสอบ">
           <div className="vmx-wrap-entry-text">
             <div className="vmx-wrap-entry-eyebrow">Wrap-up ก่อนสอบ</div>
+            {oldContentLine(wrapUp) && <p className="vmx-old-content">{oldContentLine(wrapUp)}</p>}
             <h3>
               {subject === 'avian-medicine'
                 ? 'ทุกโรคที่เรียน คีย์เวิร์ดของโรค จุดที่อาจารย์เน้น และที่มีในข้อสอบเก่า'
@@ -630,13 +636,15 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       )}
       {showLecturers && (
         <div className="vmx-lect-block">
-          <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
+          <div className="vmx-section-label">ข้อสอบ{EXAM_SCOPE_LABEL[scopeForPhase(paperPhase)]}แยกตามอาจารย์ผู้สอน</div>
+          {oldContentLine(lecturerSource) && <p className="vmx-old-content">{oldContentLine(lecturerSource)}</p>}
           <Suspense fallback={<LecturerSetsSkeleton count={lecturerCount} />}>
             <LecturerSets
               subject={subject}
               topics={topics}
               onOpenDoc={onOpenDoc}
-              selectedPhase={selectedPhase}
+              selectedYear={selectedYear}
+              selectedPhase={paperPhase}
               onStart={onStartLecturer}
               onOpenInstructor={openInstructorFor}
               instantFeedback={instantFeedback}
@@ -689,6 +697,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             key="panic"
             subjectId={subject}
             subjectName={subjectMeta?.name}
+            kicker={`ปี ${selectedYear}${selectedPhase ? ` ${phaseLabel(selectedPhase)}` : ''}`}
             questionCount={panicCount}
             onStart={onStartPanic}
           />
@@ -756,12 +765,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // null for TBD, which gets no button at all.
           const lecturerLabel = topicLecturerLabel(subject, t.lecturer);
           const lecturer = lecturerChip(lecturerLabel, lecturerLabel ? findInstructor?.(t.lecturer) : null);
+          // Under a paper, a topic whose paper nobody has recorded is kept (an
+          // unknown is never filtered out) and says so, apart from the topics
+          // that are on this paper.
+          const unscoped = Boolean(paperScope) && !scopeForTopic(subject, t.id);
           const primaryLabelBase = hasQuestions
             ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
             : hasNotesForTopic
               ? `อ่าน Notes ${t.label}`
               : `หัวข้อ ${t.label} ยังไม่มีเนื้อหาพร้อมใช้`;
-          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
+          const primaryLabel = `${primaryLabelBase}${unscoped ? ', ยังไม่ระบุช่วงสอบ' : ''}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
           const openPrimary = () => {
             if (hasQuestions) choose(t.id);
             else if (hasNotesForTopic) runStudyAction(t.resources.notes);
@@ -787,6 +800,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               >
                 {isRead && <span className="vmx-topic-read" aria-hidden="true" title="อ่านแล้ว">✓</span>}
                 <span className="title">{t.label}</span>
+                {unscoped && <span className="vmx-topic-unscoped">ยังไม่ระบุช่วงสอบ</span>}
                 <span className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
                   {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? (hasWikiForTopic ? 'มีสรุปและ VetWiki' : 'มีสรุป') : 'รอเนื้อหาเพิ่ม'}
                 </span>

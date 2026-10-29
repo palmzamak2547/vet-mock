@@ -102,7 +102,7 @@ test('UI-14: the topic card draws the ⚠️ for a caveat only, and a neutral no
   // The note sits inside a button whose aria-label replaces its contents, so
   // a caveat has to be in that label or a screen-reader user never hears
   // "ไม่ออกสอบ".
-  assert.match(view, /const primaryLabel = `\$\{primaryLabelBase\}\$\{isRead \? ', อ่านแล้ว' : ''\}\$\{caveat && !isEmpty \? `, \$\{t\.lecturerNote\}` : ''\}`;/);
+  assert.match(view, /const primaryLabel = `\$\{primaryLabelBase\}\$\{unscoped \? ', ยังไม่ระบุช่วงสอบ' : ''\}\$\{isRead \? ', อ่านแล้ว' : ''\}\$\{caveat && !isEmpty \? `, \$\{t\.lecturerNote\}` : ''\}`;/);
 });
 
 test('UI-14: a neutral note reads upright at 14px (the Thai floor); a caveat reads in full ink', () => {
