@@ -62,6 +62,19 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "One Health final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
+  "One Health final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
+  "One Health final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  "Zoonoses final Vet 82, Vet 83, midterm Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [82, 83, 85], paper: null },
+  "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [82, 85], paper: null },
+  "Zoonoses final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
+  "Zoonoses final Vet 83, Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: [83, 84], paper: 'final' },
+  "Zoonoses final Vet 84, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [84, 85], paper: 'final' },
+  "Zoonoses final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
+  "Zoonoses final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  "Zoonoses midterm Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'midterm' },
+  "Zoonoses midterm บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'midterm' },
+  "Zoonoses บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: null, paper: null },
   "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
   "Equine Med & Surg midterm บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'midterm' },
   "Equine Med & Surg final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
@@ -204,6 +217,7 @@ export const EXAM_ORIGINS = Object.freeze({
 
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
+  "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health": { kind: 'aligned' },
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
