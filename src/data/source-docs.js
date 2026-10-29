@@ -144,6 +144,142 @@ export const SOURCE_DOCS = [
     match: /\bEquine Dermatology\b/,
     editions: [{ id: '42p', pages: 42 }],
   },
+  // Equine Med & Surg FINAL sources, 29 ต.ค. 2569: the 2569 library decks by their titles, and the seniors' files by fixed names.
+  {
+    slug: 'equine-surgery-anesthesia-2569', subject: 'equine-medicine', title: "Equine surgery & anesthesia 5th year",
+    match: /Equine surgery & anesthesia 5th year/,
+    editions: [{ id: '94p', pages: 94 }],
+  },
+  {
+    slug: 'equine-respi-2569', subject: 'equine-medicine', title: "Eq Respi",
+    match: /Eq Respi/,
+    editions: [{ id: '80p', pages: 80 }],
+  },
+  {
+    slug: 'equine-ophthalmology-2569', subject: 'equine-medicine', title: "Equine Ophthalmology",
+    match: /Equine Ophthalmology/,
+    editions: [{ id: '58p', pages: 58 }],
+  },
+  {
+    slug: 'equine-infectious-2569', subject: 'equine-medicine', title: "Eq Infectious Dz and Biosecurity",
+    match: /Eq Infectious Dz and Biosecurity/,
+    editions: [{ id: '83p', pages: 83 }],
+  },
+  {
+    slug: 'equine-parasites-2569', subject: 'equine-medicine', title: "Equine Parasites",
+    match: /Equine Parasites/,
+    editions: [{ id: '103p', pages: 103 }],
+  },
+  {
+    slug: 'equine-gi1-2569', subject: 'equine-medicine', title: "Equine GI I 5th year 1-2026",
+    match: /Equine GI I 5th year 1-2026/,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'equine-gi2-2569', subject: 'equine-medicine', title: "Equine GI II 5th year 1-2026",
+    match: /Equine GI II 5th year 1-2026/,
+    editions: [{ id: '22p', pages: 22 }],
+  },
+  {
+    slug: 'equine-nutrition-2569', subject: 'equine-medicine', title: "Eq nutrition Dr.Thapana",
+    match: /Eq nutrition Dr\.Thapana/,
+    editions: [{ id: '70p', pages: 70 }],
+  },
+  {
+    slug: 'equine-general-practice-2569', subject: 'equine-medicine', title: "Equine general practice 5th year 1-2026",
+    match: /Equine general practice 5th year 1-2026/,
+    editions: [{ id: '65p', pages: 65 }],
+  },
+  {
+    slug: 'equine-fei-horse-id-2569', subject: 'equine-medicine', title: "FEI Horse ID",
+    match: /FEI Horse ID/,
+    editions: [{ id: '19p', pages: 19 }],
+  },
+  {
+    slug: 'equine-intro-horse-id-2569', subject: 'equine-medicine', title: "Intro and Horse ID",
+    match: /Intro and Horse ID/,
+    editions: [{ id: '59p', pages: 59 }],
+  },
+  {
+    slug: 'equine-dentistry-2569', subject: 'equine-medicine', title: "Eq Dentistry 2026",
+    match: /Eq Dentistry 2026/,
+    editions: [{ id: '136p', pages: 136 }],
+  },
+  {
+    slug: 'equine-derm-wound-2569', subject: 'equine-medicine', title: "Equine dermatology and wound management",
+    match: /Equine dermatology and wound management/,
+    editions: [{ id: '97p', pages: 97 }],
+  },
+  {
+    slug: 'equine-final-compilation-krob', subject: 'equine-medicine', title: "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ",
+    match: /ฉบับครบ/,
+    editions: [{ id: '13p', pages: 13 }],
+  },
+  {
+    slug: 'equine-final-summary-v84', subject: 'equine-medicine', title: "สรุปปลายภาค Equine Med Final",
+    match: /สรุปปลายภาค Equine Med Final/,
+    editions: [{ id: '15p', pages: 15 }],
+  },
+  {
+    slug: 'equine-neonatal-key-v84', subject: 'equine-medicine', title: "เฉลยพิมพ์ neonatal ของ Vet 84",
+    match: /เฉลยพิมพ์ neonatal ของ Vet 84/,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  {
+    slug: 'equine-neonatal-photos-kku', subject: 'equine-medicine', title: "ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์",
+    match: /ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์/,
+    editions: [{ id: '15p', pages: 15 }],
+  },
+  {
+    slug: 'equine-lameness-notes-v84', subject: 'equine-medicine', title: "มท. อีควรัย",
+    match: /มท\. อีควรัย/,
+    editions: [{ id: '16p', pages: 16 }],
+  },
+  {
+    slug: 'equine-poa-practice-v84', subject: 'equine-medicine', title: "บันทึกคาบฝึก POA ของ Vet 84",
+    match: /บันทึกคาบฝึก POA ของ Vet 84/,
+    editions: [{ id: '14p', pages: 14 }],
+  },
+  {
+    slug: 'equine-poa-lameness-case1', subject: 'equine-medicine', title: "ภาพแบบฟอร์มฝึก POA Lameness Case 1",
+    match: /ภาพแบบฟอร์มฝึก POA Lameness Case 1/,
+    editions: [{ id: '8p', pages: 8 }],
+  },
+  {
+    slug: 'equine-poa-case11-form', subject: 'equine-medicine', title: "แบบฟอร์ม POA case 1.1 ฉบับ 2 หน้า",
+    match: /แบบฟอร์ม POA case 1\.1 ฉบับ 2 หน้า/,
+    editions: [{ id: '2p', pages: 2 }],
+  },
+  {
+    slug: 'equine-v84-file13', subject: 'equine-medicine', title: "สรุปรวมของ Vet 84 ไฟล์ที่ 13",
+    match: /สรุปรวมของ Vet 84 ไฟล์ที่ 13/,
+    editions: [{ id: '5p', pages: 5 }],
+  },
+  {
+    slug: 'equine-anes-v84-8p', subject: 'equine-medicine', title: "สรุป Equine anesthesia ของ Vet 84 ฉบับ 8 หน้า",
+    match: /สรุป Equine anesthesia ของ Vet 84 ฉบับ 8 หน้า/,
+    editions: [{ id: '8p', pages: 8 }],
+  },
+  {
+    slug: 'equine-anes-v84-4p', subject: 'equine-medicine', title: "สรุป Equine anesthesia ของ Vet 84 ฉบับ 4 หน้า",
+    match: /สรุป Equine anesthesia ของ Vet 84 ฉบับ 4 หน้า/,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  {
+    slug: 'equine-final-recall-6p', subject: 'equine-medicine', title: "บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า",
+    match: /บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า/,
+    editions: [{ id: '6p', pages: 6 }],
+  },
+  {
+    slug: 'equine-ekwai-med-v85', subject: 'equine-medicine', title: "สรุป Ekwai Med ของ Vet 85",
+    match: /สรุป Ekwai Med ของ Vet 85/,
+    editions: [{ id: '6p', pages: 6 }],
+  },
+  {
+    slug: 'equine-ekwai-quine-v85', subject: 'equine-medicine', title: "สรุป Ekwai (quine) ของ Vet 85",
+    match: /สรุป Ekwai \(quine\) ของ Vet 85/,
+    editions: [{ id: '19p', pages: 19 }],
+  },
   {
     slug: 'com5-final86', subject: 'com5', title: 'COM V FINAL 86',
     match: /\bCOM V FINAL 86\b/,
@@ -268,6 +404,12 @@ export const SOURCE_DOCS = [
   {
     slug: 'swine-final-recall-vet85', subject: 'swine-clinic', title: 'หมูกระทุตุ๊ต๊ะ ไฟนอล',
     match: /หมูกระทุตุ๊ต๊ะ ไฟนอล/,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  // The Vet 84 folder's 3-page mind maps of JE, Nipah, greasy pig, pox and blood parasites (cohort not named).
+  {
+    slug: 'swine-greasypig-mindmaps', subject: 'swine-clinic', title: 'Greasy Pig, ฝีดาษ, พยาธิเม็ดเลือด',
+    match: /ไฟล์ Greasy Pig, ฝีดาษ, พยาธิเม็ดเลือด/,
     editions: [{ id: '3p', pages: 3 }],
   },
   // Kimchii #85 notes; 18 of its pages are pages of Aqua Med Mid 86.

@@ -190,6 +190,9 @@ export default defineConfig({
           if (id.includes('questions-y5-swine-clinic')) return 'data-q-y5-swine'
           if (id.includes('questions-y5-repro-clinic')) return 'data-q-y5-repro'
           if (id.includes('questions-y5-vision-batch')) return 'data-q-y5-vision'
+          if (id.includes('questions-y5-swine-final-recall')) return 'data-q-y5-swine-final-recall'
+          if (id.includes('questions-y5-swine-final-marked')) return 'data-q-y5-swine-final-marked'
+          if (id.includes('questions-y5-equine-final-recall')) return 'data-q-y5-equine-final-recall'
           if (id.includes('data/instructors')) return 'data-instructors'
           // Palm audit r4 (2026-05-24): video-summaries was a 2.2MB monolith.
           // scripts/split-video-summaries.cjs broke it into per-subject
