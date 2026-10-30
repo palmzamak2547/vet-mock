@@ -62,6 +62,13 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "Equine Repro final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
+  "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  "Equine Repro midterm Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'midterm' },
+  "Aquatic Med final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  "Aquatic Med final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
+  "Aquatic Med final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
+  "Aquatic Med final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "One Health final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
   "One Health final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "One Health final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
@@ -122,7 +129,6 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med midterm recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Equine Med Parasitology quiz recall (Vet 81)": { kind: 'paper', cohort: 81, paper: 'quiz' },
   "Equine Reproduction กลางภาค Vet 85": { kind: 'paper', cohort: 85, paper: 'midterm' },
-  "Equine reproduction final exam recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'final' },
   "Equine Reproduction midterm recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Equine Reproduction midterm (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Equine Repro mid-term recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
@@ -216,6 +222,8 @@ export const EXAM_ORIGINS = Object.freeze({
 
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
+  "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
+  "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },
   "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health": { kind: 'aligned' },
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },

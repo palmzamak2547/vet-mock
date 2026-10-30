@@ -20,7 +20,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "eqrepro-infertility"
     ],
     "subject": "equine-repro",
-    "topic": "eqrepro-infertility",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "q": "Endometrial cups ในแม่ม้าเริ่มพัฒนาขึ้นในช่วงวันใดของการตั้งท้อง",
@@ -31,11 +31,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ราววันที่ 60 ของการตั้งท้อง"
     ],
     "answer": 2,
-    "explain": "Endometrial cups เริ่มก่อตัวราววันที่ 35 ถึง 38 ของการตั้งท้อง แล้วเสื่อมสลายไปราววันที่ 100 ถึง 120 วันที่ 15 จึงเร็วเกินไป วันที่ 25 เป็นช่วงที่ตัวอ่อนหยุดเคลื่อนที่และเริ่มยึดเกาะ ส่วนวันที่ 60 เป็นช่วงที่ eCG ขึ้นสูงเต็มที่แล้ว ไม่ใช่วันเริ่มพัฒนา",
-    "verified": "Repro horse final น.6; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "explain": "Endometrial cups เริ่มก่อตัวราววันที่ 35 ถึง 38 ของการตั้งท้อง แล้วเสื่อมสลายไปราววันที่ 100 ถึง 120 วันที่ 15 จึงเร็วเกินไป วันที่ 25 ก็ยังเร็วเกินไป เพราะตัวอ่อนเพิ่งหยุดเคลื่อนที่ (fixation) ราววันที่ 16 ถึง 17 และ cups ยังไม่เกิดจนราววันที่ 35 ส่วนวันที่ 60 เป็นช่วงที่ cups สร้าง eCG อยู่แล้ว ไม่ใช่วันเริ่มพัฒนา",
+    "verified": "Repro horse final น.6; สอนในคาบมิดเทอม zFsNom4JMC8 [23:20]",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 6 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105433,
@@ -59,7 +59,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.10",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 10 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105434,
@@ -69,7 +69,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "eqrepro-infertility"
     ],
     "subject": "equine-repro",
-    "topic": "eqrepro-infertility",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "q": "ฮอร์โมนหลักที่ Endometrial cups สร้างขึ้นคือฮอร์โมนใด",
@@ -81,10 +81,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     ],
     "answer": 1,
     "explain": "Endometrial cups สร้าง eCG ซึ่งมีฤทธิ์คล้าย LH และ FSH ไปกระตุ้น follicle บนรังไข่ให้เกิด accessory corpora lutea ในช่วงวันที่ 40 ถึง 120 PSPB เป็นตัวชี้วัดการตั้งท้องในสัตว์เคี้ยวเอื้อง IFN tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง ส่วน placental lactogen ไม่ใช่ผลผลิตหลักของ cups ในม้า",
-    "verified": "Repro horse final น.11; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "verified": "Repro horse final น.11; สอนในคาบมิดเทอม zFsNom4JMC8 [19:59]",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 11 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105435,
@@ -94,7 +94,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "eqrepro-infertility"
     ],
     "subject": "equine-repro",
-    "topic": "eqrepro-infertility",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "q": "กลไกสำคัญของ maternal recognition of pregnancy ในแม่ม้าคือข้อใด",
@@ -105,11 +105,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ตัวอ่อนเคลื่อนที่ไปทั่วมดลูก (transuterine migration)"
     ],
     "answer": 3,
-    "explain": "ตัวอ่อนม้าเคลื่อนที่ไปมาทั่วโพรงมดลูกวันละหลายสิบครั้งจนถึงราววันที่ 16 เพื่อส่งสัญญาณไปทั่ว endometrium และยับยั้งการหลั่ง PGF2 alpha ซึ่งเป็นกลไกจำเพาะของม้า interferon tau เป็นของสัตว์เคี้ยวเอื้อง estrone sulfate ใช้ตรวจการตั้งท้องระยะหลังไม่ใช่กลไกจดจำ และ endometrial cups เกิดหลังวันที่ 35 ซึ่งช้ากว่าช่วงที่ต้องรักษา corpus luteum ไว้",
+    "explain": "ตัวอ่อนม้าเคลื่อนที่ไปมาทั่วโพรงมดลูกจนถึงราววันที่ 16 ถึง 17 เพื่อส่งสัญญาณไปทั่ว endometrium และยับยั้งการหลั่ง PGF2 alpha ซึ่งเป็นกลไกจำเพาะของม้า interferon tau เป็นของสัตว์เคี้ยวเอื้อง estrone sulfate ใช้ตรวจการตั้งท้องระยะหลังไม่ใช่กลไกจดจำ และ endometrial cups เกิดหลังวันที่ 35 ซึ่งช้ากว่าช่วงที่ต้องรักษา corpus luteum ไว้",
     "verified": "Repro horse final น.5; สอนในคาบมิดเทอม zFsNom4JMC8 [11:41]",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 5 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105436,
@@ -131,10 +131,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     ],
     "answer": 0,
     "explain": "ตัวอ่อนม้าผลิต PGE2 ซึ่งทำให้กล้ามเนื้อเรียบบริเวณ utero tubal junction คลายตัว ตัวอ่อนจึงผ่านเข้ามดลูกได้ ขณะที่ไข่ที่ไม่ได้ผสมจะค้างอยู่ในท่อนำไข่ PGF2 alpha ไม่ได้ทำหน้าที่นี้ เพราะเป็นตัวสลาย corpus luteum ส่วน oxytocin และ relaxin ไม่เกี่ยวกับการผ่าน utero tubal junction",
-    "verified": "Repro horse final น.14; สอนในคาบมิดเทอม 5MGooHx0w7w [21:35]",
+    "verified": "Repro horse final น.14; สอนในคาบมิดเทอม 5MGooHx0w7w [25:04]",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 14 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105437,
@@ -158,7 +158,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.9",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 9 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105438,
@@ -182,7 +182,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.7",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 7 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105439,
@@ -206,7 +206,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.13",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 13 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105440,
@@ -230,7 +230,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.18",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 18 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105441,
@@ -254,7 +254,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.21",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 21 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105442,
@@ -278,7 +278,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.12",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 12 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105443,
@@ -302,7 +302,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.20",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 20 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105444,
@@ -326,7 +326,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.3",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 3 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105445,
@@ -351,7 +351,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.15",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 15 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105446,
@@ -375,7 +375,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.4",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 4 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105447,
@@ -399,7 +399,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.19",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 19 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105448,
@@ -423,7 +423,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.8",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 8 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105449,
@@ -447,7 +447,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.16",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 16 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105450,
@@ -471,7 +471,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.2",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 2 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105451,
@@ -495,7 +495,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.17",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 17 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final Vet 84 บันทึกหลังสอบ"
   },
   {
     "id": 105452,
@@ -519,7 +519,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.28",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 28 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105453,
@@ -543,7 +543,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.67",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 67 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105454,
@@ -567,7 +567,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.37",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 37 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105455,
@@ -591,7 +591,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.38",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 38 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105456,
@@ -615,7 +615,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.34",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 34 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105457,
@@ -639,7 +639,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.55",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 55 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105458,
@@ -663,7 +663,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.64",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 64 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105459,
@@ -687,7 +687,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.57",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 57 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105460,
@@ -711,7 +711,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.40",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 40 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105461,
@@ -735,7 +735,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.36",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 36 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105462,
@@ -759,7 +759,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.63",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 63 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105463,
@@ -783,7 +783,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.30",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 30 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105464,
@@ -807,7 +807,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.52",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 52 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105465,
@@ -831,7 +831,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.66",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 66 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105466,
@@ -855,7 +855,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.31",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 31 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105467,
@@ -879,7 +879,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.43",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 43 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105468,
@@ -903,19 +903,19 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.39",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 39 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105469,
     "tags": [
-      "frozen-semen",
+      "chilled-semen",
       "insemination-dose"
     ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
     "type": "mcq",
-    "q": "จำนวนอสุจิที่แนะนำต่อการผสมเทียมหนึ่งครั้งด้วยน้ำเชื้อแช่แข็งในม้าคือเท่าใด",
+    "q": "จำนวนอสุจิที่เคลื่อนที่ไปข้างหน้า (progressively motile) ที่แนะนำต่อการผสมเทียมหนึ่งครั้งด้วยน้ำเชื้อแช่เย็นในม้าคือเท่าใด",
     "options": [
       "ราว 5 ถึง 10 ล้านตัว",
       "ราว 250 ถึง 500 ล้านตัว",
@@ -923,11 +923,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ราว 1,500 ถึง 2,000 ล้านตัว"
     ],
     "answer": 1,
-    "explain": "น้ำเชื้อแช่แข็งม้าใช้จำนวนอสุจิที่มีชีวิตต่อโดสสูงราว 250 ถึง 500 ล้านตัว เพราะกระบวนการแช่แข็งและละลายทำลายอสุจิไปมาก ระดับ 50 ถึง 80 ล้านตัวจึงต่ำเกินไป ยกเว้นกรณีทำ deep horn insemination ที่ลดโดสลงได้ ส่วน 5 ถึง 10 ล้านตัวน้อยเกินไป และหลักพันล้านมากเกินจริง",
+    "explain": "โดสผสมเทียมในม้าคืออสุจิที่เคลื่อนที่ไปข้างหน้า (progressively motile) ราว 250 ถึง 500 ล้านตัว ถ้าน้อยกว่า 100 ล้านตัวอัตราการตั้งท้องจะลดลง ระดับ 5 ถึง 10 และ 50 ถึง 80 ล้านตัวจึงต่ำเกินไปสำหรับการผสมเทียมเข้าตัวมดลูกตามปกติ จะใช้อสุจิน้อยลงได้ 10 ถึง 100 เท่าก็ต่อเมื่อทำ low dose insemination เช่น deep intra-uterine หรือ UTJ insemination ส่วนหลักพันล้านตัวเกินโดสที่แนะนำไปมาก น้ำเชื้อสดหรือแช่เย็นใช้ปริมาตรผสมเทียม 10 ถึง 25 มิลลิลิตร",
     "verified": "Repro horse final น.54",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 54 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105470,
@@ -951,7 +951,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.61",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 61 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105471,
@@ -976,7 +976,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.62",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 62 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105472,
@@ -1000,7 +1000,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.48",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 48 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105473,
@@ -1024,7 +1024,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.70",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 70 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105474,
@@ -1048,7 +1048,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.47",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 47 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105475,
@@ -1072,7 +1072,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.26",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 26 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105476,
@@ -1096,7 +1096,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.24",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 24 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105477,
@@ -1120,7 +1120,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.41",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 41 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105478,
@@ -1144,7 +1144,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.58",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 58 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105479,
@@ -1168,7 +1168,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.33",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 33 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105480,
@@ -1192,7 +1192,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.45",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 45 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105481,
@@ -1216,7 +1216,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.69",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 69 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105482,
@@ -1240,7 +1240,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.56",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 56 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105483,
@@ -1264,7 +1264,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.23",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 23 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105484,
@@ -1288,7 +1288,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.32",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 32 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105485,
@@ -1312,7 +1312,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.68",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 68 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105486,
@@ -1336,7 +1336,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.42",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 42 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105487,
@@ -1360,7 +1360,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.25",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 25 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105488,
@@ -1384,7 +1384,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.71",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 71 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
     "examScope": "both"
   },
   {
@@ -1409,7 +1409,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.60",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 60 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105490,
@@ -1433,7 +1433,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.53",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 53 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105491,
@@ -1481,7 +1481,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Repro horse final น.59",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 59 }],
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)"
   },
   {
     "id": 105493,
@@ -3467,5 +3467,169 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
+  },
+  {
+    "id": 211500,
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ประเมินประสิทธิภาพการสร้างอสุจิจากอัณฑะของพ่อม้า (ยังมีชีวิต) ในทางปฏิบัติการทำได้โดยการวัดการเคลื่อนที่ไปข้างหน้าของอสุจิ",
+    "answer": false,
+    "explain": "การวัดการเคลื่อนที่ไปข้างหน้าของอสุจิ (progressive motility) เป็นการประเมินคุณภาพของอสุจิในน้ำเชื้อ ไม่ได้บอกว่าอัณฑะสร้างอสุจิได้มากน้อยเพียงใด ประสิทธิภาพการสร้างอสุจิวัดเป็น daily sperm production (DSP) คือจำนวนอสุจิที่สร้างต่อน้ำหนักเนื้ออัณฑะ ซึ่งทำได้ยากในม้าที่ยังมีชีวิต ในทางปฏิบัติจึงประเมินจาก daily sperm output (DSO) ด้วยการรีดเก็บน้ำเชื้อต่อเนื่อง หรือประมาณจาก total scrotal width (TSW) ซึ่งสัมพันธ์กับ DSO เพราะการวัดรอบวงถุงอัณฑะทำในพ่อม้าได้ยากกว่าในโค ข้อความนี้จึงสับสนการวัดคุณภาพของอสุจิกับการวัดปริมาณที่อัณฑะสร้าง",
+    "source": "Lecture 8 9 Anatomy function and clinical exam stallion หน้า 14",
+    "verified": "บันทึกหลังสอบปลายภาค Repro horse final (ภาพหน้าจอแบบทดสอบออนไลน์ ส่วน TT) หน้า 22 ข้อ 1; หน้าเดียวกันในฉบับที่เก็บในชุดไฟล์ Vet 84",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 14
+      },
+      {
+        "doc": "repro-horse-final85",
+        "edition": "71p",
+        "page": 22
+      }
+    ],
+    "sourceType": "past-paper",
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
+    "tags": [
+      "eqrepro-male",
+      "sperm-production",
+      "dsp-dso",
+      "past-paper"
+    ]
+  },
+  {
+    "id": 211501,
+    "subject": "equine-repro",
+    "topic": "eqrepro-stallion-infect",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "อสุจิคุณภาพดีช่วยเพิ่มอัตราการตั้งท้องภายหลังการผสมพันธุ์",
+    "answer": true,
+    "explain": "คุณภาพน้ำเชื้อที่ไม่ดี ทั้งจำนวนและคุณภาพของอสุจิ เป็นสาเหตุหนึ่งของภาวะมีบุตรยากในพ่อม้า และเป็นปัญหาที่พบบ่อยเมื่อแม่ม้าผสมไม่ติด โดยเฉพาะเมื่อใช้น้ำเชื้อแช่แข็ง อสุจิคุณภาพดีจึงเพิ่มโอกาสตั้งท้องหลังผสม ทั้งนี้คุณภาพน้ำเชื้อบอกเพียงว่าโอกาสมากหรือน้อย น้ำเชื้อคุณภาพต่ำก็ยังทำให้ตั้งท้องได้ แต่โอกาสต่ำกว่า",
+    "source": "Infertility_infectious disease stallion หน้า 12",
+    "verified": "บันทึกหลังสอบปลายภาค Repro horse final (ภาพหน้าจอแบบทดสอบออนไลน์ ส่วน TT) หน้า 29 ข้อ 9; หน้าเดียวกันในฉบับที่เก็บในชุดไฟล์ Vet 84",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-infect-2569",
+        "edition": "40p",
+        "page": 12
+      },
+      {
+        "doc": "repro-horse-final85",
+        "edition": "71p",
+        "page": 29
+      }
+    ],
+    "sourceType": "past-paper",
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
+    "tags": [
+      "eqrepro-stallion-infect",
+      "semen-quality",
+      "fertility",
+      "past-paper"
+    ]
+  },
+  {
+    "id": 211502,
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "อุบัติการณ์การเกิดภาวะทองแดงของอัณฑะข้างซ้ายและขวาเท่ากัน",
+    "answer": true,
+    "explain": "ภาวะทองแดง (cryptorchidism) เกิดกับอัณฑะข้างซ้ายและข้างขวาได้ใกล้เคียงกัน สิ่งที่ต่างกันคือตำแหน่งที่อัณฑะค้าง อัณฑะข้างซ้ายที่ค้างมักอยู่ในช่องท้องมากกว่าที่ขาหนีบ ส่วนข้างขวามักค้างที่ขาหนีบมากกว่าในช่องท้อง และการค้างในช่องท้องทั้งสองข้างพบได้น้อย (ราว 14%)",
+    "source": "Lecture 8 9 Anatomy function and clinical exam stallion หน้า 15",
+    "verified": "บันทึกหลังสอบปลายภาค Repro horse final (ภาพหน้าจอแบบทดสอบออนไลน์ ส่วน TT) หน้า 49 ข้อ 29; หน้าเดียวกันในฉบับที่เก็บในชุดไฟล์ Vet 84",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 15
+      },
+      {
+        "doc": "repro-horse-final85",
+        "edition": "71p",
+        "page": 49
+      }
+    ],
+    "sourceType": "past-paper",
+    "examOrigin": "Equine Repro final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
+    "tags": [
+      "eqrepro-male",
+      "cryptorchidism",
+      "past-paper"
+    ]
+  },
+  {
+    "id": 211503,
+    "subject": "equine-repro",
+    "topic": "eqrepro-infertility",
+    "year": 5,
+    "type": "tf",
+    "examScope": "midterm",
+    "q": "ในกรณีที่ตรวจแม่ม้าในวันที่ 19 ของวงรอบการเป็นสัด (วันที่ 0 = วันที่ตกไข่ และม้าไม่ได้รับการผสมพันธุ์) แต่ม้ายังไม่กลับสัด แสดงว่าแม่ม้ามีภาวะ persistent endometrial cup",
+    "answer": false,
+    "explain": "endometrial cup เกิดเฉพาะเมื่อตั้งท้อง โดยเซลล์ trophoblast ของ chorionic girdle ฝังเข้าเยื่อบุมดลูกราววันที่ 35 ของการตั้งท้องแล้วสร้าง eCG แม่ม้าที่ไม่ได้ผสมพันธุ์จึงไม่มี endometrial cup และวันที่ 19 ก็ยังเร็วเกินกว่าที่ cup จะเกิดแม้ในม้าที่ตั้งท้อง ม้าที่ไม่กลับเป็นสัดในช่วงนี้ควรนึกถึงระยะ diestrus ที่ยืดยาว (prolonged diestrus) เช่นจากการที่ PGF2 alpha ไม่หลั่งเพราะมดลูกติดเชื้อเรื้อรังหรือได้ NSAID นาน รวมถึง diestrus ovulation และ luteinized hemorrhagic follicle ส่วน persistent endometrial cup ทำให้ไม่กลับเป็นสัดเฉพาะเมื่อตัวอ่อนตายหลังจาก cup เกิดขึ้นแล้ว",
+    "source": "lecture 5 and 6 (infertility and disease female horse) หน้า 23",
+    "verified": "บันทึกหลังสอบกลางภาค Equine repro mid 85 หน้า 3 ข้อ 8",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-female-infertility-2569",
+        "edition": "66p",
+        "page": 23
+      },
+      {
+        "doc": "equine-repro-mid85",
+        "edition": "5p",
+        "page": 3
+      }
+    ],
+    "sourceType": "past-paper",
+    "examOrigin": "Equine Repro midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "eqrepro-infertility",
+      "endometrial-cup",
+      "prolonged-diestrus",
+      "past-paper"
+    ]
+  },
+  {
+    "id": 211504,
+    "subject": "equine-repro",
+    "topic": "eqrepro-stallion-infect",
+    "year": 5,
+    "type": "tf",
+    "examScope": "midterm",
+    "q": "poor semen quality in infected stallion เป็นผลทางคลินิกของ contagious equine metritis",
+    "answer": false,
+    "explain": "Taylorella equigenitalis ซึ่งก่อโรค contagious equine metritis (CEM) ไม่ทำให้พ่อม้าแสดงอาการ พ่อม้าเป็นแหล่งรังโรค (reservoir) ที่ไม่มีอาการและส่งต่อเชื้อทางการผสม อาการเกิดในแม่ม้า คือเยื่อบุมดลูกอักเสบและมีหนองเมือกไหลจากช่องคลอด คุณภาพน้ำเชื้อที่ไม่ดีในพ่อม้ามาจากความผิดปกติของอัณฑะ ถุงอัณฑะหรือ epididymis จากฮอร์โมน หรือจากเซลล์อักเสบในน้ำเชื้อ",
+    "source": "Infertility_infectious disease stallion หน้า 18",
+    "verified": "บันทึกหลังสอบกลางภาค Equine repro mid 85 หน้า 3 ข้อ 15",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-infect-2569",
+        "edition": "40p",
+        "page": 18
+      },
+      {
+        "doc": "equine-repro-mid85",
+        "edition": "5p",
+        "page": 3
+      }
+    ],
+    "sourceType": "past-paper",
+    "examOrigin": "Equine Repro midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "eqrepro-stallion-infect",
+      "cem",
+      "taylorella",
+      "past-paper"
+    ]
   },
 ];

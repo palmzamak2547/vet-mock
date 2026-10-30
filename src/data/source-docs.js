@@ -648,6 +648,22 @@ export const SOURCE_DOCS = [
     match: /สรุปบทเรียน Epidemiological approach to zoonoses ของ Vet 80/i,
     editions: [{ id: '10p', pages: 10 }],
   },
+  // Equine Repro 2569 decks the final items cite, 31 ต.ค. 2569.
+  {
+    slug: 'eqrepro-stallion-anatomy-2569', subject: 'equine-repro', title: "Lecture 8 9 Anatomy function and clinical exam stallion",
+    match: /Lecture 8 9 Anatomy function and clinical exam stallion/i,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  {
+    slug: 'eqrepro-stallion-infect-2569', subject: 'equine-repro', title: "Infertility_infectious disease stallion",
+    match: /Infertility_infectious disease stallion/i,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'eqrepro-female-infertility-2569', subject: 'equine-repro', title: "lecture 5 and 6 (infertility and disease female horse)",
+    match: /lecture 5 and 6 \(infertility and disease female horse\)/i,
+    editions: [{ id: '66p', pages: 66 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));
