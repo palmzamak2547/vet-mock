@@ -55,7 +55,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "explain": "กรมปศุสัตว์เป็น Veterinary Authority และเป็น Permanent Delegate ของไทยใน WOAH จึงมีอำนาจเสนอขอรับรองสถานะปลอดโรคอย่างเป็นทางการ กรมประมงเป็น Competent Authority ด้านสุขอนามัยสัตว์น้ำ มกอช. เป็น Focal point ด้านมาตรฐานสินค้าเกษตร ส่วนกรมวิทยาศาสตร์บริการไม่เกี่ยวข้องกับงานนี้",
     "verified": "Aquamed final (Vet 85) น.20-21",
     "sourceType": "past-paper",
-    "examOrigin": "Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 85)"
+    "examOrigin": "Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 84 และ Vet 85)"
   },
   {
     "id": 105875,
@@ -101,7 +101,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "explain": "Three sisters คือองค์กรมาตรฐานสามแห่งที่ WTO ยอมรับให้อ้างอิงภายใต้ SPS Agreement ได้แก่ CODEX ดูแลความปลอดภัยอาหาร WOAH ดูแลสุขภาพสัตว์ และ IPPC ดูแลสุขอนามัยพืช WHO และ FAO เป็นหน่วยงานสหประชาชาติที่ร่วมตั้ง CODEX แต่ไม่ได้นับเป็นหนึ่งใน three sisters",
     "verified": "Aquamed final (Vet 85) น.20-21",
     "sourceType": "past-paper",
-    "examOrigin": "Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 85)"
+    "examOrigin": "Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 84 และ Vet 85)"
   },
   {
     "id": 105877,
@@ -729,6 +729,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   {
     "id": 105904,
     "tags": [
+      "อิงแนวข้อสอบ",
       "potassium-permanganate",
       "pond-volume",
       "dose-calculation"
@@ -746,13 +747,14 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     ],
     "answer": 2,
     "explain": "ปริมาตรส่วนแรก 3 คูณ 4 คูณ 1.5 เท่ากับ 18 ลูกบาศก์เมตร ส่วนที่สอง 7 คูณ 4 คูณ 1.5 เท่ากับ 42 ลูกบาศก์เมตร รวม 60 ลูกบาศก์เมตร เทียบเท่า 60 ตัน เนื่องจาก 1 ppm เท่ากับ 1 กรัมต่อตัน ที่ 3 ppm จึงต้องใช้ 60 คูณ 3 เท่ากับ 180 กรัม",
-    "verified": "Aquamed final (Vet 85) น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เรียบเรียงจากตัวอย่างการคำนวณในโน้ต Aquatic Med 3107520 (สรุป Vet 85)"
+    "verified": "Aquamed final (Vet 85) น.3; Vet 84 ติดดาวตัวอย่างนี้ในสไลด์ว่าออก 4 ข้อ",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med"
   },
   {
     "id": 105905,
     "tags": [
+      "อิงแนวข้อสอบ",
       "enrofloxacin",
       "dose-calculation",
       "medicated-feed"
@@ -770,13 +772,14 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     ],
     "answer": 1,
     "explain": "น้ำหนักปลารวมเท่ากับ 5,000 คูณ 0.6 กิโลกรัม เท่ากับ 3,000 กิโลกรัม เมื่อใช้ขนาด 0.1 มิลลิลิตรต่อกิโลกรัม จึงได้ 3,000 คูณ 0.1 เท่ากับ 300 มิลลิลิตรต่อวัน ตัวเลข 3,000 คือน้ำหนักปลาไม่ใช่ปริมาณยา",
-    "verified": "Aquamed final (Vet 85) น.4",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เรียบเรียงจากตัวอย่างการคำนวณในโน้ต Aquatic Med 3107520 (สรุป Vet 85)"
+    "verified": "Aquamed final (Vet 85) น.4; Vet 84 เขียนว่าข้อสอบออกคล้ายเคสนี้",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med"
   },
   {
     "id": 105906,
     "tags": [
+      "อิงแนวข้อสอบ",
       "potassium-permanganate",
       "dissolved-oxygen"
     ],
@@ -793,9 +796,9 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     ],
     "answer": 3,
     "explain": "ด่างทับทิมเป็นสารที่ทำปฏิกิริยากับแสง จึงต้องให้ตอนเช้าหรือหลังพระอาทิตย์ตก และเนื่องจากมันดึงออกซิเจนในน้ำ จึงต้องงดกิจกรรมที่ใช้ออกซิเจนอย่างการให้อาหาร นอกจากนี้ยังเป็นสารจับตะกอนจึงต้องปิดใบพัดตีน้ำก่อน",
-    "verified": "Aquamed final (Vet 85) น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เรียบเรียงจากโน้ตเลกเชอร์ Aquatic Med 3107520 (สรุป Vet 85)"
+    "verified": "Aquamed final (Vet 85) น.3; Vet 83 บันทึกว่าข้อสอบถามเวลาที่ควรใช้ด่างทับทิม",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med"
   },
   {
     "id": 105907,
