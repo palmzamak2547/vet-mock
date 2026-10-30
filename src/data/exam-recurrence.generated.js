@@ -2355,9 +2355,24 @@ export const EXAM_RECURRENCE = {
     },
   },
   "one-health": {
-    "cohorts": [85],
-    "items": 10,
+    "cohorts": [82, 85],
+    "items": 51,
     "topics": {
+      "oh-amr": {
+        "cohorts": [82, 85],
+        "first": 82,
+        "last": 85,
+        "items": 3,
+        "sat": {
+          "82": {
+            "final": ["one-health:210002"],
+          },
+          "85": {
+            "final": ["one-health:210000", "one-health:210001"],
+          },
+        },
+        "unattributed": [],
+      },
       "oh-collaboration": {
         "cohorts": [85],
         "first": 85,
@@ -2394,13 +2409,86 @@ export const EXAM_RECURRENCE = {
         },
         "unattributed": [],
       },
+      "oh-env-carcinogen": {
+        "cohorts": [82, 85],
+        "first": 82,
+        "last": 85,
+        "items": 13,
+        "sat": {
+          "82": {
+            "final": ["one-health:210012", "one-health:210013"],
+          },
+          "85": {
+            "final": ["one-health:210003", "one-health:210004", "one-health:210005", "one-health:210006"],
+          },
+        },
+        "unattributed": ["one-health:210007", "one-health:210008", "one-health:210009", "one-health:210010", "one-health:210011", "one-health:210014", "one-health:210015"],
+      },
+      "oh-env-mutagen": {
+        "cohorts": [82, 85],
+        "first": 82,
+        "last": 85,
+        "items": 11,
+        "sat": {
+          "82": {
+            "final": ["one-health:210017", "one-health:210019", "one-health:210020", "one-health:210023", "one-health:210024"],
+          },
+          "85": {
+            "final": ["one-health:210016"],
+          },
+        },
+        "unattributed": ["one-health:210018", "one-health:210021", "one-health:210022", "one-health:210025", "one-health:210026"],
+      },
+      "oh-foodborne": {
+        "cohorts": [82, 85],
+        "first": 82,
+        "last": 85,
+        "items": 2,
+        "sat": {
+          "82": {
+            "final": ["one-health:210028"],
+          },
+          "85": {
+            "final": ["one-health:210027"],
+          },
+        },
+        "unattributed": [],
+      },
+      "oh-gmo": {
+        "cohorts": [82],
+        "first": 82,
+        "last": 82,
+        "items": 9,
+        "sat": {
+          "82": {
+            "final": ["one-health:210033", "one-health:210034"],
+          },
+        },
+        "unattributed": ["one-health:210029", "one-health:210030", "one-health:210031", "one-health:210032", "one-health:210035", "one-health:210036", "one-health:210037"],
+      },
+      "oh-livestock-waste": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 8,
+        "sat": {
+          "85": {
+            "final": ["one-health:210038"],
+          },
+        },
+        "unattributed": ["one-health:210039", "one-health:210040", "one-health:210041", "one-health:210042", "one-health:210043", "one-health:210044", "one-health:210045"],
+      },
       "oh-risk-analysis": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 7,
-        "sat": {},
-        "unattributed": ["one-health:105988", "one-health:105989", "one-health:105990", "one-health:105991", "one-health:105992", "one-health:105993", "one-health:105994"],
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 2,
+        "sat": {
+          "85": {
+            "final": ["one-health:210046", "one-health:210047"],
+          },
+        },
+        "unattributed": [],
       },
     },
   },
@@ -3061,13 +3149,16 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "swine-pornchalit-set": {
-        "cohorts": [80, 85],
-        "first": 80,
+        "cohorts": [78, 80, 85],
+        "first": 78,
         "last": 85,
         "items": 23,
         "sat": {
+          "78": {
+            "unknown": ["swine-clinic:202353", "swine-clinic:202354", "swine-clinic:202478"],
+          },
           "80": {
-            "unknown": ["swine-clinic:8019", "swine-clinic:8023"],
+            "unknown": ["swine-clinic:8019", "swine-clinic:8023", "swine-clinic:202353", "swine-clinic:202354"],
           },
           "85": {
             "midterm": ["swine-clinic:105621", "swine-clinic:105622", "swine-clinic:105623", "swine-clinic:105624", "swine-clinic:105625", "swine-clinic:105626", "swine-clinic:105627", "swine-clinic:105628", "swine-clinic:105629", "swine-clinic:105630"],
@@ -3838,8 +3929,8 @@ export const EXAM_RECURRENCE = {
     },
   },
   "zoonoses": {
-    "cohorts": [80, 85],
-    "items": 160,
+    "cohorts": [80, 82, 83, 84, 85],
+    "items": 263,
     "topics": {
       "zoo-ai-basic": {
         "cohorts": [85],
@@ -3858,16 +3949,17 @@ export const EXAM_RECURRENCE = {
         "cohorts": [80, 85],
         "first": 80,
         "last": 85,
-        "items": 26,
+        "items": 51,
         "sat": {
           "80": {
             "unknown": ["zoonoses:8031", "zoonoses:8036"],
           },
           "85": {
+            "final": ["zoonoses:210552", "zoonoses:210553"],
             "unknown": ["zoonoses:106005", "zoonoses:106006", "zoonoses:106007", "zoonoses:106008", "zoonoses:106009", "zoonoses:106010", "zoonoses:106011", "zoonoses:106012", "zoonoses:106013", "zoonoses:106014", "zoonoses:106015", "zoonoses:106016", "zoonoses:106017", "zoonoses:106018", "zoonoses:106019", "zoonoses:106020", "zoonoses:106021", "zoonoses:106022", "zoonoses:106023", "zoonoses:106024", "zoonoses:106025", "zoonoses:106026", "zoonoses:106027", "zoonoses:106028"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["zoonoses:210554", "zoonoses:210555", "zoonoses:210556", "zoonoses:210557", "zoonoses:210558", "zoonoses:210559", "zoonoses:210560", "zoonoses:210561", "zoonoses:210562", "zoonoses:210563", "zoonoses:210564", "zoonoses:210565", "zoonoses:210566", "zoonoses:210567", "zoonoses:210568", "zoonoses:210569", "zoonoses:210570", "zoonoses:210571", "zoonoses:210572", "zoonoses:210573", "zoonoses:210574", "zoonoses:210575", "zoonoses:210576"],
       },
       "zoo-corona": {
         "cohorts": [85],
@@ -3894,6 +3986,32 @@ export const EXAM_RECURRENCE = {
           },
         },
         "unattributed": [],
+      },
+      "zoo-eid-wildlife": {
+        "cohorts": [83, 84, 85],
+        "first": 83,
+        "last": 85,
+        "items": 10,
+        "sat": {
+          "83": {
+            "final": ["zoonoses:210580", "zoonoses:210581", "zoonoses:210582", "zoonoses:210583", "zoonoses:210584", "zoonoses:210585"],
+          },
+          "84": {
+            "final": ["zoonoses:210578", "zoonoses:210580", "zoonoses:210581", "zoonoses:210583", "zoonoses:210584", "zoonoses:210585"],
+          },
+          "85": {
+            "final": ["zoonoses:210577", "zoonoses:210578", "zoonoses:210579"],
+          },
+        },
+        "unattributed": ["zoonoses:210586"],
+      },
+      "zoo-epi-approach": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 52,
+        "sat": {},
+        "unattributed": ["zoonoses:210500", "zoonoses:210501", "zoonoses:210502", "zoonoses:210503", "zoonoses:210504", "zoonoses:210505", "zoonoses:210506", "zoonoses:210507", "zoonoses:210508", "zoonoses:210509", "zoonoses:210510", "zoonoses:210511", "zoonoses:210512", "zoonoses:210513", "zoonoses:210514", "zoonoses:210515", "zoonoses:210516", "zoonoses:210517", "zoonoses:210518", "zoonoses:210519", "zoonoses:210520", "zoonoses:210521", "zoonoses:210522", "zoonoses:210523", "zoonoses:210524", "zoonoses:210525", "zoonoses:210526", "zoonoses:210527", "zoonoses:210528", "zoonoses:210529", "zoonoses:210530", "zoonoses:210531", "zoonoses:210532", "zoonoses:210533", "zoonoses:210534", "zoonoses:210535", "zoonoses:210536", "zoonoses:210537", "zoonoses:210538", "zoonoses:210539", "zoonoses:210540", "zoonoses:210541", "zoonoses:210542", "zoonoses:210543", "zoonoses:210544", "zoonoses:210545", "zoonoses:210546", "zoonoses:210547", "zoonoses:210548", "zoonoses:210549", "zoonoses:210550", "zoonoses:210551"],
       },
       "zoo-helminthic": {
         "cohorts": [85],
@@ -3922,16 +4040,35 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["zoonoses:202000", "zoonoses:202001", "zoonoses:202002"],
       },
       "zoo-mycoses": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [82, 83, 85],
+        "first": 82,
         "last": 85,
-        "items": 13,
+        "items": 20,
         "sat": {
+          "82": {
+            "unknown": ["zoonoses:210587", "zoonoses:210588", "zoonoses:210589"],
+          },
+          "83": {
+            "unknown": ["zoonoses:210587", "zoonoses:210588"],
+          },
           "85": {
             "midterm": ["zoonoses:106148", "zoonoses:106149", "zoonoses:106150", "zoonoses:106151", "zoonoses:106152", "zoonoses:106153", "zoonoses:106154", "zoonoses:106155", "zoonoses:106156", "zoonoses:106157", "zoonoses:106158", "zoonoses:106159", "zoonoses:106160"],
+            "unknown": ["zoonoses:210587", "zoonoses:210588", "zoonoses:210589"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["zoonoses:210590", "zoonoses:210591", "zoonoses:210592", "zoonoses:210593"],
+      },
+      "zoo-prion": {
+        "cohorts": [83],
+        "first": 83,
+        "last": 83,
+        "items": 9,
+        "sat": {
+          "83": {
+            "midterm": ["zoonoses:210594"],
+          },
+        },
+        "unattributed": ["zoonoses:210595", "zoonoses:210596", "zoonoses:210597", "zoonoses:210598", "zoonoses:210599", "zoonoses:210600", "zoonoses:210601", "zoonoses:210602"],
       },
       "zoo-protozoal": {
         "cohorts": [85],
@@ -4383,10 +4520,10 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     ],
   },
   {
-    "cohorts": [],
+    "cohorts": [85],
     "members": [
-      ["food-safety-y4:92500", []],
-      ["one-health:105988", []],
+      ["food-safety-y4:92503", []],
+      ["one-health:210046", [85]],
     ],
   },
   {
@@ -4464,6 +4601,20 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     "members": [
       ["repro-lect:1857", []],
       ["repro-lect:1862", []],
+    ],
+  },
+  {
+    "cohorts": [],
+    "members": [
+      ["zoonoses:210513", []],
+      ["zoonoses:210519", []],
+    ],
+  },
+  {
+    "cohorts": [],
+    "members": [
+      ["zoonoses:210529", []],
+      ["zoonoses:210531", []],
     ],
   },
 ];

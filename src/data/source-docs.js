@@ -51,7 +51,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'zoonoses-mid85', subject: 'zoonoses', title: 'ซูสุขติ mid',
-    match: /ซูสุขติ mid\b/,
+    match: /ซูสุขติ mid\b|สรุปกลางภาค Zoonoses ของรุ่น 85/,
     editions: [{ id: '15p', pages: 15 }],
   },
   {
@@ -67,7 +67,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'onehealth-final85', subject: 'one-health', title: 'OneHealth final',
-    match: /\bOneHealth final\b/,
+    match: /\bOneHealth final\b|สรุปปลายภาค One Health ของรุ่นพี่ Vet 85/,
     editions: [{ id: '16p', pages: 16 }],
   },
   {
@@ -446,6 +446,207 @@ export const SOURCE_DOCS = [
     slug: 'zoonoses-outbreak-deck', subject: 'zoonoses', title: 'lessons from the field_outbreak investigation of zoonotic diseases',
     match: /lessons from the field_outbreak investigation/i,
     editions: [{ id: '66p', pages: 66 }],
+  },
+  // One Health and Zoonoses FINAL sources, 31 ต.ค. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
+  {
+    slug: 'oh-amr-2569', subject: 'one-health', title: "One health AMR",
+    match: /One health AMR(?! deck 2024)/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'oh-foodborne-2569', subject: 'one-health', title: "One Health approach to combat foodborne diseases",
+    match: /One Health approach to combat foodborne diseases(?! deck 2024)/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'oh-env-risks-1-2569', subject: 'one-health', title: "One Health approach to address environmental health risks I_21 Oct 26 (WT)",
+    match: /One Health approach to address environmental health risks I(?!I| \(carcinogen\))/i,
+    editions: [{ id: '13p', pages: 13 }],
+  },
+  {
+    slug: 'oh-env-risks-2-2569', subject: 'one-health', title: "One Health approach to address environmental health risks II_28 Oct 26 (WT)",
+    match: /One Health approach to address environmental health risks II(?! \(mutagen\))/i,
+    editions: [{ id: '20p', pages: 20 }],
+  },
+  {
+    slug: 'oh-risk-analysis-2569', subject: 'one-health', title: "Animal & Human Health Risk Analysis (Present)",
+    match: /Animal & Human Health Risk Analysis \(Present\)/i,
+    editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'oh-foodborne-2024', subject: 'one-health', title: "One Health approach to combat foodborne diseases (deck 2024)",
+    match: /One health approach to combat foodborne diseases deck 2024/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'oh-livestock-waste-2024', subject: 'one-health', title: "One Health approach for livestock waste management (deck 2024, starred copy)",
+    match: /One Health approach for livestock waste management deck 2024|สไลด์ Livestock waste management ปี 2567 ที่รุ่นพี่ Vet 84 ติดดาวไว้/i,
+    editions: [{ id: '56p', pages: 56 }],
+  },
+  {
+    slug: 'oh-env-risks-1-2024', subject: 'one-health', title: "One Health approach to address environmental health risks I (deck 2024)",
+    match: /One Health approach to address environmental health risks I \(carcinogen\) deck 2024/i,
+    editions: [{ id: '29p', pages: 29 }],
+  },
+  {
+    slug: 'oh-env-risks-2-2024', subject: 'one-health', title: "One Health approach to address environmental health risks II (deck 2024)",
+    match: /One Health approach to address environmental health risks II \(mutagen\) deck 2024|สไลด์ Environmental health risks II ปี 2567 ที่มีโน้ตของรุ่นพี่/i,
+    editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'oh-gmo-2024', subject: 'one-health', title: "One Health perspective of food and feed GMOs (deck 2024)",
+    match: /One Health perspective of food and feed GMOs deck 2024/i,
+    editions: [{ id: '27p', pages: 27 }],
+  },
+  {
+    slug: 'oh-risk-analysis-2024', subject: 'one-health', title: "Animal and Human Health Risk Analysis (deck 2024)",
+    match: /Animal and Human Health Risk Analysis deck 2024/i,
+    editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'oh-final-summary-vet83', subject: 'one-health', title: "One Health final (Vet 83 summary)",
+    match: /สรุปปลายภาค One Health ของรุ่นพี่ Vet 83/i,
+    editions: [{ id: '15p', pages: 15 }],
+  },
+  {
+    slug: 'oh-final-review-vet82', subject: 'one-health', title: "ไฟนอลวันเฮ้ว (รีวิว 82)",
+    match: /รีวิวข้อสอบปลายภาค One Health รุ่น Vet 82/i,
+    editions: [{ id: '16p', pages: 16 }],
+  },
+  {
+    slug: 'oh-final-recall-notebook', subject: 'one-health', title: "สมุดบันทึกข้อสอบปลายภาค One Health ฉบับภาพถ่าย",
+    match: /สมุดบันทึกข้อสอบปลายภาค One Health ฉบับภาพถ่าย/i,
+    editions: [{ id: '2p', pages: 2 }],
+  },
+  {
+    slug: 'zoo-bacterial-2569', subject: 'zoonoses', title: "Bacterial Zoonoses",
+    match: /Bacterial Zoonoses(?! deck 2024| ของรุ่น)/i,
+    editions: [{ id: '120p', pages: 120 }],
+  },
+  {
+    slug: 'zoo-ebola-nipah-2569', subject: 'zoonoses', title: "4. Ebola and Nipah",
+    match: /Ebola and Nipah(?! deck 2024)/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'zoo-helminthic-2569', subject: 'zoonoses', title: "Helminthic Zoonoses",
+    match: /Helminthic Zoonoses(?! deck 2024)/i,
+    editions: [{ id: '79p', pages: 79 }],
+  },
+  {
+    slug: 'zoo-mycoses-present-2569', subject: 'zoonoses', title: "Mycozoonoses Present",
+    match: /Mycozoonoses Present(?! deck 2024)/i,
+    editions: [{ id: '87p', pages: 87 }],
+  },
+  {
+    slug: 'zoo-mycoses-reading-2569', subject: 'zoonoses', title: "Mycozoonoses Reading Material",
+    match: /Mycozoonoses Reading Material(?! deck 2024)/i,
+    editions: [{ id: '30p', pages: 30 }],
+  },
+  {
+    slug: 'zoo-protozoal-2569', subject: 'zoonoses', title: "Protozoal zoonoses (Dr. Woraporn)",
+    match: /Protozoal zoonoses \(Dr\. Woraporn\)(?! deck 2024)/i,
+    editions: [{ id: '26p', pages: 26 }],
+  },
+  {
+    slug: 'zoo-rickettsia-2569', subject: 'zoonoses', title: "Rickettsia zoonosis",
+    match: /Rickettsia zoonosis(?! deck 2024)/i,
+    editions: [{ id: '49p', pages: 49 }],
+  },
+  {
+    slug: 'zoo-vector-borne-viral-2569', subject: 'zoonoses', title: "vector borne viral zoonosis",
+    match: /vector borne viral zoonosis(?! deck 2024)/i,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'zoo-outbreak-2569', subject: 'zoonoses', title: "lessons from field outbreak investigation",
+    match: /lessons from field outbreak investigation(?! deck 2024)/i,
+    editions: [{ id: '65p', pages: 65 }],
+  },
+  {
+    slug: 'zoo-oh-foodborne-2569', subject: 'zoonoses', title: "One Health approach to combat foodborne diseases",
+    match: /One Health approach to combat foodborne diseases(?! deck 2024)/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'zoo-eid-wildlife-2024', subject: 'zoonoses', title: "Emerging Zoonotic Diseases and Wildlife (deck 2024)",
+    match: /Emerging Zoonotic Diseases and Wildlife deck 2024/i,
+    editions: [{ id: '86p', pages: 86 }],
+  },
+  {
+    slug: 'zoo-epi-approach-2024', subject: 'zoonoses', title: "Epidemiological approach to zoonoses (deck 2024)",
+    match: /Epidemiological approach to zoonoses deck 2024/i,
+    editions: [{ id: '53p', pages: 53 }],
+  },
+  {
+    slug: 'zoo-prion-2024', subject: 'zoonoses', title: "Prion Diseases (deck 2024)",
+    match: /Prion diseases Zoonoses deck 2024/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'zoo-final-summary-vet85', subject: 'zoonoses', title: "ซูสุขติ (Final)",
+    match: /สรุปปลายภาค Zoonoses ของรุ่น 85/i,
+    editions: [{ id: '18p', pages: 18 }],
+  },
+  {
+    slug: 'zoo-mid-summary-vet83', subject: 'zoonoses', title: "zoonoses mid (Vet 83 summary)",
+    match: /สรุปกลางภาค Zoonoses ของรุ่น 83/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  {
+    slug: 'zoo-prep-guide-z', subject: 'zoonoses', title: "Z (คู่มือเตรียมสอบ Zoonoses ของรุ่นก่อน)",
+    match: /คู่มือเตรียมสอบ Zoonoses ของรุ่นก่อน|ไฟล์สรุปแนวข้อสอบ Z/i,
+    editions: [{ id: '5p', pages: 5 }],
+  },
+  {
+    slug: 'zoo-midterm-records', subject: 'zoonoses', title: "MIDTERM ZOONOSES (แฟ้มรวมบันทึกข้อสอบ Zoonoses ของรุ่น 84)",
+    match: /แฟ้มรวมบันทึกข้อสอบ Zoonoses ของรุ่น 84|ไฟล์บันทึกข้อสอบ MIDTERM ZOONOSES/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  {
+    slug: 'zoo-final-screens-vet82', subject: 'zoonoses', title: "Zoonosis Final 82 (ภาพหน้าจอข้อสอบปลายภาค)",
+    match: /ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82/i,
+    editions: [{ id: '79p', pages: 79 }],
+  },
+  {
+    slug: 'zoo-online-quiz-screens', subject: 'zoonoses', title: "ไฟล์รวมภาพหน้าจอ Blackboard วิชา Zoonoses (มีพาร์ท bacterial)",
+    match: /แฟ้มภาพหน้าจอข้อสอบออนไลน์ Zoonoses ที่รุ่น 84 รวบรวม|ไฟล์รวมภาพหน้าจอ Blackboard วิชา Zoonoses \(มีพาร์ท bacterial\)/i,
+    editions: [{ id: '97p', pages: 97 }],
+  },
+  {
+    slug: 'zoo-myco-handwritten', subject: 'zoonoses', title: "บันทึกข้อสอบ Mycozoonosis ที่จดด้วยลายมือ",
+    match: /บันทึกข้อสอบ Mycozoonosis ที่จดด้วยลายมือ/i,
+    editions: [{ id: '1p', pages: 1 }],
+  },
+  {
+    slug: 'zoo-ticked-notebook-vet83', subject: 'zoonoses', title: "Zoonosis (สมุดสรุปของรุ่น 83 ที่รุ่น 84 ติ๊กต่อ)",
+    match: /สมุดสรุปของรุ่น 83 ที่รุ่น 84 ติ๊กต่อ/i,
+    editions: [{ id: '16p', pages: 16 }],
+  },
+  {
+    slug: 'zoo-printed-summary', subject: 'zoonoses', title: "ซู (สรุป Zoonoses แบบพิมพ์)",
+    match: /สรุป Zoonoses แบบพิมพ์/i,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  {
+    slug: 'zoo-bacterial-map', subject: 'zoonoses', title: "Bacterial Zoonoses (แผนผังสรุปในแฟ้มของรุ่น 84)",
+    match: /แผนผังสรุป Bacterial zoonoses ของรุ่น 84/i,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  {
+    slug: 'zoo-mid-map', subject: 'zoonoses', title: "Map Zoonoses mid",
+    match: /แผนผังสรุป Zoonoses mid ของรุ่น 84/i,
+    editions: [{ id: '20p', pages: 20 }],
+  },
+  {
+    slug: 'zoo-compiled-summary-1', subject: 'zoonoses', title: "สรุปรวม Zoonoses (1)",
+    match: /ไฟล์สรุปรวม Zoonoses \(1\)/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'zoo-epi-summary-vet80', subject: 'zoonoses', title: "zoonoses (สรุปบทเรียนของ Vet 80, ไฟล์ -zoonoses)",
+    match: /สรุปบทเรียน Epidemiological approach to zoonoses ของ Vet 80/i,
+    editions: [{ id: '10p', pages: 10 }],
   },
 ];
 

@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 7185;
-export const QB_SOURCE_TOTAL = 7263;
+export const QB_TOTAL = 7337;
+export const QB_SOURCE_TOTAL = 7415;
 export const QB_BLOCKED_TOTAL = 78;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -36,7 +36,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 39,
   'livestock-pathology': 67,
   'milk-meat-hygiene': 804,
-  'one-health': 188,
+  'one-health': 237,
   'poa-clinical': 71,
   'poultry': 178,
   'practrum': 117,
@@ -57,7 +57,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 367,
+  'zoonoses': 470,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -86,7 +86,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 39,
   'livestock-pathology': 67,
   'milk-meat-hygiene': 804,
-  'one-health': 188,
+  'one-health': 237,
   'poa-clinical': 71,
   'poultry': 132,
   'practrum': 113,
@@ -107,7 +107,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 367,
+  'zoonoses': 470,
 };
 
 // What Panic Mode holds per subject: questions from a real paper plus the
@@ -134,7 +134,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 35,
   'livestock-pathology': 67,
   'milk-meat-hygiene': 516,
-  'one-health': 78,
+  'one-health': 127,
   'poa-clinical': 16,
   'poultry': 69,
   'practrum': 17,
@@ -152,7 +152,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
-  'zoonoses': 293,
+  'zoonoses': 396,
 };
 
 // The same count, narrowed to one paper. A Panic card opened with a phase
@@ -195,7 +195,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 254,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
-    'zoonoses': 250,
+    'zoonoses': 312,
   },
   final: {
     'aquatic-clinic': 89,
@@ -217,7 +217,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 33,
     'livestock-pathology': 67,
     'milk-meat-hygiene': 24,
-    'one-health': 11,
+    'one-health': 60,
     'poultry': 69,
     'practrum': 17,
     'rec-adv-bioscience': 4,
@@ -234,7 +234,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 43,
+    'zoonoses': 146,
   },
 };
 
@@ -253,7 +253,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-safety-y4': 15,
     'herd-health-rum': 24,
     'milk-meat-hygiene': 804,
-    'one-health': 153,
+    'one-health': 152,
     'surg1': 29,
     'swine-clinic': 96,
     'swine-herd': 31,
@@ -261,7 +261,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 691,
     'vet-histo': 104,
     'vet-imaging': 5,
-    'zoonoses': 311,
+    'zoonoses': 373,
   },
   '1-final': {
     'aquatic-clinic': 130,
@@ -276,7 +276,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-safety-y4': 21,
     'herd-health-rum': 37,
     'milk-meat-hygiene': 29,
-    'one-health': 35,
+    'one-health': 85,
     'surg1': 29,
     'swine-clinic': 222,
     'swine-herd': 16,
@@ -285,7 +285,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-histo': 104,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 81,
+    'zoonoses': 184,
   },
   '2-mid': {
     'biochem-1': 271,
@@ -345,14 +345,14 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 139,
-    5: 3558,
+    5: 3619,
   },
   '1-final': {
     1: 297,
     2: 104,
     3: 62,
     4: 302,
-    5: 2145,
+    5: 2298,
   },
   '2-mid': {
     1: 297,
@@ -494,7 +494,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-raw-storage': 64,
     },
     'one-health': {
-      'oh-collaboration': 12,
+      'oh-collaboration': 11,
       'oh-communication': 8,
       'oh-concept': 16,
       'oh-disease-prevention': 51,
@@ -625,8 +625,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-corona': 21,
       'zoo-ebola-nipah': 23,
       'zoo-eid-cuvet': 4,
-      'zoo-eid-wildlife': 9,
-      'zoo-epi-approach': 16,
+      'zoo-eid-wildlife': 19,
+      'zoo-epi-approach': 68,
       'zoo-helminthic': 64,
       'zoo-intro': 21,
       'zoo-outbreak': 12,
@@ -815,11 +815,13 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-cleaning': 29,
     },
     'one-health': {
-      'oh-amr': 10,
-      'oh-env-carcinogen': 1,
-      'oh-foodborne': 6,
-      'oh-livestock-waste': 1,
-      'oh-risk-analysis': 17,
+      'oh-amr': 13,
+      'oh-env-carcinogen': 14,
+      'oh-env-mutagen': 11,
+      'oh-foodborne': 8,
+      'oh-gmo': 9,
+      'oh-livestock-waste': 10,
+      'oh-risk-analysis': 20,
     },
     'surg1': {
       'brachial-plexus-block': 3,
@@ -949,11 +951,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'wildlife-act-2562': 5,
     },
     'zoonoses': {
-      'zoo-bacterial': 35,
-      'zoo-eid-wildlife': 9,
-      'zoo-epi-approach': 16,
-      'zoo-mycoses': 17,
-      'zoo-prion': 4,
+      'zoo-bacterial': 60,
+      'zoo-eid-wildlife': 19,
+      'zoo-epi-approach': 68,
+      'zoo-mycoses': 24,
+      'zoo-prion': 13,
     },
   },
   '2-mid': {
@@ -1649,6 +1651,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-ai-basic': 9,
       'zoo-corona': 13,
       'zoo-ebola-nipah': 11,
+      'zoo-eid-wildlife': 10,
+      'zoo-epi-approach': 52,
       'zoo-helminthic': 24,
       'zoo-intro': 12,
       'zoo-protozoal': 17,
@@ -1798,7 +1802,13 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-cleaning': 11,
     },
     'one-health': {
-      'oh-risk-analysis': 7,
+      'oh-amr': 3,
+      'oh-env-carcinogen': 13,
+      'oh-env-mutagen': 11,
+      'oh-foodborne': 2,
+      'oh-gmo': 9,
+      'oh-livestock-waste': 8,
+      'oh-risk-analysis': 2,
     },
     'surg1': {
       'brachial-plexus-block': 3,
@@ -1895,8 +1905,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'wildlife-act-2562': 5,
     },
     'zoonoses': {
-      'zoo-bacterial': 26,
-      'zoo-mycoses': 13,
+      'zoo-bacterial': 51,
+      'zoo-eid-wildlife': 10,
+      'zoo-epi-approach': 52,
+      'zoo-mycoses': 20,
+      'zoo-prion': 9,
     },
   },
   '2-mid': {
@@ -2234,7 +2247,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 4606,
+  5: 4758,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2246,7 +2259,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 4606,
+  5: 4758,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2612,16 +2625,18 @@ export const Q_COUNTS_BY_TOPIC = {
     "milk-raw-storage": 64,
   },
   "one-health": {
-    "oh-amr": 10,
-    "oh-collaboration": 12,
+    "oh-amr": 13,
+    "oh-collaboration": 11,
     "oh-communication": 8,
     "oh-concept": 16,
     "oh-disease-prevention": 51,
-    "oh-env-carcinogen": 1,
-    "oh-foodborne": 6,
+    "oh-env-carcinogen": 14,
+    "oh-env-mutagen": 11,
+    "oh-foodborne": 8,
     "oh-global-network": 36,
-    "oh-livestock-waste": 1,
-    "oh-risk-analysis": 17,
+    "oh-gmo": 9,
+    "oh-livestock-waste": 10,
+    "oh-risk-analysis": 20,
     "oh-vet-role": 30,
   },
   "poa-clinical": {
@@ -2897,17 +2912,17 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "zoonoses": {
     "zoo-ai-basic": 22,
-    "zoo-bacterial": 35,
+    "zoo-bacterial": 60,
     "zoo-corona": 21,
     "zoo-ebola-nipah": 23,
     "zoo-eid-cuvet": 4,
-    "zoo-eid-wildlife": 9,
-    "zoo-epi-approach": 16,
+    "zoo-eid-wildlife": 19,
+    "zoo-epi-approach": 68,
     "zoo-helminthic": 64,
     "zoo-intro": 21,
-    "zoo-mycoses": 17,
+    "zoo-mycoses": 24,
     "zoo-outbreak": 12,
-    "zoo-prion": 4,
+    "zoo-prion": 13,
     "zoo-protozoal": 28,
     "zoo-rabies": 28,
     "zoo-rickettsial": 25,
@@ -3199,10 +3214,16 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "milk-raw-storage": 23,
   },
   "one-health": {
+    "oh-amr": 3,
     "oh-collaboration": 1,
     "oh-communication": 1,
     "oh-concept": 1,
-    "oh-risk-analysis": 7,
+    "oh-env-carcinogen": 13,
+    "oh-env-mutagen": 11,
+    "oh-foodborne": 2,
+    "oh-gmo": 9,
+    "oh-livestock-waste": 8,
+    "oh-risk-analysis": 2,
   },
   "poa-clinical": {
     "poa-red-urine": 3,
@@ -3383,12 +3404,15 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
   "zoonoses": {
     "zoo-ai-basic": 9,
-    "zoo-bacterial": 26,
+    "zoo-bacterial": 51,
     "zoo-corona": 13,
     "zoo-ebola-nipah": 11,
+    "zoo-eid-wildlife": 10,
+    "zoo-epi-approach": 52,
     "zoo-helminthic": 24,
     "zoo-intro": 12,
-    "zoo-mycoses": 13,
+    "zoo-mycoses": 20,
+    "zoo-prion": 9,
     "zoo-protozoal": 17,
     "zoo-rabies": 7,
     "zoo-rickettsial": 21,
@@ -3446,4 +3470,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-29T01:49:12.602Z
+// Built: 2026-10-30T17:44:21.633Z
