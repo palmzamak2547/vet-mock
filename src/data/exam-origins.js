@@ -96,7 +96,6 @@ export const EXAM_ORIGINS = Object.freeze({
   "VCA รอบ 1/2569 หมวด 2 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "VCA รอบ 1/2569 หมวด 3 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine": { kind: 'paper', cohort: 85, paper: 'midterm' },
-  "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้": { kind: 'paper', cohort: null, paper: null },
   "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)": { kind: 'paper', cohort: 85, paper: 'station' },
   "Aj. Ekasingh Vet 84-86 Final": { kind: 'paper', cohort: [84, 85, 86], paper: 'final' },
   "Aj. Ekasingh Vet 84 Final": { kind: 'paper', cohort: 84, paper: 'final' },

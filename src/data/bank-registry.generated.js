@@ -230,6 +230,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 14,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026.js').then((m) => m.QB_Y5_ONE_HEALTH_2026) },
+  { file: 'questions-y5-one-health-final-recall.js', export: 'QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL', year: 5, count: 49,
+    subjects: ['one-health'],
+    load: () => import('./questions-y5-one-health-final-recall.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL) },
   { file: 'questions-y5-one-health-pastpaper.js', export: 'QB_Y5_ONE_HEALTH_PASTPAPER', year: 5, count: 3,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-pastpaper.js').then((m) => m.QB_Y5_ONE_HEALTH_PASTPAPER) },
@@ -290,6 +293,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-zoonoses-2026.js', export: 'QB_Y5_ZOONOSES_2026', year: 5, count: 16,
     subjects: ['zoonoses'],
     load: () => import('./questions-y5-zoonoses-2026.js').then((m) => m.QB_Y5_ZOONOSES_2026) },
+  { file: 'questions-y5-zoonoses-final-recall.js', export: 'QUESTIONS_Y5_ZOONOSES_FINAL_RECALL', year: 5, count: 103,
+    subjects: ['zoonoses'],
+    load: () => import('./questions-y5-zoonoses-final-recall.js').then((m) => m.QUESTIONS_Y5_ZOONOSES_FINAL_RECALL) },
   { file: 'questions-mahahon.js', export: 'QB_MAHAHON', year: null, count: 90,
     subjects: ['repro-lect'],
     load: () => import('./questions-mahahon.js').then((m) => m.QB_MAHAHON) },
@@ -304,4 +310,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-10-29T01:49:10.810Z — 98 banks · 7263 Qs
+// Built: 2026-10-30T17:44:19.483Z — 100 banks · 7415 Qs

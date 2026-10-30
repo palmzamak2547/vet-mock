@@ -1036,21 +1036,21 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105986,
     "tags": [
       "biogas-system",
-      "UASB"
+      "covered-lagoon"
     ],
     "subject": "one-health",
-    "topic": "oh-collaboration",
+    "topic": "oh-livestock-waste",
     "year": 5,
     "type": "mcq",
-    "q": "ระบบก๊าซชีวภาพแบบใดที่มีประสิทธิภาพกำจัดของเสียสูงราว 70 ถึง 80 เปอร์เซ็นต์",
+    "q": "ระบบก๊าซชีวภาพแบบใดที่มีประสิทธิภาพการบำบัดน้ำเสียราว 70 ถึง 80 เปอร์เซ็นต์",
     "options": [
       "ระบบโดมคงที่ (fixed dome digester)",
       "ระบบบ่อคลุม (covered lagoon, CIGAR)",
       "ระบบบ่อผึ่งแบบใช้อากาศ (aerobic pond)",
       "ระบบยูเอเอสบี (UASB) แบบไหลขึ้น"
     ],
-    "answer": 3,
-    "explain": "upflow anaerobic sludge blanket reactor หรือ UASB มีประสิทธิภาพการกำจัดน้ำเสียสูงราว 70 ถึง 80 เปอร์เซ็นต์ ส่วน CIGAR เป็นระบบบ่อคลุมที่ใช้เวลาบำบัดนานกว่า 120 วัน fixed dome เป็นระบบโดมคงที่ที่ไม่ได้ระบุตัวเลขนี้ และ aerobic pond เป็นหนึ่งในบ่อของระบบบ่อบำบัด ไม่ใช่ระบบก๊าซชีวภาพ",
+    "answer": 1,
+    "explain": "ระบบบ่อคลุม (covered lagoon หรือ CIGAR) มีประสิทธิภาพการบำบัดน้ำเสียปานกลางราว 70 ถึง 80 เปอร์เซ็นต์ รับสารอินทรีย์ได้มาก ไม่ได้กากตะกอน และใช้เวลากักเก็บนานกว่า 120 วัน ส่วน UASB (upflow anaerobic sludge blanket reactor) ทำได้ราว 60 ถึง 70 เปอร์เซ็นต์ ระบบโดมคงที่ (fixed dome) ราว 50 ถึง 65 เปอร์เซ็นต์ และ aerobic pond เป็นหนึ่งในบ่อของระบบบ่อบำบัด ไม่ใช่ระบบก๊าซชีวภาพ",
     "verified": "OneHealth final น.12",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "lecture-derived",
@@ -1083,6 +1083,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   {
     "id": 105988,
     "tags": [
+      "อิงแนวข้อสอบ",
       "risk-analysis",
       "risk-communication"
     ],
@@ -1101,12 +1102,13 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "Risk analysis มี 3 ส่วนคือ risk assessment ประเมิน risk management จัดการ และ risk communication สื่อสาร วิธีจำคือ วิเคราะห์เท่ากับ ประเมิน บวก จัดการ บวก สื่อสาร ตัวเลือกอื่นสอดแทรกคำที่ฟังดูคล้ายอย่างการสืบค้น การบูรณาการ และการพิสูจน์ ซึ่งไม่ใช่องค์ประกอบตามกรอบของ Codex",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105989,
     "tags": [
+      "อิงแนวข้อสอบ",
       "codex-alimentarius",
       "risk-analysis"
     ],
@@ -1125,12 +1127,13 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "CODEX หรือ Codex Alimentarius Commission เป็นผู้จัดทำมาตรฐานสากลที่ SPS ใช้กำหนดมาตรการด้านความปลอดภัยอาหารในคน จึงเป็นกรอบหลักของ food risk analysis ในเชิงสาธารณสุข WHO และ FAO เป็นองค์กรที่ร่วมก่อตั้งและสนับสนุน Codex แต่ไม่ใช่ผู้วางกรอบนี้โดยตรง ส่วน WOAH ดูแลด้านสุขภาพสัตว์และมีกรอบ risk analysis ของตนเองที่แยกออกไป",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105990,
     "tags": [
+      "อิงแนวข้อสอบ",
       "SPS-agreement",
       "international-food-trade"
     ],
@@ -1149,12 +1152,13 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "food risk analysis อยู่ภายใต้ SPS agreement ซึ่งเป็นข้อตกลงที่ให้ประเทศสมาชิกใช้มาตรการปกป้องชีวิตและสุขภาพคน สัตว์ และพืชได้ โดยต้องอิงหลักฐานทางวิทยาศาสตร์และมาตรฐานของ Codex GATT เป็นข้อตกลงการค้าทั่วไป TBT ว่าด้วยมาตรฐานทางเทคนิคของสินค้า และ TRIPS ว่าด้วยทรัพย์สินทางปัญญา",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105991,
     "tags": [
+      "อิงแนวข้อสอบ",
       "risk-characterization",
       "hazard-characterization",
       "exposure-assessment"
@@ -1174,12 +1178,13 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "Risk characterization คือขั้นที่สี่ ซึ่งรวมผลของ hazard characterization ที่ให้ความสัมพันธ์ dose-response เข้ากับ exposure assessment ที่ให้ปริมาณการได้รับจริง การระบุอันตรายเป็นขั้นแรกที่ทำก่อนทั้งสองขั้นนี้ ส่วนการจัดการและการสื่อสารความเสี่ยงอยู่คนละส่วนของ risk analysis ไม่ได้อยู่ใน risk assessment",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105992,
     "tags": [
+      "อิงแนวข้อสอบ",
       "risk-management",
       "acceptable-risk"
     ],
@@ -1198,12 +1203,13 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "Risk management คือการทำให้ความเสี่ยงอยู่ในระดับที่ยอมรับได้ด้วยการลดความเสี่ยง เช่น กินให้น้อยลง กินให้สะอาด และป้องกันการปนเปื้อน ส่วน risk assessment คือการประเมินว่ามีโอกาสป่วยมากน้อยแค่ไหน risk communication คือการที่ risk manager คุยกับผู้ประเมินและให้ข้อมูลกับ stakeholders และ hazard identification เป็นเพียงขั้นตอนแรกของการประเมิน",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105993,
     "tags": [
+      "อิงแนวข้อสอบ",
       "exposure-assessment",
       "quantitative-risk-assessment"
     ],
@@ -1222,12 +1228,13 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "คำว่าเชิงปริมาณในโจทย์เป็นตัวชี้ทางโดยตรง การประเมินความเสี่ยงเชิงปริมาณต้องใช้ข้อมูลเชิงปริมาณ เช่น ความชุกเป็นตัวเลข ความเข้มข้นเป็น log MPN ต่อกรัม และปริมาณอาหารที่บริโภคเป็นกรัม ข้อมูลเชิงคุณภาพให้ได้เพียงระดับสูงกลางต่ำ ส่วน probabilistic และ interval estimate เป็นรูปแบบการนำเสนอผลลัพธ์ ไม่ใช่ลักษณะของข้อมูลนำเข้าที่โจทย์ถาม",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105994,
     "tags": [
+      "อิงแนวข้อสอบ",
       "exposure-assessment",
       "consumption-data"
     ],
@@ -1246,8 +1253,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "explain": "probability of exposure ต้องรู้สามตัวร่วมกัน คือ prevalence ของเชื้อในอาหาร ความเข้มข้นของเชื้อในหน่วย log MPN ต่อกรัม และปริมาณอาหารที่กินเข้าไป ขาดตัวใดตัวหนึ่งก็คำนวณไม่ได้ว่าผู้บริโภครับเชื้อเข้าไปเท่าไร\n\n❌ ทำไมข้ออื่นผิด\n— \"ความชุกของอันตราย ความรุนแรงของโรค และระยะฟักตัวของเชื้อ\" = ความรุนแรงและระยะฟักตัวเป็นข้อมูลของ hazard characterization มีแค่ความชุกที่อยู่ในขั้นนี้\n— \"ความเข้มข้นของอันตราย ราคาของอาหาร และช่องทางการจำหน่าย\" = ราคาและช่องทางจำหน่ายไม่ได้เข้าสูตรคำนวณการสัมผัส\n— \"ปริมาณที่บริโภค อายุของผู้บริโภค และภูมิคุ้มกันของประชากร\" = อายุและภูมิคุ้มกันเป็นความไวของผู้บริโภคต่อโรค ไม่ใช่ตัวแปรที่บอกว่าได้รับเชื้อเข้าไปมากแค่ไหน\n\n💡 สามตัวเรียงเป็นคำถามต่อกัน มีเชื้อไหม (prevalence) เชื้อเยอะแค่ไหน (concentration) กินเข้าไปเท่าไร (amount)",
     "verified": "OneHealth final น.14",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
-    "sourceType": "past-paper",
-    "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
+    "sourceType": "exam-aligned",
+    "examOrigin": "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health"
   },
   {
     "id": 105995,
@@ -1284,7 +1291,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "topic": "oh-risk-analysis",
     "year": 5,
     "type": "mcq",
-    "q": "การหาปัจจัยที่ทำให้ความชุกหรือความเข้มข้นของจุลินทรีย์เปลี่ยนแปลงตลอดห่วงโซ่อาหาร ตรงกับขั้นตอนใด",
+    "q": "การประเมินว่าประชากรมีโอกาสได้รับเชื้อมากน้อยเพียงใด จากความชุก (prevalence) และความเข้มข้น (concentration) ของเชื้อในอาหาร ร่วมกับปริมาณที่บริโภค ตรงกับขั้นตอนใด",
     "options": [
       "การประเมินการสัมผัส (exposure assessment)",
       "การระบุอันตราย (hazard identification)",
