@@ -30,6 +30,10 @@
   --rs-scrim: rgba(43, 36, 25, 0.42);
   --rs-nav-bg: rgba(246, 239, 228, 0.9);
   --rs-shadow: 0 18px 40px rgba(43, 36, 25, 0.16);
+  /* Google's sign-in button on light pages, as its branding sets it (the Chula wall, styles/wall.css) */
+  --rs-google-fill: #ffffff;
+  --rs-google-stroke: #747775;
+  --rs-google-text: #1f1f1f;
   /* WebGL colours as 0..1 triples for the herd shader (story.js RS_GL.paper) */
   --rs-gl-pos: 0.541 0.353 0.110;
   --rs-gl-neg: 0.573 0.525 0.443;
@@ -61,6 +65,9 @@
   --rs-scrim: rgba(0, 0, 0, 0.58);
   --rs-nav-bg: rgba(26, 22, 18, 0.88);
   --rs-shadow: 0 24px 48px rgba(0, 0, 0, 0.42);
+  --rs-google-fill: #131314;
+  --rs-google-stroke: #8e918f;
+  --rs-google-text: #e3e3e3;
   --rs-gl-pos: 0.831 0.647 0.337;
   --rs-gl-neg: 0.522 0.471 0.396;
   --rs-gl-ring: 0.482 0.659 0.482;
@@ -69,6 +76,11 @@
 :root {
   /* Figures and exported charts are drawn on white paper in both themes, as a journal prints them. */
   --rs-print-paper: #ffffff;
+  /* Google's G keeps its four colours in both themes (the Chula wall's sign-in button) */
+  --rs-google-blue: #4285f4;
+  --rs-google-red: #ea4335;
+  --rs-google-yellow: #fbbc05;
+  --rs-google-green: #34a853;
   --rs-font: 'Sarabun', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --rs-mono: ui-monospace, 'Cascadia Mono', Consolas, 'SFMono-Regular', Menlo, monospace;
   --rs-radius: 12px;

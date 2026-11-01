@@ -4,9 +4,11 @@ import Composer from './components/Composer.jsx';
 import Message from './components/Message.jsx';
 import HeroWord from './components/HeroWord.jsx';
 import { Header, History, Specimen, Footer } from './components/Chrome.jsx';
+import Wall from './components/Wall.jsx';
 import { IconDown } from './components/icons.jsx';
 import { Toasts } from './components/ShareMenu.jsx';
 import { chat as callChat, health, warm } from './lib/api.js';
+import { useWall, wall } from './lib/account.js';
 import { listChats, saveChat, deleteChat, clearChats, newId, titleFor, getPref, setPref } from './lib/store.js';
 import { hasThaiVoice } from './lib/speech.js';
 import { reducedMotion } from './lib/env.js';
@@ -53,6 +55,14 @@ export default function App() {
   const [beat, setBeat] = useState(-1); // -1: at rest
   const typing = useRef(false);
   const nextBeat = useRef(() => {});
+
+  // The Chula wall (lib/wall.js): until it opens, a sign-in card over the sea instead of the assistant.
+  const gate = useWall();
+  const open = gate.gate === 'open';
+  const wallRef = useRef(null);
+  const openRef = useRef(open);
+  openRef.current = open;
+  useEffect(() => { wall.start(); }, []);
 
   const mode = chat.messages.length ? 'chat' : 'landing';
   // ?bare: the sea alone (film plates, OG frames, visual review)
@@ -114,6 +124,13 @@ export default function App() {
   const syncRects = useCallback(() => {
     const o = oceanRef.current;
     if (!o) return;
+    if (!openRef.current) {
+      // the wall's card is the content: the animals swim around it and the water dims under it
+      o.setFocus(null);
+      const r = wallRef.current?.getBoundingClientRect();
+      o.setContent(r ? { x: r.left - 24, y: r.top - 24, w: r.width + 48, h: r.height + 48 } : null, r ? 0.62 : 0);
+      return;
+    }
     const c = composerRef.current?.rect();
     o.setFocus(c ? { x: c.left, y: c.top, w: c.width, h: c.height } : null);
     if (modeRef.current === 'chat') {
@@ -209,7 +226,7 @@ export default function App() {
         a.onfinish = syncRects;
       }
     }
-  }, [mode, chat.messages.length, syncRects]);
+  }, [mode, chat.messages.length, syncRects, gate.gate]);
 
   // ── theme ───────────────────────────────────────────────
   useEffect(() => {
@@ -236,7 +253,7 @@ export default function App() {
 
   // ── the landing show (see SHOW) ─────────────────────────
   useEffect(() => {
-    if (mode !== 'landing' || bare || reducedMotion()) return undefined;
+    if (!open || mode !== 'landing' || bare || reducedMotion()) return undefined;
     let n = 0;
     let budget = SHOW.length * 2;
     let t = 0;
@@ -252,7 +269,7 @@ export default function App() {
     nextBeat.current = () => { if (!typing.current) { budget = Math.max(budget, n + 1); step(); } };
     t = setTimeout(step, 1800);
     return () => { clearTimeout(t); nextBeat.current = () => {}; setBeat(-1); };
-  }, [mode, bare]);
+  }, [mode, bare, open]);
   const onHeroSwap = useCallback((x, y) => oceanRef.current?.ripple(x, y), []);
 
   // ── sending ─────────────────────────────────────────────
@@ -473,72 +490,76 @@ export default function App() {
   }
 
   return (
-    <div className={`app mode-${mode}`}>
+    <div className={`app mode-${open ? mode : 'wall'}`}>
       <canvas ref={canvasRef} className="ocean" aria-hidden="true" />
       {still && <div className="ocean-still" data-theme-art={theme} aria-hidden="true" />}
-      <Header theme={theme} onTheme={toggleTheme} onNew={newChat} onHistory={() => { setChats(listChats()); setHistoryOpen(true); }} hasChat={mode === 'chat'} />
-      <main className="stage" onPointerDown={tapOcean}>
-        {mode === 'landing' && (
-          <section ref={heroRef} className="hero">
-            <h1 className="hero-title">
-              <span className="sr-only">ถามให้ลึก</span>
-              <span aria-hidden="true">ถามให้<HeroWord word={beat >= 0 ? SHOW[beat].word : 'ลึก'} onSwap={onHeroSwap} onTap={() => nextBeat.current()} /></span>
-            </h1>
-            {/* a narrow phone breaks between the two phrases, never inside แหล่งอ้างอิง */}
-            <p className="hero-sub"><span className="nb">ตอบจากคลังความรู้ VetMock</span> <span className="nb">พร้อมแหล่งอ้างอิง</span></p>
-          </section>
-        )}
-        {mode === 'chat' && (
-          <div ref={threadRef} className="thread" role="log" aria-live="off">
-            {chat.messages.map((m, i) => (
-              <div key={m.id} data-mid={m.id} className={i === chat.messages.length - 1 && m.role === 'assistant' ? 'turn-last' : undefined}>
-                <Message m={m} last={i === chat.messages.length - 1} onRetry={retry} canSpeak={canSpeak} streaming={busy && i === chat.messages.length - 1} question={m.role === 'assistant' ? chat.messages[i - 1]?.content || '' : ''} />
-              </div>
-            ))}
-          </div>
-        )}
-        <div ref={dockRef} className="dock">
-          {mode === 'chat' && away && (
-            <button type="button" className="jump" onClick={() => { pinned.current = true; scrollToEnd(true); }} aria-label="ไปที่คำตอบล่าสุด"><IconDown size={18} /></button>
-          )}
-          <Composer
-            ref={composerRef}
-            busy={busy}
-            disabled={!online}
-            onSend={send}
-            onStop={stop}
-            onFocusChange={onFocusChange}
-            onRipple={(x, y) => oceanRef.current?.ripple(x, y)}
-            onListen={(on) => { const c = composerRef.current?.rect(); oceanRef.current?.setMode(on ? 'listening' : 'idle', c ? { x: c.left + c.width / 2, y: c.top + c.height / 2 } : null); }}
-            placeholder="ถามเรื่องสัตว์ ยา โรค หรืองานวิจัย"
-            ghost={mode === 'landing' && beat >= 0 ? SHOW[beat].ask : null}
-            onTyping={(busyBox) => { typing.current = busyBox; }}
-            autoFocus={mode === 'landing'}
-          />
-          {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
+      <Header theme={theme} onTheme={toggleTheme} onNew={newChat} onHistory={() => { setChats(listChats()); setHistoryOpen(true); }} hasChat={open && mode === 'chat'} walled={!open} />
+      {!open && <Wall state={gate} theme={theme} cardRef={wallRef} onSignIn={wall.signIn} onGoogleToken={wall.signInWithGoogleToken} onSignOut={wall.signOut} />}
+      {open && (
+        <main className="stage" onPointerDown={tapOcean}>
           {mode === 'landing' && (
-            <>
-              <ul className="suggest" aria-label="ตัวอย่างคำถาม">
-                {SUGGEST.map((s) => (
-                  <li key={s}><button type="button" onClick={() => send(s, null)} disabled={!online}>{s}</button></li>
-                ))}
-              </ul>
-              <p className="dock-note">ทดลองใช้ ตรวจสอบก่อนนำไปใช้กับสัตว์จริง</p>
-            </>
+            <section ref={heroRef} className="hero">
+              <h1 className="hero-title">
+                <span className="sr-only">ถามให้ลึก</span>
+                <span aria-hidden="true">ถามให้<HeroWord word={beat >= 0 ? SHOW[beat].word : 'ลึก'} onSwap={onHeroSwap} onTap={() => nextBeat.current()} /></span>
+              </h1>
+              {/* a narrow phone breaks between the two phrases, never inside แหล่งอ้างอิง */}
+              <p className="hero-sub"><span className="nb">ตอบจากคลังความรู้ VetMock</span> <span className="nb">พร้อมแหล่งอ้างอิง</span></p>
+            </section>
           )}
-        </div>
-      </main>
-      {mode === 'landing' && <Footer stats={stats} />}
+          {mode === 'chat' && (
+            <div ref={threadRef} className="thread" role="log" aria-live="off">
+              {chat.messages.map((m, i) => (
+                <div key={m.id} data-mid={m.id} className={i === chat.messages.length - 1 && m.role === 'assistant' ? 'turn-last' : undefined}>
+                  <Message m={m} last={i === chat.messages.length - 1} onRetry={retry} canSpeak={canSpeak} streaming={busy && i === chat.messages.length - 1} question={m.role === 'assistant' ? chat.messages[i - 1]?.content || '' : ''} />
+                </div>
+              ))}
+            </div>
+          )}
+          <div ref={dockRef} className="dock">
+            {mode === 'chat' && away && (
+              <button type="button" className="jump" onClick={() => { pinned.current = true; scrollToEnd(true); }} aria-label="ไปที่คำตอบล่าสุด"><IconDown size={18} /></button>
+            )}
+            <Composer
+              ref={composerRef}
+              busy={busy}
+              disabled={!online}
+              onSend={send}
+              onStop={stop}
+              onFocusChange={onFocusChange}
+              onRipple={(x, y) => oceanRef.current?.ripple(x, y)}
+              onListen={(on) => { const c = composerRef.current?.rect(); oceanRef.current?.setMode(on ? 'listening' : 'idle', c ? { x: c.left + c.width / 2, y: c.top + c.height / 2 } : null); }}
+              placeholder="ถามเรื่องสัตว์ ยา โรค หรืองานวิจัย"
+              ghost={mode === 'landing' && beat >= 0 ? SHOW[beat].ask : null}
+              onTyping={(busyBox) => { typing.current = busyBox; }}
+              autoFocus={mode === 'landing'}
+            />
+            {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
+            {mode === 'landing' && (
+              <>
+                <ul className="suggest" aria-label="ตัวอย่างคำถาม">
+                  {SUGGEST.map((s) => (
+                    <li key={s}><button type="button" onClick={() => send(s, null)} disabled={!online}>{s}</button></li>
+                  ))}
+                </ul>
+                <p className="dock-note">ทดลองใช้ ตรวจสอบก่อนนำไปใช้กับสัตว์จริง</p>
+              </>
+            )}
+          </div>
+        </main>
+      )}
+      {open && mode === 'landing' && <Footer stats={stats} />}
       <Specimen elRef={specimenRef} info={specimen} />
       <Toasts />
       <History
-        open={historyOpen}
+        open={open && historyOpen}
         chats={chats}
         currentId={chat.id}
         onClose={() => setHistoryOpen(false)}
         onOpen={openChat}
         onDelete={(id) => { deleteChat(id); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
         onClear={() => { clearChats(); setChats([]); setChat(blank()); setHistoryOpen(false); }}
+        account={gate.configured && gate.user ? { email: gate.email, onSignOut: () => { setHistoryOpen(false); wall.signOut(); } } : null}
       />
     </div>
   );

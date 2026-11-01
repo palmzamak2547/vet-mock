@@ -42,9 +42,11 @@ export const auth = {
     });
     return () => unsubscribe();
   },
-  async google() {
+  /** `hd` (the Chula wall's student.chula.ac.th or chula.ac.th) asks Google for an account on that
+   *  domain; the database, not this hint, decides who is let in (docs/CHULA-SIGNIN.md). */
+  async google({ hd } = {}) {
     const sb = await getClient();
-    await must(sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: callback(), queryParams: { prompt: 'select_account' } } }));
+    await must(sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: callback(), queryParams: { prompt: 'select_account', ...(hd ? { hd } : {}) } } }));
   },
   /** Google Identity Services handed back an ID token (online/gis.js): trade it for a session. */
   async googleIdToken(token, nonce) {

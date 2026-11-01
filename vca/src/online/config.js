@@ -14,6 +14,12 @@ export const LINE_LIFF_ID = env.VITE_LINE_LIFF_ID || '';
 /** VetMock's Google OAuth client; set once this origin is one of its Authorized JavaScript origins. */
 export const GOOGLE_CLIENT_ID = env.VITE_GOOGLE_CLIENT_ID || '';
 
+/** The client the Chula wall draws Google's own button with: the build's, else the main app's (a
+ *  public id). https://vca.vetmock.com is one of its Authorised JavaScript origins; anywhere else
+ *  (a preview, a dev server) the wall keeps the redirect button. */
+export const WALL_GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID || '807323754507-v4kctbouiqucot3e0isqju1mq1jl9k2u.apps.googleusercontent.com';
+export const GOOGLE_ORIGINS = Object.freeze(['https://vca.vetmock.com']);
+
 /** @type {'live' | 'demo' | 'off'} */
 export const MODE = SUPABASE_URL && SUPABASE_ANON_KEY ? 'live' : (env.DEV || env.VITE_COMMUNITY === 'demo') ? 'demo' : 'off';
 

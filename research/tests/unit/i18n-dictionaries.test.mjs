@@ -20,6 +20,8 @@ const PREFIX = {
   'workspace-m3': 'ws.', 'terms-m3': 'term.',
   // the quick epidemiology calculators' words, loaded with their lazy screen (screens/tools/OpenEpiTool.jsx)
   openepi: 'tools.openepi.',
+  // the Chula sign-in wall's words, loaded with its lazy gate (workspace/components/ChulaGate.jsx)
+  'runtime-chula': 'runtime.chula.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');

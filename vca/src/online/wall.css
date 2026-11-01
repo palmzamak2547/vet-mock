@@ -1,0 +1,72 @@
+/* ── The Chula sign-in wall (online/ui/ChulaWall.jsx) ───────────────────────────────────────
+   One pane of glass on the gallery wall, the page's own light (.atmos) behind it. It scrolls
+   with nothing, so it takes the glass's colour, rim and shadow without a blur (components.css,
+   .glass). Its entrance is opacity and transform, once; base.css stills it under reduced motion.
+   Google's button keeps Google's own colours in each theme, as its sign-in branding sets them. */
+
+.cwall { min-height: 100vh; min-height: 100svh; display: grid; grid-template-rows: auto 1fr; }
+.cwall-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px;
+  padding: max(10px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+}
+.cwall-brand { display: flex; align-items: center; min-height: var(--touch); color: var(--ink); }
+.cwall-main { display: grid; place-items: center; padding: 24px 16px calc(48px + env(safe-area-inset-bottom)); }
+
+.cwall-card { width: min(440px, 100%); padding: 36px 32px 28px; border-radius: var(--r-xl); text-align: center; animation: cwall-in .56s var(--ease) both; }
+.cwall-card .kicker { justify-content: center; }
+/* Thai stacked marks: 1.2 is the floor for a headline that wraps to two lines. */
+.cwall-h { margin-top: 14px; font: 400 clamp(30px, 14px + 4.6vw, 38px)/1.2 var(--serif); letter-spacing: 0; text-wrap: balance; }
+.cwall-p { margin-top: 12px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty; }
+.cwall-who {
+  display: inline-flex; align-items: center; gap: 8px; max-width: 100%; margin-top: 16px; padding: 6px 14px;
+  border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--line-2);
+  font: 500 14px/1.5 var(--mono); color: var(--ink-2); overflow-wrap: anywhere; text-align: left;
+}
+.cwall-who svg { flex: none; }
+
+/* The address to choose in Google's window, set like a catalogue entry nobody types into. */
+.cwall-id { margin-top: 18px; padding: 14px 16px 12px; border-radius: var(--r-lg); box-shadow: inset 0 0 0 1px var(--line-2); background: var(--glass); }
+.cwall-addr { font: 500 15px/1.5 var(--mono); overflow-wrap: anywhere; }
+.cwall-addr-local { font-family: var(--sans); color: var(--ink-3); }
+.cwall-addr-domain { color: var(--verd-text); }
+.cwall-caption { margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink-3); }
+/* Google's own button sits in this slot (it draws itself, up to 400 px wide, 40 px tall). */
+.cwall-gsi { width: 100%; }
+.cwall-gsi-slot { display: flex; justify-content: center; min-height: var(--touch); transition: opacity var(--t) var(--ease); }
+.cwall-gsi[data-busy="1"] .cwall-gsi-slot { opacity: .5; pointer-events: none; }
+.cwall-gsi .cwall-caption { margin-top: 8px; }
+
+.cwall-ways { display: grid; justify-items: center; gap: 6px; margin-top: 24px; }
+.cwall-google {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 0 22px;
+  border: 0; border-radius: var(--r-pill); font: 600 16px/1.2 var(--sans); cursor: pointer;
+  background: #fff; color: #1f1f1f; box-shadow: inset 0 0 0 1px #747775;
+  transition: box-shadow var(--t) var(--ease), transform var(--t-fast) var(--ease);
+}
+:root[data-theme="dark"] .cwall-google { background: #131314; color: #e3e3e3; box-shadow: inset 0 0 0 1px #8e918f; }
+@media (hover: hover) {
+  .cwall-google:hover:not([disabled]) { box-shadow: inset 0 0 0 1px #747775, 0 2px 8px -2px rgba(60, 64, 67, .35); }
+  :root[data-theme="dark"] .cwall-google:hover:not([disabled]) { box-shadow: inset 0 0 0 1px #8e918f, 0 2px 8px -2px rgba(0, 0, 0, .6); }
+}
+.cwall-google:active:not([disabled]) { transform: scale(.985); }
+.cwall-google[disabled] { opacity: .72; cursor: default; }
+.cwall-google-mark { display: grid; place-items: center; flex: none; }
+.cwall-google .spinner, .cwall-alt .spinner { width: 16px; height: 16px; }
+.cwall-alt { min-height: var(--touch); padding: 0 10px; border: 0; background: none; font-size: 15px; cursor: pointer; }
+.cwall-alt[disabled] { opacity: .6; cursor: default; }
+.cwall-inapp { width: 100%; padding: 12px 16px; border-radius: var(--r-md); background: var(--brass-soft); color: var(--ink); font-size: 15px; line-height: 1.6; text-align: left; }
+.cwall-inapp + .btn { margin-top: 8px; }
+
+.cwall-live { text-align: left; }
+.cwall-note { margin-top: 16px; padding: 12px 16px; border-radius: var(--r-md); background: var(--cinn-soft); color: var(--ink); font-size: 15px; line-height: 1.6; }
+/* "checking": the wall's light alone; the line shows only if the check takes a while */
+.cwall-wait { display: flex; align-items: center; gap: 12px; color: var(--ink-2); font-size: 15px; animation: cwall-fade .4s linear .7s both; }
+
+@keyframes cwall-in { from { opacity: 0; transform: translateY(12px) scale(.985); } }
+@keyframes cwall-fade { from { opacity: 0; } }
+@media (max-width: 480px) {
+  .cwall-card { padding: 30px 20px 22px; }
+}
+@media (forced-colors: active) {
+  .cwall-google { border: 1px solid ButtonText; }
+}

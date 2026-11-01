@@ -1,6 +1,8 @@
 // The deployed headers are the ones research/vercel.json declares [M1-DESIGN.md 20]: the CSP (connect
-// only to this origin and Supabase Auth, no inline scripts, no frames), COOP same-origin for the
-// sign-in redirect, and the cache rules (index.html and sw.js revalidate, hashed assets immutable).
+// only to this origin, Supabase Auth and Google's sign-in; no inline scripts; the only frame and
+// outside script are Google's sign-in button, which the Chula wall draws, docs/CHULA-SIGNIN.md),
+// COOP same-origin-allow-popups so Google's sign-in window can answer, and the cache rules
+// (index.html and sw.js revalidate, hashed assets immutable).
 // `vite preview` does not apply vercel.json, so this spec runs only against a deployment:
 // RESEARCH_BASE_URL=https://research.vetmock.com npx playwright test research-headers.
 // OWNER: runtime role.
@@ -22,13 +24,14 @@ test('every page carries the declared security headers', async ({ request }) => 
   }
 });
 
-test('the CSP names only this origin and Supabase Auth, and forbids inline script and frames', () => {
+test('the CSP names only this origin, Supabase Auth and Google\'s sign-in, and forbids inline script', () => {
   const csp = declared['content-security-policy'];
-  expect(csp).toContain("script-src 'self';");
-  expect(csp).toMatch(/connect-src 'self' https:\/\/[a-z0-9]+\.supabase\.co;/);
+  expect(csp).toContain("script-src 'self' https://accounts.google.com/gsi/client;");
+  expect(csp).toMatch(/connect-src 'self' https:\/\/[a-z0-9]+\.supabase\.co https:\/\/accounts\.google\.com\/gsi\/;/);
+  expect(csp).toContain('frame-src https://accounts.google.com/gsi/;');
   expect(csp).toContain("frame-ancestors 'none'");
   expect(csp).not.toContain('unsafe-eval');
-  expect(declared['cross-origin-opener-policy']).toBe('same-origin');
+  expect(declared['cross-origin-opener-policy']).toBe('same-origin-allow-popups');
 });
 
 test('sw.js and the manifest are served as themselves, not the app shell', async ({ request }) => {

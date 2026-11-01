@@ -102,6 +102,16 @@ export function rememberAnswer({ enforce, uid, member }, store = globalThis.loca
   } catch { /* private mode or a full store: the next boot asks again */ }
 }
 
+// AbortSignal.timeout is missing before iOS 16: without this fallback such a phone
+// never learned the switch and always assumed it on.
+function timeoutSignal(ms) {
+  if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') return AbortSignal.timeout(ms);
+  if (typeof AbortController === 'undefined') return undefined;
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), ms);
+  return controller.signal;
+}
+
 /**
  * Ask the database where the switch is and whether this caller is let in.
  * Resolves { enforce, member, uid } or throws; a token the server refuses is
@@ -113,7 +123,7 @@ export async function fetchAccessState({ url, key, token, fetchImpl = globalThis
       method: 'POST',
       headers: { apikey: key, Authorization: `Bearer ${bearer}`, 'Content-Type': 'application/json' },
       body: '{}',
-      signal: AbortSignal.timeout(timeoutMs),
+      signal: timeoutSignal(timeoutMs),
     });
     // No such function: the wall's migration is not in this database, so there
     // is no wall to show. (Nobody can make a database that has it answer 404.)
