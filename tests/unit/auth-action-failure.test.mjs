@@ -21,6 +21,21 @@ for (const name of ['signOut', 'signOutAllDevices']) {
   });
 }
 
+test('signing out of this device drops the token itself when the server cannot be reached', async () => {
+  // Offline, or with an expired token and no network, auth-js answers signOut with
+  // an error and keeps the token: the next person at a shared machine would inherit it.
+  const body = source.match(new RegExp(String.raw`export async function signOut\(\) \{([\s\S]*?)\n\}`))?.[1];
+  assert.ok(body);
+  const run = new AsyncFunction('getSupabase', 'notifyAuthChanged', body);
+  const kept = new Map([['sb-abc-auth-token', '{"user":{"id":"carol"}}'], ['sb-abc-auth-token-code-verifier', 'v']]);
+  const storage = { removeItem: async (k) => { kept.delete(k); } };
+  const offline = Object.assign(new Error('Failed to fetch'), { name: 'AuthRetryableFetchError' });
+  let notifications = 0;
+  await run(async () => ({ auth: { storage, storageKey: 'sb-abc-auth-token', signOut: async () => ({ error: offline }) } }), () => notifications++);
+  assert.equal(kept.size, 0, "the token and its code verifier are gone, through the client's own storage");
+  assert.equal(notifications, 1, 'the app hears it is signed out');
+});
+
 test('the main menu presents a failed sign-out instead of leaking a rejected promise', async () => {
   const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
   const marker = 'const handleSignOut = async () => {';

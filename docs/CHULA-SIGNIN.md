@@ -63,9 +63,10 @@ Changed on 1 Nov 2026, all reversible:
   someone's address took over that account. The one Discord identity belongs to
   an account that also signs in with Google. No unverified OAuth identity sat on
   any account (checked).
-- After the release: the before-user-created hook on, manual linking on (for
-  เชื่อมบัญชีจุฬา), and `https://ai.vetmock.com/**`, `https://vca.vetmock.com/**`
-  among the redirect URLs.
+- The same evening, before the merge: the before-user-created hook on, manual
+  linking on (for เชื่อมบัญชีจุฬา), and `https://ai.vetmock.com/**`,
+  `https://vca.vetmock.com/**` among the redirect URLs. The migration was applied
+  then too, with the switch off (proof in `docs/releases/5.178.0.md`).
 
 ## The switch
 
@@ -113,6 +114,15 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
   whether to ask their holders to confirm.
 - A device that never reached the server assumes the wall is on, and the admin's
   Gmail account opens offline only on a device where the server once said yes.
+- A session revoked elsewhere (sign out of all devices, a deleted account) still
+  opens offline on a device that holds it, until the device is online again: the
+  price of never locking out a student who studies offline. Online, the refused
+  refresh ends it within one round trip.
+- The API's ten-minute grace opens what it saw open whenever the state call fails,
+  which includes a timeout or a 429 from the database, not only an outage. It
+  applies only on an instance that saw the switch off in the last ten minutes.
+- On ai, vca and research, a device holding one account that returns from the
+  redirect fallback with another shows the first account's app for a moment.
 - `/api/playlist` stays open: it returns the titles of public YouTube playlists,
   edge-cached for half an hour with its Data API spend capped daily, and the
   video page asks for about 40 at once. `GET /api/external-connect` (which
@@ -123,11 +133,18 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
 
 - A saved session is judged on the device from its stored identities and the last
   server answer, with no network. Offline, the app opens as before.
-- A session whose access token has expired opens its account at once from the
-  device (`storedAuthSession`, `src/lib/auth-storage.js`) instead of waiting about
-  25 s for a refresh that cannot run, and keeps it when auth-js answers "no
-  session" because the refresh failed on the network. Only a sign-out, or the
-  server refusing the refresh token (auth-js then removes it), ends it.
+- A saved session opens its account at once from the device
+  (`storedAuthSession`, `src/lib/auth-storage.js`), so neither Home nor the wall
+  waits for the auth SDK chunk on each open. With an expired access token offline
+  this matters most: auth-js answers "no session" only after about 25 s of
+  retries, and on a network failure it keeps the token while answering null, so
+  the app keeps the account then too. Only a sign-out, or the server refusing the
+  refresh token (auth-js then removes it), ends it. It reads only the client's own
+  storage key, and never on a sign-in redirect, where the arriving account must
+  not be preceded by the one on the device.
+- Signing out of a device works offline: when auth-js cannot reach the server it
+  answers with an error and keeps the token, so every front end then drops the
+  token through the client's own storage itself.
 - The wall never signs anyone out. Tokens refresh when the device is back online.
 - A re-read of a known member's session (a profile save, a passkey) keeps the app
   on screen; the wall's checking screen is only for a device with no account yet.

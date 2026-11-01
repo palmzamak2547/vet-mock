@@ -88,14 +88,16 @@ export function useAuth() {
     // bootstrapped loading=true via useState init, so this is mostly
     // for Path B; idempotent for both paths.
     setLoading(true);
-    // A session whose access token has expired needs the network to refresh, and
-    // with none the SDK answers "no session" only after ~25 s of retries while the
-    // session is still on the device. Open the account it holds at once instead:
-    // the student keeps their own progress offline, and the refresh below (or the
-    // listener, once the network is back) replaces it with the server's answer.
+    // Open the account this device holds at once, without waiting for the SDK chunk:
+    // Home and the Chula wall need not sit behind its load (~80 ms of evaluation on
+    // a mid phone before any network). getSession below answers from the same
+    // storage, or replaces it after a refresh. An expired token offline matters most:
+    // the SDK then answers "no session" only after ~25 s of retries while the session
+    // is still on the device, and the student keeps their own progress meanwhile.
+    // Not on a sign-in redirect: the account arriving in the address replaces the
+    // one on the device, which must not paint first.
     const held = storedAuthSession();
-    const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
-    if (held && (offline || held.expiresAt * 1000 < Date.now())) {
+    if (held && !hasAuthRedirectInUrl()) {
       commitUser(held.user);
       setLoading(false);
     }

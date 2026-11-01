@@ -125,7 +125,14 @@ export const authPort = {
   /** This device only: the account is shared with vetmock.com and its other devices. */
   async signOut() {
     const client = await getAuthClient();
-    if (client) await client.auth.signOut({ scope: 'local' });
+    if (!client) return;
+    const { error } = await client.auth.signOut({ scope: 'local' });
+    // Offline (or an expired token with no network) auth-js keeps the token: drop it
+    // through the client's own storage, so this device is signed out regardless.
+    if (!error) return;
+    const { storage, storageKey } = client.auth;
+    await storage?.removeItem(storageKey);
+    await storage?.removeItem(`${storageKey}-code-verifier`);
   },
   /** A fresh access token, or null when the server would not give one. */
   async refresh() {

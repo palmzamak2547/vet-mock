@@ -11,7 +11,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import '../styles-gate.css';
 import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
-import { CHULA_HD, chulaEmailOf, signInProblem, takeAuthErrorFromUrl } from '../lib/chula.js';
+import { CHULA_HD, chulaEmailOf, readAuthErrorFromUrl, signInProblem, takeAuthErrorFromUrl } from '../lib/chula.js';
 import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
 import {
   getSupabase, signInWithGoogle, signInWithEmail, signInWithPasskey, isPasskeySupported, signOut,
@@ -19,7 +19,7 @@ import {
 } from '../lib/supabase.js';
 import { isGoogleGisAvailable, renderGoogleGisButton } from '../lib/google-gis.js';
 import { sendFeedback } from '../lib/feedback-client.js';
-import { takeBootAuthError } from '../hooks/useChulaWall.js';
+import { dropBootAuthError, peekBootAuthError } from '../hooks/useChulaWall.js';
 
 const PROBLEMS = {
   'not-chula': ['บัญชีนี้ไม่ใช่อีเมลจุฬา', 'เลือกบัญชี @student.chula.ac.th หรือ @chula.ac.th แล้วลองใหม่'],
@@ -278,11 +278,19 @@ export default function ChulaGateView({ wall, user, onAbout }) {
   const online = useOnline();
   const inApp = useMemo(() => (typeof navigator === 'undefined' ? null : inAppBrowser(navigator.userAgent)), []);
   const [busy, setBusy] = useState(null);
+  // Only read here: a render can be thrown away, or the gate mounted again after
+  // its checking screen, and Google's refusal must survive both.
   const [problem, setProblem] = useState(() => {
-    const fromUrl = takeBootAuthError() || takeAuthErrorFromUrl();
+    const fromUrl = peekBootAuthError() || readAuthErrorFromUrl();
     if (fromUrl) return signInProblem(fromUrl) || 'unknown';
     return BOOT_HAD_SESSION && !signedOutOnPurpose() ? 'expired' : null;
   });
+  // Shown on a screen that has a place for it: now drop it and tidy the address.
+  useEffect(() => {
+    if (state === 'checking') return;
+    dropBootAuthError();
+    takeAuthErrorFromUrl();
+  }, [state]);
   const [form, setForm] = useState(null); // 'password' while the old-account form is open
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

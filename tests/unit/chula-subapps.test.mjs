@@ -6,6 +6,7 @@
 // together: they are copies, not subsets, so a new export there belongs in all three, and this file
 // names the copy that drifted.
 import test from 'node:test';
+import { readFileSync as readSource } from 'node:fs';
 import assert from 'node:assert/strict';
 import * as main from '../../src/lib/chula.js';
 import * as ai from '../../ai/src/lib/chula.js';
@@ -205,4 +206,17 @@ test('the same answer when the database has no state function (404): no wall, ne
     }
   }
   assert.deepEqual(answers[0], { enforce: false, member: null, uid: null }, 'the main rule reads a missing function as no wall');
+});
+
+test('each sub-app links the ID token it was handed, and signs out of the device even offline', () => {
+  const read = (path) => readSource(new URL(path, import.meta.url), 'utf8');
+  // Without `token`, auth-js would quietly switch to linking through a redirect.
+  for (const [name, path] of [['ai', '../../ai/src/lib/auth.js'], ['vca', '../../vca/src/online/gate.js'], ['research', '../../research/src/lib/auth/wall.js']]) {
+    assert.ok(read(path).includes("linkIdentity({ provider: 'google', token, nonce })"), `${name} links the ID token`);
+  }
+  for (const [name, path] of [['ai', '../../ai/src/lib/auth.js'], ['vca', '../../vca/src/online/live.js'], ['research', '../../research/src/lib/auth/client.js']]) {
+    const src = read(path);
+    assert.ok(src.includes("signOut({ scope: 'local' })"), `${name} signs out of this device only`);
+    assert.ok(/removeItem\((AUTH_STORAGE_KEY|storageKey)\)/.test(src), `${name} drops the token itself when the server cannot be reached`);
+  }
 });

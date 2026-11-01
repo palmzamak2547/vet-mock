@@ -81,7 +81,17 @@ export async function signOut() {
   if (!client) return { ok: true, key: null };
   leftOnPurpose = true;
   const { error } = await client.auth.signOut({ scope: 'local' });
-  return error ? { ok: false, key: 'runtime.auth.failed' } : { ok: true, key: null };
+  if (!error) return { ok: true, key: null };
+  // Offline (or an expired token with no network) auth-js keeps the token: drop it
+  // through the client's own storage, so this device is signed out whatever the server said.
+  const { storage, storageKey } = client.auth ?? {};
+  try {
+    await storage.removeItem(storageKey);
+    await storage.removeItem(`${storageKey}-code-verifier`);
+    return { ok: true, key: null };
+  } catch {
+    return { ok: false, key: 'runtime.auth.failed' };
+  }
 }
 
 /** Remove the sign-in leftovers (?code=, ?error=) from the address bar once the client has read them. */

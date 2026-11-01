@@ -11,13 +11,12 @@ const URL_ = import.meta.env.VITE_SUPABASE_URL;
 const KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Read while the page boots, before the auth SDK or the router tidies the address:
-// the gate mounts later, and Google's refusal must still reach it. Shown once.
+// the gate mounts later, and Google's refusal must still reach it. The gate reads
+// it while rendering and drops it only once a screen that shows it has committed,
+// because React may render the gate more than once (or mount it again) first.
 let bootAuthError = typeof window === 'undefined' ? null : readAuthErrorFromUrl();
-export function takeBootAuthError() {
-  const found = bootAuthError;
-  bootAuthError = null;
-  return found;
-}
+export const peekBootAuthError = () => bootAuthError;
+export function dropBootAuthError() { bootAuthError = null; }
 
 /** Set by the gate before a sign-in starts; the door opens once when it lands. */
 export const WELCOME_KEY = 'vmx-chula-welcome';

@@ -88,7 +88,13 @@ export const auth = {
     const sb = await getClient();
     // This device only: the account is shared with vetmock.com, and the default (global) revokes
     // every refresh token, which signed the student out of VetMock on all their devices.
-    await sb.auth.signOut({ scope: 'local' });
+    const { error } = await sb.auth.signOut({ scope: 'local' });
+    // Offline (or an expired token with no network) auth-js keeps the token: drop it
+    // through the client's own storage, so this device is signed out regardless.
+    if (!error) return;
+    const { storage, storageKey } = sb.auth;
+    await storage?.removeItem(storageKey);
+    await storage?.removeItem(`${storageKey}-code-verifier`);
   },
 };
 

@@ -14,14 +14,16 @@
 // share one fetch and one createClient() call.
 // ============================================================
 
-import { createAuthStorage, hasStoredAuthToken, storedAuthSession } from './auth-storage.js';
-
-export { storedAuthSession };
+import { authStorageKey, createAuthStorage, hasStoredAuthToken, storedAuthSession as readStoredSession } from './auth-storage.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const hasSupabase = !!(url && key);
+
+// The session this device holds under the client's own key (auth-storage.js).
+const AUTH_STORAGE_KEY = hasSupabase ? authStorageKey(url) : null;
+export const storedAuthSession = () => readStoredSession(AUTH_STORAGE_KEY);
 
 let _clientPromise = null;
 
@@ -221,7 +223,18 @@ export async function signOut() {
   if (!supabase) return;
   try { localStorage.setItem('vmx-signed-out', String(Date.now())); } catch { /* private mode */ }
   const { error } = await supabase.auth.signOut({ scope: 'local' });
-  if (error) throw error;
+  if (error) {
+    // Offline, or with an expired token and no network, auth-js answers with an
+    // error and keeps the token. Signing out of this device must not wait for the
+    // server: drop the token through the client's own storage (the "stay signed
+    // in" adapter clears both stores). If that is not possible, report the failure.
+    const { storage, storageKey } = supabase.auth ?? {};
+    if (!storage || !storageKey) throw error;
+    try {
+      await storage.removeItem(storageKey);
+      await storage.removeItem(`${storageKey}-code-verifier`);
+    } catch { throw error; }
+  }
   // The LIFF SDK keeps its own login for 12 hours; without this the next
   // person on a shared browser inherits the LINE identity for up to an hour.
   // Inline (not a helper): auth-action-failure runs this body in a sandbox.
