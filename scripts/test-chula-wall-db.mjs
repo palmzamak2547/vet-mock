@@ -192,7 +192,7 @@ try {
     await run(`${insert('new2@student.chula.ac.th', null)};`);
   });
 
-  await check('the pre-request lets in members, the admin, service_role and three public calls', async () => {
+  await check('the pre-request lets in members, the admin, service_role and four public calls', async () => {
     await rejects(as('anon', null, `select public.chula_pre_request()`), /chula_member_required/);
     await rejects(as('authenticated', U.gmail, `select public.chula_pre_request()`), /chula_member_required/);
     await rejects(as('authenticated', U.pwChula, `select public.chula_pre_request()`), /chula_member_required/);
@@ -202,7 +202,7 @@ try {
     await run(as('authenticated', U.staff, `select public.chula_pre_request()`));
     await run(as('authenticated', U.admin, `select public.chula_pre_request()`));
     await run(as('service_role', null, `select public.chula_pre_request()`));
-    for (const open of ['/rpc/chula_access_state', '/rpc/seeside_public_stats', '/rpc/record_client_diagnostic']) {
+    for (const open of ['/rpc/chula_access_state', '/rpc/seeside_public_stats', '/rpc/record_client_diagnostic', '/rpc/library_doc_for_signing']) {
       await run(as('anon', null, `select public.chula_pre_request()`, open));
     }
     await rejects(as('anon', null, `select public.chula_pre_request()`, '/rpc/chula_access_state/../notes'), /chula_member_required/);

@@ -1,0 +1,524 @@
+/* ============================================================
+   styles-gate.css — the Chula sign-in wall (ChulaGateView.jsx)
+   ============================================================
+   One authored moment: the Chula address assembles from scattered glyphs
+   behind a scanning beam, inside a HUD frame, and on sign-in it resolves into
+   the student's own address and the page opens like a door. Everything else
+   is the house's warm editorial paper: cream, sage, Sarabun.
+
+   Numbers and where they come from (physics-math-design):
+   - --gate-ease / --gate-dur: a critically damped spring, response 0.45 s,
+     damping 1, sampled into linear(); settles to 0.1% in 661 ms.
+   - stagger 0, 30, 56, 77 ms: first 30 ms, ratio 0.85 (geometric series).
+   - card shadow: elevation 12 px -> blur 12, y 4.8, spread -3 (penumbra model).
+   - --gate-pink: oklch(0.52 0.17 355) = #ae316e, 5.31:1 on --clr-bg and 5.73:1
+     on --clr-surface; dark oklch(0.78 0.12 355) = #f496bb, 8.50:1 on the dark bg.
+   - heading 28 px at 375 to 40 px at 1440 (linear interpolation clamp).
+   ============================================================ */
+
+.vmx-gate,
+.vmx-gate-exit {
+  --gate-pink: #ae316e;
+  --gate-pink: oklch(0.52 0.17 355);
+  --gate-pink-wash: color-mix(in oklab, var(--gate-pink) 10%, transparent);
+  --gate-pink-line: color-mix(in oklab, var(--gate-pink) 55%, transparent);
+  --gate-ease: linear(0, 0.114, 0.321, 0.516, 0.671, 0.783, 0.86, 0.911, 0.944, 0.966, 0.979, 0.987, 0.992, 0.995, 0.997, 0.998, 1);
+  --gate-dur: 661ms;
+  --gate-grid: color-mix(in oklab, var(--clr-ink) 6%, transparent);
+}
+.vmx-gate {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-6);
+  padding: max(var(--space-4), env(safe-area-inset-top)) max(var(--space-4), env(safe-area-inset-right))
+    max(var(--space-4), env(safe-area-inset-bottom)) max(var(--space-4), env(safe-area-inset-left));
+  background: var(--clr-bg);
+  color: var(--clr-ink);
+  font-family: 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
+  overflow-x: clip;
+}
+[data-theme="dark"] :is(.vmx-gate, .vmx-gate-exit) {
+  --gate-pink: #f496bb;
+  --gate-pink: oklch(0.78 0.12 355);
+  --gate-grid: color-mix(in oklab, var(--clr-ink) 5%, transparent);
+}
+.vmx-gate ::selection { background: var(--gate-pink-wash); color: var(--clr-ink); }
+
+/* ── The scene: a warm sci-fi room the identity is assembled in ──
+   A floor grid in true perspective (a camera at eye height, perspective 900 px,
+   floor tilted 62 degrees) runs toward the viewer one cell every 2.4 s, and a
+   radar sweeps behind the address once every 16 s (22.5 degrees a second).
+   Both move only by transform, on layers of their own, so the page never
+   repaints for them; with reduced motion both stand still. */
+.vmx-gate,
+.vmx-gate-exit {
+  --gate-line: color-mix(in oklab, var(--clr-sage) 22%, transparent);
+  --gate-ring: color-mix(in oklab, var(--clr-ink) 9%, transparent);
+  --gate-sweep: color-mix(in oklab, var(--gate-pink) 10%, transparent);
+}
+[data-theme="dark"] :is(.vmx-gate, .vmx-gate-exit) {
+  --gate-line: color-mix(in oklab, var(--clr-sage) 30%, transparent);
+  --gate-ring: color-mix(in oklab, var(--clr-ink) 10%, transparent);
+  --gate-sweep: color-mix(in oklab, var(--gate-pink) 18%, transparent);
+}
+.vmx-gate-scene { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; perspective: 900px; perspective-origin: 50% 30%; }
+.vmx-gate-floor {
+  position: absolute;
+  left: -60%;
+  right: -60%;
+  bottom: -12%;
+  height: 62%;
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  transform: rotateX(62deg);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 30%, transparent 92%);
+  mask-image: linear-gradient(to top, #000 0%, #000 30%, transparent 92%);
+}
+.vmx-gate-floor::before {
+  content: '';
+  position: absolute;
+  inset: -64px 0 0;
+  background:
+    repeating-linear-gradient(90deg, var(--gate-line) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(0deg, var(--gate-line) 0 1px, transparent 1px 64px);
+  will-change: transform;
+}
+/* The horizon: where the floor fades, one pink hairline. */
+.vmx-gate-floor::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gate-pink-line) 30%, var(--gate-pink-line) 70%, transparent);
+}
+.vmx-gate-radar {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: min(118vmin, 880px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, transparent 0 32%, var(--gate-ring) 32% calc(32% + 1px), transparent calc(32% + 1px) 49%, var(--gate-ring) 49% calc(49% + 1px), transparent calc(49% + 1px));
+}
+.vmx-gate-radar::before {
+  content: '';
+  position: absolute;
+  inset: 1%;
+  border-radius: 50%;
+  /* A trailing beam with a crisp leading edge, faint toward the middle where the
+     words are and strongest at the rim, the way a radar trace decays. */
+  background: conic-gradient(from 0deg, transparent 0deg 304deg, var(--gate-sweep) 359.2deg, var(--gate-pink-line) 359.2deg 360deg);
+  -webkit-mask-image: radial-gradient(circle closest-side, transparent 0 30%, rgba(0, 0, 0, 0.35) 55%, #000 100%);
+  mask-image: radial-gradient(circle closest-side, transparent 0 30%, rgba(0, 0, 0, 0.35) 55%, #000 100%);
+  will-change: transform;
+}
+/* Four ticks on the outer ring, the way an instrument marks its quarters. */
+.vmx-gate-radar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--gate-ring), var(--gate-ring)) 50% 0 / 1px 14px no-repeat,
+    linear-gradient(var(--gate-ring), var(--gate-ring)) 50% 100% / 1px 14px no-repeat,
+    linear-gradient(var(--gate-ring), var(--gate-ring)) 0 50% / 14px 1px no-repeat,
+    linear-gradient(var(--gate-ring), var(--gate-ring)) 100% 50% / 14px 1px no-repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-floor::before { animation: vmx-gate-floor 2.4s linear infinite; }
+  .vmx-gate-radar::before { animation: vmx-gate-sweep-turn 16s linear infinite; }
+}
+@keyframes vmx-gate-floor { to { transform: translateY(64px); } }
+@keyframes vmx-gate-sweep-turn { to { transform: rotate(1turn); } }
+
+/* A blueprint grid, faded toward the edges: the page an identity is assembled on. */
+.vmx-gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, var(--gate-grid) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, var(--gate-grid) 0 1px, transparent 1px 32px);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 42%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 42%, #000 0%, transparent 78%);
+}
+
+.vmx-gate-top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.vmx-gate-wordmark { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--clr-ink); }
+.vmx-gate-wordmark span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
+
+.vmx-gate-main {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 31rem);
+  display: grid;
+  gap: var(--space-5);
+}
+
+/* Entrance: everything is visible by default; the motion only adds the rise. */
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-rise > * { animation: vmx-gate-rise var(--gate-dur) var(--gate-ease) both; }
+  .vmx-gate-rise > :nth-child(2) { animation-delay: 30ms; }
+  .vmx-gate-rise > :nth-child(3) { animation-delay: 56ms; }
+  .vmx-gate-rise > :nth-child(4) { animation-delay: 77ms; }
+  .vmx-gate-rise > :nth-child(n + 5) { animation-delay: 96ms; }
+}
+@keyframes vmx-gate-rise { from { opacity: 0; transform: translateY(12px); } }
+
+.vmx-gate-hello { display: flex; align-items: flex-end; gap: var(--space-4); }
+.vmx-gate-mochi { width: 88px; height: 88px; flex: none; margin-bottom: -6px; }
+.vmx-gate-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.486rem + 1.127vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-wrap: balance;
+  outline: none;
+}
+.vmx-gate-lead { margin: 0; font-size: var(--text-md); line-height: 1.6; color: var(--clr-ink-soft); max-width: 32em; }
+
+/* ── The address, assembled ─────────────────────────────── */
+.vmx-gate-id {
+  position: relative;
+  margin: var(--space-2) 0 0;
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-radius: var(--r-lg);
+  background: var(--clr-surface);
+  box-shadow: 0 4.8px 12px -3px rgba(43, 36, 25, 0.12), 0 1px 2px rgba(43, 36, 25, 0.06);
+}
+[data-theme="dark"] .vmx-gate-id { box-shadow: 0 0 0 1px var(--clr-border); }
+/* HUD corners: four brackets that close in on the address, a target locking. */
+.vmx-gate-corner { position: absolute; width: 18px; height: 18px; border: 0 solid var(--gate-pink); pointer-events: none; }
+.vmx-gate-corner[data-c="tl"] { top: 8px; left: 8px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 6px; }
+.vmx-gate-corner[data-c="tr"] { top: 8px; right: 8px; border-top-width: 2px; border-right-width: 2px; border-top-right-radius: 6px; }
+.vmx-gate-corner[data-c="bl"] { bottom: 8px; left: 8px; border-bottom-width: 2px; border-left-width: 2px; border-bottom-left-radius: 6px; }
+.vmx-gate-corner[data-c="br"] { bottom: 8px; right: 8px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 6px; }
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-id[data-play="1"] .vmx-gate-corner { animation: vmx-gate-lock 420ms var(--gate-ease) both; }
+  .vmx-gate-id[data-play="1"] .vmx-gate-corner[data-c="tl"] { --gx: -10px; --gy: -10px; }
+  .vmx-gate-id[data-play="1"] .vmx-gate-corner[data-c="tr"] { --gx: 10px; --gy: -10px; }
+  .vmx-gate-id[data-play="1"] .vmx-gate-corner[data-c="bl"] { --gx: -10px; --gy: 10px; }
+  .vmx-gate-id[data-play="1"] .vmx-gate-corner[data-c="br"] { --gx: 10px; --gy: 10px; }
+}
+@keyframes vmx-gate-lock { from { opacity: 0; transform: translate(var(--gx, 0), var(--gy, 0)); } }
+
+.vmx-gate-addr {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-1);
+  font-size: clamp(1.25rem, 1.03rem + 0.94vw, 1.875rem);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.vmx-gate-addr-local { color: var(--clr-ink-soft); font-weight: 500; font-size: 0.72em; }
+.vmx-gate-glyphs { display: inline-flex; flex-wrap: wrap; font-weight: 600; color: var(--gate-pink); letter-spacing: 0.01em; }
+/* Each glyph keeps the width of its final letter, so the line never moves while
+   the noise above it cycles. */
+.vmx-gate-g { position: relative; display: inline-block; }
+.vmx-gate-g > b { font-weight: inherit; }
+.vmx-gate-g > i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  opacity: 0;
+  color: color-mix(in oklab, var(--gate-pink) 70%, var(--clr-ink));
+}
+.vmx-gate-g[data-s="0"] > b { color: transparent; }
+.vmx-gate-g[data-s="0"] > i { opacity: 0.85; }
+.vmx-gate-beam {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--gate-pink);
+  box-shadow: 0 0 0 4px var(--gate-pink-wash);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+/* When the last glyph lands, a pink hairline draws under the address: the lock. */
+.vmx-gate-addr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gate-pink), var(--gate-pink-line));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.vmx-gate-addr[data-done="1"]::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-addr[data-done="1"]::after { transition: transform 480ms var(--gate-ease); }
+}
+.vmx-gate-caption { margin: var(--space-3) 0 0; font-size: var(--text-sm); line-height: 1.6; color: var(--clr-ink-soft); }
+
+/* ── Actions ────────────────────────────────────────────── */
+.vmx-gate-actions { display: grid; gap: var(--space-2); }
+.vmx-gate-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--space-5) 0 var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: var(--clr-sage);
+  color: var(--clr-sage-on);
+  font: 600 var(--text-md)/1.2 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.vmx-gate-primary:hover:not(:disabled) { background: color-mix(in oklab, var(--clr-sage) 88%, var(--clr-ink)); }
+.vmx-gate-primary:active:not(:disabled) { transform: scale(0.985); }
+.vmx-gate-primary:disabled { cursor: progress; opacity: 0.86; }
+.vmx-gate-g-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 10px;
+  background: #fff;
+}
+.vmx-gate-g-mark img { width: 20px; height: 20px; }
+.vmx-gate-primary-label { flex: 1; text-align: center; padding-right: 36px; }
+
+.vmx-gate-quiet {
+  justify-self: center;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  background: none;
+  color: var(--clr-ink-soft);
+  font: 500 var(--text-sm)/1.4 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--clr-ink-soft) 40%, transparent);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.vmx-gate-quiet:hover { color: var(--clr-ink); text-decoration-color: currentColor; }
+.vmx-gate-quiet:disabled { cursor: progress; opacity: 0.6; }
+
+.vmx-gate :focus-visible { outline: 3px solid var(--gate-pink); outline-offset: 3px; border-radius: var(--r-sm); }
+
+/* Google's own button (an iframe Google draws, at most 400 px wide). The slot
+   holds its height while it loads so nothing below it moves. */
+.vmx-gate-gsi { display: grid; justify-items: center; gap: var(--space-2); }
+.vmx-gate-gsi-slot { display: flex; justify-content: center; width: 100%; max-width: 400px; min-height: 44px; border-radius: 4px; }
+.vmx-gate-gsi-slot:empty { background: color-mix(in oklab, var(--clr-ink) 6%, transparent); }
+.vmx-gate-gsi[data-busy="1"] .vmx-gate-gsi-slot { opacity: 0.55; pointer-events: none; transition: opacity var(--dur) var(--ease-out); }
+
+/* Busy: a short beam under the label, never a spinner over the text. */
+.vmx-gate-busy { position: relative; overflow: hidden; }
+.vmx-gate-busy::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--clr-sage-on), transparent);
+  opacity: 0.7;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-busy::after { animation: vmx-gate-sweep 1.1s linear infinite; }
+}
+@keyframes vmx-gate-sweep { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+/* ── Notices ────────────────────────────────────────────── */
+.vmx-gate-note {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--clr-ink);
+}
+.vmx-gate-note[data-tone="problem"] {
+  border-color: color-mix(in oklab, var(--clr-rose) 45%, var(--clr-border));
+  background: color-mix(in oklab, var(--clr-rose) 8%, var(--clr-surface));
+}
+.vmx-gate-note b { display: block; margin-bottom: 2px; font-weight: 700; }
+.vmx-gate-note .vmx-gate-quiet { justify-self: start; padding-left: 0; }
+.vmx-gate-note-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.vmx-gate-chip-btn {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  font: 600 var(--text-sm)/1.2 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.vmx-gate-chip-btn:hover:not(:disabled) { border-color: var(--clr-ink-soft); }
+.vmx-gate-chip-btn:disabled { cursor: progress; opacity: 0.6; }
+
+/* Linking: the account in use, a connector, and the Chula identity to add. */
+.vmx-gate-link-from { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; font-size: var(--text-md); color: var(--clr-ink-soft); overflow-wrap: anywhere; }
+.vmx-gate-link-from strong { color: var(--clr-ink); font-weight: 600; }
+.vmx-gate-tag {
+  display: inline-block;
+  padding: 1px var(--space-2);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--clr-border);
+  font-size: var(--text-sm);
+  color: var(--clr-ink-soft);
+  white-space: nowrap;
+}
+/* The connector: a dashed run from the account in use down to the Chula identity,
+   ending in a node, the way a circuit trace meets its pad. */
+.vmx-gate-wire {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 30px;
+  margin: var(--space-2) 0 var(--space-3) 12px;
+  background: repeating-linear-gradient(180deg, var(--gate-pink-line) 0 4px, transparent 4px 7px);
+  transform-origin: top;
+}
+.vmx-gate-wire::before,
+.vmx-gate-wire::after { content: ''; position: absolute; left: 50%; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); }
+.vmx-gate-wire::before { top: -4px; border: 2px solid var(--clr-border); background: var(--clr-surface); }
+.vmx-gate-wire::after { bottom: -6px; background: var(--gate-pink); box-shadow: 0 0 0 3px var(--gate-pink-wash); }
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-id[data-play="1"] .vmx-gate-wire { animation: vmx-gate-wire 360ms var(--gate-ease) 120ms both; }
+}
+@keyframes vmx-gate-wire { from { transform: scaleY(0); } }
+
+/* ── The old-account door ──────────────────────────────── */
+.vmx-gate-other { border-top: 1px solid var(--clr-border); padding-top: var(--space-4); }
+.vmx-gate-other > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  cursor: pointer;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--clr-ink);
+}
+.vmx-gate-other > summary::-webkit-details-marker { display: none; }
+.vmx-gate-other > summary::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-3px);
+  transition: transform var(--dur) var(--ease-out);
+}
+.vmx-gate-other[open] > summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+.vmx-gate-other-body { display: grid; gap: var(--space-3); padding-top: var(--space-2); }
+.vmx-gate-other-body p { margin: 0; font-size: var(--text-sm); line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-gate-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.vmx-gate-form { display: grid; gap: var(--space-2); }
+.vmx-gate-form label { font-size: var(--text-sm); font-weight: 600; }
+.vmx-gate-form input,
+.vmx-gate-form textarea {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  font: 400 16px/1.5 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
+  caret-color: var(--gate-pink);
+}
+.vmx-gate-form textarea { min-height: 96px; resize: vertical; }
+
+/* ── Foot ───────────────────────────────────────────────── */
+.vmx-gate-foot { display: grid; gap: var(--space-2); justify-items: center; text-align: center; font-size: var(--text-sm); line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-gate-foot p { margin: 0; max-width: 36em; }
+.vmx-gate-foot a { color: inherit; text-underline-offset: 4px; }
+.vmx-gate-foot-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0 var(--space-4); }
+.vmx-gate-foot-links > a { min-height: var(--touch-min); display: inline-flex; align-items: center; }
+.vmx-gate-foot .vmx-gate-form { width: 100%; max-width: 28rem; text-align: left; }
+
+.vmx-gate-checking { align-self: center; justify-self: center; display: grid; justify-items: center; gap: var(--space-3); color: var(--clr-ink-soft); font-size: var(--text-sm); }
+.vmx-gate-checking-text { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-gate-checking-text { animation: vmx-gate-appear var(--dur-slow) var(--ease-out) 600ms forwards; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-gate-checking-text { opacity: 1; }
+}
+@keyframes vmx-gate-appear { to { opacity: 1; } }
+
+.vmx-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* ── The door: after sign-in the gate opens over the app ── */
+.vmx-gate-exit { position: fixed; inset: 0; z-index: var(--z-overlay); color: var(--clr-ink); font-family: 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif; }
+.vmx-gate-exit[data-phase="open"] { pointer-events: none; }
+.vmx-gate-exit-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  background: var(--clr-bg);
+  will-change: transform;
+}
+.vmx-gate-exit-half[data-h="top"] { top: 0; border-bottom: 1px solid var(--gate-pink-line); }
+.vmx-gate-exit-half[data-h="bottom"] { bottom: 0; }
+/* The welcome card sits across the seam, so each half shows its own half of it. */
+.vmx-gate-exit-card {
+  position: absolute;
+  left: 50%;
+  width: min(calc(100vw - 32px), 30rem);
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+.vmx-gate-exit-half[data-h="top"] .vmx-gate-exit-card { bottom: 0; transform: translate(-50%, 50%); }
+.vmx-gate-exit-half[data-h="bottom"] .vmx-gate-exit-card { top: 0; transform: translate(-50%, -50%); }
+.vmx-gate-exit-hello { margin: 0; font-size: clamp(1.5rem, 1.28rem + 0.94vw, 2.125rem); font-weight: 700; line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); }
+/* A page-level spring (response 0.50 s, damping 1) settles in 734 ms; a critically
+   damped curve sampled over its own settle time has one shape at every response,
+   so the doors reuse --gate-ease with the longer duration. */
+.vmx-gate-exit[data-phase="open"] .vmx-gate-exit-half { transition: transform 734ms var(--gate-ease); }
+.vmx-gate-exit[data-phase="open"] .vmx-gate-exit-half[data-h="top"] { transform: translateY(-100%); }
+.vmx-gate-exit[data-phase="open"] .vmx-gate-exit-half[data-h="bottom"] { transform: translateY(100%); }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-gate-exit[data-phase="open"] { opacity: 0; transition: opacity var(--dur-fast) linear; }
+  .vmx-gate-exit[data-phase="open"] .vmx-gate-exit-half { transform: none; transition: none; }
+}
+
+@media (max-width: 420px) {
+  .vmx-gate-mochi { width: 72px; height: 72px; }
+  .vmx-gate-id { padding: var(--space-4) var(--space-4) var(--space-3); }
+}

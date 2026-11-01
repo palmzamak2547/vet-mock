@@ -36,6 +36,7 @@ import { EXTERNAL_COURSES } from '../../../src/data/library-courses.js';
 import { normalizeQuery } from '../../../src/lib/vetwiki/query-terms.js';
 import { clip, stripBroken } from './text.js';
 import { RARE_SHARE } from './textindex.js';
+import { mintOpenTicket, ticketQuery } from '../open-ticket.js';
 
 const SITE = 'https://vetmock.com';
 const TIMEOUT_MS = 1400;
@@ -105,9 +106,10 @@ export function formatOf(mime = '', title = '') {
 }
 
 /** The links a document opens and downloads through (vetmock.com's own gate):
- *  open lands on the matching page; download saves it under its own title. */
-export function fileLinks(slug, page, title = '', mime = 'application/pdf') {
-  const q = `${SITE}/api/library-file?slug=${encodeURIComponent(slug)}&open=1`;
+ *  open lands on the matching page; download saves it under its own title. The
+ *  links carry an open ticket, so a member's tap works without a header. */
+export function fileLinks(slug, page, title = '', mime = 'application/pdf', ticket = mintOpenTicket(slug)) {
+  const q = `${SITE}/api/library-file?slug=${encodeURIComponent(slug)}&open=1${ticketQuery(ticket)}`;
   const fmt = formatOf(mime, title);
   const ext = fmt ? `.${fmt.toLowerCase()}` : '';
   const name = title ? `&name=${encodeURIComponent(`${displayTitle(title).slice(0, 140)}${ext}`)}` : '';

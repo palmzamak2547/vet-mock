@@ -250,6 +250,7 @@ jobs:
             --project=chromium-desktop --project=chromium-mobile \
             --reporter=github,json,html \
             tests/e2e/admin-recovery.spec.js \
+            tests/e2e/chula-wall.spec.js \
             tests/e2e/external-doc-recovery.spec.js \
             tests/e2e/pdf-recent-delete.spec.js \
             tests/e2e/private-notes-reader.spec.js

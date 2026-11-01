@@ -40,6 +40,7 @@ import SyncStatusNotice from './components/SyncStatusNotice.jsx';
 import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequiredState.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
+import { useChulaWall } from './hooks/useChulaWall.js';
 import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType } from './hooks/utils.js';
 import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, questionPinPayload, unfinishedWork, unsavedResult, runSubjectFor } from './lib/app-flow.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
@@ -98,7 +99,7 @@ import {
   QuestionManagerView, AuthView, GroupsView, GroupDetailView,
   LeaderboardView, ScheduleView, ScoresView, VideoView, AboutView,
   FeedbackView, IgCardStudioView, YearSelectView, LandingView,
-  PhaseSelectView, TopicSelectView, NotesView, LibraryView,
+  PhaseSelectView, TopicSelectView, NotesView, LibraryView, ChulaGateView, ChulaGateExit,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
   AccountSettingsView, ProfileView, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
@@ -248,6 +249,9 @@ const WIDE_VIEWS = new Set([
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
 const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config', 'atlas']);
+// Open before sign-in while the Chula wall is on: the public front door and
+// the privacy terms a student reads before agreeing (docs/CHULA-SIGNIN.md).
+const GATE_PUBLIC_VIEWS = new Set(['landing', 'privacy']);
 // Marketing/ecosystem links belong on destination pages, not after every
 // internal workflow. Keeping the footer off topic, notes, schedule and tool
 // views shortens those tasks without removing any top-level navigation.
@@ -308,6 +312,8 @@ const READER_ORIGINS = new Set(['topic-select', 'wrapup', 'knowledge', 'wiki']);
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
+  // The Chula sign-in wall: until it opens, the app below renders nothing.
+  const wall = useChulaWall({ user, loading: authLoading });
 
   // The back-office door. The database decides who is an admin (is_admin());
   // this only says whether to draw the entry in the menu and palette.
@@ -3021,6 +3027,7 @@ export default function App() {
             onOpenLab={() => goLanding({ kind: 'lab' })}
             onPickSubject={landingPickSubject}
             onOpenAuth={landingOpenAuth}
+            onSignIn={wall.enforce === true ? () => leaveLandingTo('home') : undefined}
             onGoogle={() => { signInWithGoogle().catch(() => landingOpenAuth()); }}
             onMagicLink={(email) => signInWithMagicLink(email)}
             hasSupabase={hasSupabase}
@@ -3044,11 +3051,22 @@ export default function App() {
     );
   }
 
+  if (wall.state !== 'open' && !GATE_PUBLIC_VIEWS.has(view)) {
+    return (
+      <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} aria-busy="true" />}>
+        <ChulaGateView wall={wall} user={user} onAbout={() => setView('landing')} />
+      </Suspense>
+    );
+  }
+
   return (
     <MochiProvider view={view} mode={mode}>
       {/* Global CSS now loaded via `import './styles.css'` at the top of
           this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
+      {wall.welcome && user && (
+        <Suspense fallback={null}><ChulaGateExit user={user} onDone={wall.doneWelcome} /></Suspense>
+      )}
       {/* A pending decision belongs to the view and account that opened it. */}
       <DialogHost scope={view} owner={user?.id ?? null} />
       {/* `is-focus` = the bottom nav is not rendered for this view, so the

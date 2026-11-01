@@ -65,6 +65,7 @@ export default function LandingView({
   onOpenAuth,          // () => hand off to real AuthView (password / signup)
   onGoogle,            // () => real signInWithGoogle()
   onMagicLink,         // async (email) => real signInWithMagicLink()
+  onSignIn,            // set while the Chula wall is on: every sign-in opener goes to its screen instead
   hasSupabase = false, // gate real auth methods honestly
   theme = 'light',
   onToggleTheme,       // () => flip real theme
@@ -480,6 +481,7 @@ export default function LandingView({
 
   // ---- real login ----
   const openLogin = (event) => {
+    if (onSignIn) { onSignIn(); return; }
     // Mobile Safari/WebKit does not focus a button when it is tapped, so
     // document.activeElement can still be <body>. The click target is the
     // reliable opener across pointer and keyboard activation.

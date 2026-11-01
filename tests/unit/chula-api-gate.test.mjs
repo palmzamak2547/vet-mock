@@ -87,6 +87,14 @@ test('when the database cannot be asked the gate refuses, unless this instance s
   assert.equal((await chulaGate(req(), { env: { VERCEL_ENV: 'production' }, fetchImpl: down })).status, 503, 'production without a database refuses');
 });
 
+test('a database without the wall migration has no wall, so the deploy order locks nobody out', async () => {
+  resetChulaGate();
+  const missing = async () => new Response('{"code":"PGRST202"}', { status: 404 });
+  assert.deepEqual(await chulaGate(req(), { env, fetchImpl: missing }), { ok: true, userId: null, token: null });
+  resetChulaGate();
+  assert.equal((await chulaGate(req(MEMBER), { env, fetchImpl: missing })).ok, true);
+});
+
 test('requireChula answers the refusal uncached and returns null', async () => {
   resetChulaGate();
   const { fetchImpl } = backend(true);
@@ -110,5 +118,44 @@ test('every function that costs money or touches an account is behind the gate',
   const open = ['client-diagnostic', 'send-feedback', 'calendar', 'library-blob', 'external-connect-callback', 'move-in', 'system-status'];
   for (const name of open) {
     assert.doesNotMatch(readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8'), /chula-gate/, name);
+  }
+});
+
+test('an open ticket names one document for a week and nothing else', async () => {
+  const { mintOpenTicket, verifyOpenTicket, ticketQuery } = await import('../../api/_lib/open-ticket.js');
+  const secrets = { CLOUDFLARE_API_TOKEN: 'test-only-secret' };
+  const now = Date.UTC(2026, 10, 1);
+  const t = mintOpenTicket('vet-pharm-deck', { env: secrets, now });
+  assert.ok(t.vt && Number.isInteger(t.ve));
+  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, String(t.ve), { env: secrets, now }), true);
+  assert.equal(verifyOpenTicket('another-deck', t.vt, t.ve, { env: secrets, now }), false, 'bound to its slug');
+  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve + 1, { env: secrets, now }), false, 'bound to its expiry');
+  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve, { env: secrets, now: now + 8 * 86400_000 }), false, 'expires after a week');
+  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve, { env: { CLOUDFLARE_API_TOKEN: 'other' }, now }), false, 'another secret');
+  assert.equal(verifyOpenTicket('vet-pharm-deck', `${t.vt}x`, t.ve, { env: secrets, now }), false);
+  assert.equal(verifyOpenTicket('vet-pharm-deck', null, null, { env: secrets, now }), false);
+  assert.equal(mintOpenTicket('vet-pharm-deck', { env: {}, now }), null, 'no secret, no ticket');
+  assert.match(ticketQuery(t), /^&vt=[A-Za-z0-9_-]+&ve=\d+$/);
+  assert.equal(ticketQuery(null), '');
+});
+
+test('a tapped library link without a session lands on the app, which asks for sign-in', async () => {
+  resetChulaGate();
+  const previous = { ...process.env };
+  const realFetch = globalThis.fetch;
+  Object.assign(process.env, { VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' });
+  globalThis.fetch = async (url) => (String(url).endsWith('/rpc/chula_access_state')
+    ? Response.json({ enforce: true, signed_in: false, member: false, uid: null })
+    : Response.json([]));
+  try {
+    const { default: handler } = await import('../../api/library-file.js');
+    const res = { headers: {}, statusCode: 0, setHeader(k, v) { this.headers[k] = v; }, end() { return this; } };
+    await handler({ method: 'GET', url: '/api/library-file?slug=some-deck&open=1', headers: {} }, res);
+    assert.equal(res.statusCode, 302);
+    assert.equal(res.headers.Location, '/app/home');
+  } finally {
+    process.env = previous;
+    globalThis.fetch = realFetch;
+    resetChulaGate();
   }
 });

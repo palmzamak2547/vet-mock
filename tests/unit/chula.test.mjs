@@ -100,6 +100,8 @@ test('the switch is asked with the session, and learned without it when the toke
   assert.deepEqual(await fetchAccessState({ url: 'https://x.supabase.co', key: 'anon', token: 'expired', fetchImpl }), { enforce: true, member: null, uid: 'u1' });
   assert.deepEqual(calls, ['Bearer good', 'Bearer expired', 'Bearer anon']);
   await assert.rejects(fetchAccessState({ url: 'u', key: 'k', fetchImpl: async () => new Response('x', { status: 503 }) }), /503/);
+  // A database without the wall's migration has no wall: the deploy order cannot lock anyone out.
+  assert.deepEqual(await fetchAccessState({ url: 'u', key: 'k', fetchImpl: async () => new Response('{"code":"PGRST202"}', { status: 404 }) }), { enforce: false, member: null, uid: null });
   await assert.rejects(fetchAccessState({ url: 'u', key: 'k', fetchImpl: async () => Response.json([]) }), /shape/);
 });
 

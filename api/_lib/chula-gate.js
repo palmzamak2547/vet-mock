@@ -33,6 +33,8 @@ async function askState(cfg, bearer, fetchImpl) {
     signal: AbortSignal.timeout(6000),
   });
   if (response.status === 401) return null;
+  // No such function: the wall's migration is not in this database, so there is no wall.
+  if (response.status === 404) return { enforce: false, signed_in: false, member: false, uid: null };
   if (!response.ok) throw new Error(`chula_access_state ${response.status}`);
   const body = await response.json();
   if (typeof body?.enforce !== 'boolean') throw new Error('chula_access_state shape');

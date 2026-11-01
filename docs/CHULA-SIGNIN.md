@@ -42,6 +42,10 @@ Public on purpose (checked by the pre-request allow-list or untouched):
 - `rpc/chula_access_state` (the wall's own state, read before sign-in);
 - `rpc/seeside_public_stats` (an external site's counters);
 - `rpc/record_client_diagnostic` (crash counts, so a broken sign-in page is seen);
+- `rpc/library_doc_for_signing` (storage metadata only: the bytes need a link
+  `/api/library-file` signs, and it signs only for a member's bearer or a
+  member's open ticket, `api/_lib/open-ticket.js`, which VetMock AI's file
+  links carry because a tapped link sends no header);
 - the landing page, OG images, robots and sitemap, the blog, wiki link previews
   (head tags plus the noscript article for crawlers), the atlas catalogue page;
 - `/api/send-feedback`, so a student who cannot get in can still say so.

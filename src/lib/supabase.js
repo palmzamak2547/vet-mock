@@ -70,6 +70,10 @@ export function hasSavedSession() {
   return hasStoredAuthToken();
 }
 
+// Whether this page loaded with a session in storage. The Chula wall reads it
+// to tell "your session expired" from a first visit.
+export const BOOT_HAD_SESSION = hasSavedSession();
+
 // Did we land here from an email/OAuth redirect that needs the SDK to
 // parse tokens out of the URL? Examples:
 //   • Magic link:    #access_token=...&refresh_token=...&type=magiclink
@@ -134,7 +138,11 @@ export async function signInWithEmail(email, password) {
   return data;
 }
 
-export async function signInWithGoogle() {
+// `hd` asks Google for an account on that hosted domain (the Chula wall passes
+// student.chula.ac.th or chula.ac.th); `link` adds the Google identity to the
+// account already signed in instead of signing in with it. The database, not
+// this hint, decides who is let in (docs/CHULA-SIGNIN.md).
+export async function signInWithGoogle({ hd = '', link = false, allowRedirect = true } = {}) {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
 
@@ -144,7 +152,8 @@ export async function signInWithGoogle() {
   if (window.VetMockApp?.googleIdToken) {
     try {
       const { idToken, nonce } = await window.VetMockApp.googleIdToken();
-      const { data, error } = await supabase.auth.signInWithIdToken({ provider: 'google', token: idToken, nonce });
+      const credentials = { provider: 'google', token: idToken, nonce };
+      const { data, error } = link ? await supabase.auth.linkIdentity(credentials) : await supabase.auth.signInWithIdToken(credentials);
       if (error) throw error;
       notifyAuthChanged();
       return data;
@@ -163,7 +172,7 @@ export async function signInWithGoogle() {
   try {
     const { isGoogleGisAvailable, signInWithGoogleGis } = await import('./google-gis.js');
     if (isGoogleGisAvailable()) {
-      const data = await signInWithGoogleGis({ supabase });
+      const data = await signInWithGoogleGis({ supabase, hd, link });
       notifyAuthChanged();
       return data;
     }
@@ -171,6 +180,14 @@ export async function signInWithGoogle() {
     // Don't surface GIS-specific errors — they have a redirect-flow
     // fallback. Only log so we can debug if GIS-only sites break.
     const msg = err?.message || '';
+    // An answer from the auth server (the Chula wall refusing a non-Chula
+    // account, an identity already linked) or the student closing Google's
+    // prompt is a result, not a GIS failure: redirecting would only ask again.
+    if (err?.__isAuthError || msg === 'GIS_POPUP_CLOSED') throw err;
+    // The Chula wall asks for no redirect where Google's own popup works: the
+    // redirect shows the database's raw supabase.co address on Google's screen.
+    // It renders Google's button instead (renderGoogleGisButton).
+    if (!allowRedirect && msg === 'GIS_PROMPT_SUPPRESSED') throw err;
     if (msg === 'GIS_PROMPT_SUPPRESSED' || msg === 'NO_GOOGLE_CLIENT_ID') {
       // Expected suppressions — fall through to redirect flow silently.
     } else {
@@ -179,18 +196,28 @@ export async function signInWithGoogle() {
   }
 
   // Redirect-based fallback. Visible Supabase URL flash here is
-  // unavoidable without GIS or a custom-domain Pro Supabase plan.
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.origin },
-  });
+  // unavoidable without GIS or a custom-domain Pro Supabase plan. With a
+  // domain hint the student comes back to the page they were on, and Google
+  // shows its account chooser so a signed-in Gmail is not picked silently.
+  const options = hd
+    ? { redirectTo: `${window.location.origin}${window.location.pathname}`, queryParams: { hd, prompt: 'select_account' } }
+    : { redirectTo: window.location.origin };
+  const { data, error } = link
+    ? await supabase.auth.linkIdentity({ provider: 'google', options })
+    : await supabase.auth.signInWithOAuth({ provider: 'google', options });
   if (error) throw error;
   return data;
 }
 
+// Tells the Chula wall a missing session was asked for, so it does not say
+// the session expired. Written inline in both sign-outs below, because
+// auth-action-failure runs their bodies in a sandbox.
+export const SIGNED_OUT_KEY = 'vmx-signed-out';
+
 export async function signOut() {
   const supabase = await getSupabase();
   if (!supabase) return;
+  try { sessionStorage.setItem('vmx-signed-out', '1'); } catch { /* private mode */ }
   const { error } = await supabase.auth.signOut({ scope: 'local' });
   if (error) throw error;
   // The LIFF SDK keeps its own login for 12 hours; without this the next
@@ -198,6 +225,20 @@ export async function signOut() {
   // Inline (not a helper): auth-action-failure runs this body in a sandbox.
   try { const { liffLogoutIfInitialised } = await import('./line-liff.js'); await liffLogoutIfInitialised(); } catch { /* no-op */ }
   notifyAuthChanged();
+}
+
+// Headers for a call to our own /api functions: the session's access token,
+// which the Chula wall requires (api/_lib/chula-gate.js). Empty when signed
+// out or when the SDK cannot load; the server then answers as it would a guest.
+export async function authHeader() {
+  try {
+    if (!hasSavedSession()) return {};
+    const supabase = await getSupabase();
+    const token = (await supabase?.auth.getSession())?.data?.session?.access_token;
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  } catch {
+    return {};
+  }
 }
 
 // ─── Password reset ─────────────────────────────────────────────
@@ -356,6 +397,7 @@ export async function resendVerificationEmail(email) {
 export async function signOutAllDevices() {
   const supabase = await getSupabase();
   if (!supabase) return;
+  try { sessionStorage.setItem('vmx-signed-out', '1'); } catch { /* private mode */ }
   const { error } = await supabase.auth.signOut({ scope: 'global' });
   if (error) throw error;
   // The LIFF SDK keeps its own login for 12 hours; without this the next

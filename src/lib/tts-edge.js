@@ -22,6 +22,7 @@
 
 import { audioCacheKey, createAudioCache } from './tts-cache.js';
 import { voiceFor } from './tts-voices.js';
+import { authHeader } from './api-auth.js';
 
 const FETCH_TIMEOUT_MS = 8000;
 // Cached MP3 chunks live in their own database ('vmx-tts'), bounded and
@@ -62,7 +63,7 @@ export async function getEdgeAudio({ text, lang, rate = 1.0 }, signal) {
       : Buffer.from(json, 'utf8').toString('base64');
     response = await fetch('/api/tts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/vmx-b64' },
+      headers: { 'Content-Type': 'application/vmx-b64', ...(await authHeader()) },
       body: 'b64:' + b64,
       signal: ctrl.signal,
     });

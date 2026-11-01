@@ -16,7 +16,8 @@ async function modeledAdmin(page, context, { roleAvailable = true } = {}) {
   const host = 'mpovsdzdggvksmeehqfj.supabase.co';
   const user = { id: '11111111-1111-4111-8111-111111111111', email: 'admin-recovery@example.invalid',
     aud: 'authenticated', role: 'authenticated', app_metadata: { provider: 'email', providers: ['email'] },
-    user_metadata: { username: 'Modeled admin recovery' }, created_at: '2026-01-01T00:00:00Z' };
+    // The Chula wall opens for a verified Chula Google identity (docs/CHULA-SIGNIN.md).
+    user_metadata: { username: 'Modeled admin recovery' }, identities: [{ provider: 'google', identity_data: { email: 'modeled@student.chula.ac.th', email_verified: true } }], created_at: '2026-01-01T00:00:00Z' };
   const encoded = value => Buffer.from(JSON.stringify(value)).toString('base64url');
   const session = { access_token: `${encoded({ alg: 'none', typ: 'JWT' })}.${encoded({ sub: user.id, aud: 'authenticated', role: 'authenticated', exp: 4102444800 })}.modeled-only`,
     refresh_token: 'modeled-only-not-a-real-session', token_type: 'bearer', expires_in: 3600, expires_at: 4102444800, user };

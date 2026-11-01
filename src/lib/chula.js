@@ -115,6 +115,9 @@ export async function fetchAccessState({ url, key, token, fetchImpl = globalThis
       body: '{}',
       signal: AbortSignal.timeout(timeoutMs),
     });
+    // No such function: the wall's migration is not in this database, so there
+    // is no wall to show. (Nobody can make a database that has it answer 404.)
+    if (response.status === 404) return { enforce: false, member: null, uid: null };
     if (!response.ok) {
       const error = new Error(`chula_access_state ${response.status}`);
       error.status = response.status;
@@ -151,19 +154,31 @@ export function signInProblem(error, { online = true } = {}) {
   return 'unknown';
 }
 
-/** Read and remove an OAuth error from this page's address (query or hash). */
-export function takeAuthErrorFromUrl(location = globalThis.location, history = globalThis.history) {
+/** An OAuth error in this page's address (query or hash), left in place. */
+export function readAuthErrorFromUrl(location = globalThis.location) {
   try {
     const search = new URLSearchParams(location.search);
     const hash = new URLSearchParams(String(location.hash || '').replace(/^#/, ''));
     const source = search.get('error') || search.get('error_description') ? search
       : hash.get('error') || hash.get('error_description') ? hash : null;
     if (!source) return null;
-    const found = {
+    return {
       error: source.get('error') || '',
       error_code: source.get('error_code') || '',
       error_description: source.get('error_description') || '',
     };
+  } catch {
+    return null;
+  }
+}
+
+/** Read and remove an OAuth error from this page's address (query or hash). */
+export function takeAuthErrorFromUrl(location = globalThis.location, history = globalThis.history) {
+  try {
+    const found = readAuthErrorFromUrl(location);
+    if (!found) return null;
+    const search = new URLSearchParams(location.search);
+    const hash = new URLSearchParams(String(location.hash || '').replace(/^#/, ''));
     for (const name of ['error', 'error_code', 'error_description']) { search.delete(name); hash.delete(name); }
     const query = search.toString();
     const fragment = hash.toString();

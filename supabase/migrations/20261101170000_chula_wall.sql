@@ -142,10 +142,17 @@ begin
   if current_user not in ('anon', 'authenticated') then
     return;
   end if;
+  -- chula_access_state: the wall's own state, read before sign-in.
+  -- seeside_public_stats: an external site's public counters.
+  -- record_client_diagnostic: crash counts, HMAC-signed by our own server.
+  -- library_doc_for_signing: storage metadata only; the bytes need a link our
+  --   server signs, and /api/library-file signs only for a member's bearer or
+  --   a member's open ticket (api/_lib/open-ticket.js).
   if coalesce(current_setting('request.path', true), '') in (
        '/rpc/chula_access_state',
        '/rpc/seeside_public_stats',
-       '/rpc/record_client_diagnostic') then
+       '/rpc/record_client_diagnostic',
+       '/rpc/library_doc_for_signing') then
     return;
   end if;
   if public.chula_access() then
