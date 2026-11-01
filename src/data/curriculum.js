@@ -1667,6 +1667,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'aqua-fish-diseases', examScope: 'final', label: 'Disease in fish culture', icon: '🦠', lecturer: 'Patharapol Piamsomboon', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 วาง Diseases in Fish and Shrimp Culture หลังสอบกลางภาค ปกสไลด์ระบุ Patharapol Piamsomboon', lecturerNoteKind: 'caveat' },
         { id: 'aqua-shrimp-diseases', examScope: 'final', label: 'Shrimp diseases + biosecurity', icon: '🦐', lecturer: 'Patharapol Piamsomboon', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) + ปกสไลด์ของคาบนั้น' },
         { id: 'aqua-aquarium-vet', examScope: 'final', label: 'Aquarium veterinarian', icon: '🏛', lecturer: 'Nantarika Chansue', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 วาง Aquarium Management & Medicine หลังสอบกลางภาค ปกสไลด์ระบุ Assoc. Prof. Dr. Nantarika Chansue', lecturerNoteKind: 'caveat' },
+        { id: 'aqua-toxicology', examScope: 'final', label: 'Aquatic toxicology & aquatic animal impact', icon: '🧪', lecturer: 'Worrayanee Thammatorn', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) วางคาบ 3 พ.ย. 2569 หลังสอบกลางภาค + ปกสไลด์ Aquatic Toxicology', lecturerNoteKind: 'caveat' },
         { id: 'aqua-disease-control', examScope: 'final', label: 'Aquatic disease control + พรบ.โรคระบาด 2558', icon: '📜', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) + ปกสไลด์ของคาบนั้น' },
       ] },
 
