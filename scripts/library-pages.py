@@ -141,6 +141,22 @@ def classify(pages):
     return status, kept, {'garbled_pages': garbled, 'empty_pages': empty}
 
 
+def page_text(doc, page, cache):
+    """A page's text. When the plain extraction is broken text because an embedded Thai font lost its Unicode map,
+    thai_font_repair decodes each glyph by its outline against the system Thai fonts, and the repair is kept only if
+    it reads clean. Without fontTools, Pillow or those fonts the plain text stands and classify() drops the page."""
+    text = page.get_text()
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import thai_font_repair as tfr
+    except ImportError:
+        return text, False
+    if not tfr.broken(text):
+        return text, False
+    fixed = tfr.repair_page(doc, page, cache)
+    return (fixed, True) if fixed and not tfr.broken(fixed) else (text, False)
+
+
 def extract_one(row):
     import fitz  # imported per worker so `load` does not need PyMuPDF
     path = os.path.join(OUT, row['sha256_16'] + '.json')
@@ -148,8 +164,14 @@ def extract_one(row):
         return row['slug'], 'cached'
     try:
         doc = fitz.open(stream=r2_get(row['storage_key']), filetype='pdf')
-        pages = [p.get_text() for p in doc]
+        cache, pages, repaired = {}, [], 0
+        for p in doc:
+            text, fixed = page_text(doc, p, cache)
+            pages.append(text)
+            repaired += fixed
         status, kept, notes = classify(pages)
+        if repaired:
+            notes['repaired_pages'] = repaired
         rec = {'id': row['id'], 'slug': row['slug'], 'page_count': doc.page_count,
                'status': status, 'notes': notes, 'pages': kept}
     except Exception as e:  # unreadable or encrypted PDF: record it, move on
