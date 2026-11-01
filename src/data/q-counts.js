@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 7670;
-export const QB_SOURCE_TOTAL = 7748;
+export const QB_TOTAL = 7736;
+export const QB_SOURCE_TOTAL = 7814;
 export const QB_BLOCKED_TOTAL = 78;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -27,7 +27,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 100,
+  'epidemiology': 166,
   'equine-medicine': 594,
   'equine-repro': 188,
   'exotic': 151,
@@ -77,7 +77,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 100,
+  'epidemiology': 166,
   'equine-medicine': 594,
   'equine-repro': 188,
   'exotic': 108,
@@ -126,6 +126,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'com5': 10,
   'comp-repro-clinic': 48,
   'engprof': 1,
+  'epidemiology': 66,
   'equine-medicine': 372,
   'equine-repro': 146,
   'exotic': 34,
@@ -209,6 +210,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com5': 10,
     'comp-repro-clinic': 48,
     'engprof': 1,
+    'epidemiology': 66,
     'equine-medicine': 372,
     'equine-repro': 85,
     'exotic': 34,
@@ -269,7 +271,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com1': 31,
     'com2': 39,
     'engprof1': 30,
-    'epidemiology': 100,
+    'epidemiology': 166,
     'equine-medicine': 594,
     'equine-repro': 112,
     'food-industry': 61,
@@ -352,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 2626,
+    5: 2692,
   },
   '2-mid': {
     1: 297,
@@ -731,15 +733,19 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'unit3-sea-urchin-lecture': 2,
     },
     'epidemiology': {
+      'epidem-applied-stats': 5,
       'epidem-basic-concepts': 10,
-      'epidem-causation': 8,
-      'epidem-disease-frequency': 9,
-      'epidem-disease-transmission': 15,
-      'epidem-dx-screening': 11,
+      'epidem-causation': 12,
+      'epidem-control-prevention': 10,
+      'epidem-data-analysis': 6,
+      'epidem-disease-frequency': 16,
+      'epidem-disease-transmission': 16,
+      'epidem-dx-screening': 18,
       'epidem-intro': 4,
-      'epidem-outbreak-investigation': 11,
-      'epidem-sample-size': 13,
-      'epidem-surveillance': 12,
+      'epidem-observational-study': 13,
+      'epidem-outbreak-investigation': 19,
+      'epidem-sample-size': 14,
+      'epidem-surveillance': 16,
       'epidem-test-agreement': 7,
     },
     'equine-medicine': {
@@ -1757,6 +1763,19 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'spinal-trauma': 2,
       'stifle-exam': 1,
     },
+    'epidemiology': {
+      'epidem-applied-stats': 5,
+      'epidem-causation': 4,
+      'epidem-control-prevention': 10,
+      'epidem-data-analysis': 6,
+      'epidem-disease-frequency': 7,
+      'epidem-disease-transmission': 1,
+      'epidem-dx-screening': 7,
+      'epidem-observational-study': 13,
+      'epidem-outbreak-investigation': 8,
+      'epidem-sample-size': 1,
+      'epidem-surveillance': 4,
+    },
     'equine-medicine': {
       'equine-anesthesia': 11,
       'equine-colic-bestfit': 13,
@@ -2285,7 +2304,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 5091,
+  5: 5157,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2297,7 +2316,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 5091,
+  5: 5157,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2533,15 +2552,19 @@ export const Q_COUNTS_BY_TOPIC = {
     "unit3-sea-urchin-lecture": 2,
   },
   "epidemiology": {
+    "epidem-applied-stats": 5,
     "epidem-basic-concepts": 10,
-    "epidem-causation": 8,
-    "epidem-disease-frequency": 9,
-    "epidem-disease-transmission": 15,
-    "epidem-dx-screening": 11,
+    "epidem-causation": 12,
+    "epidem-control-prevention": 10,
+    "epidem-data-analysis": 6,
+    "epidem-disease-frequency": 16,
+    "epidem-disease-transmission": 16,
+    "epidem-dx-screening": 18,
     "epidem-intro": 4,
-    "epidem-outbreak-investigation": 11,
-    "epidem-sample-size": 13,
-    "epidem-surveillance": 12,
+    "epidem-observational-study": 13,
+    "epidem-outbreak-investigation": 19,
+    "epidem-sample-size": 14,
+    "epidem-surveillance": 16,
     "epidem-test-agreement": 7,
   },
   "equine-medicine": {
@@ -3162,6 +3185,19 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "engprof": {
     "paraphrasing": 1,
   },
+  "epidemiology": {
+    "epidem-applied-stats": 5,
+    "epidem-causation": 4,
+    "epidem-control-prevention": 10,
+    "epidem-data-analysis": 6,
+    "epidem-disease-frequency": 7,
+    "epidem-disease-transmission": 1,
+    "epidem-dx-screening": 7,
+    "epidem-observational-study": 13,
+    "epidem-outbreak-investigation": 8,
+    "epidem-sample-size": 1,
+    "epidem-surveillance": 4,
+  },
   "equine-medicine": {
     "equine-anesthesia": 11,
     "equine-colic-bestfit": 13,
@@ -3546,4 +3582,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-01T11:15:48.982Z
+// Built: 2026-11-01T12:49:00.329Z
