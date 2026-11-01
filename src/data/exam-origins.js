@@ -62,6 +62,7 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "Milk Hygiene & Meat Inspection final และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ": { kind: 'paper', cohort: null, paper: null },
   "Avian Medicine Vet 81 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: 81, paper: null },
   "Avian Medicine บันทึกข้อสอบเก่า ไม่ระบุรุ่นและช่วงสอบ": { kind: 'paper', cohort: null, paper: null },
   "Avian Medicine final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
@@ -232,6 +233,7 @@ export const EXAM_ORIGINS = Object.freeze({
 
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
+  "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC": { kind: 'aligned' },
   "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med": { kind: 'aligned' },
   "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
   "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },
