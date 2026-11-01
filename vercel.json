@@ -4,6 +4,9 @@
   "crons": [
     { "path": "/api/ai-chat?warm=1", "schedule": "17 3 * * *" }
   ],
+  "regions": [
+    "sin1"
+  ],
   "functions": {
     "api/ai-chat.js": {
       "regions": [
@@ -13,6 +16,41 @@
     "api/ai-transcribe.js": {
       "regions": [
         "sin1"
+      ]
+    },
+    "api/agent-action.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/grade-summary.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/mochi-voice.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/playlist.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/study-coach.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/transcribe-handwriting.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/wiki-explain.js": {
+      "regions": [
+        "iad1"
       ]
     }
   },
