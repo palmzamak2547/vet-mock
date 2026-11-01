@@ -947,6 +947,37 @@ export const SOURCE_DOCS = [
     match: /สรุปปลายภาค Avian Medicine ของรุ่น 85/i,
     editions: [{ id: '17p', pages: 17 }],
   },
+  // FIQC final sources, 1 พ.ย. 2569: the two 2569 decks by their file names, the Nov 2024 export deck and the seniors' files.
+  {
+    slug: 'fiqc-haccp-2569', subject: 'food-industry', title: "HACCP for livestock and product production (deck 2569)",
+    match: /FIQC_SoJ_E1/i,
+    editions: [{ id: '77p', pages: 77 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2569', subject: 'food-industry', title: "มาตรฐานสินค้าปศุสัตว์เพื่อการส่งออก (deck 2569)",
+    match: /FIQC_SoJ_E2/i,
+    editions: [{ id: '84p', pages: 84 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2024', subject: 'food-industry', title: "มาตรฐานสินค้าปศุสัตว์เพื่อการส่งออก (deck Nov 2024)",
+    match: /มาตรฐานสินค้าปศุสัตว์เพื่อการส่งออก \(ฉบับ Nov 2024/i,
+    editions: [{ id: '78p', pages: 78 }],
+  },
+  {
+    slug: 'fiqc-final-quickread-vet84', subject: 'food-industry', title: "FIQC อ่านไม่ทันก็ต้องทันจ้า (ชีทสรุปปลายภาค 7 หน้าในโฟลเดอร์ Vet 84)",
+    match: /ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '7p', pages: 7 }],
+  },
+  {
+    slug: 'fiqc-final-summary-vet85', subject: 'food-industry', title: "FIQC final (สรุปปลายภาค FIQC ของ Vet 85)",
+    match: /สรุปปลายภาค FIQC ของ Vet 85/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  {
+    slug: 'fiqc-haccp-2022-topics-vet84', subject: 'food-industry', title: "HACCP for livestock (deck 2022 ฉบับที่หน้าปกมีรายการหัวข้อที่ถาม ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));

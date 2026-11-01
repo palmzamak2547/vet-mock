@@ -46,6 +46,7 @@ DB_CAP_MB = 350
 THAI = '฀-๿'
 THAI_MARKS = 'ัิ-ฺ็-๎'
 GARBLE = re.compile(f'[{THAI}][À-ÿ-]|[À-ÿ-][{THAI}]')
+CONTROL = re.compile('[\x01-\x08\x0e-\x1b]')
 STUDENT_ID = re.compile(r'(?<!\d)[4-7]\d{7}31(?!\d)')
 # First digit 1-8: an ISBN-13 starts with 9 and must not hold a textbook.
 # Standalone only: a 13-digit run inside a URL, DOI or file name (seen as
@@ -123,7 +124,11 @@ def classify(pages):
         if len(body) < 20:
             empty += 1
             continue
-        if len(GARBLE.findall(body)) >= 3:
+        # A Thai font with its own encoding can also come out as C0 control
+        # characters around ก (two Milk & Meat handouts, 1 Nov 2026). A few
+        # stray controls are a bullet glyph; 2% of the page is broken text.
+        ctrl = len(CONTROL.findall(body))
+        if len(GARBLE.findall(body)) >= 3 or (ctrl >= 3 and ctrl >= 0.02 * len(body)):
             garbled += 1
             continue
         kept[i] = body
@@ -234,6 +239,8 @@ def selftest():
     assert classify(['ISBN 9786161234567 ตำราสัตวแพทย์ฉบับนี้ยาวพอสมควร'])[0] == 'ok'
     assert classify(['รายชืÉอ ชืÉอ นามสกุล ชืÉอเล่น ข้อความยาวพอ'])[0] == 'garbled'
     assert classify(['short'])[0] == 'no_text'
+    assert classify(['2 *\x04 \x17\x15$ 1 \x14#$\x1a\x19\x1a\x1b\x06 \x03 + /ก\x1a0" \x04\x1bG \x19\x1a\x1b (embryogenesis)'])[0] == 'garbled'
+    assert classify(['\x01 ' + 'ข้อความภาษาไทยที่อ่านได้ยาวพอสมควร ' * 8 + '\x01 \x01'])[0] == 'ok'
     assert classify(['https://m.facebook.com/story.php?story_fbid=1234567890123&id=1 ข้อความยาวพอสมควรเลย'])[0] == 'ok'
     assert classify(['บัตรประชาชน 1 2345 67890 12 3 ของผู้ป่วย'])[0] == 'pii_held'
     big = {'id': '00000000-0000-0000-0000-000000000000', 'status': 'ok', 'page_count': 3,
