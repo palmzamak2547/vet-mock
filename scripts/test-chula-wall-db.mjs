@@ -63,6 +63,7 @@ if (backend === 'pglite') {
 // A request as PostgREST makes it: role, claims and path set for one transaction.
 const as = (role, sub, sql, reqPath = '/notes') =>
   `begin; set local role ${role}; set local "request.jwt.claim.sub" = ${q(sub || '')}; set local "request.path" = ${q(reqPath)}; ${sql}; commit;`;
+// Booleans are read through ::text: psql prints t/f where PGlite gives true/false.
 const value = async (sql) => run(sql);
 const rejects = async (sql, pattern) => {
   let error = null;
@@ -147,7 +148,7 @@ try {
   await run(migration);
 
   await check('the migration ships the wall off, and off changes nothing', async () => {
-    assert.equal(await value(`select public.chula_wall_enforced()`), 'false');
+    assert.equal(await value(`select public.chula_wall_enforced()::text`), 'false');
     assert.equal(await value(as('anon', null, `select count(*) from public.notes`)), '2');
     assert.equal(await value(as('authenticated', U.gmail, `select count(*) from public.notes`)), '1');
     await run(as('authenticated', U.gmail, `select public.chula_pre_request()`));
@@ -181,17 +182,17 @@ try {
       'a@b@chula.ac.th': false, 'chula.ac.th': false, '': false, 'x@gmail.com': false,
     };
     for (const [email, expected] of Object.entries(cases)) {
-      assert.equal(await value(`select public.is_chula_email(${q(email)})`), String(expected), email);
+      assert.equal(await value(`select public.is_chula_email(${q(email)})::text`), String(expected), email);
     }
-    assert.equal(await value(`select public.is_chula_email(null)`), 'false');
+    assert.equal(await value(`select public.is_chula_email(null)::text`), 'false');
   });
 
   await check('who is let in: verified Chula Google identities on Chula Workspace (hd), and the admin', async () => {
     const expected = { member: true, staff: true, personal: false, gmail: false, unverified: false, pwChula: false, admin: true, sub: false };
     for (const [key, allowed] of Object.entries(expected)) {
-      assert.equal(await value(`select public.chula_allowed(${q(U[key])})`), String(allowed), key);
+      assert.equal(await value(`select public.chula_allowed(${q(U[key])})::text`), String(allowed), key);
     }
-    assert.equal(await value(`select public.chula_allowed(null)`), 'false');
+    assert.equal(await value(`select public.chula_allowed(null)::text`), 'false');
   });
 
   await setWall(true);
@@ -274,12 +275,12 @@ try {
 
   await check('a deleted switch reads as on', async () => {
     await run(`delete from private.chula_wall;`);
-    assert.equal(await value(`select public.chula_wall_enforced()`), 'true');
+    assert.equal(await value(`select public.chula_wall_enforced()::text`), 'true');
     await run(`insert into private.chula_wall (id, enforce) values (true, true);`);
   });
 
   await check('browser roles cannot call the internals or read the switch', async () => {
-    for (const sql of [`select public.chula_allowed(${q(U.member)})`, `select public.chula_wall_enforced()`,
+    for (const sql of [`select public.chula_allowed(${q(U.member)})`, `select public.chula_wall_enforced()::text`,
       `select public.hook_before_user_created('{}'::jsonb)`, `select enforce from private.chula_wall`]) {
       await rejects(as('anon', null, sql, '/rpc/chula_access_state'), /permission denied/);
       await rejects(as('authenticated', U.member, sql), /permission denied/);
@@ -293,7 +294,7 @@ try {
 
   await check('the migration applies twice without error and keeps the switch', async () => {
     await run(migration);
-    assert.equal(await value(`select public.chula_wall_enforced()`), 'true');
+    assert.equal(await value(`select public.chula_wall_enforced()::text`), 'true');
     const tables = await value(`select count(*) + 2 from pg_class c join pg_namespace n on n.oid = c.relnamespace where c.relkind in ('r', 'p') and n.nspname in ('public', 'vca')`);
     assert.equal(await value(`select count(*) from pg_policies where policyname = 'chula members only'`), tables);
   });
