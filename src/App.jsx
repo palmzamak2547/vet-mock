@@ -358,7 +358,9 @@ export default function App() {
   // ดูว่าคุณได้เท่าไหร่" banner so the receiver knows what to beat.
   const [challengeSender, setChallengeSender] = useState(() => readSenderInfoFromLocation());
   useEffect(() => {
-    if (sharedResolvedRef.current || authLoading) return;
+    // Behind the Chula wall a shared set waits for sign-in: started as a guest it
+    // could not be submitted by the account that signs in.
+    if (sharedResolvedRef.current || authLoading || wall.state !== 'open') return;
     let cancelled = false;
     let hasSharedSet = false;
     try {
@@ -412,7 +414,7 @@ export default function App() {
     // setView/session setters are initialized later in the component but are
     // read only after this effect runs, once the full render has completed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authLoading, user?.id]);
+  }, [authLoading, user?.id, wall.state]);
 
   // Realtime presence — mounted at App level so the WebSocket survives
   // every view navigation. (Was in HomeView previously, which caused
@@ -991,6 +993,12 @@ export default function App() {
   const titleSetRef = useRef(false);
   useEffect(() => {
     if (typeof document === 'undefined') return;
+    // Behind the Chula wall the gate is on screen, whatever view is stored.
+    if (wall.state !== 'open' && !GATE_PUBLIC_VIEWS.has(view)) {
+      document.title = 'เข้าสู่ระบบ | VetMock';
+      titleSetRef.current = true;
+      return;
+    }
     const name = viewTitle(view);
     if (name) {
       document.title = `${name} | VetMock`;
@@ -1001,7 +1009,7 @@ export default function App() {
       if (view !== 'atlas' && view !== 'knowledge' && view !== 'wiki') document.title = baseTitleRef.current;
       titleSetRef.current = false;
     }
-  }, [view]);
+  }, [view, wall.state]);
 
   // Unknown /app/* paths must not revive an unrelated stored screen. Repair
   // the address bar to Home once, while known app routes keep their URL.
@@ -3014,6 +3022,10 @@ export default function App() {
     if (prefs) setConsentPrefs(prefs);
   };
 
+  // Behind the wall the landing's buttons lead to sign-in first: an exam started
+  // as a guest could not be submitted by the account that signs in.
+  const landingLocked = wall.state !== 'open';
+  const toWall = () => leaveLandingTo('home');
   if (view === 'landing') {
     return (
       <>
@@ -3021,11 +3033,12 @@ export default function App() {
         <ErrorBoundary onReset={goHome}>
         <Suspense fallback={<ViewFallback />}>
           <LandingView
-            onEnterApp={landingEnterApp}
-            onStartMockExam={() => goLanding({ kind: 'mock-exam' })}
-            onStartPanic={(timeKey) => goLanding({ kind: 'panic', timeKey })}
-            onOpenLab={() => goLanding({ kind: 'lab' })}
-            onPickSubject={landingPickSubject}
+            onEnterApp={landingLocked ? toWall : landingEnterApp}
+            onStartMockExam={landingLocked ? toWall : () => goLanding({ kind: 'mock-exam' })}
+            onStartPanic={landingLocked ? toWall : (timeKey) => goLanding({ kind: 'panic', timeKey })}
+            onOpenLab={landingLocked ? toWall : () => goLanding({ kind: 'lab' })}
+            onPickSubject={landingLocked ? toWall : landingPickSubject}
+            chulaOnly={wall.enforce === true}
             onOpenAuth={landingOpenAuth}
             onSignIn={wall.enforce === true ? () => leaveLandingTo('home') : undefined}
             onGoogle={() => { signInWithGoogle().catch(() => landingOpenAuth()); }}
@@ -3053,9 +3066,11 @@ export default function App() {
 
   if (wall.state !== 'open' && !GATE_PUBLIC_VIEWS.has(view)) {
     return (
-      <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} aria-busy="true" />}>
-        <ChulaGateView wall={wall} user={user} onAbout={() => setView('landing')} />
-      </Suspense>
+      <ErrorBoundary onReset={() => window.location.reload()}>
+        <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} aria-busy="true" />}>
+          <ChulaGateView wall={wall} user={user} onAbout={() => setView('landing')} />
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 

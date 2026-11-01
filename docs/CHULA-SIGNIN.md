@@ -113,18 +113,34 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
   whether to ask their holders to confirm.
 - A device that never reached the server assumes the wall is on, and the admin's
   Gmail account opens offline only on a device where the server once said yes.
+- `/api/playlist` stays open: it returns the titles of public YouTube playlists,
+  edge-cached for half an hour with its Data API spend capped daily, and the
+  video page asks for about 40 at once. `GET /api/external-connect` (which
+  providers this deployment can connect, booleans only) is open for the same
+  reason; connecting a provider is behind the gate.
 
 ## Never lock out a studying student
 
 - A saved session is judged on the device from its stored identities and the last
   server answer, with no network. Offline, the app opens as before.
+- A session whose access token has expired opens its account at once from the
+  device (`storedAuthSession`, `src/lib/auth-storage.js`) instead of waiting about
+  25 s for a refresh that cannot run, and keeps it when auth-js answers "no
+  session" because the refresh failed on the network. Only a sign-out, or the
+  server refusing the refresh token (auth-js then removes it), ends it.
 - The wall never signs anyone out. Tokens refresh when the device is back online.
+- A re-read of a known member's session (a profile save, a passkey) keeps the app
+  on screen; the wall's checking screen is only for a device with no account yet.
 - Inside LINE the page offers to open in the system browser
   (`openExternalBrowser=1`); other in-app browsers get the way out of their menu.
 - One switch turns every layer off in seconds.
-- When the database cannot be asked, the API opens only what it saw open in the
-  last 30 seconds; in production a missing wall function refuses rather than
-  opens, so the migration is applied before the code that reads it is merged.
+- The API trusts a switch it read in the last 30 seconds. When the database
+  cannot be asked, it keeps open what it saw open in the last ten minutes, so the
+  AI and read-aloud ride out a Supabase hiccup while the wall is off; in
+  production a missing wall function refuses rather than opens, so the migration
+  is applied before the code that reads it is merged.
+- An open tab asks again when it comes back online and when it is looked at again
+  (at most once a minute), so turning the switch on reaches tabs left open.
 - One Tap is offered on the sign-in screen, never on the link screen: on a shared
   device it could tie a passer-by's Chula account to whoever is signed in.
 

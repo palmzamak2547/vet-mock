@@ -58,7 +58,8 @@ test('the gate never shows the app before it knows, and opens a saved member off
   assert.equal(s({ configured: false }), 'open', 'a build with no database has no accounts to gate');
   assert.equal(s({ enforce: false }), 'open', 'the switch off restores the old app');
   assert.equal(s({ loading: true }), 'checking');
-  assert.equal(s({ loading: true, user: member }), 'checking', 'no flash of the app while the session is read');
+  assert.equal(s({ loading: true, user: member }), 'open', 'a re-read of a known member keeps the app, never swapping in the wall');
+  assert.equal(s({ loading: true, user: gmail }), 'checking', 'a re-read never opens an account the server has not let in');
   assert.equal(s({}), 'signin');
   assert.equal(s({ enforce: 'pending' }), 'checking', 'the switch not known yet: neither app nor buttons');
   assert.equal(s({ user: member }), 'open', 'a member opens without waiting for the server');

@@ -58,11 +58,16 @@ export function useChulaWall({ user, loading }) {
     return () => { alive = false; };
   }, [uid, loading, round]);
 
+  // Ask again when the device comes back online, and when the tab is looked at
+  // again (at most once a minute), so an open tab sees the switch turned on.
   useEffect(() => {
     if (!hasSupabase) return undefined;
-    const again = () => setRound((n) => n + 1);
+    let last = Date.now();
+    const again = () => { last = Date.now(); setRound((n) => n + 1); };
+    const seen = () => { if (document.visibilityState === 'visible' && Date.now() - last > 60_000) again(); };
     window.addEventListener('online', again);
-    return () => window.removeEventListener('online', again);
+    document.addEventListener('visibilitychange', seen);
+    return () => { window.removeEventListener('online', again); document.removeEventListener('visibilitychange', seen); };
   }, []);
 
   const verdict = answer.uid === uid ? answer.verdict : 'pending';

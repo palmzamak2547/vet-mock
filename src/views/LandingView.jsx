@@ -25,7 +25,7 @@ import { flushSync } from 'react-dom';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
-import { DICT, HERO_QUESTION } from './landing/dict.js';
+import { DICT, CHULA_ONLY, HERO_QUESTION } from './landing/dict.js';
 import LandingBody from './landing/LandingBody.jsx';
 import { useLandingMotion } from './landing/useLandingMotion.js';
 import NavIcon from '../components/NavIcon.jsx';
@@ -66,6 +66,7 @@ export default function LandingView({
   onGoogle,            // () => real signInWithGoogle()
   onMagicLink,         // async (email) => real signInWithMagicLink()
   onSignIn,            // set while the Chula wall is on: every sign-in opener goes to its screen instead
+  chulaOnly = false,   // the Chula wall is on: copy that promised use without an account says otherwise
   hasSupabase = false, // gate real auth methods honestly
   theme = 'light',
   onToggleTheme,       // () => flip real theme
@@ -75,7 +76,7 @@ export default function LandingView({
   onConsent,           // (choice, prefs) => persist real consent (gates analytics)
 }) {
   const [lang, setLang] = useState(langProp || 'en');
-  const L = DICT[lang];
+  const L = chulaOnly ? { ...DICT[lang], ...CHULA_ONLY[lang] } : DICT[lang];
   const reduce = useRef(false);
 
   // Scroll-spy for the nav, observer-driven (no scroll listener).

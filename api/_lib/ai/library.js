@@ -425,5 +425,7 @@ export function filesLead(items) {
 export async function warmLibrary({ env = process.env, fetchImpl = fetch } = {}) {
   const cfg = libraryConfig(env);
   if (!cfg) return;
-  await getJSON(`${cfg.base}/rest/v1/rpc/library_search`, { cfg, fetchImpl, signal: AbortSignal.timeout(1500), method: 'POST', body: { q: 'diagnosis', max_docs: 1 } }).catch(() => {});
+  // The Chula wall's own state is the one call that answers without a session: it
+  // keeps the database awake (the daily keep-alive) and the connection warm.
+  await getJSON(`${cfg.base}/rest/v1/rpc/chula_access_state`, { cfg, fetchImpl, signal: AbortSignal.timeout(1500), method: 'POST', body: {} }).catch(() => {});
 }

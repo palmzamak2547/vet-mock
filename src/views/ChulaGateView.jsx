@@ -47,7 +47,13 @@ const scatter = (i) => {
 };
 
 const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-const signedOutOnPurpose = () => { try { return sessionStorage.getItem(SIGNED_OUT_KEY) === '1'; } catch { return false; } };
+// A sign-out in any tab within the last day counts as asked for (supabase.js).
+const signedOutOnPurpose = () => {
+  try {
+    const at = Number(localStorage.getItem(SIGNED_OUT_KEY));
+    return sessionStorage.getItem(SIGNED_OUT_KEY) === '1' || (at > 0 && Date.now() - at < 86_400_000);
+  } catch { return false; }
+};
 
 function problemOf(error) {
   if (/invalid login credentials/i.test(String(error?.message || ''))) return 'bad-password';
@@ -290,6 +296,8 @@ export default function ChulaGateView({ wall, user, onAbout }) {
   useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [state]);
   // A session that arrived clears the "expired" line; one that was asked to leave does too.
   useEffect(() => { if (user && problem === 'expired') setProblem(null); }, [user, problem]);
+  // A session that arrives ends the "signed out on purpose" note for every tab.
+  useEffect(() => { if (user) { try { localStorage.removeItem(SIGNED_OUT_KEY); } catch { /* private mode */ } } }, [user]);
 
   const [staff, setStaff] = useState(false);
   const [legacyGoogle, setLegacyGoogle] = useState(false);
@@ -335,7 +343,7 @@ export default function ChulaGateView({ wall, user, onAbout }) {
 
   const hd = staff ? CHULA_HD.staff : CHULA_HD.student;
   const redirectChula = () => run('chula', () => signInWithGoogle({ hd }));
-  const redirectLink = () => run('link', () => signInWithGoogle({ hd: CHULA_HD.student, link: true }), { reloadOnSession: true });
+  const redirectLink = () => run('link', () => signInWithGoogle({ hd, link: true }), { reloadOnSession: true });
   const useOther = async () => {
     setBusy('signout');
     try { await signOut(); } catch { /* the local session is gone either way */ }
@@ -400,7 +408,7 @@ export default function ChulaGateView({ wall, user, onAbout }) {
             <span className="vmx-gate-corner" data-c="bl" /><span className="vmx-gate-corner" data-c="br" />
             <div className="vmx-gate-link-from"><strong>{current}</strong><span className="vmx-gate-tag">ยังไม่ใช่อีเมลจุฬา</span></div>
             <span className="vmx-gate-wire" aria-hidden="true" />
-            <ChulaAddress local="รหัสนิสิต" />
+            <ChulaAddress local={staff ? 'ชื่อ' : 'รหัสนิสิต'} domain={staff ? '@chula.ac.th' : DOMAIN} />
             <p className="vmx-gate-caption">ไม่ต้องพิมพ์ เลือกบัญชีนี้ในหน้าต่างของ Google</p>
           </section>
           <div aria-live="polite">
@@ -417,11 +425,16 @@ export default function ChulaGateView({ wall, user, onAbout }) {
           <div className="vmx-gate-actions">
             {inApp ? <InAppNote app={inApp} /> : (
               <GoogleSignIn
-                hd={CHULA_HD.student} link label="ดำเนินการต่อด้วย Google" busy={busy === 'link'}
+                hd={hd} link label="ดำเนินการต่อด้วย Google" busy={busy === 'link'}
                 onBegin={() => begin('link')} onSession={(data) => landed(data, { reload: true })} onFail={stopped}
                 onRedirect={redirectLink}
               />
             )}
+            {!inApp ? (
+              <button type="button" className="vmx-gate-quiet" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
+                {staff ? 'นิสิตใช้ @student.chula.ac.th' : 'บุคลากรใช้ @chula.ac.th'}
+              </button>
+            ) : null}
             <button type="button" className="vmx-gate-quiet" onClick={useOther} disabled={Boolean(busy)}>ใช้บัญชีอื่น</button>
           </div>
         </main>

@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, PINNED_NOW } from './fixtures.js';
 
 // The Chula sign-in wall (docs/CHULA-SIGNIN.md), against the connected bundle.
 // Every request to the database host is answered here and any other *.supabase.co
@@ -20,19 +20,22 @@ const MEMBER = person('33333333-3333-4333-8333-333333333333', 'modeled.member@gm
   [google('modeled.member@gmail.com'), google('6600000031@student.chula.ac.th')]);
 const OUTSIDER = person('44444444-4444-4444-8444-444444444444', 'modeled.outsider@gmail.com', [google('modeled.outsider@gmail.com')]);
 const ADMIN = person('55555555-5555-4555-8555-555555555555', 'modeled.owner@gmail.com', [google('modeled.owner@gmail.com')]);
-const session = (user) => ({
-  access_token: `${encoded({ alg: 'none', typ: 'JWT' })}.${encoded({ sub: user.id, aud: 'authenticated', role: 'authenticated', exp: 4102444800 })}.modeled-only`,
-  refresh_token: 'modeled-only-not-a-real-session', token_type: 'bearer', expires_in: 3600, expires_at: 4102444800, user,
+// `exp` in seconds; 1 Jan 2026 is before the pinned calendar, so that token has expired.
+const EXPIRED = 1767225600;
+const session = (user, exp = 4102444800) => ({
+  access_token: `${encoded({ alg: 'none', typ: 'JWT' })}.${encoded({ sub: user.id, aud: 'authenticated', role: 'authenticated', exp })}.modeled-only`,
+  refresh_token: 'modeled-only-not-a-real-session', token_type: 'bearer', expires_in: 3600, expires_at: exp, user,
 });
 
 /** Answers the database: the switch, who is let in, and nothing else. */
-async function modeled(page, context, { enforce = true, members = [], down = false, user = null, seed = {} } = {}) {
-  const seen = { state: 0 };
+async function modeled(page, context, { enforce = true, members = [], down = false, user = null, expired = false, seed = {} } = {}) {
+  const seen = { db: 0, state: 0, refresh: 0 };
   await context.routeWebSocket('**/*', (socket) => socket.close());
   await page.route('**://*.supabase.co/**', async (route) => {
     const request = route.request();
     const url = new URL(request.url());
     if (url.hostname !== HOST) return url.hostname.endsWith('.supabase.co') ? route.abort() : route.continue();
+    seen.db++;
     if (url.pathname === '/rest/v1/rpc/chula_access_state') {
       seen.state++;
       if (down) return route.abort();
@@ -41,6 +44,7 @@ async function modeled(page, context, { enforce = true, members = [], down = fal
       return route.fulfill({ json: { enforce, signed_in: Boolean(caller), member: Boolean(caller && members.includes(caller.id)), uid: caller?.id ?? null } });
     }
     if (request.method() === 'GET' && url.pathname === '/auth/v1/user' && user) return route.fulfill({ json: user });
+    if (url.pathname === '/auth/v1/token') seen.refresh++;
     // Everything else stays unanswered: a refused request is how the app sees a database it may not read.
     return route.abort();
   });
@@ -55,7 +59,7 @@ async function modeled(page, context, { enforce = true, members = [], down = fal
     window.__vmxAppPainted = false;
     new MutationObserver(() => { if (document.getElementById('main')) window.__vmxAppPainted = true; })
       .observe(document.documentElement, { childList: true, subtree: true });
-  }, { planted: user ? session(user) : null, key: TOKEN_KEY, seed });
+  }, { planted: user ? session(user, expired ? EXPIRED : undefined) : null, key: TOKEN_KEY, seed });
   return seen;
 }
 
@@ -63,10 +67,18 @@ const gateHeading = (page) => page.getByRole('heading', { level: 1, name: 'à¹€à¸
 
 // The plain bundle has no database, so it has no accounts and no wall: these
 // specs run against the connected bundle and skip themselves anywhere else.
+// Any request to the database host proves the bundle carries it. The first can
+// follow the first paint (a member opens from the device's memory at once, and
+// an expired token holds the wall's own call until its refresh), so each spec
+// waits a moment before calling the bundle plain; once one has waited in vain,
+// the rest of the worker skips at once.
+let plainBundle = false;
 async function open(page, seen, path) {
   await page.goto(path);
   await expect(page.locator('#main, .vmx-gate').first()).toBeVisible();
-  test.skip(seen.state === 0, 'Built bundle has no Supabase configuration; the wall needs it');
+  for (let i = 0; i < 30 && seen.db === 0 && !plainBundle; i++) await page.waitForTimeout(100);
+  if (seen.db === 0) plainBundle = true;
+  test.skip(seen.db === 0, 'Built bundle has no Supabase configuration; the wall needs it');
 }
 
 test('a visitor with no session meets the wall, and no app screen paints first', async ({ page, context }) => {
@@ -93,6 +105,27 @@ test('a member opens straight into the app, even when the database cannot answer
   await open(page, seen, '/app/home');
   await expect(page.locator('#main')).toBeVisible();
   await expect(gateHeading(page)).toHaveCount(0);
+});
+
+// Drives time with page.clock, to run auth-js's refresh retries to their end;
+// that does not stack with the pinned calendar in fixtures.js.
+test.describe('own clock', () => {
+  test.use({ pinCalendar: false });
+  test('a member whose token expired opens offline at once, and stays open when the refresh gives up', async ({ page, context }) => {
+    await page.clock.install({ time: new Date(PINNED_NOW) });
+    const seen = await modeled(page, context, { user: MEMBER, members: [MEMBER.id], down: true, expired: true });
+    await open(page, seen, '/app/home');
+    await expect(page.locator('#main')).toBeVisible({ timeout: 5000 });
+    await expect(gateHeading(page)).toHaveCount(0);
+    await expect.poll(() => seen.refresh).toBeGreaterThan(0);
+    // auth-js retries the refresh for about 30 s, then answers "no session" and
+    // emits INITIAL_SESSION null while the token stays on the device.
+    await page.clock.fastForward('01:00');
+    await page.waitForTimeout(1000);
+    await expect(page.locator('#main')).toBeVisible();
+    await expect(gateHeading(page)).toHaveCount(0);
+    expect(await page.evaluate((key) => Boolean(localStorage.getItem(key)), TOKEN_KEY)).toBe(true);
+  });
 });
 
 test('an account without a Chula identity is asked to link it, and its address is shown', async ({ page, context }) => {

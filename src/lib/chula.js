@@ -56,7 +56,9 @@ export function chulaEmailOf(user) {
  */
 export function gateState({ configured, enforce, loading, user, verdict = 'pending', remembered = false }) {
   if (!configured || enforce === false) return 'open';
-  if (loading) return 'checking';
+  // Only while no account is known yet: a member's app must not be swapped for
+  // the wall each time the session is re-read (a profile save, a passkey).
+  if (loading && !user) return 'checking';
   if (user) {
     // The server's answer wins; until it comes (or when it cannot), the device's
     // own record of the account decides, so a saved session opens offline.

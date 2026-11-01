@@ -77,6 +77,29 @@ export function createAuthStorage(getLocal = () => globalThis.localStorage,
   };
 }
 
+/** The session this device holds, read straight from storage: { user, expiresAt }
+ *  or null. useAuth opens the account from it when the access token has expired
+ *  and the network is not there to refresh it, so an offline student keeps their
+ *  account instead of landing on a signed-out screen. */
+export function storedAuthSession(getLocal = () => globalThis.localStorage,
+                                  getSession = () => globalThis.sessionStorage) {
+  for (const get of [getLocal, getSession]) {
+    try {
+      const store = get();
+      for (let i = 0; i < store.length; i++) {
+        const key = store.key(i);
+        if (!key || !key.startsWith('sb-') || !key.endsWith('-auth-token')) continue;
+        const parsed = JSON.parse(store.getItem(key) || 'null');
+        const session = parsed?.user ? parsed : parsed?.currentSession;
+        if (session?.user && typeof session.user.id === 'string') {
+          return { user: session.user, expiresAt: Number(session.expires_at) || 0 };
+        }
+      }
+    } catch { /* unreadable store: try the other */ }
+  }
+  return null;
+}
+
 /** True when a Supabase auth token exists in EITHER store.
  *
  *  Both are scanned because a user who unticked the box has their token in

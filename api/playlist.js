@@ -19,7 +19,6 @@
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { requireChula } from './_lib/chula-gate.js';
 
 const YT_API = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const YT_RSS = 'https://www.youtube.com/feeds/videos.xml';
@@ -43,8 +42,6 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
-  const gate = await requireChula(req, res);
-  if (!gate) return undefined;
 
   // ── Rate limit ──
   // 30/min used to be the cap. One cold load of /app/videos is ~41 requests, so

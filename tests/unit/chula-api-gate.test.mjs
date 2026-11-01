@@ -1,7 +1,7 @@
 // The Chula wall for Vercel functions (api/_lib/chula-gate.js).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { chulaGate, requireChula, resetChulaGate } from '../../api/_lib/chula-gate.js';
 
 const env = { VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' };
@@ -81,8 +81,9 @@ test('when the database cannot be asked the gate refuses, unless this instance s
   assert.equal(refused.status, 503);
   const { fetchImpl } = backend(false);
   await chulaGate(req(), { env, fetchImpl, now: () => 0 });
-  assert.equal((await chulaGate(req(), { env, fetchImpl: down, now: () => 10_000 })).ok, true, 'open within the 30 s window it was seen open');
-  assert.equal((await chulaGate(req(MEMBER), { env, fetchImpl: down, now: () => 60_000 })).status, 503, 'and refuses after it');
+  assert.equal((await chulaGate(req(), { env, fetchImpl: down, now: () => 10_000 })).ok, true, 'open within the 30 s it trusts the switch');
+  assert.equal((await chulaGate(req(), { env, fetchImpl: down, now: () => 5 * 60_000 })).ok, true, 'an outage keeps open what it saw open in the last ten minutes');
+  assert.equal((await chulaGate(req(MEMBER), { env, fetchImpl: down, now: () => 11 * 60_000 })).status, 503, 'and refuses after them');
   resetChulaGate();
   assert.equal((await chulaGate(req(), { env: {}, fetchImpl: down })).ok, true, 'no database configured: a local API or the unit suite');
   assert.equal((await chulaGate(req(), { env: { VERCEL_ENV: 'production' }, fetchImpl: down })).status, 503, 'production without a database refuses');
@@ -108,23 +109,27 @@ test('requireChula answers the refusal uncached and returns null', async () => {
   assert.equal(res.body.error, 'chula_required');
 });
 
-test('every function that costs money or touches an account is behind the gate', () => {
+test('every function is behind the gate or open on purpose, and a new one must say which', () => {
   const gated = ['ai-chat', 'ai-transcribe', 'agent-action', 'exam-result', 'external-connect', 'external-connect-start',
-    'fetch-external-doc', 'grade-summary', 'library-file', 'list-external-files', 'mochi-voice', 'playlist', 'race-start',
+    'fetch-external-doc', 'grade-summary', 'library-file', 'list-external-files', 'mochi-voice', 'race-start',
     'study-coach', 'transcribe-handwriting', 'tts', 'tts-iapp', 'wiki-explain'];
   for (const name of gated) {
     const src = readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8');
     assert.match(src, /await (requireChula|chulaGate)\(req/, `${name} must call the Chula gate`);
   }
   // Open on purpose: crash counts, the feedback lifeline, a public calendar feed,
-  // the signed byte link, the OAuth return, the old-origin move, the admin's own probe.
-  const open = ['client-diagnostic', 'send-feedback', 'calendar', 'library-blob', 'external-connect-callback', 'move-in', 'system-status'];
+  // the signed byte link, the OAuth return, the old-origin move, the admin's own
+  // probe, and public YouTube playlist titles (edge-cached for half an hour, its
+  // Data API spend capped daily, and the video page asks ~40 at once).
+  const open = ['client-diagnostic', 'send-feedback', 'calendar', 'library-blob', 'external-connect-callback', 'move-in', 'system-status', 'playlist'];
+  const all = readdirSync(new URL('../../api/', import.meta.url)).filter((f) => f.endsWith('.js')).map((f) => f.slice(0, -3));
+  assert.deepEqual(all.sort(), [...gated, ...open].sort(), 'every api/*.js is listed as gated or open here');
   for (const name of open) {
     assert.doesNotMatch(readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8'), /chula-gate/, name);
   }
 });
 
-test('an open ticket names one document for a week and nothing else', async () => {
+test('an open ticket names one document for a day and nothing else', async () => {
   const { mintOpenTicket, verifyOpenTicket, ticketQuery } = await import('../../api/_lib/open-ticket.js');
   const secrets = { CLOUDFLARE_API_TOKEN: 'test-only-secret' };
   const now = Date.UTC(2026, 10, 1);
@@ -133,7 +138,8 @@ test('an open ticket names one document for a week and nothing else', async () =
   assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, String(t.ve), { env: secrets, now }), true);
   assert.equal(verifyOpenTicket('another-deck', t.vt, t.ve, { env: secrets, now }), false, 'bound to its slug');
   assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve + 1, { env: secrets, now }), false, 'bound to its expiry');
-  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve, { env: secrets, now: now + 8 * 86400_000 }), false, 'expires after a week');
+  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve, { env: secrets, now: now + 23 * 3600_000 }), true, 'still open within the day');
+  assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve, { env: secrets, now: now + 25 * 3600_000 }), false, 'expires after a day');
   assert.equal(verifyOpenTicket('vet-pharm-deck', t.vt, t.ve, { env: { CLOUDFLARE_API_TOKEN: 'other' }, now }), false, 'another secret');
   assert.equal(verifyOpenTicket('vet-pharm-deck', `${t.vt}x`, t.ve, { env: secrets, now }), false);
   assert.equal(verifyOpenTicket('vet-pharm-deck', null, null, { env: secrets, now }), false);

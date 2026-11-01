@@ -42,15 +42,17 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'POST' && req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
-  const gate = await requireChula(req, res);
-  if (!gate) return undefined;
   if (req.method === 'GET') {
+    // Which providers this deployment can connect: booleans, public, edge-cached,
+    // so outside the Chula wall like the page that asks.
     // Vary on Origin so an edge copy made for one origin's CORS answer is
     // never replayed to another.
     res.setHeader('Vary', 'Origin');
     res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=3600');
     return res.status(200).json(externalCapabilities());
   }
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   const ip = clientIP(req);
   const rl = await rateLimit(`external-connect-manage-ip:${ip}`, IP_CEILING_PER_HOUR, HOUR_MS);

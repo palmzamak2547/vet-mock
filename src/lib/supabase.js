@@ -14,7 +14,9 @@
 // share one fetch and one createClient() call.
 // ============================================================
 
-import { createAuthStorage, hasStoredAuthToken } from './auth-storage.js';
+import { createAuthStorage, hasStoredAuthToken, storedAuthSession } from './auth-storage.js';
+
+export { storedAuthSession };
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -209,15 +211,15 @@ export async function signInWithGoogle({ hd = '', link = false, allowRedirect = 
   return data;
 }
 
-// Tells the Chula wall a missing session was asked for, so it does not say
-// the session expired. Written inline in both sign-outs below, because
-// auth-action-failure runs their bodies in a sandbox.
+// Tells the Chula wall a missing session was asked for, in any tab, so it does
+// not say the session expired. A timestamp in localStorage, written inline in
+// both sign-outs below, because auth-action-failure runs their bodies in a sandbox.
 export const SIGNED_OUT_KEY = 'vmx-signed-out';
 
 export async function signOut() {
   const supabase = await getSupabase();
   if (!supabase) return;
-  try { sessionStorage.setItem('vmx-signed-out', '1'); } catch { /* private mode */ }
+  try { localStorage.setItem('vmx-signed-out', String(Date.now())); } catch { /* private mode */ }
   const { error } = await supabase.auth.signOut({ scope: 'local' });
   if (error) throw error;
   // The LIFF SDK keeps its own login for 12 hours; without this the next
@@ -397,7 +399,7 @@ export async function resendVerificationEmail(email) {
 export async function signOutAllDevices() {
   const supabase = await getSupabase();
   if (!supabase) return;
-  try { sessionStorage.setItem('vmx-signed-out', '1'); } catch { /* private mode */ }
+  try { localStorage.setItem('vmx-signed-out', String(Date.now())); } catch { /* private mode */ }
   const { error } = await supabase.auth.signOut({ scope: 'global' });
   if (error) throw error;
   // The LIFF SDK keeps its own login for 12 hours; without this the next

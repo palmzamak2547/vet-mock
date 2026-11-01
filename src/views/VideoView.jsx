@@ -53,7 +53,6 @@ import FeatureTip from '../components/FeatureTip.jsx';
 import { loadVideoSummaryClip } from '../data/video-summaries.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
-import { authHeader } from '../lib/api-auth.js';
 
 // A chunk that fails to load (offline, or a tab opened before a deploy that no
 // longer serves the old hash) throws straight to the caller, which shows the
@@ -195,7 +194,7 @@ function fetchPreview(playlistId) {
   if (previewMissedUntil(playlistId)) return Promise.resolve(null);
   if (INFLIGHT.has(playlistId)) return INFLIGHT.get(playlistId);
 
-  const p = runQueued(async () => fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, { headers: await authHeader() }))
+  const p = runQueued(() => fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`))
     .then(async (r) => {
       const json = r.ok ? await r.json().catch(() => null) : null;
       if (!json?.items?.length) {
@@ -977,7 +976,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
     (async () => {
       try {
-        const r = await fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, { signal: ctrl.signal, headers: await authHeader() });
+        const r = await fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, { signal: ctrl.signal });
         const data = await r.json().catch(() => null);
         if (ctrl.signal.aborted) return;
         if (!r.ok) {

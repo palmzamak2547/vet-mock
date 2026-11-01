@@ -11,6 +11,10 @@ import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
 
 const SWITCH_TTL_MS = 30_000;
+// How long a switch seen off keeps the API open through a database outage. Long
+// enough that the AI and read-aloud ride out a Supabase hiccup while the wall is
+// off; short enough that turning it on is not undone for long by one.
+const OUTAGE_GRACE_MS = 10 * 60_000;
 const MEMBER_TTL_MS = 60_000;
 let lastSwitch = null; // { enforce, at }
 const members = new Map(); // sha256(token) -> { uid, until }
@@ -80,8 +84,8 @@ export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now
     }
     lastSwitch = { enforce: state.enforce, at: now() };
   } catch {
-    // An outage opens only what this instance saw open within the switch window.
-    return lastSwitch?.enforce === false && now() - lastSwitch.at < SWITCH_TTL_MS ? { ok: true, userId: null, token: null, member: false } : UNAVAILABLE;
+    // An outage opens only what this instance saw open in the last ten minutes.
+    return lastSwitch?.enforce === false && now() - lastSwitch.at < OUTAGE_GRACE_MS ? { ok: true, userId: null, token: null, member: false } : UNAVAILABLE;
   }
 
   if (state.member === true) {
