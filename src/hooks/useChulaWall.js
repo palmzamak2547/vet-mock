@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
-import { fetchAccessState, gateState, readAuthErrorFromUrl, rememberAnswer, rememberedEnforce, rememberedMember } from '../lib/chula.js';
+import { fetchAccessState, gateState, readAuthErrorFromUrl, rememberAnswer, rememberedEnforce, rememberedMember, takeAuthErrorFromUrl } from '../lib/chula.js';
 
 // useChulaWall({ user, loading }) — what the Chula sign-in wall shows now
 // (docs/CHULA-SIGNIN.md). The database decides; this asks it once per account
@@ -73,6 +73,15 @@ export function useChulaWall({ user, loading }) {
   // Read once per account and per answer, not on every render of the app.
   const remembered = useMemo(() => rememberedMember(uid), [uid, answer]); // eslint-disable-line react-hooks/exhaustive-deps
   const state = gateState({ configured: hasSupabase, enforce, loading, user, verdict, remembered });
+  // Let in past an enforced wall without the gate ever showing it (a member whose
+  // stored session opened the app): a sign-in failure in the address is moot. Drop
+  // it and tidy the address, so it cannot surface after a later sign-out in this
+  // page. With the wall off the address is left alone: AuthView reads it.
+  useEffect(() => {
+    if (state !== 'open' || enforce !== true || !bootAuthError) return;
+    dropBootAuthError();
+    takeAuthErrorFromUrl();
+  }, [state, enforce]);
 
   const refresh = useCallback(() => setRound((n) => n + 1), []);
   // Kept in sessionStorage as well, so it survives the redirect to Google and back.

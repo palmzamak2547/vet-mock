@@ -76,7 +76,9 @@ export function hasSavedSession() {
 
 // Whether this page loaded with a session in storage. The Chula wall reads it
 // to tell "your session expired" from a first visit.
-export const BOOT_HAD_SESSION = hasSavedSession();
+// Only this project's own key counts, so a key left by an old address never
+// reads as an expired session on a first visit.
+export const BOOT_HAD_SESSION = storedAuthSession() !== null;
 
 // Did we land here from an email/OAuth redirect that needs the SDK to
 // parse tokens out of the URL? Examples:
@@ -226,14 +228,13 @@ export async function signOut() {
   if (error) {
     // Offline, or with an expired token and no network, auth-js answers with an
     // error and keeps the token. Signing out of this device must not wait for the
-    // server: drop the token through the client's own storage (the "stay signed
-    // in" adapter clears both stores). If that is not possible, report the failure.
-    const { storage, storageKey } = supabase.auth ?? {};
-    if (!storage || !storageKey) throw error;
-    try {
-      await storage.removeItem(storageKey);
-      await storage.removeItem(`${storageKey}-code-verifier`);
-    } catch { throw error; }
+    // server: end the local session the way auth-js does after a refused refresh.
+    // _removeSession clears the token through the client's storage (the "stay
+    // signed in" adapter clears both stores), stops a refresh still retrying from
+    // saving it again, and tells this tab and every other one SIGNED_OUT. If that
+    // is not possible, report the failure.
+    if (typeof supabase.auth?._removeSession !== 'function') throw error;
+    try { await supabase.auth._removeSession(); } catch { throw error; }
   }
   // The LIFF SDK keeps its own login for 12 hours; without this the next
   // person on a shared browser inherits the LINE identity for up to an hour.

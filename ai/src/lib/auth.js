@@ -127,12 +127,14 @@ export const authPort = {
     const client = await getAuthClient();
     if (!client) return;
     const { error } = await client.auth.signOut({ scope: 'local' });
-    // Offline (or an expired token with no network) auth-js keeps the token: drop it
-    // through the client's own storage, so this device is signed out regardless.
+    // Offline (or an expired token with no network) auth-js keeps the token. End the
+    // local session the way it does after a refused refresh: _removeSession clears the
+    // token, stops a retrying refresh from saving it again, and tells every tab
+    // SIGNED_OUT. Without it, drop the token through the client's own storage.
     if (!error) return;
+    if (typeof client.auth._removeSession === 'function') { await client.auth._removeSession(); return; }
     const { storage, storageKey } = client.auth;
     await storage?.removeItem(storageKey);
-    await storage?.removeItem(`${storageKey}-code-verifier`);
   },
   /** A fresh access token, or null when the server would not give one. */
   async refresh() {

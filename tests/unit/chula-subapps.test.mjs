@@ -217,6 +217,7 @@ test('each sub-app links the ID token it was handed, and signs out of the device
   for (const [name, path] of [['ai', '../../ai/src/lib/auth.js'], ['vca', '../../vca/src/online/live.js'], ['research', '../../research/src/lib/auth/client.js']]) {
     const src = read(path);
     assert.ok(src.includes("signOut({ scope: 'local' })"), `${name} signs out of this device only`);
-    assert.ok(/removeItem\((AUTH_STORAGE_KEY|storageKey)\)/.test(src), `${name} drops the token itself when the server cannot be reached`);
+    assert.ok(src.includes('._removeSession()'), `${name} ends the local session as auth-js does, telling every tab, when the server cannot be reached`);
+    assert.ok(/removeItem\((AUTH_STORAGE_KEY|storageKey)\)/.test(src), `${name} still drops the token without that method`);
   }
 });

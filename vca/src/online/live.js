@@ -89,12 +89,14 @@ export const auth = {
     // This device only: the account is shared with vetmock.com, and the default (global) revokes
     // every refresh token, which signed the student out of VetMock on all their devices.
     const { error } = await sb.auth.signOut({ scope: 'local' });
-    // Offline (or an expired token with no network) auth-js keeps the token: drop it
-    // through the client's own storage, so this device is signed out regardless.
+    // Offline (or an expired token with no network) auth-js keeps the token. End the
+    // local session the way it does after a refused refresh: _removeSession clears the
+    // token, stops a retrying refresh from saving it again, and tells every tab
+    // SIGNED_OUT. Without it, drop the token through the client's own storage.
     if (!error) return;
+    if (typeof sb.auth._removeSession === 'function') { await sb.auth._removeSession(); return; }
     const { storage, storageKey } = sb.auth;
     await storage?.removeItem(storageKey);
-    await storage?.removeItem(`${storageKey}-code-verifier`);
   },
 };
 

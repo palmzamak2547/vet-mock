@@ -143,8 +143,10 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
   storage key, and never on a sign-in redirect, where the arriving account must
   not be preceded by the one on the device.
 - Signing out of a device works offline: when auth-js cannot reach the server it
-  answers with an error and keeps the token, so every front end then drops the
-  token through the client's own storage itself.
+  answers with an error and keeps the token, so every front end then ends the
+  local session the way auth-js does after a refused refresh (`_removeSession`):
+  the token goes, a refresh still retrying cannot save it again, and every open
+  tab hears SIGNED_OUT.
 - The wall never signs anyone out. Tokens refresh when the device is back online.
 - A re-read of a known member's session (a profile save, a passkey) keeps the app
   on screen; the wall's checking screen is only for a device with no account yet.

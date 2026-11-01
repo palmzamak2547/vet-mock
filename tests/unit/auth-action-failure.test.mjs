@@ -27,13 +27,23 @@ test('signing out of this device drops the token itself when the server cannot b
   const body = source.match(new RegExp(String.raw`export async function signOut\(\) \{([\s\S]*?)\n\}`))?.[1];
   assert.ok(body);
   const run = new AsyncFunction('getSupabase', 'notifyAuthChanged', body);
-  const kept = new Map([['sb-abc-auth-token', '{"user":{"id":"carol"}}'], ['sb-abc-auth-token-code-verifier', 'v']]);
-  const storage = { removeItem: async (k) => { kept.delete(k); } };
+  // auth-js's own end of a local session: clears the token and tells every tab
+  // SIGNED_OUT (BroadcastChannel), so a second tab does not keep the account.
+  const kept = new Map([['sb-abc-auth-token', '{"user":{"id":"carol"}}']]);
+  const told = [];
+  const auth = {
+    signOut: async () => ({ error: offline }),
+    _removeSession: async () => { kept.clear(); told.push('SIGNED_OUT'); },
+  };
   const offline = Object.assign(new Error('Failed to fetch'), { name: 'AuthRetryableFetchError' });
   let notifications = 0;
-  await run(async () => ({ auth: { storage, storageKey: 'sb-abc-auth-token', signOut: async () => ({ error: offline }) } }), () => notifications++);
-  assert.equal(kept.size, 0, "the token and its code verifier are gone, through the client's own storage");
+  await run(async () => ({ auth }), () => notifications++);
+  assert.equal(kept.size, 0, 'the token is gone');
+  assert.deepEqual(told, ['SIGNED_OUT'], 'every tab hears it, not just this one');
   assert.equal(notifications, 1, 'the app hears it is signed out');
+  // Without that method (another auth-js), the failure is reported, never swallowed.
+  await assert.rejects(run(async () => ({ auth: { signOut: async () => ({ error: offline }) } }), () => notifications++), /Failed to fetch/);
+  assert.equal(notifications, 1);
 });
 
 test('the main menu presents a failed sign-out instead of leaking a rejected promise', async () => {
