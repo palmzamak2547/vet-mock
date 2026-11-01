@@ -313,7 +313,9 @@ async function verifiedLibraryResponse(response, hash, access) {
   const headers = new Headers(response.headers);
   headers.set('X-VetMock-Library-Access', access);
   headers.set('X-VetMock-Library-Hash', hash.toLowerCase());
-  return new Response(bytes, { status: response.status, headers });
+  // Every kept copy is the whole file (a whole-object 206 included).
+  headers.delete('Content-Range');
+  return new Response(bytes, { status: 200, headers });
 }
 
 // A video's byte-range reads (Safari plays media only from 206 answers): the
@@ -409,7 +411,10 @@ async function libraryDoc(request, hash, event) {
   }
 
   const res = await fetch(request);
-  if (res && res.status === 200) {
+  // A 206 carrying the whole object (a media player's first `bytes=0-`) is the
+  // file too, so a clip opened online is still kept for offline.
+  const whole = /^bytes 0-(\d+)\/(\d+)$/.exec((res?.status === 206 && res.headers.get('content-range')) || '');
+  if (res && (res.status === 200 || (whole && Number(whole[1]) + 1 === Number(whole[2])))) {
     const len = Number(res.headers.get('content-length'));
     if (Number.isFinite(len) && len > 0 && len <= LIB_DOC_MAX_BYTES) {
       const kind = res.headers.get('X-VetMock-Library-Access') === 'public' ? 'public' : 'restricted';

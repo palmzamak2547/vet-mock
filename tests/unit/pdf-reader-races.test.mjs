@@ -132,6 +132,7 @@ function addressBook(r, rows) {
   r.ctx.docOpenMode = (row) => ({ action: row.mime === 'application/pdf' ? 'read' : 'download' });
   r.ctx.readerPayload = (row, { page }) => ({ url: `audit:${row.slug}`, slug: row.slug, sha256: row.sha256_16, fileName: `${row.title}.pdf`, title: row.title, page, rangeSupported: true });
   r.ctx.setOpenedDoc = (doc) => { r.state.opened = doc; };
+  r.ctx.missingDocReason = async () => 'ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป';
 }
 
 test('a deck named only by the reader address opens from its row, at the page the link asked for', async () => {

@@ -80,7 +80,8 @@ test('a deck that cannot open says why at the top of a phone, with every way to 
   });
   // Polled: a view transition overlays the page for a moment after it opens.
   await expect.poll(() => tappable(retry)).toBe(true);
-  await expect(page.getByRole('button', { name: 'ดาวน์โหลดไฟล์', exact: true })).toBeVisible();
+  // A VCA archive copy is read by range from another origin; its own tab saves it.
+  await expect(page.getByRole('button', { name: 'ดาวน์โหลดไฟล์', exact: true })).toHaveCount(0);
 
   state.healthy = true;
   const popup = page.waitForEvent('popup');
@@ -91,6 +92,24 @@ test('a deck that cannot open says why at the top of a phone, with every way to 
   await tab.close();
   await retry.click();
   await expect(ready(page)).toBeVisible({ timeout: 30_000 });
+});
+
+test('a deck chosen in the search palette on Home reaches the reader', async ({ page }) => {
+  // Home is not one of the reader's origins, so App drops the handed-over deck
+  // for a render while a view transition runs; the reader's address carries it.
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '5');
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+  });
+  await prepare(page);
+  await page.goto('/app');
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
+  const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
+  await dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill('Pharmacology & Toxicology (VCA58-68)');
+  await dialog.getByText('Pharmacology & Toxicology (VCA58-68)').first().click();
+  await expect(ready(page)).toBeVisible({ timeout: 30_000 });
+  await expect(page).toHaveURL(new RegExp(`/app/tools/pdf\\?doc=${DECK}$`));
 });
 
 test.describe('inside LINE', () => {

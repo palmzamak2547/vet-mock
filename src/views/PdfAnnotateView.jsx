@@ -30,7 +30,7 @@ import BackBar from '../components/BackBar.jsx';
 import MotionLoader from '../components/MotionLoader.jsx';
 import { MotionEnter } from '../components/MotionFeedback.jsx';
 import { thaiError } from '../lib/errors.js';
-import { displayDocTitle, docOpenMode, downloadDocFile, findLibraryDoc, openDocInTab, readerPayload } from '../lib/library.js';
+import { displayDocTitle, docOpenMode, downloadDocFile, findLibraryDoc, missingDocReason, openDocInTab, readerPayload } from '../lib/library.js';
 import { APP_NAMES, externalUrl, inAppBrowser } from '../lib/inapp.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
@@ -113,9 +113,12 @@ async function loadPdfjs() {
     // an older iPhone, iPad or Mac every deck failed with a retry that could
     // never work. The legacy build carries its own polyfills, and only those
     // browsers load it (its own chunk, vite.config).
+    // Its worker is ES2022 (a class static block, Safari 16.4), so it is built
+    // through Vite's worker pipeline (`?worker&url`), which lowers it to the
+    // app's target like the legacy build itself; a plain `?url` copies it as is.
     if (typeof Promise.withResolvers !== 'function') {
       const legacy = await import('pdfjs-dist/legacy/build/pdf.mjs');
-      legacy.GlobalWorkerOptions.workerSrc = (await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url')).default;
+      legacy.GlobalWorkerOptions.workerSrc = (await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?worker&url')).default;
       return legacy;
     }
     const pdfjs = await import('pdfjs-dist');
@@ -506,12 +509,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Named only by the reader's address (a reload, Forward, a link from
       // VetMock AI): the catalog row first, then the shelf's own payload.
       if (asked.fromUrl) {
+        loadPdfjs().catch(() => {}); // fetched beside the row, not after it
         const row = await findLibraryDoc(asked.slug);
         if (!current()) return;
         if (!row) {
-          throw new Error(typeof navigator !== 'undefined' && navigator.onLine === false
-            ? 'ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้'
-            : 'ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป');
+          const reason = await missingDocReason(asked.slug);
+          if (!current()) return;
+          throw new Error(reason);
         }
         doc = readerPayload(row, { page: asked.page });
         setOpenedDoc(doc);
@@ -673,9 +677,23 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // App makes one per open, so another deck from the command palette, the
   // same deck asked for at another page, and a deck named only by the
   // reader's address (fromUrl, filled in when its row arrives) each open.
+  const askedDocRef = useRef(null);
   useEffect(() => {
     setOpenedDoc(null);
-    if (!initialDoc?.url && !initialDoc?.resolve && !initialDoc?.fromUrl) return;
+    const before = askedDocRef.current;
+    askedDocRef.current = initialDoc;
+    if (!initialDoc?.url && !initialDoc?.resolve && !initialDoc?.fromUrl) {
+      // The deck was taken away (a sign-out in another tab remounts this view
+      // still holding it for a render): its open still in flight is withdrawn
+      // rather than shown to whoever is here now.
+      if (before) {
+        supersedeOpen();
+        setLoading(false);
+        setLoadingMsg('');
+        setDownloadProgress(null);
+      }
+      return;
+    }
     // Another deck asked for while one is on screen: it gets the opening
     // panel too. The viewing screen has no place for an error, so a failure
     // used to leave the old deck up and say nothing.
@@ -2362,8 +2380,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
                     เปิดไฟล์ต้นฉบับ
                   </button>
                 )}
-                {/* App browsers do not save files (VetMock AI hides this too). */}
-                {fallback && !app && (
+                {/* App browsers do not save files (VetMock AI hides this too). An
+                    archive copy is read by range from another origin, which no
+                    download link can name: its tab saves it. */}
+                {fallback && !app && !shown.rangeSupported && (
                   <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                     onClick={() => { downloadDocFile(shown.resolve, shown.mime && shown.mime !== 'application/pdf' ? '' : shown.fileName).catch(fail); }}>
                     ดาวน์โหลดไฟล์

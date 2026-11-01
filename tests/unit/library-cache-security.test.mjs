@@ -260,6 +260,34 @@ test('a video\'s byte-range reads get 206, from the kept copy offline and from t
   assert.equal(asked, 'bytes=0-1');
 });
 
+test('a clip whose first read is a whole-file 206 is still kept for offline', async () => {
+  // A media player asks for `bytes=0-` from its first request, and the server
+  // now answers ranges with 206; the worker used to keep only 200 answers.
+  const app = worker();
+  await app.access(false);
+  const n = publicBytes.length;
+  app.context.fetch = async () => new Response(publicBytes, { status: 206, headers: {
+    'Content-Type': 'video/mp4', 'Content-Length': String(n), 'Content-Range': `bytes 0-${n - 1}/${n}`, 'X-VetMock-Library-Access': 'public',
+  } });
+  const first = app.request(`t=signed&h=${publicHash}`, { headers: { Range: 'bytes=0-' } });
+  assert.equal((await first.response).status, 206, 'the player gets the answer it asked for');
+  await first.settled();
+  const kept = await (await app.caches.open(DOCS)).match('/__lib-doc/' + publicHash);
+  assert.equal(kept?.status, 200);
+  assert.equal(kept.headers.get('Content-Range'), null);
+  app.context.fetch = async () => { throw Error('offline'); };
+  assert.equal(await (await app.request(`offline=1&h=${publicHash}`).response).text(), publicBytes);
+  // A part of the file is never kept as if it were the file.
+  const part = worker();
+  await part.access(false);
+  part.context.fetch = async () => new Response(publicBytes.slice(0, 2), { status: 206, headers: {
+    'Content-Length': '2', 'Content-Range': `bytes 0-1/${n}`, 'X-VetMock-Library-Access': 'public',
+  } });
+  const partial = part.request(`t=signed&h=${publicHash}`, { headers: { Range: 'bytes=0-1' } });
+  await partial.response; await partial.settled();
+  assert.equal(await (await part.caches.open(DOCS)).match('/__lib-doc/' + publicHash), undefined);
+});
+
 function memoryStorage() {
   const map = new Map();
   return {

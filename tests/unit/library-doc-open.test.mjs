@@ -20,7 +20,7 @@ import { finished } from 'node:stream/promises';
 import handler, { contentHeaders, sliceBody } from '../../api/library-blob.js';
 import { mintBlobToken } from '../../api/_lib/blob-token.js';
 import { readerTarget, readerUrl, viewForAppPath } from '../../src/lib/view-route.js';
-import { contentHitRows } from '../../src/lib/library.js';
+import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab } from '../../src/lib/library.js';
 import { vcaLibraryDocs } from '../../src/lib/vca-library.js';
 import { VCA_MATERIALS } from '../../src/data/vca-materials.js';
 
@@ -39,6 +39,27 @@ test('the reader address names the deck, and a link may ask for a page', () => {
   }
 });
 
+test('a deck the reader address names but a guest\'s shelf lacks says whether it needs a sign-in', async (t) => {
+  // A guest's shelf holds public rows only, so a login-only deck looked
+  // "removed" (general review, 1 Nov 2026).
+  const stores = (keys = []) => ({ length: keys.length, key: (i) => keys[i] ?? null });
+  globalThis.localStorage = stores();
+  globalThis.sessionStorage = stores();
+  t.after(() => { delete globalThis.localStorage; delete globalThis.sessionStorage; });
+  const asked = [];
+  t.mock.method(globalThis, 'fetch', async (url) => { asked.push(url); return new Response('{"error":"login_required"}', { status: 401 }); });
+  assert.match(await missingDocReason('login-only-deck'), /ต้องเข้าสู่ระบบ/);
+  assert.equal(asked[0], '/api/library-file?slug=login-only-deck');
+  t.mock.method(globalThis, 'fetch', async () => new Response('{"error":"not_found"}', { status: 404 }));
+  assert.match(await missingDocReason('gone'), /ไม่พบไฟล์นี้ในคลังแล้ว/);
+  // Signed in, the row lookup already saw what this account may read.
+  globalThis.localStorage = stores(['sb-project-auth-token']);
+  let called = false;
+  t.mock.method(globalThis, 'fetch', async () => { called = true; return new Response('', { status: 401 }); });
+  assert.match(await missingDocReason('gone'), /ไม่พบไฟล์นี้ในคลังแล้ว/);
+  assert.equal(called, false);
+});
+
 test('a text match inside any PDF a VCA card groups is shown and opens that file', () => {
   // 146 VCA copies are not their card's own file; 1 of the 8 archive matches
   // for "diagnosis" on vetmock.com (1 Nov 2026) was one, and it never showed.
@@ -51,6 +72,54 @@ test('a text match inside any PDF a VCA card groups is shown and opens that file
   assert.equal(hits[1].doc.slug, other.slug, 'the match opens the file it was found in');
   assert.equal(hits[1].doc.range_supported, true, 'and reads it by range, as the card itself does');
   assert.deepEqual(contentHitRows([{ slug: other.slug, page: 7 }], []), [], 'a card the filters hide hides its files too');
+});
+
+// ── Opening a file in a tab, saving it ────────────────────────────────────
+
+function page(t, { tab = true } = {}) {
+  const calls = [];
+  const clicked = [];
+  const win = { opener: {}, location: { replace: (u) => calls.push(['tab', u]) }, close: () => calls.push(['close']) };
+  globalThis.window = {
+    location: { href: 'https://vetmock.com/app/library', origin: 'https://vetmock.com', assign: (u) => calls.push(['here', u]) },
+    open: (u, target) => { calls.push(['open', u, target]); return tab ? win : null; },
+  };
+  globalThis.document = {
+    createElement: () => ({ click() { clicked.push({ href: this.href, download: this.download }); }, remove() {} }),
+    body: { appendChild() {} },
+  };
+  t.after(() => { delete globalThis.window; delete globalThis.document; });
+  return { calls, clicked, win };
+}
+
+test('a file opens in the tab opened inside the tap, or here when the browser gives no tab', async (t) => {
+  const { calls, win } = page(t);
+  const opening = openDocInTab(async () => '/api/library-blob?t=x&s=y');
+  assert.deepEqual(calls, [['open', '', '_blank']], 'the tab is asked for before the mint, inside the tap');
+  await opening;
+  assert.equal(win.opener, null);
+  assert.deepEqual(calls.at(-1), ['tab', '/api/library-blob?t=x&s=y']);
+  // An in-app browser or a blocker gives no tab: asking again after the mint
+  // was refused without a word, so the file opens here instead.
+  const refused = page(t, { tab: false });
+  await openDocInTab(async () => '/api/library-blob?t=x&s=y');
+  assert.deepEqual(refused.calls, [['open', '', '_blank'], ['here', '/api/library-blob?t=x&s=y']]);
+  // A failed mint closes the empty tab and says why.
+  const failed = page(t);
+  await assert.rejects(openDocInTab(async () => { throw new Error('ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป'); }), /ไม่พบไฟล์/);
+  assert.deepEqual(failed.calls.at(-1), ['close']);
+});
+
+test('a download names the file on the blob route, and offline says when the device has no copy', async (t) => {
+  const { clicked } = page(t);
+  await downloadDocFile(async () => '/api/library-blob?t=x&s=y&h=abc', 'สไลด์ FIQC.pdf');
+  const saved = new URL(clicked[0].href);
+  assert.equal(saved.searchParams.get('dl'), '1');
+  assert.equal(saved.searchParams.get('name'), 'สไลด์ FIQC.pdf');
+  assert.equal(clicked[0].download, 'สไลด์ FIQC.pdf');
+  t.mock.method(globalThis, 'fetch', async () => new Response('{"error":"offline_not_cached"}', { status: 503 }));
+  await assert.rejects(downloadDocFile(async () => '/api/library-blob?offline=1&h=abc', 'deck.pdf'), /ดาวน์โหลดไม่ได้ตอนนี้/);
+  assert.equal(clicked.length, 1, 'nothing was saved from the 503');
 });
 
 test('Word, PowerPoint and Excel files go out as themselves, never as unknown attachments', () => {
@@ -70,7 +139,7 @@ test('Word, PowerPoint and Excel files go out as themselves, never as unknown at
 
 const BYTES = Uint8Array.from({ length: 20 }, (_, i) => i + 1);
 
-function storage(t, { mime, chunk = 3, onCancel = () => {} }) {
+function storage(t, { mime, chunk = 3, onCancel = () => {}, object = BYTES, catalogued = BYTES.length }) {
   const previous = { CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN, R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID };
   process.env.CLOUDFLARE_API_TOKEN = 'range-test-only';
   process.env.R2_ACCOUNT_ID = 'range-test-account';
@@ -86,15 +155,15 @@ function storage(t, { mime, chunk = 3, onCancel = () => {} }) {
     let at = 0;
     const body = new ReadableStream({
       pull(controller) {
-        if (at >= BYTES.length) { controller.close(); return; }
-        controller.enqueue(BYTES.slice(at, at + chunk));
+        if (at >= object.length) { controller.close(); return; }
+        controller.enqueue(object.slice(at, at + chunk));
         at += chunk;
       },
       cancel: onCancel,
     });
-    return new Response(body, { status: 200, headers: { 'content-length': String(BYTES.length), 'content-type': mime } });
+    return new Response(body, { status: 200, headers: { 'content-length': String(object.length), 'content-type': mime } });
   });
-  const token = mintBlobToken({ storage_bucket: 'test', storage_key: 'docs/abc/clip.bin', mime, byte_size: BYTES.length, status: 'public' });
+  const token = mintBlobToken({ storage_bucket: 'test', storage_key: 'docs/abc/clip.bin', mime, byte_size: catalogued, status: 'public' });
   return { url: '/api/library-blob?' + new URLSearchParams(token), asked };
 }
 
@@ -135,6 +204,15 @@ test('a video answers a byte range with exactly those bytes and 206', async (t) 
   assert.equal(whole.headers.get('accept-ranges'), 'bytes', 'a whole read tells the player it may seek');
   assert.equal(whole.bytes().length, 20);
   assert.equal((await get(url, {}, 'HEAD')).headers.get('accept-ranges'), 'bytes');
+});
+
+test('the object, not the catalogue, measures a range', async (t) => {
+  const object = Uint8Array.from({ length: 30 }, (_, i) => i + 1);
+  const { url } = storage(t, { mime: 'video/mp4', object, catalogued: 20 });
+  const tail = await get(url, { range: 'bytes=-4' });
+  assert.equal(tail.headers.get('content-range'), 'bytes 26-29/30');
+  assert.deepEqual(tail.bytes(), [27, 28, 29, 30]);
+  assert.equal((await get(url, { range: 'bytes=25-' })).statusCode, 206, 'a range past the catalogued size but inside the object is served');
 });
 
 test('a range lets storage go once its bytes are out', async (t) => {

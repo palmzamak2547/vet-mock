@@ -314,6 +314,25 @@ test('a guest who stays a guest does not re-read, re-hash and rewrite the offlin
   assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [`/__lib-doc/${P_HASH}`], 'the kept public deck is still there');
 });
 
+test('a sign-out purge cut short runs again at the next launch', async () => {
+  // The access record is written before the purge, so a guest launch that
+  // skipped every purge after the first would have kept these bytes for good.
+  const env = install({ signedIn: true });
+  const lib = await freshLibrary();
+  const bytes = await env.caches.open('vmx-lib-docs-v1');
+  await bytes.put('/__lib-doc/' + R_HASH, new Response('restricted deck bytes', { headers: { 'X-VetMock-Library-Access': 'restricted' } }));
+  const has = env.caches.has;
+  env.caches.has = () => new Promise(() => {}); // the tab is closed inside the purge
+  env.local.removeItem(TOKEN_KEY);
+  lib.setLibraryAccess(false).catch(() => {});
+  await settle();
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [`/__lib-doc/${R_HASH}`], 'the first purge never finished');
+  env.caches.has = has;
+  await freshLibrary(); // the next launch, signed out
+  await settle();
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), []);
+});
+
 test('DA-07: a device with no worker cache is left alone at sign-out', async () => {
   const env = install({ signedIn: true });
   const lib = await freshLibrary();

@@ -156,15 +156,8 @@ export default async function handler(req, res) {
   // 61 library videos used to come back whole with Accept-Ranges: none. Only
   // media: a PDF viewer told it may seek would ask for ranges that each pull
   // the whole object through here (see sliceBody).
-  const size = Number(payload.n);
-  const media = /^(?:video|audio)\//i.test(payload.m || '') && Number.isSafeInteger(size) && size > 0;
-  const range = media && req.method === 'GET' ? byteRange(req.headers.range, size) : null;
-  if (range === false) {
-    res.statusCode = 416;
-    res.setHeader('Content-Range', `bytes */${size}`);
-    res.setHeader('Cache-Control', 'no-store');
-    return res.end();
-  }
+  const media = /^(?:video|audio)\//i.test(payload.m || '');
+  const asksRange = media && req.method === 'GET' && !!req.headers.range;
 
   // The CF REST object API is a management plane: it ignores Range and
   // rejects HEAD (probed live — HEAD came back as an upstream error, and a
@@ -189,7 +182,7 @@ export default async function handler(req, res) {
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };
   // A range cut here asks storage for the whole object, so a storage that one
   // day honours Range cannot have its answer cut a second time.
-  if (req.headers.range && !range) upstreamHeaders.Range = req.headers.range;
+  if (req.headers.range && !asksRange) upstreamHeaders.Range = req.headers.range;
 
   const disconnected = new AbortController();
   // This limit covers the upstream HEADERS only. The same signal governs the body
@@ -218,6 +211,23 @@ export default async function handler(req, res) {
     return res.end(JSON.stringify({ error: 'object_unavailable' }));
   }
 
+  // The object measures the range, not the catalogue: a size that drifted
+  // would cut the wrong bytes under a consistent-looking Content-Range.
+  let range = null;
+  let total = 0;
+  if (asksRange && upstream.status === 200) {
+    const stored = (upstream.headers.get('content-encoding') || 'identity') === 'identity' ? Number(upstream.headers.get('content-length')) : NaN;
+    total = Number.isSafeInteger(stored) && stored > 0 ? stored : Number(payload.n);
+    if (Number.isSafeInteger(total) && total > 0) range = byteRange(req.headers.range, total);
+    if (range === false) {
+      upstream.body?.cancel().catch(() => {});
+      res.statusCode = 416;
+      res.setHeader('Content-Range', `bytes */${total}`);
+      res.setHeader('Cache-Control', 'no-store');
+      return res.end();
+    }
+  }
+
   res.statusCode = upstream.status;
   const content = contentHeaders(payload, upstream.headers.get('content-type'));
   res.setHeader('Content-Type', content.type);
@@ -239,9 +249,9 @@ export default async function handler(req, res) {
     const v = upstream.headers.get(h);
     if (v) res.setHeader(h, v);
   }
-  if (range && upstream.status === 200) {
+  if (range) {
     res.statusCode = 206;
-    res.setHeader('Content-Range', `bytes ${range.offset}-${range.offset + range.length - 1}/${size}`);
+    res.setHeader('Content-Range', `bytes ${range.offset}-${range.offset + range.length - 1}/${total}`);
     res.setHeader('Content-Length', String(range.length));
     res.setHeader('Accept-Ranges', 'bytes');
     if (!upstream.body) return res.end();

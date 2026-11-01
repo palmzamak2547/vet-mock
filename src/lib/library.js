@@ -428,8 +428,16 @@ export function setLibraryAccess(signedIn, { initial = false } = {}) {
       // alone, while an explicit sign-out still purges it.
       if (other?.active || (initial && other === null && typeof navigator !== 'undefined' && navigator.serviceWorker?.controller)) return previous;
     }
+    // A signed-out device purges until one purge has finished (`purged`). The
+    // record is written first, so a purge cut short (the tab closed, the phone
+    // killed the page) runs again at the next launch; after that a guest who
+    // stays a guest pays nothing. Purging on every launch re-read, re-hashed
+    // and rewrote the offline shelf twice per boot (vetmock.com, 1 Nov 2026),
+    // and the worker stores a restricted deck only for a live session.
+    const purged = !allowed && previous?.signedIn === false && previous?.purged === true;
     const state = { signedIn: allowed, epoch: allowed && previous?.signedIn && previous.epoch
-      ? previous.epoch : [...crypto.getRandomValues(new Uint8Array(16))].map(n => n.toString(16).padStart(2, '0')).join('') };
+      ? previous.epoch : [...crypto.getRandomValues(new Uint8Array(16))].map(n => n.toString(16).padStart(2, '0')).join(''),
+    ...(purged ? { purged: true } : {}) };
     await cache.put(LIB_ACCESS_URL, new Response(JSON.stringify(state), { headers: { 'Content-Type': 'application/json' } }));
     // The recently opened row is per device and names the previous student's
     // decks; the next person must not inherit it. Only a signed-in to
@@ -438,12 +446,15 @@ export function setLibraryAccess(signedIn, { initial = false } = {}) {
     if (!allowed && previous?.signedIn) {
       try { window.localStorage.removeItem(RECENT_KEY); } catch { /* storage disabled: nothing was kept */ }
     }
-    // Only a device that was signed in, or has no record yet, can hold a
-    // restricted deck's bytes: the worker stores one only for a live session.
-    // Purging on every guest launch re-read, re-hashed and rewrote the whole
-    // offline shelf (six decks of up to 40 MB) twice per boot, measured on
-    // vetmock.com 1 Nov 2026.
-    if (!allowed && previous?.signedIn !== false) await purgeRestrictedDocBytes();
+    if (!allowed && !purged) {
+      await purgeRestrictedDocBytes();
+      // Marked only on the record this call wrote: a tab that signed in
+      // meanwhile keeps its own.
+      const now = await cache.match(LIB_ACCESS_URL).then(hit => hit?.json()).catch(() => null);
+      if (now?.signedIn === false && now.epoch === state.epoch) {
+        await cache.put(LIB_ACCESS_URL, new Response(JSON.stringify({ ...now, purged: true }), { headers: { 'Content-Type': 'application/json' } }));
+      }
+    }
     return state;
   });
   return _accessWork;
@@ -659,6 +670,23 @@ async function catalogRevision(sb) {
   }
 }
 
+/** Why a deck named by the reader's address is not on this device's shelf.
+ *  The shelf a guest sees holds public rows only, so a login-only deck looks
+ *  absent: the mint endpoint, asked anonymously, answers it with 401. With a
+ *  session the row lookup already saw everything this account may read. */
+export async function missingDocReason(slug) {
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    return 'ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้';
+  }
+  if (!hasStoredAuthToken()) {
+    try {
+      const res = await fetch(`/api/library-file?slug=${encodeURIComponent(slug)}`);
+      if (res.status === 401) return 'ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้';
+    } catch { /* unreachable: the shelf's own answer stands */ }
+  }
+  return 'ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป';
+}
+
 // One row by slug, for the reader's own address (view-route.js readerUrl).
 // The device's shelf snapshot answers first (no network, and offline too),
 // then one row from the catalogue rather than all of it, then the merged
@@ -671,7 +699,9 @@ export async function findLibraryDoc(slug) {
     const { hasSupabase, getSupabase } = await import('./supabase.js');
     if (hasSupabase) {
       const sb = await getSupabase();
-      const { data, error } = await sb.from('library_docs').select(CATALOG_COLUMNS).eq('slug', slug).maybeSingle();
+      // Bounded: a hung read would hold the reader's spinner with no retry.
+      const { data, error } = await sb.from('library_docs').select(CATALOG_COLUMNS).eq('slug', slug)
+        .abortSignal(AbortSignal.timeout(8000)).maybeSingle();
       if (!error) {
         if (!data || data.status === 'archived') return null;
         // /api/library-file hands VCA archive objects to the archive worker,

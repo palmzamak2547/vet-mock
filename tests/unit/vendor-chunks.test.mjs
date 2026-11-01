@@ -164,7 +164,9 @@ test('a browser without Promise.withResolvers gets the legacy pdf.js build and i
   const loadPdfjs = vm.runInContext(`${code}\n;loadPdfjs`, context);
   assert.equal(await loadPdfjs(), legacy);
   assert.equal(legacy.GlobalWorkerOptions.workerSrc, '/assets/pdf.worker.legacy.mjs');
-  assert.deepEqual(asked, ['pdfjs-dist/legacy/build/pdf.mjs', 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url']);
+  // The worker goes through Vite's worker pipeline, lowered like the build itself:
+  // pdf.js ships it as ES2022 (a class static block, Safari 16.4).
+  assert.deepEqual(asked, ['pdfjs-dist/legacy/build/pdf.mjs', 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?worker&url']);
 });
 
 test('the library shelf warms pdf.js along with the reader while it sits idle', async () => {
