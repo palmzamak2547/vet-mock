@@ -142,3 +142,17 @@ test('a table added after the wall carries the members-only policy', () => {
     }
   }
 });
+
+test('the wall has no test-only switch a production build could carry', () => {
+  // The e2e specs plant sessions in storage and answer the database themselves;
+  // nothing in the wall's code reads a test flag, a query switch or a global hook.
+  const files = ['src/lib/chula.js', 'src/hooks/useChulaWall.js', 'src/views/ChulaGateView.jsx', 'api/_lib/chula-gate.js'];
+  for (const file of files) {
+    const code = readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    assert.doesNotMatch(code, /VITE_[A-Z_]*(E2E|TEST|BYPASS|WALL)|PLAYWRIGHT|__vmx[A-Za-z]*Test|[?&](wall|bypass|nowall)=|window\.__/i, file);
+  }
+  const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  const gateLine = app.split('\n').find((line) => line.includes("wall.state !== 'open'"));
+  assert.ok(gateLine, 'App renders the wall from wall.state');
+  assert.doesNotMatch(gateLine, /import\.meta\.env|localStorage|searchParams/, 'the gate condition reads only the wall state and the view');
+});
