@@ -76,18 +76,23 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
   const [sheetFailure, setSheetFailure] = useState(null);
   // Failed opens since the sheet last opened.
   const [sheetFailures, setSheetFailures] = useState(0);
-  // What the last tap opened, so a retry opens the same page.
+  // What the last tap opened, so a retry opens the same page, and a failure
+  // shows beside the button that was tapped.
   const [lastOpen, setLastOpen] = useState(null);
-  const openPage = (build, what) => {
+  const openPage = (build, what, where = 'exams') => {
     if (sheetFailure) {
       setTimetableSheet(() => lazy(loadSheet));
       setSheetFailure(null);
     }
-    setLastOpen({ build, what });
+    setLastOpen({ build, what, where });
     setPrintTable(build());
   };
   const openSheet = () => openPage(() => examTimetable(selectedYear), 'ตารางสอบฉบับพิมพ์');
   const docs = courseDocs(selectedYear);
+  const failureNote = (where) => sheetFailure && (lastOpen?.where || 'exams') === where && (
+    <SheetFailure error={sheetFailure} repeated={sheetFailures > 1} what={lastOpen?.what}
+      onRetry={() => (lastOpen ? openPage(lastOpen.build, lastOpen.what, lastOpen.where) : openSheet())} />
+  );
   const [, setTick] = useState(0);
   const yearKey = `y${selectedYear}`;
   const allExams = getUpcomingExams(yearKey);
@@ -188,10 +193,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           </Suspense>
         </ErrorBoundary>
       )}
-      {sheetFailure && (
-        <SheetFailure error={sheetFailure} repeated={sheetFailures > 1} what={lastOpen?.what}
-          onRetry={() => (lastOpen ? openPage(lastOpen.build, lastOpen.what) : openSheet())} />
-      )}
+      {failureNote('exams')}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 30 }}>
         {exams.map((exam) => {
@@ -308,6 +310,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           <p style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
             ฉบับอ่านง่ายจากประมวลรายวิชาของแต่ละวิชา บอกว่าแต่ละคาบออกสอบช่วงไหน ดาวน์โหลดเป็น PDF หรือรูป
           </p>
+          {failureNote('docs')}
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, border: '1px solid var(--clr-border)', borderRadius: 12 }}>
             {docs.map((d, i) => (
               <li key={d.subject} className="vmx-course-doc" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, padding: '10px 12px', borderTop: i ? '1px solid var(--clr-border)' : 'none' }}>
@@ -316,11 +319,11 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                 </span>
                 <span style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-label={`ประมวลรายวิชา ${d.nameTh}`}
-                    onClick={() => openPage(() => syllabusDoc(d.subject, selectedYear), 'ประมวลรายวิชาฉบับพิมพ์')}>
+                    onClick={() => openPage(() => syllabusDoc(d.subject, selectedYear), 'ประมวลรายวิชาฉบับพิมพ์', 'docs')}>
                     ประมวลรายวิชา
                   </button>
                   <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-label={`ตารางสอน ${d.nameTh}`}
-                    onClick={() => openPage(() => teachingDoc(d.subject, selectedYear), 'ตารางสอนฉบับพิมพ์')}>
+                    onClick={() => openPage(() => teachingDoc(d.subject, selectedYear), 'ตารางสอนฉบับพิมพ์', 'docs')}>
                     ตารางสอน
                   </button>
                 </span>

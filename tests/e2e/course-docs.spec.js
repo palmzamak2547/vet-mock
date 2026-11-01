@@ -88,3 +88,17 @@ test('a teaching timetable longer than a page downloads as two A4 pages', async 
   const pdf = await PDFDocument.load(fs.readFileSync(await download.path()));
   expect(pdf.getPageCount()).toBe(2);
 });
+
+// A sheet that cannot load says so beside the course list that was tapped,
+// naming the document, and the page stays.
+test('a document that cannot load leaves a note under the course list', async ({ page }) => {
+  const chunk = /\/(?:assets\/TimetableSheet-[^/]+\.js|src\/components\/TimetableSheet\.jsx)(?:\?.*)?$/;
+  await page.route(chunk, (route) => route.abort('internetdisconnected'));
+  await page.goto('/app/schedule');
+  const section = page.getByRole('region', { name: /ประมวลรายวิชาและตารางสอน ปี 5/ });
+  await section.getByRole('button', { name: 'ตารางสอน อายุรศาสตร์สัตว์ปีก', exact: true }).click();
+  const note = section.getByRole('alert');
+  await expect(note).toContainText('ตารางสอนฉบับพิมพ์');
+  await expect(section.getByRole('button', { name: 'ลองอีกครั้ง' })).toBeVisible();
+  await expect(page.locator('.vmx-exam-card').first()).toBeVisible();
+});

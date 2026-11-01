@@ -319,7 +319,7 @@ function teachingBody(card, doc, rows, y, o) {
     }
     // The date, and the row's own time under it when it has one.
     let d = para(card, cut, r.when, COL.date, y0, COL.title - COL.date - 12, { weight: 600, size: MIN.thai, color: ink }, { maxLines: 1 }).lineBottom;
-    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, COL.title - COL.date - 12, { weight: 500, size: MIN.latin + 2, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
+    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, COL.title - COL.date - 12, { weight: 400, size: MIN.latin + 2, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
     const w = r.lecturers ? names(card, cut, r.lecturers, COL.who, y0, whoW, { weight: 500, size: MIN.thai, color: r.kind === 'exam' ? pal.ink : pal.soft }).lineBottom : y0;
     y = Math.max(t, d, w);
     // A note and an announced change run under the whole row, title to edge.

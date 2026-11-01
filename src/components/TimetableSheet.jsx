@@ -71,10 +71,13 @@ async function drawPage(table) {
     try {
       const { card, cards, problems } = await (DRAW[table.kind] || drawTimetable)(table, { scale });
       canvases = (cards || [card]).map((c) => c.canvas);
-      const jpegs = [];
-      for (const c of canvases) jpegs.push(await toBlob(c, 'image/jpeg', 0.92));
+      // The picture first, then a JPEG a page for the PDF; the stacked
+      // picture is let go before the JPEGs are made.
       tall = canvases.length > 1 ? stack(canvases) : null;
       const png = await toBlob(tall || canvases[0], 'image/png');
+      release(tall);
+      const jpegs = [];
+      for (const c of canvases) jpegs.push(await toBlob(c, 'image/jpeg', 0.92));
       return { png, jpegs, pages: canvases.length, clean: problems.length === 0 };
     } catch {
       // Next scale.
