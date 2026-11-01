@@ -134,3 +134,25 @@ R2 prices: developers.cloudflare.com/r2/pricing, read 2026-11-01.
 - What the checks caught on the way, each now a rule: a book author named as the lecturer, every key point bunched in the first half, a pathogen listed as a predisposing factor, BSE for breeding soundness examination, "fertilize" where the lecture said no such thing, "red คือ ..." written into a line.
 - Known limits: the clarity reader is strict and stochastic (verdicts are now cached); a fresh run can still end held on one over-long chapter line, which `--resume` repairs.
 - Not yet done for the sample: our own copy (the 403), frames, the player.
+
+## 11. Skipping what teaches nothing (planned, Palm 1 Nov)
+
+"เพราะอย่าลืม ว่าเราสามารถจัดช่วงไม่จำเป็นออกได้ เช่น dead air หรืออื่นๆตามความเหมาะสม"
+
+Non-destructive: our copies stay whole, and each video gets a skip list the player follows.
+
+- **What counts:** silence over a threshold tuned on the sample; setup and waiting before the lecture starts; technical interruptions; long pauses with no speech on an unchanged slide; off-topic tails.
+- **Detection, deterministic first:** ffmpeg `silencedetect` on our copy (caption gaps until the copy exists), joined with "slide unchanged" from the frame extraction's dHash. A model judges only a borderline off-topic span, and that judgment is cached.
+- **Player:** a toggle "ข้ามช่วงที่ไม่มีเนื้อหา", on by default; skipped spans drawn faintly on the timeline; the time saved ("ประหยัด 6 นาที"). Jump links and summary stamps keep the original times. Playing everything is always one tap away.
+- **Checks:** no skipped span holds teaching speech (against the transcript); a span under the threshold is never skipped; minutes saved reported per video, sample first.
+
+## 12. Paused 1 Nov 2026, 21:00 (Palm's request)
+
+State on the branch `claude/video-library` (local, not pushed):
+
+- **R2:** 10 copies uploaded, each verified by size. 11 uploads failed on a timeout bug (fixed: the timeout must be an integer) and are redone on resume. `scripts/video-media.mjs` now stops under 20 GB free (`VIDEO_MIN_FREE_GB`) and deletes a local copy after its upload, or after a failure.
+- **Local data** (`C:/dev/vetmock-video-data`, outside the repo): captions, analyses and frames only; every local video and deck PDF was removed at the pause.
+- **Pipeline:** the deck re-match (`--step=decks --force`) was stopped mid-run. On resume, run it again, then `--step=analyse --force`, then `node scripts/video-registry.mjs`.
+- **Code:** status row `videos` on /app/admin (reads `videos/_status.json`), `/api/video-file`, the registry and API tests pass. Open: VideoView's own-copy state must key by clip and skip the registry load, so a clip never makes a YouTube player and throws it away (3 failing cases in `tests/unit/source-label.test.mjs` until then); the player effect is located there by its deps.
+- **Waiting on Palm:** the polish pass on the sample comes before scaling the summaries; the go-ahead to summarise every clip after that; the owner's original files.
+- **First step on resume:** fix the VideoView state above, rerun `npm run test:unit`, then the sample polish pass (layout on phone, tablet and desktop in both themes, wording, accuracy, accessibility snapshot).

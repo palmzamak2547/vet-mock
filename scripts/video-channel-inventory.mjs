@@ -123,7 +123,7 @@ async function main() {
     // In a playlist but not answered by videos.list: deleted or private.
     unavailable: ids.filter((id) => !videos.some((v) => v.id === id)),
   };
-  const file = path.join(ROOT, 'data-cache', 'channels', `${handle.slice(1)}.json`);
+  const file = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels', `${handle.slice(1)}.json`);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(out, null, 2));
   const foreign = out.videos.filter((v) => v.channelId !== channel.id).length;

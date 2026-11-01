@@ -30,9 +30,12 @@ export const LIMITS = {
   ratio: 0.04, // the expanded summary against the transcript, in words
 };
 
-/** Key points a clip of this length gets: 3-5 up to 20 min, 5-7 up to 45, then 10. */
+/**
+ * Key points a clip of this length gets: up to 5 to 20 min (one per four
+ * minutes, so a two-minute lab clip gets one, not five), 7 to 45 min, then 10.
+ */
 export function keyPointCap(durationSec) {
-  if (durationSec <= 20 * 60) return 5;
+  if (durationSec <= 20 * 60) return Math.min(5, Math.max(1, Math.round(durationSec / 240)));
   if (durationSec <= 45 * 60) return 7;
   return 10;
 }
@@ -218,7 +221,7 @@ export function unsupportedClaims(summary, evidenceAt, knownTerms = []) {
     const caps = ev.match(/\b[A-Z][A-Z0-9]{1,5}\b/g) || [];
     const close = (x, y) => editsInside(x, y) <= 1 && Math.abs(x.length - y.length) <= 1;
     const acronyms = (String(p.text || '').match(/\b[A-Z][A-Z0-9]{1,5}\b/g) || [])
-      .filter((a) => !known.has(a.toLowerCase()) && !new RegExp(`(?<![a-z])${a.toLowerCase()}`).test(evText) && !(a.length >= 3 && caps.some((c) => close(a, c))))
+      .filter((a) => !known.has(a.toLowerCase()) && !new RegExp(`(?:^|[^a-z])${a.toLowerCase()}`).test(evText) && !(a.length >= 3 && caps.some((c) => close(a, c))))
       .map((a) => a.toLowerCase());
     const terms = [...latinIn(p.text).filter((w) => !known.has(w) && !foundIn(evText, w)), ...acronyms];
     if (numbers.length || terms.length) out.push({ layer: p.layer, t: p.t ?? p.start, text: p.text, numbers, terms });

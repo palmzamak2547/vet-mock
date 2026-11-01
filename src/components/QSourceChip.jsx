@@ -18,9 +18,11 @@
 // explain panel, above the optional image-fallback strip.
 // ============================================================
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { originPaperNote } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
+// Lazy: a question pays for the video code only when its source opens.
+const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
 import NavIcon from './NavIcon.jsx';
@@ -161,6 +163,9 @@ export default function QSourceChip({ q, store }) {
               ))}
             </div>
           ))}
+          {/* No cited minute: the lecture stretch that teaches the question's
+              topic, so a wrong answer still leads to the part that explains it. */}
+          {moments.length === 0 && q.topic && <Suspense fallback={null}><TopicClips topicId={q.topic} limit={1} quiet /></Suspense>}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>

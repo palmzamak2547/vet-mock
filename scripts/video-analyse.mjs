@@ -30,7 +30,7 @@ const STRESS = /(ออกสอบ|ข้อสอบ|จำไว้|ต้อ
 const UNSTRESS = /ไม่ต้องจำ|ไม่ต้องรู้|ไม่ออกสอบ/;
 const MIN_ABSORB = 300; // a topic stretch shorter than this between two of another topic is that topic
 const GENERIC_SHARE = 0.25; // said in more than this share of the cached lectures: generic
-const TRANSCRIPTS = fileURLToPath(new URL('../data-cache/transcripts/', import.meta.url));
+const TRANSCRIPTS = process.env.VIDEO_CACHE_DIR ? path.join(process.env.VIDEO_CACHE_DIR, 'transcripts') : fileURLToPath(new URL('../data-cache/transcripts/', import.meta.url));
 
 let lectures = null;
 /** Share of the cached lecture transcripts that contain any of `forms`. */
@@ -165,15 +165,22 @@ function topicProfiles(subject, questions) {
   return byTopic;
 }
 
-function analyse({ dir, subjectId, title = '', lecturerTopics = [] }) {
-  const subject = Object.values(SUBJECTS_BY_YEAR).flat().find((s) => s.id === subjectId);
-  if (!subject) throw new Error(`no subject ${subjectId}`);
+function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec = 0, useDeck = true }) {
+  // One subject, or a course's family ("surg1,surg2,surg3"): a student's lab
+  // clip filed under Surgery Lab II may teach Lab I's dental block, and the
+  // topic it teaches decides which.
+  const ids = String(subjectId).split(',').filter(Boolean);
+  const found = ids.map((id) => Object.values(SUBJECTS_BY_YEAR).flat().find((s) => s.id === id)).filter(Boolean);
+  if (!found.length) throw new Error(`no subject ${subjectId}`);
+  const subjectOf = new Map(found.flatMap((s) => (s.topics || []).map((t) => [t.id, s.id])));
+  const subject = { id: ids.join(','), name: found.map((s) => s.name).join(' / '), topics: found.flatMap((s) => s.topics || []).filter((t, i, all) => all.findIndex((x) => x.id === t.id) === i) };
+  const subjectId0 = found[0].id;
   const lines = captionLines(JSON.parse(fs.readFileSync(path.join(dir, 'video.th.json3'), 'utf8')));
-  const duration = Math.ceil(lines[lines.length - 1]?.end || 0);
+  const duration = Math.max(durationSec, Math.ceil(lines[lines.length - 1]?.end || 0));
   const breaks = breaksIn(lines, duration);
   const inBreak = (t) => breaks.some((b) => t >= b.start && t < b.end);
   const deckFile = path.join(dir, 'deck.json');
-  const deck = fs.existsSync(deckFile) ? JSON.parse(fs.readFileSync(deckFile, 'utf8')) : null;
+  const deck = useDeck && fs.existsSync(deckFile) ? JSON.parse(fs.readFileSync(deckFile, 'utf8')) : null;
 
   const lineIndex = new TextIndex(lines.map((l) => ({ text: l.text })));
   // A slide's picture credits are addresses, not content ("americas-carrier-fleet" is no พาหะ).
@@ -233,9 +240,9 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [] }) {
       }
     }
   }
-  const banks = BANK_REGISTRY.filter((b) => b.subjects.includes(subjectId));
+  const banks = BANK_REGISTRY.filter((b) => b.subjects.some((s) => ids.includes(s)));
   return Promise.all(banks.map((b) => b.load())).then((loaded) => {
-    const questions = loaded.flat().filter((q) => q.subject === subjectId);
+    const questions = loaded.flat().filter((q) => ids.includes(q.subject));
     const profiles = topicProfiles(subject, questions);
     for (const p of profiles.values()) for (const [k] of p.weights) { const f = p.forms.get(k); addTerm(k, f.label, f.forms, 'bank'); }
 
@@ -338,6 +345,13 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [] }) {
       const first = pages.findIndex((p) => p.heard);
       const last = pages.length - 1 - [...pages].reverse().findIndex((p) => p.heard);
       pages.forEach((p, i) => { p.taught = p.heard ? 'heard' : first >= 0 && i > first && i < last ? 'between' : null; });
+      // A deck matched only by title that the lecture barely speaks is not its
+      // deck: under 12% of its pages heard, the analysis runs without it. A
+      // lecturer set's deck is the session's by record and is never dropped
+      // (captions miss most English slide words, so even a right deck can
+      // show a low share).
+      const heardShare = pages.filter((p) => p.heard).length / pages.length;
+      if (deck.source === 'title' && heardShare < 0.12) return { deckRejected: Math.round(heardShare * 100) / 100 };
     }
 
     // 4. Chapters: runs of deck pages under one heading, at least MIN_CHAPTER
@@ -371,7 +385,31 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [] }) {
         if (i > 0) i--;
       }
     } else {
-      chapters = topicSegments.map((s) => ({ title: subject.topics.find((t) => t.id === s.topic)?.label, start: s.start, end: s.end, pages: [] }));
+      // No deck: stretches of about eight minutes of speech, each cut at the
+      // longest pause near its mark, named by its most-said concepts (a
+      // topic change always cuts).
+      const speech = lines.filter((l) => !inBreak(l.t));
+      if (speech.length) {
+        const cuts = [speech[0].t];
+        const topicStarts = topicSegments.map((s) => s.start).filter((t) => t > speech[0].t + 120);
+        for (let mark = speech[0].t + 480; mark < speech[speech.length - 1].t - 180; mark = cuts[cuts.length - 1] + 480) {
+          const near = topicStarts.find((t) => t > cuts[cuts.length - 1] + 120 && t <= mark + 120);
+          if (near) { cuts.push(near); continue; }
+          let best = null;
+          for (let i = 1; i < speech.length; i++) {
+            const gap = speech[i].t - (speech[i - 1].end || speech[i - 1].t);
+            if (Math.abs(speech[i].t - mark) <= 120 && (!best || gap > best.gap)) best = { t: speech[i].t, gap };
+          }
+          cuts.push(best ? best.t : mark);
+        }
+        const heardIn = (c, s, e) => c.lines.filter((i) => lines[i].t >= s && lines[i].t < e).length;
+        chapters = cuts.map((s, i) => {
+          const e = cuts[i + 1] ?? duration;
+          const top = concepts.filter((c) => c.sources.some((x) => x !== 'deck-word'))
+            .map((c) => [c.label, heardIn(c, s, e)]).filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([l]) => l);
+          return { title: top.length ? top.join(', ') : `ช่วงที่ ${i + 1}`, start: s, end: e, pages: [] };
+        });
+      }
     }
     // A long chapter is split at the page nearest its middle: a dense stretch
     // (treatment's three goals) gets two lines in the player, not one cramped one.
@@ -494,8 +532,12 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [] }) {
       const nums = (n.text.match(/\d+(?:[.,]\d+)?(?:\s*[-–]\s*\d+)?/g) || []).filter((x) => x.length > 1 || /%/.test(n.text));
       if (nums.some((x) => asked.some((q) => q.includes(x)))) n.asked = true;
     }
+    // The video's subject: the one whose topics it teaches longest.
+    const teachTime = new Map();
+    for (const s of topicSegments) { s.subject = subjectOf.get(s.topic); teachTime.set(s.subject, (teachTime.get(s.subject) || 0) + s.end - s.start); }
+    const main = [...teachTime].sort((a, b) => b[1] - a[1])[0]?.[0] || subjectId0;
     return {
-      subject: subjectId, title, duration, generatedFrom: { lines: lines.length, deck: deck?.slug || null, questions: questions.length },
+      subject: main, subjects: ids, title, duration, generatedFrom: { lines: lines.length, deck: deck?.slug || null, questions: questions.length },
       breaks, chapters, topicSegments, pages,
       mustCover: [...mustConcepts, ...stress.sort((a, b) => a.at - b.at), ...marks, ...numbers],
       lines: lines.map((l) => [l.t, l.text]),
@@ -506,7 +548,9 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [] }) {
 async function main() {
   const [dir] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
   const opt = (n) => process.argv.find((a) => a.startsWith(`--${n}=`))?.slice(n.length + 3);
-  const out = await analyse({ dir, subjectId: opt('subject'), title: opt('title') || '', lecturerTopics: (opt('lecturer-topics') || '').split(',').filter(Boolean) });
+  const args = { dir, subjectId: opt('subject'), title: opt('title') || '', lecturerTopics: (opt('lecturer-topics') || '').split(',').filter(Boolean), durationSec: Number(opt('duration')) || 0 };
+  let out = await analyse(args);
+  if (out.deckRejected !== undefined) out = { ...(await analyse({ ...args, useDeck: false })), deckRejected: out.deckRejected };
   fs.writeFileSync(path.join(dir, 'analysis.json'), JSON.stringify(out));
   const kinds = out.mustCover.reduce((a, m) => ((a[m.kind] = (a[m.kind] || 0) + 1), a), {});
   console.log(`${out.lines.length} lines, ${out.breaks.length} breaks, ${out.chapters.length} chapters, ${out.topicSegments.length} topic segments, must cover ${out.mustCover.length} ${JSON.stringify(kinds)}`);

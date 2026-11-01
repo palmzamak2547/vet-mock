@@ -28,7 +28,7 @@ function cut(start, end) {
 }
 
 const LOADER = cut('let __ytApiPromise = null;', '\n  return __ytApiPromise;\n}\n');
-const PLAYER_EFFECT = cut('// Mount one YT.Player per (currentVideoId, playlistId) tuple.', '}, [currentVideoId, playlistId]);');
+const PLAYER_EFFECT = cut('// Mount one YT.Player per (currentVideoId, playlistId) tuple.', '}, [currentVideoId, playlistId, own.status]);');
 
 // A page: the <script> tags the loader adds, and the window YouTube's script
 // would install YT on.
@@ -102,13 +102,14 @@ test('once the API is ready no further script is added', async () => {
 
 // The player column's effect with its refs and state under the test's
 // control. `api` is what loadYouTubeIframeAPI returns.
-function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null } = {}) {
+function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null, own = { status: 'none' } } = {}) {
   const seen = { players: [], failed: [], warned: 0, effect: null };
   const container = {};
   const YT = { Player: function Player(node, opts) { seen.players.push({ node, opts }); this.destroy = () => {}; } };
   const ctx = {
     currentVideoId,
     playlistId,
+    own,
     startAt: 0,
     ytContainerRef: { current: container },
     playerRef: { current: null },
@@ -123,6 +124,17 @@ function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null } = {})
 }
 
 const settle = () => new Promise((r) => setTimeout(r, 0));
+
+test('while our own copy of the lecture plays, no YouTube player is made', async () => {
+  for (const status of ['checking', 'ready']) {
+    let asked = 0;
+    const p = player((YT) => { asked += 1; return Promise.resolve(YT); }, { own: { status } });
+    p.mount();
+    await settle();
+    assert.equal(asked, 0, `${status}: the YouTube API was loaded anyway`);
+    assert.equal(p.seen.players.length, 0);
+  }
+});
 
 test('a player whose API failed to load says so inside the black box', async () => {
   const p = player(() => Promise.reject(new Error('failed to load YT iframe API')));

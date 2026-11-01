@@ -26,7 +26,9 @@ test('Thai words are counted the way a Thai reader counts them', () => {
 });
 
 test('the key-point cap grows with the clip, never past its tiers', () => {
-  assert.equal(keyPointCap(15 * 60), 5);
+  assert.equal(keyPointCap(15 * 60), 4);
+  assert.equal(keyPointCap(20 * 60), 5);
+  assert.equal(keyPointCap(2 * 60), 1);
   assert.equal(keyPointCap(30 * 60), 7);
   assert.equal(keyPointCap(3 * 3600), 10);
 });
