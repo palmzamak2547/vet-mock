@@ -36,7 +36,7 @@ import '../styles-admin.css';
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
 const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
 const SECTIONS = [
-  ['status', 'ระบบภายนอก'], ['period', 'ช่วงสอบ'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
+  ['wall', 'กำแพงจุฬา'], ['status', 'ระบบภายนอก'], ['period', 'ช่วงสอบ'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
   ['content', 'คลัง'], ['community', 'ชุมชน'], ['feedback', 'ระบบแจ้งปัญหา'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
 ];
 const KIND_LABEL = { feature: 'ฟีเจอร์', add: 'เพิ่ม', fix: 'แก้บั๊ก', content: 'เนื้อหา', change: 'ปรับ' };
@@ -151,6 +151,50 @@ function Flags({ flags }) {
 }
 
 const STATE_FLAG = { ok: ['good', 'ปกติ'], warn: ['warn', 'ควรดู'], down: ['alarm', 'ใช้ไม่ได้'], off: ['info', 'ปิดอยู่'] };
+
+/**
+ * The Chula sign-in wall's one switch (docs/CHULA-SIGNIN.md). Off brings back the
+ * open app on every layer within about 30 seconds; the database checks that this
+ * account is the admin before it changes anything.
+ */
+function ChulaWall() {
+  const [state, setState] = useState({ loading: true });
+  useEffect(() => {
+    let alive = true;
+    adminRpc('chula_access_state').then((s) => { if (alive) setState({ enforce: s?.enforce }); }).catch((error) => { if (alive) setState({ error }); });
+    return () => { alive = false; };
+  }, []);
+  const flip = async () => {
+    const next = !state.enforce;
+    const accepted = await confirmDialog(next
+      ? { title: 'เปิดกำแพงอีเมลจุฬา?', body: 'ทุกคนต้องเข้าสู่ระบบด้วยอีเมลจุฬาก่อนใช้แอป AI และการซิงก์', confirmLabel: 'เปิดกำแพง' }
+      : { title: 'ปิดกำแพงอีเมลจุฬา?', body: 'ทุกคนกลับมาใช้ได้โดยไม่ต้องเข้าสู่ระบบ ใช้เมื่อการเข้าสู่ระบบมีปัญหาเท่านั้น', confirmLabel: 'ปิดกำแพง' });
+    if (!accepted) return;
+    setState((s) => ({ ...s, busy: true, error: null }));
+    try {
+      const s = await adminRpc('admin_set_chula_wall', { p_enforce: next });
+      setState({ enforce: s?.enforce });
+    } catch (error) {
+      setState((s) => ({ ...s, busy: false, error }));
+    }
+  };
+  return (
+    <section id="ad-wall" className="ad-card">
+      <div className="ad-card-head">
+        <h2>กำแพงอีเมลจุฬา</h2>
+        <p>เปิดอยู่: ต้องเข้าสู่ระบบด้วยอีเมลจุฬาก่อนใช้งาน ปิด: ใช้ได้โดยไม่ต้องเข้าสู่ระบบ มีผลทุกชั้นภายในราว 30 วินาที</p>
+      </div>
+      {state.loading ? <div className="ad-skeleton" style={{ width: '40%' }} /> : null}
+      {typeof state.enforce === 'boolean' ? (
+        <p role="status">
+          <span className={`ad-flag ${state.enforce ? 'good' : 'warn'}`}>{state.enforce ? 'เปิดอยู่' : 'ปิดอยู่'}</span>{' '}
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={flip} disabled={state.busy}>{state.enforce ? 'ปิดกำแพง' : 'เปิดกำแพง'}</button>
+        </p>
+      ) : null}
+      {state.error ? <p className="ad-muted" role="alert">ทำไม่สำเร็จ ({state.error.message})</p> : null}
+    </section>
+  );
+}
 
 /**
  * Every outside service a feature needs (api/system-status.js). The app hides
@@ -568,6 +612,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
         {SECTIONS.map(([id, label]) => <a key={id} href={`#ad-${id}`}>{label}</a>)}
       </nav>
 
+      <ChulaWall />
       <SystemStatus tick={tick} />
 
       {failed && !rangeStatus && !isForbidden(failed) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {failed.message}</p></div>}
