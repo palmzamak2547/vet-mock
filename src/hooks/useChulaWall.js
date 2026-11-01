@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
 import { fetchAccessState, gateState, readAuthErrorFromUrl, rememberAnswer, rememberedEnforce, rememberedMember } from '../lib/chula.js';
 
@@ -66,9 +66,9 @@ export function useChulaWall({ user, loading }) {
   }, []);
 
   const verdict = answer.uid === uid ? answer.verdict : 'pending';
-  const state = gateState({
-    configured: hasSupabase, enforce, loading, user, verdict, remembered: rememberedMember(uid),
-  });
+  // Read once per account and per answer, not on every render of the app.
+  const remembered = useMemo(() => rememberedMember(uid), [uid, answer]); // eslint-disable-line react-hooks/exhaustive-deps
+  const state = gateState({ configured: hasSupabase, enforce, loading, user, verdict, remembered });
 
   const refresh = useCallback(() => setRound((n) => n + 1), []);
   // Kept in sessionStorage as well, so it survives the redirect to Google and back.
