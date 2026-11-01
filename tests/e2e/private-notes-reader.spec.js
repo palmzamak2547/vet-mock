@@ -23,6 +23,8 @@ test('modeled admin keyboard reader retains B and its filter after a late A resp
   await context.routeWebSocket('**/*', socket => socket.close());
   await page.route('**/*', async route => {
     const request = route.request(), url = new URL(request.url());
+    // These specs model the app's own features with the Chula wall off; tests/e2e/chula-wall.spec.js covers the wall.
+    if (url.hostname === host && url.pathname === '/rest/v1/rpc/chula_access_state') return route.fulfill({ json: { enforce: false, signed_in: false, member: false, uid: null } });
     if (url.hostname !== host) {
       if (url.hostname.endsWith('.supabase.co')) return route.abort();
       return route.continue();

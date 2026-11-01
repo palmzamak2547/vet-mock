@@ -20,6 +20,8 @@ async function prepare(page, context, signedIn = false) {
   await page.route(/\/_vercel\/(insights|speed-insights)\/script[^/]*\.js|va\.vercel-scripts\.com\/.*script/, route => route.fulfill({ contentType: 'application/javascript', body: '' }));
   await page.route('**://*.supabase.co/**', route => {
     const url = new URL(route.request().url());
+    // These specs model the app's own features with the Chula wall off; tests/e2e/chula-wall.spec.js covers the wall.
+    if (url.hostname === host && url.pathname === '/rest/v1/rpc/chula_access_state') return route.fulfill({ json: { enforce: false, signed_in: false, member: false, uid: null } });
     if (url.hostname !== host) return route.abort();
     if (url.pathname === '/auth/v1/user') return route.fulfill({ json: user });
     if (url.pathname === '/rest/v1/profiles') return route.fulfill({ json: [{ id: owner, username: 'Modeled reader', avatar_emoji: '🧪', created_at: user.created_at }] });

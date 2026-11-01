@@ -25,6 +25,8 @@ async function prepare(page, context, signedIn) {
   await context.routeWebSocket('**/*', socket => socket.close());
   await page.route('**://*.supabase.co/**', async route => {
     const request = route.request(), url = new URL(request.url());
+    // These specs model the app's own features with the Chula wall off; tests/e2e/chula-wall.spec.js covers the wall.
+    if (url.hostname === host && url.pathname === '/rest/v1/rpc/chula_access_state') return route.fulfill({ json: { enforce: false, signed_in: false, member: false, uid: null } });
     if (!signedIn || url.hostname !== host) return route.abort();
     if (request.method() === 'GET' && url.pathname === '/auth/v1/user') return route.fulfill({ json: user });
     if (request.method() === 'GET' && url.pathname === '/rest/v1/profiles') {
