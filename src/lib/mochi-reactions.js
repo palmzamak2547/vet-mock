@@ -1,10 +1,11 @@
 // ============================================================
-// Mochi's reactions in a practice set, as inputs the screen sets
+// Reactions to a verdict in a practice set, as inputs the screen sets
 // ============================================================
 // The screen says what happened (a verdict, how many correct in a row); this
-// module decides what Mochi does about it: which still pose stays on the
-// stamp, which Motion Kit state plays over it once, and which short
-// vibration a phone gives. Pure: no React, no DOM, no clock.
+// module decides what follows: the run the "ถูกติดกัน" chip counts and the
+// short vibration a phone gives. Pure: no React, no DOM, no clock.
+// Mochi's stamp beside the verdict went in 5.179.1 (Palm: "ดูแปลกตา"), and
+// with it the pose and the Motion Kit state chosen here for it.
 // ============================================================
 
 import { isCorrect, isAnswered } from '../hooks/utils.js';
@@ -37,18 +38,12 @@ export const isComboMilestone = (run) => run === 3 || run === 5 || (run >= 10 &&
 export const COMBO_MIN = 3;
 
 /**
- * What Mochi does for one revealed answer.
- *   pose    the still on the stamp (what the e2e and the reader see after)
- *   play    the Motion Kit state played once over it
- *   haptic  the vibration kind (lib/haptics.js)
- * The still stays 'correct' through a run: the stamp keeps meaning "ถูกแล้ว",
- * and only the movement grows with the run.
+ * What one revealed answer does to the phone.
+ *   haptic  the vibration kind (lib/haptics.js): a miss is the soft double
+ *           tick, a run milestone the longer pattern, any other right answer
+ *           one tick.
  */
 export function feedbackReaction({ ok, run = 0 }) {
-  if (!ok) return { pose: 'encourage', play: 'encourage', haptic: 'wrong' };
-  const haptic = isComboMilestone(run) ? 'milestone' : 'correct';
-  if (run >= 10) return { pose: 'correct', play: 'dance', haptic };
-  if (run >= 5) return { pose: 'correct', play: 'highfive', haptic };
-  if (run >= COMBO_MIN) return { pose: 'correct', play: 'hop', haptic };
-  return { pose: 'correct', play: 'correct', haptic };
+  if (!ok) return { haptic: 'wrong' };
+  return { haptic: isComboMilestone(run) ? 'milestone' : 'correct' };
 }

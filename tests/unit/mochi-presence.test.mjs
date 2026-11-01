@@ -12,15 +12,15 @@ test('contextual poses are real and remain outside focused workspaces', () => {
   for (const view of ['atlas', 'lab', 'pdf-annotate', 'image-occlusion', 'race', 'offline-game', 'pomodoro', 'mochi', 'unknown', '__proto__', 'constructor', 'toString']) {
     assert.equal(mochiPresenceFor(view, 'quick').visible, false, view);
   }
-  assert.deepEqual(mochiPresenceFor('notes'), { visible: true, pose: 'read', feedback: false });
+  assert.deepEqual(mochiPresenceFor('notes'), { visible: true, pose: 'read' });
 });
 
-test('only a revealed practice answer may opt into feedback during a question', () => {
-  assert.equal(mochiPresenceFor('exam', 'exam').visible, false);
-  assert.equal(mochiPresenceFor('exam', 'exam').feedback, false);
-  assert.equal(mochiPresenceFor('exam').feedback, false);
-  assert.equal(mochiPresenceFor('exam', 'quick').visible, false);
-  assert.equal(mochiPresenceFor('exam', 'quick').feedback, true);
+// The verdict's stamp was the one way Mochi entered a question set; it went
+// in 5.179.1 (Palm: "ดูแปลกตา"), so no mode of a set opts Mochi in.
+test('a question set has no Mochi, in any mode, before or after an answer', () => {
+  for (const mode of ['exam', 'quick', 'panic', undefined]) {
+    assert.deepEqual(mochiPresenceFor('exam', mode), { visible: false, pose: 'idle' }, String(mode));
+  }
 });
 
 test('Mochi does not celebrate an empty, tiny, low or rounded-up result', () => {

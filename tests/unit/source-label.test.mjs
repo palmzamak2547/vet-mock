@@ -163,9 +163,12 @@ const findAll = (node, pred, out = []) => {
   return out;
 };
 
-function renderChip(q, { open = false } = {}) {
+// The full source shows once the key is on screen (5.179.1); before it the
+// line names only the kind of source (source-line-no-spoiler.test.mjs).
+// These tests read the full line and its panel, so they render it revealed.
+function renderChip(q, { open = false, revealed = true } = {}) {
   globalThis.__vmxHooks = hooks({ open });
-  const tree = expand(QSourceChip({ q }));
+  const tree = expand(QSourceChip({ q, revealed }));
   return { tree, text: textOf(tree).replace(/\s+/g, ' ') };
 }
 const bankRow = (subject, id) => {
@@ -179,19 +182,19 @@ const bankRow = (subject, id) => {
  *  where a word-boundary check cannot see an English label. */
 function rowLabels(q) {
   globalThis.__vmxHooks = hooks({ open: true });
-  return findAll(QSourceChip({ q }), (n) => typeof n.type === 'function' && n.type.name === 'Row').map((n) => n.props.label);
+  return findAll(QSourceChip({ q, revealed: true }), (n) => typeof n.type === 'function' && n.type.name === 'Row').map((n) => n.props.label);
 }
 
 // The stored origin keeps its "·" (exam-origins.js keys it that way); the
 // student reads a comma. 445 questions printed the dot under the stem on
 // 28 Oct 2026, from examOrigin and verified alike.
-test('no question shows a middle dot in its source, closed or open', () => {
+test('no question shows a middle dot in its source, closed or open, before or after the key', () => {
   const dotted = QB.filter((q) => [q.examOrigin, q.verified, q.source].some((v) => typeof v === 'string' && v.includes('·')));
   assert.ok(dotted.length > 0, 'the bank still stores dotted origins, so this test reads real rows');
   for (const q of dotted) {
-    for (const open of [false, true]) {
-      const { text } = renderChip(q, { open });
-      assert.ok(!text.includes('·'), `${q.subject}#${q.id} (${open ? 'open' : 'closed'}): ${text.slice(0, 120)}`);
+    for (const [open, revealed] of [[false, false], [false, true], [true, true]]) {
+      const { text } = renderChip(q, { open, revealed });
+      assert.ok(!text.includes('·'), `${q.subject}#${q.id} (${open ? 'open' : 'closed'}${revealed ? '' : ', before the key'}): ${text.slice(0, 120)}`);
     }
   }
 });

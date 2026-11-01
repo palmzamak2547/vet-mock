@@ -16,12 +16,12 @@ import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
+import { followsExamPattern } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
 import MissCoach from './MissCoach.jsx';
-import MochiLive from './MochiLive.jsx';
 import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 import { feedbackReaction, COMBO_MIN } from '../lib/mochi-reactions.js';
 import { haptic } from '../lib/haptics.js';
@@ -309,6 +309,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     && (currentAnswer === true || currentAnswer === false);
   const tfOk = tfRevealed && currentAnswer === currentQ.answer;
   const mcqOk = mcqRevealed && currentAnswer === currentQ.answer;
+  // Whether this question's key is on screen: a choice question's verdict, a
+  // matching set with every row filled (MatchDragDrop's own rule), or a
+  // written answer's เฉลย opened under its box. Until then the source line
+  // names only the kind of source, because the full one can give the key
+  // away. A timed paper never reveals here; Review shows the full source.
+  const matchFilled = currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0
+    && currentAnswer && typeof currentAnswer === 'object'
+    && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
+  const keyShown = mcqRevealed || tfRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -590,8 +599,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {/* Trust layer — source / verified / examOrigin / flag.
-          Collapsed by default to keep the card clean; tap to expand. */}
-      <QSourceChip q={currentQ} />
+          Collapsed by default to keep the card clean; tap to expand once the
+          key is on screen. Keyed per question: an open panel on one question
+          used to stay open on the next. */}
+      <QSourceChip key={compoundId} q={currentQ} revealed={keyShown} />
     </div>
   );
 
@@ -670,7 +681,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             </>
           );
         })()}
-        {currentQ.examOrigin && (
+        {/* Only where the source line agrees: a sat paper, a marked exam
+            point or a mock, never a row written from a lecture or a summary. */}
+        {followsExamPattern(currentQ) && (
           <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
             อิงแนวเดิม
           </span>
@@ -880,12 +893,8 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, fig
               verdicts (lib/mochi-reactions.js correctRun). */}
           {combo && <span className={`vmx-combo-chip${isFresh ? ' is-fresh' : ''}`}>ถูกติดกัน {run} ข้อ</span>}
         </div>
-        <div className="vmx-feedback-stamp-wrapper">
-          <div className={`vmx-mochi-stamp--${ok ? 'pass' : 'revise'}`} title={ok ? 'ตราของ Mochi: ถูกแล้ว' : 'ตราของ Mochi: ลองอีกครั้ง'}>
-            <MochiLive pose={reaction.pose} play={isFresh ? reaction.play : null} size={40} slot="feedback" className="vmx-feedback-mochi" />
-            <span className="vmx-stamp-label">{ok ? 'ถูกแล้ว' : 'ลองอีกที'}</span>
-          </div>
-        </div>
+        {/* No Mochi stamp beside the verdict (Palm, 1 Nov 2026: "ดูแปลกตา"):
+            the headline has the row to itself. */}
       </div>
       {/* "คุณตอบถูก", not "ถูกต้อง". On a true/false question the
           second reads as a verdict on the STATEMENT, and it sat directly above

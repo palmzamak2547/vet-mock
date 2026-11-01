@@ -4621,39 +4621,6 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 }
 .vmx-instant-feedback.is-ok .v { color: var(--clr-ink); }
 .vmx-instant-feedback.is-no .v { color: var(--clr-ink); }
-.vmx-feedback-stamp-wrapper {
-  flex-shrink: 0;
-}
-.vmx-mochi-stamp--pass {
-  border: 1.5px dashed var(--clr-sage);
-  background: rgba(74, 107, 74, 0.08);
-  transform: rotate(-3deg);
-  padding: 4px 6px;
-  border-radius: var(--r-md);
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-}
-.vmx-mochi-stamp--revise {
-  border: 1.5px dashed var(--clr-gold);
-  background: rgba(184, 137, 64, 0.08);
-  transform: rotate(3deg);
-  padding: 4px 6px;
-  border-radius: var(--r-md);
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-}
-.vmx-stamp-label {
-  display: block;
-  font-family: var(--vmx-mono);
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0;
-  margin-top: 2px;
-}
-.vmx-mochi-stamp--pass .vmx-stamp-label { color: var(--clr-sage-text); }
-.vmx-mochi-stamp--revise .vmx-stamp-label { color: var(--clr-gold-text); }
 .vmx-instant-feedback .a {
   margin-top: 10px;
   padding: 10px 14px;
@@ -5416,7 +5383,6 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-hero-mochi { float: right; margin: -4px 0 4px 12px; }
 .vmx-result-mochi { display: flex; margin: -8px auto 0; }
 .vmx-status-mochi { margin: -5px 5px -5px 0; }
-.vmx-feedback-mochi { float: right; margin: -3px 0 4px 8px; }
 /* Mochi reacting for a moment (MochiLive): the rig plays over the still and
    hides it while it plays; the still is what stays. */
 .vmx-mochi-live { position: relative; display: inline-flex; line-height: 0; pointer-events: none; }

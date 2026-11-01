@@ -12,9 +12,11 @@ export const MOCHI_PAGE_POSES = Object.freeze({
   'account-settings': 'idle', 'ig-cards': 'happy',
 });
 
-export function mochiPresenceFor(view, mode) {
+// A question set ('exam' in every mode) has no Mochi: the verdict stamp that
+// was the one exception went in 5.179.1.
+export function mochiPresenceFor(view) {
   const pose = typeof view === 'string' && Object.prototype.hasOwnProperty.call(MOCHI_PAGE_POSES, view) ? MOCHI_PAGE_POSES[view] : null;
-  return { visible: Boolean(pose), pose: pose || 'idle', feedback: view === 'exam' && mode === 'quick' };
+  return { visible: Boolean(pose), pose: pose || 'idle' };
 }
 
 export function mochiResultPose(score, gradedCount) {

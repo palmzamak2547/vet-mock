@@ -2,8 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { correctRun, isComboMilestone, feedbackReaction, COMBO_MIN } from '../../src/lib/mochi-reactions.js';
 import { haptic, hapticPattern, canVibrate } from '../../src/lib/haptics.js';
-import { STATES } from '../../src/lib/motion-kit/mochi/motion.js';
-import { MOCHI_POSE_ASSETS } from '../../src/data/mochi-poses.generated.js';
 
 const mcq = (id, answer = 1) => ({ id, type: 'mcq', answer, options: ['a', 'b', 'c', 'd'] });
 const tf = (id, answer = true) => ({ id, type: 'tf', answer });
@@ -41,21 +39,22 @@ test('milestones are 3, 5, then every 5 from 10', () => {
   assert.deepEqual(hits, [3, 5, 10, 15, 20, 25, 30]);
 });
 
-test('Mochi keeps the stamp still and lets only the movement grow with the run', () => {
-  assert.deepEqual(feedbackReaction({ ok: false, run: 0 }), { pose: 'encourage', play: 'encourage', haptic: 'wrong' });
-  assert.deepEqual(feedbackReaction({ ok: true, run: 1 }), { pose: 'correct', play: 'correct', haptic: 'correct' });
-  assert.equal(feedbackReaction({ ok: true, run: COMBO_MIN }).play, 'hop');
-  assert.equal(feedbackReaction({ ok: true, run: 3 }).haptic, 'milestone');
+// The verdict carries no Mochi stamp since 5.179.1 ("ดูแปลกตา"), so a reaction
+// is the phone's tick alone: no pose or Motion Kit state is chosen for it.
+test('a verdict gives the phone one tick, a miss the soft double, a run milestone the longer one', () => {
+  assert.deepEqual(feedbackReaction({ ok: false, run: 0 }), { haptic: 'wrong' });
+  assert.deepEqual(feedbackReaction({ ok: true, run: 1 }), { haptic: 'correct' });
+  assert.equal(feedbackReaction({ ok: true, run: COMBO_MIN }).haptic, 'milestone');
   assert.equal(feedbackReaction({ ok: true, run: 4 }).haptic, 'correct');
-  assert.equal(feedbackReaction({ ok: true, run: 5 }).play, 'highfive');
-  assert.equal(feedbackReaction({ ok: true, run: 12 }).play, 'dance');
-  // Every reaction names a still that exists as an image and a state the rig
-  // can play; an unknown name would show nothing.
+  assert.equal(feedbackReaction({ ok: true, run: 5 }).haptic, 'milestone');
+  assert.equal(feedbackReaction({ ok: true, run: 12 }).haptic, 'correct');
+  assert.equal(feedbackReaction({ ok: false, run: 10 }).haptic, 'wrong');
+  // Every reaction names a vibration the phone can play; an unknown kind
+  // would give nothing.
   for (const run of [0, 1, 2, 3, 4, 5, 9, 10, 25]) {
     for (const ok of [true, false]) {
       const r = feedbackReaction({ ok, run });
-      assert.ok(MOCHI_POSE_ASSETS[r.pose], r.pose);
-      assert.ok(STATES[r.play], r.play);
+      assert.deepEqual(Object.keys(r), ['haptic']);
       assert.ok(hapticPattern(r.haptic), r.haptic);
     }
   }

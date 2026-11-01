@@ -1,4 +1,5 @@
 import { humanSource } from '../lib/source-label.js';
+import { followsExamPattern } from '../lib/source-line.js';
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/utils.js';
@@ -359,7 +360,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <span>
                 Q{idx + 1}, {subj?.name || q.subject}
                 {topicMeta ? <>, <span style={{ color: subjectText(subj?.color), fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
-                {q.examOrigin && (
+                {followsExamPattern(q) && (
                   <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
                     อิงแนวเดิม
                   </span>

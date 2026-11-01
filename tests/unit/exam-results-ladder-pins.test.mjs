@@ -53,7 +53,12 @@ test('the config start bar is sticky on a phone and in flow on a desktop', () =>
 test('the instant verdict and the results seal speak Thai, with no English kicker or bullet', () => {
   assert.equal(question.includes('CLINICAL VERDICT'), false);
   assert.equal(question.includes("'APPROVED'"), false);
-  assert.match(question, /\{ok \? 'ถูกแล้ว' : 'ลองอีกที'\}/);
+  // The verdict is the Thai headline alone: the Mochi stamp beside it, with
+  // its ถูกแล้ว and ลองอีกที label, went in 5.179.1 (Palm: "ดูแปลกตา").
+  assert.match(question, /\{ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\}/);
+  for (const gone of ["'ลองอีกที'", "'ถูกแล้ว'", 'vmx-mochi-stamp--', 'slot="feedback"']) {
+    assert.equal(question.includes(gone), false, `${gone} is back on the verdict`);
+  }
   for (const gone of ['CLINICAL BENCHMARK ATTAINED', 'DIAGNOSTIC REFINEMENT NEEDED', 'RUBRIC SELF-EVALUATION', '% PASS', '<span>• เฉลี่ย']) {
     assert.equal(results.includes(gone), false, `${gone} is back`);
   }
