@@ -785,27 +785,27 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "avian-mpv": {
         "mcq": 13,
-        "tf": 0,
+        "tf": 1,
         "match": 0,
         "writing": 0,
         "_matchCovers": 1
       },
       "avian-ibd": {
-        "mcq": 14,
+        "mcq": 19,
         "tf": 0,
         "match": 1,
         "writing": 0,
         "_matchCovers": 2
       },
       "avian-ne": {
-        "mcq": 11,
+        "mcq": 13,
         "tf": 0,
         "match": 0,
         "writing": 0,
         "_matchCovers": 2
       },
       "avian-myco": {
-        "mcq": 17,
+        "mcq": 18,
         "tf": 17,
         "match": 0,
         "writing": 0
@@ -813,7 +813,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       "avian-fowl-cholera": {
         "mcq": 7,
         "tf": 10,
-        "match": 0,
+        "match": 1,
         "writing": 0
       },
       "avian-coli": {
@@ -829,45 +829,45 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "avian-ai": {
-        "mcq": 8,
-        "tf": 1,
+        "mcq": 15,
+        "tf": 2,
         "match": 0,
         "writing": 7
       },
       "avian-ahra-set": {
-        "mcq": 10,
+        "mcq": 16,
         "tf": 17,
         "match": 0,
         "writing": 0
       },
       "avian-salmonella": {
-        "mcq": 11,
-        "tf": 12,
+        "mcq": 14,
+        "tf": 13,
         "match": 0,
         "writing": 0
       },
       "avian-adeno": {
-        "mcq": 12,
+        "mcq": 16,
         "tf": 11,
         "match": 0,
         "writing": 0
       },
       "avian-intro": {
-        "mcq": 66,
-        "tf": 9,
-        "match": 6,
+        "mcq": 2,
+        "tf": 1,
+        "match": 0,
         "writing": 3
       },
       "avian-ae": {
-        "mcq": 8,
-        "tf": 7,
-        "match": 0,
+        "mcq": 11,
+        "tf": 8,
+        "match": 1,
         "writing": 0
       },
       "avian-cocci": {
-        "mcq": 19,
-        "tf": 0,
-        "match": 2,
+        "mcq": 22,
+        "tf": 2,
+        "match": 4,
         "writing": 0,
         "_matchCovers": 1
       },
@@ -891,7 +891,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "_matchCovers": 2
       },
       "avian-nd": {
-        "mcq": 23,
+        "mcq": 24,
         "tf": 0,
         "match": 1,
         "writing": 0
@@ -911,29 +911,29 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "_matchCovers": 2
       },
       "avian-cia": {
-        "mcq": 11,
+        "mcq": 12,
         "tf": 1,
         "match": 1,
         "writing": 0,
         "_matchCovers": 1
       },
       "avian-marek": {
-        "mcq": 19,
-        "tf": 0,
-        "match": 1,
+        "mcq": 23,
+        "tf": 1,
+        "match": 2,
         "writing": 0,
         "_matchCovers": 1
       },
       "avian-reo": {
-        "mcq": 13,
+        "mcq": 14,
         "tf": 0,
         "match": 0,
         "writing": 0,
         "_matchCovers": 2
       },
       "avian-leuko": {
-        "mcq": 10,
-        "tf": 0,
+        "mcq": 12,
+        "tf": 1,
         "match": 1,
         "writing": 0,
         "_matchCovers": 1
@@ -984,9 +984,9 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       }
     },
     "equine-repro": {
-      "eqrepro-stallion-infect": {
-        "mcq": 19,
-        "tf": 2,
+      "eqrepro-mare-infect": {
+        "mcq": 5,
+        "tf": 0,
         "match": 0,
         "writing": 0
       },
@@ -2571,74 +2571,6 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       }
     },
-    "avian-medicine": {
-      "avian-intro": {
-        "mcq": 66,
-        "tf": 9,
-        "match": 6,
-        "writing": 3
-      },
-      "avian-goose-parvo": {
-        "mcq": 7,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-serology": {
-        "mcq": 13,
-        "tf": 0,
-        "match": 0,
-        "writing": 2
-      },
-      "avian-vaccine-prog": {
-        "mcq": 8,
-        "tf": 1,
-        "match": 1,
-        "writing": 5
-      },
-      "avian-duck-plague": {
-        "mcq": 4,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-dvh": {
-        "mcq": 10,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-duck-flavi": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-ort": {
-        "mcq": 6,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-campy": {
-        "mcq": 3,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-listeria": {
-        "mcq": 2,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-mycosis": {
-        "mcq": 23,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      }
-    },
     "equine-medicine": {
       "equine-intro": {
         "mcq": 86,
@@ -2739,7 +2671,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "equine-repro": {
       "eqrepro-stallion-infect": {
-        "mcq": 19,
+        "mcq": 14,
         "tf": 2,
         "match": 0,
         "writing": 0
@@ -3052,6 +2984,80 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "food-hygiene": {
         "mcq": 11,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      }
+    },
+    "avian-medicine": {
+      "avian-nds": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-duck-plague": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-dvh": {
+        "mcq": 11,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-duck-flavi": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-goose-parvo": {
+        "mcq": 7,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-serology": {
+        "mcq": 13,
+        "tf": 0,
+        "match": 1,
+        "writing": 2
+      },
+      "avian-vaccine-prog": {
+        "mcq": 8,
+        "tf": 1,
+        "match": 1,
+        "writing": 5
+      },
+      "avian-ort": {
+        "mcq": 9,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-campy": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-listeria": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-histomoniasis": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-mycosis": {
+        "mcq": 32,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -6289,7 +6295,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "avian-medicine": {
       "avian-intro": {
-        "mcq": 1,
+        "mcq": 0,
         "tf": 0,
         "match": 0,
         "writing": 1
@@ -6424,9 +6430,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       }
     },
     "equine-repro": {
-      "eqrepro-stallion-infect": {
-        "mcq": 12,
-        "tf": 2,
+      "eqrepro-mare-infect": {
+        "mcq": 3,
+        "tf": 0,
         "match": 0,
         "writing": 0
       },
@@ -7677,74 +7683,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       }
     },
-    "avian-medicine": {
-      "avian-intro": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 1
-      },
-      "avian-vaccine-prog": {
-        "mcq": 3,
-        "tf": 0,
-        "match": 0,
-        "writing": 5
-      },
-      "avian-serology": {
-        "mcq": 6,
-        "tf": 0,
-        "match": 0,
-        "writing": 2
-      },
-      "avian-duck-plague": {
-        "mcq": 4,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-dvh": {
-        "mcq": 10,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-goose-parvo": {
-        "mcq": 6,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-duck-flavi": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-ort": {
-        "mcq": 6,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-campy": {
-        "mcq": 3,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-listeria": {
-        "mcq": 2,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      },
-      "avian-mycosis": {
-        "mcq": 23,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      }
-    },
     "equine-medicine": {
       "equine-intro": {
         "mcq": 30,
@@ -7833,7 +7771,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "equine-repro": {
       "eqrepro-stallion-infect": {
-        "mcq": 12,
+        "mcq": 9,
         "tf": 2,
         "match": 0,
         "writing": 0
@@ -8140,6 +8078,68 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "food-hygiene": {
         "mcq": 11,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      }
+    },
+    "avian-medicine": {
+      "avian-vaccine-prog": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 5
+      },
+      "avian-serology": {
+        "mcq": 6,
+        "tf": 0,
+        "match": 0,
+        "writing": 2
+      },
+      "avian-ort": {
+        "mcq": 7,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-duck-plague": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-dvh": {
+        "mcq": 10,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-goose-parvo": {
+        "mcq": 6,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-duck-flavi": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-campy": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-listeria": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "avian-mycosis": {
+        "mcq": 23,
         "tf": 0,
         "match": 0,
         "writing": 0

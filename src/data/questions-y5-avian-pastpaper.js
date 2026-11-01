@@ -31,7 +31,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109002,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-marek",
     "year": 5,
     "type": "tf",
     "q": "การควบคุมโรค avian leukosis ในฝูงพ่อแม่พันธุ์ทำได้โดยฉีดวัคซีนเชื้อตายก่อนเข้าไข่ ควบคู่กับการคัดตัวที่ติดเชื้อออกจากฝูง",
@@ -40,7 +40,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 5) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-marek",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -63,7 +63,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109006,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-nd",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดเป็นกลุ่มโรคที่ติดต่อจากสัตว์ปีกสู่คนได้ทุกโรค",
@@ -78,14 +78,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 15) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-nd",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109008,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-fowl-cholera",
     "year": 5,
     "type": "match",
     "q": "จับคู่รอยโรคหรือความผิดปกติที่พบในสัตว์ปีก กับเชื้อสาเหตุที่เข้าได้มากที่สุด",
@@ -111,7 +111,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 13) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-fowl-cholera",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -151,7 +151,8 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109012,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-serology",
+    "flag": {"severity":"minor","note":"เนื้อหาช่วงต้นเทอม (Intro to Avian Medicine) เคยให้เจาะ 20 ตัวต่อโรงเรือนแล้วรวมซีรัม 5 ตัวเป็น 1 ตัวอย่าง ข้อนี้ใช้แนวของหัวข้อ Serology Interpretation ซึ่งไม่รวมซีรัม ให้ยึดตามที่สอนในหัวข้อนี้ปีนี้"},
     "year": 5,
     "type": "match",
     "q": "จับคู่หลักการเก็บตัวอย่างเลือดและซีรัมจากฝูงไก่ให้ถูกต้อง",
@@ -177,14 +178,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 16) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-serology",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109014,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "match",
     "q": "จับคู่เชื้อก่อโรคในไก่กับรอยโรคจำเพาะหรือพาหะนำโรคของเชื้อนั้น",
@@ -218,14 +219,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 19) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109016,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "match",
     "q": "จับคู่เชื้อบิดแต่ละ species กับตำแหน่งและลักษณะรอยโรคที่จำเพาะของมัน",
@@ -255,14 +256,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 9) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109018,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ae",
     "year": 5,
     "type": "match",
     "q": "จับคู่โรคกับตัวอย่างหรือวิธีตรวจวินิจฉัยที่เหมาะสมที่สุดตามที่ระบุไว้",
@@ -288,14 +289,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 21) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ae",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109020,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-marek",
     "year": 5,
     "type": "match",
     "q": "จับคู่โรคหรือแหล่งตัวอย่างที่เก็บ กับวิธีตรวจวินิจฉัยที่ใช้ในการค้นหาโรคในฝูงไก่ให้ถูกต้อง",
@@ -321,14 +322,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 5) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-marek",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109022,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "ประกาศพบ HPAI ในฟาร์มไก่ไข่แห่งหนึ่ง มาตรการควบคุมโรคในข้อใดสอดคล้องกับแนวทางการควบคุมโรคไข้หวัดนก",
@@ -343,7 +344,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 17) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -372,7 +373,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109026,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-myco",
     "year": 5,
     "type": "mcq",
     "q": "ผ่าซากไก่รุ่นฝูงหนึ่งที่แสดงอาการขากะเผลก ข้อและฝ่าเท้าบวม เมื่อเปิดข้อพบของเหลวสีน้ำข้าวจางๆ และมีความหนืด ข้อสรุปใดเหมาะสมที่สุด",
@@ -387,14 +388,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 11) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-myco",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109028,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "ผ่าซากไก่เนื้อที่ตายเฉียบพลันหลายตัวในโรงเรือนเดียวกัน ก่อนเปิดซาก สิ่งที่ตรวจพบจากภายนอกข้อใดสนับสนุนการติดเชื้อ HPAI มากที่สุด",
@@ -409,14 +410,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 14) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109030,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
     "q": "ผ่าซากไก่เนื้อพบจุดเนื้อตายสีขาวกลมเล็กๆ สลับกับจุดเลือดออกสีคล้ำที่ serosa ของลำไส้เล็กส่วนกลาง (salt and pepper lesion) ลำไส้พองมีเลือดและเมือกปน แต่เมื่อขูดตรวจกลับพบ oocyst จำนวนมากที่ cecum ข้อใดอธิบายได้ถูกต้องที่สุด",
@@ -431,14 +432,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 9) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109032,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
     "q": "ผ่าซากไก่เนื้ออายุ 5 สัปดาห์ที่ตายเฉียบพลัน พบผนังลำไส้ส่วน jejunum มีจุดเนื้อตายสีขาวสลับกับจุดเลือดออกสีดำที่มองเห็นได้จากด้านนอกลำไส้ ส่วน duodenum และ caecum ปกติ เชื้อใดเป็นสาเหตุ",
@@ -453,7 +454,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 19) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -482,7 +483,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109036,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ae",
     "year": 5,
     "type": "tf",
     "q": "ฝูงพ่อแม่พันธุ์ได้รับวัคซีน AE แล้วเก็บซีรั่มตรวจที่ 2 สัปดาห์หลังทำวัคซีน พบว่า Ab titer ยังไม่ขึ้น กรณีนี้สรุปได้ทันทีว่าโปรแกรมวัคซีนล้มเหลว",
@@ -491,14 +492,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 20) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ae",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109038,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ahra-set",
     "year": 5,
     "type": "mcq",
     "q": "ฝูงไก่เนื้อป่วยด้วย Staphylococcus aureus มีข้ออักเสบและเดินกะเผลก เพาะเชื้อและทดสอบความไวต่อยาแล้วให้ยาปฏิชีวนะตามผล แต่ฝูงยังไม่ตอบสนอง ข้อใดเป็นคำอธิบายที่เป็นไปได้มากที่สุด",
@@ -513,7 +514,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 21) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ahra-set",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -542,7 +543,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109042,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ibd",
     "year": 5,
     "type": "mcq",
     "q": "ฝูงไก่เนื้ออายุ 4 สัปดาห์ตอบสนองต่อวัคซีน Newcastle disease ไม่ดี ผ่าซากพบจุดเลือดออกที่กล้ามเนื้อขา ปื้นเลือดออกที่รอยต่อระหว่างกระเพาะแท้กับกระเพาะบด และไตบวม เชื้อใดเป็นสาเหตุ",
@@ -557,14 +558,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 18) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ibd",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109044,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "tf",
     "q": "ฝูงไก่ไข่ที่ติดเชื้อ LPAI ชนิด H9N2 มักมีอัตราตายต่ำ แต่ผลผลิตไข่ลดลงมาก และรอยโรคที่พบได้คือรังไข่เสื่อม ถุงไข่แดงแตก และเยื่อ yolk membrane เสื่อม",
@@ -573,7 +574,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 17) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -646,7 +647,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109052,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-adeno",
     "year": 5,
     "type": "mcq",
     "q": "ฝูงไก่ไข่เริ่มให้ผลผลิตแล้วพบว่าไข่ลดลงต่อเนื่องเป็นระยะเวลานาน เปลือกไข่นิ่มคล้ายหนัง โดยไม่มีอาการทางระบบหายใจและไม่พบไก่ตายผิดปกติ ข้อใดคือสาเหตุและแนวทางป้องกันที่เหมาะสมที่สุด",
@@ -661,14 +662,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 22) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-adeno",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109054,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ae",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มพ่อแม่พันธุ์ทำวัคซีน AE โดยใช้ strain ที่เป็น embryo-adapted ผสมน้ำให้กิน ต่อมาเก็บซีรั่มตรวจแล้วพบว่า Ab ไม่ขึ้นเลย ข้อใดอธิบายสาเหตุของความล้มเหลวนี้ได้ตรงที่สุด",
@@ -683,14 +684,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 20) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ae",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109056,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "tf",
     "q": "ฟาร์มวางแผนให้วัคซีนบิดชนิดเชื้อเป็น (sporulated oocyst) โดยผสมน้ำให้กินผ่านระบบ nipple และผสมยาต้านบิดกลุ่ม ionophore ในอาหารไปพร้อมกันเพื่อเสริมการป้องกัน แผนนี้เหมาะสมและจะให้ภูมิคุ้มกันที่ดี",
@@ -699,7 +700,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 9) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -772,7 +773,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109064,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มไก่เนื้อใช้ยาต้านบิดผสมอาหารตัวเดิมติดต่อกันมาหลายรุ่นจนเริ่มคุมโรคไม่อยู่ สัตวแพทย์แนะนำให้ทำ shuttle program ข้อใดตรงกับความหมายของ shuttle program",
@@ -787,7 +788,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 9) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -816,7 +817,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109068,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มไก่ไข่มีหน้าและตาบวม ไอ จาม ผลผลิตไข่ลดลง อัตราตายต่ำมาก สัตวแพทย์สงสัย LPAI (H9N2) ข้อใดคือกลุ่มโรคที่ต้องวินิจฉัยแยกออกไปก่อน",
@@ -831,14 +832,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 14) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109070,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มไก่ไข่มีอาการทางระบบหายใจ หน้าเหนียงบวม ผลผลิตไข่ลดลงมาก แต่อัตราตายต่ำ ผลตรวจยืนยันว่าเป็น LPAI H9N2 กลุ่มโรคใดที่ต้องวินิจฉัยแยกออกไปเป็นอันดับแรก",
@@ -853,7 +854,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 17) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -948,7 +949,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109080,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "ยืนยันการระบาดของ HPAI ในฟาร์มไก่เนื้อแห่งหนึ่ง ข้อใดคือมาตรการควบคุมโรคหลักที่ต้องดำเนินการ",
@@ -963,14 +964,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 14) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109082,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ahra-set",
     "year": 5,
     "type": "mcq",
     "q": "ลูกไก่ชุดหนึ่งพบขากางแบะ (splayed legs) จำนวนมาก ตรวจบันทึกตู้ฟักพบว่าความชื้นต่ำกว่าช่วงปกติ (54-55%) ตลอดการฟัก กลไกใดอธิบายความผิดปกติของขาในกรณีนี้ได้ตรงที่สุด",
@@ -985,14 +986,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 20) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ahra-set",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109084,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-marek",
     "year": 5,
     "type": "mcq",
     "q": "ลูกไก่สองตัวจากฟาร์มเดียวกัน ตัวที่ 1 ได้รับเชื้อ ALV ผ่านทางไข่จากแม่ ส่วนตัวที่ 2 ได้รับเชื้อแบบ horizontal เมื่ออายุหลายสัปดาห์ ข้อใดอธิบายผลตรวจและการปล่อยเชื้อของตัวที่ 1 ได้ถูกต้อง",
@@ -1007,7 +1008,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 5) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-marek",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1036,7 +1037,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109088,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ahra-set",
     "year": 5,
     "type": "mcq",
     "q": "ลูกไก่อายุ 2-3 วันจากโรงฟักเดียวกันจำนวนมากมีสะดืออักเสบและปิดไม่สนิท แต่เมื่อผ่าซากพบ yolk sac ลักษณะปกติ ประวัติพบว่าตู้ฟักตั้งอุณหภูมิสูงกว่ากำหนด ข้อใดอธิบายและจัดการปัญหานี้ได้ตรงที่สุด",
@@ -1051,14 +1052,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 20) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ahra-set",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109090,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-salmonella",
     "year": 5,
     "type": "mcq",
     "q": "ลูกไก่อายุ 7 วัน ตายสะสมในอัตราสูงมาก ลูกไก่ที่ป่วยถ่ายอุจจาระสีขาวจากยูเรตติดบริเวณก้น ข้อใดน่าจะเป็นสาเหตุมากที่สุด",
@@ -1073,7 +1074,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 21) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-salmonella",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1102,7 +1103,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109094,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ibd",
     "year": 5,
     "type": "mcq",
     "q": "ลูกไก่เนื้อมี maternal antibody ต่อ IBDV สูงมากในช่วงแรก ทำให้วัคซีนเชื้อเป็นที่ให้เร็วถูกทำลายก่อนกระตุ้นภูมิได้ วัคซีนชนิดใดถูกพัฒนาขึ้นมาเพื่อแก้ปัญหานี้โดยเฉพาะและมีใช้อยู่แต่ในโรคนี้",
@@ -1117,14 +1118,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 7) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ibd",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109096,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-salmonella",
     "year": 5,
     "type": "tf",
     "q": "วัคซีน Pullorum disease และ Fowl typhoid ทั้งชนิดเชื้อเป็นและเชื้อตายช่วยลดอาการของโรคได้ และเป็นมาตรการหลักที่ใช้ควบคุมสองโรคนี้ในประเทศไทย",
@@ -1133,7 +1134,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 21) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-salmonella",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1156,7 +1157,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109100,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "สอบสวนโรคผู้ป่วยที่ยืนยันการติดเชื้อ H5N1 ในหมู่บ้านแห่งหนึ่ง ประวัติการสัมผัสในข้อใดมีน้ำหนักมากที่สุดว่าเป็นแหล่งรับเชื้อ",
@@ -1171,14 +1172,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 17) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109102,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-marek",
     "year": 5,
     "type": "mcq",
     "q": "สัตวแพทย์เตรียมวัคซีน Marek ชนิด cell-associated เพื่อฉีดเข้าใต้ผิวหนังลูกไก่อายุ 1 วัน ข้อใดเป็นการเก็บรักษาและการละลายวัคซีนที่ถูกต้อง",
@@ -1193,14 +1194,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 5) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-marek",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109104,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cocci",
     "year": 5,
     "type": "tf",
     "q": "สามารถให้ Tiamulin ร่วมกับยากันบิดกลุ่ม ionophore ในฝูงที่กำลังรักษา Mycoplasma ได้อย่างปลอดภัย",
@@ -1209,7 +1210,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 11) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-cocci",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1254,7 +1255,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109110,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-marek",
     "year": 5,
     "type": "mcq",
     "q": "เปรียบเทียบลูกไก่ที่ได้รับเชื้อ Avian Leukosis virus ผ่านไข่จากพ่อแม่พันธุ์ กับลูกไก่ที่ได้รับเชื้อจากเพื่อนร่วมฝูงในตู้ฟัก ข้อใดถูกต้อง",
@@ -1269,7 +1270,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 18) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-marek",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1298,7 +1299,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109114,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-leuko",
     "year": 5,
     "type": "tf",
     "q": "ในการควบคุม Leucocytozoonosis มีวัคซีนชนิด recombinant subunit (rR7) สำหรับ L. caulleryi ให้ใช้ร่วมกับการควบคุมพาหะ ขณะที่ avian malaria ยังไม่มีวัคซีน จึงต้องอาศัยการป้องกันพาหะและการให้ยาตั้งแต่ไก่เริ่มแสดงอาการ",
@@ -1307,14 +1308,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 10) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-leuko",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109116,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
     "q": "ในประเทศที่อนุญาตให้ใช้วัคซีน avian influenza ฟาร์มหนึ่งใช้วัคซีนเชื้อตาย H5N1 อยู่เดิม ต่อมามีรายงานการระบาดในพื้นที่เป็น subtype H5N9 ข้อใดถูกต้องเกี่ยวกับวัคซีนเดิมที่ฟาร์มใช้อยู่",
@@ -1329,7 +1330,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 14) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ai",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1352,7 +1353,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109120,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mpv",
     "year": 5,
     "type": "tf",
     "q": "ในไก่พ่อแม่พันธุ์ การให้วัคซีน avian metapneumovirus ชนิดเชื้อเป็นเพียง 1 ครั้ง ถือว่าเพียงพอต่อการป้องกันโรคแล้ว",
@@ -1361,14 +1362,14 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 3) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-mpv",
       "อิงแนวข้อสอบ"
     ]
   },
   {
     "id": 109122,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
     "q": "ไก่พื้นเมืองเลี้ยงหลังบ้านในช่วงฤดูฝนตายเฉียบพลันหลายตัว ผ่าซากพบเลือดออกในช่องท้อง ตับโต ม้ามโต และจุดสีขาวของ megaloschizont กระจายที่ตับ ม้าม ปอด ไต และหัวใจ โรคนี้และพาหะที่ต้องควบคุมคือข้อใด",
@@ -1383,7 +1384,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 10) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-leuko",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1434,7 +1435,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109128,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-adeno",
     "year": 5,
     "type": "mcq",
     "q": "ไก่เนื้ออายุ 3 สัปดาห์ตายเพิ่มขึ้นผิดปกติ ผ่าซากพบตับซีด อักเสบ มีจุดเลือดออก ร่วมกับ hydropericardium และ gizzard erosion ข้อใดถูกต้องที่สุด",
@@ -1449,7 +1450,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 22) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-adeno",
       "อิงแนวข้อสอบ"
     ]
   },
@@ -1478,7 +1479,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109132,
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
     "q": "ไก่เนื้ออายุ 5 สัปดาห์ตายเฉียบพลันภายใน 1-2 ชั่วโมงหลังเริ่มซึม ผ่าซากพบ jejunum และ ileum พอง มีกลิ่นเหม็น ของเหลวสีน้ำตาลด้านใน และมีเยื่อ fibrinonecrotic แปะผนังลำไส้คล้ายผ้าขนหนู ข้อใดเป็นแนวทางที่เหมาะสมที่สุด",
@@ -1493,7 +1494,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 10) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-intro",
+      "avian-ne",
       "อิงแนวข้อสอบ"
     ]
   },
