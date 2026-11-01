@@ -13,8 +13,10 @@ const atlasEntry = (server) => {
 export default defineConfig({
   plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry },
     // The commit a Vercel build serves, so a live check reads it from the page instead of from a
-    // version string that a release without a changelog entry never changes (5.180.0).
-    { name: 'build-sha', transformIndexHtml: () => (process.env.VERCEL_GIT_COMMIT_SHA ? [{ tag: 'meta', attrs: { name: 'vmx-build', content: process.env.VERCEL_GIT_COMMIT_SHA }, injectTo: 'head' }] : []) }],
+    // version string that a release without a changelog entry never changes (5.180.0). Not in
+    // atlas.html: its bytes are Atlas's offline revision, and a new revision on every deploy would
+    // make each offline Atlas re-fetch and re-hash its whole shell.
+    { name: 'build-sha', transformIndexHtml: (html, { path }) => (process.env.VERCEL_GIT_COMMIT_SHA && path === '/index.html' ? [{ tag: 'meta', attrs: { name: 'vmx-build', content: process.env.VERCEL_GIT_COMMIT_SHA }, injectTo: 'head' }] : []) }],
   // '@' resolves to src/. Nothing imports through it today; jsconfig.json
   // mirrors it for editors.
   resolve: {
