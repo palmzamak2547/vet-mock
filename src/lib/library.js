@@ -25,7 +25,7 @@
 // stays importable outside the bundler.
 import { SUBJECTS } from '../data/curriculum.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
-import { googleDriveSourceUrl, mergeLibrarySources, vcaLibraryDocs } from './vca-library.js';
+import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc, vcaLibraryDocs } from './vca-library.js';
 import { openSourceDocs, openSourceUrl, withOpenLabels } from './open-sources.js';
 import { hasStoredAuthToken } from './auth-storage.js';
 
@@ -438,7 +438,12 @@ export function setLibraryAccess(signedIn, { initial = false } = {}) {
     if (!allowed && previous?.signedIn) {
       try { window.localStorage.removeItem(RECENT_KEY); } catch { /* storage disabled: nothing was kept */ }
     }
-    if (!allowed) await purgeRestrictedDocBytes();
+    // Only a device that was signed in, or has no record yet, can hold a
+    // restricted deck's bytes: the worker stores one only for a live session.
+    // Purging on every guest launch re-read, re-hashed and rewrote the whole
+    // offline shelf (six decks of up to 40 MB) twice per boot, measured on
+    // vetmock.com 1 Nov 2026.
+    if (!allowed && previous?.signedIn !== false) await purgeRestrictedDocBytes();
     return state;
   });
   return _accessWork;
@@ -654,6 +659,35 @@ async function catalogRevision(sb) {
   }
 }
 
+// One row by slug, for the reader's own address (view-route.js readerUrl).
+// The device's shelf snapshot answers first (no network, and offline too),
+// then one row from the catalogue rather than all of it, then the merged
+// catalogue, which also holds the VCA source cards. null: not on the shelf.
+export async function findLibraryDoc(slug) {
+  const pick = (docs) => (Array.isArray(docs) ? docs.find((d) => d?.slug === slug) : null) || null;
+  const snapped = pick((await readCatalogSnapshot())?.docs);
+  if (snapped) return snapped;
+  try {
+    const { hasSupabase, getSupabase } = await import('./supabase.js');
+    if (hasSupabase) {
+      const sb = await getSupabase();
+      const { data, error } = await sb.from('library_docs').select(CATALOG_COLUMNS).eq('slug', slug).maybeSingle();
+      if (!error) {
+        if (!data || data.status === 'archived') return null;
+        // /api/library-file hands VCA archive objects to the archive worker,
+        // which serves byte ranges, so the reader streams them as the shelf's
+        // own VCA cards do (vcaFileDoc) instead of downloading 900 MB whole.
+        return { ...data, range_supported: String(data.storage_key || '').startsWith('archives/vca/') };
+      }
+    }
+  } catch { /* the merged catalogue below still answers */ }
+  try {
+    return pick((await getLibraryCatalog()).docs);
+  } catch (e) {
+    return pick(e?.partialDocs);
+  }
+}
+
 // Resolves a catalog row to a fetchable URL.
 //
 // R2 rows are signed per open by /api/library-file, which checks the session
@@ -858,6 +892,23 @@ export function fetchRelatedDocs(targets) {
   return _related.get(key);
 }
 
+/** Text-search rows joined to the documents the shelf shows (`allowed`, what
+ *  its filters keep). A VCA card groups several files under the slug of one;
+ *  a match inside another of its PDF copies used to be dropped, though the
+ *  reader opens any copy (vcaFileDoc). */
+export function contentHitRows(rows, allowed) {
+  const bySlug = new Map();
+  for (const d of allowed || []) {
+    bySlug.set(d.slug, d);
+    for (const file of d.source_files || []) {
+      for (const copy of file.backups || []) {
+        if (copy.mime === 'application/pdf' && !bySlug.has(copy.slug)) bySlug.set(copy.slug, vcaFileDoc(file, copy));
+      }
+    }
+  }
+  return (Array.isArray(rows) ? rows : []).filter((r) => bySlug.has(r.slug)).map((r) => ({ ...r, doc: bySlug.get(r.slug) }));
+}
+
 // Evidence is cut from the page at a fixed offset, so it usually starts and
 // ends inside a word ("l pathogens"). Drop a partial first and last word
 // (up to 20 characters each), but never the term itself.
@@ -959,6 +1010,55 @@ export function docOpenMode(doc) {
   return { action: 'download', label: 'ดาวน์โหลดไฟล์' };
 }
 
+/** Opens a document's file in a new tab, where the browser renders or saves
+ *  it. The tab is opened inside the tap, before the link is minted: popup
+ *  blockers trust window.open only during the tap. When the browser gives no
+ *  tab (an in-app browser, a blocker) the file opens here instead; asking for
+ *  a tab again after the mint, as this used to, is refused without a word. */
+export async function openDocInTab(resolve) {
+  const win = window.open('', '_blank');
+  if (win) { try { win.opener = null; } catch { /* hardened browsers */ } }
+  try {
+    const url = await resolve();
+    if (win) win.location.replace(url);
+    else window.location.assign(url);
+  } catch (e) {
+    if (win) { try { win.close(); } catch { /* already gone */ } }
+    throw e;
+  }
+}
+
+/** Saves a document's file: the library's own blob route names it as an
+ *  attachment (?dl=1&name=, the way LecturerSets saves a deck). Any other
+ *  link opens here, where the browser's own viewer saves it. */
+export async function downloadDocFile(resolve, name) {
+  const url = new URL(await resolve(), window.location.href);
+  if (url.origin !== window.location.origin || url.pathname !== '/api/library-blob') {
+    window.location.assign(url.href);
+    return;
+  }
+  // Offline the worker answers from its cache, or with a 503 that saving
+  // would have written to disk as the "file".
+  let href;
+  if (url.searchParams.get('offline') === '1') {
+    const res = await fetch(url.href);
+    if (!res.ok) throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่องนี้ จึงดาวน์โหลดไม่ได้ตอนนี้');
+    href = URL.createObjectURL(await res.blob());
+    setTimeout(() => URL.revokeObjectURL(href), 60_000);
+  } else {
+    url.searchParams.set('dl', '1');
+    url.searchParams.set('name', name);
+    href = url.href;
+  }
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = name;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
 /** The payload the PDF reader receives. `resolve` defers the mint to the
  *  reader's own loading phase, so tapping a card navigates instantly instead
  *  of freezing the button for the mint round-trip. */
@@ -968,6 +1068,7 @@ export function readerPayload(doc, { page = null, returnTarget = null } = {}) {
     returnTarget,
     resolve: () => resolveDocUrl(doc),
     fileName: `${doc.title}.pdf`,
+    mime: doc.mime,
     sha256: doc.sha256_16,
     slug: doc.slug,
     linearized: doc.linearized,

@@ -68,7 +68,7 @@ import { usualStudyTime } from './lib/study-reminder.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { viewTitle } from './lib/nav.js';
-import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
+import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor, readerTarget, readerUrl } from './lib/view-route.js';
 import { rememberFrontDoorReturn } from './lib/phase-return.js';
 import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
@@ -2609,8 +2609,27 @@ export default function App() {
     if (prev !== null && prev !== next) {
       setLibraryDoc(null);
       setPdfLibraryReturnPath(null);
+      // The reader's address names the deck too, and would reopen it below.
+      if (viewForAppPath(window.location.pathname) === 'pdf-annotate' && readerTarget(window.location.search)) {
+        try { window.history.replaceState(window.history.state, '', appPathForView('pdf-annotate')); } catch { /* the deck stays closed in state */ }
+      }
     }
   }, [user?.id]);
+  // A reload, browser Forward, iOS reloading a tab it killed, or a link from
+  // VetMock AI names a deck in the reader's address (readerUrl). The reader
+  // looks the row up itself, so its own loading panel shows at once. A page
+  // asked for by a link is honoured once; the address then drops it, so a
+  // later reload resumes where the student stopped reading.
+  useEffect(() => {
+    if (view !== 'pdf-annotate' || libraryDoc) return;
+    if (viewForAppPath(window.location.pathname) !== 'pdf-annotate') return;
+    const target = readerTarget(window.location.search);
+    if (!target) return;
+    setLibraryDoc({ slug: target.slug, page: target.page, fromUrl: true });
+    if (target.page) {
+      try { window.history.replaceState(window.history.state, '', readerUrl(target.slug)); } catch { /* the page is still asked for once */ }
+    }
+  }, [view, libraryDoc]);
 
   const openLibraryReader = (doc = null) => {
     // Local files and shelf documents use the same reader. Explicitly clear
@@ -2630,7 +2649,14 @@ export default function App() {
       target: doc?.returnTarget || null,
       historyLength: typeof window !== 'undefined' ? window.history.length + 1 : 0,
     };
-    setView('pdf-annotate');
+    // The deck's own address, so a reload or Forward reopens it (readerUrl).
+    const path = doc?.slug ? readerUrl(doc.slug) : appPathForView('pdf-annotate');
+    // Already reading (the palette opened another deck): setView keeps this
+    // history entry, so it is renamed here.
+    if (view === 'pdf-annotate') {
+      try { window.history.replaceState(window.history.state, '', path); } catch { /* the deck still opens */ }
+    }
+    setView('pdf-annotate', { path });
   };
   // The empty reader's "เปิดคลังเอกสาร" and a shelf file under ไฟล์ล่าสุด go
   // to the shelf. returnToLibrary is the way BACK, to wherever the open deck

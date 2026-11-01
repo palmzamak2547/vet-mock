@@ -49,6 +49,7 @@ import ErrorBoundary from './ErrorBoundary.jsx';
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
 import { detectIntents, detectStudyIntent, studyActions } from '../lib/omni-intents.js';
+import { openDocInTab } from '../lib/library.js';
 // What a knowledge-base reply means for the student, and where to go when
 // there is no answer: pure, so every state is unit-tested (omni-ask.test).
 import {
@@ -1274,20 +1275,10 @@ export default function CommandPalette({
         handlersRef.current.onOpenLibraryDoc?.(readerPayload(doc));
         return;
       }
-      // Open the tab synchronously — popup blockers only trust window.open
-      // during the click, and the mint takes longer than that trust lasts.
-      const win = window.open('', '_blank');
-      if (win) { try { win.opener = null; } catch { /* hardened browsers */ } }
-      resolveDocUrl(doc).then(
-        (url) => {
-          if (win) win.location.replace(url);
-          else window.open(url, '_blank', 'noopener,noreferrer');
-        },
-        () => {
-          if (win) { try { win.close(); } catch { /* already gone */ } }
-          handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
-        },
-      );
+      // openDocInTab opens the tab inside this click, before the mint.
+      openDocInTab(() => resolveDocUrl(doc)).catch(() => {
+        handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
+      });
       return;
     }
     if (item.type === 'drug') {

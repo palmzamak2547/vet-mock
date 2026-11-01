@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v227-2026-10-14';
+const SW_VERSION = 'v228-2026-11-01';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -316,6 +316,30 @@ async function verifiedLibraryResponse(response, hash, access) {
   return new Response(bytes, { status: response.status, headers });
 }
 
+// A video's byte-range reads (Safari plays media only from 206 answers): the
+// kept copy is the whole file, so it answers the range itself, offline too. A
+// read the copy cannot answer goes to the network with its Range, which
+// /api/library-blob answers with 206 (as workers/library-archive.js byteRange).
+async function ranged(response, request) {
+  const header = request.headers.get('range');
+  if (!header || response.status !== 200) return response;
+  const blob = await response.blob();
+  const size = blob.size;
+  const match = /^bytes=(\d*)-(\d*)$/.exec(header);
+  const start = !match ? NaN : match[1] ? Number(match[1]) : Math.max(0, size - Number(match[2]));
+  const end = match && match[1] && match[2] ? Math.min(size - 1, Number(match[2])) : size - 1;
+  const headers = new Headers(response.headers);
+  if (!match || (!match[1] && !match[2]) || !(start >= 0) || start >= size || end < start) {
+    headers.set('Content-Range', `bytes */${size}`);
+    headers.delete('Content-Length');
+    return new Response(null, { status: 416, headers });
+  }
+  headers.set('Content-Range', `bytes ${start}-${end}/${size}`);
+  headers.set('Content-Length', String(end - start + 1));
+  headers.set('Accept-Ranges', 'bytes');
+  return new Response(blob.slice(start, end + 1), { status: 206, headers });
+}
+
 async function libraryDoc(request, hash, event) {
   const cache = await caches.open(LIB_DOCS);
   const key = new Request(`/__lib-doc/${hash}`);
@@ -344,7 +368,10 @@ async function libraryDoc(request, hash, event) {
       try { name = encoded ? decodeURIComponent(encoded) : /filename="([^"]*)"/i.exec(current)?.[1]; } catch { name = ''; }
     }
     name = (asDownload && clean(url.searchParams.get('name'))) || clean(name) || 'document';
-    const type = asDownload || /html|xml|javascript|ecmascript|octet-stream/i.test(headers.get('Content-Type') || '') ? 'attachment' : 'inline';
+    // Office types name "openxmlformats" and are not pages (/api/library-blob OFFICE_MIME).
+    const contentType = headers.get('Content-Type') || '';
+    const office = /^application\/vnd\.openxmlformats-officedocument\.(?:wordprocessingml\.document|presentationml\.presentation|spreadsheetml\.sheet)$/i.test(contentType);
+    const type = asDownload || (!office && /html|xml|javascript|ecmascript|octet-stream/i.test(contentType)) ? 'attachment' : 'inline';
     const ascii = name.replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '').trim() || 'document';
     const utf8 = encodeURIComponent(name).replace(/[!'()*]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
     headers.set('Content-Disposition', `${type}; filename="${ascii}"; filename*=UTF-8''${utf8}`);
@@ -364,10 +391,10 @@ async function libraryDoc(request, hash, event) {
       kind = kind === 'restricted' || !publicHash ? 'restricted' : 'public';
       response = await verifiedLibraryResponse(hit, hash, kind).catch(() => null);
     }
-    if (response && kind === 'public') return labelled(response, download);
+    if (response && kind === 'public') return ranged(labelled(response, download), request);
     if (response && await libraryClientAllowed(request, event, access)) {
       const current = await libraryAccess();
-      if (current?.signedIn && current.epoch === access?.epoch) return labelled(response, download);
+      if (current?.signedIn && current.epoch === access?.epoch) return ranged(labelled(response, download), request);
     }
   }
 
