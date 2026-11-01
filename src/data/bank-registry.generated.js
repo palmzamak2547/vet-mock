@@ -149,6 +149,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-aquatic-2026.js', export: 'QUESTIONS_Y5_AQUATIC_2026', year: 5, count: 69,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-2026.js').then((m) => m.QUESTIONS_Y5_AQUATIC_2026) },
+  { file: 'questions-y5-aquatic-final-recall.js', export: 'QUESTIONS_Y5_AQUATIC_FINAL_RECALL', year: 5, count: 106,
+    subjects: ['aquatic-clinic'],
+    load: () => import('./questions-y5-aquatic-final-recall.js').then((m) => m.QUESTIONS_Y5_AQUATIC_FINAL_RECALL) },
   { file: 'questions-y5-aquatic-tj.js', export: 'QB_Y5_AQUATIC_TJ', year: 5, count: 21,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-tj.js').then((m) => m.QB_Y5_AQUATIC_TJ) },
@@ -167,6 +170,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-avian-ae-bacterial.js', export: 'QUESTIONS_Y5_AVIAN_AE_BACTERIAL', year: 5, count: 38,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-ae-bacterial.js').then((m) => m.QUESTIONS_Y5_AVIAN_AE_BACTERIAL) },
+  { file: 'questions-y5-avian-final-recall.js', export: 'QUESTIONS_Y5_AVIAN_FINAL_RECALL', year: 5, count: 62,
+    subjects: ['avian-medicine'],
+    load: () => import('./questions-y5-avian-final-recall.js').then((m) => m.QUESTIONS_Y5_AVIAN_FINAL_RECALL) },
   { file: 'questions-y5-avian-parasitic.js', export: 'QB_Y5_AVIAN_PARASITIC', year: 5, count: 35,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-parasitic.js').then((m) => m.QB_Y5_AVIAN_PARASITIC) },
@@ -182,7 +188,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-epidemiology-2026.js', export: 'QB_Y5_EPIDEMIOLOGY_2026', year: 5, count: 37,
     subjects: ['epidemiology'],
     load: () => import('./questions-y5-epidemiology-2026.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026) },
-  { file: 'questions-y5-eqrepro-2026.js', export: 'QUESTIONS_Y5_EQREPRO_2026', year: 5, count: 144,
+  { file: 'questions-y5-eqrepro-2026.js', export: 'QUESTIONS_Y5_EQREPRO_2026', year: 5, count: 149,
     subjects: ['equine-repro'],
     load: () => import('./questions-y5-eqrepro-2026.js').then((m) => m.QUESTIONS_Y5_EQREPRO_2026) },
   { file: 'questions-y5-equine-2026-b.js', export: 'QUESTIONS_Y5_EQUINE_2026_B', year: 5, count: 30,
@@ -221,6 +227,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-milk-hygiene-pastpaper.js', export: 'QB_Y5_MILK_HYGIENE_PASTPAPER', year: 5, count: 157,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-y5-milk-hygiene-pastpaper.js').then((m) => m.QB_Y5_MILK_HYGIENE_PASTPAPER) },
+  { file: 'questions-y5-milk-meat-final-recall.js', export: 'QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL', year: 5, count: 149,
+    subjects: ['milk-meat-hygiene'],
+    load: () => import('./questions-y5-milk-meat-final-recall.js').then((m) => m.QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL) },
   { file: 'questions-y5-one-health-2026-b.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_B', year: 5, count: 61,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-b.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_B) },
@@ -310,4 +319,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-10-30T17:44:19.483Z — 100 banks · 7415 Qs
+// Built: 2026-11-01T09:57:09.565Z — 103 banks · 7737 Qs

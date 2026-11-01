@@ -9,19 +9,19 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **7,337** |
+| **Questions ready for learners** | **7,659** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 78 |
-| Total questions in source banks | 7,415 |
-| Question banks (files) | 100 |
+| Total questions in source banks | 7,737 |
+| Question banks (files) | 103 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 297 |
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 4,758 |
+| — year 5 | 5,080 |
 
-Consistency: source banks **7415**, learner-ready **7337**, fail-closed **78**, registry sums to **7415**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **7737**, learner-ready **7659**, fail-closed **78**, registry sums to **7737**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -56,8 +56,8 @@ Learner-ready questions that open an article, through their own topic or a judge
 
 | Subject | Questions | Reach an article | Via a judged link | Coverage |
 |---|---|---|---|---|
-| aquatic-clinic | 412 | 324 | 12 | 78.6% |
-| avian-medicine | 519 | 305 | 0 | 58.8% |
+| aquatic-clinic | 518 | 425 | 12 | 82.0% |
+| avian-medicine | 581 | 312 | 0 | 53.7% |
 | biochem-1 | 271 | 0 | 0 | 0.0% |
 | cliapprum | 136 | 95 | 51 | 69.9% |
 | com1 | 31 | 0 | 0 | 0.0% |
@@ -70,13 +70,13 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 100 | 60 | 0 | 60.0% |
 | equine-medicine | 594 | 541 | 0 | 91.1% |
-| equine-repro | 183 | 155 | 7 | 84.7% |
+| equine-repro | 188 | 158 | 7 | 84.0% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 289 | 50 | 0 | 17.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
-| milk-meat-hygiene | 804 | 804 | 0 | 100.0% |
+| milk-meat-hygiene | 953 | 953 | 0 | 100.0% |
 | one-health | 237 | 185 | 0 | 78.1% |
 | poa-clinical | 71 | 35 | 0 | 49.3% |
 | poultry | 178 | 114 | 42 | 64.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 7337 | 4547 | 334 | 62.0% |
+| **All** | 7659 | 4807 | 334 | 62.8% |

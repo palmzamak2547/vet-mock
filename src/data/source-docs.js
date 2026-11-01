@@ -648,6 +648,305 @@ export const SOURCE_DOCS = [
     match: /สรุปบทเรียน Epidemiological approach to zoonoses ของ Vet 80/i,
     editions: [{ id: '10p', pages: 10 }],
   },
+  // Equine Repro 2569 decks the final items cite, 31 ต.ค. 2569.
+  {
+    slug: 'eqrepro-stallion-anatomy-2569', subject: 'equine-repro', title: "Lecture 8 9 Anatomy function and clinical exam stallion",
+    match: /Lecture 8 9 Anatomy function and clinical exam stallion/i,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  {
+    slug: 'eqrepro-stallion-infect-2569', subject: 'equine-repro', title: "Infertility_infectious disease stallion",
+    match: /Infertility_infectious disease stallion/i,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'eqrepro-female-infertility-2569', subject: 'equine-repro', title: "lecture 5 and 6 (infertility and disease female horse)",
+    match: /lecture 5 and 6 \(infertility and disease female horse\)/i,
+    editions: [{ id: '66p', pages: 66 }],
+  },
+  // Aquatic Medicine FINAL sources, 31 ต.ค. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
+  {
+    slug: 'aqua-industry-tech-2569', subject: 'aquatic-clinic', title: "Aquaculture Industry and Technology",
+    match: /Aquaculture Industry and Technology(?! deck 2024)/i,
+    editions: [{ id: '104p', pages: 104 }],
+  },
+  {
+    slug: 'aqua-thailand-2569', subject: 'aquatic-clinic', title: "Aquaculture in Thailand",
+    match: /Aquaculture in Thailand(?! deck 2024)/i,
+    editions: [{ id: '64p', pages: 64 }],
+  },
+  {
+    slug: 'aqua-aquarium-mgmt-2569', subject: 'aquatic-clinic', title: "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69)",
+    match: /Aquarium Management สรุปภาษาไทย \(20 ต\.ค\. 69\)/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'aqua-marine-mammals-2569', subject: 'aquatic-clinic', title: "Conservation Aquatic Animal Management & Medicine: marine mammals (2026)",
+    match: /Conservation Aquatic Animal Management & Medicine[_:] marine mammals \(2026\)/i,
+    editions: [{ id: '110p', pages: 110 }],
+  },
+  {
+    slug: 'aqua-epidemic-act-2569', subject: 'aquatic-clinic', title: "โรคระบาดในสัตว์น้ำตาม พ.ร.บ. โรคระบาดสัตว์ 2558 (เอกสารเสริม)",
+    match: /โรคระบาดในสัตว์น้ำตาม พ\.ร\.บ\. โรคระบาดสัตว์ 2558 \(เอกสารเสริม\)(?! deck 2024)/i,
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'aqua-organizations-2024', subject: 'aquatic-clinic', title: "หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ (deck 2024)",
+    match: /หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ deck 2024/i,
+    editions: [{ id: '52p', pages: 52 }],
+  },
+  {
+    slug: 'aqua-shrimp-bio-immuno-2024', subject: 'aquatic-clinic', title: "Shrimp biology and fish immunology (deck 2024)",
+    match: /Shrimp biology and fish immunology deck 2024/i,
+    editions: [{ id: '133p', pages: 133 }],
+  },
+  {
+    slug: 'aqua-fish-disease-2024', subject: 'aquatic-clinic', title: "Disease in Fish Culture (deck 2024)",
+    match: /Disease in Fish Culture deck 2024/i,
+    editions: [{ id: '168p', pages: 168 }],
+  },
+  {
+    slug: 'aqua-shrimp-diseases-2024', subject: 'aquatic-clinic', title: "Shrimp Diseases (deck 2024)",
+    match: /Shrimp Diseases deck 2024/i,
+    editions: [{ id: '80p', pages: 80 }],
+  },
+  {
+    slug: 'aqua-shrimp-diseases2-2024', subject: 'aquatic-clinic', title: "Shrimp Diseases 2 and biosecurity (deck 2024)",
+    match: /Shrimp Diseases 2 and biosecurity deck 2024/i,
+    editions: [{ id: '70p', pages: 70 }],
+  },
+  {
+    slug: 'aqua-organization-pool-vet84', subject: 'aquatic-clinic', title: "ข้อสอบ Aquatic Organization VET84",
+    match: /คลังข้อสอบพาร์ทหน่วยงานและองค์กรของ Vet 84/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'aqua-organization-key-vet84', subject: 'aquatic-clinic', title: "เฉลย ข้อสอบ Aquatic Organization VET84",
+    match: /เฉลย ข้อสอบ Aquatic Organization VET84|(?<=หน่วยงานและองค์กรของ Vet 84 หน้า \d+ ข้อ \d+ )คีย์จากไฟล์เฉลย/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'aqua-final-summary-vet85', subject: 'aquatic-clinic', title: "ปลาสามชั้นคั่วพริกเกลือ (สรุปปลายภาค Aquatic Med ของ Vet 85)",
+    match: /สรุปปลายภาค Aquatic Med Vet 85/i,
+    editions: [{ id: '23p', pages: 23 }],
+  },
+  {
+    slug: 'aqua-final-screens', subject: 'aquatic-clinic', title: "Aqua (2) (2) (ภาพหน้าจอข้อสอบออนไลน์ Final วิชา Aquatic Animal Medicine part สัตว์น้ำเศรษฐกิจ)",
+    match: /ภาพหน้าจอข้อสอบออนไลน์ Final วิชา Aquatic Animal Medicine part สัตว์น้ำเศรษฐกิจ/i,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  {
+    slug: 'aqua-disease-maps-vet84', subject: 'aquatic-clinic', title: "ผังสรุปโรคปลาและโรคกุ้งที่ติดดาวในชุดไฟล์ Vet 84",
+    match: /ผังสรุปโรคปลาและโรคกุ้ง Vet 84/i,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  {
+    slug: 'aqua-typed-summary-vet83', subject: 'aquatic-clinic', title: "Aquatic final (สรุปพิมพ์ Aquatic Med ของ Vet 83 ที่ Vet 84 ทำเครื่องหมายต่อ)",
+    match: /สรุปพิมพ์ Aquatic Med Vet 83/i,
+    editions: [{ id: '27p', pages: 27 }],
+  },
+  {
+    slug: 'aqua-summary-vet83', subject: 'aquatic-clinic', title: "aquatic med (สรุป Aquatic Med ของ Vet 83)",
+    match: /สรุป Aquatic Med Vet 83/i,
+    editions: [{ id: '20p', pages: 20 }],
+  },
+  // Milk Hygiene & Meat Inspection FINAL sources, 31 ต.ค. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
+  {
+    slug: 'mm-milk-industry-standard-2569', subject: 'milk-meat-hygiene', title: "5. Standard of milk industry and milk products SJ 2026",
+    match: /5\. Standard of milk industry and milk products SJ 2026/i,
+    editions: [{ id: '89p', pages: 89 }],
+  },
+  {
+    slug: 'mm-milk-cleaning-2569', subject: 'milk-meat-hygiene', title: "7. Cleaning and disinfectants in milk collecting center and milk processing SJ 2026",
+    match: /7\. Cleaning and disinfectants in milk collecting center and milk processing SJ 2026/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'mm-meat-intro-2569', subject: 'milk-meat-hygiene', title: "MI_SP_E1.1",
+    match: /MI_SP_E1\.1(?!\d| deck 2024)/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'mm-meat-seafood-2569', subject: 'milk-meat-hygiene', title: "MI_SP_E1.2",
+    match: /MI_SP_E1\.2(?!\d| deck 2024)/i,
+    editions: [{ id: '64p', pages: 64 }],
+  },
+  {
+    slug: 'mm-meat-micro-2569', subject: 'milk-meat-hygiene', title: "Microbiology of meat",
+    match: /Microbiology of meat(?! deck 2024| ที่ตรวจคะแนนแล้ว)/i,
+    editions: [{ id: '66p', pages: 66 }],
+  },
+  {
+    slug: 'mm-meat-storage-2569', subject: 'milk-meat-hygiene', title: "Storage of meat and meat products",
+    match: /Storage of meat and meat products(?! deck 2024)/i,
+    editions: [{ id: '49p', pages: 49 }],
+  },
+  {
+    slug: 'mm-meat-quality-2569', subject: 'milk-meat-hygiene', title: "Meat quality and wholesomeness",
+    match: /Meat quality and wholesomeness(?! deck 2024)/i,
+    editions: [{ id: '36p', pages: 36 }],
+  },
+  {
+    slug: 'mm-meat-molecular-2569', subject: 'milk-meat-hygiene', title: "Use of molecular techniques for meat quality and authentication",
+    match: /Use of molecular techniques for meat quality and authentication(?! deck 2024)/i,
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  {
+    slug: 'mm-slaughter-2024', subject: 'milk-meat-hygiene', title: "Slaughterhouse: Production Facilities & Sanitary Practices (deck 2024)",
+    match: /Slaughterhouse: Production Facilities & Sanitary Practices deck 2024|MeatHyg_E2SlaugtHygDes_67_1 deck 2024/i,
+    editions: [{ id: '52p', pages: 52 }],
+  },
+  {
+    slug: 'mm-ante-post-mortem-2024', subject: 'milk-meat-hygiene', title: "Antemortem & Postmortem Inspection (deck 2024)",
+    match: /Antemortem & Postmortem Inspection deck 2024|MeatHyg_E3AmPmInspect_67_1 deck 2024/i,
+    editions: [{ id: '75p', pages: 75 }],
+  },
+  {
+    slug: 'mm-cutting-grading-2024', subject: 'milk-meat-hygiene', title: "Postmortem Changes & Factors, Meat Cutting & Grading (deck 2024)",
+    match: /Postmortem Changes & Factors, Meat Cutting & Grading deck 2024|MeatHyg_E4PmChngCuttGrad_67_1 deck 2024/i,
+    editions: [{ id: '93p', pages: 93 }],
+  },
+  {
+    slug: 'mm-pest-control-2024', subject: 'milk-meat-hygiene', title: "Meat Hygiene: Pest Control (deck 2024)",
+    match: /Meat Hygiene: Pest Control deck 2024|MH_2\.Pest_Control_\(Color\) deck 2024/i,
+    editions: [{ id: '46p', pages: 46 }],
+  },
+  {
+    slug: 'mm-egg-micro-2024', subject: 'milk-meat-hygiene', title: "Microbiology of the Avian Egg (deck 2024)",
+    match: /Microbiology of the Avian Egg deck 2024/i,
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  {
+    slug: 'mm-meat-final-screens', subject: 'milk-meat-hygiene', title: "Meat hygiene final (ภาพหน้าจอแบบทดสอบออนไลน์ในชุดไฟล์ Vet 84)",
+    match: /บันทึกข้อสอบปลายภาค Meat hygiene แบบออนไลน์ \(ภาพหน้าจอ\) ในชุดไฟล์ Vet 84/i,
+    editions: [{ id: '55p', pages: 55 }],
+  },
+  {
+    slug: 'mm-meat-final-typed-copy', subject: 'milk-meat-hygiene', title: "meat final2 (สำเนาพิมพ์ของข้อสอบปลายภาค Meat hygiene ในชุดไฟล์ Vet 84)",
+    match: /สำเนาพิมพ์ของข้อสอบปลายภาค Meat hygiene ชุดเดียวกันในชุดไฟล์ Vet 84/i,
+    editions: [{ id: '19p', pages: 19 }],
+  },
+  {
+    slug: 'mm-meat-final-typed-key', subject: 'milk-meat-hygiene', title: "Meat hygiene final year 5/2 (ไฟล์เฉลยพิมพ์ในชุดไฟล์ Vet 84)",
+    match: /ไฟล์เฉลยพิมพ์ Meat hygiene final year 5\/2 ในชุดไฟล์ Vet 84/i,
+    editions: [{ id: '5p', pages: 5 }],
+  },
+  {
+    slug: 'mm-meat-final-collage-vet84', subject: 'milk-meat-hygiene', title: "meat final (หน้ารวมภาพปลายภาค Meat hygiene ในชุดไฟล์ Vet 84)",
+    match: /หน้ารวมภาพปลายภาค Meat hygiene ของชุดไฟล์ Vet 84/i,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  {
+    slug: 'mm-slaughter-cutting-starred-vet84', subject: 'milk-meat-hygiene', title: "สรุปบทเรียน slaughter, inspection และ cutting ที่ติดดาวในชุดไฟล์ Vet 84",
+    match: /สรุปบทเรียน slaughter, inspection และ cutting ที่ติดดาวในชุดไฟล์ Vet 84/i,
+    editions: [{ id: '108p', pages: 108 }],
+  },
+  {
+    slug: 'mm-meat-mid-screens', subject: 'milk-meat-hygiene', title: "Meat hygiene mid (ภาพหน้าจอแบบทดสอบออนไลน์ในชุดไฟล์ Vet 84)",
+    match: /บันทึกข้อสอบกลางภาค Meat แบบออนไลน์ \(ไม่ระบุรุ่น\) ในชุดไฟล์ Vet 84/i,
+    editions: [{ id: '42p', pages: 42 }],
+  },
+  {
+    slug: 'mm-meat-handwritten-summary-vet84', subject: 'milk-meat-hygiene', title: "สรุป (สรุปเขียนมือพร้อมบันทึกหลังสอบรุ่นก่อนในชุดไฟล์ Vet 84)",
+    match: /สรุปเขียนมือของชุดไฟล์ Vet 84/i,
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'mm-meat-final-summary-vet85', subject: 'milk-meat-hygiene', title: "ซอยจุ๊ ver. สังคายนา (สรุปปลายภาค Meat hygiene ของ Vet 85)",
+    match: /สรุปปลายภาค Meat(?: hygiene)? ของ Vet 85/i,
+    editions: [{ id: '20p', pages: 20 }],
+  },
+  // Avian Medicine FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
+  {
+    slug: 'avian-ae-adeno-salmo-2569', subject: 'avian-medicine', title: "AE Adeno Salmo Omphalitis Ascites Staph",
+    match: /AE Adeno Salmo Omphalitis Ascites Staph(?! deck 2024)/i,
+    editions: [{ id: '228p', pages: 228 }],
+  },
+  {
+    slug: 'avian-campylobacter-2569', subject: 'avian-medicine', title: "Campylobacteriosis (3 พ.ย. 69)",
+    match: /Campylobacteriosis \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'avian-duck-goose-2569', subject: 'avian-medicine', title: "Duck RA DVE DVH DTMUV GP AI Yr5 2026",
+    match: /Duck RA DVE DVH DTMUV GP AI Yr5 2026/i,
+    editions: [{ id: '119p', pages: 119 }],
+  },
+  {
+    slug: 'avian-fowl-cholera-2569', subject: 'avian-medicine', title: "Fowl cholera",
+    match: /Fowl cholera(?! deck 2024)/i,
+    editions: [{ id: '25p', pages: 25 }],
+  },
+  {
+    slug: 'avian-histomoniasis-2569', subject: 'avian-medicine', title: "Histomoniasis (3 พ.ย. 69)",
+    match: /Histomoniasis \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'avian-listeriosis-2569', subject: 'avian-medicine', title: "Listeriosis (3 พ.ย. 69)",
+    match: /Listeriosis \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '13p', pages: 13 }],
+  },
+  {
+    slug: 'avian-mycosis-2569', subject: 'avian-medicine', title: "Mycotic infections in poultry (27 ต.ค. 69)",
+    match: /Mycotic infections in poultry \(27 ต\.ค\. 69\)/i,
+    editions: [{ id: '60p', pages: 60 }],
+  },
+  {
+    slug: 'avian-mycotoxicosis-2569', subject: 'avian-medicine', title: "Mycotoxicosis in poultry (27 ต.ค. 69)",
+    match: /Mycotoxicosis in poultry \(27 ต\.ค\. 69\)/i,
+    editions: [{ id: '77p', pages: 77 }],
+  },
+  {
+    slug: 'avian-ort-2569', subject: 'avian-medicine', title: "Ornithobacteriosis (ORT) (3 พ.ย. 69)",
+    match: /Ornithobacteriosis \(ORT\) \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'avian-ilt-2569', subject: 'avian-medicine', title: "Powerpoint_Infectious laryngotracheitis",
+    match: /Powerpoint_Infectious laryngotracheitis(?! deck 2024)/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'avian-duck-plague-2024', subject: 'avian-medicine', title: "Duck Plague (deck 2024)",
+    match: /Duck Plague deck 2024/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'avian-duck-hepatitis-2024', subject: 'avian-medicine', title: "Duck Hepatitis (deck 2024)",
+    match: /Duck Hepatitis deck 2024/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'avian-goose-parvo-2024', subject: 'avian-medicine', title: "Goose Parvovirus Infection (deck 2024)",
+    match: /Goose Parvovirus Infection deck 2024/i,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  {
+    slug: 'avian-vaccine-handout-2565', subject: 'avian-medicine', title: "วัคซีน วิธีให้วัคซีน โปรแกรมวัคซีน (handout 1-11-2022)",
+    match: /วัคซีน วิธีให้วัคซีน โปรแกรมวัคซีน deck 2024/i,
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'avian-serology-handout-2565', subject: 'avian-medicine', title: "การแปลผลการตอบสนองทางภูมิคุ้มกัน (Serology handout 22-11-2022)",
+    match: /การแปลผลการตอบสนองทางภูมิคุ้มกัน \(Serology\) deck 2024|เอกสาร Serology ปี 2565/i,
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'avian-recall-vet81', subject: 'avian-medicine', title: "บันทึกข้อสอบ Avian Medicine ของรุ่น 81 พร้อมคำตอบ (ในแฟ้มของรุ่น 84)",
+    match: /บันทึกข้อสอบ Avian Medicine ของรุ่น 81 พร้อมคำตอบ/i,
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'avian-final-notes-vet84', subject: 'avian-medicine', title: "avian med final (แฟ้มรวมโน้ตของรุ่น 84)",
+    match: /แฟ้มรวมโน้ต avian med final ของรุ่น 84/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  {
+    slug: 'avian-final-summary-vet85', subject: 'avian-medicine', title: "สอบเสร็จจะกิน KFC (สรุปปลายภาค Avian Medicine ของรุ่น 85)",
+    match: /สรุปปลายภาค Avian Medicine ของรุ่น 85/i,
+    editions: [{ id: '17p', pages: 17 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));
