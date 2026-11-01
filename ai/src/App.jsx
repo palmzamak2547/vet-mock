@@ -494,7 +494,14 @@ export default function App() {
       <canvas ref={canvasRef} className="ocean" aria-hidden="true" />
       {still && <div className="ocean-still" data-theme-art={theme} aria-hidden="true" />}
       <Header theme={theme} onTheme={toggleTheme} onNew={newChat} onHistory={() => { setChats(listChats()); setHistoryOpen(true); }} hasChat={open && mode === 'chat'} walled={!open} />
-      {!open && <Wall state={gate} theme={theme} cardRef={wallRef} onSignIn={wall.signIn} onGoogleToken={wall.signInWithGoogleToken} onSignOut={wall.signOut} />}
+      {!open && (
+        <Wall
+          state={gate} theme={theme} cardRef={wallRef}
+          onSignIn={wall.signIn} onGoogleToken={wall.signInWithGoogleToken}
+          onLinkToken={wall.linkWithGoogleToken} onLinkRedirect={wall.linkRedirect}
+          onSignOut={wall.signOut}
+        />
+      )}
       {open && (
         <main className="stage" onPointerDown={tapOcean}>
           {mode === 'landing' && (

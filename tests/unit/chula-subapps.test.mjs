@@ -193,3 +193,16 @@ test('the same state call: the session first, the anon key when the token is ref
   const shape = { url: 'u', key: 'k', fetchImpl: async () => Response.json([]) };
   for (const [name, copy] of Object.entries(COPIES)) await assert.rejects(copy.fetchAccessState(shape), /shape/, name);
 });
+
+test('the same answer when the database has no state function (404): no wall, never "assume on"', async () => {
+  const missing = async () => new Response('{"message":"Could not find the function"}', { status: 404 });
+  const answers = [];
+  for (const token of [null, 'good']) {
+    const expected = await main.fetchAccessState({ url: 'https://x.supabase.co', key: 'anon', token, fetchImpl: missing });
+    answers.push(expected);
+    for (const [name, copy] of Object.entries(COPIES)) {
+      assert.deepEqual(await copy.fetchAccessState({ url: 'https://x.supabase.co', key: 'anon', token, fetchImpl: missing }), expected, `${name}: 404, token ${token}`);
+    }
+  }
+  assert.deepEqual(answers[0], { enforce: false, member: null, uid: null }, 'the main rule reads a missing function as no wall');
+});

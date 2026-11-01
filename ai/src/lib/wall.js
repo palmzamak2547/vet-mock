@@ -24,13 +24,19 @@ export const PROBLEM_TEXT = Object.freeze({
   offline: 'ยังไม่ได้ต่ออินเทอร์เน็ต การเข้าสู่ระบบครั้งแรกต้องใช้เน็ต เครื่องที่เคยเข้าสู่ระบบแล้วใช้ต่อได้แบบออฟไลน์',
   expired: 'เซสชันหมดอายุแล้ว เข้าสู่ระบบอีกครั้ง',
   unknown: 'เข้าสู่ระบบไม่สำเร็จ ลองใหม่อีกครั้ง',
+  // linking on the link screen
+  'identity-taken': 'บัญชีจุฬานี้มีบัญชี VetMock ของตัวเองอยู่แล้ว เข้าบัญชีจุฬานั้นแทนได้เลย ความคืบหน้าในบัญชีนี้ยังอยู่',
+  'linking-off': 'ตอนนี้ยังเชื่อมบัญชีไม่ได้ ลองใหม่อีกครั้ง',
 });
 
-/** The words for a problem; linking problems belong to vetmock.com and read as unknown here. */
+/** The words for a problem; one this table does not name reads as unknown. */
 export const problemText = (kind) => (kind ? PROBLEM_TEXT[kind] || PROBLEM_TEXT.unknown : '');
 
 /** A sign-in that neither leaves for Google nor fails must not leave the buttons busy. */
 export const SAFETY_MS = 12_000;
+
+/** A tab shown again asks the database again, at most this often (an open tab sees the switch turned on). */
+export const RECHECK_MS = 60_000;
 
 const NO_ANSWER = Object.freeze({ uid: undefined, verdict: 'pending' });
 
@@ -42,6 +48,9 @@ export function createWall({
   location = globalThis.location,
   history = globalThis.history,
   events = globalThis,
+  doc = globalThis.document,
+  now = () => Date.now(),
+  reload = () => globalThis.location?.reload(),
   safetyMs = SAFETY_MS,
 }) {
   const configured = Boolean(auth?.configured);
@@ -52,6 +61,7 @@ export function createWall({
   let started = false;
   let subscribed = false;
   let turn = 0;
+  let asked = -Infinity;
   let safety = 0;
   const listeners = new Set();
 
@@ -89,6 +99,7 @@ export function createWall({
   async function check() {
     if (!configured) return;
     const mine = ++turn;
+    asked = now();
     const uid = raw.user?.id ?? null;
     try {
       const state = await fetchAccessState({ url: auth.url, key: auth.key, token: uid ? raw.token : null, fetchImpl, timeoutMs: uid ? 6000 : 4000 });
@@ -116,7 +127,8 @@ export function createWall({
     const signedIn = changed || event === 'SIGNED_IN';
     // a new session or a refreshed token is worth another try at the API
     const fresh = signedIn || event === 'TOKEN_REFRESHED';
-    set({ user: session.user, token: session.access_token || raw.token, loading: false, ...(fresh ? { forced: false } : {}), ...(signedIn ? { problem: null } : {}) });
+    // SIGNED_IN also comes when a stored session is restored on load: only another account clears a problem
+    set({ user: session.user, token: session.access_token || raw.token, loading: false, ...(fresh ? { forced: false } : {}), ...(changed ? { problem: null } : {}) });
     if (signedIn || (event === 'TOKEN_REFRESHED' && snapshot.verdict === 'unknown')) check();
   }
 
@@ -125,8 +137,10 @@ export function createWall({
     if (!configured || started) return;
     started = true;
     events?.addEventListener?.('online', () => { check(); });
-    // back from linking the account at vetmock.com in another tab: ask again
-    events?.addEventListener?.('focus', () => { if (snapshot.gate === 'link') check(); });
+    // a tab shown again (back from another tab, a phone woken): ask again, at most once a minute
+    doc?.addEventListener?.('visibilitychange', () => {
+      if (doc.visibilityState === 'visible' && now() - asked >= RECHECK_MS) check();
+    });
     if (raw.user || raw.loading) {
       const landing = raw.loading;
       try {
@@ -167,8 +181,40 @@ export function createWall({
         subscribed = true;
         Promise.resolve(auth.onChange(onAuthEvent)).catch(() => { subscribed = false; });
       }
-      set({ busy: null });
+      set({ busy: null, problem: null });
       if (session?.user) onAuthEvent('SIGNED_IN', session);
+    } catch (error) {
+      clearTimeout(safety);
+      set({ busy: null, problem: signInProblem(error, { online: online() }) || 'unknown' });
+    }
+  }
+
+  /** The link screen: Google's button handed back an ID token. Add that Google identity to the account
+   *  signed in here (manual linking), then start the page again as the account it now is. */
+  async function linkWithGoogleToken(token, nonce) {
+    if (!configured || raw.busy) return;
+    clearTimeout(safety);
+    set({ busy: 'link', problem: null });
+    safety = setTimeout(() => set({ busy: null }), safetyMs);
+    try {
+      await auth.linkToken(token, nonce);
+      clearTimeout(safety);
+      reload();
+    } catch (error) {
+      clearTimeout(safety);
+      // identity_already_exists: that Chula address has its own account; manual_linking_disabled: not yet
+      set({ busy: null, problem: signInProblem(error, { online: online() }) || 'unknown' });
+    }
+  }
+
+  /** The link screen's fallback when Google's button cannot load: link through Google's redirect. */
+  async function linkRedirect(hd = CHULA_HD.student) {
+    if (!configured || raw.busy) return;
+    clearTimeout(safety);
+    set({ busy: hd, problem: null });
+    safety = setTimeout(() => set({ busy: null }), safetyMs);
+    try {
+      await auth.linkRedirect(hd);
     } catch (error) {
       clearTimeout(safety);
       set({ busy: null, problem: signInProblem(error, { online: online() }) || 'unknown' });
@@ -239,6 +285,8 @@ export function createWall({
     check,
     signIn,
     signInWithGoogleToken,
+    linkWithGoogleToken,
+    linkRedirect,
     signOut,
     clearProblem: () => set({ problem: null }),
     apiAuth,

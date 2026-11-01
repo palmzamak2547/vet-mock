@@ -2,7 +2,8 @@
 // a member session is present. A pane of glass on the gallery wall, the same light behind it as
 // every page, the mark at the top; nothing else of the site shows through, and nothing on it
 // moves but its entrance (opacity and transform, once). The state comes from online/gate.js. The
-// way in is Google's own button (online/gis.js); the house button only where it cannot run.
+// way in is Google's own button (online/gis.js); the house button only where it cannot run. An
+// account with no Chula identity links one in place, on this site's own session, and starts again.
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Lockup } from '../../components/Mark.jsx';
@@ -15,8 +16,6 @@ import { CHULA_HD } from '../chula.js';
 import { GOOGLE_ORIGINS, WALL_GOOGLE_CLIENT_ID } from '../config.js';
 import { problemText } from '../wall.js';
 import '../wall.css';
-
-const LINK_HOME = 'https://vetmock.com/app/home';
 
 /** Google's own G, as its sign-in branding asks a sign-in button to carry it. */
 function GoogleMark() {
@@ -92,35 +91,42 @@ function InAppWay({ app }) {
 }
 
 /**
- * Google's own button (One Tap beside it) for the hosted domain `hd`: its window names this site.
- * Only where Google's script cannot run (an origin the client does not list, blocked, offline)
- * does the house button take its place, and that one redirects through the database's address.
+ * Google's own button for the hosted domain `hd`: its window names this site. To sign in it has One
+ * Tap beside it; to link (`mode` 'link') it has none, so a passer-by on a shared device is never
+ * offered a stranger's account. Where Google's script cannot run (an origin the client does not
+ * list, blocked, offline), or its button has not drawn 4 s after the script loaded, the house button
+ * takes its place, and that one redirects through the database's address.
  */
-function GoogleSignIn({ hd, busy, onToken, onRedirect }) {
+function GoogleSignIn({ hd, busy, mode = 'signin', onToken, onRedirect }) {
   const host = useRef(null);
   const { effective } = useTheme();
   const [failed, setFailed] = useState(() => !WALL_GOOGLE_CLIENT_ID || !GOOGLE_ORIGINS.includes(window.location.origin));
   const handler = useRef(onToken);
   handler.current = onToken;
+  const link = mode === 'link';
   useEffect(() => {
     if (failed) return undefined;
     let alive = true;
     let undo = null;
+    let watch = 0;
     const el = host.current;
     import('../gis.js')
-      .then(({ renderGoogleButton }) => renderGoogleButton(el, {
+      .then(({ renderGoogleButton, buttonDrawn, DRAWN_MS }) => renderGoogleButton(el, {
         clientId: WALL_GOOGLE_CLIENT_ID,
         hd,
-        prompt: true,
-        text: 'signin_with',
+        prompt: !link,
+        text: link ? 'continue_with' : 'signin_with',
         theme: effective === 'dark' ? 'filled_black' : 'outline',
         width: el.clientWidth,
         onCredential: (token, nonce) => handler.current?.(token, nonce),
+      }).then((u) => {
+        if (!alive) { u(); return; }
+        undo = u;
+        watch = setTimeout(() => { if (alive && !buttonDrawn(el)) setFailed(true); }, DRAWN_MS);
       }))
-      .then((u) => { if (alive) undo = u; else u(); })
       .catch(() => { if (alive) setFailed(true); });
-    return () => { alive = false; undo?.(); };
-  }, [hd, effective, failed]);
+    return () => { alive = false; clearTimeout(watch); undo?.(); };
+  }, [hd, effective, link, failed]);
   if (failed) {
     return (
       <button type="button" className="cwall-google" onClick={onRedirect} disabled={Boolean(busy)} aria-busy={busy === hd || undefined}>
@@ -130,15 +136,29 @@ function GoogleSignIn({ hd, busy, onToken, onRedirect }) {
       </button>
     );
   }
+  const working = busy === (link ? 'link' : 'google');
   return (
-    <div className="cwall-gsi" data-busy={busy === 'google' ? '1' : '0'}>
+    <div className="cwall-gsi" data-busy={working ? '1' : '0'}>
       <div ref={host} className="cwall-gsi-slot" />
-      {busy === 'google' ? <p className="cwall-caption" role="status">กำลังเข้าสู่ระบบ</p> : null}
+      {working ? <p className="cwall-caption" role="status">{link ? 'กำลังเชื่อมบัญชี' : 'กำลังเข้าสู่ระบบ'}</p> : null}
     </div>
   );
 }
 
-export function ChulaWall({ state, onSignIn, onGoogleToken, onSignOut }) {
+/** The address to choose in Google's window, the same on the sign-in and the link screens. */
+function Address({ staff }) {
+  return (
+    <div className="cwall-id">
+      <p className="cwall-addr">
+        <span className="cwall-addr-local">{staff ? 'ชื่อ' : 'รหัสนิสิต'}</span>
+        <span className="cwall-addr-domain">{staff ? '@chula.ac.th' : '@student.chula.ac.th'}</span>
+      </p>
+      <p className="cwall-caption">ไม่ต้องพิมพ์ เลือกบัญชีนี้ในหน้าต่างของ Google</p>
+    </div>
+  );
+}
+
+export function ChulaWall({ state, onSignIn, onGoogleToken, onLinkToken, onLinkRedirect, onSignOut }) {
   const heading = useRef(null);
   const online = useOnline();
   const app = useMemo(() => inAppBrowser(), []);
@@ -148,7 +168,7 @@ export function ChulaWall({ state, onSignIn, onGoogleToken, onSignOut }) {
   // a view transition waiting on a page (lib/motion.js) has its page: the wall
   useLayoutEffect(() => { pageReady(); }, [gate]);
   useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [gate]);
-  const problem = state.problem || (!online && gate === 'signin' ? 'offline' : null);
+  const problem = state.problem || (!online && gate !== 'checking' ? 'offline' : null);
   const message = useAnnounced(problemText(problem));
 
   const top = (
@@ -157,9 +177,22 @@ export function ChulaWall({ state, onSignIn, onGoogleToken, onSignOut }) {
       <ThemeSwitch />
     </header>
   );
+  const staffToggle = (
+    <button type="button" className="text-link cwall-alt" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
+      {staff ? 'นิสิตใช้ @student.chula.ac.th' : 'บุคลากรใช้ @chula.ac.th'}
+    </button>
+  );
   const live = (
     <div className="cwall-live" aria-live="polite">
-      {message ? <p className="cwall-note">{message}</p> : null}
+      {message ? (
+        <div className="cwall-note">
+          <p>{message}</p>
+          {/* that Chula address already has its own account: leave this one and sign in with it */}
+          {problem === 'identity-taken' ? (
+            <button type="button" className="btn btn-ghost btn-sm cwall-note-act" onClick={onSignOut} disabled={Boolean(busy)}>เข้าบัญชีจุฬานั้นแทน</button>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 
@@ -184,9 +217,15 @@ export function ChulaWall({ state, onSignIn, onGoogleToken, onSignOut }) {
             <p className="kicker">Members’ entrance</p>
             <h1 id="cwall-h" ref={heading} tabIndex={-1} className="cwall-h">บัญชีนี้ยังไม่ได้เชื่อมกับอีเมลจุฬา</h1>
             {state.email ? <p className="cwall-who"><Icon name="user" size={16} /><span className="sr">เข้าสู่ระบบอยู่ด้วย </span>{state.email}</p> : null}
-            <p className="cwall-p">เชื่อมบัญชีจุฬาที่ vetmock.com ครั้งเดียว ความคืบหน้าเดิมอยู่ครบ</p>
+            <p className="cwall-p">กดปุ่ม Google แล้วเลือกอีเมลจุฬาของคุณ ความคืบหน้าเดิมอยู่ครบ</p>
+            <Address staff={staff} />
             <div className="cwall-ways">
-              <a className="btn btn-ink btn-lg btn-block" href={LINK_HOME}>ไปเชื่อมบัญชีจุฬา<Icon name="arrowUpRight" size={18} /></a>
+              {app ? <InAppWay app={app} /> : (
+                <>
+                  <GoogleSignIn hd={hd} busy={busy} mode="link" onToken={onLinkToken} onRedirect={() => onLinkRedirect(hd)} />
+                  {staffToggle}
+                </>
+              )}
               <button type="button" className="text-link cwall-alt" onClick={onSignOut} disabled={Boolean(busy)}>
                 ใช้บัญชีอื่น{busy === 'signout' ? <span className="spinner" aria-hidden="true" /> : null}
               </button>
@@ -206,20 +245,12 @@ export function ChulaWall({ state, onSignIn, onGoogleToken, onSignOut }) {
           <p className="kicker">Members’ entrance</p>
           <h1 id="cwall-h" ref={heading} tabIndex={-1} className="cwall-h">เข้าสู่ระบบด้วยอีเมลจุฬา</h1>
           <p className="cwall-p">กดปุ่ม Google ด้านล่าง แล้วเลือกอีเมลจุฬาของคุณ</p>
-          <div className="cwall-id">
-            <p className="cwall-addr">
-              <span className="cwall-addr-local">{staff ? 'ชื่อ' : 'รหัสนิสิต'}</span>
-              <span className="cwall-addr-domain">{staff ? '@chula.ac.th' : '@student.chula.ac.th'}</span>
-            </p>
-            <p className="cwall-caption">ไม่ต้องพิมพ์ เลือกบัญชีนี้ในหน้าต่างของ Google</p>
-          </div>
+          <Address staff={staff} />
           <div className="cwall-ways">
             {app ? <InAppWay app={app} /> : (
               <>
                 <GoogleSignIn hd={hd} busy={busy} onToken={onGoogleToken} onRedirect={() => onSignIn(hd)} />
-                <button type="button" className="text-link cwall-alt" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
-                  {staff ? 'นิสิตใช้ @student.chula.ac.th' : 'บุคลากรใช้ @chula.ac.th'}
-                </button>
+                {staffToggle}
               </>
             )}
           </div>

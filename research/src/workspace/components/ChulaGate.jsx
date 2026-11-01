@@ -2,15 +2,16 @@
 // when this build has sign-in (Workspace.jsx), so a guest build and the landing never fetch it. While
 // the wall is on, the workspace waits for a member session: a calm "checking" line while the session or
 // the switch is unknown (never a flash of the workspace), then the sign-in card or, for an account with
-// no Chula identity, the way to link one at vetmock.com. With the switch off it renders the workspace
-// as before. The way in is Google's own button (lib/auth/gis.js); the house button, which redirects,
-// only where it cannot run. Every string is a key of the runtime-chula area. OWNER: runtime role.
+// no Chula identity, the link screen, which links one in place on this origin's own session and starts
+// the page again. With the switch off it renders the workspace as before. The way in is Google's own
+// button (lib/auth/gis.js); the house button, which redirects, only where it cannot run. Every string
+// is a key of the runtime-chula area. OWNER: runtime role.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { registerArea, useT } from '../../i18n/index.js';
 import runtimeChula from '../../i18n/runtime-chula.js';
 import { CHULA_HD } from '../../lib/auth/chula.js';
 import { APP_NAMES, externalUrl, inAppBrowser } from '../../lib/auth/inapp.js';
-import { gisUsable, renderGoogleButton } from '../../lib/auth/gis.js';
+import { buttonDrawn, DRAWN_MS, gisUsable, renderGoogleButton } from '../../lib/auth/gis.js';
 import { chulaWall, problemKey, useChulaWall } from '../../lib/auth/wall.js';
 import { LangSwitch } from './TopBar.jsx';
 import { Busy, Notice } from './Bits.jsx';
@@ -22,7 +23,6 @@ registerArea('runtime-chula', runtimeChula);
 // Made at load, before the client or useOwner reads the address: an OAuth error in it is taken once.
 const wall = chulaWall();
 
-const LINK_HOME = 'https://vetmock.com/app/home';
 const DOTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 const GOLD = 9;
 
@@ -121,43 +121,67 @@ function usePageTheme() {
 }
 
 /**
- * Google's own button (One Tap beside it) for the hosted domain `hd`: its window names this site.
- * Only where Google's script cannot run (an origin the client does not list, blocked, offline)
- * does the house button take its place, and that one redirects through the database's address.
+ * Google's own button for the hosted domain `hd`: its window names this site. To sign in it has One
+ * Tap beside it; to link (`mode` 'link') it has none, so a passer-by on a shared device is never
+ * offered a stranger's account. Where Google's script cannot run (an origin the client does not
+ * list, blocked, offline), or its button has not drawn 4 s after the script loaded, the house button
+ * takes its place, and that one redirects through the database's address.
  */
-function GoogleSignIn({ hd, busy }) {
+function GoogleSignIn({ hd, busy, mode = 'signin' }) {
   const { t, lang } = useT();
   const theme = usePageTheme();
   const host = useRef(null);
   const [failed, setFailed] = useState(() => !gisUsable());
+  const link = mode === 'link';
   useEffect(() => {
     if (failed) return undefined;
     let alive = true;
     let undo = null;
+    let watch = 0;
     renderGoogleButton(host.current, {
       hd,
       theme: theme === 'dark' ? 'filled_black' : 'outline',
       locale: lang,
-      prompt: true,
-      onCredential: (token, nonce) => wall.signInWithGoogleToken(token, nonce),
+      prompt: !link,
+      text: link ? 'continue_with' : 'signin_with',
+      onCredential: (token, nonce) => (link ? wall.linkWithGoogleToken(token, nonce) : wall.signInWithGoogleToken(token, nonce)),
     })
-      .then((u) => { if (alive) undo = u; else u(); })
+      .then((u) => {
+        if (!alive) { u(); return; }
+        undo = u;
+        watch = window.setTimeout(() => { if (alive && !buttonDrawn(host.current)) setFailed(true); }, DRAWN_MS);
+      })
       .catch(() => { if (alive) setFailed(true); });
-    return () => { alive = false; undo?.(); };
-  }, [hd, theme, lang, failed]);
+    return () => { alive = false; window.clearTimeout(watch); undo?.(); };
+  }, [hd, theme, lang, link, failed]);
   if (failed) {
     return (
-      <button type="button" className="rs-wall-google" onClick={() => wall.signIn(hd)} disabled={Boolean(busy)} aria-busy={busy === hd || undefined}>
+      <button type="button" className="rs-wall-google" onClick={() => (link ? wall.linkRedirect(hd) : wall.signIn(hd))} disabled={Boolean(busy)} aria-busy={busy === hd || undefined}>
         <GoogleG />
         <span>{t('runtime.chula.google')}</span>
         {busy === hd ? <Spin /> : null}
       </button>
     );
   }
+  const working = busy === (link ? 'link' : 'google');
   return (
-    <div className="rs-wall-gsi" data-busy={busy === 'google' ? '1' : '0'}>
+    <div className="rs-wall-gsi" data-busy={working ? '1' : '0'}>
       <div ref={host} className="rs-wall-gsi-slot" />
-      {busy === 'google' ? <p className="rs-wall-caption" role="status">{t('runtime.chula.signingIn')}</p> : null}
+      {working ? <p className="rs-wall-caption" role="status">{t(link ? 'runtime.chula.linking' : 'runtime.chula.signingIn')}</p> : null}
+    </div>
+  );
+}
+
+/** The address to choose in Google's window, the same on the sign-in and the link screens. */
+function Address({ staff }) {
+  const { t } = useT();
+  return (
+    <div className="rs-wall-id" role="group" aria-label={t('runtime.chula.addressLabel')}>
+      <p className="rs-wall-addr">
+        <span className="rs-wall-addr-local">{t(staff ? 'runtime.chula.local.staff' : 'runtime.chula.local.student')}</span>
+        <span className="rs-wall-addr-domain">{staff ? '@chula.ac.th' : '@student.chula.ac.th'}</span>
+      </p>
+      <p className="rs-wall-caption">{t('runtime.chula.addressCaption')}</p>
     </div>
   );
 }
@@ -173,7 +197,7 @@ function Wall({ state }) {
   const titleKey = gate === 'link' ? 'runtime.chula.linkTitle' : gate === 'checking' ? 'runtime.chula.checking' : 'runtime.chula.title';
   useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [gate]);
   useEffect(() => { document.title = `${t(titleKey)} | ${t('common.appName')}`; }, [titleKey, t]);
-  const problem = state.problem || (!online && gate === 'signin' ? 'offline' : null);
+  const problem = state.problem || (!online && gate !== 'checking' ? 'offline' : null);
   const message = useAnnounced(problem ? t(problemKey(problem)) : '');
 
   const top = (
@@ -200,9 +224,13 @@ function Wall({ state }) {
     );
   }
 
+  // that Chula address already has its own account: leave this one and sign in with it
+  const instead = problem === 'identity-taken'
+    ? <button type="button" className="rs-btn" onClick={wall.signOut} disabled={Boolean(busy)}>{t('runtime.chula.instead')}</button>
+    : null;
   const live = (
     <div aria-live="polite">
-      {message ? <Notice tone={problem === 'not-chula' || problem === 'unknown' ? 'stop' : 'warn'}>{message}</Notice> : null}
+      {message ? <Notice tone={problem === 'not-chula' || problem === 'unknown' ? 'stop' : 'warn'} action={instead}>{message}</Notice> : null}
     </div>
   );
   const dots = (
@@ -210,6 +238,14 @@ function Wall({ state }) {
       {DOTS.map((i) => <span key={i} className={`rs-wall-dot${i === GOLD ? ' rs-wall-dot--gold' : ''}`} />)}
     </span>
   );
+  const staffToggle = (
+    <button type="button" className="rs-btn rs-btn--quiet rs-wall-alt" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
+      {t(staff ? 'runtime.chula.student' : 'runtime.chula.staff')}
+    </button>
+  );
+  const leaving = busy && !['signout', 'google', 'link'].includes(busy)
+    ? <span className="rs-visually-hidden" role="status">{t('runtime.auth.redirecting')}</span>
+    : null;
 
   if (gate === 'link') {
     return (
@@ -221,11 +257,18 @@ function Wall({ state }) {
             <h1 id="rs-wall-title" ref={heading} tabIndex={-1} className="rs-wall-title">{t('runtime.chula.linkTitle')}</h1>
             {state.email ? <p className="rs-wall-who"><Icon name="user" size={16} />{t('runtime.auth.signedInAs', { email: state.email })}</p> : null}
             <p className="rs-wall-lead">{t('runtime.chula.linkBody')}</p>
+            <Address staff={staff} />
             <div className="rs-wall-actions">
-              <a className="rs-btn rs-btn--primary" href={LINK_HOME}>{t('runtime.chula.linkGo')}<Icon name="arrow" size={18} /></a>
+              {app ? <InAppWay app={app} /> : (
+                <>
+                  <GoogleSignIn hd={hd} busy={busy} mode="link" />
+                  {staffToggle}
+                </>
+              )}
               <button type="button" className="rs-btn rs-btn--quiet rs-wall-alt" onClick={wall.signOut} disabled={Boolean(busy)}>
                 {t('runtime.chula.other')}{busy === 'signout' ? <Spin /> : null}
               </button>
+              {leaving}
             </div>
             {live}
           </section>
@@ -242,23 +285,15 @@ function Wall({ state }) {
           {dots}
           <h1 id="rs-wall-title" ref={heading} tabIndex={-1} className="rs-wall-title">{t('runtime.chula.title')}</h1>
           <p className="rs-wall-lead">{t('runtime.chula.lead')}</p>
-          <div className="rs-wall-id" role="group" aria-label={t('runtime.chula.addressLabel')}>
-            <p className="rs-wall-addr">
-              <span className="rs-wall-addr-local">{t(staff ? 'runtime.chula.local.staff' : 'runtime.chula.local.student')}</span>
-              <span className="rs-wall-addr-domain">{staff ? '@chula.ac.th' : '@student.chula.ac.th'}</span>
-            </p>
-            <p className="rs-wall-caption">{t('runtime.chula.addressCaption')}</p>
-          </div>
+          <Address staff={staff} />
           <div className="rs-wall-actions">
             {app ? <InAppWay app={app} /> : (
               <>
                 <GoogleSignIn hd={hd} busy={busy} />
-                <button type="button" className="rs-btn rs-btn--quiet rs-wall-alt" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
-                  {t(staff ? 'runtime.chula.student' : 'runtime.chula.staff')}
-                </button>
+                {staffToggle}
               </>
             )}
-            {busy && busy !== 'signout' && busy !== 'google' ? <span className="rs-visually-hidden" role="status">{t('runtime.auth.redirecting')}</span> : null}
+            {leaving}
           </div>
           {live}
         </section>

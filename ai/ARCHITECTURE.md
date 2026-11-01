@@ -51,7 +51,11 @@ member session is present, and every POST to `/api/ai-chat` and `/api/ai-transcr
 (gateState's four answers, remembered on the device so a saved member session opens offline);
 the session is `lib/auth.js` (PKCE, storage key `vmx-ai-auth`, its own session, never vetmock.com's).
 The way in is Google's own button (`lib/gis.js`, One Tap beside it, only on https://ai.vetmock.com);
-the redirect is the fallback. Signing out is at the foot of the history sheet. A build without
+the redirect is the fallback, and so is an empty button slot 4 s after Google's script loaded. A
+signed-in account with no Chula identity links one in place on this page's own session (Google's
+button again, no One Tap, then `linkIdentity` with the ID token and a reload); an address that
+already has its own account is told so with a way to sign in with it. A tab shown again re-asks the
+switch at most once a minute. Signing out is at the foot of the history sheet. A build without
 `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` has no accounts and no wall.
 
 ## The sea, in one paragraph

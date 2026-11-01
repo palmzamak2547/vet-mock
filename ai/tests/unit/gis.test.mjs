@@ -5,7 +5,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 
-const { GIS_CLIENT_ID, gisOriginAllowed, gisUsable, renderGoogleButton, noncePair } = await import('../../src/lib/gis.js');
+const { GIS_CLIENT_ID, gisOriginAllowed, gisUsable, renderGoogleButton, noncePair, buttonDrawn, DRAWN_MS } = await import('../../src/lib/gis.js');
+
+test('a slot with no drawn button is empty, so the house button takes its place after 4 s', () => {
+  const slot = (frame) => ({ querySelector: (sel) => (sel === 'iframe' ? frame : null) });
+  assert.equal(DRAWN_MS, 4000);
+  assert.equal(buttonDrawn(slot({ getBoundingClientRect: () => ({ width: 300, height: 40 }) })), true);
+  assert.equal(buttonDrawn(slot({ getBoundingClientRect: () => ({ width: 0, height: 0 }) })), false, 'a frame that never drew');
+  assert.equal(buttonDrawn(slot(null)), false, 'nothing inserted');
+  assert.equal(buttonDrawn(null), false);
+});
 
 function fakeGoogle() {
   const calls = { initialize: [], renderButton: [], prompt: 0, cancel: 0 };

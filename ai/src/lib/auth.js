@@ -94,6 +94,24 @@ export const authPort = {
     if (error) throw error;
     return data?.session || null;
   },
+  /** The link screen: add the Google identity of that ID token to the account signed in here (manual linking). */
+  async linkToken(token, nonce) {
+    const client = await getAuthClient();
+    if (!client) throw new Error('auth not configured');
+    const { data, error } = await client.auth.linkIdentity({ provider: 'google', token, nonce });
+    if (error) throw error;
+    return data;
+  },
+  /** The link screen's fallback: link through Google's redirect, back to this page. */
+  async linkRedirect(hd) {
+    const client = await getAuthClient();
+    if (!client) throw new Error('auth not configured');
+    const { error } = await client.auth.linkIdentity({
+      provider: 'google',
+      options: { redirectTo: `${globalThis.location.origin}/`, queryParams: { hd, prompt: 'select_account' } },
+    });
+    if (error) throw error;
+  },
   /** The fallback: leaves for Google through the database's address; resolves only if the redirect did not start. */
   async signIn(hd) {
     const client = await getAuthClient();

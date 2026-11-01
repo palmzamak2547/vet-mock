@@ -59,6 +59,8 @@
 
 .cwall-live { text-align: left; }
 .cwall-note { margin-top: 16px; padding: 12px 16px; border-radius: var(--r-md); background: var(--cinn-soft); color: var(--ink); font-size: 15px; line-height: 1.6; }
+/* the way on a problem offers (that Chula address has its own account: use it) */
+.cwall-note-act { margin-top: 8px; min-height: var(--touch); }
 /* "checking": the wall's light alone; the line shows only if the check takes a while */
 .cwall-wait { display: flex; align-items: center; gap: 12px; color: var(--ink-2); font-size: 15px; animation: cwall-fade .4s linear .7s both; }
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { CHULA_HD } from '../lib/chula.js';
 import { APP_NAMES, externalUrl, inAppBrowser } from '../lib/inapp.js';
-import { gisUsable, renderGoogleButton } from '../lib/gis.js';
+import { buttonDrawn, DRAWN_MS, gisUsable, renderGoogleButton } from '../lib/gis.js';
 import { problemText } from '../lib/wall.js';
 import { IconArrowOut } from './icons.jsx';
 
@@ -13,8 +13,8 @@ import { IconArrowOut } from './icons.jsx';
 // The way in is Google's own button (lib/gis.js), with One Tap beside it: its
 // window names this site. The house button, which redirects through the
 // database's address, stands in only when Google's script cannot run here.
-
-const LINK_HOME = 'https://vetmock.com/app/home';
+// An account with no Chula identity links one in place, on this page's own
+// session (Google's button again, no One Tap), and the page starts again.
 
 /** Google's own G, as drawn in its sign-in branding (not redrawn). */
 export function GoogleG({ size = 20 }) {
@@ -97,28 +97,37 @@ function InAppWay({ app }) {
 }
 
 /**
- * Google's own button (One Tap beside it) for the hosted domain `hd`. If the script cannot run
- * here (blocked, offline, an origin Google does not list), the house button takes its place.
+ * Google's own button for the hosted domain `hd`. To sign in it has One Tap beside it; to link
+ * (`mode` 'link') it has none, so a passer-by on a shared device is never offered a stranger's
+ * account. If the script cannot run here, or the button has not drawn 4 s after the script loaded
+ * (blocked, failing), the house button takes its place.
  */
-function GoogleSignIn({ hd, theme, busy, onToken, onRedirect }) {
+function GoogleSignIn({ hd, theme, busy, mode = 'signin', onToken, onRedirect }) {
   const host = useRef(null);
   const [failed, setFailed] = useState(() => !gisUsable());
   const handler = useRef(onToken);
   handler.current = onToken;
+  const link = mode === 'link';
   useEffect(() => {
     if (failed) return undefined;
     let alive = true;
     let teardown = null;
+    let watch = 0;
     renderGoogleButton(host.current, {
       hd,
       theme: theme === 'dark' ? 'filled_black' : 'outline',
-      prompt: true,
+      prompt: !link,
+      text: link ? 'continue_with' : 'signin_with',
       onCredential: (token, nonce) => handler.current?.(token, nonce),
     })
-      .then((undo) => { if (alive) teardown = undo; else undo(); })
+      .then((undo) => {
+        if (!alive) { undo(); return; }
+        teardown = undo;
+        watch = setTimeout(() => { if (alive && !buttonDrawn(host.current)) setFailed(true); }, DRAWN_MS);
+      })
       .catch(() => { if (alive) setFailed(true); });
-    return () => { alive = false; teardown?.(); };
-  }, [hd, theme, failed]);
+    return () => { alive = false; clearTimeout(watch); teardown?.(); };
+  }, [hd, theme, link, failed]);
   if (failed) {
     return (
       <button type="button" className="wall-google" onClick={onRedirect} disabled={Boolean(busy)} aria-busy={busy === hd || undefined}>
@@ -128,15 +137,29 @@ function GoogleSignIn({ hd, theme, busy, onToken, onRedirect }) {
       </button>
     );
   }
+  const working = busy === (link ? 'link' : 'google');
   return (
-    <div className="wall-gsi" data-busy={busy === 'google' ? '1' : '0'}>
+    <div className="wall-gsi" data-busy={working ? '1' : '0'}>
       <div ref={host} className="wall-gsi-slot" />
-      {busy === 'google' ? <p className="wall-caption" role="status">กำลังเข้าสู่ระบบ</p> : null}
+      {working ? <p className="wall-caption" role="status">{link ? 'กำลังเชื่อมบัญชี' : 'กำลังเข้าสู่ระบบ'}</p> : null}
     </div>
   );
 }
 
-export default function Wall({ state, theme, onSignIn, onGoogleToken, onSignOut, cardRef }) {
+/** The address to choose in Google's window, the same on the sign-in and the link screens. */
+function Address({ staff }) {
+  return (
+    <div className="wall-id">
+      <p className="wall-addr">
+        <span className="wall-addr-local">{staff ? 'ชื่อ' : 'รหัสนิสิต'}</span>
+        <span className="wall-addr-domain">{staff ? '@chula.ac.th' : '@student.chula.ac.th'}</span>
+      </p>
+      <p className="wall-caption">ไม่ต้องพิมพ์ เลือกบัญชีนี้ในหน้าต่างของ Google</p>
+    </div>
+  );
+}
+
+export default function Wall({ state, theme, onSignIn, onGoogleToken, onLinkToken, onLinkRedirect, onSignOut, cardRef }) {
   const heading = useRef(null);
   const online = useOnline();
   const app = useMemo(() => inAppBrowser(navigator.userAgent), []);
@@ -144,11 +167,24 @@ export default function Wall({ state, theme, onSignIn, onGoogleToken, onSignOut,
   const { gate, busy } = state;
   const hd = staff ? CHULA_HD.staff : CHULA_HD.student;
   useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [gate]);
-  const problem = state.problem || (!online && gate === 'signin' ? 'offline' : null);
+  const problem = state.problem || (!online && gate !== 'checking' ? 'offline' : null);
   const message = useAnnounced(problemText(problem));
+  const staffToggle = (
+    <button type="button" className="wall-alt" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
+      {staff ? 'นิสิตใช้ @student.chula.ac.th' : 'บุคลากรใช้ @chula.ac.th'}
+    </button>
+  );
   const live = (
     <div className="wall-msg" aria-live="polite">
-      {message ? <p className="wall-note">{message}</p> : null}
+      {message ? (
+        <div className="wall-note">
+          <p>{message}</p>
+          {/* that Chula address already has its own account: leave this one and sign in with it */}
+          {problem === 'identity-taken' ? (
+            <button type="button" className="wall-note-act" onClick={onSignOut} disabled={Boolean(busy)}>เข้าบัญชีจุฬานั้นแทน</button>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 
@@ -167,8 +203,14 @@ export default function Wall({ state, theme, onSignIn, onGoogleToken, onSignOut,
         <section ref={cardRef} className="wall-card" aria-labelledby="wall-title">
           <h1 id="wall-title" ref={heading} tabIndex={-1} className="wall-title">บัญชีนี้ยังไม่ได้เชื่อมกับอีเมลจุฬา</h1>
           {state.email ? <p className="wall-who"><span className="sr-only">เข้าสู่ระบบอยู่ด้วย </span>{state.email}</p> : null}
-          <p className="wall-lead">เชื่อมบัญชีจุฬาที่ vetmock.com ครั้งเดียว ความคืบหน้าเดิมอยู่ครบ</p>
-          <a className="wall-go" href={LINK_HOME}>ไปเชื่อมบัญชีจุฬา<IconArrowOut size={18} /></a>
+          <p className="wall-lead">กดปุ่ม Google แล้วเลือกอีเมลจุฬาของคุณ ความคืบหน้าเดิมอยู่ครบ</p>
+          <Address staff={staff} />
+          {app ? <InAppWay app={app} /> : (
+            <>
+              <GoogleSignIn hd={hd} theme={theme} busy={busy} mode="link" onToken={onLinkToken} onRedirect={() => onLinkRedirect(hd)} />
+              {staffToggle}
+            </>
+          )}
           <button type="button" className="wall-alt" onClick={onSignOut} disabled={Boolean(busy)}>
             ใช้บัญชีอื่น{busy === 'signout' ? <Spinner /> : null}
           </button>
@@ -183,19 +225,11 @@ export default function Wall({ state, theme, onSignIn, onGoogleToken, onSignOut,
       <section ref={cardRef} className="wall-card" aria-labelledby="wall-title">
         <h1 id="wall-title" ref={heading} tabIndex={-1} className="wall-title">เข้าสู่ระบบด้วยอีเมลจุฬา</h1>
         <p className="wall-lead">กดปุ่ม Google ด้านล่าง แล้วเลือกอีเมลจุฬาของคุณ</p>
-        <div className="wall-id">
-          <p className="wall-addr">
-            <span className="wall-addr-local">{staff ? 'ชื่อ' : 'รหัสนิสิต'}</span>
-            <span className="wall-addr-domain">{staff ? '@chula.ac.th' : '@student.chula.ac.th'}</span>
-          </p>
-          <p className="wall-caption">ไม่ต้องพิมพ์ เลือกบัญชีนี้ในหน้าต่างของ Google</p>
-        </div>
+        <Address staff={staff} />
         {app ? <InAppWay app={app} /> : (
           <>
             <GoogleSignIn hd={hd} theme={theme} busy={busy} onToken={onGoogleToken} onRedirect={() => onSignIn(hd)} />
-            <button type="button" className="wall-alt" onClick={() => setStaff(!staff)} disabled={Boolean(busy)}>
-              {staff ? 'นิสิตใช้ @student.chula.ac.th' : 'บุคลากรใช้ @chula.ac.th'}
-            </button>
+            {staffToggle}
           </>
         )}
         {live}

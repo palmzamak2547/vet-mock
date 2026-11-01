@@ -10,20 +10,22 @@
 // (workspace/components/ChulaGate.jsx, a lazy chunk loaded only when sign-in is configured).
 // OWNER: runtime role.
 import { useSyncExternalStore } from 'react';
-import { AUTH_CONFIGURED, AUTH_KEY, AUTH_URL, cleanAuthParams, getAuthClient, signedOutHere, signIn as clientSignIn, signOut as clientSignOut } from './client.js';
+import { AUTH_CONFIGURED, AUTH_KEY, AUTH_URL, cleanAuthParams, getAuthClient, redirectTarget, signedOutHere, signIn as clientSignIn, signOut as clientSignOut } from './client.js';
 import { storedSession } from './stored.js';
 import {
   CHULA_HD, fetchAccessState, gateState, prefsStore, rememberAnswer, rememberedEnforce, rememberedMember,
   signInProblem, takeAuthErrorFromUrl,
 } from './chula.js';
 
-/** The dictionary key for each problem (i18n/runtime-chula.js); linking problems read as unknown here. */
+/** The dictionary key for each problem (i18n/runtime-chula.js); one not named reads as unknown. */
 export const PROBLEM_KEYS = Object.freeze({
   'not-chula': 'runtime.chula.problem.notChula',
   cancelled: 'runtime.chula.problem.cancelled',
   offline: 'runtime.chula.problem.offline',
   expired: 'runtime.chula.problem.expired',
   unknown: 'runtime.chula.problem.unknown',
+  'identity-taken': 'runtime.chula.problem.identityTaken',
+  'linking-off': 'runtime.chula.problem.linkingOff',
 });
 
 /** @param {string|null} kind @returns {string|null} */
@@ -31,6 +33,9 @@ export const problemKey = (kind) => (kind ? PROBLEM_KEYS[kind] || PROBLEM_KEYS.u
 
 /** A sign-in that neither leaves for Google nor fails must not leave the buttons busy. */
 export const SAFETY_MS = 12_000;
+
+/** A tab shown again asks the database again, at most this often (an open tab sees the switch turned on). */
+export const RECHECK_MS = 60_000;
 
 const NO_ANSWER = Object.freeze({ uid: undefined, verdict: 'pending' });
 
@@ -45,6 +50,9 @@ export function createWall({
   location = globalThis.location,
   history = globalThis.history,
   events = globalThis,
+  doc = globalThis.document,
+  now = () => Date.now(),
+  reload = () => globalThis.location?.reload(),
   safetyMs = SAFETY_MS,
 }) {
   const configured = Boolean(auth?.configured);
@@ -57,6 +65,7 @@ export function createWall({
   let started = false;
   let subscribed = false;
   let turn = 0;
+  let askedAt = -Infinity;
   let safety = 0;
   const listeners = new Set();
 
@@ -92,6 +101,7 @@ export function createWall({
   async function check() {
     if (!configured) return;
     const mine = ++turn;
+    askedAt = now();
     const uid = raw.user?.id ?? null;
     try {
       const state = await fetchAccessState({ url: auth.url, key: auth.key, token: uid ? raw.token : null, fetchImpl, timeoutMs: uid ? 6000 : 4000 });
@@ -115,8 +125,10 @@ export function createWall({
     }
     // INITIAL_SESSION without a session says nothing (offline it is null too); start() reads the session itself
     if (!session?.user) return;
-    const signedIn = session.user.id !== raw.user?.id || event === 'SIGNED_IN';
-    set({ user: session.user, token: session.access_token || raw.token, loading: false, ...(signedIn ? { problem: null } : {}) });
+    const changed = session.user.id !== raw.user?.id;
+    const signedIn = changed || event === 'SIGNED_IN';
+    // SIGNED_IN also comes when a stored session is restored on load: only another account clears a problem
+    set({ user: session.user, token: session.access_token || raw.token, loading: false, ...(changed ? { problem: null } : {}) });
     if (signedIn || (event === 'TOKEN_REFRESHED' && snapshot.verdict === 'unknown')) check();
   }
 
@@ -125,8 +137,10 @@ export function createWall({
     if (!configured || started) return;
     started = true;
     events?.addEventListener?.('online', () => { check(); });
-    // back from linking the account at vetmock.com in another tab: ask again
-    events?.addEventListener?.('focus', () => { if (snapshot.gate === 'link') check(); });
+    // a tab shown again (back from another tab, a phone woken): ask again, at most once a minute
+    doc?.addEventListener?.('visibilitychange', () => {
+      if (doc.visibilityState === 'visible' && now() - askedAt >= RECHECK_MS) check();
+    });
     if (raw.user || raw.loading) {
       const landing = raw.loading;
       try {
@@ -167,8 +181,40 @@ export function createWall({
         subscribed = true;
         Promise.resolve(auth.onChange(onAuthEvent)).catch(() => { subscribed = false; });
       }
-      set({ busy: null });
+      set({ busy: null, problem: null });
       if (session?.user) onAuthEvent('SIGNED_IN', session);
+    } catch (error) {
+      clearTimeout(safety);
+      set({ busy: null, problem: signInProblem(error, { online: online() }) || 'unknown' });
+    }
+  }
+
+  /** The link screen: Google's button handed back an ID token. Add that Google identity to the account
+   *  signed in here (manual linking), then start the page again as the account it now is. */
+  async function linkWithGoogleToken(token, nonce) {
+    if (!configured || raw.busy) return;
+    clearTimeout(safety);
+    set({ busy: 'link', problem: null });
+    safety = setTimeout(() => set({ busy: null }), safetyMs);
+    try {
+      await auth.linkToken(token, nonce);
+      clearTimeout(safety);
+      reload();
+    } catch (error) {
+      clearTimeout(safety);
+      // identity_already_exists: that Chula address has its own account; manual_linking_disabled: not yet
+      set({ busy: null, problem: signInProblem(error, { online: online() }) || 'unknown' });
+    }
+  }
+
+  /** The link screen's fallback when Google's button cannot load: link through Google's redirect. */
+  async function linkRedirect(hd = CHULA_HD.student) {
+    if (!configured || raw.busy) return;
+    clearTimeout(safety);
+    set({ busy: hd, problem: null });
+    safety = setTimeout(() => set({ busy: null }), safetyMs);
+    try {
+      await auth.linkRedirect(hd);
     } catch (error) {
       clearTimeout(safety);
       set({ busy: null, problem: signInProblem(error, { online: online() }) || 'unknown' });
@@ -211,6 +257,8 @@ export function createWall({
     check,
     signIn,
     signInWithGoogleToken,
+    linkWithGoogleToken,
+    linkRedirect,
     signOut,
     clearProblem: () => set({ problem: null }),
   };
@@ -246,6 +294,24 @@ const port = {
     const { data, error } = await client.auth.signInWithIdToken({ provider: 'google', token, nonce });
     if (error) throw error;
     return data?.session || null;
+  },
+  /** The link screen: add the Google identity of that ID token to the account signed in here (manual linking). */
+  async linkToken(token, nonce) {
+    const client = await getAuthClient();
+    if (!client) throw new Error('runtime.auth.notConfigured');
+    const { data, error } = await client.auth.linkIdentity({ provider: 'google', token, nonce });
+    if (error) throw error;
+    return data;
+  },
+  /** The link screen's fallback: link through Google's redirect, back to /app. */
+  async linkRedirect(hd) {
+    const client = await getAuthClient();
+    if (!client) throw new Error('runtime.auth.notConfigured');
+    const { error } = await client.auth.linkIdentity({
+      provider: 'google',
+      options: { redirectTo: redirectTarget(), queryParams: { hd, prompt: 'select_account' } },
+    });
+    if (error) throw error;
   },
   /** The fallback: leaves for Google (back to /app, client.js redirectTarget); throws only when the redirect did not start. */
   async signIn(hd) {

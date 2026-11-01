@@ -36,7 +36,7 @@ function fakeAuth(over = {}) {
   return { auth, calls, emit: (event, session) => { for (const cb of listeners) cb(event, session); } };
 }
 
-function wallWith({ auth, store = memoryStore(), answer = { enforce: true, member: false, uid: null }, location, history }) {
+function wallWith({ auth, store = memoryStore(), answer = { enforce: true, member: false, uid: null }, location, history, doc = null, now, reload }) {
   const seen = [];
   const fetchImpl = async (url, init) => {
     seen.push({ url, auth: init.headers.Authorization });
@@ -44,7 +44,8 @@ function wallWith({ auth, store = memoryStore(), answer = { enforce: true, membe
     return Response.json(typeof answer === 'function' ? answer(init.headers.Authorization) : answer);
   };
   const wall = createWall({
-    auth, store, fetchImpl, online: () => true, events: null, safetyMs: 30,
+    auth, store, fetchImpl, online: () => true, events: null, safetyMs: 30, doc,
+    ...(now ? { now } : {}), ...(reload ? { reload } : {}),
     location: location || { pathname: '/practice', search: '', hash: '' },
     history: history || { state: null, replaceState() {} },
   });
@@ -175,7 +176,9 @@ test('an error the callback page hands over is said on the card in plain words',
   assert.equal(problemText('offline'), 'ยังไม่ได้ต่ออินเทอร์เน็ต การเข้าสู่ระบบครั้งแรกต้องใช้เน็ต เครื่องที่เคยเข้าสู่ระบบแล้วใช้ต่อได้แบบออฟไลน์');
   assert.equal(problemText('expired'), 'เซสชันหมดอายุแล้ว เข้าสู่ระบบอีกครั้ง');
   assert.equal(problemText('unknown'), 'เข้าสู่ระบบไม่สำเร็จ ลองใหม่อีกครั้ง');
-  assert.equal(problemText('linking-off'), PROBLEM_TEXT.unknown);
+  assert.equal(problemText('identity-taken'), 'บัญชีจุฬานี้มีบัญชี VetMock ของตัวเองอยู่แล้ว เข้าบัญชีจุฬานั้นแทนได้เลย ความคืบหน้าในบัญชีนี้ยังอยู่');
+  assert.equal(problemText('linking-off'), 'ตอนนี้ยังเชื่อมบัญชีไม่ได้ ลองใหม่อีกครั้ง');
+  assert.equal(problemText('something-new'), PROBLEM_TEXT.unknown);
   for (const text of Object.values(PROBLEM_TEXT)) assert.ok(!/[·•]/.test(text), 'no middle dot in UI copy');
 });
 
@@ -259,6 +262,86 @@ test('Google\'s button on the wall: the Chula domain, One Tap, signin text; the 
   delete globalThis.window;
 });
 
+test('on /auth/ pages the wall leaves the provider\'s error to the callback page (an expired email link keeps its words)', () => {
+  const replaced = [];
+  const history = { state: null, replaceState: (_s, _t, url) => replaced.push(url) };
+  const { auth } = fakeAuth();
+  const { wall } = wallWith({ auth, location: { pathname: '/auth/callback', search: '', hash: '#error=access_denied&error_code=otp_expired&error_description=Email+link+is+invalid+or+has+expired' }, history });
+  assert.deepEqual(replaced, [], 'the address is left for AuthCallback.jsx');
+  assert.equal(wall.get().problem, null);
+  const elsewhere = wallWith({ auth, location: { pathname: '/exam', search: '?error=access_denied', hash: '' }, history });
+  assert.deepEqual(replaced, ['/exam']);
+  assert.equal(elsewhere.wall.get().problem, 'cancelled');
+});
+
+test('the link screen links in place on this site\'s session, then the page starts again', async () => {
+  const calls = [];
+  let reloaded = 0;
+  const fresh = { stored: () => ({ access_token: 't', user: GMAIL }), session: async () => ({ session: { access_token: 't', user: GMAIL }, error: null }) };
+  const { auth } = fakeAuth({ ...fresh, linkToken: async (token, nonce) => { calls.push([token, nonce]); return { user: GMAIL }; } });
+  const { wall } = wallWith({ auth, answer: { enforce: true, member: false, uid: GMAIL.id }, reload: () => { reloaded += 1; } });
+  await wall.start();
+  assert.equal(wall.get().gate, 'link');
+  await wall.linkWithGoogleToken('id-token', 'raw-nonce');
+  assert.deepEqual(calls, [['id-token', 'raw-nonce']]);
+  assert.equal(reloaded, 1);
+  const taken = fakeAuth({ ...fresh, linkToken: async () => { throw Object.assign(new Error('Identity is already linked to another user'), { code: 'identity_already_exists' }); } });
+  const a = wallWith({ auth: taken.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await a.wall.start();
+  await a.wall.linkWithGoogleToken('t', 'n');
+  assert.equal(a.wall.get().problem, 'identity-taken');
+  assert.equal(a.wall.get().gate, 'link');
+  const off = fakeAuth({ ...fresh, linkToken: async () => { throw Object.assign(new Error('Manual linking is disabled'), { code: 'manual_linking_disabled' }); } });
+  const b = wallWith({ auth: off.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await b.wall.start();
+  await b.wall.linkWithGoogleToken('t', 'n');
+  assert.equal(b.wall.get().problem, 'linking-off');
+  const hds = [];
+  const redirect = fakeAuth({ ...fresh, linkRedirect: async (hd) => { hds.push(hd); } });
+  const c = wallWith({ auth: redirect.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await c.wall.start();
+  await c.wall.linkRedirect('chula.ac.th');
+  assert.deepEqual(hds, ['chula.ac.th'], 'the fallback links through the redirect, staff domain kept');
+  await new Promise((r) => setTimeout(r, 50));
+});
+
+test('a tab shown again asks again, at most once a minute', async () => {
+  let clock = 5_000_000;
+  const handlers = {};
+  const doc = { visibilityState: 'visible', addEventListener: (name, fn) => { handlers[name] = fn; } };
+  const { wall, seen } = wallWith({ auth: fakeAuth().auth, doc, now: () => clock, answer: { enforce: false, member: false, uid: null } });
+  await wall.start();
+  assert.equal(seen.length, 1);
+  clock += 59_000;
+  handlers.visibilitychange();
+  assert.equal(seen.length, 1);
+  clock += 2_000;
+  handlers.visibilitychange();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(seen.length, 2);
+});
+
+test('an empty slot is no button: the house button takes its place', async () => {
+  const { buttonDrawn, DRAWN_MS } = await import('../../src/online/gis.js');
+  const slot = (frame) => ({ querySelector: () => frame });
+  assert.equal(DRAWN_MS, 4000);
+  assert.equal(buttonDrawn(slot({ getBoundingClientRect: () => ({ width: 320, height: 40 }) })), true);
+  assert.equal(buttonDrawn(slot({ getBoundingClientRect: () => ({ width: 0, height: 0 }) })), false);
+  assert.equal(buttonDrawn(slot(null)), false);
+});
+
+test('the profile sheet is offered once per account, kept beyond this visit', async () => {
+  const { offeredBefore, rememberOffered } = await import('../../src/online/account.js');
+  assert.equal(offeredBefore('student-a'), false);
+  rememberOffered('student-a');
+  rememberOffered('student-a');
+  assert.equal(offeredBefore('student-a'), true, 'closed with "later", it stays closed next visit');
+  assert.equal(offeredBefore('student-b'), false, 'another account on this browser still gets it once');
+  for (let i = 0; i < 30; i++) rememberOffered(`u${i}`);
+  assert.equal(offeredBefore('u29'), true);
+  assert.equal(offeredBefore('student-a'), false, 'the list stays short');
+});
+
 test('the stored session is read from the client\'s own entry without loading it', () => {
   const entry = (v) => ({ getItem: (k) => (k === 'vmx-vca-auth' ? v : null) });
   assert.equal(storedSession(entry(JSON.stringify({ access_token: 'a', user: { id: 'u1' } }))).user.id, 'u1');
@@ -266,4 +349,23 @@ test('the stored session is read from the client\'s own entry without loading it
   assert.equal(storedSession(entry('{not json')), null);
   assert.equal(storedSession(entry(null)), null);
   assert.equal(storedSession({ getItem() { throw new Error('denied'); } }), null);
+});
+
+test('a stored session restored on load (SIGNED_IN, same account) keeps the OAuth error read from the address', async () => {
+  const live = { access_token: 't', user: GMAIL };
+  const { auth, emit } = fakeAuth({ stored: () => live, session: async () => ({ session: live, error: null }) });
+  const replaced = [];
+  const { wall } = wallWith({
+    auth,
+    answer: { enforce: true, member: false, uid: GMAIL.id },
+    location: { pathname: '/', search: '?error=invalid_request&error_code=identity_already_exists&error_description=Identity+is+already+linked+to+another+user', hash: '' },
+    history: { state: null, replaceState: (_s, _t, url) => replaced.push(url) },
+  });
+  assert.equal(wall.get().problem, 'identity-taken');
+  await wall.start();
+  emit('SIGNED_IN', live); // what auth-js sends when it restores the stored session
+  assert.equal(wall.get().gate, 'link');
+  assert.equal(wall.get().problem, 'identity-taken', 'the way to that other account stays on screen');
+  emit('SIGNED_IN', { access_token: 'n', user: MEMBER });
+  assert.equal(wall.get().problem, null, 'another account clears it');
 });

@@ -28,6 +28,17 @@ function load() {
   return loading;
 }
 
+/** How long after the script loaded an empty slot means Google's button is not coming. */
+export const DRAWN_MS = 4000;
+
+/** Whether Google's button is in the slot and has a size (a blocked frame leaves nothing to press). */
+export function buttonDrawn(el) {
+  const frame = el?.querySelector?.('iframe');
+  if (!frame) return false;
+  const box = frame.getBoundingClientRect?.();
+  return Boolean(box) && box.width >= 8 && box.height >= 8;
+}
+
 const hex = (bytes) => Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 
 /**

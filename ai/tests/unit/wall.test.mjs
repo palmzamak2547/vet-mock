@@ -60,10 +60,10 @@ const place = () => {
   return { replaced, location: { pathname: '/', search: '', hash: '' }, history: { state: null, replaceState: (_s, _t, url) => replaced.push(url) } };
 };
 
-function wallWith({ auth, store = memoryStore(), answer = { enforce: true, member: false, uid: null }, location, history, safetyMs = 30 } = {}) {
+function wallWith({ auth, store = memoryStore(), answer = { enforce: true, member: false, uid: null }, location, history, safetyMs = 30, doc = null, now, reload } = {}) {
   const { fetchImpl, seen } = server(answer);
   const p = place();
-  const wall = createWall({ auth, store, fetchImpl, online: () => true, location: location || p.location, history: history || p.history, events: null, safetyMs });
+  const wall = createWall({ auth, store, fetchImpl, online: () => true, location: location || p.location, history: history || p.history, events: null, doc, safetyMs, ...(now ? { now } : {}), ...(reload ? { reload } : {}) });
   return { wall, seen, store, replaced: p.replaced };
 }
 
@@ -190,7 +190,9 @@ test('an OAuth error is read from the address once, removed, and said in plain w
   assert.deepEqual(replaced, ['/']);
   assert.equal(wall.get().problem, 'not-chula');
   assert.equal(problemText(wall.get().problem), PROBLEM_TEXT['not-chula']);
-  assert.equal(problemText('identity-taken'), PROBLEM_TEXT.unknown, 'linking problems belong to vetmock.com');
+  assert.equal(problemText('identity-taken'), 'บัญชีจุฬานี้มีบัญชี VetMock ของตัวเองอยู่แล้ว เข้าบัญชีจุฬานั้นแทนได้เลย ความคืบหน้าในบัญชีนี้ยังอยู่');
+  assert.equal(problemText('linking-off'), 'ตอนนี้ยังเชื่อมบัญชีไม่ได้ ลองใหม่อีกครั้ง');
+  assert.equal(problemText('something-new'), PROBLEM_TEXT.unknown);
   assert.equal(problemText(null), '');
 });
 
@@ -287,6 +289,92 @@ test('Google\'s button: a refused account or a stalled exchange says so and free
   assert.equal(b.wall.get().busy, 'google');
   await new Promise((r) => setTimeout(r, 50));
   assert.equal(b.wall.get().busy, null, 'the safety timeout');
+});
+
+test('the link screen links in place: Google\'s token joins this account, then the page starts again', async () => {
+  const calls = [];
+  let reloaded = 0;
+  const fresh = { stored: () => ({ access_token: 't', user: GMAIL }), session: async () => ({ session: { access_token: 't', user: GMAIL }, error: null }) };
+  const { auth } = fakeAuth({ ...fresh, linkToken: async (token, nonce) => { calls.push([token, nonce]); return { user: GMAIL }; } });
+  const { wall } = wallWith({ auth, answer: { enforce: true, member: false, uid: GMAIL.id }, reload: () => { reloaded += 1; } });
+  await wall.start();
+  assert.equal(wall.get().gate, 'link');
+  const done = wall.linkWithGoogleToken('id-token', 'raw-nonce');
+  assert.equal(wall.get().busy, 'link');
+  await done;
+  assert.deepEqual(calls, [['id-token', 'raw-nonce']]);
+  assert.equal(reloaded, 1, 'the page starts again as the account it now is');
+});
+
+test('linking refused: an address with its own account, or linking switched off, each says so', async () => {
+  const fresh = { stored: () => ({ access_token: 't', user: GMAIL }), session: async () => ({ session: { access_token: 't', user: GMAIL }, error: null }) };
+  const taken = fakeAuth({ ...fresh, linkToken: async () => { throw Object.assign(new Error('Identity is already linked to another user'), { code: 'identity_already_exists', status: 422 }); } });
+  const a = wallWith({ auth: taken.auth, answer: { enforce: true, member: false, uid: GMAIL.id }, reload: () => { throw new Error('no reload on a refusal'); } });
+  await a.wall.start();
+  await a.wall.linkWithGoogleToken('t', 'n');
+  assert.equal(a.wall.get().problem, 'identity-taken');
+  assert.equal(a.wall.get().busy, null);
+  assert.equal(a.wall.get().gate, 'link', 'still on the link screen, with the way to that other account');
+  await a.wall.signOut();
+  assert.equal(a.wall.get().gate, 'signin', '"use that Chula account instead" signs out here');
+  const off = fakeAuth({ ...fresh, linkToken: async () => { throw Object.assign(new Error('Manual linking is disabled'), { code: 'manual_linking_disabled', status: 404 }); } });
+  const b = wallWith({ auth: off.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await b.wall.start();
+  await b.wall.linkWithGoogleToken('t', 'n');
+  assert.equal(b.wall.get().problem, 'linking-off');
+});
+
+test('the link screen\'s fallback links through Google\'s redirect with the chosen domain', async () => {
+  const hds = [];
+  const fresh = { stored: () => ({ access_token: 't', user: GMAIL }), session: async () => ({ session: { access_token: 't', user: GMAIL }, error: null }) };
+  const { auth } = fakeAuth({ ...fresh, linkRedirect: async (hd) => { hds.push(hd); } });
+  const { wall } = wallWith({ auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await wall.start();
+  await wall.linkRedirect('chula.ac.th');
+  assert.deepEqual(hds, ['chula.ac.th']);
+  assert.equal(wall.get().busy, 'chula.ac.th', 'busy while the page leaves');
+  await new Promise((r) => setTimeout(r, 50));
+  assert.equal(wall.get().busy, null, 'freed by the safety timeout if it never does');
+});
+
+test('a tab shown again asks again, at most once a minute', async () => {
+  let clock = 1_000_000;
+  const handlers = {};
+  const doc = { visibilityState: 'visible', addEventListener: (name, fn) => { handlers[name] = fn; } };
+  const { auth } = fakeAuth();
+  const { wall, seen } = wallWith({ auth, doc, now: () => clock, answer: { enforce: false, member: false, uid: null } });
+  await wall.start();
+  assert.equal(seen.length, 1);
+  clock += 30_000;
+  handlers.visibilitychange();
+  assert.equal(seen.length, 1, 'half a minute later: not yet');
+  clock += 31_000;
+  doc.visibilityState = 'hidden';
+  handlers.visibilitychange();
+  assert.equal(seen.length, 1, 'a tab being hidden asks nothing');
+  doc.visibilityState = 'visible';
+  handlers.visibilitychange();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(seen.length, 2, 'shown again after a minute: asks, so an open tab sees the switch turned on');
+});
+
+test('a stored session restored on load (SIGNED_IN, same account) keeps the OAuth error read from the address', async () => {
+  const live = { access_token: 't', user: GMAIL };
+  const { auth, emit } = fakeAuth({ stored: () => live, session: async () => ({ session: live, error: null }) });
+  const replaced = [];
+  const { wall } = wallWith({
+    auth,
+    answer: { enforce: true, member: false, uid: GMAIL.id },
+    location: { pathname: '/', search: '?error=invalid_request&error_code=identity_already_exists&error_description=Identity+is+already+linked+to+another+user', hash: '' },
+    history: { state: null, replaceState: (_s, _t, url) => replaced.push(url) },
+  });
+  assert.equal(wall.get().problem, 'identity-taken');
+  await wall.start();
+  emit('SIGNED_IN', live); // what auth-js sends when it restores the stored session
+  assert.equal(wall.get().gate, 'link');
+  assert.equal(wall.get().problem, 'identity-taken', 'the way to that other account stays on screen');
+  emit('SIGNED_IN', { access_token: 'n', user: MEMBER });
+  assert.equal(wall.get().problem, null, 'another account clears it');
 });
 
 // ── the requests ────────────────────────────────────────────

@@ -5,9 +5,9 @@
 // through account.js, so the header's account and the wall never disagree.
 
 import { useSyncExternalStore } from 'react';
-import { AUTH_STORAGE_KEY, MODE, SUPABASE_ANON_KEY, SUPABASE_URL } from './config.js';
+import { AUTH_STORAGE_KEY, CALLBACK_PATH, MODE, SUPABASE_ANON_KEY, SUPABASE_URL } from './config.js';
 import { getClient } from './client.js';
-import { signIn as accountSignIn, signOut as accountSignOut } from './account.js';
+import { rememberReturn, signIn as accountSignIn, signOut as accountSignOut } from './account.js';
 import { createWall } from './wall.js';
 
 /** The session this device kept, read from the client's own entry without loading it. */
@@ -50,6 +50,24 @@ const port = {
   },
   // the fallback: back to this page after /auth/callback (account.js remembers it), Google's chooser on the domain
   signIn: (hd) => accountSignIn('google', { hd }),
+  // The link screen: add the Google identity of that ID token to the account signed in here (manual
+  // linking). Straight on the client, not live.js, so the community's backend contract is unchanged.
+  async linkToken(token, nonce) {
+    const sb = await getClient();
+    const { data, error } = await sb.auth.linkIdentity({ provider: 'google', token, nonce });
+    if (error) throw error;
+    return data;
+  },
+  // its fallback: link through Google's redirect, back through /auth/callback to this page
+  async linkRedirect(hd) {
+    rememberReturn();
+    const sb = await getClient();
+    const { error } = await sb.auth.linkIdentity({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}${CALLBACK_PATH}`, queryParams: { hd, prompt: 'select_account' } },
+    });
+    if (error) throw error;
+  },
   signOut: () => accountSignOut(),
 };
 

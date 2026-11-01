@@ -25,7 +25,7 @@ export function isChulaEmail(email) {
   return CHULA_DOMAINS.includes(email.replace(/^ +| +$/g, '').split('@')[1].toLowerCase());
 }
 
-/** A Google identity whose email Google verified on a Chula domain. */
+/** A Google identity whose email Google verified on a Chula domain, in Chula's Workspace. */
 export function hasChulaIdentity(user) {
   return Array.isArray(user?.identities) && user.identities.some((identity) =>
     identity?.provider === 'google'
@@ -45,7 +45,7 @@ export function chulaEmailOf(user) {
 }
 
 /**
- * What the gate shows, from what the device knows right now:
+ * What the gate shows. Every input is what the device knows right now:
  *   configured  the build has a database (no database, no accounts, nothing to gate)
  *   enforce     the switch: true, false, or 'pending' while the first answer is awaited
  *   loading     the saved session is still being read
@@ -56,8 +56,12 @@ export function chulaEmailOf(user) {
  */
 export function gateState({ configured, enforce, loading, user, verdict = 'pending', remembered = false }) {
   if (!configured || enforce === false) return 'open';
-  if (loading) return 'checking';
+  // Only while no account is known yet: a member's app must not be swapped for
+  // the wall each time the session is re-read (a profile save, a passkey).
+  if (loading && !user) return 'checking';
   if (user) {
+    // The server's answer wins; until it comes (or when it cannot), the device's
+    // own record of the account decides, so a saved session opens offline.
     if (verdict === 'yes') return 'open';
     if (verdict === 'no') return 'link';
     if (hasChulaIdentity(user) || remembered) return 'open';
@@ -114,7 +118,8 @@ export function rememberAnswer({ enforce, uid, member }, store = prefsStore) {
   } catch { /* private mode or a full store: the next boot asks again */ }
 }
 
-/** A signal that gives up after ms; Safari before 16 has no AbortSignal.timeout. */
+// AbortSignal.timeout is missing before iOS 16: without this fallback such a phone
+// never learned the switch and always assumed it on.
 function timeoutSignal(ms) {
   if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') return AbortSignal.timeout(ms);
   if (typeof AbortController === 'undefined') return undefined;
@@ -136,6 +141,9 @@ export async function fetchAccessState({ url, key, token, fetchImpl = globalThis
       body: '{}',
       signal: timeoutSignal(timeoutMs),
     });
+    // No such function: the wall's migration is not in this database, so there
+    // is no wall to show. (Nobody can make a database that has it answer 404.)
+    if (response.status === 404) return { enforce: false, member: null, uid: null };
     if (!response.ok) {
       const error = new Error(`chula_access_state ${response.status}`);
       error.status = response.status;

@@ -138,7 +138,12 @@ export function App() {
     return (
       <div className="app app-walled">
         <div className="atmos" aria-hidden="true"><span className="atmos-a" /><span className="atmos-b" /></div>
-        <ChulaWall state={gate} onSignIn={wall.signIn} onGoogleToken={wall.signInWithGoogleToken} onSignOut={wall.signOut} />
+        <ChulaWall
+          state={gate}
+          onSignIn={wall.signIn} onGoogleToken={wall.signInWithGoogleToken}
+          onLinkToken={wall.linkWithGoogleToken} onLinkRedirect={wall.linkRedirect}
+          onSignOut={wall.signOut}
+        />
       </div>
     );
   }

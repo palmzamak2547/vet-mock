@@ -47,7 +47,7 @@ function fakeAuth(over = {}) {
   return { auth, calls, emit: (event, session) => { for (const cb of listeners) cb(event, session); } };
 }
 
-function wallWith({ auth, store = memoryStore(), answer = { enforce: true, member: false, uid: null }, location, history }) {
+function wallWith({ auth, store = memoryStore(), answer = { enforce: true, member: false, uid: null }, location, history, doc = null, now, reload }) {
   const seen = [];
   const fetchImpl = async (url, init) => {
     seen.push({ url, auth: init.headers.Authorization });
@@ -55,7 +55,8 @@ function wallWith({ auth, store = memoryStore(), answer = { enforce: true, membe
     return Response.json(typeof answer === 'function' ? answer(init.headers.Authorization) : answer);
   };
   const wall = createWall({
-    auth, store, fetchImpl, online: () => true, events: null, safetyMs: 30,
+    auth, store, fetchImpl, online: () => true, events: null, safetyMs: 30, doc,
+    ...(now ? { now } : {}), ...(reload ? { reload } : {}),
     location: location || { pathname: '/app', search: '', hash: '' },
     history: history || { state: null, replaceState() {} },
   });
@@ -238,15 +239,18 @@ test('every word the wall shows is a key in both languages, with the wording eve
   assert.equal(dict.th['runtime.chula.staff'], 'บุคลากรใช้ @chula.ac.th');
   assert.equal(dict.th['runtime.chula.student'], 'นิสิตใช้ @student.chula.ac.th');
   assert.equal(dict.th['runtime.chula.linkTitle'], 'บัญชีนี้ยังไม่ได้เชื่อมกับอีเมลจุฬา');
-  assert.equal(dict.th['runtime.chula.linkBody'], 'เชื่อมบัญชีจุฬาที่ vetmock.com ครั้งเดียว ความคืบหน้าเดิมอยู่ครบ');
-  assert.equal(dict.th['runtime.chula.linkGo'], 'ไปเชื่อมบัญชีจุฬา');
+  assert.equal(dict.th['runtime.chula.linkBody'], 'กดปุ่ม Google แล้วเลือกอีเมลจุฬาของคุณ ความคืบหน้าเดิมอยู่ครบ');
+  assert.equal(dict.th['runtime.chula.linkGo'], undefined, 'no more sending the student to vetmock.com to link');
+  assert.equal(dict.th['runtime.chula.instead'], 'เข้าบัญชีจุฬานั้นแทน');
   assert.equal(dict.th['runtime.chula.other'], 'ใช้บัญชีอื่น');
   assert.equal(dict.th[problemKey('not-chula')], 'บัญชีนี้ไม่ใช่อีเมลจุฬา เลือกบัญชี @student.chula.ac.th หรือ @chula.ac.th แล้วลองใหม่');
   assert.equal(dict.th[problemKey('cancelled')], 'ยกเลิกการเข้าสู่ระบบแล้ว ลองใหม่ได้ทุกเมื่อ');
   assert.equal(dict.th[problemKey('offline')], 'ยังไม่ได้ต่ออินเทอร์เน็ต การเข้าสู่ระบบครั้งแรกต้องใช้เน็ต เครื่องที่เคยเข้าสู่ระบบแล้วใช้ต่อได้แบบออฟไลน์');
   assert.equal(dict.th[problemKey('expired')], 'เซสชันหมดอายุแล้ว เข้าสู่ระบบอีกครั้ง');
   assert.equal(dict.th[problemKey('unknown')], 'เข้าสู่ระบบไม่สำเร็จ ลองใหม่อีกครั้ง');
-  assert.equal(problemKey('identity-taken'), PROBLEM_KEYS.unknown, 'linking problems belong to vetmock.com');
+  assert.equal(dict.th[problemKey('identity-taken')], 'บัญชีจุฬานี้มีบัญชี VetMock ของตัวเองอยู่แล้ว เข้าบัญชีจุฬานั้นแทนได้เลย ความคืบหน้าในบัญชีนี้ยังอยู่');
+  assert.equal(dict.th[problemKey('linking-off')], 'ตอนนี้ยังเชื่อมบัญชีไม่ได้ ลองใหม่อีกครั้ง');
+  assert.equal(problemKey('something-new'), PROBLEM_KEYS.unknown);
   assert.equal(problemKey(null), null);
   assert.equal(dict.th['runtime.chula.inapp.line'], 'LINE เปิดหน้าเข้าสู่ระบบของ Google ไม่ได้');
   assert.equal(dict.th['runtime.chula.inapp.other'], '{app} เปิดหน้าเข้าสู่ระบบของ Google ไม่ได้ แตะเมนูของแอปแล้วเลือกเปิดในเบราว์เซอร์');
@@ -295,4 +299,82 @@ test('Google\'s own button only on the origin the client lists, with the Chula d
   assert.equal(el.cleared, true);
   assert.equal(calls.cancel, 1);
   delete globalThis.window;
+});
+
+test('the link screen links in place on this origin\'s session, then the page starts again', async () => {
+  const calls = [];
+  let reloaded = 0;
+  const fresh = { stored: () => ({ access_token: 't', user: GMAIL }), session: async () => ({ session: { access_token: 't', user: GMAIL }, error: null }) };
+  const { auth } = fakeAuth({ ...fresh, linkToken: async (token, nonce) => { calls.push([token, nonce]); return { user: GMAIL }; } });
+  const { wall } = wallWith({ auth, answer: { enforce: true, member: false, uid: GMAIL.id }, reload: () => { reloaded += 1; } });
+  await wall.start();
+  assert.equal(wall.get().gate, 'link');
+  const done = wall.linkWithGoogleToken('id-token', 'raw-nonce');
+  assert.equal(wall.get().busy, 'link');
+  await done;
+  assert.deepEqual(calls, [['id-token', 'raw-nonce']]);
+  assert.equal(reloaded, 1);
+  const taken = fakeAuth({ ...fresh, linkToken: async () => { throw Object.assign(new Error('Identity is already linked to another user'), { code: 'identity_already_exists' }); } });
+  const a = wallWith({ auth: taken.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await a.wall.start();
+  await a.wall.linkWithGoogleToken('t', 'n');
+  assert.equal(a.wall.get().problem, 'identity-taken');
+  await a.wall.signOut();
+  assert.equal(a.wall.get().gate, 'signin', '"use that Chula account instead" signs out here');
+  const off = fakeAuth({ ...fresh, linkToken: async () => { throw Object.assign(new Error('Manual linking is disabled'), { code: 'manual_linking_disabled' }); } });
+  const b = wallWith({ auth: off.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await b.wall.start();
+  await b.wall.linkWithGoogleToken('t', 'n');
+  assert.equal(b.wall.get().problem, 'linking-off');
+  const hds = [];
+  const redirect = fakeAuth({ ...fresh, linkRedirect: async (hd) => { hds.push(hd); } });
+  const c = wallWith({ auth: redirect.auth, answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await c.wall.start();
+  await c.wall.linkRedirect('chula.ac.th');
+  assert.deepEqual(hds, ['chula.ac.th']);
+  await new Promise((r) => setTimeout(r, 50));
+});
+
+test('a tab shown again asks again, at most once a minute', async () => {
+  let clock = 9_000_000;
+  const handlers = {};
+  const doc = { visibilityState: 'visible', addEventListener: (name, fn) => { handlers[name] = fn; } };
+  const { wall, seen } = wallWith({ auth: fakeAuth().auth, doc, now: () => clock, answer: { enforce: false, member: false, uid: null } });
+  await wall.start();
+  assert.equal(seen.length, 1);
+  clock += 45_000;
+  handlers.visibilitychange();
+  assert.equal(seen.length, 1);
+  clock += 20_000;
+  handlers.visibilitychange();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(seen.length, 2);
+});
+
+test('an empty slot is no button: the house button takes its place', async () => {
+  const { buttonDrawn, DRAWN_MS } = await import('../../src/lib/auth/gis.js');
+  const slot = (frame) => ({ querySelector: () => frame });
+  assert.equal(DRAWN_MS, 4000);
+  assert.equal(buttonDrawn(slot({ getBoundingClientRect: () => ({ width: 330, height: 40 }) })), true);
+  assert.equal(buttonDrawn(slot({ getBoundingClientRect: () => ({ width: 0, height: 0 }) })), false);
+  assert.equal(buttonDrawn(slot(null)), false);
+});
+
+test('a stored session restored on load (SIGNED_IN, same account) keeps the OAuth error read from the address', async () => {
+  const live = { access_token: 't', user: GMAIL };
+  const { auth, emit } = fakeAuth({ stored: () => live, session: async () => ({ session: live, error: null }) });
+  const replaced = [];
+  const { wall } = wallWith({
+    auth,
+    answer: { enforce: true, member: false, uid: GMAIL.id },
+    location: { pathname: '/', search: '?error=invalid_request&error_code=identity_already_exists&error_description=Identity+is+already+linked+to+another+user', hash: '' },
+    history: { state: null, replaceState: (_s, _t, url) => replaced.push(url) },
+  });
+  assert.equal(wall.get().problem, 'identity-taken');
+  await wall.start();
+  emit('SIGNED_IN', live); // what auth-js sends when it restores the stored session
+  assert.equal(wall.get().gate, 'link');
+  assert.equal(wall.get().problem, 'identity-taken', 'the way to that other account stays on screen');
+  emit('SIGNED_IN', { access_token: 'n', user: MEMBER });
+  assert.equal(wall.get().problem, null, 'another account clears it');
 });

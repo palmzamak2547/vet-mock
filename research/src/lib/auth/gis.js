@@ -46,6 +46,17 @@ export function loadGis({ timeoutMs = LOAD_MS } = {}) {
   return loading;
 }
 
+/** How long after the script loaded an empty slot means Google's button is not coming. */
+export const DRAWN_MS = 4000;
+
+/** Whether Google's button is in the slot and has a size (a blocked frame leaves nothing to press). */
+export function buttonDrawn(el) {
+  const frame = el?.querySelector?.('iframe');
+  if (!frame) return false;
+  const box = frame.getBoundingClientRect?.();
+  return Boolean(box) && box.width >= 8 && box.height >= 8;
+}
+
 const hex = (bytes) => Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 
 /** A random nonce and its SHA-256, the pair a Google ID token is checked with. */
@@ -63,7 +74,7 @@ export async function noncePair() {
  * @param {{ clientId?: string, hd?: string, theme?: string, locale?: string, prompt?: boolean, onCredential: (token: string, nonce: string) => void }} opts
  * @returns {Promise<() => void>} clean-up (empties the slot and closes One Tap)
  */
-export async function renderGoogleButton(el, { clientId = GIS_CLIENT_ID, hd = '', theme = 'outline', locale = 'th', prompt = false, onCredential }) {
+export async function renderGoogleButton(el, { clientId = GIS_CLIENT_ID, hd = '', theme = 'outline', locale = 'th', prompt = false, text = 'signin_with', onCredential }) {
   if (!clientId) throw new Error('NO_GOOGLE_CLIENT_ID');
   if (!el) throw new Error('container required');
   await loadGis();
@@ -84,7 +95,7 @@ export async function renderGoogleButton(el, { clientId = GIS_CLIENT_ID, hd = ''
     theme,
     size: 'large',
     shape: 'rectangular',
-    text: 'signin_with',
+    text,
     logo_alignment: 'left',
     locale,
     // Google caps the button at 400 px
