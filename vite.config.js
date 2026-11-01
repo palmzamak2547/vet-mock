@@ -201,6 +201,7 @@ export default defineConfig({
           if (id.includes('questions-y5-aquatic-final-recall')) return 'data-q-y5-aquatic-final-recall'
           if (id.includes('questions-y5-milk-meat-final-recall')) return 'data-q-y5-milk-meat-final-recall'
           if (id.includes('questions-y5-avian-final-recall')) return 'data-q-y5-avian-final-recall'
+          if (id.includes('questions-y5-epid-final-recall')) return 'data-q-y5-epid-final-recall'
           if (id.includes('data/instructors')) return 'data-instructors'
           // Palm audit r4 (2026-05-24): video-summaries was a 2.2MB monolith.
           // scripts/split-video-summaries.cjs broke it into per-subject
