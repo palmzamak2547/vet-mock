@@ -18,6 +18,7 @@
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 import { getUserFromRequest, listConnections, deleteConnection, getConnection, revokeProviderGrant, externalCapabilities } from './_lib/external-connections.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 const PROVIDERS = new Set(['google', 'notion']);
 const HOUR_MS = 60 * 60 * 1000;
@@ -41,6 +42,8 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'POST' && req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
   if (req.method === 'GET') {
     // Vary on Origin so an edge copy made for one origin's CORS answer is
     // never replayed to another.

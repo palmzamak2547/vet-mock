@@ -2,6 +2,7 @@ import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib
 import { authenticatedUser, signedRpc } from './_lib/app-backend.js';
 import { scoreSubmission } from './_lib/exam-scoring.js';
 import { isWritingType } from '../src/hooks/utils.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 let catalogPromise;
 async function catalog() {
@@ -25,6 +26,8 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
   if (req.headers.origin && !origin) return res.status(403).json({ error: 'origin_not_allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
   if (Buffer.byteLength(JSON.stringify(req.body || {})) > 3 * 1024 * 1024) return res.status(413).json({ error: 'submission_too_large' });
   const ipLimit = await rateLimit(`exam-result:${clientIP(req)}`, 600, 10 * 60 * 1000);
   if (!ipLimit.ok) return sendRateLimitFailure(res, ipLimit);

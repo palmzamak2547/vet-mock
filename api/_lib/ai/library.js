@@ -214,10 +214,11 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [], specific
     .sort((a, b) => Number(b.kindMatch) - Number(a.kindMatch) || b.score - a.score || String(a.title).localeCompare(String(b.title)));
 }
 
-async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body }) {
+// `token` is the member's own: behind the Chula wall the library answers members only.
+async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, token }) {
   const r = await fetchImpl(url, {
     method,
-    headers: { apikey: cfg.key, Authorization: `Bearer ${cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
+    headers: { apikey: cfg.key, Authorization: `Bearer ${token || cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: body ? JSON.stringify(body) : undefined,
     signal,
   });
@@ -254,7 +255,7 @@ export function tidySnippet(s) {
  *   items: ranked documents for the card; pages: the text of the best matching
  *   pages (answer turns only) for the writer to cite.
  */
-export async function findFiles({ terms = [], needles = [], subjects = [], kind = '', title = '', files = false, specificity = null, topic = null, animal = null }, { env = process.env, fetchImpl = fetch, signal, timeoutMs } = {}) {
+export async function findFiles({ terms = [], needles = [], subjects = [], kind = '', title = '', files = false, specificity = null, topic = null, animal = null }, { env = process.env, fetchImpl = fetch, signal, timeoutMs, token = null } = {}) {
   const cfg = libraryConfig(env);
   const list = phraseList({ terms, needles, title });
   const phrases = list.map((p) => p.q);
@@ -262,7 +263,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
   // a student who asked for files waits for them; an answer only borrows a moment
   const timer = AbortSignal.timeout(timeoutMs ?? (files ? FILES_TIMEOUT_MS : TIMEOUT_MS));
   const sig = signal ? AbortSignal.any([signal, timer]) : timer;
-  const io = { cfg, fetchImpl, signal: sig };
+  const io = { cfg, fetchImpl, signal: sig, token };
   try {
     // page search for every phrase, and (for a request for files) titles too:
     // every word of the named title, or of the main term, in any order

@@ -25,9 +25,11 @@ function fakeRes() {
   return res;
 }
 
+// The Chula wall asks the database first (api/_lib/chula-gate.js); here it is off.
+const WALL_OFF = { enforce: false, member: false, signed_in: false, uid: null };
 async function withFetch(stub, fn) {
   const real = globalThis.fetch;
-  globalThis.fetch = stub;
+  globalThis.fetch = (url, init) => (String(url).endsWith('/rest/v1/rpc/chula_access_state') ? Promise.resolve(Response.json(WALL_OFF)) : stub(url, init));
   try { return await fn(); } finally { globalThis.fetch = real; }
 }
 

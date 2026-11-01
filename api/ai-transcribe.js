@@ -18,6 +18,7 @@
 // ============================================================
 
 import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 30 };
 
@@ -133,7 +134,7 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Max-Age', '7200');
     return res.status(204).end();
   }
@@ -149,6 +150,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method' });
   }
   if (req.headers.origin && !allowed) return res.status(403).json({ error: 'origin' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   if (!providers().length) return res.status(503).json({ error: 'unavailable', message: 'ไมค์ยังใช้ไม่ได้ในตอนนี้ ลองพิมพ์แทน' });
 

@@ -20,6 +20,7 @@
 import { presign, r2Config, cfConfig } from './_lib/r2.js';
 import { mintBlobToken } from './_lib/blob-token.js';
 import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { chulaGate } from './_lib/chula-gate.js';
 
 // Per address, before the catalogue RPC. Generous on purpose: a restricted
 // open asks twice (anonymous, then with the session), the shelf mints on
@@ -65,6 +66,8 @@ function send(res, status, body, cacheSeconds = 0) {
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') return send(res, 405, { error: 'method_not_allowed' });
+  const gate = await chulaGate(req);
+  if (!gate.ok) return send(res, gate.status, gate.body);
 
   const env = process.env;
   const url = new URL(req.url, 'http://localhost');

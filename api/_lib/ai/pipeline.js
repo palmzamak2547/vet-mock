@@ -134,7 +134,7 @@ export function chatStats() {
  * @param {object} [io.env]
  * @param {object} [io.deps]                      { chat, vision, fetchImpl, kv, rng, now }
  */
-export async function runChat(input, { send, signal, t0 = Date.now(), env = process.env, deps = {} } = {}) {
+export async function runChat(input, { send, signal, t0 = Date.now(), env = process.env, deps = {}, token = null } = {}) {
   const D = { chat: chatJSON, vision: visionJSON, fetchImpl: fetch, kv: { get: kvGetJSON, set: kvSetJSON }, rng: Math.random, now: () => new Date(), ...deps };
   const since = () => Date.now() - t0;
   const timing = { status: null, sources: null, firstDelta: null };
@@ -210,7 +210,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
         specificity: found ? termSpecificity(corpus, found, typed, planned) : null,
         topic: found ? questionTopic(corpus, found) : null,
         animal: found ? animalShare(found) : null,
-      }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500 })
+      }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500, token })
       : null;
 
     // ── what this turn needs ────────────────────────────────────────────

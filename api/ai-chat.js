@@ -28,6 +28,7 @@
 // ============================================================
 
 import { allowedOrigin, clientIP } from './_lib/rate-limit.js';
+import { requireChula } from './_lib/chula-gate.js';
 import { chatConfig } from './_lib/ai/config.js';
 import { validateChatInput, INPUT_MESSAGES } from './_lib/ai/input.js';
 import { checkLimits } from './_lib/ai/limits.js';
@@ -77,7 +78,7 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Max-Age', '7200');
     res.setHeader('Cache-Control', 'no-store');
     return res.status(204).end();
@@ -88,6 +89,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method', message: 'ใช้ได้เฉพาะ GET และ POST' });
   }
   if (origin && !allowed) return res.status(403).json({ error: 'origin', message: 'เว็บนี้ไม่ได้รับอนุญาตให้เรียกใช้ผู้ช่วย' });
+  // Members only while the Chula wall is on; the library is then read with their own token.
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   // A malformed JSON body throws when req.body is first read (the platform
   // parses lazily): that is the caller's error, and it is a 400.
@@ -115,7 +119,7 @@ export default async function handler(req, res) {
 
   const stream = openStream(res);
   try {
-    await runChat(input, { send: stream.send, signal: stream.signal, t0 });
+    await runChat(input, { send: stream.send, signal: stream.signal, t0, token: gate.token });
   } catch (err) {
     console.error('[ai-chat] unexpected', String(err?.stack || err?.message || err).slice(0, 600));
     stream.send('error', { reason: 'unexpected', message: ERROR_MESSAGES.unexpected });
