@@ -856,6 +856,97 @@ export const SOURCE_DOCS = [
     match: /สรุปปลายภาค Meat(?: hygiene)? ของ Vet 85/i,
     editions: [{ id: '20p', pages: 20 }],
   },
+  // Avian Medicine FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
+  {
+    slug: 'avian-ae-adeno-salmo-2569', subject: 'avian-medicine', title: "AE Adeno Salmo Omphalitis Ascites Staph",
+    match: /AE Adeno Salmo Omphalitis Ascites Staph(?! deck 2024)/i,
+    editions: [{ id: '228p', pages: 228 }],
+  },
+  {
+    slug: 'avian-campylobacter-2569', subject: 'avian-medicine', title: "Campylobacteriosis (3 พ.ย. 69)",
+    match: /Campylobacteriosis \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'avian-duck-goose-2569', subject: 'avian-medicine', title: "Duck RA DVE DVH DTMUV GP AI Yr5 2026",
+    match: /Duck RA DVE DVH DTMUV GP AI Yr5 2026/i,
+    editions: [{ id: '119p', pages: 119 }],
+  },
+  {
+    slug: 'avian-fowl-cholera-2569', subject: 'avian-medicine', title: "Fowl cholera",
+    match: /Fowl cholera(?! deck 2024)/i,
+    editions: [{ id: '25p', pages: 25 }],
+  },
+  {
+    slug: 'avian-histomoniasis-2569', subject: 'avian-medicine', title: "Histomoniasis (3 พ.ย. 69)",
+    match: /Histomoniasis \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'avian-listeriosis-2569', subject: 'avian-medicine', title: "Listeriosis (3 พ.ย. 69)",
+    match: /Listeriosis \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '13p', pages: 13 }],
+  },
+  {
+    slug: 'avian-mycosis-2569', subject: 'avian-medicine', title: "Mycotic infections in poultry (27 ต.ค. 69)",
+    match: /Mycotic infections in poultry \(27 ต\.ค\. 69\)/i,
+    editions: [{ id: '60p', pages: 60 }],
+  },
+  {
+    slug: 'avian-mycotoxicosis-2569', subject: 'avian-medicine', title: "Mycotoxicosis in poultry (27 ต.ค. 69)",
+    match: /Mycotoxicosis in poultry \(27 ต\.ค\. 69\)/i,
+    editions: [{ id: '77p', pages: 77 }],
+  },
+  {
+    slug: 'avian-ort-2569', subject: 'avian-medicine', title: "Ornithobacteriosis (ORT) (3 พ.ย. 69)",
+    match: /Ornithobacteriosis \(ORT\) \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'avian-ilt-2569', subject: 'avian-medicine', title: "Powerpoint_Infectious laryngotracheitis",
+    match: /Powerpoint_Infectious laryngotracheitis(?! deck 2024)/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'avian-duck-plague-2024', subject: 'avian-medicine', title: "Duck Plague (deck 2024)",
+    match: /Duck Plague deck 2024/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'avian-duck-hepatitis-2024', subject: 'avian-medicine', title: "Duck Hepatitis (deck 2024)",
+    match: /Duck Hepatitis deck 2024/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'avian-goose-parvo-2024', subject: 'avian-medicine', title: "Goose Parvovirus Infection (deck 2024)",
+    match: /Goose Parvovirus Infection deck 2024/i,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  {
+    slug: 'avian-vaccine-handout-2565', subject: 'avian-medicine', title: "วัคซีน วิธีให้วัคซีน โปรแกรมวัคซีน (handout 1-11-2022)",
+    match: /วัคซีน วิธีให้วัคซีน โปรแกรมวัคซีน deck 2024/i,
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'avian-serology-handout-2565', subject: 'avian-medicine', title: "การแปลผลการตอบสนองทางภูมิคุ้มกัน (Serology handout 22-11-2022)",
+    match: /การแปลผลการตอบสนองทางภูมิคุ้มกัน \(Serology\) deck 2024|เอกสาร Serology ปี 2565/i,
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'avian-recall-vet81', subject: 'avian-medicine', title: "บันทึกข้อสอบ Avian Medicine ของรุ่น 81 พร้อมคำตอบ (ในแฟ้มของรุ่น 84)",
+    match: /บันทึกข้อสอบ Avian Medicine ของรุ่น 81 พร้อมคำตอบ/i,
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'avian-final-notes-vet84', subject: 'avian-medicine', title: "avian med final (แฟ้มรวมโน้ตของรุ่น 84)",
+    match: /แฟ้มรวมโน้ต avian med final ของรุ่น 84/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  {
+    slug: 'avian-final-summary-vet85', subject: 'avian-medicine', title: "สอบเสร็จจะกิน KFC (สรุปปลายภาค Avian Medicine ของรุ่น 85)",
+    match: /สรุปปลายภาค Avian Medicine ของรุ่น 85/i,
+    editions: [{ id: '17p', pages: 17 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));
