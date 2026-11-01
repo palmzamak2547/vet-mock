@@ -23,17 +23,32 @@
         "iad1"
       ]
     },
+    "api/exam-result.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/fetch-external-doc.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
     "api/grade-summary.js": {
       "regions": [
         "iad1"
       ]
     },
-    "api/mochi-voice.js": {
+    "api/playlist.js": {
       "regions": [
         "iad1"
       ]
     },
-    "api/playlist.js": {
+    "api/race-start.js": {
+      "regions": [
+        "iad1"
+      ]
+    },
+    "api/send-feedback.js": {
       "regions": [
         "iad1"
       ]
