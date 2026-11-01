@@ -66,7 +66,8 @@ function head(card, doc) {
   const { ctx, pal } = card;
   const { left, right } = A4.live;
   const width = right - left - STAMP.w - 28;
-  const kicker = card.para(doc.kicker, left, 150, width, { weight: 600, size: 26, color: pal.sage }, { maxLines: 1, balance: false }).lineBottom;
+  const kick = card.para(doc.kicker, left, 150, width, { weight: 600, size: 26, color: pal.sage }, { maxLines: 1, balance: false });
+  const kicker = kick.lineBottom;
   const serif = { weight: 700, family: FAMILY.serif };
   const [max, min] = doc.kind === 'teaching' ? [60, 44] : [76, 56];
   const size = card.fit(doc.title, width, { ...serif, max, min });
@@ -86,17 +87,17 @@ function head(card, doc) {
   const y = Math.max(sub.lineBottom, STAMP.top + STAMP.h) + 24;
   rule(card, y, { color: pal.ink, width: 3 });
   rule(card, y + 7, { color: pal.ink, width: 1 });
-  return { y: y + 7 + 22, cut: title.cut || sub.cut };
+  return { y: y + 7 + 22, cut: kick.cut || title.cut || sub.cut };
 }
 
-/** Where the notes start so the last one ends above the signature. */
+/** Where the notes start so the last one ends above the signature, each measured at the weight foot() sets it. */
 function notesTop(card, notes) {
   const { left, right } = A4.live;
-  card.style({ weight: 500, size: NOTE.size });
-  const { ascent, descent } = inkMetrics(card.ctx);
-  const step = Math.max(NOTE.size * NOTE.leading, ascent + descent + NOTE.size * 0.08);
   let h = 0;
-  for (const n of notes) {
+  for (const [k, n] of notes.entries()) {
+    card.style({ weight: k === 0 ? 600 : 500, size: NOTE.size });
+    const { ascent, descent } = inkMetrics(card.ctx);
+    const step = Math.max(NOTE.size * NOTE.leading, ascent + descent + NOTE.size * 0.08);
     const lines = wrapLines(card.measure, n, right - left, { maxLines: NOTE.lines });
     h += ascent + (lines.length - 1) * step + descent + NOTE.gap;
   }
@@ -317,15 +318,19 @@ function teachingBody(card, doc, rows, y, o) {
       t = para(card, cut, r.title, COL.title, y0, titleW, { weight: r.kind === 'holiday' ? 500 : 600, size: o.size, color: ink }, { maxLines: 4 }).lineBottom;
       if (o.en && r.en) t = para(card, cut, r.en, COL.title, t + 4, titleW, { weight: 500, size: MIN.thai, color: pal.soft }, { maxLines: 3 }).lineBottom;
     }
-    // The date, and the row's own time under it when it has one.
-    let d = para(card, cut, r.when, COL.date, y0, COL.title - COL.date - 12, { weight: 600, size: MIN.thai, color: ink }, { maxLines: 1 }).lineBottom;
-    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, COL.title - COL.date - 12, { weight: 400, size: MIN.latin + 2, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
+    // The date; under it how the row is known (moved from the plan, or only
+    // the plan), then the row's own time when it has one.
+    const dateW = COL.title - COL.date - 12;
+    let d = para(card, cut, r.when, COL.date, y0, dateW, { weight: 600, size: MIN.thai, color: ink }, { maxLines: 1 }).lineBottom;
+    if (r.status) d = para(card, cut, r.status, COL.date, d + 4, dateW, { weight: 600, size: MIN.thai, color: r.status === 'ตามแผน' ? pal.soft : pal.rose }, { maxLines: 2 }).lineBottom;
+    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, dateW, { weight: 400, size: MIN.latin + 2, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
     const w = r.lecturers ? names(card, cut, r.lecturers, COL.who, y0, whoW, { weight: 500, size: MIN.thai, color: r.kind === 'exam' ? pal.ink : pal.soft }).lineBottom : y0;
-    y = Math.max(t, d, w);
-    // A note and an announced change run under the whole row, title to edge.
-    if (r.note) y = para(card, cut, r.note, COL.title, y + 4, right - COL.title, { weight: 500, size: MIN.thai, color: pal.soft }, { maxLines: 2 }).lineBottom;
-    if (r.change) y = para(card, cut, r.change, COL.title, y + 4, right - COL.title, { weight: 600, size: MIN.thai, color: pal.rose }, { maxLines: 2 }).lineBottom;
-    y += o.pad;
+    // A note and an announced change run under the title and the lecturers,
+    // title to edge, beside a date column that may run longer.
+    let n = Math.max(t, w);
+    if (r.note) n = para(card, cut, r.note, COL.title, n + 4, right - COL.title, { weight: 500, size: MIN.thai, color: pal.soft }, { maxLines: 2 }).lineBottom;
+    if (r.change) n = para(card, cut, r.change, COL.title, n + 4, right - COL.title, { weight: 600, size: MIN.thai, color: pal.rose }, { maxLines: 2 }).lineBottom;
+    y = Math.max(n, d) + o.pad;
     bar(card, A4.live.left, top + 5, y - top - 10, r.paper);
   }
   return { end: y, cut };
@@ -342,30 +347,37 @@ function twoPages(doc, notes, bodyOf) {
   const tightest = TEACHING_SETTINGS.length - 1;
   // A cut is tried at the tightest setting first, one dry run a page, and
   // only one that fits looks for the roomiest setting both pages take.
-  const fitsAtAll = (p) => attempt(p.doc, notes, bodyOf(p.rows), TEACHING_SETTINGS[tightest], { dry: true }).cut.length === 0;
+  const fitsAtAll = (p) => attempt(p.doc, notes, bodyOf(p.doc, p.rows), TEACHING_SETTINGS[tightest], { dry: true }).cut.length === 0;
   const n = doc.rows.length;
   const mid = doc.rows.findIndex((r) => r.kind === 'exam' && r.paper === 'midterm') + 1;
   const cuts = [...(mid > 0 && mid < n ? [mid] : []), ...Array.from({ length: n - 1 }, (_, k) => n - 1 - k)];
   for (const at of cuts) {
     const parts = [half(doc.rows.slice(0, at), 0), half(doc.rows.slice(at), 1)];
     if (!fitsAtAll(parts[0]) || !fitsAtAll(parts[1])) continue;
-    return { parts, i: Math.max(...parts.map((p) => fitting(p.doc, notes, bodyOf(p.rows), TEACHING_SETTINGS))) };
+    return { parts, i: Math.max(...parts.map((p) => fitting(p.doc, notes, bodyOf(p.doc, p.rows), TEACHING_SETTINGS))) };
   }
   const at = mid > 0 && mid < n ? mid : Math.ceil(n / 2);
-  return { parts: [half(doc.rows.slice(0, at), 0), half(doc.rows.slice(at), 1)], i: TEACHING_SETTINGS.length - 1 };
+  return { parts: [half(doc.rows.slice(0, at), 0), half(doc.rows.slice(at), 1)], i: tightest };
 }
 
 /** Draw the teaching timetable: { card, cards, problems }, `cards` one page or two. */
 export async function drawTeaching(doc, { scale = SCALE } = {}) {
   const notes = [...doc.notes, doc.source];
-  const bodyOf = (rows) => (card, y, o) => teachingBody(card, doc, rows, y, o);
-  const one = fitting(doc, notes, bodyOf(doc.rows), TEACHING_SETTINGS);
+  const bodyOf = (d, rows) => (card, y, o) => teachingBody(card, d, rows, y, o);
+  const one = fitting(doc, notes, bodyOf(doc, doc.rows), TEACHING_SETTINGS);
   if (one >= 0) {
-    const { card, problems, slack } = render(doc, notes, bodyOf(doc.rows), TEACHING_SETTINGS[one], scale);
+    const { card, problems, slack } = render(doc, notes, bodyOf(doc, doc.rows), TEACHING_SETTINGS[one], scale);
     return { card, cards: [card], problems, slack, setting: one };
   }
   // One setting for both pages, so they read as one table.
   const { parts, i } = twoPages(doc, notes, bodyOf);
-  const drawn = parts.map((p) => render(p.doc, notes, bodyOf(p.rows), TEACHING_SETTINGS[i], Math.min(scale, MULTI_PAGE_SCALE)));
+  const drawn = [];
+  try {
+    for (const p of parts) drawn.push(render(p.doc, notes, bodyOf(p.doc, p.rows), TEACHING_SETTINGS[i], Math.min(scale, MULTI_PAGE_SCALE)));
+  } catch (err) {
+    // A page the phone could not hold: give back the one already drawn before the retry.
+    for (const x of drawn) { x.card.canvas.width = 0; x.card.canvas.height = 0; }
+    throw err;
+  }
   return { card: drawn[0].card, cards: drawn.map((x) => x.card), problems: drawn.flatMap((x) => x.problems), slack: Math.min(...drawn.map((x) => x.slack)), setting: i };
 }
