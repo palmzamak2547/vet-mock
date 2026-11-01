@@ -25,12 +25,15 @@ export function isChulaEmail(email) {
   return CHULA_DOMAINS.includes(email.replace(/^ +| +$/g, '').split('@')[1].toLowerCase());
 }
 
-/** A Google identity whose email Google verified on a Chula domain. */
+/** A Google identity whose email Google verified on a Chula domain, in Chula's Workspace. */
 export function hasChulaIdentity(user) {
   return Array.isArray(user?.identities) && user.identities.some((identity) =>
     identity?.provider === 'google'
     && isChulaEmail(identity.identity_data?.email)
-    && String(identity.identity_data?.email_verified) === 'true');
+    && String(identity.identity_data?.email_verified) === 'true'
+    // Google's hosted-domain claim: an account in Chula's own Workspace, not a
+    // personal Google account registered on a Chula address.
+    && CHULA_DOMAINS.includes(String(identity.identity_data?.custom_claims?.hd || '').toLowerCase()));
 }
 
 /** The Chula address to show for an account, when it has one. */

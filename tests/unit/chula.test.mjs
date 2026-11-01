@@ -10,7 +10,9 @@ import {
 const MIGRATION = new URL('../../supabase/migrations/20261101170000_chula_wall.sql', import.meta.url);
 const sql = readFileSync(MIGRATION, 'utf8');
 
-const google = (email, verified = true) => ({ provider: 'google', identity_data: { email, email_verified: verified } });
+// A real Chula identity carries Google's hosted-domain claim; a Gmail one has none.
+const hdOf = (email) => (/@(student.)?chula.ac.th$/i.test(email) ? { custom_claims: { hd: email.split('@')[1].toLowerCase() } } : {});
+const google = (email, verified = true) => ({ provider: 'google', identity_data: { email, email_verified: verified, ...hdOf(email) } });
 const member = { id: 'm', email: 'someone@gmail.com', identities: [google('someone@gmail.com'), google('6631234531@student.chula.ac.th')] };
 const gmail = { id: 'g', email: 'someone@gmail.com', identities: [google('someone@gmail.com')] };
 
@@ -42,6 +44,8 @@ test('membership is a verified Chula Google identity, never the account email', 
   assert.equal(hasChulaIdentity({ identities: [google('x@student.chula.ac.th', false)] }), false);
   assert.equal(hasChulaIdentity({ identities: [google('x@student.chula.ac.th', 'true')] }), true);
   assert.equal(hasChulaIdentity({ identities: [google('x@vet.chula.ac.th')] }), false);
+  assert.equal(hasChulaIdentity({ identities: [{ provider: 'google', identity_data: { email: 'x@student.chula.ac.th', email_verified: true } }] }), false, 'a personal Google account on a Chula address has no hd');
+  assert.equal(hasChulaIdentity({ identities: [{ provider: 'google', identity_data: { email: 'x@student.chula.ac.th', email_verified: true, custom_claims: { hd: 'gmail.com' } } }] }), false);
   assert.equal(hasChulaIdentity({ email: 'x@student.chula.ac.th' }), false);
   assert.equal(hasChulaIdentity(null), false);
   assert.equal(chulaEmailOf(member), '6631234531@student.chula.ac.th');
@@ -139,6 +143,7 @@ test('a table added after the wall carries the members-only policy', () => {
     const tables = [...text.matchAll(/create table (?:if not exists )?(public|vca)\.(\w+)/gi)].map((m) => `${m[1]}.${m[2]}`);
     for (const table of tables) {
       assert.match(text, new RegExp(`"chula members only" on ${table.replace('.', '\\.')}`), `${file} creates ${table} without the "chula members only" policy (docs/CHULA-SIGNIN.md)`);
+      assert.match(text, new RegExp(`alter table ${table.replace('.', '\\.')} enable row level security`, 'i'), `${file} creates ${table} without row security, so its policy would do nothing`);
     }
   }
 });

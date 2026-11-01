@@ -335,7 +335,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       const lib = await Promise.race([libraryP, new Promise((r) => { budget = setTimeout(r, LIBRARY_BUDGET_MS, null); })])
         .finally(() => clearTimeout(budget)) || { items: [], pages: [] };
       if (!lib.items.length && !lib.pages.length) lateLibrary = libraryP;
-      const slideSources = lib.pages.map((p) => pageSource(p, { needles }));
+      const slideSources = lib.pages.map((p) => pageSource(p, { needles, token }));
       const room = Math.max(0, (intent === 'research' ? Math.min(3, MAX_SOURCES - papers.length) : MAX_SOURCES - papers.length) - slideSources.length);
       const corpusSources = selected.slice(0, room).map((r) => toSource(r, { needles }));
       const paperSources = papers.map((p) => toSource({ kind: 'paper', paper: p }));

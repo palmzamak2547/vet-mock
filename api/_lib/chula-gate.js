@@ -25,7 +25,7 @@ export const SIGNIN_REQUIRED = refuse(401, 'signin_required', 'เข้าส�
 export const CHULA_REQUIRED = refuse(403, 'chula_required', 'บัญชีนี้ยังไม่ได้เชื่อมกับอีเมลจุฬา');
 const UNAVAILABLE = refuse(503, 'backend-unavailable', 'ตรวจสิทธิ์ไม่ได้ในตอนนี้ ลองใหม่อีกครั้ง');
 
-async function askState(cfg, bearer, fetchImpl) {
+async function askState(cfg, bearer, fetchImpl, production) {
   const response = await fetchImpl(`${cfg.url}/rest/v1/rpc/chula_access_state`, {
     method: 'POST',
     headers: { apikey: cfg.key, Authorization: `Bearer ${bearer}`, 'Content-Type': 'application/json' },
@@ -33,8 +33,9 @@ async function askState(cfg, bearer, fetchImpl) {
     signal: AbortSignal.timeout(6000),
   });
   if (response.status === 401) return null;
-  // No such function: the wall's migration is not in this database, so there is no wall.
-  if (response.status === 404) return { enforce: false, signed_in: false, member: false, uid: null };
+  // No such function. Outside production that means a database without the wall's
+  // migration, so no wall; in production it is a fault, and a fault refuses.
+  if (response.status === 404 && !production) return { enforce: false, signed_in: false, member: false, uid: null };
   if (!response.ok) throw new Error(`chula_access_state ${response.status}`);
   const body = await response.json();
   if (typeof body?.enforce !== 'boolean') throw new Error('chula_access_state shape');
@@ -42,50 +43,53 @@ async function askState(cfg, bearer, fetchImpl) {
 }
 
 /**
- * Resolves { ok: true, userId, token } for a caller let in (userId and token are
- * null for a guest while the wall is off), else { ok: false, status, body }.
+ * Resolves { ok: true, userId, token, member } for a caller let in (userId and
+ * token are null for a guest while the wall is off; member is true only for a
+ * Chula member or the admin), else { ok: false, status, body }.
  */
 export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now = Date.now } = {}) {
   const token = bearerOf(req);
   const key = token ? createHash('sha256').update(token).digest('hex') : '';
   const remembered = key && members.get(key);
-  if (remembered && remembered.until > now()) return { ok: true, userId: remembered.uid, token };
+  if (remembered && remembered.until > now()) return { ok: true, userId: remembered.uid, token, member: true };
 
   // A guest needs only the switch, which a warm instance already holds.
   if (!token && lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS) {
-    return lastSwitch.enforce ? SIGNIN_REQUIRED : { ok: true, userId: null, token: null };
+    return lastSwitch.enforce ? SIGNIN_REQUIRED : { ok: true, userId: null, token: null, member: false };
   }
 
   const cfg = backendConfig(env);
   if (!cfg.url || !cfg.key) {
     // No database configured, so no account exists to check: a local API or the
     // unit suite. Production always has one, and there its absence refuses.
-    return env.VERCEL_ENV === 'production' ? UNAVAILABLE : { ok: true, userId: null, token: null };
+    return env.VERCEL_ENV === 'production' ? UNAVAILABLE : { ok: true, userId: null, token: null, member: false };
   }
   let state = null;
   try {
     // A token the server refuses (expired, forged) leaves a guest: then only the switch matters.
-    if (token) state = await askState(cfg, token, fetchImpl);
+    const production = env.VERCEL_ENV === 'production';
+    if (token) state = await askState(cfg, token, fetchImpl, production);
     if (!state?.signed_in) {
       let enforce = lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS ? lastSwitch.enforce : undefined;
       if (enforce === undefined) {
-        enforce = (state ?? await askState(cfg, cfg.key, fetchImpl))?.enforce;
+        enforce = (state ?? await askState(cfg, cfg.key, fetchImpl, production))?.enforce;
         if (typeof enforce !== 'boolean') throw new Error('chula_access_state refused the anon key');
         lastSwitch = { enforce, at: now() };
       }
-      return enforce ? SIGNIN_REQUIRED : { ok: true, userId: null, token: null };
+      return enforce ? SIGNIN_REQUIRED : { ok: true, userId: null, token: null, member: false };
     }
     lastSwitch = { enforce: state.enforce, at: now() };
   } catch {
-    return lastSwitch?.enforce === false ? { ok: true, userId: null, token: null } : UNAVAILABLE;
+    // An outage opens only what this instance saw open within the switch window.
+    return lastSwitch?.enforce === false && now() - lastSwitch.at < SWITCH_TTL_MS ? { ok: true, userId: null, token: null, member: false } : UNAVAILABLE;
   }
 
   if (state.member === true) {
     if (members.size > 500) members.clear();
     members.set(key, { uid: state.uid, until: now() + MEMBER_TTL_MS });
-    return { ok: true, userId: state.uid, token };
+    return { ok: true, userId: state.uid, token, member: true };
   }
-  return state.enforce ? CHULA_REQUIRED : { ok: true, userId: state.uid, token };
+  return state.enforce ? CHULA_REQUIRED : { ok: true, userId: state.uid, token, member: false };
 }
 
 /** One line per handler: answers the refusal and returns null, or returns the gate. */

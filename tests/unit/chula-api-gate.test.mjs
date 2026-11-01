@@ -29,7 +29,7 @@ test('wall on: members pass with their id, everyone else is refused with a reaso
   resetChulaGate();
   const { fetchImpl } = backend(true);
   const o = { env, fetchImpl };
-  assert.deepEqual(await chulaGate(req(MEMBER), o), { ok: true, userId: 'u-member', token: MEMBER });
+  assert.deepEqual(await chulaGate(req(MEMBER), o), { ok: true, userId: 'u-member', token: MEMBER, member: true });
   const gmail = await chulaGate(req(GMAIL), o);
   assert.equal(gmail.status, 403);
   assert.equal(gmail.body.error, 'chula_required');
@@ -46,9 +46,9 @@ test('wall off: everyone passes as before, with their id when signed in', async 
   resetChulaGate();
   const { fetchImpl } = backend(false);
   const o = { env, fetchImpl };
-  assert.deepEqual(await chulaGate(req(), o), { ok: true, userId: null, token: null });
-  assert.deepEqual(await chulaGate(req(GMAIL), o), { ok: true, userId: 'u-gmail', token: GMAIL });
-  assert.deepEqual(await chulaGate(req(EXPIRED), o), { ok: true, userId: null, token: null });
+  assert.deepEqual(await chulaGate(req(), o), { ok: true, userId: null, token: null, member: false });
+  assert.deepEqual(await chulaGate(req(GMAIL), o), { ok: true, userId: 'u-gmail', token: GMAIL, member: false });
+  assert.deepEqual(await chulaGate(req(EXPIRED), o), { ok: true, userId: null, token: null, member: false });
 });
 
 test('a warm instance asks the database once per member token and once per switch window', async () => {
@@ -81,7 +81,8 @@ test('when the database cannot be asked the gate refuses, unless this instance s
   assert.equal(refused.status, 503);
   const { fetchImpl } = backend(false);
   await chulaGate(req(), { env, fetchImpl, now: () => 0 });
-  assert.equal((await chulaGate(req(), { env, fetchImpl: down, now: () => 60_000 })).ok, true);
+  assert.equal((await chulaGate(req(), { env, fetchImpl: down, now: () => 10_000 })).ok, true, 'open within the 30 s window it was seen open');
+  assert.equal((await chulaGate(req(MEMBER), { env, fetchImpl: down, now: () => 60_000 })).status, 503, 'and refuses after it');
   resetChulaGate();
   assert.equal((await chulaGate(req(), { env: {}, fetchImpl: down })).ok, true, 'no database configured: a local API or the unit suite');
   assert.equal((await chulaGate(req(), { env: { VERCEL_ENV: 'production' }, fetchImpl: down })).status, 503, 'production without a database refuses');
@@ -90,9 +91,11 @@ test('when the database cannot be asked the gate refuses, unless this instance s
 test('a database without the wall migration has no wall, so the deploy order locks nobody out', async () => {
   resetChulaGate();
   const missing = async () => new Response('{"code":"PGRST202"}', { status: 404 });
-  assert.deepEqual(await chulaGate(req(), { env, fetchImpl: missing }), { ok: true, userId: null, token: null });
+  assert.deepEqual(await chulaGate(req(), { env, fetchImpl: missing }), { ok: true, userId: null, token: null, member: false });
   resetChulaGate();
   assert.equal((await chulaGate(req(MEMBER), { env, fetchImpl: missing })).ok, true);
+  resetChulaGate();
+  assert.equal((await chulaGate(req(), { env: { ...env, VERCEL_ENV: 'production' }, fetchImpl: missing })).status, 503, 'in production a missing function is a fault, and a fault refuses');
 });
 
 test('requireChula answers the refusal uncached and returns null', async () => {

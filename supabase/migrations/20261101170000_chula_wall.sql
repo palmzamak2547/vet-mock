@@ -48,7 +48,9 @@ language sql immutable parallel safe set search_path = '' as $$
 $$;
 
 -- Member or admin. The Google identity is the proof: an email/password account
--- was auto-confirmed and never proved its address.
+-- was auto-confirmed and never proved its address. Google's hosted-domain claim
+-- (hd) must name a Chula domain too, so a personal Google account registered on
+-- a Chula address, kept after its owner left, is not enough.
 create or replace function public.chula_allowed(uid uuid) returns boolean
 language sql stable security definer set search_path = '' as $$
   select uid is not null and (
@@ -58,6 +60,7 @@ language sql stable security definer set search_path = '' as $$
         and i.provider = 'google'
         and public.is_chula_email(i.identity_data->>'email')
         and i.identity_data->>'email_verified' = 'true'
+        and lower(coalesce(i.identity_data->'custom_claims'->>'hd', '')) in ('student.chula.ac.th', 'chula.ac.th')
     )
     or exists (select 1 from public.admin_users a where a.user_id = uid)
   )
@@ -95,18 +98,20 @@ end
 $$;
 
 -- ------------------------------------------------------- 1. creation gate
--- Auth hook "before user created". Only Google with a Chula address may create
--- an account, so nobody can pre-register a student's address with a password
--- and later receive their Google identity by automatic linking.
+-- Auth hook "before user created". While the wall is on, only Google with a
+-- Chula address may create an account. Wall on or off, a Chula address arrives
+-- only through Google: nobody can reserve a student's address with a password or
+-- another provider and later receive their Google identity by automatic linking.
 create or replace function public.hook_before_user_created(event jsonb) returns jsonb
 language plpgsql stable security definer set search_path = '' as $$
+declare
+  provider text := coalesce(event->'user'->'app_metadata'->>'provider', '');
+  chula boolean := public.is_chula_email(event->'user'->>'email');
 begin
-  if not public.chula_wall_enforced() then
-    return '{}'::jsonb;
-  end if;
-  if coalesce(event->'user'->'app_metadata'->>'provider', '') = 'google'
-     and public.is_chula_email(event->'user'->>'email') then
-    return '{}'::jsonb;
+  if not (chula and provider <> 'google') then
+    if not public.chula_wall_enforced() or (chula and provider = 'google') then
+      return '{}'::jsonb;
+    end if;
   end if;
   return jsonb_build_object('error', jsonb_build_object(
     'http_code', 403,
@@ -119,10 +124,11 @@ $$;
 -- provider is judged by its email alone; an explicit non-Google provider is refused.
 create or replace function private.chula_only_signup() returns trigger
 language plpgsql security definer set search_path = '' as $$
+declare
+  google boolean := coalesce(new.raw_app_meta_data->>'provider', 'google') = 'google';
+  chula boolean := public.is_chula_email(new.email);
 begin
-  if public.chula_wall_enforced()
-     and not (public.is_chula_email(new.email)
-              and coalesce(new.raw_app_meta_data->>'provider', 'google') = 'google') then
+  if (chula and not google) or (public.chula_wall_enforced() and not (chula and google)) then
     raise exception using errcode = '42501', message = 'chula_only';
   end if;
   return new;
@@ -132,6 +138,26 @@ $$;
 drop trigger if exists chula_only_signup on auth.users;
 create trigger chula_only_signup before insert on auth.users
   for each row execute function private.chula_only_signup();
+
+-- An OAuth identity whose provider did not verify its email never joins an
+-- account that already exists: automatic linking by an unverified address is an
+-- account takeover (Discord with mailer_autoconfirm on, 1 Nov 2026 review).
+-- Google and email identities are governed by their own verification.
+create or replace function private.chula_guard_identity() returns trigger
+language plpgsql security definer set search_path = '' as $$
+begin
+  if new.provider not in ('google', 'email', 'phone')
+     and coalesce(new.identity_data->>'email_verified', 'false') <> 'true'
+     and exists (select 1 from auth.identities i where i.user_id = new.user_id) then
+    raise exception using errcode = '42501', message = 'unverified_identity_link';
+  end if;
+  return new;
+end
+$$;
+
+drop trigger if exists chula_guard_identity on auth.identities;
+create trigger chula_guard_identity before insert on auth.identities
+  for each row execute function private.chula_guard_identity();
 
 -- ------------------------------------------------------- 2. Data API gate
 -- Runs before every PostgREST request, SECURITY DEFINER RPCs included, which row
@@ -207,6 +233,7 @@ revoke execute on function public.chula_wall_enforced() from public, anon, authe
 revoke execute on function public.chula_allowed(uuid) from public, anon, authenticated;
 revoke execute on function public.hook_before_user_created(jsonb) from public, anon, authenticated;
 revoke execute on function private.chula_only_signup() from public, anon, authenticated;
+revoke execute on function private.chula_guard_identity() from public, anon, authenticated;
 revoke execute on function public.admin_set_chula_wall(boolean) from public, anon;
 grant execute on function public.chula_access() to anon, authenticated;
 grant execute on function public.chula_access_state() to anon, authenticated;

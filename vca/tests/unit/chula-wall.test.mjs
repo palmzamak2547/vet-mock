@@ -6,7 +6,9 @@ import assert from 'node:assert/strict';
 import { createWall, problemText, PROBLEM_TEXT } from '../../src/online/wall.js';
 import { wall as siteWall, storedSession } from '../../src/online/gate.js';
 
-const google = (email, verified = true) => ({ provider: 'google', identity_data: { email, email_verified: verified } });
+// A real Chula identity carries Google's hosted-domain claim; a Gmail one has none.
+const hdOf = (email) => (/@(student.)?chula.ac.th$/i.test(email) ? { custom_claims: { hd: email.split('@')[1].toLowerCase() } } : {});
+const google = (email, verified = true) => ({ provider: 'google', identity_data: { email, email_verified: verified, ...hdOf(email) } });
 const MEMBER = { id: 'u-member', email: 'someone@gmail.com', identities: [google('someone@gmail.com'), google('6631234531@student.chula.ac.th')] };
 const GMAIL = { id: 'u-gmail', email: 'someone@gmail.com', identities: [google('someone@gmail.com')] };
 

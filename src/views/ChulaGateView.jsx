@@ -164,7 +164,9 @@ function GoogleSignIn({ hd = '', link = false, busy = false, label, onBegin, onS
         if (!alive) return;
         if (!supabase || !host.current) throw new Error('no client');
         teardown = await renderGoogleGisButton(host.current, {
-          supabase, hd, link, theme, prompt: true, text: link ? 'continue_with' : 'signin_with',
+          // No One Tap while linking: on a shared device it could tie a passer-by's
+          // Chula account to whoever is signed in. Linking takes a deliberate tap.
+          supabase, hd, link, theme, prompt: !link, text: link ? 'continue_with' : 'signin_with',
           onCredential: () => handlers.current.onBegin?.(),
           onSuccess: (data) => handlers.current.onSession?.(data),
           onError: (error) => handlers.current.onFail?.(error),

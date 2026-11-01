@@ -9,7 +9,7 @@ const host = 'mpovsdzdggvksmeehqfj.supabase.co';
 const user = { id: '11111111-1111-4111-8111-111111111111', email: 'pdf-retry@example.invalid',
   aud: 'authenticated', role: 'authenticated', app_metadata: { provider: 'email', providers: ['email'] },
   // The Chula wall opens for a verified Chula Google identity (docs/CHULA-SIGNIN.md).
-  user_metadata: { username: 'Modeled PDF reader' }, identities: [{ provider: 'google', identity_data: { email: 'modeled@student.chula.ac.th', email_verified: true } }], created_at: '2026-01-01T00:00:00Z' };
+  user_metadata: { username: 'Modeled PDF reader' }, identities: [{ provider: 'google', identity_data: { email: 'modeled@student.chula.ac.th', email_verified: true, custom_claims: { hd: 'student.chula.ac.th' } } }], created_at: '2026-01-01T00:00:00Z' };
 const pdf = Buffer.from('%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n'
   + '2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj\n'
   + '3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 400 500]>>endobj\n'

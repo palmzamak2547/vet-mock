@@ -10,7 +10,8 @@ test.use({ serviceWorkers: 'block' });
 const HOST = 'mpovsdzdggvksmeehqfj.supabase.co';
 const TOKEN_KEY = 'sb-mpovsdzdggvksmeehqfj-auth-token';
 const encoded = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
-const google = (email) => ({ provider: 'google', identity_data: { email, email_verified: true } });
+// A real Chula identity carries Google's hosted-domain claim; a Gmail one has none.
+const google = (email) => ({ provider: 'google', identity_data: { email, email_verified: true, ...(/@(student.)?chula.ac.th$/.test(email) ? { custom_claims: { hd: email.split('@')[1] } } : {}) } });
 const person = (id, email, identities) => ({
   id, email, aud: 'authenticated', role: 'authenticated', identities,
   app_metadata: { provider: 'google', providers: ['google'] }, user_metadata: { full_name: 'Modeled Student' }, created_at: '2026-01-01T00:00:00Z',

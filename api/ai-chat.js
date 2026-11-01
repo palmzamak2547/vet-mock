@@ -119,7 +119,8 @@ export default async function handler(req, res) {
 
   const stream = openStream(res);
   try {
-    await runChat(input, { send: stream.send, signal: stream.signal, t0, token: gate.token });
+    // Only a member's token reads the library and earns its links an open ticket.
+    await runChat(input, { send: stream.send, signal: stream.signal, t0, token: gate.member ? gate.token : null });
   } catch (err) {
     console.error('[ai-chat] unexpected', String(err?.stack || err?.message || err).slice(0, 600));
     stream.send('error', { reason: 'unexpected', message: ERROR_MESSAGES.unexpected });

@@ -6,9 +6,11 @@ the app, as safe and stable as possible, better than cuvetsmo.com in every way.
 ## Who counts as Chula
 
 An account is a **member** when it holds a Google identity whose email Google has
-verified and whose domain is exactly `student.chula.ac.th` or `chula.ac.th`. The
-one account in `public.admin_users` is also let through, so the back office can
-never lock its owner out.
+verified, whose domain is exactly `student.chula.ac.th` or `chula.ac.th`, and
+whose hosted-domain claim (`hd`) names one of those domains: an account in
+Chula's own Workspace, not a personal Google account registered on a Chula
+address. The one account in `public.admin_users` is also let through, so the back
+office can never lock its owner out.
 
 Evidence (1 Nov 2026, read-only):
 
@@ -16,7 +18,7 @@ Evidence (1 Nov 2026, read-only):
 |---|---|
 | VetMock `auth.identities` | 13 Google identities on `student.chula.ac.th`, every one with `email_verified` and the hosted-domain claim `hd = student.chula.ac.th`; no other Chula domain among 45 accounts |
 | cuvetsmo.com | its sign-up trigger and client check have allowed exactly `chula.ac.th` and `student.chula.ac.th` since its first migration |
-| Auth settings | email sign-up is auto-confirmed (`mailer_autoconfirm`), so an email address on an email/password account was never proven; mail goes through Gmail SMTP at 30 an hour |
+| Auth settings | email sign-up was auto-confirmed (`mailer_autoconfirm`), so an email address on an email/password account was never proven; mail goes through Gmail SMTP at 30 an hour |
 
 So the proof is the Google identity, never the account's own email or a UI hint:
 - an auto-confirmed email/password account could claim any Chula address;
@@ -32,7 +34,8 @@ migration (a unit test keeps the copies equal).
 
 | Layer | Where | What it refuses |
 |---|---|---|
-| Creation gate | `public.hook_before_user_created` (Auth hook) and the `chula_only_signup` trigger on `auth.users` | any new account that is not Google with a verified Chula email; nothing else can create one, so no Chula address can be pre-registered with a password |
+| Creation gate | `public.hook_before_user_created` (Auth hook) and the `chula_only_signup` trigger on `auth.users` | while on, any new account that is not Google with a Chula email. On or off, a Chula address through any provider but Google, so nobody can reserve a student's address with a password and later receive their Google identity by automatic linking |
+| Linking guard | the `chula_guard_identity` trigger on `auth.identities` | an OAuth identity whose provider did not verify its email joining an account that already exists (automatic linking by an unverified address is an account takeover) |
 | Data API | PostgREST `db_pre_request` = `public.chula_pre_request()` | every REST and RPC request from `anon` or a non-member, SECURITY DEFINER RPCs included; `service_role` passes |
 | Row security | a RESTRICTIVE policy `chula members only` on every table in `public` and `vca`, on `storage.objects` and on `realtime.messages` | rows for anyone who is not a member, reads and writes (`WITH CHECK`) |
 | Vercel API | `api/_lib/chula-gate.js` | every function that costs money or touches account data; the AI reads the library with the member's own token |
@@ -45,10 +48,24 @@ Public on purpose (checked by the pre-request allow-list or untouched):
 - `rpc/library_doc_for_signing` (storage metadata only: the bytes need a link
   `/api/library-file` signs, and it signs only for a member's bearer or a
   member's open ticket, `api/_lib/open-ticket.js`, which VetMock AI's file
-  links carry because a tapped link sends no header);
+  links carry because a tapped link sends no header; a ticket names one
+  document for a day and only a member's answer carries one);
 - the landing page, OG images, robots and sitemap, the blog, wiki link previews
   (head tags plus the noscript article for crawlers), the atlas catalogue page;
 - `/api/send-feedback`, so a student who cannot get in can still say so.
+
+## Auth settings (Management API)
+
+Changed on 1 Nov 2026, all reversible:
+- `mailer_autoconfirm` off and the Discord provider off, the same day, because
+  the security review showed that Supabase links an identity by email when its
+  email is verified *or* autoconfirm is on: a Discord account registered on
+  someone's address took over that account. The one Discord identity belongs to
+  an account that also signs in with Google. No unverified OAuth identity sat on
+  any account (checked).
+- After the release: the before-user-created hook on, manual linking on (for
+  เชื่อมบัญชีจุฬา), and `https://ai.vetmock.com/**`, `https://vca.vetmock.com/**`
+  among the redirect URLs.
 
 ## The switch
 
@@ -81,6 +98,22 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
 - A guest's progress on the device joins the account at the first sign-in (the
   sync engine's existing first-sign-in merge).
 
+## Known limits
+
+- Objects in the public storage bucket `vca-media` (images on the VCA board)
+  stay readable by their URL; making the bucket private would break the posts
+  that show them.
+- The online counter uses a public Realtime presence channel, which no row
+  policy covers; it carries counts only.
+- The LINE sign-in edge function signs in the account whose email LINE reports.
+  The wall does not offer LINE, but the function is still reachable.
+- The two dormant email/password accounts on Chula addresses (made 28 Apr and
+  14 Sep 2026, each used only that day) can still receive a Google identity by
+  automatic linking; nobody proved they own those addresses. The owner decides
+  whether to ask their holders to confirm.
+- A device that never reached the server assumes the wall is on, and the admin's
+  Gmail account opens offline only on a device where the server once said yes.
+
 ## Never lock out a studying student
 
 - A saved session is judged on the device from its stored identities and the last
@@ -89,6 +122,11 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
 - Inside LINE the page offers to open in the system browser
   (`openExternalBrowser=1`); other in-app browsers get the way out of their menu.
 - One switch turns every layer off in seconds.
+- When the database cannot be asked, the API opens only what it saw open in the
+  last 30 seconds; in production a missing wall function refuses rather than
+  opens, so the migration is applied before the code that reads it is merged.
+- One Tap is offered on the sign-in screen, never on the link screen: on a shared
+  device it could tie a passer-by's Chula account to whoever is signed in.
 
 ## What a wall cannot hide
 

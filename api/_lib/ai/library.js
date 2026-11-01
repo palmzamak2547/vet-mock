@@ -108,7 +108,7 @@ export function formatOf(mime = '', title = '') {
 /** The links a document opens and downloads through (vetmock.com's own gate):
  *  open lands on the matching page; download saves it under its own title. The
  *  links carry an open ticket, so a member's tap works without a header. */
-export function fileLinks(slug, page, title = '', mime = 'application/pdf', ticket = mintOpenTicket(slug)) {
+export function fileLinks(slug, page, title = '', mime = 'application/pdf', ticket = null) {
   const q = `${SITE}/api/library-file?slug=${encodeURIComponent(slug)}&open=1${ticketQuery(ticket)}`;
   const fmt = formatOf(mime, title);
   const ext = fmt ? `.${fmt.toLowerCase()}` : '';
@@ -350,7 +350,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
         bytes: Number(d.byte_size) || null,
         page: page || null,
         snippet: tidySnippet(d.snippet),
-        ...fileLinks(d.slug, page, d.title, d.mime || undefined),
+        ...fileLinks(d.slug, page, d.title, d.mime || undefined, token ? mintOpenTicket(d.slug) : null),
       };
     });
 
@@ -379,7 +379,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
 }
 
 /** A matching page as a numbered source: the writer reads it, the page links to it. */
-export function pageSource({ doc, page, body }, { needles = [] } = {}) {
+export function pageSource({ doc, page, body }, { needles = [], token = null } = {}) {
   const kindLabel = FILE_KINDS[doc.kind] || FILE_KINDS.other;
   const subject = subjectLabel(doc.subject);
   const flat = body.replace(/\s+/g, ' ');
@@ -391,7 +391,7 @@ export function pageSource({ doc, page, body }, { needles = [] } = {}) {
     title: clip(displayTitle(doc.title), 140),
     subtitle: `${kindLabel}${subject ? ` ${subject}` : ''}, หน้า ${page}`,
     subject,
-    url: fileLinks(doc.slug, page).open,
+    url: fileLinks(doc.slug, page, '', undefined, token ? mintOpenTicket(doc.slug) : null).open,
     snippet: clip(flat.slice(Math.max(0, at - 60)), 220),
     context: clip(body, 1500),
   };

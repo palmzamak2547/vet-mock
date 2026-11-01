@@ -5,10 +5,11 @@
 // navigation that carries no header. So the server that already let the member
 // in signs the link itself: an HMAC over the slug and an expiry, the same
 // construction as blob-token.js, derived from the same server-only secret under
-// another prefix. It names one document for a week and nothing else.
+// another prefix. It names one document for a day and nothing else, and only a
+// member's answer carries one.
 import crypto from 'node:crypto';
 
-export const OPEN_TICKET_TTL_SECONDS = 7 * 24 * 60 * 60;
+export const OPEN_TICKET_TTL_SECONDS = 24 * 60 * 60;
 
 function macKey(env = process.env) {
   const secret = env.CLOUDFLARE_API_TOKEN || env.LIBRARY_BLOB_SECRET;

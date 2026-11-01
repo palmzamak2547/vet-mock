@@ -16,7 +16,7 @@ assert(['pglite', 'postgres'].includes(backend));
 
 const q = (v) => `'${String(v).replaceAll("'", "''")}'`;
 const uid = () => crypto.randomUUID();
-const U = { member: uid(), staff: uid(), gmail: uid(), unverified: uid(), pwChula: uid(), admin: uid(), sub: uid() };
+const U = { member: uid(), staff: uid(), personal: uid(), gmail: uid(), unverified: uid(), pwChula: uid(), admin: uid(), sub: uid(), fresh: uid() };
 
 let run, cleanup = async () => {};
 if (backend === 'pglite') {
@@ -120,15 +120,15 @@ try {
     grant usage on schema realtime to authenticated;
     grant select on realtime.messages to authenticated;
   `);
-  const migration = fs.readFileSync(MIGRATION, 'utf8');
-  await run(migration);
-
-  const google = (email, verified = true) => `{"email":${JSON.stringify(email)},"email_verified":${verified}}`;
+  // The shape Supabase stores for a Google identity: the email, Google's verified
+  // flag and its hosted-domain claim (every real student identity carries hd).
+  const google = (email, verified = true, hd) => JSON.stringify({ email, email_verified: verified, ...(hd ? { custom_claims: { hd } } : {}) });
   const seed = [
-    [U.member, '6631234531@student.chula.ac.th', 'google', google('6631234531@student.chula.ac.th')],
-    [U.staff, 'somchai.j@chula.ac.th', 'google', google('Somchai.J@CHULA.AC.TH')],
+    [U.member, '6631234531@student.chula.ac.th', 'google', google('6631234531@student.chula.ac.th', true, 'student.chula.ac.th')],
+    [U.staff, 'somchai.j@chula.ac.th', 'google', google('Somchai.J@CHULA.AC.TH', true, 'chula.ac.th')],
+    [U.personal, '6631234534@student.chula.ac.th', 'google', google('6631234534@student.chula.ac.th')],
     [U.gmail, 'someone@gmail.com', 'google', google('someone@gmail.com')],
-    [U.unverified, '6631234532@student.chula.ac.th', 'google', google('6631234532@student.chula.ac.th', false)],
+    [U.unverified, '6631234532@student.chula.ac.th', 'google', google('6631234532@student.chula.ac.th', false, 'student.chula.ac.th')],
     [U.pwChula, '6631234533@student.chula.ac.th', 'email', '{"email":"6631234533@student.chula.ac.th","email_verified":false}'],
     [U.admin, 'owner@gmail.com', 'google', google('owner@gmail.com')],
     [U.sub, 'lecturer@vet.chula.ac.th', 'google', google('lecturer@vet.chula.ac.th')],
@@ -141,12 +141,37 @@ try {
     insert into public.notes (owner, body) values (${q(U.member)}, 'member note'), (${q(U.gmail)}, 'gmail note');
     insert into vca.posts (body) values ('board'); insert into storage.objects (bucket_id) values ('b'); insert into realtime.messages (topic) values ('t');`);
 
+  // The accounts above exist before the migration, as production's do (the two
+  // email/password Chula accounts included); the migration is applied on top.
+  const migration = fs.readFileSync(MIGRATION, 'utf8');
+  await run(migration);
+
   await check('the migration ships the wall off, and off changes nothing', async () => {
     assert.equal(await value(`select public.chula_wall_enforced()`), 'false');
     assert.equal(await value(as('anon', null, `select count(*) from public.notes`)), '2');
     assert.equal(await value(as('authenticated', U.gmail, `select count(*) from public.notes`)), '1');
     await run(as('authenticated', U.gmail, `select public.chula_pre_request()`));
     assert.equal(await value(`select public.hook_before_user_created('{"user":{"email":"x@gmail.com","app_metadata":{"provider":"email"}}}')::text`), '{}');
+  });
+
+  await check('wall off or on, nobody reserves a Chula address with a password or another provider', async () => {
+    const hook = (email, provider) => value(`select public.hook_before_user_created(${q(JSON.stringify({ user: { email, app_metadata: { provider } } }))}::jsonb)::text`);
+    for (const provider of ['email', 'discord', 'apple']) {
+      assert.equal(JSON.parse(await hook('squat@student.chula.ac.th', provider)).error?.http_code, 403, provider);
+    }
+    assert.equal(await hook('fresh@student.chula.ac.th', 'google'), '{}');
+    await rejects(`insert into auth.users (id, email, raw_app_meta_data) values (gen_random_uuid(), 'squat2@student.chula.ac.th', '{"provider":"email"}')`, /chula_only/);
+    await run(`insert into auth.users (id, email, raw_app_meta_data) values (gen_random_uuid(), 'ok-off@gmail.com', '{"provider":"email"}');`);
+  });
+
+  await check('an unverified OAuth identity never joins an existing account', async () => {
+    const identity = (uid, provider, data) => `insert into auth.identities (user_id, provider, identity_data) values (${q(uid)}, ${q(provider)}, ${q(JSON.stringify(data))}::jsonb)`;
+    await rejects(identity(U.member, 'discord', { email: '6631234531@student.chula.ac.th', email_verified: false }), /unverified_identity_link/);
+    await rejects(identity(U.admin, 'discord', { email: 'owner@gmail.com' }), /unverified_identity_link/);
+    await run(`${identity(U.gmail, 'discord', { email: 'someone@gmail.com', email_verified: true })};`);
+    await run(`${identity(U.gmail, 'email', { email: 'someone@gmail.com', email_verified: false })};`);
+    await run(`insert into auth.users (id, email, raw_app_meta_data) values (${q(U.fresh)}, 'fresh-discord@gmail.com', '{"provider":"discord"}');`);
+    await run(`${identity(U.fresh, 'discord', { email: 'fresh-discord@gmail.com', email_verified: false })};`);
   });
 
   await check('the domain rule: exact Chula domains, nothing else', async () => {
@@ -161,8 +186,8 @@ try {
     assert.equal(await value(`select public.is_chula_email(null)`), 'false');
   });
 
-  await check('who is let in: verified Chula Google identities and the admin', async () => {
-    const expected = { member: true, staff: true, gmail: false, unverified: false, pwChula: false, admin: true, sub: false };
+  await check('who is let in: verified Chula Google identities on Chula Workspace (hd), and the admin', async () => {
+    const expected = { member: true, staff: true, personal: false, gmail: false, unverified: false, pwChula: false, admin: true, sub: false };
     for (const [key, allowed] of Object.entries(expected)) {
       assert.equal(await value(`select public.chula_allowed(${q(U[key])})`), String(allowed), key);
     }

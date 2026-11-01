@@ -17,7 +17,9 @@ const { signIn, signedOutHere } = await import('../../src/lib/auth/client.js');
 const dict = (await import('../../src/i18n/runtime-chula.js')).default;
 const runtime = (await import('../../src/i18n/runtime.js')).default;
 
-const google = (email, verified = true) => ({ provider: 'google', identity_data: { email, email_verified: verified } });
+// A real Chula identity carries Google's hosted-domain claim; a Gmail one has none.
+const hdOf = (email) => (/@(student.)?chula.ac.th$/i.test(email) ? { custom_claims: { hd: email.split('@')[1].toLowerCase() } } : {});
+const google = (email, verified = true) => ({ provider: 'google', identity_data: { email, email_verified: verified, ...hdOf(email) } });
 const MEMBER = { id: '5f0c2d7e-8a1b-4c3d-9e2f-0123456789ab', email: 'someone@gmail.com', identities: [google('someone@gmail.com'), google('6631234531@student.chula.ac.th')] };
 const GMAIL = { id: '6a1d3e8f-9b2c-4d5e-8f3a-123456789abc', email: 'someone@gmail.com', identities: [google('someone@gmail.com')] };
 
