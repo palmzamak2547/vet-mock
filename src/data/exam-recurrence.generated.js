@@ -297,12 +297,16 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "avian-intro": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
         "items": 2,
-        "sat": {},
-        "unattributed": ["avian-medicine:105819", "avian-medicine:203011"],
+        "sat": {
+          "85": {
+            "final": ["avian-medicine:105819"],
+          },
+        },
+        "unattributed": ["avian-medicine:203011"],
       },
       "avian-leuko": {
         "cohorts": [85],
@@ -442,10 +446,10 @@ export const EXAM_RECURRENCE = {
             "final": ["avian-medicine:212558"],
           },
           "85": {
-            "final": ["avian-medicine:212558"],
+            "final": ["avian-medicine:105806", "avian-medicine:105807", "avian-medicine:105808", "avian-medicine:105809", "avian-medicine:105810", "avian-medicine:105818", "avian-medicine:212558"],
           },
         },
-        "unattributed": ["avian-medicine:105806", "avian-medicine:105807", "avian-medicine:105808", "avian-medicine:105809", "avian-medicine:105810", "avian-medicine:105818"],
+        "unattributed": [],
       },
       "avian-vaccine-prog": {
         "cohorts": [81, 84, 85],
@@ -460,10 +464,10 @@ export const EXAM_RECURRENCE = {
             "final": ["avian-medicine:212557"],
           },
           "85": {
-            "final": ["avian-medicine:212559"],
+            "final": ["avian-medicine:105804", "avian-medicine:105805", "avian-medicine:105817", "avian-medicine:212559"],
           },
         },
-        "unattributed": ["avian-medicine:105804", "avian-medicine:105805", "avian-medicine:105817", "avian-medicine:212556"],
+        "unattributed": ["avian-medicine:212556"],
       },
     },
   },

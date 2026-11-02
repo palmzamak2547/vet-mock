@@ -777,6 +777,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 2,
     "explain": "ไก่เนื้อเลี้ยงนานราว 42 วัน โปรแกรมวัคซีนพื้นฐานที่บรรยายไว้ในวิชานี้จึงคุมแค่สามโรค คือ ND, IB และ IBD\n\n❌ ทำไมข้ออื่นผิด\n— \"ND, IB และ Marek (HVT)\" = HVT ถูกให้ในวันที่ 1 ในรูป HVT-ND ซึ่งเป็นวิธีให้ ND ไม่ใช่การเพิ่ม Marek เป็นโรคเป้าหมายของไก่เนื้อ\n— \"IB, IBD และ fowl cholera\" = fowl cholera ไม่อยู่ในโปรแกรมพื้นฐานที่วิชานี้ระบุไว้\n— \"ND, ILT และ fowl pox\" = ทั้ง ILT และ fowl pox ไม่อยู่ในโปรแกรมพื้นฐานที่วิชานี้ระบุไว้\n\n💡 ระยะเลี้ยงเป็นตัวกำหนดโปรแกรม เลี้ยงสั้นแค่ 42 วันจึงคุมเฉพาะโรคที่มาเร็วอย่าง ND, IB และ IBD",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -801,6 +803,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 3,
     "explain": "โปรแกรมวัคซีนไก่เนื้อแบ่งเป็นสามช่วง วันที่ 1 ให้ ND บวก IB แบบ spray ร่วมกับ ND เชื้อตายหรือ HVT-ND ฉีด SC วันที่ 7-14 ให้ ND บวก IB ละลายน้ำหรือ spray และวันที่ 14-18 ให้ IBD ละลายน้ำ ตัวเลือกที่เหลือหยิบช่วงอายุและวิธีของช่วงอื่นมาจับคู่ผิด",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -824,6 +828,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 0,
     "explain": "ควรเจาะเลือดตรวจตอนเป็นโรค ซึ่งคือ acute phase แล้วเจาะซ้ำอีก 7-14 วันต่อมาเป็น convalescent phase เพื่อเปรียบเทียบระดับ antibody เป็น paired sera การเจาะครั้งเดียวให้แค่ค่าเดี่ยวซึ่งแยกไม่ออกว่ามาจากวัคซีน MDA หรือการติดเชื้อ ระยะ 24 ชั่วโมงสั้นเกินกว่าที่ titer จะเปลี่ยน และการเจาะก่อนป่วยล่วงหน้าเป็นไปไม่ได้ในทางปฏิบัติ",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -847,6 +853,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 1,
     "explain": "ถ้า titer เพิ่มขึ้นหลายเท่าอาจแปลว่าติดเชื้อจริง และถ้าเกิด seroconversion หรือ 4-fold rise แปลว่าวัคซีนได้ผล จุดสำคัญคือดูการเปลี่ยนแปลงระหว่างสองครั้ง ไม่ใช่ค่าเดี่ยว titer ที่คงที่หรือลดลงไม่แสดงการตอบสนอง และผลลบทั้งสองครั้งคือฝูงที่ไม่เคยได้รับทั้งเชื้อและวัคซีน",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -871,6 +879,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 3,
     "explain": "ต้องทำสามอย่างร่วมกัน คือตรวจว่าไม่เคยทำวัคซีนและไม่เคยติดเชื้อด้วย serology แบบ ELISA หรือ HI ผลต้อง seronegative ตรวจว่าปัจจุบันไม่มีเชื้อด้วย PCR หรือ culture ผลต้องไม่พบเชื้อ และสุ่มเก็บตัวอย่างจากฝูงมาตรวจทั้งสองวิธี ผล seropositive แปลว่าเคยเจอเชื้อหรือวัคซีนซึ่งขัดกับสิ่งที่ต้องการพิสูจน์ การตรวจตัวเดียวไม่ตอบสถานะของฝูง และ 4-fold rise คือหลักฐานของการติดเชื้อ",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -894,6 +904,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 2,
     "explain": "ตรวจครั้งแรกในวันที่ทำวัคซีน แล้วตรวจอีกครั้ง 14-21 วันต่อมา แล้วทำ paired serology หากเกิด seroconversion หรือ 4-fold rise แปลว่าวัคซีนได้ผล ให้แยกจากช่วงเวลาของการวินิจฉัยโรคซึ่งใช้ 7-14 วัน ที่ 3-5 วันยังเร็วเกินกว่าจะเห็นการเปลี่ยนแปลง และที่ 28-35 วัน titer จากวัคซีนเชื้อเป็นอาจเริ่มลดลงตามธรรมชาติแล้ว",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -917,6 +929,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 0,
     "explain": "การตรวจนี้มีเหตุผลสามข้อ คือเช็คว่าแม่มีระดับ Ab titer เพียงพอหรือยัง เพื่อประเมินความเสี่ยงด้านการแพร่เชื้อผ่านไข่ และเพื่อประเมิน MDA ที่ลูกไก่จะได้รับ ซึ่งข้อสุดท้ายผูกกับการวางโปรแกรมวัคซีนลูกไก่โดยตรง การตรวจ Ab เป็นการตรวจภูมิไม่ใช่การตรวจหาตัวเชื้อ และไม่เกี่ยวกับคุณภาพเปลือกไข่หรือการเลือกยาปฏิชีวนะ",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -1078,6 +1092,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 3,
     "explain": "ลูกไก่ต้องการกระตุ้นภูมิเร็ว กระตุ้น mucosal immunity ชนิด IgA และให้ได้ในรูปแบบหมู่ เช่น หยอดตา พ่นละออง และผสมน้ำกิน ข้อดีคือให้ครั้งเดียวภูมิขึ้นเร็ว และโอกาสถูก MDA รบกวนน้อยกว่าเชื้อตาย ซึ่งเป็นคำว่าน้อยกว่า ไม่ใช่ไม่ถูกรบกวนเลย ส่วนข้อเสียคือเสี่ยงเกิด reaction ถ้าคุมสุขภาพสัตว์ไม่ดี จึงไม่ใช่ว่าไม่เกิดปฏิกิริยาแม้สุขภาพไม่ดี",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 16 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 16 }],
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -1101,6 +1117,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 1,
     "explain": "การตรวจซีรัมแบ่งกลุ่มได้ว่า rapid plate test ใช้กับ MG และ MS ส่วน HI ใช้กับ ND, IB และ AI และ ELISA ตรวจได้กว้าง นอกจากนี้ HI ยังเป็น test of choice ของ Egg drop syndrome โรคที่เหลือในตัวเลือกไม่อยู่ในกลุ่มที่ตรวจด้วย HI",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 8 และ 17 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 8 }, { "doc": "avian-final-summary-vet85", "edition": "17p", "page": 17 }],
     "verified": "Avian Med KFC น.17 และ น.8",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -1124,6 +1142,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "answer": 1,
     "explain": "บันทึกของผู้ทำสรุปในหน้า ORT ระบุคำตอบของประเด็นเชื้อที่อยู่ในเซลล์ไว้ว่า Salmonella Enteritidis และหน้าเดียวกันเปิดหัวข้อ ORT ด้วยคำว่า extracellular bacteria จึงเป็นคู่ตรงข้ามที่ตั้งใจให้เทียบกัน ประเด็นทางคลินิกคือเชื้อที่อยู่ในเซลล์ต้องเลือกยาที่เข้าเซลล์ได้ ส่วน Avibacterium paragallinarum, Pasteurella multocida และ Bordetella avium เป็นเชื้อนอกเซลล์ของทางเดินหายใจ",
+    "source": "สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
+    "sourcePages": [{ "doc": "avian-final-summary-vet85", "edition": "17p", "page": 9 }],
     "verified": "Avian Med KFC น.9",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
