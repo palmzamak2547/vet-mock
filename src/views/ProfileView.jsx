@@ -40,8 +40,9 @@ import { getNextClass, getCurrentClass } from '../data/schedule.js';
 import { getXpState, levelFor, xpForNextLevel } from '../lib/xp.js';
 import { truncateThai } from '../lib/thai-text.js';
 import {
-  dayKey, weekTrack, recentSessions, sessionWhen, subjectsStarted, classRowLabel,
+  dayKey, rowTime, weekTrack, recentSessions, sessionWhen, subjectsStarted, topicsRead, classRowLabel,
 } from '../lib/study-record.js';
+import { streakShown } from '../hooks/utils.js';
 
 /** Counts the hub shows. Pure, so the numbers can never disagree with the
  *  history the rest of the app renders. */
@@ -52,7 +53,10 @@ function useStats(history, streakData) {
   let correctCount = 0;
   for (const row of rows) {
     if (!row) continue;
-    if (Number(row.date) > 0 && dayKey(row.date) === today) todayCount += 1;
+    // rowTime reads a timestamp or an ISO string, as the week strip beside
+    // this does; Number() alone dropped synced ISO rows the strip counted.
+    const t = rowTime(row.date);
+    if (t != null && dayKey(t) === today) todayCount += 1;
     if (row.correct === true) correctCount += 1;
   }
   return {
@@ -62,15 +66,9 @@ function useStats(history, streakData) {
     // The saved streak is the authority — it is the only number that knows
     // about a freeze. HomeView reads it the same way, so the hub cannot show
     // a streak the record does not agree with.
-    streak: streakData?.lastDate ? (Number(streakData.streak) || 0) : 0,
+    // Read as of today (streakShown): a run that ended reads 0.
+    streak: streakShown(streakData),
   };
-}
-
-/** Read-topic count for the reading checklist row. Values are either the day
- *  it was read (timestamp) or `true` for a plain checkmark. */
-function countRead(read) {
-  if (!read || typeof read !== 'object') return 0;
-  return Object.values(read).filter((value) => value !== false && value != null).length;
 }
 
 const subjectName = (id) => SUBJECTS.find((s) => s.id === id)?.name || id;
@@ -95,7 +93,6 @@ export default function ProfileView({
   openSubject = null,
 }) {
   const stats = useStats(history, streakData);
-  const readCount = countRead(readingChecklist);
   const reviewCount = srCards && typeof srCards === 'object' ? Object.keys(srCards).length : 0;
   const displayName = profile?.username || user?.user_metadata?.username || '';
   const accuracy = stats.total > 0 ? Math.round((stats.correctCount / stats.total) * 100) : null;
@@ -105,6 +102,9 @@ export default function ProfileView({
   const year = Number(storage.get('vmx-selected-year', CURRENT_YEAR)) || CURRENT_YEAR;
   const yearSubjects = SUBJECTS_BY_YEAR[year] || [];
   const started = useMemo(() => subjectsStarted(readingChecklist, yearSubjects), [readingChecklist, yearSubjects]);
+  // The year's topics read, one per subject and topic, as the reading list
+  // counts them (topicsRead); the stored keys double-counted promoted ones.
+  const readCount = useMemo(() => topicsRead(readingChecklist, yearSubjects), [readingChecklist, yearSubjects]);
   const week = useMemo(() => weekTrack(history), [history]);
   const weekTotal = week.reduce((sum, d) => sum + d.count, 0);
   const sessions = useMemo(() => recentSessions(history, { limit: 4 }), [history]);

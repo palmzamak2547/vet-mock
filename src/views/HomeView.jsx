@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
-import { subjectText } from '../hooks/utils.js';
+import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
 import { QB, isQBYearLoaded } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
@@ -24,14 +24,13 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse, to
 import { getCompletedPhase, hasPhaseActivity, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
-import { buildExamPool } from '../lib/exam-pool.js';
+import { buildExamPool, stillWrongInYear, wrongChip } from '../lib/exam-pool.js';
 import { initCard } from '../hooks/sm2.js';
 import { getCardStats, readSchedulerPreference, subscribeSchedulerPreference } from '../lib/sr-scheduler.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 import { loadOcclusionCards } from '../lib/image-occlusion.js';
 import { alertDialog } from '../lib/dialog.js';
-import { stillWrong } from '../lib/wrong-pool.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import SubjectCover from '../components/SubjectCover.jsx';
 // HomeQuickGrid — the rail's learn group as an icon grid, for screens that
@@ -63,7 +62,7 @@ import NextActionCard from '../components/NextActionCard.jsx';
 import ExamCountdown from '../components/ExamCountdown.jsx';
 import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
-import { scopeForPhase } from '../lib/exam-scope.js';
+import { scopeForPhase, topicOnPaper } from '../lib/exam-scope.js';
 import { contentPhase, movedNotice, paperInTimetable, termYearLabel, unsplitNotice } from '../lib/current-phase.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
@@ -353,9 +352,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // unrelated re-render (subject swap, modal open, etc.).
   const quickStats = useMemo(() => {
     if (!Array.isArray(history) || history.length === 0) {
-      return { streak: streakData?.lastDate ? (streakData.streak || 0) : 0, todayCount: 0, wrongCount: 0, wrongIds: [] };
+      return { streak: streakShown(streakData), todayCount: 0, wrongCount: 0, wrongIds: [] };
     }
-    const ymd = (d) => new Date(d).toLocaleDateString('en-CA');
+    // Bangkok days, as the strip below and the streak count them.
+    const ymd = (d) => bangkokDayNumber(d);
     const todayKey = ymd(Date.now());
     const days = new Set();
     let todayCount = 0;
@@ -368,13 +368,16 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     //                  actual pool that startExam would assemble (which
     //                  year-filters via yearScope()) created UI/behavior
     //                  divergence: chip promised 50 but only 30 in pool.
-    const yearSubjectIdSet = new Set((yearSubjects || []).map((s) => s.id));
+    // The year, not the period: the pool the chip opens ('wrong' is a curated
+    // mode) keeps every question of the year, both terms. Reading the subject
+    // through the period's subject list dropped the other term's misses from
+    // the count while the set still served them.
     const inYear = (h) => {
-      if (yearSubjectIdSet.size === 0) return true;
       // Prefer explicit year tag if entry has it (data-layer audit
-      // backfilled this), else fall back to subject→year via the set.
+      // backfilled this), else fall back to the subject's year.
       if (typeof h?.year === 'number') return h.year === selectedYear;
-      return yearSubjectIdSet.has(h?.subject);
+      const subjectYear = yearForSubject(h?.subject);
+      return subjectYear == null || subjectYear === selectedYear;
     };
     for (const h of history) {
       if (!h?.date) continue;
@@ -392,17 +395,20 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     // The walk stays as the fallback for a history restored from the cloud
     // before the streak record catches up.
     let streak = 0;
-    const cursor = new Date();
-    if (!days.has(todayKey)) cursor.setDate(cursor.getDate() - 1);
-    while (days.has(ymd(cursor))) {
+    let cursor = days.has(todayKey) ? todayKey : todayKey - 1;
+    while (days.has(cursor)) {
       streak++;
-      cursor.setDate(cursor.getDate() - 1);
+      cursor -= 1;
     }
-    if (streakData?.lastDate) streak = streakData.streak || 0;
+    // ...read as of today: a run that ended reads 0, not its old length.
+    if (streakData?.lastDate) streak = streakShown(streakData);
     // The pool's own verdict rule (latest attempt by date, not array order —
     // two synced devices interleave rows), year-scoped like the pool the chip
     // opens, so the number on the button is the number of questions it serves.
-    const { keys: wrongKeys, counts: wrongCounts } = stillWrong(history.filter(inYear));
+    // Counted by the rule the set is served by (stillWrongInYear): the year's
+    // misses in both terms, and never a blocked question, which made the chip
+    // say 1 and open none.
+    const { keys: wrongKeys, counts: wrongCounts } = stillWrongInYear(history, selectedYear);
     const wrongIds = [...wrongKeys].sort((a, b) => (wrongCounts.get(b) || 0) - (wrongCounts.get(a) || 0));
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
   }, [history, yearSubjects, selectedYear, streakData]);
@@ -591,7 +597,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // startExam overrides (matches the random-Q fix 2026-05-16).
   const launchWrongReview = (requestedCount) => {
     if (quickStats.wrongCount === 0) return;
-    const n = Math.min(quickStats.wrongCount, Number.isInteger(requestedCount) ? requestedCount : 50);
+    // The chip serves what its badge says (wrongChip): every question still
+    // wrong up to WEAK_POOL_CAP, and "150 จาก 320" when it caps. A silent cap
+    // of 50 served 50 under a badge of 120. A plan step asks for its own count.
+    const { serve } = wrongChip(quickStats.wrongCount);
+    const n = Number.isInteger(requestedCount) ? Math.min(serve, requestedCount) : serve;
     if (startExam) {
       startExam({
         mode: 'quick',
@@ -1494,7 +1504,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 <span className="vmx-companion-card-kicker">คู่หูติว</span>
                 <strong className="vmx-companion-card-name">{companion.name}</strong>
                 <span className="vmx-companion-card-status">
-                  {countdown?.text ? `เป้าหมาย: สอบใน ${countdown.text}` : 'พร้อมช่วยติวและทบทวน'}
+                  {/* shortCountdown already says อีก…, or กำลังสอบอยู่ while the
+                      paper runs; "สอบใน" in front read สอบใน อีก 3 ชม. and
+                      สอบใน กำลังสอบอยู่. */}
+                  {countdown?.text
+                    ? (countdown.kind === 'now' ? `เป้าหมาย: ${countdown.text}` : `เป้าหมาย: สอบ${countdown.text}`)
+                    : 'พร้อมช่วยติวและทบทวน'}
                 </span>
               </div>
             </div>
@@ -1608,7 +1623,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     style={{ color: 'var(--clr-rose-text)', border: '1px solid var(--clr-rose)' }}
                   >
                     <span>ทบทวนข้อที่ตอบผิด</span>
-                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 14, fontWeight: 700 }}>{quickStats.wrongCount}</span>
+                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 14, fontWeight: 700 }}>{wrongChip(quickStats.wrongCount).label}</span>
                   </button>
                 )}
                 {nextClassToday && (
@@ -1952,7 +1967,7 @@ function StudyBuddiesSection({ selfUserId, onJumpToSubject }) {
 // Left Zone of the Unified Command Bridge when out of exam season.
 // Displays streak, today's questions, and an interactive 7-day rhythm strip.
 function StudyRhythmConsole({ quickStats, streakData, history = [], onOpenSchedule }) {
-  const streak = streakData?.lastDate ? (streakData.streak || 0) : (quickStats?.streak || 0);
+  const streak = streakData?.lastDate ? streakShown(streakData) : (quickStats?.streak || 0);
   const todayCount = quickStats?.todayCount || 0;
 
   // One week helper for Home and the profile hub (lib/study-record.js).
@@ -2077,7 +2092,12 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
         const count = builtInCount + customCount;
         // Zero for the picked paper is not "no questions": the course has
         // them, just not on this paper (SubjectSelectView says the same).
-        const outOfPhase = Boolean(scopedSubjectCounts) && count === 0 && (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0) > 0;
+        // ...and only when the paper holds none of the course: one with topics
+        // on this paper and no questions for them yet is not out of the period
+        // (vet juris under กลางภาค printed ไม่อยู่ในช่วงสอบนี้ above its own
+        // สอบกลางภาค date). Same predicate as the topic screen.
+        const outOfPhase = Boolean(scopedSubjectCounts) && count === 0 && (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0) > 0
+          && !(s.topics || []).some((t) => !t.hidden && topicOnPaper(s.id, t.id, selectedPhase));
         // `scaffold: true` is an explicit flag for placeholder subjects.
         const isScaffold = !!s.scaffold;
         const isEmpty = count === 0 && !isScaffold;
@@ -2096,11 +2116,11 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
         // Counted over the same topics the reading list counts. That list now
         // follows the paper the student picked, so a whole-subject denominator
         // here would put two different percentages for the same reading on two
-        // screens — the card saying 40% while the list says 78%.
-        const cardScope = examScopeForPhase(selectedPhase);
+        // screens — the card saying 40% while the list says 78%. Same
+        // predicate as the list and the topic screen (topicOnPaper), which
+        // also reads a topic's subject and timetable when it names no paper.
         const topics = Array.isArray(s.topics)
-          ? s.topics.filter((t) => !t.hidden
-              && (!cardScope || !t.examScope || t.examScope === cardScope || t.examScope === 'both'))
+          ? s.topics.filter((t) => !t.hidden && topicOnPaper(s.id, t.id, selectedPhase))
           : [];
         const readDone = topics.filter((t) => isTopicRead(readingChecklist, s.id, t.id)).length;
         // O(1) lookup using bookmarksBySubject precomputed above

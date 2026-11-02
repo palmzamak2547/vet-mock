@@ -110,9 +110,11 @@ export default function ExamCountdown({ window: w, subjects = [], onOpenSchedule
       ? `สอบไปแล้ว ${w.done} จาก ${w.papers.length} วิชา ต่อไป ${nameOf(next)} ${nextWhen}`
       : `${w.papers.length} วิชา เริ่มที่ ${nameOf(next)} ${nextWhen}`;
 
+  // Read the way the face shows it: under a day the face drops its day count,
+  // and the label said "อีก 0 วัน 3 ชั่วโมง" where the face said 03 ชม.
   const ariaLabel = sitting
     ? `${w.label} กำลังสอบ ${nameOf(next)}`
-    : `${w.label} อีก ${clock.days} วัน ${clock.hours} ชั่วโมง ${w.range} ${caption}`;
+    : `${w.label} อีก ${hoursOnly ? '' : `${clock.days} วัน `}${clock.hours} ชั่วโมง ${clock.minutes} นาที ${w.range} ${caption}`;
 
   return (
     <section

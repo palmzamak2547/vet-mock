@@ -38,7 +38,7 @@
 // and must never pad one.
 // ============================================================
 
-import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
+import { SUBJECTS, yearForSubject, semesterForSubject } from '../data/curriculum.js';
 import { SUBJECT_PAPERS } from '../data/exam-papers.generated.js';
 
 export const EXAM_SCOPES = ['midterm', 'final', 'both', 'continuous'];
@@ -156,6 +156,31 @@ export function questionInScope(question, wantedScope) {
   if (scope == null) return true;
   if (scope === 'continuous') return false;
   return scope === wantedScope || scope === 'both';
+}
+
+/**
+ * Does this topic belong on the period the student picked ('1-mid' and so on)?
+ * The one answer for every screen that lists a course's topics under a period:
+ * the topic screen, Home's subject card and the reading list. It asks the same
+ * resolver the question pool and the count tables ask (the topic's scope, else
+ * its subject's, else the timetable's), so a listed topic always has its paper's
+ * questions behind it. Reading only the topic's own field kept every topic of a
+ * course that sits one paper: under กลางภาค the topic screen of English for
+ * Vet Profession I (final only) listed 13 topics whose count was 0, each saying
+ * รอเนื้อหาเพิ่ม above a bank that held them for the final.
+ *
+ * A course taught in the other term sits neither of this term's papers, so
+ * none of its topics are on the period; its course card already says
+ * ไม่อยู่ในช่วงสอบนี้. Unknown scope is kept, as for questions. No period
+ * picked: every topic.
+ */
+export function topicOnPaper(subjectId, topicId, selectedPhase) {
+  const paper = scopeForPhase(selectedPhase);
+  if (!paper) return true;
+  const term = Number(String(selectedPhase).split('-', 1)[0]);
+  const semester = semesterForSubject(subjectId);
+  if ((semester === 1 || semester === 2) && (term === 1 || term === 2) && semester !== term) return false;
+  return questionInScope({ subject: subjectId, topic: topicId }, paper);
 }
 
 /** Split a pool by the paper, for counting and for explaining a count. */

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
+import { topicOnPaper } from '../lib/exam-scope.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE, Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE } from '../data/q-counts.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
@@ -241,8 +242,12 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           const isEmpty = count === 0 && !subjectHasNotes;
           // Zero under the picked paper is not "no content": a term-1 course
           // under a term-2 paper holds hundreds of questions, just not for it.
+          // ...and the paper holds none of it: a course with topics on this
+          // paper and no questions for them yet is not out of the period.
+          // Same predicate as the topic screen and Home (topicOnPaper).
           const outOfPhase = isEmpty && !!scopedCounts && s.id !== 'all'
-            && (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions)) > 0;
+            && (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions)) > 0
+            && !(s.topics || []).some((t) => !t.hidden && topicOnPaper(s.id, t.id, selectedPhase));
           const shelfDocs = isEmpty ? (docCounts?.get(s.id) || 0) : 0;
 
           return (
