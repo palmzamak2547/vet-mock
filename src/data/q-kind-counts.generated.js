@@ -891,7 +891,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "_matchCovers": 2
       },
       "avian-nd": {
-        "mcq": 24,
+        "mcq": 23,
         "tf": 0,
         "match": 1,
         "writing": 0
@@ -3039,7 +3039,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "avian-campy": {
-        "mcq": 5,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0

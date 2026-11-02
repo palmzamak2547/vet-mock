@@ -162,7 +162,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
     'aquatic-clinic': 217,
-    'avian-medicine': 199,
+    'avian-medicine': 198,
     'biochem-1': 271,
     'cliapprum': 10,
     'com1': 4,
@@ -200,7 +200,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   },
   final: {
     'aquatic-clinic': 191,
-    'avian-medicine': 79,
+    'avian-medicine': 80,
     'biochem-1': 271,
     'cliapprum': 10,
     'com1': 31,
@@ -246,7 +246,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': 289,
-    'avian-medicine': 473,
+    'avian-medicine': 472,
     'com1': 4,
     'com2': 14,
     'equine-medicine': 390,
@@ -267,7 +267,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': 229,
-    'avian-medicine': 108,
+    'avian-medicine': 109,
     'com1': 31,
     'com2': 39,
     'engprof1': 30,
@@ -347,14 +347,14 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 139,
-    5: 3591,
+    5: 3590,
   },
   '1-final': {
     1: 297,
     2: 104,
     3: 62,
     4: 302,
-    5: 2625,
+    5: 2626,
   },
   '2-mid': {
     1: 297,
@@ -405,7 +405,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'avian-marek': 26,
       'avian-mpv': 14,
       'avian-myco': 35,
-      'avian-nd': 25,
+      'avian-nd': 24,
       'avian-ne': 13,
       'avian-pox': 18,
       'avian-reo': 14,
@@ -648,7 +648,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'aqua-shrimp-diseases': 40,
     },
     'avian-medicine': {
-      'avian-campy': 5,
+      'avian-campy': 6,
       'avian-duck-flavi': 2,
       'avian-duck-plague': 5,
       'avian-dvh': 11,
@@ -2344,7 +2344,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "avian-ae": 20,
     "avian-ahra-set": 33,
     "avian-ai": 24,
-    "avian-campy": 5,
+    "avian-campy": 6,
     "avian-cia": 14,
     "avian-cocci": 28,
     "avian-coli": 23,
@@ -2367,7 +2367,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "avian-mpv": 14,
     "avian-myco": 35,
     "avian-mycosis": 32,
-    "avian-nd": 25,
+    "avian-nd": 24,
     "avian-nds": 1,
     "avian-ne": 13,
     "avian-ort": 9,
@@ -3586,4 +3586,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-02T10:39:33.693Z
+// Built: 2026-11-02T11:36:11.387Z

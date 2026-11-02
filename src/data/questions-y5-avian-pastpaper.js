@@ -63,7 +63,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
   {
     "id": 109006,
     "subject": "avian-medicine",
-    "topic": "avian-nd",
+    "topic": "avian-campy",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดเป็นกลุ่มโรคที่ติดต่อจากสัตว์ปีกสู่คนได้ทุกโรค",
@@ -78,7 +78,7 @@ export const QB_Y5_AVIAN_PASTPAPER = [
     "source": "สรุปรวมรุ่นพี่ Avian Medicine, ตารางเทียบโรครายชนิด",
     "verified": "อิงแนวข้อสอบ, เขียนจากสรุปรุ่นพี่ (หน้า 15) และตรวจซ้ำโดยผู้ตรวจอิสระ",
     "tags": [
-      "avian-nd",
+      "avian-campy",
       "อิงแนวข้อสอบ"
     ]
   },

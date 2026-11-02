@@ -24,6 +24,9 @@
 //
 // The palette is transcribed from the printed set. If the source files carry
 // exact values, re-sample them rather than eyeballing these again.
+// Epidemiology came after the set: a plum no other card uses, its text contrast
+// 10.5:1 light and 11.8:1 dark (the set runs 5.5 to 10.8 and 10.4 to 12.7). How
+// its art was made is in docs/releases/5.186.0.md.
 // ============================================================
 import { isOwnTerm, termsUpToNow } from '../lib/current-phase.js';
 
@@ -49,10 +52,9 @@ export const PANIC_CARD_PAPERS = {
         noCard: ['epidemiology', 'poa-clinical'],
       },
       '1-final': {
-        cards: ['one-health', 'avian-medicine', 'food-industry', 'milk-meat-hygiene', 'equine-medicine', 'equine-repro', 'swine-clinic', 'aquatic-clinic', 'zoonoses'],
-        // Epidemiology sits this paper, but its card is not drawn yet. POA is
-        // examined through the term (examScope 'continuous'), with no written paper.
-        noCard: ['epidemiology', 'poa-clinical'],
+        cards: ['one-health', 'avian-medicine', 'food-industry', 'milk-meat-hygiene', 'equine-medicine', 'equine-repro', 'swine-clinic', 'aquatic-clinic', 'zoonoses', 'epidemiology'],
+        // POA is examined through the term (examScope 'continuous'), with no written paper.
+        noCard: ['poa-clinical'],
       },
     },
   },
@@ -140,6 +142,15 @@ export const PANIC_CARDS = {
     ink: '#3c3919',
     art: '/panic-art/zoonoses.webp',
     motion: { cut: 62, dx: 6, lift: 7, turn: 1 },
+  },
+  'epidemiology': {
+    code: '3107508',
+    en: 'EPIDEMIOLOGY',
+    th: 'ระบาดวิทยา',
+    paper: '#ebe3f3',
+    ink: '#43285c',
+    art: '/panic-art/epidemiology.webp',
+    motion: { cut: 60, dx: 2, lift: 2, turn: 0.6 },
   },
 };
 
