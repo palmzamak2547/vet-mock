@@ -28,9 +28,9 @@ Consistency: source banks **7814**, learner-ready **7736**, fail-closed **78**, 
 | | |
 |---|---|
 | Note files | 37 |
-| Topics | 379 |
-| Sections | 4055 |
-| Sections carrying a source locator | 4055 (100%) |
+| Topics | 393 |
+| Sections | 4058 |
+| Sections carrying a source locator | 4058 (100%) |
 
 ## Video summaries
 
@@ -38,14 +38,14 @@ Consistency: source banks **7814**, learner-ready **7736**, fail-closed **78**, 
 
 ## Curriculum
 
-86 subjects, 1061 topics in the taxonomy.
+86 subjects, 1062 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
 | | |
 |---|---|
-| Governed topics | 210 |
-| Governed sections | 1783 |
+| Governed topics | 224 |
+| Governed sections | 1786 |
 | Claims verified against an external source | 3240 |
 | Distinct external sources cited | 2106 |
 | Share of note sections governed | 44.0% |
@@ -57,7 +57,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | Subject | Questions | Reach an article | Via a judged link | Coverage |
 |---|---|---|---|---|
 | aquatic-clinic | 518 | 425 | 12 | 82.0% |
-| avian-medicine | 581 | 312 | 0 | 53.7% |
+| avian-medicine | 581 | 431 | 0 | 74.2% |
 | biochem-1 | 271 | 0 | 0 | 0.0% |
 | cliapprum | 136 | 95 | 51 | 69.9% |
 | com1 | 31 | 0 | 0 | 0.0% |
@@ -70,7 +70,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 166 | 77 | 0 | 46.4% |
 | equine-medicine | 594 | 541 | 0 | 91.1% |
-| equine-repro | 188 | 158 | 7 | 84.0% |
+| equine-repro | 188 | 153 | 7 | 81.4% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 300 | 61 | 0 | 20.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 7736 | 4835 | 334 | 62.5% |
+| **All** | 7736 | 4949 | 334 | 64.0% |
