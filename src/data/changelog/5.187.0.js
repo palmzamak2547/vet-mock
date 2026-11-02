@@ -1,7 +1,7 @@
-// Release 5.183.0. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
+// Release 5.187.0. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
 // src/data/changelog.js. One file per release, so releases in flight never edit the same lines.
 export default {
-  version: '5.183.0',
+  version: '5.187.0',
   date: '2026-11-02',
   headline: 'ประมวลรายวิชาฉบับอ่านง่ายและตารางสอนของปี 5 ดาวน์โหลดได้แล้ว',
   changes: [
