@@ -633,7 +633,7 @@ const inExamPeriodOn = (ymd) => [SEMESTER.midtermPeriod, SEMESTER.finalPeriod]
   .some((p) => p?.start && p?.end && ymd >= p.start && ymd <= p.end);
 
 export function isExamPeriodDay(date = new Date()) {
-  return inExamPeriodOn(`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`);
+  return inExamPeriodOn(bangkokDate(date));
 }
 
 function classesOn(year, ymd, dow) {
@@ -644,8 +644,13 @@ function classesOn(year, ymd, dow) {
   return rows.filter((r) => r.dow === dow).sort((a, b) => a.start.localeCompare(b.start));
 }
 
+// The class timetable is Bangkok's, so the day, the weekday and the time are
+// read on Bangkok's clock (bangkokClock), as getCurrentClass already did: on a
+// phone set to UTC, 00:30 on a Tuesday in Bangkok still read Monday evening,
+// and the Home chip offered Tuesday's first class as "พรุ่งนี้".
 export function getClassesForDay(year = 5, date = new Date()) {
-  return classesOn(year, `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`, date.getDay()); // 0=Sun
+  const { ymd, dow } = bangkokClock(date);
+  return classesOn(year, ymd, dow); // 0=Sun
 }
 
 /**
@@ -665,8 +670,8 @@ export function termPhase(at = new Date()) {
 
 /** คาบถัดไปของวันนี้ (ยังไม่จบ) — ใช้โชว์ "คาบต่อไป" */
 export function getNextClassToday(year = 5, date = new Date()) {
-  const hhmm = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-  return getClassesForDay(year, date).find((c) => c.end > hhmm) || null;
+  const { ymd, dow, hhmm } = bangkokClock(date);
+  return classesOn(year, ymd, dow).find((c) => c.end > hhmm) || null;
 }
 
 /** คาบถัดไปนับจากตอนนี้ ข้ามไปวันหน้าได้ถึง 7 วัน — dayOffset 0 = วันนี้, 1 = พรุ่งนี้.
@@ -675,7 +680,8 @@ export function getNextClass(year = 5, now = new Date()) {
   const today = getNextClassToday(year, now);
   if (today) return { ...today, dayOffset: 0 };
   for (let i = 1; i <= 7; i++) {
-    const d = new Date(now); d.setDate(d.getDate() + i);
+    // Bangkok keeps no daylight saving, so 24 hours on is the next Bangkok day.
+    const d = new Date(new Date(now).getTime() + i * DAY_MS);
     const first = getClassesForDay(year, d)[0];
     if (first) return { ...first, dayOffset: i };
   }
@@ -699,7 +705,17 @@ export function describeMilestone(m, now = new Date()) {
   const today = bangkokDate(now);
   const daysLeft = calendarDaysBetween(today, m.start);
   const daysLeftToEnd = calendarDaysBetween(today, m.end);
-  return { ...m, daysLeft, daysLeftToEnd, active: daysLeft <= 0 && daysLeftToEnd >= 0, past: daysLeftToEnd < 0 };
+  // A window that closes at an hour (endTimeTh, as the registrar printed it:
+  // "ปิด 12.00 น.") is closed after that hour on its last day. Read as a whole
+  // day it said วันสุดท้าย until midnight, twelve hours after it shut.
+  // The hour after ปิด: some rows print the opening hour first ("เปิด 12.00 น.
+  // ปิด 23.59 น."), and เปิด itself ends in ปิด, so the word must not follow เ
+  // (no lookbehind: older Safari cannot parse one).
+  const close = /(?:^|[^เ])ปิด\s*(\d{1,2})[.:](\d{2})\s*น\./.exec(String(m.endTimeTh || ''));
+  const closedToday = daysLeftToEnd === 0 && Boolean(close)
+    && new Date(now).getTime() >= bangkokMs(m.end, Number(close[1]), Number(close[2]));
+  const past = daysLeftToEnd < 0 || closedToday;
+  return { ...m, daysLeft, daysLeftToEnd, active: daysLeft <= 0 && daysLeftToEnd >= 0 && !past, past };
 }
 
 /** หมุดปฏิทินที่ "เกี่ยวกับตอนนี้" — กำลังเปิดอยู่ หรือจะถึงใน N วัน

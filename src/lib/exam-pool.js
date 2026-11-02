@@ -39,6 +39,24 @@ export const WEAK_POOL_CAP = 150;
 
 export const USER_CURATED_MODES = new Set(['bookmarks', 'weak', 'wrong']);
 
+/**
+ * The wrong-answer set as Home's chip counts it, by the rule the 'wrong' pool
+ * below serves it: still wrong (wrong-pool.js), deliverable, and of the year,
+ * read from the row's own year, else its subject's. Both terms: a curated mode
+ * is not narrowed by the period. The chip used to read the year through the
+ * period's subject list and skip the delivery gate, so it left out the other
+ * term's misses that the set served and counted blocked ones it never would.
+ */
+export function stillWrongInYear(history, selectedYear) {
+  return stillWrong((history || []).filter((row) => {
+    if (!row || !isQuestionDeliverable({ subject: row.subject, id: row.questionId })) return false;
+    if (!selectedYear) return true;
+    if (typeof row.year === 'number') return row.year === selectedYear;
+    const year = yearForSubject(row.subject);
+    return year == null || year === selectedYear;
+  }));
+}
+
 export function normalizePracticeMode(mode, subject, explicitMode = false) {
   if (!explicitMode && subject && subject !== 'all' && USER_CURATED_MODES.has(mode)) {
     return 'all';
