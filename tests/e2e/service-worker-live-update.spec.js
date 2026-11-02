@@ -275,17 +275,24 @@ test('updates preserve every open document while new documents get the new UI', 
     await offline.close();
   } finally { updateServer.reconnect(); }
 
-  const modern = await context.newPage(); await modern.goto(updateServer.origin + '/app/pdf');
-  await expect(modern.locator('body')).toHaveAttribute('data-build', 'B');
-  await expect(modern.locator('html')).toHaveAttribute('data-entry-build', 'B');
   // WebKit on Linux sometimes activates the waiting worker by itself when a new tab navigates into
   // scope while A's tabs are still open. Measured on the CI image (2 Nov 2026, 40 runs): in 5, B was
   // still waiting after the offline tab closed and active, with both open tabs claimed, the moment
   // the new tab loaded; never on the Windows build. The spec says B must wait, nothing in the app
   // asks otherwise (no skipWaiting; SKIP_WAITING is ignored) and every other engine waits. So the
   // new tab runs under A with B waiting, except where WebKit activated B itself; in both cases what
-  // the update promises is checked: the open tabs keep their document, draft and build.
+  // the update promises is checked: the open tabs keep their document, draft and build. In 1 run
+  // of a further 40 that same navigation failed with WebKit's "internal error" instead; a second
+  // try is what a reload would do, and a navigation the app itself breaks fails it as well.
   const webkit = test.info().project.name.startsWith('webkit');
+  const modern = await context.newPage();
+  await modern.goto(updateServer.origin + '/app/pdf').catch(async (error) => {
+    if (!webkit || !/internal error/i.test(String(error))) throw error;
+    test.info().annotations.push({ type: 'webkit-navigation-retried', description: String(error).slice(0, 160) });
+    await modern.goto(updateServer.origin + '/app/pdf');
+  });
+  await expect(modern.locator('body')).toHaveAttribute('data-build', 'B');
+  await expect(modern.locator('html')).toHaveAttribute('data-entry-build', 'B');
   let activatedByWebKit = false;
   await expect.poll(async () => {
     const waiting = await modern.evaluate(async () => Boolean((await navigator.serviceWorker.getRegistration('/app/'))?.waiting));
