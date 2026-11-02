@@ -658,3 +658,36 @@ test('PF-17: a reader who sees restricted rows keeps no rows on the device', asy
   await new Promise((r) => setImmediate(r));
   assert.ok(!env.caches._entries('vmx-library-catalog-v1').some((k) => String(k).includes('library-rows')), 'no kept rows');
 });
+
+// Review of the first version: three ways one reader's stamp could meet another reader's rows.
+test('PF-17: kept rows are not reused when the stamp counts other rows than were kept', async () => {
+  install({ signedIn: false });
+  const t = table(shelf(10));
+  globalThis.__vmxTestSupabase = t.client;
+  // The revision is read as one reader (13 rows), the rows as another (10): a sign-out in another tab.
+  t.stats.revisionAs = { count: 13, newest: '2026-09-01T00:00:00Z' };
+  await (await freshLibrary()).fetchLibraryDocs();
+  await new Promise((r) => setImmediate(r));
+  const pagesBefore = t.stats.pages.length;
+  await (await freshLibrary()).fetchLibraryDocs();
+  assert.ok(t.stats.pages.length > pagesBefore, 'nothing was kept, so the next session downloads');
+});
+
+test('PF-17: rows a guest kept are not served to a signed-in session, nor rows of another column list', async () => {
+  const env = install({ signedIn: false });
+  const t = table(shelf(10));
+  globalThis.__vmxTestSupabase = t.client;
+  await (await freshLibrary()).fetchLibraryDocs();
+  await new Promise((r) => setImmediate(r));
+  env.local.setItem(TOKEN_KEY, '{"access_token":"t"}');
+  let pagesBefore = t.stats.pages.length;
+  await (await freshLibrary()).fetchLibraryDocs();
+  assert.ok(t.stats.pages.length > pagesBefore, 'another tier downloads');
+  await new Promise((r) => setImmediate(r));
+  const cache = await env.caches.open('vmx-library-catalog-v1');
+  const kept = await (await cache.match('/__vmx/library-rows.json')).json();
+  await cache.put('/__vmx/library-rows.json', Response.json({ ...kept, columns: 'id, slug' }));
+  pagesBefore = t.stats.pages.length;
+  await (await freshLibrary()).fetchLibraryDocs();
+  assert.ok(t.stats.pages.length > pagesBefore, 'rows of an older column list are downloaded again');
+});

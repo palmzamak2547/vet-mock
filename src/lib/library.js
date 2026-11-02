@@ -577,7 +577,7 @@ export async function fetchLibraryDocs() {
   if (previous) {
     revision = await catalogRevision(sb);
     if (revision && revision === previous.revision && epoch === _catalogEpoch) return previous.result;
-  } else {
+  } else if (typeof caches !== 'undefined') {
     const [kept, current] = await Promise.all([readKeptRows(), catalogRevision(sb)]);
     if (kept && current && kept.revision === current && epoch === _catalogEpoch) {
       const result = { docs: kept.docs, configured: true };
@@ -626,23 +626,31 @@ export async function fetchLibraryDocs() {
 // The rows of the last download, stamped with the revision read before it,
 // for the next session's question. Kept only when every row this reader sees
 // is public, the snapshot's rule, so restricted rows never reach the disk; a
-// reader who sees another set reads another revision and downloads.
+// reader who sees another set reads another revision and downloads. Three
+// more guards (review of the first version): the stamp must count exactly the
+// rows kept, so a sign-out in another tab between the revision and the rows
+// cannot pair one reader's stamp with another's rows; it serves only the tier
+// that kept it (signed in or not), whose revisions describe the same set; and
+// only rows of the current column list, which outlives a deploy otherwise.
 const ROWS_URL = '/__vmx/library-rows.json';
 
 async function readKeptRows() {
   try {
     const hit = await (await openSnapshotCache())?.match(ROWS_URL);
     const kept = hit ? await hit.json() : null;
-    return typeof kept?.revision === 'string' && Array.isArray(kept.docs) && kept.docs.every((d) => d?.status === 'public') ? kept : null;
+    return typeof kept?.revision === 'string' && Array.isArray(kept.docs)
+      && kept.columns === CATALOG_COLUMNS && kept.signedIn === hasStoredAuthToken()
+      && kept.docs.every((d) => d?.status === 'public') ? kept : null;
   } catch {
     return null;
   }
 }
 
 async function keepRows(revision, docs) {
-  if (!revision || !docs.every((d) => d?.status === 'public')) return;
+  if (!revision || Number(revision.split('|')[0]) !== docs.length || !docs.every((d) => d?.status === 'public')) return;
   try {
-    await (await openSnapshotCache())?.put(ROWS_URL, new Response(JSON.stringify({ revision, docs }), {
+    const entry = { revision, columns: CATALOG_COLUMNS, signedIn: hasStoredAuthToken(), docs };
+    await (await openSnapshotCache())?.put(ROWS_URL, new Response(JSON.stringify(entry), {
       headers: { 'content-type': 'application/json' },
     }));
   } catch { /* private mode or no room: the next session downloads */ }
@@ -699,15 +707,23 @@ async function fetchCatalogRows(fetchPage, PAGE) {
 // bumps it on every update). RLS applies, so it is this reader's catalogue.
 // One row and a count; null when it cannot be read, which means "download".
 async function catalogRevision(sb) {
+  // A cold load waits for this before its first page, so it may not hang:
+  // after 3 s it answers null, which means "download".
+  const ac = typeof AbortController === 'function' ? new AbortController() : null;
+  const timer = ac ? setTimeout(() => ac.abort(), 3000) : null;
   try {
-    const { data, count, error } = await sb.from('library_docs')
+    let query = sb.from('library_docs')
       .select('updated_at', { count: 'exact' })
       .order('updated_at', { ascending: false, nullsFirst: false })
       .limit(1);
+    if (ac && typeof query.abortSignal === 'function') query = query.abortSignal(ac.signal);
+    const { data, count, error } = await query;
     if (error || !Number.isInteger(count)) return null;
     return `${count}|${data?.[0]?.updated_at ?? ''}`;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
