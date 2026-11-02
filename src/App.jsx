@@ -2633,9 +2633,11 @@ export default function App() {
   // VetMock AI names a deck in the reader's address (readerUrl). The reader
   // looks the row up itself, so its own loading panel shows at once. A page
   // asked for by a link is honoured once; the address then drops it, so a
-  // later reload resumes where the student stopped reading.
+  // later reload resumes where the student stopped reading. Behind the Chula
+  // wall it waits for the wall to open: the address survives sign-in, and a
+  // guest's mint would only be refused.
   useEffect(() => {
-    if (view !== 'pdf-annotate' || libraryDoc) return;
+    if (view !== 'pdf-annotate' || libraryDoc || wall.state !== 'open') return;
     if (viewForAppPath(window.location.pathname) !== 'pdf-annotate') return;
     const target = readerTarget(window.location.search);
     if (!target) return;
@@ -2643,7 +2645,7 @@ export default function App() {
     if (target.page) {
       try { window.history.replaceState(window.history.state, '', readerUrl(target.slug)); } catch { /* the page is still asked for once */ }
     }
-  }, [view, libraryDoc]);
+  }, [view, libraryDoc, wall.state]);
 
   const openLibraryReader = (doc = null) => {
     // Local files and shelf documents use the same reader. Explicitly clear
