@@ -10,8 +10,8 @@
           "index.html"
         ],
         "js": {
-          "measured": 219347,
-          "budget": 226000
+          "measured": 221245,
+          "budget": 227900
         },
         "css": {
           "measured": 44691,
@@ -24,8 +24,8 @@
           "atlas.html"
         ],
         "js": {
-          "measured": 78502,
-          "budget": 80900
+          "measured": 90701,
+          "budget": 93500
         },
         "css": {
           "measured": 48556,
@@ -39,8 +39,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 83692,
-          "budget": 86300
+          "measured": 83615,
+          "budget": 86200
         },
         "css": {
           "measured": 0,
