@@ -46,8 +46,9 @@ export const SOURCE_KIND_LABEL = Object.freeze({
   unknown: 'มีแหล่งอ้างอิง',
 });
 
-/** Shown beside the line while the full source waits for the key. */
-export const SOURCE_LINE_WAIT = 'ดูเต็มหลังเห็นเฉลย';
+/** Shown beside the line while the full source waits for the key. Short, so
+ *  on a phone the kind of source keeps the room ("ข้อสอบเก่า Vet 85 กลางภาค"). */
+export const SOURCE_LINE_WAIT = 'ดูเต็มหลังเฉลย';
 
 // Written from the course itself: the recording, the slides, study notes.
 const COURSE_TYPES = new Set(['lecture-derived', 'lecture', 'lecture-verified-draft', 'practice']);

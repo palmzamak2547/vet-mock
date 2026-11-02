@@ -30,7 +30,7 @@ test('the source line names only the kind of source until the verdict, then the 
   await page.goto(`/?qset=${encodeQuizSet(ROWS.map((r) => r.q))}`);
   const options = page.getByRole('group', { name: 'ตัวเลือกคำตอบ' });
   await expect(options).toBeVisible({ timeout: 30_000 });
-  const chip = page.getByRole('button', { name: /^ที่มา:/ });
+  const chip = page.getByRole('button', { name: /ที่มา:/ });
   const seen = new Set();
 
   for (let n = 0; n < ROWS.length; n++) {
@@ -43,7 +43,7 @@ test('the source line names only the kind of source until the verdict, then the 
     const before = await chip.ariaSnapshot();
     console.log(`[${test.info().project.name}] ${r.q.subject}#${r.q.id} before: ${before}`);
     expect(before).toContain(`ที่มา: ${r.before}`);
-    expect(before).toContain('ดูเต็มหลังเห็นเฉลย');
+    expect(before).toContain('ดูเต็มหลังเฉลย');
     expect(before).not.toContain(r.after);
     await expect(chip).toHaveAttribute('aria-disabled', 'true');
     const heightBefore = (await chip.boundingBox()).height;

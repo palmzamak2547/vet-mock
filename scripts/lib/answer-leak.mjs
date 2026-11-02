@@ -58,7 +58,7 @@ const TH_SOURCE_STOP = words(`สไลด์ หน้า ข้อสอบ �
   ภาค ไฟนอล มิดเทอม อาจารย์ อ. วิชา บท ตอน ปรนัย อัตนัย ถูก ผิด โน้ต ภาพ สแกน คลิป นาที ตรวจ อ้างอิง ที่มา หมายเหตุ ไม่ระบุ
   ระบุ ฉบับ เรียน แบบทดสอบ ทดสอบ`);
 // The chip's own controls, the same on every question: "▾ ดูเต็ม", "▴ ซ่อน"
-// and, before the key, "ดูเต็มหลังเห็นเฉลย". Read as words they matched
+// and, before the key, "ดูเต็มหลังเฉลย". Read as words they matched
 // "โตเต็มวัย ใช้ดูเพศ" in a key, which no student would take for a hint.
 const CHIP_STOP = words('ดู เต็ม ซ่อน เห็น เฉลย');
 // Too general to give an answer away in a veterinary course.
