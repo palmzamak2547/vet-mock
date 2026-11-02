@@ -5,7 +5,12 @@
 //   src/data/video-cards.generated.js      the loaders for those
 //   src/data/video-topic-index.generated.js topic -> the stretches of video that teach it
 //
-//   node scripts/video-registry.mjs [--check]
+//   node scripts/video-registry.mjs [--check] [--status]
+//
+// --status also writes the run's report to R2 (videos/_status.json), which
+// the admin page's "คลังวิดีโอ" row reads (api/_lib/system-status.js): how
+// many videos and cards, what was published, what is held and why, what
+// failed and at which step. A run that breaks or stops shows up there.
 //
 // Only a summary whose status is "pass" becomes a card: a held one stays out
 // (docs/VIDEO-LIBRARY.md section 4). --check fails when a file would change.
@@ -14,6 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { takenVideos } from './video-media.mjs';
 import { SUBJECTS_BY_YEAR } from '../src/data/curriculum.js';
+import { allLecturerSets } from '../src/data/lecturer-sets.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = process.env.VIDEO_DATA_DIR || 'C:/dev/vetmock-video-data';
@@ -40,6 +46,20 @@ export function tidyHeading(title) {
   return t;
 }
 
+// What a topic stretch may be published as: a topic the lecturer set gives
+// this session, or one whose name shares a word with the session's title.
+// The first batch's full check found every wrong stretch outside these (a
+// PRRS lecture read as CSF and ASF on shared biosecurity words, an
+// anaesthesia lecture's ventilation read as the respiratory topic).
+const GENERIC = new Set(['equine', 'mare', 'stallion', 'horse', 'swine', 'porcine', 'bovine', 'cattle', 'canine', 'feline', 'avian', 'poultry', 'ruminant', 'animal',
+  'disease', 'introduction', 'concept', 'approach', 'clinic', 'clinical', 'part', 'basic', 'principle', 'management', 'general', 'review', 'lecture', 'with', 'from', 'about']);
+const titleWords = (s) => new Set((String(s).toLowerCase().match(/[a-z]{4,}/g) || []).map((w) => w.replace(/s$/, '')).filter((w) => !GENERIC.has(w)));
+export function topicFits(title, label, setTopics = new Set(), topic = '') {
+  if (setTopics.has(topic)) return true;
+  const t = titleWords(title);
+  return [...titleWords(label)].some((w) => t.has(w));
+}
+
 const readJSON = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
 const js = (o) => JSON.stringify(o, null, 1);
 const HEAD = (what) => `// ============================================================
@@ -56,6 +76,14 @@ function build() {
   const dir = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels');
   for (const f of fs.readdirSync(dir).filter((x) => /^media-manifest(\.\d+)?\.json$/.test(x))) Object.assign(media, readJSON(path.join(dir, f)));
   const subjects = new Map(Object.entries(SUBJECTS_BY_YEAR).flatMap(([y, ss]) => ss.map((s) => [s.id, { ...s, year: Number(y) }])));
+  const topicLabel = new Map([...subjects.values()].flatMap((s) => (s.topics || []).map((t) => [t.id, t.label])));
+  const setTopics = new Map();
+  for (const set of allLecturerSets()) for (const lec of set.lecturers || []) for (const ses of lec.sessions || []) {
+    if (!ses.videoId) continue;
+    const mine = setTopics.get(ses.videoId) || new Set();
+    for (const t of [...(ses.decks || []).flatMap((d) => d.topics || []), ...(ses.alsoTopics || [])]) mine.add(t);
+    setTopics.set(ses.videoId, mine);
+  }
   const registry = {};
   const cards = {};
   const topicIndex = {};
@@ -67,9 +95,14 @@ function build() {
     const subject = a?.subject || v.subjects[0] || null;
     const subj = subjects.get(subject);
     const pass = s?.status === 'pass';
+    // The library ships in batches (docs/VIDEO-LIBRARY.md): a video reaches students
+    // with its passing card, mapping and copy together. VIDEO_REGISTRY_ALL=1 lists
+    // every analysed video, for checking the pipeline locally.
+    if (!pass && !process.env.VIDEO_REGISTRY_ALL) continue;
     // The file's own length (ffprobe) can be a few seconds under YouTube's.
     const durationSec = m?.durationSec || v.durationSec;
-    const segments = (a?.topicSegments || []).map((g) => ({ ...g, end: Math.min(g.end, durationSec) })).filter((g) => g.start < g.end);
+    const segments = (a?.topicSegments || []).map((g) => ({ ...g, end: Math.min(g.end, durationSec) }))
+      .filter((g) => g.start < g.end && topicFits(v.title, topicLabel.get(g.topic) || g.topic, setTopics.get(v.id), g.topic));
     registry[v.id] = {
       title: displayTitle(v.title),
       session: String(v.title).match(/^\s*(\d+(?:\.\d+)?)/)?.[1] || null,
@@ -110,9 +143,30 @@ function build() {
   return { registry, cards, topicIndex };
 }
 
-function main() {
+/** The run's report for the admin page, from the manifests the stages keep. */
+export function runStatus({ registry, cards, before, media, pipeline, taken }) {
+  const ids = new Set(taken);
+  const held = Object.entries(pipeline).filter(([id, s]) => ids.has(id) && String(s.summary || '').startsWith('held')).map(([id, s]) => ({ id, why: String(s.summary).slice(0, 160) }));
+  const failed = [
+    ...Object.entries(media).filter(([id, m]) => ids.has(id) && m.error).map(([id, m]) => ({ id, step: 'media', error: String(m.error).slice(0, 160) })),
+    ...Object.entries(pipeline).filter(([id]) => ids.has(id)).flatMap(([id, s]) => ['analysis', 'summary'].filter((k) => String(s[k] || '').startsWith('failed')).map((k) => ({ id, step: k, error: String(s[k]).slice(0, 160) }))),
+  ];
+  return {
+    at: new Date().toISOString(),
+    videos: Object.keys(registry).length,
+    copies: Object.values(registry).filter((r) => r.media).length,
+    cards: Object.keys(cards).length,
+    published: Object.keys(cards).filter((id) => !before.has(id)).map((id) => ({ id })),
+    held,
+    failed,
+  };
+}
+
+async function main() {
   const check = process.argv.includes('--check');
   const { registry, cards, topicIndex } = build();
+  const cardDir0 = path.join(OUT, 'video-cards');
+  const before = new Set((fs.existsSync(cardDir0) ? fs.readdirSync(cardDir0) : []).map((f) => f.replace(/\.js$/, '')));
   const files = new Map();
   files.set(path.join(OUT, 'video-registry.generated.js'), `${HEAD('VIDEO_REGISTRY — every video the library keeps, by YouTube id')}export const VIDEO_REGISTRY = ${js(registry)};\n`);
   files.set(path.join(OUT, 'video-topic-index.generated.js'), `${HEAD('VIDEO_TOPIC_INDEX — topic id -> the stretches of video that teach it, surest first')}export const VIDEO_TOPIC_INDEX = ${js(topicIndex)};\n`);
@@ -138,6 +192,15 @@ function main() {
   }
   console.log(`${Object.keys(registry).length} videos, ${ids.length} cards, ${Object.keys(topicIndex).length} topics; ${stale} file(s) ${check ? 'stale' : 'written'}`);
   if (check && stale) process.exit(1);
+  if (process.argv.includes('--status')) {
+    const dir = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels');
+    const media = {};
+    for (const f of fs.readdirSync(dir).filter((x) => /^media-manifest(\.\d+)?\.json$/.test(x))) Object.assign(media, readJSON(path.join(dir, f)));
+    const status = runStatus({ registry, cards, before, media, pipeline: readJSON(path.join(dir, 'pipeline-manifest.json')) || {}, taken: takenVideos().map((v) => v.id) });
+    const { s3Env, putBuffer } = await import('./video-media.mjs');
+    await putBuffer(await s3Env(), 'videos/_status.json', Buffer.from(JSON.stringify(status)), 'application/json');
+    console.log(`status: ${status.videos} videos, ${status.copies} copies, ${status.cards} cards, ${status.published.length} published, ${status.held.length} held, ${status.failed.length} failed`);
+  }
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) main().catch((e) => { console.error(e); process.exit(1); });

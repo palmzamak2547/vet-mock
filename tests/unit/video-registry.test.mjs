@@ -11,6 +11,7 @@ import { VIDEO_TOPIC_INDEX } from '../../src/data/video-topic-index.generated.js
 import { VIDEO_CHANNELS } from '../../src/data/video-channels.js';
 import { SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
 import { LIMITS, keyPointCap, thaiWords } from '../../src/lib/video-summary-check.js';
+import { topicFits } from '../../scripts/video-registry.mjs';
 
 const subjects = new Map(Object.values(SUBJECTS_BY_YEAR).flat().map((s) => [s.id, s]));
 const topics = new Set([...subjects.values()].flatMap((s) => (s.topics || []).map((t) => t.id)));
@@ -30,6 +31,19 @@ test('every video names a channel with permission on file, a real subject and re
       assert.ok(['high', 'medium', 'ambiguous'].includes(conf), `${id}: confidence ${conf}`);
     }
   }
+});
+
+test('a topic stretch is published only as the session\'s own topic', () => {
+  // The first batch's full check: each wrong stretch named a topic the title does not.
+  assert.equal(topicFits('Porcine reproductive and respiratory syndrome', 'CSF supplement'), false);
+  assert.equal(topicFits('Porcine reproductive and respiratory syndrome', 'ASF'), false);
+  assert.equal(topicFits('Equine concept of surgery and anesthesia', 'Respiratory'), false);
+  assert.equal(topicFits('Equine concept of surgery and anesthesia', 'POA equine'), false, 'a species word alone is no match');
+  assert.equal(topicFits('Porcine reproductive and respiratory syndrome', 'Respiratory viral diseases in swine'), true);
+  assert.equal(topicFits('Equine concept of surgery and anesthesia', 'Equine anesthesia'), true);
+  assert.equal(topicFits('Anatomy function and clinical examination of stallion', 'Male reproductive organ functions'), true);
+  // The lecturer's own set settles it, whatever the title says.
+  assert.equal(topicFits('7.Endometritis in mare 1 Oct 69', 'Uterine defense', new Set(['eqrepro-defense']), 'eqrepro-defense'), true);
 });
 
 test('the small index and the card loaders agree with the registry', () => {

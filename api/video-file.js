@@ -13,7 +13,7 @@
 // (tokenKeyEnv in _lib/r2.js), unless R2_ACCESS_KEY_ID is set. The video id
 // must be one the registry says has a copy: a crafted id signs nothing.
 import { presign, tokenKeyEnv } from './_lib/r2.js';
-import { authenticatedUser } from './_lib/app-backend.js';
+import { chulaGate } from './_lib/chula-gate.js';
 import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { VIDEO_REGISTRY } from '../src/data/video-registry.generated.js';
 
@@ -42,13 +42,11 @@ export default async function handler(req, res, { env = process.env } = {}) {
   const limit = await rateLimit(`video-file:${clientIP(req)}`, RATE.max, RATE.windowMs);
   if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
 
-  let user;
-  try {
-    user = await authenticatedUser(req, env);
-  } catch {
-    return send(res, 503, { error: 'auth_unavailable' });
-  }
-  if (!user) return send(res, 401, { error: 'login_required' });
+  // The Chula wall decides who may watch (api/_lib/chula-gate.js); our copy
+  // always needs a signed-in student, wall on or off.
+  const gate = await chulaGate(req, { env });
+  if (!gate.ok) return send(res, gate.status, gate.body);
+  if (!gate.userId) return send(res, 401, { error: 'login_required' });
 
   const r2 = await tokenKeyEnv(env);
   if (!r2) return send(res, 503, { error: 'storage_not_configured' });

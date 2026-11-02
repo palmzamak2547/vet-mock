@@ -1,11 +1,13 @@
 // /api/video-file: our copy of a lecture video, for a signed-in student only.
 // Pins that a crafted id or kind signs nothing, that a guest gets 401 before
-// any storage call, and that a student's link is a six-hour presigned R2 GET
-// built from the Cloudflare token, with no secret in the answer.
+// any storage call, that the Chula wall decides who may watch, and that a
+// student's link is a six-hour presigned R2 GET built from the Cloudflare
+// token, with no secret in the answer.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import handler, { VIDEO_TTL } from '../../api/video-file.js';
+import { resetChulaGate } from '../../api/_lib/chula-gate.js';
 import { VIDEO_REGISTRY } from '../../src/data/video-registry.generated.js';
 
 const withCopy = Object.keys(VIDEO_REGISTRY).find((id) => VIDEO_REGISTRY[id].media);
@@ -24,9 +26,23 @@ test('a bad id, a bad kind or an id without our copy signs nothing', async () =>
   assert.equal((await call(`/api/video-file?v=${withCopy}`, { method: 'POST' })).status, 405);
 });
 
+// The database's answer on who is let in (public.chula_access_state).
+const wall = (enforce, byToken) => async (u, init) => {
+  const url = String(u);
+  if (url === 'https://db.example/rest/v1/rpc/chula_access_state') {
+    const bearer = init.headers.Authorization.slice(7);
+    const who = byToken[bearer] || { signed_in: false, member: false, uid: null };
+    return new Response(JSON.stringify({ enforce, ...who }), { status: 200, headers: { 'content-type': 'application/json' } });
+  }
+  if (url.endsWith('/user/tokens/verify')) return { ok: true, status: 200, json: async () => ({ success: true, result: { id: 'token-id', status: 'active' } }) };
+  throw new Error(`unrouted ${url}`);
+};
+const STUDENT = 'a'.repeat(40);
+
 test('a guest is asked to sign in before any storage call', async () => {
+  resetChulaGate();
   const real = globalThis.fetch;
-  globalThis.fetch = async (u) => { throw new Error(`no network for a guest: ${u}`); };
+  globalThis.fetch = wall(false, {});
   try {
     const r = await call(`/api/video-file?v=${withCopy}&f=video`);
     assert.equal(r.status, 401);
@@ -36,16 +52,25 @@ test('a guest is asked to sign in before any storage call', async () => {
   }
 });
 
-test('a student gets a six-hour presigned link to our copy, and no secret', async () => {
+test('with the wall on, an account without a Chula email is refused', async () => {
+  resetChulaGate();
   const real = globalThis.fetch;
-  globalThis.fetch = async (u) => {
-    const url = String(u);
-    if (url === 'https://db.example/auth/v1/user') return { ok: true, status: 200, json: async () => ({ id: 'student-1' }) };
-    if (url.endsWith('/user/tokens/verify')) return { ok: true, status: 200, json: async () => ({ success: true, result: { id: 'token-id', status: 'active' } }) };
-    throw new Error(`unrouted ${url}`);
-  };
+  globalThis.fetch = wall(true, { [STUDENT]: { signed_in: true, member: false, uid: 'gmail-1' } });
   try {
-    const r = await call(`/api/video-file?v=${withCopy}&f=video`, { auth: 'a'.repeat(40) });
+    const r = await call(`/api/video-file?v=${withCopy}&f=video`, { auth: STUDENT });
+    assert.equal(r.status, 403);
+    assert.equal(r.body.error, 'chula_required');
+  } finally {
+    globalThis.fetch = real;
+  }
+});
+
+test('a student gets a six-hour presigned link to our copy, and no secret', async () => {
+  resetChulaGate();
+  const real = globalThis.fetch;
+  globalThis.fetch = wall(false, { [STUDENT]: { signed_in: true, member: false, uid: 'student-1' } });
+  try {
+    const r = await call(`/api/video-file?v=${withCopy}&f=video`, { auth: STUDENT });
     assert.equal(r.status, 200, JSON.stringify(r.body));
     assert.equal(r.body.expiresIn, VIDEO_TTL);
     const link = new URL(r.body.url);

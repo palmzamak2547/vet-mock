@@ -152,9 +152,9 @@ const CHECKS = [
   },
   {
     id: 'videos', name: 'คลังวิดีโอ (นำเข้าคลิปใหม่ทุกสัปดาห์)', doc: 'videos',
-    fix: 'รัน node scripts/video-weekly.mjs บนเครื่องที่ตั้งงานไว้ แล้วอ่านสาเหตุใน log (docs/VIDEO-LIBRARY.md)',
+    fix: 'บนเครื่องที่ทำคลังวิดีโอ รัน node scripts/video-pipeline.mjs แล้ว node scripts/video-registry.mjs --status แล้วอ่านสาเหตุใน log (docs/VIDEO-LIBRARY.md)',
     async run({ env, fetchImpl, now }, r) {
-      // videos/_status.json is the weekly run's own report (scripts/video-weekly.mjs).
+      // videos/_status.json is the import run's own report (scripts/video-registry.mjs --status).
       const keyed = await tokenKeyEnv(env, fetchImpl);
       if (!keyed) return r('down', 'อ่านรายงานการนำเข้าไม่ได้ เพราะ token ของ Cloudflare ใช้ไม่ได้');
       const res = await fetchImpl(presign('videos/_status.json', { env: keyed, expiresIn: 60 }), { headers: { 'accept-encoding': 'identity' }, signal: signal() });

@@ -172,7 +172,7 @@ test('the weekly video import reads its own report: fresh is ok, a missed fortni
   v = byId(await runChecks(withReport(200, { ...fresh, at: new Date(NOW - 15 * DAY).toISOString() }))).videos;
   assert.equal(v.state, 'down');
   assert.match(v.detail, /15 วัน/);
-  assert.ok(v.fix.includes('video-weekly'), 'says how to run it by hand');
+  assert.ok(v.fix.includes('video-registry.mjs --status'), 'says how to run it by hand');
 
   v = byId(await runChecks(withReport(200, { ...fresh, held: [{ id: 'bbbbbbbbbbb', why: 'coverage' }] }))).videos;
   assert.equal(v.state, 'warn');

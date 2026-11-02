@@ -53,10 +53,10 @@ Wording: write % for percent and ชม. for hours. Never pair an English term w
 
 const DRAFT = `You write the study summary of one recorded veterinary lecture for Thai veterinary students, from its transcript (YouTube's automatic Thai captions) and the lecture's own slides.
 You get a JSON skeleton. Return it filled in: the same keys, the same slots and chapter ids in the same order, nothing added.
-- oneLiner: what the lecture teaches, at most 22 words, one plain sentence about the subject itself (how it arises, how it is diagnosed, how it is treated); never a list of topic names, never opening with "สรุป" or "บทนี้".
-- keyPoints: one per slot, its t (m:ss) inside the slot's range, at most 12 words: the most examinable thing taught in that stretch.
-- emphasis: up to ${LIMITS.emphasis} things the lecture clearly stresses (said to remember, repeated, or set in red on a slide), each with t, at most 12 words; fewer when fewer are clearly stressed. Not a repeat of a key point.
-- remember: up to ${LIMITS.remember} short definitions, numbers or differentiators worth memorising, each with t, at most 8 words; a number exactly as the slide writes it, the numbers the bank asks about first. Not a repeat of a key point.
+- oneLiner: what the lecture teaches, at most 18 words, one plain sentence about the subject itself (how it arises, how it is diagnosed, how it is treated); never a list of topic names, never opening with "สรุป" or "บทนี้".
+- keyPoints: one per slot, its t (m:ss) inside the slot's range, at most 9 words: the most examinable thing taught in that stretch.
+- emphasis: up to ${LIMITS.emphasis} things the lecture clearly stresses (said to remember, repeated, or set in red on a slide), each with t, at most 9 words; fewer when fewer are clearly stressed. Not a repeat of a key point.
+- remember: up to ${LIMITS.remember} short definitions, numbers or differentiators worth memorising, each with t, at most 6 words; a number exactly as the slide writes it, the numbers the bank asks about first. Not a repeat of a key point.
 - chapters: a line for every chapter id, at most 20 words, what that chapter teaches, including what its slides set in red, taught as content: never mention colours, slides or marks, never repeat the chapter's title or a key point word for word.
 ${RULES}`;
 
@@ -237,8 +237,12 @@ async function main() {
   const judge = async (s) => {
     const lint = lintSummary(s, { durationSec: a.duration, transcriptWords, chapterIds: chapters.map((c) => c.id), breaks: a.breaks, teaching });
     const cov = coverage(s, a.mustCover, { chapters, pageText: (n) => pageText(deck, n) });
-    const unsupported = unsupportedClaims(s, evidenceAt, known);
     const rejected = await verify(s);
+    // A term the code cannot find (said in Thai script, or on a slide of another
+    // moment) stands when the verifier, reading that moment's evidence, found the
+    // item supported. A number never stands on the verifier alone.
+    const unsupported = unsupportedClaims(s, evidenceAt, known)
+      .filter((u) => u.numbers.length || verdicts.get(`${u.layer === 'chapter' ? 'chapter' : u.layer}|${u.t}|${u.text}`)?.supported !== true);
     const unclearItems = await unclear(s);
     return { lint, coverage: cov, unsupported, rejected, unclear: unclearItems, ok: lint.ok && !cov.missing.length && !unsupported.length && !rejected.length && !unclearItems.length };
   };
