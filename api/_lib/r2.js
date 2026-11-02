@@ -204,3 +204,30 @@ export async function presignAny(key, opts = {}) {
   if (!creds) return null;
   return presignWith(creds, key, opts);
 }
+
+// ── Token-as-key path ───────────────────────────────────────────────
+// Cloudflare's documented pairing: an API token with R2 permission is
+// itself an S3 key pair, its id the Access Key ID and the SHA-256 of its
+// value the Secret Access Key. Nothing to mint per request, and no second
+// secret: the id is asked for once per instance.
+let tokenId = { id: '', at: 0, of: '' };
+
+/** `env` with R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY filled in from
+ *  CLOUDFLARE_API_TOKEN when they are not set, ready for presign(); null
+ *  when neither works. */
+export async function tokenKeyEnv(env = process.env, fetchImpl = fetch) {
+  if (r2Config(env).configured) return env;
+  const token = env.CLOUDFLARE_API_TOKEN;
+  const accountId = env.R2_ACCOUNT_ID || env.CF_ACCOUNT_ID;
+  if (!token || !accountId) return null;
+  const secret = sha256Hex(token);
+  if (tokenId.of !== secret || Date.now() - tokenId.at > 6 * 3600 * 1000) {
+    const ask = async (u) => (await fetchImpl(u, { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(6000) })).json();
+    // A user token verifies on /user; an account-owned token only on its account.
+    let v = await ask('https://api.cloudflare.com/client/v4/user/tokens/verify').catch(() => null);
+    if (!v?.success || !v.result?.id) v = await ask(`https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/tokens/verify`).catch(() => null);
+    if (!v?.success || !v.result?.id) return null;
+    tokenId = { id: v.result.id, at: Date.now(), of: secret };
+  }
+  return { ...env, R2_ACCOUNT_ID: accountId, R2_ACCESS_KEY_ID: tokenId.id, R2_SECRET_ACCESS_KEY: secret };
+}

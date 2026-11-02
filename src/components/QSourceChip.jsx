@@ -24,10 +24,12 @@
 // row keeps its size either way, so nothing moves when the full line arrives.
 // ============================================================
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { originPaperNote } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
 import { sourceLineBeforeAnswer, sourceLineAfterAnswer, readableSource as readable, SOURCE_LINE_WAIT } from '../lib/source-line.js';
+// Lazy: a question pays for the video code only when its source opens.
+const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl, signedArchiveUrl } from '../lib/vca-library.js';
 import { authHeader } from '../lib/api-auth.js';
@@ -184,6 +186,9 @@ export default function QSourceChip({ q, revealed = false }) {
               ))}
             </div>
           ))}
+          {/* No cited minute: the lecture stretch that teaches the question's
+              topic, so a wrong answer still leads to the part that explains it. */}
+          {moments.length === 0 && q.topic && <Suspense fallback={null}><TopicClips topicId={q.topic} limit={1} quiet /></Suspense>}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer" onClick={openArchived}
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>

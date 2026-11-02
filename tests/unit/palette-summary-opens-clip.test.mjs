@@ -47,6 +47,7 @@ function env(now = 1_000_000) {
   const ctx = {
     sessionStorage,
     VIDEO_META: META,
+    VIDEO_INDEX: { libClip0001: ['Endometritis in mare', 'theriogenology', '2026-10-01'] },
     sessionLabel: () => null,
     momentFromSearch: () => null,
     window: { location: { search: '' } },

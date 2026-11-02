@@ -1,0 +1,304 @@
+/* ============================================================
+   ClipStudy — the study panel beside a lecture video
+   (src/components/ClipStudy.jsx). Tokens only: docs/DESIGN_SYSTEM.md.
+   ============================================================ */
+
+.vmx-clip {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  min-width: 0;
+}
+
+/* The resume button and the skip switch share one row, wrapping on a phone. */
+.vmx-clip-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}
+.vmx-clip-skip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-2);
+  min-height: var(--touch-min);
+  color: var(--clr-ink);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.vmx-clip-skip input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--clr-sage);
+  cursor: pointer;
+}
+
+.vmx-clip-resume {
+  justify-self: start;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* The lecture's parts as one bar: a 10px track inside 34px of hit area. */
+.vmx-clip-bar {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  padding-block: 12px;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+.vmx-clip-seg {
+  position: relative;
+  min-width: 2px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--clr-border);
+}
+.vmx-clip-seen {
+  position: absolute;
+  inset: 0;
+  background: var(--clr-sage-soft);
+  transform-origin: left center;
+}
+.vmx-clip-seg.is-current { box-shadow: 0 0 0 2px var(--clr-sage); }
+.vmx-clip-seg.is-lead { background: var(--clr-surface-2); }
+/* A stretch the player jumps, faint over the track it sits on. */
+.vmx-clip-skipmark {
+  position: absolute;
+  top: 12px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--clr-ink-soft);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.vmx-clip-tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--clr-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.vmx-clip-tab {
+  flex: none;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--clr-ink-soft);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.vmx-clip-tab[aria-selected='true'] {
+  border-bottom-color: var(--clr-sage);
+  color: var(--clr-ink);
+  font-weight: 600;
+}
+
+.vmx-clip-panel { display: grid; gap: var(--space-3); min-width: 0; }
+
+.vmx-clip-one {
+  margin: 0;
+  color: var(--clr-ink);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.vmx-clip-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Every timed line is one control: tap anywhere on it to play from there. */
+.vmx-clip-row {
+  display: grid;
+  grid-template-columns: 4.6em minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  text-align: left;
+  cursor: pointer;
+}
+.vmx-clip-row:hover { background: var(--clr-surface-2); }
+.vmx-clip-row.is-active {
+  background: var(--clr-surface-2);
+  box-shadow: inset 3px 0 0 var(--clr-sage);
+}
+.vmx-clip-t {
+  color: var(--clr-sage-text);
+  font-family: var(--vmx-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.vmx-clip-text { display: grid; gap: var(--space-1); min-width: 0; overflow-wrap: anywhere; }
+.vmx-clip-ctitle { font-weight: 600; }
+.vmx-clip-cline { color: var(--clr-ink-soft); }
+
+.vmx-clip-tag {
+  justify-self: start;
+  margin-left: var(--space-2);
+  padding: 0 var(--space-2);
+  border-radius: var(--r-pill);
+  background: var(--clr-sage-soft);
+  color: var(--clr-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.vmx-clip-chapter .vmx-clip-tag { margin-left: 0; }
+.vmx-clip-tag.is-done { background: var(--clr-surface-2); border: 1px solid var(--clr-border); }
+
+.vmx-clip-box {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+}
+.vmx-clip-box h4,
+.vmx-clip-h {
+  margin: 0;
+  padding: 0 var(--space-2);
+  color: var(--clr-sage-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.vmx-clip-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.vmx-clip-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.vmx-clip-slide {
+  display: block;
+  width: min(100%, 320px);
+  height: auto;
+  margin: 0 0 var(--space-2) calc(4.6em + var(--space-4));
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface-2);
+}
+@media (max-width: 520px) {
+  .vmx-clip-slide { margin-left: var(--space-2); }
+}
+
+.vmx-clip-search input {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: 16px; /* iOS zooms an input under 16px */
+  box-sizing: border-box;
+}
+.vmx-clip-transcript {
+  position: relative; /* rows measure their offset from the list */
+  max-height: min(55vh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.vmx-clip-note,
+.vmx-clip-fine {
+  margin: 0;
+  color: var(--clr-ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+.vmx-clip-more {
+  justify-self: start;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-2); /* the rows' own inset, so it lines up with their times */
+  border: 0;
+  background: none;
+  color: var(--clr-sage-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vmx-clip-retry {
+  min-height: var(--touch-min);
+  margin-left: var(--space-2);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+/* Shaped like the card it waits for: the bar, the tabs, the one-liner, three points. */
+.vmx-clip-skeleton { gap: var(--space-3); }
+.vmx-clip-skeleton span {
+  display: block;
+  height: 16px;
+  border-radius: var(--r-sm);
+  background: var(--clr-surface-2);
+}
+.vmx-clip-skeleton .is-bar { height: 10px; margin-block: 12px; }
+.vmx-clip-skeleton .is-tabs { height: var(--touch-min); width: min(100%, 22rem); }
+.vmx-clip-skeleton span:nth-child(4) { width: 70%; }
+.vmx-clip-skeleton span:nth-child(n + 5) { height: 28px; }
+
+/* The library's own copy plays in the same 16:9 frame as YouTube's player. */
+.vmx-own-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: black; /* letterbox, in either theme, like YouTube's own */
+}
+
+/* TopicClips: the same timed rows, as links. */
+.vmx-topic-clip { text-decoration: none; }
+.vmx-topic-clips { margin-top: var(--space-2); }

@@ -85,6 +85,9 @@ const STUBS = {
     'export const useMemo = (f) => f();',
     'export const useRef = (v) => h().useRef(v);',
     'export const useCallback = (f) => f;',
+    // A lazy child renders nothing here: the test reads the chip, not it.
+    'export const lazy = () => function Lazy() { return null; };',
+    'export const Suspense = ({ children }) => children ?? null;',
   ].join('\n'),
   'react/jsx-runtime': [
     "export const Fragment = 'fragment';",
@@ -96,6 +99,7 @@ const STUBS = {
   '../components/BackBar.jsx': 'export default function BackBar() { return null; }',
   '../components/SummaryModal.jsx': 'export default function SummaryModal() { return null; }',
   '../components/VideoNotePanel.jsx': 'export default function VideoNotePanel() { return null; }',
+  '../components/ClipStudy.jsx': 'export default function ClipStudy() { return null; }',
   // The once-a-day usage hint. Stubbed by name like the others: the test
   // compiles VideoView through Node's loader, which has no JSX transform,
   // so every .jsx child is replaced before it is ever resolved.
@@ -457,7 +461,8 @@ async function mountPlayer(modal) {
   const made = [];
   window.YT = { Player: function Player(node, opts) { made.push(opts); this.destroy = () => {}; } };
   try {
-    const effect = h.effects.find((e) => e.deps?.length === 2 && typeof e.deps[0] === 'string' && e.deps[0].length === 11);
+    // [currentVideoId, playlistId, ownStatus]: a guest's clip plays on YouTube.
+    const effect = h.effects.find((e) => e.deps?.length === 3 && typeof e.deps[0] === 'string' && e.deps[0].length === 11 && e.deps[2] === 'none');
     assert.ok(effect, 'the player effect is registered for this clip');
     effect.fn();
     await new Promise((r) => setTimeout(r, 0));

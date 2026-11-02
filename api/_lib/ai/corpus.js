@@ -22,6 +22,7 @@
 import { listTopics, loadTopic } from '../../../src/lib/vetwiki/index.js';
 import { NOTE_SOURCES, loadNotesSubject } from '../../../src/data/note-corpus.js';
 import { loadAllVideoSummaries } from '../../../src/data/video-summaries.js';
+import { VIDEO_CARD_LOADERS, VIDEO_INDEX } from '../../../src/data/video-cards.generated.js';
 import { SUBJECTS } from '../../../src/data/curriculum.js';
 import { questionCatalog } from '../question-catalog.js';
 import { TextIndex } from './textindex.js';
@@ -113,9 +114,40 @@ async function noteDocs(skipSubjects) {
   return docs;
 }
 
+// "1:05:09" for a heading, which headingSeconds reads back as the link's second.
+const stamp = (t) => {
+  const s = Math.max(0, Math.floor(t));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  return `${h ? `${h}:${String(m).padStart(2, '0')}` : m}:${String(s % 60).padStart(2, '0')}`;
+};
+
+/**
+ * The library videos' cards (docs/VIDEO-LIBRARY.md), one document per
+ * chapter: its line, and the card's points and slide numbers that fall in
+ * it, each with its minute. The heading carries the chapter's start, so a
+ * citation opens the clip there.
+ */
+export function cardDocs(videoId, card, [title = videoId, subject = ''] = []) {
+  const docs = [];
+  const chapters = card?.chapters || [];
+  chapters.forEach((c, i) => {
+    const end = chapters[i + 1]?.t ?? Infinity;
+    const inside = (x) => x.t >= c.t && x.t < end;
+    const points = [...(card.keyPoints || []), ...(card.emphasis || []), ...(card.remember || [])].filter(inside);
+    const numbers = (card.index || []).filter((x) => x.number && inside(x));
+    const text = [c.line, ...points.map((p) => `- [${stamp(p.t)}] ${p.text}`), ...numbers.map((n) => `- [${stamp(n.t)}] ${n.number}`)].filter(Boolean).join('\n');
+    if (text.length < 40) return;
+    docs.push({ kind: 'video', videoId, group: `v:${videoId}`, subject, title, heading: `${c.title} [${stamp(c.t)}]`, instructor: '', text });
+  });
+  return docs;
+}
+
 async function videoDocs() {
   const all = await loadAllVideoSummaries();
   const docs = [];
+  const cards = await Promise.all(Object.entries(VIDEO_CARD_LOADERS).map(([id, load]) => load().then((m) => [id, m.default]).catch(() => [id, null])));
+  for (const [id, card] of cards) if (card) docs.push(...cardDocs(id, card, VIDEO_INDEX[id]));
   for (const [videoId, e] of Object.entries(all)) {
     if (!e?.summary) continue;
     for (const s of videoSections(e.summary)) {
