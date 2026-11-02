@@ -62,7 +62,7 @@ export const SHORT_MARKER = 'อิงแนวสอบ';
 // Measured 2026-09-23. Lower these when the numbers fall; never raise them.
 export const BUDGETS = Object.freeze({
   noSourceType: 3031,
-  pastPaperWithoutOrigin: 424,
+  pastPaperWithoutOrigin: 417,
 });
 
 // Both a sat paper and marked, reviewed 2026-09-22/23 as correctly counted:
@@ -99,6 +99,10 @@ export const KNOWN_ORIGIN_OVERCLAIMS = Object.freeze([]);
 // record of a paper they sat ("บันทึกหลังสอบ", "recalled ... section").
 export const REVIEWED_MAP_ONLY_PAPERS = Object.freeze([
   'Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 85)',
+  // Reviewed 2026-11-01 with the Vet 84 pool and its key file open: the same organizations pool, its header saying
+  // about ten of its items were used on the paper, keys highlighted; a second agent checked every key against it.
+  'Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 84)',
+  'Aquatic Med 3107520 คลังข้อสอบพาร์ทหน่วยงานและองค์กร (Vet 84 และ Vet 85)',
   'บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)',
   'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1',
   'Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 2 ไม่มีเฉลย',

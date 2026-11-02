@@ -9,8 +9,8 @@
 
 export const EXAM_RECURRENCE = {
   "aquatic-clinic": {
-    "cohorts": [80, 84, 85],
-    "items": 90,
+    "cohorts": [80, 83, 84, 85],
+    "items": 184,
     "topics": {
       "aqua-amphibian": {
         "cohorts": [],
@@ -20,17 +20,29 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["aquatic-clinic:202197"],
       },
+      "aqua-conservation": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 1,
+        "sat": {
+          "85": {
+            "final": ["aquatic-clinic:211098"],
+          },
+        },
+        "unattributed": [],
+      },
       "aqua-disease-control": {
         "cohorts": [84, 85],
         "first": 84,
         "last": 85,
-        "items": 26,
+        "items": 110,
         "sat": {
           "84": {
-            "unknown": ["aquatic-clinic:105878", "aquatic-clinic:105879", "aquatic-clinic:105882", "aquatic-clinic:105885", "aquatic-clinic:105886", "aquatic-clinic:105888", "aquatic-clinic:105890"],
+            "unknown": ["aquatic-clinic:105874", "aquatic-clinic:105876", "aquatic-clinic:105878", "aquatic-clinic:105879", "aquatic-clinic:105882", "aquatic-clinic:105885", "aquatic-clinic:105886", "aquatic-clinic:105888", "aquatic-clinic:105890", "aquatic-clinic:211000", "aquatic-clinic:211001", "aquatic-clinic:211002", "aquatic-clinic:211003", "aquatic-clinic:211004", "aquatic-clinic:211005", "aquatic-clinic:211006", "aquatic-clinic:211007", "aquatic-clinic:211008", "aquatic-clinic:211009", "aquatic-clinic:211010", "aquatic-clinic:211011", "aquatic-clinic:211012", "aquatic-clinic:211013", "aquatic-clinic:211014", "aquatic-clinic:211015", "aquatic-clinic:211016", "aquatic-clinic:211017", "aquatic-clinic:211018", "aquatic-clinic:211019", "aquatic-clinic:211020", "aquatic-clinic:211021", "aquatic-clinic:211022", "aquatic-clinic:211023", "aquatic-clinic:211024", "aquatic-clinic:211025", "aquatic-clinic:211026", "aquatic-clinic:211027", "aquatic-clinic:211028", "aquatic-clinic:211029", "aquatic-clinic:211030", "aquatic-clinic:211031", "aquatic-clinic:211032", "aquatic-clinic:211033", "aquatic-clinic:211099", "aquatic-clinic:211100", "aquatic-clinic:211101", "aquatic-clinic:211105"],
           },
           "85": {
-            "unknown": ["aquatic-clinic:105873", "aquatic-clinic:105874", "aquatic-clinic:105875", "aquatic-clinic:105876", "aquatic-clinic:105877", "aquatic-clinic:105878", "aquatic-clinic:105880", "aquatic-clinic:105881", "aquatic-clinic:105883", "aquatic-clinic:105884", "aquatic-clinic:105887", "aquatic-clinic:105889", "aquatic-clinic:105891", "aquatic-clinic:105892", "aquatic-clinic:105893"],
+            "unknown": ["aquatic-clinic:105873", "aquatic-clinic:105874", "aquatic-clinic:105875", "aquatic-clinic:105876", "aquatic-clinic:105877", "aquatic-clinic:105878", "aquatic-clinic:105880", "aquatic-clinic:105881", "aquatic-clinic:105883", "aquatic-clinic:105884", "aquatic-clinic:105887", "aquatic-clinic:105889", "aquatic-clinic:105891", "aquatic-clinic:105892", "aquatic-clinic:105893", "aquatic-clinic:211034", "aquatic-clinic:211035", "aquatic-clinic:211036", "aquatic-clinic:211037", "aquatic-clinic:211038", "aquatic-clinic:211039", "aquatic-clinic:211040", "aquatic-clinic:211041", "aquatic-clinic:211042", "aquatic-clinic:211043", "aquatic-clinic:211044", "aquatic-clinic:211045", "aquatic-clinic:211046", "aquatic-clinic:211047", "aquatic-clinic:211048", "aquatic-clinic:211049", "aquatic-clinic:211050", "aquatic-clinic:211051", "aquatic-clinic:211052", "aquatic-clinic:211053", "aquatic-clinic:211054", "aquatic-clinic:211055", "aquatic-clinic:211056", "aquatic-clinic:211057", "aquatic-clinic:211058", "aquatic-clinic:211059", "aquatic-clinic:211060", "aquatic-clinic:211061", "aquatic-clinic:211062", "aquatic-clinic:211063", "aquatic-clinic:211064", "aquatic-clinic:211065", "aquatic-clinic:211066", "aquatic-clinic:211067", "aquatic-clinic:211068", "aquatic-clinic:211069", "aquatic-clinic:211070", "aquatic-clinic:211071", "aquatic-clinic:211072", "aquatic-clinic:211073", "aquatic-clinic:211074", "aquatic-clinic:211075", "aquatic-clinic:211076", "aquatic-clinic:211102", "aquatic-clinic:211103", "aquatic-clinic:211104", "aquatic-clinic:211105"],
           },
         },
         "unattributed": ["aquatic-clinic:202432", "aquatic-clinic:202433", "aquatic-clinic:202435", "aquatic-clinic:202439", "aquatic-clinic:202440"],
@@ -44,16 +56,22 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["aquatic-clinic:202134", "aquatic-clinic:202135", "aquatic-clinic:202136", "aquatic-clinic:202137", "aquatic-clinic:202138", "aquatic-clinic:202139", "aquatic-clinic:202141", "aquatic-clinic:202144", "aquatic-clinic:202418"],
       },
       "aqua-fish-diseases": {
-        "cohorts": [80],
+        "cohorts": [80, 83, 84],
         "first": 80,
-        "last": 80,
-        "items": 12,
+        "last": 84,
+        "items": 14,
         "sat": {
           "80": {
             "unknown": ["aquatic-clinic:8055", "aquatic-clinic:8058"],
           },
+          "83": {
+            "final": ["aquatic-clinic:202216", "aquatic-clinic:202416", "aquatic-clinic:211095"],
+          },
+          "84": {
+            "final": ["aquatic-clinic:202429", "aquatic-clinic:202441", "aquatic-clinic:211082"],
+          },
         },
-        "unattributed": ["aquatic-clinic:202165", "aquatic-clinic:202216", "aquatic-clinic:202416", "aquatic-clinic:202424", "aquatic-clinic:202425", "aquatic-clinic:202426", "aquatic-clinic:202429", "aquatic-clinic:202431", "aquatic-clinic:202434", "aquatic-clinic:202441"],
+        "unattributed": ["aquatic-clinic:202165", "aquatic-clinic:202424", "aquatic-clinic:202425", "aquatic-clinic:202426", "aquatic-clinic:202431", "aquatic-clinic:202434"],
       },
       "aqua-frog-diseases": {
         "cohorts": [],
@@ -88,24 +106,31 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["aquatic-clinic:202184", "aquatic-clinic:202185", "aquatic-clinic:202186", "aquatic-clinic:202188", "aquatic-clinic:202189", "aquatic-clinic:202430"],
       },
       "aqua-shrimp-diseases": {
-        "cohorts": [80],
+        "cohorts": [80, 84],
         "first": 80,
-        "last": 80,
-        "items": 9,
+        "last": 84,
+        "items": 12,
         "sat": {
           "80": {
             "unknown": ["aquatic-clinic:8056", "aquatic-clinic:8057", "aquatic-clinic:8059"],
           },
+          "84": {
+            "final": ["aquatic-clinic:211097"],
+          },
         },
-        "unattributed": ["aquatic-clinic:202415", "aquatic-clinic:202417", "aquatic-clinic:202419", "aquatic-clinic:202423", "aquatic-clinic:202427", "aquatic-clinic:202428"],
+        "unattributed": ["aquatic-clinic:202415", "aquatic-clinic:202417", "aquatic-clinic:202419", "aquatic-clinic:202423", "aquatic-clinic:202427", "aquatic-clinic:202428", "aquatic-clinic:211077", "aquatic-clinic:211078"],
       },
       "aqua-shrimp-immunology": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 3,
-        "sat": {},
-        "unattributed": ["aquatic-clinic:202420", "aquatic-clinic:202422", "aquatic-clinic:202438"],
+        "cohorts": [84],
+        "first": 84,
+        "last": 84,
+        "items": 7,
+        "sat": {
+          "84": {
+            "final": ["aquatic-clinic:211096"],
+          },
+        },
+        "unattributed": ["aquatic-clinic:202420", "aquatic-clinic:202422", "aquatic-clinic:202438", "aquatic-clinic:211079", "aquatic-clinic:211080", "aquatic-clinic:211081"],
       },
       "aqua-turtle": {
         "cohorts": [],
@@ -126,8 +151,8 @@ export const EXAM_RECURRENCE = {
     },
   },
   "avian-medicine": {
-    "cohorts": [80, 85],
-    "items": 69,
+    "cohorts": [80, 81, 84, 85],
+    "items": 131,
     "topics": {
       "avian-ae": {
         "cohorts": [],
@@ -151,6 +176,18 @@ export const EXAM_RECURRENCE = {
           },
         },
         "unattributed": ["avian-medicine:203012", "avian-medicine:203013", "avian-medicine:203014", "avian-medicine:203015", "avian-medicine:203016", "avian-medicine:203017"],
+      },
+      "avian-campy": {
+        "cohorts": [81],
+        "first": 81,
+        "last": 81,
+        "items": 3,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212527", "avian-medicine:212528", "avian-medicine:212529"],
+          },
+        },
+        "unattributed": [],
       },
       "avian-cia": {
         "cohorts": [85],
@@ -184,6 +221,42 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["avian-medicine:206056", "avian-medicine:206057", "avian-medicine:206058", "avian-medicine:206059", "avian-medicine:206060", "avian-medicine:206061", "avian-medicine:206062", "avian-medicine:206063", "avian-medicine:206064"],
       },
+      "avian-duck-flavi": {
+        "cohorts": [81],
+        "first": 81,
+        "last": 81,
+        "items": 1,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212520"],
+          },
+        },
+        "unattributed": [],
+      },
+      "avian-duck-plague": {
+        "cohorts": [81],
+        "first": 81,
+        "last": 81,
+        "items": 4,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212500", "avian-medicine:212501", "avian-medicine:212502", "avian-medicine:212503"],
+          },
+        },
+        "unattributed": [],
+      },
+      "avian-dvh": {
+        "cohorts": [81],
+        "first": 81,
+        "last": 81,
+        "items": 10,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212504", "avian-medicine:212505", "avian-medicine:212506", "avian-medicine:212507", "avian-medicine:212508", "avian-medicine:212509", "avian-medicine:212510", "avian-medicine:212511", "avian-medicine:212512", "avian-medicine:212513"],
+          },
+        },
+        "unattributed": [],
+      },
       "avian-fowl-cholera": {
         "cohorts": [80],
         "first": 80,
@@ -192,6 +265,18 @@ export const EXAM_RECURRENCE = {
         "sat": {
           "80": {
             "unknown": ["avian-medicine:8032"],
+          },
+        },
+        "unattributed": [],
+      },
+      "avian-goose-parvo": {
+        "cohorts": [81],
+        "first": 81,
+        "last": 81,
+        "items": 6,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212514", "avian-medicine:212515", "avian-medicine:212516", "avian-medicine:212517", "avian-medicine:212518", "avian-medicine:212519"],
           },
         },
         "unattributed": [],
@@ -231,6 +316,21 @@ export const EXAM_RECURRENCE = {
         },
         "unattributed": [],
       },
+      "avian-listeria": {
+        "cohorts": [81, 85],
+        "first": 81,
+        "last": 85,
+        "items": 2,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212530"],
+          },
+          "85": {
+            "final": ["avian-medicine:212560"],
+          },
+        },
+        "unattributed": [],
+      },
       "avian-malaria": {
         "cohorts": [85],
         "first": 85,
@@ -266,6 +366,21 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["avian-medicine:206039", "avian-medicine:206040", "avian-medicine:206041"],
       },
+      "avian-mycosis": {
+        "cohorts": [81, 85],
+        "first": 81,
+        "last": 85,
+        "items": 23,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212531", "avian-medicine:212532", "avian-medicine:212533", "avian-medicine:212534", "avian-medicine:212535", "avian-medicine:212536", "avian-medicine:212537", "avian-medicine:212538", "avian-medicine:212539", "avian-medicine:212540", "avian-medicine:212541", "avian-medicine:212542", "avian-medicine:212543", "avian-medicine:212544", "avian-medicine:212545", "avian-medicine:212546", "avian-medicine:212547", "avian-medicine:212548", "avian-medicine:212549", "avian-medicine:212550", "avian-medicine:212551", "avian-medicine:212552"],
+          },
+          "85": {
+            "final": ["avian-medicine:212561"],
+          },
+        },
+        "unattributed": [],
+      },
       "avian-ne": {
         "cohorts": [85],
         "first": 85,
@@ -274,6 +389,18 @@ export const EXAM_RECURRENCE = {
         "sat": {
           "85": {
             "midterm": ["avian-medicine:106211"],
+          },
+        },
+        "unattributed": [],
+      },
+      "avian-ort": {
+        "cohorts": [81],
+        "first": 81,
+        "last": 81,
+        "items": 6,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212521", "avian-medicine:212522", "avian-medicine:212523", "avian-medicine:212524", "avian-medicine:212525", "avian-medicine:212526"],
           },
         },
         "unattributed": [],
@@ -303,20 +430,40 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "avian-serology": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 6,
-        "sat": {},
+        "cohorts": [81, 84, 85],
+        "first": 81,
+        "last": 85,
+        "items": 8,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212554"],
+          },
+          "84": {
+            "final": ["avian-medicine:212558"],
+          },
+          "85": {
+            "final": ["avian-medicine:212558"],
+          },
+        },
         "unattributed": ["avian-medicine:105806", "avian-medicine:105807", "avian-medicine:105808", "avian-medicine:105809", "avian-medicine:105810", "avian-medicine:105818"],
       },
       "avian-vaccine-prog": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 3,
-        "sat": {},
-        "unattributed": ["avian-medicine:105804", "avian-medicine:105805", "avian-medicine:105817"],
+        "cohorts": [81, 84, 85],
+        "first": 81,
+        "last": 85,
+        "items": 8,
+        "sat": {
+          "81": {
+            "unknown": ["avian-medicine:212553", "avian-medicine:212555"],
+          },
+          "84": {
+            "final": ["avian-medicine:212557"],
+          },
+          "85": {
+            "final": ["avian-medicine:212559"],
+          },
+        },
+        "unattributed": ["avian-medicine:105804", "avian-medicine:105805", "avian-medicine:105817", "avian-medicine:212556"],
       },
     },
   },
@@ -1318,6 +1465,186 @@ export const EXAM_RECURRENCE = {
       },
     },
   },
+  "epidemiology": {
+    "cohorts": [79, 81, 82, 83, 85],
+    "items": 66,
+    "topics": {
+      "epidem-applied-stats": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 5,
+        "sat": {},
+        "unattributed": ["epidemiology:213511", "epidemiology:213512", "epidemiology:213513", "epidemiology:213554", "epidemiology:213558"],
+      },
+      "epidem-causation": {
+        "cohorts": [81, 82],
+        "first": 81,
+        "last": 82,
+        "items": 4,
+        "sat": {
+          "81": {
+            "unknown": ["epidemiology:213503"],
+          },
+          "82": {
+            "final": ["epidemiology:213539"],
+            "unknown": ["epidemiology:213503"],
+          },
+        },
+        "unattributed": ["epidemiology:213509", "epidemiology:213519"],
+      },
+      "epidem-control-prevention": {
+        "cohorts": [79, 81, 82, 83],
+        "first": 79,
+        "last": 83,
+        "items": 10,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213563"],
+          },
+          "81": {
+            "final": ["epidemiology:213529", "epidemiology:213530", "epidemiology:213531", "epidemiology:213532"],
+            "unknown": ["epidemiology:213504"],
+          },
+          "82": {
+            "final": ["epidemiology:213540", "epidemiology:213541"],
+            "unknown": ["epidemiology:213504"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213504"],
+          },
+        },
+        "unattributed": ["epidemiology:213564", "epidemiology:213565"],
+      },
+      "epidem-data-analysis": {
+        "cohorts": [81, 82, 83, 85],
+        "first": 81,
+        "last": 85,
+        "items": 6,
+        "sat": {
+          "81": {
+            "unknown": ["epidemiology:213528"],
+          },
+          "82": {
+            "unknown": ["epidemiology:213528"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213528"],
+          },
+          "85": {
+            "unknown": ["epidemiology:213528"],
+          },
+        },
+        "unattributed": ["epidemiology:213543", "epidemiology:213545", "epidemiology:213555", "epidemiology:213556", "epidemiology:213557"],
+      },
+      "epidem-disease-frequency": {
+        "cohorts": [79, 81, 82, 83],
+        "first": 79,
+        "last": 83,
+        "items": 7,
+        "sat": {
+          "79": {
+            "unknown": ["epidemiology:213502"],
+          },
+          "81": {
+            "final": ["epidemiology:213521", "epidemiology:213523"],
+            "unknown": ["epidemiology:213500", "epidemiology:213501", "epidemiology:213502", "epidemiology:213525"],
+          },
+          "82": {
+            "final": ["epidemiology:213538"],
+            "unknown": ["epidemiology:213500", "epidemiology:213501", "epidemiology:213502", "epidemiology:213525"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213500", "epidemiology:213501", "epidemiology:213502", "epidemiology:213525"],
+          },
+        },
+        "unattributed": [],
+      },
+      "epidem-disease-transmission": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 1,
+        "sat": {},
+        "unattributed": ["epidemiology:213549"],
+      },
+      "epidem-dx-screening": {
+        "cohorts": [79, 81, 83],
+        "first": 79,
+        "last": 83,
+        "items": 7,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213560"],
+          },
+          "81": {
+            "final": ["epidemiology:213535", "epidemiology:213536"],
+            "unknown": ["epidemiology:213526"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213526"],
+          },
+        },
+        "unattributed": ["epidemiology:213546", "epidemiology:213547", "epidemiology:213548"],
+      },
+      "epidem-observational-study": {
+        "cohorts": [79, 81, 83],
+        "first": 79,
+        "last": 83,
+        "items": 13,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213561"],
+          },
+          "81": {
+            "final": ["epidemiology:213524", "epidemiology:213533", "epidemiology:213534"],
+            "unknown": ["epidemiology:213527"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213527"],
+          },
+        },
+        "unattributed": ["epidemiology:213510", "epidemiology:213514", "epidemiology:213515", "epidemiology:213516", "epidemiology:213517", "epidemiology:213520", "epidemiology:213542", "epidemiology:213544"],
+      },
+      "epidem-outbreak-investigation": {
+        "cohorts": [79, 81, 82, 83],
+        "first": 79,
+        "last": 83,
+        "items": 8,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213562"],
+          },
+          "81": {
+            "unknown": ["epidemiology:213522"],
+          },
+          "82": {
+            "final": ["epidemiology:213537"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213507", "epidemiology:213508", "epidemiology:213522"],
+          },
+        },
+        "unattributed": ["epidemiology:213506", "epidemiology:213550", "epidemiology:213551"],
+      },
+      "epidem-sample-size": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 1,
+        "sat": {},
+        "unattributed": ["epidemiology:213559"],
+      },
+      "epidem-surveillance": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 4,
+        "sat": {},
+        "unattributed": ["epidemiology:213505", "epidemiology:213518", "epidemiology:213552", "epidemiology:213553"],
+      },
+    },
+  },
   "equine-medicine": {
     "cohorts": [81, 83, 84, 85],
     "items": 253,
@@ -1489,20 +1816,16 @@ export const EXAM_RECURRENCE = {
     },
   },
   "equine-repro": {
-    "cohorts": [85],
-    "items": 128,
+    "cohorts": [84, 85],
+    "items": 133,
     "topics": {
       "eqrepro-ai": {
-        "cohorts": [85],
-        "first": 85,
-        "last": 85,
+        "cohorts": [],
+        "first": null,
+        "last": null,
         "items": 11,
-        "sat": {
-          "85": {
-            "final": ["equine-repro:105468", "equine-repro:105469", "equine-repro:105470", "equine-repro:105471", "equine-repro:105472", "equine-repro:105473", "equine-repro:105474", "equine-repro:105475", "equine-repro:105476", "equine-repro:105477", "equine-repro:105478"],
-          },
-        },
-        "unattributed": [],
+        "sat": {},
+        "unattributed": ["equine-repro:105468", "equine-repro:105469", "equine-repro:105470", "equine-repro:105471", "equine-repro:105472", "equine-repro:105473", "equine-repro:105474", "equine-repro:105475", "equine-repro:105476", "equine-repro:105477", "equine-repro:105478"],
       },
       "eqrepro-anatomy-cycle": {
         "cohorts": [85],
@@ -1553,51 +1876,51 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "eqrepro-infertility": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [84, 85],
+        "first": 84,
         "last": 85,
-        "items": 14,
+        "items": 12,
         "sat": {
+          "84": {
+            "final": ["equine-repro:105436"],
+          },
           "85": {
-            "midterm": ["equine-repro:105491", "equine-repro:105512", "equine-repro:105514", "equine-repro:105516", "equine-repro:105517", "equine-repro:105533", "equine-repro:105534", "equine-repro:105546", "equine-repro:202247"],
-            "final": ["equine-repro:105432", "equine-repro:105434", "equine-repro:105435", "equine-repro:105436", "equine-repro:105492"],
+            "midterm": ["equine-repro:105491", "equine-repro:105512", "equine-repro:105514", "equine-repro:105516", "equine-repro:105517", "equine-repro:105533", "equine-repro:105534", "equine-repro:105546", "equine-repro:202247", "equine-repro:211503"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["equine-repro:105492"],
       },
       "eqrepro-male": {
-        "cohorts": [85],
-        "first": 85,
-        "last": 85,
-        "items": 16,
-        "sat": {
-          "85": {
-            "final": ["equine-repro:105452", "equine-repro:105453", "equine-repro:105454", "equine-repro:105455", "equine-repro:105456", "equine-repro:105457", "equine-repro:105458", "equine-repro:105459", "equine-repro:105460", "equine-repro:105461", "equine-repro:105462", "equine-repro:105463", "equine-repro:105464", "equine-repro:105465", "equine-repro:105466", "equine-repro:105467"],
-          },
-        },
-        "unattributed": [],
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 18,
+        "sat": {},
+        "unattributed": ["equine-repro:105452", "equine-repro:105453", "equine-repro:105454", "equine-repro:105455", "equine-repro:105456", "equine-repro:105457", "equine-repro:105458", "equine-repro:105459", "equine-repro:105460", "equine-repro:105461", "equine-repro:105462", "equine-repro:105463", "equine-repro:105464", "equine-repro:105465", "equine-repro:105466", "equine-repro:105467", "equine-repro:211500", "equine-repro:211502"],
       },
       "eqrepro-postpartum": {
-        "cohorts": [85],
-        "first": 85,
-        "last": 85,
+        "cohorts": [84],
+        "first": 84,
+        "last": 84,
         "items": 6,
         "sat": {
-          "85": {
+          "84": {
             "final": ["equine-repro:105446", "equine-repro:105447", "equine-repro:105448", "equine-repro:105449", "equine-repro:105450", "equine-repro:105451"],
           },
         },
         "unattributed": [],
       },
       "eqrepro-pregnancy": {
-        "cohorts": [85],
-        "first": 85,
+        "cohorts": [84, 85],
+        "first": 84,
         "last": 85,
-        "items": 15,
+        "items": 18,
         "sat": {
+          "84": {
+            "final": ["equine-repro:105432", "equine-repro:105433", "equine-repro:105434", "equine-repro:105435", "equine-repro:105437", "equine-repro:105438", "equine-repro:105439", "equine-repro:105440", "equine-repro:105441", "equine-repro:105442", "equine-repro:105443", "equine-repro:105444", "equine-repro:105445"],
+          },
           "85": {
             "midterm": ["equine-repro:105513", "equine-repro:105518", "equine-repro:105519", "equine-repro:105522", "equine-repro:105547"],
-            "final": ["equine-repro:105433", "equine-repro:105437", "equine-repro:105438", "equine-repro:105439", "equine-repro:105440", "equine-repro:105441", "equine-repro:105442", "equine-repro:105443", "equine-repro:105444", "equine-repro:105445"],
           },
         },
         "unattributed": [],
@@ -1606,26 +1929,21 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 12,
+        "items": 14,
         "sat": {
           "85": {
-            "midterm": ["equine-repro:105538", "equine-repro:105539", "equine-repro:105540", "equine-repro:105541", "equine-repro:105542", "equine-repro:105543", "equine-repro:202250"],
-            "final": ["equine-repro:105479", "equine-repro:105480", "equine-repro:105481", "equine-repro:105482"],
+            "midterm": ["equine-repro:105538", "equine-repro:105539", "equine-repro:105540", "equine-repro:105541", "equine-repro:105542", "equine-repro:105543", "equine-repro:202250", "equine-repro:211504"],
           },
         },
-        "unattributed": ["equine-repro:202091"],
+        "unattributed": ["equine-repro:105479", "equine-repro:105480", "equine-repro:105481", "equine-repro:105482", "equine-repro:202091", "equine-repro:211501"],
       },
       "eqrepro-surgery": {
-        "cohorts": [85],
-        "first": 85,
-        "last": 85,
+        "cohorts": [],
+        "first": null,
+        "last": null,
         "items": 8,
-        "sat": {
-          "85": {
-            "final": ["equine-repro:105483", "equine-repro:105484", "equine-repro:105485", "equine-repro:105486", "equine-repro:105487", "equine-repro:105488", "equine-repro:105489", "equine-repro:105490"],
-          },
-        },
-        "unattributed": [],
+        "sat": {},
+        "unattributed": ["equine-repro:105483", "equine-repro:105484", "equine-repro:105485", "equine-repro:105486", "equine-repro:105487", "equine-repro:105488", "equine-repro:105489", "equine-repro:105490"],
       },
     },
   },
@@ -2210,8 +2528,132 @@ export const EXAM_RECURRENCE = {
   },
   "milk-meat-hygiene": {
     "cohorts": [85],
-    "items": 158,
+    "items": 307,
     "topics": {
+      "meat-ante-post-mortem": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 22,
+        "sat": {},
+        "unattributed": ["milk-meat-hygiene:212001", "milk-meat-hygiene:212002", "milk-meat-hygiene:212003", "milk-meat-hygiene:212004", "milk-meat-hygiene:212005", "milk-meat-hygiene:212006", "milk-meat-hygiene:212007", "milk-meat-hygiene:212008", "milk-meat-hygiene:212009", "milk-meat-hygiene:212010", "milk-meat-hygiene:212011", "milk-meat-hygiene:212012", "milk-meat-hygiene:212013", "milk-meat-hygiene:212016", "milk-meat-hygiene:212023", "milk-meat-hygiene:212024", "milk-meat-hygiene:212025", "milk-meat-hygiene:212026", "milk-meat-hygiene:212138", "milk-meat-hygiene:212139", "milk-meat-hygiene:212140", "milk-meat-hygiene:212141"],
+      },
+      "meat-cutting-grading": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 12,
+        "sat": {
+          "85": {
+            "final": ["milk-meat-hygiene:212069", "milk-meat-hygiene:212070", "milk-meat-hygiene:212071", "milk-meat-hygiene:212073", "milk-meat-hygiene:212074", "milk-meat-hygiene:212075"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212018", "milk-meat-hygiene:212019", "milk-meat-hygiene:212072", "milk-meat-hygiene:212086", "milk-meat-hygiene:212134", "milk-meat-hygiene:212147"],
+      },
+      "meat-egg-micro": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 15,
+        "sat": {
+          "85": {
+            "final": ["milk-meat-hygiene:212043", "milk-meat-hygiene:212044", "milk-meat-hygiene:212045", "milk-meat-hygiene:212046", "milk-meat-hygiene:212047", "milk-meat-hygiene:212048", "milk-meat-hygiene:212049", "milk-meat-hygiene:212050", "milk-meat-hygiene:212051", "milk-meat-hygiene:212052", "milk-meat-hygiene:212053", "milk-meat-hygiene:212054", "milk-meat-hygiene:212055", "milk-meat-hygiene:212056", "milk-meat-hygiene:212057"],
+          },
+        },
+        "unattributed": [],
+      },
+      "meat-hygiene-intro": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 7,
+        "sat": {
+          "85": {
+            "unknown": ["milk-meat-hygiene:212114", "milk-meat-hygiene:212117", "milk-meat-hygiene:212120", "milk-meat-hygiene:212122", "milk-meat-hygiene:212124"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212129", "milk-meat-hygiene:212137"],
+      },
+      "meat-microbiology": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 21,
+        "sat": {
+          "85": {
+            "unknown": ["milk-meat-hygiene:212089", "milk-meat-hygiene:212091"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212058", "milk-meat-hygiene:212059", "milk-meat-hygiene:212060", "milk-meat-hygiene:212061", "milk-meat-hygiene:212062", "milk-meat-hygiene:212063", "milk-meat-hygiene:212064", "milk-meat-hygiene:212065", "milk-meat-hygiene:212066", "milk-meat-hygiene:212067", "milk-meat-hygiene:212068", "milk-meat-hygiene:212087", "milk-meat-hygiene:212088", "milk-meat-hygiene:212090", "milk-meat-hygiene:212092", "milk-meat-hygiene:212093", "milk-meat-hygiene:212094", "milk-meat-hygiene:212095", "milk-meat-hygiene:212146"],
+      },
+      "meat-molecular": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 5,
+        "sat": {
+          "85": {
+            "unknown": ["milk-meat-hygiene:212108", "milk-meat-hygiene:212109", "milk-meat-hygiene:212110"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212131", "milk-meat-hygiene:212132"],
+      },
+      "meat-pest-control": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 18,
+        "sat": {},
+        "unattributed": ["milk-meat-hygiene:212029", "milk-meat-hygiene:212030", "milk-meat-hygiene:212031", "milk-meat-hygiene:212032", "milk-meat-hygiene:212033", "milk-meat-hygiene:212034", "milk-meat-hygiene:212035", "milk-meat-hygiene:212036", "milk-meat-hygiene:212037", "milk-meat-hygiene:212038", "milk-meat-hygiene:212039", "milk-meat-hygiene:212040", "milk-meat-hygiene:212041", "milk-meat-hygiene:212042", "milk-meat-hygiene:212142", "milk-meat-hygiene:212143", "milk-meat-hygiene:212144", "milk-meat-hygiene:212148"],
+      },
+      "meat-quality": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 3,
+        "sat": {
+          "85": {
+            "unknown": ["milk-meat-hygiene:212106", "milk-meat-hygiene:212107"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212130"],
+      },
+      "meat-seafood": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 14,
+        "sat": {
+          "85": {
+            "unknown": ["milk-meat-hygiene:212111", "milk-meat-hygiene:212112", "milk-meat-hygiene:212113", "milk-meat-hygiene:212115", "milk-meat-hygiene:212116", "milk-meat-hygiene:212118", "milk-meat-hygiene:212119", "milk-meat-hygiene:212121", "milk-meat-hygiene:212123", "milk-meat-hygiene:212125", "milk-meat-hygiene:212126", "milk-meat-hygiene:212127", "milk-meat-hygiene:212128"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212145"],
+      },
+      "meat-slaughter": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 19,
+        "sat": {
+          "85": {
+            "final": ["milk-meat-hygiene:212076", "milk-meat-hygiene:212077", "milk-meat-hygiene:212078", "milk-meat-hygiene:212079", "milk-meat-hygiene:212080", "milk-meat-hygiene:212081", "milk-meat-hygiene:212082"],
+          },
+        },
+        "unattributed": ["milk-meat-hygiene:212000", "milk-meat-hygiene:212014", "milk-meat-hygiene:212015", "milk-meat-hygiene:212017", "milk-meat-hygiene:212020", "milk-meat-hygiene:212021", "milk-meat-hygiene:212022", "milk-meat-hygiene:212027", "milk-meat-hygiene:212028", "milk-meat-hygiene:212133", "milk-meat-hygiene:212135", "milk-meat-hygiene:212136"],
+      },
+      "meat-storage": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 10,
+        "sat": {
+          "85": {
+            "unknown": ["milk-meat-hygiene:212096", "milk-meat-hygiene:212097", "milk-meat-hygiene:212098", "milk-meat-hygiene:212099", "milk-meat-hygiene:212100", "milk-meat-hygiene:212101", "milk-meat-hygiene:212102", "milk-meat-hygiene:212103", "milk-meat-hygiene:212104", "milk-meat-hygiene:212105"],
+          },
+        },
+        "unattributed": [],
+      },
       "milk-biosec-dairy": {
         "cohorts": [85],
         "first": 85,
@@ -2240,10 +2682,11 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 11,
+        "items": 14,
         "sat": {
           "85": {
             "midterm": ["milk-meat-hygiene:105744", "milk-meat-hygiene:105745", "milk-meat-hygiene:105746", "milk-meat-hygiene:105747", "milk-meat-hygiene:105748", "milk-meat-hygiene:105749", "milk-meat-hygiene:105750", "milk-meat-hygiene:105751", "milk-meat-hygiene:105752", "milk-meat-hygiene:105753"],
+            "final": ["milk-meat-hygiene:212083", "milk-meat-hygiene:212084", "milk-meat-hygiene:212085"],
           },
         },
         "unattributed": ["milk-meat-hygiene:202274"],
@@ -4161,6 +4604,13 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     ],
   },
   {
+    "cohorts": [84, 85],
+    "members": [
+      ["aquatic-clinic:211005", [84]],
+      ["aquatic-clinic:211044", [85]],
+    ],
+  },
+  {
     "cohorts": [],
     "members": [
       ["avian-medicine:206041", []],
@@ -4172,6 +4622,13 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     "members": [
       ["avian-medicine:206108", []],
       ["poultry:1709", []],
+    ],
+  },
+  {
+    "cohorts": [81, 85],
+    "members": [
+      ["avian-medicine:212532", [81]],
+      ["zoonoses:106160", [85]],
     ],
   },
   {
@@ -4499,16 +4956,16 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     ],
   },
   {
-    "cohorts": [85],
+    "cohorts": [84, 85],
     "members": [
-      ["equine-repro:105434", [85]],
+      ["equine-repro:105434", [84]],
       ["equine-repro:105517", [85]],
     ],
   },
   {
     "cohorts": [85],
     "members": [
-      ["equine-repro:105482", [85]],
+      ["equine-repro:105482", []],
       ["equine-repro:105537", [85]],
     ],
   },
@@ -4587,6 +5044,29 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     "members": [
       ["milk-meat-hygiene:104748", []],
       ["milk-meat-hygiene:105768", [85]],
+    ],
+  },
+  {
+    "cohorts": [],
+    "members": [
+      ["milk-meat-hygiene:212030", []],
+      ["milk-meat-hygiene:212031", []],
+      ["milk-meat-hygiene:212032", []],
+      ["milk-meat-hygiene:212037", []],
+      ["milk-meat-hygiene:212038", []],
+      ["milk-meat-hygiene:212040", []],
+      ["milk-meat-hygiene:212041", []],
+    ],
+  },
+  {
+    "cohorts": [],
+    "members": [
+      ["milk-meat-hygiene:212033", []],
+      ["milk-meat-hygiene:212034", []],
+      ["milk-meat-hygiene:212035", []],
+      ["milk-meat-hygiene:212036", []],
+      ["milk-meat-hygiene:212039", []],
+      ["milk-meat-hygiene:212042", []],
     ],
   },
   {

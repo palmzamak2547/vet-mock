@@ -82,3 +82,4 @@ connected-e2e.json
 
 # The Android app's copy of the build (mobile/scripts/fetch-bundle.mjs writes it)
 mobile/www/
+__pycache__/

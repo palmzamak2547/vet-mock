@@ -11,7 +11,12 @@ const atlasEntry = (server) => {
 };
 
 export default defineConfig({
-  plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry }],
+  plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry },
+    // The commit a Vercel build serves, so a live check reads it from the page instead of from a
+    // version string that a release without a changelog entry never changes (5.180.0). Not in
+    // atlas.html: its bytes are Atlas's offline revision, and a new revision on every deploy would
+    // make each offline Atlas re-fetch and re-hash its whole shell.
+    { name: 'build-sha', transformIndexHtml: (html, { path }) => (process.env.VERCEL_GIT_COMMIT_SHA && path === '/index.html' ? [{ tag: 'meta', attrs: { name: 'vmx-build', content: process.env.VERCEL_GIT_COMMIT_SHA }, injectTo: 'head' }] : []) }],
   // '@' resolves to src/. Nothing imports through it today; jsconfig.json
   // mirrors it for editors.
   resolve: {
@@ -195,6 +200,10 @@ export default defineConfig({
           if (id.includes('questions-y5-equine-final-recall')) return 'data-q-y5-equine-final-recall'
           if (id.includes('questions-y5-one-health-final-recall')) return 'data-q-y5-one-health-final-recall'
           if (id.includes('questions-y5-zoonoses-final-recall')) return 'data-q-y5-zoonoses-final-recall'
+          if (id.includes('questions-y5-aquatic-final-recall')) return 'data-q-y5-aquatic-final-recall'
+          if (id.includes('questions-y5-milk-meat-final-recall')) return 'data-q-y5-milk-meat-final-recall'
+          if (id.includes('questions-y5-avian-final-recall')) return 'data-q-y5-avian-final-recall'
+          if (id.includes('questions-y5-epid-final-recall')) return 'data-q-y5-epid-final-recall'
           if (id.includes('data/instructors')) return 'data-instructors'
           // Palm audit r4 (2026-05-24): video-summaries was a 2.2MB monolith.
           // scripts/split-video-summaries.cjs broke it into per-subject
