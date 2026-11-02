@@ -26,7 +26,7 @@ const NOTE = { size: MIN.thai, leading: 1.32, gap: 8, lines: 4 };
 const BAR_W = 22;
 // Teaching rows: the paper's bar, the date, the session, its lecturers.
 const COL = { date: A4.live.left + BAR_W, title: A4.live.left + 172, who: A4.live.right - 300 };
-// Two pages drawn at 2x and stacked for the picture would pass what an iPhone
+// Pages drawn at 2x and stacked for the picture would pass what an iPhone
 // allows one canvas; 1.5x still prints at 225 dpi.
 const MULTI_PAGE_SCALE = 1.5;
 
@@ -166,12 +166,28 @@ function nameLines(card, list, width, style) {
   return lines;
 }
 
+/** "เดิม 7 และ 21 ส.ค." broken only before "และ" or after a comma, never inside "21 ส.ค.". */
+function statusLines(card, text, width, style) {
+  card.style(style);
+  const lines = [];
+  for (const piece of text.split(/(?= และ )|(?<=, )/)) {
+    const last = lines.at(-1);
+    if (last !== undefined && card.measure(last + piece) <= width) lines[lines.length - 1] = last + piece;
+    else lines.push(piece.trim());
+  }
+  return lines;
+}
+
 function names(card, cut, list, x, top, width, style, role = 'names') {
   const lines = nameLines(card, list, width, style);
   for (const n of list.split(', ')) if (card.measure(n) > width + 1) cut.push(`the name "${n}" is wider than its column`);
+  return drawLines(card, lines, x, top, style, role);
+}
+
+/** Lines at the house leading from `top`, in the style last set: { lineBottom, ascent, lines }. */
+function drawLines(card, lines, x, top, style, role) {
   const { ascent, descent } = inkMetrics(card.ctx);
-  const size = style.size;
-  const step = Math.max(size * 1.32, ascent + descent + size * 0.08);
+  const step = Math.max(style.size * 1.32, ascent + descent + style.size * 0.08);
   lines.forEach((l, i) => card.textInk(l, x, top + ascent + i * step, style, role));
   return { lineBottom: top + ascent + (lines.length - 1) * step + descent, ascent, lines: lines.length };
 }
@@ -239,6 +255,7 @@ function syllabusBody(card, doc, y, o) {
 
   // The score split as one more row of the facts' table: each part, its share,
   // and the lecturers' shares within it where the syllabus gives them.
+  if (doc.score === false) return { end: y, cut };
   y += o.gap;
   card.para('สัดส่วนคะแนน', left, y, labelW, { weight: 600, size: o.size, color: pal.sage }, { maxLines: 1, balance: false, role: 'fact' });
   const lines = doc.assessment
@@ -250,13 +267,27 @@ function syllabusBody(card, doc, y, o) {
   return { end: y, cut };
 }
 
-/** Draw the syllabus page: { card, problems, slack, setting } (the setting's index; the last when none fits). */
+/** Draw the syllabus: { card, cards, problems, slack, setting } (the setting's index; the last when none fits). */
 export async function drawSyllabus(doc, { scale = SCALE } = {}) {
   const notes = [...doc.notes, doc.source];
-  const body = (card, y, o) => syllabusBody(card, doc, y, o);
-  const i = fitting(doc, notes, body, SYLLABUS_SETTINGS);
-  const setting = i < 0 ? SYLLABUS_SETTINGS.length - 1 : i;
-  return { ...render(doc, notes, body, SYLLABUS_SETTINGS[setting], scale), setting };
+  const bodyOf = (d) => (card, y, o) => syllabusBody(card, d, y, o);
+  const last = SYLLABUS_SETTINGS.length - 1;
+  const i = fitting(doc, notes, bodyOf(doc), SYLLABUS_SETTINGS);
+  if (i >= 0 || !doc.papers.length) {
+    const setting = i < 0 ? last : i;
+    const page = render(doc, notes, bodyOf(doc), SYLLABUS_SETTINGS[setting], scale);
+    return { ...page, cards: [page.card], setting };
+  }
+  // Thai set wider than one page holds at the tightest setting (another
+  // engine's metrics): the first paper stays on page 1, the rest and the
+  // score split go to page 2.
+  const parts = [
+    { ...doc, kicker: `${doc.kicker}, หน้า 1 จาก 2`, papers: doc.papers.slice(0, 1), score: false },
+    { ...doc, kicker: `${doc.kicker}, หน้า 2 จาก 2`, facts: [], papers: doc.papers.slice(1) },
+  ];
+  const fit = parts.map((d) => fitting(d, notes, bodyOf(d), SYLLABUS_SETTINGS));
+  const j = fit.includes(-1) ? last : Math.max(...fit);
+  return renderPages(parts, notes, bodyOf, SYLLABUS_SETTINGS[j], scale, j);
 }
 
 // ── The teaching timetable ───────────────────────────────────
@@ -322,8 +353,15 @@ function teachingBody(card, doc, rows, y, o) {
     // the plan), then the row's own time when it has one.
     const dateW = COL.title - COL.date - 12;
     let d = para(card, cut, r.when, COL.date, y0, dateW, { weight: 600, size: MIN.thai, color: ink }, { maxLines: 1 }).lineBottom;
-    if (r.status) d = para(card, cut, r.status, COL.date, d + 4, dateW, { weight: 600, size: MIN.thai, color: r.status === 'ตามแผน' ? pal.soft : pal.rose }, { maxLines: 2 }).lineBottom;
-    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, dateW, { weight: 400, size: MIN.latin + 2, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
+    if (r.status) {
+      const st = { weight: 600, size: MIN.thai, color: r.status === 'ตามแผน' ? pal.soft : pal.rose };
+      const ls = statusLines(card, r.status, dateW, st);
+      for (const l of ls) if (card.measure(l) > dateW + 1) cut.push(`the status "${l}" is wider than its column`);
+      d = drawLines(card, ls, COL.date, d + 4, st, 'text').lineBottom;
+    }
+    // At the smallest Latin size: "09:00–09:30" one size up filled the column
+    // to within a few pixels, and an engine whose digits set wider cut it.
+    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, dateW, { weight: 400, size: MIN.latin, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
     const w = r.lecturers ? names(card, cut, r.lecturers, COL.who, y0, whoW, { weight: 500, size: MIN.thai, color: r.kind === 'exam' ? pal.ink : pal.soft }).lineBottom : y0;
     // A note and an announced change run under the title and the lecturers,
     // title to edge, beside a date column that may run longer.
@@ -336,48 +374,85 @@ function teachingBody(card, doc, rows, y, o) {
   return { end: y, cut };
 }
 
+/** A page of a longer table: its rows, its number, and the staff named once, on page 1. */
+const pageOf = (doc, rows, k, total) => ({ ...doc, rows, kicker: `${doc.kicker}, หน้า ${k + 1} จาก ${total}`, staff: k ? '' : doc.staff });
+
 /**
- * Two pages: cut after the midterm paper when both halves fit, else after
- * the most rows the first page holds. Each half with its setting index (the
- * last when it fits none).
+ * A table longer than a page: as few pages as hold every row, cut after the
+ * midterm paper when two pages hold those halves, else each page as full as
+ * it goes, at the roomiest setting that keeps the count. Another engine's
+ * Thai can run wider than the one this was checked on, so the count is found
+ * where the page is drawn, never fixed. { parts, i }.
  */
-function twoPages(doc, notes, bodyOf) {
-  // The staff the rows call "all of them" are named once, on the first page.
-  const half = (rows, k) => ({ rows, doc: { ...doc, kicker: `${doc.kicker}, หน้า ${k + 1} จาก 2`, staff: k ? '' : doc.staff } });
-  const tightest = TEACHING_SETTINGS.length - 1;
-  // A cut is tried at the tightest setting first, one dry run a page, and
-  // only one that fits looks for the roomiest setting both pages take.
-  const fitsAtAll = (p) => attempt(p.doc, notes, bodyOf(p.doc, p.rows), TEACHING_SETTINGS[tightest], { dry: true }).cut.length === 0;
+function paginate(doc, notes, bodyOf, settings) {
   const n = doc.rows.length;
+  const last = settings.length - 1;
+  // The kicker's "หน้า 1 จาก 9" sets as wide as the final count's.
+  const fits = (rows, k, o) => {
+    const d = pageOf(doc, rows, k, 9);
+    return attempt(d, notes, bodyOf(d), o, { dry: true }).cut.length === 0;
+  };
+  // A page that holds m rows holds fewer, so a binary search finds the most it takes.
+  const fill = (o) => {
+    const parts = [];
+    for (let at = 0; at < n;) {
+      let lo = 1;
+      let hi = n - at;
+      let take = 0;
+      while (lo <= hi) {
+        const m = (lo + hi) >> 1;
+        if (fits(doc.rows.slice(at, at + m), parts.length, o)) { take = m; lo = m + 1; } else hi = m - 1;
+      }
+      if (!take) return null;
+      parts.push(doc.rows.slice(at, at + take));
+      at += take;
+    }
+    return parts;
+  };
+  const done = (parts, i) => ({ parts: parts.map((rows, k) => pageOf(doc, rows, k, parts.length)), i });
+  const fewest = fill(settings[last]);
+  // A row taller than a page: drawn anyway, and the check names it.
+  if (!fewest) return done([doc.rows.slice(0, Math.ceil(n / 2)), doc.rows.slice(Math.ceil(n / 2))], last);
   const mid = doc.rows.findIndex((r) => r.kind === 'exam' && r.paper === 'midterm') + 1;
-  const cuts = [...(mid > 0 && mid < n ? [mid] : []), ...Array.from({ length: n - 1 }, (_, k) => n - 1 - k)];
-  for (const at of cuts) {
-    const parts = [half(doc.rows.slice(0, at), 0), half(doc.rows.slice(at), 1)];
-    if (!fitsAtAll(parts[0]) || !fitsAtAll(parts[1])) continue;
-    return { parts, i: Math.max(...parts.map((p) => fitting(p.doc, notes, bodyOf(p.doc, p.rows), TEACHING_SETTINGS))) };
+  if (fewest.length === 2 && mid > 0 && mid < n) {
+    const halves = [doc.rows.slice(0, mid), doc.rows.slice(mid)];
+    const i = settings.findIndex((o) => halves.every((rows, k) => fits(rows, k, o)));
+    if (i >= 0) return done(halves, i);
   }
-  const at = mid > 0 && mid < n ? mid : Math.ceil(n / 2);
-  return { parts: [half(doc.rows.slice(0, at), 0), half(doc.rows.slice(at), 1)], i: tightest };
+  for (const [i, o] of settings.entries()) {
+    const parts = i === last ? fewest : fill(o);
+    if (parts && parts.length === fewest.length) return done(parts, i);
+  }
+  return done(fewest, last);
 }
 
-/** Draw the teaching timetable: { card, cards, problems }, `cards` one page or two. */
-export async function drawTeaching(doc, { scale = SCALE } = {}) {
-  const notes = [...doc.notes, doc.source];
-  const bodyOf = (d, rows) => (card, y, o) => teachingBody(card, d, rows, y, o);
-  const one = fitting(doc, notes, bodyOf(doc, doc.rows), TEACHING_SETTINGS);
-  if (one >= 0) {
-    const { card, problems, slack } = render(doc, notes, bodyOf(doc, doc.rows), TEACHING_SETTINGS[one], scale);
-    return { card, cards: [card], problems, slack, setting: one };
-  }
-  // One setting for both pages, so they read as one table.
-  const { parts, i } = twoPages(doc, notes, bodyOf);
+/** Draw each page at one setting; a page that cannot be drawn gives back the canvases already drawn. */
+function renderPages(parts, notes, bodyOf, o, scale, setting) {
   const drawn = [];
   try {
-    for (const p of parts) drawn.push(render(p.doc, notes, bodyOf(p.doc, p.rows), TEACHING_SETTINGS[i], Math.min(scale, MULTI_PAGE_SCALE)));
+    for (const d of parts) drawn.push(render(d, notes, bodyOf(d), o, Math.min(scale, MULTI_PAGE_SCALE)));
   } catch (err) {
-    // A page the phone could not hold: give back the one already drawn before the retry.
     for (const x of drawn) { x.card.canvas.width = 0; x.card.canvas.height = 0; }
     throw err;
   }
-  return { card: drawn[0].card, cards: drawn.map((x) => x.card), problems: drawn.flatMap((x) => x.problems), slack: Math.min(...drawn.map((x) => x.slack)), setting: i };
+  return {
+    card: drawn[0].card,
+    cards: drawn.map((x) => x.card),
+    problems: drawn.flatMap((x) => x.problems),
+    slack: Math.min(...drawn.map((x) => x.slack)),
+    setting,
+  };
+}
+
+/** Draw the teaching timetable: { card, cards, problems, slack, setting }, `cards` one a page. */
+export async function drawTeaching(doc, { scale = SCALE } = {}) {
+  const notes = [...doc.notes, doc.source];
+  const bodyOf = (d) => (card, y, o) => teachingBody(card, d, d.rows, y, o);
+  const one = fitting(doc, notes, bodyOf(doc), TEACHING_SETTINGS);
+  if (one >= 0) {
+    const { card, problems, slack } = render(doc, notes, bodyOf(doc), TEACHING_SETTINGS[one], scale);
+    return { card, cards: [card], problems, slack, setting: one };
+  }
+  const { parts, i } = paginate(doc, notes, bodyOf, TEACHING_SETTINGS);
+  return renderPages(parts, notes, bodyOf, TEACHING_SETTINGS[i], scale, i);
 }

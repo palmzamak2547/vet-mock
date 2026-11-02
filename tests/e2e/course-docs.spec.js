@@ -74,7 +74,7 @@ test('the syllabus downloads as a one-page A4 PDF', async ({ page }) => {
   expect(pdf.getTitle()).toContain('อายุรศาสตร์สัตว์ปีก');
 });
 
-test('a teaching timetable longer than a page downloads as two A4 pages', async ({ page }) => {
+test('a teaching timetable longer than a page downloads as one A4 page each', async ({ page }) => {
   await page.goto('/app/schedule');
   const { dialog, preview } = await open(page, 'ตารางสอน', 'สุขศาสตร์น้ำนมและการตรวจคุณภาพเนื้อสัตว์');
   // The picture is the pages one under the other.
@@ -85,8 +85,10 @@ test('a teaching timetable longer than a page downloads as two A4 pages', async 
     dialog.getByRole('button', { name: 'ดาวน์โหลด PDF' }).click(),
   ]);
   expect(download.suggestedFilename()).toBe('vetmock-teaching-3109503-2569-1.pdf');
+  // As many pages as this engine's Thai needed, and the preview says how many.
   const pdf = await PDFDocument.load(fs.readFileSync(await download.path()));
-  expect(pdf.getPageCount()).toBe(2);
+  expect(pdf.getPageCount()).toBeGreaterThanOrEqual(2);
+  await expect(preview).toHaveAttribute('data-pages', String(pdf.getPageCount()));
 });
 
 // A sheet that cannot load says so beside the course list that was tapped,

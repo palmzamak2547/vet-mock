@@ -45,7 +45,8 @@ const release = (canvas) => {
 };
 
 // The picture of a document longer than one page: its pages one under the
-// other, at most this wide, so two pages stay under a phone's canvas cap.
+// other, at most this wide, so up to four A4 pages stay under a phone's
+// canvas cap (16.7 million pixels).
 const STACK_W = 1550;
 
 function stack(canvases) {
