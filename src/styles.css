@@ -4701,6 +4701,15 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   margin-bottom: 4px;
   color: var(--clr-gold-text);
 }
+.vmx-feedback-explain-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.vmx-instant-feedback .vmx-feedback-explain-head .k { margin-bottom: 0; }
+.vmx-instant-feedback .w .vmx-tts-note { margin: 6px 0 0; }
+/* The เหตุผล read-aloud: a 32px circle whose touch area reaches 44px, with
+   negative margins so the row keeps the label's height. */
+.vmx-listen-btn { position: relative; flex: none; width: 32px; height: 32px; margin: -4px -4px -4px 0; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
+.vmx-listen-btn::after { content: ''; position: absolute; inset: -6px; }
+.vmx-listen-btn:hover { border-color: var(--clr-ocean); }
+.vmx-listen-btn.is-on { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
 @keyframes vmx-instant-in {
   from { opacity: 0; transform: translateY(-3px); }
   to { opacity: 1; transform: translateY(0); }

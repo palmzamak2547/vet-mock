@@ -12,10 +12,12 @@ import assert from 'node:assert/strict';
 
 const played = [];
 const requested = [];
-let manifest = [];
+let manifest = [];       // every generation's, unless manifestE1 is set
+let manifestE1 = null;   // the ElevenLabs generation's own
 globalThis.fetch = async (url) => {
   requested.push(String(url));
-  if (String(url).includes('/m/')) return new Response(JSON.stringify(manifest), { status: 200 });
+  const e1 = String(url).includes('/e1/m/') && manifestE1;
+  if (String(url).includes('/m/')) return new Response(JSON.stringify(e1 || manifest), { status: 200 });
   const key = String(url).match(/([0-9a-f]{16})\.mp4$/)[1];
   return new Response(new TextEncoder().encode(key), { status: 200 });
 };
@@ -82,4 +84,66 @@ test('one clip missing from the manifest: nothing shared plays, the live chain r
   await tts.speakQuestion({ stem, options, subject: 'other-subject', controller: { cancelled: false }, onEnd: () => ended++, onFail: () => {} });
   assert.equal(played.filter((p) => manifest.includes(p.key)).length, 0);
   assert.ok(ended >= 1, 'the read-aloud still ends');
+});
+
+test('speech text: markers dropped, comparisons said, step orders and pauses kept', () => {
+  const say = (s) => text.clipText(s, 'th');
+  assert.equal(say('❌ ทำไมข้ออื่นผิด\n— ข้อ ก ✅'), 'ทำไมข้ออื่นผิด\n— ข้อ ก');
+  assert.equal(say('fibrinogen > 700 mg'), 'fibrinogen มากกว่า 700 มิลลิกรัม');
+  assert.equal(say('> 700'), 'มากกว่า 700');
+  assert.equal(say('2 > 4 > 1 > 3'), '2, 4, 1, 3');
+  assert.equal(say('> อ้างอิง'), 'อ้างอิง');
+  assert.equal(say('~135-150°C'), 'ประมาณ 135 ถึง 150 องศาเซลเซียส');
+  assert.equal(say('มากกว่า 10^6 ตัว'), 'มากกว่า 10 ยกกำลัง 6 ตัว');
+  assert.equal(say('P(D+|T+) = a'), 'P(D+|T+) = a');
+  assert.equal(say('3.5 ซม. | edema · cervix'), '3.5 ซม.\nedema\ncervix');
+  assert.equal(say('↑ Ca, ↓ K'), 'สูง Ca, ต่ำ K');
+});
+
+test('clip names carry the voice: the same text names a different ElevenLabs clip', async () => {
+  const t = 'ตัวเลือก A';
+  assert.equal(await text.clipKey(t), 'c9490775ac83b134');
+  assert.notEqual(await text.clipKey(t, text.ELEVEN_TTS), await text.clipKey(t));
+  assert.equal(text.clipUrl('abc', text.ELEVEN_TTS), 'https://tts.vetmock.com/e1/abc.mp4');
+});
+
+async function keysIn(g, stem, options, lang) {
+  const k = (s) => text.clipKey(s, g);
+  const out = [await k(text.clipText(stem, lang))];
+  for (let i = 0; i < options.length; i++) out.push(await k(text.optionLabel(i, lang)), await k(text.clipText(options[i], lang)));
+  return out;
+}
+
+test('the ElevenLabs voice reads a question that has every clip in it', async () => {
+  const stem = 'ข้อใดเป็นสาเหตุของ PRRS';
+  const options = ['Arterivirus', 'Circovirus'];
+  const e1 = await keysIn(text.ELEVEN_TTS, stem, options, 'th');
+  manifestE1 = e1;
+  manifest = await keysIn(text.SHARED_TTS, stem, options, 'th');
+  played.length = 0;
+  await tts.speakQuestion({ stem, options, subject: 'swine-clinic', controller: { cancelled: false } });
+  assert.deepEqual(played.map((p) => p.key), e1);
+});
+
+test('one ElevenLabs clip missing: the whole question reads in the older voice, never a mix', async () => {
+  const stem = 'ข้อใดถูกต้องเกี่ยวกับ ASF';
+  const options = ['ติดต่อผ่านเห็บ Ornithodoros', 'มีวัคซีนใช้ทั่วไป'];
+  manifestE1 = (await keysIn(text.ELEVEN_TTS, stem, options, 'th')).slice(0, -1);
+  const g1 = await keysIn(text.SHARED_TTS, stem, options, 'th');
+  manifest = g1;
+  played.length = 0;
+  await tts.speakQuestion({ stem, options, subject: 'swine-ii', controller: { cancelled: false } });
+  assert.deepEqual(played.map((p) => p.key), g1);
+});
+
+test('an explanation is one clip: read as a stem with no options', async () => {
+  const explain = 'PPV คือโอกาสที่สัตว์ที่ให้ผลบวกจะเป็นโรคจริง\n❌ ทำไมข้ออื่นผิด\n— sensitivity เริ่มจากสัตว์ที่ป่วย';
+  const key = await text.clipKey(text.clipText(explain, text.questionLang(explain, [])), text.ELEVEN_TTS);
+  manifestE1 = [key];
+  manifest = [];
+  played.length = 0; spoken.length = 0;
+  await tts.speakQuestion({ stem: explain, options: [], subject: 'epidemiology', controller: { cancelled: false } });
+  assert.deepEqual(played.map((p) => p.key), [key]);
+  assert.equal(spoken.length, 0);
+  manifestE1 = null;
 });

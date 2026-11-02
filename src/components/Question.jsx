@@ -94,8 +94,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       maxHeight={320}
     />
   ) : null;
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  // Why the last read-aloud could not speak, shown beside the button.
+  // What is being read aloud: 'q' (the question) or 'explain' (its เหตุผล).
+  const [speaking, setSpeaking] = useState(null);
+  const isSpeaking = speaking === 'q';
+  // Why the last read-aloud could not speak, { what, text }, shown beside its button.
   const [ttsNote, setTtsNote] = useState(null);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
 
@@ -111,7 +113,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     return () => {
       speakControllerRef.current.cancelled = true;
       ttsModuleRef.current?.cancelSpeech?.();
-      setIsSpeaking(false);
+      setSpeaking(null);
       setTtsNote(null);
     };
   }, [currentQ?.id]);
@@ -144,19 +146,22 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // so the tap's own delay overlaps the download.
   const preloadTts = () => { import('../lib/tts.js').catch(() => {}); };
 
-  const speakQ = async () => {
+  // what: 'q' reads the question and its options, 'explain' reads the
+  // เหตุผล as one stem with no options, through the same clips and voices.
+  const speak = async (what) => {
     // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
     // (and stricter browsers) require .play() to happen inside a user
     // gesture; speakQuestion() crosses an `await` boundary which would
     // otherwise lose the gesture context and silently block playback.
     unlockAudio();
 
-    if (isSpeaking) {
-      // Toggle off — abort the in-flight chain and cancel the queue
+    if (speaking) {
+      // Abort the in-flight chain and cancel the queue. A tap on the
+      // control that is reading stops it; a tap on the other one switches.
       speakControllerRef.current.cancelled = true;
       ttsModuleRef.current?.cancelSpeech?.();
-      setIsSpeaking(false);
-      return;
+      setSpeaking(null);
+      if (speaking === what) return;
     }
     // Fresh controller per speak action
     setTtsNote(null);
@@ -164,8 +169,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     speakControllerRef.current = controller;
     // Options in the order the student sees them, so "ตัวเลือก B" is the
     // row with the B chip (it used to read them in source order).
-    const stem = currentQ.q || '';
-    const options = Array.isArray(currentQ.options)
+    const stem = (what === 'explain' ? currentQ.explain : currentQ.q) || '';
+    const options = what === 'q' && Array.isArray(currentQ.options)
       ? getShuffledOptions(currentQ).displayOptions.map(String)
       : [];
     try {
@@ -179,23 +184,39 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         options,
         subject: currentQ.subject,
         controller,
-        onStart: () => setIsSpeaking(true),
-        onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
+        onStart: () => setSpeaking(what),
+        onEnd: () => { if (!controller.cancelled) setSpeaking(null); },
         onFail: (why) => {
           if (controller.cancelled) return;
-          setIsSpeaking(false);
-          setTtsNote(why === 'offline'
+          setSpeaking(null);
+          setTtsNote({ what, text: why === 'offline'
             ? 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'
-            : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง');
+            : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง' });
         },
       });
     } catch {
       if (!controller.cancelled) {
-        setIsSpeaking(false);
-        setTtsNote('อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง');
+        setSpeaking(null);
+        setTtsNote({ what, text: 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง' });
       }
     }
   };
+
+  // The เหตุผล row's read-aloud. Rendered with the panel, so nothing moves.
+  const explainListen = currentQ?.explain ? (
+    <button
+      type="button"
+      aria-label={speaking === 'explain' ? 'หยุดอ่านออกเสียง' : 'อ่านเหตุผลออกเสียง'}
+      aria-pressed={speaking === 'explain'}
+      className={`vmx-listen-btn${speaking === 'explain' ? ' is-on' : ''}`}
+      onClick={() => speak('explain')}
+      onPointerDown={preloadTts}
+      title={speaking === 'explain' ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
+    >
+      <NavIcon name={speaking === 'explain' ? 'speaker-off' : 'speaker'} size={16} />
+    </button>
+  ) : null;
+  const explainNote = ttsNote?.what === 'explain' ? ttsNote.text : null;
 
   const toggleFlag = async () => {
     const map = readFlags();
@@ -393,7 +414,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               run={answerRun}
               fresh={freshVerdict}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
-              explain={currentQ.explain}
+              explain={currentQ.explain} listen={explainListen} listenNote={explainNote}
               figure={explainFigure}
               subject={currentQ.subject}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
@@ -442,7 +463,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
                 // are both true at once, and only one of them was on screen.
                 alwaysShowCorrect
-                explain={currentQ.explain}
+                explain={currentQ.explain} listen={explainListen} listenNote={explainNote}
                 figure={explainFigure}
                 subject={currentQ.subject}
                 wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
@@ -618,7 +639,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
           aria-pressed={isSpeaking}
           className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
-          onClick={speakQ}
+          onClick={() => speak('q')}
           onPointerDown={preloadTts}
           title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
         >
@@ -646,7 +667,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           label={(currentQ?.q || '').slice(0, 60)}
         />
       </div>
-      {ttsNote && <p className="vmx-tts-note" role="status">{ttsNote}</p>}
+      {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
 
       {/* The type, subject, topic and paper as separate parts of one quiet
           row — Thai, like the rest of the card, and never uppercased. The
@@ -858,7 +879,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -897,7 +918,11 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, fig
         <div className="a"><span className="k">เฉลย</span><div className="vmx-feedback-correct-val">{correctNode}</div></div>
       )}
       {explain && (
-        <div className="w"><span className="k">เหตุผล</span><div className="vmx-feedback-explain-body"><TermLinkedRichText text={explain} subject={subject} /></div></div>
+        <div className="w">
+          <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
+          <div className="vmx-feedback-explain-body"><TermLinkedRichText text={explain} subject={subject} /></div>
+          {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
+        </div>
       )}
       {figure}
       {coach}

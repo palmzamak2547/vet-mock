@@ -8,11 +8,14 @@
 // text rules the page uses), and each clip is a few bytes. Playback is
 // stubbed in the page (the test engines do not all ship an AAC decoder),
 // so what is checked is the page's own behaviour: which clips it asks
-// for, how many it plays, the button's state and that Stop stops.
+// for, how many it plays, the button's state and that Stop stops. The
+// fixture holds the Gemini generation (g1); the ElevenLabs one (e1) holds
+// only explanations, or nothing, as on the real host for a subject it has
+// not reached, so a question falls back to g1 whole.
 // ============================================================
 import fs from 'node:fs';
 import { test, expect } from './fixtures.js';
-import { clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
+import { ELEVEN_TTS, clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
 
 test.setTimeout(60_000);
 
@@ -21,6 +24,7 @@ const TOPIC_HAS_TEXT = 'โรคติดเชื้อในนก';
 
 async function subjectKeys(subject) {
   const keys = new Set();
+  const explain = new Set(); // e1 names of the เหตุผล clips
   for (const f of fs.readdirSync('src/data').filter((x) => /^questions-.*\.js$/.test(x))) {
     const m = await import(`../../src/data/${f}`);
     for (const rows of Object.values(m)) {
@@ -30,6 +34,7 @@ async function subjectKeys(subject) {
         const options = Array.isArray(q.options) ? q.options.map(String) : [];
         const lang = questionLang(q.q, options);
         keys.add(await clipKey(clipText(q.q, lang)));
+        if (q.explain) explain.add(await clipKey(clipText(q.explain, questionLang(q.explain, [])), ELEVEN_TTS));
         for (let i = 0; i < options.length; i++) {
           keys.add(await clipKey(optionLabel(i, lang)));
           keys.add(await clipKey(clipText(options[i], lang)));
@@ -37,14 +42,15 @@ async function subjectKeys(subject) {
       }
     }
   }
-  return [...keys];
+  return { keys: [...keys], explain: [...explain] };
 }
 
 let manifest;
-test.beforeAll(async () => { manifest = await subjectKeys(SUBJECT); });
+let explainManifest;
+test.beforeAll(async () => { ({ keys: manifest, explain: explainManifest } = await subjectKeys(SUBJECT)); });
 
-async function openQuestion(page, { clipMs }) {
-  const seen = { clips: [], live: 0, manifest: 0 };
+async function openQuestion(page, { clipMs, e1 = [] }) {
+  const seen = { clips: [], e1: [], live: 0, manifest: 0 };
   await page.addInitScript((ms) => {
     try { window.localStorage.setItem('vmx-selected-year', '4'); } catch {}
     window.__plays = 0;
@@ -67,6 +73,14 @@ async function openQuestion(page, { clipMs }) {
   }, clipMs);
   await page.route('https://tts.vetmock.com/**', (route) => {
     const url = route.request().url();
+    const ok = { status: 200, headers: { 'access-control-allow-origin': '*' } };
+    if (url.includes('/e1/')) {
+      if (url.endsWith(`/m/${SUBJECT}.json`)) return route.fulfill({ ...ok, contentType: 'application/json', body: JSON.stringify(e1) });
+      const key = url.match(/([0-9a-f]{16})\.mp4$/)?.[1];
+      if (!e1.includes(key)) return route.fulfill({ status: 404, headers: ok.headers, body: 'not found' });
+      seen.e1.push(key);
+      return route.fulfill({ ...ok, contentType: 'audio/mp4', body: Buffer.from('clip') });
+    }
     if (url.endsWith(`/m/${SUBJECT}.json`)) {
       seen.manifest += 1;
       return route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify(manifest) });
@@ -122,4 +136,26 @@ test('Stop ends the read-aloud at once and nothing else plays', async ({ page })
   await expect(page.getByRole('button', { name: 'อ่านคำถามออกเสียง' })).toHaveAttribute('aria-pressed', 'false');
   await page.waitForTimeout(3500);
   expect(await page.evaluate(() => window.__plays)).toBe(1);
+});
+
+test('the เหตุผล row reads its explanation in the newer voice, apart from the question', async ({ page }) => {
+  const seen = await openQuestion(page, { clipMs: 40, e1: explainManifest });
+  await page.locator('.vmx-option').first().click();
+  const panel = page.locator('.vmx-instant-feedback');
+  await expect(panel).toBeVisible();
+  const listen = panel.getByRole('button', { name: 'อ่านเหตุผลออกเสียง' });
+  await expect(listen).toBeVisible();
+  const size = async () => { const b = await panel.boundingBox(); return { width: b.width, height: b.height }; };
+  const before = await size();
+  await listen.click();
+  await expect(panel.getByRole('button', { name: 'หยุดอ่านออกเสียง' })).toHaveAttribute('aria-pressed', 'true');
+  // The question's own button is not the one reading.
+  await expect(page.getByRole('button', { name: 'อ่านคำถามออกเสียง' })).toHaveAttribute('aria-pressed', 'false');
+  await expect(listen).toHaveAttribute('aria-pressed', 'false', { timeout: 15_000 });
+  expect(await page.evaluate(() => window.__plays)).toBe(1);
+  expect(seen.e1.length).toBe(1);
+  expect(explainManifest).toContain(seen.e1[0]);
+  expect(seen.live).toBe(0);
+  // Reading changed nothing about the panel's size.
+  expect(await size()).toEqual(before);
 });

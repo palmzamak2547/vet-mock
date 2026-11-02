@@ -442,9 +442,9 @@ async function playShared({ stem, options, lang, subject, controller, onStart, o
   try { window.localStorage.setItem('vmx-tts-used', '1'); } catch { /* private mode */ }
   // The first clip downloads alone; the rest start once it has arrived and
   // fetch while it plays, so they never share a slow link with it.
-  const first = plan[0].buf || getSharedAudio(plan[0].key, fetchAbort.signal);
+  const first = plan[0].buf || getSharedAudio(plan[0], fetchAbort.signal);
   const rest = first.then(
-    () => plan.slice(1).map((p) => getSharedAudio(p.key, fetchAbort.signal)),
+    () => plan.slice(1).map((p) => getSharedAudio(p, fetchAbort.signal)),
     () => [],
   );
   const bufs = plan.map((p, i) => (i === 0 ? first : rest.then((list) => list[i - 1])));
