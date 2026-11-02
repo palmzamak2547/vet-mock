@@ -49,12 +49,28 @@ export const USER_CURATED_MODES = new Set(['bookmarks', 'weak', 'wrong']);
  */
 export function stillWrongInYear(history, selectedYear) {
   return stillWrong((history || []).filter((row) => {
-    if (!row || !isQuestionDeliverable({ subject: row.subject, id: row.questionId })) return false;
+    // A row with no subject keys as ":id", which no question in the pool
+    // matches, so the set can never serve it.
+    if (!row || !row.subject) return false;
+    if (!isQuestionDeliverable({ subject: row.subject, id: row.questionId })) return false;
     if (!selectedYear) return true;
     if (typeof row.year === 'number') return row.year === selectedYear;
     const year = yearForSubject(row.subject);
     return year == null || year === selectedYear;
   }));
+}
+
+/**
+ * What the wrong-answer chip serves and prints. It serves the questions still
+ * wrong up to WEAK_POOL_CAP: a set is written to the device after every answer
+ * (about 1.2 KB a question, and a write that fails is not reported), and its
+ * size stays the next config screen's default count. When it caps, the chip
+ * says so ("150 จาก 320"), so the number on it is always the set it opens.
+ */
+export function wrongChip(wrongCount) {
+  const total = Math.max(0, Math.floor(Number(wrongCount) || 0));
+  const serve = Math.min(total, WEAK_POOL_CAP);
+  return { serve, total, label: serve < total ? `${serve} จาก ${total}` : String(total) };
 }
 
 export function normalizePracticeMode(mode, subject, explicitMode = false) {

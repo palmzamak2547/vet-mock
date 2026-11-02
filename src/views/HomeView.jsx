@@ -24,7 +24,7 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse, to
 import { getCompletedPhase, hasPhaseActivity, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
-import { buildExamPool, stillWrongInYear } from '../lib/exam-pool.js';
+import { buildExamPool, stillWrongInYear, wrongChip } from '../lib/exam-pool.js';
 import { initCard } from '../hooks/sm2.js';
 import { getCardStats, readSchedulerPreference, subscribeSchedulerPreference } from '../lib/sr-scheduler.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
@@ -597,10 +597,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // startExam overrides (matches the random-Q fix 2026-05-16).
   const launchWrongReview = (requestedCount) => {
     if (quickStats.wrongCount === 0) return;
-    // The chip's badge is the whole set, so the chip serves the whole set; a
-    // plan step asks for its own count. A silent cap of 50 served 50 under a
-    // badge of 120.
-    const n = Number.isInteger(requestedCount) ? Math.min(quickStats.wrongCount, requestedCount) : quickStats.wrongCount;
+    // The chip serves what its badge says (wrongChip): every question still
+    // wrong up to WEAK_POOL_CAP, and "150 จาก 320" when it caps. A silent cap
+    // of 50 served 50 under a badge of 120. A plan step asks for its own count.
+    const { serve } = wrongChip(quickStats.wrongCount);
+    const n = Number.isInteger(requestedCount) ? Math.min(serve, requestedCount) : serve;
     if (startExam) {
       startExam({
         mode: 'quick',
@@ -1622,7 +1623,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     style={{ color: 'var(--clr-rose-text)', border: '1px solid var(--clr-rose)' }}
                   >
                     <span>ทบทวนข้อที่ตอบผิด</span>
-                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 14, fontWeight: 700 }}>{quickStats.wrongCount}</span>
+                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 14, fontWeight: 700 }}>{wrongChip(quickStats.wrongCount).label}</span>
                   </button>
                 )}
                 {nextClassToday && (

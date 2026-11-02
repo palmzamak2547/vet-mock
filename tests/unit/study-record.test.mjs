@@ -8,7 +8,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  weekTrack, recentSessions, sessionWhen, subjectsStarted, classRowLabel, shortThaiDay, rowTime,
+  weekTrack, recentSessions, sessionWhen, subjectsStarted, topicsRead, classRowLabel, shortThaiDay, rowTime,
 } from '../../src/lib/study-record.js';
 import { topicProgressKey } from '../../src/lib/study-progress.js';
 import { bangkokMs } from '../../src/data/schedule.js';
@@ -104,6 +104,18 @@ test('sessionWhen: today and yesterday by name, older by day', () => {
   assert.equal(sessionWhen(NOW - 3 * D, NOW), 'ศุกร์ 9 ต.ค.');
   assert.equal(sessionWhen('garbage', NOW), '');
   assert.equal(shortThaiDay(NOW), 'จันทร์ 12 ต.ค.');
+});
+
+test('topicsRead: a topic read under its old bare key and its promoted key counts once', () => {
+  // setTopicRead keeps the bare key when it promotes it, so both stay stored;
+  // the profile counted the stored keys and said 2 for one topic.
+  const subjects = [{ id: 'one-health', topics: [{ id: 'nutrition' }, { id: 'other' }, { id: 'gone', hidden: true }] }];
+  const promoted = topicProgressKey('one-health', 'nutrition');
+  assert.equal(topicsRead({ nutrition: 1700000000000, [promoted]: 1700000000000 }, subjects), 1);
+  assert.equal(topicsRead({ nutrition: true }, subjects), 1, 'a bare key alone still counts, as the reading list reads it');
+  assert.equal(topicsRead({ nutrition: 1700000000000, [promoted]: false }, subjects), 0, 'unticked under the subject key overrides the bare one');
+  assert.equal(topicsRead({ [topicProgressKey('one-health', 'gone')]: 1 }, subjects), 0, 'a hidden topic is not on the list');
+  assert.equal(topicsRead(null, subjects), 0);
 });
 
 test('subjectsStarted: a subject counts as started with one read topic, and only subjects with topics count', () => {

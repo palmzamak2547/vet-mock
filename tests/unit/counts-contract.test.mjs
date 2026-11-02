@@ -35,7 +35,7 @@ import { SUBJECTS, SUBJECTS_BY_YEAR, yearForSubject, hiddenTopicIdsFor } from '.
 import { SEMESTER } from '../../src/data/semester.js';
 import { isQuestionDeliverable, BLOCKED_QUESTIONS } from '../../src/data/question-delivery.generated.js';
 import { PANIC_CARD_PAPERS, hasPanicCard } from '../../src/data/panic-cards.js';
-import { buildExamPool, stillWrongInYear } from '../../src/lib/exam-pool.js';
+import { buildExamPool, stillWrongInYear, wrongChip, WEAK_POOL_CAP } from '../../src/lib/exam-pool.js';
 import { panicPool, isPastPaperQuestion } from '../../src/lib/question-metadata.js';
 import { phaseForCourse, scopeForPhase, topicOnPaper, countByScope } from '../../src/lib/exam-scope.js';
 import { examScopeForPhase } from '../../src/lib/question-prediction.js';
@@ -318,10 +318,41 @@ test('the wrong-answer chip counts the set it opens: the year\'s misses, both te
   const set = buildExamPool({ questions: QB, practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', selectedYear: 5, selectedPhase: '1-final', history, bookmarks: [], weakQuestions: [] }).length;
   assert.equal(chip, 2, 'the two term-two misses are this year\'s, the blocked one is never served');
   assert.equal(chip, set, `the chip says ${chip} and the set serves ${set}`);
-  // ...and the chip serves every question it counts, not a silent 50.
+  // A row with no subject keys as ":id", which the set can never serve.
+  const noSubject = { questionId: termTwo[0].id, year: 5, correct: false, date: 7 };
+  assert.equal(stillWrongInYear([...history, noSubject], 5).keys.size, chip, 'a row with no subject was counted');
   const home = readFileSync(new URL('../../src/views/HomeView.jsx', import.meta.url), 'utf8');
   assert.match(home, /stillWrongInYear\(history, selectedYear\)/);
   assert.doesNotMatch(home, /requestedCount : 50\)/);
+});
+
+test('when the wrong-answer chip caps, the number it prints is the set it opens', () => {
+  // More of this year's questions still wrong than WEAK_POOL_CAP.
+  const seen = new Set();
+  const many = QB.filter((q) => {
+    const key = `${q.subject}:${q.id}`;
+    if (seen.has(key) || !isQuestionDeliverable(q) || yearForSubject(q.subject) !== 5 || q.year !== 5) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, WEAK_POOL_CAP + 40);
+  const history = many.map((q, i) => ({ subject: q.subject, questionId: q.id, year: q.year, correct: false, date: i + 1 }));
+  const total = stillWrongInYear(history, 5).keys.size;
+  assert.equal(total, WEAK_POOL_CAP + 40);
+  const chip = wrongChip(total);
+  assert.deepEqual(chip, { serve: WEAK_POOL_CAP, total, label: `${WEAK_POOL_CAP} จาก ${total}` });
+  // The set: the 'wrong' pool holds every one of them, and startExam cuts it to
+  // the count the chip asks for (ranked.slice(0, min(count, pool))).
+  const pool = buildExamPool({ questions: QB, practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', selectedYear: 5, selectedPhase: '1-final', history, bookmarks: [], weakQuestions: [] });
+  assert.equal(pool.length, total);
+  const opened = pool.slice(0, Math.min(chip.serve, pool.length)).length;
+  assert.equal(opened, Number(chip.label.split(' ')[0]), `the chip prints "${chip.label}" and opens ${opened}`);
+  // Under the cap the chip prints the whole set and opens all of it.
+  assert.deepEqual(wrongChip(12), { serve: 12, total: 12, label: '12' });
+  assert.deepEqual(wrongChip(0), { serve: 0, total: 0, label: '0' });
+  // Home launches with the chip's count and prints the chip's label.
+  const home = readFileSync(new URL('../../src/views/HomeView.jsx', import.meta.url), 'utf8');
+  assert.match(home, /const \{ serve \} = wrongChip\(quickStats\.wrongCount\);/);
+  assert.match(home, /\{wrongChip\(quickStats\.wrongCount\)\.label\}/);
 });
 
 test('no table prints a negative count, a fraction, or a part larger than its whole', () => {
