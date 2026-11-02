@@ -134,10 +134,10 @@ export function chatStats() {
  * @param {object} [io.env]
  * @param {object} [io.deps]                      { chat, vision, fetchImpl, kv, rng, now }
  */
-export async function runChat(input, { send, signal, t0 = Date.now(), env = process.env, deps = {}, token = null } = {}) {
+export async function runChat(input, { send, signal, t0 = Date.now(), tLimit = null, env = process.env, deps = {}, token = null } = {}) {
   const D = { chat: chatJSON, vision: visionJSON, fetchImpl: fetch, kv: { get: kvGetJSON, set: kvSetJSON }, rng: Math.random, now: () => new Date(), ...deps };
   const since = () => Date.now() - t0;
-  const timing = { status: null, sources: null, firstDelta: null };
+  const timing = { status: null, plan: null, library: null, sources: null, firstDelta: null };
   const { messages, image, question } = input;
 
   send('status', { phase: 'plan', label: STATUS.plan });
@@ -175,6 +175,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     let found = typed;
     let planned = null;
     const plan = await plannerP;
+    timing.plan = since();
     let intent = plan.intent;
     if (plan.source === 'model' && intent !== 'chat') {
       planned = searchCorpus(corpus, {
@@ -212,6 +213,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
         animal: found ? animalShare(found) : null,
       }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500, token })
       : null;
+    libraryP?.then(() => { timing.library = since(); }, () => {});
 
     // ── what this turn needs ────────────────────────────────────────────
     const sources = [];
@@ -403,9 +405,13 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
 
     const log = {
       ms: since(),
+      tLimit,
       tStatus: timing.status,
+      tPlan: timing.plan,
+      tLibrary: timing.library,
       tSources: timing.sources,
       tFirstDelta: timing.firstDelta,
+      usage: result.usage || null,
       intent,
       plan: plan.source,
       sources: numbered.items.length,
