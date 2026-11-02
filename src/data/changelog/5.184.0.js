@@ -1,8 +1,8 @@
-// Release 5.178.0. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
+// Release 5.184.0. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
 // src/data/changelog.js. One file per release, so releases in flight never edit the same lines.
 export default {
-  version: '5.178.0',
-  date: '2026-11-01',
+  version: '5.184.0',
+  date: '2026-11-02',
   headline: 'เข้า VetMock ด้วยอีเมลจุฬา',
   changes: [
     { kind: 'feature', scope: 'system', title: 'เข้าสู่ระบบด้วยอีเมลจุฬา', desc: 'VetMock ใช้ได้เฉพาะนิสิตและบุคลากรจุฬาฯ กดปุ่ม Google แล้วเลือกอีเมล @student.chula.ac.th หรือ @chula.ac.th ครั้งเดียว เครื่องจะจำไว้และใช้ต่อแบบออฟไลน์ได้' },

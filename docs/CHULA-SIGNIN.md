@@ -66,7 +66,7 @@ Changed on 1 Nov 2026, all reversible:
 - The same evening, before the merge: the before-user-created hook on, manual
   linking on (for เชื่อมบัญชีจุฬา), and `https://ai.vetmock.com/**`,
   `https://vca.vetmock.com/**` among the redirect URLs. The migration was applied
-  then too, with the switch off (proof in `docs/releases/5.178.0.md`).
+  then too, with the switch off (proof in `docs/releases/5.184.0.md`).
 
 ## The switch
 
