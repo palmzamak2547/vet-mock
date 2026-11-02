@@ -9,7 +9,8 @@ const document = { provider: 'gdocs', title: 'Private modeled document', markdow
 
 async function prepare(page, context, signedIn = false) {
   const user = { id: owner, email: 'external-reader@example.invalid', aud: 'authenticated', role: 'authenticated',
-    app_metadata: { provider: 'email', providers: ['email'] }, user_metadata: { username: 'Modeled reader' }, created_at: '2026-01-01T00:00:00Z' };
+    // The Chula wall opens for a verified Chula Google identity (docs/CHULA-SIGNIN.md).
+    app_metadata: { provider: 'email', providers: ['email'] }, user_metadata: { username: 'Modeled reader' }, identities: [{ provider: 'google', identity_data: { email: 'modeled@student.chula.ac.th', email_verified: true, custom_claims: { hd: 'student.chula.ac.th' } } }], created_at: '2026-01-01T00:00:00Z' };
   const encoded = value => Buffer.from(JSON.stringify(value)).toString('base64url');
   const session = { access_token: `${encoded({ alg: 'none', typ: 'JWT' })}.${encoded({ sub: owner, aud: 'authenticated', role: 'authenticated', exp: 4102444800 })}.modeled-only`,
     refresh_token: 'modeled-only-not-a-real-session', token_type: 'bearer', expires_in: 3600, expires_at: 4102444800, user };
@@ -19,6 +20,8 @@ async function prepare(page, context, signedIn = false) {
   await page.route(/\/_vercel\/(insights|speed-insights)\/script[^/]*\.js|va\.vercel-scripts\.com\/.*script/, route => route.fulfill({ contentType: 'application/javascript', body: '' }));
   await page.route('**://*.supabase.co/**', route => {
     const url = new URL(route.request().url());
+    // These specs model the app's own features with the Chula wall off; tests/e2e/chula-wall.spec.js covers the wall.
+    if (url.hostname === host && url.pathname === '/rest/v1/rpc/chula_access_state') return route.fulfill({ json: { enforce: false, signed_in: false, member: false, uid: null } });
     if (url.hostname !== host) return route.abort();
     if (url.pathname === '/auth/v1/user') return route.fulfill({ json: user });
     if (url.pathname === '/rest/v1/profiles') return route.fulfill({ json: [{ id: owner, username: 'Modeled reader', avatar_emoji: '🧪', created_at: user.created_at }] });

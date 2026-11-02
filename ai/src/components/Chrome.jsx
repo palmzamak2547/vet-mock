@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import GlyphText from './GlyphText.jsx';
 import { IconHistory, IconMoon, IconNew, IconSun, IconClose, IconTrash } from './icons.jsx';
 
-export function Header({ theme, onTheme, onNew, onHistory, hasChat }) {
+export function Header({ theme, onTheme, onNew, onHistory, hasChat, walled = false }) {
   return (
     <header className="hdr no-print">
       <a className="brand" href="/" aria-label="VetMock AI หน้าแรก" onClick={(e) => { if (hasChat) { e.preventDefault(); onNew(); } }}>
@@ -18,7 +18,9 @@ export function Header({ theme, onTheme, onNew, onHistory, hasChat }) {
         {hasChat && (
           <button type="button" className="icon-btn" onClick={onNew} aria-label="แชทใหม่" title="แชทใหม่"><IconNew /></button>
         )}
-        <button type="button" className="icon-btn" onClick={onHistory} aria-label="ประวัติ" title="ประวัติ"><IconHistory /></button>
+        {!walled && (
+          <button type="button" className="icon-btn" onClick={onHistory} aria-label="ประวัติ" title="ประวัติ"><IconHistory /></button>
+        )}
         <button type="button" className="icon-btn theme-btn" onClick={onTheme} aria-label={theme === 'dark' ? 'โหมดสว่าง' : 'โหมดมืด'} title={theme === 'dark' ? 'โหมดสว่าง' : 'โหมดมืด'}>
           <span className="theme-icons" data-t={theme}><IconSun /><IconMoon /></span>
         </button>
@@ -29,7 +31,7 @@ export function Header({ theme, onTheme, onNew, onHistory, hasChat }) {
 
 const fmtDay = new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short' });
 
-export function History({ open, chats, currentId, onClose, onOpen, onDelete, onClear }) {
+export function History({ open, chats, currentId, onClose, onOpen, onDelete, onClear, account = null }) {
   const panel = useRef(null);
   const opener = useRef(null);
   useEffect(() => {
@@ -79,6 +81,16 @@ export function History({ open, chats, currentId, onClose, onOpen, onDelete, onC
           </>
         ) : (
           <p className="hist-empty">ยังไม่มีบทสนทนา เก็บไว้ในเครื่องนี้เท่านั้น</p>
+        )}
+        {account && (
+          // the account sits at the foot of the sheet; signing out keeps these chats on this device
+          <div className="sheet-acct">
+            <p className="sheet-acct-who">
+              <span className="sheet-acct-label">บัญชี</span>
+              <span className="sheet-acct-email">{account.email || 'บัญชีนี้'}</span>
+            </p>
+            <button type="button" className="link sheet-acct-out" onClick={account.onSignOut}>ออกจากระบบ</button>
+          </div>
         )}
       </aside>
     </div>

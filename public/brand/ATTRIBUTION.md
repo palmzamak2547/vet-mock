@@ -15,3 +15,4 @@ button opens; VetMock is not affiliated with or endorsed by them.
 | outlook.svg | Microsoft_Outlook_Icon_(2025–present).svg | Microsoft Corporation |
 | line.svg | LINE_logo.svg (2026-10-27, unmodified) | LY Corporation |
 | google-docs.svg | Google_Docs_2020_Logo.svg (2026-10-27, unmodified) | Google LLC |
+| google-g.svg | the standard Google "G" mark, the same four paths AuthView.jsx already drew inline (1 Nov 2026, for the Chula sign-in button) | Google LLC |

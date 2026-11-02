@@ -7,7 +7,7 @@ import { Component, Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'r
 import { navigate, useRoute } from './router.js';
 import { TopBar, TabBar, Footer } from './components/Shell.jsx';
 import { Home } from './pages/Home.jsx';
-import { AccountSheets, prefetchSignIn, startAccount } from './online/index.js';
+import { AccountSheets, ChulaWall, prefetchSignIn, startAccount, startWall, useWall, wall } from './online/index.js';
 import { initMotion, pageReady } from './lib/motion.js';
 import { isRestoring } from './lib/scroll.js';
 import { useActiveSession } from './lib/hooks.js';
@@ -90,10 +90,14 @@ export function App() {
   const first = useRef(true);
   const path = route.name + JSON.stringify(route.params);
 
+  // The Chula wall (online/gate.js): until it opens, the site shows its sign-in card instead of pages.
+  const gate = useWall();
+
   useEffect(() => {
     initMotion();
     // A student signed in on an earlier visit is signed back in; nobody else loads anything.
     startAccount();
+    startWall();
     // Fetch the other pages, and the sheet a visitor signs in with, while the reader looks at this one.
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1200));
     idle(() => {
@@ -127,6 +131,22 @@ export function App() {
   useEffect(() => {
     if (noSet && window.location.pathname.replace(/\/+$/, '') === '/session') navigate('/practice', { replace: true });
   }, [noSet]);
+
+  // The wall covers every page but the one a sign-in comes back to (/auth/callback, /auth/line),
+  // which has to finish that sign-in for the wall to open.
+  if (gate.gate !== 'open' && route.name !== 'auth') {
+    return (
+      <div className="app app-walled">
+        <div className="atmos" aria-hidden="true"><span className="atmos-a" /><span className="atmos-b" /></div>
+        <ChulaWall
+          state={gate}
+          onSignIn={wall.signIn} onGoogleToken={wall.signInWithGoogleToken}
+          onLinkToken={wall.linkWithGoogleToken} onLinkRedirect={wall.linkRedirect}
+          onSignOut={wall.signOut}
+        />
+      </div>
+    );
+  }
 
   const Page = route.name === 'home' ? Home : PAGES[route.name] || PAGES.notFound;
   const focus = route.name === 'session' && !noSet;
