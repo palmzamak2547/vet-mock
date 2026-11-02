@@ -70,7 +70,8 @@ Changed on 1 Nov 2026, all reversible:
 
 ## The switch
 
-`private.chula_wall.enforce` is the one switch every layer reads.
+`private.chula_wall.enforce` is the one switch every layer reads. It was switched on at 18:34 on 2 Nov 2026 from the
+`/app/admin` card, after a live Chula sign-in; the walk and its checks are in `docs/releases/5.184.0.md`.
 
 ```sql
 select public.admin_set_chula_wall(false);   -- off, from the admin account
@@ -123,6 +124,11 @@ after the owner's own sign-in is walked on vetmock.com (see the release record).
   applies only on an instance that saw the switch off in the last ten minutes.
 - On ai, vca and research, a device holding one account that returns from the
   redirect fallback with another shows the first account's app for a moment.
+- A student who unticked "stay signed in" keeps the token in sessionStorage, which
+  a duplicated tab copies. After a sign-out with no network, that duplicate still
+  holds its own copy of a refresh token the server never revoked, and signs back
+  in once it can refresh. An online sign-out revokes the token, so this needs both
+  the duplicate tab and no network.
 - `/api/playlist` stays open: it returns the titles of public YouTube playlists,
   edge-cached for half an hour with its Data API spend capped daily, and the
   video page asks for about 40 at once. `GET /api/external-connect` (which
