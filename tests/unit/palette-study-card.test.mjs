@@ -43,7 +43,7 @@ const { default: CommandPalette } = await loadModule('src/components/CommandPale
   { match: '(^|/)ErrorBoundary\\.jsx$', contents: 'export default ({ children }) => children;' },
   { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {};' },
   { match: '/lib/omni-sources\\.js$', contents: 'export const OMNI_SOURCES = [{ id: "library", label: "คลังเอกสาร", icon: "", load: () => globalThis.__studyLibrary.load() }];' },
-  { match: '(^|/)library\\.js$', contents: 'export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => ""; export const subjectMeta = () => null;' },
+  { match: '(^|/)library\\.js$', contents: 'export const openDocInTab = async () => {}; export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => ""; export const subjectMeta = () => null;' },
 ] });
 
 const searchInput = (view) => findAll(view.tree, (n) => n.type === 'input' && n.props['aria-label'] === 'ค้นหาใน VetMock')[0];

@@ -36,7 +36,7 @@ const { default: CommandPalette } = await loadModule('src/components/CommandPale
   { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {};' },
   { match: '/lib/omni-intents\\.js$', contents: 'export const detectIntents = () => []; export const detectStudyIntent = () => null; export const studyActions = () => ({ actions: [], missing: null });' },
   { match: '/lib/omni-sources\\.js$', contents: 'export const OMNI_SOURCES = [];' },
-  { match: '/lib/library\\.js$', contents: 'export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => "";' },
+  { match: '/lib/library\\.js$', contents: 'export const openDocInTab = async () => {}; export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => "";' },
 ] });
 
 function setup({ notes = {} } = {}) {

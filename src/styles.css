@@ -2165,6 +2165,12 @@ html.dark .vmx-panic-scrim {
 .vmx-pdf-dropzone[data-dragging] { border-color: var(--clr-sage); background: var(--clr-sage-soft); }
 .vmx-pdf-library-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); color: var(--clr-ink-soft); font-size: var(--text-sm); }
 .vmx-pdf-open-error { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--r-sm); background: var(--clr-rose-soft); color: var(--clr-rose-text); font-size: var(--text-sm); }
+/* A shelf deck on its way into the reader: its title, the progress and, on a
+   failure, every way to the file, at the top where a phone shows them. */
+.vmx-doc-opening { width: 100%; max-width: 720px; margin: 0 auto; padding: var(--space-2) var(--space-4) var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); }
+.vmx-doc-opening h1 { margin: 0; font-size: var(--text-xl); line-height: 1.2; letter-spacing: 0; overflow-wrap: anywhere; }
+.vmx-doc-opening .vmx-pdf-open-error { margin-top: 0; }
+.vmx-doc-opening-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 @media (prefers-reduced-motion: reduce) {
   .vmx-pdf-dropzone { transition: none; }
 }

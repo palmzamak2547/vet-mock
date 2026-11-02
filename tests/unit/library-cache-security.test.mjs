@@ -61,11 +61,11 @@ function worker(caches = memoryCaches()) {
     register() { listeners.get('message')({ data: { type: 'LIBRARY_ACCESS', epoch }, source: clients[0], ports: [] }); },
     message(data, source, ports) { listeners.get('message')({ data, source, ports, waitUntil: work => work.catch(() => {}) }); },
     async access(signedIn, accessEpoch = epoch) { await (await caches.open(CATALOG)).put(ACCESS, Response.json({ signedIn, epoch: accessEpoch })); },
-    request(query, { clientId = 'reader', mode = 'cors' } = {}) {
+    request(query, { clientId = 'reader', mode = 'cors', headers = {} } = {}) {
       const pending = [];
       let response;
       listeners.get('fetch')({
-        clientId, request: { url: ORIGIN + '/api/library-blob?' + query, method: 'GET', mode, headers: new Headers() },
+        clientId, request: { url: ORIGIN + '/api/library-blob?' + query, method: 'GET', mode, headers: new Headers(headers) },
         respondWith: promise => { response = promise; }, waitUntil: promise => pending.push(promise),
       });
       return { response, settled: async () => { for (let n = 0; n < pending.length; n++) await pending[n]; } };
@@ -226,6 +226,66 @@ test('bytes the server hands over only as a download are never relabelled to ope
   await seedLabelled(app, publicBytes, publicHash, { 'Content-Type': 'application/octet-stream', 'Content-Disposition': `attachment; filename="page.html"; filename*=UTF-8''page.html` });
   const opened = await app.request(`offline=1&h=${publicHash}`).response;
   assert.match(disposition(opened), /^attachment; filename="page\.html"; /);
+});
+
+test('a Word file kept for offline opens as itself, not as an unknown download', async () => {
+  // "openxmlformats" matched the html/xml guard, so every Office file was
+  // relabelled an attachment, as /api/library-blob mislabelled it too.
+  const app = worker();
+  const docx = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  await seedLabelled(app, publicBytes, publicHash, { 'Content-Type': docx, 'Content-Disposition': `inline; filename="notes.docx"; filename*=UTF-8''notes.docx` });
+  const opened = await app.request(`offline=1&h=${publicHash}`).response;
+  assert.match(disposition(opened), /^inline; filename="notes\.docx"; /);
+  assert.equal(opened.headers.get('Content-Type'), docx);
+});
+
+test('a video\'s byte-range reads get 206, from the kept copy offline and from the network otherwise', async () => {
+  // Safari plays media only from 206 answers; the worker used to hand the whole
+  // kept copy back to every range.
+  const app = worker();
+  await seedLabelled(app, publicBytes, publicHash, { 'Content-Type': 'video/mp4' });
+  const cut = await app.request(`offline=1&h=${publicHash}`, { headers: { Range: 'bytes=2-5' } }).response;
+  assert.equal(cut.status, 206);
+  assert.equal(cut.headers.get('Content-Range'), `bytes 2-5/${publicBytes.length}`);
+  assert.equal(await cut.text(), publicBytes.slice(2, 6));
+  const tail = await app.request(`offline=1&h=${publicHash}`, { headers: { Range: 'bytes=-4' } }).response;
+  assert.equal(await tail.text(), publicBytes.slice(-4));
+  assert.equal((await app.request(`offline=1&h=${publicHash}`, { headers: { Range: `bytes=${publicBytes.length}-` } }).response).status, 416);
+  assert.equal(await (await app.request(`offline=1&h=${publicHash}`).response).text(), publicBytes, 'a whole read still gets the whole copy');
+  // No copy: the range goes to the network as it was asked.
+  let asked = null;
+  app.context.fetch = async (request) => { asked = request.headers.get('range'); return new Response('ok', { status: 206 }); };
+  const missing = await app.request(`t=signed&h=${'f'.repeat(16)}`, { headers: { Range: 'bytes=0-1' } }).response;
+  assert.equal(missing.status, 206);
+  assert.equal(asked, 'bytes=0-1');
+});
+
+test('a clip whose first read is a whole-file 206 is still kept for offline', async () => {
+  // A media player asks for `bytes=0-` from its first request, and the server
+  // now answers ranges with 206; the worker used to keep only 200 answers.
+  const app = worker();
+  await app.access(false);
+  const n = publicBytes.length;
+  app.context.fetch = async () => new Response(publicBytes, { status: 206, headers: {
+    'Content-Type': 'video/mp4', 'Content-Length': String(n), 'Content-Range': `bytes 0-${n - 1}/${n}`, 'X-VetMock-Library-Access': 'public',
+  } });
+  const first = app.request(`t=signed&h=${publicHash}`, { headers: { Range: 'bytes=0-' } });
+  assert.equal((await first.response).status, 206, 'the player gets the answer it asked for');
+  await first.settled();
+  const kept = await (await app.caches.open(DOCS)).match('/__lib-doc/' + publicHash);
+  assert.equal(kept?.status, 200);
+  assert.equal(kept.headers.get('Content-Range'), null);
+  app.context.fetch = async () => { throw Error('offline'); };
+  assert.equal(await (await app.request(`offline=1&h=${publicHash}`).response).text(), publicBytes);
+  // A part of the file is never kept as if it were the file.
+  const part = worker();
+  await part.access(false);
+  part.context.fetch = async () => new Response(publicBytes.slice(0, 2), { status: 206, headers: {
+    'Content-Length': '2', 'Content-Range': `bytes 0-1/${n}`, 'X-VetMock-Library-Access': 'public',
+  } });
+  const partial = part.request(`t=signed&h=${publicHash}`, { headers: { Range: 'bytes=0-1' } });
+  await partial.response; await partial.settled();
+  assert.equal(await (await part.caches.open(DOCS)).match('/__lib-doc/' + publicHash), undefined);
 });
 
 function memoryStorage() {
