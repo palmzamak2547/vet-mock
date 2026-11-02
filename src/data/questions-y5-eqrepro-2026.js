@@ -2577,7 +2577,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "equine-abortion"
     ],
     "subject": "equine-repro",
-    "topic": "eqrepro-stallion-infect",
+    "topic": "eqrepro-mare-infect",
     "year": 5,
     "type": "mcq",
     "q": "Equine herpesvirus ชนิดใดเป็นสาเหตุของการแท้งในแม่ม้า",
@@ -2601,7 +2601,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "intranuclear-inclusion-body"
     ],
     "subject": "equine-repro",
-    "topic": "eqrepro-stallion-infect",
+    "topic": "eqrepro-mare-infect",
     "year": 5,
     "type": "mcq",
     "q": "ผลทางจุลพยาธิวิทยาแบบใดของลูกม้าแท้งช่วยยืนยันการติดเชื้อ equine herpesvirus type 1",
@@ -3507,7 +3507,6 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "topic": "eqrepro-stallion-infect",
     "year": 5,
     "type": "tf",
-    "examScope": "final",
     "q": "อสุจิคุณภาพดีช่วยเพิ่มอัตราการตั้งท้องภายหลังการผสมพันธุ์",
     "answer": true,
     "explain": "คุณภาพน้ำเชื้อที่ไม่ดี ทั้งจำนวนและคุณภาพของอสุจิ เป็นสาเหตุหนึ่งของภาวะมีบุตรยากในพ่อม้า และเป็นปัญหาที่พบบ่อยเมื่อแม่ม้าผสมไม่ติด โดยเฉพาะเมื่อใช้น้ำเชื้อแช่แข็ง อสุจิคุณภาพดีจึงเพิ่มโอกาสตั้งท้องหลังผสม ทั้งนี้คุณภาพน้ำเชื้อบอกเพียงว่าโอกาสมากหรือน้อย น้ำเชื้อคุณภาพต่ำก็ยังทำให้ตั้งท้องได้ แต่โอกาสต่ำกว่า",
@@ -3605,7 +3604,6 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "topic": "eqrepro-stallion-infect",
     "year": 5,
     "type": "tf",
-    "examScope": "midterm",
     "q": "poor semen quality in infected stallion เป็นผลทางคลินิกของ contagious equine metritis",
     "answer": false,
     "explain": "Taylorella equigenitalis ซึ่งก่อโรค contagious equine metritis (CEM) ไม่ทำให้พ่อม้าแสดงอาการ พ่อม้าเป็นแหล่งรังโรค (reservoir) ที่ไม่มีอาการและส่งต่อเชื้อทางการผสม อาการเกิดในแม่ม้า คือเยื่อบุมดลูกอักเสบและมีหนองเมือกไหลจากช่องคลอด คุณภาพน้ำเชื้อที่ไม่ดีในพ่อม้ามาจากความผิดปกติของอัณฑะ ถุงอัณฑะหรือ epididymis จากฮอร์โมน หรือจากเซลล์อักเสบในน้ำเชื้อ",

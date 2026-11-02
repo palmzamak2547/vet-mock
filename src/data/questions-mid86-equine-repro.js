@@ -15,7 +15,7 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
   {
     "id": 202091,
     "subject": "equine-repro",
-    "topic": "eqrepro-stallion-infect",
+    "topic": "eqrepro-mare-infect",
     "year": 5,
     "source": "Equine Repro Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -233,7 +233,6 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
       "semen-quality",
       "stallion-infection"
     ],
-    "examScope": "midterm",
     "id": 202250
   },
   {
@@ -315,11 +314,10 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
   {
     "id": 207486,
     "subject": "equine-repro",
-    "topic": "eqrepro-stallion-infect",
+    "topic": "eqrepro-mare-infect",
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "เก็บ swab จากอวัยวะสืบพันธุ์ภายนอกของพ่อม้าเพื่อส่งเพาะเชื้อ Taylorella equigenitalis ควรส่งในอาหารนำส่งชนิดใด",
     "options": [
       "Amies transport medium ชนิดที่ผสมผงถ่าน",
@@ -335,7 +333,7 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
       "CEM",
       "Taylorella-equigenitalis",
       "sample-transport",
-      "eqrepro-stallion-infect"
+      "eqrepro-mare-infect"
     ]
   },
   {
@@ -345,7 +343,6 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "ต้องการค้นหาพ่อม้าที่เป็นพาหะของ contagious equine metritis ควรเก็บ swab จากตำแหน่งใดจึงมีโอกาสพบเชื้อมากที่สุด",
     "options": [
       "ท่อ epididymis ส่วนหางและผิวด้านนอกของถุงอัณฑะ",
@@ -367,11 +364,10 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
   {
     "id": 207488,
     "subject": "equine-repro",
-    "topic": "eqrepro-stallion-infect",
+    "topic": "eqrepro-mare-infect",
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "ฟาร์มที่ไม่เคยสัมผัสเชื้อ equine herpesvirus type 1 มาก่อน มีแม่ม้าท้อง 4 เดือนฝูงหนึ่งและท้อง 9 เดือนอีกฝูงหนึ่ง เมื่อเชื้อเข้าฟาร์ม ผลที่คาดว่าจะเกิดคือข้อใด",
     "options": [
       "ฝูงท้อง 4 เดือนแท้งเกือบทั้งฝูง ปีถัดไปยังแท้งซ้ำเกือบทั้งฝูงเช่นเดิม",
@@ -387,7 +383,7 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
       "EHV-1",
       "abortion-storm",
       "herd-immunity",
-      "eqrepro-stallion-infect"
+      "eqrepro-mare-infect"
     ]
   },
   {
@@ -397,7 +393,6 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "เหตุใดสภาพพาหะแบบแฝงของเชื้อ equine viral arteritis จึงพบได้เฉพาะในพ่อม้า",
     "options": [
       "เพราะแม่ม้าไม่มีตัวรับของไวรัสชนิดนี้ที่เยื่อบุอวัยวะสืบพันธุ์",
@@ -948,7 +943,6 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "พ่อม้าตัวหนึ่งเป็นพาหะแบบแฝงของ equine viral arteritis และปล่อยเชื้อออกมากับน้ำเชื้อ หากต้องการทำให้ตัวนี้ปลอดเชื้อ แนวทางใดตรงกับกลไกของโรคมากที่สุด",
     "options": [
       "ลดระดับ testosterone ลง เช่น การตอนหรือใช้ยากดการทำงานของฮอร์โมนเพศผู้",
@@ -974,7 +968,6 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "เหตุใดการควบคุม contagious equine metritis จึงต้องอาศัยการเก็บ swab ตรวจม้าทุกตัวก่อนนำเข้าประเทศ แทนที่จะใช้โปรแกรมวัคซีน",
     "options": [
       "เพราะวัคซีนที่มีอยู่ป้องกันได้เฉพาะแม่ม้า ไม่ครอบคลุมพ่อม้าที่เป็นพาหะ",
@@ -1000,7 +993,6 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
     "year": 5,
     "type": "mcq",
     "sourceType": "lecture-derived",
-    "examScope": "midterm",
     "q": "พ่อม้าตัวหนึ่งเคยมีตุ่มใสและแผลอักเสบที่อวัยวะสืบพันธุ์ภายนอกเมื่อสามเดือนก่อน ตอนนี้ตุ่มหายไปแล้วแต่เหลือรอยด่างสีขาวบนผิวหนังที่เดิมเป็นสีดำ สิ่งที่พบนี้เข้าได้กับข้อใด",
     "options": [
       "เชื้อรากินผิวหนังซึ่งทิ้งวงด่างไว้หลังหายและติดต่อจากการสัมผัสอุปกรณ์",
