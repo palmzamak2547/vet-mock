@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnailError, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
 // Palm audit 2026-05-20 P0: VIDEO_SUMMARIES file is ~2 MB (62k lines of
@@ -8,6 +8,7 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnail
 //   • Full bodies — lazy-imported ONCE the user clicks "📝 อ่านสรุปคลิป",
 //     one clip at a time, cached at module scope so reopening is instant.
 import { VIDEO_META } from '../data/video-summaries-meta.js';
+import { VIDEO_INDEX } from '../data/video-cards.generated.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { ownYearFirst, prefersCompactReading } from '../lib/reading-layout.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
@@ -43,6 +44,9 @@ import { copyText } from '../lib/clipboard.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
+import ClipStudy from '../components/ClipStudy.jsx';
+import { fetchVideoAsset } from '../lib/video-library.js';
+import { hasStoredAuthToken } from '../lib/auth-storage.js';
 import FeatureTip from '../components/FeatureTip.jsx';
 
 // ── Lazy video-summaries body loader (one module per clip) ────────
@@ -350,13 +354,16 @@ function usePlaylistPreview(playlistId) {
 // starts at 0. Only a clip the app knows opens: any eleven characters fit the
 // id's shape, and a crafted address must not play a stranger's video under
 // the app's own lecture title.
+// A library video (VIDEO_INDEX) is known too, so a topic's "ดูช่วงนี้" and a
+// question's fallback moment open the clip they name.
 function knownClip(videoId, seconds = 0) {
-  const topic = videoId && (VIDEO_META[videoId]?.title || sessionLabel(videoId));
+  const library = videoId && Object.prototype.hasOwnProperty.call(VIDEO_INDEX, videoId) ? VIDEO_INDEX[videoId] : null;
+  const topic = videoId && (VIDEO_META[videoId]?.title || sessionLabel(videoId) || library?.[0]);
   if (!topic) return null;
   return {
     url: `https://www.youtube.com/watch?v=${videoId}`,
     topic,
-    subject: VIDEO_META[videoId]?.subject || '',
+    subject: VIDEO_META[videoId]?.subject || library?.[1] || '',
     start: seconds,
   };
 }
@@ -921,6 +928,46 @@ function usePlayerClock(playerRef, videoId) {
   return currentTime;
 }
 
+// The study panel (summary, chapters, index, transcript) beside a library
+// video. Its times seek whichever player is playing: the library's own copy
+// or YouTube's.
+// Our own copy answers the same calls as YT.Player, so the notes and the
+// study panel neither know nor care which one plays.
+function ownCopyPlayer(el) {
+  return {
+    getCurrentTime: () => el.currentTime,
+    getDuration: () => el.duration,
+    seekTo: (t) => { el.currentTime = t; },
+    playVideo: () => el.play().catch(() => {}),
+    pauseVideo: () => el.pause(),
+    destroy: () => {},
+  };
+}
+
+// The transcript's lines as WebVTT, so our own copy keeps the captions
+// YouTube's player had. A line lasts until the next one, six seconds at most.
+function transcriptVtt(lines) {
+  const ts = (sec) => {
+    const ms = Math.max(0, Math.round(sec * 1000));
+    const p = (n, w = 2) => String(n).padStart(w, '0');
+    return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)}.${p(ms % 1000, 3)}`;
+  };
+  return `WEBVTT\n\n${lines.map(([t, text], i) => {
+    const end = Math.max(t + 0.5, Math.min(lines[i + 1]?.[0] ?? t + 6, t + 6));
+    return `${ts(t)} --> ${ts(end)}\n${String(text).replace(/-->/g, '→')}\n`;
+  }).join('\n')}`;
+}
+
+function ClockedClipStudy({ videoId, playerRef }) {
+  const currentTime = usePlayerClock(playerRef, videoId);
+  const seek = useCallback((t) => {
+    const p = playerRef.current;
+    if (!p) return;
+    try { p.seekTo(t, true); p.playVideo?.(); } catch {}
+  }, [playerRef]);
+  return <ClipStudy videoId={videoId} currentTime={currentTime} seek={seek} />;
+}
+
 function ClockedVideoNotePanel({ videoId, playerRef }) {
   const currentTime = usePlayerClock(playerRef, videoId);
   return <VideoNotePanel videoId={videoId} playerRef={playerRef} currentTime={currentTime} />;
@@ -1065,6 +1112,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       // must not change the clip behind the summary it is describing.
       if (openSummary) return;
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      // The video's own arrows seek and the study panel's tabs move between
+      // tabs: neither may change the clip.
+      if (e.target.closest?.('video, .vmx-clip, [role="tab"]')) return;
       if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
       if (e.key === '/' && playlistItems.length > 0) { e.preventDefault(); searchInputRef.current?.focus(); }
@@ -1094,6 +1144,45 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   // Owned here so the notes panel can read the clock and seek via the ref.
   const ytContainerRef = useRef(null);
   const playerRef = useRef(null);
+  // The library's own copy (docs/VIDEO-LIBRARY.md), played from R2 for a
+  // signed-in student when the library has one (VIDEO_INDEX's fourth field);
+  // YouTube otherwise, and YouTube again if the copy fails to play. A guest
+  // goes straight to YouTube, so nothing waits on a request that must fail.
+  const ownVideoRef = useRef(null);
+  const ownWanted = Boolean(currentVideoId && VIDEO_INDEX[currentVideoId]?.[3] && hasStoredAuthToken());
+  const [own, setOwn] = useState({ id: null });
+  const ownRetried = useRef(null); // the clip whose link was renewed once after an error
+  const ownResume = useRef(0); // the second to carry on from after a renewed link
+  const [ownVtt, setOwnVtt] = useState(null);
+  // Keyed by clip: a clip just opened reads "checking", never the last clip's answer.
+  const ownStatus = !ownWanted ? 'none' : own.id === currentVideoId ? own.status : 'checking';
+  useEffect(() => {
+    if (!ownWanted) return undefined;
+    let off = false;
+    fetchVideoAsset(currentVideoId, 'video')
+      .then((res) => { if (!off) setOwn(res.status === 'ok' ? { id: currentVideoId, status: 'ready', url: res.data.url } : { id: currentVideoId, status: 'none' }); })
+      .catch(() => { if (!off) setOwn({ id: currentVideoId, status: 'none' }); });
+    return () => { off = true; };
+  }, [currentVideoId, ownWanted]);
+  // Captions for our copy, from the same transcript the study panel shows.
+  useEffect(() => {
+    if (ownStatus !== 'ready') return undefined;
+    let off = false;
+    let url = null;
+    fetchVideoAsset(currentVideoId, 'transcript').then((r) => {
+      if (off || r.status !== 'ok' || !r.data?.lines?.length) return;
+      url = URL.createObjectURL(new Blob([transcriptVtt(r.data.lines)], { type: 'text/vtt' }));
+      setOwnVtt(url);
+    });
+    return () => { off = true; setOwnVtt(null); if (url) URL.revokeObjectURL(url); };
+  }, [ownStatus, currentVideoId]);
+  useEffect(() => {
+    const el = ownVideoRef.current;
+    if (ownStatus !== 'ready' || !el) return undefined;
+    const adapter = ownCopyPlayer(el);
+    playerRef.current = adapter;
+    return () => { if (playerRef.current === adapter) playerRef.current = null; };
+  }, [ownStatus, own.url]);
   // The in-app player could not start (its API did not load, or YT.Player
   // threw). The clip is still one tap away on YouTube, so the black box says
   // where instead of staying black.
@@ -1103,7 +1192,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   // the player on video change is simpler than juggling loadVideoById() —
   // and it matches the previous iframe behavior (full reload on switch).
   useEffect(() => {
-    if (!currentVideoId) return undefined;
+    if (!currentVideoId || ownStatus !== 'none') return undefined;
     setPlayerFailed(false);
     const container = ytContainerRef.current;
     if (!container) return undefined;
@@ -1146,7 +1235,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       try { playerRef.current?.destroy?.(); } catch {}
       playerRef.current = null;
     };
-  }, [currentVideoId, playlistId]);
+  }, [currentVideoId, playlistId, ownStatus]);
 
   const currentItem = playlistItems[currentIdx];
   // hasSummary uses VIDEO_META (sync · ~50 KB) so we don't pay the
@@ -1235,7 +1324,38 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           <div style={{ padding: 18, paddingRight: showList && playlistItems.length > 0 ? 12 : 18 }}>
             {embedUrl ? (
               <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: 12, overflow: 'hidden', background: '#000', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}>
-                {currentVideoId ? (
+                {currentVideoId && ownStatus === 'ready' ? (
+                  <video
+                    key={`own-${currentVideoId}`}
+                    ref={ownVideoRef}
+                    className="vmx-own-video"
+                    src={own.url}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    title={video.topic}
+                    onLoadedMetadata={(e) => {
+                      const from = ownResume.current || startAt;
+                      ownResume.current = 0;
+                      if (from > 0) e.currentTarget.currentTime = from;
+                      e.currentTarget.play().catch(() => {});
+                    }}
+                    onError={(e) => {
+                      // A link signed for six hours runs out under a lecture paused
+                      // overnight: renew it once and carry on from the same second;
+                      // a second failure falls back to YouTube.
+                      if (ownRetried.current !== currentVideoId) {
+                        ownRetried.current = currentVideoId;
+                        ownResume.current = e.currentTarget.currentTime || 0;
+                        fetchVideoAsset(currentVideoId, 'video').then((res) => setOwn(res.status === 'ok' ? { id: currentVideoId, status: 'ready', url: res.data.url } : { id: currentVideoId, status: 'none' }));
+                        return;
+                      }
+                      setOwn({ id: currentVideoId, status: 'none' });
+                    }}
+                  >
+                    {ownVtt && <track kind="captions" srcLang="th" label="ไทย (ถอดอัตโนมัติ)" src={ownVtt} />}
+                  </video>
+                ) : currentVideoId && ownStatus === 'checking' ? null : currentVideoId ? (
                   // YT.Player replaces this node with its own iframe — key by
                   // (videoId, playlistId) so React unmounts/remounts when the
                   // tuple changes, giving us a clean slate every time.
@@ -1335,6 +1455,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 </div>
               );
             })()}
+
+            {/* Summary, chapters, index and transcript of a library video */}
+            {currentVideoId && <ClockedClipStudy key={currentVideoId} videoId={currentVideoId} playerRef={playerRef} />}
 
             {/* Audio-synced notes — only when we have a concrete video id */}
             {currentVideoId && (

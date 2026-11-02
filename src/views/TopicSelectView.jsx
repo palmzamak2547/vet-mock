@@ -12,6 +12,8 @@ import { SUBJECTS, announced, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { fetchRelatedDocs, librarySubjectCounts } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
+// Lazy: the topic screen pays for the video code only when a list opens.
+const TopicClips = lazy(() => import('../components/TopicClips.jsx'));
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
@@ -86,6 +88,17 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // subject, cached per session); a topic card opens its list in place.
   const [relatedDocs, setRelatedDocs] = useState(() => new Map());
   const [openRelated, setOpenRelated] = useState(null);
+  // "ดูช่วงนี้": how many stretches of lecture video teach each topic (the
+  // index is one small lazy chunk), and which topic's list is open.
+  const [clipCounts, setClipCounts] = useState({});
+  const [openClips, setOpenClips] = useState(null);
+  useEffect(() => {
+    let off = false;
+    import('../data/video-topic-index.generated.js')
+      .then(({ VIDEO_TOPIC_INDEX: index }) => { if (!off) setClipCounts(Object.fromEntries(Object.entries(index).map(([id, list]) => [id, new Set(list.map((x) => x.v)).size]))); })
+      .catch(() => {});
+    return () => { off = true; };
+  }, []);
   const [landRelated, setLandRelated] = useState(null);
   useEffect(() => {
     let alive = true;
@@ -819,7 +832,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 )}
               </button>
 
-              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || related.length > 0 || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
+              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || related.length > 0 || clipCounts[t.id] > 0 || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
                   {lecturer?.kind === 'profile' && (
                     <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
@@ -851,6 +864,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       <NavIcon name="files" size={15} /> เอกสาร {related.length}
                     </button>
                   )}
+                  {clipCounts[t.id] > 0 && (
+                    <button
+                      type="button"
+                      className="vmx-topic-action"
+                      aria-expanded={openClips === t.id}
+                      onClick={() => setOpenClips((cur) => (cur === t.id ? null : t.id))}
+                    >
+                      <NavIcon name="video" size={15} /> คลิป {clipCounts[t.id]}
+                    </button>
+                  )}
                   {subject === 'vca' && VCA_NOTES_MAP[t.id] && (
                     <button
                       type="button"
@@ -865,6 +888,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       <NavIcon name="note" size={15} /> {VCA_NOTES_MAP[t.id].label}
                     </button>
                   )}
+                </div>
+              )}
+              {openClips === t.id && (
+                <div className="vmx-topic-related">
+                  <Suspense fallback={null}><TopicClips topicId={t.id} /></Suspense>
                 </div>
               )}
               {openRelated === t.id && related.length > 0 && (

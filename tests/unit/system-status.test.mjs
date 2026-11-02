@@ -155,3 +155,34 @@ test('only the admin can read it', async () => {
   assert.equal(ok.headers['cache-control'], 'private, no-store');
   assert.equal((await call({ method: 'POST' })).statusCode, 405);
 });
+
+test('the weekly video import reads its own report: fresh is ok, a missed fortnight is down, a held clip warns', async () => {
+  const withReport = (status, body) => deps({
+    fetchImpl: router({
+      ...healthy,
+      'https://api.cloudflare.com/client/v4/user/tokens/verify': () => json(200, { success: true, result: { status: 'active', id: 'tok-id' } }),
+      'https://acct.r2.cloudflarestorage.com/vetmock-library/videos/_status.json': () => json(status, body),
+    }),
+  });
+  const fresh = { at: new Date(NOW - 2 * DAY).toISOString(), videos: 232, published: [{ id: 'aaaaaaaaaaa' }], held: [], failed: [] };
+  let v = byId(await runChecks(withReport(200, fresh))).videos;
+  assert.equal(v.state, 'ok', JSON.stringify(v));
+  assert.match(v.detail, /232 คลิป/);
+
+  v = byId(await runChecks(withReport(200, { ...fresh, at: new Date(NOW - 15 * DAY).toISOString() }))).videos;
+  assert.equal(v.state, 'down');
+  assert.match(v.detail, /15 วัน/);
+  assert.ok(v.fix.includes('video-registry.mjs --status'), 'says how to run it by hand');
+
+  v = byId(await runChecks(withReport(200, { ...fresh, held: [{ id: 'bbbbbbbbbbb', why: 'coverage' }] }))).videos;
+  assert.equal(v.state, 'warn');
+  assert.match(v.detail, /bbbbbbbbbbb/);
+
+  v = byId(await runChecks(withReport(200, { ...fresh, failed: [{ id: 'ccccccccccc', step: 'media', error: 'x' }] }))).videos;
+  assert.equal(v.state, 'warn');
+  assert.match(v.detail, /ไม่สำเร็จ/);
+
+  v = byId(await runChecks(withReport(404, {}))).videos;
+  assert.equal(v.state, 'warn', 'before the first run: not yet, not broken');
+  assert.ok(!JSON.stringify(v).includes('cf-secret-5'), 'the token never leaves');
+});
