@@ -256,6 +256,11 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
+  // Milk & Meat and Epidemiology finals: questions written from the points seniors marked (5.190.0 marks pass).
+  "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
+  "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
   // Filed as papers until 2026-10-28. Their rows cite "Equine Repro Final (Vet 85)" pp. 3-5, the
   // document 21 "study summary" rows cite, and no page names the paper they sat on; one explanation
   // opens "สรุปเน้นว่า". Under-claimed to band 1 until the document itself shows a sat paper.

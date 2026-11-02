@@ -32,7 +32,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105086,
-    "tags": ["confounding","indirect-association"],
+    "sourceType": "exam-aligned",
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": ["อิงแนวข้อสอบ","confounding","indirect-association"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -46,7 +48,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     ],
     "answer": 0,
     "explain": "อายุเป็น confounding factor ที่พุ่งไปทั้งสองทางพร้อมกัน แมวแก่มักถูกเลี้ยงในบ้าน และแมวแก่ก็เป็น CKD ความสัมพันธ์ที่เห็นระหว่างการเลี้ยงในบ้านกับ CKD จึงเป็นความสัมพันธ์ทางอ้อมที่อายุสร้างขึ้น ไม่ใช่ความสัมพันธ์เชิงสาเหตุ\n\n❌ ทำไมข้ออื่นผิด\n— \"การอยู่ในบ้านทำให้แมวกินน้ำน้อยลง จึงเร่งให้ไตเสื่อมเร็วขึ้น\" = เสนอกลไกตรงจากการอยู่ในบ้านไปหา CKD แต่กรณีนี้ยกมาเพื่ออธิบายผลของตัวแปรที่สาม ไม่ใช่กลไกตรง\n— \"แมวที่เป็น CKD มักถูกเจ้าของย้ายมาเลี้ยงในบ้านหลังได้รับวินิจฉัย\" = สลับลำดับเหตุกับผล เป็นคนละกลไกกับการมีตัวแปรร่วมที่ชี้ไปทั้งสองข้าง\n— \"การเลี้ยงในบ้านสัมพันธ์กับ CKD แบบหนึ่งต่อหนึ่งตามนิยาม direct\" = ตรงข้ามกับสิ่งที่ตัวอย่างนี้ต้องการสอน เพราะยกมาเพื่อแสดงความสัมพันธ์ที่ไม่ใช่สาเหตุ\n\n💡 เจอความสัมพันธ์ที่ฟังดูแปลก ให้ถามหาตัวแปรที่ชี้ไปทั้งสองข้างก่อน ในสัตว์เลี้ยงตัวนั้นมักจะเป็นอายุ",
-    "verified": "Concept_of_causation p.11"
+    "verified": "Concept_of_causation p.11; รุ่นพี่ Vet 84 ติดดาวว่าจุดนี้ออกสอบ ในแผนที่ความคิด Epidemiology ของ Vet 83"
   },
   {
     "id": 105089,
@@ -194,7 +196,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105101,
-    "tags": ["chain-of-infection","portal-of-entry"],
+    "sourceType": "exam-aligned",
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": ["อิงแนวข้อสอบ","chain-of-infection","portal-of-entry"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -208,7 +212,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     ],
     "answer": 1,
     "explain": "portal of entry คือทางที่เชื้อเข้าสู่ร่างกายของโฮสต์ตัวใหม่ ได้แก่ ระบบหายใจ ระบบย่อยอาหาร เยื่อเมือก และแผลที่ผิวหนัง\n\n❌ ทำไมข้ออื่นผิด\n— \"เลือด สารคัดหลั่ง สิ่งขับถ่าย และผิวหนัง\" = เป็นตัวอย่างของ portal of exit คือทางที่เชื้อออกจากตัวที่ติดเชื้ออยู่ อยู่คนละข้อต่อของโซ่\n— \"คน สัตว์ ดิน อาหาร น้ำ และอุปกรณ์เครื่องมือ\" = เป็น reservoir คือที่ที่เชื้ออาศัยอยู่ก่อนจะออกเดินทาง\n— \"อายุ สายพันธุ์ ภูมิคุ้มกัน และสภาวะทางสรีรวิทยา\" = เป็นคุณสมบัติของ susceptible host ไม่ใช่ประตูทางเข้า\n\n💡 exit คือออกจากตัวเก่า entry คือเข้าตัวใหม่ ผิวหนังที่ยังปกติอยู่ฝั่ง exit ส่วนฝั่ง entry ต้องเป็นผิวหนังที่มีแผลถึงจะเข้าได้",
-    "verified": "concept_of_disease_transmission p.18"
+    "verified": "concept_of_disease_transmission p.18; รุ่นพี่ Vet 84 ติดดาวว่าจุดนี้ออกสอบ ในแผนที่ความคิด Epidemiology ของ Vet 83"
   },
   {
     "id": 105102,
@@ -230,7 +234,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105104,
-    "tags": ["infectivity","pathogenicity"],
+    "sourceType": "exam-aligned",
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": ["อิงแนวข้อสอบ","infectivity","pathogenicity"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -244,7 +250,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     ],
     "answer": 0,
     "explain": "เชื้อเข้าไปตั้งตัวและเพิ่มจำนวนได้ในสัตว์เกือบทุกตัวที่สัมผัส คือ infectivity สูง แต่ในบรรดาตัวที่ติดเชื้อไปแล้วกลับป่วยเพียงส่วนน้อย คือ pathogenicity ต่ำ โจทย์ไม่ได้บอกอะไรเลยเกี่ยวกับความรุนแรงของโรคในตัวที่ป่วย จึงยังตัดสิน virulence ไม่ได้\n\n❌ ทำไมข้ออื่นผิด\n— \"infectivity ต่ำ แต่ pathogenicity สูง\" = กลับทิศทั้งคู่ ถ้า infectivity ต่ำจะไม่ติดเชื้อกันเกือบทั้งกลุ่มแบบที่โจทย์บอก\n— \"virulence สูง แต่ infectivity ต่ำ\" = ผิดสองชั้น infectivity ในโจทย์สูงไม่ใช่ต่ำ และไม่มีข้อมูลความรุนแรงให้ตัดสิน virulence เลย\n— \"pathogenicity สูง แต่ virulence ต่ำ\" = pathogenicity ต้องต่ำ เพราะมีเพียงส่วนน้อยของตัวที่ติดเชื้อแล้วที่แสดงอาการ\n\n💡 ไล่เป็นสามด่านตามลำดับ ติดได้ไหมคือ infectivity ติดแล้วป่วยไหมคือ pathogenicity ป่วยแล้วหนักแค่ไหนคือ virulence",
-    "verified": "concept_of_disease_transmission p.23"
+    "verified": "concept_of_disease_transmission p.23; รุ่นพี่ Vet 84 ติดดาวว่าจุดนี้ออกสอบ ในแผนที่ความคิด Epidemiology ของ Vet 83"
   },
   {
     "id": 105105,

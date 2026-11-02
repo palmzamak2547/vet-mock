@@ -126,7 +126,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'com5': 10,
   'comp-repro-clinic': 48,
   'engprof': 1,
-  'epidemiology': 66,
+  'epidemiology': 73,
   'equine-medicine': 372,
   'equine-repro': 146,
   'exotic': 34,
@@ -210,7 +210,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com5': 10,
     'comp-repro-clinic': 48,
     'engprof': 1,
-    'epidemiology': 66,
+    'epidemiology': 73,
     'equine-medicine': 372,
     'equine-repro': 82,
     'exotic': 34,
@@ -3586,4 +3586,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-02T11:36:11.387Z
+// Built: 2026-11-02T14:59:38.089Z

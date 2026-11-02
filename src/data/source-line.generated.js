@@ -80,7 +80,7 @@ export const TOPIC_CHIP_HELD = new Set([
   "equine-medicine:209569",
   "equine-medicine:209609",
   "equine-medicine:209610",
-  "equine-medicine:209613",
+  "equine-medicine:209615",
   "equine-medicine:209623",
   "equine-medicine:209624",
   "equine-medicine:209625",
