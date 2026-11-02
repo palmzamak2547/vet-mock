@@ -19,7 +19,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "fibrinous-polyserositis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-nds",
     "year": 5,
     "type": "mcq",
     "q": "ลูกเป็ดอายุ 3 สัปดาห์แสดงอาการคอบิด ตัวสั่น เดินเซ ผ่าซากพบ fibrinous exudate คลุมเยื่อหุ้มหัวใจ ตับ และถุงลม เพาะเชื้อขึ้นบน chocolate agar เชื้อสาเหตุที่น่าจะเป็นที่สุดคือข้อใด",
@@ -42,7 +42,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "annular-band-lesion"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-duck-plague",
     "year": 5,
     "type": "mcq",
     "q": "เป็ดพ่อแม่พันธุ์ตายเฉียบพลันจำนวนมาก ผ่าซากพบ patchy diphtheritic membrane ที่หลอดอาหาร และเห็น annular band ที่มีเลือดออกบนเยื่อบุลำไส้ รอยโรคชุดนี้บ่งชี้โรคใด",
@@ -65,7 +65,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "picornavirus"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-dvh",
     "year": 5,
     "type": "mcq",
     "q": "ลูกเป็ดอายุ 2 สัปดาห์ตายเฉียบพลันภายใน 24 ชั่วโมง ท่าตายเป็น opisthotonus ผ่าซากพบตับมีจุดเลือดออกทั่ว เชื้อสาเหตุที่พบในไทยคือข้อใด",
@@ -88,7 +88,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "vector-control"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-duck-flavi",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มเป็ดพบการระบาดของ Duck Tembusu virus ข้อใดคือมาตรการป้องกันที่ตรงกับกลไกการแพร่ของเชื้อ มากที่สุด",
@@ -134,7 +134,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "antibody-kinetics"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ae",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มทำวัคซีน Avian encephalomyelitis ในไก่พันธุ์ แล้วเก็บซีรัมที่ 2 สัปดาห์หลังทำวัคซีน พบว่า Ab ยังไม่ขึ้น คำอธิบายใดถูกต้องมากที่สุด",
@@ -158,7 +158,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "viral-tropism"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ae",
     "year": 5,
     "type": "mcq",
     "q": "เหตุใดการใช้วัคซีน AE สายพันธุ์ที่ปรับให้เพิ่มจำนวนในระบบประสาท (embryo-adapted) มาผสมน้ำให้กิน จึงมักไม่ทำให้ไก่สร้างภูมิ",
@@ -181,7 +181,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "pulmonary-hypertension"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ahra-set",
     "year": 5,
     "type": "mcq",
     "q": "ลำดับพยาธิกำเนิดของ ascites ในไก่เนื้อ ข้อใดถูกต้อง",
@@ -204,7 +204,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "leg-deformity"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ahra-set",
     "year": 5,
     "type": "mcq",
     "q": "ความชื้นในตู้ฟักที่ต่ำกว่าปกติ (ปกติราว 54-55%) ทำให้เกิดปัญหาขาผิดรูปได้อย่างไร",
@@ -228,7 +228,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "arthritis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ahra-set",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มไก่เนื้อพบ Staphylococcus aureus ทำให้ข้ออักเสบและกระดูกอักเสบซ้ำ ๆ ทั้งที่ให้ยาปฏิชีวนะตามผลความไวยาแล้ว ข้อใดคือคำอธิบาย",
@@ -251,7 +251,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "fowl-typhoid"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-salmonella",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดอธิบายความต่างระหว่าง Pullorum disease กับ Fowl typhoid ได้ถูกต้อง",
@@ -275,7 +275,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "biosecurity"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-salmonella",
     "year": 5,
     "type": "mcq",
     "q": "เหตุใด Pullorum disease และ Fowl typhoid จึงแทบไม่พบในฟาร์มไทยแล้ว",
@@ -298,7 +298,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "fowl-adenovirus"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-adeno",
     "year": 5,
     "type": "mcq",
     "q": "ไก่เนื้ออายุ 3 สัปดาห์ตายเพิ่มขึ้น ผ่าซากพบตับซีดมีจุดเลือดออก มีน้ำในถุงหุ้มหัวใจ และ gizzard erosion ควรนึกถึงโรคใดมากที่สุด",
@@ -321,7 +321,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "disinfectant-selection"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-adeno",
     "year": 5,
     "type": "mcq",
     "q": "Avian adenovirus เป็น non-enveloped DNA virus ที่ทนต่อสารฆ่าเชื้อได้ดี สารกลุ่มใดที่ใช้ทำลายเชื้อในโรงเรือนได้",
@@ -390,7 +390,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "airsacculitis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ort",
     "year": 5,
     "type": "mcq",
     "q": "Ornithobacterium rhinotracheale ทำให้เกิด airsacculitis ที่มีลักษณะ exudate แบบใด",
@@ -413,7 +413,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "killed-vaccine"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ort",
     "year": 5,
     "type": "mcq",
     "q": "วัคซีนสำหรับ Ornithobacterium rhinotracheale มีลักษณะอย่างไร",
@@ -436,7 +436,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "microaerophilic-culture"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-campy",
     "year": 5,
     "type": "mcq",
     "q": "การเพาะแยก Campylobacter ต้องใช้บรรยากาศแบบ microaerophilic ตามสัดส่วนใด",
@@ -460,7 +460,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "motility"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-campy",
     "year": 5,
     "type": "mcq",
     "q": "เหตุใดการแยก Campylobacter จึงใช้วิธีวางกระดาษกรองบนผิววุ้นแล้วหยดน้ำ broth ลงไป",
@@ -484,7 +484,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "gram-positive"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-listeria",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับคุณสมบัติของ Listeria",
@@ -507,7 +507,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "typhlohepatitis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-histomoniasis",
     "year": 5,
     "type": "mcq",
     "q": "ไก่งวงเลี้ยงหลังบ้านตายหลายตัว ผ่าซากพบตับมีเนื้อตายเป็นแอ่งกลมสีเหลือง ไส้ตันหนาตัว และมูลสีเหลืองกำมะถัน โรคนี้คือข้อใด",
@@ -530,7 +530,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "deworming"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-histomoniasis",
     "year": 5,
     "type": "mcq",
     "q": "การป้องกัน Histomoniasis เน้นเรื่องใดเป็นหลัก",
@@ -553,7 +553,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "aspergillus-fumigatus"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "ลูกไก่อายุ 5 วันตายเพิ่มขึ้น ผ่าซากพบตุ่มขาวเล็ก ๆ กระจายบนเยื่อถุงลม ถุงลมขุ่นหนา และปอดมี granuloma เชื้อสาเหตุที่พบบ่อยที่สุดคือข้อใด",
@@ -577,7 +577,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "differential-diagnosis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "ผ่าซากไก่พบแผ่นสีขาวคล้ายเนยแข็งคลุมผนัง crop ล้างไม่ออก ข้อใดคือภาวะที่ต้องวินิจฉัยแยกจากรอยโรคนี้",
@@ -600,7 +600,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "dermatophyte"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "โรค Favus (white comb) ในไก่ มีลักษณะตามข้อใด",
@@ -624,7 +624,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "age-related-susceptibility"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "ปัจจัยด้านตัวสัตว์ข้อใดทำให้ไวต่อพิษจากเชื้อราสูงกว่า",
@@ -648,7 +648,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "immunosuppression"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "อาหารไก่ที่ปนเปื้อน aflatoxin B1 ปริมาณสูง จะพบรอยโรคและผลกระทบตามข้อใด",
@@ -671,7 +671,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "nephrotoxicity"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "ผ่าซากไก่พบไตซีด บวม แข็ง เสียสภาพ และมีผลึกยูเรตสีขาวเป็นจุดเล็กกระจาย สารพิษจากเชื้อราชนิดใดน่าสงสัยที่สุด",
@@ -695,7 +695,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "coccidiosis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มใช้ lasalocid ป้องกันบิด แต่ยังพบบิดและตามด้วย necrotic enteritis เมื่อตรวจพบสารพิษจากเชื้อราปนในอาหาร ข้อใดอธิบายได้",
@@ -718,7 +718,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "glucomannan"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "ฟาร์มพบว่าอาหารปนเปื้อน mycotoxin หลายชนิดพร้อมกัน สารจับพิษกลุ่มใดที่จับได้หลายชนิดกว่ากลุ่มดินเหนียว",
@@ -741,7 +741,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "feed-analysis"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-mycosis",
     "year": 5,
     "type": "mcq",
     "q": "การยืนยันการวินิจฉัย mycotoxicosis ควรทำอย่างไร",
@@ -1130,7 +1130,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "intracellular-bacteria"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ort",
     "year": 5,
     "type": "mcq",
     "q": "แบคทีเรียในสัตว์ปีกข้อใดที่เป็นเชื้อที่อยู่ในเซลล์ (intracellular bacteria)",
@@ -2209,7 +2209,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "bursal-atrophy"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ibd",
     "year": 5,
     "type": "mcq",
     "q": "หลังติดเชื้อ IBDV เมื่อถึงวันที่ 9 bursa จะเป็นอย่างไร",
@@ -2284,7 +2284,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "transmission"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-marek",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดเปรียบเทียบ Marek’s disease กับ Avian leukosis ได้ถูกต้อง",
@@ -2309,7 +2309,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "vertical-transmission"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-cia",
     "year": 5,
     "type": "mcq",
     "q": "ลักษณะการตายของฝูงไก่ที่ติด chicken infectious anemia virus เป็นอย่างไร",
@@ -2333,7 +2333,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "immune-complex-vaccine"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ibd",
     "year": 5,
     "type": "mcq",
     "q": "หลักการของ immune-complex vaccine ที่ใช้ป้องกัน infectious bursal disease คือข้อใด",
@@ -2357,7 +2357,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Clostridium-perfringens"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
     "q": "รอยโรคที่เยื่อบุลำไส้ลักษณะคล้ายผ้าขนหนู หรือ Turkish towel ที่ jejunum และ ileum เข้าได้กับโรคใด",
@@ -2382,7 +2382,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "megaloschizont"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
     "q": "ไก่ในโรงเรือนเปิดช่วงต้นฤดูฝนตายเฉียบพลัน ผ่าซากพบเลือดออกในช่องท้องและจุดขาวของ megaloschizont ที่ตับและม้าม พาหะของโรคนี้คือข้อใด",
@@ -2408,7 +2408,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-reo",
     "year": 5,
     "type": "mcq",
     "q": "Reovirus ในไก่ก่อโรคสำคัญชื่อว่าอะไร และอวัยวะเป้าหมายคือข้อใด",
@@ -2434,6 +2434,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
+    "flag": {"severity":"minor","note":"แหล่งข้อมูลของหัวข้อ Serology Interpretation (ปลายภาค) ให้นับไก่ 1 ตัวเป็น 1 ตัวอย่าง เจาะราว 30 ตัวต่อโรงเรือน และไม่รวมซีรัม เพราะตัวที่ไม่มี titer จะเจือจางผลของตัวอื่น ส่วนการรวมซีรัม 5 ตัวเป็น 1 ตัวอย่างในข้อนี้มาจากเนื้อหาช่วงต้นเทอม ให้ยึดตามที่สอนในหัวข้อที่สอบ"},
     "year": 5,
     "type": "mcq",
     "q": "หลักการเก็บตัวอย่างเลือดเพื่อส่งตรวจซีรัมในฟาร์มไก่เป็นอย่างไร",
@@ -2458,7 +2459,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "age-susceptibility"
     ],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-ibd",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับ serotype และช่วงอายุที่ไก่เป็นโรค infectious bursal disease",

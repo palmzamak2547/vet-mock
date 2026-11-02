@@ -297,15 +297,11 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "avian-intro": {
-        "cohorts": [85],
-        "first": 85,
-        "last": 85,
-        "items": 2,
-        "sat": {
-          "85": {
-            "final": ["avian-medicine:105819"],
-          },
-        },
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 1,
+        "sat": {},
         "unattributed": ["avian-medicine:203011"],
       },
       "avian-leuko": {
@@ -398,13 +394,16 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "avian-ort": {
-        "cohorts": [81],
+        "cohorts": [81, 85],
         "first": 81,
-        "last": 81,
-        "items": 6,
+        "last": 85,
+        "items": 7,
         "sat": {
           "81": {
             "unknown": ["avian-medicine:212521", "avian-medicine:212522", "avian-medicine:212523", "avian-medicine:212524", "avian-medicine:212525", "avian-medicine:212526"],
+          },
+          "85": {
+            "final": ["avian-medicine:105819"],
           },
         },
         "unattributed": [],
@@ -1902,6 +1901,18 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["equine-repro:105452", "equine-repro:105453", "equine-repro:105454", "equine-repro:105455", "equine-repro:105456", "equine-repro:105457", "equine-repro:105458", "equine-repro:105459", "equine-repro:105460", "equine-repro:105461", "equine-repro:105462", "equine-repro:105463", "equine-repro:105464", "equine-repro:105465", "equine-repro:105466", "equine-repro:105467", "equine-repro:211500", "equine-repro:211502"],
       },
+      "eqrepro-mare-infect": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 3,
+        "sat": {
+          "85": {
+            "midterm": ["equine-repro:105538", "equine-repro:105539"],
+          },
+        },
+        "unattributed": ["equine-repro:202091"],
+      },
       "eqrepro-postpartum": {
         "cohorts": [84],
         "first": 84,
@@ -1933,13 +1944,13 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 14,
+        "items": 11,
         "sat": {
           "85": {
-            "midterm": ["equine-repro:105538", "equine-repro:105539", "equine-repro:105540", "equine-repro:105541", "equine-repro:105542", "equine-repro:105543", "equine-repro:202250", "equine-repro:211504"],
+            "midterm": ["equine-repro:105540", "equine-repro:105541", "equine-repro:105542", "equine-repro:105543", "equine-repro:202250", "equine-repro:211504"],
           },
         },
-        "unattributed": ["equine-repro:105479", "equine-repro:105480", "equine-repro:105481", "equine-repro:105482", "equine-repro:202091", "equine-repro:211501"],
+        "unattributed": ["equine-repro:105479", "equine-repro:105480", "equine-repro:105481", "equine-repro:105482", "equine-repro:211501"],
       },
       "eqrepro-surgery": {
         "cohorts": [],

@@ -85,7 +85,10 @@ test('a visitor with no session meets the wall, and no app screen paints first',
   const seen = await modeled(page, context);
   await open(page, seen, '/app/home');
   await expect(gateHeading(page)).toBeVisible();
-  await expect(page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' })).toBeVisible();
+  // Google's own button (an iframe from accounts.google.com) where the origin is registered, as on vetmock.com;
+  // the fallback button where Google's script cannot run, as on the CI preview's 127.0.0.1.
+  const googleFrame = page.locator('iframe[src*="accounts.google.com/gsi"]');
+  await expect(googleFrame.or(page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' })).first()).toBeVisible();
   await expect(page.getByText('@student.chula.ac.th', { exact: false }).first()).toBeVisible();
   await expect(page.getByText('ไม่ต้องพิมพ์ เลือกบัญชีนี้ในหน้าต่างของ Google')).toBeVisible();
   await expect(page.locator('#main')).toHaveCount(0);
@@ -167,6 +170,7 @@ test('inside LINE the wall offers the system browser instead of a Google button 
   await expect(exit).toBeVisible();
   expect(await exit.getAttribute('href')).toContain('openExternalBrowser=1');
   await expect(page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' })).toHaveCount(0);
+  await expect(page.locator('iframe[src*="accounts.google.com/gsi"]')).toHaveCount(0);
   await context.close();
 });
 

@@ -240,7 +240,7 @@ export const WRAPUP = {
           ]
         },
         {
-          "topic": "eqrepro-stallion-infect",
+          "topic": "eqrepro-mare-infect",
           "name": "โรคติดเชื้อที่สำคัญของม้าเพศเมีย",
           "th": "โรคติดต่อทางการผสมพันธุ์ในม้า",
           "keywords": [
@@ -309,7 +309,7 @@ export const WRAPUP = {
           "sources": [
             "บันทึกคาบเรียน 27 ส.ค. 2569 zFsNom4JMC8 (เลคเชอร์ 5-6) อ่านทั้งไฟล์",
             "work/eqrepro-mid86/src-pastpaper.md ส่วน PART B, PART C, PART D และสรุปรอยขีดเส้นใต้",
-            "คลังข้อสอบ VetMock หัวข้อ eqrepro-stallion-infect เฉพาะ sourceType past-paper และ student-compilation",
+            "คลังข้อสอบ VetMock หัวข้อ eqrepro-mare-infect และ eqrepro-stallion-infect เฉพาะ sourceType past-paper และ student-compilation",
             "src/data/glossary.js"
           ]
         },

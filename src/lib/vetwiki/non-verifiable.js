@@ -161,7 +161,10 @@ export const METADATA_SECTIONS = new Set([
   "aquatic-clinic--aqua-fish-biology--ภาพรวมของบทเรียน-principal-concepts", // cover plus the three headings the lecture will cover
   "aquatic-clinic--aqua-fish-biology--สไลด์วิดีโอประกอบเรื่อง-reproduction",
 
-  "avian-medicine--avian-intro--บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้-ให้ไปหาคำตอบเอง", // บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้ ให้ไปหาคำตอบเอง
+  "avian-medicine--avian-intro--บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้-สัดส่วนการส่งออกไก่เนื้อ", // บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้: สัดส่วนการส่งออกไก่เนื้อ
+  "avian-medicine--avian-salmonella--บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้-intracellular-bacteria-กับกา", // บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้: intracellular bacteria กับการเลือกยา
+  "avian-medicine--avian-mycosis--บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้-หน้าสารพิษจากเชื้อรา", // บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้: หน้าสารพิษจากเชื้อรา
+  "avian-medicine--avian-serology--บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้-เชื้อที่ตรวจด้วย-hi-ได้", // บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้: เชื้อที่ตรวจด้วย HI ได้
   "equine-medicine--equine-poa--เคสก้อนขนาดเท่าลูกเชอร์รี่ข้างแก้ม", // เคสก้อนขนาดเท่าลูกเชอร์รี่ข้างแก้ม
   "swine-clinic--swine-asf--รายการหัวข้อ-asf-และ-csf-ที่ออกข้อเขียน", // รายการหัวข้อ ASF และ CSF ที่ออกข้อเขียน
   "swine-clinic--swine-pcv2--exudative-epidermitis-และ-mycoplasma-suis-ที่บันทึกไว้โดยไม่มีคำ", // Exudative epidermitis และ Mycoplasma suis ที่บันทึกไว้โดยไม่มีคำตอบ
