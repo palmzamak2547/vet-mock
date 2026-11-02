@@ -808,8 +808,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? (hasWikiForTopic ? 'มีสรุปและ VetWiki' : 'มีสรุป') : 'รอเนื้อหาเพิ่ม'}
                 </span>
                 {ppCount > 0 && hasQuestions && (
+                  // ข้อสอบเก่า, the word the question card's source line uses for
+                  // the same predicate (isPastPaperQuestion). It read อิงแนวเดิม,
+                  // the card chip's word for a wider set, until 5.179.1.
                   <span className="vmx-topic-past" title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้)`}>
-                    อิงแนวเดิม {ppCount}/{count}, {ppPct}%
+                    ข้อสอบเก่า {ppCount}/{count}, {ppPct}%
                   </span>
                 )}
                 {t.lecturerNote && !isEmpty && (

@@ -132,6 +132,10 @@ export const TOPIC_CHIP_WAIT = 'หัวข้อแสดงหลังเฉ
 /** Whether this question's topic label waits for the key. */
 export const holdsTopicChip = (question) => TOPIC_CHIP_HELD.has(`${question?.subject}:${question?.id}`);
 
+/** The data-conflict flag's own words, the same before and after the answer;
+ *  its note and sources open only once the key is on screen (Question.jsx). */
+export const flagChipText = (flag) => `ข้อมูลขัดแย้ง, ${String(flag?.severity || 'unclear').toUpperCase()}`;
+
 /**
  * The full line once the key is on screen, as it always read: the origin,
  * else the source pointer through humanSource ("คาบ 3 (2 ก.ย.) นาที 28:22"),

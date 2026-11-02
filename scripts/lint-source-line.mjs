@@ -5,9 +5,10 @@
 // Palm, 1 Nov 2026: "ตรงที่มาตอนทำโจทย์ บางอันอ่านแล้วสามารถรู้เฉลยได้ แก้ที".
 // While a question is open, its source chip shows only the kind of source
 // (src/lib/source-line.js), the wait hint and, where the paper moved, the
-// origin note; the meta row above the stem shows the topic unless its label
-// would name the key. This lint reads both for every question in the bank and
-// fails when either gives the key away by the rules in
+// origin note; a data-conflict flag shows its warning but not its note; the
+// meta row above the stem shows the topic unless its label would name the
+// key. This lint reads all of it for every question in the bank and fails
+// when any of it gives the key away by the rules in
 // scripts/lib/answer-leak.mjs: a distinctive word of the correct option, the
 // disease, drug or organism the key names, or for a true/false or written
 // item the fact it tests.
@@ -36,7 +37,7 @@ import { leakOf } from './lib/answer-leak.mjs';
 import { sameGenerated } from './lib/same-generated.mjs';
 import {
   sourceLineBeforeAnswer, sourceLineAfterAnswer, SOURCE_LINE_WAIT,
-  topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT,
+  topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT, flagChipText,
 } from '../src/lib/source-line.js';
 import { originPaperNote } from '../src/lib/exam-scope.js';
 import { SUBJECTS } from '../src/data/curriculum.js';
@@ -58,10 +59,18 @@ export function unconfirmedCohorts() {
   return out;
 }
 
-/** Everything the closed source chip says while the question is open. */
+/** Everything the source chip and the data-conflict flag say while the question is open. */
 export function preAnswerText(question) {
-  return [sourceLineBeforeAnswer(question), SOURCE_LINE_WAIT, originPaperNote(question) || ''].filter(Boolean).join('\n');
+  return [
+    sourceLineBeforeAnswer(question), SOURCE_LINE_WAIT, originPaperNote(question) || '',
+    question?.flag ? `${flagChipText(question.flag)} ${SOURCE_LINE_WAIT}` : '',
+  ].filter(Boolean).join('\n');
 }
+
+/** What the flag would open: shown only once the key is on screen. */
+const flagDetail = (question) => (question?.flag
+  ? [question.flag.note, ...(question.flag.sources || [])].filter(Boolean).join('\n')
+  : '');
 
 const TOPICS = new Map(SUBJECTS.flatMap((s) => (s.topics || []).map((t) => [`${s.id}\u0000${t.id}`, t])));
 /** The topic label the meta row prints for a question, or '' when it prints none. */
@@ -104,6 +113,7 @@ export async function sourceLineLeaks() {
   const topicLeaks = [];
   const shouldHold = new Set();
   const held = [];
+  const flagsHeld = [];
   let count = 0;
   for (const file of bankFiles()) {
     const { questions } = await readBank(file);
@@ -119,17 +129,19 @@ export async function sourceLineLeaks() {
       if (FULL) {
         const full = leakOf(q, sourceLineAfterAnswer(q));
         if (full) held.push({ q, full });
+        const flag = flagDetail(q) && leakOf(q, flagDetail(q));
+        if (flag) flagsHeld.push({ q, flag });
       }
     }
   }
   const unconfirmed = unconfirmedCohorts();
   const fresh = generatedModule(shouldHold, unconfirmed);
   const current = fs.existsSync(GENERATED_FILE) ? fs.readFileSync(GENERATED_FILE, 'utf8') : '';
-  return { count, leaks, topicLeaks, held, shouldHold, unconfirmed, fresh, stale: !sameGenerated(current, fresh) };
+  return { count, leaks, topicLeaks, held, flagsHeld, shouldHold, unconfirmed, fresh, stale: !sameGenerated(current, fresh) };
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const { count, leaks, topicLeaks, held, shouldHold, unconfirmed, fresh, stale } = await sourceLineLeaks();
+  const { count, leaks, topicLeaks, held, flagsHeld, shouldHold, unconfirmed, fresh, stale } = await sourceLineLeaks();
   if (WRITE) {
     fs.writeFileSync(GENERATED_FILE, fresh);
     console.log(`wrote ${path.relative(root, GENERATED_FILE)}: ${shouldHold.size} topic labels wait for the key, ${unconfirmed.size} filed cohorts unconfirmed`);
@@ -140,6 +152,7 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     for (const { q } of held) bySubject[q.subject] = (bySubject[q.subject] || 0) + 1;
     console.log(`The full line, if it were shown before the key, would give it away on ${held.length} questions:`);
     for (const [subject, n] of Object.entries(bySubject).sort((a, b) => b[1] - a[1])) console.log(`  ${subject}: ${n}`);
+    console.log(`A flag's note and sources, if they opened before the key, would give it away on ${flagsHeld.length} questions.`);
   }
   let failed = false;
   if (leaks.length) {
@@ -160,5 +173,5 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     for (const { file, q, leak, text } of topicLeaks.slice(0, 20)) console.error(`  ${q.subject}#${q.id} (${file}) ${leak.rule}: ${leak.words.join(', ')}\n    shows: ${text}`);
   }
   if (failed) process.exit(1);
-  console.log(`✓ lint:source-line: ${count} questions, none gives its key away in the source line or the topic before the answer (${shouldHold.size} topic labels wait for it)`);
+  console.log(`✓ lint:source-line: ${count} questions, none gives its key away in the source line, the flag or the topic before the answer (${shouldHold.size} topic labels wait for it)`);
 }

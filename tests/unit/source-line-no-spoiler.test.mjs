@@ -145,7 +145,10 @@ test('before the key the line is a kind of source, the same line lint:source-lin
   // What the lint reads is what the closed chip says.
   for (const q of [row('poultry', 4033), row('food-industry', 207093), row('com4', 1068), row('zoonoses', 208045)]) {
     const said = render(q).text;
-    for (const part of preAnswerText(q).split('\n')) assert.ok(said.includes(part), `${q.subject}#${q.id}: "${part}" in "${said}"`);
+    // The flag's warning is drawn by the card, not the chip (its own test is below).
+    for (const part of preAnswerText(q).split('\n').filter((p) => !p.startsWith('ข้อมูลขัดแย้ง'))) {
+      assert.ok(said.includes(part), `${q.subject}#${q.id}: "${part}" in "${said}"`);
+    }
   }
 });
 
@@ -241,9 +244,21 @@ test('the "อิงแนวเดิม" chip agrees with the source line, on 
   }
 });
 
+test('the topic screen calls past papers ข้อสอบเก่า, and Review prints the whole origin', () => {
+  // อิงแนวเดิม on the card is a wider set (marked points and mocks too); the
+  // topic screen counts isPastPaperQuestion, which the source line calls ข้อสอบเก่า.
+  const topics = readFileSync(new URL('../../src/views/TopicSelectView.jsx', import.meta.url), 'utf8');
+  assert.match(topics, /ข้อสอบเก่า \{ppCount\}\/\{count\}, \{ppPct\}%/);
+  assert.doesNotMatch(topics, /อิงแนวเดิม \{ppCount\}/);
+  // After a timed paper Review is the only place the full source shows.
+  const review = readFileSync(new URL('../../src/views/ReviewView.jsx', import.meta.url), 'utf8');
+  assert.match(review, /q\.examOrigin && readableSource\(q\.examOrigin\)/);
+});
+
 test('the question card hands the chip whether the key is on screen, and the data lint runs the same check', () => {
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
   assert.match(card, /<QSourceChip key=\{compoundId\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
+  assert.match(card, /<FlagChip key=\{compoundId\} flag=\{currentQ\.flag\} revealed=\{keyShown\} \/>/);
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
@@ -274,7 +289,7 @@ const CARD_STUBS = [
     'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'MatchDragDrop']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
 ];
-const { default: QuestionCard } = await fr.loadModule('src/components/Question.jsx', { stubs: CARD_STUBS });
+const { default: QuestionCard, FlagChip } = await fr.loadModule('src/components/Question.jsx', { stubs: CARD_STUBS });
 
 /** What a student reads: text outside any aria-hidden part, function components expanded. */
 function readable(node) {
@@ -314,6 +329,36 @@ test('no question\'s meta row gives its key away before the answer', () => {
   }
   assert.ok(read > 7000, `the row is read on most questions (${read})`);
   assert.equal(leaks.length, 0, `the meta row gives the key away before the answer on ${listed(leaks)}`);
+});
+
+// ── The data-conflict flag under the stem ────────────────────────────────
+// "ข้อมูลขัดแย้ง" shows on every flagged question, timed papers included, and
+// one tap opened its note and sources: "ควรเป็น InPouch TF-Feline หรือ PCR",
+// "Answer set to inspiratory". The chip stays as a warning; what it opens
+// waits for the key, like the source panel.
+test('a flag chip warns before the answer and opens only once the key is on screen', () => {
+  const flagged = QB.filter((q) => q.flag);
+  assert.ok(flagged.length > 50, `flagged questions (${flagged.length})`);
+  const press = (q, revealed) => {
+    const inst = fr.mount(FlagChip, { flag: q.flag, revealed });
+    const [button] = fr.findAll(inst.tree, (n) => n.type === 'button');
+    button.props.onClick?.();
+    inst.flush();
+    const text = readable(inst.tree).replace(/\s+/g, ' ').trim();
+    inst.unmount();
+    return text;
+  };
+  const leaks = [];
+  for (const q of flagged) {
+    const text = press(q, false);
+    assert.match(text, /ข้อมูลขัดแย้ง/, `${q.subject}#${q.id} still warns`);
+    const leak = leakOf(q, text);
+    if (leak) leaks.push(`${q.subject}#${q.id} ${leak.rule} [${leak.words.join(', ')}]: ${text.slice(0, 160)}`);
+  }
+  assert.equal(leaks.length, 0, `the flag gives the key away before the answer on ${listed(leaks)}`);
+  // With the key on screen the same press opens the note.
+  const q = row('com5', 568);
+  assert.ok(press(q, true).includes(String(q.flag.note).slice(0, 30)));
 });
 
 test('a held topic shows with the key, in a part that keeps its size', async () => {

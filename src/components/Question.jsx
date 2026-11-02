@@ -16,7 +16,7 @@ import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
-import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT } from '../lib/source-line.js';
+import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, flagChipText, SOURCE_LINE_WAIT } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
@@ -367,7 +367,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
           self-optimization rule 1d (hold to facts). */}
-      {currentQ.flag && <FlagChip flag={currentQ.flag} />}
+      {currentQ.flag && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -747,8 +747,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 // Severity color: major=rose, minor=gold, unclear=ink-soft.
 // Click expands to show note + sources.
 // ────────────────────────────────────────────────────────────────
-function FlagChip({ flag }) {
+// The chip warns before the answer too, but what it opens waits for the key
+// (5.179.1): a note that says which key the seniors marked, or that the
+// answer "should be InPouch TF-Feline", named the key on 26 of 78 flagged
+// questions, timed papers included. Exported for the leak test.
+export function FlagChip({ flag, revealed = false }) {
   const [open, setOpen] = useState(false);
+  const expanded = revealed && open;
   const sev = flag?.severity || 'unclear';
   // `text` is the accent as TEXT on a 12% tint of itself — the raw accents
   // read 2.65 there. The -text variants are what that role is for; border
@@ -769,10 +774,12 @@ function FlagChip({ flag }) {
     <div style={{ marginTop: 12 }}>
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { if (revealed) setOpen((o) => !o); }}
+        aria-expanded={revealed ? open : undefined}
+        aria-disabled={revealed ? undefined : true}
         style={{
           all: 'unset',
-          cursor: 'pointer',
+          cursor: revealed ? 'pointer' : 'default',
           display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
@@ -783,13 +790,13 @@ function FlagChip({ flag }) {
           fontSize: 14,
           color: palette.text,
         }}
-        title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
+        title={revealed ? 'ข้อมูลขัดแย้ง — กดดูรายละเอียด' : 'ข้อมูลขัดแย้ง รายละเอียดแสดงหลังเห็นเฉลย'}
       >
         {/* One line flag; the severity is the word beside it and the colour. */}
-        <NavIcon name="flag" size={13} filled /> ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
+        <NavIcon name="flag" size={13} filled /> {flagChipText(flag)} {revealed ? (open ? '▾' : '▸') : SOURCE_LINE_WAIT}
       </button>
 
-      {open && (
+      {expanded && (
         <div style={{
           marginTop: 8,
           padding: '12px 14px',
