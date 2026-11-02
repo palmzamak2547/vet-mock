@@ -97,6 +97,9 @@ test('a deck that cannot open says why at the top of a phone, with every way to 
 test('a deck chosen in the search palette on Home reaches the reader', async ({ page }) => {
   // Home is not one of the reader's origins, so App drops the handed-over deck
   // for a render while a view transition runs; the reader's address carries it.
+  // Home, the palette's first index of every search source and the reader in
+  // one test: 21 s alone on a laptop, so 60 s like the other whole-app specs.
+  test.setTimeout(60_000);
   await page.addInitScript(() => {
     localStorage.setItem('vmx-selected-year', '5');
     localStorage.setItem('vmx-seen-landing', '1');
@@ -107,7 +110,8 @@ test('a deck chosen in the search palette on Home reaches the reader', async ({ 
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
   await dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill('Pharmacology & Toxicology (VCA58-68)');
-  await dialog.getByText('Pharmacology & Toxicology (VCA58-68)').first().click();
+  // The result row, not the "ถามคลังความรู้" row that repeats the query.
+  await dialog.locator('[data-flat-idx]').filter({ hasText: 'VCA58-68' }).first().click();
   await expect(ready(page)).toBeVisible({ timeout: 30_000 });
   await expect(page).toHaveURL(new RegExp(`/app/tools/pdf\\?doc=${DECK}$`));
 });
