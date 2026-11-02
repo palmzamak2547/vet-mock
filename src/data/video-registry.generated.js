@@ -30,7 +30,8 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
-  "media": false,
+  "skips": [],
+  "media": true,
   "captions": "youtube",
   "card": false
  },
@@ -88,6 +89,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": true,
   "captions": "youtube",
   "card": false
@@ -110,6 +112,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": true,
   "captions": "youtube",
   "card": false
@@ -144,7 +147,8 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
-  "media": false,
+  "skips": [],
+  "media": true,
   "captions": "youtube",
   "card": false
  },
@@ -166,6 +170,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": true,
   "captions": "youtube",
   "card": false
@@ -188,6 +193,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": true,
   "captions": "youtube",
   "card": false
@@ -222,6 +228,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": true,
   "captions": "youtube",
   "card": false
@@ -250,6 +257,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -272,6 +280,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": true,
   "captions": "youtube",
   "card": false
@@ -306,6 +315,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -358,7 +368,8 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
-  "media": false,
+  "skips": [],
+  "media": true,
   "captions": "youtube",
   "card": false
  },
@@ -410,6 +421,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -439,6 +451,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -485,6 +498,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -543,6 +557,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -583,6 +598,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -623,6 +639,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -651,6 +668,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -673,6 +691,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -701,6 +720,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -721,6 +741,13 @@ export const VIDEO_REGISTRY = {
     300,
     4429,
     "high"
+   ]
+  ],
+  "skips": [
+   [
+    0,
+    288,
+    "before"
    ]
   ],
   "media": true,
@@ -763,6 +790,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -785,6 +813,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -807,6 +836,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -829,6 +859,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -881,6 +912,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -933,6 +965,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -973,6 +1006,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -995,6 +1029,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -1060,6 +1095,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1100,6 +1136,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -1123,6 +1160,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1157,6 +1195,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1209,6 +1248,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1231,6 +1271,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1253,6 +1294,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1275,6 +1317,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1315,6 +1358,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1343,6 +1387,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1371,6 +1416,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1393,6 +1439,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1433,6 +1480,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1479,6 +1527,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1494,6 +1543,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLX_tj_W1SgqE",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1552,6 +1602,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1574,6 +1625,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1596,6 +1648,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1636,6 +1689,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1688,6 +1742,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1728,6 +1783,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1762,6 +1818,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1784,6 +1841,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -1831,6 +1889,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1859,6 +1918,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1893,6 +1953,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1927,6 +1988,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1949,6 +2011,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -1977,6 +2040,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2011,6 +2075,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2051,6 +2116,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2103,6 +2169,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2125,6 +2192,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2171,6 +2239,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2199,6 +2268,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2245,6 +2315,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -2298,6 +2369,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2320,6 +2392,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2366,6 +2439,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2406,6 +2480,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2434,6 +2509,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2480,6 +2556,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2508,6 +2585,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2542,6 +2620,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2564,6 +2643,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2586,6 +2666,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2614,6 +2695,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2654,6 +2736,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2694,6 +2777,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2722,6 +2806,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2744,6 +2829,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2790,6 +2876,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2836,6 +2923,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2864,6 +2952,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2916,6 +3005,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -2974,6 +3064,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -3021,6 +3112,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3061,6 +3153,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3107,6 +3200,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3147,6 +3241,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3205,6 +3300,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3233,6 +3329,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -3256,6 +3353,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3290,6 +3388,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3336,6 +3435,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3394,6 +3494,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3409,6 +3510,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3424,6 +3526,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCotVBvpa-BI95S-tlwiFvnw",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3439,6 +3542,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCotVBvpa-BI95S-tlwiFvnw",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3454,6 +3558,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3469,6 +3574,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3491,6 +3597,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3513,6 +3620,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3541,6 +3649,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3563,6 +3672,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3578,6 +3688,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvYvXSI59yf4c3rPXC1wJbg",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3606,6 +3717,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3652,6 +3764,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3692,6 +3805,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3707,6 +3821,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsv01nkdkrVx2pxr9Yc9s5aE",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3729,6 +3844,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3763,6 +3879,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3778,6 +3895,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3800,6 +3918,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3822,6 +3941,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3844,6 +3964,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3859,6 +3980,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvYvXSI59yf4c3rPXC1wJbg",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3893,6 +4015,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3927,6 +4050,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3949,6 +4073,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -3964,6 +4089,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -3987,6 +4113,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4015,6 +4142,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4043,6 +4171,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4058,6 +4187,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvSKVEuR5h-yqrPVU0mcI93",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4073,6 +4203,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvSKVEuR5h-yqrPVU0mcI93",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4107,6 +4238,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4135,6 +4267,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4150,6 +4283,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4165,6 +4299,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvU0He4LxV-HEtFIZVyplw3",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4187,6 +4322,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4209,6 +4345,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4231,6 +4368,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4289,6 +4427,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4353,6 +4492,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4393,6 +4533,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4433,6 +4574,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4473,6 +4615,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4488,6 +4631,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4546,6 +4690,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4561,6 +4706,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvYvXSI59yf4c3rPXC1wJbg",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4576,6 +4722,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsvYvXSI59yf4c3rPXC1wJbg",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4604,6 +4751,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4632,6 +4780,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4654,6 +4803,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4682,6 +4832,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4697,6 +4848,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVss4sHrFdfFSjzsRcaRpE2yS",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4719,6 +4871,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4747,6 +4900,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4775,6 +4929,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4809,6 +4964,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4824,6 +4980,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -4840,6 +4997,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4892,6 +5050,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4932,6 +5091,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4960,6 +5120,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -4982,6 +5143,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5016,6 +5178,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5031,6 +5194,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5089,6 +5253,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5129,6 +5294,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -5158,6 +5324,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5192,6 +5359,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5207,6 +5375,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5222,6 +5391,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsv01nkdkrVx2pxr9Yc9s5aE",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -5245,6 +5415,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5260,6 +5431,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5306,6 +5478,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5334,6 +5507,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -5350,6 +5524,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVss4sHrFdfFSjzsRcaRpE2yS",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5372,6 +5547,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5394,6 +5570,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5458,6 +5635,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5546,6 +5724,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5580,6 +5759,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5602,6 +5782,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5636,6 +5817,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5664,6 +5846,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5679,6 +5862,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVss4sHrFdfFSjzsRcaRpE2yS",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5694,6 +5878,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVss4sHrFdfFSjzsRcaRpE2yS",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5709,6 +5894,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5731,6 +5917,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5759,6 +5946,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5774,6 +5962,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5789,6 +5978,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5804,6 +5994,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5819,6 +6010,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCzhT1cBKIFhnV2SYB7pDiQA",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5853,6 +6045,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5899,6 +6092,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5933,6 +6127,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false,
@@ -5949,6 +6144,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstCBlmAk5JQ6UcoS1tkByy_",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5971,6 +6167,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -5999,6 +6196,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6021,6 +6219,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6043,6 +6242,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6058,6 +6258,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVsv01nkdkrVx2pxr9Yc9s5aE",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6073,6 +6274,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVss4sHrFdfFSjzsRcaRpE2yS",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6088,6 +6290,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLHN1MlbLvVstFaBaFWvyRVULwkhEm8iHB",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6110,6 +6313,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6138,6 +6342,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6160,6 +6365,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6182,6 +6388,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6204,6 +6411,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6219,6 +6427,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCXgYLoedQlmd7BFDpdJNnAw",
   "playlist": "PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6241,6 +6450,7 @@ export const VIDEO_REGISTRY = {
     "medium"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6263,6 +6473,7 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6285,6 +6496,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6307,6 +6519,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6329,6 +6542,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6351,6 +6565,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6373,6 +6588,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6395,6 +6611,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6410,6 +6627,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCq7axrhe-eTXE7VdZ-kQtlQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6432,6 +6650,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6447,6 +6666,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UCq7axrhe-eTXE7VdZ-kQtlQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6469,6 +6689,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6491,6 +6712,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6513,6 +6735,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6528,6 +6751,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UC5uqU_F6afowi7dygdQMlpQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6543,6 +6767,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UC5uqU_F6afowi7dygdQMlpQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6558,6 +6783,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UC5uqU_F6afowi7dygdQMlpQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6573,6 +6799,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UC5uqU_F6afowi7dygdQMlpQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6595,6 +6822,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6610,6 +6838,7 @@ export const VIDEO_REGISTRY = {
   "channel": "UC5uqU_F6afowi7dygdQMlpQ",
   "playlist": "PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN",
   "topics": [],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false
@@ -6632,6 +6861,7 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
   "media": false,
   "captions": "youtube",
   "card": false

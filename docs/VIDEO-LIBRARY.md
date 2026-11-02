@@ -135,16 +135,25 @@ R2 prices: developers.cloudflare.com/r2/pricing, read 2026-11-01.
 - Known limits: the clarity reader is strict and stochastic (verdicts are now cached); a fresh run can still end held on one over-long chapter line, which `--resume` repairs.
 - Not yet done for the sample: our own copy (the 403), frames, the player.
 
-## 11. Skipping what teaches nothing (planned, Palm 1 Nov)
+## 11. Skipping what teaches nothing (built 2 Nov)
 
 "เพราะอย่าลืม ว่าเราสามารถจัดช่วงไม่จำเป็นออกได้ เช่น dead air หรืออื่นๆตามความเหมาะสม"
 
-Non-destructive: our copies stay whole, and each video gets a skip list the player follows.
+The skip list is non-destructive. Our copies stay whole, and the player follows a list of stretches per video.
 
-- **What counts:** silence over a threshold tuned on the sample; setup and waiting before the lecture starts; technical interruptions; long pauses with no speech on an unchanged slide; off-topic tails.
-- **Detection, deterministic first:** ffmpeg `silencedetect` on our copy (caption gaps until the copy exists), joined with "slide unchanged" from the frame extraction's dHash. A model judges only a borderline off-topic span, and that judgment is cached.
-- **Player:** a toggle "ข้ามช่วงที่ไม่มีเนื้อหา", on by default; skipped spans drawn faintly on the timeline; the time saved ("ประหยัด 6 นาที"). Jump links and summary stamps keep the original times. Playing everything is always one tap away.
-- **Checks:** no skipped span holds teaching speech (against the transcript); a span under the threshold is never skipped; minutes saved reported per video, sample first.
+- **Evidence:** `scripts/video-media.mjs` runs ffmpeg `silencedetect` (-40 dB, 4 s or more) on each copy while it is on disk and writes `silence.json`.
+- **Rule:** `skipSpans` in `scripts/video-analyse.mjs` skips a stretch only when all of these hold:
+  - it has no caption at all;
+  - it lasts at least 20 s (`VIDEO_SKIP_MIN`) after 1.5 s is kept on each side of speech;
+  - ffmpeg measured it 70% or more silent;
+  - in mid-lecture, the slide does not change (a silent clip played in class moves the picture, so it stays). Before the first word and after the last, the screen share starting or ending is not teaching.
+- **Without the silence measurement nothing is skipped.** Missing captions alone can hide speech.
+- **Off-topic speech** (chat before the lecture, a tail after it) is not judged yet. It needs a model and stays out until that judgment is cached per video.
+- **Player:** the study panel's switch "ข้ามช่วงที่ไม่มีเนื้อหา" is on by default and remembered per device. It shows "ประหยัด N นาที" when a video saves at least a minute. The skipped stretches are drawn faintly on the chapter bar.
+  - Only playing on into a stretch jumps it. A seek or a cited moment that lands inside one plays it.
+  - Stamps and links keep their original times.
+- **Sample (0gTn7Up9Vj0, 74 min):** 20 silent stretches of 4 s or more. One stretch is skipped: the 4:48 before the lecture starts. The result is the same for every minimum from 8 to 30 s. Every pause in mid-lecture is shorter, has speech, or shows a changing slide.
+- **Checks:** `tests/unit/video-skips.test.mjs` covers the rule. Speech is never inside a skip, and a stretch under the minimum, with sound, or on a moving slide is never skipped.
 
 ## 12. Paused 1 Nov 2026, 21:00 (Palm's request)
 

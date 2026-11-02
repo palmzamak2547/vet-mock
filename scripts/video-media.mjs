@@ -12,9 +12,10 @@
 // durationSec, captions: 'youtube'|'asr', frames, at } | { error, at } }.
 // R2 keys: videos/<id>/video.mp4, captions.th.json3, frames.json, frames/f<t>.webp.
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { presign, tokenKeyEnv } from '../api/_lib/r2.js';
 import { VIDEO_CHANNELS } from '../src/data/video-channels.js';
@@ -57,6 +58,34 @@ export async function putBuffer(env, key, body, type) {
   const head = await fetch(presign(key, { method: 'HEAD', env }), { method: 'HEAD', headers: { 'accept-encoding': 'identity' } });
   if (Number(head.headers.get('content-length')) !== body.length) throw new Error(`${key}: stored ${head.headers.get('content-length')} bytes, sent ${body.length}`);
   return body;
+}
+
+// Another lane's heavy job (a build, an e2e run) goes first: while its lock
+// is fresh, this run waits between videos (the ledger's one-heavy-job rule).
+const LOCK = process.env.VIDEO_HEAVY_LOCK || 'C:/dev/vetmock-inputs-20261028/HEAVY.lock';
+async function yieldToHeavyJobs() {
+  for (let said = false; ; said = true) {
+    let st;
+    try { st = fs.statSync(LOCK); } catch { return; }
+    if (Date.now() - st.mtimeMs > 30 * 60 * 1000) return;
+    if (!said) console.log(`waiting for another lane: ${fs.readFileSync(LOCK, 'utf8').slice(0, 120).trim()}`);
+    await new Promise((r) => setTimeout(r, 60_000));
+  }
+}
+
+/** Stretches with no sound, [[start, end], ...] seconds: the skip list's evidence (video-analyse.mjs). */
+export function silences(mp4, { noise = -40, min = 4 } = {}) {
+  const r = spawnSync('ffmpeg', ['-hide_banner', '-nostats', '-i', mp4, '-vn', '-af', `silencedetect=noise=${noise}dB:d=${min}`, '-f', 'null', '-'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  if (r.status !== 0) throw new Error(`silencedetect: ${String(r.stderr).slice(-200)}`);
+  const spans = [];
+  let open = null;
+  for (const line of String(r.stderr).split('\n')) {
+    const a = line.match(/silence_start: (-?[\d.]+)/);
+    const b = line.match(/silence_end: ([\d.]+)/);
+    if (a) open = Math.max(0, Number(a[1]));
+    if (b && open !== null) { spans.push([Math.round(open * 10) / 10, Math.round(Number(b[1]) * 10) / 10]); open = null; }
+  }
+  return { noise, min, spans, open };
 }
 
 const run = (cmd, args, opts = {}) => execFileSync(cmd, args, { stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 64 * 1024 * 1024, ...opts }).toString();
@@ -110,6 +139,10 @@ async function main() {
   const todo = videos.filter((v, i) => i % shards === shard && (!only.size || only.has(v.id)) && !manifest[v.id]?.key).slice(0, limit);
   console.log(`${videos.length} videos taken, ${videos.length - todo.length} done or skipped, ${todo.length} to do`);
   const env = await s3Env();
+  // Background work: below every student-facing and lane job on this machine
+  // (Windows hands the class to yt-dlp, ffmpeg and python as well). Below
+  // normal, not idle: an idle job starves outright while any lane is busy.
+  try { os.setPriority(os.constants.priority.PRIORITY_BELOW_NORMAL); } catch { /* not permitted: run as is */ }
 
   for (const v of todo) {
     const dir = path.join(DATA, v.id);
@@ -118,6 +151,7 @@ async function main() {
     // --defer-asr: a video YouTube has no captions for waits until the Thai
     // speech model is ready (scripts/video-asr.py), instead of downloading now.
     if (args.includes('--defer-asr') && !fs.existsSync(path.join(dir, 'video.th.json3'))) continue;
+    await yieldToHeavyJobs();
     const { bavail, bsize } = fs.statfsSync(DATA);
     if (bavail * bsize < MIN_FREE) {
       console.error(`stopped: ${(bavail * bsize / 1e9).toFixed(1)} GB free on the data drive, under ${MIN_FREE / 1e9} GB`);
@@ -127,12 +161,17 @@ async function main() {
     const t0 = Date.now();
     try {
       if (!fs.existsSync(mp4)) {
-        run('yt-dlp', ['-q', '--no-progress', '--no-warnings', '-f', 'bv*[vcodec^=avc1][height<=1080]+ba[ext=m4a]/b[ext=mp4]/b',
+        // A capped rate leaves the home connection usable while the library fills (VIDEO_RATE, yt-dlp's syntax).
+        run('yt-dlp', ['-q', '--no-progress', '--no-warnings', '--limit-rate', process.env.VIDEO_RATE || '700K', '-f', 'bv*[vcodec^=avc1][height<=1080]+ba[ext=m4a]/b[ext=mp4]/b',
           '--merge-output-format', 'mp4', '--postprocessor-args', 'ffmpeg:-movflags +faststart', '-o', 'video.%(ext)s',
           '--write-auto-subs', '--sub-langs', 'th', '--sub-format', 'json3', `https://www.youtube.com/watch?v=${v.id}`], { cwd: dir });
       }
       const durationSec = Math.round(Number(run('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', mp4]).trim()));
       run('python', ['-I', path.join(ROOT, 'scripts/video-frames.py'), mp4, path.join(dir, 'frames')]);
+      const quiet = silences(mp4);
+      // A file that ends in silence closes its last stretch at the end.
+      if (quiet.open !== null) quiet.spans.push([quiet.open, durationSec]);
+      fs.writeFileSync(path.join(dir, 'silence.json'), JSON.stringify({ noise: quiet.noise, min: quiet.min, spans: quiet.spans }));
       let captions = 'youtube';
       const json3 = path.join(dir, 'video.th.json3');
       if (!fs.existsSync(json3)) {

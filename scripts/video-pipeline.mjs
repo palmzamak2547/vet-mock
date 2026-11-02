@@ -96,13 +96,19 @@ async function main() {
       catalog.push(...page);
       if (page.length < 1000) break;
     }
-    // First pages are kept between runs: a deck's title page does not change.
+    // Every deck's first page in a few requests, kept between runs: a deck's
+    // title page does not change.
     const pageCache = path.join(path.dirname(MANIFEST), 'library-page1.json');
     const firstPage = new Map(Object.entries(fs.existsSync(pageCache) ? JSON.parse(fs.readFileSync(pageCache, 'utf8')) : {}));
-    const pageOne = async (doc) => {
-      if (!firstPage.has(doc.id)) firstPage.set(doc.id, (await supabase(`library_doc_pages?select=body&doc_id=eq.${doc.id}&page=eq.1`))[0]?.body || '');
-      return firstPage.get(doc.id);
-    };
+    const missing = catalog.filter((d) => d.kind !== 'video' && !firstPage.has(String(d.id))).map((d) => String(d.id));
+    for (let i = 0; i < missing.length; i += 150) {
+      const ids = missing.slice(i, i + 150);
+      const rows = await supabase(`library_doc_pages?select=doc_id,body&page=eq.1&doc_id=in.(${ids.join(',')})`);
+      for (const id of ids) firstPage.set(id, '');
+      for (const r of rows) firstPage.set(String(r.doc_id), r.body || '');
+    }
+    if (missing.length) fs.writeFileSync(pageCache, JSON.stringify(Object.fromEntries(firstPage)));
+    const pageOne = async (doc) => firstPage.get(String(doc.id)) || '';
     // How many of a subject's decks use a word: a title match needs one word
     // few decks share (five letters or more), not just "examination".
     const dfBySubject = new Map();
@@ -144,25 +150,32 @@ async function main() {
       try {
         const pages = [];
         for (const d of chosen) {
-          const pdf = path.join(dir, `deck-${d.slug.slice(-6)}.pdf`);
-          if (!fs.existsSync(pdf)) await fetchDeck(d.slug, pdf);
+          // The page text is what stays; the PDF goes once it is read.
           const part = path.join(dir, `deck-${d.slug.slice(-6)}.json`);
-          const r = await exec('python', ['-I', path.join(ROOT, 'scripts/video-deck-pages.py'), pdf, part, `--slug=${d.slug}`]);
-          if (r.code) throw new Error(r.out.slice(-200));
+          if (!fs.existsSync(part)) {
+            const pdf = path.join(dir, `deck-${d.slug.slice(-6)}.pdf`);
+            if (!fs.existsSync(pdf)) await fetchDeck(d.slug, pdf);
+            const r = await exec('python', ['-I', path.join(ROOT, 'scripts/video-deck-pages.py'), pdf, part, `--slug=${d.slug}`]);
+            if (r.code) throw new Error(r.out.slice(-200));
+            fs.rmSync(pdf, { force: true });
+          }
           for (const p of JSON.parse(fs.readFileSync(part, 'utf8')).pages) pages.push({ ...p, page: pages.length + 1, doc: d.slug, docPage: p.page });
         }
         fs.writeFileSync(path.join(dir, 'deck.json'), JSON.stringify({ slug: chosen.map((d) => d.slug).join(','), source: chosen[0].why === 'lecturer set' ? 'lecturer-set' : 'title', pages }));
       } catch (e) { st.deckError = String(e.message || e).slice(0, 200); }
       save();
     }
-    fs.writeFileSync(pageCache, JSON.stringify(Object.fromEntries(firstPage)));
     console.log(`decks: ${videos.filter((v) => fs.existsSync(path.join(DATA, v.id, 'deck.json'))).length} of ${videos.length}`);
   }
 
   if (steps.has('analyse')) {
     await pool(videos, conc, async (v) => {
       const dir = path.join(DATA, v.id);
-      if (!fs.existsSync(path.join(dir, 'video.th.json3')) || (fs.existsSync(path.join(dir, 'analysis.json')) && !force)) return;
+      // An analysis older than the silence measurement is redone: the skip list needs it.
+      const af = path.join(dir, 'analysis.json');
+      const sf = path.join(dir, 'silence.json');
+      const stale = fs.existsSync(sf) && fs.existsSync(af) && fs.statSync(sf).mtimeMs > fs.statSync(af).mtimeMs;
+      if (!fs.existsSync(path.join(dir, 'video.th.json3')) || (fs.existsSync(af) && !force && !stale)) return;
       const r = await exec('node', [path.join(ROOT, 'scripts/video-analyse.mjs'), dir, `--subject=${v.subjects.join(',')}`, `--title=${v.title}`, `--duration=${v.durationSec}`, `--lecturer-topics=${(sessionTopics.get(v.id) || []).join(',')}`]);
       (state[v.id] ||= {}).analysis = r.code ? `failed: ${r.out.slice(-200)}` : r.out.trim().split('\n').pop();
     });

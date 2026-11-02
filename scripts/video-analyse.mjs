@@ -22,6 +22,8 @@ import { BANK_REGISTRY } from '../src/data/bank-registry.generated.js';
 
 const WINDOW = 60; // seconds per scoring window
 const BREAK_GAP = 45; // silence long enough to be a break
+const SKIP_MIN = Number(process.env.VIDEO_SKIP_MIN || 20); // shortest stretch the player may jump
+const SKIP_PAD = 1.5; // seconds kept on each side of speech
 const MIN_CHAPTER = 120;
 const MAX_CHAPTER = 360; // six minutes: longer chapters split at a page
 // Said to the class as a pointer, not as content: "สำคัญ" alone is ordinary
@@ -71,6 +73,39 @@ export function captionLines(json3) {
     lines.push({ t: Math.round(t * 10) / 10, end: (e.tStartMs + (e.dDurationMs || 0)) / 1000, text: words.map((s) => s.utf8).join('').replace(/\s+/g, ' ').trim() });
   }
   return lines;
+}
+
+/**
+ * The stretches that teach nothing (docs/VIDEO-LIBRARY.md section 11), for the
+ * player to jump when the student lets it: no caption at all, at least
+ * SKIP_MIN seconds once SKIP_PAD is kept on each side of speech, and 70% or
+ * more silent by ffmpeg on our copy. Mid-lecture the slide must not change
+ * either (a silent clip played in class moves the picture, so it stays);
+ * before the first word and after the last, the screen share starting or
+ * ending moves it without teaching. Without the silence measurement nothing
+ * is skipped: missing captions alone can hide speech.
+ */
+export function skipSpans(lines, duration, { silence = null, slides = null, min = SKIP_MIN } = {}) {
+  if (!silence) return [];
+  const gaps = [];
+  let heard = 0;
+  for (const l of lines) {
+    if (l.t > heard) gaps.push([heard, l.t]);
+    heard = Math.max(heard, l.end || l.t);
+  }
+  if (duration > heard) gaps.push([heard, duration]);
+  const out = [];
+  for (const [g0, g1] of gaps) {
+    const s = g0 <= 0 ? 0 : g0 + SKIP_PAD;
+    const e = g1 >= duration ? duration : g1 - SKIP_PAD;
+    if (e - s < min) continue;
+    const quiet = silence.reduce((n, [a, b]) => n + Math.max(0, Math.min(b, e) - Math.max(a, s)), 0);
+    if (quiet / (e - s) < 0.7) continue;
+    const kind = g0 <= 0 ? 'before' : g1 >= duration ? 'after' : 'pause';
+    if (kind === 'pause' && slides?.some((t) => t > s + 2 && t < e - 2)) continue;
+    out.push({ start: Math.round(s * 10) / 10, end: Math.round(e * 10) / 10, kind });
+  }
+  return out;
 }
 
 /** Stretches with no speech for BREAK_GAP seconds or more. */
@@ -177,6 +212,8 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
   const subjectId0 = found[0].id;
   const lines = captionLines(JSON.parse(fs.readFileSync(path.join(dir, 'video.th.json3'), 'utf8')));
   const duration = Math.max(durationSec, Math.ceil(lines[lines.length - 1]?.end || 0));
+  const readJSON = (f) => (fs.existsSync(path.join(dir, f)) ? JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) : null);
+  const skips = skipSpans(lines, duration, { silence: readJSON('silence.json')?.spans || null, slides: readJSON('frames/frames.json')?.frames?.map((f) => f.t) || null });
   const breaks = breaksIn(lines, duration);
   const inBreak = (t) => breaks.some((b) => t >= b.start && t < b.end);
   const deckFile = path.join(dir, 'deck.json');
@@ -538,7 +575,7 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
     const main = [...teachTime].sort((a, b) => b[1] - a[1])[0]?.[0] || subjectId0;
     return {
       subject: main, subjects: ids, title, duration, generatedFrom: { lines: lines.length, deck: deck?.slug || null, questions: questions.length },
-      breaks, chapters, topicSegments, pages,
+      breaks, skips, chapters, topicSegments, pages,
       mustCover: [...mustConcepts, ...stress.sort((a, b) => a.at - b.at), ...marks, ...numbers],
       lines: lines.map((l) => [l.t, l.text]),
     };

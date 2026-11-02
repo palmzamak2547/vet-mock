@@ -88,6 +88,9 @@ export function readPosition(id) {
   return Number.isFinite(n) && n > 0 ? n : 0;
 }
 export const savePosition = (id, t) => store.set(`vmx-clip-pos:${id}`, String(Math.floor(t)));
+/** Whether the player jumps the stretches that teach nothing: on unless the student turned it off. */
+export const readSkip = () => store.get('vmx-clip-skip') !== '0';
+export const saveSkip = (on) => store.set('vmx-clip-skip', on ? '1' : '0');
 export function readSeen(id) {
   return store.get(`vmx-clip-seen:${id}`) || '';
 }

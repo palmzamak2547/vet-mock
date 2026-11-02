@@ -458,7 +458,8 @@ async function mountPlayer(modal) {
   const made = [];
   window.YT = { Player: function Player(node, opts) { made.push(opts); this.destroy = () => {}; } };
   try {
-    const effect = h.effects.find((e) => e.deps?.length === 2 && typeof e.deps[0] === 'string' && e.deps[0].length === 11);
+    // [currentVideoId, playlistId, ownStatus]: a guest's clip plays on YouTube.
+    const effect = h.effects.find((e) => e.deps?.length === 3 && typeof e.deps[0] === 'string' && e.deps[0].length === 11 && e.deps[2] === 'none');
     assert.ok(effect, 'the player effect is registered for this clip');
     effect.fn();
     await new Promise((r) => setTimeout(r, 0));

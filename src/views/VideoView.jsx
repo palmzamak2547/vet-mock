@@ -45,7 +45,8 @@ import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
 import ClipStudy from '../components/ClipStudy.jsx';
-import { loadVideoRegistry, fetchVideoAsset } from '../lib/video-library.js';
+import { fetchVideoAsset } from '../lib/video-library.js';
+import { hasStoredAuthToken } from '../lib/auth-storage.js';
 import FeatureTip from '../components/FeatureTip.jsx';
 
 // ── Lazy video-summaries body loader (one module per clip) ────────
@@ -930,6 +931,19 @@ function usePlayerClock(playerRef, videoId) {
 // The study panel (summary, chapters, index, transcript) beside a library
 // video. Its times seek whichever player is playing: the library's own copy
 // or YouTube's.
+// Our own copy answers the same calls as YT.Player, so the notes and the
+// study panel neither know nor care which one plays.
+function ownCopyPlayer(el) {
+  return {
+    getCurrentTime: () => el.currentTime,
+    getDuration: () => el.duration,
+    seekTo: (t) => { el.currentTime = t; },
+    playVideo: () => el.play().catch(() => {}),
+    pauseVideo: () => el.pause(),
+    destroy: () => {},
+  };
+}
+
 function ClockedClipStudy({ videoId, playerRef }) {
   const currentTime = usePlayerClock(playerRef, videoId);
   const seek = useCallback((t) => {
@@ -1113,40 +1127,30 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   // Owned here so the notes panel can read the clock and seek via the ref.
   const ytContainerRef = useRef(null);
   const playerRef = useRef(null);
-  // The library's own copy (docs/VIDEO-LIBRARY.md): played from R2 for a
-  // signed-in student when the registry says it exists; YouTube otherwise,
-  // and YouTube again if the copy fails to play.
+  // The library's own copy (docs/VIDEO-LIBRARY.md), played from R2 for a
+  // signed-in student when the library has one (VIDEO_INDEX's fourth field);
+  // YouTube otherwise, and YouTube again if the copy fails to play. A guest
+  // goes straight to YouTube, so nothing waits on a request that must fail.
   const ownVideoRef = useRef(null);
-  const [own, setOwn] = useState({ status: 'none' });
+  const ownWanted = Boolean(currentVideoId && VIDEO_INDEX[currentVideoId]?.[3] && hasStoredAuthToken());
+  const [own, setOwn] = useState({ id: null });
+  // Keyed by clip: a clip just opened reads "checking", never the last clip's answer.
+  const ownStatus = !ownWanted ? 'none' : own.id === currentVideoId ? own.status : 'checking';
   useEffect(() => {
-    if (!currentVideoId) { setOwn({ status: 'none' }); return undefined; }
+    if (!ownWanted) return undefined;
     let off = false;
-    setOwn({ status: 'checking' });
-    loadVideoRegistry()
-      .then(async (registry) => {
-        if (!registry[currentVideoId]?.media) { if (!off) setOwn({ status: 'none' }); return; }
-        const res = await fetchVideoAsset(currentVideoId, 'video');
-        if (!off) setOwn(res.status === 'ok' ? { status: 'ready', url: res.data.url } : { status: 'none', reason: res.status });
-      })
-      .catch(() => { if (!off) setOwn({ status: 'none' }); });
+    fetchVideoAsset(currentVideoId, 'video')
+      .then((res) => { if (!off) setOwn(res.status === 'ok' ? { id: currentVideoId, status: 'ready', url: res.data.url } : { id: currentVideoId, status: 'none' }); })
+      .catch(() => { if (!off) setOwn({ id: currentVideoId, status: 'none' }); });
     return () => { off = true; };
-  }, [currentVideoId]);
-  // The copy answers the same calls as YT.Player, so the notes and the study
-  // panel neither know nor care which one plays.
+  }, [currentVideoId, ownWanted]);
   useEffect(() => {
     const el = ownVideoRef.current;
-    if (own.status !== 'ready' || !el) return undefined;
-    const adapter = {
-      getCurrentTime: () => el.currentTime,
-      getDuration: () => el.duration,
-      seekTo: (t) => { el.currentTime = t; },
-      playVideo: () => el.play().catch(() => {}),
-      pauseVideo: () => el.pause(),
-      destroy: () => {},
-    };
+    if (ownStatus !== 'ready' || !el) return undefined;
+    const adapter = ownCopyPlayer(el);
     playerRef.current = adapter;
     return () => { if (playerRef.current === adapter) playerRef.current = null; };
-  }, [own.status, own.url]);
+  }, [ownStatus, own.url]);
   // The in-app player could not start (its API did not load, or YT.Player
   // threw). The clip is still one tap away on YouTube, so the black box says
   // where instead of staying black.
@@ -1156,7 +1160,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   // the player on video change is simpler than juggling loadVideoById() —
   // and it matches the previous iframe behavior (full reload on switch).
   useEffect(() => {
-    if (!currentVideoId || own.status !== 'none') return undefined;
+    if (!currentVideoId || ownStatus !== 'none') return undefined;
     setPlayerFailed(false);
     const container = ytContainerRef.current;
     if (!container) return undefined;
@@ -1199,7 +1203,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       try { playerRef.current?.destroy?.(); } catch {}
       playerRef.current = null;
     };
-  }, [currentVideoId, playlistId, own.status]);
+  }, [currentVideoId, playlistId, ownStatus]);
 
   const currentItem = playlistItems[currentIdx];
   // hasSummary uses VIDEO_META (sync · ~50 KB) so we don't pay the
@@ -1288,7 +1292,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           <div style={{ padding: 18, paddingRight: showList && playlistItems.length > 0 ? 12 : 18 }}>
             {embedUrl ? (
               <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: 12, overflow: 'hidden', background: '#000', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}>
-                {currentVideoId && own.status === 'ready' ? (
+                {currentVideoId && ownStatus === 'ready' ? (
                   <video
                     key={`own-${currentVideoId}`}
                     ref={ownVideoRef}
@@ -1302,9 +1306,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                       if (startAt > 0) e.currentTarget.currentTime = startAt;
                       e.currentTarget.play().catch(() => {});
                     }}
-                    onError={() => setOwn({ status: 'none', reason: 'playback' })}
+                    onError={() => setOwn({ id: currentVideoId, status: 'none' })}
                   />
-                ) : currentVideoId && own.status === 'checking' ? null : currentVideoId ? (
+                ) : currentVideoId && ownStatus === 'checking' ? null : currentVideoId ? (
                   // YT.Player replaces this node with its own iframe — key by
                   // (videoId, playlistId) so React unmounts/remounts when the
                   // tuple changes, giving us a clean slate every time.

@@ -6,82 +6,86 @@
 // ============================================================
 
 export default {
- "oneLiner": "สรุป endometritis ใน mare: uterine defense, PBIE, สาเหตุ, การวินิจฉัยด้วย cytology culture ultrasound, เป้าหมายการรักษา และ pyometra",
+ "oneLiner": "Endometritis ในม้าเกิดเมื่อ uterine defense กำจัดการปนเปื้อนไม่ทัน วินิจฉัยด้วย ultrasound, cytology และ culture รักษาด้วยการขับ content คุมเชื้อ และเสริมกลไกป้องกัน",
  "keyPoints": [
   {
    "t": 608,
-   "text": "Fertility rate ม้าปกติผสมติดประมาณ 75-90 เปอร์เซ็นต์"
+   "text": "ม้าปกติผสมติดราว 75-90% ตัวที่ไม่ติดต้องหาสาเหตุ"
   },
   {
    "t": 867,
-   "text": "Endometrium คือ mucosa รวม submucosa เหนือ myometrium และ serosa"
+   "text": "Endometrium คือ mucosa กับ submucosa ตามด้วย myometrium และ serosa"
   },
   {
    "t": 1324,
-   "text": "Infection ต้องมี adherence penetration และ colonization ของเชื้อ"
+   "text": "เชื้อจะก่อ infection ได้ต้องผ่านครบทั้ง adherence, penetration และ colonization"
   },
   {
    "t": 1820,
-   "text": "Innate immune response ทำงานเร็วระดับชั่วโมง เป็นตัวหลัก decontaminate"
+   "text": "Innate immune response ทำงานภายในนาทีถึงชั่วโมง จึงเป็นตัวหลักที่ decontaminate มดลูก"
   },
   {
-   "t": 2036,
-   "text": "PBIE คือ acute inflammation ต่อ semen ที่ drain fluid ไม่ได้ ไม่ติดเชื้อ"
+   "t": 2030,
+   "text": "PBIE คือ acute inflammation ต่อ semen ที่มดลูกระบาย fluid ไม่ทัน โดยไม่มีเชื้อ"
   },
   {
    "t": 2438,
-   "text": "Endometritis ทำให้ failure to conceive, early fetal loss, abortion, septic neonate"
+   "text": "Endometritis ทำให้เกิด failure to conceive, early fetal loss, abortion และ septic neonate"
   },
   {
    "t": 2857,
-   "text": "Luminal fluid มากกว่า 2 ซม. ใน 6-36 ชม. หลัง breeding บ่งชี้ post-breeding endometritis"
+   "text": "Luminal fluid > 2 ซม. ช่วง 6-36 ชม. หลังผสม บ่งชี้ post-breeding endometritis"
   },
   {
    "t": 3344,
-   "text": "Cytology บวก culture บวก แสดง infectious endometritis ต้องทำ sensitivity"
+   "text": "Cytology และ culture บวกทั้งคู่ชี้ infectious endometritis เลือก antibiotic ตาม sensitivity"
   },
   {
    "t": 3611,
-   "text": "Uterine lavage ใช้ sterile saline อุ่น 1-2 ลิตร กระตุ้นการบีบตัวขับของออก"
+   "text": "Uterine lavage ใช้ sterile saline อุ่น 1-2 ลิตร ความอุ่นช่วยให้มดลูกบีบตัว"
   },
   {
    "t": 4134,
-   "text": "Pyometra มี active CL ต้องเคลียร์ CL ด้วย PGF2 alpha ก่อน"
+   "text": "Pyometra ที่ยังมี active CL ต้องสลาย CL ด้วย PGF2α ก่อน"
   }
  ],
  "emphasis": [
   {
-   "t": 1332,
-   "text": "Contamination ไม่เท่ากับ infection ต้องแยก concept นี้ให้ชัด"
+   "t": 1338,
+   "text": "Contamination ยังไม่ใช่ infection จะติดเชื้อเมื่อกลไกป้องกันสู้ไม่ได้"
   },
   {
    "t": 1715,
-   "text": "Innate immunity สำคัญกว่า specific เพราะมดลูกทำงานเป็นไซเคิล"
+   "text": "ในมดลูก innate immunity สำคัญกว่า specific immunity เพราะทำงานเป็นไซเคิล"
   },
   {
    "t": 3546,
-   "text": "เป้าหมายการรักษา 3 ข้อ: evacuate content, control infection และ promotion of defense mechanism"
+   "text": "เป้าหมายเฉพาะหน้าคือ evacuate content, control infection และ promotion of defense mechanism"
   }
  ],
  "remember": [
   {
-   "t": 2742,
-   "text": "Uterine cytology: neutrophil > 2% PMNs"
+   "t": 2160,
+   "text": "Pathogenic bacteria หลักคือ Streptococcus zooepidemicus, E. coli และ Staphylococcus spp."
+  },
+  {
+   "t": 2796,
+   "text": "Cytology ผิดปกติเมื่อ PMN > 2% (หรือ > 2 เซลล์ต่อ field 400x)"
   },
   {
    "t": 3482,
-   "text": "หลายเคส self-limiting 24-72 h"
+   "text": "Endometritis หลายเคสหายเองได้ใน 24-72 ชม. (self-limiting)"
   },
   {
    "t": 3656,
-   "text": "Oxytocin 10-20 Unit/mare IM ทุก 6 ชั่วโมง"
+   "text": "Oxytocin 10-20 unit ต่อตัว IM ทุก 6 ชม. เมื่อจำเป็น"
   }
  ],
  "chapters": [
   {
    "t": 290,
    "title": "วัตถุประสงค์",
-   "line": "วัตถุประสงค์: อธิบาย uterine defense, แยก post-breeding inflammation กับ endometritis, วินิจฉัยและรักษาตาม etiology และชนิดม้า",
+   "line": "อธิบาย uterine defense แยก post-breeding inflammation ออกจาก endometritis และวินิจฉัยกับรักษาตามสาเหตุและชนิดของม้า",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -96,7 +100,7 @@ export default {
   {
    "t": 480,
    "title": "Why do some mares fail to conceive",
-   "line": "ทำไมม้าผสมไม่ติด ทั้งที่จัดการผสมดี fertility rate 75-90 เปอร์เซ็นต์ และหน้าที่มดลูกสร้าง environment รับ sperm และ conceptus",
+   "line": "ทำไมม้าบางตัวผสมไม่ติดทั้งที่จัดการผสมดี มดลูกต้องพร้อมรับทั้ง sperm และ conceptus",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -127,7 +131,7 @@ export default {
   {
    "t": 1020,
    "title": "Implantation site defect",
-   "line": "เปรียบมดลูกเป็นเรือบรรทุกเครื่องบิน ลูกต้อง implant บน endometrium ที่เหมาะสม ถ้า implantation site defect ก็ conceive ไม่ได้",
+   "line": "ลูกม้าต้องฝังตัวบน endometrium ที่สมบูรณ์ ถ้าตำแหน่งฝังตัวเสียหาย (implantation site defect) ก็ผสมไม่ติด",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -137,8 +141,8 @@ export default {
   },
   {
    "t": 1140,
-   "title": "CONTAMINATION",
-   "line": "Contamination เกิดเมื่อ cervix เปิด แต่ infection ต้องมี adherence penetration colonization และ unresolved inflammation ทำให้เกิด endometritis",
+   "title": "Contamination",
+   "line": "Cervix เปิดเมื่อไรก็มี contamination ได้ ส่วน endometritis เกิดเมื่อการติดเชื้อหรือการอักเสบไม่ถูกแก้",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -153,7 +157,7 @@ export default {
   {
    "t": 1380,
    "title": "Pathology & Definitions",
-   "line": "แยก endometritis metritis perimetritis parametritis pyometra endometrosis ตามชั้นที่อักเสบ และ pyometra ต้องมีหนองกับ active CL",
+   "line": "แยก endometritis, metritis, perimetritis, parametritis, pyometra และ endometrosis ตามชั้นและลักษณะที่ผิดปกติ",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -164,7 +168,7 @@ export default {
   {
    "t": 1560,
    "title": "Microbes enter open cervix",
-   "line": "เชื้อเข้าทาง cervix ผ่าน tract secretions ก่อน ตามด้วย innate response complement macrophage NK neutrophil แล้วจึง specific immune response",
+   "line": "เชื้อเข้าทาง cervix เจอ tract secretions ก่อน ตามด้วย innate response (complement, macrophage, NK cell, neutrophil) แล้วจึง specific immune response",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -175,7 +179,7 @@ export default {
   {
    "t": 1860,
    "title": "Type of endometritis in mare",
-   "line": "แบ่ง endometritis เป็น acute chronic, clinical subclinical, ตามเวลา post-breeding กับ postpartum และตามเชื้อเช่น fungal",
+   "line": "แบ่ง endometritis เป็น acute หรือ chronic, clinical หรือ subclinical, หลังผสมหรือหลังคลอด และตามชนิดเชื้อ เช่น fungal",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -186,7 +190,7 @@ export default {
   {
    "t": 1980,
    "title": "Persistent breeding-induced",
-   "line": "PBIE คือ acute inflammation ต่อ semen ที่ระบาย fluid ออกไม่ได้ เป็น non-infectious และพบช่วงหลังผสมมากกว่าวัว",
+   "line": "ปัญหาหลักของม้าคือ PBIE หลังผสม ส่วนของวัวคือช่วงหลังคลอด",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -197,7 +201,7 @@ export default {
   {
    "t": 2100,
    "title": "Predisposing factors",
-   "line": "ปัจจัยเสี่ยง endometritis ได้แก่ อายุมาก ลูกหลายคอก immunity ผิดปกติ perineal conformation ผิดปกติ และ retain placenta",
+   "line": "ปัจจัยเสี่ยงคือ อายุมาก ตั้งท้องมาหลายครั้ง ภูมิคุ้มกันต่ำหรือไวเกิน perineal conformation ผิดปกติ และ retained placenta",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -216,7 +220,7 @@ export default {
   {
    "t": 2280,
    "title": "Effect upon fertility",
-   "line": "ผลต่อ fertility: failure to conceive, early fetal loss, abortion, placentitis, septic neonate และ re-breeding ล่าช้า",
+   "line": "นอกจากผสมไม่ติด ยังทำให้เกิด placentitis และต้องผสมซ้ำช้าออกไป",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -227,7 +231,7 @@ export default {
   {
    "t": 2520,
    "title": "Effect upon fertility (ต่อ)",
-   "line": "Proinflammation ทำให้เกิด endometrial และ tubal damage นำไปสู่ tubo-ovarian adhesion, ROS ทำลาย ovum และ sperm",
+   "line": "การอักเสบทำลาย endometrium และท่อนำไข่จนเกิด tubo-ovarian adhesion และ ROS ทำลาย ovum กับ sperm",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -238,7 +242,7 @@ export default {
   {
    "t": 2640,
    "title": "Endometritis: Diagnosis",
-   "line": "วินิจฉัย clinical จาก uterine fluid และ vaginal discharge ส่วน subclinical ใช้ ultrasound ทุกวันช่วง estrus, cytology และ culture",
+   "line": "Clinical endometritis ดูจาก uterine fluid และ vaginal discharge ส่วน subclinical ต้อง ultrasound ทุกวันช่วง estrus ร่วมกับ cytology และ culture",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -265,7 +269,7 @@ export default {
   {
    "t": 3060,
    "title": "Comparing methods",
-   "line": "เทียบวิธี ultrasound เร็วทำซ้ำได้แต่ไม่ specific, cytobrush ดู PMNs, biopsy ดู grading fibrosis และ prognosis แต่ invasive",
+   "line": "Ultrasound เร็วและทำซ้ำได้แต่ไม่บอกเชื้อ cytobrush ดู PMN ส่วน biopsy ให้ grading fibrosis และ prognosis แต่ invasive",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -276,7 +280,7 @@ export default {
   {
    "t": 3300,
    "title": "Diagnostic decision tree",
-   "line": "Decision tree: เจอ fluid แล้ว cytology บวกจึงทำ culture sensitivity ถ้า cytology ลบให้คิด PBIE รักษาด้วย oxytocin หรือ lavage",
+   "line": "เจอ fluid ให้ทำ cytology ถ้าบวกจึง culture และ sensitivity ถ้าลบให้นึกถึง PBIE แล้วรักษาด้วย oxytocin หรือ lavage",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -286,8 +290,8 @@ export default {
   },
   {
    "t": 3480,
-   "title": "Endometritis : Treatment",
-   "line": "Treatment goal แรกคือ evacuate content ด้วย uterine lavage saline อุ่น หรือ ecbolic drugs oxytocin และ PGF2 alpha",
+   "title": "Endometritis: Treatment",
+   "line": "เริ่มจาก evacuate content ด้วย uterine lavage หรือ ecbolic drugs (oxytocin, PGF2α)",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -305,8 +309,8 @@ export default {
   },
   {
    "t": 3660,
-   "title": "Endometritis : Treatment (ต่อ)",
-   "line": "Goal control infection เลือก antibiotic local หรือ systemic ตาม sensitivity และ goal moderate inflammation ด้วย chemical curettage DMSO NAC หรือ glucocorticoid",
+   "title": "Endometritis: Treatment (ต่อ)",
+   "line": "คุมการติดเชื้อด้วย antibiotic แบบ local หรือ systemic ตามผล sensitivity และลดการอักเสบด้วย chemical curettage เช่น DMSO",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -325,7 +329,7 @@ export default {
   {
    "t": 4020,
    "title": "Alternative Tx",
-   "line": "ทางเลือก biofilm clearance ด้วย Tris-EDTA ร่วม antibiotic ยาต้าน fungal และ pyometra รักษาด้วย PGF2 alpha lavage antibiotic หรือ hysterectomy",
+   "line": "ทางเลือกอื่นคือ Tris-EDTA สลาย biofilm ร่วมกับ antibiotic และยาต้านเชื้อรา ส่วน pyometra รักษาด้วย PGF2α, lavage, antibiotic หรือ hysterectomy",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -348,7 +352,7 @@ export default {
   {
    "t": 4140,
    "title": "Goal 4 Prevent recurrence",
-   "line": "ป้องกันการกลับเป็นซ้ำด้วยการตรวจคัดกรอง venereal disease ตรวจ breeding soundness examination และแก้ vulva conformation ที่ผิดปกติด้วย Caslick vulvoplasty",
+   "line": "ป้องกันการเป็นซ้ำด้วยการคัดกรอง venereal disease ตรวจ breeding soundness และแก้ vulva conformation ด้วย Caslick vulvoplasty",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -363,7 +367,7 @@ export default {
   {
    "t": 4260,
    "title": "Horse owners' side",
-   "line": "ศัพท์ฝั่งเจ้าของ มดลูกอักเสบอาจหมายถึง metritis หรือ endometritis รกค้าง retained placenta และมดลูกอักเสบเป็นหนองคือ pyometra",
+   "line": "ศัพท์ที่เจ้าของม้าใช้ มดลูกอักเสบอาจหมายถึง metritis หรือ endometritis รกค้างคือ retained placenta และมดลูกอักเสบเป็นหนองคือ pyometra",
    "slides": [
     {
      "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",

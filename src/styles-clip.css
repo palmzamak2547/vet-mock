@@ -10,6 +10,31 @@
   min-width: 0;
 }
 
+/* The resume button and the skip switch share one row, wrapping on a phone. */
+.vmx-clip-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}
+.vmx-clip-skip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-2);
+  min-height: var(--touch-min);
+  color: var(--clr-ink);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.vmx-clip-skip input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--clr-sage);
+  cursor: pointer;
+}
+
 .vmx-clip-resume {
   justify-self: start;
   min-height: var(--touch-min);
@@ -24,12 +49,13 @@
   cursor: pointer;
 }
 
-/* The lecture's parts as one bar: 44px of hit area around a 10px track. */
+/* The lecture's parts as one bar: a 10px track inside 34px of hit area. */
 .vmx-clip-bar {
+  position: relative;
   display: flex;
   gap: 2px;
   height: 10px;
-  padding-block: 17px;
+  padding-block: 12px;
   box-sizing: content-box;
   cursor: pointer;
 }
@@ -38,17 +64,26 @@
   min-width: 2px;
   overflow: hidden;
   border-radius: 3px;
-  background: var(--clr-surface-2);
+  background: var(--clr-border);
 }
-.vmx-clip-seg::after {
-  content: '';
+.vmx-clip-seen {
   position: absolute;
   inset: 0;
   background: var(--clr-sage-soft);
-  transform: scaleX(var(--seen, 0));
   transform-origin: left center;
 }
 .vmx-clip-seg.is-current { box-shadow: 0 0 0 2px var(--clr-sage); }
+.vmx-clip-seg.is-lead { background: var(--clr-surface-2); }
+/* A stretch the player jumps, faint over the track it sits on. */
+.vmx-clip-skipmark {
+  position: absolute;
+  top: 12px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--clr-ink-soft);
+  opacity: 0.28;
+  pointer-events: none;
+}
 
 .vmx-clip-tabs {
   display: flex;
@@ -215,6 +250,19 @@
   font-size: var(--text-sm);
   line-height: 1.6;
 }
+.vmx-clip-more {
+  justify-self: start;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-2); /* the rows' own inset, so it lines up with their times */
+  border: 0;
+  background: none;
+  color: var(--clr-sage-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .vmx-clip-retry {
   min-height: var(--touch-min);
   margin-left: var(--space-2);
@@ -228,15 +276,18 @@
   cursor: pointer;
 }
 
-.vmx-clip-skeleton { gap: var(--space-2); }
+/* Shaped like the card it waits for: the bar, the tabs, the one-liner, three points. */
+.vmx-clip-skeleton { gap: var(--space-3); }
 .vmx-clip-skeleton span {
   display: block;
-  height: 14px;
+  height: 16px;
   border-radius: var(--r-sm);
   background: var(--clr-surface-2);
 }
-.vmx-clip-skeleton span:nth-child(2) { width: 80%; }
-.vmx-clip-skeleton span:nth-child(3) { width: 60%; }
+.vmx-clip-skeleton .is-bar { height: 10px; margin-block: 12px; }
+.vmx-clip-skeleton .is-tabs { height: var(--touch-min); width: min(100%, 22rem); }
+.vmx-clip-skeleton span:nth-child(4) { width: 70%; }
+.vmx-clip-skeleton span:nth-child(n + 5) { height: 28px; }
 
 /* The library's own copy plays in the same 16:9 frame as YouTube's player. */
 .vmx-own-video {

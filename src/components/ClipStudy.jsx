@@ -5,12 +5,14 @@
 // ============================================================
 // The player owns the clock: this panel gets `currentTime` and `seek` and
 // works the same over the library's own copy and over YouTube's embed.
-// docs/VIDEO-LIBRARY.md has the summary policy the card follows.
+// docs/VIDEO-LIBRARY.md has the summary policy the card follows and the
+// skip list (section 11): stamps keep the original times, so nothing drifts.
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import '../styles-clip.css';
+import { VIDEO_INDEX } from '../data/video-cards.generated.js';
 import {
-  loadVideoCard, loadVideoRegistry, fetchVideoAsset, clock,
-  readPosition, savePosition, readSeen, markSeen, seenShare,
+  hasVideoCard, loadVideoCard, loadVideoRegistry, fetchVideoAsset, clock,
+  readPosition, savePosition, readSeen, markSeen, seenShare, readSkip, saveSkip,
 } from '../lib/video-library.js';
 
 const TABS = [
@@ -19,6 +21,8 @@ const TABS = [
   ['index', 'ดัชนี'],
   ['transcript', 'ถอดความ'],
 ];
+const FIRST_POINTS = 3; // the card opens on the one-liner and these; ดูเพิ่ม shows the rest
+const SKIP_WORTH = 60; // seconds saved before the skip switch is worth showing
 
 const prefersReducedMotion = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
@@ -47,10 +51,23 @@ const Line = memo(function Line({ t, text, active, onSeek }) {
   return <li><TimeRow t={t} onSeek={onSeek} active={active}>{text}</TimeRow></li>;
 });
 
+const Points = ({ items, onSeek }) => items.map((p, i) => (
+  <li key={`${p.t}-${i}`}>
+    <TimeRow t={p.t} onSeek={onSeek}>
+      {p.text}
+      {p.stressed && <span className="vmx-clip-tag">จุดเน้น</span>}
+    </TimeRow>
+  </li>
+));
+
 export default function ClipStudy({ videoId, currentTime = 0, seek, duration: playerDuration = 0 }) {
+  const [, , , hasCopy = 0, skipSec = 0, length = 0] = VIDEO_INDEX[videoId] || [];
+  const carded = hasVideoCard(videoId);
   const [card, setCard] = useState(undefined); // undefined: loading, null: none
-  const [entry, setEntry] = useState(null);
+  const [skips, setSkips] = useState([]);
+  const [skipOn, setSkipOn] = useState(readSkip);
   const [tab, setTab] = useState('summary');
+  const [more, setMore] = useState(false);
   const [seen, setSeen] = useState(() => readSeen(videoId));
   const [resumeAt, setResumeAt] = useState(() => readPosition(videoId));
   const [transcript, setTranscript] = useState({ status: 'idle' });
@@ -65,27 +82,29 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
   useEffect(() => {
     let off = false;
     setCard(undefined);
-    setEntry(null);
+    setSkips([]);
+    setMore(false);
     setTranscript({ status: 'idle' });
     setFrames([]);
     setSeen(readSeen(videoId));
     setResumeAt(readPosition(videoId));
     loadVideoCard(videoId).then((c) => { if (!off) setCard(c); }).catch(() => { if (!off) setCard(null); });
-    loadVideoRegistry().then((r) => { if (!off) setEntry(r[videoId] || null); }).catch(() => {});
+    // The stretches to jump come with the registry, which only a video with some needs.
+    if (skipSec >= SKIP_WORTH) loadVideoRegistry().then((r) => { if (!off) setSkips(r[videoId]?.skips || []); }).catch(() => {});
     return () => { off = true; };
-  }, [videoId]);
+  }, [videoId, skipSec]);
 
   // Slides are worth one request as soon as the copy exists; the transcript
   // waits for its tab.
   useEffect(() => {
-    if (!entry?.media) return undefined;
+    if (!hasCopy || !carded) return undefined;
     let off = false;
     fetchVideoAsset(videoId, 'frames').then((r) => { if (!off && r.status === 'ok') setFrames(r.data.frames || []); });
     return () => { off = true; };
-  }, [videoId, entry?.media]);
+  }, [videoId, hasCopy, carded]);
   useEffect(() => {
     if (tab !== 'transcript' || transcript.status !== 'idle') return undefined;
-    if (!entry?.media) { setTranscript({ status: 'none' }); return undefined; }
+    if (!hasCopy) { setTranscript({ status: 'none' }); return undefined; }
     let off = false;
     setTranscript({ status: 'loading' });
     fetchVideoAsset(videoId, 'transcript').then((r) => {
@@ -93,20 +112,27 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
       setTranscript(r.status === 'ok' ? { status: 'ok', lines: (r.data.lines || []).map(([t, text]) => ({ t, text })) } : r);
     });
     return () => { off = true; };
-  }, [tab, videoId, entry?.media, transcript.status]);
+  }, [tab, videoId, hasCopy, transcript.status]);
 
   // Watched marks grow only while the video plays forward; the place the
-  // student stopped is kept every five seconds.
+  // student stopped is kept every five seconds. Playing on into a stretch
+  // that teaches nothing jumps it; a seek that lands inside one is the
+  // student's choice and plays.
   useEffect(() => {
-    const step = currentTime - prevTime.current;
+    const prev = prevTime.current;
+    const step = currentTime - prev;
     prevTime.current = currentTime;
     if (!(currentTime > 0)) return;
+    if (skipOn && step > 0 && step < 3) {
+      const k = skips.find(([s, e]) => prev < s + 0.5 && currentTime >= s && currentTime < e - 1);
+      if (k) { seek?.(k[1]); return; }
+    }
     if (step > 0 && step < 3) setSeen((s) => markSeen(videoId, currentTime, s));
     if (Math.abs(currentTime - savedAt.current) >= 5) { savePosition(videoId, currentTime); savedAt.current = currentTime; }
     if (resumeAt && Math.abs(currentTime - resumeAt) > 5 && currentTime > 10) setResumeAt(0);
-  }, [videoId, currentTime, resumeAt]);
+  }, [videoId, currentTime, resumeAt, skipOn, skips, seek]);
 
-  const duration = playerDuration || entry?.durationSec || 0;
+  const duration = playerDuration || length;
   const chapters = card?.chapters || [];
   const current = at(chapters, currentTime);
   const lines = transcript.status === 'ok' ? transcript.lines : [];
@@ -123,12 +149,33 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
     row?.scrollIntoView({ block: 'nearest', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   }, [tab, query, activeLine]);
 
-  if (card === undefined && !entry) {
-    return <div className="vmx-clip vmx-clip-skeleton" aria-busy="true" aria-label="กำลังโหลดสรุปคลิป"><span /><span /><span /></div>;
-  }
-  if (!card && !entry) return null;
-
   const onSeek = (t) => seek?.(t);
+  const skipSwitch = skipSec >= SKIP_WORTH && (
+    <label className="vmx-clip-skip">
+      <input type="checkbox" checked={skipOn} onChange={(e) => { setSkipOn(e.target.checked); saveSkip(e.target.checked); }} />
+      <span>ข้ามช่วงที่ไม่มีเนื้อหา</span>
+      <span className="vmx-clip-fine">ประหยัด {Math.round(skipSec / 60)} นาที</span>
+    </label>
+  );
+  const resume = resumeAt > 30 && (!duration || resumeAt < duration - 30) && (
+    <button type="button" className="vmx-clip-resume" onClick={() => { onSeek(resumeAt); setResumeAt(0); }}>
+      ดูต่อจาก {clock(resumeAt)}
+    </button>
+  );
+  const tools = (resume || skipSwitch) && <div className="vmx-clip-tools">{resume}{skipSwitch}</div>;
+
+  // A video without a card has only its tools; one with a card holds its
+  // space while the card loads, shaped like what comes.
+  if (!carded) return tools ? <section className="vmx-clip" aria-label="การเล่นคลิป">{tools}</section> : null;
+  if (card === undefined) {
+    return (
+      <div className="vmx-clip vmx-clip-skeleton" aria-busy="true" aria-label="กำลังโหลดสรุปคลิป">
+        <span className="is-bar" /><span className="is-tabs" /><span /><span /><span /><span />
+      </div>
+    );
+  }
+  if (!card) return tools ? <section className="vmx-clip" aria-label="การเล่นคลิป">{tools}</section> : null;
+
   const onTabKey = (e, i) => {
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
     const next = TABS[(i + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length][0];
@@ -136,30 +183,39 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
     tabRefs.current[next]?.focus();
   };
   const frameFor = (start, end) => frames.find((f) => f.t >= start && f.t < end);
+  const hasMore = card.keyPoints.length > FIRST_POINTS || card.emphasis.length > 0 || card.remember.length > 0;
+  const barEnd = duration || chapters.at(-1)?.t || 0;
 
   return (
     <section className="vmx-clip" aria-label="สรุปและช่วงเนื้อหาของคลิป">
-      {resumeAt > 30 && resumeAt < duration - 30 && (
-        <button type="button" className="vmx-clip-resume" onClick={() => { onSeek(resumeAt); setResumeAt(0); }}>
-          ดูต่อจาก {clock(resumeAt)}
-        </button>
-      )}
+      {tools}
 
-      {chapters.length > 1 && duration > 0 && (
+      {chapters.length > 1 && barEnd > 0 && (
         // A picture of the lecture's parts; the chapter list is the same thing for keyboards and screen readers.
         <div className="vmx-clip-bar" aria-hidden="true">
+          {/* The minutes before the first chapter, so every mark sits at its own time. */}
+          {chapters[0].t > 0 && (
+            <div className="vmx-clip-seg is-lead" style={{ flexGrow: chapters[0].t }} onClick={() => onSeek(0)}>
+              <span className="vmx-clip-seen" style={{ transform: `scaleX(${seenShare(seen, 0, chapters[0].t)})` }} />
+            </div>
+          )}
           {chapters.map((c, i) => {
-            const end = chapters[i + 1]?.t ?? duration;
+            const end = chapters[i + 1]?.t ?? barEnd;
             return (
               <div
                 key={c.t}
                 className={`vmx-clip-seg ${i === current ? 'is-current' : ''}`}
-                style={{ flexGrow: Math.max(1, end - c.t), '--seen': seenShare(seen, c.t, end) }}
+                style={{ flexGrow: Math.max(1, end - c.t) }}
                 title={`${clock(c.t)} ${c.title}`}
                 onClick={() => onSeek(c.t)}
-              />
+              >
+                <span className="vmx-clip-seen" style={{ transform: `scaleX(${seenShare(seen, c.t, end)})` }} />
+              </div>
             );
           })}
+          {skipOn && duration > 0 && skips.map(([s, e]) => (
+            <span key={s} className="vmx-clip-skipmark" style={{ left: `${(s / duration) * 100}%`, width: `${((e - s) / duration) * 100}%` }} />
+          ))}
         </div>
       )}
 
@@ -184,38 +240,36 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
       </div>
 
       <div className="vmx-clip-panel" role="tabpanel" id={`vmx-clip-panel-${tab}`} aria-labelledby={`vmx-clip-tab-${tab}`}>
-        {tab === 'summary' && (card ? (
+        {tab === 'summary' && (
           <>
             <p className="vmx-clip-one">{card.oneLiner}</p>
             <ol className="vmx-clip-list">
-              {card.keyPoints.map((p) => (
-                <li key={p.t}>
-                  <TimeRow t={p.t} onSeek={onSeek}>
-                    {p.text}
-                    {p.stressed && <span className="vmx-clip-tag">จุดเน้น</span>}
-                  </TimeRow>
-                </li>
-              ))}
+              <Points items={more ? card.keyPoints : card.keyPoints.slice(0, FIRST_POINTS)} onSeek={onSeek} />
             </ol>
-            {card.emphasis.length > 0 && (
+            {more && card.emphasis.length > 0 && (
               <section className="vmx-clip-box" aria-labelledby="vmx-clip-emph">
                 <h4 id="vmx-clip-emph">จุดเน้น</h4>
-                <ul className="vmx-clip-list">{card.emphasis.map((p) => <li key={p.t}><TimeRow t={p.t} onSeek={onSeek}>{p.text}</TimeRow></li>)}</ul>
+                <ul className="vmx-clip-list"><Points items={card.emphasis} onSeek={onSeek} /></ul>
               </section>
             )}
-            {card.remember.length > 0 && (
+            {more && card.remember.length > 0 && (
               <section className="vmx-clip-box" aria-labelledby="vmx-clip-mem">
                 <h4 id="vmx-clip-mem">ต้องจำ</h4>
-                <ul className="vmx-clip-list">{card.remember.map((p) => <li key={p.t}><TimeRow t={p.t} onSeek={onSeek}>{p.text}</TimeRow></li>)}</ul>
+                <ul className="vmx-clip-list"><Points items={card.remember} onSeek={onSeek} /></ul>
               </section>
             )}
+            {hasMore && (
+              <button type="button" className="vmx-clip-more" aria-expanded={more} onClick={() => setMore(!more)}>
+                {more ? 'แสดงน้อยลง' : 'ดูเพิ่ม'}
+              </button>
+            )}
           </>
-        ) : <p className="vmx-clip-note">คลิปนี้ยังไม่มีสรุป ดูช่วงเนื้อหาและถอดความได้จากแท็บด้านบน</p>)}
+        )}
 
         {tab === 'chapters' && (chapters.length ? (
           <ol className="vmx-clip-list">
             {chapters.map((c, i) => {
-              const end = chapters[i + 1]?.t ?? duration;
+              const end = chapters[i + 1]?.t ?? barEnd;
               const pic = frameFor(c.t, end);
               const done = seenShare(seen, c.t, end) >= 0.8;
               return (
@@ -232,16 +286,20 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
           </ol>
         ) : <p className="vmx-clip-note">คลิปนี้ยังไม่ได้แบ่งช่วงเนื้อหา</p>)}
 
-        {tab === 'index' && (card?.index?.length ? (
+        {tab === 'index' && (card.index?.length ? (
           <>
-            <h4 className="vmx-clip-h">ศัพท์ในคลิป</h4>
-            <div className="vmx-clip-chips">
-              {card.index.filter((x) => x.term).sort((a, b) => a.t - b.t).map((x) => (
-                <button key={`${x.term}${x.t}`} type="button" className="vmx-clip-chip" onClick={() => onSeek(x.t)}>
-                  {x.term} <span className="vmx-clip-t">{clock(x.t)}</span>
-                </button>
-              ))}
-            </div>
+            {card.index.some((x) => x.term) && (
+              <>
+                <h4 className="vmx-clip-h">ศัพท์ในคลิป</h4>
+                <div className="vmx-clip-chips">
+                  {card.index.filter((x) => x.term).sort((a, b) => a.t - b.t).map((x) => (
+                    <button key={`${x.term}${x.t}`} type="button" className="vmx-clip-chip" onClick={() => onSeek(x.t)}>
+                      {x.term} <span className="vmx-clip-t">{clock(x.t)}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
             {card.index.some((x) => x.number) && (
               <>
                 <h4 className="vmx-clip-h">ตัวเลขบนสไลด์</h4>

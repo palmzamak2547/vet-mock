@@ -33,6 +33,13 @@ export function displayTitle(title) {
   return String(title).replace(/\s+\d{1,2}\s+[A-Za-z]{3}[a-z]*\.?\s+\d{2}\s*$/, '').replace(/^\s*\d+(?:\.\d+)?\s*\.?\s*(?=\S)/, '').trim() || String(title).trim();
 }
 
+/** A deck heading as a chapter title: "CONTAMINATION" -> "Contamination", "Treatment : Goals" -> "Treatment: Goals". */
+export function tidyHeading(title) {
+  let t = String(title).replace(/\s+:/g, ':').replace(/\s+/g, ' ').trim();
+  if (!/[a-z]/.test(t) && /[A-Z]{6}/.test(t)) t = t.charAt(0) + t.slice(1).toLowerCase();
+  return t;
+}
+
 const readJSON = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
 const js = (o) => JSON.stringify(o, null, 1);
 const HEAD = (what) => `// ============================================================
@@ -74,6 +81,7 @@ function build() {
       channel: v.channelId,
       playlist: v.playlists[0]?.id || null,
       topics: segments.map((g) => [g.topic, g.start, g.end, g.conf]),
+      skips: (a?.skips || []).map((k) => [k.start, Math.min(k.end, durationSec), k.kind]).filter(([s, e]) => s < e),
       media: Boolean(m),
       captions: m?.captions || (a ? 'youtube' : null),
       card: pass,
@@ -87,7 +95,7 @@ function build() {
         keyPoints: s.summary.keyPoints.map((p) => ({ t: p.t, text: p.text, ...(p.stressed && { stressed: true }) })),
         emphasis: s.summary.emphasis.map((p) => ({ t: p.t, text: p.text })),
         remember: s.summary.remember.map((p) => ({ t: p.t, text: p.text })),
-        chapters: a.chapters.map((c, i) => ({ t: c.start, title: c.title, line: s.summary.chapters[i]?.line || '', ...(c.pages?.length && { slides: c.pages.map(pageOf).filter(Boolean) }) })),
+        chapters: a.chapters.map((c, i) => ({ t: c.start, title: tidyHeading(c.title), line: s.summary.chapters[i]?.line || '', ...(c.pages?.length && { slides: c.pages.map(pageOf).filter(Boolean) }) })),
         index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: x.term, t: x.at } : { number: x.text, t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) })),
       };
     }
@@ -111,8 +119,8 @@ function main() {
   const ids = Object.keys(cards).sort();
   // VIDEO_INDEX is small and loads with the app's video code, so a link to
   // any library video (?v=<id>&at=<s>) knows what it opens without the registry.
-  const index = Object.fromEntries(Object.entries(registry).map(([id, r]) => [id, [r.title, r.subject, r.date]]));
-  files.set(path.join(OUT, 'video-cards.generated.js'), `${HEAD('VIDEO_CARD_LOADERS — one lazy chunk per video card; VIDEO_INDEX — id -> [title, subject, date]')}export const VIDEO_INDEX = ${JSON.stringify(index)};\n\nexport const VIDEO_CARD_LOADERS = {\n${ids.map((id) => `  '${id}': () => import('./video-cards/${id}.js'),`).join('\n')}\n};\n`);
+  const index = Object.fromEntries(Object.entries(registry).map(([id, r]) => [id, [r.title, r.subject, r.date, r.media ? 1 : 0, Math.round(r.skips.reduce((n, [s, e]) => n + e - s, 0)), r.durationSec]]));
+  files.set(path.join(OUT, 'video-cards.generated.js'), `${HEAD('VIDEO_CARD_LOADERS — one lazy chunk per video card; VIDEO_INDEX — id -> [title, subject, date, our copy 1/0, seconds the skip list saves, length in seconds]')}export const VIDEO_INDEX = ${JSON.stringify(index)};\n\nexport const VIDEO_CARD_LOADERS = {\n${ids.map((id) => `  '${id}': () => import('./video-cards/${id}.js'),`).join('\n')}\n};\n`);
   for (const id of ids) files.set(path.join(OUT, 'video-cards', `${id}.js`), `${HEAD(`Video card ${id}`)}export default ${js(cards[id])};\n`);
   let stale = 0;
   for (const [file, text] of files) {
