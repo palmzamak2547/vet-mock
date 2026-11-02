@@ -619,3 +619,42 @@ test('PF-17: a refresh whose revision was read across a sign-out does not hand b
   assert.ok(t.stats.revisionAs, 'precondition: the sign-out landed mid-refresh');
   assert.ok(!docs.some((d) => d.status === 'restricted'), 'the signed-in rows are not handed back after the sign-out');
 });
+
+// A new session (every app open) asks the same question of the rows the device
+// kept, so an unchanged shelf is one revision and no pages (~216 KB on 1 Nov 2026).
+test('PF-17: a new session with the shelf unchanged reads one revision and no rows', async () => {
+  install({ signedIn: false });
+  const t = table(shelf(1500));
+  globalThis.__vmxTestSupabase = t.client;
+  const first = await (await freshLibrary()).fetchLibraryDocs();
+  assert.deepEqual(t.stats.pages, [0, 1000], 'the first session downloads');
+  await new Promise((r) => setImmediate(r));
+  const pagesBefore = t.stats.pages.length;
+  const revisionsBefore = t.stats.revisions;
+  const next = await (await freshLibrary()).fetchLibraryDocs();
+  assert.equal(t.stats.pages.length, pagesBefore, 'the next session downloads no page');
+  assert.equal(t.stats.revisions, revisionsBefore + 1, 'it asks one revision');
+  assert.deepEqual(next.docs.map((d) => d.id), first.docs.map((d) => d.id));
+});
+
+test('PF-17: a new session after the shelf changed downloads it again', async () => {
+  install({ signedIn: false });
+  const t = table(shelf(1500));
+  globalThis.__vmxTestSupabase = t.client;
+  await (await freshLibrary()).fetchLibraryDocs();
+  await new Promise((r) => setImmediate(r));
+  t.set([...shelf(1500), { ...doc('new-deck', 'public', 'e'.repeat(16)), updated_at: '2026-11-01T00:00:00Z' }]);
+  const pagesBefore = t.stats.pages.length;
+  const { docs } = await (await freshLibrary()).fetchLibraryDocs();
+  assert.ok(t.stats.pages.length > pagesBefore, 'a changed shelf is downloaded');
+  assert.ok(docs.some((d) => d.slug === 'new-deck'), 'with the new deck');
+});
+
+test('PF-17: a reader who sees restricted rows keeps no rows on the device', async () => {
+  const env = install({ signedIn: true });
+  const t = table([...shelf(10), ...shelf(3, { status: 'restricted', prefix: 'r' })]);
+  globalThis.__vmxTestSupabase = t.client;
+  await (await freshLibrary()).fetchLibraryDocs();
+  await new Promise((r) => setImmediate(r));
+  assert.ok(!env.caches._entries('vmx-library-catalog-v1').some((k) => String(k).includes('library-rows')), 'no kept rows');
+});

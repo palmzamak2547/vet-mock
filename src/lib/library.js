@@ -565,13 +565,26 @@ export async function fetchLibraryDocs() {
   // whether anything changed. The revision is read BEFORE the rows, so a
   // change that lands during the read makes the next revision differ, never
   // match: the worst case is one extra download, never a stale shelf. A cold
-  // load does not pay for the extra round-trip, so the first refresh after it
-  // still downloads once, and records the revision it read first.
+  // load keeps no revision in memory, so the first refresh after it still
+  // downloads once, and records the revision it read first. It does ask one
+  // for the rows this device kept from an earlier session (every app open):
+  // an unchanged shelf then costs one row and a count instead of every page
+  // (~216 KB for 2,151 rows on 1 Nov 2026). Like the refresh, this leans on
+  // library_docs_touch_updated_at moving updated_at on every edit.
   const previous = _lastFetch;
   let revision = null;
+  let stamp = null;
   if (previous) {
     revision = await catalogRevision(sb);
     if (revision && revision === previous.revision && epoch === _catalogEpoch) return previous.result;
+  } else {
+    const [kept, current] = await Promise.all([readKeptRows(), catalogRevision(sb)]);
+    if (kept && current && kept.revision === current && epoch === _catalogEpoch) {
+      const result = { docs: kept.docs, configured: true };
+      _lastFetch = { revision: current, result };
+      return result;
+    }
+    stamp = current;
   }
 
   // Paged, because PostgREST silently caps an un-ranged select at 1,000
@@ -603,8 +616,36 @@ export async function fetchLibraryDocs() {
   // the browser never has, but filtering here keeps the view honest if that
   // ever changes.
   const result = { docs: rows.filter((d) => d.status !== 'archived'), configured: true };
-  if (epoch === _catalogEpoch) _lastFetch = { revision, result };
+  if (epoch === _catalogEpoch) {
+    _lastFetch = { revision, result };
+    keepRows(revision ?? stamp, result.docs);
+  }
   return result;
+}
+
+// The rows of the last download, stamped with the revision read before it,
+// for the next session's question. Kept only when every row this reader sees
+// is public, the snapshot's rule, so restricted rows never reach the disk; a
+// reader who sees another set reads another revision and downloads.
+const ROWS_URL = '/__vmx/library-rows.json';
+
+async function readKeptRows() {
+  try {
+    const hit = await (await openSnapshotCache())?.match(ROWS_URL);
+    const kept = hit ? await hit.json() : null;
+    return typeof kept?.revision === 'string' && Array.isArray(kept.docs) && kept.docs.every((d) => d?.status === 'public') ? kept : null;
+  } catch {
+    return null;
+  }
+}
+
+async function keepRows(revision, docs) {
+  if (!revision || !docs.every((d) => d?.status === 'public')) return;
+  try {
+    await (await openSnapshotCache())?.put(ROWS_URL, new Response(JSON.stringify({ revision, docs }), {
+      headers: { 'content-type': 'application/json' },
+    }));
+  } catch { /* private mode or no room: the next session downloads */ }
 }
 
 // Every page of the catalogue. The shelf is ~1,500 rows today, so the first
