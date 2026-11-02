@@ -60,15 +60,15 @@ Past classes with no recording or announcement yet read "ตามแผน" on 
 | Epidemiology | none | the whole course, 3 Aug to 16 Nov, except 28 Sep | not stated |
 | CPS | none | none | not stated |
 
-## Compared with `examScope` (curriculum.js at `7d9890f2`)
+## Compared with `examScope` (curriculum.js at `c36503b9`)
 
 No topic is scoped to the paper its 2569 sessions are not on: `scopeConflicts()` returns nothing, and `tests/unit/course-syllabi.test.mjs` keeps it so on every run, against whatever `curriculum.js` holds then. The term as it ran moved dates and order. One class crossed the midterm: the stallion anatomy and clinical exam (`eqrepro-male`), planned 17 Sep and taught 8 Oct, now sits on the final, and the unit test names it so a new crossing is looked at. The disagreements are all of one kind, a topic the curriculum puts on both papers or on neither where the syllabus puts its session on one:
 
 | Topic | curriculum | 2569 syllabus | Why it stays (or what would settle it) |
 |---|---|---|---|
-| `avian-intro` | both | midterm (25 Aug) | It holds 84 questions, many on final-only content (duck diseases, ORT, Campylobacter, mycotoxicosis). Scoping it midterm would drop those from the final. Re-file them to their topics first, then scope it midterm. Sent to vet-86. |
+| `avian-intro` | midterm since #140 (was both) | midterm (25 Aug) | Settled. It held 84 questions, many on final-only content (duck diseases, ORT, Campylobacter, mycotoxicosis); vet-86 re-filed them to their topics in #140 (5.186.0), then scoped it midterm. |
 | `milk-cleaning` | both | final (30 Sep) | Mid 86's set F asks it (curriculum comment). Final is covered either way. |
-| `eqrepro-stallion-infect` | both | final (taught 15 Oct) | Mare infectious disease (lectures 5-6, taught 27 Aug, before the midterm) has no topic of its own and may sit here. Sent to vet-86. |
+| `eqrepro-stallion-infect` | final since #140 (was both) | final (taught 15 Oct) | Settled. Mare infectious disease (lectures 5-6, taught 27 Aug) has its own midterm topic since #140, `eqrepro-mare-infect`, which the 27 Aug class names. |
 | `zoo-epi-approach` | both | final (moves to 13 Nov) | Contested evidence per the curriculum comment; the class moved it to 13 Nov, still after the midterm. |
 | `zoo-eid-wildlife` | both | final (20 Nov, "Emerging threat") | Four questions came from a deck examined at the midterm (curriculum comment, which also says 14 Nov where the syllabus says 20 Nov). |
 | `swine-pornchalit-set` | both | midterm (PA's 28 Aug to 11 Sep) | PA's repro and control sessions after the midterm have topics of their own; the set may still hold questions from them. |
@@ -77,7 +77,7 @@ No topic is scoped to the paper its 2569 sessions are not on: `scopeConflicts()`
 
 Topics with no 2569 session: 10 Equine Med topics (acupuncture, tendon, colic surgery, Farabella, tumours, RVF, LapOVE, ortho, pythium, neonatal) stay `final` with "ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา 2569"; 5 Epid topics and `oh-integrating-epi` are `continuous`. These are the curriculum's own call and were left alone.
 
-Nothing in `curriculum.js` or the banks was edited by this work: every disagreement is a reasoned `both`, and the one that is wrong for the students (`avian-intro`) is a filing fix in the bank, which belongs to the vet-86 lane.
+Nothing in `curriculum.js` or the banks was edited by this work. The two scopes that needed bank work went to the vet-86 lane, which settled them in #140; every disagreement left is a reasoned `both`.
 
 Lecturers the syllabi name where the curriculum has TBD (for vet-86): `poa-intro` วชิรา หุ่นประสิทธิ์; `poa-edema` สิริลักษณ์ สุรเชษฐพงษ์; `poa-respiratory` ณัฐวรรณ ตั้งมหากุล; `poa-jaundice` กฤษฎา บุญอร่ามเรือง; `poa-red-urine` and `poa-pale-mm` วชิรา หุ่นประสิทธิ์; `poa-exotic` ธวัช เล็กดำรงศักดิ์; `poa-derm` and `poa-pupd` ชัยยศ ธารรัตนะ; `poa-anorexia` ปุญญมณี แหยมเกตุ.
 
