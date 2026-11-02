@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { SEMESTER, examTitle, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import { SEMESTER, examTitle, fmtThaiDate, getUpcomingExams, shortCountdown, examEndMs } from '../data/schedule.js';
 import { examTimetable } from '../lib/exam-timetable.js';
+import { courseDocs, syllabusDoc, teachingDoc } from '../lib/course-docs.js';
 import WeekTimetable from '../components/WeekTimetable.jsx';
 import AcademicCalendar from '../components/AcademicCalendar.jsx';
 // Phase 2 perf: use precomputed counts instead of QB. ScheduleView
@@ -36,7 +37,7 @@ function loadSheet() {
 // import, as Chromium does for a piece the sheet shares with other screens, so
 // a second failure while online offers to load the page again (nothing on
 // this page is lost by it).
-function SheetFailure({ error, repeated, onRetry }) {
+function SheetFailure({ error, repeated, onRetry, what = 'ตารางสอบฉบับพิมพ์' }) {
   const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine !== false);
   useEffect(() => {
     const sync = () => setOnline(navigator.onLine !== false);
@@ -50,12 +51,12 @@ function SheetFailure({ error, repeated, onRetry }) {
   const chunk = isChunkLoadError(error);
   const reload = chunk && online && repeated;
   const text = !chunk
-    ? 'เปิดตารางสอบฉบับพิมพ์ไม่สำเร็จ กดลองอีกครั้ง'
+    ? `เปิด${what}ไม่สำเร็จ กดลองอีกครั้ง`
     : !online
-      ? 'ยังไม่ได้ต่ออินเทอร์เน็ต จึงเปิดตารางสอบฉบับพิมพ์ไม่ได้ ต่ออินเทอร์เน็ตแล้วกดลองอีกครั้ง'
+      ? `ยังไม่ได้ต่ออินเทอร์เน็ต จึงเปิด${what}ไม่ได้ ต่ออินเทอร์เน็ตแล้วกดลองอีกครั้ง`
       : reload
-        ? 'ยังโหลดตารางสอบฉบับพิมพ์ไม่ได้ โหลดหน้านี้ใหม่แล้วลองอีกครั้ง'
-        : 'โหลดตารางสอบฉบับพิมพ์ไม่สำเร็จ กดลองอีกครั้ง';
+        ? `ยังโหลด${what}ไม่ได้ โหลดหน้านี้ใหม่แล้วลองอีกครั้ง`
+        : `โหลด${what}ไม่สำเร็จ กดลองอีกครั้ง`;
   return (
     <div role="alert" className="vmx-timetable-failed" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, margin: '0 0 14px', padding: '10px 12px', borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 14, color: 'var(--clr-ink)', lineHeight: 1.6 }}>
       <span style={{ flex: '1 1 16em', minWidth: 0 }}>{text}</span>
@@ -75,13 +76,23 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
   const [sheetFailure, setSheetFailure] = useState(null);
   // Failed opens since the sheet last opened.
   const [sheetFailures, setSheetFailures] = useState(0);
-  const openSheet = () => {
+  // What the last tap opened, so a retry opens the same page, and a failure
+  // shows beside the button that was tapped.
+  const [lastOpen, setLastOpen] = useState(null);
+  const openPage = (build, what, where = 'exams') => {
     if (sheetFailure) {
       setTimetableSheet(() => lazy(loadSheet));
       setSheetFailure(null);
     }
-    setPrintTable(examTimetable(selectedYear));
+    setLastOpen({ build, what, where });
+    setPrintTable(build());
   };
+  const openSheet = () => openPage(() => examTimetable(selectedYear), 'ตารางสอบฉบับพิมพ์');
+  const docs = courseDocs(selectedYear);
+  const failureNote = (where) => sheetFailure && (lastOpen?.where || 'exams') === where && (
+    <SheetFailure error={sheetFailure} repeated={sheetFailures > 1} what={lastOpen?.what}
+      onRetry={() => (lastOpen ? openPage(lastOpen.build, lastOpen.what, lastOpen.where) : openSheet())} />
+  );
   const [, setTick] = useState(0);
   const yearKey = `y${selectedYear}`;
   const allExams = getUpcomingExams(yearKey);
@@ -104,8 +115,12 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
     }, { timeout: 5000 });
     return () => cic(id);
   }, []);
-  const pastCount = allExams.filter((e) => e.daysLeft < 0).length;
-  const exams = showPast ? allExams : allExams.filter((e) => e.daysLeft >= 0);
+  // A paper is sat once it has ended, not once its day has: at 16:00 the
+  // 13:00-15:00 paper still read วันนี้! over its practice button until midnight.
+  const nowMs = Date.now();
+  const isOver = (e) => e.daysLeft < 0 || (e.daysLeft === 0 && examEndMs(e) <= nowMs);
+  const pastCount = allExams.filter(isOver).length;
+  const exams = showPast ? allExams : allExams.filter((e) => !isOver(e));
 
   const hasQuestions = (subjId, phase = selectedPhase) => {
     if (((Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[phase] || Q_VISIBLE_COUNTS_BY_SUBJECT)[subjId] || 0) > 0) return true;
@@ -182,11 +197,11 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           </Suspense>
         </ErrorBoundary>
       )}
-      {sheetFailure && <SheetFailure error={sheetFailure} repeated={sheetFailures > 1} onRetry={openSheet} />}
+      {failureNote('exams')}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 30 }}>
         {exams.map((exam) => {
-          const isPast = exam.daysLeft < 0;
+          const isPast = isOver(exam);
           const isToday = exam.daysLeft === 0;
           const isUrgent = exam.daysLeft > 0 && exam.daysLeft <= 7;
           const phase = examPhase(exam);
@@ -208,10 +223,12 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                   border: `1px solid ${isUrgent ? 'var(--clr-rose)' : 'var(--clr-border)'}`,
                 }}>
                   <div className="vmx-exam-date-month">
-                    {new Date(exam.date).toLocaleDateString('th-TH', { month: 'short' })}
+                    {/* The day the row names, in every zone: 'YYYY-MM-DD' parses as
+                        UTC midnight, the previous evening west of Greenwich. */}
+                    {new Date(exam.date).toLocaleDateString('th-TH', { month: 'short', timeZone: 'UTC' })}
                   </div>
                   <div className="vmx-exam-date-day">
-                    {new Date(exam.date).getDate()}
+                    {new Date(exam.date).getUTCDate()}
                   </div>
                   <div className="vmx-exam-date-left">
                     {(() => {
@@ -290,6 +307,37 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           );
         })}
       </div>
+
+      {docs.length > 0 && (
+        <section aria-labelledby="vmx-course-docs-title" style={{ marginBottom: 30 }}>
+          <div className="vmx-section-label">
+            <span id="vmx-course-docs-title">ประมวลรายวิชาและตารางสอน ปี {selectedYear} ({docs.length})</span>
+          </div>
+          <p style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+            ฉบับอ่านง่ายจากประมวลรายวิชาของแต่ละวิชา บอกว่าแต่ละคาบออกสอบช่วงไหน ดาวน์โหลดเป็น PDF หรือรูป
+          </p>
+          {failureNote('docs')}
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0, border: '1px solid var(--clr-border)', borderRadius: 12 }}>
+            {docs.map((d, i) => (
+              <li key={d.subject} className="vmx-course-doc" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, padding: '10px 12px', borderTop: i ? '1px solid var(--clr-border)' : 'none' }}>
+                <span style={{ flex: '1 1 14em', minWidth: 0, fontSize: 15, lineHeight: 1.5 }}>
+                  {d.nameTh} <span style={{ color: 'var(--clr-ink-soft)', fontSize: 14 }}>{d.code}</span>
+                </span>
+                <span style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-label={`ประมวลรายวิชา ${d.nameTh}`}
+                    onClick={() => openPage(() => syllabusDoc(d.subject, selectedYear), 'ประมวลรายวิชาฉบับพิมพ์', 'docs')}>
+                    ประมวลรายวิชา
+                  </button>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-label={`ตารางสอน ${d.nameTh}`}
+                    onClick={() => openPage(() => teachingDoc(d.subject, selectedYear), 'ตารางสอนฉบับพิมพ์', 'docs')}>
+                    ตารางสอน
+                  </button>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         <strong>คำแนะนำ:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>

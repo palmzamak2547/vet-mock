@@ -39,6 +39,40 @@ export const WEAK_POOL_CAP = 150;
 
 export const USER_CURATED_MODES = new Set(['bookmarks', 'weak', 'wrong']);
 
+/**
+ * The wrong-answer set as Home's chip counts it, by the rule the 'wrong' pool
+ * below serves it: still wrong (wrong-pool.js), deliverable, and of the year,
+ * read from the row's own year, else its subject's. Both terms: a curated mode
+ * is not narrowed by the period. The chip used to read the year through the
+ * period's subject list and skip the delivery gate, so it left out the other
+ * term's misses that the set served and counted blocked ones it never would.
+ */
+export function stillWrongInYear(history, selectedYear) {
+  return stillWrong((history || []).filter((row) => {
+    // A row with no subject keys as ":id", which no question in the pool
+    // matches, so the set can never serve it.
+    if (!row || !row.subject) return false;
+    if (!isQuestionDeliverable({ subject: row.subject, id: row.questionId })) return false;
+    if (!selectedYear) return true;
+    if (typeof row.year === 'number') return row.year === selectedYear;
+    const year = yearForSubject(row.subject);
+    return year == null || year === selectedYear;
+  }));
+}
+
+/**
+ * What the wrong-answer chip serves and prints. It serves the questions still
+ * wrong up to WEAK_POOL_CAP: a set is written to the device after every answer
+ * (about 1.2 KB a question, and a write that fails is not reported), and its
+ * size stays the next config screen's default count. When it caps, the chip
+ * says so ("150 จาก 320"), so the number on it is always the set it opens.
+ */
+export function wrongChip(wrongCount) {
+  const total = Math.max(0, Math.floor(Number(wrongCount) || 0));
+  const serve = Math.min(total, WEAK_POOL_CAP);
+  return { serve, total, label: serve < total ? `${serve} จาก ${total}` : String(total) };
+}
+
 export function normalizePracticeMode(mode, subject, explicitMode = false) {
   if (!explicitMode && subject && subject !== 'all' && USER_CURATED_MODES.has(mode)) {
     return 'all';

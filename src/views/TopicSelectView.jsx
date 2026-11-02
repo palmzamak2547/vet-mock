@@ -3,7 +3,7 @@ import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { hasPanicCard } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
-import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse, topicOnPaper, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
 import { oldContentLine, phaseLabel, timetableStatus } from '../lib/current-phase.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
@@ -12,6 +12,8 @@ import { SUBJECTS, announced, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { fetchRelatedDocs, librarySubjectCounts } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
+// Lazy: the topic screen pays for the video code only when a list opens.
+const TopicClips = lazy(() => import('../components/TopicClips.jsx'));
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
@@ -86,6 +88,17 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // subject, cached per session); a topic card opens its list in place.
   const [relatedDocs, setRelatedDocs] = useState(() => new Map());
   const [openRelated, setOpenRelated] = useState(null);
+  // "ดูช่วงนี้": how many stretches of lecture video teach each topic (the
+  // index is one small lazy chunk), and which topic's list is open.
+  const [clipCounts, setClipCounts] = useState({});
+  const [openClips, setOpenClips] = useState(null);
+  useEffect(() => {
+    let off = false;
+    import('../data/video-topic-index.generated.js')
+      .then(({ VIDEO_TOPIC_INDEX: index }) => { if (!off) setClipCounts(Object.fromEntries(Object.entries(index).map(([id, list]) => [id, new Set(list.map((x) => x.v)).size]))); })
+      .catch(() => {});
+    return () => { off = true; };
+  }, []);
   const [landRelated, setLandRelated] = useState(null);
   useEffect(() => {
     let alive = true;
@@ -184,12 +197,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // midterm. Those questions stay reachable on the final paper and on the
   // whole-semester view; they just stop claiming a place on a paper their
   // topic is not on.
+  //
+  // The topic's own field is not the whole answer, though: a topic with none
+  // takes its subject's scope, then the timetable's (topicOnPaper), exactly as
+  // the count tables do, so a course that sits only the final lists no topic
+  // under กลางภาค instead of thirteen that each print nothing behind them.
   const paperScope = scopeForPhase(selectedPhase);
-  const topics = (subjectPage.topics || []).filter((t) => {
-    if (!paperScope) return true;
-    if (!t?.examScope) return true; // unknown scope is kept, as for questions
-    return t.examScope === paperScope || t.examScope === 'both';
-  });
+  const topics = (subjectPage.topics || []).filter((t) => topicOnPaper(subject, t?.id, selectedPhase));
   // Once a paper is picked the numbers come from that paper's table. A subject
   // the table does not name has NOTHING on that paper (epidemiology sits only
   // the final), which is zero, not "unscoped": falling through to the whole-
@@ -217,8 +231,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     topic: (topicId) => (t) => t === topicId,
   };
 
-  // Reading-checklist summary for this subject
-  const subjReadDone = subjectPage.progress?.read || 0;
+  // Reading-checklist summary for this subject, over the topics listed here.
+  // The catalog's progress counts every topic of the course, so under a paper
+  // it put the other paper's reading over this paper's topics: 10/5.
+  const subjReadDone = topics.filter((t) => t.read).length;
 
   // Collections: virtual "ทำรวม" cards that bundle topics by prefix
   // (e.g. รวมหมาหอน covers 9 mahahon-* topics, รวม Term Paper covers 12 group* topics).
@@ -816,7 +832,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 )}
               </button>
 
-              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || related.length > 0 || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
+              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || related.length > 0 || clipCounts[t.id] > 0 || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
                   {lecturer?.kind === 'profile' && (
                     <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
@@ -848,6 +864,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       <NavIcon name="files" size={15} /> เอกสาร {related.length}
                     </button>
                   )}
+                  {clipCounts[t.id] > 0 && (
+                    <button
+                      type="button"
+                      className="vmx-topic-action"
+                      aria-expanded={openClips === t.id}
+                      onClick={() => setOpenClips((cur) => (cur === t.id ? null : t.id))}
+                    >
+                      <NavIcon name="video" size={15} /> คลิป {clipCounts[t.id]}
+                    </button>
+                  )}
                   {subject === 'vca' && VCA_NOTES_MAP[t.id] && (
                     <button
                       type="button"
@@ -862,6 +888,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       <NavIcon name="note" size={15} /> {VCA_NOTES_MAP[t.id].label}
                     </button>
                   )}
+                </div>
+              )}
+              {openClips === t.id && (
+                <div className="vmx-topic-related">
+                  <Suspense fallback={null}><TopicClips topicId={t.id} /></Suspense>
                 </div>
               )}
               {openRelated === t.id && related.length > 0 && (

@@ -14,6 +14,7 @@ import { available as transcribeAvailable, providers as transcribeProviders } fr
 import { voiceFor } from '../tts.js';
 import { externalCapabilities } from './external-connections.js';
 import { rateLimit } from './rate-limit.js';
+import { presign, tokenKeyEnv } from './r2.js';
 
 const DAY = 86_400_000;
 const CHECK_MS = 8000;
@@ -24,6 +25,8 @@ const DEFAULT_FEEDBACK_EMAIL = 'palmzamak2547@gmail.com'; // the fallbacks in ap
 const DEFAULT_FEEDBACK_FROM = 'VetMock <onboarding@resend.dev>';
 // A question-length stem: Premwadee passed a one-word probe while it dropped
 // two-sentence stems (28 Oct 2026), so the probe reads what students hear.
+// The weekly video import runs Sunday night; two missed runs read as down.
+const VIDEO_STALE_DAYS = 9;
 const VOICE_PROBE = 'สุนัขเพศผู้อายุ 5 ปี มีอาการซึมและเบื่ออาหารมาสามวัน ผลตรวจเลือดพบค่าเอนไซม์ตับสูง ข้อใดเป็นการวินิจฉัยที่เป็นไปได้มากที่สุด';
 
 const daysUntil = (iso, now) => Math.floor((Date.parse(iso) - now) / DAY);
@@ -145,6 +148,27 @@ const CHECKS = [
       if (!t.expires_on) return r('ok', 'token ใช้ได้ ไม่มีวันหมดอายุ');
       const d = daysUntil(t.expires_on, now);
       return d < 30 ? r('warn', `token หมดอายุในอีก ${d} วัน (${thaiDate(t.expires_on)})`) : r('ok', `token ใช้ได้ถึง ${thaiDate(t.expires_on)}`);
+    },
+  },
+  {
+    id: 'videos', name: 'คลังวิดีโอ (นำเข้าคลิปใหม่ทุกสัปดาห์)', doc: 'videos',
+    fix: 'บนเครื่องที่ทำคลังวิดีโอ รัน node scripts/video-pipeline.mjs แล้ว node scripts/video-registry.mjs --status แล้วอ่านสาเหตุใน log (docs/VIDEO-LIBRARY.md)',
+    async run({ env, fetchImpl, now }, r) {
+      // videos/_status.json is the import run's own report (scripts/video-registry.mjs --status).
+      const keyed = await tokenKeyEnv(env, fetchImpl);
+      if (!keyed) return r('down', 'อ่านรายงานการนำเข้าไม่ได้ เพราะ token ของ Cloudflare ใช้ไม่ได้');
+      const res = await fetchImpl(presign('videos/_status.json', { env: keyed, expiresIn: 60 }), { headers: { 'accept-encoding': 'identity' }, signal: signal() });
+      if (res.status === 404) return r('warn', 'ยังไม่มีรายงานการนำเข้า งานประจำสัปดาห์ยังไม่เคยรัน');
+      if (!res.ok) return r('warn', `อ่านรายงานการนำเข้าไม่ได้ (status ${res.status})`);
+      const s = await res.json();
+      const age = Math.floor((now - Date.parse(s.at)) / DAY);
+      if (!(age <= VIDEO_STALE_DAYS)) return r('down', `ไม่ได้นำเข้าคลิปใหม่มา ${age} วัน (ล่าสุด ${thaiDate(s.at)}) คลิปที่อัปโหลดหลังจากนั้นยังไม่เข้าคลัง`);
+      const ids = (list) => list.slice(0, 3).map((x) => x.id).join(' ') + (list.length > 3 ? ` และอีก ${list.length - 3}` : '');
+      const failed = s.failed || [];
+      const held = s.held || [];
+      if (failed.length) return r('warn', `${failed.length} คลิปนำเข้าไม่สำเร็จ (${ids(failed)}) รอบล่าสุด ${thaiDate(s.at)}`);
+      if (held.length) return r('warn', `${held.length} คลิปรอตรวจก่อนขึ้นคลัง (${ids(held)}) รอบล่าสุด ${thaiDate(s.at)}`, 'ดูเหตุผลของแต่ละคลิปใน videos/_status.json แล้วแก้แล้วรันใหม่ (docs/VIDEO-LIBRARY.md)');
+      return r('ok', `รอบล่าสุด ${thaiDate(s.at)} คลังมี ${s.videos} คลิป${s.published?.length ? ` เพิ่มใหม่ ${s.published.length}` : ''}`);
     },
   },
   {

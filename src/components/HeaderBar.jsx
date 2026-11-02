@@ -29,6 +29,7 @@ import NavIcon from './NavIcon.jsx';
 import { commandShortcutLabel } from '../lib/nav.js';
 import Wordmark from './Wordmark.jsx';
 import { unsplitNotice } from '../lib/current-phase.js';
+import { streakShown } from '../hooks/utils.js';
 
 // XP chip — Lv N · XXX XP · thin progress bar. Lazy because the
 // gamification isn't critical for first paint.
@@ -58,6 +59,7 @@ export default function HeaderBar({
   const unsplit = selectedPhase ? null : unsplitNotice(phaseStatus);
   const showPhase = Boolean(selectedPhase || unsplit) && view !== 'phase-select' && view !== 'year-select';
   const savedCount = bookmarks?.length || 0;
+  const streakNow = streakShown(streakData);
   const shortcutLabel = commandShortcutLabel();
   // Home on a phone opens the way a super-app home does: a full-width search
   // field right under the header, in the place a thumb already expects it
@@ -139,10 +141,12 @@ export default function HeaderBar({
           </button>
         )}
 
-        {streakData.streak > 0 && (
-          <div className={`vmx-streak ${streakData.streak >= 3 ? 'vmx-streak-pulse' : ''}`} title={`ทำข้อสอบติดต่อกัน ${streakData.streak} วัน`}>
+        {/* As of today (streakShown): a run that ended weeks ago is not
+            "ติดต่อกัน" any more. */}
+        {streakNow > 0 && (
+          <div className={`vmx-streak ${streakNow >= 3 ? 'vmx-streak-pulse' : ''}`} title={`ทำข้อสอบติดต่อกัน ${streakNow} วัน`}>
             <NavIcon name="flame" size={15} />
-            {streakData.streak}
+            {streakNow}
           </div>
         )}
         <Suspense fallback={null}>

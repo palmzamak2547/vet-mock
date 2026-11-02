@@ -3,7 +3,9 @@
 // ============================================================
 // Opened from the timetable page. The A4 page is drawn once when the sheet
 // opens (lib/share-card/timetable-card.js) and the preview is that page: a
-// PDF for the printer, a PNG for the phone.
+// PDF for the printer, a PNG for the phone. A course's syllabus and teaching
+// timetable (lib/course-docs.js, `kind` 'syllabus' or 'teaching') use the
+// same sheet with their own page (lib/share-card/course-doc-card.js).
 //
 // Inside LINE, Instagram or Facebook a download does nothing, so the sheet
 // says to press and hold the picture, and inside LINE it offers the system
@@ -16,7 +18,10 @@ import { ensureCardFonts } from '../lib/share-card/fonts.js';
 import { toBlob } from '../lib/share-card/kit.js';
 import { deliverCard, triggerDownload } from '../lib/share-card/share.js';
 import { A4, drawTimetable, timetablePdf } from '../lib/share-card/timetable-card.js';
+import { drawSyllabus, drawTeaching } from '../lib/share-card/course-doc-card.js';
 import { APP_NAMES, externalUrl, inAppBrowser } from '../lib/inapp.js';
+
+const DRAW = { syllabus: drawSyllabus, teaching: drawTeaching };
 
 function readAsDataUrl(blob) {
   return new Promise((resolve, reject) => {
@@ -39,21 +44,51 @@ const release = (canvas) => {
   canvas.height = 0;
 };
 
+// The picture of a document longer than one page: its pages one under the
+// other, at most this wide, and narrower past four A4 pages, so it stays
+// under a phone's cap for one canvas (16.7 million pixels).
+const STACK_W = 1550;
+const STACK_PIXELS = 16_000_000;
+
+function stack(canvases) {
+  const width = canvases[0].width;
+  const height = canvases.reduce((h, c) => h + c.height, 0);
+  const w = Math.min(STACK_W, width, Math.floor(Math.sqrt((STACK_PIXELS * width) / height)));
+  const k = w / width;
+  const out = document.createElement('canvas');
+  out.width = w;
+  out.height = Math.round(canvases.reduce((h, c) => h + c.height * k, 0));
+  const ctx = out.getContext('2d');
+  let y = 0;
+  for (const c of canvases) {
+    ctx.drawImage(c, 0, y, w, c.height * k);
+    y += c.height * k;
+  }
+  return out;
+}
+
 async function drawPage(table) {
   await ensureCardFonts();
   for (const scale of SCALES) {
-    let canvas = null;
+    let canvases = [];
+    let tall = null;
     try {
-      const { card, problems } = await drawTimetable(table, { scale });
-      canvas = card.canvas;
-      const png = await toBlob(canvas, 'image/png');
-      const jpeg = await toBlob(canvas, 'image/jpeg', 0.92);
-      return { png, jpeg, clean: problems.length === 0 };
+      const { card, cards, problems } = await (DRAW[table.kind] || drawTimetable)(table, { scale });
+      canvases = (cards || [card]).map((c) => c.canvas);
+      // The picture first, then a JPEG a page for the PDF; the stacked
+      // picture is let go before the JPEGs are made.
+      tall = canvases.length > 1 ? stack(canvases) : null;
+      const png = await toBlob(tall || canvases[0], 'image/png');
+      release(tall);
+      const jpegs = [];
+      for (const c of canvases) jpegs.push(await toBlob(c, 'image/jpeg', 0.92));
+      return { png, jpegs, pages: canvases.length, clean: problems.length === 0 };
     } catch {
       // Next scale.
     } finally {
-      // Encoded or failed, the page lives on as its two files.
-      release(canvas);
+      // Encoded or failed, the pages live on as their files.
+      canvases.forEach(release);
+      release(tall);
     }
   }
   throw new Error('the page could not be drawn');
@@ -103,7 +138,7 @@ export default function TimetableSheet({ table, onClose }) {
     if (inApp) { setHold(true); return; }
     busy.current = true;
     try {
-      const bytes = await timetablePdf(await page.jpeg.arrayBuffer(), { title: `${table.title} ${table.kicker} ${table.semester}` });
+      const bytes = await timetablePdf(await Promise.all(page.jpegs.map((j) => j.arrayBuffer())), { title: `${table.title} ${table.kicker} ${table.semester}` });
       triggerDownload(new Blob([bytes], { type: 'application/pdf' }), `${table.file}.pdf`);
       flash('ดาวน์โหลด PDF แล้ว');
     } catch {
@@ -143,16 +178,22 @@ export default function TimetableSheet({ table, onClose }) {
           <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onClose}>ปิด</button>
         </div>
         <div className="vmx-share-panel">
-          <p className="vmx-timetable-lede">{table.kicker}, {table.range}<br />{table.subjects} วิชา บนหน้า A4 พร้อมพิมพ์</p>
+          <p className="vmx-timetable-lede">
+            {table.lede
+              ? <>{table.subtitle}<br />{table.lede}{ready && page.pages > 1 ? `, ${page.pages} หน้า เลื่อนดูในกรอบ` : ''}</>
+              : <>{table.kicker}, {table.range}<br />{table.subjects} วิชา บนหน้า A4 พร้อมพิมพ์</>}
+          </p>
           {/* data-layout: whether the page's layout check found text off the
               page or overlapping; read by the e2e suite, never shown. */}
           <div
             className="vmx-share-preview vmx-timetable-preview"
             data-state={ready ? 'ready' : state}
             data-layout={ready ? (page.clean ? 'clean' : 'tight') : undefined}
+            data-pages={ready ? page.pages : undefined}
+            tabIndex={ready && page.pages > 1 ? 0 : undefined}
           >
             {ready ? (
-              <img src={page.src} alt={`${table.title} ${table.kicker} ${table.range}`} width={A4.w} height={A4.h} />
+              <img src={page.src} alt={`${table.title} ${table.kicker} ${table.range || table.subtitle}`} width={A4.w} height={A4.h * page.pages} />
             ) : state === 'error' ? (
               <div className="vmx-share-preview-msg">
                 <p>จัดหน้าไม่สำเร็จ</p>

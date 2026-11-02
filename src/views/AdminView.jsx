@@ -589,6 +589,10 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
     : failed ? `โหลดช่วง ${rangeName(range)} ไม่สำเร็จ (${failed.message}) ตัวเลขที่เห็นยังเป็นของช่วง ${rangeLabel} กดดึงใหม่เพื่อลองอีกครั้ง`
       : `กำลังโหลดช่วง ${rangeName(range)} ตัวเลขที่เห็นยังเป็นของช่วง ${rangeLabel}`;
   const panicTotal = sum(Q_PANIC_COUNTS_BY_SUBJECT);
+  // What students can open: the landing page's total and the sum of the year
+  // rows beside it. QB_TOTAL also holds the questions under hidden topics, so
+  // the card said 7,670 over a year table that adds up to 7,575.
+  const openTotal = sum(Q_VISIBLE_COUNTS_BY_SUBJECT);
   const onlineText = onlineStatus === 'connected' ? n(onlineCount) : onlineStatus === 'loading' ? '…' : '—';
   const onlineSub = onlineStatus === 'connected' ? 'แท็บที่เปิดอยู่ตอนนี้ รวมของคุณ' : onlineStatus === 'loading' ? 'กำลังต่อ realtime' : 'realtime ไม่ต่อ';
   const toggleQ = (row) => { setOpenQ((cur) => (cur?.question_id === row.question_id ? null : row)); setOpenU(null); };
@@ -789,7 +793,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
           <section id="ad-content" className="ad-card">
             <div className="ad-card-head"><h2>คลังเนื้อหา</h2><p>ตัวเลขฝั่งซ้ายมาจาก build นี้ ฝั่งขวาจากฐานข้อมูล</p></div>
             <div className="ad-kpis">
-              <Kpi label="โจทย์ที่เปิดให้ทำ" value={n(QB_TOTAL)} sub={`กันไว้ ${n(QB_BLOCKED_TOTAL)} ข้อ`} />
+              <Kpi label="โจทย์ที่เปิดให้ทำ" value={n(openTotal)} sub={`อยู่ในหัวข้อที่ซ่อน ${n(QB_TOTAL - openTotal)} ข้อ, กันไว้ ${n(QB_BLOCKED_TOTAL)} ข้อ`} />
               <Kpi label="Panic pool" value={n(panicTotal)} sub="ข้อสอบเก่าและข้อที่รุ่นพี่ชี้" />
               <Kpi label="เอกสารในคลัง" value={n(sum(x.library?.by_status))} sub={bytes(x.library?.bytes)} />
               <Kpi label="เคสภาพรังสี" value={n(x.imaging?.cases)} sub={`${n(x.imaging?.files)} ไฟล์, ทำไป ${n(x.imaging?.attempts)} ครั้ง`} />

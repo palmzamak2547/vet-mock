@@ -12,6 +12,7 @@ src/data/q-counts.js text eol=lf
 src/data/video-summaries-meta.js text eol=lf
 src/data/video-summaries.js text eol=lf
 src/data/video-summary-clips/*.js text eol=lf
+src/data/video-cards/*.js text eol=lf
 docs/content-inventory.md text eol=lf
 
 # Licence texts are compared byte for byte (research runtime-registry test: the Studio's copy of the
