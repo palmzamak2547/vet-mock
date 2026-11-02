@@ -20,6 +20,8 @@
 import { presign, r2Config, cfConfig } from './_lib/r2.js';
 import { mintBlobToken } from './_lib/blob-token.js';
 import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { chulaGate } from './_lib/chula-gate.js';
+import { verifyOpenTicket } from './_lib/open-ticket.js';
 
 // Per address, before the catalogue RPC. Generous on purpose: a restricted
 // open asks twice (anonymous, then with the session), the shelf mints on
@@ -99,6 +101,22 @@ export default async function handler(req, res) {
   // against a real year-5 file, not by reading the regex.
   if (!/^[a-z0-9฀-๿][a-z0-9฀-๿-]{0,160}$/.test(slug)) {
     return send(res, 400, { error: 'bad_slug' });
+  }
+
+  // The Chula wall (docs/CHULA-SIGNIN.md): a member's bearer, or a link a member
+  // was handed (api/_lib/open-ticket.js), since a tapped link carries no header.
+  if (!verifyOpenTicket(slug, url.searchParams.get('vt'), url.searchParams.get('ve'), { env })) {
+    const gate = await chulaGate(req, { env });
+    if (!gate.ok) {
+      // A tapped link lands on the app, which asks for sign-in, instead of on JSON.
+      if (url.searchParams.get('open') === '1') {
+        res.statusCode = 302;
+        res.setHeader('Location', '/app/home');
+        res.setHeader('Cache-Control', 'no-store');
+        return res.end();
+      }
+      return send(res, gate.status, gate.body);
+    }
   }
 
   const base = env.VITE_SUPABASE_URL || env.SUPABASE_URL;

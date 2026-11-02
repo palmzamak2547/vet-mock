@@ -7,7 +7,7 @@ import { Sheet } from '../../components/Sheet.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { GOOGLE_CLIENT_ID, LINE_LIFF_ID, MODE } from '../config.js';
 import { signIn } from '../account.js';
-import { inAppBrowser, lineExternalUrl } from '../../lib/inapp.js';
+import { APP_NAMES, inAppBrowser, lineExternalUrl } from '../../lib/inapp.js';
 import { copyText } from '../../lib/connect.js';
 import '../community.css';
 
@@ -135,7 +135,7 @@ export default function SignInSheet({ open, onClose }) {
             <p className="hint signin-app" role={copied ? 'status' : undefined}>
               {app === 'line'
                 ? 'Google ไม่ให้เข้าสู่ระบบในหน้าต่างของ LINE ปุ่มนี้จะเปิดหน้านี้ใน Safari หรือ Chrome'
-                : `Google ไม่ให้เข้าสู่ระบบในหน้าต่างของ ${app === 'instagram' ? 'Instagram' : 'Facebook'} คัดลอกลิงก์แล้ววางใน Safari หรือ Chrome`}
+                : `Google ไม่ให้เข้าสู่ระบบในหน้าต่างของ ${APP_NAMES[app] || 'แอปนี้'} คัดลอกลิงก์แล้ววางใน Safari หรือ Chrome`}
             </p>
           )}
           <div className="signin-or"><span>หรือรับลิงก์ทางอีเมล</span></div>

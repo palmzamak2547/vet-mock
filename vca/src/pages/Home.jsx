@@ -163,7 +163,7 @@ export function Home() {
             <Nw>ซ้อมสอบใบประกอบฯ</Nw><wbr /> <Nw>ให้เหมือน<em>วันจริง</em></Nw>
           </h1>
           <p className="lede">
-            <Nw><b><CountUp value={BANK.total} /> ข้อ</b></Nw> <Nw>ครบ <b>{BANK.domains.length} หมวด</b></Nw> <Nw>เฉลยทุกข้อ</Nw> <Nw>ไม่ต้องสมัคร</Nw>
+            <Nw><b><CountUp value={BANK.total} /> ข้อ</b></Nw> <Nw>ครบ <b>{BANK.domains.length} หมวด</b></Nw> <Nw>เฉลยทุกข้อ</Nw> <Nw>ใช้ฟรี</Nw>
           </p>
           <div className="ctas">
             <button type="button" className="btn btn-ink btn-lg" onClick={startQuick} disabled={busy}>

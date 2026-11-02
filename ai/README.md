@@ -17,6 +17,10 @@ The model route is `api/ai-chat.js` in the main VetMock project (it needs the co
 the keys and the shared limiter that live there). For local work run the adapter from the
 repo root: `node scripts/ai-dev-api.mjs` (port 43139, reads `.env.local`).
 
+The Chula sign-in wall needs `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the build (the
+main app's project and publishable key); without them the page has no accounts and stays open,
+as on a dev server. `VITE_GOOGLE_CLIENT_ID` overrides the Google client the sign-in button uses.
+
 Useful query flags: `?mock` (dev only: a scripted answer, no key needed), `?soft`
 (allow software WebGL, for headless screenshots), `?capture` (manual clock:
 `window.__ocean.step(dt)` draws one frame; frame-exact recordings for films and the OG

@@ -29,6 +29,7 @@
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 import { voiceFor } from '../src/lib/tts-voices.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 export const config = {
   runtime: 'nodejs',
@@ -73,13 +74,15 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Max-Age', '86400');
     return res.status(204).end();
   }
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST only' });
   }
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   // ── Rate limit ─────────────────────────────────────────────
   const limit = await rateLimit(`tts:${clientIP(req)}`, 60, 5 * 60_000);
