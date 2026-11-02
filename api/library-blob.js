@@ -14,6 +14,7 @@
 
 import { verifyBlobToken } from './_lib/blob-token.js';
 import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { byteRange } from '../workers/library-archive.js';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 
@@ -30,9 +31,14 @@ export const BLOB_RATE = { max: 300, windowMs: 10 * 60 * 1000 };
 // under the app's CSP (which allows inline script). Those types are handed
 // over as a download instead; everything else keeps its declared mime.
 const INLINE_UNSAFE_MIME = /html|xml|javascript|ecmascript/i;
+// Word, PowerPoint and Excel files are zipped XML that no browser renders as a
+// page, but "openxmlformats" in their type matched the guard above: all 214 of
+// them went out as an application/octet-stream attachment, which a phone
+// saves as an unknown file instead of previewing.
+const OFFICE_MIME = /^application\/vnd\.openxmlformats-officedocument\.(?:wordprocessingml\.document|presentationml\.presentation|spreadsheetml\.sheet)$/i;
 export function contentHeaders(payload, fallback) {
   const declared = payload?.m || fallback || 'application/octet-stream';
-  const unsafe = INLINE_UNSAFE_MIME.test(declared);
+  const unsafe = INLINE_UNSAFE_MIME.test(declared) && !OFFICE_MIME.test(declared);
   return {
     type: unsafe ? 'application/octet-stream' : declared,
     disposition: unsafe ? 'attachment' : 'inline',
@@ -79,6 +85,42 @@ function stallGuard(body, disconnected) {
   }, { highWaterMark: 0 });
 }
 
+// The bytes [offset, offset + length) of a whole-object stream. Storage sends
+// the object from its first byte whatever was asked, so the prefix is read and
+// dropped, and storage is let go once the range is out.
+// ponytail: reads the prefix through the function, so a seek near the end of a
+// big video costs the whole object; a ranged storage read (an R2 binding, as
+// the archive worker has) removes that if media use grows.
+export function sliceBody(body, offset, length) {
+  const reader = body.getReader();
+  let skip = offset;
+  let left = length;
+  return new ReadableStream({
+    async pull(controller) {
+      for (;;) {
+        if (left <= 0) {
+          controller.close();
+          reader.cancel().catch(() => {});
+          return;
+        }
+        const { done, value } = await reader.read();
+        if (done) {
+          controller.error(new Error('object_shorter_than_catalogued'));
+          return;
+        }
+        let chunk = value;
+        if (skip >= chunk.length) { skip -= chunk.length; continue; }
+        if (skip > 0) { chunk = chunk.subarray(skip); skip = 0; }
+        if (chunk.length > left) chunk = chunk.subarray(0, left);
+        left -= chunk.length;
+        controller.enqueue(chunk);
+        return;
+      }
+    },
+    cancel(reason) { return reader.cancel(reason); },
+  }, { highWaterMark: 0 });
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.statusCode = 405;
@@ -109,15 +151,24 @@ export default async function handler(req, res) {
   const cacheControl = access === 'public' ? `private, max-age=${cacheSeconds}` : 'no-store';
   res.setHeader('X-VetMock-Library-Access', access);
 
+  // Video and audio answer a byte range with 206: Safari on iPhone and iPad
+  // plays media only from a server that does (Apple's media guidance), and the
+  // 61 library videos used to come back whole with Accept-Ranges: none. Only
+  // media: a PDF viewer told it may seek would ask for ranges that each pull
+  // the whole object through here (see sliceBody).
+  const media = /^(?:video|audio)\//i.test(payload.m || '');
+  const asksRange = media && req.method === 'GET' && !!req.headers.range;
+
   // The CF REST object API is a management plane: it ignores Range and
   // rejects HEAD (probed live — HEAD came back as an upstream error, and a
-  // 1 KB Range request returned the full body). Answer HEAD locally from
-  // the verified token instead of asking upstream a question it fails.
+  // 1 KB Range request returned the full body, rechecked 1 Nov 2026). Answer
+  // HEAD locally from the verified token instead of asking upstream a
+  // question it fails.
   if (req.method === 'HEAD') {
     res.statusCode = 200;
     res.setHeader('Content-Type', contentHeaders(payload).type);
     if (Number.isFinite(payload.n) && payload.n > 0) res.setHeader('Content-Length', String(payload.n));
-    res.setHeader('Accept-Ranges', 'none');
+    res.setHeader('Accept-Ranges', media ? 'bytes' : 'none');
     res.setHeader('Cache-Control', cacheControl);
     return res.end();
   }
@@ -129,7 +180,9 @@ export default async function handler(req, res) {
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };
-  if (req.headers.range) upstreamHeaders.Range = req.headers.range;
+  // A range cut here asks storage for the whole object, so a storage that one
+  // day honours Range cannot have its answer cut a second time.
+  if (req.headers.range && !asksRange) upstreamHeaders.Range = req.headers.range;
 
   const disconnected = new AbortController();
   // This limit covers the upstream HEADERS only. The same signal governs the body
@@ -158,6 +211,23 @@ export default async function handler(req, res) {
     return res.end(JSON.stringify({ error: 'object_unavailable' }));
   }
 
+  // The object measures the range, not the catalogue: a size that drifted
+  // would cut the wrong bytes under a consistent-looking Content-Range.
+  let range = null;
+  let total = 0;
+  if (asksRange && upstream.status === 200) {
+    const stored = (upstream.headers.get('content-encoding') || 'identity') === 'identity' ? Number(upstream.headers.get('content-length')) : NaN;
+    total = Number.isSafeInteger(stored) && stored > 0 ? stored : Number(payload.n);
+    if (Number.isSafeInteger(total) && total > 0) range = byteRange(req.headers.range, total);
+    if (range === false) {
+      upstream.body?.cancel().catch(() => {});
+      res.statusCode = 416;
+      res.setHeader('Content-Range', `bytes */${total}`);
+      res.setHeader('Cache-Control', 'no-store');
+      return res.end();
+    }
+  }
+
   res.statusCode = upstream.status;
   const content = contentHeaders(payload, upstream.headers.get('content-type'));
   res.setHeader('Content-Type', content.type);
@@ -179,10 +249,23 @@ export default async function handler(req, res) {
     const v = upstream.headers.get(h);
     if (v) res.setHeader(h, v);
   }
+  if (range) {
+    res.statusCode = 206;
+    res.setHeader('Content-Range', `bytes ${range.offset}-${range.offset + range.length - 1}/${total}`);
+    res.setHeader('Content-Length', String(range.length));
+    res.setHeader('Accept-Ranges', 'bytes');
+    if (!upstream.body) return res.end();
+    try {
+      await pipeline(Readable.fromWeb(sliceBody(stallGuard(upstream.body, disconnected), range.offset, range.length)), res);
+    } catch {
+      // As below: an abandoned or stalled read ends the response short.
+    }
+    return;
+  }
   // Be honest with PDF viewers: unless upstream really answered a range
   // (it does not today), advertising ranges would invite seek requests
-  // that each pull the entire object.
-  res.setHeader('Accept-Ranges', upstream.headers.get('content-range') ? 'bytes' : 'none');
+  // that each pull the entire object. Media is cut here (above).
+  res.setHeader('Accept-Ranges', media || upstream.headers.get('content-range') ? 'bytes' : 'none');
 
   if (!upstream.body) return res.end();
 

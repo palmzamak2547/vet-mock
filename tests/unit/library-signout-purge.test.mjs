@@ -294,6 +294,45 @@ test('DA-07: sign-out deletes only the restricted decks\' bytes; public decks, t
   assert.deepEqual(recent.map((r) => r.fileName).sort(), ['deck.pdf', 'my-own-notes.pdf']);
 });
 
+test('a guest who stays a guest does not re-read, re-hash and rewrite the offline shelf on every launch', async () => {
+  // Measured on vetmock.com 1 Nov 2026: every guest launch deleted the document
+  // cache twice and hashed each kept deck twice, up to six decks of 40 MB.
+  const env = install({ signedIn: false });
+  const snapshot = await env.caches.open('vmx-library-catalog-v1');
+  await snapshot.put('/__vmx/library-catalog.json', Response.json({ docs: [doc('handout', 'public', P_HASH)] }));
+  const bytes = await env.caches.open('vmx-lib-docs-v1');
+  await bytes.put('/__lib-doc/' + P_HASH, new Response('public handout bytes'));
+  const lib = await freshLibrary(); // the first launch this device records
+  await settle();
+  let rewrites = 0;
+  const detach = env.caches.delete;
+  env.caches.delete = async (name) => { if (name === 'vmx-lib-docs-v1') rewrites += 1; return detach(name); };
+  await lib.setLibraryAccess(false, { initial: true }); // the next launches, and useAuth's report beside them
+  await lib.setLibraryAccess(false);
+  await settle();
+  assert.equal(rewrites, 0);
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [`/__lib-doc/${P_HASH}`], 'the kept public deck is still there');
+});
+
+test('a sign-out purge cut short runs again at the next launch', async () => {
+  // The access record is written before the purge, so a guest launch that
+  // skipped every purge after the first would have kept these bytes for good.
+  const env = install({ signedIn: true });
+  const lib = await freshLibrary();
+  const bytes = await env.caches.open('vmx-lib-docs-v1');
+  await bytes.put('/__lib-doc/' + R_HASH, new Response('restricted deck bytes', { headers: { 'X-VetMock-Library-Access': 'restricted' } }));
+  const has = env.caches.has;
+  env.caches.has = () => new Promise(() => {}); // the tab is closed inside the purge
+  env.local.removeItem(TOKEN_KEY);
+  lib.setLibraryAccess(false).catch(() => {});
+  await settle();
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [`/__lib-doc/${R_HASH}`], 'the first purge never finished');
+  env.caches.has = has;
+  await freshLibrary(); // the next launch, signed out
+  await settle();
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), []);
+});
+
 test('DA-07: a device with no worker cache is left alone at sign-out', async () => {
   const env = install({ signedIn: true });
   const lib = await freshLibrary();
