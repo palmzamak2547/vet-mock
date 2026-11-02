@@ -11,7 +11,7 @@ import { registerArea, useT } from '../../i18n/index.js';
 import runtimeChula from '../../i18n/runtime-chula.js';
 import { CHULA_HD } from '../../lib/auth/chula.js';
 import { APP_NAMES, externalUrl, inAppBrowser } from '../../lib/auth/inapp.js';
-import { buttonDrawn, DRAWN_MS, gisUsable, renderGoogleButton } from '../../lib/auth/gis.js';
+import { gisUsable, renderGoogleButton, watchDrawn } from '../../lib/auth/gis.js';
 import { chulaWall, problemKey, useChulaWall } from '../../lib/auth/wall.js';
 import { LangSwitch } from './TopBar.jsx';
 import { Busy, Notice } from './Bits.jsx';
@@ -137,7 +137,7 @@ function GoogleSignIn({ hd, busy, mode = 'signin' }) {
     if (failed) return undefined;
     let alive = true;
     let undo = null;
-    let watch = 0;
+    let stopWatch = null;
     renderGoogleButton(host.current, {
       hd,
       theme: theme === 'dark' ? 'filled_black' : 'outline',
@@ -149,10 +149,10 @@ function GoogleSignIn({ hd, busy, mode = 'signin' }) {
       .then((u) => {
         if (!alive) { u(); return; }
         undo = u;
-        watch = window.setTimeout(() => { if (alive && !buttonDrawn(host.current)) setFailed(true); }, DRAWN_MS);
+        stopWatch = watchDrawn(host.current, () => { if (alive) setFailed(true); });
       })
       .catch(() => { if (alive) setFailed(true); });
-    return () => { alive = false; window.clearTimeout(watch); undo?.(); };
+    return () => { alive = false; stopWatch?.(); undo?.(); };
   }, [hd, theme, lang, link, failed]);
   if (failed) {
     return (

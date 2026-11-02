@@ -108,10 +108,10 @@ function GoogleSignIn({ hd, busy, mode = 'signin', onToken, onRedirect }) {
     if (failed) return undefined;
     let alive = true;
     let undo = null;
-    let watch = 0;
+    let stopWatch = null;
     const el = host.current;
     import('../gis.js')
-      .then(({ renderGoogleButton, buttonDrawn, DRAWN_MS }) => renderGoogleButton(el, {
+      .then(({ renderGoogleButton, watchDrawn }) => renderGoogleButton(el, {
         clientId: WALL_GOOGLE_CLIENT_ID,
         hd,
         prompt: !link,
@@ -122,10 +122,10 @@ function GoogleSignIn({ hd, busy, mode = 'signin', onToken, onRedirect }) {
       }).then((u) => {
         if (!alive) { u(); return; }
         undo = u;
-        watch = setTimeout(() => { if (alive && !buttonDrawn(el)) setFailed(true); }, DRAWN_MS);
+        stopWatch = watchDrawn(el, () => { if (alive) setFailed(true); });
       }))
       .catch(() => { if (alive) setFailed(true); });
-    return () => { alive = false; clearTimeout(watch); undo?.(); };
+    return () => { alive = false; stopWatch?.(); undo?.(); };
   }, [hd, effective, link, failed]);
   if (failed) {
     return (

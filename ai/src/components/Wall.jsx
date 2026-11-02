@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { CHULA_HD } from '../lib/chula.js';
 import { APP_NAMES, externalUrl, inAppBrowser } from '../lib/inapp.js';
-import { buttonDrawn, DRAWN_MS, gisUsable, renderGoogleButton } from '../lib/gis.js';
+import { gisUsable, renderGoogleButton, watchDrawn } from '../lib/gis.js';
 import { problemText } from '../lib/wall.js';
 import { IconArrowOut } from './icons.jsx';
 
@@ -112,7 +112,7 @@ function GoogleSignIn({ hd, theme, busy, mode = 'signin', onToken, onRedirect })
     if (failed) return undefined;
     let alive = true;
     let teardown = null;
-    let watch = 0;
+    let stopWatch = null;
     renderGoogleButton(host.current, {
       hd,
       theme: theme === 'dark' ? 'filled_black' : 'outline',
@@ -123,10 +123,10 @@ function GoogleSignIn({ hd, theme, busy, mode = 'signin', onToken, onRedirect })
       .then((undo) => {
         if (!alive) { undo(); return; }
         teardown = undo;
-        watch = setTimeout(() => { if (alive && !buttonDrawn(host.current)) setFailed(true); }, DRAWN_MS);
+        stopWatch = watchDrawn(host.current, () => { if (alive) setFailed(true); });
       })
       .catch(() => { if (alive) setFailed(true); });
-    return () => { alive = false; clearTimeout(watch); teardown?.(); };
+    return () => { alive = false; stopWatch?.(); teardown?.(); };
   }, [hd, theme, link, failed]);
   if (failed) {
     return (
