@@ -66,8 +66,13 @@ jobs:
     # everything, because Vercel holds the production deployment until `smoke` passes on that commit.
     runs-on: ubuntu-24.04
     timeout-minutes: 3
+    permissions:
+      contents: read
+      actions: read
     outputs:
       app: ${{ steps.diff.outputs.app }}
+      tree: ${{ steps.reuse.outputs.tree }}
+      reuse: ${{ steps.reuse.outputs.reuse }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -78,6 +83,23 @@ jobs:
           elif git diff --quiet HEAD^1 HEAD -- . ':(exclude)docs' ':(exclude,glob)*.md'; then app=false
           else app=true; fi
           echo "app=$app" | tee -a "$GITHUB_OUTPUT"
+      # Reuse, in shadow until 9 Nov 2026 (Palm's call through the main session, 2 Nov): a green
+      # pull request run records the tree it tested (`smoke` below), and a push to main whose tree
+      # one already tested could skip e2e. Nothing is skipped: the full gate runs and decides,
+      # `smoke` logs the prediction beside the result, and scripts/ci-reuse-shadow-report.mjs
+      # gives the agreement rate. Switch it on only if it never disagreed.
+      - id: reuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tree=$(git rev-parse 'HEAD^{tree}')
+          reuse=not-a-push
+          if [ "${{ github.event_name }}" = push ]; then
+            hits=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=e2e-tested-tree-$tree&per_page=5" --jq '[.artifacts[] | select(.expired | not)] | length' 2>/dev/null || echo failed)
+            case "$hits" in 0) reuse=would-run ;; failed|'') reuse=lookup-failed ;; *) reuse=would-skip ;; esac
+          fi
+          echo "tree=$tree" | tee -a "$GITHUB_OUTPUT"
+          echo "reuse=$reuse" | tee -a "$GITHUB_OUTPUT"
 
   e2e:
     name: e2e (${{ matrix.label }})
@@ -329,3 +351,17 @@ jobs:
           test "$CHANGES" = "success"
           if [ "$APP" = "false" ]; then exit 0; fi
           test "$RESULT" = "success"
+      # Reuse shadow (see `changes`): only a run where every e2e runner passed records its tree.
+      - name: Record the tree this green run tested
+        if: success() && github.event_name == 'pull_request' && needs.e2e.result == 'success'
+        run: mkdir -p tested && echo "run ${{ github.run_id }}, pull request ${{ github.event.pull_request.number }}, head ${{ github.event.pull_request.head.sha }}" > tested/tree.txt
+      - if: success() && github.event_name == 'pull_request' && needs.e2e.result == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-tested-tree-${{ needs.changes.outputs.tree }}
+          path: tested/tree.txt
+          retention-days: 14
+      - name: Reuse shadow verdict
+        if: always() && github.event_name == 'push'
+        run: echo "::notice title=reuse-shadow::predicted=${{ needs.changes.outputs.reuse }} e2e=${{ needs.e2e.result }} tree=${{ needs.changes.outputs.tree }}"
