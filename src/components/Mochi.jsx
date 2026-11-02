@@ -49,7 +49,7 @@ function Picture({ pose, size, animate, reduced, slot, className }) {
 
 /** One rule for whether Mochi shows (MochiLive reads it too). The slot names
  *  where it sits; no slot opts in where the page has no Mochi (the verdict
- *  stamp that did, inside a practice set, went in 5.179.1). */
+ *  stamp that did, inside a practice set, went in 5.189.2). */
 export const mochiEnabled = (preferences, context) => preferences.companion && preferences.mode !== 'off'
   && context.visible;
 

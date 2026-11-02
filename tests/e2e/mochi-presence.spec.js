@@ -90,7 +90,7 @@ test('Mochi inhabits real study destinations without fetching the 3D engine', as
   expect(errors).toEqual([]);
 });
 
-// The verdict's Mochi stamp went in 5.179.1 (Palm: "ดูแปลกตา"): a practice set
+// The verdict's Mochi stamp went in 5.189.2 (Palm: "ดูแปลกตา"): a practice set
 // shows no mascot before or after an answer, right or wrong.
 test('practice feedback carries no mascot, before or after an answer', async ({ page }) => {
   await startQuestions(page);

@@ -11,7 +11,7 @@
 // React for every question in the bank, closed and with its panel asked
 // open, before the key is shown. scripts/lib/answer-leak.mjs judges what it
 // says, with the rules lint:source-line runs on the same text. Against the
-// chip as it was before 5.179.1 the first test fails on dozens of rows and
+// chip as it was before 5.189.2 the first test fails on dozens of rows and
 // the second on every row with a panel.
 // ============================================================
 import { test } from 'node:test';

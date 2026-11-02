@@ -167,7 +167,7 @@ const findAll = (node, pred, out = []) => {
   return out;
 };
 
-// The full source shows once the key is on screen (5.179.1); before it the
+// The full source shows once the key is on screen (5.189.2); before it the
 // line names only the kind of source (source-line-no-spoiler.test.mjs).
 // These tests read the full line and its panel, so they render it revealed.
 function renderChip(q, { open = false, revealed = true } = {}) {

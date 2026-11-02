@@ -39,7 +39,7 @@ test('milestones are 3, 5, then every 5 from 10', () => {
   assert.deepEqual(hits, [3, 5, 10, 15, 20, 25, 30]);
 });
 
-// The verdict carries no Mochi stamp since 5.179.1 ("ดูแปลกตา"), so a reaction
+// The verdict carries no Mochi stamp since 5.189.2 ("ดูแปลกตา"), so a reaction
 // is the phone's tick alone: no pose or Motion Kit state is chosen for it.
 test('a verdict gives the phone one tick, a miss the soft double, a run milestone the longer one', () => {
   assert.deepEqual(feedbackReaction({ ok: false, run: 0 }), { haptic: 'wrong' });

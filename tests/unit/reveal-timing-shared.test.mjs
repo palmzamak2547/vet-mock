@@ -32,7 +32,7 @@ const STUBS = [
   { match: '/lib/feedback-client\\.js$', contents: 'export const sendFeedback = async () => ({ ok: true });' },
   { match: 'MotionFeedback\\.jsx$', contents: 'export const MotionEnter = ({ children }) => children ?? null; export const useMotionFeedback = () => null;' },
   // The verdict panel's vibration (5.160.0): silent here. Its Mochi stamp
-  // went in 5.179.1, so there is no MochiLive to stub.
+  // went in 5.189.2, so there is no MochiLive to stub.
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
   { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
   ...['WikiLinkForQuestion', 'TermLinkedRichText', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',

@@ -748,7 +748,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 // Click expands to show note + sources.
 // ────────────────────────────────────────────────────────────────
 // The chip warns before the answer too, but what it opens waits for the key
-// (5.179.1): a note that says which key the seniors marked, or that the
+// (5.189.2): a note that says which key the seniors marked, or that the
 // answer "should be InPouch TF-Feline", named the key on 26 of the 94
 // flagged questions, timed papers included. Exported for the leak test.
 export function FlagChip({ flag, revealed = false }) {

@@ -1,5 +1,5 @@
 // The run of correct answers in practice and the phone's tick (the verdict
-// carried a Mochi stamp until 5.179.1). The set is the deterministic exotic/bird-infect topic that
+// carried a Mochi stamp until 5.189.2). The set is the deterministic exotic/bird-infect topic that
 // instant-feedback.spec.js uses (every question an MCQ); the answer key comes
 // from the bank itself, matched by stem, so the test can answer right on
 // purpose. Vibrations are recorded by a stub (no real phone in CI) on a
@@ -65,7 +65,7 @@ async function answer(page, { wrong = false } = {}) {
 const next = (page) => page.getByRole('button', { name: /ข้อถัดไป/ }).first().click();
 const vibrations = (page) => page.evaluate(() => window.__vibrations);
 
-// The verdict carries no Mochi stamp since 5.179.1 (Palm: "ดูแปลกตา"); the run
+// The verdict carries no Mochi stamp since 5.189.2 (Palm: "ดูแปลกตา"); the run
 // chip and the phone's tick are what react to an answer.
 test('three right in a row: the chip counts and the phone ticks, with no Mochi on the verdict', async ({ page }) => {
   expect(KEY.size, 'every bird-infect stem is distinct').toBe(TOPIC.length);

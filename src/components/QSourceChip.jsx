@@ -17,7 +17,7 @@
 // Placement: inside the Question component, below the options +
 // explain panel, above the optional image-fallback strip.
 //
-// 5.179.1: until the key is on screen (`revealed`) the line names only the
+// 5.189.2: until the key is on screen (`revealed`) the line names only the
 // kind of source (lib/source-line.js) and the panel does not open. Measured
 // on 1 Nov 2026, the line named the key on 23 questions and what "ดูเต็ม"
 // opened (the pointer, the checking note, the tags) on 1,795 of 7,814. The

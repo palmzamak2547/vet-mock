@@ -16,7 +16,7 @@ test('contextual poses are real and remain outside focused workspaces', () => {
 });
 
 // The verdict's stamp was the one way Mochi entered a question set; it went
-// in 5.179.1 (Palm: "ดูแปลกตา"), so no mode of a set opts Mochi in.
+// in 5.189.2 (Palm: "ดูแปลกตา"), so no mode of a set opts Mochi in.
 test('a question set has no Mochi, in any mode, before or after an answer', () => {
   for (const mode of ['exam', 'quick', 'panic', undefined]) {
     assert.deepEqual(mochiPresenceFor('exam', mode), { visible: false, pose: 'idle' }, String(mode));

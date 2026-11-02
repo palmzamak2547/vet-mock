@@ -4,7 +4,7 @@
 // The screen says what happened (a verdict, how many correct in a row); this
 // module decides what follows: the run the "ถูกติดกัน" chip counts and the
 // short vibration a phone gives. Pure: no React, no DOM, no clock.
-// Mochi's stamp beside the verdict went in 5.179.1 (Palm: "ดูแปลกตา"), and
+// Mochi's stamp beside the verdict went in 5.189.2 (Palm: "ดูแปลกตา"), and
 // with it the pose and the Motion Kit state chosen here for it.
 // ============================================================
 
