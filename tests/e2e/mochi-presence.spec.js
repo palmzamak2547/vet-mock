@@ -90,14 +90,15 @@ test('Mochi inhabits real study destinations without fetching the 3D engine', as
   expect(errors).toEqual([]);
 });
 
-test('practice feedback follows the actual verdict and never precedes an answer', async ({ page }) => {
+// The verdict's Mochi stamp went in 5.189.2 (Palm: "ดูแปลกตา"): a practice set
+// shows no mascot before or after an answer, right or wrong.
+test('practice feedback carries no mascot, before or after an answer', async ({ page }) => {
   await startQuestions(page);
   await expect(page.locator('#main [data-mochi-slot]')).toHaveCount(0);
   await page.locator('.vmx-option').first().press('Enter');
   const verdict = page.locator('.vmx-instant-feedback');
   await expect(verdict).toBeVisible();
-  const correct = (await verdict.getAttribute('class')).includes('is-ok');
-  await expect(verdict.locator('[data-mochi-slot=feedback]')).toHaveAttribute('data-mochi-pose', correct ? 'correct' : 'encourage');
+  await expect(page.locator('#main [data-mochi-slot]')).toHaveCount(0);
   await expect(page.locator('.vmx-option').first()).toBeFocused();
 });
 

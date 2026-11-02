@@ -33,8 +33,8 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
   practiceDoneRef.current = practiceDone;
   const nextQRef = useRef(nextQ);
   nextQRef.current = nextQ;
-  // Mochi's reactions (each verdict, the result) play on the Motion Kit rig,
-  // a small lazy chunk: fetch it while the student reads the first question.
+  // Mochi's reaction to the result plays on the Motion Kit rig, a small lazy
+  // chunk: fetch it while the student works through the set.
   useEffect(() => {
     // Global timers: a test harness's window may not carry them.
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 600));
