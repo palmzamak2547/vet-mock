@@ -28,14 +28,13 @@ import { picture } from '../lib/share-card/kit.js';
 import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { earnedBadges } from '../lib/badges.js';
+import { calendarDaysBetween } from '../data/schedule.js';
 
-function daysUntil(date) {
+// Calendar days on Bangkok's clock, as every other countdown counts them; the
+// device's midnight put a phone set to UTC a day off from 17:00 to midnight.
+function daysUntil(date, now = new Date()) {
   if (!date) return null;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const target = new Date(date);
-  target.setHours(0, 0, 0, 0);
-  return Math.round((target - today) / (24 * 60 * 60 * 1000));
+  return calendarDaysBetween(now, date);
 }
 
 // What the picture says, for a screen reader.

@@ -15,13 +15,18 @@ export const fmtTime = (s) => {
   return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
 };
 
-export const fmtDate = (ts) => {
-  const d = new Date(ts);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const compareDate = new Date(ts);
-  compareDate.setHours(0, 0, 0, 0);
-  const diffDays = Math.round((compareDate - today) / (1000 * 60 * 60 * 24));
+// Days are Bangkok's calendar days (UTC+7, no daylight saving), never the
+// device's midnight: a phone or a CI runner set to UTC put 01:00 in Bangkok on
+// the previous day, so a card due this morning read "เมื่อวาน".
+const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
+const DAY_MS = 24 * 60 * 60 * 1000;
+/** The Bangkok calendar day that holds an instant, as a day number. */
+export const bangkokDayNumber = (ts) => Math.floor((new Date(ts).getTime() + BANGKOK_OFFSET_MS) / DAY_MS);
+/** Epoch ms of the Bangkok midnight that starts a day number. */
+const bangkokDayStart = (day) => day * DAY_MS - BANGKOK_OFFSET_MS;
+
+export const fmtDate = (ts, now = Date.now()) => {
+  const diffDays = bangkokDayNumber(ts) - bangkokDayNumber(now);
   if (diffDays === 0) return 'วันนี้';
   if (diffDays === 1) return 'พรุ่งนี้';
   if (diffDays === -1) return 'เมื่อวาน';
@@ -452,16 +457,16 @@ export function questionCategory(q) {
 // freeze can be used at most once per active streak — tracked via
 // `freezeUsedAt` (timestamp of the day that was skipped). Reset when
 // the streak itself resets to 1.
-export function updateStreak(lastStudyDate, currentStreak, freezeUsedAt = null) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const todayTs = today.getTime();
+// Days are Bangkok's (bangkokDayNumber above), so the run means the same on a
+// phone set to any zone; a stored lastDate from an older build, a local
+// midnight, still falls on the day it was written.
+export function updateStreak(lastStudyDate, currentStreak, freezeUsedAt = null, now = Date.now()) {
+  const todayDay = bangkokDayNumber(now);
+  const todayTs = bangkokDayStart(todayDay);
 
   if (!lastStudyDate) return { streak: 1, lastDate: todayTs, freezeUsedAt: null };
 
-  const last = new Date(lastStudyDate);
-  last.setHours(0, 0, 0, 0);
-  const diff = Math.round((todayTs - last.getTime()) / (1000 * 60 * 60 * 24));
+  const diff = todayDay - bangkokDayNumber(lastStudyDate);
 
   if (diff === 0) return { streak: currentStreak, lastDate: lastStudyDate, freezeUsedAt }; // Same day
   if (diff === 1) return { streak: currentStreak + 1, lastDate: todayTs, freezeUsedAt }; // Next day
@@ -470,6 +475,24 @@ export function updateStreak(lastStudyDate, currentStreak, freezeUsedAt = null) 
     return { streak: currentStreak + 1, lastDate: todayTs, freezeUsedAt: todayTs, freezeJustUsed: true };
   }
   return { streak: 1, lastDate: todayTs, freezeUsedAt: null }; // Gap — reset streak
+}
+
+/**
+ * The streak to show now. The saved number changes only when a set is graded
+ * (updateStreak), so read as-is it kept a run that ended weeks ago on every
+ * screen: "10 วันต่อเนื่อง" above a week strip with nothing in it. A run is
+ * alive through yesterday, and through the day before while the freeze could
+ * still save it (the next graded set would); after that it is over and reads 0.
+ * The Pomodoro streak is expired on read the same way.
+ */
+export function streakShown(streakData, now = Date.now()) {
+  const streak = Number(streakData?.streak) || 0;
+  if (!streakData?.lastDate || streak <= 0) return 0;
+  const diff = bangkokDayNumber(now) - bangkokDayNumber(streakData.lastDate);
+  if (!Number.isFinite(diff)) return 0;
+  if (diff <= 1) return streak;
+  if (diff === 2 && streak >= 5 && !streakData.freezeUsedAt) return streak;
+  return 0;
 }
 
 export function downloadJSON(data, filename) {
