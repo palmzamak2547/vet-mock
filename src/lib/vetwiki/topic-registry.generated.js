@@ -171,9 +171,9 @@ export const VETWIKI_TOPICS = [
     "id": "avian-medicine--avian-intro",
     "subject": "avian-medicine",
     "topic": "avian-intro",
-    "title": "โรคเป็ด ห่าน และโรคแบคทีเรีย รา สารพิษจากเชื้อราในสัตว์ปีก",
+    "title": "Intro to Avian Medicine",
     "icon": "📘",
-    "summary": "สรุปโรคเป็นรายโรคตามสไตล์ของเอกสาร (สาเหตุ อาการและรอยโรค การวินิจฉัย การรักษา การป้องกัน) ครอบคลุมโรคเป็ดและห่าน 5 โรค Avian encephalomyelitis ปัญหาจากโรงฟัก โรคแบคทีเรีย 7 กลุ่ม โรคโปรโตซัว โรคจากเชื้อรา และ mycotoxicosis เนื้อหาส่วนนี้ไม่มี topic id ที่ตรงในหลักสูตร จึงถูกเก็บไว้ที่ avian-intro",
+    "summary": "สรุปของ Vet 85 เรื่อง คำถามที่รุ่นพี่ยังไม่มีคำตอบเรื่อง สัดส่วนการส่งออกไก่เนื้อ",
     "flagship": false
   },
   {
@@ -183,6 +183,132 @@ export const VETWIKI_TOPICS = [
     "title": "Avian Influenza (AI)",
     "icon": "🦠",
     "summary": "Influenza type A, การแบ่ง HPAI (H5, H7 เท่านั้น) กับ LPAI, สถานการณ์ในไทยตั้งแต่ปี 2547, มาตรการ eradication และเขตเฝ้าระวังรัศมี 10 กม., หลักที่ว่าวัคซีนต้องมี H ตรงกับสายพันธุ์ที่ระบาด และข้อตกลง WOAH เรื่องการส่งออก",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-salmonella",
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "title": "Avian Salmonellosis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Salmonellosis ในคน และภาพรวม Avian Salmonellosis, Non motile serovar: Pullorum disease และ Fowl typhoid, Motile serovar: Paratyphoid infection, คำถามที่รุ่นพี่ยังไม่มีคำตอบเรื่อง intracellular bacteria กับการเลือกยา",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-adeno",
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "title": "Adenovirus Infections",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Avian Adenoviruses และ Inclusion Body Hepatitis (IBH), Egg drop syndrome (โรคไข่นิ่ม ไข่หนัง)",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-ae",
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "title": "Avian Encephalomyelitis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Avian Encephalomyelitis (AE) และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-ahra-set",
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "title": "Omphalitis / Ascites / Staphylococcosis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง ปัญหาจากโรงฟักและคุณภาพลูกไก่ (ascites, ขาแบะ ขาบิด, สะดือ, yolk sac), Staphylococcosis",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-duck-plague",
+    "subject": "avian-medicine",
+    "topic": "avian-duck-plague",
+    "title": "Duck Virus Enteritis (Duck Plague)",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Duck Plague (Duck Viral Enteritis, DVE)",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-dvh",
+    "subject": "avian-medicine",
+    "topic": "avian-dvh",
+    "title": "Duck Virus Hepatitis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Duck Viral Hepatitis (DVH) ทั้ง 3 ไทป์",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-nds",
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "title": "New Duck Syndrome",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Riemerella anatipestifer infection (New Duck Syndrome, โรคเป็ดหมุน)",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-goose-parvo",
+    "subject": "avian-medicine",
+    "topic": "avian-goose-parvo",
+    "title": "Goose Parvovirus Infection",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Goose Parvovirus Infection",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-duck-flavi",
+    "subject": "avian-medicine",
+    "topic": "avian-duck-flavi",
+    "title": "Duck Flavivirus Infection",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Duck Flavivirus (Tembusu, DTMUV, โรคเป็ดกลิ้ง)",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-mycosis",
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "title": "Mycotic Infections + Mycotoxicosis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง ภาพรวม Mycotic infection ในสัตว์ปีก, Aspergillosis (Brooder pneumonia), Candidiasis (Crop mycosis, Thrush) และ Favus (white comb), Mycotoxicosis: ชนิดของสารพิษและปัจจัยที่ทำให้เกิดพิษ, Aflatoxin และ Ochratoxin, Citrinin, Trichothecenes, Fumonisins, Zearalenone, Ergotism, การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา, คำถามที่รุ่นพี่ยังไม่มีคำตอบเรื่อง หน้าสารพิษจากเชื้อรา",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-ort",
+    "subject": "avian-medicine",
+    "topic": "avian-ort",
+    "title": "Ornithobacteriosis (ORT)",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Ornithobacterium rhinotracheale (ORT)",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-campy",
+    "subject": "avian-medicine",
+    "topic": "avian-campy",
+    "title": "Campylobacteriosis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Campylobacter",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-listeria",
+    "subject": "avian-medicine",
+    "topic": "avian-listeria",
+    "title": "Listeriosis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Listeriosis",
+    "flagship": false
+  },
+  {
+    "id": "avian-medicine--avian-histomoniasis",
+    "subject": "avian-medicine",
+    "topic": "avian-histomoniasis",
+    "title": "Histomoniasis",
+    "icon": "📘",
+    "summary": "สรุปของ Vet 85 เรื่อง Histomoniasis (Black head disease)",
     "flagship": false
   },
   {
