@@ -8,7 +8,7 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { useBuddyPanel } from '../hooks/useStudyBuddies.js';
-import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, calendarDay, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -97,11 +97,12 @@ const NO_SUBJECTS = Object.freeze([]);
 // would hand every memo below a new dependency each time.
 const NO_ITEMS = Object.freeze([]);
 // "21 ก.ย." for a subject card; fmtThaiDate's full weekday form is too long
-// for the one line the card can spare.
+// for the one line the card can spare. The day is the calendar day the date
+// names (calendarDay), so a phone set west of UTC no longer shows it a day early.
 const TH_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const shortThaiDate = (dateStr) => {
-  const d = new Date(dateStr);
-  return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
+  const d = calendarDay(dateStr);
+  return Number.isNaN(d.getTime()) ? '' : `${d.getUTCDate()} ${TH_MONTHS[d.getUTCMonth()]}`;
 };
 
 export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {

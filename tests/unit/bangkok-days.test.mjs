@@ -115,6 +115,8 @@ test('the screens read the Bangkok helpers', () => {
   assert.match(read('views/HomeView.jsx'), /if \(streakData\?\.lastDate\) streak = streakShown\(streakData\);/);
   // Home's "today" and its streak walk count Bangkok days.
   assert.match(read('views/HomeView.jsx'), /const ymd = \(d\) => bangkokDayNumber\(d\);/);
+  // The subject cards print the paper's own day, not the phone's.
+  assert.match(read('views/HomeView.jsx'), /const d = calendarDay\(dateStr\);\n\s*return Number\.isNaN\(d\.getTime\(\)\) \? '' : `\$\{d\.getUTCDate\(\)\} \$\{TH_MONTHS\[d\.getUTCMonth\(\)\]\}`;/);
   // The recap counts calendar days on Bangkok's clock.
   assert.match(read('views/PhaseWrappedView.jsx'), /return calendarDaysBetween\(now, date\);/);
   // A paper is sat once it has ended, and the date tile prints the row's day.
