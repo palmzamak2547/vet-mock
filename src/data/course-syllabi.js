@@ -324,7 +324,7 @@ export const SYLLABI = {
         sessions: [
           { date: '2026-08-06', planned: ['2026-08-06', '2026-08-13'], held: true, title: 'บทนำ กายวิภาคและการทำหน้าที่ของระบบสืบพันธุ์เพศเมีย, วงรอบการเป็นสัดและการควบคุมวงรอบการเป็นสัด', lecturers: [THARASANIT], topics: ['eqrepro-anatomy-cycle'] },
           { date: '2026-08-20', planned: ['2026-08-20', '2026-08-27'], held: true, title: 'การตรวจระบบสืบพันธุ์ม้าเพศเมีย, เทคโนโลยีชีวภาพทางการสืบพันธุ์ในม้าเพศเมีย', lecturers: [THARASANIT], topics: ['eqrepro-exam-mare', 'eqrepro-art-female'] },
-          { date: '2026-08-27', planned: ['2026-09-03', '2026-09-10'], held: true, title: 'โรคติดเชื้อที่สำคัญในม้าเพศเมีย, ภาวะความไม่สมบูรณ์พันธุ์และการวินิจฉัย', lecturers: [THARASANIT], topics: ['eqrepro-infertility'] },
+          { date: '2026-08-27', planned: ['2026-09-03', '2026-09-10'], held: true, title: 'โรคติดเชื้อที่สำคัญในม้าเพศเมีย, ภาวะความไม่สมบูรณ์พันธุ์และการวินิจฉัย', lecturers: [THARASANIT], topics: ['eqrepro-mare-infect', 'eqrepro-infertility'] },
           { date: '2026-10-01', held: true, title: 'ภาวะเยื่อบุมดลูกอักเสบในม้า', lecturers: [SWANGCHAN], topics: ['eqrepro-endometritis'] },
           { date: '2026-10-08', planned: ['2026-09-17', '2026-10-08'], held: true, title: 'กายวิภาคและการทำหน้าที่ของระบบสืบพันธุ์ กระบวนการสร้างอสุจิ, การตรวจระบบสืบพันธุ์ม้าเพศผู้ทางคลินิก', lecturers: [THARASANIT], topics: ['eqrepro-male'] },
           { date: '2026-10-15', planned: ['2026-10-15', '2026-10-22'], held: true, title: 'เทคโนโลยีการเก็บน้ำเชื้อและการผสมเทียม, โรคติดเชื้อที่สำคัญของม้าเพศผู้', lecturers: [THARASANIT], topics: ['eqrepro-ai', 'eqrepro-stallion-infect'], note: clip('Semen collection and insemination + Infertility problem in stallion') },
