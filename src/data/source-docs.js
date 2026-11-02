@@ -235,6 +235,17 @@ export const SOURCE_DOCS = [
     match: /มท\. อีควรัย/,
     editions: [{ id: '16p', pages: 16 }],
   },
+  // The 2569 lameness decks, linked from MCV on 2 Nov 2569 and shelved in the library the same night.
+  {
+    slug: 'equine-lameness-2026', subject: 'equine-medicine', title: "Equine lameness: an introduction (2026)",
+    match: /Equine lameness: an introduction \(2026\)/,
+    editions: [{ id: '85p', pages: 85 }],
+  },
+  {
+    slug: 'equine-diag-analgesia-2026', subject: 'equine-medicine', title: "Diagnostic analgesia in horses (2026)",
+    match: /Diagnostic analgesia in horses \(2026\)/,
+    editions: [{ id: '43p', pages: 43 }],
+  },
   {
     slug: 'equine-poa-practice-v84', subject: 'equine-medicine', title: "บันทึกคาบฝึก POA ของ Vet 84",
     match: /บันทึกคาบฝึก POA ของ Vet 84/,
