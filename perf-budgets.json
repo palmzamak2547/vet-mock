@@ -10,12 +10,12 @@
           "index.html"
         ],
         "js": {
-          "measured": 221245,
-          "budget": 227900
+          "measured": 219347,
+          "budget": 226000
         },
         "css": {
-          "measured": 44440,
-          "budget": 45800
+          "measured": 44691,
+          "budget": 46100
         }
       },
       "atlas": {
@@ -24,12 +24,12 @@
           "atlas.html"
         ],
         "js": {
-          "measured": 90701,
-          "budget": 93500
+          "measured": 78502,
+          "budget": 80900
         },
         "css": {
-          "measured": 48211,
-          "budget": 49700
+          "measured": 48556,
+          "budget": 50100
         }
       },
       "home": {
@@ -39,8 +39,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 81141,
-          "budget": 83600
+          "measured": 83692,
+          "budget": 86300
         },
         "css": {
           "measured": 0,
@@ -54,8 +54,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 143601,
-          "budget": 148000
+          "measured": 147301,
+          "budget": 151800
         },
         "css": {
           "measured": 0,
@@ -69,8 +69,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 45097,
-          "budget": 46500
+          "measured": 46027,
+          "budget": 47500
         },
         "css": {
           "measured": 0,
@@ -84,8 +84,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 118536,
-          "budget": 122100
+          "measured": 121269,
+          "budget": 125000
         },
         "css": {
           "measured": 11958,
@@ -102,8 +102,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 162325,
-          "budget": 167200
+          "measured": 165129,
+          "budget": 170100
         },
         "css": {
           "measured": 11958,
