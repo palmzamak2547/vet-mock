@@ -298,24 +298,25 @@ test('Home\'s current-term sets print what they serve, for every year and period
 });
 
 test('the wrong-answer chip counts the set it opens: the year\'s misses, both terms, never a blocked question', () => {
-  const pick = (pred) => QB.find((q) => isQuestionDeliverable(q) && pred(q));
-  const termOne = pick((q) => q.subject === 'equine-medicine');
-  const termTwo = pick((q) => q.subject === 'livestock-pathology'); // year 5, term 2
-  const otherYear = pick((q) => q.subject === 'com5');
-  const blockedKey = BLOCKED_QUESTIONS.find((b) => yearForSubject(b.key.split(':')[0]) === 5)?.key;
-  assert.ok(termOne && termTwo && otherYear && blockedKey, 'the fixture questions moved');
-  const [blockedSubject, blockedId] = blockedKey.split(':');
+  const pick = (pred) => QB.filter((q) => isQuestionDeliverable(q) && pred(q));
+  const [termOne] = pick((q) => q.subject === 'equine-medicine');
+  const termTwo = pick((q) => q.subject === 'livestock-pathology').slice(0, 2); // year 5, term 2
+  const [otherYear] = pick((q) => q.subject === 'com5');
+  const blocked = BLOCKED_QUESTIONS.find((b) => yearForSubject(b.key.split(':')[0]) === 5)?.key;
+  assert.ok(termOne && termTwo.length === 2 && otherYear && blocked, 'the fixture questions moved');
+  const [blockedSubject, blockedId] = blocked.split(':');
   const row = (q, correct, date) => ({ subject: q.subject, questionId: q.id, year: q.year, correct, date });
+  // A row from before rows carried their year names only its subject.
+  const legacy = (q, correct, date) => ({ subject: q.subject, questionId: q.id, correct, date });
   const history = [
-    row(termOne, false, 1), row(termTwo, false, 2), row(otherYear, false, 3),
-    { subject: blockedSubject, questionId: Number.isNaN(Number(blockedId)) ? blockedId : Number(blockedId), correct: false, date: 4 },
+    legacy(termTwo[0], false, 1), legacy(termTwo[1], false, 2), row(otherYear, false, 3),
+    { subject: blockedSubject, questionId: Number.isNaN(Number(blockedId)) ? blockedId : Number(blockedId), year: 5, correct: false, date: 4 },
     // A question missed then answered right is no longer wrong.
     row(termOne, false, 5), row(termOne, true, 6),
   ];
-  // The bank's own year field, else the subject's: the rows above carry it.
   const chip = stillWrongInYear(history, 5).keys.size;
   const set = buildExamPool({ questions: QB, practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', selectedYear: 5, selectedPhase: '1-final', history, bookmarks: [], weakQuestions: [] }).length;
-  assert.equal(chip, 1, 'term-two livestock pathology is the one still wrong this year');
+  assert.equal(chip, 2, 'the two term-two misses are this year\'s, the blocked one is never served');
   assert.equal(chip, set, `the chip says ${chip} and the set serves ${set}`);
   // ...and the chip serves every question it counts, not a silent 50.
   const home = readFileSync(new URL('../../src/views/HomeView.jsx', import.meta.url), 'utf8');
