@@ -274,36 +274,38 @@ test('updates preserve every open document while new documents get the new UI', 
     expect(updateServer.failedRequests()).toBeGreaterThan(0);
     await offline.close();
   } finally { updateServer.reconnect(); }
+  const swState = async (tab) => `${await tab.evaluate(async () => ((await navigator.serviceWorker.getRegistration('/app/'))?.waiting ? 'waiting' : 'none'))}/${await workerVersion(tab)}`;
+  expect(await swState(page)).toBe('waiting/browser-test-A');
 
   // WebKit on Linux sometimes activates the waiting worker by itself when a new tab navigates into
   // scope while A's tabs are still open. Measured on the CI image (2 Nov 2026, 40 runs): in 5, B was
   // still waiting after the offline tab closed and active, with both open tabs claimed, the moment
   // the new tab loaded; never on the Windows build. The spec says B must wait, nothing in the app
   // asks otherwise (no skipWaiting; SKIP_WAITING is ignored) and every other engine waits. So the
-  // new tab runs under A with B waiting, except where WebKit activated B itself; in both cases what
-  // the update promises is checked: the open tabs keep their document, draft and build. In 1 run
-  // of a further 40 that same navigation failed with WebKit's "internal error" instead; a second
-  // try is what a reload would do, and a navigation the app itself breaks fails it as well.
-  const webkit = test.info().project.name.startsWith('webkit');
+  // new tab runs under A with B waiting, except on WebKit on Linux, where it may run under B; in
+  // both cases what the update promises is checked: the open tabs keep their document, draft and
+  // build, and are claimed at most once. In 1 run of a further 40 that same navigation failed with
+  // WebKit's "internal error" instead; a second try is what a reload would do, the annotation keeps
+  // the worker state at the failure, and a navigation the app itself breaks fails the second try.
+  const webkitOnLinux = test.info().project.name.startsWith('webkit') && process.platform === 'linux';
   const modern = await context.newPage();
   await modern.goto(updateServer.origin + '/app/pdf').catch(async (error) => {
-    if (!webkit || !/internal error/i.test(String(error))) throw error;
-    test.info().annotations.push({ type: 'webkit-navigation-retried', description: String(error).slice(0, 160) });
+    if (!webkitOnLinux || !/internal error/i.test(String(error))) throw error;
+    const counts = await Promise.all(documents.map(tab => tab.evaluate(() => window.controllerChanges)));
+    test.info().annotations.push({ type: 'webkit-navigation-retried', description: `${await swState(page)}, controllerChanges ${changes} -> ${counts}: ${String(error).slice(0, 120)}` });
     await modern.goto(updateServer.origin + '/app/pdf');
   });
   await expect(modern.locator('body')).toHaveAttribute('data-build', 'B');
   await expect(modern.locator('html')).toHaveAttribute('data-entry-build', 'B');
-  let activatedByWebKit = false;
-  await expect.poll(async () => {
-    const waiting = await modern.evaluate(async () => Boolean((await navigator.serviceWorker.getRegistration('/app/'))?.waiting));
-    const version = await workerVersion(modern);
-    activatedByWebKit = webkit && !waiting && version === 'browser-test-B';
-    return (waiting && version === 'browser-test-A') || activatedByWebKit;
-  }).toBe(true);
+  let state;
+  await expect.poll(async () => (state = await swState(modern)))
+    .toMatch(webkitOnLinux ? /^(waiting\/browser-test-A|none\/browser-test-B)$/ : /^waiting\/browser-test-A$/);
+  const activatedByWebKit = state === 'none/browser-test-B';
   for (let index = 0; index < documents.length; index++) {
     expect(await documents[index].evaluate(() => window.documentIdentity)).toBe(identities[index]);
     await expect(documents[index].locator('body')).toHaveAttribute('data-build', 'A');
-    if (!activatedByWebKit) expect(await documents[index].evaluate(() => window.controllerChanges)).toBe(changes[index]);
+    const moved = await documents[index].evaluate(() => window.controllerChanges) - changes[index];
+    expect(activatedByWebKit ? [0, 1] : [0]).toContain(moved);
   }
   await expect(page.getByLabel('Study draft')).toHaveValue('คำตอบที่ยังทำไม่เสร็จ');
   await expect(second.getByLabel('Study draft')).toHaveValue('สรุปจากเอกสารอีกแท็บ');
