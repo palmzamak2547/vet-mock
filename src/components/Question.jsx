@@ -16,7 +16,7 @@ import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
-import { followsExamPattern } from '../lib/source-line.js';
+import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
@@ -678,7 +678,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <>
               {typeLabel && <span>{typeLabel}</span>}
               <span>{subj?.name || currentQ.subject}</span>
-              {topic && <span style={{ color: subjectText(subj?.color) }}>{topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span>}
+              {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
+              {/* A label that would name the key waits for it (lib/source-line.js).
+                  It and the line standing in for it share one grid cell, so the
+                  row keeps the size the label needs and nothing moves when it
+                  appears; the hidden one is neither seen nor read aloud. */}
+              {topic && holdsTopicChip(currentQ) && (
+                <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
+                  <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
+                  <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
+                </span>
+              )}
               {paper && <span className="vmx-scope-chip">{paper}</span>}
             </>
           );

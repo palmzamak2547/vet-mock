@@ -24,6 +24,7 @@ import { isPastPaperQuestion, isExamAlignedQuestion } from './question-metadata.
 import { originEntry } from '../data/exam-origins.js';
 import { parseExamOrigin, cohortList } from './exam-origin-parse.js';
 import { humanSource } from './source-label.js';
+import { TOPIC_CHIP_HELD } from '../data/topic-chip-held.generated.js';
 
 /** The paper a filed origin names, as the timetable words it. */
 const PAPER_LABEL = Object.freeze({
@@ -110,6 +111,24 @@ export function sourceLineBeforeAnswer(question) {
 // Stored origins join their parts with "·" (exam-origins.js keys them that
 // way); a student reads commas. The stored text is never rewritten.
 export const readableSource = (s) => String(s).replace(/\s*·\s*/g, ', ');
+
+// ── The topic chip in the card's meta row ────────────────────────────────
+// The same rule holds above the stem: on 129 questions the topic label alone
+// named the key ("Autoimmune Skin Diseases" above "Sebaceous Adenitis
+// เป็นโรคที่"). Which labels would is decided by scripts/lint-source-line.mjs
+// with the same check, written to topic-chip-held.generated.js (the browser
+// has no Thai word segmenter on iOS 14, and a second rule in the browser
+// could drift from the lint's). The card prints TOPIC_CHIP_WAIT in the
+// label's place until the key is on screen.
+
+/** The topic as the card prints it: a "คาบ 3, " session prefix is dropped. */
+export const topicChipText = (label) => String(label ?? '').replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '');
+
+/** Shown where a held topic label will appear. */
+export const TOPIC_CHIP_WAIT = 'หัวข้อแสดงหลังเฉลย';
+
+/** Whether this question's topic label waits for the key. */
+export const holdsTopicChip = (question) => TOPIC_CHIP_HELD.has(`${question?.subject}:${question?.id}`);
 
 /**
  * The full line once the key is on screen, as it always read: the origin,

@@ -29,7 +29,7 @@
     "lint:all": "npm run lint:data && npm run lint:dist",
     "perf:budget": "node scripts/perf-budget.mjs",
     "perf": "node scripts/perf.mjs",
-    "regen:all": "npm run regen:registry && npm run regen:delivery && npm run regen:exam-papers && npm run regen:q-counts && npm run regen:exam-recurrence && npm run regen:glossary-related && npm run regen:written-questions && npm run regen:citation-index && npm run regen:conflict-summary && npm run regen:notes-registry && npm run regen:wiki-registry && npm run regen:wiki-runtime && npm run regen:video-meta && npm run regen:clip-labels && npm run regen:atlas && npm run regen:mochi && npm run regen:changelog && npm run stats -- --write",
+    "regen:all": "npm run regen:registry && npm run regen:delivery && npm run regen:exam-papers && npm run regen:q-counts && npm run regen:exam-recurrence && npm run regen:source-line && npm run regen:glossary-related &&npm run regen:written-questions && npm run regen:citation-index && npm run regen:conflict-summary && npm run regen:notes-registry && npm run regen:wiki-registry && npm run regen:wiki-runtime && npm run regen:video-meta && npm run regen:clip-labels && npm run regen:atlas && npm run regen:mochi && npm run regen:changelog && npm run stats -- --write",
     "regen:changelog": "node scripts/regen-latest-changelog.mjs",
     "release:new": "node scripts/new-release.mjs",
     "regen:atlas": "node scripts/regen-atlas-registry.mjs",
@@ -134,7 +134,8 @@
     "lint:ui-copy": "node scripts/lint-ui-copy.mjs",
     "lint:citation-moments": "node scripts/lint-citation-moments.mjs",
     "lint:source-docs": "node scripts/lint-source-docs.mjs",
-    "lint:source-line": "node scripts/lint-source-line.mjs"
+    "lint:source-line": "node scripts/lint-source-line.mjs",
+    "regen:source-line": "node scripts/lint-source-line.mjs --write"
   },
   "browserslist": [
     "defaults",

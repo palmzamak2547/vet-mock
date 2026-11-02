@@ -2456,6 +2456,13 @@ html.dark .vmx-panic-scrim {
 /* The part before it already carries 8px of right padding; a margin here
    would indent the chip when it wraps to its own line on a phone. */
 .vmx-q-meta > .vmx-origin-chip { margin-left: 0; }
+/* A topic label that would name the key waits for it (5.179.1): the label
+   and the line standing in for it share one grid cell, so the part is as
+   wide and as tall before the answer as after, and the row never reflows. */
+.vmx-q-topic-hold { display: inline-grid; }
+.vmx-q-topic-hold > span { grid-area: 1 / 1; }
+.vmx-q-topic-hold > [aria-hidden="true"] { visibility: hidden; }
+.vmx-q-topic-hold > .vmx-q-topic-wait { color: var(--clr-ink-soft); }
 
 /* The "ที่มา" line under every question. A real button with the 44px floor —
    it was an inline all:unset row 20px tall — and full-opacity text. */

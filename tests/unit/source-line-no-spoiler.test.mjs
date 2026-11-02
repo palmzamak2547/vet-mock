@@ -249,3 +249,107 @@ test('the question card hands the chip whether the key is on screen, and the dat
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
   assert.match(pkg.scripts['lint:data'], /npm run lint:source-line/);
 });
+
+// ── The topic chip in the card's meta row ────────────────────────────────
+// The row above the stem prints the type, the course, the topic and the
+// paper. On 129 questions the topic label alone named the key ("Autoimmune
+// Skin Diseases" above "Sebaceous Adenitis เป็นโรคที่"). The real
+// QuestionComponent is bundled with its heavy children stubbed (as
+// reveal-timing-shared.test.mjs does) and every question's row is read as a
+// student reads it before answering: hidden text (aria-hidden) is not read.
+const fr = await import('../helpers/fake-react.mjs');
+const nothing = 'export default function Stub() { return null; }';
+const CARD_STUBS = [
+  { match: '/data/questions\\.js$', contents: "export { SUBJECTS } from './src/data/curriculum.js';" },
+  { match: '/lib/richtext\\.jsx$', contents: 'export function RichText({ text }) { return text ?? null; }' },
+  { match: '/lib/option-shuffle\\.js$', contents: 'export const getShuffledOptions = () => ({ displayOptions: [], displayToOriginal: [], originalToDisplay: [] });' },
+  { match: '/lib/safe-url\\.js$', contents: 'export const safeImageUrl = () => null;' },
+  { match: '/lib/audio-unlock\\.js$', contents: 'export const unlockAudio = () => {};' },
+  { match: '/lib/dialog\\.js$', contents: 'export const promptDialog = async () => null; export const alertDialog = async () => {};' },
+  { match: '/lib/feedback-client\\.js$', contents: 'export const sendFeedback = async () => ({ ok: true });' },
+  { match: 'MotionFeedback\\.jsx$', contents: 'export const MotionEnter = ({ children }) => children ?? null; export const useMotionFeedback = () => null;' },
+  { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
+  { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
+  ...['WikiLinkForQuestion', 'TermLinkedRichText', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
+    'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'MatchDragDrop']
+    .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
+];
+const { default: QuestionCard } = await fr.loadModule('src/components/Question.jsx', { stubs: CARD_STUBS });
+
+/** What a student reads: text outside any aria-hidden part, function components expanded. */
+function readable(node) {
+  if (node == null || typeof node === 'boolean') return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(readable).join(' ');
+  if (typeof node.type === 'function') return readable(node.type(node.props || {}));
+  if (node.props?.['aria-hidden'] === true || node.props?.['aria-hidden'] === 'true') return '';
+  return readable(node.props?.children);
+}
+/** The card's meta row for one question, with or without its key on screen. */
+function metaRow(q, { answered = false } = {}) {
+  const store = new Map();
+  globalThis.localStorage = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, String(v)), removeItem: (k) => store.delete(k) };
+  globalThis.window = Object.assign(new EventTarget(), { localStorage: globalThis.localStorage });
+  globalThis.document = { body: {}, head: { appendChild() {} }, activeElement: null, querySelector: () => null, createElement: () => ({}) };
+  const inst = fr.mount(QuestionCard, {
+    currentQ: q, currentAnswer: answered ? q.answer : undefined, answerCurrent: () => {},
+    isBookmarked: false, toggleBookmark: () => {}, note: '', onNoteChange: () => {},
+    showNote: false, setShowNote: () => {}, revealAnswer: true,
+  });
+  const [row] = fr.findAll(inst.tree, (n) => n.props?.className === 'vmx-qtype-badge vmx-q-meta');
+  inst.unmount();
+  return row;
+}
+
+test('no question\'s meta row gives its key away before the answer', () => {
+  const leaks = [];
+  let read = 0;
+  for (const q of QB) {
+    const row = metaRow(q);
+    if (!row) continue;
+    read += 1;
+    const text = readable(row).replace(/\s+/g, ' ').trim();
+    const leak = leakOf(q, text);
+    if (leak) leaks.push(`${q.subject}#${q.id} ${leak.rule} [${leak.words.join(', ')}]: ${text}`);
+  }
+  assert.ok(read > 7000, `the row is read on most questions (${read})`);
+  assert.equal(leaks.length, 0, `the meta row gives the key away before the answer on ${listed(leaks)}`);
+});
+
+test('a held topic shows with the key, in a part that keeps its size', async () => {
+  const { holdsTopicChip, TOPIC_CHIP_WAIT } = await import('../../src/lib/source-line.js');
+  const { topicLabelOf } = await import('../../scripts/lint-source-line.mjs');
+  // com4#1068: "Autoimmune Skin Diseases" above "Sebaceous Adenitis เป็นโรคที่".
+  const q = row('com4', 1068);
+  assert.equal(holdsTopicChip(q), true);
+  const label = topicLabelOf(q);
+  assert.match(label, /Autoimmune/);
+  const part = (r) => fr.findAll(r, (n) => n.props?.className === 'vmx-q-topic-hold')[0];
+  const before = metaRow(q);
+  const after = metaRow(q, { answered: true });
+  assert.doesNotMatch(readable(before), new RegExp(label));
+  assert.match(readable(before), new RegExp(TOPIC_CHIP_WAIT));
+  assert.match(readable(after), new RegExp(label));
+  assert.doesNotMatch(readable(after), new RegExp(TOPIC_CHIP_WAIT));
+  // Both texts sit in the part either way, only which one is hidden changes,
+  // so the grid cell (and the row) is the same size before and after.
+  const texts = (r) => fr.findAll(part(r), (n) => n.type === 'span' && n !== part(r)).map((n) => [fr.textOf(n), n.props['aria-hidden'] === true]);
+  assert.deepEqual(texts(before), [[label, true], [TOPIC_CHIP_WAIT, false]]);
+  assert.deepEqual(texts(after), [[label, false], [TOPIC_CHIP_WAIT, true]]);
+  // A topic that names nothing is printed as before, with no stand-in.
+  const plain = QB.find((x) => x.type === 'mcq' && x.topic && !holdsTopicChip(x) && metaRow(x));
+  assert.equal(part(metaRow(plain)), undefined);
+});
+
+test('the held topics are exactly the labels the check reads as giving the key away', async () => {
+  const { TOPIC_CHIP_HELD } = await import('../../src/data/topic-chip-held.generated.js');
+  const { topicLabelOf } = await import('../../scripts/lint-source-line.mjs');
+  const shouldHold = new Set(QB.filter((q) => topicLabelOf(q) && leakOf(q, topicLabelOf(q))).map((q) => `${q.subject}:${q.id}`));
+  const missing = [...shouldHold].filter((k) => !TOPIC_CHIP_HELD.has(k));
+  const extra = [...TOPIC_CHIP_HELD].filter((k) => !shouldHold.has(k));
+  assert.deepEqual({ missing, extra }, { missing: [], extra: [] }, 'run npm run regen:source-line');
+  assert.ok(TOPIC_CHIP_HELD.size > 100, `labels held (${TOPIC_CHIP_HELD.size})`);
+  const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
+  assert.equal(pkg.scripts['regen:source-line'], 'node scripts/lint-source-line.mjs --write');
+  assert.match(pkg.scripts['regen:all'], /npm run regen:source-line/);
+});
