@@ -7,6 +7,7 @@ import * as counts from '../../src/data/q-counts.js';
 import { hasNotes } from '../../src/data/notes-registry.generated.js';
 import { buildExamPool } from '../../src/lib/exam-pool.js';
 import { scopeForPhase, questionInScope } from '../../src/lib/exam-scope.js';
+import { courseDocs, syllabusDoc, teachingDoc } from '../../src/lib/course-docs.js';
 
 // Compile the real view and press its actual rendered handlers. Date/count
 // registries stay real; only React hooks and destination setters are stood in.
@@ -26,6 +27,7 @@ function render({ phase = '1-mid', examId, countOverrides = {}, noteSubjects, cu
   const exam = Object.values(schedule.EXAM_SCHEDULE).flat().find(item => item.id === examId);
   const deps = {
     ...schedule, ...counts, ...countOverrides, h, Fragment: 'Fragment', buildExamPool, scopeForPhase, questionInScope,
+    courseDocs, syllabusDoc, teachingDoc,
     hasNotes: noteSubjects ? id => noteSubjects.includes(id) : hasNotes,
     useState: init => [typeof init === 'function' ? init() : init, () => {}],
     useEffect: () => {},
