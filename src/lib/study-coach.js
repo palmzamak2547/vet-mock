@@ -1,3 +1,4 @@
+import { authHeader } from './api-auth.js';
 // ============================================================
 // study-coach.js — client for /api/study-coach
 // ============================================================
@@ -18,7 +19,7 @@ async function ask(payload) {
   try {
     const resp = await fetch('/api/study-coach', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
       body: JSON.stringify(payload),
       signal: controller.signal,
     });

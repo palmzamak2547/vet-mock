@@ -35,6 +35,7 @@ import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 // Without this the platform gives the function its 10-second default, and the
 // 30 seconds the provider is allowed below can never be reached: a review of a
@@ -282,11 +283,13 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   const ip = clientIP(req);
   const rl = await rateLimit(`coach:${ip}`, 120, 60 * 60 * 1000);

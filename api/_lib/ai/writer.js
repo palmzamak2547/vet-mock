@@ -49,7 +49,11 @@ export function parseDeepSeekEvent(_event, data) {
   try { j = JSON.parse(data); } catch { return {}; }
   if (j?.error) return { error: cut(JSON.stringify(j.error)) };
   const c = j?.choices?.[0];
-  return { text: typeof c?.delta?.content === 'string' ? c.delta.content : '', finish: c?.finish_reason || null };
+  // The last chunk carries the turn's tokens, unasked (checked live on deepseek-flash and
+  // deepseek-chat, 2 Nov 2026); the others carry none or null.
+  const u = j?.usage;
+  const usage = u ? { in: u.prompt_tokens ?? 0, out: u.completion_tokens ?? 0, cached: u.prompt_cache_hit_tokens ?? 0 } : undefined;
+  return { text: typeof c?.delta?.content === 'string' ? c.delta.content : '', finish: c?.finish_reason || null, usage };
 }
 
 export function parseAnthropicEvent(event, data) {
@@ -58,7 +62,12 @@ export function parseAnthropicEvent(event, data) {
   const type = j?.type || event;
   if (type === 'error') return { error: cut(JSON.stringify(j.error || j)) };
   if (type === 'content_block_delta' && j.delta?.type === 'text_delta') return { text: j.delta.text || '' };
-  if (type === 'message_delta') return { finish: j.delta?.stop_reason || null };
+  if (type === 'message_start') {
+    const u = j?.message?.usage || {};
+    const cached = u.cache_read_input_tokens ?? 0;
+    return { usage: { in: (u.input_tokens ?? 0) + cached + (u.cache_creation_input_tokens ?? 0), cached } };
+  }
+  if (type === 'message_delta') return { finish: j.delta?.stop_reason || null, usage: { out: j.usage?.output_tokens ?? 0 } };
   if (type === 'message_stop') return { done: true };
   return {};
 }
@@ -110,6 +119,7 @@ async function attempt(provider, { system, messages, maxTokens, temperature, onD
   let got = false;
   let text = '';
   let finish = null;
+  let usage = null;
   const onParent = () => ac.abort(signal.reason);
   signal?.addEventListener('abort', onParent, { once: true });
   let timer = setTimeout(() => { timedOut = true; ac.abort(new Error('first byte timeout')); }, firstByteMs);
@@ -120,6 +130,7 @@ async function attempt(provider, { system, messages, maxTokens, temperature, onD
   const handle = (event, data) => {
     const r = provider.parse(event, data);
     if (r.finish) finish = r.finish;
+    if (r.usage) usage = { ...usage, ...r.usage };
     if (r.error) return { stop: true, error: r.error };
     if (r.text) {
       got = true;
@@ -179,7 +190,7 @@ async function attempt(provider, { system, messages, maxTokens, temperature, onD
       console.error('[ai-chat] writer', provider.id, 'empty answer, finish', finish);
       return { ok: false, reason: 'provider', partial: false };
     }
-    return { ok: true, text, finish };
+    return { ok: true, text, finish, usage };
   } catch (err) {
     if (signal?.aborted) return { ok: false, reason: 'aborted', partial: got };
     if (timedOut) {

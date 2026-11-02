@@ -1,0 +1,133 @@
+// Google's own sign-in button (Google Identity Services) for the Chula wall [docs/CHULA-SIGNIN.md]:
+// the pattern of src/lib/google-gis.js in the main app. Google's window names this site and hands
+// back an ID token, which the account trades for a session (signInWithIdToken), with no redirect
+// through the database's address (Google's screen then reads "continue to ...supabase.co"). That
+// redirect stays only as the fallback: when the script cannot load, or on an origin the OAuth
+// client does not list. Only Google's sign-in is contacted here; no research data is sent.
+// Google is given the SHA-256 of a random nonce; the raw one goes with the token, and the account
+// hashes it again to compare with the token's claim. OWNER: runtime role.
+
+const SRC = 'https://accounts.google.com/gsi/client';
+
+/** VetMock's Google OAuth client (a public id): this build's VITE_GOOGLE_CLIENT_ID, else the main app's. */
+export const GIS_CLIENT_ID = import.meta.env?.VITE_GOOGLE_CLIENT_ID || '807323754507-v4kctbouiqucot3e0isqju1mq1jl9k2u.apps.googleusercontent.com';
+
+/** The Authorised JavaScript origins on that client that serve this app. */
+const ORIGINS = ['https://research.vetmock.com'];
+
+/** Whether Google answers this origin; anywhere else the house button redirects. */
+export const gisOriginAllowed = (origin) => ORIGINS.includes(origin);
+
+/** True when Google's button can run here: a client id and an origin Google lists. */
+export function gisUsable(origin = globalThis.location?.origin) {
+  return Boolean(GIS_CLIENT_ID) && gisOriginAllowed(origin);
+}
+
+const LOAD_MS = 8000;
+let loading = null;
+
+/** Load Google's script once; a failure (blocked, offline, slow past 8 s) is not remembered. */
+export function loadGis({ timeoutMs = LOAD_MS } = {}) {
+  if (globalThis.window?.google?.accounts?.id) return Promise.resolve();
+  if (!loading) {
+    loading = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      const timer = setTimeout(() => reject(new Error('GIS load timeout')), timeoutMs);
+      script.src = SRC;
+      script.async = true;
+      script.onload = () => { clearTimeout(timer); if (window.google?.accounts?.id) resolve(); else reject(new Error('GIS not available')); };
+      script.onerror = () => { clearTimeout(timer); reject(new Error('GIS load failed')); };
+      document.head.appendChild(script);
+    }).catch((error) => {
+      loading = null;
+      throw error;
+    });
+  }
+  return loading;
+}
+
+/** How long after the script loaded an empty slot means Google's button is not coming. */
+export const DRAWN_MS = 4000;
+
+/** Whether Google's button is in the slot and has a size (a blocked frame leaves nothing to press). */
+export function buttonDrawn(el) {
+  const frame = el?.querySelector?.('iframe');
+  if (!frame) return false;
+  const box = frame.getBoundingClientRect?.();
+  return Boolean(box) && box.width >= 8 && box.height >= 8;
+}
+
+/**
+ * Calls onEmpty when Google's button is still not in the slot `delayMs` after the
+ * script loaded AND once the page is idle: a heavy first load (Research's workspace)
+ * holds back Google's drawing as long as it holds back this timer, and judging the
+ * slot mid-load swapped a button that was about to draw for the redirect one.
+ * Returns a function that cancels the watch.
+ */
+export function watchDrawn(el, onEmpty, { delayMs = DRAWN_MS, win = globalThis } = {}) {
+  let idle = 0;
+  const check = () => { if (!buttonDrawn(el)) onEmpty(); };
+  const timer = win.setTimeout(() => {
+    idle = typeof win.requestIdleCallback === 'function'
+      ? win.requestIdleCallback(check, { timeout: 3000 })
+      : win.setTimeout(check, 0);
+  }, delayMs);
+  return () => {
+    win.clearTimeout(timer);
+    if (typeof win.cancelIdleCallback === 'function') win.cancelIdleCallback(idle);
+    else win.clearTimeout(idle);
+  };
+}
+
+const hex = (bytes) => Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+
+/** A random nonce and its SHA-256, the pair a Google ID token is checked with. */
+export async function noncePair() {
+  const raw = hex(crypto.getRandomValues(new Uint8Array(16)));
+  const hashed = hex(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw))));
+  return { raw, hashed };
+}
+
+/**
+ * Draw Google's button into `el`, with One Tap beside it when `prompt` is set. On a choice,
+ * `onCredential(idToken, rawNonce)` runs. `hd` lists accounts on that hosted domain; the database,
+ * not the hint, decides who is let in.
+ * @param {HTMLElement} el
+ * @param {{ clientId?: string, hd?: string, theme?: string, locale?: string, prompt?: boolean, onCredential: (token: string, nonce: string) => void }} opts
+ * @returns {Promise<() => void>} clean-up (empties the slot and closes One Tap)
+ */
+export async function renderGoogleButton(el, { clientId = GIS_CLIENT_ID, hd = '', theme = 'outline', locale = 'th', prompt = false, text = 'signin_with', onCredential }) {
+  if (!clientId) throw new Error('NO_GOOGLE_CLIENT_ID');
+  if (!el) throw new Error('container required');
+  await loadGis();
+  const { raw, hashed } = await noncePair();
+  const id = window.google.accounts.id;
+  id.initialize({
+    client_id: clientId,
+    nonce: hashed,
+    ...(hd ? { hd } : {}),
+    ux_mode: 'popup',
+    itp_support: true,
+    auto_select: false,
+    cancel_on_tap_outside: true,
+    callback: (response) => { if (response?.credential) onCredential?.(response.credential, raw); },
+  });
+  id.renderButton(el, {
+    type: 'standard',
+    theme,
+    size: 'large',
+    shape: 'rectangular',
+    text,
+    logo_alignment: 'left',
+    locale,
+    // Google caps the button at 400 px
+    width: Math.min(400, Math.max(200, Math.round(el.clientWidth || 280))),
+  });
+  if (prompt) {
+    try { id.prompt(); } catch { /* the button still works */ }
+  }
+  return () => {
+    try { id.cancel(); } catch { /* not shown */ }
+    try { el.replaceChildren(); } catch { /* gone */ }
+  };
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase } from '../lib/supabase.js';
+import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase, storedAuthSession } from '../lib/supabase.js';
 
 // useAuth() — returns { user, profile, setProfile, loading, isSignedIn }.
 //
@@ -88,6 +88,19 @@ export function useAuth() {
     // bootstrapped loading=true via useState init, so this is mostly
     // for Path B; idempotent for both paths.
     setLoading(true);
+    // Open the account this device holds at once, without waiting for the SDK chunk:
+    // Home and the Chula wall need not sit behind its load (~80 ms of evaluation on
+    // a mid phone before any network). getSession below answers from the same
+    // storage, or replaces it after a refresh. An expired token offline matters most:
+    // the SDK then answers "no session" only after ~25 s of retries while the session
+    // is still on the device, and the student keeps their own progress meanwhile.
+    // Not on a sign-in redirect: the account arriving in the address replaces the
+    // one on the device, which must not paint first.
+    const held = storedAuthSession();
+    if (held && !hasAuthRedirectInUrl()) {
+      commitUser(held.user);
+      setLoading(false);
+    }
     try {
       const supabase = await getSupabase();
       if (cancelledRef.current) return;
@@ -97,12 +110,19 @@ export function useAuth() {
 
       const { data: { session } } = await supabase.auth.getSession();
       if (cancelledRef.current) return;
-      commitUser(session?.user ?? null);
+      // No session but the token still on the device: the refresh could not run
+      // (the SDK clears the token itself when the server refuses it). Keep the
+      // account until it can.
+      const keep = !session && held && storedAuthSession()?.user?.id === held.user.id;
+      commitUser(session?.user ?? (keep ? held.user : null));
       setLoading(false);
 
       if (!subscribed.current) {
         const { data } = supabase.auth.onAuthStateChange((event, s) => {
-          commitUser(s?.user ?? null);
+          // INITIAL_SESSION arrives null when an expired token could not be
+          // refreshed (auth-js keeps the token on a network failure): the account
+          // it holds stays. Only SIGNED_OUT, or a token gone from storage, ends it.
+          commitUser(s?.user ?? (event === 'SIGNED_OUT' ? null : storedAuthSession()?.user ?? null));
           if (event === 'USER_UPDATED') setProfileRefresh((n) => n + 1);
         });
         subscriptionRef.current = data.subscription;
@@ -112,8 +132,8 @@ export function useAuth() {
       // A rejected SDK load (offline, failed chunk fetch mid-deploy) used to
       // fall straight through `finally` with loading still true, wedging the
       // whole app on the boot spinner forever. Signed-out is a valid state —
-      // let the user in.
-      if (!cancelledRef.current) { commitUser(null); setLoading(false); }
+      // let the user in, keeping the account this device holds.
+      if (!cancelledRef.current) { commitUser(held?.user ?? null); setLoading(false); }
     } finally {
       setupRunning.current = false;
     }

@@ -134,10 +134,10 @@ export function chatStats() {
  * @param {object} [io.env]
  * @param {object} [io.deps]                      { chat, vision, fetchImpl, kv, rng, now }
  */
-export async function runChat(input, { send, signal, t0 = Date.now(), env = process.env, deps = {} } = {}) {
+export async function runChat(input, { send, signal, t0 = Date.now(), tLimit = null, env = process.env, deps = {}, token = null } = {}) {
   const D = { chat: chatJSON, vision: visionJSON, fetchImpl: fetch, kv: { get: kvGetJSON, set: kvSetJSON }, rng: Math.random, now: () => new Date(), ...deps };
   const since = () => Date.now() - t0;
-  const timing = { status: null, sources: null, firstDelta: null };
+  const timing = { status: null, plan: null, library: null, sources: null, firstDelta: null };
   const { messages, image, question } = input;
 
   send('status', { phase: 'plan', label: STATUS.plan });
@@ -175,6 +175,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
     let found = typed;
     let planned = null;
     const plan = await plannerP;
+    timing.plan = since();
     let intent = plan.intent;
     if (plan.source === 'model' && intent !== 'chat') {
       planned = searchCorpus(corpus, {
@@ -210,8 +211,9 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
         specificity: found ? termSpecificity(corpus, found, typed, planned) : null,
         topic: found ? questionTopic(corpus, found) : null,
         animal: found ? animalShare(found) : null,
-      }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500 })
+      }, { env, fetchImpl: D.fetchImpl, signal: sig, timeoutMs: intent === 'files' ? 4000 : 3500, token })
       : null;
+    libraryP?.then(() => { timing.library = since(); }, () => {});
 
     // ── what this turn needs ────────────────────────────────────────────
     const sources = [];
@@ -335,7 +337,7 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
       const lib = await Promise.race([libraryP, new Promise((r) => { budget = setTimeout(r, LIBRARY_BUDGET_MS, null); })])
         .finally(() => clearTimeout(budget)) || { items: [], pages: [] };
       if (!lib.items.length && !lib.pages.length) lateLibrary = libraryP;
-      const slideSources = lib.pages.map((p) => pageSource(p, { needles }));
+      const slideSources = lib.pages.map((p) => pageSource(p, { needles, token }));
       const room = Math.max(0, (intent === 'research' ? Math.min(3, MAX_SOURCES - papers.length) : MAX_SOURCES - papers.length) - slideSources.length);
       const corpusSources = selected.slice(0, room).map((r) => toSource(r, { needles }));
       const paperSources = papers.map((p) => toSource({ kind: 'paper', paper: p }));
@@ -403,9 +405,13 @@ export async function runChat(input, { send, signal, t0 = Date.now(), env = proc
 
     const log = {
       ms: since(),
+      tLimit,
       tStatus: timing.status,
+      tPlan: timing.plan,
+      tLibrary: timing.library,
       tSources: timing.sources,
       tFirstDelta: timing.firstDelta,
+      usage: result.usage || null,
       intent,
       plan: plan.source,
       sources: numbered.items.length,

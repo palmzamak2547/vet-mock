@@ -3,11 +3,12 @@
 // (auth.googleIdToken). The redirect flow sends the student through the Supabase project's
 // address, which Google then shows as the app being signed in to.
 //
-// Google answers only on the OAuth client's Authorized JavaScript origins, so this runs only when
-// the build has VITE_GOOGLE_CLIENT_ID (set once https://vca.vetmock.com is on that list); without
-// it the sheet keeps the redirect button.
+// Google answers only on the OAuth client's Authorized JavaScript origins. The sign-in sheet uses
+// it when the build has VITE_GOOGLE_CLIENT_ID; the Chula wall (ui/ChulaWall.jsx) on the origins in
+// config.js GOOGLE_ORIGINS, with One Tap beside the button and the Chula domain as the hint.
 
 const SRC = 'https://accounts.google.com/gsi/client';
+const LOAD_MS = 8000;
 let loading = null;
 
 function load() {
@@ -15,44 +16,90 @@ function load() {
   if (!loading) {
     loading = new Promise((resolve, reject) => {
       const s = document.createElement('script');
+      // a script that neither loads nor fails (a stalled network) must not leave an empty slot
+      const timer = setTimeout(() => { loading = null; reject(new Error('โหลดปุ่ม Google ไม่สำเร็จ')); }, LOAD_MS);
       s.src = SRC;
       s.async = true;
-      s.onload = () => resolve();
-      s.onerror = () => { loading = null; reject(new Error('โหลดปุ่ม Google ไม่สำเร็จ')); };
+      s.onload = () => { clearTimeout(timer); resolve(); };
+      s.onerror = () => { clearTimeout(timer); loading = null; reject(new Error('โหลดปุ่ม Google ไม่สำเร็จ')); };
       document.head.appendChild(s);
     });
   }
   return loading;
 }
 
+/** How long after the script loaded an empty slot means Google's button is not coming. */
+export const DRAWN_MS = 4000;
+
+/** Whether Google's button is in the slot and has a size (a blocked frame leaves nothing to press). */
+export function buttonDrawn(el) {
+  const frame = el?.querySelector?.('iframe');
+  if (!frame) return false;
+  const box = frame.getBoundingClientRect?.();
+  return Boolean(box) && box.width >= 8 && box.height >= 8;
+}
+
+/**
+ * Calls onEmpty when Google's button is still not in the slot `delayMs` after the
+ * script loaded AND once the page is idle: a heavy first load (Research's workspace)
+ * holds back Google's drawing as long as it holds back this timer, and judging the
+ * slot mid-load swapped a button that was about to draw for the redirect one.
+ * Returns a function that cancels the watch.
+ */
+export function watchDrawn(el, onEmpty, { delayMs = DRAWN_MS, win = globalThis } = {}) {
+  let idle = 0;
+  const check = () => { if (!buttonDrawn(el)) onEmpty(); };
+  const timer = win.setTimeout(() => {
+    idle = typeof win.requestIdleCallback === 'function'
+      ? win.requestIdleCallback(check, { timeout: 3000 })
+      : win.setTimeout(check, 0);
+  }, delayMs);
+  return () => {
+    win.clearTimeout(timer);
+    if (typeof win.cancelIdleCallback === 'function') win.cancelIdleCallback(idle);
+    else win.clearTimeout(idle);
+  };
+}
+
 const hex = (bytes) => Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 
 /**
  * Draw Google's button into `el`. On a choice, `onCredential(idToken, rawNonce)` runs; Google is
- * given the SHA-256 of the nonce and the backend checks the raw one against the token.
+ * given the SHA-256 of the nonce and the backend checks the raw one against the token. `hd` lists
+ * accounts on that hosted domain (the database, not the hint, decides who is let in); `prompt`
+ * shows One Tap beside the button.
  * @returns {Promise<() => void>} clean-up
  */
-export async function renderGoogleButton(el, { clientId, theme, width, onCredential }) {
+export async function renderGoogleButton(el, { clientId, theme, width, onCredential, hd = '', prompt = false, text = 'continue_with' }) {
   await load();
   const raw = hex(crypto.getRandomValues(new Uint8Array(16)));
   const hashed = hex(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw))));
-  window.google.accounts.id.initialize({
+  const id = window.google.accounts.id;
+  id.initialize({
     client_id: clientId,
     nonce: hashed,
+    ...(hd ? { hd } : {}),
     ux_mode: 'popup',
     itp_support: true,
     auto_select: false,
+    cancel_on_tap_outside: true,
     callback: (res) => { if (res?.credential) onCredential(res.credential, raw); },
   });
-  window.google.accounts.id.renderButton(el, {
+  id.renderButton(el, {
     type: 'standard',
     theme,
     size: 'large',
     shape: 'pill',
-    text: 'continue_with',
+    text,
     logo_alignment: 'left',
     locale: 'th',
     width: Math.min(400, Math.max(200, Math.round(width))),
   });
-  return () => { el.replaceChildren(); };
+  if (prompt) {
+    try { id.prompt(); } catch { /* the button still works */ }
+  }
+  return () => {
+    if (prompt) { try { id.cancel(); } catch { /* not shown */ } }
+    el.replaceChildren();
+  };
 }

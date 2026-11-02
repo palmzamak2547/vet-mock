@@ -1,6 +1,7 @@
 import { getUserFromRequest, getConnection, refreshGoogleAccess, googleTokenStale } from './_lib/external-connections.js';
 import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { normalizeExternalDocUrl } from './_lib/external-doc.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 const TIMEOUT_MS = 10000;
 const HOUR_MS = 60 * 60 * 1000;
@@ -27,6 +28,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method_not_allowed' });
   }
   if (req.headers.origin && !origin) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
   const ceiling = await rateLimit(`external-files-ip:${clientIP(req)}`, IP_CEILING_PER_HOUR, HOUR_MS);
   if (!ceiling.ok) return sendRateLimitFailure(res, ceiling);
 

@@ -2,6 +2,7 @@ import { questionRevision } from '../src/lib/study-events.js';
 import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { authenticatedUser, signedRpc } from './_lib/app-backend.js';
 import { questionCatalog } from './_lib/question-catalog.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
@@ -14,6 +15,8 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
   if (req.headers.origin && !origin) return res.status(403).json({ error: 'origin_not_allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
   const ids = req.body?.questionIds;
   if (!/^[A-F0-9]{6}$/.test(req.body?.code || '') || !Array.isArray(ids) || ids.length < 5 || ids.length > 50
     || new Set(ids.map(String)).size !== ids.length) return res.status(400).json({ error: 'invalid-race' });

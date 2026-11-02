@@ -17,6 +17,11 @@ import { hasSavedSession } from '../lib/supabase.js';
 // idle below so navigation feels instant even on first cold load.
 export const HomeView = lazy(() => import('../views/HomeView.jsx'));
 
+// Lazy — the Chula sign-in wall (docs/CHULA-SIGNIN.md). Its screen and the door
+// that opens over the app after a sign-in share one chunk.
+export const ChulaGateView = lazy(() => import('../views/ChulaGateView.jsx'));
+export const ChulaGateExit = lazy(() => import('../views/ChulaGateView.jsx').then((m) => ({ default: m.ChulaGateExit })));
+
 // Lazy — pulls VIDEO_SUMMARIES (~200KB) into a separate chunk so it
 // only ships when the user actually presses ⌘K (or clicks the search
 // button). Keeps the first-paint bundle small.

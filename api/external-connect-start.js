@@ -14,6 +14,7 @@
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 import { signState, oauthProviderConfig, getUserFromRequest, OAUTH_STATE_COOKIE } from './_lib/external-connections.js';
 import { randomUUID } from 'node:crypto';
+import { requireChula } from './_lib/chula-gate.js';
 
 const PROVIDERS = new Set(['google', 'notion']);
 const STATE_TTL_SECONDS = 600;
@@ -45,6 +46,8 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   const ip = clientIP(req);
   const rl = await rateLimit(`external-connect-start:${ip}`, IP_STARTS_PER_HOUR, HOUR_MS);
