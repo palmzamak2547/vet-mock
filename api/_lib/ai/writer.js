@@ -49,7 +49,8 @@ export function parseDeepSeekEvent(_event, data) {
   try { j = JSON.parse(data); } catch { return {}; }
   if (j?.error) return { error: cut(JSON.stringify(j.error)) };
   const c = j?.choices?.[0];
-  // The last chunk carries the turn's tokens (stream_options.include_usage); the others say null.
+  // The last chunk carries the turn's tokens, unasked (checked live on deepseek-flash and
+  // deepseek-chat, 2 Nov 2026); the others carry none or null.
   const u = j?.usage;
   const usage = u ? { in: u.prompt_tokens ?? 0, out: u.completion_tokens ?? 0, cached: u.prompt_cache_hit_tokens ?? 0 } : undefined;
   return { text: typeof c?.delta?.content === 'string' ? c.delta.content : '', finish: c?.finish_reason || null, usage };
@@ -62,7 +63,7 @@ export function parseAnthropicEvent(event, data) {
   if (type === 'error') return { error: cut(JSON.stringify(j.error || j)) };
   if (type === 'content_block_delta' && j.delta?.type === 'text_delta') return { text: j.delta.text || '' };
   if (type === 'message_start') {
-    const u = j.message?.usage || {};
+    const u = j?.message?.usage || {};
     const cached = u.cache_read_input_tokens ?? 0;
     return { usage: { in: (u.input_tokens ?? 0) + cached + (u.cache_creation_input_tokens ?? 0), cached } };
   }
@@ -87,7 +88,6 @@ export function providerChain(env = process.env) {
           stream: true,
           temperature,
           max_tokens: maxTokens,
-          stream_options: { include_usage: true },
           messages: [{ role: 'system', content: system }, ...messages.map((m) => ({ role: m.role, content: m.content }))],
           ...(thinkingOff ? { thinking: { type: 'disabled' } } : {}),
         },
