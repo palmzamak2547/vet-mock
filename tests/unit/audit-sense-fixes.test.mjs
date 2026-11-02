@@ -164,9 +164,11 @@ test('every surface that shows "wrong" uses the one definition', () => {
   // The home chip once kept its own copy of the rule and it drifted: it read
   // array order while the pool read the latest attempt by date, so two synced
   // devices saw a count that did not match the set. One function, everywhere.
+  // Since the numbers contract the chip also takes its year and its delivery
+  // gate from the pool's module (stillWrongInYear), which applies stillWrong.
   const home = src('src/views/HomeView.jsx');
-  assert.ok(home.includes("from '../lib/wrong-pool.js'"), 'the home chip must import the shared rule');
-  assert.ok(home.includes('stillWrong(history.filter(inYear))'), 'the home chip must count with it, year-scoped');
+  assert.ok(home.includes('stillWrongInYear(history, selectedYear)'), 'the home chip must count with the shared rule, year-scoped');
+  assert.ok(src('src/lib/exam-pool.js').includes('return stillWrong((history || []).filter('), 'the year rule must apply the shared verdict');
   assert.ok(!home.includes('latestVerdict'), 'no private copy of the verdict rule may come back');
 });
 

@@ -110,8 +110,11 @@ test('a deck chosen in the search palette on Home reaches the reader', async ({ 
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
   await dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill('Pharmacology & Toxicology (VCA58-68)');
-  // The result row, not the "ถามคลังความรู้" row that repeats the query.
-  await dialog.locator('[data-flat-idx]').filter({ hasText: 'VCA58-68' }).first().click();
+  // The result row, not the "ถามคลังความรู้" row that repeats the query. Named
+  // by the whole title: the list applies a query 60 ms after it is typed, and
+  // until then it lists the shelf unfiltered, Anatomy (VCA58-68) first, so a
+  // click that came early on a slow runner opened Anatomy (CI, 2 Nov).
+  await dialog.locator('[data-flat-idx]').filter({ hasText: 'Pharmacology & Toxicology (VCA58-68)' }).first().click();
   await expect(ready(page)).toBeVisible({ timeout: 30_000 });
   await expect(page).toHaveURL(new RegExp(`/app/tools/pdf\\?doc=${DECK}$`));
 });

@@ -14,10 +14,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { updateStreak } from '../../src/hooks/utils.js';
+import { updateStreak, bangkokDayNumber } from '../../src/hooks/utils.js';
 
 const DAY = 86400000;
-const dayStart = (ts) => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
+// Bangkok midnights, the days updateStreak counts in, so the cases hold in any zone.
+const dayStart = (ts) => bangkokDayNumber(ts) * DAY - 7 * 60 * 60 * 1000;
 const today = dayStart(Date.now());
 
 test('a single skipped day is forgiven once when the streak is long enough', () => {
@@ -50,7 +51,7 @@ test('HomeView defers to the saved streak', () => {
   const SRC = readFileSync(new URL('../../src/views/HomeView.jsx', import.meta.url), 'utf8');
   assert.match(
     SRC,
-    /if \(streakData\?\.lastDate\) streak = streakData\.streak/,
+    /if \(streakData\?\.lastDate\) streak = streakShown\(streakData\)/,
     'HomeView is computing its own streak again — it will contradict the freeze toast',
   );
 });

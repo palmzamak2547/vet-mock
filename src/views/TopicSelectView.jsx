@@ -3,7 +3,7 @@ import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { hasPanicCard } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
-import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { scopeForPhase, scopeForTopic, questionInScope, phaseForCourse, topicOnPaper, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
 import { oldContentLine, phaseLabel, timetableStatus } from '../lib/current-phase.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
@@ -197,12 +197,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // midterm. Those questions stay reachable on the final paper and on the
   // whole-semester view; they just stop claiming a place on a paper their
   // topic is not on.
+  //
+  // The topic's own field is not the whole answer, though: a topic with none
+  // takes its subject's scope, then the timetable's (topicOnPaper), exactly as
+  // the count tables do, so a course that sits only the final lists no topic
+  // under กลางภาค instead of thirteen that each print nothing behind them.
   const paperScope = scopeForPhase(selectedPhase);
-  const topics = (subjectPage.topics || []).filter((t) => {
-    if (!paperScope) return true;
-    if (!t?.examScope) return true; // unknown scope is kept, as for questions
-    return t.examScope === paperScope || t.examScope === 'both';
-  });
+  const topics = (subjectPage.topics || []).filter((t) => topicOnPaper(subject, t?.id, selectedPhase));
   // Once a paper is picked the numbers come from that paper's table. A subject
   // the table does not name has NOTHING on that paper (epidemiology sits only
   // the final), which is zero, not "unscoped": falling through to the whole-
@@ -230,8 +231,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     topic: (topicId) => (t) => t === topicId,
   };
 
-  // Reading-checklist summary for this subject
-  const subjReadDone = subjectPage.progress?.read || 0;
+  // Reading-checklist summary for this subject, over the topics listed here.
+  // The catalog's progress counts every topic of the course, so under a paper
+  // it put the other paper's reading over this paper's topics: 10/5.
+  const subjReadDone = topics.filter((t) => t.read).length;
 
   // Collections: virtual "ทำรวม" cards that bundle topics by prefix
   // (e.g. รวมหมาหอน covers 9 mahahon-* topics, รวม Term Paper covers 12 group* topics).
