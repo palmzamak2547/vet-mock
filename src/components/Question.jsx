@@ -749,8 +749,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 // ────────────────────────────────────────────────────────────────
 // The chip warns before the answer too, but what it opens waits for the key
 // (5.179.1): a note that says which key the seniors marked, or that the
-// answer "should be InPouch TF-Feline", named the key on 26 of 78 flagged
-// questions, timed papers included. Exported for the leak test.
+// answer "should be InPouch TF-Feline", named the key on 26 of the 94
+// flagged questions, timed papers included. Exported for the leak test.
 export function FlagChip({ flag, revealed = false }) {
   const [open, setOpen] = useState(false);
   const expanded = revealed && open;
