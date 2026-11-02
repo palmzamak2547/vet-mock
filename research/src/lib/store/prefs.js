@@ -16,10 +16,20 @@ export const PREFS_KEY = 'vmx-research-prefs-v1';
  *   it only to that owner (after sign-out the guest cannot open an account's project)
  * @property {boolean} guestClaimDone     the first sign-in on this browser has happened; guest projects
  *   made after it stay guest until the student moves them (auth/claim-guest.js)
+ * @property {{ enforce?: boolean, members: string[] }|null} chulaWall  the Chula sign-in wall's memory on
+ *   this device: the switch last seen and up to 8 accounts the server let in, so a saved member session
+ *   opens offline (lib/auth/chula.js, docs/CHULA-SIGNIN.md)
  */
 
 /** @type {Prefs} */
-export const DEFAULT_PREFS = Object.freeze({ lang: 'th', theme: 'system', entranceSeen: false, introSeen: false, filmSoundOff: false, lastProjectId: null, lastProjectOwner: null, guestClaimDone: false });
+export const DEFAULT_PREFS = Object.freeze({ lang: 'th', theme: 'system', entranceSeen: false, introSeen: false, filmSoundOff: false, lastProjectId: null, lastProjectOwner: null, guestClaimDone: false, chulaWall: null });
+
+/** The wall's memory, or null: only a boolean switch and short account ids survive a read. */
+function chulaWallOf(v) {
+  if (!v || typeof v !== 'object') return null;
+  const members = Array.isArray(v.members) ? v.members.filter((m) => typeof m === 'string' && m.length > 0 && m.length <= 64).slice(-8) : [];
+  return typeof v.enforce === 'boolean' ? { enforce: v.enforce, members } : { members };
+}
 
 /** @returns {Prefs} defaults merged with whatever valid fields are stored */
 export function readPrefs() {
@@ -36,6 +46,7 @@ export function readPrefs() {
       lastProjectId: typeof v.lastProjectId === 'string' && v.lastProjectId.length <= 64 ? v.lastProjectId : null,
       lastProjectOwner: typeof v.lastProjectOwner === 'string' && v.lastProjectOwner.length <= 72 ? v.lastProjectOwner : null,
       guestClaimDone: v.guestClaimDone === true,
+      chulaWall: chulaWallOf(v.chulaWall),
     };
   } catch {
     return { ...DEFAULT_PREFS };

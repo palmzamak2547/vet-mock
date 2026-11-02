@@ -55,6 +55,17 @@ export function archivedSourceUrl(source) {
   return `/api/library-file?source=${encodeURIComponent(source.id)}&open=1`;
 }
 
+/** The signed link for an archived copy, asked for with the member's session:
+ *  a tapped link carries no header, and behind the Chula wall the archive
+ *  answers members only (docs/CHULA-SIGNIN.md). null when it cannot be had. */
+export async function signedArchiveUrl(source, { fetchImpl = globalThis.fetch, headers = {} } = {}) {
+  const link = archivedSourceUrl(source);
+  if (!link) return null;
+  const res = await fetchImpl(link.replace('&open=1', ''), { headers });
+  const body = await res.json().catch(() => null);
+  return res.ok && typeof body?.url === 'string' ? body.url : null;
+}
+
 export function googleDriveSourceUrl(raw) {
   try {
     const url = new URL(raw);

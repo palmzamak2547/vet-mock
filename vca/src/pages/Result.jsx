@@ -162,7 +162,7 @@ export default function Result({ route }) {
             <ShareButton
               className="text-link" label="ชวนเพื่อนมาซ้อม"
               path="/" title="VetMock VCA"
-              text={score >= 0.6 ? `ซ้อมสอบ VCA ได้ ${Math.round(score * 100)}% จาก ${num(result.total)} ข้อ มาซ้อมด้วยกัน` : 'มาซ้อมสอบ VCA ด้วยกัน เฉลยทุกข้อ ไม่ต้องสมัคร'}
+              text={score >= 0.6 ? `ซ้อมสอบ VCA ได้ ${Math.round(score * 100)}% จาก ${num(result.total)} ข้อ มาซ้อมด้วยกัน` : 'มาซ้อมสอบ VCA ด้วยกัน เฉลยทุกข้อ ใช้ฟรี'}
             />
           </div>
         </div>

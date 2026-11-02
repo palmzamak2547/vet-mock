@@ -36,6 +36,7 @@ import { EXTERNAL_COURSES } from '../../../src/data/library-courses.js';
 import { normalizeQuery } from '../../../src/lib/vetwiki/query-terms.js';
 import { clip, stripBroken } from './text.js';
 import { RARE_SHARE } from './textindex.js';
+import { mintOpenTicket, ticketQuery } from '../open-ticket.js';
 
 const SITE = 'https://vetmock.com';
 const TIMEOUT_MS = 1400;
@@ -105,9 +106,10 @@ export function formatOf(mime = '', title = '') {
 }
 
 /** The links a document opens and downloads through (vetmock.com's own gate):
- *  open lands on the matching page; download saves it under its own title. */
-export function fileLinks(slug, page, title = '', mime = 'application/pdf') {
-  const q = `${SITE}/api/library-file?slug=${encodeURIComponent(slug)}&open=1`;
+ *  open lands on the matching page; download saves it under its own title. The
+ *  links carry an open ticket, so a member's tap works without a header. */
+export function fileLinks(slug, page, title = '', mime = 'application/pdf', ticket = null) {
+  const q = `${SITE}/api/library-file?slug=${encodeURIComponent(slug)}&open=1${ticketQuery(ticket)}`;
   const fmt = formatOf(mime, title);
   const ext = fmt ? `.${fmt.toLowerCase()}` : '';
   const name = title ? `&name=${encodeURIComponent(`${displayTitle(title).slice(0, 140)}${ext}`)}` : '';
@@ -214,10 +216,11 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [], specific
     .sort((a, b) => Number(b.kindMatch) - Number(a.kindMatch) || b.score - a.score || String(a.title).localeCompare(String(b.title)));
 }
 
-async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body }) {
+// `token` is the member's own: behind the Chula wall the library answers members only.
+async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, token }) {
   const r = await fetchImpl(url, {
     method,
-    headers: { apikey: cfg.key, Authorization: `Bearer ${cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
+    headers: { apikey: cfg.key, Authorization: `Bearer ${token || cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: body ? JSON.stringify(body) : undefined,
     signal,
   });
@@ -254,7 +257,7 @@ export function tidySnippet(s) {
  *   items: ranked documents for the card; pages: the text of the best matching
  *   pages (answer turns only) for the writer to cite.
  */
-export async function findFiles({ terms = [], needles = [], subjects = [], kind = '', title = '', files = false, specificity = null, topic = null, animal = null }, { env = process.env, fetchImpl = fetch, signal, timeoutMs } = {}) {
+export async function findFiles({ terms = [], needles = [], subjects = [], kind = '', title = '', files = false, specificity = null, topic = null, animal = null }, { env = process.env, fetchImpl = fetch, signal, timeoutMs, token = null } = {}) {
   const cfg = libraryConfig(env);
   const list = phraseList({ terms, needles, title });
   const phrases = list.map((p) => p.q);
@@ -262,7 +265,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
   // a student who asked for files waits for them; an answer only borrows a moment
   const timer = AbortSignal.timeout(timeoutMs ?? (files ? FILES_TIMEOUT_MS : TIMEOUT_MS));
   const sig = signal ? AbortSignal.any([signal, timer]) : timer;
-  const io = { cfg, fetchImpl, signal: sig };
+  const io = { cfg, fetchImpl, signal: sig, token };
   try {
     // page search for every phrase, and (for a request for files) titles too:
     // every word of the named title, or of the main term, in any order
@@ -347,7 +350,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
         bytes: Number(d.byte_size) || null,
         page: page || null,
         snippet: tidySnippet(d.snippet),
-        ...fileLinks(d.slug, page, d.title, d.mime || undefined),
+        ...fileLinks(d.slug, page, d.title, d.mime || undefined, token ? mintOpenTicket(d.slug) : null),
       };
     });
 
@@ -376,7 +379,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
 }
 
 /** A matching page as a numbered source: the writer reads it, the page links to it. */
-export function pageSource({ doc, page, body }, { needles = [] } = {}) {
+export function pageSource({ doc, page, body }, { needles = [], token = null } = {}) {
   const kindLabel = FILE_KINDS[doc.kind] || FILE_KINDS.other;
   const subject = subjectLabel(doc.subject);
   const flat = body.replace(/\s+/g, ' ');
@@ -388,7 +391,7 @@ export function pageSource({ doc, page, body }, { needles = [] } = {}) {
     title: clip(displayTitle(doc.title), 140),
     subtitle: `${kindLabel}${subject ? ` ${subject}` : ''}, หน้า ${page}`,
     subject,
-    url: fileLinks(doc.slug, page).open,
+    url: fileLinks(doc.slug, page, '', undefined, token ? mintOpenTicket(doc.slug) : null).open,
     snippet: clip(flat.slice(Math.max(0, at - 60)), 220),
     context: clip(body, 1500),
   };
@@ -422,5 +425,7 @@ export function filesLead(items) {
 export async function warmLibrary({ env = process.env, fetchImpl = fetch } = {}) {
   const cfg = libraryConfig(env);
   if (!cfg) return;
-  await getJSON(`${cfg.base}/rest/v1/rpc/library_search`, { cfg, fetchImpl, signal: AbortSignal.timeout(1500), method: 'POST', body: { q: 'diagnosis', max_docs: 1 } }).catch(() => {});
+  // The Chula wall's own state is the one call that answers without a session: it
+  // keeps the database awake (the daily keep-alive) and the connection warm.
+  await getJSON(`${cfg.base}/rest/v1/rpc/chula_access_state`, { cfg, fetchImpl, signal: AbortSignal.timeout(1500), method: 'POST', body: {} }).catch(() => {});
 }

@@ -49,7 +49,7 @@ export function AccountButton() {
     <button
       type="button"
       className={`icon-btn acct-btn${signedIn && account.profile ? ' is-in' : ''}${account.status === 'loading' ? ' is-loading' : ''}`}
-      onClick={() => ask(signedIn ? (account.profile ? 'menu' : 'profile') : 'signin')}
+      onClick={() => ask(signedIn ? 'menu' : 'signin')}
       aria-label={label}
       aria-haspopup="dialog"
       title={label}
@@ -76,7 +76,7 @@ export function AccountSheets() {
   return (
     <Suspense fallback={null}>
       {sheet === 'signin' && account.status !== 'in' && <SignInSheet open onClose={close} />}
-      {sheet === 'menu' && account.profile && <AccountMenu open onClose={close} onEdit={() => setSheet('profile')} />}
+      {sheet === 'menu' && account.status === 'in' && <AccountMenu open onClose={close} onEdit={() => setSheet('profile')} />}
       {account.status === 'in' && (sheet === 'profile' || account.setup) && <ProfileSheet open onClose={close} />}
     </Suspense>
   );

@@ -11,6 +11,7 @@
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { buildCatalog, validateAction } from './_lib/agent-actions.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 const MAX_UTTERANCE = 300;
 
@@ -55,11 +56,13 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   const ip = clientIP(req);
   const rl = await rateLimit(`agent-action:${ip}`, 30, 60 * 60 * 1000);
