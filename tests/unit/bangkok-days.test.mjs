@@ -119,7 +119,7 @@ test('the screens read the Bangkok helpers', () => {
   assert.match(read('views/PhaseWrappedView.jsx'), /return calendarDaysBetween\(now, date\);/);
   // A paper is sat once it has ended, and the date tile prints the row's day.
   const schedule = read('views/ScheduleView.jsx');
-  assert.match(schedule, /const isOver = \(e\) => e\.daysLeft < 0 \|\| examEndMs\(e\) <= nowMs;/);
+  assert.match(schedule, /const isOver = \(e\) => e\.daysLeft < 0 \|\| \(e\.daysLeft === 0 && examEndMs\(e\) <= nowMs\);/);
   assert.match(schedule, /const isPast = isOver\(exam\);/);
   assert.match(schedule, /\{new Date\(exam\.date\)\.getUTCDate\(\)\}/);
   assert.doesNotMatch(schedule, /\{new Date\(exam\.date\)\.getDate\(\)\}/);

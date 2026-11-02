@@ -362,7 +362,7 @@ export function msUntilExam(exam, now = new Date()) {
 // Used to filter exams that have already finished today (e.g. COM V
 // at 08:30-10:30 has finished by 11:00 — should NOT still show as
 // "next exam" for the rest of the day).
-function examEndMs(exam) {
+export function examEndMs(exam) {
   // Use declared duration if available; fall back to 3 hr (longest in y4)
   const durMin = exam.duration_min || 180;
   return examStartMs(exam) + durMin * 60 * 1000;

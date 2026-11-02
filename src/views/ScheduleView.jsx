@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { SEMESTER, examTitle, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import { SEMESTER, examTitle, fmtThaiDate, getUpcomingExams, shortCountdown, examEndMs } from '../data/schedule.js';
 import { examTimetable } from '../lib/exam-timetable.js';
 import WeekTimetable from '../components/WeekTimetable.jsx';
 import AcademicCalendar from '../components/AcademicCalendar.jsx';
@@ -10,7 +10,6 @@ import AcademicCalendar from '../components/AcademicCalendar.jsx';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { buildExamPool } from '../lib/exam-pool.js';
-import { examEndMs } from '../lib/exam-countdown.js';
 import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
 import BackBar from '../components/BackBar.jsx';
 import FeatureTip from '../components/FeatureTip.jsx';
@@ -108,7 +107,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
   // A paper is sat once it has ended, not once its day has: at 16:00 the
   // 13:00-15:00 paper still read วันนี้! over its practice button until midnight.
   const nowMs = Date.now();
-  const isOver = (e) => e.daysLeft < 0 || examEndMs(e) <= nowMs;
+  const isOver = (e) => e.daysLeft < 0 || (e.daysLeft === 0 && examEndMs(e) <= nowMs);
   const pastCount = allExams.filter(isOver).length;
   const exams = showPast ? allExams : allExams.filter((e) => !isOver(e));
 
