@@ -378,3 +378,33 @@ test('a stored session restored on load (SIGNED_IN, same account) keeps the OAut
   emit('SIGNED_IN', { access_token: 'n', user: MEMBER });
   assert.equal(wall.get().problem, null, 'another account clears it');
 });
+
+test('an empty slot is judged only after the delay and once the page is idle', async () => {
+  const { watchDrawn } = await import('../../src/lib/auth/gis.js');
+  // A fake window: timers and idle callbacks run only when the test says so.
+  const timers = [];
+  const idles = [];
+  const win = {
+    setTimeout: (fn) => timers.push(fn),
+    clearTimeout: (id) => { if (id) timers[id - 1] = null; },
+    requestIdleCallback: (fn) => idles.push(fn),
+    cancelIdleCallback: (id) => { if (id) idles[id - 1] = null; },
+  };
+  let drawn = false;
+  let empties = 0;
+  const el = { querySelector: () => (drawn ? { getBoundingClientRect: () => ({ width: 300, height: 40 }) } : null) };
+  watchDrawn(el, () => { empties += 1; }, { win });
+  timers[0]();
+  assert.equal(empties, 0, 'the delay passing on a busy page judges nothing yet');
+  drawn = true;
+  idles[0]();
+  assert.equal(empties, 0, "Google's button that drew while the page was busy keeps its place");
+  drawn = false;
+  watchDrawn(el, () => { empties += 1; }, { win });
+  timers[1]();
+  idles[1]();
+  assert.equal(empties, 1, 'still empty once the page is idle: the fallback button takes over');
+  const stop = watchDrawn(el, () => { empties += 1; }, { win });
+  stop();
+  assert.equal(timers[2], null, 'cancelled with the component, never judged');
+});

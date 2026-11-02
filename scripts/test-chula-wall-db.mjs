@@ -10,7 +10,9 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-const MIGRATION = path.join(ROOT, 'supabase/migrations/20261101170000_chula_wall.sql');
+// Applied in order, as production has them.
+const MIGRATIONS = ['20261101170000_chula_wall.sql', '20261102190000_chula_hook_wording.sql']
+  .map((name) => path.join(ROOT, 'supabase/migrations', name));
 const backend = process.argv.find((a) => a.startsWith('--backend='))?.slice(10) || 'pglite';
 assert(['pglite', 'postgres'].includes(backend));
 
@@ -144,8 +146,7 @@ try {
 
   // The accounts above exist before the migration, as production's do (the two
   // email/password Chula accounts included); the migration is applied on top.
-  const migration = fs.readFileSync(MIGRATION, 'utf8');
-  await run(migration);
+  for (const file of MIGRATIONS) await run(fs.readFileSync(file, 'utf8'));
 
   await check('the migration ships the wall off, and off changes nothing', async () => {
     assert.equal(await value(`select public.chula_wall_enforced()::text`), 'false');
@@ -158,7 +159,11 @@ try {
   await check('wall off or on, nobody reserves a Chula address with a password or another provider', async () => {
     const hook = (email, provider) => value(`select public.hook_before_user_created(${q(JSON.stringify({ user: { email, app_metadata: { provider } } }))}::jsonb)::text`);
     for (const provider of ['email', 'discord', 'apple']) {
-      assert.equal(JSON.parse(await hook('squat@student.chula.ac.th', provider)).error?.http_code, 403, provider);
+      const out = JSON.parse(await hook('squat@student.chula.ac.th', provider));
+      assert.equal(out.error?.http_code, 403, provider);
+      // A Chula address is told to use the Google button, never that it is not a Chula email.
+      assert.match(out.error.message, /ปุ่ม Google/, provider);
+      assert.doesNotMatch(out.error.message, /ไม่ใช่อีเมลจุฬา/, provider);
     }
     assert.equal(await hook('fresh@student.chula.ac.th', 'google'), '{}');
     await rejects(`insert into auth.users (id, email, raw_app_meta_data) values (gen_random_uuid(), 'squat2@student.chula.ac.th', '{"provider":"email"}')`, /chula_only/);
@@ -206,6 +211,8 @@ try {
       const out = JSON.parse(await hook(email, provider));
       assert.equal(out.error?.http_code, 403, `${email} ${provider}`);
       assert.match(out.error.message, /อีเมลจุฬา/);
+      const chulaAddress = /@(student\.)?chula\.ac\.th$/.test(email);
+      assert.match(out.error.message, chulaAddress ? /ปุ่ม Google/ : /ไม่ใช่อีเมลจุฬา/, `${email} ${provider}`);
     }
   });
 
@@ -292,8 +299,8 @@ try {
     assert.match(setting || '', /pgrst\.db_pre_request=public\.chula_pre_request/);
   });
 
-  await check('the migration applies twice without error and keeps the switch', async () => {
-    await run(migration);
+  await check('the migrations apply twice without error and keep the switch', async () => {
+    for (const file of MIGRATIONS) await run(fs.readFileSync(file, 'utf8'));
     assert.equal(await value(`select public.chula_wall_enforced()::text`), 'true');
     const tables = await value(`select count(*) + 2 from pg_class c join pg_namespace n on n.oid = c.relnamespace where c.relkind in ('r', 'p') and n.nspname in ('public', 'vca')`);
     assert.equal(await value(`select count(*) from pg_policies where policyname = 'chula members only'`), tables);

@@ -76,3 +76,33 @@ test('no hint for no domain, no One Tap unless asked, and a narrow slot still ge
   await assert.rejects(renderGoogleButton(null, { onCredential() {} }), /container/);
   await assert.rejects(renderGoogleButton({}, { clientId: '', onCredential() {} }), /NO_GOOGLE_CLIENT_ID/);
 });
+
+test('an empty slot is judged only after the delay and once the page is idle', async () => {
+  const { watchDrawn } = await import('../../src/lib/gis.js');
+  // A fake window: timers and idle callbacks run only when the test says so.
+  const timers = [];
+  const idles = [];
+  const win = {
+    setTimeout: (fn) => timers.push(fn),
+    clearTimeout: (id) => { if (id) timers[id - 1] = null; },
+    requestIdleCallback: (fn) => idles.push(fn),
+    cancelIdleCallback: (id) => { if (id) idles[id - 1] = null; },
+  };
+  let drawn = false;
+  let empties = 0;
+  const el = { querySelector: () => (drawn ? { getBoundingClientRect: () => ({ width: 300, height: 40 }) } : null) };
+  watchDrawn(el, () => { empties += 1; }, { win });
+  timers[0]();
+  assert.equal(empties, 0, 'the delay passing on a busy page judges nothing yet');
+  drawn = true;
+  idles[0]();
+  assert.equal(empties, 0, "Google's button that drew while the page was busy keeps its place");
+  drawn = false;
+  watchDrawn(el, () => { empties += 1; }, { win });
+  timers[1]();
+  idles[1]();
+  assert.equal(empties, 1, 'still empty once the page is idle: the fallback button takes over');
+  const stop = watchDrawn(el, () => { empties += 1; }, { win });
+  stop();
+  assert.equal(timers[2], null, 'cancelled with the component, never judged');
+});
