@@ -17,14 +17,16 @@
 // - `date`: the day it ran (or will run); `time` only where it differs from
 //   the course's weekly `slot`. `planned`: the course document's date(s) when
 //   the class ran on another day. `held`: a recording or an announcement shows
-//   it ran on `date`.
+//   it ran on `date`. `dayUnknown`: the class did not run on its planned
+//   day and no evidence yet says when it did.
 // - `topics`: curriculum topic ids it taught. The unit test checks each
 //   against its topic's examScope.
 // - `paper`: only where the evidence puts the content off the side of the
 //   midterm its date gives (null: examined on neither paper).
 // - `kind`: 'holiday', 'activity' and 'makeup' rows are printed but examine
 //   nothing. `change`: an announcement in the class LINE group, with the day
-//   it was posted. `note`: what else the evidence says (a recording's own title).
+//   it was posted. `note`: what else the evidence says (a recording's own
+//   title, quoted without its lecture numbers and date).
 // - `papers`: the written papers the faculty timetable holds for the course;
 //   `to`/`from` only where the course's document states the window itself.
 // Lecturer names are as the sources print them, without academic titles.
@@ -89,8 +91,8 @@ export const SYLLABI = {
         sources: [MCV_PRINT('3107508', 2569), RECORDINGS, CLASS_LINE, FACULTY_ROOM],
         papers: { final: {} },
         sessions: [
-          { date: '2026-08-03', held: true, title: 'Introduction to Epidemiology, Basic concept in Epidemiology, Concept of disease transmission, Concept of Causal Association', lecturers: [NIWAT, THANICHA], topics: ['epidem-intro', 'epidem-basic-concepts', 'epidem-disease-transmission', 'epidem-causation'], change: classLine('2026-07-27', 'คาบ อ.นิวัตร เหลือ 10:00–11:00 และเรียนชดเชย 10 ส.ค.') },
-          { date: '2026-08-10', time: '09:00–12:00', held: true, title: 'Measurement of Disease Frequency, Diagnostic and screening test, Agreement of Test', lecturers: [VACHIRA], topics: ['epidem-disease-frequency', 'epidem-dx-screening', 'epidem-test-agreement'] },
+          { date: '2026-08-03', held: true, title: 'Introduction to Epidemiology, Concept of disease transmission, Concept of Causal Association', lecturers: [NIWAT, THANICHA], topics: ['epidem-intro', 'epidem-disease-transmission', 'epidem-causation'], change: classLine('2026-07-27', 'คาบ อ.นิวัตร เหลือ 10:00–11:00 และเรียนชดเชย 10 ส.ค.') },
+          { date: '2026-08-10', time: '09:00–12:00', planned: ['2026-08-03', '2026-08-10'], held: true, title: 'Basic concept in Epidemiology, Measurement of Disease Frequency, Diagnostic and screening test, Agreement of Test', lecturers: [NIWAT, VACHIRA], topics: ['epidem-basic-concepts', 'epidem-disease-frequency', 'epidem-dx-screening', 'epidem-test-agreement'], note: clip('Basic concept in Epidemiology + Measurement') },
           { date: '2026-08-17', held: true, title: 'Study designs, Sample size determination', lecturers: [CHAIDATE, THANICHA], topics: ['epidem-observational-study', 'epidem-sample-size'] },
           { date: '2026-08-24', held: true, title: 'Animal Disease Surveillance and Monitoring, Outbreak investigation', lecturers: [SAHA], topics: ['epidem-surveillance', 'epidem-outbreak-investigation'] },
           { date: '2026-08-31', held: true, title: 'Principle of Disease prevention, control and eradication, Government Policy and Practice on Disease prevention, control and eradication', lecturers: [NIWAT], topics: ['epidem-control-prevention', 'epidem-govt-policy'] },
@@ -99,7 +101,7 @@ export const SYLLABI = {
           { date: '2026-09-28', held: true, title: 'Emerging Infectious Diseases & Pandemic Preparedness, Introduction to Economics and Decision Tools for Veterinary Epidemiology', lecturers: [THANICHA], topics: ['epidem-eid-pandemic', 'epidem-economics'], paper: null, change: classLine('2026-09-27', 'เรียนออนไลน์ เนื้อหาที่เรียนวันที่ 28 ก.ย. ไม่ออกสอบ') },
           { date: '2026-10-05', held: true, title: 'Module 1: Consideration of Diagnostic tool for Epi. Approach', lecturers: EPID_STAFF, topics: [], change: classLine('2026-10-04', 'เริ่มที่ห้อง 807 แล้วบางกลุ่มแยกไปห้อง Smart Classroom') },
           { date: '2026-10-12', held: true, title: 'Module 2: Observational study', lecturers: EPID_STAFF, topics: [] },
-          { date: '2026-10-19', title: 'Module 2: Observational study', lecturers: EPID_STAFF, topics: [] },
+          { date: '2026-10-19', held: true, title: 'Module 2: Observational study', lecturers: EPID_STAFF, topics: [] },
           { date: '2026-10-26', title: 'Module 3: Outbreak Investigation, surveillance', lecturers: EPID_STAFF, topics: [] },
           { date: '2026-11-02', title: 'Module 4: Prevention, control and Eradication', lecturers: EPID_STAFF, topics: [] },
           { date: '2026-11-09', title: 'Module 4: Prevention, control and Eradication', lecturers: EPID_STAFF, topics: [] },
@@ -150,6 +152,7 @@ export const SYLLABI = {
         slot: { day: 'อังคาร', time: '13:00–16:00', room: 'ห้อง 807' },
         sources: [{ title: 'ตารางเรียนวิชา Avian Medicine ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
         papers: { midterm: { to: '2026-09-15' }, final: { from: '2026-10-06' } },
+        notes: [{ text: 'ผู้เข้าร่วมกิจกรรม HIPRA วันที่ 17 พ.ย. ได้คะแนนพิเศษ 0.5% บวกกับคะแนนสอบปลายภาคส่วนที่ อ.เกรียงวิชญ์ สอน', source: classLine('2026-10-28') }],
         assessment: {
           items: [
             { label: 'สอบกลางภาค', pct: 54, parts: [[JIROJ, 8], [SOMSAK, 15], [NATAYA, 23], [KRIENG, 8]] },
@@ -166,10 +169,10 @@ export const SYLLABI = {
           { date: '2026-09-15', held: true, title: 'Avian Salmonellosis, Adenovirus Infections, Avian Encephalomyelitis, Omphalitis, Ascites, Staphylococcosis', lecturers: [KRIENG], topics: ['avian-salmonella', 'avian-adeno', 'avian-ae', 'avian-ahra-set'] },
           { date: '2026-10-06', planned: ['2026-11-10', '2026-11-17'], held: true, title: 'Vaccines, vaccination and vaccination programs, Serology Interpretation', lecturers: [JIROJ], topics: ['avian-vaccine-prog', 'avian-serology'] },
           { date: '2026-10-19', time: '09:00–10:00', planned: '2026-10-27', held: true, title: 'Mycotic Infections', lecturers: [NIWAT], topics: ['avian-mycosis'], change: classLine('2026-08-29', 'คาบบ่าย 27 ต.ค. ย้ายมาเรียนวันจันทร์ 19 และ 26 ต.ค. 09:00–10:00') },
-          { date: '2026-10-20', planned: ['2026-10-06', '2026-10-20'], held: true, title: 'Duck Virus Enteritis, Duck Virus Hepatitis, New Duck Syndrome, Goose Parvovirus Infection, Duck Flavivirus Infection', lecturers: [KRIENG], topics: ['avian-duck-plague', 'avian-dvh', 'avian-nds', 'avian-goose-parvo', 'avian-duck-flavi'], note: clip('RA DVE DVH DTMUV GP AI') },
+          { date: '2026-10-20', planned: ['2026-10-06', '2026-10-20'], held: true, title: 'Duck Virus Enteritis, Duck Virus Hepatitis, New Duck Syndrome, Goose Parvovirus Infection, Duck Flavivirus Infection', lecturers: [KRIENG], topics: ['avian-duck-plague', 'avian-dvh', 'avian-nds', 'avian-goose-parvo', 'avian-duck-flavi'], note: clip('AHRA Avian med: RA DVE DVH DTMUV GP AI') },
           { date: '2026-10-26', time: '09:00–10:00', planned: '2026-10-27', held: true, title: 'Mycotic Infections (ต่อ), Mycotoxicosis', lecturers: [NIWAT], topics: ['avian-mycosis'] },
           { date: '2026-11-03', title: 'Ornithobacteriosis, Campylobacteriosis, Listeriosis, Histomoniasis', lecturers: [NIWAT], topics: ['avian-ort', 'avian-campy', 'avian-listeria', 'avian-histomoniasis'] },
-          { date: '2026-11-17', planned: '2026-09-29', kind: 'activity', title: 'Activities with Hipra', lecturers: [KRIENG], topics: [], change: classLine('2026-09-28', 'ย้ายมาจาก 29 ก.ย. ผู้เข้าร่วมได้คะแนนพิเศษ') },
+          { date: '2026-11-17', planned: '2026-09-29', kind: 'activity', title: 'Activities with Hipra', lecturers: [KRIENG], topics: [], change: classLine('2026-09-28', 'เลื่อนมาจาก 29 ก.ย.') },
         ],
       },
 
@@ -180,15 +183,15 @@ export const SYLLABI = {
         sources: [MCV_PRINT('3107522', 2569), CLASS_LINE, FACULTY_ROOM],
         papers: {},
         sessions: [
-          { date: '2026-08-05', title: 'Introduction to Problem Oriented Approach', lecturers: [VACHIRA], topics: ['poa-intro'] },
+          { date: '2026-08-05', held: true, title: 'Introduction to Problem Oriented Approach', lecturers: [VACHIRA], topics: ['poa-intro'] },
           { date: '2026-08-20', planned: '2026-08-19', held: true, title: 'Approach to vomiting and regurgitating patient', lecturers: ['ปุญญมณี แหยมเกตุ'], topics: ['poa-vomiting'], change: classLine('2026-08-19', 'งดเรียน 19 ส.ค. เรียนชดเชยวันพฤหัสบดี 20 ส.ค. เริ่ม 15:00') },
-          { date: '2026-08-26', title: 'Approach to diarrhea patient', lecturers: ['ชูติรัตน์ ต่อสหะกุล'], topics: ['poa-diarrhea'] },
-          { date: '2026-09-02', title: 'Approach to patient with Effusion, edema, abdominal enlargement', lecturers: ['สิริลักษณ์ สุรเชษฐพงษ์'], topics: ['poa-edema'] },
-          { date: '2026-09-09', title: 'Approach to patient with cough, sneeze, nasal discharge', lecturers: ['ณัฐวรรณ ตั้งมหากุล'], topics: ['poa-respiratory'] },
-          { date: '2026-09-16', title: 'Approach to Anorexia, weight loss patient', lecturers: ['ปุญญมณี แหยมเกตุ'], topics: ['poa-anorexia'] },
-          { date: '2026-09-30', title: 'Approach to patient with pale mucous membrane, anemia', lecturers: [VACHIRA], topics: ['poa-pale-mm'] },
-          { date: '2026-10-07', title: 'Approach to jaundice patient', lecturers: ['กฤษฎา บุญอร่ามเรือง'], topics: ['poa-jaundice'] },
-          { date: '2026-10-14', title: 'Approach to patient with red urine, bleeding disorder', lecturers: [VACHIRA], topics: ['poa-red-urine'] },
+          { date: '2026-08-26', held: true, title: 'Approach to diarrhea patient', lecturers: ['ชูติรัตน์ ต่อสหะกุล'], topics: ['poa-diarrhea'] },
+          { date: '2026-09-02', held: true, title: 'Approach to patient with Effusion, edema, abdominal enlargement', lecturers: ['สิริลักษณ์ สุรเชษฐพงษ์'], topics: ['poa-edema'] },
+          { date: '2026-09-09', held: true, title: 'Approach to patient with cough, sneeze, nasal discharge', lecturers: ['ณัฐวรรณ ตั้งมหากุล'], topics: ['poa-respiratory'] },
+          { date: '2026-09-16', held: true, title: 'Approach to Anorexia, weight loss patient', lecturers: ['ปุญญมณี แหยมเกตุ'], topics: ['poa-anorexia'] },
+          { date: '2026-09-30', held: true, title: 'Approach to patient with pale mucous membrane, anemia', lecturers: [VACHIRA], topics: ['poa-pale-mm'] },
+          { date: '2026-10-07', held: true, title: 'Approach to jaundice patient', lecturers: ['กฤษฎา บุญอร่ามเรือง'], topics: ['poa-jaundice'] },
+          { date: '2026-10-14', held: true, title: 'Approach to patient with red urine, bleeding disorder', lecturers: [VACHIRA], topics: ['poa-red-urine'] },
           { date: '2026-10-21', title: 'Approach to clinical problems in exotic pets 1', lecturers: ['ธวัช เล็กดำรงศักดิ์'], topics: ['poa-exotic'] },
           { date: '2026-10-28', title: 'Approach to clinical problems in exotic pets 2', lecturers: ['ธวัช เล็กดำรงศักดิ์'], topics: ['poa-exotic'] },
           { date: '2026-11-04', title: 'Approach to patient with collapse, seizure, syncope problem', lecturers: ['กฤษฎา บุญอร่ามเรือง'], topics: ['poa-collapse'] },
@@ -235,7 +238,7 @@ export const SYLLABI = {
           { date: '2026-08-19', held: true, title: 'One World - One Health concept', lecturers: [SIRAWIT], topics: ['oh-concept'] },
           { date: '2026-09-02', held: true, title: 'Global One Health activity network', lecturers: [SAHA], topics: ['oh-global-network'] },
           { date: '2026-09-09', planned: ['2026-09-09', '2026-09-16'], held: true, title: 'One Health communication skills, Transdisciplinary collaboration and partnership in One Health issues', lecturers: [SIRAWIT], topics: ['oh-communication', 'oh-collaboration'], change: classLine('2026-09-09', 'วันที่ 16 ก.ย. ไม่มีเรียน') },
-          { date: '2026-09-10', time: '13:00–16:00', planned: '2026-08-26', held: true, title: 'One Health approach to combat emerging and re-emerging diseases', lecturers: [KAMONPAN, 'อลงกร อมรศิลป์'], topics: ['oh-disease-prevention'], change: classLine('2026-08-21', 'เนื้อหาที่ยังไม่ได้สอนย้ายมาสอนวันพฤหัสบดี 10 ก.ย. 13:00–16:00') },
+          { date: '2026-09-10', time: '13:00–16:00', planned: '2026-08-26', held: true, title: 'One Health approach to combat emerging and re-emerging diseases', lecturers: [KAMONPAN, 'อลงกร อมรศิลป์'], topics: ['oh-disease-prevention'], change: classLine('2026-09-02', 'เนื้อหาที่อาจารย์สอนไม่ทันและยังไม่ได้สอน ย้ายมาสอนวันนี้ 13:00–16:00') },
           { date: '2026-09-30', planned: '2026-10-14', held: true, title: 'One Health approach to combat antimicrobial resistance', lecturers: [RUNGTIP], topics: ['oh-amr'], change: classLine('2026-09-29', 'เรียนออนไลน์') },
           { date: '2026-10-07', planned: ['2026-10-07', '2026-11-18'], held: true, title: 'Animal and human health risk analysis, Import risk assessment', lecturers: [SUPHACHAI], topics: ['oh-risk-analysis', 'oh-import-risk'] },
           { date: '2026-10-14', planned: '2026-09-30', held: true, title: 'One Health approach to combat foodborne diseases', lecturers: [TARADOL], topics: ['oh-foodborne'] },
@@ -325,9 +328,9 @@ export const SYLLABI = {
           { date: '2026-10-01', held: true, title: 'ภาวะเยื่อบุมดลูกอักเสบในม้า', lecturers: [SWANGCHAN], topics: ['eqrepro-endometritis'] },
           { date: '2026-10-08', planned: ['2026-09-17', '2026-10-08'], held: true, title: 'กายวิภาคและการทำหน้าที่ของระบบสืบพันธุ์ กระบวนการสร้างอสุจิ, การตรวจระบบสืบพันธุ์ม้าเพศผู้ทางคลินิก', lecturers: [THARASANIT], topics: ['eqrepro-male'] },
           { date: '2026-10-15', planned: ['2026-10-15', '2026-10-22'], held: true, title: 'เทคโนโลยีการเก็บน้ำเชื้อและการผสมเทียม, โรคติดเชื้อที่สำคัญของม้าเพศผู้', lecturers: [THARASANIT], topics: ['eqrepro-ai', 'eqrepro-stallion-infect'], note: clip('Semen collection and insemination + Infertility problem in stallion') },
-          { date: '2026-10-29', title: 'ศัลยกรรมที่สำคัญของม้าเพศผู้และเพศเมีย', lecturers: [SAWITA], topics: ['eqrepro-surgery'] },
-          { date: '2026-11-05', title: 'การตั้งท้องและการคลอด การดูแลลูกม้าหลังคลอด', lecturers: [SAWITA], topics: ['eqrepro-pregnancy'] },
-          { date: '2026-11-12', title: 'ความผิดปกติของการคลอด และปัญหาหลังคลอดในม้า', lecturers: [SAWITA], topics: ['eqrepro-postpartum'] },
+          { date: '2026-10-29', title: 'ศัลยกรรมที่สำคัญของม้าเพศผู้และเพศเมีย', lecturers: [SAWITA], topics: ['eqrepro-surgery'], change: classLine('2026-10-23', 'เนื้อหาอายุรศาสตร์ม้าของวันนี้สอนไปแล้ว จึงเรียนส่วนของ อ.ศวิตา ทั้งหมดแทนตั้งแต่เช้า ถ้าสอนเช้าเสร็จทันก็ไม่มีบ่าย') },
+          { date: '2026-10-29', planned: '2026-11-05', title: 'การตั้งท้องและการคลอด การดูแลลูกม้าหลังคลอด', lecturers: [SAWITA], topics: ['eqrepro-pregnancy'] },
+          { date: '2026-10-29', planned: '2026-11-12', title: 'ความผิดปกติของการคลอด และปัญหาหลังคลอดในม้า', lecturers: [SAWITA], topics: ['eqrepro-postpartum'] },
         ],
       },
 
@@ -351,8 +354,8 @@ export const SYLLABI = {
           { date: '2026-08-21', held: true, title: 'Comprehensive Rabies Control in Thailand: Outbreak Monitoring, Surveillance, Prevention, and Management', lecturers: ['อรปวีณ์ สการะเศรณี', KAMONPAN], topics: ['zoo-rabies'] },
           { date: '2026-08-28', planned: ['2026-08-14', '2026-08-28'], held: true, title: 'Emerging and Undetected Zoonotic Viruses, Viral zoonoses II: coronavirus', lecturers: ['นวพล เตชะเกรียงไกร', 'วลีมาศ ใจรักษ์', KAMONPAN], topics: ['zoo-eid-cuvet', 'zoo-corona'] },
           { date: '2026-09-04', held: true, title: 'Epidemiological Investigation of Zoonotic Outbreaks in Thailand: Lessons Learned and Future Preparedness', lecturers: ['พีริยะ วตะกูลสิน', KAMONPAN], topics: ['zoo-outbreak'] },
-          { date: '2026-09-10', time: '13:00–16:00', planned: '2026-09-11', held: true, title: 'Parasitic zoonoses (Helminth)', lecturers: ['ปิยนันท์ ทวีถาวรสวัสดิ์'], topics: ['zoo-helminthic'], change: classLine('2026-08-21', 'เนื้อหาที่ยังไม่ได้สอนย้ายมาสอนวันพฤหัสบดี 10 ก.ย. 13:00–16:00') },
-          { date: '2026-09-10', time: '13:00–16:00', planned: '2026-08-28', held: true, title: 'Rickettsia zoonosis', lecturers: [KAMONPAN], topics: ['zoo-rickettsial'] },
+          { date: '2026-09-10', planned: '2026-09-11', held: true, title: 'Parasitic zoonoses (Helminth)', lecturers: ['ปิยนันท์ ทวีถาวรสวัสดิ์'], topics: ['zoo-helminthic'], change: classLine('2026-09-10', 'อาจารย์สอนต่อในคาบเช้าวันนี้ จึงไม่มีเรียนเช้าวันพรุ่งนี้ (11 ก.ย.)'), note: clip('Helminthic zoonoses') },
+          { date: '2026-09-10', time: '13:00–16:00', planned: '2026-08-28', held: true, title: 'Rickettsia zoonosis', lecturers: [KAMONPAN], topics: ['zoo-rickettsial'], change: classLine('2026-09-02', 'เนื้อหาที่อาจารย์สอนไม่ทันและยังไม่ได้สอน ย้ายมาสอนวันนี้ 13:00–16:00') },
           { date: '2026-09-18', held: true, title: 'Parasitic zoonoses (Protozoa)', lecturers: ['วรพร สุขุมาวาสี'], topics: ['zoo-protozoal'] },
           { date: '2026-10-02', held: true, title: 'Mycozoonoses', lecturers: [SUPHACHAI], topics: ['zoo-mycoses'], change: classLine('2026-10-01', 'เรียนออนไซต์ เริ่มราว 09:30') },
           { date: '2026-10-16', kind: 'holiday', title: 'วันหยุดราชการ', lecturers: [], topics: [] },
@@ -377,14 +380,14 @@ export const SYLLABI = {
           { date: '2026-08-21', planned: ['2026-08-07', '2026-08-21'], held: true, title: 'โรคระบบทางเดินอาหารจากเชื้อไวรัส: โรคทีจีอี โรคพีอีดี โรคโรตาไวรัส, โรคระบบประสาท: โรคพิษสุนัขบ้า โรคเอ็นเซฟาโลมายโลคาร์ไดติส โรคบาดทะยัก โรคลิสเทอริโอซิส', lecturers: [AN], topics: ['swine-gi-viral', 'swine-cns'] },
           { date: '2026-08-28', held: true, title: 'โรคระบบทางเดินหายใจจากเชื้อแบคทีเรีย 1: โรคปอดและเยื่อหุ้มปอดอักเสบ (เอพีพี) โรคพาสเจอเรลโลซิส โรคโพรงจมูกอักเสบติดต่อ', lecturers: [PA], topics: ['swine-pornchalit-set'] },
           { date: '2026-09-04', held: true, title: 'โรคระบบทางเดินหายใจจากเชื้อแบคทีเรีย 2: โรคเกล๊สเซอร์ โรคสเตร็ปโตค็อคโคซิสในสุกร', lecturers: [PA], topics: ['swine-pornchalit-set'] },
-          { date: '2026-09-11', held: true, title: 'โรคระบบทางเดินหายใจจากเชื้อแบคทีเรีย 3: โรคมัยโคพลาสมาในสุกร', lecturers: [PA], topics: ['swine-pornchalit-set'] },
-          { date: '2026-09-18', title: 'โรคระบบกล้ามเนื้อ กระดูกและการเคลื่อนไหว', lecturers: [PA], topics: ['swine-pornchalit-set'] },
+          { date: '2026-09-11', time: '13:00–16:00', held: true, title: 'โรคระบบทางเดินหายใจจากเชื้อแบคทีเรีย 3: โรคมัยโคพลาสมาในสุกร', lecturers: [PA], topics: ['swine-pornchalit-set'] },
+          { date: '2026-09-11', time: '13:00–16:00', planned: '2026-09-18', held: true, title: 'โรคระบบกล้ามเนื้อ กระดูกและการเคลื่อนไหว', lecturers: [PA], topics: ['swine-pornchalit-set'], change: classLine('2026-09-10', 'วันนี้ 13:00–16:00 สอน 2 หัวข้อที่ต้องเรียนก่อนสอบกลางภาค และไม่มีเรียนวันที่ 18 ก.ย.') },
           { date: '2026-10-01', time: '14:00–16:00', planned: '2026-10-23', held: true, title: 'โรคระบบทางเดินอาหารจากเชื้อแบคทีเรีย 1: โรคบิดมูกเลือด โรคอิลิไอติส โรคคลอสตริเดียม โรคเยอซิเนีย', lecturers: [SW], topics: ['swine-ileitis-bacti'], note: clip('Swine enteric diseases'), change: classLine('2026-08-25', '16 และ 23 ต.ค. เป็นวันหยุด เรียนชดเชย 1 ต.ค. และ 7 ต.ค. เวลา 14:00') },
           { date: '2026-10-02', time: '12:50–15:40', held: true, title: 'โรคระบบสืบพันธุ์ของแม่พันธุ์และพ่อพันธุ์: โรคพีอาร์อาร์เอส โรคพาร์โวไวรัส โรคบรูเซลโลซิส MMA', lecturers: [PA], topics: ['swine-repro'], note: clip('Reproductive diseases'), change: classLine('2026-10-01', 'เรียนออนไลน์') },
           { date: '2026-10-07', time: '14:00–16:00', planned: '2026-10-23', held: true, title: 'โรคระบบทางเดินอาหารจากเชื้อแบคทีเรีย (ต่อ)', lecturers: [SW], topics: ['swine-ileitis-bacti'], note: clip('Yersinia') },
           { date: '2026-10-09', held: true, title: 'โรคพีอาร์อาร์เอส', lecturers: [PA], topics: ['swine-repro'], note: clip('Porcine reproductive and respiratory syndrome') },
-          { date: '2026-10-09', title: 'แนวทางการจัดการควบคุมป้องกันโรคระบาดในสุกร แนวทางการตรวจวินิจฉัยโรคสุกร', lecturers: [PA], topics: ['swine-control-dx'], note: 'ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
-          { date: '2026-10-16', title: 'โรคปากและเท้าเปื่อย โรคเซอร์โคไวรัส โรคทริปาโนโซโมซิสของสุกร โรคทริคิโนซิส โรคหนอนพยาธิ', lecturers: [SW], topics: ['swine-fmd', 'swine-pcv2', 'swine-trichinosis'], note: '16 ต.ค. เป็นวันหยุด ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
+          { date: '2026-10-09', title: 'แนวทางการจัดการควบคุมป้องกันโรคระบาดในสุกร แนวทางการตรวจวินิจฉัยโรคสุกร', lecturers: [PA], topics: ['swine-control-dx'], dayUnknown: true, note: 'ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
+          { date: '2026-10-16', title: 'โรคปากและเท้าเปื่อย โรคเซอร์โคไวรัส โรคทริปาโนโซโมซิสของสุกร โรคทริคิโนซิส โรคหนอนพยาธิ', lecturers: [SW], topics: ['swine-fmd', 'swine-pcv2', 'swine-trichinosis'], dayUnknown: true, note: '16 ต.ค. เป็นวันหยุด ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
           { date: '2026-10-30', title: 'โรคระบบทางเดินอาหารจากเชื้อแบคทีเรีย 2: โรคโคไลบาซิลโลซิส โรคแคมพิโลแบคเตอร์', lecturers: [SW], topics: ['swine-ileitis-bacti'] },
           { date: '2026-11-06', title: 'โรคอหิวาต์แอฟริกาในสุกร โรคอหิวาต์สุกร', lecturers: [RK], topics: ['swine-asf', 'swine-csf'] },
           { date: '2026-11-13', title: 'โรคพิษสุนัขบ้าเทียม โรคสมองอักเสบนิปาห์ โรคสมองอักเสบแจแปนิส', lecturers: [RK], topics: ['swine-prv-je'] },

@@ -125,17 +125,24 @@ function foot(card, notes, top) {
 /** One page with one setting: dry, or drawn. `body(card, y, opts)` returns { end, cut }. */
 function attempt(doc, notes, body, opts, { dry, scale }) {
   const card = createCard('light', 11, A4, { dry, scale });
-  page(card, doc);
-  const top = head(card, doc);
-  const limit = notesTop(card, notes) - 34;
-  const b = body(card, top.y, opts);
-  const cut = [...(top.cut ? ['the title is cut'] : []), ...b.cut, ...foot(card, notes, limit + 34)];
-  if (b.end > limit) cut.push(`the body ends at ${Math.round(b.end)}, past ${Math.round(limit)}`);
-  return { card, cut, slack: Math.round(limit - b.end) };
+  try {
+    page(card, doc);
+    const top = head(card, doc);
+    const limit = notesTop(card, notes) - 34;
+    const b = body(card, top.y, opts);
+    const cut = [...(top.cut ? ['the heading is cut'] : []), ...b.cut, ...foot(card, notes, limit + 34)];
+    const over = b.end > limit;
+    if (over) cut.push(`the body ends at ${Math.round(b.end)}, past ${Math.round(limit)}`);
+    return { card, cut, over, slack: Math.round(limit - b.end) };
+  } catch (err) {
+    // A page that could not be drawn gives its pixels back now; a phone holds them until collected.
+    if (!dry) { card.canvas.width = 0; card.canvas.height = 0; }
+    throw err;
+  }
 }
 
-/** The index of the first setting a page fits with, or -1. */
-const fitting = (doc, notes, body, settings) => settings.findIndex((o) => attempt(doc, notes, body, o, { dry: true }).cut.length === 0);
+/** The index of the first setting a page fits with at `scale` (the one it will be drawn at), or -1. */
+const fitting = (doc, notes, body, settings, scale) => settings.findIndex((o) => attempt(doc, notes, body, o, { dry: true, scale }).cut.length === 0);
 
 /** Draw a page in full: { card, problems, slack }, slack the room left above the notes. */
 function render(doc, notes, body, opts, scale) {
@@ -167,15 +174,18 @@ function nameLines(card, list, width, style) {
 }
 
 /** "เดิม 7 และ 21 ส.ค." broken only before "และ" or after a comma, never inside "21 ส.ค.". */
-function statusLines(card, text, width, style) {
+export function statusLines(card, text, width, style) {
   card.style(style);
+  // Pieces that start at "และ" or follow a comma (no lookbehind: older Safari cannot parse one).
+  const pieces = text.split(/(?= และ )/).flatMap((part) => part.split(', ').map((p, i, all) => (i < all.length - 1 ? `${p}, ` : p)));
   const lines = [];
-  for (const piece of text.split(/(?= และ )|(?<=, )/)) {
+  for (const piece of pieces) {
     const last = lines.at(-1);
-    if (last !== undefined && card.measure(last + piece) <= width) lines[lines.length - 1] = last + piece;
-    else lines.push(piece.trim());
+    // A line keeps its trailing space until the next piece joins it.
+    if (last !== undefined && card.measure((last + piece).trimEnd()) <= width) lines[lines.length - 1] = last + piece;
+    else lines.push(piece.trimStart());
   }
-  return lines;
+  return lines.map((l) => l.trimEnd());
 }
 
 function names(card, cut, list, x, top, width, style, role = 'names') {
@@ -207,6 +217,8 @@ const SYLLABUS_SETTINGS = [
   { size: 22, head: 28, gap: 10, row: 4 },
   { size: 22, head: 26, gap: 6, row: 2 },
   { size: 22, head: 24, gap: 4, row: 1 },
+  // Firefox at 2x set Zoonoses a few pixels past one page with the row above.
+  { size: 22, head: 24, gap: 2, row: 0 },
 ];
 
 function syllabusBody(card, doc, y, o) {
@@ -272,22 +284,49 @@ export async function drawSyllabus(doc, { scale = SCALE } = {}) {
   const notes = [...doc.notes, doc.source];
   const bodyOf = (d) => (card, y, o) => syllabusBody(card, d, y, o);
   const last = SYLLABUS_SETTINGS.length - 1;
-  const i = fitting(doc, notes, bodyOf(doc), SYLLABUS_SETTINGS);
+  const i = fitting(doc, notes, bodyOf(doc), SYLLABUS_SETTINGS, scale);
   if (i >= 0 || !doc.papers.length) {
     const setting = i < 0 ? last : i;
     const page = render(doc, notes, bodyOf(doc), SYLLABUS_SETTINGS[setting], scale);
     return { ...page, cards: [page.card], setting };
   }
   // Thai set wider than one page holds at the tightest setting (another
-  // engine's metrics): the first paper stays on page 1, the rest and the
-  // score split go to page 2.
-  const parts = [
-    { ...doc, kicker: `${doc.kicker}, หน้า 1 จาก 2`, papers: doc.papers.slice(0, 1), score: false },
-    { ...doc, kicker: `${doc.kicker}, หน้า 2 จาก 2`, facts: [], papers: doc.papers.slice(1) },
-  ];
-  const fit = parts.map((d) => fitting(d, notes, bodyOf(d), SYLLABUS_SETTINGS));
+  // engine's metrics, or the fallback faces): page 1 takes as many lecturer
+  // groups as it holds, ending at the first paper when that is in reach.
+  const multi = Math.min(scale, MULTI_PAGE_SCALE);
+  const groups = doc.papers.reduce((n, p) => n + p.groups.length, 0);
+  const holds = (k) => attempt(splitSyllabus(doc, k)[0], notes, bodyOf(splitSyllabus(doc, k)[0]), SYLLABUS_SETTINGS[last], { dry: true, scale: multi }).cut.length === 0;
+  let k = 0;
+  for (let lo = 0, hi = groups; lo <= hi;) {
+    const m = (lo + hi) >> 1;
+    if (holds(m)) { k = m; lo = m + 1; } else hi = m - 1;
+  }
+  k = Math.min(k, doc.papers[0].groups.length);
+  const parts = splitSyllabus(doc, k);
+  const fit = parts.map((d) => fitting(d, notes, bodyOf(d), SYLLABUS_SETTINGS, multi));
   const j = fit.includes(-1) ? last : Math.max(...fit);
   return renderPages(parts, notes, bodyOf, SYLLABUS_SETTINGS[j], scale, j);
+}
+
+/**
+ * The syllabus over two pages, cut after its k-th lecturer group counted
+ * across the papers: page 1 the facts and those groups, page 2 the rest (a
+ * paper cut in two heads its second part "(ต่อ)") and the score split.
+ */
+function splitSyllabus(doc, k) {
+  const first = [];
+  const second = [];
+  let left = k;
+  for (const p of doc.papers) {
+    const take = Math.min(left, p.groups.length);
+    left -= take;
+    if (take) first.push({ ...p, groups: p.groups.slice(0, take) });
+    if (take < p.groups.length) second.push(take ? { ...p, heading: `${p.heading} (ต่อ)`, when: '', covers: '', groups: p.groups.slice(take) } : p);
+  }
+  return [
+    { ...doc, kicker: `${doc.kicker}, หน้า 1 จาก 2`, papers: first, score: false },
+    { ...doc, kicker: `${doc.kicker}, หน้า 2 จาก 2`, facts: [], papers: second, noPaper: '' },
+  ];
 }
 
 // ── The teaching timetable ───────────────────────────────────
@@ -378,52 +417,60 @@ function teachingBody(card, doc, rows, y, o) {
 const pageOf = (doc, rows, k, total) => ({ ...doc, rows, kicker: `${doc.kicker}, หน้า ${k + 1} จาก ${total}`, staff: k ? '' : doc.staff });
 
 /**
- * A table longer than a page: as few pages as hold every row, cut after the
- * midterm paper when two pages hold those halves, else each page as full as
- * it goes, at the roomiest setting that keeps the count. Another engine's
- * Thai can run wider than the one this was checked on, so the count is found
- * where the page is drawn, never fixed. { parts, i }.
+ * A table longer than a page: as few pages as hold every row, the midterm's
+ * rows and the final's each from a fresh page when that costs no page, else
+ * each page as full as it goes, at the roomiest setting that keeps the count.
+ * Another engine's Thai can run wider than the one this was checked on, so
+ * the count is found where the page is drawn, never fixed. { parts, i }.
  */
-function paginate(doc, notes, bodyOf, settings) {
-  const n = doc.rows.length;
+function paginate(doc, notes, bodyOf, settings, scale) {
   const last = settings.length - 1;
   // The kicker's "หน้า 1 จาก 9" sets as wide as the final count's.
-  const fits = (rows, k, o) => {
+  const trial = (rows, k, o) => {
     const d = pageOf(doc, rows, k, 9);
-    return attempt(d, notes, bodyOf(d), o, { dry: true }).cut.length === 0;
+    return attempt(d, notes, bodyOf(d), o, { dry: true, scale });
   };
-  // A page that holds m rows holds fewer, so a binary search finds the most it takes.
-  const fill = (o) => {
+  // Page after page from page k0, each taking the most rows it holds (a page
+  // that holds m rows holds fewer, so a binary search finds it). `clean`:
+  // nothing cut and nothing past the notes; else only nothing past the notes,
+  // for a row cut whatever page it is on, which the check then names.
+  const fill = (rows, k0, o, clean) => {
     const parts = [];
-    for (let at = 0; at < n;) {
-      let lo = 1;
-      let hi = n - at;
+    for (let at = 0; at < rows.length;) {
       let take = 0;
-      while (lo <= hi) {
+      for (let lo = 1, hi = rows.length - at; lo <= hi;) {
         const m = (lo + hi) >> 1;
-        if (fits(doc.rows.slice(at, at + m), parts.length, o)) { take = m; lo = m + 1; } else hi = m - 1;
+        const t = trial(rows.slice(at, at + m), k0 + parts.length, o);
+        if (clean ? t.cut.length === 0 : !t.over) { take = m; lo = m + 1; } else hi = m - 1;
       }
       if (!take) return null;
-      parts.push(doc.rows.slice(at, at + take));
+      parts.push(rows.slice(at, at + take));
       at += take;
     }
     return parts;
   };
   const done = (parts, i) => ({ parts: parts.map((rows, k) => pageOf(doc, rows, k, parts.length)), i });
-  const fewest = fill(settings[last]);
-  // A row taller than a page: drawn anyway, and the check names it.
-  if (!fewest) return done([doc.rows.slice(0, Math.ceil(n / 2)), doc.rows.slice(Math.ceil(n / 2))], last);
   const mid = doc.rows.findIndex((r) => r.kind === 'exam' && r.paper === 'midterm') + 1;
-  if (fewest.length === 2 && mid > 0 && mid < n) {
-    const halves = [doc.rows.slice(0, mid), doc.rows.slice(mid)];
-    const i = settings.findIndex((o) => halves.every((rows, k) => fits(rows, k, o)));
-    if (i >= 0) return done(halves, i);
+  const split = (o, clean) => {
+    if (mid <= 0 || mid >= doc.rows.length) return null;
+    const a = fill(doc.rows.slice(0, mid), 0, o, clean);
+    const b = a && fill(doc.rows.slice(mid), a.length, o, clean);
+    return b && [...a, ...b];
+  };
+  for (const clean of [true, false]) {
+    const fewest = fill(doc.rows, 0, settings[last], clean);
+    if (!fewest) continue;
+    for (const [i, o] of settings.entries()) {
+      const parts = split(o, clean);
+      if (parts && parts.length === fewest.length) return done(parts, i);
+    }
+    for (const [i, o] of settings.entries()) {
+      const parts = i === last ? fewest : fill(doc.rows, 0, o, clean);
+      if (parts && parts.length === fewest.length) return done(parts, i);
+    }
   }
-  for (const [i, o] of settings.entries()) {
-    const parts = i === last ? fewest : fill(o);
-    if (parts && parts.length === fewest.length) return done(parts, i);
-  }
-  return done(fewest, last);
+  // A row taller than a page: one page, drawn anyway, and the check names it.
+  return done([doc.rows], last);
 }
 
 /** Draw each page at one setting; a page that cannot be drawn gives back the canvases already drawn. */
@@ -448,11 +495,11 @@ function renderPages(parts, notes, bodyOf, o, scale, setting) {
 export async function drawTeaching(doc, { scale = SCALE } = {}) {
   const notes = [...doc.notes, doc.source];
   const bodyOf = (d) => (card, y, o) => teachingBody(card, d, d.rows, y, o);
-  const one = fitting(doc, notes, bodyOf(doc), TEACHING_SETTINGS);
+  const one = fitting(doc, notes, bodyOf(doc), TEACHING_SETTINGS, scale);
   if (one >= 0) {
     const { card, problems, slack } = render(doc, notes, bodyOf(doc), TEACHING_SETTINGS[one], scale);
     return { card, cards: [card], problems, slack, setting: one };
   }
-  const { parts, i } = paginate(doc, notes, bodyOf, TEACHING_SETTINGS);
+  const { parts, i } = paginate(doc, notes, bodyOf, TEACHING_SETTINGS, Math.min(scale, MULTI_PAGE_SCALE));
   return renderPages(parts, notes, bodyOf, TEACHING_SETTINGS[i], scale, i);
 }

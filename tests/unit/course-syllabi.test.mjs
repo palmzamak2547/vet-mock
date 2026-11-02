@@ -6,6 +6,7 @@ import { SUBJECTS } from '../../src/data/curriculum.js';
 import { COURSE_GROUPS, EXAM_SCHEDULE } from '../../src/data/schedule.js';
 import { courseDocs, sessionPaper, syllabusDoc, teachingDoc, scopeConflicts, syllabiFor } from '../../src/lib/course-docs.js';
 import { timetablePdf } from '../../src/lib/share-card/timetable-card.js';
+import { statusLines } from '../../src/lib/share-card/course-doc-card.js';
 
 // Pinned to the term the data describes, so the tests outlive the app's current term.
 const TERM = '2569-1';
@@ -127,12 +128,44 @@ test('the teaching timetable lists every session and the faculty table’s paper
   assert.equal(z.rows.find((r) => r.date === '2026-08-28').status, 'เดิม 14 และ 28 ส.ค.', 'two planned classes taught in one name both days');
   assert.equal(z.rows.find((r) => r.title === 'Prion zoonoses').status, '', 'a class past the evidence is the plan, which the note says once');
   const swine = teachingDoc('swine-clinic', 5, AT);
-  assert.equal(swine.rows.find((r) => r.date === '2026-10-16').status, 'ตามแผน', 'a past class with no evidence it ran says so');
-  assert.ok(swine.notes.includes('"ตามแผน" ใต้วันที่ คือยังไม่มีหลักฐานว่าสอนวันนั้นจริง'));
+  assert.equal(swine.rows.find((r) => r.date === '2026-10-16').status, 'ยังไม่ทราบวัน', 'a class planned on a holiday, its day not yet known');
+  assert.equal(swine.rows.find((r) => r.title === 'โรคระบบกล้ามเนื้อ กระดูกและการเคลื่อนไหว').status, 'เดิม 18 ก.ย.', 'taught on 11 Sep with the mycoplasma class');
+  const epid26 = teachingDoc('epidemiology', 5, AT);
+  assert.equal(epid26.rows.find((r) => r.date === '2026-10-26').status, 'ตามแผน', 'a past class with no evidence it ran says so');
+  assert.ok(epid26.notes.includes('"ตามแผน" ใต้วันที่ คือยังไม่มีหลักฐานว่าสอนวันนั้นจริง'));
   assert.ok(!z.notes.some((n) => n.startsWith('"ตามแผน"')), 'a page with no such row does not explain the word');
   const epid = teachingDoc('epidemiology', 5, AT);
   assert.equal(epid.rows.find((r) => r.date === '2026-10-05').lecturers, 'ผู้สอนทั้ง 5 ท่าน');
   assert.match(epid.staff, /^ผู้สอนทั้ง 5 ท่าน: /);
+});
+
+// A class that ran on the other side of the midterm from its plan changes
+// which paper it is on; each is named here, so a new one is looked at.
+test('the only class taught across the midterm from its plan is the stallion exam, and it sits on the final', () => {
+  const week = TERMS[TERM].midterm;
+  const side = (d) => (d < week.start ? 'midterm' : 'final');
+  const crossed = [];
+  for (const [id, c] of Object.entries(Y5)) {
+    for (const s of c.sessions) if ([].concat(s.planned || []).some((d) => side(d) !== side(s.date))) crossed.push([id, s.date]);
+  }
+  assert.deepEqual(crossed, [['equine-repro', '2026-10-08']]);
+  assert.equal(sessionPaper(Y5['equine-repro'], Y5['equine-repro'].sessions.find((s) => s.date === '2026-10-08'), TERM), 'final');
+});
+
+test('every term with syllabi has its calendar and the day its evidence ends', () => {
+  for (const term of Object.keys(SYLLABI)) {
+    const t = TERMS[term];
+    assert.ok(t?.labelTh && t.midterm?.start && t.midterm?.end && t.final?.start && t.final?.end, `${term} has its exam weeks`);
+    assert.match(t.evidenceUntil || '', /^\d{4}-\d{2}-\d{2}$/, `${term} says where its evidence ends`);
+  }
+});
+
+test('a moved class’s status breaks between dates, never inside one, and keeps its spaces', () => {
+  const card = { style() {}, measure: (s) => s.length * 10 };
+  assert.deepEqual(statusLines(card, 'เดิม 7 และ 21 ส.ค.', 1000, {}), ['เดิม 7 และ 21 ส.ค.']);
+  assert.deepEqual(statusLines(card, 'เดิม 7 และ 21 ส.ค.', 120, {}), ['เดิม 7', 'และ 21 ส.ค.']);
+  assert.deepEqual(statusLines(card, 'เดิม 7, 14 และ 21 ส.ค.', 120, {}), ['เดิม 7, 14', 'และ 21 ส.ค.']);
+  assert.deepEqual(statusLines(card, 'เดิม 7, 14 และ 21 ส.ค.', 70, {}), ['เดิม 7,', '14', 'และ 21 ส.ค.']);
 });
 
 test('another term or year has no documents, and the page lists none', () => {

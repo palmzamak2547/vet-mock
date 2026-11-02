@@ -182,7 +182,7 @@ export function syllabusDoc(subject, year, { now = new Date(), term = SEMESTER.i
     notes: [
       // One line: what may still move, and where the evidence ends (the sources are named below).
       (papers.length ? 'วันเวลาและห้องสอบอาจเปลี่ยนตามประกาศ' : 'วันเรียนอาจเปลี่ยนตามประกาศของรายวิชา')
-        + (TERMS[term]?.evidenceUntil ? `, วันเรียนหลัง ${shortYear(TERMS[term].evidenceUntil)} เป็นวันตามแผน` : ''),
+        + (TERMS[term]?.evidenceUntil ? `${papers.length ? ', วันเรียน' : ' และ'}หลัง ${shortYear(TERMS[term].evidenceUntil)} เป็นวันตามแผน` : ''),
       ...notes,
     ],
   };
@@ -210,7 +210,7 @@ export function teachingDoc(subject, year, { now = new Date(), term = SEMESTER.i
       paper: sessionPaper(course, s, term),
       // How the row is known: moved from the plan, or, within the evidence's
       // reach, still only the plan. Past it every row is the plan (the note says so).
-      status: moved.length ? `เดิม ${daysLabel(moved)}` : s.held || s.kind === 'holiday' || !until || s.date > until ? '' : 'ตามแผน',
+      status: moved.length ? `เดิม ${daysLabel(moved)}` : s.dayUnknown ? 'ยังไม่ทราบวัน' : s.held || s.kind === 'holiday' || !until || s.date > until ? '' : 'ตามแผน',
       change: s.change ? changeText(s.change) : '',
       note: s.note || '',
     };
@@ -226,7 +226,7 @@ export function teachingDoc(subject, year, { now = new Date(), term = SEMESTER.i
   const staffed = course.sessions.some((s) => whole(s.lecturers));
   return {
     ...header(course, year, term, now, 'teaching', { exams: Object.keys(exams).length > 0 }),
-    lede: `ตารางสอน ${course.sessions.filter(isTeaching).length} คาบ พร้อมพิมพ์บนกระดาษ A4`,
+    lede: 'ตารางสอนพร้อมพิมพ์บนกระดาษ A4',
     slot: `เรียนทุกวัน${course.slot.day} ${course.slot.time} ${course.slot.room}`,
     staff: staffed ? `ผู้สอนทั้ง ${staff.length} ท่าน: ${staff.join(', ')}` : '',
     legend: ['midterm', 'final'].filter((t) => course.papers?.[t]),

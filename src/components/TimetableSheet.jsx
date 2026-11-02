@@ -45,13 +45,16 @@ const release = (canvas) => {
 };
 
 // The picture of a document longer than one page: its pages one under the
-// other, at most this wide, so up to four A4 pages stay under a phone's
-// canvas cap (16.7 million pixels).
+// other, at most this wide, and narrower past four A4 pages, so it stays
+// under a phone's cap for one canvas (16.7 million pixels).
 const STACK_W = 1550;
+const STACK_PIXELS = 16_000_000;
 
 function stack(canvases) {
-  const w = Math.min(STACK_W, canvases[0].width);
-  const k = w / canvases[0].width;
+  const width = canvases[0].width;
+  const height = canvases.reduce((h, c) => h + c.height, 0);
+  const w = Math.min(STACK_W, width, Math.floor(Math.sqrt((STACK_PIXELS * width) / height)));
+  const k = w / width;
   const out = document.createElement('canvas');
   out.width = w;
   out.height = Math.round(canvases.reduce((h, c) => h + c.height * k, 0));
