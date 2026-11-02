@@ -111,7 +111,9 @@ export default async function handler(req, res) {
   // The corpus starts loading while the limiter round-trips (cold start
   // overlaps them instead of adding to them).
   warmCorpus();
+  const tl = Date.now();
   const limit = await checkLimits(clientIP(req), { dailyCap: cfg.dailyCap });
+  const tLimit = Date.now() - tl;
   if (!limit.ok) {
     if (limit.body.retryAfter) res.setHeader('Retry-After', String(limit.body.retryAfter));
     return res.status(limit.status).json(limit.body);
@@ -120,7 +122,7 @@ export default async function handler(req, res) {
   const stream = openStream(res);
   try {
     // Only a member's token reads the library and earns its links an open ticket.
-    await runChat(input, { send: stream.send, signal: stream.signal, t0, token: gate.member ? gate.token : null });
+    await runChat(input, { send: stream.send, signal: stream.signal, t0, tLimit, token: gate.member ? gate.token : null });
   } catch (err) {
     console.error('[ai-chat] unexpected', String(err?.stack || err?.message || err).slice(0, 600));
     stream.send('error', { reason: 'unexpected', message: ERROR_MESSAGES.unexpected });
