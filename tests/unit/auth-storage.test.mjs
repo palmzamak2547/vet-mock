@@ -16,9 +16,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  authStorageKey,
   createAuthStorage,
   hasStoredAuthToken,
   staySignedIn,
+  storedAuthSession,
   STAY_SIGNED_IN_KEY,
 } from '../../src/lib/auth-storage.js';
 
@@ -138,6 +140,24 @@ test('opting out still clears the persistent token when the session write fails'
   assert.equal(local.getItem(TOKEN_KEY), null,
     'the token the student asked us not to keep must not outlive a failed session write');
   assert.equal(store.getItem(TOKEN_KEY), null, 'and the next reader on this machine must not find it');
+});
+
+test('the stored session is read under the client\'s own key only, from either store', () => {
+  assert.equal(authStorageKey('https://abc.supabase.co'), TOKEN_KEY, 'the key supabase-js derives from the project address');
+  assert.equal(authStorageKey('not a url'), null, 'a malformed address never throws at module load');
+  const local = fakeStore();
+  const session = fakeStore();
+  const read = () => storedAuthSession(TOKEN_KEY, () => local, () => session);
+  assert.equal(read(), null);
+  // A key left by another project or an old address is never this device's session.
+  local.setItem('sb-old-auth-token', JSON.stringify({ user: { id: 'stale' }, expires_at: 1 }));
+  assert.equal(read(), null);
+  // A student who unticked "stay signed in" keeps the token in sessionStorage.
+  session.setItem(TOKEN_KEY, JSON.stringify({ user: { id: 'carol' }, expires_at: 1767225600 }));
+  assert.deepEqual(read(), { user: { id: 'carol' }, expiresAt: 1767225600 });
+  local.setItem(TOKEN_KEY, 'not json');
+  assert.equal(read()?.user.id, 'carol', 'an unreadable copy falls through to the other store');
+  assert.equal(storedAuthSession(null, () => local, () => session), null, 'no client key, no session');
 });
 
 test('staying signed in never deletes the only token when localStorage is full', () => {

@@ -24,6 +24,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPointerPolicy, strokeWidth, padHeight, inkBounds, fitScale } from '../lib/handwriting-pad.js';
 import { useFullscreen } from '../hooks/useFullscreen.js';
 import NavIcon from './NavIcon.jsx';
+import { authHeader } from '../lib/api-auth.js';
 
 const INK = '#141414';
 const PAPER = '#ffffff';
@@ -230,7 +231,7 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
     try {
       const res = await fetch('/api/transcribe-handwriting', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
         body: JSON.stringify(toBase64(dataUrl)),
         signal: AbortSignal.timeout(50000),
       });

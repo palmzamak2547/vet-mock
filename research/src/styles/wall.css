@@ -1,0 +1,73 @@
+/* The Chula sign-in wall over the workspace [docs/CHULA-SIGNIN.md], loaded with its lazy gate
+   (workspace/components/ChulaGate.jsx). The workspace's own rules: colours only from tokens.css in
+   both themes, no gradient, glass or glow, 44 px targets, visible focus from base.css, status with
+   words. One paper card on the page, the Studio's dot field above its heading. Motion is opacity
+   and transform, once, and none under reduced motion (tokens.css sets --rs-dur to 0 there).
+   OWNER: runtime role. */
+
+.rs-wall-main { flex: 1 1 auto; display: grid; place-items: center; padding: 24px 16px 72px; }
+.rs-wall-card {
+  width: min(28rem, 100%); display: flex; flex-direction: column; gap: 12px; padding: 24px 20px 20px;
+  background: var(--rs-surface); border: 1px solid var(--rs-line); border-radius: var(--rs-radius-lg);
+  box-shadow: var(--rs-shadow);
+  animation: rs-wall-in 420ms var(--rs-ease-out) both;
+}
+@media (min-width: 720px) { .rs-wall-card { padding: 32px 32px 24px; } }
+@keyframes rs-wall-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .rs-wall-card { animation: none; } }
+
+/* The Studio's mark: a field of dots, one in gold (the landing's herd, still). */
+.rs-wall-dots { display: grid; grid-template-columns: repeat(7, 7px); gap: 5px; margin-bottom: 4px; }
+.rs-wall-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--rs-dot-neg); opacity: 0.55; }
+.rs-wall-dot--gold { background: var(--rs-gold); opacity: 1; }
+
+/* Thai stacked marks: 1.2 is the floor for a heading that wraps. */
+.rs-wall-title { font-size: 26px; font-weight: 700; line-height: 1.2; letter-spacing: 0; text-wrap: balance; }
+@media (min-width: 720px) { .rs-wall-title { font-size: 28px; } }
+.rs-wall-lead { color: var(--rs-ink-soft); font-size: 16px; line-height: 1.65; }
+.rs-wall-who {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; max-width: 100%; min-height: 32px; padding: 4px 12px;
+  border-radius: 999px; border: 1px solid var(--rs-line); background: var(--rs-surface-2); color: var(--rs-ink);
+  font-size: 14px; line-height: 1.4; overflow-wrap: anywhere;
+}
+.rs-wall-who .rs-icon { color: var(--rs-ink-soft); }
+
+/* The address to choose in Google's window: a field nobody types into, drawn as a dashed outline. */
+.rs-wall-id { padding: 12px 14px 10px; border-radius: var(--rs-radius); border: 1px dashed var(--rs-line); background: var(--rs-bg); }
+.rs-wall-addr { font-family: var(--rs-mono); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.rs-wall-addr-local { font-family: var(--rs-font); color: var(--rs-ink-soft); }
+.rs-wall-addr-domain { color: var(--rs-sage-text); font-weight: 600; }
+.rs-wall-caption { margin-top: 4px; color: var(--rs-ink-soft); font-size: 14px; line-height: 1.5; }
+/* Google's own button sits in this slot (it draws itself, up to 400 px wide, 40 px tall). */
+.rs-wall-gsi-slot { display: flex; justify-content: center; min-height: 44px; }
+.rs-wall-gsi[data-busy='1'] .rs-wall-gsi-slot { opacity: 0.5; pointer-events: none; }
+.rs-wall-gsi .rs-wall-caption { margin-top: 8px; text-align: center; }
+
+.rs-wall-actions { display: flex; flex-direction: column; align-items: stretch; gap: 6px; margin-top: 6px; }
+.rs-wall-google {
+  display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 0 18px;
+  border-radius: var(--rs-radius); border: 1px solid var(--rs-google-stroke); background: var(--rs-google-fill); color: var(--rs-google-text);
+  font: inherit; font-size: 16px; font-weight: 600; text-align: center; cursor: pointer;
+  transition: transform var(--rs-dur) var(--rs-ease-out);
+}
+.rs-wall-google:active:not([disabled]) { transform: scale(0.98); }
+.rs-wall-google[disabled] { cursor: default; opacity: 0.72; }
+.rs-wall-g { flex-shrink: 0; }
+.rs-g-blue { fill: var(--rs-google-blue); }
+.rs-g-red { fill: var(--rs-google-red); }
+.rs-g-yellow { fill: var(--rs-google-yellow); }
+.rs-g-green { fill: var(--rs-google-green); }
+.rs-wall-alt { align-self: center; }
+.rs-wall-inapp { padding: 12px 14px; border-radius: var(--rs-radius); border: 1px solid var(--rs-gold-soft); background: var(--rs-gold-tint); font-size: 15px; line-height: 1.6; }
+
+/* A sign-in on its way to Google: a ring that turns (still under reduced motion). */
+.rs-wall-spin {
+  flex-shrink: 0; width: 16px; height: 16px; border-radius: 999px; border: 2px solid var(--rs-line); border-top-color: currentColor;
+  animation: rs-wall-turn 800ms linear infinite;
+}
+@keyframes rs-wall-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .rs-wall-spin { animation: none; } }
+
+@media (forced-colors: active) {
+  .rs-wall-google { border-color: ButtonText; }
+}

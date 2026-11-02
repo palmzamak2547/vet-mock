@@ -4,6 +4,7 @@
 
 import { useSyncExternalStore } from 'react';
 import { AUTH_STORAGE_KEY, MODE, RETURN_KEY } from './config.js';
+import { readJSON, writeJSON } from '../lib/storage.js';
 
 let backendPending = null;
 /** The community's calls: live.js on the real backend, demo.js in development and tests. */
@@ -42,8 +43,20 @@ async function listen() {
   return b;
 }
 
-// The profile sheet opens by itself once per signed-in person: closed with "later", it stays closed.
+// The profile sheet opens by itself once per signed-in person: closed with "later", it stays closed,
+// on later visits too (kept per account in this browser; it used to live only in memory, so the sheet
+// came back on every visit).
 let setupOffered = null;
+const OFFERED_KEY = 'vca:profile-offered';
+export const offeredBefore = (uid) => {
+  const list = readJSON(OFFERED_KEY, []);
+  return Array.isArray(list) && list.includes(uid);
+};
+export function rememberOffered(uid) {
+  const list = readJSON(OFFERED_KEY, []);
+  const ids = Array.isArray(list) ? list.filter((id) => typeof id === 'string' && id !== uid) : [];
+  writeJSON(OFFERED_KEY, [...ids, uid].slice(-20));
+}
 
 async function follow(session) {
   if (!session) { setupOffered = null; set({ status: 'anon', user: null, profile: null, moderator: false, setup: false, profileFailed: false }); return; }
@@ -61,8 +74,11 @@ async function follow(session) {
   try {
     const [profile, moderator] = await Promise.all([b.profiles.mine(), b.profiles.isModerator().catch(() => false)]);
     // A first sign-in has no profile yet: the profile sheet opens by itself, once.
-    const offer = !profile && setupOffered !== session.user.id;
-    if (offer) setupOffered = session.user.id;
+    const offer = !profile && setupOffered !== session.user.id && !offeredBefore(session.user.id);
+    if (offer) {
+      setupOffered = session.user.id;
+      rememberOffered(session.user.id);
+    }
     set({ status: 'in', profile, moderator, setup: offer, profileFailed: false });
   } catch {
     // Not knowing is not having none: no setup sheet (saving would try to create a second

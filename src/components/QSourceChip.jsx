@@ -24,7 +24,8 @@ import { humanSource, recordingMoments, momentHref } from '../lib/source-label.j
 // Lazy: a question pays for the video code only when its source opens.
 const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
-import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
+import { archivedSourceUrl, googleDriveSourceUrl, signedArchiveUrl } from '../lib/vca-library.js';
+import { authHeader } from '../lib/api-auth.js';
 import NavIcon from './NavIcon.jsx';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
@@ -36,6 +37,20 @@ const readable = (s) => String(s).replace(/\s*·\s*/g, ', ');
 export default function QSourceChip({ q, store }) {
   const [open, setOpen] = useState(false);
   const sourceDocumentUrl = archivedSourceUrl(q?.sourceDocument) || googleDriveSourceUrl(q?.sourceDocument?.url);
+  // The archived copy needs the member's session, which a plain link cannot send:
+  // open the tab now (inside the tap, so it is not blocked), then send it to the
+  // signed link, or to the Drive original when the archive cannot answer.
+  const openArchived = async (event) => {
+    if (!archivedSourceUrl(q?.sourceDocument)) return;
+    event.preventDefault();
+    const tab = window.open('about:blank', '_blank');
+    const signed = await signedArchiveUrl(q.sourceDocument, { headers: await authHeader() }).catch(() => null);
+    const target = signed || googleDriveSourceUrl(q?.sourceDocument?.url);
+    if (!tab) { if (target) window.location.assign(target); return; }
+    if (!target) { tab.close(); return; }
+    tab.opener = null;
+    tab.location.replace(target);
+  };
 
   // Evaluate strict citation eligibility via getEligibleCitationForQuestion
   const eligibleCitation = getEligibleCitationForQuestion(q?.id, q?.subject);
@@ -167,7 +182,7 @@ export default function QSourceChip({ q, store }) {
               topic, so a wrong answer still leads to the part that explains it. */}
           {moments.length === 0 && q.topic && <Suspense fallback={null}><TopicClips topicId={q.topic} limit={1} quiet /></Suspense>}
           {sourceDocumentUrl && (
-            <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"
+            <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer" onClick={openArchived}
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>
               เปิดเอกสารต้นฉบับ
               {Number.isInteger(q.sourceDocument.page) && q.sourceDocument.page > 0 ? ` (อ้างหน้า ${q.sourceDocument.page})` : ''}

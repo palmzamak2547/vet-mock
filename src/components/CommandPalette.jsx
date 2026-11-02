@@ -49,6 +49,7 @@ import ErrorBoundary from './ErrorBoundary.jsx';
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
 import { detectIntents, detectStudyIntent, studyActions } from '../lib/omni-intents.js';
+import { openDocInTab } from '../lib/library.js';
 // What a knowledge-base reply means for the student, and where to go when
 // there is no answer: pure, so every state is unit-tested (omni-ask.test).
 import {
@@ -56,6 +57,7 @@ import {
   relatedSections, relatedTopicsFor, librarySuggestion, unmatchedLine,
 } from '../lib/omni-ask.js';
 import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
+import { authHeader } from '../lib/api-auth.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -1274,20 +1276,10 @@ export default function CommandPalette({
         handlersRef.current.onOpenLibraryDoc?.(readerPayload(doc));
         return;
       }
-      // Open the tab synchronously — popup blockers only trust window.open
-      // during the click, and the mint takes longer than that trust lasts.
-      const win = window.open('', '_blank');
-      if (win) { try { win.opener = null; } catch { /* hardened browsers */ } }
-      resolveDocUrl(doc).then(
-        (url) => {
-          if (win) win.location.replace(url);
-          else window.open(url, '_blank', 'noopener,noreferrer');
-        },
-        () => {
-          if (win) { try { win.close(); } catch { /* already gone */ } }
-          handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
-        },
-      );
+      // openDocInTab opens the tab inside this click, before the mint.
+      openDocInTab(() => resolveDocUrl(doc)).catch(() => {
+        handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
+      });
       return;
     }
     if (item.type === 'drug') {
@@ -1308,7 +1300,7 @@ export default function CommandPalette({
     try {
       res = await fetch('/api/wiki-explain', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...(await authHeader()) },
         body: JSON.stringify({ question }),
       });
     } catch {
@@ -1393,7 +1385,7 @@ export default function CommandPalette({
     try {
       const res = await fetch('/api/agent-action', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...(await authHeader()) },
         body: JSON.stringify({ utterance }),
       });
       if (!requestCurrent(request)) return;

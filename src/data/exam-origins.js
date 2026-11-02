@@ -62,6 +62,21 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  // Veterinary Epidemiology, filed 1 Nov 2026: older cohorts sat a midterm, 2569 has only the final. Vet 83's
+  // ticked answer lines do not say which paper, so an origin that names Vet 83 has paper null.
+  "Veterinary Epidemiology final Vet 79 บันทึกหลังสอบ": { kind: 'paper', cohort: 79, paper: 'final' },
+  "Veterinary Epidemiology final Vet 81 บันทึกหลังสอบ": { kind: 'paper', cohort: 81, paper: 'final' },
+  "Veterinary Epidemiology final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
+  "Veterinary Epidemiology final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
+  "Veterinary Epidemiology midterm บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'midterm' },
+  "Veterinary Epidemiology final Vet 81, Vet 82 และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ": { kind: 'paper', cohort: [81, 82], paper: null },
+  "Veterinary Epidemiology final Vet 81 บันทึกหลังสอบ; Veterinary Epidemiology Vet 83 บันทึกหลังสอบ (ไม่ระบุว่ากลางภาคหรือปลายภาค)": { kind: 'paper', cohort: [81, 83], paper: null },
+  "Veterinary Epidemiology final Vet 81, Vet 82 บันทึกหลังสอบ; Veterinary Epidemiology Vet 83 บันทึกหลังสอบ (ไม่ระบุว่ากลางภาคหรือปลายภาค)": { kind: 'paper', cohort: [81, 82, 83], paper: null },
+  "Veterinary Epidemiology final Vet 81, Vet 82 และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ; Veterinary Epidemiology Vet 83 บันทึกหลังสอบ (ไม่ระบุว่ากลางภาคหรือปลายภาค)": { kind: 'paper', cohort: [81, 82, 83], paper: null },
+  "Veterinary Epidemiology final Vet 79, Vet 81, Vet 82 และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ; Veterinary Epidemiology Vet 83 บันทึกหลังสอบ (ไม่ระบุว่ากลางภาคหรือปลายภาค)": { kind: 'paper', cohort: [79, 81, 82, 83], paper: null },
+  "Veterinary Epidemiology final Vet 81, Vet 82, Vet 85 บันทึกหลังสอบ; Veterinary Epidemiology Vet 83 บันทึกหลังสอบ (ไม่ระบุว่ากลางภาคหรือปลายภาค)": { kind: 'paper', cohort: [81, 82, 83, 85], paper: null },
+  "Veterinary Epidemiology midterm บันทึกหลังสอบ (ไม่ระบุรุ่น); Veterinary Epidemiology Vet 83 บันทึกหลังสอบ (ไม่ระบุว่ากลางภาคหรือปลายภาค)": { kind: 'paper', cohort: 83, paper: null },
+  "Veterinary Epidemiology บันทึกข้อสอบเก่า ไม่ระบุรุ่นและไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: null, paper: null },
   "Milk Hygiene & Meat Inspection final และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ": { kind: 'paper', cohort: null, paper: null },
   "Avian Medicine Vet 81 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: 81, paper: null },
   "Avian Medicine บันทึกข้อสอบเก่า ไม่ระบุรุ่นและช่วงสอบ": { kind: 'paper', cohort: null, paper: null },

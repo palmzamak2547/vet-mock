@@ -15,6 +15,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106221,
     "tags": [
+      "อิงแนวข้อสอบ",
       "HACCP",
       "risk-based-approach"
     ],
@@ -31,13 +32,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 0,
     "explain": "HACCP เป็น food safety management system ที่ไม่มีระบบตายตัว ต้องเริ่มจากการประเมินความเสี่ยงของแต่ละกระบวนการ จึงไม่ใช่ข้อกำหนดสำเร็จรูปแบบเดียวกันทุกโรงงาน ไม่ใช่การตรวจเฉพาะผลิตภัณฑ์สุดท้าย และไม่ใช่โปรแกรมพื้นฐานที่มาแทน GMP/GHP ซึ่งเป็น prerequisite",
-    "verified": "FIQC final น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.2; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (รายการหัวข้อที่เคยถามบนปกสไลด์ HACCP 2022 ในชุดของ Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106222,
     "tags": [
+      "อิงแนวข้อสอบ",
       "GHP",
       "gmp",
       "Codex"
@@ -55,13 +57,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 1,
     "explain": "Codex ปรับจาก HACCP&GMP เป็น HACCP&GHP เริ่มปี 2021 เพราะ hygiene ครอบคลุมตลอดห่วงโซ่การผลิตรวมถึงฟาร์มและงานที่ไม่ได้แปรรูปมาก เช่น แค่แพ็คใส่ถุง ไม่ได้จำกัดที่ manufacturing ในโรงงาน ส่วน ISO 22000 ยังเป็นมาตรฐานสมัครใจแยกต่างหาก",
-    "verified": "FIQC final น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.2; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (ดาวในสรุปปลายภาคของ Vet 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106223,
     "tags": [
+      "อิงแนวข้อสอบ",
       "food-safety-standards-pyramid",
       "buyer-requirements"
     ],
@@ -78,9 +81,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 3,
     "explain": "ยอดปิรามิดคือ best practice ซึ่งจัดทำโดยผู้ซื้อหรือกลุ่มผู้ซื้อ โดยเฉพาะฝั่ง EU ที่มีข้อกำหนดหลายเรื่อง เช่น sustainability และ carbon footprint ส่วน Codex เป็นฐานล่างสุด legislation เป็นข้อกำหนดของประเทศนำเข้า และ ISO เป็นมาตรฐานสากลแบบสมัครใจ",
-    "verified": "FIQC final น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.2; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106224,
@@ -178,6 +181,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106228,
     "tags": [
+      "อิงแนวข้อสอบ",
       "risk-matrix",
       "hazard-analysis"
     ],
@@ -194,13 +198,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 0,
     "explain": "Risk = severity x likelihood of occurrence โดยช่องที่ทั้ง severity และ likelihood สูงคือ Critical ส่วน Major เกิดเมื่อค่าหนึ่งสูงอีกค่าปานกลาง Minor เมื่อความเสี่ยงต่ำลง และ Satisfactory เมื่อ likelihood แทบไม่มีหรือ severity ต่ำมาก",
-    "verified": "FIQC final น.4",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.4; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106229,
     "tags": [
+      "อิงแนวข้อสอบ",
       "CCP",
       "critical-limit"
     ],
@@ -217,13 +222,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 2,
     "explain": "CCP ที่ดีต้องวัดค่าได้หรือสังเกตได้ กำหนด tolerance limit ได้ และมี corrective measure เมื่อเบี่ยงเบน ส่วนจุดที่คุมได้ด้วย GHP อยู่แล้วจะไม่เป็น CCP ตาม decision tree และจุดความเสี่ยงต่ำเรียกว่า CP ไม่ใช่ CCP",
-    "verified": "FIQC final น.2, 5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.2, 5; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106230,
     "tags": [
+      "อิงแนวข้อสอบ",
       "CCP-decision-tree",
       "GHP"
     ],
@@ -239,14 +245,15 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "ต้องปรับเปลี่ยนกระบวนการผลิตก่อนแล้วถามคำถามใหม่"
     ],
     "answer": 1,
-    "explain": "คำถามแรกของ decision tree ถามว่าโปรแกรมพื้นฐาน เช่น GHPs คุมอันตรายนี้ได้หรือไม่ ถ้าได้ = not a CCP และหยุดการวิเคราะห์จุดนั้นได้เลย การไปต่อขั้นถัดไปหรือปรับกระบวนการใช้เมื่อคำตอบเป็นกรณีอื่น",
-    "verified": "FIQC final น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "explain": "ถ้าโปรแกรมพื้นฐาน เช่น GHPs คุมอันตรายนี้ที่ขั้นตอนนั้นได้อยู่แล้ว ขั้นตอนนั้นจัดเป็น GHPs/PRPs ไม่ใช่ CCP และหยุดการวิเคราะห์จุดนั้นได้เลย การไปต่อขั้นถัดไปหรือปรับกระบวนการใช้เมื่อคำตอบเป็นกรณีอื่น",
+    "verified": "FIQC final น.5; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (ดาวในสรุปปลายภาคของ Vet 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106231,
     "tags": [
+      "อิงแนวข้อสอบ",
       "critical-limit",
       "operating-limit"
     ],
@@ -263,9 +270,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 3,
     "explain": "OL เป็นค่าที่ตั้งเผื่อไว้ก่อนถึง CL เมื่อหลุด OL แต่ยังไม่ถึง CL สินค้ายังปลอดภัย ใช้เป็นจุดเตือนให้ปรับกระบวนการหรือตรวจเครื่องจักร ส่วน corrective action กับผลิตภัณฑ์เกิดเมื่อหลุด CL คือ 160 F และ CL กับ OL เป็นเลขเดียวกันได้ ไม่มีข้อบังคับเรื่องระยะห่าง",
-    "verified": "FIQC final น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.6; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (รายการหัวข้อที่เคยถามบนปกสไลด์ HACCP 2022 ในชุดของ Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106232,
@@ -293,6 +300,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106233,
     "tags": [
+      "อิงแนวข้อสอบ",
       "verification",
       "HACCP"
     ],
@@ -309,13 +317,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 2,
     "explain": "Verification คือการ validate แผนแล้วทวนสอบว่า HACCP ทั้งระบบทำงานตามที่ตั้งใจ ไม่ใช่ดูเฉพาะ CCP ตัวอย่างกิจกรรมคือ sampling plan ตรวจ lab, CL re-validation, internal audit (ตรวจโดยคนภายในได้), calibration เครื่องมือ, ทบทวนแผนอบรม และวิเคราะห์ complaint",
-    "verified": "FIQC final น.2, 6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.2, 6; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106234,
     "tags": [
+      "อิงแนวข้อสอบ",
       "prerequisite-programs",
       "HACCP"
     ],
@@ -332,9 +341,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 1,
     "explain": "หลักคือ without basic prerequisite (Biosecurity / GHP / GAP), hardly HACCP successful เพราะ HACCP ควบคุมเฉพาะจุดวิกฤต ส่วน prerequisite ป้องกันอันตรายจากสิ่งแวดล้อมการผลิตทั้งหมด จึงต้องมีก่อนเสมอ ไม่ใช่เรื่องเฉพาะการส่งออกและไม่ใช่ชื่อเดิมของ corrective action",
-    "verified": "FIQC final น.2, 4",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.2, 4; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (รายการหัวข้อที่เคยถามบนปกสไลด์ HACCP 2022 ในชุดของ Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106235,
@@ -435,6 +444,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106239,
     "tags": [
+      "อิงแนวข้อสอบ",
       "poultry-export-market",
       "Japan"
     ],
@@ -442,7 +452,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "topic": "fiqc-poultry-export",
     "year": 5,
     "type": "mcq",
-    "q": "ตลาดส่งออกเนื้อไก่ดิบ (raw) อันดับหนึ่งของไทยคือประเทศใด",
+    "q": "ในช่วงปี 2018-2024 ตลาดส่งออกเนื้อไก่ดิบ (raw) อันดับหนึ่งของไทยคือประเทศใด",
     "options": [
       "ญี่ปุ่น",
       "สหภาพยุโรป",
@@ -451,13 +461,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 0,
     "explain": "ญี่ปุ่นเป็นตลาดอันดับหนึ่งของไทยทั้งไก่ดิบและไก่ปรุงสุก ส่วน EU รับไก่หมักเกลือเป็นหลัก มาเลเซียเป็นตลาดมุสลิมที่ต้องมี halal และจีน-ฮ่องกงตามมาในลำดับถัดไป",
-    "verified": "FIQC final น.3, 7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.3, 7; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106240,
     "tags": [
+      "อิงแนวข้อสอบ",
       "poultry-export-market",
       "cooked-poultry-export",
       "avian-influenza"
@@ -466,7 +477,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "topic": "fiqc-poultry-export",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุผลหลักที่สัดส่วนการส่งออกไก่ปรุงสุกของไทยมากกว่าไก่ดิบคือข้อใด",
+    "q": "เหตุผลหลักที่สัดส่วนการส่งออกไก่ปรุงสุกของไทยมากกว่าไก่ดิบในช่วงปี 2018-2024 คือข้อใด",
     "options": [
       "ไก่ปรุงสุกได้รับการยกเว้นภาษีนำเข้าในทุกตลาดส่งออกหลักของไทย",
       "การระบาดของ AI ทำให้ตลาดเนื้อดิบถูกจำกัด สินค้าปรุงสุกจึงขยายตัว",
@@ -475,9 +486,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 1,
     "explain": "ตั้งแต่ AI ระบาด การขายเนื้อดิบถูกจำกัด ไทยจึงขายเนื้อสุกเพิ่มขึ้นจน cooked มากกว่า raw ส่วนภาษี ค่าขนส่ง และใบรับรองไม่ใช่เหตุผลหลัก",
-    "verified": "FIQC final น.3, 7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.3, 7; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106241,
@@ -552,6 +563,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106244,
     "tags": [
+      "อิงแนวข้อสอบ",
       "Singapore",
       "export-market-requirements",
       "egg-export"
@@ -569,9 +581,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 2,
     "explain": "สิงคโปร์กำหนดให้ไข่มาจากฟาร์มที่ได้ GAP ซึ่งหน่วยงานของสิงคโปร์รับรอง พร้อมเงื่อนไขไข่ 1 ฟาร์มต่อตู้ ปลอด HPAI/LPAI และโรคอื่นอย่างน้อย 3 เดือน และตรวจ Salmonella Typhi, Paratyphi, Enteritidis กับ VTEC ส่วน halal audit สองครั้งต่อปีคือมาเลเซีย เกณฑ์ ready-to-eat กับ growth hormone คือฮ่องกง และการแช่แข็งต่ำกว่า -28 C คือจีน",
-    "verified": "FIQC final น.3, 9",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.3, 9; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106245,
@@ -648,6 +660,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106248,
     "tags": [
+      "อิงแนวข้อสอบ",
       "animal-welfare",
       "Five-Freedoms",
       "five-domains"
@@ -665,13 +678,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 0,
     "explain": "Five Freedoms ใช้ฝั่ง EU และ UK ส่วน Five Domains (nutrition, environment, health, behavior, mental state) เป็นแนวคิดจากออสเตรเลีย ขณะที่ 3S เป็นแนวคิดฝรั่งเศสเรื่องหัตถการที่เจ็บปวด และ ISO/TS 34700 ปี 2019 เป็นการแปลงหลัก OIE เป็นข้อกำหนดที่ audit ได้",
-    "verified": "FIQC final น.10",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.10; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106249,
     "tags": [
+      "อิงแนวข้อสอบ",
       "3S",
       "animal-welfare",
       "painful-procedures"
@@ -689,13 +703,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 2,
     "explain": "3S คือ Suppress (เลี่ยงหรือเลิกทำ), Substitute (ใช้วิธีอื่นแทน) และ Soothe (บรรเทาให้เจ็บน้อยที่สุด) ใช้กับ mutilations เช่น tail docking, dehorning, castration, debeaking รวมถึงการจี้เดือยในไก่",
-    "verified": "FIQC final น.10",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.10; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106250,
     "tags": [
+      "อิงแนวข้อสอบ",
       "Better-Chicken-Commitment",
       "stocking-density"
     ],
@@ -712,13 +727,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 1,
     "explain": "BCC กำหนดไม่เกิน 30 kg ต่อตารางเมตร พร้อม thinning ไม่เกิน 1 ครั้งต่อรุ่น ส่วน 39 คือเกณฑ์ GAP ของไทย 42 คือเพดานตามกฎหมาย EU และ 25 คือระดับ Beter Leven 1 ดาว",
-    "verified": "FIQC final น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.12; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106251,
     "tags": [
+      "อิงแนวข้อสอบ",
       "Better-Chicken-Commitment",
       "environmental-enrichment"
     ],
@@ -735,13 +751,14 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 0,
     "explain": "BCC กำหนดแสงอย่างน้อย 50 lux รวมถึงมีแสงธรรมชาติ คอนอย่างน้อย 2 เมตร ของจิกเล่นอย่างน้อย 2 ชิ้นต่อ 1,000 ตัว และ NH3 ไม่เกิน 20 ppm โดยห้ามเลี้ยงในกรง แต่ไม่ได้บังคับ free range ส่วน 20 lux เป็นเกณฑ์ light intensity ในแนวทางของ McDonald's",
-    "verified": "FIQC final น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.12; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106252,
     "tags": [
+      "อิงแนวข้อสอบ",
       "Better-Chicken-Commitment",
       "slower-growing-breeds"
     ],
@@ -758,9 +775,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 3,
     "explain": "BCC ต้องใช้สายพันธุ์โตช้าที่ให้ผลลัพธ์สวัสดิภาพดีขึ้น เช่น Hubbard JA757, 787, 957, 987, Redbro, Rambler Ranger, Ranger Classic, Ranger Gold, Label Rouge หรือพันธุ์ที่ผ่าน RSPCA protocol ส่วน Ross และ Cobb เป็น broiler โตเร็ว และ Lohmann, Hy-Line, ISA Brown เป็นสายพันธุ์ไก่ไข่",
-    "verified": "FIQC final น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.12; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
   },
   {
     "id": 106253,
@@ -789,6 +806,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106254,
     "tags": [
+      "อิงแนวข้อสอบ",
       "accreditation-body",
       "certification-body"
     ],
@@ -805,8 +823,572 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     ],
     "answer": 3,
     "explain": "สายการกำกับคือ producer ถูกตรวจโดย CB เช่น SGS, NSF, LR จากนั้น CB ถูกกำกับโดย AB เช่น UKAS, ANAB, JAS-ANZ และ มกอช. ตาม ISO 17021 และ AB ถูกตรวจโดย IAF อีกชั้น โดย product certification ใช้ ISO/17065 ส่วน management system ใช้ ISO 17021",
-    "verified": "FIQC final น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "FIQC final study notes (Vet 85)"
+    "verified": "FIQC final น.3; รุ่นพี่บันทึกว่าจุดนี้ออกสอบปลายภาค (สัญลักษณ์ออกสอบปลายภาคในชีทอ่านเร็วของชุด Vet 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC"
+  },
+  {
+    "id": 213000,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ตามคำถาม 4 ข้อของ Codex (2022) ที่ใช้หาจุดควบคุมวิกฤต การตอบ \"ใช่\" ในคำถามข้อใดทำให้ขั้นตอนนั้นเป็น CCP",
+    "options": [
+      "Q1 ขั้นตอนนี้มีมาตรการควบคุมสำหรับอันตรายที่ระบุไว้แล้วหรือไม่",
+      "Q2 ขั้นตอนนี้ออกแบบมาเพื่อขจัดหรือลดอันตรายนั้นโดยเฉพาะหรือไม่",
+      "Q3 อันตรายอาจเพิ่มขึ้นเกินระดับที่ยอมรับได้ในขั้นตอนนี้หรือไม่",
+      "Q4 ขั้นตอนถัดไปสามารถลดหรือขจัดอันตรายนี้ได้ในภายหลังหรือไม่"
+    ],
+    "answer": 1,
+    "explain": "ตามคำถามของ Codex 2022 ขั้นตอนที่ตอบ \"ใช่\" ใน Q2 คือขั้นตอนที่ถูกออกแบบมาเพื่อขจัดหรือลดอันตรายนั้นให้อยู่ในระดับที่ยอมรับได้โดยเฉพาะ จึงเป็น CCP ทันที เช่น การคุมระยะหยุดยาก่อนจับไก่ส่งโรงฆ่า หรือระบบเติมคลอรีนในน้ำบาดาลที่เป็นด่านเดียวก่อนถึงตัวไก่ การตอบ \"ใช่\" ใน Q1 บอกเพียงว่ามีมาตรการควบคุมอยู่ ต้องไปถาม Q2 ต่อ การตอบ \"ใช่\" ใน Q3 แปลว่าอันตรายอาจเพิ่มขึ้นจนต้องไปถาม Q4 ส่วนการตอบ \"ใช่\" ใน Q4 แปลว่ามีขั้นตอนถัดไปที่จัดการอันตรายนี้ได้ ขั้นตอนปัจจุบันจึงไม่ใช่ CCP การไล่คำถามจึงต้องดูว่าแต่ละข้อถามอะไร ไม่ใช่จำรูปแบบใช่หรือไม่ใช่ไว้ชุดเดียว",
+    "source": "FIQC_SoJ_E1 หน้า 41-43",
+    "verified": "สรุปปลายภาค FIQC ของ Vet 85 หน้า 2 โน้ตข้าง decision tree ว่าข้อนี้ออกสอบแต่คำตอบไม่ใช่แค่ No Yes No Yes; ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1 โน้ต 'จำลำดับ yes no ที่ไป ccp' กับคำตอบ 'yes ที่ column 2, no ที่ column 4'; สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ 'ถาม ข้อถูก/ข้อผิด' (โฟลเดอร์ Vet 84) หน้า 1 บรรทัด 'การตอบ Q1 - Q4 อันไหน CCP'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 41
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 42
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 43
+      },
+      {
+        "doc": "fiqc-final-summary-vet85",
+        "edition": "12p",
+        "page": 2
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 1
+      },
+      {
+        "doc": "fiqc-haccp-2022-topics-vet84",
+        "edition": "35p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "decision-tree",
+      "ccp",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213001,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ในการวิเคราะห์อันตราย (hazard analysis) ระดับความเสี่ยง (risk) ของอันตรายแต่ละชนิดประเมินจากปัจจัยคู่ใด",
+    "options": [
+      "จำนวนจุดควบคุมวิกฤต ร่วมกับระยะเวลาที่ใช้ในแต่ละขั้นตอนการผลิต",
+      "ต้นทุนของมาตรการควบคุม ร่วมกับจำนวนพนักงานที่ประจำอยู่ในจุดนั้น",
+      "ชนิดของเชื้อก่อโรค ร่วมกับอุณหภูมิของห้องเก็บผลิตภัณฑ์ที่ใช้อยู่",
+      "ความรุนแรงของอันตรายนั้น ร่วมกับโอกาสที่อันตรายนั้นจะเกิดขึ้น"
+    ],
+    "answer": 3,
+    "explain": "การวิเคราะห์อันตรายให้ประเมินอันตรายแต่ละชนิดด้วยความรุนแรง (severity) และโอกาสเกิด (likelihood of occurrence) แล้วนำทั้งสองมาจับคู่กันเป็นระดับความเสี่ยง (risk) แบ่งเป็น critical, major, minor และ satisfactory ระดับนี้ใช้ตัดสินว่าอันตรายนั้นต้องจัดการในแผนหรือไม่ จำนวน CCP เป็นผลที่ได้หลังการวิเคราะห์ ไม่ใช่ตัวตั้ง ต้นทุนและจำนวนคนไม่ใช่เกณฑ์ความปลอดภัยอาหาร ส่วนชนิดเชื้อก่อโรคเป็นเพียงตัวอย่างหนึ่งของอันตรายทางชีวภาพ",
+    "source": "FIQC_SoJ_E1 หน้า 16; สไลด์ Severity VS likelihood of occurrence = Risk ของ HACCP ปี 2022 ที่แปะไว้ใน ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1 โน้ต 'ออกเป็นภาษาไทย' ที่สไลด์ Severity VS likelihood of occurrence = Risk",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 16
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "risk",
+      "hazard-analysis",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213002,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "กิจกรรมใดต่อไปนี้ไม่ใช่การทวนสอบ (verification) ตามหลักการข้อที่ 6 ของ HACCP",
+    "options": [
+      "ตรวจติดตามภายใน (internal audit) ทั้งระบบตามแผนที่กำหนดไว้",
+      "สุ่มเก็บตัวอย่างตรวจทางห้องปฏิบัติการ เช่น swab มือพนักงาน",
+      "พนักงานประจำจุดวัดอุณหภูมิแกนซากตามความถี่ที่กำหนดไว้",
+      "ทบทวนแผนสอบเทียบเครื่องมือวัดและข้อร้องเรียนของลูกค้า"
+    ],
+    "answer": 2,
+    "explain": "การทวนสอบ (หลักการข้อ 6) ดูว่าระบบ HACCP ทั้งระบบทำงานได้ตามที่ตั้งใจ ได้แก่ ทบทวนแผน HACCP สุ่มตรวจทางห้องปฏิบัติการ (ลูกไก่ ระหว่างการผลิต swab พื้นผิวหลังล้าง ไขมันซาก มือพนักงาน) ทบทวนค่า CL ตรวจติดตามภายใน ทบทวนบันทึกการปฏิบัติงาน ทบทวนแผนสอบเทียบ แผน GHP แผนฝึกอบรม และข้อร้องเรียนของลูกค้า ส่วนการวัดอุณหภูมิแกนซากที่จุด CCP ตามความถี่ที่กำหนดโดยผู้รับผิดชอบประจำจุดคือการเฝ้าระวัง (monitoring) ตามหลักการข้อ 4 ซึ่งตรวจว่าค่าที่จุด CCP เป็นไปตาม CL หรือไม่",
+    "source": "FIQC_SoJ_E1 หน้า 46 และ 49",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1 โน้ตว่าออกให้บอกว่ากิจกรรมใดไม่ใช่ของขั้นนั้น เช่น อะไรไม่ใช่ verification",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 46
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 49
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "verification",
+      "monitoring",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213003,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดเปรียบเทียบจุดควบคุมวิกฤต (CCP) กับจุดควบคุม (control point, CP) ได้ถูกต้อง",
+    "options": [
+      "CP ใช้กับอันตรายที่มีความเสี่ยงสูง (มีโอกาสเกิด) ส่วน CCP ใช้กับความเสี่ยงต่ำ",
+      "CCP ใช้กับอันตรายที่มีความเสี่ยงสูง (มีโอกาสเกิด) ส่วน CP ใช้กับความเสี่ยงต่ำ",
+      "CCP ใช้กับอันตรายทางกายภาพเท่านั้น ส่วน CP ใช้กับอันตรายทางชีวภาพและเคมี",
+      "CCP กำหนดได้เฉพาะในโรงฆ่า ส่วน CP กำหนดได้เฉพาะในฟาร์มเลี้ยงไก่เนื้อ"
+    ],
+    "answer": 1,
+    "explain": "CCP คือจุดที่ต้องใช้มาตรการป้องกันเพื่อลด ป้องกัน หรือขจัดอันตรายต่อความปลอดภัยของผลิตภัณฑ์ ต้องวัดหรือสังเกตได้ กำหนดขอบเขตที่ยอมรับได้ และแก้ไขได้เมื่อเบี่ยงเบน และบ่งชี้ความเสี่ยงต่อความปลอดภัยอาหารสูง (likely to occur) ส่วน CP บ่งชี้ความเสี่ยงต่ำ (not likely to occur) ทั้งสองไม่ได้แบ่งตามชนิดของอันตราย และกำหนดได้ทั้งในฟาร์มและโรงฆ่า เช่น ระยะหยุดยาในฟาร์มจัดเป็น CCP",
+    "source": "FIQC_SoJ_E1 หน้า 39 และ 43",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1 โน้ต 'ความหมาย CCP CP OP อันไหนสูงต่ำกว่ากัน'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 39
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 43
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "ccp",
+      "control-point",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213004,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดจัดเป็นอันตรายทางกายภาพ (physical hazard) ในการผลิตเนื้อไก่",
+    "options": [
+      "เศษโลหะหรือพลาสติกที่หลุดปนมากับผลิตภัณฑ์",
+      "โลหะหนักที่ตกค้างอยู่ในเนื้อเยื่อของไก่",
+      "สารก่อภูมิแพ้ที่ปนมากับวัตถุดิบอาหาร",
+      "เชื้อ Salmonella ที่ปนเปื้อนอยู่บนผิวซาก",
+      "ยาปฏิชีวนะที่ตกค้างในเนื้อเกินค่า MRL"
+    ],
+    "answer": 0,
+    "explain": "อันตรายทางกายภาพคือวัตถุแปลกปลอม เช่น หิน โลหะ พลาสติก เส้นผม และในไก่เนื้อรวมถึงดินหรืออาหารที่ค้างในทางเดินอาหาร ส่วนโลหะหนัก ยาปฏิชีวนะตกค้าง และสารก่อภูมิแพ้เป็นอันตรายทางเคมี และ Salmonella เป็นอันตรายทางชีวภาพ จุดที่ต้องแยกให้ออกคือโลหะที่เป็นชิ้นแปลกปลอมจัดเป็นกายภาพ แต่โลหะหนักที่ตกค้างในเนื้อจัดเป็นเคมี",
+    "source": "FIQC_SoJ_E1 หน้า 16 และ 72",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1 โน้ต 'อะไรเป็น physical hazard'; สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ 'ถาม ข้อถูก/ข้อผิด' (โฟลเดอร์ Vet 84) หน้า 1 บรรทัด 'อะไรกายภาพ'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 16
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 72
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 1
+      },
+      {
+        "doc": "fiqc-haccp-2022-topics-vet84",
+        "edition": "35p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "hazard",
+      "physical-hazard",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213005,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดเรียงลำดับหลักการ 7 ข้อของ HACCP ได้ถูกต้อง",
+    "options": [
+      "วิเคราะห์อันตราย, กำหนด CL, กำหนด CCP, เฝ้าระวัง, ทวนสอบ, แก้ไข, บันทึกและเอกสาร",
+      "กำหนด CCP, วิเคราะห์อันตราย, กำหนด CL, แก้ไข, เฝ้าระวัง, ทวนสอบ, บันทึกและเอกสาร",
+      "วิเคราะห์อันตราย, กำหนด CCP, กำหนด CL, เฝ้าระวัง, แก้ไข, ทวนสอบ, บันทึกและเอกสาร",
+      "วิเคราะห์อันตราย, กำหนด CCP, เฝ้าระวัง, กำหนด CL, ทวนสอบ, บันทึกและเอกสาร, แก้ไข"
+    ],
+    "answer": 2,
+    "explain": "หลักการ 7 ข้อเรียงตามการสร้างแผน: ข้อ 1 วิเคราะห์อันตรายและประเมินความเสี่ยง ข้อ 2 กำหนดจุดควบคุมวิกฤต (CCP) ข้อ 3 กำหนดค่าวิกฤต (CL) ของแต่ละ CCP ข้อ 4 กำหนดการเฝ้าระวัง (monitoring) ข้อ 5 กำหนดการแก้ไขเมื่อค่าเบี่ยงเบน (corrective action) ข้อ 6 ทวนสอบ (verification) และข้อ 7 จัดทำเอกสารและบันทึก ก่อนเริ่ม 7 ข้อนี้มีขั้นตอนเบื้องต้น 5 ขั้น ตั้งแต่ตั้งทีม HACCP จนถึงยืนยันแผนภูมิการผลิต CL ต้องตามหลัง CCP เพราะเป็นค่าที่ตั้งให้แต่ละ CCP และการแก้ไขต้องตามหลังการเฝ้าระวัง เพราะต้องพบการเบี่ยงเบนก่อน",
+    "source": "FIQC_SoJ_E1 หน้า 12, 17, 39, 44, 46, 47, 49 และ 51",
+    "verified": "สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ 'ถาม ข้อถูก/ข้อผิด' (โฟลเดอร์ Vet 84) หน้า 1 บรรทัด 'ลำดับ 7 ขั้นตอน และความหมายแต่ละขั้นตอน'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 12
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 17
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 39
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 44
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 46
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 47
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 49
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 51
+      },
+      {
+        "doc": "fiqc-haccp-2022-topics-vet84",
+        "edition": "35p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "7-principles",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213006,
+    "subject": "food-industry",
+    "topic": "fiqc-haccp",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "หลักการข้อที่ 7 ของ HACCP คือการจัดทำเอกสารและบันทึก ข้อใดบอกประโยชน์ของบันทึกเหล่านี้ได้ถูกต้องที่สุด",
+    "options": [
+      "ใช้แทนการเฝ้าระวังที่จุด CCP ได้ หากมีบันทึกย้อนหลังครบทุกวัน",
+      "ทำให้ไม่ต้องมีโปรแกรมพื้นฐาน เช่น GHP หรือ biosecurity อีกต่อไป",
+      "ใช้กำหนดค่า CL ขึ้นใหม่ทุกครั้งที่เริ่มเลี้ยงไก่รุ่นใหม่ในฟาร์ม",
+      "เป็นหลักฐานที่ใช้ทบทวนในขั้นทวนสอบว่าระบบทำงานตามแผนที่วางไว้"
+    ],
+    "answer": 3,
+    "explain": "หลักการข้อ 7 กำหนดเอกสารและบันทึก ได้แก่ document master list แผน HACCP ขั้นตอนการผลิต บันทึกการตรวจระหว่างการผลิต บันทึกการเฝ้าระวัง CCP และบันทึกการแก้ไข บันทึกเหล่านี้คือสิ่งที่ขั้นทวนสอบนำมาทบทวน และใช้ตามสอบเมื่อมีข้อร้องเรียนหรือต้องเรียกคืนสินค้า บันทึกไม่ได้แทนการเฝ้าระวัง เพราะการเฝ้าระวังต้องวัดจริงตามความถี่ ไม่ได้ทำให้เลิกโปรแกรมพื้นฐาน ซึ่งเป็นฐานของความสำเร็จของ HACCP และค่า CL ไม่ได้ตั้งใหม่ทุกรุ่น แต่ทบทวนตามกฎหมาย ข้อกำหนด หรือผลการทดลอง",
+    "source": "FIQC_SoJ_E1 หน้า 49, 50 และ 51",
+    "verified": "สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ 'ถาม ข้อถูก/ข้อผิด' (โฟลเดอร์ Vet 84) หน้า 1 บรรทัด 'ขั้นที่ 7 ทำอะไร / เพื่ออะไร'; ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 1 โน้ต 'ประโยชน์การ record ข้อมูล'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 49
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 50
+      },
+      {
+        "doc": "fiqc-haccp-2569",
+        "edition": "77p",
+        "page": 51
+      },
+      {
+        "doc": "fiqc-haccp-2022-topics-vet84",
+        "edition": "35p",
+        "page": 1
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 1
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-haccp",
+      "documentation",
+      "record-keeping",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213007,
+    "subject": "food-industry",
+    "topic": "fiqc-poultry-export",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "จากข้อมูลการส่งออกเนื้อไก่ของไทยปี 2018-2024 (ปี 2024 นับถึงเดือนสิงหาคม) ข้อใดถูกต้อง",
+    "options": [
+      "ส่งออกไก่ดิบมากกว่าไก่ปรุงสุกทุกปี และสหภาพยุโรปเป็นตลาดอันดับหนึ่งของไก่ดิบ",
+      "ส่งออกไก่ปรุงสุกมากกว่าไก่ดิบทุกปี และญี่ปุ่นเป็นตลาดอันดับหนึ่งของทั้งสองชนิด",
+      "ส่งออกไก่ปรุงสุกมากกว่าไก่ดิบทุกปี แต่สหราชอาณาจักรเป็นตลาดอันดับหนึ่งของไก่สุก",
+      "ส่งออกไก่ดิบกับไก่ปรุงสุกพอ ๆ กัน และจีน-ฮ่องกงเป็นตลาดอันดับหนึ่งของทั้งสองชนิด"
+    ],
+    "answer": 1,
+    "explain": "ปริมาณส่งออกไก่ปรุงสุกสูงกว่าไก่ดิบทุกปีในช่วงนี้ เช่น ปี 2021 ไก่สุก 550 พันตันต่อไก่ดิบ 417 พันตัน และปี 2023 ไก่สุก 595 พันตันต่อไก่ดิบ 530 พันตัน ตลาดอันดับหนึ่งทุกปีทั้งของไก่ดิบและไก่สุกคือญี่ปุ่น ตลาดไก่สุกรองลงมาคือสหราชอาณาจักรและสหภาพยุโรป ส่วนจีน-ฮ่องกงเป็นตลาดของไก่ดิบ และไม่เคยแซงญี่ปุ่น",
+    "source": "มาตรฐานสินค้าปศุสัตว์เพื่อการส่งออก (ฉบับ Nov 2024 ในโฟลเดอร์ Vet 84) หน้า 6-8",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 2 โน้ต 'อะไรมากกว่ากัน' ที่กราฟ THAI EXPORTS 2018 - 2021 พร้อมคำตอบที่เขียนไว้ 'ไก่สุก ญี่ปุ่น'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-poultry-export-2024",
+        "edition": "78p",
+        "page": 6
+      },
+      {
+        "doc": "fiqc-poultry-export-2024",
+        "edition": "78p",
+        "page": 7
+      },
+      {
+        "doc": "fiqc-poultry-export-2024",
+        "edition": "78p",
+        "page": 8
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 2
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-poultry-export",
+      "export",
+      "thai-poultry",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213008,
+    "subject": "food-industry",
+    "topic": "fiqc-poultry-export",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "มาตรฐานใดต่อไปนี้ไม่ได้เป็นมาตรฐานด้านความปลอดภัยอาหาร (food safety) ที่ใช้รับรองโรงงานแปรรูปสัตว์ปีก",
+    "options": [
+      "ISO 22000",
+      "FSSC 22000",
+      "BRC (UK)",
+      "IFS (EU)",
+      "ISO 14000"
+    ],
+    "answer": 4,
+    "explain": "ISO 14000 เป็นมาตรฐานการจัดการสิ่งแวดล้อม ไม่ใช่มาตรฐานด้านความปลอดภัยอาหาร ส่วนมาตรฐานที่ใช้รับรองโรงงานแปรรูปสัตว์ปีกในด้าน food safety กฎระเบียบ คุณภาพ และ traceability ได้แก่ HACCP-GHP, ISO 22000, FSSC 22000, BRC, IFS, SQF, QS, ISO 9001 และ HALAL ISO 22000 และ FSSC 22000 เป็นระบบการจัดการความปลอดภัยอาหารโดยตรง BRC เป็นมาตรฐานที่ตลาดสหราชอาณาจักรใช้ และ IFS เป็นของฝั่งสหภาพยุโรป",
+    "source": "FIQC_SoJ_E2 หน้า 20",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 2 โน้ต 'มาตรฐานอะไรไม่เกี่ยวกับ food safety' และ 'ช้อยหลอกน่าจะ ISO14000' (ซ้ำที่หน้า 5); สรุปปลายภาค FIQC ของ Vet 85 หน้า 3 โน้ต 'x iso 14000' ที่แผนที่ Certification scheme",
+    "sourcePages": [
+      {
+        "doc": "fiqc-poultry-export-2569",
+        "edition": "84p",
+        "page": 20
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 2
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 5
+      },
+      {
+        "doc": "fiqc-final-summary-vet85",
+        "edition": "12p",
+        "page": 3
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-poultry-export",
+      "certification-scheme",
+      "iso",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213009,
+    "subject": "food-industry",
+    "topic": "fiqc-poultry-export",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดไม่ใช่ข้อกำหนดของ Better Chicken Commitment (BCC) สำหรับไก่เนื้อภายในปี 2026",
+    "options": [
+      "เลี้ยงในกรงหรือระบบกรงหลายชั้นได้ หากคุมแอมโมเนียไม่ให้เกิน 20 ppm",
+      "ความหนาแน่นไม่เกิน 30 kg/m2 และล้วงไก่ได้ไม่เกิน 1 ครั้งต่อรุ่น",
+      "แสงอย่างน้อย 50 lux รวมแสงธรรมชาติ และมีคอนกับของจิกเล่นในเล้า",
+      "ทำให้สลบด้วยแก๊ส (CAS) หรือไฟฟ้าโดยไม่แขวนขาขณะยังรู้สึกตัว",
+      "ตรวจประเมินโดย third-party และรายงานความคืบหน้าเป็นประจำทุกปี"
+    ],
+    "answer": 0,
+    "explain": "BCC ห้ามเลี้ยงในกรงหรือระบบกรงแบบหลายชั้น ไม่ว่าอากาศในเล้าจะดีเพียงใด เกณฑ์ NH3 ไม่เกิน 20 ppm และ CO2 ไม่เกิน 3000 ppm เป็นอีกข้อหนึ่งของการจัดสภาพแวดล้อม ข้อกำหนดครบ 6 ข้อคือ สอดคล้องกฎหมายสวัสดิภาพสัตว์ ความหนาแน่นไม่เกิน 30 kg/m2 และล้วงไก่ไม่เกิน 1 ครั้งต่อรุ่น ใช้สายพันธุ์ที่ให้ผลบวกด้านสวัสดิภาพ จัดสภาพแวดล้อม (แสงอย่างน้อย 50 lux รวมแสงธรรมชาติ คอนอย่างน้อย 2 m และของจิกเล่นอย่างน้อย 2 ชิ้นต่อไก่ 1,000 ตัว) ทำให้สลบด้วยแก๊สหรือไฟฟ้าที่มีประสิทธิภาพโดยไม่แขวนขาไก่ขณะยังมีความรู้สึก และตรวจประเมินโดย third-party พร้อมรายงานความคืบหน้าประจำปี",
+    "source": "FIQC_SoJ_E2 หน้า 73",
+    "verified": "ชีทสรุปปลายภาค FIQC 7 หน้าในโฟลเดอร์ Vet 84 (สัญลักษณ์ต้นคริสต์มาส = 'ออกสอบปลายภาค') หน้า 2 สไลด์ BCC (higher welfare) by 2026 โน้ต 'มาตรฐานที่ไทยไม่ได้ใช้และไม่ได้รับการรับรอง' และ 'อะไรไม่ใช่กฎ'",
+    "sourcePages": [
+      {
+        "doc": "fiqc-poultry-export-2569",
+        "edition": "84p",
+        "page": 73
+      },
+      {
+        "doc": "fiqc-final-quickread-vet84",
+        "edition": "7p",
+        "page": 2
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-poultry-export",
+      "bcc",
+      "animal-welfare",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 213010,
+    "subject": "food-industry",
+    "topic": "fiqc-poultry-export",
+    "year": 5,
+    "type": "match",
+    "examScope": "final",
+    "q": "จับคู่มาตรฐานหรือกฎหมายด้านสวัสดิภาพไก่เนื้อ กับความหนาแน่นการเลี้ยงสูงสุดที่แต่ละข้อกำหนดไว้ (kg/m2)",
+    "pairs": [
+      {
+        "left": "กฎหมาย EU/UK",
+        "right": "42/39"
+      },
+      {
+        "left": "Initiative Tierwohl",
+        "right": "35"
+      },
+      {
+        "left": "Red Tractor แบบเลี้ยงในโรงเรือน",
+        "right": "38"
+      },
+      {
+        "left": "RSPCA แบบเลี้ยงในโรงเรือน",
+        "right": "30-34"
+      },
+      {
+        "left": "Organic UK (Soil Association)",
+        "right": "21-30"
+      }
+    ],
+    "distractors": [
+      "27.5"
+    ],
+    "explain": "ความหนาแน่นสูงสุดที่กำหนด: กฎหมาย EU/UK 42/39 kg/m2, Initiative Tierwohl 35, Red Tractor แบบในโรงเรือน 38, RSPCA แบบในโรงเรือน 30-34 และ Organic UK 21-30 ส่วน 27.5 kg/m2 เป็นของ Red Tractor และ RSPCA แบบปล่อยอิสระ (free range) ซึ่งไม่อยู่ในคู่ข้างต้น เทียบกับ Better Chicken Commitment ที่กำหนดไม่เกิน 30 kg/m2",
+    "source": "มาตรฐานสินค้าปศุสัตว์เพื่อการส่งออก (ฉบับ Nov 2024 ในโฟลเดอร์ Vet 84) หน้า 53; FIQC_SoJ_E2 หน้า 73 (BCC)",
+    "verified": "สรุปปลายภาค FIQC ของ Vet 85 หน้า 3 โน้ต 'matching สอบ ?!' เหนือตารางเปรียบเทียบมาตรฐานสวัสดิภาพ (matrix scheme)",
+    "sourcePages": [
+      {
+        "doc": "fiqc-poultry-export-2024",
+        "edition": "78p",
+        "page": 53
+      },
+      {
+        "doc": "fiqc-poultry-export-2569",
+        "edition": "84p",
+        "page": 73
+      },
+      {
+        "doc": "fiqc-final-summary-vet85",
+        "edition": "12p",
+        "page": 3
+      }
+    ],
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC",
+    "tags": [
+      "fiqc-poultry-export",
+      "animal-welfare",
+      "stocking-density",
+      "อิงแนวข้อสอบ"
+    ]
   },
 ];

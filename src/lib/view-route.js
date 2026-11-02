@@ -77,6 +77,30 @@ export function isAppPath(pathname) {
   return normalized === '/app' || normalized.startsWith('/app/');
 }
 
+// A shelf deck open in the reader is named in its address. It used to live in
+// App state only, so a reload, browser Forward, or iOS reloading a tab it had
+// killed for memory landed on the empty "เปิด PDF" page. `page` is for links
+// in (VetMock AI's "เปิดหน้า N"); the reader's own address leaves it out, so a
+// reload resumes at the last page read. The slug pattern is the one
+// /api/library-file accepts (Thai included).
+const READER_SLUG = /^[a-z0-9฀-๿][a-z0-9฀-๿-]{0,160}$/;
+
+export function readerUrl(slug, page = null) {
+  const query = new URLSearchParams({ doc: slug });
+  if (Number.isInteger(page) && page > 1) query.set('page', String(page));
+  return `${VIEW_TO_PATH['pdf-annotate']}?${query}`;
+}
+
+/** { slug, page } named by a reader address's query, or null. */
+export function readerTarget(search) {
+  let query;
+  try { query = new URLSearchParams(search || ''); } catch { return null; }
+  const slug = (query.get('doc') || '').trim();
+  if (!READER_SLUG.test(slug)) return null;
+  const page = Number(query.get('page'));
+  return { slug, page: Number.isInteger(page) && page > 1 ? page : null };
+}
+
 /**
  * A /app/* address that names nothing: not a route, not a retired alias, and
  * not the bare /app door. App.jsx puts the student on Home for these, and

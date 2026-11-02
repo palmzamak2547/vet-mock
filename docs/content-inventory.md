@@ -9,19 +9,19 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **7,659** |
+| **Questions ready for learners** | **7,736** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 78 |
-| Total questions in source banks | 7,737 |
-| Question banks (files) | 103 |
+| Total questions in source banks | 7,814 |
+| Question banks (files) | 104 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 297 |
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 5,080 |
+| — year 5 | 5,157 |
 
-Consistency: source banks **7737**, learner-ready **7659**, fail-closed **78**, registry sums to **7737**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **7814**, learner-ready **7736**, fail-closed **78**, registry sums to **7814**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -38,7 +38,7 @@ Consistency: source banks **7737**, learner-ready **7659**, fail-closed **78**, 
 
 ## Curriculum
 
-86 subjects, 1060 topics in the taxonomy.
+86 subjects, 1061 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
@@ -68,11 +68,11 @@ Learner-ready questions that open an article, through their own topic or a judge
 | comp-repro-clinic | 48 | 0 | 0 | 0.0% |
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
-| epidemiology | 100 | 60 | 0 | 60.0% |
+| epidemiology | 166 | 77 | 0 | 46.4% |
 | equine-medicine | 594 | 541 | 0 | 91.1% |
 | equine-repro | 188 | 158 | 7 | 84.0% |
 | exotic | 151 | 101 | 0 | 66.9% |
-| food-industry | 289 | 50 | 0 | 17.3% |
+| food-industry | 300 | 61 | 0 | 20.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 7659 | 4807 | 334 | 62.8% |
+| **All** | 7736 | 4835 | 334 | 62.5% |

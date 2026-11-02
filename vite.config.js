@@ -11,7 +11,12 @@ const atlasEntry = (server) => {
 };
 
 export default defineConfig({
-  plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry }],
+  plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry },
+    // The commit a Vercel build serves, so a live check reads it from the page instead of from a
+    // version string that a release without a changelog entry never changes (5.180.0). Not in
+    // atlas.html: its bytes are Atlas's offline revision, and a new revision on every deploy would
+    // make each offline Atlas re-fetch and re-hash its whole shell.
+    { name: 'build-sha', transformIndexHtml: (html, { path }) => (process.env.VERCEL_GIT_COMMIT_SHA && path === '/index.html' ? [{ tag: 'meta', attrs: { name: 'vmx-build', content: process.env.VERCEL_GIT_COMMIT_SHA }, injectTo: 'head' }] : []) }],
   // '@' resolves to src/. Nothing imports through it today; jsconfig.json
   // mirrors it for editors.
   resolve: {
@@ -108,7 +113,10 @@ export default defineConfig({
             // (@pdf-lib/*, 115 KB of base64 fonts) go with it.
             if (/[\\/]node_modules[\\/]@?pdf-lib[\\/]/.test(id)) return 'vendor-pdf-write'
             // pdf.js reads the PDF and is imported only when one opens. It
-            // was 362 KB of the 666 KB shared chunk every visit loaded.
+            // was 362 KB of the 666 KB shared chunk every visit loaded. The
+            // legacy build (Safari before 17.4 only) is a chunk of its own, so
+            // no current browser downloads it.
+            if (/[\\/]node_modules[\\/]pdfjs-dist[\\/]legacy[\\/]/.test(id)) return 'vendor-pdf-read-legacy'
             if (/[\\/]node_modules[\\/]pdfjs-dist[\\/]/.test(id)) return 'vendor-pdf-read'
             // Be SPECIFIC about react packaging — `includes('react')` was
             // too broad and matched any path containing the substring
@@ -198,6 +206,7 @@ export default defineConfig({
           if (id.includes('questions-y5-aquatic-final-recall')) return 'data-q-y5-aquatic-final-recall'
           if (id.includes('questions-y5-milk-meat-final-recall')) return 'data-q-y5-milk-meat-final-recall'
           if (id.includes('questions-y5-avian-final-recall')) return 'data-q-y5-avian-final-recall'
+          if (id.includes('questions-y5-epid-final-recall')) return 'data-q-y5-epid-final-recall'
           if (id.includes('data/instructors')) return 'data-instructors'
           // Palm audit r4 (2026-05-24): video-summaries was a 2.2MB monolith.
           // scripts/split-video-summaries.cjs broke it into per-subject

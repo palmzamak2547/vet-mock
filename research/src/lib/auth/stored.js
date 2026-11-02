@@ -17,6 +17,22 @@ export function storedUserId(storage = globalThis.localStorage) {
   }
 }
 
+/**
+ * The whole stored session ({ access_token, user, ... }) or null, read the same way: the Chula wall
+ * judges a saved session from its user's identities with no network (lib/auth/wall.js).
+ */
+export function storedSession(storage = globalThis.localStorage) {
+  try {
+    const raw = storage?.getItem(AUTH_STORAGE_KEY);
+    if (!raw) return null;
+    const j = JSON.parse(raw);
+    const session = j?.user ? j : j?.currentSession;
+    return session?.user && typeof session.user.id === 'string' ? session : null;
+  } catch {
+    return null;
+  }
+}
+
 /** The owner scope this device would open as, from the stored session alone ('guest' without one). */
 export function storedOwner(storage = globalThis.localStorage) {
   const id = storedUserId(storage);

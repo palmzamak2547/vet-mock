@@ -31,8 +31,8 @@ const { default: LibraryView } = await loadModule('src/views/LibraryView.jsx', {
   { match: '/components/ExternalDocsSection\\.jsx$', contents: 'export default () => null;' },
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ reduced: true });' },
   { match: '/lib/library\\.js$', contents: `
-    export const { LIBRARY_KINDS, SEMESTERS, buddhistYear, docOpenMode, prefetchDocUrl, docTypeLabel,
-      displayDocTitle, filterIndexed, markTerms, searchLibraryText, TEXT_SEARCH_MIN, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs,
+    export const { LIBRARY_KINDS, SEMESTERS, buddhistYear, contentHitRows, docOpenMode, prefetchDocUrl, docTypeLabel,
+      displayDocTitle, filterIndexed, markTerms, searchLibraryText, TEXT_SEARCH_MIN, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs, openDocInTab, downloadDocFile, findLibraryDoc, missingDocReason,
       readerPayload, recordRecentDoc, resolveDocUrl, semesterLabel, subjectMeta } = globalThis.__libraryShowMoreFunctions;
     export const getLibraryCatalogFast = () => ({ stale: Promise.resolve(null), fresh: Promise.resolve({ docs: globalThis.__libraryShowMoreDocs, configured: true }) });` },
 ] });

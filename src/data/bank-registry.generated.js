@@ -179,6 +179,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-avian-pastpaper.js', export: 'QB_Y5_AVIAN_PASTPAPER', year: 5, count: 70,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-pastpaper.js').then((m) => m.QB_Y5_AVIAN_PASTPAPER) },
+  { file: 'questions-y5-epid-final-recall.js', export: 'QUESTIONS_Y5_EPID_FINAL_RECALL', year: 5, count: 66,
+    subjects: ['epidemiology'],
+    load: () => import('./questions-y5-epid-final-recall.js').then((m) => m.QUESTIONS_Y5_EPID_FINAL_RECALL) },
   { file: 'questions-y5-epidemiology-2026-b.js', export: 'QB_Y5_EPIDEMIOLOGY_2026B', year: 5, count: 23,
     subjects: ['epidemiology'],
     load: () => import('./questions-y5-epidemiology-2026-b.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026B) },
@@ -203,7 +206,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-final-mixed.js', export: 'QB_Y5_FINAL_MIXED', year: 5, count: 60,
     subjects: ['aquatic-clinic', 'avian-medicine', 'livestock-pathology', 'rec-adv-bioscience', 'ruminant-clinical', 'swine-clinic', 'vca', 'zoonoses'],
     load: () => import('./questions-y5-final-mixed.js').then((m) => m.QB_Y5_FINAL_MIXED) },
-  { file: 'questions-y5-fiqc-2026-b.js', export: 'QUESTIONS_Y5_FIQC_2026_B', year: 5, count: 34,
+  { file: 'questions-y5-fiqc-2026-b.js', export: 'QUESTIONS_Y5_FIQC_2026_B', year: 5, count: 45,
     subjects: ['food-industry'],
     load: () => import('./questions-y5-fiqc-2026-b.js').then((m) => m.QUESTIONS_Y5_FIQC_2026_B) },
   { file: 'questions-y5-fiqc-2026-c.js', export: 'QUESTIONS_Y5_FIQC_2026_C', year: 5, count: 36,
@@ -319,4 +322,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-01T09:57:09.565Z — 103 banks · 7737 Qs
+// Built: 2026-11-01T12:48:52.991Z — 104 banks · 7814 Qs

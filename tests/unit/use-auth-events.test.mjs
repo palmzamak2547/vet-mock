@@ -154,8 +154,9 @@ function fakeSupabase(initialUser) {
 
 // Mounts the real hook. savedSession is what hasSavedSession() reports at boot:
 // true takes the eager hydrate path, false the guest path that waits for a
-// sign-in helper to fire vmx-auth-changed.
-function mountHook(fake, { savedSession }) {
+// sign-in helper to fire vmx-auth-changed. held() is what storedAuthSession()
+// reads from the device: the token auth-js keeps, whatever getSession answers.
+function mountHook(fake, { savedSession, held = () => null, redirect = false }) {
   const win = new EventTarget();
   const libraryEvents = [];
   win.addEventListener('vmx-library-auth-changed', () => libraryEvents.push(Date.now()));
@@ -169,9 +170,9 @@ function mountHook(fake, { savedSession }) {
   const host = createHookHost(() => useAuth());
   for (const name of hookNames) assert.ok(host.react[name], `the hook host implements ${name}`);
   useAuth = new Function(
-    ...hookNames, 'hasSupabase', 'hasSavedSession', 'hasAuthRedirectInUrl', 'getSupabase', 'window',
+    ...hookNames, 'hasSupabase', 'hasSavedSession', 'hasAuthRedirectInUrl', 'getSupabase', 'storedAuthSession', 'window',
     `${body}\nreturn useAuth;`,
-  )(...hookNames.map((name) => host.react[name]), true, () => savedSession, () => false, async () => fake.sb, win);
+  )(...hookNames.map((name) => host.react[name]), true, () => savedSession, () => redirect, async () => fake.sb, held, win);
   host.mount();
   return { host, win, libraryEvents };
 }
@@ -275,6 +276,63 @@ test('signing out and back in still resets the library and the profile at once',
   assert.equal(host.result.profile?.id, 'alice');
   assert.equal(fake.calls.profile.length - profileBefore, 1, 'the profile loads for the returning account');
   assert.equal(libraryEvents.length, 2, 'signing in must reload the shelf with restricted documents');
+});
+
+test('an expired session opens its account at once, and keeps it while the refresh cannot run', async () => {
+  // Offline, auth-js cannot refresh an expired token: getSession and
+  // INITIAL_SESSION both answer no session while the token stays on the device.
+  const carol = makeUser('carol');
+  let onDevice = { user: clone(carol), expiresAt: 1 };
+  const fake = fakeSupabase(null);
+  // auth-js is still retrying the refresh, so getSession has not answered.
+  let answer;
+  fake.sb.auth.getSession = () => new Promise((resolve) => { answer = resolve; });
+  const { host } = mountHook(fake, { savedSession: true, held: () => onDevice });
+  assert.equal(host.result.user, null, 'the first render, before any effect');
+  await settle();
+  assert.equal(host.result.user?.id, 'carol', 'open at once, before auth-js answers');
+  assert.equal(host.result.loading, false);
+  answer({ data: { session: null } });
+  await settle();
+  assert.equal(host.result.user?.id, 'carol', 'kept after getSession and INITIAL_SESSION answer no session');
+
+  // Signing out (or the server refusing the token) clears it, and only then the account goes.
+  onDevice = null;
+  fake.emit('SIGNED_OUT', null);
+  await settle();
+  assert.equal(host.result.user, null);
+});
+
+test('a stored session opens at once, without waiting for the SDK, and is not read twice', async () => {
+  // Home and the Chula wall would otherwise sit behind the SDK chunk on every open.
+  const alice = makeUser('alice');
+  const fake = fakeSupabase(alice);
+  let answer;
+  const realGetSession = fake.sb.auth.getSession;
+  fake.sb.auth.getSession = () => new Promise((resolve) => { answer = () => realGetSession().then(resolve); });
+  const { host, libraryEvents } = mountHook(fake, { savedSession: true, held: () => ({ user: clone(alice), expiresAt: 4102444800 }) });
+  await settle();
+  assert.equal(host.result.user?.id, 'alice', 'open before getSession answers');
+  assert.equal(host.result.loading, false);
+  answer();
+  await settle();
+  assert.equal(host.result.user?.id, 'alice');
+  assert.equal(fake.calls.profile.length, 1, 'the same account from the SDK reads the profile no second time');
+  assert.equal(libraryEvents.length, 0, 'and leaves the catalogue alone');
+});
+
+test('on a sign-in redirect the account on the device does not paint before the arriving one', async () => {
+  const fake = fakeSupabase(makeUser('bob'));
+  let answer;
+  const realGetSession = fake.sb.auth.getSession;
+  fake.sb.auth.getSession = () => new Promise((resolve) => { answer = () => realGetSession().then(resolve); });
+  const { host } = mountHook(fake, { savedSession: true, redirect: true, held: () => ({ user: makeUser('alice'), expiresAt: 1 }) });
+  await settle();
+  assert.equal(host.result.user, null, 'not alice while bob\'s sign-in is read from the address');
+  assert.equal(host.result.loading, true);
+  answer();
+  await settle();
+  assert.equal(host.result.user?.id, 'bob');
 });
 
 test('switching accounts swaps the user, the profile and the library', async () => {
