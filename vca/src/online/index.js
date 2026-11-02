@@ -7,6 +7,9 @@ import { MODE } from './config.js';
 export { MODE } from './config.js';
 export { useAccount, startAccount, signOut, openSetup } from './account.js';
 export { AccountButton, AccountSheets, prefetchSignIn } from './ui/AccountButton.jsx';
+// The Chula sign-in wall (docs/CHULA-SIGNIN.md): open, and loading nothing, unless the backend is live.
+export { wall, useWall, startWall } from './gate.js';
+export { ChulaWall } from './ui/ChulaWall.jsx';
 
 /** Whether the community shows at all: hidden in a production build with no backend yet. */
 export const COMMUNITY_ON = MODE !== 'off';

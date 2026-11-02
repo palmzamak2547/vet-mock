@@ -82,6 +82,23 @@ grants, guard triggers (handles, rate limits, fields a writer may not set), and 
 from different people hiding a post until a moderator looks. The pages only ask, and turn
 refusals into Thai a student can act on (`problemText`).
 
+## The Chula sign-in wall
+
+While the wall is on (docs/CHULA-SIGNIN.md), every page but `/auth/callback` and `/auth/line`
+shows a sign-in card until a member session is present (`App.jsx`). The state is
+`online/wall.js` (gateState's four answers, kept on the device so a saved member session opens
+offline, never a sign-out because a check failed), on the community's own session through
+`online/gate.js`; the rule is `online/chula.js`, a copy of `src/lib/chula.js` held to it by
+`tests/unit/chula-subapps.test.mjs` at the repo root. The way in is Google's own button
+(`online/gis.js`, One Tap beside it) on the origins in `config.js` `GOOGLE_ORIGINS`; elsewhere, or
+when the button has not drawn 4 s after the script loaded, the house button redirects and comes back
+through `/auth/callback`. The wall leaves an error on `/auth/` pages to that page, which keeps its
+own words for its own errors and hands the wall's errors to the wall's card. An account with no Chula
+identity links one in place on this site's session (`linkIdentity`, no One Tap) and the page starts
+again. A guest's visit loads Supabase only to sign in. In demo or off mode the wall is open. The
+account menu opens for a student with no profile too, so signing out is always one tap away, and
+the profile sheet offers itself once per account in this browser (`vca:profile-offered`).
+
 ## Questions: from the main bank to a domain
 
 `scripts/build-bank.mjs` runs before every dev, build and test. It reads the registry and the

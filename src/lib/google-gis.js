@@ -123,7 +123,7 @@ function randomNonce() {
  *   client. We don't import getSupabase() here to keep this module
  *   side-effect-free (testable + reusable).
  */
-export async function signInWithGoogleGis({ supabase }) {
+export async function signInWithGoogleGis({ supabase, hd = '', link = false }) {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
   if (!clientId) throw new Error('NO_GOOGLE_CLIENT_ID');
   if (!supabase) throw new Error('Supabase client required');
@@ -158,11 +158,12 @@ export async function signInWithGoogleGis({ supabase }) {
             return;
           }
           try {
-            const { data, error } = await supabase.auth.signInWithIdToken({
-              provider: 'google',
-              token: response.credential,
-              nonce: rawNonce,
-            });
+            // link: add this Google identity to the account already signed in
+            // (the Chula wall's เชื่อมบัญชีจุฬา), instead of signing in with it.
+            const credentials = { provider: 'google', token: response.credential, nonce: rawNonce };
+            const { data, error } = link
+              ? await supabase.auth.linkIdentity(credentials)
+              : await supabase.auth.signInWithIdToken(credentials);
             if (error) {
               finish(error);
             } else {
@@ -175,6 +176,10 @@ export async function signInWithGoogleGis({ supabase }) {
         },
         auto_select: false,
         cancel_on_tap_outside: true,
+        // Google lists only accounts on this hosted domain (student.chula.ac.th
+        // for the Chula wall); with none signed in the prompt is not displayed
+        // and the caller falls back to the redirect.
+        ...(hd ? { hd } : {}),
         // Apple-style flow style — pops a sheet instead of full-page
         ux_mode: 'popup',
         itp_support: true, // Better Safari ITP handling
@@ -189,6 +194,10 @@ export async function signInWithGoogleGis({ supabase }) {
           // Many browsers suppress One Tap after a single dismiss;
           // the AuthView will show the explicit button as primary.
           finish(new Error('GIS_PROMPT_SUPPRESSED'));
+        } else if (notification.isDismissedMoment?.() && notification.getDismissedReason?.() !== 'credential_returned') {
+          // Closed by the user: without this the promise never settled and
+          // the button stayed busy until the caller's safety timeout.
+          finish(new Error('GIS_POPUP_CLOSED'));
         }
       });
     } catch (e) {
@@ -220,17 +229,20 @@ export async function renderGoogleGisButton(container, opts = {}) {
   window.google.accounts.id.initialize({
     client_id: clientId,
     nonce: hashedNonce,
+    // hd lists only accounts on that hosted domain first (the Chula wall);
+    // link adds the identity to the account already signed in.
+    ...(opts.hd ? { hd: opts.hd } : {}),
     callback: async (response) => {
       if (!response?.credential) {
         opts.onError?.(new Error('No credential'));
         return;
       }
+      opts.onCredential?.();
       try {
-        const { data, error } = await opts.supabase.auth.signInWithIdToken({
-          provider: 'google',
-          token: response.credential,
-          nonce: rawNonce,
-        });
+        const credentials = { provider: 'google', token: response.credential, nonce: rawNonce };
+        const { data, error } = opts.link
+          ? await opts.supabase.auth.linkIdentity(credentials)
+          : await opts.supabase.auth.signInWithIdToken(credentials);
         if (error) {
           opts.onError?.(error);
         } else {
@@ -250,11 +262,18 @@ export async function renderGoogleGisButton(container, opts = {}) {
     theme: opts.theme || 'filled_blue',
     size: 'large',
     type: 'standard',
-    shape: 'rectangular',
-    text: 'signin_with',
+    shape: opts.shape || 'rectangular',
+    text: opts.text || 'signin_with',
+    logo_alignment: opts.logoAlignment || 'left',
     locale: 'th',
-    width: container.clientWidth || 280,
+    // Google caps the button at 400 px.
+    width: Math.min(400, container.clientWidth || 280),
   });
+  // One Tap beside the button, as Google recommends: one tap when the account is
+  // already signed in to Google here, and the button when it is not.
+  if (opts.prompt) {
+    try { window.google.accounts.id.prompt(); } catch { /* the button still works */ }
+  }
 
   // Return a teardown so the caller can re-render on theme/lang change
   return () => {

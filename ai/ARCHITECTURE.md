@@ -12,7 +12,10 @@ ai/                         static Vite app, Vercel project "vetmock-ai", ai.vet
     gl.js                   WebGL 1 helpers
     index.js                createOcean(): resize, quality ladder, modes, capture clock
   src/lib/                  api (SSE over POST), markdown renderer, store (localStorage),
-                            speech (th-TH in/out), image (resize before upload), env
+                            speech (th-TH in/out), image (resize before upload), env;
+                            the Chula sign-in wall: chula (the rule, a copy of src/lib/chula.js),
+                            wall (its state), auth (the one Supabase Auth module, lazy), gis
+                            (Google's own button), account (the page's wall + the API's token), inapp
   src/components/           Composer, Message (answer, sources deck, cards), Chrome
                             (header, history sheet, specimen label, footer), GlyphText
   tests/unit/               node --test, no browser
@@ -37,6 +40,23 @@ scripts/ai-dev-api.mjs      local adapter for the route
 
 Refusals before streaming are JSON `{ error, message, retryAfter? }` with 400/429/503.
 A stream that ends without `done` or `error` is treated as cut (tested).
+
+## The Chula sign-in wall
+
+While the wall is on (docs/CHULA-SIGNIN.md) the page shows a sign-in card over the sea until a
+member session is present, and every POST to `/api/ai-chat` and `/api/ai-transcribe` carries
+`Authorization: Bearer <access token>` (`lib/api.js`; the GETs stay public). A 401
+`signin_required` refreshes the session once and retries, else shows the sign-in card; a 403
+`chula_required` shows the link screen; a 503 is a temporary error. The state is `lib/wall.js`
+(gateState's four answers, remembered on the device so a saved member session opens offline);
+the session is `lib/auth.js` (PKCE, storage key `vmx-ai-auth`, its own session, never vetmock.com's).
+The way in is Google's own button (`lib/gis.js`, One Tap beside it, only on https://ai.vetmock.com);
+the redirect is the fallback, and so is an empty button slot 4 s after Google's script loaded. A
+signed-in account with no Chula identity links one in place on this page's own session (Google's
+button again, no One Tap, then `linkIdentity` with the ID token and a reload); an address that
+already has its own account is told so with a way to sign in with it. A tab shown again re-asks the
+switch at most once a minute. Signing out is at the foot of the history sheet. A build without
+`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` has no accounts and no wall.
 
 ## The sea, in one paragraph
 

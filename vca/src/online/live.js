@@ -42,9 +42,11 @@ export const auth = {
     });
     return () => unsubscribe();
   },
-  async google() {
+  /** `hd` (the Chula wall's student.chula.ac.th or chula.ac.th) asks Google for an account on that
+   *  domain; the database, not this hint, decides who is let in (docs/CHULA-SIGNIN.md). */
+  async google({ hd } = {}) {
     const sb = await getClient();
-    await must(sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: callback(), queryParams: { prompt: 'select_account' } } }));
+    await must(sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: callback(), queryParams: { prompt: 'select_account', ...(hd ? { hd } : {}) } } }));
   },
   /** Google Identity Services handed back an ID token (online/gis.js): trade it for a session. */
   async googleIdToken(token, nonce) {
@@ -86,7 +88,15 @@ export const auth = {
     const sb = await getClient();
     // This device only: the account is shared with vetmock.com, and the default (global) revokes
     // every refresh token, which signed the student out of VetMock on all their devices.
-    await sb.auth.signOut({ scope: 'local' });
+    const { error } = await sb.auth.signOut({ scope: 'local' });
+    // Offline (or an expired token with no network) auth-js keeps the token. End the
+    // local session the way it does after a refused refresh: _removeSession clears the
+    // token, stops a retrying refresh from saving it again, and tells every tab
+    // SIGNED_OUT. Without it, drop the token through the client's own storage.
+    if (!error) return;
+    if (typeof sb.auth._removeSession === 'function') { await sb.auth._removeSession(); return; }
+    const { storage, storageKey } = sb.auth;
+    await storage?.removeItem(storageKey);
   },
 };
 

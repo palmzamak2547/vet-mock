@@ -40,6 +40,7 @@ import {
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { getUserFromRequest, getConnection, googleTokenStale, refreshGoogleAccess, isGoogleApiHost } from './_lib/external-connections.js';
 import { createHash } from 'node:crypto';
+import { requireChula } from './_lib/chula-gate.js';
 
 const NOTION_VERSION = '2026-03-11'; // the dated version that serves /pages/{id}/markdown
 const NOTION_API = 'https://api.notion.com/v1';
@@ -383,6 +384,8 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   const ip = clientIP(req);
   const ceiling = await rateLimit(`external-doc-ip:${ip}`, IP_CEILING_PER_HOUR, HOUR_MS);

@@ -215,7 +215,7 @@ export const GUIDE_PATHS = [
         check: [{ file: 'src/components/PWAInstallChip.jsx', has: 'เลือกติดตั้งแอปหรือเพิ่มที่หน้าจอโฮมจากเมนูของเบราว์เซอร์' }],
       },
       {
-        text: 'ไม่ต้องสมัครก็ฝึกได้ ถ้า {ui:เข้าสู่ระบบ} สถิติ ข้อที่บันทึก และการ์ดทบทวนจะตามไปทุกเครื่อง',
+        text: 'เมื่อ {ui:เข้าสู่ระบบ} สถิติ ข้อที่บันทึก และการ์ดทบทวนจะตามไปทุกเครื่อง',
         src: ['src/views/ProfileView.jsx'],
         check: [
           { file: 'src/lib/user-data-sync.js', has: 'vmx-history' },

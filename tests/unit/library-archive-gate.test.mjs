@@ -13,7 +13,10 @@ test('source aliases sign an owned copy and retain its filename without forwardi
   Object.assign(process.env, { VITE_SUPABASE_URL: 'https://example.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key', CLOUDFLARE_API_TOKEN: 'test-only' });
   t.after(() => { process.env = previous; globalThis.fetch = previousFetch; });
   const row = { slug: copy.slug, status: 'public', storage_provider: 'r2', storage_bucket: 'vetmock-library', storage_key: `archives/vca/objects/${copy.sha256}.pdf`, mime: 'application/pdf', byte_size: copy.bytes };
-  globalThis.fetch = async (_url, init) => { seen.push(JSON.parse(init.body)); return Response.json([row]); };
+  globalThis.fetch = async (url, init) => {
+    if (String(url).endsWith('/rest/v1/rpc/chula_access_state')) return Response.json({ enforce: false, member: false, signed_in: false, uid: null });
+    seen.push(JSON.parse(init.body)); return Response.json([row]);
+  };
   const res = fakeRes();
   await handler({ method: 'GET', url: `/api/library-file?source=${file.id}&open=1&redirect=https://evil.test`, headers: {} }, res);
   assert.equal(res.statusCode, 302);

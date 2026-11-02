@@ -18,6 +18,7 @@ import graphs from '../i18n/graphs.js';
 import tools from '../i18n/tools.js';
 import termsM2 from '../i18n/terms-m2.js';
 import { useOwner } from '../lib/auth/session.js';
+import { AUTH_CONFIGURED } from '../lib/auth/client.js';
 import { claimGuestProjects, claimOnFirstSignIn } from '../lib/auth/claim-guest.js';
 import { openResearchDb } from '../lib/store/db.js';
 import { listProjects } from '../lib/store/projects.js';
@@ -58,6 +59,8 @@ registerArea('terms-m2', termsM2);
 
 const Entrance = lazy(() => import('../entrance/Entrance.jsx'));
 const WorkspaceFilm = lazy(() => import('../entrance/WorkspaceFilm.jsx'));
+// The Chula sign-in wall (docs/CHULA-SIGNIN.md) in its own chunk, fetched only by a build with sign-in.
+const ChulaGate = lazy(() => import('./components/ChulaGate.jsx'));
 // Dark from the first frame while the film's chunk loads (its stylesheet comes with the chunk).
 const FILM_HOLD = { position: 'fixed', inset: 0, zIndex: 1000, background: '#0b0f14' };
 
@@ -303,20 +306,26 @@ function Root({ route, owner, user, authError }) {
   );
 }
 
-function OwnerGate({ route }) {
+function OwnerGate({ route, returnedError = null }) {
   const { t } = useT();
   const { owner, user, ready, authError } = useOwner();
   if (!ready) return <div className="rs-boot"><Busy label={t('common.loading')} /></div>;
-  return <Root key={owner} route={route} owner={owner} user={user} authError={authError} />;
+  return <Root key={owner} route={route} owner={owner} user={user} authError={authError || returnedError} />;
 }
 
 /** @param {{ route: import('../router.js').Route }} props */
 export default function Workspace({ route }) {
+  const { t } = useT();
   if (route.name === 'notFound') return <NotFound />;
   if (route.name === 'licenses') return <Licenses />;
+  // While the Chula wall is on, the workspace (projects, analyses and the tools) waits for a member session.
   return (
     <Boundary>
-      <OwnerGate route={route} />
+      {AUTH_CONFIGURED ? (
+        <Suspense fallback={<div className="rs-boot"><Busy label={t('common.loading')} /></div>}>
+          <ChulaGate>{(returnedError) => <OwnerGate route={route} returnedError={returnedError} />}</ChulaGate>
+        </Suspense>
+      ) : <OwnerGate route={route} />}
     </Boundary>
   );
 }
