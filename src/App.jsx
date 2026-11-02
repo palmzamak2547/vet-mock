@@ -40,7 +40,7 @@ import SyncStatusNotice from './components/SyncStatusNotice.jsx';
 import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequiredState.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
-import { shuffle, isCorrect, downloadJSON, updateStreak, streakShown, timeForQuestion, isWritingType } from './hooks/utils.js';
+import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType } from './hooks/utils.js';
 import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, questionPinPayload, unfinishedWork, unsavedResult, runSubjectFor } from './lib/app-flow.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
 // export (src/styles.js, injected via <style>{STYLES}</style>) to a real
@@ -64,6 +64,8 @@ import { recordQuestEvent } from './lib/quests.js';
 import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
 import { streakMoment, stashStreakMoment } from './lib/streak-moment.js';
 import { weekTrack } from './lib/study-record.js';
+// The streak as of today, for the dashboard (a run that ended reads 0).
+import { streakShown } from './hooks/utils.js';
 import { usualStudyTime } from './lib/study-reminder.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
