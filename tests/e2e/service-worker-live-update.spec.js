@@ -275,7 +275,7 @@ test('updates preserve every open document while new documents get the new UI', 
     await offline.close();
   } finally { updateServer.reconnect(); }
   const swState = async (tab) => `${await tab.evaluate(async () => ((await navigator.serviceWorker.getRegistration('/app/'))?.waiting ? 'waiting' : 'none'))}/${await workerVersion(tab)}`;
-  expect(await swState(page)).toBe('waiting/browser-test-A');
+  await expect.poll(() => swState(page)).toBe('waiting/browser-test-A');
 
   // WebKit on Linux sometimes activates the waiting worker by itself when a new tab navigates into
   // scope while A's tabs are still open. Measured on the CI image (2 Nov 2026, 40 runs): in 5, B was
@@ -291,8 +291,9 @@ test('updates preserve every open document while new documents get the new UI', 
   const modern = await context.newPage();
   await modern.goto(updateServer.origin + '/app/pdf').catch(async (error) => {
     if (!webkitOnLinux || !/internal error/i.test(String(error))) throw error;
-    const counts = await Promise.all(documents.map(tab => tab.evaluate(() => window.controllerChanges)));
-    test.info().annotations.push({ type: 'webkit-navigation-retried', description: `${await swState(page)}, controllerChanges ${changes} -> ${counts}: ${String(error).slice(0, 120)}` });
+    const counts = await Promise.all(documents.map(tab => tab.evaluate(() => window.controllerChanges))).catch(() => 'unreadable');
+    const worker = await swState(page).catch(() => 'unreadable');
+    test.info().annotations.push({ type: 'webkit-navigation-retried', description: `${worker}, controllerChanges ${changes} -> ${counts}: ${String(error).slice(0, 120)}` });
     await modern.goto(updateServer.origin + '/app/pdf');
   });
   await expect(modern.locator('body')).toHaveAttribute('data-build', 'B');
