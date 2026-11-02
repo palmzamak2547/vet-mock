@@ -1784,12 +1784,6 @@ export const VIDEO_TOPIC_INDEX = {
  ],
  "seizure": [
   {
-   "v": "pIcgxusqLag",
-   "s": 0,
-   "e": 5280,
-   "conf": "high"
-  },
-  {
    "v": "S6uo2I2gfXQ",
    "s": 5820,
    "e": 6420,
@@ -1809,12 +1803,6 @@ export const VIDEO_TOPIC_INDEX = {
   }
  ],
  "triage": [
-  {
-   "v": "pIcgxusqLag",
-   "s": 5280,
-   "e": 5940,
-   "conf": "high"
-  },
   {
    "v": "azotEvqwcZo",
    "s": 660,
@@ -2115,14 +2103,6 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "KjBUKGa6-V4",
    "s": 600,
    "e": 1980,
-   "conf": "high"
-  }
- ],
- "neuro-er": [
-  {
-   "v": "pIcgxusqLag",
-   "s": 5940,
-   "e": 6755,
    "conf": "high"
   }
  ],
@@ -2578,22 +2558,10 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   },
   {
-   "v": "Od_JhhqLu-A",
-   "s": 0,
-   "e": 1942,
-   "conf": "high"
-  },
-  {
    "v": "Z-2lCeOpQ-8",
    "s": 120,
    "e": 840,
    "conf": "high"
-  },
-  {
-   "v": "8IfgZNKe0Bw",
-   "s": 0,
-   "e": 181,
-   "conf": "medium"
   }
  ],
  "ruminant-anesthesia": [
@@ -2846,22 +2814,6 @@ export const VIDEO_TOPIC_INDEX = {
    "s": 2880,
    "e": 3660,
    "conf": "high"
-  }
- ],
- "epidural-block": [
-  {
-   "v": "vPD0Ewptp64",
-   "s": 0,
-   "e": 765,
-   "conf": "medium"
-  }
- ],
- "testicular-block": [
-  {
-   "v": "sSWyqRT3f4Q",
-   "s": 0,
-   "e": 633,
-   "conf": "medium"
   }
  ]
 };

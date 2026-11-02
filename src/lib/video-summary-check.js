@@ -42,6 +42,9 @@ export function keyPointCap(durationSec) {
 
 // Note voice (summaries read as notes): the fact itself, never the lecturer
 // saying it; no table, no middle dot.
+// Study advice and a summary that names itself (the sample's polish pass, 2 Nov 2026).
+const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|อย่าลืมว่า|ข้อนี้สำคัญ/;
+const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิปนี้)/;
 const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\bred\b|สีแดง|ตัวแดง|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
 const FORBIDDEN = /[·|]/;
 const SENTENCE_BREAK = /[.!?;](\s+)(?=\S)/;
@@ -95,8 +98,11 @@ export function lintSummary(summary, { durationSec, transcriptWords, chapterIds 
     if (FRAMING.test(text)) errors.push(`${where}: reports the lecturer instead of stating the fact`);
     if (FORBIDDEN.test(text)) errors.push(`${where}: middle dot or table bar`);
     if (SENTENCE_BREAK.test(text.replace(NOT_A_STOP, 'x'))) errors.push(`${where}: more than one sentence`);
+    if (COACHING.test(text)) errors.push(`${where}: study advice instead of the fact`);
+    if (/เปอร์เซ็นต์/.test(text)) errors.push(`${where}: write % for percent`);
   };
   check(String(summary?.oneLiner || ''), 'one-liner');
+  if (SELF_NAMING.test(String(summary?.oneLiner || ''))) errors.push('one-liner: names the summary instead of saying what the lecture teaches');
   // Notes in Thai with English terms: a line wholly in English reads as a
   // slide, not a classmate's note. ต้องจำ may be a term and its number alone.
   const thai = (text) => /[฀-๿]{2}/.test(String(text || ''));

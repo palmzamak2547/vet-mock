@@ -7,7 +7,7 @@ import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, trans
 const base = (over = {}) => ({
   oneLiner: 'ภาวะ endometritis ในม้า ตั้งแต่ uterine defense ถึงการรักษา',
   keyPoints: [
-    { t: 600, text: 'Fertility rate ม้าปกติผสมติดประมาณ 75-90 เปอร์เซ็นต์' },
+    { t: 600, text: 'ม้าปกติผสมติดราว 75-90% ตัวที่ไม่ติดต้องหาสาเหตุ' },
     { t: 1100, text: 'Infection ต้องมี adherence penetration และ colonisation' },
     { t: 1500, text: 'PBIE เป็น non-infectious inflammation ต่อ semen' },
     { t: 2000, text: 'Cytology พบ PMN เกิน 2% บ่งชี้ endometritis' },
@@ -53,6 +53,15 @@ test('voice: the fact itself, never the lecturer, a colour, a slide or a middle 
   }
 });
 
+test('the polish pass as rules: no study advice, no summary naming itself, % for percent', () => {
+  const bad = [
+    base({ oneLiner: 'สรุป endometritis ใน mare: uterine defense, PBIE และการรักษา' }),
+    base({ keyPoints: [{ t: 600, text: 'Contamination ไม่เท่ากับ infection ต้องแยก concept นี้ให้ชัด' }, ...base().keyPoints.slice(1)] }),
+    base({ keyPoints: [{ t: 600, text: 'Fertility rate ม้าปกติผสมติดประมาณ 75-90 เปอร์เซ็นต์' }, ...base().keyPoints.slice(1)] }),
+  ];
+  for (const b of bad) assert.equal(lintSummary(b, opts).ok, false, JSON.stringify(b.oneLiner + b.keyPoints[0].text));
+});
+
 test('a card line wholly in English fails; a remember item may be a term and its number', () => {
   assert.ok(lintSummary(base({ oneLiner: 'Endometritis in mare: defense, PBIE, diagnosis and treatment.' }), opts).errors.includes('one-liner: not written in Thai'));
   assert.deepEqual(lintSummary(base({ remember: [{ t: 2500, text: 'Cloprostenol 250 µg IM' }] }), opts).errors, []);
@@ -64,7 +73,7 @@ test('the card follows the whole lecture: a long stretch with no key point fails
 });
 
 test('one fact once across the card', () => {
-  const r = lintSummary(base({ remember: [{ t: 610, text: 'Fertility rate ม้าปกติ 75-90 เปอร์เซ็นต์' }] }), opts);
+  const r = lintSummary(base({ remember: [{ t: 610, text: 'ม้าปกติผสมติดราว 75-90%' }] }), opts);
   assert.ok(r.errors.some((e) => /says what keyPoints/.test(e)));
 });
 

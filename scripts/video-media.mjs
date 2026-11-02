@@ -109,7 +109,7 @@ export function takenVideos() {
   }
   const videos = [];
   // Inventories are named by handle (dai.1387.json); the pipeline's own files are not inventories.
-  for (const f of fs.readdirSync(path.join(CACHE, 'channels')).filter((x) => x.endsWith('.json') && !/^(media-manifest|registry-review)/.test(x))) {
+  for (const f of fs.readdirSync(path.join(CACHE, 'channels')).filter((x) => x.endsWith('.json') && !/^(media-manifest|registry-review|pipeline-manifest|library-page1|unapproved)/.test(x))) {
     const inv = JSON.parse(fs.readFileSync(path.join(CACHE, 'channels', f), 'utf8'));
     for (const v of inv.videos || []) {
       if (!VIDEO_CHANNELS[v.channelId] || videos.some((x) => x.id === v.id)) continue;

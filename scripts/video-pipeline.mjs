@@ -199,10 +199,26 @@ async function main() {
   }
 
   if (steps.has('summarise')) {
+    // The model budget (docs/VIDEO-LIBRARY.md section 8): no new summary
+    // starts once the account has spent VIDEO_AI_BUDGET_CNY since the run
+    // began. The balance posts late and production shares the key, so the
+    // guard errs towards stopping, and a balance it cannot read stops it.
+    const budget = Number(process.env.VIDEO_AI_BUDGET_CNY || 30);
+    const balance = async () => {
+      const r = await fetch('https://api.deepseek.com/user/balance', { headers: { Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}` }, signal: AbortSignal.timeout(10_000) });
+      return Number((await r.json()).balance_infos?.find((b) => b.currency === 'CNY')?.total_balance);
+    };
+    const start = await balance().catch(() => NaN);
+    if (!Number.isFinite(start)) throw new Error('summarise: the DeepSeek balance could not be read, so the budget cannot be kept');
+    let made = 0;
+    let over = false;
     await pool(videos, conc, async (v) => {
+      if (over) return;
       const dir = path.join(DATA, v.id);
       const st = (state[v.id] ||= {});
       const af = path.join(dir, 'analysis.json');
+      // A summary polished by hand (polished.json beside it) is never redrafted or re-anchored.
+      if (fs.existsSync(path.join(dir, 'polished.json'))) return;
       if (!fs.existsSync(af) || (fs.existsSync(path.join(dir, 'summary.json')) && !force && !String(st.summary || '').startsWith('held'))) return;
       const a = JSON.parse(fs.readFileSync(af, 'utf8'));
       const spoken = a.lines.reduce((n, [, t]) => n + String(t).split(/\s+/).length, 0);
@@ -213,7 +229,14 @@ async function main() {
       if (/^held/m.test(r.out)) r = await exec('node', [script, dir, '--resume']);
       st.summary = r.code ? `failed: ${r.out.slice(-200)}` : (r.out.match(/^(pass|held)[^\n]*/m)?.[0] || r.out.slice(-200)).slice(0, 160);
       save();
+      if (++made % 10 === 0) {
+        const now = await balance().catch(() => NaN);
+        console.log(`budget: ¥${(start - now).toFixed(2)} of ¥${budget} spent after ${made} summaries`);
+        if (!Number.isFinite(now) || start - now > budget) { over = true; console.error(`stopped: the budget guard (¥${budget}) ended the run after ${made} summaries`); }
+      }
     });
+    const end = await balance().catch(() => NaN);
+    console.log(`budget: ¥${(start - end).toFixed(2)} spent in this run (${made} summaries made)`);
     save();
     const s = Object.values(state);
     console.log(`summaries: pass ${s.filter((x) => String(x.summary).startsWith('pass')).length}, held ${s.filter((x) => String(x.summary).startsWith('held')).length}, skipped ${s.filter((x) => String(x.summary).startsWith('skipped')).length}, failed ${s.filter((x) => String(x.summary).startsWith('failed')).length}`);

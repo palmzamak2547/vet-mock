@@ -48,15 +48,16 @@ const RULES = `Write the way Thai vet students write notes: Thai sentences, tech
 Each item teaches something examinable (a definition, mechanism, number, differentiator, diagnostic step or treatment) in ONE sentence; never restate a slide title, never narrate the lecture ("ต่อมาพูดถึง").
 Truth: only what this lecture's transcript or slides say at that moment. A number is the slide's number. When the transcript is unclear and the slides do not say it, leave it out. Never add textbook facts. Captions mishear English terms: write the slide's term, never the misheard one.
 Clarity: a student who reads only this line must understand it. Never name a person. Use only abbreviations the slides or transcript use. Keep different things apart: a cause is not a predisposing factor, a host factor is not a pathogen.
-Voice: state the fact itself; never "อาจารย์กล่าวว่า", "อาจารย์บอกว่า", "ในคลิปนี้". No tables, no middle dot, no emoji, no quotation marks.`;
+Voice: state the fact itself; never "อาจารย์กล่าวว่า", "อาจารย์บอกว่า", "ในคลิปนี้". No tables, no middle dot, no emoji, no quotation marks.
+Wording: write % for percent and ชม. for hours. Never pair an English term with its Thai translation in one line (not "Fertility rate ... ผสมติด"). No study advice inside an item ("ต้องแยกให้ชัด", "ควรจำ", "อย่าลืมว่า"): say the fact. Use an English word only as the slides or the transcript use it.`;
 
 const DRAFT = `You write the study summary of one recorded veterinary lecture for Thai veterinary students, from its transcript (YouTube's automatic Thai captions) and the lecture's own slides.
 You get a JSON skeleton. Return it filled in: the same keys, the same slots and chapter ids in the same order, nothing added.
-- oneLiner: what the clip covers, at most 22 words, one plain sentence.
+- oneLiner: what the lecture teaches, at most 22 words, one plain sentence about the subject itself (how it arises, how it is diagnosed, how it is treated); never a list of topic names, never opening with "สรุป" or "บทนี้".
 - keyPoints: one per slot, its t (m:ss) inside the slot's range, at most 12 words: the most examinable thing taught in that stretch.
 - emphasis: up to ${LIMITS.emphasis} things the lecture clearly stresses (said to remember, repeated, or set in red on a slide), each with t, at most 12 words; fewer when fewer are clearly stressed. Not a repeat of a key point.
 - remember: up to ${LIMITS.remember} short definitions, numbers or differentiators worth memorising, each with t, at most 8 words; a number exactly as the slide writes it, the numbers the bank asks about first. Not a repeat of a key point.
-- chapters: a line for every chapter id, at most 20 words, what that chapter teaches, including what its slides set in red, taught as content: never mention colours, slides or marks.
+- chapters: a line for every chapter id, at most 20 words, what that chapter teaches, including what its slides set in red, taught as content: never mention colours, slides or marks, never repeat the chapter's title or a key point word for word.
 ${RULES}`;
 
 const FIX = `You repair single items of a lecture summary for Thai veterinary students. Each item comes with the rule it broke and its evidence. Return JSON only: {"items":[{"ref":"<the ref given>","t":"m:ss","text":"<the new text>"}]}, one per item given, each obeying every rule below and its own word limit.
