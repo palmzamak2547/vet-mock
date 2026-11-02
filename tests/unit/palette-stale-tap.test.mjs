@@ -95,6 +95,17 @@ test('a row the new text still finds opens at once, before the list catches up',
   assert.deepEqual(calls, [['question', 1]]);
 });
 
+test('a recent row the new text still finds opens at once', async () => {
+  const { view, calls } = setup();
+  storage.setItem('vmx-omni-recents', JSON.stringify([{ type: 'question', label: 'Ketamine stem for the palette test', payload: { subject: 'com5', id: 1 } }]));
+  await typed(view, 'k');
+  await typed(view, '');
+  await paste(view, 'ketamine');
+  row(view, 'Ketamine stem').props.onClick();
+  await settle(view);
+  assert.deepEqual(calls, [['question', 1]]);
+});
+
 test('the course card the previous text drew does nothing', async () => {
   const { view, calls } = setup();
   await typed(view, 'com5');

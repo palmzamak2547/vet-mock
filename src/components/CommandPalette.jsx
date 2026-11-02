@@ -1089,10 +1089,11 @@ export default function CommandPalette({
   // inside that window as well); anything only the previous query drew is
   // dropped, and the list catches up within the 60 ms. Enter already answers
   // for the box. This compares the text as typed: the debounce must keep it raw.
+  // Matched by destination, since a recent row is a copy of its item.
   const liveQuery = () => (inputRef.current ? inputRef.current.value : query);
   const onSettled = (act, item = null) => (...args) => {
     const live = liveQuery();
-    if (live === debouncedQuery || (item && live.trim() && rankItems(items, live).some((hit) => hit.item === item))) act(...args);
+    if (live === debouncedQuery || (item && live.trim() && rankItems(items, live).some((hit) => recentKey(hit.item) === recentKey(item)))) act(...args);
   };
 
   // Rotating placeholder — decorative, so it parks on the first example
