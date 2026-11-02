@@ -69,7 +69,7 @@ function readCards(tree) {
     const m = /^ฝึกข้อสอบ (.+?) (\d+) ข้อ/.exec(main?.props['aria-label'] || '');
     if (!m) continue;
     const chip = findAll(card, (n) => n.props.className === 'vmx-topic-past')[0];
-    const past = chip ? Number(/อิงแนวเดิม (\d+)\//.exec(textOf(chip))[1]) : 0;
+    const past = chip ? Number(/ข้อสอบเก่า (\d+)\//.exec(textOf(chip))[1]) : 0;
     out.set(m[1], { count: Number(m[2]), past });
   }
   return out;

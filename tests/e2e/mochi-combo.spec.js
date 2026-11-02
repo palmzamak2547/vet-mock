@@ -1,5 +1,5 @@
-// Mochi reacting to answers in practice, the run of correct answers, and the
-// phone's tick. The set is the deterministic exotic/bird-infect topic that
+// The run of correct answers in practice and the phone's tick (the verdict
+// carried a Mochi stamp until 5.189.2). The set is the deterministic exotic/bird-infect topic that
 // instant-feedback.spec.js uses (every question an MCQ); the answer key comes
 // from the bank itself, matched by stem, so the test can answer right on
 // purpose. Vibrations are recorded by a stub (no real phone in CI) on a
@@ -65,22 +65,20 @@ async function answer(page, { wrong = false } = {}) {
 const next = (page) => page.getByRole('button', { name: /ข้อถัดไป/ }).first().click();
 const vibrations = (page) => page.evaluate(() => window.__vibrations);
 
-test('three right in a row: Mochi plays on the rig, the chip counts, the phone ticks', async ({ page }) => {
+// The verdict carries no Mochi stamp since 5.189.2 (Palm: "ดูแปลกตา"); the run
+// chip and the phone's tick are what react to an answer.
+test('three right in a row: the chip counts and the phone ticks, with no Mochi on the verdict', async ({ page }) => {
   expect(KEY.size, 'every bird-infect stem is distinct').toBe(TOPIC.length);
-  const rig = page.waitForResponse((r) => /mochi-live[^/]*\.js(\?|$)/.test(r.url()));
   await openPractice(page);
-  await rig;
   const verdict = page.locator('.vmx-instant-feedback');
-  const live = verdict.locator('.vmx-feedback-mochi');
 
   await answer(page);
   await expect(verdict).toHaveClass(/is-ok/);
-  await expect(live).toHaveAttribute('data-mochi-live', 'playing');
-  await expect(live.locator('.vmx-mochi-live-rig svg')).toHaveCount(1);
-  // The reaction ends on the still and removes the rig.
-  await expect(live).toHaveAttribute('data-mochi-live', 'still', { timeout: 6_000 });
-  await expect(live.locator('.vmx-mochi-live-rig svg')).toHaveCount(0);
-  await expect(live.locator('[data-mochi-slot=feedback]')).toHaveAttribute('data-mochi-pose', 'correct');
+  await expect(verdict.locator('[data-mochi-slot], .vmx-mochi-live')).toHaveCount(0);
+  // The headline has the header row to itself.
+  const header = await verdict.locator('.vmx-feedback-header').boundingBox();
+  const headline = await verdict.locator('.vmx-feedback-headline').boundingBox();
+  expect(Math.abs(header.width - headline.width)).toBeLessThanOrEqual(1);
   await expect(verdict.locator('.vmx-combo-chip')).toHaveCount(0);
 
   await next(page);
@@ -92,22 +90,21 @@ test('three right in a row: Mochi plays on the rig, the chip counts, the phone t
   await expect(verdict.locator('.vmx-combo-chip')).toHaveClass(/is-fresh/);
   expect(await vibrations(page)).toEqual([[14], [14], [14, 60, 14, 60, 28]]);
 
-  // A miss ends the run: no chip, the soft double tick, Mochi encourages.
+  // A miss ends the run: no chip, the soft double tick, and no sticker
+  // beside "ยังไม่ใช่" either.
   await next(page);
   await answer(page, { wrong: true });
   await expect(verdict).toHaveClass(/is-no/);
   await expect(verdict.locator('.vmx-combo-chip')).toHaveCount(0);
-  await expect(verdict.locator('[data-mochi-slot=feedback]')).toHaveAttribute('data-mochi-pose', 'encourage');
+  await expect(verdict.locator('[data-mochi-slot], .vmx-mochi-live')).toHaveCount(0);
   expect((await vibrations(page)).at(-1)).toEqual([10, 70, 10]);
 
   // Going back to the third question shows its verdict and run again, but
-  // nothing replays: no rig, no pop, no vibration.
+  // nothing replays: no pop, no vibration.
   const before = (await vibrations(page)).length;
   await page.getByRole('button', { name: /ข้อก่อนหน้า|ย้อนกลับ/ }).first().click();
   await expect(verdict.locator('.vmx-combo-chip')).toHaveText('ถูกติดกัน 3 ข้อ');
   await expect(verdict.locator('.vmx-combo-chip')).not.toHaveClass(/is-fresh/);
-  await expect(live).toHaveAttribute('data-mochi-live', 'still');
-  await expect(live.locator('.vmx-mochi-live-rig svg')).toHaveCount(0);
   expect((await vibrations(page)).length).toBe(before);
   expect(consoleErrors.join('\n')).toBe('');
 });
@@ -126,7 +123,7 @@ test('reduced motion: no rig is fetched, the run still shows, the tick still com
   await expect(verdict.locator('.vmx-combo-chip')).toHaveText('ถูกติดกัน 3 ข้อ');
   // The chip fades in instead of springing.
   expect(await verdict.locator('.vmx-combo-chip').evaluate((el) => getComputedStyle(el).animationName)).toBe('vmx-combo-fade');
-  await expect(verdict.locator('.vmx-feedback-mochi')).toHaveAttribute('data-mochi-live', 'still');
+  await expect(verdict.locator('[data-mochi-slot], .vmx-mochi-live')).toHaveCount(0);
   expect(fetched).toEqual([]);
   expect((await vibrations(page)).length).toBe(3);
   expect(consoleErrors.join('\n')).toBe('');
