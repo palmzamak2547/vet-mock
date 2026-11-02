@@ -18,7 +18,7 @@ export default {
   },
   {
    "t": 871,
-   "text": "ในแมว purebred พบเบาหวานน้อย ยกเว้น Siamese cat",
+   "text": "ในแมว purebred พบเบาหวานน้อย ยกเว้น Burmese cat",
    "stressed": true
   },
   {
@@ -78,42 +78,42 @@ export default {
  "chapters": [
   {
    "t": 9,
-   "title": "อินซูลิน, diabetes mellitus",
+   "title": "",
    "line": "เบาหวานแยกเป็นขาดอินซูลินกับดื้ออินซูลิน และแมว remission ได้"
   },
   {
    "t": 456,
-   "title": "อินซูลิน, diabetes mellitus",
+   "title": "",
    "line": "สาเหตุจากเบต้าเซลล์ถูกทำลายหรือดื้ออินซูลิน และ signalment ช่วยนำทาง"
   },
   {
    "t": 982,
-   "title": "diabetes mellitus, ปัสสาวะ",
+   "title": "",
    "line": "hyperglycemia ดึงน้ำออกทำให้ PU PD PP และเกิด DKA"
   },
   {
    "t": 1552,
-   "title": "โปรตีน, อินซูลิน",
+   "title": "",
    "line": "เกณฑ์วินิจฉัยต่างกันระหว่างหมากับแมวเพราะแมวเครียดน้ำตาลขึ้น"
   },
   {
    "t": 1924,
-   "title": "อินซูลิน, diabetes mellitus",
+   "title": "",
    "line": "เป้าหมายรักษาคือคุณภาพชีวิตและลดอาการ ไม่ได้ทำน้ำตาลปกติ"
   },
   {
    "t": 2368,
-   "title": "อินซูลิน, diabetes mellitus",
+   "title": "",
    "line": "อินซูลินแต่ละชนิดออกฤทธิ์นานต่างกันและห้ามเพิ่มโดสถี่"
   },
   {
    "t": 2803,
-   "title": "อินซูลิน, diabetes mellitus",
+   "title": "",
    "line": "อินซูลินคิดจากน้ำหนัก ideal และมียากินเสริมในแมว"
   },
   {
    "t": 3347,
-   "title": "อินซูลิน, ดื้อยา",
+   "title": "",
    "line": "glucose curve ดู nadir และ duration เพื่อปรับโดสและเฝ้าระวัง Somogyi"
   }
  ],

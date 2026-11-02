@@ -354,7 +354,7 @@ export default {
   },
   {
    "t": 2460,
-   "title": "Severe fever with thrombocytopenia",
+   "title": "Severe fever with thrombocytopenia syndrome virus",
    "line": "SFTSV จากเห็บ Haemaphysalis longicornis สัตว์ติดเชื้อแบบ subclinical ไม่มีวัคซีน",
    "slides": [
     {

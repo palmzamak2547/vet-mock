@@ -74,6 +74,8 @@ export function captionLines(json3) {
     // The recogniser fills silence with stray glyphs (" ب " at confidence 0).
     const words = e.segs.filter((s) => /[฀-๿A-Za-z0-9]/.test(s.utf8));
     if (!words.length) continue;
+    // ...and with a lone letter ("o" between two silent stretches), which is no speech either.
+    if (/^\s*[A-Za-z]\s*$/.test(words.map((s) => s.utf8).join(''))) continue;
     const t = (e.tStartMs + (words[0].tOffsetMs || 0)) / 1000;
     lines.push({ t: Math.round(t * 10) / 10, end: (e.tStartMs + (e.dDurationMs || 0)) / 1000, text: words.map((s) => s.utf8).join('').replace(/\s+/g, ' ').trim() });
   }
@@ -466,7 +468,7 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
         const cut = c.pages.slice(1).map((n) => pageAt.get(n)).filter((p) => p.at > c.start + 90 && p.at < c.end - 90)
           .sort((x, y) => Math.abs(x.at - mid) - Math.abs(y.at - mid))[0];
         if (!cut) continue;
-        const second = { title: cut.heading && headingKey(cut.heading) !== headingKey(c.title) ? cut.heading : `${c.title} (ต่อ)`, start: cut.at, end: c.end, pages: c.pages.filter((n) => n >= cut.page) };
+        const second = { title: cut.heading && headingKey(cut.heading) !== headingKey(c.title) ? cut.heading : `${c.title.replace(/(\s*\(ต่อ\))+$/, '')} (ต่อ)`, start: cut.at, end: c.end, pages: c.pages.filter((n) => n >= cut.page) };
         c.pages = c.pages.filter((n) => n < cut.page);
         c.end = cut.at;
         chapters.splice(i + 1, 0, second);

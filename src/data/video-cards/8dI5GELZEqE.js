@@ -41,10 +41,6 @@ export default {
  ],
  "remember": [
   {
-   "t": 419,
-   "text": "ม่วง conventional เขียว locking"
-  },
-  {
    "t": 964,
    "text": "ช่องว่าง plate กับกระดูกไม่เกิน 2 มม."
   },
@@ -56,12 +52,12 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "กระดูก",
+   "title": "",
    "line": "bridging plate ให้ relative stability ต่างจาก compression ที่ให้ absolute stability และการเลือกใช้สกรู locking กับ conventional"
   },
   {
    "t": 450,
-   "title": "กระดูก",
+   "title": "",
    "line": "ขั้นตอนใส่ bridging plate ตรวจ alignment ด้วย line ก่อนขันสกรู เลือกตำแหน่งสกรูให้ชิดกระดูกและใกล้รอยหัก"
   }
  ],

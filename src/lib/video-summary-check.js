@@ -16,6 +16,39 @@ export function thaiWords(text) {
   return n;
 }
 
+/**
+ * Does `re` match whole words of `text`? "ต้องจำ" is study advice; "ต้องจำกัดอาหาร"
+ * and "นักท่องเที่ยว" are facts (the review of 5.190.0).
+ */
+export function wordMatch(re, text) {
+  const s = String(text || '');
+  if (!SEGMENTER) return re.test(s);
+  const ends = new Set([s.length]);
+  for (const seg of SEGMENTER.segment(s)) ends.add(seg.index);
+  for (const m of s.matchAll(new RegExp(re.source, `${re.flags.replace('g', '')}g`))) if (ends.has(m.index) && ends.has(m.index + m[0].length)) return true;
+  return false;
+}
+
+// Words that carry no fact of their own, left out when two card items are compared.
+const GLUE = new Set(['และ', 'ที่', 'ใน', 'เป็น', 'ของ', 'ได้', 'ให้', 'มี', 'จะ', 'ไม่', 'กับ', 'หรือ', 'โดย', 'จาก', 'ต้อง', 'ก็', 'แต่', 'เพื่อ', 'ซึ่ง', 'การ', 'ความ', 'คือ', 'ว่า', 'แล้ว', 'ยัง', 'อยู่', 'ด้วย', 'จึง', 'เมื่อ', 'ถ้า', 'นั้น', 'นี้', 'ไป', 'มา', 'เช่น', 'the', 'of', 'and', 'in', 'a', 'to']);
+const factWords = (text) => {
+  const s = String(text || '').toLowerCase();
+  const all = SEGMENTER ? [...SEGMENTER.segment(s)].filter((x) => x.isWordLike).map((x) => x.segment) : s.match(/[a-z]+|[฀-๿]+/g) || [];
+  return new Set(all.filter((w) => !/^\d/.test(w) && !GLUE.has(w)));
+};
+/**
+ * How much of the shorter of two card items the longer one already says, 0 to 1,
+ * in dictionary words; 0 when their numbers differ ("STT สุนัข 13-14 มม." and
+ * "STT แมว 11-12 มม." are two facts).
+ */
+export function overlap(a, b) {
+  const nums = (t) => (String(t || '').match(/\d+(?:[.,]\d+)*/g) || []).sort().join();
+  if (nums(a) !== nums(b)) return 0;
+  const x = factWords(a);
+  const y = factWords(b);
+  return [...x].filter((w) => y.has(w)).length / Math.max(1, Math.min(x.size, y.size));
+}
+
 export const LIMITS = {
   oneLiner: 30, // words
   point: 25, // words per key point, emphasis and remember item
@@ -43,18 +76,40 @@ export function keyPointCap(durationSec) {
 // Note voice (summaries read as notes): the fact itself, never the lecturer
 // saying it; no table, no middle dot.
 // Study advice and a summary that names itself (the sample's polish pass, 2 Nov 2026).
-const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|ต้องจำ|จำไว้|ท่อง|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
+// Matched as whole words (wordMatch): ท่องจำ is one word to the dictionary, and
+// นักท่องเที่ยว three, so ท่องเที่ยว is named.
+const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|ต้องจำ|จำไว้|ท่องจำ|ท่อง(?!เที่ยว)|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
 // A card states the fact; what the lecturer said about the exam stays out of it
 // ("เคยออกข้อสอบ", "ข้อสอบเป็นถูกผิด 10 ข้อ"): the stress already put it on the card.
-// Course logistics too: reports, homework, and "นักศึกษา" (VetMock says นิสิต).
-const EXAM_TALK = /ข้อสอบ|ออกสอบ|เคยออก|ออกบ่อย|ของคะแนน|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
-const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิปนี้|บรรยาย)/;
+// Course logistics too: reports, homework, credits, grading, roll call, group sizes,
+// and "นักศึกษา" (VetMock says นิสิต). "เคยออก" and "ออกบ่อย" end their phrase:
+// "เคยออกอาการ" is a sign.
+const EXAM_TALK = /ข้อสอบ|ออกสอบ|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
+// The recording's own set-up is no content ("ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน").
+const SETUP = /ยังไม่มีเนื้อหา|ก่อนเริ่มบรรยาย|ก่อนเริ่มสอน|เตรียมการสอน|เตรียมระบบ|ไฟล์เรียน|ช่วงเปิดคลิป/;
+export const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิป|บรรยาย)/;
 const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\bred\b|สีแดง|ตัวแดง|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
 const FORBIDDEN = /[·|]/;
 const SENTENCE_BREAK = /[.!?;](\s+)(?=\S)/;
 // Full stops that end no sentence: E. coli, Staphylococcus spp., e.g., 2.5,
 // and a short Thai abbreviation (ซม., ชม., ม.ค.). "ไม่ติดเชื้อ." ends one.
 const NOT_A_STOP = /\b(?:[A-Za-z]|spp|ssp|sp|e\.g|i\.e|vs|etc|dr|no|fig|approx)\.|\d\.\d|(?:^|[\s\d.-])[฀-๿]{1,3}\./g;
+
+/**
+ * What no line a student reads may do, a chapter title included (the lint and the
+ * card test share it). A slide's heading is the slide's own words: "the red dot" is content there.
+ */
+export function voiceErrors(text, { heading = false } = {}) {
+  const s = String(text || '');
+  return [
+    !heading && FRAMING.test(s) && 'reports the lecturer instead of stating the fact',
+    FORBIDDEN.test(s) && 'middle dot or table bar',
+    wordMatch(COACHING, s) && 'study advice instead of the fact',
+    wordMatch(EXAM_TALK, s) && 'talks about the exam instead of stating the fact',
+    SETUP.test(s) && 'describes the recording instead of the content',
+    /เปอร์เซ็นต์/.test(s) && 'write % for percent',
+  ].filter(Boolean);
+}
 
 const LAYERS = ['keyPoints', 'emphasis', 'remember'];
 const points = (summary) => LAYERS.flatMap((layer) => (summary?.[layer] || []).map((p) => ({ ...p, layer })));
@@ -79,14 +134,10 @@ export function lintSummary(summary, { durationSec, transcriptWords, chapterIds 
   // One fact once: two card items at nearly the same moment saying nearly
   // the same words.
   const card = points(summary);
-  const bag = (t) => new Set((String(t || '').toLowerCase().match(/[a-z0-9]+|[฀-๿]+/g) || []));
   for (let i = 0; i < card.length; i++) {
     for (let j = i + 1; j < card.length; j++) {
       if (Math.abs(card[i].t - card[j].t) > 60) continue;
-      const a = bag(card[i].text);
-      const b = bag(card[j].text);
-      const shared = [...a].filter((w) => b.has(w)).length;
-      if (shared / Math.max(1, Math.min(a.size, b.size)) >= 0.6) errors.push(`${card[j].layer} ${card[j].t}: says what ${card[i].layer} ${card[i].t} says`);
+      if (overlap(card[i].text, card[j].text) >= 0.6) errors.push(`${card[j].layer} ${card[j].t}: says what ${card[i].layer} ${card[i].t} says`);
     }
   }
   const cap = Math.min(LIMITS.ceiling, keyPointCap(durationSec) + extraPoints);
@@ -99,12 +150,8 @@ export function lintSummary(summary, { durationSec, transcriptWords, chapterIds 
   if (!one) errors.push('no one-liner');
   if (one > LIMITS.oneLiner) errors.push(`one-liner ${one} words, cap ${LIMITS.oneLiner}`);
   const check = (text, where) => {
-    if (FRAMING.test(text)) errors.push(`${where}: reports the lecturer instead of stating the fact`);
-    if (FORBIDDEN.test(text)) errors.push(`${where}: middle dot or table bar`);
     if (SENTENCE_BREAK.test(text.replace(NOT_A_STOP, 'x'))) errors.push(`${where}: more than one sentence`);
-    if (COACHING.test(text)) errors.push(`${where}: study advice instead of the fact`);
-    if (EXAM_TALK.test(text)) errors.push(`${where}: talks about the exam instead of stating the fact`);
-    if (/เปอร์เซ็นต์/.test(text)) errors.push(`${where}: write % for percent`);
+    for (const e of voiceErrors(text)) errors.push(`${where}: ${e}`);
   };
   check(String(summary?.oneLiner || ''), 'one-liner');
   if (SELF_NAMING.test(String(summary?.oneLiner || ''))) errors.push('one-liner: names the summary instead of saying what the lecture teaches');

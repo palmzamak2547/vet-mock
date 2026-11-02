@@ -85,7 +85,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "1/4/2026 R",
+   "title": "",
    "line": "allergic dermatitis 4 ชนิด เริ่มจาก contact และ flea ก่อน เหลือ food allergy กับ atopy ที่แยกได้ด้วย food trial",
    "slides": [
     {
@@ -120,7 +120,7 @@ export default {
   },
   {
    "t": 5700,
-   "title": "1/4/2026 R (ต่อ)",
+   "title": "",
    "line": "food allergy เกิดเมื่อ tolerance ต่อ food antigen ล้มเหลว เกิด Th2 response และ IgE cross-linking บน mast cell",
    "slides": [
     {
@@ -151,7 +151,7 @@ export default {
   },
   {
    "t": 6540,
-   "title": "1/4/2026 R (ต่อ) (ต่อ)",
+   "title": "",
    "line": "hydrolysed protein ไม่เกิด cross-linking และ food trial ต้องคุมเข้มงวดพอ",
    "slides": [
     {
@@ -166,7 +166,7 @@ export default {
   },
   {
    "t": 6960,
-   "title": "1/4/2026 R (ต่อ) (ต่อ) (ต่อ)",
+   "title": "",
    "line": "ประเมิน diet history รอยโรค และ compliance ก่อนตัดสินว่าเป็น food allergy หรือ atopy",
    "slides": [
     {

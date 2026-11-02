@@ -81,122 +81,122 @@ export default {
  "chapters": [
   {
    "t": 14,
-   "title": "ทำหมัน, มดลูก",
+   "title": "",
    "line": "CEH คือ endometrial hyperplasia ไม่มีหนอง เกิดในสุนัขไม่ได้ทำหมันอายุมาก"
   },
   {
    "t": 420,
-   "title": "ฮอร์โมน, มดลูก",
+   "title": "",
    "line": "โปรเจสเตอโรนกระตุ้น proliferation ลดการบีบตัวมดลูก และกดภูมิคุ้มกัน"
   },
   {
    "t": 840,
-   "title": "มดลูก, เลือด",
+   "title": "",
    "line": "CEH มักไม่มีอาการ ชัดเจนเมื่อผสมไม่ติด รักษาด้วย OVH"
   },
   {
    "t": 1380,
-   "title": "infect, infection",
+   "title": "",
    "line": "pyometra คือการติดเชื้อ แบคทีเรียหลัก E. coli พบมากกว่า 50%"
   },
   {
    "t": 1740,
-   "title": "มดลูก, ไข่",
+   "title": "",
    "line": "โปรเจสเตอโรนทำให้ปากมดลูกปิดและกดภูมิ จึงเกิดหนองขัง"
   },
   {
    "t": 2040,
-   "title": "infect, infection",
+   "title": "",
    "line": "pyometra พบหลังเป็นสัดช่วง diestrus เพราะโปรเจสเตอโรนสูง"
   },
   {
    "t": 2580,
-   "title": "ฮอร์โมน, ทำหมัน",
+   "title": "",
    "line": "ฮอร์โมนภายนอกและ CEH เป็นปัจจัยเสี่ยง การตั้งท้องคลอดเป็น protective factor"
   },
   {
    "t": 3180,
-   "title": "คลอด, เลือด",
+   "title": "",
    "line": "สุนัขที่เคยคลอดมีโอกาสเป็น pyometra น้อยกว่า เพราะ endometrium ฟื้นตัว"
   },
   {
    "t": 3600,
-   "title": "ฮอร์โมน, แบคทีเรีย",
+   "title": "",
    "line": "pyometra เกิดได้ 2 ทฤษฎี คือ CEH นำมาก่อน หรือเกิดเดี่ยวจากการติดเชื้อ"
   },
   {
    "t": 3981,
-   "title": "แบคทีเรีย, เลือด",
+   "title": "",
    "line": "E. coli สร้าง endotoxin ทำให้เกิด sepsis โดยเฉพาะ closed cervix"
   },
   {
    "t": 4476,
-   "title": "มดลูก, เลือด",
+   "title": "",
    "line": "การเพาะเชื้อจากมดลูกทำได้ยากในทางปฏิบัติ จึงใช้ empirical antibiotic"
   },
   {
    "t": 5021,
-   "title": "ช่วงที่ 12",
+   "title": "",
    "line": "E. coli ยังเป็นเชื้อหลักที่พบเกือบ 90%"
   },
   {
    "t": 5640,
-   "title": "คลอด, closed",
+   "title": "",
    "line": "ซักประวัติการทำหมันและวันเป็นสัดล่าสุด ร่วมกับตรวจ discharge"
   },
   {
    "t": 6145,
-   "title": "lethargy, มดลูก",
+   "title": "",
    "line": "อาการซึม เบื่ออาหาร PUPD และ abdominal enlargement"
   },
   {
    "t": 6511,
-   "title": "content, มดลูก",
+   "title": "",
    "line": "ultrasound เห็นมดลูกขยายมี content hypoechoic หรือ anechoic"
   },
   {
    "t": 7025,
-   "title": "เลือด, มดลูก",
+   "title": "",
    "line": "CBC พบ neutrophilia left shift และ anemia"
   },
   {
    "t": 7500,
-   "title": "closed, มดลูก",
+   "title": "",
    "line": "closed cervix เสี่ยง sepsis และมดลูกแตกเกิด peritonitis"
   },
   {
    "t": 7888,
-   "title": "acids, choice",
+   "title": "",
    "line": "เกณฑ์ sepsis คือ HR >120 RR >20 อุณหภูมิผิดปกติ"
   },
   {
    "t": 8271,
-   "title": "options, ทำหมัน",
+   "title": "",
    "line": "OVH คือ treatment of choice ให้ antibiotic 7-10 วันหลังผ่าตัด"
   },
   {
    "t": 8646,
-   "title": "มดลูก, ทำหมัน",
+   "title": "",
    "line": "ผ่าตัดมดลูกที่อักเสบต้องระวังเพราะเปราะบาง เส้นเลือดขยาย"
   },
   {
    "t": 9156,
-   "title": "รังไข่, มดลูก",
+   "title": "",
    "line": "ดูลักษณะรังไข่และ bursa เพื่อแยกสุนัขกับแมว"
   },
   {
    "t": 9600,
-   "title": "receptor, closed",
+   "title": "",
    "line": "medical treatment เลือกเมื่อเจ้าของต้องการเก็บพันธุ์และสัตว์ stable"
   },
   {
    "t": 9964,
-   "title": "contraction, มดลูก",
+   "title": "",
    "line": "aglepristone บล็อก progesterone receptor ทำให้ปากมดลูกเปิด"
   },
   {
    "t": 10383,
-   "title": "natural, success",
+   "title": "",
    "line": "PG ใช้เมื่อปากมดลูกเปิดแล้ว ระวัง side effect และมดลูกแตก"
   }
  ],

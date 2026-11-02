@@ -450,7 +450,7 @@ export default {
   },
   {
    "t": 8880,
-   "title": "Physical",
+   "title": "Physical examination",
    "line": "ตรวจหลังเพราะรับน้ำหนักอานและคน และตรวจ hock กับ stifle ที่เป็น chronic lameness",
    "slides": [
     {

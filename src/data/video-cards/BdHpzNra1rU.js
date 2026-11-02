@@ -88,82 +88,82 @@ export default {
  "chapters": [
   {
    "t": 26,
-   "title": "มะเร็ง, clinic",
+   "title": "",
    "line": "มะเร็งเกิดจาก genetic และ environmental ป้องกันได้บางส่วน ข้อมูล incidence ในไทยยังขาดเพราะไม่มี census"
   },
   {
    "t": 486,
-   "title": "มะเร็ง, progression",
+   "title": "",
    "line": "เนื้องอกเกิดเป็นขั้น initiation promotion progression จึงเห็น clinical sign เมื่อเข้าสู่ระยะ progression แล้ว"
   },
   {
    "t": 930,
-   "title": "มะเร็ง, เลือด",
+   "title": "",
    "line": "tumor marker ยังมีน้อยในสัตว์ ใช้ screening ตรวจเลือดและ imaging แทน"
   },
   {
    "t": 1369,
-   "title": "กระดูก, ผิวหนัง",
+   "title": "",
    "line": "ก้อนที่ขาสุนัขพันธุ์ใหญ่ให้นึกถึงมะเร็งกระดูกก่อน"
   },
   {
    "t": 1845,
-   "title": "เต้านม, ปอด",
+   "title": "",
    "line": "มะเร็งเต้านมกระจายไปปอดได้ แมวเต้านมแข็งเป็นลำต้องแยกจากท้องเทียมและ ovarian remnant syndrome"
   },
   {
    "t": 2391,
-   "title": "เนื้องอก, clinic",
+   "title": "",
    "line": "ก้อนที่ตาและจมูกต้องแยกเนื้องอกออกจาก FIP และ chronic rhinitis ก่อนส่งตรวจ"
   },
   {
    "t": 2820,
-   "title": "ปอด, เลือด",
+   "title": "",
    "line": "TNM staging ใช้เซนติเมตรวัดก้อน และตรวจต่อมน้ำเหลืองตามตำแหน่งที่ระบาย"
   },
   {
    "t": 3248,
-   "title": "เลือด",
+   "title": "",
    "line": "imprint และ swab ใช้เมื่อ aspiration เสี่ยงเลือดออก สไลด์ต้องไม่แตกต่อหน้าเจ้าของ"
   },
   {
    "t": 3728,
-   "title": "เลือด, ผิวหนัง",
+   "title": "",
    "line": "biopsy ให้ปริมาณชิ้นเนื้อมากกว่า cytology และไม่กระตุ้นการแพร่กระจายตามทฤษฎี metastatic process"
   },
   {
    "t": 4239,
-   "title": "เลือด, hairs",
+   "title": "",
    "line": "needle core และ punch biopsy เก็บชิ้นเนื้อลึกกว่าที่เข็มธรรมดาเข้าถึง ต้องส่ง basket พร้อม formalin"
   },
   {
    "t": 4791,
-   "title": "ดื้อยา, มะเร็ง",
+   "title": "",
    "line": "ดื้อยาเกิดเมื่อเซลล์ที่เหลือสัมผัสยาไม่เต็มที่ จึงต้องเปลี่ยนสูตรหรือใช้ precision medicine"
   },
   {
    "t": 5381,
-   "title": "ตับ, ไตวาย",
+   "title": "",
    "line": "ก่อนเริ่มเคมีบำบัดต้องได้ผลวินิจฉัยชัด ประเมิน performance score และการทำงานของไตตับ"
   },
   {
    "t": 5761,
-   "title": "duration, progression",
+   "title": "",
    "line": "ประเมินผลด้วย CR PR MR NC PD และประมาณ remission duration กับ median survival time"
   },
   {
    "t": 6313,
-   "title": "ปัสสาวะ, healing",
+   "title": "",
    "line": "ผู้ป่วยเคมีบำบัดอยู่กับเจ้าของได้ ต้องเตรียมยาบน clean bench และสวมถุงมือ"
   },
   {
    "t": 6748,
-   "title": "เลือด, ไข้",
+   "title": "",
    "line": "ผลข้างเคียงที่ต้องเฝ้าระวังคือ neutropenia with fever thrombocytopenia และ bloody diarrhea"
   },
   {
    "t": 7187,
-   "title": "เลือด, ปอด",
+   "title": "",
    "line": "tumor lysis syndrome เกิดจากเซลล์ตายเร็วและปล่อยโพแทสเซียมกับยูเรียออกมา"
   }
  ],

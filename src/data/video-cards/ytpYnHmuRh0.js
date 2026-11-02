@@ -84,7 +84,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "16/3/2026 R",
+   "title": "",
    "line": "โครงสร้างผิวและเส้นขนต่างจากคน ส่งผลต่อการเลือกยาทาและ systemic และการซักประวัติก่อนวินิจฉัย",
    "slides": [
     {
@@ -107,7 +107,7 @@ export default {
   },
   {
    "t": 4980,
-   "title": "16/3/2026 R (ต่อ)",
+   "title": "",
    "line": "รอยโรค flea allergic dermatitis ในสุนัขและแมว และการวินิจฉัยด้วย intradermal skin testing",
    "slides": [
     {
@@ -130,7 +130,7 @@ export default {
   },
   {
    "t": 5880,
-   "title": "16/3/2026 R (ต่อ) (ต่อ)",
+   "title": "",
    "line": "Sarcoptic และ Notoedric mange กับ ear mite รักษาด้วย isoxazolines และต้องรักษาทุกตัวที่สัมผัส",
    "slides": [
     {
@@ -145,7 +145,7 @@ export default {
   },
   {
    "t": 6600,
-   "title": "16/3/2026 R (ต่อ) (ต่อ) (ต่อ)",
+   "title": "",
    "line": "Demodex อยู่ hair follicle ไม่ติดต่อ แบ่ง localized กับ generalized ตามจำนวนรอยโรค",
    "slides": [
     {
@@ -160,7 +160,7 @@ export default {
   },
   {
    "t": 6780,
-   "title": "16/3/2026 R (ต่อ) (ต่อ) (ต่อ) (ต่อ)",
+   "title": "",
    "line": "กำจัดปรสิตทั้งตัวสัตว์และสิ่งแวดล้อม ควบคุมอาการคันและรักษาการติดเชื้อแทรกซ้อน",
    "slides": [
     {

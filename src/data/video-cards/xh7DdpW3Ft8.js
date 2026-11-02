@@ -82,72 +82,72 @@ export default {
  "chapters": [
   {
    "t": 239,
-   "title": "ภูมิคุ้มกัน, วัคซีน",
+   "title": "",
    "line": "Hypersensitivity 4 type แบ่งตาม mediator และโรค NCD หลายอย่างเกิดจากภูมิคุ้มกันทำงานผิดปกติ"
   },
   {
    "t": 712,
-   "title": "วัคซีน, ภูมิคุ้มกัน",
+   "title": "",
    "line": "การรักษา immune-mediated disease ต้องเข้าใจ pathophysiology เพื่อเลือกยาและ supportive therapy ให้เหมาะกับผู้ป่วย"
   },
   {
    "t": 1265,
-   "title": "ออกซิเจน",
+   "title": "",
    "line": "รู้อัตรารอดของ immune-mediated hemolytic anemia เพื่อสื่อสารกับเจ้าของ และตายจาก pulmonary thromboembolism"
   },
   {
    "t": 1560,
-   "title": "วัคซีน, ช็อก",
+   "title": "",
    "line": "วัคซีน adverse reaction เกิดจาก host factor ไม่ใช่วัคซีน และอาการหมาแมวต่างกัน"
   },
   {
    "t": 1942,
-   "title": "วัคซีน, systems",
+   "title": "",
    "line": "พันธุ์เล็ก น้ำหนักต่ำกว่า 5 กก. อายุน้อย multiple vaccine และบางสายพันธุ์เสี่ยงสูง"
   },
   {
    "t": 2539,
-   "title": "วัคซีน, ไข้",
+   "title": "",
    "line": "Anaphylaxis เกิดภายใน 1 ชม. ครึ่งหนึ่งภายใน 5 นาที ต้องเฝ้าสังเกต 60 นาที"
   },
   {
    "t": 3008,
-   "title": "วัคซีน, reported",
+   "title": "",
    "line": "Type 1 พบบ่อยสุด แพ้ excipient เช่น fetal calf serum ไม่ใช่เชื้อในวัคซีน"
   },
   {
    "t": 3538,
-   "title": "วัคซีน, เลือด",
+   "title": "",
    "line": "Type 3 เกิด immune complex เช่น blue eye จาก CAV1 และ ischemic vasculitis ทำให้หางหนู"
   },
   {
    "t": 3987,
-   "title": "วัคซีน, reported",
+   "title": "",
    "line": "reverse virulence ยังไม่มีรายงานในวัคซีนสัตว์เลี้ยง"
   },
   {
    "t": 4452,
-   "title": "วัคซีน, reported",
+   "title": "",
    "line": "สัตว์ที่เคยแพ้วัคซีนอาจเว้นวัคซีน ตรวจ titer เปลี่ยนผลิตภัณฑ์ หรือให้ antihistamine ก่อนฉีด"
   },
   {
    "t": 4877,
-   "title": "ตับ, วัคซีน",
+   "title": "",
    "line": "สุนัขช็อกตาย 30 นาทีหลังฉีดวัคซีน อวัยวะที่เก็บคือตับ"
   },
   {
    "t": 5474,
-   "title": "ตับ, ผิวหนัง",
+   "title": "",
    "line": "Drug adverse reaction type B คาดเดาไม่ได้ พบที่ผิวหนังและตับ บางชนิดถึงตาย"
   },
   {
    "t": 6060,
-   "title": "ผิวหนัง, วัคซีน",
+   "title": "",
    "line": "การซักประวัติและ physical exam สำคัญ และต้องแยกสาเหตุอื่นก่อนฟันธงแพ้ยา"
   },
   {
    "t": 6627,
-   "title": "reported",
+   "title": "",
    "line": "Drug adverse reaction รุนแรงถึงตายได้ ต้องหยุดยาและกดภูมิให้ทันเวลา"
   }
  ],

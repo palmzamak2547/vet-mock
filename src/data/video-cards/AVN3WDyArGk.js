@@ -399,7 +399,7 @@ export default {
   },
   {
    "t": 3180,
-   "title": "neoplasms of the external ear canal",
+   "title": "neoplasms of the external ear canal ceruminous gland carcinoma, squamous cell carcinoma and carcinoma of undetermined origin inflammatory polyps, papillomas, ceruminous gland adenomas and basal cell tumors total ear canal ablation bulla resection radiation therapy",
    "line": "เนื้องอกช่องหูส่วนนอกส่วนใหญ่เป็น ceruminous gland carcinoma รักษาด้วย TECA และ radiation",
    "slides": [
     {

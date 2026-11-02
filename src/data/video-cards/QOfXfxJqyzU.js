@@ -42,32 +42,32 @@ export default {
  "chapters": [
   {
    "t": 2,
-   "title": "เลือด, ไฟเบอร์",
+   "title": "",
    "line": "รักษาโรคตา 2 วิธีคือ Medical Treatment และการผ่าตัด, ยาหยอดตาซึมถึง target site ได้เร็วและตรงจุด"
   },
   {
    "t": 432,
-   "title": "lethargy, angle",
+   "title": "",
    "line": "ยาที่เข้าช่องหน้าม่านตาระบายออกทาง iridocorneal angle กับ aqueous, ยาที่ถึง vitreous ถูกกำจัดโดย diffusion ผ่านหลอดเลือดด้านหลัง"
   },
   {
    "t": 900,
-   "title": "systemic, injection",
+   "title": "",
    "line": "Subconjunctival injection ให้ยาถึง anterior chamber ได้ง่ายและค่อยๆ release, แต่ยาซึมสู่ systemic จึงต้องนับโดส systemic รวมด้วย"
   },
   {
    "t": 1329,
-   "title": "แบคทีเรีย, ไวรัส",
+   "title": "",
    "line": "ถ้าให้ first line antibiotic แล้วไม่หายภายใน 3 สัปดาห์แนะนำเพาะเชื้อเพิ่มเติมเพื่อดู sensitivity และ resistance"
   },
   {
    "t": 1835,
-   "title": "systemic",
+   "title": "",
    "line": "Dexamethasone ออกฤทธิ์ได้ดีที่ ocular surface แต่ไม่ซึมผ่านกระจกตาเข้าช่องหน้าม่านตา ต้องใช้เกลือ acetate จึงจะเข้าได้"
   },
   {
    "t": 1980,
-   "title": "ต้อหิน, systemic",
+   "title": "",
    "line": "Atropine หยดวันนี้กว่าม่านตาจะขยายถึงพรุ่งนี้, ฤทธิ์อยู่นานสุด 96 ชม."
   }
  ],

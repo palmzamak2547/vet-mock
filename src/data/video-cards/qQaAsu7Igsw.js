@@ -60,7 +60,7 @@ export default {
   },
   {
    "t": 6889,
-   "text": "One sample Z-test มี H0 คือ mean ของ sample เท่ากับ hypothesized population mean"
+   "text": "One sample Z-test มี H0 คือ population mean เท่ากับค่าอ้างอิงที่ตั้งไว้ (hypothesized mean)"
   }
  ],
  "remember": [

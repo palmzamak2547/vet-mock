@@ -88,32 +88,32 @@ export default {
  "chapters": [
   {
    "t": 2,
-   "title": "spinal, sensory",
+   "title": "",
    "line": "เลือก modality จาก physical exam และ neuro exam เพราะประวัติเชื่อถือได้น้อยกว่า และ X-ray เหมาะ screening สัตว์ป่วยหนัก"
   },
   {
    "t": 379,
-   "title": "กระดูก, เนื้องอก",
+   "title": "",
    "line": "ultrasound ไม่ผ่านกระดูกและอากาศ จึงดูได้เฉพาะอวัยวะที่มีรูเปิดหรือเป็น soft tissue"
   },
   {
    "t": 912,
-   "title": "retinal, standing",
+   "title": "",
    "line": "ultrasound ลูกตาวางหัวตรวจที่ผิวดวงตา ใช้ frequency สูงเพราะระยะสั้นมาก"
   },
   {
    "t": 1140,
-   "title": "horizontal, vertical",
+   "title": "",
    "line": "ตาถลนข้างเดียวและหูชั้นนอก CT ให้ข้อมูล invasiveness มากกว่า X-ray"
   },
   {
    "t": 1560,
-   "title": "กระดูก, สมอง",
+   "title": "",
    "line": "หูชั้นกลางและชั้นใน CT เห็นกระดูก MRI เห็นน้ำและ soft tissue lesion ชัดกว่า"
   },
   {
    "t": 2100,
-   "title": "กระดูก, spinal",
+   "title": "",
    "line": "spinal cord X-ray เห็นแค่กระดูก CT เห็น hemivertebra และ IVDD แต่ MRI เห็น cord และ prognosis"
   }
  ],

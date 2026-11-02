@@ -193,7 +193,7 @@ export default {
   },
   {
    "t": 1020,
-   "title": "T R E A T M E N T",
+   "title": "Treatment",
    "line": "รักษาแบบ supportive care ให้ออกซิเจน แก้ dehydration และให้ยาปฏิชีวนะเมื่อสงสัย pneumonia",
    "slides": [
     {
@@ -208,7 +208,7 @@ export default {
   },
   {
    "t": 3240,
-   "title": "P R E V E N T I O N",
+   "title": "Prevention",
    "line": "วัคซีนเป็น core vaccine เริ่ม 6-8 สัปดาห์ กระตุ้นจนพ้น MDA ประมาณ 20 สัปดาห์",
    "slides": [
     {
@@ -242,7 +242,7 @@ export default {
   },
   {
    "t": 3660,
-   "title": "T H A N K",
+   "title": "Management (ต่อ)",
    "line": "ไวรัสอยู่ได้หลายสัปดาห์ที่อุณหภูมิ 0-4 องศา ต้องทำความสะอาดและฆ่าเชื้อให้เหมาะสม",
    "slides": [
     {

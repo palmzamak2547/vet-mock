@@ -84,7 +84,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "3/4/2026",
+   "title": "",
    "line": "ตรวจ hand-off ดู mentation, posture, gait แล้ว hand-on เริ่ม postural reaction และ cranial nerve ทีละคู่",
    "slides": [
     {
@@ -123,7 +123,7 @@ export default {
   },
   {
    "t": 2940,
-   "title": "3/4/2026 (ต่อ)",
+   "title": "",
    "line": "เคาะ patellar และ withdrawal reflex ไล่ระดับ segment แล้วประเมิน deep pain และการควบคุมปัสสาวะ",
    "slides": [
     {
@@ -138,7 +138,7 @@ export default {
   },
   {
    "t": 5820,
-   "title": "3/4/2026 (ต่อ) (ต่อ)",
+   "title": "",
    "line": "myopathy กระทบ motor อย่างเดียว ส่วน neuropathy กระทบ sensory และ proprioception ด้วย",
    "slides": [
     {
@@ -181,7 +181,7 @@ export default {
   },
   {
    "t": 5940,
-   "title": "Neurological",
+   "title": "Neurological examination",
    "line": "โรค degenerative มา slowly progressive ส่วน metabolic เป็น intermittent-relapsing ตามค่าที่ผิดปกติ",
    "slides": [
     {

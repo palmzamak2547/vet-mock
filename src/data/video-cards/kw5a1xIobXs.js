@@ -84,72 +84,72 @@ export default {
  "chapters": [
   {
    "t": 123,
-   "title": "chamber, ผิวหนัง",
+   "title": "",
    "line": "uvea ประกอบด้วย iris, ciliary body และ choroid"
   },
   {
    "t": 685,
-   "title": "เลือด, flare",
+   "title": "",
    "line": "aqueous flare คือ tindall phenomenon จาก blood-aqueous barrier แตก และ hyphema ต้องหาสาเหตุไม่ใช่ trauma เสมอ"
   },
   {
    "t": 1224,
-   "title": "เลือด, เนื้องอก",
+   "title": "",
    "line": "hypopyon จากภายนอกหรือภายใน และซีสต์ iris ต่างจากเนื้องอก"
   },
   {
    "t": 1643,
-   "title": "เนื้องอก, develop",
+   "title": "",
    "line": "iris แบ่ง pupillary และ ciliary zone ด้วย collarette พร้อม hypoplasia และ coloboma แต่กำเนิด"
   },
   {
    "t": 2136,
-   "title": "เนื้องอก, เลือด",
+   "title": "",
    "line": "persistent pupillary membrane คือเส้น iris ค้างแต่กำเนิด เสี่ยงเลือดออกเมื่อผ่าตัด"
   },
   {
    "t": 2622,
-   "title": "เลือด",
+   "title": "",
    "line": "melanoma ต้องผ่าตัดเพราะเคมีบำบัดไม่ได้ผล และ uveitis ทำให้ cataract จอประสาทหลุด"
   },
   {
    "t": 3180,
-   "title": "systemic, ภูมิคุ้มกัน",
+   "title": "",
    "line": "lens induced uveitis จาก hypermature cataract และ VKH like syndrome ทำลาย melanocyte"
   },
   {
    "t": 3705,
-   "title": "topical, systemic",
+   "title": "",
    "line": "topical ซึมผ่านได้ถ้า cornea intact แต่ systemic ให้ efficacy ดีกว่า"
   },
   {
    "t": 4153,
-   "title": "ช่วงที่ 9",
+   "title": "",
    "line": "เลนส์หักเหแสง กั้น aqueous กับ vitreous และยึดด้วย zonule"
   },
   {
    "t": 4380,
-   "title": "เลือด, ไฟเบอร์",
+   "title": "",
    "line": "microphakia ทำให้เห็น zonule และ PHPV ทำให้เห็นหลอดเลือดหลังเลนส์"
   },
   {
    "t": 4855,
-   "title": "ต้อกระจก, develop",
+   "title": "",
    "line": "nuclear sclerosis เกิดทุกตัวตามอายุ แต่ cataract เกิดโปรตีนไม่สมดุลจนแสงกระเจิง"
   },
   {
    "t": 5426,
-   "title": "ต้อกระจก, diabetes mellitus",
+   "title": "",
    "line": "diabetic cataract เกิด aldose reductase เปลี่ยน glucose เป็น sorbitol ดึงน้ำเข้าเลนส์"
   },
   {
    "t": 5837,
-   "title": "ต้อกระจก, คลอด",
+   "title": "",
    "line": "รักษาต้อกระจกด้วยผ่าตัด ECCE หรือ phacoemulsification และ aspiration"
   },
   {
    "t": 6340,
-   "title": "primary, complete",
+   "title": "",
    "line": "ICCE เอาเลนส์ทั้งก้อนออกเมื่อ luxation สมบูรณ์ เพราะเลนส์เคลื่อนหน้ากระทบ cornea"
   }
  ],

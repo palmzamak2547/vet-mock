@@ -77,82 +77,82 @@ export default {
  "chapters": [
   {
    "t": 2,
-   "title": "membrane, basement",
+   "title": "",
    "line": "กระจกตาประกอบด้วย epithelium, basement membrane, stroma, Descemet membrane และ endothelium"
   },
   {
    "t": 389,
-   "title": "เลือด, opacity",
+   "title": "",
    "line": "ความใสเสียได้จากเส้นเลือดงอกและ corneal edema เมื่อ endothelium ปั๊มน้ำล้มเหลว"
   },
   {
    "t": 980,
-   "title": "pigmented",
+   "title": "",
    "line": "รอยขาวทึบแสงแยกได้เป็น scar กับ degeneration ที่เป็นเมทัลลิกสะท้อนแสง"
   },
   {
    "t": 1429,
-   "title": "ผิวหนัง, congenital",
+   "title": "",
    "line": "microcornea เกิดร่วมกับ congenital หรือแผลซ่อมจนผิดรูป ส่วน dermoid รักษาโดย keratectomy"
   },
   {
    "t": 1968,
-   "title": "light, เลือด",
+   "title": "",
    "line": "ตรวจด้วย focal light และ transilluminator เพราะไฟฉายธรรมดาไม่รวมแสง"
   },
   {
    "t": 2476,
-   "title": "เลือด, สเตียรอยด์",
+   "title": "",
    "line": "chronic superficial keratitis รักษาด้วยสเตียรอยด์หลังย้อมสีแล้ว และทำ keratectomy แบบแบ่งส่วน"
   },
   {
    "t": 2848,
-   "title": "superficial, infection",
+   "title": "",
    "line": "KCS ทำให้ตาแห้ง มี discharge เมือก และแผลได้หากไม่รักษา"
   },
   {
    "t": 3214,
-   "title": "เลือด, แคลเซียม",
+   "title": "",
    "line": "deep keratitis หรือ blue eye มาจาก systemic disorder เช่น โรคพยาธิในเม็ดเลือด"
   },
   {
    "t": 3683,
-   "title": "sequestration, เลือด",
+   "title": "",
    "line": "corneal sequestration สัมพันธ์กับ herpes และแก้ด้วยการผ่าตัด"
   },
   {
    "t": 4062,
-   "title": "ช่วงที่ 10",
+   "title": "",
    "line": "sequestration รักษาด้วยการผ่าตัดเอาก้อนออก ร่วมกับรักษา Herpes"
   },
   {
    "t": 4527,
-   "title": "ช่วงที่ 11",
+   "title": "",
    "line": "ulcerative keratitis รุนแรงกว่าแบบไม่มีแผล และต้องซักประวัติหาสาเหตุจากลูกตาเอง"
   },
   {
    "t": 4740,
-   "title": "basement, generate",
+   "title": "",
    "line": "epithelium สร้างใหม่ได้ และแผลติดสีเมื่อ basement membrane หายไปด้วย"
   },
   {
    "t": 5124,
-   "title": "เลือด, ไฟเบอร์",
+   "title": "",
    "line": "แผลชั้น stroma หายเองได้ แต่ deep stroma เสี่ยง scar และทะลุมากกว่า"
   },
   {
    "t": 5609,
-   "title": "complete, conjunctival",
+   "title": "",
    "line": "แผลทะลุเล็กปิดด้วย conjunctival flap หรือดึง nictitating membrane มาปิดชั่วคราว 2 ถึง 3 สัปดาห์"
   },
   {
    "t": 6112,
-   "title": "perforation, healing",
+   "title": "",
    "line": "แผลทะลุใหญ่ปิดด้วย conjunctival pedicle graft หรือ biological graft"
   },
   {
    "t": 6677,
-   "title": "เลือด, มะเร็ง",
+   "title": "",
    "line": "melting cornea เกิดจาก collagenase เกิน และ dystrophy ถ่ายทอดทางพันธุกรรม"
   }
  ],

@@ -84,52 +84,52 @@ export default {
  "chapters": [
   {
    "t": 3,
-   "title": "มะเร็ง, structures",
+   "title": "",
    "line": "Ocular adnexa มี 4 โครงสร้างหลัก และ agenesis ทำให้กระพริบไม่ได้ เสี่ยงตาแห้งและขนระคายกระจกตา"
   },
   {
    "t": 568,
-   "title": "feature, lethargy",
+   "title": "",
    "line": "ช่องตาเล็กหรือใหญ่ผิดปกติ แต่ microblepharon มักไม่ต้องแก้ ส่วน macroblepharon ทำให้ exposure keratitis"
   },
   {
    "t": 934,
-   "title": "anatomical, normal",
+   "title": "",
    "line": "แยก entropion ด้วยประวัติพันธุ์และยาชา แล้วแก้ anatomical ด้วย Hotz-Celsus หลังอายุครบ 1 ขวบ"
   },
   {
    "t": 1534,
-   "title": "ช่วงที่ 4",
+   "title": "",
    "line": "Diamond eye แก้โดยตัดหนังตาที่ม้วนเข้าและม้วนออกไม่ให้ถูกกระจกตา แต่เก็บหนังย่นหน้าผากไว้เพื่อความสวยงาม"
   },
   {
    "t": 1969,
-   "title": "แบคทีเรีย, ยาปฏิชีวนะ",
+   "title": "",
    "line": "ectopic cilia รักษาด้วย wedge resection หรือจี้ ส่วน chalazion ที่เป็นก้อนตันต้องกรีดระบาย"
   },
   {
    "t": 2493,
-   "title": "ผิวหนัง, เนื้องอก",
+   "title": "",
    "line": "blepharitis จาก demodicosis ต้องแก้โรค systemic และระวังสเตียรอยด์ทำกระจกตาทะลุ"
   },
   {
    "t": 2967,
-   "title": "เลือด, edema",
+   "title": "",
    "line": "เยื่อบุตาขาวมี 2 ส่วน ต่อด้วย limbus และแสดงรอยโรค 4 แบบ ได้แก่ hyperemia, chemosis, hemorrhage, follicle"
   },
   {
    "t": 3466,
-   "title": "facial, กระดูก",
+   "title": "",
    "line": "เยื่อบุตาขาวอักเสบในแมวสัมพันธ์กับ herpesvirus, calicivirus, chlamydia และตรวจยืนยันด้วย PCR"
   },
   {
    "t": 4003,
-   "title": "กระดูก, ผิวหนัง",
+   "title": "",
    "line": "cherry eye เกิดจาก connective tissue หย่อน แก้ด้วย pocket technique ส่วน cartilage ที่โค้งแก้โดยตัดกระดูกอ่อนเฉพาะส่วนที่โค้ง"
   },
   {
    "t": 4555,
-   "title": "ช่วงที่ 10",
+   "title": "",
    "line": "ท่อน้ำตาอุดตันทำให้น้ำตาเอ่อล้น รักษาโดย flush ผ่าน nasolacrimal duct ด้วย IV catheter"
   }
  ],

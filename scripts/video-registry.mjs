@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { takenVideos } from './video-media.mjs';
 import { SUBJECTS_BY_YEAR } from '../src/data/curriculum.js';
 import { allLecturerSets } from '../src/data/lecturer-sets.js';
+import { overlap } from '../src/lib/video-summary-check.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = process.env.VIDEO_DATA_DIR || 'C:/dev/vetmock-video-data';
@@ -34,18 +35,167 @@ export function titleDate(title) {
   return `${2500 + Number(m[3]) - 543}-${String(month + 1).padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 }
 
+// The uploader's typing, not the session's name: a cut word and a slip.
+const TITLE_WORDS = [[/\bEpidem$/, 'Epidemiology'], [/\bEqine\b/g, 'Equine']];
 /** "7.Endometritis in mare 1 Oct 69" -> "Endometritis in mare"; the session number and date are shown apart. */
 export function displayTitle(title) {
-  return String(title).replace(/\s+\d{1,2}\s+[A-Za-z]{3}[a-z]*\.?\s+\d{2}\s*$/, '').replace(/^[\s,]*\d+(?:\.\d+)?(?:\s*[,+&]\s*\d+(?:\.\d+)?)*\s*\.?\s*(?=\S)/, '').replace(/^[\s,]+/, '').trim() || String(title).trim();
+  let t = String(title).replace(/\s+\d{1,2}\s+[A-Za-z]{3}[a-z]*\.?\s+\d{2}\s*$/, '').replace(/^[\s,]*\d+(?:\.\d+)?(?:\s*[,+&]\s*\d+(?:\.\d+)?)*\s*\.?\s*(?=\S)/, '').replace(/^[\s,]+/, '')
+    // A second session's number goes too: "Semen collection  + 11.Infertility problem".
+    .replace(/([+&]\s*)\d{1,2}\s*\.\s*(?=\S)/g, '$1').replace(/\s+/g, ' ').trim();
+  for (const [word, name] of TITLE_WORDS) t = t.replace(word, name);
+  return t || String(title).trim();
 }
 
-/** A deck heading as a chapter title: "CONTAMINATION" -> "Contamination", "Treatment : Goals" -> "Treatment: Goals". */
-const HEADING_NAMES = { 'V E T E R I N A R Y P U B L I C H E A L T H · O N E H E A L T H': 'Veterinary Public Health: One Health' };
-export function tidyHeading(title) {
-  if (HEADING_NAMES[String(title).trim()]) return HEADING_NAMES[String(title).trim()];
-  let t = String(title).replace(/\s*·\s*/g, ': ').replace(/\s+:/g, ':').replace(/\s+/g, ' ').trim();
-  if (!/[a-z]/.test(t) && /[A-Z]{6}/.test(t)) t = t.charAt(0) + t.slice(1).toLowerCase();
+// What a PDF's text layer does to a deck's words: Thai sara am split off
+// ("การจ าแนก"), a degree sign read as "o" ("20 oซ"), an exponent set inline ("8 x 106").
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+export function tidyText(text) {
+  return String(text)
+    .replace(/([ก-ฮ])([่-๋]?)\s+([่-๋]?)า/g, '$1$2$3ำ')
+    .replace(/(\d)\s*o\s*[ซC](?![A-Za-z])/g, '$1 °C')
+    .replace(/(\d)\s*[x×]\s*10([1-9]|1[0-2])(?!\d)/g, (m, d, e) => `${d} × 10${[...e].map((c) => SUP[c]).join('')}`);
+}
+
+// A heading set in spaced capitals ("H I S T O R Y", "R O L E O F V E T E R I N A R I A N S")
+// is read back into words the lectures themselves use; one that cannot be read is no title.
+const SPACED = /(?:\b[A-Za-z0-9] ){2,}[A-Za-z0-9]\b/;
+const SMALL = new Set(['a', 'an', 'and', 'at', 'by', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with', 'you']);
+let lexicon = null;
+function lectureWords(w) {
+  if (!lexicon) {
+    lexicon = new Map();
+    const add = (s) => {
+      if (SPACED.test(s)) return;
+      for (const x of String(s).toLowerCase().match(/[a-z]+/g) || []) lexicon.set(x, (lexicon.get(x) || 0) + 1);
+    };
+    for (const id of fs.existsSync(DATA) ? fs.readdirSync(DATA) : []) {
+      const a = readJSON(path.join(DATA, id, 'analysis.json'));
+      for (const [, s] of a?.lines || []) add(s);
+      for (const c of a?.chapters || []) add(c.title);
+      for (const p of a?.pages || []) add(`${p.heading || ''} ${p.text || ''}`);
+    }
+  }
+  if (/^\d+$/.test(w) || SMALL.has(w)) return Infinity;
+  return lexicon.get(w) || (w.endsWith('s') && lexicon.get(w.slice(0, -1))) || 0;
+}
+/**
+ * "ONEHEALTHSERIES" -> "one health series": the split into words of three letters
+ * or more (or a small joining word) whose rarest word the lectures use most, unless
+ * the whole run is itself a word used nearly as much ("outlook", not "out look";
+ * "one health", not the captions' "onehealth"); null when nothing reads.
+ */
+export function readSpaced(run, count = lectureWords) {
+  const w = run.replace(/\s+/g, '').toLowerCase();
+  let best = null;
+  const walk = (i, parts, least) => {
+    if (i === w.length) {
+      if (parts.length > 1 && (!best || least > best.least || (least === best.least && parts.length < best.parts.length))) best = { parts, least };
+      return;
+    }
+    for (let j = i + 1; j <= w.length; j++) {
+      const piece = w.slice(i, j);
+      const n = piece.length >= 3 || /^\d+$/.test(piece) || SMALL.has(piece) ? count(piece) : 0;
+      if (n) walk(j, [...parts, piece], Math.min(least, n));
+    }
+  };
+  walk(0, [], Infinity);
+  const whole = count(w);
+  if (whole && (!best || whole * 50 >= best.least)) return w;
+  return best ? best.parts.join(' ') : null;
+}
+
+/** A deck heading as a chapter title: "CONTAMINATION" -> "Contamination", "Treatment : Goals" -> "Treatment: Goals"; null when it cannot be read. */
+export function tidyHeading(title, count = lectureWords) {
+  const spaced = SPACED.test(String(title));
+  let unread = false;
+  let t = tidyText(title).replace(new RegExp(SPACED.source, 'g'), (run) => readSpaced(run, count) ?? ((unread = true), run))
+    .replace(/\s*·\s*/g, ': ').replace(/\s+:/g, ':').replace(/\s+/g, ' ').replace(/(\s*\(ต่อ\))+$/, ' (ต่อ)').trim();
+  if (unread) return null;
+  if (spaced) t = t.replace(/(^|:\s)([a-z])/g, (m, p, c) => p + c.toUpperCase()).replace(/\bone health\b/gi, 'One Health');
+  else if (!/[a-z]/.test(t) && /[A-Z]{6}/.test(t)) t = t.charAt(0) + t.slice(1).toLowerCase();
   return t;
+}
+
+// A heading that runs onto a second line ("Clinical examination of the" / "penis/prepuce")
+// is read whole from the slide's own text; one whose next line is a bullet loses the
+// word left hanging.
+// "INTRODUCTION OF" hangs too; "Hypovitaminosis A" does not.
+const hangs = (t) => /\s*(?:\b(?:and|of|the|by|for|in|with|to|on|at|from|or|an)|\ba|&)$/.test(t.replace(/[A-Z]{2,}/g, (w) => w.toLowerCase()));
+export function wholeHeading(title, pageText = '') {
+  const [, head, more] = String(title).match(/^(.*?)((?:\s*\(ต่อ\))*)$/);
+  let whole = head.trim();
+  const lines = String(pageText).split('\n').map((l) => l.trim());
+  let i = lines.findIndex((l) => l.toLowerCase() === whole.toLowerCase());
+  // The next line carries on the heading when it is no bullet and the heading hangs
+  // or the line starts in lower case ("Clinical" / "examination of" / "accessory sex glands").
+  const goesOn = (next) => next && !/^(?:[•▪◦●\-–*]|\d+[.)])/.test(next) && next.split(/\s+/).length <= 8 && (hangs(whole) || /^[a-z]/.test(next));
+  while (i >= 0 && goesOn(lines[i + 1])) whole = `${whole} ${lines[++i]}`;
+  while (whole && hangs(whole)) whole = whole.replace(/\s*\S+$/, '');
+  return whole ? `${whole}${more}` : '';
+}
+
+const DATE_TITLE = /^\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}(?:\s+[A-Za-z])?$/;
+const INSTITUTION = /ภาควิชา|คณะสัตวแพทยศาสตร์|จุฬาลงกรณ์มหาวิทยาลัย|chulalongkorn university|faculty of veterinary/i;
+const CLOSING = /^(?:thank(?:s| you)?|the end|q\s*&\s*a|questions?)$/i;
+/**
+ * The chapter panel's titles, in order. A title is a slide's heading; null (a
+ * stretch with no slides, titled by two words it heard), a date, the faculty's
+ * name or a heading that cannot be read leaves the chapter untitled (''), and its
+ * line says what it teaches. A thank-you slide continues the chapter before it.
+ */
+export function chapterTitles(list, count = lectureWords) {
+  let prev = '';
+  return list.map((title) => {
+    const own = title ? tidyHeading(title, count) : null;
+    const base = own?.replace(/\s*\(ต่อ\)$/, '') || '';
+    if (base && CLOSING.test(base)) return prev && `${prev} (ต่อ)`;
+    const t = !own || DATE_TITLE.test(base) || INSTITUTION.test(base) ? '' : own;
+    prev = t.replace(/\s*\(ต่อ\)$/, '');
+    return t;
+  });
+}
+
+// One fact once on the card (the review of 5.190.0): an emphasis or remember item
+// that a key point beside it already says marks that point stressed instead.
+const SAME = 0.85;
+function cardOf(v, a, s, stale) {
+  const dir = path.join(DATA, v.id);
+  const deck = readJSON(path.join(dir, 'deck.json'));
+  const pageOf = (n) => (deck?.pages?.[n - 1] ? { doc: deck.pages[n - 1].doc || deck.slug, page: deck.pages[n - 1].docPage || n } : null);
+  // A summary is written against one analysis. A redone one (a Scribe transcript,
+  // new silence) keeps that analysis beside it, and every chapter line must find its
+  // chapter by start time, or the card is held: lines under the wrong chapters are
+  // worse than none.
+  const basis = readJSON(path.join(dir, 'analysis.basis.json')) || a;
+  const at = new Map(basis.chapters.map((c) => [Math.round(c.start), c]));
+  const lines = s.summary.chapters.filter((x) => x.line);
+  const chapters = lines.map((x) => at.get(Math.round(x.t)));
+  if (chapters.some((c) => !c)) {
+    stale.push(v.id);
+    console.warn(`${v.id}: held, its chapter lines no longer match its analysis`);
+    return null;
+  }
+  // A title fixed by hand lives beside the summary's hand edits (polished.json), by chapter start.
+  const polish = readJSON(path.join(dir, 'polished.json'));
+  const titles = chapterTitles(chapters.map((c) => polish?.titles?.[Math.round(c.start)] ?? (c.pages?.length ? wholeHeading(c.title, deck?.pages?.[c.pages[0] - 1]?.text) : null)));
+  const keyPoints = s.summary.keyPoints.map((p) => ({ t: p.t, text: p.text, ...(p.stressed && { stressed: true }) }));
+  const said = (p, list) => list.find((k) => Math.abs(k.t - p.t) <= 60 && overlap(k.text, p.text) >= SAME);
+  const emphasis = s.summary.emphasis.filter((p) => {
+    const k = said(p, keyPoints);
+    if (k) k.stressed = true;
+    return !k;
+  }).map((p) => ({ t: p.t, text: p.text }));
+  const remember = s.summary.remember.filter((p) => !said(p, [...keyPoints, ...emphasis])).map((p) => ({ t: p.t, text: p.text }));
+  return {
+    oneLiner: s.summary.oneLiner,
+    keyPoints,
+    emphasis,
+    remember,
+    chapters: chapters.map((c, i) => ({ t: c.start, title: titles[i], line: lines[i].line, ...(c.pages?.length && { slides: c.pages.map(pageOf).filter(Boolean) }) })),
+    // Once each, without the slide's bullet characters, as the deck printed them.
+    index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: tidyText(x.term), t: x.at } : { number: tidyText(String(x.text).replace(/^[\s•▪◦●▸►‣∙·\-–—*]+/, '')), t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) }))
+      .filter((x, i, all) => all.findIndex((y) => (y.term || y.number).toLowerCase() === (x.term || x.number).toLowerCase()) === i),
+  };
 }
 
 // What a topic stretch may be published as: a topic the lecturer set gives
@@ -76,7 +226,13 @@ const HEAD = (what) => `// =====================================================
 `;
 
 function build() {
+  // VIDEO_BATCH=<file of ids>: what this run adds, each read through
+  // (docs/VIDEO-LIBRARY.md); the cards already published stay without being listed.
   const batch = process.env.VIDEO_BATCH ? new Set(fs.readFileSync(process.env.VIDEO_BATCH, 'utf8').split(/[\s,]+/).filter(Boolean)) : null;
+  if (batch && !batch.size) throw new Error(`VIDEO_BATCH ${process.env.VIDEO_BATCH} lists no video`);
+  const cardDir = path.join(OUT, 'video-cards');
+  const published = new Set((fs.existsSync(cardDir) ? fs.readdirSync(cardDir) : []).map((f) => f.replace(/\.js$/, '')));
+  const stale = [];
   const media = {};
   const dir = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels');
   for (const f of fs.readdirSync(dir).filter((x) => /^media-manifest(\.\d+)?\.json$/.test(x))) Object.assign(media, readJSON(path.join(dir, f)));
@@ -104,8 +260,9 @@ function build() {
     // with its passing card, mapping and copy together. VIDEO_REGISTRY_ALL=1 lists
     // every analysed video, for checking the pipeline locally.
     if (!pass && !process.env.VIDEO_REGISTRY_ALL) continue;
-    // VIDEO_BATCH=<file of ids>: publish only a batch already read through (docs/VIDEO-LIBRARY.md).
-    if (batch && !batch.has(v.id)) continue;
+    if (batch && !batch.has(v.id) && !published.has(v.id)) continue;
+    const card = pass ? cardOf(v, a, s, stale) : null;
+    if (!card && !process.env.VIDEO_REGISTRY_ALL) continue;
     // The file's own length (ffprobe) can be a few seconds under YouTube's.
     const durationSec = m?.durationSec || v.durationSec;
     const segments = (a?.topicSegments || []).map((g) => ({ ...g, end: Math.min(g.end, durationSec) }))
@@ -124,23 +281,10 @@ function build() {
       skips: (a?.skips || []).map((k) => [k.start, Math.min(k.end, durationSec), k.kind]).filter(([s, e]) => s < e),
       media: Boolean(m),
       captions: m?.captions || (a ? 'youtube' : null),
-      card: pass,
+      card: Boolean(card),
       ...(v.description?.trim() && { note: v.description.trim() }),
     };
-    if (pass) {
-      const deck = readJSON(path.join(DATA, v.id, 'deck.json'));
-      const pageOf = (n) => deck?.pages?.[n - 1] ? { doc: deck.pages[n - 1].doc || deck.slug, page: deck.pages[n - 1].docPage || n } : null;
-      cards[v.id] = {
-        oneLiner: s.summary.oneLiner,
-        keyPoints: s.summary.keyPoints.map((p) => ({ t: p.t, text: p.text, ...(p.stressed && { stressed: true }) })),
-        emphasis: s.summary.emphasis.map((p) => ({ t: p.t, text: p.text })),
-        remember: s.summary.remember.map((p) => ({ t: p.t, text: p.text })),
-        chapters: a.chapters.map((c, i) => ({ t: c.start, title: tidyHeading(c.title), line: s.summary.chapters[i]?.line || '', ...(c.pages?.length && { slides: c.pages.map(pageOf).filter(Boolean) }) })),
-        // Once each, without the slide's bullet characters.
-        index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: x.term, t: x.at } : { number: String(x.text).replace(/^[\s•▪◦●▸►‣∙·\-–—*]+/, ''), t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) }))
-          .filter((x, i, all) => all.findIndex((y) => (y.term || y.number).toLowerCase() === (x.term || x.number).toLowerCase()) === i),
-      };
-    }
+    if (card) cards[v.id] = card;
     for (const g of segments) {
       if (g.conf === 'ambiguous') continue;
       (topicIndex[g.topic] ||= []).push({ v: v.id, s: g.start, e: g.end, conf: g.conf });
@@ -149,15 +293,16 @@ function build() {
   // The stretch that teaches a topic most surely, longest first within a confidence.
   const rank = { high: 0, medium: 1 };
   for (const list of Object.values(topicIndex)) list.sort((x, y) => rank[x.conf] - rank[y.conf] || (y.e - y.s) - (x.e - x.s));
-  return { registry, cards, topicIndex };
+  return { registry, cards, topicIndex, stale };
 }
 
 /** The run's report for the admin page, from the manifests the stages keep. */
-export function runStatus({ registry, cards, before, media, pipeline, taken }) {
+export function runStatus({ registry, cards, before, media, pipeline, taken, stale = [] }) {
   const ids = new Set(taken);
   // A summary's own file says whether it is held: the manifest can lag a recheck.
   const held = [...ids].map((id) => [id, readJSON(path.join(DATA, id, 'summary.json'))]).filter(([, s]) => s?.status === 'held')
-    .map(([id, s]) => ({ id, why: [...(s.checks?.lint?.errors || []), ...(s.checks?.coverage?.missing || []).map((m) => `missing ${m}`)].join('; ').slice(0, 160) || 'held by the verifier or the clarity reader' }));
+    .map(([id, s]) => ({ id, why: [...(s.checks?.lint?.errors || []), ...(s.checks?.coverage?.missing || []).map((m) => `missing ${m}`)].join('; ').slice(0, 160) || 'held by the verifier or the clarity reader' }))
+    .concat(stale.map((id) => ({ id, why: 'its chapter lines no longer match its analysis' })));
   const failed = [
     ...Object.entries(media).filter(([id, m]) => ids.has(id) && m.error).map(([id, m]) => ({ id, step: 'media', error: String(m.error).slice(0, 160) })),
     ...Object.entries(pipeline).filter(([id]) => ids.has(id)).flatMap(([id, s]) => ['analysis', 'summary'].filter((k) => String(s[k] || '').startsWith('failed')).map((k) => ({ id, step: k, error: String(s[k]).slice(0, 160) }))),
@@ -175,7 +320,7 @@ export function runStatus({ registry, cards, before, media, pipeline, taken }) {
 
 async function main() {
   const check = process.argv.includes('--check');
-  const { registry, cards, topicIndex } = build();
+  const { registry, cards, topicIndex, stale: unmatched } = build();
   const cardDir0 = path.join(OUT, 'video-cards');
   const before = new Set((fs.existsSync(cardDir0) ? fs.readdirSync(cardDir0) : []).map((f) => f.replace(/\.js$/, '')));
   const files = new Map();
@@ -207,7 +352,7 @@ async function main() {
     const dir = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels');
     const media = {};
     for (const f of fs.readdirSync(dir).filter((x) => /^media-manifest(\.\d+)?\.json$/.test(x))) Object.assign(media, readJSON(path.join(dir, f)));
-    const status = runStatus({ registry, cards, before, media, pipeline: readJSON(path.join(dir, 'pipeline-manifest.json')) || {}, taken: takenVideos().map((v) => v.id) });
+    const status = runStatus({ registry, cards, before, media, pipeline: readJSON(path.join(dir, 'pipeline-manifest.json')) || {}, taken: takenVideos().map((v) => v.id), stale: unmatched });
     const { s3Env, putBuffer } = await import('./video-media.mjs');
     await putBuffer(await s3Env(), 'videos/_status.json', Buffer.from(JSON.stringify(status)), 'application/json');
     console.log(`status: ${status.videos} videos, ${status.copies} copies, ${status.cards} cards, ${status.published.length} published, ${status.held.length} held, ${status.failed.length} failed`);

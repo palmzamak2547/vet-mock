@@ -61,8 +61,14 @@ export const VIDEO_REGISTRY = {
    [
     "oh-env-carcinogen",
     480,
-    1320,
+    1500,
     "high"
+   ],
+   [
+    "oh-vet-role",
+    1500,
+    2280,
+    "medium"
    ]
   ],
   "skips": [
@@ -72,12 +78,12 @@ export const VIDEO_REGISTRY = {
     "before"
    ],
    [
-    2512.1,
-    2537.7,
+    2510.1,
+    2537.8,
     "pause"
    ],
    [
-    4054,
+    4051.1,
     4188,
     "after"
    ]
@@ -170,19 +176,25 @@ export const VIDEO_REGISTRY = {
   "topics": [
    [
     "eqrepro-male",
-    2700,
-    3600,
+    720,
+    1080,
+    "high"
+   ],
+   [
+    "eqrepro-male",
+    1860,
+    3840,
     "high"
    ]
   ],
   "skips": [
    [
     0,
-    702.3,
+    702.4,
     "before"
    ],
    [
-    4262.3,
+    4259.4,
     4315,
     "after"
    ]
@@ -192,7 +204,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "Y9vHebIx5_E": {
-  "title": "Semen collection and insemination  + 11.Infertility problem in stallion",
+  "title": "Semen collection and insemination + Infertility problem in stallion",
   "session": "10",
   "date": "2026-10-15",
   "durationSec": 5060,
@@ -257,14 +269,14 @@ export const VIDEO_REGISTRY = {
    [
     "eqrepro-endometritis",
     300,
-    4429,
+    4320,
     "high"
    ]
   ],
   "skips": [
    [
     0,
-    288,
+    288.1,
     "before"
    ]
   ],
@@ -308,7 +320,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "23AwFruxQQc": {
-  "title": "Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidem",
+  "title": "Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidemiology",
   "session": "7",
   "date": "2026-09-14",
   "durationSec": 7159,
@@ -531,7 +543,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "zFsNom4JMC8": {
-  "title": "Infertility and reproductive diseases + 6.Fertility disorder in mares",
+  "title": "Infertility and reproductive diseases + Fertility disorder in mares",
   "session": "5",
   "date": "2026-08-27",
   "durationSec": 7968,
@@ -654,7 +666,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "FBNU52oH1z8": {
-  "title": "Examination of reproductive organs in the mare + 4.Reproductive Biotechnology",
+  "title": "Examination of reproductive organs in the mare + Reproductive Biotechnology",
   "session": "3",
   "date": "2026-08-20",
   "durationSec": 5128,
@@ -1257,7 +1269,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "q44qQOIMTXk": {
-  "title": "Preserved semen & 18.Infertility problems in males & females",
+  "title": "Preserved semen & Infertility problems in males & females",
   "session": "17",
   "date": "2026-03-13",
   "durationSec": 8907,
@@ -1610,7 +1622,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "6F7snbA_vk8": {
-  "title": "Mammary gland abnormalities & 7.Genital mass",
+  "title": "Mammary gland abnormalities & Genital mass",
   "session": "4",
   "date": "2026-01-16",
   "durationSec": 11292,

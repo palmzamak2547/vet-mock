@@ -88,102 +88,102 @@ export default {
  "chapters": [
   {
    "t": 93,
-   "title": "ฟัน",
+   "title": "",
    "line": "ทำความรู้จัก dental unit, high speed และ low speed พร้อมข้อควรระวังในการเก็บหัวมือ"
   },
   {
    "t": 526,
-   "title": "ฟัน, fracture",
+   "title": "",
    "line": "ขูดหินปูนด้วย ultrasonic scaler ต้องปรับน้ำให้เป็นละอองฝอยก่อนทำงานทุกครั้ง"
   },
   {
    "t": 980,
-   "title": "ช่วงที่ 3",
+   "title": "",
    "line": "ทำ tape muzzle จากเทปผ้า วัดความยาวรอบ muzzle แล้วประกบด้านเหนียวเข้าหากัน"
   },
   {
    "t": 1371,
-   "title": "กระดูก, ผิวหนัง",
+   "title": "",
    "line": "วินิจฉัย symphysis separation โดยจับ mandible สองข้างขยับสวนทางกันแล้วรู้สึกหลวม"
   },
   {
    "t": 1824,
-   "title": "กระดูก",
+   "title": "",
    "line": "เพลตคือ internal fixation ที่ใช้บ่อยและให้ความแข็งแรงสูงสุด ทำจาก stainless steel หรือ titanium"
   },
   {
    "t": 2366,
-   "title": "standard, ไข่",
+   "title": "",
    "line": "locking screw ยึดติดเพลตได้เอง ต่างจาก cortical screw ที่ต้องอาศัยแรงกดจากเพลต"
   },
   {
    "t": 2957,
-   "title": "กระดูก, diameter",
+   "title": "",
    "line": "เจาะรูเล็กกว่า core diameter ของสกรูเสมอ มิฉะนั้นสกรูจะไม่ยึด"
   },
   {
    "t": 3498,
-   "title": "กระดูก",
+   "title": "",
    "line": "ขั้นตอนใส่เพลตคือ reduction, contouring, เจาะรู, วัด depth ด้วย depth gauge แล้วขันสกรู"
   },
   {
    "t": 4365,
-   "title": "ช่วงที่ 10",
+   "title": "",
    "line": "แลบที่เหลือคือ tension band wiring, circumcostal wiring, screw และเพลต compression กับ bridging"
   },
   {
    "t": 4826,
-   "title": "กระดูก, needle",
+   "title": "",
    "line": "มัดลวดต้องมี cortex ครบทุกด้านและกำจัด soft tissue รอบกระดูกก่อน"
   },
   {
    "t": 5241,
-   "title": "กระดูก",
+   "title": "",
    "line": "twist loop ทำเกลียวสวยด้วยมือและ Y twister โดยจับห่างจากลวดประมาณครึ่งเซนติเมตร"
   },
   {
    "t": 5705,
-   "title": "กระดูก, direct",
+   "title": "",
    "line": "tension band wiring ใช้ K wire สองอันตั้งฉากกับ fracture line เสริมด้วยลวดรูป figure of 8"
   },
   {
    "t": 6287,
-   "title": "กระดูก, under",
+   "title": "",
    "line": "สาธิต twist loop, single loop และ double loop พร้อมข้อผิดพลาดที่ทำให้ลวดหลวม"
   },
   {
    "t": 6858,
-   "title": "fracture, small",
+   "title": "",
    "line": "K wire ต้องวางด้าน lateral ของ greater trochanter และรูร้อยลวดอยู่ใต้ fracture เท่ากันสองข้าง"
   },
   {
    "t": 7295,
-   "title": "กระดูก, fracture",
+   "title": "",
    "line": "สกรูมีสามหน้าที่คือ lag สร้าง compression, positioning ยึด fragment และ plate ยึดเพลตกับกระดูก"
   },
   {
    "t": 7740,
-   "title": "กระดูก, fracture",
+   "title": "",
    "line": "lag screw เจาะ glide hole ที่ near cortex ด้วย 3.5 และ thread hole ที่ far cortex ด้วย 2.5"
   },
   {
    "t": 8290,
-   "title": "กระดูก, กดหน้าอก",
+   "title": "",
    "line": "compression plate อาศัยรู oval ยิงสกรูแบบ excentric ให้ fragment สไลด์เข้าหากัน"
   },
   {
    "t": 8864,
-   "title": "กระดูก, fracture",
+   "title": "",
    "line": "bridging plate ใช้กับ comminuted fracture ยาว ร่วมกับ IM pin เพื่อรับแรงดัดและบิด"
   },
   {
    "t": 9449,
-   "title": "กระดูก, small",
+   "title": "",
    "line": "neutralization plate วางบน medial tibia จึงต้องใส่ lag screw ผ่านรูเพลต"
   },
   {
    "t": 9963,
-   "title": "กระดูก, proximal",
+   "title": "",
    "line": "ขันสกรูให้แน่นแล้วตัดปลายให้สั้น ปลายสกรูต้องแยกออกจากกันไม่ชนกัน"
   }
  ],

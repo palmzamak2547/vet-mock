@@ -70,7 +70,7 @@ export default {
  "chapters": [
   {
    "t": 286,
-   "title": "Introduction of",
+   "title": "Introduction",
    "line": "เทคโนโลยีช่วยการสืบพันธุ์ในม้า ตั้งแต่ AI ET IVF ICSI จนถึง cloning และ stem cell พร้อมข้อจำกัดของ ET",
    "slides": [
     {
@@ -157,7 +157,7 @@ export default {
   },
   {
    "t": 480,
-   "title": "Clinical",
+   "title": "Clinical examination of female horse",
    "line": "การตรวจสุขภาพทั่วไป พฤติกรรมเป็นสัด และ teasing score 0-4 ใช้คัดม้าในฝูงก่อนตรวจภายใน",
    "slides": [
     {
@@ -184,7 +184,7 @@ export default {
   },
   {
    "t": 780,
-   "title": "IV. External genitalia and",
+   "title": "IV. External genitalia and examination of cervix and vagina",
    "line": "perineal conformation กับ vaginitis และการตรวจ cervix ผ่าน vaginoscope",
    "slides": [
     {
@@ -226,7 +226,7 @@ export default {
   },
   {
    "t": 1980,
-   "title": "Stage of oestrous cycle",
+   "title": "Stage of oestrous cycle and prediction of ovulation time",
    "line": "อ่านระยะวงรอบจาก follicle CL edema score และ cervix tone พร้อมวินิจฉัยการตั้งท้องเร็วและ twin",
    "slides": [
     {

@@ -85,7 +85,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "Infertility/subfertility and",
+   "title": "Infertility/subfertility and reproductive diseases in mare",
    "line": "วงรอบการเป็นสัด 21-22 วัน และ ovulation ที่ ovulation fossa เกิดจาก LH surge",
    "slides": [
     {
@@ -147,7 +147,7 @@ export default {
   },
   {
    "t": 600,
-   "title": "Physical barrier to prevent wind sucking or",
+   "title": "Physical barrier to prevent wind sucking or pneumouterus",
    "line": "pneumovagina เกิดเมื่อ vulva lip ยกขึ้น และแก้ด้วยการยึด barrier",
    "slides": [
     {
@@ -185,7 +185,7 @@ export default {
   },
   {
    "t": 1080,
-   "title": "Fertility disorder",
+   "title": "Fertility disorder in mares",
    "line": "endometrial cup สร้าง eCG กระตุ้น accessory CL และ PGF2 alpha ยุติการตั้งท้องได้ก่อน cup form",
    "slides": [
     {
@@ -216,7 +216,7 @@ export default {
   },
   {
    "t": 1740,
-   "title": "Reproductive problems: Normal cycle with",
+   "title": "Reproductive problems: Normal cycle with early pregnancy but loss pregnancy",
    "line": "สาเหตุฝั่งพ่อและแม่ เช่น sperm quality, oocyte aging, oviductal occlusion, endometritis",
    "slides": [
     {
@@ -227,7 +227,7 @@ export default {
   },
   {
    "t": 2340,
-   "title": "Tools for",
+   "title": "Tools for diagnosis",
    "line": "ตรวจด้วย rectal palpation, ultrasound, cytology และ uterine biopsy",
    "slides": [
     {
@@ -238,7 +238,7 @@ export default {
   },
   {
    "t": 2460,
-   "title": "Common",
+   "title": "Common problems",
    "line": "แก้ oviductal occlusion ด้วย prostaglandin E หรือ retrograde flushing ผ่าน endoscope",
    "slides": [
     {
@@ -311,7 +311,7 @@ export default {
   },
   {
    "t": 4680,
-   "title": "Bacterial",
+   "title": "Bacterial infection",
    "line": "เชื้อ normal flora ในน้ำเชื้อก่อ post breeding endometritis ในม้าที่ susceptible",
    "slides": [
     {
@@ -350,7 +350,7 @@ export default {
   },
   {
    "t": 5220,
-   "title": "Samples to",
+   "title": "Samples to Collect",
    "line": "เก็บ swab จาก clitoral fossa, cervix, endometrium และ urethral sinus ของตัวผู้",
    "slides": [
     {
@@ -384,7 +384,7 @@ export default {
   },
   {
    "t": 5640,
-   "title": "Viral",
+   "title": "Viral infection",
    "line": "EHV-1 และ 4 ทำให้ rhinopneumonitis อาการเหมือนกัน แยกได้ด้วย lab",
    "slides": [
     {
@@ -433,7 +433,7 @@ export default {
   },
   {
    "t": 6540,
-   "title": "Equine herpes",
+   "title": "Equine herpes virus I",
    "line": "วินิจฉัยด้วย histopathology พบ intranuclear eosinophilic inclusion body และวัคซีนฉีดทุก 2 เดือนช่วงท้าย",
    "slides": [
     {

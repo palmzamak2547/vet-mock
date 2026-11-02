@@ -88,77 +88,77 @@ export default {
  "chapters": [
   {
    "t": 4,
-   "title": "ฮอร์โมน, hyper",
+   "title": "",
    "line": "ฮอร์โมนควบคุมผ่าน hypothalamus pituitary และ target organ ทำให้เกิด PUPD polyphagia และขนร่วงสมมาตรสองข้าง"
   },
   {
    "t": 370,
-   "title": "เลือด, ฮอร์โมน",
+   "title": "",
    "line": "ความเครียดทุกชนิดกระตุ้น hypothalamus หลั่ง CRH ทำให้ cortisol ขึ้นลงเป็น pulse จึงต้องใช้ dynamic test"
   },
   {
    "t": 791,
-   "title": "ฮอร์โมน, clinic",
+   "title": "",
    "line": "Cushing syndrome ต้องมีทั้งค่าห้องปฏิบัติการผิดปกติและ clinical sign จึงรักษา แบ่งเป็น ADH PDH iatrogenic"
   },
   {
    "t": 1323,
-   "title": "ผิวหนัง, เนื้องอก",
+   "title": "",
    "line": "PDH พบ 85% เกิดเนื้องอก pituitary หรือ hyperplasia จาก chronic stress ส่วน iatrogenic เกิดจากสเตียรอยด์รักษา"
   },
   {
    "t": 1770,
-   "title": "ปัสสาวะ, systems",
+   "title": "",
    "line": "PUPD ต้องแยกว่าไตหรือไม่ใช่ไต ตรวจ specific gravity และ urine analysis ก่อนเลือก specific test"
   },
   {
    "t": 2309,
-   "title": "stress, เลือด",
+   "title": "",
    "line": "Cushing พบ stress leukogram น้ำตาลสูงเล็กน้อย ALT ขึ้นเล็กน้อย ALP ขึ้นชัดเจน"
   },
   {
    "t": 2810,
-   "title": "เลือด, เนื้องอก",
+   "title": "",
    "line": "Ultrasound เห็น adrenal โตสองข้างใน pituitary dependent หรือก้อนข้างเดียวใน adrenal dependent"
   },
   {
    "t": 3202,
-   "title": "เลือด, เนื้องอก",
+   "title": "",
    "line": "ACTH stimulation และ low dose dexamethasone ยืนยัน Cushing แต่ low dose แยก ADH กับ PDH ไม่ได้"
   },
   {
    "t": 3715,
-   "title": "ฮอร์โมน, clinic",
+   "title": "",
    "line": "Trilostane บล็อก 3 beta HSD2 ทำให้ aldosterone ลดลงด้วย ต้องเฝ้าระวังโพแทสเซียมสูง"
   },
   {
    "t": 4256,
-   "title": "ปัสสาวะ, addison's",
+   "title": "",
    "line": "Addison เกิด adrenal cortex ฝ่อจาก immune mediated ขาดเลือด หรือผ่าตัดต่อมออกสองข้าง"
   },
   {
    "t": 4762,
-   "title": "หัวใจ, เลือด",
+   "title": "",
    "line": "สุนัขหลั่ง cortisol สูงช่วงเช้า 5:00-6:00 น. แมวหลั่งสูงช่วงเย็น ให้ steroid วันละครั้งเช้าในสุนัข เย็นในแมว"
   },
   {
    "t": 5156,
-   "title": "เลือด, โพแทสเซียม",
+   "title": "",
    "line": "Addison ไม่มี stress leukogram มี hyponatremia hyperkalemia และ azotemia"
   },
   {
    "t": 5595,
-   "title": "หัวใจ, addison's",
+   "title": "",
    "line": "ECG พบ bradycardia QRS กว้าง P wave เตี้ย และ microcardia จาก volume ลดลง"
   },
   {
    "t": 6145,
-   "title": "เลือด, อินซูลิน",
+   "title": "",
    "line": "Addison crisis รักษาด้วย Dexamethasone และแก้ hyperkalemia ด้วยกลูโคสหรืออินซูลิน"
   },
   {
    "t": 6541,
-   "title": "lethargy",
+   "title": "",
    "line": "Addison ได้ชื่อว่า great pretender ควรตรวจเลือดกว้างและ basal cortisol เมื่อไม่มี ACTH test"
   }
  ],

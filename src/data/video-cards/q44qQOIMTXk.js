@@ -88,97 +88,97 @@ export default {
  "chapters": [
   {
    "t": 4,
-   "title": "แช่แข็ง, น้ำเชื้อ",
+   "title": "",
    "line": "สเปิร์มเป็น reproductive cell เล็กที่สุด น้ำในเซลล์น้อย จึงแช่แข็งง่ายที่สุด และต้องใส่ extender เพื่อยืดอายุ"
   },
   {
    "t": 471,
-   "title": "activity, metabolic",
+   "title": "",
    "line": "การลดอุณหภูมิลด metabolism และชะลอการโตของแบคทีเรีย แช่เย็นเป็น short term preservation"
   },
   {
    "t": 835,
-   "title": "แช่แข็ง, extender",
+   "title": "",
    "line": "CPA แทนที่น้ำในเซลล์เพื่อลดเกล็ดน้ำแข็ง จำเป็นในการแช่แข็งแต่ไม่จำเป็นในการแช่เย็น"
   },
   {
    "t": 1266,
-   "title": "extender, extenders",
+   "title": "",
    "line": "ใส่ extender ช้าๆ ให้เกิด equilibrium น้ำและ CPA ไม่งั้นเกิด osmotic damage หรือ dehydration"
   },
   {
    "t": 1814,
-   "title": "ช่วงที่ 5",
+   "title": "",
    "line": "สเปิร์มที่ผิดรูปเป็น secondary abnormality ที่ไม่ส่งต่อ"
   },
   {
    "t": 2280,
-   "title": "ตั้งท้อง, infertility",
+   "title": "",
    "line": "infertility ต่างจาก subfertility ต้อง investigate ทั้งตัวผู้และตัวเมีย แมวข้างถนนตั้งท้องง่ายเพราะผสมหลายตัว"
   },
   {
    "t": 2834,
-   "title": "cells, normal",
+   "title": "",
    "line": "ประวัติ cycle ปกติ cytology และ estrogen จาก follicular cyst หรือ exogenous cream ทำให้ persistence estrus"
   },
   {
    "t": 3291,
-   "title": "ฮอร์โมน, specific",
+   "title": "",
    "line": "ตรวจตัวผู้ไล่จากด้านนอก penis เข้าไปถึง testis และ epididymis"
   },
   {
    "t": 3768,
-   "title": "normal, cells",
+   "title": "",
    "line": "ขนาดรังไข่ปกติ แมว 3-4 มม. หมาเกือบ 1 ซม. และ progesterone ใช้ดู ovulation timing"
   },
   {
    "t": 4320,
-   "title": "normal, cells",
+   "title": "",
    "line": "testosterone ควรตรวจมากกว่า 1 ครั้งเพราะระดับไม่คงที่ในทั้งวัน"
   },
   {
    "t": 4782,
-   "title": "ช่วงที่ 11",
+   "title": "",
    "line": "Equilibrate ด้วย extender 1 นาน 1 ชม. แล้วใส่ extender 2 ต่อได้เลย"
   },
   {
    "t": 5262,
-   "title": "normal, cycle",
+   "title": "",
    "line": "แยก infertility ก่อนว่า cycle normal หรือ abnormal"
   },
   {
    "t": 5662,
-   "title": "structure, structures",
+   "title": "",
    "line": "cystic structure ต้องดูว่า functional หรือไม่ โดย follicular cyst ผลิต estrogen และมี superficial cell"
   },
   {
    "t": 6120,
-   "title": "cycle, testing",
+   "title": "",
    "line": "เคสคลินิกส่วนใหญ่เป็น normal cycle แต่ผสมไม่ติดจาก timing และ male factor"
   },
   {
    "t": 6583,
-   "title": "ไข่, ตั้งท้อง",
+   "title": "",
    "line": "brucellosis ทำให้ abortion discharge เขียวปนน้ำตาล และแมวต้องผสม 2-3 ครั้งเพื่อให้ตกไข่"
   },
   {
    "t": 7071,
-   "title": "ไข่, น้ำเชื้อ",
+   "title": "",
    "line": "แมว spontaneous ovulation พบ 20-30% และ proximal droplet จากรีดน้ำเชื้อบ่อยเกินไปเป็น secondary defect"
   },
   {
    "t": 7471,
-   "title": "ปัสสาวะ, น้ำเชื้อ",
+   "title": "",
    "line": "เลือดหรือฉี่ปนในน้ำเชื้อต้องไล่ที่มา และการนับสเปิร์มหลังใส่ extender 1:1 ต้องคูณ 2"
   },
   {
    "t": 7899,
-   "title": "normal, น้ำเชื้อ",
+   "title": "",
    "line": "ศัพท์ oligozoospermia asthenozoospermia teratozoospermia azoospermia และ alkaline phosphatase บอก blockage"
   },
   {
    "t": 8427,
-   "title": "ฮอร์โมน, ตั้งท้อง",
+   "title": "",
    "line": "hormone therapy ต้องตรวจให้แน่ใจว่าขาดจริงเพราะ negative feedback และสเปิร์มคุณภาพดีไม่การันตี pregnancy"
   }
  ],

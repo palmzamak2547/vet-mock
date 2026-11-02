@@ -38,7 +38,8 @@ export default {
   },
   {
    "t": 2756,
-   "text": "ยาหลายกลุ่มทำให้ T4 ต่ำจากการวัด แต่ไม่ได้ทำให้เป็นโรค"
+   "text": "ยาหลายกลุ่มทำให้ T4 ต่ำจากการวัด แต่ไม่ได้ทำให้เป็นโรค",
+   "stressed": true
   },
   {
    "t": 3128,
@@ -53,10 +54,6 @@ export default {
   {
    "t": 952,
    "text": "hypothyroidism ส่วนใหญ่มักเป็น adult onset"
-  },
-  {
-   "t": 2756,
-   "text": "ยาทำให้ T4 ต่ำจากการวัด ไม่ได้ทำให้เป็นโรค"
   },
   {
    "t": 2326,
@@ -84,47 +81,47 @@ export default {
  "chapters": [
   {
    "t": 2,
-   "title": "ฮอร์โมน, hypothyroidism",
+   "title": "",
    "line": "hypothyroidism พบ 95% ในสุนัข ต่างจาก hyperthyroidism ที่พบในแมว และมี thyroid sick syndrome จากความเครียดเรื้อรัง"
   },
   {
    "t": 452,
-   "title": "ฮอร์โมน, hypothyroidism",
+   "title": "",
    "line": "พันธุ์บางแก้วและไซบีเรียนฮัสกี้เสี่ยง อายุ 3-8 ปี ส่วนใหญ่เกิดจาก immune-mediated ทำลาย thyroid gland"
   },
   {
    "t": 1021,
-   "title": "ผิวหนัง, ฮอร์โมน",
+   "title": "",
    "line": "ขาดฮอร์โมนทำให้ขนไม่ขึ้น ผิวแห้ง และ metabolic rate ต่ำ น้ำหนักขึ้นแม้กินน้อย"
   },
   {
    "t": 1400,
-   "title": "ผิวหนัง, ฮอร์โมน",
+   "title": "",
    "line": "อาการผิวหนังพบ 60-80% ขนร่วง easy epilated hair และ myxedema จาก hyaluronic acid ใต้ผิวหนัง"
   },
   {
    "t": 1921,
-   "title": "ตับ, hypothyroidism",
+   "title": "",
    "line": "CBC ช่วย rule out โรคอื่น พบ fasting hypercholesterolemia และ anemia เล็กน้อย"
   },
   {
    "t": 2400,
-   "title": "hypothyroidism, ฮอร์โมน",
+   "title": "",
    "line": "Total T4 ต่ำ Free T4 ต่ำ และ TSH สูง เข้าได้กับไฮโปไทรอยด์"
   },
   {
    "t": 2875,
-   "title": "hypothyroidism, ฮอร์โมน",
+   "title": "",
    "line": "TSH >0.6 ถือว่าสูง ค่า Total T4 ต่ำมาก <0.5 ช่วยยืนยัน แม้ TSH ปกติ"
   },
   {
    "t": 3180,
-   "title": "เลือด, หัวใจ",
+   "title": "",
    "line": "เมื่ออาการดีขึ้นและ Total T4 เหมาะสม ลดความถี่จากวันละ 2 ครั้งเหลือวันละครั้งเป็น maintenance"
   },
   {
    "t": 3656,
-   "title": "ช่วงที่ 9",
+   "title": "",
    "line": "ถ้าระดับยาไม่ขึ้นหลังให้ยา อาจเกิดจากยาดูดซึมไม่พอ"
   }
  ],

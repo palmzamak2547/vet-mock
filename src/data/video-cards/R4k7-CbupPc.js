@@ -76,19 +76,8 @@ export default {
  ],
  "chapters": [
   {
-   "t": 0,
-   "title": "O N E H E A L T H S E R I E S",
-   "line": "แนะนำวิชา One Health 1 หน่วยกิต เกณฑ์คะแนนสอบและเช็คชื่อ",
-   "slides": [
-    {
-     "doc": "role-of-veterinarians-in-one-health-sj-5-aug-2026-735daf",
-     "page": 1
-    }
-   ]
-  },
-  {
    "t": 180,
-   "title": "Veterinary Public Health: One Health",
+   "title": "Veterinary public health: One Health",
    "line": "เหตุผลที่ยังต้องมีสัตวแพทย์และนิยาม One Health ที่เชื่อมคนสัตว์สิ่งแวดล้อม",
    "slides": [
     {
@@ -107,7 +96,7 @@ export default {
   },
   {
    "t": 480,
-   "title": "H I S T O R Y",
+   "title": "History",
    "line": "Calvin Schwabe ผู้เขียน Veterinary Medicine and Human Health ตั้ง concept One Health",
    "slides": [
     {
@@ -118,7 +107,7 @@ export default {
   },
   {
    "t": 660,
-   "title": "O V E R V I E W",
+   "title": "Overview",
    "line": "ประเด็น One Health ของสัตวแพทย์มี 8 ด้าน เช่น EID, public health, food safety, AMR, bioterrorism, environmental pollution และ global climate change",
    "slides": [
     {
@@ -137,7 +126,7 @@ export default {
   },
   {
    "t": 780,
-   "title": "I S S U E 1",
+   "title": "Issue 1",
    "line": "จัดลำดับโรคซูโนซีสำคัญ เช่น avian influenza, Nipah, rabies, Ebola",
    "slides": [
     {
@@ -148,7 +137,7 @@ export default {
   },
   {
    "t": 1200,
-   "title": "Rabies",
+   "title": "Rabies elimination",
    "line": "กลยุทธ์กำจัด rabies และหน้าที่สัตวแพทย์ในการป้องกันควบคุมโรคซูโนซี",
    "slides": [
     {
@@ -167,7 +156,7 @@ export default {
   },
   {
    "t": 1320,
-   "title": "I S S U E 2: R O L E O F V E T E R I N A R I A N S",
+   "title": "Issue 2: Role of veterinarians",
    "line": "บทบาทสัตวแพทย์ด้านสาธารณสุขและการสืบสวนโรค rabies",
    "slides": [
     {
@@ -182,7 +171,7 @@ export default {
   },
   {
    "t": 1620,
-   "title": "I S S U E 2: R O L E O F V E T E R I N A R I A N S (ต่อ)",
+   "title": "Issue 2: Role of veterinarians (ต่อ)",
    "line": "Food Safety ตั้งแต่ farm to fork และเชื้อ Escherichia, Salmonella, Campylobacter, Listeria",
    "slides": [
     {
@@ -197,7 +186,7 @@ export default {
   },
   {
    "t": 1800,
-   "title": "I S S U E 2: R O L E O F V E T E R I N A R I A N S (ต่อ) (ต่อ)",
+   "title": "Issue 2: Role of veterinarians (ต่อ)",
    "line": "สัตว์เลี้ยง exotic pets และความเสี่ยงซูโนซีของสัตวแพทย์",
    "slides": [
     {
@@ -231,7 +220,7 @@ export default {
   },
   {
    "t": 2280,
-   "title": "I S S U E 5: R O L E O F V E T E R I N A R I A N S",
+   "title": "Issue 5: Role of veterinarians",
    "line": "บทบาทสัตวแพทย์ด้าน AMR และ bioterrorism",
    "slides": [
     {
@@ -254,7 +243,7 @@ export default {
   },
   {
    "t": 2520,
-   "title": "I S S U E 5: R O L E O F V E T E R I N A R I A N S (ต่อ)",
+   "title": "Issue 5: Role of veterinarians (ต่อ)",
    "line": "มลพิษสิ่งแวดล้อมใช้สัตว์เป็น sentinel และ climate change กับ vector-borne disease",
    "slides": [
     {
@@ -277,7 +266,7 @@ export default {
   },
   {
    "t": 2760,
-   "title": "O U T L O O K",
+   "title": "Outlook",
    "line": "ความท้าทายและโอกาสของ One Health การสื่อสารและทำงานข้ามสาขา",
    "slides": [
     {
@@ -288,7 +277,7 @@ export default {
   },
   {
    "t": 3060,
-   "title": "C L O S I N G",
+   "title": "Closing",
    "line": "คำแนะนำให้สัตวแพทย์ร่วมวางแผนและไม่จำกัดเฉพาะ animal practice",
    "slides": [
     {

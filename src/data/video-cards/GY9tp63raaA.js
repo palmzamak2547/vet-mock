@@ -100,7 +100,7 @@ export default {
   },
   {
    "t": 300,
-   "title": "Risk factors",
+   "title": "Risk factors https://www.akc.org/dog-breeds/ https://www.chewy.com/education/dog-breeds/american-pit-bull-terrier",
    "line": "สุนัขอายุ 6 สัปดาห์ถึง 6 เดือน ไม่ vaccinated แออัด และบางสายพันธุ์เสี่ยงติดเชื้อ",
    "slides": [
     {

@@ -2,7 +2,7 @@
 // case is one a real draft of the endometritis sample broke or nearly broke.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, transliterated } from '../../src/lib/video-summary-check.js';
+import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, transliterated, voiceErrors, overlap } from '../../src/lib/video-summary-check.js';
 
 const base = (over = {}) => ({
   oneLiner: 'ภาวะ endometritis ในม้า ตั้งแต่ uterine defense ถึงการรักษา',
@@ -64,6 +64,16 @@ test('the polish pass as rules: no study advice, no summary naming itself, % for
     base({ emphasis: [{ t: 700, text: 'PCR ไม่ใช่แอนติเจน จำไว้ห้ามพลาด' }] }),
   ];
   for (const b of bad) assert.equal(lintSummary(b, opts).ok, false, JSON.stringify(b.oneLiner + b.keyPoints[0].text));
+});
+
+test('the voice rules match whole words, and course logistics and set-up talk fail', () => {
+  // The review of 5.190.0: facts the old substring rules held, and lines they let through.
+  for (const fact of ['ไก่พ่อแม่พันธุ์ต้องจำกัดอาหาร', 'เชื้อมาพร้อมนักท่องเที่ยว', 'สัตว์เคยออกอาการชัก', 'ต้องรู้จักโรคนี้', 'BQM ให้คะแนนผ่านที่ 60']) assert.deepEqual(voiceErrors(fact), [], fact);
+  for (const bad of ['ต้องจำค่า 45 °C', 'ท่องจำค่าปกติ', 'เรื่องนี้เคยออก', 'แนะนำวิชา 1 หน่วยกิต เกณฑ์คะแนนสอบและเช็คชื่อ', 'จำนวนนิสิต 3-4 คนต่อกลุ่ม', 'ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน']) assert.notDeepEqual(voiceErrors(bad), [], bad);
+  assert.equal(lintSummary(base({ oneLiner: 'คลิปสาธิตการผ่าตัดทำหมันสุนัขเพศผู้' }), opts).ok, false);
+  // Two numbers, two facts; the same words with the same numbers, one.
+  assert.equal(overlap('STT สุนัขปกติ 13-14 มม.', 'STT แมวปกติ 11-12 มม.'), 0);
+  assert.ok(overlap('vertical คือเชื้อจากแม่ผ่านฟองไข่มาถึงลูกเจี๊ยบ', 'vertical คือจากแม่ผ่านฟองไข่มาถึงลูกเจี๊ยบ') >= 0.85);
 });
 
 test('a card line wholly in English fails; a remember item may be a term and its number', () => {

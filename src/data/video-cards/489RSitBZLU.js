@@ -18,7 +18,8 @@ export default {
   },
   {
    "t": 757,
-   "text": "ห้องตรวจต้องดับไฟได้ ใช้ตรวจ fluorescein และ fundus"
+   "text": "ห้องตรวจต้องดับไฟได้ ใช้ตรวจ fluorescein และ fundus",
+   "stressed": true
   },
   {
    "t": 1238,
@@ -54,10 +55,6 @@ export default {
   {
    "t": 503,
    "text": "บันทึกข้อมูลให้ละเอียด ลายมืออ่านง่าย"
-  },
-  {
-   "t": 759,
-   "text": "ต้องมีห้องตรวจที่ดับไฟได้"
   }
  ],
  "remember": [
@@ -73,7 +70,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "Ophthalmic",
+   "title": "Ophthalmic examinations in dogs and cats",
    "line": "ลูกตาเป็นโครงสร้าง 3 มิติ มองจากด้านหน้าเห็นเฉพาะ Ocular surface ต้องใช้เครื่องมือส่องภายใน",
    "slides": [
     {

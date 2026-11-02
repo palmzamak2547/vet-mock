@@ -14,7 +14,8 @@ export default {
   },
   {
    "t": 1884,
-   "text": "วัดอุณหภูมิลูกก่อนให้นมเสริมทุกครั้ง"
+   "text": "วัดอุณหภูมิลูกก่อนให้นมเสริมทุกครั้ง",
+   "stressed": true
   },
   {
    "t": 2671,
@@ -51,10 +52,6 @@ export default {
  ],
  "emphasis": [
   {
-   "t": 1886,
-   "text": "วัดอุณหภูมิลูกก่อนให้นมทุกครั้ง"
-  },
-  {
    "t": 3908,
    "text": "Involution of placental sites คือจุดเกาะของรกไม่หลุดลอกทั้งหมด"
   },
@@ -88,107 +85,107 @@ export default {
  "chapters": [
   {
    "t": 775,
-   "title": "คลอด, ตั้งท้อง",
+   "title": "",
    "line": "microbiota ลูกสัตว์แรกเกิดต่างกันตามวิธีคลอด ส่งผลน้ำหนักตัวและภูมิคุ้มกัน"
   },
   {
    "t": 1333,
-   "title": "environment, ตับ",
+   "title": "",
    "line": "hygiene บริเวณเลี้ยงและสายสะดือ เชื้อเข้าทาง umbilical vein ไปตับเกิด hepatic abscess"
   },
   {
    "t": 1707,
-   "title": "environment",
+   "title": "",
    "line": "อุณหภูมิและความชื้นที่เหมาะสม และการเลือกขวดนมหรือ feeding tube ตามแรงดูด"
   },
   {
    "t": 2301,
-   "title": "capacitation, volume",
+   "title": "",
    "line": "คำนวณพลังงาน ความจุกระเพาะ และความถี่มื้อนมเสริมจากน้ำหนักตัว"
   },
   {
    "t": 2708,
-   "title": "ปัสสาวะ, ท้องเสีย",
+   "title": "",
    "line": "นมเสริมมาตรฐาน เตรียมทีละมื้อ อุ่น 37 องศา และกระตุ้นถ่ายปัสสาวะอุจจาระ"
   },
   {
    "t": 2940,
-   "title": "คลอด, เลือด",
+   "title": "",
    "line": "แยกเลือดออกหลังคลอดปกติจาก lochia ที่สีจางลง กับ vaginal tear ต้องซ่อม"
   },
   {
    "t": 3444,
-   "title": "มดลูก, เลือด",
+   "title": "",
    "line": "uterine bleeding จากผ่าคลอดเร็วเกินไป ใช้ oxytocin เฉพาะ 24 ชม.แรก"
   },
   {
    "t": 4037,
-   "title": "เลือด, คลอด",
+   "title": "",
    "line": "involution of placental sites มี serosanguinous discharge นานกว่า 6 สัปดาห์ เฉพาะสุนัข"
   },
   {
    "t": 4200,
-   "title": "เลือด, คลอด",
+   "title": "",
    "line": "วินิจฉัย placental site ด้วยประวัติและอัลตราซาวด์ ไม่ต้อง biopsy เพราะหายเอง"
   },
   {
    "t": 4500,
-   "title": "มดลูก, คลอด",
+   "title": "",
    "line": "vaginal prolapse ลดบวมด้วย hypertonic dextrose แล้ว reposition และ OVH"
   },
   {
    "t": 4976,
-   "title": "มดลูก, retained placenta",
+   "title": "",
    "line": "uterine rupture จาก dystocia และ oxytocin ผิดข้อบ่งใช้ ต้องผ่าตัดด่วนก่อน peritonitis"
   },
   {
    "t": 5447,
-   "title": "effects, effect",
+   "title": "",
    "line": "retained placenta รักษาด้วย oxytocin ภายใน 24 ชม. หรือ prostaglandin ขนาดต่ำ"
   },
   {
    "t": 5640,
-   "title": "มดลูก, infection",
+   "title": "",
    "line": "postpartum metritis ใช้ first line antibiotic กลุ่ม beta lactam และ uterine ecbolic ช่วยขับหนอง"
   },
   {
    "t": 6240,
-   "title": "แคลเซียม, ไข้",
+   "title": "",
    "line": "hypocalcemia พบในพันธุ์เล็กให้นมมาก มี tremor hyperthermia ชักได้"
   },
   {
    "t": 6638,
-   "title": "แคลเซียม, น้ำนม",
+   "title": "",
    "line": "แยก true agalactia จาก milk ejection failure และให้ calcium ทาง IV ช้าๆ"
   },
   {
    "t": 7080,
-   "title": "น้ำนม, เต้านม",
+   "title": "",
    "line": "true agalactia รักษาด้วย dopamine antagonist และ galactorrhea ด้วย dopamine agonist"
   },
   {
    "t": 7566,
-   "title": "น้ำนม, เต้านม",
+   "title": "",
    "line": "mastitis เต้านมบวมร้อนเจ็บ น้ำนมเปลี่ยนสี ต้องรีบรักษาก่อนเป็น abscess"
   },
   {
    "t": 8058,
-   "title": "คลอด, behaviors",
+   "title": "",
    "line": "maternal behavior ผิดปกติ พบกัดกินลูกหรือไม่สนใจลูก มักหลังผ่าคลอด"
   },
   {
    "t": 8340,
-   "title": "ทำหมัน, คลอด",
+   "title": "",
    "line": "การตั้งท้องเคยลดอุบัติการณ์ pyometra และ CRP ใช้ติดตามการอักเสบหลังผ่าตัด"
   },
   {
    "t": 8781,
-   "title": "มดลูก, ฮอร์โมน",
+   "title": "",
    "line": "pyometra เกิดจากแบคทีเรียและ progesterone รักษาด้วย OVH เป็นหลัก"
   },
   {
    "t": 9334,
-   "title": "เลือด, มดลูก",
+   "title": "",
    "line": "mucometra hydrometra hematometra และ endometritis แยกได้ยากด้วยอัลตราซาวด์"
   }
  ],

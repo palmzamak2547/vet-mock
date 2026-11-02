@@ -143,7 +143,7 @@ export default {
   },
   {
    "t": 1200,
-   "title": "Etiology and Pathogenesis (ต่อ) (ต่อ)",
+   "title": "Etiology and Pathogenesis (ต่อ)",
    "line": "SARS-CoV-2 ติดจากคนสู่แมว อาการ mild และรุนแรงขึ้นเมื่อมี concurrent disease",
    "slides": [
     {
@@ -166,7 +166,7 @@ export default {
   },
   {
    "t": 1440,
-   "title": "Clinical",
+   "title": "Clinical appearance",
    "line": "ปัจจัยเสี่ยงในแมวเลี้ยง ได้แก่ ฤดูหนาว การใช้ยาปฏิชีวนะมาก่อน multi-cat household และความเครียด ส่วน shelter cat เสี่ยงจากความแออัดและคุณภาพอากาศ",
    "slides": [
     {

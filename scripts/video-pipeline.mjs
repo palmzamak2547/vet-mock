@@ -179,6 +179,10 @@ async function main() {
       // A Scribe transcript that arrived after the analysis is a reason to redo it, like new silence.
       const stale = newer(sf) || newer(scribe);
       if ((!fs.existsSync(path.join(dir, 'video.th.json3')) && !fs.existsSync(scribe)) || (fs.existsSync(af) && !force && !stale)) return;
+      // The summary was written against this analysis: it stays beside the new one
+      // until the summary is redone, and the registry pairs the chapter lines with it.
+      const basis = path.join(dir, 'analysis.basis.json');
+      if (fs.existsSync(af) && fs.existsSync(path.join(dir, 'summary.json')) && !fs.existsSync(basis)) fs.copyFileSync(af, basis);
       const r = await exec('node', [path.join(ROOT, 'scripts/video-analyse.mjs'), dir, `--subject=${v.subjects.join(',')}`, `--title=${v.title}`, `--duration=${v.durationSec}`, `--lecturer-topics=${(sessionTopics.get(v.id) || []).join(',')}`]);
       (state[v.id] ||= {}).analysis = r.code ? `failed: ${r.out.slice(-200)}` : r.out.trim().split('\n').pop();
     });
@@ -193,7 +197,8 @@ async function main() {
     await pool(videos, conc, async (v) => {
       const af = path.join(DATA, v.id, 'analysis.json');
       const st = (state[v.id] ||= {});
-      if (!fs.existsSync(af) || (st.transcript && !force)) return;
+      // A redone analysis (a Scribe transcript arrived) replaces the one students read.
+      if (!fs.existsSync(af) || (st.transcript && !force && Date.parse(st.transcript) >= fs.statSync(af).mtimeMs)) return;
       const a = JSON.parse(fs.readFileSync(af, 'utf8'));
       await putBuffer(env, `videos/${v.id}/transcript.json`, Buffer.from(JSON.stringify({ lines: a.lines })), 'application/json');
       st.transcript = new Date().toISOString();
@@ -227,9 +232,12 @@ async function main() {
       const spoken = a.lines.reduce((n, [, t]) => n + String(t).split(/\s+/).length, 0);
       if (spoken < MIN_WORDS) { st.summary = 'skipped: no lecture speech'; return; }
       const script = path.join(ROOT, 'scripts/video-summarise.mjs');
-      const first = fs.existsSync(path.join(dir, 'summary.json')) ? ['--resume'] : [];
+      // A held summary over a redone analysis is drafted afresh: its chapter lines were for the old one.
+      const basis = path.join(dir, 'analysis.basis.json');
+      const first = fs.existsSync(path.join(dir, 'summary.json')) && !fs.existsSync(basis) ? ['--resume'] : [];
       let r = await exec('node', [script, dir, ...first]);
       if (/^held/m.test(r.out)) r = await exec('node', [script, dir, '--resume']);
+      if (!r.code) fs.rmSync(basis, { force: true });
       st.summary = r.code ? `failed: ${r.out.slice(-200)}` : (r.out.match(/^(pass|held)[^\n]*/m)?.[0] || r.out.slice(-200)).slice(0, 160);
       save();
       if (++made % 10 === 0) {

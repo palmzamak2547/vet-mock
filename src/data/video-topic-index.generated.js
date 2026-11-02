@@ -30,8 +30,28 @@ export const VIDEO_TOPIC_INDEX = {
   {
    "v": "pj_zkis2ziU",
    "s": 480,
-   "e": 1320,
+   "e": 1500,
    "conf": "high"
+  }
+ ],
+ "oh-vet-role": [
+  {
+   "v": "R4k7-CbupPc",
+   "s": 0,
+   "e": 1860,
+   "conf": "high"
+  },
+  {
+   "v": "pj_zkis2ziU",
+   "s": 1500,
+   "e": 2280,
+   "conf": "medium"
+  },
+  {
+   "v": "R4k7-CbupPc",
+   "s": 2400,
+   "e": 2820,
+   "conf": "medium"
   }
  ],
  "meat-microbiology": [
@@ -59,8 +79,14 @@ export const VIDEO_TOPIC_INDEX = {
  "eqrepro-male": [
   {
    "v": "Fqgp8DoPDws",
-   "s": 2700,
-   "e": 3600,
+   "s": 1860,
+   "e": 3840,
+   "conf": "high"
+  },
+  {
+   "v": "Fqgp8DoPDws",
+   "s": 720,
+   "e": 1080,
    "conf": "high"
   }
  ],
@@ -76,7 +102,7 @@ export const VIDEO_TOPIC_INDEX = {
   {
    "v": "0gTn7Up9Vj0",
    "s": 300,
-   "e": 4429,
+   "e": 4320,
    "conf": "high"
   }
  ],
@@ -280,20 +306,6 @@ export const VIDEO_TOPIC_INDEX = {
    "s": 2580,
    "e": 3300,
    "conf": "high"
-  }
- ],
- "oh-vet-role": [
-  {
-   "v": "R4k7-CbupPc",
-   "s": 0,
-   "e": 1860,
-   "conf": "high"
-  },
-  {
-   "v": "R4k7-CbupPc",
-   "s": 2400,
-   "e": 2820,
-   "conf": "medium"
   }
  ],
  "oh-communication": [

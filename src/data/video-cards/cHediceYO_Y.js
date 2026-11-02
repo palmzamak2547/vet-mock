@@ -194,7 +194,7 @@ export default {
   },
   {
    "t": 1980,
-   "title": "Milk secretion in the secretory cells",
+   "title": "Milk secretion in the secretory cells http://www.delaval.com/Dairy_Knowledge/EfficientMilking/The_Mammary_Gland.htm",
    "line": "สารอาหารจากเลือดผ่าน secretory cell สู่ lumen ด้วย diffusion และสร้างเป็นโปรตีน แลคโตส และไขมัน",
    "slides": [
     {
@@ -319,7 +319,7 @@ export default {
   },
   {
    "t": 5400,
-   "title": "1.2.Type of mastitis (ต่อ) (ต่อ)",
+   "title": "1.2.Type of mastitis (ต่อ)",
    "line": "Pseudomonas aeruginosa ก่อ gangrene mastitis และ Corynebacterium bovis ทำให้ SCC สูงโดยอักเสบน้อย",
    "slides": [
     {
@@ -495,7 +495,7 @@ export default {
   },
   {
    "t": 7560,
-   "title": "Questions",
+   "title": "Impact on dairy products (ต่อ)",
    "line": "ยาปฏิชีวนะตกค้างก่อ hypersensitivity และทำให้แบคทีเรียดื้อยา",
    "slides": [
     {

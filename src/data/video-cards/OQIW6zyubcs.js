@@ -73,57 +73,57 @@ export default {
  "chapters": [
   {
    "t": 307,
-   "title": "nerve, process",
+   "title": "",
    "line": "เหตุผลและกายวิภาคของเขา ช่วงอายุที่ horn bud ยังไม่ติด frontal bone และการบล็อก cornual nerve"
   },
   {
    "t": 817,
-   "title": "ช่วงที่ 2",
+   "title": "",
    "line": "chemical dehorning ทำลายเนื้อเยื่อ horn bud ด้วยโพแทสเซียมหรือแคลเซียมไฮดรอกไซด์ และ thermal dehorning ด้วยความร้อน"
   },
   {
    "t": 960,
-   "title": "infection, frontal",
+   "title": "",
    "line": "ตัดเขาด้วยเลื่อยหรือ scoop dehorner เสี่ยง infection และ frontal sinus ร้าว ส่วน cosmetic dehorning เย็บปิดแบบ primary closure สวยกว่า"
   },
   {
    "t": 1390,
-   "title": "sinus, systemic",
+   "title": "",
    "line": "sinusitis และ empyema รักษาโดยเจาะ frontal sinus 4 ตำแหน่ง ล้างด้วยซาลายน์วันละ 1-2 ครั้ง ร่วม systemic antibiotic"
   },
   {
    "t": 1905,
-   "title": "procedures, procedure",
+   "title": "",
    "line": "foreign body หลอดอาหารทำให้เกิด choke ต้องแยกจาก complete obstruction และแก้ด้วย esophagotomy เย็บ mucosa ก่อน muscular layer"
   },
   {
    "t": 2303,
-   "title": "เต้านม",
+   "title": "",
    "line": "บาดแผลเต้านมและหัวนมซ่อมโดยเลาะเนื้อตายออก เย็บ mucosa ก่อน skin และคง canula ไว้ให้นมไหล"
   },
   {
    "t": 2884,
-   "title": "นิ่ว, areas",
+   "title": "",
    "line": "urolithiasis เกิดที่ distal sigmoid flexure พบมากใน steer แก้ด้วย urethrotomy หรือ urethrostomy"
   },
   {
    "t": 3415,
-   "title": "ปัสสาวะ, นิ่ว",
+   "title": "",
    "line": "นิ่วก้อนเล็กอุดท่อทำให้ฉี่ไม่ออก กรณีรุนแรงตัด penis ออกและทำ urethrostomy แบบแปลงเพศ"
   },
   {
    "t": 3836,
-   "title": "ปัสสาวะ, dorsal",
+   "title": "",
    "line": "persistent urachus ทำให้ฉี่หยดจากสะดือและเกิด omphalitis รักษาโดยผ่าตัดมัดตัดท่อที่ต่อกับ bladder"
   },
   {
    "t": 4387,
-   "title": "medial, extend",
+   "title": "",
    "line": "medial patellar desmotomy ตัด medial patellar ligament แก้ขาทก ปล่อยวัวลุกเดินได้ปกติทันที"
   },
   {
    "t": 4822,
-   "title": "medial, เลือด",
+   "title": "",
    "line": "ตัดกลีบนิ้วผ่าน interfangal joint ระวัง collateral ligament และทำ pressure bandage หลังผ่า"
   }
  ],
