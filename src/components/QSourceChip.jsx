@@ -20,7 +20,7 @@
 // 5.179.1: until the key is on screen (`revealed`) the line names only the
 // kind of source (lib/source-line.js) and the panel does not open. Measured
 // on 1 Nov 2026, the line named the key on 23 questions and what "ดูเต็ม"
-// opened (the pointer, the checking note, the tags) on 1,773 of 7,748. The
+// opened (the pointer, the checking note, the tags) on 1,795 of 7,814. The
 // row keeps its size either way, so nothing moves when the full line arrives.
 // ============================================================
 

@@ -313,7 +313,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // matching set with every row filled (MatchDragDrop's own rule), or a
   // written answer's เฉลย opened under its box. Until then the source line
   // names only the kind of source, because the full one can give the key
-  // away. A timed paper never reveals here; Review shows the full source.
+  // away. When the key waits for the end of the set (a timed paper, or
+  // practice with instant answers off) nothing reveals here; Review shows
+  // the full source.
   const matchFilled = currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0
     && currentAnswer && typeof currentAnswer === 'object'
     && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
