@@ -8436,6 +8436,10 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   border-radius: 6px;
 }
 .vmx-timetable-preview img { object-fit: contain; }
+/* A document of two pages keeps the page's frame and scrolls to the second,
+   at a width that still reads, rather than shrinking both into one frame. */
+.vmx-timetable-preview[data-pages]:not([data-pages="1"]) { overflow-y: auto; overscroll-behavior: contain; }
+.vmx-timetable-preview[data-pages]:not([data-pages="1"]) img { height: auto; object-fit: initial; }
 
 /* ── Phase Wrapped page (views/PhaseWrappedView.jsx) ─────────────── */
 .vmx-wrapped { max-width: 560px; margin: 0 auto; padding: 8px 0 max(40px, env(safe-area-inset-bottom)); display: grid; gap: 18px; }

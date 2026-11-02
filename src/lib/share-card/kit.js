@@ -167,7 +167,12 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
   }
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('canvas 2d context unavailable');
-  if (!dry && scale !== 1) ctx.scale(scale, scale);
+  // A trial measures under the transform its page is drawn with: Firefox's
+  // Thai ink ascent moves by a tenth of a pixel between 1x and 2x, and forty
+  // lines of that ran an A4 page past its notes. Callers that pass no scale
+  // keep the identity they always had.
+  if (dry) ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  else if (scale !== 1) ctx.scale(scale, scale);
   const pal = PALETTES[theme] || PALETTES.light;
   const boxes = [];
   // dry: a trial layout. Text is still set (its boxes are what a trial is
@@ -233,7 +238,9 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
     const s = String(str);
     const m = ctx.measureText(s);
     const at = align === 'right' ? x - m.width : align === 'center' ? x - m.width / 2 : x;
-    ctx.fillText(s, at, y);
+    // A trial's box comes from the measure; its pixels are never read, and
+    // painting them at the page's 2x made a phone's dozens of trials slow.
+    if (!dry) ctx.fillText(s, at, y);
     // `embolden`: a stroke in the text's own ink, for an engine that paints a
     // variable face's default weight whatever weight it was asked for. A
     // card that does not set it gets fauxBold's, decided once per card.
