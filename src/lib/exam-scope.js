@@ -165,8 +165,8 @@ export function questionInScope(question, wantedScope) {
  * resolver the question pool and the count tables ask (the topic's scope, else
  * its subject's, else the timetable's), so a listed topic always has its paper's
  * questions behind it. Reading only the topic's own field kept every topic of a
- * course that sits one paper: under กลางภาค the topic screen of English
- * Proficiency (final only) listed 13 topics whose count was 0, each saying
+ * course that sits one paper: under กลางภาค the topic screen of English for
+ * Vet Profession I (final only) listed 13 topics whose count was 0, each saying
  * รอเนื้อหาเพิ่ม above a bank that held them for the final.
  *
  * A course taught in the other term sits neither of this term's papers, so

@@ -162,7 +162,7 @@ test('a course of the other term lists no topic under the period, as its card sa
   assert.ok(topicScreen('com5', 4, '2-final').topics.length > 0);
   assert.ok(topicScreen('com5', 5, '1-final').topics.length > 0, 'another year\'s course is studied whole');
   // A course that sits only the final lists nothing under กลางภาค, whether or
-  // not each topic names its paper: English Proficiency I's topics name none.
+  // not each topic names its paper: English for Vet Profession I's name none.
   assert.equal(topicScreen('engprof1', 4, '1-mid').topics.length, 0);
   assert.ok(topicScreen('engprof1', 4, '1-final').topics.length > 0);
 });
