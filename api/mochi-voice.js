@@ -14,6 +14,7 @@
 import { allowedOrigin, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { authenticatedUser, isAdmin } from './_lib/app-backend.js';
 import { voiceConfig, monthKey, secondsToMonthEnd, mintToken, searchKnowledge } from './_lib/mochi-voice.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
@@ -26,6 +27,8 @@ export default async function handler(req, res) {
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (req.headers.origin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   let user;
   try { user = await authenticatedUser(req); } catch { return res.status(503).json({ error: 'backend_unavailable' }); }

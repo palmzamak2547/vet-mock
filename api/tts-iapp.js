@@ -29,6 +29,7 @@
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 export const config = {
   runtime: 'nodejs',
@@ -79,13 +80,15 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Max-Age', '86400');
     return res.status(204).end();
   }
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST only' });
   }
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   // ── Fail-fast when not configured ──────────────────────────
   // Returning 503 (not 500) is intentional: the client treats 503 as

@@ -343,6 +343,19 @@ export const DICT = {
   },
 };
 
+// While the Chula wall is on (LandingView chulaOnly), these replace the lines
+// that promise use without an account.
+export const CHULA_ONLY = {
+  en: {
+    heroSub: 'Practice questions written from what you study. Explanations give the reasoning and where the answer comes from, and many walk through why the other options are wrong. Free: sign in with your Chula email to start.',
+    lgPerks: ['Your history, saved questions and review cards follow you to every device.', 'Free with a Chula email, for students and staff.', 'We keep your study data, never patient records.'],
+  },
+  th: {
+    heroSub: 'โจทย์ฝึกที่เขียนจากเนื้อหาที่เรียน เฉลยบอกเหตุผลและที่มาของคำตอบ หลายข้อไล่ให้ด้วยว่าตัวเลือกอื่นผิดตรงไหน ฟรี เข้าสู่ระบบด้วยอีเมลจุฬาแล้วเริ่มได้เลย',
+    lgPerks: ['ประวัติการทำ ข้อที่บันทึก และการ์ดทบทวน ตามไปทุกเครื่อง', 'ใช้ฟรีด้วยอีเมลจุฬา ทั้งนิสิตและบุคลากร', 'เราเก็บข้อมูลการเรียนของคุณ ไม่เก็บข้อมูลผู้ป่วย'],
+  },
+};
+
 // Bank item 105304 (questions-y5-equine-2026.js), written from the Equine
 // Medicine lecture slides, page 8. Every Thai string here is cut from that
 // item as it stands in the bank; tests/unit/landing-real-content.test.mjs

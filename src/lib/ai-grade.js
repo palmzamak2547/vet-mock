@@ -10,6 +10,7 @@
 // ============================================================
 
 import { thaiError } from './errors.js';
+import { authHeader } from './api-auth.js';
 
 const TIMEOUT_MS = 60_000; // AI calls can take 10-30s; allow up to 60s
 
@@ -57,7 +58,7 @@ export async function gradeWithAI({ qid, userAnswer }) {
   try {
     const resp = await fetch('/api/grade-summary', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
       body: JSON.stringify({ qid, userAnswer }),
       signal: controller.signal,
     });

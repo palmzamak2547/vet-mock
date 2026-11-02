@@ -24,6 +24,7 @@
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 import { extractJSON, chatJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import WRITTEN from './_lib/written-questions.generated.json' with { type: 'json' };
+import { requireChula } from './_lib/chula-gate.js';
 
 const MAX_PASSAGE = 20000;
 const MAX_ANSWER = 5000;
@@ -52,11 +53,13 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   // ── Rate limit ──
   // 20/hr was tight for the thing this is actually for: a student works

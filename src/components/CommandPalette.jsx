@@ -56,6 +56,7 @@ import {
   relatedSections, relatedTopicsFor, librarySuggestion, unmatchedLine,
 } from '../lib/omni-ask.js';
 import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
+import { authHeader } from '../lib/api-auth.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -1308,7 +1309,7 @@ export default function CommandPalette({
     try {
       res = await fetch('/api/wiki-explain', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...(await authHeader()) },
         body: JSON.stringify({ question }),
       });
     } catch {
@@ -1393,7 +1394,7 @@ export default function CommandPalette({
     try {
       const res = await fetch('/api/agent-action', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...(await authHeader()) },
         body: JSON.stringify({ utterance }),
       });
       if (!requestCurrent(request)) return;

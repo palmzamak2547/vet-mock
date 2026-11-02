@@ -840,6 +840,180 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 .hist-day { font-size: 12.5px; color: var(--text-3); }
 @media (hover: hover) and (pointer: fine) { .hist-open:hover { background: color-mix(in srgb, var(--text) 6%, transparent); } }
 .hist-empty { color: var(--text-3); font-size: 14px; line-height: 1.6; }
+/* the signed-in account at the sheet's foot, with its way out */
+.sheet-acct { margin-top: auto; padding-top: var(--s3); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--s3); }
+.sheet-acct-who { margin: 0; display: grid; min-width: 0; line-height: 1.5; }
+.sheet-acct-label { font-size: 14px; color: var(--text-3); }
+.sheet-acct-email { font-size: 14px; color: var(--text-2); overflow-wrap: anywhere; }
+.sheet-acct-out { min-height: 44px; padding: 0 2px; }
+
+/* ── the Chula sign-in wall ───────────────────────────── */
+/* What the page shows until a member session is present (lib/wall.js): the sea and
+   the header stay, the assistant gives way to one glass card, like the composer (a
+   heading, a line and two buttons; no reading text under glass). It enters once with
+   opacity and transform; under reduced motion it only fades. */
+.mode-wall .stage {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: calc(84px + var(--safe-t)) var(--s4) calc(var(--s6) + var(--safe-b));
+}
+.wall-card {
+  width: min(400px, 100%);
+  padding: var(--s6) var(--s5) var(--s5);
+  border-radius: var(--r-l);
+  background: var(--glass-thick);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--shadow);
+  text-align: center;
+  animation: wall-in 560ms var(--ease-out) both;
+}
+@keyframes wall-in { from { opacity: 0; transform: translateY(12px) scale(0.985); } }
+/* Thai stacked marks: 1.2 is the floor for a heading that can wrap to two lines */
+.wall-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.625rem, 1.45rem + 0.75vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.wall-title:focus { outline: none; }
+.wall-lead { margin: var(--s3) 0 0; color: var(--text-2); font-size: 15px; line-height: 1.7; text-wrap: pretty; }
+/* the address to choose in Google's window: a field nobody types into, so drawn as an outline */
+.wall-id {
+  margin: var(--s4) 0 0;
+  padding: 12px 14px 10px;
+  border-radius: 16px;
+  border: 1px dashed color-mix(in srgb, var(--text) 22%, transparent);
+}
+.wall-addr { margin: 0; font-family: var(--font-mono); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.wall-addr-local { font-family: var(--font-ui); color: var(--text-3); }
+.wall-addr-domain { color: var(--accent); }
+.wall-caption { margin: 4px 0 0; color: var(--text-3); font-size: 14px; line-height: 1.5; }
+/* Google's own button sits in this slot (it draws itself, up to 400 px wide, 40 px tall) */
+.wall-gsi { margin-top: var(--s5); }
+.wall-gsi-slot { display: flex; justify-content: center; min-height: 44px; transition: opacity var(--dur-quick) var(--ease-out); }
+.wall-gsi[data-busy='1'] .wall-gsi-slot { opacity: 0.5; pointer-events: none; }
+.wall-gsi .wall-caption { margin-top: var(--s2); }
+.wall-who {
+  display: inline-block;
+  max-width: 100%;
+  margin: var(--s4) 0 0;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+.wall-google, .wall-go {
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--s5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 20px;
+  border-radius: var(--r-pill);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: transform var(--dur-press) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out), opacity var(--dur-quick) var(--ease-out);
+}
+/* Google's own button colours in each theme, as its sign-in branding sets them */
+.wall-google { background: #fff; color: #1f1f1f; box-shadow: inset 0 0 0 1px #747775; }
+:root[data-theme='dark'] .wall-google { background: #131314; color: #e3e3e3; box-shadow: inset 0 0 0 1px #8e918f; }
+.wall-go { background: var(--accent); color: var(--accent-ink); }
+.wall-google:active:not(:disabled), .wall-go:active { transform: scale(0.97); }
+.wall-google:disabled { cursor: default; opacity: 0.72; }
+.wall-g { flex: none; }
+.wall-alt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: var(--s2);
+  padding: 0 12px;
+  border-radius: 10px;
+  color: var(--accent);
+  font-size: 14.5px;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.wall-alt:disabled { cursor: default; opacity: 0.6; }
+/* two quiet ways on the link screen (staff domain, another account): one per line, centred */
+.wall-card .wall-alt { display: flex; width: fit-content; margin-inline: auto; }
+@media (hover: hover) and (pointer: fine) {
+  .wall-google:hover:not(:disabled) { box-shadow: inset 0 0 0 1px #747775, 0 2px 10px -3px rgba(60, 64, 67, 0.4); }
+  :root[data-theme='dark'] .wall-google:hover:not(:disabled) { box-shadow: inset 0 0 0 1px #8e918f, 0 2px 10px -3px rgba(0, 0, 0, 0.6); }
+  .wall-go:hover { opacity: 0.92; }
+  .wall-alt:hover:not(:disabled) { color: var(--text); }
+}
+.wall-inapp {
+  margin: var(--s5) 0 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  font-size: 14.5px;
+  line-height: 1.6;
+  text-align: left;
+}
+.wall-inapp + .wall-go { margin-top: var(--s3); }
+.wall-msg { text-align: left; }
+.wall-note {
+  margin: var(--s4) 0 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--warn) 13%, transparent);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.wall-note p { margin: 0; }
+/* the way on a problem offers (that Chula address has its own account: use it) */
+.wall-note-act {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 0 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--raise);
+  color: var(--text);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+.wall-note-act:active:not(:disabled) { transform: scale(0.97); }
+/* "checking": the sea alone; the line appears only if the check takes a while */
+.wall-wait { margin: 0; color: var(--text-3); font-size: 14px; animation: wall-fade 400ms linear 700ms both; }
+@keyframes wall-fade { from { opacity: 0; } }
+.wall-spin {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-top-color: currentColor;
+  animation: wall-turn 800ms linear infinite;
+}
+@keyframes wall-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .wall-card { animation: wall-fade 360ms linear both; }
+  .wall-google, .wall-go { transition: none; }
+  .wall-spin { animation: none; }
+}
 
 /* ── specimen label (follows a tapped animal) ─────────── */
 .specimen {
@@ -909,17 +1083,17 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 
 /* no glass support, or a reader who asked for less transparency */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .composer, .mode-chat .hdr, :root[data-scrolled] .hdr { background: var(--raise); }
+  .composer, .mode-chat .hdr, :root[data-scrolled] .hdr, .wall-card { background: var(--raise); }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .composer, .mode-chat .hdr, :root[data-scrolled] .hdr { background: var(--raise); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .composer, .mode-chat .hdr, :root[data-scrolled] .hdr, .wall-card { background: var(--raise); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-contrast: more) {
   :root { --glass-edge: var(--text-3); }
-  .composer, .source a, .card { border-color: var(--text-3); }
+  .composer, .source a, .card, .wall-card { border-color: var(--text-3); }
 }
 @media (forced-colors: active) {
-  .send, .btn { border: 1px solid ButtonText; }
+  .send, .btn, .wall-google, .wall-go { border: 1px solid ButtonText; }
 }
 
 /* the link cover (rendered at 1200 x 630 with ?bare&og&capture, then screenshotted) */

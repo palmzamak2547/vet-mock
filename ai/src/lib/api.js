@@ -22,6 +22,37 @@ export class ChatError extends Error {
   }
 }
 
+// ── The account on each request ─────────────────────────────
+// While the Chula wall is on, the route answers only a member's token
+// (docs/CHULA-SIGNIN.md): 401 signin_required for no token or an expired one,
+// 403 chula_required for a signed-in account that is not a member. The wall
+// (lib/account.js) hands over how to get a token, how to refresh it once, and
+// where a refusal goes; with no wall (a build without a database) requests go
+// out as before.
+let auth = null;
+
+/** @param {{ token: () => Promise<string|null>, refresh: () => Promise<string|null>, refused: (kind: 'signin'|'link') => void } | null} provider */
+export function setApiAuth(provider) {
+  auth = provider;
+}
+
+const errorOf = (res) => res.clone().json().then((j) => j?.error || null).catch(() => null);
+
+/** fetch with the session's bearer token: one refresh and one retry after a 401. */
+async function authorized(url, init) {
+  const send = (token) => fetch(url, token ? { ...init, headers: { ...init.headers, Authorization: `Bearer ${token}` } } : init);
+  if (!auth) return send(null);
+  const token = await auth.token().catch(() => null);
+  let res = await send(token);
+  if (res.status === 401) {
+    const fresh = await auth.refresh().catch(() => null);
+    if (fresh && fresh !== token) res = await send(fresh);
+  }
+  if (res.status === 401) auth.refused('signin');
+  else if (res.status === 403 && (await errorOf(res)) === 'chula_required') auth.refused('link');
+  return res;
+}
+
 let warmed = false;
 /** Wake an instance and build its corpus while the student is still typing
  *  (an uncached GET; the route answers it in a few ms once warm). Once per page. */
@@ -54,7 +85,7 @@ export async function transcribe(wav, signal) {
   });
   let res;
   try {
-    res = await fetch(TRANSCRIBE_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ audio }), signal });
+    res = await authorized(TRANSCRIBE_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ audio }), signal });
   } catch (e) {
     if (e?.name === 'AbortError') throw e;
     throw new ChatError('เชื่อมต่อไม่ได้ เช็กอินเทอร์เน็ตก่อน', 'network');
@@ -99,7 +130,7 @@ export async function chat({ messages, image = null, signal, on }) {
   }
   let res;
   try {
-    res = await fetch(API_URL, {
+    res = await authorized(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' },
       body: JSON.stringify({ messages, image }),

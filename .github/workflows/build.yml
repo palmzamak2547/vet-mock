@@ -85,6 +85,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-user-data-db.mjs --backend=postgres
+      - name: Verify the Chula sign-in wall (hook, trigger, pre-request, row security, switch)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-chula-wall-db.mjs --backend=postgres
 
   build:
     runs-on: ubuntu-24.04

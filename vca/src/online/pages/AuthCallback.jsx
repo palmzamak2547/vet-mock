@@ -12,7 +12,24 @@ import { askSignIn } from '../ui/AccountButton.jsx';
 import { Soon } from '../ui/bits.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, takeReturn } from '../account.js';
+import { signInProblem, takeAuthErrorFromUrl } from '../chula.js';
+import { wall } from '../gate.js';
 import '../community.css';
+
+/** Resolves once the wall knows where the switch is: true when it would cover the site. */
+function wallBlocks() {
+  return new Promise((resolve) => {
+    let stop = () => {};
+    const settle = () => {
+      const state = wall.get();
+      if (state.enforce === 'pending') return;
+      stop();
+      resolve(state.gate !== 'open');
+    };
+    stop = wall.subscribe(settle);
+    settle();
+  });
+}
 
 function readable(message) {
   if (/expired|invalid|already been used|otp/i.test(message)) return 'ลิงก์นี้หมดอายุหรือถูกใช้ไปแล้ว ขอลิงก์ใหม่ได้เลย';
@@ -29,6 +46,23 @@ export default function AuthCallback({ route }) {
   useEffect(() => {
     if (MODE === 'off') return undefined;
     let live = true;
+    // An error the provider sent back (Google cancelled, the account refused). While the Chula wall
+    // covers the site it is said on the wall's own card, on the page the student left; with the
+    // wall off it is said here, as before.
+    const returned = MODE === 'live' ? takeAuthErrorFromUrl() : null;
+    if (returned) {
+      const kind = signInProblem(returned, { online: navigator.onLine !== false }) || 'unknown';
+      wallBlocks().then((blocks) => {
+        if (!live) return;
+        if (blocks) {
+          wall.holdProblem(kind);
+          navigate(takeReturn(), { replace: true });
+        } else {
+          setProblem(readable(`${returned.error_description} ${returned.error}`));
+        }
+      });
+      return () => { live = false; };
+    }
     (async () => {
       const b = await getBackend();
       if (via === 'line') {
@@ -40,6 +74,8 @@ export default function AuthCallback({ route }) {
       const session = await b.auth.complete(window.location.href);
       if (!session) throw new Error('no session');
       await ensureAccount();
+      // the wall hears of the new session before the page it covers comes back
+      await wall.resync();
       if (live) navigate(takeReturn(), { replace: true });
     })().catch((err) => {
       if (!live) return;

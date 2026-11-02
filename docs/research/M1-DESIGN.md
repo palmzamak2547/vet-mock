@@ -546,7 +546,7 @@ Storage mode, usage and quota, `persisted()`, and a Safari flag (seven-day rule 
 app) so the project list nudges a download. `navigator.storage.persist()` only from an explicit button.
 
 ### 9.7 Sign-in (`lib/auth/*`)
-Supabase Auth with redirect (no popups; COOP `same-origin`), `redirectTo` `https://research.vetmock.com/app`
+Since 1 Nov 2026 the workspace needs a Chula member session while the Chula wall is on (docs/CHULA-SIGNIN.md): Google's own button and One Tap first, so Google's screen names this origin (a popup, hence COOP `same-origin-allow-popups`), and Supabase Auth with redirect only as the fallback, `redirectTo` `https://research.vetmock.com/app`
 (the orchestrator adds `https://research.vetmock.com/**` to Supabase Redirect URLs). `useOwner()` returns
 `guest` or `u.<id>`; the workspace remounts on owner change. On the first sign-in in a browser,
 `claimGuestProjects` re-keys every guest record into the account in one transaction per project and

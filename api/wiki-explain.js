@@ -48,6 +48,7 @@ import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from '
 import { loadTopic } from '../src/lib/vetwiki/index.js';
 import { retrieveForQuestion, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
 import { validateAnswer, allowedFromSections } from '../src/lib/vetwiki/answer.js';
+import { requireChula } from './_lib/chula-gate.js';
 
 const MAX_QUESTION = 500;
 const MAX_SECTIONS = 10;         // bounded context — cost + latency ceiling
@@ -165,11 +166,13 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  const gate = await requireChula(req, res);
+  if (!gate) return undefined;
 
   const ip = clientIP(req);
   const rl = await rateLimit(`wiki-explain:${ip}`, 20, 60 * 60 * 1000);

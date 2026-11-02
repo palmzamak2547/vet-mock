@@ -40,6 +40,7 @@ import SyncStatusNotice from './components/SyncStatusNotice.jsx';
 import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequiredState.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
+import { useChulaWall } from './hooks/useChulaWall.js';
 import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType } from './hooks/utils.js';
 import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, questionPinPayload, unfinishedWork, unsavedResult, runSubjectFor } from './lib/app-flow.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
@@ -98,7 +99,7 @@ import {
   QuestionManagerView, AuthView, GroupsView, GroupDetailView,
   LeaderboardView, ScheduleView, ScoresView, VideoView, AboutView,
   FeedbackView, IgCardStudioView, YearSelectView, LandingView,
-  PhaseSelectView, TopicSelectView, NotesView, LibraryView,
+  PhaseSelectView, TopicSelectView, NotesView, LibraryView, ChulaGateView, ChulaGateExit,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
   AccountSettingsView, ProfileView, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
@@ -248,6 +249,9 @@ const WIDE_VIEWS = new Set([
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
 const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config', 'atlas']);
+// Open before sign-in while the Chula wall is on: the public front door and
+// the privacy terms a student reads before agreeing (docs/CHULA-SIGNIN.md).
+const GATE_PUBLIC_VIEWS = new Set(['landing', 'privacy']);
 // Marketing/ecosystem links belong on destination pages, not after every
 // internal workflow. Keeping the footer off topic, notes, schedule and tool
 // views shortens those tasks without removing any top-level navigation.
@@ -308,6 +312,8 @@ const READER_ORIGINS = new Set(['topic-select', 'wrapup', 'knowledge', 'wiki']);
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
+  // The Chula sign-in wall: until it opens, the app below renders nothing.
+  const wall = useChulaWall({ user, loading: authLoading });
 
   // The back-office door. The database decides who is an admin (is_admin());
   // this only says whether to draw the entry in the menu and palette.
@@ -352,7 +358,9 @@ export default function App() {
   // ดูว่าคุณได้เท่าไหร่" banner so the receiver knows what to beat.
   const [challengeSender, setChallengeSender] = useState(() => readSenderInfoFromLocation());
   useEffect(() => {
-    if (sharedResolvedRef.current || authLoading) return;
+    // Behind the Chula wall a shared set waits for sign-in: started as a guest it
+    // could not be submitted by the account that signs in.
+    if (sharedResolvedRef.current || authLoading || wall.state !== 'open') return;
     let cancelled = false;
     let hasSharedSet = false;
     try {
@@ -406,7 +414,7 @@ export default function App() {
     // setView/session setters are initialized later in the component but are
     // read only after this effect runs, once the full render has completed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authLoading, user?.id]);
+  }, [authLoading, user?.id, wall.state]);
 
   // Realtime presence — mounted at App level so the WebSocket survives
   // every view navigation. (Was in HomeView previously, which caused
@@ -985,6 +993,12 @@ export default function App() {
   const titleSetRef = useRef(false);
   useEffect(() => {
     if (typeof document === 'undefined') return;
+    // Behind the Chula wall the gate is on screen, whatever view is stored.
+    if (wall.state !== 'open' && !GATE_PUBLIC_VIEWS.has(view)) {
+      document.title = 'เข้าสู่ระบบ | VetMock';
+      titleSetRef.current = true;
+      return;
+    }
     const name = viewTitle(view);
     if (name) {
       document.title = `${name} | VetMock`;
@@ -995,7 +1009,7 @@ export default function App() {
       if (view !== 'atlas' && view !== 'knowledge' && view !== 'wiki') document.title = baseTitleRef.current;
       titleSetRef.current = false;
     }
-  }, [view]);
+  }, [view, wall.state]);
 
   // Unknown /app/* paths must not revive an unrelated stored screen. Repair
   // the address bar to Home once, while known app routes keep their URL.
@@ -3008,6 +3022,10 @@ export default function App() {
     if (prefs) setConsentPrefs(prefs);
   };
 
+  // Behind the wall the landing's buttons lead to sign-in first: an exam started
+  // as a guest could not be submitted by the account that signs in.
+  const landingLocked = wall.state !== 'open';
+  const toWall = () => leaveLandingTo('home');
   if (view === 'landing') {
     return (
       <>
@@ -3015,12 +3033,14 @@ export default function App() {
         <ErrorBoundary onReset={goHome}>
         <Suspense fallback={<ViewFallback />}>
           <LandingView
-            onEnterApp={landingEnterApp}
-            onStartMockExam={() => goLanding({ kind: 'mock-exam' })}
-            onStartPanic={(timeKey) => goLanding({ kind: 'panic', timeKey })}
-            onOpenLab={() => goLanding({ kind: 'lab' })}
-            onPickSubject={landingPickSubject}
+            onEnterApp={landingLocked ? toWall : landingEnterApp}
+            onStartMockExam={landingLocked ? toWall : () => goLanding({ kind: 'mock-exam' })}
+            onStartPanic={landingLocked ? toWall : (timeKey) => goLanding({ kind: 'panic', timeKey })}
+            onOpenLab={landingLocked ? toWall : () => goLanding({ kind: 'lab' })}
+            onPickSubject={landingLocked ? toWall : landingPickSubject}
+            chulaOnly={wall.enforce === true}
             onOpenAuth={landingOpenAuth}
+            onSignIn={wall.enforce === true ? () => leaveLandingTo('home') : undefined}
             onGoogle={() => { signInWithGoogle().catch(() => landingOpenAuth()); }}
             onMagicLink={(email) => signInWithMagicLink(email)}
             hasSupabase={hasSupabase}
@@ -3044,11 +3064,24 @@ export default function App() {
     );
   }
 
+  if (wall.state !== 'open' && !GATE_PUBLIC_VIEWS.has(view)) {
+    return (
+      <ErrorBoundary onReset={() => window.location.reload()}>
+        <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} aria-busy="true" />}>
+          <ChulaGateView wall={wall} user={user} onAbout={() => setView('landing')} />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <MochiProvider view={view} mode={mode}>
       {/* Global CSS now loaded via `import './styles.css'` at the top of
           this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
+      {wall.welcome && user && (
+        <Suspense fallback={null}><ChulaGateExit user={user} onDone={wall.doneWelcome} /></Suspense>
+      )}
       {/* A pending decision belongs to the view and account that opened it. */}
       <DialogHost scope={view} owner={user?.id ?? null} />
       {/* `is-focus` = the bottom nav is not rendered for this view, so the

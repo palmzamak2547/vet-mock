@@ -30,6 +30,7 @@
 
 import { playArrayBuffer } from './tts-edge.js';
 import { audioCacheKey, createAudioCache } from './tts-cache.js';
+import { authHeader } from './api-auth.js';
 
 const FETCH_TIMEOUT_MS = 10_000;
 // iApp WAV chunks are ~4x the bytes of Edge MP3 for the same duration,
@@ -93,7 +94,7 @@ export async function getIAppAudio({ text, lang = 'th', rate = 1.0 }, signal) {
       : Buffer.from(json, 'utf8').toString('base64');
     response = await fetch('/api/tts-iapp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/vmx-b64' },
+      headers: { 'Content-Type': 'application/vmx-b64', ...(await authHeader()) },
       body: 'b64:' + b64,
       signal: ctrl.signal,
     });
