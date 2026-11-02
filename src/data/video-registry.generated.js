@@ -100,7 +100,7 @@ export const VIDEO_REGISTRY = {
   "card": true
  },
  "Fqgp8DoPDws": {
-  "title": ", 9 Anatomy function and clinical examination of stallion",
+  "title": "Anatomy function and clinical examination of stallion",
   "session": "8",
   "date": "2026-10-08",
   "durationSec": 4315,

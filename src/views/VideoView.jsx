@@ -944,6 +944,20 @@ function ownCopyPlayer(el) {
   };
 }
 
+// The transcript's lines as WebVTT, so our own copy keeps the captions
+// YouTube's player had. A line lasts until the next one, six seconds at most.
+function transcriptVtt(lines) {
+  const ts = (sec) => {
+    const ms = Math.max(0, Math.round(sec * 1000));
+    const p = (n, w = 2) => String(n).padStart(w, '0');
+    return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)}.${p(ms % 1000, 3)}`;
+  };
+  return `WEBVTT\n\n${lines.map(([t, text], i) => {
+    const end = Math.max(t + 0.5, Math.min(lines[i + 1]?.[0] ?? t + 6, t + 6));
+    return `${ts(t)} --> ${ts(end)}\n${String(text).replace(/-->/g, '→')}\n`;
+  }).join('\n')}`;
+}
+
 function ClockedClipStudy({ videoId, playerRef }) {
   const currentTime = usePlayerClock(playerRef, videoId);
   const seek = useCallback((t) => {
@@ -1098,6 +1112,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       // must not change the clip behind the summary it is describing.
       if (openSummary) return;
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      // The video's own arrows seek and the study panel's tabs move between
+      // tabs: neither may change the clip.
+      if (e.target.closest?.('video, .vmx-clip, [role="tab"]')) return;
       if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
       if (e.key === '/' && playlistItems.length > 0) { e.preventDefault(); searchInputRef.current?.focus(); }
@@ -1134,6 +1151,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const ownVideoRef = useRef(null);
   const ownWanted = Boolean(currentVideoId && VIDEO_INDEX[currentVideoId]?.[3] && hasStoredAuthToken());
   const [own, setOwn] = useState({ id: null });
+  const ownRetried = useRef(null); // the clip whose link was renewed once after an error
+  const ownResume = useRef(0); // the second to carry on from after a renewed link
+  const [ownVtt, setOwnVtt] = useState(null);
   // Keyed by clip: a clip just opened reads "checking", never the last clip's answer.
   const ownStatus = !ownWanted ? 'none' : own.id === currentVideoId ? own.status : 'checking';
   useEffect(() => {
@@ -1144,6 +1164,18 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       .catch(() => { if (!off) setOwn({ id: currentVideoId, status: 'none' }); });
     return () => { off = true; };
   }, [currentVideoId, ownWanted]);
+  // Captions for our copy, from the same transcript the study panel shows.
+  useEffect(() => {
+    if (ownStatus !== 'ready') return undefined;
+    let off = false;
+    let url = null;
+    fetchVideoAsset(currentVideoId, 'transcript').then((r) => {
+      if (off || r.status !== 'ok' || !r.data?.lines?.length) return;
+      url = URL.createObjectURL(new Blob([transcriptVtt(r.data.lines)], { type: 'text/vtt' }));
+      setOwnVtt(url);
+    });
+    return () => { off = true; setOwnVtt(null); if (url) URL.revokeObjectURL(url); };
+  }, [ownStatus, currentVideoId]);
   useEffect(() => {
     const el = ownVideoRef.current;
     if (ownStatus !== 'ready' || !el) return undefined;
@@ -1303,11 +1335,26 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     preload="metadata"
                     title={video.topic}
                     onLoadedMetadata={(e) => {
-                      if (startAt > 0) e.currentTarget.currentTime = startAt;
+                      const from = ownResume.current || startAt;
+                      ownResume.current = 0;
+                      if (from > 0) e.currentTarget.currentTime = from;
                       e.currentTarget.play().catch(() => {});
                     }}
-                    onError={() => setOwn({ id: currentVideoId, status: 'none' })}
-                  />
+                    onError={(e) => {
+                      // A link signed for six hours runs out under a lecture paused
+                      // overnight: renew it once and carry on from the same second;
+                      // a second failure falls back to YouTube.
+                      if (ownRetried.current !== currentVideoId) {
+                        ownRetried.current = currentVideoId;
+                        ownResume.current = e.currentTarget.currentTime || 0;
+                        fetchVideoAsset(currentVideoId, 'video').then((res) => setOwn(res.status === 'ok' ? { id: currentVideoId, status: 'ready', url: res.data.url } : { id: currentVideoId, status: 'none' }));
+                        return;
+                      }
+                      setOwn({ id: currentVideoId, status: 'none' });
+                    }}
+                  >
+                    {ownVtt && <track kind="captions" srcLang="th" label="ไทย (ถอดอัตโนมัติ)" src={ownVtt} />}
+                  </video>
                 ) : currentVideoId && ownStatus === 'checking' ? null : currentVideoId ? (
                   // YT.Player replaces this node with its own iframe — key by
                   // (videoId, playlistId) so React unmounts/remounts when the
@@ -1410,7 +1457,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             })()}
 
             {/* Summary, chapters, index and transcript of a library video */}
-            {currentVideoId && <ClockedClipStudy videoId={currentVideoId} playerRef={playerRef} />}
+            {currentVideoId && <ClockedClipStudy key={currentVideoId} videoId={currentVideoId} playerRef={playerRef} />}
 
             {/* Audio-synced notes — only when we have a concrete video id */}
             {currentVideoId && (

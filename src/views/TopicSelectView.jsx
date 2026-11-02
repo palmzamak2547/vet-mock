@@ -95,7 +95,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   useEffect(() => {
     let off = false;
     import('../data/video-topic-index.generated.js')
-      .then(({ VIDEO_TOPIC_INDEX: index }) => { if (!off) setClipCounts(Object.fromEntries(Object.entries(index).map(([id, list]) => [id, list.length]))); })
+      .then(({ VIDEO_TOPIC_INDEX: index }) => { if (!off) setClipCounts(Object.fromEntries(Object.entries(index).map(([id, list]) => [id, new Set(list.map((x) => x.v)).size]))); })
       .catch(() => {});
     return () => { off = true; };
   }, []);

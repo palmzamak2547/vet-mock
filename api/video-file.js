@@ -69,5 +69,6 @@ export default async function handler(req, res, { env = process.env } = {}) {
       .map((x) => ({ t: x.t, url: presign(`videos/${v}/frames/${x.file}`, { method: 'GET', expiresIn: VIDEO_TTL, env: r2 }) }));
     return send(res, 200, { frames, expiresIn: VIDEO_TTL });
   }
-  return send(res, 200, body, 'private, max-age=3600');
+  // Never cached: on a shared computer the next account must pass the gate too.
+  return send(res, 200, body);
 }

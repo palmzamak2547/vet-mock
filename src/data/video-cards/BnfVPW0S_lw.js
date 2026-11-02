@@ -497,7 +497,7 @@ export default {
    "t": 2940
   },
   {
-   "number": "•80% of market animals",
+   "number": "80% of market animals",
    "t": 960,
    "slide": {
     "doc": "coronavirus-viral-zoonosis-86a9e1",
@@ -505,7 +505,7 @@ export default {
    }
   },
   {
-   "number": "•92% genetic similarity between SL-CoVRp3",
+   "number": "92% genetic similarity between SL-CoVRp3",
    "t": 1080,
    "slide": {
     "doc": "coronavirus-viral-zoonosis-86a9e1",
@@ -513,7 +513,7 @@ export default {
    }
   },
   {
-   "number": "•39% (23/59) anal swabs of wild Chinese horseshoe",
+   "number": "39% (23/59) anal swabs of wild Chinese horseshoe",
    "t": 1260,
    "slide": {
     "doc": "coronavirus-viral-zoonosis-86a9e1",
@@ -537,7 +537,7 @@ export default {
    }
   },
   {
-   "number": "•96% identical at the whole-genome level between",
+   "number": "96% identical at the whole-genome level between",
    "t": 2160,
    "slide": {
     "doc": "coronavirus-viral-zoonosis-86a9e1",

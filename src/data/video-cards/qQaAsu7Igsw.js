@@ -1030,7 +1030,7 @@ export default {
    }
   },
   {
-   "number": "▪X ± 1 SD = 68.3% of the area on each side of the mean.",
+   "number": "X ± 1 SD = 68.3% of the area on each side of the mean.",
    "t": 2460,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1038,7 +1038,7 @@ export default {
    }
   },
   {
-   "number": "▪X ± 2 SD = 95.5% of area on each side of the mean.",
+   "number": "X ± 2 SD = 95.5% of area on each side of the mean.",
    "t": 2460,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1046,7 +1046,7 @@ export default {
    }
   },
   {
-   "number": "▪X ± 3 SD = 99.7% of area on each side of the mean.",
+   "number": "X ± 3 SD = 99.7% of area on each side of the mean.",
    "t": 2460,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1078,7 +1078,7 @@ export default {
    }
   },
   {
-   "number": "- α = 10%(confidence level = 90%),",
+   "number": "α = 10%(confidence level = 90%),",
    "t": 4320,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1086,7 +1086,7 @@ export default {
    }
   },
   {
-   "number": "- α = 5%(confidence level = 95%)",
+   "number": "α = 5%(confidence level = 95%)",
    "t": 4320,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1094,7 +1094,7 @@ export default {
    }
   },
   {
-   "number": "- α = 1%(confidence level = 99%)",
+   "number": "α = 1%(confidence level = 99%)",
    "t": 4320,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1102,23 +1102,7 @@ export default {
    }
   },
   {
-   "number": "-α = 10%(confidence level = 90%)",
-   "t": 4320,
-   "slide": {
-    "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
-    "page": 61
-   }
-  },
-  {
-   "number": "-α = 5%(confidence level = 95%)",
-   "t": 4320,
-   "slide": {
-    "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
-    "page": 61
-   }
-  },
-  {
-   "number": "-α = 1%(confidence level = 99%)",
+   "number": "α = 10%(confidence level = 90%)",
    "t": 4320,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1175,14 +1159,6 @@ export default {
   },
   {
    "number": "Calculate the 95% confidence interval for the population mean weight.",
-   "t": 5100,
-   "slide": {
-    "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
-    "page": 68
-   }
-  },
-  {
-   "number": "95%CI of mean weight",
    "t": 5100,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",

@@ -295,7 +295,7 @@ export default {
    "t": 2220
   },
   {
-   "number": "• Testicular descent: last 30 day of gestation to the first 10 days post-",
+   "number": "Testicular descent: last 30 day of gestation to the first 10 days post-",
    "t": 2700,
    "slide": {
     "doc": "lecture-8-9-anatomy-function-and-clinical-exam-stallion-ef4647",
@@ -303,7 +303,7 @@ export default {
    }
   },
   {
-   "number": "- Low incidence for both abdominal cryptorchid testes (14%)",
+   "number": "Low incidence for both abdominal cryptorchid testes (14%)",
    "t": 2760,
    "slide": {
     "doc": "lecture-8-9-anatomy-function-and-clinical-exam-stallion-ef4647",

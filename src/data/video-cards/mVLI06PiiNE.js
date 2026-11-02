@@ -1062,7 +1062,7 @@ export default {
    }
   },
   {
-   "number": "▪(2.4 - 1) * 100 = 140 % rise in risk for those exposed to the risk factor compared to",
+   "number": "(2.4 - 1) * 100 = 140 % rise in risk for those exposed to the risk factor compared to",
    "t": 3420,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1070,7 +1070,7 @@ export default {
    }
   },
   {
-   "number": "▪(2.43 -1)*100 = 143%",
+   "number": "(2.43 -1)*100 = 143%",
    "t": 3600,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1078,7 +1078,7 @@ export default {
    }
   },
   {
-   "number": "▪Odds 143% higher in exposed group",
+   "number": "Odds 143% higher in exposed group",
    "t": 3600,
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
@@ -1099,14 +1099,6 @@ export default {
    "slide": {
     "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
     "page": 154
-   }
-  },
-  {
-   "number": "odds of FMD occurence when number of animal in the farm increase by 1 unit",
-   "t": 4080,
-   "slide": {
-    "doc": "data-analysis-applied-statistic-for-epidemiology-tc-5b5c86",
-    "page": 155
    }
   }
  ]

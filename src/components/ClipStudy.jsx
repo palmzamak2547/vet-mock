@@ -7,7 +7,7 @@
 // works the same over the library's own copy and over YouTube's embed.
 // docs/VIDEO-LIBRARY.md has the summary policy the card follows and the
 // skip list (section 11): stamps keep the original times, so nothing drifts.
-import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../styles-clip.css';
 import { VIDEO_INDEX } from '../data/video-cards.generated.js';
 import {
@@ -69,7 +69,8 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
   const [tab, setTab] = useState('summary');
   const [more, setMore] = useState(false);
   const [seen, setSeen] = useState(() => readSeen(videoId));
-  const [resumeAt, setResumeAt] = useState(() => readPosition(videoId));
+  // A place worth offering: past the first half minute.
+  const [resumeAt, setResumeAt] = useState(() => (readPosition(videoId) > 30 ? readPosition(videoId) : 0));
   const [transcript, setTranscript] = useState({ status: 'idle' });
   const [frames, setFrames] = useState([]);
   const [query, setQuery] = useState('');
@@ -78,6 +79,10 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
   const lastScroll = useRef(0);
   const prevTime = useRef(0);
   const savedAt = useRef(0);
+  const watched = useRef(0); // seconds played forward since the clip opened
+  const studentSeeked = useRef(false); // the student moved the playhead from this panel
+  const transcriptFor = useRef(null); // the clip whose transcript is on its way
+  const autoScrollUntil = useRef(0); // scroll events before this are the panel's own
 
   useEffect(() => {
     let off = false;
@@ -87,7 +92,10 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
     setTranscript({ status: 'idle' });
     setFrames([]);
     setSeen(readSeen(videoId));
-    setResumeAt(readPosition(videoId));
+    setResumeAt(readPosition(videoId) > 30 ? readPosition(videoId) : 0);
+    watched.current = 0;
+    studentSeeked.current = false;
+    transcriptFor.current = null;
     loadVideoCard(videoId).then((c) => { if (!off) setCard(c); }).catch(() => { if (!off) setCard(null); });
     // The stretches to jump come with the registry, which only a video with some needs.
     if (skipSec >= SKIP_WORTH) loadVideoRegistry().then((r) => { if (!off) setSkips(r[videoId]?.skips || []); }).catch(() => {});
@@ -103,33 +111,42 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
     return () => { off = true; };
   }, [videoId, hasCopy, carded]);
   useEffect(() => {
-    if (tab !== 'transcript' || transcript.status !== 'idle') return undefined;
-    if (!hasCopy) { setTranscript({ status: 'none' }); return undefined; }
-    let off = false;
+    if (tab !== 'transcript' || transcript.status !== 'idle') return;
+    if (!hasCopy) { setTranscript({ status: 'none' }); return; }
+    // Setting "loading" runs this effect again, so the answer is matched to its
+    // clip by a ref; a cleanup here would throw every answer away.
+    const id = videoId;
+    transcriptFor.current = id;
     setTranscript({ status: 'loading' });
-    fetchVideoAsset(videoId, 'transcript').then((r) => {
-      if (off) return;
-      setTranscript(r.status === 'ok' ? { status: 'ok', lines: (r.data.lines || []).map(([t, text]) => ({ t, text })) } : r);
+    fetchVideoAsset(id, 'transcript').then((r) => {
+      if (transcriptFor.current !== id) return;
+      setTranscript(r.status === 'ok' ? { status: 'ok', lines: (r.data.lines || []).map(([t, text]) => ({ t, text })) } : r.code === 404 ? { status: 'none' } : r);
     });
-    return () => { off = true; };
   }, [tab, videoId, hasCopy, transcript.status]);
 
   // Watched marks grow only while the video plays forward; the place the
   // student stopped is kept every five seconds. Playing on into a stretch
-  // that teaches nothing jumps it; a seek that lands inside one is the
-  // student's choice and plays.
+  // that teaches nothing jumps it, and so does a clip that starts playing
+  // from zero inside the wait before the lecture; a seek that lands inside a
+  // stretch is the student's choice and plays.
   useEffect(() => {
     const prev = prevTime.current;
     const step = currentTime - prev;
     prevTime.current = currentTime;
     if (!(currentTime > 0)) return;
     if (skipOn && step > 0 && step < 3) {
-      const k = skips.find(([s, e]) => prev < s + 0.5 && currentTime >= s && currentTime < e - 1);
+      const fresh = prev === 0 && currentTime < 3 && !studentSeeked.current;
+      const k = skips.find(([s, e]) => (prev < s || (s === 0 && fresh)) && currentTime >= s && currentTime < e - 1);
       if (k) { seek?.(k[1]); return; }
     }
-    if (step > 0 && step < 3) setSeen((s) => markSeen(videoId, currentTime, s));
+    if (step > 0 && step < 3) {
+      watched.current += step;
+      setSeen((s) => markSeen(videoId, currentTime, s));
+    }
+    // An offer to resume holds the saved place, so a player that starts from
+    // zero cannot overwrite it; a minute of watching elsewhere settles it.
+    if (resumeAt) { if (watched.current >= 60) setResumeAt(0); return; }
     if (Math.abs(currentTime - savedAt.current) >= 5) { savePosition(videoId, currentTime); savedAt.current = currentTime; }
-    if (resumeAt && Math.abs(currentTime - resumeAt) > 5 && currentTime > 10) setResumeAt(0);
   }, [videoId, currentTime, resumeAt, skipOn, skips, seek]);
 
   const duration = playerDuration || length;
@@ -142,14 +159,20 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
     return q ? lines.filter((l) => l.text.toLowerCase().includes(q)) : lines;
   }, [lines, query]);
 
-  // The transcript follows playback unless the student scrolled it in the last few seconds.
+  // The transcript follows playback unless the student scrolled it in the
+  // last few seconds. Only the list scrolls, never the dialog around it, and
+  // its own scrolling is not mistaken for the student's.
   useEffect(() => {
     if (tab !== 'transcript' || query || activeLine < 0 || Date.now() - lastScroll.current < 4000) return;
-    const row = listRef.current?.querySelector('[aria-current="true"]');
-    row?.scrollIntoView({ block: 'nearest', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    const list = listRef.current;
+    const row = list?.querySelector('[aria-current="true"]');
+    if (!list || !row) return;
+    autoScrollUntil.current = Date.now() + 800;
+    list.scrollTo({ top: Math.max(0, row.offsetTop - list.clientHeight / 3), behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   }, [tab, query, activeLine]);
 
-  const onSeek = (t) => seek?.(t);
+  // Stable, so a memoised transcript line re-renders only when it becomes or stops being current.
+  const onSeek = useCallback((t) => { studentSeeked.current = true; seek?.(t); }, [seek]);
   const skipSwitch = skipSec >= SKIP_WORTH && (
     <label className="vmx-clip-skip">
       <input type="checkbox" checked={skipOn} onChange={(e) => { setSkipOn(e.target.checked); saveSkip(e.target.checked); }} />
@@ -325,7 +348,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
                         <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นในคำบรรยาย" />
                       </label>
                       {query && <p className="vmx-clip-note" role="status">พบ {shown.length} บรรทัด</p>}
-                      <ol className="vmx-clip-list vmx-clip-transcript" ref={listRef} onScroll={() => { lastScroll.current = Date.now(); }}>
+                      <ol className="vmx-clip-list vmx-clip-transcript" ref={listRef} onScroll={() => { if (Date.now() > autoScrollUntil.current) lastScroll.current = Date.now(); }}>
                         {shown.map((l) => <Line key={l.t} t={l.t} text={l.text} active={!query && lines[activeLine] === l} onSeek={onSeek} />)}
                       </ol>
                       <p className="vmx-clip-fine">คำบรรยายถอดจากเสียงอัตโนมัติ ศัพท์บางคำอาจสะกดผิด</p>

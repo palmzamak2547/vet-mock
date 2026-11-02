@@ -36,7 +36,7 @@ export function titleDate(title) {
 
 /** "7.Endometritis in mare 1 Oct 69" -> "Endometritis in mare"; the session number and date are shown apart. */
 export function displayTitle(title) {
-  return String(title).replace(/\s+\d{1,2}\s+[A-Za-z]{3}[a-z]*\.?\s+\d{2}\s*$/, '').replace(/^\s*\d+(?:\.\d+)?\s*\.?\s*(?=\S)/, '').trim() || String(title).trim();
+  return String(title).replace(/\s+\d{1,2}\s+[A-Za-z]{3}[a-z]*\.?\s+\d{2}\s*$/, '').replace(/^[\s,]*\d+(?:\.\d+)?(?:\s*[,+&]\s*\d+(?:\.\d+)?)*\s*\.?\s*(?=\S)/, '').replace(/^[\s,]+/, '').trim() || String(title).trim();
 }
 
 /** A deck heading as a chapter title: "CONTAMINATION" -> "Contamination", "Treatment : Goals" -> "Treatment: Goals". */
@@ -72,6 +72,7 @@ const HEAD = (what) => `// =====================================================
 `;
 
 function build() {
+  const batch = process.env.VIDEO_BATCH ? new Set(fs.readFileSync(process.env.VIDEO_BATCH, 'utf8').split(/[\s,]+/).filter(Boolean)) : null;
   const media = {};
   const dir = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels');
   for (const f of fs.readdirSync(dir).filter((x) => /^media-manifest(\.\d+)?\.json$/.test(x))) Object.assign(media, readJSON(path.join(dir, f)));
@@ -99,6 +100,8 @@ function build() {
     // with its passing card, mapping and copy together. VIDEO_REGISTRY_ALL=1 lists
     // every analysed video, for checking the pipeline locally.
     if (!pass && !process.env.VIDEO_REGISTRY_ALL) continue;
+    // VIDEO_BATCH=<file of ids>: publish only a batch already read through (docs/VIDEO-LIBRARY.md).
+    if (batch && !batch.has(v.id)) continue;
     // The file's own length (ffprobe) can be a few seconds under YouTube's.
     const durationSec = m?.durationSec || v.durationSec;
     const segments = (a?.topicSegments || []).map((g) => ({ ...g, end: Math.min(g.end, durationSec) }))
@@ -129,7 +132,9 @@ function build() {
         emphasis: s.summary.emphasis.map((p) => ({ t: p.t, text: p.text })),
         remember: s.summary.remember.map((p) => ({ t: p.t, text: p.text })),
         chapters: a.chapters.map((c, i) => ({ t: c.start, title: tidyHeading(c.title), line: s.summary.chapters[i]?.line || '', ...(c.pages?.length && { slides: c.pages.map(pageOf).filter(Boolean) }) })),
-        index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: x.term, t: x.at } : { number: x.text, t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) })),
+        // Once each, without the slide's bullet characters.
+        index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: x.term, t: x.at } : { number: String(x.text).replace(/^[\s•▪◦●▸►‣∙·\-–—*]+/, ''), t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) }))
+          .filter((x, i, all) => all.findIndex((y) => (y.term || y.number).toLowerCase() === (x.term || x.number).toLowerCase()) === i),
       };
     }
     for (const g of segments) {

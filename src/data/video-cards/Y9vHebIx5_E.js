@@ -686,14 +686,6 @@ export default {
    }
   },
   {
-   "number": "60-70%",
-   "t": 1800,
-   "slide": {
-    "doc": "artificial-insemination-b7ec95",
-    "page": 19
-   }
-  },
-  {
    "number": "30-65%",
    "t": 1800,
    "slide": {
@@ -726,7 +718,7 @@ export default {
    }
   },
   {
-   "number": "• Good freezer (35% of stallion)",
+   "number": "Good freezer (35% of stallion)",
    "t": 1800,
    "slide": {
     "doc": "artificial-insemination-b7ec95",
@@ -734,7 +726,7 @@ export default {
    }
   },
   {
-   "number": "• Moderate freezer (25% of stallion)",
+   "number": "Moderate freezer (25% of stallion)",
    "t": 1800,
    "slide": {
     "doc": "artificial-insemination-b7ec95",
@@ -742,7 +734,7 @@ export default {
    }
   },
   {
-   "number": "• Poor freezer (40% of stallion)",
+   "number": "Poor freezer (40% of stallion)",
    "t": 1800,
    "slide": {
     "doc": "artificial-insemination-b7ec95",
@@ -750,31 +742,7 @@ export default {
    }
   },
   {
-   "number": "• Good freezer (35% of stallion)",
-   "t": 1800,
-   "slide": {
-    "doc": "artificial-insemination-b7ec95",
-    "page": 21
-   }
-  },
-  {
-   "number": "• Moderate freezer (25% of stallion)",
-   "t": 1800,
-   "slide": {
-    "doc": "artificial-insemination-b7ec95",
-    "page": 21
-   }
-  },
-  {
-   "number": "• Poor freezer (40% of stallion)",
-   "t": 1800,
-   "slide": {
-    "doc": "artificial-insemination-b7ec95",
-    "page": 21
-   }
-  },
-  {
-   "number": "• 10-25 ml (for fresh/chilled semen)",
+   "number": "10-25 ml (for fresh/chilled semen)",
    "t": 2820,
    "slide": {
     "doc": "artificial-insemination-b7ec95",
@@ -838,7 +806,7 @@ export default {
    }
   },
   {
-   "number": "• Imipramine at 100 to 500 mg orally",
+   "number": "Imipramine at 100 to 500 mg orally",
    "t": 4020,
    "slide": {
     "doc": "infertility-infectious-disease-stallion-ff38ed",

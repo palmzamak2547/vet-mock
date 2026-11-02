@@ -630,7 +630,7 @@ export default {
    }
   },
   {
-   "number": "– Uterine cytology at > 2% PMNs",
+   "number": "Uterine cytology at > 2% PMNs",
    "t": 2640,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -638,7 +638,7 @@ export default {
    }
   },
   {
-   "number": "– > 2 cm during 6-36 h after",
+   "number": "> 2 cm during 6-36 h after",
    "t": 2640,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -694,7 +694,7 @@ export default {
    }
   },
   {
-   "number": "• Oxytocin (IM 10-20 Unit/mare, IM,",
+   "number": "Oxytocin (IM 10-20 Unit/mare, IM,",
    "t": 3600,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -710,7 +710,7 @@ export default {
    }
   },
   {
-   "number": "• PGF2: Cloprostenol (250 µg IM)",
+   "number": "PGF2: Cloprostenol (250 µg IM)",
    "t": 3600,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -726,7 +726,7 @@ export default {
    }
   },
   {
-   "number": "• 0.2 % v/v Povidone-iodine solution",
+   "number": "0.2 % v/v Povidone-iodine solution",
    "t": 3960,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -734,7 +734,7 @@ export default {
    }
   },
   {
-   "number": "• 100 mg of amphotericin B",
+   "number": "100 mg of amphotericin B",
    "t": 4020,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",
@@ -742,7 +742,7 @@ export default {
    }
   },
   {
-   "number": "• 500 mg of clotrimazole",
+   "number": "500 mg of clotrimazole",
    "t": 4020,
    "slide": {
     "doc": "lecture-7-ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า-8e9d6f",

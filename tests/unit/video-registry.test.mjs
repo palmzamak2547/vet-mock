@@ -11,7 +11,7 @@ import { VIDEO_TOPIC_INDEX } from '../../src/data/video-topic-index.generated.js
 import { VIDEO_CHANNELS } from '../../src/data/video-channels.js';
 import { SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
 import { LIMITS, keyPointCap, thaiWords } from '../../src/lib/video-summary-check.js';
-import { topicFits } from '../../scripts/video-registry.mjs';
+import { topicFits, displayTitle } from '../../scripts/video-registry.mjs';
 
 const subjects = new Map(Object.values(SUBJECTS_BY_YEAR).flat().map((s) => [s.id, s]));
 const topics = new Set([...subjects.values()].flatMap((s) => (s.topics || []).map((t) => t.id)));
@@ -44,6 +44,12 @@ test('a topic stretch is published only as the session\'s own topic', () => {
   assert.equal(topicFits('Anatomy function and clinical examination of stallion', 'Male reproductive organ functions'), true);
   // The lecturer's own set settles it, whatever the title says.
   assert.equal(topicFits('7.Endometritis in mare 1 Oct 69', 'Uterine defense', new Set(['eqrepro-defense']), 'eqrepro-defense'), true);
+});
+
+test('a session title loses its number and date, never its words', () => {
+  assert.equal(displayTitle('8, 9 Anatomy function and clinical examination of stallion'), 'Anatomy function and clinical examination of stallion');
+  assert.equal(displayTitle('7.Endometritis in mare 1 Oct 69'), 'Endometritis in mare');
+  assert.equal(displayTitle('Mycoses'), 'Mycoses');
 });
 
 test('the small index and the card loaders agree with the registry', () => {
@@ -79,6 +85,10 @@ test('every card keeps the summary policy where students read it', async () => {
       assert.ok(thaiWords(c.line) <= LIMITS.chapterLine, `${where(c)} chapter line too long`);
       last = c.t;
     }
+    // The review of 5.186.0: an index row once, without a slide's bullet.
+    const keys = card.index.map((x) => (x.term || x.number).toLowerCase());
+    assert.equal(new Set(keys).size, keys.length, `${id}: an index row repeats`);
+    assert.ok(!card.index.some((x) => /^[•▪◦●–]/.test(x.number || '')), `${id}: a number keeps its slide bullet`);
     const text = JSON.stringify(card);
     assert.ok(!text.includes('·'), `${id}: middle dot`);
     assert.ok(!/อาจารย์(?:กล่าว|บอก|พูด)ว่า/.test(text), `${id}: speaks about the lecturer instead of the content`);

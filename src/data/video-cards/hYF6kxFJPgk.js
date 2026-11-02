@@ -871,7 +871,7 @@ export default {
    }
   },
   {
-   "number": "– Acyclovir 80 mg/kg SID or TID",
+   "number": "Acyclovir 80 mg/kg SID or TID",
    "t": 3660,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
@@ -879,19 +879,11 @@ export default {
    }
   },
   {
-   "number": "• Oxytocin 5 to 30 IU/kg",
-   "t": 4020,
-   "slide": {
-    "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
-    "page": 84
-   }
-  },
-  {
    "number": "Oxytocin 5 to 30 IU/kg",
    "t": 4020,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
-    "page": 87
+    "page": 84
    }
   },
   {
@@ -967,7 +959,7 @@ export default {
    }
   },
   {
-   "number": "• Thiamine 50 – 100 mg/kg",
+   "number": "Thiamine 50 – 100 mg/kg",
    "t": 5160,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
