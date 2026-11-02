@@ -691,3 +691,31 @@ test('PF-17: rows a guest kept are not served to a signed-in session, nor rows o
   await (await freshLibrary()).fetchLibraryDocs();
   assert.ok(t.stats.pages.length > pagesBefore, 'rows of an older column list are downloaded again');
 });
+
+test('PF-17: a revision that never answers is cut after 3 s and the shelf downloads; no Cache API, no revision', async () => {
+  install({ signedIn: false });
+  const t = table(shelf(10));
+  // A builder that, like postgrest-js, takes an abort signal: the revision hangs until it fires.
+  const hang = { from() {
+    const q = t.client.from();
+    let signal = null;
+    const revision = { select() { return revision; }, order() { return revision; }, limit() { return revision; },
+      abortSignal(s) { signal = s; return revision; },
+      then(res) { return new Promise((r) => signal?.addEventListener('abort', () => r({ data: null, count: null, error: { message: 'aborted' } }))).then(res); } };
+    return { ...q, select(cols, opts) { return cols === 'updated_at' ? revision : q.select(cols, opts); } };
+  }, auth: t.client.auth };
+  globalThis.__vmxTestSupabase = hang;
+  const started = Date.now();
+  const { docs } = await (await freshLibrary()).fetchLibraryDocs();
+  assert.equal(docs.length, 10, 'the shelf still arrives');
+  assert.ok(Date.now() - started >= 2900, 'after the revision was given up');
+
+  globalThis.__vmxTestSupabase = t.client;
+  const caches = globalThis.caches;
+  globalThis.caches = undefined;
+  try {
+    const before = t.stats.revisions;
+    await (await freshLibrary()).fetchLibraryDocs();
+    assert.equal(t.stats.revisions, before, 'nothing can be kept, so nothing is asked');
+  } finally { globalThis.caches = caches; }
+});
