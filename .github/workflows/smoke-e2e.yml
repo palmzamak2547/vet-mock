@@ -95,8 +95,12 @@ jobs:
           tree=$(git rev-parse 'HEAD^{tree}')
           reuse=not-a-push
           if [ "${{ github.event_name }}" = push ]; then
-            hits=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=e2e-tested-tree-$tree&per_page=5" --jq '[.artifacts[] | select(.expired | not)] | length' 2>/dev/null || echo failed)
-            case "$hits" in 0) reuse=would-run ;; failed|'') reuse=lookup-failed ;; *) reuse=would-skip ;; esac
+            # Only an unexpired record from a run on this repository counts: a fork's pull request
+            # could upload the same name. On an HTTP error gh prints the error JSON, so anything
+            # but a small count reads as lookup-failed, never as a hit.
+            hits=$(timeout 30 gh api "repos/${{ github.repository }}/actions/artifacts?name=e2e-tested-tree-$tree&per_page=5" \
+              --jq '[.artifacts[] | select((.expired | not) and .workflow_run.head_repository_id == .workflow_run.repository_id)] | length' 2>/dev/null) || hits=failed
+            case "$hits" in 0) reuse=would-run ;; [1-5]) reuse=would-skip ;; *) reuse=lookup-failed ;; esac
           fi
           echo "tree=$tree" | tee -a "$GITHUB_OUTPUT"
           echo "reuse=$reuse" | tee -a "$GITHUB_OUTPUT"
@@ -354,9 +358,11 @@ jobs:
       # Reuse shadow (see `changes`): only a run where every e2e runner passed records its tree.
       - name: Record the tree this green run tested
         if: success() && github.event_name == 'pull_request' && needs.e2e.result == 'success'
+        continue-on-error: true
         run: mkdir -p tested && echo "run ${{ github.run_id }}, pull request ${{ github.event.pull_request.number }}, head ${{ github.event.pull_request.head.sha }}" > tested/tree.txt
       - if: success() && github.event_name == 'pull_request' && needs.e2e.result == 'success'
         continue-on-error: true
+        timeout-minutes: 1
         uses: actions/upload-artifact@v7
         with:
           name: e2e-tested-tree-${{ needs.changes.outputs.tree }}
