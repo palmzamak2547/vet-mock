@@ -58,6 +58,10 @@ test('the polish pass as rules: no study advice, no summary naming itself, % for
     base({ oneLiner: 'สรุป endometritis ใน mare: uterine defense, PBIE และการรักษา' }),
     base({ keyPoints: [{ t: 600, text: 'Contamination ไม่เท่ากับ infection ต้องแยก concept นี้ให้ชัด' }, ...base().keyPoints.slice(1)] }),
     base({ keyPoints: [{ t: 600, text: 'Fertility rate ม้าปกติผสมติดประมาณ 75-90 เปอร์เซ็นต์' }, ...base().keyPoints.slice(1)] }),
+    // The first batch: exam talk and coaching that passed every other gate.
+    base({ emphasis: [{ t: 700, text: 'อุณหภูมิ AV 45 °C เคยออกข้อสอบ' }] }),
+    base({ emphasis: [{ t: 700, text: 'ข้อสอบเป็นถูกผิด 10 ข้อ' }] }),
+    base({ emphasis: [{ t: 700, text: 'PCR ไม่ใช่แอนติเจน จำไว้ห้ามพลาด' }] }),
   ];
   for (const b of bad) assert.equal(lintSummary(b, opts).ok, false, JSON.stringify(b.oneLiner + b.keyPoints[0].text));
 });

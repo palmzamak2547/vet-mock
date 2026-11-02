@@ -57,7 +57,7 @@ You get a JSON skeleton. Return it filled in: the same keys, the same slots and 
 - keyPoints: one per slot, its t (m:ss) inside the slot's range, at most 9 words: the most examinable thing taught in that stretch.
 - emphasis: up to ${LIMITS.emphasis} things the lecture clearly stresses (said to remember, repeated, or set in red on a slide), each with t, at most 9 words; fewer when fewer are clearly stressed. Not a repeat of a key point.
 - remember: up to ${LIMITS.remember} short definitions, numbers or differentiators worth memorising, each with t, at most 6 words; a number exactly as the slide writes it, the numbers the bank asks about first. Not a repeat of a key point.
-- chapters: a line for every chapter id, at most 20 words, what that chapter teaches, including what its slides set in red, taught as content: never mention colours, slides or marks, never repeat the chapter's title or a key point word for word.
+- chapters: a line for every chapter id, at most 14 words, what that chapter teaches, including what its slides set in red, taught as content: never mention colours, slides or marks, never repeat the chapter's title or a key point word for word.
 ${RULES}`;
 
 const FIX = `You repair single items of a lecture summary for Thai veterinary students. Each item comes with the rule it broke and its evidence. Return JSON only: {"items":[{"ref":"<the ref given>","t":"m:ss","text":"<the new text>"}]}, one per item given, each obeying every rule below and its own word limit.
@@ -65,7 +65,7 @@ ${RULES}`;
 
 // The third reading, without evidence: what a student sees is all they get.
 const CLEAR = `You read study notes as a Thai veterinary student would, with nothing else to go on. Notes mix Thai with English terms and may be terse. For each numbered line decide whether a student understands it on its own.
-A "point" line states one complete idea a student can learn from. A "chapter" line may list what a chapter teaches, separated by commas, each part understandable. Either fails when it is garbled, half-finished, leaves its subject or referent unclear, or uses a word whose meaning there is unclear.
+A "summary" line says, as one statement, what the lecture teaches about its subject; a bare list of topic names fails it. A "point" line states one complete idea a student can learn from. A "chapter" line may list what a chapter teaches, separated by commas, each part understandable. Either fails when it is garbled, half-finished, leaves its subject or referent unclear, or uses a word whose meaning there is unclear.
 Judge clarity only. Never judge whether a line is true, and never use your own knowledge of the subject: another reader checks the facts against the lecture.
 Return JSON only: {"results":[{"i":0,"clear":true,"why":""}]}; say why in one short English sentence when not clear.`;
 
@@ -87,7 +87,9 @@ function transcriptSlice(lines, start, end, step = 20) {
 const pageText = (deck, n) => (deck?.pages?.[n - 1]?.text || '').replace(/\s+/g, ' ').trim().slice(0, 900);
 // What the prompts ask for, under the lint's caps: the model counts Thai
 // words differently from the segmenter.
-const LIMIT = { oneLiner: 22, keyPoints: 12, emphasis: 11, remember: 8, chapters: 20 };
+// Word targets the model is asked for. It writes about 1.4 times what it is asked, so
+// each sits well under its cap in LIMITS (measured on the first 30 clips, 2 Nov 2026).
+const LIMIT = { oneLiner: 18, keyPoints: 9, emphasis: 9, remember: 6, chapters: 14 };
 
 async function main() {
   const dir = process.argv[2];
@@ -225,14 +227,15 @@ async function main() {
   };
   const clarity = new Map();
   const unclear = async (s) => {
-    const list = [{ ref: 'oneLiner', kind: 'chapter', text: s.oneLiner }, ...['keyPoints', 'emphasis', 'remember'].flatMap((layer) => s[layer].map((p, i) => ({ ref: `${layer}:${i}`, kind: 'point', text: p.text }))),
+    const list = [{ ref: 'oneLiner', kind: 'summary', text: s.oneLiner }, ...['keyPoints', 'emphasis', 'remember'].flatMap((layer) => s[layer].map((p, i) => ({ ref: `${layer}:${i}`, kind: 'point', text: p.text }))),
       ...s.chapters.map((c, i) => ({ ref: `chapters:${i}`, kind: 'chapter', text: c.line }))];
-    const fresh = list.filter((p) => !clarity.has(p.text));
+    const ck = (p) => (p.kind === 'summary' ? `summary|${p.text}` : p.text);
+    const fresh = list.filter((p) => !clarity.has(ck(p)));
     if (fresh.length) {
       const out = await ask(CLEAR, fresh.map((p, i) => `#${i} (${p.kind}) ${p.text}`).join('\n'), 1500, 0);
-      fresh.forEach((p, i) => clarity.set(p.text, (out.results || []).find((r) => r.i === i) || { clear: false, why: 'no verdict returned' }));
+      fresh.forEach((p, i) => clarity.set(ck(p), (out.results || []).find((r) => r.i === i) || { clear: false, why: 'no verdict returned' }));
     }
-    return list.map((p) => ({ ...p, ...clarity.get(p.text) })).filter((r) => r.clear !== true);
+    return list.map((p) => ({ ...p, ...clarity.get(ck(p)) })).filter((r) => r.clear !== true);
   };
   const judge = async (s) => {
     const lint = lintSummary(s, { durationSec: a.duration, transcriptWords, chapterIds: chapters.map((c) => c.id), breaks: a.breaks, teaching });
@@ -267,7 +270,7 @@ async function main() {
       if (c) {
         const n = c[2].match(/^(\d+) words/);
         // Written as short comma-separated parts, code can fit it to the cap.
-        add(`chapters:${chapters.findIndex((x) => x.id === c[1])}`, n ? `now ${n[1]} words: rewrite it as 3 or 4 short parts separated by commas, most examinable first, ${LIMIT.chapters} words in all` : c[2]);
+        add(`chapters:${chapters.findIndex((x) => x.id === c[1])}`, n ? `now ${n[1]} words: rewrite it as 2 or 3 short parts separated by commas, most examinable first, at most ${LIMIT.chapters} words in all` : c[2]);
       }
       const d = e.match(/^(keyPoints|emphasis|remember) (\d+): says what (keyPoints|emphasis|remember) \d+ says$/);
       if (d) { const ref = refOf(d[1], Number(d[2])); if (ref) add(ref, `repeats a ${d[3]} item: write a different fact`); }

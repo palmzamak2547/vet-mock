@@ -174,52 +174,6 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
- "dautD1MVHEg": {
-  "title": "Porcine reproductive and respiratory syndrome",
-  "session": "4",
-  "date": "2026-10-09",
-  "durationSec": 7155,
-  "subject": "swine-clinic",
-  "year": 5,
-  "term": 1,
-  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
-  "playlist": "PLXVS-5YCQzqk",
-  "topics": [
-   [
-    "swine-resp-viral",
-    420,
-    840,
-    "high"
-   ]
-  ],
-  "skips": [],
-  "media": false,
-  "captions": "youtube",
-  "card": true
- },
- "Q90_Y5fAX4I": {
-  "title": "Mycoses",
-  "session": "1",
-  "date": "2026-10-02",
-  "durationSec": 5000,
-  "subject": "zoonoses",
-  "year": 5,
-  "term": 1,
-  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
-  "playlist": "PLdEGWCa6KP70",
-  "topics": [
-   [
-    "zoo-mycoses",
-    420,
-    2880,
-    "high"
-   ]
-  ],
-  "skips": [],
-  "media": false,
-  "captions": "youtube",
-  "card": true
- },
  "0gTn7Up9Vj0": {
   "title": "Endometritis in mare",
   "session": "7",
@@ -276,6 +230,229 @@ export const VIDEO_REGISTRY = {
     "equine-ophth",
     4260,
     5820,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "23AwFruxQQc": {
+  "title": "Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidem",
+  "session": "7",
+  "date": "2026-09-14",
+  "durationSec": 7159,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [
+   [
+    "epidem-dx-screening",
+    1920,
+    3300,
+    "medium"
+   ],
+   [
+    "epidem-dx-screening",
+    4200,
+    4260,
+    "high"
+   ],
+   [
+    "epidem-dx-screening",
+    5760,
+    7080,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true,
+  "note": "Module อื่นๆ self study นะ มีอะไรสงสัยก็ไปถามอจ.ได้เลย"
+ },
+ "hYF6kxFJPgk": {
+  "title": "Turtle and tortoise medicine (ต่อ)",
+  "session": "7.2",
+  "date": "2026-09-15",
+  "durationSec": 5974,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-turtle",
+    4200,
+    5100,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "130fSmEeitU": {
+  "title": "Swine medicine III",
+  "session": "5",
+  "date": "2026-09-11",
+  "durationSec": 9787,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-pornchalit-set",
+    420,
+    3720,
+    "high"
+   ],
+   [
+    "swine-pornchalit-set",
+    6120,
+    6600,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "QvEF0KAC1zI": {
+  "title": "การควบคุมคุณภาพในกระบวนการผลิตปศุสัตว์",
+  "session": "4",
+  "date": "2026-09-09",
+  "durationSec": 5592,
+  "subject": "food-industry",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLakGwr0kO4UE",
+  "topics": [
+   [
+    "fiqc-livestock-qc",
+    900,
+    3180,
+    "high"
+   ],
+   [
+    "fiqc-livestock-qc",
+    4440,
+    5520,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "xkJw4A0OS7A": {
+  "title": "Collaboration partnership + One health communication",
+  "session": "4",
+  "date": "2026-09-09",
+  "durationSec": 4103,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "mVLI06PiiNE": {
+  "title": "Data analysis & applied statistic for epidemiology (ต่อ)",
+  "session": "6.2",
+  "date": "2026-09-07",
+  "durationSec": 9216,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "qQaAsu7Igsw": {
+  "title": "Data analysis & applied statistic for epidemiology",
+  "session": "6.1",
+  "date": "2026-09-07",
+  "durationSec": 7953,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "Nto0dg3GP1w": {
+  "title": "Ornamental fish medicine",
+  "session": "5",
+  "date": "2026-09-01",
+  "durationSec": 7870,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-ornamental",
+    0,
+    2760,
+    "high"
+   ],
+   [
+    "aqua-ornamental",
+    4680,
+    7560,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "BnfVPW0S_lw": {
+  "title": "Coronaviruses Viral Zoonosis II",
+  "session": "4.2",
+  "date": "2026-08-28",
+  "durationSec": 5444,
+  "subject": "zoonoses",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLdEGWCa6KP70",
+  "topics": [
+   [
+    "zoo-corona",
+    0,
+    720,
+    "high"
+   ],
+   [
+    "zoo-corona",
+    1380,
+    4860,
     "high"
    ]
   ],

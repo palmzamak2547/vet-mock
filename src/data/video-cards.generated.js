@@ -5,17 +5,24 @@
 // (docs/VIDEO-LIBRARY.md). Do not hand-edit: rerun the pipeline and this.
 // ============================================================
 
-export const VIDEO_INDEX = {"MGU2qNX2paA":["Equine concept of surgery and anesthesia","equine-medicine","2026-10-22",1,0,8963],"pj_zkis2ziU":["One health approach to address environmental health risks I","one-health","2026-10-21",1,0,4188],"WX7vrDP9MjA":["Storage of meat + Meat quality Wholesomeness + Application of molecular biology","milk-meat-hygiene","2026-10-21",1,0,10080],"Fqgp8DoPDws":[", 9 Anatomy function and clinical examination of stallion","equine-repro","2026-10-08",1,0,4315],"Y9vHebIx5_E":["Semen collection and insemination  + 11.Infertility problem in stallion","equine-repro","2026-10-15",0,0,5060],"sglz-itsQ2M":["One health approach to combat foodborne diseases","one-health","2026-10-14",0,0,3734],"dautD1MVHEg":["Porcine reproductive and respiratory syndrome","swine-clinic","2026-10-09",0,0,7155],"Q90_Y5fAX4I":["Mycoses","zoonoses","2026-10-02",0,0,5000],"0gTn7Up9Vj0":["Endometritis in mare","equine-repro","2026-10-01",1,288,4429],"Ztccmz_HjfY":["Equine ophthalmology","equine-medicine","2026-10-01",0,0,6395]};
+export const VIDEO_INDEX = {"MGU2qNX2paA":["Equine concept of surgery and anesthesia","equine-medicine","2026-10-22",1,0,8963],"pj_zkis2ziU":["One health approach to address environmental health risks I","one-health","2026-10-21",1,0,4188],"WX7vrDP9MjA":["Storage of meat + Meat quality Wholesomeness + Application of molecular biology","milk-meat-hygiene","2026-10-21",1,0,10080],"Fqgp8DoPDws":[", 9 Anatomy function and clinical examination of stallion","equine-repro","2026-10-08",1,0,4315],"Y9vHebIx5_E":["Semen collection and insemination  + 11.Infertility problem in stallion","equine-repro","2026-10-15",0,0,5060],"sglz-itsQ2M":["One health approach to combat foodborne diseases","one-health","2026-10-14",0,0,3734],"0gTn7Up9Vj0":["Endometritis in mare","equine-repro","2026-10-01",1,288,4429],"Ztccmz_HjfY":["Equine ophthalmology","equine-medicine","2026-10-01",0,0,6395],"23AwFruxQQc":["Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidem","epidemiology","2026-09-14",0,0,7159],"hYF6kxFJPgk":["Turtle and tortoise medicine (ต่อ)","aquatic-clinic","2026-09-15",0,0,5974],"130fSmEeitU":["Swine medicine III","swine-clinic","2026-09-11",0,0,9787],"QvEF0KAC1zI":["การควบคุมคุณภาพในกระบวนการผลิตปศุสัตว์","food-industry","2026-09-09",0,0,5592],"xkJw4A0OS7A":["Collaboration partnership + One health communication","one-health","2026-09-09",0,0,4103],"mVLI06PiiNE":["Data analysis & applied statistic for epidemiology (ต่อ)","epidemiology","2026-09-07",0,0,9216],"qQaAsu7Igsw":["Data analysis & applied statistic for epidemiology","epidemiology","2026-09-07",0,0,7953],"Nto0dg3GP1w":["Ornamental fish medicine","aquatic-clinic","2026-09-01",0,0,7870],"BnfVPW0S_lw":["Coronaviruses Viral Zoonosis II","zoonoses","2026-08-28",0,0,5444]};
 
 export const VIDEO_CARD_LOADERS = {
   '0gTn7Up9Vj0': () => import('./video-cards/0gTn7Up9Vj0.js'),
+  '130fSmEeitU': () => import('./video-cards/130fSmEeitU.js'),
+  '23AwFruxQQc': () => import('./video-cards/23AwFruxQQc.js'),
+  'BnfVPW0S_lw': () => import('./video-cards/BnfVPW0S_lw.js'),
   'Fqgp8DoPDws': () => import('./video-cards/Fqgp8DoPDws.js'),
   'MGU2qNX2paA': () => import('./video-cards/MGU2qNX2paA.js'),
-  'Q90_Y5fAX4I': () => import('./video-cards/Q90_Y5fAX4I.js'),
+  'Nto0dg3GP1w': () => import('./video-cards/Nto0dg3GP1w.js'),
+  'QvEF0KAC1zI': () => import('./video-cards/QvEF0KAC1zI.js'),
   'WX7vrDP9MjA': () => import('./video-cards/WX7vrDP9MjA.js'),
   'Y9vHebIx5_E': () => import('./video-cards/Y9vHebIx5_E.js'),
   'Ztccmz_HjfY': () => import('./video-cards/Ztccmz_HjfY.js'),
-  'dautD1MVHEg': () => import('./video-cards/dautD1MVHEg.js'),
+  'hYF6kxFJPgk': () => import('./video-cards/hYF6kxFJPgk.js'),
+  'mVLI06PiiNE': () => import('./video-cards/mVLI06PiiNE.js'),
   'pj_zkis2ziU': () => import('./video-cards/pj_zkis2ziU.js'),
+  'qQaAsu7Igsw': () => import('./video-cards/qQaAsu7Igsw.js'),
   'sglz-itsQ2M': () => import('./video-cards/sglz-itsQ2M.js'),
+  'xkJw4A0OS7A': () => import('./video-cards/xkJw4A0OS7A.js'),
 };

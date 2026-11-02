@@ -72,22 +72,6 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
- "swine-resp-viral": [
-  {
-   "v": "dautD1MVHEg",
-   "s": 420,
-   "e": 840,
-   "conf": "high"
-  }
- ],
- "zoo-mycoses": [
-  {
-   "v": "Q90_Y5fAX4I",
-   "s": 420,
-   "e": 2880,
-   "conf": "high"
-  }
- ],
  "eqrepro-endometritis": [
   {
    "v": "0gTn7Up9Vj0",
@@ -113,6 +97,90 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "Ztccmz_HjfY",
    "s": 300,
    "e": 1020,
+   "conf": "high"
+  }
+ ],
+ "epidem-dx-screening": [
+  {
+   "v": "23AwFruxQQc",
+   "s": 5760,
+   "e": 7080,
+   "conf": "high"
+  },
+  {
+   "v": "23AwFruxQQc",
+   "s": 4200,
+   "e": 4260,
+   "conf": "high"
+  },
+  {
+   "v": "23AwFruxQQc",
+   "s": 1920,
+   "e": 3300,
+   "conf": "medium"
+  }
+ ],
+ "aqua-turtle": [
+  {
+   "v": "hYF6kxFJPgk",
+   "s": 4200,
+   "e": 5100,
+   "conf": "high"
+  }
+ ],
+ "swine-pornchalit-set": [
+  {
+   "v": "130fSmEeitU",
+   "s": 420,
+   "e": 3720,
+   "conf": "high"
+  },
+  {
+   "v": "130fSmEeitU",
+   "s": 6120,
+   "e": 6600,
+   "conf": "high"
+  }
+ ],
+ "fiqc-livestock-qc": [
+  {
+   "v": "QvEF0KAC1zI",
+   "s": 900,
+   "e": 3180,
+   "conf": "high"
+  },
+  {
+   "v": "QvEF0KAC1zI",
+   "s": 4440,
+   "e": 5520,
+   "conf": "high"
+  }
+ ],
+ "aqua-ornamental": [
+  {
+   "v": "Nto0dg3GP1w",
+   "s": 4680,
+   "e": 7560,
+   "conf": "high"
+  },
+  {
+   "v": "Nto0dg3GP1w",
+   "s": 0,
+   "e": 2760,
+   "conf": "high"
+  }
+ ],
+ "zoo-corona": [
+  {
+   "v": "BnfVPW0S_lw",
+   "s": 1380,
+   "e": 4860,
+   "conf": "high"
+  },
+  {
+   "v": "BnfVPW0S_lw",
+   "s": 0,
+   "e": 720,
    "conf": "high"
   }
  ]

@@ -146,7 +146,9 @@ function build() {
 /** The run's report for the admin page, from the manifests the stages keep. */
 export function runStatus({ registry, cards, before, media, pipeline, taken }) {
   const ids = new Set(taken);
-  const held = Object.entries(pipeline).filter(([id, s]) => ids.has(id) && String(s.summary || '').startsWith('held')).map(([id, s]) => ({ id, why: String(s.summary).slice(0, 160) }));
+  // A summary's own file says whether it is held: the manifest can lag a recheck.
+  const held = [...ids].map((id) => [id, readJSON(path.join(DATA, id, 'summary.json'))]).filter(([, s]) => s?.status === 'held')
+    .map(([id, s]) => ({ id, why: [...(s.checks?.lint?.errors || []), ...(s.checks?.coverage?.missing || []).map((m) => `missing ${m}`)].join('; ').slice(0, 160) || 'held by the verifier or the clarity reader' }));
   const failed = [
     ...Object.entries(media).filter(([id, m]) => ids.has(id) && m.error).map(([id, m]) => ({ id, step: 'media', error: String(m.error).slice(0, 160) })),
     ...Object.entries(pipeline).filter(([id]) => ids.has(id)).flatMap(([id, s]) => ['analysis', 'summary'].filter((k) => String(s[k] || '').startsWith('failed')).map((k) => ({ id, step: k, error: String(s[k]).slice(0, 160) }))),
