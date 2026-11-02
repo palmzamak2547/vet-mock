@@ -30,6 +30,8 @@ import BackBar from '../components/BackBar.jsx';
 import MotionLoader from '../components/MotionLoader.jsx';
 import { MotionEnter } from '../components/MotionFeedback.jsx';
 import { thaiError } from '../lib/errors.js';
+import { displayDocTitle, docOpenMode, downloadDocFile, findLibraryDoc, missingDocReason, openDocInTab, readerPayload } from '../lib/library.js';
+import { APP_NAMES, externalUrl, inAppBrowser } from '../lib/inapp.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
@@ -106,6 +108,19 @@ let _pdfjsPromise = null;
 async function loadPdfjs() {
   if (_pdfjsPromise) return _pdfjsPromise;
   _pdfjsPromise = (async () => {
+    // pdf.js 4's modern build calls Promise's withResolvers, which Safari has
+    // only since 17.4, far above the iOS 14 floor (platform-compat.test): on
+    // an older iPhone, iPad or Mac every deck failed with a retry that could
+    // never work. The legacy build carries its own polyfills, and only those
+    // browsers load it (its own chunk, vite.config).
+    // Its worker is ES2022 (a class static block, Safari 16.4), so it is built
+    // through Vite's worker pipeline (`?worker&url`), which lowers it to the
+    // app's target like the legacy build itself; a plain `?url` copies it as is.
+    if (typeof Promise.withResolvers !== 'function') {
+      const legacy = await import('pdfjs-dist/legacy/build/pdf.mjs');
+      legacy.GlobalWorkerOptions.workerSrc = (await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?worker&url')).default;
+      return legacy;
+    }
     const pdfjs = await import('pdfjs-dist');
     try {
       const workerUrl = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')).default;
@@ -168,6 +183,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [loadingMsg, setLoadingMsg] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(null);
   const [error, setError] = useState(null);
+  // A shelf deck named only by the reader's address, once its row is found:
+  // the opening panel's title and its open-original and download buttons.
+  const [openedDoc, setOpenedDoc] = useState(null);
   const [toast, setToast] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [recent, setRecent] = useState([]);
@@ -478,15 +496,31 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // page 1 paints after ~100 KB instead of after the whole file. Everything
   // else is fetched whole, because chasing a trailing cross-reference table
   // over dozens of small ranges is slower than one sequential download.
-  const ingestRemote = useCallback(async (doc) => {
-    if (!doc?.url && !doc?.resolve && !doc?.bytes) return;
+  const ingestRemote = useCallback(async (asked) => {
+    if (!asked?.url && !asked?.resolve && !asked?.bytes && !asked?.fromUrl) return;
     const gen = supersedeOpen();
     const current = () => gen === loadGenRef.current;
+    let doc = asked;
     setError(null);
     setDownloadProgress(null);
     setLoading(true);
     setLoadingMsg('กำลังเปิดเอกสาร…');
     try {
+      // Named only by the reader's address (a reload, Forward, a link from
+      // VetMock AI): the catalog row first, then the shelf's own payload.
+      if (asked.fromUrl) {
+        loadPdfjs().catch(() => {}); // fetched beside the row, not after it
+        const row = await findLibraryDoc(asked.slug);
+        if (!current()) return;
+        if (!row) {
+          const reason = await missingDocReason(asked.slug);
+          if (!current()) return;
+          throw new Error(reason);
+        }
+        doc = readerPayload(row, { page: asked.page });
+        setOpenedDoc(doc);
+        if (docOpenMode(row).action !== 'read') throw new Error('ไฟล์นี้ไม่ใช่ PDF จึงเปิดอ่านในแอปไม่ได้ เปิดไฟล์ต้นฉบับหรือดาวน์โหลดแทน');
+      }
       // `resolve` defers the signed-link mint until here, overlapping it
       // with the pdf.js chunk load — the shelf navigates instantly instead
       // of freezing its button for the mint round-trip.
@@ -639,14 +673,34 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
   }, [showToast, refreshRecent]);
 
-  // Opening straight into a library document. Keyed by slug + url so
-  // navigating from one library item to another inside the same mount (the
-  // command palette can do this) re-ingests instead of showing the previous
-  // PDF; navigate-first payloads carry no url, only slug + resolve().
+  // Opening straight into a library document. Keyed by the payload itself:
+  // App makes one per open, so another deck from the command palette, the
+  // same deck asked for at another page, and a deck named only by the
+  // reader's address (fromUrl, filled in when its row arrives) each open.
+  const askedDocRef = useRef(null);
   useEffect(() => {
-    if (initialDoc?.url || initialDoc?.resolve) ingestRemote(initialDoc);
+    setOpenedDoc(null);
+    const before = askedDocRef.current;
+    askedDocRef.current = initialDoc;
+    if (!initialDoc?.url && !initialDoc?.resolve && !initialDoc?.fromUrl) {
+      // The deck was taken away (a sign-out in another tab remounts this view
+      // still holding it for a render): its open still in flight is withdrawn
+      // rather than shown to whoever is here now.
+      if (before) {
+        supersedeOpen();
+        setLoading(false);
+        setLoadingMsg('');
+        setDownloadProgress(null);
+      }
+      return;
+    }
+    // Another deck asked for while one is on screen: it gets the opening
+    // panel too. The viewing screen has no place for an error, so a failure
+    // used to leave the old deck up and say nothing.
+    if (pdfDoc) { flushRef.current?.(); setPdfDoc(null); }
+    ingestRemote(initialDoc);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialDoc?.url, initialDoc?.slug]);
+  }, [initialDoc]);
 
   // Remember where the reader is, debounced past quick flips. Passing no
   // strokesByPage on purpose — saveAnnotations merges field-by-field, so
@@ -2300,6 +2354,58 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       .map(([k]) => Number(k))
   );
 
+  // ── A shelf deck on its way ────────────────────────────────
+  // It used to wait under the personal-file dropzone ("เปิด PDF แล้วเขียนทับได้เลย",
+  // "เลือกไฟล์ PDF"), with the progress and the retry pushed under a phone's
+  // bottom bar. Now the deck's own title, the progress and, if it fails, every
+  // way to the file sit at the top.
+  if (!pdfDoc && initialDoc) {
+    const shown = openedDoc || initialDoc;
+    const app = typeof navigator !== 'undefined' ? inAppBrowser(navigator.userAgent) : null;
+    const exitHref = app && typeof window !== 'undefined' ? externalUrl(app, window.location.href) : null;
+    const fallback = typeof shown.resolve === 'function';
+    const fail = (e) => setError(thaiError(e, 'เปิดไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง'));
+    return (
+      <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
+        <BackBar onBack={onExit || goHome} label={onExit ? exitLabel : 'กลับหน้าแรก'} subtitle="คลังเอกสาร" />
+        <div className="vmx-doc-opening">
+          <h1>{shown.title ? displayDocTitle(shown.title) : 'เอกสารจากคลัง'}</h1>
+          {error ? (
+            <div className="vmx-error vmx-pdf-open-error" role="alert">
+              <p style={{ margin: 0 }}>{error}</p>
+              <div className="vmx-doc-opening-actions">
+                <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => ingestRemote(initialDoc)}>ลองเปิดอีกครั้ง</button>
+                {fallback && (
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { openDocInTab(shown.resolve).catch(fail); }}>
+                    เปิดไฟล์ต้นฉบับ
+                  </button>
+                )}
+                {/* App browsers do not save files (VetMock AI hides this too). An
+                    archive copy is read by range from another origin, which no
+                    download link can name: its tab saves it. */}
+                {fallback && !app && !shown.rangeSupported && (
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                    onClick={() => { downloadDocFile(shown.resolve, shown.mime && shown.mime !== 'application/pdf' ? '' : shown.fileName).catch(fail); }}>
+                    ดาวน์โหลดไฟล์
+                  </button>
+                )}
+              </div>
+              {app && (exitHref
+                ? <div className="vmx-doc-opening-actions"><a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={exitHref}>เปิดในเบราว์เซอร์</a></div>
+                : <p style={{ margin: 'var(--space-3) 0 0' }}>ตอนนี้เปิดอยู่ในแอป {APP_NAMES[app] || 'อื่น'} กดปุ่มเมนู (⋯ หรือ ⋮) ที่มุมจอ แล้วเลือกเปิดในเบราว์เซอร์</p>)}
+            </div>
+          ) : (
+            <div className="vmx-document-loading" role="status">
+              <MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" />
+              <span>{loadingMsg || 'กำลังเปิดเอกสาร…'}</span>
+            </div>
+          )}
+        </div>
+        {toast && <Toast text={toast} />}
+      </div>
+    );
+  }
+
   // ── Empty state ────────────────────────────────────────────
   if (!pdfDoc) {
     return (
@@ -2352,17 +2458,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           {error && (
             <div className="vmx-error vmx-pdf-open-error" role="alert">
               {error}
-              {(initialDoc?.resolve || initialDoc?.url) && (
-                <div style={{ marginTop: 8 }}>
-                  <button
-                    type="button"
-                    className="vmx-btn vmx-btn-sm"
-                    onClick={() => ingestRemote(initialDoc)}
-                  >
-                    ลองเปิดอีกครั้ง
-                  </button>
-                </div>
-              )}
             </div>
           )}
 

@@ -34,6 +34,7 @@ import {
   LIBRARY_KINDS,
   SEMESTERS,
   buddhistYear,
+  contentHitRows,
   docOpenMode,
   prefetchDocUrl,
   docTypeLabel,
@@ -45,6 +46,7 @@ import {
   displayDocTitle,
   kindLabel,
   listRecentDocs,
+  openDocInTab,
   readerPayload,
   recordRecentDoc,
   resolveDocUrl,
@@ -487,14 +489,10 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   const contentHits = useMemo(() => {
     if (!searching || !wantsText || textHits.q !== textQuery || !textHits.rows.length) return [];
     // The shelf's own filters apply to these too.
-    const allowed = new Set(filterIndexed(docIndex, {
+    return contentHitRows(textHits.rows, filterIndexed(docIndex, {
       kind, semester, academicYear, subject: subjectFilter || 'all',
-    }).map((d) => d.slug));
-    const bySlug = new Map(docs.map((d) => [d.slug, d]));
-    return textHits.rows
-      .filter((r) => allowed.has(r.slug) && bySlug.has(r.slug))
-      .map((r) => ({ ...r, doc: bySlug.get(r.slug) }));
-  }, [searching, wantsText, textHits, textQuery, docIndex, docs, kind, semester, academicYear, subjectFilter]);
+    }));
+  }, [searching, wantsText, textHits, textQuery, docIndex, kind, semester, academicYear, subjectFilter]);
 
   // The reader's own year first, as the clip shelf already does: it is the
   // one that opens, and on a phone it used to sit under four closed years.
@@ -582,20 +580,15 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
 
   const [recentDocs, setRecentDocs] = useState(() => listRecentDocs());
 
-  // New-tab opens (non-PDF files and "เปิดไฟล์ต้นฉบับ"). The tab is opened
-  // SYNCHRONOUSLY inside the click — popup blockers only trust window.open
-  // during user activation — then pointed at the URL once the mint resolves.
+  // New-tab opens (non-PDF files and "เปิดไฟล์ต้นฉบับ"): openDocInTab opens
+  // the tab inside the click, then points it at the URL once the mint lands.
   const openExternally = useCallback(async (doc) => {
-    const win = window.open('', '_blank');
-    if (win) { try { win.opener = null; } catch { /* hardened browsers */ } }
+    const opening = openDocInTab(() => resolveDocUrl(doc));
     setBusyId(doc.id);
     setError(null);
     try {
-      const url = await resolveDocUrl(doc);
-      if (win) win.location.replace(url);
-      else window.open(url, '_blank', 'noopener,noreferrer');
+      await opening;
     } catch (e) {
-      if (win) { try { win.close(); } catch { /* already gone */ } }
       setError(thaiError(e, 'เปิดไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
       setBusyId(null);

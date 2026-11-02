@@ -123,6 +123,43 @@ test('a slower first open finishing after a newer one neither shows nor exports'
   assert.equal(r.state.Loading, false);
 });
 
+// A reload, browser Forward or a VetMock AI link names a shelf deck only by
+// the reader's address (App passes { slug, page, fromUrl }). The reader used
+// to ignore a payload with no url or resolve, so the student got the empty
+// "เปิด PDF" page.
+function addressBook(r, rows) {
+  r.ctx.findLibraryDoc = async (slug) => rows[slug] || null;
+  r.ctx.docOpenMode = (row) => ({ action: row.mime === 'application/pdf' ? 'read' : 'download' });
+  r.ctx.readerPayload = (row, { page }) => ({ url: `audit:${row.slug}`, slug: row.slug, sha256: row.sha256_16, fileName: `${row.title}.pdf`, title: row.title, page, rangeSupported: true });
+  r.ctx.setOpenedDoc = (doc) => { r.state.opened = doc; };
+  r.ctx.missingDocReason = async () => 'ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป';
+}
+
+test('a deck named only by the reader address opens from its row, at the page the link asked for', async () => {
+  const r = reader();
+  addressBook(r, { deck: { slug: 'deck', title: 'Deck', mime: 'application/pdf', sha256_16: 'deck' } });
+  const open = r.ingestRemote({ slug: 'deck', page: 3, fromUrl: true });
+  await tick(); await tick();
+  r.tasks.get('audit:deck').resolve(5);
+  await open;
+  assert.deepEqual(r.state.published, ['deck']);
+  assert.equal(r.state.CurrentPage, 3);
+  assert.equal(r.state.opened?.title, 'Deck', 'the opening panel and its fallbacks know the deck');
+  assert.equal(r.state.Error, null);
+});
+
+test('a deck the address names but the shelf no longer has says so instead of an empty page', async () => {
+  const r = reader();
+  addressBook(r, { notes: { slug: 'notes', title: 'Notes', mime: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', sha256_16: 'notes' } });
+  await r.ingestRemote({ slug: 'gone', fromUrl: true });
+  assert.match(String(r.state.Error), /ไม่พบไฟล์นี้ในคลังแล้ว/);
+  await r.ingestRemote({ slug: 'notes', fromUrl: true });
+  assert.match(String(r.state.Error), /ไม่ใช่ PDF/, 'a Word file named in the address is offered as a file, not fed to pdf.js');
+  assert.equal(r.state.opened?.title, 'Notes');
+  assert.deepEqual(r.state.getDocument, []);
+  assert.equal(r.state.Loading, false);
+});
+
 test('a first open that has its bytes but is still merging ink is released when a newer one wins', async () => {
   const r = reader();
   r.slowAnnotations('A');

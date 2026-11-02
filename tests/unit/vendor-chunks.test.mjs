@@ -39,6 +39,9 @@ test('the pdf.js reader gets its own chunk, out of the chunk every visit loads',
   assert.equal(chunkOf('pdfjs-dist/build/pdf.mjs'), 'vendor-pdf-read');
   // The worker URL module (`?url`) travels with the reader that needs it.
   assert.equal(chunkOf('pdfjs-dist/build/pdf.worker.min.mjs?url'), 'vendor-pdf-read');
+  // The legacy build (Safari before 17.4) is a chunk of its own, so a current
+  // browser opening a PDF never downloads it.
+  assert.equal(chunkOf('pdfjs-dist/legacy/build/pdf.mjs'), 'vendor-pdf-read-legacy');
 });
 
 test("pdf-lib's embedded fonts and PNG codec travel with pdf-lib, not the shared chunk", () => {
@@ -139,6 +142,31 @@ test('a failed pdf.js load is not remembered, so the next open can try again', a
   assert.equal(pdfjs.GlobalWorkerOptions.workerSrc, '/assets/pdf.worker.min.mjs');
   assert.equal(await loadPdfjs(), pdfjs);
   assert.equal(readerLoads, 2, 'a reader that loaded is kept, not fetched again');
+});
+
+test('a browser without Promise.withResolvers gets the legacy pdf.js build and its worker', async () => {
+  // pdf.js 4's modern build calls it on every open; Safari has it from 17.4.
+  const source = readFileSync(new URL('../../src/views/PdfAnnotateView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const code = source.slice(source.indexOf('let _pdfjsPromise = null;'), source.indexOf('\nexport default function PdfAnnotateView'))
+    .replaceAll('import.meta.url', '__metaUrl')
+    .replaceAll('import(', '__import(');
+  const legacy = { GlobalWorkerOptions: {} };
+  const asked = [];
+  const context = vm.createContext({
+    URL,
+    __metaUrl: 'https://vetmock.test/assets/PdfAnnotateView.js',
+    __import: async (specifier) => {
+      asked.push(specifier);
+      return specifier === 'pdfjs-dist/legacy/build/pdf.mjs' ? legacy : { default: '/assets/pdf.worker.legacy.mjs' };
+    },
+  });
+  vm.runInContext('delete Promise.withResolvers;', context);
+  const loadPdfjs = vm.runInContext(`${code}\n;loadPdfjs`, context);
+  assert.equal(await loadPdfjs(), legacy);
+  assert.equal(legacy.GlobalWorkerOptions.workerSrc, '/assets/pdf.worker.legacy.mjs');
+  // The worker goes through Vite's worker pipeline, lowered like the build itself:
+  // pdf.js ships it as ES2022 (a class static block, Safari 16.4).
+  assert.deepEqual(asked, ['pdfjs-dist/legacy/build/pdf.mjs', 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?worker&url']);
 });
 
 test('the library shelf warms pdf.js along with the reader while it sits idle', async () => {

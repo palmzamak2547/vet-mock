@@ -113,7 +113,10 @@ export default defineConfig({
             // (@pdf-lib/*, 115 KB of base64 fonts) go with it.
             if (/[\\/]node_modules[\\/]@?pdf-lib[\\/]/.test(id)) return 'vendor-pdf-write'
             // pdf.js reads the PDF and is imported only when one opens. It
-            // was 362 KB of the 666 KB shared chunk every visit loaded.
+            // was 362 KB of the 666 KB shared chunk every visit loaded. The
+            // legacy build (Safari before 17.4 only) is a chunk of its own, so
+            // no current browser downloads it.
+            if (/[\\/]node_modules[\\/]pdfjs-dist[\\/]legacy[\\/]/.test(id)) return 'vendor-pdf-read-legacy'
             if (/[\\/]node_modules[\\/]pdfjs-dist[\\/]/.test(id)) return 'vendor-pdf-read'
             // Be SPECIFIC about react packaging — `includes('react')` was
             // too broad and matched any path containing the substring
