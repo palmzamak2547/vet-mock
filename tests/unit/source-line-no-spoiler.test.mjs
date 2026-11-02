@@ -341,8 +341,23 @@ test('a held topic shows with the key, in a part that keeps its size', async () 
   assert.equal(part(metaRow(plain)), undefined);
 });
 
+test('a past paper\'s cohort is one the parser reads in its origin, or none', async () => {
+  const { COHORT_UNCONFIRMED } = await import('../../src/data/source-line.generated.js');
+  const { parseExamOrigin, cohortList } = await import('../../src/lib/exam-origin-parse.js');
+  const { unconfirmedCohorts } = await import('../../scripts/lint-source-line.mjs');
+  assert.deepEqual([...COHORT_UNCONFIRMED].sort(), [...unconfirmedCohorts()].sort(), 'run npm run regen:source-line');
+  let named = 0;
+  for (const q of QB.filter((x) => sourceKind(x) === 'past')) {
+    const shown = /Vet ([\d, ]+)/.exec(sourceLineBeforeAnswer(q))?.[1].split(', ').map(Number) || [];
+    if (!shown.length) continue;
+    named += 1;
+    assert.deepEqual(shown, cohortList(parseExamOrigin(q.examOrigin).cohort), `${q.subject}#${q.id} ${q.examOrigin}`);
+  }
+  assert.ok(named > 1000, `past papers that name their cohort (${named})`);
+});
+
 test('the held topics are exactly the labels the check reads as giving the key away', async () => {
-  const { TOPIC_CHIP_HELD } = await import('../../src/data/topic-chip-held.generated.js');
+  const { TOPIC_CHIP_HELD } = await import('../../src/data/source-line.generated.js');
   const { topicLabelOf } = await import('../../scripts/lint-source-line.mjs');
   const shouldHold = new Set(QB.filter((q) => topicLabelOf(q) && leakOf(q, topicLabelOf(q))).map((q) => `${q.subject}:${q.id}`));
   const missing = [...shouldHold].filter((k) => !TOPIC_CHIP_HELD.has(k));

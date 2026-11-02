@@ -22,9 +22,10 @@
 // ============================================================
 import { isPastPaperQuestion, isExamAlignedQuestion } from './question-metadata.js';
 import { originEntry } from '../data/exam-origins.js';
-import { parseExamOrigin, cohortList } from './exam-origin-parse.js';
 import { humanSource } from './source-label.js';
-import { TOPIC_CHIP_HELD } from '../data/topic-chip-held.generated.js';
+// Both read by scripts/lint-source-line.mjs with the Node-only check and the
+// parser, so the browser carries two short lists instead of either.
+import { TOPIC_CHIP_HELD, COHORT_UNCONFIRMED } from '../data/source-line.generated.js';
 
 /** The paper a filed origin names, as the timetable words it. */
 const PAPER_LABEL = Object.freeze({
@@ -82,28 +83,29 @@ export function followsExamPattern(question) {
 
 /** "Vet 85", "Vet 84, 85", or '' when no cohort is named. */
 function cohortLabel(cohort) {
-  const list = cohortList(cohort);
+  const list = (Array.isArray(cohort) ? cohort : [cohort]).filter(Number.isInteger).sort((a, b) => a - b);
   return list.length ? `Vet ${list.join(', ')}` : '';
 }
 
 /**
  * The line a student reads while the question is open: the kind of source,
- * and for a past paper the cohort that sat it and the paper.
+ * and for a past paper the cohort that sat it and the paper, as filed.
  * "ข้อสอบเก่า Vet 85 ปลายภาค", "อิงแนวข้อสอบ", "เขียนจากเนื้อหาที่เรียน".
  *
- * The paper is the filed one. The cohort is read by exam-origin-parse.js,
- * the one reader of who sat a paper: on 30 legacy origins the filing copies a
+ * A filed cohort shows only where exam-origin-parse.js, the one reader of who
+ * sat a paper, finds the same one. On 30 legacy origins the filing copies a
  * file label's number ("COM I Final 86", "Swine Herd Mid TJ86"), a cohort the
- * file was gathered FOR, and printing "Vet 86" there would claim Vet 86 sat it.
+ * file was gathered FOR, and "Vet 86" there would claim Vet 86 sat it; the
+ * lint lists those in COHORT_UNCONFIRMED until the filing is corrected.
  */
 export function sourceLineBeforeAnswer(question) {
   const kind = sourceKind(question);
   if (kind !== 'past') return SOURCE_KIND_LABEL[kind];
   const origin = question?.examOrigin;
   const filed = originEntry(origin);
-  const parsed = origin ? parseExamOrigin(origin) : { cohort: null, paper: null };
-  const paper = (filed?.kind === 'paper' ? filed.paper : null) || parsed.paper;
-  return [SOURCE_KIND_LABEL.past, cohortLabel(parsed.cohort), PAPER_LABEL[paper] || '']
+  const paper = filed?.kind === 'paper' ? filed : null;
+  const cohort = paper && !COHORT_UNCONFIRMED.has(origin) ? paper.cohort : null;
+  return [SOURCE_KIND_LABEL.past, cohortLabel(cohort), PAPER_LABEL[paper?.paper] || '']
     .filter(Boolean)
     .join(' ');
 }
@@ -116,10 +118,10 @@ export const readableSource = (s) => String(s).replace(/\s*·\s*/g, ', ');
 // The same rule holds above the stem: on 129 questions the topic label alone
 // named the key ("Autoimmune Skin Diseases" above "Sebaceous Adenitis
 // เป็นโรคที่"). Which labels would is decided by scripts/lint-source-line.mjs
-// with the same check, written to topic-chip-held.generated.js (the browser
-// has no Thai word segmenter on iOS 14, and a second rule in the browser
-// could drift from the lint's). The card prints TOPIC_CHIP_WAIT in the
-// label's place until the key is on screen.
+// with the same check, written to source-line.generated.js (the browser has
+// no Thai word segmenter on iOS 14, and a second rule in the browser could
+// drift from the lint's). The card prints TOPIC_CHIP_WAIT in the label's
+// place until the key is on screen.
 
 /** The topic as the card prints it: a "คาบ 3, " session prefix is dropped. */
 export const topicChipText = (label) => String(label ?? '').replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '');
