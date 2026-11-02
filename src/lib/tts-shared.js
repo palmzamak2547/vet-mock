@@ -61,38 +61,58 @@ export async function getSharedAudio({ key, url }, signal) {
  * The clips for one question in reading order, or null when any is missing.
  * stem and options are the question's own text (options in display order);
  * an explanation is read as a stem with no options.
- * Each item: { key, url, kind: 'stem' | 'label' | 'option' }, all from one
+ * Each item: { key, url, gen, text, kind: 'stem' | 'label' | 'option', option }
+ * (option: the display index a label or option belongs to), all from one
  * generation: the newest whose manifest lists every clip.
  */
 export async function sharedPlan({ stem, options, lang, subject, signal }) {
   const parts = [];
-  const add = (text, kind) => { if (text) parts.push({ text, kind }); };
+  const add = (text, kind, option = -1) => { if (text) parts.push({ text, kind, option }); };
   add(clipText(stem, lang), 'stem');
   (options || []).forEach((o, i) => {
     const t = clipText(o, lang);
     if (!t) return;
-    add(optionLabel(i, lang), 'label');
-    add(t, 'option');
+    add(optionLabel(i, lang), 'label', i);
+    add(t, 'option', i);
   });
   if (!parts.length) return null;
-  const gens = SHARED_GENS.map((g) => ({
-    manifest: loadManifest(subject, g),
-    plan: Promise.all(parts.map((p) => clipKey(p.text, g)))
-      .then((keys) => parts.map((p, i) => ({ kind: p.kind, key: keys[i], url: clipUrl(keys[i], g) }))),
-  }));
-  // The newest generation's stem clip starts downloading alongside the
-  // manifests: on a slow phone network that saves a round trip before the
-  // first word. When its manifest says no, the request was one small 404.
-  const first = await gens[0].plan;
-  first[0].buf = getSharedAudio(first[0], signal);
-  first[0].buf.catch(() => {});
-  for (const g of gens) {
-    const [plan, manifest] = await Promise.all([g.plan, g.manifest]);
-    if (manifest ? plan.every((p) => manifest.has(p.key))
+  // Every generation is checked at once. The first clip of each that has the
+  // whole question starts downloading as soon as its own manifest says so,
+  // so the voice that wins never waits a second round trip, and a generation
+  // without the question costs no request for a clip it does not have.
+  const gens = SHARED_GENS.map(async (g) => {
+    const [keys, manifest] = await Promise.all([Promise.all(parts.map((p) => clipKey(p.text, g))), loadManifest(subject, g)]);
+    const plan = parts.map((p, i) => ({ ...p, key: keys[i], url: clipUrl(keys[i], g), gen: g.gen }));
+    const whole = manifest ? plan.every((p) => manifest.has(p.key))
       // No manifest (offline): play only if every clip is already on the device.
-      : (await Promise.all(plan.map((p) => cache.read(p.key)))).every(Boolean)) return plan;
+      : (await Promise.all(plan.map((p) => cache.read(p.key)))).every(Boolean);
+    if (!whole) return null;
+    plan[0].buf = getSharedAudio(plan[0], signal);
+    plan[0].buf.catch(() => {});
+    return plan;
+  });
+  for (const g of gens) {
+    const plan = await g;
+    if (plan) return plan;
   }
   return null;
+}
+
+// The second each word of a part's text starts ({ w } beside an e1 clip,
+// scripts/tts-clips.mjs), or null: g1 clips and options carry none.
+const words = new Map(); // url -> Promise<number[] | null>
+export function loadWords(part) {
+  if (part.gen !== 'e1' || part.kind !== 'stem') return Promise.resolve(null);
+  const url = part.url.replace(/\.mp4$/, '.json');
+  let p = words.get(url);
+  if (!p) {
+    p = fetchWithTimeout(url, FETCH_TIMEOUT_MS)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (Array.isArray(j?.w) ? j.w : null))
+      .catch(() => null);
+    words.set(url, p);
+  }
+  return p;
 }
 
 // Opens the connection to the clip host ahead of the first tap (DNS, TCP

@@ -35,7 +35,7 @@ const STUBS = [
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
   { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
   ...['WikiLinkForQuestion', 'TermLinkedRichText', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
-    'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'MochiLive', 'AiGradePanel']
+    'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'MochiLive', 'AiGradePanel', 'ReadAloudBar']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
 ];
 

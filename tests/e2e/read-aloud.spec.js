@@ -49,27 +49,38 @@ let manifest;
 let explainManifest;
 test.beforeAll(async () => { ({ keys: manifest, explain: explainManifest } = await subjectKeys(SUBJECT)); });
 
-async function openQuestion(page, { clipMs, e1 = [] }) {
+async function openQuestion(page, { clipMs, e1 = [], noClips = false }) {
   const seen = { clips: [], e1: [], live: 0, manifest: 0 };
   await page.addInitScript((ms) => {
     try { window.localStorage.setItem('vmx-selected-year', '4'); } catch {}
     window.__plays = 0;
     HTMLMediaElement.prototype.canPlayType = () => 'probably';
-    // The fixture clips are not real audio: the element is built without a
-    // src so the browser never tries to load or decode them (WebKit on Linux
-    // logs "Failed to load resource" for a blob it cannot decode).
+    // The fixture clips are not real audio: an element's src is only
+    // remembered, never loaded, so the browser does not try to decode them
+    // (WebKit on Linux logs "Failed to load resource" for a blob it cannot
+    // decode). The read-aloud plays every clip on one element by setting src.
     const NativeAudio = window.Audio;
     window.Audio = function Audio(src) { const el = new NativeAudio(); el.__src = String(src || ''); return el; };
+    Object.defineProperty(HTMLMediaElement.prototype, 'src', {
+      configurable: true,
+      get() { return this.__src || ''; },
+      set(v) { clearTimeout(this.__t); this.__src = String(v); },
+    });
+    const removeAttribute = Element.prototype.removeAttribute;
+    HTMLMediaElement.prototype.removeAttribute = function (name) { if (name === 'src') this.__src = ''; return removeAttribute.call(this, name); };
+    HTMLMediaElement.prototype.load = function () {};
     HTMLMediaElement.prototype.play = function play() {
       // The silent primer the button plays to unlock audio is not a clip.
-      if (!this.__src || this.__src.startsWith('data:')) return Promise.resolve();
+      const src = this.__src || '';
+      if (!src || src.startsWith('data:')) return Promise.resolve();
       window.__plays += 1;
       const el = this;
-      el.__t = setTimeout(() => el.dispatchEvent(new Event('ended')), ms);
+      clearTimeout(el.__t);
+      queueMicrotask(() => el.dispatchEvent(new Event('playing')));
+      el.__t = setTimeout(() => { if (el.__src === src) el.dispatchEvent(new Event('ended')); }, ms);
       return Promise.resolve();
     };
-    const pause = HTMLMediaElement.prototype.pause;
-    HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); return pause.call(this); };
+    HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); };
   }, clipMs);
   await page.route('https://tts.vetmock.com/**', (route) => {
     const url = route.request().url();
@@ -83,7 +94,7 @@ async function openQuestion(page, { clipMs, e1 = [] }) {
     }
     if (url.endsWith(`/m/${SUBJECT}.json`)) {
       seen.manifest += 1;
-      return route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify(manifest) });
+      return route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify(noClips ? [] : manifest) });
     }
     seen.clips.push(url.match(/([0-9a-f]{16})\.mp4$/)?.[1]);
     return route.fulfill({ status: 200, contentType: 'audio/mp4', headers: { 'access-control-allow-origin': '*' }, body: Buffer.from('clip') });
@@ -139,23 +150,74 @@ test('Stop ends the read-aloud at once and nothing else plays', async ({ page })
 });
 
 test('the เหตุผล row reads its explanation in the newer voice, apart from the question', async ({ page }) => {
-  const seen = await openQuestion(page, { clipMs: 40, e1: explainManifest });
+  // Long enough clips that every state is on screen for a while (Playwright
+  // re-checks at 100 ms and more, and a 40 ms clip slipped between checks).
+  const seen = await openQuestion(page, { clipMs: 1500, e1: explainManifest });
   await page.locator('.vmx-option').first().click();
   const panel = page.locator('.vmx-instant-feedback');
   await expect(panel).toBeVisible();
   const listen = panel.getByRole('button', { name: 'อ่านเหตุผลออกเสียง' });
   await expect(listen).toBeVisible();
+  const box = await listen.boundingBox();
+  expect(Math.round(box.width)).toBeGreaterThanOrEqual(44);
+  expect(Math.round(box.height)).toBeGreaterThanOrEqual(44);
   const size = async () => { const b = await panel.boundingBox(); return { width: b.width, height: b.height }; };
   const before = await size();
   await listen.click();
   await expect(panel.getByRole('button', { name: 'หยุดอ่านออกเสียง' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.vmx-instant-feedback .w')).toHaveClass(/is-reading/);
+  await expect(page.getByRole('region', { name: 'เสียงอ่าน' })).toContainText('อ่านเหตุผล');
   // The question's own button is not the one reading.
   await expect(page.getByRole('button', { name: 'อ่านคำถามออกเสียง' })).toHaveAttribute('aria-pressed', 'false');
   await expect(listen).toHaveAttribute('aria-pressed', 'false', { timeout: 15_000 });
+  await expect(page.getByRole('region', { name: 'เสียงอ่าน' })).toHaveCount(0);
   expect(await page.evaluate(() => window.__plays)).toBe(1);
   expect(seen.e1.length).toBe(1);
   expect(explainManifest).toContain(seen.e1[0]);
   expect(seen.live).toBe(0);
   // Reading changed nothing about the panel's size.
   expect(await size()).toEqual(before);
+});
+
+test('the bar pauses, resumes, changes speed, moves by point and closes', async ({ page }) => {
+  await openQuestion(page, { clipMs: 2500 });
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar).toBeVisible();
+  await expect(page.locator('.vmx-qtext')).toHaveClass(/is-reading/);
+  // Every control is a 44 px target.
+  for (const b of await bar.getByRole('button').all()) {
+    const r = await b.boundingBox();
+    expect(Math.round(Math.min(r.width, r.height))).toBeGreaterThanOrEqual(44);
+  }
+  await bar.getByRole('button', { name: 'หยุดชั่วคราว' }).click();
+  await expect(bar.getByRole('status')).toHaveText('หยุดชั่วคราว');
+  await bar.getByRole('button', { name: 'เล่นต่อ' }).click();
+  await expect(bar.getByRole('button', { name: 'หยุดชั่วคราว' })).toBeVisible();
+  await bar.getByRole('button', { name: /ความเร็ว 1 เท่า/ }).click();
+  await expect(bar.getByRole('button', { name: /ความเร็ว 1.25 เท่า/ })).toHaveText('1.25x');
+  // The next point after the stem is the first row: its label, then its text.
+  await bar.getByRole('button', { name: 'ข้ามไปจุดถัดไป' }).click();
+  await expect(page.locator('.vmx-option.is-reading')).toHaveCount(1);
+  await expect(page.locator('.vmx-option').first()).toHaveClass(/is-reading/);
+  await expect(bar).toContainText('ตัวเลือก A');
+  await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
+  await expect(bar).toHaveCount(0);
+  await expect(page.locator('.is-reading')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'อ่านคำถามออกเสียง' })).toHaveAttribute('aria-pressed', 'false');
+  // Back to 1x for the next test on this browser profile.
+  await page.evaluate(() => window.localStorage.removeItem('vmx-read-aloud-rate'));
+});
+
+test('a subject with no clips reads in the device voice, and says so', async ({ page }) => {
+  await openQuestion(page, { clipMs: 1500, noClips: true });
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar).toBeVisible();
+  await expect(bar.getByRole('status')).toHaveText(/เสียงอ่านของเครื่อง|อ่านออกเสียงไม่ได้ตอนนี้|เครื่องนี้ไม่มีเสียงอ่าน/);
+  // The device voice can only start and stop: no seeking, skipping or speed.
+  await expect(bar.getByRole('button', { name: /^ข้ามไป/ })).toBeDisabled();
+  await expect(bar.getByRole('button', { name: /^ความเร็ว/ })).toBeDisabled();
+  await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
+  await expect(bar).toHaveCount(0);
 });

@@ -4701,15 +4701,53 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   margin-bottom: 4px;
   color: var(--clr-gold-text);
 }
-.vmx-feedback-explain-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.vmx-feedback-explain-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin: -8px -8px 2px 0; }
 .vmx-instant-feedback .vmx-feedback-explain-head .k { margin-bottom: 0; }
 .vmx-instant-feedback .w .vmx-tts-note { margin: 6px 0 0; }
-/* The เหตุผล read-aloud: a 32px circle whose touch area reaches 44px, with
-   negative margins so the row keeps the label's height. */
-.vmx-listen-btn { position: relative; flex: none; width: 32px; height: 32px; margin: -4px -4px -4px 0; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
-.vmx-listen-btn::after { content: ''; position: absolute; inset: -6px; }
-.vmx-listen-btn:hover { border-color: var(--clr-ocean); }
-.vmx-listen-btn.is-on { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
+/* The เหตุผล read-aloud: a real 44px button (the touch floor, STABILITY.md §1:
+   no pseudo-element hit areas) that draws a 32px circle inside it. */
+.vmx-listen-btn { flex: none; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--clr-ink); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.vmx-listen-dot { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, background-color 0.15s; }
+.vmx-listen-btn:hover .vmx-listen-dot { border-color: var(--clr-ocean); }
+.vmx-listen-btn.is-on .vmx-listen-dot { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
+
+/* What the read-aloud is on: the block (stem, option row, เหตุผล) by an inset
+   edge, the phrase being spoken by a CSS highlight. Neither changes a box. */
+.vmx-qtext.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
+.vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
+::highlight(vmx-reading) { background-color: var(--clr-gold-soft); color: var(--clr-ink); }
+
+/* The read-aloud bar (ReadAloudBar.jsx): fixed above the bottom nav and a
+   phone's sticky previous/next row, one height in every state. */
+.vmx-read-bar {
+  position: fixed; z-index: var(--z-toast); left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + var(--vmx-read-bar-lift, 12px));
+  width: min(560px, calc(100vw - 16px));
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "ctrl info end" "scrub scrub scrub";
+  align-items: center; column-gap: 6px;
+  padding: 2px 4px 6px; border: 1px solid var(--clr-border); border-radius: var(--r-lg);
+  background: var(--clr-surface); color: var(--clr-ink); box-shadow: var(--shadow-md);
+}
+.vmx-read-bar-ctrl { grid-area: ctrl; display: flex; }
+.vmx-read-bar-info { grid-area: info; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.vmx-read-bar-end { grid-area: end; display: flex; }
+.vmx-read-bar-scrub { grid-area: scrub; display: flex; align-items: center; gap: 8px; padding: 0 8px; }
+.vmx-read-btn { width: 44px; height: 44px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: transparent; color: var(--clr-ink); cursor: pointer; }
+.vmx-read-btn:disabled { opacity: 0.4; cursor: default; }
+.vmx-read-btn:hover:not(:disabled) { background: var(--clr-surface-2); }
+.vmx-read-main, .vmx-read-main:hover:not(:disabled) { background: var(--clr-ocean); color: var(--clr-surface); }
+.vmx-read-rate { width: auto; min-width: 44px; padding: 0 8px; border-radius: 22px; font-family: var(--vmx-mono); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.vmx-read-title { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vmx-read-where { font-weight: 500; color: var(--clr-ink-soft); margin-left: 8px; }
+.vmx-read-state { font-size: 14px; min-height: 1.3em; color: var(--clr-ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vmx-read-bar.is-error .vmx-read-state { color: var(--clr-rose-text); }
+.vmx-read-bar-scrub input[type="range"] { flex: 1; min-width: 0; height: 28px; margin: 0; accent-color: var(--clr-ocean); }
+.vmx-read-time { font-family: var(--vmx-mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--clr-ink-soft); white-space: nowrap; }
+.vmx-read-spin { width: 18px; height: 18px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: vmx-read-spin 0.8s linear infinite; }
+@keyframes vmx-read-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .vmx-read-spin { animation: none; opacity: 0.6; } }
+/* While the bar is up, the page can scroll its last lines out from under it. */
+html.vmx-read-open body::after { content: ''; display: block; height: 104px; }
 @keyframes vmx-instant-in {
   from { opacity: 0; transform: translateY(-3px); }
   to { opacity: 1; transform: translateY(0); }

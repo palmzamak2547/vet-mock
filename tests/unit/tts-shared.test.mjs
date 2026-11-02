@@ -98,6 +98,11 @@ test('speech text: markers dropped, comparisons said, step orders and pauses kep
   assert.equal(say('P(D+|T+) = a'), 'P(D+|T+) = a');
   assert.equal(say('3.5 ซม. | edema · cervix'), '3.5 ซม.\nedema\ncervix');
   assert.equal(say('↑ Ca, ↓ K'), 'สูง Ca, ต่ำ K');
+  // One '>' after a name ending in a digit compares; it does not order.
+  assert.equal(say('HCO3 >32'), 'HCO3 มากกว่า 32');
+  assert.equal(say('1.0\n> 1 มีแนวโน้ม shock'), '1.0\nมากกว่า 1 มีแนวโน้ม shock');
+  assert.equal(say('pH 7.4 -> 7.2'), 'pH 7.4 ไป 7.2');
+  assert.equal(say('ตัวผู้ ♂ ตัวเมีย ♀ A ↔ B'), 'ตัวผู้ ตัวผู้ ตัวเมีย ตัวเมีย A กับ B');
 });
 
 test('clip names carry the voice: the same text names a different ElevenLabs clip', async () => {

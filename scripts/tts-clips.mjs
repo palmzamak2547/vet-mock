@@ -18,12 +18,20 @@
 //   node scripts/tts-clips.mjs --gen e1 --year 5 --scope final --explain \
 //     --max-credits 80000 --keep-remaining 10000 [--dry]
 //   node scripts/tts-clips.mjs --gen e1 --year 5 --manifests
+//   node scripts/tts-clips.mjs --gen e1 --year 5 --scope final --explain --align
+//
+// A stem or an explanation gets <key>.json beside it, { w: [t0, t1, ...] }, the
+// second at which each whitespace-separated word of its text starts, so the
+// read-aloud can highlight the phrase it is on. e1 takes them from ElevenLabs'
+// own character timings at no extra cost; --align makes them by forced
+// alignment for clips made earlier.
 //
 // --year and --scope narrow the questions to one paper, as the app's pool
-// for it does. They are worked through in Panic Mode's order: past papers
-// (that paper's own first), then items written from a marked compilation,
-// then the rest; one question from each subject in turn, in the
-// timetable's order, so a stop for budget leaves every paper covered alike.
+// for it does. Subjects take turns, one question each, in the timetable's
+// order, each through its own Panic pool in Panic Mode's order (past papers,
+// that paper's own first, then items written from a marked compilation),
+// then through the rest; a stop for budget leaves every paper's first
+// questions voiced alike.
 // --explain adds the เหตุผล of each mcq and true/false question, one clip,
 // which the practice panel's read-aloud plays. A question's clips are made
 // together, so a stop leaves few half-voiced questions.
@@ -40,7 +48,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { execFileSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { clipText, clipKey, optionLabel, questionLang, SHARED_TTS, ELEVEN_TTS } from '../src/lib/tts-text.js';
 
@@ -49,6 +58,7 @@ const args = process.argv.slice(2);
 const arg = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : undefined; };
 const DRY = args.includes('--dry');
 const MANIFESTS_ONLY = args.includes('--manifests');
+const ALIGN = args.includes('--align'); // line timings for clips made before they were kept
 const SUBJECT = arg('--subject');
 const IDS = arg('--ids')?.split(','); // a spot check: only these question ids
 const YEAR = Number(arg('--year')) || null;
@@ -61,6 +71,7 @@ const MAX_CREDITS = Number(arg('--max-credits')) || Infinity;
 const KEEP_REMAINING = Number(arg('--keep-remaining')) || 0;
 const G = { g1: SHARED_TTS, e1: ELEVEN_TTS }[arg('--gen') || 'g1'];
 if (!G) throw new Error('--gen is g1 or e1');
+if (ALIGN && G !== ELEVEN_TTS) throw new Error('--align is for --gen e1');
 if (!SUBJECT && !YEAR && !args.includes('--all')) throw new Error('Pass --subject <id>, --year <n> or --all');
 if (SCOPE && !['midterm', 'final'].includes(SCOPE)) throw new Error('--scope is midterm or final');
 
@@ -117,20 +128,27 @@ function questionTexts(q, withExplain) {
 const band = (q) => panicRank(q) * 2 + (SCOPE && parseExamOrigin(q.examOrigin || '').paper === SCOPE ? 0 : 1);
 const subjects = [...new Set(picked.map((q) => q.subject))]
   .sort((a, b) => (paperDate.get(a) || '9999').localeCompare(paperDate.get(b) || '9999') || a.localeCompare(b));
+// Each subject's lane is its own Panic pool in Panic Mode's order, so every
+// paper gets the questions its students see first; the rest come after.
 const order = [];
-for (const b of [...new Set(picked.map(band))].sort((x, y) => x - y)) {
-  const lanes = subjects.map((s) => picked.filter((q) => q.subject === s && band(q) === b));
+for (const panic of [true, false]) {
+  const lanes = subjects.map((s) => picked.filter((q) => q.subject === s && (panicRank(q) < 2) === panic)
+    .sort((a, b) => band(a) - band(b)));
   for (let i = 0; lanes.some((l) => i < l.length); i++) for (const l of lanes) if (i < l.length) order.push(l[i]);
 }
 
 const texts = new Map(); // key -> text
 const queue = [];        // keys in the order to generate
 const questionOf = new Map(); // key -> index in order of the first question needing it
+const worded = new Set(); // stems and explanations: the clips that get word timings
 for (const [i, q] of order.entries()) {
   for (const t of questionTexts(q, EXPLAIN)) {
     const k = await clipKey(t, G);
     if (!texts.has(k)) { texts.set(k, t); queue.push(k); questionOf.set(k, i); }
   }
+  const options = Array.isArray(q.options) ? q.options.map(String) : [];
+  worded.add(await clipKey(clipText(q.q, questionLang(q.q, options)), G));
+  if (EXPLAIN && q.explain && (q.type === 'mcq' || q.type === 'tf')) worded.add(await clipKey(clipText(q.explain, questionLang(q.explain, [])), G));
 }
 // A manifest covers the whole subject, explanations included, so a run
 // that picked fewer questions never drops clips an earlier run made.
@@ -146,22 +164,30 @@ console.log(`gen ${G.gen} (${G.model}), subjects ${subjects.join(', ')}; questio
 // ---- 2. what the bucket already has -----------------------------------
 const CF = secret('CLOUDFLARE_API_TOKEN');
 const cf = (url, init = {}) => fetch(url, { ...init, headers: { Authorization: `Bearer ${CF}`, ...(init.headers || {}) } });
+// Clips (<key>.mp4) and their line timings (<key>.json) under the generation.
 async function listDone() {
   const done = new Set();
+  const timed = new Set();
   let cursor = '';
   for (;;) {
     const r = await cf(`${R2}/objects?prefix=${G.gen}/&per_page=1000${cursor ? `&cursor=${cursor}` : ''}`);
     const j = await r.json();
     if (!j.success) throw new Error(`R2 list: ${JSON.stringify(j.errors)}`);
-    for (const o of j.result) { const m = o.key.match(/\/([0-9a-f]{16})\.mp4$/); if (m) done.add(m[1]); }
+    for (const o of j.result) {
+      const m = o.key.match(/^[^/]+\/([0-9a-f]{16})\.(mp4|json)$/);
+      if (m) (m[2] === 'mp4' ? done : timed).add(m[1]);
+    }
     cursor = j.result_info?.cursor;
-    if (!j.result_info?.is_truncated || !cursor) return done;
+    if (!j.result_info?.is_truncated || !cursor) return { done, timed };
   }
 }
-const done = await listDone();
-const todo = MANIFESTS_ONLY ? [] : queue.filter((k) => !done.has(k)).slice(0, LIMIT);
+const { done, timed } = await listDone();
+const todo = MANIFESTS_ONLY || ALIGN ? [] : queue.filter((k) => !done.has(k)).slice(0, LIMIT);
+// A clip of more than one line needs its line timings for the read-aloud's
+// highlight: made with the clip from now on, aligned afterwards for older ones.
+const untimed = ALIGN ? queue.filter((k) => done.has(k) && !timed.has(k) && worded.has(k)).slice(0, LIMIT) : [];
 const todoChars = todo.reduce((n, k) => n + texts.get(k).length, 0);
-console.log(`in bucket ${done.size}, to generate ${todo.length} (${todoChars} chars)`);
+console.log(`in bucket ${done.size} (${timed.size} timed), to generate ${todo.length} (${todoChars} chars)${ALIGN ? `, to align ${untimed.length}` : ''}`);
 if (DRY) {
   // How far the cap reaches at the rate measured on Thai text (2 Nov 2026).
   if (MAX_CREDITS < Infinity) {
@@ -176,31 +202,60 @@ if (DRY) {
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'vmx-tts-'));
 if (KEEP) fs.mkdirSync(KEEP, { recursive: true });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const ELEVEN = G === ELEVEN_TTS || ALIGN;
 let stopReason = null;
-let spent = 0;      // credits, from ElevenLabs' character-cost header
+let spent = 0;     // credits settled, from ElevenLabs' character-cost header
+let reserved = 0;  // credits held for requests in flight
 let requests = 0;
+let left = null;   // the account's balance at its last read
+let spentAtRead = 0;
 
-async function account() {
-  const r = await fetch('https://api.elevenlabs.io/v1/user/subscription', { headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') } });
-  const j = await r.json();
-  return j.character_limit - j.character_count;
+// The account's credits left, or a reason to stop: a key that cannot read
+// it must not let the reserve pass unnoticed.
+async function readAccount() {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    // A 429 (the endpoint is rate limited) or a dropped connection waits.
+    const r = await fetch('https://api.elevenlabs.io/v1/user/subscription', { headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') } }).catch(() => null);
+    const j = r?.ok ? await r.json().catch(() => null) : null;
+    const value = j ? j.character_limit - j.character_count : NaN;
+    if (Number.isFinite(value)) { left = value; spentAtRead = spent + reserved; return; }
+    if (r && r.status !== 429 && r.status < 500) { stopReason ||= `cannot read the account (subscription ${r.status})`; return; }
+    await sleep(3000 * 2 ** attempt);
+  }
+  stopReason ||= 'cannot read the account';
 }
 
-// Stop before a request that could pass either cap. 0.5 credit a
-// character is the model's list rate; Thai measured 0.22 on 2 Nov 2026.
-async function mayRequest(text) {
-  const estimate = Math.ceil(text.length * 0.5);
-  if (spent + estimate > MAX_CREDITS) stopReason ||= `max credits (${spent} spent)`;
-  if (G === ELEVEN_TTS && KEEP_REMAINING && requests % 20 === 0) {
-    const left = await account();
-    if (left - estimate <= KEEP_REMAINING) stopReason ||= `account down to ${left}`;
+// Hold an estimate before each request, so neither cap can be passed by
+// requests in flight. 0.5 credit a character is the models' list rate; Thai
+// measured 0.22 (2 Nov 2026), and the header settles the real cost. The
+// account counter lags, so this run's own spend since the last read counts too.
+async function reserve(estimate) {
+  if (!ELEVEN) return true;
+  // Every 40 requests: the endpoint answers 429 when read more often, and
+  // this run's own spend since the read is subtracted below anyway.
+  if (KEEP_REMAINING && (left == null || requests % 40 === 0)) await readAccount();
+  if (spent + reserved + estimate > MAX_CREDITS) stopReason ||= `max credits (${spent} spent)`;
+  if (KEEP_REMAINING && left != null && left - (spent + reserved - spentAtRead) - estimate <= KEEP_REMAINING) {
+    stopReason ||= `account down to about ${left - (spent + reserved - spentAtRead)}`;
   }
-  return !stopReason;
+  if (stopReason) return false;
+  reserved += estimate;
+  return true;
+}
+const settle = (estimate, cost) => { reserved -= estimate; spent += Number.isFinite(cost) && cost > 0 ? cost : estimate; };
+
+// The second each whitespace-separated word starts, from character timings
+// (ElevenLabs' alignment or forced alignment). The page splits the text the
+// same way, text.split(/\s+/), so the nth time belongs to its nth word.
+function wordStarts(chars, startOf) {
+  const out = [];
+  chars.forEach((c, i) => { if (!/\s/.test(c) && (i === 0 || /\s/.test(chars[i - 1]))) out.push(Math.round(startOf(i) * 100) / 100); });
+  return out;
 }
 
 async function request(text) {
   if (G === ELEVEN_TTS) {
-    return fetch(`https://api.elevenlabs.io/v1/text-to-speech/${G.voice}?output_format=mp3_44100_128`, {
+    return fetch(`https://api.elevenlabs.io/v1/text-to-speech/${G.voice}/with-timestamps?output_format=mp3_44100_128`, {
       method: 'POST',
       headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY'), 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, model_id: G.model }),
@@ -215,35 +270,88 @@ async function request(text) {
   });
 }
 
-async function speak(text) {
+// Retries a passing failure; a refusal that no retry fixes stops the run.
+async function call(make) {
   for (let attempt = 0; ; attempt++) {
     requests++;
-    const r = await request(text).catch((e) => ({ ok: false, status: 0, headers: new Headers(), text: async () => String(e) }));
-    if (r.ok) {
-      const audio = Buffer.from(await r.arrayBuffer());
-      if (G === ELEVEN_TTS) spent += Number(r.headers.get('character-cost')) || Math.ceil(text.length * 0.5);
-      return audio;
-    }
+    const r = await make().catch((e) => ({ ok: false, status: 0, headers: new Headers(), text: async () => String(e) }));
+    if (r.ok) return r;
     const body = (await r.text()).slice(0, 200);
-    // Out of credit or key: nothing else will succeed, so finish cleanly.
     if (r.status === 401 || r.status === 402 || /quota_exceeded/.test(body)) { stopReason ||= `${r.status} ${body}`; throw new Error(stopReason); }
-    if (attempt >= 5 || (r.status >= 400 && r.status < 500 && r.status !== 429 && r.status !== 408)) throw new Error(`tts ${r.status} ${body}`);
+    if (attempt >= 5 || (r.status >= 400 && r.status < 500 && r.status !== 429 && r.status !== 408)) throw new Error(`${r.status} ${body}`);
     await sleep(2000 * 2 ** attempt);
   }
 }
 
+async function speak(text, key) {
+  const estimate = Math.ceil(text.length * 0.5);
+  if (!(await reserve(estimate))) return null;
+  let cost = NaN;
+  try {
+    const r = await call(() => request(text));
+    if (G !== ELEVEN_TTS) return { audio: Buffer.from(await r.arrayBuffer()), words: null };
+    cost = Number(r.headers.get('character-cost'));
+    const j = await r.json();
+    const a = j.alignment;
+    const words = worded.has(key) && a?.characters?.join('') === text
+      ? wordStarts(a.characters, (i) => a.character_start_times_seconds[i]) : null;
+    return { audio: Buffer.from(j.audio_base64, 'base64'), words };
+  } finally {
+    if (G === ELEVEN_TTS) settle(estimate, cost);
+  }
+}
+
+// Line timings for a clip already in the bucket: forced alignment of its own
+// audio against its text, billed like speech-to-text.
+async function align(key) {
+  const text = texts.get(key);
+  const res = await fetch(`${G.base}/${G.gen}/${key}.mp4`);
+  if (!res.ok) throw new Error(`clip ${res.status}`);
+  const audio = Buffer.from(await res.arrayBuffer());
+  const estimate = Math.ceil(text.length * 0.2) + 20; // speech runs about 12 characters a second, at about 0.34 credit a second
+  if (!(await reserve(estimate))) return null;
+  let cost = NaN;
+  try {
+    const r = await call(() => {
+      const form = new FormData();
+      form.append('text', text);
+      form.append('file', new Blob([audio], { type: 'audio/mp4' }), `${key}.mp4`);
+      return fetch('https://api.elevenlabs.io/v1/forced-alignment', { method: 'POST', headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') }, body: form, signal: AbortSignal.timeout(120_000) });
+    });
+    cost = Number(r.headers.get('character-cost'));
+    const j = await r.json();
+    // Forced alignment may drop or change whitespace (a line break): pair the
+    // text's characters with its characters, letting only whitespace differ.
+    const fa = (j.characters || []).map((c) => c.text);
+    const at = [];
+    let k = 0;
+    for (let i = 0; i < text.length; i++) {
+      while (k < fa.length && /\s/.test(fa[k]) && !/\s/.test(text[i])) k++;
+      if (k < fa.length && fa[k] === text[i]) { at[i] = k++; continue; }
+      if (/\s/.test(text[i])) { at[i] = -1; continue; }
+      throw new Error('alignment does not match the text');
+    }
+    return wordStarts(text.split(''), (i) => (j.characters[at[i]]?.start ?? 0));
+  } finally {
+    settle(estimate, cost);
+  }
+}
+
 // Into 24 kHz mono AAC, leading/trailing silence trimmed to 50 ms. Gemini
-// sends raw 24 kHz s16le, ElevenLabs an MP3.
-function encode(audio, key) {
+// sends raw 24 kHz s16le, ElevenLabs an MP3. Async, so the workers' requests
+// overlap the encoding instead of waiting behind it. ponytail: line timings
+// keep ElevenLabs' clock, at most the trimmed lead (under 0.2 s) late.
+const run = promisify(execFile);
+async function encode(audio, key) {
   const pcm = G === SHARED_TTS;
   const raw = path.join(tmp, `${key}.${pcm ? 'pcm' : 'mp3'}`);
   const out = path.join(tmp, `${key}.m4a`);
   fs.writeFileSync(raw, audio);
   const trim = 'silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.05';
   const input = pcm ? ['-f', 's16le', '-ar', '24000', '-ac', '1', '-i', raw] : ['-i', raw];
-  execFileSync('ffmpeg', ['-v', 'error', '-y', ...input, '-af', `${trim},areverse,${trim},areverse`,
+  await run('ffmpeg', ['-v', 'error', '-y', ...input, '-af', `${trim},areverse,${trim},areverse`,
     '-ac', '1', '-ar', '24000', '-c:a', 'aac', '-b:a', '32k', '-movflags', '+faststart', out]);
-  const sec = Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', out]).toString());
+  const sec = Number((await run('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', out])).stdout);
   if (KEEP) fs.copyFileSync(out, path.join(KEEP, `${key}.m4a`));
   const bytes = fs.readFileSync(out);
   fs.rmSync(raw); fs.rmSync(out);
@@ -259,29 +367,38 @@ function plausible(text, sec) {
   return sec >= Math.min(0.25, expect) && sec <= Math.max(4, expect * 2.5) && sec >= expect * 0.3;
 }
 
+// A dropped connection throws rather than answering; both are retried, with
+// waits that outlast a short outage (2 Nov 2026: DNS failed for minutes and
+// the run died before writing its manifests).
 async function put(key, buf, type, cache) {
   for (let attempt = 0; ; attempt++) {
-    const r = await cf(`${R2}/objects/${key}`, { method: 'PUT', body: buf, headers: { 'Content-Type': type, 'Cache-Control': cache } });
+    const r = await cf(`${R2}/objects/${key}`, { method: 'PUT', body: buf, headers: { 'Content-Type': type, 'Cache-Control': cache } })
+      .catch((e) => ({ ok: false, status: 0, text: async () => String(e.cause?.code || e) }));
     if (r.ok) return;
-    if (attempt >= 4) throw new Error(`R2 put ${r.status} ${(await r.text()).slice(0, 200)}`);
-    await sleep(1000 * 2 ** attempt);
+    if (attempt >= 7) throw new Error(`R2 put ${r.status} ${(await r.text()).slice(0, 200)}`);
+    await sleep(Math.min(60_000, 1000 * 2 ** attempt));
   }
 }
+const IMMUTABLE = 'public, max-age=31536000, immutable';
+const putWords = (key, w) => put(`${G.gen}/${key}.json`, Buffer.from(JSON.stringify({ w })), 'application/json', IMMUTABLE);
 
 const failed = [];
-let n = 0, bytesTotal = 0, secTotal = 0;
+let n = 0, aligned = 0, bytesTotal = 0, secTotal = 0;
 fs.mkdirSync(path.join(ROOT, 'work'), { recursive: true });
 const log = fs.createWriteStream(path.join(ROOT, 'work', `tts-clips-${G.gen}-${Date.now()}.jsonl`), { flags: 'a' });
 async function one(key) {
   const text = texts.get(key);
   for (let tries = 0; tries < 2; tries++) {
-    if (!(await mayRequest(text))) return;
     try {
-      const { bytes, sec } = encode(await speak(text), key);
+      const said = await speak(text, key);
+      if (!said) return; // a cap was reached
+      const { bytes, sec } = await encode(said.audio, key);
       if (!plausible(text, sec)) { log.write(JSON.stringify({ key, text, sec, implausible: true }) + '\n'); continue; }
-      await put(`${G.gen}/${key}.mp4`, bytes, 'audio/mp4', 'public, max-age=31536000, immutable');
+      // The timings first: a clip listed without them would play without a highlight.
+      if (said.words) { await putWords(key, said.words); timed.add(key); }
+      await put(`${G.gen}/${key}.mp4`, bytes, 'audio/mp4', IMMUTABLE);
       done.add(key); bytesTotal += bytes.length; secTotal += sec;
-      log.write(JSON.stringify({ key, chars: text.length, sec, bytes: bytes.length, spent }) + '\n');
+      log.write(JSON.stringify({ key, chars: text.length, sec, bytes: bytes.length, words: said.words?.length || 0, spent }) + '\n');
       if (++n % 50 === 0) console.log(`${n}/${todo.length} ${(bytesTotal / 1e6).toFixed(1)} MB ${(secTotal / 60).toFixed(1)} min, ${spent} credits`);
       return;
     } catch (e) {
@@ -291,14 +408,34 @@ async function one(key) {
   }
   failed.push(key);
 }
+async function oneAlign(key) {
+  try {
+    const words = await align(key);
+    if (!words) return;
+    await putWords(key, words);
+    timed.add(key); aligned++;
+    log.write(JSON.stringify({ key, aligned: words.length, spent }) + '\n');
+  } catch (e) {
+    log.write(JSON.stringify({ key, error: `align: ${String(e.message || e).slice(0, 180)}` }) + '\n');
+    failed.push(key);
+  }
+}
 const work = todo.slice();
-await Promise.all(Array.from({ length: CONCURRENCY }, async () => { while (work.length && !stopReason) await one(work.shift()); }));
-
-// ---- 4. manifests: only clips that really exist -------------------------
-for (const [subject, keys] of subjectKeys) {
-  const have = [...keys].filter((k) => done.has(k)).sort();
-  await put(`${G.gen}/m/${encodeURIComponent(subject)}.json`, Buffer.from(JSON.stringify(have)),
-    'application/json', 'public, max-age=300');
+const alignWork = untimed.slice();
+try {
+  await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
+    while (!stopReason && (work.length || alignWork.length)) {
+      if (work.length) await one(work.shift()); else await oneAlign(alignWork.shift());
+    }
+  }));
+} finally {
+  // ---- 4. manifests: only clips that really exist, whatever stopped the run
+  for (const [subject, keys] of subjectKeys) {
+    const have = [...keys].filter((k) => done.has(k)).sort();
+    await put(`${G.gen}/m/${encodeURIComponent(subject)}.json`, Buffer.from(JSON.stringify(have)),
+      'application/json', 'public, max-age=300');
+  }
+  fs.rmSync(tmp, { recursive: true, force: true });
 }
 // Per subject: questions whose read-aloud is now whole in this voice, and
 // explanations voiced, out of those chosen.
@@ -313,8 +450,7 @@ for (const s of subjects) {
   }
   console.log(`${s}: questions ${whole}/${total}, explanations ${ex}/${exTotal}`);
 }
-console.log(`generated ${n}, failed ${failed.length}, ${(bytesTotal / 1e6).toFixed(2)} MB, ${(secTotal / 60).toFixed(1)} min audio, mean ${(bytesTotal / Math.max(1, secTotal) * 8 / 1000).toFixed(1)} kbps`);
-if (G === ELEVEN_TTS) console.log(`credits spent ${spent}, account left ${await account()}`);
-if (stopReason) console.log(`stopped: ${stopReason}; ${work.length} clips left for the next run`);
+console.log(`generated ${n}, aligned ${aligned}, failed ${failed.length}, ${(bytesTotal / 1e6).toFixed(2)} MB, ${(secTotal / 60).toFixed(1)} min audio`);
+if (ELEVEN) { left = null; await readAccount(); console.log(`credits spent ${spent}, account left ${left}`); }
+if (stopReason) console.log(`stopped: ${stopReason}; ${work.length} clips and ${alignWork.length} alignments left for the next run`);
 if (failed.length) console.log('failed:', failed.map((k) => texts.get(k).slice(0, 60)).join(' | '));
-fs.rmSync(tmp, { recursive: true, force: true });

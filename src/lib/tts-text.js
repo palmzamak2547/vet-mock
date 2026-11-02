@@ -11,8 +11,9 @@
 // ============================================================
 
 // Emoji and check marks (❌ ✅ 💡) are markers on screen; a voice reads
-// their names aloud, words the text never had.
-const PICTOGRAPHS = /[\p{Extended_Pictographic}\u{FE0F}\u{20E3}✓✗✔✘]/gu;
+// their names aloud, words the text never had. ♂ ♀ ↔ carry meaning and are
+// said in words by normalizeSymbols instead.
+const PICTOGRAPHS = /(?![♂♀↔])\p{Extended_Pictographic}|[\u{FE0F}\u{20E3}✓✗✔✘]/gu;
 
 // Markdown and stray markup sound wrong when spoken. A line break, a list
 // bullet and a spaced table bar are pauses, so they become one line break
@@ -51,9 +52,14 @@ export function normalizeSymbols(text, lang) {
     // Run BEFORE we touch unit slashes so we don't accidentally absorb the
     // hyphen inside drug names like "Sulfa-Trimethoprim".
     .replace(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/g, (m, a, b) => `${a} ${isEn ? 'to' : 'ถึง'} ${b}`)
+    // Arrows before comparisons, so "7.4 -> 7.2" is not read as "more than".
+    .replace(/→|⇒|->/g, isEn ? ' to ' : ' ไป ')
+    // A chain of bare numbers joined by '>' on one line orders steps
+    // ("2 > 4 > 1 > 3"), a pause each. One '>' compares: "HCO3 >32" and
+    // "> 700" are "more than" (no lookbehind: iOS before 16.4 cannot parse it).
+    .replace(/(^|[^\w.])(\d+(?:\.\d+)?(?:[^\S\n]*>[^\S\n]*\d+(?:\.\d+)?){2,})(?![\w.])/gm,
+      (m, pre, chain) => pre + chain.split(/[^\S\n]*>[^\S\n]*/).join(', '))
     // Comparisons and powers before a number: "> 700", "<2 s", "~135", "10^6".
-    // Between two numbers '>' orders steps ("2 > 4 > 1 > 3"), a pause.
-    .replace(/(\d)\s*>\s*(?=\d)/g, '$1, ')
     .replace(/([<>])\s*(?=-?\d)/g, (m, s) => (s === '>' ? (isEn ? ' more than ' : ' มากกว่า ') : (isEn ? ' less than ' : ' น้อยกว่า ')))
     .replace(/~\s*(?=\d)/g, isEn ? ' about ' : ' ประมาณ ')
     .replace(/(\d)\s*\^\s*(\d+)/g, (m, a, b) => `${a} ${isEn ? 'to the power of' : 'ยกกำลัง'} ${b}`)
@@ -66,11 +72,12 @@ export function normalizeSymbols(text, lang) {
     .replace(/≈/g, isEn ? ' approximately ' : ' ประมาณ ')
     .replace(/≠/g, isEn ? ' is not ' : ' ไม่เท่ากับ ')
     .replace(/√\s*/g, isEn ? ' square root of ' : ' รากที่สองของ ')
+    .replace(/♂/g, isEn ? ' male ' : ' ตัวผู้ ')
+    .replace(/♀/g, isEn ? ' female ' : ' ตัวเมีย ')
+    .replace(/↔/g, isEn ? ' and ' : ' กับ ')
     // Three-or-more dots (ellipsis) → comma pause (browser ignores literal dots)
     .replace(/\.{3,}/g, ', ')
     .replace(/…/g, ', ')
-    // Arrows
-    .replace(/→|⇒|->/g, isEn ? ' to ' : ' ไป ')
     .replace(/×/g, isEn ? ' times ' : ' คูณ ')
     .replace(/±/g, isEn ? ' plus or minus ' : ' บวกลบ ')
     .replace(/≥/g, isEn ? ' greater than or equal to ' : ' มากกว่าหรือเท่ากับ ')

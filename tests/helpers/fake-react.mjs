@@ -74,6 +74,8 @@ const R = {
     }
   },
   useLayoutEffect(fn, deps) { R.useEffect(fn, deps); },
+  // The snapshot at render; a test that needs a store's later changes mounts again.
+  useSyncExternalStore(subscribe, getSnapshot) { return getSnapshot(); },
   useContext(ctx) { return ctx?._value; },
   createContext(v) { return { _value: v, Provider: ({ children }) => children }; },
   memo: (c) => c,
@@ -184,7 +186,7 @@ export async function loadModule(entry, { stubs = [] } = {}) {
       b.onLoad({ filter: /.*/, namespace: 'fake-react' }, (args) => ({
         contents: args.path === 'react'
           ? `const R = globalThis.__fakeReact;
-             export const { Fragment, createElement, useState, useReducer, useRef, useMemo, useCallback, useId, useEffect, useLayoutEffect, useContext, createContext, memo, forwardRef, lazy, Suspense, startTransition } = R;
+             export const { Fragment, createElement, useState, useReducer, useRef, useMemo, useCallback, useId, useEffect, useLayoutEffect, useSyncExternalStore, useContext, createContext, memo, forwardRef, lazy, Suspense, startTransition } = R;
              export default R;`
           : `const R = globalThis.__fakeReact; export const jsx = R.jsx; export const jsxs = R.jsx; export const jsxDEV = R.jsx; export const Fragment = R.Fragment;`,
         loader: 'js',
