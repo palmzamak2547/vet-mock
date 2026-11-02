@@ -42,6 +42,9 @@ test('a topic stretch is published only as the session\'s own topic', () => {
   assert.equal(topicFits('Porcine reproductive and respiratory syndrome', 'Respiratory viral diseases in swine'), true);
   assert.equal(topicFits('Equine concept of surgery and anesthesia', 'Equine anesthesia'), true);
   assert.equal(topicFits('Anatomy function and clinical examination of stallion', 'Male reproductive organ functions'), true);
+  // Batch 2: a course-wide word is no match (a triage lecture is not the CV emergency session).
+  assert.equal(topicFits('Triage + Emergency anesthesia', 'คาบ 24, Respiratory & CV Emergency'), false);
+  assert.equal(topicFits('Triage + Emergency anesthesia', 'คาบ 29, Triage'), true);
   // The lecturer's own set settles it, whatever the title says.
   assert.equal(topicFits('7.Endometritis in mare 1 Oct 69', 'Uterine defense', new Set(['eqrepro-defense']), 'eqrepro-defense'), true);
 });
@@ -72,7 +75,8 @@ test('every card keeps the summary policy where students read it', async () => {
     const d = VIDEO_REGISTRY[id].durationSec;
     const where = (p) => `${id} [${p.t}] ${p.text || p.line || ''}`;
     assert.ok(thaiWords(card.oneLiner) <= LIMITS.oneLiner, `${id}: one-liner too long`);
-    assert.ok(card.keyPoints.length >= 1 && card.keyPoints.length <= Math.min(keyPointCap(d), LIMITS.ceiling), `${id}: ${card.keyPoints.length} key points for ${d} s`);
+    // A short practical-class demo may be all one-liner; a lecture of ten minutes or more has points.
+    assert.ok(card.keyPoints.length >= (d >= 600 ? 1 : 0) && card.keyPoints.length <= Math.min(keyPointCap(d), LIMITS.ceiling), `${id}: ${card.keyPoints.length} key points for ${d} s`);
     assert.ok(card.emphasis.length <= LIMITS.emphasis && card.remember.length <= LIMITS.remember, `${id}: emphasis or remember over cap`);
     const points = [...card.keyPoints, ...card.emphasis, ...card.remember];
     for (const p of points) {

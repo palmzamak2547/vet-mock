@@ -43,11 +43,12 @@ export function keyPointCap(durationSec) {
 // Note voice (summaries read as notes): the fact itself, never the lecturer
 // saying it; no table, no middle dot.
 // Study advice and a summary that names itself (the sample's polish pass, 2 Nov 2026).
-const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|จำไว้|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
+const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|ต้องจำ|จำไว้|ท่อง|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
 // A card states the fact; what the lecturer said about the exam stays out of it
 // ("เคยออกข้อสอบ", "ข้อสอบเป็นถูกผิด 10 ข้อ"): the stress already put it on the card.
-const EXAM_TALK = /ข้อสอบ|ออกสอบ|เคยออก|ออกบ่อย|ของคะแนน/;
-const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิปนี้)/;
+// Course logistics too: reports, homework, and "นักศึกษา" (VetMock says นิสิต).
+const EXAM_TALK = /ข้อสอบ|ออกสอบ|เคยออก|ออกบ่อย|ของคะแนน|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
+const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิปนี้|บรรยาย)/;
 const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\bred\b|สีแดง|ตัวแดง|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
 const FORBIDDEN = /[·|]/;
 const SENTENCE_BREAK = /[.!?;](\s+)(?=\S)/;

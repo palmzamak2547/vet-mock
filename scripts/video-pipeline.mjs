@@ -81,7 +81,7 @@ async function main() {
     await pool(videos, conc, async (v) => {
       const dir = path.join(DATA, v.id);
       fs.mkdirSync(dir, { recursive: true });
-      if (fs.existsSync(path.join(dir, 'video.th.json3')) && !force) return;
+      if ((fs.existsSync(path.join(dir, 'video.th.json3')) || fs.existsSync(path.join(dir, 'video.scribe.json3'))) && !force) return;
       const r = await exec('yt-dlp', ['-q', '--no-warnings', '--skip-download', '--write-auto-subs', '--sub-langs', 'th', '--sub-format', 'json3', '-o', 'video.%(ext)s', `https://www.youtube.com/watch?v=${v.id}`], { cwd: dir });
       (state[v.id] ||= {}).captions = fs.existsSync(path.join(dir, 'video.th.json3')) ? 'youtube' : `none (${r.code})`;
     });
@@ -174,8 +174,11 @@ async function main() {
       // An analysis older than the silence measurement is redone: the skip list needs it.
       const af = path.join(dir, 'analysis.json');
       const sf = path.join(dir, 'silence.json');
-      const stale = fs.existsSync(sf) && fs.existsSync(af) && fs.statSync(sf).mtimeMs > fs.statSync(af).mtimeMs;
-      if (!fs.existsSync(path.join(dir, 'video.th.json3')) || (fs.existsSync(af) && !force && !stale)) return;
+      const scribe = path.join(dir, 'video.scribe.json3');
+      const newer = (f) => fs.existsSync(f) && fs.existsSync(af) && fs.statSync(f).mtimeMs > fs.statSync(af).mtimeMs;
+      // A Scribe transcript that arrived after the analysis is a reason to redo it, like new silence.
+      const stale = newer(sf) || newer(scribe);
+      if ((!fs.existsSync(path.join(dir, 'video.th.json3')) && !fs.existsSync(scribe)) || (fs.existsSync(af) && !force && !stale)) return;
       const r = await exec('node', [path.join(ROOT, 'scripts/video-analyse.mjs'), dir, `--subject=${v.subjects.join(',')}`, `--title=${v.title}`, `--duration=${v.durationSec}`, `--lecturer-topics=${(sessionTopics.get(v.id) || []).join(',')}`]);
       (state[v.id] ||= {}).analysis = r.code ? `failed: ${r.out.slice(-200)}` : r.out.trim().split('\n').pop();
     });

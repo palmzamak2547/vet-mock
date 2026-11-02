@@ -40,8 +40,10 @@ export function displayTitle(title) {
 }
 
 /** A deck heading as a chapter title: "CONTAMINATION" -> "Contamination", "Treatment : Goals" -> "Treatment: Goals". */
+const HEADING_NAMES = { 'V E T E R I N A R Y P U B L I C H E A L T H · O N E H E A L T H': 'Veterinary Public Health: One Health' };
 export function tidyHeading(title) {
-  let t = String(title).replace(/\s+:/g, ':').replace(/\s+/g, ' ').trim();
+  if (HEADING_NAMES[String(title).trim()]) return HEADING_NAMES[String(title).trim()];
+  let t = String(title).replace(/\s*·\s*/g, ': ').replace(/\s+:/g, ':').replace(/\s+/g, ' ').trim();
   if (!/[a-z]/.test(t) && /[A-Z]{6}/.test(t)) t = t.charAt(0) + t.slice(1).toLowerCase();
   return t;
 }
@@ -52,7 +54,9 @@ export function tidyHeading(title) {
 // PRRS lecture read as CSF and ASF on shared biosecurity words, an
 // anaesthesia lecture's ventilation read as the respiratory topic).
 const GENERIC = new Set(['equine', 'mare', 'stallion', 'horse', 'swine', 'porcine', 'bovine', 'cattle', 'canine', 'feline', 'avian', 'poultry', 'ruminant', 'animal',
-  'disease', 'introduction', 'concept', 'approach', 'clinic', 'clinical', 'part', 'basic', 'principle', 'management', 'general', 'review', 'lecture', 'with', 'from', 'about']);
+  'disease', 'introduction', 'concept', 'approach', 'clinic', 'clinical', 'part', 'basic', 'principle', 'management', 'general', 'review', 'lecture', 'with', 'from', 'about',
+  // A course-wide word: every session of the emergency course carries it.
+  'emergency']);
 const titleWords = (s) => new Set((String(s).toLowerCase().match(/[a-z]{4,}/g) || []).map((w) => w.replace(/s$/, '')).filter((w) => !GENERIC.has(w)));
 export function topicFits(title, label, setTopics = new Set(), topic = '') {
   if (setTopics.has(topic)) return true;

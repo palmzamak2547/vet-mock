@@ -183,5 +183,311 @@ export const VIDEO_TOPIC_INDEX = {
    "e": 720,
    "conf": "high"
   }
+ ],
+ "eqrepro-stallion-infect": [
+  {
+   "v": "zFsNom4JMC8",
+   "s": 4800,
+   "e": 7320,
+   "conf": "high"
+  }
+ ],
+ "fiqc-feed-qc": [
+  {
+   "v": "WQX71m1GSds",
+   "s": 360,
+   "e": 1860,
+   "conf": "high"
+  }
+ ],
+ "avian-intro": [
+  {
+   "v": "F1jwpqQCGBM",
+   "s": 2700,
+   "e": 3780,
+   "conf": "medium"
+  }
+ ],
+ "avian-ai": [
+  {
+   "v": "F1jwpqQCGBM",
+   "s": 5760,
+   "e": 8100,
+   "conf": "high"
+  }
+ ],
+ "zoo-rabies": [
+  {
+   "v": "DhtSsPLtFTo",
+   "s": 7620,
+   "e": 8340,
+   "conf": "medium"
+  }
+ ],
+ "eqrepro-exam-mare": [
+  {
+   "v": "FBNU52oH1z8",
+   "s": 2280,
+   "e": 3420,
+   "conf": "high"
+  },
+  {
+   "v": "FBNU52oH1z8",
+   "s": 480,
+   "e": 540,
+   "conf": "medium"
+  }
+ ],
+ "equine-dentistry": [
+  {
+   "v": "jOm4PZtiC8o",
+   "s": 4020,
+   "e": 8160,
+   "conf": "high"
+  },
+  {
+   "v": "jOm4PZtiC8o",
+   "s": 0,
+   "e": 3720,
+   "conf": "high"
+  },
+  {
+   "v": "jOm4PZtiC8o",
+   "s": 8700,
+   "e": 9300,
+   "conf": "high"
+  }
+ ],
+ "milk-overview": [
+  {
+   "v": "cHediceYO_Y",
+   "s": 0,
+   "e": 2940,
+   "conf": "high"
+  }
+ ],
+ "milk-mastitis": [
+  {
+   "v": "cHediceYO_Y",
+   "s": 4140,
+   "e": 6780,
+   "conf": "medium"
+  }
+ ],
+ "zoo-vbz": [
+  {
+   "v": "u_cH2UtCIAg",
+   "s": 2580,
+   "e": 3300,
+   "conf": "high"
+  }
+ ],
+ "oh-vet-role": [
+  {
+   "v": "R4k7-CbupPc",
+   "s": 0,
+   "e": 1860,
+   "conf": "high"
+  },
+  {
+   "v": "R4k7-CbupPc",
+   "s": 2400,
+   "e": 2820,
+   "conf": "medium"
+  }
+ ],
+ "oh-communication": [
+  {
+   "v": "R4k7-CbupPc",
+   "s": 2820,
+   "e": 3120,
+   "conf": "medium"
+  }
+ ],
+ "epidem-disease-transmission": [
+  {
+   "v": "iKHtSE7oKic",
+   "s": 720,
+   "e": 3420,
+   "conf": "high"
+  }
+ ],
+ "neuro-exam": [
+  {
+   "v": "S6uo2I2gfXQ",
+   "s": 2160,
+   "e": 3720,
+   "conf": "high"
+  }
+ ],
+ "triage": [
+  {
+   "v": "azotEvqwcZo",
+   "s": 660,
+   "e": 1680,
+   "conf": "medium"
+  }
+ ],
+ "er-anes": [
+  {
+   "v": "azotEvqwcZo",
+   "s": 4260,
+   "e": 5340,
+   "conf": "high"
+  },
+  {
+   "v": "azotEvqwcZo",
+   "s": 7080,
+   "e": 7680,
+   "conf": "high"
+  }
+ ],
+ "repro-ultrasound": [
+  {
+   "v": "zPgMJzPumXk",
+   "s": 2460,
+   "e": 5340,
+   "conf": "high"
+  },
+  {
+   "v": "zPgMJzPumXk",
+   "s": 960,
+   "e": 1680,
+   "conf": "medium"
+  }
+ ],
+ "acute-abdomen": [
+  {
+   "v": "agw6OuRWy5A",
+   "s": 4740,
+   "e": 5700,
+   "conf": "high"
+  }
+ ],
+ "derm-allergic": [
+  {
+   "v": "SWIXruJ9XNs",
+   "s": 240,
+   "e": 4080,
+   "conf": "high"
+  },
+  {
+   "v": "SWIXruJ9XNs",
+   "s": 5400,
+   "e": 7202,
+   "conf": "high"
+  }
+ ],
+ "derm-nutrition": [
+  {
+   "v": "SWIXruJ9XNs",
+   "s": 4320,
+   "e": 5400,
+   "conf": "high"
+  }
+ ],
+ "quality-assurance": [
+  {
+   "v": "ZRvrSjTlEgc",
+   "s": 2340,
+   "e": 3120,
+   "conf": "high"
+  }
+ ],
+ "gonadectomy-risk": [
+  {
+   "v": "JSD9HlA4PRA",
+   "s": 240,
+   "e": 5400,
+   "conf": "medium"
+  },
+  {
+   "v": "JSD9HlA4PRA",
+   "s": 5820,
+   "e": 10343,
+   "conf": "medium"
+  },
+  {
+   "v": "zq5assxVF74",
+   "s": 240,
+   "e": 540,
+   "conf": "medium"
+  }
+ ],
+ "sporo-crypto": [
+  {
+   "v": "XLna_IGlI7I",
+   "s": 0,
+   "e": 3660,
+   "conf": "high"
+  }
+ ],
+ "surgical-neutering": [
+  {
+   "v": "zq5assxVF74",
+   "s": 540,
+   "e": 3660,
+   "conf": "high"
+  },
+  {
+   "v": "zq5assxVF74",
+   "s": 5340,
+   "e": 7860,
+   "conf": "high"
+  }
+ ],
+ "mahahon-surgical": [
+  {
+   "v": "zq5assxVF74",
+   "s": 9240,
+   "e": 9780,
+   "conf": "high"
+  }
+ ],
+ "semen-preservation": [
+  {
+   "v": "q44qQOIMTXk",
+   "s": 0,
+   "e": 1800,
+   "conf": "medium"
+  }
+ ],
+ "semen-ai": [
+  {
+   "v": "q44qQOIMTXk",
+   "s": 6120,
+   "e": 8520,
+   "conf": "high"
+  },
+  {
+   "v": "q44qQOIMTXk",
+   "s": 2280,
+   "e": 4320,
+   "conf": "medium"
+  }
+ ],
+ "derm-intro": [
+  {
+   "v": "ytpYnHmuRh0",
+   "s": 600,
+   "e": 1860,
+   "conf": "high"
+  }
+ ],
+ "derm-parasitic": [
+  {
+   "v": "ytpYnHmuRh0",
+   "s": 3960,
+   "e": 6960,
+   "conf": "high"
+  }
+ ],
+ "cornea": [
+  {
+   "v": "74q8uuQdK14",
+   "s": 4740,
+   "e": 5520,
+   "conf": "high"
+  }
  ]
 };

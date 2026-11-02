@@ -61,6 +61,11 @@ const NUMBER = /\d+(?:[.,]\d+)?\s*(?:[-–]\s*\d+(?:[.,]\d+)?\s*)?(?:%|cm|mm|µm
 const BULLET = /^\s*(?:[•●▪◦–-]|\d+(?:\.\d+)*[.)]?\s)/;
 const sec = (t) => Math.round(t);
 
+/** The captions an analysis reads: Scribe's when present, else YouTube's; null when neither exists. */
+export function captionFile(dir) {
+  return ['video.scribe.json3', 'video.th.json3'].map((f) => path.join(dir, f)).find((f) => fs.existsSync(f)) || null;
+}
+
 /** YouTube json3 captions -> [{ t, end, text }], one per caption event. */
 export function captionLines(json3) {
   const lines = [];
@@ -210,7 +215,9 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
   const subjectOf = new Map(found.flatMap((s) => (s.topics || []).map((t) => [t.id, s.id])));
   const subject = { id: ids.join(','), name: found.map((s) => s.name).join(' / '), topics: found.flatMap((s) => s.topics || []).filter((t, i, all) => all.findIndex((x) => x.id === t.id) === i) };
   const subjectId0 = found[0].id;
-  const lines = captionLines(JSON.parse(fs.readFileSync(path.join(dir, 'video.th.json3'), 'utf8')));
+  // Scribe's transcript when the audio lane made one (English terms in Latin
+  // letters, word times), else YouTube's automatic Thai captions.
+  const lines = captionLines(JSON.parse(fs.readFileSync(captionFile(dir), 'utf8')));
   const duration = Math.max(durationSec, Math.ceil(lines[lines.length - 1]?.end || 0));
   const readJSON = (f) => (fs.existsSync(path.join(dir, f)) ? JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) : null);
   const skips = skipSpans(lines, duration, { silence: readJSON('silence.json')?.spans || null, slides: readJSON('frames/frames.json')?.frames?.map((f) => f.t) || null });
