@@ -37,6 +37,10 @@ const STUBS = {
     'export const useMemo = (f) => f();',
     'export const useRef = (v) => ({ current: v });',
     'export const useCallback = (f) => f;',
+    // The panel's topic clip (#139) is lazy and renders nothing here: it sits
+    // inside the panel, which waits for the key, and this test reads the chip.
+    'export const lazy = () => function Lazy() { return null; };',
+    'export const Suspense = ({ children }) => children ?? null;',
   ].join('\n'),
   'react/jsx-runtime': [
     "export const Fragment = 'fragment';",
