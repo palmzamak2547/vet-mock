@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { streakMoment, isStreakMilestone, stashStreakMoment, readStreakMoment, markStreakMomentSeen } from '../../src/lib/streak-moment.js';
-import { updateStreak } from '../../src/hooks/utils.js';
+import { updateStreak, bangkokDayNumber } from '../../src/hooks/utils.js';
 
 const DAY = 24 * 60 * 60 * 1000;
-const midnight = (offsetDays) => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime() + offsetDays * DAY; };
+// Bangkok midnights, the days updateStreak counts in, so the cases hold in any zone.
+const midnight = (offsetDays) => (bangkokDayNumber(Date.now()) + offsetDays) * DAY - 7 * 60 * 60 * 1000;
 
 // The moment is read off updateStreak's own output, so each case runs the
 // real rule rather than a hand-made "after".

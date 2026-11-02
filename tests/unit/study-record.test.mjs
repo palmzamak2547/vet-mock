@@ -8,14 +8,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  weekTrack, recentSessions, sessionWhen, subjectsStarted, classRowLabel, shortThaiDay, rowTime,
+  weekTrack, recentSessions, sessionWhen, subjectsStarted, topicsRead, classRowLabel, shortThaiDay, rowTime,
 } from '../../src/lib/study-record.js';
 import { topicProgressKey } from '../../src/lib/study-progress.js';
+import { bangkokMs } from '../../src/data/schedule.js';
 
 const H = 60 * 60 * 1000;
 const D = 24 * H;
-// A Monday, 13:00 local, so day arithmetic crosses no month boundary.
-const NOW = new Date(2026, 9, 12, 13, 0, 0).getTime();
+// A Monday, 13:00 in Bangkok, so day arithmetic crosses no month boundary.
+// Days and clock times are Bangkok's, so the cases hold under any TZ.
+const NOW = bangkokMs('2026-10-12', 13, 0);
 
 test('weekTrack: seven local days ending today, with answers counted per day', () => {
   const history = [
@@ -95,12 +97,25 @@ test('recentSessions: one graded set is one session even across subjects (every 
 test('sessionWhen: today and yesterday by name, older by day', () => {
   assert.equal(sessionWhen(NOW - 20 * 60_000, NOW), 'วันนี้ 12:40');
   assert.equal(sessionWhen(NOW - D + 5 * H, NOW), 'เมื่อวาน 18:00');
-  // 02:00 is still "today" on the local calendar, not "yesterday".
-  const twoAm = new Date(2026, 9, 12, 2, 0).getTime();
+  // 02:00 is still "today" on Bangkok's calendar, not "yesterday", whatever
+  // zone the device is in (02:00 in Bangkok is 19:00 the evening before in UTC).
+  const twoAm = bangkokMs('2026-10-12', 2, 0);
   assert.equal(sessionWhen(twoAm, NOW), 'วันนี้ 02:00');
   assert.equal(sessionWhen(NOW - 3 * D, NOW), 'ศุกร์ 9 ต.ค.');
   assert.equal(sessionWhen('garbage', NOW), '');
   assert.equal(shortThaiDay(NOW), 'จันทร์ 12 ต.ค.');
+});
+
+test('topicsRead: a topic read under its old bare key and its promoted key counts once', () => {
+  // setTopicRead keeps the bare key when it promotes it, so both stay stored;
+  // the profile counted the stored keys and said 2 for one topic.
+  const subjects = [{ id: 'one-health', topics: [{ id: 'nutrition' }, { id: 'other' }, { id: 'gone', hidden: true }] }];
+  const promoted = topicProgressKey('one-health', 'nutrition');
+  assert.equal(topicsRead({ nutrition: 1700000000000, [promoted]: 1700000000000 }, subjects), 1);
+  assert.equal(topicsRead({ nutrition: true }, subjects), 1, 'a bare key alone still counts, as the reading list reads it');
+  assert.equal(topicsRead({ nutrition: 1700000000000, [promoted]: false }, subjects), 0, 'unticked under the subject key overrides the bare one');
+  assert.equal(topicsRead({ [topicProgressKey('one-health', 'gone')]: 1 }, subjects), 0, 'a hidden topic is not on the list');
+  assert.equal(topicsRead(null, subjects), 0);
 });
 
 test('subjectsStarted: a subject counts as started with one read topic, and only subjects with topics count', () => {
