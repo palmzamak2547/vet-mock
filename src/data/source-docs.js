@@ -978,6 +978,143 @@ export const SOURCE_DOCS = [
     match: /สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ/i,
     editions: [{ id: '35p', pages: 35 }],
   },
+  // Veterinary Epidemiology FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the older decks and the seniors' files.
+  {
+    slug: 'epid-surveillance-2569', subject: 'epidemiology', title: "1. Animal disease surveillance SJ 2026",
+    match: /(?<!\d)1\. Animal disease surveillance SJ 2026/i,
+    editions: [{ id: '58p', pages: 58 }],
+  },
+  {
+    slug: 'epid-outbreak-investigation-2569', subject: 'epidemiology', title: "2. Outbreak investigation SJ 2026",
+    match: /(?<!\d)2\. Outbreak investigation SJ 2026/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-outbreak-report-2569', subject: 'epidemiology', title: "3. Report outbreak SJ 2026",
+    match: /(?<!\d)3\. Report outbreak SJ 2026/i,
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'epid-disease-control-2569', subject: 'epidemiology', title: "7. Disease Control, Prevention and Eradication (การควบคุม ป้องกัน และกำจัดโรค)",
+    match: /(?<!\d)7\. Disease Control, Prevention and Eradication \(การควบคุม ป้องกัน และกำจัดโรค\)(?!\s*deck 20\d\d)/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-causation-2569', subject: 'epidemiology', title: "Concept of causation_TC 3 August 2026",
+    match: /Concept of causation_TC 3 August 2026/i,
+    editions: [{ id: '30p', pages: 30 }],
+  },
+  {
+    slug: 'epid-transmission-2569', subject: 'epidemiology', title: "Concept of disease transmission_TC 3 August 2026",
+    match: /Concept of disease transmission_TC 3 August 2026/i,
+    editions: [{ id: '52p', pages: 52 }],
+  },
+  {
+    slug: 'epid-data-analysis-2569', subject: 'epidemiology', title: "Data analysis & applied statistic for epidemiology_TC",
+    match: /Data analysis & applied statistic for epidemiology_TC(?!\s*deck 20\d\d)/i,
+    editions: [{ id: '164p', pages: 164 }],
+  },
+  {
+    slug: 'epid-frequency-association-dx-2569', subject: 'epidemiology', title: "Measurement of disease frequency- measurement of association- diagnostic test",
+    match: /Measurement of disease frequency- measurement of association- diagnostic test(?!\s*deck 20\d\d)/i,
+    editions: [{ id: '112p', pages: 112 }],
+  },
+  {
+    slug: 'epid-sample-size-2569', subject: 'epidemiology', title: "Sample size determination_TC",
+    match: /Sample size determination_TC(?!\s*deck 20\d\d)/i,
+    editions: [{ id: '74p', pages: 74 }],
+  },
+  {
+    slug: 'epid-study-design-2569', subject: 'epidemiology', title: "Study Design",
+    match: /Study Design(?!\s*deck 20\d\d)/i,
+    editions: [{ id: '44p', pages: 44 }],
+  },
+  {
+    slug: 'epid-gov-policy-2569', subject: 'epidemiology', title: "นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์",
+    match: /นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์(?!\s*deck 20\d\d)/i,
+    editions: [{ id: '63p', pages: 63 }],
+  },
+  {
+    slug: 'epid-control-2024', subject: 'epidemiology', title: "Control, Prevention and Eradication (deck 2024)",
+    match: /(?<!\d)10 - Control_Prevention_Eradication_Epi2024/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'epid-applied-stats-2024', subject: 'epidemiology', title: "Applied Statistics in Epidemiology (deck 2024)",
+    match: /(?<!\d)11 - Applied_Statistics_in_Epidemiology_2024/i,
+    editions: [{ id: '72p', pages: 72 }],
+  },
+  {
+    slug: 'epid-lsd-action-plan-2024', subject: 'epidemiology', title: "The integrated action plan for surveillance, prevention and control of Lumpy skin disease in Thailand (deck 2024)",
+    match: /(?<!\d)16 - แผนปฏิบัติการ-lumpy-skin/i,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'epid-intro-practice-2023', subject: 'epidemiology', title: "Introduction for practice: Veterinary Epidemiology (deck 2023)",
+    match: /(?<!\d)19 - Introduction for practice 2566/i,
+    editions: [{ id: '53p', pages: 53 }],
+  },
+  {
+    slug: 'epid-intro-2024', subject: 'epidemiology', title: "Veterinary epidemiology: introduction (deck 2024)",
+    match: /(?<!\d)1_vet_epidem_intro_050824/i,
+    editions: [{ id: '23p', pages: 23 }],
+  },
+  {
+    slug: 'epid-frequency-2024', subject: 'epidemiology', title: "Measurement of Disease Frequency (deck 2024)",
+    match: /(?<!\d)5_vet_epidem_dis_frequency_070824/i,
+    editions: [{ id: '44p', pages: 44 }],
+  },
+  {
+    slug: 'epid-outbreak-investigation-2024', subject: 'epidemiology', title: "Outbreak investigation (deck 2024)",
+    match: /(?<!\d)6 - Outbreak_investigation_SJ/i,
+    editions: [{ id: '65p', pages: 65 }],
+  },
+  {
+    slug: 'epid-observational-2024', subject: 'epidemiology', title: "รูปแบบการศึกษาทางระบาดวิทยาทางสัตวแพทย์ (deck 2024)",
+    match: /(?<!\d)8 - Observational_study_2567/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-final-vet84', subject: 'epidemiology', title: "Epidem Final (Vet 84 folder)",
+    match: /Epidem final ของ Vet 84/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
+  {
+    slug: 'epid-final-starred-vet84', subject: 'epidemiology', title: "Epidem final, starred copy (Vet 84 folder)",
+    match: /Epidem final ที่ติดดาวของ Vet 84|บันทึก Vet 81/i,
+    editions: [{ id: '15p', pages: 15 }],
+  },
+  {
+    slug: 'epid-midterm-answers-vet84', subject: 'epidemiology', title: "3. Epidem midterm (Vet 84 folder)",
+    match: /หัวกระดาษ Epidem midterm/i,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  {
+    slug: 'epid-midterm-forms-vet84', subject: 'epidemiology', title: "1. Epidemiology midterm (Vet 84 folder)",
+    match: /(?<!\d)1\. Epidemiology midterm|ไฟล์รวมภาพแบบฟอร์มข้อสอบกลางภาคออนไลน์/i,
+    editions: [{ id: '29p', pages: 29 }],
+  },
+  {
+    slug: 'epid-midterm-forms-copy-vet84', subject: 'epidemiology', title: "Image-only copy of the two online forms, 33 pages (Vet 84 folder)",
+    match: /สำเนาภาพแบบฟอร์มชุดเดียวกันที่ส่งคำตอบแล้ว/i,
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  {
+    slug: 'epid-midterm-notes-vet84', subject: 'epidemiology', title: "epidem midterm (Vet 84 folder)",
+    match: /ไฟล์ epidem midterm/i,
+    editions: [{ id: '5p', pages: 5 }],
+  },
+  {
+    slug: 'epid-key-mid51-vet84', subject: 'epidemiology', title: "key mid 5.1 (Vet 84 folder)",
+    match: /key mid 5\.1(?!\d)/i,
+    editions: [{ id: '3p', pages: 3 }],
+  },
+  // Veterinary Epidemiology: the Vet 85 final summary a batch B sighting cites.
+  {
+    slug: 'epid-final-summary-vet85', subject: 'epidemiology', title: "ลำบากวิทยา (สรุปและบันทึกหลังสอบปลายภาค Epidemiology ของ Vet 85)",
+    match: /สรุปและบันทึกหลังสอบปลายภาคของ Vet 85/i,
+    editions: [{ id: '12p', pages: 12 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));

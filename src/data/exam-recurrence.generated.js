@@ -1465,6 +1465,186 @@ export const EXAM_RECURRENCE = {
       },
     },
   },
+  "epidemiology": {
+    "cohorts": [79, 81, 82, 83, 85],
+    "items": 66,
+    "topics": {
+      "epidem-applied-stats": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 5,
+        "sat": {},
+        "unattributed": ["epidemiology:213511", "epidemiology:213512", "epidemiology:213513", "epidemiology:213554", "epidemiology:213558"],
+      },
+      "epidem-causation": {
+        "cohorts": [81, 82],
+        "first": 81,
+        "last": 82,
+        "items": 4,
+        "sat": {
+          "81": {
+            "unknown": ["epidemiology:213503"],
+          },
+          "82": {
+            "final": ["epidemiology:213539"],
+            "unknown": ["epidemiology:213503"],
+          },
+        },
+        "unattributed": ["epidemiology:213509", "epidemiology:213519"],
+      },
+      "epidem-control-prevention": {
+        "cohorts": [79, 81, 82, 83],
+        "first": 79,
+        "last": 83,
+        "items": 10,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213563"],
+          },
+          "81": {
+            "final": ["epidemiology:213529", "epidemiology:213530", "epidemiology:213531", "epidemiology:213532"],
+            "unknown": ["epidemiology:213504"],
+          },
+          "82": {
+            "final": ["epidemiology:213540", "epidemiology:213541"],
+            "unknown": ["epidemiology:213504"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213504"],
+          },
+        },
+        "unattributed": ["epidemiology:213564", "epidemiology:213565"],
+      },
+      "epidem-data-analysis": {
+        "cohorts": [81, 82, 83, 85],
+        "first": 81,
+        "last": 85,
+        "items": 6,
+        "sat": {
+          "81": {
+            "unknown": ["epidemiology:213528"],
+          },
+          "82": {
+            "unknown": ["epidemiology:213528"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213528"],
+          },
+          "85": {
+            "unknown": ["epidemiology:213528"],
+          },
+        },
+        "unattributed": ["epidemiology:213543", "epidemiology:213545", "epidemiology:213555", "epidemiology:213556", "epidemiology:213557"],
+      },
+      "epidem-disease-frequency": {
+        "cohorts": [79, 81, 82, 83],
+        "first": 79,
+        "last": 83,
+        "items": 7,
+        "sat": {
+          "79": {
+            "unknown": ["epidemiology:213502"],
+          },
+          "81": {
+            "final": ["epidemiology:213521", "epidemiology:213523"],
+            "unknown": ["epidemiology:213500", "epidemiology:213501", "epidemiology:213502", "epidemiology:213525"],
+          },
+          "82": {
+            "final": ["epidemiology:213538"],
+            "unknown": ["epidemiology:213500", "epidemiology:213501", "epidemiology:213502", "epidemiology:213525"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213500", "epidemiology:213501", "epidemiology:213502", "epidemiology:213525"],
+          },
+        },
+        "unattributed": [],
+      },
+      "epidem-disease-transmission": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 1,
+        "sat": {},
+        "unattributed": ["epidemiology:213549"],
+      },
+      "epidem-dx-screening": {
+        "cohorts": [79, 81, 83],
+        "first": 79,
+        "last": 83,
+        "items": 7,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213560"],
+          },
+          "81": {
+            "final": ["epidemiology:213535", "epidemiology:213536"],
+            "unknown": ["epidemiology:213526"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213526"],
+          },
+        },
+        "unattributed": ["epidemiology:213546", "epidemiology:213547", "epidemiology:213548"],
+      },
+      "epidem-observational-study": {
+        "cohorts": [79, 81, 83],
+        "first": 79,
+        "last": 83,
+        "items": 13,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213561"],
+          },
+          "81": {
+            "final": ["epidemiology:213524", "epidemiology:213533", "epidemiology:213534"],
+            "unknown": ["epidemiology:213527"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213527"],
+          },
+        },
+        "unattributed": ["epidemiology:213510", "epidemiology:213514", "epidemiology:213515", "epidemiology:213516", "epidemiology:213517", "epidemiology:213520", "epidemiology:213542", "epidemiology:213544"],
+      },
+      "epidem-outbreak-investigation": {
+        "cohorts": [79, 81, 82, 83],
+        "first": 79,
+        "last": 83,
+        "items": 8,
+        "sat": {
+          "79": {
+            "final": ["epidemiology:213562"],
+          },
+          "81": {
+            "unknown": ["epidemiology:213522"],
+          },
+          "82": {
+            "final": ["epidemiology:213537"],
+          },
+          "83": {
+            "unknown": ["epidemiology:213507", "epidemiology:213508", "epidemiology:213522"],
+          },
+        },
+        "unattributed": ["epidemiology:213506", "epidemiology:213550", "epidemiology:213551"],
+      },
+      "epidem-sample-size": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 1,
+        "sat": {},
+        "unattributed": ["epidemiology:213559"],
+      },
+      "epidem-surveillance": {
+        "cohorts": [],
+        "first": null,
+        "last": null,
+        "items": 4,
+        "sat": {},
+        "unattributed": ["epidemiology:213505", "epidemiology:213518", "epidemiology:213552", "epidemiology:213553"],
+      },
+    },
+  },
   "equine-medicine": {
     "cohorts": [81, 83, 84, 85],
     "items": 253,
