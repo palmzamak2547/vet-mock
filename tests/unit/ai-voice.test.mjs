@@ -253,7 +253,8 @@ test('route: refuses plainly, mints within the caps, a ticket restarts once', as
     assert.match(res.body.signedUrl, /^wss:/);
     assert.equal(res.body.retry, null, 'a restart is handed no new ticket (no chain of free sessions)');
     assert.ok(calls.some((u) => u.includes('get-signed-url') && u.includes('include_conversation_id=true')), 'a signed URL opens one conversation, not fifteen minutes of them');
-    assert.equal(res.body.conversationId, undefined, 'the conversation id stays in the log');
+    assert.equal(res.body.conversationId, undefined, 'no id from the provider: no conversation and no photo pass for the page');
+    assert.equal(res.body.photos, undefined);
 
     // the same ticket again is an ordinary start: the second of two today
     res = fakeRes();
@@ -329,6 +330,82 @@ test('route: refuses plainly, mints within the caps, a ticket restarts once', as
     res = fakeRes();
     await handler(post({ action: 'start' }, '198.51.100.10'), res);
     assert.equal(res.body.error, 'off');
+  } finally {
+    globalThis.fetch = saved.fetch;
+    for (const k of Object.keys(process.env)) if (!(k in saved.env)) delete process.env[k];
+    Object.assign(process.env, saved.env);
+    resetVoiceCache();
+  }
+});
+
+// The agent's calls are private: the provider takes a photo into one only with the account key (the browser SDK's
+// own upload got 401 every time, 2026-11-06), so photos go through the route, into the student's own call.
+test('photos: through the route with the key, into this student\'s own call only, four a call', async () => {
+  const { default: handler } = await import('../../api/ai-voice.js');
+  const { photoPass, verifyPhotoPass } = await import('../../api/_lib/ai/voice.js');
+  const cfg = voiceConfig(ENV);
+  const now = 1_790_000_000_000;
+  const pass = photoPass('u1', 'conv_abc123XYZ', cfg, now);
+  assert.equal(verifyPhotoPass(pass, 'u1', 'conv_abc123XYZ', cfg, now + 60_000), true);
+  assert.equal(verifyPhotoPass(pass, 'u2', 'conv_abc123XYZ', cfg, now), false, 'another student');
+  assert.equal(verifyPhotoPass(pass, 'u1', 'conv_other1234', cfg, now), false, 'another call');
+  assert.equal(verifyPhotoPass(pass, 'u1', 'conv_abc123XYZ', cfg, now + 3_600_000), false, 'expired');
+  assert.equal(verifyPhotoPass(`${pass.split('.')[0]}.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`, 'u1', 'conv_abc123XYZ', cfg, now), false, 'tampered');
+
+  const saved = { fetch: globalThis.fetch, env: { ...process.env } };
+  const uploads = [];
+  globalThis.fetch = async (url, init = {}) => {
+    const u = String(url);
+    if (u.includes('/v1/user/subscription')) return Response.json({ character_limit: 141_000, character_count: 1000, next_character_count_reset_unix: 1796529562 });
+    if (u.includes('/conversation/token')) return Response.json({ token: 'tok_0123456789abcdefghij', conversation_id: 'conv_live01ABCdef' });
+    if (u.includes('/files')) {
+      uploads.push({ url: u, key: init.headers?.['xi-api-key'], file: init.body?.get?.('file') });
+      return Response.json({ file_id: `file_${uploads.length}` });
+    }
+    return new Response('{}', { status: 404 });
+  };
+  try {
+    Object.assign(process.env, ENV);
+    delete process.env.AI_VOICE_OFF;
+    resetVoiceCache();
+    let res = fakeRes();
+    await handler(post({ action: 'start' }, '198.51.100.70'), res);
+    assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+    assert.equal(res.body.conversationId, 'conv_live01ABCdef');
+    const { photos } = res.body;
+    assert.ok(photos, 'a start with a conversation hands the page its photo pass');
+
+    const photo = (o = {}, ip = '198.51.100.70') => post({ action: 'file', conversationId: 'conv_live01ABCdef', pass: photos, mediaType: 'image/jpeg', data: Buffer.from('a small jpeg').toString('base64'), ...o }, ip);
+    res = fakeRes();
+    await handler(photo(), res);
+    assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+    assert.equal(res.body.fileId, 'file_1');
+    assert.match(uploads[0].url, /\/v1\/convai\/conversations\/conv_live01ABCdef\/files$/);
+    assert.equal(uploads[0].key, ENV.ELEVENLABS_API_KEY, 'the account key, server side');
+    assert.equal(uploads[0].file?.type, 'image/jpeg');
+
+    res = fakeRes();
+    await handler(photo({}, '198.51.100.71'), res);
+    assert.equal(res.statusCode, 403, 'another student cannot send into this call');
+    res = fakeRes();
+    await handler(photo({ conversationId: 'conv_someone0else' }), res);
+    assert.equal(res.statusCode, 403, 'nor this student into another call');
+    res = fakeRes();
+    await handler(photo({ mediaType: 'application/pdf' }), res);
+    assert.equal(res.statusCode, 400);
+    res = fakeRes();
+    await handler(photo({ data: Buffer.alloc(2_500_000).toString('base64') }), res);
+    assert.equal(res.statusCode, 413);
+    for (let i = 2; i <= 4; i++) {
+      res = fakeRes();
+      await handler(photo(), res);
+      assert.equal(res.statusCode, 200, `photo ${i} of 4`);
+    }
+    res = fakeRes();
+    await handler(photo(), res);
+    assert.equal(res.statusCode, 429, 'four a call, the agent\'s own cap');
+    assert.match(res.body.message, /ครบ 4 รูป/);
+    assert.equal(uploads.length, 4);
   } finally {
     globalThis.fetch = saved.fetch;
     for (const k of Object.keys(process.env)) if (!(k in saved.env)) delete process.env[k];

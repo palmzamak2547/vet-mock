@@ -6,7 +6,9 @@
 //            voice right now (configured, switched on, the month's credits).
 //            Public, no secrets, edge-cached for a minute.
 //   POST     { action: 'start', transport?: 'webrtc' | 'websocket', retry? }
-//            -> { transport, token | signedUrl, sessionSeconds, left, retry, user }
+//            -> { transport, token | signedUrl, sessionSeconds, left, retry, user, conversationId?, photos? }
+//   POST     { action: 'file', conversationId, pass, mediaType, data }: a photo into that call -> { fileId }
+//            (the provider takes files into a private agent's call only with the account key)
 //
 // Refusals are JSON { error, message, retryAfter? } with the page's words in
 // `message`: 401/403 from the Chula wall, 429 when the student has used the
@@ -24,7 +26,7 @@ import { allowedOrigin, clientIP, rateLimit, rateRefund, kvGetJSON, kvSetJSON } 
 import { requireChula } from './_lib/chula-gate.js';
 import {
   voiceConfig, readBalance, budgetVerdict, mintConversation, retryTicket, verifyRetryTicket, retryTicketTtl, voiceUserId,
-  bangkokDay, secondsToBangkokMidnight, VOICE_MESSAGES,
+  bangkokDay, secondsToBangkokMidnight, VOICE_MESSAGES, photoPass, verifyPhotoPass, photoPassTtl, attachPhoto, PHOTO_TYPES, PHOTOS_PER_CALL,
 } from './_lib/ai/voice.js';
 
 export const config = {
@@ -36,6 +38,40 @@ const kv = { get: kvGetJSON, set: kvSetJSON };
 const refuse = (res, status, error, extra = {}) => res.status(status).json({ error, message: VOICE_MESSAGES[error], ...extra });
 // free restarts a student gets a day (a failover, a dropped call); past that a restart is a session
 const RESTARTS_PER_DAY = 2;
+// a photo's bytes after the page has resized it (lib/image.js keeps its base64 under 3 MB)
+const PHOTO_MAX_BYTES = 2_400_000;
+
+/**
+ * A photo inside a call (POST { action: 'file', conversationId, pass, mediaType, data }) -> { fileId }: into a
+ * conversation this route started for this student (the start's pass), four a call (the agent's own cap).
+ */
+async function sendPhoto(res, body, who, cfg) {
+  const conversationId = String(body.conversationId || '');
+  const mediaType = PHOTO_TYPES.includes(body.mediaType) ? body.mediaType : '';
+  const bytes = typeof body.data === 'string' ? Buffer.from(body.data, 'base64') : Buffer.alloc(0);
+  if (!mediaType || !bytes.length) return res.status(400).json({ error: 'input', message: 'ส่งรูปนี้ไม่ได้ ลองรูปอื่น' });
+  if (bytes.length > PHOTO_MAX_BYTES) return res.status(413).json({ error: 'size', message: 'รูปนี้ใหญ่เกินไป ลองครอปหรือถ่ายใหม่' });
+  if (cfg.off) return refuse(res, 503, 'off');
+  if (!cfg.configured) return refuse(res, 503, 'unconfigured');
+  if (!verifyPhotoPass(body.pass, who, conversationId, cfg)) {
+    return res.status(403).json({ error: 'conversation', message: 'สายนี้ส่งรูปไม่ได้แล้ว วางสายแล้วเริ่มใหม่ได้เลย' });
+  }
+  const count = await rateLimit(`ai-voice:photos:${conversationId}`, PHOTOS_PER_CALL, photoPassTtl(cfg) * 1000);
+  if (!count.ok) {
+    if (count.unavailable) return refuse(res, 503, 'limiter', { retryAfter: count.retryAfter });
+    return res.status(429).json({ error: 'photos', message: `สายนี้ส่งรูปครบ ${PHOTOS_PER_CALL} รูปแล้ว` });
+  }
+  let fileId;
+  try {
+    fileId = await attachPhoto(cfg, { conversationId, mediaType, bytes });
+  } catch (e) {
+    console.warn('[ai-voice] photo', e.status || e.message);
+    await rateRefund(`ai-voice:photos:${conversationId}`, photoPassTtl(cfg) * 1000);
+    return res.status(502).json({ error: 'provider', message: 'ส่งรูปไม่สำเร็จ ลองอีกครั้ง' });
+  }
+  console.log('[ai-voice]', JSON.stringify({ outcome: 'photo', bytes: bytes.length, conversation: conversationId }));
+  return res.status(200).json({ fileId });
+}
 
 async function status(cfg) {
   if (cfg.off) return { available: false, reason: 'off' };
@@ -86,14 +122,14 @@ export default async function handler(req, res) {
   } catch {
     body = null;
   }
+  // who is counted: the student, or the address while the wall is off and nobody signed in
+  const who = gate.userId || `ip:${clientIP(req)}`;
+  if (body?.action === 'file') return sendPhoto(res, body, who, cfg);
   if (body?.action !== 'start') return res.status(400).json({ error: 'input', message: 'คำขอไม่ถูกต้อง' });
   const transport = body.transport === 'websocket' ? 'websocket' : 'webrtc';
 
   if (cfg.off) return refuse(res, 503, 'off');
   if (!cfg.configured) return refuse(res, 503, 'unconfigured');
-
-  // who is counted: the student, or the address while the wall is off and nobody signed in
-  const who = gate.userId || `ip:${clientIP(req)}`;
   const ticket = verifyRetryTicket(body.retry, who, cfg);
 
   let balance;
@@ -175,5 +211,7 @@ export default async function handler(req, res) {
     left,
     retry: retried ? null : retryTicket(who, cfg),
     user,
+    // the page's own conversation, and its pass to send photos into it (none when the provider gave no id)
+    ...(conversationId ? { conversationId, photos: photoPass(who, conversationId, cfg) } : {}),
   });
 }

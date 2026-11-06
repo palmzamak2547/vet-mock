@@ -604,14 +604,25 @@ export function createVoice(h = {}) {
       if (!conv) throw new VoiceError('connect');
       const { prepareImage } = await import('./image.js');
       const img = await prepareImage(file);
-      const bytes = Uint8Array.from(atob(img.data), (ch) => ch.charCodeAt(0));
-      let up;
+      // Through VetMock's route, never the SDK's uploadFile: the agent's calls are private, and the provider takes a
+      // file into one only with the account key (the SDK's upload got 401 every time, 2026-11-06).
+      if (!cred?.conversationId || !cred?.photos) throw new VoiceError('connect', 'สายนี้ส่งรูปไม่ได้ วางสายแล้วเริ่มใหม่ได้เลย');
+      let res;
+      let j = {};
       try {
-        up = await conv.uploadFile(new Blob([bytes], { type: img.mediaType }));
+        res = await authorized(VOICE_URL, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'file', conversationId: cred.conversationId, pass: cred.photos, mediaType: img.mediaType, data: img.data }),
+        });
+        j = await res.json().catch(() => ({}));
       } catch {
-        throw new VoiceError('connect', 'ส่งรูปไม่สำเร็จ ลองอีกครั้ง');
+        throw new VoiceError('connect', 'ส่งรูปไม่สำเร็จ เช็กเน็ตแล้วลองอีกครั้ง');
       }
-      conv.sendMultimodalMessage({ text, fileIds: [up.fileId] });
+      if (!res.ok || typeof j.fileId !== 'string') throw new VoiceError('connect', j.message || 'ส่งรูปไม่สำเร็จ ลองอีกครั้ง');
+      // the call may have ended while the photo was on its way
+      if (!conv || closing) throw new VoiceError('connect', 'สายจบไปก่อนส่งรูปเสร็จ');
+      conv.sendMultimodalMessage({ text, fileIds: [j.fileId] });
+      studentSaid(text);
       remember('user', `${text} (ส่งรูป)`);
       return img.preview;
     },
