@@ -66,7 +66,9 @@ export function validateVoiceTool(v) {
     return { ok: true, op, topic, count: Number.isFinite(n) ? Math.min(5, Math.max(1, n)) : 3 };
   }
   if (op === 'papers') {
-    const terms = parseTerms(v.terms);
+    // one long string ("parvovirus vaccine dogs recent research") is split into its words, the kind-of-paper ones out
+    let terms = parseTerms(v.terms);
+    if (terms.length === 1 && terms[0].split(/\s+/).length >= 3) terms = parseTerms(wordsOf(terms));
     if (!terms.length) return { ok: false };
     return { ok: true, op, terms, recent: v.recent === true };
   }
@@ -140,9 +142,31 @@ export async function voiceQuiz({ topic, count }, { deps = {} } = {}) {
   return { found: true, card, agent };
 }
 
+// The engines rank by their own measure: asked about a parvovirus vaccine, a rabies immunoassay came fourth. A paper
+// stays when its title or abstract names the topic (the first term that is not a generic word); when fewer than two
+// do, the engine's own order stands.
+const GENERIC = new Set(['vaccine', 'vaccines', 'vaccination', 'treatment', 'therapy', 'diagnosis', 'dog', 'dogs', 'cat', 'cats', 'canine', 'feline', 'efficacy', 'clinical', 'review']);
+// words that say what kind of paper, not what it is about
+const NOISE = new Set(['recent', 'research', 'latest', 'new', 'study', 'studies', 'paper', 'papers', 'update', 'and', 'the', 'for', 'with', 'in', 'of']);
+const wordsOf = (terms) => (terms || []).flatMap((t) => String(t).toLowerCase().split(/[\s,;]+/)).filter((w) => w.length >= 3 && !NOISE.has(w));
+/**
+ * The papers about what was asked, best first: ranked by how many of the asked words their title and abstract carry
+ * (a vaccine paper before a neuropathy one, asked about a parvovirus vaccine), and only those naming the topic (the
+ * first word that is not a generic one) unless that leaves fewer than two.
+ */
+export function onTopic(papers, terms) {
+  const words = wordsOf(terms);
+  const topic = words.find((w) => !GENERIC.has(w));
+  const text = (p) => `${p.title || ''} ${p.abstract || ''}`.toLowerCase();
+  const score = (p) => words.reduce((n, w) => n + (text(p).includes(w.replace(/(es|s)$/, '')) ? 1 : 0), 0);
+  const ranked = papers.map((p, i) => ({ p, i, s: score(p) })).sort((a, b) => b.s - a.s || a.i - b.i);
+  const kept = topic ? ranked.filter((x) => text(x.p).includes(topic)) : ranked;
+  return (kept.length >= 2 ? kept : ranked).map((x) => x.p);
+}
+
 export async function voicePapers({ terms, recent }, { env = process.env, deps = {}, signal } = {}) {
   const res = await (deps.findPapers || findPapers)(terms, { recent, signal, env, ...(deps.fetchImpl ? { fetchImpl: deps.fetchImpl } : {}), ...(deps.kv ? { kv: deps.kv } : {}) });
-  const papers = (res.papers || []).slice(0, 4);
+  const papers = onTopic(res.papers || [], terms).slice(0, 4);
   if (!papers.length) {
     return { found: false, agent: res.failed ? 'the paper search failed this time: tell the student it can be tried again; never name a paper yourself.' : 'no papers found for these terms: say so briefly; never name a paper yourself.' };
   }

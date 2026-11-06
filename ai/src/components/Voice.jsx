@@ -43,6 +43,7 @@ const WARN_S = 30;
 const WRAP_S = 40;
 // a look-up that outlasts the spoken lead-in gets one soft ping (research: silent waits under 4-8 s)
 const PING_AFTER_MS = 2000;
+const HIDDEN_QUIET_MS = 45_000;
 const FOLLOW_UPS = ['อธิบายเพิ่มอีกนิด', 'ขอข้อสอบเรื่องนี้', 'สรุปให้จำง่าย ๆ'];
 
 // An app's own browser that will not share the microphone: LINE opens the system browser for
@@ -61,7 +62,7 @@ function endNote(reason, { ms, sessionSeconds, quietFor, said }) {
   if (reason === 'error') return said ? 'สายหลุดระหว่างคุย บทสนทนาเก็บไว้ในแชตแล้ว' : 'สายหลุด ลองเริ่มคุยใหม่อีกครั้ง';
   if (reason === 'agent') {
     if (sessionSeconds && ms >= (sessionSeconds - 10) * 1000) return 'หมดเวลาของรอบนี้แล้ว เริ่มรอบใหม่ได้ที่ปุ่มเสียง';
-    if (quietFor > 100_000) return 'วางสายเพราะเงียบไปนาน';
+    if (quietFor > 75_000) return 'วางสายเพราะเงียบไปนาน';
   }
   return '';
 }
@@ -90,6 +91,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const micPeak = useRef(0);
   const echoes = useRef([]);
   const hinted = useRef(new Set());
+  const quietSince = useRef(0); // when the agent last stopped (with lastHeardAt: how long both sides have been quiet)
+  const leftBehind = useRef(false); // hung up because the tab was hidden and quiet
   const wrapped = useRef(false);
   const chatRef = useRef(chat);
   chatRef.current = chat;
@@ -143,6 +146,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
     const v = createVoice({
       onPhase: (p) => {
         if (!alive || p === 'ended') return;
+        if (p === 'listening' && phaseRef.current !== 'listening') quietSince.current = Date.now();
         if ((p === 'listening' || p === 'thinking') && phaseRef.current === 'connecting') {
           connectedAt.current = Date.now();
           voiceSound.open();
@@ -223,11 +227,13 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       },
       onTool: (kind, data) => {
         if (kind === 'sources') {
-          // the words just before this look-up were a lead-in, not the answer
+          // the words just before this look-up were a lead-in, not the answer (unless the page looked it up after
+          // an answer given from memory: then those words were the answer, and the sources go with them)
           const turns = turnsRef.current;
           const last = turns[turns.length - 1];
-          if (last?.role === 'agent') last.lead = true;
-          pending.current.sources = data;
+          if (last?.role === 'agent' && !data.extra) last.lead = true;
+          if (data.extra && last?.role === 'agent') last.sources = { covered: Boolean(data.covered), items: data.items || [] };
+          else pending.current.sources = data;
           // two passages of one lecture are one card here (the deck shows titles, not passages)
           const seen = new Set();
           const items = (data.items || []).filter((s) => { const k = String(s.title || '').trim().toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; });
@@ -248,6 +254,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
           if (data.card) pending.current.cards.push(data.card);
           setPapers(data.card?.items || []);
           setDeck(null);
+          // the papers take the card's place (the quiz stays in quizNow, for an answer still to come)
+          setQuiz(null);
         }
       },
       // The student answered: the card (which holds the key) decides, the screen marks it, and
@@ -268,7 +276,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       onEnd: (e) => {
         if (!alive) return;
         const s = sessionRef.current;
-        const info = { ...e, note: endNote(e.reason, { ms: e.ms, sessionSeconds: s?.sessionSeconds, quietFor: Date.now() - lastHeardAt.current, said: turnsRef.current.length > 0 }), left: s?.left ?? null };
+        const note = leftBehind.current ? 'วางสายให้แล้ว เพราะออกจากหน้านี้และไม่ได้คุยต่อ' : endNote(e.reason, { ms: e.ms, sessionSeconds: s?.sessionSeconds, quietFor: Date.now() - lastHeardAt.current, said: turnsRef.current.length > 0 });
+        const info = { ...e, note, left: s?.left ?? null };
         // nothing said yet and the call never opened: stay, say why, offer again
         if (e.reason === 'error' && !connectedAt.current && !turnsRef.current.length) {
           setError({ message: e.message || VOICE_ERRORS.connect });
@@ -410,6 +419,18 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [hangUp, toggleMute, sheet, typing]);
+  // ── a call left behind in a hidden tab: every minute of it is billed (Tipjai's credits too). Hidden, the agent
+  // done talking, and neither side heard for 45 s: hung up, with a note. A hidden call still talking goes on. ──
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (document.visibilityState !== 'hidden' || !connectedAt.current || doneRef.current || phaseRef.current !== 'listening') return;
+      if (Date.now() - Math.max(quietSince.current, lastHeardAt.current) < HIDDEN_QUIET_MS) return;
+      leftBehind.current = true;
+      voiceRef.current?.end();
+    }, 2000);
+    return () => clearInterval(id);
+  }, []);
+
   useEffect(() => {
     rootRef.current?.focus({ preventScroll: true });
     const title = document.title;
@@ -539,6 +560,9 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         </div>
         <p className="voice-status" aria-hidden="true">{status}</p>
         <p className="sr-only" role="status">{ANNOUNCED.has(shownPhase) ? status : ''}</p>
+        {/* the agent does not speak first: until the student does, an example of what to ask (three calls on
+            2026-11-06 were hung up within 3 to 10 s with nothing said) */}
+        {shownPhase === 'first' && !error && <p className="voice-example">ลองถาม เช่น “อาการของ parvovirus มีอะไรบ้าง” หรือ “ขอข้อสอบเรื่อง rabies”</p>}
         {hint && !error && <p className="voice-hint-line" role="status">{hint}</p>}
         {heard && <p className="voice-heard"><span className="sr-only">คุณพูดว่า </span>{heard}</p>}
         {full ? (

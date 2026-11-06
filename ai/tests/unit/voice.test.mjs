@@ -79,6 +79,11 @@ test('an answer is checked against the card, never judged by the model', async (
   assert.deepEqual(wrong.mark, { question: 1, picked: 'ค', correct: false });
   assert.match(wrong.agent, /^คำตอบของนิสิตยังไม่ถูก[\s\S]*ทวนว่าเลือก ค ควาย[\s\S]*เฉลยคือ ง งู หมาจิ้งจอก[\s\S]*ข้อที่นิสิตเลือก: พังพอน = reservoir/);
   assert.match(right.agent, /ทวนว่าเลือก ง งู/, 'the letter goes back with its word: a misheard ข or ค is caught by ear');
+  // shorthand arrows are said as steps: "12 wk → 2-4 wk later" was once spoken as "starts at 4 weeks"
+  const vpat = { questions: [{ stem: 'schedule', options: ['a', '2 เข็มเริ่มอายุ 12 สัปดาห์'], answer: 1, explain: 'VPAT 2024: 12 wk → 2-4 wk later (2nd dose) → 1 yr booster' }] };
+  const steps = checkAnswer(vpat, {}, { picked: 'ข' }).agent;
+  assert.match(steps, /12 wk จากนั้น 2-4 wk later \(2nd dose\) จากนั้น 1 yr booster/);
+  assert.match(steps, /ตัวเลขให้พูดตามนี้ตรงตัว/);
   // a skip gives the key; a letter the question does not have, or an option's text, is asked again
   assert.equal(checkAnswer(card, {}, { picked: '' }).mark.picked, '');
   assert.equal(checkAnswer(card, {}, { picked: 'จ' }).mark, null);
@@ -93,6 +98,12 @@ test('an answer is checked against the card, never judged by the model', async (
   assert.match(checkAnswer(card, { 1: {} }, { picked: 'ก' }).agent, /ข้อสุดท้าย/);
   assert.deepEqual(['ง', 'ข้อ ง', 'ง.', 'ตอบ ง', 'c', 'D', 'ค ค่ะ'].map(letterIndex), [3, 3, 3, 3, 2, 3, 2]);
   assert.deepEqual(['ข ไข่', 'ขไข่', 'ข้อ ค ควาย', 'ควาย', 'ง งู ค่ะ'].map(letterIndex), [1, 1, 2, 2, 3], 'a letter said with its word');
+  // a student who corrects themself means the last letter; sure and unsure right answers are told apart
+  assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข้อ ข เอ้ย ง ค่ะ' }).mark.picked, 'ง');
+  assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข้อ ข ไม่ใช่ ข้อ ค ควายค่ะ' }).mark.picked, 'ค');
+  assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'ง งู ค่ะ' }).agent, /ชมสั้น ๆ ประโยคเดียว/, 'sure and right: a word of praise, then on');
+  assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'น่าจะ ง มั้งคะ' }).agent, /ยังไม่แน่ใจ[\s\S]*อธิบายเหตุผล/, 'right but unsure: the reason');
+  assert.match(checkAnswer(card, {}, { picked: 'ก', heard: 'ก ไก่' }).agent, /\[gentle\][\s\S]*ข้อที่เลือกผิดตรงไหน/);
   // the recogniser's "ตอบข้อเคาะค่ะ" leaves ข or ค unclear: asked again, nothing marked
   const blurred = checkAnswer(card, {}, { picked: 'ค', heard: 'ตอบข้อเคาะค่ะ' });
   assert.equal(blurred.mark, null);
@@ -110,6 +121,9 @@ test('a quiz the student asked for is told apart from a question about an exam',
   for (const t of ['ขอข้อสอบเรื่อง rabies ข้อนึงค่ะ', 'ลองถามโจทย์ COM5 หน่อย', 'ขอ quiz parvo', 'ทดสอบความรู้เรื่องไตหน่อย']) assert.ok(asksForQuiz(t), t);
   for (const t of ['สอบ zoonoses วันไหน', 'ข้อสอบปีที่แล้วออกเรื่องอะไรบ้าง', 'ข้อสอบมีกี่ข้อ', 'อาการของ parvovirus', 'ทดสอบ tuberculin อ่านผลยังไง', 'ขอถามข้อสงสัยหน่อยค่ะ', 'เรื่องนี้ออกข้อสอบบ่อยไหม']) assert.ok(!asksForQuiz(t), t);
   assert.ok(asksForQuiz('ขอข้อสอบปีที่แล้วเรื่อง rabies'), 'past questions are a quiz too');
+  const { asksVet } = await import('../../src/lib/voice-turns.js');
+  for (const t of ['อาการของ parvovirus ในลูกสุนัข', 'ยาลดไข้แมวใช้ตัวไหน', 'ค่าไตสูงบอกอะไร']) assert.ok(asksVet(t), t);
+  for (const t of ['สวัสดีค่ะ', 'ขอข้อสอบเรื่อง rabies', 'วันนี้เหนื่อยจัง']) assert.ok(!asksVet(t), t);
   assert.ok(asksWhichTopic('อยากได้ข้อสอบเรื่องไหนดีคะ'));
   assert.ok(!asksWhichTopic('จัดข้อสอบเรื่อง rabies ให้ค่ะ'));
   assert.deepEqual(['ขอข้อสอบข้อนึง', 'สักสองข้อ', '5 ข้อ', '12 ข้อ', 'ขอข้อสอบ'].map(quizCount), [1, 2, 5, 5, 3]);
