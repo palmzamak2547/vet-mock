@@ -127,6 +127,9 @@ export const asksForQuiz = (text) => QUIZ_ASK.test(String(text || '')) && !EXAM_
 // up first, and in about 1 in 18 it answered from memory instead (probes, 2026-11-06), so the page looks it up then.
 const VET = /[A-Za-z]{3,}|โรค|ยา|อาการ|เชื้อ|ไวรัส|แบคทีเรีย|พยาธิ|วัคซีน|ค่า|หัวใจ|ไต|ตับ|ปอด|เลือด|ขนาด|รักษา|วินิจฉัย|ผ่าตัด|ฮอร์โมน|กล้ามเนื้อ|กระดูก|ท้องเสีย|อาเจียน/;
 export const asksVet = (text) => VET.test(String(text || '')) && !asksForQuiz(text);
+/** The student asked for research (papers, evidence): the agent must call find_papers. */
+// (not "study" or "หลักฐาน": "how to study", "หลักฐานการฉีดวัคซีน" are not asks for papers)
+export const asksForPapers = (text) => /งานวิจัย|ผล(?:การ)?วิจัย|เปเปอร์|\bpapers?\b|ตีพิมพ์|\bpublications?\b/i.test(String(text || '')) && !asksForQuiz(text);
 
 /** The agent asked back which topic instead: nothing is fetched for it then. */
 export const asksWhichTopic = (text) => /(เรื่อง|วิชา|หัวข้อ|บท)(ไหน|อะไร)|อยากได้(เรื่อง|แบบ)/.test(String(text || ''));
@@ -268,7 +271,8 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
     agent: correct
       ? hedged(heard)
         ? `คำตอบของนิสิตถูกต้อง แต่นิสิตยังไม่แน่ใจ บอกว่าถูกแล้ว ทวนว่าเลือก ${said(k)} แล้วอธิบายเหตุผลสั้น ๆ ให้มั่นใจขึ้น ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
-        : `คำตอบของนิสิตถูกต้อง ชมสั้น ๆ ประโยคเดียว ทวนว่าเลือก ${said(k)} แล้วถามว่าไปข้อต่อไปเลยไหม ไม่ต้องอธิบายยาว ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
+        // the reason stays for a "why?" next turn; read out unasked it had made a sure right answer 19 s long
+        : `คำตอบของนิสิตถูกต้อง ชมสั้น ๆ ประโยคเดียว ทวนว่าเลือก ${said(k)} แล้ว${left ? 'ถามว่าไปข้อต่อไปเลยไหม' : 'ถามว่าอยากลองข้อใหม่ไหม'} ไม่ต้องอธิบายเหตุผลจนกว่านิสิตถาม ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
       : `คำตอบของนิสิตยังไม่ถูก ใช้น้ำเสียงนุ่มนวล [gentle] บอกว่ายังไม่ถูก ทวนว่าเลือก ${said(k)} แล้วบอกเฉลย อธิบายว่าทำไมข้อที่ถูกถูก และข้อที่เลือกผิดตรงไหน\nข้อ ${n}: นิสิตเลือก ${mine} แต่เฉลยคือ ${key}${why}${about ? `\nข้อที่นิสิตเลือก: ${about}` : ''}${next}`,
   };
 }

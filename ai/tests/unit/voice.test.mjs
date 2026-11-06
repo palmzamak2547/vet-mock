@@ -101,7 +101,8 @@ test('an answer is checked against the card, never judged by the model', async (
   // a student who corrects themself means the last letter; sure and unsure right answers are told apart
   assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข้อ ข เอ้ย ง ค่ะ' }).mark.picked, 'ง');
   assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข้อ ข ไม่ใช่ ข้อ ค ควายค่ะ' }).mark.picked, 'ค');
-  assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'ง งู ค่ะ' }).agent, /ชมสั้น ๆ ประโยคเดียว/, 'sure and right: a word of praise, then on');
+  assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'ง งู ค่ะ' }).agent, /ชมสั้น ๆ ประโยคเดียว[\s\S]*ไปข้อต่อไป[\s\S]*ไม่ต้องอธิบายเหตุผลจนกว่านิสิตถาม/, 'sure and right: a word of praise, then on');
+  assert.match(checkAnswer(card, { 2: {} }, { picked: 'ง', heard: 'ง งู ค่ะ' }).agent, /อยากลองข้อใหม่ไหม/, 'the last one: a new one, not a next one');
   assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'น่าจะ ง มั้งคะ' }).agent, /ยังไม่แน่ใจ[\s\S]*อธิบายเหตุผล/, 'right but unsure: the reason');
   assert.match(checkAnswer(card, {}, { picked: 'ก', heard: 'ก ไก่' }).agent, /\[gentle\][\s\S]*ข้อที่เลือกผิดตรงไหน/);
   // the recogniser's "ตอบข้อเคาะค่ะ" leaves ข or ค unclear: asked again, nothing marked
@@ -124,6 +125,9 @@ test('a quiz the student asked for is told apart from a question about an exam',
   const { asksVet } = await import('../../src/lib/voice-turns.js');
   for (const t of ['อาการของ parvovirus ในลูกสุนัข', 'ยาลดไข้แมวใช้ตัวไหน', 'ค่าไตสูงบอกอะไร']) assert.ok(asksVet(t), t);
   for (const t of ['สวัสดีค่ะ', 'ขอข้อสอบเรื่อง rabies', 'วันนี้เหนื่อยจัง']) assert.ok(!asksVet(t), t);
+  const { asksForPapers } = await import('../../src/lib/voice-turns.js');
+  for (const t of ['มีงานวิจัยล่าสุดเรื่องวัคซีน parvovirus ไหมคะ', 'ขอ paper เรื่อง FIP หน่อย', 'ผลวิจัยใหม่ว่ายังไง', 'มีเปเปอร์ไหม']) assert.ok(asksForPapers(t), t);
+  for (const t of ['how should I study for the exam', 'ต้องมีหลักฐานการฉีดวัคซีนอะไรบ้าง', 'ขอข้อสอบเรื่องงานวิจัย', 'อาการของ parvovirus']) assert.ok(!asksForPapers(t), t);
   assert.ok(asksWhichTopic('อยากได้ข้อสอบเรื่องไหนดีคะ'));
   assert.ok(!asksWhichTopic('จัดข้อสอบเรื่อง rabies ให้ค่ะ'));
   assert.deepEqual(['ขอข้อสอบข้อนึง', 'สักสองข้อ', '5 ข้อ', '12 ข้อ', 'ขอข้อสอบ'].map(quizCount), [1, 2, 5, 5, 3]);

@@ -21,7 +21,7 @@
 
 import { API_URL, authorized, warm } from './api.js';
 import { IN_APP } from './env.js';
-import { checkAnswer, asksForQuiz, asksWhichTopic, asksVet, keyTerms, quizCount, quizTopic } from './voice-turns.js';
+import { checkAnswer, asksForQuiz, asksForPapers, asksWhichTopic, asksVet, keyTerms, quizCount, quizTopic } from './voice-turns.js';
 import rawAudioProcessor from '@elevenlabs/client/worklets/rawAudioProcessor.js?url';
 import audioConcatProcessor from '@elevenlabs/client/worklets/audioConcatProcessor.js?url';
 import libsamplerate from '@alexanderolsen/libsamplerate-js/dist/libsamplerate.worklet.js?url';
@@ -234,9 +234,11 @@ export function createVoice(h = {}) {
     lastActivity = Date.now();
     ask = asksForQuiz(text) ? { n: turnNo, text, acted: false, said: '' } : null;
     vetAsk = asksVet(text) ? { n: turnNo, text, acted: false, said: '' } : null;
+    paperAsk = asksForPapers(text) ? { n: turnNo, text, acted: false, said: '' } : null;
   };
-  // the student's latest turn, when it was about veterinary content (see guardSearch)
+  // the student's latest turn, when it was about veterinary content (see guardSearch), or asked for papers
   let vetAsk = null;
+  let paperAsk = null;
   const setPhase = (p, info) => { if (p !== phase || info) { phase = p; call('onPhase', p, info); } };
   // A look-up's result is in and its answer not yet heard: the agent is still working, not listening (between the
   // lead-in's end and the answer's first audio the screen said กำลังฟัง for 0.1 to 0.5 s). Until the answer's voice
@@ -278,6 +280,13 @@ export function createVoice(h = {}) {
         vetAsk.guarded = true;
         guardSearch(vetAsk);
       }
+      // asked for papers, the agent said a lead-in and stopped (1 in 6 in the text probes, 2026-11-06): the student
+      // would wait in silence, so the page asks it to make the call it promised
+      const pa = paperAsk;
+      if (pa && !pa.acted && !pa.nudged && pa.said && pa.said.length <= 80 && !asksWhichTopic(pa.said) && turnNo === pa.n && conv && !closing) {
+        pa.nudged = true;
+        try { conv.sendUserMessage('(ระบบ) เมื่อกี้ยังไม่ได้เรียก find_papers นิสิตยังรออยู่ เรียก find_papers ตอนนี้เลยด้วยศัพท์ภาษาอังกฤษของเรื่องที่นิสิตถาม แล้วเล่าผล'); } catch { /* the call just ended */ }
+      }
     }, composing ? COMPOSE_HOLD_MS : LISTEN_HOLD_MS);
   };
 
@@ -295,6 +304,7 @@ export function createVoice(h = {}) {
   const tool = (kind, run) => async (params) => {
     if (ask) ask.acted = true;
     if (vetAsk) vetAsk.acted = true;
+    if (paperAsk) paperAsk.acted = true;
     try {
       return await busy(kind, () => run(params || {}));
     } finally {
@@ -393,6 +403,7 @@ export function createVoice(h = {}) {
         // the answer's words; once its voice is also playing (the SDK's mode, not the held one) the look-up is over
         if (composing) { answered = true; if (sdkMode === 'speaking') { composed(); settle(); } }
         if (vetAsk) vetAsk.said += ` ${message}`;
+        if (paperAsk) paperAsk.said += ` ${message}`;
         if (ask) {
           const a = ask;
           a.said += ` ${message}`;
