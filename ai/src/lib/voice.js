@@ -41,6 +41,8 @@ export const VOICE_ERRORS = Object.freeze({
 
 const WORKLETS = { rawAudioProcessor, audioConcatProcessor };
 const LISTEN_HOLD_MS = 300;
+// a lead-in's end to its answer's first audio after a look-up: 160 to 1060 ms in the recorded call
+const COMPOSE_HOLD_MS = 1100;
 const CONNECT_MS = 14_000;
 const TOOL_MS = 6500;
 const RTC_KEY = 'vmai-voice-ws'; // a day on WebSocket after WebRTC failed on this device
@@ -206,7 +208,8 @@ export function createVoice(h = {}) {
   let closing = false;
   let connectedAt = 0;
   let toolsBusy = 0;
-  let mode = 'listening';
+  let mode = 'listening'; // what the screen shows (speaking held through short gaps)
+  let sdkMode = 'listening'; // what the SDK said last
   let muted = false;
   let cred = null;
   let transport = 'webrtc';
@@ -225,13 +228,24 @@ export function createVoice(h = {}) {
   let lastTopic = '';
   let lastStudent = '';
   const studentSaid = (text) => {
+    composed();
     turnNo++;
     lastStudent = String(text || '');
     lastActivity = Date.now();
     ask = asksForQuiz(text) ? { n: turnNo, text, acted: false, said: '' } : null;
   };
   const setPhase = (p, info) => { if (p !== phase || info) { phase = p; call('onPhase', p, info); } };
-  const settle = () => setPhase(toolsBusy > 0 ? 'thinking' : mode === 'speaking' ? 'speaking' : 'listening');
+  // A look-up's result is in and its answer not yet heard: the agent is still working, not listening (between the
+  // lead-in's end and the answer's first audio the screen said กำลังฟัง for 0.1 to 0.5 s). Until the answer's voice
+  // starts, the student speaks, or 6 s pass.
+  let composing = false;
+  let answered = false; // the answer's words have come since the look-up ended
+  let composeTimer = 0;
+  const composed = () => { composing = false; answered = false; clearTimeout(composeTimer); };
+  const settle = () => {
+    if (finished) return; // a timer that outlives the call never brings a phase back
+    setPhase(toolsBusy > 0 || (composing && mode !== 'speaking') ? 'thinking' : mode === 'speaking' ? 'speaking' : 'listening');
+  };
   let ducked = false;
   let unduck = 0;
   const duck = (on) => {
@@ -244,8 +258,10 @@ export function createVoice(h = {}) {
   // once it has lasted LISTEN_HOLD_MS, so the screen, the caption and the sea never flicker.
   let listenTimer = 0;
   const onMode = (m) => {
+    sdkMode = m;
     clearTimeout(listenTimer);
-    if (m === 'speaking') { mode = 'speaking'; settle(); return; }
+    if (m === 'speaking') { mode = 'speaking'; if (composing && answered) composed(); settle(); return; }
+    // after a look-up the answer usually follows its lead-in within half a second: hold "speaking" through that gap
     listenTimer = setTimeout(() => {
       mode = 'listening';
       duck(false);
@@ -255,7 +271,7 @@ export function createVoice(h = {}) {
         ask.recovering = true;
         recoverQuiz(ask);
       }
-    }, LISTEN_HOLD_MS);
+    }, composing ? COMPOSE_HOLD_MS : LISTEN_HOLD_MS);
   };
 
   const busy = async (kind, run) => {
@@ -269,9 +285,17 @@ export function createVoice(h = {}) {
       settle();
     }
   };
-  const tool = (kind, run) => (params) => {
+  const tool = (kind, run) => async (params) => {
     if (ask) ask.acted = true;
-    return busy(kind, () => run(params || {}));
+    try {
+      return await busy(kind, () => run(params || {}));
+    } finally {
+      composing = true;
+      answered = false;
+      clearTimeout(composeTimer);
+      composeTimer = setTimeout(() => { composed(); settle(); }, 6000);
+      settle();
+    }
   };
 
   // The model, asked for a quiz, said it would fetch one and did not (or read one it made up):
@@ -349,6 +373,8 @@ export function createVoice(h = {}) {
         if (id && id === lastResponse) return;
         lastResponse = id || null;
         lastActivity = Date.now();
+        // the answer's words; once its voice is also playing (the SDK's mode, not the held one) the look-up is over
+        if (composing) { answered = true; if (sdkMode === 'speaking') { composed(); settle(); } }
         if (ask) {
           const a = ask;
           a.said += ` ${message}`;
@@ -365,7 +391,7 @@ export function createVoice(h = {}) {
       }),
       onAgentResponseCorrection: live((c2) => call('onCorrection', c2?.corrected_agent_response || '')),
       // a student who cuts in has the floor at once, without the listening hold
-      onInterruption: live(() => { clearTimeout(listenTimer); mode = 'listening'; duck(false); settle(); call('onInterrupted'); }),
+      onInterruption: live(() => { clearTimeout(listenTimer); composed(); mode = 'listening'; sdkMode = 'listening'; duck(false); settle(); call('onInterrupted'); }),
       onVadScore: live(({ vadScore }) => {
         call('onVad', vadScore);
         if (vadScore > 0.6) lastActivity = Date.now();
@@ -446,7 +472,8 @@ export function createVoice(h = {}) {
     // The service ending the call (its time cap, a long silence) reaches the page as an "error"
     // over WebRTC: an ending, not a drop, and it never takes the free restart.
     const timeUp = d?.context?.type === 'max_duration_exceeded' || (cred?.sessionSeconds && startedAt && Date.now() - startedAt >= (cred.sessionSeconds - 10) * 1000);
-    if (d?.reason === 'error' && (timeUp || Date.now() - lastActivity > 100_000)) { finish('agent'); return; }
+    // (the agent ends a call after 90 s of silence: voice-agent.js silence_end_call_timeout)
+    if (d?.reason === 'error' && (timeUp || Date.now() - lastActivity > 75_000)) { finish('agent'); return; }
     // dropped mid-call: rejoin once, quietly, with the conversation so far
     if (d?.reason === 'error' && !rejoined && lived > 3000 && navigator.onLine !== false && cred?.retry) {
       rejoined = true;
@@ -484,6 +511,8 @@ export function createVoice(h = {}) {
     finished = true;
     clearTimeout(listenTimer);
     clearTimeout(capTimer);
+    clearTimeout(composeTimer);
+    clearTimeout(unduck);
     setPhase('ended');
     // the whole session's length, a rejoin included (the time-up note reads it)
     call('onEnd', { reason, message, ms: startedAt ? Date.now() - startedAt : 0 });

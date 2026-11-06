@@ -283,6 +283,20 @@
   .voice-quiz { max-height: 50svh; }
 }
 
+/* A phone on its side with a quiz or sources: two panes, the jelly and its words on the left, the card on the right
+   (stacked, the card covered the status and the bell on an 844 x 390 screen). */
+@media (max-height: 520px) and (min-aspect-ratio: 4/3) {
+  .voice.has-quiz, .voice.has-deck { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr); grid-template-rows: auto minmax(0, 1fr) auto; column-gap: var(--s4); }
+  .voice.has-quiz > .voice-top, .voice.has-deck > .voice-top, .voice.has-quiz > .voice-dock, .voice.has-deck > .voice-dock { grid-column: 1 / -1; }
+  .voice.has-quiz > .voice-stage, .voice.has-deck > .voice-stage { grid-column: 1; grid-row: 2; justify-content: center; }
+  .voice.has-quiz > .voice-quiz, .voice.has-deck > .voice-deck { grid-column: 2; grid-row: 2; align-self: center; min-height: 0; max-height: 100%; margin: 0; overflow-y: auto; }
+  .voice.has-deck .voice-deck { padding: 0; }
+  .voice.has-deck .voice-deck ul { flex-direction: column; overflow-x: visible; padding-inline: 0; -webkit-mask-image: none; mask-image: none; }
+  .voice.has-deck .voice-src { flex: none; }
+  .voice.has-quiz .voice-core, .voice.has-deck .voice-core { width: min(20vw, 30svh); }
+  .voice.has-quiz .voice-heard { display: -webkit-box; }
+}
+
 /* short landscape phones: the jelly and the words side by side would cramp; shrink the bell */
 @media (max-height: 520px) {
   .voice-core { width: min(30vw, 38svh); margin-top: 0; }

@@ -295,7 +295,9 @@ export function agentDefinition({ keywords, sessionSeconds, maxConcurrent, daily
         // page e2e, 2026-11-06).
         speculative_turn: false,
         turn_timeout: 20,
-        silence_end_call_timeout: 120,
+        // every minute is billed, quiet or not: 90 s of silence ends a call nobody is in (the page ends a hidden quiet
+        // one after 45 s); the agent checks in after turn_timeout
+        silence_end_call_timeout: 90,
         spelling_patience: 'auto',
         interruption_ignore_terms: [...BACKCHANNELS],
         interruption_ignore_term_languages: ['th'],

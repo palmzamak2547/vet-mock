@@ -140,9 +140,20 @@ export async function voiceQuiz({ topic, count }, { deps = {} } = {}) {
   return { found: true, card, agent };
 }
 
+// The engines rank by their own measure: asked about a parvovirus vaccine, a rabies immunoassay came fourth. A paper
+// stays when its title or abstract names the topic (the first term that is not a generic word); when fewer than two
+// do, the engine's own order stands.
+const GENERIC = new Set(['vaccine', 'vaccines', 'treatment', 'therapy', 'diagnosis', 'dog', 'dogs', 'cat', 'cats', 'canine', 'feline', 'recent', 'research', 'study', 'studies', 'review', 'new', 'latest', 'efficacy', 'clinical']);
+export function onTopic(papers, terms) {
+  const topic = (terms || []).map((t) => String(t).toLowerCase().trim()).find((t) => t.length >= 3 && !GENERIC.has(t));
+  if (!topic) return papers;
+  const hits = papers.filter((p) => `${p.title || ''} ${p.abstract || ''}`.toLowerCase().includes(topic));
+  return hits.length >= 2 ? hits : papers;
+}
+
 export async function voicePapers({ terms, recent }, { env = process.env, deps = {}, signal } = {}) {
   const res = await (deps.findPapers || findPapers)(terms, { recent, signal, env, ...(deps.fetchImpl ? { fetchImpl: deps.fetchImpl } : {}), ...(deps.kv ? { kv: deps.kv } : {}) });
-  const papers = (res.papers || []).slice(0, 4);
+  const papers = onTopic(res.papers || [], terms).slice(0, 4);
   if (!papers.length) {
     return { found: false, agent: res.failed ? 'the paper search failed this time: tell the student it can be tried again; never name a paper yourself.' : 'no papers found for these terms: say so briefly; never name a paper yourself.' };
   }

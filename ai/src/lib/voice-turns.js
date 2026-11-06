@@ -184,8 +184,9 @@ const SYMBOLS = /[☀-➿\u{1F300}-\u{1FAFF}️]/gu;
 function explainParts(text, option) {
   const raw = String(text || '').split('\n');
   const cut = raw.findIndex((l) => OTHERS.test(l));
-  // (8 of the bank's explanations end a line on ครับ: a particle this voice must never say)
-  const clean = (ls) => ls.join(' ').replace(SYMBOLS, '').replace(/\s*ครับ(?:ผม)?/g, '').replace(/\s+/g, ' ').trim();
+  // (8 of the bank's explanations end a line on ครับ: a particle this voice must never say). An arrow is
+  // said as the step it is: read as shorthand, "12 wk → 2-4 wk later" came out as "starts at 4 weeks".
+  const clean = (ls) => ls.join(' ').replace(/\s*(?:→|->|⇒)\s*/g, ' จากนั้น ').replace(SYMBOLS, '').replace(/\s*ครับ(?:ผม)?/g, '').replace(/\s+/g, ' ').trim();
   const main = clean(cut < 0 ? raw : raw.slice(0, cut));
   const head = String(option || '').trim().slice(0, 12);
   const line = cut < 0 || !head ? '' : raw.slice(cut).find((l) => l.includes(head)) || '';
@@ -228,7 +229,7 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
   const next = left ? ` ยังเหลืออีก ${left} ข้อ` : ' ข้อนี้เป็นข้อสุดท้ายแล้ว';
   const correct = k === q.answer;
   const { main, about } = explainParts(q.explain, k >= 0 && !correct ? opts[k] : '');
-  const why = main ? `\nเหตุผล: ${main}` : '';
+  const why = main ? `\nเหตุผล (ตัวเลขให้พูดตามนี้ตรงตัว ห้ามเปลี่ยน): ${main}` : '';
   if (k < 0) {
     return { mark: { question: n, picked: '', correct: false }, agent: `นิสิตขอข้าม บอกเฉลยแล้วอธิบายสั้น ๆ\nข้อ ${n}: เฉลยคือ ${key}${why}${next}` };
   }
