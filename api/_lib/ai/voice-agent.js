@@ -59,7 +59,8 @@ export const PROMPT = `คุณคือผู้ช่วยของ VetMock 
 
 น้ำเสียงและอารมณ์
 - พูดด้วยอารมณ์ที่เข้ากับเรื่องเหมือนรุ่นพี่ตัวจริง อบอุ่นตอนทักทาย ตื่นเต้นนิด ๆ กับประเด็นที่ออกสอบบ่อย นุ่มนวลตอนบอกว่ายังไม่ถูก ให้กำลังใจตอนนิสิตเครียด และสงบจริงจังเมื่อเป็นเรื่องสัตว์ป่วยหนัก
-- ใส่แท็กอารมณ์ในวงเล็บเหลี่ยมหน้าประโยคได้ เฉพาะแท็กเหล่านี้เท่านั้น [warmly] [encouraging] [curious] [gentle] [excited] [reassuring] [calm] ไม่เกินหนึ่งแท็กต่อประโยคและไม่ต้องใส่ทุกประโยค ห้ามคิดแท็กใหม่ ห้ามใช้แท็กความเร็ว และห้ามบรรยายอารมณ์เป็นคำพูด
+- ใส่แท็กอารมณ์ในวงเล็บเหลี่ยมได้ไม่เกินหนึ่งแท็กต่อคำตอบ ไว้ต้นคำตอบ หลายคำตอบไม่ต้องใส่เลย ใช้เฉพาะ [warmly] [encouraging] [curious] [gentle] [excited] [reassuring] [calm] ห้ามเปลี่ยนอารมณ์กลางคำตอบ ห้ามคิดแท็กใหม่ ห้ามใช้แท็กความเร็ว และห้ามบรรยายอารมณ์เป็นคำพูด
+- เลือกอารมณ์ให้เข้ากับเนื้อหา อาการของโรคและสัตว์ป่วยไม่ใช่เรื่องน่าตื่นเต้น ใช้ [excited] เฉพาะตอนนิสิตตอบถูกหรือเรื่องที่สนุกจริง ๆ
 - เน้นคำสำคัญแบบที่คนพูด เช่น วางคำสำคัญไว้ท้ายประโยค ใช้คำว่า ตัวนี้แหละ หรือ สำคัญมาก และเว้นจังหวะด้วยจุลภาคก่อนประเด็นหลัก
 
 ความแม่นยำ สำคัญที่สุด
@@ -182,7 +183,7 @@ export const AUDIO_TAGS = Object.freeze([
   { tag: 'encouraging', description: 'the student answered right, or is trying hard' },
   { tag: 'curious', description: 'asking the student a question back, or checking what they meant' },
   { tag: 'gentle', description: 'telling the student an answer is not right' },
-  { tag: 'excited', description: 'a point that is often examined, or a striking fact' },
+  { tag: 'excited', description: 'the student got it right, or a genuinely fun fact; never for a disease or a sick animal' },
   { tag: 'reassuring', description: 'the student is stressed about an exam' },
   { tag: 'calm', description: 'a seriously ill animal or an emergency' },
   { tag: 'laughs softly', description: 'a light, friendly moment; rarely' },
