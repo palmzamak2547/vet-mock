@@ -15,6 +15,7 @@ import { voiceFor } from '../tts.js';
 import { externalCapabilities } from './external-connections.js';
 import { rateLimit } from './rate-limit.js';
 import { presign, tokenKeyEnv } from './r2.js';
+import { voiceConfig, readBalance, budgetVerdict } from './ai/voice.js';
 
 const DAY = 86_400_000;
 const CHECK_MS = 8000;
@@ -120,6 +121,22 @@ const CHECKS = [
       if (!env.GEMINI_API_KEY) return r('off', 'ไม่ได้ตั้ง GEMINI_API_KEY', 'ฟีเจอร์นี้ยังไม่เปิดให้นิสิต ไม่ต้องทำอะไรจนกว่าจะเปิด');
       const res = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models?pageSize=1&key=${encodeURIComponent(env.GEMINI_API_KEY)}`, { signal: signal() });
       return res.ok ? r('ok', 'คีย์ใช้ได้ ตรวจจากตรงนี้ไม่ได้ว่ามีเครดิตพอคุยสด') : r('down', `คีย์ใช้ไม่ได้ (Google ตอบ ${res.status})`);
+    },
+  },
+  {
+    id: 'voice', name: 'คุยด้วยเสียงของ VetMock AI (ElevenLabs)', doc: 'voice-call',
+    fix: 'ดูยอดเครดิตที่ elevenlabs.io (บัญชีเดียวกับเสียงแจ้งเตือนของ Tipjai) เติมแผนหรือรอวันต่ออายุ ถ้าต้องปิดชั่วคราวให้ตั้ง AI_VOICE_OFF=1 ใน Vercel',
+    async run({ env, fetchImpl, now }, r) {
+      const cfg = voiceConfig(env);
+      if (!cfg.configured) return r('off', 'ไม่ได้ตั้ง ELEVENLABS_API_KEY หรือ ELEVENLABS_VOICE_AGENT_ID ปุ่มคุยด้วยเสียงบอกว่ายังไม่พร้อม');
+      if (cfg.off) return r('off', 'ปิดอยู่ด้วย AI_VOICE_OFF=1', 'ลบ AI_VOICE_OFF ใน Vercel เมื่อพร้อมเปิด');
+      const b = await readBalance(cfg, { fetchImpl, now });
+      const v = budgetVerdict(b, cfg);
+      const renews = b.renewsAt ? ` ต่ออายุ ${thaiDate(new Date(b.renewsAt).toISOString())}` : '';
+      const room = `เหลือ ${Math.round(b.remaining).toLocaleString('en-US')} เครดิต (ต้องเหลือไว้ ${(cfg.floorCredits + cfg.sessionCredits * cfg.maxConcurrent).toLocaleString('en-US')})${renews}`;
+      if (!v.ok) return r('down', `โควตาเดือนนี้หมด นิสิตเห็นข้อความว่าหมดโควตา: ${room}`);
+      // under about twenty sessions of room left: say so before it runs out
+      return v.spare < cfg.sessionCredits * 20 ? r('warn', `ใกล้หมด: ${room}`) : r('ok', room);
     },
   },
   {

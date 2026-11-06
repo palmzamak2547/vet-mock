@@ -21,6 +21,8 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@alexanderolsen/libsamplerate-js": "2.1.2",
+    "@elevenlabs/client": "1.35.0",
     "@supabase/supabase-js": "^2.111.0",
     "react": "18.3.1",
     "react-dom": "18.3.1"
