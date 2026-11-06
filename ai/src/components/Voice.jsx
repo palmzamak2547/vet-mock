@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createVoice, VOICE_ERRORS } from '../lib/voice.js';
 import { voiceSound } from '../lib/voice-sound.js';
-import { cleanSpoken, revealed, nextRate, keyTerms, toChatMessages, chatRecap, clock, currentQuestion, CAPTION_CPS } from '../lib/voice-turns.js';
+import { cleanSpoken, hasWords, revealed, nextRate, keyTerms, toChatMessages, chatRecap, clock, currentQuestion, CAPTION_CPS } from '../lib/voice-turns.js';
 import { newId, getPref, setPref } from '../lib/store.js';
 import { reducedMotion } from '../lib/env.js';
 import { speciesOf } from '../lib/species.js';
@@ -35,6 +35,8 @@ const STATUS = {
 };
 const LETTERS = ['ก', 'ข', 'ค', 'ง', 'จ', 'ฉ', 'ช', 'ซ'];
 const WARN_S = 30;
+// before the session's end the agent is told, so it wraps up instead of being cut off mid-sentence
+const WRAP_S = 40;
 // a look-up that outlasts the spoken lead-in gets one soft ping (research: silent waits under 4-8 s)
 const PING_AFTER_MS = 2000;
 const FOLLOW_UPS = ['อธิบายเพิ่มอีกนิด', 'ขอข้อสอบเรื่องนี้', 'สรุปให้จำง่าย ๆ'];
@@ -71,6 +73,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const micPeak = useRef(0);
   const echoes = useRef([]);
   const hinted = useRef(new Set());
+  const wrapped = useRef(false);
   const chatRef = useRef(chat);
   chatRef.current = chat;
 
@@ -136,7 +139,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       onSession: (s) => { sessionRef.current = s; },
       onUser: (text) => {
         const t = cleanSpoken(text);
-        if (!t) return;
+        // the recogniser's "..." for a breath or a noise is not a turn
+        if (!hasWords(t)) return;
         heardOnce.current = true;
         lastHeardAt.current = Date.now();
         turnsRef.current.push({ role: 'user', text: t });
@@ -316,7 +320,12 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       const s = sessionRef.current;
       if (!s?.sessionSeconds || !connectedAt.current) return;
       const t = (Date.now() - connectedAt.current) / 1000;
-      setLeft(Math.max(0, s.sessionSeconds - t));
+      const rest = Math.max(0, s.sessionSeconds - t);
+      setLeft(rest);
+      if (rest <= WRAP_S && !wrapped.current) {
+        wrapped.current = true;
+        voiceRef.current?.context('เวลาของรอบนี้เหลือไม่ถึงหนึ่งนาที ถ้ากำลังตอบอยู่ให้สรุปให้จบสั้น ๆ แล้วบอกนิสิตว่าเริ่มคุยรอบใหม่ได้ ไม่ต้องรีบตัดบท');
+      }
       if (t > 12 && !heardOnce.current && !muted && micPeak.current < 0.05 && phaseRef.current === 'listening') {
         say('mic', 'ยังไม่ได้ยินเสียงจากไมค์ ลองพูดใกล้ขึ้น หรือเลือกไมค์อีกตัวที่ปุ่มอุปกรณ์');
       }
@@ -411,6 +420,28 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       setHint(kind === 'input' ? 'เปลี่ยนไมค์ไม่สำเร็จ ลองอีกตัว' : 'เปลี่ยนลำโพงไม่สำเร็จ');
     }
   };
+
+  useEffect(() => {
+    const md = navigator.mediaDevices;
+    if (!md?.addEventListener) return undefined;
+    let t = 0;
+    const onChange = () => {
+      clearTimeout(t);
+      t = setTimeout(async () => {
+        const v = voiceRef.current;
+        if (!v) return;
+        const d = await v.devices();
+        if (d.input !== 'default' && !d.inputs.some((x) => x.deviceId === d.input)) {
+          await v.setInput('default').catch(() => {});
+          setHint('ไมค์ที่เลือกไว้ถูกถอดออก ใช้ไมค์หลักของเครื่องแทน');
+        }
+        if (d.output !== 'default' && d.outputs.length && !d.outputs.some((x) => x.deviceId === d.output)) await v.setOutput('default').catch(() => {});
+        setSheet((s0) => (s0 ? { ...d } : s0));
+      }, 600);
+    };
+    md.addEventListener('devicechange', onChange);
+    return () => { clearTimeout(t); md.removeEventListener('devicechange', onChange); };
+  }, []);
 
   const toggleFull = () => setFull((f) => { setPref('vmai-voice-cc', f ? 'terms' : 'full'); return !f; });
   const retry = () => { setError(null); setPhase('starting'); connectedAt.current = 0; setAttempt((n) => n + 1); };

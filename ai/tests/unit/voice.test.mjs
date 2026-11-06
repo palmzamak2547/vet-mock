@@ -78,3 +78,13 @@ test('a call started from a chat carries its last turns as data, cleaned and cut
   assert.match(r, /นิสิต: ระยะฟักตัวของ rabies\nผู้ช่วย: สูงสุด 180 วัน$/);
   assert.equal(chatRecap([{ role: 'user', content: 'ก'.repeat(900) }]).split(': ')[1].length, 501);
 });
+
+test('a breath or a noise transcribed as "..." is not a turn', async () => {
+  const { hasWords, toChatMessages } = await import('../../src/lib/voice-turns.js');
+  assert.equal(hasWords('...'), false);
+  assert.equal(hasWords(' … '), false);
+  assert.equal(hasWords('ค่ะ'), true);
+  assert.equal(hasWords('5'), true);
+  let n = 0;
+  assert.deepEqual(toChatMessages([{ role: 'user', text: '...' }], () => `m${++n}`), []);
+});

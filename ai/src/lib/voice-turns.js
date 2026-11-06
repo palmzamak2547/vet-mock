@@ -16,6 +16,9 @@ const MARKDOWN = /[*_`#>|]+/g;
 
 export const CAPTION_CPS = 10;
 
+/** Has a letter or a digit: a turn worth keeping (not the recogniser's "..." for a breath). */
+export const hasWords = (text) => /[\p{L}\p{N}]/u.test(String(text || ''));
+
 export function cleanSpoken(text) {
   return String(text ?? '').replace(TAGS, ' ').replace(FOREIGN, '').replace(MARKDOWN, '').replace(/\s+/g, ' ').trim();
 }
@@ -79,7 +82,7 @@ export function toChatMessages(turns, newId) {
     if (t.role === 'user') {
       close();
       const text = cleanSpoken(t.text);
-      if (text) out.push({ id: newId(), role: 'user', content: text, voice: true });
+      if (hasWords(text)) out.push({ id: newId(), role: 'user', content: text, voice: true });
       continue;
     }
     if (!answer) answer = { id: newId(), role: 'assistant', content: '', cards: [], done: true, voice: true };
