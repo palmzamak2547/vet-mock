@@ -170,6 +170,24 @@ test('search answers from the chat\'s own corpus: sources for the page, marked d
   assert.match(agentSearchText({ covered: false, unmatched: ['xyz'], contextBlocks: '' }), /covered: false[\s\S]*xyz[\s\S]*sources: none/);
 });
 
+test('papers: only the ones about the topic, unless that leaves fewer than two', async () => {
+  const { onTopic } = await import('../../api/_lib/ai/voice-tools.js');
+  const papers = [
+    { title: 'Canine parvovirus in Africa', abstract: '' },
+    { title: 'Update on Canine Parvovirus', abstract: '' },
+    { title: 'Core vaccine titers in dogs', abstract: 'CDV, CPV-2 (canine parvovirus) and CAV titres' },
+    { title: 'A RABV-G immunoassay for rabies antibodies', abstract: 'rabies virus' },
+  ];
+  assert.deepEqual(onTopic(papers, ['vaccine', 'parvovirus', 'dog']).map((p) => p.title), [papers[2], papers[0], papers[1]].map((p) => p.title), 'the vaccine paper first; generic words skipped for the topic; the rabies paper goes');
+  assert.deepEqual(validateVoiceTool({ op: 'papers', terms: 'parvovirus vaccine dogs recent research' }).terms, ['parvovirus', 'vaccine', 'dogs'], 'one long string is split, the kind-of-paper words out');
+  const recentAsTerm = validateVoiceTool({ op: 'papers', terms: 'canine parvovirus vaccine, recent' });
+  assert.deepEqual([recentAsTerm.terms, recentAsTerm.recent], [['canine parvovirus vaccine'], true], '"recent" sent as a term is not searched for, and still means recent');
+  assert.deepEqual(validateVoiceTool({ op: 'papers', terms: 'FIP, GS-441524, feline infectious peritonitis' }).terms, ['FIP', 'GS-441524', 'feline infectious peritonitis'], 'topic terms stay whole');
+  assert.equal(validateVoiceTool({ op: 'papers', terms: 'recent research' }).ok, false, 'nothing but kind-of-paper words: no search');
+  assert.equal(onTopic(papers, ['leptospirosis']).length, 4, 'fewer than two on topic: the engine\'s order stands');
+  assert.equal(onTopic(papers, ['dog', 'vaccine']).length, 4, 'no topic word: nothing filtered');
+});
+
 test('quiz: bank questions lettered for speech; the key stays with the page (quiz_check)', async () => {
   const out = await voiceQuiz({ topic: 'rabies', count: 2 }, { deps: { rng: () => 0.5 } });
   assert.equal(out.found, true);

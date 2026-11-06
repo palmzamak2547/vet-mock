@@ -123,6 +123,14 @@ const QUIZ_ASK = /ข้อสอบ|โจทย์|ควิซ|\bquiz|\bmcqs?
 const EXAM_ABOUT = /(สอบ|exam)[^?]{0,40}?(วันไหน|วันที่|วันอะไร|เมื่อไ|กี่โมง|ห้องไหน|ที่ห้อง|เวลาไหน|ออกเรื่อง|ออกอะไร|ออกไหม|ออกบ่อย|บ่อยไหม|เน้น|ยากไหม|กี่ข้อ|กี่คะแนน)/i;
 /** The student asked to be quizzed (not about an exam's date, room or content). */
 export const asksForQuiz = (text) => QUIZ_ASK.test(String(text || '')) && !EXAM_ABOUT.test(String(text || ''));
+// A question about veterinary content (an English term, or the Thai words such questions use): the agent must look it
+// up first, and in about 1 in 18 it answered from memory instead (probes, 2026-11-06), so the page looks it up then.
+const VET = /[A-Za-z]{3,}|โรค|ยา|อาการ|เชื้อ|ไวรัส|แบคทีเรีย|พยาธิ|วัคซีน|ค่า|หัวใจ|ไต|ตับ|ปอด|เลือด|ขนาด|รักษา|วินิจฉัย|ผ่าตัด|ฮอร์โมน|กล้ามเนื้อ|กระดูก|ท้องเสีย|อาเจียน/;
+export const asksVet = (text) => VET.test(String(text || '')) && !asksForQuiz(text);
+/** The student asked for research (papers, evidence): the agent must call find_papers. */
+// (not "study" or "หลักฐาน": "how to study", "หลักฐานการฉีดวัคซีน" are not asks for papers)
+export const asksForPapers = (text) => /งานวิจัย|ผล(?:การ)?วิจัย|เปเปอร์|\bpapers?\b|ตีพิมพ์|\bpublications?\b/i.test(String(text || '')) && !asksForQuiz(text);
+
 /** The agent asked back which topic instead: nothing is fetched for it then. */
 export const asksWhichTopic = (text) => /(เรื่อง|วิชา|หัวข้อ|บท)(ไหน|อะไร)|อยากได้(เรื่อง|แบบ)/.test(String(text || ''));
 const COUNTS = { หนึ่ง: 1, นึง: 1, เดียว: 1, สอง: 2, สาม: 3, สี่: 4, ห้า: 5 };
@@ -184,8 +192,9 @@ const SYMBOLS = /[☀-➿\u{1F300}-\u{1FAFF}️]/gu;
 function explainParts(text, option) {
   const raw = String(text || '').split('\n');
   const cut = raw.findIndex((l) => OTHERS.test(l));
-  // (8 of the bank's explanations end a line on ครับ: a particle this voice must never say)
-  const clean = (ls) => ls.join(' ').replace(SYMBOLS, '').replace(/\s*ครับ(?:ผม)?/g, '').replace(/\s+/g, ' ').trim();
+  // (8 of the bank's explanations end a line on ครับ: a particle this voice must never say). An arrow is
+  // said as the step it is: read as shorthand, "12 wk → 2-4 wk later" came out as "starts at 4 weeks".
+  const clean = (ls) => ls.join(' ').replace(/\s*(?:→|->|⇒)\s*/g, ' จากนั้น ').replace(SYMBOLS, '').replace(/\s*ครับ(?:ผม)?/g, '').replace(/\s+/g, ' ').trim();
   const main = clean(cut < 0 ? raw : raw.slice(0, cut));
   const head = String(option || '').trim().slice(0, 12);
   const line = cut < 0 || !head ? '' : raw.slice(cut).find((l) => l.includes(head)) || '';
@@ -199,6 +208,24 @@ function explainParts(text, option) {
  * leads, in words the model cannot read the other way.
  * @returns {{ mark: { question: number, picked: string, correct: boolean } | null, agent: string }}
  */
+const CORRECTED = /เอ้ย|เอ๊ย|ไม่ใช่|ไม่ๆ|ไม่ ๆ|ขอเปลี่ยน|เปลี่ยนเป็น|แก้เป็น/;
+/** The letter a student settled on after correcting themself ("ข เอ้ย ค" -> ค), else null. */
+export function latestLetter(heard) {
+  const s = String(heard || '');
+  const m = CORRECTED.exec(s);
+  if (!m) return null;
+  const after = s.slice(m.index + m[0].length);
+  for (const piece of after.split(/\s+/).filter(Boolean)) {
+    const i = letterIndex(piece);
+    if (i !== null && i >= 0) return i;
+  }
+  return null;
+}
+// "มั้ง", "เดา", "ไม่แน่ใจ": a right answer given unsure gets its reason, a sure one a word of praise and the next
+// question (feedback doubles what is kept of low-confidence right answers: Butler, Karpicke and Roediger 2008)
+const HEDGED = /มั้ง|มั๊ง|ไม่แน่ใจ|เดา|ไม่ชัวร์|หรือเปล่า|หรือป่าว|รึเปล่า|น่าจะ/;
+export const hedged = (heard) => HEDGED.test(String(heard || ''));
+
 // ข and ค differ only by tone: the recogniser wrote "ตอบข้อเคาะค่ะ" for ข (twice, 2026-11-06) and the
 // model then picked ค. An answer heard as one of these is asked again before anything is marked.
 const BLURRED = /(?:ตอบ|ข้อ|เลือก)\s*(?:เคาะ|คอ|ขอ)(?=\s|ค่ะ|คะ|นะ|ครับ|$)/;
@@ -214,10 +241,14 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
   const opts = q.options || [];
   let k = /สุดท้าย|\blast\b/i.test(String(picked ?? '')) ? opts.length - 1 : letterIndex(picked);
   if (k === null) k = optionSaid(picked, opts);
+  // "ข เอ้ย ค": a student who corrects themself means the last letter (self-corrections are where voice agents
+  // fail most: Lin et al. 2026, Full-Duplex-Bench-v3)
+  const changed = latestLetter(heard);
+  if (changed !== null && changed < opts.length) k = changed;
   if (k === null || k >= opts.length) {
     return { mark: null, agent: `ข้อ ${n} มีตัวเลือก ${LETTERS[0]} ถึง ${LETTERS[opts.length - 1]} และ "${String(picked ?? '')}" ไม่ใช่ตัวเลือกของข้อนี้ ให้ถามนิสิตว่าเลือกข้อไหน ห้ามบอกว่าถูกหรือผิด` };
   }
-  if ((k === 1 || k === 2) && blurredLetter(heard)) {
+  if ((k === 1 || k === 2) && blurredLetter(heard) && changed === null) {
     return { mark: null, agent: 'ฟังไม่ชัดว่านิสิตตอบ ข ไข่ หรือ ค ควาย ให้ถามนิสิตสั้น ๆ ว่า ข ไข่ หรือ ค ควายคะ ห้ามบอกว่าถูกหรือผิดจนกว่านิสิตตอบ แล้วค่อยเรียก quiz_check อีกครั้ง' };
   }
   // the letter with its word (ข ไข่, ค ควาย): the student hears which one was taken, and a
@@ -228,7 +259,7 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
   const next = left ? ` ยังเหลืออีก ${left} ข้อ` : ' ข้อนี้เป็นข้อสุดท้ายแล้ว';
   const correct = k === q.answer;
   const { main, about } = explainParts(q.explain, k >= 0 && !correct ? opts[k] : '');
-  const why = main ? `\nเหตุผล: ${main}` : '';
+  const why = main ? `\nเหตุผล (ตัวเลขให้พูดตามนี้ตรงตัว ห้ามเปลี่ยน): ${main}` : '';
   if (k < 0) {
     return { mark: { question: n, picked: '', correct: false }, agent: `นิสิตขอข้าม บอกเฉลยแล้วอธิบายสั้น ๆ\nข้อ ${n}: เฉลยคือ ${key}${why}${next}` };
   }
@@ -238,8 +269,11 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
   return {
     mark: { question: n, picked: LETTERS[k], correct },
     agent: correct
-      ? `คำตอบของนิสิตถูกต้อง บอกนิสิตว่าถูกแล้ว ห้ามบอกว่าผิด และทวนว่าเลือก ${said(k)}\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
-      : `คำตอบของนิสิตยังไม่ถูก บอกอย่างนุ่มนวลว่ายังไม่ถูก ทวนว่าเลือก ${said(k)} แล้วบอกเฉลย\nข้อ ${n}: นิสิตเลือก ${mine} แต่เฉลยคือ ${key}${why}${about ? `\nข้อที่นิสิตเลือก: ${about}` : ''}${next}`,
+      ? hedged(heard)
+        ? `คำตอบของนิสิตถูกต้อง แต่นิสิตยังไม่แน่ใจ บอกว่าถูกแล้ว ทวนว่าเลือก ${said(k)} แล้วอธิบายเหตุผลสั้น ๆ ให้มั่นใจขึ้น ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
+        // the reason stays for a "why?" next turn; read out unasked it had made a sure right answer 19 s long
+        : `คำตอบของนิสิตถูกต้อง ชมสั้น ๆ ประโยคเดียว ทวนว่าเลือก ${said(k)} แล้ว${left ? 'ถามว่าไปข้อต่อไปเลยไหม' : 'ถามว่าอยากลองข้อใหม่ไหม'} ไม่ต้องอธิบายเหตุผลจนกว่านิสิตถาม ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
+      : `คำตอบของนิสิตยังไม่ถูก ใช้น้ำเสียงนุ่มนวล [gentle] บอกว่ายังไม่ถูก ทวนว่าเลือก ${said(k)} แล้วบอกเฉลย อธิบายว่าทำไมข้อที่ถูกถูก และข้อที่เลือกผิดตรงไหน\nข้อ ${n}: นิสิตเลือก ${mine} แต่เฉลยคือ ${key}${why}${about ? `\nข้อที่นิสิตเลือก: ${about}` : ''}${next}`,
   };
 }
 
