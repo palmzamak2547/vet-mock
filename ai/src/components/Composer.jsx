@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { IconImage, IconMic, IconSend, IconStop, IconClose } from './icons.jsx';
+import { IconImage, IconMic, IconSend, IconStop, IconClose, IconWave } from './icons.jsx';
 import { CAN_LISTEN, IN_APP, TOUCH } from '../lib/env.js';
 import { listen } from '../lib/speech.js';
 import { CAN_RECORD, startRecording } from '../lib/record.js';
@@ -26,7 +26,9 @@ const later = (ms, timer) => new Promise((r) => { timer.id = setTimeout(r, ms); 
 // under your words, takes a photo (button, paste or drop) and, where the
 // browser can, your voice. On the landing page it types example questions
 // (`ghost`) where the placeholder sits; → takes the one shown.
-const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, onFocusChange, onRipple, onListen, onTyping, placeholder, ghost, autoFocus }, ref) {
+// With nothing in the box, the send button is the call button (onVoice): the
+// realtime voice, one tap away, like the box itself.
+const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, onFocusChange, onRipple, onListen, onTyping, placeholder, ghost, autoFocus, onVoice, onVoiceHint, voiceOff }, ref) {
   const ta = useRef(null);
   const box = useRef(null);
   const file = useRef(null);
@@ -306,6 +308,20 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
         {busy ? (
           <button type="button" className="send is-stop" onClick={onStop} aria-label="หยุด">
             <IconStop size={18} />
+          </button>
+        ) : onVoice && !hasText && !image && !listening && !transcribing ? (
+          <button
+            type="button"
+            className={`send is-voice${voiceOff ? ' is-off' : ''}`}
+            onClick={onVoice}
+            onPointerEnter={onVoiceHint}
+            onFocus={onVoiceHint}
+            onTouchStart={onVoiceHint}
+            aria-label="คุยด้วยเสียง"
+            title="คุยด้วยเสียง"
+            disabled={disabled}
+          >
+            <IconWave size={20} />
           </button>
         ) : (
           <button type="button" className="send" onClick={submit} disabled={!canSend} aria-label="ส่ง">
