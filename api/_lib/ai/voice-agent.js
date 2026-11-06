@@ -173,7 +173,7 @@ const PAPERS_TOOL = {
   parameters: {
     type: 'object',
     properties: {
-      terms: { type: 'string', description: 'English search terms, comma separated.' },
+      terms: { type: 'string', description: 'English topic terms, comma separated, e.g. "canine parvovirus, vaccine". Topic words only: never "recent", "latest", "research" or "study" (use recent for that).' },
       recent: { type: 'boolean', description: 'True when the student wants recent or the latest work.' },
     },
     required: ['terms'],

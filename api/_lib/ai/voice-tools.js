@@ -66,11 +66,14 @@ export function validateVoiceTool(v) {
     return { ok: true, op, topic, count: Number.isFinite(n) ? Math.min(5, Math.max(1, n)) : 3 };
   }
   if (op === 'papers') {
-    // one long string ("parvovirus vaccine dogs recent research") is split into its words, the kind-of-paper ones out
+    // one long string ("parvovirus vaccine dogs recent research") is split into its words, and the words that only say
+    // what kind of paper leave every term: sent as a term, "recent" narrowed a recent parvovirus vaccine search to one
+    // 2019 paper on something else (2026-11-06). Said there, it still means recent.
     let terms = parseTerms(v.terms);
     if (terms.length === 1 && terms[0].split(/\s+/).length >= 3) terms = parseTerms(wordsOf(terms));
+    terms = terms.map((t) => t.split(/\s+/).filter((w) => !NOISE.has(w.toLowerCase())).join(' ')).filter(Boolean);
     if (!terms.length) return { ok: false };
-    return { ok: true, op, terms, recent: v.recent === true };
+    return { ok: true, op, terms, recent: v.recent === true || /\b(recent|latest|new)\b/i.test(String(v.terms || '')) };
   }
   return { ok: false };
 }
