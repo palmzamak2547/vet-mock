@@ -282,10 +282,15 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
 // learning from speech (Adesope & Nesbit 2012, J Educ Psychol); the full text is one tap away.
 const TERM_RE = /[A-Za-z][A-Za-z0-9'-]*(?:\s+[A-Za-z0-9][A-Za-z0-9'-]*){0,3}|\d[\d.,]*\s?(?:mg\/kg|mg|ml|kg|g|%|°C|IU)?/g;
 const NOT_TERMS = new Set(['vetmock', 'vetwiki', 'ok', 'okay', 'the', 'a', 'an', 'and', 'or', 'of', 'in']);
-export function keyTerms(text, max = 6) {
+export function keyTerms(text, max = 6, { open = false } = {}) {
   const out = [];
   const seen = new Set();
-  for (const m of String(text || '').matchAll(TERM_RE)) {
+  const s = String(text || '');
+  const end = s.trimEnd().length;
+  for (const m of s.matchAll(TERM_RE)) {
+    // `open`: the caption is still being revealed, word by word, so the term it ends on may not be whole yet (a
+    // journal's name had popped up four times: "Veterinary", "Veterinary and", ...); it waits for what follows
+    if (open && m.index + m[0].length >= end) continue;
     const t = m[0].trim().replace(/[-']+$/, '');
     const k = t.toLowerCase();
     if (t.length < 2 || NOT_TERMS.has(k) || seen.has(k)) continue;

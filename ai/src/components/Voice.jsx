@@ -74,6 +74,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const phaseRef = useRef('starting');
   const turnsRef = useRef([]);
   const agentRef = useRef({ text: '', at: 0, done: true, prev: null });
+  const voiceAt = useRef(0); // when the agent's voice last began
+  const lineDone = useRef(0); // when its last response's voice ended
   const rateRef = useRef(CAPTION_CPS);
   const lastHeardAt = useRef(Date.now());
   const sessionRef = useRef(null);
@@ -165,7 +167,10 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         setPhase(p);
       },
       onSession: (s) => { sessionRef.current = s; },
+      // the first stretch of voice since the last response ended (or the student spoke) is the next response's
+      onVoice: () => { if (voiceAt.current <= lineDone.current) voiceAt.current = performance.now(); },
       onUser: (text) => {
+        lineDone.current = performance.now();
         const t = cleanSpoken(text);
         // the recogniser's "..." for a breath or a noise is not a turn
         if (!hasWords(t)) return;
@@ -195,7 +200,12 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         const now = performance.now();
         const prev = agentRef.current;
         const prevEnd = prev.text && prev.at && !prev.done ? prev.at + (prev.text.length / rateRef.current) * 1000 : 0;
-        agentRef.current = { text: t, at: Math.max(now, prevEnd), done: false, prev: prevEnd > now ? prev : null };
+        // The text comes once its response is written, which is often after its voice began (0.7 to 2.7 s after, in
+        // a call recorded on 2026-11-06): a voice already going for this response starts the caption's clock, so the
+        // caption catches up with it instead of trailing it to the end.
+        // (>=: a voice that starts the moment the last one ends, as a lead-in running straight into its answer)
+        const began = voiceAt.current && voiceAt.current >= lineDone.current ? voiceAt.current : now;
+        agentRef.current = { text: t, at: Math.max(began, prevEnd), done: false, prev: prevEnd > now ? prev : null };
       },
       // a response's voice ended: show it whole, and learn the voice's pace from it
       onComplete: () => {
@@ -204,6 +214,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         if (a.text && a.at && !a.done && now > a.at) rateRef.current = nextRate(rateRef.current, a.text.length, (now - a.at) / 1000);
         a.done = true;
         a.prev = null;
+        lineDone.current = now;
       },
       onCorrection: (spoken) => {
         const t = cleanSpoken(spoken);
@@ -214,6 +225,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       onInterrupted: () => {
         agentRef.current.done = true;
         agentRef.current.prev = null;
+        lineDone.current = performance.now();
         // an interruption nobody then says anything after is the agent hearing itself
         const at = Date.now();
         setTimeout(() => {
@@ -528,7 +540,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const qIndex = quiz ? Math.min(quiz.shown, (quiz.card.questions?.length || 1) - 1) : 0;
   const q = quiz?.card?.questions?.[qIndex];
   const mark = quiz?.marks?.[qIndex + 1];
-  const terms = full ? [] : keyTerms(caption);
+  const whole = String(agentRef.current?.text || '');
+  const terms = full ? [] : keyTerms(caption, 6, { open: caption.length < whole.length && whole.startsWith(caption) });
   const live = connectedAt.current && (phase === 'listening' || phase === 'speaking' || phase === 'thinking');
   const showDeck = !error && !q && (deck?.items?.length > 0 || papers?.length > 0);
   // a quiz or a deck on screen: a smaller jelly (styles/voice.css), so nothing slides under the card
