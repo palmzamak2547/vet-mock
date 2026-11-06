@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createVoice, VOICE_ERRORS } from '../lib/voice.js';
 import { voiceSound } from '../lib/voice-sound.js';
-import { cleanSpoken, revealed, nextRate, keyTerms, toChatMessages, clock, currentQuestion, CAPTION_CPS } from '../lib/voice-turns.js';
+import { cleanSpoken, revealed, nextRate, keyTerms, toChatMessages, chatRecap, clock, currentQuestion, CAPTION_CPS } from '../lib/voice-turns.js';
 import { newId, getPref, setPref } from '../lib/store.js';
 import { reducedMotion } from '../lib/env.js';
 import { speciesOf } from '../lib/species.js';
@@ -48,7 +48,7 @@ function endNote(reason, { ms, sessionSeconds, quietFor }) {
   return '';
 }
 
-export default function Voice({ oceanRef, still, onDone, onClose }) {
+export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const rootRef = useRef(null);
   const coreRef = useRef(null);
   const voiceRef = useRef(null);
@@ -71,6 +71,8 @@ export default function Voice({ oceanRef, still, onDone, onClose }) {
   const micPeak = useRef(0);
   const echoes = useRef([]);
   const hinted = useRef(new Set());
+  const chatRef = useRef(chat);
+  chatRef.current = chat;
 
   const [phase, setPhaseState] = useState('starting');
   const [error, setError] = useState(null);
@@ -118,6 +120,9 @@ export default function Voice({ oceanRef, still, onDone, onClose }) {
           connectedAt.current = Date.now();
           voiceSound.open();
           navigator.vibrate?.(8);
+          // a call started from a chat goes on from it: the agent knows what was typed
+          const recap = chatRecap(chatRef.current);
+          if (recap) v.context(recap);
         }
         clearTimeout(pingTimer.current);
         if (p === 'thinking') pingTimer.current = setTimeout(() => { if (phaseRef.current === 'thinking') voiceSound.ping(); }, PING_AFTER_MS);

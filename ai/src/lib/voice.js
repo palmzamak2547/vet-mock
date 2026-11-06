@@ -435,6 +435,13 @@ export function createVoice(h = {}) {
       if (id && id !== 'default') store.set(OUT_KEY, id); else store.del(OUT_KEY);
       await conv?.changeOutputDevice({ outputDeviceId: id && id !== 'default' ? id : undefined, ...(transport === 'websocket' ? { sampleRate: 24000, format: 'pcm' } : {}) });
     },
+    /** Background the agent should know (the chat typed before the call), as data, not a turn. */
+    context(text) {
+      const t = String(text || '').trim();
+      if (!t || !conv) return;
+      try { conv.sendContextualUpdate(t); } catch { /* not connected */ }
+      for (const line of t.split('\n').slice(-6)) remember('context', line);
+    },
     /** While the student types, the agent should not take the turn. */
     typing() { try { conv?.sendUserActivity(); } catch { /* not connected */ } },
     /** 0..1 levels for the sea and the meter, read once a frame. */

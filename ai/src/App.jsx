@@ -629,7 +629,7 @@ export default function App() {
       <Specimen elRef={specimenRef} info={specimen} />
       {voiceOn && (
         <Suspense fallback={<div className="voice-boot" role="status">กำลังเตรียมเสียง</div>}>
-          <Voice oceanRef={oceanRef} still={still} onDone={onVoiceDone} onClose={() => setVoiceOn(false)} />
+          <Voice oceanRef={oceanRef} still={still} onDone={onVoiceDone} onClose={() => setVoiceOn(false)} chat={chat.messages} />
         </Suspense>
       )}
       <Toasts />
