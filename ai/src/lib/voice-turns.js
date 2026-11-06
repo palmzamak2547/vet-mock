@@ -200,6 +200,24 @@ function explainParts(text, option) {
  * leads, in words the model cannot read the other way.
  * @returns {{ mark: { question: number, picked: string, correct: boolean } | null, agent: string }}
  */
+const CORRECTED = /เอ้ย|เอ๊ย|ไม่ใช่|ไม่ๆ|ไม่ ๆ|ขอเปลี่ยน|เปลี่ยนเป็น|แก้เป็น/;
+/** The letter a student settled on after correcting themself ("ข เอ้ย ค" -> ค), else null. */
+export function latestLetter(heard) {
+  const s = String(heard || '');
+  const m = CORRECTED.exec(s);
+  if (!m) return null;
+  const after = s.slice(m.index + m[0].length);
+  for (const piece of after.split(/\s+/).filter(Boolean)) {
+    const i = letterIndex(piece);
+    if (i !== null && i >= 0) return i;
+  }
+  return null;
+}
+// "มั้ง", "เดา", "ไม่แน่ใจ": a right answer given unsure gets its reason, a sure one a word of praise and the next
+// question (feedback doubles what is kept of low-confidence right answers: Butler, Karpicke and Roediger 2008)
+const HEDGED = /มั้ง|มั๊ง|ไม่แน่ใจ|เดา|ไม่ชัวร์|หรือเปล่า|หรือป่าว|รึเปล่า|น่าจะ/;
+export const hedged = (heard) => HEDGED.test(String(heard || ''));
+
 // ข and ค differ only by tone: the recogniser wrote "ตอบข้อเคาะค่ะ" for ข (twice, 2026-11-06) and the
 // model then picked ค. An answer heard as one of these is asked again before anything is marked.
 const BLURRED = /(?:ตอบ|ข้อ|เลือก)\s*(?:เคาะ|คอ|ขอ)(?=\s|ค่ะ|คะ|นะ|ครับ|$)/;
@@ -215,10 +233,14 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
   const opts = q.options || [];
   let k = /สุดท้าย|\blast\b/i.test(String(picked ?? '')) ? opts.length - 1 : letterIndex(picked);
   if (k === null) k = optionSaid(picked, opts);
+  // "ข เอ้ย ค": a student who corrects themself means the last letter (self-corrections are where voice agents
+  // fail most: Lin et al. 2026, Full-Duplex-Bench-v3)
+  const changed = latestLetter(heard);
+  if (changed !== null && changed < opts.length) k = changed;
   if (k === null || k >= opts.length) {
     return { mark: null, agent: `ข้อ ${n} มีตัวเลือก ${LETTERS[0]} ถึง ${LETTERS[opts.length - 1]} และ "${String(picked ?? '')}" ไม่ใช่ตัวเลือกของข้อนี้ ให้ถามนิสิตว่าเลือกข้อไหน ห้ามบอกว่าถูกหรือผิด` };
   }
-  if ((k === 1 || k === 2) && blurredLetter(heard)) {
+  if ((k === 1 || k === 2) && blurredLetter(heard) && changed === null) {
     return { mark: null, agent: 'ฟังไม่ชัดว่านิสิตตอบ ข ไข่ หรือ ค ควาย ให้ถามนิสิตสั้น ๆ ว่า ข ไข่ หรือ ค ควายคะ ห้ามบอกว่าถูกหรือผิดจนกว่านิสิตตอบ แล้วค่อยเรียก quiz_check อีกครั้ง' };
   }
   // the letter with its word (ข ไข่, ค ควาย): the student hears which one was taken, and a
@@ -239,8 +261,10 @@ export function checkAnswer(card, marks = {}, { question, picked, heard } = {}) 
   return {
     mark: { question: n, picked: LETTERS[k], correct },
     agent: correct
-      ? `คำตอบของนิสิตถูกต้อง บอกนิสิตว่าถูกแล้ว ห้ามบอกว่าผิด และทวนว่าเลือก ${said(k)}\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
-      : `คำตอบของนิสิตยังไม่ถูก บอกอย่างนุ่มนวลว่ายังไม่ถูก ทวนว่าเลือก ${said(k)} แล้วบอกเฉลย\nข้อ ${n}: นิสิตเลือก ${mine} แต่เฉลยคือ ${key}${why}${about ? `\nข้อที่นิสิตเลือก: ${about}` : ''}${next}`,
+      ? hedged(heard)
+        ? `คำตอบของนิสิตถูกต้อง แต่นิสิตยังไม่แน่ใจ บอกว่าถูกแล้ว ทวนว่าเลือก ${said(k)} แล้วอธิบายเหตุผลสั้น ๆ ให้มั่นใจขึ้น ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
+        : `คำตอบของนิสิตถูกต้อง ชมสั้น ๆ ประโยคเดียว ทวนว่าเลือก ${said(k)} แล้วถามว่าไปข้อต่อไปเลยไหม ไม่ต้องอธิบายยาว ห้ามบอกว่าผิด\nข้อ ${n}: นิสิตเลือก ${mine} ตรงกับเฉลย${why}${next}`
+      : `คำตอบของนิสิตยังไม่ถูก ใช้น้ำเสียงนุ่มนวล [gentle] บอกว่ายังไม่ถูก ทวนว่าเลือก ${said(k)} แล้วบอกเฉลย อธิบายว่าทำไมข้อที่ถูกถูก และข้อที่เลือกผิดตรงไหน\nข้อ ${n}: นิสิตเลือก ${mine} แต่เฉลยคือ ${key}${why}${about ? `\nข้อที่นิสิตเลือก: ${about}` : ''}${next}`,
   };
 }
 

@@ -98,6 +98,12 @@ test('an answer is checked against the card, never judged by the model', async (
   assert.match(checkAnswer(card, { 1: {} }, { picked: 'ก' }).agent, /ข้อสุดท้าย/);
   assert.deepEqual(['ง', 'ข้อ ง', 'ง.', 'ตอบ ง', 'c', 'D', 'ค ค่ะ'].map(letterIndex), [3, 3, 3, 3, 2, 3, 2]);
   assert.deepEqual(['ข ไข่', 'ขไข่', 'ข้อ ค ควาย', 'ควาย', 'ง งู ค่ะ'].map(letterIndex), [1, 1, 2, 2, 3], 'a letter said with its word');
+  // a student who corrects themself means the last letter; sure and unsure right answers are told apart
+  assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข้อ ข เอ้ย ง ค่ะ' }).mark.picked, 'ง');
+  assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข้อ ข ไม่ใช่ ข้อ ค ควายค่ะ' }).mark.picked, 'ค');
+  assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'ง งู ค่ะ' }).agent, /ชมสั้น ๆ ประโยคเดียว/, 'sure and right: a word of praise, then on');
+  assert.match(checkAnswer(card, {}, { picked: 'ง', heard: 'น่าจะ ง มั้งคะ' }).agent, /ยังไม่แน่ใจ[\s\S]*อธิบายเหตุผล/, 'right but unsure: the reason');
+  assert.match(checkAnswer(card, {}, { picked: 'ก', heard: 'ก ไก่' }).agent, /\[gentle\][\s\S]*ข้อที่เลือกผิดตรงไหน/);
   // the recogniser's "ตอบข้อเคาะค่ะ" leaves ข or ค unclear: asked again, nothing marked
   const blurred = checkAnswer(card, {}, { picked: 'ค', heard: 'ตอบข้อเคาะค่ะ' });
   assert.equal(blurred.mark, null);
