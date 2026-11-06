@@ -263,6 +263,8 @@ export function createVoice(h = {}) {
   // once it has lasted LISTEN_HOLD_MS, so the screen, the caption and the sea never flicker.
   let listenTimer = 0;
   const onMode = (m) => {
+    // the voice itself starting (the phase holds "speaking" over short gaps, so it cannot tell): the caption's clock
+    if (m === 'speaking' && sdkMode !== 'speaking') call('onVoice');
     sdkMode = m;
     clearTimeout(listenTimer);
     if (m === 'speaking') { mode = 'speaking'; if (composing && answered) composed(); settle(); return; }

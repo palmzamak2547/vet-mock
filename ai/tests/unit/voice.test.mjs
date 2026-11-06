@@ -27,6 +27,13 @@ test('captions reveal whole words at the voice pace and never cut a Thai cluster
   assert.equal(CAPTION_CPS, 10);
 });
 
+test('key terms: each once, and the one a caption is still revealing waits for its end', async () => {
+  const { keyTerms } = await import('../../src/lib/voice-turns.js');
+  assert.deepEqual(keyTerms('ในวารสาร Veterinary and', 6, { open: true }), []);
+  assert.deepEqual(keyTerms('ในวารสาร Veterinary and Animal Science ค่ะ เรื่อง parvo', 6, { open: true }), ['Veterinary and Animal Science']);
+  assert.deepEqual(keyTerms('ในวารสาร Veterinary and Animal Science ค่ะ เรื่อง parvo'), ['Veterinary and Animal Science', 'parvo']);
+});
+
 test('the caption learns the voice pace from finished answers, within 6 to 16 a second', () => {
   assert.equal(nextRate(10, 150, 15), 10);
   assert.equal(nextRate(10, 150, 10), 12.5);
