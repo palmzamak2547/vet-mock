@@ -145,6 +145,47 @@ export function verifyRetryTicket(ticket, uid, cfg, now = Date.now()) {
 /** Seconds a ticket can live: how long its spent mark is kept. */
 export const retryTicketTtl = (cfg) => ticketTtl(cfg) + 10;
 
+// ---------- photos inside a call ----------
+// The agent's sessions are private (auth on), and the provider takes a file into one only with the account key:
+// neither the session's signature nor its token is accepted (401 for both, 2026-11-06), so the browser SDK's own
+// uploadFile could never work here. A photo comes through /api/ai-voice instead, into a conversation that route
+// started for this student: the start hands the page a pass for that one conversation, signed like a retry ticket.
+const photoKey = (cfg) => crypto.createHash('sha256').update(`vetmock-voice-photos:${cfg.key}`).digest();
+const photoSig = (cfg, uid, conversationId, expires) => crypto.createHmac('sha256', photoKey(cfg)).update(`${uid}|${conversationId}|${expires}`).digest('base64url');
+export const PHOTO_TYPES = Object.freeze(['image/jpeg', 'image/png', 'image/webp']);
+export const PHOTOS_PER_CALL = 4; // the agent's own cap (file_input.max_files_per_conversation)
+export const photoPassTtl = (cfg) => cfg.sessionSeconds + RETRY_TTL_S;
+
+/** A pass to send photos into one conversation: this student's, for the session's length and a little after. */
+export function photoPass(uid, conversationId, cfg, now = Date.now()) {
+  const expires = Math.floor(now / 1000) + photoPassTtl(cfg);
+  return `${expires}.${photoSig(cfg, uid, conversationId, expires)}`;
+}
+
+/** True when the pass is this student's, for this conversation, and unexpired. */
+export function verifyPhotoPass(pass, uid, conversationId, cfg, now = Date.now()) {
+  const m = /^(\d{9,11})\.([A-Za-z0-9_-]{20,64})$/.exec(String(pass || ''));
+  if (!m || !uid || !/^conv_[A-Za-z0-9]{6,64}$/.test(String(conversationId || ''))) return false;
+  const expires = Number(m[1]);
+  if (expires * 1000 < now || expires * 1000 > now + photoPassTtl(cfg) * 1000 + 5000) return false;
+  const want = Buffer.from(photoSig(cfg, uid, conversationId, expires));
+  const got = Buffer.from(m[2]);
+  return got.length === want.length && crypto.timingSafeEqual(got, want);
+}
+
+/** The photo into the live conversation, with the account key; resolves to the provider's file id. */
+export async function attachPhoto(cfg, { conversationId, mediaType, bytes, fetchImpl = fetch }) {
+  const form = new FormData();
+  form.append('file', new Blob([bytes], { type: mediaType }), `photo.${mediaType.split('/')[1]}`);
+  const res = await fetchImpl(`${EL_API}/v1/convai/conversations/${encodeURIComponent(conversationId)}/files`, {
+    method: 'POST', headers: { 'xi-api-key': cfg.key }, body: form, signal: AbortSignal.timeout(10_000),
+  });
+  if (!res.ok) throw Object.assign(new Error('photo'), { status: res.status });
+  const body = await res.json();
+  if (typeof body?.file_id !== 'string' || !body.file_id) throw new Error('photo-shape');
+  return body.file_id;
+}
+
 /**
  * A credential for one conversation: a WebRTC conversation token, or a signed
  * WebSocket URL when the page asks to fail over (networks that drop UDP). The

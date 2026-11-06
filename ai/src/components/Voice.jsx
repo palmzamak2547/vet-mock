@@ -44,6 +44,7 @@ const WRAP_S = 40;
 // a look-up that outlasts the spoken lead-in gets one soft ping (research: silent waits under 4-8 s)
 const PING_AFTER_MS = 2000;
 const HIDDEN_QUIET_MS = 45_000;
+const PICK_GRACE_MS = 120_000;
 const FOLLOW_UPS = ['อธิบายเพิ่มอีกนิด', 'ขอข้อสอบเรื่องนี้', 'สรุปให้จำง่าย ๆ'];
 
 // An app's own browser that will not share the microphone: LINE opens the system browser for
@@ -95,6 +96,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const hinted = useRef(new Set());
   const quietSince = useRef(0); // when the agent last stopped (with lastHeardAt: how long both sides have been quiet)
   const leftBehind = useRef(false); // hung up because the tab was hidden and quiet
+  const pickingAt = useRef(0); // when the photo picker was opened (0: not picking)
   const wrapped = useRef(false);
   const chatRef = useRef(chat);
   chatRef.current = chat;
@@ -319,6 +321,21 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
     };
   }, [attempt]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ── the words keep the sea calm behind them ──────────────
+  // Animals swim around the status, what was heard and the caption, and a light veil keeps them readable (on the
+  // light sea a fish swimming behind กำลังฟัง hid it, a student's phone, 2026-11-06).
+  const calm = useCallback(() => {
+    const o = oceanRef.current;
+    const root = rootRef.current;
+    if (!o || !root) return;
+    const boxes = [...root.querySelectorAll('.voice-status, .voice-example, .voice-hint-line, .voice-heard, .voice-caption, .voice-terms')]
+      .map((el) => el.getBoundingClientRect()).filter((b) => b.width > 0 && b.height > 0);
+    if (!boxes.length) { o.setContent(null, 0); return; }
+    const x = Math.min(...boxes.map((b) => b.left)) - 16;
+    const y = Math.min(...boxes.map((b) => b.top)) - 10;
+    o.setContent({ x, y, w: Math.max(...boxes.map((b) => b.right)) + 16 - x, h: Math.max(...boxes.map((b) => b.bottom)) + 10 - y }, 0.6);
+  }, [oceanRef]);
+
   // ── the sea holds the jelly where the core is ──────────────
   useLayoutEffect(() => {
     const place = () => {
@@ -332,7 +349,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         levels: () => voiceRef.current?.levels() || { input: 0, output: 0 },
         phase: () => phaseRef.current,
       });
-      oceanRef.current?.setContent(null, 0);
+      calm();
       oceanRef.current?.setFocus(null);
     };
     place();
@@ -344,8 +361,9 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       ro?.disconnect();
       window.removeEventListener('resize', place);
       oceanRef.current?.setVoice(null);
+      oceanRef.current?.setContent(null, 0);
     };
-  }, [oceanRef]);
+  }, [oceanRef]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── once a frame: levels for the meters, the caption at the voice's pace ──
   useEffect(() => {
@@ -433,14 +451,19 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   }, [hangUp, toggleMute, sheet, typing]);
   // ── a call left behind in a hidden tab: every minute of it is billed (Tipjai's credits too). Hidden, the agent
   // done talking, and neither side heard for 45 s: hung up, with a note. A hidden call still talking goes on. ──
+  // A phone's camera or gallery hides the page while a photo is picked: that is not leaving the call (two minutes
+  // of grace from the tap; the page coming back or a photo chosen ends it).
   useEffect(() => {
     const id = setInterval(() => {
       if (document.visibilityState !== 'hidden' || !connectedAt.current || doneRef.current || phaseRef.current !== 'listening') return;
+      if (pickingAt.current && Date.now() - pickingAt.current < PICK_GRACE_MS) return;
       if (Date.now() - Math.max(quietSince.current, lastHeardAt.current) < HIDDEN_QUIET_MS) return;
       leftBehind.current = true;
       voiceRef.current?.end();
     }, 2000);
-    return () => clearInterval(id);
+    const back = () => { if (document.visibilityState === 'visible') pickingAt.current = 0; };
+    document.addEventListener('visibilitychange', back);
+    return () => { clearInterval(id); document.removeEventListener('visibilitychange', back); };
   }, []);
 
   useEffect(() => {
@@ -473,6 +496,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   };
   useEffect(() => { if (typing) inputRef.current?.focus(); }, [typing]);
   const sendPhoto = async (file) => {
+    pickingAt.current = 0;
     if (!file) return;
     setPhoto({ preview: null, sending: true });
     try {
@@ -546,6 +570,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const showDeck = !error && !q && (deck?.items?.length > 0 || papers?.length > 0);
   // a quiz or a deck on screen: a smaller jelly (styles/voice.css), so nothing slides under the card
   const card = error ? '' : q ? ' has-quiz' : showDeck ? ' has-deck' : '';
+  // the calm area follows the words as they change (after the paint, so the boxes are where they are drawn)
+  useEffect(() => { calm(); }, [calm, caption, heard, hint, status, full, terms.length, card, shownPhase]);
 
   return (
     <div
@@ -692,7 +718,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
             <span className="voice-mic-ring" aria-hidden="true" />
             {muted ? <IconMicOff size={22} /> : <IconMic size={22} />}
           </button>
-          <button type="button" className="voice-btn" onClick={() => fileRef.current?.click()} aria-label="ส่งรูปให้ดู" disabled={Boolean(error) || !live || photo?.sending}>
+          <button type="button" className="voice-btn" onClick={() => { pickingAt.current = Date.now(); fileRef.current?.click(); }} aria-label="ส่งรูปให้ดู" disabled={Boolean(error) || !live || photo?.sending}>
             <IconImage size={22} />
           </button>
           <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => { sendPhoto(e.target.files?.[0]); e.target.value = ''; }} />
