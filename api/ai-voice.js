@@ -20,7 +20,7 @@
 // (tests/unit/function-regions.test.mjs).
 // ============================================================
 
-import { allowedOrigin, clientIP, rateLimit, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { allowedOrigin, clientIP, rateLimit, rateRefund, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
 import {
   voiceConfig, readBalance, budgetVerdict, mintConversation, retryTicket, verifyRetryTicket, retryTicketTtl, voiceUserId,
@@ -34,6 +34,8 @@ export const config = {
 
 const kv = { get: kvGetJSON, set: kvSetJSON };
 const refuse = (res, status, error, extra = {}) => res.status(status).json({ error, message: VOICE_MESSAGES[error], ...extra });
+// free restarts a student gets a day (a failover, a dropped call); past that a restart is a session
+const RESTARTS_PER_DAY = 2;
 
 async function status(cfg) {
   if (cfg.off) return { available: false, reason: 'off' };
@@ -101,15 +103,37 @@ export default async function handler(req, res) {
     console.warn('[ai-voice] balance', e.status || e.message);
     return refuse(res, 503, 'provider');
   }
-  const verdict = budgetVerdict(balance, cfg);
+  let verdict = budgetVerdict(balance, cfg);
+  // The cached balance can be 45 s behind sessions billed since. Further from the floor than
+  // every live session could cost, that cannot matter; nearer, it is read fresh.
+  if (verdict.ok && verdict.spare < cfg.sessionCredits * cfg.maxConcurrent) {
+    try {
+      balance = await readBalance(cfg, { kv, fresh: true });
+    } catch (e) {
+      console.warn('[ai-voice] balance', e.status || e.message);
+      return refuse(res, 503, 'provider');
+    }
+    verdict = budgetVerdict(balance, cfg);
+  }
   if (!verdict.ok) return refuse(res, 503, verdict.reason === 'budget' ? 'budget' : 'provider', balance.renewsAt ? { renewsAt: balance.renewsAt } : {});
+
+  // Counts this start takes, given back if the provider then fails before anything started.
+  const taken = [];
+  const take = async (key, max, winMs) => {
+    const r = await rateLimit(key, max, winMs);
+    if (r.ok) taken.push([key, winMs]);
+    return r;
+  };
+  const toMidnight = secondsToBangkokMidnight() * 1000;
+  const day = bangkokDay();
 
   // a ticket restarts its session once: spent here, and a restart is handed no new one
   let retried = false;
   if (ticket) {
-    const spent = await rateLimit(`ai-voice:ticket:${ticket}`, 1, retryTicketTtl(cfg) * 1000);
+    const spent = await take(`ai-voice:ticket:${ticket}`, 1, retryTicketTtl(cfg) * 1000);
     if (spent.unavailable) return refuse(res, 503, 'limiter', { retryAfter: spent.retryAfter });
-    retried = spent.ok;
+    // a ticket holds no proof the session before it died: a few free restarts a day, then they count
+    retried = spent.ok && (await take(`ai-voice:restarts:${who}:${day}`, RESTARTS_PER_DAY, toMidnight)).ok;
   }
   // a rapid start-stop loop is not a conversation
   const burst = await rateLimit(`ai-voice:burst:${who}`, 10, 10 * 60 * 1000);
@@ -118,14 +142,14 @@ export default async function handler(req, res) {
     res.setHeader('Retry-After', String(burst.retryAfter));
     return res.status(429).json({ error: 'rate', message: 'เริ่มคุยถี่เกินไป รอสักครู่แล้วลองใหม่', retryAfter: burst.retryAfter });
   }
-  const dayKey = `ai-voice:day:${who}:${bangkokDay()}`;
+  const dayKey = `ai-voice:day:${who}:${day}`;
   let left = null;
   if (!retried) {
-    const day = await rateLimit(dayKey, cfg.userSessions, secondsToBangkokMidnight() * 1000);
-    if (!day.ok) {
-      if (day.unavailable) return refuse(res, 503, 'limiter', { retryAfter: day.retryAfter });
-      res.setHeader('Retry-After', String(day.retryAfter));
-      return refuse(res, 429, 'user', { retryAfter: day.retryAfter, sessions: cfg.userSessions });
+    const used = await take(dayKey, cfg.userSessions, toMidnight);
+    if (!used.ok) {
+      if (used.unavailable) return refuse(res, 503, 'limiter', { retryAfter: used.retryAfter });
+      res.setHeader('Retry-After', String(used.retryAfter));
+      return refuse(res, 429, 'user', { retryAfter: used.retryAfter, sessions: cfg.userSessions });
     }
   }
   // the limiter's own count (null without the shared store: then unknown, never a guess)
@@ -138,12 +162,15 @@ export default async function handler(req, res) {
     credential = await mintConversation(cfg, { transport, participant: user });
   } catch (e) {
     console.warn('[ai-voice] mint', transport, e.status || e.message);
+    // nothing started: the session, the ticket and the restart this attempt took are the student's again
+    await Promise.all(taken.map(([key, winMs]) => rateRefund(key, winMs)));
     return refuse(res, e.status === 429 ? 503 : 502, e.status === 429 ? 'busy' : 'provider');
   }
-  console.log('[ai-voice]', JSON.stringify({ outcome: 'start', transport, retried, ms: Date.now() - t0, left, spare: Math.round(verdict.spare) }));
+  const { conversationId, ...cred } = credential;
+  console.log('[ai-voice]', JSON.stringify({ outcome: 'start', transport, retried, ms: Date.now() - t0, left, spare: Math.round(verdict.spare), conversation: conversationId }));
   return res.status(200).json({
     transport,
-    ...credential,
+    ...cred,
     sessionSeconds: cfg.sessionSeconds,
     left,
     retry: retried ? null : retryTicket(who, cfg),

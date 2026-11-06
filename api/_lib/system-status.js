@@ -132,6 +132,7 @@ const CHECKS = [
       if (cfg.off) return r('off', 'ปิดอยู่ด้วย AI_VOICE_OFF=1', 'ลบ AI_VOICE_OFF ใน Vercel เมื่อพร้อมเปิด');
       const b = await readBalance(cfg, { fetchImpl, now });
       const v = budgetVerdict(b, cfg);
+      if (!v.ok && v.reason === 'provider') return r('down', 'อ่านยอดเครดิตจาก ElevenLabs ไม่ได้ การเริ่มคุยด้วยเสียงจะตอบว่าเชื่อมต่อไม่สำเร็จ');
       const renews = b.renewsAt ? ` ต่ออายุ ${thaiDate(new Date(b.renewsAt).toISOString())}` : '';
       const room = `เหลือ ${Math.round(b.remaining).toLocaleString('en-US')} เครดิต (ต้องเหลือไว้ ${(cfg.floorCredits + cfg.sessionCredits * cfg.maxConcurrent).toLocaleString('en-US')})${renews}`;
       if (!v.ok) return r('down', `โควตาเดือนนี้หมด นิสิตเห็นข้อความว่าหมดโควตา: ${room}`);

@@ -21,6 +21,7 @@
 
 import { API_URL, authorized, warm } from './api.js';
 import { IN_APP } from './env.js';
+import { checkAnswer, asksForQuiz, asksWhichTopic, quizCount, quizTopic } from './voice-turns.js';
 import rawAudioProcessor from '@elevenlabs/client/worklets/rawAudioProcessor.js?url';
 import audioConcatProcessor from '@elevenlabs/client/worklets/audioConcatProcessor.js?url';
 import libsamplerate from '@alexanderolsen/libsamplerate-js/dist/libsamplerate.worklet.js?url';
@@ -84,6 +85,9 @@ const store = {
   del(k) { try { localStorage.removeItem(k); } catch { /* private mode */ } },
 };
 const rtcBlocked = () => Date.now() - Number(store.get(RTC_KEY) || 0) < DAY;
+// WebRTC first (Opus, the browser's echo canceller, a jitter buffer: the best audio on a phone network),
+// unless this browser has none or WebRTC failed on this device in the last day: then WebSocket
+const firstTransport = () => (typeof RTCPeerConnection !== 'function' || rtcBlocked() ? 'websocket' : 'webrtc');
 
 /** 'granted' | 'prompt' | 'denied' | 'unknown' (Firefox and older Safari cannot say). */
 async function micPermission() {
@@ -150,12 +154,36 @@ async function askTool(body, ms = TOOL_MS) {
 }
 
 let sdkPending = null;
+// A page that sets window.__voiceSdk before the call (a recorded call replayed through this screen:
+// the e2e suite, the launch film) gets that { Conversation } instead of the SDK's. Nothing else does.
 export const loadVoiceSdk = () => {
+  if (typeof window !== 'undefined' && window.__voiceSdk?.Conversation) return Promise.resolve(window.__voiceSdk);
   if (!sdkPending) sdkPending = import('@elevenlabs/client').catch((e) => { sdkPending = null; throw e; });
   return sdkPending;
 };
 
 const TOOL_DOWN = 'search failed this time: say briefly that VetMock could not be checked right now, then explain only the general principle, with no specific numbers.';
+const QUIZ_DOWN = 'the quiz could not be fetched this time: say so briefly and offer to try again in a moment; never make up a question.';
+const closed = () => Object.assign(new Error('closed'), { closed: true });
+// what the service says when a call cannot start or stops, in the page's words (never its English)
+const sdkMessage = (m) => (/limit|concurren|capacity|busy|queue|quota/i.test(String(m || '')) ? VOICE_ERRORS.busy : VOICE_ERRORS.connect);
+
+/** A microphone or speaker kept from another day that is not plugged in now: forgotten (see start). */
+async function forgetMissingDevices() {
+  const list = (await navigator.mediaDevices?.enumerateDevices?.().catch(() => null)) || [];
+  if (!list.some((d) => d.deviceId)) return; // ids hidden (no permission yet): nothing can be told
+  for (const [key, kind] of [[MIC_KEY, 'audioinput'], [OUT_KEY, 'audiooutput']]) {
+    const id = store.get(key);
+    if (id && !list.some((d) => d.kind === kind && d.deviceId === id)) store.del(key);
+  }
+}
+
+/** A real device id for "default": WebRTC treats a missing id as "no change". */
+async function concreteDevice(kind, id) {
+  if (id && id !== 'default') return id;
+  const list = ((await navigator.mediaDevices?.enumerateDevices?.().catch(() => null)) || []).filter((d) => d.kind === kind && d.deviceId);
+  return (list.find((d) => d.deviceId === 'default') || list[0])?.deviceId;
+}
 
 /**
  * @param {{
@@ -166,7 +194,8 @@ const TOOL_DOWN = 'search failed this time: say briefly that VetMock could not b
  *   onCorrection?: (spoken: string) => void,
  *   onInterrupted?: () => void,
  *   onVad?: (score: number) => void,
- *   onTool?: (kind: 'sources'|'quiz'|'mark'|'papers', data: object) => void,
+ *   onTool?: (kind: 'sources'|'quiz'|'papers', data: object) => void,
+ *   onCheck?: (p: { picked?: string, question?: number }) => string,
  *   onSession?: (s: { sessionSeconds: number, left: number|null, transport: string }) => void,
  *   onEnd?: (e: { reason: 'user'|'agent'|'error', message?: string, ms: number }) => void,
  * }} h
@@ -186,6 +215,21 @@ export function createVoice(h = {}) {
   const remember = (role, text) => { if (text) { history.push({ role, text }); if (history.length > 10) history.shift(); } };
   let phase = 'idle';
   let lastResponse = null;
+  let lastActivity = Date.now(); // the last word either side said (a long silence is the service hanging up)
+  let startedAt = 0; // the session's first connect: its time cap holds across a rejoin
+  let capTimer = 0;
+  let busyKind = '';
+  // the student's latest turn, when it asked for a quiz (see recoverQuiz)
+  let turnNo = 0;
+  let ask = null;
+  let lastTopic = '';
+  let lastStudent = '';
+  const studentSaid = (text) => {
+    turnNo++;
+    lastStudent = String(text || '');
+    lastActivity = Date.now();
+    ask = asksForQuiz(text) ? { n: turnNo, text, acted: false, said: '' } : null;
+  };
   const setPhase = (p, info) => { if (p !== phase || info) { phase = p; call('onPhase', p, info); } };
   const settle = () => setPhase(toolsBusy > 0 ? 'thinking' : mode === 'speaking' ? 'speaking' : 'listening');
   let ducked = false;
@@ -202,19 +246,51 @@ export function createVoice(h = {}) {
   const onMode = (m) => {
     clearTimeout(listenTimer);
     if (m === 'speaking') { mode = 'speaking'; settle(); return; }
-    listenTimer = setTimeout(() => { mode = 'listening'; duck(false); settle(); }, LISTEN_HOLD_MS);
+    listenTimer = setTimeout(() => {
+      mode = 'listening';
+      duck(false);
+      settle();
+      // the agent finished a turn the student asked for a quiz in, without fetching one
+      if (ask && !ask.acted && !ask.recovering && ask.said && !asksWhichTopic(ask.said)) {
+        ask.recovering = true;
+        recoverQuiz(ask);
+      }
+    }, LISTEN_HOLD_MS);
   };
 
-  const tool = (kind, run) => async (params) => {
+  const busy = async (kind, run) => {
     toolsBusy++;
+    busyKind = kind;
     settle();
     try {
-      return await run(params || {});
+      return await run();
     } finally {
       toolsBusy = Math.max(0, toolsBusy - 1);
       settle();
     }
   };
+  const tool = (kind, run) => (params) => {
+    if (ask) ask.acted = true;
+    return busy(kind, () => run(params || {}));
+  };
+
+  // The model, asked for a quiz, said it would fetch one and did not (or read one it made up):
+  // about 1 ask in 4 in the text probes, and in both spoken calls through the page on 2026-11-06.
+  // The page fetches the quiz the student asked for (from 700 ms after the lead-in came with no
+  // call: a call comes with its lead-in), puts it on screen once the voice stops and hands it to
+  // the agent to read. A message the page sends is not shown or kept as the student's words (the
+  // service does not echo typed messages back as transcripts).
+  const quizFor = (a) => askTool({ op: 'quiz', topic: quizTopic(a.text, lastTopic), count: quizCount(a.text) });
+  async function recoverQuiz(a) {
+    if (a.acted || turnNo !== a.n || !conv || closing) return;
+    const out = await busy('quiz', () => a.quiz || quizFor(a));
+    if (a.acted || turnNo !== a.n || !conv || closing) return;
+    if (out?.card) call('onTool', 'quiz', out.card);
+    const say = out?.card
+      ? `(ระบบ) ข้อสอบที่นิสิตขอขึ้นบนจอแล้ว นี่คือผลของ quiz_vetmock อ่านข้อแรกให้นิสิตฟังเลยโดยไม่ต้องทักใหม่ ถ้าเมื่อกี้อ่านโจทย์อื่นไปแล้ว ให้บอกสั้น ๆ ว่าขอใช้ข้อนี้แทน\n\n${out.agent}`
+      : `(ระบบ) ${out?.agent || QUIZ_DOWN}`;
+    try { conv.sendUserMessage(say); } catch { /* the call just ended */ }
+  }
   const clientTools = {
     search_vetmock: tool('sources', async (p) => {
       const out = await askTool({ op: 'search', query: p.query, terms: p.terms });
@@ -223,13 +299,18 @@ export function createVoice(h = {}) {
       return out.agent;
     }),
     quiz_vetmock: tool('quiz', async (p) => {
-      const out = await askTool({ op: 'quiz', topic: p.topic, count: p.count });
-      if (!out) return TOOL_DOWN;
+      if (p.topic) lastTopic = String(p.topic).slice(0, 120);
+      // "ข้อนึง" and no count from the model (it often leaves it out): the student's own number
+      const out = await askTool({ op: 'quiz', topic: p.topic, count: p.count || quizCount(lastStudent) });
+      if (!out) return QUIZ_DOWN;
       if (out.card) call('onTool', 'quiz', out.card);
       return out.agent;
     }),
-    // fire and forget: the agent does not wait for it
-    quiz_mark: (p) => { call('onTool', 'mark', p || {}); },
+    // the verdict comes from the quiz on screen (the page holds the key), never from the model
+    // (`heard`: the student's own words, so a ข or ค the recogniser blurred is asked again)
+    quiz_check: (p) => {
+      try { return h.onCheck ? h.onCheck({ ...(p || {}), heard: lastStudent }) : checkAnswer(null).agent; } catch (e) { console.error('[voice] onCheck', e); return checkAnswer(null).agent; }
+    },
     find_papers: tool('papers', async (p) => {
       const out = await askTool({ op: 'papers', terms: p.terms, recent: p.recent === true }, 11_000);
       if (!out) return 'the paper search failed this time: say it can be tried again; never name a paper yourself.';
@@ -240,6 +321,13 @@ export function createVoice(h = {}) {
 
   async function connect(c, how) {
     const { Conversation } = await loadVoiceSdk();
+    // Every callback belongs to this attempt. One given up on (a WebRTC start that lands after
+    // the timeout, once WebSocket has replaced it) is ended and heard no more: its disconnect
+    // must not close the call that replaced it.
+    const att = { dead: false };
+    const live = (fn) => (...a) => (att.dead ? undefined : fn(...a));
+    const dev = import.meta.env?.DEV && typeof window !== 'undefined';
+    if (dev) window.__voiceEvents = window.__voiceEvents || [];
     const options = {
       clientTools,
       userId: c.user,
@@ -249,43 +337,56 @@ export function createVoice(h = {}) {
       ...(store.get(OUT_KEY) ? { outputDeviceId: store.get(OUT_KEY) } : {}),
       workletPaths: WORKLETS,
       libsampleratePath: libsamplerate,
-      onConnect: () => { connectedAt = Date.now(); },
-      onModeChange: ({ mode: m }) => onMode(m),
-      onMessage: ({ role, source, message, response_id: id }) => {
+      onConnect: live(() => { connectedAt = Date.now(); startedAt ||= connectedAt; lastActivity = Date.now(); }),
+      onModeChange: live(({ mode: m }) => {
+        if (dev) window.__voiceEvents.push({ t: Math.round(performance.now()), type: 'mode', e: m });
+        onMode(m);
+      }),
+      onMessage: live(({ role, source, message, response_id: id }) => {
         const who = role || (source === 'ai' ? 'agent' : 'user');
-        if (who === 'user') { remember('user', message); call('onUser', message); return; }
+        if (who === 'user') { studentSaid(message); remember('user', message); call('onUser', message); return; }
         // one response is one turn, however often it arrives
         if (id && id === lastResponse) return;
         lastResponse = id || null;
+        lastActivity = Date.now();
+        if (ask) {
+          const a = ask;
+          a.said += ` ${message}`;
+          // no call with these words, 700 ms on: the quiz is fetched now, while the voice still talks
+          if (!a.acted && !a.quiz) {
+            setTimeout(() => {
+              if (a.acted || a.quiz || turnNo !== a.n || asksWhichTopic(a.said)) return;
+              a.quiz = quizFor(a);
+            }, 700);
+          }
+        }
         remember('agent', message);
         call('onAgent', message);
-      },
-      onAgentResponseCorrection: (c2) => call('onCorrection', c2?.corrected_agent_response || ''),
+      }),
+      onAgentResponseCorrection: live((c2) => call('onCorrection', c2?.corrected_agent_response || '')),
       // a student who cuts in has the floor at once, without the listening hold
-      onInterruption: () => { clearTimeout(listenTimer); mode = 'listening'; duck(false); settle(); call('onInterrupted'); },
-      onVadScore: ({ vadScore }) => {
+      onInterruption: live(() => { clearTimeout(listenTimer); mode = 'listening'; duck(false); settle(); call('onInterrupted'); }),
+      onVadScore: live(({ vadScore }) => {
         call('onVad', vadScore);
+        if (vadScore > 0.6) lastActivity = Date.now();
+        // (on iPhone over WebRTC the SDK cannot lower the voice: <audio>.volume is fixed there)
         if (mode === 'speaking' && vadScore > DUCK_VAD) {
           duck(true);
           clearTimeout(unduck);
           unduck = setTimeout(() => duck(false), DUCK_HOLD_MS);
         }
-      },
+      }),
       onError: (message) => console.warn('[voice] sdk', message),
-      onDisconnect: (d) => onDisconnect(d),
-    };
-    // the end of a response's voice (the caption learns the voice's pace from it)
-    options.onIncomingEvent = (e) => { if (e?.type === 'agent_response_complete') call('onComplete'); };
-    // dev only: the call's events (no audio) in window.__voiceEvents, for tests and debugging
-    if (import.meta.env?.DEV && typeof window !== 'undefined') {
-      window.__voiceEvents = window.__voiceEvents || [];
-      options.onIncomingEvent = (e) => {
+      onDisconnect: live((d) => onDisconnect(d)),
+      // the end of a response's voice (the caption learns the voice's pace from it);
+      // dev only: the call's events (no audio) in window.__voiceEvents, for tests and debugging
+      onIncomingEvent: live((e) => {
         if (e?.type === 'agent_response_complete') call('onComplete');
-        if (!e || e.type === 'audio' || e.type === 'ping' || e.type === 'vad_score') return;
-        window.__voiceEvents.push({ t: Math.round(performance.now()), type: e.type, e: JSON.stringify(e).slice(0, 400) });
-      };
-      options.onModeChange = (m) => { window.__voiceEvents.push({ t: Math.round(performance.now()), type: 'mode', e: m.mode }); onMode(m.mode); };
-    }
+        if (dev && e && e.type !== 'audio' && e.type !== 'ping' && e.type !== 'vad_score') {
+          window.__voiceEvents.push({ t: Math.round(performance.now()), type: e.type, e: JSON.stringify(e).slice(0, 400) });
+        }
+      }),
+    };
     const p = how === 'webrtc'
       ? Conversation.startSession({ ...options, conversationToken: c.token, connectionType: 'webrtc' })
       : Conversation.startSession({ ...options, signedUrl: c.signedUrl, connectionType: 'websocket' });
@@ -295,6 +396,7 @@ export function createVoice(h = {}) {
     try {
       return await Promise.race([p, timeout]);
     } catch (e) {
+      att.dead = true;
       p.then((late) => late.endSession().catch(() => {}), () => {});
       throw e;
     } finally {
@@ -302,37 +404,67 @@ export function createVoice(h = {}) {
     }
   }
 
+  // A hang-up can land at any await below: after each, a call nobody wants any more is not
+  // opened (or is ended at once), so the microphone never comes on behind a closed screen.
   async function open(retryTicket, minted) {
-    const first = rtcBlocked() ? 'websocket' : 'webrtc';
+    const first = firstTransport();
     cred = await (minted || mint(first, retryTicket));
+    if (closing) throw closed();
     transport = first;
+    let c;
     try {
-      conv = await connect(cred, first);
+      c = await connect(cred, first);
     } catch (e) {
-      if (closing) throw e;
-      if (first !== 'webrtc') throw e instanceof VoiceError ? e : new VoiceError('connect');
+      if (closing) throw closed();
+      if (first !== 'webrtc') throw e instanceof VoiceError ? e : new VoiceError('connect', sdkMessage(e?.message));
       // WebRTC could not connect here: WebSocket, without counting a second session
       cred = await mint('websocket', cred.retry);
+      if (closing) throw closed();
       transport = 'websocket';
-      conv = await connect(cred, 'websocket');
+      c = await connect(cred, 'websocket');
       store.set(RTC_KEY, String(Date.now()));
     }
+    if (closing) { await c.endSession().catch(() => {}); throw closed(); }
+    conv = c;
     if (transport === 'webrtc') store.del(RTC_KEY);
     if (muted) conv.setMicMuted(true);
+    // the speaker picked another day: over WebRTC the start option is not applied, so set it now
+    const out = store.get(OUT_KEY);
+    if (out && transport === 'webrtc') conv.changeOutputDevice({ outputDeviceId: out }).catch(() => store.del(OUT_KEY));
     call('onSession', { sessionSeconds: cred.sessionSeconds, left: cred.left, transport });
   }
 
   async function onDisconnect(d) {
     const was = conv;
     conv = null;
+    // When the far end closes a WebRTC call, SDK 1.35.0 skips its audio cleanup (close() runs it
+    // only while connected): two AudioContexts and an <audio> per call would pile up until the
+    // browser refuses new ones. Its cleanup() is idempotent.
+    try { was?.connection?.audioAdapter?.cleanup?.(); } catch { /* not WebRTC */ }
     if (closing || !was) return;
     const lived = connectedAt ? Date.now() - connectedAt : 0;
+    // The service ending the call (its time cap, a long silence) reaches the page as an "error"
+    // over WebRTC: an ending, not a drop, and it never takes the free restart.
+    const timeUp = d?.context?.type === 'max_duration_exceeded' || (cred?.sessionSeconds && startedAt && Date.now() - startedAt >= (cred.sessionSeconds - 10) * 1000);
+    if (d?.reason === 'error' && (timeUp || Date.now() - lastActivity > 100_000)) { finish('agent'); return; }
     // dropped mid-call: rejoin once, quietly, with the conversation so far
     if (d?.reason === 'error' && !rejoined && lived > 3000 && navigator.onLine !== false && cred?.retry) {
       rejoined = true;
       setPhase('reconnecting');
       try {
         await open(cred.retry);
+        if (closing) return;
+        // the rejoined conversation has a fresh cap on the service: this one holds the session's
+        const rest = startedAt + cred.sessionSeconds * 1000 - Date.now();
+        clearTimeout(capTimer);
+        capTimer = setTimeout(() => {
+          if (closing || !conv) return;
+          closing = true;
+          const c = conv;
+          conv = null;
+          c.endSession().catch(() => {});
+          finish('agent');
+        }, Math.max(0, rest));
         if (history.length) {
           const recap = history.map((t) => `${t.role === 'user' ? 'นิสิต' : 'ผู้ช่วย'}: ${t.text}`).join('\n');
           conv?.sendContextualUpdate(`สายหลุดและต่อใหม่แล้ว นี่คือบทสนทนาก่อนหน้า (คุยต่อจากตรงนี้ ไม่ต้องทักทายใหม่):\n${recap}`);
@@ -343,7 +475,7 @@ export function createVoice(h = {}) {
         // fall through: the call is over
       }
     }
-    finish(d?.reason === 'agent' ? 'agent' : d?.reason === 'user' ? 'user' : 'error', d?.reason === 'error' ? d.message : undefined);
+    finish(d?.reason === 'agent' ? 'agent' : d?.reason === 'user' ? 'user' : 'error', d?.reason === 'error' ? sdkMessage(d.message) : undefined);
   }
 
   let finished = false;
@@ -351,8 +483,10 @@ export function createVoice(h = {}) {
     if (finished) return;
     finished = true;
     clearTimeout(listenTimer);
+    clearTimeout(capTimer);
     setPhase('ended');
-    call('onEnd', { reason, message, ms: connectedAt ? Date.now() - connectedAt : 0 });
+    // the whole session's length, a rejoin included (the time-up note reads it)
+    call('onEnd', { reason, message, ms: startedAt ? Date.now() - startedAt : 0 });
   }
 
   return {
@@ -360,20 +494,25 @@ export function createVoice(h = {}) {
       setPhase('starting');
       warm();
       try {
+        // an app's own browser that will not share the microphone says so (and offers the way out)
+        const sup = voiceSupport();
+        if (!sup.ok) throw new VoiceError(sup.reason);
         // A microphone this page may already use: the token is asked for at the same time,
         // which takes its round trip off the start. Otherwise the microphone comes first,
         // so a refusal never spends one of the day's sessions.
         const granted = (await micPermission()) === 'granted';
-        const minted = granted ? mint(rtcBlocked() ? 'websocket' : 'webrtc') : null;
+        const minted = granted ? mint(firstTransport()) : null;
         minted?.catch(() => {});
         await Promise.all([askMicrophone(), loadVoiceSdk().catch(() => { throw new VoiceError('network'); })]);
+        // the SDK asks for a kept device exactly ({ exact: id }): one unplugged since would fail every start
+        await forgetMissingDevices();
         if (closing) return;
         setPhase('connecting');
         await open(undefined, minted);
-        if (closing) { await conv?.endSession().catch(() => {}); return; }
         settle();
       } catch (e) {
-        if (!closing) finish('error', e instanceof VoiceError ? e.message : VOICE_ERRORS.connect);
+        if (closing || e?.closed) return;
+        finish('error', e instanceof VoiceError ? e.message : VOICE_ERRORS.connect);
         throw e;
       }
     },
@@ -393,6 +532,7 @@ export function createVoice(h = {}) {
       const t = String(text || '').trim();
       if (!t || !conv) return false;
       conv.sendUserMessage(t);
+      studentSaid(t);
       remember('user', t);
       return true;
     },
@@ -400,7 +540,7 @@ export function createVoice(h = {}) {
      * A photo inside the call: resized on the device (lib/image.js), uploaded to the
      * conversation, then asked about. Resolves to the preview URL, or throws a Thai message.
      */
-    async sendImage(file, text = 'ช่วยดูรูปนี้หน่อยค่ะ') {
+    async sendImage(file, text = 'ช่วยดูรูปนี้หน่อย') {
       if (!conv) throw new VoiceError('connect');
       const { prepareImage } = await import('./image.js');
       const img = await prepareImage(file);
@@ -427,13 +567,19 @@ export function createVoice(h = {}) {
         output: store.get(OUT_KEY) || 'default',
       };
     },
+    // WebRTC takes a device id and nothing else (any other option throws) and a missing id is
+    // "no change", so "default" goes as a real id there; WebSocket rebuilds its input or output.
     async setInput(id) {
       if (id && id !== 'default') store.set(MIC_KEY, id); else store.del(MIC_KEY);
-      await conv?.changeInputDevice({ inputDeviceId: id && id !== 'default' ? id : undefined, preferHeadphonesForIosDevices: true, ...(transport === 'websocket' ? { sampleRate: 16000, format: 'pcm' } : {}) });
+      if (!conv) return;
+      if (transport === 'webrtc') await conv.changeInputDevice({ inputDeviceId: await concreteDevice('audioinput', id) });
+      else await conv.changeInputDevice({ inputDeviceId: id && id !== 'default' ? id : undefined, preferHeadphonesForIosDevices: true, sampleRate: 16000, format: 'pcm' });
     },
     async setOutput(id) {
       if (id && id !== 'default') store.set(OUT_KEY, id); else store.del(OUT_KEY);
-      await conv?.changeOutputDevice({ outputDeviceId: id && id !== 'default' ? id : undefined, ...(transport === 'websocket' ? { sampleRate: 24000, format: 'pcm' } : {}) });
+      if (!conv) return;
+      if (transport === 'webrtc') await conv.changeOutputDevice({ outputDeviceId: await concreteDevice('audiooutput', id) });
+      else await conv.changeOutputDevice({ outputDeviceId: id && id !== 'default' ? id : undefined, sampleRate: 24000, format: 'pcm' });
     },
     /** Background the agent should know (the chat typed before the call), as data, not a turn. */
     context(text) {
@@ -451,6 +597,8 @@ export function createVoice(h = {}) {
     },
     get transport() { return transport; },
     get phase() { return phase; },
+    /** What the look-up in progress is: 'sources', 'quiz' or 'papers'. */
+    get tool() { return busyKind; },
   };
 }
 

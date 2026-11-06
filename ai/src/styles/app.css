@@ -284,7 +284,10 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: reduce) { .mode-landing .send.is-voice::after { animation: none; } }
 
 /* the moment before the call's chunk has arrived (it is usually prefetched) */
-.voice-boot { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; color: var(--accent); font-size: var(--t-s); }
+.voice-boot { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; align-content: center; gap: var(--s3); padding: var(--s4); text-align: center; color: var(--accent); font-size: var(--t-s); }
+.voice-boot-msg { margin: 0; max-width: 28rem; color: var(--text); font-size: var(--t-m); line-height: 1.6; }
+.voice-boot-actions { margin: 0; display: flex; gap: var(--s2); justify-content: center; }
+.voice-boot-actions button { min-height: 44px; padding: 0 18px; border-radius: var(--r-pill); border: 1px solid var(--line); background: var(--glass); color: var(--text); }
 /* during a call the page steps aside: only the sea and the call (styles/voice.css) */
 .app.is-voice .hdr, .app.is-voice .stage, .app.is-voice .ftr, .app.is-voice .ocean-still { opacity: 0; pointer-events: none; }
 .hdr, .stage, .ftr { transition: opacity 280ms var(--ease-out); }

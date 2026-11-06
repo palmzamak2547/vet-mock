@@ -81,15 +81,19 @@ voice, ASR keywords, turn-taking, caps, privacy) and written with
 the budget are `api/_lib/ai/voice.js`; the tools' answers `api/_lib/ai/voice-tools.js`.
 
 What the screen does, and why (studies cited in the code):
-- Turn-taking is "normal" with speculative generation (eager cut students off mid-pause). Before a
+- Turn-taking is "normal" (eager cut students off mid-pause), without speculative generation (with
+  it, spoken quiz asks lost their tool call; latency did not change). Before a
   search the agent says a few words that echo the topic: first audio about 1.0-1.5 s, the answer
   about 2 s. A look-up that outlasts that gets one soft ping (`PING_AFTER_MS`).
 - Barge-in ducks: while the agent talks and the student starts to, its voice drops to 0.32 until
   the student stops (`DUCK_*` in lib/voice.js). Thai acknowledgements (อืม, ค่ะ...) never stop it.
 - Captions default to the English terms as they are said (`keyTerms`); CC shows the whole line,
   revealed whole words at a time at the voice's pace, learned from finished answers (`nextRate`).
-- A quiz shows its question and options on screen while they are read; `quiz_mark` lights the key
-  and the pick; feedback explains why the key is right and the pick wrong.
+- A quiz shows its question and options on screen while they are read. The page holds the key:
+  the agent reads stems and options only, and an answer goes through `quiz_check`, which the page
+  answers from the card (`checkAnswer`: the verdict first, the reason, and after a wrong pick the
+  line about it). A student who asked for a quiz and got none (the model said it would fetch one
+  and stopped) gets it anyway: the page fetches it and hands it to the agent (`recoverQuiz`).
 - Follow-up chips after an answer, typing inside the call, a photo sent to the agent, the
   microphone and the speaker chosen (remembered), and hints for a microphone that hears nothing
   and for a speaker the agent hears itself through.
@@ -108,6 +112,21 @@ Traps the call has already paid for:
   never mints a session.
 - **Plan-gated options** (`noisy_environment_detection`) answer 403 on --apply: the page gives
   that hint itself.
+- **The model judging quizzes.** Asked to mark "ตอบข้อ ข" with no quiz in the call, gemini flash
+  lite invented a question and a key 4 times out of 4; after a right answer whose explanation
+  listed why the others are wrong, it called a wrong option the key 3 times out of 5. Hence the
+  key on the page, the verdict leading the tool result, and that list left out after a right
+  answer (probe scripts measured both at 0 in 30 runs after the change).
+- **Hang-ups at every await.** A hang-up during a mint, a connect, a failover or a rejoin must not
+  open a call behind a closed screen: `open()` checks after each await, and each connect attempt
+  owns its callbacks (`att.dead`), so a WebRTC start that lands after the timeout cannot end the
+  WebSocket call that replaced it.
+- **Endings that look like drops.** Over WebRTC the service's own endings (time cap, silence)
+  arrive as `reason: 'error'`; they are finished as the agent's, never rejoined. SDK 1.35.0 also
+  skips its audio cleanup when the far end closes, so the page runs it (two AudioContexts a call).
+- **Kept devices.** The SDK asks for a kept microphone or speaker exactly; one unplugged since
+  would fail every start, so ids the browser no longer lists are dropped first. WebRTC takes a
+  device id and nothing else (iOS and format options throw there) and treats no id as no change.
 
 ## The sea, in one paragraph
 

@@ -18,7 +18,20 @@ import './styles/app.css';
 
 // The call screen and the voice SDK load on demand, and early: a pointer over the
 // call button, a finger on it or focus fetches both before the tap.
-const Voice = lazy(() => import('./components/Voice.jsx'));
+// A chunk that will not load (a tab opened before a deploy, the network gone) must not blank the
+// page under a lazy() with no boundary: it becomes a small screen that says so and closes.
+function VoiceLoadFailed({ onClose }) {
+  return (
+    <div className="voice-boot" role="alert">
+      <p className="voice-boot-msg">เปิดหน้าคุยด้วยเสียงไม่สำเร็จ โหลดหน้าใหม่แล้วลองอีกครั้ง</p>
+      <p className="voice-boot-actions">
+        <button type="button" onClick={() => location.reload()}>โหลดใหม่</button>
+        <button type="button" onClick={onClose}>ปิด</button>
+      </p>
+    </div>
+  );
+}
+const Voice = lazy(() => import('./components/Voice.jsx').catch(() => ({ default: VoiceLoadFailed })));
 let voicePrefetched = false;
 const prefetchVoice = () => {
   if (voicePrefetched) return;
@@ -476,7 +489,8 @@ export default function App() {
   const startVoice = useCallback(() => {
     if (busy || voiceOn) return;
     const sup = voiceSupport();
-    if (!sup.ok) { toast(VOICE_ERRORS[sup.reason] || VOICE_ERRORS.unsupported); return; }
+    // an app's own browser opens the call screen anyway: its error card offers the way out to a real browser
+    if (!sup.ok && sup.reason !== 'inapp') { toast(VOICE_ERRORS[sup.reason] || VOICE_ERRORS.unsupported); return; }
     if (voiceAvail && voiceAvail.available === false) { toast(voiceOffMessage(voiceAvail.reason, voiceAvail.renewsAt)); return; }
     // inside the tap: unlocks audio on iOS, and the page remembers where to come back to
     voiceSound.prime();
