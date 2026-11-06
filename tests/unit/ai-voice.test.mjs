@@ -51,6 +51,8 @@ test('retry tickets: this student only, unexpired, untampered', () => {
   assert.equal(verifyRetryTicket(`${t}x`, 'u-1', c, now), null, 'tampered');
   assert.equal(verifyRetryTicket('garbage', 'u-1', c, now), null);
   assert.equal(verifyRetryTicket(t, 'u-1', { ...c, key: 'another-key' }, now), null, 'another server secret');
+  const t2 = retryTicket('u-1', c, now);
+  assert.notEqual(verifyRetryTicket(t2, 'u-1', c, now), verifyRetryTicket(t, 'u-1', c, now), 'two sessions started in the same second never share a ticket');
   assert.match(voiceUserId('u-1', c), /^[0-9a-f]{24}$/);
   assert.notEqual(voiceUserId('u-1', c), 'u-1', 'the provider never sees the account id');
 });
@@ -63,7 +65,7 @@ test('mint: a WebRTC token or a WebSocket URL, shapes checked, refusals surfaced
     if (url.includes('get-signed-url')) return Response.json({ signed_url: 'wss://api.elevenlabs.io/v1/convai/conversation?agent_id=x&conversation_signature=y' });
     return Response.json({ token: 'tok_0123456789abcdefghij' });
   };
-  assert.deepEqual(await mintConversation(c, { transport: 'webrtc', participant: 'p1', fetchImpl }), { token: 'tok_0123456789abcdefghij' });
+  assert.deepEqual(await mintConversation(c, { transport: 'webrtc', participant: 'p1', fetchImpl }), { token: 'tok_0123456789abcdefghij', conversationId: null });
   assert.match(seen[0].url, /\/v1\/convai\/conversation\/token\?agent_id=agent_test&participant_name=p1$/);
   assert.equal(seen[0].key, ENV.ELEVENLABS_API_KEY);
   assert.match((await mintConversation(c, { transport: 'websocket', fetchImpl })).signedUrl, /^wss:\/\//);
@@ -102,8 +104,17 @@ test('the agent: Thai, grounded, private, capped, no vendor or model names in wh
   assert.equal(def.platform_settings.call_limits.bursting_enabled, false, 'bursting doubles the price');
   assert.equal(def.platform_settings.call_limits.agent_concurrency_limit, 4, 'the same cap the budget reserves for');
   assert.equal(def.platform_settings.privacy.record_voice, false);
-  assert.deepEqual(c.agent.prompt.tools.map((t) => t.name).sort(), ['find_papers', 'quiz_mark', 'quiz_vetmock', 'search_vetmock']);
-  assert.equal(CLIENT_TOOLS.find((t) => t.name === 'quiz_mark').expects_response, false, 'marking never holds the conversation');
+  assert.deepEqual(c.agent.prompt.tools.map((t) => t.name).sort(), ['find_papers', 'quiz_check', 'quiz_vetmock', 'search_vetmock']);
+  const check = CLIENT_TOOLS.find((t) => t.name === 'quiz_check');
+  assert.equal(check.expects_response, true, 'the verdict comes back from the page: the model never judges an answer itself');
+  assert.equal(check.pre_tool_speech, 'off', 'nothing is said before the verdict is known');
+  assert.doesNotMatch(CLIENT_TOOLS.find((t) => t.name === 'quiz_vetmock').description, /\bkey and\b|with the key/i, 'the quiz tool never promises the key');
+  assert.equal(def.platform_settings.queueing_config.enabled, false, 'a full agent refuses at once instead of holding a caller in silence');
+  assert.ok(c.conversation.client_events.includes('agent_tool_response'), "the agent's goodbye (end_call) reaches the page as an ending, not a drop");
+  assert.match(PROMPT, /quiz_check/);
+  assert.match(PROMPT, /ห้ามพูดขัดกับผลนั้น/, 'the verdict is never contradicted');
+  assert.match(PROMPT, /ห้ามแต่งโจทย์/, 'no quiz is ever made up');
+  assert.doesNotMatch(PROMPT, /thoughtful/, 'the tag the model turned into [thought] leaks is gone');
   for (const t of CLIENT_TOOLS) assert.ok(t.response_timeout_secs <= 12, `${t.name} answers within the page's tool timeout`);
   assert.match(PROMPT, /search_vetmock ก่อนตอบทุกครั้ง/);
   assert.match(PROMPT, /ค่ะ/);
@@ -133,6 +144,8 @@ test('tool input is validated at the door', () => {
   assert.equal(validateVoiceTool(null).ok, false);
   assert.equal(validateVoiceTool({ op: 'quiz', topic: 'rabies', count: 99 }).count, 5);
   assert.equal(validateVoiceTool({ op: 'quiz', topic: 'rabies' }).count, 3);
+  for (const count of [null, '', true, 'many']) assert.equal(validateVoiceTool({ op: 'quiz', topic: 'rabies', count }).count, 3, `count ${JSON.stringify(count)} is "not said"`);
+  assert.equal(validateVoiceTool({ op: 'quiz', topic: 'rabies', count: '2' }).count, 2);
   assert.equal(validateVoiceTool({ op: 'papers', terms: [] }).ok, false);
   assert.equal(parseTerms(Array.from({ length: 20 }, (_, i) => `t${i}`)).length, 8);
   assert.equal(parseTerms('x'.repeat(500))[0].length, 60);
@@ -140,7 +153,8 @@ test('tool input is validated at the door', () => {
 
 test('spoken exam questions reach the timetable even with the course in the middle', () => {
   for (const q of ['สอบ zoonoses วันไหนคะ', 'สอบ Zoonosis วันไหนครับ', 'zoonoses สอบวันที่เท่าไหร่', 'สอบ avian เมื่อไหร่']) assert.ok(SPOKEN_EXAM.test(q), q);
-  for (const q of ['อาการของ parvovirus', 'ข้อสอบเรื่อง rabies']) assert.ok(!SPOKEN_EXAM.test(q), q);
+  for (const q of ['อาการของ parvovirus', 'ข้อสอบเรื่อง rabies', 'ทดสอบ tuberculin แล้วอ่านผลเมื่อไหร่', 'ตรวจสอบผลเลือดได้เมื่อไหร่', 'สอบถามอาจารย์ได้วันไหน', 'example of when to use it', 'physical examination when']) assert.ok(!SPOKEN_EXAM.test(q), q);
+  assert.ok(SPOKEN_EXAM.test('when is the exam, the final exam when'), 'English "exam ... when"');
 });
 
 test('search answers from the chat\'s own corpus: sources for the page, marked data for the agent', async () => {
@@ -156,14 +170,16 @@ test('search answers from the chat\'s own corpus: sources for the page, marked d
   assert.match(agentSearchText({ covered: false, unmatched: ['xyz'], contextBlocks: '' }), /covered: false[\s\S]*xyz[\s\S]*sources: none/);
 });
 
-test('quiz: bank questions lettered for speech, the key and why kept for after the answer', async () => {
+test('quiz: bank questions lettered for speech; the key stays with the page (quiz_check)', async () => {
   const out = await voiceQuiz({ topic: 'rabies', count: 2 }, { deps: { rng: () => 0.5 } });
   assert.equal(out.found, true);
   assert.equal(out.card.questions.length, 2);
-  assert.match(out.agent, /never say the key before the student answers/);
-  assert.match(out.agent, /ข้อ 1: [\s\S]*ก\. [\s\S]*เฉลย: [กขคงจ]/);
+  assert.ok(out.card.questions.every((q) => Number.isInteger(q.answer)), 'the card the page holds keeps the key');
+  assert.match(out.agent, /You do not have the key[\s\S]*quiz_check/);
+  assert.match(out.agent, /ข้อ 1: [\s\S]*ก\. /);
+  assert.doesNotMatch(out.agent, /เฉลย|คำอธิบาย/, 'the agent never sees the key: it cannot let it slip or judge by a key it misread');
   const text = quizQuestionText({ stem: 'Q?', options: ['a', 'b', 'c'], answer: 2, explain: 'because' }, 0);
-  assert.equal(text, 'ข้อ 1: Q?\nก. a\nข. b\nค. c\nเฉลย: ค\nคำอธิบาย: because');
+  assert.equal(text, 'ข้อ 1: Q?\nก. a\nข. b\nค. c');
   const none = await voiceQuiz({ topic: 'zzqqxx unknown topic' });
   assert.equal(none.found, false);
 });
@@ -218,6 +234,8 @@ test('route: refuses plainly, mints within the caps, a ticket restarts once', as
     assert.equal(res.statusCode, 200);
     assert.match(res.body.signedUrl, /^wss:/);
     assert.equal(res.body.retry, null, 'a restart is handed no new ticket (no chain of free sessions)');
+    assert.ok(calls.some((u) => u.includes('get-signed-url') && u.includes('include_conversation_id=true')), 'a signed URL opens one conversation, not fifteen minutes of them');
+    assert.equal(res.body.conversationId, undefined, 'the conversation id stays in the log');
 
     // the same ticket again is an ordinary start: the second of two today
     res = fakeRes();
@@ -237,6 +255,57 @@ test('route: refuses plainly, mints within the caps, a ticket restarts once', as
     assert.equal(res.statusCode, 503);
     assert.equal(res.body.error, 'budget');
     assert.equal(res.body.renewsAt, 1796529562000);
+
+    // near the floor the cached balance is not trusted: 5,000 spare (under 4 live x 3,000) is read fresh
+    remaining = 67_000;
+    resetVoiceCache();
+    const subs = () => calls.filter((u) => u.includes('/v1/user/subscription')).length;
+    let before = subs();
+    res = fakeRes();
+    await handler(post({ action: 'start' }, '198.51.100.20'), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(subs() - before, 2, 'cached read, then a fresh one');
+    remaining = 140_000;
+    resetVoiceCache();
+    await handler(post({ action: 'start' }, '198.51.100.21'), fakeRes());
+    before = subs();
+    await handler(post({ action: 'start' }, '198.51.100.21'), fakeRes());
+    assert.equal(subs() - before, 0, 'far from the floor the 45 s cache stands');
+
+    // the provider fails before anything starts: the student keeps the session it took
+    let fail = true;
+    const realFetch = globalThis.fetch;
+    globalThis.fetch = async (url, init) => (fail && String(url).includes('/conversation/token') ? new Response('{}', { status: 500 }) : realFetch(url, init));
+    for (let i = 0; i < 3; i++) {
+      res = fakeRes();
+      await handler(post({ action: 'start' }, '198.51.100.30'), res);
+      assert.equal(res.statusCode, 502);
+    }
+    fail = false;
+    for (let i = 0; i < 2; i++) {
+      res = fakeRes();
+      await handler(post({ action: 'start' }, '198.51.100.30'), res);
+      assert.equal(res.statusCode, 200, `start ${i + 1} of 2 after three failed mints`);
+    }
+    globalThis.fetch = realFetch;
+
+    // a few free restarts a day, then a restart counts as a session
+    process.env.AI_VOICE_USER_SESSIONS = '4';
+    const tickets = [];
+    for (let i = 0; i < 3; i++) {
+      res = fakeRes();
+      await handler(post({ action: 'start' }, '198.51.100.40'), res);
+      assert.equal(res.statusCode, 200);
+      tickets.push(res.body.retry);
+    }
+    for (const t of tickets) {
+      res = fakeRes();
+      await handler(post({ action: 'start', retry: t }, '198.51.100.40'), res);
+      assert.equal(res.statusCode, 200);
+    }
+    res = fakeRes();
+    await handler(post({ action: 'start' }, '198.51.100.40'), res);
+    assert.equal(res.statusCode, 429, '3 starts + 2 free restarts + 1 counted restart = the 4 sessions');
 
     process.env.AI_VOICE_OFF = '1';
     res = fakeRes();

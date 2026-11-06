@@ -86,9 +86,9 @@ export function budgetVerdict(balance, cfg) {
  * Credits the subscription still has this period, and when it renews.
  */
 let localBalance = null;
-export async function readBalance(cfg, { fetchImpl = fetch, kv = null, now = Date.now() } = {}) {
-  if (localBalance && now - localBalance.at < BALANCE_TTL_S * 1000) return localBalance.value;
-  const cached = kv ? await kv.get('ai-voice:balance') : null;
+export async function readBalance(cfg, { fetchImpl = fetch, kv = null, now = Date.now(), fresh = false } = {}) {
+  if (!fresh && localBalance && now - localBalance.at < BALANCE_TTL_S * 1000) return localBalance.value;
+  const cached = kv && !fresh ? await kv.get('ai-voice:balance') : null;
   if (cached && Number.isFinite(cached.remaining) && now - cached.at < BALANCE_TTL_S * 1000) {
     localBalance = { at: cached.at, value: cached };
     return cached;
@@ -115,29 +115,31 @@ export const resetVoiceCache = () => { localBalance = null; };
 export const voiceUserId = (uid, cfg) => crypto.createHash('sha256').update(`vetmock-voice-user:${cfg.key}:${uid}`).digest('hex').slice(0, 24);
 
 const ticketKey = (cfg) => crypto.createHash('sha256').update(`vetmock-voice-retry:${cfg.key}`).digest();
-const sign = (cfg, uid, expires) => crypto.createHmac('sha256', ticketKey(cfg)).update(`${uid}|${expires}`).digest('base64url');
+const sign = (cfg, uid, expires, nonce) => crypto.createHmac('sha256', ticketKey(cfg)).update(`${uid}|${expires}|${nonce}`).digest('base64url');
 const ticketTtl = (cfg) => cfg.sessionSeconds + RETRY_TTL_S;
 
 /**
  * One free restart of the session it came with: a WebRTC start that fails over
  * to WebSocket, or a call that dropped and rejoins. Valid for the session's
  * length plus three minutes, for this student only, and once (the route spends
- * it in the limiter); a restart that used one is handed no new one.
+ * it in the limiter); a restart that used one is handed no new one. The nonce
+ * keeps two sessions started in the same second from sharing one ticket.
  */
 export function retryTicket(uid, cfg, now = Date.now()) {
   const expires = Math.floor(now / 1000) + ticketTtl(cfg);
-  return `${expires}.${sign(cfg, uid, expires)}`;
+  const nonce = crypto.randomBytes(9).toString('base64url');
+  return `${expires}.${nonce}.${sign(cfg, uid, expires, nonce)}`;
 }
 
 /** The ticket's signature when it is this student's and unexpired, else null. */
 export function verifyRetryTicket(ticket, uid, cfg, now = Date.now()) {
-  const m = /^(\d{9,11})\.([A-Za-z0-9_-]{20,64})$/.exec(String(ticket || ''));
+  const m = /^(\d{9,11})\.([A-Za-z0-9_-]{12})\.([A-Za-z0-9_-]{20,64})$/.exec(String(ticket || ''));
   if (!m || !uid) return null;
   const expires = Number(m[1]);
   if (expires * 1000 < now || expires * 1000 > now + ticketTtl(cfg) * 1000 + 5000) return null;
-  const want = Buffer.from(sign(cfg, uid, expires));
-  const got = Buffer.from(m[2]);
-  return got.length === want.length && crypto.timingSafeEqual(got, want) ? m[2] : null;
+  const want = Buffer.from(sign(cfg, uid, expires, m[2]));
+  const got = Buffer.from(m[3]);
+  return got.length === want.length && crypto.timingSafeEqual(got, want) ? m[3] : null;
 }
 
 /** Seconds a ticket can live: how long its spent mark is kept. */
@@ -145,19 +147,25 @@ export const retryTicketTtl = (cfg) => ticketTtl(cfg) + 10;
 
 /**
  * A credential for one conversation: a WebRTC conversation token, or a signed
- * WebSocket URL when the page asks to fail over (networks that drop UDP).
+ * WebSocket URL when the page asks to fail over (networks that drop UDP). The
+ * URL is minted single-use (include_conversation_id: without it a signed URL
+ * opens new conversations for 15 minutes, past every cap counted here).
+ * `conversationId` is for the log line only.
  */
 export async function mintConversation(cfg, { transport = 'webrtc', participant = '', fetchImpl = fetch } = {}) {
   const q = new URLSearchParams({ agent_id: cfg.agentId });
   const path = transport === 'websocket' ? '/v1/convai/conversation/get-signed-url' : '/v1/convai/conversation/token';
-  if (transport !== 'websocket' && participant) q.set('participant_name', participant);
+  if (transport === 'websocket') q.set('include_conversation_id', 'true');
+  else if (participant) q.set('participant_name', participant);
   const res = await fetchImpl(`${EL_API}${path}?${q}`, { headers: { 'xi-api-key': cfg.key }, signal: AbortSignal.timeout(6000) });
   if (!res.ok) throw Object.assign(new Error('mint'), { status: res.status });
   const body = await res.json();
   if (transport === 'websocket') {
     if (typeof body?.signed_url !== 'string' || !body.signed_url.startsWith('wss://')) throw new Error('mint-shape');
-    return { signedUrl: body.signed_url };
+    let id = body.conversation_id || null;
+    try { id ||= new URL(body.signed_url).searchParams.get('conversation_id'); } catch { /* the log goes without it */ }
+    return { signedUrl: body.signed_url, conversationId: id };
   }
   if (typeof body?.token !== 'string' || body.token.length < 20) throw new Error('mint-shape');
-  return { token: body.token };
+  return { token: body.token, conversationId: body.conversation_id || null };
 }

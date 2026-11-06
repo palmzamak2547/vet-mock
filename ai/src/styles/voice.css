@@ -51,6 +51,7 @@
   align-items: center;
   text-align: center;
   padding-bottom: var(--s3);
+  overflow: hidden;
 }
 .voice-core {
   flex: none;
@@ -196,6 +197,8 @@
 .voice-option.is-key .voice-option-letter { background: #2fae74; border-color: transparent; color: #fff; }
 .voice-option.is-wrong { border-color: color-mix(in srgb, var(--warn) 70%, transparent); background: color-mix(in srgb, var(--warn) 12%, transparent); }
 .voice-quiz-explain { margin: var(--s3) 0 0; font-size: var(--t-s); line-height: 1.6; color: var(--text-2); }
+/* ข and ค sound alike to a recogniser: a tap, or the letter said with its word */
+.voice-quiz-tip { margin: var(--s3) 0 0; font-size: var(--t-xs); color: var(--text-3); text-align: center; }
 
 /* ── when the call could not start ── */
 .voice-error { flex: none; margin: 0 auto var(--s4); width: min(520px, 100%); text-align: center; }
@@ -266,10 +269,26 @@
   .voice-src a:hover { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
 }
 
+/* A quiz or a deck on screen takes the room: the jelly steps back, the term chips give way to the
+   quiz (its options are the words to catch), so the status, the student's line and the card never
+   overlap, down to a 320 x 568 phone (Voice.jsx re-places the jelly when its box changes). */
+.voice.has-quiz .voice-core { width: min(40vw, 20svh, 200px); margin-top: 0; }
+.voice.has-quiz .voice-terms { display: none; }
+.voice.has-quiz .voice-caption { min-height: 0; max-height: 3.2em; }
+.voice.has-quiz .voice-heard { -webkit-line-clamp: 1; }
+.voice.has-deck .voice-core { width: min(52vw, 30svh, 260px); }
+@media (max-height: 700px) {
+  .voice.has-quiz .voice-core { width: min(30vw, 14svh, 120px); }
+  .voice.has-quiz .voice-heard { display: none; }
+  .voice-quiz { max-height: 50svh; }
+}
+
 /* short landscape phones: the jelly and the words side by side would cramp; shrink the bell */
 @media (max-height: 520px) {
   .voice-core { width: min(30vw, 38svh); margin-top: 0; }
   .voice-caption { font-size: 1.05rem; min-height: 2.4em; }
+  .voice-heard { -webkit-line-clamp: 1; margin-top: var(--s2); }
+  .voice-terms { min-height: 0; margin-top: var(--s2); }
   .voice-btn { width: 46px; height: 46px; }
   .voice-end { width: 60px; height: 60px; }
 }

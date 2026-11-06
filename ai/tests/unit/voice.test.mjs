@@ -57,6 +57,67 @@ test('a call becomes chat messages: lead-ins dropped, sources and cards kept wit
   assert.deepEqual(toChatMessages([], id), []);
 });
 
+test('an answer is checked against the card, never judged by the model', async () => {
+  const { checkAnswer, letterIndex } = await import('../../src/lib/voice-turns.js');
+  const card = { questions: [
+    { stem: 'สัตว์ป่าชนิดใดที่มีรายงานพิษสุนัขบ้าในไทย', options: ['ค้างคาวแม่ไก่', 'ลิงแสม', 'พังพอน', 'หมาจิ้งจอก'], answer: 3,
+      explain: 'หมาจิ้งจอก มีรายงานในไทยจริง ครับ\n\n❌ ทำไมข้ออื่นผิด\n— พังพอน = reservoir ในแอฟริกา\n— ลิงแสม = ไม่มีรายงาน' },
+    { stem: 'Q2', options: ['a', 'b'], answer: 0 },
+  ] };
+  // no quiz in the call: nothing is marked, and the agent is told not to invent one
+  const none = checkAnswer(null, {}, { picked: 'ข' });
+  assert.equal(none.mark, null);
+  assert.match(none.agent, /ห้ามแต่งโจทย์/);
+  // right: the verdict leads, and the list of why the others are wrong is left out (it made the model name one as the key)
+  const right = checkAnswer(card, {}, { picked: 'ง' });
+  assert.deepEqual(right.mark, { question: 1, picked: 'ง', correct: true });
+  assert.match(right.agent, /^คำตอบของนิสิตถูกต้อง/);
+  assert.doesNotMatch(right.agent, /พังพอน|❌/);
+  assert.doesNotMatch(right.agent, /ครับ/, 'a particle the voice must never say is not handed to it');
+  // wrong: the key, the reason, and the line about the option picked
+  const wrong = checkAnswer(card, {}, { picked: 'ข้อ ค.' });
+  assert.deepEqual(wrong.mark, { question: 1, picked: 'ค', correct: false });
+  assert.match(wrong.agent, /^คำตอบของนิสิตยังไม่ถูก[\s\S]*ทวนว่าเลือก ค ควาย[\s\S]*เฉลยคือ ง งู หมาจิ้งจอก[\s\S]*ข้อที่นิสิตเลือก: พังพอน = reservoir/);
+  assert.match(right.agent, /ทวนว่าเลือก ง งู/, 'the letter goes back with its word: a misheard ข or ค is caught by ear');
+  // a skip gives the key; a letter the question does not have, or an option's text, is asked again
+  assert.equal(checkAnswer(card, {}, { picked: '' }).mark.picked, '');
+  assert.equal(checkAnswer(card, {}, { picked: 'จ' }).mark, null);
+  assert.equal(checkAnswer(card, {}, { picked: 'ค้างคาวแม่ไก่' }).mark.picked, 'ก', 'ค้างคาว starts with ค, but it is what option ก says');
+  assert.equal(checkAnswer(card, {}, { picked: 'หมาจิ้งจอก' }).mark.correct, true, 'an answer given as the option itself');
+  assert.equal(checkAnswer(card, {}, { picked: 'ข้อสุดท้าย' }).mark.picked, 'ง');
+  assert.equal(checkAnswer(card, {}, { picked: 'สัตว์' }).mark, null, 'words several options share are asked again');
+  // the question on screen by default (the first unmarked), or the one named for a retry
+  assert.equal(checkAnswer(card, { 1: { correct: true } }, { picked: 'ก' }).mark.question, 2);
+  assert.equal(checkAnswer(card, { 1: { correct: false } }, { picked: 'ง', question: 1 }).mark.correct, true);
+  assert.match(checkAnswer(card, {}, { picked: 'ก', question: 2 }).agent, /ยังเหลืออีก 1 ข้อ/);
+  assert.match(checkAnswer(card, { 1: {} }, { picked: 'ก' }).agent, /ข้อสุดท้าย/);
+  assert.deepEqual(['ง', 'ข้อ ง', 'ง.', 'ตอบ ง', 'c', 'D', 'ค ค่ะ'].map(letterIndex), [3, 3, 3, 3, 2, 3, 2]);
+  assert.deepEqual(['ข ไข่', 'ขไข่', 'ข้อ ค ควาย', 'ควาย', 'ง งู ค่ะ'].map(letterIndex), [1, 1, 2, 2, 3], 'a letter said with its word');
+  // the recogniser's "ตอบข้อเคาะค่ะ" leaves ข or ค unclear: asked again, nothing marked
+  const blurred = checkAnswer(card, {}, { picked: 'ค', heard: 'ตอบข้อเคาะค่ะ' });
+  assert.equal(blurred.mark, null);
+  assert.match(blurred.agent, /ข ไข่ หรือ ค ควาย/);
+  assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ข ไข่ค่ะ' }).mark.picked, 'ข', 'said with its word: marked');
+  assert.equal(checkAnswer(card, {}, { picked: 'ง', heard: 'ตอบข้อเคาะค่ะ' }).mark.picked, 'ง', 'only ข and ค are blurred together');
+  assert.equal(checkAnswer(card, {}, { picked: 'ข', heard: 'ขอข้อสอบอีกข้อ' }).mark.picked, 'ข', 'ขอ asking for something is not an answer');
+  assert.deepEqual(['2', 'ข้อ 3', 'ข้อสอง', 'อันแรก', 'ตัวที่สี่', 'ข้อ 12'].map(letterIndex), [1, 2, 1, 0, 3, null], 'options by their place');
+  assert.deepEqual(['cat', 'ค้างคาว', 'เหรียญ'].map(letterIndex), [null, null, null]);
+  assert.deepEqual(['', 'ข้าม', 'ไม่รู้ค่ะ', 'ขอเฉลยเลย'].map(letterIndex), [-1, -1, -1, -1]);
+});
+
+test('a quiz the student asked for is told apart from a question about an exam', async () => {
+  const { asksForQuiz, asksWhichTopic, quizCount, quizTopic } = await import('../../src/lib/voice-turns.js');
+  for (const t of ['ขอข้อสอบเรื่อง rabies ข้อนึงค่ะ', 'ลองถามโจทย์ COM5 หน่อย', 'ขอ quiz parvo', 'ทดสอบความรู้เรื่องไตหน่อย']) assert.ok(asksForQuiz(t), t);
+  for (const t of ['สอบ zoonoses วันไหน', 'ข้อสอบปีที่แล้วออกเรื่องอะไรบ้าง', 'ข้อสอบมีกี่ข้อ', 'อาการของ parvovirus', 'ทดสอบ tuberculin อ่านผลยังไง', 'ขอถามข้อสงสัยหน่อยค่ะ', 'เรื่องนี้ออกข้อสอบบ่อยไหม']) assert.ok(!asksForQuiz(t), t);
+  assert.ok(asksForQuiz('ขอข้อสอบปีที่แล้วเรื่อง rabies'), 'past questions are a quiz too');
+  assert.ok(asksWhichTopic('อยากได้ข้อสอบเรื่องไหนดีคะ'));
+  assert.ok(!asksWhichTopic('จัดข้อสอบเรื่อง rabies ให้ค่ะ'));
+  assert.deepEqual(['ขอข้อสอบข้อนึง', 'สักสองข้อ', '5 ข้อ', '12 ข้อ', 'ขอข้อสอบ'].map(quizCount), [1, 2, 5, 5, 3]);
+  assert.equal(quizTopic('ขอข้อสอบเรื่อง parvo', 'rabies'), 'ขอข้อสอบเรื่อง parvo');
+  assert.equal(quizTopic('ขออีกข้อ', 'rabies'), 'rabies ขออีกข้อ', 'no topic named: the last quiz goes on');
+  assert.equal(quizTopic('ขออีกข้อ', ''), 'ขออีกข้อ');
+});
+
 test('the quiz on screen is the first question not yet marked', () => {
   const card = { questions: [{}, {}, {}] };
   assert.equal(currentQuestion(card, {}), 0);

@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createVoice, VOICE_ERRORS } from '../lib/voice.js';
 import { voiceSound } from '../lib/voice-sound.js';
-import { cleanSpoken, hasWords, revealed, nextRate, keyTerms, toChatMessages, chatRecap, clock, currentQuestion, CAPTION_CPS } from '../lib/voice-turns.js';
+import { cleanSpoken, hasWords, revealed, nextRate, keyTerms, toChatMessages, chatRecap, clock, currentQuestion, checkAnswer, LETTERS, CAPTION_CPS } from '../lib/voice-turns.js';
 import { newId, getPref, setPref } from '../lib/store.js';
 import { reducedMotion } from '../lib/env.js';
 import { speciesOf } from '../lib/species.js';
 import { IconMic, IconMicOff, IconHangUp, IconKeyboard, IconSend, IconArrowOut, IconRetry, IconClose, IconImage, IconSliders } from './icons.jsx';
 import { KIND } from './Message.jsx';
+import { externalUrl, inAppBrowser } from '../lib/inapp.js';
 import '../styles/voice.css';
 
 // ============================================================
@@ -33,7 +34,10 @@ const STATUS = {
   reconnecting: 'สายหลุด กำลังต่อใหม่',
   muted: 'ปิดไมค์อยู่ แตะไมค์เพื่อพูด',
 };
-const LETTERS = ['ก', 'ข', 'ค', 'ง', 'จ', 'ฉ', 'ช', 'ซ'];
+// what a look-up is doing, by the tool doing it (lib/voice.js `tool`)
+const LOOKUP = { sources: 'ค้นในคลัง VetMock', quiz: 'เลือกข้อสอบจากคลัง', papers: 'ค้นงานวิจัย' };
+// the states a screen reader is told; the listening and speaking flips it would talk over are not
+const ANNOUNCED = new Set(['connecting', 'first', 'reconnecting', 'muted']);
 const WARN_S = 30;
 // before the session's end the agent is told, so it wraps up instead of being cut off mid-sentence
 const WRAP_S = 40;
@@ -41,10 +45,22 @@ const WRAP_S = 40;
 const PING_AFTER_MS = 2000;
 const FOLLOW_UPS = ['อธิบายเพิ่มอีกนิด', 'ขอข้อสอบเรื่องนี้', 'สรุปให้จำง่าย ๆ'];
 
-function endNote(reason, { ms, sessionSeconds, quietFor }) {
-  if (reason === 'error') return 'สายหลุดระหว่างคุย บทสนทนาเก็บไว้ในแชตแล้ว';
+// An app's own browser that will not share the microphone: LINE opens the system browser for
+// openExternalBrowser=1 (lib/inapp.js); on Android an intent hands the page to the default browser.
+// Elsewhere (Facebook, Instagram on iOS) only the app's menu can, and the message says so.
+function leaveApp() {
+  if (typeof location === 'undefined') return null;
+  const app = inAppBrowser(navigator.userAgent);
+  const line = externalUrl(app, location.href);
+  if (line) return line;
+  if (/Android/i.test(navigator.userAgent)) return `intent://${location.host}${location.pathname}${location.search}#Intent;scheme=https;end`;
+  return null;
+}
+
+function endNote(reason, { ms, sessionSeconds, quietFor, said }) {
+  if (reason === 'error') return said ? 'สายหลุดระหว่างคุย บทสนทนาเก็บไว้ในแชตแล้ว' : 'สายหลุด ลองเริ่มคุยใหม่อีกครั้ง';
   if (reason === 'agent') {
-    if (sessionSeconds && ms >= (sessionSeconds - 6) * 1000) return 'หมดเวลาของรอบนี้แล้ว เริ่มรอบใหม่ได้ที่ปุ่มเสียง';
+    if (sessionSeconds && ms >= (sessionSeconds - 10) * 1000) return 'หมดเวลาของรอบนี้แล้ว เริ่มรอบใหม่ได้ที่ปุ่มเสียง';
     if (quietFor > 100_000) return 'วางสายเพราะเงียบไปนาน';
   }
   return '';
@@ -67,6 +83,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const captionRef = useRef(null);
   const typedAt = useRef(0);
   const pending = useRef({ sources: null, cards: [] });
+  const quizNow = useRef(null); // the call's latest quiz and its marks, even while a search hides it
   const lastTurn = useRef(null);
   const pingTimer = useRef(0);
   const heardOnce = useRef(false);
@@ -107,6 +124,13 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
     let alive = true;
     doneRef.current = false;
     turnsRef.current = [];
+    // a retry is a new call: no answer checked against the last one's quiz, no clock, cue or mic reading carried over
+    quizNow.current = null;
+    sessionRef.current = null;
+    wrapped.current = false;
+    heardOnce.current = false;
+    micPeak.current = 0;
+    setLeft(null);
     const finish = (info) => {
       if (doneRef.current) return;
       doneRef.current = true;
@@ -204,20 +228,21 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
           const last = turns[turns.length - 1];
           if (last?.role === 'agent') last.lead = true;
           pending.current.sources = data;
-          setDeck({ covered: data.covered, items: data.items || [] });
+          // two passages of one lecture are one card here (the deck shows titles, not passages)
+          const seen = new Set();
+          const items = (data.items || []).filter((s) => { const k = String(s.title || '').trim().toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; });
+          setDeck({ covered: data.covered, items });
+          setPapers(null);
           setQuiz(null);
         } else if (kind === 'quiz') {
           const turns = turnsRef.current;
           const last = turns[turns.length - 1];
           if (last?.role === 'agent') last.lead = true;
           pending.current.cards.push(data);
+          quizNow.current = { card: data, marks: {} };
           setQuiz({ card: data, marks: {}, shown: 0, tapped: null });
           setDeck(null);
-        } else if (kind === 'mark') {
-          const n = Math.round(Number(data.question));
-          if (!Number.isFinite(n)) return;
-          navigator.vibrate?.(data.correct === true ? 12 : [8, 60, 8]);
-          setQuiz((q) => (q ? { ...q, marks: { ...q.marks, [n]: { picked: String(data.picked || ''), correct: data.correct === true } }, shown: n - 1 } : q));
+          setPapers(null);
         } else if (kind === 'papers') {
           pending.current.sources = { covered: true, items: data.items || [] };
           if (data.card) pending.current.cards.push(data.card);
@@ -225,10 +250,25 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
           setDeck(null);
         }
       },
+      // The student answered: the card (which holds the key) decides, the screen marks it, and
+      // the agent is told the verdict to speak. A quiz hidden by a question in between comes back.
+      onCheck: (p) => {
+        const cur = quizNow.current;
+        const r = checkAnswer(cur?.card, cur?.marks, p);
+        if (r.mark && cur && alive) {
+          const { question: n, picked, correct } = r.mark;
+          cur.marks = { ...cur.marks, [n]: { picked, correct } };
+          navigator.vibrate?.(correct ? 12 : [8, 60, 8]);
+          setQuiz({ card: cur.card, marks: cur.marks, shown: n - 1, tapped: null });
+          setDeck(null);
+          setPapers(null);
+        }
+        return r.agent;
+      },
       onEnd: (e) => {
         if (!alive) return;
         const s = sessionRef.current;
-        const info = { ...e, note: endNote(e.reason, { ms: e.ms, sessionSeconds: s?.sessionSeconds, quietFor: Date.now() - lastHeardAt.current }), left: s?.left ?? null };
+        const info = { ...e, note: endNote(e.reason, { ms: e.ms, sessionSeconds: s?.sessionSeconds, quietFor: Date.now() - lastHeardAt.current, said: turnsRef.current.length > 0 }), left: s?.left ?? null };
         // nothing said yet and the call never opened: stay, say why, offer again
         if (e.reason === 'error' && !connectedAt.current && !turnsRef.current.length) {
           setError({ message: e.message || VOICE_ERRORS.connect });
@@ -275,8 +315,12 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
       oceanRef.current?.setFocus(null);
     };
     place();
+    // the box moves when a quiz or a deck appears, not only when the window does
+    const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(() => place()) : null;
+    if (ro && coreRef.current) { ro.observe(coreRef.current); ro.observe(coreRef.current.parentElement); }
     window.addEventListener('resize', place);
     return () => {
+      ro?.disconnect();
       window.removeEventListener('resize', place);
       oceanRef.current?.setVoice(null);
     };
@@ -327,13 +371,15 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         voiceRef.current?.context('เวลาของรอบนี้เหลือไม่ถึงหนึ่งนาที ถ้ากำลังตอบอยู่ให้สรุปให้จบสั้น ๆ แล้วบอกนิสิตว่าเริ่มคุยรอบใหม่ได้ ไม่ต้องรีบตัดบท');
       }
       if (t > 12 && !heardOnce.current && !muted && micPeak.current < 0.05 && phaseRef.current === 'listening') {
-        say('mic', 'ยังไม่ได้ยินเสียงจากไมค์ ลองพูดใกล้ขึ้น หรือเลือกไมค์อีกตัวที่ปุ่มอุปกรณ์');
+        say('mic', 'ยังไม่ได้ยินเสียงจากไมค์ ลองพูดใกล้ขึ้น หรือเปลี่ยนไมค์ที่ปุ่มเลือกไมค์และลำโพง');
       }
     }, 500);
     return () => clearInterval(id);
   }, [muted, say]);
 
-  // ── keys: Esc hangs up (or closes the device sheet), Space or M toggles the microphone ──
+  // ── keys: Esc closes the device sheet, then the typing box, then hangs up; Space or M
+  // toggles the microphone, except where the key belongs to what has focus (a field takes
+  // both, a button or a link takes Space) ──
   const toggleMute = useCallback(() => {
     setMuted((m) => {
       const n = !m;
@@ -348,13 +394,22 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   }, [onClose]);
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === 'Escape') { e.preventDefault(); if (sheet) setSheet(null); else hangUp(); return; }
-      if (e.target?.closest?.('input, textarea, select')) return;
+      if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+      const field = e.target?.closest?.('input, textarea, select');
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (sheet) setSheet(null);
+        else if (field && typing) setTyping(false);
+        else hangUp();
+        return;
+      }
+      if (field) return;
+      if (e.key === ' ' && e.target?.closest?.('button, a, summary')) return;
       if (e.key === ' ' || e.key === 'm' || e.key === 'M') { e.preventDefault(); toggleMute(); }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [hangUp, toggleMute, sheet]);
+  }, [hangUp, toggleMute, sheet, typing]);
   useEffect(() => {
     rootRef.current?.focus({ preventScroll: true });
     const title = document.title;
@@ -447,7 +502,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const retry = () => { setError(null); setPhase('starting'); connectedAt.current = 0; setAttempt((n) => n + 1); };
 
   const shownPhase = muted && (phase === 'listening' || phase === 'thinking') ? 'muted' : phase === 'listening' && !spoke ? 'first' : phase;
-  const status = error ? '' : STATUS[shownPhase] ?? '';
+  const status = error ? '' : (shownPhase === 'thinking' && LOOKUP[voiceRef.current?.tool]) || STATUS[shownPhase] || '';
   const warn = left !== null && left <= WARN_S;
   const qIndex = quiz ? Math.min(quiz.shown, (quiz.card.questions?.length || 1) - 1) : 0;
   const q = quiz?.card?.questions?.[qIndex];
@@ -455,11 +510,13 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
   const terms = full ? [] : keyTerms(caption);
   const live = connectedAt.current && (phase === 'listening' || phase === 'speaking' || phase === 'thinking');
   const showDeck = !error && !q && (deck?.items?.length > 0 || papers?.length > 0);
+  // a quiz or a deck on screen: a smaller jelly (styles/voice.css), so nothing slides under the card
+  const card = error ? '' : q ? ' has-quiz' : showDeck ? ' has-deck' : '';
 
   return (
     <div
       ref={rootRef}
-      className={`voice is-${phase}${muted ? ' is-muted' : ''}${still ? ' no-sea' : ''}${error ? ' has-error' : ''}${full ? ' is-full' : ''}`}
+      className={`voice is-${phase}${muted ? ' is-muted' : ''}${still || reducedMotion() ? ' no-sea' : ''}${error ? ' has-error' : ''}${full ? ' is-full' : ''}${card}`}
       role="dialog"
       aria-modal="true"
       aria-label="คุยด้วยเสียงกับผู้ช่วย AI ของ VetMock"
@@ -480,7 +537,8 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         <div ref={coreRef} className="voice-core" aria-hidden="true">
           <span className="voice-orb"><span /><span /><span /></span>
         </div>
-        <p className="voice-status" role="status" aria-live="polite">{status}</p>
+        <p className="voice-status" aria-hidden="true">{status}</p>
+        <p className="sr-only" role="status">{ANNOUNCED.has(shownPhase) ? status : ''}</p>
         {hint && !error && <p className="voice-hint-line" role="status">{hint}</p>}
         {heard && <p className="voice-heard"><span className="sr-only">คุณพูดว่า </span>{heard}</p>}
         {full ? (
@@ -502,7 +560,10 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
         <div className="voice-error" role="alert">
           <p>{error.message}</p>
           <div className="voice-error-actions">
-            {!['user', 'budget', 'off', 'unconfigured', 'unsupported'].includes(error.code) && (
+            {error.code === 'inapp' && leaveApp() && (
+              <a className="voice-pill is-primary" href={leaveApp()}><IconArrowOut size={18} />เปิดในเบราว์เซอร์</a>
+            )}
+            {!['user', 'budget', 'off', 'unconfigured', 'unsupported', 'inapp'].includes(error.code) && (
               <button type="button" className="voice-pill is-primary" onClick={retry}><IconRetry size={18} />ลองอีกครั้ง</button>
             )}
             <button type="button" className="voice-pill" onClick={onClose}><IconClose size={18} />ปิด</button>
@@ -528,12 +589,13 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
             })}
           </ol>
           {mark && q.explain && <p className="voice-quiz-explain">{q.explain}</p>}
+          {!mark && qIndex === 0 && !Object.keys(quiz.marks).length && <p className="voice-quiz-tip">แตะตัวเลือก หรือพูดว่า ข้อ ข ไข่ ข้อ ค ควาย</p>}
         </section>
       )}
 
       {showDeck && (
         <section className="voice-deck" aria-label="ที่มาของคำตอบ">
-          {deck && !deck.covered && <p className="voice-deck-note">ในคลังยังไม่ตรงคำถามนี้ ส่วนที่ไม่มีที่มาเป็นความรู้ทั่วไป</p>}
+          {deck && !deck.covered && !papers?.length && <p className="voice-deck-note">ในคลังยังไม่มีเรื่องนี้ตรง ๆ คำตอบนี้เป็นความรู้ทั่วไป</p>}
           <ul>
             {(papers?.length ? papers.map((p, i) => ({ n: i + 1, kind: 'paper', title: p.title, url: p.url })) : deck.items).map((s) => {
               const sp = speciesOf(s);
