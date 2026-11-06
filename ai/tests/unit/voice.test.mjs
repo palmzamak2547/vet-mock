@@ -79,6 +79,11 @@ test('an answer is checked against the card, never judged by the model', async (
   assert.deepEqual(wrong.mark, { question: 1, picked: 'ค', correct: false });
   assert.match(wrong.agent, /^คำตอบของนิสิตยังไม่ถูก[\s\S]*ทวนว่าเลือก ค ควาย[\s\S]*เฉลยคือ ง งู หมาจิ้งจอก[\s\S]*ข้อที่นิสิตเลือก: พังพอน = reservoir/);
   assert.match(right.agent, /ทวนว่าเลือก ง งู/, 'the letter goes back with its word: a misheard ข or ค is caught by ear');
+  // shorthand arrows are said as steps: "12 wk → 2-4 wk later" was once spoken as "starts at 4 weeks"
+  const vpat = { questions: [{ stem: 'schedule', options: ['a', '2 เข็มเริ่มอายุ 12 สัปดาห์'], answer: 1, explain: 'VPAT 2024: 12 wk → 2-4 wk later (2nd dose) → 1 yr booster' }] };
+  const steps = checkAnswer(vpat, {}, { picked: 'ข' }).agent;
+  assert.match(steps, /12 wk จากนั้น 2-4 wk later \(2nd dose\) จากนั้น 1 yr booster/);
+  assert.match(steps, /ตัวเลขให้พูดตามนี้ตรงตัว/);
   // a skip gives the key; a letter the question does not have, or an option's text, is asked again
   assert.equal(checkAnswer(card, {}, { picked: '' }).mark.picked, '');
   assert.equal(checkAnswer(card, {}, { picked: 'จ' }).mark, null);
