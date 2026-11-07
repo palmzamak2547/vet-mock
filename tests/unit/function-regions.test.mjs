@@ -3,13 +3,14 @@
 // its calls in a row to services in US East (the limiter, Resend, Anthropic when tried first)
 // outnumber one plus its calls to Supabase or R2; exam-result and race-start also stay until the
 // Year-5 finals end on 4 Dec, so the exam flow does not change before then. The list shrinks when
-// the limiter moves to Singapore.
+// the limiter moves to Singapore. ai-voice: a start reads the provider's balance and mints a token
+// (US) and counts twice in the limiter, against one call to Supabase (the Chula gate).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 
 const config = JSON.parse(readFileSync('vercel.json', 'utf8'));
-const US_BOUND = ['agent-action', 'fetch-external-doc', 'grade-summary', 'playlist', 'send-feedback', 'study-coach', 'transcribe-handwriting', 'wiki-explain'];
+const US_BOUND = ['agent-action', 'ai-voice', 'fetch-external-doc', 'grade-summary', 'playlist', 'send-feedback', 'study-coach', 'transcribe-handwriting', 'wiki-explain'];
 const EXAM_FLOW_UNTIL_FINALS = ['exam-result', 'race-start'];
 
 test('functions default to sin1', () => {

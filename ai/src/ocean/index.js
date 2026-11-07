@@ -119,6 +119,8 @@ export async function createOcean(canvas, opts = {}) {
   let slowFor = 0;
   let skip = false;
   let warm = 0;
+  // a live voice call (setVoice): the agent is a jelly held at (x, y), its levels read each frame
+  let voice = null;
 
   function initGL() {
     progs = {
@@ -235,7 +237,17 @@ export async function createOcean(canvas, opts = {}) {
     if (!school) return;
     env.pace = mode === 'thinking' ? 1.15 : mode === 'answering' ? 0.85 : 1;
     env.avoid = veilTarget > 0 ? 1 : 0.25;
+    if (voice) updateVoice(dt);
     for (const s of swimmers) s.update(dt, env);
+    if (voice?.jelly) holdJelly(voice.jelly, dt);
+    // a call's jelly, let go, rises out of the water and is gone (it never wanders back in)
+    let gone = false;
+    for (const s of swimmers) {
+      if (!s.leaving) continue;
+      s.cruise = s.spec.speedBL * s.L * 7;
+      if (s.y < -s.L * 1.2 || s.out > 0) gone = true;
+    }
+    if (gone) swimmers = swimmers.filter((s) => !(s.leaving && (s.y < -s.L * 1.2 || s.out > 0)));
     const predators = [];
     for (const s of swimmers) if (s.spec.body === 'fish' && s.key !== 'dugong') predators.push({ x: s.x, y: s.y, r: s.L * 0.55 });
     if (env.pointer.active) predators.push({ x: env.pointer.x, y: env.pointer.y, r: 110 });
@@ -273,6 +285,81 @@ export async function createOcean(canvas, opts = {}) {
         el.style.transform = `translate3d(${Math.round(c.x)}px, ${Math.round(c.y)}px, 0)`;
       }
     }
+  }
+
+  // ── voice ────────────────────────────────────────────────
+  // The agent is a moon jelly held where the page points (setVoice). Its bell is the
+  // envelope of the agent's voice (fast attack 35 ms, slow release 200 ms, like the real
+  // bell's quick contraction and slow refill); a syllable onset (with hysteresis) pulses
+  // light out of it; the student's voice ripples up from below; while a tool looks
+  // something up, light rises out of the deep toward the bell; the school rings it,
+  // widening as it speaks and gathering in while you talk.
+  function pulseAt(x, y, n) {
+    ripples.push({ x, y, t0: env.t, kind: 1 });
+    if (ripples.length > 8) ripples.shift();
+    for (let i = 0; i < n; i++) {
+      const a = rand() * Math.PI * 2;
+      const v = 50 + rand() * 80;
+      sparks.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1.1 + rand() * 0.7 });
+    }
+  }
+
+  const level = (raw, gain) => Math.sqrt(clamp((raw || 0) * gain, 0, 1));
+
+  function updateVoice(dt) {
+    const v = voice;
+    const lv = v.levels ? v.levels() : null;
+    const out = level(lv?.output, v.gain);
+    const inp = level(lv?.input, v.gain);
+    v.out += (out - v.out) * smooth(dt, out > v.out ? 0.035 : 0.2);
+    v.inp += (inp - v.inp) * smooth(dt, inp > v.inp ? 0.05 : 0.3);
+    const ph = v.phase ? v.phase() : 'listening';
+    const t = env.t;
+    const j = v.jelly;
+    if (j?.voice) {
+      // never frozen: a slow breath under the voice
+      const breath = 0.16 + 0.1 * Math.sin(t * 1.25);
+      j.voice.p = clamp(Math.max(v.out * 1.25, breath), 0, 1);
+      const glow = ph === 'speaking' ? 0.45 + v.out : ph === 'thinking' ? 0.65 + 0.25 * Math.sin(t * 7) : 0.25 + 0.65 * v.inp;
+      j.voice.glow += (glow - j.voice.glow) * smooth(dt, 0.15);
+      j.voice.sway += (v.inp - j.voice.sway) * smooth(dt, 0.4);
+    }
+    env.millSchool = { x: v.x, y: v.y, r: env.short * (0.27 + 0.07 * v.out - 0.04 * v.inp) };
+    env.mill = ph === 'thinking' ? { x: v.x, y: v.y } : null;
+    env.pace = ph === 'thinking' ? 1.3 : ph === 'speaking' ? 1.05 : 0.95;
+    if (v.out > 0.34 && !v.outGate && t - v.lastPulse > 0.4) { v.lastPulse = t; pulseAt(v.x, v.y, 5); }
+    v.outGate = v.out > 0.22;
+    if (v.inp > 0.3 && !v.inGate && t - v.lastRipple > 0.35) {
+      v.lastRipple = t;
+      ripples.push({ x: v.x + (rand() - 0.5) * env.short * 0.2, y: H * 0.88, t0: t, kind: 0 });
+      if (ripples.length > 8) ripples.shift();
+    }
+    v.inGate = v.inp > 0.2;
+    if (ph === 'thinking' && t - v.lastSpark > 0.05 && sparks.length < 160) {
+      v.lastSpark = t;
+      const sx = v.x + (rand() - 0.5) * W * 0.7;
+      const sy = H + 8;
+      sparks.push({ x: sx, y: sy, vx: (v.x - sx) / 0.95, vy: (v.y - sy) / 0.95, life: 1.3 + rand() * 0.4 });
+    }
+  }
+
+  /** The bell fills the page's box: its diameter 0.58 of the box, the tentacles inside it. */
+  function sizeJelly(j, size) {
+    if (!(size > 0)) return;
+    j.L = size * 0.58;
+    j.seg = j.L / (j.N - 1);
+    j.cruise = j.spec.speedBL * j.L;
+  }
+
+  /** The voice jelly stays where the page holds it, rising into place on entry. */
+  function holdJelly(j, dt) {
+    const tx = voice.x + Math.sin(env.t * 0.37) * env.short * 0.012;
+    const ty = voice.y + Math.sin(env.t * 0.61) * env.short * 0.016 - (j.voice?.p || 0) * env.short * 0.012;
+    const k = smooth(dt, j.y > voice.y + j.L ? 0.85 : 0.3);
+    j.x += (tx - j.x) * k;
+    j.y += (ty - j.y) * k;
+    j.theta = -Math.PI / 2;
+    j.out = 0;
   }
 
   // ── rendering ─────────────────────────────────────────────
@@ -518,6 +605,47 @@ export async function createOcean(canvas, opts = {}) {
         }
         if (best && !swimmers.some((s) => s.curious > 0)) { best.curious = 7 + rand() * 3; best.curiousSide = rand() < 0.5 ? 1 : -1; }
       }
+    },
+    /**
+     * A live voice call: the agent as a jelly at (x, y) (CSS px), driven by
+     * levels() -> { input, output } (0..1) and phase() -> 'listening' | 'thinking' |
+     * 'speaking', both read once a frame. null ends it: the jelly swims off.
+     */
+    setVoice(spec) {
+      if (!spec) {
+        const j = voice?.jelly;
+        if (j) { j.voice = null; j.homeAt = env.t; j.home = -Math.PI / 2 + (rand() - 0.5); j.leaving = true; }
+        voice = null;
+        env.millSchool = null;
+        env.mill = null;
+        mode = 'idle';
+        if (reduced || !running) renderOnce();
+        return;
+      }
+      if (voice) {
+        voice.x = spec.x;
+        voice.y = spec.y;
+        if (voice.jelly && spec.size) sizeJelly(voice.jelly, spec.size);
+        if (spec.levels) voice.levels = spec.levels;
+        if (spec.phase) voice.phase = spec.phase;
+        return;
+      }
+      voice = { x: spec.x, y: spec.y, levels: spec.levels, phase: spec.phase, gain: spec.gain || 2.6, out: 0, inp: 0, lastPulse: 0, lastRipple: 0, lastSpark: 0, outGate: false, inGate: false, jelly: null };
+      mode = 'voice';
+      // a jelly already leaving from an earlier call is taken out first
+      swimmers = swimmers.filter((s) => !(s.key === 'voiceJelly'));
+      if (school) {
+        const j = new Swimmer('voiceJelly', rand, env, false);
+        sizeJelly(j, spec.size);
+        j.x = spec.x;
+        j.y = reduced ? spec.y : H + j.L * 0.45;
+        j.theta = -Math.PI / 2;
+        j.voice = { p: 0.2, glow: 0.3, sway: 0 };
+        swimmers.push(j);
+        voice.jelly = j;
+      }
+      env.millSchool = { x: spec.x, y: spec.y, r: env.short * 0.27 };
+      if (reduced || !running) renderOnce();
     },
     setFocus(rect) { env.focus = rect; },
     setContent(rect, veil = 0) {

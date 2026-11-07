@@ -264,6 +264,52 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 .send:active:not(:disabled) { transform: scale(0.92); }
 .send:disabled { opacity: 0.32; cursor: default; }
 .send.is-stop { background: var(--text); color: var(--bg); }
+/* the call button (an empty box): the same pill; on the landing page a ring breathes out
+   from it three times, then rests (WCAG 2.2.2) */
+.send { position: relative; }
+.send.is-voice { width: 44px; }
+.send.is-voice.is-off { background: color-mix(in srgb, var(--accent) 38%, transparent); }
+.mode-landing .send.is-voice:not(.is-off)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: voice-invite 3.4s var(--ease-out) 1.4s 3 both;
+}
+@keyframes voice-invite {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
+  55%, 100% { box-shadow: 0 0 0 13px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .mode-landing .send.is-voice::after { animation: none; } }
+
+/* the moment before the call's chunk has arrived (it is usually prefetched) */
+.voice-boot { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; align-content: center; gap: var(--s3); padding: var(--s4); text-align: center; color: var(--accent); font-size: var(--t-s); }
+.voice-boot-msg { margin: 0; max-width: 28rem; color: var(--text); font-size: var(--t-m); line-height: 1.6; }
+.voice-boot-actions { margin: 0; display: flex; gap: var(--s2); justify-content: center; }
+.voice-boot-actions button { min-height: 44px; padding: 0 18px; border-radius: var(--r-pill); border: 1px solid var(--line); background: var(--glass); color: var(--text); }
+/* during a call the page steps aside: only the sea and the call (styles/voice.css) */
+.app.is-voice .hdr, .app.is-voice .stage, .app.is-voice .ftr, .app.is-voice .ocean-still { opacity: 0; pointer-events: none; }
+.hdr, .stage, .ftr { transition: opacity 280ms var(--ease-out); }
+.voice-cta {
+  margin: var(--s4) auto 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px 0 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+  color: var(--text);
+  font-size: var(--t-s);
+  transition: transform var(--dur-press) var(--ease-out), border-color var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out);
+}
+.voice-cta:active { transform: scale(0.96); }
+.voice-cta svg { color: var(--accent); }
+.voice-cta-new { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--accent-ink); background: var(--accent); border-radius: var(--r-pill); padding: 1px 8px; }
+@media (hover: hover) and (pointer: fine) {
+  .voice-cta:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+}
 .composer-attach { display: flex; align-items: center; gap: var(--s3); padding: 12px 14px 0; }
 .attach-thumb { position: relative; width: 64px; height: 64px; }
 .attach-thumb img { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); }

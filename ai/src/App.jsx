@@ -1,18 +1,45 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createOcean } from './ocean/index.js';
 import Composer from './components/Composer.jsx';
 import Message from './components/Message.jsx';
 import HeroWord from './components/HeroWord.jsx';
 import { Header, History, Specimen, Footer } from './components/Chrome.jsx';
 import Wall from './components/Wall.jsx';
-import { IconDown } from './components/icons.jsx';
-import { Toasts } from './components/ShareMenu.jsx';
+import { IconDown, IconWave } from './components/icons.jsx';
+import { Toasts, toast } from './components/ShareMenu.jsx';
 import { chat as callChat, health, warm } from './lib/api.js';
 import { useWall, wall } from './lib/account.js';
 import { listChats, saveChat, deleteChat, clearChats, newId, titleFor, getPref, setPref } from './lib/store.js';
 import { hasThaiVoice } from './lib/speech.js';
 import { reducedMotion } from './lib/env.js';
+import { voiceSupport, voiceStatus, voiceOffMessage, loadVoiceSdk, preconnectVoice, VOICE_ERRORS } from './lib/voice.js';
+import { voiceSound } from './lib/voice-sound.js';
 import './styles/app.css';
+
+// The call screen and the voice SDK load on demand, and early: a pointer over the
+// call button, a finger on it or focus fetches both before the tap.
+// A chunk that will not load (a tab opened before a deploy, the network gone) must not blank the
+// page under a lazy() with no boundary: it becomes a small screen that says so and closes.
+function VoiceLoadFailed({ onClose }) {
+  return (
+    <div className="voice-boot" role="alert">
+      <p className="voice-boot-msg">เปิดหน้าคุยด้วยเสียงไม่สำเร็จ โหลดหน้าใหม่แล้วลองอีกครั้ง</p>
+      <p className="voice-boot-actions">
+        <button type="button" onClick={() => location.reload()}>โหลดใหม่</button>
+        <button type="button" onClick={onClose}>ปิด</button>
+      </p>
+    </div>
+  );
+}
+const Voice = lazy(() => import('./components/Voice.jsx').catch(() => ({ default: VoiceLoadFailed })));
+let voicePrefetched = false;
+const prefetchVoice = () => {
+  if (voicePrefetched) return;
+  voicePrefetched = true;
+  import('./components/Voice.jsx').catch(() => { voicePrefetched = false; });
+  loadVoiceSdk().catch(() => {});
+  preconnectVoice();
+};
 
 const SUGGEST = ['ระยะฟักตัวของ rabies ในสุนัข', 'ขอข้อสอบ COM5 5 ข้อ', 'หางานวิจัย PRRSV ล่าสุด', 'VetMock มีอะไรใหม่'];
 // The landing page's one moving line: the hero's last word and the box's example
@@ -27,6 +54,7 @@ const SHOW = [
 ];
 const BEAT_MS = 4400;
 const THEME_COLOR = { dark: '#010c19', light: '#faf7f1' };
+const TOUCH_DEVICE = typeof window !== 'undefined' && matchMedia('(pointer: coarse)').matches;
 const blank = () => ({ id: newId(), title: '', messages: [] });
 
 export default function App() {
@@ -55,6 +83,9 @@ export default function App() {
   const [beat, setBeat] = useState(-1); // -1: at rest
   const typing = useRef(false);
   const nextBeat = useRef(() => {});
+  // the realtime voice (components/Voice.jsx): is a call open, may one start
+  const [voiceOn, setVoiceOn] = useState(false);
+  const [voiceAvail, setVoiceAvail] = useState(null);
 
   // The Chula wall (lib/wall.js): until it opens, a sign-in card over the sea instead of the assistant.
   const gate = useWall();
@@ -241,6 +272,7 @@ export default function App() {
     hasThaiVoice().then(setCanSpeak);
     const ctl = new AbortController();
     health(ctl.signal).then((h) => setStats(h?.stats || null)).catch(() => {});
+    voiceStatus(ctl.signal).then(setVoiceAvail).catch(() => {});
     const on = () => setOnline(navigator.onLine !== false);
     window.addEventListener('online', on);
     window.addEventListener('offline', on);
@@ -452,6 +484,50 @@ export default function App() {
     requestAnimationFrame(() => requestAnimationFrame(() => (lastUser ? anchorTurn(lastUser.id, false) : scrollToEnd())));
   };
 
+  // ── the call ─────────────────────────────────────────────
+  const voiceBack = useRef(null);
+  const startVoice = useCallback(() => {
+    if (busy || voiceOn) return;
+    const sup = voiceSupport();
+    // an app's own browser opens the call screen anyway: its error card offers the way out to a real browser
+    if (!sup.ok && sup.reason !== 'inapp') { toast(VOICE_ERRORS[sup.reason] || VOICE_ERRORS.unsupported); return; }
+    if (voiceAvail && voiceAvail.available === false) { toast(voiceOffMessage(voiceAvail.reason, voiceAvail.renewsAt)); return; }
+    // inside the tap: unlocks audio on iOS, and the page remembers where to come back to
+    voiceSound.prime();
+    voiceBack.current = document.activeElement;
+    voiceBack.current?.blur?.();
+    prefetchVoice();
+    setVoiceOn(true);
+  }, [busy, voiceOn, voiceAvail]);
+
+  // The call's transcript joins the chat on screen (or starts one), saved like any turn.
+  const onVoiceDone = useCallback((messages, info) => {
+    setVoiceOn(false);
+    if (messages.length) {
+      pinned.current = false;
+      setChat((c) => {
+        const first = messages.find((m) => m.role === 'user')?.content || 'คุยด้วยเสียง';
+        const next = { ...c, title: c.title || titleFor(first), messages: [...c.messages, ...messages] };
+        queueMicrotask(() => { saveChat(next); setChats(listChats()); });
+        return next;
+      });
+      requestAnimationFrame(() => requestAnimationFrame(() => anchorTurn(messages[0].id, false)));
+    }
+    if (info?.note) toast(info.note);
+    else if (info?.left === 0) toast('วันนี้คุยด้วยเสียงครบจำนวนรอบแล้ว พรุ่งนี้คุยได้อีก');
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    // the page under the call is out of reach of focus and screen readers while it is open
+    for (const el of document.querySelectorAll('.hdr, .stage, .ftr')) el.inert = voiceOn;
+    if (!voiceOn) {
+      syncRects();
+      const back = voiceBack.current;
+      voiceBack.current = null;
+      if (back?.isConnected && !TOUCH_DEVICE) back.focus?.({ preventScroll: true });
+    }
+  }, [voiceOn, syncRects]);
+
   // tap on open water: name the animal under the finger
   const tapOcean = (e) => {
     if (e.target.closest('button, a, textarea, input, label, .composer, .msg, .card, .ftr, .hdr, .hw')) return;
@@ -490,7 +566,7 @@ export default function App() {
   }
 
   return (
-    <div className={`app mode-${open ? mode : 'wall'}`}>
+    <div className={`app mode-${open ? mode : 'wall'}${voiceOn ? ' is-voice' : ''}`}>
       <canvas ref={canvasRef} className="ocean" aria-hidden="true" />
       {still && <div className="ocean-still" data-theme-art={theme} aria-hidden="true" />}
       <Header theme={theme} onTheme={toggleTheme} onNew={newChat} onHistory={() => { setChats(listChats()); setHistoryOpen(true); }} hasChat={open && mode === 'chat'} walled={!open} />
@@ -540,10 +616,18 @@ export default function App() {
               ghost={mode === 'landing' && beat >= 0 ? SHOW[beat].ask : null}
               onTyping={(busyBox) => { typing.current = busyBox; }}
               autoFocus={mode === 'landing'}
+              onVoice={startVoice}
+              onVoiceHint={prefetchVoice}
+              voiceOff={voiceAvail?.available === false}
             />
             {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
             {mode === 'landing' && (
               <>
+                <button type="button" className="voice-cta" onClick={startVoice} onPointerEnter={prefetchVoice} onFocus={prefetchVoice} onTouchStart={prefetchVoice} disabled={!online}>
+                  <IconWave size={18} />
+                  <span>คุยด้วยเสียงแบบสด</span>
+                  <span className="voice-cta-new">ใหม่</span>
+                </button>
                 <ul className="suggest" aria-label="ตัวอย่างคำถาม">
                   {SUGGEST.map((s) => (
                     <li key={s}><button type="button" onClick={() => send(s, null)} disabled={!online}>{s}</button></li>
@@ -557,6 +641,11 @@ export default function App() {
       )}
       {open && mode === 'landing' && <Footer stats={stats} />}
       <Specimen elRef={specimenRef} info={specimen} />
+      {voiceOn && (
+        <Suspense fallback={<div className="voice-boot" role="status">กำลังเตรียมเสียง</div>}>
+          <Voice oceanRef={oceanRef} still={still} onDone={onVoiceDone} onClose={() => setVoiceOn(false)} chat={chat.messages} />
+        </Suspense>
+      )}
       <Toasts />
       <History
         open={open && historyOpen}

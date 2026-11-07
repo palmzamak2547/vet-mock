@@ -40,6 +40,7 @@ const GENERATORS = [
   { script: 'regen-vetwiki-topic-registry.mjs', out: 'src/lib/vetwiki/topic-registry.generated.js' },
   { script: 'regen-vetwiki-runtime-data.mjs', out: 'src/lib/vetwiki/runtime-data.generated.js' },
   { script: 'regen-atlas-registry.mjs', out: 'src/data/atlas-assets.generated.js' },
+  { script: 'regen-atlas-registry.mjs', out: 'src/data/atlas-labels.generated.js' },
 ];
 
 function makeScratchRepo() {
@@ -55,6 +56,14 @@ function makeScratchRepo() {
     }
   }
   fs.writeFileSync(path.join(dir, 'package.json'), '{"type":"module"}\n');
+  // Generators stay runnable inside the scratch copy, including ones that
+  // import repo dependencies (the atlas transform shares three with the
+  // converter on purpose), so the repo's own node_modules is linked in.
+  fs.symlinkSync(
+    path.join(repo, 'node_modules'),
+    path.join(dir, 'node_modules'),
+    process.platform === 'win32' ? 'junction' : 'dir',
+  );
   return dir;
 }
 
