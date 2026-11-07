@@ -161,7 +161,10 @@ test('the เหตุผล row reads its explanation in the newer voice, apart
   const box = await listen.boundingBox();
   expect(Math.round(box.width)).toBeGreaterThanOrEqual(44);
   expect(Math.round(box.height)).toBeGreaterThanOrEqual(44);
-  const size = async () => { const b = await panel.boundingBox(); return { width: b.width, height: b.height }; };
+  // The layout box, not the bounding box: the panel enters with a transform,
+  // and its last frames read as a change in size (351.68747 against 351.6875
+  // on main's run of 323cc32d, both tries).
+  const size = () => panel.evaluate((el) => ({ width: el.offsetWidth, height: el.offsetHeight }));
   const before = await size();
   await listen.click();
   await expect(panel.getByRole('button', { name: 'หยุดอ่านออกเสียง' })).toHaveAttribute('aria-pressed', 'true');
