@@ -1452,7 +1452,16 @@ export default function App() {
       clock: session.clockKind(),
       sessionKind,
     };
-    if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
+    // Never inside the tap: React runs this effect before the browser paints
+    // the answer, and the snapshot is the whole set, stringified. When a write
+    // is due it goes just after that paint (rAF runs before it, the timeout
+    // after); otherwise half a second later, as before. pagehide and
+    // visibilitychange still flush at once.
+    if (Date.now() - inflightWrittenAtRef.current >= 3000) {
+      let soon = 0;
+      const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
+      return () => { cancelAnimationFrame(frame); clearTimeout(soon); };
+    }
     const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
   }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, sessionKind, writeInflight]);
