@@ -105,7 +105,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getUTCDate()} ${TH_MONTHS[d.getUTCMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, onStartSubjectPanic = null, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -1149,6 +1149,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   }
                 }}
                 onPickPanic={onStartPanic}
+                onPickSubjectPanic={onStartSubjectPanic}
                 onPickSR={launchSR}
                 onPickPlannedPractice={(subjectId, count) => startExam?.({ mode: 'quick', subject: subjectId,
                   topic: null, practiceMode: 'all', questionCategory: 'all', numQuestions: count, useTimer: false })}
@@ -1308,14 +1309,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 className="vmx-mode-card"
                 onClick={() => launchScoped('predicted', highPredictionCount)}
                 disabled={quickActionPending}
-                aria-label={`ฝึกชุดน่าจะออก ${scopeLabel} ${highPredictionCount} ข้อ ไม่ใช่การยืนยันข้อสอบ`}
-                title="อิงสไลด์ปัจจุบัน พร้อมสัญญาณสนับสนุนอย่างน้อย 2 ทาง เป็นการคาดการณ์"
+                aria-label={`ฝึกชุดหลักฐานตรงกัน ${scopeLabel} ${highPredictionCount} ข้อ`}
+                title="อิงสไลด์ปัจจุบัน พร้อมหลักฐานสนับสนุนอย่างน้อย 2 ทาง"
                 style={{ borderColor: 'var(--clr-gold)' }}
               >
                 <div className="icon"><NavIcon name="exam" size={20} /></div>
-                <div className="title">ชุดน่าจะออก</div>
-                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ, มีหลักฐานหลายทาง แต่ยังเป็นการคาดเดา</div>
-                <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>เน้นสอบ</div>
+                <div className="title">ชุดหลักฐานตรงกัน</div>
+                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ ตรงกับสไลด์ปัจจุบันและมีหลักฐานอย่างน้อย 2 ทาง</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>หลายหลักฐาน</div>
               </button>
             )}
 

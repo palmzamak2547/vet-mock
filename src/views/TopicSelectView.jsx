@@ -19,7 +19,7 @@ import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
-import { getUpcomingExams } from '../data/schedule.js';
+import { getUpcomingExams, EXAM_SCHEDULE } from '../data/schedule.js';
 import { examEndMs } from '../lib/exam-countdown.js';
 import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
 import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
@@ -335,6 +335,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     ? Object.values(Q_COUNTS_BY_TOPIC_BY_SCOPE[otherPhase]?.[subject] || {}).reduce((a, b) => a + b, 0)
     : 0;
   const otherPaperLabel = otherPhase?.endsWith('-mid') ? 'กลางภาค' : 'ปลายภาค';
+  // POA sits no paper this term, so "the other paper" would send the student
+  // to a period that holds nothing of it either.
+  const hasPaper = (EXAM_SCHEDULE[`y${selectedYear}`] || []).some((e) => e.subject === subject);
   const changePaper = () => { rememberPhaseReturn('topic-select'); setView('phase-select'); };
   // The practice and exam cards on the resources tab promise a set of this
   // subject; under a paper that holds none of it they must say so, not open
@@ -685,13 +688,17 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             <span>
               {otherPaperCount > 0
                 ? `เนื้อหาทั้งวิชาอยู่ในช่วง${otherPaperLabel} (${otherPaperCount} ข้อ) ตามตารางเรียนปีนี้`
-                : 'เนื้อหาทั้งหมดของวิชาอยู่ในอีกช่วงสอบหนึ่ง ตามตารางเรียนปีนี้'}
+                : hasPaper
+                  ? 'เนื้อหาทั้งหมดของวิชาอยู่ในอีกช่วงสอบหนึ่ง ตามตารางเรียนปีนี้'
+                  : 'วิชานี้ไม่มีสอบในตารางสอบของคณะเทอมนี้'}
             </span>
           </div>
           <div className="vmx-paper-empty-actions">
-            <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={changePaper}>
-              เปลี่ยนช่วงสอบ
-            </button>
+            {hasPaper && (
+              <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={changePaper}>
+                เปลี่ยนช่วงสอบ
+              </button>
+            )}
             {(resources.notes?.available || resources.videos?.available || shelfDocs > 0) && (
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setActiveSection('resources')}>
                 ดูสรุปและคลิปของวิชานี้

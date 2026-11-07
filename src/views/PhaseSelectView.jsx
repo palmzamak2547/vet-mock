@@ -53,13 +53,14 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
 
       <div className="vmx-mode-grid">
         {PHASES.map((p) => {
-          // semester 0 = cross-semester (e.g. VCA) — count in every phase
           // A subject belongs to a phase only if it sits that PAPER, not merely
           // that term. Counting by semester alone put epidemiology (no midterm)
           // and POA (no written paper) under กลางภาค on the very screen that
-          // explains what a phase means.
+          // explains what a phase means. semester 0 (the VCA past-paper set)
+          // sits no paper either: counting it printed 11 วิชา for ปลายภาค
+          // beside Home's 10 and the timetable's 10.
           const scoped = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[p.id] || null;
-          const subjectsInPhase = subjects.filter((s) => (s.semester === p.semester || s.semester === 0)
+          const subjectsInPhase = subjects.filter((s) => s.semester === p.semester
             && (!scoped || !s.has_questions || (scoped[s.id] || 0) > 0));
           const liveCount = subjectsInPhase.filter((s) => !s.scaffold).length;
           const isCurrent = p.id === currentPhase;

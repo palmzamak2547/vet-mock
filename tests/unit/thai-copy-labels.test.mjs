@@ -46,7 +46,11 @@ test('the home practice cards describe their sets in words, not a semester id', 
   assert.ok(!home.includes('ตรง {SEMESTER.id}'), 'the card printed "ตรง 2569-1"');
   assert.ok(home.includes('{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรงกับสไลด์เทอมนี้'));
   assert.ok(!home.includes('หลักฐานสูง แต่ไม่ใช่ข้อสอบยืนยัน'));
-  assert.ok(home.includes('{scopeLabel} {highPredictionCount} ข้อ, มีหลักฐานหลายทาง แต่ยังเป็นการคาดเดา'));
+  // The card names its evidence, not the exam: "ชุดน่าจะออก" told a student
+  // what would be asked (audit, 2 Nov).
+  assert.ok(home.includes('{scopeLabel} {highPredictionCount} ข้อ ตรงกับสไลด์ปัจจุบันและมีหลักฐานอย่างน้อย 2 ทาง'));
+  assert.ok(home.includes('<div className="title">ชุดหลักฐานตรงกัน</div>'));
+  assert.ok(!home.includes('น่าจะออก'), 'a Home card claims what the paper will ask');
 });
 
 test('the streak-freeze notice says a day was skipped and the run still counts', () => {
