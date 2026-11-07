@@ -77,6 +77,7 @@ export default defineConfig({
         const SKIP_PRELOAD_PATTERNS = [
           /vendor-cornerstone/,        // Practical Imaging Lab only
           /vendor-atlas/,              // Anatomy viewer only
+          /AtlasLabels/,               // Atlas label layer · fetched with the atlas page, never preloaded
           /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
