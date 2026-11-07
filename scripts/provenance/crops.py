@@ -910,16 +910,28 @@ def dotenv(path):
                 out[k.strip()] = v.strip().strip('"')
     return out
 
+def library_rows(subject, year, cfg):
+    """The subject's library PDFs for the year that a member is served. Since 5.184.0 the library is
+    behind the Chula wall and the anon key reads nothing, so this reads through the Management API
+    like library-pages.py, and never a document held for personal data (text_status 'pii_held')."""
+    token = os.environ.get('SUPABASE_ACCESS_TOKEN') or dotenv(cfg.get('supabaseEnv')).get('SUPABASE_ACCESS_TOKEN')
+    if not token:
+        sys.exit('set SUPABASE_ACCESS_TOKEN (a Supabase Management API token): the library is behind the Chula wall')
+    q = ("select slug, title, kind, page_count, storage_bucket, storage_key, sha256_16, created_at from library_docs "
+         "where status = 'public' and text_status is distinct from 'pii_held' and mime = 'application/pdf' "
+         f"and subject = '{str(subject).replace(chr(39), chr(39) * 2)}' and academic_year = {int(year)} order by created_at")
+    req = urllib.request.Request('https://api.supabase.com/v1/projects/mpovsdzdggvksmeehqfj/database/query',
+                                 data=json.dumps({'query': q}).encode(),
+                                 headers={'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json',
+                                          'User-Agent': 'vetmock-provenance-crops'})
+    return json.load(urllib.request.urlopen(req, timeout=60))
+
 def library_covers(root, subject, cfg):
     """Every public library PDF of the subject for the current academic year: the file cached by
     its sha16, its first page rendered, its first-page text kept for matching it to a topic."""
-    pub = dotenv(cfg.get('supabaseEnv'))
     r2 = dotenv(cfg.get('r2env'))
-    url, anon = pub.get('VITE_SUPABASE_URL'), pub.get('VITE_SUPABASE_ANON_KEY')
     year = int(cfg.get('academicYear', 2026))
-    q = (f"{url}/rest/v1/library_docs?select=slug,title,kind,page_count,storage_bucket,storage_key,sha256_16,created_at"
-         f"&status=eq.public&subject=eq.{subject}&academic_year=eq.{year}&mime=eq.application/pdf&order=created_at")
-    rows = json.load(urllib.request.urlopen(urllib.request.Request(q, headers={'apikey': anon, 'Authorization': 'Bearer ' + anon}), timeout=60))
+    rows = library_rows(subject, year, cfg)
     out = []
     for r in rows:
         sha = r['sha256_16']
