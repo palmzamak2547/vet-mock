@@ -80,7 +80,22 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     downloadUrl = useRef(null);
   const specimen = getAtlasSpecimen(location.specimenId);
   const comparison = mode === 'compare' && location.compareId ? getAtlasSpecimen(location.compareId) : null;
-  const part = specimen.parts.find((item) => item.id === location.selected) || specimen.parts[0];
+  // Owner decision 11 phase 2: the drafted Latin rides the label chunk, so the
+  // inspector and the directory search see it through a runtime merge — the
+  // static graph (and the atlas budget row) stay byte-identical.
+  const latinByPart = labelsModule?.latinFor?.(specimen.id) ?? null;
+  const specimenParts = useMemo(() => {
+    if (!latinByPart) return specimen.parts;
+    return specimen.parts.map((item) => {
+      const latin = latinByPart.get(item.id);
+      return latin && !item.latin ? { ...item, latin } : item;
+    });
+  }, [latinByPart, specimen]);
+  const mergedSpecimen = useMemo(
+    () => (specimenParts === specimen.parts ? specimen : { ...specimen, parts: specimenParts }),
+    [specimen, specimenParts],
+  );
+  const part = mergedSpecimen.parts.find((item) => item.id === location.selected) || mergedSpecimen.parts[0];
   const segmented = specimen.kind === 'segmented',
     recall = mode === 'recall',
     hideAnswer = recall && !revealed;
@@ -89,19 +104,19 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
   const AtlasLabelsDynamic = labelsModule?.default;
   const labelsActive = labelsAvailable && AtlasLabelsDynamic && mode === 'explore' && !staticMode;
   const visibleIds = useMemo(
-    () => visibleAtlasParts(specimen, part.id, hidden, isolated),
-    [specimen, part.id, hidden, isolated],
+    () => visibleAtlasParts(mergedSpecimen, part.id, hidden, isolated),
+    [mergedSpecimen, part.id, hidden, isolated],
   );
-  const parts = useMemo(() => filterAtlasParts(specimen, query), [specimen, query]);
+  const parts = useMemo(() => filterAtlasParts(mergedSpecimen, query), [mergedSpecimen, query]);
   const systems = useMemo(() => {
     const groups = new Map();
-    for (const item of specimen.parts) {
+    for (const item of mergedSpecimen.parts) {
       if (!item.systemLabel) continue;
       if (!groups.has(item.systemLabel)) groups.set(item.systemLabel, []);
       groups.get(item.systemLabel).push(item.id);
     }
     return [...groups].map(([label, ids]) => ({ label, ids }));
-  }, [specimen]);
+  }, [mergedSpecimen]);
   const species = [
     ...new Map(
       ATLAS_CATALOG.map((item) => [item.speciesId, { id: item.speciesId, label: item.species }]),
@@ -888,7 +903,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                     run('focus');
                   }}
                 >
-                  {round === specimen.parts.length - 1 ? 'เริ่มรอบใหม่' : 'ชิ้นถัดไป'}
+                  {round === specimenParts.length - 1 ? 'เริ่มรอบใหม่' : 'ชิ้นถัดไป'}
                   <ChevronRight size={16} aria-hidden="true" />
                 </button>
               )}
