@@ -63,11 +63,21 @@ test('a session title loses its number and date, never its words', () => {
 
 test('an index term is a term: no heading words, no cut endings', () => {
   // The audit of 2 Nov: "IN", "OF", "HEALTH" from capitalised headings, "Coronaviru" and "MER" from cut plurals.
-  const cases = { caps: new Map([['HEALTH', 16], ['CO', 9], ['ELISA', 40], ['DOG', 3]]), plain: new Map([['health', 515], ['co', 36], ['dog', 114]]) };
+  // Five lectures: "health", "dog" and "in" are in most, "salmonella" and "biopsy" in one.
+  const lectures = [new Set(['health', 'dog', 'in', 'salmonella', 'biopsy']), new Set(['health', 'dog', 'in']), new Set(['health', 'in']), new Set(['in']), new Set(['in'])];
+  const cases = {
+    caps: new Map([['HEALTH', 16], ['CO', 9], ['ELISA', 40], ['DOG', 3], ['SALMONELLA', 15], ['BIOPSY', 4], ['IN', 7]]),
+    plain: new Map([['health', 515], ['co', 36], ['dog', 114], ['salmonella', 120], ['biopsy', 34], ['in', 9000]]),
+    forms: new Map([['salmonella', new Map([['Salmonella', 110], ['salmonella', 10]])], ['biopsy', new Map([['biopsy', 30], ['Biopsy', 4]])]]),
+    lectures,
+  };
   const said = 'Coronavirus and MERS in camels, antibodies by ELISA; CO falls';
   assert.equal(indexTerm('IN', said, cases), null);
   assert.equal(indexTerm('HEALTH', said, cases), null);
   assert.equal(indexTerm('DOG', said, cases), null);
+  // The review of #163: a term a heading set in capitals is kept, in ordinary case.
+  assert.equal(indexTerm('SALMONELLA', said, cases), 'Salmonella');
+  assert.equal(indexTerm('BIOPSY', said, cases), 'biopsy');
   assert.equal(indexTerm('CO', said, cases), 'CO', 'cardiac output is no ordinary word');
   assert.equal(indexTerm('ELISA', said, cases), 'ELISA');
   assert.equal(indexTerm('MER', said, cases), 'MERS');

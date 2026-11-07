@@ -194,6 +194,14 @@ export default {
    "t": 1468
   },
   {
+   "term": "Atopic",
+   "t": 2190
+  },
+  {
+   "term": "trial",
+   "t": 891
+  },
+  {
    "term": "Atopic dermatitis",
    "t": 2771
   },

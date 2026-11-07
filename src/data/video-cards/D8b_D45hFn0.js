@@ -380,6 +380,10 @@ export default {
    "t": 5139
   },
   {
+   "term": "table",
+   "t": 4483
+  },
+  {
    "term": "95% ci",
    "t": 4973
   },
@@ -422,6 +426,10 @@ export default {
   {
    "term": "odds ratio",
    "t": 4020
+  },
+  {
+   "term": "bias",
+   "t": 5640
   },
   {
    "term": "epidemiology",

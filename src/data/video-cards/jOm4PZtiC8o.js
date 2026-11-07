@@ -173,10 +173,6 @@ export default {
    "t": 1598
   },
   {
-   "term": "intermediate",
-   "t": 2865
-  },
-  {
    "term": "sharp",
    "t": 6698
   },

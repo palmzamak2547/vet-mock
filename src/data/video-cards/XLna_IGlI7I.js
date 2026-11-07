@@ -571,6 +571,10 @@ export default {
    "t": 2660
   },
   {
+   "term": "nasal",
+   "t": 2710
+  },
+  {
    "term": "CT",
    "t": 3294
   },

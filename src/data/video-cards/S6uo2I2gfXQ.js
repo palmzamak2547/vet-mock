@@ -382,6 +382,10 @@ export default {
    "t": 1672
   },
   {
+   "term": "vestibular",
+   "t": 1157
+  },
+  {
    "term": "T3",
    "t": 5145
   },
@@ -526,16 +530,8 @@ export default {
    "t": 2940
   },
   {
-   "term": "Present",
-   "t": 69
-  },
-  {
    "term": "Hypermetria",
    "t": 3138
-  },
-  {
-   "term": "Delayed",
-   "t": 2940
   },
   {
    "term": "hypotonia",
@@ -548,14 +544,6 @@ export default {
   {
    "term": "progressive",
    "t": 503
-  },
-  {
-   "term": "Variable",
-   "t": 5820
-  },
-  {
-   "term": "Absent",
-   "t": 2940
   },
   {
    "term": "cervical",

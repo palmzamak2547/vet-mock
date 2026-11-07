@@ -715,6 +715,10 @@ export default {
    "t": 5961
   },
   {
+   "term": "biopsy",
+   "t": 6041
+  },
+  {
    "term": "โปรโตซัว",
    "t": 1739
   },
@@ -735,6 +739,10 @@ export default {
    "t": 5317
   },
   {
+   "term": "fin",
+   "t": 6041
+  },
+  {
    "term": "ช็อก",
    "t": 720
   },
@@ -751,6 +759,10 @@ export default {
    "t": 4566
   },
   {
+   "term": "pox",
+   "t": 5324
+  },
+  {
    "term": "อัตราตาย",
    "t": 4523
   },
@@ -761,6 +773,10 @@ export default {
   {
    "term": "coccidiosis",
    "t": 2888
+  },
+  {
+   "term": "cotton",
+   "t": 5016
   },
   {
    "term": "SDDV",

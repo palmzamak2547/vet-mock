@@ -66,7 +66,20 @@ test('with the wall on, an account without a Chula email is refused', async () =
   }
 });
 
-test('a carded clip without our copy still has its transcript, but no video link', async () => {
+test('a guest asking for a card-only clip\'s transcript is asked to sign in first', { skip: !cardOnly && 'every clip has our copy' }, async () => {
+  resetChulaGate();
+  const real = globalThis.fetch;
+  globalThis.fetch = wall(false, {});
+  try {
+    const r = await call(`/api/video-file?v=${cardOnly}&f=transcript`);
+    assert.equal(r.status, 401);
+    assert.equal(r.body.error, 'login_required');
+  } finally {
+    globalThis.fetch = real;
+  }
+});
+
+test('a carded clip without our copy still has its transcript, but no video link and no slides', { skip: !cardOnly && 'every clip has our copy' }, async () => {
   // The audit of 2 Nov: transcripts were kept for every card and served for five.
   resetChulaGate();
   const real = globalThis.fetch;
@@ -77,8 +90,8 @@ test('a carded clip without our copy still has its transcript, but no video link
     return db(u, init);
   };
   try {
-    assert.ok(cardOnly, 'the registry has a carded clip without our copy');
     assert.equal((await call(`/api/video-file?v=${cardOnly}&f=video`, { auth: STUDENT })).status, 404);
+    assert.equal((await call(`/api/video-file?v=${cardOnly}&f=frames`, { auth: STUDENT })).status, 404);
     const r = await call(`/api/video-file?v=${cardOnly}&f=transcript`, { auth: STUDENT });
     assert.equal(r.status, 200, JSON.stringify(r.body));
     assert.deepEqual(r.body.lines, [[12, 'สวัสดี']]);

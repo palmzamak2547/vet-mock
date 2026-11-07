@@ -398,6 +398,10 @@ export default {
    "t": 4588
   },
   {
+   "term": "safety",
+   "t": 1328
+  },
+  {
    "term": "แช่แข็ง",
    "t": 4086
   },
@@ -418,12 +422,8 @@ export default {
    "t": 1374
   },
   {
-   "term": "CRISIS",
-   "t": 1328
-  },
-  {
-   "term": "MIXER",
-   "t": 2564
+   "term": "China",
+   "t": 1661
   },
   {
    "term": "ASF",
@@ -442,8 +442,16 @@ export default {
    "t": 747
   },
   {
+   "term": "feeds",
+   "t": 470
+  },
+  {
    "term": "MBM",
    "t": 1221
+  },
+  {
+   "term": "Brazil",
+   "t": 1806
   },
   {
    "term": "IFIF",

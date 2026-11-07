@@ -635,6 +635,10 @@ export default {
    "t": 7120
   },
   {
+   "term": "culture",
+   "t": 6420
+  },
+  {
    "term": "pseudomonas",
    "t": 5400
   },

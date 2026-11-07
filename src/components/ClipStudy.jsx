@@ -338,7 +338,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
 
         {tab === 'transcript' && (
           transcript.status === 'loading' || transcript.status === 'idle' ? <p className="vmx-clip-note" aria-busy="true">กำลังโหลดคำบรรยาย</p>
-            : transcript.status === 'login' ? <p className="vmx-clip-note">เข้าสู่ระบบเพื่ออ่านคำบรรยายและเปิดสไลด์ของคลิปนี้</p>
+            : transcript.status === 'login' ? <p className="vmx-clip-note">{hasCopy ? 'เข้าสู่ระบบเพื่ออ่านคำบรรยายและเปิดสไลด์ของคลิปนี้' : 'เข้าสู่ระบบเพื่ออ่านคำบรรยายของคลิปนี้'}</p>
               : transcript.status === 'offline' ? <p className="vmx-clip-note">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วเปิดแท็บนี้อีกครั้ง</p>
                 : transcript.status === 'none' ? <p className="vmx-clip-note">คลิปนี้ยังไม่มีคำบรรยาย</p>
                   : transcript.status !== 'ok' ? (
