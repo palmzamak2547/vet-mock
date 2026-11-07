@@ -8,7 +8,7 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { useBuddyPanel } from '../hooks/useStudyBuddies.js';
-import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, calendarDay, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -97,14 +97,15 @@ const NO_SUBJECTS = Object.freeze([]);
 // would hand every memo below a new dependency each time.
 const NO_ITEMS = Object.freeze([]);
 // "21 ก.ย." for a subject card; fmtThaiDate's full weekday form is too long
-// for the one line the card can spare.
+// for the one line the card can spare. The day is the calendar day the date
+// names (calendarDay), so a phone set west of UTC no longer shows it a day early.
 const TH_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const shortThaiDate = (dateStr) => {
-  const d = new Date(dateStr);
-  return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
+  const d = calendarDay(dateStr);
+  return Number.isNaN(d.getTime()) ? '' : `${d.getUTCDate()} ${TH_MONTHS[d.getUTCMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, onStartSubjectPanic = null, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -1148,6 +1149,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   }
                 }}
                 onPickPanic={onStartPanic}
+                onPickSubjectPanic={onStartSubjectPanic}
                 onPickSR={launchSR}
                 onPickPlannedPractice={(subjectId, count) => startExam?.({ mode: 'quick', subject: subjectId,
                   topic: null, practiceMode: 'all', questionCategory: 'all', numQuestions: count, useTimer: false })}
@@ -1307,14 +1309,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 className="vmx-mode-card"
                 onClick={() => launchScoped('predicted', highPredictionCount)}
                 disabled={quickActionPending}
-                aria-label={`ฝึกชุดน่าจะออก ${scopeLabel} ${highPredictionCount} ข้อ ไม่ใช่การยืนยันข้อสอบ`}
-                title="อิงสไลด์ปัจจุบัน พร้อมสัญญาณสนับสนุนอย่างน้อย 2 ทาง เป็นการคาดการณ์"
+                aria-label={`ฝึกชุดหลักฐานตรงกัน ${scopeLabel} ${highPredictionCount} ข้อ`}
+                title="อิงสไลด์ปัจจุบัน พร้อมหลักฐานสนับสนุนอย่างน้อย 2 ทาง"
                 style={{ borderColor: 'var(--clr-gold)' }}
               >
                 <div className="icon"><NavIcon name="exam" size={20} /></div>
-                <div className="title">ชุดน่าจะออก</div>
-                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ, มีหลักฐานหลายทาง แต่ยังเป็นการคาดเดา</div>
-                <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>เน้นสอบ</div>
+                <div className="title">ชุดหลักฐานตรงกัน</div>
+                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ ตรงกับสไลด์ปัจจุบันและมีหลักฐานอย่างน้อย 2 ทาง</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>หลายหลักฐาน</div>
               </button>
             )}
 

@@ -44,6 +44,24 @@ test('imminent exam is first and the plan explains its budget and actual pool li
   assert.match(html, /เผื่ออ่านเฉลย 12 นาที/);
 });
 
+test('on a paper day the card opens that course\'s own Panic set and names it in Thai', () => {
+  const exam = { subject: 'com3', title: 'COM III — ปลายภาค', date: '2026-11-23', daysLeft: 0, term: 'final' };
+  const handlers = { onPickPanic: () => {}, onPickSubjectPanic: () => {} };
+  const today = render({ history: [], nextExam: exam, ...handlers });
+  assert.match(today, /data-kind="panic"/);
+  assert.match(today, /วันนี้สอบCOM III/);
+  assert.match(today, /เริ่มทบทวน/);
+  assert.doesNotMatch(today, /เริ่ม 30 นาที/);
+  assert.match(render({ history: [], nextExam: { ...exam, daysLeft: 1 }, ...handlers }), /พรุ่งนี้สอบCOM III/);
+  // A row that names no course keeps the cross-subject cram.
+  assert.match(render({ history: [], nextExam: { ...exam, subject: null }, ...handlers }), /เริ่ม 30 นาที/);
+  // A week out, the prep card prints the course's name, not the timetable's
+  // English title with its paper.
+  const week = render({ history: [], nextExam: { ...exam, daysLeft: 3 } });
+  assert.match(week, /ติว COM III/);
+  assert.doesNotMatch(week, /COM III — ปลายภาค/);
+});
+
 test('resume and the first question stay ahead of a full plan', () => {
   const resume = render({ pendingResume: { answered: 2, qCount: 5, ageMin: 1 } });
   assert.deepEqual([...resume.matchAll(/data-kind="(\w+)"/g)].map(m => m[1]), ['resume']);
