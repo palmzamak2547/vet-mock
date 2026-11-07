@@ -48,6 +48,9 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     [query, setQuery] = useState('');
   const [hidden, setHidden] = useState([]),
     [isolated, setIsolated] = useState(false);
+  // A labeled specimen opens organs-first (its authored defaultHidden), until
+  // the user touches the layer controls themselves.
+  const visibilityTouched = useRef(false);
   const [exploded, setExploded] = useState(0),
     [coloured, setColoured] = useState(true),
     [ghost, setGhost] = useState(false),
@@ -123,13 +126,17 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
       .catch(() => {});
     return () => { live = false; };
   }, []);
+  useEffect(() => {
+    if (labelsModule && !visibilityTouched.current) setHidden(labelsModule.defaultHiddenFor(specimen.id));
+  }, [labelsModule, specimen.id]);
   const runClinic = (id) => {
     setClinicView(id);
     setCommand({ kind: 'clinic', preset: id, seq: ++sequence.current });
   };
   const reset = useCallback(() => {
-    setHidden([]);
+    setHidden(labelsModule ? labelsModule.defaultHiddenFor(specimen.id) : []);
     setIsolated(recall);
+
     setExploded(0);
     setCut(0);
     setCutAxis('z');
@@ -137,7 +144,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     setClinicView('');
     setGhost(false);
     run('reset');
-  }, [recall, run]);
+  }, [recall, run, labelsModule, specimen.id]);
   useEffect(() => {
     const previous = document.title;
     document.title = recall
@@ -234,6 +241,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
       reset();
       return;
     }
+    visibilityTouched.current = false;
     clearView();
     setRevealed(false);
     setRound(0);
@@ -249,6 +257,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     run('reset');
   };
   const enterMode = (next) => {
+    visibilityTouched.current = false;
     clearView();
     setMode(next);
     setRevealed(false);
@@ -279,6 +288,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     setShareFallback('');
   }, []);
   const changeVisibility = (ids, action) => {
+    visibilityTouched.current = true;
     const next = new Set(atlasGroupVisibility(specimen, visibleIds, ids, action));
     setIsolated(false);
     setHidden(specimen.parts.filter((item) => !next.has(item.id)).map((item) => item.id));
@@ -622,7 +632,15 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           {ready && visibleIds.length === 0 && (
             <div className="vmx-atlas-failure" role="status">
               <p>ซ่อนชิ้นส่วนทั้งหมดแล้ว</p>
-              <button type="button" onClick={reset}>
+              <button
+                type="button"
+                onClick={() => {
+                  visibilityTouched.current = true;
+                  setHidden([]);
+                  setIsolated(false);
+                  run('fit');
+                }}
+              >
                 <Eye size={16} aria-hidden="true" />
                 แสดงทั้งหมด
               </button>

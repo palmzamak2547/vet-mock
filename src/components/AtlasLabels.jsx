@@ -6,8 +6,18 @@ import '../styles-atlas-labels.css';
 // True when the specimen has an authored label set. The generated registry is
 // reachable only through this chunk, so AtlasView imports the chunk and derives
 // the toggle's disabled state from this answer; an empty registry is a no-op.
+const NOTHING_HIDDEN = Object.freeze([]);
+
 export function hasLabels(specimenId) {
   return Boolean(ATLAS_LABELS[specimenId]?.labels?.length);
+}
+
+// Parts a labeled specimen starts with hidden, so labels name structures the
+// student can actually see (owner decision 13: the visible dog opens without
+// its skin and muscle covering the labeled organs). Unlabeled specimens get an
+// unchanged empty list.
+export function defaultHiddenFor(specimenId) {
+  return ATLAS_LABELS[specimenId]?.defaultHidden ?? NOTHING_HIDDEN;
 }
 
 function applyMatrix([x, y, z], m) {

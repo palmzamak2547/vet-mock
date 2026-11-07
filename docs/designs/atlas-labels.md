@@ -37,6 +37,7 @@ All decisions below were made by the owner (Palm) on 2026-11-07; items 11-12 wer
 10. Toggle persistence: session-only.
 11. Latin visibility across surfaces (review decision): v1 keeps Latin in the label layer only; the inspector and directory keep their current behavior, and the divergence is accepted for v1 with a named phase-2 home (Future Improvements). The atlas budget row stays byte-identical. **Never** write drafted Latin back into `src/data/atlas-visible-dog.js` — that file is hand-authored data, and write-back would turn it into a generated file.
 12. Toggle rendering on unlabeled specimens (review decision): the toggle renders **disabled**, so its position stays stable across specimens.
+13. Opening state of the pilot (sign-off decision, 2026-11-07): the visible dog opens **organs-first** — skin and muscle start hidden so the labeled organs are visible; each layer is one click away in the systems row. Encoded as `defaultHidden` in the authored label file, applied while the user has not touched the layer controls; the "แสดงทั้งหมด" escape hatch still shows everything.
 
 ## Goals
 

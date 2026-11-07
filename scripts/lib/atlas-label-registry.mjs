@@ -16,6 +16,7 @@ export function buildLabelRegistry(proof, authored) {
   if (!Array.isArray(authored.labels)) throw new Error('Authored labels must be an array.');
   const partIds = new Set(proof.profiles.quick.parts.map(part => part.id));
   const rows = authored.labels.map(label => {
+    // (per-label validation below)
     if (!partIds.has(label.partId)) throw new Error(`Unknown partId "${label.partId}" for ${proof.id}.`);
     if (!nonEmpty(label.latin)) throw new Error(`Label "${label.partId}" ships with an empty latin field.`);
     if (!finitePoint(label.source)) throw new Error(`Label "${label.partId}" has no finite source anchor.`);
@@ -27,5 +28,13 @@ export function buildLabelRegistry(proof, authored) {
     }
     return row;
   });
-  return { [proof.id]: { labels: rows } };
+  const entry = { [proof.id]: { labels: rows } };
+  if (authored.defaultHidden !== undefined) {
+    if (!Array.isArray(authored.defaultHidden) || authored.defaultHidden.some(id => !partIds.has(id))
+      || new Set(authored.defaultHidden).size !== authored.defaultHidden.length) {
+      throw new Error(`defaultHidden for ${proof.id} must be known part ids without duplicates.`);
+    }
+    entry[proof.id].defaultHidden = [...authored.defaultHidden];
+  }
+  return entry;
 }

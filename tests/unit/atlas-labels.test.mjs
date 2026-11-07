@@ -81,6 +81,25 @@ test('registry builder: nothing authored means nothing emitted (rollback contrac
   assert.equal(buildLabelRegistry(SYNTHETIC_PROOF, null), null);
 });
 
+test('registry builder: defaultHidden passes through, validated against known part ids', () => {
+  const entry = buildLabelRegistry(SYNTHETIC_PROOF, {
+    specimen: 'spec-x',
+    defaultHidden: ['heart'],
+    labels: [{ partId: 'lung', source: [4, 5, 6], latin: 'Pulmo', pickedAt: '2026-11-07', pickedAgainst: 'abc' }],
+  });
+  assert.deepEqual(entry['spec-x'].defaultHidden, ['heart']);
+  assert.throws(() => buildLabelRegistry(SYNTHETIC_PROOF, {
+    specimen: 'spec-x',
+    defaultHidden: ['spleen'],
+    labels: [{ partId: 'lung', source: [4, 5, 6], latin: 'Pulmo', pickedAt: '2026-11-07', pickedAgainst: 'abc' }],
+  }), /defaultHidden/);
+  assert.throws(() => buildLabelRegistry(SYNTHETIC_PROOF, {
+    specimen: 'spec-x',
+    defaultHidden: ['heart', 'heart'],
+    labels: [{ partId: 'lung', source: [4, 5, 6], latin: 'Pulmo', pickedAt: '2026-11-07', pickedAgainst: 'abc' }],
+  }), /defaultHidden/);
+});
+
 test('registry builder: rejects unknown parts, empty latin, missing anchors and mismatches', () => {
   const base = { specimen: 'spec-x', pickedAt: '2026-11-07', pickedAgainst: 'abc' };
   assert.throws(() => buildLabelRegistry(SYNTHETIC_PROOF, { specimen: 'other', labels: [] }), /targets/);

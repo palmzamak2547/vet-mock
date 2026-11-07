@@ -155,6 +155,10 @@ export const ATLAS_LABELS = Object.freeze({
         ],
         "latin": "Trachea"
       }
+    ],
+    "defaultHidden": [
+      "skin",
+      "muscle"
     ]
   }
 });
