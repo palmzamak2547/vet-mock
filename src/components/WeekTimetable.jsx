@@ -118,7 +118,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now
                       <span style={{ minWidth: 0 }}>
                         <span style={{ display: 'block', fontSize: 14, fontWeight: 600, color: openable ? 'var(--clr-ocean-text)' : 'var(--clr-ink)', lineHeight: 1.35 }}>
                           {c.title}
-                          {c.kind === 'lab' && (
+                          {c.kind === 'lab' && !String(c.title).includes('LAB') && (
                             <span style={{ fontSize: 11, marginLeft: 6, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>LAB</span>
                           )}
                         </span>

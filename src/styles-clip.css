@@ -162,6 +162,8 @@
 .vmx-clip-text { display: grid; gap: var(--space-1); min-width: 0; overflow-wrap: anywhere; }
 .vmx-clip-ctitle { font-weight: 600; }
 .vmx-clip-cline { color: var(--clr-ink-soft); }
+/* An untitled stretch: its line is the row's text. */
+.vmx-clip-text > .vmx-clip-cline:first-child { color: var(--clr-ink); }
 
 .vmx-clip-tag {
   justify-self: start;
