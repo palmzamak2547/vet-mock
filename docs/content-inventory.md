@@ -38,7 +38,7 @@ Consistency: source banks **7814**, learner-ready **7736**, fail-closed **78**, 
 
 ## Curriculum
 
-86 subjects, 1062 topics in the taxonomy.
+86 subjects, 1086 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
