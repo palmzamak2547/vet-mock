@@ -386,14 +386,6 @@ export default {
  ],
  "index": [
   {
-   "term": "FOOD",
-   "t": 3639
-  },
-  {
-   "term": "FEED",
-   "t": 470
-  },
-  {
    "term": "EU",
    "t": 1350
   },
@@ -406,20 +398,8 @@ export default {
    "t": 4588
   },
   {
-   "term": "SAFETY",
-   "t": 1328
-  },
-  {
    "term": "แช่แข็ง",
    "t": 4086
-  },
-  {
-   "term": "US",
-   "t": 1139
-  },
-  {
-   "term": "OF",
-   "t": 464
   },
   {
    "term": "อหิวาต์แอฟริกาในสุกร",
@@ -442,10 +422,6 @@ export default {
    "t": 1328
   },
   {
-   "term": "CHINA",
-   "t": 1661
-  },
-  {
    "term": "MIXER",
    "t": 2564
   },
@@ -462,24 +438,12 @@ export default {
    "t": 4460
   },
   {
-   "term": "IN",
-   "t": 1657
-  },
-  {
    "term": "ADM",
    "t": 747
   },
   {
-   "term": "FEEDS",
-   "t": 470
-  },
-  {
    "term": "MBM",
    "t": 1221
-  },
-  {
-   "term": "BRAZIL",
-   "t": 1806
   },
   {
    "term": "IFIF",

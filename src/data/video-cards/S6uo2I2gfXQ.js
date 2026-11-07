@@ -366,10 +366,6 @@ export default {
    "t": 2872
   },
   {
-   "term": "nerve",
-   "t": 2872
-  },
-  {
    "term": "spinal",
    "t": 4126
   },
@@ -384,10 +380,6 @@ export default {
   {
    "term": "reaction",
    "t": 1672
-  },
-  {
-   "term": "vestibular",
-   "t": 1157
   },
   {
    "term": "T3",

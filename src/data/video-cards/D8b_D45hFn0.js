@@ -368,10 +368,6 @@ export default {
    "t": 7033
   },
   {
-   "term": "CASE",
-   "t": 1681
-  },
-  {
    "term": "อินซูลิน",
    "t": 6950
   },
@@ -382,14 +378,6 @@ export default {
   {
    "term": "AR",
    "t": 5139
-  },
-  {
-   "term": "TABLE",
-   "t": 4483
-  },
-  {
-   "term": "RISK",
-   "t": 5093
   },
   {
    "term": "95% ci",
@@ -434,10 +422,6 @@ export default {
   {
    "term": "odds ratio",
    "t": 4020
-  },
-  {
-   "term": "BIAS",
-   "t": 5640
   },
   {
    "term": "epidemiology",

@@ -97,7 +97,7 @@ export default {
   },
   {
    "t": 360,
-   "title": "Animals",
+   "title": "",
    "line": "history taking ถามการรักษาและยาที่ใช้มาก่อน สภาพแวดล้อม การบันทึกข้อมูล และการ restrain สัตว์ให้ปลอดภัย",
    "slides": [
     {

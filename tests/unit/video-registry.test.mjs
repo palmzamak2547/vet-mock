@@ -11,7 +11,8 @@ import { VIDEO_TOPIC_INDEX } from '../../src/data/video-topic-index.generated.js
 import { VIDEO_CHANNELS } from '../../src/data/video-channels.js';
 import { SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
 import { LIMITS, keyPointCap, thaiWords, voiceErrors, overlap, SELF_NAMING } from '../../src/lib/video-summary-check.js';
-import { topicFits, displayTitle, tidyText, tidyHeading, chapterTitles, wholeHeading } from '../../scripts/video-registry.mjs';
+import { topicFits, displayTitle, tidyText, tidyHeading, chapterTitles, wholeHeading, indexTerm } from '../../scripts/video-registry.mjs';
+import { clipRows } from '../../src/lib/video-library.js';
 
 const subjects = new Map(Object.values(SUBJECTS_BY_YEAR).flat().map((s) => [s.id, s]));
 const topics = new Set([...subjects.values()].flatMap((s) => (s.topics || []).map((t) => t.id)));
@@ -60,6 +61,21 @@ test('a session title loses its number and date, never its words', () => {
   assert.equal(displayTitle('3.Eqine infectious disease and biosecurity  15 Oct 69'), 'Equine infectious disease and biosecurity');
 });
 
+test('an index term is a term: no heading words, no cut endings', () => {
+  // The audit of 2 Nov: "IN", "OF", "HEALTH" from capitalised headings, "Coronaviru" and "MER" from cut plurals.
+  const cases = { caps: new Map([['HEALTH', 16], ['CO', 9], ['ELISA', 40], ['DOG', 3]]), plain: new Map([['health', 515], ['co', 36], ['dog', 114]]) };
+  const said = 'Coronavirus and MERS in camels, antibodies by ELISA; CO falls';
+  assert.equal(indexTerm('IN', said, cases), null);
+  assert.equal(indexTerm('HEALTH', said, cases), null);
+  assert.equal(indexTerm('DOG', said, cases), null);
+  assert.equal(indexTerm('CO', said, cases), 'CO', 'cardiac output is no ordinary word');
+  assert.equal(indexTerm('ELISA', said, cases), 'ELISA');
+  assert.equal(indexTerm('MER', said, cases), 'MERS');
+  assert.equal(indexTerm('Coronaviru', said, cases), 'Coronavirus');
+  assert.equal(indexTerm('antibodie', said, cases), 'antibodies');
+  assert.equal(indexTerm('วางยาสลบ', said, cases), 'วางยาสลบ');
+});
+
 test('a deck PDF\'s text layer reads as the deck printed it', () => {
   assert.equal(tidyText('ตอนที่ 1 ระบบการจ าแนกชนิดฟันของม้า'), 'ตอนที่ 1 ระบบการจำแนกชนิดฟันของม้า');
   assert.equal(tidyText('ความเข้มข้นของสารละลายในน ้า 2-4%'), 'ความเข้มข้นของสารละลายในน้ำ 2-4%');
@@ -83,6 +99,15 @@ test('chapter titles: spaced capitals read back, and a stretch without a slide h
     chapterTitles(['P R E V E N T I O N', 'T H A N K', '3/4/2026 (ต่อ)', null, 'ภาควิชาสัตวแพทยสาธารณสุข คณะสัตวแพทยศาสตร์', '1.2.Type of mastitis (ต่อ) (ต่อ)'], count),
     ['Prevention', 'Prevention (ต่อ)', '', '', '', '1.2.Type of mastitis (ต่อ)'],
   );
+  // The audit of 2 Nov: a stray letter and a running header name nothing; a short Thai heading does.
+  assert.deepEqual(chapterTitles(['o', 'Equine', 'Equine (ต่อ)', 'ไต'], count), ['', '', '', 'ไต']);
+});
+
+test('a topic\'s clip list has one row per clip, as its count says', () => {
+  // The audit of 2 Nov: the button said "คลิป 1" and the list opened three rows of one lecture.
+  const rows = clipRows([{ v: 'a', s: 10, e: 70 }, { v: 'b', s: 0, e: 30 }, { v: 'a', s: 200, e: 260 }]);
+  assert.deepEqual(rows.map((r) => [r.v, r.s, r.n, r.sec]), [['a', 10, 2, 120], ['b', 0, 1, 30]]);
+  for (const [topic, list] of Object.entries(VIDEO_TOPIC_INDEX)) assert.equal(clipRows(list).length, new Set(list.map((x) => x.v)).size, topic);
 });
 
 test('the small index and the card loaders agree with the registry', () => {

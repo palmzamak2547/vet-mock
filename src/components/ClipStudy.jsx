@@ -112,7 +112,8 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
   }, [videoId, hasCopy, carded]);
   useEffect(() => {
     if (tab !== 'transcript' || transcript.status !== 'idle') return;
-    if (!hasCopy) { setTranscript({ status: 'none' }); return; }
+    // Every card's transcript is kept, with or without our copy of the video.
+    if (!carded) { setTranscript({ status: 'none' }); return; }
     // Setting "loading" runs this effect again, so the answer is matched to its
     // clip by a ref; a cleanup here would throw every answer away.
     const id = videoId;
@@ -122,7 +123,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
       if (transcriptFor.current !== id) return;
       setTranscript(r.status === 'ok' ? { status: 'ok', lines: (r.data.lines || []).map(([t, text]) => ({ t, text })) } : r.code === 404 ? { status: 'none' } : r);
     });
-  }, [tab, videoId, hasCopy, transcript.status]);
+  }, [tab, videoId, carded, transcript.status]);
 
   // Watched marks grow only while the video plays forward; the place the
   // student stopped is kept every five seconds. Playing on into a stretch

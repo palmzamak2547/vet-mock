@@ -1,6 +1,6 @@
 // ============================================================
-// TopicClips — "ดูช่วงนี้": the stretches of lecture video that teach a
-// topic, surest first, each opening the clip at its first second.
+// TopicClips — "ดูช่วงนี้": the clips that teach a topic, one row each,
+// surest first, each opening at its surest stretch.
 // ============================================================
 // On a topic card it lists them; under a question (quiet) it offers the one
 // best stretch and says nothing when there is none.
@@ -36,7 +36,7 @@ export default function TopicClips({ topicId, limit = 8, quiet = false }) {
             <span className="vmx-clip-text">
               <strong className="vmx-clip-ctitle">{quiet ? 'ดูช่วงที่สอนหัวข้อนี้' : c.video.title}</strong>
               <span className="vmx-clip-cline">
-                {quiet ? `${c.video.title}, ` : ''}{thaiDate(c.video.date)}, {Math.max(1, Math.round((c.e - c.s) / 60))} นาที
+                {quiet ? `${c.video.title}, ` : ''}{thaiDate(c.video.date)}, {Math.max(1, Math.round(c.sec / 60))} นาที{c.n > 1 ? ` ใน ${c.n} ช่วง` : ''}
               </span>
             </span>
           </a>

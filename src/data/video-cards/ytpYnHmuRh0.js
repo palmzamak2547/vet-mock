@@ -184,10 +184,6 @@ export default {
    "t": 4277
   },
   {
-   "term": "SKIN",
-   "t": 935
-  },
-  {
    "term": "generalized",
    "t": 6606
   },
@@ -198,14 +194,6 @@ export default {
   {
    "term": "ขี้เรื้อน",
    "t": 6305
-  },
-  {
-   "term": "CYCLE",
-   "t": 4566
-  },
-  {
-   "term": "DOG",
-   "t": 2151
   },
   {
    "term": "follicle",
@@ -228,10 +216,6 @@ export default {
    "t": 2740
   },
   {
-   "term": "LIFE",
-   "t": 4566
-  },
-  {
    "term": "ขี้เรื้อนเปียก",
    "t": 6305
   },
@@ -244,40 +228,12 @@ export default {
    "t": 5722
   },
   {
-   "term": "BODY",
-   "t": 2521
-  },
-  {
    "term": "dermatology",
    "t": 49
   },
   {
    "term": "ภูมิแพ้ผิวหนัง",
    "t": 4789
-  },
-  {
-   "term": "LOCAL",
-   "t": 4339
-  },
-  {
-   "term": "OF",
-   "t": 2444
-  },
-  {
-   "term": "ON",
-   "t": 6970
-  },
-  {
-   "term": "DOGS",
-   "t": 6132
-  },
-  {
-   "term": "IN",
-   "t": 6331
-  },
-  {
-   "term": "CAT",
-   "t": 6132
   },
   {
    "term": "Differential diagnosis",
@@ -304,20 +260,8 @@ export default {
    "t": 5700
   },
   {
-   "term": "INDOOR",
-   "t": 0
-  },
-  {
-   "term": "NOT",
-   "t": 5760
-  },
-  {
    "term": "NSS",
    "t": 4980
-  },
-  {
-   "term": "IT",
-   "t": 6780
   },
   {
    "term": "Otodectes cynotis",

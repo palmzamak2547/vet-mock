@@ -1523,10 +1523,8 @@ Retrospective study revealed:
     date: "2025-10-06",
     durationMin: 64,
     instructor: "อ.ธนศักดิ์",
-    examFormat: "NOT IN EXAM (ไม่ออกสอบ) — interesting research overview",
     summary: `# Veterinary Epidemiology — 7.2 Epidemiology Application in Current Research
 
-> 🎯 ⚠️ **NOT EXAMINED** — อ.ธนศักดิ์บอกชัดเจน lecture นี้เพื่อ inspiration ไม่ออกสอบ
 > 💡 ใช้ดูว่า research career possibilities เป็นยังไง — โดยเฉพาะ AI + genomics + One Health
 
 ---
@@ -1578,7 +1576,7 @@ Retrospective study revealed:
 ---
 
 ## 📋 Recap
-- ⚠️ **NOT EXAMINED** but valuable for career thinking
+- ⭐ Valuable for career thinking
 - ⭐ Future research directions
 - ⭐ Interdisciplinary work growing
 

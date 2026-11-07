@@ -715,24 +715,12 @@ export default {
    "t": 5961
   },
   {
-   "term": "BIOPSY",
-   "t": 6041
-  },
-  {
    "term": "โปรโตซัว",
    "t": 1739
   },
   {
-   "term": "FISH",
-   "t": 7393
-  },
-  {
    "term": "พยาธิ",
    "t": 4547
-  },
-  {
-   "term": "LIVING",
-   "t": 1979
   },
   {
    "term": "medicine",
@@ -745,14 +733,6 @@ export default {
   {
    "term": "khv",
    "t": 5317
-  },
-  {
-   "term": "IN",
-   "t": 7098
-  },
-  {
-   "term": "FIN",
-   "t": 6041
   },
   {
    "term": "ช็อก",
@@ -771,14 +751,6 @@ export default {
    "t": 4566
   },
   {
-   "term": "OF",
-   "t": 5377
-  },
-  {
-   "term": "POX",
-   "t": 5324
-  },
-  {
    "term": "อัตราตาย",
    "t": 4523
   },
@@ -791,28 +763,8 @@ export default {
    "t": 2888
   },
   {
-   "term": "TYPE",
-   "t": 5332
-  },
-  {
-   "term": "COTTON",
-   "t": 5016
-  },
-  {
-   "term": "WATER",
-   "t": 4713
-  },
-  {
-   "term": "VIRUS",
-   "t": 5324
-  },
-  {
    "term": "SDDV",
    "t": 5403
-  },
-  {
-   "term": "BLOOD",
-   "t": 6561
   },
   {
    "term": "AVMA",

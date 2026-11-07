@@ -3,15 +3,14 @@
 // and rebuild, or the next run puts this back.
 export default {
   videoId: "YWlclk9v6cE",
-  title: "One Health — 15.2 Import Risk Assessment for Prawn Products (NOT IN EXAM)",
+  title: "One Health — 15.2 Import Risk Assessment for Prawn Products",
   subject: "one-health",
   date: "2025-11-19",
   durationMin: 47,
   instructor: "CUVET One Health team",
-  examFormat: "NOT IN EXAM (ไม่ออกสอบ) — case study application",
-  summary: `# One Health — 15.2 Import Risk Assessment for Prawn Products (NOT IN EXAM)
+  summary: `# One Health — 15.2 Import Risk Assessment for Prawn Products
 
-> 🎯 ⚠️ **NOT EXAMINED** — Case study: Import risk assessment for prawn products. Practical application of risk analysis framework
+> 🎯 Case study: Import risk assessment for prawn products. Practical application of risk analysis framework
 
 ---
 
@@ -34,7 +33,6 @@ export default {
 ---
 
 ## 📋 Recap
-- ⚠️ **NOT EXAMINED** but practical
 - ⭐ Real-world application
 - ⭐ Prawn industry critical Thailand`,
 };

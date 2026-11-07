@@ -815,7 +815,7 @@ export default {
    "t": 3060
   },
   {
-   "term": "sepsi",
+   "term": "sepsis",
    "t": 3600
   },
   {

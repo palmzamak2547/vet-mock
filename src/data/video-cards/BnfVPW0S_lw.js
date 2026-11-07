@@ -361,18 +361,6 @@ export default {
    "t": 63
   },
   {
-   "term": "intermediate",
-   "t": 2631
-  },
-  {
-   "term": "index",
-   "t": 1533
-  },
-  {
-   "term": "SAR",
-   "t": 375
-  },
-  {
    "term": "COVID",
    "t": 3334
   },
@@ -393,10 +381,6 @@ export default {
    "t": 4378
   },
   {
-   "term": "origin",
-   "t": 266
-  },
-  {
    "term": "pandemic",
    "t": 222
   },
@@ -409,7 +393,7 @@ export default {
    "t": 700
   },
   {
-   "term": "MER",
+   "term": "MERS",
    "t": 4446
   },
   {
@@ -433,14 +417,6 @@ export default {
    "t": 4472
   },
   {
-   "term": "HPC",
-   "t": 931
-  },
-  {
-   "term": "DC",
-   "t": 2053
-  },
-  {
    "term": "ไต",
    "t": 1320
   },
@@ -449,28 +425,8 @@ export default {
    "t": 2160
   },
   {
-   "term": "CU",
-   "t": 0
-  },
-  {
-   "term": "CH",
-   "t": 780
-  },
-  {
-   "term": "HK",
-   "t": 1260
-  },
-  {
-   "term": "MERS",
-   "t": 1920
-  },
-  {
    "term": "ELISA",
    "t": 2940
-  },
-  {
-   "term": "Worldwide",
-   "t": 1920
   },
   {
    "term": "Vietnam",
@@ -481,7 +437,7 @@ export default {
    "t": 420
   },
   {
-   "term": "Coronaviru",
+   "term": "Coronavirus",
    "t": 2206
   },
   {
@@ -493,7 +449,7 @@ export default {
    "t": 2524
   },
   {
-   "term": "antibodie",
+   "term": "antibodies",
    "t": 2940
   },
   {

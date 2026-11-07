@@ -558,10 +558,6 @@ export default {
    "t": 2064
   },
   {
-   "term": "VIRAL",
-   "t": 6028
-  },
-  {
    "term": "culture",
    "t": 5558
   },

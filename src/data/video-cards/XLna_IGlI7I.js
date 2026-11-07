@@ -555,10 +555,6 @@ export default {
  ],
  "index": [
   {
-   "term": "FORM",
-   "t": 2660
-  },
-  {
    "term": "choice",
    "t": 1742
   },
@@ -567,20 +563,12 @@ export default {
    "t": 3256
   },
   {
-   "term": "IN",
-   "t": 1915
-  },
-  {
    "term": "culture",
    "t": 1328
   },
   {
    "term": "CNS",
    "t": 2660
-  },
-  {
-   "term": "NASAL",
-   "t": 2710
   },
   {
    "term": "CT",
@@ -637,10 +625,6 @@ export default {
   {
    "term": "biopsy",
    "t": 2976
-  },
-  {
-   "term": "GOOD",
-   "t": 262
   },
   {
    "term": "histology",

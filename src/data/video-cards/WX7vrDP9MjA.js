@@ -443,10 +443,6 @@ export default {
    "t": 2051
   },
   {
-   "term": "FAT",
-   "t": 8824
-  },
-  {
    "term": "biology",
    "t": 7676
   },

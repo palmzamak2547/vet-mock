@@ -137,6 +137,8 @@ export function wholeHeading(title, pageText = '') {
 const DATE_TITLE = /^\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}(?:\s+[A-Za-z])?$/;
 const INSTITUTION = /ภาควิชา|คณะสัตวแพทยศาสตร์|จุฬาลงกรณ์มหาวิทยาลัย|chulalongkorn university|faculty of veterinary/i;
 const CLOSING = /^(?:thank(?:s| you)?|the end|q\s*&\s*a|questions?)$/i;
+// A deck's running header ("Equine" on every slide) or a stray letter ("o") names no stretch.
+const NO_NAME = /^(?:[A-Za-z]|(?:equine|mare|stallion|horse|swine|porcine|bovine|cattle|canine|feline|avian|poultry|ruminant|animal|dog|cat)s?)$/i;
 /**
  * The chapter panel's titles, in order. A title is a slide's heading; null (a
  * stretch with no slides, titled by two words it heard), a date, the faculty's
@@ -149,10 +151,46 @@ export function chapterTitles(list, count = lectureWords) {
     const own = title ? tidyHeading(title, count) : null;
     const base = own?.replace(/\s*\(ต่อ\)$/, '') || '';
     if (base && CLOSING.test(base)) return prev && `${prev} (ต่อ)`;
-    const t = !own || DATE_TITLE.test(base) || INSTITUTION.test(base) ? '' : own;
+    const t = !own || DATE_TITLE.test(base) || INSTITUTION.test(base) || NO_NAME.test(base) ? '' : own;
     prev = t.replace(/\s*\(ต่อ\)$/, '');
     return t;
   });
+}
+
+// The index's words as the lecture uses them (the audit of 2 Nov): a heading set
+// in capitals leaves ordinary words ("IN", "HEALTH", "TABLE") that the decks write
+// in ordinary case elsewhere, and the analysis cut a term's s ("endometriti", "MER").
+let deckCase = null;
+function deckWordCase() {
+  if (!deckCase) {
+    deckCase = { caps: new Map(), plain: new Map() };
+    for (const id of fs.existsSync(DATA) ? fs.readdirSync(DATA) : []) {
+      const text = (readJSON(path.join(DATA, id, 'deck.json'))?.pages || []).map((p) => p.text).join('\n').replace(/\bet al\b/gi, '');
+      for (const w of text.match(/\b[A-Za-z]+\b/g) || []) {
+        if (/^[A-Z]+$/.test(w) && w.length > 1) deckCase.caps.set(w, (deckCase.caps.get(w) || 0) + 1);
+        else if (/^[A-Z]?[a-z]+$/.test(w)) deckCase.plain.set(w.toLowerCase(), (deckCase.plain.get(w.toLowerCase()) || 0) + 1);
+      }
+    }
+  }
+  return deckCase;
+}
+const FUNCTION_WORDS = new Set(['a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'do', 'does', 'ex', 'for', 'from', 'how', 'in', 'is', 'it', 'not', 'of', 'on', 'one', 'or', 'out', 'the', 'to', 'us', 'with']);
+/**
+ * An index term as the lecture says it, or null for a heading's ordinary word.
+ * `said` is the clip's slides and transcript; `cases` counts how the decks write words.
+ * A short capital word must be ten times commoner in ordinary case (CO, HR stay).
+ */
+export function indexTerm(term, said, { caps, plain } = deckWordCase()) {
+  const t = tidyText(term);
+  if (!/^[A-Za-z]+$/.test(t)) return t;
+  const low = t.toLowerCase();
+  if (FUNCTION_WORDS.has(low)) return null;
+  const has = (w, flags = '') => new RegExp(`(?<![A-Za-z0-9])${w}(?![A-Za-z0-9])`, flags).test(said);
+  if (/^[A-Z]+$/.test(t)) {
+    if (has(`${t}S`) && !has(t)) return `${t}S`;
+    return (plain.get(low) || 0) > (caps.get(t) || 0) * (t.length <= 3 ? 10 : 1) ? null : t;
+  }
+  return /(?:i|u|ie)$/.test(low) && has(`${low}s`, 'i') && !has(low, 'i') ? `${t}s` : t;
 }
 
 // One fact once on the card (the review of #147): an emphasis or remember item
@@ -186,6 +224,7 @@ function cardOf(v, a, s, stale) {
     return !k;
   }).map((p) => ({ t: p.t, text: p.text }));
   const remember = s.summary.remember.filter((p) => !said(p, [...keyPoints, ...emphasis])).map((p) => ({ t: p.t, text: p.text }));
+  const spoken = `${(deck?.pages || []).map((p) => p.text).join('\n')}\n${(a.lines || []).map(([, x]) => x).join('\n')}`;
   return {
     oneLiner: s.summary.oneLiner,
     keyPoints,
@@ -193,7 +232,15 @@ function cardOf(v, a, s, stale) {
     remember,
     chapters: chapters.map((c, i) => ({ t: c.start, title: titles[i], line: lines[i].line, ...(c.pages?.length && { slides: c.pages.map(pageOf).filter(Boolean) }) })),
     // Once each, without the slide's bullet characters, as the deck printed them.
-    index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: tidyText(x.term), t: x.at } : { number: tidyText(String(x.text).replace(/^[\s•▪◦●▸►‣∙·\-–—*]+/, '')), t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) }))
+    // A heading's ordinary word and a number row without a number ("effective") are no entries.
+    index: s.topicIndex.map((x) => (x.kind === 'concept' ? { term: indexTerm(x.term, spoken), t: x.at } : { number: tidyText(String(x.text).replace(/^[\s•▪◦●▸►‣∙·\-–—*]+/, '')), t: x.at, ...(pageOf(x.page) && { slide: pageOf(x.page) }) }))
+      .filter((x) => x.term || /\d/.test(x.number || ''))
+      // A word the index already says longer goes: "SAR" beside "SARS", "standing" beside
+      // "Standing anesthesia". "encephalitis" stays beside "Japanese encephalitis": another concept.
+      .filter((x, i, all) => !x.term || /\s/.test(x.term) || !all.some((y) => y.term && y !== x
+        && (y.term.toLowerCase() === `${x.term.toLowerCase()}s` || y.term.toLowerCase().startsWith(`${x.term.toLowerCase()} `))))
+      // Rows a reader found to be slide fragments, kept beside the summary's hand edits.
+      .filter((x) => !(polish?.dropIndex || []).includes(x.term || x.number))
       .filter((x, i, all) => all.findIndex((y) => (y.term || y.number).toLowerCase() === (x.term || x.number).toLowerCase()) === i),
   };
 }

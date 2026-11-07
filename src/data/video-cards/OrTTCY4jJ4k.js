@@ -370,7 +370,7 @@ export default {
    "t": 480
   },
   {
-   "term": "myoclonu",
+   "term": "myoclonus",
    "t": 480
   },
   {
