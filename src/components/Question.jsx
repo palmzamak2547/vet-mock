@@ -927,9 +927,19 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
   const [isFresh] = useState(fresh);
   const reaction = feedbackReaction({ ok, run });
   const { preferences } = useMotionPreferences();
+  // A verdict given just now paints on its own first, and the explanation,
+  // figure, coach and wiki link follow one frame later. Laying out that Thai
+  // text was most of the tap (79 of 192 ms on a 4x-slowed phone, 22 Oct
+  // baseline), and it sat between the tap and the ✓/✗ appearing. An answer
+  // revisited later shows everything at once.
+  const [rest, setRest] = useState(!isFresh);
   useEffect(() => {
     if (isFresh) haptic(reaction.haptic, preferences);
-    onShown?.();
+    if (rest) { onShown?.(); return undefined; }
+    let timer = 0;
+    // After the next paint: rAF runs just before it, the timeout just after.
+    const frame = requestAnimationFrame(() => { timer = setTimeout(() => { setRest(true); onShown?.(); }, 0); });
+    return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per revealed answer
   const combo = ok && run >= COMBO_MIN;
   return (
@@ -956,16 +966,16 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {(alwaysShowCorrect || !ok) && correctNode != null && (
         <div className="a"><span className="k">เฉลย</span><div className="vmx-feedback-correct-val">{correctNode}</div></div>
       )}
-      {explain && (
+      {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
           <div className="vmx-feedback-explain-body" ref={explainRef}><TermLinkedRichText text={explain} subject={subject} /></div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}
-      {figure}
-      {coach}
-      {wikiLink}
+      {rest && figure}
+      {rest && coach}
+      {rest && wikiLink}
     </MotionEnter>
   );
 }

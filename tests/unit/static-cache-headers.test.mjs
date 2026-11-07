@@ -54,3 +54,38 @@ test('the assets cache has a bounded cleanup target in the service worker', () =
   assert.match(sw, /const ASSETS_MAX_ENTRIES = \d+;/);
   assert.match(sw, /keys\.length \+ incoming - ASSETS_MAX_ENTRIES/, 'cleanup must account for an incoming asset');
 });
+
+// Measured on production 2026-11-07: every subject card's cover
+// (/subject-art/*.webp) and the Atlas specimens (/atlas/*.glb, 3 to 10 MB)
+// came back max-age=0, as the fonts had in September: folders added after
+// that fix had no rule of their own. This holds every folder of art, models
+// or fonts in public/ to a cache of at least a day, by the rule Vercel
+// applies last.
+test('every public folder of art, models or fonts is cached for at least a day', async () => {
+  const { readdirSync, statSync } = await import('node:fs');
+  const root = join(resolve(process.cwd()), 'public');
+  const MEDIA = /\.(webp|png|jpe?g|svg|gif|avif|glb|gltf|woff2?|ttf|otf|mp4|webm|mp3|m4a)$/i;
+  // Vercel's `source` here only ever uses "(.*)" groups; everything else is literal.
+  const toRegex = (source) => new RegExp(`^${source.split('(.*)').map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\$&')).join('.*')}$`);
+  const rules = cfg.headers
+    .map((h) => ({ re: toRegex(h.source), value: h.headers.find((x) => x.key === 'Cache-Control')?.value }))
+    .filter((r) => r.value);
+  const maxAge = (path) => {
+    const last = rules.filter((r) => r.re.test(path)).pop();
+    return last ? Number(/max-age=(\d+)/.exec(last.value)?.[1] || 0) : 0;
+  };
+  const walk = (dir) => readdirSync(dir).flatMap((name) => {
+    const full = join(dir, name);
+    return statSync(full).isDirectory() ? walk(full) : [full];
+  });
+  const missing = [];
+  for (const top of readdirSync(root)) {
+    const dir = join(root, top);
+    if (!statSync(dir).isDirectory()) continue;
+    for (const file of walk(dir).filter((f) => MEDIA.test(f))) {
+      const path = `/${file.slice(root.length + 1).split(/[\\/]/).join('/')}`;
+      if (maxAge(path) < 86400) { missing.push(path); break; }
+    }
+  }
+  assert.deepEqual(missing, [], `served with no cache (give the folder a rule in vercel.json): ${missing.join(', ')}`);
+});
