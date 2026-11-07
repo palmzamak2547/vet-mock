@@ -18,7 +18,7 @@ export function thaiWords(text) {
 
 /**
  * Does `re` match whole words of `text`? "ต้องจำ" is study advice; "ต้องจำกัดอาหาร"
- * and "นักท่องเที่ยว" are facts (the review of 5.190.0).
+ * and "นักท่องเที่ยว" are facts (the review of #147).
  */
 export function wordMatch(re, text) {
   const s = String(text || '');

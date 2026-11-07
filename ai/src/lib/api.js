@@ -39,7 +39,7 @@ export function setApiAuth(provider) {
 const errorOf = (res) => res.clone().json().then((j) => j?.error || null).catch(() => null);
 
 /** fetch with the session's bearer token: one refresh and one retry after a 401. */
-async function authorized(url, init) {
+export async function authorized(url, init) {
   const send = (token) => fetch(url, token ? { ...init, headers: { ...init.headers, Authorization: `Bearer ${token}` } } : init);
   if (!auth) return send(null);
   const token = await auth.token().catch(() => null);

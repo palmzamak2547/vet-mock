@@ -67,7 +67,7 @@ test('the polish pass as rules: no study advice, no summary naming itself, % for
 });
 
 test('the voice rules match whole words, and course logistics and set-up talk fail', () => {
-  // The review of 5.190.0: facts the old substring rules held, and lines they let through.
+  // The review of #147: facts the old substring rules held, and lines they let through.
   for (const fact of ['ไก่พ่อแม่พันธุ์ต้องจำกัดอาหาร', 'เชื้อมาพร้อมนักท่องเที่ยว', 'สัตว์เคยออกอาการชัก', 'ต้องรู้จักโรคนี้', 'BQM ให้คะแนนผ่านที่ 60']) assert.deepEqual(voiceErrors(fact), [], fact);
   for (const bad of ['ต้องจำค่า 45 °C', 'ท่องจำค่าปกติ', 'เรื่องนี้เคยออก', 'แนะนำวิชา 1 หน่วยกิต เกณฑ์คะแนนสอบและเช็คชื่อ', 'จำนวนนิสิต 3-4 คนต่อกลุ่ม', 'ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน']) assert.notDeepEqual(voiceErrors(bad), [], bad);
   assert.equal(lintSummary(base({ oneLiner: 'คลิปสาธิตการผ่าตัดทำหมันสุนัขเพศผู้' }), opts).ok, false);

@@ -155,7 +155,7 @@ export function chapterTitles(list, count = lectureWords) {
   });
 }
 
-// One fact once on the card (the review of 5.190.0): an emphasis or remember item
+// One fact once on the card (the review of #147): an emphasis or remember item
 // that a key point beside it already says marks that point stressed instead.
 const SAME = 0.85;
 function cardOf(v, a, s, stale) {

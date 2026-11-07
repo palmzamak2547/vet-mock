@@ -53,7 +53,7 @@ test('a session title loses its number and date, never its words', () => {
   assert.equal(displayTitle('8, 9 Anatomy function and clinical examination of stallion'), 'Anatomy function and clinical examination of stallion');
   assert.equal(displayTitle('7.Endometritis in mare 1 Oct 69'), 'Endometritis in mare');
   assert.equal(displayTitle('Mycoses'), 'Mycoses');
-  // The review of 5.190.0: the second session's number, double spaces, and the uploader's cut word and slip.
+  // The review of #147: the second session's number, double spaces, and the uploader's cut word and slip.
   assert.equal(displayTitle('10.Semen collection and insemination  + 11.Infertility problem in stallion 15 Oct 69'), 'Semen collection and insemination + Infertility problem in stallion');
   assert.equal(displayTitle('2.Congen abnormal in male & 3. Congen abnormal in females 9 Jan 69'), 'Congen abnormal in male & Congen abnormal in females');
   assert.equal(displayTitle('7.Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidem 14 Sep 69'), 'Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidemiology');
@@ -126,7 +126,7 @@ test('every card keeps the summary policy where students read it', async () => {
     const text = JSON.stringify(card);
     assert.ok(!text.includes('·'), `${id}: middle dot`);
     assert.ok(!/อาจารย์(?:กล่าว|บอก|พูด)ว่า/.test(text), `${id}: speaks about the lecturer instead of the content`);
-    // The review of 5.190.0: the voice holds on every line, a chapter title included;
+    // The review of #147: the voice holds on every line, a chapter title included;
     // no title reads garbled; one fact is said once.
     const lines = [['one-liner', card.oneLiner], ...points.map((p) => [p.t, p.text]), ...card.chapters.flatMap((c) => [[`chapter ${c.t}`, c.line], [`title ${c.t}`, c.title]])];
     for (const [where, line] of lines) assert.deepEqual(voiceErrors(line, { heading: String(where).startsWith('title') }), [], `${id} ${where}: ${line}`);

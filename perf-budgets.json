@@ -32,6 +32,21 @@
           "budget": 50100
         }
       },
+      "atlasLabels": {
+        "label": "Atlas label layer, added to an atlas visit when a labeled specimen renders",
+        "entries": [
+          "AtlasLabels"
+        ],
+        "after": "atlas",
+        "js": {
+          "measured": 2150,
+          "budget": 2300
+        },
+        "css": {
+          "measured": 399,
+          "budget": 500
+        }
+      },
       "home": {
         "label": "Home view, opened after the first load",
         "entries": [

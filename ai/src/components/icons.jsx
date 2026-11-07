@@ -25,3 +25,9 @@ export const IconDown = (p) => <S {...p}><path d="M12 5v14M6 13l6 6 6-6" /></S>;
 export const IconShare = (p) => <S {...p}><path d="M12 15V3.5" /><path d="M7.5 8L12 3.5 16.5 8" /><path d="M5 12.5v5A2.5 2.5 0 007.5 20h9a2.5 2.5 0 002.5-2.5v-5" /></S>;
 export const IconBook = (p) => <S {...p}><path d="M4 5.5A1.5 1.5 0 015.5 4H11v16H5.5A1.5 1.5 0 014 18.5zM20 5.5A1.5 1.5 0 0018.5 4H13v16h5.5a1.5 1.5 0 001.5-1.5z" /></S>;
 export const IconDownload = (p) => <S {...p}><path d="M12 4v11" /><path d="M7.5 10.5L12 15l4.5-4.5" /><path d="M5 19.5h14" /></S>;
+// the call: a voice as five bars of a level meter
+export const IconWave = (p) => <S {...p}><path d="M4 10.5v3M8 7.5v9M12 4.5v15M16 7.5v9M20 10.5v3" /></S>;
+export const IconMicOff = (p) => <S {...p}><path d="M15 9.5V6.5a3 3 0 00-5.4-1.8M9 9v2.5a3 3 0 004.6 2.5" /><path d="M5.5 11a6.5 6.5 0 0010.4 5.2M18.5 11a6.4 6.4 0 01-.6 2.7M12 17.5V21" /><path d="M4 4l16 16" /></S>;
+export const IconHangUp = (p) => <S {...p}><path d="M3.6 13.6c4.6-3.9 12.2-3.9 16.8 0l-1.6 2.6a1.4 1.4 0 01-1.8.5l-2.2-1a1.4 1.4 0 01-.8-1.3v-1.2a11 11 0 00-4 0v1.2a1.4 1.4 0 01-.8 1.3l-2.2 1a1.4 1.4 0 01-1.8-.5z" fill="currentColor" stroke="none" /></S>;
+export const IconSliders = (p) => <S {...p}><path d="M5 8h9M18 8h1M5 16h1M10 16h9" /><circle cx="16" cy="8" r="2" /><circle cx="8" cy="16" r="2" /></S>;
+export const IconKeyboard = (p) => <S {...p}><rect x="3" y="6" width="18" height="12" rx="2.5" /><path d="M7 10h.01M10.5 10h.01M14 10h.01M17 10h.01M7 13.5h.01M17 13.5h.01M10 14h4" /></S>;

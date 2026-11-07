@@ -32,6 +32,10 @@ includeEntry('atlas.html');
 // Shared chunks can also expose unrelated lazy loaders. Atlas has one explicit
 // lazy renderer; following every dynamic edge would download the video corpus.
 includeEntry('src/components/AtlasScene.jsx');
+// The label layer is the entry's other explicit lazy chunk (it carries the
+// label registry), so offline shells fetch it too; an empty registry makes it
+// a no-op render.
+includeEntry('src/components/AtlasLabels.jsx');
 for (const weight of ['400', '500', '600', '700', 'i400', 'i700']) files.add(`fonts/sarabun-${weight}.woff2`);
 for (const specimen of ATLAS_CATALOG) files.add(specimen.poster.slice(1));
 const shellAssets = [];
