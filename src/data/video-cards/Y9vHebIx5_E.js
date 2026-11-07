@@ -85,7 +85,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "Semen collection and",
+   "title": "Semen collection and artificial insemination in the horse",
    "line": "AI เน้น genetic contribution ฝั่งพ่อต่างจาก ET ที่ต้อง superior ทั้งพ่อและแม่ และ Thoroughbred ห้าม AI ET ต้องผสมธรรมชาติเท่านั้น",
    "slides": [
     {
@@ -195,7 +195,7 @@ export default {
   },
   {
    "t": 1800,
-   "title": "IV. Semen preparation, calculation",
+   "title": "IV. Semen preparation, calculation of insemination dose and volume",
    "line": "น้ำเชื้อมี 3 ประเภท fresh cooled frozen โดย frozen มี pregnancy rate ต่ำและแปรผันตาม individual variation ของพ่อพันธุ์",
    "slides": [
     {
@@ -256,7 +256,7 @@ export default {
   },
   {
    "t": 3360,
-   "title": "VII. Post-insemination",
+   "title": "VII. Post-insemination management",
    "line": "herpes virus type 3 ทำให้เกิด equine coital exanthema และมีการติดเชื้อแบบ latent ตลอดชีวิต",
    "slides": [
     {
@@ -295,7 +295,7 @@ export default {
   },
   {
    "t": 3780,
-   "title": "Normal stallion",
+   "title": "Normal stallion behaviors",
    "line": "พ่อพันธุ์ปกติสนใจแม่ม้าตกไข่ทันที erect ภายใน 2 นาที และ ejaculate ในการขึ้นครั้งแรก",
    "slides": [
     {
@@ -333,7 +333,7 @@ export default {
   },
   {
    "t": 4080,
-   "title": "Poor semen",
+   "title": "Poor semen quality",
    "line": "น้ำเชื้อคุณภาพต่ำอาจเกิดจาก testicular hypoplasia orchitis หรือ spermiostasis ที่รักษาด้วย oxytocin",
    "slides": [
     {
@@ -360,7 +360,7 @@ export default {
   },
   {
    "t": 4260,
-   "title": "Diseases affecting",
+   "title": "Diseases affecting stallion’s fertility",
    "line": "โรคที่กระทบ fertility พ่อพันธุ์ ได้แก่ CEM จาก Taylorella equigenitalis และ equine coital exanthema จาก herpes type 3",
    "slides": [
     {
@@ -458,7 +458,7 @@ export default {
   },
   {
    "t": 4860,
-   "title": "Protozoal genital",
+   "title": "Protozoal genital infection",
    "line": "Trypanosoma equiperdum ติดต่อทางเพศสัมพันธ์ ทำให้ genitalia บวมและมี mucopurulent discharge วินิจฉัยด้วย PCR และ ELISA",
    "slides": [
     {

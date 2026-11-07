@@ -150,7 +150,7 @@ async function main() {
     const mp4 = path.join(dir, 'video.mp4');
     // --defer-asr: a video YouTube has no captions for waits until the Thai
     // speech model is ready (scripts/video-asr.py), instead of downloading now.
-    if (args.includes('--defer-asr') && !fs.existsSync(path.join(dir, 'video.th.json3'))) continue;
+    if (args.includes('--defer-asr') && !args.includes('--no-asr') && !fs.existsSync(path.join(dir, 'video.th.json3'))) continue;
     await yieldToHeavyJobs();
     const { bavail, bsize } = fs.statfsSync(DATA);
     if (bavail * bsize < MIN_FREE) {
@@ -174,13 +174,16 @@ async function main() {
       fs.writeFileSync(path.join(dir, 'silence.json'), JSON.stringify({ noise: quiet.noise, min: quiet.min, spans: quiet.spans }));
       let captions = 'youtube';
       const json3 = path.join(dir, 'video.th.json3');
-      if (!fs.existsSync(json3)) {
+      // --no-asr: a clip without captions goes up as it is; Scribe reads its
+      // audio from R2 (the audio lane) instead of this machine's GPU.
+      if (!fs.existsSync(json3) && args.includes('--no-asr')) captions = 'none yet';
+      else if (!fs.existsSync(json3)) {
         // No captions on YouTube: our own, on this machine's GPU.
         run('python', ['-I', path.join(ROOT, 'scripts/video-asr.py'), mp4, json3], { timeout: 3 * 3600 * 1000 });
         captions = 'asr';
       }
       const body = await put(env, `videos/${v.id}/video.mp4`, mp4, 'video/mp4');
-      await put(env, `videos/${v.id}/captions.th.json3`, json3, 'application/json');
+      if (fs.existsSync(json3)) await put(env, `videos/${v.id}/captions.th.json3`, json3, 'application/json');
       const frames = JSON.parse(fs.readFileSync(path.join(dir, 'frames/frames.json'), 'utf8'));
       await put(env, `videos/${v.id}/frames.json`, path.join(dir, 'frames/frames.json'), 'application/json');
       for (const f of frames.frames) await put(env, `videos/${v.id}/frames/${f.file}`, path.join(dir, 'frames', f.file), 'image/webp');

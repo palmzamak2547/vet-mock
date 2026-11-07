@@ -10,8 +10,8 @@ import { VIDEO_CARD_LOADERS, VIDEO_INDEX } from '../../src/data/video-cards.gene
 import { VIDEO_TOPIC_INDEX } from '../../src/data/video-topic-index.generated.js';
 import { VIDEO_CHANNELS } from '../../src/data/video-channels.js';
 import { SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
-import { LIMITS, keyPointCap, thaiWords } from '../../src/lib/video-summary-check.js';
-import { topicFits, displayTitle } from '../../scripts/video-registry.mjs';
+import { LIMITS, keyPointCap, thaiWords, voiceErrors, overlap, SELF_NAMING } from '../../src/lib/video-summary-check.js';
+import { topicFits, displayTitle, tidyText, tidyHeading, chapterTitles, wholeHeading } from '../../scripts/video-registry.mjs';
 
 const subjects = new Map(Object.values(SUBJECTS_BY_YEAR).flat().map((s) => [s.id, s]));
 const topics = new Set([...subjects.values()].flatMap((s) => (s.topics || []).map((t) => t.id)));
@@ -42,6 +42,9 @@ test('a topic stretch is published only as the session\'s own topic', () => {
   assert.equal(topicFits('Porcine reproductive and respiratory syndrome', 'Respiratory viral diseases in swine'), true);
   assert.equal(topicFits('Equine concept of surgery and anesthesia', 'Equine anesthesia'), true);
   assert.equal(topicFits('Anatomy function and clinical examination of stallion', 'Male reproductive organ functions'), true);
+  // Batch 2: a course-wide word is no match (a triage lecture is not the CV emergency session).
+  assert.equal(topicFits('Triage + Emergency anesthesia', 'คาบ 24, Respiratory & CV Emergency'), false);
+  assert.equal(topicFits('Triage + Emergency anesthesia', 'คาบ 29, Triage'), true);
   // The lecturer's own set settles it, whatever the title says.
   assert.equal(topicFits('7.Endometritis in mare 1 Oct 69', 'Uterine defense', new Set(['eqrepro-defense']), 'eqrepro-defense'), true);
 });
@@ -50,6 +53,36 @@ test('a session title loses its number and date, never its words', () => {
   assert.equal(displayTitle('8, 9 Anatomy function and clinical examination of stallion'), 'Anatomy function and clinical examination of stallion');
   assert.equal(displayTitle('7.Endometritis in mare 1 Oct 69'), 'Endometritis in mare');
   assert.equal(displayTitle('Mycoses'), 'Mycoses');
+  // The review of #147: the second session's number, double spaces, and the uploader's cut word and slip.
+  assert.equal(displayTitle('10.Semen collection and insemination  + 11.Infertility problem in stallion 15 Oct 69'), 'Semen collection and insemination + Infertility problem in stallion');
+  assert.equal(displayTitle('2.Congen abnormal in male & 3. Congen abnormal in females 9 Jan 69'), 'Congen abnormal in male & Congen abnormal in females');
+  assert.equal(displayTitle('7.Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidem 14 Sep 69'), 'Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidemiology');
+  assert.equal(displayTitle('3.Eqine infectious disease and biosecurity  15 Oct 69'), 'Equine infectious disease and biosecurity');
+});
+
+test('a deck PDF\'s text layer reads as the deck printed it', () => {
+  assert.equal(tidyText('ตอนที่ 1 ระบบการจ าแนกชนิดฟันของม้า'), 'ตอนที่ 1 ระบบการจำแนกชนิดฟันของม้า');
+  assert.equal(tidyText('ความเข้มข้นของสารละลายในน ้า 2-4%'), 'ความเข้มข้นของสารละลายในน้ำ 2-4%');
+  assert.equal(tidyText('ก๊าซฟอร์มัลดีไฮด์ท างานได้ดีที่ 20 oซ'), 'ก๊าซฟอร์มัลดีไฮด์ทำงานได้ดีที่ 20 °C');
+  assert.equal(tidyText('RBC (1.94 x 106)'), 'RBC (1.94 × 10⁶)');
+  assert.equal(tidyText('1 x 100 ml'), '1 x 100 ml');
+});
+
+test('chapter titles: spaced capitals read back, and a stretch without a slide heading is untitled', () => {
+  const VOC = { one: 410, health: 431, series: 13, onehealth: 3, role: 6, veterinarian: 11, history: 9, issue: 10, thank: 35, prevention: 20 };
+  const count = (w) => (/^\d+$/.test(w) || w === 'of' ? Infinity : VOC[w] || (w.endsWith('s') && VOC[w.slice(0, -1)]) || 0);
+  assert.equal(tidyHeading('O N E H E A L T H S E R I E S', count), 'One Health series');
+  assert.equal(tidyHeading('I S S U E 2 · R O L E O F V E T E R I N A R I A N S (ต่อ) (ต่อ)', count), 'Issue 2: Role of veterinarians (ต่อ)');
+  assert.equal(tidyHeading('H I S T O R Y', count), 'History');
+  assert.equal(tidyHeading('Q X Z W', count), null, 'a heading no lecture word reads is no title');
+  const slide = 'Clinical examination of the \npenis/prepuce\n• Disease of prepuce and penis is \nrare.\n';
+  assert.equal(wholeHeading('Clinical examination of the', slide), 'Clinical examination of the penis/prepuce');
+  assert.equal(wholeHeading('Introduction of (ต่อ)', 'Introduction of\n• history\n'), 'Introduction (ต่อ)');
+  assert.equal(wholeHeading('Hypovitaminosis A', ''), 'Hypovitaminosis A');
+  assert.deepEqual(
+    chapterTitles(['P R E V E N T I O N', 'T H A N K', '3/4/2026 (ต่อ)', null, 'ภาควิชาสัตวแพทยสาธารณสุข คณะสัตวแพทยศาสตร์', '1.2.Type of mastitis (ต่อ) (ต่อ)'], count),
+    ['Prevention', 'Prevention (ต่อ)', '', '', '', '1.2.Type of mastitis (ต่อ)'],
+  );
 });
 
 test('the small index and the card loaders agree with the registry', () => {
@@ -72,7 +105,8 @@ test('every card keeps the summary policy where students read it', async () => {
     const d = VIDEO_REGISTRY[id].durationSec;
     const where = (p) => `${id} [${p.t}] ${p.text || p.line || ''}`;
     assert.ok(thaiWords(card.oneLiner) <= LIMITS.oneLiner, `${id}: one-liner too long`);
-    assert.ok(card.keyPoints.length >= 1 && card.keyPoints.length <= Math.min(keyPointCap(d), LIMITS.ceiling), `${id}: ${card.keyPoints.length} key points for ${d} s`);
+    // A short practical-class demo may be all one-liner; a lecture of ten minutes or more has points.
+    assert.ok(card.keyPoints.length >= (d >= 600 ? 1 : 0) && card.keyPoints.length <= Math.min(keyPointCap(d), LIMITS.ceiling), `${id}: ${card.keyPoints.length} key points for ${d} s`);
     assert.ok(card.emphasis.length <= LIMITS.emphasis && card.remember.length <= LIMITS.remember, `${id}: emphasis or remember over cap`);
     const points = [...card.keyPoints, ...card.emphasis, ...card.remember];
     for (const p of points) {
@@ -92,5 +126,16 @@ test('every card keeps the summary policy where students read it', async () => {
     const text = JSON.stringify(card);
     assert.ok(!text.includes('·'), `${id}: middle dot`);
     assert.ok(!/อาจารย์(?:กล่าว|บอก|พูด)ว่า/.test(text), `${id}: speaks about the lecturer instead of the content`);
+    // The review of #147: the voice holds on every line, a chapter title included;
+    // no title reads garbled; one fact is said once.
+    const lines = [['one-liner', card.oneLiner], ...points.map((p) => [p.t, p.text]), ...card.chapters.flatMap((c) => [[`chapter ${c.t}`, c.line], [`title ${c.t}`, c.title]])];
+    for (const [where, line] of lines) assert.deepEqual(voiceErrors(line, { heading: String(where).startsWith('title') }), [], `${id} ${where}: ${line}`);
+    assert.ok(!SELF_NAMING.test(card.oneLiner), `${id}: the one-liner names itself`);
+    for (const c of card.chapters) assert.ok(!/(?:\b[A-Za-z0-9] ){2,}[A-Za-z0-9]\b|\d{1,2}\/\d{1,2}\/\d{4}|\(ต่อ\)\s*\(ต่อ\)|[ก-ฮ]\s+า|\b(?:and|of|the|by|for|in|with|to)(?:\s*\(ต่อ\))?$/.test(c.title), `${id}: chapter title "${c.title}"`);
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        if (Math.abs(points[i].t - points[j].t) <= 60) assert.ok(overlap(points[i].text, points[j].text) < 0.85, `${id}: "${points[j].text}" says what "${points[i].text}" says`);
+      }
+    }
   }
 });
