@@ -185,7 +185,9 @@ const { done, timed } = await listDone();
 const todo = MANIFESTS_ONLY || ALIGN ? [] : queue.filter((k) => !done.has(k)).slice(0, LIMIT);
 // A clip of more than one line needs its line timings for the read-aloud's
 // highlight: made with the clip from now on, aligned afterwards for older ones.
-const untimed = ALIGN ? queue.filter((k) => done.has(k) && !timed.has(k) && worded.has(k)).slice(0, LIMIT) : [];
+const SKIP_FILE = path.join(ROOT, 'work', 'tts-align-unmatched.json');
+const unmatched = new Set((() => { try { return JSON.parse(fs.readFileSync(SKIP_FILE, 'utf8')); } catch { return []; } })());
+const untimed = ALIGN ? queue.filter((k) => done.has(k) && !timed.has(k) && worded.has(k) && !unmatched.has(k)).slice(0, LIMIT) : [];
 const todoChars = todo.reduce((n, k) => n + texts.get(k).length, 0);
 console.log(`in bucket ${done.size} (${timed.size} timed), to generate ${todo.length} (${todoChars} chars)${ALIGN ? `, to align ${untimed.length}` : ''}`);
 if (DRY) {
@@ -209,6 +211,7 @@ let reserved = 0;  // credits held for requests in flight
 let requests = 0;
 let left = null;   // the account's balance at its last read
 let spentAtRead = 0;
+let requestsAtRead = 0;
 
 // The account's credits left, or a reason to stop: a key that cannot read
 // it must not let the reserve pass unnoticed.
@@ -218,7 +221,7 @@ async function readAccount() {
     const r = await fetch('https://api.elevenlabs.io/v1/user/subscription', { headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') } }).catch(() => null);
     const j = r?.ok ? await r.json().catch(() => null) : null;
     const value = j ? j.character_limit - j.character_count : NaN;
-    if (Number.isFinite(value)) { left = value; spentAtRead = spent + reserved; return; }
+    if (Number.isFinite(value)) { left = value; spentAtRead = spent + reserved; requestsAtRead = requests; return; }
     if (r && r.status !== 429 && r.status < 500) { stopReason ||= `cannot read the account (subscription ${r.status})`; return; }
     await sleep(3000 * 2 ** attempt);
   }
@@ -233,7 +236,7 @@ async function reserve(estimate) {
   if (!ELEVEN) return true;
   // Every 40 requests: the endpoint answers 429 when read more often, and
   // this run's own spend since the read is subtracted below anyway.
-  if (KEEP_REMAINING && (left == null || requests % 40 === 0)) await readAccount();
+  if (KEEP_REMAINING && (left == null || requests - requestsAtRead >= 40)) await readAccount();
   if (spent + reserved + estimate > MAX_CREDITS) stopReason ||= `max credits (${spent} spent)`;
   if (KEEP_REMAINING && left != null && left - (spent + reserved - spentAtRead) - estimate <= KEEP_REMAINING) {
     stopReason ||= `account down to about ${left - (spent + reserved - spentAtRead)}`;
@@ -305,8 +308,12 @@ async function speak(text, key) {
 // audio against its text, billed like speech-to-text.
 async function align(key) {
   const text = texts.get(key);
-  const res = await fetch(`${G.base}/${G.gen}/${key}.mp4`);
-  if (!res.ok) throw new Error(`clip ${res.status}`);
+  let res = null;
+  for (let attempt = 0; attempt < 4 && !res?.ok; attempt++) {
+    if (attempt) await sleep(2000 * 2 ** attempt);
+    res = await fetch(`${G.base}/${G.gen}/${key}.mp4`).catch(() => null);
+  }
+  if (!res?.ok) throw new Error(`clip ${res?.status}`);
   const audio = Buffer.from(await res.arrayBuffer());
   const estimate = Math.ceil(text.length * 0.2) + 20; // speech runs about 12 characters a second, at about 0.34 credit a second
   if (!(await reserve(estimate))) return null;
@@ -375,7 +382,8 @@ async function put(key, buf, type, cache) {
     const r = await cf(`${R2}/objects/${key}`, { method: 'PUT', body: buf, headers: { 'Content-Type': type, 'Cache-Control': cache } })
       .catch((e) => ({ ok: false, status: 0, text: async () => String(e.cause?.code || e) }));
     if (r.ok) return;
-    if (attempt >= 7) throw new Error(`R2 put ${r.status} ${(await r.text()).slice(0, 200)}`);
+    const passing = r.status === 0 || r.status === 429 || r.status >= 500;
+    if (!passing || attempt >= 7) throw new Error(`R2 put ${r.status} ${(await r.text()).slice(0, 200)}`);
     await sleep(Math.min(60_000, 1000 * 2 ** attempt));
   }
 }
@@ -417,6 +425,10 @@ async function oneAlign(key) {
     log.write(JSON.stringify({ key, aligned: words.length, spent }) + '\n');
   } catch (e) {
     log.write(JSON.stringify({ key, error: `align: ${String(e.message || e).slice(0, 180)}` }) + '\n');
+    if (/does not match/.test(String(e.message))) {
+      unmatched.add(key);
+      fs.writeFileSync(SKIP_FILE, JSON.stringify([...unmatched]));
+    }
     failed.push(key);
   }
 }
@@ -429,13 +441,17 @@ try {
     }
   }));
 } finally {
+  fs.rmSync(tmp, { recursive: true, force: true });
   // ---- 4. manifests: only clips that really exist, whatever stopped the run
+  const unwritten = [];
   for (const [subject, keys] of subjectKeys) {
     const have = [...keys].filter((k) => done.has(k)).sort();
-    await put(`${G.gen}/m/${encodeURIComponent(subject)}.json`, Buffer.from(JSON.stringify(have)),
-      'application/json', 'public, max-age=300');
+    try {
+      await put(`${G.gen}/m/${encodeURIComponent(subject)}.json`, Buffer.from(JSON.stringify(have)),
+        'application/json', 'public, max-age=300');
+    } catch (e) { unwritten.push(`${subject}: ${String(e.message || e).slice(0, 80)}`); }
   }
-  fs.rmSync(tmp, { recursive: true, force: true });
+  if (unwritten.length) console.log(`manifests NOT written (run --manifests): ${unwritten.join(' | ')}`);
 }
 // Per subject: questions whose read-aloud is now whole in this voice, and
 // explanations voiced, out of those chosen.

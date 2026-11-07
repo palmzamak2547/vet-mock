@@ -45,16 +45,29 @@ export function loadManifest(subject, g = SHARED_TTS) {
 }
 
 // part: { key, url } from sharedPlan. The key names the clip in the
-// device cache; it already carries the model and voice.
+// device cache; it already carries the model and voice. The timeout covers
+// the body too: a download that stalls after its headers would otherwise
+// leave the read-aloud loading for ever.
+const CLIP_TIMEOUT_MS = 20000;
 export async function getSharedAudio({ key, url }, signal) {
   const cached = await cache.read(key);
   if (cached) return cached;
-  const r = await fetchWithTimeout(url, FETCH_TIMEOUT_MS, signal);
-  if (!r.ok) throw new Error(`clip ${r.status}`);
-  const buf = await r.arrayBuffer();
-  if (!buf.byteLength) throw new Error('empty clip');
-  cache.write(key, buf);
-  return buf;
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), CLIP_TIMEOUT_MS);
+  if (signal) {
+    if (signal.aborted) ctrl.abort();
+    else signal.addEventListener('abort', () => ctrl.abort(), { once: true });
+  }
+  try {
+    const r = await fetch(url, { signal: ctrl.signal, mode: 'cors', credentials: 'omit' });
+    if (!r.ok) throw new Error(`clip ${r.status}`);
+    const buf = await r.arrayBuffer();
+    if (!buf.byteLength) throw new Error('empty clip');
+    cache.write(key, buf);
+    return buf;
+  } finally {
+    clearTimeout(t);
+  }
 }
 
 /**
@@ -65,7 +78,7 @@ export async function getSharedAudio({ key, url }, signal) {
  * (option: the display index a label or option belongs to), all from one
  * generation: the newest whose manifest lists every clip.
  */
-export async function sharedPlan({ stem, options, lang, subject, signal }) {
+export async function sharedPlan({ stem, options, lang, subject, signal, prefetch = true }) {
   const parts = [];
   const add = (text, kind, option = -1) => { if (text) parts.push({ text, kind, option }); };
   add(clipText(stem, lang), 'stem');
@@ -76,24 +89,25 @@ export async function sharedPlan({ stem, options, lang, subject, signal }) {
     add(t, 'option', i);
   });
   if (!parts.length) return null;
-  // Every generation is checked at once. The first clip of each that has the
-  // whole question starts downloading as soon as its own manifest says so,
-  // so the voice that wins never waits a second round trip, and a generation
-  // without the question costs no request for a clip it does not have.
+  // Every generation's manifest is asked for at once, then they are read in
+  // order, newest first: only the voice that wins downloads its first clip,
+  // and a generation without the question costs no request for one.
   const gens = SHARED_GENS.map(async (g) => {
     const [keys, manifest] = await Promise.all([Promise.all(parts.map((p) => clipKey(p.text, g))), loadManifest(subject, g)]);
     const plan = parts.map((p, i) => ({ ...p, key: keys[i], url: clipUrl(keys[i], g), gen: g.gen }));
     const whole = manifest ? plan.every((p) => manifest.has(p.key))
       // No manifest (offline): play only if every clip is already on the device.
       : (await Promise.all(plan.map((p) => cache.read(p.key)))).every(Boolean);
-    if (!whole) return null;
-    plan[0].buf = getSharedAudio(plan[0], signal);
-    plan[0].buf.catch(() => {});
-    return plan;
+    return whole ? plan : null;
   });
   for (const g of gens) {
     const plan = await g;
-    if (plan) return plan;
+    if (!plan) continue;
+    if (prefetch) {
+      plan[0].buf = getSharedAudio(plan[0], signal);
+      plan[0].buf.catch(() => {});
+    }
+    return plan;
   }
   return null;
 }

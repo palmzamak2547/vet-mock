@@ -89,6 +89,7 @@ export async function start(job) {
   // The rest of the clips download behind the first, so they never share a
   // slow link with it; each one's real length replaces the estimate.
   const measure = (i) => r.plan[i].buf.then((b) => {
+    r.plan[i].ready = true;
     const d = mp4Seconds(b);
     if (run !== r || !d) return;
     r.durs[i] = d;
@@ -116,7 +117,7 @@ export function stop() {
   if (r.device) import('./tts.js').then((m) => m.cancelSpeech()).catch(() => {});
   const el = playerElement();
   if (el && !r.device) {
-    if (r.plan && !r.done) positions.set(r.job.id, { part: r.i, t: el.currentTime || 0 });
+    if (r.plan && !r.done) positions.set(r.job.id, { part: r.i, t: r.onElement === r.i && !r.loading ? el.currentTime || 0 : r.offset || 0 });
     r.switching = true;
     el.pause();
     el.removeAttribute('src');
@@ -130,26 +131,40 @@ export function stop() {
 
 // ---- controls ----------------------------------------------------------------
 export function toggle() {
+  const status = readAloud.get().status;
+  if (status === 'playing' || status === 'loading') pause();
+  else resume();
+}
+
+// The lock screen, a headset and a car send play and pause separately: a
+// pause that arrives while paused must not start the speaker.
+export function pause() {
   const r = run;
   if (!r) return;
   if (r.device) { stop(); return; }
-  const el = playerElement();
   const status = readAloud.get().status;
-  if (status === 'playing' || status === 'loading') {
-    // Paused between two pieces: the next one starts on resume.
-    if (r.inGap) { clearTimeout(r.gap); r.inGap = false; r.gapPending = true; }
-    r.paused = true;
-    if (!r.loading) el.pause();
-    readAloud.set({ status: 'paused' });
-    mediaState('paused');
-  } else if (status === 'paused' || status === 'error') {
-    r.paused = false;
-    if (r.gapPending) { r.gapPending = false; afterGap(r); return; }
-    // Still downloading the piece: playPart starts it when it arrives.
-    if (r.loading) { readAloud.set({ status: 'loading', note: null }); return; }
-    readAloud.set({ status: 'playing', note: null });
-    el.play().catch(() => failed(r, 'เล่นเสียงไม่ได้ ลองกดอีกครั้ง'));
-  }
+  if (status !== 'playing' && status !== 'loading') return;
+  // Paused between two pieces: the next one starts on resume.
+  if (r.inGap) { clearTimeout(r.gap); r.inGap = false; r.gapPending = true; }
+  r.paused = true;
+  if (!r.loading) playerElement().pause();
+  readAloud.set({ status: 'paused' });
+  mediaState('paused');
+}
+
+export function resume() {
+  const r = run;
+  if (!r || r.device) return;
+  const status = readAloud.get().status;
+  if (status !== 'paused' && status !== 'error') return;
+  r.paused = false;
+  if (r.gapPending) { r.gapPending = false; afterGap(r); return; }
+  // Still downloading the piece: playPart starts it when it arrives.
+  if (r.loading) { readAloud.set({ status: 'loading', note: null }); return; }
+  // The piece is not on the element (its download failed): fetch it again.
+  if (r.onElement !== r.i) { playPart(r, r.i, r.offset || 0); return; }
+  readAloud.set({ status: 'playing', note: null });
+  playerElement().play().catch(() => failed(r, 'เล่นเสียงไม่ได้ ลองกดอีกครั้ง'));
 }
 
 export function seek(seconds) {
@@ -193,23 +208,36 @@ export function setRate(rate) {
   readAloud.set({ rate });
 }
 
-/** Prefetch a job's first clip and its manifests, for a student who has used read-aloud. */
-export async function warm(job) {
+/** For a student who has used read-aloud: the manifests ahead of the tap, and
+ *  with clip, the first clip and its timings too (never on Save-Data). */
+export async function warm(job, { clip = false } = {}) {
   const options = job.what === 'q' ? job.options || [] : [];
   const stem = (job.what === 'q' ? job.stem : job.explain) || '';
+  const save = typeof navigator !== 'undefined' && navigator.connection?.saveData;
   try {
-    const plan = await sharedPlan({ stem, options, lang: questionLang(stem, options), subject: job.subject });
-    if (plan) loadWords(plan[0]);
+    const plan = await sharedPlan({ stem, options, lang: questionLang(stem, options), subject: job.subject, prefetch: clip && !save });
+    if (plan && clip && !save) loadWords(plan[0]);
   } catch { /* a hint only */ }
 }
 
 // ---- playing a part ----------------------------------------------------------
 async function playPart(r, i, offset = 0) {
   clearTimeout(r.gap);
+  // A pause taken in the gap belongs to the piece that was next, not this one.
+  r.inGap = false;
+  r.gapPending = false;
   r.i = i;
+  r.offset = offset;
   r.word = -1;
+  clearHighlight();
+  // The old piece stops now: left playing while this one downloads, its
+  // 'ended' would act on the new index.
+  const el = playerElement();
+  if (r.onElement != null && r.onElement !== i) { r.switching = true; el.pause(); }
   const p = r.plan[i];
-  readAloud.set({ part: i, kind: p.kind, option: p.option, status: r.paused ? 'paused' : 'loading' });
+  // 'loading' only while the clip is still on its way: a ready one would
+  // flash the spinner and speak "loading" between every two pieces.
+  readAloud.set({ part: i, kind: p.kind, option: p.option, time: before(r, i) + offset, ...(p.ready && !r.paused ? {} : { status: r.paused ? 'paused' : 'loading' }) });
   // The piece being read comes up above the bar (which renders a moment
   // after the first one starts), unless the student is scrolling.
   setTimeout(() => { if (run === r && r.i === i) keepBlockInView(r.job.container?.(p.kind, p.option)); }, 60);
@@ -218,17 +246,20 @@ async function playPart(r, i, offset = 0) {
   try {
     buf = await (p.buf ||= getSharedAudio(p, r.abort.signal));
   } catch {
-    if (run === r) { r.loading = false; failed(r, 'โหลดเสียงไม่ได้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'); }
+    // Forget the failed download, so play fetches it again.
+    p.buf = null;
+    if (run === r && r.i === i) { r.loading = false; failed(r, 'โหลดเสียงไม่ได้ ลองกดอีกครั้ง'); }
     return;
   }
+  p.ready = true;
   if (run !== r || r.i !== i) return;
   r.loading = false;
-  const el = playerElement();
   r.switching = true;
   if (r.url) URL.revokeObjectURL(r.url);
   r.url = URL.createObjectURL(new Blob([buf], { type: 'audio/mp4' }));
   el.muted = false;
   el.src = r.url;
+  r.onElement = i;
   el.defaultPlaybackRate = readAloud.get().rate;
   el.playbackRate = readAloud.get().rate;
   if (offset > 0) el.addEventListener('loadedmetadata', () => { if (run === r && r.i === i) el.currentTime = Math.min(offset, el.duration || offset); }, { once: true });
@@ -278,7 +309,7 @@ async function device(r, stem, options) {
   r.device = true;
   readAloud.set({ device: true, status: 'loading', duration: 0, points: 0 });
   let tts;
-  try { tts = await import('./tts.js'); } catch { failed(r, 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'); return; }
+  try { tts = await import('./tts.js'); } catch { failed(r, 'ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'); return; }
   if (run !== r) return;
   r.controller = { cancelled: false };
   r.abort.signal.addEventListener('abort', () => { r.controller.cancelled = true; }, { once: true });
@@ -291,8 +322,8 @@ async function device(r, stem, options) {
     onStart: () => { if (run === r) readAloud.set({ status: 'playing' }); },
     onEnd: () => { if (run === r) { r.done = true; stop(); } },
     onFail: (why) => failed(r, why === 'offline'
-      ? 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'
-      : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'),
+      ? 'ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'
+      : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้'),
   });
 }
 
@@ -404,25 +435,37 @@ export function mapText(box, spoken) {
 }
 
 // map[i] = the index in b of a[i], or -1: a longest common subsequence,
-// case-insensitive. ponytail: O(len a x len b) cells, about 0.5 M for the
-// longest explanation; a band around the diagonal if one ever runs slow.
+// case-insensitive, inside a band around the diagonal. The two texts differ
+// only where a symbol is said in words, so they never drift far apart, and
+// the band keeps the longest explanation near 0.3 M cells instead of 2.8 M.
 export function align(a, b) {
   const n = a.length, m = b.length;
   const A = a.toLowerCase(), B = b.toLowerCase();
-  const L = new Uint16Array((n + 1) * (m + 1));
   const blank = (c) => c === ' ' || c === '\n' || c === '\t' || c === '\u00a0';
+  const W = Math.abs(m - n) + 96; // half the band's width
+  const width = 2 * W + 1;
+  const mid = (i) => Math.round((i * m) / Math.max(1, n));
+  const L = new Uint16Array((n + 1) * width);
+  const get = (i, j) => {
+    if (i >= n || j >= m) return 0;
+    const d = j - mid(i) + W;
+    return d < 0 || d >= width ? 0 : L[i * width + d];
+  };
   for (let i = n - 1; i >= 0; i--) {
-    for (let j = m - 1; j >= 0; j--) {
-      L[i * (m + 1) + j] = A[i] === B[j] && !blank(A[i])
-        ? L[(i + 1) * (m + 1) + j + 1] + 1
-        : Math.max(L[(i + 1) * (m + 1) + j], L[i * (m + 1) + j + 1]);
+    const c = mid(i);
+    for (let j = Math.min(m - 1, c + W); j >= Math.max(0, c - W); j--) {
+      L[i * width + (j - c + W)] = A[i] === B[j] && !blank(A[i])
+        ? get(i + 1, j + 1) + 1
+        : Math.max(get(i + 1, j), get(i, j + 1));
     }
   }
   const map = new Int32Array(n).fill(-1);
   let i = 0, j = 0;
   while (i < n && j < m) {
+    if (j < mid(i) - W) { j++; continue; }
+    if (j > mid(i) + W) { i++; continue; }
     if (A[i] === B[j] && !blank(A[i])) { map[i++] = j++; }
-    else if (L[(i + 1) * (m + 1) + j] >= L[i * (m + 1) + j + 1]) i++;
+    else if (get(i + 1, j) >= get(i, j + 1)) i++;
     else j++;
   }
   return map;
@@ -465,7 +508,7 @@ function mediaSession(r) {
   if (!ms) return;
   try { ms.metadata = r && typeof MediaMetadata !== 'undefined' ? new MediaMetadata({ title: r.job.title, artist: 'VetMock', album: r.job.album || '' }) : null; } catch { /* old Safari */ }
   const on = {
-    play: toggle, pause: toggle, stop,
+    play: resume, pause, stop,
     previoustrack: prev, nexttrack: next,
     seekbackward: () => seek(readAloud.get().time - 10),
     seekforward: () => seek(readAloud.get().time + 10),

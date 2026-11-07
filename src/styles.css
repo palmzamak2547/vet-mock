@@ -4694,7 +4694,8 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 /* The read-aloud bar (ReadAloudBar.jsx): fixed above the bottom nav and a
    phone's sticky previous/next row, one height in every state. */
 .vmx-read-bar {
-  position: fixed; z-index: var(--z-toast); left: 50%; transform: translateX(-50%);
+  /* Above the bottom nav, under every dialog, overlay and toast. */
+  position: fixed; z-index: calc(var(--z-nav) + 1); left: 50%; transform: translateX(-50%);
   bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + var(--vmx-read-bar-lift, 12px));
   width: min(560px, calc(100vw - 16px));
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "ctrl info end" "scrub scrub scrub";
@@ -4714,14 +4715,17 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-read-title { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .vmx-read-where { font-weight: 500; color: var(--clr-ink-soft); margin-left: 8px; }
 .vmx-read-state { font-size: 14px; min-height: 1.3em; color: var(--clr-ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.vmx-read-bar.is-error .vmx-read-state { color: var(--clr-rose-text); }
+/* An error takes the title's line too: two lines, the bar's height unchanged. */
+.vmx-read-bar.is-error .vmx-read-title { display: none; }
+.vmx-read-bar.is-error .vmx-read-state { color: var(--clr-rose-text); white-space: normal; min-height: 2.6em; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
 .vmx-read-bar-scrub input[type="range"] { flex: 1; min-width: 0; height: 28px; margin: 0; accent-color: var(--clr-ocean); }
 .vmx-read-time { font-family: var(--vmx-mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--clr-ink-soft); white-space: nowrap; }
 .vmx-read-spin { width: 18px; height: 18px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: vmx-read-spin 0.8s linear infinite; }
 @keyframes vmx-read-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .vmx-read-spin { animation: none; opacity: 0.6; } }
-/* While the bar is up, the page can scroll its last lines out from under it. */
-html.vmx-read-open body::after { content: ''; display: block; height: 104px; }
+/* While the bar is up, the page can scroll its last lines (and a phone's
+   previous/next row) out from under it: the bar measures this height. */
+html.vmx-read-open body::after { content: ''; display: block; height: var(--vmx-read-spacer, 200px); }
 @keyframes vmx-instant-in {
   from { opacity: 0; transform: translateY(-3px); }
   to { opacity: 1; transform: translateY(0); }

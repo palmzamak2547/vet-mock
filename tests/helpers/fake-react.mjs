@@ -183,6 +183,13 @@ export async function loadModule(entry, { stubs = [] } = {}) {
     name: 'fake-react',
     setup(b) {
       b.onResolve({ filter: /^react(\/jsx-runtime|\/jsx-dev-runtime)?$/ }, (args) => ({ path: args.path, namespace: 'fake-react' }));
+      // A portal draws its children in place here: the real react-dom reads
+      // React's internals, which the fake does not have.
+      b.onResolve({ filter: /^react-dom$/ }, () => ({ path: 'react-dom', namespace: 'fake-react-dom' }));
+      b.onLoad({ filter: /.*/, namespace: 'fake-react-dom' }, () => ({
+        contents: 'export const createPortal = (children) => children; export default { createPortal };',
+        loader: 'js',
+      }));
       b.onLoad({ filter: /.*/, namespace: 'fake-react' }, (args) => ({
         contents: args.path === 'react'
           ? `const R = globalThis.__fakeReact;

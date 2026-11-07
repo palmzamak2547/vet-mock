@@ -27,7 +27,9 @@ export function playerElement() {
 // arrives later play on iOS. Never interrupts a clip that is playing.
 export function primePlayer() {
   const el = playerElement();
-  if (!el || !el.paused) return;
+  // Playing, or holding a paused job's clip: the element is already
+  // unlocked, and replacing its clip would lose where that job stopped.
+  if (!el || !el.paused || el.src.startsWith('blob:')) return;
   try {
     el.muted = true;
     el.src = SILENT_WAV;

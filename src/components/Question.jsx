@@ -157,7 +157,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   useEffect(() => {
     if (!currentQ?.subject) return;
     if (usedReadAloud()) {
-      loadEngine().then((m) => m.warm(jobFor('q'))).catch(() => {});
+      // The stem's clip is small (a few tens of KB); the explanation's is not,
+      // so it comes ahead only for a student who listens to explanations.
+      loadEngine().then((m) => m.warm(jobFor('q'), { clip: true })).catch(() => {});
     } else {
       try {
         if (!document.querySelector('link[rel="preconnect"][href="https://tts.vetmock.com"]')) {
@@ -170,7 +172,16 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       } catch { /* a hint only */ }
     }
   }, [currentQ?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- once per question
-  const warmExplain = () => { if (usedReadAloud()) loadEngine().then((m) => m.warm(jobFor('explain'))).catch(() => {}); };
+  const warmExplain = () => {
+    if (!usedReadAloud()) return;
+    let clip = false;
+    try { clip = window.localStorage.getItem('vmx-explain-listened') === '1'; } catch { /* private mode */ }
+    loadEngine().then((m) => m.warm(jobFor('explain'), { clip })).catch(() => {});
+  };
+  // The question this card shows now: a tap's job starts only if the card
+  // still shows it once the engine has loaded.
+  const prefixNow = useRef(jobPrefix);
+  prefixNow.current = jobPrefix;
 
   // The read-aloud code loads on the first press; start it on pointer-down
   // so the tap's own delay overlaps the download.
@@ -185,8 +196,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     unlockAudio();
     if (readAloud.get().job?.id === `${jobPrefix}${what}`) { engineRef.current?.stop(); return; }
     setTtsNote(null);
+    if (what === 'explain') { try { window.localStorage.setItem('vmx-explain-listened', '1'); } catch { /* private mode */ } }
+    const job = jobFor(what);
     try {
-      (await loadEngine()).start(jobFor(what));
+      const m = await loadEngine();
+      // A student who moved on while the engine loaded hears nothing late.
+      if (prefixNow.current !== jobPrefix) return;
+      m.start(job);
     } catch {
       setTtsNote({ what, text: 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง' });
     }
