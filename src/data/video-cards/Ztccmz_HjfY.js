@@ -322,7 +322,7 @@ export default {
   },
   {
    "t": 4260,
-   "title": "o",
+   "title": "",
    "line": "Uveitis มี 3 syndrome คือ classic, insidious, posterior และอาจทำให้ตาบอดถาวร",
    "slides": [
     {

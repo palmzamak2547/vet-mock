@@ -178,10 +178,6 @@ export default {
  ],
  "index": [
   {
-   "term": "FOOD",
-   "t": 5417
-  },
-  {
    "term": "allergy",
    "t": 5417
   },
@@ -198,16 +194,12 @@ export default {
    "t": 1468
   },
   {
-   "term": "ATOPIC",
+   "term": "Atopic",
    "t": 2190
   },
   {
-   "term": "TRIAL",
+   "term": "trial",
    "t": 891
-  },
-  {
-   "term": "CROSS",
-   "t": 5855
   },
   {
    "term": "Atopic dermatitis",
@@ -216,10 +208,6 @@ export default {
   {
    "term": "เห็บ",
    "t": 1605
-  },
-  {
-   "term": "IN",
-   "t": 1751
   },
   {
    "term": "dermatosis",
@@ -236,10 +224,6 @@ export default {
   {
    "term": "แคลเซียม",
    "t": 5029
-  },
-  {
-   "term": "DIET",
-   "t": 5356
   },
   {
    "term": "nutritional",
@@ -262,14 +246,6 @@ export default {
    "t": 581
   },
   {
-   "term": "TO",
-   "t": 528
-  },
-  {
-   "term": "NORMAL",
-   "t": 2337
-  },
-  {
    "term": "GI",
    "t": 3552
   },
@@ -282,48 +258,8 @@ export default {
    "t": 3659
   },
   {
-   "term": "OF",
-   "t": 3476
-  },
-  {
    "term": "vitamin",
    "t": 4639
-  },
-  {
-   "term": "LARGE",
-   "t": 5966
-  },
-  {
-   "term": "ARE",
-   "t": 6284
-  },
-  {
-   "term": "BLOOD",
-   "t": 5930
-  },
-  {
-   "term": "BODY",
-   "t": 7038
-  },
-  {
-   "term": "AS",
-   "t": 4961
-  },
-  {
-   "term": "OPTION",
-   "t": 2787
-  },
-  {
-   "term": "BE",
-   "t": 6923
-  },
-  {
-   "term": "HOW",
-   "t": 3182
-  },
-  {
-   "term": "DOES",
-   "t": 3182
   },
   {
    "term": "biopsy",
@@ -338,20 +274,12 @@ export default {
    "t": 6180
   },
   {
-   "term": "IS",
-   "t": 107
-  },
-  {
    "term": "FAD",
    "t": 6300
   },
   {
    "term": "PE",
    "t": 6300
-  },
-  {
-   "term": "WEEK",
-   "t": 6660
   },
   {
    "term": "pathway",

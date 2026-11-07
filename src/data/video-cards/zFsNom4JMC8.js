@@ -558,7 +558,7 @@ export default {
    "t": 2064
   },
   {
-   "term": "VIRAL",
+   "term": "Viral",
    "t": 6028
   },
   {

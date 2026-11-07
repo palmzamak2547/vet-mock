@@ -300,10 +300,6 @@ export default {
    "t": 4095
   },
   {
-   "term": "TO",
-   "t": 1891
-  },
-  {
    "term": "score",
    "t": 2674
   },

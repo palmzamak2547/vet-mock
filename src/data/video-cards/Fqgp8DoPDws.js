@@ -271,20 +271,16 @@ export default {
    "t": 2220
   },
   {
-   "term": "equigenitali",
+   "term": "equigenitalis",
    "t": 2220
   },
   {
-   "term": "endometriti",
+   "term": "endometritis",
    "t": 2220
   },
   {
    "term": "estrus",
    "t": 3900
-  },
-  {
-   "term": "endometritis",
-   "t": 2220
   },
   {
    "term": "biopsy",

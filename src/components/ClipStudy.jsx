@@ -112,7 +112,8 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
   }, [videoId, hasCopy, carded]);
   useEffect(() => {
     if (tab !== 'transcript' || transcript.status !== 'idle') return;
-    if (!hasCopy) { setTranscript({ status: 'none' }); return; }
+    // Every card's transcript is kept, with or without our copy of the video.
+    if (!carded) { setTranscript({ status: 'none' }); return; }
     // Setting "loading" runs this effect again, so the answer is matched to its
     // clip by a ref; a cleanup here would throw every answer away.
     const id = videoId;
@@ -122,7 +123,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
       if (transcriptFor.current !== id) return;
       setTranscript(r.status === 'ok' ? { status: 'ok', lines: (r.data.lines || []).map(([t, text]) => ({ t, text })) } : r.code === 404 ? { status: 'none' } : r);
     });
-  }, [tab, videoId, hasCopy, transcript.status]);
+  }, [tab, videoId, carded, transcript.status]);
 
   // Watched marks grow only while the video plays forward; the place the
   // student stopped is kept every five seconds. Playing on into a stretch
@@ -337,7 +338,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
 
         {tab === 'transcript' && (
           transcript.status === 'loading' || transcript.status === 'idle' ? <p className="vmx-clip-note" aria-busy="true">กำลังโหลดคำบรรยาย</p>
-            : transcript.status === 'login' ? <p className="vmx-clip-note">เข้าสู่ระบบเพื่ออ่านคำบรรยายและเปิดสไลด์ของคลิปนี้</p>
+            : transcript.status === 'login' ? <p className="vmx-clip-note">{hasCopy ? 'เข้าสู่ระบบเพื่ออ่านคำบรรยายและเปิดสไลด์ของคลิปนี้' : 'เข้าสู่ระบบเพื่ออ่านคำบรรยายของคลิปนี้'}</p>
               : transcript.status === 'offline' ? <p className="vmx-clip-note">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วเปิดแท็บนี้อีกครั้ง</p>
                 : transcript.status === 'none' ? <p className="vmx-clip-note">คลิปนี้ยังไม่มีคำบรรยาย</p>
                   : transcript.status !== 'ok' ? (

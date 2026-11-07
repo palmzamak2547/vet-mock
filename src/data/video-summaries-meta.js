@@ -517,12 +517,11 @@ export const VIDEO_META = {
   },
   'pQ3y5Ki_DmQ': {
     "videoId": "pQ3y5Ki_DmQ",
-    "title": "Avian Medicine — 7 Poultry Vet Career (NOT IN EXAM)",
+    "title": "Avian Medicine — 7 Poultry Vet Career",
     "subject": "avian-medicine",
     "date": "2025-09-30",
     "durationMin": 116,
-    "instructor": "CUVET avian team",
-    "examFormat": "NOT IN EXAM (ไม่ออกสอบ) — career discussion"
+    "instructor": "CUVET avian team"
   },
   'qtH9lZN90hk': {
     "videoId": "qtH9lZN90hk",
@@ -2492,8 +2491,7 @@ export const VIDEO_META = {
     "subject": "epidemiology",
     "date": "2025-10-06",
     "durationMin": 64,
-    "instructor": "อ.ธนศักดิ์",
-    "examFormat": "NOT IN EXAM (ไม่ออกสอบ) — interesting research overview"
+    "instructor": "อ.ธนศักดิ์"
   },
   'bNB5K2zbKbY': {
     "videoId": "bNB5K2zbKbY",
@@ -3744,12 +3742,11 @@ export const VIDEO_META = {
   },
   'YWlclk9v6cE': {
     "videoId": "YWlclk9v6cE",
-    "title": "One Health — 15.2 Import Risk Assessment for Prawn Products (NOT IN EXAM)",
+    "title": "One Health — 15.2 Import Risk Assessment for Prawn Products",
     "subject": "one-health",
     "date": "2025-11-19",
     "durationMin": 47,
-    "instructor": "CUVET One Health team",
-    "examFormat": "NOT IN EXAM (ไม่ออกสอบ) — case study application"
+    "instructor": "CUVET One Health team"
   },
   'YfbNcej_FwE': {
     "videoId": "YfbNcej_FwE",

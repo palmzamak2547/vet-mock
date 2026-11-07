@@ -555,20 +555,12 @@ export default {
  ],
  "index": [
   {
-   "term": "FORM",
-   "t": 2660
-  },
-  {
    "term": "choice",
    "t": 1742
   },
   {
    "term": "PCR",
    "t": 3256
-  },
-  {
-   "term": "IN",
-   "t": 1915
   },
   {
    "term": "culture",
@@ -579,7 +571,7 @@ export default {
    "t": 2660
   },
   {
-   "term": "NASAL",
+   "term": "nasal",
    "t": 2710
   },
   {
@@ -637,10 +629,6 @@ export default {
   {
    "term": "biopsy",
    "t": 2976
-  },
-  {
-   "term": "GOOD",
-   "t": 262
   },
   {
    "term": "histology",

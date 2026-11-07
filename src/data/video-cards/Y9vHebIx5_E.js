@@ -586,11 +586,11 @@ export default {
    "t": 4260
   },
   {
-   "term": "equigenitali",
+   "term": "equigenitalis",
    "t": 4260
   },
   {
-   "term": "endometriti",
+   "term": "endometritis",
    "t": 3360
   },
   {
@@ -608,10 +608,6 @@ export default {
   {
    "term": "vaginitis",
    "t": 4260
-  },
-  {
-   "term": "endometritis",
-   "t": 3360
   },
   {
    "term": "fluid",
