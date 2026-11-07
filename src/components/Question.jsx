@@ -18,12 +18,12 @@ import { unlockAudio } from '../lib/audio-unlock.js';
 import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
 import ReadAloudBar from './ReadAloudBar.jsx';
 import QSourceChip from './QSourceChip.jsx';
+import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, flagChipText, SOURCE_LINE_WAIT } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
 import MissCoach from './MissCoach.jsx';
-import MochiLive from './MochiLive.jsx';
 import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 import { feedbackReaction, COMBO_MIN } from '../lib/mochi-reactions.js';
 import { haptic } from '../lib/haptics.js';
@@ -322,6 +322,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     && (currentAnswer === true || currentAnswer === false);
   const tfOk = tfRevealed && currentAnswer === currentQ.answer;
   const mcqOk = mcqRevealed && currentAnswer === currentQ.answer;
+  // Whether this question's key is on screen: a choice question's verdict, a
+  // matching set with every row filled (MatchDragDrop's own rule), or a
+  // written answer's เฉลย opened under its box. Until then the source line
+  // names only the kind of source, because the full one can give the key
+  // away. When the key waits for the end of the set (a timed paper, or
+  // practice with instant answers off) nothing reveals here; Review shows
+  // the full source.
+  const matchFilled = currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0
+    && currentAnswer && typeof currentAnswer === 'object'
+    && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
+  const keyShown = mcqRevealed || tfRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -369,7 +380,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
           self-optimization rule 1d (hold to facts). */}
-      {currentQ.flag && <FlagChip flag={currentQ.flag} />}
+      {currentQ.flag && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -604,8 +615,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {/* Trust layer — source / verified / examOrigin / flag.
-          Collapsed by default to keep the card clean; tap to expand. */}
-      <QSourceChip q={currentQ} />
+          Collapsed by default to keep the card clean; tap to expand once the
+          key is on screen. Keyed per question: an open panel on one question
+          used to stay open on the next. */}
+      <QSourceChip key={compoundId} q={currentQ} revealed={keyShown} />
     </div>
   );
 
@@ -680,12 +693,24 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <>
               {typeLabel && <span>{typeLabel}</span>}
               <span>{subj?.name || currentQ.subject}</span>
-              {topic && <span style={{ color: subjectText(subj?.color) }}>{topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span>}
+              {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
+              {/* A label that would name the key waits for it (lib/source-line.js).
+                  It and the line standing in for it share one grid cell, so the
+                  row keeps the size the label needs and nothing moves when it
+                  appears; the hidden one is neither seen nor read aloud. */}
+              {topic && holdsTopicChip(currentQ) && (
+                <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
+                  <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
+                  <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
+                </span>
+              )}
               {paper && <span className="vmx-scope-chip">{paper}</span>}
             </>
           );
         })()}
-        {currentQ.examOrigin && (
+        {/* Only where the source line agrees: a sat paper, a marked exam
+            point or a mock, never a row written from a lecture or a summary. */}
+        {followsExamPattern(currentQ) && (
           <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
             อิงแนวเดิม
           </span>
@@ -737,8 +762,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 // Severity color: major=rose, minor=gold, unclear=ink-soft.
 // Click expands to show note + sources.
 // ────────────────────────────────────────────────────────────────
-function FlagChip({ flag }) {
+// The chip warns before the answer too, but what it opens waits for the key
+// (5.189.2): a note that says which key the seniors marked, or that the
+// answer "should be InPouch TF-Feline", named the key on 26 of the 94
+// flagged questions, timed papers included. Exported for the leak test.
+export function FlagChip({ flag, revealed = false }) {
   const [open, setOpen] = useState(false);
+  const expanded = revealed && open;
   const sev = flag?.severity || 'unclear';
   // `text` is the accent as TEXT on a 12% tint of itself — the raw accents
   // read 2.65 there. The -text variants are what that role is for; border
@@ -759,10 +789,12 @@ function FlagChip({ flag }) {
     <div style={{ marginTop: 12 }}>
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { if (revealed) setOpen((o) => !o); }}
+        aria-expanded={revealed ? open : undefined}
+        aria-disabled={revealed ? undefined : true}
         style={{
           all: 'unset',
-          cursor: 'pointer',
+          cursor: revealed ? 'pointer' : 'default',
           display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
@@ -773,13 +805,13 @@ function FlagChip({ flag }) {
           fontSize: 14,
           color: palette.text,
         }}
-        title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
+        title={revealed ? 'ข้อมูลขัดแย้ง — กดดูรายละเอียด' : 'ข้อมูลขัดแย้ง รายละเอียดแสดงหลังเห็นเฉลย'}
       >
         {/* One line flag; the severity is the word beside it and the colour. */}
-        <NavIcon name="flag" size={13} filled /> ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
+        <NavIcon name="flag" size={13} filled /> {flagChipText(flag)} {revealed ? (open ? '▾' : '▸') : SOURCE_LINE_WAIT}
       </button>
 
-      {open && (
+      {expanded && (
         <div style={{
           marginTop: 8,
           padding: '12px 14px',
@@ -896,12 +928,8 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
               verdicts (lib/mochi-reactions.js correctRun). */}
           {combo && <span className={`vmx-combo-chip${isFresh ? ' is-fresh' : ''}`}>ถูกติดกัน {run} ข้อ</span>}
         </div>
-        <div className="vmx-feedback-stamp-wrapper">
-          <div className={`vmx-mochi-stamp--${ok ? 'pass' : 'revise'}`} title={ok ? 'ตราของ Mochi: ถูกแล้ว' : 'ตราของ Mochi: ลองอีกครั้ง'}>
-            <MochiLive pose={reaction.pose} play={isFresh ? reaction.play : null} size={40} slot="feedback" className="vmx-feedback-mochi" />
-            <span className="vmx-stamp-label">{ok ? 'ถูกแล้ว' : 'ลองอีกที'}</span>
-          </div>
-        </div>
+        {/* No Mochi stamp beside the verdict (Palm, 1 Nov 2026: "ดูแปลกตา"):
+            the headline has the row to itself. */}
       </div>
       {/* "คุณตอบถูก", not "ถูกต้อง". On a true/false question the
           second reads as a verdict on the STATEMENT, and it sat directly above

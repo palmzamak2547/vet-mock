@@ -85,6 +85,9 @@ const STUBS = {
     'export const useMemo = (f) => f();',
     'export const useRef = (v) => h().useRef(v);',
     'export const useCallback = (f) => f;',
+    // A lazy child renders nothing here: the test reads the chip, not it.
+    'export const lazy = () => function Lazy() { return null; };',
+    'export const Suspense = ({ children }) => children ?? null;',
   ].join('\n'),
   'react/jsx-runtime': [
     "export const Fragment = 'fragment';",
@@ -96,6 +99,7 @@ const STUBS = {
   '../components/BackBar.jsx': 'export default function BackBar() { return null; }',
   '../components/SummaryModal.jsx': 'export default function SummaryModal() { return null; }',
   '../components/VideoNotePanel.jsx': 'export default function VideoNotePanel() { return null; }',
+  '../components/ClipStudy.jsx': 'export default function ClipStudy() { return null; }',
   // The once-a-day usage hint. Stubbed by name like the others: the test
   // compiles VideoView through Node's loader, which has no JSX transform,
   // so every .jsx child is replaced before it is ever resolved.
@@ -163,9 +167,12 @@ const findAll = (node, pred, out = []) => {
   return out;
 };
 
-function renderChip(q, { open = false } = {}) {
+// The full source shows once the key is on screen (5.189.2); before it the
+// line names only the kind of source (source-line-no-spoiler.test.mjs).
+// These tests read the full line and its panel, so they render it revealed.
+function renderChip(q, { open = false, revealed = true } = {}) {
   globalThis.__vmxHooks = hooks({ open });
-  const tree = expand(QSourceChip({ q }));
+  const tree = expand(QSourceChip({ q, revealed }));
   return { tree, text: textOf(tree).replace(/\s+/g, ' ') };
 }
 const bankRow = (subject, id) => {
@@ -179,19 +186,19 @@ const bankRow = (subject, id) => {
  *  where a word-boundary check cannot see an English label. */
 function rowLabels(q) {
   globalThis.__vmxHooks = hooks({ open: true });
-  return findAll(QSourceChip({ q }), (n) => typeof n.type === 'function' && n.type.name === 'Row').map((n) => n.props.label);
+  return findAll(QSourceChip({ q, revealed: true }), (n) => typeof n.type === 'function' && n.type.name === 'Row').map((n) => n.props.label);
 }
 
 // The stored origin keeps its "·" (exam-origins.js keys it that way); the
 // student reads a comma. 445 questions printed the dot under the stem on
 // 28 Oct 2026, from examOrigin and verified alike.
-test('no question shows a middle dot in its source, closed or open', () => {
+test('no question shows a middle dot in its source, closed or open, before or after the key', () => {
   const dotted = QB.filter((q) => [q.examOrigin, q.verified, q.source].some((v) => typeof v === 'string' && v.includes('·')));
   assert.ok(dotted.length > 0, 'the bank still stores dotted origins, so this test reads real rows');
   for (const q of dotted) {
-    for (const open of [false, true]) {
-      const { text } = renderChip(q, { open });
-      assert.ok(!text.includes('·'), `${q.subject}#${q.id} (${open ? 'open' : 'closed'}): ${text.slice(0, 120)}`);
+    for (const [open, revealed] of [[false, false], [false, true], [true, true]]) {
+      const { text } = renderChip(q, { open, revealed });
+      assert.ok(!text.includes('·'), `${q.subject}#${q.id} (${open ? 'open' : 'closed'}${revealed ? '' : ', before the key'}): ${text.slice(0, 120)}`);
     }
   }
 });
@@ -454,7 +461,8 @@ async function mountPlayer(modal) {
   const made = [];
   window.YT = { Player: function Player(node, opts) { made.push(opts); this.destroy = () => {}; } };
   try {
-    const effect = h.effects.find((e) => e.deps?.length === 2 && typeof e.deps[0] === 'string' && e.deps[0].length === 11);
+    // [currentVideoId, playlistId, ownStatus]: a guest's clip plays on YouTube.
+    const effect = h.effects.find((e) => e.deps?.length === 3 && typeof e.deps[0] === 'string' && e.deps[0].length === 11 && e.deps[2] === 'none');
     assert.ok(effect, 'the player effect is registered for this clip');
     effect.fn();
     await new Promise((r) => setTimeout(r, 0));

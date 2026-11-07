@@ -23,9 +23,19 @@ export const DOW_SHORT = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส']
 export const DOW_FULL = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 const TH_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 
-/** Local calendar day as YYYY-MM-DD, in the browser's own zone (the app is
- *  read in Bangkok and the fixtures pin Asia/Bangkok). */
-export const dayKey = (value) => new Date(value).toLocaleDateString('en-CA');
+// Days and clock times are Bangkok's (UTC+7, no daylight saving), never the
+// device's: on a phone or a CI runner set to UTC, 00:30 in Bangkok fell on the
+// previous day, so the strip, "วันนี้ N ข้อ" and "วันนี้ 00:30" disagreed with
+// the streak and the timetable, which already read Bangkok's clock.
+const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
+/** A Date whose UTC fields read Bangkok's wall clock at that instant. */
+const bangkokWall = (value) => new Date(new Date(value).getTime() + BANGKOK_OFFSET_MS);
+
+/** Bangkok calendar day as YYYY-MM-DD; '' for a value that is not a time. */
+export const dayKey = (value) => {
+  const b = bangkokWall(value);
+  return Number.isNaN(b.getTime()) ? '' : b.toISOString().slice(0, 10);
+};
 
 /** A history row's time as a number, or null when the row carries none. */
 export function rowTime(value) {
@@ -36,9 +46,9 @@ export function rowTime(value) {
 
 /** "จันทร์ 12 ต.ค." for a date. */
 export function shortThaiDay(value) {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return '';
-  return `${DOW_FULL[d.getDay()]} ${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
+  const b = bangkokWall(value);
+  if (Number.isNaN(b.getTime())) return '';
+  return `${DOW_FULL[b.getUTCDay()]} ${b.getUTCDate()} ${TH_MONTHS[b.getUTCMonth()]}`;
 }
 
 /**
@@ -54,19 +64,17 @@ export function weekTrack(history, now = Date.now()) {
     const key = dayKey(t);
     counts.set(key, (counts.get(key) || 0) + 1);
   }
-  const today = new Date(now);
-  today.setHours(0, 0, 0, 0);
   const track = [];
   for (let i = 6; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(today.getDate() - i);
-    const key = dayKey(d);
+    // Bangkok keeps no daylight saving, so a day is always 24 hours back.
+    const b = bangkokWall(new Date(now).getTime() - i * DAY_MS);
+    const key = b.toISOString().slice(0, 10);
     const count = counts.get(key) || 0;
     track.push({
       date: key,
-      day: d.getDate(),
-      dow: d.getDay(),
-      dowLabel: DOW_SHORT[d.getDay()],
+      day: b.getUTCDate(),
+      dow: b.getUTCDay(),
+      dowLabel: DOW_SHORT[b.getUTCDay()],
       isToday: i === 0,
       studied: count > 0,
       count,
@@ -107,13 +115,25 @@ export function recentSessions(history, { limit = 4, gapMs = 45 * 60 * 1000 } = 
 
 /** "วันนี้ 13:40", "เมื่อวาน 09:12", or the day for anything older. */
 export function sessionWhen(ts, now = Date.now()) {
-  const d = new Date(ts);
-  if (Number.isNaN(d.getTime())) return '';
-  const time = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  const b = bangkokWall(ts);
+  if (Number.isNaN(b.getTime())) return '';
+  const time = `${String(b.getUTCHours()).padStart(2, '0')}:${String(b.getUTCMinutes()).padStart(2, '0')}`;
   const key = dayKey(ts);
   if (key === dayKey(now)) return `วันนี้ ${time}`;
   if (key === dayKey(now - DAY_MS)) return `เมื่อวาน ${time}`;
   return shortThaiDay(ts);
+}
+
+/** Topics read among these subjects, one per subject and topic, as the reading
+ *  list counts them. Counting the stored keys instead added a topic twice once
+ *  its old bare key was promoted to the subject/topic key (both stay), and kept
+ *  counting a topic unticked everywhere, beside เริ่มแล้ว 0 จาก N วิชา. */
+export function topicsRead(checklist, subjects) {
+  let read = 0;
+  for (const s of Array.isArray(subjects) ? subjects : []) {
+    for (const t of s?.topics || []) if (t && !t.hidden && isTopicRead(checklist, s.id, t.id)) read += 1;
+  }
+  return read;
 }
 
 /** Of the subjects that have topics, how many have at least one read topic. */

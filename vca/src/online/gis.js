@@ -39,6 +39,28 @@ export function buttonDrawn(el) {
   return Boolean(box) && box.width >= 8 && box.height >= 8;
 }
 
+/**
+ * Calls onEmpty when Google's button is still not in the slot `delayMs` after the
+ * script loaded AND once the page is idle: a heavy first load (Research's workspace)
+ * holds back Google's drawing as long as it holds back this timer, and judging the
+ * slot mid-load swapped a button that was about to draw for the redirect one.
+ * Returns a function that cancels the watch.
+ */
+export function watchDrawn(el, onEmpty, { delayMs = DRAWN_MS, win = globalThis } = {}) {
+  let idle = 0;
+  const check = () => { if (!buttonDrawn(el)) onEmpty(); };
+  const timer = win.setTimeout(() => {
+    idle = typeof win.requestIdleCallback === 'function'
+      ? win.requestIdleCallback(check, { timeout: 3000 })
+      : win.setTimeout(check, 0);
+  }, delayMs);
+  return () => {
+    win.clearTimeout(timer);
+    if (typeof win.cancelIdleCallback === 'function') win.cancelIdleCallback(idle);
+    else win.clearTimeout(idle);
+  };
+}
+
 const hex = (bytes) => Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 
 /**

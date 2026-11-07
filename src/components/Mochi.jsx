@@ -47,16 +47,18 @@ function Picture({ pose, size, animate, reduced, slot, className }) {
   </span>;
 }
 
-/** One rule for whether Mochi shows in a slot (MochiLive reads it too). */
-export const mochiEnabled = (preferences, context, slot) => preferences.companion && preferences.mode !== 'off'
-  && (context.visible || (slot === 'feedback' && context.feedback));
+/** One rule for whether Mochi shows (MochiLive reads it too). The slot names
+ *  where it sits; no slot opts in where the page has no Mochi (the verdict
+ *  stamp that did, inside a practice set, went in 5.189.2). */
+export const mochiEnabled = (preferences, context) => preferences.companion && preferences.mode !== 'off'
+  && context.visible;
 
 // Ordinary UI needs no artwork JavaScript or WebGL. A failed native image can
 // fall back locally, without invoking the app's stale-module recovery/reload.
 const Mochi = memo(function Mochi({ state, size = 44, animate = false, slot = 'inline', className = '', fallback = null }) {
   const { preferences, reduced } = useMotionPreferences();
   const context = useMochiContext();
-  const enabled = mochiEnabled(preferences, context, slot);
+  const enabled = mochiEnabled(preferences, context);
   if (!enabled) return fallback;
   const pose = state || context.pose;
   return <Picture {...{ pose, size, animate, reduced, slot, className }} />;

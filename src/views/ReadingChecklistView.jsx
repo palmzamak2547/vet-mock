@@ -16,7 +16,7 @@ import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { hasNoteTopic } from '../data/notes-registry.generated.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { isTopicRead, setTopicRead } from '../lib/study-progress.js';
-import { scopeForPhase, questionInScope, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { scopeForPhase, topicOnPaper, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
 import { alertDialog } from '../lib/dialog.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
@@ -41,7 +41,7 @@ export default function ReadingChecklistView({
   const subjects = (SUBJECTS_BY_YEAR[selectedYear] || [])
     .filter((s) => !semester || s.semester == null || s.semester === 0 || s.semester === semester)
     .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden
-      && questionInScope({ subject: s.id, topic: t.id }, paperScope)) : [] }))
+      && topicOnPaper(s.id, t.id, selectedPhase)) : [] }))
     .filter((s) => s.topics.length > 0);
 
   // The celebration below watches a derived count, which also moves when the

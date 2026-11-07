@@ -4590,7 +4590,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     "answer": 0,
     "explain": "ลูกศรแดงอยู่ที่ส้นกีบทั้งสองข้าง ไม่ใช่จุดเดียวบนพื้นกีบ ความเจ็บแบบนี้เข้ากับบริเวณ navicular (ส้นและส่วนกลางของกบ) จึงเดินหน้าตามลำดับการตรวจต่อ คือ flexion test ของส่วนล่างของขาก่อน แล้วจึงฉีดยาชาไล่จากกีบขึ้นไป การบล็อกจึงเป็นขั้นหลังจาก flexion test การเอามีดแต่งกีบขุดหาฝีเหมาะกับจุดเจ็บเฉพาะที่บนพื้นกีบ ซึ่งไม่ใช่แบบที่เห็นในเคสนี้ ส่วนการแนะนำให้ขายม้าหรือเลิกตรวจไม่ใช่ทางเลือกทางการรักษา",
     "source": "แผ่นเฉลยที่พิมพ์แจกในคาบฝึก POA (ภาพในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 3) ข้อ 3-5",
-    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 3 (การ์ดผล hoof tester ในคาบฝึก POA); ถามซ้ำใน บันทึกคาบฝึก POA ของ Vet 84 หน้า 7; ข้อมูลเคสภาษาไทยจาก รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 3 (แบบฟอร์มฝึก POA Lameness 1)",
+    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 3 (การ์ดผล hoof tester ในคาบฝึก POA); ถามซ้ำใน บันทึกคาบฝึก POA ของ Vet 84 หน้า 7; ข้อมูลเคสภาษาไทยจาก รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 3 (แบบฟอร์มฝึก POA Lameness 1); ตรวจเฉลยซ้ำ 2 พ.ย. 2569: ใบ Congratulations ในหน้าเดียวกันเรียงขั้น hoof tester แล้ว flexion test (could be tried) แล้ว The next step would be to begin blocking nerves และใบงานของคาบทำตามลำดับนั้น จึงคง ก",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med & Surg POA practice case (Vet 84 class session)",
     "tags": [

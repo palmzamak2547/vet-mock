@@ -119,7 +119,7 @@ function paintsSerifWeight() {
 }
 
 /** Right-aligned by the ink: a closing mark (the ์ of "ศัลย์") inks past the advance. */
-function textRight(card, str, x, y, style, role) {
+export function textRight(card, str, x, y, style, role) {
   // Measured left-aligned: card.text never relies on the canvas's own alignment.
   card.style({ ...style, align: 'left' });
   const m = card.ctx.measureText(String(str));
@@ -132,7 +132,7 @@ function widthOf(card, str, style) {
   return card.measure(String(str));
 }
 
-function roundRect(ctx, x, y, w, h, r) {
+export function roundRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
   if (typeof ctx.roundRect === 'function') ctx.roundRect(x, y, w, h, r);
   else ctx.rect(x, y, w, h);
@@ -406,13 +406,14 @@ export async function drawTimetable(table, { scale = SCALE } = {}) {
   return { card, problems };
 }
 
-/** The page as a one-page A4 PDF: the JPEG fills the sheet. */
+/** The page as an A4 PDF, each JPEG (one, or a list) filling a sheet of its own. */
 export async function timetablePdf(jpeg, { title } = {}) {
   const { PDFDocument } = await import('pdf-lib');
   const doc = await PDFDocument.create();
-  const image = await doc.embedJpg(jpeg);
-  const page = doc.addPage([POINTS.w, POINTS.h]);
-  page.drawImage(image, { x: 0, y: 0, width: POINTS.w, height: POINTS.h });
+  for (const one of [].concat(jpeg)) {
+    const image = await doc.embedJpg(one);
+    doc.addPage([POINTS.w, POINTS.h]).drawImage(image, { x: 0, y: 0, width: POINTS.w, height: POINTS.h });
+  }
   if (title) doc.setTitle(title);
   doc.setAuthor('VetMock');
   doc.setCreator('vetmock.com');

@@ -8,7 +8,8 @@ import { motionIsReduced, readMotionPreferences } from '../lib/motion-preference
 // everywhere else; when motion is allowed and the rig has loaded, one Motion
 // Kit state plays over it (lib/mochi-live.js) and ends on that still.
 // Inputs, not animation code, come from the screen: `pose` (the still) and
-// `play` (the state to play once, or null), chosen by lib/mochi-reactions.js.
+// `play` (the state to play once, or null); the result card, its one user,
+// picks them with lib/mochi-presence.js mochiResultPose.
 // Until the rig has loaded, or under reduced motion, the still keeps its
 // small CSS greeting, as before.
 
@@ -35,16 +36,16 @@ export function preloadMochiRig() {
 
 export default function MochiLive({ pose, play = null, size = 40, slot, className = '' }) {
   const { preferences, reduced } = useMotionPreferences();
-  const enabled = mochiEnabled(preferences, useMochiContext(), slot);
+  const enabled = mochiEnabled(preferences, useMochiContext());
   const host = useRef(null);
   const live = Boolean(rigModule) && !reduced;
-  // Decided once, at mount: the feedback panel mounts once per revealed answer.
+  // Decided once, at mount: the result card mounts once per finished set.
   const [canPlay] = useState(() => Boolean(play) && live);
-  // Nothing of the rig runs inside the tap that revealed the answer: the
-  // verdict paints first, then the observer's first callback (after that
-  // frame's layout, no forced reflow) starts the reaction, or shows the
-  // still when the stamp is below the fold. While pending the still is
-  // hidden, so the rig's first frame never pops over a different pose.
+  // Nothing of the rig runs inside the tap that opened the screen: the card
+  // paints first, then the observer's first callback (after that frame's
+  // layout, no forced reflow) starts the reaction, or shows the still when
+  // Mochi is below the fold. While pending the still is hidden, so the
+  // rig's first frame never pops over a different pose.
   // The state attribute is written on the element directly: a React state
   // update for it re-rendered inside the tap.
   useEffect(() => {

@@ -38,12 +38,14 @@ test('midterm hides the topics that only sit on the final paper', async ({ page,
   await openSubject(page, 'การสืบพันธุ์ในม้า');
 
   const body = page.locator('.vmx-app');
-  // 'final' with no midterm questions behind them — off this paper entirely.
-  for (const label of ['Endometritis in mare', 'Male reproductive organ functions', 'Artificial insemination']) {
+  // 'final' with no midterm questions behind them — off this paper entirely. Stallion infections joined them with
+  // the 2569 course schedule, which teaches them on 22 Oct, after the midterm.
+  for (const label of ['Endometritis in mare', 'Male reproductive organ functions', 'Artificial insemination', 'Reproductive infectious dz in stallion']) {
     await expect(body.getByText(label, { exact: false })).toHaveCount(0);
   }
-  // 'both' sits on either paper.
-  await expect(body.getByText('Reproductive infectious dz in stallion', { exact: false }).first()).toBeVisible();
+  // The mare's infectious diseases are taught before it (lectures 5-6), so they sit on it. A 'both' topic on
+  // either paper is held by tests/unit/exam-scope.test.mjs; this subject no longer has one.
+  await expect(body.getByText('Reproductive infectious dz in mare', { exact: false }).first()).toBeVisible();
 });
 
 test('the final paper keeps its own topics', async ({ page, context }) => {

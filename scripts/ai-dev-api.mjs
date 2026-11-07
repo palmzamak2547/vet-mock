@@ -126,10 +126,11 @@ async function main() {
     delete process.env.VERCEL_ENV;
     delete process.env.NODE_ENV;
   }
-  // the chat route, and the microphone's speech-to-text route beside it
+  // the chat route, the microphone's speech-to-text route and the voice call's start beside it
   const routes = {
     '/api/ai-chat': (await import(pathToFileURL(path.join(root, 'api', 'ai-chat.js')).href)).default,
     '/api/ai-transcribe': (await import(pathToFileURL(path.join(root, 'api', 'ai-transcribe.js')).href)).default,
+    '/api/ai-voice': (await import(pathToFileURL(path.join(root, 'api', 'ai-voice.js')).href)).default,
   };
   const server = http.createServer(async (req, res) => {
     const started = Date.now();

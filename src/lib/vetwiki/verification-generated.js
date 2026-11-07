@@ -62957,1369 +62957,6 @@ export const GENERATED_VERIFICATIONS = {
       ]
     }
   },
-  "avian-medicine--avian-intro": {
-    "avian-medicine--avian-intro--riemerella-anatipestifer-infection-new-duck-syndrome-โรคเป็ดหมุน": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--riemerella-anatipestifer-infection-new-duck-syndrome-โรคเป็ดหมุน--v1",
-          "statement": "Riemerella anatipestifer ก่อโรค polyserositis ติดต่อในเป็ดที่มีอัตราการตายสูง และวัคซีนที่มีอยู่ให้ cross protection ไม่ดี จึงต้องเตรียมวัคซีนตาม serotype ที่ระบาดจริงในพื้นที่ ตรงกับหลักการในสรุปที่ว่าต้องใช้ homologous vaccine ให้ตรง serotype",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-38262334",
-              "locator": "vol 103(3):103427, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Riemerella anatipestifer (RA) causes epizootic infectious polyserositis in ducks with high mortality and leads to huge economic losses worldwide. Bacterial resistance poses a challenge for the control of the disease, vaccines failed to prov"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--riemerella-anatipestifer-infection-new-duck-syndrome-โรคเป็ดหมุน--v2",
-          "statement": "การที่สรุประบุว่าต้องทำ antimicrobial susceptibility test ก่อนให้ยามีเหตุผลรองรับ เพราะการดื้อยาของ Riemerella anatipestifer เป็นอุปสรรคสำคัญต่อการควบคุมโรค นอกจากนี้การเลือกวัคซีนต้องอาศัยข้อมูล serotype ที่ระบาดจริง เช่นในจีนตอนใต้ปี 2016-2022 พบ serotype 1, 2, 7 และ 10 โดย serotype 1 กับ 2 รวมกันคิดเป็น 82%",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-38262334",
-              "locator": "vol 103(3):103427, Results",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "we collected 700 brain and liver tissues of dead ducks from 8 provinces in southern China from 2016 to 2022 and obtained 195 RA isolates with serotypes 1, 2, 7, and 10. Serotypes 1 and 2 were the most prevalent (82%)."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--duck-plague-duck-viral-enteritis-dve": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--duck-plague-duck-viral-enteritis-dve--v1",
-          "statement": "Duck plague เกิดจาก duck enteritis virus หรือ Anatid herpesvirus-1 ในสกุล Mardivirus วงศ์ Herpesviridae วงศ์ย่อย Alphaherpesvirinae และเป็นโรคติดต่อร้ายแรงของเป็ด ห่าน และหงส์ ตรงกับที่สรุประบุ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-28320263",
-              "locator": "vol 37(1):57-80, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "It is caused by duck enteritis virus (DEV)/Anatid herpesvirus-1 of the genus Mardivirus, family Herpesviridae, and subfamily Alpha-herpesvirinae."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--duck-plague-duck-viral-enteritis-dve--v2",
-          "statement": "ลักษณะเด่นของโรคคือตายเฉียบพลัน มีความเสียหายของหลอดเลือด (vascular damage) ตามด้วยเลือดออกภายใน รอยโรคที่อวัยวะน้ำเหลือง เยื่อเมือกทางเดินอาหารเป็นแผลนูน ท้องเสียรุนแรง และรอยโรคเสื่อมที่อวัยวะเนื้อ โดยอัตราป่วยและอัตราตายอยู่ในช่วง 5% ถึง 100% ตรงกับกลไก vascular damage ที่สรุปเขียน",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-28320263",
-              "locator": "vol 37(1):57-80, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The disease is characterized by sudden death, vascular damage and subsequent internal hemorrhage, lesions in lymphoid organs, digestive mucosal eruptions, severe diarrhea and degenerative lesions in parenchymatous organs."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--duck-plague-duck-viral-enteritis-dve--v3",
-          "statement": "เชื้อ duck enteritis virus สามารถเข้าสู่ระยะแฝง (latent) และปล่อยเชื้อออกมาเป็นระยะได้ และการป้องกันใช้ทั้งวัคซีนเชื้อเป็นลดความรุนแรงและวัคซีนเชื้อตายในเป็ดเนื้อและเป็ดพ่อแม่พันธุ์ที่อายุมากกว่า 2 สัปดาห์ สนับสนุนข้อความในสรุปเรื่อง latent infection และการทำวัคซีนเชื้อเป็น",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-28320263",
-              "locator": "vol 37(1):57-80, Abstract, prophylaxis",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "For prophylaxis, both live-attenuated and killed vaccines are being used in broiler and breeder ducks above 2 weeks of age. Since DEV is capable of becoming latent as well as shed intermittently"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--duck-viral-hepatitis-dvh-ทั้ง-3-ไทป์": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--duck-viral-hepatitis-dvh-ทั้ง-3-ไทป์--v1",
-          "statement": "Duck hepatitis A virus (DHAV) เป็น picornavirus ที่ก่อโรคติดต่อรุนแรงมากในเป็ด อัตราการตายในฝูงสูงถึง 100% ในลูกเป็ดอายุน้อยกว่า 6 สัปดาห์ ขณะที่เป็ดโตกว่านั้นไม่ได้รับผลกระทบ สอดคล้องกับที่สรุปเขียนว่าเป็นโรคของลูกเป็ดอายุน้อยและ mortality สูงมาก",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-27610716",
-              "locator": "vol 60(3):576-88, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "DHAV is a picornavirus that causes a highly contagious virus infection in ducks with up to 100% flock mortality in ducklings under 6 wk of age, while older birds remain unaffected."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--duck-viral-hepatitis-dvh-ทั้ง-3-ไทป์--v2",
-          "statement": "Duck hepatitis virus type 2 และ type 3 เป็น astrovirus ในวงศ์ Astroviridae ซึ่งต่างวงศ์จาก type 1 ที่เป็น picornavirus ตรงกับที่สรุปเขียนว่าทั้ง 3 ไทป์เกิดจากไวรัสคนละตัวกัน โดย DAstV-1 รายงานในสหราชอาณาจักรและจีน ส่วน DAstV-2 รายงานในสหรัฐอเมริกา",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-27610716",
-              "locator": "vol 60(3):576-88, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Duck hepatitis virus Types 2 and 3 are astroviruses in the family of Astroviridae with similarity phylogenetically to turkey astroviruses ... DAstV-1 has only been recognized in the United Kingdom and recently in China, while DAstV-2 has be"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--duck-flavivirus-tembusu-dtmuv-โรคเป็ดกลิ้ง": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--duck-flavivirus-tembusu-dtmuv-โรคเป็ดกลิ้ง--v1",
-          "statement": "Duck Tembusu virus เป็น flavivirus ที่ก่อโรคอุบัติใหม่ในเป็ด อาการทางคลินิกหลักคือรอยโรคที่อวัยวะภูมิคุ้มกันและความผิดปกติของระบบประสาท ทำให้ไข่ลดอย่างหนัก และระบาดในจีน ไทย มาเลเซีย และประเทศอื่นในเอเชียตะวันออกเฉียงใต้ ตรงกับที่สรุปเขียนเรื่อง encephalitis และความเสียหายทางเศรษฐกิจ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-32075929",
-              "locator": "vol 94(9), Importance section",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Infection with an emerging flavivirus, DTMUV, manifests with clinical symptoms that include lesions of the immune organs and neurological dysfunction, leading to heavy egg drop and causing serious harm to the duck industry in China, Thailan"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--duck-flavivirus-tembusu-dtmuv-โรคเป็ดกลิ้ง--v2",
-          "statement": "การแยกเชื้อได้จากยุงตามที่สรุปเขียนมีหลักฐานจากประเทศไทยโดยตรง คือการสำรวจยุงในฟาร์มเป็ดจังหวัดสิงห์บุรีและอ่างทองปี 2015-2016 จำนวน 30,841 ตัว ตรวจพบ DTMUV ด้วย RT-PCR ในยุง Culex tritaeniorhynchus หนึ่ง pool จึงสนับสนุนมาตรการควบคุมพาหะ (vector borne control)",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-31913570",
-              "locator": "vol 67(3):1082-1088, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "A total of 273 mosquito pools were examined, with only one pool of Cx. tritaeniorhynchus collected from Sing Buri Province in November 2015 testing positive for DTMUV. ... Thus, this study indicated that Cx. tritaeniorhynchus may play a rol"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--goose-parvovirus-infection": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--goose-parvovirus-infection--v1",
-          "statement": "Goose parvovirus สายพันธุ์ดั้งเดิม (classical GPV) คือสาเหตุของ Derzsy's disease และก่อโรคที่อัตราการตายสูงมากในลูกห่านอายุน้อย โดยการพิสูจน์เชื้อในลูกห่านอายุ 2 วันด้วยเชื้อ classical GPV ทำให้ตาย 93.3% สนับสนุนข้อความในสรุปที่ว่าลูกห่านอายุน้อยตายเฉียบพลันเกือบทั้งหมด",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-29630396",
-              "locator": "vol 47(4):391-399, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The mortality (73.3-80%) caused by the first and third egg-passages of the variant GPV was somewhat lower than that (93.3%) caused by the third passage virus of the classical GPV, reflecting the higher pathogenicity of the classical GPV for"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--goose-parvovirus-infection--v2",
-          "statement": "การป้องกันโรคด้วยการทำวัคซีนในแม่พันธุ์เพื่อส่งภูมิคุ้มกันไปยังลูกได้ผลชัดเจน ลูกห่านจากพ่อแม่ที่ได้วัคซีนเชื้อเป็นลดความรุนแรง 2 ครั้ง ตายเพียง 4.2% หลังพิสูจน์เชื้อ เทียบกับ 95% ในลูกของพ่อแม่ที่ไม่ได้วัคซีน และในฟาร์มจริงอัตราการตายเดือนแรกคือ 7.7% เทียบกับ 59.8%",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-18770393",
-              "locator": "vol 7(3):397-406, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Only 4.2% of gosling progeny of parents vaccinated twice with strain Bav died after challenge with the virulent strain B goose parvovirus compared with 95% of gosling progeny of unvaccinated parents. ... During the first month of life morta"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--avian-encephalomyelitis-ae-และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--avian-encephalomyelitis-ae-และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น--v1",
-          "statement": "AE เป็นโรคที่มี age resistance จริงตามที่สรุปเขียน เพราะเชื้อ AEV สายพันธุ์ธรรมชาติทำให้เกิดอาการทางประสาทในลูกไก่เล็กเท่านั้น ส่วนไก่สาวไม่แสดงอาการเมื่อได้รับเชื้อทางปากหรือทางผิวหนัง",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-28532787",
-              "locator": "vol 204:1-7, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Wild-type avian encephalomyelitis virus (AEV) causes neurological signs in young chicks but no disease in pullets after oral or intracutaneous infection."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--avian-encephalomyelitis-ae-และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น--v2",
-          "statement": "หลักที่สรุปเน้นว่า route กับ strain ต้องเข้ากันมีหลักฐานเชิงกลไกรองรับ คือเมื่อไวรัสถูกปรับให้เพิ่มจำนวนในตัวอ่อนไก่ (embryo-adapted) โดยการผ่านต่อเนื่อง คุณสมบัติจะเปลี่ยนจนก่อโรค AE ได้ในไก่ทุกช่วงอายุเมื่อให้ทางผิวหนัง และมีรายงานไก่สาวป่วยเป็น AE ไม่นานหลังได้รับวัคซีนทางผิวหนัง (เอกสารนี้ไม่ได้ทดสอบกรณีให้วัคซีนผสมน้ำโดยตรง)",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-28532787",
-              "locator": "vol 204:1-7, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "However, if the virus gets embryo-adapted by serial passaging in chicken embryos, it will cause AE after intracutaneous infection in chickens of all ages. Recently, several cases of AE in layer pullets occurring shortly after intracutaneous"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac--v1",
-          "statement": "ลูกโซ่พยาธิกำเนิดของ ascites ที่สรุปเขียนตรงกับตำราคลาสสิก คือ pulmonary hypertension ที่เกิดจากเลือดไหลผ่านปอดมากขึ้นหรือมีแรงต้านมากขึ้น นำไปสู่ right ventricular hypertrophy ลิ้นหัวใจรั่ว ความดันหลอดเลือดดำสูงขึ้น และลงท้ายด้วย ascites ส่วน polycythemia จากภาวะ hypoxia ทำให้เลือดหนืดขึ้นและยิ่งเร่งให้เกิด pulmonary hypertension",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-18671031",
-              "locator": "vol 22(3):419-54, Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Pulmonary hypertension (PH) caused by increased blood flow or increased resistance to flow in the lung results in right ventricular hypertrophy (RVH), valvular insufficiency, increased venous pressure and ascites. ... Increased blood viscos"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac--v2",
-          "statement": "อุณหภูมิเปลือกไข่ที่สูงเกินระหว่างฟัก (38.9 เทียบกับ 37.8 องศาเซลเซียส) ทำให้คุณภาพลูกไก่แรกฟักแย่ลงจริงตามที่สรุประบุเรื่อง heat stress โดยลูกไก่มี residual yolk เหลือมากกว่า และมี yolk free body mass กับน้ำหนักตับและหัวใจต่ำกว่า",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-34030030",
-              "locator": "vol 15(6):100223, Results and Conclusion",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "At 6 h after hatching, an EST of 38.9 °C resulted in a higher residual yolk weight and lower YFBM, liver weight and heart weight than an EST of 37.8 °C (all P < 0.003). ... a higher EST from day 8 of incubation onward appears to negatively "
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac--v3",
-          "statement": "คุณภาพสะดือ (navel quality) เป็นตัวชี้วัดคุณภาพลูกไก่ที่ขึ้นกับสภาวะการฟักจริง โดยพบปฏิสัมพันธ์สามทางระหว่างอายุแม่พันธุ์ สายพันธุ์ไก่เนื้อ และอุณหภูมิเปลือกไข่ ที่มีผลต่อระยะเวลาฟัก คุณภาพสะดือ และน้ำหนักสัมพัทธ์ของหัวใจกับกระเพาะที่ 3 ชั่วโมงหลังฟัก",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-26957632",
-              "locator": "vol 95(7):1666-1679, Results",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "A 3-way interaction among breeder age, strain, and EST was found, especially for incubation duration, navel quality, and relative heart and stomach weights at 3 h after hatch (all P < 0.05)."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--staphylococcosis": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--staphylococcosis--v1",
-          "statement": "Staphylococcus spp. โดยเฉพาะ S. aureus เป็นสาเหตุหลักของโรคกระดูกและข้อในสัตว์ปีก ทำให้เกิด bacterial chondronecrosis with osteomyelitis (BCO), arthritis, tenosynovitis, osteomyelitis และ bumblefoot ซึ่งแสดงออกเป็นการเดินกะเผลก (lameness)",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-35076352",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Staphylococci readily infect bones and joints and are associated with bacterial chondronecrosis with osteomyelitis (BCO), spondylitis, arthritis, tendinitis, tenosynovitis, osteomyelitis, turkey osteomyelitis complex (TOC), bumblefoot, dysc"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--staphylococcosis--v2",
-          "statement": "การรักษา staphylococcosis ด้วยยาปฏิชีวนะมักไม่ได้ผล แหล่งอ้างอิงระบุเหตุผลว่าเป็นเพราะตำแหน่งและชนิดของรอยโรค (กระดูกและข้อ ซึ่งยาเข้าถึงยาก) ร่วมกับการมีเชื้อดื้อยาหลายขนาน ไม่ได้ระบุการติดเชื้อไวรัสร่วมเป็นเหตุผลหลักอย่างที่เอกสารบรรยายอ้าง",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-35076352",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Antimicrobial treatment of staphylococcosis is usually ineffective due to the location and type of lesion, as well as the possible occurrence of multidrug-resistant strains."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--salmonellosis-ในคน-และภาพรวม-avian-salmonellosis": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--salmonellosis-ในคน-และภาพรวม-avian-salmonellosis--v1",
-          "statement": "ซัลโมเนลลา 5 ซีโรวาร์ที่เอกสารระบุว่ามีผลต่อการส่งออก ตรงกับ 5 ซีโรวาร์ที่สหภาพยุโรปกำหนดเป้าหมายควบคุมในฝูงไก่พ่อแม่พันธุ์ Gallus gallus ตามกฎหมาย คือ S. Enteritidis, S. Hadar, S. Infantis, S. Typhimurium และ S. Virchow",
-          "evidenceStatus": "expert-consensus",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "guide-european-commission-of-2005",
-              "locator": "Article 1(1)",
-              "kind": "guideline"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Salmonella enteritidis, Salmonella hadar, Salmonella infantis, Salmonella typhimurium and Salmonella virchow"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--salmonellosis-ในคน-และภาพรวม-avian-salmonellosis--v2",
-          "statement": "Caeca เป็นตำแหน่งหลักที่ใช้วัด colonization ของ Salmonella ในลูกไก่ และการให้ competitive exclusion culture ลดปริมาณเชื้อใน caeca ได้มากกว่า 99% เมื่อ challenge ด้วย S. Typhimurium 10,000 CFU",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-12448744",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "In day-old broiler chicks provided CF3, and challenged with 10,000 CFU Salmonella typhimurium greater than a 99% reduction in Salmonella cecal colonization levels was observed compared to control chicks."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--non-motile-serovar-pullorum-disease-และ-fowl-typhoid": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--non-motile-serovar-pullorum-disease-และ-fowl-typhoid--v1",
-          "statement": "S. enterica serovar Gallinarum biovar Gallinarum และ biovar Pullorum เป็นเชื้อที่จำเพาะกับโฮสต์สัตว์ปีก และก่อโรคแบบ systemic ที่รุนแรง คือ fowl typhoid (FT) และ Pullorum disease (PD) ตามลำดับ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-38247582",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "They are bacterial pathogens that exhibit host specificity for poultry and aquatic birds, causing severe systemic diseases known as fowl typhoid (FT) and Pullorum disease (PD), respectively."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--non-motile-serovar-pullorum-disease-และ-fowl-typhoid--v2",
-          "statement": "ต่างจากกลุ่ม motile serovar การติดเชื้อ S. Pullorum หรือ S. Gallinarum ไม่ก่อการอักเสบในทางเดินอาหารอย่างชัดเจน เนื่องจากไม่มี flagella จึงไม่ถูกจดจำโดย TLR5 ซึ่งเป็นตัวจุดชนวนการตอบสนองแบบอักเสบ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-19070366",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Infection with S. Pullorum or S. Gallinarum does not cause substantial inflammation, unlike S. Typhimurium or S. Enteritidis... The absence of flagella in S. Gallinarum and S. Pullorum means they are not recognised by TLR5"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--non-motile-serovar-pullorum-disease-และ-fowl-typhoid--v3",
-          "statement": "ในกรณี S. Pullorum สัตว์จำนวนไม่น้อยกลายเป็นพาหะที่มีเชื้อคงอยู่ใน macrophage ของม้าม และเมื่อแม่ไก่เข้าสู่วัยเจริญพันธุ์ เชื้อจะลามไปยังระบบสืบพันธุ์และไข่ ซึ่งอธิบายว่าทำไมการกำจัดสัตว์พาหะจึงเป็นหัวใจของการควบคุมโรค",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-19070366",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "In S. Pullorum a significant number of animals develop persistent infection of splenic macrophages... In carrier animals persistence may lead to reproductive tract and egg infection associated with a decline in CD4+ T cell numbers and funct"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--motile-serovar-paratyphoid-infection": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--motile-serovar-paratyphoid-infection--v1",
-          "statement": "การควบคุม GI colonization ด้วย competitive exclusion culture ป้องกันการตั้งรกรากของทั้ง S. Enteritidis และ S. Typhimurium ในลูกไก่แรกฟักได้จริง โดยวัดจากจำนวนเชื้อใน caeca และตับ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-9105931",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The results for birds pretreated with Broilact showed a distinct protective effect against both S. enteritidis and S. typhimurium at a challenge dose of 10(4) cfu/bird."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--avian-adenoviruses-และ-inclusion-body-hepatitis-ibh": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--avian-adenoviruses-และ-inclusion-body-hepatitis-ibh--v1",
-          "statement": "ในประเทศไทยมีรายงาน fowl adenovirus (FAdV) 3 ซีโรไทป์ที่สัมพันธ์กับ inclusion body hepatitis (IBH) คือ FAdV-2, FAdV-8b และ FAdV-11 ตรงกับที่เอกสารบรรยายระบุ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-42436524",
-              "locator": "Abstract, Background",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "In Thailand, FAdV-2, 8b, and 11 have been reported in association with inclusion body hepatitis (IBH), however, AGE remains undocumented."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--avian-adenoviruses-และ-inclusion-body-hepatitis-ibh--v2",
-          "statement": "Fowl adenovirus serotype 2 เป็นสาเหตุของ inclusion body hepatitis ที่ส่งผลเสียต่ออุตสาหกรรมไก่เนื้อของไทยจริง มีการพัฒนา indirect ELISA จาก recombinant hexon protein เพื่อใช้เฝ้าระวังโรคนี้ในไทย",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-24141320",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Fowl adenovirus (FAdv) serotype 2 causes inclusion body hepatitis (IBH) disease which adversely affects the broiler industry in Thailand."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง--v1",
-          "statement": "Egg drop syndrome 1976 (EDS-76) เกิดจาก adenovirus ที่มีคุณสมบัติ haemagglutinating และไอโซเลตทั้งหมดเหมือนกันทางซีรัมวิทยา ซึ่งเป็นพื้นฐานที่ทำให้ใช้ haemagglutination inhibition (HI) ตรวจแอนติบอดีได้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-15379439",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Egg drop syndrome 1976 (EDS-76) is caused by a haemagglutinating adenovirus... All isolates are serologically identical"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง--v2",
-          "statement": "EDS virus เพิ่มจำนวนได้ดีกว่าในไข่เป็ดและ duck embryo fibroblast เมื่อเทียบกับไข่ไก่ SPF และ chicken embryo fibroblast ซึ่งสอดคล้องกับที่เอกสารบรรยายว่าเชื้อมีต้นกำเนิดจากเป็ดแล้วข้ามมาติดไก่",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-38028827",
-              "locator": "Abstract, Results",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The findings showed that duck egg embryos and primary DEF cell lines are more appropriate for EDSV replication, compared to CEF and SPF chicken eggs."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง--v3",
-          "statement": "สำหรับการตรวจหาตัวเชื้อ EDS (แอนติเจนหรือจีโนม) แนะนำให้ใช้ PCR โดยทำโดยตรงกับ tissue homogenate ที่ต้ม ส่วนตัวอย่างที่ให้ผลลบให้เพาะใน embryonated duck egg ก่อนตรวจซ้ำ ซึ่งเป็นคนละวัตถุประสงค์กับ HI ที่ใช้ตรวจแอนติบอดี",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-14522711",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "For diagnosis of EDS viral infections, PCR is recommended due to its ease and the lack of requirement of prepared reagents such as mAbs or conjugates. We recommend that PCR be performed directly on boiled tissue homogenates."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--ornithobacterium-rhinotracheale-ort": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--ornithobacterium-rhinotracheale-ort--v1",
-          "statement": "Ornithobacterium rhinotracheale (ORT) เป็นแบคทีเรียแกรมลบรูปแท่ง pleomorphic ที่ก่อโรคทางเดินหายใจ และในไก่อายุมากจะเกิดรอยโรครุนแรงกว่าและตายมากกว่า จึงเป็นปัญหาสำคัญเป็นพิเศษในไก่พันธุ์ ตรงกับที่เอกสารบรรยายระบุ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-40249587",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "In older birds, ORT causes more severe lesions and increases in mortality; therefore it is of particular concern in the breeder industry because infection and loss of production in breeders impact all stages of production."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--ornithobacterium-rhinotracheale-ort--v2",
-          "statement": "ORT ติดต่อได้ทั้งแนวราบและแนวดิ่ง เพาะแยกเชื้อได้ยาก การดื้อยาปฏิชีวนะที่ใช้ทั่วไปเป็นเรื่องพบบ่อยจึงทำให้การรักษายาก และวัคซีนที่พัฒนาขึ้นเป็นวัคซีนเชื้อตายสำหรับไก่พ่อแม่พันธุ์เนื้อ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-10705607",
-              "locator": "Abstract (English)",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "It is transmitted horizontally as well as vertically. O. rhinotracheale is difficult to isolate... Treatment can be difficult, because acquired resistance against the regular antibiotics is common in O. rhinotracheale isolates. An inactivat"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--ornithobacterium-rhinotracheale-ort--v3",
-          "statement": "อาการทางคลินิกและรอยโรคของ ORT มีค่าน้อยมากในการวินิจฉัย ต้องยืนยันด้วยการแยกเชื้อและระบุชนิดเชื้อ และ/หรือการตรวจแอนติบอดี ซึ่งสนับสนุนที่เอกสารบรรยายบอกว่าผล seropositive อย่างเดียวยืนยันโรคไม่ได้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-9581349",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Clinical signs and lesions are of little value in diagnosis. Accurate diagnosis must be substantiated by isolation and identification of the causative bacteria and/or detection of antibodies using serological examination."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--campylobacter": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--campylobacter--v1",
-          "statement": "การศึกษา source attribution ในเดนมาร์กด้วยสองแบบจำลองระบุว่า แหล่งหลักของ campylobacteriosis ในคนคือไก่เนื้อ โดยแบบจำลอง Asymmetric Island ให้ 52% จากไก่ในประเทศบวก 17% จากไก่นำเข้า (รวมประมาณ 69%) ซึ่งอยู่ในช่วง 50-70% ตามที่เอกสารบรรยายระบุ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-24168860",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Both models used indicate that the major burden of human campylobacteriosis in Denmark originates from the domestic broiler chicken reservoir... The Asymmetric Island model attributed 52% to Danish chicken, 17% to imported chicken"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--listeriosis": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--listeriosis--v1",
-          "statement": "Listeria monocytogenes เป็นแบคทีเรียแกรมบวกและเป็น facultative intracellular pathogen จริง และในคนกลุ่มเสี่ยง คือผู้สูงอายุ ผู้ที่มีภูมิคุ้มกันบกพร่อง และหญิงตั้งครรภ์ เชื้อสามารถข้าม blood-brain barrier และรกได้ ทำให้เกิด meningoencephalitis และการติดเชื้อในทารกในครรภ์",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-33583696",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Listeria monocytogenes is a foodborne pathogen responsible for listeriosis, an infection that can manifest in humans as bacteremia, meningoencephalitis in immunocompromised patients and the elderly, and fetal-placental infection in pregnant"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--listeriosis--v2",
-          "statement": "L. monocytogenes เป็นแบคทีเรียแกรมบวกแบบ saprophyte ที่ปรับตัวทนสภาวะเครียดได้ดีมากจนกระจายอยู่ทั่วไป (ubiquitous) และวิธีถนอมอาหารกับการฆ่าเชื้อในโรงงานแปรรูปหลายวิธียังป้องกันการปนเปื้อนได้ไม่ดีพอ ซึ่งสนับสนุนที่เอกสารบรรยายว่าเชื้ออยู่ได้ทุกที่และปนเปื้อนในเนื้อได้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-34612177",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "It has evolved an exceptional ability to adapt to stress conditions encountered in different environments, resulting in a ubiquitous distribution. Because some food preservation methods and disinfection protocols in food-processing environm"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--listeriosis--v3",
-          "statement": "Listeria monocytogenes เป็นเชื้อที่ติดต่อทางอาหารและก่อโรคทั้งในสัตว์และคน โดยสุกรทำหน้าที่เป็นแหล่งรังโรคแบบไม่แสดงอาการ ตรงกับที่เอกสารระบุว่าสุกรมักเป็นพาหะและเป็นเชื้อติดต่อสู่คน",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-33024008",
-              "locator": "Abstract, Background",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Listeria monocytogenes is a foodborne bacterial pathogen that causes listeriosis, an infectious disease in animals and people, with pigs acting as asymptomatic reservoirs."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--listeriosis--v4",
-          "statement": "การสำรวจตามสายการผลิตสุกรจากฟาร์มถึงโรงฆ่าพบ L. monocytogenes ที่ต่อมทอนซิลมากที่สุด (ร้อยละ 24) ขณะที่พบใน rectal swab และเนื้อหาในลำไส้เพียงร้อยละ 1 ยืนยันภาพการเป็นพาหะที่ระบบทางเดินหายใจส่วนต้นมากกว่าการเป็นโรค",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-20377951",
-              "locator": "Abstract, results of 1,962 samples from 364 pigs",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The prevalence of L. monocytogenes was 11, 1, 1, 24, 5, 1, and 4% in feed and litter, rectal swabs, intestinal contents, tonsils, pluck sets (including lungs, heart, liver, and kidney), carcasses, and meat cuts, respectively."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--histomoniasis-black-head-disease": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--histomoniasis-black-head-disease--v1",
-          "statement": "ในธรรมชาติ Histomonas meleagridis ถ่ายทอดผ่านไข่ของพยาธิตัวกลม Heterakis gallinarum โดยโปรโตซัวเข้าไปอยู่ในเนื้อเยื่อของพยาธิทั้งตัวผู้และตัวเมียแล้วถูกพาไปอยู่ในไข่พยาธิ ซึ่งเป็นเหตุผลที่โปรแกรมถ่ายพยาธิเป็นมาตรการป้องกันโรคโปรโตซัวชนิดนี้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-38982636",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Under natural conditions, the parasite is transmitted through eggs of a nematode, Heterakis gallinarum, that shares its hosts with Hi. meleagridis. The protozoan infects tissues of both male and female He. gallinarum and eventually is carri"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--histomoniasis-black-head-disease--v2",
-          "statement": "ไก่งวงไวต่อโรคมากกว่าไก่อย่างชัดเจน อัตราตายในไก่งวงบางครั้งเข้าใกล้ 100% ของฝูง ขณะที่ในไก่อัตราตายประมาณ 10-20% แม้จะป่วยเป็นจำนวนมากก็ตาม",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-16404985",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Blackhead disease causes high mortality in turkeys, sometimes approaching 100% of a flock. In chickens, the mortality may be 10%-20% with high morbidity, although many outbreaks pass unnoticed."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--histomoniasis-black-head-disease--v3",
-          "statement": "การแบนยากลุ่ม nitroimidazole ในสหรัฐอเมริกาและยุโรปตามมาด้วยจำนวนเคสที่เพิ่มขึ้นในไก่งวงและไก่ และเนื่องจากยังไม่มีวัคซีน การป้องกันจึงต้องอาศัยการควบคุมพยาธิร่วมกับการจัดการฟาร์ม ตรงกับที่เอกสารบรรยายระบุ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-16404985",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The ban of nitroimidazole products in the United States and Europe was followed by an upsurge in reported cases in turkeys and chickens... The lack of suitable treatment drugs or vaccines emphasizes the importance of prevention by worm cont"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--ภาพรวม-mycotic-infection-ในสัตว์ปีก": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--ภาพรวม-mycotic-infection-ในสัตว์ปีก--v1",
-          "statement": "การเก็บวัตถุดิบอาหารสัตว์ในสภาพฟาร์มเขตร้อนชื้นของไทยเพิ่มระดับ aflatoxin B1 จริง การศึกษาในฟาร์มโคนม 63 แห่งที่เชียงใหม่พบว่าหลังเก็บเพียง 1 เดือน (หรือ 1 สัปดาห์สำหรับอาหารหมัก) ระดับ AF-B1 เพิ่มขึ้นประมาณ 2 ถึง 3 เท่าอย่างมีนัยสำคัญ",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-28367869",
-              "locator": "Abstract, Results",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Concentrations of AF-B1 at before storage in all feeds were significantly lower than after storage (P<0.01), and the increased ratio of AF-B1 levels was approximately 2 to 3 times."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--aspergillosis-brooder-pneumonia": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--aspergillosis-brooder-pneumonia--v1",
-          "statement": "การตายในลูกไก่เนื้อระยะแรกจาก aspergillosis กระจุกตัวในสัปดาห์แรกของชีวิตจริง การสำรวจ 87 outbreak ในลูกไก่อายุไม่เกิน 2 สัปดาห์พบว่า aspergillosis ทำให้ตายในสัปดาห์แรก 1.0% ต่างจาก colibacillosis salmonellosis และ gout ที่ทำให้ตายมากกว่าในสัปดาห์ที่สอง",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-39737043",
-              "locator": "Abstract, Results",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Colibacillosis (2.1%), salmonellosis (3.2%), and gout (1.7%) were responsible for causing higher mortality (3.2%) in the second week of life of broilers, aspergillosis in the first week (1.0%)"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--aspergillosis-brooder-pneumonia--v2",
-          "statement": "ในลูกไก่เนื้อที่ติด Aspergillus fumigatus พบ granulomatous nodule จำนวนมากที่ปอดและ thoracic air sac เป็นหลัก โดยแสดงอาการอ้าปากหายใจ (gasping) ซึม ผอม และตายมาก ส่วนในไก่ไข่โตพบเพียงก้อนใหญ่ไม่กี่ก้อนที่ abdominal air sac",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-2697044",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The disease in broiler chicks was characterized by gasping, droopiness, emaciation and heavy mortality... The nodules were numerous and affected mainly the lungs and thoracic air sacs in the broiler chicks while only few large nodules were "
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--candidiasis-crop-mycosis-thrush-และ-favus-white-comb": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--candidiasis-crop-mycosis-thrush-และ-favus-white-comb--v1",
-          "statement": "รอยโรคของ crop candidiasis คือแผ่นคราบสีขาวคล้ายนมบูด (white curd-like plaque) ในกระเพาะพัก โดยพบ Candida albicans ยืนยันด้วย immunohistochemistry กระจายอยู่ที่ลิ้น choanal mucosa หลอดอาหาร และกระเพาะพัก",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-27610735",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "At necropsy, white curd-like plaques were observed in the crop. Fungal elements that stained positive for Candida albicans with immunohistochemistry were distributed throughout the tongue, choanal mucosa, esophagus, and crop."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--candidiasis-crop-mycosis-thrush-และ-favus-white-comb--v2",
-          "statement": "Candida albicans เป็นเชื้อหลักที่พบในกระเพาะพักไก่เนื้อ คิดเป็น 95% ของไอโซเลต และในไก่สุขภาพดีพบเชื้อได้ 17.4-51.5% แต่มีน้อยกว่า 1% ที่เห็นรอยโรค จึงสนับสนุนว่าโรคนี้มักเป็น local lesion ไม่ใช่ systemic infection",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-1103110",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Of the 573 birds examined in this study less than 1% exhibited visible lesions attributable to Candida. C. albicans comprised 95% of the isolates"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--candidiasis-crop-mycosis-thrush-และ-favus-white-comb--v3",
-          "statement": "Favus (avian dermatophytosis) เกิดจาก Microsporum gallinae ให้รอยโรคเป็นคราบสีขาวที่หงอน หน้า และติ่งหู แล้วลามลงคอ วินิจฉัยได้ด้วยการเพาะบน Sabouraud dextrose agar ร่วมกับ dermatophyte test medium และการตรวจจุลพยาธิวิทยา",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-8141747",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The appearance of white plaques on the comb, face, and/or ear lobes was followed by feather loss starting at the caudal base of the comb... The samples were examined histologically and by culturing on Sabouraud's dextrose agar and dermatoph"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--mycotoxicosis-ชนิดของสารพิษและปัจจัยที่ทำให้เกิดพิษ": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--mycotoxicosis-ชนิดของสารพิษและปัจจัยที่ทำให้เกิดพิษ--v1",
-          "statement": "Aflatoxin B1 เป็น aflatoxin ที่มีความเป็นพิษสูงสุด สร้างโดยเชื้อรา Aspergillus กลุ่มที่สร้างสารพิษได้ และมีลักษณะที่อธิบายไว้ชัดเจนว่าลดสมรรถภาพการผลิตและทำให้ไก่เนื้อตาย",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-34228958",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Aflatoxin B1 (AFB1), the most potent aflatoxin, is well characterized to reduce productive performance and mortality in broilers."
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--aflatoxin-และ-ochratoxin": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--aflatoxin-และ-ochratoxin--v1",
-          "statement": "Aflatoxin B1 ก่อความเสียหายต่อตับ (liver damage) พิษต่อสารพันธุกรรม (genotoxicity) และกดภูมิคุ้มกัน (immunosuppression) ในไก่เนื้อ ผ่านกลไก oxidative stress และการสร้าง AFB1 macromolecular adduct ตรงกับที่เอกสารบรรยายอธิบาย pathogenesis ว่าเกิดจาก active metabolite ที่ไปจับ DNA และ RNA",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-34228958",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The biochemical and molecular mode of action of AFB1 to induce liver damage, genotoxicity, immunosuppression and the protective effect of plant products against such mechanisms and their toxic effects are discussed."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--aflatoxin-และ-ochratoxin--v2",
-          "statement": "รอยโรคของ aflatoxicosis ในไก่ตรงกับที่เอกสารบรรยายระบุ คือน้ำหนักสัมพัทธ์ของตับ ไต proventriculus และกึ๋นเพิ่มขึ้น (ตับไตขยายใหญ่) ขณะที่น้ำหนักสัมพัทธ์ของ bursa ลดลง (bursa ฝ่อ จึงกดภูมิ) ร่วมกับโปรตีนรวมและอัลบูมินในซีรัมลดลง",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-1973286",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "caused a significant increase in the relative weights of the liver, kidney, proventriculus, and gizzard as well as significant increases in activity of serum gamma glutamyltransferase; also, significant decreases in the relative bursa weigh"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--aflatoxin-และ-ochratoxin--v3",
-          "statement": "Ochratoxin A สร้างโดยเชื้อรา Aspergillus และ Penicillium และก่อพิษต่อไตในไก่เนื้อจริง โดยทำให้ creatinine กรดยูริก และ BUN ในซีรัมสูงขึ้น เพิ่ม malondialdehyde ในไต ลดสารต้านอนุมูลอิสระในไต และพบรอยโรคทางพยาธิวิทยาหลายแบบที่ไตร่วมกับการเกิด apoptosis",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-36179809",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The mycotoxin ochratoxin A (OTA) is produced by the fungi Aspergillus and Penicillium... The results demonstrated that OTA exposure increased serum levels of creatinine, uric acid, and blood urea nitrogen... OTA-exposed chickens exhibited m"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--citrinin-trichothecenes-fumonisins-zearalenone-ergotism": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--citrinin-trichothecenes-fumonisins-zearalenone-ergotism--v1",
-          "statement": "T-2 toxin และ diacetoxyscirpenol (DAS) ซึ่งเป็น trichothecene จาก Fusarium ทำให้เกิดรอยโรคเป็นแผ่นสีเหลืองและเนื้อตายที่จงอยปาก ลิ้น และมุมปากของลูกไก่เนื้อจริง ขณะที่ crotocin ไม่ทำให้เกิดรอยโรคเช่นนี้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-674054",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Chicks fed the diet containing DAS and T-2 toxin showed yellowish plaque-type lesions on the beak, tongue, and angle of the mouth. Crotocin did not cause such lesions"
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--citrinin-trichothecenes-fumonisins-zearalenone-ergotism--v2",
-          "statement": "รอยโรคในช่องปากจาก scirpenol trichothecene สัมพันธ์กับขนาดที่ได้รับ (dose-related) และไวเท่ากับหรือมากกว่าการหยุดโต จึงใช้เป็นตัวชี้วัดพิษ trichothecene ได้ดี โดยมุมปาก (angles) และจงอยปากบนเป็นตำแหน่งที่ถูกกระทบมากที่สุดสำหรับ T-2 กลุ่ม",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-1956853",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The mouth lesions provoked by each scirpenol were dose-related... Thus, mouth lesions were of equal or greater sensitivity than growth inhibition as an indicator of scirpenol toxicity."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--citrinin-trichothecenes-fumonisins-zearalenone-ergotism--v3",
-          "statement": "Ergot คือ Claviceps purpurea ที่ปนมากับเมล็ดธัญพืชในสูตรอาหารจริง โดยมี ergot alkaloid หลักคือ ergocristine, ergometrine, ergotamine และ ergocornine อย่างไรก็ตามในการทดลอง dose-response ที่ควบคุม ไก่ไวต่อ ergot น้อยกว่าลูกสุกร และในไก่ผลกระทบที่วัดได้คือการกินอาหารลดลงกับเอนไซม์ตับในซีรัมเปลี่ยนแปลง ไม่ได้รายงานเนื้อตายที่อวัยวะส่วนปลาย",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-16080303",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "increasing amounts of ergot (Claviceps purpurea) with a defined alkaloid content and pattern... showed the following composition: ergometrine 8.1%, ergotamine 5.4%, ergocomine 3.2%, alpha-ergocryptine 1.9%, ergocristine 14.9%... piglets see"
-          }
-        }
-      ]
-    },
-    "avian-medicine--avian-intro--การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา": {
-      "claims": [
-        {
-          "id": "avian-medicine--avian-intro--การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา--v1",
-          "statement": "Hydrated sodium calcium aluminosilicate (HSCAS) เป็นสารดูดซับที่มีความสัมพันธ์สูงกับ aflatoxin B1 การเติมในอาหารเพียง 0.5% ลดผลเสียของ AFB1 ที่ระดับ 7.5 มก. ต่อกิโลกรัมอาหารในลูกไก่ไข่และไก่เนื้อได้อย่างมีนัยสำคัญ ยืนยันสิ่งที่เอกสารบรรยายระบุว่ากลุ่ม clay อะลูมิโนซิลิเกตและ zeolite จับ aflatoxin ได้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-2837754",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The HSCAS, when added to the diet of Leghorn and broiler chicks at a level of .5%, significantly diminished the adverse effects of feeding 7.5 mg AFB1/kg of feed."
-          }
-        },
-        {
-          "id": "avian-medicine--avian-intro--การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา--v2",
-          "statement": "HSCAS ลดผลยับยั้งการเจริญเติบโตจาก aflatoxin ในลูกไก่ได้ 50-67% ขณะที่ activated charcoal ที่ระดับเดียวกันไม่แสดงคุณสมบัติป้องกัน จึงเป็นข้อมูลเปรียบเทียบว่าไม่ใช่สารดูดซับทุกชนิดจะใช้แทนกันได้",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-1973286",
-              "locator": "Abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-09",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The HSCAS significantly diminished the growth-inhibitory effects of AFB1 or of AF on growing chicks by 50 to 67 percent... adding activated charcoal to the diet did not appear to have protective properties against the effects of aflatoxin B"
-          }
-        }
-      ]
-    }
-  },
   "avian-medicine--avian-myco": {
     "avian-medicine--avian-myco--ลักษณะเชื้อและชนิดที่พบในสัตว์ปีก": {
       "claims": [
@@ -75038,6 +73675,1395 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Neurological signs associated with central involvement include proprioception deficits, altered mentation, cranial nerve (CN) deficits other than CN VII or VIII, and vertical or dysconjugate nystagmus."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-salmonella": {
+    "avian-medicine--avian-salmonella--salmonellosis-ในคน-และภาพรวม-avian-salmonellosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-salmonella--salmonellosis-ในคน-และภาพรวม-avian-salmonellosis--v1",
+          "statement": "ซัลโมเนลลา 5 ซีโรวาร์ที่เอกสารระบุว่ามีผลต่อการส่งออก ตรงกับ 5 ซีโรวาร์ที่สหภาพยุโรปกำหนดเป้าหมายควบคุมในฝูงไก่พ่อแม่พันธุ์ Gallus gallus ตามกฎหมาย คือ S. Enteritidis, S. Hadar, S. Infantis, S. Typhimurium และ S. Virchow",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-commission-of-2005",
+              "locator": "Article 1(1)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Salmonella enteritidis, Salmonella hadar, Salmonella infantis, Salmonella typhimurium and Salmonella virchow"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-salmonella--salmonellosis-ในคน-และภาพรวม-avian-salmonellosis--v2",
+          "statement": "Caeca เป็นตำแหน่งหลักที่ใช้วัด colonization ของ Salmonella ในลูกไก่ และการให้ competitive exclusion culture ลดปริมาณเชื้อใน caeca ได้มากกว่า 99% เมื่อ challenge ด้วย S. Typhimurium 10,000 CFU",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12448744",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In day-old broiler chicks provided CF3, and challenged with 10,000 CFU Salmonella typhimurium greater than a 99% reduction in Salmonella cecal colonization levels was observed compared to control chicks."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-salmonella--non-motile-serovar-pullorum-disease-และ-fowl-typhoid": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-salmonella--non-motile-serovar-pullorum-disease-และ-fowl-typhoid--v1",
+          "statement": "S. enterica serovar Gallinarum biovar Gallinarum และ biovar Pullorum เป็นเชื้อที่จำเพาะกับโฮสต์สัตว์ปีก และก่อโรคแบบ systemic ที่รุนแรง คือ fowl typhoid (FT) และ Pullorum disease (PD) ตามลำดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38247582",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "They are bacterial pathogens that exhibit host specificity for poultry and aquatic birds, causing severe systemic diseases known as fowl typhoid (FT) and Pullorum disease (PD), respectively."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-salmonella--non-motile-serovar-pullorum-disease-และ-fowl-typhoid--v2",
+          "statement": "ต่างจากกลุ่ม motile serovar การติดเชื้อ S. Pullorum หรือ S. Gallinarum ไม่ก่อการอักเสบในทางเดินอาหารอย่างชัดเจน เนื่องจากไม่มี flagella จึงไม่ถูกจดจำโดย TLR5 ซึ่งเป็นตัวจุดชนวนการตอบสนองแบบอักเสบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19070366",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection with S. Pullorum or S. Gallinarum does not cause substantial inflammation, unlike S. Typhimurium or S. Enteritidis... The absence of flagella in S. Gallinarum and S. Pullorum means they are not recognised by TLR5"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-salmonella--non-motile-serovar-pullorum-disease-และ-fowl-typhoid--v3",
+          "statement": "ในกรณี S. Pullorum สัตว์จำนวนไม่น้อยกลายเป็นพาหะที่มีเชื้อคงอยู่ใน macrophage ของม้าม และเมื่อแม่ไก่เข้าสู่วัยเจริญพันธุ์ เชื้อจะลามไปยังระบบสืบพันธุ์และไข่ ซึ่งอธิบายว่าทำไมการกำจัดสัตว์พาหะจึงเป็นหัวใจของการควบคุมโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19070366",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In S. Pullorum a significant number of animals develop persistent infection of splenic macrophages... In carrier animals persistence may lead to reproductive tract and egg infection associated with a decline in CD4+ T cell numbers and funct"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-salmonella--motile-serovar-paratyphoid-infection": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-salmonella--motile-serovar-paratyphoid-infection--v1",
+          "statement": "การควบคุม GI colonization ด้วย competitive exclusion culture ป้องกันการตั้งรกรากของทั้ง S. Enteritidis และ S. Typhimurium ในลูกไก่แรกฟักได้จริง โดยวัดจากจำนวนเชื้อใน caeca และตับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9105931",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The results for birds pretreated with Broilact showed a distinct protective effect against both S. enteritidis and S. typhimurium at a challenge dose of 10(4) cfu/bird."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-adeno": {
+    "avian-medicine--avian-adeno--avian-adenoviruses-และ-inclusion-body-hepatitis-ibh": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-adeno--avian-adenoviruses-และ-inclusion-body-hepatitis-ibh--v1",
+          "statement": "ในประเทศไทยมีรายงาน fowl adenovirus (FAdV) 3 ซีโรไทป์ที่สัมพันธ์กับ inclusion body hepatitis (IBH) คือ FAdV-2, FAdV-8b และ FAdV-11 ตรงกับที่เอกสารบรรยายระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42436524",
+              "locator": "Abstract, Background",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In Thailand, FAdV-2, 8b, and 11 have been reported in association with inclusion body hepatitis (IBH), however, AGE remains undocumented."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-adeno--avian-adenoviruses-และ-inclusion-body-hepatitis-ibh--v2",
+          "statement": "Fowl adenovirus serotype 2 เป็นสาเหตุของ inclusion body hepatitis ที่ส่งผลเสียต่ออุตสาหกรรมไก่เนื้อของไทยจริง มีการพัฒนา indirect ELISA จาก recombinant hexon protein เพื่อใช้เฝ้าระวังโรคนี้ในไทย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24141320",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fowl adenovirus (FAdv) serotype 2 causes inclusion body hepatitis (IBH) disease which adversely affects the broiler industry in Thailand."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-adeno--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-adeno--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง--v1",
+          "statement": "Egg drop syndrome 1976 (EDS-76) เกิดจาก adenovirus ที่มีคุณสมบัติ haemagglutinating และไอโซเลตทั้งหมดเหมือนกันทางซีรัมวิทยา ซึ่งเป็นพื้นฐานที่ทำให้ใช้ haemagglutination inhibition (HI) ตรวจแอนติบอดีได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15379439",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Egg drop syndrome 1976 (EDS-76) is caused by a haemagglutinating adenovirus... All isolates are serologically identical"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-adeno--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง--v2",
+          "statement": "EDS virus เพิ่มจำนวนได้ดีกว่าในไข่เป็ดและ duck embryo fibroblast เมื่อเทียบกับไข่ไก่ SPF และ chicken embryo fibroblast ซึ่งสอดคล้องกับที่เอกสารบรรยายว่าเชื้อมีต้นกำเนิดจากเป็ดแล้วข้ามมาติดไก่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38028827",
+              "locator": "Abstract, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The findings showed that duck egg embryos and primary DEF cell lines are more appropriate for EDSV replication, compared to CEF and SPF chicken eggs."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-adeno--egg-drop-syndrome-โรคไข่นิ่ม-ไข่หนัง--v3",
+          "statement": "สำหรับการตรวจหาตัวเชื้อ EDS (แอนติเจนหรือจีโนม) แนะนำให้ใช้ PCR โดยทำโดยตรงกับ tissue homogenate ที่ต้ม ส่วนตัวอย่างที่ให้ผลลบให้เพาะใน embryonated duck egg ก่อนตรวจซ้ำ ซึ่งเป็นคนละวัตถุประสงค์กับ HI ที่ใช้ตรวจแอนติบอดี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14522711",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For diagnosis of EDS viral infections, PCR is recommended due to its ease and the lack of requirement of prepared reagents such as mAbs or conjugates. We recommend that PCR be performed directly on boiled tissue homogenates."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-ae": {
+    "avian-medicine--avian-ae--avian-encephalomyelitis-ae-และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ae--avian-encephalomyelitis-ae-และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น--v1",
+          "statement": "AE เป็นโรคที่มี age resistance จริงตามที่สรุปเขียน เพราะเชื้อ AEV สายพันธุ์ธรรมชาติทำให้เกิดอาการทางประสาทในลูกไก่เล็กเท่านั้น ส่วนไก่สาวไม่แสดงอาการเมื่อได้รับเชื้อทางปากหรือทางผิวหนัง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28532787",
+              "locator": "vol 204:1-7, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Wild-type avian encephalomyelitis virus (AEV) causes neurological signs in young chicks but no disease in pullets after oral or intracutaneous infection."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ae--avian-encephalomyelitis-ae-และสาเหตุที่ทำวัคซีนแล้วภูมิไม่ขึ้น--v2",
+          "statement": "หลักที่สรุปเน้นว่า route กับ strain ต้องเข้ากันมีหลักฐานเชิงกลไกรองรับ คือเมื่อไวรัสถูกปรับให้เพิ่มจำนวนในตัวอ่อนไก่ (embryo-adapted) โดยการผ่านต่อเนื่อง คุณสมบัติจะเปลี่ยนจนก่อโรค AE ได้ในไก่ทุกช่วงอายุเมื่อให้ทางผิวหนัง และมีรายงานไก่สาวป่วยเป็น AE ไม่นานหลังได้รับวัคซีนทางผิวหนัง (เอกสารนี้ไม่ได้ทดสอบกรณีให้วัคซีนผสมน้ำโดยตรง)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28532787",
+              "locator": "vol 204:1-7, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, if the virus gets embryo-adapted by serial passaging in chicken embryos, it will cause AE after intracutaneous infection in chickens of all ages. Recently, several cases of AE in layer pullets occurring shortly after intracutaneous"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-ahra-set": {
+    "avian-medicine--avian-ahra-set--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ahra-set--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac--v1",
+          "statement": "ลูกโซ่พยาธิกำเนิดของ ascites ที่สรุปเขียนตรงกับตำราคลาสสิก คือ pulmonary hypertension ที่เกิดจากเลือดไหลผ่านปอดมากขึ้นหรือมีแรงต้านมากขึ้น นำไปสู่ right ventricular hypertrophy ลิ้นหัวใจรั่ว ความดันหลอดเลือดดำสูงขึ้น และลงท้ายด้วย ascites ส่วน polycythemia จากภาวะ hypoxia ทำให้เลือดหนืดขึ้นและยิ่งเร่งให้เกิด pulmonary hypertension",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18671031",
+              "locator": "vol 22(3):419-54, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Pulmonary hypertension (PH) caused by increased blood flow or increased resistance to flow in the lung results in right ventricular hypertrophy (RVH), valvular insufficiency, increased venous pressure and ascites. ... Increased blood viscos"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ahra-set--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac--v2",
+          "statement": "อุณหภูมิเปลือกไข่ที่สูงเกินระหว่างฟัก (38.9 เทียบกับ 37.8 องศาเซลเซียส) ทำให้คุณภาพลูกไก่แรกฟักแย่ลงจริงตามที่สรุประบุเรื่อง heat stress โดยลูกไก่มี residual yolk เหลือมากกว่า และมี yolk free body mass กับน้ำหนักตับและหัวใจต่ำกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34030030",
+              "locator": "vol 15(6):100223, Results and Conclusion",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At 6 h after hatching, an EST of 38.9 °C resulted in a higher residual yolk weight and lower YFBM, liver weight and heart weight than an EST of 37.8 °C (all P < 0.003). ... a higher EST from day 8 of incubation onward appears to negatively "
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ahra-set--ปัญหาจากโรงฟักและคุณภาพลูกไก่-ascites-ขาแบะ-ขาบิด-สะดือ-yolk-sac--v3",
+          "statement": "คุณภาพสะดือ (navel quality) เป็นตัวชี้วัดคุณภาพลูกไก่ที่ขึ้นกับสภาวะการฟักจริง โดยพบปฏิสัมพันธ์สามทางระหว่างอายุแม่พันธุ์ สายพันธุ์ไก่เนื้อ และอุณหภูมิเปลือกไข่ ที่มีผลต่อระยะเวลาฟัก คุณภาพสะดือ และน้ำหนักสัมพัทธ์ของหัวใจกับกระเพาะที่ 3 ชั่วโมงหลังฟัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26957632",
+              "locator": "vol 95(7):1666-1679, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A 3-way interaction among breeder age, strain, and EST was found, especially for incubation duration, navel quality, and relative heart and stomach weights at 3 h after hatch (all P < 0.05)."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ahra-set--staphylococcosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ahra-set--staphylococcosis--v1",
+          "statement": "Staphylococcus spp. โดยเฉพาะ S. aureus เป็นสาเหตุหลักของโรคกระดูกและข้อในสัตว์ปีก ทำให้เกิด bacterial chondronecrosis with osteomyelitis (BCO), arthritis, tenosynovitis, osteomyelitis และ bumblefoot ซึ่งแสดงออกเป็นการเดินกะเผลก (lameness)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35076352",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Staphylococci readily infect bones and joints and are associated with bacterial chondronecrosis with osteomyelitis (BCO), spondylitis, arthritis, tendinitis, tenosynovitis, osteomyelitis, turkey osteomyelitis complex (TOC), bumblefoot, dysc"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ahra-set--staphylococcosis--v2",
+          "statement": "การรักษา staphylococcosis ด้วยยาปฏิชีวนะมักไม่ได้ผล แหล่งอ้างอิงระบุเหตุผลว่าเป็นเพราะตำแหน่งและชนิดของรอยโรค (กระดูกและข้อ ซึ่งยาเข้าถึงยาก) ร่วมกับการมีเชื้อดื้อยาหลายขนาน ไม่ได้ระบุการติดเชื้อไวรัสร่วมเป็นเหตุผลหลักอย่างที่เอกสารบรรยายอ้าง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35076352",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Antimicrobial treatment of staphylococcosis is usually ineffective due to the location and type of lesion, as well as the possible occurrence of multidrug-resistant strains."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-duck-plague": {
+    "avian-medicine--avian-duck-plague--duck-plague-duck-viral-enteritis-dve": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-duck-plague--duck-plague-duck-viral-enteritis-dve--v1",
+          "statement": "Duck plague เกิดจาก duck enteritis virus หรือ Anatid herpesvirus-1 ในสกุล Mardivirus วงศ์ Herpesviridae วงศ์ย่อย Alphaherpesvirinae และเป็นโรคติดต่อร้ายแรงของเป็ด ห่าน และหงส์ ตรงกับที่สรุประบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28320263",
+              "locator": "vol 37(1):57-80, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is caused by duck enteritis virus (DEV)/Anatid herpesvirus-1 of the genus Mardivirus, family Herpesviridae, and subfamily Alpha-herpesvirinae."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-duck-plague--duck-plague-duck-viral-enteritis-dve--v2",
+          "statement": "ลักษณะเด่นของโรคคือตายเฉียบพลัน มีความเสียหายของหลอดเลือด (vascular damage) ตามด้วยเลือดออกภายใน รอยโรคที่อวัยวะน้ำเหลือง เยื่อเมือกทางเดินอาหารเป็นแผลนูน ท้องเสียรุนแรง และรอยโรคเสื่อมที่อวัยวะเนื้อ โดยอัตราป่วยและอัตราตายอยู่ในช่วง 5% ถึง 100% ตรงกับกลไก vascular damage ที่สรุปเขียน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28320263",
+              "locator": "vol 37(1):57-80, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The disease is characterized by sudden death, vascular damage and subsequent internal hemorrhage, lesions in lymphoid organs, digestive mucosal eruptions, severe diarrhea and degenerative lesions in parenchymatous organs."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-duck-plague--duck-plague-duck-viral-enteritis-dve--v3",
+          "statement": "เชื้อ duck enteritis virus สามารถเข้าสู่ระยะแฝง (latent) และปล่อยเชื้อออกมาเป็นระยะได้ และการป้องกันใช้ทั้งวัคซีนเชื้อเป็นลดความรุนแรงและวัคซีนเชื้อตายในเป็ดเนื้อและเป็ดพ่อแม่พันธุ์ที่อายุมากกว่า 2 สัปดาห์ สนับสนุนข้อความในสรุปเรื่อง latent infection และการทำวัคซีนเชื้อเป็น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28320263",
+              "locator": "vol 37(1):57-80, Abstract, prophylaxis",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For prophylaxis, both live-attenuated and killed vaccines are being used in broiler and breeder ducks above 2 weeks of age. Since DEV is capable of becoming latent as well as shed intermittently"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-dvh": {
+    "avian-medicine--avian-dvh--duck-viral-hepatitis-dvh-ทั้ง-3-ไทป์": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-dvh--duck-viral-hepatitis-dvh-ทั้ง-3-ไทป์--v1",
+          "statement": "Duck hepatitis A virus (DHAV) เป็น picornavirus ที่ก่อโรคติดต่อรุนแรงมากในเป็ด อัตราการตายในฝูงสูงถึง 100% ในลูกเป็ดอายุน้อยกว่า 6 สัปดาห์ ขณะที่เป็ดโตกว่านั้นไม่ได้รับผลกระทบ สอดคล้องกับที่สรุปเขียนว่าเป็นโรคของลูกเป็ดอายุน้อยและ mortality สูงมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27610716",
+              "locator": "vol 60(3):576-88, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "DHAV is a picornavirus that causes a highly contagious virus infection in ducks with up to 100% flock mortality in ducklings under 6 wk of age, while older birds remain unaffected."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-dvh--duck-viral-hepatitis-dvh-ทั้ง-3-ไทป์--v2",
+          "statement": "Duck hepatitis virus type 2 และ type 3 เป็น astrovirus ในวงศ์ Astroviridae ซึ่งต่างวงศ์จาก type 1 ที่เป็น picornavirus ตรงกับที่สรุปเขียนว่าทั้ง 3 ไทป์เกิดจากไวรัสคนละตัวกัน โดย DAstV-1 รายงานในสหราชอาณาจักรและจีน ส่วน DAstV-2 รายงานในสหรัฐอเมริกา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27610716",
+              "locator": "vol 60(3):576-88, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Duck hepatitis virus Types 2 and 3 are astroviruses in the family of Astroviridae with similarity phylogenetically to turkey astroviruses ... DAstV-1 has only been recognized in the United Kingdom and recently in China, while DAstV-2 has be"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-nds": {
+    "avian-medicine--avian-nds--riemerella-anatipestifer-infection-new-duck-syndrome-โรคเป็ดหมุน": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nds--riemerella-anatipestifer-infection-new-duck-syndrome-โรคเป็ดหมุน--v1",
+          "statement": "Riemerella anatipestifer ก่อโรค polyserositis ติดต่อในเป็ดที่มีอัตราการตายสูง และวัคซีนที่มีอยู่ให้ cross protection ไม่ดี จึงต้องเตรียมวัคซีนตาม serotype ที่ระบาดจริงในพื้นที่ ตรงกับหลักการในสรุปที่ว่าต้องใช้ homologous vaccine ให้ตรง serotype",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38262334",
+              "locator": "vol 103(3):103427, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Riemerella anatipestifer (RA) causes epizootic infectious polyserositis in ducks with high mortality and leads to huge economic losses worldwide. Bacterial resistance poses a challenge for the control of the disease, vaccines failed to prov"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nds--riemerella-anatipestifer-infection-new-duck-syndrome-โรคเป็ดหมุน--v2",
+          "statement": "การที่สรุประบุว่าต้องทำ antimicrobial susceptibility test ก่อนให้ยามีเหตุผลรองรับ เพราะการดื้อยาของ Riemerella anatipestifer เป็นอุปสรรคสำคัญต่อการควบคุมโรค นอกจากนี้การเลือกวัคซีนต้องอาศัยข้อมูล serotype ที่ระบาดจริง เช่นในจีนตอนใต้ปี 2016-2022 พบ serotype 1, 2, 7 และ 10 โดย serotype 1 กับ 2 รวมกันคิดเป็น 82%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38262334",
+              "locator": "vol 103(3):103427, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "we collected 700 brain and liver tissues of dead ducks from 8 provinces in southern China from 2016 to 2022 and obtained 195 RA isolates with serotypes 1, 2, 7, and 10. Serotypes 1 and 2 were the most prevalent (82%)."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-goose-parvo": {
+    "avian-medicine--avian-goose-parvo--goose-parvovirus-infection": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-goose-parvo--goose-parvovirus-infection--v1",
+          "statement": "Goose parvovirus สายพันธุ์ดั้งเดิม (classical GPV) คือสาเหตุของ Derzsy's disease และก่อโรคที่อัตราการตายสูงมากในลูกห่านอายุน้อย โดยการพิสูจน์เชื้อในลูกห่านอายุ 2 วันด้วยเชื้อ classical GPV ทำให้ตาย 93.3% สนับสนุนข้อความในสรุปที่ว่าลูกห่านอายุน้อยตายเฉียบพลันเกือบทั้งหมด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29630396",
+              "locator": "vol 47(4):391-399, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mortality (73.3-80%) caused by the first and third egg-passages of the variant GPV was somewhat lower than that (93.3%) caused by the third passage virus of the classical GPV, reflecting the higher pathogenicity of the classical GPV for"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-goose-parvo--goose-parvovirus-infection--v2",
+          "statement": "การป้องกันโรคด้วยการทำวัคซีนในแม่พันธุ์เพื่อส่งภูมิคุ้มกันไปยังลูกได้ผลชัดเจน ลูกห่านจากพ่อแม่ที่ได้วัคซีนเชื้อเป็นลดความรุนแรง 2 ครั้ง ตายเพียง 4.2% หลังพิสูจน์เชื้อ เทียบกับ 95% ในลูกของพ่อแม่ที่ไม่ได้วัคซีน และในฟาร์มจริงอัตราการตายเดือนแรกคือ 7.7% เทียบกับ 59.8%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18770393",
+              "locator": "vol 7(3):397-406, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Only 4.2% of gosling progeny of parents vaccinated twice with strain Bav died after challenge with the virulent strain B goose parvovirus compared with 95% of gosling progeny of unvaccinated parents. ... During the first month of life morta"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-duck-flavi": {
+    "avian-medicine--avian-duck-flavi--duck-flavivirus-tembusu-dtmuv-โรคเป็ดกลิ้ง": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-duck-flavi--duck-flavivirus-tembusu-dtmuv-โรคเป็ดกลิ้ง--v1",
+          "statement": "Duck Tembusu virus เป็น flavivirus ที่ก่อโรคอุบัติใหม่ในเป็ด อาการทางคลินิกหลักคือรอยโรคที่อวัยวะภูมิคุ้มกันและความผิดปกติของระบบประสาท ทำให้ไข่ลดอย่างหนัก และระบาดในจีน ไทย มาเลเซีย และประเทศอื่นในเอเชียตะวันออกเฉียงใต้ ตรงกับที่สรุปเขียนเรื่อง encephalitis และความเสียหายทางเศรษฐกิจ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32075929",
+              "locator": "vol 94(9), Importance section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection with an emerging flavivirus, DTMUV, manifests with clinical symptoms that include lesions of the immune organs and neurological dysfunction, leading to heavy egg drop and causing serious harm to the duck industry in China, Thailan"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-duck-flavi--duck-flavivirus-tembusu-dtmuv-โรคเป็ดกลิ้ง--v2",
+          "statement": "การแยกเชื้อได้จากยุงตามที่สรุปเขียนมีหลักฐานจากประเทศไทยโดยตรง คือการสำรวจยุงในฟาร์มเป็ดจังหวัดสิงห์บุรีและอ่างทองปี 2015-2016 จำนวน 30,841 ตัว ตรวจพบ DTMUV ด้วย RT-PCR ในยุง Culex tritaeniorhynchus หนึ่ง pool จึงสนับสนุนมาตรการควบคุมพาหะ (vector borne control)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31913570",
+              "locator": "vol 67(3):1082-1088, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A total of 273 mosquito pools were examined, with only one pool of Cx. tritaeniorhynchus collected from Sing Buri Province in November 2015 testing positive for DTMUV. ... Thus, this study indicated that Cx. tritaeniorhynchus may play a rol"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-mycosis": {
+    "avian-medicine--avian-mycosis--ภาพรวม-mycotic-infection-ในสัตว์ปีก": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--ภาพรวม-mycotic-infection-ในสัตว์ปีก--v1",
+          "statement": "การเก็บวัตถุดิบอาหารสัตว์ในสภาพฟาร์มเขตร้อนชื้นของไทยเพิ่มระดับ aflatoxin B1 จริง การศึกษาในฟาร์มโคนม 63 แห่งที่เชียงใหม่พบว่าหลังเก็บเพียง 1 เดือน (หรือ 1 สัปดาห์สำหรับอาหารหมัก) ระดับ AF-B1 เพิ่มขึ้นประมาณ 2 ถึง 3 เท่าอย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28367869",
+              "locator": "Abstract, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Concentrations of AF-B1 at before storage in all feeds were significantly lower than after storage (P<0.01), and the increased ratio of AF-B1 levels was approximately 2 to 3 times."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mycosis--aspergillosis-brooder-pneumonia": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--aspergillosis-brooder-pneumonia--v1",
+          "statement": "การตายในลูกไก่เนื้อระยะแรกจาก aspergillosis กระจุกตัวในสัปดาห์แรกของชีวิตจริง การสำรวจ 87 outbreak ในลูกไก่อายุไม่เกิน 2 สัปดาห์พบว่า aspergillosis ทำให้ตายในสัปดาห์แรก 1.0% ต่างจาก colibacillosis salmonellosis และ gout ที่ทำให้ตายมากกว่าในสัปดาห์ที่สอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39737043",
+              "locator": "Abstract, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Colibacillosis (2.1%), salmonellosis (3.2%), and gout (1.7%) were responsible for causing higher mortality (3.2%) in the second week of life of broilers, aspergillosis in the first week (1.0%)"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--aspergillosis-brooder-pneumonia--v2",
+          "statement": "ในลูกไก่เนื้อที่ติด Aspergillus fumigatus พบ granulomatous nodule จำนวนมากที่ปอดและ thoracic air sac เป็นหลัก โดยแสดงอาการอ้าปากหายใจ (gasping) ซึม ผอม และตายมาก ส่วนในไก่ไข่โตพบเพียงก้อนใหญ่ไม่กี่ก้อนที่ abdominal air sac",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2697044",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The disease in broiler chicks was characterized by gasping, droopiness, emaciation and heavy mortality... The nodules were numerous and affected mainly the lungs and thoracic air sacs in the broiler chicks while only few large nodules were "
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mycosis--candidiasis-crop-mycosis-thrush-และ-favus-white-comb": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--candidiasis-crop-mycosis-thrush-และ-favus-white-comb--v1",
+          "statement": "รอยโรคของ crop candidiasis คือแผ่นคราบสีขาวคล้ายนมบูด (white curd-like plaque) ในกระเพาะพัก โดยพบ Candida albicans ยืนยันด้วย immunohistochemistry กระจายอยู่ที่ลิ้น choanal mucosa หลอดอาหาร และกระเพาะพัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27610735",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At necropsy, white curd-like plaques were observed in the crop. Fungal elements that stained positive for Candida albicans with immunohistochemistry were distributed throughout the tongue, choanal mucosa, esophagus, and crop."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--candidiasis-crop-mycosis-thrush-และ-favus-white-comb--v2",
+          "statement": "Candida albicans เป็นเชื้อหลักที่พบในกระเพาะพักไก่เนื้อ คิดเป็น 95% ของไอโซเลต และในไก่สุขภาพดีพบเชื้อได้ 17.4-51.5% แต่มีน้อยกว่า 1% ที่เห็นรอยโรค จึงสนับสนุนว่าโรคนี้มักเป็น local lesion ไม่ใช่ systemic infection",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1103110",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Of the 573 birds examined in this study less than 1% exhibited visible lesions attributable to Candida. C. albicans comprised 95% of the isolates"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--candidiasis-crop-mycosis-thrush-และ-favus-white-comb--v3",
+          "statement": "Favus (avian dermatophytosis) เกิดจาก Microsporum gallinae ให้รอยโรคเป็นคราบสีขาวที่หงอน หน้า และติ่งหู แล้วลามลงคอ วินิจฉัยได้ด้วยการเพาะบน Sabouraud dextrose agar ร่วมกับ dermatophyte test medium และการตรวจจุลพยาธิวิทยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-8141747",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The appearance of white plaques on the comb, face, and/or ear lobes was followed by feather loss starting at the caudal base of the comb... The samples were examined histologically and by culturing on Sabouraud's dextrose agar and dermatoph"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mycosis--mycotoxicosis-ชนิดของสารพิษและปัจจัยที่ทำให้เกิดพิษ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--mycotoxicosis-ชนิดของสารพิษและปัจจัยที่ทำให้เกิดพิษ--v1",
+          "statement": "Aflatoxin B1 เป็น aflatoxin ที่มีความเป็นพิษสูงสุด สร้างโดยเชื้อรา Aspergillus กลุ่มที่สร้างสารพิษได้ และมีลักษณะที่อธิบายไว้ชัดเจนว่าลดสมรรถภาพการผลิตและทำให้ไก่เนื้อตาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34228958",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Aflatoxin B1 (AFB1), the most potent aflatoxin, is well characterized to reduce productive performance and mortality in broilers."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mycosis--aflatoxin-และ-ochratoxin": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--aflatoxin-และ-ochratoxin--v1",
+          "statement": "Aflatoxin B1 ก่อความเสียหายต่อตับ (liver damage) พิษต่อสารพันธุกรรม (genotoxicity) และกดภูมิคุ้มกัน (immunosuppression) ในไก่เนื้อ ผ่านกลไก oxidative stress และการสร้าง AFB1 macromolecular adduct ตรงกับที่เอกสารบรรยายอธิบาย pathogenesis ว่าเกิดจาก active metabolite ที่ไปจับ DNA และ RNA",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34228958",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The biochemical and molecular mode of action of AFB1 to induce liver damage, genotoxicity, immunosuppression and the protective effect of plant products against such mechanisms and their toxic effects are discussed."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--aflatoxin-และ-ochratoxin--v2",
+          "statement": "รอยโรคของ aflatoxicosis ในไก่ตรงกับที่เอกสารบรรยายระบุ คือน้ำหนักสัมพัทธ์ของตับ ไต proventriculus และกึ๋นเพิ่มขึ้น (ตับไตขยายใหญ่) ขณะที่น้ำหนักสัมพัทธ์ของ bursa ลดลง (bursa ฝ่อ จึงกดภูมิ) ร่วมกับโปรตีนรวมและอัลบูมินในซีรัมลดลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1973286",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "caused a significant increase in the relative weights of the liver, kidney, proventriculus, and gizzard as well as significant increases in activity of serum gamma glutamyltransferase; also, significant decreases in the relative bursa weigh"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--aflatoxin-และ-ochratoxin--v3",
+          "statement": "Ochratoxin A สร้างโดยเชื้อรา Aspergillus และ Penicillium และก่อพิษต่อไตในไก่เนื้อจริง โดยทำให้ creatinine กรดยูริก และ BUN ในซีรัมสูงขึ้น เพิ่ม malondialdehyde ในไต ลดสารต้านอนุมูลอิสระในไต และพบรอยโรคทางพยาธิวิทยาหลายแบบที่ไตร่วมกับการเกิด apoptosis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36179809",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mycotoxin ochratoxin A (OTA) is produced by the fungi Aspergillus and Penicillium... The results demonstrated that OTA exposure increased serum levels of creatinine, uric acid, and blood urea nitrogen... OTA-exposed chickens exhibited m"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mycosis--citrinin-trichothecenes-fumonisins-zearalenone-ergotism": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--citrinin-trichothecenes-fumonisins-zearalenone-ergotism--v1",
+          "statement": "T-2 toxin และ diacetoxyscirpenol (DAS) ซึ่งเป็น trichothecene จาก Fusarium ทำให้เกิดรอยโรคเป็นแผ่นสีเหลืองและเนื้อตายที่จงอยปาก ลิ้น และมุมปากของลูกไก่เนื้อจริง ขณะที่ crotocin ไม่ทำให้เกิดรอยโรคเช่นนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-674054",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chicks fed the diet containing DAS and T-2 toxin showed yellowish plaque-type lesions on the beak, tongue, and angle of the mouth. Crotocin did not cause such lesions"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--citrinin-trichothecenes-fumonisins-zearalenone-ergotism--v2",
+          "statement": "รอยโรคในช่องปากจาก scirpenol trichothecene สัมพันธ์กับขนาดที่ได้รับ (dose-related) และไวเท่ากับหรือมากกว่าการหยุดโต จึงใช้เป็นตัวชี้วัดพิษ trichothecene ได้ดี โดยมุมปาก (angles) และจงอยปากบนเป็นตำแหน่งที่ถูกกระทบมากที่สุดสำหรับ T-2 กลุ่ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1956853",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mouth lesions provoked by each scirpenol were dose-related... Thus, mouth lesions were of equal or greater sensitivity than growth inhibition as an indicator of scirpenol toxicity."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--citrinin-trichothecenes-fumonisins-zearalenone-ergotism--v3",
+          "statement": "Ergot คือ Claviceps purpurea ที่ปนมากับเมล็ดธัญพืชในสูตรอาหารจริง โดยมี ergot alkaloid หลักคือ ergocristine, ergometrine, ergotamine และ ergocornine อย่างไรก็ตามในการทดลอง dose-response ที่ควบคุม ไก่ไวต่อ ergot น้อยกว่าลูกสุกร และในไก่ผลกระทบที่วัดได้คือการกินอาหารลดลงกับเอนไซม์ตับในซีรัมเปลี่ยนแปลง ไม่ได้รายงานเนื้อตายที่อวัยวะส่วนปลาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16080303",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "increasing amounts of ergot (Claviceps purpurea) with a defined alkaloid content and pattern... showed the following composition: ergometrine 8.1%, ergotamine 5.4%, ergocomine 3.2%, alpha-ergocryptine 1.9%, ergocristine 14.9%... piglets see"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mycosis--การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mycosis--การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา--v1",
+          "statement": "Hydrated sodium calcium aluminosilicate (HSCAS) เป็นสารดูดซับที่มีความสัมพันธ์สูงกับ aflatoxin B1 การเติมในอาหารเพียง 0.5% ลดผลเสียของ AFB1 ที่ระดับ 7.5 มก. ต่อกิโลกรัมอาหารในลูกไก่ไข่และไก่เนื้อได้อย่างมีนัยสำคัญ ยืนยันสิ่งที่เอกสารบรรยายระบุว่ากลุ่ม clay อะลูมิโนซิลิเกตและ zeolite จับ aflatoxin ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2837754",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The HSCAS, when added to the diet of Leghorn and broiler chicks at a level of .5%, significantly diminished the adverse effects of feeding 7.5 mg AFB1/kg of feed."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mycosis--การวินิจฉัยและการควบคุมสารพิษจากเชื้อรา--v2",
+          "statement": "HSCAS ลดผลยับยั้งการเจริญเติบโตจาก aflatoxin ในลูกไก่ได้ 50-67% ขณะที่ activated charcoal ที่ระดับเดียวกันไม่แสดงคุณสมบัติป้องกัน จึงเป็นข้อมูลเปรียบเทียบว่าไม่ใช่สารดูดซับทุกชนิดจะใช้แทนกันได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1973286",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The HSCAS significantly diminished the growth-inhibitory effects of AFB1 or of AF on growing chicks by 50 to 67 percent... adding activated charcoal to the diet did not appear to have protective properties against the effects of aflatoxin B"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-ort": {
+    "avian-medicine--avian-ort--ornithobacterium-rhinotracheale-ort": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ort--ornithobacterium-rhinotracheale-ort--v1",
+          "statement": "Ornithobacterium rhinotracheale (ORT) เป็นแบคทีเรียแกรมลบรูปแท่ง pleomorphic ที่ก่อโรคทางเดินหายใจ และในไก่อายุมากจะเกิดรอยโรครุนแรงกว่าและตายมากกว่า จึงเป็นปัญหาสำคัญเป็นพิเศษในไก่พันธุ์ ตรงกับที่เอกสารบรรยายระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40249587",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In older birds, ORT causes more severe lesions and increases in mortality; therefore it is of particular concern in the breeder industry because infection and loss of production in breeders impact all stages of production."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ort--ornithobacterium-rhinotracheale-ort--v2",
+          "statement": "ORT ติดต่อได้ทั้งแนวราบและแนวดิ่ง เพาะแยกเชื้อได้ยาก การดื้อยาปฏิชีวนะที่ใช้ทั่วไปเป็นเรื่องพบบ่อยจึงทำให้การรักษายาก และวัคซีนที่พัฒนาขึ้นเป็นวัคซีนเชื้อตายสำหรับไก่พ่อแม่พันธุ์เนื้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10705607",
+              "locator": "Abstract (English)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is transmitted horizontally as well as vertically. O. rhinotracheale is difficult to isolate... Treatment can be difficult, because acquired resistance against the regular antibiotics is common in O. rhinotracheale isolates. An inactivat"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ort--ornithobacterium-rhinotracheale-ort--v3",
+          "statement": "อาการทางคลินิกและรอยโรคของ ORT มีค่าน้อยมากในการวินิจฉัย ต้องยืนยันด้วยการแยกเชื้อและระบุชนิดเชื้อ และ/หรือการตรวจแอนติบอดี ซึ่งสนับสนุนที่เอกสารบรรยายบอกว่าผล seropositive อย่างเดียวยืนยันโรคไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9581349",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinical signs and lesions are of little value in diagnosis. Accurate diagnosis must be substantiated by isolation and identification of the causative bacteria and/or detection of antibodies using serological examination."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-campy": {
+    "avian-medicine--avian-campy--campylobacter": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-campy--campylobacter--v1",
+          "statement": "การศึกษา source attribution ในเดนมาร์กด้วยสองแบบจำลองระบุว่า แหล่งหลักของ campylobacteriosis ในคนคือไก่เนื้อ โดยแบบจำลอง Asymmetric Island ให้ 52% จากไก่ในประเทศบวก 17% จากไก่นำเข้า (รวมประมาณ 69%) ซึ่งอยู่ในช่วง 50-70% ตามที่เอกสารบรรยายระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24168860",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both models used indicate that the major burden of human campylobacteriosis in Denmark originates from the domestic broiler chicken reservoir... The Asymmetric Island model attributed 52% to Danish chicken, 17% to imported chicken"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-listeria": {
+    "avian-medicine--avian-listeria--listeriosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-listeria--listeriosis--v1",
+          "statement": "Listeria monocytogenes เป็นแบคทีเรียแกรมบวกและเป็น facultative intracellular pathogen จริง และในคนกลุ่มเสี่ยง คือผู้สูงอายุ ผู้ที่มีภูมิคุ้มกันบกพร่อง และหญิงตั้งครรภ์ เชื้อสามารถข้าม blood-brain barrier และรกได้ ทำให้เกิด meningoencephalitis และการติดเชื้อในทารกในครรภ์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33583696",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Listeria monocytogenes is a foodborne pathogen responsible for listeriosis, an infection that can manifest in humans as bacteremia, meningoencephalitis in immunocompromised patients and the elderly, and fetal-placental infection in pregnant"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-listeria--listeriosis--v2",
+          "statement": "L. monocytogenes เป็นแบคทีเรียแกรมบวกแบบ saprophyte ที่ปรับตัวทนสภาวะเครียดได้ดีมากจนกระจายอยู่ทั่วไป (ubiquitous) และวิธีถนอมอาหารกับการฆ่าเชื้อในโรงงานแปรรูปหลายวิธียังป้องกันการปนเปื้อนได้ไม่ดีพอ ซึ่งสนับสนุนที่เอกสารบรรยายว่าเชื้ออยู่ได้ทุกที่และปนเปื้อนในเนื้อได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34612177",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It has evolved an exceptional ability to adapt to stress conditions encountered in different environments, resulting in a ubiquitous distribution. Because some food preservation methods and disinfection protocols in food-processing environm"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-listeria--listeriosis--v3",
+          "statement": "Listeria monocytogenes เป็นเชื้อที่ติดต่อทางอาหารและก่อโรคทั้งในสัตว์และคน โดยสุกรทำหน้าที่เป็นแหล่งรังโรคแบบไม่แสดงอาการ ตรงกับที่เอกสารระบุว่าสุกรมักเป็นพาหะและเป็นเชื้อติดต่อสู่คน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33024008",
+              "locator": "Abstract, Background",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Listeria monocytogenes is a foodborne bacterial pathogen that causes listeriosis, an infectious disease in animals and people, with pigs acting as asymptomatic reservoirs."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-listeria--listeriosis--v4",
+          "statement": "การสำรวจตามสายการผลิตสุกรจากฟาร์มถึงโรงฆ่าพบ L. monocytogenes ที่ต่อมทอนซิลมากที่สุด (ร้อยละ 24) ขณะที่พบใน rectal swab และเนื้อหาในลำไส้เพียงร้อยละ 1 ยืนยันภาพการเป็นพาหะที่ระบบทางเดินหายใจส่วนต้นมากกว่าการเป็นโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20377951",
+              "locator": "Abstract, results of 1,962 samples from 364 pigs",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The prevalence of L. monocytogenes was 11, 1, 1, 24, 5, 1, and 4% in feed and litter, rectal swabs, intestinal contents, tonsils, pluck sets (including lungs, heart, liver, and kidney), carcasses, and meat cuts, respectively."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-histomoniasis": {
+    "avian-medicine--avian-histomoniasis--histomoniasis-black-head-disease": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-histomoniasis--histomoniasis-black-head-disease--v1",
+          "statement": "ในธรรมชาติ Histomonas meleagridis ถ่ายทอดผ่านไข่ของพยาธิตัวกลม Heterakis gallinarum โดยโปรโตซัวเข้าไปอยู่ในเนื้อเยื่อของพยาธิทั้งตัวผู้และตัวเมียแล้วถูกพาไปอยู่ในไข่พยาธิ ซึ่งเป็นเหตุผลที่โปรแกรมถ่ายพยาธิเป็นมาตรการป้องกันโรคโปรโตซัวชนิดนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38982636",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Under natural conditions, the parasite is transmitted through eggs of a nematode, Heterakis gallinarum, that shares its hosts with Hi. meleagridis. The protozoan infects tissues of both male and female He. gallinarum and eventually is carri"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-histomoniasis--histomoniasis-black-head-disease--v2",
+          "statement": "ไก่งวงไวต่อโรคมากกว่าไก่อย่างชัดเจน อัตราตายในไก่งวงบางครั้งเข้าใกล้ 100% ของฝูง ขณะที่ในไก่อัตราตายประมาณ 10-20% แม้จะป่วยเป็นจำนวนมากก็ตาม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16404985",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Blackhead disease causes high mortality in turkeys, sometimes approaching 100% of a flock. In chickens, the mortality may be 10%-20% with high morbidity, although many outbreaks pass unnoticed."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-histomoniasis--histomoniasis-black-head-disease--v3",
+          "statement": "การแบนยากลุ่ม nitroimidazole ในสหรัฐอเมริกาและยุโรปตามมาด้วยจำนวนเคสที่เพิ่มขึ้นในไก่งวงและไก่ และเนื่องจากยังไม่มีวัคซีน การป้องกันจึงต้องอาศัยการควบคุมพยาธิร่วมกับการจัดการฟาร์ม ตรงกับที่เอกสารบรรยายระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16404985",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-09",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The ban of nitroimidazole products in the United States and Europe was followed by an upsurge in reported cases in turkeys and chickens... The lack of suitable treatment drugs or vaccines emphasizes the importance of prevention by worm cont"
           }
         }
       ]

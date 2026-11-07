@@ -251,3 +251,19 @@ test('OpenAlex answers when PubMed fails', async () => {
     console.warn = warn;
   }
 });
+
+test('a streamed answer reports its tokens: DeepSeek on its last chunk, Anthropic from start and delta', async () => {
+  const last = `data: ${JSON.stringify({ choices: [{ delta: { content: '' }, finish_reason: 'stop' }], usage: { prompt_tokens: 5120, completion_tokens: 610, prompt_cache_hit_tokens: 896 } })}\n\n`;
+  const bodies = [];
+  const r = await writeAnswer({
+    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV, onDelta: () => {},
+    fetchImpl: async (url, init) => { bodies.push(JSON.parse(init.body)); return streamed([ds('ok'), last, 'data: [DONE]\n\n'], { signal: init.signal }); },
+  });
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.usage, { in: 5120, out: 610, cached: 896 });
+  assert.equal(bodies[0].stream_options, undefined, 'the request is unchanged: DeepSeek reports usage unasked');
+  assert.equal(parseDeepSeekEvent('', JSON.stringify({ choices: [{ delta: { content: 'a' } }], usage: null })).usage, undefined);
+  assert.deepEqual(parseAnthropicEvent('message_start', JSON.stringify({ type: 'message_start', message: { usage: { input_tokens: 100, cache_read_input_tokens: 900 } } })).usage, { in: 1000, cached: 900 });
+  assert.deepEqual(parseAnthropicEvent('message_start', 'null'), { usage: { in: 0, cached: 0 } });
+  assert.deepEqual(parseAnthropicEvent('message_delta', JSON.stringify({ type: 'message_delta', delta: { stop_reason: 'end_turn' }, usage: { output_tokens: 42 } })), { finish: 'end_turn', usage: { out: 42 } });
+});

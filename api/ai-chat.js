@@ -27,15 +27,16 @@
 // and counts only, never message text or the client address.
 // ============================================================
 
-import { allowedOrigin, clientIP } from './_lib/rate-limit.js';
+import { allowedOrigin, clientIP, rateLimit } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
 import { chatConfig } from './_lib/ai/config.js';
 import { validateChatInput, INPUT_MESSAGES } from './_lib/ai/input.js';
-import { checkLimits } from './_lib/ai/limits.js';
+import { checkLimits, LIMIT_MESSAGES } from './_lib/ai/limits.js';
 import { openStream } from './_lib/ai/sse.js';
-import { runChat, chatStats, ERROR_MESSAGES } from './_lib/ai/pipeline.js';
+import { runChat, chatStats, questionCounts, ERROR_MESSAGES } from './_lib/ai/pipeline.js';
 import { warmCorpus } from './_lib/ai/corpus.js';
 import { warmLibrary } from './_lib/ai/library.js';
+import { validateVoiceTool, runVoiceTool, VOICE_TOOL_ERRORS } from './_lib/ai/voice-tools.js';
 
 // Literal on purpose: the platform reads this object statically from the
 // source, so an imported constant would be invisible to it and the function
@@ -102,6 +103,8 @@ export default async function handler(req, res) {
   } catch {
     return res.status(400).json({ error: 'input', message: INPUT_MESSAGES.shape });
   }
+  // The voice agent's tools (ai/voice-tools.js): one JSON answer, not a stream.
+  if (body && typeof body === 'object' && body.voice) return voiceTool(req, res, body.voice, gate);
   const input = validateChatInput(body);
   if (!input.ok) return res.status(400).json({ error: 'input', message: input.message });
 
@@ -111,7 +114,9 @@ export default async function handler(req, res) {
   // The corpus starts loading while the limiter round-trips (cold start
   // overlaps them instead of adding to them).
   warmCorpus();
+  const tl = Date.now();
   const limit = await checkLimits(clientIP(req), { dailyCap: cfg.dailyCap });
+  const tLimit = Date.now() - tl;
   if (!limit.ok) {
     if (limit.body.retryAfter) res.setHeader('Retry-After', String(limit.body.retryAfter));
     return res.status(limit.status).json(limit.body);
@@ -120,7 +125,7 @@ export default async function handler(req, res) {
   const stream = openStream(res);
   try {
     // Only a member's token reads the library and earns its links an open ticket.
-    await runChat(input, { send: stream.send, signal: stream.signal, t0, token: gate.member ? gate.token : null });
+    await runChat(input, { send: stream.send, signal: stream.signal, t0, tLimit, token: gate.member ? gate.token : null });
   } catch (err) {
     console.error('[ai-chat] unexpected', String(err?.stack || err?.message || err).slice(0, 600));
     stream.send('error', { reason: 'unexpected', message: ERROR_MESSAGES.unexpected });
@@ -128,4 +133,26 @@ export default async function handler(req, res) {
     stream.end();
   }
   return undefined;
+}
+
+// A spoken turn waits on this answer, so it never queues behind the chat's
+// per-address budget: its own counter, per student (or address while the wall is off).
+async function voiceTool(req, res, raw, gate) {
+  const input = validateVoiceTool(raw);
+  if (!input.ok) return res.status(400).json({ error: 'input', message: VOICE_TOOL_ERRORS.shape });
+  warmCorpus();
+  const t0 = Date.now();
+  const rl = await rateLimit(`ai-voice:tool:${gate.userId || `ip:${clientIP(req)}`}`, 240, 60 * 60 * 1000);
+  if (!rl.ok) {
+    if (rl.retryAfter) res.setHeader('Retry-After', String(rl.retryAfter));
+    return res.status(rl.unavailable ? 503 : 429).json({ error: 'rate', message: rl.unavailable ? LIMIT_MESSAGES.unavailable : VOICE_TOOL_ERRORS.rate, retryAfter: rl.retryAfter });
+  }
+  try {
+    const out = await runVoiceTool(input, { deps: { questionCounts } });
+    console.log('[ai-voice-tool]', JSON.stringify({ op: input.op, ms: Date.now() - t0, hit: out.covered ?? out.found, n: out.items?.length || out.card?.questions?.length || 0 }));
+    return res.status(200).json(out);
+  } catch (err) {
+    console.error('[ai-voice-tool] failed', input.op, String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'unexpected', message: ERROR_MESSAGES.unexpected });
+  }
 }

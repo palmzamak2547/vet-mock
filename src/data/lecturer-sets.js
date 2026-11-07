@@ -469,7 +469,7 @@ const Y5_MIDTERM = {
             // and reproductive diseases in mare", and the 27 ส.ค. recording runs the two
             // together, so a separate infectious-disease deck was our split, not his.
             decks: [
-              { cover: 'eqrepro-infertility', title: 'ภาวะความไม่สมบูรณ์พันธุ์และโรคติดเชื้อที่สำคัญของแม่ม้า', topics: ['eqrepro-infertility', 'eqrepro-stallion-infect'] },
+              { cover: 'eqrepro-infertility', title: 'ภาวะความไม่สมบูรณ์พันธุ์และโรคติดเชื้อที่สำคัญของแม่ม้า', topics: ['eqrepro-infertility', 'eqrepro-mare-infect'] },
             ],
           },
         ],
