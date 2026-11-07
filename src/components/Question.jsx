@@ -1,6 +1,6 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
-import { useRef, useState, useEffect, useMemo } from 'react';
+import { useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
 import { subjectText, isAnswered } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
@@ -15,6 +15,8 @@ import VoiceInputButton from './VoiceInputButton.jsx';
 import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
+import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
+import ReadAloudBar from './ReadAloudBar.jsx';
 import QSourceChip from './QSourceChip.jsx';
 import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, flagChipText, SOURCE_LINE_WAIT } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
@@ -94,39 +96,70 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       maxHeight={320}
     />
   ) : null;
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  // Why the last read-aloud could not speak, shown beside the button.
+  // The read-aloud (lib/read-aloud.js, loaded on the first tap) reads the
+  // question, 'q', or its เหตุผล, 'explain'. Its state lives in a store small
+  // enough to load with this card, so the buttons, the highlight and the bar
+  // render before the engine arrives. Job ids carry the question's id.
+  const jobPrefix = `${compoundId}:`;
+  const reading = useSyncExternalStore(readAloud.subscribe, () => {
+    const s = readAloud.get();
+    return s.job?.id.startsWith(jobPrefix) ? `${s.job.what}|${s.kind || ''}|${s.option}` : '';
+  }, () => '');
+  const [readWhat = '', readKind = '', readOpt = '-1'] = reading.split('|');
+  const readOption = readWhat === 'q' && readKind !== 'stem' ? Number(readOpt) : -1;
+  const isSpeaking = readWhat === 'q';
+  const engineRef = useRef(null);
+  const [engine, setEngine] = useState(null);
+  const stemRef = useRef(null);
+  const explainRef = useRef(null);
+  // Why the read-aloud could not start at all (its code did not load), { what, text }.
   const [ttsNote, setTtsNote] = useState(null);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
 
   // Reset flag display when navigating to a new Q
   useEffect(() => { setFlagState(readFlags()[compoundId] || null); }, [compoundId]);
 
-  // Stop speech + cleanup when component unmounts or Q changes. The
-  // controller flag lets in-flight `speakQuestion` bail between chunks
-  // even if a user mashes 🔊 on a new Q before the previous finished.
-  const speakControllerRef = useRef({ cancelled: false });
-  const ttsModuleRef = useRef(null);
-  useEffect(() => {
-    return () => {
-      speakControllerRef.current.cancelled = true;
-      ttsModuleRef.current?.cancelSpeech?.();
-      setIsSpeaking(false);
-      setTtsNote(null);
-    };
-  }, [currentQ?.id]);
+  // Leaving the question stops its read-aloud; where it stopped is kept for
+  // the session, so coming back and pressing play resumes there.
+  useEffect(() => () => {
+    if (readAloud.get().job?.id.startsWith(jobPrefix)) engineRef.current?.stop();
+    setTtsNote(null);
+  }, [jobPrefix]);
 
-  // A student who has used read-aloud before gets this subject's clip list
-  // fetched ahead, so the next tap starts without waiting on it. Everyone
-  // else gets only the connection to the clip host opened (DNS, TCP and TLS
-  // are three round trips on a phone network).
+  const loadEngine = () => (engineRef.current
+    ? Promise.resolve(engineRef.current)
+    : import('../lib/read-aloud.js').then((m) => { engineRef.current = m; setEngine(m); return m; }));
+  const usedReadAloud = () => {
+    try { return window.localStorage.getItem('vmx-tts-used') === '1'; } catch { return false; }
+  };
+  // What a job reads: options in the order the student sees them, so
+  // "ตัวเลือก B" is the row with the B chip.
+  const jobFor = (what) => ({
+    id: `${jobPrefix}${what}`,
+    what,
+    title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
+    album: SUBJECTS.find((s) => s.id === currentQ.subject)?.name || '',
+    subject: currentQ.subject,
+    stem: currentQ.q || '',
+    options: Array.isArray(currentQ.options) ? getShuffledOptions(currentQ).displayOptions.map(String) : [],
+    explain: currentQ.explain || '',
+    // The element a piece is read from: the phrase highlight and the scroll
+    // that keeps it above the bar use it. An option's row for its label too.
+    container: (kind, option = -1) => (kind === 'stem'
+      ? (what === 'q' ? stemRef.current : explainRef.current)
+      : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
+  });
+
+  // A student who has used read-aloud before gets this question's first clip
+  // fetched ahead (its เหตุผล's once the panel shows), so a tap starts at once.
+  // Everyone else gets only the connection to the clip host opened (DNS, TCP
+  // and TLS are three round trips on a phone network).
   useEffect(() => {
-    const subject = currentQ?.subject;
-    if (!subject) return;
-    let used = false;
-    try { used = window.localStorage.getItem('vmx-tts-used') === '1'; } catch { /* private mode */ }
-    if (used) {
-      import('../lib/tts-shared.js').then((m) => m.warmShared(subject)).catch(() => {});
+    if (!currentQ?.subject) return;
+    if (usedReadAloud()) {
+      // The stem's clip is small (a few tens of KB); the explanation's is not,
+      // so it comes ahead only for a student who listens to explanations.
+      loadEngine().then((m) => m.warm(jobFor('q'), { clip: true })).catch(() => {});
     } else {
       try {
         if (!document.querySelector('link[rel="preconnect"][href="https://tts.vetmock.com"]')) {
@@ -138,64 +171,60 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         }
       } catch { /* a hint only */ }
     }
-  }, [currentQ?.subject]);
+  }, [currentQ?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- once per question
+  const warmExplain = () => {
+    if (!usedReadAloud()) return;
+    let clip = false;
+    try { clip = window.localStorage.getItem('vmx-explain-listened') === '1'; } catch { /* private mode */ }
+    loadEngine().then((m) => m.warm(jobFor('explain'), { clip })).catch(() => {});
+  };
+  // The question this card shows now: a tap's job starts only if the card
+  // still shows it once the engine has loaded.
+  const prefixNow = useRef(jobPrefix);
+  prefixNow.current = jobPrefix;
 
   // The read-aloud code loads on the first press; start it on pointer-down
   // so the tap's own delay overlaps the download.
-  const preloadTts = () => { import('../lib/tts.js').catch(() => {}); };
+  const preloadTts = () => { loadEngine().catch(() => {}); };
 
-  const speakQ = async () => {
-    // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
-    // (and stricter browsers) require .play() to happen inside a user
-    // gesture; speakQuestion() crosses an `await` boundary which would
-    // otherwise lose the gesture context and silently block playback.
+  // A tap on the control that is reading stops it; on the other control of
+  // the same question it switches (the engine stops the first).
+  const speak = async (what) => {
+    // CRITICAL: iOS lets audio start only inside the tap. Prime the
+    // read-aloud's own element, and the live voices', before any await.
+    primePlayer();
     unlockAudio();
-
-    if (isSpeaking) {
-      // Toggle off — abort the in-flight chain and cancel the queue
-      speakControllerRef.current.cancelled = true;
-      ttsModuleRef.current?.cancelSpeech?.();
-      setIsSpeaking(false);
-      return;
-    }
-    // Fresh controller per speak action
+    if (readAloud.get().job?.id === `${jobPrefix}${what}`) { engineRef.current?.stop(); return; }
     setTtsNote(null);
-    const controller = { cancelled: false };
-    speakControllerRef.current = controller;
-    // Options in the order the student sees them, so "ตัวเลือก B" is the
-    // row with the B chip (it used to read them in source order).
-    const stem = currentQ.q || '';
-    const options = Array.isArray(currentQ.options)
-      ? getShuffledOptions(currentQ).displayOptions.map(String)
-      : [];
+    if (what === 'explain') { try { window.localStorage.setItem('vmx-explain-listened', '1'); } catch { /* private mode */ } }
+    const job = jobFor(what);
     try {
-      // TTS is an optional feature. Keep its speech/IndexedDB providers out
-      // of the core exam chunk and load them only after an explicit tap.
-      const tts = await import('../lib/tts.js');
-      ttsModuleRef.current = tts;
-      if (controller.cancelled) return;
-      tts.speakQuestion({
-        stem,
-        options,
-        subject: currentQ.subject,
-        controller,
-        onStart: () => setIsSpeaking(true),
-        onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
-        onFail: (why) => {
-          if (controller.cancelled) return;
-          setIsSpeaking(false);
-          setTtsNote(why === 'offline'
-            ? 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'
-            : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง');
-        },
-      });
+      const m = await loadEngine();
+      // A student who moved on while the engine loaded hears nothing late.
+      if (prefixNow.current !== jobPrefix) return;
+      m.start(job);
     } catch {
-      if (!controller.cancelled) {
-        setIsSpeaking(false);
-        setTtsNote('อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง');
-      }
+      setTtsNote({ what, text: 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง' });
     }
   };
+
+  // The เหตุผล row's read-aloud: a 44 px button drawn as a 32 px circle,
+  // there from the panel's first paint, so nothing moves.
+  const explainOn = readWhat === 'explain';
+  const explainListen = currentQ?.explain ? (
+    <button
+      type="button"
+      aria-label={explainOn ? 'หยุดอ่านออกเสียง' : 'อ่านเหตุผลออกเสียง'}
+      aria-pressed={explainOn}
+      className={`vmx-listen-btn${explainOn ? ' is-on' : ''}`}
+      onClick={() => speak('explain')}
+      onPointerDown={preloadTts}
+      title={explainOn ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
+    >
+      <span className="vmx-listen-dot"><NavIcon name={explainOn ? 'speaker-off' : 'speaker'} size={16} /></span>
+    </button>
+  ) : null;
+  const explainNote = ttsNote?.what === 'explain' ? ttsNote.text : null;
 
   const toggleFlag = async () => {
     const map = readFlags();
@@ -362,7 +391,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <h2 className="vmx-qtext"><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
+      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
 
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
@@ -393,6 +422,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             currentAnswer={currentAnswer}
             answerCurrent={answerCurrent}
             revealed={mcqRevealed}
+            readingOption={readOption}
           />
           {mcqRevealed && (
             <InstantFeedback
@@ -404,7 +434,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               run={answerRun}
               fresh={freshVerdict}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
-              explain={currentQ.explain}
+              explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
               figure={explainFigure}
               subject={currentQ.subject}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
@@ -453,7 +483,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
                 // are both true at once, and only one of them was on screen.
                 alwaysShowCorrect
-                explain={currentQ.explain}
+                explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
                 figure={explainFigure}
                 subject={currentQ.subject}
                 wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
@@ -631,7 +661,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
           aria-pressed={isSpeaking}
           className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
-          onClick={speakQ}
+          onClick={() => speak('q')}
           onPointerDown={preloadTts}
           title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
         >
@@ -659,7 +689,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           label={(currentQ?.q || '').slice(0, 60)}
         />
       </div>
-      {ttsNote && <p className="vmx-tts-note" role="status">{ttsNote}</p>}
+      {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
+      <ReadAloudBar jobPrefix={jobPrefix} engine={engine} />
 
       {/* The type, subject, topic and paper as separate parts of one quiet
           row — Thai, like the rest of the card, and never uppercased. The
@@ -825,7 +856,7 @@ export function FlagChip({ flag, revealed = false }) {
 }
 
 // ─── MCQ option renderer with stable per-Q shuffle ─────────────────
-function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
+function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingOption = -1 }) {
   // Recompute permutation only when the question id changes — `useMemo`
   // keeps option order stable across re-renders triggered by note
   // typing, bookmark toggles, timer ticks, etc.
@@ -866,7 +897,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
           <button
             type="button"
             key={originalIdx}
-            className={`vmx-option ${isSelected ? 'selected' : ''} ${stateClass}`}
+            className={`vmx-option ${isSelected ? 'selected' : ''} ${stateClass}${readingOption === displayIdx ? ' is-reading' : ''}`}
             aria-pressed={isSelected}
             // aria-disabled, NOT disabled: a real `disabled` drops keyboard
             // focus to <body> the instant the options lock, so a student
@@ -890,7 +921,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -898,6 +929,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, fig
   const { preferences } = useMotionPreferences();
   useEffect(() => {
     if (isFresh) haptic(reaction.haptic, preferences);
+    onShown?.();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per revealed answer
   const combo = ok && run >= COMBO_MIN;
   return (
@@ -925,7 +957,11 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, fig
         <div className="a"><span className="k">เฉลย</span><div className="vmx-feedback-correct-val">{correctNode}</div></div>
       )}
       {explain && (
-        <div className="w"><span className="k">เหตุผล</span><div className="vmx-feedback-explain-body"><TermLinkedRichText text={explain} subject={subject} /></div></div>
+        <div className={`w${reading ? ' is-reading' : ''}`}>
+          <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}><TermLinkedRichText text={explain} subject={subject} /></div>
+          {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
+        </div>
       )}
       {figure}
       {coach}

@@ -442,9 +442,9 @@ async function playShared({ stem, options, lang, subject, controller, onStart, o
   try { window.localStorage.setItem('vmx-tts-used', '1'); } catch { /* private mode */ }
   // The first clip downloads alone; the rest start once it has arrived and
   // fetch while it plays, so they never share a slow link with it.
-  const first = plan[0].buf || getSharedAudio(plan[0].key, fetchAbort.signal);
+  const first = plan[0].buf || getSharedAudio(plan[0], fetchAbort.signal);
   const rest = first.then(
-    () => plan.slice(1).map((p) => getSharedAudio(p.key, fetchAbort.signal)),
+    () => plan.slice(1).map((p) => getSharedAudio(p, fetchAbort.signal)),
     () => [],
   );
   const bufs = plan.map((p, i) => (i === 0 ? first : rest.then((list) => list[i - 1])));
@@ -484,14 +484,35 @@ async function playShared({ stem, options, lang, subject, controller, onStart, o
   return true;
 }
 
-export async function speakQuestion({ stem: rawStem, options: rawOptions, subject, onStart, onEnd, onFail, controller }) {
+// A long text in pieces of at most `max` characters, split at line breaks,
+// then at the last space: the cloud voices refuse text over 1,000 characters,
+// and 135 explanations are longer (a refusal also turned iApp off).
+export function speechPieces(text, max = 900) {
+  const out = [];
+  let cur = '';
+  for (let line of String(text).split('\n')) {
+    while (line.length > max) {
+      const cut = line.lastIndexOf(' ', max) > max / 2 ? line.lastIndexOf(' ', max) : max;
+      if (cur) { out.push(cur); cur = ''; }
+      out.push(line.slice(0, cut).trim());
+      line = line.slice(cut).trim();
+    }
+    if (cur && cur.length + 1 + line.length > max) { out.push(cur); cur = ''; }
+    cur = cur ? `${cur}\n${line}` : line;
+  }
+  if (cur.trim()) out.push(cur);
+  return out.filter((p) => p.trim());
+}
+
+// skipShared: the clip player (read-aloud.js) already found no clips.
+export async function speakQuestion({ stem: rawStem, options: rawOptions, subject, onStart, onEnd, onFail, controller, skipShared = false }) {
   if (typeof window === 'undefined') return;
   const synth = window.speechSynthesis;
   synth?.cancel();
   const rawOpts = Array.isArray(rawOptions) ? rawOptions : [];
   // ONE voice language per question, decided by the stem (see questionLang).
   const qLang = questionLang(rawStem, rawOpts);
-  if (await playShared({ stem: rawStem, options: rawOpts, lang: qLang, subject, controller, onStart, onEnd })) return;
+  if (!skipShared && await playShared({ stem: rawStem, options: rawOpts, lang: qLang, subject, controller, onStart, onEnd })) return;
   if (controller?.cancelled) return;
   if (!synth) { onFail?.('no-voice'); return; }
   const stem = stripForSpeech(rawStem);
@@ -549,8 +570,7 @@ export async function speakQuestion({ stem: rawStem, options: rawOptions, subjec
   // paths so a fallback mid-flight resumes from the same content model.
   const sentences = [];
   if (stem && stem.trim()) {
-    const text = preprocess(stem, qLang);
-    sentences.push(/[.!?]$/.test(text) ? text : text + '.');
+    for (const text of speechPieces(preprocess(stem, qLang))) sentences.push(/[.!?]$/.test(text) ? text : text + '.');
   }
   for (let i = 0; i < safeOptions.length; i++) {
     const raw = safeOptions[i] || '';
