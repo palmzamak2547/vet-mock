@@ -24,7 +24,9 @@ What is stored, and what is not:
   a snippet of it is noise. Its document is marked 'partial' or 'garbled'.
 - A document showing a Chula student ID or a Thai national ID on any page is
   held entirely ('pii_held'): no page of it is stored, so no search can surface
-  it. Which documents those are is a decision for a person, not this script.
+  it, and the database serves no text of a held document even if pages were
+  stored before it was held (migration 20261107140012). Which documents those
+  are is a decision for a person, not this script.
 - So is a document with a page of ROSTER_IDS or more student-ID-like numbers,
   of any faculty and contiguous or grouped ("653 xxxxx 31"): a roster, an
   attendance sheet, a score sheet, a group report listing its members.
