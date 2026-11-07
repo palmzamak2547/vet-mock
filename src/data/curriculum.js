@@ -1680,7 +1680,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           '🗓 Midterm 21 ก.ย. 69 13.00-15.00 — เนื้อหา 4 ส.ค. ถึง 15 ก.ย. 69 (ครั้งที่ 1-7: ND/IB/ILT/AMPV/Pox, Mycoplasmosis, Coryza/Cholera/E. coli, Intro/AI/Egg breakout, IBD/Neoplastic/CIA/Reovirus, RSS/Coccidiosis/NE/Leukocytozoonosis/Malaria, Salmonellosis/Adeno/AE/Omphalitis/Ascites/Staph)',
           '⚠️ ตารางเรียนของวิชาเขียนวันสอบกลางภาคเป็น 25 ก.ย. แต่ตารางสอบฝ่ายวิชาการ (Update 20 ก.ค. 69) กำหนด 21 ก.ย. 13.00-15.00 ห้อง B01-03 — แอปยึดตารางฝ่ายวิชาการ',
-          '🗓 Final 2 ธ.ค. 69 08.30-10.30 — เนื้อหา 6 ต.ค. ถึง 17 พ.ย. 69',
+          '🗓 Final 2 ธ.ค. 69 08.30-10.30 — เนื้อหา 6 ต.ค. ถึง 3 พ.ย. 69',
           '⚖️ คะแนนรายอาจารย์ — ณทยา 23/0, สมศักดิ์ 15/0, จิโรจ 8/15, เกรียงวิชญ์ 8/16, นิวัตร 0/15 (mid/final)',
           '🎯 มิดเทอมหนักที่ ณทยา (23 จาก 54) กับ สมศักดิ์ (15) รวมกัน 38 จาก 54 คะแนน',
           '📚 มี past papers: key mid 5.1, avian med final สรุปจากรุ่นพี่ (เอิร์น/กั่ย), [mid] AVIAN MEDICINE bynandgate',
@@ -1815,7 +1815,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           '🗓 Midterm 21-25 ก.ย. 69 — บรรยาย 5 ส.ค. ถึง 16 ก.ย. 69 และ Final 23 พ.ย. – 4 ธ.ค. 69',
           '📖 ขอบเขตมิดเทอม 6 หัวข้อ — Role of vet in OH, One World-One Health concept, combat emerging/re-emerging diseases, Global OH activity network, OH communication skills, Transdisciplinary collaboration',
-          '💻 หัวข้อ AMR (14 ต.ค.) เรียนออนไลน์',
+          '💻 หัวข้อ AMR (30 ก.ย.) เรียนออนไลน์',
           '📊 ตัดเกรดอิงเกณฑ์ น้ำหนักกลางภาคและปลายภาคตามจำนวนคาบ (กลางภาค 6 คาบ ปลายภาค 8 คาบ)',
           '📚 มี past papers: เขียนสรุปข้อสอบพี่ปั้ก, -OH final, --ไฟนอลวันเฮ้ว',
           '🐘 มี handout เรื่อง elephant ที่ไม่แจกในห้อง (referenced in สรุป)',
@@ -1835,7 +1835,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'oh-gmo', examScope: 'final', label: 'One Health perspective of food and feed GMOs', icon: '🌾', lecturer: 'วรญาณี ธรรมธร', lecturer_year: 2026 },
         { id: 'oh-livestock-waste', examScope: 'final', label: 'Application of OH approach for livestock waste management', icon: '🚜', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'oh-import-risk', examScope: 'final', label: 'Import risk assessment', icon: '🚢', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026 },
-        { id: 'oh-amr', examScope: 'final', label: 'OH approach to combat antimicrobial resistance', icon: '💊', lecturer: 'Rungtip Chuanchuen', lecturer_year: 2026, lecturerNote: 'ตารางสอน 2569 (14 ต.ค.) เรียนออนไลน์' },
+        { id: 'oh-amr', examScope: 'final', label: 'OH approach to combat antimicrobial resistance', icon: '💊', lecturer: 'Rungtip Chuanchuen', lecturer_year: 2026, lecturerNote: 'เรียนออนไลน์ 30 ก.ย. 69 (ตารางสอน 2569 วางไว้ 14 ต.ค.)' },
         { id: 'oh-risk-analysis', examScope: 'final', label: 'Animal and human health risk analysis', icon: '⚠️', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026 },
         { id: 'oh-integrating-epi', examScope: 'continuous', label: 'Integrating OH into epidemiology', icon: '🔗', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026, lecturerNote: 'ไม่อยู่ในตารางสอน 2569 — มาจากสรุปรุ่นก่อน', lecturerNoteKind: 'caveat' },
         { id: 'oh-elephant', examScope: 'continuous', label: 'Elephant (handout not distributed)', icon: '🐘', lecturer: 'TBD', lecturer_year: 2026, hidden: true },
@@ -1980,7 +1980,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           '📚 มี past papers: แบบทดสอบอธิภู, [final] SWINE MEDICINE bynandgate (+ จดเพิ่ม Vet 81), เฉลย swine med by p run',
           '⚠️ "ข้อสอบจานพรชลิต 84 ไม่ใช่คำตอบ" — past-paper note, ใช้ examOrigin "อิงแนวเดิม" + paraphrase',
-          '📌 Trichinosis อยู่ในคาบ 16 ต.ค. 69 ร่วมกับ FMD, PCV, trypanosomiasis และหนอนพยาธิ',
+          '📌 Trichinosis อยู่ในคาบเดียวกับ FMD, PCV, trypanosomiasis และหนอนพยาธิ',
         ],
       },
       topics: [

@@ -29,6 +29,7 @@ export default function NextActionCard({
   onDismissResume,
   onPickExamPrep,
   onPickPanic,
+  onPickSubjectPanic,
   onPickSR,
   onPickWrong,
   onPickRandom,
@@ -42,6 +43,11 @@ export default function NextActionCard({
 
   const { actions, plan } = useMemo(() => {
     const out = [];
+    // The course's own Thai name. The timetable's title is the faculty's
+    // English code name with its paper ("SWINE MEDICINE — ปลายภาค").
+    const examName = nextExam
+      ? subjects?.find(s => s.id === nextExam.subject)?.name || nextExam.subject_name || nextExam.title || 'วิชาที่ใกล้สอบ'
+      : '';
 
     // Priority 0: resume in-flight exam
     if (pendingResume) {
@@ -69,18 +75,22 @@ export default function NextActionCard({
       });
     }
 
-    // Priority 1: imminent exam (≤7 days)
-    if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 1 && onPickPanic) {
+    // Priority 1: the paper is today or tomorrow. It opens that course's own
+    // Panic set: on 24 Nov the cross-subject cram served Swine, sat the day
+    // before, ahead of Equine Med (audit, 2 Nov). The cross-subject cram stays
+    // only for an exam row that names no course.
+    const subjectPanic = Boolean(nextExam?.subject && onPickSubjectPanic);
+    if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 1 && (subjectPanic || onPickPanic)) {
       out.push({
-        title: nextExam.daysLeft === 0 ? 'สอบวันนี้ — ทบทวนเร่งด่วน' : 'พรุ่งนี้สอบ — จัดชุดทบทวนให้พอดีเวลา',
-        sub: 'โฟกัสโจทย์สำคัญใน 30 นาที',
-        cta: 'เริ่ม 30 นาที',
+        title: nextExam.daysLeft === 0 ? `วันนี้สอบ${examName}` : `พรุ่งนี้สอบ${examName}`,
+        sub: subjectPanic ? 'Panic Mode ของวิชานี้ เลือกจำนวนข้อได้ก่อนเริ่ม' : 'โฟกัสโจทย์สำคัญใน 30 นาที',
+        cta: subjectPanic ? 'เริ่มทบทวน' : 'เริ่ม 30 นาที',
         kind: 'panic',
-        onClick: () => onPickPanic('30'),
+        onClick: () => (subjectPanic ? onPickSubjectPanic(nextExam.subject) : onPickPanic('30')),
       });
     } else if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7) {
       out.push({
-        title: `ติว ${nextExam.subject_name || nextExam.title || 'วิชาที่จะสอบ'}`,
+        title: `ติว ${examName}`,
         // The date, not "อีก N วัน": the hero countdown above counts real time
         // (5 วัน 15 ชม.) while daysLeft counts calendar days (6), and the two
         // on one screen read as a contradiction.
@@ -127,7 +137,7 @@ export default function NextActionCard({
     return { plan, actions: plan.steps.map(step => ({ kind: step.kind, cta: step.kind === 'sr' ? 'เริ่มทบทวน' : 'เริ่มฝึก',
       title: step.kind === 'sr' ? `ทบทวนตามรอบ ${step.count} ข้อ`
         : step.kind === 'wrong' ? `ทบทวนข้อผิด ${step.count} ข้อ`
-        : step.kind === 'exam' ? `เตรียม ${nextExam.subject_name || nextExam.title || 'วิชาที่ใกล้สอบ'} ${step.count} ข้อ`
+        : step.kind === 'exam' ? `เตรียม ${examName} ${step.count} ข้อ`
         : step.kind === 'weak' ? `ฝึก ${subjects?.find(s => s.id === step.subject)?.name || step.subject} ${step.count} ข้อ`
         : `ฝึกโจทย์ ${step.count} ข้อ`,
       sub: `${step.kind === 'exam' ? `กำหนดสอบ ${fmtThaiDate(nextExam.date)}`
@@ -139,7 +149,7 @@ export default function NextActionCard({
         : step.kind === 'wrong' ? onPickWrong?.(step.count)
         : onPickPlannedPractice?.(step.kind === 'exam' ? nextExam.subject : step.kind === 'weak' ? step.subject : 'all', step.count),
     })) };
-  }, [nextExam, quickStats, cardStats, accBySubject, subjects, practiceCounts, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSR, onPickWrong, onPickRandom, minutes, onPickPlannedPractice]);
+  }, [nextExam, quickStats, cardStats, accBySubject, subjects, practiceCounts, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSubjectPanic, onPickSR, onPickWrong, onPickRandom, minutes, onPickPlannedPractice]);
 
   if (actions.length === 0) return null;
 
@@ -151,7 +161,13 @@ export default function NextActionCard({
     && nextExam.daysLeft != null
     && nextExam.daysLeft >= 0
     && nextExam.daysLeft <= 30;
-  const examTitle = nextExam?.title || nextExam?.subject_name || 'กำหนดสอบถัดไป';
+  // The course's Thai name and its paper, as the action beside it says it;
+  // the timetable's title is the faculty's English code name.
+  const courseName = nextExam ? subjects?.find(s => s.id === nextExam.subject)?.name : null;
+  const paperLabel = { final: 'ปลายภาค', midterm: 'กลางภาค' }[nextExam?.term];
+  const examTitle = courseName
+    ? [courseName, paperLabel].filter(Boolean).join(' ')
+    : nextExam?.title || nextExam?.subject_name || 'กำหนดสอบถัดไป';
   const guidanceNote = pendingResume
     ? 'กลับไปทำต่อได้โดยไม่เสียคำตอบที่ทำไว้'
     : nextExam?.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7

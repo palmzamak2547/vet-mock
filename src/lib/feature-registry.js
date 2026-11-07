@@ -108,7 +108,7 @@ export const FEATURES = [
   {
     id: 'panic-mode', category: 'practice',
     label: 'ทบทวนเร่งด่วน', labelEn: 'Panic Mode', icon: '⏱️',
-    hint: 'จัดชุด high-yield ให้พอดีกับเวลา 30 นาที',
+    hint: 'จัดชุดข้อสำคัญให้พอดีกับเวลา 30 นาที',
     kw: 'panic mode cram เร่งด่วน พรุ่งนี้สอบ 15 30 60 นาที high yield',
     hideOnScaffold: true,
     invoke: { kind: 'panic', timeKey: '30' },
