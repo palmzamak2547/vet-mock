@@ -36,6 +36,16 @@ test('library_search keeps its status rule and skips held documents', () => {
   assert.ok(statement.includes('security definer'), 'it applies the rule itself, so it stays the one that does');
 });
 
+test('library_search asks the Chula wall before it reads a page', () => {
+  // Row security cannot see into a SECURITY DEFINER function, so without this
+  // the wall's Data API gate was the only thing between anon and the snippets.
+  const { file, statement } = newest('create or replace function public.library_search(');
+  const guard = statement.indexOf('if not public.chula_access() then');
+  assert.ok(guard > 0, `${file}: library_search must ask chula_access()`);
+  assert.ok(guard < statement.indexOf('terms := array('), 'and ask before it reads anything');
+  assert.match(statement.slice(guard, statement.indexOf('end if;', guard)), /\breturn;/);
+});
+
 for (const table of ['library_doc_pages', 'library_doc_links']) {
   test(`the select policy on ${table} skips held documents, USING only`, () => {
     const { file, statement } = newest(`"${table} follow their document"`);
@@ -56,5 +66,6 @@ test('the audit checks all three paths on production and counts only served text
   assert.match(rule, /library_search\(text,int\)/);
   assert.match(rule, /library_doc_pages follow their document/);
   assert.match(rule, /library_doc_links follow their document/);
+  assert.match(rule, /chula_access/, 'and that library_search still asks the wall');
   assert.ok(rosterSql().includes(`d.status = 'public' and d.${NOT_HELD}`));
 });

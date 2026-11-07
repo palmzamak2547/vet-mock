@@ -6,7 +6,8 @@
 //   0. the database still refuses to serve a held document's text:
 //      library_search and the select policies on library_doc_pages and
 //      library_doc_links all skip text_status 'pii_held'
-//      (supabase/migrations/20261107140012_library_pii_held_not_served.sql);
+//      (supabase/migrations/20261107140012_library_pii_held_not_served.sql),
+//      and library_search still asks chula_access() itself (20261107141605);
 //   1. public library_docs rows whose title or original file name reads as a
 //      score or grade announcement (scripts/lib/library-pii.mjs, the rule
 //      mcv-manifest.mjs and the ingest scripts enforce);
@@ -49,10 +50,12 @@ export function servingRuleSql() {
   const has = (expr) => `coalesce(${expr} ~* 'text_status is distinct from ''pii_held''', false)`;
   const policy = (table) => `(select string_agg(qual, ' ') from pg_policies
       where schemaname = 'public' and tablename = '${table}' and policyname = '${table} follow their document')`;
+  const search = `pg_get_functiondef('public.library_search(text,int)'::regprocedure)`;
   return `select
-    ${has(`pg_get_functiondef('public.library_search(text,int)'::regprocedure)`)} as search,
+    ${has(search)} as search,
     ${has(policy('library_doc_pages'))} as pages,
-    ${has(policy('library_doc_links'))} as links`;
+    ${has(policy('library_doc_links'))} as links,
+    coalesce(${search} ~* 'if not public\\.chula_access\\(\\) then', false) as wall`;
 }
 
 /** Public rows whose title or source file name reads as a score or grade announcement. */
@@ -91,7 +94,7 @@ async function main() {
   const heldPublic = docs.filter((r) => r.status === 'public' && r.text_status === 'pii_held');
 
   const missing = Object.entries(rule).filter(([, ok]) => !ok).map(([k]) => k);
-  console.log(`0. Held text is never served: ${missing.length ? `MISSING in ${missing.join(', ')}` : 'library_search, the page policy and the link policy all skip pii_held'}`);
+  console.log(`0. Held text is never served, and library_search asks the Chula wall: ${missing.length ? `MISSING in ${missing.join(', ')}` : 'library_search, the page policy and the link policy all skip pii_held; library_search calls chula_access()'}`);
   console.log(`\nlibrary_docs: ${docs.length} rows, ${docs.filter((r) => r.status === 'public').length} public`);
 
   console.log(`\n1. Public rows titled as a score or grade announcement: ${titled.length}`);
