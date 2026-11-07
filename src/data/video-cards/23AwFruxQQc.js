@@ -88,77 +88,77 @@ export default {
  "chapters": [
   {
    "t": 5,
-   "title": "ช่วงที่ 1",
+   "title": "",
    "line": "Big Data จากคลินิก แลบ ฟาร์ม เซ็นเซอร์ และ One Health ช่วยเห็น pathway ของปัญหาและลด transmission"
   },
   {
    "t": 436,
-   "title": "ดื้อยา, action",
+   "title": "",
    "line": "เชื้อดื้อยาเชื่อมสัตว์ คน สิ่งแวดล้อม และข้อมูลเตือนต้อง verify ก่อน take action ว่าเป็น outbreak จริง"
   },
   {
    "t": 1011,
-   "title": "น้ำนม, early",
+   "title": "",
    "line": "digital twin รวมข้อมูลเซ็นเซอร์ รีดนม กล้อง และแลบ ให้ AI แนะนำการจัดการฟาร์มและคัดสัตว์"
   },
   {
    "t": 1524,
-   "title": "ดื้อยา, ปากและเท้าเปื่อย",
+   "title": "",
    "line": "genome sequencing และ movement ติดตาม FMD ข้ามประเทศ ส่วน heat stress ทำให้ productivity และอัตราผสมติดต่ำลง"
   },
   {
    "t": 1920,
-   "title": "sample, sampling",
+   "title": "",
    "line": "เมื่อทุกตัวมีเซ็นเซอร์อาจไม่ต้องสุ่ม แต่ยังต้องคำนวณ sample size เพื่อตรวจหา pathogen และภูมิคุ้มกัน"
   },
   {
    "t": 2402,
-   "title": "โควิด",
+   "title": "",
    "line": "AI ช่วย identify pattern และ prediction แต่หมอต้องตรวจซ้ำและนำไปใช้เพื่อ welfare และ productivity ที่ดีขึ้น"
   },
   {
    "t": 2814,
-   "title": "positive, negative",
+   "title": "",
    "line": "ผลบวกปลอมและลบปลอมขึ้นกับ prevalence และผลกระทบทางเศรษฐกิจ สังคม และชีวิต"
   },
   {
    "t": 3339,
-   "title": "ดื้อยา, ติดต่อสู่คน",
+   "title": "",
    "line": "โรคซับซ้อนหลายปัจจัย รักษาตัวเดียวไม่พอ ต้องดูความสัมพันธ์ก่อนหลังและทำงานร่วมหลายฝ่าย"
   },
   {
    "t": 3908,
-   "title": "ยาปฏิชีวนะ",
+   "title": "",
    "line": "ลดการใช้ยาปฏิชีวนะต้องดู KPI หลายตัว เช่น อัตราตายและผลการรักษา ไม่ใช่ปริมาณยาอย่างเดียว"
   },
   {
    "t": 4200,
-   "title": "positive, negative",
+   "title": "",
    "line": "ผลตรวจต้องตีความด้วย PPV และ NPV และต้องแยกสาเหตุออกจากความสัมพันธ์"
   },
   {
    "t": 4777,
-   "title": "ติดต่อสู่คน, ดื้อยา",
+   "title": "",
    "line": "outbreak ต้องตัดสินใจและสื่อสารกับสังคมก่อนผลยืนยัน พร้อมบอกความไม่แน่นอนอย่างตรงไปตรงมา"
   },
   {
    "t": 5340,
-   "title": "positive, testing",
+   "title": "",
    "line": "โมดูล 1 ใช้เครื่องมือคำนวณ sensitivity specificity sample size และเลือก test ตามวัตถุประสงค์"
   },
   {
    "t": 5760,
-   "title": "negative, standard",
+   "title": "",
    "line": "monitor กับ surveillance ต่างกัน และการเลือก test ขึ้นกับว่าจะตรวจ pathogen ภูมิคุ้มกัน หรืออาการ"
   },
   {
    "t": 6331,
-   "title": "positive, negative",
+   "title": "",
    "line": "sensitivity specificity PPV NPV เปลี่ยนตาม prevalence และจำนวนตัวอย่างที่เก็บ"
   },
   {
    "t": 6893,
-   "title": "positive, parallel",
+   "title": "",
    "line": "surveillance ต้อง interpret และสื่อสารก่อนตัดสินใจ และ parallel test เพิ่ม sensitivity ส่วน serial เพิ่ม specificity"
   }
  ],
