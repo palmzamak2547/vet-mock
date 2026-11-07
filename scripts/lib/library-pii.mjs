@@ -1,0 +1,117 @@
+// ============================================================
+// library-pii.mjs — what never becomes a public library document
+// ============================================================
+// On 2 Nov 2026 two score announcements were found public in library_docs:
+// com4 "คะแนนสอบ Midterm (คะแนนดิบ)", whose seven pages of text were
+// searchable, and poultry "คะแนนกลางภาค", a spreadsheet. Two more had been
+// archived by hand on 20 Oct. The rule "never ingest a score announcement"
+// lived only in notes, so this module is that rule, shared by every step that
+// can let one in:
+//   - scripts/mcv-manifest.mjs leaves the file out of the manifest and says why;
+//   - publicationMetadata() in scripts/ingest-library.mjs refuses it, which
+//     covers ingest-library.mjs and ingest-local-docs.mjs before any byte is
+//     read, and scripts/upload-library-doc.mjs refuses its --title;
+//   - scripts/audit-library-pii.mjs lists any public row that carries one.
+//
+// The title test is deliberately narrow. คะแนน alone is "score" in every sense
+// ("Class 10 G.6 คะแนน PISA ลดลง" is a lecture topic, "รายงาน 10 คะแนน" an
+// assignment's weight), and "grade" or เกรด alone is a tumour grade, a murmur
+// grade or a carcass grade. A file whose title says nothing is caught by its
+// content instead: library-pages.py holds a page of student IDs whatever the
+// document is called.
+
+// สอบ followed by these is not an exam: สอบสวน (investigate, so ผลการสอบสวนโรค
+// is an outbreak report), สอบเทียบ (calibrate), สอบถาม (ask), สอบทาน (audit).
+const EXAM_TH = 'สอบ(?!สวน|เทียบ|ถาม|ทาน)';
+const EXAM_EN = String.raw`(?:mid-?\s?terms?|finals?|exams?|examinations?|quiz(?:zes)?)`;
+
+// First match wins, so the most specific reason comes first.
+const RULES = [
+  ['คะแนนสอบ (exam scores)', new RegExp(`คะแนน\\s*(?:การ\\s*)?${EXAM_TH}`)],
+  ['คะแนน with a paper or a mark type', new RegExp(
+    String.raw`คะแนน\s*(?:กลางภาค|ปลายภาค|มิดเทอม|ไฟนอล|ควิซ|เก็บ|ดิบ|ภาคปฏิบัติ|ปฏิบัติการ|แล็?[บป]|(?:ของ)?นิสิต|`
+    + String.raw`(?:${EXAM_EN}|labs?|raw)\b)`, 'i')],
+  ['ประกาศคะแนน (score announcement)', /ประกาศ\s*(?:ผล\s*)?คะแนน/],
+  ['สรุปคะแนน, แจ้งคะแนน or ใบคะแนน', /(?:สรุป|แจ้ง|ใบ)\s*คะแนน/],
+  ['ผลสอบ (exam results)', new RegExp(`ผล\\s*(?:การ\\s*)?${EXAM_TH}`)],
+  ['ผลการเรียน (course results)', /ผล\s*การ\s*เรียน(?!\s*รู้)/],
+  ['a grade announcement', /ประกาศ\s*(?:ผล\s*)?เกรด|เกรด\s*(?:ของ)?(?:นิสิต|รายวิชา|ประจำภาค|กลางภาค|ปลายภาค|เฉลี่ย|สะสม)/],
+  ['a bare score heading', /^(?:ประกาศ\s*)?(?:คะแนน|เกรด|scores?|grades?|marks?)[\s\d()./:-]*$/i],
+  ['an exam with its scores', new RegExp(
+    String.raw`\b(?:${EXAM_EN}|practicals?|osce|course|semester|students?)\b[\s\d:.()#-]*(?:exams?\s*)?(?:raw\s*)?(?:scores?|grades?|marks?)\b`, 'i')],
+  ['an exam with its results', new RegExp(String.raw`\b(?:mid-?\s?terms?|exams?|examinations?|quiz(?:zes)?)\b[\s\d:.()#-]*results?\b`, 'i')],
+  ['scores of an exam', new RegExp(
+    String.raw`\b(?:raw\s*)?(?:scores?|grades?|marks?)\b[\s:.()-]*(?:(?:of|for)\s+(?:the\s+)?)?${EXAM_EN}\b`, 'i')],
+  ['a score sheet or grade report', new RegExp(
+    String.raw`\bscores?\s*(?:sheets?|announcements?)\b|\bgrades?\s*(?:sheets?|announcements?|reports?|lists?|books?)\b|`
+    + String.raw`\bmarks?\s*(?:sheets?|lists?)\b|\bgradebook\b|\bgpax?\b|\braw\s*scores?\b`, 'i')],
+];
+
+// The forms a MyCourseVille name arrives in (see cleanDisplayText in
+// ingest-library.mjs): Thai flattened to "u0e04u0e30…", a backslash left in
+// front of each Thai letter, HTML entities, underscores for spaces. A title is
+// tested as a person would read it.
+export function readableTitle(s) {
+  return String(s ?? '')
+    .replace(/(?:u0e[0-9a-f]{2})+/gi, (run) => run.match(/u0e[0-9a-f]{2}/gi)
+      .map((c) => String.fromCharCode(parseInt(c.slice(1), 16))).join(''))
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&amp;/gi, '&')
+    .replace(/\\(?=[฀-๿/])/g, '')
+    .normalize('NFC')
+    .replace(/ํา/g, 'ำ') // ํา typed as two marks reads as ำ
+    .replace(/[_\s]+/g, ' ')
+    .trim();
+}
+
+/** The rule a title breaks, or null. */
+export function scoreTitleMatch(title) {
+  const text = readableTitle(title);
+  if (!text) return null;
+  for (const [reason, re] of RULES) {
+    const m = text.match(re);
+    if (m) return { reason, text, matched: m[0].trim() };
+  }
+  return null;
+}
+
+export const isScoreTitle = (title) => Boolean(scoreTitleMatch(title));
+
+// A file name, from a local path or a URL: last segment, decoded, without its
+// extension or MyCourseVille's "-<upload id>-<timestamp>" tail.
+function fileStem(p) {
+  const last = String(p ?? '').split(/[?#]/)[0].split(/[\\/]/).pop() || '';
+  let name = last;
+  try { name = decodeURIComponent(last); } catch { /* keep it as it came */ }
+  return name.replace(/\.[a-z0-9]{1,5}$/i, '').replace(/-\d{4,}-\d{8,}$/, '');
+}
+
+/** Why a manifest item (MCV or local) must not enter the library, or null.
+ *  Reads the title it would carry, its MCV folder and its file name; not a
+ *  free-text description, where "สัดส่วนคะแนนสอบ 40%" is a syllabus line. */
+export function scoreSheetReason(item = {}) {
+  const fields = [
+    ['name', item.name], ['title', item.title], ['folder', item.folder],
+    ['file', fileStem(item.path)], ['file', fileStem(item.url)], ['file', fileStem(item.sourceUrl ?? item.source_url)],
+  ];
+  for (const [field, value] of fields) {
+    const hit = scoreTitleMatch(value);
+    if (hit) return `${field} "${hit.text}" reads as ${hit.reason} ("${hit.matched}")`;
+  }
+  return null;
+}
+
+// A Chula student ID is ten digits: the entry year (two digits of the
+// Buddhist year), a programme digit, a five-digit running number and the
+// faculty (31 is Veterinary Science). library-pages.py holds a document with
+// one contiguous vet ID; a roster or score sheet is caught here by count, IDs
+// of any faculty, contiguous or grouped the way the com4 sheet printed them
+// ("653 xxxxx 31", which the contiguous pattern never saw). The pattern is
+// written to mean the same in Python, JavaScript and Postgres: library-pages.py
+// carries this exact string (a unit test compares them) and the audit runs it
+// in SQL. Calibrated on 7 Nov 2026 over all 55,118 stored pages: every page
+// with 3 or more was a roster, an attendance sheet, a score sheet or a group
+// report listing its members; the most an ordinary page reached was 1 (a dairy
+// sire catalogue's registration numbers).
+export const ROSTER_ID_PATTERN = '(?<![0-9.,])[4-7][0-9][ -]?[3-8][ -]?[0-9]{5}[ -]?[2-5][0-9](?![0-9])';
+export const ROSTER_IDS = 3;
