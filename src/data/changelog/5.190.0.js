@@ -1,0 +1,11 @@
+// Release 5.190.0. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
+// src/data/changelog.js. One file per release, so releases in flight never edit the same lines.
+export default {
+  version: '5.190.0',
+  date: '2026-11-07',
+  headline: 'Atlas สัตว์มีป้ายชื่อบนโมเดลแล้ว เริ่มจากสุนัขทั้งตัว',
+  changes: [
+    { kind: 'feature', scope: 'system', title: 'ป้ายชื่อบนโมเดล สุนัขทั้งตัว 17 จุด', desc: 'เปิดตัวอย่าง Visible dog แล้วเห็นชื่ออวัยวะตรงจุด ทั้งชื่อไทยและศัพท์กายวิภาค เช่น หัวใจ (Cor) ตับ (Hepar) แตะที่โมเดลชิ้นไหน ป้ายของชิ้นนั้นเด่นขึ้นทันที จุดที่เลือกยังไงก็ตามรูปแบบเดิมของ Atlas' },
+    { kind: 'feature', scope: 'system', title: 'ซ่อนป้ายเพื่อทดสอบตัวเองได้', desc: 'ปุ่มแสดงป้ายชื่อบนโมเดลในหมวดการมองเห็น ปิดแล้วเหลือแค่จุดกำกับ พอแตะเลือกชิ้นไหน ป้ายของชิ้นนั้นโผล่ให้เทียบคำตอบ โหมดทบทวนชื่อยังซ่อนป้ายตลอดเหมือนเดิม' },
+  ],
+};

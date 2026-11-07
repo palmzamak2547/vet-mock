@@ -65,6 +65,12 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
   const [notice, setNotice] = useState(''),
     [shareFallback, setShareFallback] = useState('');
   const [command, setCommand] = useState({ kind: 'reset', seq: 0 });
+  const [labelsVisible, setLabelsVisible] = useState(true);
+  // The label chunk is the only route to the label registry; AtlasView learns
+  // "labeled or not" from the loaded module, and the chunk no-ops when the
+  // registry is empty. Session-only state (owner decision 10): it survives
+  // clearView and specimen changes and is never persisted.
+  const [labelsModule, setLabelsModule] = useState(null);
   const sequence = useRef(0),
     search = useRef(null),
     stage = useRef(null),
@@ -76,6 +82,9 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     recall = mode === 'recall',
     hideAnswer = recall && !revealed;
   const ready = status.kind === 'ready' && !staticMode;
+  const labelsAvailable = labelsModule ? labelsModule.hasLabels(specimen.id) : false;
+  const AtlasLabelsDynamic = labelsModule?.default;
+  const labelsActive = labelsAvailable && AtlasLabelsDynamic && mode === 'explore' && !staticMode;
   const visibleIds = useMemo(
     () => visibleAtlasParts(specimen, part.id, hidden, isolated),
     [specimen, part.id, hidden, isolated],
@@ -96,6 +105,24 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
     ).values(),
   ];
   const run = useCallback((kind) => setCommand({ kind, seq: ++sequence.current }), []);
+  // The scene pushes one payload per render; the overlay registers its
+  // per-render updater here so neither component imports the other. The last
+  // payload is kept so a late-registering overlay can replay it immediately —
+  // an idle scene renders no second frame to wait for.
+  const labelsFrame = useRef(null);
+  const scenePayload = useRef(null);
+  const registerLabelsFrame = useCallback((fn) => { labelsFrame.current = fn; }, []);
+  const onSceneFrame = useCallback((payload) => {
+    scenePayload.current = payload;
+    labelsFrame.current?.(payload);
+  }, []);
+  useEffect(() => {
+    let live = true;
+    import('../components/AtlasLabels.jsx')
+      .then((mod) => { if (live) setLabelsModule(mod); })
+      .catch(() => {});
+    return () => { live = false; };
+  }, []);
   const runClinic = (id) => {
     setClinicView(id);
     setCommand({ kind: 'clinic', preset: id, seq: ++sequence.current });
@@ -529,6 +556,23 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                   onSelect={recall ? () => {} : selectPart}
                   onStatus={setStatus}
                   onExport={exportImage}
+                  onSceneFrame={onSceneFrame}
+                />
+              </Suspense>
+            )}
+            {labelsActive && (
+              <Suspense fallback={null}>
+                <AtlasLabelsDynamic
+                  specimenId={specimen.id}
+                  parts={specimen.parts}
+                  mode={mode}
+                  labelsVisible={labelsVisible}
+                  exploded={exploded}
+                  sceneReady={status.kind === 'ready'}
+                  selected={part.id}
+                  visibleIds={visibleIds}
+                  registerFrame={registerLabelsFrame}
+                  lastPayload={scenePayload}
                 />
               </Suspense>
             )}
@@ -540,7 +584,14 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
             )}
             {ready && segmented && (
               <div className="vmx-atlas-selected-tag">
-                {hideAnswer ? `ชิ้นที่ ${round + 1}` : part.en} ({visibleIds.length}/{specimen.parts.length})
+                {/* The anchored label names the selected part while labels are
+                    on; the tag keeps only the counts so one structure never
+                    shows in two floating boxes. */}
+                {hideAnswer
+                  ? `ชิ้นที่ ${round + 1}`
+                  : labelsActive && labelsVisible && !exploded
+                    ? `(${visibleIds.length}/${specimen.parts.length})`
+                    : `${part.en} (${visibleIds.length}/${specimen.parts.length})`}
               </div>
             )}
           </div>
@@ -734,6 +785,15 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                       onChange={(e) => setGhost(e.target.checked)}
                     />
                     ทำชิ้นรอบข้างโปร่งใส
+                  </label>
+                  <label className="vmx-atlas-colour">
+                    <input
+                      type="checkbox"
+                      checked={labelsVisible}
+                      disabled={!ready || recall || !labelsAvailable}
+                      onChange={(e) => setLabelsVisible(e.target.checked)}
+                    />
+                    แสดงป้ายชื่อบนโมเดล
                   </label>
                 </>
               )}
