@@ -173,7 +173,7 @@ test('PF-20: the tab on screen paints when ITS request lands, not the slowest hi
   assert.equal(panel(view.tree, 'loading'), null, 'the board must not wait behind the members list');
   assert.match(textOf(view.tree), /palm/, 'the board row is on screen');
   assert.match(textOf(view.tree), /90%/);
-  openTab(view, '👤 Members');
+  openTab(view, '👤 สมาชิก');
   assert.ok(panel(view.tree, 'loading'), 'the members tab is still loading, and says so');
   slowMembers.resolve(MEMBERS);
   await view.settle();
@@ -188,7 +188,7 @@ test('PF-20: a failed hidden section leaves the tab on screen and says so; its o
   });
   assert.match(textOf(view.tree), /90%/, 'the board that loaded stays on screen');
   assert.match(textOf(view.tree), /บางส่วนของกลุ่มโหลดไม่สำเร็จ/, 'a hidden failure is announced');
-  openTab(view, '👤 Members');
+  openTab(view, '👤 สมาชิก');
   const error = panel(view.tree, 'error');
   assert.ok(error, 'the members tab must not pass off a failed load as an empty group');
   assert.equal(findAll(view.tree, (n) => n.props.className === 'vmx-dash-card').length, 0);
@@ -212,7 +212,7 @@ test('PF-20: a failed board is an error, not "nobody has scored yet"', async () 
 test('PF-20: tab switching and deleting a shared question still work', async () => {
   let rows = [...QUESTIONS, { id: 'q2', author_id: 'A', author_name: 'palm', data: { subject: 'com5', q: 'Mine to delete', tags: ['x'] } }];
   const { view, calls } = await detailView({ questions: () => Promise.resolve(rows) });
-  openTab(view, 'Shared Q');
+  openTab(view, 'ข้อที่แชร์');
   assert.match(textOf(view.tree), /Which drug\?/);
   assert.match(textOf(view.tree), /Mine to delete/);
   const del = find(view.tree, (n) => n.type === 'button' && textOf(n) === '🗑');
@@ -233,7 +233,7 @@ test('PF-20: an answer from a superseded load cannot overwrite a newer one', asy
   const { view } = await detailView({ board: () => queue.shift().promise, questions: [mine] });
   // The board's first request is slow. Meanwhile the student deletes a shared
   // question, which reloads the page and asks for the board again.
-  openTab(view, 'Shared Q');
+  openTab(view, 'ข้อที่แชร์');
   const deleting = find(view.tree, (n) => n.type === 'button' && textOf(n) === '🗑').props.onClick();
   second.resolve([{ ...BOARD[0], pct: 70 }]);
   await deleting;

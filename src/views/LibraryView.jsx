@@ -476,15 +476,26 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   // for an older query can never fill in under a newer one.
   const textQuery = debouncedQuery.trim();
   const wantsText = textQuery.replace(/\s+/g, '').length >= TEXT_SEARCH_MIN;
-  const [textHits, setTextHits] = useState({ q: '', rows: [] });
+  const [textHits, setTextHits] = useState({ q: '', rows: [], failed: false });
+  const [textRetry, setTextRetry] = useState(0);
   useEffect(() => {
     if (!wantsText) return undefined;
     let alive = true;
     const t = setTimeout(() => {
-      searchLibraryText(textQuery).then((rows) => { if (alive) setTextHits({ q: textQuery, rows }); });
+      searchLibraryText(textQuery).then((rows) => { if (alive) setTextHits({ q: textQuery, rows: rows || [], failed: rows === null }); });
     }, 220);
     return () => { alive = false; clearTimeout(t); };
-  }, [textQuery, wantsText]);
+  }, [textQuery, wantsText, textRetry]);
+  const textFailed = searching && wantsText && textHits.q === textQuery && textHits.failed;
+  const retryText = () => { setTextHits({ q: '', rows: [], failed: false }); setTextRetry((n) => n + 1); };
+  // Said once, above the results or in place of "nothing found": the pages were
+  // not searched, so an empty list is not an answer.
+  const textFailedNote = textFailed && (
+    <div className="vmx-config-availability" role="status" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+      <span style={{ flex: '1 1 16em' }}>ค้นในเนื้อหาเอกสารไม่สำเร็จ แสดงเฉพาะผลจากชื่อเอกสาร</span>
+      <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={retryText}>ลองค้นอีกครั้ง</button>
+    </div>
+  );
   const textPending = searching && wantsText && textHits.q !== textQuery;
   const contentHits = useMemo(() => {
     if (!searching || !wantsText || textHits.q !== textQuery || !textHits.rows.length) return [];
@@ -805,9 +816,11 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         </div>
       )}
 
+      {!loading && configured && docs.length > 0 && textFailedNote}
+
       {!loading && configured && docs.length > 0 && filtered.length === 0 && contentHits.length === 0 && !textPending && (
         <div className="vmx-empty-state">
-          <Mochi state="curious" size={56} slot="library-status" className="vmx-empty-mochi" /><p>ไม่พบเอกสารที่ตรงกับที่เลือก</p>
+          <Mochi state="curious" size={56} slot="library-status" className="vmx-empty-mochi" /><p>{textFailed ? 'ไม่พบเอกสารที่ชื่อตรงกับที่ค้น' : 'ไม่พบเอกสารที่ตรงกับที่เลือก'}</p>
           {(searching || hasFilters) && (
             <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={resetFilters}>
               ล้างตัวกรอง

@@ -523,7 +523,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {currentQ.type === 'short' && (
         <div className="vmx-fill-row">
           <div className="vmx-fill-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-            <label htmlFor={`vmx-short-${currentQ.subject}-${currentQ.id}`}>Your answer (พิมพ์ตอบสั้นๆ)</label>
+            <label htmlFor={`vmx-short-${currentQ.subject}-${currentQ.id}`}>คำตอบของคุณ (พิมพ์ตอบสั้นๆ)</label>
             <VoiceInputButton
               size={28}
               onAppend={(text) => {
@@ -651,7 +651,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => { setBookmarkPresses((n) => n + 1); toggleBookmark(currentQ.id); }} title="บันทึกข้อนี้ (B)">
           <NavIcon name="star" size={18} filled={isBookmarked} />
         </button>
-        <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้ (N)">
+        <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้">
           <NavIcon name="note" size={18} filled={Boolean(note)} />
         </button>
         {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).

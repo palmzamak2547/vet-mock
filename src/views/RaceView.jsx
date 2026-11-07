@@ -25,7 +25,8 @@ export default function RaceView({ goHome, setView, user, profile }) {
   const [code, setCode] = useState('');
   const [isHost, setIsHost] = useState(false);
   const [subject, setSubject] = useState('com3');
-  const [count, setCount] = useState(15);
+  const [countText, setCountText] = useState('15');
+  const count = Math.max(5, Math.min(50, parseInt(countText, 10) || 5));
   const [participants, setParticipants] = useState({});
   const [questions, setQuestions] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -137,7 +138,14 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const response = await fetch('/api/race-start', { method: 'POST', signal: AbortSignal.timeout(30_000),
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + session.access_token },
       body: JSON.stringify({ code, questionIds: shuffled.slice(0, count).map(q => q.id), questionVersions: Object.fromEntries(shuffled.slice(0, count).map(q => [q.id, questionRevision(q)])) }) });
-    if (!response.ok) throw new Error('ยังเริ่มไม่ได้ กรุณาตรวจว่ามีเพื่อนในห้องและลองอีกครั้ง');
+    if (!response.ok) {
+      // Each refusal has its own remedy; "check a friend is in the room" was
+      // said for all of them, while the room already listed the friend.
+      const why = (await response.json().catch(() => null))?.error;
+      if (why === 'invalid-questions') throw new Error('ข้อสอบในคลังเพิ่งถูกปรับ โหลดหน้านี้ใหม่แล้วเริ่มอีกครั้ง');
+      if (response.status === 401) throw new Error('เซสชันหมดอายุ เข้าสู่ระบบใหม่แล้วลองอีกครั้ง');
+      throw new Error('ยังเริ่มไม่ได้ กรุณาตรวจว่ามีเพื่อนในห้องและลองอีกครั้ง');
+    }
     await applySnapshot(await response.json(), owner, code);
   });
   const answer = option => act(async () => {
@@ -216,7 +224,11 @@ export default function RaceView({ goHome, setView, user, profile }) {
                 ))}
               </select>
               <label htmlFor="vmx-race-count" style={{ fontSize: 14, marginLeft: 12 }}>จำนวนข้อ:</label>
-              <input id="vmx-race-count" type="number" min="5" max="50" value={count} onChange={(e) => setCount(Math.max(5, Math.min(50, parseInt(e.target.value || 0, 10))))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }} />
+              <input id="vmx-race-count" type="number" inputMode="numeric" min="5" max="50" value={countText}
+                // Clamped when the field is left, not on each key: typing 20
+                // passed through 2, which snapped to 5 before the 0 arrived.
+                onChange={(e) => setCountText(e.target.value.replace(/[^0-9]/g, '').slice(0, 2))}
+                onBlur={() => setCountText(String(count))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }} />
             </div>
             <button className="vmx-btn vmx-btn-primary" onClick={startRace} disabled={busy || loadingBank || others.length === 0} style={{ width: '100%' }}>
               {others.length === 0 ? '🕐 รอเพื่อนเข้าห้อง…' : `🏁 เริ่ม! (${others.length + 1} คน)`}

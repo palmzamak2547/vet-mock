@@ -66,7 +66,10 @@ test('Home plan and SR agree on paper, due count, private cards, and a bounded s
   await expect(page.getByRole('combobox', { name: 'วิชา', exact: true })).toHaveValue('all');
   await expect(page.getByRole('button', { name: 'กลางภาค', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(dueCount(page)).toHaveText('2ใบ');
-  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-sr-session-size')))).toBe(2);
+  // The plan's count runs this one session; the student's saved size is left alone,
+  // so a later session from the bar is not capped at the plan's few cards.
+  await expect(page.getByRole('button', { name: 'ตามแผนวันนี้ 2 ใบ', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(await page.evaluate(() => localStorage.getItem('vmx-sr-session-size'))).not.toBe('2');
 
   await page.getByRole('button', { name: 'ทุกช่วง', exact: true }).click();
   await expect(dueCount(page)).toHaveText('3ใบ');

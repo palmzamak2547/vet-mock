@@ -350,16 +350,17 @@ export async function signInWithPasskey() {
   return data;
 }
 
-/** The current user's passkeys. Returns [] rather than throwing when the
- *  feature is off or the shape moved, so a settings page can render either way. */
+/** The current user's passkeys: [] when the feature is off or the shape
+ *  moved, null when the list could not be read (so the page says so, rather
+ *  than showing none and leaving a passkey that cannot be deleted). */
 export async function listPasskeys() {
   try {
     const supabase = await getSupabase();
     if (!supabase?.auth?.passkey?.list) return [];
     const { data, error } = await supabase.auth.passkey.list();
-    if (error) return [];
+    if (error) return null;
     return Array.isArray(data) ? data : (data?.passkeys || []);
-  } catch { return []; }
+  } catch { return null; }
 }
 
 export async function deletePasskey(passkeyId) {

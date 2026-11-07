@@ -100,6 +100,9 @@ export default async function handler(req, res) {
     : [env.HANDWRITING_MODEL, ...ANTHROPIC_MODELS].filter((m, i, a) => m && a.indexOf(m) === i);
 
   const budget = await rateLimit('provider:llm:daily', LLM_DAILY_BUDGET, 24 * 60 * 60 * 1000);
+  // A limiter that did not answer is not today's quota: the student is told
+  // to try again, not to come back tomorrow (as grade-summary already does).
+  if (budget.unavailable) return sendRateLimitFailure(res, budget);
   if (!budget.ok) return res.status(503).json({ error: 'capacity reached for today' });
 
   const out = await visionJSON({

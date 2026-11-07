@@ -101,7 +101,15 @@ export function validateSubmission(p) {
 export async function ensureContributorRow() {
   const supabase = await getSupabase();
   if (!supabase) return null;
-  await supabase.rpc('ensure_contributor_row').catch(() => {});
+  // A PostgREST builder is thenable but has no .catch(): chaining one threw a
+  // TypeError here, and every load of the contribute screen failed with it.
+  // A missing row must not block the two reads that follow, so it only warns.
+  try {
+    const { error } = await supabase.rpc('ensure_contributor_row');
+    if (error) console.warn('[contribute] ensure_contributor_row', error.message);
+  } catch (err) {
+    console.warn('[contribute] ensure_contributor_row', err?.message || err);
+  }
   return true;
 }
 

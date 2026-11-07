@@ -300,6 +300,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const [archiveBusy, setArchiveBusy] = useState(false);
   const [eventArchiveParts, setEventArchiveParts] = useState([]);
   const mountedRef = useRef(true);
+  const importInputRef = useRef(null);
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
   // Year-scope toggle: 'current' restricts charts/heatmap/learning-curve
   // to the user's current year context; 'all' shows the lifetime view.
@@ -436,6 +437,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
   const importData = (e) => {
     const file = e.target.files[0];
+    // Cleared at once, so choosing the same file again after a cancel or a
+    // refused file still fires change; the File itself stays readable.
+    e.target.value = '';
     if (!file) return;
     if (file.size > USER_DATA_IMPORT_MAX_BYTES) {
       alertDialog('ไฟล์ใหญ่เกิน 20 MB กรุณาตรวจว่าเลือกไฟล์ backup ของ VetMock ถูกไฟล์');
@@ -801,10 +805,12 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             try { downloadJSON({ ...recoveryArchive.local, syncRecovery: recoveryArchive }, `vetmock-sync-recovery-${fileStamp()}.json`); }
             catch (error) { alertDialog(thaiError(error, 'ดาวน์โหลดสำเนากู้คืนไม่สำเร็จ กรุณาลองอีกครั้ง')); }
           }}>ดาวน์โหลดสำเนาก่อนเลือกข้อมูลซิงก์</button>}
-          <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
+          {/* A real button: a label around a display:none input is not in the
+              tab order, so the keyboard could never restore a backup. */}
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => importInputRef.current?.click()}>
             นำเข้าไฟล์สำรอง
-            <input type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />
-          </label>
+          </button>
+          <input ref={importInputRef} type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />
         </div>
         {eventArchiveParts.length > 0 && <div style={{ marginTop: 12 }}>
           <p>ข้อมูลมีหลายรายการ แยกไฟล์เพื่อให้นำเข้ากลับได้ กรุณาเก็บทุกส่วน</p>

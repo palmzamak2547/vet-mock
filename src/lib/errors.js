@@ -8,6 +8,11 @@ export function thaiError(e, fallback = 'เกิดข้อผิดพลา
   if (/failed to fetch|networkerror|fetch failed|load failed|ERR_INTERNET|ERR_NETWORK/i.test(msg)) {
     return 'เชื่อมต่อไม่ได้ — ตรวจอินเทอร์เน็ตแล้วลองใหม่';
   }
+  // A lazy file that did not download (Safari and Firefox word it without
+  // "fetch"; Vite's own wording when only the stylesheet failed).
+  if (/module script|dynamically imported module|Unable to preload CSS|ChunkLoadError|Loading chunk/i.test(msg)) {
+    return 'โหลดไฟล์ไม่สำเร็จ — ตรวจอินเทอร์เน็ตแล้วลองใหม่';
+  }
   if (/jwt|token.*expired|unauthorized|401/i.test(msg)) {
     return 'เซสชันหมดอายุ — เข้าสู่ระบบใหม่อีกครั้ง';
   }
