@@ -32,6 +32,7 @@ export default function AtlasScene({
   onSelect,
   onStatus,
   onExport,
+  onSceneFrame,
 }) {
   const host = useRef(null),
     leftPane = useRef(null),
@@ -52,6 +53,7 @@ export default function AtlasScene({
     onSelect,
     onStatus,
     onExport,
+    onSceneFrame,
   };
   // The renderer and the primary view live as long as the specimen, the
   // quality and the stage layout. Entering or leaving comparison changes the
@@ -205,6 +207,7 @@ export default function AtlasScene({
         renderer.setScissor(x, y, pane.width, pane.height);
         renderer.render(view.scene, view.camera);
       }
+      sceneFrame();
       if (moving) requestRender();
     }
     function placeParts(amount) {
@@ -212,6 +215,33 @@ export default function AtlasScene({
         mesh.position.copy(mesh.userData.originalPosition)
           .addScaledVector(mesh.userData.explodeDirection, (amount / 100) * 1.2);
       }
+    }
+    // One per-render payload for the label overlay (fired at the end of
+    // render() and after applyState, so a state-only change also refreshes the
+    // labels without waiting for the scheduled frame). Plain numbers only —
+    // the overlay does its own pure math. Anchors live in the model's display
+    // space and reach the world through the same group matrix the meshes use;
+    // labels hide while a per-mesh explode animation is running (design B-1).
+    function sceneFrame() {
+      if (!latest.current.onSceneFrame) return;
+      const view = views[0];
+      if (!view?.model || states[0].kind !== 'ready') {
+        latest.current.onSceneFrame({ ready: false });
+        return;
+      }
+      view.model.updateMatrixWorld(true);
+      view.camera.updateMatrixWorld();
+      view.camera.matrixWorldInverse.copy(view.camera.matrixWorld).invert();
+      const viewProjection = new T.Matrix4().multiplyMatrices(view.camera.projectionMatrix, view.camera.matrixWorldInverse);
+      const pane = view.pane.getBoundingClientRect();
+      const hostRect = el.getBoundingClientRect();
+      latest.current.onSceneFrame({
+        ready: true,
+        worldMatrix: Array.from(view.model.matrixWorld.elements),
+        viewProjection: Array.from(viewProjection.elements),
+        pane: { left: pane.left - hostRect.left, top: pane.top - hostRect.top, width: pane.width, height: pane.height },
+        clip: { normal: view.clipping.normal.toArray(), constant: view.clipping.constant },
+      });
     }
     function copyPose(from) {
       syncing = true;
@@ -421,6 +451,7 @@ export default function AtlasScene({
         if (kind === 'export') exportView();
       }
       requestRender();
+      sceneFrame();
     }
     function listen(view) {
       view.controls.addEventListener('start', () => {

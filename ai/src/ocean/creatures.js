@@ -84,6 +84,14 @@ export const SPECIES = {
     color: P([0.84, 0.05, 285], [0.62, 0.13, 330]),
     spot: P([0.78, 0.11, 330], [0.5, 0.17, 340]),
   },
+  // the voice: a moon jelly in the page's accent, held in the middle of the water while
+  // a call is live; its bell beats with the agent's voice (Swimmer.voice, set by the ocean)
+  voiceJelly: {
+    th: 'ผู้ช่วยของ VetMock', sci: 'คุยด้วยเสียง', body: 'jelly', pattern: 6,
+    lenK: 0.3, speedBL: 0.12, turnK: 1.0, wanderHz: 0.02, depth: [0.01, 0.01],
+    color: P([0.86, 0.12, 195], [0.5, 0.17, 255]),
+    spot: P([0.93, 0.08, 190], [0.42, 0.16, 262]),
+  },
   anchovy: {
     th: 'ปลากะตัก', sci: 'Stolephorus', body: 'school', pattern: 8,
     lenK: 0.03, speedBL: 1.6, depth: [0.22, 0.28],
@@ -563,26 +571,32 @@ export class Swimmer {
   writeJelly(mesh, theme) {
     const s = this.spec;
     const r0 = this.L / 2;
-    // bell pulse: quick contraction (30% of the cycle), slow relaxation
+    // bell pulse: quick contraction (30% of the cycle), slow relaxation; the voice jelly's
+    // contraction is the agent's voice instead (this.voice.p, an envelope 0..1)
     const cyc = (this.phase / TAU) % 1;
-    const p = cyc < 0.3 ? Math.sin((cyc / 0.3) * (Math.PI / 2)) : 1 - (cyc - 0.3) / 0.7;
+    const v = this.voice;
+    const p = v ? v.p : cyc < 0.3 ? Math.sin((cyc / 0.3) * (Math.PI / 2)) : 1 - (cyc - 0.3) / 0.7;
     const r = r0 * (1 - 0.17 * p);
     const col = themed(s.color, theme);
     mesh.ctx(col, s.pattern, this.seed, this.z);
-    // tentacles trail behind the drift, waving
+    // tentacles trail behind the drift, waving (the voice jelly's sway more as it speaks)
     const bx = -Math.cos(this.theta);
     const by = -Math.sin(this.theta);
     const tw = Math.max(1, r0 * 0.04);
-    for (let k = 0; k < 10; k++) {
-      const an = (k / 10) * TAU;
+    const n = v ? 14 : 10;
+    const reach = v ? 1.25 + 0.2 * p : 1.1;
+    const sway = v ? 0.22 + 0.25 * v.sway : 0.3;
+    for (let k = 0; k < n; k++) {
+      const an = (k / n) * TAU;
       const sx = this.x + Math.cos(an) * r * 0.9;
       const sy = this.y + Math.sin(an) * r * 0.9;
-      const wv = Math.sin(this.phase * 0.7 + k) * r0 * 0.3;
-      const ex = sx + bx * r0 * 1.1 - by * wv;
-      const ey = sy + by * r0 * 1.1 + bx * wv;
-      mesh.quad([sx - by * tw, sy + bx * tw, 1.1, 0.1], [sx + by * tw, sy - bx * tw, 1.1, -0.1], [ex, ey, 1.4, 0], [ex, ey, 1.4, 0], 0.55);
+      const wv = Math.sin(this.phase * 0.7 + k) * r0 * sway;
+      const ex = sx + bx * r0 * reach - by * wv;
+      const ey = sy + by * r0 * reach + bx * wv;
+      mesh.quad([sx - by * tw, sy + bx * tw, 1.1, 0.1], [sx + by * tw, sy - bx * tw, 1.1, -0.1], [ex, ey, 1.4, 0], [ex, ey, 1.4, 0], v ? 0.6 + 0.35 * v.glow : 0.55);
     }
-    const seg = 18;
+    const seg = v ? 24 : 18;
+    const light = v ? 0.95 + 0.4 * v.glow : 0.9 + 0.2 * p;
     for (let k = 0; k < seg; k++) {
       const a0 = (k / seg) * TAU;
       const a1 = ((k + 1) / seg) * TAU;
@@ -590,7 +604,7 @@ export class Swimmer {
         [this.x, this.y, 0, 0],
         [this.x + Math.cos(a0) * r, this.y + Math.sin(a0) * r, 1, a0 / Math.PI - 1],
         [this.x + Math.cos(a1) * r, this.y + Math.sin(a1) * r, 1, a1 / Math.PI - 1],
-        0.9 + 0.2 * p,
+        light,
       );
     }
   }

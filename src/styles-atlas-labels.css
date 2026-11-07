@@ -1,0 +1,61 @@
+/* Atlas label layer — chunk-scoped stylesheet. It is imported by
+   AtlasLabels.jsx only, so Vite code-splits it with the label chunk; it never
+   joins the atlas.html first load. Tokens come from src/styles.css; this file
+   is a consumer and stays OUT of lint:css-tokens' definition list. */
+
+.vmx-atlas-labels-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.vmx-atlas-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 2px 8px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.14);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.vmx-atlas-label b {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--clr-ink);
+}
+
+.vmx-atlas-label i {
+  font-style: normal;
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  color: var(--clr-ink-soft);
+}
+
+.vmx-atlas-label.is-dot {
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--clr-sage);
+  border-color: var(--clr-surface);
+}
+
+.vmx-atlas-label.is-dot b,
+.vmx-atlas-label.is-dot i {
+  display: none;
+}
+
+.vmx-atlas-label.is-selected {
+  border-color: var(--clr-sage);
+  box-shadow: 0 0 0 2px var(--clr-sage);
+}

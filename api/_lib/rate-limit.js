@@ -134,6 +134,24 @@ export async function rateLimit(key, max, winMs) {
   return rateLimitInMemory(key, max, winMs);
 }
 
+/**
+ * Give back one count a rateLimit() took for a request that then did not use it
+ * (the provider failed before anything started). Best-effort; the TTL is set
+ * again only if the key has none, so a refund never makes a counter permanent.
+ */
+export async function rateRefund(key, winMs) {
+  if (HAS_UPSTASH) {
+    try {
+      await upstashPipeline([['DECR', `rl:${key}`], ['EXPIRE', `rl:${key}`, String(Math.ceil(winMs / 1000)), 'NX']]);
+    } catch {
+      // best-effort: the student loses one count at worst
+    }
+    return;
+  }
+  const b = buckets.get(key);
+  if (b && b.count > 0) b.count--;
+}
+
 // --- Shared Upstash KV (same DB, same REST client) ------------------
 // Small best-effort JSON cache, used by the AI answer cache. A missing
 // or failing backend reads as a miss and writes vanish silently — the
