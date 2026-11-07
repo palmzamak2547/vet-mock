@@ -1,4 +1,5 @@
 import { humanSource } from '../lib/source-label.js';
+import { followsExamPattern, readableSource } from '../lib/source-line.js';
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/utils.js';
@@ -359,7 +360,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <span>
                 Q{idx + 1}, {subj?.name || q.subject}
                 {topicMeta ? <>, <span style={{ color: subjectText(subj?.color), fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
-                {q.examOrigin && (
+                {followsExamPattern(q) && (
                   <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
                     อิงแนวเดิม
                   </span>
@@ -541,9 +542,17 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
               </div>
             )}
-            {q.source && (
+            {/* The whole source, as the card's chip shows it once the key is
+                on screen: the origin first, then the pointer it rests on. A
+                timed paper reaches its full source only here, and Review never
+                printed the origin: of 3,824 questions that carry one, 894 have
+                no pointer, so they showed no source at all (2 Nov 2026). */}
+            {(q.examOrigin || q.source) && (
               <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                ที่มา: {humanSource(q.source)}
+                ที่มา: {[
+                  q.examOrigin && readableSource(q.examOrigin),
+                  q.source && (q.examOrigin ? `(${readableSource(humanSource(q.source))})` : readableSource(humanSource(q.source))),
+                ].filter(Boolean).join(' ')}
               </div>
             )}
             {/* Comments thread — opens lazily so we don't subscribe to

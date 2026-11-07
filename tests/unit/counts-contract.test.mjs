@@ -18,7 +18,7 @@
 //   Home and the subject list: the subject card, Q_VISIBLE_COUNTS_BY_SUBJECT
 //     _BY_SCOPE[phase] (whole subject with no period), for the period's term.
 //   The topic screen: รวมทุกหัวข้อ, each listed topic and collection, the
-//     อิงแนวเดิม X/Y chip, and the Panic card, under phaseForCourse.
+//     ข้อสอบเก่า X/Y chip, and the Panic card, under phaseForCourse.
 //   The year card รวมทุกวิชา: Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE.
 //   Home's ตามสไลด์ปัจจุบัน and ชุดน่าจะออก: Q_CURRENT_SCOPE_COUNTS and
 //     Q_HIGH_PREDICTION_COUNTS summed over the period's subjects.
@@ -140,8 +140,8 @@ test('every topic the topic screen lists prints what its button serves', () => {
           if (card > 0 && card !== pool.length) wrong.push(`${s.id}/${t.id} y${year} ${phase}: card ${card}, set ${pool.length}`);
           const past = screen.pastFor(t.id);
           const pastSet = pool.filter(isPastPaperQuestion).length;
-          if (card > 0 && past !== pastSet) wrong.push(`${s.id}/${t.id} y${year} ${phase}: อิงแนวเดิม ${past}, past papers served ${pastSet}`);
-          if (past > card) wrong.push(`${s.id}/${t.id} y${year} ${phase}: อิงแนวเดิม ${past}/${card} is above 100%`);
+          if (card > 0 && past !== pastSet) wrong.push(`${s.id}/${t.id} y${year} ${phase}: ข้อสอบเก่า ${past}, past papers served ${pastSet}`);
+          if (past > card) wrong.push(`${s.id}/${t.id} y${year} ${phase}: ข้อสอบเก่า ${past}/${card} is above 100%`);
         }
         for (const coll of screen.page.collections || []) {
           const card = screen.countFor(coll.id);
