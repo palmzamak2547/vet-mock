@@ -137,8 +137,9 @@ export function wholeHeading(title, pageText = '') {
 const DATE_TITLE = /^\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}(?:\s+[A-Za-z])?$/;
 const INSTITUTION = /ภาควิชา|คณะสัตวแพทยศาสตร์|จุฬาลงกรณ์มหาวิทยาลัย|chulalongkorn university|faculty of veterinary/i;
 const CLOSING = /^(?:thank(?:s| you)?|the end|q\s*&\s*a|questions?)$/i;
-// A deck's running header ("Equine" on every slide) or a stray letter ("o") names no stretch.
-const NO_NAME = /^(?:[A-Za-z]|(?:equine|mare|stallion|horse|swine|porcine|bovine|cattle|canine|feline|avian|poultry|ruminant|animal|dog|cat)s?)$/i;
+// A deck's running header ("Equine" on every slide), a stray letter ("o") or a figure's label
+// ("Figure 1", the Year-5 shrimp deck) names no stretch.
+const NO_NAME = /^(?:[A-Za-z]|(?:equine|mare|stallion|horse|swine|porcine|bovine|cattle|canine|feline|avian|poultry|ruminant|animal|dog|cat)s?|(?:fig(?:ure)?\.?|table|ตาราง|ภาพที่?)\s*\d+[a-z]?)$/i;
 /**
  * The chapter panel's titles, in order. A title is a slide's heading; null (a
  * stretch with no slides, titled by two words it heard), a date, the faculty's

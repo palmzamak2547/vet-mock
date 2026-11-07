@@ -49,7 +49,7 @@ Each item teaches something examinable (a definition, mechanism, number, differe
 Truth: only what this lecture's transcript or slides say at that moment. A number is the slide's number. When the transcript is unclear and the slides do not say it, leave it out. Never add textbook facts. Captions mishear English terms: write the slide's term, never the misheard one.
 Clarity: a student who reads only this line must understand it. Never name a person. Use only abbreviations the slides or transcript use. Keep different things apart: a cause is not a predisposing factor, a host factor is not a pathogen.
 Voice: state the fact itself; never "อาจารย์กล่าวว่า", "อาจารย์บอกว่า", "ในคลิปนี้". No tables, no middle dot, no emoji, no quotation marks.
-Wording: write % for percent and ชม. for hours. Never pair an English term with its Thai translation in one line (not "Fertility rate ... ผสมติด"). No study advice inside an item ("ต้องแยกให้ชัด", "ควรจำ", "อย่าลืมว่า"): say the fact. Use an English word only as the slides or the transcript use it.`;
+Wording: write % for percent and ชม. for hours. Write every number in digits (82 °C, 0.99, 4-8 °C), even where the transcript spells it in Thai words. Never pair an English term with its Thai translation in one line (not "Fertility rate ... ผสมติด"). No study advice inside an item ("ต้องแยกให้ชัด", "ควรจำ", "อย่าลืมว่า"): say the fact. Use an English word only as the slides or the transcript use it.`;
 
 const DRAFT = `You write the study summary of one recorded veterinary lecture for Thai veterinary students, from its transcript (YouTube's automatic Thai captions) and the lecture's own slides.
 You get a JSON skeleton. Return it filled in: the same keys, the same slots and chapter ids in the same order, nothing added.

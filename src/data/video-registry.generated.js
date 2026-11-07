@@ -255,6 +255,178 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "hLl7taXYRWQ": {
+  "title": "Animal and human health risk analysis + Import risk assessment",
+  "session": "2",
+  "date": "2026-10-07",
+  "durationSec": 4488,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [
+   [
+    "oh-risk-analysis",
+    0,
+    4440,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    4433.1,
+    4488,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "BnQScOdmIJc": {
+  "title": "Microbiology of meat",
+  "session": "2",
+  "date": "2026-10-07",
+  "durationSec": 7569,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-microbiology",
+    60,
+    2700,
+    "high"
+   ],
+   [
+    "meat-microbiology",
+    3180,
+    3480,
+    "medium"
+   ],
+   [
+    "meat-microbiology",
+    3840,
+    7500,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    0,
+    66,
+    "before"
+   ],
+   [
+    2741.1,
+    3158.2,
+    "pause"
+   ],
+   [
+    7504.5,
+    7569,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "fhgn4lTuL3U": {
+  "title": "วัคซีน วิธีให้วัคซีน โปรแกรมวัคซีน + การประเมินผลทางซีรัมวิทยา",
+  "session": "1",
+  "date": "2026-10-06",
+  "durationSec": 12425,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [],
+  "skips": [
+   [
+    0,
+    304.7,
+    "before"
+   ],
+   [
+    2188.2,
+    2209.8,
+    "pause"
+   ],
+   [
+    12269,
+    12425,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "PvMzY6UNM8M": {
+  "title": "Shrimp diseases",
+  "session": "2",
+  "date": "2026-10-06",
+  "durationSec": 7474,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-shrimp-diseases",
+    1500,
+    3240,
+    "high"
+   ],
+   [
+    "aqua-shrimp-diseases",
+    4020,
+    6960,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    0,
+    77.7,
+    "before"
+   ],
+   [
+    250.6,
+    276.7,
+    "pause"
+   ],
+   [
+    443.5,
+    493.8,
+    "pause"
+   ],
+   [
+    499.3,
+    535,
+    "pause"
+   ],
+   [
+    3292.4,
+    3982.9,
+    "pause"
+   ],
+   [
+    7449.3,
+    7474,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
  "0gTn7Up9Vj0": {
   "title": "Endometritis in mare",
   "session": "7",

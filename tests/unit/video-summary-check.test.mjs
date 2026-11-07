@@ -2,7 +2,7 @@
 // case is one a real draft of the endometritis sample broke or nearly broke.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, transliterated, voiceErrors, overlap } from '../../src/lib/video-summary-check.js';
+import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, transliterated, voiceErrors, overlap, thaiNumbers } from '../../src/lib/video-summary-check.js';
 
 const base = (over = {}) => ({
   oneLiner: 'ภาวะ endometritis ในม้า ตั้งแต่ uterine defense ถึงการรักษา',
@@ -74,6 +74,14 @@ test('the voice rules match whole words, and course logistics and set-up talk fa
   // Two numbers, two facts; the same words with the same numbers, one.
   assert.equal(overlap('STT สุนัขปกติ 13-14 มม.', 'STT แมวปกติ 11-12 มม.'), 0);
   assert.ok(overlap('vertical คือเชื้อจากแม่ผ่านฟองไข่มาถึงลูกเจี๊ยบ', 'vertical คือจากแม่ผ่านฟองไข่มาถึงลูกเจี๊ยบ') >= 0.85);
+});
+
+test('numbers Scribe writes in Thai words count as evidence, whole words only', () => {
+  // The Year-5 final cards, 7 Nov: "82 องศา" was held because the transcript said แปดสิบสอง.
+  assert.deepEqual(thaiNumbers('ล้างซากด้วยน้ำร้อนแปดสิบสององศา ห้ามใช้ สามารถทำได้ ศูนย์จุดเก้าเก้า ลบร้อยเก้าสิบหก ยี่สิบห้าวัน สี่ถึงแปดองศา'), ['82', '0.99', '196', '25', '4', '8']);
+  const card = { oneLiner: 'x', keyPoints: [{ t: 100, text: 'ล้างซากด้วยน้ำร้อน 82 °C' }], emphasis: [], remember: [], chapters: [] };
+  assert.deepEqual(unsupportedClaims(card, () => 'ล้างซากด้วยน้ำร้อนแปดสิบสององศาเซลเซียส'), []);
+  assert.equal(unsupportedClaims(card, () => 'ห้ามล้างซากด้วยน้ำร้อน').length, 1, 'ห้าม is no five');
 });
 
 test('a card line wholly in English fails; a remember item may be a term and its number', () => {

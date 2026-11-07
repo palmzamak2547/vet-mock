@@ -29,6 +29,41 @@ export function wordMatch(re, text) {
   return false;
 }
 
+// Scribe writes a number in Thai words ("แปดสิบสอง", "ศูนย์จุดเก้าเก้า") where YouTube's
+// captions write digits, so the evidence gets the digits too. Whole dictionary words only:
+// ห้าม is no ห้า, สามารถ no สาม.
+const TH_DIGITS = ['ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'];
+const TH_UNITS = { สิบ: 10, ร้อย: 100, พัน: 1000, หมื่น: 1e4, แสน: 1e5, ล้าน: 1e6 };
+const TH_PART = /ศูนย์|หนึ่ง|เอ็ด|สอง|ยี่|สาม|สี่|ห้า|หก|เจ็ด|แปด|เก้า|สิบ|ร้อย|พัน|หมื่น|แสน|ล้าน/g;
+const TH_NUMBER = new RegExp(`(?:${TH_PART.source})+(?:จุด(?:${TH_DIGITS.join('|')})+)?`, 'g');
+function thaiInteger(parts) {
+  let total = 0;
+  let section = 0;
+  let digit = null;
+  for (const w of parts) {
+    if (w in TH_UNITS) {
+      if (TH_UNITS[w] === 1e6) { total = (total + section + (digit ?? 0)) * 1e6; section = 0; } else section += (digit ?? 1) * TH_UNITS[w];
+      digit = null;
+    } else digit = w === 'ยี่' ? 2 : w === 'เอ็ด' ? 1 : TH_DIGITS.indexOf(w);
+  }
+  return total + section + (digit ?? 0);
+}
+/** The numbers written in Thai words in `text`, as digits: "ร้อยเก้าสิบหก" -> "196". */
+export function thaiNumbers(text) {
+  const s = String(text || '');
+  if (!SEGMENTER) return [];
+  const ends = new Set([s.length]);
+  for (const seg of SEGMENTER.segment(s)) ends.add(seg.index);
+  const out = [];
+  for (const m of s.matchAll(TH_NUMBER)) {
+    if (!ends.has(m.index) || !ends.has(m.index + m[0].length)) continue;
+    const [whole, frac] = m[0].split('จุด');
+    const n = thaiInteger(whole.match(TH_PART) || []);
+    out.push(frac ? `${n}.${frac.match(TH_PART).map((d) => TH_DIGITS.indexOf(d)).join('')}` : String(n));
+  }
+  return out;
+}
+
 // Words that carry no fact of their own, left out when two card items are compared.
 const GLUE = new Set(['และ', 'ที่', 'ใน', 'เป็น', 'ของ', 'ได้', 'ให้', 'มี', 'จะ', 'ไม่', 'กับ', 'หรือ', 'โดย', 'จาก', 'ต้อง', 'ก็', 'แต่', 'เพื่อ', 'ซึ่ง', 'การ', 'ความ', 'คือ', 'ว่า', 'แล้ว', 'ยัง', 'อยู่', 'ด้วย', 'จึง', 'เมื่อ', 'ถ้า', 'นั้น', 'นี้', 'ไป', 'มา', 'เช่น', 'the', 'of', 'and', 'in', 'a', 'to']);
 const factWords = (text) => {
@@ -78,7 +113,7 @@ export function keyPointCap(durationSec) {
 // Study advice and a summary that names itself (the sample's polish pass, 2 Nov 2026).
 // Matched as whole words (wordMatch): ท่องจำ is one word to the dictionary, and
 // นักท่องเที่ยว three, so ท่องเที่ยว is named.
-const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|ต้องจำ|จำไว้|ท่องจำ|ท่อง(?!เที่ยว)|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
+const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|ต้องจำ|จำไว้|จำให้ขึ้นใจ|ท่องจำ|ท่อง(?!เที่ยว)|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
 // A card states the fact; what the lecturer said about the exam stays out of it
 // ("เคยออกข้อสอบ", "ข้อสอบเป็นถูกผิด 10 ข้อ"): the stress already put it on the card.
 // Course logistics too: reports, homework, credits, grading, roll call, group sizes,
@@ -88,7 +123,9 @@ const EXAM_TALK = /ข้อสอบ|ออกสอบ|เคยออก(?![�
 // The recording's own set-up is no content ("ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน").
 const SETUP = /ยังไม่มีเนื้อหา|ก่อนเริ่มบรรยาย|ก่อนเริ่มสอน|เตรียมการสอน|เตรียมระบบ|ไฟล์เรียน|ช่วงเปิดคลิป/;
 export const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิป|บรรยาย)/;
-const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\bred\b|สีแดง|ตัวแดง|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
+// "red" names a slide's red mark; สีแดง and ตัวแดง are content in Thai ("Oxymyoglobin ให้สีแดงสด",
+// "โรคตัวแดงดวงขาว"), so they count as framing only beside a slide (the Year-5 final cards, 7 Nov).
+const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\bred\b|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
 const FORBIDDEN = /[·|]/;
 const SENTENCE_BREAK = /[.!?;](\s+)(?=\S)/;
 // Full stops that end no sentence: E. coli, Staphylococcus spp., e.g., 2.5,
@@ -268,7 +305,7 @@ export function unsupportedClaims(summary, evidenceAt, knownTerms = []) {
   for (const p of all) {
     // A chapter line answers for its whole chapter, a point for its moment.
     const ev = evidenceAt(p.t ?? p.start ?? 0, p.layer === 'chapter' ? p.id : null);
-    const evNumbers = new Set(numbersIn(ev));
+    const evNumbers = new Set([...numbersIn(ev), ...thaiNumbers(ev)]);
     const evText = ev.toLowerCase();
     const numbers = numbersIn(p.text).filter((n) => !evNumbers.has(n));
     // Abbreviations too: "BSE" for breeding soundness examination is the
@@ -310,7 +347,9 @@ export function coverage(summary, mustCover, { chapters = [], window = 120, page
     if (item.kind === 'number' && nums.length) return nums.some((n) => numbersIn(p.text).includes(n));
     // A red heading ("1.2 Ecbolic drugs") is covered by naming it or what its
     // slide lists under it (oxytocin, cloprostenol).
-    const words = [...latinIn(item.text), ...(item.kind === 'mark' ? latinIn(pageText(item.page)) : [])];
+    // A red acronym ("SHIV") is under latinIn's five letters: it counts by its own name.
+    const acronyms = (String(item.text || '').match(/\b[A-Z][A-Z0-9]{2,5}\b/g) || []).map((a) => a.toLowerCase());
+    const words = [...latinIn(item.text), ...acronyms, ...(item.kind === 'mark' ? latinIn(pageText(item.page)) : [])];
     const text = String(p.text || '').toLowerCase();
     return words.some((w) => text.includes(w)) || (item.kind === 'number' && numbersIn(item.text).some((n) => numbersIn(p.text).includes(n)));
   };
