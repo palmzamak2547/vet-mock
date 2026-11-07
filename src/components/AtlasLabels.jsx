@@ -20,6 +20,16 @@ export function defaultHiddenFor(specimenId) {
   return ATLAS_LABELS[specimenId]?.defaultHidden ?? NOTHING_HIDDEN;
 }
 
+// Drafted Latin per part id for a labeled specimen (owner decision 11 phase
+// 2): AtlasView merges this into the part view it renders, so the inspector
+// shows the Latin line and the directory search finds "Cor". The merge is
+// runtime-only — nothing static imports the registry, so the atlas budget row
+// stays byte-identical.
+export function latinFor(specimenId) {
+  const labels = ATLAS_LABELS[specimenId]?.labels ?? [];
+  return new Map(labels.map((label) => [label.partId, label.latin]));
+}
+
 function applyMatrix([x, y, z], m) {
   return [m[0] * x + m[4] * y + m[8] * z + m[12], m[1] * x + m[5] * y + m[9] * z + m[13], m[2] * x + m[6] * y + m[10] * z + m[14]];
 }

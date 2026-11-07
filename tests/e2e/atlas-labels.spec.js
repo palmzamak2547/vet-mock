@@ -57,6 +57,14 @@ test('labels render on the visible dog and answer the existing controls', async 
   // Toggle back on: the full text set returns.
   await labelsToggle(page).check();
   await expect(page.locator(`${LABEL}:not(.is-dot)`)).toHaveCount(count);
+  // Owner decision 11 phase 2: the drafted Latin reaches the directory search
+  // and the inspector through the runtime merge.
+  const search = page.getByRole('searchbox', { name: 'ค้นหาโครงสร้าง', exact: true });
+  await search.fill('Cor');
+  await expect(page.getByRole('button', { name: 'เลือก Heart', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'เลือก Heart', exact: true }).click();
+  await expect(page.locator('.vmx-atlas-detail-title em[lang="la"]')).toHaveText('Cor');
+  await search.fill('');
   expect(errors).toEqual([]);
 });
 
