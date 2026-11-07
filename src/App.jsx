@@ -543,6 +543,10 @@ export default function App() {
   const [topicSection, setTopicSection] = useState('topics');
   useEffect(() => { window.dispatchEvent(new Event('vmx-view-change')); }, [view]);
   const viewRef = useRef(initialView);
+  // Bumped by every popstate that lands, so a render reads the history entry
+  // it now stands on (the rest page's back control is labelled from it) even
+  // when the view itself did not change.
+  const [, setHistoryTick] = useState(0);
   // Set while a back control's history.back() is on its way: a second tap
   // before it lands took a second step, out of VetMock (Chromium, 0 ms
   // double click). Cleared when any traversal lands.
@@ -949,6 +953,7 @@ export default function App() {
       setVideoSubject(nextVideoSubject);
       viewRef.current = next;
       withTransition(() => setViewRaw(next));
+      setHistoryTick((n) => n + 1);
     };
     window.addEventListener('popstate', onPopState);
     const onPageShow = () => { restLeavingRef.current = false; };
