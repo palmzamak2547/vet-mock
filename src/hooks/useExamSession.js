@@ -211,6 +211,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     }
     if (currentIdx < questions.length - 1) {
       const next = questions[currentIdx + 1];
+      // The "หมดเวลา" note is for the clock's own move only, never a tap.
+      setTimedOutIdx(null);
       setCurrentIdx(currentIdx + 1);
       // One clock for the set keeps running across the move; refilling it here
       // is what let a student hold the paper open indefinitely by stepping
@@ -225,6 +227,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // 25-min budget instead of shrinking it to the MCQ default.
     if (currentIdx > 0) {
       const prev = questions[currentIdx - 1];
+      setTimedOutIdx(null);
       setCurrentIdx(currentIdx - 1);
       if (!sessionClockRef.current) setTimeLeft(timeForQuestion(prev, timePerQ));
     }
@@ -232,6 +235,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
 
   const jumpToQ = useCallback((idx) => {
     if (idx >= 0 && idx < questions.length) {
+      setTimedOutIdx(null);
       setCurrentIdx(idx);
       if (!sessionClockRef.current) setTimeLeft(timeForQuestion(questions[idx], timePerQ));
     }
@@ -263,6 +267,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setQuestions(qs);
     setAnswers({});
     setCurrentIdx(0);
+    setTimedOutIdx(null);
     setExamStartTime(Date.now());
     // A replay round is not a timed paper — the caller turns the timer off.
     sessionClockRef.current = false;
@@ -285,6 +290,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setQuestions(picked);
     setAnswers({});
     setCurrentIdx(0);
+    setTimedOutIdx(null);
     // firstTime is the caller's per-question allowance. Under one clock the
     // set gets every question's allowance at once, so the total time on offer
     // is unchanged — only the freedom to spend it where it is needed.
@@ -308,6 +314,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setQuestions(saved.questions);
     setAnswers(saved.answers || {});
     setCurrentIdx(index);
+    setTimedOutIdx(null);
     setExamStartTime(Number.isFinite(saved.examStartTime) ? saved.examStartTime : Date.now());
     // A saved exam carries the clock it was started under. Records written
     // before the session clock existed have no `clock` field, and those resume
@@ -339,6 +346,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setQuestions([]);
     setAnswers({});
     setCurrentIdx(0);
+    setTimedOutIdx(null);
     setExamStartTime(null);
     setTimeLeft(0);
   }, [ownerId]);

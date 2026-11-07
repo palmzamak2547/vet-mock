@@ -32,10 +32,11 @@ function openers(customQuestions = backup.data.customQuestions, {
   bank = [held], loaded = true, load = async () => {}, replay,
   eventContextRef = { current: { owner: 'account-a' } },
 } = {}) {
-  const replayed = [], dispatched = [], fallback = [];
+  const replayed = [], dispatched = [], fallback = [], loadAlerts = [];
   const openQuestion = callback('src/App.jsx', 'openQuestionById', {
     QB: bank, customQuestions, isQuestionDeliverable, isQBFullyLoaded: () => loaded, loadQB: load, eventContextRef,
     replayQuestions: replay ?? (questions => replayed.push(questions.map(q => q.id))),
+    alertDialog: message => loadAlerts.push(message),
   });
   const onOpen = callback('src/views/PinboardView.jsx', 'onOpen', {
     onOpenQuestion: id => { dispatched.push(id); return openQuestion(id); },
@@ -43,7 +44,7 @@ function openers(customQuestions = backup.data.customQuestions, {
     setPracticeMode: value => fallback.push(['practiceMode', value]), setView: value => fallback.push(['view', value]),
     alertDialog: () => fallback.push(['alert']),
   });
-  return { openQuestion, onOpen, replayed, dispatched, fallback, eventContextRef };
+  return { openQuestion, onOpen, replayed, dispatched, fallback, loadAlerts, eventContextRef };
 }
 function localStorageFixture(t) {
   const values = new Map();
@@ -108,6 +109,12 @@ test('held, unknown and prior-owner questions stay refused; a failed bank load c
   const pin = { type: 'note', payload: { qKey: noteQuestion.id } };
   await retry.onOpen(pin);
   assert.deepEqual(retry.replayed, []);
+  // A bank that did not download is said as that, and the student stays put:
+  // the question may well exist, so it is never reported removed or swapped
+  // for the bookmarks pool.
+  assert.equal(retry.loadAlerts.length, 1);
+  assert.match(retry.loadAlerts[0], /โหลดคลังข้อสอบไม่สำเร็จ/);
+  assert.deepEqual(retry.fallback, []);
   await retry.onOpen(pin);
   assert.equal(attempts, 2);
   assert.deepEqual(retry.replayed, [[noteQuestion.id]]);

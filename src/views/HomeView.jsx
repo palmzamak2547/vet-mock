@@ -136,7 +136,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       window.localStorage.setItem('vmx-sr-subject-filter', JSON.stringify('all'));
       window.localStorage.setItem('vmx-sr-year-scope', JSON.stringify('current'));
       window.localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('current'));
-      if (Number.isInteger(count) && count > 0) window.localStorage.setItem('vmx-sr-session-size', JSON.stringify(count));
+      // The plan's count is for this one session (SRSessionView reads
+      // vmx-sr-plan-size once); the student's own saved size stays theirs.
+      if (Number.isInteger(count) && count > 0) window.sessionStorage.setItem('vmx-sr-plan-size', String(count));
+      else window.sessionStorage.removeItem('vmx-sr-plan-size');
     } catch {
       void alertDialog('ตั้งแผนทบทวนตามหน้าแรกไม่ได้ โปรดตรวจวิชา ช่วงสอบ และจำนวนการ์ดก่อนเริ่ม');
     }

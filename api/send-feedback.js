@@ -23,6 +23,7 @@ const MAX_SUBJECT = 200;
 const MAX_MESSAGE = 5000;
 const MAX_NAME = 100;
 const MAX_EMAIL = 254; // RFC 5321
+const RESEND_TIMEOUT_MS = 10_000;
 
 export function headerText(value, maxLength) {
   return String(value || '')
@@ -60,7 +61,9 @@ export default async function handler(req, res) {
   const ip = clientIP(req);
   const rl = await rateLimit(`feedback:${ip}`, 3, 10 * 60 * 1000);
   if (!rl.ok) {
-    await logFeedbackUsage(feedbackUsageRow({ type: req.body?.type, ip }, 'capped_burst'));
+    // A limiter outage is not a student at the burst cap: logging it as one
+    // filled the admin's usage log with spam that never happened.
+    if (!rl.unavailable) await logFeedbackUsage(feedbackUsageRow({ type: req.body?.type, ip }, 'capped_burst'));
     return sendRateLimitFailure(res, rl);
   }
 
@@ -139,20 +142,30 @@ ${message}
 ---
 Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`;
 
-    const resp = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        // Resend's shared sender reaches only the Resend account's own inbox; a
-        // verified domain's sender goes in FEEDBACK_FROM (docs/HANDOVER.md, อีเมลแจ้งปัญหา).
-        from: process.env.FEEDBACK_FROM || 'VetMock <onboarding@resend.dev>',
-        to: [toEmail],
-        reply_to: fromEmail || undefined,
-        subject: `[VetMock ${type}] ${subject || 'Message from user'}`,
-        html: emailHtml,
-        text: emailText,
-      }),
-    });
+    // Bounded: Resend stalling used to hold the form on "sending" until the
+    // platform killed the function, minutes later, with nothing logged.
+    let resp;
+    try {
+      resp = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          // Resend's shared sender reaches only the Resend account's own inbox; a
+          // verified domain's sender goes in FEEDBACK_FROM (docs/HANDOVER.md, อีเมลแจ้งปัญหา).
+          from: process.env.FEEDBACK_FROM || 'VetMock <onboarding@resend.dev>',
+          to: [toEmail],
+          reply_to: fromEmail || undefined,
+          subject: `[VetMock ${type}] ${subject || 'Message from user'}`,
+          html: emailHtml,
+          text: emailText,
+        }),
+        signal: AbortSignal.timeout(RESEND_TIMEOUT_MS),
+      });
+    } catch (err) {
+      console.error('Resend unreachable:', err?.name || err);
+      await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'mailer_error'));
+      return res.status(502).json({ error: 'mailer_unreachable' });
+    }
 
     if (!resp.ok) {
       const errText = await resp.text();

@@ -1913,7 +1913,25 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         },
         onProgress: (done, total) => setExporting({ done, total }),
       });
-      downloadBlob(blob, exportFileName(fileName, annotatedOnly));
+      const name = exportFileName(fileName, annotatedOnly);
+      const app = typeof navigator !== 'undefined' ? inAppBrowser(navigator.userAgent) : null;
+      if (app) {
+        // An app's own browser drops a download link without a word, so never
+        // claim the file was saved there: hand it to the share sheet when the
+        // browser has one for files, else say where it can be saved.
+        const file = typeof File === 'function' ? new File([blob], name, { type: 'application/pdf' }) : null;
+        if (file && navigator.canShare?.({ files: [file] })) {
+          try {
+            await navigator.share({ files: [file], title: name });
+          } catch (err) {
+            if (err?.name !== 'AbortError') showToast('ส่งไฟล์ไม่สำเร็จ เปิดหน้านี้ใน Chrome หรือ Safari แล้วส่งออกอีกครั้ง', 6000);
+          }
+          return;
+        }
+        showToast(`${APP_NAMES[app] || 'เบราว์เซอร์ในแอป'} บันทึกไฟล์ไม่ได้ เปิดหน้านี้ใน Chrome หรือ Safari แล้วส่งออกอีกครั้ง`, 7000);
+        return;
+      }
+      downloadBlob(blob, name);
       showToast('ส่งออกไฟล์แล้ว', 3000);
     } catch (e) {
       console.error('[pdf-annotate] export failed:', e);

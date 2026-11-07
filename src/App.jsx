@@ -543,6 +543,10 @@ export default function App() {
   const [topicSection, setTopicSection] = useState('topics');
   useEffect(() => { window.dispatchEvent(new Event('vmx-view-change')); }, [view]);
   const viewRef = useRef(initialView);
+  // Bumped by every popstate that lands, so a render reads the history entry
+  // it now stands on (the rest page's back control is labelled from it) even
+  // when the view itself did not change.
+  const [, setHistoryTick] = useState(0);
   // Set while a back control's history.back() is on its way: a second tap
   // before it lands took a second step, out of VetMock (Chromium, 0 ms
   // double click). Cleared when any traversal lands.
@@ -908,6 +912,15 @@ export default function App() {
         ? event.state?.vmxVideoSubject || null
         : null;
       if (next === 'topic-select' && viewRef.current !== 'notes') setTopicSection('topics');
+      // An exam entry whose set is gone (finished, or cleared by Home) has
+      // nothing to show: drawn as it was, it was a loading screen with no end
+      // and no navigation, since the exam hides the bars.
+      if (next === 'exam' && viewRef.current !== 'exam' && !sessionRef.current?.questions?.length) {
+        try { window.history.replaceState({ ...(window.history.state || {}), vmxView: 'home' }, '', '/'); } catch {}
+        viewRef.current = 'home';
+        withTransition(() => setViewRaw('home'));
+        return;
+      }
       if (viewRef.current === 'exam' && next !== 'exam') {
         // The app's own dialog is async, and popstate can't be un-fired, so
         // put the exam entry back straight away and only navigate once they
@@ -925,15 +938,22 @@ export default function App() {
           scope: 'exam',
         }).then((leave) => {
           if (!leave) return;
+          // Park the set as it stands, as goHome does: the autosave is
+          // throttled, and its savedAt is what a resumed clock counts from.
+          writeInflightRef.current?.();
           setVideoSubject(nextVideoSubject);
           viewRef.current = next;
           withTransition(() => setViewRaw(next));
+          // Drop the guard entry pushed above. Left in place it carried the
+          // exam's state under this screen, so the next Back did nothing.
+          try { window.history.back(); } catch {}
         });
         return;
       }
       setVideoSubject(nextVideoSubject);
       viewRef.current = next;
       withTransition(() => setViewRaw(next));
+      setHistoryTick((n) => n + 1);
     };
     window.addEventListener('popstate', onPopState);
     const onPageShow = () => { restLeavingRef.current = false; };
@@ -1403,6 +1423,7 @@ export default function App() {
   // debounce into the throttle its comment always claimed it was.
   const inflightRef = useRef(null);
   const inflightWrittenAtRef = useRef(0);
+  const writeInflightRef = useRef(null);
   const writeInflight = useCallback(() => {
     const snap = inflightRef.current;
     if (!snap) return;
@@ -1411,6 +1432,7 @@ export default function App() {
       inflightWrittenAtRef.current = Date.now();
     } catch {}
   }, [getQuestionTimes]);
+  writeInflightRef.current = writeInflight;
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) { inflightRef.current = null; return undefined; }
     inflightRef.current = {
@@ -2888,11 +2910,19 @@ export default function App() {
     // A pin can name a question from another year, so load the rest of the
     // bank before concluding it is gone.
     if (!q && !isQBFullyLoaded()) {
-      try { await loadQB(); } catch { /* fall through to the not-found answer */ }
+      let loadFailed = false;
+      try { await loadQB(); } catch { loadFailed = true; }
       // Consume an obsolete request so its caller cannot navigate the next
       // account to a not-found fallback, just as cancelling a replay does.
       if ((eventContextRef.current?.owner ?? null) !== requestOwner) return true;
       q = find();
+      // The bank did not download, so the question may well still exist:
+      // say that here, rather than let the caller report it removed and move
+      // the student to another set.
+      if (!q && loadFailed) {
+        void alertDialog('โหลดคลังข้อสอบไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง');
+        return true;
+      }
     }
     if (!q) return false;
     replayQuestions([q]);
