@@ -766,7 +766,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </>
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
-          {currentQ.imagePath && <ZoomableImage src={currentQ.imagePath} maxHeight={240} />}
+          {safeImageUrl(currentQ.imagePath) && <ZoomableImage src={safeImageUrl(currentQ.imagePath)} maxHeight={240} />}
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">
