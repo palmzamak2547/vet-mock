@@ -15,6 +15,7 @@ import {
   PHASES, detectCurrentPhase, movedNotice, phaseState, timetableStatus, unsplitNotice,
 } from '../../src/lib/current-phase.js';
 import { SEMESTER } from '../../src/data/semester.js';
+import { PAPER_WINDOWS } from '../../src/data/exam-papers.generated.js';
 import { SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { buildExamPool } from '../../src/lib/exam-pool.js';
@@ -44,6 +45,7 @@ const SAVED = {
   'midterm picked in October to revise': { saved: '1-mid', anchor: anchorAt(TIMES['between the papers']) },
   'midterm picked after the final': { saved: '1-mid', anchor: anchorAt(TIMES['after the final']) },
   'final picked under another term\'s table': { saved: '1-final', anchor: anchorAt('2026-04-01T10:00:00+07:00', '2568-2') },
+  'final picked in last school year\'s term 1': { saved: '1-final', anchor: anchorAt('2025-11-20T10:00:00+07:00', '2568-1') },
   'term 2 final picked last school year': { saved: '2-final', anchor: anchorAt('2026-04-01T10:00:00+07:00', '2568-2') },
   'term 2 midterm picked this term, ahead': { saved: '2-mid', anchor: anchorAt('2026-10-20T10:00:00+07:00') },
 };
@@ -60,11 +62,19 @@ const Y5 = {
     'no pick': [null, 'not-chosen'], 'midterm, saved before anchors': ['1-mid', 'timetable'], 'final, saved before anchors': ['1-final', 'student-choice'],
     // Saved before anchors and not on this term's table: last school year's term 2, so it follows the timetable.
     'term 2 midterm, no timetable for it': ['1-mid', 'timetable', '2-mid', 'timetable'], 'an unknown value': [null, 'not-chosen'],
+    // Last school year's ปลายภาค, sat long ago. This term's table has a final by the same
+    // name still ahead, but that is a different paper: the pick follows the timetable.
+    'final picked under another term\'s table': ['1-mid', 'timetable', '1-final', 'timetable'],
+    'final picked in last school year\'s term 1': ['1-mid', 'timetable', '1-final', 'timetable'],
+  },
+  'midterm week': {
+    'final picked under another term\'s table': ['1-mid', 'timetable', '1-final', 'timetable'],
+    'final picked in last school year\'s term 1': ['1-mid', 'timetable', '1-final', 'timetable'],
   },
   'between the papers': {
     'no pick': [null, 'not-chosen'], 'midterm, saved before anchors': ['1-final', 'timetable', '1-mid', 'sat'], 'final, saved before anchors': ['1-final', 'timetable'],
     'term 2 midterm, no timetable for it': ['1-final', 'timetable', '2-mid', 'timetable'], 'midterm picked in October to revise': ['1-mid', 'student-choice'],
-    'final picked under another term\'s table': ['1-final', 'timetable'],
+    'final picked under another term\'s table': ['1-final', 'timetable'], 'final picked in last school year\'s term 1': ['1-final', 'timetable'],
     // April's ปลายภาค is last school year's paper, sat long ago, not next April's.
     'term 2 final picked last school year': ['1-final', 'timetable', '2-final', 'timetable'],
     'term 2 midterm picked this term, ahead': ['2-mid', 'student-choice'],
@@ -216,6 +226,40 @@ test('the matrix is the same on a device in UTC and in Bangkok', () => {
     const run = spawnSync(process.execPath, ['--input-type=module', '-e', script], { env: { ...process.env, TZ }, encoding: 'utf8', cwd: here.replace(/[\\/]tests[\\/]unit[\\/].*$/, '') });
     assert.equal(run.status, 0, run.stderr);
     assert.equal(run.stdout.trim(), expected, `TZ=${TZ}`);
+  }
+});
+
+// The next school year's SEMESTER and timetable go in together. The pick the app
+// stored this term (moved to the final, anchored to 2569-1) names 2569's final,
+// not 2570's, though both are '1-final': it must not scope 2570's midterm prep.
+test('a new school year\'s table in: last year\'s final follows it, a final picked this year stays', () => {
+  const YEAR_ON = 364 * 24 * 60 * 60 * 1000; // 52 weeks on: the same weekdays
+  const was = { id: SEMESTER.id, windows: Object.entries(PAPER_WINDOWS).map(([y, w]) => [y, { ...w }]) };
+  try {
+    SEMESTER.id = '2570-1';
+    for (const w of Object.values(PAPER_WINDOWS)) for (const k of ['midterm', 'final']) if (w[k]) w[k] = w[k].map((t) => t + YEAR_ON);
+    const stored = { saved: '1-final', anchor: anchorAt('2026-11-08T10:00:00+07:00', '2569-1') };
+    const brief = (s) => [s.phase, s.reason, s.advancedFrom, s.movedBecause];
+    for (const year of [5, 4]) {
+      for (const iso of ['2027-08-15T10:00:00+07:00', '2027-09-22T10:00:00+07:00']) {
+        const s = phaseState(stored, year, new Date(iso));
+        assert.deepEqual(brief(s), ['1-mid', 'timetable', '1-final', 'timetable'], `year ${year}, ${iso}`);
+        // 2570's final is still ahead, so the line never says the final was sat.
+        assert.equal(movedNotice(s), 'เปลี่ยนเป็นเทอม 1 กลางภาคให้แล้ว ตามตารางสอบ', `year ${year}, ${iso}`);
+        // What gets stored is this year's paper, so the next settle has nothing to move.
+        assert.deepEqual([s.saved, s.anchor.term], ['1-mid', '2570-1']);
+        assert.deepEqual(brief(phaseState({ saved: s.saved, anchor: s.anchor }, year, new Date(iso))), ['1-mid', 'timetable', null, null]);
+      }
+      // The final picked this school year is still ahead and stays.
+      const fresh = phaseState({ saved: '1-final', anchor: anchorAt('2027-08-10T10:00:00+07:00') }, year, new Date('2027-08-15T10:00:00+07:00'));
+      assert.deepEqual(brief(fresh), ['1-final', 'student-choice', null, null], `year ${year}, picked this year`);
+      // Last year's midterm, once this year's is over too: on to the final, and the line says the midterm was sat.
+      const mid = phaseState({ saved: '1-mid', anchor: anchorAt('2026-09-01T10:00:00+07:00', '2569-1') }, year, new Date('2027-10-28T10:00:00+07:00'));
+      assert.deepEqual(brief(mid), ['1-final', 'timetable', '1-mid', 'sat'], `year ${year}, last year's midterm`);
+    }
+  } finally {
+    SEMESTER.id = was.id;
+    for (const [y, w] of was.windows) Object.assign(PAPER_WINDOWS[y], w);
   }
 });
 

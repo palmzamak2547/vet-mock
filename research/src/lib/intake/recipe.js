@@ -943,11 +943,14 @@ function joinList(t, items) {
  * @param {import('../runtime/types.js').RecipeStep} step
  * @param {(key: string, params?: Object) => string} t
  * @param {Record<string, string>} [names]  column key -> display name (defaults to the key)
+ * @param {(column: string, value: string) => string} [shown]  how a cell value of a column is printed (the report masks
+ *   a private column's values); the value as it is by default
  * @returns {string}
  */
-export function describeStep(step, t, names = {}) {
+export function describeStep(step, t, names = {}, shown = (_column, v) => v) {
   const p = step.params || {};
   const name = (k) => names[k] ?? k;
+  const value = (k, v) => quoted(shown(k, v));
   const reason = (r) => t(`intake.missing.reason.${r || 'unknown'}`);
   switch (step.kind) {
     case 'import-conversions': {
@@ -958,9 +961,9 @@ export function describeStep(step, t, names = {}) {
     case 'set-type':
       return t('intake.step.describe.setType', { column: name(p.column), type: t(`intake.type.${p.type}`) });
     case 'missing-code':
-      return t('intake.step.describe.missingCode', { column: name(p.column), code: p.code === '' ? t('intake.missing.blank') : quoted(p.code), reason: reason(p.reason) });
+      return t('intake.step.describe.missingCode', { column: name(p.column), code: p.code === '' ? t('intake.missing.blank') : value(p.column, p.code), reason: reason(p.reason) });
     case 'cell-edit':
-      return t('intake.step.describe.cellEdit', { column: name(p.column), rowId: p.rowId, from: p.from === '' ? t('intake.missing.blank') : quoted(p.from), to: p.to === '' ? t('intake.missing.blank') : quoted(p.to) });
+      return t('intake.step.describe.cellEdit', { column: name(p.column), rowId: p.rowId, from: p.from === '' ? t('intake.missing.blank') : value(p.column, p.from), to: p.to === '' ? t('intake.missing.blank') : value(p.column, p.to) });
     case 'row-add':
       return t('intake.step.describe.rowAdd', { rowId: p.rowId, count: Object.keys(p.values || {}).length });
     case 'row-exclude':
@@ -968,24 +971,24 @@ export function describeStep(step, t, names = {}) {
       return t('intake.step.describe.rowExclude', { rowId: p.rowId, reason: step.reason || '' });
     case 'recode': {
       const parts = (p.map || []).map((m) => t(m.to === null ? 'intake.step.describe.recodeToMissing' : 'intake.step.describe.recodePart', {
-        from: joinList(t, m.from.map((v) => (v === '' ? t('intake.missing.blank') : quoted(v)))),
-        to: m.to === null ? reason(m.reason) : quoted(m.to),
+        from: joinList(t, m.from.map((v) => (v === '' ? t('intake.missing.blank') : value(p.column, v)))),
+        to: m.to === null ? reason(m.reason) : value(p.target, m.to),
       }));
       return t(p.target === p.column ? 'intake.step.describe.recodeInPlace' : 'intake.step.describe.recodeNew', { column: name(p.column), target: name(p.target), parts: joinList(t, parts) });
     }
     case 'bin':
       return t(`intake.step.describe.bin.${p.closed === 'right' ? 'right' : 'left'}`, { column: name(p.column), target: name(p.target), cutpoints: joinList(t, (p.cutpoints || []).map(String)), source: t(`intake.step.cutSource.${p.cutSource}`) });
     case 'reference':
-      return t('intake.step.describe.reference', { column: name(p.column), level: quoted(p.level) });
+      return t('intake.step.describe.reference', { column: name(p.column), level: value(p.column, p.level) });
     case 'filter': {
-      const conds = (p.conditions || []).map((c) => t(`intake.step.op.${c.op}`, { column: name(c.column), value: Array.isArray(c.value) ? joinList(t, c.value.map((v) => quoted(v))) : quoted(c.value ?? '') }));
+      const conds = (p.conditions || []).map((c) => t(`intake.step.op.${c.op}`, { column: name(c.column), value: Array.isArray(c.value) ? joinList(t, c.value.map((v) => value(c.column, v))) : value(c.column, c.value ?? '') }));
       const joined = conds.join(t(p.combine === 'or' ? 'intake.step.combine.or' : 'intake.step.combine.and'));
       return t('intake.step.describe.filter', { conditions: joined, reason: step.reason || '' });
     }
     case 'derive-age':
       return t('intake.step.describe.deriveAge', { birth: name(p.birth), event: name(p.event), target: name(p.target), unit: t(`intake.unit.${p.unit}`) });
     case 'exclude-where': {
-      const conds = (p.conditions || []).map((c) => t(`intake.step.op.${c.op}`, { column: name(c.column), value: Array.isArray(c.value) ? joinList(t, c.value.map((v) => quoted(v))) : quoted(c.value ?? '') }));
+      const conds = (p.conditions || []).map((c) => t(`intake.step.op.${c.op}`, { column: name(c.column), value: Array.isArray(c.value) ? joinList(t, c.value.map((v) => value(c.column, v))) : value(c.column, c.value ?? '') }));
       const joined = conds.join(t(p.combine === 'or' ? 'intake.step.combine.or' : 'intake.step.combine.and'));
       return t('data.step.describe.excludeWhere', { conditions: joined, category: t(`data.exclusion.category.${p.category}`), reason: step.reason || '' });
     }
@@ -998,7 +1001,7 @@ export function describeStep(step, t, names = {}) {
     case 'reshape-wide':
       return t('data.step.describe.reshapeWide', { id: name(p.idColumn), time: name(p.timeColumn), columns: joinList(t, (p.valueColumns || []).map((c) => name(c))) });
     case 'aggregate':
-      return t('data.step.describe.aggregate', { by: name(p.by), level: t(`data.level.${p.level || 'farm'}`), count: (p.summaries || []).length, summaries: joinList(t, (p.summaries || []).map((sm) => t(`data.aggregate.fn.${sm.fn}`, { column: name(sm.column), level: quoted(sm.level ?? '') }))) });
+      return t('data.step.describe.aggregate', { by: name(p.by), level: t(`data.level.${p.level || 'farm'}`), count: (p.summaries || []).length, summaries: joinList(t, (p.summaries || []).map((sm) => t(`data.aggregate.fn.${sm.fn}`, { column: name(sm.column), level: value(sm.column, sm.level ?? '') }))) });
     default:
       return t('intake.step.describe.unknown');
   }

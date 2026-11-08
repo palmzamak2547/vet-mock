@@ -6,6 +6,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildDraft, methodsSentence, resultsSentence } from '../../src/workspace/report/build.js';
 import { strobeStatus } from '../../src/workspace/report/strobe.js';
+import { describeStep as stepSentence, makeStep } from '../../src/lib/intake/recipe.js';
+import { tOf as everyWord } from './export-helpers.mjs';
 import ws from '../../src/i18n/workspace.js';
 import report from '../../src/i18n/report.js';
 
@@ -215,3 +217,48 @@ test('a one-sample t-test methods sentence names the value the mean was tested a
     }
   }
 });
+
+// A cell edit, an exclusion or a filter on a personal-data column printed its cell values (owner names, phone
+// numbers) into the methods paragraph, which the copy button, the HTML download and the Word file all carry.
+const PRIVATE = {
+  clusterKey: null,
+  columns: [
+    { key: 'c1', name: 'ชื่อเจ้าของ', labelTh: 'ชื่อเจ้าของ', labelEn: 'Owner name', type: 'text', pii: 'name', hidden: true, levels: [] },
+    { key: 'c2', name: 'เบอร์โทร', labelTh: 'เบอร์โทร', labelEn: 'Phone', type: 'text', pii: 'phone', hidden: true, levels: [] },
+    // shown on the codebook page by the student: still personal data, so still masked
+    { key: 'c3', name: 'ไลน์', labelTh: 'ไลน์ไอดี', labelEn: 'LINE ID', type: 'text', pii: 'line-id', hidden: false, hiddenExplicit: true, levels: [] },
+    { key: 'c4', name: 'น้ำหนัก', labelTh: 'น้ำหนัก', labelEn: 'Weight', type: 'continuous', pii: null, hidden: false, levels: [] },
+  ],
+};
+function privateSteps() {
+  let steps = [];
+  const add = (kind, params, reason = null) => { steps = [...steps, makeStep(steps, kind, params, reason)]; };
+  add('cell-edit', { rowId: 'r1', column: 'c1', from: 'นายสมชาย ใจดี', to: 'นายสมชาย ใจดีมาก' });
+  add('cell-edit', { rowId: 'r1', column: 'c2', from: '081-234-5678', to: '081-234-5679' });
+  add('exclude-where', { conditions: [{ column: 'c1', op: 'eq', value: 'นางสาวมาลี ศรีสุข' }], combine: 'and', category: 'other' }, 'เจ้าของขอถอนตัว');
+  add('filter', { conditions: [{ column: 'c2', op: 'in', value: ['089-111-2222', '062-333-4444'] }], combine: 'and' }, 'โทรนัดได้');
+  add('cell-edit', { rowId: 'r2', column: 'c3', from: '@somchai99', to: '@somchai999' });
+  // a column the working codebook no longer lists (a summary to one row per farm drops it)
+  add('cell-edit', { rowId: 'r3', column: 'c9', from: 'นายวิชัย มั่นคง', to: 'นายวิชัย มั่นคงดี' });
+  add('cell-edit', { rowId: 'r2', column: 'c4', from: '410', to: '401' });
+  return steps;
+}
+const SECRETS = ['สมชาย', 'ใจดี', 'มาลี', 'ศรีสุข', '234-5678', '234-5679', '111-2222', '333-4444', 'somchai', 'วิชัย', 'มั่นคง'];
+
+for (const lang of ['th', 'en']) {
+  test(`${lang}: a step on a hidden or personal-data column keeps its sentence in the methods draft, its values masked`, () => {
+    const draftData = { analyses: [], steps: privateSteps(), project: {}, table: null, codebook: PRIVATE };
+    const d = buildDraft(draftData, { t: everyWord(lang), fmt, lang, nameKeyOf, designNameKey: null, describeStep: stepSentence });
+    for (const s of SECRETS) assert.ok(!d.methods.includes(s), `"${s}" is in the methods draft: ${d.methods}`);
+    // masked as the import screen masks them (maskValue)
+    for (const m of ['"น*** ใ***"', '"08x-xxx-xx78"', '"08x-xxx-xx79"', '"น*** ศ***"', '"08x-xxx-xx22"', '"06x-xxx-xx44"', '"@***"', '"น*** ม***"']) {
+      assert.ok(d.methods.includes(m), `${m} in: ${d.methods}`);
+    }
+    assert.ok(d.methods.includes('"410"') && d.methods.includes('"401"'), `a public column keeps its values: ${d.methods}`);
+    // every step is still in the draft, naming its column and its written reason
+    assert.equal(d.methods.split(lang === 'th' ? 'แก้ ' : 'Changed ').length - 1, 5, `one sentence per cell edit: ${d.methods}`);
+    for (const name of lang === 'th' ? ['ชื่อเจ้าของ', 'เบอร์โทร', 'ไลน์ไอดี', 'น้ำหนัก'] : ['Owner name', 'Phone', 'LINE ID', 'Weight']) assert.ok(d.methods.includes(name), `${name} in: ${d.methods}`);
+    assert.ok(d.methods.includes('เจ้าของขอถอนตัว') && d.methods.includes('โทรนัดได้'), d.methods);
+    assert.ok(!d.methods.includes('['), d.methods);
+  });
+}

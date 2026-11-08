@@ -71,8 +71,8 @@ import { usualStudyTime } from './lib/study-reminder.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { viewTitle } from './lib/nav.js';
-import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor, readerTarget, readerUrl } from './lib/view-route.js';
-import { rememberFrontDoorReturn } from './lib/phase-return.js';
+import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor, yearGateFor, readerTarget, readerUrl } from './lib/view-route.js';
+import { atFrontDoor, rememberFrontDoorReturn, settleFrontDoorReturn, takeFrontDoorReturn } from './lib/phase-return.js';
 import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import {
@@ -841,7 +841,8 @@ export default function App() {
         const labHashAlreadyRemoved = previous === 'lab'
           && !enteringLab
           && window.location.hash !== '#lab';
-        if (previous === 'exam' || labHashAlreadyCreated || labHashAlreadyRemoved) {
+        // A redirect (the year gate below) stands in for the entry it leaves.
+        if (previous === 'exam' || labHashAlreadyCreated || labHashAlreadyRemoved || navigationState?.replace) {
           window.history.replaceState(state, '', url || undefined);
         } else {
           window.history.pushState(state, '', url || undefined);
@@ -1072,16 +1073,28 @@ export default function App() {
   }, [setView]);
 
   // The front door covers a visitor who ARRIVES on a year-scoped path. They
-  // can also walk to Home from a year-agnostic one — the shared library, a
-  // VetWiki article — and every BackBar's "กลับหน้าแรก" does exactly that.
-  // Home reads `selectedYear`, which falls back to CURRENT_YEAR, so without
-  // this it would announce a year the visitor never chose. Picking a year is
-  // the only way out, and YearSelectView always sets the year before it
-  // navigates, so this cannot bounce a student in a loop.
+  // can also walk to one from a year-agnostic page (the shared library, a
+  // VetWiki article): every BackBar's "กลับหน้าแรก" goes Home, and the bar and
+  // the rail open ฝึกข้อสอบ, ทบทวน and ความคืบหน้า. Those pages read
+  // `selectedYear`, which falls back to CURRENT_YEAR, so without this they
+  // announced a year the visitor never chose, and the subject grid waited
+  // forever for banks nobody had asked to load. The picker takes the page's
+  // place in history, so Back from it returns to where the visitor was, and the
+  // page they asked for opens after the picks (lib/phase-return.js). Picking a
+  // year is the only way out, and YearSelectView always sets the year before
+  // it navigates, so this cannot bounce a student in a loop. Every other page
+  // ends a link's wait once the visitor is past the front door, and the set a
+  // button parked for after the picks (goLanding, navMockExam) opens at Home
+  // or not at all, so backing out of the picker does not start it later.
   useEffect(() => {
-    if (view !== 'home') return;
-    if (selectedYearStored != null) return;
-    setView('year-select');
+    const door = yearGateFor(view, selectedYearStored);
+    if (!door) {
+      settleFrontDoorReturn(view);
+      if (view !== 'home' && !atFrontDoor(view)) landingIntentRef.current = null;
+      return;
+    }
+    rememberFrontDoorReturn(view);
+    setView(door, { replace: true });
   }, [view, selectedYearStored, setView]);
 
   // Once the page is idle, warm the views a student most likely opens next.
@@ -2836,7 +2849,16 @@ export default function App() {
     setTimePerQ(60);
     setView('config');
   };
-  const navHandlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam: startMockExam };
+  // The bar's and the rail's โหมดสอบ. The set is drawn from the year's banks,
+  // so a visitor who never picked a year is asked first and the set opens once
+  // the picks reach Home, as the landing's own button does (goLanding below).
+  // The landing is not marked seen: a tap inside the app never showed it.
+  const navMockExam = () => {
+    if (selectedYearStored != null) { startMockExam(); return; }
+    landingIntentRef.current = { kind: 'mock-exam' };
+    setView('year-select');
+  };
+  const navHandlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam: navMockExam };
 
   // Replay an arbitrary slice of questions as a fresh exam round.
   // Used by ResultsView "redo wrong" — passes the wrong-only subset.
@@ -2968,6 +2990,9 @@ export default function App() {
   };
   const goLanding = (intent) => {
     try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
+    // The button just pressed outranks a link opened earlier in the tab: that
+    // link's page must not take the picks this button now waits for.
+    takeFrontDoorReturn();
     // Practical Imaging is year-agnostic, so first-time visitors can use it
     // immediately. Question-based intents still wait for a year selection.
     if (intent?.kind === 'lab') {
@@ -3173,7 +3198,7 @@ export default function App() {
             setSubject={setSubject}
             setPracticeMode={setPracticeMode}
             setMode={setMode}
-            onMockExam={startMockExam}
+            onMockExam={navMockExam}
             signedIn={!!user}
             hasSupabase={hasSupabase}
             scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
@@ -3289,7 +3314,9 @@ export default function App() {
               </button>
             </div>
           )}
-          {authLoading ? <ViewFallback /> : (
+          {/* A year-scoped page is not drawn with the default year while the
+              year gate above opens the picker in its place. */}
+          {authLoading || yearGateFor(view, selectedYearStored) ? <ViewFallback /> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (

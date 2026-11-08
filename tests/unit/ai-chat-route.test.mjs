@@ -13,6 +13,9 @@ import { EventEmitter } from 'node:events';
 
 import handler from '../../api/ai-chat.js';
 import { runChat } from '../../api/_lib/ai/pipeline.js';
+import { checkLimits, LIMIT_MESSAGES } from '../../api/_lib/ai/limits.js';
+import { IP_BURST } from '../../api/_lib/ai/config.js';
+import { resetChulaGate } from '../../api/_lib/chula-gate.js';
 
 function fakeRes() {
   const res = new EventEmitter();
@@ -30,8 +33,8 @@ function fakeRes() {
 }
 
 let ipSeq = 1;
-function fakeReq({ method = 'POST', origin = 'https://ai.vetmock.com', body, badJson = false } = {}) {
-  const req = { method, headers: { host: 'vetmock.com', ...(origin ? { origin } : {}) }, socket: { remoteAddress: `10.9.0.${ipSeq++}` } };
+function fakeReq({ method = 'POST', origin = 'https://ai.vetmock.com', body, badJson = false, headers = {} } = {}) {
+  const req = { method, headers: { host: 'vetmock.com', ...(origin ? { origin } : {}), ...headers }, socket: { remoteAddress: `10.9.0.${ipSeq++}` } };
   Object.defineProperty(req, 'body', { get() { if (badJson) throw new Error('Invalid JSON'); return body; } });
   return req;
 }
@@ -121,6 +124,55 @@ test('refusals come before the stream as JSON the page can read', async () => {
   assert.equal(unconfigured.statusCode, 503);
 });
 
+test('students on one campus address each have their own limit', async () => {
+  const students = { 'campus.token.a.0123456789abcdef': 'u-campus-a', 'campus.token.b.0123456789abcdef': 'u-campus-b' };
+  const ask = async (token) => {
+    const res = fakeRes();
+    await handler(fakeReq({ body: { messages: [{ role: 'user', content: 'สวัสดีครับ' }] }, headers: { 'x-vercel-forwarded-for': '161.200.1.1', authorization: `Bearer ${token}` } }), res);
+    return res;
+  };
+  resetChulaGate();
+  try {
+    await withEnv({ DEEPSEEK_API_KEY: 'test', ANTHROPIC_API_KEY: undefined, VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' }, () => withFetch(async (url, init) => {
+      if (String(url).endsWith('/rest/v1/rpc/chula_access_state')) {
+        const uid = students[init.headers.Authorization.slice(7)];
+        return Response.json({ enforce: true, signed_in: Boolean(uid), member: Boolean(uid), uid: uid || null });
+      }
+      if (String(url).includes('api.deepseek.com')) return sse([ds('สวัสดีครับ'), 'data: [DONE]\n\n']);
+      throw new Error(`no other network: ${url}`);
+    }, () => silent(async () => {
+      const [a, b] = Object.keys(students);
+      for (let i = 0; i < IP_BURST.max; i++) assert.equal((await ask(a)).statusCode, 200, `question ${i + 1}`);
+      const tooFast = await ask(a);
+      assert.equal(tooFast.statusCode, 429);
+      assert.equal(tooFast.body.message, LIMIT_MESSAGES.burst);
+      // the classmate behind the same address has asked nothing yet
+      const other = await ask(b);
+      assert.equal(other.statusCode, 200, JSON.stringify(other.body));
+      assert.equal(parseEvents(other.chunks).at(-1).event, 'done');
+    })));
+  } finally {
+    resetChulaGate();
+  }
+});
+
+test('a question refused for asking too fast does not count toward the day', async () => {
+  // as the shared limiter does: count first, then compare, so a refused call is counted too
+  const counts = new Map();
+  const limiter = async (key, max) => {
+    const n = (counts.get(key) || 0) + 1;
+    counts.set(key, n);
+    return n > max ? { ok: false, retryAfter: 60 } : { ok: true, retryAfter: 0 };
+  };
+  const refund = async (key) => { counts.set(key, (counts.get(key) || 0) - 1); };
+  const results = [];
+  for (let i = 0; i < IP_BURST.max * 3; i++) results.push(await checkLimits('u-student', { dailyCap: 2500, limiter, refund }));
+  assert.equal(results.filter((r) => r.ok).length, IP_BURST.max);
+  assert.ok(results.slice(IP_BURST.max).every((r) => r.status === 429 && r.body.message === LIMIT_MESSAGES.burst));
+  assert.equal(counts.get('ai-chat:day:u-student'), IP_BURST.max, 'only the questions let through count toward the day');
+  assert.equal(counts.get('ai-chat:daily'), IP_BURST.max);
+});
+
 test('a whole turn streams status, sources, deltas, check and done, in that order', async () => {
   const res = fakeRes();
   const calls = [];
@@ -163,7 +215,7 @@ test('a whole turn streams status, sources, deltas, check and done, in that orde
 });
 
 /** runChat with injected dependencies, events collected. */
-async function turn(messages, { plan, answer = ['ลองทำดู'], fetchExtra = null, writerStatus = 200 } = {}) {
+async function turn(messages, { plan, answer = ['ลองทำดู'], fetchExtra = null, writerStatus = 200, rng } = {}) {
   const events = [];
   const fetchImpl = async (url, init) => {
     if (String(url).includes('api.deepseek.com')) {
@@ -176,7 +228,7 @@ async function turn(messages, { plan, answer = ['ลองทำดู'], fetchE
   await silent(() => runChat({ messages, image: null, question: messages.at(-1).content }, {
     send: (event, data) => { events.push({ event, data }); return true; },
     env: { DEEPSEEK_API_KEY: 'test' },
-    deps: { chat: async () => ({ ok: true, text: JSON.stringify(plan) }), fetchImpl, kv: { get: async () => null, set: async () => {} } },
+    deps: { chat: async () => ({ ok: true, text: JSON.stringify(plan) }), fetchImpl, kv: { get: async () => null, set: async () => {} }, ...(rng ? { rng } : {}) },
   }));
   return events;
 }
@@ -204,6 +256,19 @@ test('a quiz request gets a card of real questions before the answer', async () 
   assert.equal(quiz.questions.length, 5);
   for (const q of quiz.questions) assert.ok(q.stem && q.options.length >= 2 && Number.isInteger(q.answer) && q.url.includes('?qset='));
   assert.equal(events.at(-1).event, 'done');
+});
+
+test('a quiz asked for one course after a turn about another comes from the course asked for', async () => {
+  let seed = 7;
+  const rng = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const events = await turn([
+    { role: 'user', content: 'ช่วยสรุปเรื่อง zoonoses ที่สำคัญให้หน่อย' },
+    { role: 'assistant', content: 'zoonoses ที่สำคัญ เช่น rabies [1]' },
+    { role: 'user', content: 'ขอข้อสอบ epidemiology 5 ข้อ' },
+  ], { plan: { intent: 'quiz', query_th: 'ขอข้อสอบ epidemiology 5 ข้อ', terms_en: [], subjects: ['epidemiology'], quiz_n: 5 }, rng });
+  const quiz = events.find((e) => e.event === 'cards').data.items.find((c) => c.type === 'quiz');
+  assert.equal(quiz.title, 'ข้อสอบ ระบาดวิทยา 5 ข้อ');
+  assert.deepEqual([...new Set(quiz.questions.map((q) => q.subject))], ['ระบาดวิทยา']);
 });
 
 test('a research request leads with papers and sends a papers card', async () => {

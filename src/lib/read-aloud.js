@@ -87,11 +87,12 @@ export async function start(job) {
   r.durs = plan.map((p) => p.text.length / CHARS_PER_SEC);
   readAloud.set({ duration: total(r), points: pointsOf(r).length });
   // The rest of the clips download behind the first, so they never share a
-  // slow link with it; each one's real length replaces the estimate.
-  const measure = (i) => r.plan[i].buf.then((b) => {
-    r.plan[i].ready = true;
+  // slow link with it; each one's real length replaces the estimate (unless
+  // the live voices took the job over meanwhile: r.plan is null then).
+  const measure = (i) => plan[i].buf.then((b) => {
+    plan[i].ready = true;
     const d = mp4Seconds(b);
-    if (run !== r || !d) return;
+    if (run !== r || r.plan !== plan || !d) return;
     r.durs[i] = d;
     readAloud.set({ duration: total(r), points: pointsOf(r).length });
   }, () => {});
@@ -173,7 +174,13 @@ export function seek(seconds) {
   let t = Math.max(0, Math.min(seconds, total(r) - 0.05));
   for (let i = 0; i < r.plan.length; i++) {
     if (t < r.durs[i] || i === r.plan.length - 1) {
-      if (i === r.i) { playerElement().currentTime = Math.min(t, r.durs[i]); tick(r); return; }
+      if (i === r.i) {
+        // Still downloading: it starts there when it arrives.
+        if (r.loading) { r.offset = t; readAloud.set({ time: before(r, i) + t }); return; }
+        // On the element and not over: move within it. Over (the gap after
+        // it) or never loaded (its download failed): playPart loads it.
+        if (r.onElement === i && !r.inGap && !r.gapPending) { playerElement().currentTime = Math.min(t, r.durs[i]); tick(r); return; }
+      }
       playPart(r, i, t);
       return;
     }
@@ -194,7 +201,7 @@ function jump(dir) {
     const target = dir > 0 ? pts.find((p) => p > now + 0.3) : [...pts].reverse().find((p) => p < now - 1.5);
     if (target != null) seek(target);
     else if (dir < 0) seek(0);
-    else stop(); // past the last point: done
+    else { r.done = true; positions.delete(r.job.id); stop(); } // past the last point: done, as at the end
     return;
   }
   seek(now + dir * 10);
@@ -262,7 +269,9 @@ async function playPart(r, i, offset = 0) {
   r.onElement = i;
   el.defaultPlaybackRate = readAloud.get().rate;
   el.playbackRate = readAloud.get().rate;
-  if (offset > 0) el.addEventListener('loadedmetadata', () => { if (run === r && r.i === i) el.currentTime = Math.min(offset, el.duration || offset); }, { once: true });
+  // r.offset, not offset: a seek made while the piece downloaded moved it.
+  const at = r.offset;
+  if (at > 0) el.addEventListener('loadedmetadata', () => { if (run === r && r.i === i) el.currentTime = Math.min(at, el.duration || at); }, { once: true });
   if (r.paused) { readAloud.set({ status: 'paused' }); return; }
   try {
     await el.play();
@@ -271,7 +280,14 @@ async function playPart(r, i, offset = 0) {
     if (e?.name === 'AbortError') return;
     r.switching = false;
     // Nothing heard yet (a browser that refuses the clip): the live voices try.
-    if (run === r && !r.heard) { r.plan = null; device(r, (r.job.what === 'q' ? r.job.stem : r.job.explain) || '', r.job.what === 'q' ? r.job.options || [] : []); }
+    if (run === r && !r.heard) {
+      // They never use the element: the refused clip leaves it, or the next
+      // tap's primePlayer takes it for a paused job's clip and skips the prime.
+      el.removeAttribute('src');
+      try { el.load(); } catch { /* nothing loaded */ }
+      r.plan = null;
+      device(r, (r.job.what === 'q' ? r.job.stem : r.job.explain) || '', r.job.what === 'q' ? r.job.options || [] : []);
+    }
     else if (run === r) failed(r, 'เล่นเสียงไม่ได้ ลองกดอีกครั้ง');
     return;
   }
@@ -311,7 +327,8 @@ async function device(r, stem, options) {
   let tts;
   try { tts = await import('./tts.js'); } catch { failed(r, 'ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'); return; }
   if (run !== r) return;
-  r.controller = { cancelled: false };
+  // The signal aborts the voices' downloads the moment the job stops.
+  r.controller = { cancelled: false, signal: r.abort.signal };
   r.abort.signal.addEventListener('abort', () => { r.controller.cancelled = true; }, { once: true });
   tts.speakQuestion({
     stem,
@@ -320,10 +337,12 @@ async function device(r, stem, options) {
     controller: r.controller,
     skipShared: true,
     onStart: () => { if (run === r) readAloud.set({ status: 'playing' }); },
-    onEnd: () => { if (run === r) { r.done = true; stop(); } },
-    onFail: (why) => failed(r, why === 'offline'
+    // A failure is followed by an end: the note stays up until the student
+    // closes the bar, instead of going down with the job at once.
+    onEnd: () => { if (run === r && !r.failed) { r.done = true; stop(); } },
+    onFail: (why) => { r.failed = true; failed(r, why === 'offline'
       ? 'ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'
-      : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้'),
+      : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้'); },
   });
 }
 

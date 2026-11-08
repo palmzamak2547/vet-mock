@@ -11,7 +11,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { writeAnswer, parseDeepSeekEvent, parseAnthropicEvent, alternate } from '../../api/_lib/ai/writer.js';
-import { createOutputFilter, plainText } from '../../api/_lib/ai/text.js';
+import { createOutputFilter, plainText, contextText } from '../../api/_lib/ai/text.js';
 import {
   findPapers, parseEfetchAbstracts, papersFromSummary, invertedAbstract, cleanTerms, pubmedTerm, papersCard, USER_AGENT,
 } from '../../api/_lib/ai/papers.js';
@@ -152,6 +152,24 @@ test('the output filter drops CJK and emoji and fixes a middle dot split across 
   assert.equal(out, 'โรคพิษสุนัขบ้าติดต่อการถูกกัด A, B ♀ และ ♂ → ต่อ');
   assert.ok(f.dropped() > 0);
   assert.equal(plainText('Family · Genus **bold** [12:30-13:00]'), 'Family, Genus bold (12:30-13:00)');
+});
+
+test('a yes/no mark in a table reaches the answer as + or −, never as an empty cell', () => {
+  // EHV-1 against EHV-4 in a clip summary, and the vaccine column of VetWiki's avian viral table
+  assert.equal(contextText('| **Abortion** | ✗ | ✅ |\n| **CNS** | ✗ | ✅ |'), '| Abortion | − | + |\n| CNS | − | + |');
+  assert.equal(contextText("Pacheco's | Psittacid Herpesvirus (PsHV) | Intranuclear | Acyclovir | ❌"), "Pacheco's | Psittacid Herpesvirus (PsHV) | Intranuclear | Acyclovir | −");
+  assert.equal(contextText('Polyoma | Avian Polyomavirus | Intranuclear | Supportive | ✅ available'), 'Polyoma | Avian Polyomavirus | Intranuclear | Supportive | + available');
+  assert.equal(contextText('- ✓ Surgical remove\n- ✔️ Histopathology'), '- + Surgical remove\n- + Histopathology');
+  // block arrows say what the plain ones say
+  assert.equal(contextText('| ความเครียดน้อยหรือมากเกินไป | ⬇️ |\n| Passage ในไก่ | ⬆️ ความรุนแรงมากขึ้น |'), '| ความเครียดน้อยหรือมากเกินไป | ↓ |\n| Passage ในไก่ | ↑ ความรุนแรงมากขึ้น |');
+  assert.equal(contextText('blood meal เข้า insect gut ➜ salivary glands'), 'blood meal เข้า insect gut → salivary glands');
+  // decoration still goes
+  assert.equal(contextText('> 💡 PCR ใช้ confirm ⭐'), '> PCR ใช้ confirm');
+  // the snippet beside the answer reads the same as what the answer read
+  assert.equal(plainText('| **Abortion** | ✗ | ✅ |'), 'Abortion | − | +');
+  // copied into the answer, the cell survives the filter
+  const f = createOutputFilter();
+  assert.equal(f.push('| Abortion | − | + |\n| ความเครียด | ↓ |') + f.flush(), '| Abortion | − | + |\n| ความเครียด | ↓ |');
 });
 
 test('a replacement character or control code the model writes never reaches the page', () => {
