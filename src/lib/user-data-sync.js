@@ -1,6 +1,7 @@
 
 import { isQuotaError, reclaim, describeUsage } from './storage-gc.js';
 import { createAtomicUserDataSync } from './user-data-atomic.js';
+import { bangkokDayNumber } from '../hooks/utils.js';
 import { todayKey } from './daily-q.js';// User-owned study data has two durability layers:
 //   1) localStorage is the immediate, offline-capable source
 //   2) Supabase is a remote replica for signed-in users
@@ -344,9 +345,19 @@ function applyKeyedArrayChanges(base, local, remote) {
   return [...result.values()];
 }
 
+/** The Bangkok day a streak last counted, read the way updateStreak and
+ *  streakShown read it. lastDate is stored as epoch milliseconds, and
+ *  Date.parse() of a number is NaN, so the later day never won a merge. */
+function streakDay(streak) {
+  const value = streak?.lastDate;
+  if (value === null || value === undefined || value === '') return 0;
+  const day = bangkokDayNumber(value);
+  return Number.isFinite(day) ? day : 0;
+}
+
 function mergeStreak(local, remote) {
-  const localDate = Date.parse(local?.lastDate || '') || 0;
-  const remoteDate = Date.parse(remote?.lastDate || '') || 0;
+  const localDate = streakDay(local);
+  const remoteDate = streakDay(remote);
   if (localDate > remoteDate) return local;
   if (remoteDate > localDate) return remote;
   return {

@@ -21,12 +21,13 @@ export function assignCustomQuestionIds(incoming, existing, reservedIds = []) {
   });
 }
 
-/** Allocate against the current complete store, including retired references. */
-export function appendCustomQuestions(data, incoming) {
+/** Allocate against the current complete store, including retired references, and against
+ *  `taken`: IDs the account has used, deleted ones included, which it refuses for a new question. */
+export function appendCustomQuestions(data, incoming, taken = []) {
   const reserved = [
     ...data.bookmarks, ...data.history.map(item => item.questionId),
     ...Object.keys(data.srCards), ...Object.values(data.srCards).map(card => card.questionId),
-    ...Object.keys(data.notes),
+    ...Object.keys(data.notes), ...taken,
   ];
   return [...data.customQuestions, ...assignCustomQuestionIds(incoming, data.customQuestions, reserved)];
 }

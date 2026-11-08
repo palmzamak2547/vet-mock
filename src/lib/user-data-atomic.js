@@ -2,6 +2,7 @@ import { USER_DATA_FIELDS, createEmptyUserData, mergeFieldValue, stableItemKey }
 import { userDataChanges, applyUserDataChanges, dataFromSyncRow, accountRestoreChanges } from './user-data-operations.js';
 import { newStudySessionId, validSessionId } from './study-events.js';
 import { isQuotaError, sweepStaleKeys } from './storage-gc.js';
+import { CUSTOM_QUESTION_ID_RANGE } from './custom-question-ids.js';
 
 const DATA = 'vmx-user-data-v2:';
 const OPS = 'vmx-user-intent-v2:';
@@ -43,6 +44,14 @@ const withoutKeys = (changes, keys) => {
     if ((next.set ? Object.keys(next.set).length : next.put.length) || next.remove.length) out[name] = next;
   }
   return out;
+};
+/** `snapshot` also remembering the custom-question IDs `row` has stamps for: every question the
+ *  account has held, deleted ones included. The account refuses any of them as a new question. */
+const withStampedCustomIds = (snapshot, row) => {
+  const [min, max] = CUSTOM_QUESTION_ID_RANGE;
+  const stamped = Object.keys(row?.sync_stamps?.custom_questions || {}).filter(key => key.startsWith('id:'))
+    .map(key => Number(key.slice(3))).filter(id => Number.isInteger(id) && id >= min && id <= max);
+  return stamped.length ? { ...snapshot, customIds: [...new Set([...(snapshot.customIds || []), ...stamped])] } : snapshot;
 };
 
 /** Immutable local intent plus server receipts. Snapshots never become intent. */
@@ -243,7 +252,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       const row = await remote.pull(userId);
       latest();
       if (expected !== generation || !current.recovery) return;
-      saveSnapshot({ ...current, recovery: { ...current.recovery, account: dataFromSyncRow(row, createEmptyUserData) } });
+      saveSnapshot(withStampedCustomIds({ ...current, recovery: { ...current.recovery, account: dataFromSyncRow(row, createEmptyUserData) } }, row));
       publish('error', errorOf('LEGACY_RECOVERY_REQUIRED', current.recovery.message, false));
     } catch { /* Local recovery remains visible and exportable while offline. */ }
   };
@@ -297,16 +306,22 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       const acknowledged = [...new Set([...retainedAcknowledgements(),
         ...result.acknowledged, ...captured.filter(op => result.acknowledged.includes(op.id)).flatMap(op => op.cancel || [])])];
       const suppressed = result.conflicts?.length ? captured.filter(op => result.conflicts.some(conflict => conflict.id === op.id)) : [];
-      const snapshot = { ...current, base, revision: Math.max(current.revision, result.row.sync_revision),
+      const snapshot = withStampedCustomIds({ ...current, base, revision: Math.max(current.revision, result.row.sync_revision),
         clock: Math.max(current.clock, result.row.sync_clock), acknowledged,
-        recoveryCommits: retainedRecoveryCommits(acknowledged), lastSyncedAt: now() };
+        recoveryCommits: retainedRecoveryCommits(acknowledged), lastSyncedAt: now() }, result.row);
       if (current.recovery && current.recovery.kind !== 'conflict') {
         snapshot.base = visibleBeforeAck;
         snapshot.recovery = { ...current.recovery, local: visibleBeforeAck, account: base };
       }
-      if (suppressed.length && !current.recovery) {
-        const local = suppressed.reduce((data, op) => applyUserDataChanges(data, op.changes), base);
-        snapshot.recovery = { id: newStudySessionId(), kind: 'conflict', local, account: base, operations: suppressed,
+      // A conflict prompt still open takes this batch's losing edits as well: their intent is
+      // removed below, so the prompt and its archive are the only copy left. A new id keeps a
+      // choice made on the earlier prompt from answering edits it never showed.
+      const offered = current.recovery?.kind === 'conflict' ? current.recovery.operations || [] : [];
+      const lost = suppressed.filter(op => !offered.some(prior => prior.id === op.id));
+      if (lost.length && (!current.recovery || current.recovery.kind === 'conflict')) {
+        const operations = [...offered, ...lost];
+        const local = operations.reduce((data, op) => applyUserDataChanges(data, op.changes), base);
+        snapshot.recovery = { id: newStudySessionId(), kind: 'conflict', local, account: base, operations,
           message: 'มีข้อมูลจากอีกเครื่องใหม่กว่า กรุณาสำรองและเลือกข้อมูลที่ต้องการใช้' };
         snapshot.archive = { ...snapshot.recovery, previous: current.archive };
       }
@@ -328,9 +343,15 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       return { accepted: false, error: { code: 'STALE_PRINCIPAL' } };
     }
     latest();
-    const before = replay(current, pending());
+    const queued = pending();
+    const before = replay(current, queued);
     if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
-    const patch = command.derive(before);
+    // A new custom question keeps clear of every ID the account has stamped, still held when last
+    // read, or will stamp when this device's queued edits arrive: deleted questions included.
+    const patch = command.derive(before, { takenCustomQuestionIds: () => [...new Set([...(current.customIds || []),
+      ...(current.base.customQuestions || []).map(question => question?.id),
+      ...queued.flatMap(op => [...(op.changes.custom_questions?.put || []).map(question => question?.id),
+        ...(op.changes.custom_questions?.remove || []).map(key => String(key).replace(/^id:/, ''))])])] });
     if (!patch || typeof patch !== 'object' || Array.isArray(patch)
       || Object.keys(patch).some(field => !Object.prototype.hasOwnProperty.call(USER_DATA_FIELDS, field))) {
       throw new TypeError('CHANGE requires known user-data fields');
@@ -412,10 +433,11 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     // build itself since the prompt opened; the archived copy is stale and is not written.
     // Edits queued on this device keep their own operations and clocks: the choice never
     // carries them, so it cannot lift an older edit over a newer acknowledged value.
+    const workspace = current.recovery.kind === 'legacy' && !(legacy.pending && typeof legacy.merge === 'function') && recoverySource() === 'workspace';
     const kept = choice !== 'local' ? null
       : current.recovery.kind === 'conflict' ? (current.recovery.operations || []).reduce((data, op) => applyUserDataChanges(data, op.changes), accountRow)
       : current.recovery.kind === 'legacy' ? (legacy.pending && typeof legacy.merge === 'function' ? legacy.merge(accountRow)
-        : recoverySource() === 'workspace' ? mergeWorkspace(current.recovery.local, accountRow) : accountRow)
+        : workspace ? mergeWorkspace(current.recovery.local, accountRow) : accountRow)
       : null;
     const desired = kept ? { ...view, ...remoteFieldsOf(kept) } : view;
     const queuedKeys = touchedKeys(queued);
@@ -426,8 +448,12 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     const resolutions = [];
     for (let i = 0; i < discarded.length; i += 200) resolutions.push({ version: 2, id: newStudySessionId(),
       clock: clock + resolutions.length, changes: {}, cancel: discarded.slice(i, i + 200).map(op => op.id) });
-    resolutions.push({ version: 2, id: newStudySessionId(), clock: clock + resolutions.length,
-      changes: discarded.length ? accountRestoreChanges(account, discarded) : choice === 'local' ? withoutKeys(userDataChanges(account, desired, true), queuedKeys) : {} });
+    const resolved = discarded.length ? accountRestoreChanges(account, discarded) : choice === 'local' ? withoutKeys(userDataChanges(account, desired, true), queuedKeys) : {};
+    // Every question a guest workspace brings is new to this account, also one whose ID the
+    // account already uses for a different question: sent as new, that collision is refused
+    // and offered as a custom-ID recovery instead of replacing the account's question.
+    if (choice === 'local' && workspace && resolved.custom_questions) resolved.custom_questions.created = resolved.custom_questions.put.map(stableItemKey);
+    resolutions.push({ version: 2, id: newStudySessionId(), clock: clock + resolutions.length, changes: resolved });
     const recoveryCommit = resolutions[0].id;
     const resolutionKey = opPrefix(selected) + recoveryCommit;
     // The snapshot commits this choice; a prepared envelope cannot replay or
@@ -445,11 +471,11 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
         publish('error', intentReadError);
         return { accepted: false, error: intentReadError };
       }
-      saveSnapshot({ ...current, base: account, recovery: null, legacyFingerprint: legacy.fingerprint,
+      saveSnapshot(withStampedCustomIds({ ...current, base: account, recovery: null, legacyFingerprint: legacy.fingerprint,
         recoveryCommits, acknowledged,
         // `local` is what the choice yields, `offered` the device copy as it was shown: both stay exportable.
         archive: { ...(current.archive || {}), local: desired, offered: view, account, resolvedAs: choice, at: now() },
-        revision: row?.sync_revision || 0, clock: resolutions.at(-1).clock });
+        revision: row?.sync_revision || 0, clock: resolutions.at(-1).clock }, row));
       state = { ...state, data: choice === 'local' ? desired : account };
     } catch {
       try { storage.removeItem(resolutionKey); } catch { /* Uncommitted intent stays inactive across reload. */ }
