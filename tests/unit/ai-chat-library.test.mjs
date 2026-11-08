@@ -138,6 +138,42 @@ test('no config, a slow or broken database: no files, never an error', async () 
   assert.deepEqual(broken.items, []);
 });
 
+test('a library that does not answer is a failed lookup, never a library without the file', async () => {
+  const down = async () => new Response('down', { status: 503 });
+  const dropped = async () => { throw new TypeError('fetch failed'); };
+  // answers only when the time limit cuts it off
+  const slow = (url, init) => new Promise((resolve, reject) => {
+    const held = setTimeout(() => reject(new Error('never answered')), 5000);
+    init.signal.addEventListener('abort', () => { clearTimeout(held); reject(init.signal.reason); }, { once: true });
+  });
+  for (const [name, fetchImpl, timeoutMs] of [['503', down], ['dropped', dropped], ['time limit', slow, 50]]) {
+    const r = await findFiles({ terms: ['rabies'], files: true }, { env: ENV, fetchImpl, timeoutMs });
+    assert.deepEqual(r, { items: [], pages: [], failed: true }, name);
+  }
+  // a library that answered and has nothing is not a failure
+  assert.deepEqual(await findFiles({ terms: ['rabies'], files: true }, { env: ENV, fetchImpl: fakeLibrary().fetchImpl }), { items: [], pages: [], failed: false });
+
+  // the student hears that the library could not be opened this time, not that the file does not exist
+  const prompts = [];
+  const sse = () => new Response(new Blob([`data: ${JSON.stringify({ choices: [{ delta: { content: 'ตอนนี้เปิดห้องสมุดไม่ได้' } }] })}\n\ndata: [DONE]\n\n`]).stream(), { headers: { 'Content-Type': 'text/event-stream' } });
+  const { log, warn } = console;
+  console.log = () => {}; console.warn = () => {};
+  try {
+    await runChat({ messages: turn('ขอสไลด์ rabies'), image: null, question: 'ขอสไลด์ rabies' }, {
+      send: () => true,
+      env: ENV,
+      deps: {
+        chat: async () => ({ ok: true, text: JSON.stringify({ intent: 'files', query_th: 'ขอสไลด์ rabies', terms_en: ['rabies'], subjects: [], files: { kind: 'slide', title: '' } }) }),
+        fetchImpl: async (url, init) => (String(url).includes('api.deepseek.com') ? (prompts.push(String(init.body)), sse()) : down()),
+        kv: { get: async () => null, set: async () => {} },
+      },
+    });
+  } finally { console.log = log; console.warn = warn; }
+  assert.equal(prompts.length, 1);
+  assert.ok(prompts[0].includes('เปิดห้องสมุดไม่สำเร็จในครั้งนี้'), 'told the library could not be opened');
+  assert.ok(!prompts[0].includes('ห้องสมุดยังไม่มีไฟล์'), 'never told there is no such file');
+});
+
 test('the planner keeps files, quizzes, openings and questions apart', () => {
   const slides = heuristicPlan(turn('ขอสไลด์ rabies หน่อย'));
   assert.equal(slides.intent, 'files');
