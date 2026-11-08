@@ -11,11 +11,23 @@
 // tests/unit/wiki-search-parity.test.mjs keeps the old pass as the oracle.
 import { listTopics } from './registry.js';
 import { loadSearchIndex } from './search-index-loaders.generated.js';
+import { fold } from '../thai-search.js';
 
 const normalize = (value) => String(value || '')
   .replace(/\*\*/g, '')
   .replace(/\*/g, '')
   .toLocaleLowerCase();
+
+// A word copied from a slide or a document can carry what an exporter writes
+// and a keyboard does not: a zero-width space, สระอำ in two codepoints, Thai
+// digits. The index is stored composed, so the query is also tried folded the
+// way the PDF search folds a page. The query as typed is still tried, so
+// nothing it found before is lost.
+function queryForms(query) {
+  const typed = normalize(query).trim();
+  const folded = fold(typed).text.trim();
+  return folded && folded !== typed ? [typed, folded] : [typed];
+}
 
 const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
 
@@ -48,7 +60,9 @@ export function createSearchTopics(loadIndex = loadSearchIndex) {
   }
 
   return async function searchTopics(query) {
-    const normalized = normalize(query).trim();
+    const forms = queryForms(query);
+    const normalized = forms[0];
+    const found = (text) => forms.some((form) => text.includes(form));
     const topics = listTopics();
     if (!normalized) {
       return topics.map((topic) => ({ topic, matchedSections: [], inTitle: false }));
@@ -73,11 +87,10 @@ export function createSearchTopics(loadIndex = loadSearchIndex) {
       // The title and summary come with the registry, not with the subject's
       // chunk, so an article whose chunk failed is still found by them. Only
       // its section matches are missing, and incompleteSubjects says so.
-      const inTitle = normalize(topic.title).includes(normalized)
-        || normalize(topic.summary).includes(normalized);
+      const inTitle = found(normalize(topic.title)) || found(normalize(topic.summary));
       const matchedSections = index
         ? index
-          .filter(([, , text]) => text.includes(normalized))
+          .filter(([, , text]) => found(text))
           .map(([id, heading]) => ({ id, heading }))
         : [];
       if (inTitle || matchedSections.length > 0) {

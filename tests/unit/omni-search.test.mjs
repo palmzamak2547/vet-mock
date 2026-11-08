@@ -32,6 +32,19 @@ test('Thai weight units and Thai species words parse', () => {
   assert.equal(it.species, 'dog');
 });
 
+test('the spoken unit โล is a weight in kilograms, wherever it sits', () => {
+  for (const q of ['ketamine 3.5 โล แมว', 'ketamine 3.5โล แมว', 'ketamine แมว 3.5 โล', 'ketamine 3.5 โล', 'ketamine 3.5 โลแมว']) {
+    const it = detectDoseIntent(q);
+    assert.equal(it?.weightKg, 3.5, q);
+    assert.equal(it.dose.lo, it.drug.doseLo * 3.5, `${q}: the total for the animal is computed`);
+  }
+  // The longer Thai units still read as before.
+  assert.equal(detectDoseIntent('ketamine 4 กิโล แมว').weightKg, 4);
+  assert.equal(detectDoseIntent('ketamine 4 กิโลกรัม แมว').weightKg, 4);
+  // A mark on the ล makes another word, not the unit.
+  assert.equal(detectDoseIntent('ketamine 3 โล่ แมว').weightKg, null);
+});
+
 test('a drug name alone still answers with the per-kg range', () => {
   const it = detectDoseIntent('enrofloxacin');
   assert.equal(it?.kind, 'dose');
@@ -52,6 +65,40 @@ test('the longest drug-name match wins over an embedded shorter one', () => {
 test('no drug in the query → no dose card, not a wrong one', () => {
   assert.equal(detectDoseIntent('anatomy ปี 1'), null);
   assert.equal(detectDoseIntent('12 kg'), null);
+});
+
+test('a drug name inside another word is not a dose card', () => {
+  // "luminal" (a Phenobarbital brand) sits inside "intraluminal", which the
+  // equine repro and POA notes use; "diphen" (Diphenhydramine) starts
+  // "diphenoxylate", another drug. Each of these named a drug it is not.
+  for (const q of [
+    'intraluminal pressure', 'Intraluminal fluid ม้า 450 kg', 'diphenoxylate', 'diphenoxylate 10 kg สุนัข',
+    'methylprednisolone 10 kg', 'pregabalin แมว', 'clopidol', 'Spironucleus',
+  ]) {
+    assert.equal(detectDoseIntent(q), null, q);
+    assert.ok(!detectIntents(q).some((i) => i.kind === 'dose'), `${q}: no dose card among the answers`);
+  }
+});
+
+test('a drug name still counts beside Thai, a number or a hyphen, and while it is being typed', () => {
+  for (const [q, generic] of [
+    ['ketamineแมว 4 kg', 'Ketamine'],
+    ['ให้ยาketamine 4 kg', 'Ketamine'],
+    ['ketamine12kg', 'Ketamine'],
+    ['amoxicillin-clavulanate 10 kg', 'Amoxicillin-Clavulanate'],
+    ['amoxi 10 kg', 'Amoxicillin'],
+    ['amoxicil', 'Amoxicillin'],
+    ['luminal 10 kg', 'Phenobarbital'],
+    ['diphen 5 kg', 'Diphenhydramine'],
+    ['diphenhyd', 'Diphenhydramine'],
+    // One letter past a listed name: another country's spelling of the
+    // brand (Sandimmun is listed), or a plural.
+    ['sandimmune 10 kg', 'Cyclosporine'],
+    ['amoxil 10 kg', 'Amoxicillin'],
+  ]) {
+    assert.equal(detectDoseIntent(q)?.drug.generic, generic, q);
+  }
+  assert.equal(detectDoseIntent('ketamine12kg').weightKg, 12);
 });
 
 test('a 7-digit course number answers with the curriculum subject', () => {
