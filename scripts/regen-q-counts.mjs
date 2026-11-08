@@ -40,14 +40,14 @@ const CHECK = process.argv.includes('--check');
 const m = await import(pathToFileURL(path.join(root, 'src/data/questions.js')).href);
 const curM = await import(pathToFileURL(path.join(root, 'src/data/curriculum.js')).href);
 const metadataM = await import(pathToFileURL(path.join(root, 'src/lib/question-metadata.js')).href);
-const predictionM = await import(pathToFileURL(path.join(root, 'src/lib/question-prediction.js')).href);
+const predictionM = await import(pathToFileURL(path.join(root, 'src/lib/current-scope.js')).href);
 const deliveryM = await import(pathToFileURL(path.join(root, 'src/data/question-delivery.generated.js')).href);
 const { QB, loadQB } = m;
 const { SUBJECTS, semesterForSubject } = curM;
 const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId, panicRank } = metadataM;
 const { isCurrentScopeQuestion, isHighPredictionQuestion } = predictionM;
 const { isQuestionDeliverable } = deliveryM;
-const { questionInScope } = await import(pathToFileURL(path.join(root, 'src/lib/exam-scope.js')).href);
+const { questionInScope, scopeOfQuestion } = await import(pathToFileURL(path.join(root, 'src/lib/exam-scope.js')).href);
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 
 // Phase 3 lazy QB rework (2026-05-17): QB exports empty until loadQB()
@@ -126,12 +126,15 @@ const incrementScopedPrediction = (index, question, subject) => {
   const phase = index[question.curriculumVersion];
   phase.all[subject] = (phase.all[subject] || 0) + 1;
   // Mirrors questionInScope(): `both` lands in midterm AND final; continuous
-  // stays in its own bucket and never inflates an exam-phase count.
-  if (question.examScope === 'both') {
+  // stays in its own bucket and never inflates an exam-phase count. The paper
+  // is the one the set resolves (the topic's, else the question's own field),
+  // so the card prints what a tap serves.
+  const scope = scopeOfQuestion(question);
+  if (scope === 'both') {
     phase.midterm[subject] = (phase.midterm[subject] || 0) + 1;
     phase.final[subject] = (phase.final[subject] || 0) + 1;
-  } else if (phase[question.examScope]) {
-    phase[question.examScope][subject] = (phase[question.examScope][subject] || 0) + 1;
+  } else if (phase[scope]) {
+    phase[scope][subject] = (phase[scope][subject] || 0) + 1;
   }
 };
 const deliverableQuestions = QB.filter(isQuestionDeliverable);
