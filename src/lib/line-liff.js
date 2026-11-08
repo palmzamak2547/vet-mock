@@ -190,10 +190,6 @@ export async function signInWithLineViaLiff() {
   return data;
 }
 
-/**
- * Best-effort logout — clears the LIFF session if loaded.
- * Safe to call even when LIFF isn't initialised.
- */
 function idTokenExpired(token) {
   try {
     const payload = JSON.parse(atob(String(token).split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
@@ -203,12 +199,44 @@ function idTokenExpired(token) {
   }
 }
 
-export async function liffLogoutIfInitialised() {
-  if (!_liffPromise) return;
-  try {
-    const liff = await _liffPromise;
-    if (liff.isLoggedIn()) liff.logout();
-  } catch {
-    /* swallow — logout failures shouldn't block sign-out flow */
+// The SDK keeps its login in this browser, not in the page that started it:
+// LIFF_STORE:<liffId>:<name> entries (sessionStorage inside LINE's own browser,
+// localStorage everywhere else) and an expiry cookie, all of which liff.logout()
+// clears. A LINE sign-in ends with a page load (the magic link above), so the
+// page a student signs out from has usually never started the SDK, while the
+// login it stored would hand their ID token, good for up to an hour, to the next
+// person who taps LINE in this browser. Cleared here without loading the SDK.
+function dropStoredLiffLogin() {
+  const liffId = import.meta.env.VITE_LINE_LIFF_ID;
+  if (!liffId) return;
+  const prefix = `LIFF_STORE:${liffId}:`;
+  for (const name of ['localStorage', 'sessionStorage']) {
+    try {
+      const store = globalThis[name];
+      const keys = [];
+      for (let i = 0; i < store.length; i++) {
+        const key = store.key(i);
+        if (key?.startsWith(prefix)) keys.push(key);
+      }
+      for (const key of keys) store.removeItem(key);
+    } catch { /* storage unavailable: the SDK could keep nothing there either */ }
   }
+  try { document.cookie = `LIFF_STORE:expires:${liffId}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`; } catch { /* no cookies here */ }
+}
+
+/**
+ * Ends the LINE login on this device: the SDK's own logout when this page
+ * started it, and the login the SDK stored either way. Never loads the SDK;
+ * safe to call even when LIFF isn't initialised.
+ */
+export async function liffLogoutIfInitialised() {
+  if (_liffPromise) {
+    try {
+      const liff = await _liffPromise;
+      if (liff.isLoggedIn()) liff.logout();
+    } catch {
+      /* swallow — logout failures shouldn't block sign-out flow */
+    }
+  }
+  dropStoredLiffLogin();
 }
