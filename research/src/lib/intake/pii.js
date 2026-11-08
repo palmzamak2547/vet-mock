@@ -130,3 +130,15 @@ export function maskValue(value, kind) {
   // name and line-id: the first letter of each word, then three stars
   return s.trim().split(/\s+/).map((w) => `${Array.from(w)[0]}***`).join(' ');
 }
+
+/**
+ * Whether a column's values print masked (in a report, a comparison, a download): it is hidden, it holds personal
+ * data (masked even when shown), or the codebook does not list it.
+ * @param {{ hidden?: boolean, pii?: string|null }|null|undefined} column  the codebook entry
+ */
+export const isPrivateColumn = (column) => !column || Boolean(column.hidden || column.pii);
+
+/** A cell value as it may be printed: masked by its column's kind when the column is private, else as it is. */
+export function shownValue(value, column) {
+  return isPrivateColumn(column) ? maskValue(value, column?.pii || null) : value;
+}
