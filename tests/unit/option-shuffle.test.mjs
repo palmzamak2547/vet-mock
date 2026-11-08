@@ -33,12 +33,18 @@ else delete globalThis.crypto.getRandomValues;
 // The module's behaviour before this change, written out: the tail pattern it
 // shipped with, the same seed derivation, Fisher-Yates over the head only.
 const PREVIOUS_TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:ถูก|ผิด))/i;
-function previousOrder(q) {
+// ...and the pattern as it shipped with the ทุกข้อ… forms, before ทั้ง… content
+// rows were let go and "All correct" / "ไม่มีข้อใดกล่าวผิด" were pinned. The
+// bank-wide check at the end compares against this one.
+const SHIPPED_TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:ถูก|ผิด)|(?:ทำได้)?ทุกข้อ(?=\s*$|\s*(?:ถูก|ข้างต้น|ที่กล่าว))|ข้อ(?:ที่)?กล่าวมา(?:แล้ว)?ทั้งหมด)/i;
+const previousOrder = (q) => orderUnder(q, (text) => PREVIOUS_TAIL_RE.test(text));
+// The order the module produces when exactly the rows `isTail` names are pinned.
+function orderUnder(q, isTail) {
   const options = q.options;
   if (options.length <= 1 || q.noShuffle === true) return options.map((_, i) => i);
   const head = [];
   const tail = [];
-  options.forEach((o, i) => (PREVIOUS_TAIL_RE.test(String(o || '').trim()) ? tail : head).push(i));
+  options.forEach((o, i) => (isTail(String(o || '').trim(), i) ? tail : head).push(i));
   const idNum = Number.isFinite(q.id)
     ? q.id
     : Array.from(String((q.subject || '') + ':' + (q.id || ''))).reduce((h, ch) => ((h * 31) + ch.charCodeAt(0)) >>> 0, 0);
@@ -169,25 +175,62 @@ test('a question without these catch-alls keeps exactly the order it had', () =>
   assert.deepEqual(getShuffledOptions(fixed).displayToOriginal, [0, 1, 2], 'noShuffle is no longer honoured');
 });
 
-test('across the real bank, only questions with a ทุกข้อ… catch-all change order, and it goes last', async () => {
+// Whether the module pins a row, read from what it does: a pinned row authored
+// last stays last for every id.
+const pinnedByModule = new Map();
+function modulePins(text) {
+  if (!pinnedByModule.has(text)) {
+    let last = true;
+    for (let id = 1; id <= 24 && last; id++) last = getShuffledOptions(q(id, ['a', 'b', 'c', text])).displayToOriginal[3] === 3;
+    pinnedByModule.set(text, last);
+  }
+  return pinnedByModule.get(text);
+}
+
+test('across the real bank, only ทั้ง… rows and the All correct / กล่าวผิด catch-alls change how they pin', async () => {
   const all = [];
   for (const bank of BANK_REGISTRY) all.push(...(await bank.load()));
   const mcq = all.filter((x) => Array.isArray(x?.options) && x.options.length > 1);
   assert.ok(mcq.length > 5000, `expected the full bank, loaded ${mcq.length} questions`);
-  let changed = 0;
+  const freed = [];
+  const added = [];
   for (const x of mcq) {
     const label = `${x.subject}:${x.id}`;
     const now = getShuffledOptions(x);
     assertMapsAgree(x, now, label);
-    const before = previousOrder(x);
-    if (JSON.stringify(now.displayToOriginal) === JSON.stringify(before)) continue;
-    changed++;
-    const lastOrig = now.displayToOriginal[x.options.length - 1];
-    const lastText = String(x.options[lastOrig]).trim();
-    assert.ok(!PREVIOUS_TAIL_RE.test(lastText), `${label}: order changed but its last row was already pinned`);
-    assert.match(lastText, /^(?:ทำได้)?ทุกข้อ|กล่าวมา/, `${label}: order changed and "${lastText}" is not a catch-all`);
-    assert.equal(lastOrig, x.options.length - 1, `${label}: the catch-all was not authored last, check the question`);
+    if (x.noShuffle === true) {
+      assert.deepEqual(now.displayToOriginal, x.options.map((_, i) => i), `${label}: noShuffle is no longer honoured`);
+      continue;
+    }
+    const texts = x.options.map((o) => String(o || '').trim());
+    const before = texts.map((t) => SHIPPED_TAIL_RE.test(t));
+    const after = texts.map(modulePins);
+    // The head shuffles and the pinned rows follow it in authored order...
+    assert.deepEqual(now.displayToOriginal, orderUnder(x, (_, i) => after[i]), `${label}: not a shuffled head above its catch-alls`);
+    // ...so a question whose rows all pin as they did keeps its exact order.
+    if (before.every((b, i) => b === after[i])) {
+      assert.deepEqual(now.displayToOriginal, orderUnder(x, (t) => SHIPPED_TAIL_RE.test(t)), `${label}: its order changed`);
+      continue;
+    }
+    texts.forEach((t, i) => {
+      if (before[i] && !after[i]) freed.push(`${label} ${t}`);
+      if (!before[i] && after[i]) {
+        added.push(`${label} ${t}`);
+        assert.ok(after.slice(i).every(Boolean), `${label}: "${t}" was not authored below the options it covers`);
+      }
+    });
   }
-  assert.ok(changed >= 1, 'no question in the bank changed order: the new pin never fires');
-  assert.ok(changed <= 20, `${changed} questions changed order; the pin is catching more than catch-alls`);
+  // Only the ทั้ง… alternative was narrowed, and none of the rows it lets go
+  // sums up the other options.
+  assert.ok(freed.length >= 1, 'no ทั้ง… row shuffles: the narrowing never fires');
+  for (const row of freed) {
+    const text = row.slice(row.indexOf(' ') + 1);
+    assert.match(text, /^ทั้ง/, `${row}: a row that does not start with ทั้ง lost its pin`);
+    assert.doesNotMatch(text, /^ทั้ง(?:หมด|คู่|สอง|สาม)(?:ข้อ)?\s*(?:ถูก(?:ต้อง)?|ผิด)?\s*$/, `${row}: a catch-all lost its pin`);
+  }
+  assert.ok(added.length >= 1, 'no All correct / กล่าวผิด row pins: the new forms never fire');
+  assert.ok(added.length <= 20, `${added.length} rows newly pin; the pin is catching more than catch-alls`);
+  for (const row of added) {
+    assert.match(row.slice(row.indexOf(' ') + 1), /^(?:all\s+(?:in)?correct|ไม่มีข้อ(?:ใด|ไหน)?กล่าว(?:ถูก|ผิด))\s*\.?$/i, `${row} is not one of the new catch-alls`);
+  }
 });

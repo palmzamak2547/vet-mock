@@ -52,7 +52,7 @@ function notifyAuthChanged() {
   }
 }
 
-/** Lazy-load the GIS script. Idempotent. */
+/** Lazy-load the GIS script. Idempotent; a failed load is tried again on the next call. */
 function loadGisScript() {
   if (_gisPromise) return _gisPromise;
   _gisPromise = new Promise((resolve, reject) => {
@@ -62,7 +62,7 @@ function loadGisScript() {
     if (existing) {
       // Already inserted — wait for load
       existing.addEventListener('load', () => resolve(), { once: true });
-      existing.addEventListener('error', () => reject(new Error('GIS load failed')), { once: true });
+      existing.addEventListener('error', () => { existing.remove(); reject(new Error('GIS load failed')); }, { once: true });
       return;
     }
     const s = document.createElement('script');
@@ -70,9 +70,13 @@ function loadGisScript() {
     s.async = true;
     s.defer = true;
     s.onload = () => resolve();
-    s.onerror = () => reject(new Error('GIS load failed'));
+    // A failed tag fires no event again: the next call must insert a fresh one, not wait on it.
+    s.onerror = () => { s.remove(); reject(new Error('GIS load failed')); };
     document.head.appendChild(s);
-  });
+  // Drop the memo on failure, as getSupabase does: one load that failed (campus
+  // wifi dropping, a page opened offline) otherwise fails every later button and
+  // sign-in in this tab at once, and sign-in falls back to the redirect.
+  }).catch((err) => { _gisPromise = null; throw err; });
   return _gisPromise;
 }
 

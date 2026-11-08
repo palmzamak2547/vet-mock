@@ -295,11 +295,16 @@ export function createCard(theme = 'light', seed = 1, frame = STORY, { dry = fal
     const step = Math.max(size * leading, ascent + descent + size * 0.08);
     let y = top + ascent;
     let bottom = top;
+    let last = null;
     for (const line of lines) {
       const box = (style.align ?? 'left') === 'left' ? card.textInk(line, x, y, style, role) : card.text(line, x, y, style, role);
       bottom = Math.max(bottom, box.bottom);
       y += step;
+      last = box;
     }
+    // A cut line still fits its box, so the check reads the cut from it:
+    // a smaller size that shows the whole paragraph wins, or the card says so.
+    if (cut && last) last.cut = true;
     // bottom is the ink's, right for a heading followed by something else.
     // lineBottom is the line box's, the same whatever the glyphs: items set
     // one under another stack by it, or a line with no vowel below pulls the
@@ -517,9 +522,10 @@ export function plateBand(card, img, credit) {
 
 /**
  * The layout search every story card shares: the largest of `sizes` whose
- * layout is clean, then the gaps opened up to `maxGap` times while the last
- * block keeps a breath above the signature. Every trial is a dry run; only
- * the answer is drawn in full.
+ * layout is clean (layoutProblems, which counts a paragraph cut short),
+ * then the gaps opened up to `maxGap` times while the last block keeps a
+ * breath above the signature. Every trial is a dry run; only the answer is
+ * drawn in full.
  * @param {{ sizes: Array, maxGap?: number, draw: (size, gap, dry) => object }} o
  */
 export function fitCard({ sizes, maxGap = 2, draw }) {
@@ -563,13 +569,15 @@ export function feedCut(card) {
 
 /**
  * What a layout check reads: text outside the frame, under the minimum size,
- * or running into another text. Empty means the card is clean.
+ * running into another text, or a paragraph cut short to fit its lines.
+ * Empty means the card is clean.
  */
 export function layoutProblems(boxes, { minThai = SIZE.xs, minLatin = 32, frame = STORY } = {}) {
   const problems = [];
   const thai = /[\u0E00-\u0E7F]/u;
   const { core, live } = frame;
   for (const b of boxes) {
+    if (b.cut) problems.push(`"${b.text}" is cut short`);
     if (b.left < live.left - 1 || b.right > live.right + 1) problems.push(`"${b.text}" leaves the live area sideways`);
     if (b.top < core.top || b.bottom > core.bottom) problems.push(`"${b.text}" leaves the 4:5 core`);
     if (b.role !== 'masthead' && b.role !== 'footer' && (b.top < live.top - 1 || b.bottom > live.bottom + 1)) {

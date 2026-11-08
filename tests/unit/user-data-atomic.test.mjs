@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createUserDataSync, createEmptyUserData, toRemoteUserData, stableItemKey } from '../../src/lib/user-data-sync.js';
 import { userDataChanges, applyUserDataChanges } from '../../src/lib/user-data-operations.js';
+import { appendCustomQuestions } from '../../src/lib/custom-question-ids.js';
 
 class Storage {
   values = new Map(); fail = null;
@@ -39,6 +40,10 @@ function provider() {
           if (change.created?.includes(key) && items.has(key) && JSON.stringify(items.get(key)) !== JSON.stringify(item)) {
             throw Object.assign(new Error('VMX_CUSTOM_ID_CONFLICT'), { code: '22023' });
           }
+          // As the RPC does: a deleted question's stamp stays and keeps its ID from a new question.
+          if (change.created?.includes(key) && !items.has(key) && nextStamps.has(`${id}:${field}:${key}`)) {
+            throw Object.assign(new Error('VMX_CUSTOM_ID_CONFLICT'), { code: '22023' });
+          }
         }
         for (const [key, value, remove] of [...keyed.map(([key, value]) => [key, value, false]), ...(change.remove || []).map(key => [key, null, true])]) {
           const stampKey = `${id}:${field}:${key}`;
@@ -53,6 +58,13 @@ function provider() {
       }
       nextReceipts.set(receiptKey, body); acknowledged.push(op.id); current.sync_revision++;
       current.sync_clock = Math.max(current.sync_clock, op.clock);
+    }
+    // The row carries its stamps, as the RPC's reply and a select('*') read do.
+    current.sync_stamps = {};
+    for (const [stampKey, stamp] of nextStamps) {
+      if (!stampKey.startsWith(`${id}:`)) continue;
+      const rest = stampKey.slice(id.length + 1), split = rest.indexOf(':');
+      (current.sync_stamps[rest.slice(0, split)] ||= {})[rest.slice(split + 1)] = [stamp.clock, stamp.id];
     }
     rows.set(id, current);
     receipts.clear(); for (const [key, value] of nextReceipts) receipts.set(key, value);
@@ -210,6 +222,32 @@ test('an older reply cannot replace the newer acknowledged shared-device snapsho
     add(b, 'k', 'two'); await until(() => b.state().sync.phase === 'synced'); release();
     await until(() => a.state().sync.phase === 'synced');
     assert.equal(a.state().data.notes.k, 'two'); assert.equal(server.row('A').notes.k, 'two');
+  } finally { a.close(); b.close(); }
+});
+
+test('a second conflict while the conflict prompt is still open is offered and kept, never dropped', async () => {
+  let later = 5000;
+  const server = provider(), a = open(server, new Storage(), { now: () => 1 }), b = open(server, new Storage(), { now: () => later });
+  try {
+    a.signIn('A'); b.signIn('A'); await until(() => a.state().sync.phase === 'synced' && b.state().sync.phase === 'synced');
+    a.setOnline(false); add(a, 'k', 'mine-k');
+    add(b, 'k', 'theirs-k'); await until(() => b.state().sync.phase === 'synced');
+    a.setOnline(true); await until(() => a.state().sync.recovery?.kind === 'conflict');
+    const first = a.state().sync.recovery.id;
+    // The prompt stays unanswered while this device loses another key the same way.
+    a.setOnline(false); add(a, 'j', 'mine-j');
+    later = 1e6; add(b, 'j', 'theirs-j'); await until(() => b.state().sync.phase === 'synced');
+    a.setOnline(true); await until(() => a.state().sync.dirtyFields.length === 0);
+    assert.deepEqual(server.row('A').notes, { k: 'theirs-k', j: 'theirs-j' });
+    const { recovery, recoveryArchive } = a.state().sync;
+    assert.equal(recovery.kind, 'conflict');
+    assert.deepEqual(recovery.local.notes, { k: 'mine-k', j: 'mine-j' }, 'the device copy offers both losing edits');
+    assert.deepEqual(recoveryArchive.local.notes, { k: 'mine-k', j: 'mine-j' }, 'and both stay exportable');
+    assert.notEqual(recovery.id, first, 'a choice made on the earlier prompt cannot answer this one');
+    assert.equal((await a.sync.send({ type: 'RECOVER_LEGACY', principalId: 'A', recoveryId: first, choice: 'account' })).error.code, 'RECOVERY_CHANGED');
+    assert.equal((await a.sync.send({ type: 'RECOVER_LEGACY', principalId: 'A', recoveryId: recovery.id, choice: 'local' })).accepted, true);
+    await until(() => a.state().sync.phase === 'synced' && !a.state().sync.pending);
+    assert.deepEqual(server.row('A').notes, { k: 'mine-k', j: 'mine-j' });
   } finally { a.close(); b.close(); }
 });
 
@@ -384,6 +422,66 @@ test('guest progress survives signup and is never blindly written over a returni
       assert.equal(a.state().data.notes.guest, 'offline work', 'the original guest workspace remains available');
     } finally { a.close(); }
   }
+});
+
+test('questions imported again after a delete take IDs the account never used, so the import syncs', async () => {
+  const server = provider(), a = open(server);
+  const questions = n => Array.from({ length: n }, (_, i) => ({ q: `Question ${i}`, type: 'tf', subject: 'surg2', answer: true }));
+  // What the Question Manager import sends through App: the allocator, told which IDs the account has used.
+  const importQuestions = n => a.edit((data, sync) => ({ customQuestions: appendCustomQuestions(data, questions(n), sync?.takenCustomQuestionIds()) }));
+  const settled = () => until(() => a.state().sync.recovery || (a.state().sync.phase === 'synced' && !a.state().sync.pending));
+  const random = Math.random;
+  try {
+    a.signIn('A'); await until(() => a.state().sync.phase === 'synced');
+    Math.random = () => 0; // every import starts its search at the bottom of the range
+    importQuestions(3); await settled();
+    const first = a.state().data.customQuestions.map(q => q.id);
+    a.edit(() => ({ customQuestions: [] })); await settled();
+    importQuestions(3); await settled();
+    assert.equal(a.state().sync.recovery, null, 'no custom-ID prompt after deleting and importing again');
+    const second = a.state().data.customQuestions.map(q => q.id);
+    assert.deepEqual(server.row('A').custom_questions.map(q => q.id), second);
+    assert.ok(second.every(id => !first.includes(id)), 'a deleted question keeps its ID');
+    // Offline, a question made and deleted before it was ever sent still claims its ID when it is.
+    a.setOnline(false);
+    importQuestions(2);
+    const unsent = a.state().data.customQuestions.filter(q => !second.includes(q.id)).map(q => q.id);
+    a.edit(data => ({ customQuestions: data.customQuestions.filter(q => second.includes(q.id)) }));
+    importQuestions(2);
+    a.setOnline(true); await settled();
+    assert.equal(a.state().sync.recovery, null);
+    const third = server.row('A').custom_questions.map(q => q.id).filter(id => !second.includes(id));
+    assert.equal(third.length, 2);
+    assert.ok(third.every(id => !first.includes(id) && !unsent.includes(id)));
+  } finally { Math.random = random; a.close(); }
+});
+
+test('a guest question sharing an ID with a different account question is refused, never written over it', async () => {
+  const server = provider(), a = open(server);
+  const accountQuestion = { id: 60123, q: 'Account question typed on phone', type: 'tf', subject: 'surg2', answer: true };
+  server.rows.set('A', { ...server.row('A'), custom_questions: [accountQuestion], sr_cards: { 60123: { questionId: 60123, due: 1 } } });
+  const random = Math.random;
+  try {
+    Math.random = () => 0.0123; // the guest's own allocator lands on the account's ID
+    a.edit(data => ({ customQuestions: appendCustomQuestions(data, [{ q: 'Guest question typed before sign-in', type: 'tf', subject: 'surg2', answer: false }]) }));
+    Math.random = random;
+    assert.equal(a.state().data.customQuestions[0].id, 60123);
+    add(a, 'guest', 'offline work'); a.signIn('A');
+    await until(() => a.state().sync.recovery?.account);
+    await a.sync.send({ type: 'RECOVER_LEGACY', principalId: 'A', choice: 'local' });
+    await until(() => a.state().sync.recovery?.kind === 'custom-id' ? a.state().sync.recovery.account
+      : a.state().sync.phase === 'synced' && !a.state().sync.pending);
+    assert.deepEqual(server.row('A').custom_questions, [accountQuestion], 'the account keeps its own question');
+    assert.equal(a.state().sync.recovery?.kind, 'custom-id', 'the collision is shown, not settled silently');
+    assert.equal(a.state().sync.recovery.local.customQuestions.find(q => q.id === 60123).q, 'Guest question typed before sign-in');
+    assert.equal((await a.sync.send({ type: 'RECOVER_LEGACY', principalId: 'A', choice: 'account' })).accepted, true);
+    await until(() => a.state().sync.phase === 'synced' && !a.state().sync.pending);
+    assert.deepEqual(server.row('A').custom_questions, [accountQuestion]);
+    assert.equal(a.state().data.customQuestions[0].q, 'Account question typed on phone');
+    const archived = a.state().sync.recoveryArchive.local;
+    assert.equal(archived.customQuestions.find(q => q.id === 60123).q, 'Guest question typed before sign-in', 'the guest copy stays exportable');
+    assert.equal(archived.notes.guest, 'offline work');
+  } finally { Math.random = random; a.close(); }
 });
 
 test('a recovery choice cannot consume a newer old-tab edit that arrived during its cloud read', async () => {
