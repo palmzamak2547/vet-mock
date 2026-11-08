@@ -701,6 +701,9 @@ export async function speakQuestion({ stem: rawStem, options: rawOptions, subjec
         onEnd?.();
         return;
       } catch (err) {
+        // Stopped by the student: the error is that stop's own abort, not the
+        // provider's, and any audio playing now is the next reading's.
+        if (controller?.cancelled) { fetchAbort.abort(); return; }
         // Provider failed (one of the parallel fetches rejected, or
         // playback errored). Clear half-played audio + abort any
         // pending fetches + try next provider.
