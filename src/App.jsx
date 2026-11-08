@@ -2202,7 +2202,7 @@ export default function App() {
     // useExamSession owns the runtime state shape; this single call
     // primes questions/answers/currentIdx/timeLeft/examStartTime in
     // one synchronous batch (was 5 inline setters pre-refactor).
-    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam' });
+    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam', timePerQ: baseTime });
     setView('exam');
     // NOTE: the streak used to be bumped right here — i.e. for merely OPENING
     // a set, before a single answer. That inflated the header counter and made
@@ -2266,7 +2266,7 @@ export default function App() {
     // Its history still counts; a leaderboard run it is not.
     const runResult = user && autoQs.length && sessionKind !== 'redo' ? {
       id: examSessionId, user_id: user.id, mode, subject: runSubject,
-      total: autoQs.length, correct, pct: Math.round(correct / autoQs.length * 100),
+      total: autoQs.length, correct, pct: Math.round(correct * 100 / autoQs.length),
       duration_sec: examStartTime ? Math.max(0, Math.round((completedAt - examStartTime) / 1000)) : 0,
       year: years.size === 1 ? [...years][0] : null, phase: selectedPhase ?? null,
       question_ids: autoQs.map(q => q.id),
@@ -2374,7 +2374,7 @@ export default function App() {
         mode, subject: runSubjectFor(questions), topic, practiceMode, selectedYear, selectedPhase,
         numQuestions, useTimer, timePerQ, questionCategory,
         savedAt: Date.now(),
-        score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },
+        score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct * 100) / autoQs.length) : 0 },
       }));
     } catch {}
 
@@ -2573,7 +2573,7 @@ export default function App() {
     return {
       correct,
       total: totalAuto,
-      pct: totalAuto ? Math.round((correct / totalAuto) * 100) : 0,
+      pct: totalAuto ? Math.round((correct * 100) / totalAuto) : 0,
       writingTotal: writingQs.length,
       writingAttempted,
       // Combined total still used by some legacy callers

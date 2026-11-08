@@ -101,8 +101,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   // must not have the rules changed underneath them.
   const sessionClockRef = useRef(sessionBudget);
   /** Total budget for a set: the same per-question allowances, added up. */
-  const budgetFor = useCallback((qs) => (
-    (qs || []).reduce((total, q) => total + timeForQuestion(q, timePerQ), 0)
+  const budgetFor = useCallback((qs, perQ = timePerQ) => (
+    (qs || []).reduce((total, q) => total + timeForQuestion(q, perQ), 0)
   ), [timePerQ]);
   const positionRef = useRef(null);
   positionRef.current = { questions, currentIdx, view };
@@ -296,9 +296,13 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // is unchanged — only the freedom to spend it where it is needed.
     const oneClock = typeof opts.sessionBudget === 'boolean' ? opts.sessionBudget : sessionBudget;
     sessionClockRef.current = oneClock;
-    setTimeLeft(oneClock && firstTime > 0 ? budgetFor(picked) : firstTime);
+    // opts.timePerQ is the allowance the caller started with. App stores it as the setting in
+    // the same handler, so this closure still holds the setting from the render before: the
+    // exam rung at 60 seconds a question got half its time under a 30-second setting.
+    const perQ = Number.isFinite(opts.timePerQ) ? opts.timePerQ : timePerQ;
+    setTimeLeft(oneClock && firstTime > 0 ? budgetFor(picked, perQ) : firstTime);
     setExamStartTime(Date.now());
-  }, [ownerId, sessionBudget, budgetFor]);
+  }, [ownerId, sessionBudget, budgetFor, timePerQ]);
 
   /** Called by App.resumePendingExam to rehydrate from localStorage. */
   const primeFromSaved = useCallback((saved) => {
@@ -330,7 +334,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       setQuestionDeadline(deadline);
       setTimeUp(secondsUntilDeadline(deadline) <= 0);
     } else if (sessionClockRef.current) {
-      setTimeLeft(budgetFor(saved.questions));
+      setTimeLeft(budgetFor(saved.questions, saved.timePerQ ?? timePerQ));
     } else {
       setTimeLeft(timeForQuestion(saved.questions[index], saved.timePerQ ?? timePerQ));
     }

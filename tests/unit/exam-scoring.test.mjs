@@ -39,3 +39,23 @@ test('receipts bind exact payload, purpose, current time and owner with a server
   assert.ok(Math.abs(data.issuedAt - Date.now() / 1000) < 2);
   assert.throws(() => signAppPayload('exam-result', {}, {}), /signing-unavailable/);
 });
+test('the stored percentage is the one the exam_results check accepts, x.5 rounding up', () => {
+  // exam_results_score_shape_check requires pct = round(correct * 100.0 / total): exact
+  // arithmetic, half away from zero. correct / total * 100 in floating point lands just
+  // under the half for 10 pairs up to 300 questions (23 of 40 gives 57.49999999999999),
+  // and that row was refused by the database on every retry, holding the device's queue.
+  const qs = Array.from({ length: 40 }, (_, i) => ({ ...q1, id: 1000 + i }));
+  const big = new Map(qs.map(q => [String(q.id), q]));
+  const body = (right) => ({ id, mode: 'exam', question_ids: qs.map(q => q.id),
+    answers: Object.fromEntries(qs.map((q, i) => [q.id, i < right ? 1 : 0])),
+    question_versions: Object.fromEntries(qs.map(q => [q.id, questionRevision(q)])) });
+  assert.equal(scoreSubmission(body(23), big).pct, 58);
+  const exact = (c, t) => Math.floor((200 * c + t) / (2 * t));
+  for (let total = 1; total <= 300; total++) {
+    for (let correct = 0; correct <= total; correct++) {
+      const ids = Array.from({ length: total }, (_, i) => 5000 + i);
+      const r = scoreSubmission({ id, question_ids: ids, answers: {}, correct }, new Map());
+      if (r.pct !== exact(correct, total)) assert.fail(`${correct}/${total}: ${r.pct}, check wants ${exact(correct, total)}`);
+    }
+  }
+});

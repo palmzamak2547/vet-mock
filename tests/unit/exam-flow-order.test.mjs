@@ -234,6 +234,9 @@ test('the Mock Exam and สอบจริง 50 still run on one clock for the 
   const { opts, picked } = await app.started();
   assert.equal(opts.sessionBudget, true);
   assert.equal(picked.length, 2);
+  // The setting is stored in the same handler, so the hook's closure still holds the old one:
+  // the paper's budget must come from the time this start was given.
+  assert.equal(opts.timePerQ, 60);
 });
 
 // useExamSession under a stand-in for React: one render's worth of hooks.
