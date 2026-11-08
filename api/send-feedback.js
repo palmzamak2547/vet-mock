@@ -7,13 +7,15 @@
 //   FEEDBACK_EMAIL = palmzamak2547@gmail.com
 //   SUPABASE_SERVICE_ROLE_KEY (+ SUPABASE_URL) — optional, enables the
 //     usage counter the back-office reads (api/_lib/feedback-usage.js)
+//   FEEDBACK_HASH_KEY — optional, the key for that counter's fingerprints;
+//     without it the key is derived from RESEND_API_KEY
 //
 // Security:
 //   • Rate-limited: 3 requests per 10 minutes per IP
 //   • CORS: only known origins (vetmock.com + vetmock.vercel.app + previews + localhost)
 //   • Input length capped (subject 200, message 5000 chars)
 //   • All HTML output escaped via escapeHtml()
-//   • The usage log stores counts and fingerprints only, never the message
+//   • The usage log stores counts and keyed fingerprints only, never the message
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
