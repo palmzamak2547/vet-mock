@@ -40,6 +40,39 @@ test('a course named outright gets its card; a fragment stays an ordinary result
   assert.equal(intent('equine'), null);
 });
 
+test('every course with something behind it gets its card from its own Thai name', async () => {
+  // ชีวเคมี I, อายุรศาสตร์สัตว์เล็ก II: the query is read lower-cased, so a name
+  // kept as written never matched. ความปลอดภัยอาหาร: the filler word หา was cut
+  // out of อาหาร before the name was looked for.
+  const { SUBJECTS, yearForSubject } = await import('../../src/data/curriculum.js');
+  const catalog = createStudyCatalog();
+  const wrong = [];
+  let checked = 0;
+  for (const s of SUBJECTS) {
+    if (!s.id || s.id === 'all' || !/[฀-๿]/.test(s.name || '')) continue;
+    const resources = catalog.browse({ subject: s.id }).resources || {};
+    if (!studyActions({ resources }, null, 0).actions.length) continue;
+    checked++;
+    for (const q of [s.name, `ข้อสอบ ${s.name}`, `สรุป ${s.name}`, `คลิป ${s.name}`, `ข้อสอบ ${s.name.toLowerCase()}`]) {
+      const got = first(q, yearForSubject(s.id));
+      if (got !== s.id) wrong.push(`${q} (year ${yearForSubject(s.id)}): ${got ?? 'no card'}`);
+    }
+  }
+  assert.ok(checked >= 30, `expected the courses with content, checked ${checked}`);
+  assert.deepEqual(wrong, []);
+});
+
+test('a numeral that carries on names the next course, not this one', () => {
+  for (const [q, year, ids] of [
+    ['ข้อสอบ ชีวเคมี II', 2, ['biochem-2']],
+    ['ข้อสอบ ชีวเคมี I', 1, ['biochem-1']],
+    ['ข้อสอบ อายุรศาสตร์สัตว์เล็ก II', 4, ['com2']],
+    ['ข้อสอบ อายุรศาสตร์สัตว์เล็ก I', 4, ['com1']],
+  ]) {
+    assert.deepEqual(intent(q, year)?.subjects.map((s) => s.meta.id), ids, q);
+  }
+});
+
 test('a course number answers with the study card, a gen-ed number with the course card', () => {
   const kinds = (q) => detectIntents(q, { selectedYear: 5 }).map((i) => i.kind);
   assert.deepEqual(kinds('3107508'), ['study']);

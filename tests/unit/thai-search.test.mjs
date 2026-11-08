@@ -30,6 +30,35 @@ test('สระอำ matches whether the exporter wrote one codepoint or two', 
   assert.ok(findIn(composed, 'จํานวน'), 'a decomposed สระอำ in the query was not matched');
 });
 
+test('น้ำ and ต่ำ match when the exporter put the nikhahit before the tone mark', async () => {
+  // The text of many Thai PDFs writes น้ำ as น + nikhahit + ้ + า, the tone
+  // between the two halves of สระอำ. A student types the one-codepoint ำ.
+  const [NIKHAHIT, MAI_EK, MAI_THO] = [0x0e4d, 0x0e48, 0x0e49].map((c) => String.fromCharCode(c));
+  const nam = `น${NIKHAHIT}${MAI_THO}า`;
+  const tam = `ต${NIKHAHIT}${MAI_EK}า`;
+  const page = `ให้${nam}เกลือ ระวัง${nam}ตาลในเลือด${tam}`;
+  for (const [q, onSlide] of [
+    ['น้ำเกลือ', `${nam}เกลือ`],
+    ['น้ำตาล', `${nam}ตาล`],
+    ['ต่ำ', tam],
+    ['น้ำตาลในเลือดต่ำ', `${nam}ตาลในเลือด${tam}`],
+  ]) {
+    const hit = findIn(page, q);
+    assert.ok(hit, `"${q}" was not found on a page that says it`);
+    assert.equal(hit.loose, false, `"${q}" matched exactly, so it must not be reported as loose`);
+    assert.equal(page.slice(hit.at, hit.end), onSlide, `the slice for "${q}" is not the word on the slide`);
+  }
+  const [shown] = searchPages([null, page], 'น้ำเกลือ');
+  assert.ok(shown?.quote.includes(`${nam}เกลือ`), 'the quote did not carry the word as the slide writes it');
+  // The same order in the query finds the composed page, and a slip of the
+  // tone still finds it loosely.
+  assert.ok(findIn('ให้น้ำเกลือ', `${nam}เกลือ`), 'a query in the exporter\'s order did not find the composed word');
+  assert.equal(findIn(page, 'นำเกลือ')?.loose, true, 'a missing tone mark did not fall back to the loose pass');
+  // A nikhahit and a tone that are not followed by า stay what they were.
+  assert.equal(fold(`ก${NIKHAHIT}${MAI_THO}ข`).text, `ก${NIKHAHIT}${MAI_THO}ข`);
+  assert.equal(fold(`ก${NIKHAHIT}${MAI_THO}`).text, `ก${NIKHAHIT}${MAI_THO}`);
+});
+
 test('Thai and Arabic digits are the same number', async () => {
   assert.ok(findIn('ปีการศึกษา ๒๕๖๘', '2568'));
   assert.ok(findIn('ปีการศึกษา 2568', '๒๕๖๘'));

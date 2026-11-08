@@ -47,6 +47,8 @@ const CLUSTER = /\P{M}\p{M}*|\p{M}+/gu;
 // made a tone-insensitive search miss — every other mark was let through.
 const THAI_MARKS = /[ัิ-ฺ็-๎]/;
 const THAI_CHAR = /[฀-๿]/;
+// The four tone marks, mai ek to mai chattawa (U+0E48-U+0E4B).
+const TONE_MARK = /[่-๋]/;
 
 const THAI_DIGITS = { '๐': '0', '๑': '1', '๒': '2', '๓': '3', '๔': '4', '๕': '5', '๖': '6', '๗': '7', '๘': '8', '๙': '9' };
 
@@ -89,16 +91,29 @@ export function fold(text, { dropSpaces = false, dropMarks = false } = {}) {
     put(foldChar(ch, { dropMarks }), start, end);
   };
   // Decomposed สระอำ (NIKHAHIT + SARA AA) becomes the single codepoint. The
-  // nikhahit waits one character to see whether SARA AA follows it.
-  let held = null; // { start, end } of a NIKHAHIT not yet placed
+  // nikhahit waits to see whether SARA AA follows it, and lets one tone mark
+  // wait with it: the text of many Thai PDFs writes น้ำ as น + NIKHAHIT + ้ + า,
+  // which folds to น + ้ + ำ, the order a keyboard types it in.
+  let held = null; // { start, end, tone } of a NIKHAHIT not yet placed
+  const release = () => {
+    const h = held;
+    held = null;
+    take('ํ', h.start, h.end);
+    if (h.tone) take(h.tone.ch, h.tone.start, h.tone.end);
+  };
   const emit = (ch, start, end) => {
     if (held) {
-      const h = held;
-      held = null;
-      if (ch === 'า') { take('ำ', h.start, end); return; }
-      take('ํ', h.start, h.end);
+      if (ch === 'า') {
+        const h = held;
+        held = null;
+        if (h.tone) take(h.tone.ch, h.tone.start, h.tone.end);
+        take('ำ', h.start, end);
+        return;
+      }
+      if (!held.tone && TONE_MARK.test(ch)) { held.tone = { ch, start, end }; return; }
+      release();
     }
-    if (ch === 'ํ') { held = { start, end }; return; }
+    if (ch === 'ํ') { held = { start, end, tone: null }; return; }
     take(ch, start, end);
   };
   if (src.normalize('NFC') === src) {
@@ -114,7 +129,7 @@ export function fold(text, { dropSpaces = false, dropMarks = false } = {}) {
       else for (let i = 0; i < piece.length; i++) emit(piece[i], start, end);
     }
   }
-  if (held) take('ํ', held.start, held.end);
+  if (held) release();
   return { text: out, map, ends, src };
 }
 

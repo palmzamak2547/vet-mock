@@ -36,6 +36,30 @@ test('lazy per-subject articles preserve canonical evidence and corrections', as
   }
 });
 
+test('a word pasted from a slide finds what the same word typed finds', async () => {
+  // Copied out of a PDF or a document, น้ำนม can carry a zero-width space or
+  // write สระอำ as two codepoints, in either order around the tone mark; the
+  // index stores the one-codepoint ำ, so the pasted word found nothing.
+  const { searchTopics } = await import('../../src/lib/vetwiki/runtime-search.js');
+  const shape = (results) => results.map((r) => [r.topic.id, r.inTitle, r.matchedSections.map((s) => s.id)]);
+  const [NIKHAHIT, MAI_THO, ZWSP, SOFT_HYPHEN] = [0x0e4d, 0x0e49, 0x200b, 0x00ad].map((c) => String.fromCharCode(c));
+  for (const [typed, pasted] of [
+    ['น้ำนม', [`น${MAI_THO}${NIKHAHIT}านม`, `น${NIKHAHIT}${MAI_THO}านม`, `น้ำ${ZWSP}นม`, `${ZWSP}น้ำนม${ZWSP}`]],
+    ['จำนวน', [`จ${NIKHAHIT}านวน`, `จำ${SOFT_HYPHEN}นวน`]],
+    ['พ.ศ. 25', ['พ.ศ. ๒๕']],
+  ]) {
+    const expected = shape(await searchTopics(typed));
+    assert.ok(expected.length > 0, `"${typed}" is meant to be in VetWiki`);
+    for (const q of pasted) {
+      const got = await searchTopics(q);
+      assert.deepEqual(shape(got), expected, `${JSON.stringify(q)} found something other than "${typed}"`);
+      assert.equal(got.incompleteSubjects, 0);
+    }
+  }
+  // Invisible characters alone are still no search at all.
+  assert.deepEqual(await searchTopics(ZWSP), []);
+});
+
 test('on-demand browser search still matches Thai article bodies', async () => {
   const { searchTopics } = await import('../../src/lib/vetwiki/runtime-search.js');
   const results = await searchTopics('วัคซีน');
