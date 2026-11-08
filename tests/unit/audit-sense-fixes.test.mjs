@@ -534,8 +534,8 @@ test('the exam clock is a budget for the paper', () => {
     'and the in-flight record says which clock, so a deploy cannot change the rules mid-exam');
   assert.ok(hook.includes("clockKind: () => (sessionClockRef.current ? 'session' : 'per-question'),"),
     'the hook reports the clock it runs on');
-  assert.ok(app.includes("session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam' });"),
-    'a new set names its clock instead of trusting the closure');
+  assert.ok(app.includes("session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam', timePerQ: baseTime });"),
+    'a new set names its clock and its per-question time instead of trusting the closure');
 });
 
 test('the home screen folds its two coaching surfaces into one row', () => {
