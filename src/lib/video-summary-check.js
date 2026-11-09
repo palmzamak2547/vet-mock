@@ -119,7 +119,7 @@ const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ
 // Course logistics too: reports, homework, credits, grading, roll call, group sizes,
 // and "นักศึกษา" (VetMock says นิสิต). "เคยออก" and "ออกบ่อย" end their phrase:
 // "เคยออกอาการ" is a sign.
-const EXAM_TALK = /ข้อสอบ|ออกสอบ|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
+const EXAM_TALK = /ข้อสอบ|ออกสอบ|การสอบ|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
 // The recording's own set-up is no content ("ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน").
 const SETUP = /ยังไม่มีเนื้อหา|ก่อนเริ่มบรรยาย|ก่อนเริ่มสอน|เตรียมการสอน|เตรียมระบบ|ไฟล์เรียน|ช่วงเปิดคลิป/;
 export const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิป|บรรยาย)/;
@@ -351,7 +351,9 @@ export function coverage(summary, mustCover, { chapters = [], window = 120, page
     const acronyms = (String(item.text || '').match(/\b[A-Z][A-Z0-9]{2,5}\b/g) || []).map((a) => a.toLowerCase());
     const words = [...latinIn(item.text), ...acronyms, ...(item.kind === 'mark' ? latinIn(pageText(item.page)) : [])];
     const text = String(p.text || '').toLowerCase();
-    return words.some((w) => text.includes(w)) || (item.kind === 'number' && numbersIn(item.text).some((n) => numbersIn(p.text).includes(n)));
+    // A red mark in Thai ("เขตโรคระบาด") has no Latin word: it counts when the line says it.
+    const thaiMark = item.kind === 'mark' && /[฀-๿]{2}/.test(item.text || '') && String(p.text || '').includes(String(item.text).trim());
+    return thaiMark || words.some((w) => text.includes(w)) || (item.kind === 'number' && numbersIn(item.text).some((n) => numbersIn(p.text).includes(n)));
   };
   const covered = [];
   const missing = [];
