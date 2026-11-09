@@ -9,19 +9,19 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,181** |
-| Questions retained but fail-closed pending answer, scope, or figure review | 78 |
-| Total questions in source banks | 8,259 |
-| Question banks (files) | 106 |
+| **Questions ready for learners** | **8,832** |
+| Questions retained but fail-closed pending answer, scope, or figure review | 211 |
+| Total questions in source banks | 9,043 |
+| Question banks (files) | 107 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 297 |
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 5,602 |
+| — year 5 | 6,253 |
 
-Consistency: source banks **8259**, learner-ready **8181**, fail-closed **78**, registry sums to **8259**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9043**, learner-ready **8832**, fail-closed **211**, registry sums to **9043**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -91,7 +91,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | swine-clinic | 254 | 158 | 0 | 62.2% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
-| vca | 691 | 90 | 90 | 13.0% |
+| vca | 1342 | 88 | 88 | 6.6% |
 | vet-dev-anat | 26 | 0 | 0 | 0.0% |
 | vet-histo | 104 | 0 | 0 | 0.0% |
 | vet-imaging | 35 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8181 | 5266 | 334 | 64.4% |
+| **All** | 8832 | 5264 | 332 | 59.6% |

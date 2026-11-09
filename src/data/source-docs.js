@@ -1285,6 +1285,31 @@ export const SOURCE_DOCS = [
     match: /สรุปเรื่องการสอบสวนการระบาด \(ไฟล์ compilation SJ\)/i, // sunsun84/compilation - SJ.pdf
     editions: [{ id: '2p', pages: 2 }],
   },
+  {
+    slug: 'vca-super-exotic', subject: 'vca', title: "Super สรุป exotic และสัตว์ป่า, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป exotic และสัตว์ป่า \(@Fukfangfluffy_channel\)/, // external notes PDF, 9 pages
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'vca-super-equine', subject: 'vca', title: "Super สรุป ม้า, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป ม้า \(@Fukfangfluffy_channel\)/, // external notes PDF, 18 pages
+    editions: [{ id: '18p', pages: 18 }],
+  },
+  {
+    slug: 'vca-super-dogcat', subject: 'vca', title: "Super สรุป หมาแมว, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป หมาแมว \(@Fukfangfluffy_channel\)/, // external notes PDF, 55 pages
+    editions: [{ id: '55p', pages: 55 }],
+  },
+  {
+    slug: 'vca-super-swine', subject: 'vca', title: "Super สรุป หมู, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป หมู \(@Fukfangfluffy_channel\)/, // external notes PDF, 18 pages
+    editions: [{ id: '18p', pages: 18 }],
+  },
+  {
+    slug: 'vca-super-aquatic', subject: 'vca', title: "Super สรุป สัตว์น้ำ, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป สัตว์น้ำ \(@Fukfangfluffy_channel\)/, // external notes PDF, 11 pages
+    editions: [{ id: '11p', pages: 11 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));
