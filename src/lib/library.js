@@ -857,8 +857,11 @@ export async function resolveDocUrl(doc) {
     // most readers do not have. The token only decides whether the endpoint
     // will hand over storage_key at all (401) — a public document mints the
     // identical URL with or without it — so the honest order is: try, and pay
-    // for the session only if the server says it needs one.
-    const mint = (token) => fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
+    // for the session only if the server says it needs one. A VetMock AI
+    // link's open ticket (doc.ticket) goes along, so the Chula gate lets the
+    // first try through too.
+    const ticket = doc.ticket ? `&vt=${encodeURIComponent(doc.ticket.vt)}&ve=${doc.ticket.ve}` : '';
+    const mint = (token) => fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}${ticket}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     let res;
@@ -1150,11 +1153,11 @@ export async function downloadDocFile(resolve, name) {
 /** The payload the PDF reader receives. `resolve` defers the mint to the
  *  reader's own loading phase, so tapping a card navigates instantly instead
  *  of freezing the button for the mint round-trip. */
-export function readerPayload(doc, { page = null, returnTarget = null } = {}) {
+export function readerPayload(doc, { page = null, returnTarget = null, ticket = null } = {}) {
   return {
     page,
     returnTarget,
-    resolve: () => resolveDocUrl(doc),
+    resolve: () => resolveDocUrl(ticket ? { ...doc, ticket } : doc),
     fileName: `${doc.title}.pdf`,
     mime: doc.mime,
     sha256: doc.sha256_16,

@@ -133,6 +133,7 @@ function addressBook(r, rows) {
   r.ctx.readerPayload = (row, { page }) => ({ url: `audit:${row.slug}`, slug: row.slug, sha256: row.sha256_16, fileName: `${row.title}.pdf`, title: row.title, page, rangeSupported: true });
   r.ctx.setOpenedDoc = (doc) => { r.state.opened = doc; };
   r.ctx.missingDocReason = async () => 'ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป';
+  r.ctx.resolveDocUrl = async (doc) => { r.state.minted = doc; return `audit:${doc.slug}`; };
 }
 
 test('a deck named only by the reader address opens from its row, at the page the link asked for', async () => {
@@ -151,8 +152,13 @@ test('a deck named only by the reader address opens from its row, at the page th
 test('a deck the address names but the shelf no longer has says so instead of an empty page', async () => {
   const r = reader();
   addressBook(r, { notes: { slug: 'notes', title: 'Notes', mime: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', sha256_16: 'notes' } });
-  await r.ingestRemote({ slug: 'gone', fromUrl: true });
+  const ticket = { vt: 'v'.repeat(43), ve: 1900000000 };
+  await r.ingestRemote({ slug: 'gone', fromUrl: true, ticket });
   assert.match(String(r.state.Error), /ไม่พบไฟล์นี้ในคลังแล้ว/);
+  // Never a dead end: the panel's open and download ask the server's own mint,
+  // with the ticket a VetMock AI link carried.
+  assert.equal(await r.state.opened?.resolve?.(), 'audit:gone');
+  assert.equal(JSON.stringify(r.state.minted), JSON.stringify({ slug: 'gone', storage_provider: 'r2', ticket }));
   await r.ingestRemote({ slug: 'notes', fromUrl: true });
   assert.match(String(r.state.Error), /ไม่ใช่ PDF/, 'a Word file named in the address is offered as a file, not fed to pdf.js');
   assert.equal(r.state.opened?.title, 'Notes');

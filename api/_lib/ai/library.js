@@ -39,6 +39,7 @@ import { normalizeQuery } from '../../../src/lib/vetwiki/query-terms.js';
 import { clip, stripBroken } from './text.js';
 import { RARE_SHARE } from './textindex.js';
 import { mintOpenTicket, ticketQuery } from '../open-ticket.js';
+import { readerUrl } from '../../../src/lib/view-route.js';
 
 const SITE = 'https://vetmock.com';
 const TIMEOUT_MS = 1400;
@@ -48,7 +49,7 @@ const FILES_TIMEOUT_MS = 4000;
 // pages ~4.5, a syllabus that mentions it once ~2.9; a deck that only words any
 // lecture uses found can reach ~4.7, and findFiles' gate keeps it off instead)
 const RELATED_FLOOR = 3.5;
-const COLUMNS = 'id,slug,title,kind,subject,year,semester,academic_year,lecturer,page_count,byte_size,mime';
+const COLUMNS = 'id,slug,title,kind,subject,year,semester,academic_year,lecturer,page_count,byte_size,mime,storage_provider';
 
 export const FILE_KINDS = Object.freeze({
   slide: 'สไลด์',
@@ -107,15 +108,23 @@ export function formatOf(mime = '', title = '') {
   return /\.pdf$/i.test(title) ? 'PDF' : '';
 }
 
-/** The links a document opens and downloads through (vetmock.com's own gate):
- *  open lands on the matching page; download saves it under its own title. The
- *  links carry an open ticket, so a member's tap works without a header. */
-export function fileLinks(slug, page, title = '', mime = 'application/pdf', ticket = null) {
+/** The links a document opens and downloads through (vetmock.com's own gate).
+ *  A PDF opens in VetMock's reader at the matching page: a phone's own viewer
+ *  ignores #page (iPhone shows page 1, Android often downloads). Other files,
+ *  and copies kept on Google Drive or another site, open through the gate as
+ *  the shelf opens them (docOpenMode). Download saves the file under its own
+ *  title. The links carry an open ticket, so a member's tap works without a
+ *  header; in the reader's link it is the fallback's, if the deck is not found. */
+export function fileLinks(slug, page, title = '', mime = 'application/pdf', ticket = null, provider = '') {
   const q = `${SITE}/api/library-file?slug=${encodeURIComponent(slug)}&open=1${ticketQuery(ticket)}`;
   const fmt = formatOf(mime, title);
   const ext = fmt ? `.${fmt.toLowerCase()}` : '';
   const name = title ? `&name=${encodeURIComponent(`${displayTitle(title).slice(0, 140)}${ext}`)}` : '';
-  return { open: page > 1 ? `${q}#page=${page}` : q, download: `${q}&dl=1${name}` };
+  const reader = mime === 'application/pdf' && provider !== 'google-drive' && provider !== 'external';
+  // `file`: the file itself, for in-app browsers (LINE, Facebook), where the
+  // reader's Chula wall cannot sign in with Google (ai/src/lib/env.js openLink).
+  const file = page > 1 ? `${q}#page=${page}` : q;
+  return { open: reader ? `${SITE}${readerUrl(slug, page, ticket)}` : file, file, download: `${q}&dl=1${name}` };
 }
 
 /** A search phrase as library_search reads it: lower-case words, at most six. */
@@ -357,7 +366,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
         bytes: Number(d.byte_size) || null,
         page: page || null,
         snippet: tidySnippet(d.snippet),
-        ...fileLinks(d.slug, page, d.title, d.mime || undefined, token ? mintOpenTicket(d.slug) : null),
+        ...fileLinks(d.slug, page, d.title, d.mime || undefined, token ? mintOpenTicket(d.slug) : null, d.storage_provider),
       };
     });
 
@@ -393,12 +402,14 @@ export function pageSource({ doc, page, body }, { needles = [], token = null } =
   // the first place a needle (Thai substring or English pattern) appears
   const at = needles.map((n) => (n?.re ? flat.search(new RegExp(n.re.source, 'i')) : flat.toLowerCase().indexOf(needleText(n).toLowerCase() || '\u0000')))
     .filter((i) => i >= 0).sort((a, b) => a - b)[0] ?? 0;
+  const links = fileLinks(doc.slug, page, '', doc.mime || undefined, token ? mintOpenTicket(doc.slug) : null, doc.storage_provider);
   return {
     kind: 'library',
     title: clip(displayTitle(doc.title), 140),
     subtitle: `${kindLabel}${subject ? ` ${subject}` : ''}, หน้า ${page}`,
     subject,
-    url: fileLinks(doc.slug, page, '', undefined, token ? mintOpenTicket(doc.slug) : null).open,
+    url: links.open,
+    file: links.file,
     snippet: clip(flat.slice(Math.max(0, at - 60)), 220),
     context: clip(body, 1500),
   };
