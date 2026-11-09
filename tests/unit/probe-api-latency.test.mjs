@@ -62,7 +62,9 @@ test('a dead token or a host that is not VetMock gets nothing', async () => {
   const dead = await probe(jwt(Math.floor(Date.now() / 1000) - 10));
   assert.equal(dead.code, 2);
   assert.equal(dead.seen.length, 0);
-  const foreign = await probe(GOOD, { base: 'https://example.com' });
-  assert.equal(foreign.code, 2);
-  assert.match(foreign.stderr, /not sending a member token to https:\/\/example\.com/);
+  for (const base of ['https://example.com', 'https://vetmock.com.example.com', 'https://vetmock-copy.vercel.app']) {
+    const foreign = await probe(GOOD, { base });
+    assert.equal(foreign.code, 2, base);
+    assert.match(foreign.stderr, /not sending a member token to /, base);
+  }
 });

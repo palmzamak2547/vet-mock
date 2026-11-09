@@ -17,8 +17,8 @@ const opt = (n, d) => args.find((a) => a.startsWith(`--${n}=`))?.slice(n.length 
 const BASE = opt('base', 'https://vetmock.com');
 const RUNS = Number(opt('runs', 3));
 const TOKEN = process.env.VMX_PROBE_TOKEN || '';
-// A member's token goes to VetMock only: production, its previews, or a local API.
-if (TOKEN && !/^(https:\/\/([a-z0-9-]+\.)*vetmock\.com|https:\/\/vetmock-[a-z0-9-]+\.vercel\.app|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?)$/.test(new URL(BASE).origin)) {
+// A member's token goes to VetMock only: production, this team's previews, or a local API.
+if (TOKEN && !/^(https:\/\/([a-z0-9-]+\.)*vetmock\.com|https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?)$/.test(new URL(BASE).origin)) {
   console.error(`not sending a member token to ${new URL(BASE).origin}`);
   process.exit(2);
 }
