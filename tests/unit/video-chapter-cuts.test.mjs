@@ -26,3 +26,10 @@ test('a window is cut inside itself only', () => {
   assert.deepEqual(speechCuts(speech, [], 1800, 2400), [1800], 'ten minutes stay whole');
   assert.deepEqual(speechCuts([], [500]), []);
 });
+
+test('a mark inside a long break cuts where speech resumes, never in the silence', () => {
+  const talk = [...Array.from({ length: 100 }, (_, i) => ({ t: i * 10 })), ...Array.from({ length: 100 }, (_, i) => ({ t: 3000 + i * 10 }))];
+  const cuts = speechCuts(talk, []);
+  assert.ok(cuts.every((t) => t < 1000 || t >= 3000), `a cut in the break: ${cuts}`);
+  assert.ok(cuts.includes(3000), 'the chapter after the break starts when speech resumes');
+});

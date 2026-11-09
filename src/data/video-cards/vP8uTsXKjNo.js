@@ -150,8 +150,14 @@ export default {
   },
   {
    "t": 2856,
-   "title": "",
-   "line": "เฉลย selective dry cow therapy และ automated feeder ซึ่ง net change ติดลบจึงไม่ควรเปลี่ยน"
+   "title": "analysis",
+   "line": "เฉลย selective dry cow therapy และ automated feeder ซึ่ง net change ติดลบจึงไม่ควรเปลี่ยน",
+   "slides": [
+    {
+     "doc": "28-09-2026-introduction-to-animal-health-economics-tc-1e1606",
+     "page": 10
+    }
+   ]
   },
   {
    "t": 3480,
@@ -211,7 +217,7 @@ export default {
   {
    "t": 4030,
    "title": "",
-   "line": "แบบฝึกหัด cost benefit analysis เปรียบเทียบ vaccination กับ test and slaughter ใน brucellosis ของแพะแกะ"
+   "line": "แบบฝึกหัด cost benefit analysis เปรียบเทียบ mass vaccination กับ test and slaughter ใน brucellosis ของแพะแกะ โดยใช้ข้อมูลจาก paper ประเทศบอสเนียปี 2009-2016"
   },
   {
    "t": 4260,
@@ -224,12 +230,7 @@ export default {
    "line": "นำ cost และ benefit แต่ละปีใส่ตาราง คูณ discount factor แล้วรวมเป็น cumulative net present value"
   },
   {
-   "t": 9935,
-   "title": "",
-   "line": "เฉลยวิธีคำนวณแบบฝึกหัด cost benefit analysis"
-  },
-  {
-   "t": 10260,
+   "t": 10221,
    "title": "",
    "line": "คำนวณ vaccination cost จากประชากร ค่า cover rate และค่าเทส ส่วน test and slaughter คิดค่าเทสและค่า culling"
   },
@@ -255,13 +256,8 @@ export default {
    "line": "partial budget ใช้เมื่อเทียบมาตรการหนึ่งกับอีกอย่างหนึ่ง โดยดูการเปลี่ยนแปลงของกำไร"
   },
   {
-   "t": 11982,
-   "title": "",
-   "line": "ทำแบบฝึกหัดเสร็จแล้วจึงเปิดหน้าเฉลย"
-  },
-  {
-   "t": 12360,
-   "title": "probability, probabilities",
+   "t": 12335,
+   "title": "Cost-Effectiveness Analysis (CEA)",
    "line": "Decision tree ใช้เลือกทางเลือกที่ expected cost ต่ำสุดเมื่อมีความไม่แน่นอน",
    "slides": [
     {

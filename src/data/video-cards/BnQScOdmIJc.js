@@ -178,7 +178,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 18
-    },
+    }
+   ]
+  },
+  {
+   "t": 1380,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Pseudomonas เป็นสาเหตุสำคัญที่สุดของ aerobic spoilage โดยใช้กลูโคสก่อนและเกิดกลิ่นเน่าเสียเมื่อหันมาใช้ amino acid พบสายพันธุ์ Fluorescens และ Fragilis",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 19
@@ -186,9 +193,9 @@ export default {
    ]
   },
   {
-   "t": 1573,
-   "title": "เนื้อสัตว์, pseudomonas",
-   "line": "Pseudomonas เป็นสาเหตุสำคัญที่สุดของ aerobic spoilage โดยใช้กลูโคสก่อนและเกิดกลิ่นเน่าเสียเมื่อหันมาใช้ amino acid พบสายพันธุ์ Fluorescens และ Fragilis",
+   "t": 1740,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Acinetobacter และ Moraxella ใช้กรดอะมิโนแต่ไม่สร้างกลิ่นรุนแรง เป็น low spoilage potential",
    "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
@@ -197,7 +204,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 21
-    },
+    }
+   ]
+  },
+  {
+   "t": 1920,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Lactobacillus และ Brochothrix thermosphacta เป็นสาเหตุสำคัญของ vacuum packaged meat, Lactobacillus เจริญได้ดีในสภาวะ anaerobic และ pH ≤ 4.5",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 22
@@ -205,9 +219,9 @@ export default {
    ]
   },
   {
-   "t": 1942,
-   "title": "เนื้อสัตว์, DFD",
-   "line": "Lactobacillus และ Brochothrix thermosphacta เป็นตัวหลักใน Vacuum Package ส่วน Shewanella ทำให้ DFD Meat เป็นสีเขียว",
+   "t": 2100,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Shewanella putrefaciens เจริญไม่ได้ที่ pH ≤ 6 พบใน vacuum packaged DFD meat pH > 6 และ H2S ทำปฏิกิริยากับ myoglobin เนื้อเป็นสีเขียว",
    "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
@@ -216,22 +230,29 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 24
-    },
-    {
-     "doc": "microbiology-of-meat-51d9de",
-     "page": 25
     }
    ]
   },
   {
-   "t": 2450,
-   "title": "clostridium, เนื้อสัตว์",
+   "t": 2340,
+   "title": "Microorganisms of meat (ต่อ)",
    "line": "Clostridium สร้าง Spore ไม่ต้องการอากาศ ไม่เจริญที่ pH ต่ำกว่า 4.5 และทำให้เกิด Deep Spoilage",
    "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
-     "page": 26
+     "page": 25
     },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 26
+    }
+   ]
+  },
+  {
+   "t": 2640,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Enterobacteriaceae อื่นเป็นแกรมลบ facultative anaerobe ใช้กลูโคสแล้วใช้กรดอะมิโน สร้าง sulfide compounds, สำคัญในฐานะ pathogenic bacteria มากกว่าตัวทำให้เน่าเสีย",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 27
@@ -239,14 +260,9 @@ export default {
    ]
   },
   {
-   "t": 2930,
-   "title": "",
-   "line": "ทบทวน Spoilage Bacteria ก่อนเข้าสู่หัวข้อแบคทีเรียก่อโรค"
-  },
-  {
-   "t": 3180,
-   "title": "campylobacter, เนื้อสัตว์",
-   "line": "Salmonella ปนเปื้อนจากขั้นตอนเอาเครื่องในออก ควบคุมด้วยการปรุงสุกและหลีกเลี่ยงการปนเปื้อนข้าม",
+   "t": 3240,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "เชื้อก่อโรคปนเปื้อนในเนื้อโดยไม่ทำให้ลักษณะภายนอกเปลี่ยน",
    "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
@@ -255,7 +271,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 29
-    },
+    }
+   ]
+  },
+  {
+   "t": 3420,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Campylobacter jejuni เป็นแกรมลบ microaerophilic ไม่เพิ่มจำนวนในเนื้อ เจริญดีที่ 42 °C จึงเป็น thermophilic Campylobacter และโรคที่เกิดหายได้เอง",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 30
@@ -279,17 +302,31 @@ export default {
   },
   {
    "t": 3840,
-   "title": "เนื้อสัตว์, clostridium",
+   "title": "Microorganisms of meat (ต่อ)",
    "line": "Clostridium perfringens เป็น Foodborne Toxinfection จากเนื้ออบที่ทิ้งไว้อุณหภูมิห้อง ราและยีสต์พบใน Dry Aged Beef",
    "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 33
-    },
+    }
+   ]
+  },
+  {
+   "t": 4020,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "ยีสต์และราเจริญได้ที่ water activity ต่ำ พบในเนื้อเก็บนาน 4-6 สัปดาห์ Candida Torulopsis Rhodotorula ทำให้เกิดเมือกและเปลี่ยนสี กลิ่น รส",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 34
-    },
+    }
+   ]
+  },
+  {
+   "t": 4200,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "ไวรัสและปรสิตก่อโรคมากกว่าทำให้เน่าเสีย, ไวรัสปนเปื้อนจากพนักงาน, ปรุงให้สุกทำลายพยาธิและ Protozoa ได้",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 35
@@ -297,14 +334,7 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 36
-    }
-   ]
-  },
-  {
-   "t": 4332,
-   "title": "เนื้อสัตว์, ซาก",
-   "line": "ไวรัสและปรสิตก่อโรคมากกว่าทำให้เน่าเสีย เนื้อสดใหม่มีเชื้อ 10² ถึง 10⁴ CFU ต่อกรัม",
-   "slides": [
+    },
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 37
@@ -312,7 +342,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 38
-    },
+    }
+   ]
+  },
+  {
+   "t": 4500,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "เนื้อที่เพิ่งชำแหละมีเชื้อประมาณ 10^2 ถึง 10^4 CFU/g เป็น mesophile เช่น coliform, enterococci, micrococci, Clostridium perfringens และ Staphylococcus aureus",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 39
@@ -320,7 +357,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 40
-    },
+    }
+   ]
+  },
+  {
+   "t": 4680,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "rapidly chilled carcass มี shelf-life ยาวกว่าแต่เนื้อเหนียวกว่า, slowly chilled carcass shelf-life สั้นกว่าแต่เนื่มนุ่มกว่า",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 41
@@ -347,7 +391,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 45
-    },
+    }
+   ]
+  },
+  {
+   "t": 5160,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Consumer packaging ให้ออกซิเจนซึมผ่านได้สูง Pseudomonas จึงเป็นสาเหตุหลักที่ทำให้เน่าเสีย",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 46
@@ -399,7 +450,7 @@ export default {
   {
    "t": 6000,
    "title": "Control of microorganisms on meat",
-   "line": "ล้างซากด้วยน้ำร้อน 82 °C และทำ Trimming ช่วยลดเชื้อที่ปนเปื้อนบนผิวซาก",
+   "line": "การปนเปื้อนเชื้อในเนื้อเริ่มตั้งแต่ฟาร์มและเกิดในขั้นชำแหละตัดแต่ง การเก็บรักษา และการจัดจำหน่าย",
    "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
@@ -408,7 +459,14 @@ export default {
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 55
-    },
+    }
+   ]
+  },
+  {
+   "t": 6120,
+   "title": "Control of microorganisms on meat (ต่อ)",
+   "line": "การควบคุมเชื้อในเนื้อทำได้สามขั้น คือป้องกันการปนเปื้อน ทำลายหรือลดจำนวนเชื้อ และยืดอายุไม่ให้เชื้อเจริญถึง 10^6",
+   "slides": [
     {
      "doc": "microbiology-of-meat-51d9de",
      "page": 56

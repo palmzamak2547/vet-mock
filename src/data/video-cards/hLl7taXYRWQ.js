@@ -464,7 +464,7 @@ export default {
   {
    "t": 4140,
    "title": "Negligible Very low Low Moderate High Extreme",
-   "line": "Risk Estimation รวม Entry Exposure Consequence เป็น Annual Overall Risk",
+   "line": "Overall annual risk ได้จากการรวม Partial annual risk ของทุก Exposure Group ด้วยวิธี Summation",
    "slides": [
     {
      "doc": "import-risk-assessment-present-5944d3",

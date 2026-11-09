@@ -162,3 +162,28 @@ test('a stray word from another alphabet is caught; Greek notation is not', () =
   assert.ok(voiceErrors('vitreous เป็นวุ้นใส حجمใหญ่สุดในลูกตา').includes('letters from another alphabet'));
   assert.deepEqual(voiceErrors('Power เท่ากับ 1 ลบ β และ Giardia cyst 9-13 μm'), []);
 });
+
+test('review of 9 Nov: words that look like exam talk, framing or a break but are content', () => {
+  for (const ok of ['ตอนสอบกลับแหล่งที่มาของเนื้อต้องมีเอกสาร', 'วันสอบเทียบเครื่องมือต้องบันทึกไว้', 'พบ piroplasm in red blood cell', 'ให้สัตว์พัก 10 นาทีก่อนวัดความดันโลหิต']) {
+    assert.deepEqual(voiceErrors(ok), [], ok);
+  }
+  assert.ok(voiceErrors('เดี๋ยวพักเบรกแล้วค่อยต่อ').includes('talks about the class instead of stating the fact'));
+  assert.ok(voiceErrors('วันสอบให้มาก่อนเวลา').includes('talks about the exam instead of stating the fact'));
+  assert.equal(thaiNumbers('ประมาณล้านตัว')[0], '1000000');
+  assert.equal(thaiNumbers('ล้านสองแสน')[0], '1200000');
+});
+
+test('review of 9 Nov: an acronym covers as a whole word, and a Thai mark list by any of its terms', () => {
+  const at = 600;
+  const card = (text) => ({ oneLiner: 'x', keyPoints: [{ t: at, text }], emphasis: [], remember: [], chapters: [] });
+  const mark = (id, text) => ({ id, kind: 'mark', text, at, page: 1 });
+  assert.deepEqual(coverage(card('ฉายรังสี irradiation ฆ่าเชื้อในอาหาร'), [mark('m:1', 'ADI')]).missing, ['m:1']);
+  assert.deepEqual(coverage(card('ค่า ADI คือปริมาณที่รับได้ต่อวัน'), [mark('m:1', 'ADI')]).missing, []);
+  assert.deepEqual(coverage(card('ประกาศเขตเฝ้าระวังโรครัศมี 50 กม.'), [mark('m:2', 'เขตโรคระบาด, เขตเฝ้าระวังโรค')]).missing, []);
+});
+
+test('two chapters with the same line are flagged', () => {
+  const line = 'แบบฝึกหัด cost benefit analysis เปรียบเทียบ vaccination กับ test and slaughter';
+  const card = { oneLiner: 'x', keyPoints: [], emphasis: [], remember: [], chapters: [{ id: 'c8', t: 3480, line }, { id: 'c9', t: 4030, line }] };
+  assert.ok(lintSummary(card, { durationSec: 600, transcriptWords: 1000 }).errors.includes('chapter c9: says what chapter c8 says'));
+});

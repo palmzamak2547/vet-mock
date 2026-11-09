@@ -286,7 +286,7 @@ export default {
   },
   {
    "t": 2169,
-   "title": "เฝ้าระวัง, sensitivity & specificity",
+   "title": "การรายงานโรค",
    "line": "การเฝ้าระวังเชิงรุกมี general sentinel และ target โดยใช้ spatial กับ MCDA หาพื้นที่เสี่ยง",
    "slides": [
     {

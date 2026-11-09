@@ -135,7 +135,9 @@ export function speechCuts(speech, topicStarts, from = -Infinity, to = Infinity)
       const gap = said[i].t - (said[i - 1].end || said[i - 1].t);
       if (Math.abs(said[i].t - mark) <= 120 && (!best || gap > best.gap)) best = { t: said[i].t, gap };
     }
-    cuts.push(best ? best.t : mark);
+    // No line near the mark (a long break): the cut is where speech resumes, so
+    // no chapter starts in silence.
+    cuts.push(best ? best.t : said.find((l) => l.t > mark).t);
   }
   return cuts;
 }
@@ -482,6 +484,7 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
         c.pages = c.pages.filter((n) => n < cut.page);
         c.end = cut.at;
         chapters.splice(i + 1, 0, second);
+        i--; // the first half, now shorter, may split again at a page
       }
       // What no page can split (the lecturer talks on past the deck, or half an
       // hour on one slide) is cut by time like a lecture without a deck: a
@@ -493,12 +496,13 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
         const bounds = [c.start, ...speechCuts(speech, topicStarts, c.start, c.end).filter((t) => t >= c.start + MIN_CHAPTER && t <= c.end - MIN_CHAPTER), c.end];
         if (bounds.length === 2) continue;
         const atOf = (n) => pageAt.get(n)?.at ?? c.start;
-        const later = bounds.slice(1, -1).map((s, k) => ({
-          title: nameOf(s, bounds[k + 2]) || `${c.title.replace(/(\s*\(ต่อ\))+$/, '')} (ต่อ)`,
-          start: s,
-          end: bounds[k + 2],
-          pages: c.pages.filter((n) => atOf(n) >= s && atOf(n) < bounds[k + 2]),
-        }));
+        // A page taught at or past the chapter's end belongs to its last part; a part
+        // with slides keeps a slide's heading as its title.
+        const later = bounds.slice(1, -1).map((s, k, all) => {
+          const own = c.pages.filter((n) => atOf(n) >= s && (k === all.length - 1 || atOf(n) < bounds[k + 2]));
+          const heading = own.map((n) => pageAt.get(n)?.heading).find(Boolean);
+          return { title: heading || nameOf(s, bounds[k + 2]) || `${c.title.replace(/(\s*\(ต่อ\))+$/, '')} (ต่อ)`, start: s, end: bounds[k + 2], pages: own };
+        });
         c.pages = c.pages.filter((n) => atOf(n) < bounds[1]);
         c.end = bounds[1];
         chapters.splice(i + 1, 0, ...later);

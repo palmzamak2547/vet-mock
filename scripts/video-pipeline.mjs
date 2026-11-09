@@ -175,7 +175,8 @@ async function main() {
       const scribe = path.join(dir, 'video.scribe.json3');
       const newer = (f) => fs.existsSync(f) && fs.existsSync(af) && fs.statSync(f).mtimeMs > fs.statSync(af).mtimeMs;
       // A Scribe transcript that arrived after the analysis is a reason to redo it, like new silence.
-      const stale = newer(sf) || newer(scribe);
+      // So is a deck added after it: a hand choice in polished.json reaches the slides.
+      const stale = newer(sf) || newer(scribe) || newer(path.join(dir, 'deck.json'));
       if ((!fs.existsSync(path.join(dir, 'video.th.json3')) && !fs.existsSync(scribe)) || (fs.existsSync(af) && !force && !stale)) return;
       // The summary was written against this analysis: it stays beside the new one
       // until the summary is redone, and the registry pairs the chapter lines with it.

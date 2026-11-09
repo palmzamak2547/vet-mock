@@ -42,7 +42,8 @@ function thaiInteger(parts) {
   let digit = null;
   for (const w of parts) {
     if (w in TH_UNITS) {
-      if (TH_UNITS[w] === 1e6) { total = (total + section + (digit ?? 0)) * 1e6; section = 0; } else section += (digit ?? 1) * TH_UNITS[w];
+      // A bare ล้าน is one million ("ประมาณล้านตัว", "ล้านสองแสน").
+      if (TH_UNITS[w] === 1e6) { total = ((total + section + (digit ?? 0)) || 1) * 1e6; section = 0; } else section += (digit ?? 1) * TH_UNITS[w];
       digit = null;
     } else digit = w === 'ยี่' ? 2 : w === 'เอ็ด' ? 1 : TH_DIGITS.indexOf(w);
   }
@@ -123,15 +124,16 @@ const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ
 // Course logistics too: reports, homework, credits, grading, roll call, group sizes,
 // and "นักศึกษา" (VetMock says นิสิต). "เคยออก" and "ออกบ่อย" end their phrase:
 // "เคยออกอาการ" is a sign.
-const EXAM_TALK = /ข้อสอบ|ออกสอบ|สอบปลายภาค|สอบกลางภาค|สอบย่อย|ตอนสอบ|วันสอบ|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
+const EXAM_TALK = /ข้อสอบ|ออกสอบ|สอบปลายภาค|สอบกลางภาค|สอบย่อย|(?:ตอน|วัน)สอบ(?!กลับ|เทียบ|ย้อน|สวน|ถาม)|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
 // The recording's own set-up is no content ("ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน").
 const SETUP = /ยังไม่มีเนื้อหา|ก่อนเริ่มบรรยาย|ก่อนเริ่มสอน|เตรียมการสอน|เตรียมระบบ|ไฟล์เรียน|ช่วงเปิดคลิป/;
 export const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิป|บรรยาย)/;
 // A slide's red mark named as such ("marked in red", "red text", "red คือ INFECTION"); red
 // before a noun is content ("Red meat", "red muscle fiber"), as สีแดง and ตัวแดง are in Thai.
-const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\b(?:in|marked|highlighted|written)\s+(?:in\s+)?red\b|\bred\s+(?:marks?|text|words?|fonts?|highlights?)\b|\bred\s*(?:คือ|=|:)|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
-// The class's own arrangements: a break, lunch, where to send questions.
-const CLASS_TALK = /พักเที่ยง|พัก(?:ก่อน)?\s*\d+\s*นาที|ส่งคำถาม|กลับมาเจอกัน/;
+const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\b(?:in|marked|highlighted|written)\s+(?:in\s+)?red\b(?!\s+(?:blood|cells?|pulp|meat|muscle))|\bred\s+(?:marks?|text|words?|fonts?|highlights?)\b|\bred\s*(?:คือ|=|:)|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
+// The class's own arrangements: a break, lunch, where to send questions. "ให้สัตว์พัก 10 นาที
+// ก่อนวัดความดัน" is content, so a timed break counts only as a whole line or with class wording.
+const CLASS_TALK = /พักเที่ยง|เดี๋ยวพัก|พักเบรก|ขอพัก|^\s*พัก(?:ก่อน)?\s*\d+\s*นาที\s*$|ส่งคำถาม|กลับมาเจอกัน/;
 const FORBIDDEN = /[·|]/;
 const SENTENCE_BREAK = /[.!?;](\s+)(?=\S)/;
 // Full stops that end no sentence: E. coli, Staphylococcus spp., e.g., 2.5,
@@ -186,6 +188,13 @@ export function lintSummary(summary, { durationSec, transcriptWords, chapterIds 
     for (let j = i + 1; j < card.length; j++) {
       if (Math.abs(card[i].t - card[j].t) > 60) continue;
       if (overlap(card[i].text, card[j].text) >= 0.6) errors.push(`${card[j].layer} ${card[j].t}: says what ${card[i].layer} ${card[i].t} says`);
+    }
+  }
+  // One line per chapter: an exercise taught over two stretches got the same line twice.
+  const lines = (summary?.chapters || []).filter((c) => c.line);
+  for (let i = 0; i < lines.length; i++) {
+    for (let j = i + 1; j < lines.length; j++) {
+      if (overlap(lines[i].line, lines[j].line) >= 0.85) errors.push(`chapter ${lines[j].id}: says what chapter ${lines[i].id} says`);
     }
   }
   const cap = Math.min(LIMITS.ceiling, keyPointCap(durationSec) + extraPoints);
@@ -360,11 +369,15 @@ export function coverage(summary, mustCover, { chapters = [], window = 120, page
     // slide lists under it (oxytocin, cloprostenol).
     // A red acronym ("SHIV") is under latinIn's five letters: it counts by its own name.
     const acronyms = (String(item.text || '').match(/\b[A-Z][A-Z0-9]{2,5}\b/g) || []).map((a) => a.toLowerCase());
-    const words = [...latinIn(item.text), ...acronyms, ...(item.kind === 'mark' ? latinIn(pageText(item.page)) : [])];
+    const words = [...latinIn(item.text), ...(item.kind === 'mark' ? latinIn(pageText(item.page)) : [])];
     const text = String(p.text || '').toLowerCase();
-    // A red mark in Thai ("เขตโรคระบาด") has no Latin word: it counts when the line says it.
-    const thaiMark = item.kind === 'mark' && /[฀-๿]{2}/.test(item.text || '') && String(p.text || '').includes(String(item.text).trim());
-    return thaiMark || words.some((w) => text.includes(w)) || (item.kind === 'number' && numbersIn(item.text).some((n) => numbersIn(p.text).includes(n)));
+    // An acronym counts as a whole token: "ADI" is not in "irradiation", nor "WHO" in "whole".
+    const token = (a) => new RegExp(`(?<![a-z0-9])${a}(?![a-z0-9])`).test(text);
+    // A red mark in Thai ("เขตโรคระบาด", or a list "เขตโรคระบาด, เขตเฝ้าระวังโรค") has no Latin
+    // word: it counts when the line says one of its terms.
+    const thaiMark = item.kind === 'mark' && String(item.text || '').split(/,\s*/).map((x) => x.trim())
+      .some((x) => /[฀-๿]{2}/.test(x) && String(p.text || '').includes(x));
+    return thaiMark || acronyms.some(token) || words.some((w) => text.includes(w)) || (item.kind === 'number' && numbersIn(item.text).some((n) => numbersIn(p.text).includes(n)));
   };
   const covered = [];
   const missing = [];
