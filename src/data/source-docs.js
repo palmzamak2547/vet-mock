@@ -1109,27 +1109,27 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'epid-control-2024', subject: 'epidemiology', title: "Control, Prevention and Eradication (deck 2024)",
-    match: /(?<!\d)10 - Control_Prevention_Eradication_Epi2024/i,
+    match: /(?<!\d)10 - Control_Prevention_Eradication_Epi2024|สไลด์ Control, prevention and eradication ชุดปี 2567/i,
     editions: [{ id: '35p', pages: 35 }],
   },
   {
     slug: 'epid-applied-stats-2024', subject: 'epidemiology', title: "Applied Statistics in Epidemiology (deck 2024)",
-    match: /(?<!\d)11 - Applied_Statistics_in_Epidemiology_2024/i,
+    match: /(?<!\d)11 - Applied_Statistics_in_Epidemiology_2024|สไลด์ Applied Statistics in Epidemiology ชุดปี 2567/i,
     editions: [{ id: '72p', pages: 72 }],
   },
   {
     slug: 'epid-lsd-action-plan-2024', subject: 'epidemiology', title: "The integrated action plan for surveillance, prevention and control of Lumpy skin disease in Thailand (deck 2024)",
-    match: /(?<!\d)16 - แผนปฏิบัติการ-lumpy-skin/i,
+    match: /(?<!\d)16 - แผนปฏิบัติการ-lumpy-skin|สไลด์แผนปฏิบัติการการเฝ้าระวัง ป้องกันและควบคุมโรคลัมปี สกินเชิงบูรณาการ ชุดปี 2567/i,
     editions: [{ id: '40p', pages: 40 }],
   },
   {
     slug: 'epid-intro-practice-2023', subject: 'epidemiology', title: "Introduction for practice: Veterinary Epidemiology (deck 2023)",
-    match: /(?<!\d)19 - Introduction for practice 2566/i,
+    match: /(?<!\d)19 - Introduction for practice 2566|สไลด์ Introduction for practice: Veterinary Epidemiology ชุดปี 2566/i,
     editions: [{ id: '53p', pages: 53 }],
   },
   {
     slug: 'epid-intro-2024', subject: 'epidemiology', title: "Veterinary epidemiology: introduction (deck 2024)",
-    match: /(?<!\d)1_vet_epidem_intro_050824/i,
+    match: /(?<!\d)1_vet_epidem_intro_050824|สไลด์ Introduction to veterinary epidemiology ชุดปี 2567/i,
     editions: [{ id: '23p', pages: 23 }],
   },
   {
@@ -1139,7 +1139,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'epid-outbreak-investigation-2024', subject: 'epidemiology', title: "Outbreak investigation (deck 2024)",
-    match: /(?<!\d)6 - Outbreak_investigation_SJ/i,
+    match: /(?<!\d)6 - Outbreak_investigation_SJ|สไลด์ Outbreak investigation ชุดปี 2567/i,
     editions: [{ id: '65p', pages: 65 }],
   },
   {
@@ -1185,8 +1185,105 @@ export const SOURCE_DOCS = [
   // Veterinary Epidemiology: the Vet 85 final summary a batch B sighting cites.
   {
     slug: 'epid-final-summary-vet85', subject: 'epidemiology', title: "ลำบากวิทยา (สรุปและบันทึกหลังสอบปลายภาค Epidemiology ของ Vet 85)",
-    match: /สรุปและบันทึกหลังสอบปลายภาคของ Vet 85/i,
+    match: /สรุปและบันทึกหลังสอบปลายภาคของ Vet 85|สรุปวิชา Epidemiology ฉบับพิมพ์ในชุดไฟล์ของ Vet 85/i,
     editions: [{ id: '12p', pages: 12 }],
+  },
+  // Veterinary Epidemiology: the 2567 decks of the Vet 84 pack under their "ชุดปี 2567" wording, the 2569 decks
+  // cited by their own title and the marked compilations; page counts read from the files on 9 Nov 2569.
+  {
+    slug: 'epid-basic-concept-2024', subject: 'epidemiology', title: "Basic Concepts in Epidemiology (deck 2024)",
+    match: /(?<!\d)2_vet_epidem_basic_concept_050824|สไลด์ Basic Concepts in Epidemiology ชุดปี 2567/i, // sunsun84/2_vet_epidem_basic_concept_050824.pdf
+    editions: [{ id: '31p', pages: 31 }],
+  },
+  {
+    slug: 'epid-transmission-2024', subject: 'epidemiology', title: "Concepts of Diseases and their transmission in Populations (deck 2024)",
+    match: /(?<!\d)3_vet_epidem_concept_of_dis_trans_050824|สไลด์ Concepts of Diseases and their transmission in Populations ชุดปี 2567/i, // sunsun84/3_vet_epidem_concept_of_dis_trans_050824.pdf
+    editions: [{ id: '46p', pages: 46 }],
+  },
+  {
+    slug: 'epid-causation-2024', subject: 'epidemiology', title: "Association vs Causation (deck 2024)",
+    match: /(?<!\d)4_vet_epidem_causation_050824|สไลด์ Association vs Causation ชุดปี 2567/i, // sunsun84/4_vet_epidem_causation_050824.pdf
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'epid-dx-screening-2024', subject: 'epidemiology', title: "Screening and Diagnostic tests (deck 2024)",
+    match: /(?<!\d)7_vet_epidem_Dx_and_Screening_070824|สไลด์ Screening and Diagnostic tests ชุดปี 2567/i, // sunsun84/7_vet_epidem_Dx_and_Screening_070824.pdf
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-surveillance-2024', subject: 'epidemiology', title: "Animal disease surveillance and monitoring (deck 2024)",
+    match: /(?<!\d)9 - Animal_disease_surveillance|สไลด์ Animal disease surveillance ชุดปี 2567|หน้าบันทึกเขียนมือท้ายไฟล์สไลด์ Animal disease surveillance ชุดปี 2567/i, // sunsun84/9 - Animal_disease_surveillance.pdf (pp51-52 are the handwritten notes)
+    editions: [{ id: '52p', pages: 52 }],
+  },
+  {
+    slug: 'epid-gov-policy-2024', subject: 'epidemiology', title: "นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ (deck 2024)",
+    match: /(?<!\d)12 - นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ deck 2024|สไลด์นโยบายภาครัฐและการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ ชุดปี 2567/i, // sunsun84/12 - นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ .pdf
+    editions: [{ id: '43p', pages: 43 }],
+  },
+  {
+    slug: 'epid-posters-2024', subject: 'epidemiology', title: "Posters: หลักระบาดวิทยาสู่การควบคุมโรค (deck 2024)",
+    match: /(?<!\d)12\.5 - Posters|โปสเตอร์หลักระบาดวิทยาสู่การควบคุมโรคกาฬโรคแอฟริกาในม้า ชุดปี 2567/i, // sunsun84/12.5 - Posters.pdf
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  {
+    slug: 'epid-ppp-2024', subject: 'epidemiology', title: "Public Private Partnership PPP (deck 2024)",
+    match: /(?<!\d)13 - Public Private Partnership PPP|สไลด์ Public Private Partnership PPP ชุดปี 2567/i, // sunsun84/13 - Public Private Partnership PPP.pdf
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'epid-ahs-action-plan-2024', subject: 'epidemiology', title: "แผนปฏิบัติการกำจัดโรคกาฬโรคแอฟริกาในม้า AHSCU67 (deck 2024)",
+    match: /(?<!\d)14 - AHSCU67|สไลด์แผนปฏิบัติการกำจัดโรคกาฬโรคแอฟริกาในม้า ชุดปี 2567/i, // sunsun84/14 - AHSCU67.pdf
+    editions: [{ id: '31p', pages: 31 }],
+  },
+  {
+    slug: 'epid-fmd-strategy-2024', subject: 'epidemiology', title: "นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย (ยุทธศาสตร์ FMD, deck 2024)",
+    match: /(?<!\d)15 - ยุทธศาสตร์ FMD240909|สไลด์นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย \(ไฟล์ยุทธศาสตร์ FMD\) ชุดปี 2567/i, // sunsun84/15 - ยุทธศาสตร์ FMD240909.pdf
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-applied-stat-2-2024', subject: 'epidemiology', title: "Applied Statistics ตอนที่ 2, model building in regression (deck 2024)",
+    match: /(?<!\d)18 - applied_stat_2|สไลด์ Applied Statistics ตอนที่ 2 \(applied_stat_2\) ชุดปี 2567/i, // sunsun84/18 - applied_stat_2.pdf
+    editions: [{ id: '62p', pages: 62 }],
+  },
+  {
+    slug: 'epid-fmd-2569', subject: 'epidemiology', title: "นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย",
+    match: /(?<!สไลด์)นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย(?! \(ไฟล์ยุทธศาสตร์ FMD\))/i, // epid/decks2569/นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย.txt
+    editions: [{ id: '44p', pages: 44 }],
+  },
+  {
+    slug: 'epid-anthrax-2569', subject: 'epidemiology', title: "โรคแอนแทรกซ์ (Anthrax) — แผนเผชิญเหตุ",
+    match: /โรคแอนแทรกซ์ \(Anthrax\) — แผนเผชิญเหตุ/i, // library copy, 28 pages (the .txt export shows 27 page markers)
+    editions: [{ id: '28p', pages: 28 }],
+  },
+  {
+    slug: 'epid-intro-2569', subject: 'epidemiology', title: "Introduction to Epidemiology 2569 (NC)",
+    match: /Introduction to Epidemiology 2569 \(NC\)/i, // 1_vet epidem intro 150526.pdf on Palm's Drive (Y.5 Term1 Mid, Epidemiology); the library has no copy
+    editions: [{ id: '26p', pages: 26 }],
+  },
+  {
+    slug: 'epid-poster-control-2569', subject: 'epidemiology', title: "หลักระบาดวิทยาสู่การควบคุมโรค — กาฬโรคแอฟริกาในม้า (โปสเตอร์ 2569)",
+    match: /(?<!โปสเตอร์)หลักระบาดวิทยาสู่การควบคุมโรค — กาฬโรคแอฟริกาในม้า/i, // epid/decks2569/หลักระบาดวิทยาสู่การควบคุมโรค — กาฬโรคแอฟริกาในม้า.txt
+    editions: [{ id: '1p', pages: 1 }],
+  },
+  {
+    slug: 'epid-poster-prevention-2569', subject: 'epidemiology', title: "หลักระบาดวิทยาสู่นโยบายการป้องกันโรค (โปสเตอร์ 2569)",
+    match: /หลักระบาดวิทยาสู่นโยบายการป้องกันโรค/i, // epid/decks2569/หลักระบาดวิทยาสู่นโยบายการป้องกันโรค.txt
+    editions: [{ id: '1p', pages: 1 }],
+  },
+  {
+    slug: 'epid-all-mindmaps-vet84', subject: 'epidemiology', title: "EPIDEMIOLOGY all, Vet 83 mind maps with Vet 84 stars (Vet 84 folder)",
+    match: /แผนผังสรุป \(mind map\) ของ Vet 83 ที่ Vet 84 เติมดาวแดง \(ไฟล์ EPIDEMIOLOGY all|ดาวแดงที่ Vet 84 เพิ่มบนแผนผังความคิดของ Vet 83 ในชุดไฟล์ EPIDEMIOLOGY all/i, // Vet 84 folder compilation, EPIDEMIOLOGY all (sha 6a98ad93; its file name is aliased in file-aliases.json)
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'epid-mid-summary-vet83', subject: 'epidemiology', title: "epidem mid, Vet 83 midterm summary (Vet 84 folder)",
+    match: /แผนผังความคิด Surveillance & Monitoring ในชุดสรุปกลางภาคของ Vet 83|สรุปกลางภาคชุดของ Vet 83 \(ไฟล์ compilation epidem mid\)/i, // sunsun84/compilation - -- epidem mid.pdf
+    editions: [{ id: '19p', pages: 19 }],
+  },
+  {
+    slug: 'epid-outbreak-summary-sj-vet84', subject: 'epidemiology', title: "สรุปเรื่องการสอบสวนการระบาด, compilation SJ (Vet 84 folder)",
+    match: /สรุปเรื่องการสอบสวนการระบาด \(ไฟล์ compilation SJ\)/i, // sunsun84/compilation - SJ.pdf
+    editions: [{ id: '2p', pages: 2 }],
   },
 ];
 

@@ -8,6 +8,21 @@ export const BLOCKED_QUESTIONS = [
     "source": "questions-biochem-lab.js"
   },
   {
+    "key": "epidemiology:214585",
+    "reason": "ต้องใช้ภาพประกอบ แต่ยังไม่มีภาพที่ตรวจสอบแล้ว",
+    "source": "questions-y5-epid-final-marked.js"
+  },
+  {
+    "key": "epidemiology:214591",
+    "reason": "ต้องใช้ภาพประกอบ แต่ยังไม่มีภาพที่ตรวจสอบแล้ว",
+    "source": "questions-y5-epid-final-marked.js"
+  },
+  {
+    "key": "epidemiology:214691",
+    "reason": "ต้องใช้ภาพประกอบ แต่ยังไม่มีภาพที่ตรวจสอบแล้ว",
+    "source": "questions-y5-epid-final-marked.js"
+  },
+  {
     "key": "livestock-pathology:8003",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-final-mixed.js"
@@ -398,4 +413,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 78;
+export const BLOCKED_QUESTION_COUNT = 81;
