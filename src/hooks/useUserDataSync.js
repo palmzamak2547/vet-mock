@@ -76,7 +76,7 @@ export function useUserDataSync(userId) {
   // One command owns the complete backup patch. A rejected local write must
   // leave every field unchanged, rather than applying half an import.
   const change = useMemo(() => patch => store.send({
-    type: 'CHANGE', principalId, derive: current => typeof patch === 'function' ? patch(current) : patch,
+    type: 'CHANGE', principalId, derive: (current, context) => typeof patch === 'function' ? patch(current, context) : patch,
   }), [store, principalId]);
   const emptyData = useMemo(() => createEmptyUserData(), []);
   const isCurrentPrincipal = snapshot.principalId === principalId;

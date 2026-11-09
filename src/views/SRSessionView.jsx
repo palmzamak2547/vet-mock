@@ -46,6 +46,8 @@ import { stillWrong } from '../lib/wrong-pool.js';
 // ============================================================
 
 const SIZE_PRESETS = [25, 50, 100, 200];
+// Written by HomeView's launchSR (the daily plan), read once here.
+const SR_PLAN_SIZE_KEY = 'vmx-sr-plan-size';
 
 export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, qbRevision = 0, loadAllYears = null, onOpenWiki = null, ownerId = null, history = [], startExam = null }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
@@ -69,7 +71,21 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   );
 
   // Persist last-used preferences
-  const [sessionSize, setSessionSize] = useLocalStorage('vmx-sr-session-size', 25);
+  const [savedSize, setSavedSize] = useLocalStorage('vmx-sr-session-size', 25);
+  // Home's daily plan asks for its own count for one session (read once from
+  // sessionStorage, dropped after commit). It used to overwrite the saved
+  // size, so every later session served the plan's few cards.
+  const [planSize, setPlanSize] = useState(() => {
+    try {
+      const n = Number(window.sessionStorage.getItem(SR_PLAN_SIZE_KEY));
+      return Number.isInteger(n) && n > 0 ? n : null;
+    } catch { return null; }
+  });
+  useEffect(() => {
+    try { window.sessionStorage.removeItem(SR_PLAN_SIZE_KEY); } catch { /* nothing to drop */ }
+  }, []);
+  const sessionSize = planSize ?? savedSize;
+  const pickSize = (n) => { setPlanSize(null); setSavedSize(n); };
   const [subjectFilter, setSubjectFilter] = useLocalStorage('vmx-sr-subject-filter', 'all');
   const reviewYear = subjectFilter === 'all' ? selectedYear : (yearForSubject(subjectFilter) ?? selectedYear);
   const [phaseScope, setPhaseScope] = useLocalStorage('vmx-sr-phase-scope', 'current');
@@ -324,12 +340,17 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-size-label">
             <div id="vmx-srs-size-label" className="vmx-label">จำนวนวันนี้</div>
             <div className="vmx-chip-row">
+              {planSize != null && (
+                <button type="button" className="vmx-chip active" aria-pressed="true">
+                  ตามแผนวันนี้ {planSize} ใบ
+                </button>
+              )}
               {SIZE_PRESETS.map((n) => (
                 <button
                   key={n}
-                  className={`vmx-chip ${sessionSize === n ? 'active' : ''}`}
-                  aria-pressed={sessionSize === n}
-                  onClick={() => setSessionSize(n)}
+                  className={`vmx-chip ${planSize == null && savedSize === n ? 'active' : ''}`}
+                  aria-pressed={planSize == null && savedSize === n}
+                  onClick={() => pickSize(n)}
                   disabled={n > dueCount && dueCount > 0}
                   title={n > dueCount ? `มี due แค่ ${dueCount}` : ''}
                 >
@@ -337,9 +358,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                 </button>
               ))}
               <button
-                className={`vmx-chip ${sessionSize === 'all' ? 'active' : ''}`}
-                aria-pressed={sessionSize === 'all'}
-                onClick={() => setSessionSize('all')}
+                className={`vmx-chip ${planSize == null && savedSize === 'all' ? 'active' : ''}`}
+                aria-pressed={planSize == null && savedSize === 'all'}
+                onClick={() => pickSize('all')}
               >
                 ทั้งหมด ({dueCount})
               </button>
@@ -745,7 +766,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </>
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
-          {currentQ.imagePath && <ZoomableImage src={currentQ.imagePath} maxHeight={240} />}
+          {safeImageUrl(currentQ.imagePath) && <ZoomableImage src={safeImageUrl(currentQ.imagePath)} maxHeight={240} />}
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">

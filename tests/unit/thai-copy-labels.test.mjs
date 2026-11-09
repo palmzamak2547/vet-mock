@@ -46,7 +46,11 @@ test('the home practice cards describe their sets in words, not a semester id', 
   assert.ok(!home.includes('ตรง {SEMESTER.id}'), 'the card printed "ตรง 2569-1"');
   assert.ok(home.includes('{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรงกับสไลด์เทอมนี้'));
   assert.ok(!home.includes('หลักฐานสูง แต่ไม่ใช่ข้อสอบยืนยัน'));
-  assert.ok(home.includes('{scopeLabel} {highPredictionCount} ข้อ, มีหลักฐานหลายทาง แต่ยังเป็นการคาดเดา'));
+  // The card names its evidence, not the exam: "ชุดน่าจะออก" told a student
+  // what would be asked (audit, 2 Nov).
+  assert.ok(home.includes('{scopeLabel} {highPredictionCount} ข้อ ตรงกับสไลด์ปัจจุบันและมีหลักฐานอย่างน้อย 2 ทาง'));
+  assert.ok(home.includes('<div className="title">ชุดหลักฐานตรงกัน</div>'));
+  assert.ok(!home.includes('น่าจะออก'), 'a Home card claims what the paper will ask');
 });
 
 test('the streak-freeze notice says a day was skipped and the run still counts', () => {
@@ -56,13 +60,16 @@ test('the streak-freeze notice says a day was skipped and the run still counts',
 
   // The notice fires on exactly this event: one skipped day on a run of 5+.
   const DAY = 86400000;
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const saved = updateStreak(today.getTime() - 2 * DAY, 6, null);
+  // A fixed Bangkok noon. The streak counts Bangkok days, and the host's own
+  // midnight under TZ=UTC is the previous Bangkok day from 00:00 to 07:00, when
+  // this failed every run (CI, 8 Nov 00:19 Bangkok).
+  const now = Date.parse('2026-11-08T12:00:00+07:00');
+  const saved = updateStreak(now - 2 * DAY, 6, null, now);
   assert.equal(saved.freezeJustUsed, true);
   assert.equal(saved.streak, 7);
   // The freeze re-arms once a run breaks, so the copy may not promise it is
   // a one-time save.
-  const broken = updateStreak(today.getTime() - 4 * DAY, 9, today.getTime() - 10 * DAY);
+  const broken = updateStreak(now - 4 * DAY, 9, now - 10 * DAY, now);
   assert.equal(broken.freezeUsedAt, null);
   const notice = home.slice(home.indexOf('{freezeNotice && ('), home.indexOf('{quickStats.streak > 0 && ('));
   assert.ok(!notice.includes('ครั้งเดียว'));

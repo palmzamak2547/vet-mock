@@ -70,6 +70,27 @@ test('B12: a refused exam result carries the HTTP status the outbox decides on',
   }
 });
 
+// A result an older build queued has no question_ids and is inserted as it was kept, with
+// the percentage that build worked out in floating point. exam_results only takes
+// round(correct * 100.0 / total), so 23 of 40 kept as 57 was refused on every retry.
+test('a queued result without question_ids is inserted with the percentage the table accepts', async () => {
+  const inserted = [];
+  globalThis.__vmxDataApi = {
+    from(table) {
+      assert.equal(table, 'exam_results');
+      return { insert(row) { inserted.push(row); return { abortSignal: async () => ({ error: null }) }; } };
+    },
+  };
+  try {
+    await api.saveExamResult({ id: 'r-legacy', user_id: 'u1', mode: 'quick', subject: 'com5', total: 40, correct: 23, pct: 57 });
+    assert.equal(inserted.length, 1);
+    assert.equal(inserted[0].pct, 58);
+    assert.deepEqual([inserted[0].total, inserted[0].correct], [40, 23]);
+  } finally {
+    delete globalThis.__vmxDataApi;
+  }
+});
+
 // ── B79 ────────────────────────────────────────────────────────────
 function realtimeFake(rows) {
   const listeners = [];

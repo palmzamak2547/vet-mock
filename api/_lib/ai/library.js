@@ -28,7 +28,9 @@
 // font mapping, e.g. "o°ÄÁÈª´") is never shown or quoted.
 //
 // Nothing here may fail a turn: a missing config, a slow database or a bad
-// reply gives no files, and the answer goes on without them.
+// reply gives no files, and the answer goes on without them. A lookup that
+// got no answer says so (`failed`): the student then hears the library could
+// not be opened this time, never that it has no such file.
 // ============================================================
 
 import { SUBJECTS } from '../../../src/data/curriculum.js';
@@ -255,7 +257,8 @@ export function tidySnippet(s) {
  * @param {(title: string) => number} [turn.animal]  retrieve.js animalShare
  * @returns {Promise<{ items: Array, pages: Array, failed: boolean }>}
  *   items: ranked documents for the card; pages: the text of the best matching
- *   pages (answer turns only) for the writer to cite.
+ *   pages (answer turns only) for the writer to cite; failed: nothing came
+ *   back and the library did not answer (no config, an error, the time limit).
  */
 export async function findFiles({ terms = [], needles = [], subjects = [], kind = '', title = '', files = false, specificity = null, topic = null, animal = null }, { env = process.env, fetchImpl = fetch, signal, timeoutMs, token = null } = {}) {
   const cfg = libraryConfig(env);
@@ -266,14 +269,18 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
   const timer = AbortSignal.timeout(timeoutMs ?? (files ? FILES_TIMEOUT_MS : TIMEOUT_MS));
   const sig = signal ? AbortSignal.any([signal, timer]) : timer;
   const io = { cfg, fetchImpl, signal: sig, token };
+  // each lookup keeps what the others found; one that got no answer (a 503, a
+  // dropped connection, the time limit) leaves no evidence the file is not there
+  let missed = false;
+  const miss = () => { missed = true; return []; };
   try {
     // page search for every phrase, and (for a request for files) titles too:
     // every word of the named title, or of the main term, in any order
-    const searches = phrases.map((q) => getJSON(`${cfg.base}/rest/v1/rpc/library_search`, { ...io, method: 'POST', body: { q, max_docs: files ? 16 : 10 } }).catch(() => []));
+    const searches = phrases.map((q) => getJSON(`${cfg.base}/rest/v1/rpc/library_search`, { ...io, method: 'POST', body: { q, max_docs: files ? 16 : 10 } }).catch(miss));
     const titleWords = (title ? phrase([title]) : phrases[0]).split(' ').filter((w) => w.length >= 2).slice(0, 3);
     const titleFilter = titleWords.map((w) => `title.ilike."*${w.replace(/["\\,()]/g, '')}*"`).join(',');
     const titled = files && titleWords.length
-      ? getJSON(`${cfg.base}/rest/v1/library_docs?select=${COLUMNS}&status=eq.public&and=${encodeURIComponent(`(${titleFilter})`)}&limit=12`, io).catch(() => [])
+      ? getJSON(`${cfg.base}/rest/v1/library_docs?select=${COLUMNS}&status=eq.public&and=${encodeURIComponent(`(${titleFilter})`)}&limit=12`, io).catch(miss)
       : Promise.resolve([]);
     // while the searches run: a phrase is as specific as the most specific term
     // it was made from, and pages a rare part of the question found count in
@@ -305,7 +312,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
     });
     const slugs = [...hits.keys()].filter((s) => !titleRows.some((t) => t.slug === s));
     const rows = slugs.length
-      ? await getJSON(`${cfg.base}/rest/v1/library_docs?select=${COLUMNS}&slug=in.${encodeURIComponent(inList(slugs.slice(0, 40)))}`, io).catch(() => [])
+      ? await getJSON(`${cfg.base}/rest/v1/library_docs?select=${COLUMNS}&slug=in.${encodeURIComponent(inList(slugs.slice(0, 40)))}`, io).catch(miss)
       : [];
     const docs = [...titleRows.map((d) => ({ ...d, titleHit: true })), ...rows]
       .filter((d) => d && d.slug && !garbled(d.title))
@@ -361,7 +368,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
       const best = unique.filter((d) => d.page && d.id).slice(0, 3);
       if (best.length) {
         const or = best.map((d) => `and(doc_id.eq.${d.id},page.eq.${Number(d.page)})`).join(',');
-        const bodies = await getJSON(`${cfg.base}/rest/v1/library_doc_pages?select=doc_id,page,body&or=${encodeURIComponent(`(${or})`)}`, io).catch(() => []);
+        const bodies = await getJSON(`${cfg.base}/rest/v1/library_doc_pages?select=doc_id,page,body&or=${encodeURIComponent(`(${or})`)}`, io).catch(miss);
         pages = best.map((d) => {
           const b = (Array.isArray(bodies) ? bodies : []).find((x) => x.doc_id === d.id && x.page === Number(d.page));
           const body = String(b?.body || '').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
@@ -371,7 +378,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
         }).filter(Boolean).slice(0, 2);
       }
     }
-    return { items, pages, failed: false };
+    return { items, pages, failed: missed && !items.length };
   } catch (err) {
     console.warn('[ai-chat] library', String(err?.message || err).slice(0, 160));
     return { items: [], pages: [], failed: true };

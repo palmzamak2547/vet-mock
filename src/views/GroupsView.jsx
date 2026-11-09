@@ -115,7 +115,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
 
       <div className="vmx-btn-row" style={{ marginBottom: 24, justifyContent: 'flex-start' }}>
         <button className="vmx-btn vmx-btn-primary" onClick={() => { setShowCreate(!showCreate); setShowJoin(false); }}>สร้างกลุ่ม</button>
-        <button className="vmx-btn vmx-btn-ghost" onClick={() => { setShowJoin(!showJoin); setShowCreate(false); }}>🔑 Join ด้วย Code</button>
+        <button className="vmx-btn vmx-btn-ghost" onClick={() => { setShowJoin(!showJoin); setShowCreate(false); }}>🔑 เข้าร่วมด้วยรหัส</button>
       </div>
 
       {showCreate && (
@@ -142,7 +142,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowJoin(false)}>ยกเลิก</button>
-              <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={busy}>Join</button>
+              <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={busy}>เข้าร่วม</button>
             </div>
           </form>
         </div>
@@ -172,7 +172,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
                 >
                   <h3 style={{ margin: 0 }}>{g.name}</h3>
                   <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-                    Code: <strong style={{ color: 'var(--clr-gold-text)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 Admin' : 'Member'}
+                    รหัส: <strong style={{ color: 'var(--clr-gold-text)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 ผู้ดูแล' : 'สมาชิก'}
                   </div>
                 </button>
                 <div style={{ display: 'flex', gap: 6 }}>

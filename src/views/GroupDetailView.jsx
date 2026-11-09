@@ -108,8 +108,8 @@ export default function GroupDetailView({ group, user, goBack }) {
 
       <div className="vmx-nav" style={{ marginBottom: 24 }}>
         <button className={`vmx-nav-btn ${tab === 'leaderboard' ? 'active' : ''}`} onClick={() => setTab('leaderboard')}>อันดับคะแนน</button>
-        <button className={`vmx-nav-btn ${tab === 'questions' ? 'active' : ''}`} onClick={() => setTab('questions')}>Shared Q ({questions.length})</button>
-        <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 Members ({members.length})</button>
+        <button className={`vmx-nav-btn ${tab === 'questions' ? 'active' : ''}`} onClick={() => setTab('questions')}>ข้อที่แชร์ ({questions.length})</button>
+        <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 สมาชิก ({members.length})</button>
       </div>
 
       {actionError && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 14 }}>⚠️ {actionError}</div>}
@@ -140,11 +140,11 @@ export default function GroupDetailView({ group, user, goBack }) {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
+                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
-                      {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                      {r.mode === 'exam' ? 'สอบ' : 'ฝึก'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'ทุกวิชา'}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
@@ -170,7 +170,7 @@ export default function GroupDetailView({ group, user, goBack }) {
             questions.map((q) => (
               <div key={q.id} className="vmx-review-item">
                 <div className="vmx-review-head">
-                  <span>by {q.author_name || 'Anon'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
+                  <span>โดย {q.author_name || 'ไม่ระบุชื่อ'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
                       if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;

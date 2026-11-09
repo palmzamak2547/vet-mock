@@ -137,7 +137,7 @@ export default {
   },
   {
    "t": 1740,
-   "title": "Cardiovascular and respiratory status, hydration, pain, neurologic",
+   "title": "Cardiovascular and respiratory status, hydration, pain, neurologic function & body condition.",
    "line": "ตรวจร่างกาย ประเมิน ASA score และเลือกวางยืนหรือวางนอนตามความเสี่ยงและชนิดหัตถการ",
    "slides": [
     {
@@ -600,7 +600,7 @@ export default {
   },
   {
    "t": 7800,
-   "title": "Field based",
+   "title": "Field based surgery",
    "line": "Field surgery เตรียมงดอาหาร ตรวจร่างกายเต็มรูปแบบ ประเมินน้ำหนัก และเลือกสถานที่สงบสะอาด",
    "slides": [
     {
@@ -634,7 +634,7 @@ export default {
   },
   {
    "t": 8280,
-   "title": "Field based (ต่อ) (ต่อ)",
+   "title": "Field based (ต่อ)",
    "line": "เฝ้าระวังด้วยตาและมือ เติมยา 1/2 หรือ 1/3 ของโดสแรก และให้ม้าฟื้นในคอกจนมีสติเต็มที่",
    "slides": [
     {

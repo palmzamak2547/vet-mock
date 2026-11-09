@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { inferColumn, parseNumber, suggestCluster, orderedLevels } from '../../src/lib/intake/infer.js';
 import { findMissingCodes } from '../../src/lib/intake/missing.js';
-import { detectPii, maskValue, isThaiNationalId, isThaiPhone } from '../../src/lib/intake/pii.js';
+import { detectPii, maskValue, isThaiNationalId, isThaiPhone, isPrivateColumn, shownValue } from '../../src/lib/intake/pii.js';
 import { proposeCodebook, checkCodebook, binaryPolarity, unitFromHeader } from '../../src/lib/intake/codebook.js';
 
 /** A Thai national ID with a valid check digit, built from 12 digits (the published checksum rule). */
@@ -99,6 +99,16 @@ test('masks: names keep the first letter of each word, phones the first and last
   assert.equal(maskValue('1-1017-00123-45-6', 'national-id'), 'x-xxxx-xxxx3-45-6');
   assert.equal(maskValue('somchai@farm.co.th', 'email'), 's***@farm.co.th');
   assert.equal(maskValue('', 'name'), '');
+});
+
+test('a value is printed masked when its column is hidden, holds personal data, or is not in the codebook', () => {
+  assert.equal(shownValue('นายสมชาย ใจดี', { key: 'c1', pii: 'name', hidden: true }), 'น*** ใ***');
+  assert.equal(shownValue('081-234-5678', { key: 'c2', pii: 'phone', hidden: false, hiddenExplicit: true }), '08x-xxx-xx78', 'shown on the codebook page, still personal data');
+  assert.equal(shownValue('987654 321', { key: 'd1', pii: null, hidden: true }), '9*** 3***', 'a hidden column without a personal-data kind');
+  assert.equal(shownValue('นายวิชัย มั่นคง', undefined), 'น*** ม***', 'a column the codebook does not list');
+  assert.equal(shownValue('410', { key: 'c4', pii: null, hidden: false }), '410');
+  assert.equal(shownValue('', { key: 'c1', pii: 'name', hidden: true }), '');
+  assert.deepEqual([{ hidden: false, pii: null }, { hidden: true, pii: null }, { hidden: false, pii: 'email' }, null].map(isPrivateColumn), [false, true, true, true]);
 });
 
 test('binary polarity, units from headers', () => {

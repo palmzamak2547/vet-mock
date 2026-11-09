@@ -37,6 +37,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, appendFileSync, writeFileSync, existsSync } from 'node:fs';
 import { presignAny, r2Config, cfConfig } from '../api/_lib/r2.js';
 import { subjectForCourse } from './mcv-manifest.mjs';
+import { scoreSheetReason } from './lib/library-pii.mjs';
 
 const arg = (name, fallback = null) => {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -191,8 +192,15 @@ const LIBRARY_LICENSES = new Map([
 
 /** Hosting authority must arrive from the reviewed manifest, never from an
  * ingest-wide assumption. Permission-based material additionally needs an
- * auditable pointer to where that permission is recorded. */
+ * auditable pointer to where that permission is recorded.
+ *
+ * It is also the second gate against score and grade announcements, after
+ * mcv-manifest.mjs leaves them out: this and ingest-local-docs.mjs both call
+ * it before reading a byte, so a hand-edited manifest still cannot carry one
+ * into R2 or the catalog, as a draft or otherwise. */
 export function publicationMetadata(item) {
+  const scoreSheet = scoreSheetReason(item || {});
+  if (scoreSheet) throw new Error(`refused, a score or grade announcement is never ingested: ${scoreSheet}`);
   const license = String(item?.license || '').trim();
   if (!license) throw new Error('license missing from manifest item');
   const canonicalLicense = LIBRARY_LICENSES.get(license.toLowerCase());
@@ -332,7 +340,7 @@ async function main() {
       if (uploaded % 25 === 0) console.log(`  ${uploaded} files, ${(bytes / 1073741824).toFixed(2)} GB`);
     } catch (e) {
       failed++;
-      console.warn(`  ✗ ${name}: ${String(e.message).slice(0, 100)}`);
+      console.warn(`  ✗ ${name}: ${String(e.message).slice(0, 240)}`);
     }
   }
 

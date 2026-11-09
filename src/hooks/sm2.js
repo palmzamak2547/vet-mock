@@ -7,6 +7,8 @@
 // 2 = Good (correct with some effort)
 // 3 = Easy (perfect recall, no effort)
 
+import { bangkokDayNumber } from './utils.js';
+
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 export function initCard(questionId) {
@@ -91,6 +93,15 @@ export function getDueCards(cards, limit = 0) {
   return limit && limit > 0 ? due.slice(0, limit) : due;
 }
 
+/** Whether a due instant falls on tomorrow by Bangkok's calendar: the day the
+ *  card's own label (fmtDate) prints as "พรุ่งนี้". The count under
+ *  "ถึงรอบพรุ่งนี้" was the next 24 hours, which in the morning took in
+ *  tonight's cards and left out tomorrow's later ones. The FSRS stats in
+ *  sr-scheduler.js count with this too, so both schedulers mean one day. */
+export function isDueTomorrow(dueTs, now = Date.now()) {
+  return bangkokDayNumber(dueTs) === bangkokDayNumber(now) + 1;
+}
+
 // Get cards due count breakdown.
 //
 // "due" is intentionally restricted to cards the user has actually
@@ -102,7 +113,6 @@ export function getDueCards(cards, limit = 0) {
 // `new` bucket; the home/coach surfaces choose what to surface.
 export function getCardStats(cards) {
   const now = Date.now();
-  const tomorrow = now + MS_PER_DAY;
   const values = Object.values(cards);
   // `autoPromoted` cards are the exception to the never-reviewed rule above.
   // They exist because the student already got that question wrong twice in a
@@ -114,7 +124,7 @@ export function getCardStats(cards) {
   return {
     total: values.length,
     due: values.filter(isDue).length,
-    dueTomorrow: values.filter((c) => c.nextReview > now && c.nextReview <= tomorrow && (c.totalReviews > 0 || c.autoPromoted)).length,
+    dueTomorrow: values.filter((c) => isDueTomorrow(c.nextReview, now) && (c.totalReviews > 0 || c.autoPromoted)).length,
     // An auto-promoted card is not new: the student has already met that
     // question and missed it twice. Counting it in both buckets would make
     // due + new exceed the cards that actually exist.

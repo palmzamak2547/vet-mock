@@ -8,6 +8,7 @@ import { fmtKind, isStale, pText, primaryValueName, valueRows, valueLabel as val
 import { keyPart } from '../lib/keys.js';
 import { pairText, suffixText } from '../lib/term-words.js';
 import { usesHiddenColumns } from '../../lib/runtime/export.js';
+import { shownValue } from '../../lib/intake/pii.js';
 import { m3MethodDetails, m3Results, potencyWord } from './m3.js';
 // The M3a words load with the report code, not with the workspace's first chunk.
 import './words-m3.js';
@@ -635,7 +636,7 @@ export function resultParagraphs(env, ctx) {
 /**
  * The whole draft for one language.
  * @param {{ analyses: any[], steps: any[], project: any, table: any, codebook: any }} data
- * @param {{ t: T, fmt: Fmt, lang: 'th'|'en', nameKeyOf: (id: string) => string|null, designNameKey: string|null, describeStep: (s: any, t: T, names?: Record<string, string>) => string, designRow?: any }} ctx
+ * @param {{ t: T, fmt: Fmt, lang: 'th'|'en', nameKeyOf: (id: string) => string|null, designNameKey: string|null, describeStep: (s: any, t: T, names?: Record<string, string>, shown?: (column: string, value: string) => string) => string, designRow?: any }} ctx
  * @returns {{ methods: string, results: string, stale: string[], used: string[] }}
  */
 export function buildDraft(data, ctx) {
@@ -663,10 +664,14 @@ export function buildDraft(data, ctx) {
   if (converted) methods.push(t('report.methods.importConverted', { count: converted }));
   const edits = (data.steps || []).filter((s) => s.kind !== 'import-conversions');
   if (edits.length) {
+    // Every step keeps its sentence, but a value it quotes from a hidden or personal-data column is masked as the
+    // import screen masks it; so is one from a column the codebook no longer lists (a reshape or a summary to one
+    // row per farm drops it), since it may have been hidden.
+    const shown = (key, value) => shownValue(value, data.codebook?.columns?.find((c) => c.key === key));
     const lines = [];
     for (const s of edits) {
       try {
-        const line = ctx.describeStep(s, t, names);
+        const line = ctx.describeStep(s, t, names, shown);
         if (line) lines.push(line);
       } catch {
         /* a step the describer cannot name is left out of the sentence, never invented */

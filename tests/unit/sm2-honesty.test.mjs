@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import { initCard, updateCard, getCardStats, getDueCards, previewInterval } from '../../src/hooks/sm2.js';
 import { makeLowEaseCard } from '../../src/lib/wrong-to-sr.js';
+import { fmtDate } from '../../src/hooks/utils.js';
 
 // The scheduler used to contradict itself in three places at once. These tests
 // pin each contradiction shut, because every one of them was invisible from the
@@ -75,4 +76,43 @@ test('a genuinely unseen card still stays out of due', () => {
   const stats = getCardStats({ 7: fresh });
   assert.equal(stats.due, 0, 'never-reviewed cards are new, not due');
   assert.equal(stats.new, 1);
+});
+
+test('"ถึงรอบพรุ่งนี้" counts the cards each card itself dates พรุ่งนี้, on Bangkok\'s calendar', (t) => {
+  // The count was the next 24 hours from now. In the morning that put a card
+  // due tonight under tomorrow and left out tomorrow's later cards, while the
+  // card's own label (fmtDate) counts Bangkok calendar days.
+  const reviewed = (id, iso) => ({ ...initCard(id), totalReviews: 1, repetitions: 1, interval: 1, nextReview: Date.parse(iso) });
+  const moments = [
+    {
+      at: '2026-11-10T01:00:00Z', // 08:00 Tuesday in Bangkok
+      due: [
+        '2026-11-10T14:00:00Z', // 21:00 tonight
+        '2026-11-11T03:00:00Z', // 10:00 tomorrow
+        '2026-11-11T16:00:00Z', // 23:00 tomorrow, more than 24 hours away
+        '2026-11-11T17:30:00Z', // 00:30 on Thursday
+      ],
+      tomorrow: 2,
+    },
+    {
+      at: '2026-11-10T17:30:00Z', // 00:30 Wednesday in Bangkok, still Tuesday in UTC
+      due: [
+        '2026-11-11T16:00:00Z', // 23:00 tonight
+        '2026-11-12T01:00:00Z', // 08:00 Thursday
+        '2026-11-12T13:00:00Z', // 20:00 Thursday
+      ],
+      tomorrow: 2,
+    },
+  ];
+  for (const { at, due, tomorrow } of moments) {
+    const now = Date.parse(at);
+    t.mock.timers.enable({ apis: ['Date'], now });
+    const cards = Object.fromEntries(due.map((iso, i) => [i + 1, reviewed(i + 1, iso)]));
+    // An unseen card due tomorrow is new, not a review coming up.
+    cards[99] = { ...initCard(99), nextReview: Date.parse(due[1]) };
+    const dated = Object.values(cards).filter((c) => c.totalReviews > 0 && fmtDate(c.nextReview, now) === 'พรุ่งนี้').length;
+    assert.equal(dated, tomorrow, `the fixture itself at ${at}`);
+    assert.equal(getCardStats(cards).dueTomorrow, tomorrow, `at ${at} the count disagrees with the cards' own พรุ่งนี้`);
+    t.mock.timers.reset();
+  }
 });

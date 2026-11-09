@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useT } from '../../../i18n/index.js';
 import { compareEntries, differencesToCsv, pairColumnsByName } from '../../../lib/intake/double-entry.js';
 import { keyForIndex } from '../../../lib/intake/infer.js';
+import { isPrivateColumn, shownValue } from '../../../lib/intake/pii.js';
 import { makeStep } from '../../../lib/intake/recipe.js';
 import { download } from '../../../lib/runtime/export.js';
 import { useWs, errorInfo } from '../../ws-context.js';
@@ -90,7 +91,9 @@ export default function Pane({ p }) {
   const keepA = (d) => setSettled((s) => new Set(s).add(`${d.key}|${d.column}`));
 
   const csv = () => {
-    const text = differencesToCsv(result, { key: t('tools.compare.key'), rowA: t('tools.compare.rowA'), rowB: t('tools.compare.rowB'), column: t('tools.column'), a: t('tools.compare.valueA'), b: t('tools.compare.valueB') });
+    // The downloaded list masks what the screen masks.
+    const shownList = { ...result, differences: result.differences.map((d) => ({ ...d, key: keyShown(d.key), a: shownValue(d.a, entryOf(d)), b: shownValue(d.b, entryOf(d)) })) };
+    const text = differencesToCsv(shownList, { key: t('tools.compare.key'), rowA: t('tools.compare.rowA'), rowB: t('tools.compare.rowB'), column: t('tools.column'), a: t('tools.compare.valueA'), b: t('tools.compare.valueB') });
     const blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
     const name = `${safeFileBase(`${p.project?.name || 'project'}-${t('tools.compare.fileWord')}`)}.csv`;
     download(blob, name);
@@ -109,6 +112,12 @@ export default function Pane({ p }) {
   };
   const colsA = useMemo(() => rawToCodebook(p.meta.codebook, p.raw), [p.meta.codebook, p.raw]);
   const colsB = useMemo(() => (other ? rawToCodebook(other.meta.codebook, other.raw) : new Map()), [other]);
+  // A hidden or personal-data column is still compared, but its values and keys print masked, as the import screen
+  // masks them; the second typing's codebook can make a column private too. Settling a difference edits the real cell.
+  const privateOf = (a, b) => (isPrivateColumn(b) && !isPrivateColumn(a) ? b : a);
+  const entryOf = (d) => privateOf(colsA.get(d.column), colsB.get(d.columnB));
+  const keyEntry = privateOf(colsA.get(keyA), colsB.get(keyB));
+  const keyShown = (k) => shownValue(k, keyEntry);
   const nameIn = (cols, header, rawKey) => {
     const c = cols.get(rawKey);
     const label = c ? colLabel(c, lang) : '';
@@ -116,10 +125,11 @@ export default function Pane({ p }) {
     return label && label !== h ? `${label} (${h})` : h;
   };
   const levelOf = levelNameFor(p.meta.codebook, lang);
-  const valueCell = (rawKey, v) => {
+  const valueCell = (d, v) => {
     if (v === '') return <span className="rs-soft">{t('tools.blankValue')}</span>;
-    const key = colsA.get(rawKey)?.key;
-    const shown = key ? levelOf(key, v) : v;
+    const c = entryOf(d);
+    if (isPrivateColumn(c)) return shownValue(v, c);
+    const shown = levelOf(c.key, v);
     return shown === v ? v : <>{shown} <span className="rs-soft rs-mono">({v})</span></>;
   };
 
@@ -165,11 +175,11 @@ export default function Pane({ p }) {
                 <div className="rs-defrow"><dt>{t('tools.compare.differences')}</dt><dd className="rs-num">{result.cellsDiffering.toLocaleString('en-US')}</dd></div>
                 <div className="rs-defrow"><dt>{t('tools.compare.open')}</dt><dd className="rs-num">{open.length.toLocaleString('en-US')}</dd></div>
               </dl>
-              {result.onlyInA.length ? <div><p className="rs-small">{t('tools.compare.onlyInA', { n: result.onlyInA.length })}</p><IdList items={result.onlyInA} /></div> : null}
-              {result.onlyInB.length ? <div><p className="rs-small">{t('tools.compare.onlyInB', { n: result.onlyInB.length })}</p><IdList items={result.onlyInB} /></div> : null}
+              {result.onlyInA.length ? <div><p className="rs-small">{t('tools.compare.onlyInA', { n: result.onlyInA.length })}</p><IdList items={result.onlyInA.map(keyShown)} /></div> : null}
+              {result.onlyInB.length ? <div><p className="rs-small">{t('tools.compare.onlyInB', { n: result.onlyInB.length })}</p><IdList items={result.onlyInB.map(keyShown)} /></div> : null}
               {dup ? (
                 <Notice tone="warn" title={t('tools.compare.dupTitle', { n: dup })}>
-                  <IdList items={[...result.duplicateKeys.a, ...result.duplicateKeys.b]} />
+                  <IdList items={[...result.duplicateKeys.a, ...result.duplicateKeys.b].map(keyShown)} />
                 </Notice>
               ) : null}
               {blanks ? <p className="rs-soft rs-small">{t('tools.compare.blankKeys', { n: blanks })}</p> : null}
@@ -194,10 +204,10 @@ export default function Pane({ p }) {
                       <tbody>
                         {open.slice(0, SHOW).map((d) => (
                           <tr key={`${d.key}|${d.column}`}>
-                            <th scope="row" className="rs-mono">{d.key}</th>
+                            <th scope="row" className="rs-mono">{keyShown(d.key)}</th>
                             <td>{nameIn(colsA, headerA, d.column)}</td>
-                            <td>{valueCell(d.column, d.a)}</td>
-                            <td>{valueCell(d.column, d.b)}</td>
+                            <td>{valueCell(d, d.a)}</td>
+                            <td>{valueCell(d, d.b)}</td>
                             <td>
                               <div className="rs-row-wrap">
                                 <button type="button" className="rs-btn rs-btn--sm" onClick={() => keepA(d)}>{t('tools.compare.keepA')}</button>

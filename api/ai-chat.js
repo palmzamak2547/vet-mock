@@ -115,7 +115,7 @@ export default async function handler(req, res) {
   // overlaps them instead of adding to them).
   warmCorpus();
   const tl = Date.now();
-  const limit = await checkLimits(clientIP(req), { dailyCap: cfg.dailyCap });
+  const limit = await checkLimits(gate.userId || `ip:${clientIP(req)}`, { dailyCap: cfg.dailyCap });
   const tLimit = Date.now() - tl;
   if (!limit.ok) {
     if (limit.body.retryAfter) res.setHeader('Retry-After', String(limit.body.retryAfter));
@@ -136,7 +136,7 @@ export default async function handler(req, res) {
 }
 
 // A spoken turn waits on this answer, so it never queues behind the chat's
-// per-address budget: its own counter, per student (or address while the wall is off).
+// budget: its own counter, per student (or address while the wall is off).
 async function voiceTool(req, res, raw, gate) {
   const input = validateVoiceTool(raw);
   if (!input.ok) return res.status(400).json({ error: 'input', message: VOICE_TOOL_ERRORS.shape });

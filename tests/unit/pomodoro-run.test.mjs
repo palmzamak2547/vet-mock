@@ -191,12 +191,13 @@ test('a focus left for another screen is still running when the student comes ba
 test('a focus that finished while the student was elsewhere is recorded, and its break resumes on time', () => {
   const { props, log } = fresh();
   let view = mount(props);
+  const started = now;
   button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   view.unmount();
   now += 27 * MIN; // focus ended two minutes ago
   view = mount(props);
-  assert.deepEqual(log, [{ durationMin: 25, completed: true }]);
+  assert.deepEqual(log, [{ durationMin: 25, completed: true, endedAt: started + 25 * MIN }]);
   assert.equal(clock(view), '03:00', 'the break started when the focus ended');
   view.unmount();
   now += 60 * MIN; // and the break is long over too
@@ -204,6 +205,25 @@ test('a focus that finished while the student was elsewhere is recorded, and its
   assert.match(status(view), /พร้อมเริ่ม/);
   assert.equal(log.length, 1, 'recorded once');
   assert.equal(rows.has(run.POMODORO_RUN_KEY), false);
+});
+
+// The log row was stamped when /app/focus noticed the end, so a focus that
+// ran out one evening and was found two days later counted as that later
+// day's minutes, count and streak day.
+test('a focus found finished days later reports the moment it ended, and the view logs that moment', () => {
+  const { props, log } = fresh();
+  let view = mount(props);
+  const started = now;
+  button(view, 'เริ่มโฟกัส').props.onClick();
+  view.render();
+  view.unmount();
+  now += 36 * 60 * MIN; // back a day and a half later
+  view = mount(props);
+  assert.deepEqual(log, [{ durationMin: 25, completed: true, endedAt: started + 25 * MIN }]);
+  view.unmount();
+  const viewSrc = readFileSync(resolve(process.cwd(), 'src/views/PomodoroView.jsx'), 'utf8');
+  assert.match(viewSrc, /useCallback\(\(\{ durationMin, completed, endedAt \}\) => \{\s*recordSession\(\{ durationMin, completed, endedAt \}\);/,
+    'PomodoroView must hand the end moment to recordSession');
 });
 
 test('Strict Mode: leaving the focus screen for longer than the grace fails the session, a short hop does not', () => {
@@ -296,6 +316,7 @@ test('(b) the break line says the break length the student set', () => {
 test('(c) moving a slider mid-session changes the next phase, not the running one', () => {
   const { props, log } = fresh();
   const view = mount(props);
+  const started = now;
   button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 12 * MIN;
@@ -305,7 +326,7 @@ test('(c) moving a slider mid-session changes the next phase, not the running on
   assert.deepEqual(log, []);
   now += 13 * MIN;
   view.tick();
-  assert.deepEqual(log, [{ durationMin: 25, completed: true }], 'logged as the length that ran');
+  assert.deepEqual(log, [{ durationMin: 25, completed: true, endedAt: started + 25 * MIN }], 'logged as the length that ran');
   now += 5 * MIN;
   view.tick();
   assert.match(status(view), /พร้อมเริ่ม/);
@@ -321,12 +342,13 @@ test('(c) moving a slider mid-session changes the next phase, not the running on
 test('a clock jump past the end of a focus starts the break even after a render React bails out of', () => {
   const { props, log } = fresh({ focusMin: 5, shortBreakMin: 1 });
   const view = mount(props);
+  const started = now;
   button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 301_000; // the phone was locked through the end; no tick ran
   view.bailout();
   view.tick(); // the first second after waking
-  assert.deepEqual(log, [{ durationMin: 5, completed: true }], 'the focus is counted');
+  assert.deepEqual(log, [{ durationMin: 5, completed: true, endedAt: started + 5 * MIN }], 'the focus is counted');
   assert.equal(status(view), 'พักสายตา 1 นาที', 'and the break has started');
   assert.equal(clock(view), '00:59', 'the break began when the focus ended');
 });

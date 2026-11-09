@@ -96,6 +96,9 @@ export async function sendFeedback(payload, { fetch = globalThis.fetch } = {}) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+      // The server gives the mailer 10 s; past this the form says so instead
+      // of staying on "sending" (AbortSignal.timeout is Safari 16+).
+      signal: typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(25_000) : undefined,
     });
   } catch {
     return failure(0, 'offline');

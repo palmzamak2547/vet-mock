@@ -60,6 +60,8 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
   // Passkeys on this account. [] also covers "feature off" so the card
   // renders the create button rather than an error.
   const [passkeys, setPasskeys] = useState([]);
+  const [passkeysFailed, setPasskeysFailed] = useState(false);
+  const [passkeyLoad, setPasskeyLoad] = useState(0);
   const [newEmail, setNewEmail] = useState('');
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
@@ -144,16 +146,22 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
   useEffect(() => {
     let alive = true;
     if (!isPasskeySupported()) return undefined;
-    listPasskeys().then((rows) => { if (alive) setPasskeys(rows); });
+    listPasskeys().then((rows) => {
+      if (!alive) return;
+      setPasskeysFailed(rows === null);
+      setPasskeys(rows || []);
+    });
     return () => { alive = false; };
-  }, []);
+  }, [passkeyLoad]);
 
   const handleRegisterPasskey = async () => {
     reset();
     setLoading(true);
     try {
       await registerPasskey();
-      setPasskeys(await listPasskeys());
+      const rows = await listPasskeys();
+      setPasskeysFailed(rows === null);
+      setPasskeys(rows || []);
       setInfo('✓ สร้าง passkey เรียบร้อย ครั้งต่อไปเข้าสู่ระบบได้เลยโดยไม่ต้องใช้รหัสผ่าน');
     } catch (err) {
       const t = `${err?.code || err?.name || ''} ${err?.message || ''}`;
@@ -172,7 +180,9 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
     setLoading(true);
     try {
       await deletePasskey(passkeyId);
-      setPasskeys(await listPasskeys());
+      const rows = await listPasskeys();
+      setPasskeysFailed(rows === null);
+      setPasskeys(rows || []);
       setInfo('ลบ passkey แล้ว');
     } catch (err) {
       setError(thaiAuthError(err));
@@ -464,6 +474,12 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
               เข้าสู่ระบบด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของเครื่อง ไม่ต้องจำรหัสผ่าน
               และหน้าเว็บปลอมขโมยไปใช้ไม่ได้ เพราะ passkey ผูกกับที่อยู่เว็บจริงเท่านั้น
             </p>
+            {passkeysFailed && (
+              <div role="alert" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, fontSize: 14, margin: '0 0 12px' }}>
+                <span style={{ flex: '1 1 14em' }}>โหลดรายการ passkey ไม่สำเร็จ</span>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setPasskeyLoad((n) => n + 1)}>ลองอีกครั้ง</button>
+              </div>
+            )}
             {passkeys.length > 0 && (
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 12px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {passkeys.map((pk) => (

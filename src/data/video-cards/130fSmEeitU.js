@@ -73,7 +73,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "Differentiate the red dot caused by",
+   "title": "Differentiate the red dot caused by PCV2 and others",
    "line": "PCV2 เป็นไวรัส DNA สายเดี่ยว วงกลม ไม่มีเปลือก มี ORF1 replicase และ ORF2 capsid",
    "slides": [
     {

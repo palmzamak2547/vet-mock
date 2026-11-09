@@ -233,7 +233,7 @@ test('Join has the same guard', async () => {
   const { view, calls } = await groupsView({
     deps: { joinGroupByCode: (code) => { calls.join.push(code); return d.promise; } },
   });
-  button(view.tree, '🔑 Join ด้วย Code').props.onClick();
+  button(view.tree, '🔑 เข้าร่วมด้วยรหัส').props.onClick();
   view.render();
   find(view.tree, (n) => n.props.id === 'vmx-group-code').props.onChange({ target: { value: 'abc123' } });
   view.render();

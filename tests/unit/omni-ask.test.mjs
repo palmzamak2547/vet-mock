@@ -149,6 +149,39 @@ test('a word that only says what kind of answer is wanted never picks the neares
   assert.equal(relatedTopicsFor('ลมชักผ่าตัดได้ไหม', TOPICS)[0]?.topic, 'seizure');
 });
 
+test('a short Latin code is a word of its own, in the question and in a title', () => {
+  const topics = [
+    { subject: 'com5', topic: 'feline-uri', title: 'Feline Upper Respiratory Infection (FURI / FRDC)', summary: 'FHV-1, FCV' },
+    { subject: 'avian-medicine', topic: 'avian-coryza', title: 'Infectious Coryza (หวัดหน้าบวม)', summary: 'Avibacterium paragallinarum' },
+    { subject: 'poa-clinical', topic: 'poa-red-urine', title: 'POA Red urine and bleeding disorder', summary: 'epistaxis' },
+    { subject: 'com4', topic: 'peds-geri', title: 'Pediatrics & Geriatrics', summary: 'Fading puppy syndrome' },
+    { subject: 'swine-clinic', topic: 'swine-gi-viral', title: 'โรคท้องเสียจากไวรัสในสุกร (TGE, PED, Rotavirus)', summary: '' },
+  ];
+  const ids = (q) => relatedTopicsFor(q, topics).map((t) => t.topic);
+  // uri and urt (a cold) are not in "uric", "urinary" or "urticaria", and urti
+  // is not in "urticaria" either: none of these questions is about a cold.
+  for (const q of ['uric acid', 'gout in birds uric acid', 'urticaria', 'urinary catheter']) {
+    assert.deepEqual(ids(q).filter((t) => t !== 'poa-red-urine'), [], q);
+  }
+  // A question that names URI still finds it, but not the article on red urine.
+  for (const q of ['uri', 'feline uri', 'feline uri treatment']) {
+    assert.ok(ids(q).includes('feline-uri'), q);
+    assert.ok(!ids(q).includes('poa-red-urine'), `${q}: "uri" is not in "urine"`);
+  }
+  // PED, the piglet diarrhoea, is not the start of "Pediatrics".
+  assert.deepEqual(ids('PED ในลูกสุกรเกิดจากเชื้ออะไร'), ['swine-gi-viral']);
+});
+
+test('a short animal word still counts in the plural', () => {
+  const topics = [
+    { subject: 'x', topic: 'dog-rabies', title: 'Rabies — โรคพิษสุนัขบ้าในสุนัข', summary: '' },
+    { subject: 'x', topic: 'cat-rabies', title: 'Rabies in cats', summary: '' },
+  ];
+  // "dogs" is the dog of สุนัข, so the article that names the dog comes first.
+  assert.equal(relatedTopicsFor('rabies in dogs', topics)[0]?.topic, 'dog-rabies');
+  assert.equal(relatedTopicsFor('rabies in cats', topics)[0]?.topic, 'cat-rabies');
+});
+
 test('a weak guess offers nothing: no short Thai fragments, no animal alone, no "examine" titles', () => {
   const topics = [
     { subject: 'avian-medicine', topic: 'avian-coryza', title: 'Infectious Coryza (หวัดหน้าบวม)', summary: 'Avibacterium paragallinarum' },

@@ -6,8 +6,12 @@
 //   analyse    scripts/video-analyse.mjs (no model)
 //   summarise  scripts/video-summarise.mjs, then --resume once when held
 //
-//   node --env-file=<.env.local> --env-file=<file with DEEPSEEK_API_KEY> scripts/video-pipeline.mjs \
+//   node --env-file=<.env.local> --env-file=<.r2env> --env-file=<file with DEEPSEEK_API_KEY> scripts/video-pipeline.mjs \
 //     [--step=captions,decks,analyse,summarise] [--only=id,id] [--concurrency=3] [--force]
+//
+// The decks step reads the library behind the Chula wall through
+// scripts/lib/library-read.mjs: SUPABASE_ACCESS_TOKEN for the catalog, .r2env
+// for a deck's bytes. The anon key and /api/library-file answer members only.
 //
 // Idempotent: a step whose output exists is skipped unless --force. Writes
 // data-cache/channels/pipeline-manifest.json with each video's state and the
@@ -19,11 +23,11 @@ import { fileURLToPath } from 'node:url';
 import { takenVideos } from './video-media.mjs';
 import { allLecturerSets } from '../src/data/lecturer-sets.js';
 import { normalizeQuery, segmentWords } from '../src/lib/vetwiki/query-terms.js';
+import { libraryCatalog, libraryFirstPages, libraryFileBytes } from './lib/library-read.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = process.env.VIDEO_DATA_DIR || 'C:/dev/vetmock-video-data';
 const MANIFEST = path.join(process.env.VIDEO_CACHE_DIR || path.join(ROOT, 'data-cache'), 'channels/pipeline-manifest.json');
-const SITE = 'https://vetmock.com';
 const MIN_WORDS = 150; // fewer spoken words than this: a silent lab clip, no summary
 
 const exec = (cmd, args, opts = {}) => new Promise((resolve) => {
@@ -44,18 +48,8 @@ const STOP = new Set(['vet86', 'and', 'the', 'of', 'in', 'to', 'for', 'with', 'p
 const words = (s) => new Set(segmentWords(normalizeQuery(String(s || '').replace(/\d+/g, ' ')))
   .filter((w) => w.wordLike && w.word.trim().length >= 3).map((w) => w.word.trim()).filter((w) => !STOP.has(w)));
 
-async function supabase(p) {
-  const res = await fetch(`${process.env.VITE_SUPABASE_URL}/rest/v1/${p}`, { headers: { apikey: process.env.VITE_SUPABASE_ANON_KEY, Authorization: `Bearer ${process.env.VITE_SUPABASE_ANON_KEY}` } });
-  if (!res.ok) throw new Error(`library ${res.status}`);
-  return res.json();
-}
-
 async function fetchDeck(slug, file) {
-  const link = await (await fetch(`${SITE}/api/library-file?slug=${encodeURIComponent(slug)}`)).json();
-  if (!link.url) throw new Error(`no link for ${slug}`);
-  const res = await fetch(link.url.startsWith('http') ? link.url : SITE + link.url);
-  if (!res.ok) throw new Error(`deck ${slug} answered ${res.status}`);
-  fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+  fs.writeFileSync(file, await libraryFileBytes(slug));
 }
 
 async function main() {
@@ -81,7 +75,7 @@ async function main() {
     await pool(videos, conc, async (v) => {
       const dir = path.join(DATA, v.id);
       fs.mkdirSync(dir, { recursive: true });
-      if (fs.existsSync(path.join(dir, 'video.th.json3')) && !force) return;
+      if ((fs.existsSync(path.join(dir, 'video.th.json3')) || fs.existsSync(path.join(dir, 'video.scribe.json3'))) && !force) return;
       const r = await exec('yt-dlp', ['-q', '--no-warnings', '--skip-download', '--write-auto-subs', '--sub-langs', 'th', '--sub-format', 'json3', '-o', 'video.%(ext)s', `https://www.youtube.com/watch?v=${v.id}`], { cwd: dir });
       (state[v.id] ||= {}).captions = fs.existsSync(path.join(dir, 'video.th.json3')) ? 'youtube' : `none (${r.code})`;
     });
@@ -90,12 +84,7 @@ async function main() {
   }
 
   if (steps.has('decks')) {
-    const catalog = [];
-    for (let from = 0; ; from += 1000) {
-      const page = await supabase(`library_docs?select=id,slug,title,subject,kind&status=eq.public&order=id&offset=${from}&limit=1000`);
-      catalog.push(...page);
-      if (page.length < 1000) break;
-    }
+    const catalog = await libraryCatalog();
     // Every deck's first page in a few requests, kept between runs: a deck's
     // title page does not change.
     const pageCache = path.join(path.dirname(MANIFEST), 'library-page1.json');
@@ -103,7 +92,7 @@ async function main() {
     const missing = catalog.filter((d) => d.kind !== 'video' && !firstPage.has(String(d.id))).map((d) => String(d.id));
     for (let i = 0; i < missing.length; i += 150) {
       const ids = missing.slice(i, i + 150);
-      const rows = await supabase(`library_doc_pages?select=doc_id,body&page=eq.1&doc_id=in.(${ids.join(',')})`);
+      const rows = await libraryFirstPages(ids);
       for (const id of ids) firstPage.set(id, '');
       for (const r of rows) firstPage.set(String(r.doc_id), r.body || '');
     }
@@ -174,8 +163,15 @@ async function main() {
       // An analysis older than the silence measurement is redone: the skip list needs it.
       const af = path.join(dir, 'analysis.json');
       const sf = path.join(dir, 'silence.json');
-      const stale = fs.existsSync(sf) && fs.existsSync(af) && fs.statSync(sf).mtimeMs > fs.statSync(af).mtimeMs;
-      if (!fs.existsSync(path.join(dir, 'video.th.json3')) || (fs.existsSync(af) && !force && !stale)) return;
+      const scribe = path.join(dir, 'video.scribe.json3');
+      const newer = (f) => fs.existsSync(f) && fs.existsSync(af) && fs.statSync(f).mtimeMs > fs.statSync(af).mtimeMs;
+      // A Scribe transcript that arrived after the analysis is a reason to redo it, like new silence.
+      const stale = newer(sf) || newer(scribe);
+      if ((!fs.existsSync(path.join(dir, 'video.th.json3')) && !fs.existsSync(scribe)) || (fs.existsSync(af) && !force && !stale)) return;
+      // The summary was written against this analysis: it stays beside the new one
+      // until the summary is redone, and the registry pairs the chapter lines with it.
+      const basis = path.join(dir, 'analysis.basis.json');
+      if (fs.existsSync(af) && fs.existsSync(path.join(dir, 'summary.json')) && !fs.existsSync(basis)) fs.copyFileSync(af, basis);
       const r = await exec('node', [path.join(ROOT, 'scripts/video-analyse.mjs'), dir, `--subject=${v.subjects.join(',')}`, `--title=${v.title}`, `--duration=${v.durationSec}`, `--lecturer-topics=${(sessionTopics.get(v.id) || []).join(',')}`]);
       (state[v.id] ||= {}).analysis = r.code ? `failed: ${r.out.slice(-200)}` : r.out.trim().split('\n').pop();
     });
@@ -190,7 +186,8 @@ async function main() {
     await pool(videos, conc, async (v) => {
       const af = path.join(DATA, v.id, 'analysis.json');
       const st = (state[v.id] ||= {});
-      if (!fs.existsSync(af) || (st.transcript && !force)) return;
+      // A redone analysis (a Scribe transcript arrived) replaces the one students read.
+      if (!fs.existsSync(af) || (st.transcript && !force && Date.parse(st.transcript) >= fs.statSync(af).mtimeMs)) return;
       const a = JSON.parse(fs.readFileSync(af, 'utf8'));
       await putBuffer(env, `videos/${v.id}/transcript.json`, Buffer.from(JSON.stringify({ lines: a.lines })), 'application/json');
       st.transcript = new Date().toISOString();
@@ -224,9 +221,12 @@ async function main() {
       const spoken = a.lines.reduce((n, [, t]) => n + String(t).split(/\s+/).length, 0);
       if (spoken < MIN_WORDS) { st.summary = 'skipped: no lecture speech'; return; }
       const script = path.join(ROOT, 'scripts/video-summarise.mjs');
-      const first = fs.existsSync(path.join(dir, 'summary.json')) ? ['--resume'] : [];
+      // A held summary over a redone analysis is drafted afresh: its chapter lines were for the old one.
+      const basis = path.join(dir, 'analysis.basis.json');
+      const first = fs.existsSync(path.join(dir, 'summary.json')) && !fs.existsSync(basis) ? ['--resume'] : [];
       let r = await exec('node', [script, dir, ...first]);
       if (/^held/m.test(r.out)) r = await exec('node', [script, dir, '--resume']);
+      if (!r.code) fs.rmSync(basis, { force: true });
       st.summary = r.code ? `failed: ${r.out.slice(-200)}` : (r.out.match(/^(pass|held)[^\n]*/m)?.[0] || r.out.slice(-200)).slice(0, 160);
       save();
       if (++made % 10 === 0) {

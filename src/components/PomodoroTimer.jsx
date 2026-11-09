@@ -162,8 +162,11 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
     if (state === 'focus') {
       const focusMin = runMin || phaseMinutes('focus', config);
       const nextCount = focusCount + 1;
+      const endedAt = runEndsAt({ startedAt, pausedAcc, runMin: focusMin });
       setFocusCount(nextCount);
-      onSessionComplete?.({ durationMin: focusMin, completed: true });
+      // Logged at the moment it ended, so a focus found finished on a later
+      // day keeps its minutes and its streak day on the day it ran.
+      onSessionComplete?.({ durationMin: focusMin, completed: true, endedAt });
       playTone(880, 220);
       // Every 4th focus → long break, else short break
       const goLong = nextCount % FOCUS_PER_CYCLE === 0;
@@ -171,7 +174,7 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
       // The break starts when the focus ended, not when this screen noticed:
       // a session that finished while the student was elsewhere in VetMock
       // resumes at the right point of its break (or finishes it too).
-      setStartedAt(runEndsAt({ startedAt, pausedAcc, runMin: focusMin }));
+      setStartedAt(endedAt);
       setRunMin(phaseMinutes(next, config));
       setPausedAcc(0);
       setPauseStartedAt(null);

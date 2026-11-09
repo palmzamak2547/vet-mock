@@ -58,21 +58,42 @@ export function rememberOffered(uid) {
   writeJSON(OFFERED_KEY, [...ids, uid].slice(-20));
 }
 
-async function follow(session) {
+// Calls to follow() overlap: a new listener is told the session there is (supabase's
+// INITIAL_SESSION) while ensureAccount reads it too, and a sign-out can land while a profile is on
+// its way. Only the newest call writes; one overtaken by a newer call or by a sign-out writes
+// nothing and settles when the newest does. The second of two answers to one first sign-in closed
+// the profile sheet the first had opened (and remembered as offered), and a profile that came back
+// after a sign-out put the student back in with no user.
+let turn = 0;
+let newest = Promise.resolve();
+/** A sign-out has the last word: whatever follow() is still on its way writes nothing. */
+const overtake = () => { turn += 1; newest = Promise.resolve(); };
+
+function follow(session) {
+  const at = ++turn;
+  const run = settle(session, () => at === turn).then(() => (at === turn ? undefined : newest));
+  // A call a listener made while this one began is newer, and stays the one to wait for.
+  if (at === turn) newest = run;
+  return run;
+}
+
+async function settle(session, current) {
   if (!session) { setupOffered = null; set({ status: 'anon', user: null, profile: null, moderator: false, setup: false, profileFailed: false }); return; }
   const b = await getBackend();
+  if (!current()) return;
   // The same person again (the tab came back, the hourly token refresh): refresh quietly. Going
   // through 'loading' unmounted the chat room and the open sheets, and lost what was being typed.
   if (state.status === 'in' && state.user?.id === session.user.id) {
     try {
       const [profile, moderator] = await Promise.all([b.profiles.mine(), b.profiles.isModerator().catch(() => state.moderator)]);
-      set({ user: session.user, profile, moderator, profileFailed: false });
+      if (current()) set({ user: session.user, profile, moderator, profileFailed: false });
     } catch { /* keep what is on screen; the next event tries again */ }
     return;
   }
   set({ status: 'loading', user: session.user });
   try {
     const [profile, moderator] = await Promise.all([b.profiles.mine(), b.profiles.isModerator().catch(() => false)]);
+    if (!current()) return;
     // A first sign-in has no profile yet: the profile sheet opens by itself, once.
     const offer = !profile && setupOffered !== session.user.id && !offeredBefore(session.user.id);
     if (offer) {
@@ -83,7 +104,7 @@ async function follow(session) {
   } catch {
     // Not knowing is not having none: no setup sheet (saving would try to create a second
     // profile and read as "username taken"); the pages offer a retry instead.
-    set({ status: 'in', profile: null, moderator: false, setup: false, profileFailed: true });
+    if (current()) set({ status: 'in', profile: null, moderator: false, setup: false, profileFailed: true });
   }
 }
 
@@ -136,6 +157,7 @@ export async function signIn(method, ...args) {
 export async function signOut() {
   const b = await getBackend();
   await b.auth.signOut();
+  overtake();
   set({ status: 'anon', user: null, profile: null, moderator: false, setup: false });
 }
 
