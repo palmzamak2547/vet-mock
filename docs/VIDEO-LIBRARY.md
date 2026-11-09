@@ -41,7 +41,7 @@ The API lists only public items, so an unlisted upload outside these 21 playlist
 | Captions | YouTube's timed text with word timing (json3) or `npm run fetch:videos` | none |
 | Copy | the owner's export (section 7), stored in R2 | none |
 | Captions where none exist | faster-whisper large-v3 on Palm's GPU (RTX 5050), from our copy | local model, no API cost |
-| Deck | the library deck of the session (lecturer sets, else title and date), per-page text and red marks: `scripts/video-deck-pages.py` | none |
+| Deck | the library deck of the session (lecturer sets, else a deck matched by hand in the clip's `polished.json` `decks`, else title and date), read past the Chula wall through `scripts/lib/library-read.mjs` (Management API for the catalog, R2 for the file); per-page text and red marks: `scripts/video-deck-pages.py` | none |
 | Slides without a deck | scene-change frames from our copy (ffmpeg), perceptual-hash dedupe, blank and blur filters | none |
 | Analysis | `scripts/video-analyse.mjs` | none |
 | Summary | `scripts/video-summarise.mjs`, from the slices the analysis picked | yes, the only stage |
@@ -50,7 +50,7 @@ The API lists only public items, so an unlisted upload outside these 21 playlist
 `video-analyse.mjs` reuses the AI chat's own reader (`api/_lib/ai/textindex.js`, `concepts.js`, VetWiki aliases, the glossary):
 - **Breaks:** 45 s or more without speech.
 - **Deck alignment:** each page placed at the minute its terms are heard, by a forward-only best path over one-minute windows; a page between two heard pages counts as taught.
-- **Chapters:** runs of pages under one heading, at least 2 min, split at a page past 6 min. Without a deck: the topic segments.
+- **Chapters:** runs of pages under one heading, at least 2 min, split at a page past 6 min; what no page can split and runs past 12 min (the lecturer talks on past the deck) is cut by time like a lecture without a deck. Without a deck: about 8 minutes of speech each, cut at a topic change or the longest pause near the mark, named by the two most-said concepts.
 - **Topic segments:** each minute scored against each curriculum topic's profile (the bank's questions on the topic and its label, weighted by how specific a term is to the topic), smoothed so a passing mention never flips the topic; under-5-minute detours fold into their host. Each segment carries its evidence (terms and the second they are heard), a margin and a confidence.
 - **Must-cover list:** named concepts (VetWiki and glossary names, the slide's acronyms and organisms, English words shaped like medical terms, heard in under a quarter of all cached lectures), stressed moments ("จำไว้", "อย่าลืม", "ข้อสอบ"; "ไม่ต้องจำ" excluded), red marks on taught slides, and the numbers on taught slides (those the bank asks about flagged).
 - English terms the captions wrote in Thai script (ซับมิวคซ่า, ไมโอมมิตร) are found by consonant skeleton, five consonants or more.

@@ -19,7 +19,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractJSON } from '../api/_lib/llm.js';
-import { lintSummary, coverage, unsupportedClaims, thaiWords, keyPointCap, transliterated, LIMITS } from '../src/lib/video-summary-check.js';
+import { lintSummary, coverage, unsupportedClaims, thaiWords, keyPointCap, transliterated, listParts, LIMITS } from '../src/lib/video-summary-check.js';
 
 const URL_ = 'https://api.deepseek.com/chat/completions';
 const MODEL = process.env.LLM_MODEL || 'deepseek-flash';
@@ -84,7 +84,10 @@ function transcriptSlice(lines, start, end, step = 20) {
   return out.map((l) => `[${mmss(l.t)}] ${l.text}`).join('\n');
 }
 
-const pageText = (deck, n) => (deck?.pages?.[n - 1]?.text || '').replace(/\s+/g, ' ').trim().slice(0, 900);
+// Thai digits as Arabic: a slide's "รัศมี ๕ กิโลเมตร" is the 5 km a card writes, and
+// the second reading rejected the card's 5 when it read only ๕.
+const pageText = (deck, n) => (deck?.pages?.[n - 1]?.text || '').replace(/[๐-๙]/g, (d) => String(d.charCodeAt(0) - 0x0e50))
+  .replace(/\s+/g, ' ').trim().slice(0, 900);
 // What the prompts ask for, under the lint's caps: the model counts Thai
 // words differently from the segmenter.
 // Word targets the model is asked for. It writes about 1.4 times what it is asked, so
@@ -215,7 +218,7 @@ async function main() {
   const verdicts = new Map();
   const verify = async (s) => {
     const list = [...['keyPoints', 'emphasis', 'remember'].flatMap((layer) => s[layer].map((p, i) => ({ ref: `${layer}:${i}`, layer, t: p.t, text: p.text }))),
-      ...s.chapters.map((c, i) => ({ ref: `chapters:${i}`, layer: 'chapter', id: c.id, t: c.t, text: c.line }))];
+      ...s.chapters.map((c, i) => ({ ref: `chapters:${i}`, layer: 'chapter', id: c.id, t: c.t, text: c.line })).filter((p) => p.text)];
     const key = (p) => `${p.layer}|${p.t}|${p.text}`;
     const fresh = list.filter((p) => !verdicts.has(key(p)));
     if (fresh.length) {
@@ -228,7 +231,7 @@ async function main() {
   const clarity = new Map();
   const unclear = async (s) => {
     const list = [{ ref: 'oneLiner', kind: 'summary', text: s.oneLiner }, ...['keyPoints', 'emphasis', 'remember'].flatMap((layer) => s[layer].map((p, i) => ({ ref: `${layer}:${i}`, kind: 'point', text: p.text }))),
-      ...s.chapters.map((c, i) => ({ ref: `chapters:${i}`, kind: 'chapter', text: c.line }))];
+      ...s.chapters.map((c, i) => ({ ref: `chapters:${i}`, kind: 'chapter', text: c.line })).filter((p) => p.text)];
     const ck = (p) => (p.kind === 'summary' ? `summary|${p.text}` : p.text);
     const fresh = list.filter((p) => !clarity.has(ck(p)));
     if (fresh.length) {
@@ -261,7 +264,13 @@ async function main() {
     };
     // Only what a check failed is rewritten: the prompts' word targets guide
     // the draft, the lint's caps decide a repair.
-    s.chapters.forEach((c, i) => { if (!c.line) add(`chapters:${i}`, 'missing'); });
+    // A chapter that is mostly a class break teaches nothing: its line stays empty
+    // and the card leaves it out, where a line could only say "พัก 10 นาที".
+    const idle = (id) => {
+      const c = chapters.find((x) => x.id === id);
+      return !!c && (a.breaks || []).reduce((n, b) => n + Math.max(0, Math.min(c.end, b.end) - Math.max(c.start, b.start)), 0) >= 0.5 * (c.end - c.start);
+    };
+    s.chapters.forEach((c, i) => { if (!c.line && !idle(c.id)) add(`chapters:${i}`, 'missing'); });
     for (const e of checks.lint.errors) {
       const m = e.match(/^(keyPoints|emphasis|remember) (\d+): (.*)$/);
       if (m) { const ref = refOf(m[1], Number(m[2])); if (ref) add(ref, m[3]); }
@@ -332,14 +341,18 @@ async function main() {
   const covOf = (s) => coverage(s, a.mustCover, { chapters, pageText: (n) => pageText(deck, n) }).missing.length;
   const trimChapters = (s) => {
     s.chapters.forEach((c, i) => {
-      const parts = c.line.split(/,\s*/);
+      const parts = listParts(c.line);
       const base = covOf(s);
+      let cut = false;
       while (thaiWords(parts.join(', ')) > LIMITS.chapterLine && parts.length > 1) {
         const trial = { ...s, chapters: s.chapters.map((x, k) => (k === i ? { ...x, line: parts.slice(0, -1).join(', ') } : x)) };
         if (covOf(trial) > base) break;
         parts.pop();
+        cut = true;
       }
-      if (parts.join(', ') !== c.line) { merges.push(`chapter ${c.id} cut to ${thaiWords(parts.join(', '))} words`); c.line = parts.join(', '); }
+      // Only a line that lost a part is rewritten: rejoining an untouched one
+      // once turned "10,000" into "10, 000" on ten cards.
+      if (cut) { merges.push(`chapter ${c.id} cut to ${thaiWords(parts.join(', '))} words`); c.line = parts.join(', '); }
     });
     return s;
   };

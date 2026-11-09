@@ -75,34 +75,168 @@ export default {
  ],
  "chapters": [
   {
-   "t": 70,
-   "title": "",
-   "line": "เนื้อสัตว์สุขภาพดีแทบปราศจากเชื้อ ปนเปื้อนได้ตั้งแต่คอกสัตว์จนถึงการขนส่ง และแบคทีเรียเป็นเชื้อหลักที่ศึกษา"
+   "t": 0,
+   "title": "Microbiology of Meat",
+   "line": "เนื้อสัตว์สุขภาพดีแทบปราศจากเชื้อ ปนเปื้อนได้ตั้งแต่คอกสัตว์จนถึงการขนส่ง และแบคทีเรียเป็นเชื้อหลักที่ศึกษา",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 1
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 2
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 3
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 4
+    }
+   ]
   },
   {
-   "t": 436,
-   "title": "",
-   "line": "แบ่งตามความต้องการออกซิเจน Campylobacter เป็น Microaerophilic ส่วน E. coli และแบคทีเรียตระกูล Enterobacteriaceae เป็น Facultative Anaerobe"
+   "t": 300,
+   "title": "Factors affecting microbial growth in meat",
+   "line": "แบ่งตามความต้องการออกซิเจน Campylobacter เป็น Microaerophilic ส่วน E. coli และแบคทีเรียตระกูล Enterobacteriaceae เป็น Facultative Anaerobe",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 5
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 6
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 7
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 8
+    }
+   ]
   },
   {
-   "t": 893,
-   "title": "",
-   "line": "Water Activity และ pH ของเนื้อสัตว์เอื้อเชื้อเกือบทุกชนิด ราและยีสต์ทนสภาพต่ำได้ดีกว่าแบคทีเรีย"
+   "t": 660,
+   "title": "Factors affecting microbial growth in meat (ต่อ)",
+   "line": "อุณหภูมิเป็นปัจจัยภายนอกที่สำคัญที่สุด แบ่งเชื้อตามอุณหภูมิที่เหมาะสมเป็น 4 กลุ่ม คือ psychrophiles, psychrotrophs, mesophiles และ thermophiles",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 9
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 10
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 11
+    }
+   ]
   },
   {
-   "t": 1400,
-   "title": "",
-   "line": "Pseudomonas ใช้กลูโคสก่อนแล้วจึงใช้กรดอะมิโนเกิด Hydrogen Sulfide ทำให้มีกลิ่นเน่าเสีย"
+   "t": 840,
+   "title": "Factors affecting microbial growth in meat (ต่อ)",
+   "line": "Water Activity และ pH ของเนื้อสัตว์เอื้อเชื้อเกือบทุกชนิด ราและยีสต์ทนสภาพต่ำได้ดีกว่าแบคทีเรีย",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 12
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 13
+    }
+   ]
+  },
+  {
+   "t": 1080,
+   "title": "Microorganisms of meat",
+   "line": "Pseudomonas ใช้กลูโคสก่อนแล้วจึงใช้กรดอะมิโนเกิด Hydrogen Sulfide ทำให้มีกลิ่นเน่าเสีย",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 14
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 15
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 16
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 17
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 18
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 19
+    }
+   ]
+  },
+  {
+   "t": 1573,
+   "title": "เนื้อสัตว์, pseudomonas",
+   "line": "Pseudomonas เป็นสาเหตุสำคัญที่สุดของ aerobic spoilage โดยใช้กลูโคสก่อนและเกิดกลิ่นเน่าเสียเมื่อหันมาใช้ amino acid พบสายพันธุ์ Fluorescens และ Fragilis",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 20
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 21
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 22
+    }
+   ]
   },
   {
    "t": 1942,
-   "title": "",
-   "line": "Lactobacillus และ Brochothrix thermosphacta เป็นตัวหลักใน Vacuum Package ส่วน Shewanella ทำให้ DFD Meat เป็นสีเขียว"
+   "title": "เนื้อสัตว์, DFD",
+   "line": "Lactobacillus และ Brochothrix thermosphacta เป็นตัวหลักใน Vacuum Package ส่วน Shewanella ทำให้ DFD Meat เป็นสีเขียว",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 23
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 24
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 25
+    }
+   ]
   },
   {
    "t": 2450,
-   "title": "",
-   "line": "Clostridium สร้าง Spore ไม่ต้องการอากาศ ไม่เจริญที่ pH ต่ำกว่า 4.5 และทำให้เกิด Deep Spoilage"
+   "title": "clostridium, เนื้อสัตว์",
+   "line": "Clostridium สร้าง Spore ไม่ต้องการอากาศ ไม่เจริญที่ pH ต่ำกว่า 4.5 และทำให้เกิด Deep Spoilage",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 26
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 27
+    }
+   ]
   },
   {
    "t": 2930,
@@ -111,48 +245,236 @@ export default {
   },
   {
    "t": 3180,
-   "title": "",
-   "line": "Salmonella ปนเปื้อนจากขั้นตอนเอาเครื่องในออก ควบคุมด้วยการปรุงสุกและหลีกเลี่ยงการปนเปื้อนข้าม"
+   "title": "campylobacter, เนื้อสัตว์",
+   "line": "Salmonella ปนเปื้อนจากขั้นตอนเอาเครื่องในออก ควบคุมด้วยการปรุงสุกและหลีกเลี่ยงการปนเปื้อนข้าม",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 28
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 29
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 30
+    }
+   ]
   },
   {
-   "t": 3480,
-   "title": "",
-   "line": "Campylobacter ไม่เพิ่มจำนวนในเนื้อสัตว์ E. coli O157:H7 ทำให้เกิด HUS และ Yersinia ทำให้เกิด pseudoappendicitis"
+   "t": 3600,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "EHEC หรือ VTEC หรือ STEC ผลิต Shiga-like toxin ก่อ hemorrhagic colitis และ HUS ซึ่งมี hemolytic anemia, thrombocytopenia และ acute renal failure",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 31
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 32
+    }
+   ]
   },
   {
    "t": 3840,
-   "title": "",
-   "line": "Clostridium perfringens เป็น Foodborne Toxinfection จากเนื้ออบที่ทิ้งไว้อุณหภูมิห้อง ราและยีสต์พบใน Dry Aged Beef"
+   "title": "เนื้อสัตว์, clostridium",
+   "line": "Clostridium perfringens เป็น Foodborne Toxinfection จากเนื้ออบที่ทิ้งไว้อุณหภูมิห้อง ราและยีสต์พบใน Dry Aged Beef",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 33
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 34
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 35
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 36
+    }
+   ]
   },
   {
    "t": 4332,
-   "title": "",
-   "line": "ไวรัสและปรสิตก่อโรคมากกว่าทำให้เน่าเสีย เนื้อสดใหม่มีเชื้อ 10² ถึง 10⁴ CFU ต่อกรัม"
+   "title": "เนื้อสัตว์, ซาก",
+   "line": "ไวรัสและปรสิตก่อโรคมากกว่าทำให้เน่าเสีย เนื้อสดใหม่มีเชื้อ 10² ถึง 10⁴ CFU ต่อกรัม",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 37
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 38
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 39
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 40
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 41
+    }
+   ]
   },
   {
-   "t": 4931,
-   "title": "",
-   "line": "Consumer Packaging มีออกซิเจนทำให้ Pseudomonas เจริญ ส่วน Vacuum Packaging พบ Lactobacillus และ Brochothrix"
+   "t": 4860,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Consumer Packaging มีออกซิเจนทำให้ Pseudomonas เจริญ ส่วน Vacuum Packaging พบ Lactobacillus และ Brochothrix",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 42
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 43
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 44
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 45
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 46
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 47
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 48
+    }
+   ]
   },
   {
-   "t": 5507,
-   "title": "",
-   "line": "Consumer Packaging เน่าเสียเร็วกว่า Vacuum เพราะมีออกซิเจน เติม Citrate Buffer หรือกลูโคสยืดอายุ DFD Meat"
+   "t": 5460,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "Consumer Packaging เน่าเสียเร็วกว่า Vacuum เพราะมีออกซิเจน เติม Citrate Buffer หรือกลูโคสยืดอายุ DFD Meat",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 49
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 50
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 51
+    }
+   ]
   },
   {
-   "t": 5980,
-   "title": "",
-   "line": "แหล่งปนเปื้อนจากหนังสัตว์ อุจจาระ อุปกรณ์ น้ำ และคน ควบคุมได้ด้วยการตัดแต่งซาก"
+   "t": 5760,
+   "title": "Microorganisms of meat (ต่อ)",
+   "line": "แหล่งปนเปื้อนจากหนังสัตว์ อุจจาระ อุปกรณ์ น้ำ และคน ควบคุมได้ด้วยการตัดแต่งซาก",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 52
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 53
+    }
+   ]
   },
   {
-   "t": 6517,
-   "title": "",
-   "line": "สเปรย์ซากด้วย Lactic Acid 1-2% ฉายรังสี Gamma 5 kGy และลดอุณหภูมิซากลงเหลือ 4 °C อย่างรวดเร็วช่วยลดเชื้อ"
+   "t": 6000,
+   "title": "Control of microorganisms on meat",
+   "line": "ล้างซากด้วยน้ำร้อน 82 °C และทำ Trimming ช่วยลดเชื้อที่ปนเปื้อนบนผิวซาก",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 54
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 55
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 56
+    }
+   ]
   },
   {
-   "t": 7013,
-   "title": "",
-   "line": "ตรวจ Total Plate Count กับ Coliform เป็น Indicator Microorganism มาตรฐานกรมปศุสัตว์กำหนด Salmonella ห้ามพบใน 25 กรัม"
+   "t": 6540,
+   "title": "Control of microorganisms on meat (ต่อ)",
+   "line": "การลดอุณหภูมิเนื้อและซากให้ถึง 4 °C ในเวลาสั้นช่วยชะลอการเจริญของเชื้อก่อโรคส่วนใหญ่ซึ่งเป็น mesophiles",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 57
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 58
+    }
+   ]
+  },
+  {
+   "t": 6900,
+   "title": "Microbiological examination of meats and carcasses",
+   "line": "ตรวจ Total Plate Count กับ Coliform เป็น Indicator Microorganism มาตรฐานกรมปศุสัตว์กำหนด Salmonella ห้ามพบใน 25 กรัม",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 59
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 60
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 61
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 62
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 63
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 64
+    },
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 65
+    }
+   ]
+  },
+  {
+   "t": 7200,
+   "title": "Thank you …",
+   "line": "กรมปศุสัตว์กำหนด Aerobic Plate Count ของเนื้อแช่เย็นแช่แข็งไม่เกิน 5x10^5 และ Salmonella ห้ามพบในตัวอย่าง 25 กรัม",
+   "slides": [
+    {
+     "doc": "microbiology-of-meat-51d9de",
+     "page": 66
+    }
+   ]
   }
  ],
  "index": [
@@ -165,8 +487,8 @@ export default {
    "t": 5566
   },
   {
-   "term": "clostridium",
-   "t": 2570
+   "term": "DFD",
+   "t": 2266
   },
   {
    "term": "pseudomonas",
@@ -179,10 +501,6 @@ export default {
   {
    "term": "salmonella",
    "t": 5606
-  },
-  {
-   "term": "campylobacter",
-   "t": 3483
   },
   {
    "term": "vacuum",
@@ -217,6 +535,10 @@ export default {
    "t": 4384
   },
   {
+   "term": "shewanella",
+   "t": 2390
+  },
+  {
    "term": "staphylococcus",
    "t": 5119
   },
@@ -245,24 +567,28 @@ export default {
    "t": 4408
   },
   {
-   "term": "aureus",
-   "t": 4566
+   "term": "Campylobacter jejuni",
+   "t": 3483
   },
   {
-   "term": "listeria",
-   "t": 7267
+   "term": "aureus",
+   "t": 4566
   },
   {
    "term": "brochothrix",
    "t": 1981
   },
   {
-   "term": "micrococcus",
-   "t": 5115
+   "term": "CFU",
+   "t": 7166
   },
   {
    "term": "enterococcus",
    "t": 1260
+  },
+  {
+   "term": "micrococcus",
+   "t": 5115
   },
   {
    "term": "พาหะ",
@@ -273,16 +599,16 @@ export default {
    "t": 5119
   },
   {
-   "term": "spore",
-   "t": 3964
-  },
-  {
-   "term": "cladosporium",
-   "t": 4241
+   "term": "Staphylococcus aureus",
+   "t": 4566
   },
   {
    "term": "moraxella",
    "t": 1230
+  },
+  {
+   "term": "spore",
+   "t": 3964
   },
   {
    "term": "mucor",
@@ -305,6 +631,18 @@ export default {
    "t": 1315
   },
   {
+   "term": "Clostridium botulinum",
+   "t": 2570
+  },
+  {
+   "term": "Listeria monocytogenes",
+   "t": 7267
+  },
+  {
+   "term": "enterobacter",
+   "t": 1315
+  },
+  {
    "term": "โรงฆ่าสัตว์",
    "t": 5903
   },
@@ -313,12 +651,372 @@ export default {
    "t": 3690
   },
   {
-   "term": "hepatitis",
-   "t": 4349
+   "term": "HUS",
+   "t": 3671
+  },
+  {
+   "term": "O157",
+   "t": 3710
+  },
+  {
+   "term": "H7",
+   "t": 3710
+  },
+  {
+   "term": "PSE",
+   "t": 4825
   },
   {
    "term": "psychrobacter",
    "t": 1230
+  },
+  {
+   "term": "alteromonas",
+   "t": 1315
+  },
+  {
+   "term": "hepatitis",
+   "t": 4349
+  },
+  {
+   "term": "ไต",
+   "t": 3690
+  },
+  {
+   "term": "อาเจียน",
+   "t": 3390
+  },
+  {
+   "term": "ปวดท้อง",
+   "t": 3656
+  },
+  {
+   "term": "เกล็ดเลือดต่ำ",
+   "t": 3683
+  },
+  {
+   "term": "pasteurisation",
+   "t": 6573
+  },
+  {
+   "term": "VTEC",
+   "t": 3618
+  },
+  {
+   "term": "STEC",
+   "t": 3625
+  },
+  {
+   "term": "DLD",
+   "t": 7140
+  },
+  {
+   "term": "MPN",
+   "t": 7307
+  },
+  {
+   "term": "Brochothrix thermosphacta",
+   "t": 1844
+  },
+  {
+   "term": "Clostridium sporogenes",
+   "t": 2606
+  },
+  {
+   "term": "Clostridium histolyticum",
+   "t": 2608
+  },
+  {
+   "term": "Clostridium butyricum",
+   "t": 2608
+  },
+  {
+   "term": "Candida lipolytica",
+   "t": 4162
+  },
+  {
+   "term": "Yarrowia lipolytica",
+   "t": 4168
+  },
+  {
+   "term": "Cladosporium herbarum",
+   "t": 4282
+  },
+  {
+   "term": "Taenia saginata",
+   "t": 4396
+  },
+  {
+   "term": "Taenia solium",
+   "t": 4396
+  },
+  {
+   "term": "pediococcus",
+   "t": 1321
+  },
+  {
+   "term": "colitis",
+   "t": 3648
+  },
+  {
+   "term": "anemia",
+   "t": 3677
+  },
+  {
+   "term": "trichinella",
+   "t": 4390
+  },
+  {
+   "term": "cryptococcus",
+   "t": 5073
+  },
+  {
+   "number": "◼water ……............ 64 – 80 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 6
+   }
+  },
+  {
+   "number": "◼protein ………….. 16 – 20 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 6
+   }
+  },
+  {
+   "number": "◼fat ……………….. 6 – 20 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 6
+   }
+  },
+  {
+   "number": "◼ash …………….... 1 – 1.5 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 6
+   }
+  },
+  {
+   "number": "◼soluble non-protein substances …………. 3.5 – 5 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 6
+   }
+  },
+  {
+   "number": "69 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "42 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "71 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "20 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "12 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "10 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "45 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "7 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "1 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "0.5 %",
+   "t": 300,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 7
+   }
+  },
+  {
+   "number": "for 1 to 3 weeks",
+   "t": 3720,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 32
+   }
+  },
+  {
+   "number": "temperature for more than 2 hours",
+   "t": 3840,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 33
+   }
+  },
+  {
+   "number": "for a long period of time (at least 4 to 6 weeks)",
+   "t": 4020,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 34
+   }
+  },
+  {
+   "number": "surface of chilled meat after 4 – 6 weeks’ storage",
+   "t": 5040,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 44
+   }
+  },
+  {
+   "number": "(e.g., 1-2% lactic acid)",
+   "t": 6540,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 57
+   }
+  },
+  {
+   "number": "radiation at 5 kGy)",
+   "t": 6540,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 57
+   }
+  },
+  {
+   "number": "◼incubation (1 – 2 days at 35 – 37 C)",
+   "t": 6900,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 59
+   }
+  },
+  {
+   "number": "◼Salmonella spp. (not found in 25 g of sample)",
+   "t": 7140,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 60
+   }
+  },
+  {
+   "number": "(no criteria specified by DLD in 25 g of sample)",
+   "t": 7140,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 61
+   }
+  },
+  {
+   "number": "DLD in 25 g of sample)",
+   "t": 7140,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 61
+   }
+  },
+  {
+   "number": "(not found in 25 g of sample)",
+   "t": 7140,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 62
+   }
+  },
+  {
+   "number": "◼Listeria monocytogenes (not found in 25 g)",
+   "t": 7140,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 64
+   }
+  },
+  {
+   "number": "(not found in 25 g)",
+   "t": 7140,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 64
+   }
+  },
+  {
+   "number": "≤ 5.0 × 10⁵",
+   "t": 7200,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 65
+   }
+  },
+  {
+   "number": "≤ 1.0 × 10⁵",
+   "t": 7200,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 65
+   }
+  },
+  {
+   "number": "in 25 g",
+   "t": 7200,
+   "slide": {
+    "doc": "microbiology-of-meat-51d9de",
+    "page": 65
+   }
   }
  ]
 };

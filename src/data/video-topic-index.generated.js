@@ -80,6 +80,18 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "medium"
   },
   {
+   "v": "_nfuMkRDaKM",
+   "s": 0,
+   "e": 2220,
+   "conf": "medium"
+  },
+  {
+   "v": "_nfuMkRDaKM",
+   "s": 2760,
+   "e": 3780,
+   "conf": "medium"
+  },
+  {
    "v": "BnQScOdmIJc",
    "s": 3180,
    "e": 3480,
@@ -91,6 +103,26 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "WX7vrDP9MjA",
    "s": 7620,
    "e": 8700,
+   "conf": "high"
+  }
+ ],
+ "avian-mycosis": [
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 0,
+   "e": 2940,
+   "conf": "high"
+  },
+  {
+   "v": "VGXvQVrud_A",
+   "s": 120,
+   "e": 3060,
+   "conf": "high"
+  },
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 3000,
+   "e": 3653,
    "conf": "high"
   }
  ],
@@ -116,6 +148,106 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "equine-infectious": [
+  {
+   "v": "14B7TUfov00",
+   "s": 3180,
+   "e": 4920,
+   "conf": "high"
+  },
+  {
+   "v": "14B7TUfov00",
+   "s": 7260,
+   "e": 8880,
+   "conf": "high"
+  },
+  {
+   "v": "14B7TUfov00",
+   "s": 0,
+   "e": 2820,
+   "conf": "medium"
+  }
+ ],
+ "fiqc-haccp": [
+  {
+   "v": "UDJxcdzGkMU",
+   "s": 1440,
+   "e": 3660,
+   "conf": "high"
+  }
+ ],
+ "fiqc-poultry-export": [
+  {
+   "v": "UDJxcdzGkMU",
+   "s": 10860,
+   "e": 11940,
+   "conf": "high"
+  },
+  {
+   "v": "UDJxcdzGkMU",
+   "s": 9420,
+   "e": 9780,
+   "conf": "high"
+  }
+ ],
+ "meat-hygiene-intro": [
+  {
+   "v": "_nfuMkRDaKM",
+   "s": 3780,
+   "e": 4860,
+   "conf": "medium"
+  }
+ ],
+ "swine-resp-viral": [
+  {
+   "v": "dautD1MVHEg",
+   "s": 420,
+   "e": 840,
+   "conf": "high"
+  }
+ ],
+ "swine-repro": [
+  {
+   "v": "aepa8Zi_QhM",
+   "s": 2280,
+   "e": 5071,
+   "conf": "high"
+  },
+  {
+   "v": "aepa8Zi_QhM",
+   "s": 600,
+   "e": 1680,
+   "conf": "medium"
+  }
+ ],
+ "swine-ileitis-bacti": [
+  {
+   "v": "-Y30vybBkEI",
+   "s": 2460,
+   "e": 3600,
+   "conf": "high"
+  },
+  {
+   "v": "-Y30vybBkEI",
+   "s": 540,
+   "e": 1500,
+   "conf": "high"
+  },
+  {
+   "v": "-Y30vybBkEI",
+   "s": 4020,
+   "e": 6000,
+   "conf": "medium"
+  }
+ ],
+ "equine-surgery-wound": [
+  {
+   "v": "HGXTKbKbqPA",
+   "s": 5820,
+   "e": 8760,
+   "conf": "high"
+  }
+ ],
  "oh-risk-analysis": [
   {
    "v": "hLl7taXYRWQ",
@@ -135,6 +267,14 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "PvMzY6UNM8M",
    "s": 1500,
    "e": 3240,
+   "conf": "high"
+  }
+ ],
+ "zoo-mycoses": [
+  {
+   "v": "Q90_Y5fAX4I",
+   "s": 420,
+   "e": 2880,
    "conf": "high"
   }
  ],
@@ -164,6 +304,28 @@ export const VIDEO_TOPIC_INDEX = {
    "s": 300,
    "e": 1020,
    "conf": "high"
+  }
+ ],
+ "aqua-fish-diseases": [
+  {
+   "v": "J0_PVwAL884",
+   "s": 8880,
+   "e": 10966,
+   "conf": "high"
+  }
+ ],
+ "epidem-economics": [
+  {
+   "v": "vP8uTsXKjNo",
+   "s": 0,
+   "e": 960,
+   "conf": "medium"
+  },
+  {
+   "v": "vP8uTsXKjNo",
+   "s": 12360,
+   "e": 12976,
+   "conf": "medium"
   }
  ],
  "epidem-dx-screening": [
@@ -202,9 +364,41 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   },
   {
+   "v": "YlS2efVw0OQ",
+   "s": 5040,
+   "e": 6600,
+   "conf": "high"
+  },
+  {
+   "v": "YlS2efVw0OQ",
+   "s": 240,
+   "e": 1680,
+   "conf": "high"
+  },
+  {
+   "v": "YlS2efVw0OQ",
+   "s": 2460,
+   "e": 3780,
+   "conf": "high"
+  },
+  {
    "v": "130fSmEeitU",
    "s": 6120,
    "e": 6600,
+   "conf": "high"
+  }
+ ],
+ "equine-parasites": [
+  {
+   "v": "IJaulz_PkS8",
+   "s": 2940,
+   "e": 4740,
+   "conf": "high"
+  },
+  {
+   "v": "IJaulz_PkS8",
+   "s": 1500,
+   "e": 2460,
    "conf": "high"
   }
  ],
@@ -258,11 +452,49 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "equine-gi": [
+  {
+   "v": "ha7c8qpdsA4",
+   "s": 1020,
+   "e": 1980,
+   "conf": "high"
+  }
+ ],
  "fiqc-feed-qc": [
   {
    "v": "WQX71m1GSds",
    "s": 360,
    "e": 1860,
+   "conf": "high"
+  }
+ ],
+ "milk-raw-storage": [
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 240,
+   "e": 2220,
+   "conf": "high"
+  }
+ ],
+ "milk-products-storage": [
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 2640,
+   "e": 3660,
+   "conf": "medium"
+  }
+ ],
+ "milk-quality-determination": [
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 5460,
+   "e": 7560,
+   "conf": "high"
+  },
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 8460,
+   "e": 9960,
    "conf": "high"
   }
  ],
@@ -279,6 +511,54 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "F1jwpqQCGBM",
    "s": 5760,
    "e": 8100,
+   "conf": "high"
+  }
+ ],
+ "epidem-outbreak-investigation": [
+  {
+   "v": "Jx489N1psMo",
+   "s": 3300,
+   "e": 4260,
+   "conf": "high"
+  },
+  {
+   "v": "Jx489N1psMo",
+   "s": 1980,
+   "e": 2880,
+   "conf": "high"
+  },
+  {
+   "v": "Jx489N1psMo",
+   "s": 0,
+   "e": 1620,
+   "conf": "medium"
+  }
+ ],
+ "epidem-surveillance": [
+  {
+   "v": "ZKnNkti4nDo",
+   "s": 0,
+   "e": 2640,
+   "conf": "high"
+  },
+  {
+   "v": "ZKnNkti4nDo",
+   "s": 2940,
+   "e": 3300,
+   "conf": "high"
+  },
+  {
+   "v": "ZKnNkti4nDo",
+   "s": 3780,
+   "e": 5760,
+   "conf": "medium"
+  }
+ ],
+ "swine-gi-viral": [
+  {
+   "v": "2I7DU_E8vho",
+   "s": 1320,
+   "e": 2400,
    "conf": "high"
   }
  ],
@@ -340,11 +620,59 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "medium"
   }
  ],
+ "epidem-sample-size": [
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 420,
+   "e": 4740,
+   "conf": "high"
+  },
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 7920,
+   "e": 9300,
+   "conf": "high"
+  },
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 6900,
+   "e": 7860,
+   "conf": "high"
+  },
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 6060,
+   "e": 6780,
+   "conf": "high"
+  }
+ ],
  "zoo-vbz": [
   {
    "v": "u_cH2UtCIAg",
    "s": 2580,
    "e": 3300,
+   "conf": "high"
+  }
+ ],
+ "epidem-basic-concepts": [
+  {
+   "v": "uGAmgxPrb2Y",
+   "s": 1020,
+   "e": 1500,
+   "conf": "high"
+  }
+ ],
+ "epidem-disease-frequency": [
+  {
+   "v": "uGAmgxPrb2Y",
+   "s": 3360,
+   "e": 6360,
+   "conf": "high"
+  },
+  {
+   "v": "uGAmgxPrb2Y",
+   "s": 6720,
+   "e": 7800,
    "conf": "high"
   }
  ],

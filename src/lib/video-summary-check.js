@@ -84,6 +84,9 @@ export function overlap(a, b) {
   return [...x].filter((w) => y.has(w)).length / Math.max(1, Math.min(x.size, y.size));
 }
 
+/** A line's comma-separated parts; a thousands separator ("10,000") is no list comma. */
+export const listParts = (line) => String(line).split(/,(?!\d{3}(?!\d))\s*/);
+
 export const LIMITS = {
   oneLiner: 30, // words
   point: 25, // words per key point, emphasis and remember item
@@ -116,16 +119,19 @@ export function keyPointCap(durationSec) {
 const COACHING = /ต้องแยก.{0,30}ให้ชัด|ควรจำ|ต้องจำ|จำไว้|จำให้ขึ้นใจ|ท่องจำ|ท่อง(?!เที่ยว)|ห้ามพลาด|อย่าลืม|ข้อนี้สำคัญ|ต้องรู้/;
 // A card states the fact; what the lecturer said about the exam stays out of it
 // ("เคยออกข้อสอบ", "ข้อสอบเป็นถูกผิด 10 ข้อ"): the stress already put it on the card.
+// "การสอบ" alone is no exam talk: การสอบกลับสินค้า is traceability, การสอบสวนโรค an investigation.
 // Course logistics too: reports, homework, credits, grading, roll call, group sizes,
 // and "นักศึกษา" (VetMock says นิสิต). "เคยออก" and "ออกบ่อย" end their phrase:
 // "เคยออกอาการ" is a sign.
-const EXAM_TALK = /ข้อสอบ|ออกสอบ|การสอบ|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
+const EXAM_TALK = /ข้อสอบ|ออกสอบ|สอบปลายภาค|สอบกลางภาค|สอบย่อย|ตอนสอบ|วันสอบ|เคยออก(?![฀-๿])|ออกบ่อย(?![฀-๿])|ของคะแนน|คะแนนสอบ|คะแนนเก็บ|เกณฑ์คะแนน|หน่วยกิต|เช็คชื่อ|จำนวนนิสิต|ทำรายงาน|ส่งงาน|การบ้าน|นักศึกษา/;
 // The recording's own set-up is no content ("ช่วงต้นเป็นการเตรียมระบบถ่ายทอดและส่งไฟล์เรียน").
 const SETUP = /ยังไม่มีเนื้อหา|ก่อนเริ่มบรรยาย|ก่อนเริ่มสอน|เตรียมการสอน|เตรียมระบบ|ไฟล์เรียน|ช่วงเปิดคลิป/;
 export const SELF_NAMING = /^\s*(สรุป|บทนี้|คลิป|บรรยาย)/;
-// "red" names a slide's red mark; สีแดง and ตัวแดง are content in Thai ("Oxymyoglobin ให้สีแดงสด",
-// "โรคตัวแดงดวงขาว"), so they count as framing only beside a slide (the Year-5 final cards, 7 Nov).
-const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\bred\b|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
+// A slide's red mark named as such ("marked in red", "red text", "red คือ INFECTION"); red
+// before a noun is content ("Red meat", "red muscle fiber"), as สีแดง and ตัวแดง are in Thai.
+const FRAMING = /อาจารย์\s*(กล่าว|บอก|พูด|อธิบาย|เน้นว่า|ย้ำว่า)|ผู้สอน\s*(กล่าว|บอก|พูด)|ในคลิปนี้|ในคาบนี้|\b(?:in|marked|highlighted|written)\s+(?:in\s+)?red\b|\bred\s+(?:marks?|text|words?|fonts?|highlights?)\b|\bred\s*(?:คือ|=|:)|(บน|ใน|ตาม)สไลด์|\bslides?\b/i;
+// The class's own arrangements: a break, lunch, where to send questions.
+const CLASS_TALK = /พักเที่ยง|พัก(?:ก่อน)?\s*\d+\s*นาที|ส่งคำถาม|กลับมาเจอกัน/;
 const FORBIDDEN = /[·|]/;
 const SENTENCE_BREAK = /[.!?;](\s+)(?=\S)/;
 // Full stops that end no sentence: E. coli, Staphylococcus spp., e.g., 2.5,
@@ -144,6 +150,9 @@ export function voiceErrors(text, { heading = false } = {}) {
     wordMatch(COACHING, s) && 'study advice instead of the fact',
     wordMatch(EXAM_TALK, s) && 'talks about the exam instead of stating the fact',
     SETUP.test(s) && 'describes the recording instead of the content',
+    CLASS_TALK.test(s) && 'talks about the class instead of stating the fact',
+    // A model's stray word from another alphabet ("диаметร", "วุ้นใส حجم"); Greek letters (α, β, μ) are notation.
+    /[\u0400-\u04FF\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FFF\uAC00-\uD7AF]/.test(s) && 'letters from another alphabet',
     /เปอร์เซ็นต์/.test(s) && 'write % for percent',
   ].filter(Boolean);
 }
@@ -164,8 +173,10 @@ export function lintSummary(summary, { durationSec, transcriptWords, chapterIds 
   if (teaching && (summary?.keyPoints || []).length) {
     const ts = [teaching.start, ...summary.keyPoints.map((p) => p.t).sort((a, b) => a - b), teaching.end];
     const most = Math.max(600, 0.2 * (teaching.end - teaching.start));
+    // A break inside the stretch is no teaching: an 80-minute class exercise is no gap.
+    const idle = (s, e) => breaks.reduce((n, b) => n + Math.max(0, Math.min(e, b.end) - Math.max(s, b.start)), 0);
     for (let i = 1; i < ts.length; i++) {
-      if (ts[i] - ts[i - 1] > most) errors.push(`no key point from ${Math.round(ts[i - 1] / 60)} to ${Math.round(ts[i] / 60)} min (at most ${Math.round(most / 60)})`);
+      if (ts[i] - ts[i - 1] - idle(ts[i - 1], ts[i]) > most) errors.push(`no key point from ${Math.round(ts[i - 1] / 60)} to ${Math.round(ts[i] / 60)} min (at most ${Math.round(most / 60)})`);
     }
   }
   // One fact once: two card items at nearly the same moment saying nearly

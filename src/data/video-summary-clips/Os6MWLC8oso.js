@@ -169,7 +169,7 @@ export default {
 ### Clinical signs
 - **Forelimb lameness** (subtle — often missed!)
 - **Head bob** (lift head when sore leg lands)
-- **Crab walk / 가uddling gait** (try to off-load medial side)
+- **Crab walk** (try to off-load medial side)
 - Joint effusion (hard to detect — small joint)
 - Muscle atrophy
 - **Pain on flexion + supination** ⭐ (Hands-on exam)
