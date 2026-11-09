@@ -20,7 +20,8 @@ What is stored, and what is not:
 - Text is NFC, whitespace collapsed, letter-spaced headings ("C a n i n e")
   joined, and stray spaces before Thai marks removed. Nothing is reworded.
 - A page whose Thai came out mis-encoded (Latin-1 or private-use characters
-  inside Thai, the "ชืÉอ" pattern) is not stored: a search cannot match it and
+  inside Thai, the "ชืÉอ" pattern, or glyph ids printed as Latin-1 runs with
+  no Thai left, "ªµ¤®¤µ¥") is not stored: a search cannot match it and
   a snippet of it is noise. Its document is marked 'partial' or 'garbled'.
 - A document showing a Chula student ID or a Thai national ID on any page is
   held entirely ('pii_held'): no page of it is stored, so no search can surface
@@ -52,6 +53,16 @@ THAI = '฀-๿'
 THAI_MARKS = 'ัิ-ฺ็-๎'
 GARBLE = re.compile(f'[{THAI}][À-ÿ-]|[À-ÿ-][{THAI}]')
 CONTROL = re.compile('[\x01-\x08\x0e-\x1b]')
+# A Thai font with no Unicode map can also print its glyph ids as Latin-1, with no Thai left on the page for GARBLE
+# to sit beside: "\x87ªµ¤®¤µ¥" for ความหมาย (the VETKU answer keys, 9 Nov 2026). Such ids run together: three or
+# more Latin-1 supplement characters, or two or more with a C1 control. An English page's é sits between ASCII
+# letters and a cp1252 quote decoded as C1 stands alone, so neither is a run. The same rule as
+# thai_font_repair.latin1_score, kept here so `load` and the selftest need no PyMuPDF.
+LATIN1_RUN = re.compile('[\x80-\x9f\xa1-\xff]{2,}')
+
+
+def latin1_score(body):
+    return sum(len(r) for r in LATIN1_RUN.findall(body) if len(r) >= 3 or re.search('[\x80-\x9f]', r))
 STUDENT_ID = re.compile(r'(?<!\d)[4-7]\d{7}31(?!\d)')
 # First digit 1-8: an ISBN-13 starts with 9 and must not hold a textbook.
 # Standalone only: a 13-digit run inside a URL, DOI or file name (seen as
@@ -150,7 +161,7 @@ def classify(pages):
         # characters around ก (two Milk & Meat handouts, 1 Nov 2026). A few
         # stray controls are a bullet glyph; 2% of the page is broken text.
         ctrl = len(CONTROL.findall(body))
-        if len(GARBLE.findall(body)) >= 3 or (ctrl >= 3 and ctrl >= 0.02 * len(body)):
+        if len(GARBLE.findall(body)) >= 3 or (ctrl >= 3 and ctrl >= 0.02 * len(body)) or latin1_score(body) > 5:
             garbled += 1
             continue
         kept[i] = body
@@ -167,16 +178,17 @@ def page_text(doc, page, cache):
     """A page's text. When the plain extraction is broken text because an embedded Thai font lost its Unicode map,
     thai_font_repair decodes each glyph by its outline against the system Thai fonts, and the repair is kept only if
     it reads clean. Without fontTools, Pillow or those fonts the plain text stands and classify() drops the page."""
-    text = page.get_text()
     try:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import thai_font_repair as tfr
     except ImportError:
-        return text, False
-    if not tfr.broken(text):
+        return page.get_text(), False
+    tfr.tag_fonts(doc, cache)  # before the first page's text: MuPDF reads a font's name when it loads it
+    text = page.get_text()
+    if not tfr.needs_repair(page, text):
         return text, False
     fixed = tfr.repair_page(doc, page, cache)
-    return (fixed, True) if fixed and not tfr.broken(fixed) else (text, False)
+    return (fixed, True) if fixed and not tfr.garbled(fixed) else (text, False)
 
 
 def extract_one(row):
@@ -285,6 +297,12 @@ def selftest():
     assert classify(['short'])[0] == 'no_text'
     assert classify(['2 *\x04 \x17\x15$ 1 \x14#$\x1a\x19\x1a\x1b\x06 \x03 + /ก\x1a0" \x04\x1bG \x19\x1a\x1b (embryogenesis)'])[0] == 'garbled'
     assert classify(['\x01 ' + 'ข้อความภาษาไทยที่อ่านได้ยาวพอสมควร ' * 8 + '\x01 \x01'])[0] == 'ok'
+    # Glyph ids printed as Latin-1 with no Thai beside them (VETKU 80 key, page 300), and genuine Latin text.
+    assert classify(['116 \x84. Gastrotomy Gastrotomy \x87ªµ¤®¤µ¥ an insicion through the stomach wall'])[0] == 'garbled'
+    assert classify(['Keyword: \x84\x91®¤µ¥ and the question text in English'])[0] == 'garbled'
+    assert classify(['Les cellules créées à Genève, “quoted” • bullet, 37 °C, naïve, Müller, '
+                     'https://www.agri.ubu.ac.th/~suralee/repro-manage.pdf'])[0] == 'ok'
+    assert classify(['Smith et al. \x93Canine distemper\x94 \x95 page 12 \x96 14, ©2020 Señor'])[0] == 'ok'
     assert classify(['https://m.facebook.com/story.php?story_fbid=1234567890123&id=1 ข้อความยาวพอสมควรเลย'])[0] == 'ok'
     assert classify(['บัตรประชาชน 1 2345 67890 12 3 ของผู้ป่วย'])[0] == 'pii_held'
     # The com4 shape: seat number, ID in groups, score. STUDENT_ID never saw it.
