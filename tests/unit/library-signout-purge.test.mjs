@@ -160,7 +160,7 @@ test('restricted intent prefetch settles after its grant and respects mid-grant 
     releaseGrant();
     const first = await open;
     assert.match(first, /fixture=1/);
-    assert.deepEqual(requests.map(r => r.authorized), [false, true], 'one anonymous mint then the authenticated retry');
+    assert.deepEqual(requests.map(r => r.authorized), [true], 'a signed-in device sends its token on the one mint');
     assert.equal(await lib.resolveDocUrl(restricted), first, 'a later open reuses the settled intent');
 
     const publicDoc = doc('public-intent', 'public', P_HASH);
@@ -179,6 +179,40 @@ test('restricted intent prefetch settles after its grant and respects mid-grant 
       releaseGrant();
       if (nextToken) assert.notEqual(await inFlight, cachedBeforeChange, 'an owner change invalidates the captured intent');
       else await assert.rejects(inFlight, /ต้องเข้าสู่ระบบ/, 'logout cannot return the captured signed link');
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (navigatorDescriptor) Object.defineProperty(globalThis, 'navigator', navigatorDescriptor);
+    else delete globalThis.navigator;
+  }
+});
+
+test('a device with a session mints once with its token; a guest, or a session that cannot be read, tries without one', { timeout: 4000 }, async () => {
+  // Behind the Chula wall the tokenless try only bought a 401 and a second round trip.
+  const originalFetch = globalThis.fetch;
+  const navigatorDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { serviceWorker: {
+    addEventListener() {},
+    controller: { postMessage(data, ports) { ports[0].postMessage({ ready: true }); } },
+  } } });
+  const mints = [];
+  globalThis.fetch = async (url, options = {}) => {
+    if (String(url).includes('/api/library-file')) mints.push(options.headers?.Authorization || null);
+    return Response.json({ url: `/api/library-blob?fixture=${mints.length}` });
+  };
+  try {
+    const cases = [
+      ['member', true, async () => ({ data: { session: { access_token: 'member-token' } } }), ['Bearer member-token']],
+      ['guest', false, async () => ({ data: { session: null } }), [null]],
+      ['unreadable', true, async () => { throw new Error('storage locked'); }, [null]],
+    ];
+    for (const [name, signedIn, getSession, expected] of cases) {
+      install({ signedIn });
+      globalThis.__vmxTestSupabase = { auth: { getSession } };
+      mints.length = 0;
+      const lib = await freshLibrary();
+      assert.match(await lib.resolveDocUrl(doc(`first-mint-${name}`, 'public', P_HASH)), /fixture=1/, name);
+      assert.deepEqual(mints, expected, name);
     }
   } finally {
     globalThis.fetch = originalFetch;
