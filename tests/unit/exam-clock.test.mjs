@@ -439,6 +439,17 @@ test('a timed paper left alone for 30 seconds does not re-render the app every s
 // What the student sees and keeps, unchanged
 // ─────────────────────────────────────────────────────────────
 
+test('the paper clock adds up the allowance the launcher passed, not the setting from the render before', async (t) => {
+  // The results page starts the exam rung at 60 seconds a question in the same handler that
+  // stores 60 as the setting, so the hook still holds the student's earlier 30 seconds.
+  const view = await mount(t, { timePerQ: 30 });
+  mod.act(() => {
+    probe.session.startNewSession(Array.from({ length: 50 }, (_, i) => mcq(9900 + i)), 60, { sessionBudget: true, timePerQ: 60 });
+    probe.setView('exam');
+  });
+  assert.equal(view.timer()?.text, '50:00', 'a 50-question paper at 60 seconds a question gets 50 minutes');
+});
+
 test('time up on the paper clock ends the paper where the student stands, once, with every answer kept', async (t) => {
   await mount(t);
   start([mcq(9201), mcq(9202), mcq(9203)], 60, true);

@@ -273,6 +273,12 @@ export async function saveExamResult(result) {
   }
   const promise = (async () => {
     const { question_ids: _ids, answers: _answers, question_versions: _versions, ...row } = result;
+    // A result an older build queued carries the percentage it worked out in floating point;
+    // exam_results takes only round(correct * 100.0 / total), so 23 of 40 kept as 57 was
+    // refused on every retry and held each later result behind it.
+    if (Number.isInteger(row.total) && row.total > 0 && Number.isInteger(row.correct)) {
+      row.pct = Math.round(row.correct * 100 / row.total);
+    }
     const { error } = await supabase.from('exam_results').insert(row).abortSignal(AbortSignal.timeout(15_000));
     if (error?.code === '23505' && result.id) {
       // An offline retry after a lost response must acknowledge the same run,
@@ -280,7 +286,7 @@ export async function saveExamResult(result) {
       const { data, error: readError } = await supabase.from('exam_results')
         .select('id,user_id,total,correct,pct').eq('id', result.id).eq('user_id', result.user_id)
         .abortSignal(AbortSignal.timeout(15_000)).maybeSingle();
-      if (!readError && data && data.total === result.total && data.correct === result.correct && data.pct === result.pct) return;
+      if (!readError && data && data.total === row.total && data.correct === row.correct && data.pct === row.pct) return;
     }
     if (error) {
       // A refused insert must not resolve like a saved one, and it must

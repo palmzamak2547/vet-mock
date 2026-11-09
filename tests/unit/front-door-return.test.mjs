@@ -2,8 +2,11 @@
 // (landing, year, phase) comes first, then the page the link named, not Home.
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import { loadModule, mount, findAll, textOf } from '../helpers/fake-react.mjs';
-import { rememberFrontDoorReturn, takeFrontDoorReturn, rememberPhaseReturn, FRONT_DOOR_RETURN_KEY } from '../../src/lib/phase-return.js';
+import { rememberFrontDoorReturn, takeFrontDoorReturn, settleFrontDoorReturn, atFrontDoor, rememberPhaseReturn, FRONT_DOOR_RETURN_KEY } from '../../src/lib/phase-return.js';
+
+const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 const stubs = [
   { match: '\\.css$', contents: '' },
@@ -58,6 +61,76 @@ test('the topic screen\'s own return still wins over a link, and Home clears bot
   assert.equal(home, 1);
   assert.equal(takeFrontDoorReturn(), null, 'choosing Home forgets the link');
   view.unmount();
+});
+
+test('a shared reading-list link opens the reading list after the picks, like the other year pages', (t) => {
+  browser(t);
+  rememberFrontDoorReturn('reading-checklist');
+  const views = [];
+  const view = mount(PhaseSelectView, { goHome() {}, selectedYear: 5, selectedPhase: null, setSelectedPhase() {}, setView: (v) => views.push(v) });
+  phaseCards(view.tree)[0].props.onClick();
+  assert.deepEqual(views, ['reading-checklist']);
+  view.unmount();
+});
+
+test('the page waits only inside the front door; any other page drawn forgets it', (t) => {
+  browser(t);
+  // The terms open from the landing's sign-in box and from the wall as a full
+  // page load, and Back returns to the landing: reading them is not leaving.
+  for (const view of ['landing', 'auth', 'privacy', 'year-select', 'phase-select']) {
+    rememberFrontDoorReturn('dashboard');
+    settleFrontDoorReturn(view);
+    assert.equal(sessionStorage.getItem(FRONT_DOOR_RETURN_KEY), 'dashboard', `${view} is the front door itself`);
+  }
+  // The landing's subject card opens the topic screen, its Lab button the Lab;
+  // Back from the picker returns to the library. The visitor left another way.
+  for (const view of ['topic-select', 'lab', 'library', 'home', 'notes']) {
+    rememberFrontDoorReturn('dashboard');
+    settleFrontDoorReturn(view);
+    assert.equal(takeFrontDoorReturn(), null, `${view} drawn: the link's page must not wait any longer`);
+    assert.equal(atFrontDoor(view), false, view);
+  }
+  for (const view of ['landing', 'auth', 'privacy', 'year-select', 'phase-select']) assert.equal(atFrontDoor(view), true, view);
+});
+
+// A cold /app/progress, then a subject card on the landing (the year is set and
+// the topic screen opens), then a phase change from the header later in the tab.
+test('a subject picked on the landing ends the wait: a later phase change still lands on Home', (t) => {
+  browser(t);
+  rememberFrontDoorReturn('dashboard');
+  settleFrontDoorReturn('topic-select');
+  const views = [];
+  const view = mount(PhaseSelectView, { goHome() {}, selectedYear: 5, selectedPhase: '1-mid', setSelectedPhase() {}, setView: (v) => views.push(v) });
+  phaseCards(view.tree)[1].props.onClick();
+  assert.deepEqual(views, ['home']);
+  view.unmount();
+});
+
+test('a phase pick that goes back to the topic screen ends the link\'s wait too', (t) => {
+  browser(t);
+  rememberFrontDoorReturn('dashboard');
+  rememberPhaseReturn('topic-select');
+  const views = [];
+  let view = mount(PhaseSelectView, { goHome() {}, selectedYear: 5, selectedPhase: null, setSelectedPhase() {}, setView: (v) => views.push(v) });
+  phaseCards(view.tree)[0].props.onClick();
+  view.unmount();
+  settleFrontDoorReturn('topic-select');
+  view = mount(PhaseSelectView, { goHome() {}, selectedYear: 5, selectedPhase: '1-mid', setSelectedPhase() {}, setView: (v) => views.push(v) });
+  phaseCards(view.tree)[1].props.onClick();
+  assert.deepEqual(views, ['topic-select', 'home']);
+  view.unmount();
+});
+
+// Rendering App is not something node can do, so its two steps are pinned as constructs.
+test('App settles the wait on every page it draws, and a landing button outranks the link', () => {
+  assert.match(APP, /const door = yearGateFor\(view, selectedYearStored\);\s*if \(!door\) \{\s*settleFrontDoorReturn\(view\);/,
+    'App never drops a link\'s page once the visitor has left the front door');
+  const goLanding = APP.slice(APP.indexOf('const goLanding = (intent) => {'), APP.indexOf('const startPanicSession'));
+  assert.ok(goLanding.length > 0, 'goLanding moved: re-point this guard');
+  const forget = goLanding.indexOf('takeFrontDoorReturn();');
+  assert.ok(forget > 0, 'Start mock exam, Panic and the Lab on the landing still give the picks to the link\'s page');
+  assert.ok(forget < goLanding.indexOf('landingIntentRef.current = intent;'), 'the link is forgotten before the button\'s own destination is parked');
+  assert.ok(forget < goLanding.indexOf("if (intent?.kind === 'lab')"), 'the Lab button forgets the link too');
 });
 
 test('a year with a phase pick leaves the page for that pick', (t) => {

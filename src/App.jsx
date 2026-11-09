@@ -71,8 +71,8 @@ import { usualStudyTime } from './lib/study-reminder.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { viewTitle } from './lib/nav.js';
-import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor, readerTarget, readerUrl } from './lib/view-route.js';
-import { rememberFrontDoorReturn } from './lib/phase-return.js';
+import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor, yearGateFor, readerTarget, readerUrl } from './lib/view-route.js';
+import { atFrontDoor, rememberFrontDoorReturn, settleFrontDoorReturn, takeFrontDoorReturn } from './lib/phase-return.js';
 import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import {
@@ -543,6 +543,10 @@ export default function App() {
   const [topicSection, setTopicSection] = useState('topics');
   useEffect(() => { window.dispatchEvent(new Event('vmx-view-change')); }, [view]);
   const viewRef = useRef(initialView);
+  // Bumped by every popstate that lands, so a render reads the history entry
+  // it now stands on (the rest page's back control is labelled from it) even
+  // when the view itself did not change.
+  const [, setHistoryTick] = useState(0);
   // Set while a back control's history.back() is on its way: a second tap
   // before it lands took a second step, out of VetMock (Chromium, 0 ms
   // double click). Cleared when any traversal lands.
@@ -837,7 +841,8 @@ export default function App() {
         const labHashAlreadyRemoved = previous === 'lab'
           && !enteringLab
           && window.location.hash !== '#lab';
-        if (previous === 'exam' || labHashAlreadyCreated || labHashAlreadyRemoved) {
+        // A redirect (the year gate below) stands in for the entry it leaves.
+        if (previous === 'exam' || labHashAlreadyCreated || labHashAlreadyRemoved || navigationState?.replace) {
           window.history.replaceState(state, '', url || undefined);
         } else {
           window.history.pushState(state, '', url || undefined);
@@ -908,6 +913,15 @@ export default function App() {
         ? event.state?.vmxVideoSubject || null
         : null;
       if (next === 'topic-select' && viewRef.current !== 'notes') setTopicSection('topics');
+      // An exam entry whose set is gone (finished, or cleared by Home) has
+      // nothing to show: drawn as it was, it was a loading screen with no end
+      // and no navigation, since the exam hides the bars.
+      if (next === 'exam' && viewRef.current !== 'exam' && !sessionRef.current?.questions?.length) {
+        try { window.history.replaceState({ ...(window.history.state || {}), vmxView: 'home' }, '', '/'); } catch {}
+        viewRef.current = 'home';
+        withTransition(() => setViewRaw('home'));
+        return;
+      }
       if (viewRef.current === 'exam' && next !== 'exam') {
         // The app's own dialog is async, and popstate can't be un-fired, so
         // put the exam entry back straight away and only navigate once they
@@ -925,15 +939,22 @@ export default function App() {
           scope: 'exam',
         }).then((leave) => {
           if (!leave) return;
+          // Park the set as it stands, as goHome does: the autosave is
+          // throttled, and its savedAt is what a resumed clock counts from.
+          writeInflightRef.current?.();
           setVideoSubject(nextVideoSubject);
           viewRef.current = next;
           withTransition(() => setViewRaw(next));
+          // Drop the guard entry pushed above. Left in place it carried the
+          // exam's state under this screen, so the next Back did nothing.
+          try { window.history.back(); } catch {}
         });
         return;
       }
       setVideoSubject(nextVideoSubject);
       viewRef.current = next;
       withTransition(() => setViewRaw(next));
+      setHistoryTick((n) => n + 1);
     };
     window.addEventListener('popstate', onPopState);
     const onPageShow = () => { restLeavingRef.current = false; };
@@ -1052,16 +1073,28 @@ export default function App() {
   }, [setView]);
 
   // The front door covers a visitor who ARRIVES on a year-scoped path. They
-  // can also walk to Home from a year-agnostic one — the shared library, a
-  // VetWiki article — and every BackBar's "กลับหน้าแรก" does exactly that.
-  // Home reads `selectedYear`, which falls back to CURRENT_YEAR, so without
-  // this it would announce a year the visitor never chose. Picking a year is
-  // the only way out, and YearSelectView always sets the year before it
-  // navigates, so this cannot bounce a student in a loop.
+  // can also walk to one from a year-agnostic page (the shared library, a
+  // VetWiki article): every BackBar's "กลับหน้าแรก" goes Home, and the bar and
+  // the rail open ฝึกข้อสอบ, ทบทวน and ความคืบหน้า. Those pages read
+  // `selectedYear`, which falls back to CURRENT_YEAR, so without this they
+  // announced a year the visitor never chose, and the subject grid waited
+  // forever for banks nobody had asked to load. The picker takes the page's
+  // place in history, so Back from it returns to where the visitor was, and the
+  // page they asked for opens after the picks (lib/phase-return.js). Picking a
+  // year is the only way out, and YearSelectView always sets the year before
+  // it navigates, so this cannot bounce a student in a loop. Every other page
+  // ends a link's wait once the visitor is past the front door, and the set a
+  // button parked for after the picks (goLanding, navMockExam) opens at Home
+  // or not at all, so backing out of the picker does not start it later.
   useEffect(() => {
-    if (view !== 'home') return;
-    if (selectedYearStored != null) return;
-    setView('year-select');
+    const door = yearGateFor(view, selectedYearStored);
+    if (!door) {
+      settleFrontDoorReturn(view);
+      if (view !== 'home' && !atFrontDoor(view)) landingIntentRef.current = null;
+      return;
+    }
+    rememberFrontDoorReturn(view);
+    setView(door, { replace: true });
   }, [view, selectedYearStored, setView]);
 
   // Once the page is idle, warm the views a student most likely opens next.
@@ -1403,6 +1436,7 @@ export default function App() {
   // debounce into the throttle its comment always claimed it was.
   const inflightRef = useRef(null);
   const inflightWrittenAtRef = useRef(0);
+  const writeInflightRef = useRef(null);
   const writeInflight = useCallback(() => {
     const snap = inflightRef.current;
     if (!snap) return;
@@ -1411,6 +1445,7 @@ export default function App() {
       inflightWrittenAtRef.current = Date.now();
     } catch {}
   }, [getQuestionTimes]);
+  writeInflightRef.current = writeInflight;
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) { inflightRef.current = null; return undefined; }
     inflightRef.current = {
@@ -1430,7 +1465,16 @@ export default function App() {
       clock: session.clockKind(),
       sessionKind,
     };
-    if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
+    // Never inside the tap: React runs this effect before the browser paints
+    // the answer, and the snapshot is the whole set, stringified. When a write
+    // is due it goes just after that paint (rAF runs before it, the timeout
+    // after); otherwise half a second later, as before. pagehide and
+    // visibilitychange still flush at once.
+    if (Date.now() - inflightWrittenAtRef.current >= 3000) {
+      let soon = 0;
+      const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
+      return () => { cancelAnimationFrame(frame); clearTimeout(soon); };
+    }
     const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
   }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, sessionKind, writeInflight]);
@@ -2171,7 +2215,7 @@ export default function App() {
     // useExamSession owns the runtime state shape; this single call
     // primes questions/answers/currentIdx/timeLeft/examStartTime in
     // one synchronous batch (was 5 inline setters pre-refactor).
-    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam' });
+    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam', timePerQ: baseTime });
     setView('exam');
     // NOTE: the streak used to be bumped right here — i.e. for merely OPENING
     // a set, before a single answer. That inflated the header counter and made
@@ -2235,7 +2279,7 @@ export default function App() {
     // Its history still counts; a leaderboard run it is not.
     const runResult = user && autoQs.length && sessionKind !== 'redo' ? {
       id: examSessionId, user_id: user.id, mode, subject: runSubject,
-      total: autoQs.length, correct, pct: Math.round(correct / autoQs.length * 100),
+      total: autoQs.length, correct, pct: Math.round(correct * 100 / autoQs.length),
       duration_sec: examStartTime ? Math.max(0, Math.round((completedAt - examStartTime) / 1000)) : 0,
       year: years.size === 1 ? [...years][0] : null, phase: selectedPhase ?? null,
       question_ids: autoQs.map(q => q.id),
@@ -2343,7 +2387,7 @@ export default function App() {
         mode, subject: runSubjectFor(questions), topic, practiceMode, selectedYear, selectedPhase,
         numQuestions, useTimer, timePerQ, questionCategory,
         savedAt: Date.now(),
-        score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },
+        score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct * 100) / autoQs.length) : 0 },
       }));
     } catch {}
 
@@ -2542,7 +2586,7 @@ export default function App() {
     return {
       correct,
       total: totalAuto,
-      pct: totalAuto ? Math.round((correct / totalAuto) * 100) : 0,
+      pct: totalAuto ? Math.round((correct * 100) / totalAuto) : 0,
       writingTotal: writingQs.length,
       writingAttempted,
       // Combined total still used by some legacy callers
@@ -2805,7 +2849,16 @@ export default function App() {
     setTimePerQ(60);
     setView('config');
   };
-  const navHandlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam: startMockExam };
+  // The bar's and the rail's โหมดสอบ. The set is drawn from the year's banks,
+  // so a visitor who never picked a year is asked first and the set opens once
+  // the picks reach Home, as the landing's own button does (goLanding below).
+  // The landing is not marked seen: a tap inside the app never showed it.
+  const navMockExam = () => {
+    if (selectedYearStored != null) { startMockExam(); return; }
+    landingIntentRef.current = { kind: 'mock-exam' };
+    setView('year-select');
+  };
+  const navHandlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam: navMockExam };
 
   // Replay an arbitrary slice of questions as a fresh exam round.
   // Used by ResultsView "redo wrong" — passes the wrong-only subset.
@@ -2888,11 +2941,19 @@ export default function App() {
     // A pin can name a question from another year, so load the rest of the
     // bank before concluding it is gone.
     if (!q && !isQBFullyLoaded()) {
-      try { await loadQB(); } catch { /* fall through to the not-found answer */ }
+      let loadFailed = false;
+      try { await loadQB(); } catch { loadFailed = true; }
       // Consume an obsolete request so its caller cannot navigate the next
       // account to a not-found fallback, just as cancelling a replay does.
       if ((eventContextRef.current?.owner ?? null) !== requestOwner) return true;
       q = find();
+      // The bank did not download, so the question may well still exist:
+      // say that here, rather than let the caller report it removed and move
+      // the student to another set.
+      if (!q && loadFailed) {
+        void alertDialog('โหลดคลังข้อสอบไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง');
+        return true;
+      }
     }
     if (!q) return false;
     replayQuestions([q]);
@@ -2929,6 +2990,9 @@ export default function App() {
   };
   const goLanding = (intent) => {
     try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
+    // The button just pressed outranks a link opened earlier in the tab: that
+    // link's page must not take the picks this button now waits for.
+    takeFrontDoorReturn();
     // Practical Imaging is year-agnostic, so first-time visitors can use it
     // immediately. Question-based intents still wait for a year selection.
     if (intent?.kind === 'lab') {
@@ -3134,7 +3198,7 @@ export default function App() {
             setSubject={setSubject}
             setPracticeMode={setPracticeMode}
             setMode={setMode}
-            onMockExam={startMockExam}
+            onMockExam={navMockExam}
             signedIn={!!user}
             hasSupabase={hasSupabase}
             scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
@@ -3250,7 +3314,9 @@ export default function App() {
               </button>
             </div>
           )}
-          {authLoading ? <ViewFallback /> : (
+          {/* A year-scoped page is not drawn with the default year while the
+              year gate above opens the picker in its place. */}
+          {authLoading || yearGateFor(view, selectedYearStored) ? <ViewFallback /> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
@@ -3287,7 +3353,7 @@ export default function App() {
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki, history, startExam }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakShown(streakData), streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
-              {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData(data => ({ customQuestions: appendCustomQuestions(data, incoming) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
+              {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData((data, sync) => ({ customQuestions: appendCustomQuestions(data, incoming, sync?.takenCustomQuestionIds()) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} selectedYear={selectedYear} />}

@@ -179,48 +179,82 @@ export function useAuth() {
   // ready inside 100-300ms in practice, so the retry schedule is
   // front-loaded: 0 → 100 → 300 → 800ms, total ≤1.2s before falling
   // back to a synthesized local profile (was 3.75s before).
+  //
+  // A read that failed (offline, a dropped request, the SDK chunk not loading)
+  // is no answer about the row; postgrest-js reports it as an error beside
+  // data: null, not as a throw. The stand-in then holds only until the device
+  // is back online or the tab is looked at again, and the row is read again
+  // then: nothing else would, since a token refresh or a tab return keeps the user.
   const userId = user?.id ?? null;
   useEffect(() => {
     if (!userId) { setProfile(null); return; }
     let cancelled = false;
     let attempt = 0;
+    let stopWaiting = null;
     const DELAYS_MS = [0, 100, 300, 800];
     const MAX_ATTEMPTS = DELAYS_MS.length;
 
-    (async () => {
+    const readAgainLater = () => {
+      const again = () => {
+        if (document.visibilityState === 'hidden') return;
+        stopWaiting();
+        load();
+      };
+      window.addEventListener('online', again);
+      document.addEventListener('visibilitychange', again);
+      stopWaiting = () => {
+        stopWaiting = null;
+        window.removeEventListener('online', again);
+        document.removeEventListener('visibilitychange', again);
+      };
+    };
+
+    const load = async () => {
+      attempt = 0;
+      let unreachable = false;
       while (!cancelled && attempt < MAX_ATTEMPTS) {
         if (DELAYS_MS[attempt]) await new Promise((r) => setTimeout(r, DELAYS_MS[attempt]));
         if (cancelled) return;
 
-        const supabase = await getSupabase();
-        if (cancelled || !supabase) return;
-        const { data } = await supabase
-          .from('profiles')
-          // profiles is a public directory, while legacy study-metric
-          // columns are private. Keep this explicit so column grants can
-          // enforce the boundary without breaking profile hydration.
-          .select('id, username, avatar_emoji, created_at')
-          .eq('id', userId)
-          .maybeSingle();
+        let data = null;
+        try {
+          const supabase = await getSupabase();
+          if (cancelled || !supabase) return;
+          const result = await supabase
+            .from('profiles')
+            // profiles is a public directory, while legacy study-metric
+            // columns are private. Keep this explicit so column grants can
+            // enforce the boundary without breaking profile hydration.
+            .select('id, username, avatar_emoji, created_at')
+            .eq('id', userId)
+            .maybeSingle();
+          data = result.data;
+          unreachable = Boolean(result.error);
+        } catch {
+          unreachable = true;
+        }
         if (cancelled) return;
 
         if (data) { setProfile(data); return; }
         attempt++;
       }
       // Reached max attempts → synthesize local profile so the UI
-      // never gets stuck on "logged in but no name" forever.
+      // never gets stuck on "logged in but no name" forever. A profile
+      // already shown for this account stays.
       if (!cancelled) {
-        setProfile({
+        setProfile((prev) => (prev?.id === userId ? prev : {
           id: userId,
           // Never the email local-part: for @student.chula.ac.th accounts that
           // is the 10-digit student id, and this name is broadcast to peers.
           username: 'นิสิต',
           avatar_emoji: '🐾',
-        });
+        }));
+        if (unreachable) readAgainLater();
       }
-    })();
+    };
+    load();
 
-    return () => { cancelled = true; };
+    return () => { cancelled = true; stopWaiting?.(); };
   }, [userId, profileRefresh]);
 
   return { user, profile, setProfile, loading, isSignedIn: !!user };

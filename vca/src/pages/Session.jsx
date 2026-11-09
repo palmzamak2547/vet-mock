@@ -99,13 +99,6 @@ export default function Session() {
     navigate(`/result/${result.id}`, { replace: true });
   }, []);
 
-  // A deadline that passed while the page was closed hands the exam in on arrival; one that
-  // passes now is RunTimer's to report.
-  useEffect(() => {
-    const s = sessionStore.get();
-    if (s && s.deadline != null && isExpired(s, Date.now())) complete();
-  }, [complete]);
-
   // Once the questions are loaded, grade the set against them as they are now (a key corrected
   // since the set was made would otherwise be marked one way on screen and another in the score).
   useEffect(() => {
@@ -115,6 +108,18 @@ export default function Session() {
     const next = refreshItems(s, questionByKey);
     if (next !== s) sessionStore.set(next);
   }, [data.status, session?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // A deadline that passed while the page was closed hands the exam in on arrival; one that
+  // passes now is RunTimer's to report. Either waits for the questions: graded before the bank is
+  // read, a corrected key would be marked against the old answer and a question held back since
+  // would count as wrong. This runs after the effect above, so the set is in line with the bank.
+  const gradable = useRef(false);
+  useEffect(() => {
+    gradable.current = data.status === 'ready';
+    const s = sessionStore.get();
+    if (gradable.current && s && s.deadline != null && isExpired(s, Date.now())) complete();
+  }, [data.status, complete]);
+  const expire = useCallback(() => { if (gradable.current) complete(); }, [complete]);
 
   const item = session?.items[session.cursor];
   const q = item ? questionByKey(item.key) : null;
@@ -177,7 +182,9 @@ export default function Session() {
       const onOption = t instanceof HTMLElement && t.getAttribute('role') === 'radio';
       if (e.code in KEY_ROW) {
         const row = KEY_ROW[e.code];
-        if (row < it.order.length) { e.preventDefault(); onChoose(it.order[row]); }
+        // Only the question on screen: not one whose text is still loading, nor one held back,
+        // which the page says does not count.
+        if (row < it.order.length && data.status === 'ready' && questionByKey(it.key)) { e.preventDefault(); onChoose(it.order[row]); }
         return;
       }
       if (e.key === 'Enter') {
@@ -197,7 +204,7 @@ export default function Session() {
     };
     document.addEventListener('keydown', onKey, true);
     return () => document.removeEventListener('keydown', onKey, true);
-  }, [sheet, onChoose, advance, moveTo]);
+  }, [sheet, onChoose, advance, moveTo, data.status]);
 
   if (!session) {
     return (
@@ -227,7 +234,7 @@ export default function Session() {
           <span className="run-count"><span className="run-count-k">ข้อ </span><b key={session.cursor} className="tick">{session.cursor + 1}</b><span> / {session.items.length}</span></span>
           <span className="run-line" aria-hidden="true"><i style={{ width: `${(t.answered / t.total) * 100}%` }} /></span>
         </div>
-        {timed && <RunTimer deadline={session.deadline} onExpire={complete} />}
+        {timed && <RunTimer deadline={session.deadline} onExpire={expire} />}
         {session.mode === 'mock' && (
           <button type="button" className="icon-btn" aria-pressed={flagged} onClick={() => sessionStore.set(toggleFlag(sessionStore.get(), item.key))} aria-label={flagged ? 'เอาธงออก' : 'ปักธงข้อนี้'} title="ปักธง (F)">
             <Icon name="flag" />

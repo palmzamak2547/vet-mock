@@ -87,9 +87,23 @@ export function earnedBadges({
   const reviewedCards = Object.values(srCards || {})
     .filter((c) => Number(c?.totalReviews) > 0).length;
   // A question answered wrong at least once and right at least once later.
+  // "Later" is each row's own time, read as wrong-pool.js reads it: a sync
+  // merge appends this device's rows after the other device's whatever their
+  // date, so array order gave the badge for questions last answered wrong and
+  // missed real corrections. Rows with no time count as the oldest and keep
+  // the order they were written in.
+  const timeOf = (h) => {
+    const n = Number(h?.date);
+    const t = typeof h?.date === 'string' && !Number.isFinite(n) ? Date.parse(h.date) : n;
+    return Number.isFinite(t) ? t : -Infinity;
+  };
+  const inTimeOrder = history
+    .map((h, i) => ({ h, i, t: timeOf(h) }))
+    .sort((a, b) => (a.t - b.t) || (a.i - b.i))
+    .map(({ h }) => h);
   const seen = new Map();
   let corrected = 0;
-  for (const h of history) {
+  for (const h of inTimeOrder) {
     // History rows carry `questionId` (the older fixtures used `id`).
     const key = `${h?.subject || '?'}:${h?.questionId ?? h?.id ?? h?.qId ?? '?'}`;
     const prior = seen.get(key);

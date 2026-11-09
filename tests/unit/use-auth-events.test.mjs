@@ -156,8 +156,10 @@ function fakeSupabase(initialUser) {
 // true takes the eager hydrate path, false the guest path that waits for a
 // sign-in helper to fire vmx-auth-changed. held() is what storedAuthSession()
 // reads from the device: the token auth-js keeps, whatever getSession answers.
-function mountHook(fake, { savedSession, held = () => null, redirect = false }) {
+// getSupabase stands in for the SDK chunk's load.
+function mountHook(fake, { savedSession, held = () => null, redirect = false, getSupabase = async () => fake.sb }) {
   const win = new EventTarget();
+  const doc = Object.assign(new EventTarget(), { visibilityState: 'visible' });
   const libraryEvents = [];
   win.addEventListener('vmx-library-auth-changed', () => libraryEvents.push(Date.now()));
 
@@ -170,11 +172,11 @@ function mountHook(fake, { savedSession, held = () => null, redirect = false }) 
   const host = createHookHost(() => useAuth());
   for (const name of hookNames) assert.ok(host.react[name], `the hook host implements ${name}`);
   useAuth = new Function(
-    ...hookNames, 'hasSupabase', 'hasSavedSession', 'hasAuthRedirectInUrl', 'getSupabase', 'storedAuthSession', 'window',
+    ...hookNames, 'hasSupabase', 'hasSavedSession', 'hasAuthRedirectInUrl', 'getSupabase', 'storedAuthSession', 'window', 'document',
     `${body}\nreturn useAuth;`,
-  )(...hookNames.map((name) => host.react[name]), true, () => savedSession, () => redirect, async () => fake.sb, held, win);
+  )(...hookNames.map((name) => host.react[name]), true, () => savedSession, () => redirect, getSupabase, held, win, doc);
   host.mount();
-  return { host, win, libraryEvents };
+  return { host, win, doc, libraryEvents };
 }
 
 // The boot counts are pinned in their own test below, so a regression there
@@ -358,4 +360,130 @@ test('USER_UPDATED refreshes the user and the profile, and leaves the library al
   assert.equal(host.result.user.user_metadata.username, 'renamed');
   assert.equal(fake.calls.profile.length - profileBefore, 1, 'the profile row is read again after an account update');
   assert.equal(libraryEvents.length, 0);
+});
+
+// ── A profile read that could not reach the server ──────────────────────────
+// postgrest-js answers a request that never reached the server with an error
+// rather than a throw, so an offline read looked like "the row is not there
+// yet": after the retries the stand-in name 'นิสิต' was set, and with nothing
+// to read it again (a token refresh or a tab return keeps the same user) it
+// stayed all session, on the header and in what classmates see.
+
+// The profile row behind a network that can drop.
+function withNetwork(fake, row) {
+  const net = { up: false, reads: 0 };
+  fake.sb.from = () => {
+    const query = {
+      select: () => query,
+      eq: () => query,
+      maybeSingle: async () => {
+        net.reads++;
+        return net.up ? { data: row, error: null } : { data: null, error: { message: 'TypeError: Failed to fetch', details: '', hint: '', code: '' } };
+      },
+    };
+    return query;
+  };
+  return net;
+}
+
+// Runs the read's retry schedule (0, 100, 300 and 800 ms) to its end.
+async function retriesRunOut(t) {
+  for (let step = 0; step < 6; step++) {
+    await settle();
+    t.mock.timers.tick(1000);
+  }
+  await settle();
+}
+
+const SOMYING = { id: 'alice', username: 'สมหญิง', avatar_emoji: '🐱' };
+const heldAlice = (alice) => () => ({ user: clone(alice), expiresAt: 4102444800 });
+
+test('an offline open shows the stand-in name, and the real one once the device is back online', async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const alice = makeUser('alice');
+  const fake = fakeSupabase(alice);
+  const net = withNetwork(fake, SOMYING);
+  const { host, win } = mountHook(fake, { savedSession: true, held: heldAlice(alice) });
+  await retriesRunOut(t);
+  assert.equal(host.result.profile?.username, 'นิสิต', 'a name while the row cannot be read');
+  assert.equal(net.reads, 4);
+
+  net.up = true;
+  fake.emit('TOKEN_REFRESHED', alice);       // the same user: no reason in itself to read again
+  await settle();
+  win.dispatchEvent(new Event('online'));
+  await retriesRunOut(t);
+  assert.deepEqual(host.result.profile, SOMYING, 'the real name once the network is back');
+  assert.equal(net.reads, 5);
+
+  win.dispatchEvent(new Event('online'));
+  await retriesRunOut(t);
+  assert.equal(net.reads, 5, 'nothing waits once the row is read');
+});
+
+test('a read lost on a connection that never reported offline is made again when the student comes back to the tab', async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const alice = makeUser('alice');
+  const fake = fakeSupabase(alice);
+  const net = withNetwork(fake, SOMYING);
+  const { host, doc } = mountHook(fake, { savedSession: true, held: heldAlice(alice) });
+  await retriesRunOut(t);
+  const standIn = host.result.profile;
+  assert.equal(standIn?.username, 'นิสิต');
+
+  doc.visibilityState = 'visible';
+  doc.dispatchEvent(new Event('visibilitychange'));
+  await retriesRunOut(t);
+  assert.equal(net.reads, 8, 'read again on the way back to the tab');
+  assert.equal(host.result.profile, standIn, 'still unreachable: the same stand-in, no new render');
+
+  net.up = true;
+  doc.visibilityState = 'hidden';
+  doc.dispatchEvent(new Event('visibilitychange'));
+  await retriesRunOut(t);
+  assert.equal(net.reads, 8, 'not while the tab is hidden');
+  doc.visibilityState = 'visible';
+  doc.dispatchEvent(new Event('visibilitychange'));
+  await retriesRunOut(t);
+  assert.deepEqual(host.result.profile, SOMYING);
+});
+
+test('an SDK that fails to load leaves the stand-in name, not none, and the profile loads once it does', async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const unhandled = [];
+  const onUnhandled = (reason) => unhandled.push(reason);
+  process.on('unhandledRejection', onUnhandled);
+  t.after(() => process.off('unhandledRejection', onUnhandled));
+  const alice = makeUser('alice');
+  const fake = fakeSupabase(alice);
+  let chunkLoads = false;
+  const { host, win } = mountHook(fake, {
+    savedSession: true,
+    held: heldAlice(alice),
+    getSupabase: async () => {
+      if (!chunkLoads) throw new TypeError('Failed to fetch dynamically imported module: /assets/supabase-abc.js');
+      return fake.sb;
+    },
+  });
+  await retriesRunOut(t);
+  assert.equal(host.result.user?.id, 'alice', 'the account this device holds stays open');
+  assert.equal(host.result.profile?.username, 'นิสิต', 'never "signed in but no name"');
+  assert.deepEqual(unhandled, []);
+
+  chunkLoads = true;
+  win.dispatchEvent(new Event('online'));
+  await retriesRunOut(t);
+  assert.equal(host.result.profile?.username, 'user-alice');
+});
+
+test('reading the same account again while the server cannot be reached keeps the name on screen', async (t) => {
+  const alice = makeUser('alice');
+  const { host, fake } = await mountSignedIn(alice);
+  const shown = host.result.profile;
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const net = withNetwork(fake, SOMYING);
+  fake.emit('USER_UPDATED', { ...alice, updated_at: '2026-09-23T01:00:00Z' });
+  await retriesRunOut(t);
+  assert.equal(net.reads, 4);
+  assert.equal(host.result.profile, shown, 'not replaced by the stand-in');
 });

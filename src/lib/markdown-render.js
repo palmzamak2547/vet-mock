@@ -26,19 +26,45 @@ export function escapeHtml(s) {
     .replace(/'/g, '&#039;');
 }
 
+// The inverse of escapeHtml, in one pass, so text that was itself an entity
+// (an author's literal "&lt;") comes back as that text and not as "<".
+const UNESCAPED = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#039;': "'" };
+function unescapeHtml(s) {
+  return s.replace(/&[^&;]*;/g, (entity) => UNESCAPED[entity] ?? entity);
+}
+
 export function renderInline(text) {
   let s = escapeHtml(text);
   s = s.replace(/`([^`]+)`/g, '<code class="vmx-md-code">$1</code>');
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/(^|[\s>])\*([^*\s][^*]*)\*(?=$|[\s.,;:?!])/g, '$1<em>$2</em>');
-  // target has already been HTML-escaped; decode ampersands for URL
-  // validation, then escape the normalized URL again for the attribute.
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, target) => {
-    const safe = safeLinkUrl(target.replace(/&amp;/g, '&'));
+  // The target was HTML-escaped with the rest of the line: read it back as
+  // written (an apostrophe left as &#039; is a "#" fragment to the URL
+  // parser), validate it, then escape the normalized URL again for the
+  // attribute. A target with no spaces may hold balanced parentheses, as in
+  // https://en.wikipedia.org/wiki/Mange_(animal); any other target ends at
+  // the first ')', as before.
+  s = s.replace(/\[([^\]]+)\]\(((?:[^()\s]|\([^()\s]*\))+|[^)]+)\)/g, (_match, label, target) => {
+    const safe = safeLinkUrl(unescapeHtml(target));
     if (!safe) return label;
     return `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
   });
   return s;
+}
+
+// One table row → its cells. "\|" is a pipe inside a cell (the GFM escape,
+// which the sheet converter in api/_lib/external-doc.js writes for a literal
+// "|"), so it neither ends the cell nor shows its backslash.
+function tableCells(row) {
+  const cells = [];
+  let cell = '';
+  for (let k = 0; k < row.length; k++) {
+    if (row[k] === '\\' && row[k + 1] === '|') { cell += '|'; k++; }
+    else if (row[k] === '|') { cells.push(cell.trim()); cell = ''; }
+    else cell += row[k];
+  }
+  cells.push(cell.trim());
+  return cells.slice(1, -1);
 }
 
 export function renderMarkdown(md) {
@@ -83,11 +109,11 @@ export function renderMarkdown(md) {
     }
 
     if (/^\|.+\|/.test(line) && i + 1 < lines.length && /^\|[\s|:-]+\|/.test(lines[i + 1])) {
-      const headerCells = line.split('|').slice(1, -1).map((c) => c.trim());
+      const headerCells = tableCells(line);
       i += 2; // skip header + separator
       const bodyRows = [];
       while (i < lines.length && /^\|.+\|/.test(lines[i])) {
-        const cells = lines[i].split('|').slice(1, -1).map((c) => c.trim());
+        const cells = tableCells(lines[i]);
         bodyRows.push(cells);
         i++;
       }

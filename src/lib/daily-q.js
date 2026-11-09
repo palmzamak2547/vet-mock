@@ -136,14 +136,18 @@ export function recordTodaysQAnswer({ qSubject, qId, choice, correct, dateStr = 
       : answer;
     window.localStorage.setItem(storageKey, JSON.stringify({ ...day, byQuestion }));
     // One key was written per calendar day and none was ever removed, so a
-    // term of daily questions is hundreds of dead entries. Yesterday's answer
-    // is read by nothing; clear the other days as today's lands.
-    sweepStaleKeys(window.localStorage, { today: dateStr });
+    // term of daily questions is hundreds of dead entries; clear the dead
+    // ones as an answer lands. The day the sweep keeps is the clock's, not
+    // the answer's: a question shown before midnight is filed under its own
+    // day, and that must not sweep away today's pulse flag.
+    sweepStaleKeys(window.localStorage, { today: todayKey() });
   } catch {}
   // Fire-and-forget class-pulse increment — Palm spec 2026-05-18 round 2.
   // Deduped per device per day (localStorage flag) so refreshing the
-  // page or revisiting the daily-Q modal doesn't double-count.
-  recordDailyQClassPulse(correct, dateStr);
+  // page or revisiting the daily-Q modal doesn't double-count. Only today's
+  // question counts: the server files the count under its own day, so an
+  // answer filed under an earlier day would land on another day's question.
+  if (dateStr === todayKey()) recordDailyQClassPulse(correct, dateStr);
 }
 
 // ─── Class pulse (Supabase aggregate) ───────────────────────────────

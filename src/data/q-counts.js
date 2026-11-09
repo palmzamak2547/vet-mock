@@ -3559,7 +3559,8 @@ export const Q_CURRENT_SCOPE_COUNTS =
       "zoonoses": 16
     },
     "final": {
-      "epidemiology": 40
+      "epidemiology": 40,
+      "equine-medicine": 30
     },
     "continuous": {
       "poa-clinical": 40
@@ -3586,4 +3587,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-02T11:36:11.387Z
+// Built: 2026-11-08T14:16:45.589Z
