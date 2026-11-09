@@ -258,6 +258,10 @@ test.describe('connected study experience', () => {
       [/Mid-term Examination/, /14 - 18 ก.ย. 69/],
       [/case fatality rate/, /ประมาณ 90%/],
       [/เส้นโค้งการระบาดของ COVID-19/, /Intervention II, Intervention I/],
+      // The three intro items written from senior marks (5.195.0).
+      [/ตามคำอธิบายรายวิชาระบาดวิทยา/, /การรักษาและการผ่าตัดสัตว์ป่วยเป็นรายตัว/],
+      [/Bloom's taxonomy/, /Remember, Understand, Analyze, Apply/],
+      [/ติดตามรายงานโรคระบาดสัตว์ของประเทศไทย/, /www\.who\.int/],
     ];
     // Length follows the bank, not a literal: this set lost a question in
     // the figure pass and the loop kept reaching for a sixth screen.
