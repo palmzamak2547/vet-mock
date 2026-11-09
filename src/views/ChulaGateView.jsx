@@ -497,7 +497,7 @@ export default function ChulaGateView({ wall, user, onAbout }) {
               <GoogleSignIn
                 label="Google บัญชีเดิม" busy={busy === 'google'}
                 onBegin={() => begin('google')} onSession={landed} onFail={stopped}
-                onRedirect={() => run('google', () => signInWithGoogle())}
+                onRedirect={() => run('google', () => signInWithGoogle({ back: true }))}
               />
             ) : null}
             {form === 'password' ? (

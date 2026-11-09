@@ -2,21 +2,34 @@ import { test, expect } from './fixtures.js';
 import { CHANGELOG } from '../../src/data/changelog-all.js';
 import { truncateThai } from '../../src/lib/thai-text.js';
 
-// The release the build is actually running. Home keys its announcement by
-// version, so the spec reads the version the app itself prints on the bottom
-// strip and looks that release up in the source changelog — it then follows
-// whatever is in `dist` instead of a number typed by hand (the built assets
-// here predate the newest generated entry, and a stale dist must not turn a
-// green release-note flow red).
-async function releaseUnderTest(page) {
+const SEEN_KEY = 'vmx-seen-changelog';
+
+// Home announces every release this device has not seen, and a first visit has
+// seen every release the build carries (src/lib/changelog-seen.js). So each
+// test visits once, reads the build's releases from the set that visit kept,
+// marks one unseen and loads Home again. The versions come from the page, never
+// typed by hand: the spec follows whatever is in `dist` (the built assets here
+// can predate the newest generated entry, and a stale dist must not turn a
+// green release-note flow red), and looks each one up in the source changelog.
+async function announce(page, pick = (versions) => versions[0]) {
+  await page.goto('/');
   const stripLink = page.locator('.vmx-link-btn')
     .filter({ hasText: /อัปเดตล่าสุด|มีอะไรใหม่/ });
   await expect(stripLink).toBeVisible();
-  const label = (await stripLink.textContent()) || '';
-  const version = label.match(/\(([^)]+)\)/)?.[1];
+  // A first visit is met by no announcement: the newest release reads as seen.
+  await expect(stripLink).toHaveText(/^อัปเดตล่าสุด \(/);
+  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), SEEN_KEY)).not.toBeNull();
+  const versions = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_KEY);
+  expect(versions.length, 'the first visit kept every release the build carries').toBeGreaterThan(1);
+  const version = pick(versions);
+  await page.evaluate(([key, v]) => {
+    localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((x) => x !== v)));
+  }, [SEEN_KEY, version]);
+  await page.reload();
+  await expect(stripLink).toHaveText(`มีอะไรใหม่ (${version})`);
   const entry = CHANGELOG.find((item) => item.version === version);
-  expect(entry, `the build reports release ${version}, which has a changelog entry`).toBeTruthy();
-  return { stripLink, entry };
+  expect(entry, `the build carries release ${version}, which has a changelog entry`).toBeTruthy();
+  return { stripLink, entry, newest: versions[0] };
 }
 
 test.beforeEach(async ({ page }) => {
@@ -29,8 +42,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('the update chip names what changed instead of saying the system updated', async ({ page }) => {
-  await page.goto('/');
-  const { entry } = await releaseUnderTest(page);
+  const { entry } = await announce(page);
   // The chip's tooltip carries the untruncated headline and the release date.
   const chip = page.getByTitle(entry.headline);
   await expect(chip).toBeVisible();
@@ -40,8 +52,7 @@ test('the update chip names what changed instead of saying the system updated', 
 });
 
 test('tapping the chip opens the announcement with the whole change list already expanded', async ({ page }) => {
-  await page.goto('/');
-  const { entry } = await releaseUnderTest(page);
+  const { entry } = await announce(page);
   const chip = page.getByTitle(entry.headline);
   await chip.click();
   const notice = page.locator('.vmx-changelog-notice');
@@ -60,8 +71,7 @@ test('tapping the chip opens the announcement with the whole change list already
 });
 
 test('the ✕ closes the announcement and the bottom strip re-opens the release', async ({ page }) => {
-  await page.goto('/');
-  const { stripLink, entry } = await releaseUnderTest(page);
+  const { stripLink, entry } = await announce(page);
   const notice = page.locator('.vmx-changelog-notice');
   await page.getByTitle(entry.headline).click();
   await page.getByRole('button', { name: 'ปิดประกาศ', exact: true }).click();
@@ -80,8 +90,7 @@ test('the ✕ closes the announcement and the bottom strip re-opens the release'
 
 test('on a phone the bottom strip opens the release note by itself, unread or read', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  await page.goto('/');
-  const { stripLink, entry } = await releaseUnderTest(page);
+  const { stripLink, entry } = await announce(page);
   const notice = page.locator('.vmx-changelog-notice');
   // The note opens from the link and nothing else: no chip tap in between.
   // It is the .is-forced one, which the ≤600px rule does NOT hide, and the
@@ -107,4 +116,25 @@ test('on a phone the bottom strip opens the release note by itself, unread or re
   await stripLink.scrollIntoViewIfNeeded();
   await stripLink.click();
   await expectOpenedByLink();
+});
+
+// A number is taken when a pull request opens, so a lower one can merge after
+// a higher one a device has already closed. The old banner kept that one
+// version and never announced the lower release; now it is announced, once.
+test('a release that merged after a higher number is announced, and then reads as seen', async ({ page }) => {
+  const { stripLink, entry, newest } = await announce(page, (versions) => versions[1]);
+  expect(entry.version).not.toBe(newest);
+  const chip = page.getByTitle(entry.headline);
+  await expect(chip).toBeVisible();
+  await expect(chip).toContainText(`${entry.changes.length} รายการ`);
+  await chip.click();
+  const notice = page.locator('.vmx-changelog-notice');
+  await expect(notice.locator('.vmx-changelog-title')).toHaveText(entry.headline);
+  await expect(notice.locator('li')).toHaveCount(entry.changes.length);
+  await page.getByRole('button', { name: 'ปิดประกาศ', exact: true }).click();
+  await expect(notice).toHaveCount(0);
+  await expect(stripLink).toHaveText(`อัปเดตล่าสุด (${newest})`);
+  await expect(page.getByTitle(entry.headline)).toHaveCount(0);
+  // Kept as seen, so the next visit stays quiet (tests/unit/changelog-seen.test.mjs walks that visit).
+  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_KEY)).toContain(entry.version);
 });

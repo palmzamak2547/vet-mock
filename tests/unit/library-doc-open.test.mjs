@@ -20,7 +20,7 @@ import { finished } from 'node:stream/promises';
 import handler, { contentHeaders, sliceBody } from '../../api/library-blob.js';
 import { mintBlobToken } from '../../api/_lib/blob-token.js';
 import { readerTarget, readerUrl, viewForAppPath } from '../../src/lib/view-route.js';
-import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab } from '../../src/lib/library.js';
+import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab, readerPayload, resolveDocUrl } from '../../src/lib/library.js';
 import { vcaLibraryDocs } from '../../src/lib/vca-library.js';
 import { VCA_MATERIALS } from '../../src/data/vca-materials.js';
 
@@ -36,6 +36,16 @@ test('the reader address names the deck, and a link may ask for a page', () => {
   assert.deepEqual(readerTarget('?doc=deck&page=2.5'), { slug: 'deck', page: null });
   for (const bad of ['', '?doc=', '?doc=../etc', '?doc=Deck', '?doc=a%20b', '?q=deck', '?doc=-x']) {
     assert.equal(readerTarget(bad), null, `${bad} names no deck`);
+  }
+});
+
+test('a VetMock AI link carries its open ticket to the reader, and only a well-formed one', () => {
+  const ticket = { vt: 'Ab_-'.repeat(10) + 'xyz', ve: 1900000000 };
+  const link = readerUrl('deck', 4, ticket);
+  assert.equal(link, `/app/tools/pdf?doc=deck&page=4&vt=${ticket.vt}&ve=1900000000`);
+  assert.deepEqual(readerTarget(new URL(link, 'https://vetmock.com').search), { slug: 'deck', page: 4, ticket });
+  for (const bad of ['&vt=short&ve=1900000000', `&vt=${ticket.vt}`, `&vt=${ticket.vt}&ve=soon`, `&vt=${ticket.vt}<x>&ve=1900000000`]) {
+    assert.deepEqual(readerTarget(`?doc=deck${bad}`), { slug: 'deck', page: null }, `${bad} is no ticket`);
   }
 });
 
@@ -58,6 +68,21 @@ test('a deck the reader address names but a guest\'s shelf lacks says whether it
   t.mock.method(globalThis, 'fetch', async () => { called = true; return new Response('', { status: 401 }); });
   assert.match(await missingDocReason('gone'), /ไม่พบไฟล์นี้ในคลังแล้ว/);
   assert.equal(called, false);
+});
+
+test('a deck the reader found mints its link with the ticket a VetMock AI link carried', async (t) => {
+  const asked = [];
+  t.mock.method(globalThis, 'fetch', async (url) => { asked.push(url); return Response.json({ url: '/api/library-blob?t=minted' }); });
+  const ticket = { vt: 'v'.repeat(43), ve: 1900000000 };
+  const payload = readerPayload({ slug: 'ticketed-deck', title: 'Deck', storage_provider: 'r2', status: 'public' }, { page: 3, ticket });
+  assert.equal(await payload.resolve(), '/api/library-blob?t=minted');
+  assert.equal(asked[0], `/api/library-file?slug=ticketed-deck&vt=${ticket.vt}&ve=1900000000`);
+  // Without a ticket, the mint asks as it always did.
+  await readerPayload({ slug: 'plain-deck', title: 'Deck', storage_provider: 'r2', status: 'public' }).resolve();
+  assert.equal(asked[1], '/api/library-file?slug=plain-deck');
+  // A deck the reader could not find asks the server by slug alone.
+  await resolveDocUrl({ slug: 'unlisted-deck', storage_provider: 'r2', ticket });
+  assert.equal(asked[2], `/api/library-file?slug=unlisted-deck&vt=${ticket.vt}&ve=1900000000`);
 });
 
 test('a text match inside any PDF a VCA card groups is shown and opens that file', () => {

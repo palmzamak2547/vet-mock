@@ -12,11 +12,12 @@
 //   src/data/changelog-releases.generated.js  the release files, imported
 //                                            (changelog-all.js merges them
 //                                            with the history)
-//   src/data/latest-changelog.generated.js    the newest release and the scope
+//   src/data/latest-changelog.generated.js    the newest releases and the scope
 //                                            labels, for the entry chunk
 //                                            (HomeView, Sidebar, Landing,
 //                                            client diagnostics), so it
-//                                            carries one release, not 100+
+//                                            carries RECENT_RELEASES, not 100+,
+//                                            with only what Home's note shows
 //
 // Usage:
 //   node scripts/regen-latest-changelog.mjs           # write both modules
@@ -48,6 +49,21 @@ export const compareVersions = (a, b) => {
   }
   return 0;
 };
+
+// How many of the newest releases (by version) Home can announce (src/lib/changelog-seen.js). A
+// number is taken when a pull request opens and releases land in any order, so the one that lands
+// last can rank below others; when numbers were last taken at opening, 5.184.0 and 5.188.0 had
+// been opened as 5.178.0 and 5.182.0, about six numbers behind main when they landed. Twelve is
+// twice that. A release that lands behind twelve newer numbers is not announced.
+export const RECENT_RELEASES = 12;
+
+/** What Home's update note shows of a release: no desc and no scope, which it never renders. */
+export const noteFields = (e) => ({
+  version: e.version,
+  date: e.date,
+  headline: e.headline,
+  changes: e.changes.map((c) => ({ kind: c.kind, title: c.title, ...(c.fromFeedback ? { fromFeedback: true } : {}) })),
+});
 
 export function releaseFiles(dir = releasesDir) {
   if (!fs.existsSync(dir)) return [];
@@ -105,10 +121,13 @@ ${files.map((f, i) => `import ${names[i]} from './changelog/${f}';`).join('\n')}
 
 export const RELEASES = [${names.join(', ')}];
 `;
-  const latestBody = `${HEADER('The newest release and the scope labels, so the entry chunk carries one release.')}
+  const latestBody = `${HEADER(`The ${RECENT_RELEASES} newest releases and the scope labels, so the entry chunk carries a few releases, not all.`)}
 export const SCOPE_LABELS = ${JSON.stringify(SCOPE_LABELS, null, 2)};
 
-export const LATEST_CHANGELOG = ${JSON.stringify(all[0], null, 2)};
+// Newest first by version, with what Home's update note shows (no desc, no scope).
+export const RECENT_CHANGELOG = ${JSON.stringify(all.slice(0, RECENT_RELEASES).map(noteFields), null, 2)};
+
+export const LATEST_CHANGELOG = RECENT_CHANGELOG[0];
 `;
   return { wrote: [put(outReleases, releasesBody), put(outLatest, latestBody)], latest: all[0].version };
 }

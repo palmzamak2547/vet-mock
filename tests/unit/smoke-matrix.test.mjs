@@ -23,10 +23,56 @@ const jobs = Object.fromEntries(
   }),
 );
 
+// The job's name is an expression since 9 Nov 2026: `smoke` on every push to main, dispatch and
+// pull request that is not a draft, and another name on a draft (see the draft tests below).
+const SMOKE_NAME = /^    name: \$\{\{ github\.event\.pull_request\.draft && '([^']+)' \|\| 'smoke' \}\}$/m;
+
 test('the workflow keeps its name and a job called smoke', () => {
   assert.match(workflow, /^name: Smoke e2e$/m);
   assert.ok(jobs.smoke, 'a job with id smoke');
-  assert.match(jobs.smoke, /^    name: smoke$/m);
+  assert.match(jobs.smoke, SMOKE_NAME);
+});
+
+// 9 Nov 2026: a draft runs Build only, and marking it ready runs this workflow once.
+test('a draft pull request runs no e2e and no PostgreSQL job, and marking it ready runs both', () => {
+  const triggers = workflow.split(/\njobs:\n/)[0];
+  assert.match(triggers, /^  pull_request:\n    branches: \[main\]\n(?:    #.*\n)*    types: \[opened, synchronize, reopened, ready_for_review\]$/m,
+    'GitHub\'s three default types plus ready_for_review');
+  assert.match(triggers, /^  push:\n    branches: \[main\]$/m, 'a push to main is untouched');
+  // Skipping `changes` skips every job that needs it: the runners and the PostgreSQL job.
+  assert.match(jobs.changes, /^    if: \$\{\{ !github\.event\.pull_request\.draft \}\}$/m);
+  for (const id of ['e2e', 'annotation-db']) {
+    assert.match(jobs[id], /^    needs: changes$/m, `${id} needs changes`);
+    assert.match(jobs[id], /^    if: needs\.changes\.outputs\.app == 'true'$/m, `${id} runs only when changes ran and said app`);
+  }
+  // A newer push still replaces a pull request's run, and never a main commit's.
+  assert.match(workflow, /^  group: smoke-\$\{\{ github\.ref == 'refs\/heads\/main' && github\.sha \|\| github\.ref \}\}$/m);
+  assert.match(workflow, /^  cancel-in-progress: \$\{\{ github\.ref != 'refs\/heads\/main' \}\}$/m);
+});
+
+// A skipped job passes a required check. Had a draft's `smoke` passed (or skipped) under its own
+// name, marking the draft ready and merging at once could merge on that stale result before the
+// ready run created its own; with no result named `smoke`, the ruleset waits for that run.
+test('a draft never carries a result named smoke, and nothing else is ever renamed', () => {
+  const draftName = SMOKE_NAME.exec(jobs.smoke)[1];
+  assert.notEqual(draftName, 'smoke');
+  assert.ok(!['build', 'Annotation PostgreSQL', 'VCA', 'Research R parity'].includes(draftName), 'not another required check either');
+  // It runs on a draft (so its name is evaluated) and only says so; the gate step is a non-draft's.
+  const steps = jobs.smoke.split(/\n\s*- name: /);
+  assert.match(steps.find((s) => /^A draft runs no e2e/.test(s)), /^        if: github\.event\.pull_request\.draft$/m);
+  assert.match(steps.find((s) => /^Every e2e runner passed/.test(s)), /^        if: \$\{\{ !github\.event\.pull_request\.draft \}\}$/m);
+});
+
+test('Annotation PostgreSQL lives here, under its required name, and nowhere else', () => {
+  assert.match(jobs['annotation-db'], /^    name: Annotation PostgreSQL$/m);
+  for (const harness of ['test-annotation-db', 'test-user-data-db', 'test-chula-wall-db']) {
+    assert.match(jobs['annotation-db'], new RegExp(`run: node scripts/${harness}\\.mjs --backend=postgres`));
+  }
+  const build = readFileSync(new URL('../../.github/workflows/build.yml', import.meta.url), 'utf8');
+  assert.doesNotMatch(build, /Annotation PostgreSQL$|test-annotation-db/m, 'build.yml no longer runs it, so it cannot report twice');
+  // Build keeps the trigger types a draft push fires (it is the draft's cheap signal) and never
+  // reruns when a draft is marked ready: that commit's build already ran.
+  assert.doesNotMatch(build, /ready_for_review/);
 });
 
 test('smoke waits for every e2e runner and passes only when all of them passed', () => {
@@ -41,7 +87,8 @@ test('smoke waits for every e2e runner and passes only when all of them passed',
 
 // 27 Oct: a pull request that changes only docs/ and root markdown skips the
 // runners; push and dispatch never do, because Vercel waits for smoke there.
-test('only a docs-only pull request skips the e2e runners', () => {
+// (A draft skips them too, through `changes` itself: see the draft tests.)
+test('a docs-only pull request skips the e2e runners, and push and dispatch never do', () => {
   assert.ok(jobs.changes, 'a job with id changes');
   assert.match(jobs.changes, /github\.event_name \}\}" != pull_request \]; then app=true/);
   assert.match(jobs.changes, /git diff --quiet HEAD\^1 HEAD -- \. ':\(exclude\)docs' ':\(exclude,glob\)\*\.md'; then app=false/);
