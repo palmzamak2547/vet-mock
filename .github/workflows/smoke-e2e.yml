@@ -37,6 +37,25 @@
 # (6.7 and 5.9) stays in halves. Add a shard when one passes about 40%.
 # The job named `smoke` below is what Vercel and branch protection wait for;
 # it passes only when every runner passed.
+#
+# 2026-11-09 (CI economy, Palm through the main session): a draft pull request
+# runs none of the heavy work here. In the week to 9 Nov this workflow ran 131
+# times, 7 runners of about 9 minutes each, many of them on pushes to pull
+# requests still in progress. A draft gets Build only (build.yml, the cheap
+# signal). Marking it ready for review (`ready_for_review`) runs this workflow
+# once, and every push after that runs it as before. The PostgreSQL boundary
+# job moved here from build.yml on the same day, so marking a pull request
+# ready reruns only what its draft skipped, never the build.
+#
+# On a draft the job that reports `smoke` runs under another name, so the
+# commit has no result named `smoke` at all. A skipped job passes a required
+# check: if a draft's `smoke` had been skipped (or passed) under its own name,
+# `gh pr ready` followed at once by `gh pr merge --auto` could merge on that
+# stale result before the run that marking it ready starts had created its
+# own. With no result the ruleset waits for that run. `Annotation PostgreSQL`
+# keeps its name and is skipped on a draft, which is safe only because of
+# this: `smoke` cannot pass before the ready run's e2e has, and by then the
+# same run has replaced the draft's skipped `Annotation PostgreSQL`.
 
 name: Smoke e2e
 
@@ -48,6 +67,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    # GitHub's three default types, plus the moment a draft is marked ready:
+    # the one full run that its draft pushes skipped.
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 # A newer push replaces a pull request's run, as in build.yml: 16 of 91 runs between 27 Oct and
@@ -64,6 +86,8 @@ jobs:
     # so it skips the e2e runners (7 of them, 7-10 min each on the docs-only #67 and #71) and `smoke` still reports.
     # Same shape as vca.yml: HEAD^1 is main on a pull request's merge commit. A push to main and a dispatch always run
     # everything, because Vercel holds the production deployment until `smoke` passes on that commit.
+    # A draft skips this job, and with it every job that needs it (see the top of this file).
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     permissions:
@@ -83,11 +107,14 @@ jobs:
           elif git diff --quiet HEAD^1 HEAD -- . ':(exclude)docs' ':(exclude,glob)*.md'; then app=false
           else app=true; fi
           echo "app=$app" | tee -a "$GITHUB_OUTPUT"
-      # Reuse, in shadow until 9 Nov 2026 (Palm's call through the main session, 2 Nov): a green
-      # pull request run records the tree it tested (`smoke` below), and a push to main whose tree
-      # one already tested could skip e2e. Nothing is skipped: the full gate runs and decides,
-      # `smoke` logs the prediction beside the result, and scripts/ci-reuse-shadow-report.mjs
-      # gives the agreement rate. Switch it on only if it never disagreed.
+      # Reuse, in shadow (Palm's call through the main session, 2 Nov): a green pull request run
+      # records the tree it tested (`smoke` below), and a push to main whose tree one already
+      # tested could skip e2e. Nothing is skipped: the full gate runs and decides, `smoke` logs the
+      # prediction beside the result, and scripts/ci-reuse-shadow-report.mjs gives the agreement
+      # rate. Switch it on only if it never disagreed. It has: the 9 Nov report (44 main pushes
+      # since 2 Nov) found 2 of 24 would-skip runs red on main, each on a chromium-mobile spec that
+      # failed both attempts on a tree its pull request had passed (323cc32d read-aloud.spec.js:152,
+      # 9a63e550 library-doc-open.spec.js:97). So the shadow stays on and nothing is skipped.
       - id: reuse
         env:
           GH_TOKEN: ${{ github.token }}
@@ -104,6 +131,46 @@ jobs:
           fi
           echo "tree=$tree" | tee -a "$GITHUB_OUTPUT"
           echo "reuse=$reuse" | tee -a "$GITHUB_OUTPUT"
+
+  # The PostgreSQL boundary tests, a required check by this name. In build.yml until 9 Nov 2026,
+  # here since, so that marking a draft ready runs them without running the build again (Build
+  # already ran on that commit; marking ready changes no commit). A pull request that changes only
+  # docs/ and root markdown cannot move them (5-6 min on #67 and #71) and skips them, which passes
+  # the required check, as before. A draft skips them as well, through `changes`; why that is safe
+  # is at the top of this file. A push to main and a dispatch run them every time.
+  annotation-db:
+    name: Annotation PostgreSQL
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17.6
+        env:
+          POSTGRES_PASSWORD: annotation-test-only
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Verify atomic annotation writes and account boundaries
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-annotation-db.mjs --backend=postgres
+      - name: Verify replay-safe study operations and account boundaries
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-user-data-db.mjs --backend=postgres
+      - name: Verify the Chula sign-in wall (hook, trigger, pre-request, row security, switch)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-chula-wall-db.mjs --backend=postgres
 
   e2e:
     name: e2e (${{ matrix.label }})
@@ -339,14 +406,21 @@ jobs:
   # and Vercel's deployment checks and branch protection wait for that name,
   # so it stays. `always()` makes it report even when an e2e runner failed or
   # was cancelled: a skipped job would count as passing a required check.
+  # On a draft it runs under another name and only says so, so a draft's commit
+  # never carries a `smoke` result (top of this file). It runs rather than
+  # skips there so that the name is evaluated and the check reads plainly.
   smoke:
-    name: smoke
+    name: ${{ github.event.pull_request.draft && 'smoke (draft, e2e runs once marked ready)' || 'smoke' }}
     needs: [changes, e2e]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
+      - name: A draft runs no e2e
+        if: github.event.pull_request.draft
+        run: echo "::notice title=draft::No e2e on a draft. Marking the pull request ready for review runs them once; the required smoke check waits for that run."
       - name: Every e2e runner passed, or the change was docs only
+        if: ${{ !github.event.pull_request.draft }}
         env:
           CHANGES: ${{ needs.changes.result }}
           APP: ${{ needs.changes.outputs.app }}
