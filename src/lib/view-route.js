@@ -82,23 +82,30 @@ export function isAppPath(pathname) {
 // killed for memory landed on the empty "เปิด PDF" page. `page` is for links
 // in (VetMock AI's "เปิดหน้า N"); the reader's own address leaves it out, so a
 // reload resumes at the last page read. The slug pattern is the one
-// /api/library-file accepts (Thai included).
+// /api/library-file accepts (Thai included). `ticket` is the open ticket a
+// VetMock AI link carries (api/_lib/open-ticket.js): if the reader cannot find
+// the deck, its open and download still reach the file through it.
 const READER_SLUG = /^[a-z0-9฀-๿][a-z0-9฀-๿-]{0,160}$/;
+const TICKET_SIG = /^[A-Za-z0-9_-]{20,100}$/;
 
-export function readerUrl(slug, page = null) {
+export function readerUrl(slug, page = null, ticket = null) {
   const query = new URLSearchParams({ doc: slug });
   if (Number.isInteger(page) && page > 1) query.set('page', String(page));
+  if (ticket) { query.set('vt', ticket.vt); query.set('ve', String(ticket.ve)); }
   return `${VIEW_TO_PATH['pdf-annotate']}?${query}`;
 }
 
-/** { slug, page } named by a reader address's query, or null. */
+/** { slug, page, ticket? } named by a reader address's query, or null. */
 export function readerTarget(search) {
   let query;
   try { query = new URLSearchParams(search || ''); } catch { return null; }
   const slug = (query.get('doc') || '').trim();
   if (!READER_SLUG.test(slug)) return null;
   const page = Number(query.get('page'));
-  return { slug, page: Number.isInteger(page) && page > 1 ? page : null };
+  const vt = query.get('vt') || '';
+  const ve = Number(query.get('ve'));
+  const ticket = TICKET_SIG.test(vt) && Number.isInteger(ve) && ve > 0 ? { vt, ve } : null;
+  return { slug, page: Number.isInteger(page) && page > 1 ? page : null, ...(ticket ? { ticket } : {}) };
 }
 
 /**

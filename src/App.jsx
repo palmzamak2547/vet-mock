@@ -2618,14 +2618,32 @@ export default function App() {
   // account). Guest to signed-in keeps it: that is the "ต้องเข้าสู่ระบบ" deck
   // the student just signed in to read.
   const libraryOwnerRef = useRef(user?.id ?? null);
+  // The account the reader last opened a deck for (null: a guest, or none yet).
+  const deckOwnerRef = useRef(null);
+  useEffect(() => { if (libraryDoc) deckOwnerRef.current = user?.id ?? null; }, [libraryDoc]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const prev = libraryOwnerRef.current;
     const next = user?.id ?? null;
     libraryOwnerRef.current = next;
     if (prev !== null && prev !== next) {
+      // A deck a link named, closed by a sign-out: the page the link asked for
+      // (dropped from the address once honoured) goes back, so signing in
+      // again lands on it.
+      if (next === null && libraryDoc?.fromUrl && libraryDoc.page && viewForAppPath(window.location.pathname) === 'pdf-annotate') {
+        try { window.history.replaceState(window.history.state, '', readerUrl(libraryDoc.slug, libraryDoc.page)); } catch { /* the deck still reopens, at its first page */ }
+      }
       setLibraryDoc(null);
       setPdfLibraryReturnPath(null);
-      // The reader's address names the deck too, and would reopen it below.
+    }
+    // The reader's address names the deck too, and would reopen it below for
+    // whoever signs in next. It is cleared when another account arrives for a
+    // deck that was open for someone else. A sign-out, a session the server
+    // ended, or a link not opened yet keeps it, so signing in (again) lands on
+    // the deck: clearing it there sent a student from a VetMock AI link
+    // through the wall to an empty reader.
+    const owner = deckOwnerRef.current;
+    if (next !== null && owner !== null && owner !== next) {
+      deckOwnerRef.current = null;
       if (viewForAppPath(window.location.pathname) === 'pdf-annotate' && readerTarget(window.location.search)) {
         try { window.history.replaceState(window.history.state, '', appPathForView('pdf-annotate')); } catch { /* the deck stays closed in state */ }
       }
@@ -2634,17 +2652,18 @@ export default function App() {
   // A reload, browser Forward, iOS reloading a tab it killed, or a link from
   // VetMock AI names a deck in the reader's address (readerUrl). The reader
   // looks the row up itself, so its own loading panel shows at once. A page
-  // asked for by a link is honoured once; the address then drops it, so a
-  // later reload resumes where the student stopped reading. Behind the Chula
-  // wall it waits for the wall to open: the address survives sign-in, and a
-  // guest's mint would only be refused.
+  // asked for by a link is honoured once, and so is the open ticket a VetMock
+  // AI link carries; the address then drops both, so a later reload resumes
+  // where the student stopped reading. Behind the Chula wall it waits for the
+  // wall to open: the address survives sign-in, and a guest's mint would only
+  // be refused.
   useEffect(() => {
     if (view !== 'pdf-annotate' || libraryDoc || wall.state !== 'open') return;
     if (viewForAppPath(window.location.pathname) !== 'pdf-annotate') return;
     const target = readerTarget(window.location.search);
     if (!target) return;
-    setLibraryDoc({ slug: target.slug, page: target.page, fromUrl: true });
-    if (target.page) {
+    setLibraryDoc({ slug: target.slug, page: target.page, ticket: target.ticket, fromUrl: true });
+    if (target.page || target.ticket) {
       try { window.history.replaceState(window.history.state, '', readerUrl(target.slug)); } catch { /* the page is still asked for once */ }
     }
   }, [view, libraryDoc, wall.state]);

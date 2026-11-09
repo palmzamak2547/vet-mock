@@ -148,7 +148,18 @@ export async function signInWithEmail(email, password) {
 // student.chula.ac.th or chula.ac.th); `link` adds the Google identity to the
 // account already signed in instead of signing in with it. The database, not
 // this hint, decides who is let in (docs/CHULA-SIGNIN.md).
-export async function signInWithGoogle({ hd = '', link = false, allowRedirect = true } = {}) {
+/** Where Google sends the student back: this address, without what an earlier
+ *  sign-in left in it (a code, or a refusal the wall would read again), and
+ *  without a VetMock AI link's open ticket, which the session makes redundant
+ *  and which has no business in the sign-in's own logs. */
+export function returnAddress(href = window.location.href) {
+  const url = new URL(href);
+  for (const name of ['code', 'state', 'error', 'error_code', 'error_description', 'vt', 've']) url.searchParams.delete(name);
+  url.hash = '';
+  return url.href;
+}
+
+export async function signInWithGoogle({ hd = '', link = false, allowRedirect = true, back = false } = {}) {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
 
@@ -203,11 +214,14 @@ export async function signInWithGoogle({ hd = '', link = false, allowRedirect = 
 
   // Redirect-based fallback. Visible Supabase URL flash here is
   // unavoidable without GIS or a custom-domain Pro Supabase plan. With a
-  // domain hint the student comes back to the page they were on, and Google
-  // shows its account chooser so a signed-in Gmail is not picked silently.
+  // domain hint (the Chula wall) the student comes back to the address they
+  // were on, query and all, so a document a link named before sign-in is the
+  // one that opens after it; `back` asks the same for the wall's other Google
+  // button. Google shows its account chooser so a signed-in Gmail is not
+  // picked silently.
   const options = hd
-    ? { redirectTo: `${window.location.origin}${window.location.pathname}`, queryParams: { hd, prompt: 'select_account' } }
-    : { redirectTo: window.location.origin };
+    ? { redirectTo: returnAddress(), queryParams: { hd, prompt: 'select_account' } }
+    : { redirectTo: back ? returnAddress() : window.location.origin };
   const { data, error } = link
     ? await supabase.auth.linkIdentity({ provider: 'google', options })
     : await supabase.auth.signInWithOAuth({ provider: 'google', options });

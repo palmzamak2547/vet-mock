@@ -180,3 +180,61 @@ test('the landing page and the privacy terms stay open before sign-in', async ({
   await expect(gateHeading(page)).toHaveCount(0);
   await expect(page.locator('#main')).toBeVisible();
 });
+
+// VetMock AI links a deck at the page that answers (readerUrl). Google's
+// redirect brought the student back to the path alone (7 Nov 2026), so after
+// signing in the reader opened empty: the deck and its page were in the query.
+const pdf = (n) => Buffer.from('%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n'
+  + `2 0 obj<</Type/Pages/Kids[${Array.from({ length: n }, (_, i) => `${i + 3} 0 R`).join(' ')}]/Count ${n}>>endobj\n`
+  + Array.from({ length: n }, (_, i) => `${i + 3} 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 400 500]>>endobj\n`).join('')
+  + 'trailer<</Root 1 0 R>>\n', 'latin1');
+
+const DECK = 'vca-archive-ede73aaa0f6b8de2'; // a VCA card, so the shelf has it without a catalogue
+const deckLink = `/app/tools/pdf?doc=${DECK}&page=3&vt=${'t'.repeat(43)}&ve=4102444800`;
+
+/** Google's part, modelled: the authorize step goes straight back to the address
+ *  the app asked for, with MEMBER's session in the hash (auth-js's implicit flow). */
+async function googleSignsInMember(page) {
+  const asked = { to: null };
+  await page.route(`https://${HOST}/auth/v1/authorize**`, (route) => {
+    asked.to = new URL(route.request().url()).searchParams.get('redirect_to');
+    const s = session(MEMBER);
+    const hash = new URLSearchParams({ access_token: s.access_token, refresh_token: s.refresh_token, expires_in: '3600', expires_at: String(s.expires_at), token_type: 'bearer' });
+    return route.fulfill({ contentType: 'text/html', body: `<script>location.replace(${JSON.stringify(`${asked.to}#${hash}`)})</script>` });
+  });
+  await page.route(`https://${HOST}/auth/v1/user`, (route) => route.fulfill({ json: MEMBER }));
+  await page.route('**/api/library-file?slug=*', (route) => route.fulfill({ json: { url: '/__deck-test.pdf' } }));
+  await page.route('**/__deck-test.pdf', (route) => route.fulfill({ body: pdf(3), contentType: 'application/pdf' }));
+  return asked;
+}
+
+test('a document link opened before signing in is the one that opens after it, at its page', async ({ page, context }) => {
+  // The wall, Google's step and the reader in one test: 60 s like the other whole-flow specs.
+  test.setTimeout(60_000);
+  const seen = await modeled(page, context, { members: [MEMBER.id] });
+  const asked = await googleSignsInMember(page);
+  await open(page, seen, deckLink);
+  await expect(gateHeading(page)).toBeVisible();
+  await page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' }).click();
+  await expect(page.locator('[data-page="3"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+  // The deck and its page went to Google and back; the link's open ticket did not.
+  expect(new URL(asked.to).search).toBe(`?doc=${DECK}&page=3`);
+  await expect(page).toHaveURL(new RegExp(`/app/tools/pdf\\?doc=${DECK}$`));
+});
+
+// A device that last knew this member opens the deck at once; then the server
+// refuses the expired session's refresh and signs the student out. The address
+// was cleared on that sign-out, so signing in again opened an empty reader.
+test('a session the server ends after the link opened still lands on the document after signing in again', async ({ page, context }) => {
+  test.setTimeout(60_000);
+  const seen = await modeled(page, context, {
+    user: MEMBER, expired: true, members: [MEMBER.id],
+    seed: { 'vmx-chula-wall': JSON.stringify({ enforce: true, members: [MEMBER.id] }) },
+  });
+  await page.route(`https://${HOST}/auth/v1/token**`, (route) => route.fulfill({ status: 400, json: { error: 'invalid_grant', error_description: 'Invalid Refresh Token: Refresh Token Not Found' } }));
+  await googleSignsInMember(page);
+  await open(page, seen, deckLink);
+  await expect(gateHeading(page)).toBeVisible({ timeout: 30_000 });
+  await page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' }).click();
+  await expect(page.locator('[data-page="3"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+});
