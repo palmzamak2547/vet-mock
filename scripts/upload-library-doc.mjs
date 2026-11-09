@@ -32,6 +32,7 @@
 import { createHash } from 'node:crypto';
 import { basename } from 'node:path';
 import { readFile, stat } from 'node:fs/promises';
+import { scoreSheetReason } from './lib/library-pii.mjs';
 
 const KINDS = ['handout', 'slide', 'summary', 'textbook', 'pastpaper', 'guideline', 'other'];
 const STATUSES = ['draft', 'public', 'restricted', 'archived'];
@@ -123,6 +124,10 @@ async function main() {
   if (!STATUSES.includes(status)) fail(`--status must be one of ${STATUSES.join(' | ')}`);
 
   if (!flags.title) fail('--title is required');
+  // The same rule as both bulk ingests (scripts/lib/library-pii.mjs), checked
+  // before the file is read.
+  const scoreSheet = scoreSheetReason({ title: flags.title, path: filePath, sourceUrl: flags.sourceUrl });
+  if (scoreSheet) fail(`refused, a score or grade announcement is never ingested: ${scoreSheet}`);
   // license is NOT NULL in the schema and this is the point where a human is
   // still in the loop. Refusing here is cheaper than discovering an unlicensed
   // row after it is already public.

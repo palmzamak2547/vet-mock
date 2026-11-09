@@ -84,7 +84,7 @@ export default {
  "chapters": [
   {
    "t": 171,
-   "title": "One Health approach to combat",
+   "title": "One Health approach to combat foodborne diseases",
    "line": "แนวคิด One Health เชื่อมสุขภาพคน สัตว์ พืช และสิ่งแวดล้อม และเน้นการป้องกันที่แหล่งกำเนิดมากกว่าการรักษา",
    "slides": [
     {
@@ -130,7 +130,7 @@ export default {
   },
   {
    "t": 660,
-   "title": "Controlling foodborne pathogens",
+   "title": "Controlling foodborne pathogens in poultry: A One Health example",
    "line": "ไก่เป็นพาหะ Salmonella และ Campylobacter โดยไม่แสดงอาการ และขับเชื้อปนเปื้อนสิ่งแวดล้อมและซาก",
    "slides": [
     {
@@ -145,7 +145,7 @@ export default {
   },
   {
    "t": 1020,
-   "title": "Controlling foodborne pathogens (ต่อ)",
+   "title": "Controlling foodborne pathogens in poultry: A One Health example (ต่อ)",
    "line": "บทบาทสัตวแพทย์ ผู้ผลิต และโรงเชือดในการลดเชื้อ ตั้งแต่ biosecurity จนถึง HACCP และ traceability",
    "slides": [
     {
@@ -168,7 +168,7 @@ export default {
   },
   {
    "t": 1320,
-   "title": "Controlling foodborne pathogens (ต่อ) (ต่อ)",
+   "title": "Controlling foodborne pathogens in poultry: A One Health example (ต่อ)",
    "line": "การป้องกันได้ผลดีที่สุดเมื่อดำเนินการทุกขั้นตอน farm to fork และทุกภาคส่วนร่วมมือกันอย่างต่อเนื่อง",
    "slides": [
     {
@@ -179,7 +179,7 @@ export default {
   },
   {
    "t": 1560,
-   "title": "Best real-world example of One Health",
+   "title": "Best real-world example of One Health applied to foodborne disease control",
    "line": "โปรแกรมควบคุม Salmonella แห่งชาติของเดนมาร์กเป็นต้นแบบที่ลดโรคในคนได้จริง",
    "slides": [
     {
@@ -209,7 +209,7 @@ export default {
   },
   {
    "t": 1980,
-   "title": "To successfully control foodborne",
+   "title": "To successfully control foodborne diseases originating from poultry:",
    "line": "ความเสี่ยงและมาตรการควบคุมในแต่ละขั้น ตั้งแต่ฟาร์ม ขนส่ง เชือด retail จนถึงครัวเรือน",
    "slides": [
     {
@@ -224,7 +224,7 @@ export default {
   },
   {
    "t": 2340,
-   "title": "To successfully control foodborne (ต่อ)",
+   "title": "To successfully control foodborne diseases originating from poultry: (ต่อ)",
    "line": "การป้องกันระหว่างแปรรูปและจำหน่ายใช้ GHP HACCP แยกโซนสะอาด และควบคุม cold chain",
    "slides": [
     {

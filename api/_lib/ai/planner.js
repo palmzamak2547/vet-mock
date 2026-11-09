@@ -120,12 +120,17 @@ export function heuristicPlan(messages, { imageText = '' } = {}) {
   else if (RE.research.test(last)) intent = 'research';
   else if (RE.guide.test(last)) intent = 'guide';
   const count = RE.count.exec(last);
-  const subjects = subjectsInText(standalone);
+  // A follow-up that names no course is about the one before it ("อีก 5 ข้อ");
+  // a short turn that names its own is not: "ขอข้อสอบ epidemiology 5 ข้อ" right
+  // after a turn on zoonoses asks for epidemiology, not for both.
+  const named = subjectsInText(last);
+  const subjects = named.length ? named : subjectsInText(standalone);
   return {
     intent,
     query_th: clip(`${standalone}${imageText ? ` ${imageText}` : ''}`, 600),
     terms_en: [],
     subjects,
+    named,
     quiz_n: intent === 'quiz' ? clampN(count?.[1]) : null,
     needs_research: intent === 'research',
     recent: RE.recent.test(last),
@@ -147,10 +152,11 @@ export function parsePlan(text, fallback) {
   const terms = Array.isArray(raw.terms_en)
     ? [...new Set(raw.terms_en.filter((t) => typeof t === 'string').map((t) => t.trim()).filter((t) => t && t.length <= 60))].slice(0, 6)
     : [];
-  const subjects = [...new Set([
-    ...(Array.isArray(raw.subjects) ? raw.subjects : []).map(resolveSubjectRef).filter(Boolean),
-    ...fallback.subjects,
-  ])].slice(0, 4);
+  // The model read the whole conversation, so its list (even an empty one)
+  // decides whether the course before still applies; a course typed in this
+  // turn always counts. Without the field, the regex plan's own reading.
+  const read = Array.isArray(raw.subjects) ? raw.subjects.map(resolveSubjectRef).filter(Boolean) : null;
+  const subjects = [...new Set(read ? [...read, ...(fallback.named || [])] : fallback.subjects)].slice(0, 4);
   let action = null;
   if (intent === 'action') {
     const a = raw.action && typeof raw.action === 'object' ? raw.action : {};

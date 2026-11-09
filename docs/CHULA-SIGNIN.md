@@ -41,6 +41,13 @@ migration (a unit test keeps the copies equal).
 | Vercel API | `api/_lib/chula-gate.js` | every function that costs money or touches account data; the AI reads the library with the member's own token |
 | Front ends | vetmock.com, ai, vca, research | the app itself until a member session is present |
 
+Row security cannot see into a SECURITY DEFINER function, so `library_search`
+asks `public.chula_access()` itself before it reads a page
+(`20261107141605_library_search_asks_the_wall.sql`): it holds even with the
+Data API gate taken out, and with the wall off it answers everyone as before.
+Scripts have no member session, so they read the library through
+`scripts/lib/library-read.mjs` (Management API and R2), never the anon key.
+
 Public on purpose (checked by the pre-request allow-list or untouched):
 - `rpc/chula_access_state` (the wall's own state, read before sign-in);
 - `rpc/seeside_public_stats` (an external site's counters);

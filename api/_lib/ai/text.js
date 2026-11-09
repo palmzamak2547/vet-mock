@@ -27,6 +27,15 @@ const CJK_G = /[　-〿぀-ヿ㐀-䶿一-鿿豈-﫿！-｠ｦ-ﾟ]/g;
 // and not ♀ ♂ (U+2640, U+2642), which the notes use for sex.
 const EMOJI_G = /(?:[\u{1F000}-\u{1FAFF}]|[☀-☿♃-➿]|[⬀-⯿]|[⌚⌛⏩-⏳⏸-⏺]|ℹ|️|‍|⃣)/gu;
 
+// Marks those ranges hold that are facts, not decoration: a table cell that is
+// only ✅ or ❌ IS the answer (has a vaccine, causes abortion), and a block
+// arrow says what → and ↓ say. In source text they become + and − and the
+// plain arrows, which the output filter keeps, so a cell the answer copies
+// is never left empty.
+const MARK_TEXT = { '✓': '+', '✔': '+', '✅': '+', '☑': '+', '✗': '−', '✘': '−', '❌': '−', '❎': '−', '☒': '−', '⬆': '↑', '⬇': '↓', '⬅': '←', '➡': '→', '➜': '→', '➔': '→' };
+const MARK_G = /[✓✔✅☑✗✘❌❎☒⬆⬇⬅➡➜➔]/gu;
+const marksAsText = (s) => String(s ?? '').replace(MARK_G, (m) => MARK_TEXT[m]);
+
 // The replacement character and control codes: a model trained on text with
 // broken encodings writes U+FFFD itself now and then ("ใบหน้า�หรือคอ" on a
 // phone, 10-28), and PDF text layers carry it too. Never part of an answer.
@@ -74,9 +83,10 @@ export function flattenBody(body, out = [], depth = 0) {
 
 /** Markdown → plain text for snippets: no marks, no decoration, one line.
  *  A middle dot the notes use as a separator becomes a comma here too: a
- *  snippet is shown on the page, where the house style forbids it. */
+ *  snippet is shown on the page, where the house style forbids it. A yes/no
+ *  mark reads as + or −, as in what the model reads. */
 export function plainText(md) {
-  return stripEmoji(stripInline(md))
+  return stripEmoji(marksAsText(stripInline(md)))
     .replace(/[ \t]*·[ \t]*/g, ', ')
     .replace(/^\s{0,3}#{1,6}\s+/gm, '')
     .replace(/^\s{0,3}>\s?/gm, '')
@@ -92,9 +102,11 @@ export function plainText(md) {
 /** Text for the model: decoration removed, line structure kept. A bracketed
  *  number already in the material ("[3]" pointing at the lecture's own
  *  reference list) is re-written as "(3)": inside the answer, square brackets
- *  mean OUR numbered sources, and a copied "[3]" would cite the wrong thing. */
+ *  mean OUR numbered sources, and a copied "[3]" would cite the wrong thing.
+ *  A yes/no mark becomes + or − (see MARK_TEXT): stripped, it left the
+ *  model a cited table with empty cells. */
 export function contextText(md) {
-  return stripEmoji(stripInline(md))
+  return stripEmoji(marksAsText(stripInline(md)))
     .replace(/\[(\d{1,3})\]/g, '($1)')
     .replace(/[★☆]+/g, '')
     .replace(/^\s*\|?\s*:?-{3,}[-:|\s]*$/gm, '')

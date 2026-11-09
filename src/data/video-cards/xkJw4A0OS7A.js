@@ -277,7 +277,7 @@ export default {
   },
   {
    "t": 1440,
-   "title": "The concept & linkages of the components in",
+   "title": "The concept & linkages of the components in national strategic plan for eids",
    "line": "การสื่อสารสุขภาพหนึ่งเดียวใน 6 บริบทหน่วยงาน ตั้งแต่ภาครัฐ อาหารปลอดภัย สัตว์เลี้ยง ปศุสัตว์ เภสัชฯ จนถึงสัตว์ป่าและสิ่งแวดล้อม",
    "slides": [
     {

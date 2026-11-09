@@ -13,7 +13,7 @@ import { SUBJECTS, hiddenTopicIdsFor, yearForSubject, semesterForSubject } from 
 import { questionCategory as catOf } from '../hooks/utils.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { SEMESTER } from '../data/semester.js';
-import { isCurrentScopeQuestion, isHighPredictionQuestion } from './question-prediction.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from './current-scope.js';
 import { scopeForPhase, questionInScope, phaseForCourse } from './exam-scope.js';
 import { isPastPaperQuestion } from './question-metadata.js';
 

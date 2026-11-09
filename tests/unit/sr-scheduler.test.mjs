@@ -184,6 +184,29 @@ test('FSRS bucket semantics mirror SM-2 exactly', () => {
   }
 });
 
+test('"ถึงรอบพรุ่งนี้" is tomorrow on Bangkok\'s calendar under either scheduler', (t) => {
+  // 08:00 Tuesday 10 Nov in Bangkok. Both counts used the next 24 hours, which
+  // in the morning took in tonight's card and left out tomorrow's late one.
+  const now = Date.parse('2026-11-10T01:00:00Z');
+  t.mock.timers.enable({ apis: ['Date'], now });
+  const due = [
+    '2026-11-10T14:00:00Z', // 21:00 tonight
+    '2026-11-11T03:00:00Z', // 10:00 tomorrow
+    '2026-11-11T16:00:00Z', // 23:00 tomorrow, more than 24 hours away
+    '2026-11-11T17:30:00Z', // 00:30 on Thursday
+  ].map(Date.parse);
+  const last = now - DAY;
+  // FSRS reads its own sub-object; the SM-2 date is put a week out so a count
+  // that read the wrong one would show.
+  const fsrsCards = Object.fromEntries(due.map((at, i) => [i + 1, {
+    ...initCard(i + 1), totalReviews: 2, repetitions: 2, interval: 3, lastReview: last, nextReview: at + 7 * DAY,
+    fsrs: { stability: 3, difficulty: 5, interval: 1, due: at, lastReview: last },
+  }]));
+  const sm2Cards = Object.fromEntries(due.map((at, i) => [i + 1, { ...initCard(i + 1), totalReviews: 2, repetitions: 2, interval: 1, lastReview: last, nextReview: at }]));
+  assert.equal(getCardStats(fsrsCards, 'fsrs').dueTomorrow, 2, 'FSRS counts 10:00 and 23:00 tomorrow, not tonight or Thursday');
+  assert.equal(getCardStats(sm2Cards, 'sm2').dueTomorrow, 2, 'and SM-2 counts the same day');
+});
+
 test('previewIntervals serves the selected scheduler from the same arithmetic', () => {
   const card = { ...initCard(30), repetitions: 3, interval: 10, easeFactor: 2.5, totalReviews: 3, lastReview: NOW - 10 * DAY };
   const sm2Previews = previewIntervals(card, 'sm2');

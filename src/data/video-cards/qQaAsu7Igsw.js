@@ -52,7 +52,7 @@ export default {
  "emphasis": [
   {
    "t": 1361,
-   "text": "ต้องรู้ type ของข้อมูลก่อนเลือกสถิติ"
+   "text": "ชนิดของข้อมูลกำหนดสถิติที่ใช้วิเคราะห์"
   },
   {
    "t": 5752,
@@ -60,7 +60,7 @@ export default {
   },
   {
    "t": 6889,
-   "text": "ต้องรู้ H0 ของแต่ละ test เพื่อแปล p value"
+   "text": "One sample Z-test มี H0 คือ population mean เท่ากับค่าอ้างอิงที่ตั้งไว้ (hypothesized mean)"
   }
  ],
  "remember": [

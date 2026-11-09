@@ -23,6 +23,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { SUBJECTS } from '../src/data/curriculum.js';
+import { readableTitle, scoreSheetReason } from './lib/library-pii.mjs';
 
 // Library rows join the app's own subject system: a course number resolves to
 // the SAME subject id the question bank uses, so 3104306 files shelve under
@@ -67,7 +68,10 @@ export function termOf(course) {
   };
 }
 
-export function buildManifest(dump) {
+/** Score and grade announcements never reach the manifest (lib/library-pii.mjs):
+ *  each one left out is pushed onto `skipped` with the reason, for the caller
+ *  to print. A reviewer cannot approve what is not on the list. */
+export function buildManifest(dump, skipped = []) {
   const out = [];
   const byId = new Map((dump.courses || []).map((c) => [String(c.cv_cid), c]));
 
@@ -80,6 +84,11 @@ export function buildManifest(dump) {
     for (const [folder, files] of Object.entries(mat.folders || {})) {
       for (const f of files || []) {
         if (!f?.url) continue;
+        const reason = scoreSheetReason({ name: f.name, folder, url: f.url });
+        if (reason) {
+          skipped.push({ name: f.name || '', url: f.url, folder, courseNo: course.course_no, reason });
+          continue;
+        }
         out.push({
           name: f.name || '',
           url: f.url,
@@ -116,7 +125,11 @@ function main() {
     console.error('usage: node scripts/mcv-manifest.mjs --dump=<dump.json> [--out=<manifest.json>]');
     process.exit(1);
   }
-  const manifest = buildManifest(JSON.parse(readFileSync(dumpPath, 'utf8')));
+  const skipped = [];
+  const manifest = buildManifest(JSON.parse(readFileSync(dumpPath, 'utf8')), skipped);
+  for (const s of skipped) {
+    console.log(`  skipped ${s.courseNo} "${readableTitle(s.name)}": ${s.reason}. A score or grade announcement is never ingested.`);
+  }
 
   const mirrorable = manifest.filter((m) => /^https?:\/\/mycourseville/i.test(m.url));
   const external = manifest.length - mirrorable.length;
@@ -125,7 +138,7 @@ function main() {
 
   mkdirSync(dirname(outPath), { recursive: true });
   writeFileSync(outPath, JSON.stringify(manifest, null, 1));
-  console.log(`${manifest.length} file(s) → ${outPath}`);
+  console.log(`${manifest.length} file(s) → ${outPath}${skipped.length ? `, ${skipped.length} score or grade announcement(s) left out` : ''}`);
   console.log(`  ${mirrorable.length} mirrorable, ${external} external (Drive and the like — catalogued, not copied)`);
   console.log(`  by study year: ${Object.entries(byYear).sort().map(([k, v]) => `${k}:${v}`).join('  ')}`);
 }

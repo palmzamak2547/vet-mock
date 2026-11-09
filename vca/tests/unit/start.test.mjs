@@ -102,6 +102,26 @@ test('a retry keeps exactly the questions asked for', async () => {
   assert.equal(res.session.meta.retry, true);
 });
 
+test('a retry is not sunk by a domain id this build does not have', async () => {
+  // A missed question recorded under '' (a damaged result) or under a domain a later build dropped.
+  const equine = await loadDomain('equine');
+  const want = equine.slice(2, 5).map((q) => q.key);
+  const res = await startSet({ mode: 'practice', domains: ['equine', '', 'old-domain'], keys: [...want, 'vca:0'], size: want.length + 1, label: 'missed' });
+  assert.equal(res.ok, true);
+  assert.deepEqual(res.session.items.map((it) => it.key).sort(), want.slice().sort(), 'every missed question still here comes back');
+  assert.deepEqual(res.session.meta.domains, ['equine']);
+});
+
+test('a missed question whose recorded domain is gone is looked for in every domain', async () => {
+  const swine = await loadDomain('swine');
+  const key = swine[7].key;
+  const res = await startSet({ mode: 'practice', domains: ['old-domain'], keys: [key], size: 1, label: 'missed' });
+  assert.equal(res.ok, true);
+  assert.deepEqual(res.session.items.map((it) => it.key), [key]);
+  assert.equal(res.session.meta.domains, null, 'drawn from the whole bank');
+  assert.deepEqual(await startSet({ mode: 'practice', domains: [''], keys: ['vca:0'], size: 1 }), { ok: false, reason: 'empty' }, 'a question the bank no longer has leaves nothing to draw');
+});
+
 test('nothing left to draw says so', async () => {
   progressStore.set(emptyProgress());
   assert.deepEqual(await startSet({ mode: 'practice', size: 10, status: 'wrong', domains: ['juris'] }), { ok: false, reason: 'empty' });

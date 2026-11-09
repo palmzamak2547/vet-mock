@@ -41,13 +41,17 @@ const PHASE_LABEL_REV = {
   '2-final': 'ทม.2 ปลาย',
 };
 
+// One limit with the note box inside a set (Question.jsx): a shorter cap here cut
+// a longer note the moment it was edited in review, and synced the cut.
+const NOTE_MAX = 5000;
+
 function ReviewNoteEditor({ qId, noteText, setNote }) {
   const [confirmClear, setConfirmClear] = useState(false);
   const currentText = typeof noteText === 'string' ? noteText : '';
   const textareaId = `vmx-note-input-${qId}`;
 
   const handleChange = (e) => {
-    const val = e.target.value.slice(0, 500);
+    const val = e.target.value.slice(0, NOTE_MAX);
     if (typeof setNote === 'function') {
       setNote(qId, val);
     }
@@ -67,7 +71,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
           บันทึกส่วนตัว
         </label>
         <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)' }} aria-live="polite">
-          {currentText.length}/500
+          {currentText.length}/{NOTE_MAX}
         </span>
       </div>
       <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>
@@ -79,7 +83,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
         value={currentText}
         onChange={handleChange}
         placeholder="พิมพ์บันทึกสั้นๆ สำหรับทบทวน..."
-        maxLength={500}
+        maxLength={NOTE_MAX}
         rows={3}
         style={{
           width: '100%',
@@ -212,6 +216,11 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
     return () => obs.disconnect();
   }, [filtered.length, visibleCount]);
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
+  // A row keeps the number it had in the set, under every filter.
+  const position = useMemo(() => new Map(questions.map((q, i) => [q.id, i + 1])), [questions]);
+  // The list opens on ผิด or ข้าม when there are any, so a short set with more
+  // than one outcome needs the tabs too, or the rest of it cannot be reached.
+  const outcomes = ['wrong', 'correct', 'self', 'skipped'].filter((id) => counts[id] > 0).length;
 
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',    iconName: 'practice', color: 'var(--clr-ink)' },
@@ -243,7 +252,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
 
       {/* Filter tabs — only render if there's variety to filter (>1 unique
           state). For a 5-Q practice run with all correct, tabs add noise. */}
-      {questions.length >= 5 && (
+      {(questions.length >= 5 || outcomes > 1) && (
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18, padding: '4px 0' }}>
           {tabs.map((t) => {
             const n = counts[t.id];
@@ -358,7 +367,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           <div key={q.id} className={`vmx-review-item ${cls}`}>
             <div className="vmx-review-head">
               <span>
-                Q{idx + 1}, {subj?.name || q.subject}
+                Q{position.get(q.id) ?? idx + 1}, {subj?.name || q.subject}
                 {topicMeta ? <>, <span style={{ color: subjectText(subj?.color), fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
                 {followsExamPattern(q) && (
                   <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">

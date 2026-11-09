@@ -2,7 +2,7 @@
 // the entries that pass the filters, draw, then fetch the text of only the questions drawn (the
 // shards that hold them), fix each one's option order, and store the session.
 
-import { DOMAIN_CARDS, loadEntries, loadQuestions, toItem } from './bank.js';
+import { CARD_BY_ID, DOMAIN_CARDS, loadEntries, loadQuestions, toItem } from './bank.js';
 import { eligible, draw, shuffle, seededRandom } from './sets.js';
 import { createSession, sessionStore } from './session.js';
 import { progressStore } from './progress.js';
@@ -46,7 +46,10 @@ export function emptyReason({ status = 'all', narrowed = false, count }) {
  */
 export async function startSet(opts) {
   const { mode, size, source = 'all', status = 'all', topics = null, keys = null, perQuestion = EXAM_SECONDS, mix = 'exam', label = '', prefer = null, onProgress } = opts;
-  const domains = opts.domains?.length ? opts.domains : ALL_DOMAINS;
+  // Only domains this build has: a missed question can be recorded under one a later build dropped
+  // (or '', from a damaged result), and that one id must not sink the rest. None left is every domain.
+  const known = (opts.domains || []).filter((id) => CARD_BY_ID[id]);
+  const domains = known.length ? known : ALL_DOMAINS;
   // Entries carry what the filters and the draw read (key, domain, source, topic), not the text.
   const entries = await loadEntries(domains);
   const pool = eligible(entries, { source, status, topics, keys }, progressStore.get());
@@ -74,7 +77,7 @@ export async function startSet(opts) {
     items,
     limitSec: timed ? perQuestion * items.length : null,
     meta: {
-      domains: opts.domains?.length ? domains : null,
+      domains: known.length ? domains : null,
       source, status, topics, size, label, mix, perQuestion: timed ? perQuestion : 0,
       retry: !!keys,
     },

@@ -217,6 +217,11 @@ const PATHS = {
       <path d="m15 9.8 4.5 4.4M19.5 9.8 15 14.2" />
     </>
   ),
+  // the read-aloud bar: play, pause, previous and next point
+  play: <path d="M8 5.5v13l10.5-6.5L8 5.5Z" />,
+  pause: <path d="M8.5 5.5v13M15.5 5.5v13" />,
+  'skip-back': <path d="M6.5 6v12M18 6.5v11L9.5 12 18 6.5Z" />,
+  'skip-forward': <path d="M17.5 6v12M6 6.5v11l8.5-5.5L6 6.5Z" />,
   // flag on a pole / report a problem with this question
   flag: (
     <>

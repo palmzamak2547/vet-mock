@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createUserDataSync } from '../../src/lib/user-data-sync.js';
+import { createUserDataSync, mergeFieldValue } from '../../src/lib/user-data-sync.js';
+import { updateStreak, streakShown } from '../../src/hooks/utils.js';
 
 class MemoryStorage {
   values = new Map();
@@ -651,4 +652,34 @@ test('a record written by the previous build still loads', () => {
   // matters here is that the record was READ at all rather than rejected by
   // the validation — a rejected record would leave bookmarks empty.
   assert.deepEqual(sync.getSnapshot().data.bookmarks, [2], 'the old-shape record must still replay');
+});
+
+test('streak merge reads the stored millisecond dates: the later study day wins, a shared day keeps the longer run', () => {
+  // updateStreak writes lastDate as epoch milliseconds (the backup schema
+  // accepts nothing else), so this is the shape every merge actually sees.
+  const DAY = 24 * 60 * 60 * 1000;
+  const now = Date.UTC(2026, 10, 8, 5); // 12:00 in Bangkok
+  const run = (days, endedDaysAgo) => {
+    let streak = { streak: 0, lastDate: null, freezeUsedAt: null };
+    for (let d = days - 1; d >= 0; d--) streak = updateStreak(streak.lastDate, streak.streak, streak.freezeUsedAt, now - (endedDaysAgo + d) * DAY);
+    return streak;
+  };
+  const liveAccount = run(40, 0);
+  const oldGuest = run(1, 20);
+  assert.equal(typeof liveAccount.lastDate, 'number');
+  assert.equal(streakShown(liveAccount, now), 40);
+  // A guest copy from 20 days ago brought onto a live 40-day run keeps the run.
+  const kept = mergeFieldValue('streakData', oldGuest, liveAccount);
+  assert.deepEqual(kept, liveAccount);
+  assert.equal(streakShown(kept, now), 40);
+  // A run that ended a month ago does not come back because a guest studied today.
+  const deadAccount = run(40, 30);
+  const todayGuest = run(1, 0);
+  const revived = mergeFieldValue('streakData', todayGuest, deadAccount);
+  assert.deepEqual(revived, todayGuest);
+  assert.equal(streakShown(revived, now), 1);
+  // Both studied today: the longer run stays.
+  const sameDay = mergeFieldValue('streakData', run(3, 0), liveAccount);
+  assert.equal(sameDay.streak, 40);
+  assert.equal(sameDay.lastDate, liveAccount.lastDate);
 });

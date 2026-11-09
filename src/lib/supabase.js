@@ -163,9 +163,9 @@ export async function signInWithGoogle({ hd = '', link = false, allowRedirect = 
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
 
-  // Inside the Android app: Android's own account sheet, no browser at all. A dismissed sheet ends here;
-  // anything else (the Android client not registered yet) falls through to the redirect, which the app
-  // opens in an Auth Tab and brings back.
+  // Inside the Android app: Android's own account sheet, no browser at all. A dismissed sheet ends here,
+  // and so does the auth server's answer to its token; any other failure (the Android client not
+  // registered yet) falls through to the redirect, which the app opens in an Auth Tab and brings back.
   if (window.VetMockApp?.googleIdToken) {
     try {
       const { idToken, nonce } = await window.VetMockApp.googleIdToken();
@@ -175,6 +175,9 @@ export async function signInWithGoogle({ hd = '', link = false, allowRedirect = 
       notifyAuthChanged();
       return data;
     } catch (err) {
+      // An answer from the auth server (the Chula wall refusing a non-Chula account, an identity
+      // already linked) is a result, as in the GIS branch below: the redirect would only ask again.
+      if (err?.__isAuthError) throw err;
       if (/CANCEL/i.test(String(err?.code || ''))) return null;
       console.warn('[auth] Android sign-in failed, using the redirect:', err?.code || err?.message);
     }
@@ -364,16 +367,17 @@ export async function signInWithPasskey() {
   return data;
 }
 
-/** The current user's passkeys. Returns [] rather than throwing when the
- *  feature is off or the shape moved, so a settings page can render either way. */
+/** The current user's passkeys: [] when the feature is off or the shape
+ *  moved, null when the list could not be read (so the page says so, rather
+ *  than showing none and leaving a passkey that cannot be deleted). */
 export async function listPasskeys() {
   try {
     const supabase = await getSupabase();
     if (!supabase?.auth?.passkey?.list) return [];
     const { data, error } = await supabase.auth.passkey.list();
-    if (error) return [];
+    if (error) return null;
     return Array.isArray(data) ? data : (data?.passkeys || []);
-  } catch { return []; }
+  } catch { return null; }
 }
 
 export async function deletePasskey(passkeyId) {

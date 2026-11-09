@@ -934,8 +934,9 @@ export async function resolveDocUrl(doc) {
 // public.library_search matches every term against the PDFs' own page text
 // (library_doc_pages, filled by scripts/library-pages.py). RLS on the pages
 // follows their document, so a guest never gets a restricted deck's page.
-// Any failure — offline, the function not deployed yet — answers [] and the
-// shelf's own title search stands alone, as it always did.
+// A failed search (offline, a timeout, the function refusing) answers null,
+// so the shelf can say the in-document search did not run instead of "no
+// document matches"; the title search still stands alone, as it always did.
 export const TEXT_SEARCH_MIN = 3;
 
 export async function searchLibraryText(query) {
@@ -946,10 +947,10 @@ export async function searchLibraryText(query) {
     if (!hasSupabase) return [];
     const sb = await getSupabase();
     const { data, error } = await sb.rpc('library_search', { q, max_docs: 30 });
-    if (error || !Array.isArray(data)) return [];
+    if (error || !Array.isArray(data)) return null;
     return data;
   } catch {
-    return [];
+    return null;
   }
 }
 

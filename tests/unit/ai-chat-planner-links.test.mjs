@@ -49,6 +49,29 @@ test('a follow-up is read together with the turn before it', () => {
   assert.ok(plan.query_th.includes('พาร์โว') && plan.query_th.includes('แมว'));
 });
 
+test('a short turn that names its own course does not carry the course before it', () => {
+  const after = (first, next) => [{ role: 'user', content: first }, { role: 'assistant', content: 'สรุปให้แล้ว [1]' }, { role: 'user', content: next }];
+  // 27 characters, so it reads as a follow-up; it names its course all the same
+  const epi = heuristicPlan(after('ช่วยสรุปเรื่อง zoonoses ที่สำคัญให้หน่อย', 'ขอข้อสอบ epidemiology 5 ข้อ'));
+  assert.deepEqual(epi.subjects, ['epidemiology']);
+  // the planner read the turn right, and its reading stands
+  const read = parsePlan(JSON.stringify({ intent: 'quiz', query_th: 'ขอข้อสอบ epidemiology 5 ข้อ', terms_en: [], subjects: ['epidemiology'], quiz_n: 5 }), epi);
+  assert.deepEqual(read.subjects, ['epidemiology']);
+
+  // a follow-up that names no course is about the one before it
+  const more = heuristicPlan(after('ขอข้อสอบ COM5 5 ข้อ', 'อีก 5 ข้อ'));
+  assert.deepEqual(more.subjects, ['com5']);
+  assert.deepEqual(parsePlan(JSON.stringify({ intent: 'quiz', query_th: 'ขอข้อสอบ COM V อีก 5 ข้อ', subjects: ['com5'], quiz_n: 5 }), more).subjects, ['com5']);
+  assert.deepEqual(parsePlan(JSON.stringify({ intent: 'quiz', query_th: 'ขอข้อสอบ COM V อีก 5 ข้อ', quiz_n: 5 }), more).subjects, ['com5'], 'a reply without the field keeps the course of the follow-up');
+
+  // a short new request on a topic of its own: the planner named no course, so none is added
+  const fip = heuristicPlan(after('ขอข้อสอบ zoonoses 5 ข้อ', 'ขอข้อสอบเรื่อง FIP'));
+  const fipRead = parsePlan(JSON.stringify({ intent: 'quiz', query_th: 'ขอข้อสอบเรื่อง FIP ในแมว', terms_en: ['feline infectious peritonitis'], subjects: [], quiz_n: 5 }), fip);
+  assert.deepEqual(fipRead.subjects, []);
+  // a course typed in the turn always counts, even when the planner missed it
+  assert.deepEqual(parsePlan(JSON.stringify({ intent: 'quiz', query_th: 'ขอข้อสอบ', subjects: [] }), epi).subjects, ['epidemiology']);
+});
+
 test('a planner reply is read leniently and validated field by field', () => {
   const fallback = heuristicPlan(turn('ขอข้อสอบ COM V 3 ข้อ'));
   assert.equal(parsePlan('not json at all', fallback).source, 'heuristic');

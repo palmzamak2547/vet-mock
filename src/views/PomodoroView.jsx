@@ -110,8 +110,8 @@ export default function PomodoroView({ goHome, backToRest = false }) {
   }, []);
 
   // Persist + reflect timer outcomes
-  const onSessionComplete = useCallback(({ durationMin, completed }) => {
-    recordSession({ durationMin, completed });
+  const onSessionComplete = useCallback(({ durationMin, completed, endedAt }) => {
+    recordSession({ durationMin, completed, endedAt });
     if (completed) {
       if (selectedBuddyId && durationMin > 0) {
         recordBuddyFocus(selectedBuddyId, durationMin);

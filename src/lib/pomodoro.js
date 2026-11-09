@@ -3,9 +3,11 @@
 // Design notes:
 // - TWO localStorage keys (intentional separation so a corrupt config blob
 //   never nukes the user's hard-won streak history, and vice versa):
-//     'vmx-pomodoro'         → { sessions: [...], totalMin: N, currentStreak: N }
+//     'vmx-pomodoro'         → { sessions: [...], totalMin: N, currentStreak: N, earlierRun? }
 //     'vmx-pomodoro-config'  → { focusMin, shortBreakMin, longBreakMin }
-// - Sessions FIFO-capped at 200 records (~14 KB) — way under any browser quota.
+// - Sessions capped at 200 records (~14 KB) — way under any browser quota.
+//   Failed sessions go first; the study days of completed ones the cap drops
+//   are kept as one run (`earlierRun`), so the streak outlives the cap.
 // - All reads are tolerant of missing/corrupt blobs (return sensible defaults).
 // - Dispatches 'vmx-pomodoro-changed' on every write so open views refresh
 //   without polling.
@@ -23,7 +25,7 @@ const DEFAULT_CONFIG = {
 };
 
 function emptyHistory() {
-  return { sessions: [], totalMin: 0, currentStreak: 0 };
+  return { sessions: [], totalMin: 0, currentStreak: 0, earlierRun: null };
 }
 
 function startOfDay(ts) {
@@ -49,6 +51,7 @@ export function loadHistory() {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object') return emptyHistory();
     const sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
+    const earlierRun = readRun(parsed.earlierRun);
     return {
       sessions,
       totalMin: Number(parsed.totalMin) || 0,
@@ -56,7 +59,8 @@ export function loadHistory() {
       // the streak as of the last recorded session; handing it back as-is
       // meant a streak never expired while the student stayed away, and the
       // view still said 3 วัน after three days without a session.
-      currentStreak: computeStreak(sessions),
+      currentStreak: computeStreak(sessions, earlierRun),
+      earlierRun,
     };
   } catch {
     return emptyHistory();
@@ -65,18 +69,19 @@ export function loadHistory() {
 
 function writeHistory(data) {
   try {
-    // Cap sessions FIFO — keep most recent CAP rows.
     const sessions = Array.isArray(data.sessions) ? data.sessions : [];
-    const trimmed = sessions.length > CAP ? sessions.slice(sessions.length - CAP) : sessions;
-    const totalMin = trimmed.reduce(
+    const { kept, dropped } = capSessions(sessions);
+    const earlierRun = extendRun(readRun(data.earlierRun), dropped);
+    const totalMin = kept.reduce(
       (sum, s) => (s.completed ? sum + (Number(s.durationMin) || 0) : sum),
       0
     );
     const payload = {
-      sessions: trimmed,
+      sessions: kept,
       totalMin,
-      currentStreak: Number(data.currentStreak) || 0,
+      currentStreak: computeStreak(kept, earlierRun),
     };
+    if (earlierRun) payload.earlierRun = earlierRun;
     localStorage.setItem(HISTORY_KEY, JSON.stringify(payload));
     broadcast();
   } catch {
@@ -84,47 +89,106 @@ function writeHistory(data) {
   }
 }
 
-function computeStreak(sessions) {
+// Keep the newest CAP rows, failed sessions dropped first: nothing reads a
+// failed row, and a run of them pushed out the completed rows that today's
+// minutes, the counts and the streak are made of.
+function capSessions(sessions) {
+  let excess = sessions.length - CAP;
+  if (excess <= 0) return { kept: sessions, dropped: [] };
+  const failed = new Set();
+  for (let i = 0; i < sessions.length && failed.size < excess; i += 1) {
+    if (!sessions[i]?.completed) failed.add(i);
+  }
+  excess -= failed.size;
+  const kept = [];
+  const dropped = [];
+  sessions.forEach((s, i) => {
+    if (failed.has(i)) return;
+    if (excess > 0) {
+      excess -= 1;
+      dropped.push(s);
+    } else {
+      kept.push(s);
+    }
+  });
+  return { kept, dropped };
+}
+
+// The streak walks the days the rows cover, so once the cap dropped rows a
+// streak longer than the kept rows reach was cut to them. The study days of
+// dropped rows are kept as one run instead: `from` and `to` are the times of a
+// session on its first and on its last day, and every day between is a study
+// day. Only the newest run can still reach today, so an older one is let go
+// once a gap separates it from a later dropped day.
+function extendRun(run, dropped) {
+  let next = run;
+  for (const s of dropped) {
+    const at = s?.completed && s.date ? new Date(s.date).getTime() : NaN;
+    if (!Number.isFinite(at)) continue;
+    const day = startOfDay(at);
+    if (!next) {
+      next = { from: at, to: at };
+      continue;
+    }
+    const first = startOfDay(next.from);
+    const last = startOfDay(next.to);
+    if (day >= first && day <= last) continue;
+    if (previousDay(day) === last) next = { from: next.from, to: at };
+    else if (day > last) next = { from: at, to: at };
+    else if (previousDay(first) === day) next = { from: at, to: next.to };
+  }
+  return next;
+}
+
+function readRun(run) {
+  if (!run || typeof run !== 'object') return null;
+  const { from, to } = run;
+  return Number.isFinite(from) && Number.isFinite(to) && from > 0 && from <= to ? { from, to } : null;
+}
+
+function computeStreak(sessions, earlierRun = null) {
   // Days with ≥1 completed session, counted back from today (or yesterday if
   // user hasn't completed today yet).
   const days = new Set();
   for (const s of sessions) {
     if (s.completed && s.date) days.add(startOfDay(s.date));
   }
-  if (days.size === 0) return 0;
+  if (days.size === 0 && !earlierRun) return 0;
+  const first = earlierRun ? startOfDay(earlierRun.from) : Infinity;
+  const last = earlierRun ? startOfDay(earlierRun.to) : -Infinity;
+  const studied = (day) => days.has(day) || (day >= first && day <= last);
   let cursor = startOfDay(Date.now());
-  if (!days.has(cursor)) cursor = previousDay(cursor);
+  if (!studied(cursor)) cursor = previousDay(cursor);
   let streak = 0;
-  while (days.has(cursor)) {
+  while (studied(cursor)) {
     streak += 1;
     cursor = previousDay(cursor);
   }
   return streak;
 }
 
-// Local midnight of the day before `dayStart`. Stepping by calendar day
-// rather than by 24 h keeps the walk on midnights across a DST change.
-function previousDay(dayStart) {
+// Local midnight `days` calendar days before `dayStart` (one by default).
+// Stepping by calendar day rather than by 24 h keeps the walk on midnights
+// across a DST change.
+function previousDay(dayStart, days = 1) {
   const d = new Date(dayStart);
-  d.setDate(d.getDate() - 1);
+  d.setDate(d.getDate() - days);
   d.setHours(0, 0, 0, 0);
   return d.getTime();
 }
 
-export function recordSession({ durationMin, completed }) {
+export function recordSession({ durationMin, completed, endedAt }) {
   const hist = loadHistory();
+  const now = Date.now();
   const row = {
-    date: Date.now(),
+    // A focus that ran out while the student was away is logged at the moment
+    // it ended (never later than now), so its minutes and its streak day stay
+    // on the day it ran instead of the day /app/focus was opened again.
+    date: Number.isFinite(endedAt) ? Math.min(endedAt, now) : now,
     durationMin: Number(durationMin) || 25,
     completed: !!completed,
   };
-  const sessions = [...hist.sessions, row];
-  const totalMin = sessions.reduce(
-    (sum, s) => (s.completed ? sum + (Number(s.durationMin) || 0) : sum),
-    0
-  );
-  const currentStreak = computeStreak(sessions);
-  writeHistory({ sessions, totalMin, currentStreak });
+  writeHistory({ sessions: [...hist.sessions, row], earlierRun: hist.earlierRun });
 }
 
 export function getTotalMinutesToday() {
@@ -138,7 +202,9 @@ export function getTotalMinutesToday() {
 export function getSessionsCount() {
   const { sessions } = loadHistory();
   const today = startOfDay(Date.now());
-  const weekAgo = today - 6 * 24 * 60 * 60 * 1000; // rolling 7-day window (today + 6 prior)
+  // Rolling 7-day window (today + 6 prior), by calendar day: 6 × 24 h after a
+  // fall-back day landed at 01:00 on day -6 and dropped that whole day.
+  const weekAgo = previousDay(today, 6);
   let todayN = 0;
   let weekN = 0;
   let totalN = 0;

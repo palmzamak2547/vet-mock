@@ -27,7 +27,7 @@ import { useModalFocus } from '../hooks/useModalFocus.js';
 // Keeps the daily-Q modal opening fast on slow networks.
 const DailyQShareCard = lazy(() => import('./DailyQShareCard.jsx'));
 
-export default function TodaysQModal({ q, onClose, onDone }) {
+export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
   const [picked, setPicked] = useState(null);
   const [revealed, setRevealed] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
@@ -53,6 +53,9 @@ export default function TodaysQModal({ q, onClose, onDone }) {
       qId: q.id,
       choice: idx,
       correct: wasCorrect,
+      // The day this question was shown for: when the modal stays open past
+      // midnight, the moment of answering is already the next day.
+      dateStr,
     });
     onDone?.(wasCorrect);
   }

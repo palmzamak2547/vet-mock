@@ -24,6 +24,7 @@ import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/li
 import { humanSource } from '../lib/source-label.js';
 import { keyTerm } from '../lib/wrap-keyline.js';
 import { topicPractice } from '../lib/lecturer-count.js';
+import { isChunkLoadError } from '../lib/chunk-error.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
@@ -79,7 +80,11 @@ const readMode = () => {
 
 export default function WrapUpView({ subject, subjectName = '', goBack, onStartTopic = null, onOpenDoc = null, selectedYear = null, selectedPhase = null }) {
   const [data, setData] = useState(null);
-  const [failed, setFailed] = useState(false);
+  // 'none': this paper has no wrap-up. An Error: it exists but did not load
+  // (offline, or a release replaced its file), which needs a retry, not
+  // "ยังไม่มี".
+  const [failed, setFailed] = useState(null);
+  const [attempt, setAttempt] = useState(0);
   const [mode, setMode] = useState(readMode);
   const pickMode = (m) => {
     setMode(m);
@@ -88,12 +93,12 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
   useEffect(() => {
     let live = true;
     setData(null);
-    setFailed(false);
+    setFailed(null);
     loadWrapUp(subject, selectedYear, selectedPhase)
-      .then((w) => { if (live) { if (w) setData(w); else setFailed(true); } })
-      .catch(() => { if (live) setFailed(true); });
+      .then((w) => { if (live) { if (w) setData(w); else setFailed('none'); } })
+      .catch((err) => { if (live) setFailed(err instanceof Error ? err : new Error(String(err))); });
     return () => { live = false; };
-  }, [subject, selectedYear, selectedPhase]);
+  }, [subject, selectedYear, selectedPhase, attempt]);
 
   const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase, data?.source?.term), [subject, selectedYear, selectedPhase, data?.source?.term]);
   const covers = LECTURE_COVERS[subject] || {};
@@ -120,11 +125,31 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  if (failed) {
+  if (failed === 'none') {
     return (
       <div className="vmx-wrap">
         <BackBar onBack={goBack} label="หน้าหัวข้อ" />
         <p className="vmx-wrap-empty">ยังไม่มี wrap-up ของวิชานี้</p>
+      </div>
+    );
+  }
+  if (failed) {
+    const chunk = isChunkLoadError(failed);
+    const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+    return (
+      <div className="vmx-wrap">
+        <BackBar onBack={goBack} label="หน้าหัวข้อ" />
+        <div role="alert" className="vmx-wrap-empty">
+          <p>{offline
+            ? 'ยังไม่ได้ต่ออินเทอร์เน็ต จึงเปิด wrap-up ไม่ได้ ต่ออินเทอร์เน็ตแล้วกดลองอีกครั้ง'
+            : chunk
+              ? 'โหลด wrap-up ไม่สำเร็จ ถ้าลองแล้วยังไม่ได้ ให้โหลดหน้านี้ใหม่'
+              : 'เปิด wrap-up ไม่สำเร็จ กดลองอีกครั้ง'}</p>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => setAttempt((n) => n + 1)}>ลองอีกครั้ง</button>
+            {chunk && !offline && <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => window.location.reload()}>โหลดหน้านี้ใหม่</button>}
+          </div>
+        </div>
       </div>
     );
   }

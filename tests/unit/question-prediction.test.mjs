@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 
 import {
   examScopeForPhase,
-  isCurrentScopeQuestion,
-  isHighPredictionQuestion,
   predictionMetadataIssues,
   questionInScope,
   questionNeedsAnswerReview,
 } from '../../src/lib/question-prediction.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/current-scope.js';
+import { scopeForTopic, questionInScope as onPaper } from '../../src/lib/exam-scope.js';
+import { BANK_REGISTRY } from '../../src/data/bank-registry.generated.js';
 
 const BASE = {
   sourceType: 'lecture-derived',
@@ -95,6 +96,58 @@ test('the phase selector keeps midterm, final and no-paper courses apart', () =>
     curriculumVersion: '2569-1',
     selectedPhase: '1-final',
   }), false);
+});
+
+test('the topic decides which paper a vouched question sits, as it does for every other set', () => {
+  // A topic's examScope is this year's timetable; the question's own field
+  // is the paper it was written for, often another cohort's. Read alone, the
+  // field kept 30 verified equine questions out of the final's
+  // ตามสไลด์ปัจจุบัน set, while their topics sit both papers.
+  assert.equal(scopeForTopic('equine-medicine', 'equine-intro'), 'both', 'premise: equine-intro sits both papers');
+  assert.equal(scopeForTopic('zoonoses', 'zoo-intro'), 'midterm', 'premise: zoo-intro sits the midterm');
+  assert.equal(scopeForTopic('zoonoses', 'zoo-mycoses'), 'final', 'premise: zoo-mycoses sits the final');
+  assert.equal(scopeForTopic('poa-clinical', 'poa-intro'), 'continuous', 'premise: POA has no written paper');
+  assert.equal(scopeForTopic('equine-medicine', 'no-such-topic'), null, 'premise: an unknown topic has no scope');
+
+  const at = (selectedPhase) => ({ curriculumVersion: '2569-1', selectedPhase });
+  const sits = (question) => ['1-mid', '1-final'].filter((phase) => isCurrentScopeQuestion(question, at(phase)));
+  const onBoth = { ...BASE, subject: 'equine-medicine', topic: 'equine-intro', examScope: 'midterm' };
+  assert.deepEqual(sits(onBoth), ['1-mid', '1-final'], 'a both-paper topic sits both papers');
+  assert.equal(isHighPredictionQuestion(onBoth, at('1-final')), true, 'the predicted set reads the same rule');
+  assert.deepEqual(sits({ ...BASE, subject: 'zoonoses', topic: 'zoo-intro', examScope: 'final' }), ['1-mid']);
+  assert.deepEqual(sits({ ...BASE, subject: 'zoonoses', topic: 'zoo-mycoses', examScope: 'midterm' }), ['1-final']);
+  // A course with no written paper sits neither paper whatever its question
+  // says, and a question that says continuous sits neither on any topic.
+  assert.deepEqual(sits({ ...BASE, subject: 'poa-clinical', topic: 'poa-intro', examScope: 'midterm' }), []);
+  assert.deepEqual(sits({ ...BASE, subject: 'equine-medicine', topic: 'equine-intro', examScope: 'continuous' }), []);
+  // Where the topic has no scope, the question's own field still answers.
+  assert.deepEqual(sits({ ...BASE, subject: 'equine-medicine', topic: 'no-such-topic', examScope: 'final' }), ['1-final']);
+  // No period picked: the whole semester, as before.
+  assert.equal(isCurrentScopeQuestion(onBoth, { curriculumVersion: '2569-1' }), true);
+});
+
+test('on the real bank, every vouched question sits exactly the papers the pool puts it on', async () => {
+  // The set filters by this predicate and then by the paper. If the two
+  // disagree, the set is their overlap and a question disappears from a
+  // paper its topic sits.
+  const wrong = [];
+  let checked = 0;
+  for (const entry of BANK_REGISTRY) {
+    const bank = await entry.load();
+    for (const q of Array.isArray(bank) ? bank : []) {
+      const version = q.curriculumVersion;
+      if (!version || !isCurrentScopeQuestion(q, { curriculumVersion: version })) continue;
+      checked += 1;
+      const term = String(version).split('-')[1];
+      for (const [phase, paper] of [[`${term}-mid`, 'midterm'], [`${term}-final`, 'final']]) {
+        const vouched = isCurrentScopeQuestion(q, { curriculumVersion: version, selectedPhase: phase });
+        const placed = onPaper(q, paper);
+        if (vouched !== placed) wrong.push(`${q.subject}:${q.id} (${q.topic}) ${phase}: set ${vouched}, paper ${placed}`);
+      }
+    }
+  }
+  assert.ok(checked > 100, `only ${checked} vouched questions found; the bank did not load`);
+  assert.deepEqual(wrong, []);
 });
 
 test('prediction metadata is all-or-nothing and high tier needs two signals', () => {

@@ -149,6 +149,41 @@ test('a VetMock AI link to a deck this shelf cannot find still offers the file, 
   expect(mints.some((q) => q.includes(`vt=${vt}`) && q.includes('ve=1900000000'))).toBe(true);
 });
 
+test('a deck pasted into the palette and tapped at once is the deck that opens', async ({ page }) => {
+  // The palette applies a query 60 ms after it is typed. A paste followed by a
+  // quick tap landed on a row from the previous query and opened that deck.
+  test.setTimeout(60_000);
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '5');
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+  });
+  await prepare(page);
+  await page.goto('/app');
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
+  const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
+  const box = dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' });
+  await box.fill('Pharmacology & Toxicology (VCA58-68)');
+  const first = dialog.getByRole('option').filter({ hasText: 'Pharmacology & Toxicology (VCA58-68)' }).first();
+  await expect(first).toBeVisible();
+  // Paste another deck's name and tap the row that is still on screen, in the
+  // next task, as a finger does: before the list has applied the paste.
+  const tapped = await page.evaluate(async () => {
+    const input = document.querySelector('[role="dialog"] [role="combobox"]');
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(input, 'Aquatic medicine (VCA58-68)');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    const stale = [...document.querySelectorAll('[role="option"]')].find((row) => row.textContent.includes('Pharmacology & Toxicology (VCA58-68)'));
+    stale?.click();
+    return Boolean(stale);
+  });
+  expect(tapped, 'the previous query\'s row was still on screen when the tap came').toBe(true);
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('option').filter({ hasText: 'Aquatic medicine (VCA58-68)' }).first().click();
+  await expect(page).toHaveURL(/\/app\/tools\/pdf\?doc=vca-archive-a09ae4d9b8512242$/, { timeout: 30_000 });
+  await expect(ready(page)).toBeVisible({ timeout: 30_000 });
+});
+
 test.describe('inside LINE', () => {
   test.use({ userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/14.12.0' });
 

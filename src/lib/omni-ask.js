@@ -15,7 +15,7 @@
 // automatic retry for a transient failure, then the student decides.
 // ============================================================
 
-import { STOPWORDS, ALIAS_GROUPS, GENERIC_ALIAS_HEADS, SPECIES_ALIAS_HEADS, normalizeQuery, contentQuery, segmentWords, isThai, isLatin } from './vetwiki/query-terms.js';
+import { STOPWORDS, ALIAS_GROUPS, GENERIC_ALIAS_HEADS, SPECIES_ALIAS_HEADS, normalizeQuery, contentQuery, segmentWords, isThai, isLatin, latinPattern } from './vetwiki/query-terms.js';
 
 /** Plain Thai for each outcome. One term per concept: คลังความรู้. */
 export const ASK_COPY = {
@@ -119,6 +119,21 @@ const DOMAIN_WORDS = new Set([
 
 const isThaiForm = (f) => isThai(f.replace(/\s+/g, ''));
 
+// Where a Latin alias form stands in a question, read the way retrieve.js
+// reads it (latinPattern): a stem* takes any ending, a longer form its own
+// endings, a short code only itself. A short word may also be plural (dogs,
+// cats), as the alias table allows. Found by its start alone, uri was read
+// inside "uric acid" and urti inside "urticaria".
+const latinForms = new Map();
+function latinFormIn(q, f) {
+  let re = latinForms.get(f);
+  if (!re) {
+    re = new RegExp(/^[a-z]{1,3}$/.test(f) ? `\\b${f}s?\\b` : latinPattern(f));
+    latinForms.set(f, re);
+  }
+  return re.exec(q);
+}
+
 /**
  * What a question names, as concepts: each curated alias group it mentions is
  * one concept (ลมชัก reaches "seizure"); any other word of three letters or
@@ -141,14 +156,13 @@ function questionConcepts(q, words) {
           if (starts.has(i) && ends.has(i + f.length)) hit = { start: i, end: i + f.length };
         }
       } else {
-        const stem = f.replace(/\*$/, '');
-        const i = q.indexOf(stem);
-        if (i >= 0 && (i === 0 || !/[a-z0-9]/.test(q[i - 1]))) {
-          let end = i + stem.length;
+        const m = latinFormIn(q, f);
+        if (m) {
+          const stem = f.replace(/\*$/, '');
           // A kind word's stem form (emergenc*) covers its whole word, or
           // "emergency" would be left behind as a concept of its own.
-          if (generic && f.endsWith('*')) while (end < q.length && /[a-z0-9-]/.test(q[end])) end++;
-          hit = { start: i, end };
+          const end = generic && f.endsWith('*') ? m.index + m[0].length : m.index + Math.min(stem.length, m[0].length);
+          hit = { start: m.index, end };
         }
       }
       if (hit) break;
@@ -210,11 +224,16 @@ export function relatedTopicsFor(query, topics, { limit = 3 } = {}) {
 }
 
 // A Latin term counts where a word starts with it (cat in "cats", not in
-// "vaccination"); Thai has no spaces, so a Thai term counts anywhere.
+// "vaccination"), and a term of three letters or fewer, a code or a short
+// word, must end that word too, plural aside (uri in "feline uri", not in
+// "urine"). Thai has no spaces, so a Thai term counts anywhere.
 function mentions(hay, term) {
   if (isThai(term)) return hay.includes(term);
+  const short = /^[a-z]{1,3}$/.test(term);
   for (let i = hay.indexOf(term); i >= 0; i = hay.indexOf(term, i + 1)) {
-    if (i === 0 || !/[a-z0-9]/.test(hay[i - 1])) return true;
+    if (i > 0 && /[a-z0-9]/.test(hay[i - 1])) continue;
+    if (short && !/^s?(?![a-z0-9])/.test(hay.slice(i + term.length))) continue;
+    return true;
   }
   return false;
 }

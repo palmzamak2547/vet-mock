@@ -206,7 +206,7 @@ async function renderSharedTab(deps, props) {
     await new Promise((r) => setImmediate(r));
     if (dirty) render();
   }
-  findAll(tree, (n) => n.type === 'button' && textOf(n).startsWith('Shared Q'))[0].props.onClick();
+  findAll(tree, (n) => n.type === 'button' && textOf(n).startsWith('ข้อที่แชร์'))[0].props.onClick();
   render();
   return tree;
 }
