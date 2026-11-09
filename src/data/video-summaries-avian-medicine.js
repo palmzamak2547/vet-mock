@@ -10127,16 +10127,15 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
   },
   "pQ3y5Ki_DmQ": {
     videoId: "pQ3y5Ki_DmQ",
-    title: "Avian Medicine — 7 Poultry Vet Career (NOT IN EXAM)",
+    title: "Avian Medicine — 7 Poultry Vet Career",
     subject: "avian-medicine",
     date: "2025-09-30",
     durationMin: 116,
     instructor: "CUVET avian team",
-    examFormat: "NOT IN EXAM (ไม่ออกสอบ) — career discussion",
-    summary: `# Avian Medicine 7 — Poultry Vet Career (NOT IN EXAM)
+    summary: `# Avian Medicine 7 — Poultry Vet Career
 
-> 🎯 **⚠️ Lecture นี้ไม่ออกสอบ** — career discussion สำหรับสาย poultry vet
-> 💡 ฟังเล่นเป็นแนวทางอนาคต ไม่ต้องท่อง
+> 🎯 Career discussion สำหรับสาย poultry vet
+> 💡 แนวทางอาชีพในอนาคต
 
 ---
 
@@ -10172,7 +10171,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 ---
 
 ## 📋 Recap
-- ⚠️ **NOT EXAMINED** — career awareness only
+- ⭐ Career awareness
 - ⭐ Multiple paths (field / hatchery / lab / gov / industry / research)
 - ⭐ Income competitive vs companion animal practice`,
   },

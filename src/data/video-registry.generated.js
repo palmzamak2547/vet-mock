@@ -6,6 +6,33 @@
 // ============================================================
 
 export const VIDEO_REGISTRY = {
+ "EQnBE3-pL94": {
+  "title": "Marine mammal medicine",
+  "session": "4",
+  "date": "2026-10-27",
+  "durationSec": 10787,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [],
+  "skips": [
+   [
+    270.6,
+    329,
+    "pause"
+   ],
+   [
+    10419.4,
+    10557.8,
+    "pause"
+   ]
+  ],
+  "media": true,
+  "captions": "youtube",
+  "card": true
+ },
  "MGU2qNX2paA": {
   "title": "Equine concept of surgery and anesthesia",
   "session": "4",
@@ -163,6 +190,69 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "1dAsMNt_5XA": {
+  "title": "Mycotic infection(ต่อ) + Mycotoxicosis",
+  "session": "4",
+  "date": "2026-10-26",
+  "durationSec": 3653,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-mycosis",
+    0,
+    2940,
+    "high"
+   ],
+   [
+    "avian-mycosis",
+    3000,
+    3653,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": true,
+  "captions": "youtube",
+  "card": true
+ },
+ "VGXvQVrud_A": {
+  "title": "Mycotic infection",
+  "session": "2",
+  "date": "2026-10-19",
+  "durationSec": 3481,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-mycosis",
+    120,
+    3060,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    63.1,
+    110.9,
+    "pause"
+   ],
+   [
+    3426.3,
+    3481,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "youtube",
+  "card": true
+ },
  "Fqgp8DoPDws": {
   "title": "Anatomy function and clinical examination of stallion",
   "session": "8",
@@ -207,7 +297,7 @@ export const VIDEO_REGISTRY = {
   "title": "Semen collection and insemination + Infertility problem in stallion",
   "session": "10",
   "date": "2026-10-15",
-  "durationSec": 5060,
+  "durationSec": 5059,
   "subject": "equine-repro",
   "year": 5,
   "term": 1,
@@ -222,9 +312,91 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
+ },
+ "14B7TUfov00": {
+  "title": "Equine infectious disease and biosecurity",
+  "session": "3",
+  "date": "2026-10-15",
+  "durationSec": 9355,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-infectious",
+    0,
+    2820,
+    "medium"
+   ],
+   [
+    "equine-infectious",
+    3180,
+    4920,
+    "high"
+   ],
+   [
+    "equine-infectious",
+    7260,
+    8880,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    6112.2,
+    6250.8,
+    "pause"
+   ],
+   [
+    8892.3,
+    9355,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "youtube",
+  "card": true
+ },
+ "UDJxcdzGkMU": {
+  "title": "HACCP for poultry + Polutry standard for export",
+  "session": "1",
+  "date": "2026-10-14",
+  "durationSec": 12462,
+  "subject": "food-industry",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLakGwr0kO4UE",
+  "topics": [
+   [
+    "fiqc-haccp",
+    1440,
+    3660,
+    "high"
+   ],
+   [
+    "fiqc-poultry-export",
+    9420,
+    9780,
+    "high"
+   ],
+   [
+    "fiqc-poultry-export",
+    10860,
+    11940,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true,
+  "note": "รวบมาเรียนครั้งเดียว"
  },
  "sglz-itsQ2M": {
   "title": "One health approach to combat foodborne diseases",
@@ -250,6 +422,362 @@ export const VIDEO_REGISTRY = {
     "ambiguous"
    ]
   ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "_nfuMkRDaKM": {
+  "title": "Introduction to meat hygiene + Seafood",
+  "session": "3",
+  "date": "2026-10-14",
+  "durationSec": 8929,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-microbiology",
+    0,
+    2220,
+    "medium"
+   ],
+   [
+    "meat-microbiology",
+    2760,
+    3780,
+    "medium"
+   ],
+   [
+    "meat-hygiene-intro",
+    3780,
+    4860,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "dautD1MVHEg": {
+  "title": "Porcine reproductive and respiratory syndrome",
+  "session": "4",
+  "date": "2026-10-09",
+  "durationSec": 7155,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-resp-viral",
+    420,
+    840,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "aepa8Zi_QhM": {
+  "title": "Reproductive diseases",
+  "session": "3",
+  "date": "2026-10-02",
+  "durationSec": 5071,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-repro",
+    600,
+    1680,
+    "medium"
+   ],
+   [
+    "swine-repro",
+    2280,
+    5071,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "-Y30vybBkEI": {
+  "title": "Yersinia",
+  "session": "2",
+  "date": "2026-10-07",
+  "durationSec": 6122,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-ileitis-bacti",
+    540,
+    1500,
+    "high"
+   ],
+   [
+    "swine-ileitis-bacti",
+    2460,
+    3600,
+    "high"
+   ],
+   [
+    "swine-ileitis-bacti",
+    4020,
+    6000,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "HGXTKbKbqPA": {
+  "title": "Equine dermato and wound management",
+  "session": "2",
+  "date": "2026-10-08",
+  "durationSec": 8944,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-surgery-wound",
+    5820,
+    8760,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "hLl7taXYRWQ": {
+  "title": "Animal and human health risk analysis + Import risk assessment",
+  "session": "2",
+  "date": "2026-10-07",
+  "durationSec": 4488,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [
+   [
+    "oh-risk-analysis",
+    0,
+    4440,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    4433.1,
+    4488,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "BnQScOdmIJc": {
+  "title": "Microbiology of meat",
+  "session": "2",
+  "date": "2026-10-07",
+  "durationSec": 7569,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-microbiology",
+    60,
+    2700,
+    "high"
+   ],
+   [
+    "meat-microbiology",
+    3180,
+    3480,
+    "medium"
+   ],
+   [
+    "meat-microbiology",
+    3840,
+    7500,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    0,
+    66,
+    "before"
+   ],
+   [
+    2741.1,
+    3158.2,
+    "pause"
+   ],
+   [
+    7504.5,
+    7569,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "fhgn4lTuL3U": {
+  "title": "วัคซีน วิธีให้วัคซีน โปรแกรมวัคซีน + การประเมินผลทางซีรัมวิทยา",
+  "session": "1",
+  "date": "2026-10-06",
+  "durationSec": 12425,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [],
+  "skips": [
+   [
+    0,
+    304.7,
+    "before"
+   ],
+   [
+    2188.2,
+    2209.8,
+    "pause"
+   ],
+   [
+    12269,
+    12425,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "PvMzY6UNM8M": {
+  "title": "Shrimp diseases",
+  "session": "2",
+  "date": "2026-10-06",
+  "durationSec": 7474,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-shrimp-diseases",
+    1500,
+    3240,
+    "high"
+   ],
+   [
+    "aqua-shrimp-diseases",
+    4020,
+    6960,
+    "high"
+   ]
+  ],
+  "skips": [
+   [
+    0,
+    77.7,
+    "before"
+   ],
+   [
+    250.6,
+    276.7,
+    "pause"
+   ],
+   [
+    443.5,
+    493.8,
+    "pause"
+   ],
+   [
+    499.3,
+    535,
+    "pause"
+   ],
+   [
+    3292.4,
+    3982.9,
+    "pause"
+   ],
+   [
+    7449.3,
+    7474,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "none yet",
+  "card": true
+ },
+ "Q90_Y5fAX4I": {
+  "title": "Mycoses",
+  "session": "1",
+  "date": "2026-10-02",
+  "durationSec": 5000,
+  "subject": "zoonoses",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLdEGWCa6KP70",
+  "topics": [
+   [
+    "zoo-mycoses",
+    420,
+    2880,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "2_2M9bEGpmE": {
+  "title": "Swine enteric diseases",
+  "session": "1",
+  "date": "2026-10-01",
+  "durationSec": 5205,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [],
   "skips": [],
   "media": false,
   "captions": "youtube",
@@ -319,6 +847,80 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "2sG_D3pcAwc": {
+  "title": "Understanding and addressing AMR",
+  "session": "1",
+  "date": "2026-09-30",
+  "durationSec": 3622,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "J0_PVwAL884": {
+  "title": "Disease in fish culture",
+  "session": "1",
+  "date": "2026-09-29",
+  "durationSec": 10966,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-fish-diseases",
+    8880,
+    10966,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "vP8uTsXKjNo": {
+  "title": "Introduction to Economics",
+  "session": "8",
+  "date": "2026-09-28",
+  "durationSec": 12976,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [
+   [
+    "epidem-economics",
+    0,
+    960,
+    "medium"
+   ],
+   [
+    "epidem-economics",
+    11160,
+    11700,
+    "ambiguous"
+   ],
+   [
+    "epidem-economics",
+    12360,
+    12976,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "23AwFruxQQc": {
   "title": "Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidemiology",
   "session": "7",
@@ -354,6 +956,22 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true,
   "note": "Module อื่นๆ self study นะ มีอะไรสงสัยก็ไปถามอจ.ได้เลย"
+ },
+ "II_JuR2yE9k": {
+  "title": "Turtle and tortoise medicine",
+  "session": "7.1",
+  "date": "2026-09-15",
+  "durationSec": 3159,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
  },
  "hYF6kxFJPgk": {
   "title": "Turtle and tortoise medicine (ต่อ)",
@@ -399,6 +1017,35 @@ export const VIDEO_REGISTRY = {
     "swine-pornchalit-set",
     6120,
     6600,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "IJaulz_PkS8": {
+  "title": "Equine parasite in Thailand",
+  "session": "5",
+  "date": "2026-09-10",
+  "durationSec": 5878,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-parasites",
+    1500,
+    2460,
+    "high"
+   ],
+   [
+    "equine-parasites",
+    2940,
+    4740,
     "high"
    ]
   ],
@@ -484,6 +1131,57 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "ktxMaLGGfhE": {
+  "title": "Amphibian medicine",
+  "session": "6.2",
+  "date": "2026-09-08",
+  "durationSec": 5182,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "YlS2efVw0OQ": {
+  "title": "Swine medicine II",
+  "session": "4",
+  "date": "2026-09-04",
+  "durationSec": 7572,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-pornchalit-set",
+    240,
+    1680,
+    "high"
+   ],
+   [
+    "swine-pornchalit-set",
+    2460,
+    3780,
+    "high"
+   ],
+   [
+    "swine-pornchalit-set",
+    5040,
+    6600,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "Nto0dg3GP1w": {
   "title": "Ornamental fish medicine",
   "session": "5",
@@ -508,6 +1206,38 @@ export const VIDEO_REGISTRY = {
     "high"
    ]
   ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "MhJ614qDURI": {
+  "title": "นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ + หลายๆ อย่าง",
+  "session": "5.2",
+  "date": "2026-08-31",
+  "durationSec": 10928,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "jw88XfIS7IM": {
+  "title": "Disease Control, Prevention and Eradication",
+  "session": "5.1",
+  "date": "2026-08-31",
+  "durationSec": 7583,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [],
   "skips": [],
   "media": false,
   "captions": "youtube",
@@ -565,6 +1295,29 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "ha7c8qpdsA4": {
+  "title": "Equine gastrointestinal system I + II",
+  "session": "4",
+  "date": "2026-08-27",
+  "durationSec": 9481,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-gi",
+    1020,
+    1980,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "WQX71m1GSds": {
   "title": "Feed industry and QC",
   "session": "2",
@@ -580,6 +1333,47 @@ export const VIDEO_REGISTRY = {
     "fiqc-feed-qc",
     360,
     1860,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "vMFY6A8LaIU": {
+  "title": "Storage of raw milk + Storage of milk products + Determination milk quality",
+  "session": "3",
+  "date": "2026-08-26",
+  "durationSec": 10268,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "milk-raw-storage",
+    240,
+    2220,
+    "high"
+   ],
+   [
+    "milk-products-storage",
+    2640,
+    3660,
+    "medium"
+   ],
+   [
+    "milk-quality-determination",
+    5460,
+    7560,
+    "high"
+   ],
+   [
+    "milk-quality-determination",
+    8460,
+    9960,
     "high"
    ]
   ],
@@ -617,6 +1411,99 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true,
   "note": "ช่วงท้ายทีมหลุดหายนะ"
+ },
+ "Jx489N1psMo": {
+  "title": "Outbreak investigation + Report outbreak",
+  "session": "4.2",
+  "date": "2026-08-24",
+  "durationSec": 6878,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [
+   [
+    "epidem-outbreak-investigation",
+    0,
+    1620,
+    "medium"
+   ],
+   [
+    "epidem-outbreak-investigation",
+    1980,
+    2880,
+    "high"
+   ],
+   [
+    "epidem-outbreak-investigation",
+    3300,
+    4260,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "ZKnNkti4nDo": {
+  "title": "Animal disease surveillance",
+  "session": "4.1",
+  "date": "2026-08-24",
+  "durationSec": 5869,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [
+   [
+    "epidem-surveillance",
+    0,
+    2640,
+    "high"
+   ],
+   [
+    "epidem-surveillance",
+    2940,
+    3300,
+    "high"
+   ],
+   [
+    "epidem-surveillance",
+    3780,
+    5760,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "2I7DU_E8vho": {
+  "title": "โรคระบบทางเดินอาหารในสุกรไวรัส + โรคระบบประสาทในสุกร",
+  "session": "2",
+  "date": "2026-08-21",
+  "durationSec": 6613,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-gi-viral",
+    1320,
+    2400,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
  },
  "DhtSsPLtFTo": {
   "title": "Comprehensive Rabies Control in Thailand",
@@ -758,6 +1645,47 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "7wqRrVgvUo4": {
+  "title": "Sample size determination",
+  "session": "3.2",
+  "date": "2026-08-17",
+  "durationSec": 9688,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [
+   [
+    "epidem-sample-size",
+    420,
+    4740,
+    "high"
+   ],
+   [
+    "epidem-sample-size",
+    6060,
+    6780,
+    "high"
+   ],
+   [
+    "epidem-sample-size",
+    6900,
+    7860,
+    "high"
+   ],
+   [
+    "epidem-sample-size",
+    7920,
+    9300,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "D8b_D45hFn0": {
   "title": "Study designs",
   "session": "3.1",
@@ -812,6 +1740,58 @@ export const VIDEO_REGISTRY = {
   "media": false,
   "captions": "youtube",
   "card": true
+ },
+ "OPoCv_-EfpQ": {
+  "title": "Measurement (ต่อ)",
+  "session": "2.2",
+  "date": "2026-08-10",
+  "durationSec": 10545,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "uGAmgxPrb2Y": {
+  "title": "Basic concept in Epidemiology + Measurement",
+  "session": "2.1",
+  "date": "2026-08-10",
+  "durationSec": 11814,
+  "subject": "epidemiology",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLJqWQLtI3Wck",
+  "topics": [
+   [
+    "epidem-basic-concepts",
+    1020,
+    1500,
+    "high"
+   ],
+   [
+    "epidem-disease-frequency",
+    3360,
+    6360,
+    "high"
+   ],
+   [
+    "epidem-disease-frequency",
+    6720,
+    7800,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true,
+  "note": "ช่วง 15 นาทีแรกไม่มีอัด (เน็ตล่ม)"
  },
  "R4k7-CbupPc": {
   "title": "Role of Veterinarian in One Health",

@@ -239,10 +239,6 @@ export default {
    "t": 4445
   },
   {
-   "term": "effect",
-   "t": 5534
-  },
-  {
    "term": "choice",
    "t": 3411
   },

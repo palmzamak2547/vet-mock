@@ -185,10 +185,6 @@ export default {
    "t": 2254
   },
   {
-   "term": "message",
-   "t": 1491
-  },
-  {
    "term": "messages",
    "t": 1491
   },

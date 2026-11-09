@@ -470,10 +470,6 @@ export default {
    "t": 58
   },
   {
-   "term": "fluid",
-   "t": 58
-  },
-  {
    "number": "Onset   ̴ 8-10 days (2 - 21 days)",
    "t": 58,
    "slide": {

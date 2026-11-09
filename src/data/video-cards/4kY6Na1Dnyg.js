@@ -250,10 +250,6 @@ export default {
    "t": 10291
   },
   {
-   "term": "effect",
-   "t": 10291
-  },
-  {
    "term": "induced",
    "t": 1034
   },

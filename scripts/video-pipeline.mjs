@@ -117,6 +117,14 @@ async function main() {
       const st = (state[v.id] ||= {});
       if (fs.existsSync(path.join(dir, 'deck.json')) && !force) continue;
       let chosen = (sessionDecks.get(v.id) || []).map((slug) => ({ slug, score: 1, why: 'lecturer set' }));
+      // A deck a reader matched by hand (polished.json "decks", beside the clip's other
+      // hand edits) where the title match misses the lecture's own: every word of
+      // "Microbiology of meat" is common in its subject, so none is distinctive.
+      if (!chosen.length) {
+        const pf = path.join(dir, 'polished.json');
+        const hand = fs.existsSync(pf) ? JSON.parse(fs.readFileSync(pf, 'utf8')).decks : null;
+        chosen = (hand || []).map((slug) => ({ slug, score: 1, why: 'hand' }));
+      }
       if (!chosen.length) {
         // Each part of a "1.A + 2.B" title may have its own deck.
         const parts = v.title.split(/\s(?:\+|&)\s?|\s\d+\.\s*/).map((p) => words(p)).filter((w) => w.size);
@@ -135,6 +143,7 @@ async function main() {
         chosen = scored.sort((a, b) => b.score - a.score).slice(0, Math.max(1, Math.min(3, parts.length)));
       }
       st.decks = chosen;
+      delete st.deckError; // an earlier attempt's error, not this one's
       if (!chosen.length) { fs.rmSync(path.join(dir, 'deck.json'), { force: true }); save(); continue; }
       try {
         const pages = [];
@@ -150,7 +159,7 @@ async function main() {
           }
           for (const p of JSON.parse(fs.readFileSync(part, 'utf8')).pages) pages.push({ ...p, page: pages.length + 1, doc: d.slug, docPage: p.page });
         }
-        fs.writeFileSync(path.join(dir, 'deck.json'), JSON.stringify({ slug: chosen.map((d) => d.slug).join(','), source: chosen[0].why === 'lecturer set' ? 'lecturer-set' : 'title', pages }));
+        fs.writeFileSync(path.join(dir, 'deck.json'), JSON.stringify({ slug: chosen.map((d) => d.slug).join(','), source: { 'lecturer set': 'lecturer-set', hand: 'hand' }[chosen[0].why] || 'title', pages }));
       } catch (e) { st.deckError = String(e.message || e).slice(0, 200); }
       save();
     }
@@ -166,7 +175,8 @@ async function main() {
       const scribe = path.join(dir, 'video.scribe.json3');
       const newer = (f) => fs.existsSync(f) && fs.existsSync(af) && fs.statSync(f).mtimeMs > fs.statSync(af).mtimeMs;
       // A Scribe transcript that arrived after the analysis is a reason to redo it, like new silence.
-      const stale = newer(sf) || newer(scribe);
+      // So is a deck added after it: a hand choice in polished.json reaches the slides.
+      const stale = newer(sf) || newer(scribe) || newer(path.join(dir, 'deck.json'));
       if ((!fs.existsSync(path.join(dir, 'video.th.json3')) && !fs.existsSync(scribe)) || (fs.existsSync(af) && !force && !stale)) return;
       // The summary was written against this analysis: it stays beside the new one
       // until the summary is redone, and the registry pairs the chapter lines with it.

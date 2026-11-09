@@ -11,6 +11,7 @@ import { resetChulaGate } from '../../api/_lib/chula-gate.js';
 import { VIDEO_REGISTRY } from '../../src/data/video-registry.generated.js';
 
 const withCopy = Object.keys(VIDEO_REGISTRY).find((id) => VIDEO_REGISTRY[id].media);
+const cardOnly = Object.keys(VIDEO_REGISTRY).find((id) => VIDEO_REGISTRY[id].card && !VIDEO_REGISTRY[id].media);
 const ENV = { VITE_SUPABASE_URL: 'https://db.example', VITE_SUPABASE_ANON_KEY: 'anon-key', CLOUDFLARE_API_TOKEN: 'cf-secret-token', R2_ACCOUNT_ID: 'acct' };
 
 const call = async (url, { method = 'GET', auth } = {}) => {
@@ -60,6 +61,41 @@ test('with the wall on, an account without a Chula email is refused', async () =
     const r = await call(`/api/video-file?v=${withCopy}&f=video`, { auth: STUDENT });
     assert.equal(r.status, 403);
     assert.equal(r.body.error, 'chula_required');
+  } finally {
+    globalThis.fetch = real;
+  }
+});
+
+test('a guest asking for a card-only clip\'s transcript is asked to sign in first', { skip: !cardOnly && 'every clip has our copy' }, async () => {
+  resetChulaGate();
+  const real = globalThis.fetch;
+  globalThis.fetch = wall(false, {});
+  try {
+    const r = await call(`/api/video-file?v=${cardOnly}&f=transcript`);
+    assert.equal(r.status, 401);
+    assert.equal(r.body.error, 'login_required');
+  } finally {
+    globalThis.fetch = real;
+  }
+});
+
+test('a carded clip without our copy still has its transcript, but no video link and no slides', { skip: !cardOnly && 'every clip has our copy' }, async () => {
+  // The audit of 2 Nov: transcripts were kept for every card and served for five.
+  resetChulaGate();
+  const real = globalThis.fetch;
+  const asked = [];
+  const db = wall(false, { [STUDENT]: { signed_in: true, member: false, uid: 'student-1' } });
+  globalThis.fetch = async (u, init) => {
+    if (String(u).includes(`/videos/${cardOnly}/transcript.json`)) { asked.push(String(u)); return new Response(JSON.stringify({ lines: [[12, 'สวัสดี']] }), { status: 200 }); }
+    return db(u, init);
+  };
+  try {
+    assert.equal((await call(`/api/video-file?v=${cardOnly}&f=video`, { auth: STUDENT })).status, 404);
+    assert.equal((await call(`/api/video-file?v=${cardOnly}&f=frames`, { auth: STUDENT })).status, 404);
+    const r = await call(`/api/video-file?v=${cardOnly}&f=transcript`, { auth: STUDENT });
+    assert.equal(r.status, 200, JSON.stringify(r.body));
+    assert.deepEqual(r.body.lines, [[12, 'สวัสดี']]);
+    assert.equal(asked.length, 1);
   } finally {
     globalThis.fetch = real;
   }

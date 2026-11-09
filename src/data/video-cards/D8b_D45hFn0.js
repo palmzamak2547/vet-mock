@@ -368,10 +368,6 @@ export default {
    "t": 7033
   },
   {
-   "term": "CASE",
-   "t": 1681
-  },
-  {
    "term": "อินซูลิน",
    "t": 6950
   },
@@ -384,12 +380,8 @@ export default {
    "t": 5139
   },
   {
-   "term": "TABLE",
+   "term": "table",
    "t": 4483
-  },
-  {
-   "term": "RISK",
-   "t": 5093
   },
   {
    "term": "95% ci",
@@ -436,7 +428,7 @@ export default {
    "t": 4020
   },
   {
-   "term": "BIAS",
+   "term": "bias",
    "t": 5640
   },
   {

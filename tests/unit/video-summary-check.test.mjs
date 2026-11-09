@@ -2,7 +2,7 @@
 // case is one a real draft of the endometritis sample broke or nearly broke.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, transliterated, voiceErrors, overlap } from '../../src/lib/video-summary-check.js';
+import { thaiWords, keyPointCap, lintSummary, coverage, unsupportedClaims, transliterated, voiceErrors, overlap, thaiNumbers, listParts } from '../../src/lib/video-summary-check.js';
 
 const base = (over = {}) => ({
   oneLiner: 'ภาวะ endometritis ในม้า ตั้งแต่ uterine defense ถึงการรักษา',
@@ -76,6 +76,14 @@ test('the voice rules match whole words, and course logistics and set-up talk fa
   assert.ok(overlap('vertical คือเชื้อจากแม่ผ่านฟองไข่มาถึงลูกเจี๊ยบ', 'vertical คือจากแม่ผ่านฟองไข่มาถึงลูกเจี๊ยบ') >= 0.85);
 });
 
+test('numbers Scribe writes in Thai words count as evidence, whole words only', () => {
+  // The Year-5 final cards, 7 Nov: "82 องศา" was held because the transcript said แปดสิบสอง.
+  assert.deepEqual(thaiNumbers('ล้างซากด้วยน้ำร้อนแปดสิบสององศา ห้ามใช้ สามารถทำได้ ศูนย์จุดเก้าเก้า ลบร้อยเก้าสิบหก ยี่สิบห้าวัน สี่ถึงแปดองศา'), ['82', '0.99', '196', '25', '4', '8']);
+  const card = { oneLiner: 'x', keyPoints: [{ t: 100, text: 'ล้างซากด้วยน้ำร้อน 82 °C' }], emphasis: [], remember: [], chapters: [] };
+  assert.deepEqual(unsupportedClaims(card, () => 'ล้างซากด้วยน้ำร้อนแปดสิบสององศาเซลเซียส'), []);
+  assert.equal(unsupportedClaims(card, () => 'ห้ามล้างซากด้วยน้ำร้อน').length, 1, 'ห้าม is no five');
+});
+
 test('a card line wholly in English fails; a remember item may be a term and its number', () => {
   assert.ok(lintSummary(base({ oneLiner: 'Endometritis in mare: defense, PBIE, diagnosis and treatment.' }), opts).errors.includes('one-liner: not written in Thai'));
   assert.deepEqual(lintSummary(base({ remember: [{ t: 2500, text: 'Cloprostenol 250 µg IM' }] }), opts).errors, []);
@@ -122,4 +130,60 @@ test('English terms said in Thai script are recognised; decoys are not', () => {
   assert.equal(transliterated('ให้เจนตามัยซินนะ', 'gentamicin'), true);
   assert.equal(transliterated('เกิดปัญหาการติดพวกสเตอรอยด์ฮอร์โมน', 'cytology'), false);
   assert.equal(transliterated('เรือบรรทุกเครื่องบินนะครับ', 'implantation'), false);
+});
+
+test('a chapter line is cut at its list commas, never inside a number', () => {
+  // Rejoining every part with ', ' once turned 10,000 into 10, 000 on ten held cards.
+  assert.deepEqual(listParts('ป่วยปีละ 10,000 ราย, ปีนี้ 15,000 ราย, จึงเป็นการระบาด'), ['ป่วยปีละ 10,000 ราย', 'ปีนี้ 15,000 ราย', 'จึงเป็นการระบาด']);
+  assert.deepEqual(listParts('somatic cell <500,000 cells/ml'), ['somatic cell <500,000 cells/ml']);
+  assert.deepEqual(listParts('A,B, C'), ['A', 'B', 'C']);
+});
+
+test('red is content unless it names a slide mark; the class arrangements are no content', () => {
+  assert.deepEqual(voiceErrors('Red muscle fiber มี myoglobin สูงกว่า white muscle fiber'), []);
+  assert.deepEqual(voiceErrors('เนื้อสัตว์แบ่งเป็น Red Meat เนื้อขาว อาหารทะเล และ game meat'), []);
+  assert.ok(voiceErrors('คำที่ marked in red คือ ventral edema').includes('reports the lecturer instead of stating the fact'));
+  assert.ok(voiceErrors('พักเที่ยงแล้วกลับมาเจอกันตอน 13:00 น.').includes('talks about the class instead of stating the fact'));
+  assert.ok(voiceErrors('พัก 10 นาที').includes('talks about the class instead of stating the fact'));
+  assert.deepEqual(voiceErrors('ม้าต้องพักฟื้น 2 สัปดาห์หลังผ่าตัด'), []);
+});
+
+test('a break inside a stretch is no gap in the key points', () => {
+  const kp = (t) => ({ t, text: 'ข้อความ' });
+  const teaching = { start: 0, end: 13000 };
+  const gap = (s) => s.errors.filter((e) => e.startsWith('no key point'));
+  const card = { oneLiner: 'x', keyPoints: [kp(300), kp(2500), kp(5000), kp(10300), kp(12800)], emphasis: [], remember: [], chapters: [] };
+  assert.equal(gap(lintSummary(card, { durationSec: 13000, transcriptWords: 20000, teaching })).length, 1, '5000 to 10300 s without a key point');
+  assert.equal(gap(lintSummary(card, { durationSec: 13000, transcriptWords: 20000, teaching, breaks: [{ start: 5200, end: 9900 }] })).length, 0, 'most of it a break');
+});
+
+test('a stray word from another alphabet is caught; Greek notation is not', () => {
+  assert.ok(voiceErrors('ถ้า clear zone เกิน 12 มม. จากหลุม диаметร 10 มม.').includes('letters from another alphabet'));
+  assert.ok(voiceErrors('vitreous เป็นวุ้นใส حجمใหญ่สุดในลูกตา').includes('letters from another alphabet'));
+  assert.deepEqual(voiceErrors('Power เท่ากับ 1 ลบ β และ Giardia cyst 9-13 μm'), []);
+});
+
+test('review of 9 Nov: words that look like exam talk, framing or a break but are content', () => {
+  for (const ok of ['ตอนสอบกลับแหล่งที่มาของเนื้อต้องมีเอกสาร', 'วันสอบเทียบเครื่องมือต้องบันทึกไว้', 'พบ piroplasm in red blood cell', 'ให้สัตว์พัก 10 นาทีก่อนวัดความดันโลหิต']) {
+    assert.deepEqual(voiceErrors(ok), [], ok);
+  }
+  assert.ok(voiceErrors('เดี๋ยวพักเบรกแล้วค่อยต่อ').includes('talks about the class instead of stating the fact'));
+  assert.ok(voiceErrors('วันสอบให้มาก่อนเวลา').includes('talks about the exam instead of stating the fact'));
+  assert.equal(thaiNumbers('ประมาณล้านตัว')[0], '1000000');
+  assert.equal(thaiNumbers('ล้านสองแสน')[0], '1200000');
+});
+
+test('review of 9 Nov: an acronym covers as a whole word, and a Thai mark list by any of its terms', () => {
+  const at = 600;
+  const card = (text) => ({ oneLiner: 'x', keyPoints: [{ t: at, text }], emphasis: [], remember: [], chapters: [] });
+  const mark = (id, text) => ({ id, kind: 'mark', text, at, page: 1 });
+  assert.deepEqual(coverage(card('ฉายรังสี irradiation ฆ่าเชื้อในอาหาร'), [mark('m:1', 'ADI')]).missing, ['m:1']);
+  assert.deepEqual(coverage(card('ค่า ADI คือปริมาณที่รับได้ต่อวัน'), [mark('m:1', 'ADI')]).missing, []);
+  assert.deepEqual(coverage(card('ประกาศเขตเฝ้าระวังโรครัศมี 50 กม.'), [mark('m:2', 'เขตโรคระบาด, เขตเฝ้าระวังโรค')]).missing, []);
+});
+
+test('two chapters with the same line are flagged', () => {
+  const line = 'แบบฝึกหัด cost benefit analysis เปรียบเทียบ vaccination กับ test and slaughter';
+  const card = { oneLiner: 'x', keyPoints: [], emphasis: [], remember: [], chapters: [{ id: 'c8', t: 3480, line }, { id: 'c9', t: 4030, line }] };
+  assert.ok(lintSummary(card, { durationSec: 600, transcriptWords: 1000 }).errors.includes('chapter c9: says what chapter c8 says'));
 });

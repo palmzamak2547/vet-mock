@@ -222,10 +222,6 @@ export default {
    "t": 416
   },
   {
-   "term": "remove",
-   "t": 724
-  },
-  {
    "term": "vaginal",
    "t": 1526
   },

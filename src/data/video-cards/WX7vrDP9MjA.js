@@ -443,7 +443,7 @@ export default {
    "t": 2051
   },
   {
-   "term": "FAT",
+   "term": "fat",
    "t": 8824
   },
   {

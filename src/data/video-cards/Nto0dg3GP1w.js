@@ -715,7 +715,7 @@ export default {
    "t": 5961
   },
   {
-   "term": "BIOPSY",
+   "term": "biopsy",
    "t": 6041
   },
   {
@@ -723,16 +723,8 @@ export default {
    "t": 1739
   },
   {
-   "term": "FISH",
-   "t": 7393
-  },
-  {
    "term": "พยาธิ",
    "t": 4547
-  },
-  {
-   "term": "LIVING",
-   "t": 1979
   },
   {
    "term": "medicine",
@@ -747,11 +739,7 @@ export default {
    "t": 5317
   },
   {
-   "term": "IN",
-   "t": 7098
-  },
-  {
-   "term": "FIN",
+   "term": "fin",
    "t": 6041
   },
   {
@@ -771,11 +759,7 @@ export default {
    "t": 4566
   },
   {
-   "term": "OF",
-   "t": 5377
-  },
-  {
-   "term": "POX",
+   "term": "pox",
    "t": 5324
   },
   {
@@ -791,28 +775,12 @@ export default {
    "t": 2888
   },
   {
-   "term": "TYPE",
-   "t": 5332
-  },
-  {
-   "term": "COTTON",
+   "term": "cotton",
    "t": 5016
-  },
-  {
-   "term": "WATER",
-   "t": 4713
-  },
-  {
-   "term": "VIRUS",
-   "t": 5324
   },
   {
    "term": "SDDV",
    "t": 5403
-  },
-  {
-   "term": "BLOOD",
-   "t": 6561
   },
   {
    "term": "AVMA",

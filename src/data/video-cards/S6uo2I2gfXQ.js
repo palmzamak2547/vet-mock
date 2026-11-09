@@ -366,10 +366,6 @@ export default {
    "t": 2872
   },
   {
-   "term": "nerve",
-   "t": 2872
-  },
-  {
    "term": "spinal",
    "t": 4126
   },
@@ -534,16 +530,8 @@ export default {
    "t": 2940
   },
   {
-   "term": "Present",
-   "t": 69
-  },
-  {
    "term": "Hypermetria",
    "t": 3138
-  },
-  {
-   "term": "Delayed",
-   "t": 2940
   },
   {
    "term": "hypotonia",
@@ -556,14 +544,6 @@ export default {
   {
    "term": "progressive",
    "t": 503
-  },
-  {
-   "term": "Variable",
-   "t": 5820
-  },
-  {
-   "term": "Absent",
-   "t": 2940
   },
   {
    "term": "cervical",

@@ -26,6 +26,7 @@ const SKIP_MIN = Number(process.env.VIDEO_SKIP_MIN || 20); // shortest stretch t
 const SKIP_PAD = 1.5; // seconds kept on each side of speech
 const MIN_CHAPTER = 120;
 const MAX_CHAPTER = 360; // six minutes: longer chapters split at a page
+const LONG_CHAPTER = 720; // twelve minutes: what no page can split is cut by time
 // Said to the class as a pointer, not as content: "สำคัญ" alone is ordinary
 // lecture speech and stays out.
 const STRESS = /(ออกสอบ|ข้อสอบ|จำไว้|ต้องจำ|ชอบออก|ออกบ่อย|ถามบ่อย|สำคัญมาก|ย้ำ|อย่าลืม|ต้องรู้)/;
@@ -113,6 +114,32 @@ export function skipSpans(lines, duration, { silence = null, slides = null, min 
     out.push({ start: Math.round(s * 10) / 10, end: Math.round(e * 10) / 10, kind });
   }
   return out;
+}
+
+/**
+ * Where to cut the speech in [from, to) into stretches of about eight minutes:
+ * a topic change within two minutes past a mark cuts there, else the longest
+ * pause within two minutes of it. `speech` is [{ t, end? }] in time order with
+ * the breaks taken out; the first cut is the first line in range.
+ */
+export function speechCuts(speech, topicStarts, from = -Infinity, to = Infinity) {
+  const said = speech.filter((l) => l.t >= from && l.t < to);
+  if (!said.length) return [];
+  const cuts = [said[0].t];
+  const starts = topicStarts.filter((t) => t > said[0].t + 120 && t < to);
+  for (let mark = said[0].t + 480; mark < said[said.length - 1].t - 180; mark = cuts[cuts.length - 1] + 480) {
+    const near = starts.find((t) => t > cuts[cuts.length - 1] + 120 && t <= mark + 120);
+    if (near) { cuts.push(near); continue; }
+    let best = null;
+    for (let i = 1; i < said.length; i++) {
+      const gap = said[i].t - (said[i - 1].end || said[i - 1].t);
+      if (Math.abs(said[i].t - mark) <= 120 && (!best || gap > best.gap)) best = { t: said[i].t, gap };
+    }
+    // No line near the mark (a long break): the cut is where speech resumes, so
+    // no chapter starts in silence.
+    cuts.push(best ? best.t : said.find((l) => l.t > mark).t);
+  }
+  return cuts;
 }
 
 /** Stretches with no speech for BREAK_GAP seconds or more. */
@@ -403,6 +430,12 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
     // 4. Chapters: runs of deck pages under one heading, at least MIN_CHAPTER
     // long; without a deck, the topic segments.
     let chapters = [];
+    const speech = lines.filter((l) => !inBreak(l.t));
+    const topicStarts = topicSegments.map((s) => s.start);
+    // A stretch's name: its two most-said concepts (twice or more), deck words aside.
+    const nameOf = (s, e) => concepts.filter((c) => c.sources.some((x) => x !== 'deck-word'))
+      .map((c) => [c.label, c.lines.filter((i) => lines[i].t >= s && lines[i].t < e).length]).filter(([, n]) => n >= 2)
+      .sort((a, b) => b[1] - a[1]).slice(0, 2).map(([l]) => l).join(', ');
     if (pages.length) {
       for (const p of pages) {
         const key = headingKey(p.heading);
@@ -431,31 +464,10 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
         if (i > 0) i--;
       }
     } else {
-      // No deck: stretches of about eight minutes of speech, each cut at the
-      // longest pause near its mark, named by its most-said concepts (a
-      // topic change always cuts).
-      const speech = lines.filter((l) => !inBreak(l.t));
-      if (speech.length) {
-        const cuts = [speech[0].t];
-        const topicStarts = topicSegments.map((s) => s.start).filter((t) => t > speech[0].t + 120);
-        for (let mark = speech[0].t + 480; mark < speech[speech.length - 1].t - 180; mark = cuts[cuts.length - 1] + 480) {
-          const near = topicStarts.find((t) => t > cuts[cuts.length - 1] + 120 && t <= mark + 120);
-          if (near) { cuts.push(near); continue; }
-          let best = null;
-          for (let i = 1; i < speech.length; i++) {
-            const gap = speech[i].t - (speech[i - 1].end || speech[i - 1].t);
-            if (Math.abs(speech[i].t - mark) <= 120 && (!best || gap > best.gap)) best = { t: speech[i].t, gap };
-          }
-          cuts.push(best ? best.t : mark);
-        }
-        const heardIn = (c, s, e) => c.lines.filter((i) => lines[i].t >= s && lines[i].t < e).length;
-        chapters = cuts.map((s, i) => {
-          const e = cuts[i + 1] ?? duration;
-          const top = concepts.filter((c) => c.sources.some((x) => x !== 'deck-word'))
-            .map((c) => [c.label, heardIn(c, s, e)]).filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([l]) => l);
-          return { title: top.length ? top.join(', ') : `ช่วงที่ ${i + 1}`, start: s, end: e, pages: [] };
-        });
-      }
+      // No deck: stretches of about eight minutes of speech, each named by
+      // its most-said concepts.
+      const cuts = speechCuts(speech, topicStarts);
+      chapters = cuts.map((s, i) => ({ title: nameOf(s, cuts[i + 1] ?? duration) || `ช่วงที่ ${i + 1}`, start: s, end: cuts[i + 1] ?? duration, pages: [] }));
     }
     // A long chapter is split at the page nearest its middle: a dense stretch
     // (treatment's three goals) gets two lines in the player, not one cramped one.
@@ -472,6 +484,29 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
         c.pages = c.pages.filter((n) => n < cut.page);
         c.end = cut.at;
         chapters.splice(i + 1, 0, second);
+        i--; // the first half, now shorter, may split again at a page
+      }
+      // What no page can split (the lecturer talks on past the deck, or half an
+      // hour on one slide) is cut by time like a lecture without a deck: a
+      // 134-minute chapter is no place to find anything. Later parts are named
+      // by what is said in them; each page stays where it is taught.
+      for (let i = 0; i < chapters.length; i++) {
+        const c = chapters[i];
+        if (c.end - c.start <= LONG_CHAPTER) continue;
+        const bounds = [c.start, ...speechCuts(speech, topicStarts, c.start, c.end).filter((t) => t >= c.start + MIN_CHAPTER && t <= c.end - MIN_CHAPTER), c.end];
+        if (bounds.length === 2) continue;
+        const atOf = (n) => pageAt.get(n)?.at ?? c.start;
+        // A page taught at or past the chapter's end belongs to its last part; a part
+        // with slides keeps a slide's heading as its title.
+        const later = bounds.slice(1, -1).map((s, k, all) => {
+          const own = c.pages.filter((n) => atOf(n) >= s && (k === all.length - 1 || atOf(n) < bounds[k + 2]));
+          const heading = own.map((n) => pageAt.get(n)?.heading).find(Boolean);
+          return { title: heading || nameOf(s, bounds[k + 2]) || `${c.title.replace(/(\s*\(ต่อ\))+$/, '')} (ต่อ)`, start: s, end: bounds[k + 2], pages: own };
+        });
+        c.pages = c.pages.filter((n) => atOf(n) < bounds[1]);
+        c.end = bounds[1];
+        chapters.splice(i + 1, 0, ...later);
+        i += later.length;
       }
     }
     // A chapter that is all silence (the title slide before the lecturer
