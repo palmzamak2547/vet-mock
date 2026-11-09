@@ -37,7 +37,9 @@ Every harness (Claude, Codex, grok, Kasem) ships through pull requests: own work
 origin/main, a release note from `npm run release:new`, `gh pr create` and
 `gh pr merge --squash --auto`. Since 2026-10-22 CI is the gate (no local gate first) and a pull
 request merges when its own checks pass (the Queue workflow is disabled); no session negotiates
-push order or version numbers by message any more. Steps and rules: [GITFLOW.md](GITFLOW.md) section 1. The
+push order or version numbers by message any more. Since 2026-11-09 work in progress is a draft
+pull request (Build only), marked ready once to run the e2e matrix, and a release keeps the number
+it took when its pull request opened: no queue, no renumbering at merge. Steps and rules: [GITFLOW.md](GITFLOW.md) section 1. The
 measured debt that came out of this work is ranked in [TECH-DEBT.md](TECH-DEBT.md).
 
 ## Known lanes and evidence entrypoints

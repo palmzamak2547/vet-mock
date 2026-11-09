@@ -12,7 +12,8 @@ import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, ca
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
-import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
+import { LATEST_CHANGELOG, RECENT_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
+import { loadSeen, markSeen, markUnseen, saveSeen, unseenReleases } from '../lib/changelog-seen.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
 import { SEASONAL_MOCHI } from '../data/art.js';
@@ -252,14 +253,25 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // directly (per-subject) so no aggregate needed there.
 
 
-  // Changelog announcement banner — show until user dismisses this version
-  const [lastSeenChangelog, setLastSeenChangelog] = useLocalStorage('vmx-last-seen-changelog', null);
+  // Changelog announcement: every recent release this device has not seen
+  // (lib/changelog-seen.js). It used to keep only the last version closed and
+  // announce only the highest one, so a release that merged after a higher
+  // number was never announced. The note lists what is unseen, newest first
+  // by version, and closing it marks all of them seen.
+  const [seenChangelog, setSeenChangelog] = useState(() => loadSeen(RECENT_CHANGELOG));
+  useEffect(() => { saveSeen(seenChangelog); }, [seenChangelog]);
+  const unseenChangelog = useMemo(() => unseenReleases(RECENT_CHANGELOG, seenChangelog), [seenChangelog]);
   // Release details start OPEN, not collapsed. The old false default hid
   // what was new behind a second tap, so the banner read as a headline
   // with nothing behind it — "ไม่บอกว่ามีอะไรใหม่ กดเข้าไปเช็คไม่ได้".
   // One tap (the chip that opens the banner) now yields the whole list.
   const [expanded, setExpanded] = useState(true);
-  const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
+  const showAnnouncement = unseenChangelog.length > 0;
+  const newestUnseen = unseenChangelog[0];
+  // What the note lists: the unseen releases, else (reopened from the bottom
+  // strip with nothing unread) the newest one.
+  const noteReleases = showAnnouncement ? unseenChangelog : (LATEST_CHANGELOG ? [LATEST_CHANGELOG] : []);
+  const noteChangeCount = noteReleases.reduce((n, release) => n + release.changes.length, 0);
 
   // Onboarding tour — opt-in via a friendly banner.
   //
@@ -707,7 +719,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     });
   };
   const openChangelogNote = () => {
-    setLastSeenChangelog(null);
+    // With nothing unread, the newest release reads as unread again until
+    // the note is closed, as a cleared read mark did before.
+    if (!showAnnouncement && LATEST_CHANGELOG) setSeenChangelog((seen) => markUnseen(seen, LATEST_CHANGELOG.version));
     revealChangelogNote();
   };
 
@@ -1010,7 +1024,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       )}
       {/* bannerWinner can never be 'announcement' (see its ternary) — the
           banner opens only from the chip. */}
-      {forceChangelogOpen && (
+      {forceChangelogOpen && noteReleases.length > 0 && (
         <div
           ref={changelogNoticeRef}
           tabIndex={-1}
@@ -1019,63 +1033,77 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           className={`vmx-changelog-notice${forceChangelogOpen ? ' is-forced' : ''}`}
           style={{ position: 'relative' }}
         >
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <div className="vmx-changelog-kicker">
-                อัปเดตใหม่, {fmtThaiDate(LATEST_CHANGELOG.date)}
-              </div>
-              <div className="vmx-changelog-title">
-                {LATEST_CHANGELOG.headline}
-              </div>
-            </div>
-            <button
-              type="button"
-              className="vmx-icon-close vmx-tap"
-              onClick={() => { setLastSeenChangelog(LATEST_CHANGELOG.version); setForceChangelogOpen(false); }}
-              aria-label="ปิดประกาศ"
-              title="ปิดประกาศ"
-              style={{
-                appearance: 'none',
-                padding: 0,
-                cursor: 'pointer',
-                color: 'var(--clr-ink-soft)',
-                background: 'var(--clr-bg)',
-                border: '1px solid var(--clr-border)',
-                flexShrink: 0,
-              }}
+          {/* One block per unseen release, newest first; the first carries
+              the ✕, which marks every listed release seen. */}
+          {noteReleases.map((release, index) => (
+            <div
+              key={release.version}
+              style={index ? { marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' } : undefined}
             >
-              <NavIcon name="close" size={16} />
-            </button>
-          </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <div className="vmx-changelog-kicker">
+                    อัปเดตใหม่, {fmtThaiDate(release.date)}
+                  </div>
+                  <div className="vmx-changelog-title">
+                    {release.headline}
+                  </div>
+                </div>
+                {index === 0 && (
+                  <button
+                    type="button"
+                    className="vmx-icon-close vmx-tap"
+                    onClick={() => {
+                      setSeenChangelog((seen) => markSeen(seen, noteReleases.map((r) => r.version)));
+                      setForceChangelogOpen(false);
+                    }}
+                    aria-label="ปิดประกาศ"
+                    title="ปิดประกาศ"
+                    style={{
+                      appearance: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      color: 'var(--clr-ink-soft)',
+                      background: 'var(--clr-bg)',
+                      border: '1px solid var(--clr-border)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <NavIcon name="close" size={16} />
+                  </button>
+                )}
+              </div>
 
-          {expanded && (
-            <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {LATEST_CHANGELOG.changes.map((c, i) => (
-                <li
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    padding: '6px 10px',
-                    borderRadius: 8,
-                    background: 'var(--clr-bg)',
-                    border: '1px solid var(--clr-border)',
-                    fontSize: 14,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  <span style={{ flex: 1, minWidth: 0 }}>
-                    {c.fromFeedback && <FeedbackChip />}
-                    <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
-                  </span>
-                  <KindPill kind={c.kind} />
-                </li>
-              ))}
-            </ul>
-          )}
+              {expanded && (
+                <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {release.changes.map((c, i) => (
+                    <li
+                      key={i}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        padding: '6px 10px',
+                        borderRadius: 8,
+                        background: 'var(--clr-bg)',
+                        border: '1px solid var(--clr-border)',
+                        fontSize: 14,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        {c.fromFeedback && <FeedbackChip />}
+                        <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
+                      </span>
+                      <KindPill kind={c.kind} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
 
-          {LATEST_CHANGELOG.changes.length > 0 && (
+          {noteChangeCount > 0 && (
             <button
               type="button"
               className="vmx-tap"
@@ -1092,7 +1120,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             >
               {expanded
                 ? 'ซ่อนรายละเอียด'
-                : `ดูรายละเอียด (${LATEST_CHANGELOG.changes.length} รายการ)`}
+                : `ดูรายละเอียด (${noteChangeCount} รายการ)`}
             </button>
           )}
         </div>
@@ -1682,22 +1710,24 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 {showChangelogChip && (
                   /* The label used to be "อัปเดตระบบ" — that names a system,
                      not a change, so the row could not say what was new and
-                     nobody tapped it. The release's own headline is the
-                     label; truncateThai keeps the Thai cut clean and the
-                     ellipsis styles keep the chip inside the rail exactly
-                     like the class rows above it. The untruncated headline
-                     plus the date stay on the tooltip. */
+                     nobody tapped it. The newest unseen release's own
+                     headline is the label, and the count covers every
+                     unseen release the note lists; truncateThai keeps the
+                     Thai cut clean and the ellipsis styles keep the chip
+                     inside the rail exactly like the class rows above it.
+                     The untruncated headline plus the date stay on the
+                     tooltip. */
                   <button
                     type="button"
                     onClick={revealChangelogNote}
                     className="vmx-vitals-row"
-                    title={`${LATEST_CHANGELOG.headline}, ${fmtThaiDate(LATEST_CHANGELOG.date)}`}
+                    title={`${newestUnseen.headline}, ${fmtThaiDate(newestUnseen.date)}`}
                   >
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {truncateThai(LATEST_CHANGELOG.headline, 30)}
+                      {truncateThai(newestUnseen.headline, 30)}
                     </span>
                     <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>
-                      {LATEST_CHANGELOG?.changes?.length ? `${LATEST_CHANGELOG.changes.length} รายการ` : 'ใหม่'}
+                      {noteChangeCount ? `${noteChangeCount} รายการ` : 'ใหม่'}
                     </span>
                   </button>
                 )}
@@ -1850,22 +1880,22 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           re-surfacing the latest changelog announcement.
 
           This is also the escape hatch for the banner's own ✕: that button
-          writes the version into lastSeenChangelog, which makes
-          showAnnouncement false, and this link then sits below the fold-out
-          menu waiting to be tapped. The link opens the note itself
-          (openChangelogNote clears the read mark, opens the banner, scrolls to
-          it and hands it focus) with the details open, since `expanded` now
-          starts true. Bringing back only the chip is not enough: on a phone it
-          sits far above this link, so the tap would look like nothing
-          happened.
+          marks every listed release seen, which makes showAnnouncement
+          false, and this link then sits below the fold-out menu waiting to be
+          tapped. The link opens the note itself (openChangelogNote marks the
+          newest release unread again when nothing else is, opens the banner,
+          scrolls to it and hands it focus) with the details open, since
+          `expanded` now starts true. Bringing back only the chip is not
+          enough: on a phone it sits far above this link, so the tap would
+          look like nothing happened.
 
           It renders whenever there is a release, on every screen size. The
           chip itself sits in the vitals rail next to the countdown and the
           class rows, a container no viewport hides — so this strip is a
           second, permanent way back to the note rather than the only route
-          on a phone. While the release is still unread (showAnnouncement)
-          the label says so, which also keeps a re-open of an old note from
-          looking like new news. */}
+          on a phone. While a release is still unread (showAnnouncement)
+          the label says so and names the newest unread one, which also keeps
+          a re-open of an old note from looking like new news. */}
       {LATEST_CHANGELOG && (
         <div style={{
           marginTop: 28,
@@ -1877,7 +1907,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={openChangelogNote} style={linkStyle}>
-            {showAnnouncement ? `มีอะไรใหม่ (${LATEST_CHANGELOG.version})` : `อัปเดตล่าสุด (${LATEST_CHANGELOG.version})`}
+            {showAnnouncement ? `มีอะไรใหม่ (${newestUnseen.version})` : `อัปเดตล่าสุด (${LATEST_CHANGELOG.version})`}
           </button>
         </div>
       )}

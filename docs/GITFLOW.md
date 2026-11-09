@@ -15,9 +15,17 @@ and each ran a ~70 min local gate; now:
 
 1. **Worktree from origin/main.** `git worktree add C:/dev/vetmock-<lane> -b <prefix>/<lane> origin/main`,
    its own `npm ci` (and `npm ci` in research/ when you touch research/).
-2. **Release note as its own file.** User-observable work runs `npm run release:new -- minor`
-   (or `patch`): it writes `src/data/changelog/<version>.js` with the next number free on
-   origin/main and in every open pull request. Proof goes in `docs/releases/<version>.md`.
+2. **Release note as its own file, numbered when the pull request opens.** User-observable work runs
+   `npm run release:new -- minor` (or `patch`): it writes `src/data/changelog/<version>.js` with the
+   next number free on origin/main and in every open pull request. Take it when you open the pull
+   request and keep it. A collision (an add/add conflict on that file) is resolved by taking another:
+   run `release:new` again and move the entry into the new file. There is no queue and no renumbering
+   at merge (9 Nov 2026): Home announces every release a device has not seen
+   (`src/lib/changelog-seen.js`), newest first, so the order releases merge in does not matter.
+   Until then it announced only the highest number, so a lower one merged later was never
+   announced, and numbered pull requests queued one at a time, each merging main and running CI
+   again to take its number at merge. Proof goes in `docs/releases/<version>.md`, in the release's
+   own pull request or in one weekly docs pull request, never a docs pull request of its own.
    `package.json`'s version is not bumped. Nothing else is edited by every release, so two
    releases do not conflict.
 3. **No local gate before the pull request.** CI runs everything the local gate runs and more (WebKit,
@@ -35,6 +43,15 @@ and each ran a ~70 min local gate; now:
    that changes only `docs/` and root markdown skips the 7 e2e runners and Annotation PostgreSQL (a
    `changes` job decides; `smoke` still reports), so it waits on Build (2-4 min on the docs-only #67 and
    #71) instead of the runners (7-10 min).
+   **Work still in progress goes up as a draft** (`gh pr create --draft`; 9 Nov 2026). A draft runs
+   Build only: Smoke e2e's `changes` job is skipped on a draft and with it the 7 runners and Annotation
+   PostgreSQL (which moved from build.yml to smoke-e2e.yml for this). In the week to 9 Nov, 131 Smoke e2e
+   runs of 7 runners each were spent, many on pushes still in progress. When the work is done, mark it
+   ready once (`gh pr ready`, then `gh pr merge --squash --auto`): `ready_for_review` runs Smoke e2e
+   once, and every later push runs it as before. Build does not rerun then, because marking ready
+   changes no commit. On a draft the job behind `smoke` reports under another name, so the draft's
+   commit has no `smoke` result: a skipped `smoke` would pass the required check, and merging right
+   after `gh pr ready` could otherwise land before the e2e run had started.
 5. **Merging.** The ruleset on `main` requires those five checks. It no longer requires the branch to be
    up to date with main, and the Queue workflow (`.github/workflows/queue.yml`) is disabled: its bot
    updates left runs waiting in `action_required` (#45 waited 215 min). A pull request merges when its
@@ -44,7 +61,10 @@ and each ran a ~70 min local gate; now:
    forward or `git revert` at once. Vercel builds nothing else: every project's Ignored Build Step
    skips non-production builds (`vercel.json`, `research/vercel.json`, `vca/scripts/vercel-ignore.sh`).
 7. **Prove it** (unchanged): exact-SHA CI, the Vercel production deployment, the live flow on
-   vetmock.com, recorded in `docs/releases/<version>.md`. A merge is not proof.
+   vetmock.com, recorded in `docs/releases/<version>.md` (in the release's own pull request or the
+   weekly docs pull request, item 2). A merge is not proof. Main's push keeps the full e2e: the reuse
+   shadow (AGENTS.md, E2E and CI) found 2 red runs on main among 24 trees already tested green on
+   their pull requests, so a pull request's result is not reused yet.
 8. **Performance budgets** (2026-10-22). Smoothness must not regress, and the check must never be what flakes, so CI
    fails only on numbers a machine cannot move, and timings are measured by hand.
    - *CI enforces* `perf-budgets.json` (the measured number is written beside every budget): the gzip size of the
