@@ -5540,7 +5540,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "palmar and dorsal fetlock"
     ],
     "model_answer": "Low four-point block: ฉีด medial และ lateral palmar nerve ร่วมกับ medial และ lateral palmar metacarpal nerve ที่ส่วนปลายของ cannon เหนือ fetlock ครอบคลุมทั้งด้าน palmar และ dorsal ของ fetlock",
-    "explain": "Fetlock รับความรู้สึกสองทาง ด้าน palmar มาจาก palmar nerve และด้าน dorsal มาจาก palmar metacarpal nerve การบล็อกเฉพาะ palmar nerve สองเส้นจึงชาแค่ด้าน palmar ต้องบล็อก palmar metacarpal ด้วยจึงครอบคลุมทั้งข้อ รวมเป็นสี่จุด ซึ่งสไลด์ปี 2569 เรียกการบล็อกสี่จุดนี้ว่า low 4-point หรือ low palmar",
+    "explain": "Fetlock รับความรู้สึกสองทาง ด้าน palmar มาจาก palmar nerve และด้าน dorsal มาจาก palmar metacarpal nerve การบล็อกเฉพาะ palmar nerve สองเส้นจึงชาแค่ด้าน palmar ต้องบล็อก palmar metacarpal ด้วยจึงครอบคลุมทั้งข้อ รวมเป็นสี่จุด การบล็อกสี่จุดนี้เรียกว่า low 4-point หรือ low palmar",
     "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Diagnostic analgesia in horses (2026) หน้า 9 และ 27",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 15 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
@@ -5929,7 +5929,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "sound – – – after the block"
     ],
     "model_answer": "Positive: หลังบล็อก palmar metacarpal nerve เพิ่ม ขาหน้าซ้ายเป็น – – – หายเจ็บ",
-    "explain": "เมื่อบล็อก palmar metacarpal nerve ต่อจากการบล็อก palmar nerve สองเส้นที่เคสนี้เรียกว่า low palmar (รวมเป็น low four-point ซึ่งสไลด์ปี 2569 เรียกว่า low palmar ทั้งชุด) ม้าหายเจ็บ จึงเป็นผลบวก แหล่งเจ็บจึงอยู่ในบริเวณที่สองเส้นนี้รวมกันครอบคลุม คือ fetlock ทั้งด้าน palmar และ dorsal",
+    "explain": "เมื่อบล็อก palmar metacarpal nerve ต่อจากการบล็อก palmar nerve สองเส้นที่เคสนี้เรียกว่า low palmar (รวมเป็น low four-point ซึ่งเรียกรวมทั้งชุดว่า low palmar ได้ด้วย) ม้าหายเจ็บ จึงเป็นผลบวก แหล่งเจ็บจึงอยู่ในบริเวณที่สองเส้นนี้รวมกันครอบคลุม คือ fetlock ทั้งด้าน palmar และ dorsal",
     "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Diagnostic analgesia in horses (2026) หน้า 27 และ 31",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 11 Question 24",
     "sourceType": "past-paper",

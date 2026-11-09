@@ -95,6 +95,8 @@ export const TOPIC_CHIP_HELD = new Set([
   "livestock-pathology:8223",
   "livestock-pathology:8224",
   "milk-meat-hygiene:101095",
+  "milk-meat-hygiene:214085",
+  "milk-meat-hygiene:214163",
   "one-health:210015",
   "poa-clinical:106295",
   "poa-clinical:107323",

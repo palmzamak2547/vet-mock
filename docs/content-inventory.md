@@ -9,19 +9,19 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **7,736** |
+| **Questions ready for learners** | **7,975** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 78 |
-| Total questions in source banks | 7,814 |
-| Question banks (files) | 104 |
+| Total questions in source banks | 8,053 |
+| Question banks (files) | 105 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 297 |
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 5,157 |
+| — year 5 | 5,396 |
 
-Consistency: source banks **7814**, learner-ready **7736**, fail-closed **78**, registry sums to **7814**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **8053**, learner-ready **7975**, fail-closed **78**, registry sums to **8053**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -76,7 +76,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
-| milk-meat-hygiene | 953 | 953 | 0 | 100.0% |
+| milk-meat-hygiene | 1192 | 1192 | 0 | 100.0% |
 | one-health | 237 | 185 | 0 | 78.1% |
 | poa-clinical | 71 | 35 | 0 | 49.3% |
 | poultry | 178 | 114 | 42 | 64.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 7736 | 4949 | 334 | 64.0% |
+| **All** | 7975 | 5188 | 334 | 65.1% |
