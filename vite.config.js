@@ -184,6 +184,7 @@ export default defineConfig({
           // (importBank) then read neither (lint:bank-chunks checks each bank).
           if (id.includes('questions-vca-reviewed')) return 'data-q-vca-reviewed'
           if (id.includes('questions-vca-2569')) return 'data-q-vca-2569'
+          if (id.includes('questions-vca-super')) return 'data-q-vca-super'
           if (id.includes('questions-vca')) return 'data-q-vca'
           if (id.includes('questions-mahahon')) return 'data-q-mahahon'
           if (id.includes('questions-termpaper')) return 'data-q-termpaper'

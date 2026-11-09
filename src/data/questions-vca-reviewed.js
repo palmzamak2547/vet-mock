@@ -76,43 +76,6 @@ export const QB_VCA_REVIEWED = [
     ]
   },
   {
-    "id": 200223,
-    "subject": "vca",
-    "topic": "immunology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "immunology"
-    ],
-    "q": "แมวเพศเมีย อายุ 1 ปี มีอาการคันทั่วทั้งตัวหลังได้กินอาหารที่มีโปรตีนจากถั่ว และมีอาการมากขึ้นเมื่อได้กินถั่วเพิ่มขึ้น บอกคุณสมบัติของถั่วในกรณีดังกล่าว",
-    "options": [
-      "Tolerogen",
-      "Immunoglobulin",
-      "Hapten",
-      "Allergen",
-      "Adjuvant"
-    ],
-    "answer": 3,
-    "explain": "สารที่กระตุ้นปฏิกิริยาภูมิแพ้เรียกว่า allergen ส่วน adjuvant ช่วยเสริมการตอบสนองต่อแอนติเจน และ hapten เป็นโมเลกุลขนาดเล็กที่ต้องจับกับ carrier จึงกระตุ้นภูมิคุ้มกันได้",
-    "source": "แบบฝึกปรับจาก Immunology & Vaccinology (VCA59-68).pdf หน้า 4 ข้อ 1",
-    "verified": "VCA Vet Immunology 2026, หน้า 17, 27-28; https://drive.google.com/file/d/1EpJjc36_OWPjTumwZ2g81Nbnx7SHm1-z/view",
-    "sourceDocument": {
-      "id": "1hkKQwuQw1k3xZms84ka6CiA8Ts1Le2Ry",
-      "url": "https://drive.google.com/file/d/1hkKQwuQw1k3xZms84ka6CiA8Ts1Le2Ry/view",
-      "page": 4,
-      "question": 1
-    },
-    "verificationSources": [
-      {
-        "title": "VCA Vet Immunology 2026",
-        "url": "https://drive.google.com/file/d/1EpJjc36_OWPjTumwZ2g81Nbnx7SHm1-z/view",
-        "locator": "หน้า 17, 27-28"
-      }
-    ]
-  },
-  {
     "id": 200224,
     "subject": "vca",
     "topic": "immunology",
@@ -224,42 +187,6 @@ export const QB_VCA_REVIEWED = [
     ]
   },
   {
-    "id": 200235,
-    "subject": "vca",
-    "topic": "immunology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "immunology"
-    ],
-    "q": "เซลล์ใดปล่อยสารก่ออาการเฉียบพลันเมื่อ allergen จับและ cross-link IgE บนผิวเซลล์ใน type I hypersensitivity",
-    "options": [
-      "Plasma cell",
-      "Lymphocyte",
-      "Mast cell",
-      "Eosinophil"
-    ],
-    "answer": 2,
-    "explain": "Mast cell ที่มี IgE จับอยู่บนผิวเกิด degranulation หลังสัมผัส allergen ปล่อยสาร เช่น histamine ซึ่งทำให้เกิดอาการแพ้เฉียบพลัน",
-    "source": "แบบฝึกปรับจาก Immunology & Vaccinology (VCA59-68).pdf หน้า 8 ข้อ 4",
-    "verified": "VCA Vet Immunology 2026, หน้า 17, 28; https://drive.google.com/file/d/1EpJjc36_OWPjTumwZ2g81Nbnx7SHm1-z/view",
-    "sourceDocument": {
-      "id": "1hkKQwuQw1k3xZms84ka6CiA8Ts1Le2Ry",
-      "url": "https://drive.google.com/file/d/1hkKQwuQw1k3xZms84ka6CiA8Ts1Le2Ry/view",
-      "page": 8,
-      "question": 4
-    },
-    "verificationSources": [
-      {
-        "title": "VCA Vet Immunology 2026",
-        "url": "https://drive.google.com/file/d/1EpJjc36_OWPjTumwZ2g81Nbnx7SHm1-z/view",
-        "locator": "หน้า 17, 28"
-      }
-    ]
-  },
-  {
     "id": 200238,
     "subject": "vca",
     "topic": "immunology",
@@ -366,43 +293,6 @@ export const QB_VCA_REVIEWED = [
         "title": "Cornell eClinpath: RBC shape changes",
         "url": "https://eclinpath.com/hematology/morphologic-features/red-blood-cells/poikilocytosis/",
         "locator": "Spherocytes"
-      }
-    ]
-  },
-  {
-    "id": 200262,
-    "subject": "vca",
-    "topic": "clinical-pathology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "clinical-pathology"
-    ],
-    "q": "ต้องการตรวจ prothrombin time (PT) ควรเก็บเลือดในสารป้องกันการแข็งตัวชนิดใด",
-    "options": [
-      "Sodium citrate",
-      "Potassium oxalate",
-      "Potassium EDTA",
-      "Lithium heparin",
-      "Sodium fluoride"
-    ],
-    "answer": 0,
-    "explain": "Sodium citrate เป็นสารป้องกันการแข็งตัวที่เหมาะกับการตรวจ coagulation โดยรักษาสัดส่วนเลือดต่อ citrate ที่ 9:1 และเติมเลือดตามปริมาตรกำหนด การเติมเลือดไม่พอทำให้ผลคลาดเคลื่อนได้",
-    "source": "แบบฝึกปรับจาก Hematology (VCA58-68).pdf หน้า 8 ข้อ 5",
-    "verified": "Cornell eClinpath: Hemostasis sample collection, Anticoagulant and blood-to-citrate ratio; https://eclinpath.com/hemostasis/sample-collection-hem/",
-    "sourceDocument": {
-      "id": "1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U",
-      "url": "https://drive.google.com/file/d/1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U/view",
-      "page": 8,
-      "question": 5
-    },
-    "verificationSources": [
-      {
-        "title": "Cornell eClinpath: Hemostasis sample collection",
-        "url": "https://eclinpath.com/hemostasis/sample-collection-hem/",
-        "locator": "Anticoagulant and blood-to-citrate ratio"
       }
     ]
   },
@@ -645,36 +535,6 @@ export const QB_VCA_REVIEWED = [
     ]
   },
   {
-    "id": 200322,
-    "subject": "vca",
-    "topic": "clinical-pathology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "clinical-pathology"
-    ],
-    "q": "การจับเวลาจนเลือดหยุดหลังทำแผลมาตรฐานที่เยื่อบุกระพุ้งแก้ม เพื่อประเมิน primary hemostasis เรียกการทดสอบใด",
-    "options": [
-      "Activated Partial Thromboplastin time",
-      "Bleeding time",
-      "Clotting time",
-      "Prothrombin time",
-      "Thrombin time"
-    ],
-    "answer": 1,
-    "explain": "Buccal mucosal bleeding time ประเมินการห้ามเลือดขั้นต้นซึ่งขึ้นกับ platelet, von Willebrand factor และผนังหลอดเลือด จึงต่างจาก PT และ aPTT ที่ใช้ประเมิน coagulation pathways",
-    "source": "แบบฝึกปรับจาก Clinical chemistry (VCA58-68).pdf หน้า 8 ข้อ 1",
-    "verified": "Clinical chemistry (VCA58-68).pdf, หน้า 8 ข้อ 1; https://drive.google.com/file/d/1uz3oHGz87YMUat8vtSCR45eaxRI0C5ti/view",
-    "sourceDocument": {
-      "id": "1uz3oHGz87YMUat8vtSCR45eaxRI0C5ti",
-      "url": "https://drive.google.com/file/d/1uz3oHGz87YMUat8vtSCR45eaxRI0C5ti/view",
-      "page": 8,
-      "question": 1
-    }
-  },
-  {
     "id": 200296,
     "subject": "vca",
     "topic": "clinical-pathology",
@@ -732,36 +592,6 @@ export const QB_VCA_REVIEWED = [
       "url": "https://drive.google.com/file/d/1i5-djBqbJssdtGxsNRV9DpgO6j0l0fPP/view",
       "page": 3,
       "question": 1
-    }
-  },
-  {
-    "id": 200298,
-    "subject": "vca",
-    "topic": "clinical-pathology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "clinical-pathology"
-    ],
-    "q": "ข้อใดเป็นสีที่ใช้ย้อม vaginal cytology ในสุนัขและแมว",
-    "options": [
-      "Fit-C-DNA stain",
-      "William’s stain",
-      "Aniline blue stain",
-      "Diff-quick stain",
-      "Eosin-nigrosin stain"
-    ],
-    "answer": 3,
-    "explain": "Diff-Quik เป็นสีในกลุ่ม Romanowsky ที่ใช้ตรวจเซลล์จาก vaginal cytology ได้ ช่วยประเมินชนิดเซลล์และการเปลี่ยนแปลงของเยื่อบุช่องคลอด",
-    "source": "แบบฝึกปรับจาก Cytology (VCA58-68).pdf หน้า 5 ข้อ 2",
-    "verified": "Cytology (VCA58-68).pdf, หน้า 5 ข้อ 2; https://drive.google.com/file/d/1i5-djBqbJssdtGxsNRV9DpgO6j0l0fPP/view",
-    "sourceDocument": {
-      "id": "1i5-djBqbJssdtGxsNRV9DpgO6j0l0fPP",
-      "url": "https://drive.google.com/file/d/1i5-djBqbJssdtGxsNRV9DpgO6j0l0fPP/view",
-      "page": 5,
-      "question": 2
     }
   },
   {
@@ -1189,43 +1019,6 @@ export const QB_VCA_REVIEWED = [
     }
   },
   {
-    "id": 200204,
-    "subject": "vca",
-    "topic": "ophthalmology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "ophthalmology"
-    ],
-    "q": "สัตวแพทย์ทำการตรวจตาสุนัข พบกระจกตาเป็นแผล ย้อม flu พบว่า positive สัตวแพทย์ควร หลีกเลี่ยงการใช้ยาชนิดใดในสุนัขตัวนี้",
-    "options": [
-      "Methyl cellulose",
-      "Nystatin",
-      "Ketorolac",
-      "Hyaluronic acid",
-      "Fluorometholone"
-    ],
-    "answer": 4,
-    "explain": "Fluorometholone เป็น corticosteroid การใช้ topical corticosteroid บนกระจกตาที่มีแผลรบกวนการหายและเพิ่มความเสี่ยงต่อภาวะแทรกซ้อน จึงต้องตรวจ fluorescein ก่อนพิจารณาใช้",
-    "source": "แบบฝึกปรับจาก Ophthalmology (VCA58-68).pdf หน้า 8 ข้อ 1",
-    "verified": "Merck Veterinary Manual: The anterior uvea in animals, Topical corticosteroids and fluorescein staining; https://www.merckvetmanual.com/eye-diseases-and-disorders/ophthalmology/the-anterior-uvea-in-animals",
-    "sourceDocument": {
-      "id": "1f_NmdOhxyO4okMhelWK9p-LDOu_zH2JA",
-      "url": "https://drive.google.com/file/d/1f_NmdOhxyO4okMhelWK9p-LDOu_zH2JA/view",
-      "page": 8,
-      "question": 1
-    },
-    "verificationSources": [
-      {
-        "title": "Merck Veterinary Manual: The anterior uvea in animals",
-        "url": "https://www.merckvetmanual.com/eye-diseases-and-disorders/ophthalmology/the-anterior-uvea-in-animals",
-        "locator": "Topical corticosteroids and fluorescein staining"
-      }
-    ]
-  },
-  {
     "id": 200205,
     "subject": "vca",
     "topic": "ophthalmology",
@@ -1326,43 +1119,6 @@ export const QB_VCA_REVIEWED = [
         "title": "Merck Veterinary Manual: Ophthalmic emergencies in horses",
         "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/emergency-medicine-in-horses/ophthalmic-emergencies-in-horses",
         "locator": "Anterior uveitis"
-      }
-    ]
-  },
-  {
-    "id": 200211,
-    "subject": "vca",
-    "topic": "ophthalmology",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "ophthalmology"
-    ],
-    "q": "การพบเลือดอยู่ใน anterior chamber ของลูกตาเรียกว่าอะไร",
-    "options": [
-      "Hyphema",
-      "Glaucoma",
-      "Dry eye",
-      "Hypopyon",
-      "Uveitis"
-    ],
-    "answer": 0,
-    "explain": "Hyphema หมายถึงเลือดภายใน anterior chamber ส่วน hypopyon เป็นการสะสมของเซลล์อักเสบซึ่งอาจมีลักษณะขาวเหลือง",
-    "source": "แบบฝึกปรับจาก Ophthalmology (VCA58-68).pdf หน้า 10 ข้อ 6",
-    "verified": "Merck Veterinary Manual: The anterior uvea in animals, Clinical findings; https://www.merckvetmanual.com/eye-diseases-and-disorders/ophthalmology/the-anterior-uvea-in-animals",
-    "sourceDocument": {
-      "id": "1f_NmdOhxyO4okMhelWK9p-LDOu_zH2JA",
-      "url": "https://drive.google.com/file/d/1f_NmdOhxyO4okMhelWK9p-LDOu_zH2JA/view",
-      "page": 10,
-      "question": 6
-    },
-    "verificationSources": [
-      {
-        "title": "Merck Veterinary Manual: The anterior uvea in animals",
-        "url": "https://www.merckvetmanual.com/eye-diseases-and-disorders/ophthalmology/the-anterior-uvea-in-animals",
-        "locator": "Clinical findings"
       }
     ]
   },
@@ -1605,35 +1361,6 @@ export const QB_VCA_REVIEWED = [
     ]
   },
   {
-    "id": 200032,
-    "subject": "vca",
-    "topic": "swine",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "swine"
-    ],
-    "q": "หลังสังเกตลูกสุกรที่เดินเจ็บและเห็นข้อขาบวม การตรวจพื้นฐานใดช่วยประเมินความร้อน ความเจ็บ และลักษณะการบวมโดยตรง",
-    "options": [
-      "Auscultation",
-      "Percussion",
-      "Observation",
-      "Palpation"
-    ],
-    "answer": 3,
-    "explain": "Palpation หรือการคลำใช้ประเมินความร้อน ความเจ็บ ความแน่น และขอบเขตของบริเวณที่บวม เสริมข้อมูลที่ได้จากการสังเกตการเดิน",
-    "source": "แบบฝึกปรับจาก Swine medicine (VCA58-68).pdf หน้า 9 ข้อ 1",
-    "verified": "Swine medicine (VCA58-68).pdf, หน้า 9 ข้อ 1; https://drive.google.com/file/d/1TL9042UsHqlDfTpQRcZUU45WdXarbkJu/view",
-    "sourceDocument": {
-      "id": "1TL9042UsHqlDfTpQRcZUU45WdXarbkJu",
-      "url": "https://drive.google.com/file/d/1TL9042UsHqlDfTpQRcZUU45WdXarbkJu/view",
-      "page": 9,
-      "question": 1
-    }
-  },
-  {
     "id": 200036,
     "subject": "vca",
     "topic": "epidemiology",
@@ -1871,36 +1598,6 @@ export const QB_VCA_REVIEWED = [
       "url": "https://drive.google.com/file/d/1TL9042UsHqlDfTpQRcZUU45WdXarbkJu/view",
       "page": 31,
       "question": 11
-    }
-  },
-  {
-    "id": 200067,
-    "subject": "vca",
-    "topic": "swine",
-    "year": 5,
-    "type": "mcq",
-    "sourceType": "practice",
-    "tags": [
-      "vca",
-      "swine"
-    ],
-    "q": "การเปรียบเทียบ PRRSV กลุ่มยุโรปกับกลุ่มอเมริกาโดยตรงในระดับพันธุกรรม ควรพิจารณาข้อมูลใด",
-    "options": [
-      "Surface antigen",
-      "virulent factor",
-      "nucleotide sequence",
-      "origin of virus",
-      "target cell"
-    ],
-    "answer": 2,
-    "explain": "Nucleotide sequence ใช้เปรียบเทียบความสัมพันธ์ทางพันธุกรรมของ PRRSV ปัจจุบันแบ่งเป็น PRRSV-1 และ PRRSV-2; ประเทศที่พบเชื้อหรือความรุนแรงเพียงอย่างเดียวไม่ใช่หลักฐานจำแนกจีโนไทป์",
-    "source": "แบบฝึกปรับจาก Swine medicine (VCA58-68).pdf หน้า 32 ข้อ 1",
-    "verified": "Swine medicine (VCA58-68).pdf, หน้า 32 ข้อ 1; https://drive.google.com/file/d/1TL9042UsHqlDfTpQRcZUU45WdXarbkJu/view",
-    "sourceDocument": {
-      "id": "1TL9042UsHqlDfTpQRcZUU45WdXarbkJu",
-      "url": "https://drive.google.com/file/d/1TL9042UsHqlDfTpQRcZUU45WdXarbkJu/view",
-      "page": 32,
-      "question": 1
     }
   },
   {

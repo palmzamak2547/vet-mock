@@ -137,9 +137,12 @@ export const BANK_REGISTRY = [
   { file: 'questions-vca-2569.js', export: 'QB_VCA_2569', year: 5, count: 246,
     subjects: ['vca'],
     load: () => import('./questions-vca-2569.js').then((m) => m.QB_VCA_2569) },
-  { file: 'questions-vca-reviewed.js', export: 'QB_VCA_REVIEWED', year: 5, count: 121,
+  { file: 'questions-vca-reviewed.js', export: 'QB_VCA_REVIEWED', year: 5, count: 112,
     subjects: ['vca'],
     load: () => import('./questions-vca-reviewed.js').then((m) => m.QB_VCA_REVIEWED) },
+  { file: 'questions-vca-super.js', export: 'QB_VCA_SUPER', year: 5, count: 830,
+    subjects: ['vca'],
+    load: () => import('./questions-vca-super.js').then((m) => m.QB_VCA_SUPER) },
   { file: 'questions-y5-aquatic-0924.js', export: 'QB_Y5_AQUATIC_0924', year: 5, count: 66,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-0924.js').then((m) => m.QB_Y5_AQUATIC_0924) },
@@ -323,9 +326,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-termpaper.js', export: 'QB_TERMPAPER', year: null, count: 12,
     subjects: ['repro-lect'],
     load: () => import('./questions-termpaper.js').then((m) => m.QB_TERMPAPER) },
-  { file: 'questions-vca.js', export: 'QB_VCA', year: null, count: 316,
+  { file: 'questions-vca.js', export: 'QB_VCA', year: null, count: 279,
     subjects: ['vca'],
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-09T04:51:55.301Z — 106 banks · 8259 Qs
+// Built: 2026-11-09T06:57:50.263Z — 107 banks · 9043 Qs

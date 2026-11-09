@@ -112,19 +112,6 @@ export const QB_VCA = [
     explain: 'Nested PCR ใช้ผลิตภัณฑ์จาก PCR รอบแรกเป็นแม่แบบให้ primer ชุดภายในในรอบที่สอง การเลือกรูปแบบ PCR และตัวอย่างสำหรับ KHV ต้องอิงวิธีที่ห้องปฏิบัติการตรวจสอบแล้ว ไม่ควรกล่าวว่าวิธีเดียวมี sensitivity สูงที่สุดในทุกบริบท' },
 
   // ─── Bacteria ─────────────────────────────────────────────
-  { id: 6020, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['bacteria', 'flavobacterium'], type: 'mcq',
-    q: 'ปลามีรอยโรคบนผิวหนัง wet mount พบ long slender red rod shape เรียงเป็น haystack คือ',
-    options: ['Trichodinellosis', 'Aeromonosis', 'Streptococcosis', 'Flavobacteriosis', 'Lerneosis'],
-    answer: 3,
-    explain: 'Flavobacterium columnare = long slender Gram-neg rod, gliding, เรียงตัวเป็น "haystack" หรือ "column", saddleback lesion + cottonwool patches\n\n💡 columnaris' },
-
-  { id: 6021, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['bacteria', 'streptococcus'], type: 'mcq',
-    q: 'โรคแบคทีเรียในปลานิล/ปลาทับทิม ที่พบบ่อยที่สุด (~70%) แสดงตาโปน, ว่ายเอียง (whirling), meningoencephalitis คือ',
-    options: ['Aeromonosis', 'Edwardsiellosis', 'Streptococcosis', 'Flavobacteriosis', 'Vibriosis'],
-    answer: 2,
-    explain: 'Streptococcus agalactiae / S. iniae = #1 ใน farmed tilapia, key: pop-eye + whirling + neurologic, Gram+ cocci pairs/chains' },
 
   { id: 6022, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
     tags: ['bacteria','Vibrio'], type: 'mcq',
@@ -184,13 +171,6 @@ export const QB_VCA = [
     answer: 2,
     explain: 'WSSV = dsDNA virus (Whispovirus), white spot ใน cuticle, highly virulent ตาย 100% รวดเร็ว, มี OIE-listed' },
 
-  { id: 6042, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['shrimp', 'YHV'], type: 'mcq',
-    q: 'Yellow head virus genotype ที่ pathogenic ที่สุดในกุ้งคือ',
-    options: ['YHV-1', 'YHV-2', 'YHV-3', 'YHV-4', 'YHV-5'],
-    answer: 0,
-    explain: 'YHV genotype 1 = highly virulent, genotypes 2-8 = low pathogenicity, GAV (Gill-Associated Virus) เป็น YHV-2' },
-
   { id: 6043, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
     tags: ['shrimp', 'immunity'], type: 'mcq',
     q: 'ระบบภูมิคุ้มกันของกุ้งไม่มี',
@@ -242,13 +222,6 @@ export const QB_VCA = [
     answer: 0,
     explain: 'Methylene blue = reduce methemoglobin → hemoglobin, NaCl สูง competitive ลด nitrite uptake, MB เป็น direct antidote' },
 
-  { id: 6063, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['drug', 'banned'], type: 'mcq',
-    q: 'สารใดถูกห้ามใช้ในปลาเพื่อบริโภค (food fish) ในไทยตั้งแต่ปี 2547',
-    options: ['Formalin', 'Sodium chloride', 'Malachite green', 'Hydrogen peroxide', 'Lime'],
-    answer: 2,
-    explain: 'Malachite green = ห้ามใช้ใน food fish, carcinogenic + teratogenic + persistent residue, ใช้ได้แค่ ornamental fish, ในไทยห้ามตาม พ.ร.บ. ยา' },
-
   { id: 6064, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
     tags: ['drug', 'anesthesia'], type: 'mcq',
     q: 'ยาสลบปลา MS-222 (Tricaine) ใช้ buffered ด้วยอะไร',
@@ -257,19 +230,6 @@ export const QB_VCA = [
     explain: 'MS-222 = acidic in solution (pH ~3), ต้อง buffer ด้วย sodium bicarbonate ratio 1:1 → pH neutral ป้องกัน mucous membrane irritation' },
 
   // ─── Management / Water Quality ──────────────────────────
-  { id: 6070, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['anatomy', 'respiration'], type: 'mcq',
-    q: 'ปลาใช้อะไรในการแลกเปลี่ยนแก๊ส O2',
-    options: ['Gill filament', 'Gill rocker', 'Operculum', 'Clasper', 'Swim bladder'],
-    answer: 0,
-    explain: 'Gill filament มี secondary lamellae = ผิวสัมผัสน้ำ-เลือด, countercurrent exchange, operculum = ฝา (mechanical pump), clasper = อวัยวะสืบพันธุ์ฉลาม' },
-
-  { id: 6071, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['water-quality', 'new-tank'], type: 'mcq',
-    q: '"New tank syndrome" ในตู้ปลาใหม่ที่ยังไม่ cycle nitrogen ปลาตายจากสารใดก่อน',
-    options: ['Nitrite toxicity', 'Nitrate toxicity', 'Chlorine toxicity', 'Ammonia toxicity', 'Organophosphate toxicity'],
-    answer: 3,
-    explain: 'New tank cycle: NH3 (ammonia) สูงก่อน → nitrosomonas → NO2 → nitrobacter → NO3, ammonia toxicity เกิดก่อน, NH3 unionized = พิษ (สูงเมื่อ pH สูง)' },
 
   { id: 6072, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
     tags: ['water-quality', 'parameter'], type: 'mcq',
@@ -306,24 +266,12 @@ export const QB_VCA = [
     explain: 'Bacillus subtilis/licheniformis = probiotic หลัก (spore-forming, อยู่ได้นาน), ลด pathogen + nitrification + biofilm, Lactobacillus ใช้ใน gut probiotic' },
 
   // ─── Zoonosis / Public Health ────────────────────────────
-  { id: 6080, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['zoonosis', 'foodborne'], type: 'mcq',
-    q: 'foodborne pathogen ที่พบบ่อยที่สุดจากการบริโภคหอยนางรมดิบ (raw oyster) คือ',
-    options: ['Campylobacter jejuni', 'Salmonella Enteritidis', 'Listeria monocytogenes', 'Hepatitis A virus', 'Norovirus'],
-    answer: 4,
-    explain: 'Norovirus = #1 foodborne illness จาก shellfish, oyster filter feeder concentrate virus, cooking 90°C >90s ฆ่าได้, HAV ก็เป็นได้แต่ noro common กว่า' },
 
   // ═══════════════════════════════════════════════════════════
   // 🦎 EXOTIC & WILDLIFE (~35 Qs from 9 pages)
   // ═══════════════════════════════════════════════════════════
 
   // ─── Rodent (หนู หนูตะเภา แฮมสเตอร์) ──────────────────────
-  { id: 6101, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
-    tags: ['rodent', 'antibiotic', 'forbidden'], type: 'mcq',
-    q: 'antibiotic ใดห้ามใช้ในหนูตะเภา/กระต่าย/แฮมสเตอร์ เพราะทำให้เกิด clostridial dysbiosis + enterotoxemia ตาย',
-    options: ['Doxycycline', 'Amoxicillin', 'Metronidazole', 'Enrofloxacin', 'Sulfatrimethoprim'],
-    answer: 1,
-    explain: 'β-lactam (Amoxicillin/Penicillin/Cephalosporin) + macrolide ฆ่า Gram+ commensal → C. difficile/spiroformis overgrowth → enterotoxin → fatal diarrhea, safe: enrofloxacin, doxy, sulfa, TMS' },
 
   { id: 6102, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
     tags: ['rodent', 'guinea-pig'], type: 'mcq',
@@ -331,13 +279,6 @@ export const QB_VCA = [
     options: ['หนูแรท (rat)', 'หนูเมาส์ (mouse)', 'แฮมสเตอร์ (hamster)', 'หนูตะเภา (guinea pig)', 'เจอร์บิล (gerbil)'],
     answer: 3,
     explain: 'Guinea pig ขาด L-gulonolactone oxidase → ต้องได้ vit C 10-30 mg/kg/day จากอาหาร, ขาด → scurvy (joint, dental, hair coat)' },
-
-  { id: 6103, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
-    tags: ['rodent', 'hamster', 'enteritis'], type: 'mcq',
-    q: '"Wet tail" ในแฮมสเตอร์อายุ 3-8 wk, diarrhea + ill thrift + ตาย เชื้อใด',
-    options: ['E. coli', 'Clostridium difficile', 'Lawsonia intracellularis', 'Salmonella typhimurium', 'Corynebacterium kutscheri'],
-    answer: 2,
-    explain: 'Lawsonia = proliferative ileitis (wet tail), weanling hamster, stress trigger, Tx: tetracycline + supportive, highest mortality cause ในแฮมสเตอร์' },
 
   { id: 6104, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
     tags: ['rodent', 'hamster', 'endocrine'], type: 'mcq',
@@ -481,13 +422,6 @@ export const QB_VCA = [
     options: ['Adenovirus (DNA)', 'Reovirus (dsRNA)', 'Reptarenavirus (IBD)', 'Paramyxovirus (OPMV)', 'Iridovirus (DNA)'],
     answer: 2,
     explain: 'IBD = Inclusion Body Disease ใน boidae/pythonidae, Reptarenavirus (เดิมเข้าใจผิดว่าเป็น retrovirus), eosinophilic intracytoplasmic IBs, fatal, no Tx' },
-
-  { id: 6141, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
-    tags: ['reptile', 'blood', 'anticoagulant'], type: 'mcq',
-    q: 'anticoagulant of choice สำหรับเก็บเลือดสัตว์เลื้อยคลานคือ',
-    options: ['Lithium heparin', 'K2 EDTA (purple)', 'Potassium oxalate', 'Sodium citrate', 'Sodium fluoride'],
-    answer: 0,
-    explain: 'Lithium heparin (green) = เก็บได้ทั้ง CBC + chem + blood parasite, EDTA → hemolyze RBC ของ reptile (ช่อง osmotic ผิด), ห้ามใช้ใน reptile\n\n💡 green tube' },
 
   { id: 6142, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
     tags: ['reptile', 'fluid', 'dehydration'], type: 'mcq',
@@ -918,13 +852,6 @@ export const QB_VCA = [
     answer: 0,
     explain: 'Ascaris larva migrate ผ่าน liver → "milk spots" (lymphocytic infiltration → fibrosis) → liver condemnation, adult worm ใน intestine, Tx: levamisole, ivermectin, most economically important parasite\n\n💡 larval migration' },
 
-  { id: 6403, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['parasite', 'cysticercosis', 'zoonosis'], type: 'mcq',
-    q: 'หมู intermediate host ของ tapeworm ที่ก่อ neurocysticercosis ในคน, เชื้อ',
-    options: ['Trichuris suis', 'Trichinella spiralis', 'Cysticercosis cellulosae', 'Ascaris suum (roundworm)', 'Strongyloides spp.'],
-    answer: 2,
-    explain: 'T. solium → cysticerci ใน muscle + brain ของหมู, คนเป็น definitive host (taeniasis), กินไข่ T. solium → human cysticercosis (incl. neurocysticercosis = #1 acquired epilepsy worldwide)\n\n💡 Taenia solium' },
-
   { id: 6404, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['parasite', 'isospora', 'piglet'], type: 'mcq',
     q: 'ลูกหมู 5-15 วัน ถ่ายเหลวสีเหลือง, histopath jejunum: villous atrophy + intracytoplasmic schizonts, Tx ที่เลือก',
@@ -933,12 +860,6 @@ export const QB_VCA = [
     explain: 'Isospora suis = neonatal swine coccidiosis, suckling 5-15 d, Tx: toltrazuril 20 mg/kg single oral dose at 4-5 days (D4-D5) = standard prevention/early treatment' },
 
   // ─── Virus ────────────────────────────────────────────────
-  { id: 6410, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['virus', 'CSF', 'classical-swine-fever'], type: 'mcq',
-    q: 'หมูตาย acute, necropsy: turkey egg kidney (petechial hemorrhage) + button ulcer cecum + splenic infarcts, เชื้อ',
-    options: ['Porcine epidemic diarrhea', 'Porcine reproductive and respiratory syndrome (PRRS)', 'African swine fever (ASF)', 'Classical swine fever (CSF)', 'Swine influenza'],
-    answer: 3,
-    explain: 'CSF = Pestivirus, "turkey egg kidney" + "button ulcer" cecum + splenic wedge-shaped infarction = pathognomonic, DDx ASF (spleen MASSIVELY enlarged + dark, no infarct)' },
 
   { id: 6411, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['virus', 'PRRS', 'target-cell'], type: 'mcq',
@@ -983,20 +904,6 @@ export const QB_VCA = [
     answer: 3,
     explain: 'Erysipelothrix rhusiopathiae, Gram+ rod, diamond skin lesion = pathognomonic, acute septicemia → arthritis (chronic) → endocarditis, penicillin G = drug of choice, vaccine prevention' },
 
-  { id: 6421, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['skin', 'staph', 'greasy-pig'], type: 'mcq',
-    q: 'ลูกหมูดูดนม 3-30 วัน, ผิวหนังมัน เยิ้ม + brown-greasy seborrhea ทั่วตัว, เชื้อ',
-    options: ['Staphylococcus hyicus', 'Streptococcus suis', 'Streptococcus agalactiae', 'Trichophyton', 'Staphylococcus aureus'],
-    answer: 0,
-    explain: 'Greasy pig disease = S. hyicus + exfoliative toxin (ExhA-D), risk: skin trauma (fighting, abrasive flooring), Tx: ceftiofur + topical chlorhexidine bath, severe cases lethal from dehydration' },
-
-  { id: 6422, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['skin', 'parakeratosis', 'zinc'], type: 'mcq',
-    q: 'หมูเป็น parakeratosis (rough, scaly skin) สาเหตุขาดสารอาหารใด',
-    options: ['Iron', 'Selenium', 'Copper', 'Zinc', 'Magnesium'],
-    answer: 3,
-    explain: 'Zn deficiency = parakeratosis, scaly + crusted skin, risk: high Ca diet (Ca-Zn antagonism), Tx: Zn supplementation + reduce Ca, pre-weaning piglet พบบ่อย' },
-
   // ─── Neuro ────────────────────────────────────────────────
   { id: 6430, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['neuro','edema-disease','stec'], type: 'mcq',
@@ -1004,13 +911,6 @@ export const QB_VCA = [
     options: ['Salt poisoning', 'Edema disease', 'Glasser\\\'s disease', 'Streptococcus suis', 'Pseudorabies'],
     answer: 1,
     explain: 'Edema disease = STEC O139 (Shiga toxin Stx2e), post-weaning, classic eyelid edema + neuro, Tx: lower feed intake 24h + electrolytes + antibiotic, vaccine: F18-Stx2e\n\n💡 Shiga toxin-producing E. coli, STEC F18' },
-
-  { id: 6431, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['neuro', 'streptococcus', 'meningitis'], type: 'mcq',
-    q: 'หมู 6 wk, acute fever + opisthotonus + paddling + sudden death, brain culture: Gram+ cocci in chains, เชื้อ',
-    options: ['Streptococcus suis', 'PRRS', 'Haemophilus parasuis', 'Edema disease', 'Classical swine fever'],
-    answer: 0,
-    explain: 'S. suis serotype 2 = #1 swine bacterial meningitis, post-weaning peak (5-10 wk), neuro + arthritis + endocarditis, Tx: penicillin, zoonotic (raw pork → human meningitis + deafness)' },
 
   { id: 6432, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['neuro','Glasser','polyserositis'], type: 'mcq',
@@ -1020,19 +920,6 @@ export const QB_VCA = [
     explain: 'Glasser\'s disease = G. parasuis (เดิมชื่อ Haemophilus parasuis, renamed 2020), "5S" = Septicemia + Polyserositis + Polyarthritis + Stress-trigger + Sudden death, 4-8 wk post-weaning, NAD-dependent (V factor)' },
 
   // ─── Respiratory ─────────────────────────────────────────
-  { id: 6440, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['respi', 'APP', 'pleuropneumonia'], type: 'mcq',
-    q: 'หมูเนื้ออายุ 20 wk, ตายฉับพลัน, necropsy: hemorrhagic-necrotic pleuropneumonia ที่ diaphragmatic lobe + fibrinous pleuritis, เชื้อ',
-    options: ['Bordetella bronchiseptica', 'Pasteurella multocida', 'Streptococcus suis', 'Mycoplasma hyopneumoniae', 'Actinobacillus pleuropneumoniae'],
-    answer: 4,
-    explain: 'APP = Apx toxin → hemorrhagic-necrotic pleuropneumonia, diaphragmatic lobe + fibrinous adhesion, ApxIV = universal serological marker, Tx: ceftiofur, enrofloxacin, vaccine: Apx toxoid (subunit)' },
-
-  { id: 6441, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['respi', 'mhp', 'enzootic-pneumonia'], type: 'mcq',
-    q: 'หมูเนื้อ broiler 500 ตัว FCR สูงผิดปกติ ADG ต่ำ, slaughter: cranio-ventral lung consolidation (purple-grey) lobular pattern, เชื้อ',
-    options: ['Streptococcus suis', 'Lawsonia intracellularis', 'Salmonella choleraesuis', 'Mycobacterium tuberculosis', 'Mycoplasma hyopneumoniae'],
-    answer: 4,
-    explain: 'M. hyopneumoniae = enzootic pneumonia, cranio-ventral lung consolidation, cell wall-deficient (NO β-lactam), Tx: macrolides (tylosin/tilmicosin), tetracycline, pleuromutilin (tiamulin)' },
 
   { id: 6442, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['respi', 'AR', 'atrophic-rhinitis'], type: 'mcq',
@@ -1048,13 +935,6 @@ export const QB_VCA = [
     options: ['Salmonella choleraesuis', 'Brachyspira hyodysenteriae', 'Lawsonia intracellularis', 'Clostridium perfringens C', 'PED'],
     answer: 2,
     explain: 'L. intracellularis = proliferative enteropathy (PE/ileitis), obligate intracellular curved rod, acute (PHE) = hemorrhagic, chronic (PIA) = thickened "garden hose" ileum, Tx: tylosin, lincomycin, tiamulin' },
-
-  { id: 6451, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['gi','Brachyspira','dysentery'], type: 'mcq',
-    q: 'หมูเนื้อ grow-finish, mucohemorrhagic colitis + "wet cement" feces, spirochete bacteria จาก dark-field, เชื้อ',
-    options: ['Swine dysentery', 'Enteric colibacillosis', 'Enteric salmonellosis', 'Porcine parvovirus', 'Clostridium necrotic enteritis'],
-    answer: 0,
-    explain: 'Swine dysentery = B. hyodysenteriae, grow-finish (8-14 wk), large bowel mucohemorrhagic colitis, Tx: tiamulin, valnemulin, lincomycin, eradication: depop-repop\n\n💡 Brachyspira hyodysenteriae' },
 
   { id: 6452, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['gi', 'salmonella', 'septicemia'], type: 'mcq',
@@ -1122,13 +1002,6 @@ export const QB_VCA = [
     answer: 0,
     explain: 'BCS <2.5 at weaning → energy deficit → delay return to estrus, target BCS 3-3.5 throughout cycle, PWSI affect annual productivity (litters/sow/year)' },
 
-  { id: 6482, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['mgmt', 'amino-acid', 'lysine'], type: 'mcq',
-    q: 'first limiting amino acid ใน corn-soy diet ของหมู (และ poultry) คือ',
-    options: ['Lysine', 'Histidine', 'Arginine', 'Leucine', 'Tryptophan'],
-    answer: 0,
-    explain: 'Lysine = #1 limiting AA ใน corn-soy diet, methionine #2 (corn ต่ำ Lys; soy ต่ำ Met), synthetic L-lysine + DL-methionine supplementation = standard' },
-
   { id: 6483, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['mgmt', 'colostrum', 'IgG'], type: 'mcq',
     q: 'ลูกหมูแรกเกิดต้องได้ colostrum ภายใน, กี่ ชม. หลังคลอดเพื่อ adequate IgG transfer',
@@ -1137,12 +1010,6 @@ export const QB_VCA = [
     explain: 'Gut closure ใน piglet เริ่มลด IgG absorption หลัง 6-12 ชม. → ปิด completely ที่ 24 ชม., ต้องดูดนมแรกภายใน 6 ชม., target serum IgG >10 mg/mL ใน 1 wk' },
 
   // ─── Theriology / Reproduction Detail ─────────────────────
-  { id: 6490, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['repro', 'mycotoxin', 'zearalenone'], type: 'mcq',
-    q: 'แม่หมูสาวอายุ 3 เดือน vulva swelling + hyperestrogenism, suspected mycotoxin คือ',
-    options: ['Aflatoxin', 'T-2 toxin', 'Zearalenone', 'Aflatoxin B1', 'Fumonisin'],
-    answer: 2,
-    explain: 'Zearalenone (Fusarium spp.) = estrogenic mycotoxin, vulvovaginitis ใน gilt + abortion in sow + reduced libido in boar, binds ER receptor, Tx: change feed source + activated charcoal' },
 
   { id: 6491, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['repro', 'PMSG', 'estrus-induction'], type: 'mcq',
@@ -1199,13 +1066,6 @@ export const QB_VCA = [
     answer: 4,
     explain: 'S. vulgaris L4 larva migrate ขึ้นไปที่ cranial mesenteric artery (CMA) → endarteritis + thromboemboli → ischemic colitis, "verminous arteritis" classic equine colic cause' },
 
-  { id: 6602, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['parasite', 'oxyuris', 'pinworm'], type: 'mcq',
-    q: 'ม้าอายุ 2 ปี, perianal pruritus + tail rubbing + "rat-tailed" appearance, เชื้อ',
-    options: ['Oxyuris equi', 'Parascaris equorum', 'Strongylus equinus', 'Strongyloides westeri', 'Anoplocephala perfoliata'],
-    answer: 0,
-    explain: 'O. equi (pinworm) → female lay eggs around perianal → pruritus → rubbing → broken hairs at tail base "rat-tailed", Dx: scotch tape test perianal, Tx: ivermectin' },
-
   { id: 6603, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['parasite', 'parascaris', 'foal'], type: 'mcq',
     q: 'ลูกม้า 10 ดือน, severe colic + intestinal impaction, necropsy: long large nematode in small intestine, เชื้อ',
@@ -1214,12 +1074,6 @@ export const QB_VCA = [
     explain: 'Parascaris equorum = ascarid ใน foal, severe burden → impaction colic / intestinal rupture, Tx: cautious deworm (mass die-off → impaction), prophylaxis fenbendazole staged' },
 
   // ─── Virus ────────────────────────────────────────────────
-  { id: 6610, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['virus', 'AHS', 'african'], type: 'mcq',
-    q: 'African horse sickness (AHS) เกิดจาก vector ใด',
-    options: ['Tabanus spp.', 'Anopheles spp.', 'Culicoides spp.', 'Bovicola equi', 'Haematopinus asini'],
-    answer: 2,
-    explain: 'AHS virus = Reovirus (Orbivirus), vector = Culicoides biting midge, cardinal forms: pulmonary (peracute, frothy nasal), cardiac, mixed, vaccine: live attenuated, Africa endemic, OIE list A' },
 
   { id: 6611, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['virus', 'EIA', 'coggins'], type: 'mcq',
@@ -1251,19 +1105,6 @@ export const QB_VCA = [
     explain: 'Tetanus = C. tetani neurotoxin (tetanospasmin), puncture wound site, spastic paralysis, sawhorse stance + lockjaw + 3rd eyelid prolapse, Tx: TAT antitoxin + penicillin + supportive, prevention: tetanus toxoid every 1-3 yrs' },
 
   // ─── Respiratory ──────────────────────────────────────────
-  { id: 6630, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['respi', 'sinusitis'], type: 'mcq',
-    q: 'ม้ามีน้ำมูกข้างเดียว + facial swelling, radiograph เห็น fluid line ใน sinus paranasal ที่ตำแหน่ง',
-    options: ['Sphenopalatine fossa', 'Frontal sinus', 'Parietal sinus', 'Maxillary sinus', 'Ethmoid labyrinth'],
-    answer: 3,
-    explain: 'Maxillary sinus = largest equine sinus, drain via nasomaxillary aperture, most common sinusitis location (often secondary to dental disease of caudal cheek teeth)' },
-
-  { id: 6631, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['respi', 'guttural-pouch'], type: 'mcq',
-    q: 'guttural pouch ของม้าเป็นส่วนหนึ่งของระบบใด',
-    options: ['Digestive system', 'Respiratory system', 'Cardiovascular system', 'Increased cardiac output', 'Cooling system (theory)'],
-    answer: 1,
-    explain: 'Guttural pouch = ventral diverticulum ของ eustachian tube (auditory tube), paired air-filled sac, proximity to ICA, vagus, glossopharyngeal, diseases: empyema, mycosis (epistaxis from ICA erosion), tympany\n\n💡 eustachian tube diverticulum' },
 
   // ─── GI / Colic ───────────────────────────────────────────
   { id: 6640, subject: 'vca', topic: 'equine', year: 5, source: SRC,
@@ -1272,13 +1113,6 @@ export const QB_VCA = [
     options: ['First incisor (I1)', 'Third incisor (I3)', 'Canine', 'First premolar (PM1)', 'First molar (M1)'],
     answer: 3,
     explain: 'Wolf tooth = vestigial PM1 (105/205/305/405 Triadan), มักรบกวน bit → behavior issue, removal common, ไม่ใช่ canine (tush ของ stallion 5-yr-old), ไม่ใช่ incisor' },
-
-  { id: 6641, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['gi', 'colic', 'cecum'], type: 'mcq',
-    q: 'การกระจาย gas accumulation ใน colic ที่พบบ่อยที่สุด ตำแหน่งใด',
-    options: ['Cecum', 'Dorsal colon', 'Ventral colon', 'Ascending colon', 'Descending colon'],
-    answer: 0,
-    explain: 'Cecum = ที่หมัก fiber + ก่อ gas บ่อยสุด, "tympanic colic" หรือ "spasmodic colic" mostly cecal/large colon, auscultation: ping high pitched, trocharization at right paralumbar fossa for relief' },
 
   { id: 6642, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['gi', 'choke', 'muscle-relaxant'], type: 'mcq',
@@ -1293,13 +1127,6 @@ export const QB_VCA = [
     options: ['Pyloric sphincter', 'Gallbladder (no — horses don\\\'t have gallbladder)', 'Ascending colon', 'Stomach', 'Rectum'],
     answer: 2,
     explain: 'Sand accumulate ที่ ventral colon (esp. pelvic flexure transition zone), gravity-dependent + slow transit, Dx: fecal sedimentation + abdominal radiograph, Tx: psyllium + mineral oil, prevention: hay rack (no ground feeding)\n\n💡 right + left ventral' },
-
-  { id: 6644, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['gi', 'colic', 'physical-exam'], type: 'mcq',
-    q: 'parameter ที่ใช้ประเมิน prognosis ของ colic ม้าได้ดีที่สุด',
-    options: ['Body temperature', 'Heart rate', 'Respiratory rate', 'Hydration status', 'Capillary refill time'],
-    answer: 1,
-    explain: 'HR = best single prognostic indicator ใน colic, HR <60 mild, 60-80 moderate, >80 severe (guarded prognosis), combined with rectal exam + lactate + abdominocentesis ปรับ accuracy\n\n💡 HR > 80 bpm = guarded' },
 
   // ─── Lameness / Lameness Workup ──────────────────────────
   { id: 6650, subject: 'vca', topic: 'equine', year: 5, source: SRC,
@@ -1361,19 +1188,6 @@ export const QB_VCA = [
     explain: 'AAEP core vaccines: Tetanus + EEE/WEE encephalitis + West Nile virus + Rabies, risk-based: Influenza + EHV-1/4 + Strangles + Botulism + Potomac horse fever (region-specific)' },
 
   // ─── Drugs / Anesthesia ──────────────────────────────────
-  { id: 6680, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['drug', 'xylazine', 'sedation'], type: 'mcq',
-    q: 'ม้า 450 kg, sedation IV ด้วย xylazine 100 mg/mL, 0.5-1.1 mg/kg dose, ใช้ปริมาตรกี่ mL',
-    options: ['1.1 mL', '2.2 mL', '3.4 mL', '4.6 mL', '5.8 mL'],
-    answer: 2,
-    explain: '0.75 mg/kg × 450 kg = 337.5 mg, 337.5 mg ÷ 100 mg/mL = ~3.4 mL, range: 0.5 mg/kg (light) → 1.1 mg/kg (deep) = 2.2-5 mL, IV slow\n\n💡 ≈0.75 mg/kg mid range' },
-
-  { id: 6681, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['drug', 'colic-sedative'], type: 'mcq',
-    q: 'sedative ที่ใช้บ่อยที่สุดใน colic ของม้า (analgesic + sedation + GI motility ผลน้อย)',
-    options: ['Xylazine', 'Diazepam', 'Ketamine', 'Thiopental', 'Acepromazine'],
-    answer: 0,
-    explain: 'Xylazine = #1 colic sedative, analgesic + sedation + minimal CV side effect ที่ short duration, GI motility ลด <30 นาที, acepromazine ห้าม (hypotension แย่ลงใน hypovolemic)\n\n💡 α2-agonist' },
 
   { id: 6682, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['drug', 'streptococcus', 'penicillin'], type: 'mcq',
@@ -1412,12 +1226,6 @@ export const QB_VCA = [
     explain: 'Equine placenta = diffuse microcotyledonary epitheliochorial, 6 layers maternal-fetal, no IgG transfer in utero → 100% colostrum dependent, "twinning" = high abortion risk (only ~9% successful)' },
 
   // ─── Anatomy / Signalment ────────────────────────────────
-  { id: 6700, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['anatomy', 'pulse'], type: 'mcq',
-    q: 'จุดที่ใช้คลำ pulse ของม้าได้ง่ายที่สุด (routine clinical exam)',
-    options: ['Occipital artery', 'Lingual facial artery', 'Lateral nasal', 'Transverse facial artery', 'External maxillary artery'],
-    answer: 4,
-    explain: 'External maxillary artery (= facial artery) ที่ ventral mandible, routine pulse site ในม้า, transverse facial artery ใต้ตาก็ใช้ได้, digital artery (palmar) ใช้ตรวจ laminitis pulse' },
 
   { id: 6701, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['anatomy', 'recumbency'], type: 'mcq',
@@ -1433,13 +1241,6 @@ export const QB_VCA = [
     answer: 4,
     explain: 'Gelding = castrated male, Stallion = intact male adult, Colt = young intact male <4 yr, Filly = young female <4 yr, Mare = adult female, Foal = baby <1 yr' },
 
-  { id: 6703, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['signalment','breed','Appaloosa'], type: 'mcq',
-    q: 'ม้าสายพันธุ์ที่มีลักษณะ "polka dot" / leopard pattern coat คือ',
-    options: ['Black dot', 'Polka dot', 'Appaloosa', 'Piebald', 'Grey'],
-    answer: 2,
-    explain: 'Appaloosa breed = leopard complex pattern (LP gene), spots on white background, Native American (Nez Perce) breed, "polka dot" หรือ "leopard" coat pattern' },
-
   // ─── Care / Restraint ────────────────────────────────────
   { id: 6710, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['restraint', 'twitch'], type: 'mcq',
@@ -1447,13 +1248,6 @@ export const QB_VCA = [
     options: ['กระตุ้นการหลั่ง endorphin', 'ทำให้เกิดความเจ็บปวดเฉพาะที่', 'ช่วยลดอุณหภูมิผิวหนัง', 'เพิ่มอัตราการเต้นหัวใจ', 'ออกฤทธิ์กดประสาทโดยตรง'],
     answer: 0,
     explain: 'Nose twitch ที่ upper lip → endorphin release (กลไกคล้าย acupressure) + parasympathetic activation → sedation/analgesia, ใช้ได้ ~10-15 นาที (effect ลดถ้านานเกิน)' },
-
-  { id: 6711, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['behavior', 'cribbing'], type: 'mcq',
-    q: 'พฤติกรรม "wind-sucking / cribbing" ในม้าคือ',
-    options: ['Biting', 'Weaving', 'Wind-sucking', 'Head-bobbing', 'Wood-chewing'],
-    answer: 2,
-    explain: 'Cribbing/wind-sucking = stereotypic behavior, กัดราว/ขอบ + เกร็งกลืนอากาศ, cause: stress, boredom, dietary, health risk: dental wear + colic + weight loss, prevention: cribbing collar + environment enrichment\n\n💡 กัดของแข็ง + เกร็งคอ + กลืนอากาศ' },
 
   // ─── Lab / Calculations ──────────────────────────────────
   { id: 6720, subject: 'vca', topic: 'equine', year: 5, source: SRC,
@@ -1864,13 +1658,6 @@ export const QB_VCA = [
     answer: 2,
     explain: 'Dipylidium caninum = flea tapeworm, IH: flea (Ctenocephalides), proglottid รูปแตงกวา/ข้าวสุก ที่ฝีก้น, Tx: praziquantel + flea control, zoonotic potential (children swallow flea)' },
 
-  { id: 7004, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['parasite', 'cat-flea'], type: 'mcq',
-    q: 'flea ที่พบบ่อยที่สุดบนแมว (>95%) คือ',
-    options: ['Notoedres cati', 'Felicola subrostratus', 'Xenopsylla cheopis', 'Ctenocephalides felis', 'Rhipicephalus sanguineus'],
-    answer: 3,
-    explain: 'Ctenocephalides felis = cat flea, พบบนแมว >95% + dog 75%, vector: Bartonella henselae (cat scratch dz) + Dipylidium, Tx: fipronil, imidacloprid, fluralaner, sarolaner' },
-
   { id: 7005, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['parasite', 'demodex'], type: 'mcq',
     q: 'สุนัข Pug 5 mo มี alopecia + erythema รอบดวงตาและขา, skin scraping: cigar-shaped mite, เชื้อ',
@@ -1886,12 +1673,6 @@ export const QB_VCA = [
     explain: 'HW Dx: 1) antigen ELISA (adult female only, false-neg in low-burden) heat-treat to break immune complex, 2) Knott\'s for microfilaria, 3) echo for adult worm count + RV strain (ทำร่วมกันก่อน Tx), stage before Tx' },
 
   // ─── Blood Parasite ───────────────────────────────────────
-  { id: 7010, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['blood-parasite', 'ehrlichia'], type: 'mcq',
-    q: 'สุนัข German shepherd 3 yr, pancytopenia + lymphadenopathy + epistaxis + petechiae, blood smear: morulae in monocyte, เชื้อ',
-    options: ['Ehrlichia canis', 'Eperythrozoon canis', 'Babesia canis', 'Anaplasma platys', 'Hepatozoon canis'],
-    answer: 0,
-    explain: 'E. canis = Tropical Canine Pancytopenia, vector: Rhipicephalus sanguineus (brown dog tick), TH endemic, chronic phase: pancytopenia + bleeding diathesis, Tx: doxycycline 4 wk' },
 
   { id: 7011, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['blood-parasite', 'hepatozoon'], type: 'mcq',
@@ -1922,13 +1703,6 @@ export const QB_VCA = [
     answer: 0,
     explain: 'Dog core (DHPP): CPV (parvovirus) + CDV (distemper) + CAV-2 (adenovirus 2) + CPiV (parainfluenza), บวก Rabies, "DA2PP" = combination, Lepto + Bordetella + Lyme = non-core, lifestyle-based\n\n💡 endemic' },
 
-  { id: 7022, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['vaccine', 'puppy-schedule'], type: 'mcq',
-    q: 'สุนัข puppy 6 wk, เริ่ม vaccination program, ฉีด core vaccine (CPV/CDV) ครั้งที่ 1 อายุไหน',
-    options: ['6 wk', '8 wk', '10 wk', '12 wk', '16 wk'],
-    answer: 4,
-    explain: 'WSAVA: เริ่ม core 6-8 wk + booster ทุก 3-4 wk จนถึง 16 wk (อย่างน้อย final dose ที่ 16 wk เพื่อ overcome MDA), revaccinate ที่ 6 mo / 1 yr → triennial, last dose 16+ wk เป็น cornerstone' },
-
   { id: 7023, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['vaccine', 'rabies'], type: 'mcq',
     q: 'rabies vaccine ในไทยสำหรับสุนัข, route + frequency',
@@ -1943,13 +1717,6 @@ export const QB_VCA = [
     options: ['180', '270', '360', '450', '540'],
     answer: 3,
     explain: 'Vol = (PCV target - PCV recip) × BV recip / PCV donor = (20-10) × 90 × 20 / 40 = 18000/40 = 450 mL, standard formula, ปริมาณรวม cat = 60-70 mL/kg, dog = 80-90 mL/kg' },
-
-  { id: 7031, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['hematology','imha'], type: 'mcq',
-    q: 'สุนัข Cocker spaniel 5 yr, pale + jaundice + hemoglobinuria + spherocytes บน blood smear + Coombs+, suspect',
-    options: ['Iron deficiency', 'Blood loss', 'Aplastic anemia', 'EPO deficiency anemia', 'IMHA'],
-    answer: 4,
-    explain: 'IMHA = Type II hypersensitivity, spherocyte (no central pallor) + Coombs+ + agglutination + bilirubinuria, Tx: prednisolone + cyclosporine/azathioprine + transfusion, breeds: Cocker, Sheepdog, Springer\n\n💡 Immune-Mediated Hemolytic Anemia' },
 
   { id: 7032, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['hematology', 'cat-toxicity', 'heinz'], type: 'mcq',
@@ -2037,13 +1804,6 @@ export const QB_VCA = [
     options: ['Vitamin K', 'Calcium', 'Taurine', 'Iron', 'B12'],
     answer: 2,
     explain: 'Taurine deficiency = #1 cause of DCM in cat (cat-specific essential amino acid), supplementation can reverse early disease, modern cat food fortified, DDx grain-free diet DCM in dogs (BEG-DCM debated)' },
-
-  { id: 7061, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['cardio', 'CHF', 'furosemide'], type: 'mcq',
-    q: 'สุนัข MMVD stage C, acute pulmonary edema, drug แรก',
-    options: ['Atropine', 'Pimobendan', 'Digoxin', 'Furosemide IV', 'Dobutamine'],
-    answer: 3,
-    explain: 'Acute CHF: Furosemide IV 2-4 mg/kg + O2 + supplement nitroglycerin, pimobendan (Vetmedin) inotrope+vasodilator + loop diuretic chronic combo, ACE-I if stable, monitor electrolytes' },
 
   { id: 7062, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['endocrine', 'addisons'], type: 'mcq',
@@ -2180,13 +1940,6 @@ export const QB_VCA = [
     options: ['Dorsoventral (DV)', 'Ventrodorsal (VD)', 'Right lateral recumbency', 'Left lateral recumbency', 'Standing lateral'],
     answer: 2,
     explain: 'Right lateral recumbency = shows GDV "reverse C" / "double bubble" / "shelf sign", pylorus shifted dorsally + cranially, ห้าม wait for radiograph if patient unstable → trocharize first' },
-
-  { id: 7093, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['imaging', 'TMJ'], type: 'mcq',
-    q: 'best view สำหรับ Temporomandibular joint (TMJ) imaging',
-    options: ['Lateral recumbency', 'Intraoral dorsoventral', 'Oblique mediolateral', 'Mediolateral open mouth', 'Rostrocaudal open mouth'],
-    answer: 4,
-    explain: 'TMJ disorder (luxation, dysplasia): rostrocaudal open mouth view = best gold standard, lateral oblique also useful, CT preferred for complex cases' },
 
   // ─── Anesthesia / Drugs ──────────────────────────────────
   { id: 7100, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
