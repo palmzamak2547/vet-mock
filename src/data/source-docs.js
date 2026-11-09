@@ -784,7 +784,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'mm-meat-micro-2569', subject: 'milk-meat-hygiene', title: "Microbiology of meat",
-    match: /Microbiology of meat(?! deck 2024| ที่ตรวจคะแนนแล้ว)/i,
+    match: /Microbiology of meat(?! deck 2024| ที่ตรวจคะแนนแล้ว| ชุดปี 2567| ที่ติดดาว)/i,
     editions: [{ id: '66p', pages: 66 }],
   },
   {
@@ -794,7 +794,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'mm-meat-quality-2569', subject: 'milk-meat-hygiene', title: "Meat quality and wholesomeness",
-    match: /Meat quality and wholesomeness(?! deck 2024)/i,
+    match: /Meat quality and wholesomeness(?! deck 2024| ชุดปี 2567)/i,
     editions: [{ id: '36p', pages: 36 }],
   },
   {
@@ -804,27 +804,27 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'mm-slaughter-2024', subject: 'milk-meat-hygiene', title: "Slaughterhouse: Production Facilities & Sanitary Practices (deck 2024)",
-    match: /Slaughterhouse: Production Facilities & Sanitary Practices deck 2024|MeatHyg_E2SlaugtHygDes_67_1 deck 2024/i,
+    match: /Slaughterhouse: Production Facilities & Sanitary Practices (?:deck 2024|ชุดปี 2567)|MeatHyg_E2SlaugtHygDes_67_1 deck 2024/i,
     editions: [{ id: '52p', pages: 52 }],
   },
   {
     slug: 'mm-ante-post-mortem-2024', subject: 'milk-meat-hygiene', title: "Antemortem & Postmortem Inspection (deck 2024)",
-    match: /Antemortem & Postmortem Inspection deck 2024|MeatHyg_E3AmPmInspect_67_1 deck 2024/i,
+    match: /Antemortem & Postmortem Inspection (?:deck 2024|ชุดปี 2567)|MeatHyg_E3AmPmInspect_67_1 deck 2024/i,
     editions: [{ id: '75p', pages: 75 }],
   },
   {
     slug: 'mm-cutting-grading-2024', subject: 'milk-meat-hygiene', title: "Postmortem Changes & Factors, Meat Cutting & Grading (deck 2024)",
-    match: /Postmortem Changes & Factors, Meat Cutting & Grading deck 2024|MeatHyg_E4PmChngCuttGrad_67_1 deck 2024/i,
+    match: /Postmortem Changes & Factors, Meat Cutting & Grading (?:deck 2024|ชุดปี 2567)|MeatHyg_E4PmChngCuttGrad_67_1 deck 2024/i,
     editions: [{ id: '93p', pages: 93 }],
   },
   {
     slug: 'mm-pest-control-2024', subject: 'milk-meat-hygiene', title: "Meat Hygiene: Pest Control (deck 2024)",
-    match: /Meat Hygiene: Pest Control deck 2024|MH_2\.Pest_Control_\(Color\) deck 2024/i,
+    match: /Meat Hygiene: Pest Control (?:deck 2024|ชุดปี 2567)|MH_2\.Pest_Control_\(Color\) deck 2024/i,
     editions: [{ id: '46p', pages: 46 }],
   },
   {
     slug: 'mm-egg-micro-2024', subject: 'milk-meat-hygiene', title: "Microbiology of the Avian Egg (deck 2024)",
-    match: /Microbiology of the Avian Egg deck 2024/i,
+    match: /Microbiology of the Avian Egg (?:deck 2024|ชุดปี 2567)/i,
     editions: [{ id: '33p', pages: 33 }],
   },
   {
@@ -866,6 +866,68 @@ export const SOURCE_DOCS = [
     slug: 'mm-meat-final-summary-vet85', subject: 'milk-meat-hygiene', title: "ซอยจุ๊ ver. สังคายนา (สรุปปลายภาค Meat hygiene ของ Vet 85)",
     match: /สรุปปลายภาค Meat(?: hygiene)? ของ Vet 85/i,
     editions: [{ id: '20p', pages: 20 }],
+  },
+  // The marked 2567 copies in the Vet 84 pack that the Milk & Meat marks questions cite in `verified`;
+  // page counts read from the PDFs on 7 Nov 2569.
+  {
+    slug: 'mm-milk-cleaning-2024', subject: 'milk-meat-hygiene', title: "Cleaning and disinfectants in milk collecting center and milk processing (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Cleaning and disinfectants in milk collecting center and milk processing ชุดปี 2567/i, // 1 - _Cleaning_and_disinfectants_in_milk_collecting_center_and_milk_processing_SJ_2024.pdf
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'mm-meat-intro-2024', subject: 'milk-meat-hygiene', title: "Introduction to Meat Hygiene (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Introduction to Meat Hygiene ชุดปี 2567/i, // 2 - MeatHyg_E1.1Intro_SP_67_1.pdf
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'mm-meat-seafood-2024', subject: 'milk-meat-hygiene', title: "Seafood: Quality Changes & Spoilage, Seafood Toxins (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Seafood: Quality Changes & Spoilage, Seafood Toxins ชุดปี 2567/i, // 3 - MeatHyg_E1.2SeaFood_SP_67_1.pdf
+    editions: [{ id: '64p', pages: 64 }],
+  },
+  {
+    slug: 'mm-meat-micro-2024', subject: 'milk-meat-hygiene', title: "Microbiology of meat (deck 2567, Vet 84 marked copy)",
+    match: /สไลด์ Microbiology of meat ชุดปี 2567/i, // 4 - Microbiology_of_Meat___Meat_Hygiene_2567.pdf
+    editions: [{ id: '65p', pages: 65 }],
+  },
+  {
+    slug: 'mm-meat-storage-2024', subject: 'milk-meat-hygiene', title: "Storage of meat & meat products (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Storage of meat & meat products ชุดปี 2567/i, // 5 - Revised 2023_storage of meat.pdf
+    editions: [{ id: '49p', pages: 49 }],
+  },
+  {
+    slug: 'mm-meat-quality-2024', subject: 'milk-meat-hygiene', title: "Meat quality and wholesomeness (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Meat quality and Wholesomeness ชุดปี 2567/i, // 6 - Revised 2023_Meat quality Wholesomeness.pdf
+    editions: [{ id: '36p', pages: 36 }],
+  },
+  {
+    slug: 'mm-meat-molecular-2024', subject: 'milk-meat-hygiene', title: "Application of molecular biology in meat science (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Application of molecular biology in meat science ชุดปี 2567/i, // 7 - Revised 2023_MoleinMeatSci.pdf
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  {
+    slug: 'mm-milk-industry-standard-2024', subject: 'milk-meat-hygiene', title: "Standard of milk industry and milk products (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Standard of milk industry and milk products ชุดปี 2567/i, // 11 - _Standard_of_milk_industry_and_milk_products_SJ_2024.pdf (milk midterm folder)
+    editions: [{ id: '94p', pages: 94 }],
+  },
+  {
+    slug: 'mm-storage-quality-molecular-starred-vet84', subject: 'milk-meat-hygiene', title: "สรุปบทเรียน storage, meat quality และ molecular ที่ติดดาวในชุดไฟล์ Vet 84",
+    match: /สรุปบทเรียน storage, meat quality และ molecular ที่ติดดาวในชุดไฟล์ Vet 84/i, // compilation sha c1f9a310
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'mm-meat-micro-starred-vet84', subject: 'milk-meat-hygiene', title: "สรุปแบบ mind map เรื่อง Microbiology of meat ที่ติดดาวในชุดไฟล์ Vet 84",
+    match: /สรุปแบบ mind map เรื่อง Microbiology of meat ที่ติดดาวในชุดไฟล์ Vet 84/i, // compilation sha 98165bd1
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'mm-meat-final-mindmaps-vet84', subject: 'milk-meat-hygiene', title: "mind map ปลายภาค Meat ในชุดไฟล์ Vet 84",
+    match: /mind map ปลายภาค Meat ในชุดไฟล์ Vet 84/i, // compilation sha 9fa01075
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'mm-milk-sj-summary-vet84', subject: 'milk-meat-hygiene', title: "สรุป mind map เรื่องนมของชุดไฟล์ Vet 84",
+    match: /สรุป mind map เรื่องนมของชุดไฟล์ Vet 84/i, // compilation sha 4f1d37e8 (milk midterm folder)
+    editions: [{ id: '7p', pages: 7 }],
   },
   // Avian Medicine FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
   {
