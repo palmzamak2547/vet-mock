@@ -74,6 +74,8 @@ test('links open at the matching page and download under the document title', ()
   // A PDF opens in VetMock's reader: a phone's own viewer ignores #page.
   const l = fileLinks('การวินิจฉัย-rabies', 12, 'Rabies: diagnosis.pdf');
   assert.equal(l.open, 'https://vetmock.com/app/tools/pdf?doc=%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%88%E0%B8%89%E0%B8%B1%E0%B8%A2-rabies&page=12');
+  // The file itself rides along, for in-app browsers (ai/src/lib/env.js openLink).
+  assert.ok(l.file.startsWith('https://vetmock.com/api/library-file?slug=%E0%B8%81') && l.file.endsWith('&open=1#page=12'));
   const d = new URL(l.download);
   assert.equal(d.pathname, '/api/library-file');
   assert.equal(d.searchParams.get('dl'), '1');
@@ -140,6 +142,7 @@ test('an answer gets the text of the best pages, garbled ones skipped', async ()
   assert.equal(s.kind, 'library');
   assert.equal(s.subtitle, 'สไลด์ com5, หน้า 12'.replace('com5', subjectLabel('com5')));
   assert.ok(s.url.endsWith('/app/tools/pdf?doc=rabies-com5&page=12') && s.context.includes('Negri'));
+  assert.ok(s.file.endsWith('/api/library-file?slug=rabies-com5&open=1#page=12'), 'and the file itself, for in-app browsers');
 });
 
 test('no config, a slow or broken database: no files, never an error', async () => {

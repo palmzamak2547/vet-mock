@@ -121,8 +121,10 @@ export function fileLinks(slug, page, title = '', mime = 'application/pdf', tick
   const ext = fmt ? `.${fmt.toLowerCase()}` : '';
   const name = title ? `&name=${encodeURIComponent(`${displayTitle(title).slice(0, 140)}${ext}`)}` : '';
   const reader = mime === 'application/pdf' && provider !== 'google-drive' && provider !== 'external';
-  const open = reader ? `${SITE}${readerUrl(slug, page, ticket)}` : page > 1 ? `${q}#page=${page}` : q;
-  return { open, download: `${q}&dl=1${name}` };
+  // `file`: the file itself, for in-app browsers (LINE, Facebook), where the
+  // reader's Chula wall cannot sign in with Google (ai/src/lib/env.js openLink).
+  const file = page > 1 ? `${q}#page=${page}` : q;
+  return { open: reader ? `${SITE}${readerUrl(slug, page, ticket)}` : file, file, download: `${q}&dl=1${name}` };
 }
 
 /** A search phrase as library_search reads it: lower-case words, at most six. */
@@ -400,12 +402,14 @@ export function pageSource({ doc, page, body }, { needles = [], token = null } =
   // the first place a needle (Thai substring or English pattern) appears
   const at = needles.map((n) => (n?.re ? flat.search(new RegExp(n.re.source, 'i')) : flat.toLowerCase().indexOf(needleText(n).toLowerCase() || '\u0000')))
     .filter((i) => i >= 0).sort((a, b) => a - b)[0] ?? 0;
+  const links = fileLinks(doc.slug, page, '', doc.mime || undefined, token ? mintOpenTicket(doc.slug) : null, doc.storage_provider);
   return {
     kind: 'library',
     title: clip(displayTitle(doc.title), 140),
     subtitle: `${kindLabel}${subject ? ` ${subject}` : ''}, หน้า ${page}`,
     subject,
-    url: fileLinks(doc.slug, page, '', doc.mime || undefined, token ? mintOpenTicket(doc.slug) : null, doc.storage_provider).open,
+    url: links.open,
+    file: links.file,
     snippet: clip(flat.slice(Math.max(0, at - 60)), 220),
     context: clip(body, 1500),
   };
