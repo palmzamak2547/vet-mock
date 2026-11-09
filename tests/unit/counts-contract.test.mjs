@@ -200,7 +200,7 @@ test('the topics of a subject add up to its card, less only the questions filed 
   // Questions with no curriculum topic still count in the subject (they are in
   // รวมทุกหัวข้อ) but no topic card can show them. That is a data gap, held to
   // the subjects that have it today, and the list may only shrink.
-  const UNFILED = { surg2: 18, surg3: 40, repro: 31, com4: 7 };
+  const UNFILED = { surg2: 9, surg3: 8, repro: 19, com4: 4 };
   const wrong = [];
   const unfiled = {};
   for (const s of SUBJECTS) {
