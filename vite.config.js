@@ -201,6 +201,8 @@ export default defineConfig({
           if (id.includes('questions-y5-vision-batch')) return 'data-q-y5-vision'
           if (id.includes('questions-y5-swine-final-recall')) return 'data-q-y5-swine-final-recall'
           if (id.includes('questions-y5-swine-final-marked')) return 'data-q-y5-swine-final-marked'
+          if (id.includes('questions-y5-milk-meat-final-marked')) return 'data-q-y5-milk-meat-final-marked'
+          if (id.includes('questions-y5-epid-final-marked')) return 'data-q-y5-epid-final-marked'
           if (id.includes('questions-y5-equine-final-recall')) return 'data-q-y5-equine-final-recall'
           if (id.includes('questions-y5-one-health-final-recall')) return 'data-q-y5-one-health-final-recall'
           if (id.includes('questions-y5-zoonoses-final-recall')) return 'data-q-y5-zoonoses-final-recall'

@@ -61,7 +61,7 @@ export const SHORT_MARKER = 'อิงแนวสอบ';
 
 // Measured 2026-09-23. Lower these when the numbers fall; never raise them.
 export const BUDGETS = Object.freeze({
-  noSourceType: 3031,
+  noSourceType: 3024,
   pastPaperWithoutOrigin: 417,
 });
 

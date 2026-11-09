@@ -230,6 +230,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-milk-hygiene-pastpaper.js', export: 'QB_Y5_MILK_HYGIENE_PASTPAPER', year: 5, count: 157,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-y5-milk-hygiene-pastpaper.js').then((m) => m.QB_Y5_MILK_HYGIENE_PASTPAPER) },
+  { file: 'questions-y5-milk-meat-final-marked.js', export: 'QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED', year: 5, count: 239,
+    subjects: ['milk-meat-hygiene'],
+    load: () => import('./questions-y5-milk-meat-final-marked.js').then((m) => m.QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED) },
   { file: 'questions-y5-milk-meat-final-recall.js', export: 'QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL', year: 5, count: 149,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-y5-milk-meat-final-recall.js').then((m) => m.QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL) },
@@ -322,4 +325,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-02T11:36:04.258Z — 104 banks · 7814 Qs
+// Built: 2026-11-09T03:01:30.373Z — 105 banks · 8053 Qs
