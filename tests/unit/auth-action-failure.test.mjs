@@ -134,7 +134,7 @@ test('device sign-out keeps the global action explicit', async () => {
 function inTheApp(t, sheet) {
   const calls = [];
   globalThis.window = Object.assign(new EventTarget(), {
-    location: { origin: 'https://vetmock.com', pathname: '/app' },
+    location: { origin: 'https://vetmock.com', pathname: '/app', search: '', href: 'https://vetmock.com/app' },
     VetMockApp: { googleIdToken: async () => { calls.push('account sheet'); return sheet(); } },
   });
   const redirect = { data: { provider: 'google', url: 'https://proj.supabase.co/auth/v1/authorize?provider=google' }, error: null };

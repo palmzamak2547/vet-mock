@@ -3,7 +3,7 @@ import { createVoice, VOICE_ERRORS } from '../lib/voice.js';
 import { voiceSound } from '../lib/voice-sound.js';
 import { cleanSpoken, hasWords, revealed, nextRate, keyTerms, toChatMessages, chatRecap, clock, currentQuestion, checkAnswer, LETTERS, CAPTION_CPS } from '../lib/voice-turns.js';
 import { newId, getPref, setPref } from '../lib/store.js';
-import { reducedMotion } from '../lib/env.js';
+import { reducedMotion, sourceHref } from '../lib/env.js';
 import { speciesOf } from '../lib/species.js';
 import { IconMic, IconMicOff, IconHangUp, IconKeyboard, IconSend, IconArrowOut, IconRetry, IconClose, IconImage, IconSliders } from './icons.jsx';
 import { KIND } from './Message.jsx';
@@ -664,7 +664,7 @@ export default function Voice({ oceanRef, still, onDone, onClose, chat = [] }) {
               const sp = speciesOf(s);
               return (
                 <li key={`${s.kind}-${s.n}`} className={`voice-src k-${s.kind}`}>
-                  <a href={s.url} target="_blank" rel="noopener noreferrer">
+                  <a href={sourceHref(s)} target="_blank" rel="noopener noreferrer">
                     {sp && <span className="voice-src-plate" aria-hidden="true" style={{ '--plate': `url(/art/specimens/${sp}-s.svg)` }} />}
                     <span className="voice-src-body">
                       <span className="voice-src-kind">{KIND[s.kind] || s.kind}</span>
