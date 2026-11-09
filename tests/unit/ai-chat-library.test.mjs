@@ -71,13 +71,25 @@ test('search phrases: specific English first, then the pair, then the strongest 
 });
 
 test('links open at the matching page and download under the document title', () => {
+  // A PDF opens in VetMock's reader: a phone's own viewer ignores #page.
   const l = fileLinks('การวินิจฉัย-rabies', 12, 'Rabies: diagnosis.pdf');
-  assert.ok(l.open.startsWith('https://vetmock.com/api/library-file?slug=%E0%B8%81'));
-  assert.ok(l.open.endsWith('&open=1#page=12'));
+  assert.equal(l.open, 'https://vetmock.com/app/tools/pdf?doc=%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%88%E0%B8%89%E0%B8%B1%E0%B8%A2-rabies&page=12');
+  // The file itself rides along, for in-app browsers (ai/src/lib/env.js openLink).
+  assert.ok(l.file.startsWith('https://vetmock.com/api/library-file?slug=%E0%B8%81') && l.file.endsWith('&open=1#page=12'));
   const d = new URL(l.download);
+  assert.equal(d.pathname, '/api/library-file');
   assert.equal(d.searchParams.get('dl'), '1');
   assert.equal(d.searchParams.get('name'), 'Rabies: diagnosis.pdf');
-  assert.ok(!fileLinks('x-deck', 1).open.includes('#page'), 'page 1 needs no fragment');
+  assert.equal(new URL(fileLinks('x-deck', 1).open).searchParams.get('page'), null, 'page 1 is where a deck opens anyway');
+  // The ticket rides in the reader's link (its fallback, if the deck is not found) and on the download.
+  const ticket = { vt: 'a'.repeat(43), ve: 1900000000 };
+  const ticketed = fileLinks('x-deck', 3, 'X.pdf', 'application/pdf', ticket);
+  assert.equal(ticketed.open, `https://vetmock.com/app/tools/pdf?doc=x-deck&page=3&vt=${ticket.vt}&ve=1900000000`);
+  assert.ok(ticketed.download.includes(`&vt=${ticket.vt}&ve=1900000000`));
+  // A slide file, and a copy kept on Google Drive, open through the gate, as the shelf opens them.
+  const pptx = fileLinks('x-slides', 4, 'X.pptx', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', ticket);
+  assert.equal(pptx.open, `https://vetmock.com/api/library-file?slug=x-slides&open=1&vt=${ticket.vt}&ve=1900000000#page=4`);
+  assert.equal(fileLinks('x-drive', 1, 'X.pdf', 'application/pdf', null, 'google-drive').open, 'https://vetmock.com/api/library-file?slug=x-drive&open=1');
   assert.equal(subjectLabel('xyz'), 'XYZ', 'an id with no name is shown as itself');
 });
 
@@ -114,7 +126,7 @@ test('a request for files: ranked documents with links, a garbled snippet droppe
   assert.equal(r.items[0].slug, 'rabies-com5');
   assert.equal(r.items[0].kindLabel, 'สไลด์');
   assert.equal(r.items[0].page, 12);
-  assert.ok(r.items[0].open.endsWith('#page=12'));
+  assert.ok(r.items[0].open.endsWith('/app/tools/pdf?doc=rabies-com5&page=12'));
   assert.ok(r.items[0].snippet.includes('Negri'));
   const paper = r.items.find((i) => i.slug === 'vetku-80');
   assert.equal(paper.snippet, '', 'mis-encoded text never reaches the page');
@@ -129,13 +141,50 @@ test('an answer gets the text of the best pages, garbled ones skipped', async ()
   const s = pageSource(r.pages[0], { needles: ['Negri'] });
   assert.equal(s.kind, 'library');
   assert.equal(s.subtitle, 'สไลด์ com5, หน้า 12'.replace('com5', subjectLabel('com5')));
-  assert.ok(s.url.endsWith('#page=12') && s.context.includes('Negri'));
+  assert.ok(s.url.endsWith('/app/tools/pdf?doc=rabies-com5&page=12') && s.context.includes('Negri'));
+  assert.ok(s.file.endsWith('/api/library-file?slug=rabies-com5&open=1#page=12'), 'and the file itself, for in-app browsers');
 });
 
 test('no config, a slow or broken database: no files, never an error', async () => {
   assert.deepEqual(await findFiles({ terms: ['rabies'] }, { env: {} }), { items: [], pages: [], failed: true });
   const broken = await findFiles({ terms: ['rabies'] }, { env: ENV, fetchImpl: async () => new Response('down', { status: 503 }) });
   assert.deepEqual(broken.items, []);
+});
+
+test('a library that does not answer is a failed lookup, never a library without the file', async () => {
+  const down = async () => new Response('down', { status: 503 });
+  const dropped = async () => { throw new TypeError('fetch failed'); };
+  // answers only when the time limit cuts it off
+  const slow = (url, init) => new Promise((resolve, reject) => {
+    const held = setTimeout(() => reject(new Error('never answered')), 5000);
+    init.signal.addEventListener('abort', () => { clearTimeout(held); reject(init.signal.reason); }, { once: true });
+  });
+  for (const [name, fetchImpl, timeoutMs] of [['503', down], ['dropped', dropped], ['time limit', slow, 50]]) {
+    const r = await findFiles({ terms: ['rabies'], files: true }, { env: ENV, fetchImpl, timeoutMs });
+    assert.deepEqual(r, { items: [], pages: [], failed: true }, name);
+  }
+  // a library that answered and has nothing is not a failure
+  assert.deepEqual(await findFiles({ terms: ['rabies'], files: true }, { env: ENV, fetchImpl: fakeLibrary().fetchImpl }), { items: [], pages: [], failed: false });
+
+  // the student hears that the library could not be opened this time, not that the file does not exist
+  const prompts = [];
+  const sse = () => new Response(new Blob([`data: ${JSON.stringify({ choices: [{ delta: { content: 'ตอนนี้เปิดห้องสมุดไม่ได้' } }] })}\n\ndata: [DONE]\n\n`]).stream(), { headers: { 'Content-Type': 'text/event-stream' } });
+  const { log, warn } = console;
+  console.log = () => {}; console.warn = () => {};
+  try {
+    await runChat({ messages: turn('ขอสไลด์ rabies'), image: null, question: 'ขอสไลด์ rabies' }, {
+      send: () => true,
+      env: ENV,
+      deps: {
+        chat: async () => ({ ok: true, text: JSON.stringify({ intent: 'files', query_th: 'ขอสไลด์ rabies', terms_en: ['rabies'], subjects: [], files: { kind: 'slide', title: '' } }) }),
+        fetchImpl: async (url, init) => (String(url).includes('api.deepseek.com') ? (prompts.push(String(init.body)), sse()) : down()),
+        kv: { get: async () => null, set: async () => {} },
+      },
+    });
+  } finally { console.log = log; console.warn = warn; }
+  assert.equal(prompts.length, 1);
+  assert.ok(prompts[0].includes('เปิดห้องสมุดไม่สำเร็จในครั้งนี้'), 'told the library could not be opened');
+  assert.ok(!prompts[0].includes('ห้องสมุดยังไม่มีไฟล์'), 'never told there is no such file');
 });
 
 test('the planner keeps files, quizzes, openings and questions apart', () => {
@@ -202,7 +251,7 @@ test('an answer turn: slide pages join the sources, their decks a related card',
   const sources = events.find((e) => e.event === 'sources').data.items;
   const slide = sources.find((s) => s.kind === 'library');
   assert.ok(slide, 'a slide page is a citable source');
-  assert.ok(slide.url.includes('/api/library-file?slug=rabies-com5') && slide.url.endsWith('#page=12'));
+  assert.equal(slide.url, 'https://vetmock.com/app/tools/pdf?doc=rabies-com5&page=12');
   const card = events.find((e) => e.event === 'cards').data.items.find((c) => c.type === 'files');
   assert.equal(card.related, true);
   assert.ok(card.items.length >= 1 && card.items.length <= 3);

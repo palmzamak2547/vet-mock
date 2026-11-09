@@ -99,7 +99,7 @@ export default {
   },
   {
    "t": 480,
-   "title": "Why do some mares fail to conceive",
+   "title": "Why do some mares fail to conceive despite normal breeding management?",
    "line": "ทำไมม้าบางตัวผสมไม่ติดทั้งที่จัดการผสมดี มดลูกต้องพร้อมรับทั้ง sperm และ conceptus",
    "slides": [
     {
@@ -189,7 +189,7 @@ export default {
   },
   {
    "t": 1980,
-   "title": "Persistent breeding-induced",
+   "title": "Persistent breeding-induced endometritis (PBIE)",
    "line": "ปัญหาหลักของม้าคือ PBIE หลังผสม ส่วนของวัวคือช่วงหลังคลอด",
    "slides": [
     {

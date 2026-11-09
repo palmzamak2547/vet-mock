@@ -277,7 +277,7 @@ export default {
   },
   {
    "t": 1440,
-   "title": "The concept & linkages of the components in",
+   "title": "The concept & linkages of the components in national strategic plan for eids",
    "line": "การสื่อสารสุขภาพหนึ่งเดียวใน 6 บริบทหน่วยงาน ตั้งแต่ภาครัฐ อาหารปลอดภัย สัตว์เลี้ยง ปศุสัตว์ เภสัชฯ จนถึงสัตว์ป่าและสิ่งแวดล้อม",
    "slides": [
     {
@@ -297,14 +297,6 @@ export default {
  ],
  "index": [
   {
-   "term": "ONE",
-   "t": 144
-  },
-  {
-   "term": "HEALTH",
-   "t": 217
-  },
-  {
    "term": "โควิด",
    "t": 333
   },
@@ -317,24 +309,8 @@ export default {
    "t": 336
   },
   {
-   "term": "TO",
-   "t": 2673
-  },
-  {
    "term": "EPT",
    "t": 547
-  },
-  {
-   "term": "OF",
-   "t": 1014
-  },
-  {
-   "term": "GLOBAL",
-   "t": 1444
-  },
-  {
-   "term": "IN",
-   "t": 217
   },
   {
    "term": "USAID",
@@ -347,14 +323,6 @@ export default {
   {
    "term": "MOU",
    "t": 1493
-  },
-  {
-   "term": "THAI",
-   "t": 1397
-  },
-  {
-   "term": "FOR",
-   "t": 943
   },
   {
    "term": "ติดต่อสู่คน",

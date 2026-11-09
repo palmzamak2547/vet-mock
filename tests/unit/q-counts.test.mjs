@@ -16,7 +16,8 @@ import { BLOCKED_QUESTION_COUNT, isQuestionDeliverable } from '../../src/data/qu
 import { SUBJECTS } from '../../src/data/curriculum.js';
 import { originEntry } from '../../src/data/exam-origins.js';
 import { isExamAlignedQuestion, isPastPaperQuestion, questionTopicId } from '../../src/lib/question-metadata.js';
-import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/current-scope.js';
+import { scopeOfQuestion } from '../../src/lib/exam-scope.js';
 
 const questions = [];
 for (const entry of BANK_REGISTRY) {
@@ -92,9 +93,11 @@ test('generated high-prediction counts match verified current-scope questions', 
       const subject = q.subject || '__unknown__';
       live[version] ||= { all: {}, midterm: {}, final: {}, continuous: {} };
       live[version].all[subject] = (live[version].all[subject] || 0) + 1;
-      const scopes = q.examScope === 'both'
+      // The paper the pool puts it on: its topic's, else its own field.
+      const paper = scopeOfQuestion(q);
+      const scopes = paper === 'both'
         ? ['midterm', 'final']
-        : [q.examScope];
+        : [paper];
       for (const scope of scopes) {
         if (!live[version][scope]) continue;
         live[version][scope][subject] = (live[version][scope][subject] || 0) + 1;

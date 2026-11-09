@@ -169,7 +169,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     : practiceMode === 'weak' ? 'Weak Spots — ข้อที่ผิดบ่อย'
     : practiceMode === 'wrong' ? 'ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
     : practiceMode === 'current-scope' ? `ตามสไลด์ปัจจุบัน — ${scopeLabel}, เฉลยตรวจแล้ว ตรง ${SEMESTER.id}`
-    : practiceMode === 'predicted' ? `ชุดน่าจะออก — ${scopeLabel}, หลักฐานอย่างน้อย 2 ทาง ไม่ใช่ข้อสอบยืนยัน`
+    : practiceMode === 'predicted' ? `ชุดหลักฐานตรงกัน — ${scopeLabel}, หลักฐานอย่างน้อย 2 ทาง`
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 

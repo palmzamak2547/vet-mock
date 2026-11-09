@@ -18,4 +18,8 @@ export const FIGURE_EXEMPT = {
   105755: 'asks what a HACCP flow diagram must COVER, which is the standard scope of that artefact, not a reading off one printed on a slide',
   75029: "the stem DESCRIBES the plot instead of pointing at one — same y-intercept as uninhibited, different slope — which is exactly the reading a student must do; competitive inhibition follows from the description alone",
   104658: 'the same case as 105755 — asks what a HACCP flow diagram must SPAN (receiving to distribution), which is the defined scope of that artefact. Nothing is being read off a printed diagram',
+  694321: 'the radiograph finding is given in words (an open long oblique femoral fracture after a car accident); the question is how to repair it',
+  694346: 'the stem states what the plain film shows (a padlock in the cranial abdomen); the question is the diagnosis that follows',
+  694466: 'the radiograph finding is given (left heart enlargement), with the cough, crackles and systolic murmur; nothing is read off the film',
+  694603: 'the necropsy finding is given in words (fibrinous exudate over the serosa); the question is the cause',
 };

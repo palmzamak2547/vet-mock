@@ -335,6 +335,9 @@ test('leaving a set opened from the timer: one tap on the back control leaves th
   const input = page.getByLabel('ค้นหาใน VetMock', { exact: true });
   await input.fill('ketamine');
   const row = page.locator('[data-vmx-modal="true"] [role="option"][data-type="question"]').first();
+  // The list applies the text 60 ms later; a tap before that on a row the
+  // text does not find is dropped, so wait for the list to show the text.
+  await expect(row).toContainText(/ketamine/i, { timeout: 30_000 });
   await row.click({ timeout: 30_000 });
   await page.waitForFunction(() => history.state?.vmxView === 'exam', null, { timeout: 30_000 });
   await page.goBack();

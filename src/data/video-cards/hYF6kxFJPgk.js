@@ -815,7 +815,7 @@ export default {
    "t": 3060
   },
   {
-   "term": "sepsi",
+   "term": "sepsis",
    "t": 3600
   },
   {
@@ -887,7 +887,7 @@ export default {
    }
   },
   {
-   "number": "RBC (1.94 x 106)",
+   "number": "RBC (1.94 × 10⁶)",
    "t": 5160,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
@@ -895,7 +895,7 @@ export default {
    }
   },
   {
-   "number": "0.4 x 106",
+   "number": "0.4 × 10⁶",
    "t": 5160,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
@@ -903,7 +903,7 @@ export default {
    }
   },
   {
-   "number": "WBC (2.9-18 x 103)",
+   "number": "WBC (2.9-18 × 10³)",
    "t": 5160,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",
@@ -911,7 +911,7 @@ export default {
    }
   },
   {
-   "number": "7.50 x 103",
+   "number": "7.50 × 10³",
    "t": 5160,
    "slide": {
     "doc": "turtle-and-tortoise-medicine-reptile-med-b3f075",

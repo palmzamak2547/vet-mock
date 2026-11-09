@@ -42,9 +42,25 @@ const SPECIES_WORDS = [
   [/(สุนัข|หมา|\bdog\b|\bcanine\b)/i, 'dog'],
 ];
 
+// A drug name counts where a word starts with it (not the "luminal" inside
+// "intraluminal") and where that word stops at the name, runs one letter past
+// it (Sandimmune for the listed Sandimmun, Amoxil for amoxi, a plural), or is
+// still spelling one of the same drug's names (amoxicil on the way to
+// amoxicillin). The "diphen" of "diphenoxylate", another drug, does not count.
+// Only Latin letters continue a word: "ketamineแมว" and "ketamine12kg" count.
+function namesDrug(qlc, n, names) {
+  for (let i = qlc.indexOf(n); i >= 0; i = qlc.indexOf(n, i + 1)) {
+    if (i > 0 && /[a-z]/.test(qlc[i - 1])) continue;
+    const rest = /^[a-z]*/.exec(qlc.slice(i + n.length))[0];
+    if (rest.length <= 1 || names.some((m) => m.startsWith(n + rest))) return true;
+  }
+  return false;
+}
+
 // "12 kg" / "12กก" / "3.5 โล" — weight is optional; the card still shows
-// the per-kg range without one.
-const WEIGHT_RE = /(\d+(?:\.\d+)?)\s*(?:kg\b|kgs\b|กก\.?|กิโล(?:กรัม)?|โล\b)/i;
+// the per-kg range without one. โล ends where no Thai mark follows its ล
+// (\b only knows Latin letters, so after a Thai letter it never matched).
+const WEIGHT_RE = /(\d+(?:\.\d+)?)\s*(?:kg\b|kgs\b|กก\.?|กิโล(?:กรัม)?|โล(?![ัิ-ฺ็-๎]))/i;
 
 export function detectDoseIntent(query) {
   const q = String(query || '').trim();
@@ -56,7 +72,7 @@ export function detectDoseIntent(query) {
   let best = null;
   for (const { drug, names } of drugIndex()) {
     for (const n of names) {
-      if (n.length >= 4 && qlc.includes(n) && (!best || n.length > best.n.length)) {
+      if (n.length >= 4 && (!best || n.length > best.n.length) && namesDrug(qlc, n, names)) {
         best = { drug, n };
       }
     }
@@ -146,7 +162,8 @@ function subjectIndex() {
     parts: s.id.toLowerCase().split('-').filter((p) => p.length >= 4),
     code: String(s.code || '').toLowerCase(),
     words: String(s.name_en || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4 && !GENERIC_NAME.has(w)),
-    nameTh: /[฀-๿]/.test(s.name || '') ? s.name : '',
+    // Lower-cased like the query, or "ชีวเคมี I" could never match.
+    nameTh: /[฀-๿]/.test(s.name || '') ? s.name.toLowerCase().normalize('NFC') : '',
     year: yearForSubject(s.id),
   }));
   return _subjectIndex;
@@ -157,13 +174,29 @@ function normalizeCourseNames(q) {
   return q.replace(/\bcom\s*-?\s*(\d|i{1,3}|iv|v)\b/g, (_, n) => `com${ROMAN[n] || n}`);
 }
 
-/** Subjects a remainder names, best first: [{ entry, score }]. */
-function matchSubjects(rest, selectedYear) {
+/** A course's Thai name written out in `text`. A name that starts or ends in
+ *  a Latin letter or digit must start or end a word there, or "ชีวเคมี i"
+ *  would be read inside "ชีวเคมี ii". */
+function namedIn(text, name) {
+  const latin = /[a-z0-9]/;
+  for (let i = text.indexOf(name); i >= 0; i = text.indexOf(name, i + 1)) {
+    const end = i + name.length;
+    if (latin.test(name[0]) && i > 0 && latin.test(text[i - 1])) continue;
+    if (latin.test(name[name.length - 1]) && end < text.length && latin.test(text[end])) continue;
+    return true;
+  }
+  return false;
+}
+
+/** Subjects a remainder names, best first: [{ entry, score }]. `whole` is the
+ *  query before its filler words were cut, which a Thai name is also looked
+ *  for in: cutting หา out of the query cut it out of อาหาร too. */
+function matchSubjects(rest, selectedYear, whole = rest) {
   const tokens = rest.split(/\s+/).filter(Boolean);
   const scores = new Map();
   const bump = (entry, score) => { if (score > (scores.get(entry) || 0)) scores.set(entry, score); };
   for (const entry of subjectIndex()) {
-    if (entry.nameTh && entry.nameTh.length >= 4 && rest.includes(entry.nameTh)) bump(entry, 90);
+    if (entry.nameTh && entry.nameTh.length >= 4 && (namedIn(rest, entry.nameTh) || namedIn(whole, entry.nameTh))) bump(entry, 90);
     for (const t of tokens) {
       if (t === entry.id || (entry.code && t === entry.code)) bump(entry, 100);
       else if (t.length >= 4 && /^[a-z0-9-]+$/.test(t)) {
@@ -208,7 +241,7 @@ export function detectStudyIntent(query, { selectedYear, selectedPhase = null } 
   // Without a word for what to open, only a course named outright (its id,
   // its code, its Thai name) earns a card; a partial name is already one of
   // the search results and a card would only repeat it.
-  const matches = matchSubjects(rest, year).filter((m) => want || m.score - (year != null && Number(m.entry.year) === Number(year) ? 15 : 0) >= 90);
+  const matches = matchSubjects(rest, year, q.replace(/\s+/g, ' ')).filter((m) => want || m.score - (year != null && Number(m.entry.year) === Number(year) ? 15 : 0) >= 90);
   if (!matches.length) return null;
   const catalog = createStudyCatalog();
   const subjects = matches.map(({ entry }) => {

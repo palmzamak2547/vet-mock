@@ -229,16 +229,26 @@ function pickDailyTemplates(date, year) {
 }
 
 // ── In-memory cache to avoid JSON.parse churn on every render ─────
-let cache = { date: '', state: null };
+// The cache stands for the stored string it was parsed from, not for the
+// day. Every open tab writes the same key, so a copy kept from the first
+// read let a second tab offer and pay a quest the first had claimed, and
+// write its old progress back over the first tab's. Each read (every
+// render, and every recorder and claim before it writes) compares the
+// stored string first; only a change costs a parse.
+let cache = { date: '', raw: null, state: null };
 
 function readState(date, year) {
-  if (cache.date === date && cache.state) return cache.state;
+  // undefined: this page cannot read storage at all, so memory is all it has.
+  let raw;
   try {
-    const raw = typeof window !== 'undefined' ? window.localStorage?.getItem(storageKeyFor(date)) : null;
+    raw = typeof window !== 'undefined' ? window.localStorage?.getItem(storageKeyFor(date)) : undefined;
+  } catch {}
+  if (cache.date === date && cache.state && (raw === undefined || raw === cache.raw)) return cache.state;
+  try {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && Array.isArray(parsed.quests)) {
-        cache = { date, state: parsed };
+        cache = { date, raw, state: parsed };
         return parsed;
       }
     }
@@ -272,14 +282,16 @@ function readState(date, year) {
   };
   persist(fresh);
   pruneOldKeys(date);
-  cache = { date, state: fresh };
+  // Kept in memory even when the write failed, so this page still has a set.
+  if (cache.state !== fresh) cache = { date, raw: null, state: fresh };
   return fresh;
 }
 
 function persist(state) {
   try {
-    window.localStorage?.setItem(storageKeyFor(state.date), JSON.stringify(state));
-    cache = { date: state.date, state };
+    const raw = JSON.stringify(state);
+    window.localStorage?.setItem(storageKeyFor(state.date), raw);
+    cache = { date: state.date, raw, state };
   } catch {}
 }
 
@@ -382,23 +394,35 @@ function readStreak() {
   }
 }
 
+// The quest day before `date`, on the same calendar as todayKey. One
+// definition for the claim that extends a run and the read that shows it.
+function dayBefore(date) {
+  const yest = new Date(date + 'T00:00:00');
+  yest.setDate(yest.getDate() - 1);
+  const y = yest.getFullYear();
+  const m = String(yest.getMonth() + 1).padStart(2, '0');
+  const d = String(yest.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 function bumpQuestStreak(date) {
   try {
     const cur = readStreak();
     if (cur.lastDate === date) return;
-    const yest = new Date(date + 'T00:00:00');
-    yest.setDate(yest.getDate() - 1);
-    const y = yest.getFullYear();
-    const m = String(yest.getMonth() + 1).padStart(2, '0');
-    const d = String(yest.getDate()).padStart(2, '0');
-    const yesterday = `${y}-${m}-${d}`;
-    const nextStreak = cur.lastDate === yesterday ? cur.streak + 1 : 1;
+    const nextStreak = cur.lastDate === dayBefore(date) ? cur.streak + 1 : 1;
     window.localStorage?.setItem(STREAK_KEY, JSON.stringify({ streak: nextStreak, lastDate: date }));
   } catch {}
 }
 
+// The saved count only moves when a quest is claimed, so read as-is it kept
+// a run that ended weeks ago in the panel. A run is alive through yesterday,
+// when today's first claim still extends it, and reads 0 after that, as the
+// main streak does (streakShown).
 export function getQuestStreak() {
-  return readStreak().streak || 0;
+  const cur = readStreak();
+  const today = todayKey();
+  if (cur.lastDate !== today && cur.lastDate !== dayBefore(today)) return 0;
+  return cur.streak || 0;
 }
 
 export const QUEST_EVENT = EVENT_NAME;

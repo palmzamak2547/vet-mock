@@ -37,7 +37,9 @@ export default async function handler(req, res, { env = process.env } = {}) {
   const v = url.searchParams.get('v') || '';
   const f = url.searchParams.get('f') || 'video';
   if (!ID.test(v) || !KINDS.includes(f)) return send(res, 400, { error: 'bad_request' });
-  if (!Object.prototype.hasOwnProperty.call(VIDEO_REGISTRY, v) || !VIDEO_REGISTRY[v].media) return send(res, 404, { error: 'not_found' });
+  // Our copy and its slides exist only for a clip we hold; a transcript exists for every card.
+  const rec = Object.prototype.hasOwnProperty.call(VIDEO_REGISTRY, v) ? VIDEO_REGISTRY[v] : null;
+  if (!rec || !(f === 'transcript' ? rec.card : rec.media)) return send(res, 404, { error: 'not_found' });
 
   const limit = await rateLimit(`video-file:${clientIP(req)}`, RATE.max, RATE.windowMs);
   if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);

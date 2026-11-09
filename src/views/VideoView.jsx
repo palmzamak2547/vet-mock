@@ -798,7 +798,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage-text)' }}>✓ ดูแล้ว</span>}
           </div>
           <div className="vmx-video-card-title">{video.topic}</div>
-          <div className="vmx-video-card-author">by {video.author || 'Unknown'}</div>
+          {video.author && <div className="vmx-video-card-author">โดย {video.author}</div>}
         </div>
       </button>
 
@@ -1404,7 +1404,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     {currentItem.title}
                   </div>
                   {currentItem.channel && (
-                    <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 1 }}>by {currentItem.channel}</div>
+                    <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 1 }}>โดย {currentItem.channel}</div>
                   )}
                 </div>
                 <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goNext} disabled={currentIdx < 0 || currentIdx >= playlistItems.length - 1} title="ถัดไป (→)" style={{ padding: '6px 12px' }}>ถัดไป →</button>

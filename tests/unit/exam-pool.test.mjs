@@ -28,7 +28,7 @@ import { SUBJECTS, semesterForSubject, yearForSubject, hiddenTopicIdsFor } from 
 import { scopeOfQuestion } from '../../src/lib/exam-scope.js';
 import { BLOCKED_QUESTIONS } from '../../src/data/question-delivery.generated.js';
 import { SEMESTER } from '../../src/data/semester.js';
-import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/current-scope.js';
 
 let nextId = 900_000;
 const q = (subject, extra = {}) => ({

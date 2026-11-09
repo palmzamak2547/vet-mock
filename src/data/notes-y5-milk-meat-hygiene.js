@@ -1300,7 +1300,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'หัวข้อ: **Meat Hygiene: Pest Control**',
-            'ผู้สอน: **รศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ** (ตามตารางสอน วันที่ 27 พ.ย.)',
+            'ผู้สอน: **รศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ** (ตามตารางสอน วันที่ 28 ต.ค.)',
             'Lecture objectives: principles of pest control · types of pest · how to control pests',
           ] },
         ],

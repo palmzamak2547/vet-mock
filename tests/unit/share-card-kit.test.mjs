@@ -14,6 +14,7 @@ import { academicYear, phaseLine } from '../../src/lib/share-card/phase-card.js'
 import { studyTime, subjectRows } from '../../src/lib/phase-wrapped.js';
 import { dailyTitle, dailyLine } from '../../src/lib/share-card/daily-card.js';
 import { cleanText, cardOptions } from '../../src/lib/share-card/ig-card.js';
+import { wrapLines } from '../../src/lib/canvas-wrap.js';
 
 const lum = (hex) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
@@ -298,6 +299,61 @@ test('a score short of the practice bar says by how much', async () => {
     assert.ok(!plain(reached.card).some((t) => t.startsWith('อีก')));
     const big = drawScoreCard({ pct: 100, correct: 99998, total: 99999, passPct: 60, mode: 'practice', subjectName: 'X', completedAt: Date.UTC(2026, 9, 13) }, {});
     assert.ok(plain(big.card).includes('ถูก 99,998 จาก 99,999 ข้อ'), plain(big.card).join(' | '));
+  } finally {
+    delete globalThis.document;
+  }
+});
+
+// A paragraph that ran out of lines ends in "…" and still fitted its box,
+// so the search kept the size that cut it and the card read as clean.
+test('a paragraph cut short is a layout problem, and fitCard steps down until nothing is cut', async () => {
+  globalThis.document = { createElement: fakeCanvas };
+  try {
+    const { createCard } = await import('../../src/lib/share-card/kit.js');
+    // Eight words of five: two lines of 888 px hold six of them at 108 and 96 px, all eight at 84.
+    const text = 'abcd '.repeat(8).trim();
+    const draw = (size, gap, dry) => {
+      const card = createCard('light', 1, STORY, { dry });
+      card.para(text, LIVE.left, LIVE.top + 20 * gap, LIVE.right - LIVE.left,
+        { weight: 700, size, family: FAMILY.serif }, { maxLines: 2, role: 'title' });
+      return card;
+    };
+    assert.ok(layoutProblems(draw(108, 1, true).boxes).some((p) => /cut short/.test(p)), 'a cut paragraph passed the check');
+    assert.deepEqual(layoutProblems(draw(84, 1, true).boxes), []);
+    const fit = fitCard({ sizes: [108, 96, 84, 72], draw });
+    assert.deepEqual(fit.problems, []);
+    assert.ok(fit.card.boxes.every((b) => b.size === 84), `set at ${fit.card.boxes[0].size} px`);
+    assert.ok(!fit.card.canvas.printed.some((s) => s.endsWith('…')), fit.card.canvas.printed.join(' / '));
+    // Cut at every size: the smallest, and the check says so.
+    const short = fitCard({ sizes: [108, 96], draw });
+    assert.ok(short.card.boxes.every((b) => b.size === 96), `set at ${short.card.boxes[0].size} px`);
+    assert.ok(short.problems.some((p) => /cut short/.test(p)), short.problems.join('; '));
+  } finally {
+    delete globalThis.document;
+  }
+});
+
+test('a VetWiki topic card sets a long title smaller instead of cutting it, and reports one that cannot fit', async () => {
+  // The card printed "การจัดการภาวะ / ช็อกจากการติด / เชื้อในกระแส…" at 108 px
+  // and called it clean, when a smaller step held the whole title.
+  globalThis.document = { createElement: fakeCanvas };
+  try {
+    const { drawTopicCard } = await import('../../src/lib/share-card/topic-card.js');
+    const data = { subjectName: 'COM III', chapter: { index: 3, count: 12 }, claims: 10, sources: 4, conflicts: 0, address: 'vetmock.com/wiki/com3/shock' };
+    const title = 'การจัดการภาวะช็อกจากการติดเชื้อในกระแสเลือดและภาวะอวัยวะล้มเหลวหลายระบบในสุนัขและแมว';
+    const { card, problems } = drawTopicCard({ ...data, title });
+    const lines = card.boxes.filter((b) => b.role === 'title');
+    assert.equal(lines.map((b) => b.text).join(''), title, lines.map((b) => b.text).join(' / '));
+    assert.deepEqual(problems, []);
+    // The largest step at which it takes three lines or fewer (the stand-in's glyph is half its size wide).
+    const steps = [108, 96, 84, 72, 64, 56, 48];
+    const holds = (size) => wrapLines((s) => [...s].length * size * 0.5, title, LIVE.right - LIVE.left).length <= 3;
+    assert.ok(!holds(108), 'the stand-in no longer cuts this title at 108 px');
+    assert.equal(lines[0].size, steps.find(holds));
+    // Too long for three lines at any step: set at the smallest, and the check names the cut.
+    const huge = drawTopicCard({ ...data, title: title.repeat(3) });
+    assert.ok(huge.card.boxes.filter((b) => b.role === 'title').every((b) => b.size === 48));
+    assert.ok(huge.problems.some((p) => /cut short/.test(p)), huge.problems.join('; '));
   } finally {
     delete globalThis.document;
   }

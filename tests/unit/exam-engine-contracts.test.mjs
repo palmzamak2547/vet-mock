@@ -119,7 +119,8 @@ test('the in-flight exam snapshot flushes on tab hide and has a write ceiling', 
   assert.match(APP, /const writeInflight = useCallback\(\(\) => \{/);
   const flush = between('const writeInflight = useCallback', 'const analytics = useMemo');
   assert.match(flush, /window\.addEventListener\('pagehide', onHide\);[\s\S]*document\.addEventListener\('visibilitychange', onHide\);/);
-  assert.match(flush, />= 3000\) \{ writeInflight\(\); return undefined; \}/, 'continuous typing must still commit every few seconds');
+  // A due write is not made inside the tap any more, but right after its paint.
+  assert.match(flush, />= 3000\) \{[\s\S]{0,160}requestAnimationFrame\(\(\) => \{ soon = setTimeout\(writeInflight, 0\); \}\)/, 'continuous typing must still commit every few seconds');
   assert.match(flush, /setTimeout\(writeInflight, 500\)/, 'the short debounce is still the common path');
   assert.match(flush, /inflightRef\.current = null; return undefined;/, 'leaving the exam must stop the hide handler re-writing a stale snapshot');
 });

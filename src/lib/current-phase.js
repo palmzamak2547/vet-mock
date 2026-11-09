@@ -190,13 +190,22 @@ function paperOrdinal(phase, term) {
   return (year * 2 + p.semester - 1) * 2 + (p.scope === 'final' ? 1 : 0);
 }
 
-// A pick the timetable has no window for is ahead when the paper it names
-// comes after the current one. Without an anchor, the order within the year.
+// A pick the timetable has no window for, or another school year's, is ahead
+// when the paper it names comes after the current one. Without an anchor, the
+// order within the year.
 function namesLaterPaper(saved, anchor, current) {
   const named = paperOrdinal(saved, anchor?.term);
   const now = paperOrdinal(current, SEMESTER?.id);
   if (named != null && now != null) return named > now;
   return phaseOrder(saved) > phaseOrder(current);
+}
+
+// Whether the timetable's window for the pick's id is the paper the pick names:
+// the pick was made in the timetable's school year, or cannot say (saved before
+// anchors existed). Last school year's ปลายภาค is '1-final' too.
+function namesTablesPaper(saved, anchor) {
+  const named = paperOrdinal(saved, anchor?.term);
+  return named == null || named === paperOrdinal(saved, SEMESTER?.id);
 }
 
 const NONE = 'none';
@@ -240,13 +249,16 @@ export function phaseState({ saved = null, anchor = null } = {}, year = null, no
   if (at < 0) return { ...base, saved: null, phase: null, filtered: false, reason: 'not-chosen' };
   if (saved === current) return { ...base, phase: saved, filtered: true, reason: 'timetable' };
   const own = papers.find((p) => p.id === saved);
-  // A pick this timetable has no window for names a later paper only when its
-  // anchor says so; one saved before anchors existed is last school year's.
-  const ahead = own ? own.end > now.getTime() : Boolean(anchor) && namesLaterPaper(saved, anchor, current);
+  // The table's window for that id is the pick's own paper unless the pick was
+  // made in another school year: last year's ปลายภาค, sat long ago, is not this
+  // year's. A pick this timetable has no window for, or another school year's,
+  // names a later paper only when its anchor says so; one saved before anchors
+  // existed is last school year's.
+  const ahead = own && namesTablesPaper(saved, anchor) ? own.end > now.getTime() : Boolean(anchor) && namesLaterPaper(saved, anchor, current);
   if (ahead || pickedBeside(anchor, year) === current) return { ...base, phase: saved, filtered: true, reason: 'student-choice' };
   return {
     ...base, saved: current, anchor: phaseAnchor(now), phase: current, filtered: true, reason: 'timetable',
-    advancedFrom: saved, movedBecause: own ? 'sat' : 'timetable',
+    advancedFrom: saved, movedBecause: own && own.end <= now.getTime() ? 'sat' : 'timetable',
   };
 }
 

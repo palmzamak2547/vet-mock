@@ -40,9 +40,23 @@ export const loadVideoRegistry = () => cached(lazy, 'registry', () => import('..
 export const loadVideoTopicIndex = () => cached(lazy, 'topics', () => import('../data/video-topic-index.generated.js').then((m) => m.VIDEO_TOPIC_INDEX));
 
 /** The stretches of video that teach a topic, surest first; [] when none. */
+/**
+ * One row per clip, as the topic's "คลิป N" counts them (the audit of 2 Nov: it
+ * said 1 and opened 3): the clip's surest stretch, with how many stretches it
+ * has and their seconds in all. The index lists the surest stretch first.
+ */
+export function clipRows(stretches) {
+  const rows = new Map();
+  for (const c of stretches) {
+    const row = rows.get(c.v);
+    if (row) { row.n += 1; row.sec += c.e - c.s; } else rows.set(c.v, { ...c, n: 1, sec: c.e - c.s });
+  }
+  return [...rows.values()];
+}
+
 export async function topicClips(topicId) {
   const [index, registry] = await Promise.all([loadVideoTopicIndex(), loadVideoRegistry()]);
-  return (index[topicId] || []).filter((c) => registry[c.v]).map((c) => ({ ...c, video: registry[c.v] }));
+  return clipRows((index[topicId] || []).filter((c) => registry[c.v])).map((c) => ({ ...c, video: registry[c.v] }));
 }
 
 /** The signed-in student's token, or null; the Supabase SDK loads only when a session is stored. */

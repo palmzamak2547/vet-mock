@@ -207,3 +207,20 @@ test('a retired question ID is never reassigned while history, notes, bookmarks 
     assert.equal(created.id, 60004);
   } finally { Math.random = random; }
 });
+
+test('a new question never takes an ID the account has used before, a deleted one included', () => {
+  const random = Math.random;
+  try {
+    Math.random = () => 0;
+    const data = { customQuestions: [], history: [], bookmarks: [], notes: {}, srCards: {} };
+    const [created] = appendCustomQuestions(data, [fixture()], [60000, '60001', 60002]);
+    assert.equal(created.id, 60003);
+  } finally { Math.random = random; }
+});
+
+test('the Question Manager import hands the allocator the IDs the account has used', () => {
+  const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  assert.ok(app.includes('changeUserData((data, sync) => ({ customQuestions: appendCustomQuestions(data, incoming, sync?.takenCustomQuestionIds()) }))'));
+  const hook = readFileSync(new URL('../../src/hooks/useUserDataSync.js', import.meta.url), 'utf8');
+  assert.ok(hook.includes("derive: (current, context) => typeof patch === 'function' ? patch(current, context) : patch"));
+});

@@ -1,7 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { Markdown, inline } from '../lib/markdown.jsx';
 import { IconArrowOut, IconCheck, IconCopy, IconRetry, IconSpeaker, IconStop, IconBook, IconShare, IconDownload } from './icons.jsx';
-import { IN_APP } from '../lib/env.js';
+import { IN_APP, openLink, sourceHref } from '../lib/env.js';
 import ShareMenu, { toast } from './ShareMenu.jsx';
 import { GENERAL_NOTE, shareText } from '../lib/share.js';
 import { speak } from '../lib/speech.js';
@@ -97,7 +97,7 @@ function Sources({ items, open, setOpen, highlight }) {
             const sp = speciesOf(s);
             return (
             <li key={s.n} id={`src-${s.n}`} className={`source k-${s.kind}${highlight === s.n ? ' is-hi' : ''}`} style={{ '--i': i }}>
-              <a href={s.url} target="_blank" rel="noopener noreferrer">
+              <a href={sourceHref(s)} target="_blank" rel="noopener noreferrer">
                 {sp ? (
                   // the animal the source is about, from VetMock's own engravings (scripts/specimens.mjs)
                   <span className="plate">
@@ -220,6 +220,7 @@ const fmtSize = (b) => (!b ? '' : b >= 1e6 ? `${(b / 1e6).toFixed(b >= 1e7 ? 0 :
 function FileRow({ f, i }) {
   const sp = speciesOf({ title: f.title, subject: f.subjectName });
   const meta = [f.kindLabel, f.subjectName, f.lecturer, f.pages ? `${f.pages} หน้า` : '', [f.format, fmtSize(f.bytes)].filter(Boolean).join(' ')].filter(Boolean);
+  const link = openLink(f);
   return (
     <li className={`file kf-${f.kind}`} style={{ '--i': i }}>
       {sp ? (
@@ -234,14 +235,14 @@ function FileRow({ f, i }) {
         </span>
       )}
       <div className="file-body">
-        <a className="file-title" href={f.open} target="_blank" rel="noopener noreferrer">{f.title}</a>
+        <a className="file-title" href={link.href} target="_blank" rel="noopener noreferrer">{f.title}</a>
         <span className="file-meta">{meta.join(', ')}</span>
         {f.snippet && (
           <p className="file-snip">{f.page > 1 ? <span className="file-page">หน้า {f.page}</span> : null}{f.snippet}</p>
         )}
         <div className="file-actions">
-          <a className="chip-btn" href={f.open} target="_blank" rel="noopener noreferrer">
-            <IconArrowOut size={15} /> {f.page > 1 ? `เปิดหน้า ${f.page}` : 'เปิด'}
+          <a className="chip-btn" href={link.href} target="_blank" rel="noopener noreferrer">
+            <IconArrowOut size={15} /> {link.label}
           </a>
           {/* in-app browsers do not save files; there the file opens and saves from its own viewer */}
           {!IN_APP && (

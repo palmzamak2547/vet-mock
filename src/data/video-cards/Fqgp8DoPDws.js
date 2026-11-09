@@ -70,7 +70,7 @@ export default {
  "chapters": [
   {
    "t": 704,
-   "title": "Male",
+   "title": "Male reproductive anatomy and function",
    "line": "breeding soundness examination ครอบคลุมสุขภาพทั่วไปและอวัยวะสืบพันธุ์ โดยตัวผู้ตรวจภายนอกเป็นหลัก และ penis ต่างกันเป็น vascular หรือ fibroelastic type",
    "slides": [
     {
@@ -93,7 +93,7 @@ export default {
   },
   {
    "t": 1140,
-   "title": "Clinical examination of the",
+   "title": "Clinical examination of the penis/prepuce",
    "line": "โรค penis และ prepuce พบน้อย มักเกิด hematoma เมื่อ vascular type บาดเจ็บ และ phenothiazine ทำให้ penile paralysis หรือ priapism",
    "slides": [
     {
@@ -143,7 +143,7 @@ export default {
   },
   {
    "t": 2760,
-   "title": "Clinical examination of",
+   "title": "Clinical examination of scrotum and testis",
    "line": "ประเมินการสร้างสเปิร์มด้วย total scrotal width และ DSO ส่วนความผิดปกติ ได้แก่ cryptorchidism ซึ่ง left อยู่ใน abdomen มากกว่า right",
    "slides": [
     {
@@ -158,7 +158,7 @@ export default {
   },
   {
    "t": 3120,
-   "title": "Epididymis and",
+   "title": "Epididymis and vas deferens",
    "line": "epididymis แบ่ง head body tail ทำ maturation ที่ head และ body เก็บสเปิร์มที่ tail ซึ่งใช้ทำ AI ได้",
    "slides": [
     {
@@ -180,7 +180,7 @@ export default {
   },
   {
    "t": 3480,
-   "title": "Clinical",
+   "title": "Clinical examination of accessory sex glands",
    "line": "ตรวจต่อมเสริมเมื่อมี recurrent infertility ผ่าน rectal palpation และ ultrasonography ม้าเป็น harem breeder และมี flehmen reaction",
    "slides": [
     {
@@ -195,7 +195,7 @@ export default {
   },
   {
    "t": 3900,
-   "title": "Normal stallion",
+   "title": "Normal stallion behaviors",
    "line": "ม้าปกติสนใจม้าตกไข่ทันที erect ภายใน 2 นาที และผสมสำเร็จตั้งแต่ครั้งแรก รวมเวลา 2 ถึง 5 นาที",
    "slides": [
     {
@@ -271,20 +271,16 @@ export default {
    "t": 2220
   },
   {
-   "term": "equigenitali",
+   "term": "equigenitalis",
    "t": 2220
   },
   {
-   "term": "endometriti",
+   "term": "endometritis",
    "t": 2220
   },
   {
    "term": "estrus",
    "t": 3900
-  },
-  {
-   "term": "endometritis",
-   "t": 2220
   },
   {
    "term": "biopsy",

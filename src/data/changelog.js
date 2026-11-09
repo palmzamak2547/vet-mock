@@ -6,11 +6,18 @@
 // จึงไม่ชนกัน) ไฟล์นี้เก็บประวัติถึง release ที่ออกก่อนระบบไฟล์ และ SCOPE_LABELS
 // ทั้งหมดรวมกันที่ changelog-all.js
 //
+// เลข version (ตั้งแต่ 9 พ.ย. 2026): เอาเลขว่างถัดไปตอนเปิด PR (release:new เช็ค
+// origin/main กับ PR ที่เปิดอยู่ทุกอัน) แล้วใช้เลขนั้นไปจน merge ถ้าชนกัน (add/add
+// conflict ที่ไฟล์นั้น) ให้เอาเลขใหม่: รัน release:new อีกรอบแล้วย้าย entry ไปไฟล์ใหม่
+// ไม่มีคิว และไม่เปลี่ยนเลขตอน merge
+//
 // แต่ละ entry คือ release หนึ่ง, เรียงใหม่สุดอยู่ index 0
 //
-// ใช้ `version` เป็น key เก็บ "เห็นแล้ว" ใน localStorage
-//   ('vmx-last-seen-changelog' = '5.1.0')
-// → ถ้า version ใหม่ขึ้น → banner โผล่ใหม่
+// "เห็นแล้ว" เก็บใน localStorage เป็นชุดของ `version`
+//   ('vmx-seen-changelog' = ['5.193.2', '5.193.1', ...], src/lib/changelog-seen.js)
+// → release ไหนที่เครื่องนี้ยังไม่เห็น banner ก็ประกาศ แม้จะ merge หลัง release
+//   ที่เลขสูงกว่า จึงไม่ต้องรอคิวเอาเลขตอน merge อีก ('vmx-last-seen-changelog'
+//   key เดิม อ่านแค่ตอนย้ายมาใช้ชุด: version ที่ไม่เกินค่านั้นนับว่าเห็นแล้ว)
 //
 // changes[].kind:
 //   'feature'  เขียว — ฟีเจอร์ใหม่

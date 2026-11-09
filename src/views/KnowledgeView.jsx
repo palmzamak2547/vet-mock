@@ -18,6 +18,7 @@
 // review metadata, related topics.
 // ============================================================
 
+import { thaiError } from '../lib/errors.js';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import FeatureTip from '../components/FeatureTip.jsx';
 import ReadingEffects from '../components/ReadingEffects.jsx';
@@ -1001,8 +1002,12 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
 
   // Deep-link: honour #section-id on mount so a cited section opens in place.
   useEffect(() => {
-    const h = (window.location.hash || '').replace(/^#/, '');
+    let h = (window.location.hash || '').replace(/^#/, '');
     if (!h) return;
+    // location.hash comes back percent-encoded, and over half of the section
+    // ids hold Thai: an in-app link (a search hit's heading) pushes the
+    // address without the browser's own fragment scroll, so look it up decoded.
+    try { h = decodeURIComponent(h); } catch { /* a malformed escape stays as typed */ }
     const el = document.getElementById(h);
     if (el) el.scrollIntoView({ block: 'start', behavior: 'auto' });
   }, [knowledge?.id]);
@@ -1309,7 +1314,8 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
           id: current.id,
           status: 'error',
           data: null,
-          error: error?.message || 'โหลดบทความไม่สำเร็จ',
+          // Never the browser's own English ("Importing a module script failed.").
+          error: thaiError(error, 'โหลดบทความไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง'),
         });
       });
     return () => { active = false; };

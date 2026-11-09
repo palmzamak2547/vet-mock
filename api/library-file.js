@@ -23,9 +23,10 @@ import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js'
 import { chulaGate } from './_lib/chula-gate.js';
 import { verifyOpenTicket } from './_lib/open-ticket.js';
 
-// Per address, before the catalogue RPC. Generous on purpose: a restricted
-// open asks twice (anonymous, then with the session), the shelf mints on
-// hover, and a whole class can share one campus address. The same budget as
+// Per address, before the catalogue RPC. Generous on purpose: a guest's
+// restricted open asks twice (anonymous, then with the session), a refused
+// token is retried anonymously, the shelf mints on hover, and a whole class
+// can share one campus address. The same budget as
 // exam-result's per-address limit, which faces the same classroom.
 export const MINT_RATE = { max: 600, windowMs: 10 * 60 * 1000 };
 

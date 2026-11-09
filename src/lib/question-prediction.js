@@ -98,28 +98,10 @@ export function predictionMetadataIssues(question) {
   return issues;
 }
 
-export function isCurrentScopeQuestion(question, {
-  curriculumVersion,
-  // The ONE phase control the app has (ปี → เทอม 1 กลางภาค / ปลายภาค).
-  // Null means the whole semester.
-  selectedPhase = null,
-} = {}) {
-  if (predictionMetadataIssues(question).length > 0) return false;
-  if (question?.answerStatus !== 'verified') return false;
-  if (!curriculumVersion || question?.curriculumVersion !== curriculumVersion) return false;
-
-  const wantedScope = examScopeForPhase(selectedPhase);
-  if (!wantedScope) return true;
-  const phaseSemester = String(selectedPhase).split('-', 1)[0];
-  const curriculumSemester = String(curriculumVersion).split('-', 2)[1];
-  if (phaseSemester !== curriculumSemester) return false;
-  return questionInScope(question?.examScope, wantedScope);
-}
-
-export function isHighPredictionQuestion(question, options = {}) {
-  return question?.predictionTier === 'high'
-    && isCurrentScopeQuestion(question, options);
-}
+// Which questions the current-scope and predicted sets serve is
+// lib/current-scope.js: it reads the paper from the topic through
+// lib/exam-scope.js. This module imports neither: regen:delivery loads it,
+// and runs before regen:exam-papers rebuilds the table that resolver reads.
 
 // Severities the app can explain to the student: the card renders a
 // documented conflict as a major/minor chip with the flag's note under it.

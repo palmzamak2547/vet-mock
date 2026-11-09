@@ -112,7 +112,8 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
   }, [videoId, hasCopy, carded]);
   useEffect(() => {
     if (tab !== 'transcript' || transcript.status !== 'idle') return;
-    if (!hasCopy) { setTranscript({ status: 'none' }); return; }
+    // Every card's transcript is kept, with or without our copy of the video.
+    if (!carded) { setTranscript({ status: 'none' }); return; }
     // Setting "loading" runs this effect again, so the answer is matched to its
     // clip by a ref; a cleanup here would throw every answer away.
     const id = videoId;
@@ -122,7 +123,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
       if (transcriptFor.current !== id) return;
       setTranscript(r.status === 'ok' ? { status: 'ok', lines: (r.data.lines || []).map(([t, text]) => ({ t, text })) } : r.code === 404 ? { status: 'none' } : r);
     });
-  }, [tab, videoId, hasCopy, transcript.status]);
+  }, [tab, videoId, carded, transcript.status]);
 
   // Watched marks grow only while the video plays forward; the place the
   // student stopped is kept every five seconds. Playing on into a stretch
@@ -229,7 +230,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
                 key={c.t}
                 className={`vmx-clip-seg ${i === current ? 'is-current' : ''}`}
                 style={{ flexGrow: Math.max(1, end - c.t) }}
-                title={`${clock(c.t)} ${c.title}`}
+                title={`${clock(c.t)} ${c.title || c.line}`}
                 onClick={() => onSeek(c.t)}
               >
                 <span className="vmx-clip-seen" style={{ transform: `scaleX(${seenShare(seen, c.t, end)})` }} />
@@ -298,11 +299,12 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
               return (
                 <li key={c.t}>
                   <TimeRow t={c.t} onSeek={onSeek} active={i === current} className="vmx-clip-chapter">
-                    <strong className="vmx-clip-ctitle">{c.title}</strong>
+                    {/* A stretch with no slide heading has no title: its line says what it teaches. */}
+                    {c.title && <strong className="vmx-clip-ctitle">{c.title}</strong>}
                     {c.line && <span className="vmx-clip-cline">{c.line}</span>}
                     {done && <span className="vmx-clip-tag is-done">ดูแล้ว</span>}
                   </TimeRow>
-                  {pic && <img className="vmx-clip-slide" src={pic.url} alt={`สไลด์ช่วง ${c.title}`} loading="lazy" decoding="async" width="320" height="180" />}
+                  {pic && <img className="vmx-clip-slide" src={pic.url} alt={`สไลด์ช่วง ${c.title || clock(c.t)}`} loading="lazy" decoding="async" width="320" height="180" />}
                 </li>
               );
             })}
@@ -336,7 +338,7 @@ export default function ClipStudy({ videoId, currentTime = 0, seek, duration: pl
 
         {tab === 'transcript' && (
           transcript.status === 'loading' || transcript.status === 'idle' ? <p className="vmx-clip-note" aria-busy="true">กำลังโหลดคำบรรยาย</p>
-            : transcript.status === 'login' ? <p className="vmx-clip-note">เข้าสู่ระบบเพื่ออ่านคำบรรยายและเปิดสไลด์ของคลิปนี้</p>
+            : transcript.status === 'login' ? <p className="vmx-clip-note">{hasCopy ? 'เข้าสู่ระบบเพื่ออ่านคำบรรยายและเปิดสไลด์ของคลิปนี้' : 'เข้าสู่ระบบเพื่ออ่านคำบรรยายของคลิปนี้'}</p>
               : transcript.status === 'offline' ? <p className="vmx-clip-note">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วเปิดแท็บนี้อีกครั้ง</p>
                 : transcript.status === 'none' ? <p className="vmx-clip-note">คลิปนี้ยังไม่มีคำบรรยาย</p>
                   : transcript.status !== 'ok' ? (

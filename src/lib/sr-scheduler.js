@@ -6,7 +6,7 @@
 // sm2.js itself is never edited here; it is wrapped, because its arithmetic
 // is pinned by tests/unit/sm2-honesty.test.mjs.
 
-import { updateCard, previewInterval as sm2PreviewInterval, getDueCards as sm2GetDueCards, getCardStats as sm2GetCardStats } from '../hooks/sm2.js';
+import { updateCard, previewInterval as sm2PreviewInterval, getDueCards as sm2GetDueCards, getCardStats as sm2GetCardStats, isDueTomorrow } from '../hooks/sm2.js';
 import { FSRS_ALGORITHM, nextFsrsState, previewFsrsIntervals, intervalFor } from './fsrs.js';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -127,14 +127,13 @@ export function getDueCards(cards, limit = 0, scheduler = readSchedulerPreferenc
 export function getCardStats(cards, scheduler = readSchedulerPreference()) {
   if (scheduler !== 'fsrs') return sm2GetCardStats(cards);
   const now = Date.now();
-  const tomorrow = now + MS_PER_DAY;
   const values = Object.values(cards);
   const hasMet = (c) => c.totalReviews > 0 || c.autoPromoted;
   const intervalOf = (c) => c.fsrs?.interval ?? c.interval ?? 0;
   return {
     total: values.length,
     due: values.filter((c) => dueAt(c, 'fsrs') <= now && hasMet(c)).length,
-    dueTomorrow: values.filter((c) => { const d = dueAt(c, 'fsrs'); return d > now && d <= tomorrow && hasMet(c); }).length,
+    dueTomorrow: values.filter((c) => isDueTomorrow(dueAt(c, 'fsrs'), now) && hasMet(c)).length,
     new: values.filter((c) => c.totalReviews === 0 && !c.autoPromoted).length,
     mastered: values.filter((c) => c.totalReviews >= 5 && intervalOf(c) >= 21).length,
   };

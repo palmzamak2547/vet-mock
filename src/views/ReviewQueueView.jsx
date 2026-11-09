@@ -309,6 +309,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
   const [stemFull, setStemFull] = useState(false);
   const [pastReviews, setPastReviews] = useState(null); // null = not loaded
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [reviewsFailed, setReviewsFailed] = useState(false);
   const [voteMode, setVoteMode] = useState(null); // null | 'approve' | 'nudge' | 'reject'
   const [feedback, setFeedback] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -326,8 +327,9 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
     let alive = true;
     setReviewsLoading(true);
     fetchSubmissionReviews(submission.id)
-      .then((rs) => { if (alive) setPastReviews(rs || []); })
-      .catch(() => { if (alive) setPastReviews([]); })
+      .then((rs) => { if (alive) { setReviewsFailed(false); setPastReviews(rs || []); } })
+      // A failed read is not "nobody has voted": say so, and let the card ask again.
+      .catch(() => { if (alive) { setReviewsFailed(true); setPastReviews([]); } })
       .finally(() => { if (alive) setReviewsLoading(false); });
     return () => { alive = false; };
   }, [expanded, submission.id, pastReviews]);
@@ -549,6 +551,11 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                 {reviewsLoading ? (
                   <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 0' }}>
                     กำลังโหลด…
+                  </div>
+                ) : reviewsFailed ? (
+                  <div role="alert" style={{ fontSize: 14, color: 'var(--clr-ink)', padding: '8px 12px', background: 'var(--clr-bg)', borderRadius: 8, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+                    <span style={{ flex: '1 1 14em' }}>โหลดรีวิวก่อนหน้าไม่สำเร็จ</span>
+                    <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setReviewsFailed(false); setPastReviews(null); }}>ลองอีกครั้ง</button>
                   </div>
                 ) : !pastReviews || pastReviews.length === 0 ? (
                   <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-bg)', borderRadius: 8 }}>

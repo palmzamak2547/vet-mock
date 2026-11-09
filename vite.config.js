@@ -184,6 +184,7 @@ export default defineConfig({
           // (importBank) then read neither (lint:bank-chunks checks each bank).
           if (id.includes('questions-vca-reviewed')) return 'data-q-vca-reviewed'
           if (id.includes('questions-vca-2569')) return 'data-q-vca-2569'
+          if (id.includes('questions-vca-super')) return 'data-q-vca-super'
           if (id.includes('questions-vca')) return 'data-q-vca'
           if (id.includes('questions-mahahon')) return 'data-q-mahahon'
           if (id.includes('questions-termpaper')) return 'data-q-termpaper'
@@ -201,6 +202,8 @@ export default defineConfig({
           if (id.includes('questions-y5-vision-batch')) return 'data-q-y5-vision'
           if (id.includes('questions-y5-swine-final-recall')) return 'data-q-y5-swine-final-recall'
           if (id.includes('questions-y5-swine-final-marked')) return 'data-q-y5-swine-final-marked'
+          if (id.includes('questions-y5-milk-meat-final-marked')) return 'data-q-y5-milk-meat-final-marked'
+          if (id.includes('questions-y5-epid-final-marked')) return 'data-q-y5-epid-final-marked'
           if (id.includes('questions-y5-equine-final-recall')) return 'data-q-y5-equine-final-recall'
           if (id.includes('questions-y5-one-health-final-recall')) return 'data-q-y5-one-health-final-recall'
           if (id.includes('questions-y5-zoonoses-final-recall')) return 'data-q-y5-zoonoses-final-recall'

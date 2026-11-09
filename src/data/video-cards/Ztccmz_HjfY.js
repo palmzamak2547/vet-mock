@@ -111,7 +111,7 @@ export default {
   },
   {
    "t": 300,
-   "title": "Vision",
+   "title": "Vision o",
    "line": "ตาม้าอยู่ด้านข้าง มองกว้าง 350 องศา แต่ depth perception และ accommodation แย่",
    "slides": [
     {
@@ -137,7 +137,7 @@ export default {
   },
   {
    "t": 960,
-   "title": "Common eyelid disorder",
+   "title": "Common eyelid disorder o",
    "line": "แผลฉีกเปลือกตาต้อง repair โดย minimal debridement คงหน้าที่และป้องกันการทำร้ายตัวเอง",
    "slides": [
     {
@@ -156,7 +156,7 @@ export default {
   },
   {
    "t": 1140,
-   "title": "— common conjunctival disorders —",
+   "title": "— common conjunctival disorders — o",
    "line": "Conjunctivitis รักษาด้วยการล้างตาและ topical antibiotic q 6-12 ชม. ระวัง melting cornea",
    "slides": [
     {
@@ -186,7 +186,7 @@ export default {
   },
   {
    "t": 1860,
-   "title": "Cornea",
+   "title": "Cornea o",
    "line": "คอร์เนียม้าบางและไวมาก ต้องย้อม fluorescein และ rose bengal ทุกครั้งที่บาดเจ็บ",
    "slides": [
     {
@@ -216,7 +216,7 @@ export default {
   },
   {
    "t": 2280,
-   "title": "Ulcerative",
+   "title": "Ulcerative keratomycosis o",
    "line": "Fungus ชอบ descemet's membrane ทำให้ ulcerative keratomycosis รักษาด้วย antifungal",
    "slides": [
     {
@@ -227,7 +227,7 @@ export default {
   },
   {
    "t": 2520,
-   "title": "Infectious keratitis",
+   "title": "Infectious keratitis o",
    "line": "Infectious keratitis ทำให้เกิด melting cornea ต้องให้ anti-collagenase และรักษา uveitis ร่วม",
    "slides": [
     {
@@ -238,7 +238,7 @@ export default {
   },
   {
    "t": 2700,
-   "title": "Equine immune-mediated keratitis",
+   "title": "Equine immune-mediated keratitis o",
    "line": "IMMK เป็น non-ulcerative non-infectious เกิดจาก T cell สะสม รักษาด้วย steroid และ immunosuppressive",
    "slides": [
     {
@@ -257,7 +257,7 @@ export default {
   },
   {
    "t": 3060,
-   "title": "Treatment -Cornea",
+   "title": "Treatment -Cornea o",
    "line": "Sub-palpebral lavage ช่วยหยอดตาได้ต่อเนื่อง ระวัง footplate migrate และ corneal ulcer",
    "slides": [
     {
@@ -276,7 +276,7 @@ export default {
   },
   {
    "t": 3240,
-   "title": "— squamous cell carcinoma —",
+   "title": "— squamous cell carcinoma — o",
    "line": "SCC เป็นเนื้องอก adnexa ที่พบบ่อยสุด สัมพันธ์กับ UV และ pigment รักษาหลายวิธีร่วมกัน",
    "slides": [
     {
@@ -307,7 +307,7 @@ export default {
   },
   {
    "t": 3420,
-   "title": "Uvea",
+   "title": "Uvea o",
    "line": "Uvea มี corpora nigra บังแสง และ blood aqueous barrier อ่อนแอ ทำให้เกิด uveitis บ่อย",
    "slides": [
     {
@@ -322,7 +322,7 @@ export default {
   },
   {
    "t": 4260,
-   "title": "o",
+   "title": "",
    "line": "Uveitis มี 3 syndrome คือ classic, insidious, posterior และอาจทำให้ตาบอดถาวร",
    "slides": [
     {
@@ -333,7 +333,7 @@ export default {
   },
   {
    "t": 4440,
-   "title": "—Equine recurrent uveitis (ERU)",
+   "title": "—Equine recurrent uveitis (ERU) o",
    "line": "ERU รักษา aggressive and prompt ด้วย steroid, NSAID, atropine และ systemic antibiotic",
    "slides": [
     {
@@ -380,7 +380,7 @@ export default {
   },
   {
    "t": 4560,
-   "title": "Cataract treatment",
+   "title": "Cataract treatment o",
    "line": "ต้อกระจกรักษาด้วย phacoemulsification และใส่ IOL ต้องประเมิน retinal function ก่อนผ่าตัด",
    "slides": [
     {
@@ -391,7 +391,7 @@ export default {
   },
   {
    "t": 5160,
-   "title": "Glaucoma",
+   "title": "Glaucoma o",
    "line": "Glaucoma วัด IOP ด้วย tonometry รักษาด้วย topical hypotensive และ laser cyclophotocoagulation",
    "slides": [
     {

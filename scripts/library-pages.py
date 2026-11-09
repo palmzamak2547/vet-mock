@@ -20,11 +20,17 @@ What is stored, and what is not:
 - Text is NFC, whitespace collapsed, letter-spaced headings ("C a n i n e")
   joined, and stray spaces before Thai marks removed. Nothing is reworded.
 - A page whose Thai came out mis-encoded (Latin-1 or private-use characters
-  inside Thai, the "ชืÉอ" pattern) is not stored: a search cannot match it and
+  inside Thai, the "ชืÉอ" pattern, or glyph ids printed as Latin-1 runs with
+  no Thai left, "ªµ¤®¤µ¥") is not stored: a search cannot match it and
   a snippet of it is noise. Its document is marked 'partial' or 'garbled'.
 - A document showing a Chula student ID or a Thai national ID on any page is
   held entirely ('pii_held'): no page of it is stored, so no search can surface
-  it. Which documents those are is a decision for a person, not this script.
+  it, and the database serves no text of a held document even if pages were
+  stored before it was held (migration 20261107140012). Which documents those
+  are is a decision for a person, not this script.
+- So is a document with a page of ROSTER_IDS or more student-ID-like numbers,
+  of any faculty and contiguous or grouped ("653 xxxxx 31"): a roster, an
+  attendance sheet, a score sheet, a group report listing its members.
 """
 import concurrent.futures as cf
 import json
@@ -47,11 +53,30 @@ THAI = '฀-๿'
 THAI_MARKS = 'ัิ-ฺ็-๎'
 GARBLE = re.compile(f'[{THAI}][À-ÿ-]|[À-ÿ-][{THAI}]')
 CONTROL = re.compile('[\x01-\x08\x0e-\x1b]')
+# A Thai font with no Unicode map can also print its glyph ids as Latin-1, with no Thai left on the page for GARBLE
+# to sit beside: "\x87ªµ¤®¤µ¥" for ความหมาย (the VETKU answer keys, 9 Nov 2026). Such ids run together: three or
+# more Latin-1 supplement characters, or two or more with a C1 control. An English page's é sits between ASCII
+# letters and a cp1252 quote decoded as C1 stands alone, so neither is a run. The same rule as
+# thai_font_repair.latin1_score, kept here so `load` and the selftest need no PyMuPDF.
+LATIN1_RUN = re.compile('[\x80-\x9f\xa1-\xff]{2,}')
+
+
+def latin1_score(body):
+    return sum(len(r) for r in LATIN1_RUN.findall(body) if len(r) >= 3 or re.search('[\x80-\x9f]', r))
 STUDENT_ID = re.compile(r'(?<!\d)[4-7]\d{7}31(?!\d)')
 # First digit 1-8: an ISBN-13 starts with 9 and must not hold a textbook.
 # Standalone only: a 13-digit run inside a URL, DOI or file name (seen as
 # Facebook story ids and ResearchGate figure paths) is not an ID card.
 NATIONAL_ID = re.compile(r'(?<![\w/=&%.#:@-])[1-8][- ]?\d{4}[- ]?\d{5}[- ]?\d{2}[- ]?\d(?![\w/=&%.@-])')
+# STUDENT_ID wants one unbroken run, and the com4 midterm score sheet (2 Nov
+# 2026) printed every ID in groups, "653 xxxxx 31": 149 IDs, status ok, searchable.
+# This counts student-ID-like numbers per page instead: entry year, programme
+# digit, running number, faculty (any, not only 31), grouped or not. One on a
+# slide is a citation; ROSTER_IDS on a page is a list of students. The string is
+# the one in scripts/lib/library-pii.mjs, which the audit runs in SQL and a unit
+# test compares; its calibration notes are there.
+ROSTER_ID = re.compile(r'(?<![0-9.,])[4-7][0-9][ -]?[3-8][ -]?[0-9]{5}[ -]?[2-5][0-9](?![0-9])')
+ROSTER_IDS = 3
 
 
 def arg(name, default=None):
@@ -118,9 +143,17 @@ def classify(pages):
         # does not become a copy of the IDs.
         ctx = [f"{kind}: {re.sub(r'[0-9]', '#', raw[max(0, m.start() - 40):m.end() + 40])}" for m, kind in hits[:3]]
         return 'pii_held', {}, {'id_matches': len(hits), 'context': ctx}
+    # Counted on the text that would be stored, where a line break inside an ID
+    # has become a space: what must not be searchable is what gets checked.
+    bodies = [clean(p) for p in pages]
+    roster = {i: n for i, n in ((i, len(ROSTER_ID.findall(b))) for i, b in enumerate(bodies, 1)) if n >= ROSTER_IDS}
+    if roster:
+        first = bodies[min(roster) - 1]
+        ctx = [f"roster: {re.sub(r'[0-9]', '#', first[max(0, m.start() - 40):m.end() + 40])}"
+               for m in list(ROSTER_ID.finditer(first))[:3]]
+        return 'pii_held', {}, {'id_matches': sum(roster.values()), 'roster_pages': sorted(roster), 'context': ctx}
     kept, garbled, empty = {}, 0, 0
-    for i, p in enumerate(pages, 1):
-        body = clean(p)
+    for i, body in enumerate(bodies, 1):
         if len(body) < 20:
             empty += 1
             continue
@@ -128,7 +161,7 @@ def classify(pages):
         # characters around ก (two Milk & Meat handouts, 1 Nov 2026). A few
         # stray controls are a bullet glyph; 2% of the page is broken text.
         ctrl = len(CONTROL.findall(body))
-        if len(GARBLE.findall(body)) >= 3 or (ctrl >= 3 and ctrl >= 0.02 * len(body)):
+        if len(GARBLE.findall(body)) >= 3 or (ctrl >= 3 and ctrl >= 0.02 * len(body)) or latin1_score(body) > 5:
             garbled += 1
             continue
         kept[i] = body
@@ -145,16 +178,17 @@ def page_text(doc, page, cache):
     """A page's text. When the plain extraction is broken text because an embedded Thai font lost its Unicode map,
     thai_font_repair decodes each glyph by its outline against the system Thai fonts, and the repair is kept only if
     it reads clean. Without fontTools, Pillow or those fonts the plain text stands and classify() drops the page."""
-    text = page.get_text()
     try:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import thai_font_repair as tfr
     except ImportError:
-        return text, False
-    if not tfr.broken(text):
+        return page.get_text(), False
+    tfr.tag_fonts(doc, cache)  # before the first page's text: MuPDF reads a font's name when it loads it
+    text = page.get_text()
+    if not tfr.needs_repair(page, text):
         return text, False
     fixed = tfr.repair_page(doc, page, cache)
-    return (fixed, True) if fixed and not tfr.broken(fixed) else (text, False)
+    return (fixed, True) if fixed and not tfr.garbled(fixed) else (text, False)
 
 
 def extract_one(row):
@@ -263,8 +297,28 @@ def selftest():
     assert classify(['short'])[0] == 'no_text'
     assert classify(['2 *\x04 \x17\x15$ 1 \x14#$\x1a\x19\x1a\x1b\x06 \x03 + /ก\x1a0" \x04\x1bG \x19\x1a\x1b (embryogenesis)'])[0] == 'garbled'
     assert classify(['\x01 ' + 'ข้อความภาษาไทยที่อ่านได้ยาวพอสมควร ' * 8 + '\x01 \x01'])[0] == 'ok'
+    # Glyph ids printed as Latin-1 with no Thai beside them (VETKU 80 key, page 300), and genuine Latin text.
+    assert classify(['116 \x84. Gastrotomy Gastrotomy \x87ªµ¤®¤µ¥ an insicion through the stomach wall'])[0] == 'garbled'
+    assert classify(['Keyword: \x84\x91®¤µ¥ and the question text in English'])[0] == 'garbled'
+    assert classify(['Les cellules créées à Genève, “quoted” • bullet, 37 °C, naïve, Müller, '
+                     'https://www.agri.ubu.ac.th/~suralee/repro-manage.pdf'])[0] == 'ok'
+    assert classify(['Smith et al. \x93Canine distemper\x94 \x95 page 12 \x96 14, ©2020 Señor'])[0] == 'ok'
     assert classify(['https://m.facebook.com/story.php?story_fbid=1234567890123&id=1 ข้อความยาวพอสมควรเลย'])[0] == 'ok'
     assert classify(['บัตรประชาชน 1 2345 67890 12 3 ของผู้ป่วย'])[0] == 'pii_held'
+    # The com4 shape: seat number, ID in groups, score. STUDENT_ID never saw it.
+    # Running numbers from 99901 keep these fixtures off any real student's ID.
+    sheet = 'คะแนนสอบ Midterm ' + ' '.join(f'{i} 653 {99900 + i} 31 {40 + i}' for i in range(1, 25))
+    status, kept, notes = classify(['ประกาศ ข้อความนำยาวพอสมควร', sheet])
+    assert (status, kept, notes['roster_pages'], notes['id_matches']) == ('pii_held', {}, [2], 24)
+    assert not re.search(r'[0-9]', ' '.join(notes['context']))
+    # Members of a gen-ed group from other faculties, contiguous IDs, one per line.
+    assert classify(['สมาชิกกลุ่ม\n' + '\n'.join(f'สมาชิกคนที่ {i} 664{99900 + i}{21 + i}' for i in range(1, 5))])[0] == 'pii_held'
+    assert classify(['ผู้จัดทำ\n653\n99019\n23 นายหนึ่ง\n6539902023 นายสอง\n6639903034 นายสาม'])[0] == 'pii_held'
+    # Below the count, or not a student number, stays searchable: two authors on
+    # a report, a sire catalogue's registration numbers, decimals.
+    assert classify(['ผู้จัดทำ นายหนึ่ง 6539900123 นายสอง 6539900223 รายงานเรื่องประชากรศาสตร์'])[0] == 'ok'
+    assert classify(['พ่อพันธุ์โคนม ' + ' '.join(f'500{i:05d}49 {i}.25' for i in range(1, 9))])[0] == 'ok'
+    assert classify(['ค่าที่วัดได้ ' + ' '.join(f'0.65399001{i:02d}' for i in range(20, 26))])[0] == 'ok'
     big = {'id': '00000000-0000-0000-0000-000000000000', 'status': 'ok', 'page_count': 3,
            'pages': {str(i): 'ก' * 150_000 for i in range(1, 4)}}
     sts = doc_statements(big)

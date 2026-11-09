@@ -235,6 +235,17 @@ export const SOURCE_DOCS = [
     match: /มท\. อีควรัย/,
     editions: [{ id: '16p', pages: 16 }],
   },
+  // The 2569 lameness decks, linked from MCV on 2 Nov 2569 and shelved in the library the same night.
+  {
+    slug: 'equine-lameness-2026', subject: 'equine-medicine', title: "Equine lameness: an introduction (2026)",
+    match: /Equine lameness: an introduction \(2026\)/,
+    editions: [{ id: '85p', pages: 85 }],
+  },
+  {
+    slug: 'equine-diag-analgesia-2026', subject: 'equine-medicine', title: "Diagnostic analgesia in horses (2026)",
+    match: /Diagnostic analgesia in horses \(2026\)/,
+    editions: [{ id: '43p', pages: 43 }],
+  },
   {
     slug: 'equine-poa-practice-v84', subject: 'equine-medicine', title: "บันทึกคาบฝึก POA ของ Vet 84",
     match: /บันทึกคาบฝึก POA ของ Vet 84/,
@@ -773,7 +784,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'mm-meat-micro-2569', subject: 'milk-meat-hygiene', title: "Microbiology of meat",
-    match: /Microbiology of meat(?! deck 2024| ที่ตรวจคะแนนแล้ว)/i,
+    match: /Microbiology of meat(?! deck 2024| ที่ตรวจคะแนนแล้ว| ชุดปี 2567| ที่ติดดาว)/i,
     editions: [{ id: '66p', pages: 66 }],
   },
   {
@@ -783,7 +794,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'mm-meat-quality-2569', subject: 'milk-meat-hygiene', title: "Meat quality and wholesomeness",
-    match: /Meat quality and wholesomeness(?! deck 2024)/i,
+    match: /Meat quality and wholesomeness(?! deck 2024| ชุดปี 2567)/i,
     editions: [{ id: '36p', pages: 36 }],
   },
   {
@@ -793,27 +804,27 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'mm-slaughter-2024', subject: 'milk-meat-hygiene', title: "Slaughterhouse: Production Facilities & Sanitary Practices (deck 2024)",
-    match: /Slaughterhouse: Production Facilities & Sanitary Practices deck 2024|MeatHyg_E2SlaugtHygDes_67_1 deck 2024/i,
+    match: /Slaughterhouse: Production Facilities & Sanitary Practices (?:deck 2024|ชุดปี 2567)|MeatHyg_E2SlaugtHygDes_67_1 deck 2024/i,
     editions: [{ id: '52p', pages: 52 }],
   },
   {
     slug: 'mm-ante-post-mortem-2024', subject: 'milk-meat-hygiene', title: "Antemortem & Postmortem Inspection (deck 2024)",
-    match: /Antemortem & Postmortem Inspection deck 2024|MeatHyg_E3AmPmInspect_67_1 deck 2024/i,
+    match: /Antemortem & Postmortem Inspection (?:deck 2024|ชุดปี 2567)|MeatHyg_E3AmPmInspect_67_1 deck 2024/i,
     editions: [{ id: '75p', pages: 75 }],
   },
   {
     slug: 'mm-cutting-grading-2024', subject: 'milk-meat-hygiene', title: "Postmortem Changes & Factors, Meat Cutting & Grading (deck 2024)",
-    match: /Postmortem Changes & Factors, Meat Cutting & Grading deck 2024|MeatHyg_E4PmChngCuttGrad_67_1 deck 2024/i,
+    match: /Postmortem Changes & Factors, Meat Cutting & Grading (?:deck 2024|ชุดปี 2567)|MeatHyg_E4PmChngCuttGrad_67_1 deck 2024/i,
     editions: [{ id: '93p', pages: 93 }],
   },
   {
     slug: 'mm-pest-control-2024', subject: 'milk-meat-hygiene', title: "Meat Hygiene: Pest Control (deck 2024)",
-    match: /Meat Hygiene: Pest Control deck 2024|MH_2\.Pest_Control_\(Color\) deck 2024/i,
+    match: /Meat Hygiene: Pest Control (?:deck 2024|ชุดปี 2567)|MH_2\.Pest_Control_\(Color\) deck 2024/i,
     editions: [{ id: '46p', pages: 46 }],
   },
   {
     slug: 'mm-egg-micro-2024', subject: 'milk-meat-hygiene', title: "Microbiology of the Avian Egg (deck 2024)",
-    match: /Microbiology of the Avian Egg deck 2024/i,
+    match: /Microbiology of the Avian Egg (?:deck 2024|ชุดปี 2567)/i,
     editions: [{ id: '33p', pages: 33 }],
   },
   {
@@ -855,6 +866,68 @@ export const SOURCE_DOCS = [
     slug: 'mm-meat-final-summary-vet85', subject: 'milk-meat-hygiene', title: "ซอยจุ๊ ver. สังคายนา (สรุปปลายภาค Meat hygiene ของ Vet 85)",
     match: /สรุปปลายภาค Meat(?: hygiene)? ของ Vet 85/i,
     editions: [{ id: '20p', pages: 20 }],
+  },
+  // The marked 2567 copies in the Vet 84 pack that the Milk & Meat marks questions cite in `verified`;
+  // page counts read from the PDFs on 7 Nov 2569.
+  {
+    slug: 'mm-milk-cleaning-2024', subject: 'milk-meat-hygiene', title: "Cleaning and disinfectants in milk collecting center and milk processing (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Cleaning and disinfectants in milk collecting center and milk processing ชุดปี 2567/i, // 1 - _Cleaning_and_disinfectants_in_milk_collecting_center_and_milk_processing_SJ_2024.pdf
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'mm-meat-intro-2024', subject: 'milk-meat-hygiene', title: "Introduction to Meat Hygiene (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Introduction to Meat Hygiene ชุดปี 2567/i, // 2 - MeatHyg_E1.1Intro_SP_67_1.pdf
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  {
+    slug: 'mm-meat-seafood-2024', subject: 'milk-meat-hygiene', title: "Seafood: Quality Changes & Spoilage, Seafood Toxins (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Seafood: Quality Changes & Spoilage, Seafood Toxins ชุดปี 2567/i, // 3 - MeatHyg_E1.2SeaFood_SP_67_1.pdf
+    editions: [{ id: '64p', pages: 64 }],
+  },
+  {
+    slug: 'mm-meat-micro-2024', subject: 'milk-meat-hygiene', title: "Microbiology of meat (deck 2567, Vet 84 marked copy)",
+    match: /สไลด์ Microbiology of meat ชุดปี 2567/i, // 4 - Microbiology_of_Meat___Meat_Hygiene_2567.pdf
+    editions: [{ id: '65p', pages: 65 }],
+  },
+  {
+    slug: 'mm-meat-storage-2024', subject: 'milk-meat-hygiene', title: "Storage of meat & meat products (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Storage of meat & meat products ชุดปี 2567/i, // 5 - Revised 2023_storage of meat.pdf
+    editions: [{ id: '49p', pages: 49 }],
+  },
+  {
+    slug: 'mm-meat-quality-2024', subject: 'milk-meat-hygiene', title: "Meat quality and wholesomeness (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Meat quality and Wholesomeness ชุดปี 2567/i, // 6 - Revised 2023_Meat quality Wholesomeness.pdf
+    editions: [{ id: '36p', pages: 36 }],
+  },
+  {
+    slug: 'mm-meat-molecular-2024', subject: 'milk-meat-hygiene', title: "Application of molecular biology in meat science (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Application of molecular biology in meat science ชุดปี 2567/i, // 7 - Revised 2023_MoleinMeatSci.pdf
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  {
+    slug: 'mm-milk-industry-standard-2024', subject: 'milk-meat-hygiene', title: "Standard of milk industry and milk products (deck 2024, Vet 84 marked copy)",
+    match: /สไลด์ Standard of milk industry and milk products ชุดปี 2567/i, // 11 - _Standard_of_milk_industry_and_milk_products_SJ_2024.pdf (milk midterm folder)
+    editions: [{ id: '94p', pages: 94 }],
+  },
+  {
+    slug: 'mm-storage-quality-molecular-starred-vet84', subject: 'milk-meat-hygiene', title: "สรุปบทเรียน storage, meat quality และ molecular ที่ติดดาวในชุดไฟล์ Vet 84",
+    match: /สรุปบทเรียน storage, meat quality และ molecular ที่ติดดาวในชุดไฟล์ Vet 84/i, // compilation sha c1f9a310
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'mm-meat-micro-starred-vet84', subject: 'milk-meat-hygiene', title: "สรุปแบบ mind map เรื่อง Microbiology of meat ที่ติดดาวในชุดไฟล์ Vet 84",
+    match: /สรุปแบบ mind map เรื่อง Microbiology of meat ที่ติดดาวในชุดไฟล์ Vet 84/i, // compilation sha 98165bd1
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'mm-meat-final-mindmaps-vet84', subject: 'milk-meat-hygiene', title: "mind map ปลายภาค Meat ในชุดไฟล์ Vet 84",
+    match: /mind map ปลายภาค Meat ในชุดไฟล์ Vet 84/i, // compilation sha 9fa01075
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'mm-milk-sj-summary-vet84', subject: 'milk-meat-hygiene', title: "สรุป mind map เรื่องนมของชุดไฟล์ Vet 84",
+    match: /สรุป mind map เรื่องนมของชุดไฟล์ Vet 84/i, // compilation sha 4f1d37e8 (milk midterm folder)
+    editions: [{ id: '7p', pages: 7 }],
   },
   // Avian Medicine FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
   {
@@ -1036,27 +1109,27 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'epid-control-2024', subject: 'epidemiology', title: "Control, Prevention and Eradication (deck 2024)",
-    match: /(?<!\d)10 - Control_Prevention_Eradication_Epi2024/i,
+    match: /(?<!\d)10 - Control_Prevention_Eradication_Epi2024|สไลด์ Control, prevention and eradication ชุดปี 2567/i,
     editions: [{ id: '35p', pages: 35 }],
   },
   {
     slug: 'epid-applied-stats-2024', subject: 'epidemiology', title: "Applied Statistics in Epidemiology (deck 2024)",
-    match: /(?<!\d)11 - Applied_Statistics_in_Epidemiology_2024/i,
+    match: /(?<!\d)11 - Applied_Statistics_in_Epidemiology_2024|สไลด์ Applied Statistics in Epidemiology ชุดปี 2567/i,
     editions: [{ id: '72p', pages: 72 }],
   },
   {
     slug: 'epid-lsd-action-plan-2024', subject: 'epidemiology', title: "The integrated action plan for surveillance, prevention and control of Lumpy skin disease in Thailand (deck 2024)",
-    match: /(?<!\d)16 - แผนปฏิบัติการ-lumpy-skin/i,
+    match: /(?<!\d)16 - แผนปฏิบัติการ-lumpy-skin|สไลด์แผนปฏิบัติการการเฝ้าระวัง ป้องกันและควบคุมโรคลัมปี สกินเชิงบูรณาการ ชุดปี 2567/i,
     editions: [{ id: '40p', pages: 40 }],
   },
   {
     slug: 'epid-intro-practice-2023', subject: 'epidemiology', title: "Introduction for practice: Veterinary Epidemiology (deck 2023)",
-    match: /(?<!\d)19 - Introduction for practice 2566/i,
+    match: /(?<!\d)19 - Introduction for practice 2566|สไลด์ Introduction for practice: Veterinary Epidemiology ชุดปี 2566/i,
     editions: [{ id: '53p', pages: 53 }],
   },
   {
     slug: 'epid-intro-2024', subject: 'epidemiology', title: "Veterinary epidemiology: introduction (deck 2024)",
-    match: /(?<!\d)1_vet_epidem_intro_050824/i,
+    match: /(?<!\d)1_vet_epidem_intro_050824|สไลด์ Introduction to veterinary epidemiology ชุดปี 2567/i,
     editions: [{ id: '23p', pages: 23 }],
   },
   {
@@ -1066,7 +1139,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'epid-outbreak-investigation-2024', subject: 'epidemiology', title: "Outbreak investigation (deck 2024)",
-    match: /(?<!\d)6 - Outbreak_investigation_SJ/i,
+    match: /(?<!\d)6 - Outbreak_investigation_SJ|สไลด์ Outbreak investigation ชุดปี 2567/i,
     editions: [{ id: '65p', pages: 65 }],
   },
   {
@@ -1112,8 +1185,130 @@ export const SOURCE_DOCS = [
   // Veterinary Epidemiology: the Vet 85 final summary a batch B sighting cites.
   {
     slug: 'epid-final-summary-vet85', subject: 'epidemiology', title: "ลำบากวิทยา (สรุปและบันทึกหลังสอบปลายภาค Epidemiology ของ Vet 85)",
-    match: /สรุปและบันทึกหลังสอบปลายภาคของ Vet 85/i,
+    match: /สรุปและบันทึกหลังสอบปลายภาคของ Vet 85|สรุปวิชา Epidemiology ฉบับพิมพ์ในชุดไฟล์ของ Vet 85/i,
     editions: [{ id: '12p', pages: 12 }],
+  },
+  // Veterinary Epidemiology: the 2567 decks of the Vet 84 pack under their "ชุดปี 2567" wording, the 2569 decks
+  // cited by their own title and the marked compilations; page counts read from the files on 9 Nov 2569.
+  {
+    slug: 'epid-basic-concept-2024', subject: 'epidemiology', title: "Basic Concepts in Epidemiology (deck 2024)",
+    match: /(?<!\d)2_vet_epidem_basic_concept_050824|สไลด์ Basic Concepts in Epidemiology ชุดปี 2567/i, // sunsun84/2_vet_epidem_basic_concept_050824.pdf
+    editions: [{ id: '31p', pages: 31 }],
+  },
+  {
+    slug: 'epid-transmission-2024', subject: 'epidemiology', title: "Concepts of Diseases and their transmission in Populations (deck 2024)",
+    match: /(?<!\d)3_vet_epidem_concept_of_dis_trans_050824|สไลด์ Concepts of Diseases and their transmission in Populations ชุดปี 2567/i, // sunsun84/3_vet_epidem_concept_of_dis_trans_050824.pdf
+    editions: [{ id: '46p', pages: 46 }],
+  },
+  {
+    slug: 'epid-causation-2024', subject: 'epidemiology', title: "Association vs Causation (deck 2024)",
+    match: /(?<!\d)4_vet_epidem_causation_050824|สไลด์ Association vs Causation ชุดปี 2567/i, // sunsun84/4_vet_epidem_causation_050824.pdf
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'epid-dx-screening-2024', subject: 'epidemiology', title: "Screening and Diagnostic tests (deck 2024)",
+    match: /(?<!\d)7_vet_epidem_Dx_and_Screening_070824|สไลด์ Screening and Diagnostic tests ชุดปี 2567/i, // sunsun84/7_vet_epidem_Dx_and_Screening_070824.pdf
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-surveillance-2024', subject: 'epidemiology', title: "Animal disease surveillance and monitoring (deck 2024)",
+    match: /(?<!\d)9 - Animal_disease_surveillance|สไลด์ Animal disease surveillance ชุดปี 2567|หน้าบันทึกเขียนมือท้ายไฟล์สไลด์ Animal disease surveillance ชุดปี 2567/i, // sunsun84/9 - Animal_disease_surveillance.pdf (pp51-52 are the handwritten notes)
+    editions: [{ id: '52p', pages: 52 }],
+  },
+  {
+    slug: 'epid-gov-policy-2024', subject: 'epidemiology', title: "นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ (deck 2024)",
+    match: /(?<!\d)12 - นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ deck 2024|สไลด์นโยบายภาครัฐและการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ ชุดปี 2567/i, // sunsun84/12 - นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ .pdf
+    editions: [{ id: '43p', pages: 43 }],
+  },
+  {
+    slug: 'epid-posters-2024', subject: 'epidemiology', title: "Posters: หลักระบาดวิทยาสู่การควบคุมโรค (deck 2024)",
+    match: /(?<!\d)12\.5 - Posters|โปสเตอร์หลักระบาดวิทยาสู่การควบคุมโรคกาฬโรคแอฟริกาในม้า ชุดปี 2567/i, // sunsun84/12.5 - Posters.pdf
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  {
+    slug: 'epid-ppp-2024', subject: 'epidemiology', title: "Public Private Partnership PPP (deck 2024)",
+    match: /(?<!\d)13 - Public Private Partnership PPP|สไลด์ Public Private Partnership PPP ชุดปี 2567/i, // sunsun84/13 - Public Private Partnership PPP.pdf
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'epid-ahs-action-plan-2024', subject: 'epidemiology', title: "แผนปฏิบัติการกำจัดโรคกาฬโรคแอฟริกาในม้า AHSCU67 (deck 2024)",
+    match: /(?<!\d)14 - AHSCU67|สไลด์แผนปฏิบัติการกำจัดโรคกาฬโรคแอฟริกาในม้า ชุดปี 2567/i, // sunsun84/14 - AHSCU67.pdf
+    editions: [{ id: '31p', pages: 31 }],
+  },
+  {
+    slug: 'epid-fmd-strategy-2024', subject: 'epidemiology', title: "นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย (ยุทธศาสตร์ FMD, deck 2024)",
+    match: /(?<!\d)15 - ยุทธศาสตร์ FMD240909|สไลด์นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย \(ไฟล์ยุทธศาสตร์ FMD\) ชุดปี 2567/i, // sunsun84/15 - ยุทธศาสตร์ FMD240909.pdf
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'epid-applied-stat-2-2024', subject: 'epidemiology', title: "Applied Statistics ตอนที่ 2, model building in regression (deck 2024)",
+    match: /(?<!\d)18 - applied_stat_2|สไลด์ Applied Statistics ตอนที่ 2 \(applied_stat_2\) ชุดปี 2567/i, // sunsun84/18 - applied_stat_2.pdf
+    editions: [{ id: '62p', pages: 62 }],
+  },
+  {
+    slug: 'epid-fmd-2569', subject: 'epidemiology', title: "นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย",
+    match: /(?<!สไลด์)นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย(?! \(ไฟล์ยุทธศาสตร์ FMD\))/i, // epid/decks2569/นโยบายการกำจัดโรคปากและเท้าเปื่อยของประเทศไทย.txt
+    editions: [{ id: '44p', pages: 44 }],
+  },
+  {
+    slug: 'epid-anthrax-2569', subject: 'epidemiology', title: "โรคแอนแทรกซ์ (Anthrax) — แผนเผชิญเหตุ",
+    match: /โรคแอนแทรกซ์ \(Anthrax\) — แผนเผชิญเหตุ/i, // library copy, 28 pages (the .txt export shows 27 page markers)
+    editions: [{ id: '28p', pages: 28 }],
+  },
+  {
+    slug: 'epid-intro-2569', subject: 'epidemiology', title: "Introduction to Epidemiology 2569 (NC)",
+    match: /Introduction to Epidemiology 2569 \(NC\)/i, // 1_vet epidem intro 150526.pdf on Palm's Drive (Y.5 Term1 Mid, Epidemiology); the library has no copy
+    editions: [{ id: '26p', pages: 26 }],
+  },
+  {
+    slug: 'epid-poster-control-2569', subject: 'epidemiology', title: "หลักระบาดวิทยาสู่การควบคุมโรค — กาฬโรคแอฟริกาในม้า (โปสเตอร์ 2569)",
+    match: /(?<!โปสเตอร์)หลักระบาดวิทยาสู่การควบคุมโรค — กาฬโรคแอฟริกาในม้า/i, // epid/decks2569/หลักระบาดวิทยาสู่การควบคุมโรค — กาฬโรคแอฟริกาในม้า.txt
+    editions: [{ id: '1p', pages: 1 }],
+  },
+  {
+    slug: 'epid-poster-prevention-2569', subject: 'epidemiology', title: "หลักระบาดวิทยาสู่นโยบายการป้องกันโรค (โปสเตอร์ 2569)",
+    match: /หลักระบาดวิทยาสู่นโยบายการป้องกันโรค/i, // epid/decks2569/หลักระบาดวิทยาสู่นโยบายการป้องกันโรค.txt
+    editions: [{ id: '1p', pages: 1 }],
+  },
+  {
+    slug: 'epid-all-mindmaps-vet84', subject: 'epidemiology', title: "EPIDEMIOLOGY all, Vet 83 mind maps with Vet 84 stars (Vet 84 folder)",
+    match: /แผนผังสรุป \(mind map\) ของ Vet 83 ที่ Vet 84 เติมดาวแดง \(ไฟล์ EPIDEMIOLOGY all|ดาวแดงที่ Vet 84 เพิ่มบนแผนผังความคิดของ Vet 83 ในชุดไฟล์ EPIDEMIOLOGY all/i, // Vet 84 folder compilation, EPIDEMIOLOGY all (sha 6a98ad93; its file name is aliased in file-aliases.json)
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'epid-mid-summary-vet83', subject: 'epidemiology', title: "epidem mid, Vet 83 midterm summary (Vet 84 folder)",
+    match: /แผนผังความคิด Surveillance & Monitoring ในชุดสรุปกลางภาคของ Vet 83|สรุปกลางภาคชุดของ Vet 83 \(ไฟล์ compilation epidem mid\)/i, // sunsun84/compilation - -- epidem mid.pdf
+    editions: [{ id: '19p', pages: 19 }],
+  },
+  {
+    slug: 'epid-outbreak-summary-sj-vet84', subject: 'epidemiology', title: "สรุปเรื่องการสอบสวนการระบาด, compilation SJ (Vet 84 folder)",
+    match: /สรุปเรื่องการสอบสวนการระบาด \(ไฟล์ compilation SJ\)/i, // sunsun84/compilation - SJ.pdf
+    editions: [{ id: '2p', pages: 2 }],
+  },
+  {
+    slug: 'vca-super-exotic', subject: 'vca', title: "Super สรุป exotic และสัตว์ป่า, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป exotic และสัตว์ป่า \(@Fukfangfluffy_channel\)/, // external notes PDF, 9 pages
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'vca-super-equine', subject: 'vca', title: "Super สรุป ม้า, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป ม้า \(@Fukfangfluffy_channel\)/, // external notes PDF, 18 pages
+    editions: [{ id: '18p', pages: 18 }],
+  },
+  {
+    slug: 'vca-super-dogcat', subject: 'vca', title: "Super สรุป หมาแมว, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป หมาแมว \(@Fukfangfluffy_channel\)/, // external notes PDF, 55 pages
+    editions: [{ id: '55p', pages: 55 }],
+  },
+  {
+    slug: 'vca-super-swine', subject: 'vca', title: "Super สรุป หมู, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป หมู \(@Fukfangfluffy_channel\)/, // external notes PDF, 18 pages
+    editions: [{ id: '18p', pages: 18 }],
+  },
+  {
+    slug: 'vca-super-aquatic', subject: 'vca', title: "Super สรุป สัตว์น้ำ, VCA past questions clipped from the CUVET compilations (@Fukfangfluffy_channel)",
+    match: /ชุด Super สรุป สัตว์น้ำ \(@Fukfangfluffy_channel\)/, // external notes PDF, 11 pages
+    editions: [{ id: '11p', pages: 11 }],
   },
 ];
 

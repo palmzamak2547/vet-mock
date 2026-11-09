@@ -16,6 +16,7 @@
 // term's goes in as one more key; no code changes.
 // ============================================================
 import { paperContent, timetableTerm } from '../lib/current-phase.js';
+import { importFresh } from '../lib/chunk-error.js';
 
 /** The wrap-ups, per paper: term, then year, then phase (lib/current-phase.js), then subject. */
 export const WRAPUPS = {
@@ -108,6 +109,8 @@ export function wrapUpStillAhead(subjectId, papers = [], endMsOf = () => Infinit
 export async function loadWrapUp(subject, year, phase, now = new Date()) {
   const hit = wrapUpFor(subject, year, phase, now);
   if (!hit) return null;
-  const mod = await hit.load();
+  // importFresh: a retry after a failed download fetches the file again
+  // (Chromium keeps a failed import() failed for the life of the page).
+  const mod = await importFresh(hit.load);
   return mod.WRAPUP ? { ...mod.WRAPUP, source: { term: hit.term, own: hit.own } } : null;
 }

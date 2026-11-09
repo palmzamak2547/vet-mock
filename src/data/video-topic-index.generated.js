@@ -30,11 +30,43 @@ export const VIDEO_TOPIC_INDEX = {
   {
    "v": "pj_zkis2ziU",
    "s": 480,
-   "e": 1320,
+   "e": 1500,
    "conf": "high"
   }
  ],
+ "oh-vet-role": [
+  {
+   "v": "R4k7-CbupPc",
+   "s": 0,
+   "e": 1860,
+   "conf": "high"
+  },
+  {
+   "v": "pj_zkis2ziU",
+   "s": 1500,
+   "e": 2280,
+   "conf": "medium"
+  },
+  {
+   "v": "R4k7-CbupPc",
+   "s": 2400,
+   "e": 2820,
+   "conf": "medium"
+  }
+ ],
  "meat-microbiology": [
+  {
+   "v": "BnQScOdmIJc",
+   "s": 3840,
+   "e": 7500,
+   "conf": "high"
+  },
+  {
+   "v": "BnQScOdmIJc",
+   "s": 60,
+   "e": 2700,
+   "conf": "high"
+  },
   {
    "v": "WX7vrDP9MjA",
    "s": 240,
@@ -46,6 +78,24 @@ export const VIDEO_TOPIC_INDEX = {
    "s": 4440,
    "e": 7140,
    "conf": "medium"
+  },
+  {
+   "v": "_nfuMkRDaKM",
+   "s": 0,
+   "e": 2220,
+   "conf": "medium"
+  },
+  {
+   "v": "_nfuMkRDaKM",
+   "s": 2760,
+   "e": 3780,
+   "conf": "medium"
+  },
+  {
+   "v": "BnQScOdmIJc",
+   "s": 3180,
+   "e": 3480,
+   "conf": "medium"
   }
  ],
  "meat-molecular": [
@@ -56,11 +106,37 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "avian-mycosis": [
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 0,
+   "e": 2940,
+   "conf": "high"
+  },
+  {
+   "v": "VGXvQVrud_A",
+   "s": 120,
+   "e": 3060,
+   "conf": "high"
+  },
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 3000,
+   "e": 3653,
+   "conf": "high"
+  }
+ ],
  "eqrepro-male": [
   {
    "v": "Fqgp8DoPDws",
-   "s": 2700,
-   "e": 3600,
+   "s": 1860,
+   "e": 3840,
+   "conf": "high"
+  },
+  {
+   "v": "Fqgp8DoPDws",
+   "s": 720,
+   "e": 1080,
    "conf": "high"
   }
  ],
@@ -72,11 +148,141 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "equine-infectious": [
+  {
+   "v": "14B7TUfov00",
+   "s": 3180,
+   "e": 4920,
+   "conf": "high"
+  },
+  {
+   "v": "14B7TUfov00",
+   "s": 7260,
+   "e": 8880,
+   "conf": "high"
+  },
+  {
+   "v": "14B7TUfov00",
+   "s": 0,
+   "e": 2820,
+   "conf": "medium"
+  }
+ ],
+ "fiqc-haccp": [
+  {
+   "v": "UDJxcdzGkMU",
+   "s": 1440,
+   "e": 3660,
+   "conf": "high"
+  }
+ ],
+ "fiqc-poultry-export": [
+  {
+   "v": "UDJxcdzGkMU",
+   "s": 10860,
+   "e": 11940,
+   "conf": "high"
+  },
+  {
+   "v": "UDJxcdzGkMU",
+   "s": 9420,
+   "e": 9780,
+   "conf": "high"
+  }
+ ],
+ "meat-hygiene-intro": [
+  {
+   "v": "_nfuMkRDaKM",
+   "s": 3780,
+   "e": 4860,
+   "conf": "medium"
+  }
+ ],
+ "swine-resp-viral": [
+  {
+   "v": "dautD1MVHEg",
+   "s": 420,
+   "e": 840,
+   "conf": "high"
+  }
+ ],
+ "swine-repro": [
+  {
+   "v": "aepa8Zi_QhM",
+   "s": 2280,
+   "e": 5071,
+   "conf": "high"
+  },
+  {
+   "v": "aepa8Zi_QhM",
+   "s": 600,
+   "e": 1680,
+   "conf": "medium"
+  }
+ ],
+ "swine-ileitis-bacti": [
+  {
+   "v": "-Y30vybBkEI",
+   "s": 2460,
+   "e": 3600,
+   "conf": "high"
+  },
+  {
+   "v": "-Y30vybBkEI",
+   "s": 540,
+   "e": 1500,
+   "conf": "high"
+  },
+  {
+   "v": "-Y30vybBkEI",
+   "s": 4020,
+   "e": 6000,
+   "conf": "medium"
+  }
+ ],
+ "equine-surgery-wound": [
+  {
+   "v": "HGXTKbKbqPA",
+   "s": 5820,
+   "e": 8760,
+   "conf": "high"
+  }
+ ],
+ "oh-risk-analysis": [
+  {
+   "v": "hLl7taXYRWQ",
+   "s": 0,
+   "e": 4440,
+   "conf": "high"
+  }
+ ],
+ "aqua-shrimp-diseases": [
+  {
+   "v": "PvMzY6UNM8M",
+   "s": 4020,
+   "e": 6960,
+   "conf": "high"
+  },
+  {
+   "v": "PvMzY6UNM8M",
+   "s": 1500,
+   "e": 3240,
+   "conf": "high"
+  }
+ ],
+ "zoo-mycoses": [
+  {
+   "v": "Q90_Y5fAX4I",
+   "s": 420,
+   "e": 2880,
+   "conf": "high"
+  }
+ ],
  "eqrepro-endometritis": [
   {
    "v": "0gTn7Up9Vj0",
    "s": 300,
-   "e": 4429,
+   "e": 4320,
    "conf": "high"
   }
  ],
@@ -98,6 +304,28 @@ export const VIDEO_TOPIC_INDEX = {
    "s": 300,
    "e": 1020,
    "conf": "high"
+  }
+ ],
+ "aqua-fish-diseases": [
+  {
+   "v": "J0_PVwAL884",
+   "s": 8880,
+   "e": 10966,
+   "conf": "high"
+  }
+ ],
+ "epidem-economics": [
+  {
+   "v": "vP8uTsXKjNo",
+   "s": 0,
+   "e": 960,
+   "conf": "medium"
+  },
+  {
+   "v": "vP8uTsXKjNo",
+   "s": 12360,
+   "e": 12976,
+   "conf": "medium"
   }
  ],
  "epidem-dx-screening": [
@@ -136,9 +364,41 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   },
   {
+   "v": "YlS2efVw0OQ",
+   "s": 5040,
+   "e": 6600,
+   "conf": "high"
+  },
+  {
+   "v": "YlS2efVw0OQ",
+   "s": 240,
+   "e": 1680,
+   "conf": "high"
+  },
+  {
+   "v": "YlS2efVw0OQ",
+   "s": 2460,
+   "e": 3780,
+   "conf": "high"
+  },
+  {
    "v": "130fSmEeitU",
    "s": 6120,
    "e": 6600,
+   "conf": "high"
+  }
+ ],
+ "equine-parasites": [
+  {
+   "v": "IJaulz_PkS8",
+   "s": 2940,
+   "e": 4740,
+   "conf": "high"
+  },
+  {
+   "v": "IJaulz_PkS8",
+   "s": 1500,
+   "e": 2460,
    "conf": "high"
   }
  ],
@@ -181,6 +441,432 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "BnfVPW0S_lw",
    "s": 0,
    "e": 720,
+   "conf": "high"
+  }
+ ],
+ "eqrepro-stallion-infect": [
+  {
+   "v": "zFsNom4JMC8",
+   "s": 4800,
+   "e": 7320,
+   "conf": "high"
+  }
+ ],
+ "equine-gi": [
+  {
+   "v": "ha7c8qpdsA4",
+   "s": 1020,
+   "e": 1980,
+   "conf": "high"
+  }
+ ],
+ "fiqc-feed-qc": [
+  {
+   "v": "WQX71m1GSds",
+   "s": 360,
+   "e": 1860,
+   "conf": "high"
+  }
+ ],
+ "milk-raw-storage": [
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 240,
+   "e": 2220,
+   "conf": "high"
+  }
+ ],
+ "milk-products-storage": [
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 2640,
+   "e": 3660,
+   "conf": "medium"
+  }
+ ],
+ "milk-quality-determination": [
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 5460,
+   "e": 7560,
+   "conf": "high"
+  },
+  {
+   "v": "vMFY6A8LaIU",
+   "s": 8460,
+   "e": 9960,
+   "conf": "high"
+  }
+ ],
+ "avian-intro": [
+  {
+   "v": "F1jwpqQCGBM",
+   "s": 2700,
+   "e": 3780,
+   "conf": "medium"
+  }
+ ],
+ "avian-ai": [
+  {
+   "v": "F1jwpqQCGBM",
+   "s": 5760,
+   "e": 8100,
+   "conf": "high"
+  }
+ ],
+ "epidem-outbreak-investigation": [
+  {
+   "v": "Jx489N1psMo",
+   "s": 3300,
+   "e": 4260,
+   "conf": "high"
+  },
+  {
+   "v": "Jx489N1psMo",
+   "s": 1980,
+   "e": 2880,
+   "conf": "high"
+  },
+  {
+   "v": "Jx489N1psMo",
+   "s": 0,
+   "e": 1620,
+   "conf": "medium"
+  }
+ ],
+ "epidem-surveillance": [
+  {
+   "v": "ZKnNkti4nDo",
+   "s": 0,
+   "e": 2640,
+   "conf": "high"
+  },
+  {
+   "v": "ZKnNkti4nDo",
+   "s": 2940,
+   "e": 3300,
+   "conf": "high"
+  },
+  {
+   "v": "ZKnNkti4nDo",
+   "s": 3780,
+   "e": 5760,
+   "conf": "medium"
+  }
+ ],
+ "swine-gi-viral": [
+  {
+   "v": "2I7DU_E8vho",
+   "s": 1320,
+   "e": 2400,
+   "conf": "high"
+  }
+ ],
+ "zoo-rabies": [
+  {
+   "v": "DhtSsPLtFTo",
+   "s": 7620,
+   "e": 8340,
+   "conf": "medium"
+  }
+ ],
+ "eqrepro-exam-mare": [
+  {
+   "v": "FBNU52oH1z8",
+   "s": 2280,
+   "e": 3420,
+   "conf": "high"
+  },
+  {
+   "v": "FBNU52oH1z8",
+   "s": 480,
+   "e": 540,
+   "conf": "medium"
+  }
+ ],
+ "equine-dentistry": [
+  {
+   "v": "jOm4PZtiC8o",
+   "s": 4020,
+   "e": 8160,
+   "conf": "high"
+  },
+  {
+   "v": "jOm4PZtiC8o",
+   "s": 0,
+   "e": 3720,
+   "conf": "high"
+  },
+  {
+   "v": "jOm4PZtiC8o",
+   "s": 8700,
+   "e": 9300,
+   "conf": "high"
+  }
+ ],
+ "milk-overview": [
+  {
+   "v": "cHediceYO_Y",
+   "s": 0,
+   "e": 2940,
+   "conf": "high"
+  }
+ ],
+ "milk-mastitis": [
+  {
+   "v": "cHediceYO_Y",
+   "s": 4140,
+   "e": 6780,
+   "conf": "medium"
+  }
+ ],
+ "epidem-sample-size": [
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 420,
+   "e": 4740,
+   "conf": "high"
+  },
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 7920,
+   "e": 9300,
+   "conf": "high"
+  },
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 6900,
+   "e": 7860,
+   "conf": "high"
+  },
+  {
+   "v": "7wqRrVgvUo4",
+   "s": 6060,
+   "e": 6780,
+   "conf": "high"
+  }
+ ],
+ "zoo-vbz": [
+  {
+   "v": "u_cH2UtCIAg",
+   "s": 2580,
+   "e": 3300,
+   "conf": "high"
+  }
+ ],
+ "epidem-basic-concepts": [
+  {
+   "v": "uGAmgxPrb2Y",
+   "s": 1020,
+   "e": 1500,
+   "conf": "high"
+  }
+ ],
+ "epidem-disease-frequency": [
+  {
+   "v": "uGAmgxPrb2Y",
+   "s": 3360,
+   "e": 6360,
+   "conf": "high"
+  },
+  {
+   "v": "uGAmgxPrb2Y",
+   "s": 6720,
+   "e": 7800,
+   "conf": "high"
+  }
+ ],
+ "oh-communication": [
+  {
+   "v": "R4k7-CbupPc",
+   "s": 2820,
+   "e": 3120,
+   "conf": "medium"
+  }
+ ],
+ "epidem-disease-transmission": [
+  {
+   "v": "iKHtSE7oKic",
+   "s": 720,
+   "e": 3420,
+   "conf": "high"
+  }
+ ],
+ "neuro-exam": [
+  {
+   "v": "S6uo2I2gfXQ",
+   "s": 2160,
+   "e": 3720,
+   "conf": "high"
+  }
+ ],
+ "triage": [
+  {
+   "v": "azotEvqwcZo",
+   "s": 660,
+   "e": 1680,
+   "conf": "medium"
+  }
+ ],
+ "er-anes": [
+  {
+   "v": "azotEvqwcZo",
+   "s": 4260,
+   "e": 5340,
+   "conf": "high"
+  },
+  {
+   "v": "azotEvqwcZo",
+   "s": 7080,
+   "e": 7680,
+   "conf": "high"
+  }
+ ],
+ "repro-ultrasound": [
+  {
+   "v": "zPgMJzPumXk",
+   "s": 2460,
+   "e": 5340,
+   "conf": "high"
+  },
+  {
+   "v": "zPgMJzPumXk",
+   "s": 960,
+   "e": 1680,
+   "conf": "medium"
+  }
+ ],
+ "acute-abdomen": [
+  {
+   "v": "agw6OuRWy5A",
+   "s": 4740,
+   "e": 5700,
+   "conf": "high"
+  }
+ ],
+ "derm-allergic": [
+  {
+   "v": "SWIXruJ9XNs",
+   "s": 240,
+   "e": 4080,
+   "conf": "high"
+  },
+  {
+   "v": "SWIXruJ9XNs",
+   "s": 5400,
+   "e": 7202,
+   "conf": "high"
+  }
+ ],
+ "derm-nutrition": [
+  {
+   "v": "SWIXruJ9XNs",
+   "s": 4320,
+   "e": 5400,
+   "conf": "high"
+  }
+ ],
+ "quality-assurance": [
+  {
+   "v": "ZRvrSjTlEgc",
+   "s": 2340,
+   "e": 3120,
+   "conf": "high"
+  }
+ ],
+ "gonadectomy-risk": [
+  {
+   "v": "JSD9HlA4PRA",
+   "s": 240,
+   "e": 5400,
+   "conf": "medium"
+  },
+  {
+   "v": "JSD9HlA4PRA",
+   "s": 5820,
+   "e": 10343,
+   "conf": "medium"
+  },
+  {
+   "v": "zq5assxVF74",
+   "s": 240,
+   "e": 540,
+   "conf": "medium"
+  }
+ ],
+ "sporo-crypto": [
+  {
+   "v": "XLna_IGlI7I",
+   "s": 0,
+   "e": 3660,
+   "conf": "high"
+  }
+ ],
+ "surgical-neutering": [
+  {
+   "v": "zq5assxVF74",
+   "s": 540,
+   "e": 3660,
+   "conf": "high"
+  },
+  {
+   "v": "zq5assxVF74",
+   "s": 5340,
+   "e": 7860,
+   "conf": "high"
+  }
+ ],
+ "mahahon-surgical": [
+  {
+   "v": "zq5assxVF74",
+   "s": 9240,
+   "e": 9780,
+   "conf": "high"
+  }
+ ],
+ "semen-preservation": [
+  {
+   "v": "q44qQOIMTXk",
+   "s": 0,
+   "e": 1800,
+   "conf": "medium"
+  }
+ ],
+ "semen-ai": [
+  {
+   "v": "q44qQOIMTXk",
+   "s": 6120,
+   "e": 8520,
+   "conf": "high"
+  },
+  {
+   "v": "q44qQOIMTXk",
+   "s": 2280,
+   "e": 4320,
+   "conf": "medium"
+  }
+ ],
+ "derm-intro": [
+  {
+   "v": "ytpYnHmuRh0",
+   "s": 600,
+   "e": 1860,
+   "conf": "high"
+  }
+ ],
+ "derm-parasitic": [
+  {
+   "v": "ytpYnHmuRh0",
+   "s": 3960,
+   "e": 6960,
+   "conf": "high"
+  }
+ ],
+ "cornea": [
+  {
+   "v": "74q8uuQdK14",
+   "s": 4740,
+   "e": 5520,
    "conf": "high"
   }
  ]

@@ -82,23 +82,30 @@ export function isAppPath(pathname) {
 // killed for memory landed on the empty "เปิด PDF" page. `page` is for links
 // in (VetMock AI's "เปิดหน้า N"); the reader's own address leaves it out, so a
 // reload resumes at the last page read. The slug pattern is the one
-// /api/library-file accepts (Thai included).
+// /api/library-file accepts (Thai included). `ticket` is the open ticket a
+// VetMock AI link carries (api/_lib/open-ticket.js): if the reader cannot find
+// the deck, its open and download still reach the file through it.
 const READER_SLUG = /^[a-z0-9฀-๿][a-z0-9฀-๿-]{0,160}$/;
+const TICKET_SIG = /^[A-Za-z0-9_-]{20,100}$/;
 
-export function readerUrl(slug, page = null) {
+export function readerUrl(slug, page = null, ticket = null) {
   const query = new URLSearchParams({ doc: slug });
   if (Number.isInteger(page) && page > 1) query.set('page', String(page));
+  if (ticket) { query.set('vt', ticket.vt); query.set('ve', String(ticket.ve)); }
   return `${VIEW_TO_PATH['pdf-annotate']}?${query}`;
 }
 
-/** { slug, page } named by a reader address's query, or null. */
+/** { slug, page, ticket? } named by a reader address's query, or null. */
 export function readerTarget(search) {
   let query;
   try { query = new URLSearchParams(search || ''); } catch { return null; }
   const slug = (query.get('doc') || '').trim();
   if (!READER_SLUG.test(slug)) return null;
   const page = Number(query.get('page'));
-  return { slug, page: Number.isInteger(page) && page > 1 ? page : null };
+  const vt = query.get('vt') || '';
+  const ve = Number(query.get('ve'));
+  const ticket = TICKET_SIG.test(vt) && Number.isInteger(ve) && ve > 0 ? { vt, ve } : null;
+  return { slug, page: Number.isInteger(page) && page > 1 ? page : null, ...(ticket ? { ticket } : {}) };
 }
 
 /**
@@ -116,6 +123,9 @@ export function isUnknownAppPath(pathname) {
 // app would otherwise present the default cohort's year as the visitor's own
 // ("พร้อมฝึกสำหรับ ปี 5" to someone who never said they are in year 5).
 //
+// The phase picker prints the year and counts that year's subjects; the
+// reading list lists that year's subjects and topics to tick.
+//
 // Deliberately NOT year-scoped, so a link posted in a group chat still opens
 // for a stranger: the open-shelf library, video shelf, VetWiki, the faculty
 // directory, about/feedback. Those either show every year at once or none.
@@ -125,6 +135,8 @@ const YEAR_SCOPED_VIEWS = new Set([
   'dashboard',
   'leaderboard-global',
   'sr-session',
+  'phase-select',
+  'reading-checklist',
 ]);
 
 /**
@@ -154,6 +166,17 @@ export function frontDoorFor(view, { storedYearRaw, seenLanding } = {}) {
   if (hasPickedYear(storedYearRaw)) return null;
   if (!YEAR_SCOPED_VIEWS.has(view)) return null;
   return seenLanding ? 'year-select' : 'landing';
+}
+
+/**
+ * The same door inside the app. The bar, the rail, a Home card or the palette
+ * reach these views without a page load, so frontDoorFor never sees them; App
+ * asks here whenever the view changes. `selectedYear` is App's stored pick,
+ * null until one is made. The visitor is already past the landing, so the
+ * answer is the year picker, or null when `view` may be drawn as it is.
+ */
+export function yearGateFor(view, selectedYear) {
+  return selectedYear == null && YEAR_SCOPED_VIEWS.has(view) ? 'year-select' : null;
 }
 
 export const YEAR_SCOPED_VIEW_IDS = YEAR_SCOPED_VIEWS;

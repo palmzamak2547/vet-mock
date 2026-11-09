@@ -54,7 +54,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "Application of molecular",
+   "title": "Application of molecular biology in meat science",
    "line": "การเก็บรักษาเนื้อสัตว์และผลิตภัณฑ์ต้องคงคุณภาพ ไม่เป็นอันตราย มีหลักฐานวิชาการรับรอง ไม่เพิ่มต้นทุน และทำได้ง่าย",
    "slides": [
     {
@@ -81,7 +81,7 @@ export default {
   },
   {
    "t": 1500,
-   "title": "Improvement of meat quality in",
+   "title": "Improvement of meat quality in farm animals using genomic technologies",
    "line": "การแช่เย็นลดอุณหภูมิเนื้อสัตว์ให้ต่ำกว่า 5 องศาเซลเซียสภายใน 8 ชม.หลังฆ่า แล้วเก็บที่ 0-3 องศาเซลเซียส",
    "slides": [
     {
@@ -92,7 +92,7 @@ export default {
   },
   {
    "t": 5100,
-   "title": "Improvement of meat quality in (ต่อ)",
+   "title": "Improvement of meat quality in farm animals using genomic technologies (ต่อ)",
    "line": "หลังสัตว์ตาย pH ลดลง เกิด rigor mortis จาก actin กับ myosin จับกันแน่น และสูญเสีย water holding capacity",
    "slides": [
     {
@@ -103,7 +103,7 @@ export default {
   },
   {
    "t": 8100,
-   "title": "Study the relationship between the trait and",
+   "title": "Study the relationship between the trait and unknown genes that may be associated with the physiological pathway of the trait.",
    "line": "Candidate gene approach หาความสัมพันธ์ระหว่าง trait กับยีนที่อาจเกี่ยวข้องกับ physiological pathway ของ trait โดยทดสอบว่า mutation สัมพันธ์กับความแปรปรวนของ phenotype หรือไม่",
    "slides": [
     {
@@ -134,7 +134,7 @@ export default {
   },
   {
    "t": 8460,
-   "title": "a trait-associated region from a genome-wide",
+   "title": "a trait-associated region from a genome-wide association study (GWAS) is analysed to identify the particular genetic variants that are likely to causally influence the examined trait.",
    "line": "Genome scan ศึกษายีนหลายยีนพร้อมกันทั่ว genome ด้วย microarray แล้ววิเคราะห์ทางสถิติเพื่อหา QTL ที่สัมพันธ์กับ trait",
    "slides": [
     {
@@ -255,7 +255,7 @@ export default {
   },
   {
    "t": 9840,
-   "title": "Summary of Analytical techniques applicable in the halal",
+   "title": "Summary of Analytical techniques applicable in the halal authentication of meat and meat products",
    "line": "PCR-RFLP และ realtime PCR ใช้ระบุ species และตรวจการปนเปื้อนหมู ส่วน ELISA และ chromatography ตรวจโปรตีน และ FTIR ตรวจไขมันหมู",
    "slides": [
     {
@@ -443,7 +443,7 @@ export default {
    "t": 2051
   },
   {
-   "term": "FAT",
+   "term": "fat",
    "t": 8824
   },
   {

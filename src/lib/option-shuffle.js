@@ -67,7 +67,15 @@ export function getShuffledOptions(q) {
   // "ทำได้ทุกข้อที่กล่าวมา") and landed mid-list. ข้อ is also "joint", so
   // ทุกข้อ pins only when it ends the row or runs into ถูก/ข้างต้น/ที่กล่าว:
   // "ทุกข้อต่อมีการอักเสบ" is a real answer and keeps shuffling.
-  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:ถูก|ผิด)|(?:ทำได้)?ทุกข้อ(?=\s*$|\s*(?:ถูก|ข้างต้น|ที่กล่าว))|ข้อ(?:ที่)?กล่าวมา(?:แล้ว)?ทั้งหมด)/i;
+  // ทั้ง ("both", "the whole") used to pin any row it began, and in this bank
+  // those rows are answers: "ทั้งสองชนิดอุ้มไข่ไว้ที่ท้อง…", "ทั้งคืนไม่มีการ
+  // สังเคราะห์แสง…", 95 rows in 64 questions, each held on one row for every
+  // student, so a key among them never moved. A ทั้ง… row sums up the options
+  // only as ทั้งหมด / ทั้งคู่ / ทั้งสอง… (with or without ข้อ) ending the row or
+  // running into ถูก/ผิด, ข้างต้น, ที่กล่าว or นี้, and names them as
+  // ทั้งข้อ ก และ ข. "All correct" / "All incorrect" (poultry) and
+  // ไม่มีข้อใดกล่าวผิด are catch-alls the rule did not know, so they shuffled.
+  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|all\s+(?:in)?correct(?=\s*\.?\s*$)|ทั้ง(?:หมด|คู่|สอง|สาม|สี่|ห้า)(?:ข้อ)?(?=\s*(?:(?:ถูก(?:ต้อง)?|ผิด)\s*$|ข้างต้น|ที่กล่าว|นี้|$))|(?:ทั้ง)?ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:กล่าว)?(?:ถูก|ผิด)|(?:ทำได้)?ทุกข้อ(?=\s*$|\s*(?:ถูก|ข้างต้น|ที่กล่าว))|ข้อ(?:ที่)?กล่าวมา(?:แล้ว)?ทั้งหมด)/i;
   const tailIndices = [];
   const headIndices = [];
   for (let i = 0; i < options.length; i++) {

@@ -32,7 +32,7 @@ import { bankFiles, readBank } from './lib/bank-file.mjs';
 
 // Page citations held only as text on 2026-09-23: 6219 before the first
 // migration, 4412 after it moved 1533 cites on 1384 questions into sourcePages.
-export const FREE_TEXT_BUDGET = 4412;
+export const FREE_TEXT_BUDGET = 4395;
 
 // "p.43", "p43", "pp. 4", "หน้า 21", "น.3" — not the p in "step 2" or "top 10".
 const MARK = String.raw`(?:(?<![A-Za-z])pp?\.?|หน้า|น\.)`;

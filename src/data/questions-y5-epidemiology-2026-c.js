@@ -208,7 +208,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 2,
     "explain": "Case-fatality rate = 250/500 = 50%, mortality rate = 250/1,000 = 25% และ morbidity rate = 500/1,000 = 50%\n\n❌ ทำไมข้ออื่นผิด\n— ชุด 25%, 50%, 50% สลับตัวหารของ case fatality กับ mortality\n— ชุด 50%, 50%, 25% ใช้จำนวนป่วยเป็น mortality และจำนวนตายเป็น morbidity\n— ชุด 25%, 25%, 50% ใช้ประชากรทั้งหมดเป็นตัวหารของ case fatality ทั้งที่ต้องหารด้วยผู้ป่วย\n\n💡 ตายต่อป่วยคือ fatality; ตายต่อทั้งหมดคือ mortality; ป่วยต่อทั้งหมดคือ morbidity",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.23, p.29, p.31, p.32",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.23, p.29, p.31, p.32; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -217,7 +217,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "case-fatality-rate",
       "mortality-rate",
       "morbidity-rate"
@@ -364,7 +366,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 3,
     "explain": "Sensitivity คือโอกาสที่ผลตรวจเป็นบวกเมื่อสัตว์เป็นโรคจริง หรือ P(T+|D+) ส่วน specificity คือโอกาสที่ผลตรวจเป็นลบเมื่อสัตว์ไม่เป็นโรคจริง หรือ P(T-|D-)\n\n❌ ทำไมข้ออื่นผิด\n— P(D+|T+) และ P(D-|T-) เป็น predictive values ซึ่งเริ่มจากผลตรวจ\n— P(T-|D+) คือ false-negative probability และ P(T+|D-) คือ false-positive probability\n— ตัวเลือกที่ใช้ P(D-|T-) และ P(D+|T+) สลับทั้งเงื่อนไขและชื่อของตัวชี้วัด\n— P(T+|D-) และ P(T-|D+) เป็น false-positive และ false-negative probabilities ไม่ใช่ sensitivity/specificity\n\n💡 Sensitivity และ specificity ตั้งต้นจากสถานะโรคจริง จึงมี D อยู่หลังขีดเงื่อนไข",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.83",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.83; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -373,7 +375,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "sensitivity",
       "specificity",
       "conditional-probability"
@@ -395,7 +399,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 0,
     "explain": "Sensitivity = 90/100 = 90%; specificity = 120/180 = 66.67%; accuracy = (90 + 120)/280 = 75%\n\n❌ ทำไมข้ออื่นผิด\n— ชุด 66.67%, 90%, 75% สลับ sensitivity กับ specificity\n— ชุด 90%, 75%, 66.67% นำ accuracy ไปใส่แทน specificity\n— ชุด 75%, 66.67%, 90% นำ accuracy ไปใส่แทน sensitivity และสลับค่าที่เหลือ\n\n💡 Sensitivity อ่านคอลัมน์ D+; specificity อ่านคอลัมน์ D-; accuracy รวมช่องทายถูกทั้งสองช่อง",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.84, p.85",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.84, p.85; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -404,7 +408,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "sensitivity",
       "specificity",
       "accuracy",
@@ -427,7 +433,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 1,
     "explain": "Sensitivity = 32/(32 + 8) = 80% และ specificity = 944/(944 + 16) = 98.33%\n\n❌ ทำไมข้ออื่นผิด\n— 66.67% และ 90% เป็นค่าจากตัวอย่างชุดตรวจอีกชุด ไม่ใช่ตาราง FeLV นี้\n— 90% และ 66.67% ไม่ได้ใช้จำนวนจริงของ true positive และ true negative ในโจทย์\n— 98.33% และ 80% เป็นค่าที่ถูกต้องแต่สลับลำดับ specificity มาไว้ก่อน sensitivity\n\n💡 ตั้งตัวหารจากสถานะ gold standard: D+ รวม 40 ตัว และ D- รวม 960 ตัว",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.86",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.86; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -436,7 +442,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "felv",
       "sensitivity",
       "specificity",
@@ -459,7 +467,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 2,
     "explain": "PPV = 90/(90 + 60) = 60% และ NPV = 120/(120 + 10) = 92.3%\n\n❌ ทำไมข้ออื่นผิด\n— 90% และ 66.67% คือ sensitivity และ specificity ของตารางเดียวกัน\n— 66.67% และ 90% เป็นการสลับ specificity กับ sensitivity ไม่ใช่ predictive values\n— 92.3% และ 60% เป็น NPV และ PPV ที่ถูกต้องแต่เรียงกลับด้าน\n\n💡 Predictive value ตั้งตัวหารตามผลตรวจ: PPV ใช้ T+ ทั้งหมด ส่วน NPV ใช้ T- ทั้งหมด",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.89",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.89; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -468,7 +476,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "ppv",
       "npv",
       "predictive-value",
@@ -522,7 +532,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 0,
     "explain": "เมื่อ threshold และ disease spectrum คงเดิม prevalence ที่สูงขึ้นทำให้สัดส่วนผลบวกที่เป็นโรคจริงเพิ่มขึ้น จึงทำให้ PPV สูงขึ้น ขณะที่ NPV ลดลง ส่วน sensitivity และ specificity ไม่เปลี่ยนเพราะ prevalence เพียงอย่างเดียว\n\n❌ ทำไมข้ออื่นผิด\n— PPV ไม่ลดและ NPV ไม่เพิ่มเมื่อ prevalence สูงขึ้นภายใต้เงื่อนไขเดิม\n— PPV กับ NPV ไม่ได้เพิ่มพร้อมกันในทิศทางนี้ และ performance ไม่ลดตาม prevalence เพียงอย่างเดียว\n— Predictive values ไม่ได้ลดพร้อมกัน และ prevalence อย่างเดียวไม่เปลี่ยน sensitivity/specificity\n\n💡 โรคยิ่งชุก ผลบวกยิ่งน่าเชื่อ แต่ผลลบยิ่งต้องระวัง",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.92, p.93",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.92, p.93; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -531,7 +541,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "prevalence",
       "ppv",
       "npv",
@@ -681,7 +693,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 1,
     "explain": "Inter-rater reliability ดูความสอดคล้องระหว่างผู้ประเมินต่างคน ส่วน intra-rater reliability ดูความสม่ำเสมอเมื่อผู้ประเมินคนเดิมประเมินซ้ำ\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกผู้ประเมินคนเดิมกับต่างคนสลับความหมายของ inter และ intra\n— การเทียบ gold standard เป็นเรื่อง validity และ prevalence ไม่ใช่คู่เปรียบเทียบของ intra-rater\n— ชนิดข้อมูลไม่ได้เป็นนิยามที่แยก inter-rater ออกจาก intra-rater\n\n💡 Inter = ระหว่างคน; intra = ภายในคนเดิม",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test",
-    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.101",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test p.101; รุ่นพี่ Vet 84 มาร์คจุดนี้ไว้ว่าเคยออก",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -690,7 +702,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "inter-rater-reliability",
       "intra-rater-reliability",
       "agreement"
@@ -993,7 +1007,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 3,
     "explain": "Type I error คือปฏิเสธ H0 ทั้งที่ H0 จริง จึงเป็น false positive และมีความน่าจะเป็น alpha; Type II error คือไม่ปฏิเสธ H0 ทั้งที่ H0 เท็จ จึงเป็น false negative และมีความน่าจะเป็น beta; power = 1 - beta\n\n❌ ทำไมข้ออื่นผิด\n— ชุดที่ให้ Type I เป็น false negative สลับ Type I กับ Type II และใช้ 1 - alpha แทน power\n— True positive คือ power และ true negative คือ 1 - alpha ไม่ใช่ชนิด error\n— การจับชนิด error ถูก แต่ power ไม่ใช่ 1 - alpha\n\n💡 Alpha ผูกกับบวกลวง; beta ผูกกับลบลวง; power คือส่วนที่เหลือจาก beta",
     "source": "Sample size determination_TC",
-    "verified": "Sample size determination_TC p.23, p.25",
+    "verified": "Sample size determination_TC p.23, p.25; จุดนี้มีรอยมาร์คไว้ว่าเคยออกในชุดไฟล์ของรุ่นพี่",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -1002,7 +1016,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "type-i-error",
       "type-ii-error",
       "power"
@@ -1024,7 +1040,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "answer": 0,
     "explain": "การลด alpha ทำให้เกณฑ์เข้มขึ้นและการเพิ่ม power ทำให้ต้องตรวจจับผลได้ไวขึ้น ทั้งสองอย่างเพิ่ม sample size ดังนั้น alpha 0.01 ร่วมกับ power 90% ต้องใช้มากที่สุด\n\n❌ ทำไมข้ออื่นผิด\n— Alpha 0.05 กับ power 90% ต้องการ power สูง แต่เกณฑ์ไม่เข้มเท่า alpha 0.01\n— Alpha 0.01 กับ power 80% เข้มด้าน alpha แต่ต้องการ power ต่ำกว่า 90%\n— Alpha 0.05 กับ power 80% ผ่อนทั้งสองเงื่อนไขเมื่อเทียบกับตัวเลือกที่ถูก\n\n💡 Alpha ยิ่งเล็กและ power ยิ่งสูง ตัวอย่างยิ่งมาก",
     "source": "Sample size determination_TC",
-    "verified": "Sample size determination_TC p.27, p.28, p.29",
+    "verified": "Sample size determination_TC p.27, p.28, p.29; จุดนี้มีรอยมาร์คไว้ว่าเคยออกในชุดไฟล์ของรุ่นพี่",
     "sourceType": "lecture-derived",
     "examScope": "final",
     "curriculumVersion": "2569-1",
@@ -1033,7 +1049,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "predictionSignals": [
       "current-lecture"
     ],
+    "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
+      "อิงแนวข้อสอบ",
       "significance-level",
       "power",
       "sample-size-factor"

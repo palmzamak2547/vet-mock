@@ -4377,10 +4377,10 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "ultrasound",
       "radiograph"
     ],
-    "model_answer": "1 สัมผัส digital pulse 2-3 ใช้ hoof tester และ Flexion test ซึ่งสลับลำดับกันได้ (hoof tester ก่อนแล้วจึง flexion test หรือ flexion test ก่อนแล้วจึง hoof tester) 4 Peripheral nerve block 5 Joint block 6 Ultrasound tendon 7 Xray ลำดับนี้ไล่จากการตรวจที่ทำได้ทันทีและไม่รุกล้ำ คือคลำชีพจรที่ digital artery หนีบกีบ และทดสอบด้วยการงอข้อ แล้วจึงฉีดยาชาหาตำแหน่งเจ็บโดยไล่จากเส้นประสาทส่วนปลายขึ้นไป ตามด้วยการบล็อกข้อ ส่วนภาพวินิจฉัยใช้เมื่อรู้ตำแหน่งแล้ว",
+    "model_answer": "1 สัมผัส digital pulse 2-3 ใช้ hoof tester และ Flexion test ซึ่งสลับลำดับกันได้ (hoof tester ก่อนแล้วจึง flexion test หรือ flexion test ก่อนแล้วจึง hoof tester) 4 Peripheral nerve block 5 Joint block 6-7 Xray และ Ultrasound tendon (ถ่ายภาพรังสีก่อนหรือสลับกันได้) ลำดับนี้ไล่จากการตรวจที่ทำได้ทันทีและไม่รุกล้ำ คือคลำชีพจรที่ digital artery หนีบกีบ และทดสอบด้วยการงอข้อ แล้วจึงฉีดยาชาหาตำแหน่งเจ็บโดยไล่จากเส้นประสาทส่วนปลายขึ้นไป ตามด้วยการบล็อกข้อ ส่วนภาพวินิจฉัยใช้เมื่อรู้ตำแหน่งแล้ว",
     "explain": "การตรวจขาเจ็บเริ่มจากสิ่งที่ไม่ต้องฉีดยาและไม่ทำให้ม้าเจ็บเพิ่ม digital pulse ที่แรงขึ้นบอกว่ามีการอักเสบในกีบ flexion test และการหนีบกีบด้วย hoof tester เป็นการตรวจขั้นต้นทั้งคู่ จึงสลับลำดับกันได้ hoof tester เป็นวิธีที่ถูกและไม่รุกล้ำในการหาความเจ็บในกีบ จึงหนีบกีบก่อนแล้วค่อยงอข้อได้ ส่วนการงอข้อก่อนแล้วจึงหนีบกีบก็ตรงกับลำดับที่เคสนี้รายงานผลตรวจ (pulse, flexion, hoof tester, nerve block, joint block) ขั้นถัดไปคือ peripheral nerve block ไล่จากล่างขึ้นบน แล้วจึง joint block เพื่อแยกว่าเจ็บในข้อหรือไม่ ภาพวินิจฉัยอยู่ท้ายสุดเพราะต้องรู้ตำแหน่งก่อน",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
-    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 1 Question 4",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Equine lameness: an introduction (2026) หน้า 34, 37, 56 และ 59",
+    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 1 Question 4; ตรวจเฉลยกับสไลด์ปี 2569 เมื่อ 2 พ.ย. 2569: ภาพวินิจฉัยหลังบล็อก ถ่ายภาพรังสีก่อน ultrasound หรือสลับกันได้",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
     "tags": [
@@ -4400,6 +4400,26 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 1
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 34
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 37
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 56
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 59
       }
     ],
     "passage": "ระหว่างการฝึกงาน ณ ไร่ฝึกสัตวแพทย์ จังหวัดนครปฐม อาจารย์ผู้ดูแลการฝึกคลินิกปฏิบัติม้า ได้รับการติดต่อให้ไปตรวจม้ามีอาการเจ็บขาเดินไม่เป็นปกติ ที่คอกม้าในบริเวณใกล้เคียง เมื่อถึงคอกม้าอาจารย์ได้มอบหมายให้นิสิตเป็นผู้สอบประวัติเพิ่มเติม\nจากการสอบประวัติเพิ่มเติม เจ้าของได้ให้ข้อมูลดังต่อไปนี้ ม้าชื่อฮิลดาโก้ สายพันธุ์ควอเตอฮอร์ส สีดัน นำเข้าจากอเมริกา เพื่อมาเป็นม้าสำหรับขี่ออกเทรล (ขี่ท่องเที่ยวนอกสถานที่) นิสัยเรียบร้อย นำเข้ามาประมาณ 1 ปี เลี้ยงในคอกขนาด 4x4 เมตร ให้อาหารชนิดเม็ดผสมหญ้า แบบนำเข้า มีหญ้าแพงโกล่าให้กินตลอด ตอนเช้าจะปล่อยแปลงเป็นเวลา 1-2 ชั่วโมง และจะขี่ออกเทรลในช่วงเย็นในประมาณ 1-2 ชั่วโมงเป็นประจำ มีช่างเกือกเข้ามาทำเกือกทั้งสี่ขา เป็นประจำทุกเดือน ครั้งสุดท้ายที่ทำไปเมื่อ 2 สัปดาห์ก่อน\nสังเกตอาการเจ็บได้เมื่อประมาณ 4 วันก่อนขณะที่ม้าอยู่ในคอก ไม่ได้ให้ยาอะไร เมื่อเห็นอาการทำการพักม้า ไม่ได้ขี่ แต่อาการไม่ดีขึ้นจึงโทรเรียกหมอเข้ามาตรวจ ประวัติการเจ็บก่อนหน้าไม่ทราบ\nหลังจากสอบประวัติเสร็จคุณได้ทำการตรวจสุขภาพโดยรวมพบว่า ม้าลงน้ำหนักทั้งสี่ข้างเป็นปกติ ไม่มีอาการบวมของขา หรือส่วนใดของร่างกาย ผลการตรวจสุขภาพอื่นๆไม่พบความผิดปกติใดๆ\nขณะที่ม้าเดินออกมาจากคอก คุณสังเกตเห็นว่าม้ามีความพยายามไม่ลงน้ำหนักขาข้างใดข้างหนึ่ง แต่ไม่แน่ใจว่าข้างใด\nจากนั้นอาจารย์ได้ให้เจ้าของทำการทรอทม้า (วิ่งในแนวตรง) เพื่อสังเกตการณ์วิ่ง",
@@ -5236,7 +5256,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "มี 4 ระยะ เรียงเป็น ยกขา (lift) → แกว่งขา (swing) → รับน้ำหนัก (support) → ส่งตัวไปข้างหน้า (thrust)",
     "explain": "ช่วงยกขาเรียกว่า cranial phase of stride ถ้าเจ็บในช่วงนี้คือ swinging (hanging) limb lameness ช่วงลงน้ำหนักเรียกว่า caudal phase of stride ถ้าเจ็บในช่วงนี้คือ supporting (weight-bearing) limb lameness การรู้ว่าเจ็บในช่วงไหนจึงช่วยแยกชนิดของ lameness",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 13 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 13 (สไลด์ lameness ปี 2569 ไม่ได้กล่าวถึงเรื่องนี้)",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 1 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5274,7 +5294,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "หัวพยักขึ้นลง (head nod): หัวยกขึ้นเมื่อขาหน้าข้างที่เจ็บลงน้ำหนัก และหัวลดต่ำลงเมื่อขาข้างที่ดีลงน้ำหนัก",
     "explain": "ม้าลดน้ำหนักที่ลงบนขาหน้าที่เจ็บด้วยการยกหัวขึ้นจังหวะที่ขานั้นลงพื้น จึงเห็นหัวต่ำลงเมื่อขาข้างที่ดีลงพื้น การดูขณะ trot ในแนวตรงบนพื้นแข็งทำให้เห็นจังหวะนี้ชัดที่สุด ถ้าเจ็บขาหลัง สิ่งที่ดูคือสะโพกที่ยกขึ้นจังหวะขาที่เจ็บลงพื้นแทน",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Equine lameness: an introduction (2026) หน้า 26",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 7 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5294,6 +5314,11 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 9
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 26
       }
     ]
   },
@@ -5311,9 +5336,9 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "flexion of the shoulder is difficult",
       "forelimb"
     ],
-    "model_answer": "ข้อไหล่ (shoulder joint) ของขาหน้า เป็นข้อเดียวที่ทดสอบด้วยการเหยียด (extension) เพราะงอข้อไหล่ได้ยาก",
+    "model_answer": "ข้อไหล่ (shoulder joint) ของขาหน้า ทดสอบด้วยการเหยียด (extension) เพราะงอแยกข้อไหล่ได้ยาก",
     "explain": "Provocative test ส่วนใหญ่คือการงอข้อค้างไว้ราว 1 นาทีแล้วให้ม้า trot ทันที ถ้าเจ็บเพิ่มขึ้นคือผลบวก ถ้าเท่าเดิมคือผลลบ แต่ข้อไหล่งอแยกได้ยาก จึงทดสอบด้วยการเหยียดข้อไหล่แทน ส่วนขาหลังใช้ spavin test ซึ่งงอ stifle, hock และ hip ไปพร้อมกัน",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (สไลด์ lameness ปี 2569 ไม่ได้กล่าวถึงเรื่องนี้)",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 10 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5345,15 +5370,15 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     "examScope": "final",
     "q": "ควรทำ nerve block ในม้าที่มีอาการ lameness เมื่อใด",
     "keywords": [
-      "lameness grade 1-3",
-      "not in grade 4-5",
-      "lameness seen before the block to compare",
-      "radiograph first if severe"
+      "consistent visible baseline lameness",
+      "re-evaluate after the block",
+      "not in acute moderate-to-severe lameness",
+      "radiograph first if a fracture is possible"
     ],
-    "model_answer": "ทำเมื่อม้าเจ็บขาระดับ 1-3 ซึ่งยังเห็นอาการชัดพอจะเทียบก่อนและหลังฉีดยาชา ไม่ทำในม้าที่เจ็บระดับ 4-5 ให้ถ่ายภาพรังสีก่อน",
-    "explain": "หลักของ nerve block คือดูว่าอาการเจ็บหายหรือดีขึ้นหลังฉีดยาชา จึงต้องเห็นอาการก่อนฉีดและให้ม้า trot ประเมินซ้ำได้ ม้าที่เจ็บระดับ 4-5 (เจ็บตั้งแต่เดิน หรือไม่ลงน้ำหนัก) ให้ไปถ่ายภาพรังสีเลยโดยไม่ทำ diagnostic analgesia เพราะถ้ามีกระดูกหัก การทำให้ขาชาแล้วให้ม้าวิ่งเสี่ยงทำให้บาดเจ็บรุนแรงขึ้น",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
-    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 12 (รายการคำถามจาก Blackboard)",
+    "model_answer": "ทำเมื่อม้ามีอาการขาเจ็บที่เห็นได้ชัดและสม่ำเสมอพอเป็นค่าตั้งต้นให้เทียบหลังฉีดยาชา ไม่บล็อกม้าที่เจ็บเฉียบพลันระดับปานกลางถึงรุนแรงซึ่งอาจมีกระดูกหัก ให้ถ่ายภาพรังสีก่อน",
+    "explain": "หลักของ nerve block คือดูว่าอาการเจ็บหายหรือดีขึ้นหลังฉีดยาชา จึงต้องเห็นอาการที่สม่ำเสมอก่อนฉีดและให้ม้า trot ประเมินซ้ำได้ อาการที่รุนแรงมากหรือน้อยมากจะให้ผลตอบสนองไม่ครบ ม้าที่เจ็บแบบเฉียบพลันระดับปานกลางถึงรุนแรง ซึ่งอาจมีแผลฉีกขาดหรือกระดูกหักที่มองไม่เห็น ให้ถ่ายภาพรังสีก่อนโดยไม่ทำ diagnostic analgesia เพราะถ้ากระดูกหัก การทำให้ขาชาแล้วให้ม้าวิ่งเสี่ยงทำให้บาดเจ็บรุนแรงขึ้น",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Diagnostic analgesia in horses (2026) หน้า 3, 8, 31 และ 43",
+    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 12 (รายการคำถามจาก Blackboard); ตรวจเฉลยกับสไลด์ปี 2569 เมื่อ 2 พ.ย. 2569: ไม่มีเกณฑ์ระดับ 1-3 กับ 4-5 ใช้อาการที่เห็นชัดเป็นค่าตั้งต้น และม้าที่เจ็บเฉียบพลันปานกลางถึงรุนแรงให้ถ่ายภาพรังสีก่อน",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
     "tags": [
@@ -5373,6 +5398,26 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 9
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 3
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 8
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 31
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 43
       }
     ]
   },
@@ -5392,7 +5437,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "Tibial nerve block ร่วมกับ peroneal (fibular) nerve block ทั้งแขนง superficial และ deep โดยทำพร้อมกันทั้งสองเส้น",
     "explain": "Hock รับความรู้สึกจากทั้ง tibial nerve และ peroneal nerve การบล็อกเส้นใดเส้นเดียวจึงไม่พอ ปกติฉีดสองเส้นพร้อมกัน tibial ฉีดใต้เอ็นร้อยหวาย (common calcanean tendon) ส่วน peroneal ฉีดที่ร่องระหว่าง long และ lateral digital extensor muscles",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Diagnostic analgesia in horses (2026) หน้า 28 และ 33",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 13 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5413,6 +5458,16 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 9
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 28
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 33
       }
     ]
   },
@@ -5430,8 +5485,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "pastern injection site"
     ],
     "model_answer": "Palmar digital nerve block ฉีดที่ medial และ lateral palmar digital nerve ด้าน medial และ lateral ของ pastern",
-    "explain": "บล็อกแต่ละจุดชาเฉพาะส่วนที่อยู่ต่ำกว่าจุดฉีด ramus pulvinus (ramus tori digitalis) ชาแค่บริเวณ navicular palmar digital nerve block ชา coffin joint และกีบ ส่วน abaxial (low palmar) block อยู่สูงขึ้นที่ระดับ sesamoid จึงชาเลยขึ้นไปถึง pastern joint และด้าน palmar ของ fetlock ด้วย คำว่าเฉพาะ coffin joint และกีบจึงชี้ไปที่ palmar digital",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "explain": "บล็อกแต่ละจุดชาเฉพาะส่วนที่อยู่ต่ำกว่าจุดฉีด ramus pulvinus (ramus tori digitalis) ชาแค่บริเวณ navicular palmar digital nerve block ชา coffin joint และกีบ ส่วน abaxial sesamoid block อยู่สูงขึ้นที่ระดับ sesamoid จึงชาเลยขึ้นไปถึง pastern joint และด้าน palmar ของ fetlock ด้วย คำว่าเฉพาะ coffin joint และกีบจึงชี้ไปที่ palmar digital",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Diagnostic analgesia in horses (2026) หน้า 11, 23 และ 24",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 14 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5452,6 +5507,21 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 9
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 11
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 23
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 24
       }
     ]
   },
@@ -5470,8 +5540,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "palmar and dorsal fetlock"
     ],
     "model_answer": "Low four-point block: ฉีด medial และ lateral palmar nerve ร่วมกับ medial และ lateral palmar metacarpal nerve ที่ส่วนปลายของ cannon เหนือ fetlock ครอบคลุมทั้งด้าน palmar และ dorsal ของ fetlock",
-    "explain": "Fetlock รับความรู้สึกสองทาง ด้าน palmar มาจาก palmar nerve และด้าน dorsal มาจาก palmar metacarpal nerve การบล็อกเฉพาะ low palmar จึงชาแค่ด้าน palmar ต้องบล็อก palmar metacarpal ด้วยจึงครอบคลุมทั้งข้อ รวมเป็นสี่จุด",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "explain": "Fetlock รับความรู้สึกสองทาง ด้าน palmar มาจาก palmar nerve และด้าน dorsal มาจาก palmar metacarpal nerve การบล็อกเฉพาะ palmar nerve สองเส้นจึงชาแค่ด้าน palmar ต้องบล็อก palmar metacarpal ด้วยจึงครอบคลุมทั้งข้อ รวมเป็นสี่จุด การบล็อกสี่จุดนี้เรียกว่า low 4-point หรือ low palmar",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; Diagnostic analgesia in horses (2026) หน้า 9 และ 27",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 15 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5492,6 +5562,16 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 9
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 9
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 27
       }
     ]
   },
@@ -5511,7 +5591,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "ยืนยันด้วยภาพถ่ายรังสี (x-ray) ของข้อที่สงสัย หลังจากระบุตำแหน่งข้อด้วยการตรวจ lameness, flexion test และการฉีดยาชาเข้าข้อ (intra-articular anesthesia)",
     "explain": "การตรวจ lameness และการบล็อกบอกได้ว่าเจ็บที่ข้อใด แต่บอกไม่ได้ว่าเป็นข้อเสื่อม การเปลี่ยนแปลงของกระดูกและช่องข้อต้องเห็นจากภาพรังสี x-ray จึงเป็นข้อมูลที่ใช้วินิจฉัย",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14 (สไลด์ lameness ปี 2569 ไม่ได้กล่าวถึงเรื่องนี้)",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 9 Question 17 (รายการคำถามจาก Blackboard)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5595,7 +5675,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "Positive: หลัง flexion test อาการเจ็บเพิ่มจาก + – – เป็น + (+) –",
     "explain": "Flexion test เป็น provocative test ที่งอข้อค้างไว้แล้วให้ม้าวิ่งทันที ถ้าเจ็บมากกว่าตอนวิ่งก่อนงอคือผลบวก ถ้าเท่าเดิมคือผลลบ ขาหน้าซ้ายเปลี่ยนจาก + – – เป็น + (+) – จึงเป็นผลบวก",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Equine lameness: an introduction (2026) หน้า 55",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 Question 19",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5616,6 +5696,11 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 10
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 55
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -5636,7 +5721,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "Negative: ขาหน้าขวาไม่เจ็บทั้งก่อนและหลังงอข้อ (– – – เท่าเดิม)",
     "explain": "ขาหน้าขวาไม่มีอาการเจ็บตอนวิ่ง และหลังงอข้อก็ยังไม่เจ็บ ไม่มีอาการเพิ่มขึ้นจึงเป็นผลลบ การงอขาข้างที่ดีด้วยแรงและเวลาเท่ากันใช้เป็นตัวเทียบกับขาที่เจ็บ",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Equine lameness: an introduction (2026) หน้า 55",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 Question 20",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5657,6 +5742,11 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 10
+      },
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 55
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -5675,8 +5765,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "still lame + – – after the block"
     ],
     "model_answer": "Negative: หลังบล็อกยังเจ็บเท่าเดิม (+ – – เท่ากับก่อนบล็อก)",
-    "explain": "การประเมิน nerve block ทำซ้ำหลังฉีด 5-10 นาที แบ่งเป็น positive (หายเจ็บ) improve (ดีขึ้นแต่ยังไม่หาย) และ negative (เจ็บเหมือนเดิม) หลังบล็อก ramus pulvinus ขาหน้าซ้ายยังเป็น + – – เท่าตอนก่อนบล็อก จึงเป็น negative และบอกว่าความเจ็บไม่ได้อยู่ที่บริเวณ navicular",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "explain": "การประเมิน nerve block ทำซ้ำราว 10 นาทีหลังฉีด เทียบกับระดับความเจ็บก่อนบล็อก ไม่ดีขึ้นเลยคือผลลบ ดีขึ้นคือผลบวก (หายสนิทดีที่สุด แต่ดีขึ้นราว 70-90% พบบ่อยกว่า) หลังบล็อก ramus pulvinus ขาหน้าซ้ายยังเป็น + – – เท่าตอนก่อนบล็อก จึงเป็น negative และบอกว่าความเจ็บไม่ได้อยู่ที่บริเวณ navicular",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Diagnostic analgesia in horses (2026) หน้า 31",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 Question 21",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5697,6 +5787,11 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 10
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 31
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -5713,13 +5808,13 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     "keywords": [
       "negative",
       "still lame + – –",
-      "pain not in the coffin joint or foot",
-      "block higher"
+      "palmar foot unlikely",
+      "block the next level up"
     ],
-    "model_answer": "Negative: ยังเจ็บ + – – เท่าเดิม แปลว่าความเจ็บไม่ได้อยู่ที่ coffin joint หรือกีบ",
-    "explain": "palmar digital nerve block ชาบริเวณ coffin joint และกีบ เมื่อบล็อกแล้วอาการยังเท่าเดิม ตำแหน่งที่เจ็บจึงอยู่สูงกว่าบริเวณที่บล็อกนี้ครอบคลุม ต้องบล็อกไล่ขึ้นไปอีก",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
-    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 11 Question 22",
+    "model_answer": "Negative: ยังเจ็บ + – – เท่าเดิม แปลว่าแหล่งเจ็บไม่น่าอยู่ที่ส่วน palmar ของกีบ (ส้นเท้า บริเวณ navicular และ coffin joint) จึงบล็อกไล่ขึ้นไประดับถัดไป",
+    "explain": "เมื่อบล็อก palmar digital nerve แล้วอาการยังเท่าเดิม ผลจึงเป็นลบ แหล่งเจ็บไม่น่าอยู่ในส่วนที่บล็อกนี้ครอบคลุม เช่น ส้นเท้า บริเวณ navicular และ coffin joint ต้องบล็อกไล่ขึ้นไปที่ abaxial sesamoid แต่ยังสรุปไม่ได้ว่ากีบปกติทั้งหมด เพราะ P3 และ dorsal laminae ยังอยู่ในกลุ่มที่บล็อกระดับถัดไปตรวจได้",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Diagnostic analgesia in horses (2026) หน้า 23 และ 31",
+    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 11 Question 22; ตรวจเฉลยกับสไลด์ปี 2569 เมื่อ 2 พ.ย. 2569: ผลลบตัดส่วน palmar ของกีบออก แต่ยังไม่ตัดกระดูก coffin bone และ dorsal laminae",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
     "tags": [
@@ -5744,6 +5839,16 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 11
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 23
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 31
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -5758,15 +5863,15 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     "examScope": "final",
     "q": "ผลของการทำ low palmar nerve block ขาหน้าซ้าย ประเมินผลเป็น",
     "keywords": [
-      "negative",
-      "still lame (+) – –",
-      "lameness reduced but not sound",
-      "not positive"
+      "improved",
+      "partial positive response",
+      "(+) – – after the block",
+      "incomplete relief or a second source of pain"
     ],
-    "model_answer": "Negative: ยังเจ็บอยู่ แม้อาการลดจาก + – – เป็น (+) – – (ในการแบ่งสามระดับเรียก improve) ไม่นับเป็นผลบวกเพราะม้ายังไม่หายเจ็บ",
-    "explain": "ระดับ (+) – – น้อยกว่า + – – แต่ยังไม่ใช่ – – – ม้าจึงดีขึ้นโดยยังไม่หายเจ็บ การอ่านผลนี้เป็น positive เพียงเพราะเห็นว่าเจ็บลดลงคือการอ่านผิด positive หมายถึงหายเจ็บ ผลแบบนี้บอกว่าบริเวณที่ low palmar block ครอบคลุม (pastern และด้าน palmar ของ fetlock) เป็นส่วนหนึ่งของแหล่งเจ็บ และต้องบล็อก palmar metacarpal nerve เพิ่ม",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
-    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 11 Question 23",
+    "model_answer": "ดีขึ้น (improved) นับเป็นผลบวกบางส่วน: อาการลดจาก + – – เป็น (+) – – แต่ยังไม่หายสนิท แปลว่าบล็อกระดับนี้ระงับความเจ็บได้ไม่หมด หรือยังมีแหล่งเจ็บอื่นร่วมอยู่ จึงไม่ใช่ผลลบ",
+    "explain": "การอ่านผลบล็อกเทียบกับระดับความเจ็บก่อนฉีด หายเจ็บ 100% คือผลที่ดีที่สุด แต่ที่พบบ่อยกว่าคือดีขึ้นราว 70-90% ซึ่งนับเป็นผลบวกเช่นกัน ส่วนผลลบคือไม่ดีขึ้นเลย ในเคสนี้อาการลดจาก + – – เป็น (+) – – จึงเป็นการตอบสนองบางส่วน หมายถึงบล็อกนี้ระงับความเจ็บได้ไม่หมด หรือมีแหล่งเจ็บมากกว่าหนึ่งจุด การอ่านว่าเป็นผลลบเพราะม้ายังไม่หายสนิทจึงผิด และเมื่อบล็อก palmar metacarpal nerve เพิ่มที่ระดับเดียวกัน ม้าก็หายเจ็บ",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Diagnostic analgesia in horses (2026) หน้า 9, 31 และ 36",
+    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 11 Question 23; ตรวจเฉลยกับสไลด์ปี 2569 เมื่อ 2 พ.ย. 2569: ดีขึ้นบางส่วนนับเป็นผลบวกบางส่วน ไม่ใช่ผลลบ (หายสนิทคือผลที่ดีที่สุด แต่ดีขึ้น 70-90% พบบ่อยกว่า)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
     "tags": [
@@ -5791,6 +5896,21 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 11
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 9
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 31
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 36
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -5809,8 +5929,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "sound – – – after the block"
     ],
     "model_answer": "Positive: หลังบล็อก palmar metacarpal nerve เพิ่ม ขาหน้าซ้ายเป็น – – – หายเจ็บ",
-    "explain": "เมื่อบล็อก palmar metacarpal nerve ต่อจาก low palmar (รวมเป็น low four-point) ม้าหายเจ็บ จึงเป็นผลบวก แหล่งเจ็บจึงอยู่ในบริเวณที่สองเส้นนี้รวมกันครอบคลุม คือ fetlock ทั้งด้าน palmar และ dorsal",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
+    "explain": "เมื่อบล็อก palmar metacarpal nerve ต่อจากการบล็อก palmar nerve สองเส้นที่เคสนี้เรียกว่า low palmar (รวมเป็น low four-point ซึ่งเรียกรวมทั้งชุดว่า low palmar ได้ด้วย) ม้าหายเจ็บ จึงเป็นผลบวก แหล่งเจ็บจึงอยู่ในบริเวณที่สองเส้นนี้รวมกันครอบคลุม คือ fetlock ทั้งด้าน palmar และ dorsal",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Diagnostic analgesia in horses (2026) หน้า 27 และ 31",
     "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 11 Question 24",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
@@ -5836,6 +5956,16 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 11
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 27
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 31
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -5850,13 +5980,15 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     "examScope": "final",
     "q": "จากข้อมูลทั้งหมดท่านคิดว่าสาเหตุการเจ็บน่าจะอยู่บริเวณส่วนใดของขาหน้าซ้ายดังกล่าว",
     "keywords": [
-      "fetlock joint",
-      "left fore"
+      "fetlock region",
+      "left fore",
+      "fetlock joint most likely (positive flexion test)",
+      "confirm with intra-articular analgesia"
     ],
-    "model_answer": "Fetlock joint ของขาหน้าซ้าย",
-    "explain": "บล็อกที่ต่ำกว่า (ramus pulvinus และ palmar digital) ไม่ช่วย จึงตัดกีบและ coffin joint ออก low palmar ทำให้ดีขึ้นบางส่วน (ชาด้าน palmar ของ fetlock) และเมื่อเพิ่ม palmar metacarpal ซึ่งชาด้าน dorsal ของ fetlock ม้าหายเจ็บ แหล่งเจ็บจึงอยู่ที่ fetlock joint ซึ่งเข้ากับ flexion test ที่เป็นบวก",
-    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10 (ไม่มีสไลด์ lameness ปี 2569 ใน decks2569)",
-    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 12 Question 25",
+    "model_answer": "บริเวณ fetlock ของขาหน้าซ้าย น่าจะเป็น fetlock joint เพราะ flexion test ให้ผลบวก ยืนยันว่าเป็นที่ข้อด้วยการฉีดยาชาเข้าข้อ fetlock",
+    "explain": "บล็อกไล่จากส่วนปลายขึ้นไป แหล่งเจ็บจึงอยู่ในส่วนที่บล็อกแรกที่ได้ผลบวกครอบคลุม แต่บล็อกก่อนหน้าที่ได้ผลลบไม่ครอบคลุม บล็อกที่ต่ำกว่า (ramus pulvinus และ palmar digital) ไม่ช่วย low palmar ทำให้ดีขึ้นบางส่วน และเมื่อเพิ่ม palmar metacarpal ม้าหายเจ็บ ตำแหน่งจึงอยู่บริเวณ fetlock ซึ่งเข้ากับ flexion test ที่เป็นบวก แต่บริเวณที่ low four-point block ครอบคลุมยังมี pastern joint, DDFT, digital sheath และด้าน dorsal ของกีบด้วย การจะบอกว่าเป็นที่ fetlock joint จึงยืนยันด้วยการฉีดยาชาเข้าข้อ",
+    "source": "Equine lameness lecture notes ในไฟล์ มท. อีควรัย ของ Vet 84 หน้า 14; สไลด์ Techniques และ Evaluation of provocative test ที่แปะอยู่ในรวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 10; Diagnostic analgesia in horses (2026) หน้า 7, 23 และ 25",
+    "verified": "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ หน้า 12 Question 25; ตรวจเฉลยกับสไลด์ปี 2569 เมื่อ 2 พ.ย. 2569: บล็อกบอกบริเวณ fetlock ส่วนการระบุว่าเป็นที่ข้อต้องยืนยันด้วยการฉีดยาชาเข้าข้อ",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)",
     "tags": [
@@ -5881,6 +6013,21 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-final-compilation-krob",
         "edition": "13p",
         "page": 12
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 7
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 23
+      },
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 25
       }
     ],
     "passage": "ม้าขี่ เพศผู้ อายุ 9 ปี ภายหลังการซ้อมคนเลี้ยงพบว่ามีอาการเจ็บขาหน้าข้างซ้าย ได้ทำการพักม้า 1 สัปดาห์ อาการไม่ดีขึ้นจึงพามารักษา สัตวแพทย์ตรวจดูพบว่าไม่มีการบวม ของขาหน้าทั้งสองข้าง จึงให้จูงเดินดู ไม่พบอาการขากะเผลก จากการทดสอบโดยให้ม้าวิ่งเรียบ ได้บันทึกผลระดับอาการเจ็บดังนี้\n( เครื่องหมาย (+) - - , + - - , + (+) - แสดงระดับอาการเจ็บที่เพิ่มขึ้น\nเครื่องหมาย - - - แสดงว่าไม่มีอาการเจ็บ )\nจากการทดสอบโดยให้ม้าวิ่งเรียบ\nขาหน้าซ้าย + – –\nขาหน้าขวา – – –\nจากนั้นได้ทำ Provocative test โดย Flexion test ขาหน้าทั้งสองข้าง ได้ผลดังนี้\nขาหน้าซ้าย + (+) –\nขาหน้าขวา – – –\nภายหลังได้ทำ Nerve block ขาหน้าซ้ายตามลำดับตำแหน่งดังนี้\n1. pulvinus nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n2. palmar digital nerve block ขาหน้าซ้าย + – – ขาหน้าขวา – – –\n3. low palmar nerve block ขาหน้าซ้าย (+) – – ขาหน้าขวา – – –\n4. palmar metacarpal nerve block ขาหน้าซ้าย – – – ขาหน้าขวา – – –",
@@ -6613,7 +6760,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
     ],
     "model_answer": "Fracture of the lateral proximal sesamoid bone ของ fetlock ขาหลังซ้าย",
     "explain": "ภาพรังสี fetlock ท่า oblique ทั้งสองด้านแยกให้เห็น sesamoid แต่ละชิ้น ซึ่งเป็นที่ที่เห็นรอยหัก ภาพ ultrasound ของเคสนี้ชวนให้ตอบว่าเป็นเอ็นบาดเจ็บ แต่การวินิจฉัยต้องรวมข้อมูลทุกภาพ และรอยหักของกระดูกเห็นชัดจากภาพรังสี",
-    "source": "แนวคำตอบ POA2 ม้าขาหลังซ้ายบวม ในสรุป Ekwai Med ของ Vet 85 หน้า 3 (ไม่มีสไลด์ lameness หรือ orthopedic ปี 2569 ใน decks2569)",
+    "source": "แนวคำตอบ POA2 ม้าขาหลังซ้ายบวม ในสรุป Ekwai Med ของ Vet 85 หน้า 3 (สไลด์ lameness ปี 2569 ไม่ได้กล่าวถึงเรื่องนี้)",
     "verified": "บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า หน้า 2 ข้อ POA 2; สรุป Ekwai Med ของ Vet 85 หน้า 3 (แนวคำตอบ POA2 ที่ระบุว่าตรง 85)",
     "sourceType": "past-paper",
     "examOrigin": "Equine Med & Surg final Vet 85 บันทึกหลังสอบ",

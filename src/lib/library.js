@@ -849,27 +849,55 @@ export async function resolveDocUrl(doc) {
       const url = cdnUrlFor(doc);
       if (url) return url;
     }
-    // Ask for the link BEFORE asking who is asking.
+    // Who asks first depends on whether this device holds a session.
     //
-    // This used to load the Supabase SDK and await getSession() first, and
-    // measured on production that cost a full second before the request even
-    // left — on a shelf that is deliberately login-free, for a header that
-    // most readers do not have. The token only decides whether the endpoint
-    // will hand over storage_key at all (401) — a public document mints the
-    // identical URL with or without it — so the honest order is: try, and pay
-    // for the session only if the server says it needs one.
-    const mint = (token) => fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
+    // Loading the Supabase SDK and awaiting getSession() before the request
+    // once cost a full second on production, on a shelf that was login-free,
+    // for a header most readers did not have. So a device without a stored
+    // session tries first and pays for the session only on a 401. Behind the
+    // Chula wall every reader is signed in, and that tokenless try only buys a
+    // 401 and a second round trip (211 ms median on 9 Nov 2026), so a device
+    // with a stored session sends its token on the first mint; trouble reading
+    // the session falls back to the tokenless try. A VetMock AI link's open
+    // ticket (doc.ticket) goes along, so the Chula gate lets a tokenless try
+    // through too.
+    const ticket = doc.ticket ? `&vt=${encodeURIComponent(doc.ticket.vt)}&ve=${doc.ticket.ve}` : '';
+    const mint = (token) => fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}${ticket}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
+    const sessionToken = async () => {
+      const { getSupabase } = await import('./supabase.js');
+      const sb = await getSupabase();
+      const { data: { session } = {} } = await sb.auth.getSession();
+      return session?.access_token || null;
+    };
+    // A session read can stall: an expired token refreshing with no network
+    // retries for about 25 s (src/hooks/useAuth.js), and a deck reopened
+    // offline must not wait on it. Offline skips it; past 1 s the tokenless
+    // try goes ahead, as before.
+    const quickSessionToken = () => {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return Promise.resolve(null);
+      let timer;
+      return Promise.race([
+        sessionToken().catch(() => null),
+        new Promise((resolve) => { timer = setTimeout(resolve, 1000, null); }),
+      ]).finally(() => clearTimeout(timer));
+    };
     let res;
     try {
-      res = await mint(null);
-      if (res.status === 401) {
+      const early = hasStoredAuthToken() ? await quickSessionToken() : null;
+      res = await mint(early);
+      // A token the server refuses (a skewed clock, a deleted account) answers
+      // 401 at the gate or 502 from the catalogue; it must not cost a document
+      // the tokenless try opens, a public one or a VetMock AI ticket's. The
+      // first answer stands unless that try opens, so an outage still reads as one.
+      if (early && (res.status === 401 || res.status === 502)) {
+        const anon = await mint(null);
+        if (anon.ok) res = anon;
+      } else if (res.status === 401 && !early) {
         // Restricted material. NOW the session is worth waiting for.
-        const { getSupabase } = await import('./supabase.js');
-        const sb = await getSupabase();
-        const { data: { session } = {} } = await sb.auth.getSession();
-        if (session?.access_token) res = await mint(session.access_token);
+        const token = await sessionToken();
+        if (token) res = await mint(token);
       }
     } catch (netErr) {
       // Offline (or the mint endpoint is unreachable). The service worker
@@ -931,8 +959,9 @@ export async function resolveDocUrl(doc) {
 // public.library_search matches every term against the PDFs' own page text
 // (library_doc_pages, filled by scripts/library-pages.py). RLS on the pages
 // follows their document, so a guest never gets a restricted deck's page.
-// Any failure — offline, the function not deployed yet — answers [] and the
-// shelf's own title search stands alone, as it always did.
+// A failed search (offline, a timeout, the function refusing) answers null,
+// so the shelf can say the in-document search did not run instead of "no
+// document matches"; the title search still stands alone, as it always did.
 export const TEXT_SEARCH_MIN = 3;
 
 export async function searchLibraryText(query) {
@@ -943,10 +972,10 @@ export async function searchLibraryText(query) {
     if (!hasSupabase) return [];
     const sb = await getSupabase();
     const { data, error } = await sb.rpc('library_search', { q, max_docs: 30 });
-    if (error || !Array.isArray(data)) return [];
+    if (error || !Array.isArray(data)) return null;
     return data;
   } catch {
-    return [];
+    return null;
   }
 }
 
@@ -1149,11 +1178,11 @@ export async function downloadDocFile(resolve, name) {
 /** The payload the PDF reader receives. `resolve` defers the mint to the
  *  reader's own loading phase, so tapping a card navigates instantly instead
  *  of freezing the button for the mint round-trip. */
-export function readerPayload(doc, { page = null, returnTarget = null } = {}) {
+export function readerPayload(doc, { page = null, returnTarget = null, ticket = null } = {}) {
   return {
     page,
     returnTarget,
-    resolve: () => resolveDocUrl(doc),
+    resolve: () => resolveDocUrl(ticket ? { ...doc, ticket } : doc),
     fileName: `${doc.title}.pdf`,
     mime: doc.mime,
     sha256: doc.sha256_16,

@@ -22,7 +22,9 @@ export function scoreSubmission(body, catalog) {
   return {
     id: body.id, submission_fingerprint: createHash('sha256').update(JSON.stringify(ids.map(id => [id, body.question_versions?.[id] ?? null, body.answers[id] ?? null]))).digest('hex'), mode: body.mode === 'exam' ? 'exam' : 'quick',
     subject: verified ? (subjects.size === 1 ? [...subjects][0] : 'all') : String(body.subject || 'all').slice(0, 100),
-    total, correct, pct: Math.round(correct / total * 100), year,
+    // correct * 100 is an exact integer, so this rounds the exact quotient half up, as the
+    // exam_results check does; correct / total * 100 can land just under a half (23 of 40).
+    total, correct, pct: Math.round(correct * 100 / total), year,
     phase: ['1-mid', '1-final', '2-mid', '2-final'].includes(body.phase) ? body.phase : null,
     duration_sec: Math.max(0, Math.min(31536000, Math.round(Number(body.duration_sec) || 0))),
     score_source: verified ? 'server' : 'client',

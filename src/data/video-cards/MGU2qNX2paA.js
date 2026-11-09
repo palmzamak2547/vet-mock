@@ -111,7 +111,7 @@ export default {
   },
   {
    "t": 1380,
-   "title": "Equine",
+   "title": "",
    "line": "ซักประวัติ โรคปัจจุบัน ยาเดิม อาการซ่อนเร้น เช่น influenza, colic, rhabdomyolysis และ hyperkalemic periodic paralysis",
    "slides": [
     {
@@ -137,7 +137,7 @@ export default {
   },
   {
    "t": 1740,
-   "title": "Cardiovascular and respiratory status, hydration, pain, neurologic",
+   "title": "Cardiovascular and respiratory status, hydration, pain, neurologic function & body condition.",
    "line": "ตรวจร่างกาย ประเมิน ASA score และเลือกวางยืนหรือวางนอนตามความเสี่ยงและชนิดหัตถการ",
    "slides": [
     {
@@ -190,7 +190,7 @@ export default {
   },
   {
    "t": 2940,
-   "title": "Equine",
+   "title": "",
    "line": "ห้อง induction ต้องมีพื้นไม่ลื่น ผนังนุ่ม และรอกหรือสลิงช่วยประคองม้าขณะล้มตัวลง",
    "slides": [
     {
@@ -265,7 +265,7 @@ export default {
   },
   {
    "t": 3960,
-   "title": "Equine",
+   "title": "",
    "line": "Local และ regional anesthesia ลดการใช้ยาซึมและลดความเจ็บปวดระหว่างทำหัตถการแบบยืน",
    "slides": [
     {
@@ -345,7 +345,7 @@ export default {
   },
   {
    "t": 4800,
-   "title": "Equine",
+   "title": "",
    "line": "ผ่าช่องท้องต้องโกนตั้งแต่ pubis ถึงเหนือ xiphoid และด้านข้างถึง flank folds",
    "slides": [
     {
@@ -356,7 +356,7 @@ export default {
   },
   {
    "t": 5040,
-   "title": "Equine (ต่อ)",
+   "title": "",
    "line": "ห้องผ่าตัดต้องกว้าง สะอาด พื้นไม่ลื่น ระบายน้ำได้ มีเตียงไฮดรอลิก ไฟไร้เงา และรางรอก",
    "slides": [
     {
@@ -456,7 +456,7 @@ export default {
   },
   {
    "t": 5760,
-   "title": "Equine",
+   "title": "",
    "line": "Standing anesthesia ต้องมี stock พอดีตัว รองหัว และเฝ้าระวังไม่ให้ trachea ถูกกดทับ",
    "slides": [
     {
@@ -600,7 +600,7 @@ export default {
   },
   {
    "t": 7800,
-   "title": "Field based",
+   "title": "Field based surgery",
    "line": "Field surgery เตรียมงดอาหาร ตรวจร่างกายเต็มรูปแบบ ประเมินน้ำหนัก และเลือกสถานที่สงบสะอาด",
    "slides": [
     {
@@ -634,7 +634,7 @@ export default {
   },
   {
    "t": 8280,
-   "title": "Field based (ต่อ) (ต่อ)",
+   "title": "Field based (ต่อ)",
    "line": "เฝ้าระวังด้วยตาและมือ เติมยา 1/2 หรือ 1/3 ของโดสแรก และให้ม้าฟื้นในคอกจนมีสติเต็มที่",
    "slides": [
     {
@@ -669,24 +669,8 @@ export default {
    "t": 7293
   },
   {
-   "term": "standing",
-   "t": 6502
-  },
-  {
-   "term": "alpha",
-   "t": 3780
-  },
-  {
-   "term": "muscle",
-   "t": 4349
-  },
-  {
    "term": "induction",
    "t": 7411
-  },
-  {
-   "term": "ROOM",
-   "t": 5930
   },
   {
    "term": "วางยาสลบ",
@@ -701,10 +685,6 @@ export default {
    "t": 775
   },
   {
-   "term": "IN",
-   "t": 2882
-  },
-  {
    "term": "แคลเซียม",
    "t": 7174
   },
@@ -715,10 +695,6 @@ export default {
   {
    "term": "ออกซิเจน",
    "t": 4654
-  },
-  {
-   "term": "OUT",
-   "t": 3461
   },
   {
    "term": "ชัก",
@@ -759,10 +735,6 @@ export default {
   {
    "term": "ASA",
    "t": 1903
-  },
-  {
-   "term": "SIGN",
-   "t": 2882
   },
   {
    "term": "CO",

@@ -1005,7 +1005,9 @@ export default function CommandPalette({
     rec.continuous = false;
     let finalT = '';
     rec.onresult = (e) => {
-      const t = Array.from(e.results).map((r) => r[0]?.transcript || '').join('').trim();
+      // One line, as the box shows it: a single-line input drops a line break
+      // the query kept, and the two never matched again (see onSettled).
+      const t = Array.from(e.results).map((r) => r[0]?.transcript || '').join('').replace(/[\r\n]+/g, ' ').trim();
       if (t) { finalT = t; setQuery(t); }
     };
     rec.onerror = (e) => { setVoice(e?.error === 'not-allowed' || e?.error === 'service-not-allowed' ? 'denied' : 'error'); };
@@ -1079,6 +1081,20 @@ export default function CommandPalette({
     const t = setTimeout(() => setDebouncedQuery(query), 60);
     return () => clearTimeout(t);
   }, [query, debouncedQuery]);
+  // The rows and cards are drawn for the query the list last applied. For the
+  // 60 ms the box's text waits, a tap landed on the previous query's row: paste
+  // a deck's name and tap at once, and the deck that opened was another one.
+  // The box is read live, so a tap in the same moment as the paste counts too.
+  // A row the box's text still finds is opened at once (assistive input taps
+  // inside that window as well); anything only the previous query drew is
+  // dropped, and the list catches up within the 60 ms. Enter already answers
+  // for the box. This compares the text as typed: the debounce must keep it raw.
+  // Matched by destination, since a recent row is a copy of its item.
+  const liveQuery = () => (inputRef.current ? inputRef.current.value : query);
+  const onSettled = (act, item = null) => (...args) => {
+    const live = liveQuery();
+    if (live === debouncedQuery || (item && live.trim() && rankItems(items, live).some((hit) => recentKey(hit.item) === recentKey(item)))) act(...args);
+  };
 
   // Rotating placeholder — decorative, so it parks on the first example
   // when the user asked for reduced motion.
@@ -1628,7 +1644,7 @@ export default function CommandPalette({
             flatIdx={0}
             optionId={optionId(0)}
             onHover={() => setActiveIdx(0)}
-            onOpen={openStudy}
+            onOpen={onSettled(openStudy)}
             selectedYear={selectedYear}
             libraryCountFor={libraryCountFor}
           />
@@ -1739,7 +1755,7 @@ export default function CommandPalette({
           intent.kind === 'dose'
             ? <DoseCard key="dose" intent={intent} onOpenCalc={() => { try { window.dispatchEvent(new Event('vmx-open-vetcalc')); } catch { /* no-op */ } onClose(); }} />
             : intent.kind === 'course'
-              ? <CourseCard key="course" intent={intent} onOpenLibraryShelf={openLibraryShelf} onPracticeSubject={practiceSubject} />
+              ? <CourseCard key="course" intent={intent} onOpenLibraryShelf={onSettled(openLibraryShelf)} onPracticeSubject={onSettled(practiceSubject)} />
               : null
         ))}
 
@@ -1773,7 +1789,7 @@ export default function CommandPalette({
         )}
 
         {/* Results — grouped, streamed, keyboard-navigable across groups */}
-        <div ref={listRef} style={{ maxHeight: '52vh', overflowY: 'auto', padding: 4 }}>
+        <div ref={listRef} aria-busy={query !== debouncedQuery || undefined} style={{ maxHeight: '52vh', overflowY: 'auto', padding: 4 }}>
           {view.flat.filter((it) => it.type !== 'ask').length === 0 && !sourcesLoading && intents.length === 0 && !ask && (
             <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14 }}>
               <Mochi state="curious" size={48} slot="search-empty" className="vmx-empty-mochi" />
@@ -1789,7 +1805,7 @@ export default function CommandPalette({
                       key={`${t.subject}/${t.topic}`}
                       type="button"
                       className="vmx-omni-related-link"
-                      onClick={() => { handlersRef.current.onOpenWiki?.(t.subject, t.topic); onClose(); }}
+                      onClick={onSettled(() => { handlersRef.current.onOpenWiki?.(t.subject, t.topic); onClose(); })}
                     >
                       <span aria-hidden="true">→ </span>{t.title}
                     </button>
@@ -1832,7 +1848,7 @@ export default function CommandPalette({
                     data-flat-idx={flatIdx}
                     data-type={item.type}
                     className="vmx-omni-row"
-                    onClick={() => fire(item)}
+                    onClick={onSettled(() => fire(item), item)}
                     onMouseEnter={() => setActiveIdx(flatIdx)}
                     style={{
                       all: 'unset',

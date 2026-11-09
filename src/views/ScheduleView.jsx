@@ -314,7 +314,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
             <span id="vmx-course-docs-title">ประมวลรายวิชาและตารางสอน ปี {selectedYear} ({docs.length})</span>
           </div>
           <p style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-            ฉบับอ่านง่ายจากประมวลรายวิชาของแต่ละวิชา บอกว่าแต่ละคาบออกสอบช่วงไหน ดาวน์โหลดเป็น PDF หรือรูป
+            ฉบับอ่านง่ายจากประมวลรายวิชาของแต่ละวิชา แยกแต่ละคาบตามช่วงสอบจากหลักฐานที่มี ถ้าไม่มีหลักฐานใช้วันที่เรียน ดาวน์โหลดเป็น PDF หรือรูป
           </p>
           {failureNote('docs')}
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, border: '1px solid var(--clr-border)', borderRadius: 12 }}>

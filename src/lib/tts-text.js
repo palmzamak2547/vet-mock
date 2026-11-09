@@ -10,7 +10,14 @@
 // (the page falls back to the live voices) until the generator reruns.
 // ============================================================
 
-// Markdown and stray markup sound wrong when spoken.
+// Emoji and check marks (❌ ✅ 💡) are markers on screen; a voice reads
+// their names aloud, words the text never had. ♂ ♀ ↔ carry meaning and are
+// said in words by normalizeSymbols instead.
+const PICTOGRAPHS = /(?![♂♀↔])\p{Extended_Pictographic}|[\u{FE0F}\u{20E3}✓✗✔✘]/gu;
+
+// Markdown and stray markup sound wrong when spoken. A line break, a list
+// bullet and a spaced table bar are pauses, so they become one line break
+// each; a bar inside a formula, P(D+|T+), stays.
 export function stripForSpeech(s) {
   if (!s) return '';
   return String(s)
@@ -18,8 +25,15 @@ export function stripForSpeech(s) {
     .replace(/\*([^*]+)\*/g, '$1')
     .replace(/_([^_]+)_/g, '$1')
     .replace(/`([^`]+)`/g, '$1')
-    .replace(/[#>~]/g, '')
-    .replace(/\s+/g, ' ')
+    .replace(PICTOGRAPHS, '')
+    .replace(/[•·]| \| /g, '\n')
+    // '>' quotes only at the start of a line, and '~' is markup only away
+    // from a number: before one they mean "more than" and "about", which
+    // normalizeSymbols says in words. Dropping them changed "> 700" to "700".
+    .replace(/^[^\S\n]*>+(?!\s*\d)/gm, '')
+    .replace(/#|~(?!\s*\d)/g, '')
+    .replace(/[^\S\n]+/g, ' ')
+    .replace(/ *\n\s*/g, '\n')
     .trim();
 }
 
@@ -38,11 +52,32 @@ export function normalizeSymbols(text, lang) {
     // Run BEFORE we touch unit slashes so we don't accidentally absorb the
     // hyphen inside drug names like "Sulfa-Trimethoprim".
     .replace(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/g, (m, a, b) => `${a} ${isEn ? 'to' : 'ถึง'} ${b}`)
+    // Arrows before comparisons, so "7.4 -> 7.2" is not read as "more than".
+    .replace(/→|⇒|->/g, isEn ? ' to ' : ' ไป ')
+    // A chain of bare numbers joined by '>' on one line orders steps
+    // ("2 > 4 > 1 > 3"), a pause each. One '>' compares: "HCO3 >32" and
+    // "> 700" are "more than" (no lookbehind: iOS before 16.4 cannot parse it).
+    .replace(/(^|[^\w.])(\d+(?:\.\d+)?(?:[^\S\n]*>[^\S\n]*\d+(?:\.\d+)?){2,})(?![\w.])/gm,
+      (m, pre, chain) => pre + chain.split(/[^\S\n]*>[^\S\n]*/).join(', '))
+    // Comparisons and powers before a number: "> 700", "<2 s", "~135", "10^6".
+    .replace(/([<>])\s*(?=-?\d)/g, (m, s) => (s === '>' ? (isEn ? ' more than ' : ' มากกว่า ') : (isEn ? ' less than ' : ' น้อยกว่า ')))
+    .replace(/~\s*(?=\d)/g, isEn ? ' about ' : ' ประมาณ ')
+    .replace(/(\d)\s*\^\s*(\d+)/g, (m, a, b) => `${a} ${isEn ? 'to the power of' : 'ยกกำลัง'} ${b}`)
+    .replace(/°\s*C\b/g, isEn ? ' degrees Celsius' : ' องศาเซลเซียส')
+    .replace(/°\s*F\b/g, isEn ? ' degrees Fahrenheit' : ' องศาฟาเรนไฮต์')
+    .replace(/(\d)\s*\*\s*(?=\d)/g, `$1 ${isEn ? 'times' : 'คูณ'} `)
+    .replace(/(\d)\s*−\s*(?=\d)/g, `$1 ${isEn ? 'minus' : 'ลบ'} `)
+    .replace(/↑/g, isEn ? ' high ' : ' สูง ')
+    .replace(/↓/g, isEn ? ' low ' : ' ต่ำ ')
+    .replace(/≈/g, isEn ? ' approximately ' : ' ประมาณ ')
+    .replace(/≠/g, isEn ? ' is not ' : ' ไม่เท่ากับ ')
+    .replace(/√\s*/g, isEn ? ' square root of ' : ' รากที่สองของ ')
+    .replace(/♂/g, isEn ? ' male ' : ' ตัวผู้ ')
+    .replace(/♀/g, isEn ? ' female ' : ' ตัวเมีย ')
+    .replace(/↔/g, isEn ? ' and ' : ' กับ ')
     // Three-or-more dots (ellipsis) → comma pause (browser ignores literal dots)
     .replace(/\.{3,}/g, ', ')
     .replace(/…/g, ', ')
-    // Arrows
-    .replace(/→|⇒|->/g, isEn ? ' to ' : ' ไป ')
     .replace(/×/g, isEn ? ' times ' : ' คูณ ')
     .replace(/±/g, isEn ? ' plus or minus ' : ' บวกลบ ')
     .replace(/≥/g, isEn ? ' greater than or equal to ' : ' มากกว่าหรือเท่ากับ ')
@@ -133,7 +168,8 @@ export const SHARED_TTS = Object.freeze({
 });
 
 export function clipText(raw, lang) {
-  return expandUnits(normalizeSymbols(stripForSpeech(raw), lang), lang).replace(/\s+/g, ' ').trim();
+  return expandUnits(normalizeSymbols(stripForSpeech(raw), lang), lang)
+    .replace(/[^\S\n]+/g, ' ').replace(/ *\n\s*/g, '\n').trim();
 }
 
 // The label read before each option: the same letter the option's chip shows.
@@ -142,14 +178,28 @@ export function optionLabel(displayIdx, lang) {
   return lang === 'en' ? `Option ${letter}.` : `ตัวเลือก ${letter}`;
 }
 
+// The ElevenLabs generation (eleven_v4_turbo, voice Sarah), the one Palm's
+// blind tests rated most natural in Thai. Its clips sit beside g1's under
+// their own prefix and manifests, so neither renames the other.
+export const ELEVEN_TTS = Object.freeze({
+  model: 'eleven_v4_turbo',
+  voice: 'EXAVITQu4vr4xnSDxMaL',
+  base: SHARED_TTS.base,
+  gen: 'e1',
+});
+
+// Newest first. A question plays the first generation that has every one of
+// its clips, so one question is never read in two voices.
+export const SHARED_GENS = Object.freeze([ELEVEN_TTS, SHARED_TTS]);
+
 // 64-bit hex name of a clip: model, voice and the exact text.
-export async function clipKey(text) {
-  const data = new TextEncoder().encode(`${SHARED_TTS.model}|${SHARED_TTS.voice}|${text}`);
+export async function clipKey(text, g = SHARED_TTS) {
+  const data = new TextEncoder().encode(`${g.model}|${g.voice}|${text}`);
   const buf = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(buf)).slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 // .mp4, not .m4a: Cloudflare's edge caches .mp4 by default (72 ms against
 // 230 ms from the bucket, measured 2026-10-21) and has no rule for .m4a.
-export const clipUrl = (key) => `${SHARED_TTS.base}/${SHARED_TTS.gen}/${key}.mp4`;
-export const manifestUrl = (subject) => `${SHARED_TTS.base}/${SHARED_TTS.gen}/m/${encodeURIComponent(subject)}.json`;
+export const clipUrl = (key, g = SHARED_TTS) => `${g.base}/${g.gen}/${key}.mp4`;
+export const manifestUrl = (subject, g = SHARED_TTS) => `${g.base}/${g.gen}/m/${encodeURIComponent(subject)}.json`;
