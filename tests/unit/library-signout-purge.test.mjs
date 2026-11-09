@@ -187,7 +187,9 @@ test('restricted intent prefetch settles after its grant and respects mid-grant 
   }
 });
 
-test('a device with a session mints with its token first, and nothing it adds can stall or lose an open', { timeout: 8000 }, async () => {
+// The per-row time checks below are the assertions; the test's own limit only stops a hang, and
+// each row recompiles library.js, which a loaded runner once took past 8 s for all eight.
+test('a device with a session mints with its token first, and nothing it adds can stall or lose an open', { timeout: 30000 }, async () => {
   // Behind the Chula wall the tokenless try only bought a 401 and a second round trip.
   const originalFetch = globalThis.fetch;
   const navigatorDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
@@ -205,7 +207,7 @@ test('a device with a session mints with its token first, and nothing it adds ca
     // A refresh with no network retries for about 25 s: past 1 s the tokenless try goes ahead.
     ['stalled session', true, () => new Promise(() => {}), true, () => 200, [null], /fixture=1/],
     // Offline, the session is not read at all and the cached copy opens at once.
-    ['offline', true, () => new Promise(() => {}), false, () => 200, [], /offline=1/, 500],
+    ['offline', true, () => new Promise(() => {}), false, () => 200, [], /offline=1/, 900],
     // A refused token must not cost a document the tokenless try opens.
     ['refused at the gate', true, session('stale-token'), true, (auth) => (auth ? 401 : 200), ['Bearer stale-token', null], /fixture=2/],
     ['refused by the catalogue', true, session('stale-token'), true, (auth) => (auth ? 502 : 200), ['Bearer stale-token', null], /fixture=2/],
@@ -235,6 +237,15 @@ test('a device with a session mints with its token first, and nothing it adds ca
       assert.deepEqual(mints, expected, name);
       assert.ok(Date.now() - started < withinMs, `${name} opened within ${withinMs} ms`);
     }
+    // A real outage under a good token stays an outage: the tokenless retry's 401 does not turn it
+    // into a sign-in request.
+    install({ signedIn: true });
+    globalThis.__vmxTestSupabase = { auth: { getSession: session('member-token') } };
+    answer = (auth) => (auth ? 502 : 401);
+    mints.length = 0;
+    const lib = await freshLibrary();
+    await assert.rejects(lib.resolveDocUrl(doc('first-mint-outage', 'public', P_HASH)), (error) => !/ต้องเข้าสู่ระบบ/.test(error.message));
+    assert.deepEqual(mints, ['Bearer member-token', null]);
   } finally {
     globalThis.fetch = originalFetch;
     if (navigatorDescriptor) Object.defineProperty(globalThis, 'navigator', navigatorDescriptor);

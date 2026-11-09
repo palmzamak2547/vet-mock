@@ -889,9 +889,12 @@ export async function resolveDocUrl(doc) {
       res = await mint(early);
       // A token the server refuses (a skewed clock, a deleted account) answers
       // 401 at the gate or 502 from the catalogue; it must not cost a document
-      // the tokenless try opens, a public one or a VetMock AI ticket's.
-      if (early && (res.status === 401 || res.status === 502)) res = await mint(null);
-      else if (res.status === 401 && !early) {
+      // the tokenless try opens, a public one or a VetMock AI ticket's. The
+      // first answer stands unless that try opens, so an outage still reads as one.
+      if (early && (res.status === 401 || res.status === 502)) {
+        const anon = await mint(null);
+        if (anon.ok) res = anon;
+      } else if (res.status === 401 && !early) {
         // Restricted material. NOW the session is worth waiting for.
         const token = await sessionToken();
         if (token) res = await mint(token);
