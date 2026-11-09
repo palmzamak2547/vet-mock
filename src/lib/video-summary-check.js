@@ -372,7 +372,8 @@ export function coverage(summary, mustCover, { chapters = [], window = 120, page
     const words = [...latinIn(item.text), ...(item.kind === 'mark' ? latinIn(pageText(item.page)) : [])];
     const text = String(p.text || '').toLowerCase();
     // An acronym counts as a whole token: "ADI" is not in "irradiation", nor "WHO" in "whole".
-    const token = (a) => new RegExp(`(?<![a-z0-9])${a}(?![a-z0-9])`).test(text);
+    // (No lookbehind: an engine without it would fail to load this module.)
+    const token = (a) => new RegExp(`(?:^|[^a-z0-9])${a}(?![a-z0-9])`).test(text);
     // A red mark in Thai ("เขตโรคระบาด", or a list "เขตโรคระบาด, เขตเฝ้าระวังโรค") has no Latin
     // word: it counts when the line says one of its terms.
     const thaiMark = item.kind === 'mark' && String(item.text || '').split(/,\s*/).map((x) => x.trim())
