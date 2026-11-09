@@ -45,12 +45,12 @@ async function probe(token, { base, slug = 'deck-a', offline = false } = {}) {
   return { ...result, site, seen };
 }
 
-test('an open is timed as the client makes it, and the token rides on the second mint only', async () => {
+test('an open is timed as the client makes it, and the token rides on the mint only', async () => {
   const { code, stdout, seen } = await probe(GOOD);
   assert.equal(code, 0);
   assert.match(stdout, /member token, expires in 60 min/);
-  assert.match(stdout, /open median: \d+ ms as the client opens today .*n=1; first mint \d+ ms/);
-  assert.deepEqual(seen.filter((r) => r.pathname === '/api/library-file').map((r) => Boolean(r.auth)), [false, true]);
+  assert.match(stdout, /open median: \d+ ms \(mint \d+, file \d+\), n=1; first mint \d+ ms/);
+  assert.deepEqual(seen.filter((r) => r.pathname === '/api/library-file').map((r) => Boolean(r.auth)), [true]);
   assert.deepEqual(seen.filter((r) => r.auth).map((r) => r.pathname), ['/api/library-file']);
   assert.ok(seen.some((r) => r.pathname === '/api/library-blob'));
 });

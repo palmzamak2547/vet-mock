@@ -187,32 +187,53 @@ test('restricted intent prefetch settles after its grant and respects mid-grant 
   }
 });
 
-test('a device with a session mints once with its token; a guest, or a session that cannot be read, tries without one', { timeout: 4000 }, async () => {
+test('a device with a session mints with its token first, and nothing it adds can stall or lose an open', { timeout: 8000 }, async () => {
   // Behind the Chula wall the tokenless try only bought a 401 and a second round trip.
   const originalFetch = globalThis.fetch;
   const navigatorDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
-  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { serviceWorker: {
-    addEventListener() {},
-    controller: { postMessage(data, ports) { ports[0].postMessage({ ready: true }); } },
-  } } });
+  let onLine = true;
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {
+    get onLine() { return onLine; },
+    serviceWorker: { addEventListener() {}, controller: { postMessage(data, ports) { ports[0].postMessage({ ready: true }); } } },
+  } });
+  const session = (token) => async () => ({ data: { session: token ? { access_token: token } : null } });
+  // [name, signed in, getSession, online, the server's answer to an Authorization header (or null), mints seen, link]
+  const cases = [
+    ['member', true, session('member-token'), true, () => 200, ['Bearer member-token'], /fixture=1/],
+    ['guest', false, session(null), true, () => 200, [null], /fixture=1/],
+    ['unreadable session', true, async () => { throw new Error('storage locked'); }, true, () => 200, [null], /fixture=1/],
+    // A refresh with no network retries for about 25 s: past 1 s the tokenless try goes ahead.
+    ['stalled session', true, () => new Promise(() => {}), true, () => 200, [null], /fixture=1/],
+    // Offline, the session is not read at all and the cached copy opens at once.
+    ['offline', true, () => new Promise(() => {}), false, () => 200, [], /offline=1/, 500],
+    // A refused token must not cost a document the tokenless try opens.
+    ['refused at the gate', true, session('stale-token'), true, (auth) => (auth ? 401 : 200), ['Bearer stale-token', null], /fixture=2/],
+    ['refused by the catalogue', true, session('stale-token'), true, (auth) => (auth ? 502 : 200), ['Bearer stale-token', null], /fixture=2/],
+    // A guest's restricted open still pays for the session only on a 401.
+    ['guest on a restricted deck', false, session('late-token'), true, (auth) => (auth ? 200 : 401), [null, 'Bearer late-token'], /fixture=2/],
+  ];
   const mints = [];
+  let answer;
   globalThis.fetch = async (url, options = {}) => {
-    if (String(url).includes('/api/library-file')) mints.push(options.headers?.Authorization || null);
-    return Response.json({ url: `/api/library-blob?fixture=${mints.length}` });
+    if (!String(url).includes('/api/library-file')) throw new Error(`unexpected ${url}`);
+    if (!onLine) throw new TypeError('Failed to fetch');
+    const auth = options.headers?.Authorization || null;
+    mints.push(auth);
+    const status = answer(auth);
+    return status === 200 ? Response.json({ url: `/api/library-blob?fixture=${mints.length}` }) : Response.json({ error: 'refused' }, { status });
   };
   try {
-    const cases = [
-      ['member', true, async () => ({ data: { session: { access_token: 'member-token' } } }), ['Bearer member-token']],
-      ['guest', false, async () => ({ data: { session: null } }), [null]],
-      ['unreadable', true, async () => { throw new Error('storage locked'); }, [null]],
-    ];
-    for (const [name, signedIn, getSession, expected] of cases) {
+    for (const [name, signedIn, getSession, online, respond, expected, link, withinMs = 2500] of cases) {
       install({ signedIn });
       globalThis.__vmxTestSupabase = { auth: { getSession } };
+      onLine = online;
+      answer = respond;
       mints.length = 0;
       const lib = await freshLibrary();
-      assert.match(await lib.resolveDocUrl(doc(`first-mint-${name}`, 'public', P_HASH)), /fixture=1/, name);
+      const started = Date.now();
+      assert.match(await lib.resolveDocUrl(doc(`first-mint-${name.replace(/ /g, '-')}`, 'public', P_HASH)), link, name);
       assert.deepEqual(mints, expected, name);
+      assert.ok(Date.now() - started < withinMs, `${name} opened within ${withinMs} ms`);
     }
   } finally {
     globalThis.fetch = originalFetch;

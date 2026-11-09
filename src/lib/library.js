@@ -871,11 +871,27 @@ export async function resolveDocUrl(doc) {
       const { data: { session } = {} } = await sb.auth.getSession();
       return session?.access_token || null;
     };
+    // A session read can stall: an expired token refreshing with no network
+    // retries for about 25 s (src/hooks/useAuth.js), and a deck reopened
+    // offline must not wait on it. Offline skips it; past 1 s the tokenless
+    // try goes ahead, as before.
+    const quickSessionToken = () => {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return Promise.resolve(null);
+      let timer;
+      return Promise.race([
+        sessionToken().catch(() => null),
+        new Promise((resolve) => { timer = setTimeout(resolve, 1000, null); }),
+      ]).finally(() => clearTimeout(timer));
+    };
     let res;
     try {
-      const early = hasStoredAuthToken() ? await sessionToken().catch(() => null) : null;
+      const early = hasStoredAuthToken() ? await quickSessionToken() : null;
       res = await mint(early);
-      if (res.status === 401 && !early) {
+      // A token the server refuses (a skewed clock, a deleted account) answers
+      // 401 at the gate or 502 from the catalogue; it must not cost a document
+      // the tokenless try opens, a public one or a VetMock AI ticket's.
+      if (early && (res.status === 401 || res.status === 502)) res = await mint(null);
+      else if (res.status === 401 && !early) {
         // Restricted material. NOW the session is worth waiting for.
         const token = await sessionToken();
         if (token) res = await mint(token);

@@ -5,10 +5,10 @@
 // measured only with a signed-in Chula member's Supabase access token in VMX_PROBE_TOKEN: the
 // access_token in that tab's localStorage `sb-<project ref>-auth-token`, good for about an hour.
 // Pass it in the environment, never as an argument.
-// For each public deck slug, the open as the client does it today (src/lib/library.js): a mint
-// (/api/library-file) without the token, which the wall answers 401, the mint with it, and the
-// file it links to, each with the region that answered (x-vercel-id: edge::function). Without
-// slugs, three public 1.5 MB decks. The gate remembers a member for 60 s per instance and does not
+// For each public deck slug, the open as the client makes it for a device with a session
+// (src/lib/library.js): the mint (/api/library-file) with the token, then the file it links to,
+// each with the region that answered (x-vercel-id: edge::function). Without slugs, three public
+// 1.5 MB decks. The gate remembers a member for 60 s per instance and does not
 // renew it on a hit, so a student opening one deck now and then meets the first mint (the
 // membership check); the median of the rest is the best case.
 // Then the time to first byte of two cheap calls that answer before any wall, for everyone:
@@ -48,9 +48,6 @@ const opens = [];
 for (let i = 0; TOKEN && i < RUNS; i++) {
   for (const slug of slugs) {
     const url = `${BASE}/api/library-file?slug=${encodeURIComponent(slug)}&${fresh(i)}`;
-    const tg = performance.now();
-    const guest = await fetch(`${url}g`);
-    await guest.arrayBuffer();
     const t0 = performance.now();
     const mint = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
     const body = await mint.json().catch(() => ({}));
@@ -67,14 +64,13 @@ for (let i = 0; TOKEN && i < RUNS; i++) {
     const bytes = (await file.arrayBuffer()).byteLength;
     const t2 = performance.now();
     if (!file.ok) { console.log(`${slug}: file ${file.status}, not counted`); continue; }
-    opens.push({ guest: t0 - tg, guestStatus: guest.status, mint: t1 - t0, file: t2 - t1, bytes });
-    console.log(`${slug.slice(0, 30).padEnd(30)} tokenless ${(t0 - tg).toFixed(0).padStart(5)} ms  mint ${(t1 - t0).toFixed(0).padStart(5)} ms (${hop(mint)})  file ${(t2 - t1).toFixed(0).padStart(5)} ms (${hop(file)}) ${(bytes / 1e6).toFixed(2)} MB`);
+    opens.push({ mint: t1 - t0, file: t2 - t1, bytes });
+    console.log(`${slug.slice(0, 30).padEnd(30)} mint ${(t1 - t0).toFixed(0).padStart(5)} ms (${hop(mint)})  file ${(t2 - t1).toFixed(0).padStart(5)} ms (${hop(file)}) ${(bytes / 1e6).toFixed(2)} MB`);
   }
 }
 if (opens.length) {
   const m = (k) => med(opens.map(k)).toFixed(0);
-  console.log(`open median: ${m((o) => o.guest + o.mint + o.file)} ms as the client opens today (tokenless ${m((o) => o.guest)}, mint ${m((o) => o.mint)}, file ${m((o) => o.file)}), n=${opens.length}; first mint ${opens[0].mint.toFixed(0)} ms with the membership check`);
-  if (opens.some((o) => o.guestStatus !== 401)) console.log('note: a tokenless mint did not answer 401 (wall off?), and there the client opens without minting again');
+  console.log(`open median: ${m((o) => o.mint + o.file)} ms (mint ${m((o) => o.mint)}, file ${m((o) => o.file)}), n=${opens.length}; first mint ${opens[0].mint.toFixed(0)} ms with the membership check`);
 }
 
 for (const path of ['/api/tts', '/api/playlist']) {
