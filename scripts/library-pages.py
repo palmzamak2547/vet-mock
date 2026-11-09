@@ -25,6 +25,9 @@ What is stored, and what is not:
 - A document showing a Chula student ID or a Thai national ID on any page is
   held entirely ('pii_held'): no page of it is stored, so no search can surface
   it. Which documents those are is a decision for a person, not this script.
+- So is a document with a page of ROSTER_IDS or more student-ID-like numbers,
+  of any faculty and contiguous or grouped ("653 xxxxx 31"): a roster, an
+  attendance sheet, a score sheet, a group report listing its members.
 """
 import concurrent.futures as cf
 import json
@@ -52,6 +55,15 @@ STUDENT_ID = re.compile(r'(?<!\d)[4-7]\d{7}31(?!\d)')
 # Standalone only: a 13-digit run inside a URL, DOI or file name (seen as
 # Facebook story ids and ResearchGate figure paths) is not an ID card.
 NATIONAL_ID = re.compile(r'(?<![\w/=&%.#:@-])[1-8][- ]?\d{4}[- ]?\d{5}[- ]?\d{2}[- ]?\d(?![\w/=&%.@-])')
+# STUDENT_ID wants one unbroken run, and the com4 midterm score sheet (2 Nov
+# 2026) printed every ID in groups, "653 xxxxx 31": 149 IDs, status ok, searchable.
+# This counts student-ID-like numbers per page instead: entry year, programme
+# digit, running number, faculty (any, not only 31), grouped or not. One on a
+# slide is a citation; ROSTER_IDS on a page is a list of students. The string is
+# the one in scripts/lib/library-pii.mjs, which the audit runs in SQL and a unit
+# test compares; its calibration notes are there.
+ROSTER_ID = re.compile(r'(?<![0-9.,])[4-7][0-9][ -]?[3-8][ -]?[0-9]{5}[ -]?[2-5][0-9](?![0-9])')
+ROSTER_IDS = 3
 
 
 def arg(name, default=None):
@@ -118,9 +130,17 @@ def classify(pages):
         # does not become a copy of the IDs.
         ctx = [f"{kind}: {re.sub(r'[0-9]', '#', raw[max(0, m.start() - 40):m.end() + 40])}" for m, kind in hits[:3]]
         return 'pii_held', {}, {'id_matches': len(hits), 'context': ctx}
+    # Counted on the text that would be stored, where a line break inside an ID
+    # has become a space: what must not be searchable is what gets checked.
+    bodies = [clean(p) for p in pages]
+    roster = {i: n for i, n in ((i, len(ROSTER_ID.findall(b))) for i, b in enumerate(bodies, 1)) if n >= ROSTER_IDS}
+    if roster:
+        first = bodies[min(roster) - 1]
+        ctx = [f"roster: {re.sub(r'[0-9]', '#', first[max(0, m.start() - 40):m.end() + 40])}"
+               for m in list(ROSTER_ID.finditer(first))[:3]]
+        return 'pii_held', {}, {'id_matches': sum(roster.values()), 'roster_pages': sorted(roster), 'context': ctx}
     kept, garbled, empty = {}, 0, 0
-    for i, p in enumerate(pages, 1):
-        body = clean(p)
+    for i, body in enumerate(bodies, 1):
         if len(body) < 20:
             empty += 1
             continue
@@ -265,6 +285,20 @@ def selftest():
     assert classify(['\x01 ' + 'ข้อความภาษาไทยที่อ่านได้ยาวพอสมควร ' * 8 + '\x01 \x01'])[0] == 'ok'
     assert classify(['https://m.facebook.com/story.php?story_fbid=1234567890123&id=1 ข้อความยาวพอสมควรเลย'])[0] == 'ok'
     assert classify(['บัตรประชาชน 1 2345 67890 12 3 ของผู้ป่วย'])[0] == 'pii_held'
+    # The com4 shape: seat number, ID in groups, score. STUDENT_ID never saw it.
+    # Running numbers from 99901 keep these fixtures off any real student's ID.
+    sheet = 'คะแนนสอบ Midterm ' + ' '.join(f'{i} 653 {99900 + i} 31 {40 + i}' for i in range(1, 25))
+    status, kept, notes = classify(['ประกาศ ข้อความนำยาวพอสมควร', sheet])
+    assert (status, kept, notes['roster_pages'], notes['id_matches']) == ('pii_held', {}, [2], 24)
+    assert not re.search(r'[0-9]', ' '.join(notes['context']))
+    # Members of a gen-ed group from other faculties, contiguous IDs, one per line.
+    assert classify(['สมาชิกกลุ่ม\n' + '\n'.join(f'สมาชิกคนที่ {i} 664{99900 + i}{21 + i}' for i in range(1, 5))])[0] == 'pii_held'
+    assert classify(['ผู้จัดทำ\n653\n99019\n23 นายหนึ่ง\n6539902023 นายสอง\n6639903034 นายสาม'])[0] == 'pii_held'
+    # Below the count, or not a student number, stays searchable: two authors on
+    # a report, a sire catalogue's registration numbers, decimals.
+    assert classify(['ผู้จัดทำ นายหนึ่ง 6539900123 นายสอง 6539900223 รายงานเรื่องประชากรศาสตร์'])[0] == 'ok'
+    assert classify(['พ่อพันธุ์โคนม ' + ' '.join(f'500{i:05d}49 {i}.25' for i in range(1, 9))])[0] == 'ok'
+    assert classify(['ค่าที่วัดได้ ' + ' '.join(f'0.65399001{i:02d}' for i in range(20, 26))])[0] == 'ok'
     big = {'id': '00000000-0000-0000-0000-000000000000', 'status': 'ok', 'page_count': 3,
            'pages': {str(i): 'ก' * 150_000 for i in range(1, 4)}}
     sts = doc_statements(big)

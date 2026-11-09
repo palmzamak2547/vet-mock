@@ -267,7 +267,6 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "bullets": [
               "รายวิชา **3107508** เรียน **3 ส.ค. ถึง 4 ธ.ค. 69** เวลา **10.00 ถึง 12.00 และ 13.00 ถึง 16.00** แบบ onsite",
-              "**Mid-term Examination 21 ถึง 25 ก.ย. 69**",
               "**Final Examination 23 พ.ย. ถึง 4 ธ.ค. 69**"
             ]
           },
