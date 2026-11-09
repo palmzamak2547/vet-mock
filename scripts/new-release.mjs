@@ -3,9 +3,11 @@
 //
 // Writes src/data/changelog/<version>.js with the next free version, so sessions stop agreeing on
 // numbers by message. "Taken" means: in changelog.js or a release file on origin/main, in a release
-// file of any open pull request (gh), or in this checkout. Two sessions that run it in the same
-// minute can still pick the same number; their files then share a path and the second pull request
-// shows a conflict, and running this again picks the next one.
+// file of any open pull request (gh), or in this checkout. Run it when you open the pull request and
+// keep the number: there is no renumbering at merge, because Home announces every release a device
+// has not seen (src/lib/changelog-seen.js) in whatever order they merge. Two sessions that run it in
+// the same minute can still pick the same number; their files then share a path and the second pull
+// request shows a conflict, and running this again picks the next one.
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';

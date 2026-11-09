@@ -1,7 +1,10 @@
 # Release notes, one file per release
 
-`npm run release:new -- minor` (or `patch`) writes `<version>.js` here with the next free number.
-Each file is `export default { version, date, headline, changes }`, the same shape as an entry in
+`npm run release:new -- minor` (or `patch`) writes `<version>.js` here with the next free number,
+checked against origin/main and every open pull request. Take it when you open the pull request
+and keep it; a collision (an add/add conflict on the file) is resolved by taking another number.
+There is no queue and no renumbering at merge: Home announces every release a device has not seen
+(`src/lib/changelog-seen.js`), so the order releases merge in does not matter. Each file is `export default { version, date, headline, changes }`, the same shape as an entry in
 `../changelog.js`, which keeps every release from before pipeline v2. `scripts/regen-latest-changelog.mjs`
 gathers this folder into the derived modules; `lint:changelog-latest` checks it. Only what a
 student notices goes here (AGENTS.md Rule 2).

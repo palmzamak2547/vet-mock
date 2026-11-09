@@ -1,11 +1,13 @@
 // ============================================================
-// latest-changelog.generated.js — one release in the entry chunk, not 100+
+// latest-changelog.generated.js — a few releases in the entry chunk, not 100+
 // ============================================================
-// HomeView and Sidebar render only the newest release. Importing it from
-// changelog.js kept the whole history in the entry chunk (Rollup cannot
-// tree-shake CHANGELOG[0] away from its array), so a generated module
-// carries just that entry. These contracts keep the copy honest and keep
-// the consumers off the full file.
+// Sidebar, Landing and client diagnostics read the newest release; Home's
+// update note announces any of the newest RECENT_RELEASES this device has not
+// seen (src/lib/changelog-seen.js), since releases now land in any order.
+// Importing them from changelog.js kept the whole history in the entry chunk
+// (Rollup cannot tree-shake a slice away from its array), so a generated module
+// carries just those entries, and only the fields the note shows. These
+// contracts keep the copy honest and keep the consumers off the full file.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -14,11 +16,26 @@ import { readFileSync } from 'node:fs';
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 const full = await import('../../src/data/changelog-all.js');
 const gen = await import('../../src/data/latest-changelog.generated.js');
+const { RECENT_RELEASES, noteFields } = await import('../../scripts/regen-latest-changelog.mjs');
 
-test('the generated module carries exactly the newest release and the scope labels', () => {
-  assert.deepEqual(gen.LATEST_CHANGELOG, full.CHANGELOG[0]);
+test('the generated module carries the newest releases, newest first, and the scope labels', () => {
+  assert.equal(gen.RECENT_CHANGELOG.length, Math.min(RECENT_RELEASES, full.CHANGELOG.length));
+  assert.deepEqual(gen.RECENT_CHANGELOG, full.CHANGELOG.slice(0, RECENT_RELEASES).map(noteFields));
+  assert.equal(gen.LATEST_CHANGELOG, gen.RECENT_CHANGELOG[0], 'the newest release is the first of them');
+  assert.equal(gen.LATEST_CHANGELOG.version, full.CHANGELOG[0].version);
   assert.deepEqual(gen.SCOPE_LABELS, full.SCOPE_LABELS);
-  assert.equal(gen.LATEST_CHANGELOG, gen.LATEST_CHANGELOG, 'sanity');
+});
+
+test('each carried release keeps what the note shows and drops what it never renders', () => {
+  for (const release of gen.RECENT_CHANGELOG) {
+    assert.deepEqual(Object.keys(release), ['version', 'date', 'headline', 'changes']);
+    for (const change of release.changes) {
+      assert.deepEqual(Object.keys(change).filter((k) => k !== 'fromFeedback'), ['kind', 'title']);
+      assert.ok(change.title, `${release.version} has a change with no title`);
+    }
+  }
+  const src = read('../../src/views/HomeView.jsx');
+  assert.doesNotMatch(src, /\bc\.desc\b|\bc\.scope\b/, 'the note would need desc or scope, which the module no longer carries');
 });
 
 test('the entry-chunk consumers import the generated module, not the full history', () => {
