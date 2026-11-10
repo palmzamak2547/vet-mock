@@ -29,6 +29,8 @@
 // ============================================================
 
 import { yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
+import { detectCurrentPhase } from './current-phase.js';
+import { questionInScope, scopeForPhase } from './exam-scope.js';
 import { sweepStaleKeys } from './storage-gc.js';
 import { isTextOnlyQuestion } from './question-surfaces.js';
 
@@ -70,6 +72,15 @@ export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
   );
   if (year != null) {
     pool = pool.filter((q) => yearForSubject(q.subject) === year);
+    // Only the paper in scope that day: from the timetable and the date, so the
+    // whole class still gets one question. A midterm topic's question handed out
+    // in the final weeks reads as the two papers mixed (Palm, 10 Nov 2569).
+    // Between terms, with no paper ahead, the year's pool stands.
+    const paper = scopeForPhase(detectCurrentPhase(new Date(`${dateStr}T12:00:00+07:00`), year));
+    if (paper) {
+      const onPaper = pool.filter((q) => questionInScope(q, paper));
+      if (onPaper.length) pool = onPaper;
+    }
   }
   // Hidden topics are excluded from every advertised count and every pool
   // (exam-pool.js does the same), so the class question must not come from

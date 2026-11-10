@@ -46,6 +46,18 @@ test('the daily question never comes from a hidden topic', () => {
   assert.equal(pickTodaysQ(bank.slice(0, 9), DATE), null);
 });
 
+test('in the final weeks the daily question never comes from a midterm topic', () => {
+  // swine-gi-viral was taught before Vet 86's midterm, swine-asf after it.
+  const bank = [...Array.from({ length: 9 }, (_, i) => mcq('swine-clinic', 'swine-gi-viral', 200 + i)), mcq('swine-clinic', 'swine-asf', 700)];
+  for (let day = 10; day <= 22; day++) {
+    const q = pickTodaysQ(bank, `2026-11-${day}`, { year: 5 });
+    assert.equal(q?.topic, 'swine-asf', `11-${day}: picked a midterm topic in the final weeks`);
+  }
+  // Before the midterm the same bank serves its midterm topic.
+  const sept = new Set(Array.from({ length: 10 }, (_, i) => pickTodaysQ(bank, `2026-09-${String(i + 1).padStart(2, '0')}`, { year: 5 })?.topic));
+  assert.ok(sept.has('swine-gi-viral'), 'the midterm weeks still draw midterm topics');
+});
+
 // ── A localStorage the module can sweep ───────────────────────────────
 function fakeStorage() {
   const map = new Map();
