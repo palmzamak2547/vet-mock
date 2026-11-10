@@ -339,6 +339,22 @@ const PAGE_FN = () => {
   return out;
 };
 
+// Opens a disclosure (ปรับเอง, โหมดอื่น) unless it is open already. `optional`
+// lets a walk pass a screen that has none; otherwise a missing toggle fails.
+async function openDisclosure(page, name, { optional = false } = {}) {
+  const toggle = page.getByRole('button', { name, exact: true });
+  try {
+    await toggle.first().waitFor({ state: 'visible', timeout: optional ? 5_000 : 20_000 });
+  } catch {
+    if (optional) return;
+    console.error(`✗ the ${name} toggle is missing, so what it holds would go unmeasured`);
+    process.exit(1);
+  }
+  if ((await toggle.first().getAttribute('aria-expanded')) !== 'true') await toggle.first().click();
+  await page.waitForFunction((n) => [...document.querySelectorAll('button[aria-expanded]')]
+    .some((b) => b.textContent.trim() === n && b.getAttribute('aria-expanded') === 'true'), name);
+}
+
 const server = REMOTE ? null : await serveLocalBuild();
 // process.exit() does NOT run finally blocks, and this script exits early
 // from inside the try on three different failure paths. Each one would
@@ -379,8 +395,12 @@ try {
   // because that screen renders states no other page does: the correct-
   // answer chip, the wrong pick, the warning timer. It was the documented
   // blind spot, and the first sweep of it found a ✓ chip at 2.72 in dark.
+  // Home shows one practice mode first and keeps the rest under โหมดอื่น, and
+  // a practice set keeps its rows under ปรับเอง (src/lib/decide.js): open both.
   if (EXAM) {
+    await openDisclosure(page, 'โหมดอื่น', { optional: true });
     await page.getByRole('button', { name: /Quick Practice|ฝึกแบบเลือกจำนวน/i }).first().click();
+    await openDisclosure(page, 'ปรับเอง', { optional: true });
     await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('3');
     await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
     await page.locator('.vmx-question-card').waitFor({ timeout: 20_000 });
@@ -411,6 +431,11 @@ try {
   // app — it is dark-mode ink caught on its way to light. A page that is
   // still animating is not a page you can measure.
   await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
+
+  // Home keeps all but one practice-mode card under โหมดอื่น; a closed region
+  // is zero-size and the sweep below skips zero-size text, so open it or those
+  // cards go unmeasured. On Home it must be there: a missing toggle is a failure.
+  if (!EXAM && !LANDING && !ROUTE) await openDisclosure(page, 'โหมดอื่น');
 
   for (const theme of THEMES) for (const palette of PALETTES) {
     const label = `${theme}/${palette}`;
