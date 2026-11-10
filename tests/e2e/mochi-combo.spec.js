@@ -4,7 +4,7 @@
 // from the bank itself, matched by stem, so the test can answer right on
 // purpose. Vibrations are recorded by a stub (no real phone in CI) on a
 // device that reports a touch screen.
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
 
 test.setTimeout(90_000);
@@ -40,6 +40,7 @@ async function openPractice(page, count = 5) {
   await page.locator('[data-subject="exotic"]').click();
   await page.locator('.vmx-topic-main', { hasText: 'โรคติดเชื้อในนก' }).click();
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+  await openAdjust(page);
   const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });
   if ((await toggle.getAttribute('aria-checked')) !== 'true') await toggle.click();
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill(String(count));

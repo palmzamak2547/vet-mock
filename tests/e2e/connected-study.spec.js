@@ -1,4 +1,4 @@
-import { expect, test } from './fixtures.js';
+import { expect, openAdjust, test } from './fixtures.js';
 // The topic button renders its count from this file, so read the count
 // from the same place the app does. Hardcoding "5 ข้อ" made this test
 // fail the day one epidemiology question was pulled for missing its
@@ -192,17 +192,13 @@ test.describe('connected study experience', () => {
       : liveLabels[0];
     await expect(page.getByText(`${liveYearCopy} เปิดให้ฝึกแล้ว`)).toBeVisible();
 
+    // The timetable names the paper (the final: year 5 sat its last midterm at
+    // 11:30 on the pinned day), so the year goes straight to Home with it and
+    // Home says so beside เปลี่ยน (decide.js, phase.firstRun). This journey
+    // opens ระบาดวิทยา, which sits no midterm at all.
     await page.getByRole('button', { name: /ปี 5 LIVE/ }).click();
-    await expect(page.getByRole('heading', { level: 1, name: /ช่วงสอบ/ })).toBeVisible();
-    await expect(page.getByText('แนะนำ', { exact: true })).toBeVisible();
-    await expect(page.locator('.vmx-bottom-nav')).toHaveCount(0);
-
-    // The final paper, because this journey opens ระบาดวิทยา and the faculty
-    // timetable gives that subject no midterm at all: its topics are seventeen
-    // final and seven continuous. The topic list now shows the paper the
-    // student picked, so asking for these topics under กลางภาค was asking to
-    // see a subject on a paper it is not on.
-    await page.getByRole('button', { name: /เทอม 1 ปลายภาค/ }).click();
+    await expect(page.locator('.vmx-subject-scope-why')).toHaveText('ตามตารางสอบ');
+    await expect(page.getByRole('button', { name: 'เปลี่ยนช่วงสอบ (Phase)' })).toBeVisible();
     const epidemiology = page.locator('.vmx-subject-card').filter({ hasText: /ระบาดวิทยา/ }).first();
     await expect(epidemiology).toBeVisible({ timeout: 15_000 });
     // Home must commit before measuring; both boxes belong to the same frame.
@@ -240,6 +236,8 @@ test.describe('connected study experience', () => {
     // second status region, and when a run's network blinks the bare query
     // resolves to both and fails strict mode for a reason unrelated to the
     // count it is checking.
+    // The set is ready to start; its rows wait under ปรับเอง.
+    await openAdjust(page);
     await expect(page.locator('#vmx-config-count-help')).toContainText(`มี ${introCount} ข้อในชุดนี้`);
     // ConfigView caps its count chips at what the topic actually has, so
     // the pressed chip IS the availability. Reading it from q-counts keeps

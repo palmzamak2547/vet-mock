@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 
 // One number, four screens. A student reads a count on the subject card, then
 // on รวมทุกหัวข้อ, then on the config screen, then on the button that starts the
@@ -86,6 +86,8 @@ async function walkToStart(page, onCard) {
   await allTopics.click();
   const start = page.getByRole('button', { name: /^เริ่ม(ฝึก|สอบ)/ });
   await expect(start).toBeEnabled({ timeout: 20000 });
+  // The count line is the first row under ปรับเอง (decide.js tucks the rows away).
+  await openAdjust(page);
   await expect(page.getByText(/มี [\d,]+ ข้อในชุดนี้/)).toBeVisible({ timeout: 20000 });
   expect(num(await page.getByText(/มี [\d,]+ ข้อในชุดนี้/).innerText()), 'the config screen counts the loaded pool').toBe(onCard);
   return start;
@@ -129,6 +131,7 @@ test('Start pressed while another year\'s banks load serves the whole course', a
   await open(page, context, { year: 4, phase: '1-final' });
   const onCard = await openFromSearch(page, 'ข้อสอบ vca');
   await page.locator('.vmx-subject-card', { hasText: 'รวมทุกหัวข้อ' }).first().click();
+  await openAdjust(page);
   await page.getByRole('spinbutton', { name: 'จำนวนข้อแบบกำหนดเอง' }).fill(String(onCard));
   await page.getByRole('button', { name: /^เริ่ม(ฝึก|สอบ)/ }).click();
   await expect(page.getByRole('status').filter({ hasText: /^ข้อ 1 จาก \d+$/ })).toHaveText(`ข้อ 1 จาก ${onCard}`, { timeout: 30000 });

@@ -75,6 +75,7 @@ export const test = base.extend({
 // render that landed between the keystroke and its input event (CI, 27 Oct: "ข้อ 5 จาก 10" after typing 5),
 // so the count is typed again until the start button names it. Returns that button.
 export async function setPracticeCount(page, n) {
+  await openAdjust(page);
   const box = page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ });
   const start = page.getByRole('button', { name: new RegExp(`เริ่มฝึก ${n} ข้อ`) });
   await expect(async () => {
@@ -84,3 +85,29 @@ export async function setPracticeCount(page, n) {
   return start;
 }
 
+
+// The app decides a practice set, the review planner and Home's first practice
+// mode for the student (src/lib/decide.js) and tucks every option into one
+// disclosure: ปรับเอง on the config screen and the planner, โหมดอื่น on Home.
+// A spec that needs a tucked row opens it first. An exam's config screen has
+// no disclosure (its rows stay in view), so openAdjust waits for the screen's
+// start button and opens ปรับเอง only where there is one.
+export async function openDisclosure(page, name) {
+  const toggle = page.getByRole('button', { name, exact: true });
+  await expect(toggle).toBeVisible({ timeout: 20_000 });
+  if ((await toggle.getAttribute('aria-expanded')) !== 'true') await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+}
+
+export async function openAdjust(page) {
+  const start = page.getByRole('button', { name: /^(เริ่มฝึก|เริ่มสอบ|เริ่ม Session|ไม่มีใบที่ต้องทบทวน|กำลังโหลดคลัง|ลองโหลดคลัง)/ }).first();
+  await expect(start).toBeVisible({ timeout: 20_000 });
+  const toggle = page.getByRole('button', { name: 'ปรับเอง', exact: true });
+  if (await toggle.count()) await openDisclosure(page, 'ปรับเอง');
+}
+
+/** Home's practice modes: the first is shown, the rest wait under โหมดอื่น. */
+export async function openHomeModes(page) {
+  await expect(page.locator('.vmx-mode-why')).toBeVisible({ timeout: 20_000 });
+  if (await page.getByRole('button', { name: 'โหมดอื่น', exact: true }).count()) await openDisclosure(page, 'โหมดอื่น');
+}

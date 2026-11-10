@@ -1,4 +1,4 @@
-import { test, expect, PINNED_NOW } from './fixtures.js';
+import { test, expect, PINNED_NOW, openAdjust } from './fixtures.js';
 import { QB_ENGPROF } from '../../src/data/questions-engprof.js';
 import { QB_COM3 } from '../../src/data/questions-com3.js';
 import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
@@ -156,6 +156,7 @@ test('a changed SR year scope withdraws a pending start before its bank finishes
     await bank.requested;
     await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
     await expect(page.getByRole('button', { name: 'กำลังโหลดคลังข้อสอบ…', exact: true })).toBeDisabled();
+    await openAdjust(page);
     await page.getByRole('button', { name: '🌐 ทุกปี', exact: true }).click();
     bank.release();
     await expect(page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last()).toHaveText('2ใบ');
@@ -181,6 +182,7 @@ test('a foreground bank recovery refreshes planning counts and native subject re
   });
   await seed(page, [figure, unsafe, nativeEnglish], { start: false });
   await page.waitForFunction(() => globalThis.__srBackgroundRejected);
+  await openAdjust(page);
   const dueCount = page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last();
   await expect(dueCount).toHaveText('1ใบ');
   await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();

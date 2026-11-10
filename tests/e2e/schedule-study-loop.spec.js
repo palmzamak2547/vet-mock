@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 import { EXAM_SCHEDULE, CLASS_TIMETABLE, examTitle } from '../../src/data/schedule.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../../src/data/q-counts.js';
 import { hasNotes } from '../../src/data/notes-registry.generated.js';
@@ -23,6 +23,7 @@ test('a final timetable entry launches its own paper despite the selected midter
   await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'ตั้งค่า การฝึก', exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-selected-phase')))).toBe('1-final');
+  await openAdjust(page);
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('3');
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.locator('.vmx-question-card')).toBeVisible();
