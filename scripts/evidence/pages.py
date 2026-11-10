@@ -274,6 +274,7 @@ def needs_vision(pg, page, furniture):
 
 
 FLOOR_CNY = float(os.environ.get('VMX_EVIDENCE_FLOOR_CNY', '40'))
+SPENT = {'calls': 0, 'in': 0, 'out': 0}   # what this run paid for, printed when `vision` ends: the first run was never measured
 
 
 def require_balance():
@@ -306,9 +307,16 @@ def transcribe(jpg, rows):
             req = urllib.request.Request('https://api.deepseek.com/chat/completions', data=json.dumps(body).encode(),
                                          headers={'content-type': 'application/json', 'authorization': 'Bearer ' + os.environ['DEEPSEEK_API_KEY']})
             res = json.load(urllib.request.urlopen(req, timeout=240))
+            use = res.get('usage') or {}
+            SPENT['calls'] += 1
+            SPENT['in'] += use.get('prompt_tokens', 0)
+            SPENT['out'] += use.get('completion_tokens', 0)
             out = json.loads(res['choices'][0]['message']['content'])
             return {'v': VISION_V, 'rowsN': rows, 'rows': out.get('rows', [])}
         except Exception as e:  # noqa: BLE001 a failed page is reported and left as it was
+            if getattr(e, 'code', None) == 402:   # no balance: every further call would be refused the same way
+                print('the provider refused for lack of balance: stopping', flush=True)
+                os._exit(2)   # from a worker thread, sys.exit would end only that thread
             err = str(e)[:120]
             import time
             time.sleep(4 * (attempt + 1))
@@ -397,6 +405,8 @@ def vision(root):
         os.replace(dst + '.tmp', dst)
         if todo:
             print(f"  {r['sha16']} {len(todo) - failed} of {len(todo)} picture pages read  {r['title'][:50]}", flush=True)
+    if SPENT['calls']:
+        print(f"paid page readings: {SPENT['calls']}, tokens in {SPENT['in']}, out {SPENT['out']}")
 
 
 # ---------- sheets: each proposed slide as the student will see it, for the last reading ----------
