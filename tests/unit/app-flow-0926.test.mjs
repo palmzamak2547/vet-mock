@@ -139,7 +139,8 @@ test('B09: after the midterms end the picker recommends the final', () => {
     assert.doesNotMatch(src, /detectCurrentPhase\(\)/, `${name} must pass the year it recommends for`);
   }
   assert.match(PHASE, /detectCurrentPhase\(new Date\(\), selectedYear\)/);
-  assert.match(YEAR, /detectCurrentPhase\(new Date\(\), y\.id\)/);
+  // The year pick reads the clock through its injectable now() (tests pin it).
+  assert.match(YEAR, /detectCurrentPhase\(now\(\), y\.id\)/);
 });
 
 // ── B11 ───────────────────────────────────────────────────────────────

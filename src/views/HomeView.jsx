@@ -76,6 +76,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
 import { practicePreset } from '../lib/app-flow.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
+import { adjustOpen, decide, peekWhy, setAdjustOpen, takeWhy } from '../lib/decide.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
@@ -175,6 +176,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // A pick the timetable cannot back narrows nothing; the line below says so.
   const unsplit = unsplitNotice(phaseStatus);
   const moved = phaseMeta ? movedNotice(phaseStatus) : null;
+  // The first run chose the timetable's paper without a stop at the phase
+  // screen (decide.js, phase.firstRun); Home says so once, beside เปลี่ยน.
+  const [firstRunWhy] = useState(() => peekWhy('home'));
+  useEffect(() => { takeWhy('home'); }, []);
+  const phaseLine = moved || unsplit || (phaseMeta ? firstRunWhy : null);
+  // โหมดอื่น: the practice modes the engine did not put first (home.mode).
+  const [moreModes, setMoreModes] = useState(() => adjustOpen('home-modes'));
+  const toggleMoreModes = () => setMoreModes((open) => { setAdjustOpen('home-modes', !open); return !open; });
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
   // Special case: semester === 0 means cross-semester (e.g. VCA license
@@ -1239,8 +1248,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           current one, or the timetable has no paper to back it, so nothing is
           narrowed (lib/current-phase.js). It says so and asks nothing:
           เปลี่ยน above is there for a student who wants another. */}
-      {(moved || unsplit) && (
-        <p className="vmx-phase-moved" role="status">{moved || unsplit}</p>
+      {phaseLine && (
+        <p className="vmx-phase-moved" role="status">{phaseLine}</p>
       )}
       <SubjectGrid
         subjects={yearSubjects}
@@ -1316,9 +1325,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       {!isScaffoldYear && (
         <>
           <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
-          <div className="vmx-mode-grid">
-            {currentScopeCount > 0 && (
+          {(() => {
+            // One mode first (decide.js, home.mode): near a paper the exam-prep
+            // card, else the weakest topic, else this term's checked slides,
+            // else free practice. The rest wait behind โหมดอื่น, unchanged.
+            const modeCards = [
+            (currentScopeCount > 0) && { id: 'current-scope', node: (
               <button
+                key="current-scope"
                 className="vmx-mode-card"
                 onClick={() => launchScoped('current-scope', currentScopeCount)}
                 disabled={quickActionPending}
@@ -1333,10 +1347,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 <div className="sub">{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรงกับสไลด์เทอมนี้</div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-sage)' }}>{phaseScope ? scopeLabel : 'ตรวจแล้ว'}</div>
               </button>
-            )}
+            ) },
 
-            {highPredictionCount > 0 && (
+            (highPredictionCount > 0) && { id: 'predicted', node: (
               <button
+                key="predicted"
                 className="vmx-mode-card"
                 onClick={() => launchScoped('predicted', highPredictionCount)}
                 disabled={quickActionPending}
@@ -1349,11 +1364,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 <div className="sub">{scopeLabel} {highPredictionCount} ข้อ ตรงกับสไลด์ปัจจุบันและมีหลักฐานอย่างน้อย 2 ทาง</div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>หลายหลักฐาน</div>
               </button>
-            )}
+            ) },
 
-            {/* Smart: ซ้อมใกล้สอบ — when nextExam exists in current year */}
-            {nextExam && nextExam.subject && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (
+            /* Smart: ซ้อมใกล้สอบ — when nextExam exists in current year */
+            (nextExam && nextExam.subject && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30) && { id: 'near-exam', node: (
               <button
+                key="near-exam"
                 className="vmx-mode-card"
                 onClick={() => {
                   setMode('quick');
@@ -1384,12 +1400,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 </div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)' }}>แนะนำ</div>
               </button>
-            )}
+            ) },
 
-            {/* Smart: จุดอ่อน — topic-granular when ≥10 attempts + <70%.
-                Sets subject + topic so ConfigView opens already filtered. */}
-            {weakSubj && weakSubjMeta && (
+            /* Smart: จุดอ่อน — topic-granular when ≥10 attempts + <70%.
+                Sets subject + topic so ConfigView opens already filtered. */
+            (weakSubj && weakSubjMeta) && { id: 'weak', node: (
               <button
+                key="weak"
                 className="vmx-mode-card"
                 onClick={() => {
                   setMode('quick');
@@ -1418,14 +1435,15 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 </div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>แนะนำ</div>
               </button>
-            )}
+            ) },
 
-            {/* Smart: ทำซ้ำ — full restore from vmx-last-session-config when
+            /* Smart: ทำซ้ำ — full restore from vmx-last-session-config when
                 available (mode + subject + topic + numQuestions + timer).
                 Falls back to history-derived subject-only mode for users
-                who took exams before the snapshot existed. */}
-            {lastSubj && lastSubjMeta && lastSubj !== nextExam?.subject && lastSubj !== weakSubj && (
+                who took exams before the snapshot existed. */
+            (lastSubj && lastSubjMeta && lastSubj !== nextExam?.subject && lastSubj !== weakSubj) && { id: 'repeat', node: (
               <button
+                key="repeat"
                 className="vmx-mode-card"
                 onClick={() => {
                   if (lastSession) {
@@ -1461,9 +1479,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 </div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-ocean)' }}>แนะนำ</div>
               </button>
-            )}
+            ) },
 
-            <button className="vmx-mode-card" onClick={() => {
+            { id: 'pick-count', node: (<button key="pick-count" className="vmx-mode-card" onClick={() => {
               setMode('quick');
               setSubject && setSubject('all');
               setPracticeMode && setPracticeMode('all');
@@ -1472,9 +1490,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               <div className="icon"><NavIcon name="practice" size={20} /></div>
               <div className="title">ฝึกแบบเลือกจำนวน</div>
               <div className="sub">สุ่มข้อทุกวิชา, 5-50 ข้อ</div>
-            </button>
+            </button>) },
 
-            <button className="vmx-mode-card" onClick={() => {
+            { id: 'mock-exam', node: (<button key="mock-exam" className="vmx-mode-card" onClick={() => {
               setMode('exam');
               setSubject && setSubject('all');
               setPracticeMode && setPracticeMode('all');
@@ -1490,9 +1508,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   and this line must say the total, not a per-question figure
                   the engine stopped enforcing. */}
               <div className="sub">50 ข้อ, จับเวลารวม 50 นาที</div>
-            </button>
+            </button>) },
 
-            <button className="vmx-mode-card" onClick={() => launchSR()}>
+            { id: 'sr', node: (<button key="sr" className="vmx-mode-card" onClick={() => launchSR()}>
               <div className="icon"><NavIcon name="repeat" size={20} /></div>
               <div className="title">ทบทวนตามรอบ</div>
               <div className="sub">
@@ -1506,9 +1524,39 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   : 'ข้อที่ผิดหรือลังเลจะกลับมาตามรอบที่เหมาะสม'}
               </div>
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
-            </button>
+            </button>) },
 
-          </div>
+            ].filter(Boolean);
+            const paperSubject = nextExam?.subject ? (SUBJECTS.find((s) => s.id === nextExam.subject)?.name || null) : null;
+            const modePick = decide('home.mode', {
+              cards: modeCards.map((c) => c.id), daysToPaper: nextExam?.daysLeft ?? null, paperSubject,
+              wrongCount: quickStats.wrongCount, weakPct,
+            });
+            const featured = modeCards.find((c) => c.id === modePick.value) || modeCards[0];
+            const others = modeCards.filter((c) => c !== featured);
+            return (
+              <>
+                <div className="vmx-mode-grid" data-mode-first={featured.id}>{featured.node}</div>
+                <p className="vmx-decide-why vmx-mode-why">{modePick.why}</p>
+                {others.length > 0 && (
+                  <>
+                    <button
+                      type="button"
+                      className="vmx-decide-toggle"
+                      aria-expanded={moreModes}
+                      aria-controls="vmx-home-modes"
+                      onClick={toggleMoreModes}
+                    >
+                      โหมดอื่น
+                    </button>
+                    <div id="vmx-home-modes" role="region" aria-label="โหมดอื่น" hidden={!moreModes} className="vmx-decide-region">
+                      <div className="vmx-mode-grid">{others.map((c) => c.node)}</div>
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          })()}
         </>
       )}
           </div>{/* /vmx-duty-stream */}

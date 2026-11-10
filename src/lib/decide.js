@@ -265,6 +265,27 @@ export function forget(id, io = defaultIO()) {
   if (entry.key) safeRemove(io, DECIDE_PREFIX + entry.key);
 }
 
+// ── A why that is shown on the next screen, once ────────────────────────────
+// A decision made on one screen and seen on the next (the first run's paper,
+// shown on Home) leaves its why here for this tab session only.
+const sessionStore = () => (typeof sessionStorage === 'undefined' ? null : {
+  get: (k) => sessionStorage.getItem(k),
+  set: (k, v) => sessionStorage.setItem(k, v),
+  remove: (k) => sessionStorage.removeItem(k),
+});
+export function leaveWhy(screen, why, io = sessionStore()) {
+  if (typeof why === 'string' && why) safeSet(io, `${DECIDE_PREFIX}why:${screen}`, why);
+}
+/** Read without removing: a render reads it, an effect then takes it. */
+export function peekWhy(screen, io = sessionStore()) {
+  return safeGet(io, `${DECIDE_PREFIX}why:${screen}`) || null;
+}
+export function takeWhy(screen, io = sessionStore()) {
+  const why = safeGet(io, `${DECIDE_PREFIX}why:${screen}`);
+  if (why != null) safeRemove(io, `${DECIDE_PREFIX}why:${screen}`);
+  return why || null;
+}
+
 // ── "ปรับเอง", the one disclosure that holds what the app chose ─────────────
 // Closed by default; its open state is remembered per device and per screen.
 export function adjustOpen(screen, io = defaultIO()) {

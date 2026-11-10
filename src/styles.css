@@ -7157,6 +7157,7 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-decide-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-decide-region { margin-top: var(--space-3); }
 .vmx-decide-reset { margin-top: var(--space-3); }
+.vmx-mode-why { margin: var(--space-2) 0 var(--space-3); }
 @media (prefers-reduced-motion: reduce) { .vmx-decide-toggle::after { transition: none; } }
 
 /* The exam screen */
