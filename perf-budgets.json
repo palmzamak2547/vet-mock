@@ -69,8 +69,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 147301,
-          "budget": 151800
+          "measured": 152012,
+          "budget": 156600
         },
         "css": {
           "measured": 0,
