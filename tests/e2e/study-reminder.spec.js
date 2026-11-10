@@ -1,7 +1,7 @@
 // A daily study reminder: offered once on the result of the first set of a
 // day, kept on the connected-apps page; on the web it is a repeating event in
 // the student's own calendar, inside the Android app the app's own prompt.
-import { test, expect, PINNED_NOW, setPracticeCount } from './fixtures.js';
+import { test, expect, PINNED_NOW, setPracticeCount, openAdjust } from './fixtures.js';
 import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
 
 test.setTimeout(90_000);
@@ -26,6 +26,7 @@ async function finishOneSet(page) {
   await page.locator('.vmx-topic-main', { hasText: 'โรคติดเชื้อในนก' }).click();
   // The settings page fills its own count when it mounts; a count typed before that is lost (10 questions on WebKit).
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+  await openAdjust(page);
   const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });
   if ((await toggle.getAttribute('aria-checked')) !== 'true') await toggle.click();
   await (await setPracticeCount(page, 1)).click();

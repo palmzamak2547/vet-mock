@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust, openHomeModes } from './fixtures.js';
 import { MOCHI_POSE_ASSETS } from '../../src/data/mochi-poses.generated.js';
 
 test.setTimeout(90_000);
@@ -31,8 +31,10 @@ async function open(page, url) {
 }
 async function startQuestions(page, exam = false) {
   await open(page, '/');
+  await openHomeModes(page);
   await page.getByRole('button', { name: exam ? /Exam Mode|จำลองสนามสอบ/i : /Quick Practice|ฝึกแบบเลือกจำนวน/i }).first().click();
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า/ })).toBeVisible();
+  if (!exam) await openAdjust(page);
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('10');
   if (!exam) {
     const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });

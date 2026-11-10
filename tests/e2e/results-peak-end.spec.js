@@ -4,7 +4,7 @@
 // deterministic exotic/bird-infect topic (every question an MCQ); the answer
 // key comes from the bank, matched by stem, so a test can answer right or
 // wrong on purpose.
-import { test, expect, setPracticeCount } from './fixtures.js';
+import { test, expect, setPracticeCount, openAdjust } from './fixtures.js';
 import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
 
 test.setTimeout(90_000);
@@ -45,6 +45,7 @@ async function openPractice(page, count = 5) {
   await page.locator('[data-subject="exotic"]').click();
   await page.locator('.vmx-topic-main', { hasText: 'โรคติดเชื้อในนก' }).click();
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+  await openAdjust(page);
   const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });
   if ((await toggle.getAttribute('aria-checked')) !== 'true') await toggle.click();
   await (await setPracticeCount(page, count)).click();

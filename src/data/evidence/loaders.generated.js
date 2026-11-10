@@ -2,6 +2,7 @@
 export const EVIDENCE_LOADERS = {
   'aquatic-clinic': () => import('./aquatic-clinic.generated.js'),
   'equine-medicine': () => import('./equine-medicine.generated.js'),
+  'milk-meat-hygiene': () => import('./milk-meat-hygiene.generated.js'),
   'one-health': () => import('./one-health.generated.js'),
   'swine-clinic': () => import('./swine-clinic.generated.js'),
   'zoonoses': () => import('./zoonoses.generated.js'),

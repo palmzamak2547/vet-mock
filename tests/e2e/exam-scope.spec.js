@@ -10,7 +10,7 @@
 // with no midterm (Epidemiology) or no paper at all (POA) never stands in
 // the midterm grid as if it had one.
 
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust, openHomeModes } from './fixtures.js';
 
 // Paper times in schedule.js are Bangkok times and every student reads them in
 // Bangkok. CI runs in UTC, where 22 Sep 20:00 Bangkok is 13:00 and the
@@ -48,6 +48,7 @@ function subjectCard(page, thaiName) {
 }
 
 async function scopedCard(page) {
+  await openHomeModes(page);
   const card = page.locator('button.vmx-mode-card', { hasText: 'ตามสไลด์ปัจจุบัน' });
   await expect(card).toBeVisible();
   const sub = await card.locator('.sub').innerText();
@@ -154,6 +155,7 @@ test('the config page names the phase it was opened under', async ({ page, conte
   await near.click();
   await expect(page.locator('.vmx-hero p')).toContainText('กลางภาค');
   await expect(page.locator('.vmx-scope-pill')).toHaveCount(0);
+  await openAdjust(page);
   await expect(page.locator('.vmx-config-availability')).toHaveText(/มี\s*[\d,]+\s*ข้อในชุดนี้/, { timeout: 20000 });
 });
 });

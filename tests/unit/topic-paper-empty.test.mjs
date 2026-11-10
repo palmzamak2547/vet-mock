@@ -100,6 +100,17 @@ test('a topic opens the config screen on the remembered rung, rung 1 for a newco
   assert.equal(calls.useTimer.at(-1), true, 'yesterday\'s rung 2 is today\'s opening rung');
   assert.equal(calls.count.at(-1), 20);
   view.unmount();
+
+  // A row the student changed on the config screen is theirs next time
+  // (decide.js, practice.setup), still capped to what the topic holds.
+  globalThis.localStorage.setItem('vmx-decide:practice.setup', JSON.stringify({ numQuestions: 15, useTimer: false }));
+  view = mount(TopicSelectView, props);
+  await settle(view);
+  allCard(view.tree).props.onClick();
+  assert.equal(calls.useTimer.at(-1), false, 'their own switch beats the remembered rung');
+  assert.equal(calls.count.at(-1), 15);
+  assert.equal(calls.feedback.at(-1), true);
+  view.unmount();
 });
 
 test('the phase picker goes back where it came from, once, and never anywhere it was not sent', async (t) => {
