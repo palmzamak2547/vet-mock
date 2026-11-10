@@ -93,6 +93,19 @@ export default function TopLoadingBar() {
   );
 }
 
+// ─── Fallback for an overlay opened by a tap ────────────────────
+// The page under it stays, so there is no skeleton to draw: the bar runs,
+// and a screen reader hears the label. Without it a tap whose code is still
+// downloading (a lecturer's profile brings the faculty directory) looked
+// like a tap that did nothing.
+export function OverlayPending({ label }) {
+  useEffect(() => {
+    window.dispatchEvent(new Event('vmx-loading-start'));
+    return () => { window.dispatchEvent(new Event('vmx-loading-end')); };
+  }, []);
+  return <span className="vmx-sr-only" role="status">{label}</span>;
+}
+
 // ─── Suspense fallback that drives the bar ──────────────────────
 // Use this AS the Suspense fallback. It fires the start/end events
 // on mount/unmount, so the bar tracks whatever Suspense is doing.

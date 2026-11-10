@@ -27,9 +27,9 @@ export const ChulaGateExit = lazy(() => import('../views/ChulaGateView.jsx').the
 // button). Keeps the first-paint bundle small.
 export const CommandPalette = lazy(() => import('../components/CommandPalette.jsx'));
 
-// InstructorModal — also lazy. Opens when an instructor is selected
-// from the palette or from a topic card.
-export const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
+// InstructorProfile — also lazy. Opens when an instructor is selected
+// from the palette, and brings the faculty directory with it.
+export const InstructorProfile = lazy(() => import('../components/InstructorProfile.jsx'));
 // VoiceSettings — sliders for TTS pace + pause defaults. Lazy because
 // most sessions never tweak voice — keep the main bundle slim.
 export const VoiceSettings = lazy(() => import('../components/VoiceSettings.jsx'));

@@ -18,7 +18,9 @@ import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 import { SUBJECTS } from '../../src/data/curriculum.js';
 import { topicLecturerLabel } from '../../src/lib/lecturer-name.js';
-import { getInstructorByLecturerString } from '../../src/data/instructors.js';
+// The matcher the view itself loads: the name index, not the full directory
+// (tests/unit/instructor-index.test.mjs checks the two agree on every string).
+import { findInstructorByLecturerString as getInstructorByLecturerString } from '../../src/data/instructor-index.js';
 
 const SRC = readFileSync(new URL('../../src/views/TopicSelectView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 function cut(start, end) {

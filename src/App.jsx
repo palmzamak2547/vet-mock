@@ -93,7 +93,7 @@ import OptionalFeature from './components/OptionalFeature.jsx';
 // declarations, and the idle prefetch of the likely next views, live in
 // src/app/lazy-views.js.
 import {
-  HomeView, CommandPalette, InstructorModal, VoiceSettings,
+  HomeView, CommandPalette, InstructorProfile, VoiceSettings,
   ImageAnnotator, LabView, WrapUpView, AtlasView, PinboardView,
   ContributeView, ConnectAppsView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
   ShortcutSheet, OnboardingTour, SubjectSelectView, ConfigView, ExamView,
@@ -212,7 +212,7 @@ function withTransition(updateFn) {
 // Mobile-clipping fix history: see STABILITY.md rule 11.
 
 
-import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
+import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoadingBar.jsx';
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
@@ -3348,7 +3348,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -3525,8 +3525,8 @@ export default function App() {
       )}
 
       {openInstructor && (
-        <OptionalFeature label="ข้อมูลอาจารย์" onClose={() => setOpenInstructor(null)}>
-          <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
+        <OptionalFeature label="ข้อมูลอาจารย์" onClose={() => setOpenInstructor(null)} pending={<OverlayPending label="กำลังเปิดข้อมูลอาจารย์" />}>
+          <InstructorProfile instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
         </OptionalFeature>
       )}
 

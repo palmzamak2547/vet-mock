@@ -164,7 +164,7 @@ npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
 ```
 Gate flags (`node scripts/gate.mjs ...`): `--with-research` (force the Research phase), `--with-sql` / `--no-sql` (the pglite SQL harnesses — auto-run when a file under `supabase/migrations/`, the RPC-backed libs or a harness script moved; without a reachable pglite module the gate prints why and CI postgres remains the concurrent-lock proof), `--audit` (append a warn-only dependency audit that never changes the verdict). A mid-run working-tree change is a failure, never green: `gate` is the proof of the tree.
 
-Generated files — never hand-edit; the matching `lint:*` or `regen:*` script owns them: `bank-registry.generated.js`, `docs/content-inventory.md`, notes/wiki/citation registries (`regen:notes-registry`, `regen:wiki-registry`, `regen:citation-index`, `regen:wiki-runtime`), question delivery + q-counts.
+Generated files — never hand-edit; the matching `lint:*` or `regen:*` script owns them: `bank-registry.generated.js`, `docs/content-inventory.md`, notes/wiki/citation registries (`regen:notes-registry`, `regen:wiki-registry`, `regen:citation-index`, `regen:wiki-runtime`), question delivery + q-counts, `instructor-index.generated.js` (`regen:instructor-index`, after the faculty directory changes: the topic screen and the palette read this name index through `src/data/instructor-index.js`, and only FacultyView and an opened profile import `src/data/instructors.js`).
 
 ## 🔗 Constants You'll Need
 | Item | Value |

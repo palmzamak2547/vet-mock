@@ -77,6 +77,21 @@
           "budget": 0
         }
       },
+      "lecturerIndex": {
+        "label": "The lecturer name index the topic screen and the search palette load: the names that have a profile, not the faculty directory (about 290 KB, which arrives with an opened profile)",
+        "entries": [
+          "src/data/instructor-index.js"
+        ],
+        "after": "firstLoad",
+        "js": {
+          "measured": 25060,
+          "budget": 25900
+        },
+        "css": {
+          "measured": 0,
+          "budget": 0
+        }
+      },
       "results": {
         "label": "Results view, opened after the first load",
         "entries": [
