@@ -11,6 +11,7 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
+import EvidenceSlot, { useEvidenceWarmup } from './EvidenceSlot.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
@@ -96,6 +97,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       maxHeight={320}
     />
   ) : null;
+  // The slide this answer rests on (docs/ANSWER-EVIDENCE.md). Its index and its
+  // view load while the question is read, so it paints with the explanation.
+  useEvidenceWarmup(currentQ?.subject);
+  const evidence = <EvidenceSlot key={compoundId} q={currentQ} />;
   // The read-aloud (lib/read-aloud.js, loaded on the first tap) reads the
   // question, 'q', or its เหตุผล, 'explain'. Its state lives in a store small
   // enough to load with this card, so the buttons, the highlight and the bar
@@ -313,7 +318,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     </div>
   ) : null;
   const writtenRevealPanel = writtenReveal && writtenTiming === REVEAL_ROW && writtenRevealed
-    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} />
+    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} evidence={evidence} />
     : null;
 
   // Word count for essay-type writing questions
@@ -436,6 +441,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
               figure={explainFigure}
+              evidence={evidence}
               subject={currentQ.subject}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
@@ -485,6 +491,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 alwaysShowCorrect
                 explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
                 figure={explainFigure}
+                evidence={evidence}
                 subject={currentQ.subject}
                 wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
               />
@@ -921,7 +928,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -974,6 +981,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
         </div>
       )}
       {rest && figure}
+      {rest && evidence}
       {rest && coach}
       {rest && wikiLink}
     </MotionEnter>
