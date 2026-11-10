@@ -213,6 +213,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // ends the run instead of failing call after call.
 const FLOOR_CNY = Number(process.env.VMX_EVIDENCE_FLOOR_CNY || 40);
 let paidCalls = 0;
+// What this run paid for, said when the process ends: the first run was never measured, so its cost is a guess.
+const spent = { calls: 0, in: 0, out: 0 };
+process.on('exit', () => { if (spent.calls) console.log(`paid model calls: ${spent.calls}, tokens in ${spent.in}, out ${spent.out}`); });
 export async function balance(key = process.env.DEEPSEEK_API_KEY, fetchImpl = fetch) {
   const res = await fetchImpl('https://api.deepseek.com/user/balance', { headers: { authorization: `Bearer ${key}` } });
   const info = res.ok ? await res.json() : null;
@@ -241,7 +244,9 @@ async function ask(model, system, user, maxTokens) {
       });
       if (res.status === 402) { console.error('the provider refused for lack of balance: stopping'); process.exit(2); }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const out = JSON.parse((await res.json()).choices[0].message.content);
+      const data = await res.json();
+      spent.calls++; spent.in += data.usage?.prompt_tokens || 0; spent.out += data.usage?.completion_tokens || 0;
+      const out = JSON.parse(data.choices[0].message.content);
       writeJson(file, out);
       return out;
     } catch (e) {

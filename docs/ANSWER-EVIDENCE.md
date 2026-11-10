@@ -150,6 +150,13 @@ they pay for anything, stop under a floor (`VMX_EVIDENCE_FLOOR_CNY`, 40 by
 default) and end at once on a refusal for lack of balance. Before a large
 run, look at the balance yourself and top up first.
 
+Each run ends by printing what it paid for (calls, tokens in and out): keep
+that line, it is the only measure of a run's cost. `vision --dry` lists the
+picture pages still unread without paying for one. The provider's price list
+(read 11 Nov 2026) charges double in its peak hours, 01:00 to 04:00 and
+06:00 to 10:00 UTC on weekdays, which is 08:00 to 11:00 and 13:00 to 17:00
+in Bangkok: run a batch in the evening, at night or at the weekend.
+
 Environment: `SUPABASE_ACCESS_TOKEN` (catalog), `CLOUDFLARE_API_TOKEN` and
 `R2_ACCOUNT_ID` (fetch, upload), `DEEPSEEK_API_KEY` (find, vision). Every model
 call is cached by its input, so a re-run asks only about what changed. Upload
