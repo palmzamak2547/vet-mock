@@ -145,7 +145,7 @@ test('a year whose timetable picks the paper goes straight to the page, with tha
   year5.props.onClick();
   assert.deepEqual(phases, ['1-final'], 'the paper the timetable names, as the แนะนำ card would have set');
   assert.deepEqual(views, ['subject-select'], 'no stop at the phase screen');
-  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), 'เลือกเทอม 1 ปลายภาคให้ตามตารางสอบ', 'Home says what was chosen');
+  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), 'ตามตารางสอบ', 'Home says why, beside the paper it names');
   view.unmount();
 });
 

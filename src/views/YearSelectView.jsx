@@ -9,6 +9,7 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q
 import { detectCurrentPhase } from '../lib/current-phase.js';
 import { takeFrontDoorReturn } from '../lib/phase-return.js';
 import { decide, leaveWhy } from '../lib/decide.js';
+import { PHASE_FIRST_RUN } from '../lib/decisions/phase-first-run.js';
 
 // ──────────────────────────────────────────────────────────────
 // YearSelectView — first-time front door for VetMock.
@@ -47,7 +48,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       // the student is not stopped to confirm it: Home names it with เปลี่ยน
       // beside it. Only when the timetable has no paper to offer (none for
       // the year, the term over, a past year's) is the phase screen shown.
-      const { value, why } = decide('phase.firstRun', { current: detectCurrentPhase(now(), y.id) });
+      const { value, why } = decide(PHASE_FIRST_RUN, { current: detectCurrentPhase(now(), y.id) });
       if (setSelectedPhase) setSelectedPhase(value.phase);
       if (value.ask) { setView('phase-select'); return; }
       leaveWhy('home', why);

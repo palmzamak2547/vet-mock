@@ -159,10 +159,7 @@ test('App keeps the pick through the hook that settles it, and Home says when it
   const app = read('src/App.jsx');
   assert.doesNotMatch(app, /useLocalStorage\('vmx-selected-phase'/);
   assert.match(app, /useSelectedPhase\(selectedYear\)/);
-  // The moved and unsplit lines come first; the first run's paper (decide.js) only fills an empty line.
-  const home = read('src/views/HomeView.jsx');
-  assert.ok(home.includes('const phaseLine = moved || unsplit || (phaseMeta ? firstRunWhy : null);'));
-  assert.ok(home.includes('<p className="vmx-phase-moved" role="status">{phaseLine}</p>'));
+  assert.ok(read('src/views/HomeView.jsx').includes('(moved || unsplit) && ('));
   assert.ok(read('src/components/HeaderBar.jsx').includes('unsplitNotice(phaseStatus)'));
   // Every view narrows by the same answer: App hands down the hook's phase, never the stored pick.
   assert.doesNotMatch(read('src/App.jsx'), /vmx-selected-phase/);

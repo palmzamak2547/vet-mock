@@ -16,6 +16,7 @@ import { loadQuestionDifficulty } from '../lib/question-difficulty.js';
 import { USER_CURATED_MODES } from '../lib/exam-pool.js';
 import { ladderStep, ladderStepFor, ladderPreset, rememberLadderStep } from '../lib/practice-ladder.js';
 import { adjustOpen, decide, forget, recall, rememberRows, setAdjustOpen } from '../lib/decide.js';
+import { PRACTICE_SETUP } from '../lib/decisions/practice-setup.js';
 import { practiceSignals } from '../lib/decide-signals.js';
 
 // ============================================================
@@ -118,7 +119,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   // A practice set decides for the student; an exam shows its rows (header).
   const compact = mode !== 'exam';
   // A row the student changes is theirs from now on (decide.js, yours wins).
-  const rememberRow = (rows) => { if (compact) rememberRows('practice.setup', rows); };
+  const rememberRow = (rows) => { if (compact) rememberRows(PRACTICE_SETUP, rows); };
   const [adjusting, setAdjusting] = useState(() => adjustOpen('config'));
   const toggleAdjust = () => setAdjusting((open) => { setAdjustOpen('config', !open); return !open; });
   const questionCountRef = useRef(numQuestions);
@@ -217,7 +218,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     rememberLadderStep(id);
     // A rung sets every row at once, so it replaces the rows remembered
     // before it; the ladder itself remembers the rung.
-    forget('practice.setup');
+    forget(PRACTICE_SETUP);
   };
   const stepHint = (() => {
     const step = ladderStep(activeStep);
@@ -283,7 +284,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   // settings on screen are that decision, the line says so with its reason;
   // when they came from somewhere else (a Home card, the last set) it names
   // what the set is and, on the ladder, what the rung does.
-  const decision = compact ? decide('practice.setup', practiceSignals({
+  const decision = compact ? decide(PRACTICE_SETUP, practiceSignals({
     subject, year: selectedYear, available: knownAvailableCount, timePerQ, instantFeedback, practiceMode, hasHistory,
   })) : null;
   const chosen = decision?.value;
@@ -295,9 +296,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const lead = follows ? (decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว') : 'ชุดนี้';
   const why = follows ? decision.why : showLadder ? stepHint : '';
   const restoreChosen = () => {
-    const stored = recall('practice.setup');
-    forget('practice.setup');
-    const auto = decide('practice.setup', practiceSignals({
+    const stored = recall(PRACTICE_SETUP);
+    forget(PRACTICE_SETUP);
+    const auto = decide(PRACTICE_SETUP, practiceSignals({
       subject, year: selectedYear, available: knownAvailableCount, timePerQ, instantFeedback, practiceMode, hasHistory,
     })).value;
     setUseTimer(auto.useTimer);

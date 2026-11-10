@@ -22,6 +22,7 @@ import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { getUpcomingExams, EXAM_SCHEDULE } from '../data/schedule.js';
 import { examEndMs } from '../lib/exam-countdown.js';
 import { decide } from '../lib/decide.js';
+import { PRACTICE_SETUP } from '../lib/decisions/practice-setup.js';
 import { practiceSignals } from '../lib/decide-signals.js';
 import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
 
@@ -321,7 +322,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const choose = (topicId) => {
     const available = countFor(topicId);
     if (setMode) setMode('quick');
-    const { value, by } = decide('practice.setup', practiceSignals({
+    const { value, by } = decide(PRACTICE_SETUP, practiceSignals({
       subject, year: selectedYear, available, timePerQ, instantFeedback, practiceMode, hasHistory,
     }));
     if (setUseTimer) setUseTimer(value.useTimer);

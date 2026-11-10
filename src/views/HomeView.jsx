@@ -77,6 +77,7 @@ import { truncateThai } from '../lib/thai-text.js';
 import { practicePreset } from '../lib/app-flow.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 import { adjustOpen, decide, peekWhy, setAdjustOpen, takeWhy } from '../lib/decide.js';
+import { HOME_MODE } from '../lib/decisions/home-mode.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
@@ -177,10 +178,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const unsplit = unsplitNotice(phaseStatus);
   const moved = phaseMeta ? movedNotice(phaseStatus) : null;
   // The first run chose the timetable's paper without a stop at the phase
-  // screen (decide.js, phase.firstRun); Home says so once, beside เปลี่ยน.
+  // screen (decide.js, phase.firstRun); Home says so once, inside the scope
+  // row beside เปลี่ยน, so the subject grid does not move down for it.
   const [firstRunWhy] = useState(() => peekWhy('home'));
   useEffect(() => { takeWhy('home'); }, []);
-  const phaseLine = moved || unsplit || (phaseMeta ? firstRunWhy : null);
   // โหมดอื่น: the practice modes the engine did not put first (home.mode).
   const [moreModes, setMoreModes] = useState(() => adjustOpen('home-modes'));
   const toggleMoreModes = () => setMoreModes((open) => { setAdjustOpen('home-modes', !open); return !open; });
@@ -1231,6 +1232,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         <span>เลือกวิชา</span>
         <span className="vmx-subject-scope">
           {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` ${phaseMeta.short}` : ''}
+          {phaseMeta && firstRunWhy && !moved && !unsplit && (
+            <span className="vmx-subject-scope-why" role="status">{firstRunWhy}</span>
+          )}
         {(phaseMeta || unsplit) && setSelectedPhase && (
           <button
             type="button"
@@ -1248,8 +1252,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           current one, or the timetable has no paper to back it, so nothing is
           narrowed (lib/current-phase.js). It says so and asks nothing:
           เปลี่ยน above is there for a student who wants another. */}
-      {phaseLine && (
-        <p className="vmx-phase-moved" role="status">{phaseLine}</p>
+      {(moved || unsplit) && (
+        <p className="vmx-phase-moved" role="status">{moved || unsplit}</p>
       )}
       <SubjectGrid
         subjects={yearSubjects}
@@ -1528,7 +1532,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
 
             ].filter(Boolean);
             const paperSubject = nextExam?.subject ? (SUBJECTS.find((s) => s.id === nextExam.subject)?.name || null) : null;
-            const modePick = decide('home.mode', {
+            const modePick = decide(HOME_MODE, {
               cards: modeCards.map((c) => c.id), daysToPaper: nextExam?.daysLeft ?? null, paperSubject,
               wrongCount: quickStats.wrongCount, weakPct,
             });

@@ -4,9 +4,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  DECISIONS, DECISION_IDS, DECIDE_PREFIX, YOURS_WHY,
+  DECIDE_PREFIX, YOURS_WHY, decisionIds, decisionFor, defineDecision,
   decide, recall, remember, rememberRows, forget, adjustOpen, setAdjustOpen,
 } from '../../src/lib/decide.js';
+import { PRACTICE_SETUP, SR_SETUP, PHASE_FIRST_RUN, HOME_MODE } from '../../src/lib/decisions/index.js';
+import { readFileSync, readdirSync } from 'node:fs';
+
+const DECISION_IDS = decisionIds();
 import { ladderPreset } from '../../src/lib/practice-ladder.js';
 
 const memory = (seed = {}) => {
@@ -17,15 +21,24 @@ const throwing = { get() { throw new Error('blocked'); }, set() { throw new Erro
 
 test('every entry carries the fields the registry promises', () => {
   assert.deepEqual([...DECISION_IDS].sort(), ['home.mode', 'phase.firstRun', 'practice.setup', 'sr.setup']);
+  assert.deepEqual([PRACTICE_SETUP, SR_SETUP, PHASE_FIRST_RUN, HOME_MODE], ['practice.setup', 'sr.setup', 'phase.firstRun', 'home.mode']);
   for (const id of DECISION_IDS) {
-    const e = DECISIONS[id];
+    const e = decisionFor(id);
     assert.equal(e.id, id);
-    assert.equal(typeof e.principle, 'string');
-    assert.ok(e.principle.length > 10, `${id} names its principle`);
     assert.equal(typeof e.auto, 'function');
     assert.equal(typeof e.valid, 'function');
   }
+  // Every decision file says which principle it applies, and the index lists every file.
+  const dir = new URL('../../src/lib/decisions/', import.meta.url);
+  const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');
+  const index = readFileSync(new URL('index.js', dir), 'utf8');
+  for (const f of files) {
+    assert.match(readFileSync(new URL(f, dir), 'utf8'), /^\/\/ Principle: /m, `${f} names its principle`);
+    assert.ok(index.includes(`'./${f}'`), `${f} is listed in decisions/index.js`);
+  }
+  assert.equal(files.length, DECISION_IDS.length);
   assert.throws(() => decide('nope', {}, memory()), /no decision/);
+  assert.throws(() => defineDecision({ id: 'broken' }), /needs an id/);
 });
 
 test('practice.setup wraps the ladder preset: the same set a topic tap has always made', () => {
@@ -151,8 +164,8 @@ test('sr.setup: today\'s plan, else a day\'s size; the planner\'s own keys are t
 
 test('phase.firstRun: the timetable\'s paper, or ask when it has none', () => {
   const rows = [
-    [{ current: '1-final' }, { phase: '1-final', ask: false }, 'เลือกเทอม 1 ปลายภาคให้ตามตารางสอบ'],
-    [{ current: '1-mid' }, { phase: '1-mid', ask: false }, 'เลือกเทอม 1 กลางภาคให้ตามตารางสอบ'],
+    [{ current: '1-final' }, { phase: '1-final', ask: false }, 'ตามตารางสอบ'],
+    [{ current: '1-mid' }, { phase: '1-mid', ask: false }, 'ตามตารางสอบ'],
     [{ current: null }, { phase: null, ask: true }, ''],
     [{ current: 'garbage' }, { phase: null, ask: true }, ''],
     [{ current: '1-final', scaffold: true }, { phase: null, ask: false }, ''],
@@ -193,4 +206,17 @@ test('the ปรับเอง disclosure remembers its state per screen', () =
   setAdjustOpen('config', false, io);
   assert.equal(adjustOpen('config', io), false);
   assert.equal(io.m.size, 0);
+});
+
+test('a why carried to the next screen is read once', async () => {
+  const { leaveWhy, peekWhy, takeWhy } = await import('../../src/lib/decide.js');
+  const io = memory();
+  leaveWhy('home', 'เลือกเทอม 1 ปลายภาคให้ตามตารางสอบ', io);
+  assert.equal(peekWhy('home', io), 'เลือกเทอม 1 ปลายภาคให้ตามตารางสอบ', 'a render may read it');
+  assert.equal(takeWhy('home', io), 'เลือกเทอม 1 ปลายภาคให้ตามตารางสอบ');
+  assert.equal(takeWhy('home', io), null, 'once');
+  leaveWhy('home', '', io);
+  assert.equal(peekWhy('home', io), null, 'an empty why leaves nothing');
+  assert.doesNotThrow(() => leaveWhy('home', 'x', throwing));
+  assert.equal(takeWhy('home', throwing), null);
 });

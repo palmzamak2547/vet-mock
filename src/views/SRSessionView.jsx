@@ -33,6 +33,7 @@ import ClozeCard from '../components/ClozeCard.jsx';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { stillWrong } from '../lib/wrong-pool.js';
 import { adjustOpen, decide, forget, setAdjustOpen } from '../lib/decide.js';
+import { SR_SETUP } from '../lib/decisions/sr-setup.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -261,7 +262,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     const dueCount = duePool.length;
     const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(reviewYear);
     // What today's session is, in one line, and why (decide.js, sr.setup).
-    const decision = decide('sr.setup', { planSize, dueReviewed: dueReviewedCount, newCount });
+    const decision = decide(SR_SETUP, { planSize, dueReviewed: dueReviewedCount, newCount });
     const todayCount = sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount);
     const subjectName = subjectFilter === 'all' ? 'ทุกวิชา' : (SUBJECTS.find((x) => x.id === subjectFilter)?.name || 'วิชาที่เลือกไว้');
     const sessionLine = [
@@ -272,8 +273,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       scheduler === 'fsrs' ? 'จัดรอบแบบ FSRS' : null,
     ].filter(Boolean).join(', ');
     const restoreChosen = () => {
-      forget('sr.setup');
-      const auto = decide('sr.setup', { planSize, dueReviewed: dueReviewedCount, newCount }).value;
+      forget(SR_SETUP);
+      const auto = decide(SR_SETUP, { planSize, dueReviewed: dueReviewedCount, newCount }).value;
       setYearScope(auto.yearScope);
       setSubjectFilter(auto.subject);
       setPhaseScope(auto.phaseScope);
