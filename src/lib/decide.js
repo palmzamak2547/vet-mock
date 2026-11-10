@@ -83,18 +83,20 @@ function entryFor(id) {
 
 /** The student's own remembered choice for a decision, or null. An invalid
  *  stored value is removed, never served. */
+const isValid = (entry, value) => { try { return Boolean(entry.valid(value)); } catch { return false; } };
+
 export function recall(id, io = defaultIO()) {
   const entry = entryFor(id);
   let stored;
   if (entry.read) {
     try { stored = entry.read(io); } catch { stored = undefined; }
-    return stored !== undefined && entry.valid(stored) ? stored : null;
+    return stored !== undefined && isValid(entry, stored) ? stored : null;
   }
   if (!entry.key) return null;
   const key = DECIDE_PREFIX + entry.key;
   const raw = safeGet(io, key);
   stored = parse(raw);
-  if (stored === undefined || !entry.valid(stored)) {
+  if (stored === undefined || !isValid(entry, stored)) {
     if (raw != null) safeRemove(io, key);
     return null;
   }
@@ -112,7 +114,9 @@ export function decide(id, signals = {}, io = defaultIO()) {
   const stored = recall(id, io);
   if (stored != null) {
     const value = entry.merge ? entry.merge(auto.value, stored, signals) : stored;
-    if (value != null) return { value, why: YOURS_WHY, by: 'you' };
+    // A remembered choice that changes nothing is not the student's: the line
+    // then gives the app's own reason, and there is nothing to restore.
+    if (value != null && !sameValue(value, auto.value)) return { value, why: YOURS_WHY, by: 'you' };
   }
   return { value: auto.value, why: auto.why, by: 'auto' };
 }
@@ -121,7 +125,7 @@ export function decide(id, signals = {}, io = defaultIO()) {
  *  valid value or the store refused it. */
 export function remember(id, value, io = defaultIO()) {
   const entry = entryFor(id);
-  if (!entry.key || !entry.valid(value)) return false;
+  if (!entry.key || !isValid(entry, value)) return false;
   return safeSet(io, DECIDE_PREFIX + entry.key, JSON.stringify(value));
 }
 
@@ -173,4 +177,11 @@ export function setAdjustOpen(screen, open, io = defaultIO()) {
 export const isObject = (v) => v != null && typeof v === 'object' && !Array.isArray(v);
 export const intIn = (v, lo, hi) => Number.isInteger(v) && v >= lo && v <= hi;
 export const validRows = (fields) => (v) => isObject(v) && Object.keys(v).length > 0
-  && Object.entries(v).every(([k, x]) => fields[k] && fields[k](x));
+  && Object.entries(v).every(([k, x]) => Object.hasOwn(fields, k) && fields[k](x));
+
+function sameValue(a, b) {
+  if (a === b) return true;
+  if (!isObject(a) || !isObject(b)) return false;
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  return [...keys].every((k) => a[k] === b[k]);
+}

@@ -7,14 +7,18 @@ import { defineDecision, intIn, validRows } from '../decide.js';
 import { ladderPreset } from '../practice-ladder.js';
 
 const capTo = (n, available) => (Number.isFinite(available) && available > 0 ? Math.min(n, Math.floor(available)) : n);
-const daysClause = (days) => (!Number.isInteger(days) || days < 0 || days > 14 ? ''
-  : days === 0 ? ', สอบวิชานี้วันนี้' : `, อีก ${days} วันสอบวิชานี้`);
+// Timely: near the subject's paper the line points at the exam rung. No day
+// count, which could disagree with Home's clock; a paper already over is not
+// counted (decide-signals.js reads the paper's end time).
+const nearClause = (days) => (Number.isInteger(days) && days >= 0 && days <= 14
+  ? ' ใกล้สอบวิชานี้แล้ว ลองขั้นแบบสอบได้ใน "ปรับเอง"' : '');
 
 export const PRACTICE_SETUP = defineDecision({
   id: 'practice.setup',
   key: 'practice.setup',
   valid: validRows({
-    numQuestions: (v) => intIn(v, 1, 1000),
+    // The pool-size chip can offer a whole bank (several thousand questions).
+    numQuestions: (v) => intIn(v, 1, 20000),
     useTimer: (v) => typeof v === 'boolean',
     timePerQ: (v) => intIn(v, 5, 3600),
     instantFeedback: (v) => typeof v === 'boolean',
@@ -36,10 +40,14 @@ export const PRACTICE_SETUP = defineDecision({
       instantFeedback: preset.useTimer ? s.instantFeedback !== false : true,
       pick: s.pick === 'adaptive' ? 'adaptive' : 'random',
     };
-    const base = step === 'timed' ? 'ขั้นใช้ความรู้ที่คุณขึ้นมาแล้ว จับเวลาทีละข้อ'
-      : s.hasHistory ? 'ขั้นทำความเข้าใจ ข้อง่ายก่อน เห็นเฉลยทุกข้อ'
-        : 'เริ่มขั้นแรก ข้อง่ายก่อน เห็นเฉลยทุกข้อ';
-    return { value, why: base + daysClause(s.daysToPaper) };
+    // The order the set really gets: rung 1 asks for the gentle order unless
+    // the level pick is on (ConfigView's `gentle`), and says "probably" as the
+    // ladder does, since difficulty is mostly a proxy.
+    const order = value.pick === 'adaptive' ? 'เลือกข้อตามระดับของคุณ' : 'ข้อที่น่าจะง่ายมาก่อน';
+    const base = step === 'timed' ? 'ขั้นใช้ความรู้ ขั้นล่าสุดที่คุณฝึก จับเวลาทีละข้อ'
+      : s.hasHistory ? `ขั้นทำความเข้าใจ ${order} เห็นเฉลยทุกข้อ`
+        : `เริ่มขั้นแรก ${order} เห็นเฉลยทุกข้อ`;
+    return { value, why: base + nearClause(s.daysToPaper) };
   },
   merge(auto, stored, s = {}) {
     const value = { ...auto, ...stored };

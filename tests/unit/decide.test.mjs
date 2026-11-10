@@ -67,9 +67,38 @@ test('practice.setup says why in the student\'s situation', () => {
   assert.match(decide('practice.setup', { step: 'understand' }, memory()).why, /^เริ่มขั้นแรก/);
   assert.match(decide('practice.setup', { step: 'understand', hasHistory: true }, memory()).why, /^ขั้นทำความเข้าใจ/);
   assert.match(decide('practice.setup', { step: 'timed' }, memory()).why, /^ขั้นใช้ความรู้/);
-  assert.match(decide('practice.setup', { step: 'understand', daysToPaper: 3 }, memory()).why, /อีก 3 วันสอบวิชานี้$/);
-  assert.match(decide('practice.setup', { step: 'understand', daysToPaper: 0 }, memory()).why, /สอบวิชานี้วันนี้$/);
-  assert.doesNotMatch(decide('practice.setup', { step: 'understand', daysToPaper: 30 }, memory()).why, /วันสอบ/);
+  // The house hedge, and the order the set really gets (B9).
+  assert.match(decide('practice.setup', { step: 'understand' }, memory()).why, /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน เห็นเฉลยทุกข้อ$/);
+  assert.match(decide('practice.setup', { step: 'understand', pick: 'adaptive', hasHistory: true }, memory()).why, /^ขั้นทำความเข้าใจ เลือกข้อตามระดับของคุณ/);
+  // A rung picked by hand and one reached through results read the same and both true (A6).
+  assert.match(decide('practice.setup', { step: 'timed' }, memory()).why, /^ขั้นใช้ความรู้ ขั้นล่าสุดที่คุณฝึก/);
+  // Timely, with no day count that could disagree with Home's clock (B3, B9).
+  for (const days of [0, 1, 3, 14]) {
+    const why = decide('practice.setup', { step: 'understand', daysToPaper: days }, memory()).why;
+    assert.match(why, /ใกล้สอบวิชานี้แล้ว ลองขั้นแบบสอบได้ใน "ปรับเอง"$/, `${days}`);
+    assert.doesNotMatch(why, /\d+ วัน/);
+  }
+  assert.doesNotMatch(decide('practice.setup', { step: 'understand', daysToPaper: 30 }, memory()).why, /ใกล้สอบ/);
+  assert.doesNotMatch(decide('practice.setup', { step: 'understand', daysToPaper: null }, memory()).why, /ใกล้สอบ/);
+});
+
+test('a remembered row equal to the choice the app makes is not called theirs', () => {
+  const io = memory();
+  rememberRows('practice.setup', { numQuestions: 10, useTimer: false }, io);
+  const d = decide('practice.setup', { step: 'understand', available: 153 }, io);
+  assert.equal(d.by, 'auto', 'nothing differs, so there is nothing to restore');
+  assert.notEqual(d.why, YOURS_WHY);
+  assert.equal(decide('practice.setup', { step: 'timed', available: 153 }, io).by, 'you', 'on rung 2 the same rows do differ');
+});
+
+test('validators read only their own fields and survive hostile stored values (A7)', () => {
+  const key = `${DECIDE_PREFIX}practice.setup`;
+  for (const bad of ['{"constructor":5}', '{"__proto__":1}', '{"toString":1}']) {
+    const io = memory({ [key]: bad });
+    assert.doesNotThrow(() => decide('practice.setup', { step: 'understand', available: 50 }, io), bad);
+    assert.equal(decide('practice.setup', { step: 'understand', available: 50 }, io).by, 'auto', bad);
+  }
+  assert.equal(remember('practice.setup', { numQuestions: 1945 }, memory()), true, 'a whole-bank count is a count');
 });
 
 test('a remembered row wins, merged over the rest and capped to the pool', () => {
@@ -134,32 +163,37 @@ test('same inputs give the same output, and a rule never mutates its signals', (
 test('sr.setup: today\'s plan, else a day\'s size; the planner\'s own keys are the student\'s choice', () => {
   const rows = [
     [{ planSize: 12 }, 12, /^ตามแผนวันนี้/],
-    [{ dueReviewed: 40, newCount: 3 }, 25, /^ใบที่ค้างนานสุดมาก่อน/],
-    [{ dueReviewed: 0, newCount: 300 }, 25, /^เริ่มทีละ 25 ใบ/],
-    [{}, 25, /^ยังไม่มีใบถึงรอบ/],
+    [{ dueReviewed: 40, newCount: 3 }, 25, /^ใบที่ค้างนานสุดมาก่อน$/],
+    [{ dueReviewed: 0, newCount: 300 }, 25, /^ไม่มีใบค้าง วันนี้เป็นใบใหม่ทั้งหมด$/],
+    [{}, 25, /^$/],
   ];
   for (const [signals, size, why] of rows) {
     const d = decide('sr.setup', signals, memory());
     assert.equal(d.by, 'auto');
     assert.equal(d.value.size, size);
-    assert.deepEqual({ ...d.value, size: 0 }, { yearScope: 'current', subject: 'all', phaseScope: 'current', size: 0, scheduler: 'sm2' });
+    assert.deepEqual({ ...d.value, size: 0 }, { yearScope: 'current', subject: 'all', phaseScope: 'current', size: 0 });
     assert.match(d.why, why);
   }
   // The planner writes every row on first mount: defaults stored are not a choice.
   const defaults = memory({ 'vmx-sr-session-size': '25', 'vmx-sr-subject-filter': '"all"', 'vmx-sr-year-scope': '"current"', 'vmx-sr-phase-scope': '"current"', 'vmx-sr-scheduler': 'sm2' });
   assert.equal(decide('sr.setup', {}, defaults).by, 'auto');
-  const own = memory({ 'vmx-sr-session-size': '50', 'vmx-sr-scheduler': 'fsrs' });
+  const own = memory({ 'vmx-sr-session-size': '50', 'vmx-sr-subject-filter': '"zoonoses"', 'vmx-sr-scheduler': 'fsrs' });
   const d = decide('sr.setup', { dueReviewed: 9 }, own);
   assert.equal(d.by, 'you');
   assert.equal(d.value.size, 50);
-  assert.equal(d.value.scheduler, 'fsrs');
+  assert.equal(d.value.subject, 'zoonoses');
   // a plan's size is for that one session and wins over a saved size alone
   assert.equal(decide('sr.setup', { planSize: 8 }, memory({ 'vmx-sr-session-size': '50' })).by, 'auto');
   assert.equal(decide('sr.setup', { planSize: 8 }, own).value.size, 8);
-  // a broken stored row is ignored
-  assert.equal(decide('sr.setup', {}, memory({ 'vmx-sr-session-size': '-4' })).by, 'auto');
+  // Only a size the planner offers is anyone's choice (A3): Home's plan wrote
+  // 7 into this key until 5.192.1, and -4 is broken.
+  for (const size of ['7', '-4', '12', '"lots"']) {
+    assert.equal(decide('sr.setup', { dueReviewed: 9 }, memory({ 'vmx-sr-session-size': size })).by, 'auto', size);
+  }
+  // The scheduler is a device preference, never part of a reset (A9).
+  assert.equal(decide('sr.setup', {}, memory({ 'vmx-sr-scheduler': 'fsrs' })).by, 'auto');
   forget('sr.setup', own);
-  assert.equal(own.m.size, 0);
+  assert.deepEqual([...own.m.keys()], ['vmx-sr-scheduler'], 'a reset leaves the scheduler alone');
 });
 
 test('phase.firstRun: the timetable\'s paper, or ask when it has none', () => {
@@ -181,19 +215,22 @@ test('phase.firstRun: the timetable\'s paper, or ask when it has none', () => {
 test('home.mode: near a paper, then wrong answers, then the weak topic, then this term\'s slides', () => {
   const all = ['near-exam', 'wrong', 'weak', 'current-scope', 'pick-count'];
   const rows = [
-    [{ cards: all, daysToPaper: 4, paperSubject: 'ระบาดวิทยา', wrongCount: 3, weakPct: 40 }, 'near-exam', 'อีก 4 วันสอบระบาดวิทยา'],
-    [{ cards: all, daysToPaper: 0, paperSubject: 'ระบาดวิทยา' }, 'near-exam', 'สอบระบาดวิทยาวันนี้'],
+    // วันนี้ / พรุ่งนี้ / ใกล้สอบ as Home's clock says it, a space before the name (B3).
+    [{ cards: all, daysToPaper: 4, paperSubject: 'ระบาดวิทยา', wrongCount: 3, weakPct: 40 }, 'near-exam', 'ใกล้สอบ ระบาดวิทยา'],
+    [{ cards: all, daysToPaper: 1, paperSubject: 'One Health' }, 'near-exam', 'พรุ่งนี้สอบ One Health'],
+    [{ cards: all, daysToPaper: 0, paperSubject: 'English for Vet Profession I' }, 'near-exam', 'วันนี้สอบ English for Vet Profession I'],
     [{ cards: all, daysToPaper: 20, wrongCount: 3, weakPct: 40 }, 'wrong', 'มีข้อที่ยังตอบผิด 3 ข้อ'],
-    [{ cards: ['near-exam', 'weak', 'current-scope'], daysToPaper: 20, wrongCount: 3, weakPct: 40 }, 'weak', 'หัวข้อที่คุณตอบถูก 40% ฝึกตรงนี้คุ้มที่สุด'],
-    [{ cards: ['current-scope', 'pick-count'], wrongCount: 0 }, 'current-scope', null],
-    [{ cards: ['pick-count', 'mock-exam'] }, 'pick-count', null],
-    [{ cards: ['near-exam', 'pick-count'], daysToPaper: -1 }, 'pick-count', null],
+    // Only what HomeView measured (B10); a reason that restates its card is left out.
+    [{ cards: ['near-exam', 'weak', 'current-scope'], daysToPaper: 20, wrongCount: 3, weakPct: 40 }, 'weak', 'หัวข้อที่คุณตอบถูก 40% ใน 90 วันล่าสุด'],
+    [{ cards: ['current-scope', 'pick-count'], wrongCount: 0 }, 'current-scope', ''],
+    [{ cards: ['pick-count', 'mock-exam'] }, 'pick-count', ''],
+    [{ cards: ['near-exam', 'pick-count'], daysToPaper: -1 }, 'pick-count', ''],
   ];
   for (const [signals, value, why] of rows) {
     const d = decide('home.mode', signals, memory());
     assert.equal(d.value, value, JSON.stringify(signals));
-    if (why) assert.equal(d.why, why);
-    assert.ok(d.why.length > 0);
+    assert.equal(d.why, why);
+    assert.doesNotMatch(d.why, /อีก \d+ วัน/);
   }
 });
 
