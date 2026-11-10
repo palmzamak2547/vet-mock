@@ -123,16 +123,22 @@ export function highlightParts(text, highlights = []) {
 }
 
 // Read aloud, a table is one sentence a row, each value after its column's
-// name: "ELISA บวก: เพาะเชื้อบวก 102, เพาะเชื้อลบ 40". A header with an empty
-// first cell means the first column names the rows.
-function tableSpeech({ head, rows }) {
+// name and a pause: "ELISA บวก, เพาะเชื้อบวก: 102, เพาะเชื้อลบ: 40". A header
+// with an empty first cell means the first column names the rows. A cell that
+// holds only a dash says nothing; a tick or a cross says yes or no, in the
+// language of the text around the table (a voice reads a bare "×" as "times").
+const TICK = /^[✓✔]$/u;
+const CROSS = /^[×✗✘]$/u;
+const DASH = /^[-–—]+$/;
+function tableSpeech({ head, rows }, thai) {
   const named = head[0] === '';
+  const say = (cell) => (TICK.test(cell) ? (thai ? 'ใช่' : 'yes') : CROSS.test(cell) ? (thai ? 'ไม่ใช่' : 'no') : cell);
   return rows.map((row) => {
     const said = row
-      .map((cell, k) => (cell && !(named && k === 0) ? `${head[k] ? `${head[k]} ` : ''}${cell}` : ''))
+      .map((cell, k) => (cell && !DASH.test(cell) && !(named && k === 0) ? `${head[k] ? `${head[k]}: ` : ''}${say(cell)}` : ''))
       .filter(Boolean)
       .join(', ');
-    return named && row[0] ? `${row[0]}: ${said}` : said;
+    return named && row[0] ? `${row[0]}, ${said}` : said;
   }).join('\n');
 }
 
@@ -141,5 +147,6 @@ function tableSpeech({ head, rows }) {
 export function tablesToSpeech(text) {
   const blocks = splitBlocks(text);
   if (blocks.length === 1 && blocks[0].type === 'text') return text == null ? '' : String(text);
-  return blocks.map((b) => (b.type === 'table' ? tableSpeech(b) : b.text)).join('\n');
+  const thai = /[฀-๿]/.test(String(text));
+  return blocks.map((b) => (b.type === 'table' ? tableSpeech(b, thai) : b.text)).join('\n');
 }

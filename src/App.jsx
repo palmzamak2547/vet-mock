@@ -270,6 +270,8 @@ const AUTH_REQUIRED_VIEWS = new Set([
 function isInteractiveKeyTarget(target) {
   if (!(target instanceof Element)) return false;
   if (target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return true;
+  // A wide table's frame takes focus so the arrow keys scroll it (RichBlocks.jsx): they must not turn the page.
+  if (target.closest('.vmx-qtable-wrap')) return true;
   return Boolean(target.closest('[role="button"], [role="checkbox"], [role="radio"], [role="switch"]'));
 }
 

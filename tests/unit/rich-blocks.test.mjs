@@ -70,8 +70,12 @@ test('highlights keep their offsets around a table and never fall inside it', ()
 
 test('read aloud: a row at a time, each value after its column name', () => {
   const said = tablesToSpeech(TEXT);
-  assert.equal(said, `${BEFORE}\nELISA บวก: เพาะเชื้อบวก 102, เพาะเชื้อลบ 40\nELISA ลบ: เพาะเชื้อบวก 38, เพาะเชื้อลบ 224\n${AFTER}`);
-  assert.equal(tablesToSpeech('| Method | Temp |\n|---|---|\n| Freezer | -20 |\n| LN2 | |'), 'Method Freezer, Temp -20\nMethod LN2');
+  assert.equal(said, `${BEFORE}\nELISA บวก, เพาะเชื้อบวก: 102, เพาะเชื้อลบ: 40\nELISA ลบ, เพาะเชื้อบวก: 38, เพาะเชื้อลบ: 224\n${AFTER}`);
+  assert.equal(tablesToSpeech('| Method | Temp |\n|---|---|\n| Freezer | -20 |\n| LN2 | |'), 'Method: Freezer, Temp: -20\nMethod: LN2');
+  // A dash says nothing; a tick and a cross say yes and no, in the language of the text around the table.
+  assert.equal(tablesToSpeech('| Organism | Tape | Scrape |\n|---|---|---|\n| Mites | ✓ | × |\n| Yeast | - | ✓ |'),
+    'Organism: Mites, Tape: yes, Scrape: no\nOrganism: Yeast, Scrape: yes');
+  assert.equal(tablesToSpeech('สรุป\n\n| | พบ |\n|---|---|\n| ไร | ✓ |\n| ยีสต์ | ✗ |'), 'สรุป\nไร, พบ: ใช่\nยีสต์, พบ: ไม่ใช่');
   const clip = clipText(TEXT, 'th');
   assert.ok(!/[|]|---/.test(clip), clip);
 });
@@ -87,9 +91,13 @@ test('the bank: a text with no table is spoken as it was, and every table is one
       if (splitBlocks(text).some((b) => b.type === 'table')) {
         withTable++;
         assert.ok(!/[|]|-{3}/.test(clipText(text, 'th')), `${q.subject}:${q.id} still says bars or dashes`);
-      } else {
+      }
+      // Judged without the parser: a text with no run of three dashes cannot hold a rule line, so it
+      // cannot hold a table, and a voice must be handed the very same string. Recorded clips are named
+      // by that string.
+      if (!text.includes('---')) {
         plain++;
-        assert.equal(tablesToSpeech(text), text);
+        assert.equal(tablesToSpeech(text), text, `${q.subject}:${q.id}`);
       }
     }
   }
@@ -110,4 +118,11 @@ test('the lint names a table where it cannot be drawn and a table that does not 
   assert.match(messages({ passage: '| a |\n|---|\n| 1 |' }), /a table of 1 columns/);
   assert.match(messages({ passage: '| | |\n|---|---|\n| 1 | 2 |' }), /header is empty/);
   assert.match(messages({ passage: '| a | b | c | d | e | f | g |\n|---|---|---|---|---|---|---|\n| 1 | 2 | 3 | 4 | 5 | 6 | 7 |' }), /a table of 7 columns/);
+  // A row that lost a bar, a table with no outer bars, a table in a matching question's explanation.
+  assert.match(messages({ explain: `${TABLE}\n| รวม | 140 | 264` }), /lost its closing bar/);
+  assert.match(messages({ explain: `รวม | 140 | 264 |\n${TABLE}` }), /lost its opening bar/);
+  assert.match(messages({ passage: 'a | b\n---|---\n1 | 2' }), /without its outer bars/);
+  assert.match(messages({ type: 'match', explain: TABLE }), /matching question/);
+  // A formula between bars is not a row, in an option or in an explanation.
+  assert.equal(messages({ options: ['|x − μ|', '|x| + |y|'], explain: 'ผลต่างคือ |0.39 − 0.04| = |−0.35|\n|a| > |b|' }), '');
 });
