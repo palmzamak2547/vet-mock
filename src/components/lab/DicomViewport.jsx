@@ -664,7 +664,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           {meta.mmPerPx && (
             <>, calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
           )}
-         , Phase 6, 🦴 Norberg + VHS ใน toolbar
+         , 🦴 Norberg + VHS ใน toolbar
         </div>
       )}
       {meta && status === 'ready' && (

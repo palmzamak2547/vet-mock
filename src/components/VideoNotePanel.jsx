@@ -199,7 +199,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ ...tsBtn, cursor: 'default' }}>{formatTimestamp(composeT)}</span>
             <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
-             , timestamp ตอนกดปุ่ม
+              timestamp ตอนกดปุ่ม
             </span>
           </div>
           <textarea

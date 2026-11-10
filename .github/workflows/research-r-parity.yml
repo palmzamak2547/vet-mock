@@ -135,6 +135,13 @@ jobs:
           # Resolve dependencies first; exact pins conflict with bundled packages in pak's solver.
           # Restore every recorded version from CRAN, then let run-native enforce exact pins.
           Rscript - <<'RSCRIPT'
+          # Archived pins come from CRAN's CDN mirror, not from cran.r-project.org. For each one, remotes downloads
+          # the archive index (src/contrib/Meta/archive.rds, several MB) and reports an index it could not read as
+          # "version ... is invalid for package". On 10 Nov 2026 the main host failed that download twice in a row
+          # (#186): for MASS after 60 s, R's default download timeout, then for epiR after 136 s with the timeout
+          # raised. Downloads get ten minutes, and a pin is tried three times before the job fails.
+          options(timeout = max(600, getOption("timeout")))
+          cran <- "https://cloud.r-project.org"
           refs <- strsplit(Sys.getenv("PKGS"), " ")[[1]]
           pins <- strsplit(refs, "@", fixed = TRUE)
           pak::pkg_install(c("remotes", vapply(pins, `[`, character(1), 1)), upgrade = FALSE, ask = FALSE)
@@ -145,8 +152,17 @@ jobs:
             # CRAN archive names may use hyphens (mvtnorm1.2-4); compare normalized versions.
             # Archived pins can require imports the latest release dropped (dunn.test 1.4.0: scrutiny).
             # NA installs required dependencies only; never upgrade the versions already installed.
-            remotes::install_version(pkg, version = version, repos = "https://cran.r-project.org",
-                                     dependencies = NA, upgrade = "never")
+            for (attempt in 1:3) {
+              installed <- tryCatch({
+                remotes::install_version(pkg, version = version, repos = cran, dependencies = NA, upgrade = "never")
+                TRUE
+              }, error = function(e) {
+                message(sprintf("%s %s, attempt %d of 3: %s", pkg, version, attempt, conditionMessage(e)))
+                FALSE
+              })
+              if (installed) break
+              if (attempt < 3) Sys.sleep(20)
+            }
             if (as.character(packageVersion(pkg)) != version) stop(sprintf("%s: expected %s", pkg, version))
           }
           RSCRIPT

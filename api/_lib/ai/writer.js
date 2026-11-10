@@ -9,8 +9,11 @@
 //      left on, the model can spend the whole token budget inside its hidden
 //      reasoning and stream back nothing (llm.js documents the trap, hit live)
 //   2. DeepSeek `deepseek-chat`
-//   3. Anthropic (AI_GRADER_MODEL, the same env convention as llm.js), only
-//      when its key is set
+//   3. Anthropic (llm.js names the model; AI_GRADER_MODEL overrides), only
+//      when its key is set. It answers directly, with no thinking pass: the
+//      thinking would run before the first word and past the first-byte
+//      deadline. llm.js's anthropicFields knows the field each model takes
+//      for that, and which models still accept `temperature`.
 //
 // A provider is abandoned for the next one ONLY before it has produced its
 // first words: once text has gone to the student, switching providers would
@@ -25,6 +28,7 @@
 // ============================================================
 
 import { WRITER_FIRST_BYTE_MS, WRITER_IDLE_MS, WRITER_MAX_TOKENS, WRITER_TEMPERATURE } from './config.js';
+import { anthropicModel, anthropicFields } from '../llm.js';
 
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
@@ -97,14 +101,14 @@ export function providerChain(env = process.env) {
     if (primary !== 'deepseek-chat') chain.push(deepseek('deepseek-chat', false));
   }
   if (env.ANTHROPIC_API_KEY) {
-    const model = env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929';
+    const model = anthropicModel(env);
     chain.push({
       id: `anthropic:${model}`,
       parse: parseAnthropicEvent,
       request: ({ system, messages, maxTokens, temperature }) => ({
         url: ANTHROPIC_URL,
         headers: { 'content-type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-        body: { model, system, stream: true, temperature, max_tokens: maxTokens, messages: alternate(messages) },
+        body: { model, system, stream: true, max_tokens: maxTokens, messages: alternate(messages), ...anthropicFields(model, { temperature }) },
       }),
     });
   }

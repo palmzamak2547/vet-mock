@@ -10,7 +10,8 @@
 //      budget trap, hit live during the probe).
 //   2. DeepSeek `deepseek-chat` alias — in case the flash id or the
 //      thinking parameter ever stops being accepted.
-//   3. Anthropic — only if ANTHROPIC_API_KEY is present.
+//   3. Anthropic (ANTHROPIC_MODEL below; AI_GRADER_MODEL overrides) — only
+//      if ANTHROPIC_API_KEY is present.
 // visionJSON (one image + text) walks the same order: DeepSeek's flash model
 // takes images OpenAI-style since 2026; Anthropic as the fallback.
 //
@@ -28,6 +29,45 @@ const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 export const LLM_DAILY_BUDGET = 4000;
 
 const cut = (s, n = 300) => String(s ?? '').slice(0, n);
+
+// ── Anthropic: the default model and what each generation accepts ──
+// One id for every route (llm.js, ai/writer.js, ai/config.js), so a retired
+// model is replaced in one line. Sonnet 4.5's dated id sat in four files
+// and retires on 30 Nov 2026; an id past its retirement answers 404,
+// which here means the fallback is gone without a word. The admin page's
+// "ระบบภายนอก" card asks Anthropic whether this id is still served
+// (system-status.js), so the next retirement shows there first.
+export const ANTHROPIC_MODEL = 'claude-sonnet-5-5';
+export const anthropicModel = (env = process.env) => env.AI_GRADER_MODEL || ANTHROPIC_MODEL;
+
+// First match wins, so a longer id stands before the id it starts with.
+//   direct   — the fields that make the model answer without a thinking pass.
+//              These routes ask for a short JSON object or a streamed answer
+//              inside a small max_tokens: a model that thinks by default can
+//              spend the whole allowance thinking and return no text (the
+//              budget trap below), and a streamed answer would miss its
+//              first-byte deadline.
+//   sampling — the model still takes `temperature`; later ones answer 400.
+//   budget   — thinking is switched on with a token budget, not `adaptive`.
+// An id not listed gets no extra field at all, as before this table existed.
+const CLAUDE_FACTS = [
+  [/^claude-sonnet-5-5/, { direct: { thinking: { type: 'between_tools' } } }],
+  [/^claude-(?:opus-5-5|fable-|mythos-)/, { direct: { output_config: { effort: 'low' } } }], // thinking cannot be switched off
+  [/^claude-(?:opus-5|sonnet-5|haiku-5-5)/, { direct: { thinking: { type: 'disabled' } } }],
+  [/^claude-(?:opus|sonnet)-4-6/, { sampling: true }],
+  [/^claude-opus-4-[78]/, {}],
+  [/^claude-(?:opus|sonnet|haiku)-4-5/, { sampling: true, budget: true }],
+];
+
+/** The request fields that depend on the model: thinking, effort, sampling. */
+export function anthropicFields(model, { thinking = false, temperature } = {}) {
+  const facts = CLAUDE_FACTS.find(([re]) => re.test(String(model || '')))?.[1] || {};
+  const fields = thinking
+    ? { thinking: facts.budget ? { type: 'enabled', budget_tokens: 1500 } : { type: 'adaptive' } }
+    : { ...facts.direct };
+  if (facts.sampling && temperature != null) fields.temperature = temperature;
+  return fields;
+}
 
 async function callDeepSeek({ apiKey, model, thinkingOff, system, user, image, maxTokens, signal }) {
   // An image rides along OpenAI-style as a data URL (docs: Vision guide,
@@ -80,35 +120,30 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
     ]
     : user;
   // Thinking makes the model read a hard image more carefully (handwriting).
-  // Claude 4.5 takes a token budget; 4.6 and the 5 family take the adaptive
-  // form. If a model refuses the parameter (400 naming it) the call is made
-  // once more without it, so an unfamiliar model id still answers.
-  const think = !thinking ? null
-    : /claude-(opus|sonnet|haiku)-4-5/.test(model) ? { type: 'enabled', budget_tokens: 1500 }
-    : { type: 'adaptive' };
-  const send = (withThinking) => {
-    const body = { model, max_tokens: maxTokens, system, messages: [{ role: 'user', content }] };
-    if (withThinking && think) body.thinking = think;
-    return fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal,
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify(body),
-    });
-  };
-  let res = await send(true);
-  if (!res.ok && res.status === 400 && think) {
+  // anthropicFields knows which form each model takes, and what makes it
+  // answer directly when no thinking was asked for. If a model refuses one of
+  // those fields (400 naming it) the call is made once more with none of
+  // them, so an unfamiliar model id still answers.
+  const send = (fields) => fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    signal,
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({ model, max_tokens: maxTokens, system, messages: [{ role: 'user', content }], ...fields }),
+  });
+  const fields = anthropicFields(model, { thinking });
+  let res = await send(fields);
+  if (!res.ok && res.status === 400 && Object.keys(fields).length) {
     const detail = await res.text().catch(() => '');
-    if (!/thinking|budget_tokens|adaptive/i.test(detail)) {
+    if (!/thinking|budget_tokens|adaptive|between_tools|effort|output_config/i.test(detail)) {
       console.error('[llm] anthropic', model, res.status, cut(detail));
       return { ok: false, status: res.status };
     }
-    console.error('[llm] anthropic', model, 'thinking refused, retrying without', cut(detail));
-    res = await send(false);
+    console.error('[llm] anthropic', model, 'thinking fields refused, retrying without', cut(detail));
+    res = await send({});
   }
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
@@ -118,8 +153,14 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
   const data = await res.json();
   // With thinking on, the text block follows the thinking block(s).
   const readText = (d) => (d?.content || []).filter((x) => x?.type === 'text').map((x) => x.text).join('');
+  // A decline is a 200 with no usable text: say so and let the next provider
+  // answer, without spending a second call on it.
+  if (data?.stop_reason === 'refusal') {
+    console.error('[llm] anthropic', model, 'declined', cut(JSON.stringify(data?.stop_details ?? null)));
+    return { ok: false, status: 502 };
+  }
   let text = readText(data);
-  if (!text && think) {
+  if (!text && thinking) {
     // The reasoning-budget trap, the Anthropic side of it: on a hard image
     // the model can spend the whole allowance inside thinking and emit no
     // text at all. Measured on production 2026-09-20 — the two messiest
@@ -127,7 +168,7 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
     // weaker provider, which is exactly the case that needed the better one.
     // Ask again without thinking rather than handing the answer away.
     console.error('[llm] anthropic', model, 'no text with thinking on, stop_reason', data?.stop_reason, '— retrying without it');
-    const retry = await send(false);
+    const retry = await send(anthropicFields(model));
     if (retry.ok) text = readText(await retry.json());
   }
   if (!text) {
@@ -192,7 +233,7 @@ export async function visionJSON({ system, user, image, maxTokens = 800, timeout
     if (env.ANTHROPIC_API_KEY) {
       const models = Array.isArray(anthropicModels) && anthropicModels.length
         ? anthropicModels
-        : [env.AI_VISION_MODEL || env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929'];
+        : [env.AI_VISION_MODEL || anthropicModel(env)];
       for (const model of models) {
         anthropic.push(() => callAnthropic({
           apiKey: env.ANTHROPIC_API_KEY, model, system, user, image, maxTokens, signal: ac.signal, thinking,
@@ -255,7 +296,7 @@ export async function chatJSON({ system, user, maxTokens = 1200, timeoutMs = 25_
     }
     if (env.ANTHROPIC_API_KEY) {
       attempts.push(() => callAnthropic({
-        apiKey: env.ANTHROPIC_API_KEY, model: env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929',
+        apiKey: env.ANTHROPIC_API_KEY, model: anthropicModel(env),
         system, user, maxTokens, signal: ac.signal,
       }));
     }
