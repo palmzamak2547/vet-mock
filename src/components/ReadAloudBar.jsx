@@ -66,7 +66,7 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
   const clipControls = Boolean(engine) && !st.device;
   const byPoint = st.points > 1;
   const where = st.job.what === 'q'
-    ? (st.kind === 'stem' ? 'โจทย์' : st.option >= 0 ? `ตัวเลือก ${optionLetter(st.option)}` : '')
+    ? (st.kind === 'stem' ? st.job.stemLabel || 'โจทย์' : st.option >= 0 ? `ตัวเลือก ${optionLetter(st.option)}` : '')
     : '';
   const say = st.status === 'error' ? st.note
     : st.device ? 'เสียงอ่านของเครื่อง'

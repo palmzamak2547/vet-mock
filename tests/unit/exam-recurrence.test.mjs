@@ -153,3 +153,15 @@ test('the generated file carries data only: ids, keys and numbers, no copy for s
   assert.match(generated, /export const EXAM_RECURRENCE = \{/);
   assert.match(generated, /export const EXAM_RECURRENCE_CLUSTERS = \[/);
 });
+
+// A stem whose numbers moved to a passage table keeps its sentence in `say`: the same-item rule reads that
+// sentence, so a later recall of the item, written as one sentence, still meets it.
+test('the fingerprint of a question with a spoken stem is the fingerprint of its sentence', () => {
+  const sentence = 'การศึกษาหนึ่งพบว่ากลุ่มที่สัมผัสปัจจัยมี 50 ตัว ป่วย 30 ตัว ไม่ป่วย 20 ตัว ส่วนกลุ่มที่ไม่สัมผัสมี 100 ตัว ป่วย 20 ตัว ไม่ป่วย 80 ตัว ค่า relative risk เท่ากับเท่าใด';
+  const base = { subject: 'epidemiology', type: 'mcq', options: ['0.6', '1.5', '3.0', '6.0'], answer: 2 };
+  const whole = fingerprint({ ...base, id: 990001, q: sentence });
+  const shown = fingerprint({ ...base, id: 990002, q: 'จากตาราง ค่า relative risk เท่ากับเท่าใด', say: sentence, passage: 'การศึกษาหนึ่งได้ข้อมูลดังนี้ (จำนวนเป็นตัว)\n\n| | ป่วย | ไม่ป่วย | รวม |\n|---|---|---|---|\n| สัมผัสปัจจัย | 30 | 20 | 50 |\n| ไม่สัมผัส | 20 | 80 | 100 |' });
+  assert.equal(shown.stemLength, whole.stemLength);
+  assert.deepEqual(shown.stemNumbers, whole.stemNumbers);
+  assert.deepEqual(shown.stem, whole.stem);
+});

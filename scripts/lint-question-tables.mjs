@@ -14,7 +14,13 @@
 //     |---| line is missing, a blank line splits the table, a row lost its
 //     opening or closing bar, or the whole table was typed without outer bars;
 //   - a row whose cells do not match its header, a table with under 2 or
-//     over 6 columns, a header with no words.
+//     over 6 columns, a header with no words;
+//   - a passage table with no sentence right above it saying what it is;
+//   - a spoken stem (`say`, the sentence a voice reads where the numbers moved
+//     out of the stem into a passage table) on a question with no such table,
+//     one whose figures are not the figures on screen (title, passage, stem):
+//     the voice would say a figure the student cannot see, or stay silent on
+//     one they can; or one that no longer ends as the stem ends.
 //
 // A formula between bars is not a row: |x − μ| and |0.39 − 0.04| = |−0.35|
 // have no space inside their bars, and a row does ("| a | b |").
@@ -26,6 +32,7 @@ import { bankFiles, readBank } from './lib/bank-file.mjs';
 import { splitBlocks, tableCells } from '../src/lib/rich-blocks.js';
 
 const MAX_COLUMNS = 6;   // the card's limit; a phone shows three or four without scrolling (standard C5)
+const ASK_TAIL = 15;     // characters at the end of a stem that must also end its spoken sentence
 const BLOCK_FIELDS = ['passage', 'explain'];
 
 const bars = (line) => (line.match(/(?<!\\)\|/g) || []).length;
@@ -34,9 +41,13 @@ const rowish = (line) => bars(line) >= 3 && /^\s*\|[\s|]/.test(line) && /[\s|]\|
 // The |---| line typed without its outer bars: "---|---".
 const bareRule = (line) => /^\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+$/.test(line);
 
+// Every figure of a text, once: 1,200 and 0.39 are one figure each, and a comma that ends a clause is not part of one.
+const numbersOf = (s) => new Set((String(s).match(/\d[\d,]*(?:\.\d+)?/g) || []).map((n) => n.replace(/,$/, '')));
+
 const inlineFields = (q) => [
   ['q', q.q],
   ['model_answer', q.model_answer],
+  ['say', q.say],
   ['passage_title', q.passage_title],
   ...(Array.isArray(q.options) ? q.options.map((o, i) => [`options[${i}]`, o]) : []),
 ];
@@ -52,12 +63,33 @@ export function lintQuestionTables(questions) {
         problems.push(`${id} ${name}: a table row where only a line of text fits; put the data in the passage`);
       }
     }
+    if (q.say != null) {
+      const data = typeof q.passage === 'string' && splitBlocks(q.passage).some((b) => b.type === 'table');
+      if (typeof q.say !== 'string' || !q.say.trim() || q.say === q.q) problems.push(`${id} say: the sentence a voice reads, a text that differs from the stem`);
+      else if (!data) problems.push(`${id} say: only a question whose passage holds a table has a spoken stem`);
+      else {
+        // A set of figures, typed alike on both sides (1,200 is not 1200): it catches a figure dropped or
+        // added, not two cells swapped. A reviewer still reads each table against its sentence.
+        const [said, shown] = [numbersOf(q.say), numbersOf(`${q.passage_title || ''}\n${q.passage}\n${q.q}`)];
+        const unsaid = [...shown].filter((n) => !said.has(n));
+        const unseen = [...said].filter((n) => !shown.has(n));
+        if (unsaid.length) problems.push(`${id} say: the voice never says ${unsaid.join(', ')}, which the title, the passage or the stem shows`);
+        if (unseen.length) problems.push(`${id} say: the voice says ${unseen.join(', ')}, which the screen does not show`);
+        // `say` and the stem are two copies of what is asked: an edit to one that misses the other would
+        // leave the voice, a recorded clip and the wrong-answer coach on the old question.
+        if (!q.say.trim().endsWith(String(q.q || '').trim().slice(-ASK_TAIL))) problems.push(`${id} say: the stem's last words are not the last words of \`say\`; they ask the same thing, so edit both`);
+      }
+    }
     for (const name of BLOCK_FIELDS) {
       const text = q[name];
       if (typeof text !== 'string' || !text.includes('|')) continue;
       const found = splitBlocks(text).filter((b) => b.type === 'table');
       tables += found.length;
       if (found.length && name === 'explain' && q.type === 'match') problems.push(`${id} explain: a table in a matching question's explanation, which its review cannot draw`);
+      if (name === 'passage') {
+        const blocks = splitBlocks(text);
+        if (blocks.some((b, i) => b.type === 'table' && blocks[i - 1]?.type !== 'text')) problems.push(`${id} passage: a table with no sentence above it; say in one line what the table is`);
+      }
       const lines = text.split('\n');
       const starts = [];
       let at = 0;

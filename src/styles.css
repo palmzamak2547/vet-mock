@@ -2637,7 +2637,10 @@ html.dark .vmx-panic-scrim {
    desktop where the side-by-side layout obviates the need. */
 .vmx-passage-fab {
   position: fixed;
-  bottom: 18px;
+  /* Above the previous/next row: at 18 px this button covered the right half of "ข้อถัดไป". The row
+     sticks 8 px above the bottom of a phone and is about 62 px tall, and at the end of the page it
+     rises by the page's bottom padding (48 px in a set), so 128 px clears it in both places. */
+  bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 128px);
   right: 18px;
   z-index: 50;
   border: none;
@@ -2663,9 +2666,8 @@ html.dark .vmx-panic-scrim {
      the way back to it stays. */
   .vmx-q-with-passage.is-data ~ .vmx-passage-fab { display: inline-flex; }
 }
-@supports (padding: env(safe-area-inset-bottom)) {
-  .vmx-passage-fab { bottom: max(18px, env(safe-area-inset-bottom)); }
-}
+/* While the read-aloud bar is up it sits above that row too: this button goes above the bar. */
+.vmx-read-open .vmx-passage-fab { bottom: calc(var(--vmx-read-spacer, 160px) + 4px); }
 
 .vmx-options { display: flex; flex-direction: column; gap: 10px; }
 .vmx-option {
@@ -4720,6 +4722,8 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 /* What the read-aloud is on: the block (stem, option row, เหตุผล) by an inset
    edge, the phrase being spoken by a CSS highlight. Neither changes a box. */
 .vmx-qtext.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
+/* A stem read together with the numbers of its table: the table carries the edge too. */
+.vmx-q-passage-pane.is-reading { box-shadow: -3px 0 0 var(--clr-ocean); }
 .vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
 ::highlight(vmx-reading) { background-color: var(--clr-gold-soft); color: var(--clr-ink); }
 

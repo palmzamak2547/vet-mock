@@ -8,7 +8,7 @@ import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
-import { hasTable } from '../lib/rich-blocks.js';
+import { hasTable, wholeStem } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -139,6 +139,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const usedReadAloud = () => {
     try { return window.localStorage.getItem('vmx-tts-used') === '1'; } catch { return false; }
   };
+  // The voice reads `say`: the stem together with the numbers that sit in the passage's table.
+  const saysTable = wholeStem(currentQ) !== (currentQ?.q || '');
   // What a job reads: options in the order the student sees them, so
   // "ตัวเลือก B" is the row with the B chip.
   const jobFor = (what) => ({
@@ -147,14 +149,19 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
     album: SUBJECTS.find((s) => s.id === currentQ.subject)?.name || '',
     subject: currentQ.subject,
-    stem: currentQ.q || '',
+    stem: wholeStem(currentQ),
     options: Array.isArray(currentQ.options) ? getShuffledOptions(currentQ).displayOptions.map(String) : [],
     explain: currentQ.explain || '',
-    // The element a piece is read from: the phrase highlight and the scroll
-    // that keeps it above the bar use it. An option's row for its label too.
+    stemLabel: saysTable ? 'โจทย์และตาราง' : undefined,
+    // The element a piece is read from, for the phrase highlight. An option's row for its label too.
+    // A stem read from `say` is not the text on screen, so no phrase is marked in it.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? stemRef.current : explainRef.current)
+      ? (what === 'q' ? (saysTable ? null : stemRef.current) : explainRef.current)
       : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
+    // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
+    block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
+      || (kind === 'stem' ? (what === 'q' ? stemRef.current : explainRef.current)
+        : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
   });
 
   // A student who has used read-aloud before gets this question's first clip
@@ -368,9 +375,23 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     essayWords > softMax ? 'var(--clr-gold-text)' :
     'var(--clr-sage-text)';
 
-  // FAB action — smooth scroll passage into view. SmartPassage manages
-  // open/closed itself; we don't need to force it open from here.
+  // FAB action — smooth scroll passage into view, and open it if the
+  // student had hidden it: a button that brings back a closed box brings back nothing.
+  const [passageNudge, setPassageNudge] = useState(0);
+  // The way back to the passage shows only while the passage is off screen: floating over the
+  // table it names, it covered the table's last cells. (The bottom 140 px belong to the action row.)
+  const [passageInView, setPassageInView] = useState(true);
+  const hasPassage = Boolean(currentQ.passage);
+  useEffect(() => {
+    const el = passageRef.current;
+    if (!hasPassage || !el || typeof IntersectionObserver === 'undefined') { setPassageInView(false); return undefined; }
+    setPassageInView(true);
+    const seen = new IntersectionObserver(([entry]) => setPassageInView(entry.isIntersecting), { rootMargin: '0px 0px -140px 0px' });
+    seen.observe(el);
+    return () => seen.disconnect();
+  }, [compoundId, hasPassage]);
   const focusPassage = () => {
+    setPassageNudge((n) => n + 1);
     requestAnimationFrame(() => {
       try {
         passageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -387,11 +408,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // styles.js). On narrow screens they stack as before, plus a FAB
   // appears for one-tap "back to passage" access.
   const passageBlock = currentQ.passage && (
-    <div ref={passageRef} className="vmx-q-passage-pane">
+    <div ref={passageRef} className={`vmx-q-passage-pane${saysTable && readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}>
       <SmartPassage
         text={currentQ.passage}
         title={currentQ.passage_title}
         defaultOpen={true}
+        openSignal={passageNudge}
       />
     </div>
   );
@@ -766,15 +788,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* Mobile/tablet only — pinned bottom-right. CSS hides it on
           desktop because the side-by-side grid already keeps the
           passage in view. Tap → expand+scroll the passage block. */}
-      {currentQ.passage && (
+      {currentQ.passage && !passageInView && (
         <button
           type="button"
           className="vmx-passage-fab"
           onClick={focusPassage}
-          aria-label="ดู passage"
-          title="ดู passage"
+          aria-label={hasTable(currentQ.passage) ? 'กลับไปดูตาราง' : 'ดู passage'}
+          title={hasTable(currentQ.passage) ? 'กลับไปดูตาราง' : 'ดู passage'}
         >
-          <NavIcon name="book" size={16} /> Passage
+          <NavIcon name="book" size={16} /> {hasTable(currentQ.passage) ? 'ดูตาราง' : 'Passage'}
         </button>
       )}
     </div>

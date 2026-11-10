@@ -271,9 +271,11 @@ function buildStaticItems(ownerId, notes) {
       type: 'question',
       payload: { subject: q.subject, id: q.id },
       label: stem.length < q.q.length ? stem + '…' : stem,
-      hint: questionPlace(q, subjectsById),
+      // A stem whose data sits in a passage says little by itself: the passage's title names the
+      // study, so it is searched and shown beside the place.
+      hint: [questionPlace(q, subjectsById), q.passage_title].filter(Boolean).join(', '),
       icon: '❓',
-      kw: stem + ' ' + (q.tags || []).join(' '),
+      kw: stem + ' ' + (q.passage_title || '') + ' ' + (q.tags || []).join(' '),
     });
   }
 

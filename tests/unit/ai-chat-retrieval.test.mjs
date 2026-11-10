@@ -10,7 +10,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { loadCorpus, isQuizzable } from '../../api/_lib/ai/corpus.js';
+import { loadCorpus, isQuizzable, questionText } from '../../api/_lib/ai/corpus.js';
 import { searchCorpus, selectDocs, isCovered, toSource, numberSources, snippetNeedles, headingSeconds, questionTopic, animalShare } from '../../api/_lib/ai/retrieve.js';
 import { retrieveGuide, loadReleases, guideRoutes, thaiShortDate } from '../../api/_lib/ai/guide.js';
 import { pickQuiz, toQuizQuestion } from '../../api/_lib/ai/quiz.js';
@@ -175,4 +175,17 @@ test('a related file covers the most specific whole term the question names, on 
   assert.equal(share('Reproduction in dogs and cats (VCA58-67)'), 1);
   assert.ok(share('Lecture 7: ภาวะเยื่อบุผนังชั้นในมดลูกอักเสบในม้า') < 1);
   assert.equal(share('ข้อสอบเพิ่มเติม(Entomology)'), 1, 'no animal named, nothing to step back for');
+});
+
+// A stem whose numbers moved to a passage table keeps its whole sentence in `say`. The corpus reads
+// that sentence, so the question stays where an answer can find it, cite it and quiz on it.
+test('a question that keeps its whole sentence stays in the corpus, read as that sentence', async () => {
+  const kept = [...(await questionCatalog()).values()].filter((q) => q.type === 'mcq' && q.passage && q.say);
+  assert.ok(kept.length >= 13, `${kept.length} questions keep their whole sentence`);
+  for (const q of kept) {
+    assert.ok(isQuizzable(q), `${q.subject}:${q.id} left the corpus`);
+    assert.ok(questionText(q).startsWith(q.say.trim()), `${q.subject}:${q.id} is read without its numbers`);
+    assert.equal(toQuizQuestion(q).stem, q.say.trim());
+  }
+  assert.equal(isQuizzable({ type: 'mcq', q: 'ข้อใดถูก', passage: 'เนื้อเรื่องที่ต้องอ่าน', options: ['a', 'b'], answer: 0 }), false);
 });

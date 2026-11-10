@@ -25,6 +25,7 @@
 import { DEFAULT_RATING, DIFFICULTY_MIN_ATTEMPTS, hasMeasuredDifficulty } from './elo.js';
 import { keepPassageOrder } from './adaptive-select.js';
 import { isWritingType } from '../hooks/utils.js';
+import { wholeStem } from './rich-blocks.js';
 
 // Rung names follow the product vision of 2026-10-12 (one "ฝึก" door with a
 // ladder: ทำความเข้าใจ → ใช้ความรู้ → แบบสอบ). The hints say what the engine
@@ -126,7 +127,8 @@ const TYPE_OFFSET = { tf: -100, mcq: 0, fill: 60, match: 60, short: 120, essay: 
 export function gentleRank(question, difficultyData = null) {
   if (hasMeasuredDifficulty(question, difficultyData)) return difficultyData[String(question.id)].rating;
   const offset = TYPE_OFFSET[question?.type] ?? 0;
-  const stemLength = String(question?.q || '').length;
+  // The whole sentence: a stem whose numbers moved to a passage table is short on screen and no easier.
+  const stemLength = wholeStem(question).length;
   // one point per ten characters of stem, capped at an 800-character vignette
   const lengthBump = Math.min(80, Math.floor(stemLength / 10));
   const optionCount = Array.isArray(question?.options) ? question.options.length : 0;

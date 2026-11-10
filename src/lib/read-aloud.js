@@ -58,6 +58,8 @@ function wire(el) {
 /**
  * job: { id, what: 'q' | 'explain', title, album, subject, stem, options,
  *        container(part) => Element | null }  (options in display order)
+ * Optional: block(part), the element kept in view where it is not the one a
+ * phrase is marked in; stemLabel, what the bar calls the stem.
  */
 export async function start(job) {
   if (run?.job.id === job.id) { toggle(); return; }
@@ -67,7 +69,7 @@ export async function start(job) {
   wire(el);
   const r = run = { job, plan: null, i: 0, durs: [], words: [], device: false, abort: new AbortController(), url: null, gap: null, word: -1, switching: false };
   const rate = savedRate();
-  readAloud.reset({ job: { id: job.id, what: job.what, title: job.title }, status: 'loading', rate });
+  readAloud.reset({ job: { id: job.id, what: job.what, title: job.title, stemLabel: job.stemLabel }, status: 'loading', rate });
   mediaSession(r);
   const options = job.what === 'q' ? job.options || [] : [];
   const stem = (job.what === 'q' ? job.stem : job.explain) || '';
@@ -247,7 +249,7 @@ async function playPart(r, i, offset = 0) {
   readAloud.set({ part: i, kind: p.kind, option: p.option, time: before(r, i) + offset, ...(p.ready && !r.paused ? {} : { status: r.paused ? 'paused' : 'loading' }) });
   // The piece being read comes up above the bar (which renders a moment
   // after the first one starts), unless the student is scrolling.
-  setTimeout(() => { if (run === r && r.i === i) keepBlockInView(r.job.container?.(p.kind, p.option)); }, 60);
+  setTimeout(() => { if (run === r && r.i === i) keepBlockInView((r.job.block || r.job.container)?.(p.kind, p.option)); }, 60);
   let buf;
   r.loading = true;
   try {

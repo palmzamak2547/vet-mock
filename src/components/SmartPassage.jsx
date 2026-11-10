@@ -47,9 +47,14 @@ const PEN_COLORS = [
   { id: 'red',   value: '#c73e3e' },
 ];
 
-export default function SmartPassage({ text, title, defaultOpen = true }) {
+export default function SmartPassage({ text, title, defaultOpen = true, openSignal = 0 }) {
   const [open, setOpen] = useState(defaultOpen);
   const [mode, setMode] = useState('read'); // read | highlight | pen | erase
+  // Another passage is another piece of data: it arrives open and in reading mode, whatever the one
+  // before it was left as. (A passage shared by two questions in a row keeps the state it was given.)
+  useEffect(() => { setOpen(defaultOpen); setMode('read'); }, [text, defaultOpen]);
+  // The card's "back to the passage" button opens a passage the student had hidden.
+  useEffect(() => { if (openSignal) setOpen(true); }, [openSignal]);
   const [hlColor, setHlColor] = useState('yellow');
   const [penColor, setPenColor] = useState('black');
   const [highlights, setHighlights] = useState([]);
@@ -324,17 +329,19 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', width: '100%', boxSizing: 'border-box', background: 'var(--clr-surface)', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
-        <span id={titleId} style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)' }}>
-          📄 {title || 'Reading Passage'}
+        {/* The title as its writer typed it, at the size of the text it names: small capitals turned "2x2" into "2X2". */}
+        <span style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}>
+          <span aria-hidden="true">📄 </span><span id={titleId}>{title || 'Reading Passage'}</span>
         </span>
         {(highlights.length > 0 || strokes.length > 0) && (
           <span style={{ fontSize: 14, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontWeight: 600 }}>
             ✏️ {highlights.length + strokes.length}
           </span>
         )}
-        <span style={{ marginLeft: 'auto', fontSize: 14, color: 'var(--clr-ink-soft)' }}>{open ? '▾ ซ่อน' : '▸ ดู passage'}</span>
+        <span style={{ marginLeft: 'auto', fontSize: 14, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>{open ? '▾ ซ่อน' : isData ? '▸ แสดงตาราง' : '▸ ดู passage'}</span>
       </button>
 
       {open && (
@@ -478,6 +485,8 @@ function ToolBtn({ children, onClick, active, disabled, title }) {
       onClick={onClick}
       disabled={disabled}
       title={title}
+      aria-label={title}
+      aria-pressed={typeof active === 'boolean' ? active : undefined}
       style={{
         all: 'unset',
         cursor: disabled ? 'not-allowed' : 'pointer',

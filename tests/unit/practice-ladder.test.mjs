@@ -111,3 +111,14 @@ test('the remembered rung is a nicety that never returns the exam rung or a bad 
   assert.equal(recallLadderStep(broken), 'understand');
   assert.doesNotThrow(() => rememberLadderStep('timed', broken));
 });
+
+// A stem whose numbers moved to a passage table is short on screen and no easier: it ranks as the
+// sentence it was (`say`), or the gentle set would open on the hardest tables.
+test('a stem whose numbers sit in a passage table ranks as its whole sentence', () => {
+  const sentence = 'การศึกษาหนึ่งพบว่ากลุ่มที่สัมผัสปัจจัยมี 50 ตัว ป่วย 30 ตัว ไม่ป่วย 20 ตัว ส่วนกลุ่มที่ไม่สัมผัสมี 100 ตัว ป่วย 20 ตัว ไม่ป่วย 80 ตัว ค่า relative risk เท่ากับเท่าใด';
+  const options = ['0.6', '1.5', '3.0', '6.0'];
+  const whole = { id: 1, type: 'mcq', q: sentence, options };
+  const shown = { id: 2, type: 'mcq', q: 'จากตาราง ค่า relative risk เท่ากับเท่าใด', say: sentence, options };
+  assert.equal(gentleRank(shown), gentleRank(whole));
+  assert.ok(gentleRank(shown) > gentleRank({ ...shown, say: undefined }), 'the short stem alone would rank as easier');
+});
