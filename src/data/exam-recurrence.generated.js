@@ -3658,7 +3658,7 @@ export const EXAM_RECURRENCE = {
   },
   "swine-clinic": {
     "cohorts": [78, 80, 81, 83, 84, 85],
-    "items": 140,
+    "items": 144,
     "topics": {
       "swine-asf": {
         "cohorts": [80, 83, 85],
@@ -3682,13 +3682,13 @@ export const EXAM_RECURRENCE = {
         "cohorts": [78, 80, 85],
         "first": 78,
         "last": 85,
-        "items": 19,
+        "items": 20,
         "sat": {
           "78": {
             "final": ["swine-clinic:209048", "swine-clinic:209050"],
           },
           "80": {
-            "final": ["swine-clinic:209000", "swine-clinic:209001", "swine-clinic:209002", "swine-clinic:209003", "swine-clinic:209004", "swine-clinic:209005", "swine-clinic:209006"],
+            "final": ["swine-clinic:209000", "swine-clinic:209001", "swine-clinic:209002", "swine-clinic:209003", "swine-clinic:209004", "swine-clinic:209005", "swine-clinic:209006", "swine-clinic:209400"],
             "unknown": ["swine-clinic:8028"],
           },
           "85": {
@@ -3741,13 +3741,13 @@ export const EXAM_RECURRENCE = {
         "cohorts": [78, 85],
         "first": 78,
         "last": 85,
-        "items": 13,
+        "items": 15,
         "sat": {
           "78": {
             "final": ["swine-clinic:209049"],
           },
           "85": {
-            "final": ["swine-clinic:105598"],
+            "final": ["swine-clinic:105598", "swine-clinic:105599", "swine-clinic:209403"],
           },
         },
         "unattributed": ["swine-clinic:209037", "swine-clinic:209038", "swine-clinic:209039", "swine-clinic:209040", "swine-clinic:209041", "swine-clinic:209042", "swine-clinic:209043", "swine-clinic:209044", "swine-clinic:209045", "swine-clinic:209046", "swine-clinic:209047"],
@@ -3780,7 +3780,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [80, 81, 83, 85],
         "first": 80,
         "last": 85,
-        "items": 10,
+        "items": 9,
         "sat": {
           "80": {
             "final": ["swine-clinic:209062"],
@@ -3793,7 +3793,7 @@ export const EXAM_RECURRENCE = {
             "final": ["swine-clinic:209062"],
           },
           "85": {
-            "final": ["swine-clinic:105583", "swine-clinic:105584", "swine-clinic:105585", "swine-clinic:105586", "swine-clinic:105599", "swine-clinic:209062"],
+            "final": ["swine-clinic:105583", "swine-clinic:105584", "swine-clinic:105585", "swine-clinic:105586", "swine-clinic:209062"],
           },
         },
         "unattributed": [],
@@ -3821,16 +3821,16 @@ export const EXAM_RECURRENCE = {
         "cohorts": [80, 83, 85],
         "first": 80,
         "last": 85,
-        "items": 15,
+        "items": 17,
         "sat": {
           "80": {
-            "final": ["swine-clinic:209016", "swine-clinic:209017", "swine-clinic:209018", "swine-clinic:209019"],
+            "final": ["swine-clinic:209016", "swine-clinic:209017", "swine-clinic:209018", "swine-clinic:209019", "swine-clinic:209401"],
           },
           "83": {
             "final": ["swine-clinic:209019"],
           },
           "85": {
-            "final": ["swine-clinic:105596", "swine-clinic:105597"],
+            "final": ["swine-clinic:105596", "swine-clinic:105597", "swine-clinic:209402"],
           },
         },
         "unattributed": ["swine-clinic:8357", "swine-clinic:209027", "swine-clinic:209028", "swine-clinic:209029", "swine-clinic:209030", "swine-clinic:209031", "swine-clinic:209032", "swine-clinic:209052", "swine-clinic:209053"],
@@ -5223,6 +5223,13 @@ export const EXAM_RECURRENCE_CLUSTERS = [
     "members": [
       ["livestock-pathology:8227", [81]],
       ["swine-clinic:8028", [80]],
+    ],
+  },
+  {
+    "cohorts": [80, 81],
+    "members": [
+      ["livestock-pathology:8239", [81]],
+      ["swine-clinic:8040", [80]],
     ],
   },
   {
