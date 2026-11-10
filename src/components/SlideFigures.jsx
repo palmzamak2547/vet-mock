@@ -13,45 +13,65 @@
 //
 // The id→paths map is ~250 KB of strings, and most articles have no
 // figures yet — so it loads as its own on-demand chunk, once, instead of
-// riding inside every article's JavaScript.
+// riding inside every article's JavaScript. The figures' pixel sizes load
+// beside it (the media registry, docs/MEDIA.md): each image is given its
+// width and height, so its place is kept before the file arrives and a long
+// note no longer jumps as its figures come in.
 
 import { useEffect, useState } from 'react';
 
-let _mapPromise = null;
-function loadMap() {
-  if (!_mapPromise) _mapPromise = import('../data/slide-images.generated.js');
-  return _mapPromise;
+// Both modules, once they are in memory: a section opened after that reads
+// them in its first render, so its figures are there from the first paint.
+let _loaded = null;
+let _promise = null;
+function load() {
+  if (!_promise) {
+    _promise = Promise.all([
+      import('../data/slide-images.generated.js'),
+      import('../data/slide-image-sizes.generated.js'),
+    ]).then(([map, sizes]) => {
+      _loaded = { slidesFor: map.slidesFor, sizeOf: sizes.slideImageSize };
+      return _loaded;
+    });
+  }
+  return _promise;
 }
 
 export default function SlideFigures({ sectionId, source = '' }) {
-  const [slides, setSlides] = useState(null);
+  const [data, setData] = useState(_loaded);
   useEffect(() => {
-    if (!sectionId) return undefined;
+    if (!sectionId || data) return undefined;
     let alive = true;
-    loadMap().then((m) => { if (alive) setSlides(m.slidesFor(sectionId)); }).catch(() => {});
+    load().then((d) => { if (alive) setData(d); }).catch(() => {});
     return () => { alive = false; };
-  }, [sectionId]);
+  }, [sectionId, data]);
 
+  const slides = data && sectionId ? data.slidesFor(sectionId) : null;
   if (!slides || slides.length === 0) return null;
   return (
     <div style={{ marginTop: 14, display: 'grid', gap: 10 }}>
-      {slides.map((src) => (
-        <figure key={src} style={{ margin: 0 }}>
-          <img
-            src={src}
-            alt={`ภาพจากสไลด์ ${source || ''}`}
-            loading="lazy"
-            decoding="async"
-            style={{ display: 'block', width: '100%', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
-          />
-          {/* The file is already served as a plain image, so saving it costs
-              nothing extra to host — this only spares the reader a
-              right-click. */}
-          <figcaption style={{ marginTop: 4, fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
-            <a href={src} download style={{ color: 'inherit' }}>⬇ บันทึกภาพ</a>
-          </figcaption>
-        </figure>
-      ))}
+      {slides.map((src) => {
+        const size = data.sizeOf(src);
+        return (
+          <figure key={src} style={{ margin: 0 }}>
+            <img
+              src={src}
+              alt={`ภาพจากสไลด์ ${source || ''}`}
+              width={size?.[0]}
+              height={size?.[1]}
+              loading="lazy"
+              decoding="async"
+              style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
+            />
+            {/* The file is already served as a plain image, so saving it costs
+                nothing extra to host — this only spares the reader a
+                right-click. */}
+            <figcaption style={{ marginTop: 4, fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+              <a href={src} download style={{ color: 'inherit' }}>⬇ บันทึกภาพ</a>
+            </figcaption>
+          </figure>
+        );
+      })}
     </div>
   );
 }

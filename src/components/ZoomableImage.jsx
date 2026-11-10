@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { loadMediaSizes, mediaSize, mediaSizesLoaded } from '../lib/media-size.js';
 
 const OFFICIAL_SOURCE_HOSTS = [
   /(^|\.)who\.int$/i,
@@ -54,6 +55,22 @@ export default function ZoomableImage({
     initialFocusRef: closeRef,
   });
   const officialSourceUrl = safeOfficialSourceUrl(sourceUrl);
+  // The figure's pixel size, known before its file arrives (lib/media-size.js).
+  // With it the browser gives the image its final box at once (full width,
+  // height by the ratio, never past maxHeight), so nothing below moves when
+  // the picture loads.
+  const size = mediaSize(src);
+  const sized = Boolean(size);
+  // The sizes arrive with the question banks, before a set can start. A card
+  // drawn ahead of them (a set kept on this device, opened the moment the app
+  // does) asks for them itself and is drawn again when they land.
+  const [, sizesLanded] = useState(false);
+  useEffect(() => {
+    if (sized || mediaSizesLoaded()) return undefined;
+    let alive = true;
+    loadMediaSizes().then(() => { if (alive) sizesLanded(true); });
+    return () => { alive = false; };
+  }, [src, sized]);
 
   useEffect(() => { setFailed(false); }, [src]);
 
@@ -85,11 +102,13 @@ export default function ZoomableImage({
             <img
               src={src}
               alt={alt}
+              width={size?.width}
+              height={size?.height}
               loading="lazy"
               decoding="async"
               onError={() => setFailed(true)}
               className="vmx-zoom-inline"
-              style={{ maxHeight }}
+              style={{ maxHeight, height: 'auto' }}
             />
             <span className="vmx-zoom-hint" aria-hidden="true">ขยายภาพ</span>
           </button>

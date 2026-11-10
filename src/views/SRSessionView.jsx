@@ -745,28 +745,22 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <SmartPassage text={currentQ.passage} title={currentQ.passage_title} />
             </div>
           )}
-          {currentQ.image && safeImageUrl(currentQ.image) && (
-            <>
-              <img
-                src={safeImageUrl(currentQ.image)}
-                alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
-                loading="lazy"
-                decoding="async"
-                className="vmx-qimage"
-                style={{ margin: '0 auto 16px' }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const ph = e.currentTarget.nextElementSibling;
-                  if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
-                }}
-              />
-              <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 14, color: 'var(--clr-ink)', fontStyle: 'italic', margin: '0 auto 16px' }}>
-                ภาพประกอบโหลดไม่ได้
-              </div>
-            </>
+          {/* The figure as the practice card shows it (Question.jsx): one figure
+              from image or imagePath, above the stem, with the question's own
+              alt, its caption and its credit. The card used to announce
+              "Question 822 image, com3/…" for one field and a stock phrase for
+              the other, and showed neither caption nor credit. */}
+          {safeImageUrl(currentQ.image || currentQ.imagePath) && (
+            <ZoomableImage
+              src={safeImageUrl(currentQ.image || currentQ.imagePath)}
+              alt={currentQ.imageAlt || `ภาพประกอบข้อ ${currentQ.id} วิชา ${currentQ.subject || ''}`.trim()}
+              caption={currentQ.imageCaption}
+              credit={currentQ.imageCredit}
+              sourceUrl={currentQ.imageSourceUrl}
+              maxHeight={320}
+            />
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
-          {safeImageUrl(currentQ.imagePath) && <ZoomableImage src={safeImageUrl(currentQ.imagePath)} maxHeight={240} />}
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">

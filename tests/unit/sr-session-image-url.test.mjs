@@ -78,6 +78,19 @@ const STEM = 'Rabies is a zoonosis';
 const customQuestion = (fields) => ({ id: 910001, type: 'tf', subject: 'one-health', q: STEM, answer: true, ...fields });
 const hasClass = (node, cls) => (node.getAttribute('class') || '').split(/\s+/).includes(cls);
 
+/** Start a review of one custom question and return its card with every <img> it draws. */
+async function cardFigures(t, question) {
+  const { container } = await mountElement(t, mod, dom.document, mod.createElement(mod.SRSessionView, {
+    srCards: {}, setSrCards: () => ({ accepted: true }), goHome: () => {}, customQuestions: [question], selectedYear: 4,
+  }));
+  const [start] = buttonsWithText(container, 'เริ่ม Session');
+  await click(mod, start);
+  await mod.act(async () => {});
+  const [card] = findAll(container, (n) => hasClass(n, 'vmx-flashcard'));
+  assert.ok(card, 'the review card is on screen');
+  return { card, images: findAll(card, (n) => n.tagName === 'IMG') };
+}
+
 /** Start a review of one custom question and return the src of every <img> on its card. */
 async function cardImages(t, question, { reveal = false } = {}) {
   const { container } = await mountElement(t, mod, dom.document, mod.createElement(mod.SRSessionView, {
@@ -125,6 +138,43 @@ test('every figure path the banks ship passes the check and loads the same file'
     assert.ok(safe, `${path} would be hidden on the review card`);
     assert.equal(new URL(safe, BASE).href, new URL(path, BASE).href, `${path} would load another file`);
   }
+});
+
+// The review card drew its figure its own way: `image` as a bare <img> whose
+// alt was an English template ("Question 910001 image, one-health/general"),
+// `imagePath` under a stock phrase, and neither with the caption or the credit
+// the practice card (Question.jsx) prints. A screen reader heard a figure
+// described on one card and a row number on the other.
+const ALT = 'ภาพถ่ายรังสีช่องอกสุนัขท่านอนตะแคง เห็นเงาหัวใจและหลอดลม';
+const BANK_FIGURE = '/figures/questions/q104006.webp';
+
+test('the review card announces a figure by the question\'s own alt, whichever field carries it', async (t) => {
+  for (const field of ['image', 'imagePath']) {
+    const { card, images } = await cardFigures(t, customQuestion({ [field]: BANK_FIGURE, imageAlt: ALT }));
+    assert.equal(images.length, 1, `${field}: one figure`);
+    assert.equal(images[0].getAttribute('alt'), ALT, `${field}: the alt is the question's`);
+    assert.doesNotMatch(images[0].getAttribute('alt'), /Question \d+ image/);
+    const [zoom] = findAll(card, (n) => n.tagName === 'BUTTON' && n.getAttribute('aria-label') === `เปิดภาพขยาย: ${ALT}`);
+    assert.ok(zoom, `${field}: the figure opens larger, named by its alt`);
+  }
+});
+
+test('a figure with no alt is announced in Thai by its question, as the practice card does', async (t) => {
+  const { images } = await cardFigures(t, customQuestion({ image: BANK_FIGURE }));
+  assert.equal(images[0].getAttribute('alt'), 'ภาพประกอบข้อ 910001 วิชา one-health');
+});
+
+test('the review card prints the figure\'s caption and credit', async (t) => {
+  const { card } = await cardFigures(t, customQuestion({
+    image: BANK_FIGURE, imageAlt: ALT, imageCaption: 'ภาพที่ 1 ภาพถ่ายรังสีช่องอก', imageCredit: 'ภาพ: หน่วยรังสีวินิจฉัย',
+  }));
+  assert.ok(card.textContent.includes('ภาพที่ 1 ภาพถ่ายรังสีช่องอก'), 'caption');
+  assert.ok(card.textContent.includes('ภาพ: หน่วยรังสีวินิจฉัย'), 'credit');
+});
+
+test('a question that carries both fields shows one figure, the one the practice card shows', async (t) => {
+  const { images } = await cardFigures(t, customQuestion({ image: BANK_FIGURE, imagePath: '/images/vca-2569/p2-001-horse-vision.jpg', imageAlt: ALT }));
+  assert.deepEqual(images.map((n) => n.getAttribute('src')), [BANK_FIGURE]);
 });
 
 test('the review card renders without a React warning', () => {

@@ -2481,7 +2481,6 @@ html.dark .vmx-panic-scrim {
 .vmx-qsource-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
 .vmx-qsource-toggle svg { flex: 0 0 auto; color: var(--clr-sage-text); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
-.vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
 /* Question figures — real source material with an explicit caption and a
    keyboard-accessible zoom affordance. The control stays visually quiet so
@@ -2513,17 +2512,16 @@ html.dark .vmx-panic-scrim {
   object-fit: contain;
   background: white;
 }
+/* A strip under the picture, never a chip over it: in the corner it covered
+   the label a question asked about (the "6 feet" mark of zoonoses 104006 on a
+   phone). */
 .vmx-zoom-hint {
-  position: absolute;
-  right: var(--space-2);
-  bottom: var(--space-2);
-  min-height: 32px;
-  padding: 6px 10px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  border-radius: var(--r-pill);
-  background: rgba(43, 36, 25, 0.88);
-  color: white;
+  justify-content: flex-end;
+  min-height: 36px;
+  padding: 6px var(--space-3);
+  border-top: 1px solid var(--clr-border);
   font-size: var(--text-sm);
   font-weight: 700;
 }

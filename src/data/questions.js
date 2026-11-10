@@ -43,6 +43,7 @@
 // ============================================================
 
 import { BANK_REGISTRY } from './bank-registry.generated.js';
+import { loadMediaSizes } from '../lib/media-size.js';
 
 // LOADERS derived from the generated registry. Each entry: { file, year, fn }
 // where `year` is the curriculum year the bank belongs to (or null for
@@ -127,10 +128,16 @@ export function onQBMerged(listener) {
 
 function _runLoaders(loaders, scopeKey) {
   if (_loadPromises.has(scopeKey)) return _loadPromises.get(scopeKey);
-  const p = Promise.all(loaders.map(({ file, fn, exportName }) => (
-    importBank(fn, exportName).then((questions) => ({ file, questions }))
-  )))
-    .then((parts) => {
+  const p = Promise.all([
+    Promise.all(loaders.map(({ file, fn, exportName }) => (
+      importBank(fn, exportName).then((questions) => ({ file, questions }))
+    ))),
+    // The pixel sizes of the figures these questions show arrive with them,
+    // so a card never draws a figure whose place it cannot keep
+    // (lib/media-size.js). It never fails the load.
+    loadMediaSizes(),
+  ])
+    .then(([parts]) => {
       mergeBanks(parts);
       _loadedScopes.add(scopeKey);
       for (const listener of _mergeListeners) {
