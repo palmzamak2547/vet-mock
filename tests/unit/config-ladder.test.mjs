@@ -195,10 +195,77 @@ test('the start bar is one line of what the set is plus the button, and no middl
   const { props } = baseProps();
   const view = mount(ConfigView, props);
   const summary = findAll(view.tree, (n) => n.props?.id === 'vmx-config-summary')[0];
-  assert.equal(textOf(summary), '10 ข้อ, ไม่จับเวลา, เฉลยทันทีรายข้อ');
+  // A practice set leads with what the app set up (decide.js); an exam keeps the bare line.
+  assert.equal(textOf(summary), 'จัดให้แล้ว: 10 ข้อ, ไม่จับเวลา, เฉลยทันทีรายข้อ');
   assert.equal(textOf(view.tree).includes('·'), false);
   const back = byText(view.tree, /^← เลือกหัวข้อ$/);
   assert.ok(back, 'the bar holds the way back beside the start, the pair the exam screen uses');
   assert.ok(String(back.props.className).includes('vmx-config-back'));
+  view.unmount();
+});
+
+const adjustToggle = (tree) => buttons(tree).find((b) => textOf(b) === 'ปรับเอง');
+const adjustRegion = (tree) => findAll(tree, (n) => n.props?.id === 'vmx-config-adjust')[0];
+
+test('a practice set shows what was set up and why, the start under it, and the rows behind ปรับเอง', async (t) => {
+  browser(t);
+  const { props } = baseProps();
+  const view = mount(ConfigView, props);
+  const toggle = adjustToggle(view.tree);
+  assert.ok(toggle, 'one disclosure');
+  assert.equal(toggle.props['aria-expanded'], false, 'closed by default');
+  assert.equal(toggle.props['aria-controls'], 'vmx-config-adjust');
+  const region = adjustRegion(view.tree);
+  assert.equal(region.props.role, 'region');
+  assert.equal(region.props.hidden, true);
+  assert.ok(ladderSteps(region).length === 3, 'the ladder is inside the region');
+  assert.ok(findAll(region, (n) => n.type === 'input').length > 0, 'the count is inside the region');
+  const why = findAll(view.tree, (n) => n.props?.className === 'vmx-decide-why')[0];
+  assert.match(textOf(why), /^เริ่มขั้นแรก ข้อง่ายก่อน/);
+  assert.ok(startButton(findAll(view.tree, (n) => n.props?.className === 'vmx-decide')[0]), 'the start sits under the line');
+  toggle.props.onClick();
+  assert.equal(globalThis.localStorage.getItem('vmx-decide:open:config'), '1', 'the open state is kept per device');
+  view.unmount();
+  const again = mount(ConfigView, props);
+  assert.equal(adjustToggle(again.tree).props['aria-expanded'], true);
+  again.unmount();
+});
+
+test('a row the student changes is remembered, and กลับไปใช้ค่าที่จัดให้ forgets it', async (t) => {
+  browser(t);
+  const { props, calls } = baseProps();
+  let view = mount(ConfigView, props);
+  assert.equal(byText(view.tree, /^กลับไปใช้ค่าที่จัดให้$/), undefined, 'nothing to restore yet');
+  byText(view.tree, /^20$/).props.onClick();
+  assert.deepEqual(JSON.parse(globalThis.localStorage.getItem('vmx-decide:practice.setup')), { numQuestions: 20 });
+  view.unmount();
+
+  view = mount(ConfigView, { ...props, numQuestions: 20 });
+  const summary = findAll(view.tree, (n) => n.props?.id === 'vmx-config-summary')[0];
+  assert.match(textOf(summary), /^ตั้งไว้แล้ว: 20 ข้อ/);
+  assert.equal(textOf(findAll(view.tree, (n) => n.props?.className === 'vmx-decide-why')[0]), 'ตามที่คุณตั้งไว้');
+  byText(view.tree, /^กลับไปใช้ค่าที่จัดให้$/).props.onClick();
+  assert.equal(globalThis.localStorage.getItem('vmx-decide:practice.setup'), null);
+  assert.equal(calls.setNumQuestions.at(-1), 10, 'back to the rung count');
+  assert.equal(calls.setUseTimer.at(-1), false);
+  view.unmount();
+
+  // A rung tap sets every row, so it replaces what was remembered.
+  globalThis.localStorage.setItem('vmx-decide:practice.setup', JSON.stringify({ numQuestions: 30 }));
+  view = mount(ConfigView, props);
+  ladderSteps(view.tree)[1].props.onClick();
+  assert.equal(globalThis.localStorage.getItem('vmx-decide:practice.setup'), null);
+  view.unmount();
+});
+
+test('an exam keeps its rows in view and remembers nothing', async (t) => {
+  browser(t);
+  const { props } = baseProps();
+  const view = mount(ConfigView, { ...props, mode: 'exam', useTimer: true, numQuestions: 50 });
+  assert.equal(adjustToggle(view.tree), undefined);
+  assert.equal(adjustRegion(view.tree), undefined);
+  assert.equal(textOf(findAll(view.tree, (n) => n.props?.id === 'vmx-config-summary')[0]).startsWith('50 ข้อ'), true);
+  byText(view.tree, /^20$/)?.props.onClick();
+  assert.equal(globalThis.localStorage.getItem('vmx-decide:practice.setup'), null);
   view.unmount();
 });

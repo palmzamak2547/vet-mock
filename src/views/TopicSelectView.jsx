@@ -21,7 +21,8 @@ import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { getUpcomingExams, EXAM_SCHEDULE } from '../data/schedule.js';
 import { examEndMs } from '../lib/exam-countdown.js';
-import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
+import { decide } from '../lib/decide.js';
+import { practiceSignals } from '../lib/decide-signals.js';
 import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
 
 // The profile, and the faculty directory behind it (papers and sources, about
@@ -71,7 +72,7 @@ function lecturerChip(label, profile) {
   return { kind: 'text', text: label.name };
 }
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ = 60, setTimePerQ, practiceMode = 'all', setPracticeMode = null, hasHistory = false, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
   // The period narrows a course of the student's own year only; another
   // year's course opens whole (phaseForCourse), as its study card counts it
   // and as the config pool serves it. Every period-driven number and notice
@@ -312,17 +313,24 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     setView(next.view);
   };
 
-  // A topic opens the config screen on the rung of the practice ladder the
-  // student last used (lib/practice-ladder.js), rung 1 for a newcomer: no
-  // clock, the answer after every question, ten questions. The clock's
-  // seconds are the student's own and are left alone.
+  // A topic opens the config screen set up for the student (decide.js,
+  // practice.setup): the rung of the practice ladder they last used, rung 1
+  // for a newcomer (no clock, the answer after every question, ten
+  // questions), with any row they changed on the config screen kept their
+  // way. The config screen says what was set up and why.
   const choose = (topicId) => {
     const available = countFor(topicId);
     if (setMode) setMode('quick');
-    const preset = ladderPreset(recallLadderStep(), { available: available > 0 ? available : null });
-    if (setUseTimer) setUseTimer(preset.useTimer);
-    if (!preset.useTimer && setInstantFeedback) setInstantFeedback(true);
-    if (setNumQuestions && available > 0) setNumQuestions(preset.numQuestions);
+    const { value, by } = decide('practice.setup', practiceSignals({
+      subject, year: selectedYear, available, timePerQ, instantFeedback, practiceMode, hasHistory,
+    }));
+    if (setUseTimer) setUseTimer(value.useTimer);
+    if (setInstantFeedback && (!value.useTimer || by === 'you')) setInstantFeedback(value.instantFeedback);
+    if (setTimePerQ && value.useTimer && value.timePerQ !== timePerQ) setTimePerQ(value.timePerQ);
+    if (setNumQuestions && available > 0) setNumQuestions(value.numQuestions);
+    if (by === 'you' && setPracticeMode && (practiceMode === 'all' || practiceMode === 'adaptive')) {
+      setPracticeMode(value.pick === 'adaptive' ? 'adaptive' : 'all');
+    }
     setTopic(topicId === 'all' ? null : topicId);
     setView('config');
   };
