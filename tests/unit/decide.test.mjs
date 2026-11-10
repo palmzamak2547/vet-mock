@@ -215,8 +215,9 @@ test('phase.firstRun: the timetable\'s paper, or ask when it has none', () => {
 test('home.mode: near a paper, then wrong answers, then the weak topic, then this term\'s slides', () => {
   const all = ['near-exam', 'wrong', 'weak', 'current-scope', 'pick-count'];
   const rows = [
-    // วันนี้ / พรุ่งนี้ / ใกล้สอบ as Home's clock says it, a space before the name (B3).
-    [{ cards: all, daysToPaper: 4, paperSubject: 'ระบาดวิทยา', wrongCount: 3, weakPct: 40 }, 'near-exam', 'ใกล้สอบ ระบาดวิทยา'],
+    // วันนี้ / พรุ่งนี้ as Home's clock says it, a space before the name (B3); further out the
+    // card's own subject and date are the reason, and no line repeats them.
+    [{ cards: all, daysToPaper: 4, paperSubject: 'ระบาดวิทยา', wrongCount: 3, weakPct: 40 }, 'near-exam', ''],
     [{ cards: all, daysToPaper: 1, paperSubject: 'One Health' }, 'near-exam', 'พรุ่งนี้สอบ One Health'],
     [{ cards: all, daysToPaper: 0, paperSubject: 'English for Vet Profession I' }, 'near-exam', 'วันนี้สอบ English for Vet Profession I'],
     [{ cards: all, daysToPaper: 20, wrongCount: 3, weakPct: 40 }, 'wrong', 'มีข้อที่ยังตอบผิด 3 ข้อ'],
