@@ -6,6 +6,7 @@ import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/uti
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import RichBlocks from '../components/RichBlocks.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import { MatchReview } from '../components/AnswerReveal.jsx';
@@ -453,7 +454,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                   <NavIcon name="files" size={12} /> {q.passage_title || 'Passage'}
                 </div>
-                <RichText text={q.passage} />
+                <RichBlocks text={q.passage} />
               </div>
             )}
             {(q.type === 'short' || q.type === 'essay') ? (
@@ -495,7 +496,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
               </>
             )}
-            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
+            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>}
             {safeImageUrl(q.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(q.explainImage)}

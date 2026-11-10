@@ -3443,7 +3443,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-dx-screening",
     "year": 5,
     "type": "mcq",
-    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard โคที่ผลเพาะเชื้อเป็นบวก 140 ตัว ELISA ให้ผลบวก 102 ตัวและผลลบ 38 ตัว ส่วนโคที่ผลเพาะเชื้อเป็นลบ 264 ตัว ELISA ให้ผลบวก 40 ตัวและผลลบ 224 ตัว",
+    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard\n\n| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |\n| รวม | 140 | 264 |",
     "passage_title": "ELISA ตรวจ paratuberculosis ในโค",
     "q": "ความชุกของการติดเชื้อในโคกลุ่มนี้คำนวณจากข้อใด",
     "options": [
@@ -3499,7 +3499,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-dx-screening",
     "year": 5,
     "type": "mcq",
-    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard โคที่ผลเพาะเชื้อเป็นบวก 140 ตัว ELISA ให้ผลบวก 102 ตัวและผลลบ 38 ตัว ส่วนโคที่ผลเพาะเชื้อเป็นลบ 264 ตัว ELISA ให้ผลบวก 40 ตัวและผลลบ 224 ตัว",
+    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard\n\n| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |\n| รวม | 140 | 264 |",
     "passage_title": "ELISA ตรวจ paratuberculosis ในโค",
     "q": "ความถูกต้อง (accuracy) ของ ELISA ซึ่งเป็นสัดส่วนที่จำแนกโคได้ถูกต้อง คำนวณจากข้อใด",
     "options": [
@@ -3550,7 +3550,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-dx-screening",
     "year": 5,
     "type": "mcq",
-    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard โคที่ผลเพาะเชื้อเป็นบวก 140 ตัว ELISA ให้ผลบวก 102 ตัวและผลลบ 38 ตัว ส่วนโคที่ผลเพาะเชื้อเป็นลบ 264 ตัว ELISA ให้ผลบวก 40 ตัวและผลลบ 224 ตัว",
+    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard\n\n| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |\n| รวม | 140 | 264 |",
     "passage_title": "ELISA ตรวจ paratuberculosis ในโค",
     "q": "sensitivity และ specificity ของ ELISA คำนวณจากข้อใด",
     "options": [
@@ -3616,7 +3616,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-dx-screening",
     "year": 5,
     "type": "mcq",
-    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard โคที่ผลเพาะเชื้อเป็นบวก 140 ตัว ELISA ให้ผลบวก 102 ตัวและผลลบ 38 ตัว ส่วนโคที่ผลเพาะเชื้อเป็นลบ 264 ตัว ELISA ให้ผลบวก 40 ตัวและผลลบ 224 ตัว",
+    "passage": "ประเมิน ELISA ตรวจ M. paratuberculosis ในโค 404 ตัว โดยใช้ fecal culture เป็น gold standard\n\n| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |\n| รวม | 140 | 264 |",
     "passage_title": "ELISA ตรวจ paratuberculosis ในโค",
     "q": "PPV และ NPV ของ ELISA คำนวณจากข้อใด",
     "options": [
@@ -4568,7 +4568,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-observational-study",
     "year": 5,
     "type": "mcq",
-    "passage": "โคที่คลอดนอกซองคลอดเป็นเต้านมอักเสบหลังคลอด 23 ใน 59 ตัว (ความเสี่ยงประมาณ 0.39) ส่วนโคที่คลอดในซองคลอดเป็น 1 ใน 27 ตัว (ประมาณ 0.04)",
+    "passage": "| | เต้านมอักเสบ (ตัว) | โคทั้งหมด (ตัว) | ความเสี่ยงประมาณ |\n|---|---|---|---|\n| คลอดนอกซองคลอด | 23 | 59 | 0.39 |\n| คลอดในซองคลอด | 1 | 27 | 0.04 |",
     "passage_title": "การคลอดนอกซองคลอดกับเต้านมอักเสบหลังคลอด",
     "q": "attributable risk (AR) ของการคลอดนอกซองคลอดและความหมายข้อใดถูกต้อง",
     "options": [
@@ -4643,7 +4643,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-observational-study",
     "year": 5,
     "type": "mcq",
-    "passage": "โคที่คลอดนอกซองคลอดเป็นเต้านมอักเสบหลังคลอด 23 ใน 59 ตัว (ความเสี่ยงประมาณ 0.39) ส่วนโคที่คลอดในซองคลอดเป็น 1 ใน 27 ตัว (ประมาณ 0.04)",
+    "passage": "| | เต้านมอักเสบ (ตัว) | โคทั้งหมด (ตัว) | ความเสี่ยงประมาณ |\n|---|---|---|---|\n| คลอดนอกซองคลอด | 23 | 59 | 0.39 |\n| คลอดในซองคลอด | 1 | 27 | 0.04 |",
     "passage_title": "การคลอดนอกซองคลอดกับเต้านมอักเสบหลังคลอด",
     "q": "attributable fraction (AF) ของการคลอดนอกซองคลอดและความหมายข้อใดถูกต้อง",
     "options": [

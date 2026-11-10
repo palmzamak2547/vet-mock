@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { confirmDialog } from '../lib/dialog.js';
+import { highlightParts } from '../lib/rich-blocks.js';
+import { RichTable } from './RichBlocks.jsx';
 
 // ============================================================
 // SmartPassage — reading-comprehension passage with annotations
@@ -155,10 +157,16 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
     const range = sel.getRangeAt(0);
     if (!root.contains(range.startContainer) || !root.contains(range.endContainer)) return;
 
-    // Walk text nodes to compute integer offsets.
+    // Walk the text nodes of the run of prose the point sits in. Each run
+    // carries its own offset in the passage (data-off), so a table between
+    // two runs does not shift what comes after it. A point inside a table has
+    // no offset, and a selection that starts or ends there marks nothing.
     const offset = (node, off) => {
-      let total = 0;
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const el = node.nodeType === 1 ? node : node.parentElement;
+      const run = el?.closest?.('[data-off]');
+      if (!run || !root.contains(run)) return null;
+      let total = Number(run.dataset.off);
+      const walker = document.createTreeWalker(run, NodeFilter.SHOW_TEXT);
       let n = walker.nextNode();
       while (n) {
         if (n === node) return total + off;
@@ -169,7 +177,7 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
     };
     const start = offset(range.startContainer, range.startOffset);
     const end = offset(range.endContainer, range.endOffset);
-    if (end - start < 1) return;
+    if (start == null || end == null || end - start < 1) return;
 
     setHighlights((h) => [...h, { id: Date.now() + Math.random(), start, end, color: hlColor }]);
     sel.removeAllRanges();
@@ -265,25 +273,9 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
     try { canvasRef.current.releasePointerCapture(e.pointerId); } catch {}
   };
 
-  // ── Build text segments, splicing in <mark> for each highlight ──
-  // Sort + merge overlaps so adjacent highlights of the same color
-  // visually combine; different colors win by latest-on-top.
-  const segments = useMemo(() => {
-    if (!text) return [];
-    if (highlights.length === 0) return [{ text }];
-    const sorted = [...highlights].sort((a, b) => a.start - b.start);
-    const out = [];
-    let cursor = 0;
-    sorted.forEach((hl) => {
-      const start = Math.max(hl.start, cursor);
-      const end = Math.min(hl.end, text.length);
-      if (start > cursor) out.push({ text: text.slice(cursor, start) });
-      if (end > start) out.push({ text: text.slice(start, end), hl });
-      cursor = Math.max(cursor, end);
-    });
-    if (cursor < text.length) out.push({ text: text.slice(cursor) });
-    return out;
-  }, [text, highlights]);
+  // ── The passage's blocks: each run of prose cut into segments with a <mark>
+  //    for each highlight, and each table as a table (rich-blocks.js).
+  const parts = useMemo(() => highlightParts(text, highlights), [text, highlights]);
 
   const clearAll = async () => {
     const epoch = resourceEpoch.current;
@@ -356,22 +348,28 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
               onMouseUp={handleSelectionEnd}
               onTouchEnd={handleSelectionEnd}
             >
-              {segments.map((seg, i) => seg.hl ? (
-                <mark
-                  key={`${seg.hl.id}-${i}`}
-                  onClick={(e) => { e.stopPropagation(); removeHighlight(seg.hl.id); }}
-                  title="แตะเพื่อลบ highlight"
-                  style={{
-                    background: HL_COLORS.find((c) => c.id === seg.hl.color)?.bg || HL_COLORS[0].bg,
-                    color: 'inherit',
-                    cursor: 'pointer',
-                    padding: '0 1px',
-                    borderRadius: 2,
-                  }}
-                >{seg.text}</mark>
+              {parts.map((part, b) => (part.type === 'table' ? (
+                <RichTable key={`t${b}`} table={part} />
               ) : (
-                <span key={i}>{seg.text}</span>
-              ))}
+                <span key={`p${b}`} data-off={part.start}>
+                  {part.segs.map((seg, i) => seg.hl ? (
+                    <mark
+                      key={`${seg.hl.id}-${i}`}
+                      onClick={(e) => { e.stopPropagation(); removeHighlight(seg.hl.id); }}
+                      title="แตะเพื่อลบ highlight"
+                      style={{
+                        background: HL_COLORS.find((c) => c.id === seg.hl.color)?.bg || HL_COLORS[0].bg,
+                        color: 'inherit',
+                        cursor: 'pointer',
+                        padding: '0 1px',
+                        borderRadius: 2,
+                      }}
+                    >{seg.text}</mark>
+                  ) : (
+                    <span key={i}>{seg.text}</span>
+                  ))}
+                </span>
+              )))}
             </div>
 
             {/* Canvas overlay sits inside the same scrollable container.

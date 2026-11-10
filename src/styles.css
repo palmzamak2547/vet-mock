@@ -2621,6 +2621,11 @@ html.dark .vmx-panic-scrim {
     overflow-y: auto;
     margin-bottom: 0;
   }
+  /* A passage that is the question's data (it holds a table) sits above the
+     question at every width: in 42% of the card a table's Thai cells wrap
+     syllable by syllable. */
+  .vmx-q-with-passage.is-data { display: block; }
+  .vmx-q-with-passage.is-data .vmx-q-passage-pane { position: static; max-height: none; overflow-y: visible; margin-bottom: 16px; }
 }
 
 /* ── Floating "back to passage" button (mobile/tablet) ──────
@@ -2897,6 +2902,20 @@ html.dark .vmx-panic-scrim {
 .vmx-explain-acc summary { cursor: pointer; font-weight: 600; color: var(--clr-ink); }
 .vmx-explain-acc details.is-missed summary { color: var(--clr-rose-text); }
 .vmx-explain-acc details > :not(summary) { margin-top: 6px; color: var(--clr-ink-soft); }
+/* A table inside a passage or an explanation (src/lib/rich-blocks.js). It is as wide as its cells need and
+   scrolls inside itself, so a wide one never pushes the card sideways. No fill: it sits on every surface. */
+.vmx-qtable { display: block; width: max-content; max-width: 100%; overflow-x: auto; margin: 8px 0; border-collapse: collapse; font-size: 0.95em; font-style: normal; line-height: 1.5; text-align: left; white-space: normal; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
+.vmx-qtable th, .vmx-qtable td { border: 1px solid var(--clr-border); padding: 6px 10px; vertical-align: top; min-width: 3.5em; }
+.vmx-qtable th { font-weight: 700; }
+.vmx-qtable thead th { border-bottom-width: 2px; text-wrap: balance; }
+.vmx-qtable thead td { border-top-color: transparent; border-left-color: transparent; }
+.vmx-qtable tbody th { min-width: 7em; }
+.vmx-qtable .num { text-align: right; white-space: nowrap; }
+@media (max-width: 640px) {
+  .vmx-qtable { font-size: 0.9em; }
+  .vmx-qtable th, .vmx-qtable td { padding: 5px 8px; min-width: 3em; }
+  .vmx-qtable tbody th { min-width: 6em; }
+}
 .vmx-written-reveal-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-written-reveal-btn { appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); cursor: pointer; }
 .vmx-written-reveal { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }

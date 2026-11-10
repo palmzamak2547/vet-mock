@@ -16,6 +16,7 @@
 // ============================================================
 
 import { safeLinkUrl } from './safe-url.js';
+import { tableCells } from './rich-blocks.js';
 
 export function escapeHtml(s) {
   return s
@@ -52,20 +53,10 @@ export function renderInline(text) {
   return s;
 }
 
-// One table row → its cells. "\|" is a pipe inside a cell (the GFM escape,
-// which the sheet converter in api/_lib/external-doc.js writes for a literal
-// "|"), so it neither ends the cell nor shows its backslash.
-function tableCells(row) {
-  const cells = [];
-  let cell = '';
-  for (let k = 0; k < row.length; k++) {
-    if (row[k] === '\\' && row[k + 1] === '|') { cell += '|'; k++; }
-    else if (row[k] === '|') { cells.push(cell.trim()); cell = ''; }
-    else cell += row[k];
-  }
-  cells.push(cell.trim());
-  return cells.slice(1, -1);
-}
+// One table row → its cells: tableCells, shared with the question card's
+// tables. "\|" is a pipe inside a cell (the GFM escape, which the sheet
+// converter in api/_lib/external-doc.js writes for a literal "|"), so it
+// neither ends the cell nor shows its backslash.
 
 export function renderMarkdown(md) {
   if (!md) return '';
