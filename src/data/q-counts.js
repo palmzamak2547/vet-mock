@@ -229,7 +229,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 209,
+    'swine-clinic': 158,
     'swine-herd': 11,
     'swine-repro': 18,
     'vca': 951,
@@ -280,7 +280,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'milk-meat-hygiene': 417,
     'one-health': 85,
     'surg1': 29,
-    'swine-clinic': 222,
+    'swine-clinic': 158,
     'swine-herd': 16,
     'swine-repro': 18,
     'vca': 1342,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3705,
+    5: 3641,
   },
   '2-mid': {
     1: 297,
@@ -873,7 +873,6 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'swine-greasypig': 14,
       'swine-ileitis-bacti': 19,
       'swine-pcv2': 16,
-      'swine-pornchalit-set': 64,
       'swine-prv-je': 23,
       'swine-repro': 14,
     },
@@ -1939,7 +1938,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'swine-greasypig': 13,
       'swine-ileitis-bacti': 6,
       'swine-pcv2': 6,
-      'swine-pornchalit-set': 23,
       'swine-prv-je': 15,
       'swine-repro': 4,
     },
@@ -3738,4 +3736,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-09T15:17:14.443Z
+// Built: 2026-11-10T16:13:34.766Z

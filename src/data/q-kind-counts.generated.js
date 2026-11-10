@@ -2787,68 +2787,6 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       }
     },
-    "swine-clinic": {
-      "swine-pornchalit-set": {
-        "mcq": 42,
-        "tf": 0,
-        "match": 1,
-        "writing": 21
-      },
-      "swine-pcv2": {
-        "mcq": 15,
-        "tf": 0,
-        "match": 0,
-        "writing": 1
-      },
-      "swine-csf": {
-        "mcq": 11,
-        "tf": 0,
-        "match": 0,
-        "writing": 10
-      },
-      "swine-ileitis-bacti": {
-        "mcq": 15,
-        "tf": 0,
-        "match": 0,
-        "writing": 4
-      },
-      "swine-fmd": {
-        "mcq": 12,
-        "tf": 0,
-        "match": 0,
-        "writing": 5
-      },
-      "swine-asf": {
-        "mcq": 18,
-        "tf": 0,
-        "match": 0,
-        "writing": 11
-      },
-      "swine-prv-je": {
-        "mcq": 12,
-        "tf": 0,
-        "match": 0,
-        "writing": 11
-      },
-      "swine-greasypig": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 13
-      },
-      "swine-repro": {
-        "mcq": 9,
-        "tf": 0,
-        "match": 0,
-        "writing": 5
-      },
-      "swine-control-dx": {
-        "mcq": 5,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
-      }
-    },
     "vca": {
       "equine": {
         "mcq": 109,
@@ -3156,6 +3094,62 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "epidem-sample-size": {
         "mcq": 14,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      }
+    },
+    "swine-clinic": {
+      "swine-pcv2": {
+        "mcq": 15,
+        "tf": 0,
+        "match": 0,
+        "writing": 1
+      },
+      "swine-csf": {
+        "mcq": 11,
+        "tf": 0,
+        "match": 0,
+        "writing": 10
+      },
+      "swine-ileitis-bacti": {
+        "mcq": 15,
+        "tf": 0,
+        "match": 0,
+        "writing": 4
+      },
+      "swine-fmd": {
+        "mcq": 12,
+        "tf": 0,
+        "match": 0,
+        "writing": 5
+      },
+      "swine-asf": {
+        "mcq": 18,
+        "tf": 0,
+        "match": 0,
+        "writing": 11
+      },
+      "swine-prv-je": {
+        "mcq": 12,
+        "tf": 0,
+        "match": 0,
+        "writing": 11
+      },
+      "swine-greasypig": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 13
+      },
+      "swine-repro": {
+        "mcq": 9,
+        "tf": 0,
+        "match": 0,
+        "writing": 5
+      },
+      "swine-control-dx": {
+        "mcq": 5,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -8187,62 +8181,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 2
       }
     },
-    "swine-clinic": {
-      "swine-pornchalit-set": {
-        "mcq": 17,
-        "tf": 0,
-        "match": 0,
-        "writing": 6
-      },
-      "swine-pcv2": {
-        "mcq": 5,
-        "tf": 0,
-        "match": 0,
-        "writing": 1
-      },
-      "swine-csf": {
-        "mcq": 10,
-        "tf": 0,
-        "match": 0,
-        "writing": 9
-      },
-      "swine-ileitis-bacti": {
-        "mcq": 2,
-        "tf": 0,
-        "match": 0,
-        "writing": 4
-      },
-      "swine-asf": {
-        "mcq": 12,
-        "tf": 0,
-        "match": 0,
-        "writing": 5
-      },
-      "swine-prv-je": {
-        "mcq": 7,
-        "tf": 0,
-        "match": 0,
-        "writing": 8
-      },
-      "swine-greasypig": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 12
-      },
-      "swine-repro": {
-        "mcq": 0,
-        "tf": 0,
-        "match": 0,
-        "writing": 4
-      },
-      "swine-fmd": {
-        "mcq": 0,
-        "tf": 0,
-        "match": 0,
-        "writing": 2
-      }
-    },
     "vca": {
       "equine": {
         "mcq": 80,
@@ -8511,6 +8449,56 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "tf": 0,
         "match": 0,
         "writing": 0
+      }
+    },
+    "swine-clinic": {
+      "swine-pcv2": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 1
+      },
+      "swine-csf": {
+        "mcq": 10,
+        "tf": 0,
+        "match": 0,
+        "writing": 9
+      },
+      "swine-ileitis-bacti": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 4
+      },
+      "swine-asf": {
+        "mcq": 12,
+        "tf": 0,
+        "match": 0,
+        "writing": 5
+      },
+      "swine-prv-je": {
+        "mcq": 7,
+        "tf": 0,
+        "match": 0,
+        "writing": 8
+      },
+      "swine-greasypig": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 12
+      },
+      "swine-repro": {
+        "mcq": 0,
+        "tf": 0,
+        "match": 0,
+        "writing": 4
+      },
+      "swine-fmd": {
+        "mcq": 0,
+        "tf": 0,
+        "match": 0,
+        "writing": 2
       }
     },
     "zoonoses": {
