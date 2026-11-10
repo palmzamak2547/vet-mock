@@ -1,0 +1,158 @@
+/* ============================================================
+   AnswerEvidence — the slide a revealed answer rests on
+   (src/components/AnswerEvidence.jsx, its own chunk). Tokens only:
+   docs/DESIGN_SYSTEM.md. The frame takes its shape from the filed record,
+   so the image arriving moves nothing.
+   ============================================================ */
+
+.vmx-evi {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+}
+.vmx-evi-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+.vmx-evi .vmx-evi-head .k {
+  display: inline;
+  margin: 0;
+  color: var(--clr-gold-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.vmx-evi-cite {
+  min-width: 0;
+  color: var(--clr-ink-soft);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+/* The part of the page around the highlighted lines. */
+.vmx-evi-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: var(--space-2);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface);
+  color: var(--clr-ink-soft);
+  font: inherit;
+  cursor: default;
+}
+.vmx-evi-frame.is-ready { cursor: zoom-in; }
+.vmx-evi-frame:focus-visible {
+  outline: 3px solid var(--clr-sage);
+  outline-offset: 3px;
+}
+.vmx-evi-page { position: absolute; }
+/* The image fills the page box and lends it no size of its own: the box is
+   shaped by the record, so a 1280 px image cannot push a flex parent wider. */
+.vmx-evi-page img {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+/* A highlighter stroke over the lines that state the answer. A tint and an
+   outline, no blend mode: a multiplied stroke vanished on slides with a dark
+   background (the lecturers use both), and this reads on either. Where
+   color-mix is not understood the outline alone marks the lines. */
+.vmx-evi-mark {
+  position: absolute;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px var(--clr-gold);
+  background: color-mix(in srgb, var(--clr-gold) 30%, transparent);
+  pointer-events: none;
+}
+/* An image that did not load leaves its box, with a line in it: nothing below moves. */
+.vmx-evi-note {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+}
+.vmx-evi-hint {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  min-height: 32px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--r-pill);
+  background: var(--clr-ink);
+  background: color-mix(in srgb, var(--clr-ink) 88%, transparent);
+  color: var(--clr-surface);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+/* On a phone the frame is small: the mark alone, so the slide's words stay uncovered. */
+@media (max-width: 640px) {
+  .vmx-evi-hint { min-height: 28px; padding: 6px; }
+  .vmx-evi-hint-text { display: none; }
+  .vmx-evi { padding: 10px; }
+}
+
+/* A device that asks to save data loads the slide on a tap. */
+.vmx-evi-ask {
+  min-height: var(--touch-min);
+  margin-top: var(--space-2);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface);
+  color: var(--clr-sage-text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.vmx-evi-ask:focus-visible {
+  outline: 3px solid var(--clr-sage);
+  outline-offset: 3px;
+}
+
+/* The whole page in the lightbox, as wide as the screen or as tall as it allows
+   (the width is set inline from the page's shape; vh first for browsers without dvh). */
+.vmx-evi-scroll {
+  flex: 0 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-height: calc(100vh - 120px);
+  max-height: calc(100dvh - 120px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--r-sm);
+  cursor: default;
+}
+.vmx-evi-full { position: relative; }
+.vmx-evi-full .vmx-evi-page { position: relative; }
+
+/* In the review list the block sits under the reason, outside the verdict card. */
+.vmx-review-item .vmx-evi { margin-top: var(--space-3); }
+
+/* A browser that cannot shape a box by a ratio (iOS 14 and older) would draw
+   the frame with no height: it keeps the citation line and shows no image. */
+@supports not (aspect-ratio: 1) {
+  .vmx-evi-frame, .vmx-evi-ask { display: none; }
+}

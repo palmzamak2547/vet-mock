@@ -221,7 +221,7 @@ export function MatchReview({ q, userAns, answered }) {
  * against what the student has written so far (live, so a missing point
  * can still be added), the model answer, the explain.
  */
-export function WrittenReveal({ q, answer, subject }) {
+export function WrittenReveal({ q, answer, subject, evidence = null }) {
   const text = typeof answer === 'string' ? answer : '';
   const cov = keywordCoverage(text, q.keywords);
   // Not a live region as a whole: the checklist is recomputed on every
@@ -257,6 +257,7 @@ export function WrittenReveal({ q, answer, subject }) {
           <TermLinkedRichText text={q.explain} subject={subject} />
         </div>
       )}
+      {evidence}
     </div>
   );
 }

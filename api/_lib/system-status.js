@@ -180,6 +180,17 @@ const CHECKS = [
     },
   },
   {
+    id: 'evidence', name: 'สไลด์ประกอบเฉลย (slides.vetmock.com)', doc: 'evidence',
+    fix: 'ตั้ง EVIDENCE_BASE ใน Vercel ให้ตรงกับโฟลเดอร์ภาพใน R2 แล้ว deploy ใหม่ (docs/ANSWER-EVIDENCE.md)',
+    async run({ env, fetchImpl }, r) {
+      const base = String(env.EVIDENCE_BASE || '').replace(/\/+$/, '');
+      if (!base.startsWith('https://slides.vetmock.com/')) return r('down', 'ไม่ได้ตั้ง EVIDENCE_BASE ใต้เฉลยจึงมีแต่ชื่อสไลด์ ไม่มีภาพ');
+      // ok.txt is written beside the images by scripts/evidence/build.mjs upload.
+      const res = await fetchImpl(`${base}/ok.txt`, { signal: signal() });
+      return res.ok ? r('ok', 'เปิดภาพสไลด์ได้') : r('down', `เปิดภาพสไลด์ไม่ได้ (status ${res.status}) ใต้เฉลยจึงมีแต่ชื่อสไลด์ ไม่มีภาพ`);
+    },
+  },
+  {
     id: 'videos', name: 'คลังวิดีโอ (นำเข้าคลิปใหม่ทุกสัปดาห์)', doc: 'videos',
     fix: 'บนเครื่องที่ทำคลังวิดีโอ รัน node scripts/video-pipeline.mjs แล้ว node scripts/video-registry.mjs --status แล้วอ่านสาเหตุใน log (docs/VIDEO-LIBRARY.md)',
     async run({ env, fetchImpl, now }, r) {
