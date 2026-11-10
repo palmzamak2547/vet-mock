@@ -6,9 +6,12 @@
 // Basic note type and the deck to file the cards in. One card per question:
 // the front is the stem with its choices, the back the answer and the
 // explanation. Every type the app grades has a back; an essay keeps its
-// model answer. Markdown bold and line breaks become HTML, everything else
-// is escaped, so a question can never inject markup into the card.
+// model answer. A passage comes first on the front, since the question cannot
+// be answered without it. Markdown bold and line breaks become HTML, a table
+// (src/lib/rich-blocks.js) becomes a table, everything else is escaped, so a
+// question can never inject markup into the card.
 // ============================================================
+import { splitBlocks } from './rich-blocks.js';
 
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -16,10 +19,17 @@ const esc = (s) => String(s ?? '')
 // Escaped text with **bold** and line breaks kept; tabs would end the field.
 const html = (s) => esc(s).replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/\t/g, ' ').replace(/\r?\n/g, '<br>');
 
+const row = (cells, tag) => `<tr>${cells.map((c) => `<${tag}>${html(c)}</${tag}>`).join('')}</tr>`;
+const table = (t) => `<table border="1" cellpadding="4" style="border-collapse:collapse">${row(t.head, 'th')}${t.rows.map((r) => row(r, 'td')).join('')}</table>`;
+// A passage or an explanation: its prose as text, its tables as tables.
+const rich = (s) => splitBlocks(s).map((b) => (b.type === 'table' ? table(b) : html(b.text))).join('<br>');
+
 const LETTERS = 'ABCDEFGHIJ';
 
 function front(q) {
-  const parts = [html(q.q)];
+  const parts = [];
+  if (q.passage) parts.push(`${q.passage_title ? `<b>${html(q.passage_title)}</b><br>` : ''}${rich(q.passage)}`);
+  parts.push(html(q.q));
   if (q.type === 'mcq' && Array.isArray(q.options)) {
     parts.push(q.options.map((o, i) => `${LETTERS[i]}. ${html(o)}`).join('<br>'));
   }
@@ -43,7 +53,7 @@ export function ankiText(questions, { deck = 'VetMock' } = {}) {
   for (const q of questions) {
     const back = answer(q);
     if (!q?.q || !back) continue;
-    const explain = q.explain ? `<br><br>${html(q.explain)}` : '';
+    const explain = q.explain ? `<br><br>${rich(q.explain)}` : '';
     const tags = ['vetmock', q.subject, ...(q.tags || [])].filter(Boolean).map((t) => String(t).replace(/\s+/g, '_')).join(' ');
     rows.push([front(q), `<b>${back}</b>${explain}`, tags].join('\t'));
   }

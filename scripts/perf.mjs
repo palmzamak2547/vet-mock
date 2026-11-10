@@ -228,6 +228,9 @@ const SCENARIOS = {
     await page.locator(`[data-subject="${SUBJECT}"]`).click();
     await page.locator('.vmx-topic-main', { hasText: TOPIC_HAS_TEXT }).click();
     await page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ }).waitFor();
+    // A topic set opens ready to start with its rows under ปรับเอง (src/lib/decide.js).
+    const adjust = page.getByRole('button', { name: 'ปรับเอง', exact: true });
+    if ((await adjust.getAttribute('aria-expanded')) !== 'true') await adjust.click();
     await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('3');
 
     // The set opens.

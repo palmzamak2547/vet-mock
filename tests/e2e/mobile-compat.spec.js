@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust, openHomeModes } from './fixtures.js';
 
 // ── No third-party network in this gate ─────────────────────────────────
 // The video surfaces embed youtube.com (the player iframe and its API) and
@@ -378,9 +378,11 @@ test.describe('whole-app mobile compatibility', () => {
 
     await gotoSurface(page, '/');
     await waitForSurface(page);
+    await openHomeModes(page);
     const quickPractice = page.getByRole('button', { name: /ฝึกแบบเลือกจำนวน|Quick Practice/i }).first();
     await expect(quickPractice).toBeVisible({ timeout: 20_000 });
     await quickPractice.click();
+    await openAdjust(page);
     await page.locator('.vmx-config-panel').waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'practice-config');
 

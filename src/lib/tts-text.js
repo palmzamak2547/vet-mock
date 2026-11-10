@@ -10,6 +10,8 @@
 // (the page falls back to the live voices) until the generator reruns.
 // ============================================================
 
+import { tablesToSpeech } from './rich-blocks.js';
+
 // Emoji and check marks (❌ ✅ 💡) are markers on screen; a voice reads
 // their names aloud, words the text never had. ♂ ♀ ↔ carry meaning and are
 // said in words by normalizeSymbols instead.
@@ -20,7 +22,11 @@ const PICTOGRAPHS = /(?![♂♀↔])\p{Extended_Pictographic}|[\u{FE0F}\u{20E3}�
 // each; a bar inside a formula, P(D+|T+), stays.
 export function stripForSpeech(s) {
   if (!s) return '';
-  return String(s)
+  // A table is said a row at a time, each value after its column's name
+  // (rich-blocks.js). A text with no table comes back as the same string, so
+  // this names no existing clip anew: on 11 Nov 2026 the bank's 12 tables sat
+  // in com4, repro-lect and herd-health-rum, which have no clips.
+  return tablesToSpeech(s)
     .replace(/\*\*([^*]+)\*\*/g, '$1')
     .replace(/\*([^*]+)\*/g, '$1')
     .replace(/_([^_]+)_/g, '$1')

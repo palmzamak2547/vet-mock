@@ -14,6 +14,7 @@
 
 import { lazy, Suspense, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
+import RichBlocks from './RichBlocks.jsx';
 import { isCorrect } from '../hooks/utils.js';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import { recordTodaysQAnswer } from '../lib/daily-q.js';
@@ -127,7 +128,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
             <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
               เฉลย
             </div>
-            <RichText text={q.explain} />
+            <RichBlocks text={q.explain} />
           </div>
         )}
 
