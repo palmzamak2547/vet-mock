@@ -206,6 +206,25 @@ async function topicDocs(subject, docs, questions, sourceDocs) {
 
 // ---------- models ----------
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// The provider's account is the one production's features draw on (VetMock AI, the explainers, the grader):
+// the key differs, the balance is shared. On 11 Nov 2026 this pipeline's first full run spent that balance to
+// zero and production fell back to its second provider until it was topped up. So a run stops while the
+// balance is still above a floor, checks again every 150 calls it pays for, and a refusal for lack of balance
+// ends the run instead of failing call after call.
+const FLOOR_CNY = Number(process.env.VMX_EVIDENCE_FLOOR_CNY || 40);
+let paidCalls = 0;
+export async function balance(key = process.env.DEEPSEEK_API_KEY, fetchImpl = fetch) {
+  const res = await fetchImpl('https://api.deepseek.com/user/balance', { headers: { authorization: `Bearer ${key}` } });
+  const info = res.ok ? await res.json() : null;
+  const cny = Number(info?.balance_infos?.find((b) => b.currency === 'CNY')?.total_balance);
+  return { ok: Boolean(info?.is_available) && cny >= FLOOR_CNY, cny: Number.isFinite(cny) ? cny : null };
+}
+async function guardBalance() {
+  if (paidCalls++ % 150) return;
+  const b = await balance();
+  if (!b.ok) throw new Error(`the provider's balance is ${b.cny ?? 'unknown'} CNY, under the floor of ${FLOOR_CNY} this pipeline leaves for production: top up, or lower VMX_EVIDENCE_FLOOR_CNY knowingly`);
+}
+
 async function ask(model, system, user, maxTokens) {
   const body = { model, max_tokens: maxTokens, temperature: 0, response_format: { type: 'json_object' }, thinking: { type: 'disabled' },
     messages: [{ role: 'system', content: system }, { role: 'user', content: user }] };
@@ -214,11 +233,13 @@ async function ask(model, system, user, maxTokens) {
   if (hit) return hit;
   const key = process.env.DEEPSEEK_API_KEY;
   if (!key) throw new Error('set DEEPSEEK_API_KEY');
+  await guardBalance();
   for (let attempt = 0; attempt < 4; attempt++) {
     try {
       const res = await fetch('https://api.deepseek.com/chat/completions', {
         method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` }, body: JSON.stringify(body),
       });
+      if (res.status === 402) { console.error('the provider refused for lack of balance: stopping'); process.exit(2); }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const out = JSON.parse((await res.json()).choices[0].message.content);
       writeJson(file, out);

@@ -273,6 +273,21 @@ def needs_vision(pg, page, furniture):
     return shown >= 0.12
 
 
+FLOOR_CNY = float(os.environ.get('VMX_EVIDENCE_FLOOR_CNY', '40'))
+
+
+def require_balance():
+    """The provider's account is shared with production (see build.mjs): a run stops while the balance is still
+    above the floor, so a batch of pages can never spend what VetMock AI answers students with."""
+    req = urllib.request.Request('https://api.deepseek.com/user/balance',
+                                 headers={'authorization': 'Bearer ' + os.environ['DEEPSEEK_API_KEY']})
+    info = json.load(urllib.request.urlopen(req, timeout=60))
+    cny = next((float(b['total_balance']) for b in info.get('balance_infos', []) if b.get('currency') == 'CNY'), None)
+    if not info.get('is_available') or cny is None or cny < FLOOR_CNY:
+        sys.exit(f"the provider's balance is {cny} CNY, under the floor of {FLOOR_CNY} this pipeline leaves for production: "
+                 'top up, or lower VMX_EVIDENCE_FLOOR_CNY knowingly')
+
+
 def transcribe(jpg, rows):
     import base64
     system = (f'You read lecture slides for a veterinary course. Coloured boxes in both margins label {rows} horizontal bands, '
@@ -352,6 +367,8 @@ def vision(root):
             else:
                 fresh.append(p)
         # A PDF handle is not shared between threads: pages are rendered here, only the calls run together.
+        if fresh:
+            require_balance()   # before each document that will be paid for
         grids = [(p, render_grid(doc[p['n'] - 1])) for p in fresh]
         with cf.ThreadPoolExecutor(6) as ex:
             futures = {ex.submit(transcribe, jpg, rows): p for p, (jpg, rows) in grids}

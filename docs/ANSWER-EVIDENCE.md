@@ -140,6 +140,16 @@ node scripts/evidence/build.mjs index   --subject <id>
 node scripts/evidence/build.mjs upload  --subject <id>
 ```
 
+**The provider's account is production's too.** `find` and `vision` call
+DeepSeek with the machine's key; VetMock AI, the explainers and the grader
+call it with production's key, and the two keys draw on one balance. The
+first full run (11 Nov 2026: about 8,400 text calls and 4,400 page readings)
+spent that balance to zero, and production answered from its second provider
+until the account was topped up. Both scripts now read the balance before
+they pay for anything, stop under a floor (`VMX_EVIDENCE_FLOOR_CNY`, 40 by
+default) and end at once on a refusal for lack of balance. Before a large
+run, look at the balance yourself and top up first.
+
 Environment: `SUPABASE_ACCESS_TOKEN` (catalog), `CLOUDFLARE_API_TOKEN` and
 `R2_ACCOUNT_ID` (fetch, upload), `DEEPSEEK_API_KEY` (find, vision). Every model
 call is cached by its input, so a re-run asks only about what changed. Upload
