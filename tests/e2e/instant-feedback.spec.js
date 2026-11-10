@@ -39,7 +39,7 @@
 // and keep going. Before, a random draw could not fail these tests;
 // that was the problem, not the safety.
 
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 
 const noise = /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|Unrecognized feature|_vercel\/(insights|speed-insights)|Failed to load resource.*404|downloadable font|Unexpected token '<'|expected expression, got '<'|__cf_bm|rejected for invalid domain/i;
 
@@ -84,6 +84,7 @@ async function openTopicPractice(page, { count = 3, instant = true } = {}) {
   await page.locator('.vmx-topic-main', { hasText: TOPIC_HAS_TEXT }).click();
 
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+  await openAdjust(page);
   const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });
   await expect(toggle).toBeVisible();
   if ((await toggle.getAttribute('aria-checked')) !== String(instant)) await toggle.click();

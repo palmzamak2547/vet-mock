@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 
 // A matching question has to show the answer it tells the student to look at.
 //
@@ -27,6 +27,7 @@ test('a wrong pair shows what the right pairing was', async ({ page, context }) 
   // draw can leave the matching question out. Ask for all of them.
   // A value above the topic's total is clamped back to the default, so read
   // the total the panel reports and ask for exactly that.
+  await openAdjust(page);
   const availability = page.locator('#vmx-config-count-help');
   await expect(availability).toContainText(/มี [\d,]+ ข้อ/, { timeout: 20000 });
   const available = Number((await availability.textContent()).match(/มี ([\d,]+) ข้อ/)[1].replace(/,/g, ''));

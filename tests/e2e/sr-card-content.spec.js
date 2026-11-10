@@ -1,4 +1,4 @@
-import { test, expect, PINNED_NOW } from './fixtures.js';
+import { test, expect, PINNED_NOW, openAdjust } from './fixtures.js';
 import { QB_ENGPROF } from '../../src/data/questions-engprof.js';
 import { QB_COM3 } from '../../src/data/questions-com3.js';
 import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
@@ -25,7 +25,9 @@ async function seed(page, cards, { start = true } = {}) {
     localStorage.setItem('vmx-sr-cards', JSON.stringify(srCards));
     localStorage.setItem('vmx-sr-subject-filter', JSON.stringify('all'));
     localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('all'));
-    localStorage.setItem('vmx-sr-session-size', JSON.stringify(count));
+    // A session of exactly these cards: the way a size outside the planner's
+    // chips reaches it is Home's plan (sr.setup treats any other as the default).
+    sessionStorage.setItem('vmx-sr-plan-size', String(count));
     localStorage.setItem('vmx-custom-q', JSON.stringify([unsafe]));
   }, { srCards, unsafe, count: cards.length });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
@@ -156,6 +158,7 @@ test('a changed SR year scope withdraws a pending start before its bank finishes
     await bank.requested;
     await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
     await expect(page.getByRole('button', { name: 'กำลังโหลดคลังข้อสอบ…', exact: true })).toBeDisabled();
+    await openAdjust(page);
     await page.getByRole('button', { name: '🌐 ทุกปี', exact: true }).click();
     bank.release();
     await expect(page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last()).toHaveText('2ใบ');
@@ -181,6 +184,7 @@ test('a foreground bank recovery refreshes planning counts and native subject re
   });
   await seed(page, [figure, unsafe, nativeEnglish], { start: false });
   await page.waitForFunction(() => globalThis.__srBackgroundRejected);
+  await openAdjust(page);
   const dueCount = page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last();
   await expect(dueCount).toHaveText('1ใบ');
   await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();

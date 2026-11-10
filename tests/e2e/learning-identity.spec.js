@@ -29,8 +29,11 @@ test('a year-5 student resumes a remembered COM IV review and Hard records succe
   const card = { ...initCard(srQuestion.id), totalReviews: 1, nextReview: now - 86400000 };
   await seed(page, {
     'vmx-sr-cards': { [srQuestion.id]: card }, 'vmx-sr-subject-filter': 'com4',
-    'vmx-sr-year-scope': 'current', 'vmx-sr-phase-scope': 'all', 'vmx-sr-session-size': 1,
+    'vmx-sr-year-scope': 'current', 'vmx-sr-phase-scope': 'all',
   });
+  // A one-card session: a size outside the planner's chips comes from Home's
+  // plan for one session (sr.setup reads any other stored size as the default).
+  await page.addInitScript(() => sessionStorage.setItem('vmx-sr-plan-size', '1'));
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
   const start = page.getByRole('button', { name: 'เริ่ม Session →', exact: true });
   await expect(start).toBeEnabled();

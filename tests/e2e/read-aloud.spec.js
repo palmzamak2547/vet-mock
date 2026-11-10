@@ -14,7 +14,7 @@
 // not reached, so a question falls back to g1 whole.
 // ============================================================
 import fs from 'node:fs';
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 import { ELEVEN_TTS, clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
 
 test.setTimeout(60_000);
@@ -104,6 +104,7 @@ async function openQuestion(page, { clipMs, e1 = [], noClips = false }) {
   await page.goto('/app/study');
   await page.locator(`[data-subject="${SUBJECT}"]`).click();
   await page.locator('.vmx-topic-main', { hasText: TOPIC_HAS_TEXT }).click();
+  await openAdjust(page);
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('2');
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
