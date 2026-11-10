@@ -32,6 +32,7 @@ import ImageOcclusionCard from '../components/ImageOcclusionCard.jsx';
 import ClozeCard from '../components/ClozeCard.jsx';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { stillWrong } from '../lib/wrong-pool.js';
+import { adjustOpen, decide, forget, setAdjustOpen } from '../lib/decide.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -40,6 +41,12 @@ import { stillWrong } from '../lib/wrong-pool.js';
 // so a backlog of 400+ cards isn't dumped on the user in one sitting.
 // Selections persist via localStorage so the last preset comes back
 // next time.
+//
+// The planning step decides for the student (src/lib/decide.js, sr.setup):
+// one line of what today's session is and why, the start button, and the
+// rows behind one disclosure, ปรับเอง. The rows keep their own keys; a row
+// set away from its default is the student's, and กลับไปใช้ค่าที่จัดให้
+// puts every row back.
 //
 // Eligibility filter (isFlashcardCompatible) lives in hooks/sr-filter.js
 // so the Home dashboard badge and this view always agree.
@@ -92,6 +99,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   const selectedPaper = scopeForPhase(selectedPhase);
 
   const [sessionCards, setSessionCards] = useState(null);  // null = planning step
+  const [adjusting, setAdjusting] = useState(() => adjustOpen('sr'));
+  const toggleAdjust = () => setAdjusting((open) => { setAdjustOpen('sr', !open); return !open; });
   const [currentIdx, setCurrentIdx] = useState(0);
   // Device preference, mirrored on motion-preferences: SM-2 stays the default,
   // FSRS is opt-in. The subscription re-renders the counts and the interval
@@ -251,14 +260,97 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   if (!sessionCards) {
     const dueCount = duePool.length;
     const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(reviewYear);
+    // What today's session is, in one line, and why (decide.js, sr.setup).
+    const decision = decide('sr.setup', { planSize, dueReviewed: dueReviewedCount, newCount });
+    const todayCount = sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount);
+    const subjectName = subjectFilter === 'all' ? 'ทุกวิชา' : (SUBJECTS.find((x) => x.id === subjectFilter)?.name || 'วิชาที่เลือกไว้');
+    const sessionLine = [
+      `${todayCount.toLocaleString()} ใบ`,
+      subjectFilter === 'all' ? (yearScope === 'all' ? 'ทุกปี' : `ปี ${selectedYear}`) : null,
+      subjectName,
+      selectedPaper ? (phaseScope === 'all' ? 'ทุกช่วงสอบ' : EXAM_SCOPE_LABEL[selectedPaper]) : null,
+      scheduler === 'fsrs' ? 'จัดรอบแบบ FSRS' : null,
+    ].filter(Boolean).join(', ');
+    const restoreChosen = () => {
+      forget('sr.setup');
+      const auto = decide('sr.setup', { planSize, dueReviewed: dueReviewedCount, newCount }).value;
+      setYearScope(auto.yearScope);
+      setSubjectFilter(auto.subject);
+      setPhaseScope(auto.phaseScope);
+      if (planSize == null) setSavedSize(auto.size);
+      saveSchedulerPreference(auto.scheduler);
+    };
+    const startRow = (
+      <div className="vmx-btn-row">
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
+        <button
+          className="vmx-btn vmx-btn-primary"
+          onClick={() => startSession()}
+          disabled={starting || (dueCount === 0 && scopeReady)}
+        >
+          {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
+        </button>
+      </div>
+    );
     return (
       <>
         <div className="vmx-hero">
           <Mochi state="read" size={56} slot="review-intro" className="vmx-hero-mochi" />
           <h1>ทบทวน <em>ตามรอบ</em></h1>
-          <p>เลือกขนาด session ที่ทำได้สบายๆ — ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
+          <p>ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
         </div>
 
+        <section className="vmx-decide" aria-label="รอบทบทวนวันนี้">
+          <p className="vmx-decide-what" id="vmx-srs-summary">
+            <strong>{decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว'}:</strong> {sessionLine}
+          </p>
+          <p className="vmx-decide-why">{decision.why}</p>
+          {bankError && (
+            <div className="vmx-config-availability" role="alert">
+              ยังโหลดคลังข้อสอบไม่ครบ ตรวจการเชื่อมต่อแล้วลองโหลดอีกครั้ง
+              {dueCount > 0 && (
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => startSession(true)} disabled={starting}>
+                  ทบทวนเฉพาะการ์ดที่โหลดแล้ว ({dueCount} ใบ)
+                </button>
+              )}
+            </div>
+          )}
+          {dueCount === 0 && scopeReady && selectedPaper && phaseScope !== 'all' && (
+            <div className="vmx-config-availability" role="status">
+              ไม่มีการ์ดถึงรอบในขอบเขตนี้ เลือก “ทุกช่วง” ใน “ปรับเอง” เพื่อดูเนื้อหาช่วงอื่น
+            </div>
+          )}
+          {startRow}
+        </section>
+
+        {/* A first miss is not a card yet (a question joins the queue when it is
+            missed twice, App.jsx findAutoPromoteCandidates), so after a first set
+            this page said 0 cards while Home offered the missed questions. Point
+            to the same pool Home uses instead of leaving the student at 0. */}
+        {stats.total === 0 && startExam && hasStillWrong && (
+          <div className="vmx-config-availability" role="note" style={{ marginBottom: 12 }}>
+            ข้อที่ตอบผิดครั้งแรกยังไม่เป็นการ์ด จะเข้ามาเมื่อพลาดข้อเดิมอีกครั้ง ทวนข้อที่ยังตอบผิดตอนนี้ได้เลย
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              style={{ display: 'flex', marginTop: 8, minHeight: 44 }}
+              onClick={() => startExam({ mode: 'quick', practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', numQuestions: 50, useTimer: false })}
+            >
+              ทวนข้อที่ยังตอบผิด
+            </button>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="vmx-decide-toggle"
+          aria-expanded={adjusting}
+          aria-controls="vmx-srs-adjust"
+          onClick={toggleAdjust}
+        >
+          ปรับเอง
+        </button>
+        <div id="vmx-srs-adjust" role="region" aria-label="ปรับเอง" hidden={!adjusting} className="vmx-decide-region">
         <div className="vmx-config-panel">
           {/* Year scope toggle — default to current year so cross-year
               cards don't leak into focused review sessions */}
@@ -445,23 +537,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               </span>
             </div>
           )}
-          {/* A first miss is not a card yet (a question joins the queue when it is
-              missed twice, App.jsx findAutoPromoteCandidates), so after a first set
-              this page said 0 cards while Home offered the missed questions. Point
-              to the same pool Home uses instead of leaving the student at 0. */}
-          {stats.total === 0 && startExam && hasStillWrong && (
-            <div className="vmx-config-availability" role="note" style={{ marginTop: 12 }}>
-              ข้อที่ตอบผิดครั้งแรกยังไม่เป็นการ์ด จะเข้ามาเมื่อพลาดข้อเดิมอีกครั้ง ทวนข้อที่ยังตอบผิดตอนนี้ได้เลย
-              <button
-                type="button"
-                className="vmx-btn vmx-btn-ghost"
-                style={{ display: 'flex', marginTop: 8, minHeight: 44 }}
-                onClick={() => startExam({ mode: 'quick', practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', numQuestions: 50, useTimer: false })}
-              >
-                ทวนข้อที่ยังตอบผิด
-              </button>
-            </div>
-          )}
 
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
@@ -469,11 +544,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
           )}
 
-          {dueCount === 0 && scopeReady && selectedPaper && phaseScope !== 'all' && (
-            <div className="vmx-config-availability" role="status">
-              ไม่มีการ์ดถึงรอบในขอบเขตนี้ เลือก “ทุกช่วง” เพื่อดูเนื้อหาช่วงอื่น
-            </div>
-          )}
 
           {/* Mini stats */}
           <div className="vmx-stat-grid" style={{ marginTop: 16 }}>
@@ -492,25 +562,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
         </div>
 
-        {bankError && (
-          <div className="vmx-config-availability" role="alert">
-            ยังโหลดคลังข้อสอบไม่ครบ ตรวจการเชื่อมต่อแล้วลองโหลดอีกครั้ง
-            {dueCount > 0 && (
-              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => startSession(true)} disabled={starting}>
-                ทบทวนเฉพาะการ์ดที่โหลดแล้ว ({dueCount} ใบ)
-              </button>
-            )}
-          </div>
-        )}
-        <div className="vmx-btn-row">
-          <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
-          <button
-            className="vmx-btn vmx-btn-primary"
-            onClick={() => startSession()}
-            disabled={starting || (dueCount === 0 && scopeReady)}
-          >
-            {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
+        {decision.by === 'you' && (
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-decide-reset" onClick={restoreChosen}>
+            กลับไปใช้ค่าที่จัดให้
           </button>
+        )}
         </div>
       </>
     );
