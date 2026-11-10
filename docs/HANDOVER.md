@@ -65,7 +65,8 @@ Chrome Edge และ Safari ใช้ไมค์ของเบราว์เ
 
 <a id="ai"></a>
 ### VetMock AI
-การ์ดบอกยอดเงิน DeepSeek ได้ตรง ๆ ส่วน Anthropic บอกได้แค่ว่าคีย์ใช้ได้ ยอดเครดิตดูที่ console.anthropic.com
+การ์ดบอกยอดเงิน DeepSeek ได้ตรง ๆ ส่วน Anthropic บอกได้ว่าคีย์ใช้ได้และรุ่นที่ระบบเรียกยังให้บริการอยู่ ยอดเครดิตดูที่ console.anthropic.com
+Anthropic เลิกให้บริการรุ่นเก่าเป็นระยะ เมื่อการ์ดขึ้นว่ารุ่นถูกเลิก ให้แก้ `ANTHROPIC_MODEL` ใน `api/_lib/llm.js` เป็นรุ่นปัจจุบัน (บรรทัดเดียว ใช้ทุกฟีเจอร์) หรือตั้ง `AI_GRADER_MODEL` ใน Vercel
 เสียง Mochi แบบสด (Gemini) ยังเปิดเฉพาะผู้ดูแล
 
 <a id="voice-call"></a>

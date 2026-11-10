@@ -11,6 +11,8 @@
 // read where the request is made (writer.js, llm.js) and never leave them.
 // ============================================================
 
+import { anthropicModel } from '../llm.js';
+
 /** Absolute origin every deep link points at. The chat lives on another
  *  origin (ai.vetmock.com), so a relative path would open the wrong site. */
 export const SITE = 'https://vetmock.com';
@@ -66,7 +68,7 @@ export function chatConfig(env = process.env) {
     // Same model env convention as llm.js: LLM_MODEL overrides the primary
     // DeepSeek id; AI_GRADER_MODEL names the Anthropic one.
     primaryModel: env.LLM_MODEL || 'deepseek-flash',
-    anthropicModel: env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929',
+    anthropicModel: anthropicModel(env),
     ncbiKey: env.NCBI_API_KEY || '',
   };
 }

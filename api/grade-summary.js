@@ -9,7 +9,7 @@
 //   DEEPSEEK_API_KEY or ANTHROPIC_API_KEY (server-side only)
 //
 // Optional:
-//   AI_GRADER_MODEL = claude-sonnet-4-5-20250929 (default)
+//   AI_GRADER_MODEL = overrides the Anthropic model (default: ANTHROPIC_MODEL in _lib/llm.js)
 //
 // Security:
 //   • Origin-aware CORS (same-origin auto-allow + static allowlist)
