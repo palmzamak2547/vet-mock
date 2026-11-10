@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_PARASIT_1 = {
@@ -28,12 +28,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "หน้าปกและขอบเขตของเด็ค",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.1",
         "body": [
-          {
-            "text": "หัวเรื่องของเลคเชอร์คือ **Vector-borne rickettsia and hemotrophic Mycoplasma** บรรยายโดย Morakot Kaewthamasorn จาก Veterinary Parasitology Research Unit คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย"
-          },
-          {
-            "text": "ส่วนที่เหลือของหน้าเป็นภาพงานภาคสนาม ได้แก่ goat sample collections, tick's flagging และ cattle blood sample collection โดยไม่มีข้อความอธิบายประกอบภาพ"
-          }
+          "หัวเรื่องของเลคเชอร์คือ **Vector-borne rickettsia and hemotrophic Mycoplasma** บรรยายโดย Morakot Kaewthamasorn จาก Veterinary Parasitology Research Unit คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+          "ส่วนที่เหลือของหน้าเป็นภาพงานภาคสนาม ได้แก่ goat sample collections, tick's flagging และ cattle blood sample collection โดยไม่มีข้อความอธิบายประกอบภาพ"
         ]
       },
       {
@@ -48,21 +44,15 @@ export const NOTES_Y2_PARASIT_1 = {
               "**A. platys ในสุนัข**"
             ]
           },
-          {
-            "text": "หน้านี้ยังมีภาพ buffalo blood and tick sample collections และภาพ Anaplasma marginale in bovine RBC ประกอบ"
-          }
+          "หน้านี้ยังมีภาพ buffalo blood and tick sample collections และภาพ Anaplasma marginale in bovine RBC ประกอบ"
         ]
       },
       {
         "heading": "Bovine anaplasmosis — เชื้อ เห็บ และการส่งผ่าน",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.3",
         "body": [
-          {
-            "text": "**A. marginale เป็น species ที่ pathogenic ที่สุดในกลุ่ม** ทำให้เกิด anaplasmosis ซึ่งเป็น tick fever รูปแบบหนึ่งที่นำโดยเห็บโคบาง species"
-          },
-          {
-            "text": "**เชื้อเพิ่มจำนวนอยู่ภายในตัวเห็บ (R. microplus) และส่งต่อไปยัง stage ถัดไปของวงจรชีวิตเห็บได้ แต่ไม่ถ่ายทอดลงสู่ไข่**"
-          },
+          "**A. marginale เป็น species ที่ pathogenic ที่สุดในกลุ่ม** ทำให้เกิด anaplasmosis ซึ่งเป็น tick fever รูปแบบหนึ่งที่นำโดยเห็บโคบาง species",
+          "**เชื้อเพิ่มจำนวนอยู่ภายในตัวเห็บ (R. microplus) และส่งต่อไปยัง stage ถัดไปของวงจรชีวิตเห็บได้ แต่ไม่ถ่ายทอดลงสู่ไข่**",
           {
             "callout": "จุดที่ต้องจำให้แม่น คือ ผ่านไปยัง later stages ของเห็บได้ แต่ the infection is not passed to the eggs",
             "kind": "tip"
@@ -111,12 +101,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Small ruminant anaplasmosis และการรักษา",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.4",
         "body": [
-          {
-            "text": "สไลด์นิยามเชื้อว่าเป็น **obligate intracellular microorganism, gram-negative bacteria**"
-          },
-          {
-            "text": "Important species ที่สไลด์หน้านี้ระบุ ได้แก่ **Anaplasma marginale, A. centrale, A. ovis, A. bovis และ A. capra** ซึ่งเป็นคนละชุดกับรายชื่อในหน้า 2 (หน้า 2 มี A. mesaeterum, A. phagocytophilum และ A. platys แต่หน้า 4 มี A. bovis กับ A. capra แทน) สไลด์ไม่ได้อธิบายว่าทำไมสองหน้าจึงลิสต์ไม่เหมือนกัน"
-          },
+          "สไลด์นิยามเชื้อว่าเป็น **obligate intracellular microorganism, gram-negative bacteria**",
+          "Important species ที่สไลด์หน้านี้ระบุ ได้แก่ **Anaplasma marginale, A. centrale, A. ovis, A. bovis และ A. capra** ซึ่งเป็นคนละชุดกับรายชื่อในหน้า 2 (หน้า 2 มี A. mesaeterum, A. phagocytophilum และ A. platys แต่หน้า 4 มี A. bovis กับ A. capra แทน) สไลด์ไม่ได้อธิบายว่าทำไมสองหน้าจึงลิสต์ไม่เหมือนกัน",
           {
             "sub": "Signs",
             "body": [
@@ -126,17 +112,13 @@ export const NOTES_Y2_PARASIT_1 = {
                   "fever, weight loss, abortion, lethargy และ death"
                 ]
               },
-              {
-                "text": "สไลด์ระบุว่าความรุนแรงเป็นได้ตั้งแต่ mild to severe disease และมีหัวข้อ economic significance แต่ไม่ได้ให้ตัวเลขหรือรายละเอียดใด ๆ"
-              }
+              "สไลด์ระบุว่าความรุนแรงเป็นได้ตั้งแต่ mild to severe disease และมีหัวข้อ economic significance แต่ไม่ได้ให้ตัวเลขหรือรายละเอียดใด ๆ"
             ]
           },
           {
             "sub": "ANAPLASMOSIS TREATMENT",
             "body": [
-              {
-                "text": "สไลด์เขียนว่า **buparvaquone, halofuginone, tetracycline, butalex และ oxytetracycline ล้วนแสดงว่าใช้ได้ผล** โดยไม่ได้ระบุขนาดยา ระยะเวลา หรือทางที่ให้"
-              }
+              "สไลด์เขียนว่า **buparvaquone, halofuginone, tetracycline, butalex และ oxytetracycline ล้วนแสดงว่าใช้ได้ผล** โดยไม่ได้ระบุขนาดยา ระยะเวลา หรือทางที่ให้"
             ]
           },
           {
@@ -149,9 +131,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Ehrlichiosis — ชื่อเรียก เชื้อ และ vector",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.4-5",
         "body": [
-          {
-            "text": "Ehrlichiosis มีชื่อเรียกอื่นว่า **canine rickettsiosis, canine hemorrhagic fever, canine typhus, tracker dog disease และ tropical canine pancytopenia**"
-          },
+          "Ehrlichiosis มีชื่อเรียกอื่นว่า **canine rickettsiosis, canine hemorrhagic fever, canine typhus, tracker dog disease และ tropical canine pancytopenia**",
           {
             "bullets": [
               "เป็น **tick-borne disease ของสุนัข ปกติเกิดจาก Ehrlichia canis**",
@@ -183,12 +163,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "อาการของ chronic phase และภาพพยาธิสภาพ",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.6",
         "body": [
-          {
-            "text": "Clinical signs ของ chronic phase ตามสไลด์ ได้แก่ **weight loss, pale gums จาก anemia, bleeding จาก thrombocytopenia, vasculitis, lymphadenopathy, dyspnea, coughing, polyuria, polydipsia, lameness** รวมถึง ophthalmic diseases เช่น retinal hemorrhage และ anterior uveitis และ neurological disease"
-          },
-          {
-            "text": "สไลด์ระบุว่าสุนัขที่เป็นรุนแรงตายจากโรคนี้ได้"
-          },
+          "Clinical signs ของ chronic phase ตามสไลด์ ได้แก่ **weight loss, pale gums จาก anemia, bleeding จาก thrombocytopenia, vasculitis, lymphadenopathy, dyspnea, coughing, polyuria, polydipsia, lameness** รวมถึง ophthalmic diseases เช่น retinal hemorrhage และ anterior uveitis และ neurological disease",
+          "สไลด์ระบุว่าสุนัขที่เป็นรุนแรงตายจากโรคนี้ได้",
           {
             "sub": "ภาพในหน้านี้ (คำบรรยายใต้ภาพ เครดิต AFIP)",
             "body": [
@@ -207,12 +183,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Hemotropic Mycoplasma ในแมว",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.7",
         "body": [
-          {
-            "text": "สไลด์ขึ้นหัวข้อว่า **Non-Rickettsia** แล้วเข้าสู่ hemotropic Mycoplasma"
-          },
-          {
-            "text": "**ในแมวมี haemotropic mycoplasmas ที่ได้รับการยอมรับอย่างน้อย 3 ชนิด**"
-          },
+          "สไลด์ขึ้นหัวข้อว่า **Non-Rickettsia** แล้วเข้าสู่ hemotropic Mycoplasma",
+          "**ในแมวมี haemotropic mycoplasmas ที่ได้รับการยอมรับอย่างน้อย 3 ชนิด**",
           {
             "bullets": [
               "**Mycoplasma haemofelis (Mhf)**",
@@ -233,21 +205,15 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ลักษณะของ Mycoplasma และสไลด์ภาพกล้องจุลทรรศน์",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.8",
         "body": [
-          {
-            "text": "ข้อความเดียวในหน้านี้คือ **Mycoplasma เป็น mollicute genus ของแบคทีเรียที่ไม่มี cell wall หุ้ม cell membrane**"
-          },
-          {
-            "text": "ที่เหลือเป็นสไลด์ภาพล้วน ได้แก่ SEM ของ cat RBC จาก experimental infection ด้วย M. haemofelis และด้วย Candidatus M. turicensis, ภาพ M. haemofelis ย้อม Wright-Giemsa ที่กำลังขยาย 100X และ TEM ของ cat RBC ที่ติด Candidatus M. turicensis (a) กับ M. haemofelis (b) ทุกภาพอ้างอิง Willi et al. 2011 และมี scale bar 1 µm สไลด์ไม่ได้เขียนคำอธิบายว่าให้ดูอะไรในแต่ละภาพ"
-          }
+          "ข้อความเดียวในหน้านี้คือ **Mycoplasma เป็น mollicute genus ของแบคทีเรียที่ไม่มี cell wall หุ้ม cell membrane**",
+          "ที่เหลือเป็นสไลด์ภาพล้วน ได้แก่ SEM ของ cat RBC จาก experimental infection ด้วย M. haemofelis และด้วย Candidatus M. turicensis, ภาพ M. haemofelis ย้อม Wright-Giemsa ที่กำลังขยาย 100X และ TEM ของ cat RBC ที่ติด Candidatus M. turicensis (a) กับ M. haemofelis (b) ทุกภาพอ้างอิง Willi et al. 2011 และมี scale bar 1 µm สไลด์ไม่ได้เขียนคำอธิบายว่าให้ดูอะไรในแต่ละภาพ"
         ]
       },
       {
         "heading": "Mycoplasma suis ในสุกร",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.9",
         "body": [
-          {
-            "text": "หน้านี้มีเพียงชื่อเชื้อกับภาพ คือ **Mycoplasma suis (formerly Eperythrozoon zuis ตามที่สไลด์สะกด)** พร้อมภาพจาก Groebel et al. 2009 และหัวข้อท้ายหน้าว่า suggested further readings"
-          },
+          "หน้านี้มีเพียงชื่อเชื้อกับภาพ คือ **Mycoplasma suis (formerly Eperythrozoon zuis ตามที่สไลด์สะกด)** พร้อมภาพจาก Groebel et al. 2009 และหัวข้อท้ายหน้าว่า suggested further readings",
           {
             "callout": "สไลด์ไม่ได้บอกอาการ พยาธิกำเนิด vector หรือการรักษาของ Mycoplasma suis เลย มีแค่ชื่อเชื้อ ชื่อเดิม และภาพ",
             "kind": "warn"
@@ -258,9 +224,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "รายการปฏิบัติการ (Lab)",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.10",
         "body": [
-          {
-            "text": "หน้า lab ชื่อ Lab Rickettsia and hemotrophic Mycoplasma โดยสไลด์พาดหัวกลุ่มไว้ว่า Protozoa แล้วไล่รายการ 5 ข้อ"
-          },
+          "หน้า lab ชื่อ Lab Rickettsia and hemotrophic Mycoplasma โดยสไลด์พาดหัวกลุ่มไว้ว่า Protozoa แล้วไล่รายการ 5 ข้อ",
           {
             "bullets": [
               "1. Anaplasma marginale",
@@ -270,18 +234,14 @@ export const NOTES_Y2_PARASIT_1 = {
               "5. Unknown"
             ]
           },
-          {
-            "text": "มีหมายเหตุว่าเป็น cattle blood Giemsa stain smear โดยสไลด์เขียนไว้ว่า Demo/self study และ Slide no.30 Demo Demo Demo / slide no. 31 Assignment สไลด์ไม่ได้ระบุชัดว่าเลข slide คู่กับรายการข้อไหนแบบหนึ่งต่อหนึ่ง"
-          }
+          "มีหมายเหตุว่าเป็น cattle blood Giemsa stain smear โดยสไลด์เขียนไว้ว่า Demo/self study และ Slide no.30 Demo Demo Demo / slide no. 31 Assignment สไลด์ไม่ได้ระบุชัดว่าเลข slide คู่กับรายการข้อไหนแบบหนึ่งต่อหนึ่ง"
         ]
       },
       {
         "heading": "สไลด์ภาพท้ายเด็ค",
         "source": "Lect 10.1 Rickettsia and hemotrophic Mycoplasma p.11",
         "body": [
-          {
-            "text": "หน้า 11 และ 12 เป็นสไลด์ภาพล้วน ไม่มีเนื้อหาข้อความ มีเพียงคำบรรยายภาพว่า **Anaplasma marginale in bovine RBC**, **Ehrlichia canis in canine monocyte** และ **Hemotrophic Mycoplasma in feline RBC** (ภาพ hemotrophic Mycoplasma in feline RBC ปรากฏซ้ำอีกครั้งในหน้า 12)"
-          },
+          "หน้า 11 และ 12 เป็นสไลด์ภาพล้วน ไม่มีเนื้อหาข้อความ มีเพียงคำบรรยายภาพว่า **Anaplasma marginale in bovine RBC**, **Ehrlichia canis in canine monocyte** และ **Hemotrophic Mycoplasma in feline RBC** (ภาพ hemotrophic Mycoplasma in feline RBC ปรากฏซ้ำอีกครั้งในหน้า 12)",
           {
             "callout": "สามคำบรรยายนี้คือสิ่งที่ต้องจำคู่กับภาพ คือ Anaplasma อยู่ใน RBC ของโค, Ehrlichia canis อยู่ใน monocyte ของสุนัข, hemotrophic Mycoplasma อยู่ที่ RBC ของแมว",
             "kind": "tip"
@@ -301,9 +261,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "การตรวจจาก Blood samples: qualitative กับ quantitative",
         "source": "Lect 12.2 Diagnostic techniques p.2",
         "body": [
-          {
-            "text": "สไลด์แบ่ง diagnostic techniques สำหรับ blood samples ออกเป็น **Qualitative techniques กับ Quantitative techniques**"
-          },
+          "สไลด์แบ่ง diagnostic techniques สำหรับ blood samples ออกเป็น **Qualitative techniques กับ Quantitative techniques**",
           {
             "bullets": [
               "**Intracellular parasites รายงานเป็น % infected cells**",
@@ -320,12 +278,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Fresh blood smear",
         "source": "Lect 12.2 Diagnostic techniques p.3-4",
         "body": [
-          {
-            "text": "หัวข้อสไลด์คือ FRESH BLOOD SMEAR โดยเน้นคำว่า **PARASITE MOVEMENT** (p.3) ซึ่งเป็นสิ่งที่ดูได้จาก smear สด"
-          },
-          {
-            "text": "p.4 แบ่งหัวข้อย่อยเป็น INTRACELLULAR และ EXTRACELLULAR แต่ไม่มีข้อความอธิบาย"
-          },
+          "หัวข้อสไลด์คือ FRESH BLOOD SMEAR โดยเน้นคำว่า **PARASITE MOVEMENT** (p.3) ซึ่งเป็นสิ่งที่ดูได้จาก smear สด",
+          "p.4 แบ่งหัวข้อย่อยเป็น INTRACELLULAR และ EXTRACELLULAR แต่ไม่มีข้อความอธิบาย",
           {
             "callout": "วิธีเตรียม fresh blood smear กำลังขยายที่ใช้ และลักษณะการเคลื่อนไหวที่ต้องมอง สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -336,9 +290,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "The haematocrit centrifuge technique (Woo's technique)",
         "source": "Lect 12.2 Diagnostic techniques p.6",
         "body": [
-          {
-            "text": "สไลด์ระบุชื่อเทคนิค **THE HAEMATOCRIT CENTRIFUGE TECHNIQUE (WOO'S TECHNIQUE)** ไว้เป็นหัวข้อ"
-          },
+          "สไลด์ระบุชื่อเทคนิค **THE HAEMATOCRIT CENTRIFUGE TECHNIQUE (WOO'S TECHNIQUE)** ไว้เป็นหัวข้อ",
           {
             "callout": "ชื่อเทคนิคนี้ต้องจำคู่กับชื่อ Woo's technique ส่วนขั้นตอน ความเร็ว/เวลาปั่น ตำแหน่งที่อ่านผล และปรสิตที่เหมาะกับเทคนิคนี้ สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -349,9 +301,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Thin blood smear กับ thick blood smear",
         "source": "Lect 12.2 Diagnostic techniques p.8-11",
         "body": [
-          {
-            "text": "เดคแยกหัวข้อไว้สามหัวข้อบนสี่สไลด์ติดกัน ได้แก่ **THIN BLOOD SMEAR** (p.8 และ p.9), **THICK BLOOD SMEAR** (p.10) และสไลด์เปรียบเทียบ **THIN BLOOD SMEAR VS THICK BLOOD SMEAR** (p.11)"
-          },
+          "เดคแยกหัวข้อไว้สามหัวข้อบนสี่สไลด์ติดกัน ได้แก่ **THIN BLOOD SMEAR** (p.8 และ p.9), **THICK BLOOD SMEAR** (p.10) และสไลด์เปรียบเทียบ **THIN BLOOD SMEAR VS THICK BLOOD SMEAR** (p.11)",
           {
             "callout": "สไลด์เปรียบเทียบมีแต่หัวข้อ ข้อดีข้อเสียของแต่ละแบบ ความไวในการตรวจ และการเลือกใช้ในสถานการณ์ไหน สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -362,9 +312,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Trypanosoma cruzi กับ Trypanosoma brucei",
         "source": "Lect 12.2 Diagnostic techniques p.12",
         "body": [
-          {
-            "text": "สไลด์ตั้งหัวข้อเปรียบเทียบ **Trypanosoma cruzi VS Trypanosoma brucei** ไว้ตรงกลางบล็อกของการตรวจเลือด"
-          },
+          "สไลด์ตั้งหัวข้อเปรียบเทียบ **Trypanosoma cruzi VS Trypanosoma brucei** ไว้ตรงกลางบล็อกของการตรวจเลือด",
           {
             "callout": "สไลด์ไม่ได้เขียนข้อแตกต่างไว้เป็นตัวอักษรเลย",
             "kind": "warn"
@@ -375,12 +323,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Fecal examinations: การตรวจ coccidia oocyst",
         "source": "Lect 12.2 Diagnostic techniques p.16",
         "body": [
-          {
-            "text": "สไลด์เปิดบล็อกที่สองด้วยหัวข้อ FECAL EXAMINATIONS และระบุว่าเป็น **qualitative and quantitative examination of coccidia oocyst**"
-          },
-          {
-            "text": "วิธีที่สไลด์ระบุชื่อไว้สำหรับการตรวจ oocyst มีสามอย่าง"
-          },
+          "สไลด์เปิดบล็อกที่สองด้วยหัวข้อ FECAL EXAMINATIONS และระบุว่าเป็น **qualitative and quantitative examination of coccidia oocyst**",
+          "วิธีที่สไลด์ระบุชื่อไว้สำหรับการตรวจ oocyst มีสามอย่าง",
           {
             "bullets": [
               "**simple fresh smear**",
@@ -394,9 +338,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "เทคนิคตรวจอุจจาระที่เดคระบุชื่อไว้",
         "source": "Lect 12.2 Diagnostic techniques p.17-30",
         "body": [
-          {
-            "text": "ครึ่งหลังของเดคไล่ชื่อเทคนิคตรวจอุจจาระทีละสไลด์ ตามลำดับนี้"
-          },
+          "ครึ่งหลังของเดคไล่ชื่อเทคนิคตรวจอุจจาระทีละสไลด์ ตามลำดับนี้",
           {
             "bullets": [
               "**DIRECT FECAL SMEAR** (p.17)",
@@ -407,9 +349,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**FORMALIN-ETHER SEDIMENTATION** (p.30)"
             ]
           },
-          {
-            "text": "ลำดับนี้เองก็เป็นข้อมูล คือเดคจัดกลุ่ม flotation ไว้ก่อน แล้วตามด้วยการนับไข่ (McMaster) แล้วจึงเป็นกลุ่ม sedimentation ปิดท้าย"
-          },
+          "ลำดับนี้เองก็เป็นข้อมูล คือเดคจัดกลุ่ม flotation ไว้ก่อน แล้วตามด้วยการนับไข่ (McMaster) แล้วจึงเป็นกลุ่ม sedimentation ปิดท้าย",
           {
             "callout": "น้ำยาที่ใช้ ความถ่วงจำเพาะ ปริมาตรอุจจาระ สูตรคำนวณ eggs per gram และไข่ปรสิตชนิดใดเหมาะกับ flotation หรือ sedimentation สไลด์ไม่ได้บอกไว้เป็นตัวอักษรเลย",
             "kind": "warn"
@@ -420,12 +360,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ข้อควรรู้ก่อนใช้เดคนี้อ่านสอบ",
         "source": "Lect 12.2 Diagnostic techniques",
         "body": [
-          {
-            "text": "จาก 31 สไลด์ มีสไลด์ที่ไม่มีข้อความใด ๆ เลย ถึง 12 สไลด์ ได้แก่ p.5, p.7, p.13, p.14, p.15, p.18, p.19, p.20, p.22, p.24, p.25 และ p.31"
-          },
-          {
-            "text": "สิ่งที่เดคนี้ให้แน่ ๆ คือ **รายชื่อเทคนิคที่ต้องรู้จักและการจัดกลุ่มว่าเทคนิคไหนใช้กับเลือดและเทคนิคไหนใช้กับอุจจาระ** ส่วนรายละเอียดวิธีทำและการแปลผลไม่ได้อยู่ในตัวอักษรของสไลด์"
-          },
+          "จาก 31 สไลด์ มีสไลด์ที่ไม่มีข้อความใด ๆ เลย ถึง 12 สไลด์ ได้แก่ p.5, p.7, p.13, p.14, p.15, p.18, p.19, p.20, p.22, p.24, p.25 และ p.31",
+          "สิ่งที่เดคนี้ให้แน่ ๆ คือ **รายชื่อเทคนิคที่ต้องรู้จักและการจัดกลุ่มว่าเทคนิคไหนใช้กับเลือดและเทคนิคไหนใช้กับอุจจาระ** ส่วนรายละเอียดวิธีทำและการแปลผลไม่ได้อยู่ในตัวอักษรของสไลด์",
           {
             "callout": "อย่าเดารายละเอียดขั้นตอนจากชื่อเทคนิคเอง ให้ไปดูภาพในสไลด์จริงหรือคู่มือปฏิบัติการประกอบ",
             "kind": "tip"
@@ -445,9 +381,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Key concepts ที่เลกเชอร์นี้จะเดิน",
         "source": "Lect 6 General overview of protozoa p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดวาง **โครง 5 หัวข้อของทั้งเลกเชอร์** ไว้ตั้งแต่ต้น ทุกสไลด์ถัดไปเป็นการขยายหัวข้อเหล่านี้"
-          },
+          "สไลด์เปิดวาง **โครง 5 หัวข้อของทั้งเลกเชอร์** ไว้ตั้งแต่ต้น ทุกสไลด์ถัดไปเป็นการขยายหัวข้อเหล่านี้",
           {
             "bullets": [
               "Classification",
@@ -457,18 +391,14 @@ export const NOTES_Y2_PARASIT_1 = {
               "Reproduction"
             ]
           },
-          {
-            "text": "แหล่งอ้างอิงที่พิมพ์ไว้ท้ายสไลด์เกือบทุกแผ่นคือ Jacobs et al. 2016 Principles of Veterinary Parasitology และมีภาพจาก Prof. Dr. Dwight Bowman"
-          }
+          "แหล่งอ้างอิงที่พิมพ์ไว้ท้ายสไลด์เกือบทุกแผ่นคือ Jacobs et al. 2016 Principles of Veterinary Parasitology และมีภาพจาก Prof. Dr. Dwight Bowman"
         ]
       },
       {
         "heading": "Classification: กลุ่ม protozoan parasite ที่สำคัญทางสัตวแพทย์",
         "source": "Lect 6 General overview of protozoa p.2",
         "body": [
-          {
-            "text": "สไลด์เป็นแผนผังภายใต้หัวคอลัมน์ Subkingdom และ Phylum โดยตั้งต้นที่ **Protozoa** แล้วแตกเป็นกลุ่มดังนี้"
-          },
+          "สไลด์เป็นแผนผังภายใต้หัวคอลัมน์ Subkingdom และ Phylum โดยตั้งต้นที่ **Protozoa** แล้วแตกเป็นกลุ่มดังนี้",
           {
             "bullets": [
               "Ciliates",
@@ -477,9 +407,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Apicomplexa"
             ]
           },
-          {
-            "text": "ชื่อที่สไลด์วางไว้ในสายของ **Apicomplexa** ได้แก่ Coccidia, Tissue cyst-forming coccidia, Piroplasms และ Cryptosporidia"
-          },
+          "ชื่อที่สไลด์วางไว้ในสายของ **Apicomplexa** ได้แก่ Coccidia, Tissue cyst-forming coccidia, Piroplasms และ Cryptosporidia",
           {
             "callout": "สไลด์นี้เป็นแผนผัง สไลด์ไม่ได้เขียนเป็นประโยคว่าชื่อใดอยู่ระดับ Subkingdom และชื่อใดอยู่ระดับ Phylum นอกจากหัวคอลัมน์สองคำนั้น",
             "kind": "flag"
@@ -490,9 +418,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Locomotion: ตารางเทียบ 4 กลุ่มหลัก",
         "source": "Lect 6 General overview of protozoa p.2",
         "body": [
-          {
-            "text": "ตารางในสไลด์เทียบสองคอลัมน์คือ Locomotion by และ Intracellular stages"
-          },
+          "ตารางในสไลด์เทียบสองคอลัมน์คือ Locomotion by และ Intracellular stages",
           {
             "bullets": [
               "Ciliates เคลื่อนที่ด้วย **cilia** และมี intracellular stages หรือไม่ ตอบว่า No",
@@ -548,9 +474,7 @@ export const NOTES_Y2_PARASIT_1 = {
                   "**เหมาะกับการอยู่ในเลือดหรือของเหลวอื่นในร่างกาย**"
                 ]
               },
-              {
-                "text": "สไลด์มีคำบรรยายลักษณะการเคลื่อนไหวสองแบบกำกับไว้คือ A falling leaf และ Erratic jerky movement โดย**สไลด์ไม่ได้บอก**ว่าคำบรรยายแต่ละแบบเป็นของเชื้อชนิดใด"
-              }
+              "สไลด์มีคำบรรยายลักษณะการเคลื่อนไหวสองแบบกำกับไว้คือ A falling leaf และ Erratic jerky movement โดย**สไลด์ไม่ได้บอก**ว่าคำบรรยายแต่ละแบบเป็นของเชื้อชนิดใด"
             ]
           },
           {
@@ -581,9 +505,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "protozoa ที่เป็นปรสิตหลายชนิด**ดูดซึม liquid nutrients ได้ด้วย** และในบางกรณีนี่คือแหล่งอาหารหลัก"
             ]
           },
-          {
-            "text": "ระยะที่กินอาหารใน life cycle ของ protozoa เรียกว่า **trophozoite** หลายชนิดมีเพียงรูปแบบนี้รูปแบบเดียว แต่บางชนิดมีระยะต่อเนื่องกันหลายระยะที่หน้าที่ รูปร่าง และชื่อเรียกต่างกัน"
-          },
+          "ระยะที่กินอาหารใน life cycle ของ protozoa เรียกว่า **trophozoite** หลายชนิดมีเพียงรูปแบบนี้รูปแบบเดียว แต่บางชนิดมีระยะต่อเนื่องกันหลายระยะที่หน้าที่ รูปร่าง และชื่อเรียกต่างกัน",
           {
             "callout": "สไลด์มีป้ายกำกับ Size of particle อยู่เหนือหัวข้อ pinocytosis กับ phagocytosis แต่สไลด์ไม่ได้บอกตัวเลขหรือเกณฑ์ขนาดที่ใช้แบ่งสองอย่างนี้",
             "kind": "flag"
@@ -594,9 +516,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Transmission",
         "source": "Lect 6 General overview of protozoa p.4",
         "body": [
-          {
-            "text": "**trophozoite ที่ปรับตัวมาเป็นปรสิตมักทนสภาพแวดล้อมภายนอกไม่ได้** หลายชนิดจึงสร้างผนังห่อหุ้มตัวเองเป็น **cyst** หรือ **oocyst** ที่ทนทาน ก่อนออกจาก host"
-          },
+          "**trophozoite ที่ปรับตัวมาเป็นปรสิตมักทนสภาพแวดล้อมภายนอกไม่ได้** หลายชนิดจึงสร้างผนังห่อหุ้มตัวเองเป็น **cyst** หรือ **oocyst** ที่ทนทาน ก่อนออกจาก host",
           {
             "sub": "Method of transfer ตามที่สไลด์แจกแจง",
             "body": [
@@ -625,9 +545,7 @@ export const NOTES_Y2_PARASIT_1 = {
           {
             "sub": "รูปแบบการสืบพันธุ์แบบ asexual ที่สไลด์ระบุ",
             "body": [
-              {
-                "text": "รูปแบบต่างกันไปตาม species และตามช่วงของ life cycle ได้แก่"
-              },
+              "รูปแบบต่างกันไปตาม species และตามช่วงของ life cycle ได้แก่",
               {
                 "bullets": [
                   "Binary fission",
@@ -691,9 +609,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Enteric coccidia เทียบ tissue cyst-forming coccidia",
         "source": "Lect 6 General overview of protozoa p.7",
         "body": [
-          {
-            "text": "สไลด์วางนิยามสองกลุ่มเทียบกันตรง ๆ โดยแยกที่จำนวนชนิดของ host ที่ใช้ใน life cycle"
-          },
+          "สไลด์วางนิยามสองกลุ่มเทียบกันตรง ๆ โดยแยกที่จำนวนชนิดของ host ที่ใช้ใน life cycle",
           {
             "bullets": [
               "**Enteric coccidia** อยู่กับ host เพียงชนิดเดียวตลอด life cycle",
@@ -710,9 +626,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Summary of pathogenic protozoa",
         "source": "Lect 6 General overview of protozoa p.7",
         "body": [
-          {
-            "text": "สไลด์ปิดสรุปว่า protozoa คือ **unicellular eukaryotic organism** แล้วไล่สี่แกนดังนี้"
-          },
+          "สไลด์ปิดสรุปว่า protozoa คือ **unicellular eukaryotic organism** แล้วไล่สี่แกนดังนี้",
           {
             "bullets": [
               "**Location** แบ่งเป็น extracellular และ intracellular โดยสไลด์วงเล็บกำกับ intracellular ว่า **(Apicomplexa)**",
@@ -752,9 +666,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ขอบเขต: protozoa ที่เรียนคาบนี้และคาบถัดไป",
         "source": "Lect 7 Part 1 Mucosoflagellates p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดไล่รายชื่อ protozoa ที่สำคัญสำหรับ \"today and following class\" ไว้ทั้งชุด"
-          },
+          "สไลด์เปิดไล่รายชื่อ protozoa ที่สำคัญสำหรับ \"today and following class\" ไว้ทั้งชุด",
           {
             "bullets": [
               "**Intestinal flagellates**: Giardia และ Trichomonads (Trichomonas, Tritrichomonas, Pentatrichomonas)",
@@ -773,9 +685,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Giardia: ประวัติและที่มาของชื่อ",
         "source": "Lect 7 Part 1 Mucosoflagellates p.3",
         "body": [
-          {
-            "text": "สไลด์หัวข้อ Giardia Kunstler 1882: history ไล่ไทม์ไลน์ไว้ดังนี้"
-          },
+          "สไลด์หัวข้อ Giardia Kunstler 1882: history ไล่ไทม์ไลน์ไว้ดังนี้",
           {
             "bullets": [
               "1861: Antonie van Leeuwenhoek first described and sketched the trophozoites and cyst",
@@ -917,9 +827,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Giardia: epidemiology",
         "source": "Lect 7 Part 1 Mucosoflagellates p.6",
         "body": [
-          {
-            "text": "พบ worldwide ทั้งในคนและสัตว์ และแตกต่างกันตาม geographic location"
-          },
+          "พบ worldwide ทั้งในคนและสัตว์ และแตกต่างกันตาม geographic location",
           {
             "sub": "Cyst",
             "body": [
@@ -970,9 +878,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Giardia: clinical signs",
         "source": "Lect 7 Part 1 Mucosoflagellates p.6",
         "body": [
-          {
-            "text": "ความรุนแรงแตกต่างกันตาม age, stress level, immune และ nutritional status, animal species และ parasite strain"
-          },
+          "ความรุนแรงแตกต่างกันตาม age, stress level, immune และ nutritional status, animal species และ parasite strain",
           {
             "bullets": [
               "**Asymptomatic** ก็ได้",
@@ -1313,9 +1219,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "มี cytotoxic และ hemolytic effect ต่อ mammalian cells และมี **a surface adhesin**"
             ]
           },
-          {
-            "text": "สไลด์คู่กันเป็นรูปพยาธิสภาพ: mild diffuse endometritis and exudate และ bovine chorioallantois ที่มี cotyledons with placenta edema พร้อมลูกศรชี้ areas of **adventitial placentation**"
-          }
+          "สไลด์คู่กันเป็นรูปพยาธิสภาพ: mild diffuse endometritis and exudate และ bovine chorioallantois ที่มี cotyledons with placenta edema พร้อมลูกศรชี้ areas of **adventitial placentation**"
         ]
       },
       {
@@ -1537,9 +1441,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**Tritrichomonas foetus = \"Erratic movement\"**"
             ]
           },
-          {
-            "text": "ตัวอักษรบนสไลด์มีเพียงชื่อเชื้อและวลีบรรยายการเคลื่อนที่ ไม่มีคำอธิบายอื่น"
-          },
+          "ตัวอักษรบนสไลด์มีเพียงชื่อเชื้อและวลีบรรยายการเคลื่อนที่ ไม่มีคำอธิบายอื่น",
           {
             "callout": "ในสไลด์ Dx ของโค (p.14) ใช้คำว่า **spiral, jerky movement** สำหรับ T. foetus ซึ่งเป็นคำเดียวกับ erratic movement ตรงนี้",
             "kind": "tip"
@@ -1550,9 +1452,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "New species of Tritrichomonas in cats",
         "source": "Lect 7 Part 1 Mucosoflagellates p.18",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นแผนภาพ ข้อความบนสไลด์มีแค่คำว่า Morphology, Pathogenicity, Phylogenic และปลายทางคือ **New Tritrichomonas blagburni species**"
-          },
+          "สไลด์นี้เป็นแผนภาพ ข้อความบนสไลด์มีแค่คำว่า Morphology, Pathogenicity, Phylogenic และปลายทางคือ **New Tritrichomonas blagburni species**",
           {
             "callout": "สไลด์ไม่ได้บอกว่าใช้เกณฑ์อะไรตัดสิน ไม่ได้บอกความต่างจาก T. foetus และไม่ได้บอกความสำคัญทางคลินิก จำแค่ว่ามีการเสนอ species ใหม่ชื่อ Tritrichomonas blagburni ในแมว",
             "kind": "flag"
@@ -1620,9 +1520,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**Non-pathogenic**"
             ]
           },
-          {
-            "text": "หัวข้อ Flagellates and ciliate in pig เป็นสไลด์รูปล้วน ต่อเนื่องถึงหน้า 20 มีคำบรรยายภาพเพียงว่า Diarrheal pig, May'17 และเด็คปิดท้ายด้วยสไลด์ Any question?"
-          },
+          "หัวข้อ Flagellates and ciliate in pig เป็นสไลด์รูปล้วน ต่อเนื่องถึงหน้า 20 มีคำบรรยายภาพเพียงว่า Diarrheal pig, May'17 และเด็คปิดท้ายด้วยสไลด์ Any question?",
           {
             "callout": "สไลด์ไม่ได้ระบุชื่อ species ของ flagellates และ ciliate ที่พบในสุกรจากรูปเหล่านี้ และไม่ได้อธิบายความสำคัญทางคลินิกไว้",
             "kind": "flag"
@@ -1642,9 +1540,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Flagellates คืออะไร และแบ่งเป็นกลุ่มไหนบ้าง",
         "source": "Lect 7 Part 2 Hemoflagellates p.1",
         "body": [
-          {
-            "text": "Flagellates คือ protozoa ที่เคลื่อนที่ด้วยเส้นใยหดตัวได้คล้ายแส้ เรียกว่า **flagellum/flagella** อาจมีเส้นเดียวหรือหลายเส้น ส่วนใหญ่เป็น commensal หรือ symbiont แม้ว่าบางชนิดจะเป็น pathogen ที่อันตราย"
-          },
+          "Flagellates คือ protozoa ที่เคลื่อนที่ด้วยเส้นใยหดตัวได้คล้ายแส้ เรียกว่า **flagellum/flagella** อาจมีเส้นเดียวหรือหลายเส้น ส่วนใหญ่เป็น commensal หรือ symbiont แม้ว่าบางชนิดจะเป็น pathogen ที่อันตราย",
           {
             "sub": "Pathogenic flagellates แบ่งตามที่อยู่ในร่างกายเป็น 2 กลุ่ม",
             "body": [
@@ -1679,9 +1575,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Forms ของ hemoflagellates ในโฮสต์ mammal",
         "source": "Lect 7 Part 2 Hemoflagellates p.2",
         "body": [
-          {
-            "text": "ในโฮสต์ mammal พบ 2 forms"
-          },
+          "ในโฮสต์ mammal พบ 2 forms",
           {
             "bullets": [
               "**Trypomastigote** อยู่ใน blood plasma",
@@ -1839,18 +1733,14 @@ export const NOTES_Y2_PARASIT_1 = {
               "**T. cruzi** โรค **Chagas** โฮสต์คือ armadillo, possum, human vector = **Reduviid bug** แบบ Stercorarian กระจายใน South America"
             ]
           },
-          {
-            "text": "หน้าเดียวกันมี phylogenetic tree ของ Trypanosoma species ที่สร้างจาก **SSU rRNA sequences** และแผนที่ distribution แต่เป็นรูปล้วน ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "หน้าเดียวกันมี phylogenetic tree ของ Trypanosoma species ที่สร้างจาก **SSU rRNA sequences** และแผนที่ distribution แต่เป็นรูปล้วน ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
         "heading": "Surra ในสัตว์ชนิดต่าง ๆ",
         "source": "Lect 7 Part 2 Hemoflagellates p.6",
         "body": [
-          {
-            "text": "สไลด์ชุดนี้เป็น **ภาพถ่ายล้วน** ได้แก่ distribution ของ T. evansi และภาพ Surra ใน horse, cattle, pig และต่อไปที่ p.7 คือ Surra ใน dog อ้างอิงภาพจาก Desquesnes et al. 2013 BioMed Research International สไลด์ไม่ได้เขียนบรรยายอาการทางคลินิกของแต่ละสปีชีส์ไว้เป็นตัวอักษร"
-          }
+          "สไลด์ชุดนี้เป็น **ภาพถ่ายล้วน** ได้แก่ distribution ของ T. evansi และภาพ Surra ใน horse, cattle, pig และต่อไปที่ p.7 คือ Surra ใน dog อ้างอิงภาพจาก Desquesnes et al. 2013 BioMed Research International สไลด์ไม่ได้เขียนบรรยายอาการทางคลินิกของแต่ละสปีชีส์ไว้เป็นตัวอักษร"
         ]
       },
       {
@@ -1926,9 +1816,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Case report: Canine trypanosomosis ในประเทศไทย (2015) — สัตว์ป่วยและอาการนำ",
         "source": "Lect 7 Part 2 Hemoflagellates p.8",
         "body": [
-          {
-            "text": "เป็น case report ชื่อ Molecular Diagnosis and Treatment of Canine Trypanosomosis: a Case Report in Thailand ปี 2015"
-          },
+          "เป็น case report ชื่อ Molecular Diagnosis and Treatment of Canine Trypanosomosis: a Case Report in Thailand ปี 2015",
           {
             "sub": "Signalment และประวัติ",
             "body": [
@@ -1993,9 +1881,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Case report: ผลเลือดวันแรก",
         "source": "Lect 7 Part 2 Hemoflagellates p.9",
         "body": [
-          {
-            "text": "สไลด์ทำตารางเปรียบเทียบกับ normal range และกำกับความผิดปกติหลักไว้ 4 อย่างคือ **moderate anemia**, **mild leukocytosis**, **severe thrombocytopenia** และ **mild elevated ALP**"
-          },
+          "สไลด์ทำตารางเปรียบเทียบกับ normal range และกำกับความผิดปกติหลักไว้ 4 อย่างคือ **moderate anemia**, **mild leukocytosis**, **severe thrombocytopenia** และ **mild elevated ALP**",
           {
             "bullets": [
               "Hb **8.5** g/dl (normal 12.4-19.1)",
@@ -2039,9 +1925,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Developmental stages ของ Leishmania",
         "source": "Lect 7 Part 2 Hemoflagellates p.12",
         "body": [
-          {
-            "text": "มี 2 ระยะตามที่อยู่: **Amastigote** ใน macrophage ของ vertebrate hosts และ **Promastigote** ใน sandfly"
-          },
+          "มี 2 ระยะตามที่อยู่: **Amastigote** ใน macrophage ของ vertebrate hosts และ **Promastigote** ใน sandfly",
           {
             "sub": "Amastigote",
             "body": [
@@ -2085,9 +1969,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Site of Leishmania infection",
         "source": "Lect 7 Part 2 Hemoflagellates p.13",
         "body": [
-          {
-            "text": "ขึ้นกับสปีชีส์ของปรสิต amastigotes จะเข้าไปใน macrophage cells ของ"
-          },
+          "ขึ้นกับสปีชีส์ของปรสิต amastigotes จะเข้าไปใน macrophage cells ของ",
           {
             "bullets": [
               "Reticuloendothelial system",
@@ -2097,9 +1979,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Visceral organs"
             ]
           },
-          {
-            "text": "ปรสิต **รอดชีวิตอยู่ใน phagosomes และต้านทานการย่อยด้วย lysosomal enzymes** จากนั้นเพิ่มจำนวนและเติบโตจนทำให้ host cell แตก แล้วปล่อยระยะติดต่อไปติด macrophage ใหม่ รวมถึงตัวที่ไหลเวียนอยู่ในเลือด (monocytes)"
-          }
+          "ปรสิต **รอดชีวิตอยู่ใน phagosomes และต้านทานการย่อยด้วย lysosomal enzymes** จากนั้นเพิ่มจำนวนและเติบโตจนทำให้ host cell แตก แล้วปล่อยระยะติดต่อไปติด macrophage ใหม่ รวมถึงตัวที่ไหลเวียนอยู่ในเลือด (monocytes)"
         ]
       },
       {
@@ -2172,9 +2052,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "ครอบคลุมตั้งแต่ **rain forests ใน Central และ South America ไปจนถึง deserts ใน West Asia**"
             ]
           },
-          {
-            "text": "สไลด์ชุด Impact of Leishmaniasis (อ้างอิง Alvar et al. 2012 Plos One) เป็นกราฟและแผนที่ล้วน ไม่มีข้อความบรรยาย"
-          }
+          "สไลด์ชุด Impact of Leishmaniasis (อ้างอิง Alvar et al. 2012 Plos One) เป็นกราฟและแผนที่ล้วน ไม่มีข้อความบรรยาย"
         ]
       },
       {
@@ -2200,9 +2078,7 @@ export const NOTES_Y2_PARASIT_1 = {
             "callout": "**สปีชีส์ต่าง ๆ แยกจากกันด้วยรูปร่างไม่ได้ (morphologically indistinguishable)** ต้องแยกด้วย **isoenzyme analysis, molecular methods หรือ monoclonal Ab**",
             "kind": "tip"
           },
-          {
-            "text": "Leishmania spp. ทุกตัวติดเชื้อใน mammals และพบบ่อยที่สุดใน **humans, dogs และ rodents**"
-          }
+          "Leishmania spp. ทุกตัวติดเชื้อใน mammals และพบบ่อยที่สุดใน **humans, dogs และ rodents**"
         ]
       },
       {
@@ -2218,9 +2094,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**L. braziliensis** และสปีชีส์ใกล้เคียง ทำให้เกิด **mucocutaneous leishmaniasis** ในทวีปอเมริกา"
             ]
           },
-          {
-            "text": "หน้าเดียวกันมีสไลด์ newly proposed nomenclature of Leishmania (Antinori et al. 2012) และ life cycle เป็นแผนภาพ ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "หน้าเดียวกันมีสไลด์ newly proposed nomenclature of Leishmania (Antinori et al. 2012) และ life cycle เป็นแผนภาพ ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
@@ -2288,9 +2162,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "สปีชีส์ใหม่ที่พบในประเทศไทย",
         "source": "Lect 7 Part 2 Hemoflagellates p.20",
         "body": [
-          {
-            "text": "สไลด์ชื่อ Discovery of newly emerged Leishmania species in Thailand เริ่มจากชื่อเดิม **Leishmania siamensis** แล้วใช้ **analysis of isoenzyme** แยกออกเป็น **lineage PG** และ **lineage TR** จนได้ชื่อสปีชีส์ดังนี้"
-          },
+          "สไลด์ชื่อ Discovery of newly emerged Leishmania species in Thailand เริ่มจากชื่อเดิม **Leishmania siamensis** แล้วใช้ **analysis of isoenzyme** แยกออกเป็น **lineage PG** และ **lineage TR** จนได้ชื่อสปีชีส์ดังนี้",
           {
             "bullets": [
               "**Leishmania martiniquensis (MON-229)** เป็นสปีชีส์ที่รายงานครั้งแรกจาก Martinique Island และ **ตรวจพบบ่อยกว่าในประเทศไทย**",
@@ -2308,9 +2180,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Clinical manifestations ของ 16 autochthonous cases",
         "source": "Lect 7 Part 2 Hemoflagellates p.21",
         "body": [
-          {
-            "text": "สไลด์สรุป 16 autochthonous cases แยกตามสปีชีส์ที่ตรวจได้"
-          },
+          "สไลด์สรุป 16 autochthonous cases แยกตามสปีชีส์ที่ตรวจได้",
           {
             "bullets": [
               "**L. martiniquensis**: สไลด์ระบุ VL 4 ราย และ disseminated CL 4 ราย",
@@ -2460,9 +2330,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**L. siamensis autochthonous infection ใน horse ที่ Florida, USA** (Reuss et al. 2012, Emerging Infectious Diseases (CDC) 18(9):1545-7) อยู่ที่ p.27"
             ]
           },
-          {
-            "text": "สไลด์กลุ่มนี้แสดงเป็นหน้าปกเปเปอร์และรูปประกอบ ไม่ได้เขียนรายละเอียดอาการหรือวิธีวินิจฉัยเป็นข้อความ"
-          }
+          "สไลด์กลุ่มนี้แสดงเป็นหน้าปกเปเปอร์และรูปประกอบ ไม่ได้เขียนรายละเอียดอาการหรือวิธีวินิจฉัยเป็นข้อความ"
         ]
       },
       {
@@ -2501,12 +2369,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Leishmaniasis ในสุนัขและแมว (สไลด์ภาพ)",
         "source": "Lect 7 Part 2 Hemoflagellates p.27-29",
         "body": [
-          {
-            "text": "สไลด์หัวข้อ Diagnosis of Leishmania, Leishmaniasis in cats และ Leishmaniasis in dogs เป็น **ภาพทางคลินิกล้วน** ไม่มีข้อความอธิบายอาการหรือขั้นตอนการวินิจฉัยกำกับไว้"
-          },
-          {
-            "text": "คำที่กำกับบนรูปมีเพียงคำเดียวคือ **Onychogryphosis** ส่วนอาการอื่น ๆ ของ canine leishmaniasis **สไลด์ไม่ได้บอก** ต้องดูรูปในสไลด์จริงและอ้างอิงเสริมจากลิงก์ที่อาจารย์แปะไว้ (parasitesandvectors.biomedcentral.com)"
-          }
+          "สไลด์หัวข้อ Diagnosis of Leishmania, Leishmaniasis in cats และ Leishmaniasis in dogs เป็น **ภาพทางคลินิกล้วน** ไม่มีข้อความอธิบายอาการหรือขั้นตอนการวินิจฉัยกำกับไว้",
+          "คำที่กำกับบนรูปมีเพียงคำเดียวคือ **Onychogryphosis** ส่วนอาการอื่น ๆ ของ canine leishmaniasis **สไลด์ไม่ได้บอก** ต้องดูรูปในสไลด์จริงและอ้างอิงเสริมจากลิงก์ที่อาจารย์แปะไว้ (parasitesandvectors.biomedcentral.com)"
         ]
       }
     ]
@@ -2522,9 +2386,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ขอบเขตของ lecture และตำแหน่งทาง taxonomy",
         "source": "Lect 8 Amoeba Histomonas Balantidium (final) p.1",
         "body": [
-          {
-            "text": "สไลด์หัวเรื่องคือ **Amoeba in domestic animals** โดย outline ทั้ง lecture ครอบคลุม intestinal flagellates (Giardia, Trichomonads: Trichomonas, Tritrichomonas, Pentatrichomonas), Amoeba (intestinal amebas: Entamoeba histolytica, Entamoeba coli และ facultative amebas), Histomonas meleagridis และ Ciliates (Balantidium coli)"
-          },
+          "สไลด์หัวเรื่องคือ **Amoeba in domestic animals** โดย outline ทั้ง lecture ครอบคลุม intestinal flagellates (Giardia, Trichomonads: Trichomonas, Tritrichomonas, Pentatrichomonas), Amoeba (intestinal amebas: Entamoeba histolytica, Entamoeba coli และ facultative amebas), Histomonas meleagridis และ Ciliates (Balantidium coli)",
           {
             "sub": "Taxonomic classification of protozoa (อ้าง Bowman 2009)",
             "body": [
@@ -2773,9 +2635,7 @@ export const NOTES_Y2_PARASIT_1 = {
           {
             "sub": "นิยาม holozoic nutrition ตามสไลด์",
             "body": [
-              {
-                "text": "Holozoic nutrition (Gr. holo = whole, zoikos = of animals) คือวิธีการกินอาหารที่รวม ingestion ของ liquid หรือ solid organic material แล้ว digestion, absorption และ assimilation เพื่อนำไปใช้ คือการรับสารซับซ้อนเข้าไปแล้วเปลี่ยนเป็นรูปที่ง่ายขึ้น"
-              }
+              "Holozoic nutrition (Gr. holo = whole, zoikos = of animals) คือวิธีการกินอาหารที่รวม ingestion ของ liquid หรือ solid organic material แล้ว digestion, absorption และ assimilation เพื่อนำไปใช้ คือการรับสารซับซ้อนเข้าไปแล้วเปลี่ยนเป็นรูปที่ง่ายขึ้น"
             ]
           },
           {
@@ -2790,9 +2650,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "ในภาพ preparation ที่สไลด์แสดง (direct wet mount ย้อม iodine และตัวอย่างที่เก็บใน PVA ย้อม trichrome) **ingested erythrocyte จะเห็นเป็น dark inclusion**"
-          }
+          "ในภาพ preparation ที่สไลด์แสดง (direct wet mount ย้อม iodine และตัวอย่างที่เก็บใน PVA ย้อม trichrome) **ingested erythrocyte จะเห็นเป็น dark inclusion**"
         ]
       },
       {
@@ -2878,9 +2736,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Facultative amebiasis",
         "source": "Lect 8 Amoeba Histomonas Balantidium (final) p.10",
         "body": [
-          {
-            "text": "**เป็น amebas ที่ปกติ free-living แต่ก่อโรครุนแรงได้ถ้าเข้าสู่ human hosts**"
-          },
+          "**เป็น amebas ที่ปกติ free-living แต่ก่อโรครุนแรงได้ถ้าเข้าสู่ human hosts**",
           {
             "sub": "โรคในคน",
             "body": [
@@ -2992,9 +2848,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Ciliates: สไลด์นำเข้าเรื่อง",
         "source": "Lect 8 Amoeba Histomonas Balantidium (final) p.14",
         "body": [
-          {
-            "text": "สไลด์ช่วงนี้เป็นภาพและวิดีโอเพื่อแนะนำ ciliates ได้แก่ **A typical ciliate: Paramecium** และ **Ingestion and digestion of food: Tetrahymena** พร้อมทวน outline อีกครั้ง"
-          },
+          "สไลด์ช่วงนี้เป็นภาพและวิดีโอเพื่อแนะนำ ciliates ได้แก่ **A typical ciliate: Paramecium** และ **Ingestion and digestion of food: Tetrahymena** พร้อมทวน outline อีกครั้ง",
           {
             "callout": "สไลด์ไม่ได้บอกรายละเอียดเชิงเนื้อหาของ Paramecium และ Tetrahymena นอกจากหัวข้อภาพ",
             "kind": "warn"
@@ -3186,9 +3040,7 @@ export const NOTES_Y2_PARASIT_1 = {
           {
             "sub": "Buxtonella sulcata",
             "body": [
-              {
-                "text": "สไลด์ระบุชื่อ **Buxtonella sulcata** ไว้ในชุดเคสเดียวกัน แต่ **สไลด์ไม่ได้บอกรายละเอียด host, morphology หรือความสำคัญของเชื้อนี้** มีเพียงชื่อและภาพ"
-              }
+              "สไลด์ระบุชื่อ **Buxtonella sulcata** ไว้ในชุดเคสเดียวกัน แต่ **สไลด์ไม่ได้บอกรายละเอียด host, morphology หรือความสำคัญของเชื้อนี้** มีเพียงชื่อและภาพ"
             ]
           }
         ]
@@ -3212,9 +3064,7 @@ export const NOTES_Y2_PARASIT_1 = {
           {
             "sub": "Ichthyophthirius multifiliis",
             "body": [
-              {
-                "text": "สไลด์ระบุว่าเป็นสาเหตุของ **White spot หรือ Ich in fish** และ **ไม่ได้ให้รายละเอียด life cycle การวินิจฉัย หรือการรักษาเพิ่มเติม**"
-              }
+              "สไลด์ระบุว่าเป็นสาเหตุของ **White spot หรือ Ich in fish** และ **ไม่ได้ให้รายละเอียด life cycle การวินิจฉัย หรือการรักษาเพิ่มเติม**"
             ]
           }
         ]
@@ -3232,12 +3082,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ที่ยืนของ Apicomplexa ในผังจัดจำแนก protozoa",
         "source": "Lect 9.1 Enteric and tissue apicomplexa p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดวางผังจาก Subkingdom Protozoa ลงมาเป็นกลุ่มใหญ่ที่มีความสำคัญทางสัตวแพทย์ ได้แก่ Ciliates, Amoebae, Flagellates และ **Apicomplexa**"
-          },
-          {
-            "text": "ภายใน Apicomplexa สไลด์แบ่งย่อยเป็น 4 กลุ่ม"
-          },
+          "สไลด์เปิดวางผังจาก Subkingdom Protozoa ลงมาเป็นกลุ่มใหญ่ที่มีความสำคัญทางสัตวแพทย์ ได้แก่ Ciliates, Amoebae, Flagellates และ **Apicomplexa**",
+          "ภายใน Apicomplexa สไลด์แบ่งย่อยเป็น 4 กลุ่ม",
           {
             "bullets": [
               "Enteric coccidia",
@@ -3246,21 +3092,15 @@ export const NOTES_Y2_PARASIT_1 = {
               "Cryptosporidia"
             ]
           },
-          {
-            "text": "อ้างอิงที่สไลด์ระบุคือ Jacobs et al. 2016. Principles of Veterinary Parasitology ส่วนชื่อ Phylum ในช่องบนของผังถูกเว้นเป็นเส้นประไว้ให้เติม"
-          }
+          "อ้างอิงที่สไลด์ระบุคือ Jacobs et al. 2016. Principles of Veterinary Parasitology ส่วนชื่อ Phylum ในช่องบนของผังถูกเว้นเป็นเส้นประไว้ให้เติม"
         ]
       },
       {
         "heading": "Apical complex และการแบ่งตามอวัยวะที่พบ",
         "source": "Lect 9.1 Enteric and tissue apicomplexa p.4",
         "body": [
-          {
-            "text": "ลักษณะประจำ phylum คือมี **apical complex ที่ส่วนหน้าของ merozoite** ซึ่งประกอบด้วย polar rings, micronemes, rhoptries, conoid, dense granules และ subpellicular tubule (Speer et al, 1999)"
-          },
-          {
-            "text": "ตำแหน่งทางอนุกรมวิธานที่สไลด์เขียนไว้คือ Phylum Apicomplexa ต่อด้วย Class Sporozoasida และ Order Eucoccidiorida"
-          },
+          "ลักษณะประจำ phylum คือมี **apical complex ที่ส่วนหน้าของ merozoite** ซึ่งประกอบด้วย polar rings, micronemes, rhoptries, conoid, dense granules และ subpellicular tubule (Speer et al, 1999)",
+          "ตำแหน่งทางอนุกรมวิธานที่สไลด์เขียนไว้คือ Phylum Apicomplexa ต่อด้วย Class Sporozoasida และ Order Eucoccidiorida",
           {
             "sub": "แบ่งตามจำนวนชนิดของ host",
             "body": [
@@ -3317,9 +3157,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Coccidia เป็น opportunistic pathogen ถ้าก่อโรค ความรุนแรงจะถูกอิทธิพลจาก stressor ต่าง ๆ"
             ]
           },
-          {
-            "text": "ด้วยเหตุนี้ clinical coccidiosis จึงพบมากที่สุดในสภาวะ poor nutrition, poor sanitation, overcrowding หรือหลังความเครียดจาก weaning, shipping, การเปลี่ยนอาหารกะทันหัน และ severe weather"
-          }
+          "ด้วยเหตุนี้ clinical coccidiosis จึงพบมากที่สุดในสภาวะ poor nutrition, poor sanitation, overcrowding หรือหลังความเครียดจาก weaning, shipping, การเปลี่ยนอาหารกะทันหัน และ severe weather"
         ]
       },
       {
@@ -3368,9 +3206,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Oocyst มีผนังทนทานและถูกขับออกทางอุจจาระในสภาพ unsporulated"
             ]
           },
-          {
-            "text": "เรื่องความทนทาน สไลด์ระบุว่า **oocyst อยู่ไม่ค่อยรอดที่อุณหภูมิต่ำกว่าประมาณ 30 องศาเซลเซียส หรือสูงกว่า 40 องศาเซลเซียส แต่ภายในช่วงอุณหภูมินี้อาจอยู่รอดได้นานกว่าหรือเท่ากับ 1 ปี**"
-          }
+          "เรื่องความทนทาน สไลด์ระบุว่า **oocyst อยู่ไม่ค่อยรอดที่อุณหภูมิต่ำกว่าประมาณ 30 องศาเซลเซียส หรือสูงกว่า 40 องศาเซลเซียส แต่ภายในช่วงอุณหภูมินี้อาจอยู่รอดได้นานกว่าหรือเท่ากับ 1 ปี**"
         ]
       },
       {
@@ -3410,9 +3246,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "การพบ oocyst ของ pathogenic species จำนวนมากถือว่า diagnostic โดยสไลด์ให้ตัวเลข **มากกว่า 100,000 oocysts ต่อกรัมอุจจาระใน severe outbreak**"
             ]
           },
-          {
-            "text": "ข้อควรระวังที่สไลด์เน้น คือ diarrhea อาจมาก่อนการขับ oocyst จำนวนมาก 1-2 วัน และอาจดำเนินต่อหลัง oocyst discharge ลดกลับสู่ระดับต่ำแล้ว จึง **ไม่เสมอไปที่จะเจอ oocyst จากอุจจาระตัวอย่างเดียว** อาจต้องตรวจอุจจาระสัตว์ตัวเดิมหลายครั้ง หรือตรวจครั้งเดียวจากสัตว์หลายตัวที่เลี้ยงในสภาพแวดล้อมเดียวกัน"
-          }
+          "ข้อควรระวังที่สไลด์เน้น คือ diarrhea อาจมาก่อนการขับ oocyst จำนวนมาก 1-2 วัน และอาจดำเนินต่อหลัง oocyst discharge ลดกลับสู่ระดับต่ำแล้ว จึง **ไม่เสมอไปที่จะเจอ oocyst จากอุจจาระตัวอย่างเดียว** อาจต้องตรวจอุจจาระสัตว์ตัวเดิมหลายครั้ง หรือตรวจครั้งเดียวจากสัตว์หลายตัวที่เลี้ยงในสภาพแวดล้อมเดียวกัน"
         ]
       },
       {
@@ -3478,9 +3312,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Prevention: enteric coccidia",
         "source": "Lect 9.1 Enteric and tissue apicomplexa p.9",
         "body": [
-          {
-            "text": "หลักการที่สไลด์วางไว้คือ **จำกัดปริมาณ sporulated oocyst ที่สัตว์เล็กได้รับ ให้ติดเชื้อพอกระตุ้นภูมิคุ้มกันแต่ไม่ถึงกับแสดงอาการ**"
-          },
+          "หลักการที่สไลด์วางไว้คือ **จำกัดปริมาณ sporulated oocyst ที่สัตว์เล็กได้รับ ให้ติดเชื้อพอกระตุ้นภูมิคุ้มกันแต่ไม่ถึงกับแสดงอาการ**",
           {
             "bullets": [
               "การให้อาหารและการจัดการที่ดีรวมถึง sanitation ช่วยไปถึงเป้าหมายนี้",
@@ -3535,12 +3367,8 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์เทียบภาพ oocyst ของ C. felis ทั้งระยะ **unsporulated** และ **sporulated** และชี้โครงสร้าง sporont, sporocyst, sporozoite บนภาพ oocyst จากอุจจาระสด"
-          },
-          {
-            "text": "อีกสไลด์เทียบ oocyst ขนาดเล็กและขนาดกลางในสุนัข ระหว่าง Hammondia heydorni กับ Isospora ohioensis (p.13)"
-          }
+          "สไลด์เทียบภาพ oocyst ของ C. felis ทั้งระยะ **unsporulated** และ **sporulated** และชี้โครงสร้าง sporont, sporocyst, sporozoite บนภาพ oocyst จากอุจจาระสด",
+          "อีกสไลด์เทียบ oocyst ขนาดเล็กและขนาดกลางในสุนัข ระหว่าง Hammondia heydorni กับ Isospora ohioensis (p.13)"
         ]
       },
       {
@@ -3577,9 +3405,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Dx: Cystoisospora ในสุนัขและแมว",
         "source": "Lect 9.1 Enteric and tissue apicomplexa p.14",
         "body": [
-          {
-            "text": "อาศัยการ identify oocyst โดยสไลด์แยกด้วยขนาดเป็นหลัก"
-          },
+          "อาศัยการ identify oocyst โดยสไลด์แยกด้วยขนาดเป็นหลัก",
           {
             "bullets": [
               "**C. canis คือ coccidia ขนาดใหญ่ในสุนัข**",
@@ -3587,9 +3413,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**C. rivolta, C. burrowsi และ C. ohioensis แยกจากกันด้วยสัณฐานวิทยาไม่ได้** จัดเป็นขนาดกลาง"
             ]
           },
-          {
-            "text": "เทคนิคที่สไลด์ระบุคือ **Sheather's sugar centrifugation flotation technique** และมีสไลด์รูป coccidia ในสุนัขและแมวกำกับ U = unsporulated, S = sporulated ให้ฝึกอ่าน"
-          },
+          "เทคนิคที่สไลด์ระบุคือ **Sheather's sugar centrifugation flotation technique** และมีสไลด์รูป coccidia ในสุนัขและแมวกำกับ U = unsporulated, S = sporulated ให้ฝึกอ่าน",
           {
             "callout": "สไลด์มีกราฟ prevalence ของ canine coccidiosis แยกตามอายุ (Blagburn et al. 1996) แต่ text layer ไม่มีตัวเลข จึงบอกไม่ได้ว่ากราฟระบุค่าเท่าไร สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -3607,9 +3431,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**ไม่ก่อโรคใน finishing pig หรือ breeding stock**"
             ]
           },
-          {
-            "text": "Life cycle แบ่งเป็น 3 phase ตามสไลด์ ได้แก่ **sporogony, excystation และ endogenous development** (Lindsay and Dubey, 2006. Coccidia and other protozoa. In: Diseases of Swine)"
-          }
+          "Life cycle แบ่งเป็น 3 phase ตามสไลด์ ได้แก่ **sporogony, excystation และ endogenous development** (Lindsay and Dubey, 2006. Coccidia and other protozoa. In: Diseases of Swine)"
         ]
       },
       {
@@ -3721,9 +3543,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "อ้างอิงที่สไลด์ระบุ: Mundt et al. 2007. Parasitol Res. / Muangyai et al. 2001. Thai J Vet Med. / Stuart et al. 1981. Vet Med Small Anim Clin."
-          }
+          "อ้างอิงที่สไลด์ระบุ: Mundt et al. 2007. Parasitol Res. / Muangyai et al. 2001. Thai J Vet Med. / Stuart et al. 1981. Vet Med Small Anim Clin."
         ]
       },
       {
@@ -3774,9 +3594,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Feeder organelle คือ anterior vacuolar membrane ของ zoite ที่พับตัวอย่างซับซ้อนกลายเป็นโครงสร้างสำหรับดูดสารอาหาร เทียบเท่ากับ epimerite ของ gregarines"
             ]
           },
-          {
-            "text": "อ้างอิง Thompson et al. 2005. Advances in Parasitology และสไลด์ p.20 วางผัง hypothetical tree of Apicomplexa เทียบ gregarines กับ Cryptosporidium ไว้เป็นภาพประกอบ"
-          }
+          "อ้างอิง Thompson et al. 2005. Advances in Parasitology และสไลด์ p.20 วางผัง hypothetical tree of Apicomplexa เทียบ gregarines กับ Cryptosporidium ไว้เป็นภาพประกอบ"
         ]
       },
       {
@@ -3832,9 +3650,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Immunolabelling Ag detection ด้วย polyclonal หรือ monoclonal Ab ราคาแพงกว่า แต่รวดเร็วและเหมาะกับการตรวจตัวอย่างจำนวนมาก"
             ]
           },
-          {
-            "text": "สไลด์ยังมีภาพ sugar floatation เทียบ C. parvum กับ C. andersoni ไว้ให้ดูสัณฐาน"
-          }
+          "สไลด์ยังมีภาพ sugar floatation เทียบ C. parvum กับ C. andersoni ไว้ให้ดูสัณฐาน"
         ]
       },
       {
@@ -3881,9 +3697,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "High risk groups ที่สไลด์ระบุ: **สัตวแพทย์**, เด็กและเจ้าหน้าที่ใน day care center, เกษตรกร, บุคลากรทางการแพทย์ และนักเดินทาง"
-          }
+          "High risk groups ที่สไลด์ระบุ: **สัตวแพทย์**, เด็กและเจ้าหน้าที่ใน day care center, เกษตรกร, บุคลากรทางการแพทย์ และนักเดินทาง"
         ]
       },
       {
@@ -3981,9 +3795,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "แผนภาพ life cycle (Hutchison and Dunachie, 1971) ยังกำกับเส้นทาง reinfection, congenital transmission และ organ transplantation ไปยัง fetus และผู้รับอวัยวะ"
-          }
+          "แผนภาพ life cycle (Hutchison and Dunachie, 1971) ยังกำกับเส้นทาง reinfection, congenital transmission และ organ transplantation ไปยัง fetus และผู้รับอวัยวะ"
         ]
       },
       {
@@ -4025,9 +3837,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "Congenital infection: abortion, chorioretinitis, mental retardation, hydrocephalus"
             ]
           },
-          {
-            "text": "สไลด์วางแผนภาพ the critical balance between immune control and pathology คือ acute (tachyzoite) เมื่อมี healthy immune response จะเข้าสู่ chronic (bradyzoite) และเมื่อมี **immunosuppression หรือ AIDS หรือการติดเชื้อ in utero** จะเกิด reactivation กลับเป็น tachyzoite โดยมีภาพ toxoplasmic encephalitis และ cyst in retinal epithelium ประกอบ"
-          }
+          "สไลด์วางแผนภาพ the critical balance between immune control and pathology คือ acute (tachyzoite) เมื่อมี healthy immune response จะเข้าสู่ chronic (bradyzoite) และเมื่อมี **immunosuppression หรือ AIDS หรือการติดเชื้อ in utero** จะเกิด reactivation กลับเป็น tachyzoite โดยมีภาพ toxoplasmic encephalitis และ cyst in retinal epithelium ประกอบ"
         ]
       },
       {
@@ -4055,9 +3865,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "หัวข้อ feline toxoplasmosis ในสไลด์เดียวกันแสดงภาพ necrotic hepatitis ของลูกแมวที่ติดเชื้อแบบ congenital และแยกภาพ prenatal toxoplasmosis แบบ severe กับ postnatal toxoplasmosis แต่ text layer ไม่มีคำบรรยายรายละเอียดของภาพ"
-          }
+          "หัวข้อ feline toxoplasmosis ในสไลด์เดียวกันแสดงภาพ necrotic hepatitis ของลูกแมวที่ติดเชื้อแบบ congenital และแยกภาพ prenatal toxoplasmosis แบบ severe กับ postnatal toxoplasmosis แต่ text layer ไม่มีคำบรรยายรายละเอียดของภาพ"
         ]
       },
       {
@@ -4150,18 +3958,14 @@ export const NOTES_Y2_PARASIT_1 = {
               "**ยังไม่มีหลักฐานว่าเป็น zoonosis**"
             ]
           },
-          {
-            "text": "สไลด์ transmission of bovine neosporosis ระบุการถ่ายทอดแบบ **transplacental ทั้งชนิด exogenous และ endogenous** และมีภาพลูกโคเพศเมียที่คลอดออกมาแล้วติดเชื้อ"
-          }
+          "สไลด์ transmission of bovine neosporosis ระบุการถ่ายทอดแบบ **transplacental ทั้งชนิด exogenous และ endogenous** และมีภาพลูกโคเพศเมียที่คลอดออกมาแล้วติดเชื้อ"
         ]
       },
       {
         "heading": "Pathogenesis ของการแท้งใน bovine neosporosis",
         "source": "Lect 9.1 Enteric and tissue apicomplexa p.36",
         "body": [
-          {
-            "text": "หลัง parasitemia จะตามด้วยการรุกเข้า placenta และ fetus โดยสาเหตุของการแท้งที่เป็นไปได้ตามสไลด์มี 5 ข้อ"
-          },
+          "หลัง parasitemia จะตามด้วยการรุกเข้า placenta และ fetus โดยสาเหตุของการแท้งที่เป็นไปได้ตามสไลด์มี 5 ข้อ",
           {
             "bullets": [
               "Placental damage จากตัวเชื้อโดยตรงจนคุกคามการรอดของ fetus",
@@ -4171,9 +3975,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "การที่แม่ขับ fetus ออกด้วยกลไกภูมิคุ้มกัน จาก maternal placental inflammation และการหลั่ง maternal proinflammatory cytokines"
             ]
           },
-          {
-            "text": "สไลด์ p.37 แสดงภาพ tachyzoite ในสมองของ fetus ทั้งรูปแบบ extracellular crescentic form และ intracellular tachyzoites, tissue cyst ที่มีความหนาของผนัง cyst แตกต่างกันในสมองของ fetus ที่แท้ง และ N. caninum induced myositis ใน fetus และลูกโค (Dubey et al. 2006. J. Comp. Pathol.)"
-          }
+          "สไลด์ p.37 แสดงภาพ tachyzoite ในสมองของ fetus ทั้งรูปแบบ extracellular crescentic form และ intracellular tachyzoites, tissue cyst ที่มีความหนาของผนัง cyst แตกต่างกันในสมองของ fetus ที่แท้ง และ N. caninum induced myositis ใน fetus และลูกโค (Dubey et al. 2006. J. Comp. Pathol.)"
         ]
       },
       {
@@ -4215,9 +4017,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "สไลด์ที่เป็นภาพ วิดีโอ หรือลิงก์ล้วน",
         "source": "Lect 9.1 Enteric and tissue apicomplexa p.2",
         "body": [
-          {
-            "text": "หลายสไลด์ในเดกไม่มีเนื้อความให้สรุป มีเพียงหัวเรื่องกับภาพหรือลิงก์ ควรกลับไปดูภาพจริงในไฟล์สไลด์"
-          },
+          "หลายสไลด์ในเดกไม่มีเนื้อความให้สรุป มีเพียงหัวเรื่องกับภาพหรือลิงก์ ควรกลับไปดูภาพจริงในไฟล์สไลด์",
           {
             "bullets": [
               "p.2 Locomotion: apicomplexa มีเพียงหัวเรื่องกับภาพ",
@@ -4244,9 +4044,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ภาพรวม Phylum Apicomplexa และตำแหน่งของ blood parasites",
         "source": "Lect 9.2 Blood apicomplexa p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วย ULTRASTRUCTURAL CHARACTERISTICS OF APICOMPLEXA ชี้ว่าที่ anterior end มี secretory organelle และมี plastid กับ secretory organelle อื่น รวมถึง posterior end แต่ **สไลด์ไม่ได้บอก** ชื่อ organelle แต่ละอัน (ในไฟล์เหลือเฉพาะคำในวงเล็บ)"
-          },
+          "สไลด์เปิดด้วย ULTRASTRUCTURAL CHARACTERISTICS OF APICOMPLEXA ชี้ว่าที่ anterior end มี secretory organelle และมี plastid กับ secretory organelle อื่น รวมถึง posterior end แต่ **สไลด์ไม่ได้บอก** ชื่อ organelle แต่ละอัน (ในไฟล์เหลือเฉพาะคำในวงเล็บ)",
           {
             "sub": "การแบ่งกลุ่ม HAEMATOZOA",
             "body": [
@@ -4256,9 +4054,7 @@ export const NOTES_Y2_PARASIT_1 = {
                   "**PIROPLASMS** ได้แก่ Babesia, Theileria"
                 ]
               },
-              {
-                "text": "สไลด์ผังเดียวกันนี้ถูกฉายซ้ำอีกในหน้า 13 และหน้า 24 โดยเพิ่ม **Hepatocystis** เข้าไปในกลุ่ม HAEMOSPORIDIA ด้วย"
-              }
+              "สไลด์ผังเดียวกันนี้ถูกฉายซ้ำอีกในหน้า 13 และหน้า 24 โดยเพิ่ม **Hepatocystis** เข้าไปในกลุ่ม HAEMOSPORIDIA ด้วย"
             ]
           },
           {
@@ -4271,12 +4067,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "วงจรชีวิต Haemosporidia และยาที่ออกฤทธิ์ตามระยะ",
         "source": "Lect 9.2 Blood apicomplexa p.3",
         "body": [
-          {
-            "text": "Haemosporidia เป็น **DIXENIC คือต้องใช้ทั้ง vertebrate และ invertebrate host**"
-          },
-          {
-            "text": "ระยะที่ปรากฏบนแผนภาพวงจร ได้แก่ Sporogony, Exo-erythrocytic schizogony, Erythrocytic schizogony และ Gametogony"
-          },
+          "Haemosporidia เป็น **DIXENIC คือต้องใช้ทั้ง vertebrate และ invertebrate host**",
+          "ระยะที่ปรากฏบนแผนภาพวงจร ได้แก่ Sporogony, Exo-erythrocytic schizogony, Erythrocytic schizogony และ Gametogony",
           {
             "sub": "ยาที่สไลด์เขียนกำกับไว้ที่แต่ละระยะ",
             "body": [
@@ -4344,9 +4136,7 @@ export const NOTES_Y2_PARASIT_1 = {
                   "Mature microgametocytes คือเพศผู้"
                 ]
               },
-              {
-                "text": "แผ่นภาพอ้างอิงจาก Coatney et al. The Primate Malarias, 1971"
-              }
+              "แผ่นภาพอ้างอิงจาก Coatney et al. The Primate Malarias, 1971"
             ]
           }
         ]
@@ -4355,9 +4145,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Thick blood smear และ vectors ของ malaria",
         "source": "Lect 9.2 Blood apicomplexa p.5",
         "body": [
-          {
-            "text": "สไลด์แสดง thin และ thick blood smear จากนิสิตสัตวแพทย์ที่ตรวจที่ Vet Parasitology Unit, CU และภาพระยะของ P. falciparum ใน thick blood smear (Wilcox A., 1960)"
-          },
+          "สไลด์แสดง thin และ thick blood smear จากนิสิตสัตวแพทย์ที่ตรวจที่ Vet Parasitology Unit, CU และภาพระยะของ P. falciparum ใน thick blood smear (Wilcox A., 1960)",
           {
             "sub": "VECTORS",
             "body": [
@@ -4384,18 +4172,14 @@ export const NOTES_Y2_PARASIT_1 = {
               "**Sporozoites พบที่ salivary glands ของยุง**"
             ]
           },
-          {
-            "text": "ภาพประกอบมาจากงานภาคสนาม ได้แก่ mosquito light trap ที่สถานีวิจัยมาลาเรีย จังหวัดกาญจนบุรี และการผ่ายุง (mosquito dissection) ที่ Vet Parasitology Unit, CU"
-          }
+          "ภาพประกอบมาจากงานภาคสนาม ได้แก่ mosquito light trap ที่สถานีวิจัยมาลาเรีย จังหวัดกาญจนบุรี และการผ่ายุง (mosquito dissection) ที่ Vet Parasitology Unit, CU"
         ]
       },
       {
         "heading": "Pre-erythrocytic schizont และ malaria ในลิง",
         "source": "Lect 9.2 Blood apicomplexa p.7",
         "body": [
-          {
-            "text": "ภาพชิ้นเนื้อตับคนแสดง **pre-erythrocytic schizont ของ Plasmodium vivax อายุ 7 วัน**"
-          },
+          "ภาพชิ้นเนื้อตับคนแสดง **pre-erythrocytic schizont ของ Plasmodium vivax อายุ 7 วัน**",
           {
             "sub": "MALARIA IN NON-HUMAN PRIMATES",
             "body": [
@@ -4409,17 +4193,11 @@ export const NOTES_Y2_PARASIT_1 = {
                   "Plasmodium inui"
                 ]
               },
-              {
-                "text": "host ที่แสดงบนสไลด์คือ long-tailed macaques และ pig-tailed macaques"
-              },
-              {
-                "text": "แผนที่การกระจายของเคส P. knowlesi ซ้อนทับกับพื้นที่ของยุง **Anopheles leucosphyrus group** ใน Southeast Asia โดยลิง macaque อาศัยในป่าและชายป่าตั้งแต่ India, Myanmar, Thailand, Cambodia, Laos, Vietnam, Southern China, Taiwan, the Philippines, Malaysia จนถึง Indonesia (Trends in Parasitology 2009)"
-              }
+              "host ที่แสดงบนสไลด์คือ long-tailed macaques และ pig-tailed macaques",
+              "แผนที่การกระจายของเคส P. knowlesi ซ้อนทับกับพื้นที่ของยุง **Anopheles leucosphyrus group** ใน Southeast Asia โดยลิง macaque อาศัยในป่าและชายป่าตั้งแต่ India, Myanmar, Thailand, Cambodia, Laos, Vietnam, Southern China, Taiwan, the Philippines, Malaysia จนถึง Indonesia (Trends in Parasitology 2009)"
             ]
           },
-          {
-            "text": "สไลด์ยังแสดงภาพงาน primate malaria research ที่จังหวัดราชบุรี"
-          }
+          "สไลด์ยังแสดงภาพงาน primate malaria research ที่จังหวัดราชบุรี"
         ]
       },
       {
@@ -4440,12 +4218,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "P. caprae ในแพะ",
         "source": "Lect 9.2 Blood apicomplexa p.9",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพจากงาน goat malaria research ที่จังหวัดเพชรบุรี แสดงระยะ **trophozoite** ของ P. caprae"
-          },
-          {
-            "text": "คำบรรยายภาพจากตัวอย่าง KEGoat2017-43 ระบุว่า (A) putative trophozoite ที่มี crystal เล็ก 1 อันและ vacuole 2 อัน (B) putative trophozoite ที่มี double rod-shaped crystals (Kaewthamasorn et al., 2018)"
-          },
+          "สไลด์เป็นภาพจากงาน goat malaria research ที่จังหวัดเพชรบุรี แสดงระยะ **trophozoite** ของ P. caprae",
+          "คำบรรยายภาพจากตัวอย่าง KEGoat2017-43 ระบุว่า (A) putative trophozoite ที่มี crystal เล็ก 1 อันและ vacuole 2 อัน (B) putative trophozoite ที่มี double rod-shaped crystals (Kaewthamasorn et al., 2018)",
           {
             "callout": "สไลด์หน้านี้เป็นภาพล้วน ไม่ได้บอกอาการทางคลินิก การวินิจฉัย หรือการรักษา malaria ในแพะ",
             "kind": "warn"
@@ -4456,9 +4230,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "P. bubalis ในควาย และ P. traguli ในกระจงหนู",
         "source": "Lect 9.2 Blood apicomplexa p.10",
         "body": [
-          {
-            "text": "สไลด์แสดงระยะ **trophozoite** ของ P. bubalis และหัวข้อภาพ MOUSE DEER MALARIA PARASITE (P. traguli)"
-          },
+          "สไลด์แสดงระยะ **trophozoite** ของ P. bubalis และหัวข้อภาพ MOUSE DEER MALARIA PARASITE (P. traguli)",
           {
             "sub": "ข้อมูลควายที่สไลด์ให้ไว้",
             "body": [
@@ -4476,12 +4248,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Avian malaria: P. gallinaceum",
         "source": "Lect 9.2 Blood apicomplexa p.11",
         "body": [
-          {
-            "text": "ภาพจากงาน avian malaria research ที่จังหวัดฉะเชิงเทรา แสดงนกที่ติดเชื้อ Plasmodium gallinaceum และภาพ **exo-erythrocytic schizogony** ของ P. gallinaceum"
-          },
-          {
-            "text": "หน้าถัดไปแสดง P. gallinaceum mix blood stage จากงานวินิจฉัยที่ Vet Parasitology Unit, CU"
-          }
+          "ภาพจากงาน avian malaria research ที่จังหวัดฉะเชิงเทรา แสดงนกที่ติดเชื้อ Plasmodium gallinaceum และภาพ **exo-erythrocytic schizogony** ของ P. gallinaceum",
+          "หน้าถัดไปแสดง P. gallinaceum mix blood stage จากงานวินิจฉัยที่ Vet Parasitology Unit, CU"
         ]
       },
       {
@@ -4522,9 +4290,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "**NO BLOOD SCHIZOGONY คือไม่มี schizogony ในเลือด**"
             ]
           },
-          {
-            "text": "ภาพในเลือดที่สไลด์แสดงจึงเป็น microgametocyte และ macrogametocyte รวมถึงภาพที่พบทั้งสองระยะร่วมกัน โดยตัวอย่างมาจากค้างคาวหน้ายักษ์ทศกัณฐ์ (Hipposideros armiger)"
-          }
+          "ภาพในเลือดที่สไลด์แสดงจึงเป็น microgametocyte และ macrogametocyte รวมถึงภาพที่พบทั้งสองระยะร่วมกัน โดยตัวอย่างมาจากค้างคาวหน้ายักษ์ทศกัณฐ์ (Hipposideros armiger)"
         ]
       },
       {
@@ -4557,9 +4323,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "vector ที่แสดงคือ black flies (Diptera: Simuliidae)"
-          }
+          "vector ที่แสดงคือ black flies (Diptera: Simuliidae)"
         ]
       },
       {
@@ -4634,9 +4398,7 @@ export const NOTES_Y2_PARASIT_1 = {
                   "oocyst สร้าง sporozoites ที่ย้ายไปที่ salivary glands ของ blackfly แล้ววงจรเริ่มใหม่"
                 ]
               },
-              {
-                "text": "ภาพประกอบแสดง megaloschizont, cytomeres และ merozoites"
-              }
+              "ภาพประกอบแสดง megaloschizont, cytomeres และ merozoites"
             ]
           },
           {
@@ -4721,9 +4483,7 @@ export const NOTES_Y2_PARASIT_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ยังวางภาพ Culicoides และ Simulium คู่กับภาพ microgamete และ macrogamete ของ L. caulleryi"
-          }
+          "สไลด์ยังวางภาพ Culicoides และ Simulium คู่กับภาพ microgamete และ macrogamete ของ L. caulleryi"
         ]
       },
       {
@@ -4796,9 +4556,7 @@ export const NOTES_Y2_PARASIT_1 = {
                   "**วงจรใช้เวลา 6 สัปดาห์**"
                 ]
               },
-              {
-                "text": "แผนภาพวงจรบนสไลด์ระบุคำสำคัญไว้คือ lung, megaloschizont, sporozoites, macrogametocyte และ microgametocyte"
-              }
+              "แผนภาพวงจรบนสไลด์ระบุคำสำคัญไว้คือ lung, megaloschizont, sporozoites, macrogametocyte และ microgametocyte"
             ]
           }
         ]
@@ -4822,9 +4580,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "สไลด์เทียบ gametocyte สี่สกุล",
         "source": "Lect 9.2 Blood apicomplexa p.23",
         "body": [
-          {
-            "text": "หน้านี้เป็นแผ่นภาพเปรียบเทียบล้วน ไม่มีคำอธิบายเป็นข้อความ ประกอบด้วย"
-          },
+          "หน้านี้เป็นแผ่นภาพเปรียบเทียบล้วน ไม่มีคำอธิบายเป็นข้อความ ประกอบด้วย",
           {
             "bullets": [
               "Hepatocystis แสดง macrogametocyte และ microgametocyte",
@@ -4874,9 +4630,7 @@ export const NOTES_Y2_PARASIT_1 = {
                   "Ring forms"
                 ]
               },
-              {
-                "text": "แผ่นภาพเทียบ B. divergens, B. venatorum, Babesia sp. MO1, B. microti, B. duncani และ Babesia sp. KO1"
-              }
+              "แผ่นภาพเทียบ B. divergens, B. venatorum, Babesia sp. MO1, B. microti, B. duncani และ Babesia sp. KO1"
             ]
           }
         ]
@@ -4914,12 +4668,8 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "ภาพพยาธิสภาพของ B. bovis และ B. bigemina",
         "source": "Lect 9.2 Blood apicomplexa p.27",
         "body": [
-          {
-            "text": "ภาพ venule จาก cerebral cortex ของลูกวัวที่ถูกตัดม้ามและติด B. bovis แสดง **sequestration ของ parasitized erythrocytes** (Everit et al, 1986, Vet. Pathol. 23:556-562)"
-          },
-          {
-            "text": "อีกภาพหัวข้อว่า Bovine babesiosis: Babesia bigemina แต่สไลด์ไม่ได้เขียนคำบรรยายเพิ่มเติมให้"
-          }
+          "ภาพ venule จาก cerebral cortex ของลูกวัวที่ถูกตัดม้ามและติด B. bovis แสดง **sequestration ของ parasitized erythrocytes** (Everit et al, 1986, Vet. Pathol. 23:556-562)",
+          "อีกภาพหัวข้อว่า Bovine babesiosis: Babesia bigemina แต่สไลด์ไม่ได้เขียนคำบรรยายเพิ่มเติมให้"
         ]
       },
       {
@@ -4933,9 +4683,7 @@ export const NOTES_Y2_PARASIT_1 = {
               "อาการได้แก่ ไข้, severe anemia แบบ hemolytic anemia และ organ failure"
             ]
           },
-          {
-            "text": "สไลด์แสดงภาพ Babesia canis และเคส canine babesiosis จากนครราชสีมา เดือนธันวาคม 2019"
-          }
+          "สไลด์แสดงภาพ Babesia canis และเคส canine babesiosis จากนครราชสีมา เดือนธันวาคม 2019"
         ]
       },
       {
@@ -4985,9 +4733,7 @@ export const NOTES_Y2_PARASIT_1 = {
         "heading": "Theileriosis: การรักษาและสถานการณ์ในไทย",
         "source": "Lect 9.2 Blood apicomplexa p.30",
         "body": [
-          {
-            "text": "สไลด์แสดงภาพ lymph node enlargement ในลูกวัวอายุ 6 เดือนที่ติดเชื้อแบบไม่แสดงอาการ และภาพ Theileria annulata piroplasms ในโค"
-          },
+          "สไลด์แสดงภาพ lymph node enlargement ในลูกวัวอายุ 6 เดือนที่ติดเชื้อแบบไม่แสดงอาการ และภาพ Theileria annulata piroplasms ในโค",
           {
             "sub": "TREATMENT",
             "body": [
@@ -5041,9 +4787,7 @@ export const NOTES_Y2_PARASIT_1 = {
             "callout": "สไลด์เขียนว่า Hepatozoon เป็น obligate intraerythrocytic parasites แต่หน้าถัดไปแสดง gamont อยู่ใน neutrophil สไลด์ไม่ได้อธิบายความไม่ตรงกันนี้",
             "kind": "flag"
           },
-          {
-            "text": "หน้าเดียวกันยังมีภาพเทียบ Theileria สาม species คือ T. luwenshuni, T. uilenbergi และ T. ovis (Zhang et al 2013)"
-          }
+          "หน้าเดียวกันยังมีภาพเทียบ Theileria สาม species คือ T. luwenshuni, T. uilenbergi และ T. ovis (Zhang et al 2013)"
         ]
       },
       {

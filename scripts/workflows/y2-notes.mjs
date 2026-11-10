@@ -37,6 +37,9 @@ const SECTION_SCHEMA = {
         properties: {
           heading: { type: 'string' },
           source: { type: 'string', description: 'deck name + page, e.g. "Midbrain p.7"' },
+          // The schema is objects only, so a paragraph arrives as { text }. No reader of a note draws that
+          // shape: `node scripts/lint-note-shapes.mjs --write` turns it into the plain string they all
+          // know when a batch is merged into src/data, and lint:data fails until it has run.
           body: {
             type: 'array',
             minItems: 1,
