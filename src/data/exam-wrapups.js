@@ -33,6 +33,12 @@ export const WRAPUPS = {
         'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
         'zoonoses': () => import('./wrapups/zoonoses.js'),
       },
+      // The final's wrap-ups carry no lecturer set: none of these papers was
+      // split by lecturer in an announcement, so each one's date is its own
+      // in the exam timetable (tests/unit/exam-wrapups.test.mjs).
+      '1-final': {
+        'one-health': () => import('./wrapups/one-health-final.js'),
+      },
     },
   },
 };

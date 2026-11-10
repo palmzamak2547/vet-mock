@@ -209,7 +209,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
             <header className="vmx-wrap-group-head">
               <h2>{g.lecturer}</h2>
               <span className="vmx-lect-chip">{formatLabel}{oldYearTag(data.source)}</span>
-              {g.formatNote && <p className="vmx-wrap-group-note">{data.source?.own === false ? `${termYearLabel(data.source.term)}: ` : ''}{g.formatNote}</p>}
+              {g.formatNote && <p className="vmx-wrap-group-note">{data.source?.own === false ? `${termYearLabel(data.source.term)}: ` : ''}{humanSource(g.formatNote)}</p>}
             </header>
 
             {g.items.map((it) => {
