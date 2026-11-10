@@ -14,7 +14,7 @@ Every decision names the principle it applies in its file's header (`// Principl
 | Fewer choices | One option shown, the rest one tap away (`ปรับเอง`, `โหมดอื่น`). Every extra visible choice costs reading time. |
 | A stated reason | One short line of why (`จัดให้แล้ว: ...` then the reason). A default with a reason is trusted; a silent one looks like a trap. |
 | Yours wins | A choice the student makes is remembered and used next time, and the line then says `ตามที่คุณตั้งไว้`. `กลับไปใช้ค่าที่จัดให้` forgets it. |
-| Timely | The nearer the paper, the more exam-like: the exam-prep card comes first within 14 days of a paper, and a set says how many days are left. |
+| Timely | The nearer the paper, the more exam-like: the exam-prep card comes first within 14 days of a paper, and a set within 14 days of its subject's paper points at the exam rung. Time is said as Home's clock says it (วันนี้, พรุ่งนี้, ใกล้สอบ), never as a count of calendar days the hero's hours could contradict, and a paper that has ended is not counted. |
 
 ## The registry
 
@@ -34,7 +34,13 @@ The engine is `src/lib/decide.js`; each decision is one file in `src/lib/decisio
 1. Find the choice a student makes before studying and the signals that already answer it. If no signal answers it, it is not a decision for this registry yet.
 2. Add a file in `src/lib/decisions/` (a `// Principle:` header line, `defineDecision({...})`) and a line in its `index.js`: a pure `auto`, a `valid` that rejects anything the screen cannot use, and a `key` if the student can override it.
 3. Add its table to `tests/unit/decide.test.mjs`: every branch of `auto`, an invalid stored value, a throwing store.
-4. On the screen: the line (`จัดให้แล้ว:` or `ตั้งไว้แล้ว:`, the value, the why), the action under it, every option inside one disclosure (a real `<button aria-expanded aria-controls>` and a region, closed by default), `remember` on the student's change and `กลับไปใช้ค่าที่จัดให้` when `by === 'you'`. Reuse the `.vmx-decide*` classes in `src/styles.css`.
+4. On the screen (the rules that came out of the first review):
+   - A line may say `จัดให้แล้ว` only when the screen is exactly what the app decided (`follows` in ConfigView). Anything else (Panic, a curated pool, a Home card with its own settings, an empty or still-counting pool) says what the set is, or that it is still counting, and opens with its rows on screen.
+   - A student's rows are remembered only from a set the app decided, never from Panic, a curated pool or an exam, and a remembered row that changes nothing is not called theirs.
+   - The restore sits beside `ตามที่คุณตั้งไว้` and gives the focus to the start; a restore goes back to the rule's own preset, not to whatever the other rows are now.
+   - A count is shown only once it is counted (the planner says `กำลังนับใบที่ถึงรอบ…` until its bank is in) and says what it holds (`25 ใบ (ค้างทบทวน 340, ใหม่ 1,200)`).
+   - The practice screen keeps its sticky start bar in thumb reach: under the line while ปรับเอง is closed, after the rows while it is open. On Home, cards due for review stay in view beside the first mode.
+   Then: the line (`จัดให้แล้ว:` or `ตั้งไว้แล้ว:`, the value, the why), the action under it, every option inside one disclosure (a real `<button aria-expanded aria-controls>` and a region, closed by default), `remember` on the student's change and `กลับไปใช้ค่าที่จัดให้` when `by === 'you'`. Reuse the `.vmx-decide*` classes in `src/styles.css`.
 5. Keep what a student who never opens the disclosure gets identical to before, unless the owner decides otherwise.
 
 ## Never decided silently

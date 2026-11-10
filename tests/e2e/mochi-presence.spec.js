@@ -34,7 +34,7 @@ async function startQuestions(page, exam = false) {
   await openHomeModes(page);
   await page.getByRole('button', { name: exam ? /Exam Mode|จำลองสนามสอบ/i : /Quick Practice|ฝึกแบบเลือกจำนวน/i }).first().click();
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า/ })).toBeVisible();
-  await openAdjust(page);
+  if (!exam) await openAdjust(page);
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('10');
   if (!exam) {
     const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });

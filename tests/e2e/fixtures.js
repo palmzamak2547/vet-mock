@@ -89,9 +89,9 @@ export async function setPracticeCount(page, n) {
 // The app decides a practice set, the review planner and Home's first practice
 // mode for the student (src/lib/decide.js) and tucks every option into one
 // disclosure: ปรับเอง on the config screen and the planner, โหมดอื่น on Home.
-// A spec that needs a tucked row opens it first. An exam's config screen has
-// no disclosure (its rows stay in view), so openAdjust waits for the screen's
-// start button and opens ปรับเอง only where there is one.
+// A spec that needs a tucked row opens it first. Both helpers fail when their
+// toggle is missing: an exam's config screen has none (its rows stay in view),
+// so a spec on an exam does not call openAdjust.
 export async function openDisclosure(page, name) {
   const toggle = page.getByRole('button', { name, exact: true });
   await expect(toggle).toBeVisible({ timeout: 20_000 });
@@ -100,14 +100,10 @@ export async function openDisclosure(page, name) {
 }
 
 export async function openAdjust(page) {
-  const start = page.getByRole('button', { name: /^(เริ่มฝึก|เริ่มสอบ|เริ่ม Session|ไม่มีใบที่ต้องทบทวน|กำลังโหลดคลัง|ลองโหลดคลัง)/ }).first();
-  await expect(start).toBeVisible({ timeout: 20_000 });
-  const toggle = page.getByRole('button', { name: 'ปรับเอง', exact: true });
-  if (await toggle.count()) await openDisclosure(page, 'ปรับเอง');
+  await openDisclosure(page, 'ปรับเอง');
 }
 
 /** Home's practice modes: the first is shown, the rest wait under โหมดอื่น. */
 export async function openHomeModes(page) {
-  await expect(page.locator('.vmx-mode-why')).toBeVisible({ timeout: 20_000 });
-  if (await page.getByRole('button', { name: 'โหมดอื่น', exact: true }).count()) await openDisclosure(page, 'โหมดอื่น');
+  await openDisclosure(page, 'โหมดอื่น');
 }

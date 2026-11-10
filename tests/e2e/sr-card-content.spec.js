@@ -25,7 +25,9 @@ async function seed(page, cards, { start = true } = {}) {
     localStorage.setItem('vmx-sr-cards', JSON.stringify(srCards));
     localStorage.setItem('vmx-sr-subject-filter', JSON.stringify('all'));
     localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('all'));
-    localStorage.setItem('vmx-sr-session-size', JSON.stringify(count));
+    // A session of exactly these cards: the way a size outside the planner's
+    // chips reaches it is Home's plan (sr.setup treats any other as the default).
+    sessionStorage.setItem('vmx-sr-plan-size', String(count));
     localStorage.setItem('vmx-custom-q', JSON.stringify([unsafe]));
   }, { srCards, unsafe, count: cards.length });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
