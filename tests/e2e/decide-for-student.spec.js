@@ -250,7 +250,8 @@ test('a cold planner counts before it claims anything', async ({ page }) => {
     localStorage.setItem('vmx-seen-landing', '1');
     localStorage.setItem('vmx-consent', JSON.stringify('essential'));
   });
-  await page.goto('/app/review');
+  // Not the load event: Firefox holds it until the bank chunks this test is keeping back have arrived.
+  await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
   // B6: no "0 ใบ" and no "nothing due" while the bank is still on its way.
   await expect(page.locator('#vmx-srs-summary')).toHaveText('กำลังนับใบที่ถึงรอบ…', { timeout: 20_000 });
   release();
