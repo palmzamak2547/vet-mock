@@ -1,0 +1,196 @@
+// decide.test.mjs — the decide-for-student registry (src/lib/decide.js): a
+// table per decision, the student's own choice winning, a bad stored value
+// ignored and removed, a store that throws, and purity.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  DECISIONS, DECISION_IDS, DECIDE_PREFIX, YOURS_WHY,
+  decide, recall, remember, rememberRows, forget, adjustOpen, setAdjustOpen,
+} from '../../src/lib/decide.js';
+import { ladderPreset } from '../../src/lib/practice-ladder.js';
+
+const memory = (seed = {}) => {
+  const m = new Map(Object.entries(seed));
+  return { m, get: (k) => (m.has(k) ? m.get(k) : null), set: (k, v) => m.set(k, String(v)), remove: (k) => m.delete(k) };
+};
+const throwing = { get() { throw new Error('blocked'); }, set() { throw new Error('blocked'); }, remove() { throw new Error('blocked'); } };
+
+test('every entry carries the fields the registry promises', () => {
+  assert.deepEqual([...DECISION_IDS].sort(), ['home.mode', 'phase.firstRun', 'practice.setup', 'sr.setup']);
+  for (const id of DECISION_IDS) {
+    const e = DECISIONS[id];
+    assert.equal(e.id, id);
+    assert.equal(typeof e.principle, 'string');
+    assert.ok(e.principle.length > 10, `${id} names its principle`);
+    assert.equal(typeof e.auto, 'function');
+    assert.equal(typeof e.valid, 'function');
+  }
+  assert.throws(() => decide('nope', {}, memory()), /no decision/);
+});
+
+test('practice.setup wraps the ladder preset: the same set a topic tap has always made', () => {
+  const rows = [
+    // signals, expected value fields
+    [{ step: 'understand', available: 153, timePerQ: 60, instantFeedback: false }, { numQuestions: 10, useTimer: false, instantFeedback: true }],
+    [{ step: 'understand', available: 4, timePerQ: 30 }, { numQuestions: 4, useTimer: false, timePerQ: 30 }],
+    [{ step: 'timed', available: 153, timePerQ: 45, instantFeedback: false }, { numQuestions: 20, useTimer: true, timePerQ: 45, instantFeedback: false }],
+    [{ step: 'timed', available: null, timePerQ: 2 }, { numQuestions: 20, useTimer: true, timePerQ: 60, instantFeedback: true }],
+    // the exam rung is never recalled for a topic tap; it opens rung 1
+    [{ step: 'exam', available: 200 }, { numQuestions: 10, useTimer: false, step: 'understand' }],
+  ];
+  for (const [signals, expected] of rows) {
+    const d = decide('practice.setup', signals, memory());
+    assert.equal(d.by, 'auto');
+    for (const [k, v] of Object.entries(expected)) assert.equal(d.value[k], v, `${JSON.stringify(signals)} → ${k}`);
+    const preset = ladderPreset(d.value.step, { available: signals.available > 0 ? signals.available : null, timePerQ: signals.timePerQ });
+    assert.equal(d.value.numQuestions, preset.numQuestions, 'the count is the ladder preset\'s');
+    assert.equal(d.value.useTimer, preset.useTimer);
+    assert.ok(d.why.length > 0 && d.why.length <= 80, 'one short line of why');
+    assert.ok(!d.why.includes('·'), 'no middle dot in Thai copy');
+  }
+});
+
+test('practice.setup says why in the student\'s situation', () => {
+  assert.match(decide('practice.setup', { step: 'understand' }, memory()).why, /^เริ่มขั้นแรก/);
+  assert.match(decide('practice.setup', { step: 'understand', hasHistory: true }, memory()).why, /^ขั้นทำความเข้าใจ/);
+  assert.match(decide('practice.setup', { step: 'timed' }, memory()).why, /^ขั้นใช้ความรู้/);
+  assert.match(decide('practice.setup', { step: 'understand', daysToPaper: 3 }, memory()).why, /อีก 3 วันสอบวิชานี้$/);
+  assert.match(decide('practice.setup', { step: 'understand', daysToPaper: 0 }, memory()).why, /สอบวิชานี้วันนี้$/);
+  assert.doesNotMatch(decide('practice.setup', { step: 'understand', daysToPaper: 30 }, memory()).why, /วันสอบ/);
+});
+
+test('a remembered row wins, merged over the rest and capped to the pool', () => {
+  const io = memory();
+  assert.equal(rememberRows('practice.setup', { numQuestions: 30 }, io), true);
+  assert.equal(rememberRows('practice.setup', { useTimer: true, timePerQ: 30 }, io), true);
+  assert.deepEqual(JSON.parse(io.get(`${DECIDE_PREFIX}practice.setup`)), { numQuestions: 30, useTimer: true, timePerQ: 30 });
+  const d = decide('practice.setup', { step: 'understand', available: 153, timePerQ: 60 }, io);
+  assert.equal(d.by, 'you');
+  assert.equal(d.why, YOURS_WHY);
+  assert.equal(d.value.numQuestions, 30);
+  assert.equal(d.value.useTimer, true);
+  assert.equal(d.value.timePerQ, 30);
+  assert.equal(d.value.step, 'timed', 'the rung follows the clock');
+  assert.equal(decide('practice.setup', { step: 'understand', available: 12 }, io).value.numQuestions, 12, 'never more than the pool holds');
+  forget('practice.setup', io);
+  const back = decide('practice.setup', { step: 'understand', available: 153 }, io);
+  assert.equal(back.by, 'auto');
+  assert.equal(back.value.numQuestions, 10);
+});
+
+test('an invalid stored value is ignored and removed', () => {
+  const key = `${DECIDE_PREFIX}practice.setup`;
+  for (const bad of ['{"numQuestions":0}', '{"pick":"panic"}', '{"oops":1}', '[]', '{}', 'not json', '"10"']) {
+    const io = memory({ [key]: bad });
+    const d = decide('practice.setup', { step: 'understand', available: 50 }, io);
+    assert.equal(d.by, 'auto', bad);
+    assert.equal(io.m.has(key), false, `${bad} is removed`);
+  }
+  assert.equal(remember('practice.setup', { numQuestions: -3 }, memory()), false, 'an invalid choice is never stored');
+  assert.equal(remember('phase.firstRun', { phase: '1-final' }, memory()), false, 'a decision with no key stores nothing');
+});
+
+test('a store that throws never breaks a decision', () => {
+  for (const id of DECISION_IDS) assert.doesNotThrow(() => decide(id, {}, throwing), id);
+  assert.equal(decide('practice.setup', { step: 'timed', available: 40 }, throwing).value.numQuestions, 20);
+  assert.equal(remember('practice.setup', { numQuestions: 5 }, throwing), false);
+  assert.doesNotThrow(() => forget('practice.setup', throwing));
+  assert.doesNotThrow(() => forget('sr.setup', throwing));
+  assert.equal(recall('practice.setup', throwing), null);
+  assert.equal(adjustOpen('config', throwing), false);
+  assert.doesNotThrow(() => setAdjustOpen('config', true, throwing));
+  // no storage at all (a worker, a test runner)
+  assert.equal(decide('practice.setup', { step: 'understand' }, null).by, 'auto');
+});
+
+test('same inputs give the same output, and a rule never mutates its signals', () => {
+  for (const [id, signals] of [
+    ['practice.setup', { step: 'timed', available: 33, timePerQ: 40, instantFeedback: false, daysToPaper: 5, hasHistory: true }],
+    ['sr.setup', { planSize: 12, dueReviewed: 3, newCount: 9 }],
+    ['phase.firstRun', { current: '1-final' }],
+    ['home.mode', { cards: ['weak', 'pick-count'], weakPct: 40 }],
+  ]) {
+    const frozen = structuredClone(signals);
+    const a = decide(id, signals, memory());
+    const b = decide(id, signals, memory());
+    assert.deepEqual(a, b, id);
+    assert.deepEqual(signals, frozen, `${id} leaves its signals alone`);
+  }
+});
+
+test('sr.setup: today\'s plan, else a day\'s size; the planner\'s own keys are the student\'s choice', () => {
+  const rows = [
+    [{ planSize: 12 }, 12, /^ตามแผนวันนี้/],
+    [{ dueReviewed: 40, newCount: 3 }, 25, /^ใบที่ค้างนานสุดมาก่อน/],
+    [{ dueReviewed: 0, newCount: 300 }, 25, /^เริ่มทีละ 25 ใบ/],
+    [{}, 25, /^ยังไม่มีใบถึงรอบ/],
+  ];
+  for (const [signals, size, why] of rows) {
+    const d = decide('sr.setup', signals, memory());
+    assert.equal(d.by, 'auto');
+    assert.equal(d.value.size, size);
+    assert.deepEqual({ ...d.value, size: 0 }, { yearScope: 'current', subject: 'all', phaseScope: 'current', size: 0, scheduler: 'sm2' });
+    assert.match(d.why, why);
+  }
+  // The planner writes every row on first mount: defaults stored are not a choice.
+  const defaults = memory({ 'vmx-sr-session-size': '25', 'vmx-sr-subject-filter': '"all"', 'vmx-sr-year-scope': '"current"', 'vmx-sr-phase-scope': '"current"', 'vmx-sr-scheduler': 'sm2' });
+  assert.equal(decide('sr.setup', {}, defaults).by, 'auto');
+  const own = memory({ 'vmx-sr-session-size': '50', 'vmx-sr-scheduler': 'fsrs' });
+  const d = decide('sr.setup', { dueReviewed: 9 }, own);
+  assert.equal(d.by, 'you');
+  assert.equal(d.value.size, 50);
+  assert.equal(d.value.scheduler, 'fsrs');
+  // a plan's size is for that one session and wins over a saved size alone
+  assert.equal(decide('sr.setup', { planSize: 8 }, memory({ 'vmx-sr-session-size': '50' })).by, 'auto');
+  assert.equal(decide('sr.setup', { planSize: 8 }, own).value.size, 8);
+  // a broken stored row is ignored
+  assert.equal(decide('sr.setup', {}, memory({ 'vmx-sr-session-size': '-4' })).by, 'auto');
+  forget('sr.setup', own);
+  assert.equal(own.m.size, 0);
+});
+
+test('phase.firstRun: the timetable\'s paper, or ask when it has none', () => {
+  const rows = [
+    [{ current: '1-final' }, { phase: '1-final', ask: false }, 'เลือกเทอม 1 ปลายภาคให้ตามตารางสอบ'],
+    [{ current: '1-mid' }, { phase: '1-mid', ask: false }, 'เลือกเทอม 1 กลางภาคให้ตามตารางสอบ'],
+    [{ current: null }, { phase: null, ask: true }, ''],
+    [{ current: 'garbage' }, { phase: null, ask: true }, ''],
+    [{ current: '1-final', scaffold: true }, { phase: null, ask: false }, ''],
+  ];
+  for (const [signals, value, why] of rows) {
+    const d = decide('phase.firstRun', signals, memory());
+    assert.deepEqual(d.value, value, JSON.stringify(signals));
+    assert.equal(d.why, why);
+    assert.equal(d.by, 'auto');
+  }
+});
+
+test('home.mode: near a paper, then wrong answers, then the weak topic, then this term\'s slides', () => {
+  const all = ['near-exam', 'wrong', 'weak', 'current-scope', 'pick-count'];
+  const rows = [
+    [{ cards: all, daysToPaper: 4, paperSubject: 'ระบาดวิทยา', wrongCount: 3, weakPct: 40 }, 'near-exam', 'อีก 4 วันสอบระบาดวิทยา'],
+    [{ cards: all, daysToPaper: 0, paperSubject: 'ระบาดวิทยา' }, 'near-exam', 'สอบระบาดวิทยาวันนี้'],
+    [{ cards: all, daysToPaper: 20, wrongCount: 3, weakPct: 40 }, 'wrong', 'มีข้อที่ยังตอบผิด 3 ข้อ'],
+    [{ cards: ['near-exam', 'weak', 'current-scope'], daysToPaper: 20, wrongCount: 3, weakPct: 40 }, 'weak', 'หัวข้อที่คุณตอบถูก 40% ฝึกตรงนี้คุ้มที่สุด'],
+    [{ cards: ['current-scope', 'pick-count'], wrongCount: 0 }, 'current-scope', null],
+    [{ cards: ['pick-count', 'mock-exam'] }, 'pick-count', null],
+    [{ cards: ['near-exam', 'pick-count'], daysToPaper: -1 }, 'pick-count', null],
+  ];
+  for (const [signals, value, why] of rows) {
+    const d = decide('home.mode', signals, memory());
+    assert.equal(d.value, value, JSON.stringify(signals));
+    if (why) assert.equal(d.why, why);
+    assert.ok(d.why.length > 0);
+  }
+});
+
+test('the ปรับเอง disclosure remembers its state per screen', () => {
+  const io = memory();
+  assert.equal(adjustOpen('config', io), false, 'closed by default');
+  setAdjustOpen('config', true, io);
+  assert.equal(adjustOpen('config', io), true);
+  assert.equal(adjustOpen('sr', io), false);
+  setAdjustOpen('config', false, io);
+  assert.equal(adjustOpen('config', io), false);
+  assert.equal(io.m.size, 0);
+});
