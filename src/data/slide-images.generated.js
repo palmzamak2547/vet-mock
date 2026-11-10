@@ -48,105 +48,59 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--bone-marrow-laboratory/p47-0.webp"
   ],
   "vet-histo--histo--bone-marrow--bone-marrow-คืออะไร-และหน้าที่": [
-    "/figures/vet-histo/histo--bone-marrow/p2-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p2-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p2-2.webp"
   ],
-  "vet-histo--histo--bone-marrow--ศัพท์ของ-hematopoiesis": [
-    "/figures/vet-histo/histo--bone-marrow/p3-0.webp"
-  ],
   "vet-histo--histo--bone-marrow--red-marrow-และ-yellow-marrow": [
     "/figures/vet-histo/histo--bone-marrow/p4-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p4-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p5-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p5-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p6-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p6-1.webp"
   ],
   "vet-histo--histo--bone-marrow--vascular-compartment": [
     "/figures/vet-histo/histo--bone-marrow/p7-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p7-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p8-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p9-1.webp"
   ],
   "vet-histo--histo--bone-marrow--extravascular-compartment": [
-    "/figures/vet-histo/histo--bone-marrow/p10-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p10-1.webp"
   ],
-  "vet-histo--histo--bone-marrow--monophyletic-theory": [
-    "/figures/vet-histo/histo--bone-marrow/p11-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p11-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p12-0.webp"
-  ],
   "vet-histo--histo--bone-marrow--หลักการของ-hematopoiesis-และการเปลี่ยนแปลงทั่วไปของเซลล์": [
-    "/figures/vet-histo/histo--bone-marrow/p14-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p14-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p15-0.webp"
+    "/figures/vet-histo/histo--bone-marrow/p14-0.webp"
   ],
   "vet-histo--histo--bone-marrow--erythropoiesis-ลำดับขั้นและ-essential-events": [
-    "/figures/vet-histo/histo--bone-marrow/p16-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p17-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p17-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p18-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p18-1.webp"
+    "/figures/vet-histo/histo--bone-marrow/p18-0.webp"
   ],
   "vet-histo--histo--bone-marrow--ลักษณะจำเพาะของแต่ละระยะใน-erythroid-series": [
-    "/figures/vet-histo/histo--bone-marrow/p19-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p19-1.webp"
   ],
   "vet-histo--histo--bone-marrow--erythroblastic-island": [
-    "/figures/vet-histo/histo--bone-marrow/p28-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p28-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p28-2.webp"
   ],
-  "vet-histo--histo--bone-marrow--stimulation-of-erythropoiesis": [
-    "/figures/vet-histo/histo--bone-marrow/p29-0.webp"
-  ],
   "vet-histo--histo--bone-marrow--granulopoiesis-ลำดับขั้น": [
-    "/figures/vet-histo/histo--bone-marrow/p31-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p31-1.webp"
+    "/figures/vet-histo/histo--bone-marrow/p31-0.webp"
   ],
   "vet-histo--histo--bone-marrow--ลักษณะจำเพาะของแต่ละระยะใน-granulocytic-series": [
-    "/figures/vet-histo/histo--bone-marrow/p32-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p32-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p32-2.webp"
   ],
   "vet-histo--histo--bone-marrow--agranulopoiesis-monocytopoiesis": [
-    "/figures/vet-histo/histo--bone-marrow/p40-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p40-1.webp"
-  ],
-  "vet-histo--histo--bone-marrow--agranulopoiesis-lymphopoiesis": [
-    "/figures/vet-histo/histo--bone-marrow/p41-0.webp"
+    "/figures/vet-histo/histo--bone-marrow/p40-0.webp"
   ],
   "vet-histo--histo--bone-marrow--plasma-cell-formation": [
-    "/figures/vet-histo/histo--bone-marrow/p42-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p43-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p43-1.webp"
   ],
   "vet-histo--histo--bone-marrow--thrombopoiesis-platelet-formation": [
-    "/figures/vet-histo/histo--bone-marrow/p44-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p44-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p45-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p45-1.webp"
   ],
   "vet-histo--histo--bone-marrow--เซลล์อื่น-ๆ-ในไขกระดูกที่ดูสับสนได้": [
-    "/figures/vet-histo/histo--bone-marrow/p46-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p46-1.webp",
+    "/figures/vet-histo/histo--bone-marrow/p45-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p46-2.webp"
-  ],
-  "vet-histo--histo--bone-marrow--transfer-of-blood-cells-ออกจากไขกระดูก": [
-    "/figures/vet-histo/histo--bone-marrow/p47-0.webp"
   ],
   "vet-histo--histo--bone-marrow--method-to-collect-bone-marrow": [
     "/figures/vet-histo/histo--bone-marrow/p51-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p51-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p51-2.webp"
-  ],
-  "vet-histo--histo--bone-marrow--clinical-evaluation-of-bone-marrow": [
-    "/figures/vet-histo/histo--bone-marrow/p52-0.webp"
-  ],
-  "vet-histo--histo--bone-marrow--myeloid-erythroid-m-e-ratio": [
-    "/figures/vet-histo/histo--bone-marrow/p53-0.webp"
   ],
   "vet-histo--histo--circulatory-system--objectives-และการแบ่งระบบไหลเวียน": [
     "/figures/vet-histo/histo--circulatory-system/p2-0.webp",
@@ -254,206 +208,102 @@ export const SLIDE_IMAGES = {
   ],
   "vet-histo--histo--cytology--cytology-คืออะไร-และเซลล์ประกอบขึ้นเป็นร่างกายอย่างไร": [
     "/figures/vet-histo/histo--cytology/p3-0.webp",
-    "/figures/vet-histo/histo--cytology/p3-1.webp",
     "/figures/vet-histo/histo--cytology/p3-2.webp",
-    "/figures/vet-histo/histo--cytology/p4-0.webp",
     "/figures/vet-histo/histo--cytology/p4-1.webp"
   ],
   "vet-histo--histo--cytology--microscopes-and-techniques": [
-    "/figures/vet-histo/histo--cytology/p5-0.webp",
     "/figures/vet-histo/histo--cytology/p5-1.webp",
     "/figures/vet-histo/histo--cytology/p5-2.webp"
   ],
   "vet-histo--histo--cytology--nucleus-องค์ประกอบและสิ่งที่บรรจุอยู่": [
-    "/figures/vet-histo/histo--cytology/p7-0.webp",
     "/figures/vet-histo/histo--cytology/p7-1.webp",
-    "/figures/vet-histo/histo--cytology/p7-2.webp",
-    "/figures/vet-histo/histo--cytology/p53-0.webp",
-    "/figures/vet-histo/histo--cytology/p53-1.webp",
-    "/figures/vet-histo/histo--cytology/p53-2.webp"
-  ],
-  "vet-histo--histo--cytology--central-dogma-of-life": [
-    "/figures/vet-histo/histo--cytology/p9-0.webp",
-    "/figures/vet-histo/histo--cytology/p9-1.webp",
-    "/figures/vet-histo/histo--cytology/p10-0.webp",
-    "/figures/vet-histo/histo--cytology/p10-1.webp",
-    "/figures/vet-histo/histo--cytology/p11-0.webp",
-    "/figures/vet-histo/histo--cytology/p11-1.webp"
+    "/figures/vet-histo/histo--cytology/p53-0.webp"
   ],
   "vet-histo--histo--cytology--nuclear-envelope-และ-nucleolus": [
     "/figures/vet-histo/histo--cytology/p13-0.webp",
-    "/figures/vet-histo/histo--cytology/p13-1.webp",
-    "/figures/vet-histo/histo--cytology/p13-2.webp",
-    "/figures/vet-histo/histo--cytology/p14-0.webp",
-    "/figures/vet-histo/histo--cytology/p14-1.webp"
+    "/figures/vet-histo/histo--cytology/p13-2.webp"
   ],
   "vet-histo--histo--cytology--cytoplasm-และ-cell-membrane": [
-    "/figures/vet-histo/histo--cytology/p15-0.webp",
-    "/figures/vet-histo/histo--cytology/p15-1.webp",
-    "/figures/vet-histo/histo--cytology/p15-2.webp",
-    "/figures/vet-histo/histo--cytology/p16-0.webp",
-    "/figures/vet-histo/histo--cytology/p16-1.webp",
-    "/figures/vet-histo/histo--cytology/p16-2.webp"
+    "/figures/vet-histo/histo--cytology/p4-1.webp",
+    "/figures/vet-histo/histo--cytology/p16-0.webp"
   ],
   "vet-histo--histo--cytology--mitochondria": [
-    "/figures/vet-histo/histo--cytology/p18-0.webp",
     "/figures/vet-histo/histo--cytology/p18-1.webp",
     "/figures/vet-histo/histo--cytology/p18-2.webp"
   ],
   "vet-histo--histo--cytology--endoplasmic-reticulum": [
-    "/figures/vet-histo/histo--cytology/p19-0.webp",
-    "/figures/vet-histo/histo--cytology/p19-1.webp",
-    "/figures/vet-histo/histo--cytology/p19-2.webp"
+    "/figures/vet-histo/histo--cytology/p19-1.webp"
   ],
   "vet-histo--histo--cytology--ribosome": [
-    "/figures/vet-histo/histo--cytology/p20-0.webp",
     "/figures/vet-histo/histo--cytology/p20-1.webp",
-    "/figures/vet-histo/histo--cytology/p20-2.webp"
+    "/figures/vet-histo/histo--cytology/p19-1.webp"
   ],
   "vet-histo--histo--cytology--golgi-complex": [
-    "/figures/vet-histo/histo--cytology/p23-0.webp",
     "/figures/vet-histo/histo--cytology/p23-1.webp",
-    "/figures/vet-histo/histo--cytology/p23-2.webp",
-    "/figures/vet-histo/histo--cytology/p24-0.webp",
-    "/figures/vet-histo/histo--cytology/p24-1.webp",
-    "/figures/vet-histo/histo--cytology/p24-2.webp"
+    "/figures/vet-histo/histo--cytology/p24-1.webp"
   ],
   "vet-histo--histo--cytology--lysosomes-และ-peroxisomes": [
-    "/figures/vet-histo/histo--cytology/p25-0.webp",
     "/figures/vet-histo/histo--cytology/p25-1.webp",
-    "/figures/vet-histo/histo--cytology/p25-2.webp",
-    "/figures/vet-histo/histo--cytology/p28-0.webp",
-    "/figures/vet-histo/histo--cytology/p28-1.webp",
-    "/figures/vet-histo/histo--cytology/p28-2.webp"
+    "/figures/vet-histo/histo--cytology/p28-1.webp"
   ],
   "vet-histo--histo--cytology--cytoskeleton-ตารางเปรียบเทียบ-3-ชนิด": [
-    "/figures/vet-histo/histo--cytology/p29-0.webp",
     "/figures/vet-histo/histo--cytology/p29-1.webp",
     "/figures/vet-histo/histo--cytology/p29-2.webp",
     "/figures/vet-histo/histo--cytology/p30-0.webp",
-    "/figures/vet-histo/histo--cytology/p30-1.webp",
     "/figures/vet-histo/histo--cytology/p30-2.webp"
   ],
   "vet-histo--histo--cytology--cell-surface-specialization-ด้าน-apical": [
     "/figures/vet-histo/histo--cytology/p31-0.webp",
     "/figures/vet-histo/histo--cytology/p31-1.webp",
     "/figures/vet-histo/histo--cytology/p31-2.webp",
-    "/figures/vet-histo/histo--cytology/p32-0.webp",
     "/figures/vet-histo/histo--cytology/p32-1.webp",
-    "/figures/vet-histo/histo--cytology/p32-2.webp",
     "/figures/vet-histo/histo--cytology/p33-0.webp",
-    "/figures/vet-histo/histo--cytology/p33-1.webp",
-    "/figures/vet-histo/histo--cytology/p33-2.webp",
-    "/figures/vet-histo/histo--cytology/p34-0.webp",
     "/figures/vet-histo/histo--cytology/p34-1.webp",
-    "/figures/vet-histo/histo--cytology/p34-2.webp",
-    "/figures/vet-histo/histo--cytology/p35-0.webp",
     "/figures/vet-histo/histo--cytology/p36-0.webp",
-    "/figures/vet-histo/histo--cytology/p36-1.webp",
-    "/figures/vet-histo/histo--cytology/p36-2.webp",
-    "/figures/vet-histo/histo--cytology/p64-0.webp",
-    "/figures/vet-histo/histo--cytology/p65-0.webp",
-    "/figures/vet-histo/histo--cytology/p65-1.webp",
-    "/figures/vet-histo/histo--cytology/p65-2.webp",
-    "/figures/vet-histo/histo--cytology/p66-0.webp",
-    "/figures/vet-histo/histo--cytology/p66-1.webp",
-    "/figures/vet-histo/histo--cytology/p66-2.webp",
-    "/figures/vet-histo/histo--cytology/p67-0.webp",
-    "/figures/vet-histo/histo--cytology/p67-1.webp",
-    "/figures/vet-histo/histo--cytology/p67-2.webp",
-    "/figures/vet-histo/histo--cytology/p68-0.webp",
-    "/figures/vet-histo/histo--cytology/p68-1.webp",
-    "/figures/vet-histo/histo--cytology/p68-2.webp"
+    "/figures/vet-histo/histo--cytology/p65-0.webp"
   ],
   "vet-histo--histo--cytology--cell-cycle": [
-    "/figures/vet-histo/histo--cytology/p37-0.webp",
     "/figures/vet-histo/histo--cytology/p37-1.webp",
-    "/figures/vet-histo/histo--cytology/p37-2.webp",
-    "/figures/vet-histo/histo--cytology/p38-0.webp",
     "/figures/vet-histo/histo--cytology/p38-1.webp",
-    "/figures/vet-histo/histo--cytology/p38-2.webp",
-    "/figures/vet-histo/histo--cytology/p39-0.webp",
-    "/figures/vet-histo/histo--cytology/p39-1.webp",
     "/figures/vet-histo/histo--cytology/p39-2.webp",
     "/figures/vet-histo/histo--cytology/p82-0.webp",
     "/figures/vet-histo/histo--cytology/p82-1.webp",
     "/figures/vet-histo/histo--cytology/p82-2.webp"
   ],
   "vet-histo--histo--cytology--synopsis-หน้าที่ของส่วนประกอบหลักของเซลล์": [
-    "/figures/vet-histo/histo--cytology/p40-0.webp",
-    "/figures/vet-histo/histo--cytology/p40-1.webp",
-    "/figures/vet-histo/histo--cytology/p40-2.webp",
-    "/figures/vet-histo/histo--cytology/p41-0.webp",
-    "/figures/vet-histo/histo--cytology/p41-1.webp",
-    "/figures/vet-histo/histo--cytology/p41-2.webp"
+    "/figures/vet-histo/histo--cytology/p40-0.webp"
   ],
   "vet-histo--histo--cytology--ปรัชญาการอ่านเซลล์-cellular-biology-and-cytological-interpretati": [
-    "/figures/vet-histo/histo--cytology/p44-0.webp",
-    "/figures/vet-histo/histo--cytology/p44-1.webp",
-    "/figures/vet-histo/histo--cytology/p44-2.webp",
-    "/figures/vet-histo/histo--cytology/p54-0.webp",
-    "/figures/vet-histo/histo--cytology/p54-1.webp",
-    "/figures/vet-histo/histo--cytology/p54-2.webp",
-    "/figures/vet-histo/histo--cytology/p55-0.webp",
+    "/figures/vet-histo/histo--cytology/p28-1.webp",
     "/figures/vet-histo/histo--cytology/p55-1.webp"
   ],
   "vet-histo--histo--cytology--descriptive-terms-cell-size-และ-cell-shape": [
     "/figures/vet-histo/histo--cytology/p45-0.webp",
-    "/figures/vet-histo/histo--cytology/p45-1.webp",
     "/figures/vet-histo/histo--cytology/p45-2.webp",
-    "/figures/vet-histo/histo--cytology/p46-0.webp",
-    "/figures/vet-histo/histo--cytology/p46-1.webp",
-    "/figures/vet-histo/histo--cytology/p46-2.webp",
-    "/figures/vet-histo/histo--cytology/p47-0.webp",
-    "/figures/vet-histo/histo--cytology/p47-1.webp"
+    "/figures/vet-histo/histo--cytology/p46-2.webp"
   ],
   "vet-histo--histo--cytology--descriptive-terms-cytoplasm-features": [
-    "/figures/vet-histo/histo--cytology/p48-0.webp",
     "/figures/vet-histo/histo--cytology/p48-1.webp",
     "/figures/vet-histo/histo--cytology/p48-2.webp",
     "/figures/vet-histo/histo--cytology/p49-0.webp",
-    "/figures/vet-histo/histo--cytology/p49-1.webp",
     "/figures/vet-histo/histo--cytology/p49-2.webp"
   ],
   "vet-histo--histo--cytology--descriptive-terms-nucleus-features": [
     "/figures/vet-histo/histo--cytology/p51-0.webp",
-    "/figures/vet-histo/histo--cytology/p51-1.webp",
-    "/figures/vet-histo/histo--cytology/p51-2.webp",
-    "/figures/vet-histo/histo--cytology/p52-0.webp",
-    "/figures/vet-histo/histo--cytology/p52-1.webp",
-    "/figures/vet-histo/histo--cytology/p52-2.webp"
+    "/figures/vet-histo/histo--cytology/p52-0.webp"
   ],
   "vet-histo--histo--cytology--โยงโครงสร้างกลับไปหา-organelle-ตัวอย่างจากภาพจริง": [
     "/figures/vet-histo/histo--cytology/p56-0.webp",
-    "/figures/vet-histo/histo--cytology/p56-1.webp",
-    "/figures/vet-histo/histo--cytology/p56-2.webp",
     "/figures/vet-histo/histo--cytology/p58-0.webp",
-    "/figures/vet-histo/histo--cytology/p58-1.webp",
-    "/figures/vet-histo/histo--cytology/p58-2.webp",
     "/figures/vet-histo/histo--cytology/p59-0.webp",
-    "/figures/vet-histo/histo--cytology/p59-1.webp",
-    "/figures/vet-histo/histo--cytology/p59-2.webp",
     "/figures/vet-histo/histo--cytology/p60-0.webp",
     "/figures/vet-histo/histo--cytology/p60-1.webp",
-    "/figures/vet-histo/histo--cytology/p60-2.webp",
     "/figures/vet-histo/histo--cytology/p61-0.webp",
-    "/figures/vet-histo/histo--cytology/p61-1.webp",
-    "/figures/vet-histo/histo--cytology/p61-2.webp",
-    "/figures/vet-histo/histo--cytology/p62-0.webp",
     "/figures/vet-histo/histo--cytology/p62-1.webp",
-    "/figures/vet-histo/histo--cytology/p62-2.webp",
-    "/figures/vet-histo/histo--cytology/p63-0.webp",
-    "/figures/vet-histo/histo--cytology/p63-1.webp",
-    "/figures/vet-histo/histo--cytology/p63-2.webp"
+    "/figures/vet-histo/histo--cytology/p63-1.webp"
   ],
   "vet-histo--histo--cytology--cell-surface-specialization-ด้าน-lateral-และ-basolateral-junctio": [
-    "/figures/vet-histo/histo--cytology/p69-0.webp",
-    "/figures/vet-histo/histo--cytology/p69-1.webp",
-    "/figures/vet-histo/histo--cytology/p70-0.webp",
-    "/figures/vet-histo/histo--cytology/p70-1.webp",
-    "/figures/vet-histo/histo--cytology/p70-2.webp",
-    "/figures/vet-histo/histo--cytology/p71-0.webp",
-    "/figures/vet-histo/histo--cytology/p71-1.webp"
+    "/figures/vet-histo/histo--cytology/p33-0.webp"
   ],
   "vet-histo--histo--cytology--intermediate-filament-clinical-application": [
     "/figures/vet-histo/histo--cytology/p72-0.webp",
@@ -461,9 +311,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--cytology/p72-2.webp"
   ],
   "vet-histo--histo--cytology--cytoplasmic-inclusion": [
-    "/figures/vet-histo/histo--cytology/p73-0.webp",
-    "/figures/vet-histo/histo--cytology/p73-1.webp",
-    "/figures/vet-histo/histo--cytology/p73-2.webp"
+    "/figures/vet-histo/histo--cytology/p73-0.webp"
   ],
   "vet-histo--histo--digestive-system-i--lips": [
     "/figures/vet-histo/histo--digestive-system-i/p7-0.webp"
@@ -662,7 +510,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--female-reproductive-organ/p12-2.webp"
   ],
   "vet-histo--histo--female-reproductive-organ--corona-radiata-vs-cumulus-oophorus": [
-    "/figures/vet-histo/histo--female-reproductive-organ/p13-0.webp",
+    "/figures/vet-histo/histo--female-reproductive-organ/p12-0.webp",
     "/figures/vet-histo/histo--female-reproductive-organ/p13-1.webp"
   ],
   "vet-histo--histo--female-reproductive-organ--zona-pellucida": [
@@ -707,7 +555,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--female-reproductive-organ/p27-2.webp"
   ],
   "vet-histo--histo--female-reproductive-organ--estrous-cycle-สิ่งที่เกิดหลัง-ovulation": [
-    "/figures/vet-histo/histo--female-reproductive-organ/p28-0.webp",
+    "/figures/vet-histo/histo--female-reproductive-organ/p27-0.webp",
     "/figures/vet-histo/histo--female-reproductive-organ/p28-1.webp"
   ],
   "vet-histo--histo--female-reproductive-organ--cervix": [
@@ -1040,7 +888,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--lymphatic-organ-i/p26-0.webp"
   ],
   "vet-histo--histo--lymphatic-organ-i--t-cell-production-ตามลำดับในสไลด์": [
-    "/figures/vet-histo/histo--lymphatic-organ-i/p28-0.webp"
+    "/figures/vet-histo/histo--lymphatic-organ-i/p15-0.webp"
   ],
   "vet-histo--histo--lymphatic-organ-i--blood-thymus-barrier": [
     "/figures/vet-histo/histo--lymphatic-organ-i/p29-0.webp"
@@ -1095,7 +943,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--lymphatic-organs-ii/p14-1.webp"
   ],
   "vet-histo--histo--lymphatic-organs-ii--white-pulp-และ-marginal-zone": [
-    "/figures/vet-histo/histo--lymphatic-organs-ii/p16-0.webp"
+    "/figures/vet-histo/histo--lymphatic-organs-ii/p14-1.webp"
   ],
   "vet-histo--histo--lymphatic-organs-ii--red-pulp": [
     "/figures/vet-histo/histo--lymphatic-organs-ii/p21-0.webp",
@@ -1112,7 +960,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--lymphatic-organs-ii/p26-0.webp"
   ],
   "vet-histo--histo--lymphatic-organs-ii--fdc-ใน-reactive-germinal-center": [
-    "/figures/vet-histo/histo--lymphatic-organs-ii/p27-0.webp"
+    "/figures/vet-histo/histo--lymphatic-organs-ii/p26-0.webp"
   ],
   "vet-histo--histo--male-reproductive-system--องค์ประกอบและหน้าที่ของระบบ": [
     "/figures/vet-histo/histo--male-reproductive-system/p2-0.webp",
@@ -1188,7 +1036,6 @@ export const SLIDE_IMAGES = {
   "vet-histo--histo--male-reproductive-system--lab-slide-checklist-testis-และ-epididymis": [
     "/figures/vet-histo/histo--male-reproductive-system/p48-0.webp",
     "/figures/vet-histo/histo--male-reproductive-system/p49-0.webp",
-    "/figures/vet-histo/histo--male-reproductive-system/p50-0.webp",
     "/figures/vet-histo/histo--male-reproductive-system/p50-1.webp",
     "/figures/vet-histo/histo--male-reproductive-system/p51-0.webp",
     "/figures/vet-histo/histo--male-reproductive-system/p52-0.webp"
@@ -1258,7 +1105,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--placenta/p5-0.webp"
   ],
   "vet-histo--histo--placenta--placental-circulation-ทิศทางของเลือดและของเสีย": [
-    "/figures/vet-histo/histo--placenta/p6-0.webp",
+    "/figures/vet-histo/histo--placenta/p5-0.webp",
     "/figures/vet-histo/histo--placenta/p6-1.webp"
   ],
   "vet-histo--histo--placenta--classification-แบบที่-1-choriovitelline-vs-allantochorionic": [
@@ -1278,10 +1125,10 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--placenta/p18-0.webp"
   ],
   "vet-histo--histo--placenta--pig-diffuse-fold-non-deciduate-epitheliochorial": [
-    "/figures/vet-histo/histo--placenta/p19-0.webp"
+    "/figures/vet-histo/histo--placenta/p10-0.webp"
   ],
   "vet-histo--histo--placenta--สรุปชุด-classification-4-คำของแต่ละสปีชีส์-ตามหัวสไลด์": [
-    "/figures/vet-histo/histo--placenta/p19-0.webp"
+    "/figures/vet-histo/histo--placenta/p10-0.webp"
   ],
   "vet-histo--histo--placenta--ruminant-cotyledonary-villous-non-deciduate-epitheliochorial": [
     "/figures/vet-histo/histo--placenta/p28-0.webp",
@@ -1322,7 +1169,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--respiratory-system/p19-0.webp"
   ],
   "vet-histo--histo--respiratory-system--interalveolar-septum": [
-    "/figures/vet-histo/histo--respiratory-system/p20-0.webp",
+    "/figures/vet-histo/histo--respiratory-system/p19-0.webp",
     "/figures/vet-histo/histo--respiratory-system/p20-1.webp"
   ],
   "vet-histo--histo--special-sense--ภาพรวมของ-the-eye-หน้าที่และ-3-ชั้นของผนังลูกตา": [
@@ -1438,17 +1285,17 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p1-2.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--เส้นทางเชื่อมระหว่างคน-สัตว์-และสิ่งแวดล้อม": [
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p1-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-2.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--ทำไม-resident-bacteria-ถึงกลายเป็นปัญหา": [
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p1-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-2.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--ยาต้านจุลชีพที่ผสมในอาหารสัตว์ในภูมิภาค-sea": [
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p1-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p2-2.webp"
   ],
@@ -1545,13 +1392,11 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--การวาง-disk-การ-incubate-และการอ่าน-zone": [
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-0.webp",
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-1.webp",
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-2.webp"
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-1.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--การแปลผล-disk-diffusion-และตัวอย่าง-breakpoint": [
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-0.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-1.webp",
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-2.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p12-0.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p12-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p12-2.webp"
@@ -1568,12 +1413,12 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p14-0.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--antimicrobial-gradient-technique-etest": [
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p15-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-0.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p15-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p15-2.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--การแปลผล-ast-susceptible-intermediate-resistant": [
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p15-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-0.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p15-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p15-2.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p18-0.webp",
@@ -1590,12 +1435,10 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p16-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p16-2.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p17-0.webp",
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p17-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p17-2.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--ast-panels-ของ-vitek": [
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p17-0.webp",
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p17-1.webp",
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p17-2.webp"
   ],
   "vet-microbio-1--microbio-1--antimicrobial-resistance--mic50-และ-mic90": [
@@ -1738,13 +1581,13 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p36-1.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--สรุปวิธีวินิจฉัยสองโรคคู่กัน": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p37-0.webp",
+    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p36-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p37-1.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--conclusions-ของทั้งเด็ค": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p38-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p38-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p38-2.webp"
+    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p21-2.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-genetics--โครงสร้าง-dna-watson-and-crick": [
     "/figures/vet-microbio-1/microbio-1--bacterial-genetics/p5-0.webp"
@@ -1775,7 +1618,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--bacterial-genetics/p37-1.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-genetics--colistin-resistance": [
-    "/figures/vet-microbio-1/microbio-1--bacterial-genetics/p40-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p6-1.webp",
     "/figures/vet-microbio-1/microbio-1--bacterial-genetics/p40-1.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-genetics--transposable-genetic-elements": [
@@ -1886,7 +1729,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ย้อมสีเพื่อ-identification-เป็น-simple-diagnostic-technique": [
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7-0.webp",
-    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7-1.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p6-0.webp",
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7-2.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ขั้นตอนของ-gram-s-staining": [
@@ -1910,7 +1753,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p14-1.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-endotoxin-เทียบกับ-exotoxin": [
-    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p15-0.webp"
+    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p14-1.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--peptidoglycan-คือ-achilles-heel-ของแบคทีเรีย": [
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p16-0.webp",
@@ -1936,10 +1779,10 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--membrane-proteins": [
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p29-0.webp",
-    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p29-1.webp"
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p7-1.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--efflux-pump-กับการดื้อยา": [
-    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p30-0.webp"
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p7-0.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-secretion-systems": [
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p31-0.webp"
@@ -2053,7 +1896,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p3-2.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ลำดับงานตั้งแต่คลินิกจนถึงห้องแล็บ": [
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p4-0.webp",
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p11-1.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p4-1.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--หลักการเก็บตัวอย่าง-เก็บเมื่อไหร่-และเก็บตรงไหนของรอยโรค": [
@@ -2112,19 +1955,14 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-1.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-2.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p24-0.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p24-1.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p24-2.webp"
+    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p24-0.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--primary-culture-การ-streak-และการทำ-pure-culture": [
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p25-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p26-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p26-1.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p27-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p27-1.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p27-2.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p28-0.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p28-1.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p28-2.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--วิธีทำการทดสอบ-primary-identification": [
@@ -2132,11 +1970,11 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p31-0.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--งานที่ต้องทำในคาบปฏิบัติการ": [
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p35-0.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p36-0.webp",
+    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p26-0.webp",
+    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p36-1.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p36-2.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p37-0.webp"
+    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p25-0.webp",
+    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p31-0.webp"
   ],
   "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--bacterial-disease-process-ทั้งเส้น": [
     "/figures/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p10-0.webp"
@@ -2187,7 +2025,6 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--identification-กลุ่ม-zygomycota": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--aspergillus-series": [
@@ -2318,32 +2155,30 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20-2.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-1.webp",
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-ascomycota": [
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-1.webp",
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-2.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p22-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p22-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p22-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ascomycota-harmful-interactions-และ-mycotoxin": [
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p23-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p23-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p23-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p6-0.webp",
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p6-1.webp",
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p6-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ascomycota-การแยก-aspergillus-และสกุลใกล้เคียง": [
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p24-0.webp",
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p7-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p24-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p24-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-basidiomycota": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p25-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p25-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p25-2.webp",
+    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p17-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-2.webp"
@@ -2517,8 +2352,6 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--route-of-inoculation-ทั้ง-3-ทาง": [
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p14-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p15-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p16-0.webp",
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p11-0.webp",
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p13-0.webp"
   ],
@@ -2608,8 +2441,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p76-0.webp"
   ],
   "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--citrate-utilization-test": [
-    "/figures/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p78-0.webp",
-    "/figures/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p79-0.webp"
+    "/figures/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p78-0.webp"
   ],
   "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--adjuvant": [
     "/figures/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p15-0.webp"
@@ -2648,8 +2480,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p10-1.webp"
   ],
   "vet-microbio-1--microbio-1--viral-ag-detection--monoclonal-vs-polyclonal-antibody": [
-    "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p11-0.webp",
-    "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p11-1.webp"
+    "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p11-0.webp"
   ],
   "vet-microbio-1--microbio-1--viral-ag-detection--secondary-species-specific-antibody-มาจากไหน": [
     "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p15-0.webp"
@@ -2671,7 +2502,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p11-0.webp"
   ],
   "vet-microbio-1--microbio-1--viral-diagnosis--host-system-2-embryonated-eggs": [
-    "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p18-0.webp"
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p5-0.webp"
   ],
   "vet-microbio-1--microbio-1--viral-diagnosis--host-system-3-cell-cultures": [
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p20-0.webp"
@@ -2684,8 +2515,8 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p25-1.webp"
   ],
   "vet-microbio-1--microbio-1--viral-diagnosis--identification-of-virus-infected-cells-cytopathic-effect-cpe": [
-    "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p26-0.webp",
-    "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p26-1.webp",
+    "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p25-0.webp",
+    "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p25-1.webp",
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p27-0.webp",
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p27-1.webp",
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p27-2.webp",
@@ -2696,7 +2527,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p29-0.webp",
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p30-0.webp",
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p30-1.webp",
-    "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p30-2.webp",
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p18-1.webp",
     "/figures/vet-microbio-1/microbio-1--viral-diagnosis/p31-0.webp"
   ],
   "vet-microbio-1--microbio-1--viral-diagnosis--virus-identification-หลัง-isolation": [
@@ -2787,8 +2618,8 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p18-1.webp"
   ],
   "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--ถ้าไวรัสไม่ทำให้เกิด-cpe-จะตรวจอย่างไร": [
-    "/figures/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p19-0.webp",
-    "/figures/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p19-1.webp",
+    "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p2-0.webp",
+    "/figures/vet-microbio-1/microbio-1--viral-ag-detection/p2-1.webp",
     "/figures/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p19-2.webp"
   ],
   "vet-microbio-1--microbio-1--virus-replication-genetic--one-step-growth-curve": [
@@ -2929,67 +2760,22 @@ export const SLIDE_IMAGES = {
   ],
   "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--key-concepts-ที่เลกเชอร์นี้จะเดิน": [
     "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p1-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p1-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p1-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--classification-กลุ่ม-protozoan-parasite-ที่สำคัญทางสัตวแพทย์": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--locomotion-ตารางเทียบ-4-กลุ่มหลัก": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--locomotion-ciliates-และ-amoebae": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p1-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--locomotion-flagellates-และ-apicomplexa": [
     "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p3-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p3-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--nutrition": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--transmission": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-ภาพรวมและการแลกเปลี่ยนสารพันธุกรรม": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-multiple-fission": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-sporogony": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-sexual-phase-ของ-apicomplexa": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--enteric-coccidia-เทียบ-tissue-cyst-forming-coccidia": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--summary-of-pathogenic-protozoa": [
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--ขอบเขต-protozoa-ที่เรียนคาบนี้และคาบถัดไป": [
@@ -3049,7 +2835,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p10-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-serotype-และการแยก-taxonomy-กับ-t-suis": [
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p11-0.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p9-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-pathogenesis-ในลูกในท้อง": [
     "/figures/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p13-0.webp"
@@ -3113,20 +2899,18 @@ export const SLIDE_IMAGES = {
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--ภาพรวม-hemoflagellates": [
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--forms-ของ-hemoflagellates-ในโฮสต์-mammal": [
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--โรคที่เกิดจาก-trypanosoma": [
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p3-0.webp",
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p3-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--morphology-ของ-trypanosoma": [
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p3-0.webp",
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p3-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--life-cycle-ของ-trypanosoma-indirect-กับ-direct": [
@@ -3186,8 +2970,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p11-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--developmental-stages-ของ-leishmania": [
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p12-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p12-1.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p12-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--mode-of-leishmania-transmission": [
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p13-0.webp"
@@ -3215,8 +2998,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--leishmaniosis-ในประเทศไทย-จากโรคนำเข้าสู่โรคประจำถิ่น": [
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p19-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p19-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p19-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p19-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--ไทม์ไลน์-vl-และการกระจายในไทย": [
     "/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p20-0.webp",
@@ -3277,99 +3059,13 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p1-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p1-2.webp"
   ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--การจัดกลุ่ม-amebas-ที่ต้องรู้จัก": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--entamoeba-histolytica-ภาพรวมและความสำคัญทางสัตวแพทย์": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--entamoeba-grouping-แยกกลุ่มด้วยจำนวน-nuclei-และ-chromatoid-bar": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--amebiasis-ในสัตว์ที่สไลด์ยกตัวอย่าง": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--geographic-distribution-และ-life-cycle-ของ-e-histolytica": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p4-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p4-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p4-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--transmission-ของ-e-histolytica": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-e-histolytica-morphology-และการกินอาหาร": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-e-histolytica-การเคลื่อนที่-การกินอาหาร-และการ-i": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p6-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--cyst-ของ-e-histolytica": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p7-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p7-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p7-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--laboratory-diagnosis-ของ-e-histolytica": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p8-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p8-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p8-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--immunodiagnosis-และ-molecular-diagnosis-ของ-ameba": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p9-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p9-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p9-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--facultative-amebiasis": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p10-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p10-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p10-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--histomonas-meleagridis-โรคและ-host": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--life-cycle-ของ-histomonas-meleagridis": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--clinical-signs-ของ-blackhead-และ-morphology-ของ-histomonas": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--รอยโรคของ-histomonas-meleagridis": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p13-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p13-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p13-2.webp"
-  ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--ciliates-สไลด์นำเข้าเรื่อง": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p14-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p14-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p14-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p1-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--balantidium-coli-ภาพรวม": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-balantidium-coli": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-b-coli-โครงสร้างละเอียดและอาหาร": [
@@ -3385,7 +3081,7 @@ export const SLIDE_IMAGES = {
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--reproduction-และ-life-cycle-ของ-b-coli": [
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p18-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p18-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p18-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--b-coli-ในหมู-ระบาดวิทยาและการวินิจฉัย": [
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p19-0.webp",
@@ -3396,17 +3092,10 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p19-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--ciliates-ในสัตว์อื่นที่สไลด์ยกเป็นเคส": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p20-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p20-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p20-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--symbiotic-ciliates-และ-ichthyophthirius-multifiliis": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p21-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p21-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p21-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p20-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--สรุปท้าย-lecture": [
-    "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p22-0.webp",
+    "/figures/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p1-2.webp",
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p22-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p22-2.webp"
   ],
@@ -3416,99 +3105,28 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p1-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--สไลด์ที่เป็นภาพ-วิดีโอ-หรือลิงก์ล้วน": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p2-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p2-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--apical-complex-และการแบ่งตามอวัยวะที่พบ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p4-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p4-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p4-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p3-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--order-eucoccidiorida-แยกลงถึง-family-และ-subfamily": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--enteric-coccidia-ลักษณะทั่วไปที่ต้องจำ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ระบาดวิทยาในสัตว์ฟาร์ม": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--pathogenesis-ตอนที่-1-oocyst-และการ-sporulate": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--pathogenesis-ตอนที่-2-endogenous-development": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ความรุนแรงไม่เท่ากันในทุก-species": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--clinical-findings-ของ-enteric-coccidiosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-enteric-coccidia": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ปัจจัยที่มีผลต่อจำนวน-oocyst-ในอุจจาระ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--tx-enteric-coccidia": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--prevention-enteric-coccidia": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--การใช้-coccidiostat-เชิงป้องกัน": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p10-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p10-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p10-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cystoisospora-ในสุนัขและแมว-species-และ-oocyst": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p12-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p12-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p12-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p12-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--life-cycle-ของ-cystoisospora-felis-และ-monozoic-tissue-cyst": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p13-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p13-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p13-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-cystoisospora-ในสุนัขและแมว": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p14-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p14-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p14-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cystoisospora-suis-porcine-neonatal-coccidiosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--fecal-examination-สำหรับ-c-suis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p13-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--oocyst-ของ-c-suis-hazy-body": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p17-0.webp",
@@ -3516,164 +3134,64 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p17-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--histopathology-และสรุปการวินิจฉัย-c-suis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--treatment-and-control-ของ-c-suis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-ลักษณะเฉพาะและประวัติ": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p19-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p19-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p19-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ชีววิทยาที่ทำให้-cryptosporidium-ใกล้-gregarines": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-การติดเชื้อในสัตว์": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p19-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-parvum": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p22-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p22-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p22-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p22-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-cryptosporidium": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p23-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p23-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p23-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--transmission-ของ-cryptosporidium": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-ในคน-คนปกติกับคนภูมิคุ้มกันบกพร่อง": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-ในสัตว์ปีก": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--tx-และ-prevention-ของ-cryptosporidium": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--toxoplasma-gondii-พื้นฐานและ-host": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p26-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p26-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p26-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--3-infective-forms-ของ-t-gondii": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p27-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p27-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p27-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p23-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--t-gondii-biology-และกลไกการรุกเข้าเซลล์": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--t-gondii-clinical-importance-และสมดุลภูมิคุ้มกัน": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--t-gondii-ความสำคัญทางสัตวแพทย์": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-toxoplasma-gondii": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p32-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p32-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p32-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--neospora-caninum-ประวัติและการแยกจาก-toxoplasma": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p35-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p35-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p35-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--neospora-caninum-host-การแพร่-และความสำคัญ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--pathogenesis-ของการแท้งใน-bovine-neosporosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--besnoitia-และ-hammondia": [
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p37-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p37-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p37-2.webp"
   ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ภาพรวม-phylum-apicomplexa-และตำแหน่งของ-blood-parasites": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p2-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p2-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p2-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--วงจรชีวิต-haemosporidia-และยาที่ออกฤทธิ์ตามระยะ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--human-malaria-parasites": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--หลักการวินิจฉัย-malaria": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3-2.webp"
-  ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--เครื่องมือวินิจฉัยจริงและระยะที่เห็นใน-thin-blood-smear": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p4-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p4-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p4-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p4-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--thick-blood-smear-และ-vectors-ของ-malaria": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p5-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p5-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p5-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p5-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ระยะของเชื้อในตัวยุง": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p6-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p6-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p6-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p6-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--pre-erythrocytic-schizont-และ-malaria-ในลิง": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p7-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p7-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p7-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p7-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ungulate-malaria-parasites": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p8-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p8-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p8-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p8-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--p-caprae-ในแพะ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p9-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p9-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p9-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p9-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--p-bubalis-ในควาย-และ-p-traguli-ในกระจงหนู": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p10-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p10-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p10-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p10-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--avian-malaria-p-gallinaceum": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p11-0.webp",
@@ -3681,19 +3199,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p11-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--summary-ปิดท้ายส่วน-plasmodium": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p12-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p12-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p12-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatocystis-host-และ-vector": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p13-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p13-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p13-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatocystis-จุดที่ต้องจำเรื่องวงจร": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p14-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p14-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p14-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p12-0.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--leucocytozoon-species-และลักษณะร่วมของสกุล": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p15-0.webp",
@@ -3714,12 +3220,11 @@ export const SLIDE_IMAGES = {
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--l-caulleryi-pathogenesis-และข้อมูลของ-l-sabrazesi": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p19-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p19-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p19-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p19-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--haemoproteus-ลักษณะและ-host": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p20-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p20-1.webp",
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p15-0.webp",
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p16-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p20-2.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--haemoproteus-pathology-morphology-และ-life-cycle": [
@@ -3736,60 +3241,14 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p23-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p23-2.webp"
   ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--piroplasms-ภาพรวม-babesiosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p24-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p24-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p24-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--human-babesiosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p25-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p25-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p25-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--bovine-babesiosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p26-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p26-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p26-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ภาพพยาธิสภาพของ-b-bovis-และ-b-bigemina": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p27-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p27-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p27-2.webp"
-  ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--canine-babesiosis": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p28-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p28-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p28-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--treatment-ของ-babesiosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--theileriosis-species-vector-และอาการ": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--theileriosis-การรักษาและสถานการณ์ในไทย": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p30-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p30-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p30-2.webp"
+    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p28-1.webp"
   ],
   "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ความชุกของ-theileria-ในไทย": [
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p31-0.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p31-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p31-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatozoosis": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p32-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p32-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p32-2.webp"
-  ],
-  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatozoon-canis-รอยโรคและการรักษา": [
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p33-0.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p33-1.webp",
-    "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p33-2.webp"
   ],
   "vet-neuroanat--neuroanat--basal-nuclei--รายชื่อและการจัดกลุ่มของ-basal-nuclei": [
     "/figures/vet-neuroanat/neuroanat--basal-nuclei/p3-0.webp"
@@ -3890,9 +3349,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--metencephalon--functional-zones-และ-functional-classification": [
     "/figures/vet-neuroanat/neuroanat--metencephalon/p9-0.webp",
-    "/figures/vet-neuroanat/neuroanat--metencephalon/p9-1.webp",
-    "/figures/vet-neuroanat/neuroanat--metencephalon/p10-0.webp",
-    "/figures/vet-neuroanat/neuroanat--metencephalon/p10-1.webp"
+    "/figures/vet-neuroanat/neuroanat--metencephalon/p9-1.webp"
   ],
   "vet-neuroanat--neuroanat--metencephalon--cerebellar-peduncles-ทั้งสามคู่": [
     "/figures/vet-neuroanat/neuroanat--metencephalon/p17-0.webp",
@@ -3921,7 +3378,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-neuroanat/neuroanat--midbrain/p2-1.webp"
   ],
   "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-dorsal-part": [
-    "/figures/vet-neuroanat/neuroanat--midbrain/p3-0.webp"
+    "/figures/vet-neuroanat/neuroanat--midbrain/p2-1.webp"
   ],
   "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-ventral-part": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p5-0.webp"
@@ -3932,7 +3389,6 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--midbrain--tectum-rostral-และ-caudal-colliculi": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p8-0.webp",
-    "/figures/vet-neuroanat/neuroanat--midbrain/p8-1.webp",
     "/figures/vet-neuroanat/neuroanat--midbrain/p9-0.webp",
     "/figures/vet-neuroanat/neuroanat--midbrain/p9-1.webp"
   ],
@@ -3949,7 +3405,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-neuroanat/neuroanat--midbrain/p24-0.webp"
   ],
   "vet-neuroanat--neuroanat--midbrain--substantia-nigra": [
-    "/figures/vet-neuroanat/neuroanat--midbrain/p25-0.webp"
+    "/figures/vet-neuroanat/neuroanat--midbrain/p24-0.webp"
   ],
   "vet-neuroanat--neuroanat--midbrain--crus-cerebri-interpeduncular-fossa-และ-caudal-perforated-substan": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p26-0.webp",
@@ -4073,8 +3529,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cutaneous-trunci-reflex": [
     "/figures/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p20-0.webp",
-    "/figures/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p20-1.webp",
-    "/figures/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p20-2.webp"
+    "/figures/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p20-1.webp"
   ],
   "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cranial-nerve-examination-afferent-efferent-effect": [
     "/figures/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p21-0.webp",
@@ -4104,7 +3559,6 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--visual-vestibular-systems--retina-receptors-และ-transduction": [
     "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p12-0.webp",
-    "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p13-0.webp",
     "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p14-0.webp"
   ],
   "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-field-nasal-half-กับ-temporal-half": [
@@ -4114,14 +3568,11 @@ export const SLIDE_IMAGES = {
     "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p20-0.webp"
   ],
   "vet-neuroanat--neuroanat--visual-vestibular-systems--monocular-vs-binocular-vision": [
-    "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p22-0.webp",
-    "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p23-0.webp"
+    "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p22-0.webp"
   ],
   "vet-neuroanat--neuroanat--visual-vestibular-systems--20-ของ-fibres-จาก-optic-tract-ไปไหนบ้าง": [
     "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p24-0.webp",
     "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p24-1.webp",
-    "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p25-0.webp",
-    "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p25-1.webp",
     "/figures/vet-neuroanat/neuroanat--visual-vestibular-systems/p26-0.webp"
   ],
   "vet-neuroanat--neuroanat--visual-vestibular-systems--heterochromia-iridis": [
@@ -4277,8 +3728,7 @@ export const SLIDE_IMAGES = {
   "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--culac-มาตรฐานและจำนวนห้องเลี้ยงสัตว์": [
     "/figures/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p3-0.webp",
     "/figures/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p3-1.webp",
-    "/figures/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p4-0.webp",
-    "/figures/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p5-0.webp"
+    "/figures/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p4-0.webp"
   ],
   "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--ระบบการเลี้ยง-rodent-และ-non-rodent-ใน-culac": [
     "/figures/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p6-0.webp",
@@ -4457,11 +3907,11 @@ export const SLIDE_IMAGES = {
     "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p20-0.webp",
     "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p20-1.webp",
     "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p20-2.webp",
-    "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p21-0.webp",
-    "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p21-1.webp"
+    "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p7-1.webp",
+    "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p7-2.webp"
   ],
   "vet-physio-lab-2--physio-lab-2--lab-physio-intro--labchart-reader-แพลตฟอร์มและมุมมองข้อมูล": [
-    "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p22-0.webp"
+    "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p1-0.webp"
   ],
   "vet-physio-lab-2--physio-lab-2--lab-physio-intro--basic-function-ของการวิเคราะห์ข้อมูล": [
     "/figures/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p31-0.webp"
