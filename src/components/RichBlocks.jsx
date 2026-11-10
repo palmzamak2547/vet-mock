@@ -9,7 +9,11 @@ const FIGURE = /^[^A-Za-z฀-๿]*\d[^A-Za-z฀-๿]*$/;
  *  whose first cell is empty means the first column names the rows. */
 export function RichTable({ table }) {
   const named = table.head[0] === '';
+  // The table keeps its own display (a table drawn as a block loses its rows
+  // and columns for a screen reader); the frame around it is what scrolls, and
+  // it takes focus so the arrow keys can scroll a wide one.
   return (
+    <div className="vmx-qtable-wrap" role="group" aria-label="ตารางข้อมูล" tabIndex={0}>
     <table className="vmx-qtable">
       <thead>
         <tr>
@@ -28,6 +32,7 @@ export function RichTable({ table }) {
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 
