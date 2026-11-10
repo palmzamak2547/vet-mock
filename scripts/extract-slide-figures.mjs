@@ -442,7 +442,7 @@ fs.rmSync(tmpDir, { recursive: true, force: true });
 if (fs.existsSync(tmpPdf)) fs.unlinkSync(tmpPdf);
 
 console.log(`${kept} figure(s) for ${Object.keys(manifest).length} section(s)`);
-console.log(`  skipped: ${skippedScan} page-scan(s), ${skippedSmall} too small, ${skippedBlank} blank/flat, ${skippedShape} banner-shaped, ${skippedFurniture} template art (drawn ${FURNITURE}+ times in a deck)`);
+console.log(`  skipped: ${skippedScan} page-scan(s), ${skippedSmall} too small, ${skippedBlank} blank/flat, ${skippedShape} banner-shaped, ${FURNITURE > 0 ? `${skippedFurniture} template art (drawn ${FURNITURE}+ times in a deck)` : 'template art not skipped (--furniture-repeats 0)'}`);
 if (WRITE) {
   console.log(`  ${(bytes / 1024 / 1024).toFixed(1)} MB at ${WIDTH}px ${FORMAT} q${QUALITY}`);
   const out = 'src/data/slide-images.generated.js';
