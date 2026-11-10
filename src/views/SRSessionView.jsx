@@ -17,6 +17,7 @@ import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import RichBlocks from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
@@ -863,7 +864,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             <div className="answer">
               {answerNode || answerText}
             </div>
-            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
+            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(currentQ.explainImage)}

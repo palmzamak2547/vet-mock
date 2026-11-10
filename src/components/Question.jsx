@@ -7,6 +7,8 @@ import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
+import RichBlocks from './RichBlocks.jsx';
+import { hasTable } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -753,7 +755,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {/* Layout switch: with-passage = grid on wide / stacked on narrow */}
       {currentQ.passage ? (
-        <div className="vmx-q-with-passage">
+        <div className={hasTable(currentQ.passage) ? "vmx-q-with-passage is-data" : "vmx-q-with-passage"}>
           {passageBlock}
           {contentBlock}
         </div>
@@ -976,7 +978,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
-          <div className="vmx-feedback-explain-body" ref={explainRef}><TermLinkedRichText text={explain} subject={subject} /></div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}

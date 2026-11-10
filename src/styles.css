@@ -2624,6 +2624,11 @@ html.dark .vmx-panic-scrim {
     overflow-y: auto;
     margin-bottom: 0;
   }
+  /* A passage that is the question's data (it holds a table) sits above the
+     question at every width: in 42% of the card a table's Thai cells wrap
+     syllable by syllable. */
+  .vmx-q-with-passage.is-data { display: block; }
+  .vmx-q-with-passage.is-data .vmx-q-passage-pane { position: static; max-height: none; overflow-y: visible; margin-bottom: 16px; }
 }
 
 /* ── Floating "back to passage" button (mobile/tablet) ──────
@@ -2652,7 +2657,12 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-passage-fab:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.22); }
 .vmx-passage-fab:active { transform: translateY(0); }
-@media (min-width: 1024px) { .vmx-passage-fab { display: none; } }
+@media (min-width: 1024px) {
+  .vmx-passage-fab { display: none; }
+  /* A data passage sits above the question here too, so a long table puts the options below the fold:
+     the way back to it stays. */
+  .vmx-q-with-passage.is-data ~ .vmx-passage-fab { display: inline-flex; }
+}
 @supports (padding: env(safe-area-inset-bottom)) {
   .vmx-passage-fab { bottom: max(18px, env(safe-area-inset-bottom)); }
 }
@@ -2900,6 +2910,25 @@ html.dark .vmx-panic-scrim {
 .vmx-explain-acc summary { cursor: pointer; font-weight: 600; color: var(--clr-ink); }
 .vmx-explain-acc details.is-missed summary { color: var(--clr-rose-text); }
 .vmx-explain-acc details > :not(summary) { margin-top: 6px; color: var(--clr-ink-soft); }
+/* A table inside a passage or an explanation (src/lib/rich-blocks.js, components/RichBlocks.jsx). It is as wide
+   as its cells need and its frame scrolls, so a wide one never pushes the card sideways; a frame that does
+   scroll says so under it and keeps the row names in view. It sits on its own surface, the same on every
+   card, and its text is the size of the text around it (never under the 14 px floor). The rules are drawn
+   cell by cell: collapsed borders do not travel with a pinned column. */
+.vmx-qtable-wrap { width: max-content; max-width: 100%; overflow-x: auto; margin: 8px 0 12px; white-space: normal; background: var(--clr-surface); }
+.vmx-qtable { border-collapse: separate; border-spacing: 0; border: 0 solid var(--clr-border); border-color: color-mix(in srgb, var(--clr-ink-soft) 65%, var(--clr-surface)); border-top-width: 1px; border-left-width: 1px; font-size: 1em; font-style: normal; line-height: 1.5; text-align: left; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
+.vmx-qtable th, .vmx-qtable td { border: 0 solid var(--clr-border); border-color: color-mix(in srgb, var(--clr-ink-soft) 65%, var(--clr-surface)); border-right-width: 1px; border-bottom-width: 1px; padding: 6px 10px; vertical-align: top; min-width: 3.5em; }
+.vmx-qtable th { font-weight: 700; }
+.vmx-qtable thead th, .vmx-qtable thead td { border-bottom-width: 2px; }
+.vmx-qtable thead th { text-wrap: balance; }
+.vmx-qtable tbody th { min-width: 6em; }
+.vmx-qtable .num { text-align: right; }
+.vmx-qtable-wrap.is-wide .has-names tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--clr-surface); }
+.vmx-qtable-hint { margin: -6px 0 12px; font-size: 14px; font-style: normal; color: var(--clr-ink-soft); }
+@media (max-width: 640px) {
+  .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
+  .vmx-qtable tbody th { min-width: 5em; }
+}
 .vmx-written-reveal-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-written-reveal-btn { appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); cursor: pointer; }
 .vmx-written-reveal { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }

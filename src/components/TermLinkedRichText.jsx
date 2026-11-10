@@ -21,7 +21,7 @@
 //   - Outside click / Esc / scroll → close (handled inside TermPopup)
 // ============================================================
 
-import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 import { detectTerms } from '../lib/term-detect.js';
 import { entryKey } from '../data/glossary.js';
@@ -32,6 +32,11 @@ import TermPopup from './TermPopup.jsx';
 // document head when the first TermLinkedRichText mounts. Cheaper
 // than inlining `style` per term and keeps :focus-visible reachable.
 let STYLE_INJECTED = false;
+
+// One card open at a time across the page. An explanation cut into runs around
+// a table (RichBlocks.jsx) is several of these components, and a word tapped
+// in one run used to leave the card of another run open beside it.
+let closeOpenCard = null;
 function ensureTermStyles() {
   if (STYLE_INJECTED || typeof document === 'undefined') return;
   STYLE_INJECTED = true;
@@ -151,6 +156,9 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
   // the highlight said which CARD was open instead of which WORD was tapped.
   const [openAt, setOpenAt] = useState(null);           // segment index
   const [anchorRect, setAnchorRect] = useState(null);
+  const closeSelf = useRef(null);
+  if (!closeSelf.current) closeSelf.current = () => { setOpenAt(null); setAnchorRect(null); };
+  useEffect(() => () => { if (closeOpenCard === closeSelf.current) closeOpenCard = null; }, []);
 
   // Compute segments + related-Q counts once per text change.
   // Memoized because Question.jsx may re-render frequently (timers,
@@ -193,6 +201,8 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
       return;
     }
     const rect = btn.getBoundingClientRect();
+    if (closeOpenCard && closeOpenCard !== closeSelf.current) closeOpenCard();
+    closeOpenCard = closeSelf.current;
     setOpenAt(at);
     setAnchorRect(rect);
   }, [openAt]);
