@@ -135,6 +135,10 @@ jobs:
           # Resolve dependencies first; exact pins conflict with bundled packages in pak's solver.
           # Restore every recorded version from CRAN, then let run-native enforce exact pins.
           Rscript - <<'RSCRIPT'
+          # For each archived pin, remotes downloads CRAN's archive index (src/contrib/Meta/archive.rds, several
+          # MB) and reports an index it could not read as "version ... is invalid for package". R gives a download
+          # 60 s by default: on 10 Nov 2026 the lookup took 30 s for irr and stopped at 60 s for MASS (#186).
+          options(timeout = max(600, getOption("timeout")))
           refs <- strsplit(Sys.getenv("PKGS"), " ")[[1]]
           pins <- strsplit(refs, "@", fixed = TRUE)
           pak::pkg_install(c("remotes", vapply(pins, `[`, character(1), 1)), upgrade = FALSE, ask = FALSE)
