@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_PHYSIO_LAB_2 = {
@@ -28,19 +28,13 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "CULAC: มาตรฐานและจำนวนห้องเลี้ยงสัตว์",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.3-5",
         "body": [
-          {
-            "text": "สไลด์เปิดเป็นการแนะนำหน่วยงาน หน้า 2 เป็นผังบุคลากร (ผู้บริหาร ฝ่ายสุขภาพสัตว์ ฝ่ายบริหารงานทั่วไปและงานซ่อมบำรุง) ซึ่งเป็นรายชื่อเจ้าหน้าที่ ไม่ใช่เนื้อหาที่ต้องจำเพื่อสอบ"
-          },
-          {
-            "text": "**Accreditation ที่ CULAC ได้รับมี 2 ตัว คือ มคกส.วช. (Jan 2022) และ AAALAC International (Feb 2022)**"
-          },
+          "สไลด์เปิดเป็นการแนะนำหน่วยงาน หน้า 2 เป็นผังบุคลากร (ผู้บริหาร ฝ่ายสุขภาพสัตว์ ฝ่ายบริหารงานทั่วไปและงานซ่อมบำรุง) ซึ่งเป็นรายชื่อเจ้าหน้าที่ ไม่ใช่เนื้อหาที่ต้องจำเพื่อสอบ",
+          "**Accreditation ที่ CULAC ได้รับมี 2 ตัว คือ มคกส.วช. (Jan 2022) และ AAALAC International (Feb 2022)**",
           {
             "callout": "หน้า 4 เขียนปีเป็น พ.ศ. ว่าได้รับมาตรฐาน AAALAC ก.พ. 2565 และมาตรฐาน คกส. เม.ย. 2565 ซึ่งเดือนของ คกส. ไม่ตรงกับหน้า 3 ที่เขียนว่า Jan 2022 สไลด์ไม่ได้อธิบายว่าอันไหนถูก",
             "kind": "flag"
           },
-          {
-            "text": "**Total animal room มี 25 rooms** แบ่งเป็น"
-          },
+          "**Total animal room มี 25 rooms** แบ่งเป็น",
           {
             "bullets": [
               "SPF (Specific Pathogen Free) rooms: 4 rooms",
@@ -56,24 +50,16 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "ระบบการเลี้ยง rodent และ non-rodent ใน CULAC",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.6-14",
         "body": [
-          {
-            "text": "ช่วงนี้เป็นสไลด์ภาพเป็นหลัก มีข้อความบนสไลด์เพียงคำกำกับภาพ ส่วนรายละเอียดของระบบต้องดูจากรูปในสไลด์จริง"
-          },
-          {
-            "text": "ฝั่ง rodent สไลด์กำกับไว้ว่ามี **Animal Changing Station**, **Clean corridor**, **Clean corridor – animal hallway** และ **CCTV 24/7**"
-          },
-          {
-            "text": "ฝั่ง non-rodent สไลด์กำกับส่วนต่าง ๆ ของพื้นที่ไว้ว่า Hallway, Surgery suit, Cages setting inspection, Decontamination และ General Lab Cage wash area"
-          }
+          "ช่วงนี้เป็นสไลด์ภาพเป็นหลัก มีข้อความบนสไลด์เพียงคำกำกับภาพ ส่วนรายละเอียดของระบบต้องดูจากรูปในสไลด์จริง",
+          "ฝั่ง rodent สไลด์กำกับไว้ว่ามี **Animal Changing Station**, **Clean corridor**, **Clean corridor – animal hallway** และ **CCTV 24/7**",
+          "ฝั่ง non-rodent สไลด์กำกับส่วนต่าง ๆ ของพื้นที่ไว้ว่า Hallway, Surgery suit, Cages setting inspection, Decontamination และ General Lab Cage wash area"
         ]
       },
       {
         "heading": "Rat: outbred stocks 3 สายที่ใช้บ่อย",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.15",
         "body": [
-          {
-            "text": "**outbred stocks ของ rat ที่ใช้ในงานวิจัยหลัก ๆ มี 3 สาย คือ Wistar, Sprague-Dawley และ Long-Evans**"
-          },
+          "**outbred stocks ของ rat ที่ใช้ในงานวิจัยหลัก ๆ มี 3 สาย คือ Wistar, Sprague-Dawley และ Long-Evans**",
           {
             "sub": "Wistar (WI)",
             "body": [
@@ -113,74 +99,52 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Rat: inbred strains ที่ใช้บ่อย",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.16",
         "body": [
-          {
-            "text": "สไลด์เขียนว่า \"The Fischer 344 and Lewis (LEW) strains are two of the most common inbred rat strains used for research\" คือ **F344 และ Lewis (LEW) เป็น 2 สายในบรรดา inbred rat strains ที่ใช้บ่อยในงานวิจัย** สไลด์ไม่ได้บอกว่าเป็น 2 สายที่พบบ่อยที่สุด"
-          },
+          "สไลด์เขียนว่า \"The Fischer 344 and Lewis (LEW) strains are two of the most common inbred rat strains used for research\" คือ **F344 และ Lewis (LEW) เป็น 2 สายในบรรดา inbred rat strains ที่ใช้บ่อยในงานวิจัย** สไลด์ไม่ได้บอกว่าเป็น 2 สายที่พบบ่อยที่สุด",
           {
             "bullets": [
               "**F344** ใช้กว้างขวางใน toxicology research และการศึกษา birth defects (teratology) รวมถึงงาน cancer และ aging research",
               "**Lewis rat** ใช้บ่อยใน immunological studies และ diabetes research"
             ]
           },
-          {
-            "text": "คำกำกับภาพในสไลด์ระบุว่า F344 เป็น albino, inbred rat"
-          }
+          "คำกำกับภาพในสไลด์ระบุว่า F344 เป็น albino, inbred rat"
         ]
       },
       {
         "heading": "Rat: การจับและ restraint",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.17-22",
         "body": [
-          {
-            "text": "**ถ้าจะจับหางหนู ต้องจับที่ base of the tail ตรง rump เท่านั้น** การจับถัดออกไปทางปลายหางอาจทำให้หนังหางฉีก (rip the skin) หรือเกิดการบาดเจ็บอื่นที่หาง"
-          },
+          "**ถ้าจะจับหางหนู ต้องจับที่ base of the tail ตรง rump เท่านั้น** การจับถัดออกไปทางปลายหางอาจทำให้หนังหางฉีก (rip the skin) หรือเกิดการบาดเจ็บอื่นที่หาง",
           {
             "callout": "**จับหางได้เฉพาะช่วงสั้น ๆ เท่านั้น** เช่น ย้ายหนูจากกรงหนึ่งไปอีกกรงหนึ่ง เวลาถูกจับหาง หนูมักจะเอาขาหน้าเกาะฝากรงหรือพื้นผิวใกล้ ๆ ไว้",
             "kind": "warn"
           },
-          {
-            "text": "วิธี restrain ต่อจากการจับหาง คือเอามือหนึ่งวางคร่อมหลังหนู ใช้ **thumb และ forefinger กดขาหน้าไปทางหัวอย่างนุ่มนวลแต่มั่นคง** ถ้าต้องการควบคุมมากขึ้นให้ใช้มืออีกข้างจับหางหรือ hindquarters ไว้"
-          },
-          {
-            "text": "หนูหลายตัว โดยเฉพาะตัวที่คุ้นกับการถูกจับ สามารถอุ้มขึ้นได้โดยจับรอบ thorax และ abdomen เบา ๆ แต่**ต้องระวังไม่ออกแรงมากเกินจนกดการหายใจ**"
-          },
-          {
-            "text": "หนูยังจับและ restrain เบา ๆ ได้โดยจับที่ scruff of the neck"
-          },
-          {
-            "text": "สไลด์ยังแสดงวิธี **towel wrapped** (หน้า 21 เป็นภาพล้วน ไม่มีคำอธิบาย) และ **stockinette** ซึ่งใช้สำหรับ full body restraint เช่น ตอนทำ blood draw"
-          }
+          "วิธี restrain ต่อจากการจับหาง คือเอามือหนึ่งวางคร่อมหลังหนู ใช้ **thumb และ forefinger กดขาหน้าไปทางหัวอย่างนุ่มนวลแต่มั่นคง** ถ้าต้องการควบคุมมากขึ้นให้ใช้มืออีกข้างจับหางหรือ hindquarters ไว้",
+          "หนูหลายตัว โดยเฉพาะตัวที่คุ้นกับการถูกจับ สามารถอุ้มขึ้นได้โดยจับรอบ thorax และ abdomen เบา ๆ แต่**ต้องระวังไม่ออกแรงมากเกินจนกดการหายใจ**",
+          "หนูยังจับและ restrain เบา ๆ ได้โดยจับที่ scruff of the neck",
+          "สไลด์ยังแสดงวิธี **towel wrapped** (หน้า 21 เป็นภาพล้วน ไม่มีคำอธิบาย) และ **stockinette** ซึ่งใช้สำหรับ full body restraint เช่น ตอนทำ blood draw"
         ]
       },
       {
         "heading": "การจัดชั้นวิธี euthanasia ตาม AVMA",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.23",
         "body": [
-          {
-            "text": "**วิธี euthanasia ถูกจัดชั้นโดย American Veterinary Medical Association (AVMA) และทั้ง USDA และ OLAW รับรองมาตรฐานของ AVMA นี้**"
-          },
+          "**วิธี euthanasia ถูกจัดชั้นโดย American Veterinary Medical Association (AVMA) และทั้ง USDA และ OLAW รับรองมาตรฐานของ AVMA นี้**",
           {
             "sub": "Acceptable",
             "body": [
-              {
-                "text": "วิธีที่ทำให้เกิด humane death ได้อย่างสม่ำเสมอเมื่อใช้เป็นวิธีเดียว (sole means of euthanasia)"
-              }
+              "วิธีที่ทำให้เกิด humane death ได้อย่างสม่ำเสมอเมื่อใช้เป็นวิธีเดียว (sole means of euthanasia)"
             ]
           },
           {
             "sub": "Acceptable with conditions",
             "body": [
-              {
-                "text": "วิธีที่**ต้องมีเงื่อนไขบางอย่างครบก่อน**จึงจะให้ humane death ได้สม่ำเสมอ อาจมีโอกาสเกิด operator error หรืออันตรายต่อผู้ทำสูงกว่า อาจยังมีข้อมูลใน scientific literature ไม่มากพอ หรืออาจต้องใช้ secondary method เพื่อยืนยันการตาย แต่**เมื่อทำครบทุกเงื่อนไขแล้วถือว่าเทียบเท่ากับวิธี acceptable**"
-              }
+              "วิธีที่**ต้องมีเงื่อนไขบางอย่างครบก่อน**จึงจะให้ humane death ได้สม่ำเสมอ อาจมีโอกาสเกิด operator error หรืออันตรายต่อผู้ทำสูงกว่า อาจยังมีข้อมูลใน scientific literature ไม่มากพอ หรืออาจต้องใช้ secondary method เพื่อยืนยันการตาย แต่**เมื่อทำครบทุกเงื่อนไขแล้วถือว่าเทียบเท่ากับวิธี acceptable**"
             ]
           },
           {
             "sub": "Unacceptable",
             "body": [
-              {
-                "text": "วิธีที่ถือว่า inhumane ไม่ว่าในเงื่อนไขใด หรือวิธีที่คณะกรรมการพบว่ามีความเสี่ยงสูงต่อคนที่เป็นผู้ทำ"
-              }
+              "วิธีที่ถือว่า inhumane ไม่ว่าในเงื่อนไขใด หรือวิธีที่คณะกรรมการพบว่ามีความเสี่ยงสูงต่อคนที่เป็นผู้ทำ"
             ]
           }
         ]
@@ -192,9 +156,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Barbiturate overdose",
             "body": [
-              {
-                "text": "AVMA Guidelines ระบุว่า **การฉีด barbituric acid derivative ทาง intravenous เป็นวิธีที่ preferred สำหรับ euthanasia ใน dogs, cats และ small companion animals อื่น ๆ**"
-              }
+              "AVMA Guidelines ระบุว่า **การฉีด barbituric acid derivative ทาง intravenous เป็นวิธีที่ preferred สำหรับ euthanasia ใน dogs, cats และ small companion animals อื่น ๆ**"
             ]
           },
           {
@@ -235,9 +197,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Cervical dislocation (acceptable with conditions)",
             "body": [
-              {
-                "text": "**Manual cervical dislocation เป็น acceptable with conditions สำหรับ small birds, poultry, mice, rats ที่หนัก < 200 g และ rabbits โดยต้องทำโดยผู้ที่พิสูจน์แล้วว่ามีความชำนาญทางเทคนิคสูง**"
-              },
+              "**Manual cervical dislocation เป็น acceptable with conditions สำหรับ small birds, poultry, mice, rats ที่หนัก < 200 g และ rabbits โดยต้องทำโดยผู้ที่พิสูจน์แล้วว่ามีความชำนาญทางเทคนิคสูง**",
               {
                 "bullets": [
                   "ถ้ายังไม่มี demonstrated technical competency **สัตว์ต้องหมดสติหรือถูก anesthetize ก่อนทำ cervical dislocation**",
@@ -266,9 +226,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Rat euthanasia: inhalant anesthetics",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.28",
         "body": [
-          {
-            "text": "**Inhaled anesthetics เป็น acceptable with conditions สำหรับ small animals ที่ < 7 kg เมื่อทำตามเงื่อนไขต่อไปนี้**"
-          },
+          "**Inhaled anesthetics เป็น acceptable with conditions สำหรับ small animals ที่ < 7 kg เมื่อทำตามเงื่อนไขต่อไปนี้**",
           {
             "bullets": [
               "(1) ในชนิดสัตว์ที่ไม่พบ aversion หรือ overt escape behaviors ให้ใช้ความเข้มข้นสูงเพื่อให้หมดสติเร็วเป็นวิธีที่ preferred ถ้าไม่เช่นนั้นให้ใช้ gradual fill โดยคำนึงถึงผลของ chamber volume, flow rate และ anesthetic concentration ต่อ time constant และอัตราการเพิ่มความเข้มข้นของยาสลบ",
@@ -286,9 +244,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Rat euthanasia: Carbon dioxide",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.29",
         "body": [
-          {
-            "text": "การใช้ CO2 ในการ euthanize small rodents เป็น **acceptable with conditions** ต้องมีมาตรการให้สัตว์เครียดน้อยที่สุดก่อนตาย"
-          },
+          "การใช้ CO2 ในการ euthanize small rodents เป็น **acceptable with conditions** ต้องมีมาตรการให้สัตว์เครียดน้อยที่สุดก่อนตาย",
           {
             "bullets": [
               "**แหล่ง CO2 ที่ยอมรับได้มีเพียง compressed gas cylinder เท่านั้น** (บางสถาบันเดินท่อ CO2 มา ซึ่งยอมรับได้เพราะต้นทางมาจาก compressed gas tank ที่มี regulator)",
@@ -297,9 +253,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "เมื่อปล่อย CO2 เข้าสู่ chamber ที่ไม่แออัดอย่างช้า ๆ จากถัง CO2 จะผสมกับอากาศในห้องและ **anesthetize สัตว์ก่อนที่สัตว์จะ asphyxiate**"
             ]
           },
-          {
-            "text": "สิ่งที่การทำแบบนี้ช่วยป้องกัน และเป็นสิ่งที่ต้องหลีกเลี่ยง คือ"
-          },
+          "สิ่งที่การทำแบบนี้ช่วยป้องกัน และเป็นสิ่งที่ต้องหลีกเลี่ยง คือ",
           {
             "bullets": [
               "การปีนหรือกระโดดหนี CO2",
@@ -316,9 +270,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Carbon monoxide",
             "body": [
-              {
-                "text": "CO ใช้ euthanize รายตัวหรือแบบ mass euthanasia ได้ และเป็น acceptable สำหรับ dogs, cats และ small mammals อื่น ๆ โดยต้องใช้ **commercially compressed CO** และมีข้อควรระวัง 6 ข้อ"
-              },
+              "CO ใช้ euthanize รายตัวหรือแบบ mass euthanasia ได้ และเป็น acceptable สำหรับ dogs, cats และ small mammals อื่น ๆ โดยต้องใช้ **commercially compressed CO** และมีข้อควรระวัง 6 ข้อ",
               {
                 "bullets": [
                   "1. ผู้ใช้ต้องได้รับการสอนการใช้อย่างละเอียดและเข้าใจอันตรายกับข้อจำกัดของ CO",
@@ -358,9 +310,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "ใช้เป็น animal model ของหลายโรค ที่เด่นที่สุดคือ **atherosclerosis และ ophthalmologic illnesses** และยังใช้ในการผลิต serum antibody และงาน drug screening and testing"
             ]
           },
-          {
-            "text": "**ชื่อวิทยาศาสตร์ของ laboratory rabbit คือ Oryctolagus cuniculus** เดิมเคยถูกจัดเป็น rodents แต่ปัจจุบันแยกออกมาเป็นกลุ่ม **lagomorphs** เพราะมีลักษณะทางกายวิภาคและสรีรวิทยาที่ต่างจาก rodents"
-          },
+          "**ชื่อวิทยาศาสตร์ของ laboratory rabbit คือ Oryctolagus cuniculus** เดิมเคยถูกจัดเป็น rodents แต่ปัจจุบันแยกออกมาเป็นกลุ่ม **lagomorphs** เพราะมีลักษณะทางกายวิภาคและสรีรวิทยาที่ต่างจาก rodents",
           {
             "callout": "หน้า 33 หัวข้อ Rabbit strain เป็นสไลด์ภาพล้วน ไม่มีข้อความบอกว่ามี strain อะไรบ้าง",
             "kind": "flag"
@@ -374,23 +324,15 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "หูยาวและมีหลอดเลือดมาก",
             "body": [
-              {
-                "text": "**หูยาวที่มีหลอดเลือดมากใช้ในการ thermoregulation** เมื่อกระต่ายร้อนเกินไป หลอดเลือดที่หูจะ dilate ให้เลือดไหลผ่านมากขึ้น อากาศที่ไหลรอบหูจะทำให้เลือดที่ผ่านหูเย็นลงก่อนไหลกลับเข้าสู่ร่างกาย ผลคืออุณหภูมิร่างกายลดลง"
-              },
-              {
-                "text": "คำกำกับภาพแบ่งหลอดเลือดที่หูเป็น A terminal-end branches ของ central ear artery (CEA), B side branches ของ CEA, C main trunk ของ CEA, D medial ramus ของ central ear vein (CEV) และ E main trunk ของ CEV"
-              }
+              "**หูยาวที่มีหลอดเลือดมากใช้ในการ thermoregulation** เมื่อกระต่ายร้อนเกินไป หลอดเลือดที่หูจะ dilate ให้เลือดไหลผ่านมากขึ้น อากาศที่ไหลรอบหูจะทำให้เลือดที่ผ่านหูเย็นลงก่อนไหลกลับเข้าสู่ร่างกาย ผลคืออุณหภูมิร่างกายลดลง",
+              "คำกำกับภาพแบ่งหลอดเลือดที่หูเป็น A terminal-end branches ของ central ear artery (CEA), B side branches ของ CEA, C main trunk ของ CEA, D medial ramus ของ central ear vein (CEV) และ E main trunk ของ CEV"
             ]
           },
           {
             "sub": "ฟันที่ต่างจาก rodent",
             "body": [
-              {
-                "text": "**ต่างจาก rodents ตรงที่กระต่ายมี upper incisors ชุดที่สองอยู่หลังชุดแรก เรียกว่า peg teeth**"
-              },
-              {
-                "text": "incisors ของกระต่าย**งอกตลอดชีวิต** จึงเกิด malocclusion ได้ ซึ่งแก้ได้ด้วยการ trim incisors เหมือนในสัตว์ชนิดอื่น"
-              }
+              "**ต่างจาก rodents ตรงที่กระต่ายมี upper incisors ชุดที่สองอยู่หลังชุดแรก เรียกว่า peg teeth**",
+              "incisors ของกระต่าย**งอกตลอดชีวิต** จึงเกิด malocclusion ได้ ซึ่งแก้ได้ด้วยการ trim incisors เหมือนในสัตว์ชนิดอื่น"
             ]
           }
         ]
@@ -399,25 +341,19 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Rabbit: โครงกระดูก เล็บ และข้อควรระวังในการดูแล",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.37-38",
         "body": [
-          {
-            "text": "**กระต่ายมีโครงกระดูกเบามาก คิดเป็นเพียงประมาณ 8% ของน้ำหนักตัว** แต่กล้ามเนื้อแข็งแรงมาก โดยเฉพาะ hind limbs"
-          },
+          "**กระต่ายมีโครงกระดูกเบามาก คิดเป็นเพียงประมาณ 8% ของน้ำหนักตัว** แต่กล้ามเนื้อแข็งแรงมาก โดยเฉพาะ hind limbs",
           {
             "callout": "**การมีโครงกระดูกเบาร่วมกับกล้ามเนื้อที่แรงมาก ทำให้เกิดการบาดเจ็บได้ โดยที่พบบ่อยที่สุดคือ broken back** จึงต้องระวังมากเวลาอุ้มหรือจับกระต่าย",
             "kind": "warn"
           },
-          {
-            "text": "เล็บกระต่ายงอกเร็ว กระต่ายป่าสึกเล็บเองจากการขุดและวิ่ง แต่**ในกรงไม่มีทางสึกเล็บ จึงต้องตัดเล็บสม่ำเสมอ** ตัดให้ทู่ ระวังไม่ตัดสั้นจนเลือดออก"
-          }
+          "เล็บกระต่ายงอกเร็ว กระต่ายป่าสึกเล็บเองจากการขุดและวิ่ง แต่**ในกรงไม่มีทางสึกเล็บ จึงต้องตัดเล็บสม่ำเสมอ** ตัดให้ทู่ ระวังไม่ตัดสั้นจนเลือดออก"
         ]
       },
       {
         "heading": "Rabbit: night feces และ coprophagy",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.39-40",
         "body": [
-          {
-            "text": "อุจจาระกระต่ายเป็นเม็ดกลม แต่กระต่ายยังผลิตอุจจาระอีกชนิดเรียกว่า **night feces** ซึ่งนิ่มมากและหุ้มด้วย mucus หนา"
-          },
+          "อุจจาระกระต่ายเป็นเม็ดกลม แต่กระต่ายยังผลิตอุจจาระอีกชนิดเรียกว่า **night feces** ซึ่งนิ่มมากและหุ้มด้วย mucus หนา",
           {
             "bullets": [
               "กระต่ายกิน night feces ขณะที่ถูกขับออกมา มักเป็นช่วงเช้ามืด และเพราะกินจากทวารโดยตรงจึงพบสิ่งนี้บนถาดรองกรงได้ยาก",
@@ -425,37 +361,27 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "การกินอุจจาระเรียกว่า **coprophagy** พบทั้งใน rabbits และ rodents แต่**กระต่ายเป็นชนิดเดียวที่ผลิตอุจจาระชนิดพิเศษขึ้นมาเพื่อการนี้โดยเฉพาะ**"
             ]
           },
-          {
-            "text": "**ปัสสาวะกระต่ายมีสีได้ตั้งแต่แดงหรือเหลืองใส ไปจนถึงเหลืองขุ่นคล้ายน้ำนม สาเหตุของความแตกต่างของสีคือปริมาณ minerals ที่สูง**"
-          }
+          "**ปัสสาวะกระต่ายมีสีได้ตั้งแต่แดงหรือเหลืองใส ไปจนถึงเหลืองขุ่นคล้ายน้ำนม สาเหตุของความแตกต่างของสีคือปริมาณ minerals ที่สูง**"
         ]
       },
       {
         "heading": "Rabbit: การนำออกจากกรงและการอุ้ม",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.41-42",
         "body": [
-          {
-            "text": "**หลังของกระต่ายไวต่อการบาดเจ็บมาก การ handling และ restraint จึงเป็นเรื่องสำคัญ และต้อง support hindquarters ตลอดเวลา**"
-          },
+          "**หลังของกระต่ายไวต่อการบาดเจ็บมาก การ handling และ restraint จึงเป็นเรื่องสำคัญ และต้อง support hindquarters ตลอดเวลา**",
           {
             "callout": "**หูกระต่ายบาดเจ็บง่าย ห้ามอุ้มกระต่ายโดยจับที่หูเด็ดขาด**",
             "kind": "warn"
           },
-          {
-            "text": "นำกระต่ายออกจากกรงได้โดย**จับ nape of the neck ด้วยมือหนึ่ง และรองส่วนท้ายด้วยมืออีกข้าง** ท่านี้ใช้ได้เฉพาะช่วงสั้น ๆ เช่น ตอนเปลี่ยนกรง"
-          },
-          {
-            "text": "ถ้าต้องอุ้มข้ามห้องหรือไปอีกห้อง ให้ใช้วิธี **tuck หรือ football method** คือรอง hindquarters ด้วยมือหนึ่งและซุกหัวกระต่ายไว้ในซอกแขน วิธีนี้ทำให้มืออีกข้างว่างเพื่อเปิดประตูหรือกรงได้ แต่**ไม่ควรใช้ restrain กระต่ายสำหรับหัตถการที่อาจทำให้สัตว์ตื่นเต้น**"
-          }
+          "นำกระต่ายออกจากกรงได้โดย**จับ nape of the neck ด้วยมือหนึ่ง และรองส่วนท้ายด้วยมืออีกข้าง** ท่านี้ใช้ได้เฉพาะช่วงสั้น ๆ เช่น ตอนเปลี่ยนกรง",
+          "ถ้าต้องอุ้มข้ามห้องหรือไปอีกห้อง ให้ใช้วิธี **tuck หรือ football method** คือรอง hindquarters ด้วยมือหนึ่งและซุกหัวกระต่ายไว้ในซอกแขน วิธีนี้ทำให้มืออีกข้างว่างเพื่อเปิดประตูหรือกรงได้ แต่**ไม่ควรใช้ restrain กระต่ายสำหรับหัตถการที่อาจทำให้สัตว์ตื่นเต้น**"
         ]
       },
       {
         "heading": "Rabbit: อุปกรณ์ immobilization",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.43-44",
         "body": [
-          {
-            "text": "มีอุปกรณ์หลายชนิดสำหรับ immobilize กระต่ายเมื่อไม่ควรใช้ manual restraint"
-          },
+          "มีอุปกรณ์หลายชนิดสำหรับ immobilize กระต่ายเมื่อไม่ควรใช้ manual restraint",
           {
             "bullets": [
               "**Plastic restrainers** ใช้ head gate, back piece และ head stabilizers ต้องระวังตอนใส่และเอาสัตว์ออก เพราะ**ถ้าใช้ restrainer ขนาดไม่พอดี อาจเกิดการบาดเจ็บเช่น broken back**",
@@ -463,9 +389,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "**Hypnosis** ถ้า handle อย่างนุ่มนวลและชำนาญ กระต่ายจะเข้าสู่ภาวะคล้ายถูกสะกด นอนนิ่ง ไม่ขยับ และไม่ตอบสนองต่อสิ่งกระตุ้นเบา ๆ"
             ]
           },
-          {
-            "text": "หน้า 44 เป็นสไลด์รูปที่มีเพียงคำกำกับภาพ ได้แก่ Rigid metal, Rigid plastic, Cloth cat-bag restraint, Restraint in a cloth wrap, snuggle restraint และ Hypnosis"
-          }
+          "หน้า 44 เป็นสไลด์รูปที่มีเพียงคำกำกับภาพ ได้แก่ Rigid metal, Rigid plastic, Cloth cat-bag restraint, Restraint in a cloth wrap, snuggle restraint และ Hypnosis"
         ]
       },
       {
@@ -505,9 +429,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Dog: แหล่งที่มาของสุนัขในงานวิจัย",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.47",
         "body": [
-          {
-            "text": "**USDA เป็นผู้กำกับการขายสุนัขเพื่อการวิจัย สุนัขที่ใช้ในงานวิจัยต้องได้จากแหล่งที่ USDA อนุญาต** โดยส่วนใหญ่เป็นสุนัขที่เพาะเลี้ยงมาเพื่อการวิจัยโดยเฉพาะ (purpose bred) มีเพียงส่วนน้อยที่ได้จากแหล่งอื่น (random source)"
-          },
+          "**USDA เป็นผู้กำกับการขายสุนัขเพื่อการวิจัย สุนัขที่ใช้ในงานวิจัยต้องได้จากแหล่งที่ USDA อนุญาต** โดยส่วนใหญ่เป็นสุนัขที่เพาะเลี้ยงมาเพื่อการวิจัยโดยเฉพาะ (purpose bred) มีเพียงส่วนน้อยที่ได้จากแหล่งอื่น (random source)",
           {
             "sub": "Purpose bred (USDA class A dealers)",
             "body": [
@@ -540,9 +462,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Dog: การอ่านภาษากายก่อนเข้าหา",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.48-51",
         "body": [
-          {
-            "text": "สุนัขเป็นสัตว์สังคมมาก การเข้าใจ normal canine behavior ช่วยให้ทำงานกับสุนัขได้อย่างปลอดภัยและสำเร็จ **สุนัขสื่อสารการรับรู้และความตั้งใจด้วย body language หรือ visual cues**"
-          },
+          "สุนัขเป็นสัตว์สังคมมาก การเข้าใจ normal canine behavior ช่วยให้ทำงานกับสุนัขได้อย่างปลอดภัยและสำเร็จ **สุนัขสื่อสารการรับรู้และความตั้งใจด้วย body language หรือ visual cues**",
           {
             "sub": "Subordination",
             "body": [
@@ -571,9 +491,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "สุนัขที่กลัว",
             "body": [
-              {
-                "text": "**สุนัขที่กลัวอาจแสดงพฤติกรรม submissive และ threatening พร้อมกัน** เช่น จ้องตานิ่ง piloerection และยิงฟัน ร่วมกับสัญญาณ submissive อย่างลดตัวต่ำและเก็บหาง หรืออาจแยกตัวไปอยู่หลังคอกหรือกรง ตัวสั่น และไม่ตอบสนองต่อคน"
-              },
+              "**สุนัขที่กลัวอาจแสดงพฤติกรรม submissive และ threatening พร้อมกัน** เช่น จ้องตานิ่ง piloerection และยิงฟัน ร่วมกับสัญญาณ submissive อย่างลดตัวต่ำและเก็บหาง หรืออาจแยกตัวไปอยู่หลังคอกหรือกรง ตัวสั่น และไม่ตอบสนองต่อคน",
               {
                 "callout": "**สุนัขแบบนี้อาจเข้าโจมตีและกัดถ้าพยายามเข้าไปจับ**",
                 "kind": "warn"
@@ -653,29 +571,17 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Sternal recumbency",
             "body": [
-              {
-                "text": "**เป็นท่า restraint พื้นฐานที่ใช้กับหัตถการหลายอย่าง คือให้ sternum หรือกระดูกอกของสุนัขสัมผัสโต๊ะ**"
-              },
-              {
-                "text": "วางแขนหนึ่งไว้ใต้คางเพื่อควบคุมหัว อีกแขนพาดบนหลังเพื่อไม่ให้ลุกยืน ถ้าจำเป็นสามารถประคองหัวสุนัขไว้กับคอของผู้จับเพื่อควบคุมหัวได้ดีขึ้น"
-              },
-              {
-                "text": "**ท่านี้เหมาะกับการเข้าถึง cephalic และ jugular veins**"
-              }
+              "**เป็นท่า restraint พื้นฐานที่ใช้กับหัตถการหลายอย่าง คือให้ sternum หรือกระดูกอกของสุนัขสัมผัสโต๊ะ**",
+              "วางแขนหนึ่งไว้ใต้คางเพื่อควบคุมหัว อีกแขนพาดบนหลังเพื่อไม่ให้ลุกยืน ถ้าจำเป็นสามารถประคองหัวสุนัขไว้กับคอของผู้จับเพื่อควบคุมหัวได้ดีขึ้น",
+              "**ท่านี้เหมาะกับการเข้าถึง cephalic และ jugular veins**"
             ]
           },
           {
             "sub": "Lateral recumbency",
             "body": [
-              {
-                "text": "**เป็นท่าที่ให้สีข้างหนึ่งของสุนัขสัมผัสโต๊ะ** การจับขาข้างที่อยู่ด้านล่างไว้จะกันไม่ให้สุนัขลุกนั่งขึ้นจากท่านี้"
-              },
-              {
-                "text": "สังเกตว่ามีการ**สอดนิ้วเข้าไประหว่างขาหน้าสองข้างเพื่อไม่ให้ขาถูกบีบชิดกันเกินไป**"
-              },
-              {
-                "text": "ท่านี้เหมาะกับการทำ venous procedures"
-              }
+              "**เป็นท่าที่ให้สีข้างหนึ่งของสุนัขสัมผัสโต๊ะ** การจับขาข้างที่อยู่ด้านล่างไว้จะกันไม่ให้สุนัขลุกนั่งขึ้นจากท่านี้",
+              "สังเกตว่ามีการ**สอดนิ้วเข้าไประหว่างขาหน้าสองข้างเพื่อไม่ให้ขาถูกบีบชิดกันเกินไป**",
+              "ท่านี้เหมาะกับการทำ venous procedures"
             ]
           }
         ]
@@ -684,9 +590,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Dog: muzzle และ Elizabethan collar",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.57-58",
         "body": [
-          {
-            "text": "**ควรพิจารณาใส่ muzzle ทุกครั้งที่นิสัยหรือประวัติพฤติกรรมของสุนัขบ่งชี้ว่ามีโอกาสถูกกัด** สามารถทำ quick muzzle จากผ้า gauze แถบยาวได้"
-          },
+          "**ควรพิจารณาใส่ muzzle ทุกครั้งที่นิสัยหรือประวัติพฤติกรรมของสุนัขบ่งชี้ว่ามีโอกาสถูกกัด** สามารถทำ quick muzzle จากผ้า gauze แถบยาวได้",
           {
             "bullets": [
               "1. ทำห่วงใหญ่ด้วยการผูกปมชั้นเดียว **ห่วงใหญ่ช่วยให้มืออยู่ห่างในระยะปลอดภัยจนกว่าจะผูกเสร็จ**",
@@ -695,9 +599,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "4. ผูกไว้ด้านหลังหัวเป็นโบว์ โดย**ห้ามรัดแน่นจนหนีบผิวหนัง** เพราะจะเจ็บและทำให้สุนัขดิ้น"
             ]
           },
-          {
-            "text": "**Elizabethan collar ใช้ป้องกันไม่ให้สุนัขทำร้ายบริเวณหัวหรือลำตัวของตัวเอง เช่น บริเวณแผลผ่าตัด**"
-          }
+          "**Elizabethan collar ใช้ป้องกันไม่ให้สุนัขทำร้ายบริเวณหัวหรือลำตัวของตัวเอง เช่น บริเวณแผลผ่าตัด**"
         ]
       },
       {
@@ -738,18 +640,14 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Dog euthanasia: agents",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.61",
         "body": [
-          {
-            "text": "**สารที่ preferred สำหรับ euthanasia ในสุนัขคือ barbiturates** ทั้งในรูป anesthetic preparations และ euthanasia formulations (ซึ่งมักผสม barbiturate กับยาอื่น เช่น phenytoin)"
-          },
+          "**สารที่ preferred สำหรับ euthanasia ในสุนัขคือ barbiturates** ทั้งในรูป anesthetic preparations และ euthanasia formulations (ซึ่งมักผสม barbiturate กับยาอื่น เช่น phenytoin)",
           {
             "bullets": [
               "สารเหล่านี้ทำให้เกิด anesthesia และหมดสติก่อนที่สัตว์จะตาย ความเป็น humane เกิดจากการที่ไม่มีความเจ็บปวดหรือ distress ณ เวลาที่ตาย",
               "**ต้องให้โดย rapid intravenous injection** ซึ่งเหนือกว่าวิธีอื่นเพราะ anesthesia เกิดเร็วและสัตว์หมดสติก่อนถึงวินาทีที่ตาย จึงไม่รู้สึกเจ็บปวดหรือ distress จากการตาย"
             ]
           },
-          {
-            "text": "หากจำเป็น ยังมีวิธีอื่นที่ humane เมื่อทำอย่างถูกต้อง ได้แก่"
-          },
+          "หากจำเป็น ยังมีวิธีอื่นที่ humane เมื่อทำอย่างถูกต้อง ได้แก่",
           {
             "bullets": [
               "**Potassium chloride (KCl) ฉีด IV ในสุนัขที่อยู่ใน surgical plane ของ general anesthesia**",
@@ -757,9 +655,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "Carbon monoxide (CO) ให้ทางการหายใจจนเกิด asphyxiation ซึ่ง**เป็นอันตรายต่อคน (human hazard)**"
             ]
           },
-          {
-            "text": "**ทุกวิธีของ euthanasia ต้องได้รับการอนุมัติจาก institutional animal care and use committee (IACUC)**"
-          },
+          "**ทุกวิธีของ euthanasia ต้องได้รับการอนุมัติจาก institutional animal care and use committee (IACUC)**",
           {
             "callout": "บนสไลด์หน้านี้มีข้อความอีกบล็อกหนึ่งที่ตัวอักษรสลับกันจนอ่านเป็นประโยคไม่ได้ พอเห็นได้แค่ว่ากล่าวถึง AVMA euthanasia Guidelines กับ CO2 และ CO และคำว่า rarely used in research institutions **แต่ประโยคเต็มอ่านไม่ออกจาก text layer จึงไม่สรุปแทน**",
             "kind": "flag"
@@ -781,25 +677,19 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
                   "พิจารณาใช้ catheter เพื่อให้แน่ใจว่าไม่มียาส่วนใดถูกฉีด perivascularly"
                 ]
               },
-              {
-                "text": "**ผลเกิดขึ้นทันที คือ สุนัขหมดสติ ตัวอ่อนปวกเปียก และตายภายในไม่กี่วินาที**"
-              }
+              "**ผลเกิดขึ้นทันที คือ สุนัขหมดสติ ตัวอ่อนปวกเปียก และตายภายในไม่กี่วินาที**"
             ]
           },
           {
             "sub": "หลีกเลี่ยงการฉีดช้า",
             "body": [
-              {
-                "text": "**ห้ามให้ยาเหล่านี้ในอัตราช้า** เพราะการให้ช้าจะทำให้สุนัขเข้าสู่ระยะแรกของ anesthesia ที่เรียกว่า **excitement phase ซึ่งมีลักษณะเป็นการดิ้นและการส่งเสียงร้อง**"
-              }
+              "**ห้ามให้ยาเหล่านี้ในอัตราช้า** เพราะการให้ช้าจะทำให้สุนัขเข้าสู่ระยะแรกของ anesthesia ที่เรียกว่า **excitement phase ซึ่งมีลักษณะเป็นการดิ้นและการส่งเสียงร้อง**"
             ]
           },
           {
             "sub": "หลีกเลี่ยง perivascular infiltration",
             "body": [
-              {
-                "text": "ระวังไม่ให้ฉีดยาออกนอกหลอดเลือดโดยบังเอิญ เพราะ**จะทำให้สุนัขเจ็บจากการระคายเคืองเนื้อเยื่อ และการที่ยาบางส่วนไม่เข้ากระแสเลือดจะทำให้ euthanasia ช้าลงและเหนี่ยวนำ excitement phase ของ anesthesia** จึงควรพิจารณาใส่ venous catheter เพื่อให้มั่นใจว่ายาทั้ง dose เข้า IV"
-              }
+              "ระวังไม่ให้ฉีดยาออกนอกหลอดเลือดโดยบังเอิญ เพราะ**จะทำให้สุนัขเจ็บจากการระคายเคืองเนื้อเยื่อ และการที่ยาบางส่วนไม่เข้ากระแสเลือดจะทำให้ euthanasia ช้าลงและเหนี่ยวนำ excitement phase ของ anesthesia** จึงควรพิจารณาใส่ venous catheter เพื่อให้มั่นใจว่ายาทั้ง dose เข้า IV"
             ]
           }
         ]
@@ -834,9 +724,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
                   "ฝึกให้ให้ความร่วมมือกับการตรวจและการทำหัตถการได้ง่าย โดย**อาหารเป็น motivator ที่สำคัญ**"
                 ]
               },
-              {
-                "text": "สไลด์หน้า 66 แสดงชื่อสายพันธุ์กำกับภาพไว้ ได้แก่ Yucatan, Gottingen, Hanford, Potbellied, Transgenic และ Wuzhishan"
-              }
+              "สไลด์หน้า 66 แสดงชื่อสายพันธุ์กำกับภาพไว้ ได้แก่ Yucatan, Gottingen, Hanford, Potbellied, Transgenic และ Wuzhishan"
             ]
           },
           {
@@ -868,21 +756,15 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "**Panepinto Sling ใช้กลไก crank ยกหมูจากพื้นขึ้นสู่ระดับความสูงที่ทำงานได้สะดวก และเจ้าหน้าที่คนเดียวใช้งานได้** หมูฝึกให้เดินขึ้น sling เองและยอมให้ยกขึ้นจากพื้นได้"
             ]
           },
-          {
-            "text": "หน้า 72-73 เป็นภาพเปรียบเทียบการจัดอุปกรณ์ โดยกำกับว่า **สำหรับหัตถการที่ใช้เวลานานให้ใช้ neck support ส่วนหัตถการสั้น ๆ ใช้เพียงผ้า gauze ชิ้นเดียว**"
-          },
-          {
-            "text": "สไลด์ระบุว่า **หมูหลายตัวจะผ่อนคลายมากเมื่อคุ้นกับ sling แล้ว และไม่ใช่เรื่องแปลกที่หมูจะหลับใน sling**"
-          }
+          "หน้า 72-73 เป็นภาพเปรียบเทียบการจัดอุปกรณ์ โดยกำกับว่า **สำหรับหัตถการที่ใช้เวลานานให้ใช้ neck support ส่วนหัตถการสั้น ๆ ใช้เพียงผ้า gauze ชิ้นเดียว**",
+          "สไลด์ระบุว่า **หมูหลายตัวจะผ่อนคลายมากเมื่อคุ้นกับ sling แล้ว และไม่ใช่เรื่องแปลกที่หมูจะหลับใน sling**"
         ]
       },
       {
         "heading": "Pig: การจัดท่าใน V-trough",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.74-77",
         "body": [
-          {
-            "text": "สไลด์ชุดนี้เป็นภาพขั้นตอนพร้อมคำกำกับ 7 ขั้น สำหรับจัดท่า minipig ลง V-trough"
-          },
+          "สไลด์ชุดนี้เป็นภาพขั้นตอนพร้อมคำกำกับ 7 ขั้น สำหรับจัดท่า minipig ลง V-trough",
           {
             "bullets": [
               "1. จับ minipig ไว้ และใช้มืออีกข้างซุกหางเข้าไป",
@@ -900,9 +782,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Pig euthanasia",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.78-79",
         "body": [
-          {
-            "text": "**หมูในงานวิจัยมัก euthanize ด้วยการฉีด barbiturates ทาง intravenous** แต่ตาม AVMA Guidelines ยังยอมรับการใช้ inhaled agents, gunshot, captive bolt, electrocution และ blunt force trauma ด้วย"
-          },
+          "**หมูในงานวิจัยมัก euthanize ด้วยการฉีด barbiturates ทาง intravenous** แต่ตาม AVMA Guidelines ยังยอมรับการใช้ inhaled agents, gunshot, captive bolt, electrocution และ blunt force trauma ด้วย",
           {
             "callout": "**วิธีที่เลือกขึ้นกับขนาดและน้ำหนักของสัตว์ เพราะหมูบ้านขนาดเต็มวัยมักตัวใหญ่เกินกว่าจะใส่ chamber หรืออุปกรณ์ inhalant anesthesia ได้**",
             "kind": "tip"
@@ -930,9 +810,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Pig: การยืนยันการตาย",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.84",
         "body": [
-          {
-            "text": "**การใช้เกณฑ์หลายอย่างร่วมกันเป็นวิธีที่น่าเชื่อถือที่สุดในการยืนยันการตาย** ได้แก่"
-          },
+          "**การใช้เกณฑ์หลายอย่างร่วมกันเป็นวิธีที่น่าเชื่อถือที่สุดในการยืนยันการตาย** ได้แก่",
           {
             "bullets": [
               "ไม่มี pulse ไม่หายใจ ไม่มี corneal reflex และไม่ตอบสนองต่อการบีบนิ้วเท้าแรง ๆ (firm toe pinch)",
@@ -981,9 +859,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Sheep: PPE และ Q fever",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.87",
         "body": [
-          {
-            "text": "**Q fever เกิดจากแบคทีเรีย zoonotic ชื่อ Coxiella burnetii ซึ่งพบได้ในเลือดและเนื้อเยื่อระบบสืบพันธุ์ของแม่แกะ ได้แก่ amniotic fluid และถุงน้ำคร่ำ placenta และ uterus**"
-          },
+          "**Q fever เกิดจากแบคทีเรีย zoonotic ชื่อ Coxiella burnetii ซึ่งพบได้ในเลือดและเนื้อเยื่อระบบสืบพันธุ์ของแม่แกะ ได้แก่ amniotic fluid และถุงน้ำคร่ำ placenta และ uterus**",
           {
             "callout": "**เชื้อนี้ฟุ้งกระจายเป็น airborne เมื่อแม่แกะคลอดหรือแท้ง**",
             "kind": "warn"
@@ -1041,9 +917,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Tipping",
             "body": [
-              {
-                "text": "**Tipping คือการจับแกะให้นั่งบนก้นโดยเอาหลังพิงขาของผู้จับ วิธีนี้ใช้แรงน้อยเพราะอาศัยการทำให้แกะเสียสมดุลจนตัวทรุดลงด้วยน้ำหนักของมันเอง**"
-              },
+              "**Tipping คือการจับแกะให้นั่งบนก้นโดยเอาหลังพิงขาของผู้จับ วิธีนี้ใช้แรงน้อยเพราะอาศัยการทำให้แกะเสียสมดุลจนตัวทรุดลงด้วยน้ำหนักของมันเอง**",
               {
                 "bullets": [
                   "ยืนด้านซ้ายของแกะ วางมือซ้ายใต้ขากรรไกรโดยให้นิ้วโป้งซ้ายอยู่เหนือ muzzle",
@@ -1082,9 +956,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "มีสูตร concentrated solutions ของ **pentobarbital sodium** ที่ผลิตเชิงพาณิชย์สำหรับ euthanasia โดยเฉพาะ"
             ]
           },
-          {
-            "text": "**Barbiturate overdose ได้ผลดีที่สุดถ้าให้ยา sedate สัตว์ก่อนด้วยการฉีด intramuscular** โดยสไลด์อ้างถึงยาหรือสูตรผสมที่อยู่ในบทเรียนก่อนหน้าเรื่อง Analgesics, Sedatives, and Anesthetics **สไลด์นี้ไม่ได้ระบุชื่อยาหรือขนาดยา**"
-          },
+          "**Barbiturate overdose ได้ผลดีที่สุดถ้าให้ยา sedate สัตว์ก่อนด้วยการฉีด intramuscular** โดยสไลด์อ้างถึงยาหรือสูตรผสมที่อยู่ในบทเรียนก่อนหน้าเรื่อง Analgesics, Sedatives, and Anesthetics **สไลด์นี้ไม่ได้ระบุชื่อยาหรือขนาดยา**",
           {
             "bullets": [
               "**premedication ให้ chemical restraint จึงลด distress จากการ physical restraint**",
@@ -1099,12 +971,8 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "สไลด์ปิดท้าย",
         "source": "CULAC 2024 Handling Euthanasia MediumSizeAnimal p.95-96",
         "body": [
-          {
-            "text": "หน้า 95 มีเพียงหัวข้อ **Animal Adoptation** โดยไม่มีข้อความอธิบายใด ๆ ต่อ **สไลด์ไม่ได้บอกว่านโยบายหรือขั้นตอนคืออะไร**"
-          },
-          {
-            "text": "หน้าสุดท้ายเป็นข้อความชวนมาร่วมงานกับหน่วยงานหลังเรียนจบ ไม่ใช่เนื้อหาวิชาการ"
-          }
+          "หน้า 95 มีเพียงหัวข้อ **Animal Adoptation** โดยไม่มีข้อความอธิบายใด ๆ ต่อ **สไลด์ไม่ได้บอกว่านโยบายหรือขั้นตอนคืออะไร**",
+          "หน้าสุดท้ายเป็นข้อความชวนมาร่วมงานกับหน่วยงานหลังเรียนจบ ไม่ใช่เนื้อหาวิชาการ"
         ]
       }
     ]
@@ -1120,12 +988,8 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Objectives ของบทนี้",
         "source": "lab physio intro p.1-2",
         "body": [
-          {
-            "text": "สไลด์ตั้งชื่อหัวข้อว่า Instruments and Data Analysis บรรยายโดยอาจารย์จาก Department of Veterinary Physiology, Faculty of Veterinary Science, Chulalongkorn University"
-          },
-          {
-            "text": "สิ่งที่นิสิตต้องทำได้เมื่อจบบทนี้ตามที่สไลด์ระบุ"
-          },
+          "สไลด์ตั้งชื่อหัวข้อว่า Instruments and Data Analysis บรรยายโดยอาจารย์จาก Department of Veterinary Physiology, Faculty of Veterinary Science, Chulalongkorn University",
+          "สิ่งที่นิสิตต้องทำได้เมื่อจบบทนี้ตามที่สไลด์ระบุ",
           {
             "bullets": [
               "**Select the appropriate instruments** for specific measurement หรือ experiment คือเลือกเครื่องมือให้ตรงกับสิ่งที่จะวัด",
@@ -1139,9 +1003,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Physiological Experiments แบ่งเป็น 2 ฝั่ง",
         "source": "lab physio intro p.3",
         "body": [
-          {
-            "text": "สไลด์แบ่งงานในแล็บสรีรวิทยาออกเป็นสองฝั่ง คือฝั่งเก็บข้อมูลกับฝั่งวิเคราะห์ข้อมูล และแต่ละฝั่งมีทางเลือกของตัวเอง"
-          },
+          "สไลด์แบ่งงานในแล็บสรีรวิทยาออกเป็นสองฝั่ง คือฝั่งเก็บข้อมูลกับฝั่งวิเคราะห์ข้อมูล และแต่ละฝั่งมีทางเลือกของตัวเอง",
           {
             "sub": "Data Acquisition (การเก็บสัญญาณ)",
             "body": [
@@ -1175,17 +1037,13 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Data Acquisition System: เส้นทางของสัญญาณ",
         "source": "lab physio intro p.4",
         "body": [
-          {
-            "text": "สไลด์วางลำดับการเดินทางของสัญญาณจากตัวสัตว์ไปจนถึงหน้าจอไว้เป็นสายเดียว ควรจำลำดับนี้ให้ได้"
-          },
+          "สไลด์วางลำดับการเดินทางของสัญญาณจากตัวสัตว์ไปจนถึงหน้าจอไว้เป็นสายเดียว ควรจำลำดับนี้ให้ได้",
           {
             "bullets": [
               "**Physiological System → Transducer Sensor → Signal Conditioning → A/D Converter → Computer**"
             ]
           },
-          {
-            "text": "สไลด์ระบุหน้าที่ของขั้น Signal Conditioning ไว้ 2 อย่าง"
-          },
+          "สไลด์ระบุหน้าที่ของขั้น Signal Conditioning ไว้ 2 อย่าง",
           {
             "bullets": [
               "**Signal Amplification** ขยายสัญญาณ",
@@ -1198,9 +1056,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Transducer Sensors: 4 ชนิดที่ต้องรู้จัก",
         "source": "lab physio intro p.5-10",
         "body": [
-          {
-            "text": "หน้าที่ของ transducer ตามที่สไลด์เขียนคือเปลี่ยน **Mechanical signal → Digital signal** และสไลด์ไล่ชื่อไว้ 4 ตัว (p.5)"
-          },
+          "หน้าที่ของ transducer ตามที่สไลด์เขียนคือเปลี่ยน **Mechanical signal → Digital signal** และสไลด์ไล่ชื่อไว้ 4 ตัว (p.5)",
           {
             "bullets": [
               "Force Transducer",
@@ -1262,9 +1118,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "สายสัญญาณของ Force Transducer",
         "source": "lab physio intro p.7",
         "body": [
-          {
-            "text": "สไลด์นี้ต่อ Force Transducer เข้ากับระบบทั้งสายเป็นตัวอย่างรูปธรรม"
-          },
+          "สไลด์นี้ต่อ Force Transducer เข้ากับระบบทั้งสายเป็นตัวอย่างรูปธรรม",
           {
             "bullets": [
               "**Skeletal muscle / Smooth muscle → Force Transducer → Bridge Amp → A/D converter (PowerLab®) → LabChart Program → Tracing**"
@@ -1280,9 +1134,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Stimulator: ปุ่มและรูปแบบการกระตุ้น",
         "source": "lab physio intro p.11-17",
         "body": [
-          {
-            "text": "สไลด์ชุดนี้เป็นภาพเครื่อง stimulator เป็นหลัก ส่วนที่เป็นตัวหนังสือคือชื่อปุ่มควบคุมและรูปแบบ pulse"
-          },
+          "สไลด์ชุดนี้เป็นภาพเครื่อง stimulator เป็นหลัก ส่วนที่เป็นตัวหนังสือคือชื่อปุ่มควบคุมและรูปแบบ pulse",
           {
             "sub": "ปุ่มควบคุมที่สไลด์ระบุ (p.13)",
             "body": [
@@ -1322,9 +1174,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Spirometer (p.18)",
             "body": [
-              {
-                "text": "สไลด์เป็นแผนภาพ กำกับส่วนประกอบไว้เท่านี้"
-              },
+              "สไลด์เป็นแผนภาพ กำกับส่วนประกอบไว้เท่านี้",
               {
                 "bullets": [
                   "**Floating drum**",
@@ -1338,9 +1188,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
           {
             "sub": "Physiograph หรือ Polygraph (p.19)",
             "body": [
-              {
-                "text": "สไลด์นี้เป็นภาพเครื่องอย่างเดียว ไม่มีข้อความอธิบายการทำงาน สิ่งที่ได้จากเครื่องนี้คือ tracing ซึ่งไปโผล่เป็นตัวอย่างการคำนวณด้วยมือใน p.37"
-              }
+              "สไลด์นี้เป็นภาพเครื่องอย่างเดียว ไม่มีข้อความอธิบายการทำงาน สิ่งที่ได้จากเครื่องนี้คือ tracing ซึ่งไปโผล่เป็นตัวอย่างการคำนวณด้วยมือใน p.37"
             ]
           }
         ]
@@ -1349,18 +1197,14 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "PowerLab® system",
         "source": "lab physio intro p.20-21",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า PowerLab® ทำหน้าที่ 2 อย่าง"
-          },
+          "สไลด์ระบุว่า PowerLab® ทำหน้าที่ 2 อย่าง",
           {
             "bullets": [
               "**Signal Amplification**",
               "**A/D Converter**"
             ]
           },
-          {
-            "text": "และระบุ amp ที่ใช้ร่วมไว้ 2 ชนิด"
-          },
+          "และระบุ amp ที่ใช้ร่วมไว้ 2 ชนิด",
           {
             "bullets": [
               "**Bridge Amps**",
@@ -1377,12 +1221,8 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "LabChart® Reader: แพลตฟอร์มและมุมมองข้อมูล",
         "source": "lab physio intro p.22-29",
         "body": [
-          {
-            "text": "p.22 เป็นสไลด์ชื่อเรื่องของครึ่งหลัง คือ How to Analyze Data using LabChart® Reader? โปรแกรมฝั่งนิสิตคือ **LabChart Reader** ซึ่ง p.24 ให้ที่อยู่ดาวน์โหลดไว้ที่ adinstruments.com/products/labchart-reader"
-          },
-          {
-            "text": "สไลด์แยกมุมมองข้อมูลออกเป็น 2 แบบ"
-          },
+          "p.22 เป็นสไลด์ชื่อเรื่องของครึ่งหลัง คือ How to Analyze Data using LabChart® Reader? โปรแกรมฝั่งนิสิตคือ **LabChart Reader** ซึ่ง p.24 ให้ที่อยู่ดาวน์โหลดไว้ที่ adinstruments.com/products/labchart-reader",
+          "สไลด์แยกมุมมองข้อมูลออกเป็น 2 แบบ",
           {
             "bullets": [
               "**Scope View** (p.28)",
@@ -1399,9 +1239,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Basic Function ของการวิเคราะห์ข้อมูล",
         "source": "lab physio intro p.30-31",
         "body": [
-          {
-            "text": "p.30 ตั้งเป็นคำถาม 4 ข้อ ซึ่งเป็นฟังก์ชันพื้นฐานที่ต้องทำให้ได้"
-          },
+          "p.30 ตั้งเป็นคำถาม 4 ข้อ ซึ่งเป็นฟังก์ชันพื้นฐานที่ต้องทำให้ได้",
           {
             "bullets": [
               "**How to read data value?** อ่านค่าข้อมูล",
@@ -1427,9 +1265,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "สไลด์สาธิตการวัดใน Scope",
         "source": "lab physio intro p.32-36",
         "body": [
-          {
-            "text": "สไลด์ 5 หน้านี้ตอบคำถามจาก p.30 ทีละข้อ แต่ **เป็นภาพหน้าจอทั้งหมด มีเฉพาะหัวข้อเป็นตัวหนังสือ** สิ่งที่อ่านได้จากตัวหนังสือคือคำถามและขอบเขตของการวัดเท่านั้น"
-          },
+          "สไลด์ 5 หน้านี้ตอบคำถามจาก p.30 ทีละข้อ แต่ **เป็นภาพหน้าจอทั้งหมด มีเฉพาะหัวข้อเป็นตัวหนังสือ** สิ่งที่อ่านได้จากตัวหนังสือคือคำถามและขอบเขตของการวัดเท่านั้น",
           {
             "bullets": [
               "p.32 How to read data value?",
@@ -1449,21 +1285,15 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "การคำนวณด้วยมือจาก tracing ของ Polygraph",
         "source": "lab physio intro p.37",
         "body": [
-          {
-            "text": "สไลด์สุดท้ายที่มีเนื้อหา เป็นตัวอย่าง tracing ของ **smooth muscle contraction** พร้อมแถบ **Timer/Marker** และช่วงเวลากำกับ **1 minute**"
-          },
-          {
-            "text": "ค่าที่สไลด์เขียนกำกับบนกราฟ"
-          },
+          "สไลด์สุดท้ายที่มีเนื้อหา เป็นตัวอย่าง tracing ของ **smooth muscle contraction** พร้อมแถบ **Timer/Marker** และช่วงเวลากำกับ **1 minute**",
+          "ค่าที่สไลด์เขียนกำกับบนกราฟ",
           {
             "bullets": [
               "ความสูงของ contraction 3 ค่า คือ **2.1 cm**, **2.3 cm** และ **2.5 cm**",
               "ช่วงอ้างอิงเวลา **1 minute**"
             ]
           },
-          {
-            "text": "ผลที่สไลด์สรุปไว้"
-          },
+          "ผลที่สไลด์สรุปไว้",
           {
             "bullets": [
               "**Rate: 9 time/min**",
@@ -1488,9 +1318,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 1 Pre-lab: พื้นฐาน cardiac action potential",
         "source": "Lab Report Cardiac action potential p.1",
         "body": [
-          {
-            "text": "Activity 1 ชื่อ Investigating the Refractory Period of Cardiac Muscle ส่วน pre-lab quiz 4 ข้อวางพื้นฐานไว้ก่อนเข้าการทดลอง"
-          },
+          "Activity 1 ชื่อ Investigating the Refractory Period of Cardiac Muscle ส่วน pre-lab quiz 4 ข้อวางพื้นฐานไว้ก่อนเข้าการทดลอง",
           {
             "bullets": [
               "cardiac muscle มีคุณสมบัติ **autorhythmicity**",
@@ -1505,9 +1333,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 1 การทดลอง: เพิ่มความถี่กระตุ้น และการเหนี่ยวนำ extrasystole",
         "source": "Lab Report Cardiac action potential p.2",
         "body": [
-          {
-            "text": "Predict question ข้อ 1 ตอบว่าเมื่อเพิ่ม frequency ของการกระตุ้น amplitude (ความสูง) ของ ventricular systole wave จะไม่เปลี่ยน และข้อ 2 ตอบว่าการให้ 20 stimuli ต่อวินาที จะไม่เกิดทั้ง wave summation และ tetanus"
-          },
+          "Predict question ข้อ 1 ตอบว่าเมื่อเพิ่ม frequency ของการกระตุ้น amplitude (ความสูง) ของ ventricular systole wave จะไม่เปลี่ยน และข้อ 2 ตอบว่าการให้ 20 stimuli ต่อวินาที จะไม่เกิดทั้ง wave summation และ tetanus",
           {
             "bullets": [
               "ค่าที่บันทึกจาก heart rate display คือ **59 beats/min**",
@@ -1548,9 +1374,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 2 Pre-lab: autonomic nervous system กับ heart rate",
         "source": "Lab Report Cardiac action potential p.6",
         "body": [
-          {
-            "text": "Activity 2 ชื่อ Examining the Effect of Vagus Nerve Stimulation"
-          },
+          "Activity 2 ชื่อ Examining the Effect of Vagus Nerve Stimulation",
           {
             "bullets": [
               "**parasympathetic nervous system ทำให้ heart rate ลดลง**",
@@ -1565,9 +1389,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 2 ผลการทดลอง: vagus stimulation และ vagal escape",
         "source": "Lab Report Cardiac action potential p.7-8",
         "body": [
-          {
-            "text": "Predict question ตอบไว้ว่าการกระตุ้น vagus nerve หลายครั้งจะทำให้ heart rate เพิ่มขึ้น"
-          },
+          "Predict question ตอบไว้ว่าการกระตุ้น vagus nerve หลายครั้งจะทำให้ heart rate เพิ่มขึ้น",
           {
             "callout": "คำทำนายข้อนี้สวนทางกับผลในสไลด์เอง เพราะ post-lab ระบุว่า extreme vagus nerve stimulation ทำให้หัวใจหยุดเต้นไปเลย",
             "kind": "warn"
@@ -1602,9 +1424,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 3 อุณหภูมิกับ heart rate: pre-lab และข้อมูลจริง",
         "source": "Lab Report Cardiac action potential p.10-11",
         "body": [
-          {
-            "text": "Activity 3 ชื่อ Examining the Effect of Temperature on Heart Rate"
-          },
+          "Activity 3 ชื่อ Examining the Effect of Temperature on Heart Rate",
           {
             "bullets": [
               "สัตว์ที่รักษาอุณหภูมิร่างกายคงที่แม้อุณหภูมิสิ่งแวดล้อมเปลี่ยน เรียกว่า **homeothermic** ส่วนกระบวนการรักษาอุณหภูมิภายในในคนเรียกรวมว่า **homeostasis**",
@@ -1650,9 +1470,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 4 Chemical modifiers: pre-lab, ยาแต่ละตัว และข้อมูลจริง",
         "source": "Lab Report Cardiac action potential p.15-16",
         "body": [
-          {
-            "text": "Activity 4 ชื่อ Examining the Effects of Chemical Modifiers on Heart Rate"
-          },
+          "Activity 4 ชื่อ Examining the Effects of Chemical Modifiers on Heart Rate",
           {
             "bullets": [
               "**parasympathetic nervous system หลั่ง acetylcholine** เพื่อมีผลต่อ heart rate",
@@ -1721,9 +1539,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Activity 5 Ions กับ heart rate: pre-lab และข้อมูลจริง",
         "source": "Lab Report Cardiac action potential p.21-22",
         "body": [
-          {
-            "text": "Activity 5 ชื่อ Examining the Effects of Various Ions on Heart Rate"
-          },
+          "Activity 5 ชื่อ Examining the Effects of Various Ions on Heart Rate",
           {
             "bullets": [
               "**organelle ที่เก็บ calcium ใน cardiac muscle cell คือ sarcoplasmic reticulum**",
@@ -1782,9 +1598,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "หน้าที่ไม่มีข้อความในไฟล์",
         "source": "Lab Report Cardiac action potential p.3, p.12, p.17, p.18, p.23",
         "body": [
-          {
-            "text": "ห้าหน้านี้ไม่มีข้อความใดเลยนอกจากวันที่และเลขหน้าที่ footer จึงสรุปเนื้อหาไม่ได้ ถ้าบนหน้าเหล่านี้มีกราฟหรือภาพจากโปรแกรมอยู่ **สไลด์ไม่ได้บอก**"
-          },
+          "ห้าหน้านี้ไม่มีข้อความใดเลยนอกจากวันที่และเลขหน้าที่ footer จึงสรุปเนื้อหาไม่ได้ ถ้าบนหน้าเหล่านี้มีกราฟหรือภาพจากโปรแกรมอยู่ **สไลด์ไม่ได้บอก**",
           {
             "callout": "ตัวเลข baseline heart rate ในแต่ละ activity ไม่เท่ากัน คือ 59, 61, 61, 62 และ 62 ตามลำดับ เวลาอ้างอิงจึงต้องระบุว่าเป็น baseline ของ activity ไหน",
             "kind": "tip"
@@ -1815,9 +1629,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "ประวัติผลเลือดเมื่อ 6 เดือนก่อน",
         "source": "PBL kidney p.1",
         "body": [
-          {
-            "text": "สไลด์ให้ประวัติเก่าไว้เทียบ ว่าสุนัขตัวนี้ **มี mild azotemia อยู่แล้วตั้งแต่ 6 เดือนก่อน** ไม่ได้เพิ่งผิดปกติครั้งนี้ครั้งแรก"
-          },
+          "สไลด์ให้ประวัติเก่าไว้เทียบ ว่าสุนัขตัวนี้ **มี mild azotemia อยู่แล้วตั้งแต่ 6 เดือนก่อน** ไม่ได้เพิ่งผิดปกติครั้งนี้ครั้งแรก",
           {
             "bullets": [
               "BUN 34 mg/dl (normal 12-25 mg/dl)",
@@ -1841,9 +1653,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
               "ตรวจพบ positive Ab for blood parasite (E. canis)"
             ]
           },
-          {
-            "text": "สุนัขได้รับยารักษาพยาธิเม็ดเลือดและ fluid therapy แล้วถูกส่งต่อไปโรงพยาบาลสัตว์ จุฬาลงกรณ์มหาวิทยาลัย ในวันรุ่งขึ้น สไลด์ไม่ได้บอกว่าใช้ยาตัวไหนและ fluid ชนิดใด"
-          }
+          "สุนัขได้รับยารักษาพยาธิเม็ดเลือดและ fluid therapy แล้วถูกส่งต่อไปโรงพยาบาลสัตว์ จุฬาลงกรณ์มหาวิทยาลัย ในวันรุ่งขึ้น สไลด์ไม่ได้บอกว่าใช้ยาตัวไหนและ fluid ชนิดใด"
         ]
       },
       {
@@ -1898,9 +1708,7 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "Blood chemistry",
         "source": "PBL kidney p.1",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า hepatic enzyme (ALT และ AST) ปกติ ส่วนค่าที่ผิดปกติมีดังนี้"
-          },
+          "สไลด์ระบุว่า hepatic enzyme (ALT และ AST) ปกติ ส่วนค่าที่ผิดปกติมีดังนี้",
           {
             "bullets": [
               "**BUN = 132.5 mg/dl และ Cr = 9.3 mg/dl** (สูงขึ้นอีกจากค่าที่คลินิกคือ 76 และ 7.6)",
@@ -1950,16 +1758,12 @@ export const NOTES_Y2_PHYSIO_LAB_2 = {
         "heading": "โครง PBL ที่สไลด์ทิ้งไว้ให้เติม",
         "source": "PBL kidney p.3",
         "body": [
-          {
-            "text": "หน้าสุดท้ายมีเพียงหัวข้อของกระบวนการ PBL เรียงกันโดยไม่มีเนื้อหาใต้หัวข้อเลย ได้แก่ Clarifying term, Finding, Tentative diagnosis, Final diagnosis, Learning objective และ Key points"
-          },
+          "หน้าสุดท้ายมีเพียงหัวข้อของกระบวนการ PBL เรียงกันโดยไม่มีเนื้อหาใต้หัวข้อเลย ได้แก่ Clarifying term, Finding, Tentative diagnosis, Final diagnosis, Learning objective และ Key points",
           {
             "callout": "**เดคนี้ไม่ได้เฉลย tentative diagnosis หรือ final diagnosis** และไม่ได้อธิบายกลไกใด ๆ ที่เชื่อมค่าที่ให้มาเข้าด้วยกัน สไลด์ไม่ได้บอก ต้องรอการอภิปรายในกลุ่ม PBL",
             "kind": "warn"
           },
-          {
-            "text": "หมายเหตุ หน้า 2 ของไฟล์ไม่มีข้อความใด ๆ เลย เนื้อหาทั้งหมดของเคสอยู่บนหน้า 1 และมีส่วนตกค้างต่อมาที่หน้า 3"
-          }
+          "หมายเหตุ หน้า 2 ของไฟล์ไม่มีข้อความใด ๆ เลย เนื้อหาทั้งหมดของเคสอยู่บนหน้า 1 และมีส่วนตกค้างต่อมาที่หน้า 3"
         ]
       }
     ]

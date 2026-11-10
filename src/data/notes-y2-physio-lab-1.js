@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_PHYSIO_LAB_1 = {
@@ -27,12 +27,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "บทนี้คือบทอะไร: Physicochemical properties of solutions",
         "source": "Duke Physiology p.14",
         "body": [
-          {
-            "text": "หน้านี้เป็นหน้าเปิดบท **PHYSICOCHEMICAL PROPERTIES OF SOLUTIONS** ซึ่งอยู่ในภาค BLOOD, CIRCULATION, AND THE CARDIOVASCULAR SYSTEM เขียนโดย William O. Reece"
-          },
-          {
-            "text": "หัวข้อทั้งหมดที่บทนี้ลิสต์ไว้ในหน้าเปิด"
-          },
+          "หน้านี้เป็นหน้าเปิดบท **PHYSICOCHEMICAL PROPERTIES OF SOLUTIONS** ซึ่งอยู่ในภาค BLOOD, CIRCULATION, AND THE CARDIOVASCULAR SYSTEM เขียนโดย William O. Reece",
+          "หัวข้อทั้งหมดที่บทนี้ลิสต์ไว้ในหน้าเปิด",
           {
             "bullets": [
               "Terminology",
@@ -46,12 +42,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "Problem solving"
             ]
           },
-          {
-            "text": "ร่างกายสัตว์ประกอบด้วยน้ำ **60 to 70 percent** อยู่ในรูปของ aqueous solutions"
-          },
-          {
-            "text": "หน้าที่ของ aqueous solutions ที่สไลด์ยกมาเป็นตัวอย่าง"
-          },
+          "ร่างกายสัตว์ประกอบด้วยน้ำ **60 to 70 percent** อยู่ในรูปของ aqueous solutions",
+          "หน้าที่ของ aqueous solutions ที่สไลด์ยกมาเป็นตัวอย่าง",
           {
             "bullets": [
               "glomerular filtration ในไต",
@@ -60,9 +52,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "excitability of cell membranes โดยเฉพาะการ generate nerve impulse"
             ]
           },
-          {
-            "text": "ในทางคลินิก สไลด์บอกว่าความรู้เรื่องสารละลายถูกใช้ในการวางแผน treatment regimens สำหรับ fluid replacement และ electrolyte loss จึงต้องเรียนเรื่องนี้ตั้งแต่ต้นของวิชา physiology"
-          }
+          "ในทางคลินิก สไลด์บอกว่าความรู้เรื่องสารละลายถูกใช้ในการวางแผน treatment regimens สำหรับ fluid replacement และ electrolyte loss จึงต้องเรียนเรื่องนี้ตั้งแต่ต้นของวิชา physiology"
         ]
       },
       {
@@ -82,9 +72,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
           {
             "sub": "Molar เทียบกับ molal",
             "body": [
-              {
-                "text": "ทั้งคู่เป็นหน่วยวัดความเข้มข้นของ solute แต่ **molar นับต่อลิตรของสารละลาย ส่วน molal นับต่อกิโลกรัมของ solvent** (ถ้าเป็นน้ำก็คือ 1 L)"
-              },
+              "ทั้งคู่เป็นหน่วยวัดความเข้มข้นของ solute แต่ **molar นับต่อลิตรของสารละลาย ส่วน molal นับต่อกิโลกรัมของ solvent** (ถ้าเป็นน้ำก็คือ 1 L)",
               {
                 "bullets": [
                   "สไลด์ให้ตัวเลขไว้ว่า NaCl มี 58.5 ต่อ mole",
@@ -106,9 +94,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "**Selectively permeable membrane** ยอมให้ผ่านทั้ง solvent และ selected solutes และสไลด์ระบุว่า **cell membranes ส่วนใหญ่ในร่างกายเป็นชนิดนี้**"
             ]
           },
-          {
-            "text": "Osmosis ถูกนิยามได้หลายแบบ สไลด์ยกมา 3 แบบ"
-          },
+          "Osmosis ถูกนิยามได้หลายแบบ สไลด์ยกมา 3 แบบ",
           {
             "bullets": [
               "การ diffusion ของ solvent ผ่าน semipermeable membrane จากสารละลายที่มี solvent concentration สูงกว่า ไปยังสารละลายที่มี solvent concentration ต่ำกว่า",
@@ -126,9 +112,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "กราฟ Osmotic fragility ของเม็ดเลือดแดง",
         "source": "Duke Physiology p.16",
         "body": [
-          {
-            "text": "หน้านี้มีข้อความเพียงบรรทัดเดียวคือคำบรรยายภาษาไทยว่า **กราฟความสัมพันธ์ของความเข้มข้นสารละลายกับเปอร์เซ็นต์การแตกตัวของเม็ดเลือดแดง**"
-          },
+          "หน้านี้มีข้อความเพียงบรรทัดเดียวคือคำบรรยายภาษาไทยว่า **กราฟความสัมพันธ์ของความเข้มข้นสารละลายกับเปอร์เซ็นต์การแตกตัวของเม็ดเลือดแดง**",
           {
             "callout": "ตัวกราฟเป็นรูปภาพ ไม่มีแกน ตัวเลข หรือค่าความเข้มข้นใด ๆ ใน text layer จึงบอกไม่ได้ว่าเม็ดเลือดแดงเริ่มแตกหรือแตกหมดที่ความเข้มข้นเท่าไร สไลด์ไม่ได้บอก ต้องอ่านจากกราฟจริงบนสไลด์",
             "kind": "flag"
@@ -139,12 +123,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "การทำลาย erythrocyte และการเก็บสงวน iron",
         "source": "Duke Physiology p.3",
         "body": [
-          {
-            "text": "เมื่อ hemoglobin ถูกทำลาย pigment radical ถูกขับออกเป็น bile pigment ทั้งหมด แต่ **iron ที่ปล่อยออกมาถูกขับทาง bile เพียง 3 per cent ที่เหลือร่างกายเก็บสงวนไว้**"
-          },
-          {
-            "text": "**liver และ spleen เป็นแหล่งเก็บ iron สำคัญ** สำหรับ iron ที่ยังไม่ถูกนำไปใช้สร้าง hemoglobin ใหม่ทันที"
-          },
+          "เมื่อ hemoglobin ถูกทำลาย pigment radical ถูกขับออกเป็น bile pigment ทั้งหมด แต่ **iron ที่ปล่อยออกมาถูกขับทาง bile เพียง 3 per cent ที่เหลือร่างกายเก็บสงวนไว้**",
+          "**liver และ spleen เป็นแหล่งเก็บ iron สำคัญ** สำหรับ iron ที่ยังไม่ถูกนำไปใช้สร้าง hemoglobin ใหม่ทันที",
           {
             "sub": "วิธีอื่นที่เม็ดเลือดแดงถูกทำลาย",
             "body": [
@@ -159,9 +139,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
           {
             "sub": "ความต่างระหว่างชนิดสัตว์",
             "body": [
-              {
-                "text": "สไลด์ระบุตรง ๆ ว่าความสำคัญเปรียบเทียบของ reticulo-endothelial cells ในอวัยวะต่าง ๆ ต่อการทำลาย erythrocyte **ยังเข้าใจกันไม่ดี** และมีความแตกต่างระหว่าง species"
-              },
+              "สไลด์ระบุตรง ๆ ว่าความสำคัญเปรียบเทียบของ reticulo-endothelial cells ในอวัยวะต่าง ๆ ต่อการทำลาย erythrocyte **ยังเข้าใจกันไม่ดี** และมีความแตกต่างระหว่าง species",
               {
                 "bullets": [
                   "**Dog** แหล่งหลักของการสร้าง bile pigment คือ red bone marrow จึงน่าจะเป็นที่ทำลาย erythrocyte หลัก",
@@ -173,21 +151,15 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               }
             ]
           },
-          {
-            "text": "ส่วนโปรตีนของโมเลกุล hemoglobin เรียกว่า **globin** เป็น histone สไลด์บอกว่าชะตากรรมของมันยังไม่เข้าใจดี แต่น่าจะเข้าสู่ protein pool ของร่างกายแล้วถูกใช้สร้าง hemoglobin ใหม่"
-          }
+          "ส่วนโปรตีนของโมเลกุล hemoglobin เรียกว่า **globin** เป็น histone สไลด์บอกว่าชะตากรรมของมันยังไม่เข้าใจดี แต่น่าจะเข้าสู่ protein pool ของร่างกายแล้วถูกใช้สร้าง hemoglobin ใหม่"
         ]
       },
       {
         "heading": "Anemia และนิยามของ Hemoglobin",
         "source": "Duke Physiology p.3",
         "body": [
-          {
-            "text": "**Anemia คือการลดลงต่ำกว่าปกติของจำนวน erythrocytes หรือของ hemoglobin content ในเลือด หรือทั้งสองอย่าง**"
-          },
-          {
-            "text": "สาเหตุที่สไลด์ระบุไว้ 3 ข้อ"
-          },
+          "**Anemia คือการลดลงต่ำกว่าปกติของจำนวน erythrocytes หรือของ hemoglobin content ในเลือด หรือทั้งสองอย่าง**",
+          "สาเหตุที่สไลด์ระบุไว้ 3 ข้อ",
           {
             "bullets": [
               "blood loss จากสาเหตุใดก็ตาม",
@@ -195,12 +167,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "decreased blood formation"
             ]
           },
-          {
-            "text": "สไลด์บอกว่ามีการเสนอ classification ของ anemia แบบละเอียดไว้หลายแบบ แต่ไม่ได้ลิสต์รายละเอียดไว้ในหน้านี้ สไลด์ไม่ได้บอก"
-          },
-          {
-            "text": "**Hemoglobin (ferrohemoglobin)** คือ pigment ของ erythrocytes เป็น complex, iron-containing, conjugated protein ที่ประกอบด้วย pigment กับ simple protein โดย pigment คือ **ferroheme (reduced heme)** ประโยคถูกตัดตรงนี้พอดีตรงที่หน้าจบ สไลด์หน้านี้ไม่ได้เขียนต่อ"
-          }
+          "สไลด์บอกว่ามีการเสนอ classification ของ anemia แบบละเอียดไว้หลายแบบ แต่ไม่ได้ลิสต์รายละเอียดไว้ในหน้านี้ สไลด์ไม่ได้บอก",
+          "**Hemoglobin (ferrohemoglobin)** คือ pigment ของ erythrocytes เป็น complex, iron-containing, conjugated protein ที่ประกอบด้วย pigment กับ simple protein โดย pigment คือ **ferroheme (reduced heme)** ประโยคถูกตัดตรงนี้พอดีตรงที่หน้าจบ สไลด์หน้านี้ไม่ได้เขียนต่อ"
         ]
       },
       {
@@ -214,12 +182,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "**ช่วงท้ายของ gestation และหลังคลอด** erythropoiesis เกิดที่ **bone marrow**"
             ]
           },
-          {
-            "text": "ในสัตว์โต marrow ของ long bones ที่เคย active ตอนยังเล็กจะถูกแทนที่ด้วยไขมัน ส่วน **marrow ของ membranous bones คือ bodies of the vertebrae, pelvis, ribs และ sternum ยังคง active** ในสัตว์อายุมาก และกิจกรรมของ marrow มีแนวโน้มลดลงเรื่อย ๆ ตามอายุ"
-          },
-          {
-            "text": "ศักยภาพในการสร้างเม็ดเลือดแดงของ embryonic sites ทุกแห่ง **ยกเว้น yolk sac** รวมทั้ง bone marrow ยังคงมีอยู่ในสัตว์โต จึงอาจเห็น liver, spleen และ lymph nodes กลับมาสร้างเม็ดเลือดแดงในสัตว์โตที่มี **severe, prolonged anemia** เช่นเดียวกับตำแหน่ง bone marrow ที่ไม่ active แล้วอย่าง long bones และ spines of the vertebrae"
-          },
+          "ในสัตว์โต marrow ของ long bones ที่เคย active ตอนยังเล็กจะถูกแทนที่ด้วยไขมัน ส่วน **marrow ของ membranous bones คือ bodies of the vertebrae, pelvis, ribs และ sternum ยังคง active** ในสัตว์อายุมาก และกิจกรรมของ marrow มีแนวโน้มลดลงเรื่อย ๆ ตามอายุ",
+          "ศักยภาพในการสร้างเม็ดเลือดแดงของ embryonic sites ทุกแห่ง **ยกเว้น yolk sac** รวมทั้ง bone marrow ยังคงมีอยู่ในสัตว์โต จึงอาจเห็น liver, spleen และ lymph nodes กลับมาสร้างเม็ดเลือดแดงในสัตว์โตที่มี **severe, prolonged anemia** เช่นเดียวกับตำแหน่ง bone marrow ที่ไม่ active แล้วอย่าง long bones และ spines of the vertebrae",
           {
             "sub": "สายของ stem cell ตามที่สไลด์ลำดับไว้",
             "body": [
@@ -233,23 +197,17 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
                   "lymph nodes สร้าง T และ B lymphocytes"
                 ]
               },
-              {
-                "text": "ใน bone marrow **pluripotent stem cells ทำ self-renewal ได้ และสร้าง unipotent cells** เมื่อถูกกระตุ้นเหมาะสมจะ differentiate เป็น unipotent CFUs หรือ committed progenitor cells ที่แบ่งตัวและ differentiate ได้เพียงสายเดียว คือ erythroid, myeloid, B lymphocyte หรือ megakaryocytic จึงได้ erythrocytes, granulocytes, monocytes, B lymphocytes และ platelets ส่วน **T lymphocytes มาจาก lymphoid stem cell ที่มาจาก thymus แล้วไปสร้างที่ lymph nodes**"
-              }
+              "ใน bone marrow **pluripotent stem cells ทำ self-renewal ได้ และสร้าง unipotent cells** เมื่อถูกกระตุ้นเหมาะสมจะ differentiate เป็น unipotent CFUs หรือ committed progenitor cells ที่แบ่งตัวและ differentiate ได้เพียงสายเดียว คือ erythroid, myeloid, B lymphocyte หรือ megakaryocytic จึงได้ erythrocytes, granulocytes, monocytes, B lymphocytes และ platelets ส่วน **T lymphocytes มาจาก lymphoid stem cell ที่มาจาก thymus แล้วไปสร้างที่ lymph nodes**"
             ]
           },
-          {
-            "text": "สไลด์ระบุว่า **avian erythrocytes ในกระแสเลือดเป็นรูป elliptical และมี nuclei**"
-          }
+          "สไลด์ระบุว่า **avian erythrocytes ในกระแสเลือดเป็นรูป elliptical และมี nuclei**"
         ]
       },
       {
         "heading": "ลำดับการพัฒนาจาก rubriblast ไปเป็น erythrocyte",
         "source": "Duke Physiology p.15",
         "body": [
-          {
-            "text": "**Rubriblasts แบ่งตัวมาจาก erythrocytic unipotent CFU** แล้วพัฒนาเป็น prorubricytes เมื่อ prorubricytes maturation ก็กลายเป็น rubricytes ซึ่งท้ายที่สุดกลายเป็น erythrocyte"
-          },
+          "**Rubriblasts แบ่งตัวมาจาก erythrocytic unipotent CFU** แล้วพัฒนาเป็น prorubricytes เมื่อ prorubricytes maturation ก็กลายเป็น rubricytes ซึ่งท้ายที่สุดกลายเป็น erythrocyte",
           {
             "sub": "ข้อสรุป 4 ข้อที่สไลด์ให้ไว้เมื่อดูการพัฒนาของ red blood cells",
             "body": [
@@ -263,18 +221,12 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               }
             ]
           },
-          {
-            "text": "ในสัตว์โต erythropoiesis เกิดต่อเนื่องใน bone marrow และปล่อยเม็ดเลือดเข้ากระแสเลือดในอัตราที่สมดุลกับการทำลาย จำนวนรวมในเลือดจึงไม่แกว่งมาก โดย **ใช้เวลาราว 4 to 5 days ให้ rubriblast พัฒนาเป็น erythrocyte**"
-          },
-          {
-            "text": "ประโยคที่ขึ้นต้นว่า metarubricyte คือ bone marrow cell ที่เป็น fore- ถูกตัดตรงนี้ สไลด์หน้านี้ไม่ได้เขียนต่อ"
-          },
+          "ในสัตว์โต erythropoiesis เกิดต่อเนื่องใน bone marrow และปล่อยเม็ดเลือดเข้ากระแสเลือดในอัตราที่สมดุลกับการทำลาย จำนวนรวมในเลือดจึงไม่แกว่งมาก โดย **ใช้เวลาราว 4 to 5 days ให้ rubriblast พัฒนาเป็น erythrocyte**",
+          "ประโยคที่ขึ้นต้นว่า metarubricyte คือ bone marrow cell ที่เป็น fore- ถูกตัดตรงนี้ สไลด์หน้านี้ไม่ได้เขียนต่อ",
           {
             "sub": "Table 3.2 Developmental stages of various blood cells",
             "body": [
-              {
-                "text": "ตารางนี้ไล่ series ของเซลล์เม็ดเลือดตามที่ปรากฏใน text layer"
-              },
+              "ตารางนี้ไล่ series ของเซลล์เม็ดเลือดตามที่ปรากฏใน text layer",
               {
                 "bullets": [
                   "**Erythrocytic** rubricyte, basophilic erythrocyte (reticulocyte), erythrocyte",
@@ -296,9 +248,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "การควบคุม erythropoiesis ด้วย erythropoietin",
         "source": "Duke Physiology p.18",
         "body": [
-          {
-            "text": "**อัตราการเกิด erythropoiesis ถูกควบคุมโดย tissue need for oxygen** เมื่อ oxygen concentration ที่ระดับเนื้อเยื่อลดลง ไตจะหลั่งฮอร์โมนชื่อ **erythropoietin** ซึ่งกระตุ้น bone marrow ให้เริ่มสร้าง erythrocytes ใหม่"
-          },
+          "**อัตราการเกิด erythropoiesis ถูกควบคุมโดย tissue need for oxygen** เมื่อ oxygen concentration ที่ระดับเนื้อเยื่อลดลง ไตจะหลั่งฮอร์โมนชื่อ **erythropoietin** ซึ่งกระตุ้น bone marrow ให้เริ่มสร้าง erythrocytes ใหม่",
           {
             "bullets": [
               "**lifespan ของ erythropoietin สั้นกว่า 1 วัน** ซึ่งสไลด์อธิบายว่าช่วยให้ปรับจำนวน erythrocyte ตาม tissue need for oxygen ได้ยืดหยุ่นและแม่นยำขึ้น",
@@ -306,21 +256,15 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "เมื่อ erythrocytes ใหม่เข้าสู่กระแสเลือดและ tissue need for oxygen เริ่มได้รับการตอบสนอง **erythropoietin จะหยุดหลั่ง**"
             ]
           },
-          {
-            "text": "สไลด์ยกตัวเลขให้เห็นความเป็น dynamic ของกระบวนการนี้ว่า **ม้าน้ำหนัก 450-kg สร้างและทำลาย erythrocytes ราว 35,000,000 เซลล์ในทุก ๆ วินาที**"
-          },
-          {
-            "text": "Erythrocytes สร้างใน bone marrow จาก foundation cell ชื่อ **rubriblast** และมี intermediate forms หลายขั้นตาม Figure 12.8 ซึ่งไล่ลำดับว่า basophilic rubricyte, polychromatophilic rubricyte, metarubricyte, reticulocyte แล้วจึงเป็น erythrocyte การกระจายของรูปแบบเหล่านี้ศึกษาได้จากการทำและตรวจ **bone marrow smears**"
-          }
+          "สไลด์ยกตัวเลขให้เห็นความเป็น dynamic ของกระบวนการนี้ว่า **ม้าน้ำหนัก 450-kg สร้างและทำลาย erythrocytes ราว 35,000,000 เซลล์ในทุก ๆ วินาที**",
+          "Erythrocytes สร้างใน bone marrow จาก foundation cell ชื่อ **rubriblast** และมี intermediate forms หลายขั้นตาม Figure 12.8 ซึ่งไล่ลำดับว่า basophilic rubricyte, polychromatophilic rubricyte, metarubricyte, reticulocyte แล้วจึงเป็น erythrocyte การกระจายของรูปแบบเหล่านี้ศึกษาได้จากการทำและตรวจ **bone marrow smears**"
         ]
       },
       {
         "heading": "Reticulocyte และความแตกต่างระหว่างชนิดสัตว์",
         "source": "Duke Physiology p.18",
         "body": [
-          {
-            "text": "ก่อนที่ developing erythrocyte จะเข้าสู่กระแสเลือด **nucleus ถูก expelled** แต่ polyribosomes และ ribosomes ยังคงอยู่ และอาจยังเห็นได้บน stained smear อีกราวหนึ่งวันหลังเข้าสู่กระแสเลือด"
-          },
+          "ก่อนที่ developing erythrocyte จะเข้าสู่กระแสเลือด **nucleus ถูก expelled** แต่ polyribosomes และ ribosomes ยังคงอยู่ และอาจยังเห็นได้บน stained smear อีกราวหนึ่งวันหลังเข้าสู่กระแสเลือด",
           {
             "bullets": [
               "ถ้ายังเห็นอยู่ เซลล์นั้นถูกเรียกว่า **reticulocyte** เพราะลักษณะ net-like ของ polyribosomes และ ribosomes",
@@ -346,9 +290,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "การนับจำนวนเม็ดเลือดแดง",
         "source": "Duke Physiology p.18",
         "body": [
-          {
-            "text": "จำนวน erythrocytes หาได้โดยทำ **known dilutions** แล้วนับจำนวน RBCs ใน known volume ของตัวอย่างด้วยกล้องจุลทรรศน์ สไลด์กล่าวถึง **hemocytometer** และ **Unopette microcollection system** ในหัวข้อ Numbers"
-          },
+          "จำนวน erythrocytes หาได้โดยทำ **known dilutions** แล้วนับจำนวน RBCs ใน known volume ของตัวอย่างด้วยกล้องจุลทรรศน์ สไลด์กล่าวถึง **hemocytometer** และ **Unopette microcollection system** ในหัวข้อ Numbers",
           {
             "callout": "text layer ของย่อหน้านี้ตัวอักษรพันกันจนอ่านขั้นตอนวิธีนับไม่ได้ครบ สไลด์บอกแค่ว่าใช้ known dilution กับการนับใน known volume ส่วนรายละเอียดวิธีต้องอ่านจากสไลด์จริง",
             "kind": "warn"
@@ -359,12 +301,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Table 12.2 ค่าเฉลี่ยตัวแปรทางเลือดของสัตว์ 6 ชนิด",
         "source": "Duke Physiology p.18",
         "body": [
-          {
-            "text": "ตารางนี้เปรียบเทียบ **Horse (hot blooded), Cow, Sheep, Pig, Dog และ Chicken**"
-          },
-          {
-            "text": "ตัวแปรที่ตารางลิสต์ไว้"
-          },
+          "ตารางนี้เปรียบเทียบ **Horse (hot blooded), Cow, Sheep, Pig, Dog และ Chicken**",
+          "ตัวแปรที่ตารางลิสต์ไว้",
           {
             "bullets": [
               "Total RBC (x10^6/uL) และ Diameter of RBC (um)",
@@ -406,9 +344,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
                   "**Chicken** 1.5-4/60, Hb 9.0, ไม่มีค่า coagulation time, 1.050, 4.5, pH 7.48, 7-9, MCV 115.0, MCH 41.0, MCHC 29.0"
                 ]
               },
-              {
-                "text": "จุดที่เห็นชัดจากตารางคือ **chicken มี MCV และ MCH สูงที่สุด (115.0 fL และ 41.0 pg) แต่ MCHC ต่ำที่สุด (29.0)** ขณะที่ **sheep มี MCV เล็กที่สุด (34.0 fL)** และมี total RBC สูงที่สุดในตาราง"
-              }
+              "จุดที่เห็นชัดจากตารางคือ **chicken มี MCV และ MCH สูงที่สุด (115.0 fL และ 41.0 pg) แต่ MCHC ต่ำที่สุด (29.0)** ขณะที่ **sheep มี MCV เล็กที่สุด (34.0 fL)** และมี total RBC สูงที่สุดในตาราง"
             ]
           }
         ]
@@ -417,12 +353,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Table 3.1 Erythrocyte size and hemoglobin content ในสัตว์เลี้ยงโตเต็มวัย",
         "source": "Duke Physiology p.15",
         "body": [
-          {
-            "text": "ตารางนี้เปรียบเทียบขนาดเม็ดเลือดแดงและปริมาณ hemoglobin ในสัตว์เลี้ยงโตเต็มวัย มีคอลัมน์หน่วย (pg) และ (g/dl) พร้อมคอลัมน์ References"
-          },
-          {
-            "text": "สัตว์ที่อยู่ในตาราง"
-          },
+          "ตารางนี้เปรียบเทียบขนาดเม็ดเลือดแดงและปริมาณ hemoglobin ในสัตว์เลี้ยงโตเต็มวัย มีคอลัมน์หน่วย (pg) และ (g/dl) พร้อมคอลัมน์ References",
+          "สัตว์ที่อยู่ในตาราง",
           {
             "bullets": [
               "Cat, Cattle, Chicken, Dog, Goat, Horse, Sheep",
@@ -439,9 +371,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "หน้าที่ไม่มีข้อความใน deck",
         "source": "Duke Physiology p.1-2, 4-13, 17",
         "body": [
-          {
-            "text": "จาก 18 หน้าของ deck มี **13 หน้าที่ไม่มีข้อความเลยใน text layer** ได้แก่หน้า 1-2, 4-13 และ 17"
-          },
+          "จาก 18 หน้าของ deck มี **13 หน้าที่ไม่มีข้อความเลยใน text layer** ได้แก่หน้า 1-2, 4-13 และ 17",
           {
             "callout": "เนื้อหาของ 13 หน้านี้อ่านจากไฟล์นี้ไม่ได้ ถ้าเนื้อหาสอบอยู่ในภาพ เช่น ขั้นตอนการทำ osmotic fragility test หรือรูปเซลล์ระยะต่าง ๆ ต้องเปิดสไลด์จริงดู โน้ตนี้ครอบคลุมเฉพาะ 5 หน้าที่มีตัวหนังสือ",
             "kind": "warn"
@@ -461,9 +391,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "หัวข้อของ lab นี้",
         "source": "Endocrine Physiology IVGGT Lab 2023 (SP) p.1",
         "body": [
-          {
-            "text": "เดคนี้คือ **Endocrine Physiology Lab: Glucose Tolerance Test (GTT)** สำหรับนิสิต CUVET ปี 2023 จากภาควิชาสรีรวิทยา คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย"
-          }
+          "เดคนี้คือ **Endocrine Physiology Lab: Glucose Tolerance Test (GTT)** สำหรับนิสิต CUVET ปี 2023 จากภาควิชาสรีรวิทยา คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย"
         ]
       },
       {
@@ -577,9 +505,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "ตัวอย่างการคำนวณขนาด glucose ที่ต้องฉีด (FYI)",
         "source": "Endocrine Physiology IVGGT Lab 2023 (SP) p.12",
         "body": [
-          {
-            "text": "สไลด์ยกตัวอย่าง subject เป็นสุนัขพันธุ์ผสม เพศผู้ **BW 25 kg**"
-          },
+          "สไลด์ยกตัวอย่าง subject เป็นสุนัขพันธุ์ผสม เพศผู้ **BW 25 kg**",
           {
             "bullets": [
               "ขนาด glucose ที่ต้องให้ (120 mg/kg) = 120 x 25 = **3000 mg รวม (3 g)**",
@@ -593,9 +519,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Method 3: Glycosylated Haemoglobin (HbA1c)",
         "source": "Endocrine Physiology IVGGT Lab 2023 (SP) p.13",
         "body": [
-          {
-            "text": "สไลด์เรียกวิธีนี้ว่า glucose accumulation index in cells"
-          },
+          "สไลด์เรียกวิธีนี้ว่า glucose accumulation index in cells",
           {
             "bullets": [
               "**ระดับ glycosylated Hb สะท้อนภาวะ glycemia ย้อนหลัง 8-12 สัปดาห์**",
@@ -634,18 +558,14 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "Urine samples ตรวจไม่พบ glucose"
             ]
           },
-          {
-            "text": "หมายเหตุบนสไลด์ย้ำอีกครั้งว่า impaired glucose tolerance test คือเมื่อ 2 ชั่วโมงหลังให้ glucose ค่า > 140 mg/dl แต่ < 200 mg/dl"
-          }
+          "หมายเหตุบนสไลด์ย้ำอีกครั้งว่า impaired glucose tolerance test คือเมื่อ 2 ชั่วโมงหลังให้ glucose ค่า > 140 mg/dl แต่ < 200 mg/dl"
         ]
       },
       {
         "heading": "เกณฑ์วินิจฉัย DM ในสุนัข",
         "source": "Endocrine Physiology IVGGT Lab 2023 (SP) p.17",
         "body": [
-          {
-            "text": "สไลด์หัวข้อ criteria for diagnosing DM in general human and (dogs) มีข้อความบรรทัดเดียวคือ **FPG of dog > 200 mg/dl ร่วมกับ glucosuria**"
-          }
+          "สไลด์หัวข้อ criteria for diagnosing DM in general human and (dogs) มีข้อความบรรทัดเดียวคือ **FPG of dog > 200 mg/dl ร่วมกับ glucosuria**"
         ]
       },
       {
@@ -696,9 +616,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Glucotoxicity",
         "source": "Endocrine Physiology IVGGT Lab 2023 (SP) p.28",
         "body": [
-          {
-            "text": "สไลด์ชื่อ biochemical basis of hyperglycaemia induced damage ระบุปลายทางความเสียหายไว้ว่า **neuropathy, renal failure, cardiac dysfunction** และเรียกภาพรวมนี้ว่า **glucotoxicity** ส่วนกลไก biochemical ทั้งหมดอยู่ในรูปภาพ ไม่มีข้อความบนสไลด์ สไลด์ไม่ได้บอกรายละเอียดของ pathway"
-          }
+          "สไลด์ชื่อ biochemical basis of hyperglycaemia induced damage ระบุปลายทางความเสียหายไว้ว่า **neuropathy, renal failure, cardiac dysfunction** และเรียกภาพรวมนี้ว่า **glucotoxicity** ส่วนกลไก biochemical ทั้งหมดอยู่ในรูปภาพ ไม่มีข้อความบนสไลด์ สไลด์ไม่ได้บอกรายละเอียดของ pathway"
         ]
       },
       {
@@ -777,9 +695,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "สไลด์ที่เป็นหัวข้อกับรูปอย่างเดียว (ไม่มีข้อความให้จด)",
         "source": "Endocrine Physiology IVGGT Lab 2023 (SP) p.2, 3, 5, 6, 10, 16, 18, 21, 22, 24, 25, 26, 27, 29, 31, 32",
         "body": [
-          {
-            "text": "สไลด์กลุ่มนี้มีเฉพาะชื่อหัวข้อกับแผนภาพ ต้องดูภาพจากไฟล์จริงหรือจดตามที่อาจารย์อธิบายในคาบ เพราะ text layer ไม่มีเนื้อหา"
-          },
+          "สไลด์กลุ่มนี้มีเฉพาะชื่อหัวข้อกับแผนภาพ ต้องดูภาพจากไฟล์จริงหรือจดตามที่อาจารย์อธิบายในคาบ เพราะ text layer ไม่มีเนื้อหา",
           {
             "bullets": [
               "p.2 Blood glucose regulation: insulin-glucagon interaction",
@@ -815,9 +731,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "ภาพรวม simulation ชุดนี้มีอะไรบ้าง",
         "source": "Monash Skeletal muscle experiments p.1",
         "body": [
-          {
-            "text": "แถบด้านบนของทุกหน้าคือ **รายการการทดลองทั้งหมด 7 tab** ซึ่งเป็นโครงของ simulation ชุดนี้"
-          },
+          "แถบด้านบนของทุกหน้าคือ **รายการการทดลองทั้งหมด 7 tab** ซึ่งเป็นโครงของ simulation ชุดนี้",
           {
             "bullets": [
               "Background",
@@ -829,9 +743,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "Fatigue"
             ]
           },
-          {
-            "text": "แต่ละการทดลองยังแบ่งเป็น tab ย่อย **Background / Instructions / Simulation** และเฉพาะ Length tension มี **Explanation** เพิ่มอีกหนึ่ง tab"
-          },
+          "แต่ละการทดลองยังแบ่งเป็น tab ย่อย **Background / Instructions / Simulation** และเฉพาะ Length tension มี **Explanation** เพิ่มอีกหนึ่ง tab",
           {
             "callout": "deck ที่ได้มามีเฉพาะหน้า Simulation ของแต่ละการทดลอง หน้า length tension, recruitment, summation และ tetanus เขียนว่า Full instructions can be found on the previous tab ส่วนหน้า fatigue ไม่มีประโยคนี้ ดังนั้นเนื้อหาใน Background กับ Instructions ฉบับเต็ม สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -842,9 +754,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Length tension: ขั้นตอนและสิ่งที่ต้องสังเกต",
         "source": "Monash Skeletal muscle experiments p.1",
         "body": [
-          {
-            "text": "เลือกความยาวกล้ามเนื้อได้จาก scroll box ด้านซ้าย ขั้นตอนตามที่สไลด์เขียนไว้คือ **เริ่มกระตุ้น nerve ที่ muscle length 42.0 mm แล้วเพิ่มความยาวทีละ 0.5 mm กระตุ้นซ้ำที่ทุกความยาว** และสังเกตการเปลี่ยนแปลงของ active tension กับ passive tension"
-          },
+          "เลือกความยาวกล้ามเนื้อได้จาก scroll box ด้านซ้าย ขั้นตอนตามที่สไลด์เขียนไว้คือ **เริ่มกระตุ้น nerve ที่ muscle length 42.0 mm แล้วเพิ่มความยาวทีละ 0.5 mm กระตุ้นซ้ำที่ทุกความยาว** และสังเกตการเปลี่ยนแปลงของ active tension กับ passive tension",
           {
             "sub": "กราฟที่แสดง",
             "body": [
@@ -858,9 +768,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               }
             ]
           },
-          {
-            "text": "หน้านี้มี **Actin Myosin Visualisation** ที่สไลด์บอกว่าใช้หลังเก็บข้อมูลครบแล้ว เพื่อเข้าใจ processes ที่อยู่เบื้องหลัง active tension curve โดยเลื่อน slider หรือกดปุ่ม **A ถึง E** เพื่อดูว่าความยาวแต่ละค่าตรงกับจุดใดบนกราฟ tension"
-          },
+          "หน้านี้มี **Actin Myosin Visualisation** ที่สไลด์บอกว่าใช้หลังเก็บข้อมูลครบแล้ว เพื่อเข้าใจ processes ที่อยู่เบื้องหลัง active tension curve โดยเลื่อน slider หรือกดปุ่ม **A ถึง E** เพื่อดูว่าความยาวแต่ละค่าตรงกับจุดใดบนกราฟ tension",
           {
             "callout": "สไลด์เขียนไว้แค่ Explanation in next tab จุด A ถึง E หมายถึงอะไร และ active tension เปลี่ยนตามความยาวด้วยกลไกใด สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -871,12 +779,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Recruitment: เพิ่ม voltage แล้วแรงเพิ่มถึงจุดหนึ่ง",
         "source": "Monash Skeletal muscle experiments p.2",
         "body": [
-          {
-            "text": "เลือก voltage จาก drop down box ด้านซ้าย ขั้นตอนคือ **เริ่มกระตุ้น nerve ที่ 0.20 V แล้วเพิ่ม voltage อย่างเป็นระบบทีละขั้น**"
-          },
-          {
-            "text": "ข้อสรุปที่สไลด์เขียนไว้เองคือ **force of contraction เพิ่มขึ้นเมื่อเพิ่ม voltage แต่เพิ่มได้ถึงจุดหนึ่งเท่านั้น จะถึง plateau ที่การเพิ่ม voltage ต่อไปไม่ทำให้แรงหดตัวเพิ่มขึ้นอีก**"
-          },
+          "เลือก voltage จาก drop down box ด้านซ้าย ขั้นตอนคือ **เริ่มกระตุ้น nerve ที่ 0.20 V แล้วเพิ่ม voltage อย่างเป็นระบบทีละขั้น**",
+          "ข้อสรุปที่สไลด์เขียนไว้เองคือ **force of contraction เพิ่มขึ้นเมื่อเพิ่ม voltage แต่เพิ่มได้ถึงจุดหนึ่งเท่านั้น จะถึง plateau ที่การเพิ่ม voltage ต่อไปไม่ทำให้แรงหดตัวเพิ่มขึ้นอีก**",
           {
             "bullets": [
               "กราฟซ้าย Force (g) เทียบกับ Time (ms) ช่วง 0 ถึง 300 ms",
@@ -895,9 +799,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Summation: กระตุ้นสองครั้ง แล้วไล่ระยะห่างให้สั้นลง",
         "source": "Monash Skeletal muscle experiments p.3",
         "body": [
-          {
-            "text": "สไลด์สั่งให้ **ตั้ง voltage เป็นค่าต่ำที่สุดที่ให้ maximum response จากการทดลอง recruitment** จากนั้นบันทึกการตอบสนองต่อ **electrical stimuli 2 ครั้ง** โดยเปลี่ยนช่วงเวลาระหว่างสองครั้งในแต่ละการบันทึก"
-          },
+          "สไลด์สั่งให้ **ตั้ง voltage เป็นค่าต่ำที่สุดที่ให้ maximum response จากการทดลอง recruitment** จากนั้นบันทึกการตอบสนองต่อ **electrical stimuli 2 ครั้ง** โดยเปลี่ยนช่วงเวลาระหว่างสองครั้งในแต่ละการบันทึก",
           {
             "sub": "ช่วงเวลาระหว่าง stimuli ที่ต้องเก็บข้อมูล",
             "body": [
@@ -931,9 +833,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Tetanus: ใช้ voltage เดิมจาก summation",
         "source": "Monash Skeletal muscle experiments p.4",
         "body": [
-          {
-            "text": "ขั้นตอนตามสไลด์คือ **ตั้ง voltage เป็นค่าเดียวกับที่ใช้ใน summation simulation** แล้วตั้ง inter-stimulus interval สำหรับการหดตัว จากนั้นบันทึกข้อมูลอย่างเป็นระบบในทุก interval"
-          },
+          "ขั้นตอนตามสไลด์คือ **ตั้ง voltage เป็นค่าเดียวกับที่ใช้ใน summation simulation** แล้วตั้ง inter-stimulus interval สำหรับการหดตัว จากนั้นบันทึกข้อมูลอย่างเป็นระบบในทุก interval",
           {
             "bullets": [
               "กราฟซ้าย Force (g) เทียบกับ Time (ms) ช่วง 0 ถึง 1000 ms แกน force ถึง 700 g",
@@ -952,9 +852,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Fatigue: ระยะพักระหว่าง twitch กับแรงที่ตอบสนอง",
         "source": "Monash Skeletal muscle experiments p.5",
         "body": [
-          {
-            "text": "หน้านี้ให้เลือก **ช่วงเวลาระหว่าง twitch สองครั้งที่ 2.00 V** โดย **ต่ำสุด 1 นาที สูงสุด 10 นาที เพิ่มทีละ 1 นาที** แล้วกรอกค่าลงตาราง สไลด์แนะนำว่าเอาเมาส์ชี้ที่จุดบนกราฟจะได้ค่า x และ y แล้วปัดเป็นจำนวนเต็ม"
-          },
+          "หน้านี้ให้เลือก **ช่วงเวลาระหว่าง twitch สองครั้งที่ 2.00 V** โดย **ต่ำสุด 1 นาที สูงสุด 10 นาที เพิ่มทีละ 1 นาที** แล้วกรอกค่าลงตาราง สไลด์แนะนำว่าเอาเมาส์ชี้ที่จุดบนกราฟจะได้ค่า x และ y แล้วปัดเป็นจำนวนเต็ม",
           {
             "sub": "ตาราง Response to second stimulus ที่ปรากฏบนหน้าจอ",
             "body": [
@@ -972,9 +870,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
                   "10 min ได้ 580 g"
                 ]
               },
-              {
-                "text": "อ่านจากตัวเลขในตารางโดยตรง จะเห็นว่า **response ต่อ stimulus ที่สองเพิ่มขึ้นเรื่อย ๆ ตั้งแต่ 1 ถึง 7 นาที แล้วคงที่ที่ 580 g ตั้งแต่ 7 นาทีเป็นต้นไป**"
-              }
+              "อ่านจากตัวเลขในตารางโดยตรง จะเห็นว่า **response ต่อ stimulus ที่สองเพิ่มขึ้นเรื่อย ๆ ตั้งแต่ 1 ถึง 7 นาที แล้วคงที่ที่ 580 g ตั้งแต่ 7 นาทีเป็นต้นไป**"
             ]
           },
           {
@@ -1001,9 +897,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "โจทย์ PBL คืออะไร: signalment และ history",
         "source": "PBL ANS for student p.1",
         "body": [
-          {
-            "text": "สไลด์ขึ้นหัวว่า **PBL (autonomic nervous system)** แล้วให้เคสมาให้นิสิตคิดเอง ไม่มีเนื้อหาบรรยายทฤษฎีประกอบ"
-          },
+          "สไลด์ขึ้นหัวว่า **PBL (autonomic nervous system)** แล้วให้เคสมาให้นิสิตคิดเอง ไม่มีเนื้อหาบรรยายทฤษฎีประกอบ",
           {
             "bullets": [
               "แมว **domestic short hair เพศผู้ อายุ 10 ปี** มาที่ small animal hospital",
@@ -1021,17 +915,13 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
           {
             "sub": "สัญญาณชีพ",
             "body": [
-              {
-                "text": "rectal temperature พิมพ์ไว้ในสไลด์ว่า \"1000 F\" ส่วน **heart rate และ respiratory rate ปกติทั้งคู่**"
-              }
+              "rectal temperature พิมพ์ไว้ในสไลด์ว่า \"1000 F\" ส่วน **heart rate และ respiratory rate ปกติทั้งคู่**"
             ]
           },
           {
             "sub": "ความผิดปกติที่ตาซ้าย (Figure 1)",
             "body": [
-              {
-                "text": "ตาขวาดูปกติ ส่วน **ตาซ้ายพบ 4 อย่างพร้อมกัน**"
-              },
+              "ตาขวาดูปกติ ส่วน **ตาซ้ายพบ 4 อย่างพร้อมกัน**",
               {
                 "bullets": [
                   "**miosis**",
@@ -1058,9 +948,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
           {
             "sub": "สิ่งที่คลำได้และภาพรังสี",
             "body": [
-              {
-                "text": "คลำได้ **mass ที่ left anterior ventral cervical region ลักษณะ non-moveable** และ lateral projection radiograph ของ cervical region (Figure 2) พบว่า **mass วางตัวอยู่ใกล้ trachea และ larynx**"
-              }
+              "คลำได้ **mass ที่ left anterior ventral cervical region ลักษณะ non-moveable** และ lateral projection radiograph ของ cervical region (Figure 2) พบว่า **mass วางตัวอยู่ใกล้ trachea และ larynx**"
             ]
           },
           {
@@ -1073,9 +961,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Diagnostic test: 1% phenylephrine",
         "source": "PBL ANS for student p.1",
         "body": [
-          {
-            "text": "สไลด์ระบุ diagnostic test เพียงอย่างเดียว คือหยอด **1% phenylephrine หนึ่งหยดที่ตาทั้งสองข้าง**"
-          },
+          "สไลด์ระบุ diagnostic test เพียงอย่างเดียว คือหยอด **1% phenylephrine หนึ่งหยดที่ตาทั้งสองข้าง**",
           {
             "bullets": [
               "**ภายใน 10 นาทีหลังหยอด** ptosis ของตาซ้าย, enophthalmos และ protrusion of nictitating membrane **ดีขึ้น** (Figure 3)",
@@ -1092,9 +978,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "คำถามท้ายเคส และสิ่งที่สไลด์ไม่ได้ตอบ",
         "source": "PBL ANS for student p.1",
         "body": [
-          {
-            "text": "เด็คจบลงด้วยคำถามเดียวคือ **\"What could possibly be the cause of left eye abnormalities?\"** และไม่มีสไลด์เฉลยตามมา"
-          },
+          "เด็คจบลงด้วยคำถามเดียวคือ **\"What could possibly be the cause of left eye abnormalities?\"** และไม่มีสไลด์เฉลยตามมา",
           {
             "sub": "สิ่งที่สไลด์ไม่ได้บอก",
             "body": [
@@ -1126,9 +1010,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "**Figure 3** = ภาพหลังหยอด 1% phenylephrine"
             ]
           },
-          {
-            "text": "ทั้งสามรูปไม่มี caption อธิบายรายละเอียดมากกว่านี้ในไฟล์ข้อความ และหน้า 2 ของเด็คว่างเปล่าไม่มีข้อความใด ๆ"
-          }
+          "ทั้งสามรูปไม่มี caption อธิบายรายละเอียดมากกว่านี้ในไฟล์ข้อความ และหน้า 2 ของเด็คว่างเปล่าไม่มีข้อความใด ๆ"
         ]
       }
     ]
@@ -1143,9 +1025,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "โจทย์เคส: แมว DSH เพศผู้ อายุ 5 ปี",
         "source": "PBL Blood system p.1",
         "body": [
-          {
-            "text": "สไลด์ให้ประวัติและผลตรวจร่างกายมาเป็นย่อหน้าเดียว จุดที่ต้องจับให้ครบคือ **อาการเลือดออกใต้ผิวหนัง (petechiae, ecchymosis) มาพร้อมกับซีดและต่อมน้ำเหลืองโต ในแมวอายุ 5 ปีที่รับมาจาก animal shelter**"
-          },
+          "สไลด์ให้ประวัติและผลตรวจร่างกายมาเป็นย่อหน้าเดียว จุดที่ต้องจับให้ครบคือ **อาการเลือดออกใต้ผิวหนัง (petechiae, ecchymosis) มาพร้อมกับซีดและต่อมน้ำเหลืองโต ในแมวอายุ 5 ปีที่รับมาจาก animal shelter**",
           {
             "sub": "ประวัติ (history)",
             "body": [
@@ -1172,9 +1052,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ระบุว่า routine blood work ทำไปแล้ว **2 ครั้ง ห่างกัน 7 วัน** (Day 1 และ Day 8) แล้วแสดงผลเป็นตาราง"
-          },
+          "สไลด์ระบุว่า routine blood work ทำไปแล้ว **2 ครั้ง ห่างกัน 7 วัน** (Day 1 และ Day 8) แล้วแสดงผลเป็นตาราง",
           {
             "callout": "เด็คนี้เป็นโจทย์ PBL ล้วน ๆ สไลด์ไม่ได้บอกคำวินิจฉัย ไม่ได้บอกกลไกของอาการ และไม่ได้ตั้งคำถามข้อย่อยไว้เป็นข้อความ ทุกอย่างหลังจากตารางต้องคิดเองในกลุ่ม",
             "kind": "flag"
@@ -1185,9 +1063,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "ผล CBC สองครั้ง (Day 1 → Day 8)",
         "source": "PBL Blood system p.1",
         "body": [
-          {
-            "text": "ตัวเลขในตาราง เรียงตามลำดับ **Day 1 แล้วตามด้วย Day 8**"
-          },
+          "ตัวเลขในตาราง เรียงตามลำดับ **Day 1 แล้วตามด้วย Day 8**",
           {
             "bullets": [
               "RBC (x10^6 per µl): **4.2 → 3.9**",
@@ -1225,18 +1101,14 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "Blood parasites: **not found ทั้งสองครั้ง**"
             ]
           },
-          {
-            "text": "**ค่า serum chemistry ทั้งสี่ตัวอยู่ในช่วงปกติของแมวที่สไลด์ให้มา และตรวจไม่พบ blood parasites**"
-          }
+          "**ค่า serum chemistry ทั้งสี่ตัวอยู่ในช่วงปกติของแมวที่สไลด์ให้มา และตรวจไม่พบ blood parasites**"
         ]
       },
       {
         "heading": "ค่าปกติที่สไลด์ให้มา (คอลัมน์ feline)",
         "source": "PBL Blood system p.1",
         "body": [
-          {
-            "text": "ตารางในสไลด์พิมพ์ค่าปกติไว้สองคอลัมน์คือ **canine และ feline** เคสนี้เป็นแมวจึงต้องอ่านคอลัมน์ feline"
-          },
+          "ตารางในสไลด์พิมพ์ค่าปกติไว้สองคอลัมน์คือ **canine และ feline** เคสนี้เป็นแมวจึงต้องอ่านคอลัมน์ feline",
           {
             "bullets": [
               "RBC (x10^6 per µl): 4.95-10.53",
@@ -1264,9 +1136,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "ค่าที่หลุดช่วงปกติของแมวเมื่อเทียบกับตารางในสไลด์",
         "source": "PBL Blood system p.1",
         "body": [
-          {
-            "text": "เทียบตัวเลขผู้ป่วยกับคอลัมน์ feline ในตารางเดียวกัน (เป็นการอ่านตารางเท่านั้น สไลด์ไม่ได้แปลผลให้)"
-          },
+          "เทียบตัวเลขผู้ป่วยกับคอลัมน์ feline ในตารางเดียวกัน (เป็นการอ่านตารางเท่านั้น สไลด์ไม่ได้แปลผลให้)",
           {
             "bullets": [
               "**RBC ต่ำกว่าช่วงปกติ** ทั้งสองครั้ง (4.2 และ 3.9 เทียบ 4.95-10.53)",
@@ -1288,12 +1158,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "SNAP feline triple test kit",
         "source": "PBL Blood system p.2",
         "body": [
-          {
-            "text": "สไลด์เขียนไว้บรรทัดเดียวว่า **the result from SNAP feline triple test kit was shown below** แล้วแสดงผลเป็นรูปภาพ ตัวผลอ่านจากรูปในสไลด์เท่านั้น ไม่มีเป็นข้อความ"
-          },
-          {
-            "text": "สไลด์ไม่ได้บอกว่า triple test ตรวจอะไรบ้าง ไม่ได้บอกวิธีอ่านผล และไม่ได้เขียนผลออกมาเป็นตัวหนังสือ"
-          }
+          "สไลด์เขียนไว้บรรทัดเดียวว่า **the result from SNAP feline triple test kit was shown below** แล้วแสดงผลเป็นรูปภาพ ตัวผลอ่านจากรูปในสไลด์เท่านั้น ไม่มีเป็นข้อความ",
+          "สไลด์ไม่ได้บอกว่า triple test ตรวจอะไรบ้าง ไม่ได้บอกวิธีอ่านผล และไม่ได้เขียนผลออกมาเป็นตัวหนังสือ"
         ]
       }
     ]
@@ -1308,9 +1174,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "โจทย์เคส signalment และอาการที่เจ้าของแจ้ง",
         "source": "PBL Case 6 Endocrinology p.1",
         "body": [
-          {
-            "text": "เคสนี้เป็น PROBLEM-BASED LEARNING OF SMALL ANIMAL ENDOCRINOLOGY, CU VET 2023 โจทย์คือ **สุนัขพันธุ์ mixed terrier เพศเมีย อายุ 10 ปี** ที่ถูกพามาเพื่อ dental cleaning แต่เจ้าของแจ้งปัญหาอื่นของสัตว์ร่วมด้วย"
-          },
+          "เคสนี้เป็น PROBLEM-BASED LEARNING OF SMALL ANIMAL ENDOCRINOLOGY, CU VET 2023 โจทย์คือ **สุนัขพันธุ์ mixed terrier เพศเมีย อายุ 10 ปี** ที่ถูกพามาเพื่อ dental cleaning แต่เจ้าของแจ้งปัญหาอื่นของสัตว์ร่วมด้วย",
           {
             "bullets": [
               "polyphagia",
@@ -1320,18 +1184,14 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "lethargy"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกว่าอาการเหล่านี้เป็นมานานเท่าไร ไม่ได้บอกน้ำหนักตัว การทำหมัน หรือประวัติยาที่เคยได้รับ"
-          }
+          "สไลด์ไม่ได้บอกว่าอาการเหล่านี้เป็นมานานเท่าไร ไม่ได้บอกน้ำหนักตัว การทำหมัน หรือประวัติยาที่เคยได้รับ"
         ]
       },
       {
         "heading": "Physical examination",
         "source": "PBL Case 6 Endocrinology p.1",
         "body": [
-          {
-            "text": "สิ่งที่ตรวจพบจากการตรวจร่างกาย ทั้งหมดเป็นความผิดปกติของหน้าท้องและผิวหนัง"
-          },
+          "สิ่งที่ตรวจพบจากการตรวจร่างกาย ทั้งหมดเป็นความผิดปกติของหน้าท้องและผิวหนัง",
           {
             "bullets": [
               "abdominal distention หรือ **pot belly** (Fig.1)",
@@ -1348,9 +1208,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "ผล CBC, serum chemistry, radiograph และ ultrasonography",
         "source": "PBL Case 6 Endocrinology p.1",
         "body": [
-          {
-            "text": "Diagnostic testing ที่ทำในรอบแรกคือ complete blood count (CBC), serum chemistry profile และ thoracic-abdominal radiograph"
-          },
+          "Diagnostic testing ที่ทำในรอบแรกคือ complete blood count (CBC), serum chemistry profile และ thoracic-abdominal radiograph",
           {
             "bullets": [
               "stress leukogram",
@@ -1361,18 +1219,14 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               "ultrasonography พบ **bilaterally symmetric normal-sized adrenal glands**"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้ให้ตัวเลขจริงของ CBC หรือ chemistry แต่ละค่า บอกไว้แค่ทิศทางของความผิดปกติเท่านั้น"
-          }
+          "สไลด์ไม่ได้ให้ตัวเลขจริงของ CBC หรือ chemistry แต่ละค่า บอกไว้แค่ทิศทางของความผิดปกติเท่านั้น"
         ]
       },
       {
         "heading": "Low dose dexamethasone suppression test (LDDST)",
         "source": "PBL Case 6 Endocrinology p.1",
         "body": [
-          {
-            "text": "สไลด์เขียนว่า primary cause of disease ถูกตามต่อด้วย **low dose dexamethasone suppression test (LDDST)** ค่า serum cortisol ที่ได้มี 3 จุดเวลา"
-          },
+          "สไลด์เขียนว่า primary cause of disease ถูกตามต่อด้วย **low dose dexamethasone suppression test (LDDST)** ค่า serum cortisol ที่ได้มี 3 จุดเวลา",
           {
             "bullets": [
               "basal (pre-dex เวลา 8.00 AM) = **242 nmol/L** (normal range = 10-160 nmol/L)",
@@ -1391,9 +1245,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
               }
             ]
           },
-          {
-            "text": "ถ้าเอาตัวเลขในเคสไปเทียบกับเกณฑ์ที่สไลด์ให้ จะได้ว่าค่าที่ 4 h (28 nmol/L) เข้าเกณฑ์ positive suppression ส่วนค่าที่ 8 h (128 nmol/L) ไม่เข้าเกณฑ์ แต่สไลด์ไม่ได้เขียนคำแปลผลนี้ไว้เป็นข้อความ"
-          },
+          "ถ้าเอาตัวเลขในเคสไปเทียบกับเกณฑ์ที่สไลด์ให้ จะได้ว่าค่าที่ 4 h (28 nmol/L) เข้าเกณฑ์ positive suppression ส่วนค่าที่ 8 h (128 nmol/L) ไม่เข้าเกณฑ์ แต่สไลด์ไม่ได้เขียนคำแปลผลนี้ไว้เป็นข้อความ",
           {
             "callout": "สไลด์ให้ตัวเลขและเกณฑ์ครบ แต่ไม่ได้สรุปว่าผล LDDST นี้แปลว่าอะไร และไม่ได้บอกว่าวินิจฉัยเป็นโรคอะไร ตรงนี้คือส่วนที่โจทย์ตั้งใจให้นิสิตตอบเอง",
             "kind": "flag"
@@ -1404,12 +1256,8 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "การรักษา และคำถามท้ายเคสที่สไลด์ไม่ได้เฉลย",
         "source": "PBL Case 6 Endocrinology p.1",
         "body": [
-          {
-            "text": "Treatment: สไลด์ระบุเพียงว่าอาการดีขึ้นหลังรักษาด้วย **mitotane** (Fig.3)"
-          },
-          {
-            "text": "คำถามท้ายเคสที่โจทย์ทิ้งไว้คือ What is your diagnosis? และ How could you explain the pathophysiology of symptoms related to the cause of disease?"
-          },
+          "Treatment: สไลด์ระบุเพียงว่าอาการดีขึ้นหลังรักษาด้วย **mitotane** (Fig.3)",
+          "คำถามท้ายเคสที่โจทย์ทิ้งไว้คือ What is your diagnosis? และ How could you explain the pathophysiology of symptoms related to the cause of disease?",
           {
             "callout": "สไลด์ไม่ได้บอก dose ของ mitotane ระยะเวลาการให้ยา วิธี monitor ระหว่างรักษา หรือผลเลือดหลังรักษา มีแค่ประโยคว่าอาการดีขึ้นกับรูป Fig.3",
             "kind": "warn"
@@ -1428,9 +1276,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "โจทย์ PBL ตัวเคสและประวัติ",
         "source": "PBL neuro Down Frenchie p.1",
         "body": [
-          {
-            "text": "เคสคือ **French Bulldog เพศเมีย ทำหมันแล้ว (spayed) อายุ 3 ปี** ถูก refer มาด้วยปัญหา **inability to walk**"
-          },
+          "เคสคือ **French Bulldog เพศเมีย ทำหมันแล้ว (spayed) อายุ 3 ปี** ถูก refer มาด้วยปัญหา **inability to walk**",
           {
             "bullets": [
               "**4 วันก่อนหน้านั้น** สุนัขแสดงอาการ back pain และ mild incoordination",
@@ -1444,9 +1290,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "ผลตรวจร่างกายที่สไลด์ให้มา",
         "source": "PBL neuro Down Frenchie p.1",
         "body": [
-          {
-            "text": "สไลด์ระบุผลตรวจไว้เพียงสองข้อ และทั้งสองข้อเป็นผล negative หรือปกติ"
-          },
+          "สไลด์ระบุผลตรวจไว้เพียงสองข้อ และทั้งสองข้อเป็นผล negative หรือปกติ",
           {
             "bullets": [
               "**ไม่พบ pain เมื่อทำ palpation บริเวณ thoracic หรือ lumbar**",
@@ -1463,9 +1307,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "คำถามที่ต้องตอบ Neurolocalization",
         "source": "PBL neuro Down Frenchie p.1",
         "body": [
-          {
-            "text": "สไลด์สั่งให้ดูวิดีโอแล้ว **localize the lesion** โดยคำถามที่เขียนไว้คือ Neurolocalization: Where is the possible lesion?"
-          },
+          "สไลด์สั่งให้ดูวิดีโอแล้ว **localize the lesion** โดยคำถามที่เขียนไว้คือ Neurolocalization: Where is the possible lesion?",
           {
             "callout": "**สไลด์ไม่ได้บอกคำตอบ** ไม่มีการเฉลยตำแหน่งรอยโรค ไม่มีรายชื่อ differential diagnosis ไม่มีแผนการวินิจฉัยหรือการรักษา และตัววิดีโอที่โจทย์อ้างถึงก็ไม่ได้อยู่ในไฟล์สไลด์",
             "kind": "warn"
@@ -1484,9 +1326,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Signalment และ history",
         "source": "PBL Skeletal muscle for student p.1",
         "body": [
-          {
-            "text": "เคสคือ **สุนัขพันธุ์ผสม Akita เพศเมีย ทำหมันแล้ว (female spayed) อายุ 2 ปี** มาด้วยประวัติอ่อนแรงแบบ progressive และเป็น exercise-induced weakness"
-          },
+          "เคสคือ **สุนัขพันธุ์ผสม Akita เพศเมีย ทำหมันแล้ว (female spayed) อายุ 2 ปี** มาด้วยประวัติอ่อนแรงแบบ progressive และเป็น exercise-induced weakness",
           {
             "bullets": [
               "ระยะแรกยังยืนและเดินเองได้หลายก้าว ก่อนจะ collapse ที่ pelvic limbs",
@@ -1504,9 +1344,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "Physical examination",
         "source": "PBL Skeletal muscle for student p.1",
         "body": [
-          {
-            "text": "routine physical examination ไม่พบความผิดปกติ ไม่พบ fracture หรือ swelling ของขาทั้งสี่ข้าง"
-          },
+          "routine physical examination ไม่พบความผิดปกติ ไม่พบ fracture หรือ swelling ของขาทั้งสี่ข้าง",
           {
             "bullets": [
               "Gait assessment พบ **non-ambulatory paraparesis**",
@@ -1539,9 +1377,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "คำถามที่ PBL ทิ้งไว้",
         "source": "PBL Skeletal muscle for student p.1",
         "body": [
-          {
-            "text": "สไลด์ปิดท้ายด้วยคำถามเดียวคือ **What could be the mechanism associated with the diagnosis causing muscle weakness?**"
-          },
+          "สไลด์ปิดท้ายด้วยคำถามเดียวคือ **What could be the mechanism associated with the diagnosis causing muscle weakness?**",
           {
             "callout": "สไลด์ไม่ได้บอกคำตอบ ไม่มีการระบุชื่อโรค ไม่มีคำอธิบาย mechanism ใด ๆ ไม่มีการแปลผล titer ให้ และไม่มีแนวทางการรักษาหรือ prognosis อยู่ในเด็คนี้เลย ทั้งหมดเป็นงานที่ต้องไปหาคำตอบเองในกระบวนการ PBL",
             "kind": "warn"
@@ -1552,9 +1388,7 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
         "heading": "สิ่งที่ไม่มีในไฟล์",
         "source": "PBL Skeletal muscle for student p.2-3",
         "body": [
-          {
-            "text": "เด็คมี 3 หน้า แต่ข้อความทั้งหมดอยู่ในหน้า 1 เท่านั้น **หน้า 2 และหน้า 3 ไม่มีข้อความใด ๆ ในไฟล์** จึงสรุปเนื้อหาจากสองหน้านี้ไม่ได้ และเนื้อหาที่อ้างถึงอย่าง Figure 1, Video 1 และ Video 2 ต้องดูจากไฟล์ต้นฉบับที่อาจารย์ให้ในคาบ"
-          }
+          "เด็คมี 3 หน้า แต่ข้อความทั้งหมดอยู่ในหน้า 1 เท่านั้น **หน้า 2 และหน้า 3 ไม่มีข้อความใด ๆ ในไฟล์** จึงสรุปเนื้อหาจากสองหน้านี้ไม่ได้ และเนื้อหาที่อ้างถึงอย่าง Figure 1, Video 1 และ Video 2 ต้องดูจากไฟล์ต้นฉบับที่อาจารย์ให้ในคาบ"
         ]
       }
     ]

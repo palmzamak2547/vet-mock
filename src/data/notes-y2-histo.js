@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_HISTO = {
@@ -28,9 +28,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Scopes ของเล็กเชอร์นี้",
         "source": "Avian p.3",
         "body": [
-          {
-            "text": "สไลด์วาง scope ไว้ 6 ระบบ ใช้เป็นโครงอ่านทั้ง deck ได้เลย"
-          },
+          "สไลด์วาง scope ไว้ 6 ระบบ ใช้เป็นโครงอ่านทั้ง deck ได้เลย",
           {
             "bullets": [
               "**Nervous system**: Brain, spinal cord และ Blood cells",
@@ -51,9 +49,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Blood: ภาพรวมชนิดเซลล์",
         "source": "Avian p.4",
         "body": [
-          {
-            "text": "สไลด์แบ่งเม็ดเลือดของนกออกเป็นสามกลุ่มใหญ่"
-          },
+          "สไลด์แบ่งเม็ดเลือดของนกออกเป็นสามกลุ่มใหญ่",
           {
             "bullets": [
               "**Erythrocytes**",
@@ -74,23 +70,15 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Erythrocyte",
             "body": [
-              {
-                "text": "**เป็นเซลล์ใหญ่ รูปร่างยาว (elongated) มี oval nucleus ที่ chromatin กระจายเป็นก้อนเล็ก ๆ (small distributed clumps of chromatin)** cytoplasm ติดสีชมพูจาง (pale pink)"
-              },
-              {
-                "text": "สไลด์ระบุว่าขนาดของ erythrocyte ขึ้นกับ Breed และ Sex"
-              }
+              "**เป็นเซลล์ใหญ่ รูปร่างยาว (elongated) มี oval nucleus ที่ chromatin กระจายเป็นก้อนเล็ก ๆ (small distributed clumps of chromatin)** cytoplasm ติดสีชมพูจาง (pale pink)",
+              "สไลด์ระบุว่าขนาดของ erythrocyte ขึ้นกับ Breed และ Sex"
             ]
           },
           {
             "sub": "Thrombocyte",
             "body": [
-              {
-                "text": "**Round nucleus, cytoplasm รูปไข่สีจาง มี vacuoles**"
-              },
-              {
-                "text": "สไลด์กำกับว่า Similar function to mammalian platelets"
-              }
+              "**Round nucleus, cytoplasm รูปไข่สีจาง มี vacuoles**",
+              "สไลด์กำกับว่า Similar function to mammalian platelets"
             ]
           }
         ]
@@ -102,23 +90,15 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Lymphocyte",
             "body": [
-              {
-                "text": "**Nucleus กลมและอยู่กลางเซลล์ (centrally located & round nucleus) cytoplasm ติดสีเบโซฟิลิกเล็กน้อย** สไลด์ระบุว่าเป็น Most abundant WBC ของนก"
-              },
-              {
-                "text": "แบ่งเป็น T-cell / B-cell"
-              }
+              "**Nucleus กลมและอยู่กลางเซลล์ (centrally located & round nucleus) cytoplasm ติดสีเบโซฟิลิกเล็กน้อย** สไลด์ระบุว่าเป็น Most abundant WBC ของนก",
+              "แบ่งเป็น T-cell / B-cell"
             ]
           },
           {
             "sub": "Monocyte",
             "body": [
-              {
-                "text": "**Indented nucleus, cytoplasm สีจาง basophilic และมี vacuole**"
-              },
-              {
-                "text": "หน้าที่ที่สไลด์ระบุคือ Phagocytosis"
-              }
+              "**Indented nucleus, cytoplasm สีจาง basophilic และมี vacuole**",
+              "หน้าที่ที่สไลด์ระบุคือ Phagocytosis"
             ]
           }
         ]
@@ -130,28 +110,20 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Heterophil",
             "body": [
-              {
-                "text": "**Rod-shaped granules, cytoplasm สีจาง, nucleus แบบ lobulated**"
-              },
-              {
-                "text": "**Functionally equivalent to mammalian neutrophil** และ Involved in early acute inflammation"
-              }
+              "**Rod-shaped granules, cytoplasm สีจาง, nucleus แบบ lobulated**",
+              "**Functionally equivalent to mammalian neutrophil** และ Involved in early acute inflammation"
             ]
           },
           {
             "sub": "Eosinophil",
             "body": [
-              {
-                "text": "**Granule กลม สีชมพู จำนวนน้อยกว่า (fewer round, pink granules) อยู่ใน cytoplasm สีฟ้าจาง (pale blue)** และ nuclear chromatin เป็นแบบ block-like"
-              }
+              "**Granule กลม สีชมพู จำนวนน้อยกว่า (fewer round, pink granules) อยู่ใน cytoplasm สีฟ้าจาง (pale blue)** และ nuclear chromatin เป็นแบบ block-like"
             ]
           },
           {
             "sub": "Basophil",
             "body": [
-              {
-                "text": "**Granule basophilic ขนาดกลาง จำนวนมาก (large numbers of medium-size basophilic granules) nucleus สีจางและไม่แบ่ง lobe (unlobulated)**"
-              }
+              "**Granule basophilic ขนาดกลาง จำนวนมาก (large numbers of medium-size basophilic granules) nucleus สีจางและไม่แบ่ง lobe (unlobulated)**"
             ]
           },
           {
@@ -164,18 +136,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "Nervous system: ภาพรวม",
         "source": "Avian p.9",
         "body": [
-          {
-            "text": "**Histology of the nervous system is similar that of mammals (CNS/PNS)** สไลด์ใช้ภาพ normal sagittal section ของ chicken ชี้ส่วน spinal cord, cerebellum, brain stem และ cerebrum"
-          }
+          "**Histology of the nervous system is similar that of mammals (CNS/PNS)** สไลด์ใช้ภาพ normal sagittal section ของ chicken ชี้ส่วน spinal cord, cerebellum, brain stem และ cerebrum"
         ]
       },
       {
         "heading": "องค์ประกอบเซลล์ใน cerebrum และ cerebellum",
         "source": "Avian p.10-12",
         "body": [
-          {
-            "text": "หน้า 10 (Cerebrum, grey matter) ระบุเซลล์ที่ต้องดูให้ออก"
-          },
+          "หน้า 10 (Cerebrum, grey matter) ระบุเซลล์ที่ต้องดูให้ออก",
           {
             "bullets": [
               "**Neurons**",
@@ -183,27 +151,17 @@ export const NOTES_Y2_HISTO = {
               "**White matter คือ nerve fiber**"
             ]
           },
-          {
-            "text": "หน้า 11 เป็นภาพเทียบ Cerebrum ของ Dog (cerebral cortex, grey matter)"
-          },
-          {
-            "text": "หน้า 12 เป็น cerebellum ชี้ **Normal scattered darkly stained Purkinje cells** และชั้นทั้งสาม คือ Molecular layer, Purkinje cell layer และ Granular layer"
-          }
+          "หน้า 11 เป็นภาพเทียบ Cerebrum ของ Dog (cerebral cortex, grey matter)",
+          "หน้า 12 เป็น cerebellum ชี้ **Normal scattered darkly stained Purkinje cells** และชั้นทั้งสาม คือ Molecular layer, Purkinje cell layer และ Granular layer"
         ]
       },
       {
         "heading": "Glycogen body",
         "source": "Avian p.13",
         "body": [
-          {
-            "text": "**Glycogen body อยู่ที่ lumbosacral enlargement ของ spinal cord ซึ่งบรรจุอยู่ใน synsacrum ประกอบด้วย glycogen-rich glial cells ที่ dorsal groove ของ spinal cord**"
-          },
-          {
-            "text": "สไลด์ยังชี้ AL (Accessory lobe) ว่าเป็น ventrolateral protrusion เกี่ยวกับ CSF movement และเป็น mechanoreceptor"
-          },
-          {
-            "text": "**สไลด์บรรยายว่าเป็น a sense organ of equilibrium which is involved in the control of walking และเน้นว่า not seem to be related to the normal function of glycogen in animals** คือมี glycogen มากแต่ไม่ได้ทำหน้าที่แบบ glycogen ทั่วไป"
-          },
+          "**Glycogen body อยู่ที่ lumbosacral enlargement ของ spinal cord ซึ่งบรรจุอยู่ใน synsacrum ประกอบด้วย glycogen-rich glial cells ที่ dorsal groove ของ spinal cord**",
+          "สไลด์ยังชี้ AL (Accessory lobe) ว่าเป็น ventrolateral protrusion เกี่ยวกับ CSF movement และเป็น mechanoreceptor",
+          "**สไลด์บรรยายว่าเป็น a sense organ of equilibrium which is involved in the control of walking และเน้นว่า not seem to be related to the normal function of glycogen in animals** คือมี glycogen มากแต่ไม่ได้ทำหน้าที่แบบ glycogen ทั่วไป",
           {
             "callout": "สไลด์อ้างอิงงาน Güntürkün et al. 2017, Raja K. et al. 2019 และ Watterson R.L. 1949 แต่ไม่ได้อธิบายกลไกว่า glycogen ในนี้ถูกใช้ทำอะไรกันแน่ สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -214,15 +172,9 @@ export const NOTES_Y2_HISTO = {
         "heading": "Accessory lobe of Lachi และ label ในภาพตัดขวาง",
         "source": "Avian p.14",
         "body": [
-          {
-            "text": "**Accessory lobe of Lachi เป็น extra labyrinthine organ ประกอบด้วย multipolar neurons กับ myelinated และ non-myelinated axons ทำหน้าที่เป็น mechanoreceptor เกี่ยวกับ locomotion และ posture**"
-          },
-          {
-            "text": "เซลล์ของ glycogen body ที่ dorsal groove เป็น **large polygonal cells (glial cells)**"
-          },
-          {
-            "text": "หมายเลขในภาพตัดขวาง lumbosacral part ของ spinal cord"
-          },
+          "**Accessory lobe of Lachi เป็น extra labyrinthine organ ประกอบด้วย multipolar neurons กับ myelinated และ non-myelinated axons ทำหน้าที่เป็น mechanoreceptor เกี่ยวกับ locomotion และ posture**",
+          "เซลล์ของ glycogen body ที่ dorsal groove เป็น **large polygonal cells (glial cells)**",
+          "หมายเลขในภาพตัดขวาง lumbosacral part ของ spinal cord",
           {
             "bullets": [
               "glycogen body in the sinus rhomboideus",
@@ -240,9 +192,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lymphatic system: หลักการที่ต้องจำก่อน",
         "source": "Avian p.15",
         "body": [
-          {
-            "text": "**นกไม่มี lymph nodes มีแต่ diffuse lymphatic tissue และ lymphatic nodules**"
-          },
+          "**นกไม่มี lymph nodes มีแต่ diffuse lymphatic tissue และ lymphatic nodules**",
           {
             "sub": "Primary lymphatic tissues (Development and maturation of lymphocyte)",
             "body": [
@@ -280,12 +230,8 @@ export const NOTES_Y2_HISTO = {
               "**Reticular structure ที่มี dense eosinophilic reticular cells**"
             ]
           },
-          {
-            "text": "สไลด์ยังชี้ Aging thymus ที่บริเวณ cortex-medulla และ Thymic capsule ที่มี adipose tissue"
-          },
-          {
-            "text": "หน้า 18 (Thymus-medulla) ชี้ reticular structure และ **vesicle with eosinophilic content**"
-          },
+          "สไลด์ยังชี้ Aging thymus ที่บริเวณ cortex-medulla และ Thymic capsule ที่มี adipose tissue",
+          "หน้า 18 (Thymus-medulla) ชี้ reticular structure และ **vesicle with eosinophilic content**",
           {
             "callout": "หน้า 17 เป็นภาพ 1 lobule ชี้ CNT capsule, cortex, medulla และ reticular structure ส่วนหน้า 19 เป็นภาพ Thymus ของ Dog ไว้เทียบ ทั้งสองหน้าไม่มีข้อความอธิบายเพิ่ม",
             "kind": "flag"
@@ -322,9 +268,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ภาพชี้ Bursal capsule, mucosal fold (plicae) และ Lumen"
-          }
+          "ภาพชี้ Bursal capsule, mucosal fold (plicae) และ Lumen"
         ]
       },
       {
@@ -337,18 +281,14 @@ export const NOTES_Y2_HISTO = {
               "**FAE = Follicular associated epithelium เป็น Simple columnar epithelium ที่กลายเป็น epithelial tuft**"
             ]
           },
-          {
-            "text": "ภาพชี้เพิ่ม Bursal capsule, blood vessels, bursal follicle (cortex กับ medulla), undifferentiated epithelial cells ที่เป็น cuboidal cells, capillary และ interfollicular connective tissue"
-          }
+          "ภาพชี้เพิ่ม Bursal capsule, blood vessels, bursal follicle (cortex กับ medulla), undifferentiated epithelial cells ที่เป็น cuboidal cells, capillary และ interfollicular connective tissue"
         ]
       },
       {
         "heading": "Bursa: schematic ตำราอ้างอิง",
         "source": "Avian p.22",
         "body": [
-          {
-            "text": "สไลด์แปะ schematic จาก Nándor Nagy, Imre Oláh, Lonneke Vervelde ใน Avian Immunology (3rd ed.), 2022 พร้อมชุดตัวย่อ"
-          },
+          "สไลด์แปะ schematic จาก Nándor Nagy, Imre Oláh, Lonneke Vervelde ใน Avian Immunology (3rd ed.), 2022 พร้อมชุดตัวย่อ",
           {
             "bullets": [
               "**CME = corticomedullary epithelium (อยู่ใน medulla)**",
@@ -381,9 +321,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Spleen: schematic ของ chicken spleen",
         "source": "Avian p.24",
         "body": [
-          {
-            "text": "caption จาก Nándor Nagy et al. ใน Avian Immunology (3rd ed.), 2022 อธิบายโครงหลัก"
-          },
+          "caption จาก Nándor Nagy et al. ใน Avian Immunology (3rd ed.), 2022 อธิบายโครงหลัก",
           {
             "bullets": [
               "**Ellipsoid (E) หรือ Schweigger-Seidel sheath ห่อรอบ penicilliform capillaries**",
@@ -392,9 +330,7 @@ export const NOTES_Y2_HISTO = {
               "**CA (central artery) ถูกล้อมด้วย T lymphocytes เกิดเป็น PALS และ GC (germinal center) พัฒนาใกล้ central artery**"
             ]
           },
-          {
-            "text": "caption ยังเสนอสองโมเดลของการเกิด splenic dendritic cell โมเดลแรก FDCs และ IDCs มาจาก precursor ร่วมคือ EAC ใน ellipsoid โดย EAC จับ antigen แล้วหลุดออกจาก ellipsoid ย้ายไป PALS กลายเป็น IDC ก่อนแล้วจึงเป็น FDC ส่วนโมเดลที่สองบอกว่า EAC เปลี่ยนเป็น FDC โดยตรงและเริ่มการสร้าง GC"
-          },
+          "caption ยังเสนอสองโมเดลของการเกิด splenic dendritic cell โมเดลแรก FDCs และ IDCs มาจาก precursor ร่วมคือ EAC ใน ellipsoid โดย EAC จับ antigen แล้วหลุดออกจาก ellipsoid ย้ายไป PALS กลายเป็น IDC ก่อนแล้วจึงเป็น FDC ส่วนโมเดลที่สองบอกว่า EAC เปลี่ยนเป็น FDC โดยตรงและเริ่มการสร้าง GC",
           {
             "callout": "เป็นสองโมเดลที่ยังไม่สรุป สไลด์ไม่ได้บอกว่าโมเดลไหนถูก",
             "kind": "warn"
@@ -413,12 +349,8 @@ export const NOTES_Y2_HISTO = {
               "**Sheathed arteriole (Ellipsoid)**"
             ]
           },
-          {
-            "text": "หน้า 25 เป็น caption Blood flow in the spleen จาก Mescher AL, Junqueira's Basic Histology 16e (2021) ไล่จาก trabecular artery ไป central arteriole ที่ถูกห่อด้วย PALS แล้วแตกเป็น penicillar arterioles ไป sheathed capillaries จากนั้นเลือดไปได้ทั้ง closed circulation เข้า splenic sinuses โดยตรง หรือ open circulation ที่ถูกเทออกสู่ splenic cords ของ red pulp ก่อนกลับเข้าหลอดเลือดผ่านผนัง sinus"
-          },
-          {
-            "text": "หน้า 26 ใช้ภาพ Spleen ของ Dog เป็นตัวเทียบ"
-          }
+          "หน้า 25 เป็น caption Blood flow in the spleen จาก Mescher AL, Junqueira's Basic Histology 16e (2021) ไล่จาก trabecular artery ไป central arteriole ที่ถูกห่อด้วย PALS แล้วแตกเป็น penicillar arterioles ไป sheathed capillaries จากนั้นเลือดไปได้ทั้ง closed circulation เข้า splenic sinuses โดยตรง หรือ open circulation ที่ถูกเทออกสู่ splenic cords ของ red pulp ก่อนกลับเข้าหลอดเลือดผ่านผนัง sinus",
+          "หน้า 26 ใช้ภาพ Spleen ของ Dog เป็นตัวเทียบ"
         ]
       },
       {
@@ -460,9 +392,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "GALT: ตำแหน่งที่ต้องท่อง",
         "source": "Avian p.29",
         "body": [
-          {
-            "text": "**GALT เป็น well-organized structure โดย B-lymphocytes รวมเป็น follicles ส่วน T-cells สะสมอยู่ใน interfollicular spaces**"
-          },
+          "**GALT เป็น well-organized structure โดย B-lymphocytes รวมเป็น follicles ส่วน T-cells สะสมอยู่ใน interfollicular spaces**",
           {
             "bullets": [
               "**Peyer's patch ใน small intestines**",
@@ -474,27 +404,17 @@ export const NOTES_Y2_HISTO = {
               "**Annular bands of lymphoid tissue ใน jejunum และ ileum พบใน Duck**"
             ]
           },
-          {
-            "text": "หน้าเดียวกันยังสรุป **BALT อยู่ที่ผนังของ primary และ secondary bronchi** และ Head-associated lymphoid tissues เช่น CALT (Conjunctiva-associated lymphoid tissues)"
-          }
+          "หน้าเดียวกันยังสรุป **BALT อยู่ที่ผนังของ primary และ secondary bronchi** และ Head-associated lymphoid tissues เช่น CALT (Conjunctiva-associated lymphoid tissues)"
         ]
       },
       {
         "heading": "GALT: ภาพตำแหน่งและภาพจุลกายวิภาค",
         "source": "Avian p.30-33",
         "body": [
-          {
-            "text": "หน้า 30 เป็นแผนภาพ Chicken intestinal tract ชี้ตำแหน่ง GALT ทั้งชุด (pharyngeal tonsil ที่ roof of the pharynx, esophageal tonsil, pyloric tonsil, Peyer's patches, Meckel's diverticulum ที่รอยต่อ duodenum กับ jejunum, cecal tonsils ที่ apical wall of the cecum, cloacal bursa และ lymphoid tissue ที่ dorsal wall of the proctodeum) อ้างอิง C. Casteleyn M. et al., 2010 Avian Pathology และ Histology of the bird, Ghent University"
-          },
-          {
-            "text": "หน้า 31 เป็นภาพ GALT ชี้ **lymphoid aggregates located within the lamina propria** พร้อม crypts, connective tissue และ B lymphocytes in the follicle"
-          },
-          {
-            "text": "หน้า 32 เป็น schematic ของ immune cell compartments ใน small intestine คู่กับภาพ chicken ileum ที่เห็น villi และ crypts (ตัวย่อ IEL = intraepithelial lymphocyte, NK = natural killer) อ้างอิง Adrian L et al. ใน Avian Immunology (3rd ed.), 2022"
-          },
-          {
-            "text": "หน้า 33 เป็น Cecal tonsil ชี้ crypt of tonsil, septum, lumen, tunica muscularis, lamina propria, lymphoid follicles และ aggregated lymphoid tissue"
-          },
+          "หน้า 30 เป็นแผนภาพ Chicken intestinal tract ชี้ตำแหน่ง GALT ทั้งชุด (pharyngeal tonsil ที่ roof of the pharynx, esophageal tonsil, pyloric tonsil, Peyer's patches, Meckel's diverticulum ที่รอยต่อ duodenum กับ jejunum, cecal tonsils ที่ apical wall of the cecum, cloacal bursa และ lymphoid tissue ที่ dorsal wall of the proctodeum) อ้างอิง C. Casteleyn M. et al., 2010 Avian Pathology และ Histology of the bird, Ghent University",
+          "หน้า 31 เป็นภาพ GALT ชี้ **lymphoid aggregates located within the lamina propria** พร้อม crypts, connective tissue และ B lymphocytes in the follicle",
+          "หน้า 32 เป็น schematic ของ immune cell compartments ใน small intestine คู่กับภาพ chicken ileum ที่เห็น villi และ crypts (ตัวย่อ IEL = intraepithelial lymphocyte, NK = natural killer) อ้างอิง Adrian L et al. ใน Avian Immunology (3rd ed.), 2022",
+          "หน้า 33 เป็น Cecal tonsil ชี้ crypt of tonsil, septum, lumen, tunica muscularis, lamina propria, lymphoid follicles และ aggregated lymphoid tissue",
           {
             "callout": "หน้า 30-33 เป็นภาพและ label เป็นหลัก สไลด์ไม่ได้เขียนกลไกการทำงานของ GALT เพิ่มจากหน้า 29",
             "kind": "flag"
@@ -511,9 +431,7 @@ export const NOTES_Y2_HISTO = {
               "**อยู่ใต้ epithelium ของ bronchus หรือแทรกเข้าไปใน covering epithelium จนกลายเป็น lymphoepithelium หรือ follicle associated epithelium (FAE)**"
             ]
           },
-          {
-            "text": "ภาพประกอบเป็น 2° Bronchus"
-          }
+          "ภาพประกอบเป็น 2° Bronchus"
         ]
       },
       {
@@ -571,9 +489,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "ลำดับจนถึงจุดแลกเปลี่ยนก๊าซ (p.38)",
             "body": [
-              {
-                "text": "Primary bronchi (Mesobronchi) เข้าปอด ไป Secondary bronchi ไป Tertiary bronchi (parabronchi) ไป **Atria (air vesicles)** แล้วจึงถึง **Air capillaries ซึ่งเป็น gas exchange part** โดยมี epithelial lining เป็น type I & II pneumocytes ส่วน Air sacs แยกออกไป"
-              }
+              "Primary bronchi (Mesobronchi) เข้าปอด ไป Secondary bronchi ไป Tertiary bronchi (parabronchi) ไป **Atria (air vesicles)** แล้วจึงถึง **Air capillaries ซึ่งเป็น gas exchange part** โดยมี epithelial lining เป็น type I & II pneumocytes ส่วน Air sacs แยกออกไป"
             ]
           },
           {
@@ -609,9 +525,7 @@ export const NOTES_Y2_HISTO = {
               "**Atria: simple squamous epithelium**"
             ]
           },
-          {
-            "text": "หน้า 40 เป็นภาพ parabronchi ของไก่ (schematic คู่กับ SEM x50) ที่เทียบว่า Atria เทียบได้กับ alveolar duct และ air capillaries เทียบได้กับ alveoli อ้างอิง Liebich H.G. ใน Vet histology of domestic mammals and birds 5th ed."
-          }
+          "หน้า 40 เป็นภาพ parabronchi ของไก่ (schematic คู่กับ SEM x50) ที่เทียบว่า Atria เทียบได้กับ alveolar duct และ air capillaries เทียบได้กับ alveoli อ้างอิง Liebich H.G. ใน Vet histology of domestic mammals and birds 5th ed."
         ]
       },
       {
@@ -629,9 +543,7 @@ export const NOTES_Y2_HISTO = {
               "**Liver, Pancreas, Gall bladder**"
             ]
           },
-          {
-            "text": "หน้า 43 เป็นภาพ Histologic organization of the entire digestive tube อ้างอิง Zachary J.F. ใน Pathologic Basis of Vet Disease 7th ed. ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "หน้า 43 เป็นภาพ Histologic organization of the entire digestive tube อ้างอิง Zachary J.F. ใน Pathologic Basis of Vet Disease 7th ed. ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
@@ -655,9 +567,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Esophagus เทียบ Crop",
         "source": "Avian p.45",
         "body": [
-          {
-            "text": "ทั้งสองบุด้วย **non-keratinized stratified squamous epithelium** เหมือนกัน และภาพชี้ l.propria, muscularis mucosae (mm.), T. submucosa และ T. muscularis"
-          },
+          "ทั้งสองบุด้วย **non-keratinized stratified squamous epithelium** เหมือนกัน และภาพชี้ l.propria, muscularis mucosae (mm.), T. submucosa และ T. muscularis",
           {
             "bullets": [
               "**Esophagus: mucous glands occur in l.propria**",
@@ -694,9 +604,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Ventriculus (Gizzard): muscular stomach",
         "source": "Avian p.48-49",
         "body": [
-          {
-            "text": "**หน้าที่คือ grinding and mixing of ingesta**"
-          },
+          "**หน้าที่คือ grinding and mixing of ingesta**",
           {
             "sub": "Cuticle (pedicle) หรือ koilin layer",
             "body": [
@@ -722,18 +630,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์หน้า 48 ยังกำกับไว้ว่า **Proteolysis site (pH 1.5-2.5)**"
-          }
+          "สไลด์หน้า 48 ยังกำกับไว้ว่า **Proteolysis site (pH 1.5-2.5)**"
         ]
       },
       {
         "heading": "Intestine",
         "source": "Avian p.50-51",
         "body": [
-          {
-            "text": "**Small intestine คล้ายของ mammals แต่ villi สม่ำเสมอกว่าตลอดความยาว (villi are more uniform throughout its length)**"
-          },
+          "**Small intestine คล้ายของ mammals แต่ villi สม่ำเสมอกว่าตลอดความยาว (villi are more uniform throughout its length)**",
           {
             "bullets": [
               "Simple columnar epithelium ที่มี goblet cells",
@@ -752,9 +656,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "หน้า 51 เป็นภาพเทียบ duodenum x40, jejunum x25, ileum x25 และ cecum x25 ของไก่ ชี้ intestinal villi ที่บุด้วย simple columnar epithelium, l.propria ที่มี lymphatic tissue, intestinal gland (crypt), T. submucosa บาง และ T. muscularis อ้างอิง Hans-Georg Liebich, Veterinary Histology of Domestic Mammals and Birds 5th ed. ข้อสังเกตจากภาพคือ cecum ของไก่ก็มี intestinal villi"
-          }
+          "หน้า 51 เป็นภาพเทียบ duodenum x40, jejunum x25, ileum x25 และ cecum x25 ของไก่ ชี้ intestinal villi ที่บุด้วย simple columnar epithelium, l.propria ที่มี lymphatic tissue, intestinal gland (crypt), T. submucosa บาง และ T. muscularis อ้างอิง Hans-Georg Liebich, Veterinary Histology of Domestic Mammals and Birds 5th ed. ข้อสังเกตจากภาพคือ cecum ของไก่ก็มี intestinal villi"
         ]
       },
       {
@@ -771,21 +673,15 @@ export const NOTES_Y2_HISTO = {
               "มี branch of the portal vein, branch of hepatic artery และ vein และ bile duct (portal triad)"
             ]
           },
-          {
-            "text": "หน้า 53 แปะ caption ตำราของ Gordillo M. et al., Development 2015 ที่อธิบายโครง lobule ของตับทั่วไป รวม stellate (Ito) cells ใน space of Disse, Kupffer cells ที่เป็น macrophage ของตับ, bile canaliculi และ cholangiocytes ที่บุ bile duct"
-          }
+          "หน้า 53 แปะ caption ตำราของ Gordillo M. et al., Development 2015 ที่อธิบายโครง lobule ของตับทั่วไป รวม stellate (Ito) cells ใน space of Disse, Kupffer cells ที่เป็น macrophage ของตับ, bile canaliculi และ cholangiocytes ที่บุ bile duct"
         ]
       },
       {
         "heading": "Liver: Extramedullary hematopoiesis",
         "source": "Avian p.54-55",
         "body": [
-          {
-            "text": "**EMH = Extramedullary hematopoiesis คือการสร้างเม็ดเลือดในอวัยวะนอก bone marrow ซึ่งสไลด์ระบุว่า common in both normal and diseased birds**"
-          },
-          {
-            "text": "ภาพหน้า 55 เป็น extramedullary myelopoiesis คือ **large collection of granulocytic myeloid cells ที่มี characteristic red cytoplasmic granules (myelocytes) อยู่รอบ central vein** สไลด์อธิบายว่า focus นี้เป็น myelopoietic เป็นหลักเพราะประกอบด้วย myelocytes ในระยะการเจริญที่ต่างกัน"
-          },
+          "**EMH = Extramedullary hematopoiesis คือการสร้างเม็ดเลือดในอวัยวะนอก bone marrow ซึ่งสไลด์ระบุว่า common in both normal and diseased birds**",
+          "ภาพหน้า 55 เป็น extramedullary myelopoiesis คือ **large collection of granulocytic myeloid cells ที่มี characteristic red cytoplasmic granules (myelocytes) อยู่รอบ central vein** สไลด์อธิบายว่า focus นี้เป็น myelopoietic เป็นหลักเพราะประกอบด้วย myelocytes ในระยะการเจริญที่ต่างกัน",
           {
             "callout": "จุดนี้สำคัญตอนอ่านสไลด์ตับนก เจอกลุ่มเซลล์เม็ดเลือดในตับแล้วอย่ารีบตีความว่าผิดปกติ สไลด์บอกว่าพบได้ทั้งในนกปกติและนกป่วย",
             "kind": "tip"
@@ -796,9 +692,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Pancreas",
         "source": "Avian p.57",
         "body": [
-          {
-            "text": "สไลด์อ้างประโยคว่า The pancreas of the chicken resembles that of the mammal"
-          },
+          "สไลด์อ้างประโยคว่า The pancreas of the chicken resembles that of the mammal",
           {
             "bullets": [
               "**Exocrine portion เป็น tubuloacinar**",
@@ -836,9 +730,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ภาพชี้ Medullary cone ประกอบ ส่วนหน้า 58 เป็นภาพ Kidney ของ Dog และหน้า 61 เป็นภาพ Renal cortex อย่างเดียว ไม่มีข้อความอธิบาย"
-          }
+          "ภาพชี้ Medullary cone ประกอบ ส่วนหน้า 58 เป็นภาพ Kidney ของ Dog และหน้า 61 เป็นภาพ Renal cortex อย่างเดียว ไม่มีข้อความอธิบาย"
         ]
       },
       {
@@ -859,9 +751,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "รายการสไลด์ LAB ที่ต้องดูให้ครบ",
         "source": "Avian p.63",
         "body": [
-          {
-            "text": "หน้าสุดท้ายเป็นรายการสไลด์ปฏิบัติการ 12 รายการ ใช้เช็คว่าดูครบหรือยัง"
-          },
+          "หน้าสุดท้ายเป็นรายการสไลด์ปฏิบัติการ 12 รายการ ใช้เช็คว่าดูครบหรือยัง",
           {
             "bullets": [
               "B 157: Blood",
@@ -897,12 +787,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "เดคนี้คืออะไร และอ่านมันยังไง",
         "source": "Bone Marrow Laboratory p.1",
         "body": [
-          {
-            "text": "สไลด์แรกเป็นหน้าปกล้วน BONE MARROW LABORATORY โดย Associate Professor Dr. Paisan Tienthai, Ph.D. จาก Department of Anatomy คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย"
-          },
-          {
-            "text": "**เดคนี้เป็นเดคแลป ไม่ใช่เดคเลกเชอร์** โครงของมันคือ lab checklist 3 หน้า แล้วตามด้วยภาพ bone marrow smear ที่กำกับชื่อเซลล์ไว้บนภาพเป็นสิบ ๆ หน้า"
-          },
+          "สไลด์แรกเป็นหน้าปกล้วน BONE MARROW LABORATORY โดย Associate Professor Dr. Paisan Tienthai, Ph.D. จาก Department of Anatomy คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+          "**เดคนี้เป็นเดคแลป ไม่ใช่เดคเลกเชอร์** โครงของมันคือ lab checklist 3 หน้า แล้วตามด้วยภาพ bone marrow smear ที่กำกับชื่อเซลล์ไว้บนภาพเป็นสิบ ๆ หน้า",
           {
             "callout": "สไลด์ไม่ได้บอกเกณฑ์การแยกเซลล์เลย ไม่มีคำอธิบายเรื่องขนาดเซลล์ สี cytoplasm รูปร่าง nucleus หรือ chromatin pattern ในเดคนี้ ทุกอย่างเป็นแค่ป้ายชื่อชี้ลงบนภาพ ถ้าต้องการเกณฑ์แยกต้องไปหาจากเลกเชอร์หรือ atlas อื่น",
             "kind": "warn"
@@ -913,9 +799,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lab checklist 1 — Erythropoiesis",
         "source": "Bone Marrow Laboratory p.2",
         "body": [
-          {
-            "text": "รายการเซลล์สาย Erythropoiesis ที่สไลด์สั่งให้หาในแลป เรียงตามที่สไลด์เขียน"
-          },
+          "รายการเซลล์สาย Erythropoiesis ที่สไลด์สั่งให้หาในแลป เรียงตามที่สไลด์เขียน",
           {
             "bullets": [
               "Rubriblast",
@@ -928,9 +812,7 @@ export const NOTES_Y2_HISTO = {
               "Erythrocyte in bone marrow smear"
             ]
           },
-          {
-            "text": "**สังเกตว่า Reticulocyte ถูกกำกับด้วย (-) เพียงตัวเดียวในลิสต์นี้** และมีอีก 2 ตัวคือ Prorubricyte กับ Normochromatic rubricyte ที่กำกับ (+/-)"
-          },
+          "**สังเกตว่า Reticulocyte ถูกกำกับด้วย (-) เพียงตัวเดียวในลิสต์นี้** และมีอีก 2 ตัวคือ Prorubricyte กับ Normochromatic rubricyte ที่กำกับ (+/-)",
           {
             "callout": "สไลด์ไม่ได้บอกว่าเครื่องหมาย (+/-) และ (-) หมายถึงอะไร ทั้งเดคไม่มีคำอธิบายสัญลักษณ์นี้ ต้องถามอาจารย์ในแลป",
             "kind": "flag"
@@ -941,9 +823,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lab checklist 2 — Granulopoiesis",
         "source": "Bone Marrow Laboratory p.3",
         "body": [
-          {
-            "text": "สาย Granulopoiesis เป็นลิสต์ที่ยาวที่สุดในเดค เพราะแตกย่อยเป็น neutrophilic, eosinophilic และ basophilic ในทุกขั้นตั้งแต่ myelocyte ลงมา"
-          },
+          "สาย Granulopoiesis เป็นลิสต์ที่ยาวที่สุดในเดค เพราะแตกย่อยเป็น neutrophilic, eosinophilic และ basophilic ในทุกขั้นตั้งแต่ myelocyte ลงมา",
           {
             "sub": "ขั้นต้น",
             "body": [
@@ -992,9 +872,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "**ทุกสาย basophilic ในลิสต์นี้ถูกกำกับ (+/-) หมดทั้ง myelocyte, metamyelocyte และ band cell** ส่วน neutrophilic กับ eosinophilic ไม่มีเครื่องหมาย"
-          },
+          "**ทุกสาย basophilic ในลิสต์นี้ถูกกำกับ (+/-) หมดทั้ง myelocyte, metamyelocyte และ band cell** ส่วน neutrophilic กับ eosinophilic ไม่มีเครื่องหมาย",
           {
             "callout": "สไลด์ลิสต์ Progranulocyte กับ Promyelocyte เป็นคนละบรรทัดกัน แต่ไม่ได้อธิบายว่าสองคำนี้ต่างกันยังไง และในภาพหน้า 44 ก็ปรากฏทั้งสองป้ายอยู่บนสไลด์เดียวกัน สไลด์ไม่ได้บอกว่าแยกจากอะไร",
             "kind": "flag"
@@ -1005,18 +883,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lab checklist 3 — Platelet formation",
         "source": "Bone Marrow Laboratory p.4",
         "body": [
-          {
-            "text": "ลิสต์สั้นที่สุด มีแค่ 2 รายการ"
-          },
+          "ลิสต์สั้นที่สุด มีแค่ 2 รายการ",
           {
             "bullets": [
               "Megakaryocyte",
               "Effete megakaryocyte"
             ]
           },
-          {
-            "text": "**Effete megakaryocyte ถูกแยกเป็นรายการต่างหากจาก Megakaryocyte** และในเดคมีภาพกำกับคำนี้ไว้จริง 2 ภาพ (หน้า 18 และหน้า 47) แต่สไลด์ไม่ได้บอกว่า effete ต่างจากตัวปกติอย่างไร"
-          },
+          "**Effete megakaryocyte ถูกแยกเป็นรายการต่างหากจาก Megakaryocyte** และในเดคมีภาพกำกับคำนี้ไว้จริง 2 ภาพ (หน้า 18 และหน้า 47) แต่สไลด์ไม่ได้บอกว่า effete ต่างจากตัวปกติอย่างไร",
           {
             "callout": "checklist ไม่ได้ลิสต์ platelet หรือ thrombocyte เป็นรายการที่ต้องหา หัวข้อนี้จบที่ megakaryocyte เท่านั้น",
             "kind": "tip"
@@ -1027,18 +901,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "โครงของภาพ — 2 วิธีย้อม",
         "source": "Bone Marrow Laboratory p.5, p.51",
         "body": [
-          {
-            "text": "เดคแบ่งภาพเป็น 2 ชุดด้วยสไลด์คั่นหัวข้อ"
-          },
+          "เดคแบ่งภาพเป็น 2 ชุดด้วยสไลด์คั่นหัวข้อ",
           {
             "bullets": [
               "**BONE MARROW SMEAR WITH WRIGHT-GIEMSA STAINING** (สไลด์คั่นหน้า 5) ตามด้วยภาพหน้า 6-50 ซึ่งมีเลขกำกับภาพเป็น 1-45 ที่มุมสไลด์",
               "**BONE MARROW SMEAR WITH PAPANICOLAOU METHOD** (สไลด์คั่นหน้า 51) ตามด้วยภาพหน้า 52-55 ซึ่งมีเลขกำกับภาพเป็น 1-4 นับใหม่"
             ]
           },
-          {
-            "text": "เลขภาพจะรีเซ็ตเมื่อเปลี่ยนวิธีย้อม ดังนั้นเวลาอ้างอิงในแลปต้องบอกด้วยว่าเป็นภาพของชุดย้อมไหน ไม่งั้น \"ภาพที่ 1\" กำกวมทันที"
-          },
+          "เลขภาพจะรีเซ็ตเมื่อเปลี่ยนวิธีย้อม ดังนั้นเวลาอ้างอิงในแลปต้องบอกด้วยว่าเป็นภาพของชุดย้อมไหน ไม่งั้น \"ภาพที่ 1\" กำกวมทันที",
           {
             "callout": "สไลด์ไม่ได้เปรียบเทียบว่า Wright-Giemsa กับ Papanicolaou ให้ภาพต่างกันอย่างไร แค่ตั้งเป็นหัวข้อคั่นเฉย ๆ",
             "kind": "warn"
@@ -1049,9 +919,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ดัชนีภาพ Wright-Giemsa — สาย erythroid",
         "source": "Bone Marrow Laboratory p.6-50",
         "body": [
-          {
-            "text": "ใช้เปิดเทียบตอนส่องกล้อง เลขคือหน้าสไลด์ในเดค (ภาพชุด Wright-Giemsa เริ่มที่หน้า 6 = ภาพที่ 1)"
-          },
+          "ใช้เปิดเทียบตอนส่องกล้อง เลขคือหน้าสไลด์ในเดค (ภาพชุด Wright-Giemsa เริ่มที่หน้า 6 = ภาพที่ 1)",
           {
             "bullets": [
               "Rubriblast — หน้า 6, 7, 13 (มี 2 ตัวในภาพเดียว), 20, 24, 26, 27, 34, 38, 39, 42, 45, 46",
@@ -1063,9 +931,7 @@ export const NOTES_Y2_HISTO = {
               "RBC — กำกับไว้ที่ภาพแรกภาพเดียว คือหน้า 6"
             ]
           },
-          {
-            "text": "**Prorubricyte และ Normochromatic rubricyte ซึ่งเป็นสองตัวที่ checklist กำกับ (+/-) ปรากฏในชุด Wright-Giemsa แค่ตัวละ 2 ภาพเท่านั้น** ส่วน Reticulocyte ที่ checklist กำกับ (-) ไม่มีภาพไหนในเดคกำกับชื่อนี้เลย"
-          }
+          "**Prorubricyte และ Normochromatic rubricyte ซึ่งเป็นสองตัวที่ checklist กำกับ (+/-) ปรากฏในชุด Wright-Giemsa แค่ตัวละ 2 ภาพเท่านั้น** ส่วน Reticulocyte ที่ checklist กำกับ (-) ไม่มีภาพไหนในเดคกำกับชื่อนี้เลย"
         ]
       },
       {
@@ -1108,9 +974,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ภาพ bone marrow section ของ cat fetus",
         "source": "Bone Marrow Laboratory p.48-50",
         "body": [
-          {
-            "text": "3 หน้าสุดท้ายของชุด Wright-Giemsa เปลี่ยนจาก smear ไปเป็น section สไลด์เขียนกำกับชัดว่าเป็น **bone marrow section of cat fetus**"
-          },
+          "3 หน้าสุดท้ายของชุด Wright-Giemsa เปลี่ยนจาก smear ไปเป็น section สไลด์เขียนกำกับชัดว่าเป็น **bone marrow section of cat fetus**",
           {
             "bullets": [
               "หน้า 48 — Megakaryocyte in bone marrow section of cat fetus",
@@ -1128,9 +992,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ชุด Papanicolaou method",
         "source": "Bone Marrow Laboratory p.51-55",
         "body": [
-          {
-            "text": "ชุดนี้สั้นมาก มีแค่ 4 ภาพ และกำกับเฉพาะเซลล์สาย erythroid ปลายทางเท่านั้น"
-          },
+          "ชุดนี้สั้นมาก มีแค่ 4 ภาพ และกำกับเฉพาะเซลล์สาย erythroid ปลายทางเท่านั้น",
           {
             "bullets": [
               "หน้า 52 (ภาพที่ 1) — Metarubricyte",
@@ -1139,9 +1001,7 @@ export const NOTES_Y2_HISTO = {
               "หน้า 55 (ภาพที่ 4) — Metarubricyte"
             ]
           },
-          {
-            "text": "**ทั้ง 4 ภาพของชุด Papanicolaou มีแต่ rubricyte กับ metarubricyte ไม่มีภาพสาย granulocytic หรือ megakaryocyte เลย**"
-          },
+          "**ทั้ง 4 ภาพของชุด Papanicolaou มีแต่ rubricyte กับ metarubricyte ไม่มีภาพสาย granulocytic หรือ megakaryocyte เลย**",
           {
             "callout": "สไลด์ไม่ได้บอกว่าทำไมชุด Papanicolaou ถึงแสดงเฉพาะสาย erythroid และไม่ได้บอกว่าย้อมวิธีนี้แล้วเซลล์ต่างจาก Wright-Giemsa อย่างไร",
             "kind": "warn"
@@ -1161,12 +1021,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Bone marrow คืออะไร และหน้าที่",
         "source": "Bone Marrow p.2",
         "body": [
-          {
-            "text": "Bone marrow เป็น **soft connective tissue ที่อยู่ใน medullary cavity ของ long bones และในทุกช่องว่างระหว่าง trabeculae ของ spongy bone** เรียกอีกชื่อว่า myeloid tissue หรือ myelogenous hemopoietic tissue"
-          },
-          {
-            "text": "ประกอบด้วย 2 ส่วน"
-          },
+          "Bone marrow เป็น **soft connective tissue ที่อยู่ใน medullary cavity ของ long bones และในทุกช่องว่างระหว่าง trabeculae ของ spongy bone** เรียกอีกชื่อว่า myeloid tissue หรือ myelogenous hemopoietic tissue",
+          "ประกอบด้วย 2 ส่วน",
           {
             "bullets": [
               "Vascular compartment",
@@ -1191,9 +1047,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ศัพท์ของ Hematopoiesis",
         "source": "Bone Marrow p.3",
         "body": [
-          {
-            "text": "การสร้างเซลล์เม็ดเลือดในไขกระดูกเรียกว่า **Hematopoiesis หรือ Hemopoiesis** แบ่งย่อยตามสายเซลล์"
-          },
+          "การสร้างเซลล์เม็ดเลือดในไขกระดูกเรียกว่า **Hematopoiesis หรือ Hemopoiesis** แบ่งย่อยตามสายเซลล์",
           {
             "bullets": [
               "**Erythropoiesis** การสร้าง red blood cell หรือ erythrocyte",
@@ -1208,9 +1062,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Red marrow และ Yellow marrow",
         "source": "Bone Marrow p.4-6",
         "body": [
-          {
-            "text": "เมื่อดูด้วยกล้องจุลทรรศน์ แบ่ง bone marrow ได้ 2 ชนิด คือ red marrow และ yellow marrow"
-          },
+          "เมื่อดูด้วยกล้องจุลทรรศน์ แบ่ง bone marrow ได้ 2 ชนิด คือ red marrow และ yellow marrow",
           {
             "sub": "Red marrow (Hematopoietically active)",
             "body": [
@@ -1239,9 +1091,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Vascular compartment",
         "source": "Bone Marrow p.7-9",
         "body": [
-          {
-            "text": "ลำดับการไหลของเลือดในไขกระดูก"
-          },
+          "ลำดับการไหลของเลือดในไขกระดูก",
           {
             "bullets": [
               "Nutrient artery แตกแขนงไปเป็น",
@@ -1251,9 +1101,7 @@ export const NOTES_Y2_HISTO = {
               "Central longitudinal vein ที่นำเลือดออกจากไขกระดูกเข้าสู่ general circulation"
             ]
           },
-          {
-            "text": "รูปหน้า 9 ไม่มีข้อความบนสไลด์ ตัวภาพพิมพ์ชื่อ Nutrient Artery, Nutrient Vein, Central Artery, Central Vein, Radial Arteries, Venous Sinuses, Hematopoietic Tissue Spaces, Periosteal Artery และ Cortical Bone"
-          },
+          "รูปหน้า 9 ไม่มีข้อความบนสไลด์ ตัวภาพพิมพ์ชื่อ Nutrient Artery, Nutrient Vein, Central Artery, Central Vein, Radial Arteries, Venous Sinuses, Hematopoietic Tissue Spaces, Periosteal Artery และ Cortical Bone",
           {
             "callout": "Notice: bone marrow ไม่มี Lymphatic drainage",
             "kind": "flag"
@@ -1292,24 +1140,16 @@ export const NOTES_Y2_HISTO = {
         "heading": "Monophyletic theory",
         "source": "Bone Marrow p.11-12",
         "body": [
-          {
-            "text": "ดังนั้น hematopoiesis เกิดขึ้นโดยเฉพาะใน hematopoietic tissue ของ red marrow และทฤษฎีที่ยอมรับกันในปัจจุบันเรียกว่า **Monophyletic theory**"
-          },
-          {
-            "text": "Monophyletic theory กล่าวว่า **mature blood cells ทุกชนิดในร่างกายมีต้นกำเนิดจาก stem cell ชนิดเดียว** คือ Hematopoietic stem cell (HSC) หรือ Colony forming unit-stem cell (CFU-S)"
-          },
-          {
-            "text": "HSC หรือ CFU-S แบ่งตัวไปเป็น"
-          },
+          "ดังนั้น hematopoiesis เกิดขึ้นโดยเฉพาะใน hematopoietic tissue ของ red marrow และทฤษฎีที่ยอมรับกันในปัจจุบันเรียกว่า **Monophyletic theory**",
+          "Monophyletic theory กล่าวว่า **mature blood cells ทุกชนิดในร่างกายมีต้นกำเนิดจาก stem cell ชนิดเดียว** คือ Hematopoietic stem cell (HSC) หรือ Colony forming unit-stem cell (CFU-S)",
+          "HSC หรือ CFU-S แบ่งตัวไปเป็น",
           {
             "bullets": [
               "**Myeloid stem cell** หรือ Colony forming unit-granulocyte, erythrocyte, monocyte and megakaryocyte (**CFU-GEMM**)",
               "**Lymphoid stem cell** หรือ Colony forming unit-lymphoid (**CFU-L**)"
             ]
           },
-          {
-            "text": "สไลด์หน้า 13 เขียนกำกับรูปไว้เพียงว่า (Pluripotential stem cells) ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "สไลด์หน้า 13 เขียนกำกับรูปไว้เพียงว่า (Pluripotential stem cells) ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
@@ -1350,15 +1190,11 @@ export const NOTES_Y2_HISTO = {
         "heading": "Erythropoiesis ลำดับขั้นและ essential events",
         "source": "Bone Marrow p.16-18",
         "body": [
-          {
-            "text": "Erythropoiesis คือกระบวนการพัฒนาที่นำไปสู่การเกิด mature erythrocytes โดยมวลรวมของ circulating erythrocytes กับ marrow erythropoietic tissue เรียกว่า **Erythron**"
-          },
+          "Erythropoiesis คือกระบวนการพัฒนาที่นำไปสู่การเกิด mature erythrocytes โดยมวลรวมของ circulating erythrocytes กับ marrow erythropoietic tissue เรียกว่า **Erythron**",
           {
             "sub": "ลำดับขั้น",
             "body": [
-              {
-                "text": "Myeloid stem cell CFU-GEMM > BFU-E > **CFU-E ซึ่งถูกกระตุ้นโดย erythropoietin** > Rubriblast > Prorubricyte > Basophilic rubricyte > Polychromatic rubricyte > Normochromatic rubricyte > Metarubricyte > Reticulocyte > Erythrocyte หรือ RBC"
-              }
+              "Myeloid stem cell CFU-GEMM > BFU-E > **CFU-E ซึ่งถูกกระตุ้นโดย erythropoietin** > Rubriblast > Prorubricyte > Basophilic rubricyte > Polychromatic rubricyte > Normochromatic rubricyte > Metarubricyte > Reticulocyte > Erythrocyte หรือ RBC"
             ]
           },
           {
@@ -1514,9 +1350,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Granulopoiesis ลำดับขั้น",
         "source": "Bone Marrow p.31",
         "body": [
-          {
-            "text": "Myeloid stem cell CFU-GEMM > **CFU-GM** > CFU-N, CFU-Eo, CFU-Ba > Myeloblast > Progranulocyte > Promyelocyte > Myelocyte > Metamyelocyte > Band cell (หรือ band form) > Mature granulocyte (neutrophil, eosinophil, basophil)"
-          }
+          "Myeloid stem cell CFU-GEMM > **CFU-GM** > CFU-N, CFU-Eo, CFU-Ba > Myeloblast > Progranulocyte > Promyelocyte > Myelocyte > Metamyelocyte > Band cell (หรือ band form) > Mature granulocyte (neutrophil, eosinophil, basophil)"
         ]
       },
       {
@@ -1617,9 +1451,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ความต่างหลักระหว่างเซลล์ต้นกำเนิดของ erythropoiesis กับ granulopoiesis",
         "source": "Bone Marrow p.39",
         "body": [
-          {
-            "text": "สไลด์ตั้งหัวข้อว่า THE MAIN DIFFERENCE BETWEEN ORIGINATING CELL OF ERYTHROPOIESIS AND ORIGINATING CELL OF GRANULOPOIESIS และรูปในหน้าเดียวกันใช้หัวรูปว่า **COLOR OF CYTOPLASM** เทียบเซลล์สองตัว"
-          },
+          "สไลด์ตั้งหัวข้อว่า THE MAIN DIFFERENCE BETWEEN ORIGINATING CELL OF ERYTHROPOIESIS AND ORIGINATING CELL OF GRANULOPOIESIS และรูปในหน้าเดียวกันใช้หัวรูปว่า **COLOR OF CYTOPLASM** เทียบเซลล์สองตัว",
           {
             "bullets": [
               "Originating cell of RBC: cytoplasm **Dark blue**",
@@ -1633,9 +1465,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Agranulopoiesis: Monocytopoiesis",
         "source": "Bone Marrow p.40",
         "body": [
-          {
-            "text": "ลำดับ: CFU-GEMM > CFU-GM > **CFU-M** > Monoblast > Promonocyte > Monocyte"
-          },
+          "ลำดับ: CFU-GEMM > CFU-GM > **CFU-M** > Monoblast > Promonocyte > Monocyte",
           {
             "bullets": [
               "**Monoblast** ค่อนข้างเล็กและจดจำได้ยาก",
@@ -1650,9 +1480,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Agranulopoiesis: Lymphopoiesis",
         "source": "Bone Marrow p.41",
         "body": [
-          {
-            "text": "ลำดับ: CFU-L > Lymphoblast > Prolymphocyte > Lymphocyte"
-          },
+          "ลำดับ: CFU-L > Lymphoblast > Prolymphocyte > Lymphocyte",
           {
             "bullets": [
               "**Lymphoblast** ขนาด 12-15 µm, nucleus กลม chromatin หยาบ nucleoli ไม่แน่นอน, cytoplasm เป็นขอบบาง ๆ ติดสี basophilic เข้ม",
@@ -1696,9 +1524,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Thrombopoiesis: Platelet formation",
         "source": "Bone Marrow p.44-45",
         "body": [
-          {
-            "text": "ลำดับ: CFU-GEMM > BFU-MK > CFU-MK > Megakaryoblast > Promegakaryocyte > Megakaryocyte"
-          },
+          "ลำดับ: CFU-GEMM > BFU-MK > CFU-MK > Megakaryoblast > Promegakaryocyte > Megakaryocyte",
           {
             "bullets": [
               "**Megakaryoblast** รูป spherical หรือ oval ขนาด 25-35 µm, N:C ratio = 10:1, cytoplasm basophilic เล็กน้อย, nucleus เดี่ยว chromatin กระจาย มี nucleoli หลายอัน",
@@ -1741,9 +1567,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "เส้นทาง (p.47)",
             "body": [
-              {
-                "text": "Mature blood cells ในไขกระดูกจะระบายเข้าสู่ **venous sinus หรือ sinusoids** ซึ่งเปิดเข้าสู่ **central longitudinal vein** แล้วเข้าสู่ systemic circulation ทาง **nutrient และ periosteal veins**"
-              }
+              "Mature blood cells ในไขกระดูกจะระบายเข้าสู่ **venous sinus หรือ sinusoids** ซึ่งเปิดเข้าสู่ **central longitudinal vein** แล้วเข้าสู่ systemic circulation ทาง **nutrient และ periosteal veins**"
             ]
           },
           {
@@ -1820,18 +1644,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "Myeloid : Erythroid (M:E) ratio",
         "source": "Bone Marrow p.53",
         "body": [
-          {
-            "text": "ทำจาก bone marrow aspiration และคำนวณโดย **นับ marrow nucleated cells จำนวน 500 เซลล์ ภายใต้ light microscope (oil immersion x100)**"
-          },
+          "ทำจาก bone marrow aspiration และคำนวณโดย **นับ marrow nucleated cells จำนวน 500 เซลล์ ภายใต้ light microscope (oil immersion x100)**",
           {
             "bullets": [
               "**M = Myelocytic series** เน้นที่ granulocytic cells ได้แก่ myeloblast, progranulocyte, promyelocyte, myelocyte, metamyelocyte, band cell, segmented neutrophil, eosinophil, basophil",
               "**E = Erythrocytic series** ได้แก่ rubriblast, prorubricyte, basophilic rubricyte, polychromatic rubricyte, normochromatic rubricyte, metarubricyte"
             ]
           },
-          {
-            "text": "ต้องแปลผล **เทียบกับ normal total WBC count** เสมอ"
-          },
+          "ต้องแปลผล **เทียบกับ normal total WBC count** เสมอ",
           {
             "bullets": [
               "**M:E เพิ่ม (มากกว่า 1) และ WBC ปกติ** เช่น 4:1 อาจหมายถึง decrease in erythropoiesis หรือส่วนใหญ่คือ acute infection, granulocytic leukemia เป็นต้น",
@@ -1853,21 +1673,15 @@ export const NOTES_Y2_HISTO = {
         "heading": "Objectives และการแบ่งระบบไหลเวียน",
         "source": "Circulatory System p.2-3",
         "body": [
-          {
-            "text": "สไลด์ objectives วางกรอบไว้ 3 อย่างคือ Heart กับ Blood vessels, เรื่อง **specific 3 coats** และการเทียบ Artery กับ Vein กับ Lymph vessel ซึ่งเป็นโครงของทั้งเด็ค"
-          },
-          {
-            "text": "Circulatory system แบ่งเป็น **Blood circulatory system (Cardiovascular system)** และ **Lymph circulatory system**"
-          }
+          "สไลด์ objectives วางกรอบไว้ 3 อย่างคือ Heart กับ Blood vessels, เรื่อง **specific 3 coats** และการเทียบ Artery กับ Vein กับ Lymph vessel ซึ่งเป็นโครงของทั้งเด็ค",
+          "Circulatory system แบ่งเป็น **Blood circulatory system (Cardiovascular system)** และ **Lymph circulatory system**"
         ]
       },
       {
         "heading": "Functions ของ blood และ lymph circulation",
         "source": "Circulatory System p.4",
         "body": [
-          {
-            "text": "สไลด์นี้ list หน้าที่ไว้เป็นคำสั้น ๆ ไม่ได้เขียนเป็นประโยคเต็ม รายการที่ปรากฏบนสไลด์คือ"
-          },
+          "สไลด์นี้ list หน้าที่ไว้เป็นคำสั้น ๆ ไม่ได้เขียนเป็นประโยคเต็ม รายการที่ปรากฏบนสไลด์คือ",
           {
             "bullets": [
               "body fluids และ tissue fluid",
@@ -1888,12 +1702,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "องค์ประกอบและลำดับของ blood circulatory system",
         "source": "Circulatory System p.5-6",
         "body": [
-          {
-            "text": "Blood circulatory system (cardio-vascular) ประกอบด้วย **Heart** และ **Blood vessels** ได้แก่ artery, capillary, sinusoid, vein"
-          },
-          {
-            "text": "สไลด์ structure and relation ไล่ลำดับเป็นวงว่า Heart ไป Artery (elastic ไป muscular ไป arteriole) ไป Capillary (Sinusoid) กับ venule และ arteriovenous anastomose ไป Vein (small ไป medium ไป large) แล้วกลับเข้า Heart"
-          }
+          "Blood circulatory system (cardio-vascular) ประกอบด้วย **Heart** และ **Blood vessels** ได้แก่ artery, capillary, sinusoid, vein",
+          "สไลด์ structure and relation ไล่ลำดับเป็นวงว่า Heart ไป Artery (elastic ไป muscular ไป arteriole) ไป Capillary (Sinusoid) กับ venule และ arteriovenous anastomose ไป Vein (small ไป medium ไป large) แล้วกลับเข้า Heart"
         ]
       },
       {
@@ -1907,18 +1717,14 @@ export const NOTES_Y2_HISTO = {
               "specialized muscle cells"
             ]
           },
-          {
-            "text": "หัวใจ **contracts regularly, involuntary, and continuously** โดย electrical signals ส่งไปยัง neighboring cells ทำให้ rhythmically contract ส่ง O2 blood และ nutrients ไป the body และส่ง deoxygenated blood ไป the lung"
-          }
+          "หัวใจ **contracts regularly, involuntary, and continuously** โดย electrical signals ส่งไปยัง neighboring cells ทำให้ rhythmically contract ส่ง O2 blood และ nutrients ไป the body และส่ง deoxygenated blood ไป the lung"
         ]
       },
       {
         "heading": "ผนังหัวใจ 3 ชั้น และ Endocardium",
         "source": "Circulatory System p.9, p.11",
         "body": [
-          {
-            "text": "ผนังหัวใจแบ่งเป็น **1. Endocardium 2. Myocardium 3. Epicardium**"
-          },
+          "ผนังหัวใจแบ่งเป็น **1. Endocardium 2. Myocardium 3. Epicardium**",
           {
             "sub": "Endocardium (p.11)",
             "body": [
@@ -1949,9 +1755,7 @@ export const NOTES_Y2_HISTO = {
               "cytoplasm rich in **mitochondria and glycogen**"
             ]
           },
-          {
-            "text": "สไลด์ p.13 กับ p.14 เป็นข้อความชุดเดียวกัน ต่างกันแค่ภาพประกอบที่ label ชั้น endothelium, subendothelial layer และ subendocardial layer"
-          }
+          "สไลด์ p.13 กับ p.14 เป็นข้อความชุดเดียวกัน ต่างกันแค่ภาพประกอบที่ label ชั้น endothelium, subendothelial layer และ subendocardial layer"
         ]
       },
       {
@@ -1969,12 +1773,8 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Cardiac muscle (p.16)",
             "body": [
-              {
-                "text": "แบ่งเป็น contractile cells และ impulse generating and conducting cells"
-              },
-              {
-                "text": "จุดเชื่อมระหว่างเซลล์คือ **intercalated disc** ทำหน้าที่ส่ง electrical impulse ไปสู่ contraction ประกอบด้วย junctional complex คือ **fascia adherens, desmosome และ gap junction**"
-              }
+              "แบ่งเป็น contractile cells และ impulse generating and conducting cells",
+              "จุดเชื่อมระหว่างเซลล์คือ **intercalated disc** ทำหน้าที่ส่ง electrical impulse ไปสู่ contraction ประกอบด้วย junctional complex คือ **fascia adherens, desmosome และ gap junction**"
             ]
           }
         ]
@@ -1989,18 +1789,14 @@ export const NOTES_Y2_HISTO = {
               "**Subepicardial layer** มี coronary vessel และ CNT"
             ]
           },
-          {
-            "text": "ภาพบนสไลด์ label ไล่จาก mesothelium ลง subepicardium ลง myocardium"
-          }
+          "ภาพบนสไลด์ label ไล่จาก mesothelium ลง subepicardium ลง myocardium"
         ]
       },
       {
         "heading": "Cardiac skeleton",
         "source": "Circulatory System p.18",
         "body": [
-          {
-            "text": "นิยามบนสไลด์คือ **CNT inserted into the atrial and ventricular walls** แบ่งเป็น 3 ส่วน"
-          },
+          "นิยามบนสไลด์คือ **CNT inserted into the atrial and ventricular walls** แบ่งเป็น 3 ส่วน",
           {
             "bullets": [
               "**Anulus fibrosus (fibrous ring)**: ที่ atrioventricular opening, aorta, pulmonary a.",
@@ -2008,9 +1804,7 @@ export const NOTES_Y2_HISTO = {
               "**interventricular septum**"
             ]
           },
-          {
-            "text": "สไลด์ยังเขียนลำดับเนื้อเยื่อไว้ว่า **CNT ไป cartilage ไป bone เป็น age-dependence** และ list ชนิดไว้คือ fibrocartilage, hyalin cartilage และ bone (os cordis)"
-          }
+          "สไลด์ยังเขียนลำดับเนื้อเยื่อไว้ว่า **CNT ไป cartilage ไป bone เป็น age-dependence** และ list ชนิดไว้คือ fibrocartilage, hyalin cartilage และ bone (os cordis)"
         ]
       },
       {
@@ -2030,9 +1824,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Blood vessels: general structure 3 coats",
         "source": "Circulatory System p.22-23",
         "body": [
-          {
-            "text": "สไลด์วางคู่กันว่าหัวใจมี Endocardium, Myocardium, Epicardium ส่วน blood vessels มี **Tunica intima (T. interna), Tunica media, Tunica externa (T. adventitia)**"
-          },
+          "สไลด์วางคู่กันว่าหัวใจมี Endocardium, Myocardium, Epicardium ส่วน blood vessels มี **Tunica intima (T. interna), Tunica media, Tunica externa (T. adventitia)**",
           {
             "sub": "1. Tunica intima (T. interna)",
             "body": [
@@ -2076,9 +1868,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Artery ภาพรวมและการแบ่งชนิด",
         "source": "Circulatory System p.25-26",
         "body": [
-          {
-            "text": "หน้าที่ที่สไลด์เขียนคือ **control blood flow** จาก heart ไป smaller vessels ไป tissues เพื่อส่ง O2 และ nutrient"
-          },
+          "หน้าที่ที่สไลด์เขียนคือ **control blood flow** จาก heart ไป smaller vessels ไป tissues เพื่อส่ง O2 และ nutrient",
           {
             "bullets": [
               "**1. Elastic (large) artery**",
@@ -2092,9 +1882,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "1. Elastic (large) artery",
         "source": "Circulatory System p.27, p.30",
         "body": [
-          {
-            "text": "ลักษณะเด่นบนสไลด์คือ **yellowish จาก elastic fibers**"
-          },
+          "ลักษณะเด่นบนสไลด์คือ **yellowish จาก elastic fibers**",
           {
             "sub": "T. intima",
             "body": [
@@ -2132,18 +1920,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์ภาพ p.29 เป็น elastic artery ย้อม Koneff's aniline blue เทียบกับ H&E โดย label แค่ tunica intima, tunica media, tunica externa"
-          }
+          "สไลด์ภาพ p.29 เป็น elastic artery ย้อม Koneff's aniline blue เทียบกับ H&E โดย label แค่ tunica intima, tunica media, tunica externa"
         ]
       },
       {
         "heading": "2. Muscular artery",
         "source": "Circulatory System p.31",
         "body": [
-          {
-            "text": "เป็น **medium-sized, distributive artery** ที่กระจายเลือดเข้าสู่ organ"
-          },
+          "เป็น **medium-sized, distributive artery** ที่กระจายเลือดเข้าสู่ organ",
           {
             "sub": "T. intima",
             "body": [
@@ -2179,18 +1963,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "p.33-34 เป็นภาพ muscular artery ย้อม Koneff's aniline blue เทียบ H&E label แค่ 3 ชั้น"
-          }
+          "p.33-34 เป็นภาพ muscular artery ย้อม Koneff's aniline blue เทียบ H&E label แค่ 3 ชั้น"
         ]
       },
       {
         "heading": "3. Arteriole (small artery)",
         "source": "Circulatory System p.35-36",
         "body": [
-          {
-            "text": "ตำแหน่งในลำดับคือ muscular a. ไป arteriole ไป capillary และไป arteriovenous anastomoses แบ่งเป็น large และ small arteriole ขนาด **Ø < 0.3 mm.**"
-          },
+          "ตำแหน่งในลำดับคือ muscular a. ไป arteriole ไป capillary และไป arteriovenous anastomoses แบ่งเป็น large และ small arteriole ขนาด **Ø < 0.3 mm.**",
           {
             "sub": "T. intima",
             "body": [
@@ -2224,9 +2004,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ภาพ p.36 ให้จำ small arteriole ด้วย **endothelium กับ 1-3 smooth muscle layers**"
-          }
+          "ภาพ p.36 ให้จำ small arteriole ด้วย **endothelium กับ 1-3 smooth muscle layers**"
         ]
       },
       {
@@ -2253,18 +2031,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ภาพ p.38 ให้ดู capillary เป็น endothelium กับ lumen ที่มี RBC อยู่ 1-2 เม็ด"
-          }
+          "ภาพ p.38 ให้ดู capillary เป็น endothelium กับ lumen ที่มี RBC อยู่ 1-2 เม็ด"
         ]
       },
       {
         "heading": "Vein: การแบ่งชนิด และ small vein (venule)",
         "source": "Circulatory System p.40-42",
         "body": [
-          {
-            "text": "Vein แบ่งเป็น **Small vein (venule), Medium-sized vein และ Large vein**"
-          },
+          "Vein แบ่งเป็น **Small vein (venule), Medium-sized vein และ Large vein**",
           {
             "sub": "1. Small vein (venule)",
             "body": [
@@ -2362,9 +2136,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Special blood vessels",
         "source": "Circulatory System p.50",
         "body": [
-          {
-            "text": "สไลด์อธิบายว่า special features สัมพันธ์กับ specific functions เพื่อ regulate blood flow"
-          },
+          "สไลด์อธิบายว่า special features สัมพันธ์กับ specific functions เพื่อ regulate blood flow",
           {
             "bullets": [
               "**เพิ่มความหนา** ในบริเวณที่ blood pressure สูง ได้แก่ arteries and veins of teat และ veins of gland, penis",
@@ -2386,18 +2158,14 @@ export const NOTES_Y2_HISTO = {
               "พบที่ skin, lips, intestine, nasal mucosa, reproductive tract"
             ]
           },
-          {
-            "text": "สไลด์เขียนสองสถานะไว้ว่า **open คือเลือดไม่ผ่าน capillary beds แต่ไปตรง ส่วน close คือเลือดเข้า capillary beds มากขึ้น**"
-          }
+          "สไลด์เขียนสองสถานะไว้ว่า **open คือเลือดไม่ผ่าน capillary beds แต่ไปตรง ส่วน close คือเลือดเข้า capillary beds มากขึ้น**"
         ]
       },
       {
         "heading": "Sensory receptors ที่ carotid",
         "source": "Circulatory System p.52-53",
         "body": [
-          {
-            "text": "ทำหน้าที่ monitor การเปลี่ยนแปลงของ **BP ผ่าน baroreceptors** และ **chemical composition ผ่าน chemoreceptors** อยู่ที่ **bifurcation of common carotid artery** มี 2 อย่างคือ carotid body และ carotid sinus"
-          },
+          "ทำหน้าที่ monitor การเปลี่ยนแปลงของ **BP ผ่าน baroreceptors** และ **chemical composition ผ่าน chemoreceptors** อยู่ที่ **bifurcation of common carotid artery** มี 2 อย่างคือ carotid body และ carotid sinus",
           {
             "sub": "1. Carotid body (chemoreceptor)",
             "body": [
@@ -2427,12 +2195,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lymph circulatory system",
         "source": "Circulatory System p.54-57",
         "body": [
-          {
-            "text": "หน้าที่ตามสไลด์คือ **maintain quality and quantity of tissue fluid** โดย lymph ไหลจาก tissues ไป lymph node แล้วเข้า vein"
-          },
-          {
-            "text": "สไลด์ lymph formation (p.55) เขียนไว้แค่ **hydrostatic pressure กับ osmotic pressure** ส่วนรายละเอียดกลไก สไลด์ไม่ได้บอก"
-          },
+          "หน้าที่ตามสไลด์คือ **maintain quality and quantity of tissue fluid** โดย lymph ไหลจาก tissues ไป lymph node แล้วเข้า vein",
+          "สไลด์ lymph formation (p.55) เขียนไว้แค่ **hydrostatic pressure กับ osmotic pressure** ส่วนรายละเอียดกลไก สไลด์ไม่ได้บอก",
           {
             "sub": "ลำดับทางเดิน lymph (p.57)",
             "body": [
@@ -2446,9 +2210,7 @@ export const NOTES_Y2_HISTO = {
                   "Vein แล้วเข้า Heart"
                 ]
               },
-              {
-                "text": "ภาพบนสไลด์เดียวกัน label โครงสร้างไว้ว่า internal jugular vein, external jugular vein, visceral trunk, lumbar trunk, Lt. jugular trunk, Lt. venous angle, cranial vena cava และ thoracic duct"
-              }
+              "ภาพบนสไลด์เดียวกัน label โครงสร้างไว้ว่า internal jugular vein, external jugular vein, visceral trunk, lumbar trunk, Lt. jugular trunk, Lt. venous angle, cranial vena cava และ thoracic duct"
             ]
           }
         ]
@@ -2486,9 +2248,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "สไลด์ที่เป็นภาพหรือไม่มีข้อความ",
         "source": "Circulatory System p.39, p.47, p.49, p.60-64",
         "body": [
-          {
-            "text": "สไลด์เหล่านี้ไม่มีข้อความในไฟล์เลย ส่วนสไลด์ p.10, 12, 19, 28, 29, 32, 33, 34 เป็นภาพ histology ที่มีแต่ label ชื่อชั้น เช่น lumen, endothelium, tunica intima, tunica media, tunica externa ไม่มีเนื้อหาเพิ่มจากที่สรุปไว้ข้างบน ส่วน p.36, 38, 42, 44, 46 ไม่ใช่สไลด์ label ล้วน แต่มีข้อความบนสไลด์ด้วย คือ p.36 \"* endothelium * 1-3 smooth muscle layers\", p.38 \"Capillary: endothelium + lumen ( + 1,2 RBC)\", p.42 \"Similar to capillary but bigger Ø~20µm / T. media: 1-2 layers of smooth muscle cells, pericyte\", p.44 \"Similar to artery but much thinner / Irregular-shaped lumen / 2-4 layers of smooth muscle cells\" และ p.46 \"Thin T. media (few smooth muscle cells) / Thick T. adventitia with smooth muscle cells\" ซึ่งสรุปไว้ในหัวข้อข้างบนแล้ว"
-          },
+          "สไลด์เหล่านี้ไม่มีข้อความในไฟล์เลย ส่วนสไลด์ p.10, 12, 19, 28, 29, 32, 33, 34 เป็นภาพ histology ที่มีแต่ label ชื่อชั้น เช่น lumen, endothelium, tunica intima, tunica media, tunica externa ไม่มีเนื้อหาเพิ่มจากที่สรุปไว้ข้างบน ส่วน p.36, 38, 42, 44, 46 ไม่ใช่สไลด์ label ล้วน แต่มีข้อความบนสไลด์ด้วย คือ p.36 \"* endothelium * 1-3 smooth muscle layers\", p.38 \"Capillary: endothelium + lumen ( + 1,2 RBC)\", p.42 \"Similar to capillary but bigger Ø~20µm / T. media: 1-2 layers of smooth muscle cells, pericyte\", p.44 \"Similar to artery but much thinner / Irregular-shaped lumen / 2-4 layers of smooth muscle cells\" และ p.46 \"Thin T. media (few smooth muscle cells) / Thick T. adventitia with smooth muscle cells\" ซึ่งสรุปไว้ในหัวข้อข้างบนแล้ว",
           {
             "callout": "ถ้าต้องการรายละเอียดจากภาพเหล่านี้ ต้องดูสไลด์จริง เพราะ text layer ไม่ได้บอกอะไรมากกว่า label",
             "kind": "warn"
@@ -2508,12 +2268,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "เดคนี้คืออะไร และให้ข้อมูลแค่ไหน",
         "source": "Cytology Lab 11Aug23 p.1",
         "body": [
-          {
-            "text": "หน้าแรกระบุว่าเป็น **VET HISTOLOGY: 11 AUG 2023, CHAPTER 01 Cytology lab** ผู้สอนคือ Benchaphorn Limcharoen, DVM., Ph.D. จาก Department of Anatomy, Faculty of Veterinary Science, Chulalongkorn University"
-          },
-          {
-            "text": "หน้า 2 ถึง 18 เป็นสไลด์แลบ 17 แผ่น แต่ละหน้าเขียนแค่ **รหัสสไลด์ + ชื่ออวัยวะ แล้วตามด้วยโครงสร้างที่ต้องหา** เช่น หน้า 5 เขียนว่า A10-3 Serous gland แล้วบรรทัดถัดมาเขียนว่า Mitochondria"
-          },
+          "หน้าแรกระบุว่าเป็น **VET HISTOLOGY: 11 AUG 2023, CHAPTER 01 Cytology lab** ผู้สอนคือ Benchaphorn Limcharoen, DVM., Ph.D. จาก Department of Anatomy, Faculty of Veterinary Science, Chulalongkorn University",
+          "หน้า 2 ถึง 18 เป็นสไลด์แลบ 17 แผ่น แต่ละหน้าเขียนแค่ **รหัสสไลด์ + ชื่ออวัยวะ แล้วตามด้วยโครงสร้างที่ต้องหา** เช่น หน้า 5 เขียนว่า A10-3 Serous gland แล้วบรรทัดถัดมาเขียนว่า Mitochondria",
           {
             "callout": "เดคไม่ได้อธิบายว่าแต่ละโครงสร้างคืออะไร ย้อมด้วยอะไร หรือดูที่กำลังขยายเท่าไร สไลด์ไม่ได้บอก สิ่งที่เดคนี้ให้จริง ๆ คือคู่ระหว่างรหัสสไลด์กับโครงสร้างที่ต้องชี้ให้ได้เท่านั้น",
             "kind": "flag"
@@ -2530,9 +2286,7 @@ export const NOTES_Y2_HISTO = {
               "**B183 Spinal ganglion** ให้ดู Lipofuscin และ cell size (หน้า 13)"
             ]
           },
-          {
-            "text": "เดคไม่ได้ระบุว่าเซลล์ไหนในสไลด์ที่ให้เทียบขนาด หรือให้เทียบกับอะไร สไลด์ไม่ได้บอก"
-          }
+          "เดคไม่ได้ระบุว่าเซลล์ไหนในสไลด์ที่ให้เทียบขนาด หรือให้เทียบกับอะไร สไลด์ไม่ได้บอก"
         ]
       },
       {
@@ -2545,9 +2299,7 @@ export const NOTES_Y2_HISTO = {
               "**A95-17 GB&Liver** ให้ดู Binucleated cell (หน้า 4)"
             ]
           },
-          {
-            "text": "หัวข้อนี้มี 2 สไลด์ที่หาโครงสร้างเดียวกัน ทั้งคู่เป็นสไลด์ GB&Liver"
-          }
+          "หัวข้อนี้มี 2 สไลด์ที่หาโครงสร้างเดียวกัน ทั้งคู่เป็นสไลด์ GB&Liver"
         ]
       },
       {
@@ -2560,9 +2312,7 @@ export const NOTES_Y2_HISTO = {
               "**A13 Pancreas** ให้ดู Zymogen granules และ Basophilic cytoplasm (หน้า 6)"
             ]
           },
-          {
-            "text": "สไลด์ A13 Pancreas เป็นหน้าเดียวในเดคที่พูดถึงสีของไซโตพลาซึม โดยระบุว่าเป็น **basophilic cytoplasm** แต่ไม่ได้อธิบายว่าทำไม สไลด์ไม่ได้บอก"
-          }
+          "สไลด์ A13 Pancreas เป็นหน้าเดียวในเดคที่พูดถึงสีของไซโตพลาซึม โดยระบุว่าเป็น **basophilic cytoplasm** แต่ไม่ได้อธิบายว่าทำไม สไลด์ไม่ได้บอก"
         ]
       },
       {
@@ -2577,9 +2327,7 @@ export const NOTES_Y2_HISTO = {
               "**B106-1 Testis, (epididymis)** ให้ดู Stereocilia (หน้า 10)"
             ]
           },
-          {
-            "text": "จำคู่ให้แม่น สไลด์ ileum 2 แผ่นใช้หา microvilli ส่วนอีก 2 แผ่นเดคเขียนชื่ออวัยวะไว้เป็นคู่เหมือนกันทั้งคู่ คือ **B101-53 Testis, epidipymis** ให้หา Sperm, flagella และ **B106-1 Testis, (epididymis)** ให้หา Stereocilia เดคไม่ได้บอกว่าโครงสร้างไหนอยู่ในอวัยวะไหน และไม่ได้อธิบายความต่างของทั้งสามอย่าง สไลด์ไม่ได้บอก"
-          }
+          "จำคู่ให้แม่น สไลด์ ileum 2 แผ่นใช้หา microvilli ส่วนอีก 2 แผ่นเดคเขียนชื่ออวัยวะไว้เป็นคู่เหมือนกันทั้งคู่ คือ **B101-53 Testis, epidipymis** ให้หา Sperm, flagella และ **B106-1 Testis, (epididymis)** ให้หา Stereocilia เดคไม่ได้บอกว่าโครงสร้างไหนอยู่ในอวัยวะไหน และไม่ได้อธิบายความต่างของทั้งสามอย่าง สไลด์ไม่ได้บอก"
         ]
       },
       {
@@ -2592,9 +2340,7 @@ export const NOTES_Y2_HISTO = {
               "**B150-1 Lymph node** ให้ดู Plasma cell และ Golgi apparatus (หน้า 12)"
             ]
           },
-          {
-            "text": "โครงสร้างคู่นี้ปรากฏ 2 สไลด์ในอวัยวะต่างกันคือ duodenum กับ lymph node"
-          }
+          "โครงสร้างคู่นี้ปรากฏ 2 สไลด์ในอวัยวะต่างกันคือ duodenum กับ lymph node"
         ]
       },
       {
@@ -2607,9 +2353,7 @@ export const NOTES_Y2_HISTO = {
               "**A34-52 Left ventricle** ให้ดู Gap junction (หน้า 16)"
             ]
           },
-          {
-            "text": "ในเดคนี้ **desmosome ผูกกับสไลด์ metacarpal pad ส่วน gap junction ผูกกับสไลด์ left ventricle** ไม่มีคำอธิบายโครงสร้างหรือหน้าที่ของ junction ทั้งสองแบบ สไลด์ไม่ได้บอก"
-          }
+          "ในเดคนี้ **desmosome ผูกกับสไลด์ metacarpal pad ส่วน gap junction ผูกกับสไลด์ left ventricle** ไม่มีคำอธิบายโครงสร้างหรือหน้าที่ของ junction ทั้งสองแบบ สไลด์ไม่ได้บอก"
         ]
       },
       {
@@ -2624,21 +2368,15 @@ export const NOTES_Y2_HISTO = {
               "**B117-3 Eyeball** ให้ดู Melanin pigment (หน้า 17)"
             ]
           },
-          {
-            "text": "**Melanin pigment เป็นโครงสร้างที่ถูกสั่งให้หามากที่สุดในเดคนี้ คือ 3 สไลด์** ได้แก่ lower lip prepuce, metacarpal pad และ eyeball ส่วน lipofuscin มีสไลด์เดียวคือ spinal ganglion เดคไม่ได้บอกลักษณะสีหรือวิธีแยก lipofuscin ออกจาก melanin สไลด์ไม่ได้บอก"
-          }
+          "**Melanin pigment เป็นโครงสร้างที่ถูกสั่งให้หามากที่สุดในเดคนี้ คือ 3 สไลด์** ได้แก่ lower lip prepuce, metacarpal pad และ eyeball ส่วน lipofuscin มีสไลด์เดียวคือ spinal ganglion เดคไม่ได้บอกลักษณะสีหรือวิธีแยก lipofuscin ออกจาก melanin สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "Cell cycle",
         "source": "Cytology Lab 11Aug23 p.18",
         "body": [
-          {
-            "text": "หน้าสุดท้ายคือ **157-Allium root ให้ดู Cell cycle**"
-          },
-          {
-            "text": "เดคไม่ได้ระบุว่าต้องดูระยะไหนของ cell cycle หรือให้แยกกี่ระยะ สไลด์ไม่ได้บอก"
-          }
+          "หน้าสุดท้ายคือ **157-Allium root ให้ดู Cell cycle**",
+          "เดคไม่ได้ระบุว่าต้องดูระยะไหนของ cell cycle หรือให้แยกกี่ระยะ สไลด์ไม่ได้บอก"
         ]
       }
     ]
@@ -2654,11 +2392,9 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cytology คืออะไร และเซลล์ประกอบขึ้นเป็นร่างกายอย่างไร",
         "source": "Cytology p.3-4",
         "body": [
+          "สไลด์เปิดด้วยลำดับชั้นของสิ่งมีชีวิต **differentiated cell types → tissues → organ → organ system → organism** โดยยกตัวอย่าง organ เป็น kidney และ organ system เป็น urinary tract system",
+          "cell types ที่สไลด์ยกมาเป็นตัวอย่างของ differentiated cell มี 4 กลุ่ม",
           {
-            "text": "สไลด์เปิดด้วยลำดับชั้นของสิ่งมีชีวิต **differentiated cell types → tissues → organ → organ system → organism** โดยยกตัวอย่าง organ เป็น kidney และ organ system เป็น urinary tract system"
-          },
-          {
-            "text": "cell types ที่สไลด์ยกมาเป็นตัวอย่างของ differentiated cell มี 4 กลุ่ม",
             "bullets": [
               "Muscle tissue cells",
               "Nerve cells",
@@ -2687,27 +2423,21 @@ export const NOTES_Y2_HISTO = {
         "heading": "Microscopes and techniques",
         "source": "Cytology p.5",
         "body": [
-          {
-            "text": "สไลด์เทียบกล้อง 2 แบบด้วย resolution และวิธีย้อม **Light microscope = 0.2 µm ย้อม H&E, Electron microscope = 0.2-0.5 nm ใช้ metals**"
-          },
+          "สไลด์เทียบกล้อง 2 แบบด้วย resolution และวิธีย้อม **Light microscope = 0.2 µm ย้อม H&E, Electron microscope = 0.2-0.5 nm ใช้ metals**",
           {
             "bullets": [
               "H&E: Blue-purple = Basophilic, Pink = acidophilic",
               "EM: ภาพเป็น Black-white โดย metals ทำหน้าที่ enhance contrast"
             ]
           },
-          {
-            "text": "ภาพตัวอย่างบนสไลด์เป็น chondrocyte ใน hyaline cartilage ทั้ง 3 เทคนิค คือ LM 400× H&E, EM 2000× และ High-resolution Scanning EM (HRSEM) 2000× โดยมี label Nu (nucleus), Cy (cytoplasm) และ ECM"
-          }
+          "ภาพตัวอย่างบนสไลด์เป็น chondrocyte ใน hyaline cartilage ทั้ง 3 เทคนิค คือ LM 400× H&E, EM 2000× และ High-resolution Scanning EM (HRSEM) 2000× โดยมี label Nu (nucleus), Cy (cytoplasm) และ ECM"
         ]
       },
       {
         "heading": "Nucleus: องค์ประกอบและสิ่งที่บรรจุอยู่",
         "source": "Cytology p.7, p.53",
         "body": [
-          {
-            "text": "p.7 แบ่งเซลล์เป็น 3 ส่วนหลัก คือ nucleus, cytoplasm และ cell membrane แล้วซูมเข้าไปที่ nucleus ซึ่งประกอบด้วย chromatin, nucleolus, nuclear envelope และ nuclear pores โดยรอบ nucleus เป็น rough ER"
-          },
+          "p.7 แบ่งเซลล์เป็น 3 ส่วนหลัก คือ nucleus, cytoplasm และ cell membrane แล้วซูมเข้าไปที่ nucleus ซึ่งประกอบด้วย chromatin, nucleolus, nuclear envelope และ nuclear pores โดยรอบ nucleus เป็น rough ER",
           {
             "sub": "สรุปนิวเคลียสจาก p.53",
             "body": [
@@ -2719,14 +2449,10 @@ export const NOTES_Y2_HISTO = {
                   "Composition: Nucleolus, Chromatin, Nuclear envelope"
                 ]
               },
-              {
-                "text": "**All eukaryotic cells have nucleus except e.g., mammalian red blood cells**"
-              }
+              "**All eukaryotic cells have nucleus except e.g., mammalian red blood cells**"
             ]
           },
-          {
-            "text": "p.8 หัวข้อ Chromatin distribution ระบุว่าเป็น New finding และวางภาพเทียบ previous กับผลจากงาน live imaging ปี 2021 ใน Science Advances แต่สไลด์ไม่ได้เขียนข้อความอธิบายว่าหลักการใหม่คืออะไร"
-          }
+          "p.8 หัวข้อ Chromatin distribution ระบุว่าเป็น New finding และวางภาพเทียบ previous กับผลจากงาน live imaging ปี 2021 ใน Science Advances แต่สไลด์ไม่ได้เขียนข้อความอธิบายว่าหลักการใหม่คืออะไร"
         ]
       },
       {
@@ -2758,9 +2484,7 @@ export const NOTES_Y2_HISTO = {
                   "Size of the nucleolus สะท้อน amount of stored RNA"
                 ]
               },
-              {
-                "text": "ภาพประกอบเป็น cerebrum ของสุนัข (scale 20 µm)"
-              }
+              "ภาพประกอบเป็น cerebrum ของสุนัข (scale 20 µm)"
             ]
           }
         ]
@@ -2769,9 +2493,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Central dogma of life",
         "source": "Cytology p.9-11",
         "body": [
-          {
-            "text": "**Gene = segment of DNA encoding a particular protein** และการทำงานคือ DNA (A,T,C,G codes) → mRNA (sets of instruction) → Protein (sequences of amino acids)"
-          },
+          "**Gene = segment of DNA encoding a particular protein** และการทำงานคือ DNA (A,T,C,G codes) → mRNA (sets of instruction) → Protein (sequences of amino acids)",
           {
             "bullets": [
               "Replication: ที่ระดับ DNA",
@@ -2798,9 +2520,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cytoplasm และ cell membrane",
         "source": "Cytology p.15-16",
         "body": [
-          {
-            "text": "p.15 ลิสต์สิ่งที่ cytoplasm เกี่ยวข้อง ได้แก่ Volume, Phagocytosis, Motility, Energy formation and release, Protein synthesis และ Growth"
-          },
+          "p.15 ลิสต์สิ่งที่ cytoplasm เกี่ยวข้อง ได้แก่ Volume, Phagocytosis, Motility, Energy formation and release, Protein synthesis และ Growth",
           {
             "sub": "Cell membrane (p.16)",
             "body": [
@@ -2820,9 +2540,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Mitochondria",
         "source": "Cytology p.18",
         "body": [
-          {
-            "text": "**Membrane-bound organelle หน้าที่ ATP** กระจายทั่ว cytoplasm โดยเฉพาะบริเวณที่ใช้พลังงานสูง"
-          },
+          "**Membrane-bound organelle หน้าที่ ATP** กระจายทั่ว cytoplasm โดยเฉพาะบริเวณที่ใช้พลังงานสูง",
           {
             "sub": "ตำแหน่งที่สไลด์ระบุว่าพบ mitochondria หนาแน่น",
             "body": [
@@ -2844,9 +2562,7 @@ export const NOTES_Y2_HISTO = {
                   "Inner membrane: พับเป็น cristae (transverse shelf-like หรือ tubular folds) ยื่นเข้าไปในช่องด้านใน ซึ่งเรียกว่า mitochondrial matrix"
                 ]
               },
-              {
-                "text": "ภาพเป็น High resolution SEM แบบ fractured open view ที่เห็น internal cristae"
-              }
+              "ภาพเป็น High resolution SEM แบบ fractured open view ที่เห็น internal cristae"
             ]
           }
         ]
@@ -2855,9 +2571,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Endoplasmic reticulum",
         "source": "Cytology p.19",
         "body": [
-          {
-            "text": "ER ต่อเนื่องกับ outer nuclear envelope เป็น **anastomosing (interconnected) network ของ membrane-delimited sacs (cisternae) และ tubules**"
-          },
+          "ER ต่อเนื่องกับ outer nuclear envelope เป็น **anastomosing (interconnected) network ของ membrane-delimited sacs (cisternae) และ tubules**",
           {
             "bullets": [
               "rER: มี Ribosome ทำ protein synthesis",
@@ -2882,27 +2596,21 @@ export const NOTES_Y2_HISTO = {
         "heading": "Ribosome",
         "source": "Cytology p.20",
         "body": [
-          {
-            "text": "เป็น cytoplasmic granules และเป็น **Non-membranous organelle** หน้าที่ protein synthesis โดยจำนวน ribosome สัมพันธ์กับ rate of protein synthesis"
-          },
+          "เป็น cytoplasmic granules และเป็น **Non-membranous organelle** หน้าที่ protein synthesis โดยจำนวน ribosome สัมพันธ์กับ rate of protein synthesis",
           {
             "bullets": [
               "Free ribosomes: synthesize protein สำหรับใช้ภายใน cytoplasm",
               "Ribosomes attached to the ER: สำหรับ secretion, lysosomal enzymes และ protein for new membrane"
             ]
           },
-          {
-            "text": "**Nissl substances ใน neuron ติดสี basophilic** (สไลด์โยงเรื่องนี้อีกครั้งที่ p.58 และ p.79)"
-          }
+          "**Nissl substances ใน neuron ติดสี basophilic** (สไลด์โยงเรื่องนี้อีกครั้งที่ p.58 และ p.79)"
         ]
       },
       {
         "heading": "Golgi complex",
         "source": "Cytology p.23-24",
         "body": [
-          {
-            "text": "เป็น complex array ของ flattened, slightly curved, closely packed membrane-bound sacs (cisternae) พร้อม vesicles และ vacuoles ขนาดใหญ่ และมี **functional polarity**"
-          },
+          "เป็น complex array ของ flattened, slightly curved, closely packed membrane-bound sacs (cisternae) พร้อม vesicles และ vacuoles ขนาดใหญ่ และมี **functional polarity**",
           {
             "sub": "3 functionally distinct compartments",
             "body": [
@@ -2931,12 +2639,8 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "เส้นทางของ secretory vesicle (p.24)",
             "body": [
-              {
-                "text": "Secretory vesicles ออกจากด้าน trans ของ Golgi แล้วเดินทางผ่านระบบ microtubules หรือ microfilaments ไปยัง cell surface จากนั้น outer membrane ของ transport vesicle fuse กับ cell membrane และปล่อยสิ่งที่บรรจุออกสู่ extracellular environment ซึ่งคือ **exocytosis**"
-              },
-              {
-                "text": "vesicle อื่น ๆ ถูกส่งไปที่ apical และ basolateral regions เพื่อรวมเข้ากับ plasma membrane และส่งไปที่ endosomes และ lysosomes"
-              }
+              "Secretory vesicles ออกจากด้าน trans ของ Golgi แล้วเดินทางผ่านระบบ microtubules หรือ microfilaments ไปยัง cell surface จากนั้น outer membrane ของ transport vesicle fuse กับ cell membrane และปล่อยสิ่งที่บรรจุออกสู่ extracellular environment ซึ่งคือ **exocytosis**",
+              "vesicle อื่น ๆ ถูกส่งไปที่ apical และ basolateral regions เพื่อรวมเข้ากับ plasma membrane และส่งไปที่ endosomes และ lysosomes"
             ]
           },
           {
@@ -2952,9 +2656,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Lysosomes (p.25)",
             "body": [
-              {
-                "text": "**Hydrolytic enzymes สำหรับ intracellular digestion โดยเฉพาะใน phagocytic cells**"
-              },
+              "**Hydrolytic enzymes สำหรับ intracellular digestion โดยเฉพาะใน phagocytic cells**",
               {
                 "bullets": [
                   "Heterophagy: ย่อย macromolecule, phagocytose microorganisms และ cellular debris",
@@ -2962,17 +2664,13 @@ export const NOTES_Y2_HISTO = {
                   "กลไกการนำเข้า: Phagocytosis, pinocytosis และ Receptor-mediated endocytosis"
                 ]
               },
-              {
-                "text": "สไลด์เขียนหัวข้อ Lysosomal Storage disease ไว้ และหน้าถัดมา (p.27) อ้างงานตีพิมพ์เรื่อง Gangliosidoses in cats ใน The Thai Journal of Veterinary Medicine ปี 2022 แต่ไม่ได้อธิบายรายละเอียดของโรคบนสไลด์"
-              }
+              "สไลด์เขียนหัวข้อ Lysosomal Storage disease ไว้ และหน้าถัดมา (p.27) อ้างงานตีพิมพ์เรื่อง Gangliosidoses in cats ใน The Thai Journal of Veterinary Medicine ปี 2022 แต่ไม่ได้อธิบายรายละเอียดของโรคบนสไลด์"
             ]
           },
           {
             "sub": "Peroxisomes (p.28)",
             "body": [
-              {
-                "text": "เป็น Membranous-sac ของ oxidase และ catalase enz. มี lipid bilayer และ crystalline core"
-              },
+              "เป็น Membranous-sac ของ oxidase และ catalase enz. มี lipid bilayer และ crystalline core",
               {
                 "bullets": [
                   "Detoxify สารพิษหลายชนิด เช่น Free radicals (Reactive oxygen species; ROS) โดย **catalase breaks down hydrogen peroxide**",
@@ -2988,9 +2686,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cytoskeleton: ตารางเปรียบเทียบ 3 ชนิด",
         "source": "Cytology p.29-30",
         "body": [
-          {
-            "text": "ทั้งสามเป็น Non-membrane-bound organelles สไลด์ทำเป็นตารางเทียบ subunit, โครงสร้าง, ขนาด, ตำแหน่ง และหน้าที่"
-          },
+          "ทั้งสามเป็น Non-membrane-bound organelles สไลด์ทำเป็นตารางเทียบ subunit, โครงสร้าง, ขนาด, ตำแหน่ง และหน้าที่",
           {
             "sub": "Microfilament",
             "body": [
@@ -3041,17 +2737,13 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Microvilli (p.31, p.67)",
             "body": [
-              {
-                "text": "Cylindrical, membrane-bound projections of cytoplasm จาก apical surface ของ epithelial cells หน้าที่ **Increase surface area of absorption** ตัวอย่างคือ small intestine (ภาพ jejunum สุนัข, enterocyte)"
-              }
+              "Cylindrical, membrane-bound projections of cytoplasm จาก apical surface ของ epithelial cells หน้าที่ **Increase surface area of absorption** ตัวอย่างคือ small intestine (ภาพ jejunum สุนัข, enterocyte)"
             ]
           },
           {
             "sub": "Stereocilia (p.32, p.68)",
             "body": [
-              {
-                "text": "**Long-branched microvilli ที่พบเฉพาะใน epididymis และ sensory hair cells of cochlea (inner ear)**"
-              },
+              "**Long-branched microvilli ที่พบเฉพาะใน epididymis และ sensory hair cells of cochlea (inner ear)**",
               {
                 "bullets": [
                   "หน้าที่ใน epididymis: increase surface area",
@@ -3065,9 +2757,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Cilia (p.34-35, p.64-65)",
             "body": [
-              {
-                "text": "Motile, hair-like projection แบบ **microtubule 9+2** งอกจาก centriole (basal body) และมีแกน axoneme core แบบ 9+2"
-              },
+              "Motile, hair-like projection แบบ **microtubule 9+2** งอกจาก centriole (basal body) และมีแกน axoneme core แบบ 9+2",
               {
                 "bullets": [
                   "พบที่ Respiratory tract และ Reproductive tract",
@@ -3080,9 +2770,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Flagella (p.36, p.66)",
             "body": [
-              {
-                "text": "สไลด์เขียนว่าเป็น Single cilia ตัวอย่างคือ spermatozoa ใน seminiferous tubules ของ testis (scale 20 µm)"
-              }
+              "สไลด์เขียนว่าเป็น Single cilia ตัวอย่างคือ spermatozoa ใน seminiferous tubules ของ testis (scale 20 µm)"
             ]
           }
         ]
@@ -3091,9 +2779,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cell surface specialization ด้าน lateral และ basolateral: Junctional complex",
         "source": "Cytology p.69-71",
         "body": [
-          {
-            "text": "สไลด์แบ่งผิวเซลล์เป็น Apical และ Lateral/Basolateral แล้วอธิบาย junctional complex 3 ชนิด"
-          },
+          "สไลด์แบ่งผิวเซลล์เป็น Apical และ Lateral/Basolateral แล้วอธิบาย junctional complex 3 ชนิด",
           {
             "bullets": [
               "**Tight junction: อยู่ Most apical พบใน epithelial cells ทำหน้าที่ Selective permeability barrier**",
@@ -3101,18 +2787,14 @@ export const NOTES_Y2_HISTO = {
               "Gap junction: คือ intercalated disc ของ Cardiac muscle ทำหน้าที่เป็น ion channels"
             ]
           },
-          {
-            "text": "ภาพประกอบคือ desmosome ที่เห็นเป็น Intercellular bridging หรือ Spiny projection ใน stratum spinosum ของ epidermis หนูขาว (p.70 และย้ำอีกที่ p.33) และ gap junction ที่ intercalated disc ของ cardiomyocyte ในหัวใจสุนัข (p.71)"
-          }
+          "ภาพประกอบคือ desmosome ที่เห็นเป็น Intercellular bridging หรือ Spiny projection ใน stratum spinosum ของ epidermis หนูขาว (p.70 และย้ำอีกที่ p.33) และ gap junction ที่ intercalated disc ของ cardiomyocyte ในหัวใจสุนัข (p.71)"
         ]
       },
       {
         "heading": "Cell cycle",
         "source": "Cytology p.37 (ภาพชุดที่ p.38-39, p.82)",
         "body": [
-          {
-            "text": "แบ่งเป็น Interphase และ Mitotic phase (M phase) ซึ่งประกอบด้วย Mitosis (Prophase, Metaphase, Anaphase, Telophase) และ Cytokinesis ได้ผลลัพธ์เป็น 2 daughter cells โดยมี chromosome duplication เกิดขึ้นก่อน"
-          },
+          "แบ่งเป็น Interphase และ Mitotic phase (M phase) ซึ่งประกอบด้วย Mitosis (Prophase, Metaphase, Anaphase, Telophase) และ Cytokinesis ได้ผลลัพธ์เป็น 2 daughter cells โดยมี chromosome duplication เกิดขึ้นก่อน",
           {
             "sub": "การจัดกลุ่มเซลล์ตามความสามารถในการแบ่งตัว",
             "body": [
@@ -3192,9 +2874,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ปรัชญาการอ่านเซลล์: Cellular biology and cytological interpretation",
         "source": "Cytology p.44 (ซ้ำที่ p.54), p.55",
         "body": [
-          {
-            "text": "สไลด์วางกรอบการบรรยายเซลล์ไว้ 2 กลุ่มใหญ่"
-          },
+          "สไลด์วางกรอบการบรรยายเซลล์ไว้ 2 กลุ่มใหญ่",
           {
             "sub": "Cellular morphologies",
             "body": [
@@ -3232,9 +2912,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Descriptive terms: cell size และ cell shape",
         "source": "Cytology p.45-47",
         "body": [
-          {
-            "text": "p.45 เป็นภาพเปรียบเทียบขนาดเซลล์ล้วน ๆ ได้แก่ lymphocyte (thymus หนู 400×), RBC และ WBC (blood smear สุนัข 400×), nerve cell (dorsal root ganglion 235×), megakaryocyte (BM smear 560×) และ ovary ของสุนัขเพศเมีย 125× โดยไม่มีข้อความอธิบายเพิ่ม"
-          },
+          "p.45 เป็นภาพเปรียบเทียบขนาดเซลล์ล้วน ๆ ได้แก่ lymphocyte (thymus หนู 400×), RBC และ WBC (blood smear สุนัข 400×), nerve cell (dorsal root ganglion 235×), megakaryocyte (BM smear 560×) และ ovary ของสุนัขเพศเมีย 125× โดยไม่มีข้อความอธิบายเพิ่ม",
           {
             "sub": "รูปร่างของ epithelial cell (p.46)",
             "body": [
@@ -3266,9 +2944,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Descriptive terms: cytoplasm features",
         "source": "Cytology p.48-49",
         "body": [
-          {
-            "text": "ในภาพย้อม H&E **Basophilic components ติดสี blue-purple ส่วน Acidophilic components ติดสี pink-red**"
-          },
+          "ในภาพย้อม H&E **Basophilic components ติดสี blue-purple ส่วน Acidophilic components ติดสี pink-red**",
           {
             "sub": "Granules และ vesicles (p.48)",
             "body": [
@@ -3338,9 +3014,7 @@ export const NOTES_Y2_HISTO = {
                   "Secretory granules ติดสี acidophilic (eosinophilic)"
                 ]
               },
-              {
-                "text": "p.58 ยกภาพ spinal cord สุนัข ระบุคำว่า rER หรือ ergastoplasm และ Nissl body"
-              }
+              "p.58 ยกภาพ spinal cord สุนัข ระบุคำว่า rER หรือ ergastoplasm และ Nissl body"
             ]
           },
           {
@@ -3385,9 +3059,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Intermediate filament: clinical application",
         "source": "Cytology p.72",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพ immunohistochemistry ชุดหนึ่งเพื่อแสดงว่า IF ใช้เป็น marker ได้ ตัวอย่างที่ label ไว้คือ"
-          },
+          "สไลด์เป็นภาพ immunohistochemistry ชุดหนึ่งเพื่อแสดงว่า IF ใช้เป็น marker ได้ ตัวอย่างที่ label ไว้คือ",
           {
             "bullets": [
               "PanCK: Ovarian tumor ในหมี",
@@ -3397,24 +3069,18 @@ export const NOTES_Y2_HISTO = {
               "**Glial Fibrillary Acidic Protein (GFAP) ใน Human astrocytoma**"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้เขียนเกณฑ์การแปลผลหรือบอกว่า marker ไหนคู่กับเนื้อเยื่อต้นกำเนิดใดอย่างเป็นระบบ มีเพียงชื่อ marker คู่กับภาพ"
-          }
+          "สไลด์ไม่ได้เขียนเกณฑ์การแปลผลหรือบอกว่า marker ไหนคู่กับเนื้อเยื่อต้นกำเนิดใดอย่างเป็นระบบ มีเพียงชื่อ marker คู่กับภาพ"
         ]
       },
       {
         "heading": "Cytoplasmic inclusion",
         "source": "Cytology p.73-81",
         "body": [
-          {
-            "text": "นิยามที่สไลด์ให้: เป็น **Deposits of materials ที่ No metabolic activity** แบ่งเป็น storage and reserve materials (glycogen, fats, proteins) และ pigments ซึ่งมีทั้ง Endogenous (hemosiderin, melanin) และ Exogenous (dust, heavy metals)"
-          },
+          "นิยามที่สไลด์ให้: เป็น **Deposits of materials ที่ No metabolic activity** แบ่งเป็น storage and reserve materials (glycogen, fats, proteins) และ pigments ซึ่งมีทั้ง Endogenous (hemosiderin, melanin) และ Exogenous (dust, heavy metals)",
           {
             "sub": "Glycogen (p.74)",
             "body": [
-              {
-                "text": "เป็น storage structure ของเซลล์ ภาพเป็น glycogen ใน cytoplasm ของ hepatocyte ย้อมด้วย **Periodic acid-Schiff (PAS)** และสไลด์เขียนชื่อโรค Glycogen storage disease (GSD) ไว้โดยไม่ได้อธิบายต่อ"
-              }
+              "เป็น storage structure ของเซลล์ ภาพเป็น glycogen ใน cytoplasm ของ hepatocyte ย้อมด้วย **Periodic acid-Schiff (PAS)** และสไลด์เขียนชื่อโรค Glycogen storage disease (GSD) ไว้โดยไม่ได้อธิบายต่อ"
             ]
           },
           {
@@ -3432,9 +3098,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Hemosiderin (p.77)",
             "body": [
-              {
-                "text": "**Hemosiderin เกิดจาก the breakdown of hemoglobin เป็น Iron storage complex จัดเป็น hematogeneous pigments** พบที่ Liver, spleen, LN (ภาพเป็นตับสุนัข)"
-              }
+              "**Hemosiderin เกิดจาก the breakdown of hemoglobin เป็น Iron storage complex จัดเป็น hematogeneous pigments** พบที่ Liver, spleen, LN (ภาพเป็นตับสุนัข)"
             ]
           },
           {
@@ -3454,9 +3118,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Melanin (p.80)",
             "body": [
-              {
-                "text": "Melanin pigments มาจาก melanocyte ติดสี Brown พบเช่นที่ skin และ pigment cells of retina ภาพเป็นผิวหนังสุนัข และสไลด์เขียนคำว่า Melanoma ไว้โดยไม่ได้อธิบายต่อ"
-              }
+              "Melanin pigments มาจาก melanocyte ติดสี Brown พบเช่นที่ skin และ pigment cells of retina ภาพเป็นผิวหนังสุนัข และสไลด์เขียนคำว่า Melanoma ไว้โดยไม่ได้อธิบายต่อ"
             ]
           },
           {
@@ -3469,12 +3131,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Review และรายการสไลด์ Lab",
         "source": "Cytology p.83-93",
         "body": [
-          {
-            "text": "p.84-91 เป็นช่วง Review ซึ่งเป็นภาพล้วนพร้อม label สั้น ๆ ให้ฝึกอ่านเอง ได้แก่ fibroblast กับ collagen fiber (tendon), neuron ที่มี huge nucleus with nucleolus เทียบกับ small nucleus, skeletal muscle, serous gland สุนัขที่ให้ดู euchromatin (light) กับ heterochromatin (dark), jejunum สุนัข, uterine tube สุนัขที่ label Sq. shape (Endothelium) และ erythrocytes และ liver สุนัขที่ label Binuclei"
-          },
-          {
-            "text": "p.84 ให้ Tips ในการบรรยายเซลล์ไว้เป็นหัวข้อ: General characteristics and biological function, Shape and size, Nucleus, Cytoplasm, Location, Cytoarchitectures"
-          },
+          "p.84-91 เป็นช่วง Review ซึ่งเป็นภาพล้วนพร้อม label สั้น ๆ ให้ฝึกอ่านเอง ได้แก่ fibroblast กับ collagen fiber (tendon), neuron ที่มี huge nucleus with nucleolus เทียบกับ small nucleus, skeletal muscle, serous gland สุนัขที่ให้ดู euchromatin (light) กับ heterochromatin (dark), jejunum สุนัข, uterine tube สุนัขที่ label Sq. shape (Endothelium) และ erythrocytes และ liver สุนัขที่ label Binuclei",
+          "p.84 ให้ Tips ในการบรรยายเซลล์ไว้เป็นหัวข้อ: General characteristics and biological function, Shape and size, Nucleus, Cytoplasm, Location, Cytoarchitectures",
           {
             "sub": "หัวข้อที่ต้องดูใน Cytology Lab (p.92-93)",
             "body": [
@@ -3487,9 +3145,7 @@ export const NOTES_Y2_HISTO = {
                   "Cell division"
                 ]
               },
-              {
-                "text": "สองหน้านี้เป็นรายการเลขสไลด์แก้ว lab ทั้งหมด ไม่มีเนื้อหาบรรยายเพิ่ม"
-              }
+              "สองหน้านี้เป็นรายการเลขสไลด์แก้ว lab ทั้งหมด ไม่มีเนื้อหาบรรยายเพิ่ม"
             ]
           }
         ]
@@ -3507,9 +3163,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ขอบเขตของ Digestive system ที่เด็คนี้นับรวม",
         "source": "Digestive System I p.2",
         "body": [
-          {
-            "text": "สไลด์ไล่รายชื่ออวัยวะทั้งระบบไว้ก่อน แล้วค่อยเจาะ oral cavity เป็นอันดับแรก"
-          },
+          "สไลด์ไล่รายชื่ออวัยวะทั้งระบบไว้ก่อน แล้วค่อยเจาะ oral cavity เป็นอันดับแรก",
           {
             "bullets": [
               "ทางเดินหลัก: oral cavity, pharynx, esophagus, stomach, small intestine, large intestine, anus",
@@ -3527,9 +3181,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Pattern พื้นฐาน 4 ชั้นของ digestive tract",
         "source": "Digestive System I p.3",
         "body": [
-          {
-            "text": "**ผนังทางเดินอาหารวางตัวเป็น 4 tunica เสมอ** และสไลด์ผูก plexus ของระบบประสาทไว้กับชั้นที่มันอยู่"
-          },
+          "**ผนังทางเดินอาหารวางตัวเป็น 4 tunica เสมอ** และสไลด์ผูก plexus ของระบบประสาทไว้กับชั้นที่มันอยู่",
           {
             "sub": "1. Tunica mucosa",
             "body": [
@@ -3554,18 +3206,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "หน้า 4 และ 5 เป็นภาพ illustration และภาพ x-section ของ gastrointestinal tract ล้วน ไม่มีข้อความอธิบายบนสไลด์"
-          }
+          "หน้า 4 และ 5 เป็นภาพ illustration และภาพ x-section ของ gastrointestinal tract ล้วน ไม่มีข้อความอธิบายบนสไลด์"
         ]
       },
       {
         "heading": "Lips",
         "source": "Digestive System I p.6-7",
         "body": [
-          {
-            "text": "**Lips คือรอยต่อ (junction) ระหว่าง integument กับ digestive system** ด้านนอกคลุมด้วย skin ด้านในคลุมด้วย mucous membrane"
-          },
+          "**Lips คือรอยต่อ (junction) ระหว่าง integument กับ digestive system** ด้านนอกคลุมด้วย skin ด้านในคลุมด้วย mucous membrane",
           {
             "bullets": [
               "Epithelium: stratified squamous epithelium",
@@ -3574,18 +3222,14 @@ export const NOTES_Y2_HISTO = {
               "T. muscularis: striated muscles (Orbicularis oris)"
             ]
           },
-          {
-            "text": "ภาพ lower lip ของสุนัข (p.7) ชี้ให้ดู keratinized stratified squamous epi. ที่รอยต่อ โดยฝั่งซ้ายเป็น mucous membrane ฝั่งขวาเป็น skin พร้อม sebaceous glands และ hair follicles ด้านผิวหนัง"
-          }
+          "ภาพ lower lip ของสุนัข (p.7) ชี้ให้ดู keratinized stratified squamous epi. ที่รอยต่อ โดยฝั่งซ้ายเป็น mucous membrane ฝั่งขวาเป็น skin พร้อม sebaceous glands และ hair follicles ด้านผิวหนัง"
         ]
       },
       {
         "heading": "Cheeks",
         "source": "Digestive System I p.8-10",
         "body": [
-          {
-            "text": "โครงสร้างสามชั้นจากนอกเข้าใน: **skin (outer) → muscle (middle) → mucous membrane (inner)**"
-          },
+          "โครงสร้างสามชั้นจากนอกเข้าใน: **skin (outer) → muscle (middle) → mucous membrane (inner)**",
           {
             "bullets": [
               "Buccal mucosa: stratified squamous epithelium",
@@ -3593,18 +3237,14 @@ export const NOTES_Y2_HISTO = {
               "T. submucosa และ T. muscularis: buccal glands"
             ]
           },
-          {
-            "text": "ภาพเปรียบเทียบบนสไลด์: cheek ของสุนัข (p.9) ชี้ stratified squamous epithelium กับ striated muscles ส่วน cheek ของแกะ (p.10) ชี้ conical papillae ที่เป็น keratinized stratified squamous epithelium พร้อม duct"
-          }
+          "ภาพเปรียบเทียบบนสไลด์: cheek ของสุนัข (p.9) ชี้ stratified squamous epithelium กับ striated muscles ส่วน cheek ของแกะ (p.10) ชี้ conical papillae ที่เป็น keratinized stratified squamous epithelium พร้อม duct"
         ]
       },
       {
         "heading": "Hard palate",
         "source": "Digestive System I p.11-15",
         "body": [
-          {
-            "text": "เป็น roof ของ oral cavity ส่วน rostral"
-          },
+          "เป็น roof ของ oral cavity ส่วน rostral",
           {
             "bullets": [
               "Keratinized stratified squamous epithelium",
@@ -3613,21 +3253,15 @@ export const NOTES_Y2_HISTO = {
               "Propria-submucosa: dense networks ของ collagen และ reticular fibers ที่ blend เข้ากับ periosteum, มี capillaries และ large veins"
             ]
           },
-          {
-            "text": "**ส่วน caudal ของ hard palate มี palatine glands** โดยสไลด์วงเล็บกำกับไว้สั้น ๆ ว่า \"pig (no)\" ซึ่งสไลด์ไม่ได้ขยายความต่อว่าเพราะอะไร"
-          },
-          {
-            "text": "ภาพประกอบ: dental pad ของ ox (p.13) ชี้ stratum corneum, stratified squamous epithelium, lamina propria; hard palate caudal ของสุนัข (p.14) ชี้ palatine gland กับ palatine bone; hard palate ของหมู (p.15) ชี้ keratinized stratified squamous epithelium, papilla of connective tissue และ loose connective tissue"
-          }
+          "**ส่วน caudal ของ hard palate มี palatine glands** โดยสไลด์วงเล็บกำกับไว้สั้น ๆ ว่า \"pig (no)\" ซึ่งสไลด์ไม่ได้ขยายความต่อว่าเพราะอะไร",
+          "ภาพประกอบ: dental pad ของ ox (p.13) ชี้ stratum corneum, stratified squamous epithelium, lamina propria; hard palate caudal ของสุนัข (p.14) ชี้ palatine gland กับ palatine bone; hard palate ของหมู (p.15) ชี้ keratinized stratified squamous epithelium, papilla of connective tissue และ loose connective tissue"
         ]
       },
       {
         "heading": "Soft palate",
         "source": "Digestive System I p.16-18",
         "body": [
-          {
-            "text": "**Soft palate คือ mucous membrane ของ oral cavity กับ nasal cavity ประกบกัน โดยมีแกนกลางเป็น striated muscle fibers**"
-          },
+          "**Soft palate คือ mucous membrane ของ oral cavity กับ nasal cavity ประกบกัน โดยมีแกนกลางเป็น striated muscle fibers**",
           {
             "bullets": [
               "**Oral surface: stratified squamous epithelium**",
@@ -3636,18 +3270,14 @@ export const NOTES_Y2_HISTO = {
               "Propria-submucosa: palatine glands"
             ]
           },
-          {
-            "text": "ภาพ soft palate ของวัว (p.18) ชี้ keratinized stratified squamous epithelium, lamina propria, adipose tissue และ mucous gland"
-          }
+          "ภาพ soft palate ของวัว (p.18) ชี้ keratinized stratified squamous epithelium, lamina propria, adipose tissue และ mucous gland"
         ]
       },
       {
         "heading": "Tongue ภาพรวม",
         "source": "Digestive System I p.19, p.23-24",
         "body": [
-          {
-            "text": "หน้าที่ที่สไลด์ระบุ: **prehension, mastication และ swallowing of food**"
-          },
+          "หน้าที่ที่สไลด์ระบุ: **prehension, mastication และ swallowing of food**",
           {
             "sub": "Tunica mucosa",
             "body": [
@@ -3686,9 +3316,7 @@ export const NOTES_Y2_HISTO = {
               "6. **Foliate papillae: ไม่มีใน ruminant**"
             ]
           },
-          {
-            "text": "ภาพลิ้นสุนัข (p.21) ชี้เฉพาะ filiform กับ fungiform papillae ส่วนภาพลิ้นวัว (p.22) ชี้ torus linguae, lingual fossa และ papilla ครบทั้ง vallate, conical, lenticular, fungiform, filiform"
-          },
+          "ภาพลิ้นสุนัข (p.21) ชี้เฉพาะ filiform กับ fungiform papillae ส่วนภาพลิ้นวัว (p.22) ชี้ torus linguae, lingual fossa และ papilla ครบทั้ง vallate, conical, lenticular, fungiform, filiform",
           {
             "callout": "สไลด์ลิสต์ conical papillae ไว้ในหกชนิดและชี้ในภาพลิ้นวัว แต่ไม่มีสไลด์ที่บรรยายรายละเอียด conical papillae แยกออกมาเหมือนชนิดอื่น",
             "kind": "flag"
@@ -3708,9 +3336,7 @@ export const NOTES_Y2_HISTO = {
               "**Cat: a large papilla with two papillae**"
             ]
           },
-          {
-            "text": "ภาพ filiform ของแมว (p.28) ชี้ชื่อเรียกย่อยเป็น rostral papilla, caudal papilla และ spine บน striated muscles"
-          }
+          "ภาพ filiform ของแมว (p.28) ชี้ชื่อเรียกย่อยเป็น rostral papilla, caudal papilla และ spine บน striated muscles"
         ]
       },
       {
@@ -3724,9 +3350,7 @@ export const NOTES_Y2_HISTO = {
               "**มี taste buds**"
             ]
           },
-          {
-            "text": "ภาพลิ้นแพะ (p.30) ให้เทียบ filiform กับ fungiform ในภาพเดียวกัน พร้อม papilla of connective tissues และ striated muscles"
-          }
+          "ภาพลิ้นแพะ (p.30) ให้เทียบ filiform กับ fungiform ในภาพเดียวกัน พร้อม papilla of connective tissues และ striated muscles"
         ]
       },
       {
@@ -3742,9 +3366,7 @@ export const NOTES_Y2_HISTO = {
               "**Duct ของ serous gland (Ebner's gland) เปิดเข้าสู่ furrow**"
             ]
           },
-          {
-            "text": "ภาพ vallate ของแพะ (p.33) ชี้ core of CNT., papilla of CNT., duct, lingual gland, stratified squamous และ taste buds"
-          }
+          "ภาพ vallate ของแพะ (p.33) ชี้ core of CNT., papilla of CNT., duct, lingual gland, stratified squamous และ taste buds"
         ]
       },
       {
@@ -3770,12 +3392,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Taste buds",
         "source": "Digestive System I p.36, p.38",
         "body": [
-          {
-            "text": "**Taste buds อยู่ใน stratified squamous epithelium ของ fungiform, vallate และ foliate papillae** (สไลด์ไม่ระบุ filiform)"
-          },
-          {
-            "text": "มีลักษณะเป็น ellipsoid clusters ประกอบด้วยเซลล์ 3 ชนิด"
-          },
+          "**Taste buds อยู่ใน stratified squamous epithelium ของ fungiform, vallate และ foliate papillae** (สไลด์ไม่ระบุ filiform)",
+          "มีลักษณะเป็น ellipsoid clusters ประกอบด้วยเซลล์ 3 ชนิด",
           {
             "bullets": [
               "1. **Sensory หรือ neuroepithelial taste cells** มี taste pore และ taste hairs (microvilli)",
@@ -3783,9 +3401,7 @@ export const NOTES_Y2_HISTO = {
               "3. Basal cells"
             ]
           },
-          {
-            "text": "ภาพ taste bud จาก fungiform papilla ของม้า (p.38) ชี้ nucleus ของ sensory cell กับ supporting cell, taste pore และ stratum spinosum"
-          },
+          "ภาพ taste bud จาก fungiform papilla ของม้า (p.38) ชี้ nucleus ของ sensory cell กับ supporting cell, taste pore และ stratum spinosum",
           {
             "callout": "หน้า 37 เป็นสไลด์ว่าง ไม่มีข้อความใด ๆ ในไฟล์",
             "kind": "flag"
@@ -3796,9 +3412,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lyssa โครงสร้างพิเศษของลิ้น",
         "source": "Digestive System I p.40-41",
         "body": [
-          {
-            "text": "สไลด์จัด Lyssa ไว้ในหัวข้อ special structures of the tongue โดยระบุว่า **Dog: อยู่ที่ ventral surface ของลิ้น**"
-          },
+          "สไลด์จัด Lyssa ไว้ในหัวข้อ special structures of the tongue โดยระบุว่า **Dog: อยู่ที่ ventral surface ของลิ้น**",
           {
             "bullets": [
               "1. Collagen sheath",
@@ -3807,18 +3421,14 @@ export const NOTES_Y2_HISTO = {
               "4. Blood vessels และ nerves"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกหน้าที่ของ lyssa และไม่ได้บอกว่าสัตว์ชนิดอื่นมีหรือไม่"
-          }
+          "สไลด์ไม่ได้บอกหน้าที่ของ lyssa และไม่ได้บอกว่าสัตว์ชนิดอื่นมีหรือไม่"
         ]
       },
       {
         "heading": "Types of teeth: Brachydont",
         "source": "Digestive System I p.42-43",
         "body": [
-          {
-            "text": "**Brachydont แยกองค์ประกอบตามส่วนของฟัน**"
-          },
+          "**Brachydont แยกองค์ประกอบตามส่วนของฟัน**",
           {
             "bullets": [
               "Crown: dentin และ enamel",
@@ -3839,18 +3449,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "หน้า 43 เป็น diagram ของ incisor แบบ brachydont ล้วน ไม่มีข้อความกำกับ"
-          }
+          "หน้า 43 เป็น diagram ของ incisor แบบ brachydont ล้วน ไม่มีข้อความกำกับ"
         ]
       },
       {
         "heading": "Types of teeth: Hypsodont",
         "source": "Digestive System I p.44-45",
         "body": [
-          {
-            "text": "**Hypsodont: ทั้ง crown และ root ประกอบด้วย dentin, enamel และ cementum** (ไม่แยกองค์ประกอบตามส่วนแบบ brachydont)"
-          },
+          "**Hypsodont: ทั้ง crown และ root ประกอบด้วย dentin, enamel และ cementum** (ไม่แยกองค์ประกอบตามส่วนแบบ brachydont)",
           {
             "sub": "ตัวอย่างที่สไลด์ระบุ",
             "body": [
@@ -3867,18 +3473,14 @@ export const NOTES_Y2_HISTO = {
             "callout": "สังเกตว่ารายการของสองชนิดเป็นคู่สลับกันพอดี: ม้าที่ไม่ใช่ canine/P1 กับ cheek teeth ของ ruminant และ tusk ของ boar เป็น hypsodont ส่วนซี่ที่เหลือของสัตว์กลุ่มเดียวกันไปอยู่ฝั่ง brachydont",
             "kind": "tip"
           },
-          {
-            "text": "หน้า 45 เป็น diagram ของ molar แบบ hypsodont ล้วน ไม่มีข้อความกำกับ"
-          }
+          "หน้า 45 เป็น diagram ของ molar แบบ hypsodont ล้วน ไม่มีข้อความกำกับ"
         ]
       },
       {
         "heading": "Development of a tooth: enamel organ",
         "source": "Digestive System I p.46, p.48",
         "body": [
-          {
-            "text": "**Oral epithelium (ectoderm) invaginate เข้าไปใน mesenchyme (mesoderm) กลายเป็น dental lamina**"
-          },
+          "**Oral epithelium (ectoderm) invaginate เข้าไปใน mesenchyme (mesoderm) กลายเป็น dental lamina**",
           {
             "sub": "Enamel organ ประกอบด้วย 4 ชั้น",
             "body": [
@@ -3892,18 +3494,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ภาพ developing teeth (p.48) ชี้ dental lamina, outer/inner enamel epithelium, stellate reticulum และ dental papilla"
-          }
+          "ภาพ developing teeth (p.48) ชี้ dental lamina, outer/inner enamel epithelium, stellate reticulum และ dental papilla"
         ]
       },
       {
         "heading": "Development of a tooth: เซลล์ไหนสร้างอะไร",
         "source": "Digestive System I p.49-51",
         "body": [
-          {
-            "text": "สไลด์ p.51 สรุปเป็นสายการเปลี่ยนแปลง ต้นทาง → เซลล์ → ผลผลิต"
-          },
+          "สไลด์ p.51 สรุปเป็นสายการเปลี่ยนแปลง ต้นทาง → เซลล์ → ผลผลิต",
           {
             "bullets": [
               "**Inner enamel epithelium → ameloblasts → enamel**",
@@ -3912,9 +3510,7 @@ export const NOTES_Y2_HISTO = {
               "**Dental sac (ชั้น connective หนา) → cementocytes → cementum**"
             ]
           },
-          {
-            "text": "ภาพ p.49 และ p.50 ชี้โครงสร้างในระยะกำลังสร้างฟัน ได้แก่ alveolar bone, dental sac, outer enamel epithelium, stellate reticulum, stratum intermedium, ameloblasts, enamel, odontoblasts, pre-dentin, dentin, dental papilla"
-          }
+          "ภาพ p.49 และ p.50 ชี้โครงสร้างในระยะกำลังสร้างฟัน ได้แก่ alveolar bone, dental sac, outer enamel epithelium, stellate reticulum, stratum intermedium, ameloblasts, enamel, odontoblasts, pre-dentin, dentin, dental papilla"
         ]
       },
       {
@@ -3948,9 +3544,7 @@ export const NOTES_Y2_HISTO = {
             "callout": "buccal gland ปรากฏอยู่ทั้งในลิสต์ major และ minor บนสไลด์เดียวกัน สไลด์ไม่ได้อธิบายว่าแยกกันอย่างไร",
             "kind": "flag"
           },
-          {
-            "text": "แผนผังหน้า 53 ใช้สีแยกต่อม (ส้ม = parotid, ขาว = mandibular, เหลือง = sublingual, แดง = buccal) และชี้ท่อ ได้แก่ parotid duct, mandibular duct, monostomatic กับ polystomatic sublingual gland, zygomatic gland ในสุนัข, dorsal/middle/ventral buccal gland"
-          }
+          "แผนผังหน้า 53 ใช้สีแยกต่อม (ส้ม = parotid, ขาว = mandibular, เหลือง = sublingual, แดง = buccal) และชี้ท่อ ได้แก่ parotid duct, mandibular duct, monostomatic กับ polystomatic sublingual gland, zygomatic gland ในสุนัข, dorsal/middle/ventral buccal gland"
         ]
       },
       {
@@ -3979,9 +3573,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ภาพ parotid ของม้า (p.59-60) ชี้ interlobular CNT., interlobular ducts, lobule, intralobular duct แล้วซูมเข้าไปที่ serous acinus, intercalated duct และ striated duct ส่วนภาพของสุนัข (p.61) ชี้ serous acinus, striated duct และ interlobular connective tissue"
-          }
+          "ภาพ parotid ของม้า (p.59-60) ชี้ interlobular CNT., interlobular ducts, lobule, intralobular duct แล้วซูมเข้าไปที่ serous acinus, intercalated duct และ striated duct ส่วนภาพของสุนัข (p.61) ชี้ serous acinus, striated duct และ interlobular connective tissue"
         ]
       },
       {
@@ -3997,9 +3589,7 @@ export const NOTES_Y2_HISTO = {
               "Main duct: stratified squamous epithelium"
             ]
           },
-          {
-            "text": "ภาพ mandibular gland ของสุนัข (p.64) ชี้ mucous acinus, serous demilune, serous acinus, striated duct และของแกะ (p.65) ชี้ mucous acinus, serous demilune, intercalated duct, striated duct"
-          }
+          "ภาพ mandibular gland ของสุนัข (p.64) ชี้ mucous acinus, serous demilune, serous acinus, striated duct และของแกะ (p.65) ชี้ mucous acinus, serous demilune, intercalated duct, striated duct"
         ]
       },
       {
@@ -4033,9 +3623,7 @@ export const NOTES_Y2_HISTO = {
               "**Tunica adventitia: fibroelastic layer** (ไม่ใช่ serosa)"
             ]
           },
-          {
-            "text": "ภาพ oropharynx ของสุนัข (p.68) ชี้ stratified squamous epithelium, duct, mucous glands และ striated muscle ซึ่งเป็นสไลด์สุดท้ายของเด็คนี้"
-          }
+          "ภาพ oropharynx ของสุนัข (p.68) ชี้ stratified squamous epithelium, duct, mucous glands และ striated muscle ซึ่งเป็นสไลด์สุดท้ายของเด็คนี้"
         ]
       }
     ]
@@ -4051,9 +3639,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ขอบเขตที่สไลด์ประกาศไว้เอง",
         "source": "Digestive System III p.1-2",
         "body": [
-          {
-            "text": "หน้าผลลัพธ์การเรียนรู้เขียนไว้ว่าให้นิสิตเข้าใจและอธิบายโครงสร้างทางจุลกายวิภาคและหน้าที่ของ 2 กลุ่มนี้"
-          },
+          "หน้าผลลัพธ์การเรียนรู้เขียนไว้ว่าให้นิสิตเข้าใจและอธิบายโครงสร้างทางจุลกายวิภาคและหน้าที่ของ 2 กลุ่มนี้",
           {
             "bullets": [
               "**กระเพาะอาหารสัตว์เคี้ยวเอื้อง**",
@@ -4072,9 +3658,7 @@ export const NOTES_Y2_HISTO = {
               "**Glandular = abomasum**"
             ]
           },
-          {
-            "text": "สไลด์ให้แค่การจัดกลุ่มนี้ ไม่ได้อธิบายเหตุผลเชิงหน้าที่ในหน้าเดียวกัน"
-          }
+          "สไลด์ให้แค่การจัดกลุ่มนี้ ไม่ได้อธิบายเหตุผลเชิงหน้าที่ในหน้าเดียวกัน"
         ]
       },
       {
@@ -4084,9 +3668,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Epithelium และหน้าที่",
             "body": [
-              {
-                "text": "Rumen บุด้วย **keratinized stratified squamous epi.** หน้าที่ที่สไลด์ระบุมี 3 อย่าง คือ protection, metabolism และ absorption"
-              },
+              "Rumen บุด้วย **keratinized stratified squamous epi.** หน้าที่ที่สไลด์ระบุมี 3 อย่าง คือ protection, metabolism และ absorption",
               {
                 "bullets": [
                   "**upper layer : protective shield**",
@@ -4099,9 +3681,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Lamina propria และ tunica submucosa",
             "body": [
-              {
-                "text": "สไลด์เขียน **no muscularis mucosae** แล้วเขียน lamina propria กับ tunica submucosa รวมกันเป็นก้อนเดียว"
-              },
+              "สไลด์เขียน **no muscularis mucosae** แล้วเขียน lamina propria กับ tunica submucosa รวมกันเป็นก้อนเดียว",
               {
                 "bullets": [
                   "loose CNT",
@@ -4114,9 +3694,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Tunica muscularis",
             "body": [
-              {
-                "text": "เป็น smooth muscle เรียง **inner circular และ outer longitudinal** มี **Auerbach's plexus**"
-              }
+              "เป็น smooth muscle เรียง **inner circular และ outer longitudinal** มี **Auerbach's plexus**"
             ]
           },
           {
@@ -4144,9 +3722,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Reticulum",
         "source": "Digestive System III p.14, 16-17",
         "body": [
-          {
-            "text": "Mucosa ของ reticulum เป็น **permanent folds** สไลด์แยกเป็น **primary reticular folds** และ **secondary reticular folds** และมี **conical papillae**"
-          },
+          "Mucosa ของ reticulum เป็น **permanent folds** สไลด์แยกเป็น **primary reticular folds** และ **secondary reticular folds** และมี **conical papillae**",
           {
             "sub": "ชั้นต่าง ๆ",
             "body": [
@@ -4160,18 +3736,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "Tunica muscularis เป็น smooth muscle และ **Tunica serosa เหมือน rumen** สไลด์ไม่ได้ลงรายละเอียดการเรียงชั้นกล้ามเนื้อของ reticulum"
-          }
+          "Tunica muscularis เป็น smooth muscle และ **Tunica serosa เหมือน rumen** สไลด์ไม่ได้ลงรายละเอียดการเรียงชั้นกล้ามเนื้อของ reticulum"
         ]
       },
       {
         "heading": "Omasum",
         "source": "Digestive System III p.20-21",
         "body": [
-          {
-            "text": "Omasum มี **longitudinal laminae ประมาณ 100 อัน**"
-          },
+          "Omasum มี **longitudinal laminae ประมาณ 100 อัน**",
           {
             "sub": "ชั้นของ lamina",
             "body": [
@@ -4209,9 +3781,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Abomasum",
         "source": "Digestive System III p.25",
         "body": [
-          {
-            "text": "สไลด์เขียนว่า abomasum **like simple stomach** แล้วแบ่งเป็น 3 region"
-          },
+          "สไลด์เขียนว่า abomasum **like simple stomach** แล้วแบ่งเป็น 3 region",
           {
             "bullets": [
               "cardiac gland region",
@@ -4219,9 +3789,7 @@ export const NOTES_Y2_HISTO = {
               "**pyloric gland region 1/3**"
             ]
           },
-          {
-            "text": "บนหน้าเดียวกันมีคำกำกับภาพว่า cardia (rumen) แต่สไลด์ไม่ได้อธิบายเพิ่มว่าหมายถึงอะไร"
-          },
+          "บนหน้าเดียวกันมีคำกำกับภาพว่า cardia (rumen) แต่สไลด์ไม่ได้อธิบายเพิ่มว่าหมายถึงอะไร",
           {
             "callout": "สัดส่วน 2/3 ต่อ 1/3 ของ fundic ต่อ pyloric gland region เป็นตัวเลขเดียวที่สไลด์ให้ในหัวข้อ abomasum จำไว้ให้แม่น",
             "kind": "tip"
@@ -4232,9 +3800,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ตารางเปรียบเทียบกระเพาะทั้ง 4 ส่วน",
         "source": "Digestive System III p.29",
         "body": [
-          {
-            "text": "หน้านี้เป็นตารางสรุปเทียบ rumen, reticulum, omasum และ abomasum ตามชั้นต่าง ๆ"
-          },
+          "หน้านี้เป็นตารางสรุปเทียบ rumen, reticulum, omasum และ abomasum ตามชั้นต่าง ๆ",
           {
             "bullets": [
               "**epi ของ rumen, reticulum, omasum = keratinized stratified squamous epi. ส่วน abomasum = sim. col. ที่มี gastric pit และ chief and parietal cells**",
@@ -4268,9 +3834,7 @@ export const NOTES_Y2_HISTO = {
               "hemopoiesis"
             ]
           },
-          {
-            "text": "สไลด์เขียนเป็นรายการล้วน ไม่ได้อธิบายกลไกของแต่ละหน้าที่"
-          }
+          "สไลด์เขียนเป็นรายการล้วน ไม่ได้อธิบายกลไกของแต่ละหน้าที่"
         ]
       },
       {
@@ -4284,15 +3848,11 @@ export const NOTES_Y2_HISTO = {
               "interlobular septa"
             ]
           },
-          {
-            "text": "**Liver has a dual blood supply คือ 1. portal vein และ 2. hepatic artery**"
-          },
+          "**Liver has a dual blood supply คือ 1. portal vein และ 2. hepatic artery**",
           {
             "sub": "ลำดับทางเดินเลือดตามสไลด์",
             "body": [
-              {
-                "text": "portal v. และ hepatic a. → interlobar vessels → interlobular vessels → **sinusoid (mixed)** → central v. → hepatic v. และ caudal vena cava"
-              }
+              "portal v. และ hepatic a. → interlobar vessels → interlobular vessels → **sinusoid (mixed)** → central v. → hepatic v. และ caudal vena cava"
             ]
           }
         ]
@@ -4333,9 +3893,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Hepatocyte, bile canaliculi และ sinusoid",
         "source": "Digestive System III p.41-42",
         "body": [
-          {
-            "text": "**Hepatocyte absorb bilirubin from blood, conjugate it and secret it as one component of bile**"
-          },
+          "**Hepatocyte absorb bilirubin from blood, conjugate it and secret it as one component of bile**",
           {
             "sub": "Bile canaliculi",
             "body": [
@@ -4366,9 +3924,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ทางเดินน้ำดีตามลำดับ",
         "source": "Digestive System III p.45",
         "body": [
-          {
-            "text": "**bile canaliculi → bile ductule → interlobular duct → interlobar duct → hepatic duct → cystic duct → gallbladder**"
-          },
+          "**bile canaliculi → bile ductule → interlobular duct → interlobar duct → hepatic duct → cystic duct → gallbladder**",
           {
             "callout": "ลำดับนี้เป็นสิ่งที่ท่องได้ตรง ๆ จากสไลด์ และคู่กันกับลำดับทางเดินเลือดใน p.34 ให้จำเป็นคู่",
             "kind": "tip"
@@ -4466,9 +4022,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Checklist สไลด์แล็บที่ต้องดู",
         "source": "Digestive System III p.56-57",
         "body": [
-          {
-            "text": "สองหน้าสุดท้ายเป็นรายการสไลด์แล็บพร้อมรหัส A และโครงสร้างที่ต้องหาให้เจอในแต่ละแผ่น"
-          },
+          "สองหน้าสุดท้ายเป็นรายการสไลด์แล็บพร้อมรหัส A และโครงสร้างที่ต้องหาให้เจอในแต่ละแผ่น",
           {
             "sub": "กระเพาะสัตว์เคี้ยวเอื้อง",
             "body": [
@@ -4480,9 +4034,7 @@ export const NOTES_Y2_HISTO = {
                   "**Abomasum A82** : เยื่อบุและชั้นต่าง ๆ, chief and parietal cells"
                 ]
               },
-              {
-                "text": "สไลด์กำกับไว้ท้ายหน้าว่า laminar muscularis คือ muscularis mucosae"
-              }
+              "สไลด์กำกับไว้ท้ายหน้าว่า laminar muscularis คือ muscularis mucosae"
             ]
           },
           {
@@ -4516,12 +4068,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "นิยามของระบบต่อมไร้ท่อ",
         "source": "Endocrine p.2",
         "body": [
-          {
-            "text": "**ต่อมไร้ท่อไม่มี tubular system** (No tubular system)"
-          },
-          {
-            "text": "การหลั่ง hormone เดินทางตามลำดับนี้"
-          },
+          "**ต่อมไร้ท่อไม่มี tubular system** (No tubular system)",
+          "การหลั่ง hormone เดินทางตามลำดับนี้",
           {
             "bullets": [
               "หลั่งเข้าสู่ intercellular space",
@@ -4535,9 +4083,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ต่อมไร้ท่อแท้ vs กลุ่มเซลล์ไร้ท่อในอวัยวะอื่น",
         "source": "Endocrine p.3",
         "body": [
-          {
-            "text": "สไลด์แยกออกเป็น 2 กลุ่มชัดเจน ให้จำแยกกัน"
-          },
+          "สไลด์แยกออกเป็น 2 กลุ่มชัดเจน ให้จำแยกกัน",
           {
             "sub": "Endocrine glands (ต่อมไร้ท่อแท้ 5 ต่อม)",
             "body": [
@@ -4570,9 +4116,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Hypophysis (pituitary gland) กำเนิดจาก 2 แหล่ง",
         "source": "Endocrine p.5",
         "body": [
-          {
-            "text": "**สองส่วนของ hypophysis มี embryonic origin คนละที่กัน** ซึ่งเป็นเหตุผลที่ histology ของสองส่วนต่างกันสิ้นเชิง"
-          },
+          "**สองส่วนของ hypophysis มี embryonic origin คนละที่กัน** ซึ่งเป็นเหตุผลที่ histology ของสองส่วนต่างกันสิ้นเชิง",
           {
             "bullets": [
               "Adenohypophysis: dorsal invagination of roof of the embryonic pharynx",
@@ -4589,9 +4133,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Adenohypophysis แบ่ง 3 ส่วน และเซลล์ใน Pars distalis",
         "source": "Endocrine p.12-13",
         "body": [
-          {
-            "text": "Adenohypophysis ประกอบด้วย **Pars distalis, Pars intermedia, Pars tuberalis**"
-          },
+          "Adenohypophysis ประกอบด้วย **Pars distalis, Pars intermedia, Pars tuberalis**",
           {
             "sub": "Pars distalis: Chromophobes",
             "body": [
@@ -4687,9 +4229,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Hypothalamic control ของ Adenohypophysis",
         "source": "Endocrine p.18",
         "body": [
-          {
-            "text": "เส้นทางควบคุมตามที่สไลด์เขียนเป็นลำดับ"
-          },
+          "เส้นทางควบคุมตามที่สไลด์เขียนเป็นลำดับ",
           {
             "bullets": [
               "Neuron in hypothalamus",
@@ -4709,9 +4249,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Releasing hormones, inhibiting hormones และ releasing factors",
         "source": "Endocrine p.20",
         "body": [
-          {
-            "text": "สไลด์ให้ตัวย่อพร้อมชื่อเต็มไว้ทั้งหมด 8 ตัว"
-          },
+          "สไลด์ให้ตัวย่อพร้อมชื่อเต็มไว้ทั้งหมด 8 ตัว",
           {
             "bullets": [
               "SRH = Somatotropin releasing hormone",
@@ -4827,9 +4365,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "การตอบสนองของ C cells และ chief cells ต่อระดับแคลเซียม",
         "source": "Endocrine p.30",
         "body": [
-          {
-            "text": "หน้านี้เป็นคำบรรยายใต้ภาพเปรียบเทียบ **Parathormone from parathyroid** กับ **Calcitonin from thyroid**"
-          },
+          "หน้านี้เป็นคำบรรยายใต้ภาพเปรียบเทียบ **Parathormone from parathyroid** กับ **Calcitonin from thyroid**",
           {
             "sub": "ภาวะ hypocalcemia",
             "body": [
@@ -4858,9 +4394,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Adrenal gland และ Adrenal cortex 3 ชั้น",
         "source": "Endocrine p.31-32",
         "body": [
-          {
-            "text": "Adrenal gland มี **CNT capsule** หุ้ม ภายในแบ่งเป็น **Cortex** และ **Medulla**"
-          },
+          "Adrenal gland มี **CNT capsule** หุ้ม ภายในแบ่งเป็น **Cortex** และ **Medulla**",
           {
             "sub": "Zona glomerulosa",
             "body": [
@@ -4958,9 +4492,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Pancreas และ Islets of Langerhans",
         "source": "Endocrine p.39-40",
         "body": [
-          {
-            "text": "Pancreas มีทั้งส่วน **Pancreatic acinus** (exocrine) และ **Endocrine pancreas: Islets of Langerhans**"
-          },
+          "Pancreas มีทั้งส่วน **Pancreatic acinus** (exocrine) และ **Endocrine pancreas: Islets of Langerhans**",
           {
             "sub": "เซลล์ใน Islets of Langerhans",
             "body": [
@@ -4984,17 +4516,13 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "APUD cells (สไลด์ยกตัวอย่างที่ adrenal medulla)",
             "body": [
-              {
-                "text": "เซลล์ที่สามารถทำ **amine precursor uptake and decarboxylation** และสังเคราะห์กับหลั่ง **polypeptide hormones** ได้"
-              }
+              "เซลล์ที่สามารถทำ **amine precursor uptake and decarboxylation** และสังเคราะห์กับหลั่ง **polypeptide hormones** ได้"
             ]
           },
           {
             "sub": "PAS reaction (สไลด์ยกตัวอย่างที่ basophils และ follicular colloid)",
             "body": [
-              {
-                "text": "การย้อม PAS ใช้ย้อมโครงสร้างที่มี **carbohydrate macromolecules** ในสัดส่วนสูง ได้แก่ **glycogen, glycoprotein, proteoglycans**"
-              }
+              "การย้อม PAS ใช้ย้อมโครงสร้างที่มี **carbohydrate macromolecules** ในสัดส่วนสูง ได้แก่ **glycogen, glycoprotein, proteoglycans**"
             ]
           },
           {
@@ -5016,12 +4544,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "epithelium อยู่ตรงไหนในลำดับชั้นของร่างกาย",
         "source": "Epithelium p.2-3",
         "body": [
-          {
-            "text": "สไลด์ไล่ลำดับจากเล็กไปใหญ่ Cells (organelles เช่น rER, Golgi, mitochondria) → Tissues (group of cells ที่ทำงานร่วมกัน) → Organs (heart, brain, kidney, stomach) → System (cardiovascular, urinary, digestive)"
-          },
-          {
-            "text": "**basic tissue มี 4 types** และสไลด์กำกับหน้าที่หลักของแต่ละอันไว้ในวงเล็บ"
-          },
+          "สไลด์ไล่ลำดับจากเล็กไปใหญ่ Cells (organelles เช่น rER, Golgi, mitochondria) → Tissues (group of cells ที่ทำงานร่วมกัน) → Organs (heart, brain, kidney, stomach) → System (cardiovascular, urinary, digestive)",
+          "**basic tissue มี 4 types** และสไลด์กำกับหน้าที่หลักของแต่ละอันไว้ในวงเล็บ",
           {
             "bullets": [
               "Epithelial tissue (covering)",
@@ -5084,9 +4608,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "2. Modified epithelium",
             "body": [
-              {
-                "text": "แตกเป็น glandular (secretory) epithelium กับ myoepithelium"
-              },
+              "แตกเป็น glandular (secretory) epithelium กับ myoepithelium",
               {
                 "bullets": [
                   "**Endocrine gland: secrete → bl.vsl. → organ**",
@@ -5102,9 +4624,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "หลักการจำแนก covering & lining epithelium",
         "source": "Epithelium p.8",
         "body": [
-          {
-            "text": "สไลด์ใช้ **2 เกณฑ์คู่กันเสมอ** คือจำนวนชั้น คูณ รูปร่างของเซลล์"
-          },
+          "สไลด์ใช้ **2 เกณฑ์คู่กันเสมอ** คือจำนวนชั้น คูณ รูปร่างของเซลล์",
           {
             "sub": "1. Number of cell layers",
             "body": [
@@ -5142,9 +4662,7 @@ export const NOTES_Y2_HISTO = {
               "Classified by the shape of cells"
             ]
           },
-          {
-            "text": "สไลด์แจกแจง 4 ชนิด คือ 1. Simple squamous 2. Simple cuboidal 3. Simple columnar 4. Pseudostratified columnar"
-          },
+          "สไลด์แจกแจง 4 ชนิด คือ 1. Simple squamous 2. Simple cuboidal 3. Simple columnar 4. Pseudostratified columnar",
           {
             "callout": "สังเกตว่าเด็คนี้จัด pseudostratified columnar ไว้ใต้หัวข้อ SIMPLE epithelium ไม่ได้แยกเป็นกลุ่มที่สาม",
             "kind": "flag"
@@ -5155,9 +4673,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Simple squamous epithelium และชื่อเฉพาะตามตำแหน่ง",
         "source": "Epithelium p.12-13",
         "body": [
-          {
-            "text": "เซลล์ flattened, scale- or plate-like พบที่"
-          },
+          "เซลล์ flattened, scale- or plate-like พบที่",
           {
             "bullets": [
               "Filtration (kidneys, lungs)",
@@ -5250,18 +4766,14 @@ export const NOTES_Y2_HISTO = {
               "พบที่ respiratory และ genital system"
             ]
           },
-          {
-            "text": "apical (luminal) modification ที่สไลด์ระบุคู่กัน คือ **cilia ที่ respiratory และ female reproductive tract** กับ **stereocilia ที่ sperm duct**"
-          }
+          "apical (luminal) modification ที่สไลด์ระบุคู่กัน คือ **cilia ที่ respiratory และ female reproductive tract** กับ **stereocilia ที่ sperm duct**"
         ]
       },
       {
         "heading": "สูตรจำ goblet cell คู่กับ striation",
         "source": "Epithelium p.29",
         "body": [
-          {
-            "text": "สไลด์นี้ทำเป็นตารางเทียบ 3 บรรทัด ใช้ 2 ตัวแปรคือ มี goblet cell หรือไม่ และ striation สั้นหรือยาว"
-          },
+          "สไลด์นี้ทำเป็นตารางเทียบ 3 บรรทัด ใช้ 2 ตัวแปรคือ มี goblet cell หรือไม่ และ striation สั้นหรือยาว",
           {
             "bullets": [
               "**Simple columnar + goblet + short → microvilli (intestine)** เรียก simple columnar epithelium with goblet cell & microvilli",
@@ -5368,9 +4880,7 @@ export const NOTES_Y2_HISTO = {
               "ตั้งชื่อตามเซลล์ชั้น apical ว่าเป็น squamous, cuboid หรือ columnar"
             ]
           },
-          {
-            "text": "แบ่งเป็น 4 ชนิด คือ 1. Stratified squamous 2. Stratified cuboidal 3. Stratified columnar 4. Transitional"
-          },
+          "แบ่งเป็น 4 ชนิด คือ 1. Stratified squamous 2. Stratified cuboidal 3. Stratified columnar 4. Transitional",
           {
             "sub": "รายละเอียดของ stratified squamous",
             "body": [
@@ -5416,9 +4926,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์ภาพ p.40 กำกับตัวอย่างไว้เป็น thick skin กับ thin skin หรือ hairy skin แต่ไม่ได้เขียนข้อความอธิบายความต่างเพิ่ม"
-          }
+          "สไลด์ภาพ p.40 กำกับตัวอย่างไว้เป็น thick skin กับ thin skin หรือ hairy skin แต่ไม่ได้เขียนข้อความอธิบายความต่างเพิ่ม"
         ]
       },
       {
@@ -5434,9 +4942,7 @@ export const NOTES_Y2_HISTO = {
               "**5. Stratum corneum** เกิด keratinization ไม่พบใน non-keratinized epithelium ที่อยู่บนผิว moist"
             ]
           },
-          {
-            "text": "สไลด์เขียนคำว่า **STRATUM GERMINATIVUM** กำกับไว้ตรงชั้นที่ 1 และ 2"
-          },
+          "สไลด์เขียนคำว่า **STRATUM GERMINATIVUM** กำกับไว้ตรงชั้นที่ 1 และ 2",
           {
             "callout": "ขอบเขตของวงเล็บปีกกา STRATUM GERMINATIVUM อ่านจากตำแหน่งที่พิมพ์ในสไลด์ ถ้าเปิดสไลด์จริงแล้วปีกกาคลุมกว้างกว่านี้ ให้ยึดตามภาพในสไลด์",
             "kind": "flag"
@@ -5642,18 +5148,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "รูปร่างของ secretory unit และ duct system ของ exocrine gland",
         "source": "Epithelium p.55-56",
         "body": [
-          {
-            "text": "แบ่งใหญ่เป็น **simple gland** กับ **compound gland**"
-          },
+          "แบ่งใหญ่เป็น **simple gland** กับ **compound gland**",
           {
             "bullets": [
               "**Simple gland: tubular, acinar, alveolar** โดยแต่ละแบบยังเป็น straight, coiled หรือ branched ได้",
               "**Compound gland: tubular, tubuloacinar**"
             ]
           },
-          {
-            "text": "สไลด์ภาพ p.56 ไล่ตัวอย่างไว้เป็น simple straight tubular, simple branched tubular, simple coiled tubular, simple straight acinar, simple branched acinar, compound tubular, compound acinar และ compound tubuloacinar"
-          },
+          "สไลด์ภาพ p.56 ไล่ตัวอย่างไว้เป็น simple straight tubular, simple branched tubular, simple coiled tubular, simple straight acinar, simple branched acinar, compound tubular, compound acinar และ compound tubuloacinar",
           {
             "callout": "หัวข้อ p.55 เขียน compound gland ว่ามีแค่ tubular กับ tubuloacinar แต่ภาพ p.56 มี compound acinar ให้ด้วย สไลด์ไม่ได้อธิบายความต่างของสองแผ่นนี้",
             "kind": "flag"
@@ -5671,9 +5173,7 @@ export const NOTES_Y2_HISTO = {
               "**Mixed gland หรือ seromucous**"
             ]
           },
-          {
-            "text": "สไลด์เรียกเซลล์ของต่อมกลุ่มนี้ว่า **PYRAMIDAL (GLANDULAR) EPITHELIUM** และชี้โครงสร้างชื่อ **serous demilunes** ไว้ในต่อมแบบผสม"
-          },
+          "สไลด์เรียกเซลล์ของต่อมกลุ่มนี้ว่า **PYRAMIDAL (GLANDULAR) EPITHELIUM** และชี้โครงสร้างชื่อ **serous demilunes** ไว้ในต่อมแบบผสม",
           {
             "callout": "สไลด์ p.59-62 เป็นภาพ histology ล้วน ป้ายกำกับมีแค่ serous acini, mucous acini, duct, mucous, serous และ serous demilunes ไม่มีคำอธิบายวิธีแยกด้วยการติดสี",
             "kind": "flag"
@@ -5737,9 +5237,7 @@ export const NOTES_Y2_HISTO = {
               "**Contract แล้ว expel the secretion**"
             ]
           },
-          {
-            "text": "สไลด์สุดท้าย p.67 เป็นภาพ myoepithelial cells ไม่มีข้อความประกอบ"
-          }
+          "สไลด์สุดท้าย p.67 เป็นภาพ myoepithelial cells ไม่มีข้อความประกอบ"
         ]
       }
     ]
@@ -5755,9 +5253,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ภาพรวมของ ovary: cortex กับ medulla",
         "source": "female lab manual p.1",
         "body": [
-          {
-            "text": "**Ovary แบ่งเป็น cortex และ medulla** โดยผิวนอกคลุมด้วย germinal epithelium ซึ่งเป็น simple cuboidal epithelium"
-          },
+          "**Ovary แบ่งเป็น cortex และ medulla** โดยผิวนอกคลุมด้วย germinal epithelium ซึ่งเป็น simple cuboidal epithelium",
           {
             "bullets": [
               "**Tunica albuginea** = connective tissue ที่อยู่ใต้ germinal epithelium",
@@ -5765,9 +5261,7 @@ export const NOTES_Y2_HISTO = {
               "**Medulla**: blood vessel, nerve, connective tissue"
             ]
           },
-          {
-            "text": "**Ovarian follicle = oocyte + follicular cells** และ ovarian follicles ฝังตัวอยู่ใน ovarian stroma"
-          },
+          "**Ovarian follicle = oocyte + follicular cells** และ ovarian follicles ฝังตัวอยู่ใน ovarian stroma",
           {
             "callout": "หน้านี้เป็นแผ่นภาพเป็นหลัก คำบรรยายภาพที่มีคือ ovarian cortex with fimbria (A) กับ higher magnification (B), primordial follicle, primordial special stain และ primary follicle",
             "kind": "tip"
@@ -5781,26 +5275,16 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "1. Primordial follicle",
             "body": [
-              {
-                "text": "**primary oocyte ล้อมด้วย follicular cells ชั้นเดียวที่เป็นรูปแบน (flattened)**"
-              },
-              {
-                "text": "พบที่ส่วนนอกของ cortex มักอยู่ใต้ tunica albuginea พอดี"
-              },
-              {
-                "text": "**การกระจายต่างกันตามสัตว์: ใน carnivores อยู่รวมกันเป็น clusters ส่วนใน ruminants และ sow กระจายสม่ำเสมอ**"
-              }
+              "**primary oocyte ล้อมด้วย follicular cells ชั้นเดียวที่เป็นรูปแบน (flattened)**",
+              "พบที่ส่วนนอกของ cortex มักอยู่ใต้ tunica albuginea พอดี",
+              "**การกระจายต่างกันตามสัตว์: ใน carnivores อยู่รวมกันเป็น clusters ส่วนใน ruminants และ sow กระจายสม่ำเสมอ**"
             ]
           },
           {
             "sub": "2. Primary follicle",
             "body": [
-              {
-                "text": "**primary oocyte ล้อมด้วย cuboidal epithelium**"
-              },
-              {
-                "text": "**Zona pellucida เริ่มพัฒนาที่ระยะนี้** เป็นชั้น glycoprotein ระหว่าง granulosa cells กับ oocyte"
-              }
+              "**primary oocyte ล้อมด้วย cuboidal epithelium**",
+              "**Zona pellucida เริ่มพัฒนาที่ระยะนี้** เป็นชั้น glycoprotein ระหว่าง granulosa cells กับ oocyte"
             ]
           },
           {
@@ -5816,9 +5300,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "3. Secondary follicle",
             "body": [
-              {
-                "text": "primary oocyte ล้อมด้วย cuboidal epithelium (ตามที่สไลด์เขียน) และ **เริ่มเห็น follicular antrum** พร้อม zona pellucida"
-              },
+              "primary oocyte ล้อมด้วย cuboidal epithelium (ตามที่สไลด์เขียน) และ **เริ่มเห็น follicular antrum** พร้อม zona pellucida",
               {
                 "bullets": [
                   "มี liquor folliculi อยู่ใน antrum",
@@ -5841,12 +5323,8 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Theca 2 ชั้น (จุดที่ต้องแยกให้ออกในแลบ)",
             "body": [
-              {
-                "text": "**Theca interna: เซลล์ขนาดใหญ่ กลม foamy หน้าตาคล้าย epithelium และหลั่ง androgens**"
-              },
-              {
-                "text": "**Theca externa: เซลล์คล้าย fibroblast เรียงล้อมรอบ follicle อยู่นอกชั้น theca interna**"
-              }
+              "**Theca interna: เซลล์ขนาดใหญ่ กลม foamy หน้าตาคล้าย epithelium และหลั่ง androgens**",
+              "**Theca externa: เซลล์คล้าย fibroblast เรียงล้อมรอบ follicle อยู่นอกชั้น theca interna**"
             ]
           }
         ]
@@ -5855,12 +5333,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Corona radiata กับ cumulus oophorus ต่างกันตรงไหน",
         "source": "female lab manual p.4",
         "body": [
-          {
-            "text": "**Corona radiata = granulosa cells ที่ยังติดไปกับ oocyte หลัง ovulation**"
-          },
-          {
-            "text": "**Cumulus oophorus = granulosa cells ที่ล้อมรอบ oocyte แต่ยังคงอยู่ใน ovary หลัง ovulation**"
-          },
+          "**Corona radiata = granulosa cells ที่ยังติดไปกับ oocyte หลัง ovulation**",
+          "**Cumulus oophorus = granulosa cells ที่ล้อมรอบ oocyte แต่ยังคงอยู่ใน ovary หลัง ovulation**",
           {
             "callout": "หน้านี้มีแค่คำนิยาม 2 บรรทัดนี้กับภาพ ไม่มีรายละเอียดอื่นเพิ่ม",
             "kind": "tip"
@@ -5874,17 +5348,13 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Corpus hemorrhagicum",
             "body": [
-              {
-                "text": "หลังจาก ovum ถูกปล่อยออกไป **follicle ที่ยุบตัวจะกลายเป็น corpus hemorrhagicum เพราะเลือดไหลเข้าไปใน antrum**"
-              }
+              "หลังจาก ovum ถูกปล่อยออกไป **follicle ที่ยุบตัวจะกลายเป็น corpus hemorrhagicum เพราะเลือดไหลเข้าไปใน antrum**"
             ]
           },
           {
             "sub": "Corpus luteum",
             "body": [
-              {
-                "text": "**basal lamina ของ follicular cells สลายลง แล้ว capillaries จาก stroma รุกเข้าไปใน follicle ที่ยุบตัว** เปลี่ยนให้กลายเป็น **temporary endocrine organ ที่พับซับซ้อนและมีหลอดเลือดมาก เรียกว่า corpus luteum**"
-              },
+              "**basal lamina ของ follicular cells สลายลง แล้ว capillaries จาก stroma รุกเข้าไปใน follicle ที่ยุบตัว** เปลี่ยนให้กลายเป็น **temporary endocrine organ ที่พับซับซ้อนและมีหลอดเลือดมาก เรียกว่า corpus luteum**",
               {
                 "bullets": [
                   "**granulosa cells ขยายใหญ่มากและมี lipid droplets เล็กๆ จำนวนมาก เรียกว่า granulosa lutein cells**",
@@ -5896,9 +5366,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Corpus albicans",
             "body": [
-              {
-                "text": "**คือการสะสมของ fibrous connective tissue หลังจาก CL เสื่อมสลาย (luteolysis)**"
-              }
+              "**คือการสะสมของ fibrous connective tissue หลังจาก CL เสื่อมสลาย (luteolysis)**"
             ]
           }
         ]
@@ -5907,9 +5375,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Atretic follicle และการเปลี่ยนแปลงที่ต้องดูออก",
         "source": "female lab manual p.6",
         "body": [
-          {
-            "text": "**มี follicle เพียงจำนวนน้อยที่โตจนถึงระยะสมบูรณ์และถูกปล่อยออกมาทาง ovulation ส่วนใหญ่จะเสื่อมสลายไปด้วยกระบวนการ atresia**"
-          },
+          "**มี follicle เพียงจำนวนน้อยที่โตจนถึงระยะสมบูรณ์และถูกปล่อยออกมาทาง ovulation ส่วนใหญ่จะเสื่อมสลายไปด้วยกระบวนการ atresia**",
           {
             "sub": "Atretic alterations ที่สไลด์ระบุ",
             "body": [
@@ -5920,9 +5386,7 @@ export const NOTES_Y2_HISTO = {
                   "**basement membrane ที่กั้น granulosa cells ออกจาก theca interna อาจหนาตัวและยุบลงจนกลายเป็น glassy membrane**"
                 ]
               },
-              {
-                "text": "ท้ายที่สุด oocyte, zona pellucida และ follicular cells จะเสื่อมสลายและถูกดูดซึมกลับไป"
-              }
+              "ท้ายที่สุด oocyte, zona pellucida และ follicular cells จะเสื่อมสลายและถูกดูดซึมกลับไป"
             ]
           }
         ]
@@ -5946,12 +5410,8 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "เซลล์ 2 ชนิดใน epithelium",
             "body": [
-              {
-                "text": "**1) Ciliated cells** พบมากที่สุดที่ผิวของ fimbriae รองลงมาที่ ampulla และพบน้อยลงอีกที่ isthmus กับ interstitial segment"
-              },
-              {
-                "text": "**2) Secretory cells** เป็นเซลล์รูปลิ่ม (wedge-shaped) ไม่มี cilia มี secretory granules ใน cytoplasm **สารที่หลั่งออกมาให้สารอาหารแก่ ovum ระหว่างเดินทางผ่าน oviduct**"
-              }
+              "**1) Ciliated cells** พบมากที่สุดที่ผิวของ fimbriae รองลงมาที่ ampulla และพบน้อยลงอีกที่ isthmus กับ interstitial segment",
+              "**2) Secretory cells** เป็นเซลล์รูปลิ่ม (wedge-shaped) ไม่มี cilia มี secretory granules ใน cytoplasm **สารที่หลั่งออกมาให้สารอาหารแก่ ovum ระหว่างเดินทางผ่าน oviduct**"
             ]
           },
           {
@@ -5964,9 +5424,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Oviduct 3 ส่วน และวิธีแยกจากรูปร่าง mucosa",
         "source": "female lab manual p.8",
         "body": [
-          {
-            "text": "**Oviduct แบ่งเป็น 3 ส่วน คือ infundibulum, ampulla และ isthmus**"
-          },
+          "**Oviduct แบ่งเป็น 3 ส่วน คือ infundibulum, ampulla และ isthmus**",
           {
             "bullets": [
               "**tunica mucosa แตกแขนงและพับซับซ้อนมาก โดยเฉพาะที่ infundibulum และ ampulla** (ภาพ A, B)",
@@ -5979,15 +5437,11 @@ export const NOTES_Y2_HISTO = {
         "heading": "Uterus (1): endometrium และความต่างระหว่างสัตว์",
         "source": "female lab manual p.9",
         "body": [
-          {
-            "text": "**Uterus มี 3 ชั้นหรือ 3 compartments คือ endometrium, myometrium และ perimetrium**"
-          },
+          "**Uterus มี 3 ชั้นหรือ 3 compartments คือ endometrium, myometrium และ perimetrium**",
           {
             "sub": "Surface epithelium แยกตามชนิดสัตว์",
             "body": [
-              {
-                "text": "**simple columnar ใน mare, bitch, queen ส่วน sow และ ruminants เป็น simple หรือ pseudostratified columnar** (ภาพ D, E)"
-              }
+              "**simple columnar ใน mare, bitch, queen ส่วน sow และ ruminants เป็น simple หรือ pseudostratified columnar** (ภาพ D, E)"
             ]
           },
           {
@@ -6035,9 +5489,7 @@ export const NOTES_Y2_HISTO = {
                   "**T. muscularis: 2 ชั้น คือ inner circular และ outer longitudinal**"
                 ]
               },
-              {
-                "text": "**ใน bitch: lumen ของ cervix บุด้วย simple columnar epithelium แล้วที่ external os epithelium จะเปลี่ยนเป็น stratified squamous epithelium อย่างทันที (abruptly)** ตามลูกศรในภาพ A, B"
-              }
+              "**ใน bitch: lumen ของ cervix บุด้วย simple columnar epithelium แล้วที่ external os epithelium จะเปลี่ยนเป็น stratified squamous epithelium อย่างทันที (abruptly)** ตามลูกศรในภาพ A, B"
             ]
           },
           {
@@ -6058,9 +5510,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Canine vaginal cytology: แยก 3 ชนิดเซลล์จาก vaginal smear",
         "source": "female lab manual p.12",
         "body": [
-          {
-            "text": "**Superficial cells ที่ไม่มีนิวเคลียส = fully cornified**"
-          },
+          "**Superficial cells ที่ไม่มีนิวเคลียส = fully cornified**",
           {
             "sub": "Parabasal cells",
             "body": [
@@ -6075,9 +5525,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Intermediate cells",
             "body": [
-              {
-                "text": "**ขนาดและรูปร่างหลากหลาย เส้นผ่านศูนย์กลางประมาณ 2-3 เท่าของ parabasal cells**"
-              }
+              "**ขนาดและรูปร่างหลากหลาย เส้นผ่านศูนย์กลางประมาณ 2-3 เท่าของ parabasal cells**"
             ]
           },
           {
@@ -6125,9 +5573,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Ovary: ชั้นและหน้าที่",
         "source": "Female reproductive organ p.5-6",
         "body": [
-          {
-            "text": "สไลด์แบ่ง ovary ตามชั้นที่เห็นใต้กล้อง สามส่วน"
-          },
+          "สไลด์แบ่ง ovary ตามชั้นที่เห็นใต้กล้อง สามส่วน",
           {
             "bullets": [
               "**ผิวนอกคลุมด้วย surface epithelium ชนิด simple cuboidal**",
@@ -6135,18 +5581,14 @@ export const NOTES_Y2_HISTO = {
               "Medulla: connective tissue และ vessels"
             ]
           },
-          {
-            "text": "หน้าที่ของ ovary ตามสไลด์ p.6 คือ **oogenesis, steroid secretion และ ovulation** สไลด์ไม่ได้บอกรายละเอียดว่า steroid ตัวไหนถูกสร้างจากเซลล์ใดในหน้านี้"
-          }
+          "หน้าที่ของ ovary ตามสไลด์ p.6 คือ **oogenesis, steroid secretion และ ovulation** สไลด์ไม่ได้บอกรายละเอียดว่า steroid ตัวไหนถูกสร้างจากเซลล์ใดในหน้านี้"
         ]
       },
       {
         "heading": "Ovarian follicle คืออะไร",
         "source": "Female reproductive organ p.7",
         "body": [
-          {
-            "text": "หัวข้อ follicular development นิยามไว้สั้นมาก **OVARIAN FOLLICLE = OOCYTE + FOLLICULAR CELLS**"
-          }
+          "หัวข้อ follicular development นิยามไว้สั้นมาก **OVARIAN FOLLICLE = OOCYTE + FOLLICULAR CELLS**"
         ]
       },
       {
@@ -6156,9 +5598,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "1. Primordial follicle",
             "body": [
-              {
-                "text": "**primary oocyte ล้อมด้วย follicular cells ที่แบน (flattened) เพียงชั้นเดียว**"
-              }
+              "**primary oocyte ล้อมด้วย follicular cells ที่แบน (flattened) เพียงชั้นเดียว**"
             ]
           },
           {
@@ -6208,9 +5648,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Mature follicle (Tertiary / Graafian / Pre-ovulatory)",
         "source": "Female reproductive organ p.12",
         "body": [
-          {
-            "text": "สไลด์ให้สามชื่อนี้ใช้แทนกันได้: **Tertiary = Graafian = Pre-ovulatory follicle**"
-          },
+          "สไลด์ให้สามชื่อนี้ใช้แทนกันได้: **Tertiary = Graafian = Pre-ovulatory follicle**",
           {
             "bullets": [
               "มองเห็น follicle antrum",
@@ -6225,9 +5663,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Corona radiata vs cumulus oophorus",
         "source": "Female reproductive organ p.13",
         "body": [
-          {
-            "text": "สองคำนี้เป็น granulosa cells เหมือนกัน แต่แยกกันด้วยว่าหลัง ovulation แล้วเซลล์ไปอยู่ที่ไหน"
-          },
+          "สองคำนี้เป็น granulosa cells เหมือนกัน แต่แยกกันด้วยว่าหลัง ovulation แล้วเซลล์ไปอยู่ที่ไหน",
           {
             "bullets": [
               "**Corona radiata: granulosa cells ที่ยังติดไปกับ oocyte หลัง ovulation**",
@@ -6257,9 +5693,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Corpus luteum: เกิดขึ้นและจบลงอย่างไร",
         "source": "Female reproductive organ p.17-18",
         "body": [
-          {
-            "text": "**ลำดับหลัง ovulation: เลือดออกเข้าไปในซาก follicle กลายเป็น corpus hemorrhagicum แล้วจึงกลายเป็น corpus luteum**"
-          },
+          "**ลำดับหลัง ovulation: เลือดออกเข้าไปในซาก follicle กลายเป็น corpus hemorrhagicum แล้วจึงกลายเป็น corpus luteum**",
           {
             "bullets": [
               "**LH จาก pituitary gland เป็นตัวเริ่ม luteinization และกระตุ้น granulosa cells ให้หลั่ง progesterone**",
@@ -6289,9 +5723,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Germinal epithelium ของ ovary",
         "source": "Female reproductive organ p.21",
         "body": [
-          {
-            "text": "สไลด์อ้าง Wikipedia ว่า เมื่อพิสูจน์ได้แล้วว่า ovarian surface cells มี oogenic capability จึงเชื่อกันตอนนี้ว่า **oocytes อาจกำเนิดมาจากเซลล์ผิวรังไข่ได้** และคำว่า germinal epithelium ก็อาจนำกลับมาใช้ได้อย่างสมเหตุสมผล"
-          },
+          "สไลด์อ้าง Wikipedia ว่า เมื่อพิสูจน์ได้แล้วว่า ovarian surface cells มี oogenic capability จึงเชื่อกันตอนนี้ว่า **oocytes อาจกำเนิดมาจากเซลล์ผิวรังไข่ได้** และคำว่า germinal epithelium ก็อาจนำกลับมาใช้ได้อย่างสมเหตุสมผล",
           {
             "callout": "สไลด์เสนอเป็นประเด็นที่ยังถกกันเรื่องการใช้ชื่อ ไม่ได้สรุปชัดว่าให้ยึดคำไหนในการสอบ",
             "kind": "flag"
@@ -6302,12 +5734,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Uterine tube (oviduct): สามส่วนและหน้าที่",
         "source": "Female reproductive organ p.22-25",
         "body": [
-          {
-            "text": "**แบ่งเป็น 3 ส่วน: infundibulum, ampulla, isthmus**"
-          },
-          {
-            "text": "หน้าที่ตามสไลด์: ขนส่ง ovum และ spermatozoa และ **จัดสภาพแวดล้อมที่เหมาะสมสำหรับ fertilization** เยื่อบุประกอบด้วย ciliated cells และ secretory cells"
-          },
+          "**แบ่งเป็น 3 ส่วน: infundibulum, ampulla, isthmus**",
+          "หน้าที่ตามสไลด์: ขนส่ง ovum และ spermatozoa และ **จัดสภาพแวดล้อมที่เหมาะสมสำหรับ fertilization** เยื่อบุประกอบด้วย ciliated cells และ secretory cells",
           {
             "sub": "Infundibulum",
             "body": [
@@ -6322,9 +5750,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Ampulla",
             "body": [
-              {
-                "text": "ลักษณะทาง histology คล้าย infundibulum และ **เป็นจุดที่เกิด fertilization**"
-              }
+              "ลักษณะทาง histology คล้าย infundibulum และ **เป็นจุดที่เกิด fertilization**"
             ]
           },
           {
@@ -6379,9 +5805,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Estrous cycle: สิ่งที่เกิดหลัง ovulation",
         "source": "Female reproductive organ p.28",
         "body": [
-          {
-            "text": "สไลด์นี้พูดถึง estrous cycle เฉพาะช่วงหลัง ovulation เท่านั้น **progesterone เพิ่มขึ้นจาก granulosa และ theca luteal cells ทั้งใน corpus hemorrhagicum และใน corpus luteum**"
-          },
+          "สไลด์นี้พูดถึง estrous cycle เฉพาะช่วงหลัง ovulation เท่านั้น **progesterone เพิ่มขึ้นจาก granulosa และ theca luteal cells ทั้งใน corpus hemorrhagicum และใน corpus luteum**",
           {
             "bullets": [
               "uterine epithelial cells เกิด hypertrophy ต่อเนื่อง",
@@ -6457,9 +5881,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Vaginal cytology: ทำไปทำไม และเซลล์อะไรบ้าง",
         "source": "Female reproductive organ p.35-37",
         "body": [
-          {
-            "text": "**การเปลี่ยนแปลงทาง cytology สะท้อน endocrine events ที่อยู่เบื้องหลัง cycle** ตรวจโดยการทำ vaginal smear"
-          },
+          "**การเปลี่ยนแปลงทาง cytology สะท้อน endocrine events ที่อยู่เบื้องหลัง cycle** ตรวจโดยการทำ vaginal smear",
           {
             "sub": "Parabasal cells",
             "body": [
@@ -6526,17 +5948,13 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Estrus",
             "body": [
-              {
-                "text": "**superficial cells เด่นชัด และเกือบทั้งหมดเป็น anucleate superficial cells**"
-              }
+              "**superficial cells เด่นชัด และเกือบทั้งหมดเป็น anucleate superficial cells**"
             ]
           },
           {
             "sub": "Diestrus",
             "body": [
-              {
-                "text": "**superficial cells ลดจำนวนลง และ intermediate กับ parabasal cells กลับมาปรากฏอีกครั้ง**"
-              }
+              "**superficial cells ลดจำนวนลง และ intermediate กับ parabasal cells กลับมาปรากฏอีกครั้ง**"
             ]
           },
           {
@@ -6583,9 +6001,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ปลาอยู่ตรงไหนในอนุกรมวิธาน และแบ่งเป็น 3 กลุ่ม",
         "source": "Fish p.2",
         "body": [
-          {
-            "text": "Phylum: **Chordata** · Subphylum: **Vertebrata** ลักษณะทางสัณฐานคือมี Head, Trunk, Tail แบบ symmetry ไม่มี limb แต่มี fins แทน"
-          },
+          "Phylum: **Chordata** · Subphylum: **Vertebrata** ลักษณะทางสัณฐานคือมี Head, Trunk, Tail แบบ symmetry ไม่มี limb แต่มี fins แทน",
           {
             "sub": "Classification (3 กลุ่ม)",
             "body": [
@@ -6682,18 +6098,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "ลำดับช่วงชีวิตของปลา",
         "source": "Fish p.8",
         "body": [
-          {
-            "text": "**Egg → Embryo → Larva → Fry → Fingering → Adult fish** สไลด์ให้มาเป็นลำดับเปล่า ๆ ไม่ได้บอกอายุหรือขนาดของแต่ละช่วง"
-          }
+          "**Egg → Embryo → Larva → Fry → Fingering → Adult fish** สไลด์ให้มาเป็นลำดับเปล่า ๆ ไม่ได้บอกอายุหรือขนาดของแต่ละช่วง"
         ]
       },
       {
         "heading": "Histological techniques ตั้งแต่เก็บตัวอย่างถึง coverslipping",
         "source": "Fish p.9-13",
         "body": [
-          {
-            "text": "ลำดับงานทั้งหมดคือ Sample collection → Fixation → Tissue Processing (dehydration and infiltration of tissue) → Embedding → Sectioning tissue → Staining → Coverslipping"
-          },
+          "ลำดับงานทั้งหมดคือ Sample collection → Fixation → Tissue Processing (dehydration and infiltration of tissue) → Embedding → Sectioning tissue → Staining → Coverslipping",
           {
             "sub": "Sample collection",
             "body": [
@@ -6736,9 +6148,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Skeleton: skull, vertebrae, ribs",
         "source": "Fish p.16-18",
         "body": [
-          {
-            "text": "โครงกระดูกที่เด็คไล่คือ Skull, Vertebrae, Ribs และ Fin"
-          },
+          "โครงกระดูกที่เด็คไล่คือ Skull, Vertebrae, Ribs และ Fin",
           {
             "sub": "Vertebrae",
             "body": [
@@ -6817,9 +6227,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Caudal fin: 4 แบบตามแนว vertebrae และ subtype ของ homocercal",
         "source": "Fish p.22-23",
         "body": [
-          {
-            "text": "Caudal fin เกาะที่ปลาย **caudal peduncle** ซึ่งเป็นส่วนคอดของลำตัวที่หางติดอยู่ แบ่งตามการทอดของ vertebrae ได้ 4 แบบ"
-          },
+          "Caudal fin เกาะที่ปลาย **caudal peduncle** ซึ่งเป็นส่วนคอดของลำตัวที่หางติดอยู่ แบ่งตามการทอดของ vertebrae ได้ 4 แบบ",
           {
             "bullets": [
               "**Heterocercal**: vertebrae ทอดเข้าไปใน upper lobe ทำให้พูบนยาวกว่า พบใน shark · ส่วน **Hypocercal** พูล่างยาวกว่า พบใน Anaspida",
@@ -6914,9 +6322,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Dermis 2 ชั้น และการเปลี่ยนสี",
         "source": "Fish p.27-28, 30",
         "body": [
-          {
-            "text": "Dermis อยู่ระหว่าง epidermis กับกล้ามเนื้อที่อยู่ข้างใต้ ประกอบด้วย connective tissue ที่จัดเรียงซับซ้อน **2 ชั้น**"
-          },
+          "Dermis อยู่ระหว่าง epidermis กับกล้ามเนื้อที่อยู่ข้างใต้ ประกอบด้วย connective tissue ที่จัดเรียงซับซ้อน **2 ชั้น**",
           {
             "bullets": [
               "**Stratum spongiosum** ชั้นบน (นอก) เป็นร่างแหของ collagen, fibroblasts, pigment cells, phagocytic cells และมี **scale bed กับ scales** อยู่ในชั้นนี้",
@@ -7026,9 +6432,7 @@ export const NOTES_Y2_HISTO = {
                   "**Bulbus arteriosus** ส่งเลือดออกไปที่ gills"
                 ]
               },
-              {
-                "text": "ทางเดินคือ HEART → Gills → Body โดย **เลือดที่ผ่าน gill แล้วไม่กลับเข้าหัวใจก่อนไปเลี้ยงร่างกาย** ลำดับหลอดเลือดที่สไลด์เขียนคือ ventral aorta → afferent branchial artery → efferent branchial artery → dorsal aorta และเลือดกลับทาง hepatic + common cardinal vein"
-              }
+              "ทางเดินคือ HEART → Gills → Body โดย **เลือดที่ผ่าน gill แล้วไม่กลับเข้าหัวใจก่อนไปเลี้ยงร่างกาย** ลำดับหลอดเลือดที่สไลด์เขียนคือ ventral aorta → afferent branchial artery → efferent branchial artery → dorsal aorta และเลือดกลับทาง hepatic + common cardinal vein"
             ]
           },
           {
@@ -7052,9 +6456,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Blood cells ของปลา",
         "source": "Fish p.41-45",
         "body": [
-          {
-            "text": "เลือดคิดเป็นประมาณ **5% ของน้ำหนักตัว** แบ่งเป็น Erythrocytes, Leukocytes และ Thrombocytes"
-          },
+          "เลือดคิดเป็นประมาณ **5% ของน้ำหนักตัว** แบ่งเป็น Erythrocytes, Leukocytes และ Thrombocytes",
           {
             "sub": "Erythrocytes",
             "body": [
@@ -7103,9 +6505,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Digestive tract: ปาก 3 แบบ และผนัง 4 ชั้น",
         "source": "Fish p.46-51",
         "body": [
-          {
-            "text": "ทางเดินอาหารคือ Mouth ถึง Anus โดยมี associated glands คือ liver และ pancreas ซึ่งอยู่นอกทางเดินอาหารและส่งสารคัดหลั่งเข้าระบบท่อ"
-          },
+          "ทางเดินอาหารคือ Mouth ถึง Anus โดยมี associated glands คือ liver และ pancreas ซึ่งอยู่นอกทางเดินอาหารและส่งสารคัดหลั่งเข้าระบบท่อ",
           {
             "sub": "Mouth 3 general types",
             "body": [
@@ -7314,9 +6714,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Sense organs: barbels, eye, lateral line",
         "source": "Fish p.68-73",
         "body": [
-          {
-            "text": "อวัยวะรับความรู้สึกที่เด็คไล่คือ Eye, Olfactory, Barbels, Lateral line และ Pineal Organ โดยมีรายละเอียดเฉพาะ barbels, eye และ lateral line ส่วน olfactory และ pineal organ สไลด์ให้ไว้แค่ชื่อ"
-          },
+          "อวัยวะรับความรู้สึกที่เด็คไล่คือ Eye, Olfactory, Barbels, Lateral line และ Pineal Organ โดยมีรายละเอียดเฉพาะ barbels, eye และ lateral line ส่วน olfactory และ pineal organ สไลด์ให้ไว้แค่ชื่อ",
           {
             "sub": "Barbels",
             "body": [
@@ -7439,9 +6837,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "จุดเก็บเลือด",
         "source": "Fish p.83-84",
         "body": [
-          {
-            "text": "Blood collection ทำที่ **caudal vein หรือ tail vein** สไลด์ให้ไว้เป็นชื่อตำแหน่งพร้อมรูปประกอบ ไม่ได้อธิบายเทคนิคหรือปริมาณเลือดที่เก็บได้"
-          }
+          "Blood collection ทำที่ **caudal vein หรือ tail vein** สไลด์ให้ไว้เป็นชื่อตำแหน่งพร้อมรูปประกอบ ไม่ได้อธิบายเทคนิคหรือปริมาณเลือดที่เก็บได้"
         ]
       }
     ]
@@ -7456,12 +6852,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "เดคนี้คืออะไร และอ่านยังไง",
         "source": "HISTO LAB - Block II p.1",
         "body": [
-          {
-            "text": "หน้าแรกเขียนแค่ **HISTO part LAB II summary** คือเป็นชีตสรุปแล็บ Block II ไม่ใช่ lecture"
-          },
-          {
-            "text": "เนื้อหาที่เหลือเป็นภาพสไลด์จริงพร้อมลูกศรชี้ชื่อโครงสร้าง และรหัสสไลด์กำกับไว้ ควรใช้คู่กับกล้องตอนส่องจริง"
-          },
+          "หน้าแรกเขียนแค่ **HISTO part LAB II summary** คือเป็นชีตสรุปแล็บ Block II ไม่ใช่ lecture",
+          "เนื้อหาที่เหลือเป็นภาพสไลด์จริงพร้อมลูกศรชี้ชื่อโครงสร้าง และรหัสสไลด์กำกับไว้ ควรใช้คู่กับกล้องตอนส่องจริง",
           {
             "callout": "ลายมือภาษาไทยบนสไลด์จำนวนมากอ่านไม่ออกจากไฟล์ข้อความ โน้ตนี้จึงเก็บเฉพาะคำศัพท์และข้อความที่อ่านได้แน่ชัด ส่วนที่หายไปต้องกลับไปดูสไลด์ตัวจริง",
             "kind": "flag"
@@ -7472,27 +6864,21 @@ export const NOTES_Y2_HISTO = {
         "heading": "Muscular System: ตารางเทียบกล้ามเนื้อ 3 ชนิด",
         "source": "HISTO LAB - Block II p.2",
         "body": [
-          {
-            "text": "หน้านี้เป็นตารางเทียบรูปร่างเซลล์กับตำแหน่ง nucleus ของกล้ามเนื้อ 3 ชนิด"
-          },
+          "หน้านี้เป็นตารางเทียบรูปร่างเซลล์กับตำแหน่ง nucleus ของกล้ามเนื้อ 3 ชนิด",
           {
             "bullets": [
               "รูปร่างเซลล์ที่เดคเขียนไว้: **elongated cylindrical**, **branched**, **fusiform (spindle)**",
               "ตำแหน่ง nucleus ที่เขียนไว้: **eccentric nucleus** หนึ่งช่อง และ **concentric nucleus** อีกสองช่อง"
             ]
           },
-          {
-            "text": "ข้อความไทยที่กำกับแต่ละช่องในตารางอ่านไม่ออก แต่หน้าถัดไปของเดคระบุชัดว่า skeletal = elongated + eccentric nucleus, cardiac = branched + concentric nucleus, smooth = fusiform + concentric nucleus"
-          }
+          "ข้อความไทยที่กำกับแต่ละช่องในตารางอ่านไม่ออก แต่หน้าถัดไปของเดคระบุชัดว่า skeletal = elongated + eccentric nucleus, cardiac = branched + concentric nucleus, smooth = fusiform + concentric nucleus"
         ]
       },
       {
         "heading": "Skeletal muscle: 3 ข้อที่ใช้ตัดสิน",
         "source": "HISTO LAB - Block II p.3-6",
         "body": [
-          {
-            "text": "เดคเขียน criteria ของ muscle fiber ของ skeletal muscle ไว้เป็น 3 ข้อชัดเจน (p.6)"
-          },
+          "เดคเขียน criteria ของ muscle fiber ของ skeletal muscle ไว้เป็น 3 ข้อชัดเจน (p.6)",
           {
             "bullets": [
               "**multinucleated cell**",
@@ -7515,9 +6901,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "โครงสร้างระดับ sarcomere (p.4)",
             "body": [
-              {
-                "text": "เดคชี้ป้าย **sarcomere**, **A-band**, **I-band**, **Z-line** และเขียนกำกับว่า Z-line สัมพันธ์กับ I-band แต่คำอธิบายไทยของแต่ละแถบอ่านไม่ออก"
-              }
+              "เดคชี้ป้าย **sarcomere**, **A-band**, **I-band**, **Z-line** และเขียนกำกับว่า Z-line สัมพันธ์กับ I-band แต่คำอธิบายไทยของแต่ละแถบอ่านไม่ออก"
             ]
           },
           {
@@ -7545,12 +6929,8 @@ export const NOTES_Y2_HISTO = {
               "**มี intercalated disc**"
             ]
           },
-          {
-            "text": "เดคเขียนคำว่า **gap junction** กำกับไว้ที่ intercalated disc"
-          },
-          {
-            "text": "ป้ายอื่นบนภาพ: capillary, sarcoplasm, myofibril"
-          },
+          "เดคเขียนคำว่า **gap junction** กำกับไว้ที่ intercalated disc",
+          "ป้ายอื่นบนภาพ: capillary, sarcoplasm, myofibril",
           {
             "callout": "จุดที่แยก cardiac ออกจาก skeletal ในกล้องคือ branched fiber + intercalated disc + nucleus อยู่กลาง ทั้งสองอย่างมี cross striation เหมือนกัน",
             "kind": "tip"
@@ -7571,17 +6951,13 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Slide A91-2 : Ileum (p.8)",
             "body": [
-              {
-                "text": "ใช้ดู **tunica muscularis** ซึ่งแบ่งเป็น **inner circular** และ **outer longitudinal** และเทียบภาพ cross section กับ longitudinal"
-              }
+              "ใช้ดู **tunica muscularis** ซึ่งแบ่งเป็น **inner circular** และ **outer longitudinal** และเทียบภาพ cross section กับ longitudinal"
             ]
           },
           {
             "sub": "Slide 63-12 : Stomach, cat (p.9)",
             "body": [
-              {
-                "text": "เดคชี้ **corkscrew nuclei** และวงเล็บกำกับว่า **partial contracted** คือรูป nucleus บิดเป็นเกลียวเพราะเซลล์หดตัวบางส่วน"
-              }
+              "เดคชี้ **corkscrew nuclei** และวงเล็บกำกับว่า **partial contracted** คือรูป nucleus บิดเป็นเกลียวเพราะเซลล์หดตัวบางส่วน"
             ]
           }
         ]
@@ -7590,9 +6966,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Esophagus - Stomach junction",
         "source": "HISTO LAB - Block II p.10",
         "body": [
-          {
-            "text": "หน้านี้เป็นภาพรอยต่อ ใช้เทียบกล้ามเนื้อสองชนิดในภาพเดียว"
-          },
+          "หน้านี้เป็นภาพรอยต่อ ใช้เทียบกล้ามเนื้อสองชนิดในภาพเดียว",
           {
             "bullets": [
               "ฝั่ง **esophagus** = **skeletal muscle**",
@@ -7605,9 +6979,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Heart: 3 ชั้นของผนังหัวใจ",
         "source": "HISTO LAB - Block II p.11",
         "body": [
-          {
-            "text": "Slide C3-4 : Atrium, gibbon เดคเขียนไล่จากในออกนอกเป็น endocardium, myocardium, epicardium"
-          },
+          "Slide C3-4 : Atrium, gibbon เดคเขียนไล่จากในออกนอกเป็น endocardium, myocardium, epicardium",
           {
             "sub": "1. Endocardium",
             "body": [
@@ -7618,17 +6990,13 @@ export const NOTES_Y2_HISTO = {
                   "**subendocardial layer** เป็น **loose CNT**"
                 ]
               },
-              {
-                "text": "บรรทัดที่เขียนกำกับเรื่อง Purkinje's fiber ในชั้นนี้ ลายมืออ่านไม่ออกว่าเขียนว่ามีหรือไม่มี แต่หน้า p.12 ชี้ Purkinje fibers ไว้ที่ subendocardial layer ของ ventricle ชัดเจน"
-              }
+              "บรรทัดที่เขียนกำกับเรื่อง Purkinje's fiber ในชั้นนี้ ลายมืออ่านไม่ออกว่าเขียนว่ามีหรือไม่มี แต่หน้า p.12 ชี้ Purkinje fibers ไว้ที่ subendocardial layer ของ ventricle ชัดเจน"
             ]
           },
           {
             "sub": "2. Myocardium",
             "body": [
-              {
-                "text": "**cardiac muscle + loose CNT**"
-              }
+              "**cardiac muscle + loose CNT**"
             ]
           },
           {
@@ -7648,24 +7016,16 @@ export const NOTES_Y2_HISTO = {
         "heading": "Purkinje fibers ใน ventricle",
         "source": "HISTO LAB - Block II p.12",
         "body": [
-          {
-            "text": "Slide 63-7 : Ventricle, cat เดคชี้ **Purkinje fibers** อยู่ใน **subendocardial layer** ของ ventricle"
-          },
-          {
-            "text": "ลักษณะที่เดคเขียนกำกับตัว Purkinje fiber: **มี 1-2 nucleus**, **มี mitochondria** และ **glycogen**"
-          },
-          {
-            "text": "ป้ายอื่นบนภาพเดียวกัน: mesothelium, epicardium, myocardium, endothelium, subendothelial layer, loose CNT"
-          }
+          "Slide 63-7 : Ventricle, cat เดคชี้ **Purkinje fibers** อยู่ใน **subendocardial layer** ของ ventricle",
+          "ลักษณะที่เดคเขียนกำกับตัว Purkinje fiber: **มี 1-2 nucleus**, **มี mitochondria** และ **glycogen**",
+          "ป้ายอื่นบนภาพเดียวกัน: mesothelium, epicardium, myocardium, endothelium, subendothelial layer, loose CNT"
         ]
       },
       {
         "heading": "Blood vessels comparison: ตารางเทียบหลอดเลือด",
         "source": "HISTO LAB - Block II p.13-14",
         "body": [
-          {
-            "text": "หน้านี้คือหัวใจของบทหลอดเลือด เดคไล่เทียบทีละชนิด"
-          },
+          "หน้านี้คือหัวใจของบทหลอดเลือด เดคไล่เทียบทีละชนิด",
           {
             "sub": "Elastic (large) artery",
             "body": [
@@ -7694,9 +7054,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Small artery (arteriole)",
             "body": [
-              {
-                "text": "**tunica media มี smooth muscle 1-3 layers**"
-              }
+              "**tunica media มี smooth muscle 1-3 layers**"
             ]
           },
           {
@@ -7748,9 +7106,7 @@ export const NOTES_Y2_HISTO = {
                   "**Elastic staining**: ใช้ให้เห็น **elastic fiber** ชัด จึงใช้ตาม internal elastic lamina กับ external elastic lamina ได้ง่าย"
                 ]
               },
-              {
-                "text": "ป้ายที่ไล่ครบบนภาพย้อม: tunica intima, internal elastic lamina, tunica media, external elastic lamina, tunica adventitia, vasa vasorum"
-              }
+              "ป้ายที่ไล่ครบบนภาพย้อม: tunica intima, internal elastic lamina, tunica media, external elastic lamina, tunica adventitia, vasa vasorum"
             ]
           }
         ]
@@ -7759,12 +7115,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Other blood vessels, lymph vessel, AV shunt",
         "source": "HISTO LAB - Block II p.19-22",
         "body": [
-          {
-            "text": "p.19-20 เป็นภาพเทียบ arteriole, venule, vein และ capillary ทั้ง cross section และ longitudinal section เกือบทั้งหมดเป็นภาพที่มีแต่ป้ายชื่อ ไม่มีข้อความอธิบาย"
-          },
-          {
-            "text": "จุดที่เดคเขียนกำกับได้ชัด: ใน capillary **เห็น RBC เรียงเพียง 1-2 แถว**"
-          },
+          "p.19-20 เป็นภาพเทียบ arteriole, venule, vein และ capillary ทั้ง cross section และ longitudinal section เกือบทั้งหมดเป็นภาพที่มีแต่ป้ายชื่อ ไม่มีข้อความอธิบาย",
+          "จุดที่เดคเขียนกำกับได้ชัด: ใน capillary **เห็น RBC เรียงเพียง 1-2 แถว**",
           {
             "sub": "Lymph vessels (p.21)",
             "body": [
@@ -7780,9 +7132,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "AV shunt (arteriovenous anastomosis) (p.22)",
             "body": [
-              {
-                "text": "**Slide A94 : Liver, canine** ชี้ **hepatic cord** และ **sinusoid** ซึ่งใน sinusoid พบทั้ง RBC และ WBC"
-              }
+              "**Slide A94 : Liver, canine** ชี้ **hepatic cord** และ **sinusoid** ซึ่งใน sinusoid พบทั้ง RBC และ WBC"
             ]
           }
         ]
@@ -7804,9 +7154,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Autonomic ganglion",
             "body": [
-              {
-                "text": "**Slide A45-7 : Celiacomesenteric ganglion** เดคเขียนว่าเซลล์ใน autonomic ganglion มี nucleus แบบ **eccentric nucleus** และมี **satellite cell** ล้อมรอบ"
-              }
+              "**Slide A45-7 : Celiacomesenteric ganglion** เดคเขียนว่าเซลล์ใน autonomic ganglion มี nucleus แบบ **eccentric nucleus** และมี **satellite cell** ล้อมรอบ"
             ]
           },
           {
@@ -7819,9 +7167,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Myelinated และ Non-myelinated nerve fiber",
         "source": "HISTO LAB - Block II p.24-25",
         "body": [
-          {
-            "text": "เดคเขียนลำดับของ PNS ว่า ตัว neuron อยู่ใน **ganglion** ส่วน bundle ของเส้นใยรวมกันเป็น **nerve** และในนั้นคือ **nerve fiber**"
-          },
+          "เดคเขียนลำดับของ PNS ว่า ตัว neuron อยู่ใน **ganglion** ส่วน bundle ของเส้นใยรวมกันเป็น **nerve** และในนั้นคือ **nerve fiber**",
           {
             "sub": "ชั้น connective tissue ของเส้นประสาท (p.24)",
             "body": [
@@ -7850,9 +7196,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Non-myelinated fiber (p.25)",
             "body": [
-              {
-                "text": "มี **Schwann cell** อยู่ แต่ **ไม่มี myelin** หุ้ม"
-              }
+              "มี **Schwann cell** อยู่ แต่ **ไม่มี myelin** หุ้ม"
             ]
           }
         ]
@@ -7871,9 +7215,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Ependymal cells",
             "body": [
-              {
-                "text": "บุ **central canal** เดคเขียนว่าเหมือน epithelium และเป็น **columnar cells with cilia or microvilli**"
-              }
+              "บุ **central canal** เดคเขียนว่าเหมือน epithelium และเป็น **columnar cells with cilia or microvilli**"
             ]
           }
         ]
@@ -7903,18 +7245,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "**Silver staining** เดคเขียนว่าใช้เพื่อ **ดู axon**"
-          }
+          "**Silver staining** เดคเขียนว่าใช้เพื่อ **ดู axon**"
         ]
       },
       {
         "heading": "Cerebellum: 3 layers ของ cortex",
         "source": "HISTO LAB - Block II p.27",
         "body": [
-          {
-            "text": "เดคเขียนว่า cerebellar cortex **แบ่งเป็น 3 layers**"
-          },
+          "เดคเขียนว่า cerebellar cortex **แบ่งเป็น 3 layers**",
           {
             "bullets": [
               "**molecular layer**",
@@ -7922,15 +7260,9 @@ export const NOTES_Y2_HISTO = {
               "**granule cell layer**"
             ]
           },
-          {
-            "text": "**cerebellar medulla** คือ **white matter**"
-          },
-          {
-            "text": "เรื่อง **Purkinje cell** เดคชี้ว่า **dendrite แผ่ขึ้นไปใน molecular layer** ส่วน **axon ลงไปทาง medulla**"
-          },
-          {
-            "text": "มีคำว่า **basket cell** เขียนกำกับที่ molecular layer แต่ประโยคไทยรอบ ๆ อ่านไม่ออก"
-          }
+          "**cerebellar medulla** คือ **white matter**",
+          "เรื่อง **Purkinje cell** เดคชี้ว่า **dendrite แผ่ขึ้นไปใน molecular layer** ส่วน **axon ลงไปทาง medulla**",
+          "มีคำว่า **basket cell** เขียนกำกับที่ molecular layer แต่ประโยคไทยรอบ ๆ อ่านไม่ออก"
         ]
       },
       {
@@ -7952,9 +7284,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Internal ear, cochlea",
             "body": [
-              {
-                "text": "ในภาพเดียวกันมี **spiral ganglion of CN VIII (vestibulocochlear nerve)**"
-              }
+              "ในภาพเดียวกันมี **spiral ganglion of CN VIII (vestibulocochlear nerve)**"
             ]
           }
         ]
@@ -7966,9 +7296,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Meissner's corpuscle (touch corpuscle)",
             "body": [
-              {
-                "text": "อยู่ใน **connective tissue** ใต้ epidermis (เดคชี้ชั้น epidermis กับ dermis กำกับไว้) และเขียนคำว่า **touch / tactile** กำกับหน้าที่"
-              }
+              "อยู่ใน **connective tissue** ใต้ epidermis (เดคชี้ชั้น epidermis กับ dermis กำกับไว้) และเขียนคำว่า **touch / tactile** กำกับหน้าที่"
             ]
           },
           {
@@ -7983,9 +7311,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์อ้างอิงบนหน้านี้: **Slide K13 : Fingertip** และ **Slide B195 : Pancreas, cat**"
-          }
+          "สไลด์อ้างอิงบนหน้านี้: **Slide K13 : Fingertip** และ **Slide B195 : Pancreas, cat**"
         ]
       },
       {
@@ -8061,9 +7387,7 @@ export const NOTES_Y2_HISTO = {
                   "**follicular dendritic cell** อยู่ใน germinal center และเดคชี้ว่าดู nucleolus ได้"
                 ]
               },
-              {
-                "text": "เดคเขียนคำว่า **immunohistochemistry** กำกับไว้กับการดู germinal center แต่ประโยคไทยที่ขยายอ่านไม่ออก"
-              }
+              "เดคเขียนคำว่า **immunohistochemistry** กำกับไว้กับการดู germinal center แต่ประโยคไทยที่ขยายอ่านไม่ออก"
             ]
           },
           {
@@ -8078,18 +7402,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์อ้างอิง: **Slide B150 : Lymph node, Dog**, **Slide 001 : Lymph node** และ **Slide : Lymph node, Pig**"
-          }
+          "สไลด์อ้างอิง: **Slide B150 : Lymph node, Dog**, **Slide 001 : Lymph node** และ **Slide : Lymph node, Pig**"
         ]
       },
       {
         "heading": "Spleen",
         "source": "HISTO LAB - Block II p.35-38",
         "body": [
-          {
-            "text": "เดคเขียนว่า spleen แบ่งเป็น **white pulp** และ **red pulp**"
-          },
+          "เดคเขียนว่า spleen แบ่งเป็น **white pulp** และ **red pulp**",
           {
             "sub": "White pulp",
             "body": [
@@ -8125,9 +7445,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์อ้างอิง: **Slide B130 : Spleen, Pig**"
-          }
+          "สไลด์อ้างอิง: **Slide B130 : Spleen, Pig**"
         ]
       },
       {
@@ -8146,9 +7464,7 @@ export const NOTES_Y2_HISTO = {
                   "อยู่ใน **lamina propria** ซึ่งเป็น CNT ใต้ epithelium และมี **B-lymphocyte**"
                 ]
               },
-              {
-                "text": "สไลด์อ้างอิง: **Slide B131-50 : Duodenum** และ **Slide A91-2 : Ileum**"
-              }
+              "สไลด์อ้างอิง: **Slide B131-50 : Duodenum** และ **Slide A91-2 : Ileum**"
             ]
           },
           {
@@ -8211,9 +7527,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Trachea และความต่างระหว่างสัตว์",
         "source": "HISTO LAB - Block II p.45-46",
         "body": [
-          {
-            "text": "ชั้นที่ต้องชี้ได้: **epithelium → propria-submucosa → cartilage (มี perichondrium) → trachealis muscle → tunica adventitia**"
-          },
+          "ชั้นที่ต้องชี้ได้: **epithelium → propria-submucosa → cartilage (มี perichondrium) → trachealis muscle → tunica adventitia**",
           {
             "bullets": [
               "**Slide A24-1 : Trachea, Equine** ชี้ perichondrium, propria-submucosa, tunica adventitia และ trachealis muscle",
@@ -8223,21 +7537,15 @@ export const NOTES_Y2_HISTO = {
               "**Slide : Trachea, Rat** เห็น trachea คู่กับ esophagus ในภาพเดียว"
             ]
           },
-          {
-            "text": "เดคเขียนกำกับว่าใน **carnivores** มี **trachealis muscle** และเขียนถึง **elastic lamina** ในชั้น propria-submucosa แต่ประโยคขยายทั้งสองจุดเป็นลายมือที่อ่านไม่ออก"
-          },
-          {
-            "text": "อีกจุดที่เขียนไว้: บริเวณที่มี **mesothelium** คือ **tunica serosa** ส่วนที่ไม่มีคือ **tunica adventitia**"
-          }
+          "เดคเขียนกำกับว่าใน **carnivores** มี **trachealis muscle** และเขียนถึง **elastic lamina** ในชั้น propria-submucosa แต่ประโยคขยายทั้งสองจุดเป็นลายมือที่อ่านไม่ออก",
+          "อีกจุดที่เขียนไว้: บริเวณที่มี **mesothelium** คือ **tunica serosa** ส่วนที่ไม่มีคือ **tunica adventitia**"
         ]
       },
       {
         "heading": "Bronchus, Bronchioles, Lung",
         "source": "HISTO LAB - Block II p.47-50",
         "body": [
-          {
-            "text": "หัวข้อหน้าเปิดเขียนไว้สั้น ๆ ว่า **มี myoelastic layer** และ **no cartilage** (p.47)"
-          },
+          "หัวข้อหน้าเปิดเขียนไว้สั้น ๆ ว่า **มี myoelastic layer** และ **no cartilage** (p.47)",
           {
             "sub": "เยื่อบุที่ไล่ตามลำดับ",
             "body": [
@@ -8265,9 +7573,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์อ้างอิงในกลุ่มนี้: **Slide : Lung, Rat**, **Slide 63-2 : Lung, Cat**, **Slide PW104 : Lung, Canine**, **Slide B151 : Lung, Canine**, **Slide A67-3 : Lung, Swine**"
-          },
+          "สไลด์อ้างอิงในกลุ่มนี้: **Slide : Lung, Rat**, **Slide 63-2 : Lung, Cat**, **Slide PW104 : Lung, Canine**, **Slide B151 : Lung, Canine**, **Slide A67-3 : Lung, Swine**",
           {
             "callout": "หน้า p.19-20, p.36 และ p.41 เป็นภาพล้วนหรือหน้าคั่นหัวข้อ ไม่มีเนื้อหาอธิบายให้สรุป",
             "kind": "flag"
@@ -8313,9 +7619,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "องค์ประกอบของ integument และรอยต่อ epidermis กับ dermis",
         "source": "Integument p.4, p.6",
         "body": [
-          {
-            "text": "สไลด์แบ่ง integument ออกเป็น 3 หมวดใหญ่ ซึ่งเป็นโครงของทั้งเด็ค"
-          },
+          "สไลด์แบ่ง integument ออกเป็น 3 หมวดใหญ่ ซึ่งเป็นโครงของทั้งเด็ค",
           {
             "bullets": [
               "**Skin**",
@@ -8323,9 +7627,7 @@ export const NOTES_Y2_HISTO = {
               "**Special epidermal structures**"
             ]
           },
-          {
-            "text": "หน้าถัดมาเป็นภาพ label รอยต่อระหว่างสองชั้น ให้จำคู่ **epidermal peg (ของ epidermis) คู่กับ dermal papilla (ของ dermis)**"
-          }
+          "หน้าถัดมาเป็นภาพ label รอยต่อระหว่างสองชั้น ให้จำคู่ **epidermal peg (ของ epidermis) คู่กับ dermal papilla (ของ dermis)**"
         ]
       },
       {
@@ -8551,9 +7853,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Skin appendages และโครงสร้างของ hair",
         "source": "Integument p.23-24",
         "body": [
-          {
-            "text": "Skin appendages ในเด็คนี้มี 3 อย่าง คือ **hair, hair follicles และ skin glands**"
-          },
+          "Skin appendages ในเด็คนี้มี 3 อย่าง คือ **hair, hair follicles และ skin glands**",
           {
             "sub": "Hair shaft",
             "body": [
@@ -8590,9 +7890,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Outer (external) root sheath",
             "body": [
-              {
-                "text": "**corresponds กับ stratum basale และ stratum spinosum**"
-              }
+              "**corresponds กับ stratum basale และ stratum spinosum**"
             ]
           },
           {
@@ -8613,9 +7911,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Dermal sheath (CNT root sheath)",
         "source": "Integument p.29",
         "body": [
-          {
-            "text": "ต่อเนื่องกับ dermis และล้อมรอบ hair follicle ประกอบด้วย"
-          },
+          "ต่อเนื่องกับ dermis และล้อมรอบ hair follicle ประกอบด้วย",
           {
             "bullets": [
               "**Glassy membrane**",
@@ -8653,9 +7949,7 @@ export const NOTES_Y2_HISTO = {
               "**Outer dermal sheath (outer of CNT sheath)**"
             ]
           },
-          {
-            "text": "หน้า p.36 เป็นภาพติด label ตรงกับลิสต์นี้ ได้แก่ inner dermal sheath, sinus pad, outer root sheath, blood sinus และ outer dermal sheath"
-          }
+          "หน้า p.36 เป็นภาพติด label ตรงกับลิสต์นี้ ได้แก่ inner dermal sheath, sinus pad, outer root sheath, blood sinus และ outer dermal sheath"
         ]
       },
       {
@@ -8680,9 +7974,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Skin glands และการจำแนก",
         "source": "Integument p.40-43",
         "body": [
-          {
-            "text": "Skin gland ที่เด็คนี้ไล่ทีละอันมี 5 ชนิด"
-          },
+          "Skin gland ที่เด็คนี้ไล่ทีละอันมี 5 ชนิด",
           {
             "bullets": [
               "**Sebaceous gland**",
@@ -8692,9 +7984,7 @@ export const NOTES_Y2_HISTO = {
               "**Mammary gland**"
             ]
           },
-          {
-            "text": "การจำแนกตาม **mode of secretion** แบ่งเป็น **merocrine gland, apocrine gland และ holocrine gland**"
-          },
+          "การจำแนกตาม **mode of secretion** แบ่งเป็น **merocrine gland, apocrine gland และ holocrine gland**",
           {
             "callout": "สไลด์ p.42 (mode of secretion) และ p.43 (anatomical classification) มีแต่หัวเรื่องกับภาพ ไม่มีข้อความอธิบายความต่างของแต่ละ mode และไม่มีรายการของ anatomical classification เลย สไลด์ไม่ได้บอก และ tarsal gland ก็ถูกลิสต์ไว้เฉย ๆ ไม่มีสไลด์ลงรายละเอียดตามมา",
             "kind": "flag"
@@ -8767,9 +8057,7 @@ export const NOTES_Y2_HISTO = {
               "**associated with sebaceous gland**"
             ]
           },
-          {
-            "text": "สมการที่สไลด์เขียนไว้ตรง ๆ คือ **sweat + sebum + epi. = ear wax (cerumen)**"
-          }
+          "สมการที่สไลด์เขียนไว้ตรง ๆ คือ **sweat + sebum + epi. = ear wax (cerumen)**"
         ]
       },
       {
@@ -8791,9 +8079,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ทางเดินน้ำนมของ mammary gland ตามแผนภาพ",
         "source": "Integument p.55",
         "body": [
-          {
-            "text": "สไลด์เป็นแผนภาพไล่จากต่อมออกไปสู่ปลายเต้า พร้อมกำกับ epithelium ของท่อสองอันแรก"
-          },
+          "สไลด์เป็นแผนภาพไล่จากต่อมออกไปสู่ปลายเต้า พร้อมกำกับ epithelium ของท่อสองอันแรก",
           {
             "bullets": [
               "**Lobule (alveoli)**",
@@ -8837,9 +8123,7 @@ export const NOTES_Y2_HISTO = {
               "**Coronet คือรอยต่อระหว่าง periople กับ skin**"
             ]
           },
-          {
-            "text": "ภาพ label ที่ตามมาแยกให้เห็นว่า **hoof capsule คือส่วน epidermis ส่วน corium คือ dermis** และชี้ perioplic horn, coronary horn กับ laminar horn บนภาพเดียวกัน"
-          }
+          "ภาพ label ที่ตามมาแยกให้เห็นว่า **hoof capsule คือส่วน epidermis ส่วน corium คือ dermis** และชี้ perioplic horn, coronary horn กับ laminar horn บนภาพเดียวกัน"
         ]
       },
       {
@@ -8863,9 +8147,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "การจับคู่ epidermis กับ dermis ของ hoof",
         "source": "Integument p.67",
         "body": [
-          {
-            "text": "สไลด์ทำเป็นตารางสองคอลัมน์ ฝั่งซ้าย epidermis ฝั่งขวา dermis จับคู่กันตรง ๆ"
-          },
+          "สไลด์ทำเป็นตารางสองคอลัมน์ ฝั่งซ้าย epidermis ฝั่งขวา dermis จับคู่กันตรง ๆ",
           {
             "bullets": [
               "**Perioplic horn คู่กับ perioplic corium**",
@@ -8885,9 +8167,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ภาพ hoof ที่ต้องอ่านให้ออก",
         "source": "Integument p.70-73",
         "body": [
-          {
-            "text": "ชุดนี้เป็นภาพติด label ไม่มีคำบรรยาย label ที่ปรากฏได้แก่"
-          },
+          "ชุดนี้เป็นภาพติด label ไม่มีคำบรรยาย label ที่ปรากฏได้แก่",
           {
             "bullets": [
               "ใน coronary horn ชี้ **tubular horn และ intertubular horn**",
@@ -8902,9 +8182,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Buffalo's hoof slide B196 อ่าน label ให้ครบ",
         "source": "Integument p.75-77",
         "body": [
-          {
-            "text": "สไลด์ให้คีย์ตัวอักษรของ slide B196 ไว้ตรง ๆ ใช้เทียบตอนดูกล้องได้เลย"
-          },
+          "สไลด์ให้คีย์ตัวอักษรของ slide B196 ไว้ตรง ๆ ใช้เทียบตอนดูกล้องได้เลย",
           {
             "bullets": [
               "**a = perioplic horn**",
@@ -8916,9 +8194,7 @@ export const NOTES_Y2_HISTO = {
               "**g = coronary corium** และ **g' = corial papilla of coronary corium**"
             ]
           },
-          {
-            "text": "อีกหน้าของ slide B196 เป็น longitudinal section ของ coronary horn กับ laminar horn โดย **a = tubular horn ใน coronary horn, b = intertubular horn cells, c และ d = laminar horn**"
-          },
+          "อีกหน้าของ slide B196 เป็น longitudinal section ของ coronary horn กับ laminar horn โดย **a = tubular horn ใน coronary horn, b = intertubular horn cells, c และ d = laminar horn**",
           {
             "callout": "หน้า p.75 ยังชี้ stratum spinosum กับ stratum granulosum บนภาพ buffalo's hoof ด้วย ซึ่งเป็นจุดที่เชื่อมเนื้อหา epidermis ตอนต้นเด็คกับ hoof ตอนท้ายเข้าด้วยกัน",
             "kind": "tip"
@@ -8937,12 +8213,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "เดคนี้เป็นอะไร และใช้ยังไง",
         "source": "Laboratory of nervous system histology p.1",
         "body": [
-          {
-            "text": "หัวสไลด์เขียนตรง ๆ ว่า **Laboratory of nervous system histology: slides list** คือเป็นรายการสไลด์ที่ต้องดูใน lab ระบบประสาท พร้อมชื่อโครงสร้างที่ต้องหาให้เจอในแต่ละสไลด์"
-          },
-          {
-            "text": "สไลด์แบ่งเป็น 8 กลุ่มตามเบอร์สไลด์ ได้แก่ spinal ganglion, celiacomesenteric ganglion, cerebrum, cerebellum, spinal cord, jejunum (ANS plexus), Pacinian corpuscle และ Meisner corpuscle"
-          },
+          "หัวสไลด์เขียนตรง ๆ ว่า **Laboratory of nervous system histology: slides list** คือเป็นรายการสไลด์ที่ต้องดูใน lab ระบบประสาท พร้อมชื่อโครงสร้างที่ต้องหาให้เจอในแต่ละสไลด์",
+          "สไลด์แบ่งเป็น 8 กลุ่มตามเบอร์สไลด์ ได้แก่ spinal ganglion, celiacomesenteric ganglion, cerebrum, cerebellum, spinal cord, jejunum (ANS plexus), Pacinian corpuscle และ Meisner corpuscle",
           {
             "callout": "เดคไม่ได้บอกวิธีย้อม ไม่ได้บอกกำลังขยาย ไม่ได้บอกเกณฑ์ให้คะแนน และไม่มีคำอธิบายหน้าที่ของโครงสร้างใด ๆ มีระบุแค่ว่าบางสไลด์เป็น silver stain (B187, B186) เท่านั้น",
             "kind": "warn"
@@ -8991,9 +8263,7 @@ export const NOTES_Y2_HISTO = {
               "**Non myelinated nerve fiber** พร้อม **Schwann cells**"
             ]
           },
-          {
-            "text": "จุดที่ต่างจาก A.40/B.183 อย่างชัดเจนคือ ganglion อันนี้เดคเขียนเป็น **non myelinated nerve fiber** ส่วน spinal ganglion เขียนเป็น myelinated nerve fiber"
-          },
+          "จุดที่ต่างจาก A.40/B.183 อย่างชัดเจนคือ ganglion อันนี้เดคเขียนเป็น **non myelinated nerve fiber** ส่วน spinal ganglion เขียนเป็น myelinated nerve fiber",
           {
             "callout": "เดคไม่ได้อธิบายว่าทำไม autonomic ganglion จึงเป็น non myelinated fiber สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -9028,9 +8298,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "นอกจากนี้ต้องชี้ **Pia mater** และ **multipolar neurons** โดยสไลด์ระบุว่า multipolar neurons ให้ดูใน **B187 (silver stain)**"
-          }
+          "นอกจากนี้ต้องชี้ **Pia mater** และ **multipolar neurons** โดยสไลด์ระบุว่า multipolar neurons ให้ดูใน **B187 (silver stain)**"
         ]
       },
       {
@@ -9047,9 +8315,7 @@ export const NOTES_Y2_HISTO = {
                   "**granular cell layer**"
                 ]
               },
-              {
-                "text": "เซลล์ที่ต้องชี้ในคอร์เทกซ์คือ **Purkinje cell, granule cell, basket cells** และ **multipolar neuron** ซึ่งเดคระบุว่าให้ดูใน **B186 (silver stain)**"
-              }
+              "เซลล์ที่ต้องชี้ในคอร์เทกซ์คือ **Purkinje cell, granule cell, basket cells** และ **multipolar neuron** ซึ่งเดคระบุว่าให้ดูใน **B186 (silver stain)**"
             ]
           },
           {
@@ -9089,18 +8355,14 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "ต้องชี้ **Central canal** ด้วย โดยเดคกำกับว่าบุด้วย **ependymal glia cells** และให้หา **oligodendrocyte** กับ **astrocytes** ในสไลด์นี้ด้วย"
-          }
+          "ต้องชี้ **Central canal** ด้วย โดยเดคกำกับว่าบุด้วย **ependymal glia cells** และให้หา **oligodendrocyte** กับ **astrocytes** ในสไลด์นี้ด้วย"
         ]
       },
       {
         "heading": "A.18 jejunum: ANS ในผนังลำไส้",
         "source": "Laboratory of nervous system histology p.1",
         "body": [
-          {
-            "text": "สไลด์ให้ดู autonomic nervous system 2 plexus โดยจำแหน่งที่อยู่เป็นหลัก"
-          },
+          "สไลด์ให้ดู autonomic nervous system 2 plexus โดยจำแหน่งที่อยู่เป็นหลัก",
           {
             "bullets": [
               "**Submucosal plexus** อยู่ **between connective tissue layer and muscular layer**",
@@ -9133,9 +8395,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "สรุปเช็กลิสต์ก่อนเข้า lab",
         "source": "Laboratory of nervous system histology p.1",
         "body": [
-          {
-            "text": "เดคทั้งหมดสรุปได้เป็นการจับคู่ เบอร์สไลด์ → อวัยวะ → โครงสร้างที่ต้องชี้ ซึ่งเป็นรูปแบบที่ตรงกับการสอบ lab practical"
-          },
+          "เดคทั้งหมดสรุปได้เป็นการจับคู่ เบอร์สไลด์ → อวัยวะ → โครงสร้างที่ต้องชี้ ซึ่งเป็นรูปแบบที่ตรงกับการสอบ lab practical",
           {
             "bullets": [
               "**A.40, B.183** spinal ganglion (lipofuschin ดูที่ B183)",
@@ -9163,12 +8423,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Immune system และ Lymphatic system คืออะไร",
         "source": "Lymphatic organ I p.2, p.4",
         "body": [
-          {
-            "text": "**The immune system provides defense or immunity against infectious agents** สไลด์ให้นิยามสั้น ๆ แค่นี้ แล้วอธิบายต่อในเชิง histology"
-          },
-          {
-            "text": "ในเชิง histology ระบบนี้ประกอบด้วยประชากร leukocytes ที่มีจำนวนมากและหลากหลาย กระจายอยู่ในเนื้อเยื่อทุกส่วนของร่างกาย ร่วมกับ lymphoid organs ซึ่งเชื่อมต่อกันด้วย blood circulation และ lymphatic circulation เท่านั้น"
-          },
+          "**The immune system provides defense or immunity against infectious agents** สไลด์ให้นิยามสั้น ๆ แค่นี้ แล้วอธิบายต่อในเชิง histology",
+          "ในเชิง histology ระบบนี้ประกอบด้วยประชากร leukocytes ที่มีจำนวนมากและหลากหลาย กระจายอยู่ในเนื้อเยื่อทุกส่วนของร่างกาย ร่วมกับ lymphoid organs ซึ่งเชื่อมต่อกันด้วย blood circulation และ lymphatic circulation เท่านั้น",
           {
             "sub": "Lymphatic system ประกอบด้วย 3 ส่วน (p.4)",
             "body": [
@@ -9205,9 +8461,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Immunocompetent vs Activated",
         "source": "Lymphatic organ I p.5",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นแผนภาพเทียบสองสถานะ โดยมีข้อความกำกับสั้น ๆ เท่านั้น"
-          },
+          "สไลด์นี้เป็นแผนภาพเทียบสองสถานะ โดยมีข้อความกำกับสั้น ๆ เท่านั้น",
           {
             "bullets": [
               "**Immunocompetent** คือ recognize self vs nonself ได้แล้ว แต่ยัง naïve คือยัง recognize antigen ไม่ได้",
@@ -9220,9 +8474,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "คุณสมบัติ 4 ข้อของ immune response",
         "source": "Lymphatic organ I p.6",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยคำว่า Defense แล้วระบุว่า **the immune response exhibits four distinctive properties**"
-          },
+          "สไลด์เปิดด้วยคำว่า Defense แล้วระบุว่า **the immune response exhibits four distinctive properties**",
           {
             "bullets": [
               "**specificity** ความสามารถของ adaptive immune system ในการเล็งเป้าไปที่ pathogen ที่จำเพาะ",
@@ -9240,9 +8492,7 @@ export const NOTES_Y2_HISTO = {
                   "**Adaptive immunity** คือ lymphocytes และ APCs จำเพาะต่อ microbial invader"
                 ]
               },
-              {
-                "text": "สไลด์เขียนกำกับท้ายไว้ว่า TCR, BCR และ CD marker คือ specific cluster of differentiation marker"
-              }
+              "สไลด์เขียนกำกับท้ายไว้ว่า TCR, BCR และ CD marker คือ specific cluster of differentiation marker"
             ]
           }
         ]
@@ -9251,9 +8501,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Antigen และ Antibody",
         "source": "Lymphatic organ I p.7",
         "body": [
-          {
-            "text": "**Antibody คือ glycoprotein ใน immunoglobulin family ที่ทำปฏิกิริยาอย่างจำเพาะกับ antigenic determinant**"
-          },
+          "**Antibody คือ glycoprotein ใน immunoglobulin family ที่ทำปฏิกิริยาอย่างจำเพาะกับ antigenic determinant**",
           {
             "callout": "สไลด์นี้ให้คำนิยามของ antibody อย่างเดียว ไม่ได้ให้นิยามของ antigen แยกไว้ แม้หัวสไลด์จะเขียนว่า Antigen and Antibody",
             "kind": "flag"
@@ -9292,39 +8540,29 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cells of the immune system 3: Antigen presenting cells (APCs)",
         "source": "Lymphatic organ I p.10",
         "body": [
-          {
-            "text": "APCs เป็นส่วนหนึ่งของ mononuclear phagocytic cells"
-          },
+          "APCs เป็นส่วนหนึ่งของ mononuclear phagocytic cells",
           {
             "bullets": [
               "**Professional APCs** ได้แก่ macrophages, specialized dendritic cells ใน lymphoid organs (เช่น thymus, lymph node, skin) และ epithelial reticular cells ใน thymus",
               "**Non-Professional APCs** ได้แก่ fibroblasts และ vascular endothelial cells ซึ่งมี transient expression ของ MHC ระหว่างเกิด inflammation"
             ]
           },
-          {
-            "text": "**Major Histocompatibility complex (MHC) คือชุดของ cell surface molecule ที่เป็นตัวกลางในการปฏิสัมพันธ์ระหว่าง leukocytes กับ leukocytes อื่นหรือกับเซลล์ของร่างกาย**"
-          },
-          {
-            "text": "อักษรกำกับรูปในสไลด์ M คือ macrophage, R คือ reticular cells, T คือ trabeculae (Mescher, 2016)"
-          }
+          "**Major Histocompatibility complex (MHC) คือชุดของ cell surface molecule ที่เป็นตัวกลางในการปฏิสัมพันธ์ระหว่าง leukocytes กับ leukocytes อื่นหรือกับเซลล์ของร่างกาย**",
+          "อักษรกำกับรูปในสไลด์ M คือ macrophage, R คือ reticular cells, T คือ trabeculae (Mescher, 2016)"
         ]
       },
       {
         "heading": "สไลด์รูป Cell mediated และ Humoral immune response",
         "source": "Lymphatic organ I p.11-13",
         "body": [
-          {
-            "text": "สามสไลด์นี้เป็นแผนภาพล้วน หัวสไลด์เขียนว่า Cell mediated-Immune Response (p.11) และ Humoral Immune Response (p.12) ส่วน p.13 ไม่มีหัวข้อ ทั้งสามสไลด์อ้าง Mescher, 2016 และ **ไม่มีข้อความอธิบายกลไกในตัวสไลด์เลย** ต้องดูรูปจากไฟล์สไลด์จริงประกอบ"
-          }
+          "สามสไลด์นี้เป็นแผนภาพล้วน หัวสไลด์เขียนว่า Cell mediated-Immune Response (p.11) และ Humoral Immune Response (p.12) ส่วน p.13 ไม่มีหัวข้อ ทั้งสามสไลด์อ้าง Mescher, 2016 และ **ไม่มีข้อความอธิบายกลไกในตัวสไลด์เลย** ต้องดูรูปจากไฟล์สไลด์จริงประกอบ"
         ]
       },
       {
         "heading": "Thymus: ภาพรวมและเซลล์ที่พบ",
         "source": "Lymphatic organ I p.15, p.19",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า thymus เป็น **epithelial lymphoid organ** (p.15)"
-          },
+          "สไลด์ระบุว่า thymus เป็น **epithelial lymphoid organ** (p.15)",
           {
             "sub": "Cells in thymus (p.19)",
             "body": [
@@ -9338,9 +8576,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "p.17 มีคำกำกับรูปว่า incomplete separated medulla ส่วน p.16, p.18 และ p.22 เป็นรูปหรือ URL อ้างอิงล้วน ไม่มีข้อความ"
-          }
+          "p.17 มีคำกำกับรูปว่า incomplete separated medulla ส่วน p.16, p.18 และ p.22 เป็นรูปหรือ URL อ้างอิงล้วน ไม่มีข้อความ"
         ]
       },
       {
@@ -9387,9 +8623,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Histophysiology of the Thymus: positive และ negative selection",
         "source": "Lymphatic organ I p.23",
         "body": [
-          {
-            "text": "**Primary function ของ thymus คือ instruct immunoincompetent ให้กลายเป็น immunocompetent T-cell โดยอาศัย positive selection ใน cortex และ negative selection ใน medulla**"
-          },
+          "**Primary function ของ thymus คือ instruct immunoincompetent ให้กลายเป็น immunocompetent T-cell โดยอาศัย positive selection ใน cortex และ negative selection ใน medulla**",
           {
             "sub": "In cortex: T cells ต้องผ่าน 3 ข้อ",
             "body": [
@@ -9405,9 +8639,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "In medulla",
             "body": [
-              {
-                "text": "T cells เกิด maturation และกลายเป็น immunocompetent"
-              }
+              "T cells เกิด maturation และกลายเป็น immunocompetent"
             ]
           },
           {
@@ -9434,12 +8666,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Vascular supply ของ thymus",
         "source": "Lymphatic organ I p.26",
         "body": [
-          {
-            "text": "สไลด์วางลำดับเส้นทางไว้ดังนี้ immunoincompetent T-cell จาก bone marrow เข้าที่ corticomedullary junction แล้วไป periphery of cortex ไป deep cortex และไป medulla"
-          },
-          {
-            "text": "**Post capillary venules ที่ corticomedullary junction หรือใน medulla เป็นตัวนำ immunocompetent T cells ออกสู่ blood circulation และ secondary lymphoid organs**"
-          },
+          "สไลด์วางลำดับเส้นทางไว้ดังนี้ immunoincompetent T-cell จาก bone marrow เข้าที่ corticomedullary junction แล้วไป periphery of cortex ไป deep cortex และไป medulla",
+          "**Post capillary venules ที่ corticomedullary junction หรือใน medulla เป็นตัวนำ immunocompetent T cells ออกสู่ blood circulation และ secondary lymphoid organs**",
           {
             "callout": "p.27 หัวสไลด์เขียนว่า Blood supply in thymus แต่มีเพียง URL อ้างอิงกับรูป ไม่มีข้อความอธิบาย",
             "kind": "flag"
@@ -9490,9 +8718,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "เส้นทางการไหลของ lymph ผ่าน lymph node",
         "source": "Lymphatic organ I p.32",
         "body": [
-          {
-            "text": "สไลด์เรียงลำดับไว้ตรง ๆ ต้องจำให้ได้ทั้งลำดับ"
-          },
+          "สไลด์เรียงลำดับไว้ตรง ๆ ต้องจำให้ได้ทั้งลำดับ",
           {
             "bullets": [
               "**Afferent lymph vessel**",
@@ -9618,18 +8844,14 @@ export const NOTES_Y2_HISTO = {
               "**Medullary cord ประกอบด้วย lymphocytes, plasma cells และ macrophages ที่พันอยู่ในร่างแหของ reticular fibers** โดยมี process ยื่นเข้าไปใน sinuses เพื่อ phagocytose สิ่งแปลกปลอม"
             ]
           },
-          {
-            "text": "อักษรกำกับรูป p.41 MS คือ medullary sinus, MC คือ medullary cord และลูกศรชี้ที่ plasma cells (Mescher, 2014)"
-          }
+          "อักษรกำกับรูป p.41 MS คือ medullary sinus, MC คือ medullary cord และลูกศรชี้ที่ plasma cells (Mescher, 2014)"
         ]
       },
       {
         "heading": "Function of lymph node",
         "source": "Lymphatic organ I p.42",
         "body": [
-          {
-            "text": "**หน้าที่คือ filter the lymph และตอบสนองทาง immunology ต่อ antigens** สไลด์แจกแจงกลไกเป็น 3 ข้อ"
-          },
+          "**หน้าที่คือ filter the lymph และตอบสนองทาง immunology ต่อ antigens** สไลด์แจกแจงกลไกเป็น 3 ข้อ",
           {
             "bullets": [
               "**macrophage** ทำทั้ง filtration และ immune response เข้ามาทาง lymph vessels ดักจับ antigen ใน lymph แล้วอพยพเข้า cortex เพื่อนำเสนอต่อ lymphocytes",
@@ -9674,9 +8896,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "สไลด์สรุป Enemy at the gates",
         "source": "Lymphatic organ I p.45",
         "body": [
-          {
-            "text": "สไลด์ปิดท้ายเป็นแผนภาพสรุปที่มีแต่คำสั้น ๆ กระจายรอบรูป ไม่มีประโยคอธิบาย คำที่ปรากฏได้แก่ APC, T, in blood circulation, lymph node, proliferate, bone marrow, blood circulation, Tact, B, form secondary LN, paracortex expansion, memory B, plasma cell, activated และ germinal center in lymphatic nodules"
-          },
+          "สไลด์ปิดท้ายเป็นแผนภาพสรุปที่มีแต่คำสั้น ๆ กระจายรอบรูป ไม่มีประโยคอธิบาย คำที่ปรากฏได้แก่ APC, T, in blood circulation, lymph node, proliferate, bone marrow, blood circulation, Tact, B, form secondary LN, paracortex expansion, memory B, plasma cell, activated และ germinal center in lymphatic nodules",
           {
             "callout": "ลำดับเหตุการณ์ที่แน่นอนของแผนภาพนี้ สไลด์ไม่ได้เขียนเป็นข้อความ ให้ดูรูปในไฟล์สไลด์จริงประกอบกับเนื้อหา p.42 และ p.44",
             "kind": "warn"
@@ -9696,9 +8916,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "MALT คืออะไร และอยู่ที่ไหน",
         "source": "Lymphatic organs II p.2",
         "body": [
-          {
-            "text": "**MALT (Mucosa-Associated Lymphoid Tissue) เป็น secondary lymphoid structure ซึ่งเป็นที่ที่ lymphocyte ส่วนใหญ่ถูก activate โดยการ antigen presentation** สไลด์จัดกลุ่ม secondary lymphoid structure ไว้ 3 อย่างคือ MALT, lymph node และ spleen"
-          },
+          "**MALT (Mucosa-Associated Lymphoid Tissue) เป็น secondary lymphoid structure ซึ่งเป็นที่ที่ lymphocyte ส่วนใหญ่ถูก activate โดยการ antigen presentation** สไลด์จัดกลุ่ม secondary lymphoid structure ไว้ 3 อย่างคือ MALT, lymph node และ spleen",
           {
             "bullets": [
               "Mucosa ของ digestive, respiratory และ urogenital tract เป็นตำแหน่งที่เชื้อโรคเข้าสู่ร่างกายได้บ่อย",
@@ -9711,18 +8929,12 @@ export const NOTES_Y2_HISTO = {
         "heading": "Diffuse lymphoid tissue และ lymphatic nodules",
         "source": "Lymphatic organs II p.3-4",
         "body": [
-          {
-            "text": "สไลด์แบ่งองค์ประกอบเป็น 2 ส่วนคือ (1) localized lymphocyte infiltration และ (2) lymphoid nodules ใน mucosa ของ gastrointestinal, respiratory และ urinary tract โดยตำแหน่งที่พบ lymphocyte คือ lamina propria (ใน tunica mucosa) และ tunica submucosa"
-          },
-          {
-            "text": "หน้าที่คือ **guard the body against pathogenic substances และเป็นตำแหน่งของ initial immune response**"
-          },
+          "สไลด์แบ่งองค์ประกอบเป็น 2 ส่วนคือ (1) localized lymphocyte infiltration และ (2) lymphoid nodules ใน mucosa ของ gastrointestinal, respiratory และ urinary tract โดยตำแหน่งที่พบ lymphocyte คือ lamina propria (ใน tunica mucosa) และ tunica submucosa",
+          "หน้าที่คือ **guard the body against pathogenic substances และเป็นตำแหน่งของ initial immune response**",
           {
             "sub": "เส้นทางของ lymphocyte หลังเจอ antigen",
             "body": [
-              {
-                "text": "หลัง lymphocyte สัมผัส antigen จะเดินทางไปที่ regional lymph node เพื่อ proliferation และ differentiation จากนั้น progeny ของเซลล์เหล่านี้จะกลับมาที่ lamina propria ในสภาพ effector B และ T cells"
-              }
+              "หลัง lymphocyte สัมผัส antigen จะเดินทางไปที่ regional lymph node เพื่อ proliferation และ differentiation จากนั้น progeny ของเซลล์เหล่านี้จะกลับมาที่ lamina propria ในสภาพ effector B และ T cells"
             ]
           },
           {
@@ -9741,9 +8953,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "ภาพ aggregated lymphatic nodules (p.4)",
             "body": [
-              {
-                "text": "หัวภาพพิมพ์ว่า FIGURE 14-13 **Peyer's patch and M cells**"
-              },
+              "หัวภาพพิมพ์ว่า FIGURE 14-13 **Peyer's patch and M cells**",
               {
                 "bullets": [
                   "ภาพ ileum ย้อม H&E ดูด้วย light microscope: **V = villi, N = lymphoid nodules**",
@@ -9762,9 +8972,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "M cell ใน Peyer's patch",
         "source": "Lymphatic organs II p.5",
         "body": [
-          {
-            "text": "สไลด์แสดงภาพ TEM ของ Peyer's patch พร้อมคีย์ B = brush border, E = cytoplasm ของ enterocyte ข้างเคียง, L = lymphocytes, D = dendritic cells, BM = basement membrane"
-          },
+          "สไลด์แสดงภาพ TEM ของ Peyer's patch พร้อมคีย์ B = brush border, E = cytoplasm ของ enterocyte ข้างเคียง, L = lymphocytes, D = dendritic cells, BM = basement membrane",
           {
             "sub": "ลักษณะของ M (Microfold) cell",
             "body": [
@@ -9796,9 +9004,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Tonsils: โครงสร้าง เยื่อบุ และเซลล์",
         "source": "Lymphatic organs II p.7",
         "body": [
-          {
-            "text": "**Tonsil เป็น incompletely encapsulated aggregation ของ lymphoid nodule ที่เฝ้าทางเข้าของ oral pharynx** วางแทรกอยู่ในเส้นทางของ antigen ที่มากับอากาศและที่กินเข้าไป (airborne และ ingested antigens) และตอบสนองต่อ antigen เหล่านี้ด้วยการสร้าง lymphocyte และก่อ immune response"
-          },
+          "**Tonsil เป็น incompletely encapsulated aggregation ของ lymphoid nodule ที่เฝ้าทางเข้าของ oral pharynx** วางแทรกอยู่ในเส้นทางของ antigen ที่มากับอากาศและที่กินเข้าไป (airborne และ ingested antigens) และตอบสนองต่อ antigen เหล่านี้ด้วยการสร้าง lymphocyte และก่อ immune response",
           {
             "sub": "Epithelium ตามตำแหน่ง",
             "body": [
@@ -9813,9 +9019,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "จุดที่สไลด์ระบุเป็นเฉพาะสัตว์",
             "body": [
-              {
-                "text": "**Lingual tonsil ใน horse, pigs และ ruminants มี tonsillar crypts (tonsillar fossulae)** โดยสไลด์กำกับไว้ว่ามีได้หลายตำแหน่ง"
-              }
+              "**Lingual tonsil ใน horse, pigs และ ruminants มี tonsillar crypts (tonsillar fossulae)** โดยสไลด์กำกับไว้ว่ามีได้หลายตำแหน่ง"
             ]
           },
           {
@@ -9839,9 +9043,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Spleen: ภาพรวม หน้าที่ และองค์ประกอบหลัก",
         "source": "Lymphatic organs II p.9",
         "body": [
-          {
-            "text": "**ม้ามเป็น largest lymphoid organ ในร่างกาย และจัดเป็น secondary lymphoid organ**"
-          },
+          "**ม้ามเป็น largest lymphoid organ ในร่างกาย และจัดเป็น secondary lymphoid organ**",
           {
             "sub": "หน้าที่ 3 ข้อตามสไลด์",
             "body": [
@@ -9877,9 +9079,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Vascular supply ของม้าม",
         "source": "Lymphatic organs II p.12",
         "body": [
-          {
-            "text": "สไลด์ไล่ทางเดินเลือดขาออกไว้ว่า **splenic sinuses ไป veins of the pulp ไป splenic vein และไป portal vein**"
-          },
+          "สไลด์ไล่ทางเดินเลือดขาออกไว้ว่า **splenic sinuses ไป veins of the pulp ไป splenic vein และไป portal vein**",
           {
             "sub": "ลำดับหลอดเลือดแดง",
             "body": [
@@ -9904,21 +9104,15 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "สไลด์อ้างอิง Mesher, 2016"
-          }
+          "สไลด์อ้างอิง Mesher, 2016"
         ]
       },
       {
         "heading": "PALS และ central artery",
         "source": "Lymphatic organs II p.14",
         "body": [
-          {
-            "text": "**PALS = periarterial lymphatic sheath คือ T lymphocytes ที่แทรกอยู่ใน tunica adventitia ของ central artery**"
-          },
-          {
-            "text": "คีย์ภาพ: W = white pulp, R = red pulp, ลูกศร = PALS"
-          },
+          "**PALS = periarterial lymphatic sheath คือ T lymphocytes ที่แทรกอยู่ใน tunica adventitia ของ central artery**",
+          "คีย์ภาพ: W = white pulp, R = red pulp, ลูกศร = PALS",
           {
             "callout": "p.13, p.15 เป็นภาพเนื้อเยื่อที่มีเพียงป้ายกำกับ white pulp กับ red pulp หรือไม่มีข้อความเลย",
             "kind": "flag"
@@ -9929,9 +9123,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "White pulp และ marginal zone",
         "source": "Lymphatic organs II p.16",
         "body": [
-          {
-            "text": "**White pulp = PALS (ประกอบด้วย T lymphocytes) + splenic (lymphatic) nodules**"
-          },
+          "**White pulp = PALS (ประกอบด้วย T lymphocytes) + splenic (lymphatic) nodules**",
           {
             "bullets": [
               "พบบ่อยว่า lymphoid nodules ซึ่งประกอบด้วย B lymphocytes ถูกล้อมอยู่ภายใน PALS และ **ดัน central arteriole ไปอยู่ตำแหน่งขอบ (peripheral position)**",
@@ -9950,18 +9142,12 @@ export const NOTES_Y2_HISTO = {
         "heading": "Primary vs secondary lymphatic nodule",
         "source": "Lymphatic organs II p.19",
         "body": [
-          {
-            "text": "**Primary lymphatic nodule ประกอบด้วย small lymphocytes เป็นหลัก**"
-          },
+          "**Primary lymphatic nodule ประกอบด้วย small lymphocytes เป็นหลัก**",
           {
             "sub": "Secondary lymphatic nodule ประกอบด้วย 2 ส่วน",
             "body": [
-              {
-                "text": "(1) **Germinal center ติดสีจาง (lightly stain) เพราะเต็มไปด้วย large immature lymphocytes ได้แก่ lymphoblasts และ plasmablasts** ซึ่งนิวเคลียสของเซลล์อ่อนเหล่านี้มี euchromatin ปริมาณมาก GC แทน cascade ของการ activation และ proliferation ของ lymphocyte, การ differentiation เป็น plasma cell และการสร้าง antibody"
-              },
-              {
-                "text": "(2) **Mantle zone คือวงนอกของ small lymphocytes ที่ล้อมรอบ germinal center**"
-              }
+              "(1) **Germinal center ติดสีจาง (lightly stain) เพราะเต็มไปด้วย large immature lymphocytes ได้แก่ lymphoblasts และ plasmablasts** ซึ่งนิวเคลียสของเซลล์อ่อนเหล่านี้มี euchromatin ปริมาณมาก GC แทน cascade ของการ activation และ proliferation ของ lymphocyte, การ differentiation เป็น plasma cell และการสร้าง antibody",
+              "(2) **Mantle zone คือวงนอกของ small lymphocytes ที่ล้อมรอบ germinal center**"
             ]
           }
         ]
@@ -9970,9 +9156,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "เหตุการณ์ที่เกิดขึ้นที่ marginal zone",
         "source": "Lymphatic organs II p.20",
         "body": [
-          {
-            "text": "**ช่องว่างกว้างระหว่าง endothelial cells ของ sinuses ทำให้ antigen เข้าถึง parenchyma ของม้ามได้**"
-          },
+          "**ช่องว่างกว้างระหว่าง endothelial cells ของ sinuses ทำให้ antigen เข้าถึง parenchyma ของม้ามได้**",
           {
             "bullets": [
               "APCs เช่น macrophages คอยค้นหา antigen ในเลือด",
@@ -10041,23 +9225,17 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "การสร้าง lymphoid cells",
             "body": [
-              {
-                "text": "Lymphoid cells ถูกสร้างใน white pulp เพื่อตอบสนองต่อ antigenic challenge โดย **B cells และ plasma cells อยู่ใน nodules ส่วน T cells อยู่ใน PALS** จากนั้น B และ T cells ที่สร้างใหม่จะเข้าสู่ marginal sinuses แล้วย้ายไปยังตำแหน่งที่มี antigenic challenge หรือกลายเป็นส่วนหนึ่งของ circulatory pool ของ lymphocyte"
-              }
+              "Lymphoid cells ถูกสร้างใน white pulp เพื่อตอบสนองต่อ antigenic challenge โดย **B cells และ plasma cells อยู่ใน nodules ส่วน T cells อยู่ใน PALS** จากนั้น B และ T cells ที่สร้างใหม่จะเข้าสู่ marginal sinuses แล้วย้ายไปยังตำแหน่งที่มี antigenic challenge หรือกลายเป็นส่วนหนึ่งของ circulatory pool ของ lymphocyte"
             ]
           },
-          {
-            "text": "Soluble bloodborne antigens ถูก inactivate ด้วย Ab ก่อน แล้ว macrophages จึง phagocytose"
-          }
+          "Soluble bloodborne antigens ถูก inactivate ด้วย Ab ก่อน แล้ว macrophages จึง phagocytose"
         ]
       },
       {
         "heading": "การทำลายเม็ดเลือดแดงในม้าม",
         "source": "Lymphatic organs II p.24",
         "body": [
-          {
-            "text": "**เม็ดเลือดแดงที่มี deformability ลดลงจะผ่าน slit ในม้ามไม่ได้ จึงถูกกักไว้ใน splenic cord และถูกทำลายโดย macrophage ในที่สุด** (สไลด์อ้าง Thiagarajan et al., 2021)"
-          },
+          "**เม็ดเลือดแดงที่มี deformability ลดลงจะผ่าน slit ในม้ามไม่ได้ จึงถูกกักไว้ใน splenic cord และถูกทำลายโดย macrophage ในที่สุด** (สไลด์อ้าง Thiagarajan et al., 2021)",
           {
             "bullets": [
               "**ช่องว่างระหว่าง endothelial cells ที่อยู่ติดกันของ splenic sinuses กว้าง 2-3 µm** ทำให้ macrophage เคลื่อนจาก splenic cord แทรกผ่านระหว่าง endothelial cells เข้าไปใน sinus แล้ว phagocytose RBC เก่าได้",
@@ -10070,9 +9248,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Follicular dendritic cell (FDC): ลักษณะทางเซลล์วิทยา",
         "source": "Lymphatic organs II p.26",
         "body": [
-          {
-            "text": "**FDC มี mesenchymal origin**"
-          },
+          "**FDC มี mesenchymal origin**",
           {
             "bullets": [
               "นิวเคลียสกลม (round nuclei)",
@@ -10086,21 +9262,15 @@ export const NOTES_Y2_HISTO = {
         "heading": "FDC ใน reactive germinal center",
         "source": "Lymphatic organs II p.27",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นภาพจากแหล่งอ้างอิงภายนอกพร้อมคำบรรยายภาพว่า **FDC ใน reactive germinal center มักดูออกได้จากนิวเคลียสขนาดกลาง ที่มีเยื่อหุ้มนิวเคลียสขอบเขตชัดเจน (well demarcated membranes) และมี nucleolus เล็กเพียงอันเดียว** โดย paired nuclei มักแสดง membrane molding (ตำแหน่งที่ลูกศรชี้)"
-          }
+          "สไลด์นี้เป็นภาพจากแหล่งอ้างอิงภายนอกพร้อมคำบรรยายภาพว่า **FDC ใน reactive germinal center มักดูออกได้จากนิวเคลียสขนาดกลาง ที่มีเยื่อหุ้มนิวเคลียสขอบเขตชัดเจน (well demarcated membranes) และมี nucleolus เล็กเพียงอันเดียว** โดย paired nuclei มักแสดง membrane molding (ตำแหน่งที่ลูกศรชี้)"
         ]
       },
       {
         "heading": "สไลด์ที่เป็นรูปหรือแหล่งอ้างอิงล้วน",
         "source": "Lymphatic organs II p.25",
         "body": [
-          {
-            "text": "หน้า Conclusion (p.25) เป็นแผนภาพสรุปจาก Mesher, 2014 โดยไม่มีข้อความสรุปเป็นตัวหนังสือ ดังนั้น **สไลด์ไม่ได้บอก** ว่าอาจารย์สรุปประเด็นใดเป็นข้อ ๆ ถ้าต้องการสรุป ให้ย้อนกลับไปดูจากภาพในสไลด์จริง"
-          },
-          {
-            "text": "หน้าอื่นที่ไม่มีเนื้อหาเป็นข้อความ: p.8 (ภาพ tonsil คน), p.10 และ p.11 (โครงสร้างม้ามจากลิงก์ภายนอก), p.13, p.15, p.17, p.18, p.22 (ภาพ white pulp / marginal zone / red pulp), p.28 (ลิงก์ Yale medcell lymphatics lab) และ p.29 (ว่าง)"
-          },
+          "หน้า Conclusion (p.25) เป็นแผนภาพสรุปจาก Mesher, 2014 โดยไม่มีข้อความสรุปเป็นตัวหนังสือ ดังนั้น **สไลด์ไม่ได้บอก** ว่าอาจารย์สรุปประเด็นใดเป็นข้อ ๆ ถ้าต้องการสรุป ให้ย้อนกลับไปดูจากภาพในสไลด์จริง",
+          "หน้าอื่นที่ไม่มีเนื้อหาเป็นข้อความ: p.8 (ภาพ tonsil คน), p.10 และ p.11 (โครงสร้างม้ามจากลิงก์ภายนอก), p.13, p.15, p.17, p.18, p.22 (ภาพ white pulp / marginal zone / red pulp), p.28 (ลิงก์ Yale medcell lymphatics lab) และ p.29 (ว่าง)",
           {
             "callout": "อ่านโน้ตนี้คู่กับไฟล์สไลด์ตัวจริงเสมอ เพราะภาพเกือบทั้งหมดของเด็คนี้คือส่วนที่ต้องดูด้วยตา ไม่สามารถถอดเป็นข้อความได้",
             "kind": "tip"
@@ -10119,9 +9289,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "องค์ประกอบและหน้าที่ของระบบ",
         "source": "Male Reproductive System p.2-3",
         "body": [
-          {
-            "text": "เด็คแบ่งอวัยวะออกเป็น **7 ส่วน** แล้วไล่อธิบายทีละส่วนตามลำดับนี้ทั้งเล่ม"
-          },
+          "เด็คแบ่งอวัยวะออกเป็น **7 ส่วน** แล้วไล่อธิบายทีละส่วนตามลำดับนี้ทั้งเล่ม",
           {
             "bullets": [
               "1. Testis",
@@ -10155,9 +9323,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Testis: เปลือกและโครงร่างพยุง",
         "source": "Male Reproductive System p.4-7",
         "body": [
-          {
-            "text": "หัวข้อย่อยของ testis ที่สไลด์วางไว้ (p.4) คือ 1.1 Tunica albuginea, 1.2 Septula testis และ Mediastinum testis, 1.3 Testicular lobule (Interstitial tissue + Seminiferous tubules), 1.4 Straight testicular tubules (Tubuli recti), 1.5 Rete testis, 1.6 Testicular blood supply"
-          },
+          "หัวข้อย่อยของ testis ที่สไลด์วางไว้ (p.4) คือ 1.1 Tunica albuginea, 1.2 Septula testis และ Mediastinum testis, 1.3 Testicular lobule (Interstitial tissue + Seminiferous tubules), 1.4 Straight testicular tubules (Tubuli recti), 1.5 Rete testis, 1.6 Testicular blood supply",
           {
             "sub": "Tunica albuginea (p.5-6)",
             "body": [
@@ -10188,9 +9354,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Interstitial tissue และ Leydig cell",
         "source": "Male Reproductive System p.8-10",
         "body": [
-          {
-            "text": "ภายใน testicular lobule มี 2 องค์ประกอบ คือ **1.3.1 Interstitial tissue (IT)** และ **1.3.2 Seminiferous tubules (ST)** (p.8)"
-          },
+          "ภายใน testicular lobule มี 2 องค์ประกอบ คือ **1.3.1 Interstitial tissue (IT)** และ **1.3.2 Seminiferous tubules (ST)** (p.8)",
           {
             "sub": "องค์ประกอบของ interstitial tissue (p.9)",
             "body": [
@@ -10222,9 +9386,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ผนัง Seminiferous tubule",
         "source": "Male Reproductive System p.11",
         "body": [
-          {
-            "text": "สไลด์ไล่ชั้นจากนอกเข้าใน **3 ชั้น**"
-          },
+          "สไลด์ไล่ชั้นจากนอกเข้าใน **3 ชั้น**",
           {
             "bullets": [
               "**Lamina propria (LP)** ประกอบด้วย peritubular cells (myofibroblasts), collagen และ blood vessels",
@@ -10276,25 +9438,19 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "1. Spermatocytogenesis",
             "body": [
-              {
-                "text": "จาก **spermatogonia** ไปเป็น **primary spermatocytes**"
-              }
+              "จาก **spermatogonia** ไปเป็น **primary spermatocytes**"
             ]
           },
           {
             "sub": "2. Meiosis (I และ II)",
             "body": [
-              {
-                "text": "Primary spermatocytes ไปเป็น secondary spermatocytes แล้วไปเป็น **round spermatids**"
-              }
+              "Primary spermatocytes ไปเป็น secondary spermatocytes แล้วไปเป็น **round spermatids**"
             ]
           },
           {
             "sub": "3. Spermiogenesis",
             "body": [
-              {
-                "text": "จาก round spermatids ไปเป็น elongated spermatids จนกลายเป็น **spermatozoa**"
-              }
+              "จาก round spermatids ไปเป็น elongated spermatids จนกลายเป็น **spermatozoa**"
             ]
           },
           {
@@ -10315,9 +9471,7 @@ export const NOTES_Y2_HISTO = {
               "**4. Maturation phase** mitochondria มารวมกันที่ **middle piece** และมีการกำจัด **residual body**"
             ]
           },
-          {
-            "text": "หน้า p.17 เป็นรูปให้ label ตามลำดับ acrosomal vesicle, acrosomal cap, acrosomal cap, residual body ซึ่งตรงกับ 4 phase ข้างต้น"
-          }
+          "หน้า p.17 เป็นรูปให้ label ตามลำดับ acrosomal vesicle, acrosomal cap, acrosomal cap, residual body ซึ่งตรงกับ 4 phase ข้างต้น"
         ]
       },
       {
@@ -10353,9 +9507,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Capacitation ตามที่สไลด์แสดง",
         "source": "Male Reproductive System p.20",
         "body": [
-          {
-            "text": "สไลด์แสดงการดู stage ของ capacitation ด้วย **fluorescent chlortetracycline (CTC) staining** โดยแบ่งเป็น 3 stage"
-          },
+          "สไลด์แสดงการดู stage ของ capacitation ด้วย **fluorescent chlortetracycline (CTC) staining** โดยแบ่งเป็น 3 stage",
           {
             "bullets": [
               "**Non-capacitated (A1)**",
@@ -10414,9 +9566,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Epididymis: Efferent ductules และ Ductus epididymis",
         "source": "Male Reproductive System p.24-26",
         "body": [
-          {
-            "text": "สไลด์แบ่ง epididymis เป็น 2 ส่วนคือ **efferent ductules** และ **ductus epididymis** (p.24)"
-          },
+          "สไลด์แบ่ง epididymis เป็น 2 ส่วนคือ **efferent ductules** และ **ductus epididymis** (p.24)",
           {
             "sub": "Efferent ductules (p.25)",
             "body": [
@@ -10563,9 +9713,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "การแบ่งส่วนและ histological structure (p.35)",
             "body": [
-              {
-                "text": "แบ่งเป็น **1. Prostatic urethra, 2. Membranous urethra, 3. Spongiose (penile) urethra**"
-              },
+              "แบ่งเป็น **1. Prostatic urethra, 2. Membranous urethra, 3. Spongiose (penile) urethra**",
               {
                 "bullets": [
                   "**Transitional epithelium**",
@@ -10649,9 +9797,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Prepuce",
         "source": "Male Reproductive System p.45-46",
         "body": [
-          {
-            "text": "**Tube-like fold of skin** ที่ห่อหุ้มส่วน cranial ของ penis และ glans penis แบ่งเป็น external layer (lamina) และ internal layer (lamina) (p.45)"
-          },
+          "**Tube-like fold of skin** ที่ห่อหุ้มส่วน cranial ของ penis และ glans penis แบ่งเป็น external layer (lamina) และ internal layer (lamina) (p.45)",
           {
             "sub": "External layer (p.46)",
             "body": [
@@ -10684,9 +9830,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lab slide checklist: testis และ epididymis",
         "source": "Male Reproductive System p.47-52",
         "body": [
-          {
-            "text": "ตั้งแต่ p.47 เป็นต้นไปเป็นส่วน **Histological slides for male reproductive system** ซึ่งเป็นรายการโครงสร้างที่ต้องหาให้เจอในสไลด์จริง ไม่ได้เพิ่มเนื้อหาทฤษฎีใหม่"
-          },
+          "ตั้งแต่ p.47 เป็นต้นไปเป็นส่วน **Histological slides for male reproductive system** ซึ่งเป็นรายการโครงสร้างที่ต้องหาให้เจอในสไลด์จริง ไม่ได้เพิ่มเนื้อหาทฤษฎีใหม่",
           {
             "sub": "โครงสร้างที่ต้องระบุใน testis (p.48-49)",
             "body": [
@@ -10703,9 +9847,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Efferent ductules (p.50)",
             "body": [
-              {
-                "text": "หาให้เจอ simple columnar epithelium, ciliated cells และ nonciliated cells"
-              }
+              "หาให้เจอ simple columnar epithelium, ciliated cells และ nonciliated cells"
             ]
           },
           {
@@ -10742,9 +9884,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Pelvic urethra ส่วน prostatic (p.54)",
             "body": [
-              {
-                "text": "หา internal (disseminate) portion ที่อยู่ใน propria-submucosa ของ urethra และ external (compact) portion"
-              }
+              "หา internal (disseminate) portion ที่อยู่ใน propria-submucosa ของ urethra และ external (compact) portion"
             ]
           },
           {
@@ -10800,9 +9940,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ส่วนประกอบของ neuron ตาม label ในสไลด์",
         "source": "Nervous System p.5",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นภาพ neuron ที่ชี้ label ไว้ ไม่มีคำอธิบายเป็นประโยค คำที่ต้องจำคือชื่อชิ้นส่วนตามที่สไลด์เขียน"
-          },
+          "สไลด์นี้เป็นภาพ neuron ที่ชี้ label ไว้ ไม่มีคำอธิบายเป็นประโยค คำที่ต้องจำคือชื่อชิ้นส่วนตามที่สไลด์เขียน",
           {
             "sub": "ตัวเซลล์ (cell body)",
             "body": [
@@ -10839,9 +9977,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Nerve fiber และ myelination",
         "source": "Nervous System p.12-13",
         "body": [
-          {
-            "text": "p.12 มีแค่คำว่า **SCHWANN CELL** กำกับรูป ส่วน p.13 เป็นภาพเปรียบเทียบเส้นใยประสาท"
-          },
+          "p.12 มีแค่คำว่า **SCHWANN CELL** กำกับรูป ส่วน p.13 เป็นภาพเปรียบเทียบเส้นใยประสาท",
           {
             "bullets": [
               "**MYELINATED NERVE FIBERS** เทียบกับ **NON MYELINATED NERVE FIBERS**",
@@ -10858,9 +9994,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Synapse",
         "source": "Nervous System p.14, 16-17",
         "body": [
-          {
-            "text": "p.14 เป็นภาพ synapse พร้อม label สามคำ"
-          },
+          "p.14 เป็นภาพ synapse พร้อม label สามคำ",
           {
             "bullets": [
               "**presynaptic**",
@@ -10868,9 +10002,7 @@ export const NOTES_Y2_HISTO = {
               "**synaptic cleft** สไลด์เขียนขนาดไว้ว่า **(15-20 nM)**"
             ]
           },
-          {
-            "text": "p.16 และ p.17 พาดหัวว่า **TYPES OF SYNAPSE** ทั้งสองหน้า แต่ตัวชนิดของ synapse อยู่ในรูปอย่างเดียว สไลด์ไม่ได้พิมพ์ชื่อชนิดไว้เป็นข้อความ"
-          }
+          "p.16 และ p.17 พาดหัวว่า **TYPES OF SYNAPSE** ทั้งสองหน้า แต่ตัวชนิดของ synapse อยู่ในรูปอย่างเดียว สไลด์ไม่ได้พิมพ์ชื่อชนิดไว้เป็นข้อความ"
         ]
       },
       {
@@ -10893,9 +10025,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "CNS glial cells: Astrocyte",
         "source": "Nervous System p.21-22",
         "body": [
-          {
-            "text": "**เป็น glial cell ที่ใหญ่ที่สุด (the largest glial cell)** มี multiple radiating processes"
-          },
+          "**เป็น glial cell ที่ใหญ่ที่สุด (the largest glial cell)** มี multiple radiating processes",
           {
             "bullets": [
               "ยึด neuron เข้ากับ capillaries และกับ pia mater (bind neuron to capillaries and to pia mater)",
@@ -10964,9 +10094,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "PNS glial cells: Schwann cell (neurolemmocyte)",
         "source": "Nervous System p.28-29",
         "body": [
-          {
-            "text": "เซลล์ที่ wrapping around ไปตามความยาวของ axon"
-          },
+          "เซลล์ที่ wrapping around ไปตามความยาวของ axon",
           {
             "bullets": [
               "**axonal ensheathment (myelination)**",
@@ -10974,9 +10102,7 @@ export const NOTES_Y2_HISTO = {
               "**axon guidance in regenerating axon**"
             ]
           },
-          {
-            "text": "p.29 เป็นภาพหัวข้อ AXON GUIDANCE BY SCHWANN CELLS TO REGENERATE AXON ไม่มีคำอธิบายเป็นข้อความ"
-          }
+          "p.29 เป็นภาพหัวข้อ AXON GUIDANCE BY SCHWANN CELLS TO REGENERATE AXON ไม่มีคำอธิบายเป็นข้อความ"
         ]
       },
       {
@@ -10996,9 +10122,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "อวัยวะที่สไลด์ให้ดูภาพ histology",
         "source": "Nervous System p.32-35",
         "body": [
-          {
-            "text": "ช่วงท้ายของชีตเป็นสไลด์ภาพพร้อมชื่ออวัยวะเท่านั้น"
-          },
+          "ช่วงท้ายของชีตเป็นสไลด์ภาพพร้อมชื่ออวัยวะเท่านั้น",
           {
             "bullets": [
               "**BRAIN** แยกเป็น **CEREBRUM: cerebral cortex** และ **CEREBELLUM: cerebellar cortex** (p.32-33)",
@@ -11016,18 +10140,14 @@ export const NOTES_Y2_HISTO = {
         "heading": "Enteric plexus ในทางเดินอาหาร",
         "source": "Nervous System p.36",
         "body": [
-          {
-            "text": "หน้าที่ตามที่สไลด์เขียน"
-          },
+          "หน้าที่ตามที่สไลด์เขียน",
           {
             "bullets": [
               "**control motility, exocrine & endocrine secretions และ blood flow ของ GI tract**",
               "**regulate inflammatory and immunological processes**"
             ]
           },
-          {
-            "text": "สองกลุ่มที่สไลด์ระบุชื่อไว้คือ **SUBMUCOSAL PLEXUS** และ **MYENTERIC PLEXUS** แต่สไลด์ไม่ได้บอกว่าแต่ละ plexus อยู่ชั้นไหนหรือคุมอะไรต่างกัน"
-          }
+          "สองกลุ่มที่สไลด์ระบุชื่อไว้คือ **SUBMUCOSAL PLEXUS** และ **MYENTERIC PLEXUS** แต่สไลด์ไม่ได้บอกว่าแต่ละ plexus อยู่ชั้นไหนหรือคุมอะไรต่างกัน"
         ]
       }
     ]
@@ -11042,9 +10162,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Equine — microplacentome",
         "source": "Placenta lab manual p.2",
         "body": [
-          {
-            "text": "ในม้า small tufts of branched chorioallantoic villi จะสอดประสาน (interdigitate) เข้ากับ crypts ของ endometrium **กระจุก villi รวมกับ crypts เรียกว่า microplacentomes**"
-          },
+          "ในม้า small tufts of branched chorioallantoic villi จะสอดประสาน (interdigitate) เข้ากับ crypts ของ endometrium **กระจุก villi รวมกับ crypts เรียกว่า microplacentomes**",
           {
             "bullets": [
               "สไลด์ย้ำให้สังเกตว่า chorioallantoic villi ถูกล้อมรอบด้วย endometrial crypt",
@@ -11058,9 +10176,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Ruminant — placentome",
         "source": "Placenta lab manual p.3",
         "body": [
-          {
-            "text": "ภาพเป็น section ตัดผ่าน placentome ซึ่งเกิดจากการจับคู่ระหว่าง **cotyledon (clumps of chorioallantoic villi) กับ uterine caruncle**"
-          },
+          "ภาพเป็น section ตัดผ่าน placentome ซึ่งเกิดจากการจับคู่ระหว่าง **cotyledon (clumps of chorioallantoic villi) กับ uterine caruncle**",
           {
             "bullets": [
               "cryptal (maternal) epithelium เป็น cuboidal หรือ flattened",
@@ -11100,18 +10216,14 @@ export const NOTES_Y2_HISTO = {
               "maternal endothelium สูงกว่า (higher than) fetal endothelium"
             ]
           },
-          {
-            "text": "หน้าเดียวกันนี้มีคำว่า Feline กำกับภาพอีกภาพหนึ่งด้วย แต่สไลด์ไม่ได้เขียนคำบรรยายของภาพ feline ไว้ **ต้องดูภาพจริงเอาเอง**"
-          }
+          "หน้าเดียวกันนี้มีคำว่า Feline กำกับภาพอีกภาพหนึ่งด้วย แต่สไลด์ไม่ได้เขียนคำบรรยายของภาพ feline ไว้ **ต้องดูภาพจริงเอาเอง**"
         ]
       },
       {
         "heading": "Rabbit placenta — การจำแนกและ 4 zone",
         "source": "Placenta lab manual p.8",
         "body": [
-          {
-            "text": "**Rabbit placenta = discoidal, labyrinthine, deciduate, hemochorial**"
-          },
+          "**Rabbit placenta = discoidal, labyrinthine, deciduate, hemochorial**",
           {
             "sub": "ทาง histology แบ่งเป็น 4 zone",
             "body": [
@@ -11179,12 +10291,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "Placentation คืออะไร",
         "source": "Placenta p.3",
         "body": [
-          {
-            "text": "Placenta เป็น **fetomaternal organ** ที่พัฒนาขึ้นตอน implantation ของ blastocyst คือมีทั้งส่วนที่มาจากลูกและส่วนที่มาจากแม่ประกอบกัน"
-          },
-          {
-            "text": "**Fetal placenta ประกอบด้วย chorion, allantois, amnion และ vestigial yolk sac**"
-          }
+          "Placenta เป็น **fetomaternal organ** ที่พัฒนาขึ้นตอน implantation ของ blastocyst คือมีทั้งส่วนที่มาจากลูกและส่วนที่มาจากแม่ประกอบกัน",
+          "**Fetal placenta ประกอบด้วย chorion, allantois, amnion และ vestigial yolk sac**"
         ]
       },
       {
@@ -11224,20 +10332,14 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Choriovitelline (yolk sac) placenta",
             "body": [
-              {
-                "text": "ผนัง yolk sac (endoderm) fuse กับ chorion (trophoblast และ mesoderm) แล้วจึง appose กับ endometrium"
-              },
-              {
-                "text": "**เป็น transitory และมีความสำคัญน้อยใน domestic animals**"
-              }
+              "ผนัง yolk sac (endoderm) fuse กับ chorion (trophoblast และ mesoderm) แล้วจึง appose กับ endometrium",
+              "**เป็น transitory และมีความสำคัญน้อยใน domestic animals**"
             ]
           },
           {
             "sub": "Allantochorionic placenta",
             "body": [
-              {
-                "text": "เกิดจากการ fusion ของ allantois กับ chorion"
-              }
+              "เกิดจากการ fusion ของ allantois กับ chorion"
             ]
           }
         ]
@@ -11252,9 +10354,7 @@ export const NOTES_Y2_HISTO = {
               "**Deciduate placenta**: trophoblasts invade และทำลาย superficial endometrium ซึ่ง endometrium ตอบสนองด้วยการสร้างเซลล์ขนาดใหญ่รูป polygonal เรียกว่า **decidual cells**"
             ]
           },
-          {
-            "text": "ระดับความรุนแรงต่างกันตามกลุ่มสัตว์ **dogs และ cats เป็น mildly deciduate ส่วน rodents และ primates เป็น fully deciduate**"
-          }
+          "ระดับความรุนแรงต่างกันตามกลุ่มสัตว์ **dogs และ cats เป็น mildly deciduate ส่วน rodents และ primates เป็น fully deciduate**"
         ]
       },
       {
@@ -11279,9 +10379,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Classification แบบที่ 4: fetomaternal tissue barrier",
         "source": "Placenta p.13-16",
         "body": [
-          {
-            "text": "**มีชั้นเนื้อเยื่อได้มากที่สุด 6 ชั้นที่คั่นระหว่าง fetal และ maternal circulation** (p.13) เรียงตามที่สไลด์ให้มา"
-          },
+          "**มีชั้นเนื้อเยื่อได้มากที่สุด 6 ชั้นที่คั่นระหว่าง fetal และ maternal circulation** (p.13) เรียงตามที่สไลด์ให้มา",
           {
             "bullets": [
               "(1) maternal capillary endothelium",
@@ -11295,33 +10393,25 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Epitheliochorial (p.14)",
             "body": [
-              {
-                "text": "**มีครบทั้ง 6 ชั้น** พบใน sow, ruminant, horse"
-              }
+              "**มีครบทั้ง 6 ชั้น** พบใน sow, ruminant, horse"
             ]
           },
           {
             "sub": "Syndesmochorial (p.15)",
             "body": [
-              {
-                "text": "**เหลือ 5 ชั้น เพราะ uterine epithelium ถูก erode** ชนิดนี้เกิดแบบ focally ใน ruminants หลังจากที่ epitheliochorial placenta ตั้งตัวแล้ว และเกิดใน pathological circumstances"
-              }
+              "**เหลือ 5 ชั้น เพราะ uterine epithelium ถูก erode** ชนิดนี้เกิดแบบ focally ใน ruminants หลังจากที่ epitheliochorial placenta ตั้งตัวแล้ว และเกิดใน pathological circumstances"
             ]
           },
           {
             "sub": "Endotheliochorial (p.15)",
             "body": [
-              {
-                "text": "**uterine epithelium และ connective tissue ถูก erode เหลือ 4 ชั้น** พบใน carnivores"
-              }
+              "**uterine epithelium และ connective tissue ถูก erode เหลือ 4 ชั้น** พบใน carnivores"
             ]
           },
           {
             "sub": "Hemochorial (p.16)",
             "body": [
-              {
-                "text": "**maternal layers ถูก erode หมด เหลือ trophoblasts สัมผัสกับ maternal blood โดยตรง** พบใน primate, rabbit, rodent"
-              }
+              "**maternal layers ถูก erode หมด เหลือ trophoblasts สัมผัสกับ maternal blood โดยตรง** พบใน primate, rabbit, rodent"
             ]
           }
         ]
@@ -11363,34 +10453,22 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Microcotyledons และ chorionic girdle (p.20)",
             "body": [
-              {
-                "text": "allantochorion กับ uterine epithelium ที่อยู่ติดกันเกิด specialized folding กลายเป็น **microcotyledons ทั่วเกือบทั้ง placenta หลัง day 60**"
-              },
-              {
-                "text": "**Chorionic girdle** คือ trophoblasts ที่ proliferate อย่างรวดเร็ว อยู่ระหว่าง yolk sac ที่กำลัง regress กับ chorioallantois ที่กำลังพัฒนา trophoblasts เหล่านี้จะกลายเป็น **binucleate** แล้ว **invade endometrium ราว day 37** ทำลาย uterine endothelium และฝังตัวใน stroma เพื่อสร้าง **endometrial cups**"
-              }
+              "allantochorion กับ uterine epithelium ที่อยู่ติดกันเกิด specialized folding กลายเป็น **microcotyledons ทั่วเกือบทั้ง placenta หลัง day 60**",
+              "**Chorionic girdle** คือ trophoblasts ที่ proliferate อย่างรวดเร็ว อยู่ระหว่าง yolk sac ที่กำลัง regress กับ chorioallantois ที่กำลังพัฒนา trophoblasts เหล่านี้จะกลายเป็น **binucleate** แล้ว **invade endometrium ราว day 37** ทำลาย uterine endothelium และฝังตัวใน stroma เพื่อสร้าง **endometrial cups**"
             ]
           },
           {
             "sub": "Endometrial cups และ eCG (p.25)",
             "body": [
-              {
-                "text": "Endometrial cups กระจายอยู่ทั่วผิวของ placenta และยื่นเข้าไปใน allantoic cavity"
-              },
-              {
-                "text": "**ทำหน้าที่ผลิต equine chorionic gonadotropin (ECG) ซึ่ง stabilize hormonal function ของ corpora lutea และตรวจพบใน serum ของแม่ม้าระหว่าง 40 ถึง 120 วันของการตั้งท้อง**"
-              }
+              "Endometrial cups กระจายอยู่ทั่วผิวของ placenta และยื่นเข้าไปใน allantoic cavity",
+              "**ทำหน้าที่ผลิต equine chorionic gonadotropin (ECG) ซึ่ง stabilize hormonal function ของ corpora lutea และตรวจพบใน serum ของแม่ม้าระหว่าง 40 ถึง 120 วันของการตั้งท้อง**"
             ]
           },
           {
             "sub": "Hippomanes (p.25-26)",
             "body": [
-              {
-                "text": "เป็นก้อนนิ่ม สีน้ำตาลเข้ม โดยปกติลอยอิสระอยู่ใน allantoic fluid หรืออาจติดค้างอยู่ใน fetal membranes (เรียก **allantoic calculi**)"
-              },
-              {
-                "text": "**เป็น concretions ของ minerals และ salts จากการผลิต fetal urine และไม่ใช่สิ่งผิดปกติที่จะพบ**"
-              }
+              "เป็นก้อนนิ่ม สีน้ำตาลเข้ม โดยปกติลอยอิสระอยู่ใน allantoic fluid หรืออาจติดค้างอยู่ใน fetal membranes (เรียก **allantoic calculi**)",
+              "**เป็น concretions ของ minerals และ salts จากการผลิต fetal urine และไม่ใช่สิ่งผิดปกติที่จะพบ**"
             ]
           }
         ]
@@ -11415,9 +10493,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Carnivore: zonary, labyrinthine, mildly deciduate, endotheliochorial",
         "source": "Placenta p.31, 32, 34",
         "body": [
-          {
-            "text": "ระยะแรกมี **choriovitelline placenta ที่กว้างขวาง ซึ่ง invade และ erode uterine tissue แล้วจึง regress** (p.31)"
-          },
+          "ระยะแรกมี **choriovitelline placenta ที่กว้างขวาง ซึ่ง invade และ erode uterine tissue แล้วจึง regress** (p.31)",
           {
             "sub": "Carnivore placenta ประกอบด้วย 3 ชั้น (p.31)",
             "body": [
@@ -11433,12 +10509,8 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Marginal hematomas และ trophoblast (p.32)",
             "body": [
-              {
-                "text": "**Marginal hematomas เกิดแบบสุ่ม การที่ trophoblasts ย่อยสลาย extravasated blood ทำให้เกิด meconium สีเขียวหรือน้ำตาล**"
-              },
-              {
-                "text": "**Syncytiotrophoblasts เป็นส่วนใหญ่ของ trophoblastic layer**"
-              }
+              "**Marginal hematomas เกิดแบบสุ่ม การที่ trophoblasts ย่อยสลาย extravasated blood ทำให้เกิด meconium สีเขียวหรือน้ำตาล**",
+              "**Syncytiotrophoblasts เป็นส่วนใหญ่ของ trophoblastic layer**"
             ]
           },
           {
@@ -11461,9 +10533,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Rabbit: discoidal, labyrinthine, deciduate, hemochorial",
         "source": "Placenta p.37-38",
         "body": [
-          {
-            "text": "สไลด์กระต่ายให้แค่ชุด classification ที่หัวเรื่องกับรูป ส่วนข้อความเดียวที่มีคือคำอธิบายตัวย่อบนภาพ (p.38)"
-          },
+          "สไลด์กระต่ายให้แค่ชุด classification ที่หัวเรื่องกับรูป ส่วนข้อความเดียวที่มีคือคำอธิบายตัวย่อบนภาพ (p.38)",
           {
             "bullets": [
               "LZ = labyrinth zone",
@@ -11483,9 +10553,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "สรุปชุด classification 4 คำของแต่ละสปีชีส์ (ตามหัวสไลด์)",
         "source": "Placenta p.19-38",
         "body": [
-          {
-            "text": "หัวเรื่องของทุกสไลด์สปีชีส์เขียนเป็นชุด 4 คำเรียงเหมือนกัน คือ attachment area, interface, degree of uterine destruction, tissue barrier **ท่องเป็นชุดจะได้ทั้ง 4 classification ในครั้งเดียว**"
-          },
+          "หัวเรื่องของทุกสไลด์สปีชีส์เขียนเป็นชุด 4 คำเรียงเหมือนกัน คือ attachment area, interface, degree of uterine destruction, tissue barrier **ท่องเป็นชุดจะได้ทั้ง 4 classification ในครั้งเดียว**",
           {
             "bullets": [
               "**Pig**: diffuse, fold, non-deciduate, epitheliochorial",
@@ -11501,9 +10569,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "สไลด์ที่เป็นรูปล้วน ต้องดูจากไฟล์จริง",
         "source": "Placenta p.5, 7, 11, 17, 21-24, 27, 29-30, 33, 35-36, 39-40",
         "body": [
-          {
-            "text": "สไลด์กลุ่มนี้มีแต่หัวเรื่องกับ diagram หรือ photomicrograph และลิงก์ที่มา ไม่มีข้อความบรรยาย จดโน้ตจากตัวหนังสือจึงดึงอะไรออกมาไม่ได้ ต้องเปิดไฟล์สไลด์ดูรูปเอง"
-          },
+          "สไลด์กลุ่มนี้มีแต่หัวเรื่องกับ diagram หรือ photomicrograph และลิงก์ที่มา ไม่มีข้อความบรรยาย จดโน้ตจากตัวหนังสือจึงดึงอะไรออกมาไม่ได้ ต้องเปิดไฟล์สไลด์ดูรูปเอง",
           {
             "bullets": [
               "p.5 และ p.7 Fetal membranes เป็นรูป",
@@ -11533,9 +10599,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "โครงสร้างของ Respiratory System แบ่งเป็น 3 ส่วน",
         "source": "Respiratory System p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดเรื่องด้วยการแบ่ง Structure of RS ออกเป็น 3 ส่วนตามหน้าที่"
-          },
+          "สไลด์เปิดเรื่องด้วยการแบ่ง Structure of RS ออกเป็น 3 ส่วนตามหน้าที่",
           {
             "bullets": [
               "**Conducting part: Nose ถึง terminal bronchiole**",
@@ -11553,9 +10617,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Nasal vestibule",
         "source": "Respiratory System p.2",
         "body": [
-          {
-            "text": "หน้า Anatomy of Respiratory System เขียนถึง **Muzzle ของสุนัข** และ **Nasal vestibule**"
-          },
+          "หน้า Anatomy of Respiratory System เขียนถึง **Muzzle ของสุนัข** และ **Nasal vestibule**",
           {
             "bullets": [
               "Nasal vestibule บุด้วย **Keratinized stratified squamous epithelium + pigment** ลักษณะคล้ายผิวหนัง (~ skin)"
@@ -11585,9 +10647,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "**Typical epithelium ของทางเดินหายใจ = Ciliated pseudostratified columnar epithelium with goblet cell**"
-          },
+          "**Typical epithelium ของทางเดินหายใจ = Ciliated pseudostratified columnar epithelium with goblet cell**",
           {
             "sub": "ตำแหน่งที่เป็นข้อยกเว้น ไม่ได้ใช้ typical epithelium",
             "body": [
@@ -11613,9 +10673,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Trachealis muscle ต่างกันตามชนิดสัตว์",
         "source": "Respiratory System p.11",
         "body": [
-          {
-            "text": "หน้าหลอดลมระบุตำแหน่งการขึงของ Trachealis muscle เทียบระหว่างกลุ่มสัตว์"
-          },
+          "หน้าหลอดลมระบุตำแหน่งการขึงของ Trachealis muscle เทียบระหว่างกลุ่มสัตว์",
           {
             "bullets": [
               "**human, horse, pig, cattle**: ขึงปลายขอบ cartilage ทั้งสองข้าง **ทางด้านใน**",
@@ -11666,9 +10724,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Blood-air barrier",
         "source": "Respiratory System p.19",
         "body": [
-          {
-            "text": "**Blood-air barrier มีชื่อเรียกอื่นว่า Respiratory membrane หรือ Alveolar-capillary membrane** สไลด์ไล่องค์ประกอบไว้ 6 ข้อตามลำดับ"
-          },
+          "**Blood-air barrier มีชื่อเรียกอื่นว่า Respiratory membrane หรือ Alveolar-capillary membrane** สไลด์ไล่องค์ประกอบไว้ 6 ข้อตามลำดับ",
           {
             "bullets": [
               "1. **Pulmonary surfactant**",
@@ -11715,12 +10771,8 @@ export const NOTES_Y2_HISTO = {
         "heading": "ภาพรวมของ The Eye: หน้าที่และ 3 ชั้นของผนังลูกตา",
         "source": "Special Sense p.2",
         "body": [
-          {
-            "text": "หน้าที่ของตาคือ **transform light into electrical impulses ที่ส่งไปยัง brain แล้วสมองสร้างเป็นภาพ (images)**"
-          },
-          {
-            "text": "ผนังลูกตาแบ่งเป็น 3 ชั้น จำเป็นโครงหลักของทั้งเด็คนี้"
-          },
+          "หน้าที่ของตาคือ **transform light into electrical impulses ที่ส่งไปยัง brain แล้วสมองสร้างเป็นภาพ (images)**",
+          "ผนังลูกตาแบ่งเป็น 3 ชั้น จำเป็นโครงหลักของทั้งเด็คนี้",
           {
             "bullets": [
               "**Fibrous layer: sclera และ cornea**",
@@ -11760,9 +10812,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cornea: 5 ชั้น",
         "source": "Special Sense p.7",
         "body": [
-          {
-            "text": "**Cornea เป็น avascular และ transparent** ประกอบด้วย 5 ชั้น เรียงจากด้านหน้าไปด้านหลัง"
-          },
+          "**Cornea เป็น avascular และ transparent** ประกอบด้วย 5 ชั้น เรียงจากด้านหน้าไปด้านหลัง",
           {
             "bullets": [
               "1. **Corneal epithelium (ant. epi.): non-keratinized stratified squamous epi.**",
@@ -11795,9 +10845,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Vascular layer (Uvea): choroid",
         "source": "Special Sense p.11",
         "body": [
-          {
-            "text": "**Choroid หนาและ richly vascularized อยู่ระหว่าง sclera กับ retina** แบ่งเป็น 5 ชั้น"
-          },
+          "**Choroid หนาและ richly vascularized อยู่ระหว่าง sclera กับ retina** แบ่งเป็น 5 ชั้น",
           {
             "bullets": [
               "suprachoroid layer",
@@ -11860,9 +10908,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "ciliary muscle",
             "body": [
-              {
-                "text": "**เป็น smooth muscle อยู่ภายใน loose CNT**"
-              }
+              "**เป็น smooth muscle อยู่ภายใน loose CNT**"
             ]
           }
         ]
@@ -11871,9 +10917,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Accomodation",
         "source": "Special Sense p.15",
         "body": [
-          {
-            "text": "สไลด์อธิบายกลไกเป็น 2 ทาง"
-          },
+          "สไลด์อธิบายกลไกเป็น 2 ทาง",
           {
             "bullets": [
               "**contraction ของ ciliary m. ทำให้ ciliary process ถูกดึงไปข้างหน้า แรงดึงที่กระทำต่อ lens capsule จะลดลง ทำให้เลนส์มีรูปร่างกลมมากขึ้น เกิดการโฟกัสภาพในระยะใกล้**",
@@ -11959,9 +11003,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "10 layers of retina",
         "source": "Special Sense p.23",
         "body": [
-          {
-            "text": "สไลด์ไล่ชื่อ 10 ชั้นตามลำดับ ควรท่องตามลำดับนี้"
-          },
+          "สไลด์ไล่ชื่อ 10 ชั้นตามลำดับ ควรท่องตามลำดับนี้",
           {
             "bullets": [
               "**retinal pigment epithelium: simp. cuboidal**",
@@ -12010,9 +11052,7 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Blind spot (p.28)",
             "body": [
-              {
-                "text": "**เป็นบริเวณที่ไม่พบ photoreceptor cells** สไลด์หน้านี้มีแต่หัวข้อกับรูป ไม่ได้อธิบายรายละเอียดเพิ่ม"
-              }
+              "**เป็นบริเวณที่ไม่พบ photoreceptor cells** สไลด์หน้านี้มีแต่หัวข้อกับรูป ไม่ได้อธิบายรายละเอียดเพิ่ม"
             ]
           }
         ]
@@ -12021,9 +11061,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Lens และ zonular fiber",
         "source": "Special Sense p.29",
         "body": [
-          {
-            "text": "Lens ประกอบด้วย 3 ส่วน"
-          },
+          "Lens ประกอบด้วย 3 ส่วน",
           {
             "bullets": [
               "**lens capsule: elastic fiber และ basement membrane ของ lens epithelium**",
@@ -12061,9 +11099,7 @@ export const NOTES_Y2_HISTO = {
               "**3rd eyelid: เป็น conjunctival fold มี T-shaped hyaline cartilage และมี gland of 3rd eyelid**"
             ]
           },
-          {
-            "text": "**ชนิดของ gland of 3rd eyelid ต่างกันตามสัตว์ ตรงนี้ออกสอบง่าย**"
-          },
+          "**ชนิดของ gland of 3rd eyelid ต่างกันตามสัตว์ ตรงนี้ออกสอบง่าย**",
           {
             "bullets": [
               "**serous: horse, cat**",
@@ -12145,9 +11181,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "The ossicles",
         "source": "Special Sense p.40",
         "body": [
-          {
-            "text": "**Ossicles วางตัวอยู่ระหว่าง tympanic membrane กับ vestibular oval window**"
-          },
+          "**Ossicles วางตัวอยู่ระหว่าง tympanic membrane กับ vestibular oval window**",
           {
             "bullets": [
               "**The malleus: inserts เข้าไปใน connective tissue ของ tympanic membrane**",
@@ -12167,9 +11201,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "The inner ear: osseous labyrinth",
         "source": "Special Sense p.44",
         "body": [
-          {
-            "text": "**Inner ear ประกอบด้วย osseous labyrinth และ membranous labyrinth (p.43)** โดย osseous labyrinth แบ่งเป็น vestibule, semicircular canals และ cochlea"
-          },
+          "**Inner ear ประกอบด้วย osseous labyrinth และ membranous labyrinth (p.43)** โดย osseous labyrinth แบ่งเป็น vestibule, semicircular canals และ cochlea",
           {
             "bullets": [
               "**Vestibule: central space ที่ติดต่อกับ tympanic cavity ผ่าน vestibular window (p.45)**",
@@ -12182,9 +11214,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Cochlea และช่องภายใน",
         "source": "Special Sense p.46",
         "body": [
-          {
-            "text": "**Cochlea canals มีรูปร่าง spiral shape** ภายใน cochlea มี membranous labyrinth อยู่ แบ่งช่องเป็น"
-          },
+          "**Cochlea canals มีรูปร่าง spiral shape** ภายใน cochlea มี membranous labyrinth อยู่ แบ่งช่องเป็น",
           {
             "bullets": [
               "**Cochlear ducts (Scala media)**",
@@ -12226,9 +11256,7 @@ export const NOTES_Y2_HISTO = {
               "**Macula utriculi และ macula sacculi เป็น sensory area ภายใน utricle และ saccule**"
             ]
           },
-          {
-            "text": "หน้าที่ของ macula ตามสไลด์"
-          },
+          "หน้าที่ของ macula ตามสไลด์",
           {
             "bullets": [
               "**detect linear acceleration**",
@@ -12236,9 +11264,7 @@ export const NOTES_Y2_HISTO = {
               "**control of posture, gait and equilibrium**"
             ]
           },
-          {
-            "text": "**Crista ampullaris เป็น ridge-shaped sensory receptor อยู่ใน ampulla ของ semicircular ducts**"
-          }
+          "**Crista ampullaris เป็น ridge-shaped sensory receptor อยู่ใน ampulla ของ semicircular ducts**"
         ]
       },
       {
@@ -12287,9 +11313,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Mechanism of hearing",
         "source": "Special Sense p.63",
         "body": [
-          {
-            "text": "สไลด์ไล่ลำดับเป็นสายโซ่ ควรจำเป็นลำดับ"
-          },
+          "สไลด์ไล่ลำดับเป็นสายโซ่ ควรจำเป็นลำดับ",
           {
             "bullets": [
               "**เสียงทำให้เกิด vibration ที่ tympanic membrane**",
@@ -12311,9 +11335,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "สไลด์ที่เป็นรูปล้วน ต้องกลับไปดูของจริง",
         "source": "Special Sense",
         "body": [
-          {
-            "text": "เด็คนี้มีสไลด์จำนวนมากที่ text layer ว่างเปล่าหรือมีแค่หัวข้อ เพราะเนื้อหาอยู่ในรูป histology หรือแผนภาพ สรุปเป็นตัวหนังสือแทนไม่ได้"
-          },
+          "เด็คนี้มีสไลด์จำนวนมากที่ text layer ว่างเปล่าหรือมีแค่หัวข้อ เพราะเนื้อหาอยู่ในรูป histology หรือแผนภาพ สรุปเป็นตัวหนังสือแทนไม่ได้",
           {
             "bullets": [
               "ฝั่งตา: p.3, 5, 10, 16, 19, 24, 25, 30 เป็นรูปประกอบของโครงสร้างที่บรรยายไว้ในสไลด์ข้างเคียง",
@@ -12336,21 +11358,15 @@ export const NOTES_Y2_HISTO = {
         "heading": "Histology คืออะไร",
         "source": "tissue preparation p.1-3",
         "body": [
-          {
-            "text": "**Histology คือ study of the microanatomy of cells, tissues, and organs as seen through a microscope** คือการศึกษาโครงสร้างระดับจุลภาคของเซลล์ เนื้อเยื่อ และอวัยวะ ผ่านกล้องจุลทรรศน์"
-          },
-          {
-            "text": "หน้า 2 ขึ้นหัวข้อ Cell type in tissue พร้อมคำว่า Epithelial cell และหน้า 3 ขึ้นหัวข้อ Histology of the gut ทั้งสองหน้าเป็นหน้ารูป ไม่มีข้อความอธิบายเพิ่ม สไลด์ไม่ได้บอกรายละเอียดของ cell type หรือของ gut ไว้ในเด็คนี้"
-          }
+          "**Histology คือ study of the microanatomy of cells, tissues, and organs as seen through a microscope** คือการศึกษาโครงสร้างระดับจุลภาคของเซลล์ เนื้อเยื่อ และอวัยวะ ผ่านกล้องจุลทรรศน์",
+          "หน้า 2 ขึ้นหัวข้อ Cell type in tissue พร้อมคำว่า Epithelial cell และหน้า 3 ขึ้นหัวข้อ Histology of the gut ทั้งสองหน้าเป็นหน้ารูป ไม่มีข้อความอธิบายเพิ่ม สไลด์ไม่ได้บอกรายละเอียดของ cell type หรือของ gut ไว้ในเด็คนี้"
         ]
       },
       {
         "heading": "เครื่องมือที่ใช้ดูเนื้อเยื่อ",
         "source": "tissue preparation p.4-8",
         "body": [
-          {
-            "text": "สไลด์แบ่งเครื่องมือเป็น **3 อย่าง คือ Light microscope, Electron microscope และ Slide scanner**"
-          },
+          "สไลด์แบ่งเครื่องมือเป็น **3 อย่าง คือ Light microscope, Electron microscope และ Slide scanner**",
           {
             "sub": "Electron microscope",
             "body": [
@@ -12365,27 +11381,21 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "Slide scanner",
             "body": [
-              {
-                "text": "สไลด์บอกไว้สั้น ๆ ว่าให้ภาพเซลล์แบบ reliable and high-resolution และแปะลิงก์วิดีโอ YouTube ไว้ประกอบ ไม่ได้อธิบายหลักการทำงานเพิ่ม"
-              }
+              "สไลด์บอกไว้สั้น ๆ ว่าให้ภาพเซลล์แบบ reliable and high-resolution และแปะลิงก์วิดีโอ YouTube ไว้ประกอบ ไม่ได้อธิบายหลักการทำงานเพิ่ม"
             ]
           },
           {
             "callout": "หน้า 8 ขึ้นหัวข้อ Function of Digital microscope ไว้เฉย ๆ แต่ไม่มีข้อความใต้หัวข้อเลย สไลด์ไม่ได้บอกว่า digital microscope ทำหน้าที่อะไรบ้าง",
             "kind": "flag"
           },
-          {
-            "text": "หน้า 5 (Light microscope) เป็นหน้ารูปล้วน ไม่มีข้อความอธิบาย"
-          }
+          "หน้า 5 (Light microscope) เป็นหน้ารูปล้วน ไม่มีข้อความอธิบาย"
         ]
       },
       {
         "heading": "ขั้นที่ 1 Obtaining a fresh specimen และ Fixation",
         "source": "tissue preparation p.11-12",
         "body": [
-          {
-            "text": "ขั้นแรกของ tissue preparation คือ obtaining from fresh specimen แล้ว **fixed specimen as soon as possible** คือรีบแช่น้ำยาให้เร็วที่สุด"
-          },
+          "ขั้นแรกของ tissue preparation คือ obtaining from fresh specimen แล้ว **fixed specimen as soon as possible** คือรีบแช่น้ำยาให้เร็วที่สุด",
           {
             "sub": "Fixation",
             "body": [
@@ -12448,9 +11458,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Sectioning (Slicing)",
         "source": "tissue preparation p.17",
         "body": [
-          {
-            "text": "เนื้อเยื่อที่อยู่ใน paraffin block จะถูกนำมาตัดเป็นแผ่นบาง สไลด์เทียบเครื่องตัด 3 แบบ ซึ่งต่างกันที่ความหนาและสภาพเนื้อเยื่อที่ใช้"
-          },
+          "เนื้อเยื่อที่อยู่ใน paraffin block จะถูกนำมาตัดเป็นแผ่นบาง สไลด์เทียบเครื่องตัด 3 แบบ ซึ่งต่างกันที่ความหนาและสภาพเนื้อเยื่อที่ใช้",
           {
             "bullets": [
               "**Microtome ตัด thin sections ประมาณ 1-50 µm จาก fixed tissue**",
@@ -12468,9 +11476,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Staining ด้วย H&E",
         "source": "tissue preparation p.18",
         "body": [
-          {
-            "text": "สไลด์ยก **Histochemical stain by H&E staining (hematoxylin and eosin stain)** เป็นการย้อมพื้นฐาน"
-          },
+          "สไลด์ยก **Histochemical stain by H&E staining (hematoxylin and eosin stain)** เป็นการย้อมพื้นฐาน",
           {
             "bullets": [
               "**Hematoxylin ให้สี dark blue หรือ purple ติด cell nucleus รวมถึง ribosomes และ rough endoplasmic reticulum ของ cytoplasm**",
@@ -12483,9 +11489,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Specialized Histotechniques",
         "source": "tissue preparation p.20-21",
         "body": [
-          {
-            "text": "สไลด์บอกว่าเทคนิคกลุ่มนี้ใช้เพื่อ **to learn structure and function** และ **to locate molecular components**"
-          },
+          "สไลด์บอกว่าเทคนิคกลุ่มนี้ใช้เพื่อ **to learn structure and function** และ **to locate molecular components**",
           {
             "bullets": [
               "**Histochemistry และ cytochemistry** คือ identification และ localization ของ specific chemical ในเนื้อเยื่อและเซลล์",
@@ -12494,18 +11498,14 @@ export const NOTES_Y2_HISTO = {
               "**Autoradiography** อาศัยการ incorporate radiolabeled precursors หรือ substrates เข้าไปในเซลล์"
             ]
           },
-          {
-            "text": "หน้า 22 ขึ้นหัวข้อ Immunohistochemical เป็นหน้ารูป ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "หน้า 22 ขึ้นหัวข้อ Immunohistochemical เป็นหน้ารูป ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
         "heading": "Special stain แต่ละตัวใช้ดูอะไร",
         "source": "tissue preparation p.23-28",
         "body": [
-          {
-            "text": "ส่วนนี้ไล่ special stain ทีละตัว หน้าละหนึ่งสี ควรจำคู่ stain กับสิ่งที่มันชี้ให้เห็น"
-          },
+          "ส่วนนี้ไล่ special stain ทีละตัว หน้าละหนึ่งสี ควรจำคู่ stain กับสิ่งที่มันชี้ให้เห็น",
           {
             "bullets": [
               "**Alcian blue** ทำปฏิกิริยากับสารที่มี anionic groups เช่น acid mucosubstances และ acid mucins ใช้ในห้องแล็บเพื่อ demonstrate acid mucins ที่หลั่งจาก connective และ epithelial tissue tumors ต่าง ๆ",
@@ -12522,9 +11522,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Artifacts",
         "source": "tissue preparation p.29",
         "body": [
-          {
-            "text": "หน้าสุดท้ายที่มีเนื้อหาพูดถึง **artifacts** สิ่งที่โผล่มาบนสไลด์แต่ไม่ใช่โครงสร้างจริงของเนื้อเยื่อ"
-          },
+          "หน้าสุดท้ายที่มีเนื้อหาพูดถึง **artifacts** สิ่งที่โผล่มาบนสไลด์แต่ไม่ใช่โครงสร้างจริงของเนื้อเยื่อ",
           {
             "bullets": [
               "**Extraneous material**",
@@ -12551,9 +11549,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "องค์ประกอบและหน้าที่ของ urinary system",
         "source": "Urinary System p.2",
         "body": [
-          {
-            "text": "ระบบนี้ประกอบด้วย **(1) Kidneys (2) Ureter (3) Urinary bladder (4) Urethra**"
-          },
+          "ระบบนี้ประกอบด้วย **(1) Kidneys (2) Ureter (3) Urinary bladder (4) Urethra**",
           {
             "sub": "หน้าที่ 7 ข้อตามสไลด์",
             "body": [
@@ -12576,9 +11572,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Uriniferous tubule และจำนวน nephron รายชนิดสัตว์",
         "source": "Urinary System p.4",
         "body": [
-          {
-            "text": "**Uriniferous tubule (1 functional unit) = nephron + CD** และ **Nephron = renal corpuscle + renal tubule**"
-          },
+          "**Uriniferous tubule (1 functional unit) = nephron + CD** และ **Nephron = renal corpuscle + renal tubule**",
           {
             "sub": "จำนวน nephron ต่อไต (หน่วยล้าน) ตามสไลด์",
             "body": [
@@ -12645,9 +11639,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Renal capsule",
         "source": "Urinary System p.9",
         "body": [
-          {
-            "text": "เป็น dense irregular connective tissue (collagen, elastic fibers) ทำหน้าที่ protect from injury"
-          },
+          "เป็น dense irregular connective tissue (collagen, elastic fibers) ทำหน้าที่ protect from injury",
           {
             "sub": "ปริมาณ smooth muscle ใน capsule ต่างกันตามชนิดสัตว์",
             "body": [
@@ -12672,9 +11664,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ภาพรวม cortex และ medulla",
         "source": "Urinary System p.10",
         "body": [
-          {
-            "text": "ไตประกอบด้วย **(1) renal cortex และ (2) renal medulla** โดยในภาพสไลด์ระบุ A = cortex, B = outer medulla, C = inner medulla"
-          }
+          "ไตประกอบด้วย **(1) renal cortex และ (2) renal medulla** โดยในภาพสไลด์ระบุ A = cortex, B = outer medulla, C = inner medulla"
         ]
       },
       {
@@ -12704,9 +11694,7 @@ export const NOTES_Y2_HISTO = {
               }
             ]
           },
-          {
-            "text": "Label ในภาพ: 1 adipose tissue, 2 capsule, 3 renal corpuscle, 4 cortical labyrinth, 5 medullary ray"
-          }
+          "Label ในภาพ: 1 adipose tissue, 2 capsule, 3 renal corpuscle, 4 cortical labyrinth, 5 medullary ray"
         ]
       },
       {
@@ -12721,18 +11709,14 @@ export const NOTES_Y2_HISTO = {
               "Vasa recta"
             ]
           },
-          {
-            "text": "Label ในภาพประกอบ: 1 renal capsule, 2 renal corpuscle, 3 cortical labyrinth, 4 medullary ray, 5 medulla"
-          }
+          "Label ในภาพประกอบ: 1 renal capsule, 2 renal corpuscle, 3 cortical labyrinth, 4 medullary ray, 5 medulla"
         ]
       },
       {
         "heading": "Blood supply และหลอดเลือดที่ต้องรู้จัก",
         "source": "Urinary System p.15-16",
         "body": [
-          {
-            "text": "สไลด์ p.15 เป็นแผนภาพ blood supply to the kidneys มีข้อความกำกับเพียงว่าเส้นเลือด pass between medullary ray"
-          },
+          "สไลด์ p.15 เป็นแผนภาพ blood supply to the kidneys มีข้อความกำกับเพียงว่าเส้นเลือด pass between medullary ray",
           {
             "bullets": [
               "**Vasa recta's function = maintain osmotic gradient in medulla**",
@@ -12752,18 +11736,14 @@ export const NOTES_Y2_HISTO = {
               "**3. Capsular (urinary) space** อยู่ระหว่าง visceral และ parietal layer ของ Bowman capsule"
             ]
           },
-          {
-            "text": "สไลด์ชี้ตำแหน่ง **vascular pole** และ **tubular pole** ไว้บนภาพ"
-          }
+          "สไลด์ชี้ตำแหน่ง **vascular pole** และ **tubular pole** ไว้บนภาพ"
         ]
       },
       {
         "heading": "Filtration barrier",
         "source": "Urinary System p.19",
         "body": [
-          {
-            "text": "**Filtration occurs through a structure with 3 parts** และมีข้อความกำกับส่วนหนึ่งของภาพว่า produced by endothelial cells and podocytes and contains negative charge"
-          },
+          "**Filtration occurs through a structure with 3 parts** และมีข้อความกำกับส่วนหนึ่งของภาพว่า produced by endothelial cells and podocytes and contains negative charge",
           {
             "callout": "สไลด์หน้านี้ระบุแค่ว่าโครงสร้างที่ filtrate ต้องผ่านมี 3 ส่วน แต่ตัวข้อความบนสไลด์ไม่ได้พิมพ์ชื่อทั้ง 3 ส่วนออกมา",
             "kind": "flag"
@@ -12774,9 +11754,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Mesangial cells",
         "source": "Urinary System p.20",
         "body": [
-          {
-            "text": "**Mesangial cells = vascular pericytes ที่มี contractile properties และสร้าง component ของ external lamina**"
-          },
+          "**Mesangial cells = vascular pericytes ที่มี contractile properties และสร้าง component ของ external lamina**",
           {
             "sub": "ตำแหน่ง",
             "body": [
@@ -12969,9 +11947,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "Collecting duct system และ water permeability",
         "source": "Urinary System p.31",
         "body": [
-          {
-            "text": "แต่ละ nephron เทของเหลวเข้าสู่ collecting duct system ของ uriniferous tubule ซึ่งประกอบด้วย **connecting tubules, collecting ducts และ papillary ducts**"
-          },
+          "แต่ละ nephron เทของเหลวเข้าสู่ collecting duct system ของ uriniferous tubule ซึ่งประกอบด้วย **connecting tubules, collecting ducts และ papillary ducts**",
           {
             "bullets": [
               "**DCT responses to aldosterone**",
@@ -13023,21 +11999,15 @@ export const NOTES_Y2_HISTO = {
         "heading": "อ่านภาพ outer medulla",
         "source": "Urinary System p.33",
         "body": [
-          {
-            "text": "Label ที่อาจารย์ให้ในภาพ outer medulla: **A = collecting duct, B = thick limbs, C = thin limb, D = vasa recta**"
-          }
+          "Label ที่อาจารย์ให้ในภาพ outer medulla: **A = collecting duct, B = thick limbs, C = thin limb, D = vasa recta**"
         ]
       },
       {
         "heading": "Papillary duct, renal pelvis และ area cribrosa",
         "source": "Urinary System p.35",
         "body": [
-          {
-            "text": "สไลด์แสดงลำดับ papillary duct ต่อเข้า renal pelvis แล้วต่อไปยัง ureter"
-          },
-          {
-            "text": "**Area cribrosa เป็นบริเวณส่วนปลายสุดของ papilla ที่มี papillary duct มาเปิดจำนวนหลายท่อ ทำให้เห็นบริเวณนี้มีลักษณะเป็นรูพรุน**"
-          }
+          "สไลด์แสดงลำดับ papillary duct ต่อเข้า renal pelvis แล้วต่อไปยัง ureter",
+          "**Area cribrosa เป็นบริเวณส่วนปลายสุดของ papilla ที่มี papillary duct มาเปิดจำนวนหลายท่อ ทำให้เห็นบริเวณนี้มีลักษณะเป็นรูพรุน**"
         ]
       },
       {
@@ -13106,17 +12076,13 @@ export const NOTES_Y2_HISTO = {
           {
             "sub": "1. เมื่อ arterial blood pressure เพิ่มขึ้น",
             "body": [
-              {
-                "text": "ลำดับตามสไลด์: glomerular capillary pressure เปลี่ยน ทำให้ GFR เปลี่ยน แล้ว **luminal concentration ของ Na และ Cl ใน TAL สูงขึ้น** macula densa detect ได้ จึง **release adenosine และ vasoactive compounds ทำให้เกิด afferent arteriole contraction** แล้ว glomerular pressure และ GFR เปลี่ยนตาม"
-              }
+              "ลำดับตามสไลด์: glomerular capillary pressure เปลี่ยน ทำให้ GFR เปลี่ยน แล้ว **luminal concentration ของ Na และ Cl ใน TAL สูงขึ้น** macula densa detect ได้ จึง **release adenosine และ vasoactive compounds ทำให้เกิด afferent arteriole contraction** แล้ว glomerular pressure และ GFR เปลี่ยนตาม"
             ]
           },
           {
             "sub": "2. เมื่อ arterial blood pressure ลดลง",
             "body": [
-              {
-                "text": "มี autonomic stimulation มายัง JGA และ **baroreceptor function ใน afferent arteriole (จาก JG cells)** ทำให้ **JG release renin เข้าสู่ blood circulation**"
-              }
+              "มี autonomic stimulation มายัง JGA และ **baroreceptor function ใน afferent arteriole (จาก JG cells)** ทำให้ **JG release renin เข้าสู่ blood circulation**"
             ]
           },
           {
@@ -13138,18 +12104,14 @@ export const NOTES_Y2_HISTO = {
               "Tunica serosa: loose CNT"
             ]
           },
-          {
-            "text": "Label ในภาพ: 1 tunica mucosa, 2 propria submucosa, 3 mucosal gland, 4 tunica muscularis, 5 tunica serosa โดยสไลด์เทียบภาพ horse กับ cat"
-          }
+          "Label ในภาพ: 1 tunica mucosa, 2 propria submucosa, 3 mucosal gland, 4 tunica muscularis, 5 tunica serosa โดยสไลด์เทียบภาพ horse กับ cat"
         ]
       },
       {
         "heading": "Urinary bladder",
         "source": "Urinary System p.48",
         "body": [
-          {
-            "text": "Urinary bladder (pig) label ตามสไลด์: **1 transitional epithelium, 2 lamina propria, 3 muscularis mucosae, 4 tunica submucosa, 5 tunica muscularis**"
-          }
+          "Urinary bladder (pig) label ตามสไลด์: **1 transitional epithelium, 2 lamina propria, 3 muscularis mucosae, 4 tunica submucosa, 5 tunica muscularis**"
         ]
       },
       {
@@ -13164,9 +12126,7 @@ export const NOTES_Y2_HISTO = {
               "**Urethral crest (mucosal fold) พบใน cat**"
             ]
           },
-          {
-            "text": "สไลด์ p.50 เทียบภาพ feline female urethra กับ canine female urethra โดยชี้ตำแหน่ง mucosal fold และ cavernous plexus"
-          }
+          "สไลด์ p.50 เทียบภาพ feline female urethra กับ canine female urethra โดยชี้ตำแหน่ง mucosal fold และ cavernous plexus"
         ]
       }
     ]

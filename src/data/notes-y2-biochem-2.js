@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_BIOCHEM_2 = {
@@ -28,33 +28,23 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "นกคือใคร และทำไมต้อง metabolic rate สูง",
         "source": "Avian Metabolism p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดเรื่องด้วย evolution ว่า **Birds are the sole remaining descendants of theropod** ซึ่งเป็นกลุ่มที่รวม T rex อยู่ด้วย"
-          },
-          {
-            "text": "หน้าถัดจากนี้ (p.3, p.4) เป็นรูปล้วน ไม่มีข้อความให้จด"
-          }
+          "สไลด์เปิดเรื่องด้วย evolution ว่า **Birds are the sole remaining descendants of theropod** ซึ่งเป็นกลุ่มที่รวม T rex อยู่ด้วย",
+          "หน้าถัดจากนี้ (p.3, p.4) เป็นรูปล้วน ไม่มีข้อความให้จด"
         ]
       },
       {
         "heading": "โจทย์ของนก: ความร้อน การบิน และระยะทาง",
         "source": "Avian Metabolism p.5, p.11, p.12, p.14",
         "body": [
-          {
-            "text": "สไลด์ p.5 เขียนไว้สั้นมากเป็นคำ ๆ ว่า Hyperthermia require / High metabolic rate / Range of activities โดยไม่ได้ขยายความต่อ สไลด์ไม่ได้บอกว่าทั้งสามอย่างเชื่อมกันอย่างไร"
-          },
+          "สไลด์ p.5 เขียนไว้สั้นมากเป็นคำ ๆ ว่า Hyperthermia require / High metabolic rate / Range of activities โดยไม่ได้ขยายความต่อ สไลด์ไม่ได้บอกว่าทั้งสามอย่างเชื่อมกันอย่างไร",
           {
             "bullets": [
               "p.11 การกระพือปีก (flapping) ต้องใช้ **O2 มากกว่าตอนพัก 5-14 เท่า**",
               "p.12 นก bar-tailed Godwit (Limosa lapponica) บินได้ **13,560 km = หนึ่งในสามของเส้นรอบวงโลก**"
             ]
           },
-          {
-            "text": "p.14 อาจารย์สรุปเป็นคำถามนำเข้าเรื่องว่า high metabolic rate แล้ว How birds solve these problems ? คือหัวข้อแรกของวันนี้"
-          },
-          {
-            "text": "p.6-p.10 และ p.13 เป็นสไลด์รูปล้วน ไม่มีข้อความ"
-          }
+          "p.14 อาจารย์สรุปเป็นคำถามนำเข้าเรื่องว่า high metabolic rate แล้ว How birds solve these problems ? คือหัวข้อแรกของวันนี้",
+          "p.6-p.10 และ p.13 เป็นสไลด์รูปล้วน ไม่มีข้อความ"
         ]
       },
       {
@@ -79,9 +69,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "1. Metabolic adaptation: สองกลไกหลัก",
         "source": "Avian Metabolism p.16",
         "body": [
-          {
-            "text": "สไลด์หัวข้อระบุ metabolic adaptation ไว้ **2 ข้อ** คือ"
-          },
+          "สไลด์หัวข้อระบุ metabolic adaptation ไว้ **2 ข้อ** คือ",
           {
             "bullets": [
               "**Steady glucose supply** (มีน้ำตาลป้อนสม่ำเสมอ)",
@@ -94,9 +82,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Blood glucose level เทียบข้ามสปีชีส์",
         "source": "Avian Metabolism p.17",
         "body": [
-          {
-            "text": "ตารางเทียบค่า blood glucose หน่วย mg/% ตามที่สไลด์ให้"
-          },
+          "ตารางเทียบค่า blood glucose หน่วย mg/% ตามที่สไลด์ให้",
           {
             "bullets": [
               "Cattle 45-75",
@@ -124,18 +110,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "แม้อดอาหาร (starving) hypoglycemia จะเพิ่งปรากฏหลัง **1-3 วัน (หรือไม่เกิดเลย)**"
             ]
           },
-          {
-            "text": "p.19 เป็นสไลด์คำถามอย่างเดียวว่า How avian maintains blood glucose level?"
-          }
+          "p.19 เป็นสไลด์คำถามอย่างเดียวว่า How avian maintains blood glucose level?"
         ]
       },
       {
         "heading": "คำตอบ: Active gluconeogenesis",
         "source": "Avian Metabolism p.20, p.21, p.22, p.23",
         "body": [
-          {
-            "text": "p.20 นกรักษา blood glucose ด้วย **Active Gluconeogenesis**"
-          },
+          "p.20 นกรักษา blood glucose ด้วย **Active Gluconeogenesis**",
           {
             "bullets": [
               "สร้าง glucose จาก lactate, fatty acid และ substrate อีกตัวที่ text layer ของสไลด์เพี้ยนจนอ่านไม่ออก",
@@ -145,9 +127,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Cori cycle (p.21)",
             "body": [
-              {
-                "text": "Lactate ที่ผลิตจาก anaerobic glycolysis ในกล้ามเนื้อ เดินทางไป liver แล้วถูกเปลี่ยนเป็น glucose ซึ่งส่งกลับไปที่กล้ามเนื้ออีกที"
-              }
+              "Lactate ที่ผลิตจาก anaerobic glycolysis ในกล้ามเนื้อ เดินทางไป liver แล้วถูกเปลี่ยนเป็น glucose ซึ่งส่งกลับไปที่กล้ามเนื้ออีกที"
             ]
           },
           {
@@ -168,18 +148,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สรุปภาพรวมของ high metabolic rate",
         "source": "Avian Metabolism p.24",
         "body": [
-          {
-            "text": "สไลด์สรุปเป็นแผนภาพคำสั้น ๆ ว่า high metabolic rate เชื่อมกับ **Hatching egg: Heat**, **Feather** และ **Flight** สไลด์ไม่ได้เขียนคำอธิบายกำกับแต่ละหัว"
-          }
+          "สไลด์สรุปเป็นแผนภาพคำสั้น ๆ ว่า high metabolic rate เชื่อมกับ **Hatching egg: Heat**, **Feather** และ **Flight** สไลด์ไม่ได้เขียนคำอธิบายกำกับแต่ละหัว"
         ]
       },
       {
         "heading": "MT rich in flight muscle: ชนิดของกล้ามเนื้อ",
         "source": "Avian Metabolism p.25, p.26",
         "body": [
-          {
-            "text": "ชนิดกล้ามเนื้อขึ้นกับกิจกรรมที่ใช้ สไลด์เทียบอกไก่กับอกนกพิราบ"
-          },
+          "ชนิดกล้ามเนื้อขึ้นกับกิจกรรมที่ใช้ สไลด์เทียบอกไก่กับอกนกพิราบ",
           {
             "sub": "Chicken breast",
             "body": [
@@ -212,9 +188,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Auk muscle cell: สัดส่วนและโครงสร้าง",
         "source": "Avian Metabolism p.27",
         "body": [
-          {
-            "text": "สไลด์เทียบภาพ mitochondria ของ lymphocyte สุนัข (miniature schnauzer) กับ muscle cell ของนก Auk"
-          },
+          "สไลด์เทียบภาพ mitochondria ของ lymphocyte สุนัข (miniature schnauzer) กับ muscle cell ของนก Auk",
           {
             "bullets": [
               "**Flight muscle หนัก 40-60% ของน้ำหนักกล้ามเนื้อทั้งหมด** (และกล้ามเนื้อทั้งตัวคิดเป็น 40-45% ของน้ำหนักตัว)",
@@ -229,21 +203,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "2. Adaptation of protein degradation: ureotelic vs uricotelic",
         "source": "Avian Metabolism p.28, p.29, p.30, p.31, p.32, p.33",
         "body": [
-          {
-            "text": "p.29-p.32 เป็นสไลด์คำสั้น ๆ ตอกย้ำสองคำคือ **Mammals are Ureotelic** และ **Uricotelic = Uric acid** (ซ้ำสามหน้า) โดยไม่มีข้อความอธิบายเพิ่ม"
-          },
-          {
-            "text": "p.33 บอกว่า protein degradation มีไว้เพื่อ **สร้างโปรตีนใหม่ และเพื่อ gluconeogenesis** ส่วนใน mammal โปรตีนถูกย่อยและกำจัดผ่าน **Urea cycle in liver**"
-          }
+          "p.29-p.32 เป็นสไลด์คำสั้น ๆ ตอกย้ำสองคำคือ **Mammals are Ureotelic** และ **Uricotelic = Uric acid** (ซ้ำสามหน้า) โดยไม่มีข้อความอธิบายเพิ่ม",
+          "p.33 บอกว่า protein degradation มีไว้เพื่อ **สร้างโปรตีนใหม่ และเพื่อ gluconeogenesis** ส่วนใน mammal โปรตีนถูกย่อยและกำจัดผ่าน **Urea cycle in liver**"
         ]
       },
       {
         "heading": "Overview ของ ureotelic (สัตว์เลี้ยงลูกด้วยนม)",
         "source": "Avian Metabolism p.34, p.35, p.36",
         "body": [
-          {
-            "text": "แผนภาพ p.34 ไล่จาก intracellular และ dietary protein เข้า amino acid degradation แล้วแยกทางออกเป็น"
-          },
+          "แผนภาพ p.34 ไล่จาก intracellular และ dietary protein เข้า amino acid degradation แล้วแยกทางออกเป็น",
           {
             "bullets": [
               "เข้า **Kreb's / Gluconeogenesis**",
@@ -251,9 +219,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "หรือกลายเป็น **urea แล้วขับทาง kidney**"
             ]
           },
-          {
-            "text": "p.35 และ p.36 เป็นภาพเปรียบเทียบตำแหน่ง NH3 ระหว่าง MT กับ cytoplasm ใน Mammal และใน Bird สไลด์มีแค่ป้ายคำ ไม่ได้เขียนคำอธิบายว่าต่างกันอย่างไร"
-          }
+          "p.35 และ p.36 เป็นภาพเปรียบเทียบตำแหน่ง NH3 ระหว่าง MT กับ cytoplasm ใน Mammal และใน Bird สไลด์มีแค่ป้ายคำ ไม่ได้เขียนคำอธิบายว่าต่างกันอย่างไร"
         ]
       },
       {
@@ -266,35 +232,25 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "ผลคือมี **NH3 ในเลือดนกราว 100 micM** ซึ่งเป็นระดับที่ในคนถือว่าเป็นพิษ (hyperammonemia)"
             ]
           },
-          {
-            "text": "p.37 เป็นสไลด์รูปล้วน"
-          }
+          "p.37 เป็นสไลด์รูปล้วน"
         ]
       },
       {
         "heading": "นกกำจัด NH3 อย่างไร: ผ่าน purine metabolism",
         "source": "Avian Metabolism p.39, p.40, p.41",
         "body": [
-          {
-            "text": "p.39 ตั้งหัวว่า How birds excrete toxic Ammonia, NH3 Via Purine metabolism"
-          },
+          "p.39 ตั้งหัวว่า How birds excrete toxic Ammonia, NH3 Via Purine metabolism",
           {
             "sub": "ในคน (p.40)",
             "body": [
-              {
-                "text": "Uric acid เป็น **end product ของ purine metabolism** เส้นทางในสไลด์คือ DNA, RNA → Purine → Adenosine / Guanosine → Inosine → Hypoxanthine → Xanthine → **uric acid** ค่าในคน **3-7 mg%**"
-              }
+              "Uric acid เป็น **end product ของ purine metabolism** เส้นทางในสไลด์คือ DNA, RNA → Purine → Adenosine / Guanosine → Inosine → Hypoxanthine → Xanthine → **uric acid** ค่าในคน **3-7 mg%**"
             ]
           },
           {
             "sub": "ในนก (p.41)",
             "body": [
-              {
-                "text": "NH3 ถูกดึงเข้าสู่ purine metabolism แล้วขับออกเป็น uric acid สไลด์วางเส้นทางนำเข้าไว้ว่า **α-ketoglutarate + NH3** (หรือ α-ketoglutarate + Aspartate) → **Glutamate** + NH3 → **Glutamine** และมี Asparagine กับ Aspartate ป้อนเข้าสายเดียวกับ Hypoxanthine → Xanthine → uric acid"
-              },
-              {
-                "text": "ค่าเทียบท้ายสไลด์ **Human 3-7 mg% ส่วน Bird สูงถึง 30 mg%**"
-              }
+              "NH3 ถูกดึงเข้าสู่ purine metabolism แล้วขับออกเป็น uric acid สไลด์วางเส้นทางนำเข้าไว้ว่า **α-ketoglutarate + NH3** (หรือ α-ketoglutarate + Aspartate) → **Glutamate** + NH3 → **Glutamine** และมี Asparagine กับ Aspartate ป้อนเข้าสายเดียวกับ Hypoxanthine → Xanthine → uric acid",
+              "ค่าเทียบท้ายสไลด์ **Human 3-7 mg% ส่วน Bird สูงถึง 30 mg%**"
             ]
           }
         ]
@@ -303,9 +259,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ต้นทุน ATP ของ uric acid เทียบ urea",
         "source": "Avian Metabolism p.42",
         "body": [
-          {
-            "text": "การสังเคราะห์ uric acid ใช้ **3.75-4.5 ATP ต่อ N หนึ่งอะตอม** เทียบกับ **2 ATP ต่อ N หนึ่งอะตอม** ของการผลิต urea"
-          },
+          "การสังเคราะห์ uric acid ใช้ **3.75-4.5 ATP ต่อ N หนึ่งอะตอม** เทียบกับ **2 ATP ต่อ N หนึ่งอะตอม** ของการผลิต urea",
           {
             "callout": "จุดที่ควรจำคือทางของนกแพงกว่า แล้วสไลด์หน้าถัดไปจะเฉลยว่าทำไมถึงยอมจ่ายแพง",
             "kind": "tip"
@@ -316,21 +270,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ทำไมนกถึงเป็น uricotelic: Cleidoic egg",
         "source": "Avian Metabolism p.43, p.44",
         "body": [
-          {
-            "text": "p.43 ถามตรง ๆ ว่า Birds are uricotelic: excrete uric acid WHY ?"
-          },
-          {
-            "text": "p.44 ตอบว่าเพราะ **Cleidoic eggs** (kleistos = closed)"
-          },
+          "p.43 ถามตรง ๆ ว่า Birds are uricotelic: excrete uric acid WHY ?",
+          "p.44 ตอบว่าเพราะ **Cleidoic eggs** (kleistos = closed)",
           {
             "bullets": [
               "**Embryo พัฒนาอยู่ใน closed system**",
               "**Uric acid เป็นรูปที่ดีที่สุด เพราะละลายน้ำได้น้อย (low solubility)** จึงเหมาะกับการทิ้งของเสียจาก protein degradation ไว้ในไข่"
             ]
           },
-          {
-            "text": "p.45 เป็นสไลด์รูป uric acid ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "p.45 เป็นสไลด์รูป uric acid ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
@@ -362,9 +310,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Lecithin (p.48)",
             "body": [
-              {
-                "text": "Lecithin คือ **phosphatidylcholine** มี water-loving head และ water-fearing tail ใช้สำหรับ membrane"
-              }
+              "Lecithin คือ **phosphatidylcholine** มี water-loving head และ water-fearing tail ใช้สำหรับ membrane"
             ]
           }
         ]
@@ -380,12 +326,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "ทำหน้าที่เป็น **antioxidants** ปกป้อง embryonic tissues และ immunoglobulin จาก **lipid peroxidation**"
             ]
           },
-          {
-            "text": "p.50 carotenoids มีอยู่ตามธรรมชาติในพืช เช่น carrot, papaya แล้วไปสะสมที่ **yolk, fatty tissues, skin และ feathers** (สไลด์เปรียบกับผิวคนที่กินมะละกอมากเกินไป)"
-          },
-          {
-            "text": "p.51 เป็นสไลด์รูปพร้อมแคปชันสั้นว่า Mom prefer brighter mouth สไลด์ไม่ได้อธิบายกลไกหรืออ้างอิงต่อ"
-          }
+          "p.50 carotenoids มีอยู่ตามธรรมชาติในพืช เช่น carrot, papaya แล้วไปสะสมที่ **yolk, fatty tissues, skin และ feathers** (สไลด์เปรียบกับผิวคนที่กินมะละกอมากเกินไป)",
+          "p.51 เป็นสไลด์รูปพร้อมแคปชันสั้นว่า Mom prefer brighter mouth สไลด์ไม่ได้อธิบายกลไกหรืออ้างอิงต่อ"
         ]
       },
       {
@@ -418,9 +360,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Ovalbumin และการ denature ด้วยความร้อน",
         "source": "Avian Metabolism p.54, p.55",
         "body": [
-          {
-            "text": "p.54 Ovalbumin เป็น **globular protein** บิดและม้วนเป็นทรงกลม ยึดไว้ด้วยพันธะอ่อนหลายชนิด"
-          },
+          "p.54 Ovalbumin เป็น **globular protein** บิดและม้วนเป็นทรงกลม ยึดไว้ด้วยพันธะอ่อนหลายชนิด",
           {
             "sub": "Heating egg white (p.55)",
             "body": [
@@ -434,9 +374,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "p.56 และ p.57 เป็นสไลด์รูปล้วน"
-          }
+          "p.56 และ p.57 เป็นสไลด์รูปล้วน"
         ]
       },
       {
@@ -451,9 +389,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**Overbeating ทำให้ยุบ (collapse)** เพราะเกิดพันธะระหว่างโปรตีนมากเกินไป"
             ]
           },
-          {
-            "text": "p.59 (Meringues) และ p.60 (Macaron) เป็นสไลด์รูปที่มีแค่ชื่อ ไม่มีเนื้อหา"
-          }
+          "p.59 (Meringues) และ p.60 (Macaron) เป็นสไลด์รูปที่มีแค่ชื่อ ไม่มีเนื้อหา"
         ]
       },
       {
@@ -467,15 +403,11 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "เป็นที่เกิด **calcification ของ calcium carbonate บน shell membrane**"
             ]
           },
-          {
-            "text": "ภาพ SEM ในสไลด์ให้เห็น protein fibers จาก outer shell membrane ที่เกาะอยู่กับผลึก calcium carbonate"
-          },
+          "ภาพ SEM ในสไลด์ให้เห็น protein fibers จาก outer shell membrane ที่เกาะอยู่กับผลึก calcium carbonate",
           {
             "sub": "เทียบกับ calcification อื่น (p.62)",
             "body": [
-              {
-                "text": "อาจารย์ยกตัวอย่าง tartar ที่ฟัน แบคทีเรียสร้าง protein fiber เรียกว่า plaque และ **plaque ที่ถูก mineralized คือ tartar หรือ calculus (หินปูน)**"
-              }
+              "อาจารย์ยกตัวอย่าง tartar ที่ฟัน แบคทีเรียสร้าง protein fiber เรียกว่า plaque และ **plaque ที่ถูก mineralized คือ tartar หรือ calculus (หินปูน)**"
             ]
           }
         ]
@@ -505,9 +437,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**มีสีและมีลวดลายใน open nesters**"
             ]
           },
-          {
-            "text": "สไลด์ยกภาพไข่ Parrot และไข่ Emu ประกอบ ส่วน p.64 เป็นสไลด์หัวข้อ เขียนว่า \"Shell pigment\" ส่วน p.68 เป็นสไลด์รูปล้วน"
-          },
+          "สไลด์ยกภาพไข่ Parrot และไข่ Emu ประกอบ ส่วน p.64 เป็นสไลด์หัวข้อ เขียนว่า \"Shell pigment\" ส่วน p.68 เป็นสไลด์รูปล้วน",
           {
             "sub": "เม็ดสีหลัก 2 ตัว ซึ่งเชื่อมกับ heme (p.66, p.67)",
             "body": [
@@ -517,9 +447,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**Biliverdin** ให้สี blue green"
                 ]
               },
-              {
-                "text": "p.67 American robin วางไข่ที่เป็น **pure biliverdin pigment**"
-              }
+              "p.67 American robin วางไข่ที่เป็น **pure biliverdin pigment**"
             ]
           }
         ]
@@ -528,9 +456,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "เส้นทาง heme ในสัตว์อื่นเทียบกับในนก",
         "source": "Avian Metabolism p.69, p.70",
         "body": [
-          {
-            "text": "แผนภาพเดียวกันสองหน้า วางไว้ว่า **Protoporphyrin + Fe2+ → Heme** และอีกทาง **Biliverdin → (biliverdin reductase) → Bilirubin → ขับออก**"
-          },
+          "แผนภาพเดียวกันสองหน้า วางไว้ว่า **Protoporphyrin + Fe2+ → Heme** และอีกทาง **Biliverdin → (biliverdin reductase) → Bilirubin → ขับออก**",
           {
             "bullets": [
               "p.69 ระบุว่ากระบวนการนี้เกิด **In Liver**",
@@ -556,9 +482,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**Camouflage** เช่น ไข่ของ parasitic cuckoos บางชนิดเลียนแบบไข่ของ host"
             ]
           },
-          {
-            "text": "p.74 เป็นภาพเทียบไข่ common cuckoo (Cuculus canorus) กับไข่ host จากภาคกลางของญี่ปุ่น แต่ละคู่คือไข่ cuckoo ทางซ้ายและไข่ host ทางขวา ได้แก่ A black-faced bunting (Emberiza spodocephala), B azure-winged magpie (Cyanopica cyana), C oriental reed warbler (Acrocephalus orientalis) และ D-F bull-headed shrike (Lanius bucephalus) อ้างอิง F. Takasu 2009"
-          }
+          "p.74 เป็นภาพเทียบไข่ common cuckoo (Cuculus canorus) กับไข่ host จากภาคกลางของญี่ปุ่น แต่ละคู่คือไข่ cuckoo ทางซ้ายและไข่ host ทางขวา ได้แก่ A black-faced bunting (Emberiza spodocephala), B azure-winged magpie (Cyanopica cyana), C oriental reed warbler (Acrocephalus orientalis) และ D-F bull-headed shrike (Lanius bucephalus) อ้างอิง F. Takasu 2009"
         ]
       },
       {
@@ -573,18 +497,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "สารพิษช่วย **กำจัดเหา (lice) และงู (snake)**"
             ]
           },
-          {
-            "text": "สไลด์วางภาพ Golden dart frog of S. America ไว้เทียบ p.76 คือ The End"
-          }
+          "สไลด์วางภาพ Golden dart frog of S. America ไว้เทียบ p.76 คือ The End"
         ]
       },
       {
         "heading": "งานที่อาจารย์สั่งท้ายเด็ค",
         "source": "Avian Metabolism p.77, p.78",
         "body": [
-          {
-            "text": "p.77 เป็นโจทย์ Comparative Biochemistry: Avian กำหนดส่ง 14 พ.ย. 66 หัวข้อ Avian Metabolism ครอบคลุม carb, lipid, protein, nucleic acid, gene ให้ทำเป็นตารางเทียบ Avian กับ Compare sp. โดยมี 5 ช่อง"
-          },
+          "p.77 เป็นโจทย์ Comparative Biochemistry: Avian กำหนดส่ง 14 พ.ย. 66 หัวข้อ Avian Metabolism ครอบคลุม carb, lipid, protein, nucleic acid, gene ให้ทำเป็นตารางเทียบ Avian กับ Compare sp. โดยมี 5 ช่อง",
           {
             "bullets": [
               "1 ชื่อสาร หรือ pathway",
@@ -627,9 +547,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Metabolism และที่มาของพลังงาน",
         "source": "Biochem II midterm p.1",
         "body": [
-          {
-            "text": "ชีตเปิดด้วยการแยก **catabolism กับ anabolism** ออกจากกัน และผูกปฏิกิริยาที่ให้พลังงาน (exergonic) เข้ากับ oxidation"
-          },
+          "ชีตเปิดด้วยการแยก **catabolism กับ anabolism** ออกจากกัน และผูกปฏิกิริยาที่ให้พลังงาน (exergonic) เข้ากับ oxidation",
           {
             "bullets": [
               "metabolism เป็น compartmentalized คือแยกกันตามที่อยู่ในเซลล์ ตัวอย่างที่ชีตยกคือ Krebs อยู่ที่ Mito",
@@ -641,12 +559,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Gibb's free energy",
             "body": [
-              {
-                "text": "ชีตนิยาม Gibb's free energy (G) เป็นหน่วย KJ/mol ต่อ molecule และเขียนว่า A → B มี ΔG° = G ของ B ลบ G ของ A"
-              },
-              {
-                "text": "**ΔG°' = standard free energy change ที่ pH 7 และ 25°C**"
-              }
+              "ชีตนิยาม Gibb's free energy (G) เป็นหน่วย KJ/mol ต่อ molecule และเขียนว่า A → B มี ΔG° = G ของ B ลบ G ของ A",
+              "**ΔG°' = standard free energy change ที่ pH 7 และ 25°C**"
             ]
           }
         ]
@@ -655,9 +569,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Energy coupling และ substrate level phosphorylation",
         "source": "Biochem II midterm p.1",
         "body": [
-          {
-            "text": "ปฏิกิริยาที่ไม่เกิดเองถูกจับคู่กับปฏิกิริยาที่ให้พลังงาน ชีตเรียกวิธีนี้ว่า **energy coupling**"
-          },
+          "ปฏิกิริยาที่ไม่เกิดเองถูกจับคู่กับปฏิกิริยาที่ให้พลังงาน ชีตเรียกวิธีนี้ว่า **energy coupling**",
           {
             "sub": "ตัวอย่างที่ชีตยก",
             "body": [
@@ -671,9 +583,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "ATP ที่ได้จาก energy coupling แบบนี้คือ **substrate level phosphorylation**"
-          }
+          "ATP ที่ได้จาก energy coupling แบบนี้คือ **substrate level phosphorylation**"
         ]
       },
       {
@@ -697,9 +607,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "สมการรวมของ cellular respiration ที่ชีตเขียนไว้คือ **C6H12O6 + 6O2 → 6CO2 + 6H2O + 36/38 ATP**"
-          }
+          "สมการรวมของ cellular respiration ที่ชีตเขียนไว้คือ **C6H12O6 + 6O2 → 6CO2 + 6H2O + 36/38 ATP**"
         ]
       },
       {
@@ -721,9 +629,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "2. pyruvate oxidation",
             "body": [
-              {
-                "text": "ชีตระบุตำแหน่งไว้ที่ inner membrane of mito"
-              },
+              "ชีตระบุตำแหน่งไว้ที่ inner membrane of mito",
               {
                 "bullets": [
                   "**1 pyruvate 3C ผ่าน pyruvate dehydrogenase complex ได้ acetyl CoA 2C + CO2 และ 1 NADH**",
@@ -739,15 +645,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Citric acid cycle (Krebs / TCA cycle)",
         "source": "Biochem II midterm p.2",
         "body": [
-          {
-            "text": "อยู่ที่ **matrix of Mito**"
-          },
-          {
-            "text": "**ต่อ 1 acetyl CoA ได้ 3 NADH + 1 FADH2 + 1 ATP**"
-          },
-          {
-            "text": "ชีตวงเล็บไว้ว่าคาร์บอนที่เข้ามาได้มาจากทั้ง CHO, fat และ protein"
-          }
+          "อยู่ที่ **matrix of Mito**",
+          "**ต่อ 1 acetyl CoA ได้ 3 NADH + 1 FADH2 + 1 ATP**",
+          "ชีตวงเล็บไว้ว่าคาร์บอนที่เข้ามาได้มาจากทั้ง CHO, fat และ protein"
         ]
       },
       {
@@ -760,18 +660,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**activator: ADP, AMP, NAD+, CoA, Ca2+**"
             ]
           },
-          {
-            "text": "**amphibolic pathway = วิถีที่ใช้ได้ทั้ง anabolism และ catabolism** ตัวอย่างที่ชีตยกคือ gluconeogenesis"
-          }
+          "**amphibolic pathway = วิถีที่ใช้ได้ทั้ง anabolism และ catabolism** ตัวอย่างที่ชีตยกคือ gluconeogenesis"
         ]
       },
       {
         "heading": "Oxidative phosphorylation และ electron transport chain",
         "source": "Biochem II midterm p.3",
         "body": [
-          {
-            "text": "ชีตแยกออกเป็นสองครึ่ง คือ **e- transport (oxidation)** กับ **ATP synthesis (phosphorylation)**"
-          },
+          "ชีตแยกออกเป็นสองครึ่ง คือ **e- transport (oxidation)** กับ **ATP synthesis (phosphorylation)**",
           {
             "sub": "เส้นทางอิเล็กตรอน",
             "body": [
@@ -803,9 +699,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สารยับยั้ง electron transport chain และ uncoupler",
         "source": "Biochem II midterm p.3",
         "body": [
-          {
-            "text": "หัวข้อนี้ชีตขึ้นหัวว่า Mitochondrial disease คือภาวะที่ ATP ลดลง"
-          },
+          "หัวข้อนี้ชีตขึ้นหัวว่า Mitochondrial disease คือภาวะที่ ATP ลดลง",
           {
             "bullets": [
               "**rotenone block complex I**",
@@ -830,12 +724,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Shuttle ของ NADH จาก glycolysis และตัวเลข ATP จริง",
         "source": "Biochem II midterm p.4",
         "body": [
-          {
-            "text": "**oligomycin ยับยั้ง ATP synthase**"
-          },
-          {
-            "text": "คำถามที่ชีตตั้งไว้คือ NADH ที่เกิดใน glycolysis จะเข้าไป oxidative phosphorylation ใน Mito ได้อย่างไร คำตอบคือ shuttle 2 แบบ"
-          },
+          "**oligomycin ยับยั้ง ATP synthase**",
+          "คำถามที่ชีตตั้งไว้คือ NADH ที่เกิดใน glycolysis จะเข้าไป oxidative phosphorylation ใน Mito ได้อย่างไร คำตอบคือ shuttle 2 แบบ",
           {
             "bullets": [
               "**Malate-aspartate shuttle ได้ 3 ATP ต่อ 1 NADH**",
@@ -868,12 +758,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "เส้นทางการย่อย",
             "body": [
-              {
-                "text": "**Mouth (salivary amylase) → stomach → Chyme → Small intestine (α-amylase) → Portal vein → Liver**"
-              },
-              {
-                "text": "Starch → Disaccharide → ถูกตัดด้วย **maltase, sucrase, lactase** ไปเป็น monosaccharide"
-              }
+              "**Mouth (salivary amylase) → stomach → Chyme → Small intestine (α-amylase) → Portal vein → Liver**",
+              "Starch → Disaccharide → ถูกตัดด้วย **maltase, sucrase, lactase** ไปเป็น monosaccharide"
             ]
           },
           {
@@ -894,9 +780,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "จุดควบคุมของ glycolysis และ hexokinase กับ glucokinase",
         "source": "Biochem II midterm p.6",
         "body": [
-          {
-            "text": "ชีตเรียก glycolysis อีกชื่อว่า **EMP pathway**"
-          },
+          "ชีตเรียก glycolysis อีกชื่อว่า **EMP pathway**",
           {
             "bullets": [
               "**ATP ในวิถีนี้เกิดที่ phosphoglycerate kinase และ pyruvate kinase**",
@@ -924,9 +808,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Warburg effect",
         "source": "Biochem II midterm p.6",
         "body": [
-          {
-            "text": "**cancer cell เลือกใช้ glycolysis และ fermentation แทน Krebs** เพราะ Krebs ต้องใช้ O2 และต้องมี mito ที่ทำงานได้"
-          },
+          "**cancer cell เลือกใช้ glycolysis และ fermentation แทน Krebs** เพราะ Krebs ต้องใช้ O2 และต้องมี mito ที่ทำงานได้",
           {
             "callout": "ชีตเขียนคำว่า ketogenic diet ต่อท้ายหัวข้อนี้ไว้ แต่ไม่ได้อธิบายว่าเกี่ยวข้องอย่างไร สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -946,12 +828,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Fermentation",
             "body": [
-              {
-                "text": "เกิดใน bacteria และ yeast ในภาวะไม่มี O2 ซึ่งทำให้ pyruvate ไปเป็น acetyl CoA เข้า Krebs ไม่ได้ ชีตยกภาวะ hypoxia ไว้ด้วย"
-              },
-              {
-                "text": "จุดประสงค์ที่ชีตเน้นคือ **การสร้าง NAD+ กลับคืนมา** ให้ glycolysis เดินต่อได้"
-              }
+              "เกิดใน bacteria และ yeast ในภาวะไม่มี O2 ซึ่งทำให้ pyruvate ไปเป็น acetyl CoA เข้า Krebs ไม่ได้ ชีตยกภาวะ hypoxia ไว้ด้วย",
+              "จุดประสงค์ที่ชีตเน้นคือ **การสร้าง NAD+ กลับคืนมา** ให้ glycolysis เดินต่อได้"
             ]
           }
         ]
@@ -982,9 +860,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "ทางอื่นที่ชีตวาดไว้: glycogen, lactate (เมื่อไม่มี O2), fat ใน adipocyte, PPP, gluconeogenesis และ detox"
                 ]
               },
-              {
-                "text": "**PPP มีไว้สร้าง NADPH ไปจัดการ H2O2**"
-              }
+              "**PPP มีไว้สร้าง NADPH ไปจัดการ H2O2**"
             ]
           }
         ]
@@ -996,37 +872,23 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Cellulolysis",
             "body": [
-              {
-                "text": "**cellulose → cellulodextrin → glucose โดย glycoside hydrolase ที่ตัด glycosidic linkage**"
-              },
-              {
-                "text": "ผู้ย่อยที่ชีตระบุคือ Cellulomonas, protozoa และ bacteria ในสัตว์ ruminant"
-              }
+              "**cellulose → cellulodextrin → glucose โดย glycoside hydrolase ที่ตัด glycosidic linkage**",
+              "ผู้ย่อยที่ชีตระบุคือ Cellulomonas, protozoa และ bacteria ในสัตว์ ruminant"
             ]
           },
           {
             "sub": "Glycogenolysis",
             "body": [
-              {
-                "text": "**glycogen + Pi ผ่าน glycogen phosphorylase ได้ G1P กับ glycogen ที่เหลือ n-1 หน่วย** แล้ว G1P → G6P เข้า glycolysis"
-              },
-              {
-                "text": "**glycogen phosphorylase = regulatory enzyme** ตัวกระตุ้นที่ชีตเขียนคือ epinephrine ในภาวะ fight or flight และ glucagon ตอน low blood sugar ซึ่งชีตโยงกับ diabetic emergency"
-              }
+              "**glycogen + Pi ผ่าน glycogen phosphorylase ได้ G1P กับ glycogen ที่เหลือ n-1 หน่วย** แล้ว G1P → G6P เข้า glycolysis",
+              "**glycogen phosphorylase = regulatory enzyme** ตัวกระตุ้นที่ชีตเขียนคือ epinephrine ในภาวะ fight or flight และ glucagon ตอน low blood sugar ซึ่งชีตโยงกับ diabetic emergency"
             ]
           },
           {
             "sub": "Glycogenesis",
             "body": [
-              {
-                "text": "**glucose --hexokinase--> G6P → G1P → UDP-glucose → glycogen** โดยมี uridyl transferase และปล่อย PPi ออกมา"
-              },
-              {
-                "text": "ควบคุมด้วย **insulin เพิ่ม ส่วน adrenaline ลด**"
-              },
-              {
-                "text": "เหตุผลที่เก็บเป็น glycogen ไม่เก็บเป็น glucose อิสระคือ glucose จะดัน **osmotic pressure** ทำให้เกิด hypotonicity"
-              }
+              "**glucose --hexokinase--> G6P → G1P → UDP-glucose → glycogen** โดยมี uridyl transferase และปล่อย PPi ออกมา",
+              "ควบคุมด้วย **insulin เพิ่ม ส่วน adrenaline ลด**",
+              "เหตุผลที่เก็บเป็น glycogen ไม่เก็บเป็น glucose อิสระคือ glucose จะดัน **osmotic pressure** ทำให้เกิด hypotonicity"
             ]
           }
         ]
@@ -1045,12 +907,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "G6PD deficiency",
             "body": [
-              {
-                "text": "**ขาด G6PD ทำให้ NADPH ไม่พอ จึงกำจัด H2O2 ใน RBC ไม่ได้ ลงเอยที่ hemolytic anemia** และเปลี่ยน Hb เป็น Met Hb ชีตระบุว่าเป็น **X-linked disease**"
-              },
-              {
-                "text": "ปฏิกิริยาที่เกี่ยวข้องที่ชีตเขียนไว้"
-              },
+              "**ขาด G6PD ทำให้ NADPH ไม่พอ จึงกำจัด H2O2 ใน RBC ไม่ได้ ลงเอยที่ hemolytic anemia** และเปลี่ยน Hb เป็น Met Hb ชีตระบุว่าเป็น **X-linked disease**",
+              "ปฏิกิริยาที่เกี่ยวข้องที่ชีตเขียนไว้",
               {
                 "bullets": [
                   "glutathione peroxidase: **2GSH + ROOH → GSSG + ROH + H2O**",
@@ -1065,12 +923,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Non-oxidative phase ของ PPP",
         "source": "Biochem II midterm p.9",
         "body": [
-          {
-            "text": "**เอนไซม์คือ transketolase และ transaldolase**"
-          },
-          {
-            "text": "**เปลี่ยน ribose-5-phosphate (pentose) ไปเป็น PGAL และ F6P** ซึ่งเชื่อมกลับเข้า gluconeogenesis ได้ที่ระดับ G6P, F6P และ PGAL"
-          }
+          "**เอนไซม์คือ transketolase และ transaldolase**",
+          "**เปลี่ยน ribose-5-phosphate (pentose) ไปเป็น PGAL และ F6P** ซึ่งเชื่อมกลับเข้า gluconeogenesis ได้ที่ระดับ G6P, F6P และ PGAL"
         ]
       },
       {
@@ -1080,17 +934,13 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Cori cycle",
             "body": [
-              {
-                "text": "**lactate → glucose** โดยกล้ามเนื้อสร้าง lactate จาก glucose และ glycogen ผ่าน fermentation แล้ว **2 lactate → 2 pyruvate → glucose**"
-              }
+              "**lactate → glucose** โดยกล้ามเนื้อสร้าง lactate จาก glucose และ glycogen ผ่าน fermentation แล้ว **2 lactate → 2 pyruvate → glucose**"
             ]
           },
           {
             "sub": "Glucose-alanine cycle",
             "body": [
-              {
-                "text": "**pyruvate → alanine → glucose** เอนไซม์ที่ชีตเขียนคือ **ALT = alanine aminotransferase**"
-              }
+              "**pyruvate → alanine → glucose** เอนไซม์ที่ชีตเขียนคือ **ALT = alanine aminotransferase**"
             ]
           },
           {
@@ -1112,9 +962,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Gluconeogenesis: 3 bypass ที่เลี่ยง glycolysis",
         "source": "Biochem II midterm p.10",
         "body": [
-          {
-            "text": "gluconeogenesis เดินสวน glycolysis จาก **2 pyruvate → glucose** แต่ต้อง bypass จุด irreversible 3 จุด"
-          },
+          "gluconeogenesis เดินสวน glycolysis จาก **2 pyruvate → glucose** แต่ต้อง bypass จุด irreversible 3 จุด",
           {
             "bullets": [
               "**Bypass 1: pyruvate ใน Mito ถูก pyruvate carboxylase เปลี่ยนเป็น oxaloacetate → malate ออกมาที่ cytoplasm → oxaloacetate → PEP** (ชีตเขียนชื่อเอนไซม์ขั้นสุดท้ายว่า PEP carboxylase)",
@@ -1139,9 +987,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Glyoxylate cycle",
         "source": "Biochem II midterm p.10",
         "body": [
-          {
-            "text": "**เป็นวิถีที่ทำ glucose จาก fatty acid ได้ มีใน plant, E. coli และ yeast**"
-          },
+          "**เป็นวิถีที่ทำ glucose จาก fatty acid ได้ มีใน plant, E. coli และ yeast**",
           {
             "bullets": [
               "fatty acid สายคี่ผ่าน β-oxidation ได้ propionyl CoA → succinyl CoA เข้า Krebs แล้วไปต่อเป็น glucose",
@@ -1156,24 +1002,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Lipolysis cascade ที่ adipose",
         "source": "Biochem II midterm p.11",
         "body": [
-          {
-            "text": "ชีตวาดเป็นลูกโซ่ลงมาจากภาวะน้ำตาลต่ำ"
-          },
-          {
-            "text": "**Hypoglycemia → Adenylyl cyclase → cAMP (2nd messenger) → Protein kinase → Triacylglycerol lipase → TG แตกเป็น FFA + glycerol**"
-          }
+          "ชีตวาดเป็นลูกโซ่ลงมาจากภาวะน้ำตาลต่ำ",
+          "**Hypoglycemia → Adenylyl cyclase → cAMP (2nd messenger) → Protein kinase → Triacylglycerol lipase → TG แตกเป็น FFA + glycerol**"
         ]
       },
       {
         "heading": "β-oxidation ของ fatty acid",
         "source": "Biochem II midterm p.12",
         "body": [
-          {
-            "text": "ชีตแบ่ง lipid catabolism เป็น **fatty acid oxidation และ formation of ketone bodies**"
-          },
-          {
-            "text": "**β-oxidation คือการตัดคาร์บอนทีละ 2 ตัวที่ตำแหน่ง β-carbon**"
-          },
+          "ชีตแบ่ง lipid catabolism เป็น **fatty acid oxidation และ formation of ketone bodies**",
+          "**β-oxidation คือการตัดคาร์บอนทีละ 2 ตัวที่ตำแหน่ง β-carbon**",
           {
             "sub": "ขั้นตอน",
             "body": [
@@ -1199,9 +1037,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "ชีตกำกับไว้ว่า **metabolic water เกิดจากการ oxidize FFA**"
-          }
+          "ชีตกำกับไว้ว่า **metabolic water เกิดจากการ oxidize FFA**"
         ]
       },
       {
@@ -1231,9 +1067,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Formation of ketone bodies",
         "source": "Biochem II midterm p.13",
         "body": [
-          {
-            "text": "เกิดเมื่อร่างกายขาด glucose ทำให้ **oxaloacetate ถูกดึงไปใช้ acetyl-CoA จึงเข้า Krebs ไม่ได้ แล้วถูกเปลี่ยนไปเป็น ketone bodies แทน**"
-          },
+          "เกิดเมื่อร่างกายขาด glucose ทำให้ **oxaloacetate ถูกดึงไปใช้ acetyl-CoA จึงเข้า Krebs ไม่ได้ แล้วถูกเปลี่ยนไปเป็น ketone bodies แทน**",
           {
             "bullets": [
               "สะสมมากเกินจะเกิด **ketosis แล้วต่อไปเป็น acidosis → coma และเสียชีวิต**",
@@ -1247,26 +1081,18 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Lipogenesis: การสร้าง fatty acid",
         "source": "Biochem II midterm p.14",
         "body": [
-          {
-            "text": "**Lipogenesis เกิดที่ cytosol และไม่ใช่การเดินย้อนกลับของ β-oxidation**"
-          },
+          "**Lipogenesis เกิดที่ cytosol และไม่ใช่การเดินย้อนกลับของ β-oxidation**",
           {
             "sub": "1. ขน acetyl-CoA จาก Mito ออกมา cytosol",
             "body": [
-              {
-                "text": "**pyruvate → acetyl-CoA → citrate (จับกับ OAA) → ออกมา cytosol แล้วปล่อย acetyl-CoA กลับคืน**"
-              },
-              {
-                "text": "**เอนไซม์ขั้น rate-limiting step ถูกกระตุ้นด้วย citrate และถูกยับยั้งด้วย long-chain acyl-CoA ซึ่งเป็น product**"
-              }
+              "**pyruvate → acetyl-CoA → citrate (จับกับ OAA) → ออกมา cytosol แล้วปล่อย acetyl-CoA กลับคืน**",
+              "**เอนไซม์ขั้น rate-limiting step ถูกกระตุ้นด้วย citrate และถูกยับยั้งด้วย long-chain acyl-CoA ซึ่งเป็น product**"
             ]
           },
           {
             "sub": "2. สร้าง malonyl-CoA",
             "body": [
-              {
-                "text": "**Acetyl-CoA (C2) + ATP + CO2 → malonyl-CoA (C3) + ADP + Pi**"
-              }
+              "**Acetyl-CoA (C2) + ATP + CO2 → malonyl-CoA (C3) + ADP + Pi**"
             ]
           },
           {
@@ -1297,9 +1123,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "4. สร้าง triacylglycerol",
             "body": [
-              {
-                "text": "**G-3-P → phosphatidate --phosphatidate phosphatase--> 1,2-diacylglycerol → triacylglycerol** และแยกไปเป็น glycerophospholipid ได้"
-              }
+              "**G-3-P → phosphatidate --phosphatidate phosphatase--> 1,2-diacylglycerol → triacylglycerol** และแยกไปเป็น glycerophospholipid ได้"
             ]
           }
         ]
@@ -1311,15 +1135,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "การสร้าง cholesterol",
             "body": [
-              {
-                "text": "**acetate → mevalonate → isoprene → squalene → cholesterol**"
-              },
-              {
-                "text": "**Statin block ที่ HMG-CoA ซึ่งชีตทำเครื่องหมายไว้ว่าเป็น rate-limiting step**"
-              },
-              {
-                "text": "**cholesterol เป็น precursor ของ Vit D, steroid hormone และ bile acid**"
-              }
+              "**acetate → mevalonate → isoprene → squalene → cholesterol**",
+              "**Statin block ที่ HMG-CoA ซึ่งชีตทำเครื่องหมายไว้ว่าเป็น rate-limiting step**",
+              "**cholesterol เป็น precursor ของ Vit D, steroid hormone และ bile acid**"
             ]
           },
           {
@@ -1337,9 +1155,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Clinical",
             "body": [
-              {
-                "text": "**brown adipose tissue ใช้ thermogenin ปล่อย H+ ผ่านเพื่อสร้าง heat**"
-              }
+              "**brown adipose tissue ใช้ thermogenin ปล่อย H+ ผ่านเพื่อสร้าง heat**"
             ]
           }
         ]
@@ -1348,9 +1164,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Intro protein: ภาพรวมชะตากรรมของ amino acid",
         "source": "Biochem II midterm p.16",
         "body": [
-          {
-            "text": "ชีตวาดเป็นแผนภาพวงกลม Body protein ⇄ Amino acid แล้วแตกออกสองฝั่ง"
-          },
+          "ชีตวาดเป็นแผนภาพวงกลม Body protein ⇄ Amino acid แล้วแตกออกสองฝั่ง",
           {
             "bullets": [
               "ฝั่งสลาย: **Urea (NH3), Acetyl CoA, carbo intermediate, Glycogen และ CO2, H2O, energy**",
@@ -1375,15 +1189,11 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Nitrogen metabolism และวงจรไนโตรเจน",
         "source": "Biochem II midterm p.17",
         "body": [
-          {
-            "text": "amino group คือ NH2 ซึ่งเป็นจุดตั้งต้นของหัวข้อนี้"
-          },
+          "amino group คือ NH2 ซึ่งเป็นจุดตั้งต้นของหัวข้อนี้",
           {
             "sub": "Nitrogen fixation",
             "body": [
-              {
-                "text": "ใช้ **nitrogenase complex** ซึ่งชีตแยกส่วนประกอบไว้ว่า **Fe protein เป็น dimer และ MoFe protein เป็น tetramer** ปฏิกิริยาต้องใช้ e-, ATP, H2O และ H+"
-              }
+              "ใช้ **nitrogenase complex** ซึ่งชีตแยกส่วนประกอบไว้ว่า **Fe protein เป็น dimer และ MoFe protein เป็น tetramer** ปฏิกิริยาต้องใช้ e-, ATP, H2O และ H+"
             ]
           },
           {
@@ -1395,9 +1205,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**Nitrobacter เปลี่ยน NO2- → NO3-**"
                 ]
               },
-              {
-                "text": "วงจรที่ชีตเขียนคือ **N2 → NH4+/NH3 → NO2- → NO3- → N2**"
-              }
+              "วงจรที่ชีตเขียนคือ **N2 → NH4+/NH3 → NO2- → NO3- → N2**"
             ]
           }
         ]
@@ -1433,9 +1241,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "ชีตเขียน **acute pancreatitis** กำกับไว้ตรงประเด็นที่เอนไซม์ถูก activate ผิดที่ และวงเล็บว่า **fibrous protein กับ cellulose ย่อยไม่ได้**"
-          }
+          "ชีตเขียน **acute pancreatitis** กำกับไว้ตรงประเด็นที่เอนไซม์ถูก activate ผิดที่ และวงเล็บว่า **fibrous protein กับ cellulose ย่อยไม่ได้**"
         ]
       },
       {
@@ -1452,12 +1258,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Protein turnover",
             "body": [
-              {
-                "text": "คือการที่โปรตีนถูกสร้างและสลายตลอดเวลาเพื่อรักษา steady state level ภายในเซลล์"
-              },
-              {
-                "text": "อายุการใช้งานแบ่งเป็น **1. กลุ่มอายุสั้น เช่น enzyme และ hormone ที่เป็น polypeptide 2. กลุ่มโครงสร้าง เช่น collagen ของ connective tissue**"
-              }
+              "คือการที่โปรตีนถูกสร้างและสลายตลอดเวลาเพื่อรักษา steady state level ภายในเซลล์",
+              "อายุการใช้งานแบ่งเป็น **1. กลุ่มอายุสั้น เช่น enzyme และ hormone ที่เป็น polypeptide 2. กลุ่มโครงสร้าง เช่น collagen ของ connective tissue**"
             ]
           }
         ]
@@ -1477,9 +1279,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**4. arginine** (glutamate → transamination → ornithine → arginine)"
                 ]
               },
-              {
-                "text": "ชีตเขียนการควบคุมด้วย **adenylylation ผ่าน adenylyl transferase (AT)** โดย ATP → AMP และมี regulatory subunit ที่ใช้ UTP → UDP"
-              }
+              "ชีตเขียนการควบคุมด้วย **adenylylation ผ่าน adenylyl transferase (AT)** โดย ATP → AMP และมี regulatory subunit ที่ใช้ UTP → UDP"
             ]
           },
           {
@@ -1555,9 +1355,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Catabolic pathway ของ amino acid",
         "source": "Biochem II midterm p.20",
         "body": [
-          {
-            "text": "amino acid ถูก oxidize ไปเป็น CO2, NADH, FADH2 และ ATP โดยเริ่มจากการถอดหมู่ amino ออกด้วย **deamination และ transamination**"
-          },
+          "amino acid ถูก oxidize ไปเป็น CO2, NADH, FADH2 และ ATP โดยเริ่มจากการถอดหมู่ amino ออกด้วย **deamination และ transamination**",
           {
             "bullets": [
               "**transamination ต้องใช้ Vit B เป็น coenzyme** เอนไซม์คือ **glutamate transaminase ได้แก่ GOT/AST และ GPT/ALT**",
@@ -1599,9 +1397,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**alanine เดินทางในรูป glucose-alanine cycle**"
                 ]
               },
-              {
-                "text": "**Hyperammonemia นำไปสู่ hepatic encephalopathy**"
-              }
+              "**Hyperammonemia นำไปสู่ hepatic encephalopathy**"
             ]
           }
         ]
@@ -1610,9 +1406,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Urea cycle",
         "source": "Biochem II midterm p.21",
         "body": [
-          {
-            "text": "**เกิดที่ liver เปลี่ยน ammonia ไปเป็น urea** ไนโตรเจนสองตัวมาจาก **NH4+ และ aspartate**"
-          },
+          "**เกิดที่ liver เปลี่ยน ammonia ไปเป็น urea** ไนโตรเจนสองตัวมาจาก **NH4+ และ aspartate**",
           {
             "sub": "ขั้นตอน",
             "body": [
@@ -1625,9 +1419,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**5. arginine → ornithine + urea**"
                 ]
               },
-              {
-                "text": "**fumarate ที่ได้ไปต่อเป็น malate → OAA เข้า Krebs**"
-              }
+              "**fumarate ที่ได้ไปต่อเป็น malate → OAA เข้า Krebs**"
             ]
           },
           {
@@ -1668,12 +1460,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ฝั่ง catabolism",
             "body": [
-              {
-                "text": "สารตั้งต้นที่วิ่งเข้า CAC ได้แก่ **glucose (ผ่าน glycolysis), amino acid (ผ่าน transamination และ deamination), fatty acid และ glycerol**"
-              },
-              {
-                "text": "**catabolic pathway เดินที่ cytoplasm ได้ acetyl CoA แล้วจึงเข้า CAC ที่ Mito**"
-              }
+              "สารตั้งต้นที่วิ่งเข้า CAC ได้แก่ **glucose (ผ่าน glycolysis), amino acid (ผ่าน transamination และ deamination), fatty acid และ glycerol**",
+              "**catabolic pathway เดินที่ cytoplasm ได้ acetyl CoA แล้วจึงเข้า CAC ที่ Mito**"
             ]
           },
           {
@@ -1710,9 +1498,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Starvation: ร่างกายดึงอะไรมาใช้ตามลำดับ",
         "source": "Biochem II midterm p.23",
         "body": [
-          {
-            "text": "ชีตเริ่มหัวข้อนี้ไว้ตั้งแต่หน้า summary ว่าแหล่งสำรองมี **glycogen ที่ liver และ muscle, triacylglycerol ที่ adipose tissue และ protein**"
-          },
+          "ชีตเริ่มหัวข้อนี้ไว้ตั้งแต่หน้า summary ว่าแหล่งสำรองมี **glycogen ที่ liver และ muscle, triacylglycerol ที่ adipose tissue และ protein**",
           {
             "sub": "ลำดับที่ชีตเขียน",
             "body": [
@@ -1729,12 +1515,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ketone bodies",
             "body": [
-              {
-                "text": "**สามตัวที่ชีตระบุคือ Acetoacetate, Acetone และ β-Hydroxybutyrate**"
-              },
-              {
-                "text": "ปลายทางที่ชีตเขียนไว้คือ **ketoacidosis** และเสียชีวิต ชีตกล่าวถึง basal metabolic rate ประกอบด้วย"
-              }
+              "**สามตัวที่ชีตระบุคือ Acetoacetate, Acetone และ β-Hydroxybutyrate**",
+              "ปลายทางที่ชีตเขียนไว้คือ **ketoacidosis** และเสียชีวิต ชีตกล่าวถึง basal metabolic rate ประกอบด้วย"
             ]
           },
           {
@@ -1755,9 +1537,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "เด็คนี้มีอะไรบ้าง และข้อจำกัดของไฟล์",
         "source": "biochem II",
         "body": [
-          {
-            "text": "เด็คทั้งหมดมี 8 หน้า แต่ **หน้า 1-6 ไม่มีข้อความเลยแม้แต่คำเดียว** เนื้อหาที่อ่านได้อยู่ที่หน้า 7 และหน้า 8 เท่านั้น ทั้งสองหน้าเป็นสรุปลายมือหัวข้อเดียวคือ Vitamin and mineral"
-          },
+          "เด็คทั้งหมดมี 8 หน้า แต่ **หน้า 1-6 ไม่มีข้อความเลยแม้แต่คำเดียว** เนื้อหาที่อ่านได้อยู่ที่หน้า 7 และหน้า 8 เท่านั้น ทั้งสองหน้าเป็นสรุปลายมือหัวข้อเดียวคือ Vitamin and mineral",
           {
             "callout": "หน้า 7-8 เป็นลายมือที่สแกนมา ตัวอักษรไทยแทบทั้งหมดถูกอ่านออกมาเป็นตัวอักษรมั่ว สรุปนี้จึงเก็บเฉพาะคำศัพท์อังกฤษที่อ่านออกชัด ส่วนคำอธิบายภาษาไทยที่กำกับแต่ละหัวข้อไว้ สไลด์ไม่ได้บอก (อ่านไม่ออกจากไฟล์) อย่าเดาเนื้อหาส่วนนั้นเอง",
             "kind": "warn"
@@ -1768,12 +1548,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "การแบ่งกลุ่ม vitamin ที่สไลด์วางไว้",
         "source": "biochem II p.7",
         "body": [
-          {
-            "text": "สไลด์ขึ้นหัวข้อ Vitamin and mineral แล้วแยก vitamin ออกเป็นสองกลุ่มคือ **กลุ่ม B กับ C** และ **กลุ่ม A, D, E, K** ส่วนเกณฑ์ที่ใช้แบ่งนั้นเขียนเป็นภาษาไทยและอ่านไม่ออก สไลด์ไม่ได้บอกในไฟล์นี้"
-          },
-          {
-            "text": "แต่ละวิตามินสไลด์เขียนโครงเดียวกันหมดคือ **active form, แหล่งที่พบ, และ deficiency** จำโครงนี้ไว้แล้วไล่ทีละตัวได้"
-          }
+          "สไลด์ขึ้นหัวข้อ Vitamin and mineral แล้วแยก vitamin ออกเป็นสองกลุ่มคือ **กลุ่ม B กับ C** และ **กลุ่ม A, D, E, K** ส่วนเกณฑ์ที่ใช้แบ่งนั้นเขียนเป็นภาษาไทยและอ่านไม่ออก สไลด์ไม่ได้บอกในไฟล์นี้",
+          "แต่ละวิตามินสไลด์เขียนโครงเดียวกันหมดคือ **active form, แหล่งที่พบ, และ deficiency** จำโครงนี้ไว้แล้วไล่ทีละตัวได้"
         ]
       },
       {
@@ -1954,9 +1730,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Calcium",
             "body": [
-              {
-                "text": "คำที่สไลด์เขียนไว้ในหัวข้อนี้และอ่านออกชัดคือ **rickets, hypercalcemia, milk fever และ eclampsia** ส่วนคำอธิบายไทยที่กำกับแต่ละคำ (รวมถึงว่าแต่ละภาวะเกิดในสัตว์ชนิดไหน) อ่านไม่ออก สไลด์ไม่ได้บอก"
-              }
+              "คำที่สไลด์เขียนไว้ในหัวข้อนี้และอ่านออกชัดคือ **rickets, hypercalcemia, milk fever และ eclampsia** ส่วนคำอธิบายไทยที่กำกับแต่ละคำ (รวมถึงว่าแต่ละภาวะเกิดในสัตว์ชนิดไหน) อ่านไม่ออก สไลด์ไม่ได้บอก"
             ]
           },
           {
@@ -2028,18 +1802,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "โครงเรื่องของคาบนี้",
         "source": "Biochemistry of Hormones p.2",
         "body": [
-          {
-            "text": "สไลด์ outline แบ่งคาบออกเป็น **2 ส่วนใหญ่**"
-          },
+          "สไลด์ outline แบ่งคาบออกเป็น **2 ส่วนใหญ่**",
           {
             "bullets": [
               "Biochemistry of polypeptide and amino acid derivative hormones",
               "Biochemistry of steroid hormone"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกรายละเอียดว่าแต่ละส่วนจะลงลึกแค่ไหน แค่วางหัวข้อไว้เท่านั้น"
-          }
+          "สไลด์ไม่ได้บอกรายละเอียดว่าแต่ละส่วนจะลงลึกแค่ไหน แค่วางหัวข้อไว้เท่านั้น"
         ]
       },
       {
@@ -2059,9 +1829,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ชนิดของ intercellular signaling",
         "source": "Biochemistry of Hormones p.4",
         "body": [
-          {
-            "text": "สไลด์บอกว่า cell communication เกิดผ่าน chemical signals และ cellular receptors แล้วแบ่งชนิดของการสื่อสารระหว่างเซลล์ไว้ดังนี้"
-          },
+          "สไลด์บอกว่า cell communication เกิดผ่าน chemical signals และ cellular receptors แล้วแบ่งชนิดของการสื่อสารระหว่างเซลล์ไว้ดังนี้",
           {
             "bullets": [
               "**Autocrine** เซลล์ที่สร้าง messenger เอง แสดง receptor บนผิวตัวเองที่ตอบสนองต่อ messenger นั้นได้",
@@ -2078,9 +1846,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "Hormones are carried by the circulatory systems to many sites. (What types of intercellular signaling?)"
                 ]
               },
-              {
-                "text": "สไลด์ตั้งเป็นคำถามและไม่ได้เขียนเฉลยไว้ตรง ๆ แต่ให้นิยามของ paracrine และ endocrine ไว้บนสไลด์เดียวกัน"
-              }
+              "สไลด์ตั้งเป็นคำถามและไม่ได้เขียนเฉลยไว้ตรง ๆ แต่ให้นิยามของ paracrine และ endocrine ไว้บนสไลด์เดียวกัน"
             ]
           }
         ]
@@ -2167,18 +1933,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Mode of action ของฮอร์โมนที่ละลายน้ำและละลายไขมัน",
         "source": "Biochemistry of Hormones p.12-13",
         "body": [
-          {
-            "text": "มีสไลด์ 2 หน้าติดกันชื่อ Mode of Action: Water Soluble Hormone และ Mode of Action: Lipid Soluble Hormone แต่ทั้งสองหน้าเป็นรูป diagram ล้วน **ไม่มีข้อความอธิบายบนสไลด์** จึงสรุปกลไกจากตัวอักษรไม่ได้ ให้ย้อนไปดูตารางเปรียบเทียบหน้า p.11 ซึ่งเป็นหน้าที่พูดเรื่องเดียวกันด้วยตัวหนังสือ"
-          }
+          "มีสไลด์ 2 หน้าติดกันชื่อ Mode of Action: Water Soluble Hormone และ Mode of Action: Lipid Soluble Hormone แต่ทั้งสองหน้าเป็นรูป diagram ล้วน **ไม่มีข้อความอธิบายบนสไลด์** จึงสรุปกลไกจากตัวอักษรไม่ได้ ให้ย้อนไปดูตารางเปรียบเทียบหน้า p.11 ซึ่งเป็นหน้าที่พูดเรื่องเดียวกันด้วยตัวหนังสือ"
         ]
       },
       {
         "heading": "การแบ่งชนิดของ receptor",
         "source": "Biochemistry of Hormones p.14",
         "body": [
-          {
-            "text": "Receptor แบ่งคร่าว ๆ ได้เป็น **2 class ใหญ่ คือ intracellular receptors และ extracellular receptors**"
-          },
+          "Receptor แบ่งคร่าว ๆ ได้เป็น **2 class ใหญ่ คือ intracellular receptors และ extracellular receptors**",
           {
             "sub": "Extracellular receptors (ส่วนที่สไลด์อธิบายไว้)",
             "body": [
@@ -2201,15 +1963,11 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Biosynthesis of peptide hormone: ตัวอย่าง vasopressin",
         "source": "Biochemistry of Hormones p.17, p.22, p.25",
         "body": [
-          {
-            "text": "หัวข้อ BIOSYNTHESIS OF PEPTIDE HORMONE (p.17) เดินเรื่องด้วยตัวอย่าง vasopressin จาก posterior pituitary โดยอ้างอิงหนังสือ The pituitary (Bichet, 2011) เนื้อหาส่วนใหญ่เป็น diagram"
-          },
+          "หัวข้อ BIOSYNTHESIS OF PEPTIDE HORMONE (p.17) เดินเรื่องด้วยตัวอย่าง vasopressin จาก posterior pituitary โดยอ้างอิงหนังสือ The pituitary (Bichet, 2011) เนื้อหาส่วนใหญ่เป็น diagram",
           {
             "sub": "Cascade of Vasopressin Biosynthesis (p.22)",
             "body": [
-              {
-                "text": "สไลด์เป็นแผนภาพ cascade ตัวอักษรที่มีคือ **คำย่อของชิ้นส่วนใน precursor**"
-              },
+              "สไลด์เป็นแผนภาพ cascade ตัวอักษรที่มีคือ **คำย่อของชิ้นส่วนใน precursor**",
               {
                 "bullets": [
                   "**SP** = signal peptide",
@@ -2218,17 +1976,13 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**GP** = glycoprotein"
                 ]
               },
-              {
-                "text": "ลำดับขั้นของ cascade อยู่ในรูป สไลด์ไม่ได้เขียนเป็นข้อความ"
-              }
+              "ลำดับขั้นของ cascade อยู่ในรูป สไลด์ไม่ได้เขียนเป็นข้อความ"
             ]
           },
           {
             "sub": "การหลั่ง vasopressin (p.25)",
             "body": [
-              {
-                "text": "สไลด์เป็นแผนภาพของ **magnocellular vasopressin-producing cell** และกลไกทั่วไปที่ **vesicle ที่บรรจุ vasopressin ไป fuse กับ plasma membrane ตอนหลั่ง vasopressin**"
-              }
+              "สไลด์เป็นแผนภาพของ **magnocellular vasopressin-producing cell** และกลไกทั่วไปที่ **vesicle ที่บรรจุ vasopressin ไป fuse กับ plasma membrane ตอนหลั่ง vasopressin**"
             ]
           },
           {
@@ -2241,9 +1995,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ภาพรวมการสังเคราะห์ amino acid-derived hormone",
         "source": "Biochemistry of Hormones p.27-28",
         "body": [
-          {
-            "text": "หัวข้อนี้ครอบคลุม 2 กลุ่มคือ **epinephrine (catecholamines) และ thyroid hormones**"
-          },
+          "หัวข้อนี้ครอบคลุม 2 กลุ่มคือ **epinephrine (catecholamines) และ thyroid hormones**",
           {
             "bullets": [
               "Epinephrine ถูกสังเคราะห์จาก **phenylalanine / tyrosine**",
@@ -2256,9 +2008,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Biosynthesis of catecholamine",
         "source": "Biochemistry of Hormones p.29, p.32, p.34",
         "body": [
-          {
-            "text": "หัวข้อ BIOSYNTHESIS OF CATECHOLAMINE (Adrenaline and Noradrenaline) และหัวข้อย่อย BIOSYNTHESIS OF CATECHOLAMINE IN ADRENAL MEDULLA"
-          },
+          "หัวข้อ BIOSYNTHESIS OF CATECHOLAMINE (Adrenaline and Noradrenaline) และหัวข้อย่อย BIOSYNTHESIS OF CATECHOLAMINE IN ADRENAL MEDULLA",
           {
             "bullets": [
               "**50% ของ dietary phenylalanine ถูกใช้ไปกับการสังเคราะห์ tyrosine**"
@@ -2277,9 +2027,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Mechanism",
             "body": [
-              {
-                "text": "Catecholamine จับกับ **adrenergic receptor** หลายชนิดที่อยู่บนอวัยวะและเนื้อเยื่อต่าง ๆ"
-              }
+              "Catecholamine จับกับ **adrenergic receptor** หลายชนิดที่อยู่บนอวัยวะและเนื้อเยื่อต่าง ๆ"
             ]
           },
           {
@@ -2302,9 +2050,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Regulation of secretion",
             "body": [
-              {
-                "text": "การหลั่ง catecholamine ถูกกระตุ้นได้จากหลายสิ่งเร้า เช่น **สถานการณ์ที่เครียดสูง (fight-or-flight) หรือ cortisol**"
-              }
+              "การหลั่ง catecholamine ถูกกระตุ้นได้จากหลายสิ่งเร้า เช่น **สถานการณ์ที่เครียดสูง (fight-or-flight) หรือ cortisol**"
             ]
           },
           {
@@ -2346,9 +2092,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "Basolateral Transport"
                 ]
               },
-              {
-                "text": "สไลด์หน้านี้เป็น diagram ที่มีแต่ label เหล่านี้ **ไม่ได้อธิบายรายละเอียดของแต่ละขั้นเป็นข้อความ**"
-              }
+              "สไลด์หน้านี้เป็น diagram ที่มีแต่ label เหล่านี้ **ไม่ได้อธิบายรายละเอียดของแต่ละขั้นเป็นข้อความ**"
             ]
           }
         ]
@@ -2377,9 +2121,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Biosynthesis of steroid hormones",
         "source": "Biochemistry of Hormones p.51-52",
         "body": [
-          {
-            "text": "**Cholesterol** เป็น prototypical animal sterol เป็นทั้ง structural lipid และเป็น **key steroid biosynthetic precursor**"
-          },
+          "**Cholesterol** เป็น prototypical animal sterol เป็นทั้ง structural lipid และเป็น **key steroid biosynthetic precursor**",
           {
             "callout": "หน้าถัดจากนี้ (p.53-54) ซึ่งน่าจะเป็น pathway การสังเคราะห์ steroid เป็นรูปล้วน ไม่มีข้อความ จึงสรุปชื่อเอนไซม์หรือลำดับขั้นจากเด็คไม่ได้",
             "kind": "warn"
@@ -2390,9 +2132,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Steroid hormone receptor",
         "source": "Biochemistry of Hormones p.55",
         "body": [
-          {
-            "text": "Steroid hormone receptor เป็น **intracellular protein receptor** โดยสไลด์แยกตำแหน่งไว้ 2 กลุ่ม"
-          },
+          "Steroid hormone receptor เป็น **intracellular protein receptor** โดยสไลด์แยกตำแหน่งไว้ 2 กลุ่ม",
           {
             "bullets": [
               "อยู่ใน **cytoplasm**: glucocorticoid, aldosterone, testosterone",
@@ -2412,9 +2152,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**hsp = heat shock protein** (ตามคำย่อที่กำกับไว้บนสไลด์)"
             ]
           },
-          {
-            "text": "บทบาทของ hsp ในกลไกนี้อยู่ในรูป สไลด์ไม่ได้อธิบายเป็นข้อความ"
-          }
+          "บทบาทของ hsp ในกลไกนี้อยู่ในรูป สไลด์ไม่ได้อธิบายเป็นข้อความ"
         ]
       },
       {
@@ -2443,36 +2181,24 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Objective ของเด็คนี้",
         "source": "cancer p.2",
         "body": [
-          {
-            "text": "สไลด์วาง OBJ ไว้ว่า ต่อยอดจาก **knowledge of basic molecular biology and normal metabolism** ไปสู่ **metabolic reprogramming of cancer**"
-          },
-          {
-            "text": "หน้าถัดมา (p.3) ขึ้นหัวข้อ Cancer in companion animal ไว้เป็นชื่อหัวข้อเท่านั้น สไลด์ไม่ได้บอกเนื้อหาต่อในหน้านั้น"
-          }
+          "สไลด์วาง OBJ ไว้ว่า ต่อยอดจาก **knowledge of basic molecular biology and normal metabolism** ไปสู่ **metabolic reprogramming of cancer**",
+          "หน้าถัดมา (p.3) ขึ้นหัวข้อ Cancer in companion animal ไว้เป็นชื่อหัวข้อเท่านั้น สไลด์ไม่ได้บอกเนื้อหาต่อในหน้านั้น"
         ]
       },
       {
         "heading": "นิยามของ cancer",
         "source": "cancer p.4",
         "body": [
-          {
-            "text": "Cancer คือโรคที่ **some of the body's cells grow uncontrollably and spread to other parts of the body**"
-          },
-          {
-            "text": "p.5 ขึ้นหัวข้อ How cancer starts แล้วย้ำวลีเดิม คือ some of the body's cells grow uncontrollably and spread สไลด์ไม่ได้บอกกลไกเพิ่มในหน้านั้น"
-          }
+          "Cancer คือโรคที่ **some of the body's cells grow uncontrollably and spread to other parts of the body**",
+          "p.5 ขึ้นหัวข้อ How cancer starts แล้วย้ำวลีเดิม คือ some of the body's cells grow uncontrollably and spread สไลด์ไม่ได้บอกกลไกเพิ่มในหน้านั้น"
         ]
       },
       {
         "heading": "เซลล์จะโตต้องใช้อะไร (Anabolism)",
         "source": "cancer p.6",
         "body": [
-          {
-            "text": "Cell growth and proliferation ต้องการทั้ง energy และ nutrients"
-          },
-          {
-            "text": "องค์ประกอบของ **cell dry mass** ที่สไลด์ให้ไว้"
-          },
+          "Cell growth and proliferation ต้องการทั้ง energy และ nutrients",
+          "องค์ประกอบของ **cell dry mass** ที่สไลด์ให้ไว้",
           {
             "bullets": [
               "protein 55%",
@@ -2498,27 +2224,21 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**2000-present Metabolism era**"
             ]
           },
-          {
-            "text": "timeline นี้ถูกฉายซ้ำเป็นสไลด์คั่น (p.10, p.17) เพื่อบอกว่ากำลังจะเข้ายุคไหนต่อ"
-          }
+          "timeline นี้ถูกฉายซ้ำเป็นสไลด์คั่น (p.10, p.17) เพื่อบอกว่ากำลังจะเข้ายุคไหนต่อ"
         ]
       },
       {
         "heading": "Biochemistry era: ข้อสังเกตของ Otto Warburg",
         "source": "cancer p.8",
         "body": [
-          {
-            "text": "**ในปี 1924 Otto Warburg สังเกตว่า cancer cells ผลิต lactate มากเกินปกติทั้งที่มี oxygen อยู่**"
-          }
+          "**ในปี 1924 Otto Warburg สังเกตว่า cancer cells ผลิต lactate มากเกินปกติทั้งที่มี oxygen อยู่**"
         ]
       },
       {
         "heading": "Cellular respiration ของ normal cell",
         "source": "cancer p.9",
         "body": [
-          {
-            "text": "สไลด์ไล่ 4 ขั้นของ cellular respiration พร้อมผล ATP"
-          },
+          "สไลด์ไล่ 4 ขั้นของ cellular respiration พร้อมผล ATP",
           {
             "bullets": [
               "1. Glycolysis: Glucose ไป Pyruvate ได้ 2 ATP",
@@ -2527,24 +2247,18 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "4. OXP ได้ 32-34 ATP โดยอาศัย NADH และ FADH2 ที่ได้จากขั้นก่อนหน้า"
             ]
           },
-          {
-            "text": "**Normal cell ผลิตได้ 36-38 ATP ต่อ glucose 1 โมเลกุล** โดยมีแขนง LACTATE แยกออกจาก pyruvate ในแผนภาพ"
-          }
+          "**Normal cell ผลิตได้ 36-38 ATP ต่อ glucose 1 โมเลกุล** โดยมีแขนง LACTATE แยกออกจาก pyruvate ในแผนภาพ"
         ]
       },
       {
         "heading": "Genetics era: central dogma และยีน 3 กลุ่มที่ทำให้เกิดมะเร็ง",
         "source": "cancer p.12",
         "body": [
-          {
-            "text": "สไลด์ p.12 วาง central dogma ไว้เป็นพื้นฐาน คือ DNA ไป RNA ไป Protein"
-          },
+          "สไลด์ p.12 วาง central dogma ไว้เป็นพื้นฐาน คือ DNA ไป RNA ไป Protein",
           {
             "sub": "Types of Genes that Cause Cancer (p.13)",
             "body": [
-              {
-                "text": "สไลด์ยกความผิดปกติตั้งต้นไว้ 2 อย่าง คือ **too few or too many copies of some chromosomes** และ **genetic mutation**"
-              },
+              "สไลด์ยกความผิดปกติตั้งต้นไว้ 2 อย่าง คือ **too few or too many copies of some chromosomes** และ **genetic mutation**",
               {
                 "bullets": [
                   "**Proto-oncogenes** หน้าที่ปกติคือ control cell growth, division and death เมื่อเปลี่ยนเป็น **oncogene** จะทำให้ cells grow and survive when they should not",
@@ -2573,12 +2287,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สิ่งที่ cancer cells ทุกชนิดมีร่วมกัน = Warburg Effect",
         "source": "cancer p.16",
         "body": [
-          {
-            "text": "คำถามบนสไลด์คือ What all cancer cells have in common? คำตอบคือ **glycolysis ที่เดินทั้งที่มี oxygen อยู่ แต่กลับผลิต lactate**"
-          },
-          {
-            "text": "สไลด์เรียกภาวะแปลกนี้ว่า **aerobic glycolysis = Warburg Effect**"
-          }
+          "คำถามบนสไลด์คือ What all cancer cells have in common? คำตอบคือ **glycolysis ที่เดินทั้งที่มี oxygen อยู่ แต่กลับผลิต lactate**",
+          "สไลด์เรียกภาวะแปลกนี้ว่า **aerobic glycolysis = Warburg Effect**"
         ]
       },
       {
@@ -2602,12 +2312,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Glycolysis ของ cancer cell และ pyruvate kinase M2",
         "source": "cancer p.20",
         "body": [
-          {
-            "text": "แผนภาพเดียวกับ p.9 แต่เปลี่ยนตัวเลข คือ glycolysis ได้ 2 ATP ส่วน **CAC 0 ATP และ OXP 0 ATP** ปลายทางเป็น LACTATE"
-          },
-          {
-            "text": "**Cancer cell ผลิตได้ 2 ATP ต่อ glucose 1 โมเลกุล**"
-          },
+          "แผนภาพเดียวกับ p.9 แต่เปลี่ยนตัวเลข คือ glycolysis ได้ 2 ATP ส่วน **CAC 0 ATP และ OXP 0 ATP** ปลายทางเป็น LACTATE",
+          "**Cancer cell ผลิตได้ 2 ATP ต่อ glucose 1 โมเลกุล**",
           {
             "sub": "เทียบ isoform ของ pyruvate kinase (p.21)",
             "body": [
@@ -2625,12 +2331,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ผลตามมา: กินกลูโคสมากขึ้น และเห็นได้จาก PET scan",
         "source": "cancer p.22",
         "body": [
-          {
-            "text": "เพราะ **less ATP production** เซลล์มะเร็งจึง **need more glucose**"
-          },
-          {
-            "text": "สไลด์ใช้ **18F-fluorodeoxyglucose (18F-FDG)** ที่สะสมในเซลล์ แล้วตรวจจับด้วย **positron emission tomography (PET scan)** เห็นเป็น **high glucose uptake by solid tumors** (ลูกศรแดงในภาพ)"
-          }
+          "เพราะ **less ATP production** เซลล์มะเร็งจึง **need more glucose**",
+          "สไลด์ใช้ **18F-fluorodeoxyglucose (18F-FDG)** ที่สะสมในเซลล์ แล้วตรวจจับด้วย **positron emission tomography (PET scan)** เห็นเป็น **high glucose uptake by solid tumors** (ลูกศรแดงในภาพ)"
         ]
       },
       {
@@ -2640,9 +2342,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Healthy cells",
             "body": [
-              {
-                "text": "Gluconeogenesis เกิดผ่าน **Cori cycle** คือ lactate จากเซลล์ถูกขนส่งไป liver เปลี่ยนเป็น glucose แล้วส่งกลับไปที่ muscle"
-              }
+              "Gluconeogenesis เกิดผ่าน **Cori cycle** คือ lactate จากเซลล์ถูกขนส่งไป liver เปลี่ยนเป็น glucose แล้วส่งกลับไปที่ muscle"
             ]
           },
           {
@@ -2655,9 +2355,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "lactate ที่ปล่อยออกมาทำให้เกิด **acid micro-environment (H+) รอบเซลล์มะเร็ง**"
                 ]
               },
-              {
-                "text": "สไลด์เขียนต่อว่า **macrophage love negative charge** ดังนั้น cancer จึง avoid phagocytosis ได้"
-              }
+              "สไลด์เขียนต่อว่า **macrophage love negative charge** ดังนั้น cancer จึง avoid phagocytosis ได้"
             ]
           }
         ]
@@ -2666,9 +2364,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Pentose phosphate pathway (PPP)",
         "source": "cancer p.26",
         "body": [
-          {
-            "text": "PPP พบทั้งใน healthy และ cancer cells สไลด์ระบุผลผลิต 3 อย่าง"
-          },
+          "PPP พบทั้งใน healthy และ cancer cells สไลด์ระบุผลผลิต 3 อย่าง",
           {
             "bullets": [
               "**NADPH** ทำหน้าที่ electron carrier สำหรับ **fatty acid และ cholesterol synthesis**",
@@ -2676,12 +2372,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**Gly-3P และ Fruc-6P** ของ glycolysis"
             ]
           },
-          {
-            "text": "ประโยคสรุปของสไลด์คือ **PPP provides substrates for anabolism**"
-          },
-          {
-            "text": "แผนภาพเทียบ (p.25) วาง healthy cells ไว้กับ pyruvate kinase L, R, M1 ส่วนฝั่ง cancer cells มีสัญลักษณ์ลูกศรกำกับที่ glucose, NADPH และ Ribose 5P แต่ text layer ของสไลด์ไม่ได้เขียนคำอธิบายกำกับลูกศรไว้"
-          }
+          "ประโยคสรุปของสไลด์คือ **PPP provides substrates for anabolism**",
+          "แผนภาพเทียบ (p.25) วาง healthy cells ไว้กับ pyruvate kinase L, R, M1 ส่วนฝั่ง cancer cells มีสัญลักษณ์ลูกศรกำกับที่ glucose, NADPH และ Ribose 5P แต่ text layer ของสไลด์ไม่ได้เขียนคำอธิบายกำกับลูกศรไว้"
         ]
       },
       {
@@ -2691,9 +2383,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Healthy cells",
             "body": [
-              {
-                "text": "**mainly produce electron carrier คือ 6 NADH และ 2 FADH2 ต่อ glucose 1 โมเลกุล บวก 2 ATP**"
-              }
+              "**mainly produce electron carrier คือ 6 NADH และ 2 FADH2 ต่อ glucose 1 โมเลกุล บวก 2 ATP**"
             ]
           },
           {
@@ -2766,18 +2456,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "หลักฐานระดับภาพ: cristae ของ mitochondria ใน ovarian cancer cell line",
         "source": "cancer p.36",
         "body": [
-          {
-            "text": "สไลด์เทียบ cell line 2 ตัว คือ **MOSE-E = benign ovarian cancer cells** และ **MOSE-LTICv = aggressive ovarian cancer cells**"
-          },
+          "สไลด์เทียบ cell line 2 ตัว คือ **MOSE-E = benign ovarian cancer cells** และ **MOSE-LTICv = aggressive ovarian cancer cells**",
           {
             "bullets": [
               "**Benign MOSE-E มี cristae และ cristae junctions ต่อกับ inner membrane ที่พัฒนาดี**",
               "**Aggressive MOSE-LTICv มี cristae น้อยกว่าและเรียงตัวไม่เป็นระเบียบ ผลคือ less ROS จึง survive**"
             ]
           },
-          {
-            "text": "หน้าก่อนหน้า (p.35) เป็นภาพ mitochondria ใน mouse ovarian follicle ที่ใช้สำหรับ synthesis of steroid ทั้งสองหน้าเป็นภาพจากแหล่งภายนอกที่สไลด์อ้าง link ไว้"
-          }
+          "หน้าก่อนหน้า (p.35) เป็นภาพ mitochondria ใน mouse ovarian follicle ที่ใช้สำหรับ synthesis of steroid ทั้งสองหน้าเป็นภาพจากแหล่งภายนอกที่สไลด์อ้าง link ไว้"
         ]
       },
       {
@@ -2791,9 +2477,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**3. Change environment around cancer cells**"
             ]
           },
-          {
-            "text": "สไลด์สรุปทั้งสามข้อนี้เป็นคำเดียวว่า **metabolic reprogramming**"
-          },
+          "สไลด์สรุปทั้งสามข้อนี้เป็นคำเดียวว่า **metabolic reprogramming**",
           {
             "callout": "p.38 ทั้งหน้ามีประโยคเดียวว่า metabolic reprogramming is the most important hallmark of the cancer cell",
             "kind": "tip"
@@ -2804,9 +2488,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Warburg Effect ไม่ได้พบแต่ในมะเร็ง",
         "source": "cancer p.39",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า Warburg Effect ยังพบใน"
-          },
+          "สไลด์ระบุว่า Warburg Effect ยังพบใน",
           {
             "bullets": [
               "**Embryo development**",
@@ -2827,18 +2509,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**ใช้ determine หรือ differentiate ชนิดของมะเร็งได้**"
             ]
           },
-          {
-            "text": "ตัวอย่างที่สไลด์ยกคือ **2-hydroxyglutarate ซึ่งแตกแขนงออกจากวง CAC และพบใน glioma, glioblastoma และ leukemia บางชนิด** สไลด์กำกับว่าเป็น tumor marker"
-          }
+          "ตัวอย่างที่สไลด์ยกคือ **2-hydroxyglutarate ซึ่งแตกแขนงออกจากวง CAC และพบใน glioma, glioblastoma และ leukemia บางชนิด** สไลด์กำกับว่าเป็น tumor marker"
         ]
       },
       {
         "heading": "ตาราง Tumor marker",
         "source": "cancer p.41",
         "body": [
-          {
-            "text": "สไลด์เขียนกรอบไว้ว่า ถ้าเจอ marker เหล่านี้ อาจหมายถึงมีการก่อมะเร็งที่อวัยวะที่ระบุคู่กัน"
-          },
+          "สไลด์เขียนกรอบไว้ว่า ถ้าเจอ marker เหล่านี้ อาจหมายถึงมีการก่อมะเร็งที่อวัยวะที่ระบุคู่กัน",
           {
             "bullets": [
               "**CA19-9**: large intestine, pancreas, liver, stomach",
@@ -2881,14 +2559,10 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "4. **References**"
                 ]
               },
-              {
-                "text": "ตัวอย่างที่สไลด์ให้คือ Benzene ซึ่ง damage DNA in bone marrow พร้อมรูปและ reference"
-              }
+              "ตัวอย่างที่สไลด์ให้คือ Benzene ซึ่ง damage DNA in bone marrow พร้อมรูปและ reference"
             ]
           },
-          {
-            "text": "สไลด์สุดท้าย (p.45) เป็นตัวอย่างรายการ reference ที่สืบค้นเมื่อ 13 ธันวาคม 2566 ทั้งสามชิ้นเป็นเรื่อง FLT3 receptor และ FLT3 mutation ใน AML ใช้เป็นแบบการเขียนอ้างอิงของรายงาน"
-          }
+          "สไลด์สุดท้าย (p.45) เป็นตัวอย่างรายการ reference ที่สืบค้นเมื่อ 13 ธันวาคม 2566 ทั้งสามชิ้นเป็นเรื่อง FLT3 receptor และ FLT3 mutation ใน AML ใช้เป็นแบบการเขียนอ้างอิงของรายงาน"
         ]
       }
     ]
@@ -2904,9 +2578,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "โครงเรื่องของเด็ค (Outline)",
         "source": "Comparative animal BC Companion and Exotic p.2",
         "body": [
-          {
-            "text": "อาจารย์วางหัวข้อไว้ 5 กลุ่ม ใช้เป็นแผนที่อ่านสอบได้เลย"
-          },
+          "อาจารย์วางหัวข้อไว้ 5 กลุ่ม ใช้เป็นแผนที่อ่านสอบได้เลย",
           {
             "bullets": [
               "Taurine essential amino acid for cats",
@@ -2922,23 +2594,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Taurine กับแมว",
         "source": "Comparative animal BC Companion and Exotic p.3",
         "body": [
-          {
-            "text": "**แมวมีความต้องการ taurine เพิ่มเป็นพิเศษ และสำหรับแมว taurine เป็น essential amino acid คือสังเคราะห์เองไม่ได้ ต้องได้จากอาหารเท่านั้น**"
-          },
-          {
-            "text": "Taurine สำคัญต่อ heart muscle, retina และ brain"
-          },
+          "**แมวมีความต้องการ taurine เพิ่มเป็นพิเศษ และสำหรับแมว taurine เป็น essential amino acid คือสังเคราะห์เองไม่ได้ ต้องได้จากอาหารเท่านั้น**",
+          "Taurine สำคัญต่อ heart muscle, retina และ brain",
           {
             "sub": "สุนัขต่างจากแมวอย่างไร",
             "body": [
-              {
-                "text": "สุนัขสร้าง taurine ในร่างกายได้ แต่สไลด์ระบุว่า **big dogs สร้าง taurine ได้ช้ากว่า small dogs มาก ทำให้สุนัขพันธุ์ใหญ่เสี่ยงต่อ taurine deficiency**"
-              }
+              "สุนัขสร้าง taurine ในร่างกายได้ แต่สไลด์ระบุว่า **big dogs สร้าง taurine ได้ช้ากว่า small dogs มาก ทำให้สุนัขพันธุ์ใหญ่เสี่ยงต่อ taurine deficiency**"
             ]
           },
-          {
-            "text": "ผลของ taurine deficiency ที่สไลด์ระบุ คือ **dilated cardiomyopathy** และ **feline retinal degeneration**"
-          },
+          "ผลของ taurine deficiency ที่สไลด์ระบุ คือ **dilated cardiomyopathy** และ **feline retinal degeneration**",
           {
             "callout": "หน้า 4 หัวสไลด์เขียนว่า Taurine synthesis pathway (dog) แต่เป็นภาพ pathway ล้วน ไม่มีข้อความบรรยาย สไลด์ไม่ได้บอกชื่อสารตัวกลางหรือเอนไซม์ในเส้นทางนี้",
             "kind": "flag"
@@ -2997,9 +2661,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "การสร้างที่ผิวหนังในสุนัขและแมว (p.10)",
             "body": [
-              {
-                "text": "ในสุนัขและแมว การได้รับแสงแดดจะเปลี่ยน **7-dehydrocholesterol ที่ผิวหนังไปเป็น cholecalciferol (D3)**"
-              },
+              "ในสุนัขและแมว การได้รับแสงแดดจะเปลี่ยน **7-dehydrocholesterol ที่ผิวหนังไปเป็น cholecalciferol (D3)**",
               {
                 "bullets": [
                   "Irradiation ได้ผลดีที่สุดในสัตว์ที่ผิวหนังสีอ่อนและขนบาง (light color skin, sparse hair coat)",
@@ -3033,9 +2695,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ความต่างระหว่างสปีชีส์ (p.12)",
             "body": [
-              {
-                "text": "**สุนัขสังเคราะห์ niacin จาก tryptophan ได้ แต่แมวทำไม่ได้ จึงต้องได้ niacin ทั้งหมดจากอาหาร**"
-              }
+              "**สุนัขสังเคราะห์ niacin จาก tryptophan ได้ แต่แมวทำไม่ได้ จึงต้องได้ niacin ทั้งหมดจากอาหาร**"
             ]
           }
         ]
@@ -3059,9 +2719,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Guinea pig กับ vitamin C deficiency (p.14)",
             "body": [
-              {
-                "text": "ภาวะขาด vitamin C เรียกว่า **scurvy**"
-              },
+              "ภาวะขาด vitamin C เรียกว่า **scurvy**",
               {
                 "bullets": [
                   "Sign: hemorrhage in the joints, gums, loose teeth, loss of appetite",
@@ -3120,9 +2778,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Rabbit: การแยกอาหารตามขนาดอนุภาค และ caecotrophy",
         "source": "Comparative animal BC Companion and Exotic p.18-20",
         "body": [
-          {
-            "text": "**การแยก ingesta ขึ้นกับขนาดอนุภาค (particle size) โดย proximal colon ทำหน้าที่แยก fiber ชิ้นใหญ่ที่ย่อยไม่ได้ ออกจากอนุภาคเล็กที่ใช้เป็น substrate ให้ bacterial fermentation ใน caecum**"
-          },
+          "**การแยก ingesta ขึ้นกับขนาดอนุภาค (particle size) โดย proximal colon ทำหน้าที่แยก fiber ชิ้นใหญ่ที่ย่อยไม่ได้ ออกจากอนุภาคเล็กที่ใช้เป็น substrate ให้ bacterial fermentation ใน caecum**",
           {
             "sub": "สองเส้นทางหลัง colon (p.18)",
             "body": [
@@ -3138,9 +2794,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Caecal fermentation (p.19)",
             "body": [
-              {
-                "text": "ผลผลิตจากการย่อยในกระเพาะและลำไส้เล็กถูกแยกที่ colon เป็น 2 ส่วน คือ อนุภาคเล็กที่เป็น substrate ให้ cecal microorganisms และอนุภาคใหญ่ของ indigestible lignified material อนุภาคเล็กจะเข้าสู่ **caecum ซึ่งทำหน้าที่เป็น huge bacterial fermentation chamber ที่มีสารอาหารและน้ำเติมเข้าไปตลอดเวลา**"
-              }
+              "ผลผลิตจากการย่อยในกระเพาะและลำไส้เล็กถูกแยกที่ colon เป็น 2 ส่วน คือ อนุภาคเล็กที่เป็น substrate ให้ cecal microorganisms และอนุภาคใหญ่ของ indigestible lignified material อนุภาคเล็กจะเข้าสู่ **caecum ซึ่งทำหน้าที่เป็น huge bacterial fermentation chamber ที่มีสารอาหารและน้ำเติมเข้าไปตลอดเวลา**"
             ]
           },
           {
@@ -3224,9 +2878,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "แผนภาพ purine pathway (p.25)",
             "body": [
-              {
-                "text": "หน้านี้เป็นแผนภาพล้วน มีเฉพาะชื่อสารและเอนไซม์กำกับ ไม่มีคำบรรยาย สารที่ปรากฏ ได้แก่ AMP, GMP, IMP, Adenosine, Guanosine, Adenine, Guanine, Hypoxanthine, Xanthine, Uric acid, Ribose, PRPP, Pi และ PPi"
-              },
+              "หน้านี้เป็นแผนภาพล้วน มีเฉพาะชื่อสารและเอนไซม์กำกับ ไม่มีคำบรรยาย สารที่ปรากฏ ได้แก่ AMP, GMP, IMP, Adenosine, Guanosine, Adenine, Guanine, Hypoxanthine, Xanthine, Uric acid, Ribose, PRPP, Pi และ PPi",
               {
                 "bullets": [
                   "เอนไซม์หมายเลข 1 = Adenine phosphoribosyl transferase",
@@ -3242,9 +2894,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สาเหตุของ gout ตามสไลด์",
         "source": "Comparative animal BC Companion and Exotic p.26",
         "body": [
-          {
-            "text": "สไลด์ระบุปัจจัย 6 กลุ่ม คือ nutrition, dehydration, cold, stress, infection และ toxic substances"
-          },
+          "สไลด์ระบุปัจจัย 6 กลุ่ม คือ nutrition, dehydration, cold, stress, infection และ toxic substances",
           {
             "bullets": [
               "**Nutrition: อาหารที่มี nucleoprotein สูง ทำให้ purine สูง จึงได้ uric acid ออกมามาก**",
@@ -3275,17 +2925,13 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ผลึกที่สะสม (p.28)",
             "body": [
-              {
-                "text": "Uric acid ที่คั่งจะสะสมเป็นผลึก **monosodium urate crystals** ในเอ็น ข้อ ไต และอวัยวะอื่น สไลด์บรรยายภาพว่าผลึก uric acid มีรูปร่างเป็นเข็ม (needle form) และภาพ MSU crystals คือ medullary interstitial urate crystal deposits ใน chronic nephropathy by urates"
-              }
+              "Uric acid ที่คั่งจะสะสมเป็นผลึก **monosodium urate crystals** ในเอ็น ข้อ ไต และอวัยวะอื่น สไลด์บรรยายภาพว่าผลึก uric acid มีรูปร่างเป็นเข็ม (needle form) และภาพ MSU crystals คือ medullary interstitial urate crystal deposits ใน chronic nephropathy by urates"
             ]
           },
           {
             "sub": "IMP-GMP 5'-nucleotidase (p.29-30)",
             "body": [
-              {
-                "text": "สไลด์ระบุว่า **การมี activity สูงของ IMP-GMP 5'-nucleotidase ในตับเป็นลักษณะของ constitutive uricotelism และเอนไซม์นี้อาจมีส่วนในการสร้าง uric acid ในฐานะผลผลิตสุดท้ายของ amino acid catabolism**"
-              },
+              "สไลด์ระบุว่า **การมี activity สูงของ IMP-GMP 5'-nucleotidase ในตับเป็นลักษณะของ constitutive uricotelism และเอนไซม์นี้อาจมีส่วนในการสร้าง uric acid ในฐานะผลผลิตสุดท้ายของ amino acid catabolism**",
               {
                 "callout": "หน้า 30 เป็นแผนภาพที่มีเพียงคำกำกับ 3 คำ คือ high activity, nucleotidase และ nucleosidase สไลด์ไม่ได้อธิบายเส้นทางเป็นข้อความ",
                 "kind": "flag"
@@ -3327,9 +2973,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "อาการ",
             "body": [
-              {
-                "text": "กระดูกจะรู้สึกนิ่มหรือยุ่ย (spongy or soft), กินอาหารลำบาก, เบื่ออาหาร และกระดูกหักง่าย"
-              }
+              "กระดูกจะรู้สึกนิ่มหรือยุ่ย (spongy or soft), กินอาหารลำบาก, เบื่ออาหาร และกระดูกหักง่าย"
             ]
           },
           {
@@ -3345,9 +2989,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "โรคและที่มา (p.34)",
             "body": [
-              {
-                "text": "**โรคทางโภชนาการที่พบบ่อยที่สุดในเฟอร์เร็ตคือ urolithiasis** และมักวินิจฉัยได้ในเฟอร์เร็ตที่กินอาหารสุนัขหรืออาหารแมวคุณภาพต่ำ"
-              }
+              "**โรคทางโภชนาการที่พบบ่อยที่สุดในเฟอร์เร็ตคือ urolithiasis** และมักวินิจฉัยได้ในเฟอร์เร็ตที่กินอาหารสุนัขหรืออาหารแมวคุณภาพต่ำ"
             ]
           },
           {
@@ -3397,9 +3039,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "กลไกทาง biochemistry (p.38-39)",
             "body": [
-              {
-                "text": "**การพร่อง glutamine synthetase ใน astrocytes ทำให้ extracellular glutamate สะสม และเกิดการชัก**"
-              },
+              "**การพร่อง glutamine synthetase ใน astrocytes ทำให้ extracellular glutamate สะสม และเกิดการชัก**",
               {
                 "bullets": [
                   "Glutamine synthetase เป็นเอนไซม์ที่สำคัญต่อ nitrogen metabolism โดยเร่งการรวมตัวของ glutamate กับ ammonia ไปเป็น glutamine",
@@ -3426,9 +3066,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ขอบเขตของเดคและตำแหน่งของปลาใน phylogenic tree",
         "source": "Comparative Aquatic animals Biochemistry p.3",
         "body": [
-          {
-            "text": "สไลด์บอกว่า **Fish are the largest group of vertebrates (>25,000 spp.)**"
-          },
+          "สไลด์บอกว่า **Fish are the largest group of vertebrates (>25,000 spp.)**",
           {
             "bullets": [
               "Agnatha / Cyclostomata: Hagfish, Lampreys",
@@ -3437,9 +3075,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "Osteichthyes: Sarcopterygii (Lobe-fins: amphibians, lungfishes, coelacanth) และ Actinopterygii (Ray-fins) ซึ่งมี Teleostei อยู่ในกลุ่มนี้"
             ]
           },
-          {
-            "text": "เนื้อหาแบ่งเป็น 3 หัวข้อ (p.4): I. Cardiovascular and respiratory system, II. Metabolism in aquatic fish, III. End product of N metabolism"
-          },
+          "เนื้อหาแบ่งเป็น 3 หัวข้อ (p.4): I. Cardiovascular and respiratory system, II. Metabolism in aquatic fish, III. End product of N metabolism",
           {
             "callout": "สไลด์ p.2 ยกตัวอย่าง Paedocypris progenetica เป็นภาพประกอบความหลากหลายของสัตว์น้ำ แต่ไม่ได้อธิบายอะไรเพิ่ม",
             "kind": "tip"
@@ -3485,12 +3121,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Respiratory system และการละลายของ O2 ในน้ำ",
         "source": "Comparative Aquatic animals Biochemistry p.8-9",
         "body": [
-          {
-            "text": "Terrestrial animal ใช้ **internal lung** ส่วน Aquatic animal ใช้ **external gills** (p.8)"
-          },
-          {
-            "text": "Fine sieve structure ของ gills ดึง oxygen จากน้ำได้อย่างมีประสิทธิภาพมาก และหลักสำคัญคือ **Oxygen solubility ลดลงเมื่อ temperature และ salinity เพิ่มขึ้น**"
-          },
+          "Terrestrial animal ใช้ **internal lung** ส่วน Aquatic animal ใช้ **external gills** (p.8)",
+          "Fine sieve structure ของ gills ดึง oxygen จากน้ำได้อย่างมีประสิทธิภาพมาก และหลักสำคัญคือ **Oxygen solubility ลดลงเมื่อ temperature และ salinity เพิ่มขึ้น**",
           {
             "sub": "ตาราง O2 conc. (mg/L) ตามอุณหภูมิน้ำ",
             "body": [
@@ -3510,9 +3142,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Ionocytes (chloride cells / mitochondrial rich cells)",
         "source": "Comparative Aquatic animals Biochemistry p.10",
         "body": [
-          {
-            "text": "หน้าที่ตามสไลด์คือ **Osmotic regulation in gills of teleosts** สไลด์ให้ชื่อเรียกไว้ 3 แบบว่าเป็นเซลล์เดียวกัน คือ Ionocytes, chloride cells และ mitochondrial rich cells"
-          },
+          "หน้าที่ตามสไลด์คือ **Osmotic regulation in gills of teleosts** สไลด์ให้ชื่อเรียกไว้ 3 แบบว่าเป็นเซลล์เดียวกัน คือ Ionocytes, chloride cells และ mitochondrial rich cells",
           {
             "callout": "สไลด์ไม่ได้อธิบายกลไกของ ionocyte ในระดับ transporter",
             "kind": "warn"
@@ -3523,12 +3153,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Countercurrent flow และประสิทธิภาพการดึง O2 ที่ gills",
         "source": "Comparative Aquatic animals Biochemistry p.11, p.13",
         "body": [
-          {
-            "text": "Gill acts as lung ทำหน้าที่ exchange O2 และ CO2 โดยอาศัย **countercurrent flow** ซึ่งช่วย increase O2 dissociation (p.11) สไลด์ p.12 เป็นแผนภาพ Water/Blood ประกอบ ไม่มีข้อความอื่น"
-          },
-          {
-            "text": "**ประมาณ 80% ของ oxygen ถูกดึงออกจากน้ำ** ด้วยเหตุผล 3 ข้อ (p.13)"
-          },
+          "Gill acts as lung ทำหน้าที่ exchange O2 และ CO2 โดยอาศัย **countercurrent flow** ซึ่งช่วย increase O2 dissociation (p.11) สไลด์ p.12 เป็นแผนภาพ Water/Blood ประกอบ ไม่มีข้อความอื่น",
+          "**ประมาณ 80% ของ oxygen ถูกดึงออกจากน้ำ** ด้วยเหตุผล 3 ข้อ (p.13)",
           {
             "bullets": [
               "Large surface area for diffusion ที่ gills",
@@ -3569,9 +3195,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Factors ที่เพิ่ม metabolic rate (ตัวอย่างจาก human)",
         "source": "Comparative Aquatic animals Biochemistry p.15-16",
         "body": [
-          {
-            "text": "สไลด์ 2 หน้านี้พูดถึง **human** ล้วน ไม่ได้พูดถึงปลา ใช้เป็นฐานเปรียบเทียบก่อนเข้าเรื่องปลา"
-          },
+          "สไลด์ 2 หน้านี้พูดถึง **human** ล้วน ไม่ได้พูดถึงปลา ใช้เป็นฐานเปรียบเทียบก่อนเข้าเรื่องปลา",
           {
             "bullets": [
               "Body size: ตัวใหญ่ = เซลล์มาก ต้องการ calorie มาก",
@@ -3585,9 +3209,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "Temperature: หนาวจะ shiver ร้อนจะ sweating ทั้งสองอย่างเผาผลาญพลังงาน"
             ]
           },
-          {
-            "text": "p.16 เสริมว่า eating habits มีผลด้วย การ over-eating สร้าง stress ต่อ hormones ที่เกี่ยวกับ metabolism เกิด hormonal imbalance กระทบ energy levels และการใช้ calorie สุดท้ายนำไปสู่ obesity, diabetes, cardiovascular disease"
-          }
+          "p.16 เสริมว่า eating habits มีผลด้วย การ over-eating สร้าง stress ต่อ hormones ที่เกี่ยวกับ metabolism เกิด hormonal imbalance กระทบ energy levels และการใช้ calorie สุดท้ายนำไปสู่ obesity, diabetes, cardiovascular disease"
         ]
       },
       {
@@ -3614,21 +3236,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Homeotherm vs poikilotherm และผลของอุณหภูมิ",
         "source": "Comparative Aquatic animals Biochemistry p.18-19",
         "body": [
-          {
-            "text": "โดยรวม metabolism ของสัตว์น้ำ similar กับสัตว์บก แต่สภาพแวดล้อมต่างกันจึงต่างในรายละเอียด"
-          },
+          "โดยรวม metabolism ของสัตว์น้ำ similar กับสัตว์บก แต่สภาพแวดล้อมต่างกันจึงต่างในรายละเอียด",
           {
             "bullets": [
               "Homeotherm: body temperature regulated animals",
               "**Poikilotherm: ไม่มีการควบคุมอุณหภูมิร่างกาย (cool blooded) เช่น fish, amphibian, reptile**"
             ]
           },
-          {
-            "text": "การเพิ่มขึ้นของอุณหภูมิมีผลต่อ feeding, breeding, development, growth, respiration และ metabolism (p.18)"
-          },
-          {
-            "text": "p.19 สรุปว่า **metabolism ของปลาช้ากว่าสัตว์บกเพราะ water temperature** และเมื่อ temperature rises จะ **increase metabolism และ oxygen demand พร้อมกับ decrease oxygen carrying capacity ของน้ำ** สไลด์เรียกประเด็นนี้ว่า \"Global warming effect fish metabolism\""
-          },
+          "การเพิ่มขึ้นของอุณหภูมิมีผลต่อ feeding, breeding, development, growth, respiration และ metabolism (p.18)",
+          "p.19 สรุปว่า **metabolism ของปลาช้ากว่าสัตว์บกเพราะ water temperature** และเมื่อ temperature rises จะ **increase metabolism และ oxygen demand พร้อมกับ decrease oxygen carrying capacity ของน้ำ** สไลด์เรียกประเด็นนี้ว่า \"Global warming effect fish metabolism\"",
           {
             "callout": "**Metabolism rate ในปลาวัดจาก oxygen consumption** ประโยคนี้ปรากฏซ้ำอีกครั้งในหน้า energetic metabolism (p.37)",
             "kind": "flag"
@@ -3655,9 +3271,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Carbohydrate utilization ในปลา",
         "source": "Comparative Aquatic animals Biochemistry p.21, p.23",
         "body": [
-          {
-            "text": "สไลด์ยกคำพูดจาก Hemre, G-I et al. (2002) ว่า glucose เป็น central molecule ของ metabolism ในสัตว์มีกระดูกสันหลังส่วนใหญ่โดยเฉพาะ mammals แต่ **ไม่ได้เป็นเช่นนั้นในปลา**"
-          },
+          "สไลด์ยกคำพูดจาก Hemre, G-I et al. (2002) ว่า glucose เป็น central molecule ของ metabolism ในสัตว์มีกระดูกสันหลังส่วนใหญ่โดยเฉพาะ mammals แต่ **ไม่ได้เป็นเช่นนั้นในปลา**",
           {
             "bullets": [
               "**Glucose utilization เป็น fuel น้อยกว่า 10% ของ oxidative metabolism**",
@@ -3714,12 +3328,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Gluconeogenesis: mammal vs fish",
         "source": "Comparative Aquatic animals Biochemistry p.25-26",
         "body": [
-          {
-            "text": "Mammal: lactate ไปเป็น glucose (**Cori cycle**) ที่ liver ผ่าน **pyruvate carboxylase และ PEPCK** (p.25)"
-          },
-          {
-            "text": "Fish: สไลด์ระบุว่า **ปลาขาด pyruvate carboxylase และ PEPCK จึงเกิด gluconeogenesis ที่ muscle โดยใช้ pyruvate kinase** อ้างอิง The physiology of fish 4th ed. (p.26)"
-          },
+          "Mammal: lactate ไปเป็น glucose (**Cori cycle**) ที่ liver ผ่าน **pyruvate carboxylase และ PEPCK** (p.25)",
+          "Fish: สไลด์ระบุว่า **ปลาขาด pyruvate carboxylase และ PEPCK จึงเกิด gluconeogenesis ที่ muscle โดยใช้ pyruvate kinase** อ้างอิง The physiology of fish 4th ed. (p.26)",
           {
             "callout": "ข้อนี้เป็นจุดต่างที่ถามได้ง่ายในข้อสอบ ตอบตามที่สไลด์เขียนคือ อวัยวะเปลี่ยนจาก liver เป็น muscle และเอนไซม์เปลี่ยนจาก pyruvate carboxylase/PEPCK เป็น pyruvate kinase",
             "kind": "flag"
@@ -3781,9 +3391,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "งานวิจัยใน Arctic char: NEAA และ BCAAs กับ salinity",
         "source": "Comparative Aquatic animals Biochemistry p.29, p.32",
         "body": [
-          {
-            "text": "Bystriansky et al. (2007) ศึกษาใน gills ของ Arctic char (Salvelinus alpinus)"
-          },
+          "Bystriansky et al. (2007) ศึกษาใน gills ของ Arctic char (Salvelinus alpinus)",
           {
             "bullets": [
               "**Aspartate aminotransferase activity เพิ่มขึ้นหลัง salinity change** บ่งชี้ความสามารถในการใช้ aspartate ที่มากขึ้น",
@@ -3794,15 +3402,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ข้อ 3 จาก p.32: acclimation ใน sea water 5 วัน",
             "body": [
-              {
-                "text": "พบ **การเพิ่มขึ้นของ BCAAs** ซึ่งได้แก่ valine, leucine และ isoleucine"
-              },
-              {
-                "text": "เส้นทางที่สไลด์วาดไว้: BCAA ถูก oxidize ผ่าน BCAA transaminase ไปเป็น glutamate และ glutamine จากนั้น GDH ทำ oxidative deamination ได้ ketoglutarate + NH3 นำไปสู่ energy และ excretion"
-              },
-              {
-                "text": "ข้อสรุปของสไลด์คือ **glutamate อาจถูกใช้เป็น energy substrate สำหรับ osmoregulation ที่ gills ของปลาระหว่าง SW acclimation**"
-              }
+              "พบ **การเพิ่มขึ้นของ BCAAs** ซึ่งได้แก่ valine, leucine และ isoleucine",
+              "เส้นทางที่สไลด์วาดไว้: BCAA ถูก oxidize ผ่าน BCAA transaminase ไปเป็น glutamate และ glutamine จากนั้น GDH ทำ oxidative deamination ได้ ketoglutarate + NH3 นำไปสู่ energy และ excretion",
+              "ข้อสรุปของสไลด์คือ **glutamate อาจถูกใช้เป็น energy substrate สำหรับ osmoregulation ที่ gills ของปลาระหว่าง SW acclimation**"
             ]
           },
           {
@@ -3829,9 +3431,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Energetic metabolism และ O:N ratio",
         "source": "Comparative Aquatic animals Biochemistry p.37",
         "body": [
-          {
-            "text": "Metabolic rate ขึ้นกับ oxygen consumption สไลด์ใช้ **O:N atomic ratio** ตาม Mayzaud and Conover (1988) โดย O คือ oxygen consumption และ N คือ ammonia excretion"
-          },
+          "Metabolic rate ขึ้นกับ oxygen consumption สไลด์ใช้ **O:N atomic ratio** ตาม Mayzaud and Conover (1988) โดย O คือ oxygen consumption และ N คือ ammonia excretion",
           {
             "bullets": [
               "**O:N 3-16 = proteins source**",
@@ -3869,9 +3469,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ปฏิกิริยา deamination ที่สไลด์วาดไว้ (p.40)",
             "body": [
-              {
-                "text": "L-Glutamate ไปเป็น alpha-Ketoglutarate พร้อมปล่อย NH3 โดยใช้ NAD(P)+ เปลี่ยนเป็น NAD(P)H + H+"
-              },
+              "L-Glutamate ไปเป็น alpha-Ketoglutarate พร้อมปล่อย NH3 โดยใช้ NAD(P)+ เปลี่ยนเป็น NAD(P)H + H+",
               {
                 "bullets": [
                   "**Teleost ผลิตที่ liver, kidney, muscle และ gill (น้อยกว่า) โดยมี glutamate dehydrogenase และ glutaminase สูง**",
@@ -3886,9 +3484,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Urea และ teleost ที่เป็นข้อยกเว้น",
         "source": "Comparative Aquatic animals Biochemistry p.41-42",
         "body": [
-          {
-            "text": "Urea พบใน many vertebrate, Mammal, Amphibian, Elasmobranchs (shark, rays) และ teleost อื่น ๆ (p.41)"
-          },
+          "Urea พบใน many vertebrate, Mammal, Amphibian, Elasmobranchs (shark, rays) และ teleost อื่น ๆ (p.41)",
           {
             "sub": "Teleost and urea cycle: exceptional case (p.42)",
             "body": [
@@ -3899,9 +3495,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "ปลาอื่น ๆ: freshwater air breathing catfish Heteropneustes fossilis และ alkaline-lake-adapted tilapia Oreochromis alcalicus grahami"
                 ]
               },
-              {
-                "text": "สไลด์บอกว่าเป็น **response ต่อ adverse environment condition ได้แก่ stress, ammonia loading และ severely alkaline water**"
-              }
+              "สไลด์บอกว่าเป็น **response ต่อ adverse environment condition ได้แก่ stress, ammonia loading และ severely alkaline water**"
             ]
           }
         ]
@@ -3910,21 +3504,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Ammonia และ urea ใน elasmobranch",
         "source": "Comparative Aquatic animals Biochemistry p.43",
         "body": [
-          {
-            "text": "**Ammonia ถูกเปลี่ยนเป็น urea (พิษน้อยกว่า) อย่างรวดเร็วโดย ornithine-urea cycle**"
-          },
-          {
-            "text": "สไลด์ยกตัวอย่างที่จำง่ายไว้ว่า เมื่อ shark ตาย urea จะสลายกลับเป็น ammonia จึงเป็นเหตุผลว่าทำไม **เนื้อฉลามมักมีกลิ่นและรสของ ammonia**"
-          }
+          "**Ammonia ถูกเปลี่ยนเป็น urea (พิษน้อยกว่า) อย่างรวดเร็วโดย ornithine-urea cycle**",
+          "สไลด์ยกตัวอย่างที่จำง่ายไว้ว่า เมื่อ shark ตาย urea จะสลายกลับเป็น ammonia จึงเป็นเหตุผลว่าทำไม **เนื้อฉลามมักมีกลิ่นและรสของ ammonia**"
         ]
       },
       {
         "heading": "ตารางสรุป: Terrestrial vs Teleosts",
         "source": "Comparative Aquatic animals Biochemistry p.45",
         "body": [
-          {
-            "text": "หน้าสรุปของเดค เทียบทีละหัวข้อ terrestrial ก่อน teleost หลัง"
-          },
+          "หน้าสรุปของเดค เทียบทีละหัวข้อ terrestrial ก่อน teleost หลัง",
           {
             "bullets": [
               "**Nitrogen excretion: Urea vs Ammonia**",
@@ -3955,11 +3543,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Xenobiotics คืออะไร",
         "source": "Drug Metabolism p.2",
         "body": [
+          "**xenobiotic (Gk xenos = \"stranger\") คือสารที่แปลกปลอมต่อร่างกาย**",
+          "xenobiotics ก่อผลทางชีวภาพได้หลายแบบ:",
           {
-            "text": "**xenobiotic (Gk xenos = \"stranger\") คือสารที่แปลกปลอมต่อร่างกาย**"
-          },
-          {
-            "text": "xenobiotics ก่อผลทางชีวภาพได้หลายแบบ:",
             "bullets": [
               "Pharmacological responses",
               "Toxicity",
@@ -3976,23 +3562,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "a) Exogenous",
             "body": [
-              {
-                "text": "โมเลกุลแปลกปลอมที่ปกติร่างกายไม่ได้กินหรือใช้ แต่เข้ามาทางอาหาร ทางยาที่ใช้รักษาโรค หรือสูดหายใจเข้าไปจากสิ่งแวดล้อม"
-              },
-              {
-                "text": "ตัวอย่าง: Drugs, food additives, pollutants, insecticides, chemical carcinogens"
-              }
+              "โมเลกุลแปลกปลอมที่ปกติร่างกายไม่ได้กินหรือใช้ แต่เข้ามาทางอาหาร ทางยาที่ใช้รักษาโรค หรือสูดหายใจเข้าไปจากสิ่งแวดล้อม",
+              "ตัวอย่าง: Drugs, food additives, pollutants, insecticides, chemical carcinogens"
             ]
           },
           {
             "sub": "b) Endogenous",
             "body": [
-              {
-                "text": "ไม่ได้เป็นสารแปลกปลอมจริง แต่ให้ผลคล้าย exogenous xenobiotics สร้างขึ้นในร่างกายเองหรือเกิดเป็น metabolite ของกระบวนการต่าง ๆ ในร่างกาย"
-              },
-              {
-                "text": "ตัวอย่าง: Bilirubin, Bile acids, Steroids, Eicosanoids และ fatty acids บางชนิด"
-              }
+              "ไม่ได้เป็นสารแปลกปลอมจริง แต่ให้ผลคล้าย exogenous xenobiotics สร้างขึ้นในร่างกายเองหรือเกิดเป็น metabolite ของกระบวนการต่าง ๆ ในร่างกาย",
+              "ตัวอย่าง: Bilirubin, Bile acids, Steroids, Eicosanoids และ fatty acids บางชนิด"
             ]
           }
         ]
@@ -4001,9 +3579,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Pharmacokinetics กับ ADME",
         "source": "Drug Metabolism p.5",
         "body": [
-          {
-            "text": "Pharmacokinetics คือการศึกษา disposition ของยา ซึ่งครอบคลุมกระบวนการ **ADME**"
-          },
+          "Pharmacokinetics คือการศึกษา disposition ของยา ซึ่งครอบคลุมกระบวนการ **ADME**",
           {
             "bullets": [
               "Absorption",
@@ -4013,21 +3589,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "Toxicity"
             ]
           },
-          {
-            "text": "สไลด์มีภาพประกอบชุดเดียวกันซ้ำหลายหน้า คือ absorption, distribution, biotransformation (metabolism) และ excretion ของยาหลังให้ทาง oral"
-          }
+          "สไลด์มีภาพประกอบชุดเดียวกันซ้ำหลายหน้า คือ absorption, distribution, biotransformation (metabolism) และ excretion ของยาหลังให้ทาง oral"
         ]
       },
       {
         "heading": "Drug absorption",
         "source": "Drug Metabolism p.6",
         "body": [
-          {
-            "text": "Drug absorption คือการที่โมเลกุลยาผ่านจากตำแหน่งที่ให้ยาเข้าสู่กระแสเลือด ใช้ได้กับทุก route ยกเว้น topical route (ทายาลงบน target tissue โดยตรง) และ intravenous (ยาอยู่ในกระแสเลือดอยู่แล้ว)"
-          },
-          {
-            "text": "Absorption ต้องอาศัยการที่ยาข้ามชั้นเซลล์และ cell membrane อย่างน้อยหนึ่งชั้น"
-          },
+          "Drug absorption คือการที่โมเลกุลยาผ่านจากตำแหน่งที่ให้ยาเข้าสู่กระแสเลือด ใช้ได้กับทุก route ยกเว้น topical route (ทายาลงบน target tissue โดยตรง) และ intravenous (ยาอยู่ในกระแสเลือดอยู่แล้ว)",
+          "Absorption ต้องอาศัยการที่ยาข้ามชั้นเซลล์และ cell membrane อย่างน้อยหนึ่งชั้น",
           {
             "bullets": [
               "ยาที่ฉีดเข้า subcutaneous tissue และ muscle ข้าม epithelial barrier ไปเลย จึงถูกดูดซึมง่ายกว่าโดยผ่านช่องว่างระหว่าง capillary endothelial cells",
@@ -4044,9 +3614,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Drug distribution",
         "source": "Drug Metabolism p.7",
         "body": [
-          {
-            "text": "ยากระจายไปยังอวัยวะและเนื้อเยื่อทางกระแสเลือด แล้ว diffuse เข้าสู่ interstitial fluid และเซลล์ ยาส่วนใหญ่ไม่ได้กระจายสม่ำเสมอทั่ว total body water และยาบางตัวถูกจำกัดอยู่แค่ extracellular fluid หรือ plasma compartment"
-          },
+          "ยากระจายไปยังอวัยวะและเนื้อเยื่อทางกระแสเลือด แล้ว diffuse เข้าสู่ interstitial fluid และเซลล์ ยาส่วนใหญ่ไม่ได้กระจายสม่ำเสมอทั่ว total body water และยาบางตัวถูกจำกัดอยู่แค่ extracellular fluid หรือ plasma compartment",
           {
             "bullets": [
               "ยาที่ lipid solubility พอ จะ diffuse ผ่าน membrane เข้าเซลล์ได้เลย",
@@ -4057,15 +3625,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "P-glycoprotein (Pgp)",
             "body": [
-              {
-                "text": "ในลำไส้ การขนส่งยาโดย **P-glycoprotein (Pgp) ในทิศ blood-to-lumen ทำให้ยาถูกหลั่งกลับเข้า intestinal tract จึงทำหน้าที่เป็นกลไก detoxifying**"
-              },
-              {
-                "text": "Pgp ยังกำจัดยาหลายชนิดออกจากเนื้อเยื่อทั่วร่างกาย รวมถึง anticancer agents"
-              },
-              {
-                "text": "การยับยั้ง Pgp ด้วย amiodarone, erythromycin, propranolol และสารอื่น ๆ ทำให้ระดับยาในเนื้อเยื่อสูงขึ้นและเสริมฤทธิ์ทาง pharmacologic ของยานั้น"
-              }
+              "ในลำไส้ การขนส่งยาโดย **P-glycoprotein (Pgp) ในทิศ blood-to-lumen ทำให้ยาถูกหลั่งกลับเข้า intestinal tract จึงทำหน้าที่เป็นกลไก detoxifying**",
+              "Pgp ยังกำจัดยาหลายชนิดออกจากเนื้อเยื่อทั่วร่างกาย รวมถึง anticancer agents",
+              "การยับยั้ง Pgp ด้วย amiodarone, erythromycin, propranolol และสารอื่น ๆ ทำให้ระดับยาในเนื้อเยื่อสูงขึ้นและเสริมฤทธิ์ทาง pharmacologic ของยานั้น"
             ]
           }
         ]
@@ -4074,15 +3636,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Drug biotransformation คืออะไร",
         "source": "Drug Metabolism p.8",
         "body": [
-          {
-            "text": "Drug biotransformation กับ excretion เป็นสองกระบวนการที่ทำให้ plasma drug concentration ลดลงตามเวลา ทั้งคู่มีส่วนใน elimination ของยาที่ยังออกฤทธิ์ออกจากร่างกาย และ clearance คือตัววัดอัตราของ elimination"
-          },
-          {
-            "text": "**Biotransformation หรือ drug metabolism คือการเปลี่ยนยาไปเป็น metabolite โดยอาศัย enzyme เป็นตัวเร่ง**"
-          },
-          {
-            "text": "**ส่วนใหญ่เกิดที่ liver** แต่ drug-metabolizing enzymes พบได้ในเนื้อเยื่ออื่นอีกหลายที่ ได้แก่ gut, kidneys, brain, lungs และ skin"
-          }
+          "Drug biotransformation กับ excretion เป็นสองกระบวนการที่ทำให้ plasma drug concentration ลดลงตามเวลา ทั้งคู่มีส่วนใน elimination ของยาที่ยังออกฤทธิ์ออกจากร่างกาย และ clearance คือตัววัดอัตราของ elimination",
+          "**Biotransformation หรือ drug metabolism คือการเปลี่ยนยาไปเป็น metabolite โดยอาศัย enzyme เป็นตัวเร่ง**",
+          "**ส่วนใหญ่เกิดที่ liver** แต่ drug-metabolizing enzymes พบได้ในเนื้อเยื่ออื่นอีกหลายที่ ได้แก่ gut, kidneys, brain, lungs และ skin"
         ]
       },
       {
@@ -4104,33 +3660,23 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Drug metabolism ช่วยการขับยาออก",
         "source": "Drug Metabolism p.17",
         "body": [
-          {
-            "text": "**Biotransformation เพิ่ม polarity และ water solubility ของสารแปลกปลอม จึงเพิ่มการขับออกทาง biliary และ renal**"
-          }
+          "**Biotransformation เพิ่ม polarity และ water solubility ของสารแปลกปลอม จึงเพิ่มการขับออกทาง biliary และ renal**"
         ]
       },
       {
         "heading": "First-pass biotransformation",
         "source": "Drug Metabolism p.10",
         "body": [
-          {
-            "text": "**ยาที่ถูกดูดซึมจาก gut สามารถถูก biotransform โดย enzyme ใน gut wall และ liver ก่อนที่จะไปถึง systemic circulation กระบวนการนี้ลด bioavailability ของยาลง**"
-          },
-          {
-            "text": "หน้า Hepatic Portal System (p.12) เป็นแผนภาพประกอบเรื่องนี้ ไม่มีข้อความอธิบายบนสไลด์"
-          }
+          "**ยาที่ถูกดูดซึมจาก gut สามารถถูก biotransform โดย enzyme ใน gut wall และ liver ก่อนที่จะไปถึง systemic circulation กระบวนการนี้ลด bioavailability ของยาลง**",
+          "หน้า Hepatic Portal System (p.12) เป็นแผนภาพประกอบเรื่องนี้ ไม่มีข้อความอธิบายบนสไลด์"
         ]
       },
       {
         "heading": "Biotransformation ไม่ได้จำกัดที่ liver กับ gut",
         "source": "Drug Metabolism p.16",
         "body": [
-          {
-            "text": "กระบวนการ pharmacokinetic แต่ละอย่างไปกระตุ้นกระบวนการ pharmacodynamic ที่ตามมา ซึ่งกำหนดหลายแง่มุมสำคัญของ drug therapy"
-          },
-          {
-            "text": "**เหตุการณ์ biotransformation ไม่ได้จำกัดอยู่แค่ liver และ gut เพราะยังถูกทำโดย drug-metabolizing enzymes ที่แสดงออกในหลายเนื้อเยื่อและอวัยวะ**"
-          }
+          "กระบวนการ pharmacokinetic แต่ละอย่างไปกระตุ้นกระบวนการ pharmacodynamic ที่ตามมา ซึ่งกำหนดหลายแง่มุมสำคัญของ drug therapy",
+          "**เหตุการณ์ biotransformation ไม่ได้จำกัดอยู่แค่ liver และ gut เพราะยังถูกทำโดย drug-metabolizing enzymes ที่แสดงออกในหลายเนื้อเยื่อและอวัยวะ**"
         ]
       },
       {
@@ -4146,30 +3692,22 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**gene product แต่ละตัวอาจถูก induce ด้วย xenobiotics ต่างชนิดกัน**"
             ]
           },
-          {
-            "text": "สไลด์ยกตัวอย่าง Phenobarbital ซึ่งเขียนไว้ว่าเป็นยาในกลุ่มยากันชักและกลุ่มยากดประสาท แต่สไลด์ไม่ได้เขียนอธิบายต่อว่ามัน induce enzyme ตัวใด (Drug Metabolism p.19)"
-          }
+          "สไลด์ยกตัวอย่าง Phenobarbital ซึ่งเขียนไว้ว่าเป็นยาในกลุ่มยากันชักและกลุ่มยากดประสาท แต่สไลด์ไม่ได้เขียนอธิบายต่อว่ามัน induce enzyme ตัวใด (Drug Metabolism p.19)"
         ]
       },
       {
         "heading": "Subcellular fraction isolation",
         "source": "Drug Metabolism p.20",
         "body": [
-          {
-            "text": "สไลด์เป็นแผนภาพขั้นตอนการแยก subcellular fraction โดยติดป้ายไว้ว่า fraction ไหนได้ **Phase I enzymes** และ fraction ไหนได้ **Phase II enzymes** สไลด์ไม่ได้เขียนรายละเอียดขั้นตอนเป็นข้อความ"
-          },
-          {
-            "text": "ข้อมูลที่เชื่อมโยงกันมาจากหน้า oxidative reactions ซึ่งบอกว่า enzyme ที่เร่งปฏิกิริยา oxidative แยกได้จาก microsomal fraction ของ liver homogenate คือ fraction ที่มาจาก endoplasmic reticulum และจาก cytoplasmic enzymes (Drug Metabolism p.24)"
-          }
+          "สไลด์เป็นแผนภาพขั้นตอนการแยก subcellular fraction โดยติดป้ายไว้ว่า fraction ไหนได้ **Phase I enzymes** และ fraction ไหนได้ **Phase II enzymes** สไลด์ไม่ได้เขียนรายละเอียดขั้นตอนเป็นข้อความ",
+          "ข้อมูลที่เชื่อมโยงกันมาจากหน้า oxidative reactions ซึ่งบอกว่า enzyme ที่เร่งปฏิกิริยา oxidative แยกได้จาก microsomal fraction ของ liver homogenate คือ fraction ที่มาจาก endoplasmic reticulum และจาก cytoplasmic enzymes (Drug Metabolism p.24)"
         ]
       },
       {
         "heading": "Phase I Biotransformation",
         "source": "Drug Metabolism p.21",
         "body": [
-          {
-            "text": "**Phase I biotransformation ประกอบด้วยปฏิกิริยา oxidative, hydrolytic และ reductive**"
-          }
+          "**Phase I biotransformation ประกอบด้วยปฏิกิริยา oxidative, hydrolytic และ reductive**"
         ]
       },
       {
@@ -4184,24 +3722,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "CYP แต่ละตัวมี iron-protoporphyrin ring ที่จับและ activate oxygen หมู่ที่ต่ออยู่บน ring คือ methyl (M), propionyl (P) และ vinyl (V)"
             ]
           },
-          {
-            "text": "หน้าถัดมา (p.23) เป็นภาพโครงสร้าง Erythromycin และ Ketoconazole ที่จับกับ Cytochrome P450 ไม่มีข้อความอธิบาย"
-          }
+          "หน้าถัดมา (p.23) เป็นภาพโครงสร้าง Erythromycin และ Ketoconazole ที่จับกับ Cytochrome P450 ไม่มีข้อความอธิบาย"
         ]
       },
       {
         "heading": "Oxidative reactions",
         "source": "Drug Metabolism p.24",
         "body": [
-          {
-            "text": "**Oxidative reactions เป็น Phase I biotransformation ชนิดที่พบบ่อยที่สุด**"
-          },
-          {
-            "text": "ถูกเร่งโดย enzyme ที่แยกได้จาก microsomal fraction ของ liver homogenate ซึ่งเป็น fraction ที่มาจาก endoplasmic reticulum และโดย cytoplasmic enzymes"
-          },
-          {
-            "text": "สไลด์มีตารางหัวข้อ Reactions catalyzed by Cytochrome P450 และ Cytochrome P450 enzymes แต่ text layer ไม่ได้เก็บรายการในตารางไว้"
-          }
+          "**Oxidative reactions เป็น Phase I biotransformation ชนิดที่พบบ่อยที่สุด**",
+          "ถูกเร่งโดย enzyme ที่แยกได้จาก microsomal fraction ของ liver homogenate ซึ่งเป็น fraction ที่มาจาก endoplasmic reticulum และโดย cytoplasmic enzymes",
+          "สไลด์มีตารางหัวข้อ Reactions catalyzed by Cytochrome P450 และ Cytochrome P450 enzymes แต่ text layer ไม่ได้เก็บรายการในตารางไว้"
         ]
       },
       {
@@ -4222,12 +3752,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Hydrolytic reactions",
         "source": "Drug Metabolism p.26",
         "body": [
-          {
-            "text": "**Esters และ amides ถูก hydrolyze โดย enzyme หลายชนิด**"
-          },
-          {
-            "text": "ในกลุ่มนี้มี cholinesterase และ plasma esterases ตัวอื่นที่ inactivate choline esters, local anesthetics และยาอย่าง esmolol (Brevibloc) ซึ่งเป็นยารักษา tachycardia ที่ block cardiac β1-adrenoceptors"
-          },
+          "**Esters และ amides ถูก hydrolyze โดย enzyme หลายชนิด**",
+          "ในกลุ่มนี้มี cholinesterase และ plasma esterases ตัวอื่นที่ inactivate choline esters, local anesthetics และยาอย่าง esmolol (Brevibloc) ซึ่งเป็นยารักษา tachycardia ที่ block cardiac β1-adrenoceptors",
           {
             "callout": "**มี CYP enzymes เพียงไม่กี่ตัวที่ทำปฏิกิริยา hydrolytic**",
             "kind": "tip"
@@ -4238,9 +3764,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Reductive reactions",
         "source": "Drug Metabolism p.26",
         "body": [
-          {
-            "text": "**Reductive reactions พบน้อยกว่า oxidative และ hydrolytic reactions**"
-          },
+          "**Reductive reactions พบน้อยกว่า oxidative และ hydrolytic reactions**",
           {
             "bullets": [
               "Chloramphenicol ซึ่งเป็น antimicrobial agent และยาอีกไม่กี่ตัว ถูก metabolize บางส่วนโดย hepatic nitro reductase และกระบวนการนี้เกี่ยวข้องกับ CYP enzymes",
@@ -4253,9 +3777,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Ethanol metabolism",
         "source": "Drug Metabolism p.30",
         "body": [
-          {
-            "text": "หลังดื่ม alcohol ส่วนใหญ่ถูกดูดซึมที่ small intestine และ stomach แล้วไปถึง liver อย่างรวดเร็วทางกระแสเลือดเพื่อถูกสลาย มี **สองวิถีหลักคือ oxidative pathway และ non-oxidative pathway**"
-          },
+          "หลังดื่ม alcohol ส่วนใหญ่ถูกดูดซึมที่ small intestine และ stomach แล้วไปถึง liver อย่างรวดเร็วทางกระแสเลือดเพื่อถูกสลาย มี **สองวิถีหลักคือ oxidative pathway และ non-oxidative pathway**",
           {
             "sub": "1) Oxidative pathway",
             "body": [
@@ -4281,24 +3803,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "ผลิตภัณฑ์จากทั้งสองวิถีถูกปล่อยเข้ากระแสเลือดอย่างรวดเร็ว และ ethanol metabolites จึงไปมีผลต่ออวัยวะส่วนปลาย"
-          },
-          {
-            "text": "ตัวย่อที่สไลด์ระบุไว้: EtOH = ethanol, CH3CHO = acetaldehyde, H2O2 = hydrogen peroxide, NAD/NADH = nicotinamide adenine dinucleotide, ROS = reactive oxygen species"
-          }
+          "ผลิตภัณฑ์จากทั้งสองวิถีถูกปล่อยเข้ากระแสเลือดอย่างรวดเร็ว และ ethanol metabolites จึงไปมีผลต่ออวัยวะส่วนปลาย",
+          "ตัวย่อที่สไลด์ระบุไว้: EtOH = ethanol, CH3CHO = acetaldehyde, H2O2 = hydrogen peroxide, NAD/NADH = nicotinamide adenine dinucleotide, ROS = reactive oxygen species"
         ]
       },
       {
         "heading": "Phase II Biotransformation",
         "source": "Drug Metabolism p.31",
         "body": [
-          {
-            "text": "**ใน Phase II โมเลกุลยาเกิด conjugation reactions กับสาร endogenous เช่น acetate, glucuronate, sulfate หรือ glycine**"
-          },
-          {
-            "text": "Conjugation enzymes มีอยู่ใน liver และเนื้อเยื่ออื่น ทำหน้าที่เชื่อมโมเลกุลยาเข้ากับสาร endogenous เหล่านี้ ได้เป็น water-soluble metabolites ที่ขับออกง่ายขึ้น"
-          },
+          "**ใน Phase II โมเลกุลยาเกิด conjugation reactions กับสาร endogenous เช่น acetate, glucuronate, sulfate หรือ glycine**",
+          "Conjugation enzymes มีอยู่ใน liver และเนื้อเยื่ออื่น ทำหน้าที่เชื่อมโมเลกุลยาเข้ากับสาร endogenous เหล่านี้ ได้เป็น water-soluble metabolites ที่ขับออกง่ายขึ้น",
           {
             "bullets": [
               "**ยกเว้น microsomal glucuronosyltransferases แล้ว enzyme กลุ่มนี้อยู่ใน cytoplasm**",
@@ -4308,25 +3822,19 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "GLUCURONIDE FORMATION",
             "body": [
-              {
-                "text": "**เป็น conjugation reaction ที่พบบ่อยที่สุด** ใช้ glucuronosyltransferases เชื่อมโมเลกุล glucuronate เข้ากับโมเลกุลยาตัวแม่"
-              }
+              "**เป็น conjugation reaction ที่พบบ่อยที่สุด** ใช้ glucuronosyltransferases เชื่อมโมเลกุล glucuronate เข้ากับโมเลกุลยาตัวแม่"
             ]
           },
           {
             "sub": "ACETYLATION",
             "body": [
-              {
-                "text": "ทำโดย N-acetyltransferase enzymes ที่ใช้ acetyl coenzyme A (acetyl CoA) เป็นแหล่งของหมู่ acetate"
-              }
+              "ทำโดย N-acetyltransferase enzymes ที่ใช้ acetyl coenzyme A (acetyl CoA) เป็นแหล่งของหมู่ acetate"
             ]
           },
           {
             "sub": "SULFATION",
             "body": [
-              {
-                "text": "Sulfotransferases เร่งการ conjugate ยาหลายตัว รวมถึง vasodilator minoxidil และ potassium-sparing diuretic triamterene ซึ่ง **sulfate metabolites ของสองตัวนี้ยังออกฤทธิ์ทาง pharmacological**"
-              }
+              "Sulfotransferases เร่งการ conjugate ยาหลายตัว รวมถึง vasodilator minoxidil และ potassium-sparing diuretic triamterene ซึ่ง **sulfate metabolites ของสองตัวนี้ยังออกฤทธิ์ทาง pharmacological**"
             ]
           }
         ]
@@ -4335,9 +3843,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "แมวกับ Acetaminophen (APAP)",
         "source": "Drug Metabolism p.35",
         "body": [
-          {
-            "text": "**แมวสลาย APAP ด้วย glucuronidation ไม่ได้**"
-          },
+          "**แมวสลาย APAP ด้วย glucuronidation ไม่ได้**",
           {
             "bullets": [
               "APAP ถูกเปลี่ยนใน cytochrome P-450 system ไปเป็น reactive intermediate ชื่อ NAPQI",
@@ -4349,9 +3855,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Cats Are Glucuronyl Transferase-Deficient",
             "body": [
-              {
-                "text": "**แมวขาด enzyme glucuronyl transferase ที่ตับ** ยาหลายชนิดถูก metabolize ผ่าน glucuronidation และ glucuronidation ก็เป็นเส้นทางหลักของการกำจัด acetaminophen"
-              }
+              "**แมวขาด enzyme glucuronyl transferase ที่ตับ** ยาหลายชนิดถูก metabolize ผ่าน glucuronidation และ glucuronidation ก็เป็นเส้นทางหลักของการกำจัด acetaminophen"
             ]
           },
           {
@@ -4364,12 +3868,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Morphine ข้าม Phase I",
         "source": "Drug Metabolism p.36",
         "body": [
-          {
-            "text": "**Morphine ข้าม Phase I ไปเลยและถูก conjugate โดยตรง**"
-          },
-          {
-            "text": "สไลด์ไม่ได้บอกว่าถูก conjugate กับสารใดหรือได้ metabolite ตัวใด"
-          }
+          "**Morphine ข้าม Phase I ไปเลยและถูก conjugate โดยตรง**",
+          "สไลด์ไม่ได้บอกว่าถูก conjugate กับสารใดหรือได้ metabolite ตัวใด"
         ]
       },
       {
@@ -4379,17 +3879,13 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Phase 1 of Biotransformation",
             "body": [
-              {
-                "text": "โมเลกุลยาตัวเดิมถูกเปลี่ยนแปลงทางเคมี การเปลี่ยนแปลงที่พบบ่อยคือการเติมหรือดึง oxygen, hydrogen ฯลฯ ออก **metabolite ที่ได้มักมีฤทธิ์ทางชีวภาพน้อยลง**"
-              }
+              "โมเลกุลยาตัวเดิมถูกเปลี่ยนแปลงทางเคมี การเปลี่ยนแปลงที่พบบ่อยคือการเติมหรือดึง oxygen, hydrogen ฯลฯ ออก **metabolite ที่ได้มักมีฤทธิ์ทางชีวภาพน้อยลง**"
             ]
           },
           {
             "sub": "Phase 2 of Biotransformation",
             "body": [
-              {
-                "text": "**metabolite ถูก conjugate คือถูกเชื่อมกับอีกโมเลกุลหนึ่งเพื่อให้ hydrophilic มากขึ้นและถูกขับออกทางปัสสาวะได้**"
-              }
+              "**metabolite ถูก conjugate คือถูกเชื่อมกับอีกโมเลกุลหนึ่งเพื่อให้ hydrophilic มากขึ้นและถูกขับออกทางปัสสาวะได้**"
             ]
           }
         ]
@@ -4398,9 +3894,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สไลด์ที่เป็นรูปหรือหัวข้อล้วน",
         "source": "Drug Metabolism p.4",
         "body": [
-          {
-            "text": "หน้าเหล่านี้มีแต่หัวข้อหรือแผนภาพ ไม่มีข้อความอธิบายให้สรุปได้ ต้องไปดูรูปในสไลด์จริงหรือฟังที่อาจารย์บรรยาย"
-          },
+          "หน้าเหล่านี้มีแต่หัวข้อหรือแผนภาพ ไม่มีข้อความอธิบายให้สรุปได้ ต้องไปดูรูปในสไลด์จริงหรือฟังที่อาจารย์บรรยาย",
           {
             "bullets": [
               "p.4 Routes of Drug Administration",
@@ -4435,9 +3929,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Review: lipid และ fatty acid",
         "source": "Lipid Metabolism p.3-4",
         "body": [
-          {
-            "text": "สไลด์ review เปิดด้วยคุณสมบัติของ lipid ที่ใช้แยกจากสารชีวโมเลกุลกลุ่มอื่น"
-          },
+          "สไลด์ review เปิดด้วยคุณสมบัติของ lipid ที่ใช้แยกจากสารชีวโมเลกุลกลุ่มอื่น",
           {
             "bullets": [
               "เป็น long chain hydrocarbon",
@@ -4468,9 +3960,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "การดูดซึม dietary lipid ในลำไส้",
         "source": "Lipid Metabolism p.8",
         "body": [
-          {
-            "text": "สไลด์วางเป็นแผนผังไล่จากไขมันในอาหารไปจนถึง target cells"
-          },
+          "สไลด์วางเป็นแผนผังไล่จากไขมันในอาหารไปจนถึง target cells",
           {
             "bullets": [
               "Fat ingested in diet ถูกย่อยด้วย **pancreatic lipase** ร่วมกับ **bile salt**",
@@ -4499,9 +3989,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สัญญาณที่สั่งให้สลายไขมัน และ 3 stage ของ FA catabolism",
         "source": "Lipid Metabolism p.14-15",
         "body": [
-          {
-            "text": "p.14 เขียนเป็นสายสัญญาณ hormone ที่ปลุกการสลาย TG"
-          },
+          "p.14 เขียนเป็นสายสัญญาณ hormone ที่ปลุกการสลาย TG",
           {
             "bullets": [
               "**Hypoglycemia, epinephrine, glucagon** เป็นตัวจุดชนวน",
@@ -4528,9 +4016,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "beta-Oxidation: ภาพรวม",
         "source": "Lipid Metabolism p.16",
         "body": [
-          {
-            "text": "นิยามบนสไลด์คือ **remove 2 carbon atom at beta-carbon**"
-          },
+          "นิยามบนสไลด์คือ **remove 2 carbon atom at beta-carbon**",
           {
             "bullets": [
               "1. FA activation",
@@ -4584,9 +4070,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "4. Acyl transfer"
             ]
           },
-          {
-            "text": "ผลคือ **beta-carbon ถูกตัดออกได้ acetyl-CoA (C2)** ต่อหนึ่งรอบ"
-          }
+          "ผลคือ **beta-carbon ถูกตัดออกได้ acetyl-CoA (C2)** ต่อหนึ่งรอบ"
         ]
       },
       {
@@ -4638,9 +4122,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สูตรคิดพลังงาน และเทียบกับ carbohydrate",
         "source": "Lipid Metabolism p.26-27",
         "body": [
-          {
-            "text": "สูตรสรุปสำหรับ **saturated fatty acid** เขียนไว้บนสไลด์ตรง ๆ"
-          },
+          "สูตรสรุปสำหรับ **saturated fatty acid** เขียนไว้บนสไลด์ตรง ๆ",
           {
             "bullets": [
               "**{5 x [(n/2)-1]} + (12 x n/2) - 2 เมื่อ n = number of C**",
@@ -4666,9 +4148,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Metabolic water",
         "source": "Lipid Metabolism p.28",
         "body": [
-          {
-            "text": "สไลด์เขียนสมการรวมของ stearic acid ผ่าน respiratory chain"
-          },
+          "สไลด์เขียนสมการรวมของ stearic acid ผ่าน respiratory chain",
           {
             "bullets": [
               "CH3(CH2)16CO-S-CoA + 26 O2 + 148 ADP + 148 Pi ให้ 18 CO2 + **17 H2O** + 148 ATP + CoA-SH",
@@ -4811,9 +4291,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สรุป lipid catabolism ตามสไลด์อาจารย์",
         "source": "Lipid Metabolism p.45",
         "body": [
-          {
-            "text": "หน้านี้คือ checklist ที่อาจารย์เขียนเอง ใช้ทวนก่อนสอบได้ตรง ๆ"
-          },
+          "หน้านี้คือ checklist ที่อาจารย์เขียนเอง ใช้ทวนก่อนสอบได้ตรง ๆ",
           {
             "bullets": [
               "1. FA activation: CoA, 2 ATP, acyl-CoA synthase",
@@ -4856,9 +4334,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Malonyl-CoA และ acetyl-CoA carboxylase (ACC)",
         "source": "Lipid Metabolism p.50-51",
         "body": [
-          {
-            "text": "**Malonyl-CoA (C3) คือตัวที่ทำให้สาย FA ยาวขึ้นครั้งละ 2 C**"
-          },
+          "**Malonyl-CoA (C3) คือตัวที่ทำให้สาย FA ยาวขึ้นครั้งละ 2 C**",
           {
             "bullets": [
               "ปฏิกิริยา: **Acetyl-CoA + ATP + CO2 ให้ malonyl-CoA + ADP + Pi** โดย acetyl-CoA carboxylase",
@@ -4911,9 +4387,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "สไลด์กำกับไว้ว่าขั้น reduction ใช้ **NADPH** และปล่อย NADP+ ส่วนตำแหน่งที่ acetyl เข้าจับคือ **Cys-SH ของ KS**"
-          }
+          "สไลด์กำกับไว้ว่าขั้น reduction ใช้ **NADPH** และปล่อย NADP+ ส่วนตำแหน่งที่ acetyl เข้าจับคือ **Cys-SH ของ KS**"
         ]
       },
       {
@@ -4945,9 +4419,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**Inhibit โดย long chain acyl-CoA**"
             ]
           },
-          {
-            "text": "สไลด์แนบคลิป YouTube ให้ไปดูเพิ่ม 2 คลิป คือ Overview of FA synthesis และ Deep in fatty acid synthase complex"
-          },
+          "สไลด์แนบคลิป YouTube ให้ไปดูเพิ่ม 2 คลิป คือ Overview of FA synthesis และ Deep in fatty acid synthase complex",
           {
             "callout": "p.56 หัวข้อ CHO Met VS Lipid Met เป็นรูปล้วน ไม่มีข้อความเปรียบเทียบให้สรุป",
             "kind": "flag"
@@ -5025,9 +4497,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Eicosanoids",
         "source": "Lipid Metabolism p.62",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นแผนภาพที่มีคำกำกับสั้น ๆ ไม่ได้เขียนชื่อเอนไซม์หรือสารตัวกลางเป็นข้อความ"
-          },
+          "สไลด์นี้เป็นแผนภาพที่มีคำกำกับสั้น ๆ ไม่ได้เขียนชื่อเอนไซม์หรือสารตัวกลางเป็นข้อความ",
           {
             "bullets": [
               "มีเครื่องหมาย X กำกับที่ **aspirin และ ibuprofen** แสดงจุดยับยั้ง",
@@ -5044,9 +4514,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Lipogenesis VS beta-oxidation",
         "source": "Lipid Metabolism p.63",
         "body": [
-          {
-            "text": "หัวสไลด์ย้ำว่า **lipogenesis ไม่ใช่การย้อนกลับของ beta-oxidation** ตารางเทียบให้ 5 คู่"
-          },
+          "หัวสไลด์ย้ำว่า **lipogenesis ไม่ใช่การย้อนกลับของ beta-oxidation** ตารางเทียบให้ 5 คู่",
           {
             "bullets": [
               "ที่เกิด: beta-oxidation ใน **mitochondria** ส่วน lipogenesis ใน **cytosol**",
@@ -5062,9 +4530,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "การสร้าง TG และ phospholipid",
         "source": "Lipid Metabolism p.64-66",
         "body": [
-          {
-            "text": "FA ถูกเก็บในรูป triacylglycerol และ phospholipid โดยมี **glycerol-3-P เป็น precursor**"
-          },
+          "FA ถูกเก็บในรูป triacylglycerol และ phospholipid โดยมี **glycerol-3-P เป็น precursor**",
           {
             "bullets": [
               "ทางที่หนึ่ง มาจาก glucose ผ่าน glycolysis ใช้ที่ **เนื้อเยื่อไขมันและกล้ามเนื้อ** โดย glucose ไป DHAP แล้ว G-3-P DH เปลี่ยนเป็น G-3-P",
@@ -5096,9 +4562,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "สารตัวกลางบนแผนภาพ (p.68)",
             "body": [
-              {
-                "text": "สไลด์เป็นแผนภาพที่มี 4 ขั้นตอนกำกับหมายเลข ไล่จาก acetate ไปจนถึง cholesterol โดยสารที่ปรากฏพร้อมจำนวนคาร์บอนคือ"
-              },
+              "สไลด์เป็นแผนภาพที่มี 4 ขั้นตอนกำกับหมายเลข ไล่จาก acetate ไปจนถึง cholesterol โดยสารที่ปรากฏพร้อมจำนวนคาร์บอนคือ",
               {
                 "bullets": [
                   "Mevalonate (C6)",
@@ -5130,9 +4594,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ปลายทางของ cholesterol และ bile acid",
         "source": "Lipid Metabolism p.71",
         "body": [
-          {
-            "text": "**Cholesterol is not degraded to yield energy** สไลด์ย้ำประโยคนี้เป็นหัวข้อของหน้า"
-          },
+          "**Cholesterol is not degraded to yield energy** สไลด์ย้ำประโยคนี้เป็นหัวข้อของหน้า",
           {
             "bullets": [
               "Cholesterol ถูกเปลี่ยนไปเป็น vitamin D, steroid hormones และ bile acids",
@@ -5273,9 +4735,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ทบทวน Biochem I: biomolecules 4 กลุ่ม",
         "source": "Metabolism 1 p.2-12",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยการย้อนว่า Biochem I เรียน **biomolecules 4 กลุ่ม** โดยดู structure, functions และการ integrate ของ biomolecules ในเซลล์ ต่อยอดไปทาง nanotechnology และ molecular biology"
-          },
+          "สไลด์เปิดด้วยการย้อนว่า Biochem I เรียน **biomolecules 4 กลุ่ม** โดยดู structure, functions และการ integrate ของ biomolecules ในเซลล์ ต่อยอดไปทาง nanotechnology และ molecular biology",
           {
             "sub": "1. Carbohydrates (p.3-4)",
             "body": [
@@ -5310,9 +4770,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "Functions: structural and contractile protein, transport, regulate, **major part of antibody**"
                 ]
               },
-              {
-                "text": "p.9 เป็นรูป basic antibody structure และ p.10 เป็นรูป cell membrane โดยไม่มีข้อความอธิบายในสไลด์"
-              }
+              "p.9 เป็นรูป basic antibody structure และ p.10 เป็นรูป cell membrane โดยไม่มีข้อความอธิบายในสไลด์"
             ]
           },
           {
@@ -5333,9 +4791,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ขอบเขตของ Biochemistry II",
         "source": "Metabolism 1 p.22, p.25-26",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า Biochemistry II **focus in NORMAL** (เน้นภาวะปกติ) แบ่งเป็น 3 ส่วน"
-          },
+          "สไลด์ระบุว่า Biochemistry II **focus in NORMAL** (เน้นภาวะปกติ) แบ่งเป็น 3 ส่วน",
           {
             "bullets": [
               "1. Metabolism ของ carbohydrate, lipid, protein และ nucleic acid (purine และ pyrimidine)",
@@ -5343,21 +4799,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "3. Apply: comparative animal metabolism, drug metabolite"
             ]
           },
-          {
-            "text": "p.26 สรุปเป็นแผนภาพสามคำ Metabolism, Regulation, Apply"
-          }
+          "p.26 สรุปเป็นแผนภาพสามคำ Metabolism, Regulation, Apply"
         ]
       },
       {
         "heading": "แผนภาพรวมและ major metabolic pathways",
         "source": "Metabolism 1 p.28-29",
         "body": [
-          {
-            "text": "p.28 เป็นแผนภาพรวมที่ลากจาก 3 สารอาหารเข้าสู่จุดร่วมเดียวกัน: carbohydrate (glucose, glycogen, glucose 6P, lactic acid, pyruvate), lipid (FA synthesis, oxidation) และ protein (amino acid, urea cycle) โดยทุกทางมาบรรจบที่ **Acetyl CoA ไป Krebs' cycle แล้วเข้าสู่ oxidative phosphorylation ที่ใช้ O2 ได้ ATP**"
-          },
-          {
-            "text": "p.29 ลิสต์ major metabolic pathways ตามกลุ่มสารอาหาร"
-          },
+          "p.28 เป็นแผนภาพรวมที่ลากจาก 3 สารอาหารเข้าสู่จุดร่วมเดียวกัน: carbohydrate (glucose, glycogen, glucose 6P, lactic acid, pyruvate), lipid (FA synthesis, oxidation) และ protein (amino acid, urea cycle) โดยทุกทางมาบรรจบที่ **Acetyl CoA ไป Krebs' cycle แล้วเข้าสู่ oxidative phosphorylation ที่ใช้ O2 ได้ ATP**",
+          "p.29 ลิสต์ major metabolic pathways ตามกลุ่มสารอาหาร",
           {
             "bullets": [
               "1. Carbohydrate: Glycolysis, Glycogenesis, Glycogenolysis, Gluconeogenesis, Glyoxylate pathway, Pentose Phosphate Pathway",
@@ -5372,9 +4822,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "หัวข้อของคาบนี้และคาบหน้า",
         "source": "Metabolism 1 p.30",
         "body": [
-          {
-            "text": "Today topics ตามสไลด์"
-          },
+          "Today topics ตามสไลด์",
           {
             "bullets": [
               "1. Metabolism: Catabolism",
@@ -5382,18 +4830,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "3. Oxidation generates ATP: role of electron carrier NADH, FADH2"
             ]
           },
-          {
-            "text": "Next week คือ **Cellular respiration** ประกอบด้วย 1. Glycolysis 2. Pyruvate oxidation 3. Citric acid cycle 4. Oxidative phosphorylation"
-          }
+          "Next week คือ **Cellular respiration** ประกอบด้วย 1. Glycolysis 2. Pyruvate oxidation 3. Citric acid cycle 4. Oxidative phosphorylation"
         ]
       },
       {
         "heading": "Metabolism คืออะไร และมี 2 ประเภท",
         "source": "Metabolism 1 p.24, p.31-33",
         "body": [
-          {
-            "text": "**Metabolism = the sum of the chemical processes that take place in the living cells** ทั้งการ break down food to energy และการ synthesize new molecules"
-          },
+          "**Metabolism = the sum of the chemical processes that take place in the living cells** ทั้งการ break down food to energy และการ synthesize new molecules",
           {
             "bullets": [
               "**1. Catabolism: Degradation ได้ energy**",
@@ -5406,9 +4850,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Characteristics of metabolism",
         "source": "Metabolism 1 p.34-36",
         "body": [
-          {
-            "text": "สไลด์ 3 หน้าติดกันค่อย ๆ เพิ่มหัวข้อทีละข้อ จนครบ 5 ข้อที่ p.36"
-          },
+          "สไลด์ 3 หน้าติดกันค่อย ๆ เพิ่มหัวข้อทีละข้อ จนครบ 5 ข้อที่ p.36",
           {
             "bullets": [
               "มีเป็น **pathway**",
@@ -5428,9 +4870,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Yields จาก metabolism และลักษณะของ catabolism",
         "source": "Metabolism 1 p.37-40",
         "body": [
-          {
-            "text": "Metabolism ให้ผลผลิต 2 อย่างคือ **1. new molecules และ 2. energy (ATP, NADH, FADH2)** สไลด์ระบุว่า 2 สัปดาห์นี้จะโฟกัสที่ how to extract energy"
-          },
+          "Metabolism ให้ผลผลิต 2 อย่างคือ **1. new molecules และ 2. energy (ATP, NADH, FADH2)** สไลด์ระบุว่า 2 สัปดาห์นี้จะโฟกัสที่ how to extract energy",
           {
             "sub": "Metabolic energy (p.39)",
             "body": [
@@ -5464,18 +4904,10 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ทำไมต้องเป็น ATP และ ATP เป็น high energy molecule",
         "source": "Metabolism 1 p.41-45",
         "body": [
-          {
-            "text": "p.41 ตั้งคำถาม WHY ATP แล้วตอบว่าเป็นการ **extract the energy little by little** คือพลังงานถูกปล่อยออกมาอย่างค่อยเป็นค่อยไป (E gradually released)"
-          },
-          {
-            "text": "**ATP เป็น compound with high energy bond คือ phosphoanhydride bonds ระหว่าง phosphate ซึ่งมีค่า ΔG สูง**"
-          },
-          {
-            "text": "**ATP ไป ADP + Pi มี ΔG°' = -30.5 kJ/mol** (p.42 เป็นรูปประกอบที่เขียนกำกับว่า + H2O 30.5 kJ/mol)"
-          },
-          {
-            "text": "p.44 หัวข้อ Energy from ATP is used in และ p.45 รูป mitochondrial and actin organization in a crawling osteoblastoma cell เป็นสไลด์รูปล้วน ไม่มีข้อความรายละเอียดว่าใช้ทำอะไรบ้าง"
-          }
+          "p.41 ตั้งคำถาม WHY ATP แล้วตอบว่าเป็นการ **extract the energy little by little** คือพลังงานถูกปล่อยออกมาอย่างค่อยเป็นค่อยไป (E gradually released)",
+          "**ATP เป็น compound with high energy bond คือ phosphoanhydride bonds ระหว่าง phosphate ซึ่งมีค่า ΔG สูง**",
+          "**ATP ไป ADP + Pi มี ΔG°' = -30.5 kJ/mol** (p.42 เป็นรูปประกอบที่เขียนกำกับว่า + H2O 30.5 kJ/mol)",
+          "p.44 หัวข้อ Energy from ATP is used in และ p.45 รูป mitochondrial and actin organization in a crawling osteoblastoma cell เป็นสไลด์รูปล้วน ไม่มีข้อความรายละเอียดว่าใช้ทำอะไรบ้าง"
         ]
       },
       {
@@ -5513,9 +4945,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Energy coupling",
         "source": "Metabolism 1 p.49",
         "body": [
-          {
-            "text": "สไลด์ต่อยอดจากโจทย์ว่า ถ้าปฏิกิริยา G ไป H (ΔG เป็นบวก) จำเป็นต้องเกิด จะใช้ ATP อย่างไร"
-          },
+          "สไลด์ต่อยอดจากโจทย์ว่า ถ้าปฏิกิริยา G ไป H (ΔG เป็นบวก) จำเป็นต้องเกิด จะใช้ ATP อย่างไร",
           {
             "bullets": [
               "ใช้ ATP เพื่อ **drive non-spontaneous reaction**",
@@ -5533,9 +4963,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ตัวอย่างที่ 1: glucose ไป glucose-6-P (p.50-51)",
             "body": [
-              {
-                "text": "เหตุผลตามสไลด์คือ **ต้องเก็บ glucose ไว้ในเซลล์ จึงล่ามมันไว้ด้วย phosphate**"
-              },
+              "เหตุผลตามสไลด์คือ **ต้องเก็บ glucose ไว้ในเซลล์ จึงล่ามมันไว้ด้วย phosphate**",
               {
                 "bullets": [
                   "Pi + glucose ไป glucose-6-P + H2O: ΔG°' = +14 kJ/mol",
@@ -5548,9 +4976,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ตัวอย่างที่ 2: glutamine (p.52)",
             "body": [
-              {
-                "text": "**Ammonia เป็น toxic product ของ protein degradation ตับจึงเปลี่ยนเป็น glutamine**"
-              },
+              "**Ammonia เป็น toxic product ของ protein degradation ตับจึงเปลี่ยนเป็น glutamine**",
               {
                 "bullets": [
                   "Glutamic acid + ammonia ไป glutamine: ΔG°' = +14.3 kJ/mol",
@@ -5593,9 +5019,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "1. Phosphocreatine หรือ creatine phosphate (p.55-56)",
             "body": [
-              {
-                "text": "**ระหว่างออกกำลังกาย phosphocreatine ในกล้ามเนื้อถูก catalyze เพื่อผลิต ATP**"
-              },
+              "**ระหว่างออกกำลังกาย phosphocreatine ในกล้ามเนื้อถูก catalyze เพื่อผลิต ATP**",
               {
                 "bullets": [
                   "ADP + Pi ไป ATP + H2O: +30.5 kJ/mol",
@@ -5609,9 +5033,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "2. Phosphoenolpyruvate (PEP) (p.57)",
             "body": [
-              {
-                "text": "**PEP เกี่ยวข้องกับการผลิต ATP ใน glycolysis**"
-              },
+              "**PEP เกี่ยวข้องกับการผลิต ATP ใน glycolysis**",
               {
                 "bullets": [
                   "ADP + Pi ไป ATP + H2O: +30.5 kJ/mol",
@@ -5627,9 +5049,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "2 ways of making ATP",
         "source": "Metabolism 1 p.59-60",
         "body": [
-          {
-            "text": "จากตัวอย่าง phosphocreatine และ phosphoenolpyruvate สไลด์สรุปว่า **energy coupling ที่สร้าง ATP แบบนี้เรียกว่า substrate level phosphorylation** แต่ **การสร้าง ATP ด้วย substrate level อย่างเดียวได้ ATP ไม่พอ จึงต้องมีวิธีอื่น**"
-          },
+          "จากตัวอย่าง phosphocreatine และ phosphoenolpyruvate สไลด์สรุปว่า **energy coupling ที่สร้าง ATP แบบนี้เรียกว่า substrate level phosphorylation** แต่ **การสร้าง ATP ด้วย substrate level อย่างเดียวได้ ATP ไม่พอ จึงต้องมีวิธีอื่น**",
           {
             "bullets": [
               "**1. Substrate level phosphorylation: อาศัย energy coupling**",
@@ -5642,9 +5062,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Electron carrier molecules: NADH และ FADH2",
         "source": "Metabolism 1 p.61-64, p.66",
         "body": [
-          {
-            "text": "**Electron carrier = molecule ที่ transfer electron จาก donor molecule ไปยัง acceptor molecule**"
-          },
+          "**Electron carrier = molecule ที่ transfer electron จาก donor molecule ไปยัง acceptor molecule**",
           {
             "bullets": [
               "**NAD+ (รูป reduced คือ NADH)**",
@@ -5674,12 +5092,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Glucose oxidation และ cellular respiration",
         "source": "Metabolism 1 p.65, p.67-69",
         "body": [
-          {
-            "text": "หัวข้อ **Oxidation generates more ATP** โดย **แหล่งอาหารหลักสำหรับ oxidation ในสิ่งมีชีวิตคือ glucose**"
-          },
-          {
-            "text": "**C6H12O6 + 6 O2 ไป 6 CO2 + 6 H2O, ΔG = 2823 kJ/mol** (สไลด์เขียนตัวเลขนี้ทั้ง p.67 และ p.68)"
-          },
+          "หัวข้อ **Oxidation generates more ATP** โดย **แหล่งอาหารหลักสำหรับ oxidation ในสิ่งมีชีวิตคือ glucose**",
+          "**C6H12O6 + 6 O2 ไป 6 CO2 + 6 H2O, ΔG = 2823 kJ/mol** (สไลด์เขียนตัวเลขนี้ทั้ง p.67 และ p.68)",
           {
             "sub": "Cellular respiration (p.68)",
             "body": [
@@ -5692,9 +5106,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "p.69 เป็นแผนภาพหมายเลข 1-4 ปิดท้าย มีข้อความกำกับเพียง pyruvate oxidation และ oxidative phosphorylation ส่วนขั้นที่เหลือสไลด์ไม่ได้พิมพ์ชื่อไว้ในหน้านี้ (ชื่อครบทั้ง 4 ขั้นอยู่ที่ p.30 ในหัวข้อ next week)"
-          }
+          "p.69 เป็นแผนภาพหมายเลข 1-4 ปิดท้าย มีข้อความกำกับเพียง pyruvate oxidation และ oxidative phosphorylation ส่วนขั้นที่เหลือสไลด์ไม่ได้พิมพ์ชื่อไว้ในหน้านี้ (ชื่อครบทั้ง 4 ขั้นอยู่ที่ p.30 ในหัวข้อ next week)"
         ]
       }
     ]
@@ -5710,24 +5122,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ขอบเขตของ lecture นี้",
         "source": "Metabolism 2 p.3",
         "body": [
-          {
-            "text": "สไลด์ทวนสัปดาห์ที่แล้วไว้ 3 หัวข้อ คือ metabolism (catabolism), metabolic energy (coupling คืออะไร ATP ในฐานะ high energy molecule ถูกใช้อย่างไร และ high energy molecules ตัวอื่น) และ oxidation generates ATP โดยเน้นบทบาทของ electron carrier คือ NADH กับ FADH2"
-          },
-          {
-            "text": "หัวข้อของวันนี้คือ **cellular respiration ซึ่งแบ่งเป็น 4 ขั้น: Glycolysis, Pyruvate oxidation, Citric acid cycle และ Oxidative phosphorylation**"
-          }
+          "สไลด์ทวนสัปดาห์ที่แล้วไว้ 3 หัวข้อ คือ metabolism (catabolism), metabolic energy (coupling คืออะไร ATP ในฐานะ high energy molecule ถูกใช้อย่างไร และ high energy molecules ตัวอื่น) และ oxidation generates ATP โดยเน้นบทบาทของ electron carrier คือ NADH กับ FADH2",
+          "หัวข้อของวันนี้คือ **cellular respiration ซึ่งแบ่งเป็น 4 ขั้น: Glycolysis, Pyruvate oxidation, Citric acid cycle และ Oxidative phosphorylation**"
         ]
       },
       {
         "heading": "Glucose และ 2 วิธีในการสร้าง ATP",
         "source": "Metabolism 2 p.4-6",
         "body": [
-          {
-            "text": "**Glucose คือแหล่งอาหารหลักของสิ่งมีชีวิตและเป็นสารหลักที่ถูก oxidize**"
-          },
-          {
-            "text": "สมการ glucose oxidation ที่สไลด์ให้ไว้คือ C6H12O6 + 6 O2 → 6 CO2 + 6 H2O, **ΔG = -2823 kJ/mol**"
-          },
+          "**Glucose คือแหล่งอาหารหลักของสิ่งมีชีวิตและเป็นสารหลักที่ถูก oxidize**",
+          "สมการ glucose oxidation ที่สไลด์ให้ไว้คือ C6H12O6 + 6 O2 → 6 CO2 + 6 H2O, **ΔG = -2823 kJ/mol**",
           {
             "sub": "2 ways of making ATP",
             "body": [
@@ -5745,12 +5149,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "แผนที่รวมของ metabolism",
         "source": "Metabolism 2 p.7-8, p.19",
         "body": [
-          {
-            "text": "สไลด์แผนที่ซ้ำหลายรอบตลอด lecture เพื่อบอกว่าสารอาหารทั้ง 3 กลุ่มไหลมารวมกันที่ไหน คือ carbohydrate (glucose, glycogen, glucose 6P), lipid (ผ่าน oxidation และ FA synthesis) และ protein (amino acid, urea cycle)"
-          },
-          {
-            "text": "จุดรวมคือ pyruvate และ lactic acid ก่อนเข้าสู่ **Acetyl CoA แล้วเข้า Krebs cycle ต่อด้วย oxidative phosphorylation ที่ต้องใช้ O2 เพื่อได้ ATP**"
-          },
+          "สไลด์แผนที่ซ้ำหลายรอบตลอด lecture เพื่อบอกว่าสารอาหารทั้ง 3 กลุ่มไหลมารวมกันที่ไหน คือ carbohydrate (glucose, glycogen, glucose 6P), lipid (ผ่าน oxidation และ FA synthesis) และ protein (amino acid, urea cycle)",
+          "จุดรวมคือ pyruvate และ lactic acid ก่อนเข้าสู่ **Acetyl CoA แล้วเข้า Krebs cycle ต่อด้วย oxidative phosphorylation ที่ต้องใช้ O2 เพื่อได้ ATP**",
           {
             "callout": "ประโยคที่สไลด์ p.19 เขียนกำกับแผนที่ไว้ตรง ๆ คือ Acetyl CoA is produced in the mitochondria from molecules derived from sugars lipid and protein",
             "kind": "tip"
@@ -5761,9 +5161,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Cellular respiration คืออะไร",
         "source": "Metabolism 2 p.9-10",
         "body": [
-          {
-            "text": "นิยามตามสไลด์: **a series of metabolic process by which cells transfer energy from organic compounds to ATP**"
-          },
+          "นิยามตามสไลด์: **a series of metabolic process by which cells transfer energy from organic compounds to ATP**",
           {
             "bullets": [
               "ใช้ glucose เป็นหลัก",
@@ -5772,9 +5170,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "C6H12O6 + 6O2 → 6CO2 + 6H2O, ΔG = -2823 kJ/mol"
             ]
           },
-          {
-            "text": "สไลด์ p.10 เป็นแผนภาพเลข 1-4 กำกับ 4 ขั้น โดยขั้นที่ระบุชื่อในชั้นข้อความคือ pyruvate oxidation และ oxidative phosphorylation พร้อมกำกับว่าขั้นไหนให้ NADH และ FADH2"
-          }
+          "สไลด์ p.10 เป็นแผนภาพเลข 1-4 กำกับ 4 ขั้น โดยขั้นที่ระบุชื่อในชั้นข้อความคือ pyruvate oxidation และ oxidative phosphorylation พร้อมกำกับว่าขั้นไหนให้ NADH และ FADH2"
         ]
       },
       {
@@ -5808,9 +5204,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ชะตากรรมของ pyruvate ขึ้นกับ oxygen",
         "source": "Metabolism 2 p.13",
         "body": [
-          {
-            "text": "หลัง glycolysis สไลด์แยกทางเดินของ pyruvate ตามภาวะ oxygen"
-          },
+          "หลัง glycolysis สไลด์แยกทางเดินของ pyruvate ตามภาวะ oxygen",
           {
             "bullets": [
               "**Aerobic condition (มี O2) ไปต่อที่ pyruvate oxidation**",
@@ -5843,21 +5237,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**NET GAIN 1 NADH ต่อ pyruvate 1 โมเลกุล**"
             ]
           },
-          {
-            "text": "CoA ในสไลด์เขียนได้ 3 แบบ คือ Co-enzyme A, CoA และ CoA-SH ส่วน **acetyl-CoA ถูกเรียกว่า central compound in metabolism**"
-          },
-          {
-            "text": "สไลด์ p.20 กำกับโครงสร้าง acetyl-CoA ว่าส่วนหนึ่งมาจาก **Pantothenic acid (vit B5)**"
-          }
+          "CoA ในสไลด์เขียนได้ 3 แบบ คือ Co-enzyme A, CoA และ CoA-SH ส่วน **acetyl-CoA ถูกเรียกว่า central compound in metabolism**",
+          "สไลด์ p.20 กำกับโครงสร้าง acetyl-CoA ว่าส่วนหนึ่งมาจาก **Pantothenic acid (vit B5)**"
         ]
       },
       {
         "heading": "3 เอนไซม์ใน pyruvate dehydrogenase complex",
         "source": "Metabolism 2 p.21",
         "body": [
-          {
-            "text": "สไลด์ทำเป็นตารางเอนไซม์คู่กับ prosthetic group"
-          },
+          "สไลด์ทำเป็นตารางเอนไซม์คู่กับ prosthetic group",
           {
             "bullets": [
               "**Pyruvate dehydrogenase ใช้ Thiamine pyrophosphate (TPP)**",
@@ -5865,18 +5253,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "**Dihydrolipoyl dehydrogenase ใช้ FAD**"
             ]
           },
-          {
-            "text": "สไลด์ p.35 อธิบายเอนไซม์ตัวที่ 3 ต่อว่า **FADH2 undergoes oxidation/reduction แล้วถูก reoxidize โดยส่ง electron ให้ NAD+ ได้ NADH ออกมา**"
-          }
+          "สไลด์ p.35 อธิบายเอนไซม์ตัวที่ 3 ต่อว่า **FADH2 undergoes oxidation/reduction แล้วถูก reoxidize โดยส่ง electron ให้ NAD+ ได้ NADH ออกมา**"
         ]
       },
       {
         "heading": "Vitamin B1 กับ Beriberi",
         "source": "Metabolism 2 p.22-24",
         "body": [
-          {
-            "text": "TPP ที่ pyruvate dehydrogenase ใช้ **มาจาก vitamin B1** และสไลด์ชี้ที่ thiazole ring ของ TPP"
-          },
+          "TPP ที่ pyruvate dehydrogenase ใช้ **มาจาก vitamin B1** และสไลด์ชี้ที่ thiazole ring ของ TPP",
           {
             "callout": "**Without Vit B1 = Beriberi** เป็นประโยคที่สไลด์เขียนตรง ๆ",
             "kind": "flag"
@@ -5893,24 +5277,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ p.24 ยกงานใน PNAS เรื่อง thiamine deficiency ในสัตว์ป่า ที่พบ **herring gulls ยืนไม่ได้เพราะขาอัมพาต หรี่ตา รูม่านตาสีผิดปกติ และปีกไม่พับชิดลำตัว ซึ่งเป็นอาการของ thiamine deficiency** และตั้งข้อสังเกตว่าการขาด vitamin B1 มักไม่ทำให้ตายทันที แต่ทำให้พฤติกรรมเปลี่ยนและมีปัญหาการสืบพันธุ์ จึงอาจถูกมองข้ามในการอธิบายประชากรสัตว์ที่ลดลงตั้งแต่ทศวรรษ 1970"
-          }
+          "สไลด์ p.24 ยกงานใน PNAS เรื่อง thiamine deficiency ในสัตว์ป่า ที่พบ **herring gulls ยืนไม่ได้เพราะขาอัมพาต หรี่ตา รูม่านตาสีผิดปกติ และปีกไม่พับชิดลำตัว ซึ่งเป็นอาการของ thiamine deficiency** และตั้งข้อสังเกตว่าการขาด vitamin B1 มักไม่ทำให้ตายทันที แต่ทำให้พฤติกรรมเปลี่ยนและมีปัญหาการสืบพันธุ์ จึงอาจถูกมองข้ามในการอธิบายประชากรสัตว์ที่ลดลงตั้งแต่ทศวรรษ 1970"
         ]
       },
       {
         "heading": "Arsenic ยับยั้ง dihydrolipoyl transacetylase",
         "source": "Metabolism 2 p.25-34",
         "body": [
-          {
-            "text": "สไลด์ p.25 ระบุว่า dihydrolipoyl transacetylase เป็น **lipoic acid containing enzyme และ arsenic เป็น potent inhibitor**"
-          },
-          {
-            "text": "ต่อจากนั้น p.26-34 เป็นสไลด์รูปแทบทั้งหมด ชั้นข้อความมีแค่ชื่อภาพและหัวเรื่อง ได้แก่ภาพของ Claude Monet 4 ภาพ (Mouth of the Seine 1865, The White Water Lilies 1899, San Giorgio Maggiore by Twilight 1908-1912, Water Lilies and Reflections of a Willow 1916-19), Imperial green Poison Book, คำถาม What killed Napoleon Bonaparte? และม้าแข่ง Phar Lap"
-          },
-          {
-            "text": "ข้อมูลเดียวที่สไลด์เขียนเป็นข้อความจริงในชุดนี้คือ **Phar Lap (1926-1932) ม้าแข่งแชมป์ของออสเตรเลียในช่วงต้น Great Depression ได้รับ arsenic ปริมาณมหาศาลก่อนตาย 30 ถึง 40 ชั่วโมง**"
-          },
+          "สไลด์ p.25 ระบุว่า dihydrolipoyl transacetylase เป็น **lipoic acid containing enzyme และ arsenic เป็น potent inhibitor**",
+          "ต่อจากนั้น p.26-34 เป็นสไลด์รูปแทบทั้งหมด ชั้นข้อความมีแค่ชื่อภาพและหัวเรื่อง ได้แก่ภาพของ Claude Monet 4 ภาพ (Mouth of the Seine 1865, The White Water Lilies 1899, San Giorgio Maggiore by Twilight 1908-1912, Water Lilies and Reflections of a Willow 1916-19), Imperial green Poison Book, คำถาม What killed Napoleon Bonaparte? และม้าแข่ง Phar Lap",
+          "ข้อมูลเดียวที่สไลด์เขียนเป็นข้อความจริงในชุดนี้คือ **Phar Lap (1926-1932) ม้าแข่งแชมป์ของออสเตรเลียในช่วงต้น Great Depression ได้รับ arsenic ปริมาณมหาศาลก่อนตาย 30 ถึง 40 ชั่วโมง**",
           {
             "callout": "สไลด์ไม่ได้บอกว่าภาพ Monet และ Imperial green เกี่ยวข้องกับ arsenic อย่างไร และไม่ได้ตอบคำถาม What killed Napoleon Bonaparte ในชั้นข้อความ อาจารย์น่าจะเล่าปากเปล่า",
             "kind": "warn"
@@ -5921,9 +5297,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "5.3 Citric Acid Cycle",
         "source": "Metabolism 2 p.36-40, p.42",
         "body": [
-          {
-            "text": "ชื่ออื่นที่สไลด์ให้ไว้คือ **Krebs cycle หรือ tricarboxylic acid (TCA) cycle** เสนอปี 1937 โดย Sir Hans Krebs"
-          },
+          "ชื่ออื่นที่สไลด์ให้ไว้คือ **Krebs cycle หรือ tricarboxylic acid (TCA) cycle** เสนอปี 1937 โดย Sir Hans Krebs",
           {
             "bullets": [
               "เป็น series of reactions ที่ **สิ่งมีชีวิต aerobic ทุกชนิดใช้**",
@@ -5953,17 +5327,13 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "สมการรวมของ 1 รอบ (p.40)",
             "body": [
-              {
-                "text": "**3NAD+ + FAD + GDP + A-CoA + Pi → 3NADH + FADH2 + ATP + CoA + CO2**"
-              }
+              "**3NAD+ + FAD + GDP + A-CoA + Pi → 3NADH + FADH2 + ATP + CoA + CO2**"
             ]
           },
           {
             "sub": "ยอดรวมในไมโทคอนเดรีย (p.42)",
             "body": [
-              {
-                "text": "สไลด์เขียนว่า Total in MT (include PDC step) ต่อ 1 pyruvate ได้ **4NADH + FADH2 + ATP + 4H+ + CO2**"
-              }
+              "สไลด์เขียนว่า Total in MT (include PDC step) ต่อ 1 pyruvate ได้ **4NADH + FADH2 + ATP + 4H+ + CO2**"
             ]
           }
         ]
@@ -5972,18 +5342,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "5.3.2 Regulation ของ CAC",
         "source": "Metabolism 2 p.43",
         "body": [
-          {
-            "text": "สไลด์แบ่งเป็นสองกลุ่มกว้าง ๆ"
-          },
+          "สไลด์แบ่งเป็นสองกลุ่มกว้าง ๆ",
           {
             "bullets": [
               "**Inhibitor คือ products และ intermediates**",
               "**Activator คือ ADP, AMP, NAD+ และ CoA**"
             ]
           },
-          {
-            "text": "สไลด์ยังโยงโมเลกุลเข้ากับจุดควบคุมต่าง ๆ ในวงจร โดยฝั่งกระตุ้นปรากฏชื่อ NAD, AMP, CoA และ ADP ส่วนฝั่งยับยั้งปรากฏชื่อ NADH, ATP, acetyl-CoA, citrate และ succinyl CoA"
-          },
+          "สไลด์ยังโยงโมเลกุลเข้ากับจุดควบคุมต่าง ๆ ในวงจร โดยฝั่งกระตุ้นปรากฏชื่อ NAD, AMP, CoA และ ADP ส่วนฝั่งยับยั้งปรากฏชื่อ NADH, ATP, acetyl-CoA, citrate และ succinyl CoA",
           {
             "callout": "ชั้นข้อความของสไลด์นี้เป็นแผนภาพที่ตัวหนังสือกระจัดกระจาย จับคู่ให้แน่ชัดว่าโมเลกุลไหนคุมเอนไซม์ตัวไหนไม่ได้จากไฟล์ ต้องดูสไลด์จริงประกอบ",
             "kind": "warn"
@@ -5994,12 +5360,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "5.3.4 Amphibolic pathway",
         "source": "Metabolism 2 p.44",
         "body": [
-          {
-            "text": "**CAC เป็น amphibolic pathway คือ involves both catabolism and anabolism**"
-          },
-          {
-            "text": "สไลด์ลากลูกศรจาก intermediate ต่าง ๆ ออกไปเป็นสารตั้งต้นของเส้นทางสังเคราะห์ ได้แก่ acetyl CoA ไป fatty acid และ cholesterol, citrate, oxaloacetate ไป glucose และ amino acids, alpha-ketoglutarate ไป amino acids, succinyl CoA ไป porphyrin รวมถึงทางเข้ามาจาก amino acids และ odd chain fatty acid"
-          }
+          "**CAC เป็น amphibolic pathway คือ involves both catabolism and anabolism**",
+          "สไลด์ลากลูกศรจาก intermediate ต่าง ๆ ออกไปเป็นสารตั้งต้นของเส้นทางสังเคราะห์ ได้แก่ acetyl CoA ไป fatty acid และ cholesterol, citrate, oxaloacetate ไป glucose และ amino acids, alpha-ketoglutarate ไป amino acids, succinyl CoA ไป porphyrin รวมถึงทางเข้ามาจาก amino acids และ odd chain fatty acid"
         ]
       },
       {
@@ -6022,9 +5384,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**ATP synthesis (phosphorylation of ADP)**"
                 ]
               },
-              {
-                "text": "ทั้งหมดทำโดย **5 enzymes**"
-              }
+              "ทั้งหมดทำโดย **5 enzymes**"
             ]
           }
         ]
@@ -6070,9 +5430,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "Complex IV: **Heme, Cu-S**"
                 ]
               },
-              {
-                "text": "สไลด์ย้ำว่าภายในแต่ละ complex electron จะวิ่งผ่าน electron carrier ต่อกันเป็นทอด ๆ"
-              }
+              "สไลด์ย้ำว่าภายในแต่ละ complex electron จะวิ่งผ่าน electron carrier ต่อกันเป็นทอด ๆ"
             ]
           }
         ]
@@ -6134,12 +5492,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Chemiosmosis กับ chemiosmotic coupling (p.60-61)",
             "body": [
-              {
-                "text": "**การเคลื่อนที่ของ proton ผ่าน ATP synthase ลงตาม gradient เรียกว่า chemiosmosis**"
-              },
-              {
-                "text": "**Chemiosmotic coupling คือกลไกที่ ATP ถูกผลิต โดย proton เคลื่อนลงตาม gradient แล้วปล่อยพลังงานที่ถูก couple เข้ากับปฏิกิริยา phosphorylation (ADP + Pi → ATP)**"
-              }
+              "**การเคลื่อนที่ของ proton ผ่าน ATP synthase ลงตาม gradient เรียกว่า chemiosmosis**",
+              "**Chemiosmotic coupling คือกลไกที่ ATP ถูกผลิต โดย proton เคลื่อนลงตาม gradient แล้วปล่อยพลังงานที่ถูก couple เข้ากับปฏิกิริยา phosphorylation (ADP + Pi → ATP)**"
             ]
           }
         ]
@@ -6148,15 +5502,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Free radical และ ROS",
         "source": "Metabolism 2 p.63",
         "body": [
-          {
-            "text": "สไลด์นิยาม **Free radical หรือ Reactive oxygen species (ROS) ว่าเป็นโมเลกุลที่มี oxygen atom ที่มี unpaired e- ใน outer shell** เกิดจาก e- ที่มาเจอกับ O2"
-          },
-          {
-            "text": "ตัวอย่างที่สไลด์ยกคือ **superoxide anion และ hydrogen peroxide**"
-          },
-          {
-            "text": "สไลด์กำกับบทบาทไว้ว่า **cell signaling ทั้ง proliferation และ differentiation** แต่ไม่ได้อธิบายกลไกต่อ"
-          }
+          "สไลด์นิยาม **Free radical หรือ Reactive oxygen species (ROS) ว่าเป็นโมเลกุลที่มี oxygen atom ที่มี unpaired e- ใน outer shell** เกิดจาก e- ที่มาเจอกับ O2",
+          "ตัวอย่างที่สไลด์ยกคือ **superoxide anion และ hydrogen peroxide**",
+          "สไลด์กำกับบทบาทไว้ว่า **cell signaling ทั้ง proliferation และ differentiation** แต่ไม่ได้อธิบายกลไกต่อ"
         ]
       },
       {
@@ -6174,9 +5522,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "**H2S, Cyanide และ carbon monoxide ยับยั้ง complex IV**"
                 ]
               },
-              {
-                "text": "สไลด์สรุปว่า **การยับยั้งที่จุดใดจุดหนึ่งเหล่านี้จะ block electron transfer ทั้งสาย**"
-              }
+              "สไลด์สรุปว่า **การยับยั้งที่จุดใดจุดหนึ่งเหล่านี้จะ block electron transfer ทั้งสาย**"
             ]
           },
           {
@@ -6197,9 +5543,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ตัวอย่างของ DNP (p.69)",
             "body": [
-              {
-                "text": "สไลด์ยกเคสที่ผู้ป่วยบอกเจ้าหน้าที่ตำรวจว่า felt like body was burning และระบุว่า **DNP มีการใช้ในอุตสาหกรรมหลายอย่าง ทั้งเป็นสารเคมีถ่ายภาพ ปุ๋ย และในการผลิตสีย้อมกับวัตถุระเบิด**"
-              }
+              "สไลด์ยกเคสที่ผู้ป่วยบอกเจ้าหน้าที่ตำรวจว่า felt like body was burning และระบุว่า **DNP มีการใช้ในอุตสาหกรรมหลายอย่าง ทั้งเป็นสารเคมีถ่ายภาพ ปุ๋ย และในการผลิตสีย้อมกับวัตถุระเบิด**"
             ]
           }
         ]
@@ -6208,9 +5552,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Thermogenin ใน brown fat",
         "source": "Metabolism 2 p.70",
         "body": [
-          {
-            "text": "**Thermogenin คือโปรตีนใน brown fat adipose tissue**"
-          },
+          "**Thermogenin คือโปรตีนใน brown fat adipose tissue**",
           {
             "bullets": [
               "**สร้างความร้อนด้วย non-shivering thermogenesis**",
@@ -6223,18 +5565,14 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "6.2 cytosolic NADH เข้า mitochondria ได้อย่างไร",
         "source": "Metabolism 2 p.72",
         "body": [
-          {
-            "text": "NADH ที่เกิดใน cytosol เข้า MT ตรง ๆ ไม่ได้ สไลด์ให้ shuttle 2 แบบ"
-          },
+          "NADH ที่เกิดใน cytosol เข้า MT ตรง ๆ ไม่ได้ สไลด์ให้ shuttle 2 แบบ",
           {
             "bullets": [
               "**Malate-aspartate shuttle ให้ 3 ATP ต่อ cytNADH ใช้ใน liver, kidney, heart**",
               "**Glycerophosphate shuttle ให้ 2 ATP ต่อ cytNADH ใช้ใน muscle, brain**"
             ]
           },
-          {
-            "text": "แผนภาพของ malate-aspartate shuttle แสดง aspartate, oxaloacetate และ malate สลับกันสองฝั่งของ inner membrane พร้อมคู่ NADH กับ NAD+ ส่วน glycerophosphate shuttle แสดง Dihydroxyacetone 3-P กับ Glycerol 3-P โดยมี **glycerol 3-P dehydrogenase และคู่ FAD กับ FADH2**"
-          }
+          "แผนภาพของ malate-aspartate shuttle แสดง aspartate, oxaloacetate และ malate สลับกันสองฝั่งของ inner membrane พร้อมคู่ NADH กับ NAD+ ส่วน glycerophosphate shuttle แสดง Dihydroxyacetone 3-P กับ Glycerol 3-P โดยมี **glycerol 3-P dehydrogenase และคู่ FAD กับ FADH2**"
         ]
       },
       {
@@ -6257,23 +5595,17 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "ตัวเลขตามตำราใหม่ p.74",
             "body": [
-              {
-                "text": "**สไลด์บอกเองว่าตำราเล่มใหม่ให้ NADH 1 ตัวได้เพียง 2.5 ATP และ FADH2 1 ตัวได้เพียง 1.5 ATP ทำให้ ATP ต่อ glucose ลดลงเหลือ 30-32 ATP**"
-              }
+              "**สไลด์บอกเองว่าตำราเล่มใหม่ให้ NADH 1 ตัวได้เพียง 2.5 ATP และ FADH2 1 ตัวได้เพียง 1.5 ATP ทำให้ ATP ต่อ glucose ลดลงเหลือ 30-32 ATP**"
             ]
           },
-          {
-            "text": "สไลด์สรุป p.76 เขียนว่า cellular respiration เกิดในเซลล์ที่ cytosol และ MT, ต้องใช้ oxygen, และ **1 glucose ให้ 36-38 ATP หรือ 30-32 ATP**"
-          }
+          "สไลด์สรุป p.76 เขียนว่า cellular respiration เกิดในเซลล์ที่ cytosol และ MT, ต้องใช้ oxygen, และ **1 glucose ให้ 36-38 ATP หรือ 30-32 ATP**"
         ]
       },
       {
         "heading": "Respiration in bacteria",
         "source": "Metabolism 2 p.75",
         "body": [
-          {
-            "text": "แบคทีเรียใช้สารอินทรีย์และอนินทรีย์อย่างง่าย"
-          },
+          "แบคทีเรียใช้สารอินทรีย์และอนินทรีย์อย่างง่าย",
           {
             "bullets": [
               "**Aerobic bacteria: cell wall ทำหน้าที่เป็น outer membrane**",
@@ -6296,9 +5628,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "อาการ (p.82)",
             "body": [
-              {
-                "text": "สไลด์บอกว่าอาการแปรผันตามความรุนแรงและตำแหน่งของโรค อาการที่พบบ่อยได้แก่"
-              },
+              "สไลด์บอกว่าอาการแปรผันตามความรุนแรงและตำแหน่งของโรค อาการที่พบบ่อยได้แก่",
               {
                 "bullets": [
                   "Poor growth",
@@ -6310,9 +5640,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
                   "Respiratory problems"
                 ]
               },
-              {
-                "text": "สไลด์อ้างอิงบทความสำหรับ **IN DOG** คือ A review of mitochondrial disease in dogs, Companion Animal Vol. 26 No. 11, 2021 (doi 10.12968/coan.2021.0018) แต่เนื้อหาฝั่งสุนัขในสไลด์ p.83 เป็นรูปล้วน ไม่มีข้อความให้จดว่าโรคใดบ้างพบในสุนัข"
-              }
+              "สไลด์อ้างอิงบทความสำหรับ **IN DOG** คือ A review of mitochondrial disease in dogs, Companion Animal Vol. 26 No. 11, 2021 (doi 10.12968/coan.2021.0018) แต่เนื้อหาฝั่งสุนัขในสไลด์ p.83 เป็นรูปล้วน ไม่มีข้อความให้จดว่าโรคใดบ้างพบในสุนัข"
             ]
           }
         ]
@@ -6343,12 +5671,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Signal transduction คืออะไร",
         "source": "Signal Transduction p.3-4",
         "body": [
-          {
-            "text": "กระบวนการใดก็ตามในเซลล์ที่ **เปลี่ยน signal หรือ stimulus แบบหนึ่งไปเป็นอีกแบบหนึ่ง** เริ่มต้นที่ cell-surface receptor ซึ่งจุดชนวน biochemical chain of events ภายในเซลล์จนเกิด response เรียกอีกชื่อว่า cell signaling คือการส่งสัญญาณระดับโมเลกุลจากภายนอกเซลล์เข้าสู่ภายในเซลล์ (p.3)"
-          },
-          {
-            "text": "อีกนิยามหนึ่งคือความสามารถของเซลล์ที่จะเปลี่ยนพฤติกรรมเพื่อตอบสนองต่อ receptor-ligand interaction (p.4)"
-          },
+          "กระบวนการใดก็ตามในเซลล์ที่ **เปลี่ยน signal หรือ stimulus แบบหนึ่งไปเป็นอีกแบบหนึ่ง** เริ่มต้นที่ cell-surface receptor ซึ่งจุดชนวน biochemical chain of events ภายในเซลล์จนเกิด response เรียกอีกชื่อว่า cell signaling คือการส่งสัญญาณระดับโมเลกุลจากภายนอกเซลล์เข้าสู่ภายในเซลล์ (p.3)",
+          "อีกนิยามหนึ่งคือความสามารถของเซลล์ที่จะเปลี่ยนพฤติกรรมเพื่อตอบสนองต่อ receptor-ligand interaction (p.4)",
           {
             "bullets": [
               "**ligand คือ primary messenger**",
@@ -6362,9 +5686,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "ภาพรวมของ signaling pathway",
         "source": "Signal Transduction p.6",
         "body": [
-          {
-            "text": "สไลด์ภาพรวมแสดง signal transduction pathway 2 แบบ"
-          },
+          "สไลด์ภาพรวมแสดง signal transduction pathway 2 แบบ",
           {
             "bullets": [
               "pathway ที่ถูกกระตุ้นโดย **diffusible second messenger**",
@@ -6381,12 +5703,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Protein kinase กับ protein phosphatase ในสายสัญญาณ",
         "source": "Signal Transduction p.7",
         "body": [
-          {
-            "text": "pathway ที่ประกอบด้วย protein kinase และ protein phosphatase ซึ่งการทำงานเชิง catalytic ของมันไปเปลี่ยน conformation และเปลี่ยน activity ของโปรตีนที่ถูกดัดแปลง"
-          },
-          {
-            "text": "ตัวอย่างในสไลด์ protein kinase 1 กระตุ้น protein kinase 2 เมื่อถูกกระตุ้นแล้ว protein kinase 2 เติม phosphate ให้ protein kinase 3 ทำให้ enzyme ทำงาน จากนั้น protein kinase 3 phosphorylate transcription factor ทำให้ affinity ต่อตำแหน่งบน DNA เพิ่มขึ้น การที่ transcription factor จับ DNA ส่งผลต่อ transcription ของยีนนั้น"
-          },
+          "pathway ที่ประกอบด้วย protein kinase และ protein phosphatase ซึ่งการทำงานเชิง catalytic ของมันไปเปลี่ยน conformation และเปลี่ยน activity ของโปรตีนที่ถูกดัดแปลง",
+          "ตัวอย่างในสไลด์ protein kinase 1 กระตุ้น protein kinase 2 เมื่อถูกกระตุ้นแล้ว protein kinase 2 เติม phosphate ให้ protein kinase 3 ทำให้ enzyme ทำงาน จากนั้น protein kinase 3 phosphorylate transcription factor ทำให้ affinity ต่อตำแหน่งบน DNA เพิ่มขึ้น การที่ transcription factor จับ DNA ส่งผลต่อ transcription ของยีนนั้น",
           {
             "callout": "**ทุกขั้นของการ activate ในสายนี้ ถูกย้อนกลับได้ด้วย phosphatase** นี่คือประโยคที่ต้องจำจากสไลด์นี้",
             "kind": "tip"
@@ -6397,43 +5715,29 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "การแบ่งชนิดของ receptor",
         "source": "Signal Transduction p.8",
         "body": [
-          {
-            "text": "receptor แบ่งคร่าว ๆ ได้ 2 กลุ่มใหญ่ คือ **intracellular receptor** และ **extracellular receptor**"
-          },
-          {
-            "text": "extracellular receptor เป็น integral transmembrane protein และเป็น receptor ส่วนใหญ่ ทอดข้าม plasma membrane โดยมีส่วนหนึ่งอยู่นอกเซลล์และอีกส่วนอยู่ในเซลล์"
-          },
+          "receptor แบ่งคร่าว ๆ ได้ 2 กลุ่มใหญ่ คือ **intracellular receptor** และ **extracellular receptor**",
+          "extracellular receptor เป็น integral transmembrane protein และเป็น receptor ส่วนใหญ่ ทอดข้าม plasma membrane โดยมีส่วนหนึ่งอยู่นอกเซลล์และอีกส่วนอยู่ในเซลล์",
           {
             "callout": "**signal transduction เกิดจากการที่ ligand จับกับส่วนนอกเซลล์ของ receptor ตัว ligand เองไม่ได้ผ่านเข้ามาทาง membrane**",
             "kind": "tip"
           },
-          {
-            "text": "สไลด์นี้เกริ่นถึง intracellular receptor แต่ไม่ได้อธิบายรายละเอียดของ intracellular receptor ต่อ สไลด์ไม่ได้บอก"
-          }
+          "สไลด์นี้เกริ่นถึง intracellular receptor แต่ไม่ได้อธิบายรายละเอียดของ intracellular receptor ต่อ สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "G protein-coupled receptor (GPCR)",
         "source": "Signal Transduction p.10-11, 13",
         "body": [
-          {
-            "text": "GPCR เรียกอีกชื่อว่า **seven-transmembrane domain receptor, 7TM receptor หรือ heptahelical receptor เพราะทอดข้าม cell membrane เจ็ดครั้ง** เป็น protein family ขนาดใหญ่ที่รับรู้โมเลกุลนอกเซลล์แล้วกระตุ้น signal transduction pathway ภายในจนเกิด cellular response (p.11)"
-          },
-          {
-            "text": "p.10 เป็นโครงสร้าง X-ray crystallography สามมิติของ signaling complex ระหว่าง B2-adrenergic receptor (B2-AR) ซึ่งเป็นตัวแทนของ GPCR superfamily กับ heterotrimeric G protein โดย B2-AR แสดงด้วยสีเขียว และ subunit ทั้งสามของ G protein แสดงด้วยสีส้ม ฟ้า และม่วง ส่วน plasma membrane เป็นเงาสีเทา"
-          },
-          {
-            "text": "p.13 เป็นรูป crystal structure ของ GPCR-ligand complex ตัวแทนจาก **class A, B, C และ F** ที่มีตำแหน่งจับ ligand หลากหลาย สไลด์ไม่ได้อธิบายรายละเอียดของแต่ละ class"
-          }
+          "GPCR เรียกอีกชื่อว่า **seven-transmembrane domain receptor, 7TM receptor หรือ heptahelical receptor เพราะทอดข้าม cell membrane เจ็ดครั้ง** เป็น protein family ขนาดใหญ่ที่รับรู้โมเลกุลนอกเซลล์แล้วกระตุ้น signal transduction pathway ภายในจนเกิด cellular response (p.11)",
+          "p.10 เป็นโครงสร้าง X-ray crystallography สามมิติของ signaling complex ระหว่าง B2-adrenergic receptor (B2-AR) ซึ่งเป็นตัวแทนของ GPCR superfamily กับ heterotrimeric G protein โดย B2-AR แสดงด้วยสีเขียว และ subunit ทั้งสามของ G protein แสดงด้วยสีส้ม ฟ้า และม่วง ส่วน plasma membrane เป็นเงาสีเทา",
+          "p.13 เป็นรูป crystal structure ของ GPCR-ligand complex ตัวแทนจาก **class A, B, C และ F** ที่มีตำแหน่งจับ ligand หลากหลาย สไลด์ไม่ได้อธิบายรายละเอียดของแต่ละ class"
         ]
       },
       {
         "heading": "G protein เป็น molecular switch",
         "source": "Signal Transduction p.12",
         "body": [
-          {
-            "text": "G protein หรือ guanine nucleotide-binding protein เป็นตระกูลโปรตีนที่ทำหน้าที่เป็น **molecular switch** ภายในเซลล์ ส่งสัญญาณจาก stimulus นอกเซลล์เข้าสู่ภายใน"
-          },
+          "G protein หรือ guanine nucleotide-binding protein เป็นตระกูลโปรตีนที่ทำหน้าที่เป็น **molecular switch** ภายในเซลล์ ส่งสัญญาณจาก stimulus นอกเซลล์เข้าสู่ภายใน",
           {
             "bullets": [
               "จับกับ **GTP เมื่อไหร่คือ on**",
@@ -6447,9 +5751,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "กลไก activation ของ effector ผ่าน heterotrimeric G protein",
         "source": "Signal Transduction p.14-15",
         "body": [
-          {
-            "text": "p.14 อธิบายภาพรวมว่าเมื่อ receptor จับ ligand แล้ว receptor จะไปทำปฏิกิริยากับ trimeric G protein ซึ่งไปกระตุ้น effector เช่น adenylyl cyclase"
-          },
+          "p.14 อธิบายภาพรวมว่าเมื่อ receptor จับ ligand แล้ว receptor จะไปทำปฏิกิริยากับ trimeric G protein ซึ่งไปกระตุ้น effector เช่น adenylyl cyclase",
           {
             "sub": "8 ขั้นตอนตามที่สไลด์ p.15 ไล่ไว้",
             "body": [
@@ -6504,21 +5806,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "cAMP signal pathway: adenylyl cyclase",
         "source": "Signal Transduction p.18",
         "body": [
-          {
-            "text": "การสร้าง cyclic AMP จาก ATP ถูก catalyze โดย **adenylyl cyclase** ซึ่งเป็น integral membrane protein ที่ประกอบด้วย 2 ส่วน แต่ละส่วนมี **six transmembrane helices**"
-          },
-          {
-            "text": "active site ของ enzyme อยู่ที่ผิวด้านในของ membrane ในร่องระหว่าง cytoplasmic domain ที่คล้ายกันสองอัน"
-          }
+          "การสร้าง cyclic AMP จาก ATP ถูก catalyze โดย **adenylyl cyclase** ซึ่งเป็น integral membrane protein ที่ประกอบด้วย 2 ส่วน แต่ละส่วนมี **six transmembrane helices**",
+          "active site ของ enzyme อยู่ที่ผิวด้านในของ membrane ในร่องระหว่าง cytoplasmic domain ที่คล้ายกันสองอัน"
         ]
       },
       {
         "heading": "cAMP ตัวเดียว ตอบสนองต่างกันตามชนิดเซลล์",
         "source": "Signal Transduction p.19",
         "body": [
-          {
-            "text": "สไลด์แสดงว่ากระบวนการหลากหลายถูกกระทบได้จากการเปลี่ยนแปลงความเข้มข้นของ cAMP และเชื่อว่าผลทั้งหมดนี้ถูกส่งผ่าน **enzyme ตัวเดียวกันคือ protein kinase A**"
-          },
+          "สไลด์แสดงว่ากระบวนการหลากหลายถูกกระทบได้จากการเปลี่ยนแปลงความเข้มข้นของ cAMP และเชื่อว่าผลทั้งหมดนี้ถูกส่งผ่าน **enzyme ตัวเดียวกันคือ protein kinase A**",
           {
             "callout": "ตัวอย่างคลาสสิกที่ต้องจำ **epinephrine จับ adrenergic receptor ที่คล้ายกันในเซลล์ตับ เซลล์ไขมัน และ smooth muscle ของลำไส้ ทำให้เกิด cAMP ทั้งสามชนิดเซลล์ แต่ response ต่างกัน** คือ ตับสลาย glycogen เซลล์ไขมันสลาย triacylglycerol และ smooth muscle เกิด relaxation",
             "kind": "tip"
@@ -6529,9 +5825,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Regulation of blood glucose levels",
         "source": "Signal Transduction p.23",
         "body": [
-          {
-            "text": "สไลด์แสดงปฏิกิริยาที่นำไปสู่การเก็บสะสมหรือการปลดปล่อย glucose โดย activity ของ enzyme สำคัญสองตัวคือ **glycogen phosphorylase** และ **glycogen synthase** ถูกควบคุมโดยฮอร์โมนที่ออกฤทธิ์ผ่าน signal transduction pathway"
-          },
+          "สไลด์แสดงปฏิกิริยาที่นำไปสู่การเก็บสะสมหรือการปลดปล่อย glucose โดย activity ของ enzyme สำคัญสองตัวคือ **glycogen phosphorylase** และ **glycogen synthase** ถูกควบคุมโดยฮอร์โมนที่ออกฤทธิ์ผ่าน signal transduction pathway",
           {
             "bullets": [
               "**glycogen phosphorylase ถูก activate ตอบสนองต่อ glucagon และ epinephrine**",
@@ -6544,9 +5838,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Mobilization ของ triacylglycerol ใน adipose tissue",
         "source": "Signal Transduction p.25",
         "body": [
-          {
-            "text": "เมื่อระดับ glucose ในเลือดต่ำจะกระตุ้นการหลั่ง glucagon ฮอร์โมนจับ receptor ที่ membrane ของ adipocyte แล้วกระตุ้น adenylyl cyclase ผ่าน G protein ให้สร้าง cAMP ซึ่งไป activate PKA"
-          },
+          "เมื่อระดับ glucose ในเลือดต่ำจะกระตุ้นการหลั่ง glucagon ฮอร์โมนจับ receptor ที่ membrane ของ adipocyte แล้วกระตุ้น adenylyl cyclase ผ่าน G protein ให้สร้าง cAMP ซึ่งไป activate PKA",
           {
             "sub": "ลำดับเหตุการณ์บนผิว lipid droplet",
             "body": [
@@ -6562,9 +5854,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               }
             ]
           },
-          {
-            "text": "fatty acid ออกจาก adipocyte ถูกขนส่งในเลือดโดยจับกับ serum albumin แล้วถูกปล่อยออกและเข้าสู่ myocyte ผ่าน **specific fatty acid transporter** ใน myocyte fatty acid ถูก oxidize และพลังงานถูกเก็บไว้ในรูป ATP ซึ่งใช้ในการหดตัวของกล้ามเนื้อและ metabolism อื่นที่ต้องใช้พลังงาน"
-          },
+          "fatty acid ออกจาก adipocyte ถูกขนส่งในเลือดโดยจับกับ serum albumin แล้วถูกปล่อยออกและเข้าสู่ myocyte ผ่าน **specific fatty acid transporter** ใน myocyte fatty acid ถูก oxidize และพลังงานถูกเก็บไว้ในรูป ATP ซึ่งใช้ในการหดตัวของกล้ามเนื้อและ metabolism อื่นที่ต้องใช้พลังงาน",
           {
             "callout": "ข้อความในสไลด์ตรงที่บอกว่า fatty acid ถูก oxidize ไปเป็นอะไร ขาดหายไปในตัวไฟล์ สไลด์ที่อ่านได้จึงไม่ได้ระบุ product ตัวนั้น",
             "kind": "flag"
@@ -6578,12 +5868,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "การ activate rhodopsin (p.26)",
             "body": [
-              {
-                "text": "ทางซ้ายของรูปคือ rhodopsin ในสภาพ inactive (dark-adapted) พร้อม heterotrimeric G protein ที่ยังไม่จับ ซึ่ง G protein ตัวนี้ **ชื่อ transducin**"
-              },
-              {
-                "text": "เมื่อ **retinal cofactor ดูดกลืน photon จะเกิด isomerization จาก cis เป็น trans** ทำให้ ionic linkage ระหว่าง residue บน transmembrane helix ที่สามและที่หกถูกทำลาย นำไปสู่การเปลี่ยน conformation รวมทั้งการเอียงออกและหมุนของ transmembrane helix ที่หก ซึ่งเปิดตำแหน่งจับสำหรับ Ga subunit ของ G protein"
-              }
+              "ทางซ้ายของรูปคือ rhodopsin ในสภาพ inactive (dark-adapted) พร้อม heterotrimeric G protein ที่ยังไม่จับ ซึ่ง G protein ตัวนี้ **ชื่อ transducin**",
+              "เมื่อ **retinal cofactor ดูดกลืน photon จะเกิด isomerization จาก cis เป็น trans** ทำให้ ionic linkage ระหว่าง residue บน transmembrane helix ที่สามและที่หกถูกทำลาย นำไปสู่การเปลี่ยน conformation รวมทั้งการเอียงออกและหมุนของ transmembrane helix ที่หก ซึ่งเปิดตำแหน่งจับสำหรับ Ga subunit ของ G protein"
             ]
           },
           {
@@ -6603,12 +5889,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Phosphatidylinositol signal pathway",
         "source": "Signal Transduction p.28-29, 31",
         "body": [
-          {
-            "text": "p.28 เป็นรูปแสดงตำแหน่งที่ enzyme phospholipase ตัดบน phospholipid โดยในรูป X แทน functional group และตัวอักษรสีต่าง ๆ แทนธาตุ ส่วน R แทนหาง fatty acid"
-          },
-          {
-            "text": "p.29 เป็นโมเดลการจับกันระหว่างส่วนของโมเลกุล PLC ที่มี **PH domain** กับวง inositol ที่ถูก phosphorylate ของ phosphoinositide การจับนี้ยึด enzyme ไว้กับผิวด้านในของ plasma membrane และอาจเปลี่ยน enzymatic activity ของมัน"
-          },
+          "p.28 เป็นรูปแสดงตำแหน่งที่ enzyme phospholipase ตัดบน phospholipid โดยในรูป X แทน functional group และตัวอักษรสีต่าง ๆ แทนธาตุ ส่วน R แทนหาง fatty acid",
+          "p.29 เป็นโมเดลการจับกันระหว่างส่วนของโมเลกุล PLC ที่มี **PH domain** กับวง inositol ที่ถูก phosphorylate ของ phosphoinositide การจับนี้ยึด enzyme ไว้กับผิวด้านในของ plasma membrane และอาจเปลี่ยน enzymatic activity ของมัน",
           {
             "sub": "การสร้าง second messenger จากการสลาย phosphoinositide (p.31)",
             "body": [
@@ -6635,9 +5917,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Receptor tyrosine kinase (RTK) และหลักการของ kinase",
         "source": "Signal Transduction p.33-34",
         "body": [
-          {
-            "text": "**RTK คือ cell surface receptor ที่มี tyrosine kinase activity ในตัวเอง** โดย signal binding domain อยู่ที่ผิวเซลล์ ส่วน tyrosine kinase enzymatic activity อยู่ในส่วน cytoplasmic ของโปรตีน (p.33)"
-          },
+          "**RTK คือ cell surface receptor ที่มี tyrosine kinase activity ในตัวเอง** โดย signal binding domain อยู่ที่ผิวเซลล์ ส่วน tyrosine kinase enzymatic activity อยู่ในส่วน cytoplasmic ของโปรตีน (p.33)",
           {
             "bullets": [
               "kinase คือ enzyme ที่ย้ายหมู่ phosphate จากโมเลกุลผู้ให้พลังงานสูง เช่น ATP ไปยัง target molecule (substrate) กระบวนการนี้เรียกว่า **phosphorylation**",
@@ -6654,26 +5934,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Ligand-mediated dimerization",
             "body": [
-              {
-                "text": "ในสภาพยังไม่ถูก activate receptor อยู่ใน membrane เป็น monomer การจับของ **bivalent ligand** ทำให้ receptor เกิด dimerization โดยตรงและ activate kinase activity ทำให้มันเติมหมู่ phosphate ให้ cytoplasmic domain ของ receptor subunit อีกตัวหนึ่ง"
-              },
-              {
-                "text": "**phosphotyrosine residue ที่เกิดขึ้นใหม่บน receptor ทำหน้าที่เป็นตำแหน่งจับของ target protein ที่มี SH2 หรือ PTB domain** และ target protein เหล่านั้นถูก activate จากการที่มันจับกับ receptor"
-              },
-              {
-                "text": "โมเดลนี้มีหลักฐานสนับสนุนจากการที่ growth และ differentiation factor เช่น **platelet-derived growth factor (PDGF)** หรือ **colony-stimulating factor-1 (CSF-1)** ประกอบด้วย subunit ที่คล้ายหรือเหมือนกันสองอันเชื่อมด้วย disulfide โดยแต่ละ subunit มี receptor-binding site"
-              }
+              "ในสภาพยังไม่ถูก activate receptor อยู่ใน membrane เป็น monomer การจับของ **bivalent ligand** ทำให้ receptor เกิด dimerization โดยตรงและ activate kinase activity ทำให้มันเติมหมู่ phosphate ให้ cytoplasmic domain ของ receptor subunit อีกตัวหนึ่ง",
+              "**phosphotyrosine residue ที่เกิดขึ้นใหม่บน receptor ทำหน้าที่เป็นตำแหน่งจับของ target protein ที่มี SH2 หรือ PTB domain** และ target protein เหล่านั้นถูก activate จากการที่มันจับกับ receptor",
+              "โมเดลนี้มีหลักฐานสนับสนุนจากการที่ growth และ differentiation factor เช่น **platelet-derived growth factor (PDGF)** หรือ **colony-stimulating factor-1 (CSF-1)** ประกอบด้วย subunit ที่คล้ายหรือเหมือนกันสองอันเชื่อมด้วย disulfide โดยแต่ละ subunit มี receptor-binding site"
             ]
           },
           {
             "sub": "Receptor-mediated dimerization",
             "body": [
-              {
-                "text": "ลำดับเหตุการณ์คล้ายแบบแรก ต่างกันที่ **ligand เป็น monovalent** จึงมี ligand แยกโมเลกุลจับ inactive monomer แต่ละตัว การจับของ ligand เหนี่ยวนำให้ receptor เปลี่ยน conformation จนเกิด dimerization interface แล้ว monomer ที่จับ ligand แล้วมา interact กันผ่าน interface นี้กลายเป็น active dimer"
-              },
-              {
-                "text": "growth factor บางตัว เช่น **EGF หรือ TGF** มี receptor-binding site เพียงตำแหน่งเดียว"
-              }
+              "ลำดับเหตุการณ์คล้ายแบบแรก ต่างกันที่ **ligand เป็น monovalent** จึงมี ligand แยกโมเลกุลจับ inactive monomer แต่ละตัว การจับของ ligand เหนี่ยวนำให้ receptor เปลี่ยน conformation จนเกิด dimerization interface แล้ว monomer ที่จับ ligand แล้วมา interact กันผ่าน interface นี้กลายเป็น active dimer",
+              "growth factor บางตัว เช่น **EGF หรือ TGF** มี receptor-binding site เพียงตำแหน่งเดียว"
             ]
           }
         ]
@@ -6682,12 +5952,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Adaptor protein: Grb2 กับ Sos",
         "source": "Signal Transduction p.37",
         "body": [
-          {
-            "text": "เซลล์มีโปรตีนจำนวนมากที่มี **SH2 หรือ PTB domain** ซึ่งจับกับ tyrosine residue ที่ถูก phosphorylate"
-          },
-          {
-            "text": "**adaptor protein เช่น Grb2 ทำหน้าที่เป็นตัวเชื่อมระหว่างโปรตีนอื่น ๆ** ในรูปนี้ Grb2 เชื่อมระหว่าง growth factor RTK ที่ถูก activate กับ **Sos** ซึ่งเป็นตัว activate โปรตีนปลายน้ำชื่อ **Ras**"
-          }
+          "เซลล์มีโปรตีนจำนวนมากที่มี **SH2 หรือ PTB domain** ซึ่งจับกับ tyrosine residue ที่ถูก phosphorylate",
+          "**adaptor protein เช่น Grb2 ทำหน้าที่เป็นตัวเชื่อมระหว่างโปรตีนอื่น ๆ** ในรูปนี้ Grb2 เชื่อมระหว่าง growth factor RTK ที่ถูก activate กับ **Sos** ซึ่งเป็นตัว activate โปรตีนปลายน้ำชื่อ **Ras**"
         ]
       },
       {
@@ -6740,21 +6006,15 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "(c) beta subunit ที่ถูก activate ไป phosphorylate tyrosine residue บน cytoplasmic domain ของ receptor เอง และบน **insulin receptor substrate (IRS)** หลายตัว"
             ]
           },
-          {
-            "text": "docking protein IRS มี **PTB domain** ที่ทำให้จับ receptor ที่ถูก activate ได้ เมื่อจับแล้ว tyrosine residue บน docking protein จะถูก phosphorylate โดย receptor และ **residue ที่ถูก phosphorylate เหล่านี้ทำหน้าที่เป็นตำแหน่งจับของ signaling protein ตัวอื่น** (p.42)"
-          }
+          "docking protein IRS มี **PTB domain** ที่ทำให้จับ receptor ที่ถูก activate ได้ เมื่อจับแล้ว tyrosine residue บน docking protein จะถูก phosphorylate โดย receptor และ **residue ที่ถูก phosphorylate เหล่านี้ทำหน้าที่เป็นตำแหน่งจับของ signaling protein ตัวอื่น** (p.42)"
         ]
       },
       {
         "heading": "โปรตีนที่มาจับ RTK ที่ถูก activate",
         "source": "Signal Transduction p.43",
         "body": [
-          {
-            "text": "transcription factor บางตัวจับกับ RTK ที่ถูก activate ซึ่งนำไปสู่การ phosphorylate และ activate transcription factor นั้น แล้วเคลื่อนย้ายเข้า nucleus สมาชิกของ **STAT family** ของ transcription factor ถูก activate ด้วยวิธีนี้"
-          },
-          {
-            "text": "enzyme ที่เกี่ยวกับ signaling หลายชนิดถูก activate เมื่อมาจับ RTK ที่ถูก activate ในรูปที่ยกมาคือ **phospholipase (PLC-γ), lipid kinase (PI3K) และ protein-tyrosine phosphatase (Shp2)** ซึ่งจับที่ตำแหน่ง phosphotyrosine บน receptor"
-          }
+          "transcription factor บางตัวจับกับ RTK ที่ถูก activate ซึ่งนำไปสู่การ phosphorylate และ activate transcription factor นั้น แล้วเคลื่อนย้ายเข้า nucleus สมาชิกของ **STAT family** ของ transcription factor ถูก activate ด้วยวิธีนี้",
+          "enzyme ที่เกี่ยวกับ signaling หลายชนิดถูก activate เมื่อมาจับ RTK ที่ถูก activate ในรูปที่ยกมาคือ **phospholipase (PLC-γ), lipid kinase (PI3K) และ protein-tyrosine phosphatase (Shp2)** ซึ่งจับที่ตำแหน่ง phosphotyrosine บน receptor"
         ]
       },
       {
@@ -6769,9 +6029,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "phosphotyrosine เหล่านี้เป็นตำแหน่งจับของโปรตีนอื่น รวมทั้ง **lipid kinase (PI3K), adaptor protein (Grb2) และ protein-tyrosine phosphatase (Shp2)**"
             ]
           },
-          {
-            "text": "การ phosphorylate IRS โดย insulin receptor ที่ถูก activate เป็นที่ทราบว่า **activate ทั้ง PI3K pathway และ Ras pathway** (p.45)"
-          },
+          "การ phosphorylate IRS โดย insulin receptor ที่ถูก activate เป็นที่ทราบว่า **activate ทั้ง PI3K pathway และ Ras pathway** (p.45)",
           {
             "callout": "สไลด์ p.45 บอกว่ายังมี pathway อื่นที่ IRS activate ได้ แต่ยัง defined ได้ไม่ชัดเจน สไลด์ไม่ได้บอกว่า pathway เหล่านั้นคืออะไร",
             "kind": "flag"
@@ -6782,9 +6040,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "PI3K, PIP3 และ PKB (AKT)",
         "source": "Signal Transduction p.46",
         "body": [
-          {
-            "text": "การ activate PI3K นำไปสู่การสร้าง phosphoinositide ที่ยึดกับ membrane รวมทั้ง **PIP3**"
-          },
+          "การ activate PI3K นำไปสู่การสร้าง phosphoinositide ที่ยึดกับ membrane รวมทั้ง **PIP3**",
           {
             "bullets": [
               "kinase สำคัญตัวหนึ่งใน pathway จำนวนมากคือ **PKB (AKT)** ซึ่ง interact กับ PIP3 ที่ plasma membrane ผ่าน **PH domain**",
@@ -6793,24 +6049,16 @@ export const NOTES_Y2_BIOCHEM_2 = {
               "เมื่อถูก activate แล้ว PKB หลุดออกจาก plasma membrane เคลื่อนเข้าสู่ cytosol และ nucleus"
             ]
           },
-          {
-            "text": "PKB เป็นองค์ประกอบสำคัญของ pathway หลายสายที่เป็นตัวกลางของ insulin response ได้แก่ **การเคลื่อนย้าย glucose transporter ไปที่ plasma membrane การสังเคราะห์ glycogen และการสังเคราะห์โปรตีนใหม่ในเซลล์**"
-          },
-          {
-            "text": "นอกจากนี้ PKB ยังมีบทบาทสำคัญในการ **ส่งเสริมการรอดชีวิตของเซลล์ โดยยับยั้งโปรตีน proapoptotic ชื่อ Bad และหรือ activate transcription factor NF-kB**"
-          }
+          "PKB เป็นองค์ประกอบสำคัญของ pathway หลายสายที่เป็นตัวกลางของ insulin response ได้แก่ **การเคลื่อนย้าย glucose transporter ไปที่ plasma membrane การสังเคราะห์ glycogen และการสังเคราะห์โปรตีนใหม่ในเซลล์**",
+          "นอกจากนี้ PKB ยังมีบทบาทสำคัญในการ **ส่งเสริมการรอดชีวิตของเซลล์ โดยยับยั้งโปรตีน proapoptotic ชื่อ Bad และหรือ activate transcription factor NF-kB**"
         ]
       },
       {
         "heading": "Insulin กับการนำ glucose เข้าเซลล์กล้ามเนื้อและเซลล์ไขมัน",
         "source": "Signal Transduction p.48",
         "body": [
-          {
-            "text": "glucose transporter ถูกเก็บไว้ในผนังของ cytoplasmic vesicle ที่เกิดจากการ bud เข้ามาจาก plasma membrane (endocytosis)"
-          },
-          {
-            "text": "เมื่อระดับ insulin เพิ่มขึ้น สัญญาณถูกส่งผ่าน **IRS-PI3K-PKB pathway** ซึ่งจุดชนวนการเคลื่อนย้าย cytoplasmic vesicle ไปที่ขอบเซลล์ vesicle รวมกับ plasma membrane (exocytosis) ส่ง transporter ออกไปที่ผิวเซลล์เพื่อทำหน้าที่นำ glucose เข้าเซลล์"
-          },
+          "glucose transporter ถูกเก็บไว้ในผนังของ cytoplasmic vesicle ที่เกิดจากการ bud เข้ามาจาก plasma membrane (endocytosis)",
+          "เมื่อระดับ insulin เพิ่มขึ้น สัญญาณถูกส่งผ่าน **IRS-PI3K-PKB pathway** ซึ่งจุดชนวนการเคลื่อนย้าย cytoplasmic vesicle ไปที่ขอบเซลล์ vesicle รวมกับ plasma membrane (exocytosis) ส่ง transporter ออกไปที่ผิวเซลล์เพื่อทำหน้าที่นำ glucose เข้าเซลล์",
           {
             "callout": "สไลด์ระบุว่ามี pathway ที่สองจาก insulin receptor ไปสู่การ translocate GLUT4 ด้วย แต่ไม่ได้แสดงในรูป สไลด์ไม่ได้บอกว่า pathway นั้นคืออะไร",
             "kind": "flag"
@@ -6824,15 +6072,9 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "สัญญาณสามทางมาบรรจบที่ Ras (p.49)",
             "body": [
-              {
-                "text": "สัญญาณจาก **G protein-coupled receptor, integrin และ receptor tyrosine kinase** ล้วนมาบรรจบที่ **Ras** แล้วส่งต่อไปตาม MAP kinase cascade สไลด์นี้แนะนำ integrin ในฐานะ cell-surface receptor อีกชนิดที่ทำ signal transduction ได้"
-              },
-              {
-                "text": "แม้ receptor สามชนิดนี้จับ ligand ต่างกันมาก แต่ทั้งหมดนำไปสู่การเกิด **phosphotyrosine docking site สำหรับ SH2 domain ของ adaptor protein Grb2** ใกล้ ๆ plasma membrane การ recruit Grb2-Sos complex ทำให้ Ras ถูก activate และส่งสัญญาณลง MAP kinase pathway"
-              },
-              {
-                "text": "ผลของการบรรจบกันนี้คือ **สัญญาณจาก receptor ที่หลากหลายสามารถนำไปสู่ transcription และ translation ของชุดยีนที่ส่งเสริมการเจริญเติบโตชุดเดียวกันในแต่ละ target cell**"
-              }
+              "สัญญาณจาก **G protein-coupled receptor, integrin และ receptor tyrosine kinase** ล้วนมาบรรจบที่ **Ras** แล้วส่งต่อไปตาม MAP kinase cascade สไลด์นี้แนะนำ integrin ในฐานะ cell-surface receptor อีกชนิดที่ทำ signal transduction ได้",
+              "แม้ receptor สามชนิดนี้จับ ligand ต่างกันมาก แต่ทั้งหมดนำไปสู่การเกิด **phosphotyrosine docking site สำหรับ SH2 domain ของ adaptor protein Grb2** ใกล้ ๆ plasma membrane การ recruit Grb2-Sos complex ทำให้ Ras ถูก activate และส่งสัญญาณลง MAP kinase pathway",
+              "ผลของการบรรจบกันนี้คือ **สัญญาณจาก receptor ที่หลากหลายสามารถนำไปสู่ transcription และ translation ของชุดยีนที่ส่งเสริมการเจริญเติบโตชุดเดียวกันในแต่ละ target cell**"
             ]
           },
           {
@@ -6869,12 +6111,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
           {
             "sub": "Store-operated calcium entry (p.53)",
             "body": [
-              {
-                "text": "เมื่อ **ER lumen มี Ca2+ มาก** โปรตีน **STIM1** ที่ ER membrane และ **Orai1** ที่ plasma membrane กระจายตัวอยู่ในเยื่อของตัวเอง และ **Orai1 calcium channel ปิดอยู่**"
-              },
-              {
-                "text": "ถ้า **ER store ถูกใช้จนพร่อง** จะมีระบบสัญญาณระหว่างสองเยื่อทำให้โปรตีนทั้งสองมารวมกลุ่มกันในเยื่อของตัวเองในตำแหน่งใกล้กัน การ interact ระหว่างโปรตีนทั้งสองทำให้ **Orai1 channel เปิด** และ Ca2+ ไหลเข้า cytosol จากนั้นจึงถูกปั๊มกลับเข้า ER lumen ได้"
-              }
+              "เมื่อ **ER lumen มี Ca2+ มาก** โปรตีน **STIM1** ที่ ER membrane และ **Orai1** ที่ plasma membrane กระจายตัวอยู่ในเยื่อของตัวเอง และ **Orai1 calcium channel ปิดอยู่**",
+              "ถ้า **ER store ถูกใช้จนพร่อง** จะมีระบบสัญญาณระหว่างสองเยื่อทำให้โปรตีนทั้งสองมารวมกลุ่มกันในเยื่อของตัวเองในตำแหน่งใกล้กัน การ interact ระหว่างโปรตีนทั้งสองทำให้ **Orai1 channel เปิด** และ Ca2+ ไหลเข้า cytosol จากนั้นจึงถูกปั๊มกลับเข้า ER lumen ได้"
             ]
           }
         ]
@@ -6883,9 +6121,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "บทบาทของ NO ในฐานะ intercellular messenger",
         "source": "Signal Transduction p.56",
         "body": [
-          {
-            "text": "สไลด์แสดง pathway ที่ทำงานผ่าน NO และ cyclic GMP จนเกิด **การขยายตัวของหลอดเลือด**"
-          },
+          "สไลด์แสดง pathway ที่ทำงานผ่าน NO และ cyclic GMP จนเกิด **การขยายตัวของหลอดเลือด**",
           {
             "bullets": [
               "step 1 **acetylcholine** จับที่ผิวด้านนอกของ endothelial cell",
@@ -6902,9 +6138,7 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "Apoptosis: ลักษณะของเซลล์และ extrinsic pathway",
         "source": "Signal Transduction p.58-59",
         "body": [
-          {
-            "text": "p.58 เปรียบเทียบเซลล์ปกติกับเซลล์ที่เกิด apoptosis ด้วยภาพจาก scanning electron micrograph ของ T cell hybridoma โดย **เซลล์ apoptotic แสดง surface bleb จำนวนมากที่หลุดออกจากเซลล์** และมีภาพ transmission electron micrograph ของเซลล์ apoptotic ที่ถูก inhibitor หยุดไว้ที่ระยะ membrane blebbing"
-          },
+          "p.58 เปรียบเทียบเซลล์ปกติกับเซลล์ที่เกิด apoptosis ด้วยภาพจาก scanning electron micrograph ของ T cell hybridoma โดย **เซลล์ apoptotic แสดง surface bleb จำนวนมากที่หลุดออกจากเซลล์** และมีภาพ transmission electron micrograph ของเซลล์ apoptotic ที่ถูก inhibitor หยุดไว้ที่ระยะ membrane blebbing",
           {
             "sub": "Extrinsic (receptor-mediated) pathway (p.59)",
             "body": [
@@ -6948,12 +6182,8 @@ export const NOTES_Y2_BIOCHEM_2 = {
         "heading": "สไลด์ที่เป็นรูปล้วนและแหล่งอ้างอิงของเด็ค",
         "source": "Signal Transduction p.5, 9, 20-22, 24, 30, 32, 35, 40, 47, 51, 54-55, 57, 61-62",
         "body": [
-          {
-            "text": "สไลด์หน้า 20, 24, 30, 35, 47, 54 และ 62 ไม่มีข้อความในไฟล์เลย ส่วนหน้า 5, 9, 21, 22, 32, 40, 51, 55 และ 57 เป็นสไลด์หัวข้อคั่นที่มีข้อความหัวข้ออยู่ เช่น The Basic Elements of Cell Signaling Systems (หน้า 5), G Protein-Coupled Receptors and Their Second Messengers (หน้า 9), The cAMP Signal Pathway (หน้า 21), Regulation of Blood Glucose Levels, Protein-Tyrosine Phosphorylation as a Mechanism for Signal Transduction, Insulin Receptor, The Role of Calcium as an Intracellular Messenger, The Role of NO as an Intercellular Messenger และ Apoptosis (Programmed Cell Death) เนื้อหาบนสไลด์เหล่านั้นเป็นรูปหรือ diagram ที่ต้องดูจากไฟล์สไลด์จริง"
-          },
-          {
-            "text": "หน้า 61 เป็นสไลด์อ้างอิง โดยระบุลิงก์ไปยังไฟล์ PDF ตำรา Karp ที่โฮสต์อยู่บนเว็บของมหาวิทยาลัยแห่งหนึ่ง"
-          }
+          "สไลด์หน้า 20, 24, 30, 35, 47, 54 และ 62 ไม่มีข้อความในไฟล์เลย ส่วนหน้า 5, 9, 21, 22, 32, 40, 51, 55 และ 57 เป็นสไลด์หัวข้อคั่นที่มีข้อความหัวข้ออยู่ เช่น The Basic Elements of Cell Signaling Systems (หน้า 5), G Protein-Coupled Receptors and Their Second Messengers (หน้า 9), The cAMP Signal Pathway (หน้า 21), Regulation of Blood Glucose Levels, Protein-Tyrosine Phosphorylation as a Mechanism for Signal Transduction, Insulin Receptor, The Role of Calcium as an Intracellular Messenger, The Role of NO as an Intercellular Messenger และ Apoptosis (Programmed Cell Death) เนื้อหาบนสไลด์เหล่านั้นเป็นรูปหรือ diagram ที่ต้องดูจากไฟล์สไลด์จริง",
+          "หน้า 61 เป็นสไลด์อ้างอิง โดยระบุลิงก์ไปยังไฟล์ PDF ตำรา Karp ที่โฮสต์อยู่บนเว็บของมหาวิทยาลัยแห่งหนึ่ง"
         ]
       }
     ]

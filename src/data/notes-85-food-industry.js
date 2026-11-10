@@ -27,9 +27,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
         "heading": "HACCP คืออะไร และ hazard 3 กลุ่ม",
         "source": "FIQC final น.2, 4",
         "body": [
-          {
-            "text": "HACCP (Hazard Analysis Critical Control Point, จุดควบคุมวิกฤต) = **food safety management system ที่ไม่มีระบบตายตัว** ต้องออกแบบตามความเสี่ยงในที่ต่างๆ จึงเริ่มจากการประเมินความเสี่ยงเสมอ และต้องมี **hazard team** เป็นผู้วิเคราะห์"
-          },
+          "HACCP (Hazard Analysis Critical Control Point, จุดควบคุมวิกฤต) = **food safety management system ที่ไม่มีระบบตายตัว** ต้องออกแบบตามความเสี่ยงในที่ต่างๆ จึงเริ่มจากการประเมินความเสี่ยงเสมอ และต้องมี **hazard team** เป็นผู้วิเคราะห์",
           {
             "bullets": [
               "**Physical hazard**: foreign body เช่น เส้นผม แหวน โลหะ พลาสติก หิน",
@@ -98,9 +96,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
             "callout": "**Without basic prerequisite (Biosecurity / GHP / GAP), hardly HACCP successful** จะทำ hazard plan ให้สำเร็จต้องมี pre-program ที่ดีก่อน และสิ่งแวดล้อมการผลิตต้องสะอาด",
             "kind": "flag"
           },
-          {
-            "text": "Prerequisite = โปรแกรมพื้นฐานที่แนะนำ เพื่อป้องกัน hazard ที่มาจากการสัมผัสสิ่งแวดล้อมการผลิต (ในแผนภาพ key success: จุด CCP ลอยอยู่บนพื้นสีเขียวคือ production environment)"
-          },
+          "Prerequisite = โปรแกรมพื้นฐานที่แนะนำ เพื่อป้องกัน hazard ที่มาจากการสัมผัสสิ่งแวดล้อมการผลิต (ในแผนภาพ key success: จุด CCP ลอยอยู่บนพื้นสีเขียวคือ production environment)",
           {
             "bullets": [
               "Primary 5 steps **ต้องทำตามลำดับ**: 1) **ตั้งทีม HACCP** (ส่วนใหญ่เป็นคนในโรงงาน) 2) บรรยายผลิตภัณฑ์และ scope 3) ระบุกลุ่มผู้บริโภค 4) เขียน flow diagram 5) ตรวจ flow diagram ว่าตรงกับหน้างานจริงหรือไม่"
@@ -196,33 +192,25 @@ export const NOTES_85_FOOD_INDUSTRY = {
           {
             "sub": "P4 Monitoring (เฝ้าระวัง CCP)",
             "body": [
-              {
-                "text": "ตรวจว่า CCP เป็นไปตาม CL หรือไม่ ต้องกำหนด **What / How / When-Where / Who / Record** (monitor CL, วิธีตรวจ, ความถี่, ผู้รับผิดชอบ, บันทึก)"
-              }
+              "ตรวจว่า CCP เป็นไปตาม CL หรือไม่ ต้องกำหนด **What / How / When-Where / Who / Record** (monitor CL, วิธีตรวจ, ความถี่, ผู้รับผิดชอบ, บันทึก)"
             ]
           },
           {
             "sub": "P5 Corrective action",
             "body": [
-              {
-                "text": "เมื่อค่าเบี่ยงเบนจาก CL ต้องกำหนดวิธีแก้ตามแนว **3P: Product (จัดการผลิตภัณฑ์อย่างไร), Process (จัดการกระบวนการ), People (ถ้าเกิดจากคนผิดพลาด)** พร้อมผู้รับผิดชอบและบันทึก เช่น นมต้มไม่ถึง 160 F ให้ re-process, แยกสินค้า (isolate), ตรวจเชื้อ"
-              }
+              "เมื่อค่าเบี่ยงเบนจาก CL ต้องกำหนดวิธีแก้ตามแนว **3P: Product (จัดการผลิตภัณฑ์อย่างไร), Process (จัดการกระบวนการ), People (ถ้าเกิดจากคนผิดพลาด)** พร้อมผู้รับผิดชอบและบันทึก เช่น นมต้มไม่ถึง 160 F ให้ re-process, แยกสินค้า (isolate), ตรวจเชื้อ"
             ]
           },
           {
             "sub": "P6 Verification (ทวนสอบ)",
             "body": [
-              {
-                "text": "Validate แผน HACCP แล้ว **ทวนสอบทั้งระบบว่าทำจริงและควบคุมได้ ไม่ใช่เฉพาะจุด CCP** เช่น sampling plan ตรวจ lab (day-old chick, เนื้อหลัง chilling, surface swab หลังล้างไลน์, ไขมันจากซาก, มือพนักงาน), CL re-validation (กฎหมาย ข้อกำหนด ทดลองซ้ำ), internal audit, ทบทวน operation และบันทึก, calibration เครื่องมือวัด, ทบทวนแผนอบรม, วิเคราะห์ complaint และความพึงพอใจลูกค้า"
-              }
+              "Validate แผน HACCP แล้ว **ทวนสอบทั้งระบบว่าทำจริงและควบคุมได้ ไม่ใช่เฉพาะจุด CCP** เช่น sampling plan ตรวจ lab (day-old chick, เนื้อหลัง chilling, surface swab หลังล้างไลน์, ไขมันจากซาก, มือพนักงาน), CL re-validation (กฎหมาย ข้อกำหนด ทดลองซ้ำ), internal audit, ทบทวน operation และบันทึก, calibration เครื่องมือวัด, ทบทวนแผนอบรม, วิเคราะห์ complaint และความพึงพอใจลูกค้า"
             ]
           },
           {
             "sub": "P7 Record keeping",
             "body": [
-              {
-                "text": "ต้องมีหลักฐานเอกสาร: document master list, HACCP plan, processing procedure, บันทึกตรวจกระบวนการ, **CCP monitoring record**, corrective action record รวมถึงเอกสาร prerequisite (traceability, recall, water treatment, calibration, pest control, training ฯลฯ) โดย **NC = non-conforming** คือไม่เป็นไปตามข้อกำหนด และ food safety standard ต้องโปร่งใส ทุกคนเข้าใจตรงกัน"
-              }
+              "ต้องมีหลักฐานเอกสาร: document master list, HACCP plan, processing procedure, บันทึกตรวจกระบวนการ, **CCP monitoring record**, corrective action record รวมถึงเอกสาร prerequisite (traceability, recall, water treatment, calibration, pest control, training ฯลฯ) โดย **NC = non-conforming** คือไม่เป็นไปตามข้อกำหนด และ food safety standard ต้องโปร่งใส ทุกคนเข้าใจตรงกัน"
             ]
           }
         ]
@@ -231,9 +219,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
         "heading": "ตัวอย่าง CCP ระดับฟาร์มไก่เนื้อ",
         "source": "FIQC final น.2",
         "body": [
-          {
-            "text": "Hazard หลักของฟาร์มไก่เนื้อ: biological = **Salmonella** (และ Campylobacter), chemical = **antibiotic และ insecticide residue**, physical = **feed in gut**"
-          },
+          "Hazard หลักของฟาร์มไก่เนื้อ: biological = **Salmonella** (และ Campylobacter), chemical = **antibiotic และ insecticide residue**, physical = **feed in gut**",
           {
             "bullets": [
               "การล้างฆ่าเชื้อโรงเรือนและวัสดุรองพื้น (C&D): CL = ทำตาม procedure และ **swab แล้ว Salmonella negative**",
@@ -250,9 +236,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
         "heading": "ตัวอย่าง CCP ในโรงเชือดและโรงงานแปรรูป",
         "source": "FIQC final น.2, 6",
         "body": [
-          {
-            "text": "Flow โรงเชือดไก่ 14 ขั้น: รับไก่, ante-mortem inspection, แขวน เชือด เอาเลือดออก, ลวก (scalding), ถอนขน, ดึงหัว, ล้วงเครื่องใน (evisceration), post-mortem inspection, เอา crop ออก, **ล้างซาก inside-outside**, online reprocessing, **chill carcass** (แช่น้ำเย็นหรือ air), re-hanging, ชั่งและตัดแต่ง"
-          },
+          "Flow โรงเชือดไก่ 14 ขั้น: รับไก่, ante-mortem inspection, แขวน เชือด เอาเลือดออก, ลวก (scalding), ถอนขน, ดึงหัว, ล้วงเครื่องใน (evisceration), post-mortem inspection, เอา crop ออก, **ล้างซาก inside-outside**, online reprocessing, **chill carcass** (แช่น้ำเย็นหรือ air), re-hanging, ชั่งและตัดแต่ง",
           {
             "callout": "จุดที่เอกสารเน้นซ้ำ: **จุดล้างซาก และ chilling ถูกกำหนดเป็น CCP**",
             "kind": "flag"
@@ -389,9 +373,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
         "heading": "ข้อกำหนดรายประเทศ (จุดต่างที่ควรจำ)",
         "source": "FIQC final น.3, 9",
         "body": [
-          {
-            "text": "สไลด์นำเสนอเป็นตารางเทียบรายประเทศ จุดที่ต่างกันคือเชื้อที่เน้นตรวจและเงื่อนไขพิเศษของแต่ละตลาด"
-          },
+          "สไลด์นำเสนอเป็นตารางเทียบรายประเทศ จุดที่ต่างกันคือเชื้อที่เน้นตรวจและเงื่อนไขพิเศษของแต่ละตลาด",
           {
             "bullets": [
               "**Europe**: เกณฑ์คล้ายกรมปศุสัตว์ เนื้อดิบเน้น **Salmonella Typhimurium และ Enteritidis** (n=5, c=0 ใน 25 g) กับ **Listeria monocytogenes** อ้าง Commission Regulation (EC) 2073/2005 และฉบับแก้ไข",
@@ -485,9 +467,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
         "heading": "Better Chicken Commitment (BCC)",
         "source": "FIQC final น.3, 12",
         "body": [
-          {
-            "text": "**BCC = พันธสัญญา higher welfare ภายในปี 2026** โดย ECC ยุโรปเริ่มปี 2017 และ BCC ฝั่ง USA กับ Canada ปี 2018 (อิง Global Animal Partnership) ผู้ซื้อรายใหญ่จำนวนมากลงนาม ถ้าจะส่งออกไป EU, USA, Canada ต้องทำให้สำเร็จ"
-          },
+          "**BCC = พันธสัญญา higher welfare ภายในปี 2026** โดย ECC ยุโรปเริ่มปี 2017 และ BCC ฝั่ง USA กับ Canada ปี 2018 (อิง Global Animal Partnership) ผู้ซื้อรายใหญ่จำนวนมากลงนาม ถ้าจะส่งออกไป EU, USA, Canada ต้องทำให้สำเร็จ",
           {
             "bullets": [
               "1) สอดคล้องกฎหมายด้านสวัสดิภาพสัตว์",
@@ -532,9 +512,7 @@ export const NOTES_85_FOOD_INDUSTRY = {
         "heading": "PDO/PGI และโครงสร้างการรับรอง (CB, AB, IAF)",
         "source": "FIQC final น.3",
         "body": [
-          {
-            "text": "ฉลากยุโรป **PDO และ PGI** ผูกสินค้ากับพื้นที่ผลิต ตัวหนึ่งกำหนดให้ทุกขั้นตอน (เลี้ยงถึงแปรรูป) อยู่ในพื้นที่ อีกตัวขอเพียงอย่างน้อย 1 ขั้นตอน"
-          },
+          "ฉลากยุโรป **PDO และ PGI** ผูกสินค้ากับพื้นที่ผลิต ตัวหนึ่งกำหนดให้ทุกขั้นตอน (เลี้ยงถึงแปรรูป) อยู่ในพื้นที่ อีกตัวขอเพียงอย่างน้อย 1 ขั้นตอน",
           {
             "callout": "โน้ตในเอกสารกำกับ PGI ว่าต้องเลี้ยงและแปรรูปใน EU ทั้งหมด และ PDO ว่าอย่างน้อย 1 ขั้นตอน ซึ่งสลับกับนิยามมาตรฐานของ EU (PDO = ทุกขั้นตอนในพื้นที่, PGI = อย่างน้อย 1 ขั้นตอน) ควรตรวจกับสไลด์ปีปัจจุบันก่อนจำ",
             "kind": "warn"
