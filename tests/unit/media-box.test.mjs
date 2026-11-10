@@ -14,7 +14,9 @@
 // ============================================================
 
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import test, { after, before } from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 import { BANK_REGISTRY } from '../../src/data/bank-registry.generated.js';
 import { QUESTION_MEDIA_SIZES } from '../../src/data/media-sizes.generated.js';
@@ -68,6 +70,32 @@ test('every figure the banks show has a size: a file from the registry, an inlin
     }
   }
   assert.ok(files >= 150 && inline >= 9, `${files} file figures, ${inline} inline`);
+});
+
+// ── The bank loader's wait (src/data/questions.js) ──────────────────
+test('the banks wait for the sizes only briefly: a slow or failed sizes file never holds a set up', async () => {
+  const { mediaSizesSoon, SIZES_WAIT_MS } = await import('../../src/data/questions.js');
+  assert.ok(SIZES_WAIT_MS > 0 && SIZES_WAIT_MS <= 2000, 'a wait a student would not notice');
+  const timed = async (options) => { const t = performance.now(); await mediaSizesSoon(options); return performance.now() - t; };
+
+  assert.ok(await timed({ load: () => Promise.resolve(), waitMs: 5000 }) < 1000, 'sizes that have landed end the wait at once');
+  assert.ok(await timed({ load: () => Promise.reject(new Error('offline')), waitMs: 5000 }) < 1000, 'a failed load ends it at once too');
+  const stalled = await timed({ load: () => new Promise(() => {}), waitMs: 60 });
+  assert.ok(stalled >= 50 && stalled < 1500, `a file that never arrives is given 60 ms here, took ${stalled.toFixed(0)}`);
+});
+
+test('loading the banks brings the sizes with them', () => {
+  // In a process of its own, where nothing else has asked for the sizes.
+  const script = [
+    "import { loadQBForYear } from './src/data/questions.js';",
+    "import { mediaSize, mediaSizesLoaded } from './src/lib/media-size.js';",
+    'const before = mediaSizesLoaded();',
+    'await loadQBForYear(5);',
+    `console.log(JSON.stringify({ before, after: mediaSizesLoaded(), size: mediaSize(${JSON.stringify(FIGURE)}) }));`,
+  ].join('\n');
+  const out = execFileSync(process.execPath, ['--input-type=module', '-e', script], { cwd: fileURLToPath(new URL('../..', import.meta.url)), encoding: 'utf8' });
+  const [width, height] = QUESTION_MEDIA_SIZES[FIGURE];
+  assert.deepEqual(JSON.parse(out), { before: false, after: true, size: { width, height } });
 });
 
 // ── The components ───────────────────────────────────────────────────
