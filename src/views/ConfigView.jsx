@@ -43,9 +43,11 @@ import { practiceSignals } from '../lib/decide-signals.js';
 // phone keeps inside the thumb's reach (CSS: .vmx-config-actions).
 //
 // A practice set (not an exam) decides for the student (src/lib/decide.js,
-// docs/DECIDE-FOR-STUDENT.md): the summary and its why come first with the
-// start button under them, and every row above sits inside one disclosure,
-// ปรับเอง, closed by default. A row the student changes there is remembered
+// docs/DECIDE-FOR-STUDENT.md): the summary and its why come first, then the
+// start bar, and every row above sits inside one disclosure, ปรับเอง. It is
+// closed on arrival only when the app decided the set (`follows`); Panic, a
+// curated pool, a Home card's own settings or an empty pool open with it. A
+// row the student changes on a set the app decided is remembered
 // (practice.setup) so the next topic opens their way. An exam keeps its rows
 // in view: choosing the paper's conditions is what that screen is for.
 //
@@ -118,10 +120,17 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   ])).sort((a, b) => a - b);
   // A practice set decides for the student; an exam shows its rows (header).
   const compact = mode !== 'exam';
-  // A row the student changes is theirs from now on (decide.js, yours wins).
-  const rememberRow = (rows) => { if (compact) rememberRows(PRACTICE_SETUP, rows); };
-  const [adjusting, setAdjusting] = useState(() => adjustOpen('config'));
-  const toggleAdjust = () => setAdjusting((open) => { setAdjustOpen('config', !open); return !open; });
+  // What the screen was on arrival, latched once the pool's count is known
+  // (below): whether the app had decided this set, and whether ปรับเอง starts
+  // open. Read once, so a row change never closes the region under the
+  // student and an exam that steps down a rung keeps its rows in view.
+  const arrivalRef = useRef(null);
+  const [opened, setOpened] = useState(null); // the student's own toggle on this visit
+  const [pickedRung, setPickedRung] = useState(false);
+  // A row the student changes is theirs from now on, but only on a set the app
+  // decided (a plain pool it set up): never from Panic or a curated pool.
+  const rememberRow = (rows) => { if (rememberable) rememberRows(PRACTICE_SETUP, rows); };
+  const startRef = useRef(null);
   const questionCountRef = useRef(numQuestions);
   const timePerQuestionRef = useRef(timePerQ);
   // The difficulty snapshot is its own lazy chunk; it is fetched only once the
@@ -216,9 +225,11 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     questionCountRef.current = preset.numQuestions;
     setNumQuestions(preset.numQuestions);
     rememberLadderStep(id);
-    // A rung sets every row at once, so it replaces the rows remembered
-    // before it; the ladder itself remembers the rung.
-    forget(PRACTICE_SETUP);
+    // A rung sets every row at once, so on a set the app decided it replaces
+    // the rows remembered before it; the ladder itself remembers the rung. An
+    // exam's rung tap leaves the practice rows alone.
+    if (rememberable) forget(PRACTICE_SETUP);
+    setPickedRung(true);
   };
   const stepHint = (() => {
     const step = ladderStep(activeStep);
@@ -284,22 +295,42 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   // settings on screen are that decision, the line says so with its reason;
   // when they came from somewhere else (a Home card, the last set) it names
   // what the set is and, on the ladder, what the rung does.
+  const plainPool = !panicPending && (practiceMode === 'all' || practiceMode === 'adaptive');
+  // The app's own choice is the rung's preset (its clock, the answer after
+  // every question), so seconds or feedback the student set never read as it.
   const decision = compact ? decide(PRACTICE_SETUP, practiceSignals({
-    subject, year: selectedYear, available: knownAvailableCount, timePerQ, instantFeedback, practiceMode, hasHistory,
+    subject, year: selectedYear, available: knownAvailableCount, timePerQ: undefined, instantFeedback: true, practiceMode, hasHistory,
   })) : null;
   const chosen = decision?.value;
-  const follows = Boolean(chosen) && !panicPending && (practiceMode === 'all' || practiceMode === 'adaptive')
-    && servedCount === (knownAvailableCount ? Math.min(chosen.numQuestions, knownAvailableCount) : chosen.numQuestions)
+  // The line may say the app chose only what the app did choose: a plain pool
+  // with a count known and not empty, set exactly as the decision says.
+  const follows = Boolean(chosen) && plainPool && knownAvailableCount > 0
+    && servedCount === Math.min(chosen.numQuestions, knownAvailableCount)
     && useTimer === chosen.useTimer && (!useTimer || timePerQ === chosen.timePerQ)
     && Boolean(instantFeedback) === chosen.instantFeedback
     && (practiceMode === 'adaptive' ? 'adaptive' : 'random') === chosen.pick;
-  const lead = follows ? (decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว') : 'ชุดนี้';
-  const why = follows ? decision.why : showLadder ? stepHint : '';
+  if (arrivalRef.current === null && knownAvailableCount != null) {
+    const decided = compact && follows;
+    arrivalRef.current = { decided, open: !decided || adjustOpen('config') };
+  }
+  const arrival = arrivalRef.current;
+  // Rows are tucked only when the app decided the set; anything else (Panic, a
+  // curated pool, a Home card's own settings, an empty pool) opens with them.
+  const adjusting = opened ?? (arrival ? arrival.open : adjustOpen('config'));
+  const toggleAdjust = () => { const next = !adjusting; setOpened(next); setAdjustOpen('config', next); };
+  const rememberable = compact && Boolean(arrival?.decided) && plainPool;
+  const rung = ladderStep(activeStep);
+  const lead = !follows ? 'ชุดนี้' : pickedRung || decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว';
+  const why = !follows ? (showLadder ? stepHint : '')
+    : pickedRung && decision.by !== 'you' ? `ขั้น${rung.label}ที่คุณเลือก` : decision.why;
+  const showRestore = compact && rememberable && follows && decision.by === 'you';
+  // Back to the rung's own preset (its count, its clock, the answer after
+  // every question), not to whatever the seconds and feedback are now.
   const restoreChosen = () => {
     const stored = recall(PRACTICE_SETUP);
     forget(PRACTICE_SETUP);
     const auto = decide(PRACTICE_SETUP, practiceSignals({
-      subject, year: selectedYear, available: knownAvailableCount, timePerQ, instantFeedback, practiceMode, hasHistory,
+      subject, year: selectedYear, available: knownAvailableCount, timePerQ: undefined, instantFeedback: true, practiceMode: 'all', hasHistory,
     })).value;
     setUseTimer(auto.useTimer);
     if (setInstantFeedback) setInstantFeedback(auto.instantFeedback);
@@ -307,6 +338,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     questionCountRef.current = auto.numQuestions;
     setNumQuestions(auto.numQuestions);
     if (stored?.pick === 'adaptive' && practiceMode === 'adaptive' && setPracticeMode) setPracticeMode('all');
+    setPickedRung(false);
+    // The button goes away with what it restored; the start takes the focus.
+    globalThis.requestAnimationFrame?.(() => startRef.current?.focus());
   };
 
   // Back and start as one pair, the same shape as the exam screen's
@@ -317,6 +351,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
         ← {subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'}
       </button>
       <button
+        ref={startRef}
         className="vmx-btn vmx-btn-primary vmx-config-start"
         disabled={knownAvailableCount === 0}
         aria-describedby="vmx-config-summary"
@@ -380,11 +415,28 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
 
       {compact && (
         <section className="vmx-decide" aria-label="ชุดที่จะเริ่ม">
-          <p className="vmx-decide-what" id="vmx-config-summary"><strong>{lead}:</strong> {summary}</p>
-          {why && <p className="vmx-decide-why">{why}</p>}
-          {actionsRow}
+          <p className="vmx-decide-what" id="vmx-config-summary">
+            {knownAvailableCount == null ? 'กำลังตรวจจำนวนข้อ…'
+              : knownAvailableCount === 0 ? 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ เปลี่ยนได้ใน "ปรับเอง"'
+                : <><strong>{lead}:</strong> {summary}</>}
+          </p>
+          {knownAvailableCount > 0 && why && (
+            <p className="vmx-decide-why">
+              {why}
+              {showRestore && (
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
+                  กลับไปใช้ค่าที่จัดให้
+                </button>
+              )}
+            </p>
+          )}
         </section>
       )}
+
+      {/* The start stays in the thumb's reach (.vmx-config-actions is sticky on
+          a phone): right under the line while ปรับเอง is closed, after the rows
+          while it is open. */}
+      {compact && !adjusting && <div className="vmx-config-actions">{actionsRow}</div>}
 
       {compact && (
         <button
@@ -641,12 +693,8 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
         )}
       </div>
 
-      {compact && decision?.by === 'you' && (
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-decide-reset" onClick={restoreChosen}>
-          กลับไปใช้ค่าที่จัดให้
-        </button>
-      )}
       </div>
+      {compact && adjusting && <div className="vmx-config-actions">{actionsRow}</div>}
 
       {/* The start bar: what the set is, in one line, and the one button.
           A phone keeps it at the bottom of the screen (see .vmx-config-actions)

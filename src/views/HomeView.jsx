@@ -1232,7 +1232,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         <span>เลือกวิชา</span>
         <span className="vmx-subject-scope">
           {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` ${phaseMeta.short}` : ''}
-          {phaseMeta && firstRunWhy && !moved && !unsplit && (
+          {phaseMeta && firstRunWhy && !moved && !unsplit && phaseStatus?.reason === 'timetable' && (
             <span className="vmx-subject-scope-why" role="status">{firstRunWhy}</span>
           )}
         {(phaseMeta || unsplit) && setSelectedPhase && (
@@ -1537,11 +1537,15 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               wrongCount: quickStats.wrongCount, weakPct,
             });
             const featured = modeCards.find((c) => c.id === modePick.value) || modeCards[0];
-            const others = modeCards.filter((c) => c !== featured);
+            // Cards due for review keep their card in view: it is Home's only
+            // count of them, and it never waits behind โหมดอื่น.
+            const srDue = cardStats.due > 0 ? modeCards.find((c) => c.id === 'sr' && c !== featured) : null;
+            const shown = [featured, srDue].filter(Boolean);
+            const others = modeCards.filter((c) => !shown.includes(c));
             return (
               <>
-                <div className="vmx-mode-grid" data-mode-first={featured.id}>{featured.node}</div>
-                <p className="vmx-decide-why vmx-mode-why">{modePick.why}</p>
+                <div className="vmx-mode-grid vmx-mode-first" data-mode-first={featured.id} data-count={shown.length}>{shown.map((c) => c.node)}</div>
+                {modePick.why && <p className="vmx-decide-why vmx-mode-why">{modePick.why}</p>}
                 {others.length > 0 && (
                   <>
                     <button

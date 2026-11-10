@@ -33,7 +33,7 @@ import ClozeCard from '../components/ClozeCard.jsx';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { stillWrong } from '../lib/wrong-pool.js';
 import { adjustOpen, decide, forget, setAdjustOpen } from '../lib/decide.js';
-import { SR_SETUP } from '../lib/decisions/sr-setup.js';
+import { SR_KEYS, SR_SETUP, SR_SIZES } from '../lib/decisions/sr-setup.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -53,7 +53,7 @@ import { SR_SETUP } from '../lib/decisions/sr-setup.js';
 // so the Home dashboard badge and this view always agree.
 // ============================================================
 
-const SIZE_PRESETS = [25, 50, 100, 200];
+const SIZE_PRESETS = SR_SIZES.filter((n) => n !== 'all');
 // Written by HomeView's launchSR (the daily plan), read once here.
 const SR_PLAN_SIZE_KEY = 'vmx-sr-plan-size';
 
@@ -92,7 +92,14 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   useEffect(() => {
     try { window.sessionStorage.removeItem(SR_PLAN_SIZE_KEY); } catch { /* nothing to drop */ }
   }, []);
-  const sessionSize = planSize ?? savedSize;
+  // Only a size the planner offers is a size: a count Home's plan once wrote
+  // into this key (before 5.192.1), or a broken value, reads as the default and
+  // is written back as it (sr.setup).
+  const ownSize = SR_SIZES.includes(savedSize) ? savedSize : 25;
+  useEffect(() => {
+    if (!SR_SIZES.includes(savedSize)) setSavedSize(25);
+  }, [savedSize, setSavedSize]);
+  const sessionSize = planSize ?? ownSize;
   const pickSize = (n) => { setPlanSize(null); setSavedSize(n); };
   const [subjectFilter, setSubjectFilter] = useLocalStorage('vmx-sr-subject-filter', 'all');
   const reviewYear = subjectFilter === 'all' ? selectedYear : (yearForSubject(subjectFilter) ?? selectedYear);
@@ -101,6 +108,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   const [sessionCards, setSessionCards] = useState(null);  // null = planning step
   const [adjusting, setAdjusting] = useState(() => adjustOpen('sr'));
+  const startButtonRef = useRef(null);
   const toggleAdjust = () => setAdjusting((open) => { setAdjustOpen('sr', !open); return !open; });
   const [currentIdx, setCurrentIdx] = useState(0);
   // Device preference, mirrored on motion-preferences: SM-2 stays the default,
@@ -262,29 +270,46 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     const dueCount = duePool.length;
     const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(reviewYear);
     // What today's session is, in one line, and why (decide.js, sr.setup).
-    const decision = decide(SR_SETUP, { planSize, dueReviewed: dueReviewedCount, newCount });
+    // The rows as they are on screen now, not as storage has them: useLocalStorage
+    // writes in an effect, a render after the tap, and the line must not lag.
+    const rowsIO = {
+      get: (k) => JSON.stringify(k === SR_KEYS.size ? ownSize : k === SR_KEYS.subject ? subjectFilter
+        : k === SR_KEYS.yearScope ? yearScope : k === SR_KEYS.phaseScope ? phaseScope : null),
+      set() {}, remove() {},
+    };
+    const signals = { planSize, dueReviewed: dueReviewedCount, newCount };
+    const decision = decide(SR_SETUP, signals, rowsIO);
     const todayCount = sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount);
+    // What the session holds, so 25 unseen cards are never announced as 25 due.
+    const split = [
+      dueReviewedCount > 0 ? `ค้างทบทวน ${dueReviewedCount.toLocaleString()}` : null,
+      newCount > 0 ? `ใหม่ ${newCount.toLocaleString()}` : null,
+    ].filter(Boolean).join(', ');
     const subjectName = subjectFilter === 'all' ? 'ทุกวิชา' : (SUBJECTS.find((x) => x.id === subjectFilter)?.name || 'วิชาที่เลือกไว้');
     const sessionLine = [
-      `${todayCount.toLocaleString()} ใบ`,
+      `${todayCount.toLocaleString()} ใบ${split ? ` (${split})` : ''}`,
       subjectFilter === 'all' ? (yearScope === 'all' ? 'ทุกปี' : `ปี ${selectedYear}`) : null,
       subjectName,
       selectedPaper ? (phaseScope === 'all' ? 'ทุกช่วงสอบ' : EXAM_SCOPE_LABEL[selectedPaper]) : null,
       scheduler === 'fsrs' ? 'จัดรอบแบบ FSRS' : null,
     ].filter(Boolean).join(', ');
+    // Every row back to the planner's default (the scheduler is a device
+    // preference and stays), the saved size included: a plan's size still runs
+    // this one session, and a size tapped afterwards is saved as before.
     const restoreChosen = () => {
       forget(SR_SETUP);
-      const auto = decide(SR_SETUP, { planSize, dueReviewed: dueReviewedCount, newCount }).value;
-      setYearScope(auto.yearScope);
-      setSubjectFilter(auto.subject);
-      setPhaseScope(auto.phaseScope);
-      if (planSize == null) setSavedSize(auto.size);
-      saveSchedulerPreference(auto.scheduler);
+      setYearScope('current');
+      setSubjectFilter('all');
+      setPhaseScope('current');
+      setSavedSize(25);
+      globalThis.requestAnimationFrame?.(() => startButtonRef.current?.focus());
     };
+    const counting = !scopeReady || (yearScope === 'all' && allYearsLoad === 'loading');
     const startRow = (
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
         <button
+          ref={startButtonRef}
           className="vmx-btn vmx-btn-primary"
           onClick={() => startSession()}
           disabled={starting || (dueCount === 0 && scopeReady)}
@@ -302,10 +327,31 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         </div>
 
         <section className="vmx-decide" aria-label="รอบทบทวนวันนี้">
+          {/* Nothing is claimed before the bank that holds the cards is in: a
+              cold visit counted 0 and said nothing was due. */}
           <p className="vmx-decide-what" id="vmx-srs-summary">
-            <strong>{decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว'}:</strong> {sessionLine}
+            {counting ? 'กำลังนับใบที่ถึงรอบ…'
+              : dueCount === 0 ? 'วันนี้ไม่มีใบถึงรอบ'
+                : <><strong>{decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว'}:</strong> {sessionLine}</>}
           </p>
-          <p className="vmx-decide-why">{decision.why}</p>
+          {!counting && dueCount > 0 && (decision.why || decision.by === 'you') && (
+            <p className="vmx-decide-why">
+              {decision.why}
+              {decision.by === 'you' && (
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
+                  กลับไปใช้ค่าที่จัดให้
+                </button>
+              )}
+            </p>
+          )}
+          {yearScope === 'all' && allYearsLoad === 'failed' && (
+            <div className="vmx-config-availability" role="status">
+              ยังโหลดทุกปีไม่ครบ ตอนนี้มีเฉพาะปีที่โหลดแล้ว{' '}
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setAllYearsTry((n) => n + 1)}>
+                ลองใหม่
+              </button>
+            </div>
+          )}
           {bankError && (
             <div className="vmx-config-availability" role="alert">
               ยังโหลดคลังข้อสอบไม่ครบ ตรวจการเชื่อมต่อแล้วลองโหลดอีกครั้ง
@@ -377,14 +423,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               {yearScope === 'all' && allYearsLoad === 'loading' && (
                 <div className="vmx-config-availability" role="status">กำลังโหลดทุกปี…</div>
               )}
-              {yearScope === 'all' && allYearsLoad === 'failed' && (
-                <div className="vmx-config-availability" role="status">
-                  ยังโหลดทุกปีไม่ครบ ตอนนี้มีเฉพาะปีที่โหลดแล้ว{' '}
-                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setAllYearsTry((n) => n + 1)}>
-                    ลองใหม่
-                  </button>
-                </div>
-              )}
             </div>
           )}
 
@@ -441,8 +479,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               {SIZE_PRESETS.map((n) => (
                 <button
                   key={n}
-                  className={`vmx-chip ${planSize == null && savedSize === n ? 'active' : ''}`}
-                  aria-pressed={planSize == null && savedSize === n}
+                  className={`vmx-chip ${planSize == null && ownSize === n ? 'active' : ''}`}
+                  aria-pressed={planSize == null && ownSize === n}
                   onClick={() => pickSize(n)}
                   disabled={n > dueCount && dueCount > 0}
                   title={n > dueCount ? `มี due แค่ ${dueCount}` : ''}
@@ -451,8 +489,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                 </button>
               ))}
               <button
-                className={`vmx-chip ${planSize == null && savedSize === 'all' ? 'active' : ''}`}
-                aria-pressed={planSize == null && savedSize === 'all'}
+                className={`vmx-chip ${planSize == null && ownSize === 'all' ? 'active' : ''}`}
+                aria-pressed={planSize == null && ownSize === 'all'}
                 onClick={() => pickSize('all')}
               >
                 ทั้งหมด ({dueCount})
@@ -563,11 +601,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
         </div>
 
-        {decision.by === 'you' && (
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-decide-reset" onClick={restoreChosen}>
-            กลับไปใช้ค่าที่จัดให้
-          </button>
-        )}
         </div>
       </>
     );

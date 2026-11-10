@@ -145,7 +145,28 @@ test('a year whose timetable picks the paper goes straight to the page, with tha
   year5.props.onClick();
   assert.deepEqual(phases, ['1-final'], 'the paper the timetable names, as the แนะนำ card would have set');
   assert.deepEqual(views, ['subject-select'], 'no stop at the phase screen');
+  // A10/B11: the reason is for Home's next visit only; a year pick that opens
+  // another page leaves none for Home to show later beside a paper picked by hand.
+  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), null);
+  view.unmount();
+});
+
+test('a year whose timetable picks the paper and has no page waiting opens Home with the reason', (t) => {
+  browser(t);
+  const views = [];
+  const view = mount(YearSelectView, { goHome() {}, selectedYear: null, setSelectedYear() {}, setSelectedPhase() {}, setView: (v) => views.push(v), firstTime: true, now: () => new Date('2026-09-25T18:15:00+07:00') });
+  findAll(view.tree, (n) => n.type === 'button' && typeof n.props.onClick === 'function' && textOf(n).includes('ปี 5'))[0].props.onClick();
+  assert.deepEqual(views, ['home']);
   assert.equal(sessionStorage.getItem('vmx-decide:why:home'), 'ตามตารางสอบ', 'Home says why, beside the paper it names');
+  view.unmount();
+});
+
+test('a paper picked on the phase screen clears the timetable reason', (t) => {
+  browser(t);
+  sessionStorage.setItem('vmx-decide:why:home', 'ตามตารางสอบ');
+  const view = mount(PhaseSelectView, { goHome() {}, selectedYear: 5, selectedPhase: null, setSelectedPhase() {}, setView() {} });
+  phaseCards(view.tree)[0].props.onClick();
+  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), null, 'the pick belongs to the student, not to the timetable');
   view.unmount();
 });
 

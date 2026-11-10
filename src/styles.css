@@ -7153,14 +7153,14 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-decide-what { margin: 0; font-size: 16px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-decide-why { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 .vmx-decide .vmx-config-actions-row, .vmx-decide .vmx-btn-row { margin-top: var(--space-2); }
-.vmx-decide-toggle { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min); padding: 0 var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; }
+.vmx-decide-toggle { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min); padding: 0 var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; }
 .vmx-decide-toggle::after { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-fast) var(--ease-out); }
 .vmx-decide-toggle[aria-expanded="true"]::after { transform: translateY(2px) rotate(-135deg); }
 .vmx-decide-toggle:hover { border-color: var(--clr-ink); }
 .vmx-decide-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-decide-region { margin-top: var(--space-3); }
-.vmx-decide-reset { margin-top: var(--space-3); }
-.vmx-mode-why { margin: var(--space-2) 0 var(--space-3); }
+.vmx-decide-reset { margin-left: var(--space-2); vertical-align: middle; }
+.vmx-mode-why { margin: var(--space-2) 0 var(--space-2); }
 @media (prefers-reduced-motion: reduce) { .vmx-decide-toggle::after { transition: none; } }
 
 /* The exam screen */
@@ -7409,6 +7409,11 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 @media (max-width: 359px) {
   .vmx-mode-grid { grid-template-columns: 1fr; }
 }
+/* Home's first practice mode (decide.js, home.mode): a lone card takes the
+   whole row, its reason sits right under it, and โหมดอื่น is a chip under that. */
+.vmx-mode-grid.vmx-mode-first { margin-bottom: 0; }
+.vmx-mode-grid.vmx-mode-first[data-count="1"] { grid-template-columns: 1fr; }
+.vmx-mode-first + .vmx-decide-toggle { margin-top: var(--space-3); }
 
 /* ── วันนี้ panel: rows at the touch floor, Thai in the page's face ──── */
 .vmx-vitals-row { min-height: var(--touch-min); }

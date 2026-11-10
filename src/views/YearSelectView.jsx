@@ -8,7 +8,7 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
 import { takeFrontDoorReturn } from '../lib/phase-return.js';
-import { decide, leaveWhy } from '../lib/decide.js';
+import { decide, leaveWhy, takeWhy } from '../lib/decide.js';
 import { PHASE_FIRST_RUN } from '../lib/decisions/phase-first-run.js';
 
 // ──────────────────────────────────────────────────────────────
@@ -51,8 +51,10 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       const { value, why } = decide(PHASE_FIRST_RUN, { current: detectCurrentPhase(now(), y.id) });
       if (setSelectedPhase) setSelectedPhase(value.phase);
       if (value.ask) { setView('phase-select'); return; }
-      leaveWhy('home', why);
-      setView(takeFrontDoorReturn() || 'home');
+      const next = takeFrontDoorReturn() || 'home';
+      // Only Home shows the reason, and only on the visit that follows.
+      if (next === 'home') leaveWhy('home', why); else takeWhy('home');
+      setView(next);
     }
   };
 
