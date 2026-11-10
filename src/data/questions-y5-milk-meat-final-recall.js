@@ -1008,7 +1008,7 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL = [
       "evisceration",
       "past-paper"
     ],
-    "image": "/figures/questions/milk-meat-hygiene-212015.webp",
+    "image": "/figures/questions/milk-meat-hygiene-212014.webp",
     "imageAlt": "แผนภาพสายการผลิตในโรงฆ่าสัตว์ เรียงจาก Lairage Area, Bleeding, Dehairing, ช่องว่างหมายเลข 2, Culling ถึง Packing มีกล่อง Stunning, Scalding และ Washing ชี้เข้าเส้นหลัก และมีตัวเลข 1, 3, 4 กำกับจุดที่ถาม",
     "sourcePages": [
       {
@@ -1109,7 +1109,7 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL = [
       "postmortem-inspection",
       "past-paper"
     ],
-    "image": "/figures/questions/milk-meat-hygiene-212016.webp",
+    "image": "/figures/questions/milk-meat-hygiene-212014.webp",
     "imageAlt": "แผนภาพสายการผลิตในโรงฆ่าสัตว์ เรียงจาก Lairage Area, Bleeding, Dehairing, ช่องว่างหมายเลข 2, Culling ถึง Packing มีกล่อง Stunning, Scalding และ Washing ชี้เข้าเส้นหลัก และมีตัวเลข 1, 3, 4 กำกับจุดที่ถาม",
     "sourcePages": [
       {
@@ -1200,7 +1200,7 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_RECALL = [
       "livestock-receiving",
       "past-paper"
     ],
-    "image": "/figures/questions/milk-meat-hygiene-212017.webp",
+    "image": "/figures/questions/milk-meat-hygiene-212014.webp",
     "imageAlt": "แผนภาพสายการผลิตในโรงฆ่าสัตว์ เรียงจาก Lairage Area, Bleeding, Dehairing, ช่องว่างหมายเลข 2, Culling ถึง Packing มีกล่อง Stunning, Scalding และ Washing ชี้เข้าเส้นหลัก และมีตัวเลข 1, 3, 4 กำกับจุดที่ถาม",
     "sourcePages": [
       {

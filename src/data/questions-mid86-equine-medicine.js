@@ -3275,7 +3275,7 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "marking",
       "passport"
     ],
-    "image": "/figures/questions/eqmed-intro-face-star.webp",
+    "image": "/figures/questions/q207498.webp",
     "imageAlt": "ภาพวาดใบหน้าม้าสีน้ำตาลมองจากด้านหน้า มีรอยขนสีขาวขนาดเล็กอยู่กลางหน้าผากระหว่างตาทั้งสองข้าง"
   },
   {
@@ -4587,7 +4587,7 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "buccal-ulcer",
       "oral-examination"
     ],
-    "image": "/figures/questions/eqmed-dent-buccal-ulcer.webp",
+    "image": "/figures/questions/q207544.webp",
     "imageAlt": "ภาพถ่ายในช่องปากม้า เห็นแผงฟันกรามบนและเยื่อบุกระพุ้งแก้ม มีลูกศรสีขาวชี้ไปที่เยื่อบุบริเวณขอบด้านนอกของแผงฟัน"
   },
   {
