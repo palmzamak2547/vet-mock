@@ -3759,7 +3759,25 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 6,
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-cushing": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-addison": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-dm": {
+        "mcq": 0,
         "tf": 1,
         "match": 0,
         "writing": 0
@@ -3881,26 +3899,152 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 12,
-        "tf": 2,
+        "mcq": 7,
+        "tf": 1,
         "match": 1,
-        "writing": 3
+        "writing": 0
+      },
+      "bandage-drain": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 2
+      },
+      "abdominal-surgery": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "aural-hematoma": {
+        "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "ophthalmology-lab": {
+        "mcq": 0,
+        "tf": 0,
+        "match": 0,
+        "writing": 1
+      },
+      "dental-scaling-muzzle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "patient-prep-wound": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "surg3": {
+      "esf": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "pinning": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-hip": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-humerus": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 33,
+        "mcq": 4,
+        "tf": 0,
+        "match": 1,
+        "writing": 3
+      },
+      "ortho-exam": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "external-coaptation": {
+        "mcq": 4,
         "tf": 1,
-        "match": 2,
-        "writing": 4
+        "match": 0,
+        "writing": 1
+      },
+      "cerclage-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "bone-plate": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 1,
+        "writing": 0
+      },
+      "tension-band-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "oral-wiring": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-stifle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "repro": {
+      "vaginal-cytology": {
+        "mcq": 5,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "dystocia": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 28,
-        "tf": 2,
+        "mcq": 17,
+        "tf": 1,
         "match": 0,
         "writing": 1
+      },
+      "repro-exam": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "semen-ai": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "poultry": {
@@ -5009,7 +5153,25 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 6,
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-cushing": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-addison": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-dm": {
+        "mcq": 0,
         "tf": 1,
         "match": 0,
         "writing": 0
@@ -5131,26 +5293,152 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 12,
-        "tf": 2,
+        "mcq": 7,
+        "tf": 1,
         "match": 1,
-        "writing": 3
+        "writing": 0
+      },
+      "bandage-drain": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 2
+      },
+      "abdominal-surgery": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "aural-hematoma": {
+        "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "ophthalmology-lab": {
+        "mcq": 0,
+        "tf": 0,
+        "match": 0,
+        "writing": 1
+      },
+      "dental-scaling-muzzle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "patient-prep-wound": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "surg3": {
+      "esf": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "pinning": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-hip": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-humerus": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 33,
+        "mcq": 4,
+        "tf": 0,
+        "match": 1,
+        "writing": 3
+      },
+      "ortho-exam": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "external-coaptation": {
+        "mcq": 4,
         "tf": 1,
-        "match": 2,
-        "writing": 4
+        "match": 0,
+        "writing": 1
+      },
+      "cerclage-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "bone-plate": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 1,
+        "writing": 0
+      },
+      "tension-band-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "oral-wiring": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-stifle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "repro": {
+      "vaginal-cytology": {
+        "mcq": 5,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "dystocia": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 28,
-        "tf": 2,
+        "mcq": 17,
+        "tf": 1,
         "match": 0,
         "writing": 1
+      },
+      "repro-exam": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "semen-ai": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "poultry": {
@@ -8553,7 +8841,25 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 6,
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-cushing": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-addison": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-dm": {
+        "mcq": 0,
         "tf": 1,
         "match": 0,
         "writing": 0
@@ -8651,26 +8957,152 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 12,
-        "tf": 2,
+        "mcq": 7,
+        "tf": 1,
         "match": 1,
-        "writing": 3
+        "writing": 0
+      },
+      "bandage-drain": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 2
+      },
+      "abdominal-surgery": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "aural-hematoma": {
+        "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "ophthalmology-lab": {
+        "mcq": 0,
+        "tf": 0,
+        "match": 0,
+        "writing": 1
+      },
+      "dental-scaling-muzzle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "patient-prep-wound": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "surg3": {
+      "esf": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "pinning": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-hip": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-humerus": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 33,
+        "mcq": 4,
+        "tf": 0,
+        "match": 1,
+        "writing": 3
+      },
+      "ortho-exam": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "external-coaptation": {
+        "mcq": 4,
         "tf": 1,
-        "match": 2,
-        "writing": 4
+        "match": 0,
+        "writing": 1
+      },
+      "cerclage-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "bone-plate": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 1,
+        "writing": 0
+      },
+      "tension-band-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "oral-wiring": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-stifle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "repro": {
+      "vaginal-cytology": {
+        "mcq": 5,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "dystocia": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 28,
-        "tf": 2,
+        "mcq": 17,
+        "tf": 1,
         "match": 0,
         "writing": 1
+      },
+      "repro-exam": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "semen-ai": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "cliapprum": {
@@ -9337,7 +9769,25 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 6,
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-cushing": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-addison": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "endo-dm": {
+        "mcq": 0,
         "tf": 1,
         "match": 0,
         "writing": 0
@@ -9435,26 +9885,152 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 12,
-        "tf": 2,
+        "mcq": 7,
+        "tf": 1,
         "match": 1,
-        "writing": 3
+        "writing": 0
+      },
+      "bandage-drain": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 2
+      },
+      "abdominal-surgery": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "aural-hematoma": {
+        "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "ophthalmology-lab": {
+        "mcq": 0,
+        "tf": 0,
+        "match": 0,
+        "writing": 1
+      },
+      "dental-scaling-muzzle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "patient-prep-wound": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "surg3": {
+      "esf": {
+        "mcq": 5,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "pinning": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-hip": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-humerus": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 33,
+        "mcq": 4,
+        "tf": 0,
+        "match": 1,
+        "writing": 3
+      },
+      "ortho-exam": {
+        "mcq": 4,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "external-coaptation": {
+        "mcq": 4,
         "tf": 1,
-        "match": 2,
-        "writing": 4
+        "match": 0,
+        "writing": 1
+      },
+      "cerclage-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "bone-plate": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 1,
+        "writing": 0
+      },
+      "tension-band-wire": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "oral-wiring": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "approach-stifle": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "repro": {
+      "vaginal-cytology": {
+        "mcq": 5,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "dystocia": {
+        "mcq": 3,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
       "__unassigned__": {
-        "mcq": 28,
-        "tf": 2,
+        "mcq": 17,
+        "tf": 1,
         "match": 0,
         "writing": 1
+      },
+      "repro-exam": {
+        "mcq": 2,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "semen-ai": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "cliapprum": {

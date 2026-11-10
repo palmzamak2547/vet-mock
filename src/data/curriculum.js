@@ -57,9 +57,34 @@ export const SUBJECTS_BY_YEAR = {
   4: [
     // ── Surg Lab (สอบนอกตาราง) ──
     { id: 'surg2', code: '3106417', name: 'Vet Surg Lab II', name_en: 'Soft Tissue / Eye',
-      icon: '👁️', color: '#4a6b4a', semester: 2, has_questions: true },
+      icon: '👁️', color: '#4a6b4a', semester: 2, has_questions: true,
+      // Lab sessions from the MCV syllabus of 3106417 for 2568/2 (15 sessions, 7 Jan to 1 Apr 2026).
+      // Only sessions with questions are listed; rows no session teaches stay unfiled.
+      topics: [
+        { id: 'patient-prep-wound', label: "Patient preparation and open wound management" },
+        { id: 'abdominal-surgery', label: "Abdominal surgery: gastrotomy, enterotomy, cystotomy" },
+        { id: 'aural-hematoma', label: "Aural hematoma" },
+        { id: 'bandage-drain', label: "Bandage and drain" },
+        { id: 'ophthalmology-lab', label: "Ophthalmology lab" },
+        { id: 'dental-scaling-muzzle', label: "Dental scaling and tape muzzle" },
+      ] },
     { id: 'surg3', code: '3106418', name: 'Vet Surg Lab III', name_en: 'Orthopedic',
-      icon: '🦴', color: '#c26d6d', semester: 2, has_questions: true },
+      icon: '🦴', color: '#c26d6d', semester: 2, has_questions: true,
+      // Lab sessions from the MCV syllabus of 3106418 for 2568/2 (Labs 1-15, 8 Jan to 23 Apr 2026).
+      // Only sessions with questions are listed; rows no session teaches stay unfiled.
+      topics: [
+        { id: 'ortho-exam', label: "Lab 1, Orthopedic examination" },
+        { id: 'approach-humerus', label: "Lab 3, Surgical approach to the humerus" },
+        { id: 'approach-hip', label: "Lab 4, Surgical approach to the hip joint" },
+        { id: 'approach-stifle', label: "Lab 5, Surgical approach to the stifle joint" },
+        { id: 'external-coaptation', label: "Lab 8, External coaptation" },
+        { id: 'oral-wiring', label: "Lab 9, Wiring techniques in oral surgery" },
+        { id: 'tension-band-wire', label: "Lab 10, Tension band wire" },
+        { id: 'cerclage-wire', label: "Lab 11, Cerclage wire" },
+        { id: 'pinning', label: "Lab 13, Pinning" },
+        { id: 'esf', label: "Lab 14, External skeletal fixator" },
+        { id: 'bone-plate', label: "Lab 15, Plates (compression and bridging)" },
+      ] },
 
     // ── COM Series (Companion Animal Clinical Sciences) ──
     { id: 'com5', code: '3107417', name: 'COM V', name_en: 'C ANI CLI SCI V, Companion Animal',
@@ -163,7 +188,15 @@ export const SUBJECTS_BY_YEAR = {
       },
       topics: [
         // เรียงตาม Course Syllabus 2/2568 — Period 15 → 28 (Mar 5 → Apr 16)
-        // คาบ 1-14 = Oncology + systemic Endocrine series — ยังไม่มีคลังข้อสอบ
+        // คาบ 1-14 = Oncology + systemic Endocrine series (midterm). Only the three endocrine sessions with
+        // rows from the COM IV final file are listed. No COM IV session (1-28) teaches renal disease, so the
+        // CKD and urolith rows (262, 263, 270, 271) stay unfiled in com4.
+        { id: 'endo-cushing',   label: "คาบ 7, Hyperadrenocorticism (Cushing's syndrome)",
+          lecturer: 'Chaiyot Tanrattana (CT)', lecturer_year: 2026, schedule: '29 ม.ค., คาบ 7' },
+        { id: 'endo-addison',   label: "คาบ 8, Hypoadrenocorticism (Addison's disease)",
+          lecturer: 'Chaiyot Tanrattana (CT)', lecturer_year: 2026, schedule: '29 ม.ค., คาบ 8' },
+        { id: 'endo-dm',        label: 'คาบ 12, Diabetes mellitus',
+          lecturer: 'Chutirat Torsahakul', lecturer_year: 2026, schedule: '12 ก.พ., คาบ 12' },
 
         // ── Immune-mediated diseases (คาบ 15-18) ─────────────────────
         { id: 'immune-drugs',   label: 'คาบ 15, Drugs for Immune-mediated', icon: '💊',
@@ -206,7 +239,15 @@ export const SUBJECTS_BY_YEAR = {
           'Lab แยกจาก Lecture ชัดเจน, สอบนอกตารางไปแล้ว',
           'ข้อเดิมในคลังเป็น lab/practical style: vaginal cytology, dystocia, pyometra, cryptorchid, catheter, anatomy',
         ],
-      } },
+      },
+      // Lab sessions from the course schedule of 3108410 for 2568/2 ("Course Schedule 2025 (2nd semester)", Labs 1-10, lab exam 24 Apr 2026).
+      // Only sessions with questions are listed; lecture-only content (hormones, drugs, gestation) stays unfiled.
+      topics: [
+        { id: 'repro-exam', label: "Lab 1 and 3, Reproductive examination" },
+        { id: 'vaginal-cytology', label: "Lab 2, Vaginal cytology" },
+        { id: 'dystocia', label: "Lab 4, Dystocia forum" },
+        { id: 'semen-ai', label: "Lab 6, Semen collection and evaluation" },
+      ] },
     { id: 'repro-lect', code: '3108409', name: 'Repro Lecture', name_en: 'Companion Animal Reproduction, Lecture',
       icon: '🐾', color: '#b88940', semester: 2, has_questions: true,
       // Collections: virtual "ทำรวม" cards that filter topics by prefix.
