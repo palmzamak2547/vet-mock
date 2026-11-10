@@ -8,7 +8,8 @@
 // what it holds, lowest id first, so every machine opens the same one.
 import { test, expect } from './fixtures.js';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
-import { splitBlocks } from '../../src/lib/rich-blocks.js';
+import { splitBlocks, wholeStem } from '../../src/lib/rich-blocks.js';
+import { ELEVEN_TTS, clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
 
 const tablesIn = (text) => splitBlocks(text).filter((b) => b.type === 'table');
 const proseIn = (text) => splitBlocks(text).filter((b) => b.type === 'text');
@@ -155,21 +156,100 @@ test('a stem whose numbers moved to a table is still read aloud with them', asyn
   const q = await pick((x) => typeof x.say === 'string' && x.type === 'mcq' && tablesIn(x.passage).length > 0
     && numbers(x.say).some((n) => !numbers(x.q).includes(n)));
   expect(q, 'no question keeps a spoken stem any more').toBeTruthy();
-  const heard = numbers(q.say).filter((n) => !numbers(q.q).includes(n));
 
-  // No recorded clip for it here, so the live voice is asked: what it is asked to say is the test.
-  const said = [];
-  await page.route('https://tts.vetmock.com/**', (route) => route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: '' }));
-  await page.route('**/api/tts*', (route) => {
-    const body = route.request().postData() || '';
-    try { said.push(JSON.parse(Buffer.from(body.replace(/^b64:/, ''), 'base64').toString('utf8')).text); } catch { said.push(body); }
-    return route.fulfill({ status: 502, body: 'no' });
+  // The clip host as a recording run leaves it: every clip of this question in the ElevenLabs
+  // generation, the stem named by the sentence in `say`, with its word timings. (As in
+  // read-aloud.spec.js: the clips are a few bytes and playback is stubbed in the page.)
+  const options = q.options.map(String);
+  const lang = questionLang(wholeStem(q), options);
+  const key = (text) => clipKey(text, ELEVEN_TTS);
+  const said = await key(clipText(wholeStem(q), lang));
+  const shown = await key(clipText(q.q, questionLang(q.q, options)));
+  const manifest = [said];
+  for (let i = 0; i < options.length; i++) manifest.push(await key(optionLabel(i, lang)), await key(clipText(options[i], lang)));
+  const asked = { clips: [], words: [], live: 0 };
+  await page.addInitScript((ms) => {
+    HTMLMediaElement.prototype.canPlayType = () => 'probably';
+    const NativeAudio = window.Audio;
+    window.Audio = function Audio(src) { const el = new NativeAudio(); el.__src = String(src || ''); return el; };
+    Object.defineProperty(HTMLMediaElement.prototype, 'src', {
+      configurable: true,
+      get() { return this.__src || ''; },
+      set(v) { clearTimeout(this.__t); this.__src = String(v); },
+    });
+    const removeAttribute = Element.prototype.removeAttribute;
+    HTMLMediaElement.prototype.removeAttribute = function (name) { if (name === 'src') this.__src = ''; return removeAttribute.call(this, name); };
+    HTMLMediaElement.prototype.load = function () {};
+    HTMLMediaElement.prototype.play = function play() {
+      const src = this.__src || '';
+      if (!src || src.startsWith('data:')) return Promise.resolve();
+      const el = this;
+      clearTimeout(el.__t);
+      queueMicrotask(() => el.dispatchEvent(new Event('playing')));
+      el.__t = setTimeout(() => { if (el.__src === src) el.dispatchEvent(new Event('ended')); }, ms);
+      return Promise.resolve();
+    };
+    HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); };
+  }, 8000);
+  await page.route('https://tts.vetmock.com/**', (route) => {
+    const url = route.request().url();
+    const ok = { status: 200, headers: { 'access-control-allow-origin': '*' } };
+    if (url.endsWith(`/m/${q.subject}.json`)) return route.fulfill({ ...ok, contentType: 'application/json', body: JSON.stringify(url.includes('/e1/') ? manifest : []) });
+    const [, name, ext] = url.match(/([0-9a-f]{16})\.(mp4|json)$/) || [];
+    if (!url.includes('/e1/') || !manifest.includes(name)) return route.fulfill({ status: 404, headers: ok.headers, body: '' });
+    if (ext === 'json') {
+      asked.words.push(name);
+      return route.fulfill({ ...ok, contentType: 'application/json', body: JSON.stringify({ w: clipText(wholeStem(q), lang).split(/\s+/).map((_, i) => i * 0.05) }) });
+    }
+    asked.clips.push(name);
+    return route.fulfill({ ...ok, contentType: 'audio/mp4', body: Buffer.from('clip') });
   });
+  await page.route('**/api/tts*', (route) => { asked.live += 1; return route.fulfill({ status: 502, body: 'no' }); });
 
   await openPinned(page, q);
   await expect(page.locator('.vmx-q-passage-pane table.vmx-qtable').first()).toBeVisible();
   await expect(page.locator('h2.vmx-qtext')).toHaveText(q.q);
   await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
-  await expect.poll(() => said.length, { timeout: 30_000 }).toBeGreaterThan(0);
-  await expect.poll(() => heard.filter((n) => !said.join(' ').includes(n)), { timeout: 30_000, message: 'numbers the voice was never asked to say' }).toEqual([]);
+
+  // The clip asked for is the one named by the sentence that holds the numbers, never the stem on screen's.
+  await expect.poll(() => asked.clips, { timeout: 30_000 }).toContain(said);
+  expect(asked.clips).not.toContain(shown);
+  // While the stem is read: the bar says the table is read too, the table carries the reading edge, and
+  // no phrase is marked, because the words being said are not the words of the stem on screen.
+  await expect(page.getByRole('region', { name: 'เสียงอ่าน' })).toContainText('โจทย์และตาราง');
+  await expect(page.locator('.vmx-q-passage-pane')).toHaveClass(/is-reading/);
+  await expect.poll(() => asked.words, { timeout: 10_000 }).toContain(said);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => Boolean(globalThis.CSS?.highlights?.has('vmx-reading')))).toBe(false);
+  expect(asked.live, 'the live voice is not asked while the clips exist').toBe(0);
+});
+
+test('the way back to a table shows only while the table is off screen, clear of the next button, and reopens a hidden table', async ({ page }) => {
+  const q = await pick((x) => x.subject === 'epidemiology' && x.type === 'mcq' && tablesIn(x.passage).length === 1 && proseIn(x.passage).length > 0);
+  expect(q, 'no Epidemiology passage holds a table under a lead sentence any more').toBeTruthy();
+  await page.setViewportSize({ width: 390, height: 520 });   // short enough that the options sit below the table
+  await openPinned(page, q);
+  const pane = page.locator('.vmx-q-passage-pane');
+  const back = page.locator('.vmx-passage-fab');
+  await expect(pane.locator('table.vmx-qtable')).toBeVisible();
+  // Over the table it names, the button would only hide the table's last cells.
+  await expect(back).toHaveCount(0);
+
+  // The student hides the table, then scrolls down to the options.
+  await pane.getByRole('button', { expanded: true }).click();
+  await expect(pane.locator('table.vmx-qtable')).toHaveCount(0);
+  await expect(pane.getByRole('button', { expanded: false })).toContainText('แสดงตาราง');
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await expect(back).toBeVisible();
+  await expect(back).toContainText('ดูตาราง');
+  const next = page.locator('.vmx-exam-actions .vmx-btn').last();
+  const [b, n] = [await back.boundingBox(), await next.boundingBox()];
+  const apart = b.y + b.height <= n.y || b.y >= n.y + n.height || b.x + b.width <= n.x || b.x >= n.x + n.width;
+  expect(apart, 'the button sits on the next button').toBe(true);
+
+  // One tap brings the table back: opened again and scrolled to.
+  await back.click();
+  await expect(pane.locator('table.vmx-qtable')).toBeVisible();
+  await expect(pane.locator('table.vmx-qtable')).toBeInViewport();
+  await expect(back).toHaveCount(0);
 });

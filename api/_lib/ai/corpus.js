@@ -27,6 +27,7 @@ import { SUBJECTS } from '../../../src/data/curriculum.js';
 import { questionCatalog } from '../question-catalog.js';
 import { TextIndex } from './textindex.js';
 import { flattenBody, clip } from './text.js';
+import { wholeStem } from '../../../src/lib/rich-blocks.js';
 
 const SUBJECT_BY_ID = new Map(SUBJECTS.filter((s) => s.id !== 'all').map((s) => [s.id, s]));
 const TOPIC_LABEL = new Map();
@@ -42,7 +43,7 @@ const LETTERS = 'ABCDEFGH';
 
 /** A bank question the way a student reads it, answer included. */
 export function questionText(q) {
-  const lines = [String(q.q || '').trim()];
+  const lines = [wholeStem(q).trim()];
   if (q.type === 'mcq' && Array.isArray(q.options)) {
     q.options.forEach((o, i) => lines.push(`${LETTERS[i] || i + 1}. ${o}`));
     if (Number.isInteger(q.answer) && q.options[q.answer] !== undefined) {
@@ -167,7 +168,8 @@ async function videoDocs() {
 // passage or a matching grid would arrive without the half that makes sense
 // of it.
 export function isQuizzable(q) {
-  if (q.image || q.imagePath || q.passage || q.explainImage) return false;
+  // A passage question that keeps its whole sentence in `say` reads complete without the passage (wholeStem).
+  if (q.image || q.imagePath || (q.passage && wholeStem(q) === q.q) || q.explainImage) return false;
   if (q.type === 'mcq') {
     return Array.isArray(q.options) && q.options.length >= 2 && q.options.length <= 8
       && Number.isInteger(q.answer) && q.answer >= 0 && q.answer < q.options.length
@@ -184,7 +186,7 @@ async function questionDocs() {
     docs.push({
       kind: 'question', q, subject: q.subject, topic: q.topic || '',
       title: topicLabel(q.subject, q.topic) || subjectName(q.subject),
-      heading: clip(q.q, 90),
+      heading: clip(wholeStem(q), 90),
       text: questionText(q),
     });
   }

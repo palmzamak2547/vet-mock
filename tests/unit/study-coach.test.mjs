@@ -139,6 +139,14 @@ test('a question whose numbers sit in a passage table is explained from the sent
   try { await handler(post({ mode: 'miss', qid: String(q.id), chosen: wrongIndex(q) }), fakeRes()); } finally { globalThis.fetch = real; }
   const shown = JSON.parse(sent).messages.map((m) => String(m.content)).join('\n');
   assert.ok(shown.includes(`QUESTION: ${q.say}`), 'the model was shown the stem without its numbers');
+
+  // The session review is shown the same sentence (its first 300 characters), not the stem on screen.
+  globalThis.fetch = async (_url, init) => { sent = String(init?.body || ''); return reply({}); };
+  try {
+    await handler(post({ mode: 'review', items: [{ qid: String(q.id), chosen: wrongIndex(q) }, { qid: String(Q1.id), chosen: wrongIndex(Q1) }] }), fakeRes());
+  } finally { globalThis.fetch = real; }
+  const reviewed = JSON.parse(sent).messages.map((m) => String(m.content)).join('\n');
+  assert.ok(reviewed.includes(`question: ${q.say.slice(0, 120)}`), 'the session review was shown the stem without its numbers');
 });
 
 test('half an explanation is not shown as a whole one', async () => {

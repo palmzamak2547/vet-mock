@@ -52,7 +52,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { clipText, clipKey, optionLabel, questionLang, SHARED_TTS, ELEVEN_TTS } from '../src/lib/tts-text.js';
-import { spokenStem } from '../src/lib/rich-blocks.js';
+import { wholeStem } from '../src/lib/rich-blocks.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -117,7 +117,7 @@ const picked = QB.filter((q) => shown(q) && (!SUBJECT || q.subject === SUBJECT) 
 // and, as its own clip, the เหตุผล the practice panel shows (mcq, tf).
 function questionTexts(q, withExplain) {
   const options = Array.isArray(q.options) ? q.options.map(String) : [];
-  const stem = spokenStem(q);   // the sentence the page reads: `say` where the numbers moved to a passage table
+  const stem = wholeStem(q);   // the sentence the page reads: `say` where the numbers moved to a passage table
   const lang = questionLang(stem, options);
   const out = [clipText(stem, lang)];
   options.forEach((o, i) => out.push(optionLabel(i, lang), clipText(o, lang)));
@@ -149,7 +149,7 @@ for (const [i, q] of order.entries()) {
     if (!texts.has(k)) { texts.set(k, t); queue.push(k); questionOf.set(k, i); }
   }
   const options = Array.isArray(q.options) ? q.options.map(String) : [];
-  worded.add(await clipKey(clipText(spokenStem(q), questionLang(spokenStem(q), options)), G));
+  worded.add(await clipKey(clipText(wholeStem(q), questionLang(wholeStem(q), options)), G));
   if (EXPLAIN && q.explain && (q.type === 'mcq' || q.type === 'tf')) worded.add(await clipKey(clipText(q.explain, questionLang(q.explain, [])), G));
 }
 // A manifest covers the whole subject, explanations included, so a run

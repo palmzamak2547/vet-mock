@@ -33,7 +33,7 @@ import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kv
 import { chatJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
-import { spokenStem } from '../src/lib/rich-blocks.js';
+import { wholeStem } from '../src/lib/rich-blocks.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -103,7 +103,7 @@ async function buildMiss(body) {
 
   const material = [
     // The stem with its numbers: where they sit in a passage table, `say` still holds the whole sentence.
-    `QUESTION: ${spokenStem(q)}`,
+    `QUESTION: ${wholeStem(q)}`,
     `OPTIONS:\n${optionList}`,
     `CORRECT: ${correct}`,
     `STUDENT PICKED: ${picked}`,
@@ -183,7 +183,7 @@ async function buildReview(body) {
   const tagToId = new Map(picked.map((p, i) => [`Q${i + 1}`, String(p.q.id)]));
   const material = picked.map((p, i) => [
     `--- Q${i + 1}  (subject ${p.q.subject}, topic ${p.q.topic || 'unspecified'})`,
-    `question: ${clip(spokenStem(p.q), 300)}`,
+    `question: ${clip(wholeStem(p.q), 300)}`,
     `correct: ${clip(p.answer, 200)}`,
     `student answered: ${clip(p.chose, 200)}`,
   ].join('\n')).join('\n\n');

@@ -14,6 +14,7 @@ import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { raceEligibleQuestions } from '../lib/question-surfaces.js';
+import { wholeStem } from '../lib/rich-blocks.js';
 
 // One per page: a remount (leave and rejoin the same room) keeps its list.
 const resolveRoomQuestions = createRaceQuestionCache();
@@ -267,7 +268,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         {q && (
           <div style={{ marginTop: 18 }}>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>Q{idx + 1} / {questions.length}</div>
-            <div style={{ fontSize: 16, lineHeight: 1.6, marginBottom: 14 }}><RichText text={q.q} /></div>
+            <div style={{ fontSize: 16, lineHeight: 1.6, marginBottom: 14 }}><RichText text={wholeStem(q)} /></div>
             <div className="vmx-options">
               {raceOptionRows(q).map(({ text, original }, row) => (
                 <button key={row} className="vmx-option" disabled={busy} onClick={() => answer(original)}>
