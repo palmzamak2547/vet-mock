@@ -158,7 +158,7 @@ export function ViewFallback() {
         {showLongHint && <Mochi state="loading" size={32} slot="loading" />}
         {showLongHint && (
           <span style={{ color: 'var(--clr-gold-text, #b88940)', marginLeft: 4 }}>
-           , โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น
+            โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น
           </span>
         )}
       </div>
