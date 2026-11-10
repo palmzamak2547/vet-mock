@@ -1179,10 +1179,10 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "swine-pornchalit-set": {
-        "mcq": 42,
+        "mcq": 41,
         "tf": 0,
         "match": 1,
-        "writing": 21
+        "writing": 20
       }
     },
     "zoonoses": {
@@ -3143,10 +3143,10 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 13
       },
       "swine-repro": {
-        "mcq": 9,
+        "mcq": 10,
         "tf": 0,
         "match": 0,
-        "writing": 5
+        "writing": 6
       },
       "swine-control-dx": {
         "mcq": 5,
@@ -6869,10 +6869,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "swine-pornchalit-set": {
-        "mcq": 17,
+        "mcq": 16,
         "tf": 0,
         "match": 0,
-        "writing": 6
+        "writing": 5
       }
     },
     "zoonoses": {
@@ -8489,10 +8489,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 12
       },
       "swine-repro": {
-        "mcq": 0,
+        "mcq": 1,
         "tf": 0,
         "match": 0,
-        "writing": 4
+        "writing": 5
       },
       "swine-fmd": {
         "mcq": 0,

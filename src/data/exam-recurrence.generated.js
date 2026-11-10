@@ -3802,7 +3802,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [78, 80, 85],
         "first": 78,
         "last": 85,
-        "items": 23,
+        "items": 21,
         "sat": {
           "78": {
             "unknown": ["swine-clinic:202353", "swine-clinic:202354", "swine-clinic:202478"],
@@ -3815,7 +3815,7 @@ export const EXAM_RECURRENCE = {
             "unknown": ["swine-clinic:202353", "swine-clinic:202354", "swine-clinic:202356", "swine-clinic:202478"],
           },
         },
-        "unattributed": ["swine-clinic:8350", "swine-clinic:8352", "swine-clinic:8353", "swine-clinic:8355", "swine-clinic:8356", "swine-clinic:8358", "swine-clinic:8359"],
+        "unattributed": ["swine-clinic:8350", "swine-clinic:8353", "swine-clinic:8356", "swine-clinic:8358", "swine-clinic:8359"],
       },
       "swine-prv-je": {
         "cohorts": [80, 83, 85],
@@ -3839,7 +3839,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [78, 80, 81, 84],
         "first": 78,
         "last": 84,
-        "items": 4,
+        "items": 6,
         "sat": {
           "78": {
             "final": ["swine-clinic:209054"],
@@ -3854,7 +3854,7 @@ export const EXAM_RECURRENCE = {
             "final": ["swine-clinic:209055"],
           },
         },
-        "unattributed": ["swine-clinic:209056", "swine-clinic:209057"],
+        "unattributed": ["swine-clinic:8352", "swine-clinic:8355", "swine-clinic:209056", "swine-clinic:209057"],
       },
       "swine-resp-viral": {
         "cohorts": [80, 85],

@@ -37,6 +37,8 @@ export const WRAPUPS = {
       // split by lecturer in an announcement, so each one's date is its own
       // in the exam timetable (tests/unit/exam-wrapups.test.mjs).
       '1-final': {
+        // In paper order, which is the order Home's strip shows them.
+        'swine-clinic': () => import('./wrapups/swine-clinic-final.js'),
         'one-health': () => import('./wrapups/one-health-final.js'),
       },
     },
