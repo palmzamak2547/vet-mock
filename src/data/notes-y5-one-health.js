@@ -10,7 +10,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y5_ONE_HEALTH = {
@@ -197,9 +197,7 @@ export const NOTES_Y5_ONE_HEALTH = {
         "heading": "ประเด็นที่ 2 — บทบาทด้านสาธารณสุขของสัตวแพทย์",
         "source": "Role_of_Vet_in_One_Health_Saharuetai_2026 p.13",
         "body": [
-          {
-            "text": "หัวข้อนี้สั้นมาก สไลด์ p.12 เป็นภาพ word diagram ตกแต่งที่ไม่มีเนื้อหาสอน เนื้อหาที่ออกสอบได้จริงอยู่ที่ p.13 เพียงสไลด์เดียว"
-          },
+          "หัวข้อนี้สั้นมาก สไลด์ p.12 เป็นภาพ word diagram ตกแต่งที่ไม่มีเนื้อหาสอน เนื้อหาที่ออกสอบได้จริงอยู่ที่ p.13 เพียงสไลด์เดียว",
           {
             "bullets": [
               "พัฒนาระบบเกษตรและระบบอาหาร (improve agriculture and food systems)",

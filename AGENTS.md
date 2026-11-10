@@ -58,6 +58,7 @@ Read this guide before changing VetMock. The portable current architecture map i
 - `src/data/note-corpus.js` is shared by NotesView, VetWiki runtime, and the notes-registry generator.
 - Add/change a note source there, then run `npm run regen:notes-registry`; never recreate a loader map in a view.
 - Preserve lecture-first + Vet 85 append order and the offline retry contract in `src/lib/note-retry.js`.
+- A section's body holds five shapes and nothing else: a plain string (a paragraph), `{ bullets }`, `{ sub, body }`, `{ table }`, `{ callout, kind }`. Many readers walk a body, each with its own walker (the notes view, the wiki article, wiki search, the static wiki pages, the AI's corpus and more; listed in `scripts/lint-note-shapes.mjs`), and a shape outside the five is drawn by none of them: 3,336 paragraphs written as `{ text }` were in the files and on no screen until 5.205.0. `lint:note-shapes` (run by `lint:empty-sections`, so in `lint:data`) fails on such an item; `node scripts/lint-note-shapes.mjs --write` unwraps `{ text }` in a new batch of notes. Teach every reader before adding a shape.
 ### 8. Imported JSON is untrusted
 - Dashboard backup and Question Manager imports must pass `src/lib/user-data-schema.js` before any setter runs.
 - Respect explicit empty arrays/objects, preserve legacy-safe defaults, and preview exact overwrite scope.

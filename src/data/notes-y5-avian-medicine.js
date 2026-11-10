@@ -10,7 +10,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y5_AVIAN_MEDICINE = {
@@ -25,9 +25,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ภาพรวมของโรค (Overview)",
         "source": "1.2_IBV p.2",
         "body": [
-          {
-            "text": "IB เป็น **respiratory disease** เป็นหลัก แต่ยังทำให้เกิด **reproductive disorder** และ **nephritis** ได้ด้วย"
-          },
+          "IB เป็น **respiratory disease** เป็นหลัก แต่ยังทำให้เกิด **reproductive disorder** และ **nephritis** ได้ด้วย",
           {
             "bullets": [
               "**Highly contagious**",
@@ -88,9 +86,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "เชื้อสาเหตุและการจัดจำแนก (Etiology)",
         "source": "1.2_IBV p.5",
         "body": [
-          {
-            "text": "เกิดจากเชื้อ **Infectious bronchitis virus (IBV)**"
-          },
+          "เกิดจากเชื้อ **Infectious bronchitis virus (IBV)**",
           {
             "bullets": [
               "Genus **Gammacoronavirus**",
@@ -98,9 +94,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "Family **Coronaviridae**"
             ]
           },
-          {
-            "text": "Gammacoronavirus เป็น **อาร์เอ็นเอไวรัสสายเดี่ยว (สายบวก) มีเปลือกหุ้ม**"
-          },
+          "Gammacoronavirus เป็น **อาร์เอ็นเอไวรัสสายเดี่ยว (สายบวก) มีเปลือกหุ้ม**",
           {
             "sub": "โครงสร้างจากรูปในสไลด์ (viralzone.expasy.org)",
             "body": [
@@ -120,9 +114,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "Genotype และสายพันธุ์ของ IBV",
         "source": "1.2_IBV p.6",
         "body": [
-          {
-            "text": "Genotype จำแนกด้วย **S1 gene** แบ่งเป็น **GI-1 ถึง GI-29 และ GII-VII**"
-          },
+          "Genotype จำแนกด้วย **S1 gene** แบ่งเป็น **GI-1 ถึง GI-29 และ GII-VII**",
           {
             "bullets": [
               "**GI-1**: Massachusetts (Mass/Ma5/M41), Connecticut (Con), H120",
@@ -138,9 +130,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ความรุนแรงของโรคและปัจจัยที่มีผล",
         "source": "1.2_IBV p.7",
         "body": [
-          {
-            "text": "ทั่วไปแล้ว ก่อให้เกิด **acute upper respiratory disease with 100% morbidity and 0% mortality**"
-          },
+          "ทั่วไปแล้ว ก่อให้เกิด **acute upper respiratory disease with 100% morbidity and 0% mortality**",
           {
             "sub": "ความรุนแรงของอาการและรอยโรคขึ้นกับ",
             "body": [
@@ -193,9 +183,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "พยาธิกำเนิดในระบบหายใจ (Pathogenesis, respiratory tract)",
         "source": "1.2_IBV p.9",
         "body": [
-          {
-            "text": "**IBV damage ciliated epithelial cell and mucus producing cell of trachea**"
-          },
+          "**IBV damage ciliated epithelial cell and mucus producing cell of trachea**",
           {
             "sub": "URT",
             "body": [
@@ -218,9 +206,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "**After IBV replicate in URT (1-5 DPI), its viremia to other organs (found IBV at 7 DPI onward)**"
-          },
+          "**After IBV replicate in URT (1-5 DPI), its viremia to other organs (found IBV at 7 DPI onward)**",
           {
             "callout": "รูปประกอบด้านขวาของสไลด์หน้า 9 (แผนภาพ health เทียบกับ disease) ถูกตัดขอบ อ่านข้อความในรูปไม่ครบ",
             "kind": "flag"
@@ -231,9 +217,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "อวัยวะที่ IBV เข้าไปติดเชื้อได้",
         "source": "1.2_IBV p.10",
         "body": [
-          {
-            "text": "IBV can infect in:"
-          },
+          "IBV can infect in:",
           {
             "bullets": [
               "**Respiratory tract**",
@@ -242,9 +226,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "**Gastrointestinal tract**"
             ]
           },
-          {
-            "text": "ในรูปไก่ผ่าซาก มีการชี้ตำแหน่ง **Nephropathy/Nephritis** ที่ไต และ **Oviduct** ที่ท่อนำไข่"
-          }
+          "ในรูปไก่ผ่าซาก มีการชี้ตำแหน่ง **Nephropathy/Nephritis** ที่ไต และ **Oviduct** ที่ท่อนำไข่"
         ]
       },
       {
@@ -284,9 +266,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "ซึม, อ่อนแรง"
             ]
           },
-          {
-            "text": "**ตัว IBV ไม่ทำให้ไก่ตาย แต่ทำให้ cilia ในท่อลม หรือ epithelial ของท่อลมตาย ทำให้เกิด secondary infection ได้ง่าย**"
-          },
+          "**ตัว IBV ไม่ทำให้ไก่ตาย แต่ทำให้ cilia ในท่อลม หรือ epithelial ของท่อลมตาย ทำให้เกิด secondary infection ได้ง่าย**",
           {
             "sub": "หากเกิด secondary infection: mortality rate can be up to 20-80%",
             "body": [
@@ -325,9 +305,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "มักกลับมาให้ผลผลิตปกติใน **1-2 สัปดาห์** แต่ในฝูงที่ติดเชื้อรุนแรงอาจใช้เวลาถึง **6-8 สัปดาห์** หรือบางฝูงอาจให้ **ไข่ลดลง 6-12% ตลอดไป และกลับมาไม่ได้อีก**"
-          }
+          "มักกลับมาให้ผลผลิตปกติใน **1-2 สัปดาห์** แต่ในฝูงที่ติดเชื้อรุนแรงอาจใช้เวลาถึง **6-8 สัปดาห์** หรือบางฝูงอาจให้ **ไข่ลดลง 6-12% ตลอดไป และกลับมาไม่ได้อีก**"
         ]
       },
       {
@@ -362,9 +340,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "**ฝูงที่ป่วยน้อย อาจไม่เห็นอาการของ IB แต่มีติดเชื้ออยู่ และเห็นอาการชัดเจนเมื่อเกิด secondary infection และทำให้วินิจฉัยสาเหตุผิดได้**"
-          }
+          "**ฝูงที่ป่วยน้อย อาจไม่เห็นอาการของ IB แต่มีติดเชื้ออยู่ และเห็นอาการชัดเจนเมื่อเกิด secondary infection และทำให้วินิจฉัยสาเหตุผิดได้**"
         ]
       },
       {
@@ -526,9 +502,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "วัคซีนเชื้อตาย (Killed vaccine)",
         "source": "1.2_IBV p.23",
         "body": [
-          {
-            "text": "**ให้ในไก่ไข่และไก่พ่อแม่พันธุ์**"
-          },
+          "**ให้ในไก่ไข่และไก่พ่อแม่พันธุ์**",
           {
             "bullets": [
               "ให้ช่วงอายุ **13-18 สัปดาห์ (ให้ก่อนให้ไข่)**",
@@ -554,9 +528,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "MDA และหลักการเลือกวัคซีนให้ตรงสายพันธุ์",
         "source": "1.2_IBV p.24",
         "body": [
-          {
-            "text": "**MDA ช่วยป้องกันความเสียหายที่จะเกิดกับท่อลม, ไต, ท่อนำไข่ได้ (ในไก่อายุน้อย) แต่อาจมีผลกับการตอบสนองต่อการทำวัคซีนเชื้อเป็นที่ทำตอนอายุ 1 วัน**"
-          },
+          "**MDA ช่วยป้องกันความเสียหายที่จะเกิดกับท่อลม, ไต, ท่อนำไข่ได้ (ในไก่อายุน้อย) แต่อาจมีผลกับการตอบสนองต่อการทำวัคซีนเชื้อเป็นที่ทำตอนอายุ 1 วัน**",
           {
             "sub": "Vaccination",
             "body": [
@@ -568,12 +540,8 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "**วัคซีนสามารถป้องกัน IBV สายพันธุ์เดียวกันได้ดี แต่การป้องกัน IBV คนละสายพันธุ์จะให้ผลที่หลากหลาย**"
-          },
-          {
-            "text": "**ดังนั้น สามารถเติมวัคซีนเชื้อเป็นสายพันธุ์อื่นที่พบการแพร่ระบาดในพื้นที่เข้าไปในโปรแกรมวัคซีนได้ หรืออาจทำการตรวจ cross-protection ก่อน**"
-          }
+          "**วัคซีนสามารถป้องกัน IBV สายพันธุ์เดียวกันได้ดี แต่การป้องกัน IBV คนละสายพันธุ์จะให้ผลที่หลากหลาย**",
+          "**ดังนั้น สามารถเติมวัคซีนเชื้อเป็นสายพันธุ์อื่นที่พบการแพร่ระบาดในพื้นที่เข้าไปในโปรแกรมวัคซีนได้ หรืออาจทำการตรวจ cross-protection ก่อน**"
         ]
       },
       {
@@ -675,9 +643,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "เชื้อสาเหตุ (Etiology)",
         "source": "1.3_ILT p.3",
         "body": [
-          {
-            "text": "เกิดจากเชื้อ **Gallid herpesvirus type 1 (GaHV-1)**"
-          },
+          "เกิดจากเชื้อ **Gallid herpesvirus type 1 (GaHV-1)**",
           {
             "bullets": [
               "Genus **Iltovirus**",
@@ -685,9 +651,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "Family **Herpesviridae**"
             ]
           },
-          {
-            "text": "Herpesvirus เป็น **ดีเอ็นเอไวรัสสายคู่ มีเปลือกหุ้ม**"
-          },
+          "Herpesvirus เป็น **ดีเอ็นเอไวรัสสายคู่ มีเปลือกหุ้ม**",
           {
             "callout": "สไลด์นี้มีรูป virion ประกอบ (จาก viralzone.expasy.org) แต่ไม่ได้อธิบายรายละเอียดโครงสร้างเพิ่มเติมนอกจากที่เขียนไว้",
             "kind": "tip"
@@ -709,9 +673,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
           {
             "sub": "ไก่ที่หายจากโรคเป็นพาหะได้",
             "body": [
-              {
-                "text": "ไก่ที่หายจากอาการของโรค สามารถเป็นพาหะของโรคได้ ไวรัสจะยังอยู่ในร่างกายไก่ โดยแอบอยู่ใน **trigeminal ganglion (latent period)** ถ้าไก่เครียดก็ไวรัสสามารถแบ่งตัว และไก่จะปลดปล่อยเชื้อออกมาได้"
-              }
+              "ไก่ที่หายจากอาการของโรค สามารถเป็นพาหะของโรคได้ ไวรัสจะยังอยู่ในร่างกายไก่ โดยแอบอยู่ใน **trigeminal ganglion (latent period)** ถ้าไก่เครียดก็ไวรัสสามารถแบ่งตัว และไก่จะปลดปล่อยเชื้อออกมาได้"
             ]
           }
         ]
@@ -720,9 +682,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "พยาธิกำเนิด (Pathogenesis) และวงจรการแพร่เชื้อ",
         "source": "1.3_ILT p.5-6",
         "body": [
-          {
-            "text": "**ILT first replicate in epithelium of conjunctiva and upper respiratory tract**"
-          },
+          "**ILT first replicate in epithelium of conjunctiva and upper respiratory tract**",
           {
             "bullets": [
               "**ILTV enters through the respiratory tract, ocular and to the lesser extent through oral routes**",
@@ -758,9 +718,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "ไก่โตช้า ไข่ลด"
             ]
           },
-          {
-            "text": "สไลด์ p.8 เป็นรูปประกอบอาการ 2 รูป (จาก Disease of Poultry, 14th edition) แสดง **เยื่อบุตาอักเสบ (with frothy ocular secretion)** และ **swelling of infraorbital sinuses**"
-          }
+          "สไลด์ p.8 เป็นรูปประกอบอาการ 2 รูป (จาก Disease of Poultry, 14th edition) แสดง **เยื่อบุตาอักเสบ (with frothy ocular secretion)** และ **swelling of infraorbital sinuses**"
         ]
       },
       {
@@ -792,9 +750,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "**Mucoid plugs in trachea and obstruct airway** ทำให้ไก่ขาดอากาศหายใจ"
             ]
           },
-          {
-            "text": "สไลด์ p.10 เป็นรูปหลอดลมผ่า 2 รูป (จาก Disease of Poultry, 14th edition) ระบุเป็น **mild hemorrhagic-mucoid tracheitis** และ **severe hemorrhagic tracheitis**"
-          }
+          "สไลด์ p.10 เป็นรูปหลอดลมผ่า 2 รูป (จาก Disease of Poultry, 14th edition) ระบุเป็น **mild hemorrhagic-mucoid tracheitis** และ **severe hemorrhagic tracheitis**"
         ]
       },
       {
@@ -848,9 +804,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "การควบคุมและป้องกันโรค ภาพรวม",
         "source": "1.3_ILT p.12",
         "body": [
-          {
-            "text": "สไลด์แบ่งการควบคุมและป้องกันโรคเป็น 2 หัวข้อหลัก"
-          },
+          "สไลด์แบ่งการควบคุมและป้องกันโรคเป็น 2 หัวข้อหลัก",
           {
             "bullets": [
               "**Vaccine**",
@@ -863,9 +817,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "วัคซีนเชื้อเป็น CEO และ TCO",
         "source": "1.3_ILT p.13",
         "body": [
-          {
-            "text": "วัคซีนเชื้อเป็น มี **2 ชนิด**"
-          },
+          "วัคซีนเชื้อเป็น มี **2 ชนิด**",
           {
             "sub": "1. Chicken embryo origin (CEO)",
             "body": [
@@ -977,9 +929,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "ตามด้วย **TCO: eye drop** หรือ **CEO: eye drop or drinking water at 8-12-week-old**"
             ]
           },
-          {
-            "text": "หรือ"
-          },
+          "หรือ",
           {
             "bullets": [
               "**FPV-ILT: wing web at 5-12-week-old**"
@@ -1066,9 +1016,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "โรคหัวบวมคืออะไร (ภาพรวม)",
         "source": "1.4_AMPV p.2",
         "body": [
-          {
-            "text": "Avian Metapneumovirus (AMPV หรือ aMPV) มีชื่อเรียกอื่นตามที่สไลด์ระบุคือ Swollen head syndrome (SHS) และ โรคหัวบวม"
-          },
+          "Avian Metapneumovirus (AMPV หรือ aMPV) มีชื่อเรียกอื่นตามที่สไลด์ระบุคือ Swollen head syndrome (SHS) และ โรคหัวบวม",
           {
             "sub": "ลักษณะสำคัญของโรค",
             "body": [
@@ -1112,17 +1060,13 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
           {
             "sub": "การกระจายของ subtype C ต่อมา",
             "body": [
-              {
-                "text": "ต่อมาพบในเป็ดและไก่ในฝรั่งเศสและจีน และในไก่ฟ้าในเกาหลี และนกน้ำตามธรรมชาติในประเทศเนเธอร์แลนด์ แต่แตกต่างจากสายพันธุ์อเมริกันเล็กน้อย"
-              }
+              "ต่อมาพบในเป็ดและไก่ในฝรั่งเศสและจีน และในไก่ฟ้าในเกาหลี และนกน้ำตามธรรมชาติในประเทศเนเธอร์แลนด์ แต่แตกต่างจากสายพันธุ์อเมริกันเล็กน้อย"
             ]
           },
           {
             "sub": "subtype D",
             "body": [
-              {
-                "text": "ส่วน subtype D เจอจากการทำ **retrospective molecular analysis** จากไก่งวงในประเทศฝรั่งเศสที่เก็บตัวอย่างประมาณปี **1985** (แต่ไม่พบ subtype นี้อีก)"
-              }
+              "ส่วน subtype D เจอจากการทำ **retrospective molecular analysis** จากไก่งวงในประเทศฝรั่งเศสที่เก็บตัวอย่างประมาณปี **1985** (แต่ไม่พบ subtype นี้อีก)"
             ]
           }
         ]
@@ -1138,15 +1082,11 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "Family ***Pneumoviridae***"
             ]
           },
-          {
-            "text": "Metapneumovirus เป็น **อาร์เอ็นเอไวรัสสายเดี่ยว (สายลบ) มีเปลือกหุ้ม**"
-          },
+          "Metapneumovirus เป็น **อาร์เอ็นเอไวรัสสายเดี่ยว (สายลบ) มีเปลือกหุ้ม**",
           {
             "sub": "จากรูปโครงสร้างไวรัสในสไลด์ (Pictures from viralzone.expasy.org)",
             "body": [
-              {
-                "text": "คำบรรยายใต้รูประบุว่า Enveloped, spherical. Diameter from about **150 nm**"
-              },
+              "คำบรรยายใต้รูประบุว่า Enveloped, spherical. Diameter from about **150 nm**",
               {
                 "bullets": [
                   "โปรตีนที่ชี้ในรูป: Glycoprotein (G), Fusion protein (F), SH protein, Matrix protein (M), Phosphoprotein (P), Nucleoprotein (N), Polymerase (L)"
@@ -1198,9 +1138,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "**Allow 2nd infection**"
             ]
           },
-          {
-            "text": "กล่องเน้นในสไลด์ระบุว่า **Virus can be found in nasal turbinates, Harderian gland, trachea, and lung**"
-          },
+          "กล่องเน้นในสไลด์ระบุว่า **Virus can be found in nasal turbinates, Harderian gland, trachea, and lung**",
           {
             "callout": "รูปประกอบด้านขวาของสไลด์นี้ (เปรียบเทียบ health กับ disease ในระดับ URT และ LRT) ถูกตัดขอบไป อ่านข้อความในรูปไม่ครบ",
             "kind": "flag"
@@ -1255,9 +1193,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "Secondary infection และผลต่อการให้ไข่",
         "source": "1.4_AMPV p.10",
         "body": [
-          {
-            "text": "สไลด์ยังอยู่ภายใต้หัวข้อ Mild respiratory disease โดยระบุว่า **increase mortality rate to 25%, if secondary infection**"
-          },
+          "สไลด์ยังอยู่ภายใต้หัวข้อ Mild respiratory disease โดยระบุว่า **increase mortality rate to 25%, if secondary infection**",
           {
             "sub": "เชื้อแทรกซ้อนที่สไลด์ระบุ",
             "body": [
@@ -1323,9 +1259,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
           {
             "sub": "1. จากประวัติ อาการและรอยโรค",
             "body": [
-              {
-                "text": "สไลด์ระบุเป็นข้อแรกโดยไม่ได้ขยายความเพิ่ม"
-              }
+              "สไลด์ระบุเป็นข้อแรกโดยไม่ได้ขยายความเพิ่ม"
             ]
           },
           {
@@ -1396,9 +1330,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "การเก็บตัวอย่าง: จากสัตว์เป็นและจากการผ่าซาก",
         "source": "1.4_AMPV p.14",
         "body": [
-          {
-            "text": "**Collect sample at early stage of infection or from severely sick animal**"
-          },
+          "**Collect sample at early stage of infection or from severely sick animal**",
           {
             "sub": "Sample collection from live animal",
             "body": [
@@ -1511,9 +1443,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "วัคซีน: ชนิดและคุณสมบัติ",
         "source": "1.4_AMPV p.20-21",
         "body": [
-          {
-            "text": "สไลด์ p.20 แบ่งวัคซีนเป็น 2 ชนิด คือ **วัคซีนเชื้อเป็น** และ **วัคซีนเชื้อตาย** แล้วขยายรายละเอียดใน p.21"
-          },
+          "สไลด์ p.20 แบ่งวัคซีนเป็น 2 ชนิด คือ **วัคซีนเชื้อเป็น** และ **วัคซีนเชื้อตาย** แล้วขยายรายละเอียดใน p.21",
           {
             "sub": "1. เชื้อเป็น (live)",
             "body": [
@@ -1564,9 +1494,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ตัวอย่างโปรแกรมวัคซีนในประเทศไทย",
         "source": "1.4_AMPV p.23",
         "body": [
-          {
-            "text": "**ในประเทศไทยจะทำวัคซีนโรคหัวบวมเฉพาะฝูงที่มีปัญหา**"
-          },
+          "**ในประเทศไทยจะทำวัคซีนโรคหัวบวมเฉพาะฝูงที่มีปัญหา**",
           {
             "sub": "ตัวอย่างโปรแกรมวัคซีนในฝูงพ่อแม่พันธุ์ไก่เนื้อ",
             "body": [
@@ -1576,9 +1504,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
                   "ครั้งที่ 2 (เชื้อตาย): **16 สัปดาห์ (IM)**"
                 ]
               },
-              {
-                "text": "หรืออาจเพิ่มการให้วัคซีนเชื้อเป็นที่อายุ **1 วัน** โดยการ **coarse sprayed, eye drop, drinking water**"
-              }
+              "หรืออาจเพิ่มการให้วัคซีนเชื้อเป็นที่อายุ **1 วัน** โดยการ **coarse sprayed, eye drop, drinking water**"
             ]
           }
         ]
@@ -1615,9 +1541,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ประวัติช่วงแรก 100 ปีของโรคนิวคาสเซิล (อินโดนีเซีย)",
         "source": "1.1_NDV p.3-5",
         "body": [
-          {
-            "text": "สไลด์วางกรอบเรื่องเป็น **100 ปี ของโรคนิวคาสเซิล** โดยเริ่มจากรายงานครั้งแรก"
-          },
+          "สไลด์วางกรอบเรื่องเป็น **100 ปี ของโรคนิวคาสเซิล** โดยเริ่มจากรายงานครั้งแรก",
           {
             "sub": "รายงานครั้งแรก",
             "body": [
@@ -1642,18 +1566,14 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "หลังจากปี 1926 โรคนิวคาสเซิลกลายเป็น **โรคประจำถิ่นของอินโดนีเซีย** สไลด์แสดงภาพ VEEARTSENIJKUNDIGE INSTITUUT, Buitenzorg (Bogor) ปี 1927-1941 ประกอบ"
-          }
+          "หลังจากปี 1926 โรคนิวคาสเซิลกลายเป็น **โรคประจำถิ่นของอินโดนีเซีย** สไลด์แสดงภาพ VEEARTSENIJKUNDIGE INSTITUUT, Buitenzorg (Bogor) ปี 1927-1941 ประกอบ"
         ]
       },
       {
         "heading": "ประวัติช่วงแรก (อังกฤษ) และที่มาของชื่อ Newcastle",
         "source": "1.1_NDV p.6-7",
         "body": [
-          {
-            "text": "ช่วงฤดูร้อนในปีเดียวกัน (ค.ศ. 1926) พบที่ฟาร์มแห่งหนึ่งใกล้เมืองท่าในประเทศอังกฤษ"
-          },
+          "ช่วงฤดูร้อนในปีเดียวกัน (ค.ศ. 1926) พบที่ฟาร์มแห่งหนึ่งใกล้เมืองท่าในประเทศอังกฤษ",
           {
             "bullets": [
               "ฟาร์มแห่งหนึ่งใกล้เมือง Newcastle (สไลด์ p.6 พิมพ์ว่า Newcastle-upon-type และ p.7 พิมพ์ว่า **Newcastle upon Tyne, England**) ประเทศอังกฤษ เป็น **เมืองท่า**",
@@ -1716,9 +1636,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "รูปประกอบมาจาก viralzone.expasy.org"
-          }
+          "รูปประกอบมาจาก viralzone.expasy.org"
         ]
       },
       {
@@ -1738,9 +1656,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
             "callout": "จุดที่มักออกสอบ: NDV มี serotype เดียว แต่มีถึง 21 genotypes และแอนติบอดีจาก genotype หนึ่งสามารถ cross protect genotype อื่นได้",
             "kind": "tip"
           },
-          {
-            "text": "อ้างอิงในสไลด์: (Dimitrov, et al. 2019)"
-          }
+          "อ้างอิงในสไลด์: (Dimitrov, et al. 2019)"
         ]
       },
       {
@@ -1759,9 +1675,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
             "callout": "สไลด์ระบุแค่ว่า genotype VII สำคัญในเอเชียตะวันออกเฉียงใต้ แต่ไม่ได้บอกสถานการณ์ genotype ที่ระบาดในประเทศไทยโดยเฉพาะ",
             "kind": "flag"
           },
-          {
-            "text": "อ้างอิงในสไลด์: (Dimitrov, et al. 2019)"
-          }
+          "อ้างอิงในสไลด์: (Dimitrov, et al. 2019)"
         ]
       },
       {
@@ -1783,9 +1697,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "การแบ่ง pathotypes ตาม OIE (WOAH) วิธีที่ 1: Mean Dead Time (MDT)",
         "source": "1.1_NDV p.12",
         "body": [
-          {
-            "text": "ทดสอบใน **Chicken embryo after inoculate in allantoic sac**"
-          },
+          "ทดสอบใน **Chicken embryo after inoculate in allantoic sac**",
           {
             "bullets": [
               "**Less than 60 hrs = high virulent (velogenic)**",
@@ -1857,9 +1769,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "ตารางตัวอย่างในสไลด์ (OIE/FAO international reference laboratory for AI, Appendix 1) อ่านคอลัมน์คะแนนได้ว่า Normal 20 x 0 = 0, Sick 3 x 1 = 3, Paralysed 10 x 2 = 20, Dead 67 x 3 = 201 รวม **Total = 224** ส่วนตัวเลขรายวัน D1-D10 ในตารางพิมพ์เล็กมากจนอ่านได้ไม่ครบทุกช่อง"
-          }
+          "ตารางตัวอย่างในสไลด์ (OIE/FAO international reference laboratory for AI, Appendix 1) อ่านคอลัมน์คะแนนได้ว่า Normal 20 x 0 = 0, Sick 3 x 1 = 3, Paralysed 10 x 2 = 20, Dead 67 x 3 = 201 รวม **Total = 224** ส่วนตัวเลขรายวัน D1-D10 ในตารางพิมพ์เล็กมากจนอ่านได้ไม่ครบทุกช่อง"
         ]
       },
       {
@@ -1984,18 +1894,14 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "รูปประกอบเป็นไข่รูปร่างผิดปกติ จาก textbook Disease of Poultry (14th ed.)"
-          }
+          "รูปประกอบเป็นไข่รูปร่างผิดปกติ จาก textbook Disease of Poultry (14th ed.)"
         ]
       },
       {
         "heading": "อาการและรอยโรค: ระบบหายใจ",
         "source": "1.1_NDV p.19-21",
         "body": [
-          {
-            "text": "สไลด์ p.19 แบ่งอาการและรอยโรคออกเป็น 3 ระบบ คือ **Respiratory system, Gastrointestinal system, Nervous system**"
-          },
+          "สไลด์ p.19 แบ่งอาการและรอยโรคออกเป็น 3 ระบบ คือ **Respiratory system, Gastrointestinal system, Nervous system**",
           {
             "sub": "อาการที่เห็นจากภายนอก",
             "body": [
@@ -2039,9 +1945,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "**Enlarged spleen, splenic congestion**"
             ]
           },
-          {
-            "text": "รูปประกอบเป็นภาพจากการทดลองของผู้สอน แสดง proventriculus ที่มีจุดเลือดออก และรอยโรค necrotic hemorrhagic ที่ลำไส้บริเวณ GALT รวมถึงม้ามที่ขยายใหญ่และคั่งเลือด"
-          }
+          "รูปประกอบเป็นภาพจากการทดลองของผู้สอน แสดง proventriculus ที่มีจุดเลือดออก และรอยโรค necrotic hemorrhagic ที่ลำไส้บริเวณ GALT รวมถึงม้ามที่ขยายใหญ่และคั่งเลือด"
         ]
       },
       {
@@ -2071,9 +1975,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
           {
             "sub": "1. จากประวัติ อาการและรอยโรค",
             "body": [
-              {
-                "text": "สไลด์ระบุเป็นข้อแรกของการวินิจฉัย"
-              }
+              "สไลด์ระบุเป็นข้อแรกของการวินิจฉัย"
             ]
           },
           {
@@ -2363,16 +2265,12 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "Flock immunity (ภูมิคุ้มกันระดับฝูง)",
         "source": "1.1_NDV p.38",
         "body": [
-          {
-            "text": "หัวข้อของสไลด์คือ **Immunize the chicken flock**"
-          },
+          "หัวข้อของสไลด์คือ **Immunize the chicken flock**",
           {
             "callout": "**Flock immunity**: If the flock has high number of high immunity chicken, when the pathogen enter the flock, there will be a greater chance of encountering immunized chicken, so it will not widely spread in the flock",
             "kind": "tip"
           },
-          {
-            "text": "รูปประกอบเป็นภาพ Herd immunity ที่ระบุไว้ว่าเป็น **Fictitious example based on R0 = two** เปรียบเทียบกรณี If no one is immune กับ If 50% are immune"
-          }
+          "รูปประกอบเป็นภาพ Herd immunity ที่ระบุไว้ว่าเป็น **Fictitious example based on R0 = two** เปรียบเทียบกรณี If no one is immune กับ If 50% are immune"
         ]
       },
       {
@@ -2462,9 +2360,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ตาราง vaccine strain, pathotype, genotype และ ICPI",
         "source": "1.1_NDV p.43",
         "body": [
-          {
-            "text": "สไลด์ยกตาราง **Table 3.2** จาก textbook Disease of Poultry (14th ed.) หัวข้อ Commonly used live lentogenic (loNDV) vaccine strains, rarely used mesogenic vaccine strains, and virulent challenge virus strains and their genotype and pathogenicity indices for chickens (11, 140, 167, 221, 255) โดยเชิงอรรถระบุว่า ICPI คือ intracerebral pathogencity index in day-old chickens"
-          },
+          "สไลด์ยกตาราง **Table 3.2** จาก textbook Disease of Poultry (14th ed.) หัวข้อ Commonly used live lentogenic (loNDV) vaccine strains, rarely used mesogenic vaccine strains, and virulent challenge virus strains and their genotype and pathogenicity indices for chickens (11, 140, 167, 221, 255) โดยเชิงอรรถระบุว่า ICPI คือ intracerebral pathogencity index in day-old chickens",
           {
             "sub": "Asymptomatic",
             "body": [
@@ -2608,9 +2504,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ถ้าเจอ NDV ในฟาร์มต้องทำอย่างไร",
         "source": "1.1_NDV p.47",
         "body": [
-          {
-            "text": "คำถามบนสไลด์คือ **What should I do, if there is NDV in the farm**"
-          },
+          "คำถามบนสไลด์คือ **What should I do, if there is NDV in the farm**",
           {
             "bullets": [
               "**Eliminate the virus**",
@@ -2643,9 +2537,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               "**Strict biosecurity + Good management is very important**"
             ]
           },
-          {
-            "text": "กราฟประกอบแสดงแกน Protection กับ Age โดยเส้น **MDA** ลดลงตามอายุ ส่วนเส้น **Active immunity (induce by vaccine)** ค่อยๆ สูงขึ้น และช่วงที่ทั้งสองเส้นต่ำคือ **Protection gap** ส่วนรูปวงกลมด้านขวาสรุปว่าภูมิคุ้มกันของไก่มาจาก **Immunization** ร่วมกับ **Physical Barrier หรือ Biosecurity**"
-          },
+          "กราฟประกอบแสดงแกน Protection กับ Age โดยเส้น **MDA** ลดลงตามอายุ ส่วนเส้น **Active immunity (induce by vaccine)** ค่อยๆ สูงขึ้น และช่วงที่ทั้งสองเส้นต่ำคือ **Protection gap** ส่วนรูปวงกลมด้านขวาสรุปว่าภูมิคุ้มกันของไก่มาจาก **Immunization** ร่วมกับ **Physical Barrier หรือ Biosecurity**",
           {
             "callout": "Protection gap คือช่วงที่ MDA ตกลงแล้วแต่ภูมิจากวัคซีนยังขึ้นไม่ทัน เป็นเหตุผลว่าทำไม MDA สูงในลูกไก่จึงเป็นประเด็นที่ต้องคำนึงตอนวางโปรแกรมวัคซีน",
             "kind": "tip"
@@ -2665,9 +2557,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "ภาพรวมโรคฝีดาษไก่ (Fowlpox)",
         "source": "1.5_Avian_Pox p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดหัวข้อด้วยชื่อเรียกอื่นของโรค และลักษณะทางระบาดวิทยาแบบกว้างๆ ของโรคฝีดาษไก่"
-          },
+          "สไลด์เปิดหัวข้อด้วยชื่อเรียกอื่นของโรค และลักษณะทางระบาดวิทยาแบบกว้างๆ ของโรคฝีดาษไก่",
           {
             "sub": "ชื่ออื่นของโรค",
             "body": [
@@ -2721,9 +2611,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "เชื้อก่อโรคและการจัดจำแนก (Fowlpox virus)",
         "source": "1.5_Avian_Pox p.4",
         "body": [
-          {
-            "text": "โรคฝีดาษไก่เกิดจากเชื้อ **Fowlpox virus (FPV)**"
-          },
+          "โรคฝีดาษไก่เกิดจากเชื้อ **Fowlpox virus (FPV)**",
           {
             "sub": "การจัดจำแนก (taxonomy) ตามสไลด์",
             "body": [
@@ -2748,9 +2636,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "สไลด์มีภาพโครงสร้าง virion ประกอบ (ที่มา viralzone.expasy.org) แสดง Mature Virion (MV) และ Enveloped Virion (EV) พร้อมป้ายชี้ EV envelope, MV membrane, Lateral body, Core wall และ Nucleocapsid โดยมีสเกลกำกับ **250nm** ในแนวตั้ง และ **360nm** ในแนวนอน"
-          }
+          "สไลด์มีภาพโครงสร้าง virion ประกอบ (ที่มา viralzone.expasy.org) แสดง Mature Virion (MV) และ Enveloped Virion (EV) พร้อมป้ายชี้ EV envelope, MV membrane, Lateral body, Core wall และ Nucleocapsid โดยมีสเกลกำกับ **250nm** ในแนวตั้ง และ **360nm** ในแนวนอน"
         ]
       },
       {
@@ -2784,9 +2670,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
           {
             "sub": "ระยะฟักตัวของโรค",
             "body": [
-              {
-                "text": "**4 - 10 วัน**"
-              }
+              "**4 - 10 วัน**"
             ]
           }
         ]
@@ -2808,9 +2692,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "พยาธิกำเนิด (Pathogenesis) เทียบ 2 form ตาม DPI",
         "source": "1.5_Avian_Pox p.7",
         "body": [
-          {
-            "text": "สไลด์กำกับไว้ว่า **DPI = day post infection** และวางไทม์ไลน์ของ 2 form คู่กัน โดยจุดต่างอยู่ที่ทางที่ได้รับเชื้อ"
-          },
+          "สไลด์กำกับไว้ว่า **DPI = day post infection** และวางไทม์ไลน์ของ 2 form คู่กัน โดยจุดต่างอยู่ที่ทางที่ได้รับเชื้อ",
           {
             "sub": "Cutaneous form - ได้รับเชื้อทางผิวหนัง",
             "body": [
@@ -2836,9 +2718,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "สไลด์สรุปในกรอบท้ายภาพว่า หลังจาก viremia แล้ว สามารถแยกเชื้อไวรัสได้จาก **ม้าม ตับ ไต สมอง**"
-          },
+          "สไลด์สรุปในกรอบท้ายภาพว่า หลังจาก viremia แล้ว สามารถแยกเชื้อไวรัสได้จาก **ม้าม ตับ ไต สมอง**",
           {
             "callout": "จุดเทียบที่ออกสอบได้ Cutaneous เริ่มที่ผิวหนัง (2 DPI) แล้วค่อยถึงปอด 4 DPI และ viremia 5 DPI ส่วน Diphtheritic เริ่มที่ปอดเลย (2 DPI) และ viremia เร็วกว่าคือ 4 DPI แต่ทั้งคู่เห็นรอยโรคที่ 5-10 DPI เท่ากัน",
             "kind": "tip"
@@ -2868,9 +2748,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "รอยโรคของ Cutaneous form (dry form)",
         "source": "1.5_Avian_Pox p.9-10",
         "body": [
-          {
-            "text": "รอยโรคหลักคือ **Discrete nodular proliferative lesion: epithelial hyperplasia & feather follicles**"
-          },
+          "รอยโรคหลักคือ **Discrete nodular proliferative lesion: epithelial hyperplasia & feather follicles**",
           {
             "bullets": [
               "มักเกิดที่ **ผิวหนังส่วนที่ไม่มีขน** เช่น บนหัว หงอน เหนียง เปลือกตา เท้า ขา"
@@ -2890,9 +2768,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "สไลด์หน้า 10 เป็นภาพประกอบ Cutaneous form แสดงตุ่มสะเก็ดสีดำจำนวนมากบนหงอนและรอบตาของไก่ และอีกภาพเป็นก้อนสะเก็ดสีดำขนาดใหญ่บริเวณหัว โดยสไลด์ไม่ได้เขียนคำบรรยายภาพเพิ่มเติมไว้"
-          }
+          "สไลด์หน้า 10 เป็นภาพประกอบ Cutaneous form แสดงตุ่มสะเก็ดสีดำจำนวนมากบนหงอนและรอบตาของไก่ และอีกภาพเป็นก้อนสะเก็ดสีดำขนาดใหญ่บริเวณหัว โดยสไลด์ไม่ได้เขียนคำบรรยายภาพเพิ่มเติมไว้"
         ]
       },
       {
@@ -2917,9 +2793,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
         "heading": "รอยโรคของ Diphtheritic form (wet form)",
         "source": "1.5_Avian_Pox p.12-13",
         "body": [
-          {
-            "text": "รอยโรคหลักคือ **Fibrino-necrotic & proliferative lesion in mucous membrane of upper respiratory tract, mouth, esophagus**"
-          },
+          "รอยโรคหลักคือ **Fibrino-necrotic & proliferative lesion in mucous membrane of upper respiratory tract, mouth, esophagus**",
           {
             "bullets": [
               "มีเยื่อสีเหลืองคลุม เยื่อเมือกในปาก หลอดอาหาร กล่องเสียง ท่อลม"
@@ -2949,9 +2823,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "สไลด์หน้า 13 เป็นภาพประกอบ Diphtheritic form แสดงเยื่อ/ก้อนสีเหลืองในช่องปากและบริเวณหัวที่ผ่าเปิด และอีกภาพเป็นท่อลมที่ผ่าเปิดตรึงหมุด พบวัสดุสีเหลืองเกาะตามเยื่อเมือก โดยสไลด์ไม่ได้เขียนคำบรรยายภาพเพิ่มเติมไว้"
-          }
+          "สไลด์หน้า 13 เป็นภาพประกอบ Diphtheritic form แสดงเยื่อ/ก้อนสีเหลืองในช่องปากและบริเวณหัวที่ผ่าเปิด และอีกภาพเป็นท่อลมที่ผ่าเปิดตรึงหมุด พบวัสดุสีเหลืองเกาะตามเยื่อเมือก โดยสไลด์ไม่ได้เขียนคำบรรยายภาพเพิ่มเติมไว้"
         ]
       },
       {
@@ -3002,9 +2874,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "สไลด์มีภาพประกอบทางขวา เป็นเนื้อเยื่อแผ่นบางที่มีรอยโรคกลมสีขาวนูนกระจายอยู่ และมีลูกศรชี้รอยโรค 2 ตำแหน่ง แต่สไลด์ไม่ได้เขียนคำบรรยายภาพหรือระบุว่าเป็นเนื้อเยื่อใดไว้"
-          },
+          "สไลด์มีภาพประกอบทางขวา เป็นเนื้อเยื่อแผ่นบางที่มีรอยโรคกลมสีขาวนูนกระจายอยู่ และมีลูกศรชี้รอยโรค 2 ตำแหน่ง แต่สไลด์ไม่ได้เขียนคำบรรยายภาพหรือระบุว่าเป็นเนื้อเยื่อใดไว้",
           {
             "callout": "Eosinophilic cytoplasmic inclusion body ใน epithelial cell คือจุดชี้ขาดทาง histopathology ของสไลด์นี้",
             "kind": "tip"
@@ -3056,9 +2926,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "สไลด์มีภาพเข็มแทงปีก (wing web applicator) ประกอบไว้มุมขวาบน"
-          }
+          "สไลด์มีภาพเข็มแทงปีก (wing web applicator) ประกอบไว้มุมขวาบน"
         ]
       },
       {

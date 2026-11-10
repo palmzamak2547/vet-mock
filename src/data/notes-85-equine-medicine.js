@@ -27,9 +27,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "สมุดประจำตัวม้า (Equine passport)",
         "source": "Equine Med 85 น.3",
         "body": [
-          {
-            "text": "Equine passport **ออกโดยสัตวแพทย์เท่านั้น** เนื้อหาประกอบด้วย diagram ลักษณะม้า การฝังไมโครชิพ ข้อมูลเจ้าของ ประวัติวัคซีน การตรวจโรค การแข่งขัน และผลตรวจสารกระตุ้น"
-          },
+          "Equine passport **ออกโดยสัตวแพทย์เท่านั้น** เนื้อหาประกอบด้วย diagram ลักษณะม้า การฝังไมโครชิพ ข้อมูลเจ้าของ ประวัติวัคซีน การตรวจโรค การแข่งขัน และผลตรวจสารกระตุ้น",
           {
             "bullets": [
               "**Near side = ด้านซ้ายของม้า** เป็นฝั่งที่ผู้ขี่ขึ้นม้า",
@@ -75,9 +73,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "White markings ขวัญ และวิธีลงบันทึกในสมุด",
         "source": "Equine Med 85 น.3",
         "body": [
-          {
-            "text": "White marks แบ่งเป็น **3 จุดคือ หัว ขา ตัว**"
-          },
+          "White marks แบ่งเป็น **3 จุดคือ หัว ขา ตัว**",
           {
             "sub": "ที่หัว",
             "body": [
@@ -317,9 +313,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "การจับบังคับด้วยยา (Chemical restraint)",
         "source": "Equine Med 85 น.6",
         "body": [
-          {
-            "text": "ใช้ตอนทำฟัน ตอนที่บังคับด้วยวิธีปกติไม่ได้ หรือตอนขนส่งม้า"
-          },
+          "ใช้ตอนทำฟัน ตอนที่บังคับด้วยวิธีปกติไม่ได้ หรือตอนขนส่งม้า",
           {
             "sub": "Routes of administration",
             "body": [
@@ -348,9 +342,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "Alpha-2 agonists",
             "body": [
-              {
-                "text": "**ม้าไวต่อยากลุ่มนี้มาก** ให้ทั้ง sedation, muscle relaxation, ataxia (กด CNS) และ analgesia และแรงกว่ากลุ่ม phenothiazines"
-              },
+              "**ม้าไวต่อยากลุ่มนี้มาก** ให้ทั้ง sedation, muscle relaxation, ataxia (กด CNS) และ analgesia และแรงกว่ากลุ่ม phenothiazines",
               {
                 "bullets": [
                   "**Xylazine** เป็นตัวที่ราคาถูกที่สุดในกลุ่มและนิยมใช้ตอนทำฟัน onset 1-2 นาที duration 15-30 นาที ให้ทาง IV **maximum dose 1.1 mg/kg**",
@@ -452,9 +444,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Problem Oriented Approach และการซักประวัติ",
         "source": "Equine Med 85 น.7",
         "body": [
-          {
-            "text": "ลำดับของ problem oriented approach คือ **client complain → history taking → physical examination → initial problem list → initial assessment → diagnosis plan → revise problem list and assessment → final/definitive diagnosis → treatment plan**"
-          },
+          "ลำดับของ problem oriented approach คือ **client complain → history taking → physical examination → initial problem list → initial assessment → diagnosis plan → revise problem list and assessment → final/definitive diagnosis → treatment plan**",
           {
             "sub": "History taking",
             "body": [
@@ -532,9 +522,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "Body condition scoring",
             "body": [
-              {
-                "text": "Six areas of focus ได้แก่ crest ที่คอ, withers, along the spine, tailhead, ribs และ behind the elbow ให้ดูไขมันที่พงส์ ซี่โครง และช่วงท้อง"
-              }
+              "Six areas of focus ได้แก่ crest ที่คอ, withers, along the spine, tailhead, ribs และ behind the elbow ให้ดูไขมันที่พงส์ ซี่โครง และช่วงท้อง"
             ]
           }
         ]
@@ -643,9 +631,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "กลุ่ม round worms ที่เด็คสรุปไว้ ได้แก่ Trichostrongylus, Habronema, Strongyloides westeri, Parascaris equorum, Strongylus, Trichonema, Oxyuris equi และ Setaria spp."
-          }
+          "กลุ่ม round worms ที่เด็คสรุปไว้ ได้แก่ Trichostrongylus, Habronema, Strongyloides westeri, Parascaris equorum, Strongylus, Trichonema, Oxyuris equi และ Setaria spp."
         ]
       },
       {
@@ -898,9 +884,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Ectoparasites: เหา (Louse)",
         "source": "Equine Med 85 น.15",
         "body": [
-          {
-            "text": "หลักการคือ **แยกก่อนว่าเป็นเหาดูดหรือเหาแทะ** จะได้เลือกวิธีให้ยาถูก"
-          },
+          "หลักการคือ **แยกก่อนว่าเป็นเหาดูดหรือเหาแทะ** จะได้เลือกวิธีให้ยาถูก",
           {
             "sub": "Damalinia equi",
             "body": [
@@ -935,9 +919,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Ectoparasites: ไร (Mite)",
         "source": "Equine Med 85 น.15",
         "body": [
-          {
-            "text": "Family **Psoroptidae** มี 3 genus คือ **Psoroptes, Chorioptes และ Otodectes** ลักษณะร่วมคือ **oval body และเป็น non-burrowing mite** โดยขาคู่ที่ 3 และ 4 ยาวจนมองเห็นได้จากด้าน dorsal"
-          },
+          "Family **Psoroptidae** มี 3 genus คือ **Psoroptes, Chorioptes และ Otodectes** ลักษณะร่วมคือ **oval body และเป็น non-burrowing mite** โดยขาคู่ที่ 3 และ 4 ยาวจนมองเห็นได้จากด้าน dorsal",
           {
             "sub": "Psoroptes equi",
             "body": [
@@ -984,9 +966,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Dermatophytosis การติดเชื้อราตื้นที่ผิวหนัง",
         "source": "Equine Dermatology น.25",
         "body": [
-          {
-            "text": "เชื้อก่อโรคที่สไลด์ระบุคือ **Trichophyton equinum var. equinum** และ **Microsporum equinum**"
-          },
+          "เชื้อก่อโรคที่สไลด์ระบุคือ **Trichophyton equinum var. equinum** และ **Microsporum equinum**",
           {
             "bullets": [
               "ระยะแรก: urticaria เป็นเฉพาะที่หรือหลายจุด และเห็น erythema ได้ในผิวที่ไม่มีเม็ดสี",
@@ -1136,9 +1116,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Viral papillomatosis หรือหูด",
         "source": "Equine Dermatology น.36-37",
         "body": [
-          {
-            "text": "ผู้จดทำเครื่องหมายดาวไว้ที่หัวข้อนี้"
-          },
+          "ผู้จดทำเครื่องหมายดาวไว้ที่หัวข้อนี้",
           {
             "bullets": [
               "**พบบ่อยในม้าอายุน้อยกว่า 3 ปี** ไม่มีความจำเพาะต่อสายพันธุ์หรือเพศ",
@@ -1257,9 +1235,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Squamous cell carcinoma (SCC)",
         "source": "Equine Dermatology น.38",
         "body": [
-          {
-            "text": "ผู้จดทำเครื่องหมายดาวไว้ที่หัวข้อนี้"
-          },
+          "ผู้จดทำเครื่องหมายดาวไว้ที่หัวข้อนี้",
           {
             "bullets": [
               "**เป็นเนื้องอกที่พบมากเป็นอันดับสอง ราว 20% ของเคส** โดยเฉพาะรอบตาและรอบต่อมของผิวหนัง",
@@ -1283,9 +1259,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Melanoma",
         "source": "Equine Dermatology น.39",
         "body": [
-          {
-            "text": "ผู้จดทำเครื่องหมายดาวไว้ที่หัวข้อนี้ และกำกับว่าน่าจะมีพื้นฐานทางพันธุกรรม"
-          },
+          "ผู้จดทำเครื่องหมายดาวไว้ที่หัวข้อนี้ และกำกับว่าน่าจะมีพื้นฐานทางพันธุกรรม",
           {
             "bullets": [
               "**พบบ่อยมากในม้าสีเทาที่อายุมาก และพบน้อยในม้าสีอื่น**",
@@ -1361,9 +1335,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "PPID หรือ equine Cushing's disease (pituitary pars intermedia dysfunction)",
         "source": "Equine Dermatology น.32-33",
         "body": [
-          {
-            "text": "สไลด์บรรยาย PPID ไว้ในกลุ่มอาการ **alopecia** เพราะมาพบสัตวแพทย์ด้วยความผิดปกติของขน"
-          },
+          "สไลด์บรรยาย PPID ไว้ในกลุ่มอาการ **alopecia** เพราะมาพบสัตวแพทย์ด้วยความผิดปกติของขน",
           {
             "bullets": [
               "พยาธิกำเนิด: **การเสื่อมของเซลล์ประสาทที่หลั่ง dopamine จาก hypothalamus ทำให้ pars intermedia หนาตัวหรือเกิด adenoma และ ACTH สูงขึ้น**",
@@ -1429,9 +1401,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "อาการนำของปัญหาระบบหายใจ (Sign of respiratory problems)",
         "source": "Ekwai Med น.5",
         "body": [
-          {
-            "text": "สไลด์วางลำดับหัวข้อไว้เป็น sign of respiratory problems ตามด้วย equine respiratory examination แล้วจึงแยกเป็น upper และ lower respiratory problems"
-          },
+          "สไลด์วางลำดับหัวข้อไว้เป็น sign of respiratory problems ตามด้วย equine respiratory examination แล้วจึงแยกเป็น upper และ lower respiratory problems",
           {
             "bullets": [
               "Dyspnea และ abnormal breathing pattern",
@@ -1446,9 +1416,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
             "callout": "**ม้าเป็น obligate nasal breather** คือหายใจได้ทางจมูกทางเดียว ชดเชยด้วยการอ้าปากหายใจไม่ได้ ดังนั้นการอุดตันของทางเดินหายใจส่วนต้นจึงร้ายแรงกว่าในสัตว์เล็กมาก",
             "kind": "tip"
           },
-          {
-            "text": "โน้ตกำกับเรื่องน้ำที่ออกจากจมูกไว้ว่า **น้ำใส ๆ ออกมาได้จาก nasolacrimal duct** ให้ดูว่าออกทั้งสองข้างหรือข้างเดียว และให้ดูสีของสิ่งที่ออกมาด้วย"
-          },
+          "โน้ตกำกับเรื่องน้ำที่ออกจากจมูกไว้ว่า **น้ำใส ๆ ออกมาได้จาก nasolacrimal duct** ให้ดูว่าออกทั้งสองข้างหรือข้างเดียว และให้ดูสีของสิ่งที่ออกมาด้วย",
           {
             "callout": "ข้อความบรรทัดนี้เขียนคร่อมอยู่ระหว่างบรรทัด Nasal discharge กับ Bleeding from nose จึงบอกไม่ได้ชัดว่าผู้จดตั้งใจกำกับบรรทัดไหน เนื้อความสอดคล้องกับ nasal discharge มากกว่า",
             "kind": "flag"
@@ -1459,9 +1427,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "สมรรถภาพการหายใจขณะออกกำลังกาย (กล่อง Exercise)",
         "source": "Ekwai Med น.5",
         "body": [
-          {
-            "text": "สไลด์มีกล่อง Exercise แสดงตัวเลขการระบายอากาศของม้าขณะออกกำลังกาย พร้อมโน้ตพิมพ์กำกับไว้"
-          },
+          "สไลด์มีกล่อง Exercise แสดงตัวเลขการระบายอากาศของม้าขณะออกกำลังกาย พร้อมโน้ตพิมพ์กำกับไว้",
           {
             "bullets": [
               "อากาศเดินทางจากรูจมูกถึง alveoli ใน **0.25 วินาที** ระยะทางประมาณ 1.5 เมตร",
@@ -1481,9 +1447,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Poor performance และการเลือกเครื่องมือตรวจตามตำแหน่ง",
         "source": "Ekwai Med น.5",
         "body": [
-          {
-            "text": "สาเหตุที่พบบ่อยของ poor performance ตามสไลด์มี 3 กลุ่ม เรียงเป็น musculoskeletal problem, respiratory problem และ cardiovascular problem โดยข้อ respiratory ถูกวงกรอบสีแดงเน้นไว้"
-          },
+          "สาเหตุที่พบบ่อยของ poor performance ตามสไลด์มี 3 กลุ่ม เรียงเป็น musculoskeletal problem, respiratory problem และ cardiovascular problem โดยข้อ respiratory ถูกวงกรอบสีแดงเน้นไว้",
           {
             "callout": "โน้ตวงเล็บปีกกาคร่อม respiratory กับ cardiovascular แล้วเขียนว่า **สองระบบนี้เชื่อมโยงกัน** จึงต้องประเมินควบคู่ ไม่แยกคิดทีละระบบ",
             "kind": "tip"
@@ -1505,9 +1469,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "การตรวจร่างกาย: auscultation และ percussion",
         "source": "Ekwai Med น.5",
         "body": [
-          {
-            "text": "สไลด์ให้ลำดับเป็น history taking และ signalment ตามด้วย physical examination แล้วจึงใช้เสียงหายใจระบุตำแหน่งของปัญหา (breathing sound define problem origin)"
-          },
+          "สไลด์ให้ลำดับเป็น history taking และ signalment ตามด้วย physical examination แล้วจึงใช้เสียงหายใจระบุตำแหน่งของปัญหา (breathing sound define problem origin)",
           {
             "sub": "การแปลเสียงหายใจตามโน้ตที่จด",
             "body": [
@@ -1534,18 +1496,14 @@ export const NOTES_85_EQUINE_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "ส่วน auscultation สไลด์แบ่งเป็น increase, decrease และ adventitious sounds ส่วนเครื่องมือภาพประกอบด้วย radiograph (โดยเฉพาะ sinus พร้อม technique และ position), ultrasound, CT และ MRI"
-          }
+          "ส่วน auscultation สไลด์แบ่งเป็น increase, decrease และ adventitious sounds ส่วนเครื่องมือภาพประกอบด้วย radiograph (โดยเฉพาะ sinus พร้อม technique และ position), ultrasound, CT และ MRI"
         ]
       },
       {
         "heading": "การส่องกล้องและการเก็บตัวอย่างจากทางเดินหายใจ",
         "source": "Ekwai Med น.5",
         "body": [
-          {
-            "text": "โน้ตกำกับว่า **endoscope ใช้จนเป็นรูทีนในม้า** แยกชื่อเรียกตามตำแหน่งที่ส่อง"
-          },
+          "โน้ตกำกับว่า **endoscope ใช้จนเป็นรูทีนในม้า** แยกชื่อเรียกตามตำแหน่งที่ส่อง",
           {
             "bullets": [
               "Rhinoscopy",
@@ -1555,9 +1513,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               "Bronchoscopy"
             ]
           },
-          {
-            "text": "หัวข้อ respiratory tract cell collection มีโน้ตว่า เมื่อส่องแล้วเห็นความผิดปกติจึงเก็บตัวอย่าง"
-          },
+          "หัวข้อ respiratory tract cell collection มีโน้ตว่า เมื่อส่องแล้วเห็นความผิดปกติจึงเก็บตัวอย่าง",
           {
             "sub": "TTW เทียบกับ BAL",
             "body": [
@@ -1569,9 +1525,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "รายการที่เหลือคือ thoracocentesis และ sinus centesis โดยมีโน้ตกำกับว่า เวลาใส่ chest drain จะเย็บยึดสายแบบ **Chinese finger-trap pattern**"
-          },
+          "รายการที่เหลือคือ thoracocentesis และ sinus centesis โดยมีโน้ตกำกับว่า เวลาใส่ chest drain จะเย็บยึดสายแบบ **Chinese finger-trap pattern**",
           {
             "callout": "โน้ตเรื่อง Chinese finger-trap เขียนอยู่บนบรรทัด sinus centesis แต่เนื้อความพูดถึง chest drain ซึ่งเป็นของ thoracocentesis จึงน่าจะเป็นโน้ตที่เขียนล้นบรรทัด",
             "kind": "flag"
@@ -1635,9 +1589,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "แยกสาเหตุ head shaking (ตารางในเอกสาร)",
         "source": "Ekwai Med น.5",
         "body": [
-          {
-            "text": "เอกสารแนบตาราง 4 คอลัมน์ คือ ประเภท สาเหตุหลัก ลักษณะเฉพาะ และความสัมพันธ์กับการขี่"
-          },
+          "เอกสารแนบตาราง 4 คอลัมน์ คือ ประเภท สาเหตุหลัก ลักษณะเฉพาะ และความสัมพันธ์กับการขี่",
           {
             "sub": "Dental-related headshaking",
             "body": [
@@ -1840,9 +1792,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "ค่าเฝ้าระวังขณะวางยาสลบม้า (กล่องที่แทรกอยู่หน้าเดียวกัน)",
         "source": "Ekwai Med น.6",
         "body": [
-          {
-            "text": "หน้านี้มีกล่องค่าอ้างอิงขณะวางยาสลบแทรกอยู่ พร้อมดาวและขีดเส้นใต้เน้นที่บรรทัด PaO2"
-          },
+          "หน้านี้มีกล่องค่าอ้างอิงขณะวางยาสลบแทรกอยู่ พร้อมดาวและขีดเส้นใต้เน้นที่บรรทัด PaO2",
           {
             "bullets": [
               "Hemodynamics: **HR 30-45 ครั้งต่อนาที** และ **MBP 70-90 mmHg**",
@@ -1868,9 +1818,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "หลักการให้คะแนน POA ที่รุ่นพี่บันทึกไว้",
         "source": "Ekwai Med น.3",
         "body": [
-          {
-            "text": "ผู้เขียนสรุปเกณฑ์ที่ได้รับฟังหลังสอบไว้ว่า **คะแนนคิดจาก keyword** ถ้าตอบครบทุก keyword จะได้เต็มตามที่กำหนดไว้แต่ละข้อ ถ้าตอบขาดคะแนนก็ลดหลั่นตามที่ขาดไป"
-          },
+          "ผู้เขียนสรุปเกณฑ์ที่ได้รับฟังหลังสอบไว้ว่า **คะแนนคิดจาก keyword** ถ้าตอบครบทุก keyword จะได้เต็มตามที่กำหนดไว้แต่ละข้อ ถ้าตอบขาดคะแนนก็ลดหลั่นตามที่ขาดไป",
           {
             "callout": "อีกจุดที่บันทึกไว้คือมีข้อโบนัสที่ให้ **0 หรือ 5 คะแนนเท่านั้น ไม่มีคะแนนกลาง** ผู้เขียนจึงเตือนว่าต้องใช้ technical term ให้ครบ",
             "kind": "tip"
@@ -1885,9 +1833,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "POA1 ม้าผอม มีจุดเลือดออกที่ vulva mucosa",
         "source": "Ekwai Med น.3",
         "body": [
-          {
-            "text": "โจทย์ที่บันทึกไว้คือ ม้าตัวผอม มีวัวเลี้ยงรวมอยู่ข้าง ๆ ไม่เคยตรวจโรคก่อนซื้อ และพบจุดเลือดออกที่ vulva mucosa คำถามคือต้องการทำ diagnosis อะไรเพิ่มเติม"
-          },
+          "โจทย์ที่บันทึกไว้คือ ม้าตัวผอม มีวัวเลี้ยงรวมอยู่ข้าง ๆ ไม่เคยตรวจโรคก่อนซื้อ และพบจุดเลือดออกที่ vulva mucosa คำถามคือต้องการทำ diagnosis อะไรเพิ่มเติม",
           {
             "sub": "คำตอบที่บันทึกว่าได้คะแนน",
             "body": [
@@ -1925,9 +1871,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "POA1 ต่อ: การแปลผลเลือดและการอธิบายเจ้าของ",
         "source": "Ekwai Med น.3",
         "body": [
-          {
-            "text": "ข้อที่ให้แปลผลเลือด ผู้เขียนบันทึกว่า **ต้องตอบเป็น technical term ให้ครบ** ส่วนข้อโบนัสให้อธิบายเจ้าของว่าทำไมผลไม่ตรงกัน"
-          },
+          "ข้อที่ให้แปลผลเลือด ผู้เขียนบันทึกว่า **ต้องตอบเป็น technical term ให้ครบ** ส่วนข้อโบนัสให้อธิบายเจ้าของว่าทำไมผลไม่ตรงกัน",
           {
             "bullets": [
               "คำตอบที่บันทึกว่าถูกคือ **เคยติดเชื้อมาก่อนหน้านี้จึงตรวจเจอ** หรือ **ติดเชื้อจริงแต่ปริมาณเชื้อยังน้อย**",
@@ -1944,9 +1888,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "POA2 ม้าขาหลังซ้ายบวม",
         "source": "Ekwai Med น.3",
         "body": [
-          {
-            "text": "โจทย์มีคลิปให้ดู แต่ในโจทย์เขียนไว้แล้วว่าเจ็บขาหลังซ้าย ผู้เขียนแนะว่าตอบตามที่โจทย์ระบุได้เลย"
-          },
+          "โจทย์มีคลิปให้ดู แต่ในโจทย์เขียนไว้แล้วว่าเจ็บขาหลังซ้าย ผู้เขียนแนะว่าตอบตามที่โจทย์ระบุได้เลย",
           {
             "sub": "ภาพรังสี",
             "body": [
@@ -1981,9 +1923,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "ส่วน POA3 ผู้เขียนบันทึกสั้น ๆ ว่าทำกันได้เยอะ ไม่ค่อยมีปัญหา"
-          }
+          "ส่วน POA3 ผู้เขียนบันทึกสั้น ๆ ว่าทำกันได้เยอะ ไม่ค่อยมีปัญหา"
         ]
       },
       {
@@ -2006,9 +1946,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Post operative care (NSAID, ABO) จากเคสจริง",
         "source": "Ekwai Med น.4",
         "body": [
-          {
-            "text": "เคสที่เล่าคือม้าอุจจาระแดง ปวดท้องเกร็ง และถูกปฏิเสธการลงแข่ง ลำดับการไล่หาสาเหตุที่บันทึกไว้เป็นดังนี้"
-          },
+          "เคสที่เล่าคือม้าอุจจาระแดง ปวดท้องเกร็ง และถูกปฏิเสธการลงแข่ง ลำดับการไล่หาสาเหตุที่บันทึกไว้เป็นดังนี้",
           {
             "bullets": [
               "ส่องกล้องดู GI ulcer และวัด GI transit time ผลปกติหมด",
@@ -2079,9 +2017,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "หัวข้อที่รุ่นก่อนเจอในข้อสอบแล้วบันทึกไว้",
         "source": "Ekwai Med น.2 และ น.4",
         "body": [
-          {
-            "text": "ส่วนนี้เป็นบันทึกความจำหลังสอบ ไม่ใช่เนื้อหาที่เอกสารสอนไว้ จึงเก็บเป็นแนวหัวข้อให้เตรียมตัว ไม่ใช่คำตอบ"
-          },
+          "ส่วนนี้เป็นบันทึกความจำหลังสอบ ไม่ใช่เนื้อหาที่เอกสารสอนไว้ จึงเก็บเป็นแนวหัวข้อให้เตรียมตัว ไม่ใช่คำตอบ",
           {
             "bullets": [
               "สถานี POA ของรุ่นก่อนมี 3 ข้อ แบ่งเป็นด้าน infectious, lameness และ respiratory",
@@ -2130,9 +2066,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "ลำดับความสำคัญของอาหาร",
             "body": [
-              {
-                "text": "**Forage (หญ้า) เป็นอาหารหลัก** รองลงมาคือ grain & mixture และสุดท้ายคือ supplement ซึ่งควรให้น้อยมาก ต้องรู้ก่อนว่าในหญ้าขาดอะไรแล้วค่อยเติม **ไม่ใช่ให้อาหารเม็ดเป็นหลัก**"
-              }
+              "**Forage (หญ้า) เป็นอาหารหลัก** รองลงมาคือ grain & mixture และสุดท้ายคือ supplement ซึ่งควรให้น้อยมาก ต้องรู้ก่อนว่าในหญ้าขาดอะไรแล้วค่อยเติม **ไม่ใช่ให้อาหารเม็ดเป็นหลัก**"
             ]
           },
           {
@@ -2186,9 +2120,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "สัดส่วนพฤติกรรมในหนึ่งวัน",
             "body": [
-              {
-                "text": "กราฟวงกลมในเด็คแสดงพฤติกรรม 4 กลุ่มคือ eat, stand, lie และ other โดย **eat กินสัดส่วนมากที่สุดราว 60%** ซึ่งบ่งชี้ถึงการเลี้ยงแบบ grazing หรือ free access และ **lie อยู่ราว 5-15% ซึ่งค่อนข้างคงที่**"
-              },
+              "กราฟวงกลมในเด็คแสดงพฤติกรรม 4 กลุ่มคือ eat, stand, lie และ other โดย **eat กินสัดส่วนมากที่สุดราว 60%** ซึ่งบ่งชี้ถึงการเลี้ยงแบบ grazing หรือ free access และ **lie อยู่ราว 5-15% ซึ่งค่อนข้างคงที่**",
               {
                 "callout": "ตัวเลขที่เขียนกำกับด้วยลายมือข้างกราฟ (stand 25%, other 30%) รวมกับ eat 60% แล้วเกิน 100% และไม่ตรงกับตัวเลขบนกราฟที่พิมพ์ไว้ จึงไม่ถูกนำมาสรุปเป็นข้อเท็จจริงที่นี่",
                 "kind": "flag"
@@ -2277,9 +2209,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
                   "**Soybean meal 17.6 g** และ **sugar beet pulp 11.1 g** ซึ่งต่ำมาก"
                 ]
               },
-              {
-                "text": "ตาราง % starch เฉลี่ยที่เด็คคัดมา เรียงจากมากไปน้อย ได้แก่ corn 70.2, wheat 62.1, barley 54.9, rice bran 22.2, wheat bran 21.9, corn gluten meal 15.5, distillers grains 5.42, carrots 3.19, linseed meal 2.85, citrus pulp 2.08, soybean meal 1.76, soybean hulls 1.44, sugar beet pulp 1.11 และ molasses 0.94"
-              }
+              "ตาราง % starch เฉลี่ยที่เด็คคัดมา เรียงจากมากไปน้อย ได้แก่ corn 70.2, wheat 62.1, barley 54.9, rice bran 22.2, wheat bran 21.9, corn gluten meal 15.5, distillers grains 5.42, carrots 3.19, linseed meal 2.85, citrus pulp 2.08, soybean meal 1.76, soybean hulls 1.44, sugar beet pulp 1.11 และ molasses 0.94"
             ]
           }
         ]
@@ -2612,9 +2542,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "ลำดับการเรียงตัว",
             "body": [
-              {
-                "text": "**cecum → RVC → sternal flexure → LVC → pelvic flexure → LDC → diaphragmatic flexure → RDC → small colon (transverse colon → descending colon) → rectum**"
-              },
+              "**cecum → RVC → sternal flexure → LVC → pelvic flexure → LDC → diaphragmatic flexure → RDC → small colon (transverse colon → descending colon) → rectum**",
               {
                 "callout": "จุดที่จำง่ายคือ **ventral colon ไล่จากขวาไปซ้าย ส่วน dorsal colon ไล่กลับจากซ้ายไปขวา** โดยมี pelvic flexure เป็นจุดพลิก ซึ่งเป็นตำแหน่งที่เกิด impaction บ่อย",
                 "kind": "tip"
@@ -2733,9 +2661,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "EGGD: ulcer ที่ glandular region",
             "body": [
-              {
-                "text": "**พบไม่บ่อยเท่า และมักเกิดจากหลายสาเหตุร่วมกัน** เด็คระบุให้ไปอ่านรายละเอียดเพิ่มเติมเอง"
-              }
+              "**พบไม่บ่อยเท่า และมักเกิดจากหลายสาเหตุร่วมกัน** เด็คระบุให้ไปอ่านรายละเอียดเพิ่มเติมเอง"
             ]
           },
           {
@@ -2777,17 +2703,13 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "Signs",
             "body": [
-              {
-                "text": "มองท้อง **pawing (ขาคุ้ยเขี่ย)** ยืดท้อง หายใจเร็ว เหงื่อออกเยอะ เตะท้อง ล้มนอน กลิ้ง ซึ่งอันตรายมากเพราะ **กระเพาะแตกและลำไส้บิดได้**"
-              }
+              "มองท้อง **pawing (ขาคุ้ยเขี่ย)** ยืดท้อง หายใจเร็ว เหงื่อออกเยอะ เตะท้อง ล้มนอน กลิ้ง ซึ่งอันตรายมากเพราะ **กระเพาะแตกและลำไส้บิดได้**"
             ]
           },
           {
             "sub": "การซักประวัติต้องละเอียด",
             "body": [
-              {
-                "text": "กินอะไรมา ไปไหนมา ไปทำอะไรมา เจ็บแค่ไหน และได้รับยาอะไรมาก่อนหรือไม่"
-              }
+              "กินอะไรมา ไปไหนมา ไปทำอะไรมา เจ็บแค่ไหน และได้รับยาอะไรมาก่อนหรือไม่"
             ]
           }
         ]
@@ -2864,9 +2786,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Composite colic score (CCS)",
         "source": "Equine Med 85 น.18",
         "body": [
-          {
-            "text": "**ใช้ประเมินว่าจะรักษาต่ออย่างไร** โดยดูค่าจากหลายพารามิเตอร์รวมกัน"
-          },
+          "**ใช้ประเมินว่าจะรักษาต่ออย่างไร** โดยดูค่าจากหลายพารามิเตอร์รวมกัน",
           {
             "bullets": [
               "พารามิเตอร์ที่ใช้: **HR, RR, temperature, CRT, gut sound, mucous membrane, lactate, ผล NG tube, rectal palpation, ultrasound, ปริมาณอุจจาระ, การตอบสนองต่อยาลดปวด และท้องกาง**",
@@ -2912,41 +2832,31 @@ export const NOTES_85_EQUINE_MEDICINE = {
           {
             "sub": "Spasmodic colic",
             "body": [
-              {
-                "text": "**เจอบ่อย เกิดจาก pain from intestinal spasm ระหว่างการ peristalsis** Tx คือ **xylazine และ buscopan**"
-              }
+              "**เจอบ่อย เกิดจาก pain from intestinal spasm ระหว่างการ peristalsis** Tx คือ **xylazine และ buscopan**"
             ]
           },
           {
             "sub": "Pelvic flexure impaction",
             "body": [
-              {
-                "text": "**มักเกิดในม้าที่ไม่ได้เคลื่อนไหว เช่น ขาเจ็บ หรือช่วงฤดูหนาว** Tx คือ **NG ใส่น้ำและพาราฟิน ให้ IV fluid และผ่าตัดถ้าจำเป็น** รุ่นพี่กำกับไว้ว่าออกเป็นเคส"
-              }
+              "**มักเกิดในม้าที่ไม่ได้เคลื่อนไหว เช่น ขาเจ็บ หรือช่วงฤดูหนาว** Tx คือ **NG ใส่น้ำและพาราฟิน ให้ IV fluid และผ่าตัดถ้าจำเป็น** รุ่นพี่กำกับไว้ว่าออกเป็นเคส"
             ]
           },
           {
             "sub": "Nephrosplenic entrapment",
             "body": [
-              {
-                "text": "**Colon ขยับขึ้นไปอยู่ในช่องว่างระหว่างไตซ้ายกับม้าม** Dx ด้วย ultrasound จะ **ไม่เห็นม้ามและไต แต่เจอแก๊สใน colon บังอยู่**"
-              }
+              "**Colon ขยับขึ้นไปอยู่ในช่องว่างระหว่างไตซ้ายกับม้าม** Dx ด้วย ultrasound จะ **ไม่เห็นม้ามและไต แต่เจอแก๊สใน colon บังอยู่**"
             ]
           },
           {
             "sub": "GI displacement",
             "body": [
-              {
-                "text": "**ในม้ามักต้องผ่าตัดรักษา**"
-              }
+              "**ในม้ามักต้องผ่าตัดรักษา**"
             ]
           },
           {
             "sub": "Sand colic",
             "body": [
-              {
-                "text": "**อาจทำให้อุดตัน เจอบ่อยในไทย** ตรวจเบื้องต้นโดย **เอาอุจจาระไปละลายน้ำแล้วดูทรายที่ตกตะกอน** รุ่นพี่กำกับไว้ว่าออกเป็นเคส"
-              }
+              "**อาจทำให้อุดตัน เจอบ่อยในไทย** ตรวจเบื้องต้นโดย **เอาอุจจาระไปละลายน้ำแล้วดูทรายที่ตกตะกอน** รุ่นพี่กำกับไว้ว่าออกเป็นเคส"
             ]
           }
         ]
@@ -3084,9 +2994,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "ASA physical status classification",
         "source": "Equine Sx concept น.9",
         "body": [
-          {
-            "text": "สไลด์ยกตารางมาเต็ม พร้อมคอลัมน์ตัวอย่าง lab ที่แนะนำและพยากรณ์โรค โดยกรอบสีชมพูเน้นที่แถว class I"
-          },
+          "สไลด์ยกตารางมาเต็ม พร้อมคอลัมน์ตัวอย่าง lab ที่แนะนำและพยากรณ์โรค โดยกรอบสีชมพูเน้นที่แถว class I",
           {
             "sub": "ระดับ I ถึง V",
             "body": [
@@ -3114,9 +3022,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Field-based surgery คืออะไร และเตรียมสัตว์อย่างไร",
         "source": "Equine Sx concept น.24 และ น.25",
         "body": [
-          {
-            "text": "นิยามบนสไลด์คือ **การวางยานอกโรงพยาบาล มักอยู่ในพื้นที่ชนบทหรือสถานการณ์ฉุกเฉิน** จำเป็นสำหรับ **minor surgery หรือการวินิจฉัย** เช่น การตอนและการเย็บแผล"
-          },
+          "นิยามบนสไลด์คือ **การวางยานอกโรงพยาบาล มักอยู่ในพื้นที่ชนบทหรือสถานการณ์ฉุกเฉิน** จำเป็นสำหรับ **minor surgery หรือการวินิจฉัย** เช่น การตอนและการเย็บแผล",
           {
             "sub": "Animal preparation",
             "body": [
@@ -3206,9 +3112,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "ภาพผลิตภัณฑ์บนสไลด์แสดงยาที่ใช้จริง ได้แก่ ยากลุ่ม NSAID, butorphanol และ **mepivacaine** สำหรับ local anesthesia"
-          },
+          "ภาพผลิตภัณฑ์บนสไลด์แสดงยาที่ใช้จริง ได้แก่ ยากลุ่ม NSAID, butorphanol และ **mepivacaine** สำหรับ local anesthesia",
           {
             "callout": "สไลด์สะกดคำว่า Mehadone ซึ่งคือ methadone",
             "kind": "flag"
@@ -3405,9 +3309,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               "**ม้ามีการตอบสนองแบบอักเสบที่ช้ากว่า จึงเสี่ยงติดเชื้อสูงกว่า และ NSAIDs อาจรบกวนการหายของแผล**"
             ]
           },
-          {
-            "text": "ลายมือบนภาพชุดเคสจริงอธิบายว่า เย็บแผลติดกันได้ ตัวอย่างคือเคสผ่า sarcoid แถวแก้ม ซึ่งวันที่ 8 หลังผ่ามีหนอง แผลแยก ต้องรักษาเป็นแผลเปิด และใช้เวลาราวเดือนครึ่งจึงเข้าที่ ส่วนเคส pony ที่มีแผลตรงข้อ carpus ซึ่งมีความตึงมาก ถ้าเย็บได้และคุม infection ได้มักจะหาย โดย 2 สัปดาห์ก็เกือบหายแล้ว ซึ่งต่างจากม้ามาก"
-          }
+          "ลายมือบนภาพชุดเคสจริงอธิบายว่า เย็บแผลติดกันได้ ตัวอย่างคือเคสผ่า sarcoid แถวแก้ม ซึ่งวันที่ 8 หลังผ่ามีหนอง แผลแยก ต้องรักษาเป็นแผลเปิด และใช้เวลาราวเดือนครึ่งจึงเข้าที่ ส่วนเคส pony ที่มีแผลตรงข้อ carpus ซึ่งมีความตึงมาก ถ้าเย็บได้และคุม infection ได้มักจะหาย โดย 2 สัปดาห์ก็เกือบหายแล้ว ซึ่งต่างจากม้ามาก"
         ]
       },
       {
@@ -3421,9 +3323,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
               "**ในม้า การหดตัวของแผลขับเคลื่อนโดยการเรียงตัวของ myofibroblast และ TGF-beta แต่การหดตัวเกิดช้าและไม่มีประสิทธิภาพ**"
             ]
           },
-          {
-            "text": "กราฟเปรียบเทียบพื้นที่แผลใช้ตัวย่อ 4 กลุ่ม โดยลายมือแปลไว้ว่า HMT คือ horse metatarsal และ HB คือ horse body ส่วน PMT และ PB คือของ pony ในตำแหน่งเดียวกัน จะเห็นว่าเส้น HMT (แผลขาของม้า) ลดพื้นที่ช้าที่สุดและยังไม่ปิดที่สัปดาห์ที่ 12"
-          },
+          "กราฟเปรียบเทียบพื้นที่แผลใช้ตัวย่อ 4 กลุ่ม โดยลายมือแปลไว้ว่า HMT คือ horse metatarsal และ HB คือ horse body ส่วน PMT และ PB คือของ pony ในตำแหน่งเดียวกัน จะเห็นว่าเส้น HMT (แผลขาของม้า) ลดพื้นที่ช้าที่สุดและยังไม่ปิดที่สัปดาห์ที่ 12",
           {
             "callout": "ลายมือเสริมว่าที่แผลขาแย่กว่า น่าจะเพราะบริเวณนั้นขยับเยอะ และคำว่า limb ในสไลด์หมายถึงขาส่วนปลาย (distal)",
             "kind": "tip"
@@ -3443,9 +3343,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
                   "**ม้า: เริ่มอ่อนแรง แต่คงอยู่เรื้อรัง จึงนำไปสู่การหดตัวที่ช้า การเกิด EGT และ epithelialization ที่ไม่ดี**"
                 ]
               },
-              {
-                "text": "ภาพเปรียบเทียบวันที่ 21 แสดงชัดว่าแผลม้า (H1 LMT) มี overgranulation tissue นูนปูดขึ้นมา ขณะที่แผล pony (P1 LMT) ยังเรียบ"
-              }
+              "ภาพเปรียบเทียบวันที่ 21 แสดงชัดว่าแผลม้า (H1 LMT) มี overgranulation tissue นูนปูดขึ้นมา ขณะที่แผล pony (P1 LMT) ยังเรียบ"
             ]
           },
           {
@@ -3468,9 +3366,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
                   "**ม้า: epithelialization มากเกินไป จึงได้แผลเป็นที่เปราะและคุณภาพด้อย**"
                 ]
               },
-              {
-                "text": "ลายมือบนภาพวันที่ 28 ระบุว่าแผลม้าตะปุ่มตะป่ำ เป็น poor quality scar และอาจมีการติดเชื้อร่วมด้วย ส่วน pony ที่ขาเกือบหายแล้ว และวันที่ 63 แผลที่ตัวม้าเพิ่งมี epithelialization ขณะที่ pony ละหายจนแทบไม่เหลือร่องรอย"
-              }
+              "ลายมือบนภาพวันที่ 28 ระบุว่าแผลม้าตะปุ่มตะป่ำ เป็น poor quality scar และอาจมีการติดเชื้อร่วมด้วย ส่วน pony ที่ขาเกือบหายแล้ว และวันที่ 63 แผลที่ตัวม้าเพิ่งมี epithelialization ขณะที่ pony ละหายจนแทบไม่เหลือร่องรอย"
             ]
           }
         ]
@@ -3495,9 +3391,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Exuberant granulation tissue (EGT)",
         "source": "Equine Sx concept น.44 และ น.45",
         "body": [
-          {
-            "text": "นิยาม: **การเจริญของ granulation tissue มากเกินจนสูงพ้นระดับผิวหนังโดยรอบ พบบ่อยที่แผลบริเวณขาส่วนปลาย (distal limb) ของม้า**"
-          },
+          "นิยาม: **การเจริญของ granulation tissue มากเกินจนสูงพ้นระดับผิวหนังโดยรอบ พบบ่อยที่แผลบริเวณขาส่วนปลาย (distal limb) ของม้า**",
           {
             "sub": "Etiology และปัจจัยโน้มนำ",
             "body": [
@@ -3552,24 +3446,18 @@ export const NOTES_85_EQUINE_MEDICINE = {
               }
             ]
           },
-          {
-            "text": "ลายมือข้างภาพเคสยังเตือนภาวะอื่นที่มาคู่กันได้ คือ laminitis และ hygroma บริเวณศอกในม้าที่นอนเยอะจนบวมน้ำและแตก ซึ่งผ่าแล้วก็ยังไม่หาย"
-          }
+          "ลายมือข้างภาพเคสยังเตือนภาวะอื่นที่มาคู่กันได้ คือ laminitis และ hygroma บริเวณศอกในม้าที่นอนเยอะจนบวมน้ำและแตก ซึ่งผ่าแล้วก็ยังไม่หาย"
         ]
       },
       {
         "heading": "โครงสร้าง bandage สามชั้น",
         "source": "Equine Sx concept น.46",
         "body": [
-          {
-            "text": "ลายมือเปิดหัวข้อว่า bandage สำคัญมากในม้า เพราะทำหน้าที่ทั้งทำแผลและ support โครงสร้างไปพร้อมกัน"
-          },
+          "ลายมือเปิดหัวข้อว่า bandage สำคัญมากในม้า เพราะทำหน้าที่ทั้งทำแผลและ support โครงสร้างไปพร้อมกัน",
           {
             "sub": "Contact หรือ primary layer",
             "body": [
-              {
-                "text": "ชั้นที่สัมผัสแผลโดยตรง ลายมือกำกับว่าใช้แผ่นตาข่ายหรือแผ่นปิดแผลชนิดไม่ติดแผล"
-              },
+              "ชั้นที่สัมผัสแผลโดยตรง ลายมือกำกับว่าใช้แผ่นตาข่ายหรือแผ่นปิดแผลชนิดไม่ติดแผล",
               {
                 "callout": "ลายมือเขียนชื่อวัสดุไว้ว่า Mylolin ซึ่งอ่านได้เท่านี้และไม่มีบนสไลด์ จึงไม่ยืนยันชื่อการค้าที่แน่นอน",
                 "kind": "flag"
@@ -3585,9 +3473,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
                   "ใช้ roll cotton, sheet cotton หรือสำลีร่วมกับ conforming gauze"
                 ]
               },
-              {
-                "text": "ลายมือย้ำว่าต้องเป็นวัสดุที่ไม่บาดผิว"
-              }
+              "ลายมือย้ำว่าต้องเป็นวัสดุที่ไม่บาดผิว"
             ]
           },
           {
@@ -3649,9 +3535,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Carpal และ tarsal bandage",
         "source": "Equine Sx concept น.50 และ น.51",
         "body": [
-          {
-            "text": "วัตถุประสงค์: **ให้การพยุงและปกป้องบริเวณ carpus หรือ tarsus และข้อข้างเคียง** ใช้บ่อยหลังการบาดเจ็บ หลังผ่าตัด หรือเพื่อควบคุมอาการบวม (ลายมือเสริมว่าใช้กับเข่าที่มีแผล การเจาะข้อ และการฉีดยาเข้าข้อ)"
-          },
+          "วัตถุประสงค์: **ให้การพยุงและปกป้องบริเวณ carpus หรือ tarsus และข้อข้างเคียง** ใช้บ่อยหลังการบาดเจ็บ หลังผ่าตัด หรือเพื่อควบคุมอาการบวม (ลายมือเสริมว่าใช้กับเข่าที่มีแผล การเจาะข้อ และการฉีดยาเข้าข้อ)",
           {
             "sub": "ขั้นตอน",
             "body": [
@@ -3675,9 +3559,7 @@ export const NOTES_85_EQUINE_MEDICINE = {
         "heading": "Robert Jones bandage",
         "source": "Equine Sx concept น.52 และ น.53",
         "body": [
-          {
-            "text": "นิยาม: **bandage แบบ full-limb ชนิดพิเศษ ออกแบบมาเพื่อให้ความแข็งแรง แรงกด และการปกป้อง สำหรับการบาดเจ็บของเนื้อเยื่ออ่อนที่รุนแรงหรือกระดูกหัก** (ลายมือระบุตำแหน่งที่ใช้คือ humerus, tibia, tendon injury และ fracture)"
-          },
+          "นิยาม: **bandage แบบ full-limb ชนิดพิเศษ ออกแบบมาเพื่อให้ความแข็งแรง แรงกด และการปกป้อง สำหรับการบาดเจ็บของเนื้อเยื่ออ่อนที่รุนแรงหรือกระดูกหัก** (ลายมือระบุตำแหน่งที่ใช้คือ humerus, tibia, tendon injury และ fracture)",
           {
             "sub": "Application technique",
             "body": [
