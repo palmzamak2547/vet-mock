@@ -8,7 +8,7 @@ import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
-import { hasTable } from '../lib/rich-blocks.js';
+import { hasTable, spokenStem } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -147,13 +147,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
     album: SUBJECTS.find((s) => s.id === currentQ.subject)?.name || '',
     subject: currentQ.subject,
-    stem: currentQ.q || '',
+    stem: spokenStem(currentQ),
     options: Array.isArray(currentQ.options) ? getShuffledOptions(currentQ).displayOptions.map(String) : [],
     explain: currentQ.explain || '',
     // The element a piece is read from: the phrase highlight and the scroll
     // that keeps it above the bar use it. An option's row for its label too.
+    // A stem read from `say` is not the text on screen, so no phrase is marked in it.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? stemRef.current : explainRef.current)
+      ? (what === 'q' ? (currentQ.say ? null : stemRef.current) : explainRef.current)
       : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
   });
 

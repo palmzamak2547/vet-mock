@@ -92,6 +92,15 @@ export function splitBlocks(text) {
   return blocks;
 }
 
+/**
+ * The stem a voice reads. A question whose numbers were moved out of the stem
+ * into a passage table keeps the sentence that says them in `say`, because a
+ * passage is not read aloud: the voice still says every number, and a clip
+ * recorded for that sentence keeps its name. Every other question reads `q`.
+ * The card and the clip generator both ask here, so they name the same clip.
+ */
+export const spokenStem = (q) => (typeof q?.say === 'string' && q.say ? q.say : q?.q || '');
+
 /** A passage that is the question's data rather than a text to read. */
 export const hasTable = (text) => splitBlocks(text).some((b) => b.type === 'table');
 

@@ -148,3 +148,28 @@ test('a highlight stays on its words around a table, and a table takes none', as
   await page.getByRole('button').filter({ has: page.getByText('ข้อที่มีตาราง', { exact: true }) }).click();
   await expect(page.locator('.vmx-q-passage-pane mark')).toHaveText([lead.text, between.text], { timeout: 30_000 });
 });
+
+test('a stem whose numbers moved to a table is still read aloud with them', async ({ page }) => {
+  // The lowest such question whose spoken sentence holds a number its stem on screen does not.
+  const numbers = (s) => String(s).match(/\d+/g) || [];
+  const q = await pick((x) => typeof x.say === 'string' && x.type === 'mcq' && tablesIn(x.passage).length > 0
+    && numbers(x.say).some((n) => !numbers(x.q).includes(n)));
+  expect(q, 'no question keeps a spoken stem any more').toBeTruthy();
+  const heard = numbers(q.say).filter((n) => !numbers(q.q).includes(n));
+
+  // No recorded clip for it here, so the live voice is asked: what it is asked to say is the test.
+  const said = [];
+  await page.route('https://tts.vetmock.com/**', (route) => route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: '' }));
+  await page.route('**/api/tts*', (route) => {
+    const body = route.request().postData() || '';
+    try { said.push(JSON.parse(Buffer.from(body.replace(/^b64:/, ''), 'base64').toString('utf8')).text); } catch { said.push(body); }
+    return route.fulfill({ status: 502, body: 'no' });
+  });
+
+  await openPinned(page, q);
+  await expect(page.locator('.vmx-q-passage-pane table.vmx-qtable').first()).toBeVisible();
+  await expect(page.locator('h2.vmx-qtext')).toHaveText(q.q);
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  await expect.poll(() => said.length, { timeout: 30_000 }).toBeGreaterThan(0);
+  await expect.poll(() => heard.filter((n) => !said.join(' ').includes(n)), { timeout: 30_000, message: 'numbers the voice was never asked to say' }).toEqual([]);
+});
