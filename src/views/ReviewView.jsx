@@ -11,6 +11,7 @@ import SmartGrader from '../components/SmartGrader.jsx';
 import { MatchReview } from '../components/AnswerReveal.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
+import EvidenceSlot from '../components/EvidenceSlot.jsx';
 import { copyShareUrl } from '../lib/share-link.js';
 import NavIcon from '../components/NavIcon.jsx';
 
@@ -502,6 +503,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 maxHeight={320}
               />
             )}
+            {q.type !== 'match' && <EvidenceSlot q={q} late />}
             {/* For a missed question, offer the checked VetWiki summary — the
                 highest-value moment to read the verified version. Correct
                 answers don't need the nudge. */}

@@ -110,7 +110,7 @@ test('requireChula answers the refusal uncached and returns null', async () => {
 });
 
 test('every function is behind the gate or open on purpose, and a new one must say which', () => {
-  const gated = ['ai-chat', 'ai-transcribe', 'agent-action', 'exam-result', 'external-connect', 'external-connect-start',
+  const gated = ['ai-chat', 'ai-transcribe', 'agent-action', 'evidence-pass', 'exam-result', 'external-connect', 'external-connect-start',
     'fetch-external-doc', 'grade-summary', 'library-file', 'list-external-files', 'mochi-voice', 'race-start', 'ai-voice',
     'study-coach', 'transcribe-handwriting', 'tts', 'tts-iapp', 'video-file', 'wiki-explain'];
   for (const name of gated) {

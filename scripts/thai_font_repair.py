@@ -233,6 +233,15 @@ def glyph_map(sub):
     return m, key, unresolved
 
 
+def pdf_name(name):
+    """A font name as a PDF name object. xref_get_key hands back "/BCDEEE+TH SarabunPSK,Bold" with its space decoded,
+    and writing that back raw is refused ("bad 'value'"), which made every document set in TH SarabunPSK, Aptos Narrow
+    or any face with a space in its name unreadable to library-pages.py (found 11 Nov 2026)."""
+    body = name.lstrip('/')
+    return '/' + ''.join(c if '!' <= c <= '~' and c not in '#()<>[]{}/%' else ''.join(f'#{b:02X}' for b in c.encode('utf-8'))
+                         for c in body)
+
+
 def tag_fonts(doc, cache):
     """Name every embedded font after its xref ("AAABBL+CordiaNew" -> "AAABBL+CordiaNew_x776"), in this open copy
     only, so each traced span names the subset that drew it. MuPDF drops the subset tag, and one page can embed
@@ -257,7 +266,7 @@ def tag_fonts(doc, cache):
             for t in targets:
                 kind, name = doc.xref_get_key(t, 'BaseFont')
                 if kind == 'name' and not name.endswith(f'_x{xref}'):
-                    doc.xref_set_key(t, 'BaseFont', f'{name}_x{xref}')
+                    doc.xref_set_key(t, 'BaseFont', pdf_name(f'{name}_x{xref}'))
 
 
 def advances(sub):
