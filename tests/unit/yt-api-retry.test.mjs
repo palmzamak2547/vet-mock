@@ -29,6 +29,9 @@ function cut(start, end) {
 
 const LOADER = cut('let __ytApiPromise = null;', '\n  return __ytApiPromise;\n}\n');
 const PLAYER_EFFECT = cut('// Mount one YT.Player per (currentVideoId, playlistId) tuple.', '}, [currentVideoId, playlistId, ownStatus]);');
+// The host the player is framed from, a module constant the effect reads
+// (docs/VIDEO-LIBRARY.md section 5; tests/unit/video-embed-host.test.mjs).
+const EMBED_HOST = /^const YT_EMBED_HOST = '([^']+)';$/m.exec(SRC)?.[1];
 
 // A page: the <script> tags the loader adds, and the window YouTube's script
 // would install YT on.
@@ -111,6 +114,7 @@ function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null, ownSta
     playlistId,
     ownStatus,
     startAt: 0,
+    YT_EMBED_HOST: EMBED_HOST,
     ytContainerRef: { current: container },
     playerRef: { current: null },
     loadYouTubeIframeAPI: () => api(YT),
@@ -151,6 +155,7 @@ test('opening a clip clears the previous failure', async () => {
   assert.equal(p.seen.failed[0], false);
   assert.equal(p.seen.failed.includes(true), false);
   assert.equal(p.seen.players.length, 1);
+  assert.equal(p.seen.players[0].opts.host, 'https://www.youtube-nocookie.com', 'the player is framed from the privacy-enhanced host');
 });
 
 test('no player mounts after the modal closed', async () => {

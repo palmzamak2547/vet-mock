@@ -71,6 +71,14 @@ async function loadVideoSummaryEntry(videoId) {
 // Loads https://www.youtube.com/iframe_api once per page-load and
 // resolves when window.YT is ready. Multiple player instances share
 // the same script + the same readiness promise.
+//
+// The player itself is framed from YouTube's privacy-enhanced host, as
+// docs/VIDEO-LIBRARY.md section 5 specifies and vercel.json's frame-src and
+// Permissions-Policy have allowed from the start: it sets no cookie on a
+// student who has not pressed play. The code framed www.youtube.com until
+// 11 Nov 2026. Both the API player (its `host`) and the playlist-only frame
+// use it.
+const YT_EMBED_HOST = 'https://www.youtube-nocookie.com';
 let __ytApiPromise = null;
 function loadYouTubeIframeAPI() {
   if (typeof window === 'undefined') return Promise.reject(new Error('no window'));
@@ -1134,10 +1142,10 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   let embedUrl = null;
   if (currentVideoId) {
     embedUrl = playlistId
-      ? `https://www.youtube.com/embed/${currentVideoId}?autoplay=1&list=${playlistId}&rel=0&modestbranding=1`
-      : `https://www.youtube.com/embed/${currentVideoId}?autoplay=1&rel=0&modestbranding=1`;
+      ? `${YT_EMBED_HOST}/embed/${currentVideoId}?autoplay=1&list=${playlistId}&rel=0&modestbranding=1`
+      : `${YT_EMBED_HOST}/embed/${currentVideoId}?autoplay=1&rel=0&modestbranding=1`;
   } else if (playlistId) {
-    embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistId}&rel=0&modestbranding=1`;
+    embedUrl = `${YT_EMBED_HOST}/embed/videoseries?list=${playlistId}&rel=0&modestbranding=1`;
   }
 
   // ── YT.Player wrapper (replaces raw <iframe>) ───────────────────
@@ -1206,6 +1214,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         // YT.Player replaces the target node with its own iframe. We render
         // a fresh inner <div> each time (keyed below) so this is safe.
         player = new YT.Player(ytContainerRef.current, {
+          host: YT_EMBED_HOST,
           videoId: currentVideoId,
           playerVars: {
             autoplay: 1,

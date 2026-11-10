@@ -39,7 +39,7 @@ const PLAYLIST = {
 // chrome with youtube.com blocked. The summary button reads only the clip's
 // metadata, never the player.
 test.beforeEach(async ({ page }) => {
-  await page.route(/https:\/\/(?:[^/]+\.)?(?:youtube\.com|ytimg\.com)\//, (route) => route.abort());
+  await page.route(/https:\/\/(?:[^/]+\.)?(?:youtube\.com|youtube-nocookie\.com|ytimg\.com)\//, (route) => route.abort());
 });
 
 // STAB-09: this family failed on Firefox and WebKit in 8 of 19 local gates,
