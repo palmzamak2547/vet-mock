@@ -108,6 +108,16 @@ export function splitBlocks(text) {
 export const wholeStem = (q) => (typeof q?.say === 'string' && q.say ? q.say : q?.q || '');
 
 /**
+ * The passage a reader of `wholeStem(q)` still needs: none when `say` holds the whole sentence
+ * (its numbers would be said twice), else the passage itself. The wrong-answer coach shows it to
+ * the model, and its footer names it, by this one rule.
+ */
+export const passageBesideStem = (q) => {
+  if (typeof q?.say === 'string' && q.say) return '';
+  return typeof q?.passage === 'string' ? q.passage.trim() : '';
+};
+
+/**
  * The explanation as one paragraph. An explanation laid out as steps, lines and a table for the eye
  * keeps the paragraph it was written as in `explainSay`; for every other question it is `explain`.
  * The voice reads it (in the card and in the clip generator alike, so a recorded clip keeps its name),
