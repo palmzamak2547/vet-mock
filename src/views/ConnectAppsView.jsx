@@ -209,10 +209,11 @@ function AnkiSection({ history }) {
       await loadQB();
       const questions = QB.filter((q) => keys.has(historyKey(q.subject, q.id)) && isQuestionDeliverable(q));
       const label = kind === 'pins' ? 'ข้อที่ปักหมุด' : 'ข้อที่ยังตอบผิด';
-      const { text, count } = ankiText(questions, { deck: `VetMock::${label}` });
-      if (!count) { setState({ busy: '', done: 'ไม่มีข้อที่ส่งออกได้ในชุดนี้' }); return; }
+      const { text, count, noFigure } = ankiText(questions, { deck: `VetMock::${label}` });
+      const leftOut = noFigure ? ` ไม่ได้ส่ง ${noFigure} ข้อที่ต้องดูภาพประกอบ เพราะภาพนั้นเปิดนอกแอปไม่ได้` : '';
+      if (!count) { setState({ busy: '', done: `ไม่มีข้อที่ส่งออกได้ในชุดนี้${leftOut}` }); return; }
       download(`vetmock-${kind === 'pins' ? 'pinned' : 'mistakes'}.txt`, text);
-      setState({ busy: '', done: `ดาวน์โหลดแล้ว ${count} การ์ด เปิด Anki บนคอมพิวเตอร์ เลือก File แล้ว Import แล้วเลือกไฟล์นี้ การ์ดจะเข้าเด็ค ${label}` });
+      setState({ busy: '', done: `ดาวน์โหลดแล้ว ${count} การ์ด เปิด Anki บนคอมพิวเตอร์ เลือก File แล้ว Import แล้วเลือกไฟล์นี้ การ์ดจะเข้าเด็ค ${label}${leftOut}` });
     } catch {
       setState({ busy: '', done: 'โหลดข้อสอบไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง' });
     }

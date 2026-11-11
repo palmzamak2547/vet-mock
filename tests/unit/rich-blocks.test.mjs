@@ -180,3 +180,40 @@ test('a stem may point at a table only when the question carries one', async () 
   assert.equal(namesDocument({ q: 'จากตาราง odds ratio คำนวณจากข้อใด', passage: 'เนื้อเรื่องที่ไม่มีตาราง' }), true);
   assert.equal(namesDocument({ q: 'จากตารางในสไลด์ odds ratio คำนวณจากข้อใด', passage }), true, 'a slide is still a document');
 });
+
+// An explanation laid out as steps keeps the paragraph it was written as in `explainSay`: the voice, the
+// coach and the AI's corpus read the paragraph, and a clip recorded for it keeps its name.
+test('the whole explanation is `explainSay` where a question has one, and it holds the figures on screen', async () => {
+  const { wholeExplain } = await import('../../src/lib/rich-blocks.js');
+  assert.equal(wholeExplain({ explain: 'steps', explainSay: 'the paragraph' }), 'the paragraph');
+  assert.equal(wholeExplain({ explain: 'steps' }), 'steps');
+  assert.equal(wholeExplain({ explain: 'steps', explainSay: '' }), 'steps');
+  assert.equal(wholeExplain(null), '');
+
+  const q = (over) => ({
+    subject: 's', id: 1, type: 'mcq', q: 'ค่า relative risk เท่ากับเท่าใด', options: ['0.6', '1.5', '3.0', '6.0'],
+    explain: '**แทนค่า** (30/50) / (20/100) = 3.0\n\n❌ ทำไมข้ออื่นผิด\n— 0.6 คือ incidence ของกลุ่มสัมผัส',
+    explainSay: 'RR = (30/50) / (20/100) = 3.0 ค่า 0.6 คือ incidence ของกลุ่มสัมผัส',
+    ...over,
+  });
+  const messages = (over) => lintQuestionTables([q(over)]).problems.join('\n');
+  assert.equal(messages({}), '');
+  // A figure the paragraph says and the screen dropped, and one the screen brings from nowhere.
+  assert.match(messages({ explain: '**แทนค่า** (30/50) / (20/100) = 3.0' }), /voice says 0\.6, which the explanation on screen does not show/);
+  assert.match(messages({ explain: '**แทนค่า** (30/50) / (20/100) = 3.0\n0.6 คือ incidence 77' }), /shows 77, which neither its paragraph nor the question holds/);
+  // A figure that comes from an option is the question's own.
+  assert.equal(messages({ explain: '**แทนค่า** (30/50) / (20/100) = 3.0\n— "6.0" และ 0.6 ไม่ใช่ RR' }), '');
+  assert.match(messages({ explainSay: q({}).explain }), /differs from the explanation/);
+  assert.match(messages({ explainSay: '| a | b |' }), /explainSay: a table row/);
+
+  // The bank: every kept paragraph belongs to an explanation that is laid out on more than one line.
+  let kept = 0;
+  for (const file of bankFiles('src/data')) {
+    for (const question of (await readBank(file)).questions) {
+      if (question.explainSay == null) continue;
+      kept++;
+      assert.ok(question.explain.includes('\n'), `${question.subject}:${question.id} keeps a paragraph beside an explanation of one line`);
+    }
+  }
+  assert.ok(kept >= 16, `${kept} explanations keep their paragraph`);
+});

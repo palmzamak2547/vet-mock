@@ -33,7 +33,7 @@ import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kv
 import { chatJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
-import { wholeStem } from '../src/lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -107,7 +107,7 @@ async function buildMiss(body) {
     `OPTIONS:\n${optionList}`,
     `CORRECT: ${correct}`,
     `STUDENT PICKED: ${picked}`,
-    q.explain ? `EXPLANATION FROM THE QUESTION BANK: ${q.explain}` : '',
+    q.explain ? `EXPLANATION FROM THE QUESTION BANK: ${wholeExplain(q)}` : '',
   ].filter(Boolean).join('\n\n');
 
   return {

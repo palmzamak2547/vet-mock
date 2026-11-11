@@ -98,18 +98,19 @@ test('chatJSON returns the first provider answer', async () => {
   // budget went to reasoning_content and content came back EMPTY (probed live)
 });
 
-test('an empty content (thinking ate the budget) falls to the alias', async () => {
+test('an empty content (thinking ate the budget) falls to the next provider', async () => {
   const calls = [];
   const out = await withFetch(async (url, init) => {
     const body = JSON.parse(init.body);
     calls.push({ model: body.model, thinking: body.thinking?.type || null });
     if (calls.length === 1) return jsonRes({ choices: [{ message: { content: '', reasoning_content: 'x'.repeat(50) } }] });
-    return jsonRes({ choices: [{ message: { content: '{"ok":1}' } }] });
-  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'k' } }));
+    return jsonRes({ content: [{ type: 'text', text: '{"ok":1}' }] });
+  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'k', ANTHROPIC_API_KEY: 'a', AI_GRADER_MODEL: 'claude-test' } }));
   assert.equal(out.ok, true);
-  assert.equal(out.model, 'deepseek-chat');
+  assert.equal(out.model, 'claude-test');
   assert.equal(calls[0].thinking, 'disabled');
-  assert.equal(calls[1].thinking, null);
+  // deepseek-chat (discontinued 24 Jul 2026) is no longer asked in between
+  assert.deepEqual(calls.map((c) => c.model), ['deepseek-flash', 'claude-test']);
 });
 
 test('all providers down → not ok, with the last status', async () => {
@@ -129,8 +130,8 @@ test('a transport exception gives the next provider a chance within the same bud
   let calls = 0;
   const out = await withFetch(async () => {
     if (++calls === 1) throw new Error('connection reset');
-    return jsonRes({ choices: [{ message: { content: '{"claims":[]}' } }] });
-  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'test' } }));
+    return jsonRes({ content: [{ type: 'text', text: '{"claims":[]}' }] });
+  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'test', ANTHROPIC_API_KEY: 'a', AI_GRADER_MODEL: 'claude-test' } }));
   assert.equal(out.ok, true);
   assert.equal(calls, 2);
 });

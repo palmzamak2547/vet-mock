@@ -348,8 +348,16 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "one-health",
+      "zoonoses"
+    ],
+    "topics": [
+      "oh-disease-prevention",
+      "zoo-intro",
+      "zoo-ai-basic",
+      "zoo-siv-civ"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/118",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",
@@ -762,7 +770,8 @@ export const INSTRUCTOR_DIRECTORY = [
       "ART",
       "wild-felid-conservation",
       "cryopreservation",
-      "conservation-reproduction"
+      "conservation-reproduction",
+      "mahahon-art"
     ],
     "profiles": {
       "openalex": "https://openalex.org/A5043997985",
@@ -1681,12 +1690,17 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "aquatic"
+      "aquatic",
+      "aquatic-clinic"
     ],
     "topics": [
       "fish-disease",
       "aquatic-medicine",
-      "ornamental-fish"
+      "ornamental-fish",
+      "aqua-intro-thailand",
+      "aqua-fish-biology",
+      "aqua-ornamental",
+      "aqua-disease-control"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/98",
@@ -1877,7 +1891,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "equine-medicine"
+    ],
     "topics": [],
     "profiles": {
       "scopus": "https://www.scopus.com/authid/detail.uri?authorId=24490695900",
@@ -2224,13 +2240,17 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "swine"
+      "swine",
+      "swine-clinic"
     ],
     "topics": [
       "PRRSV",
       "PED",
       "swine-virology",
-      "vaccine"
+      "vaccine",
+      "swine-gi-viral",
+      "swine-resp-viral",
+      "swine-cns"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/94",
@@ -2311,7 +2331,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-microbio-1"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/119",
@@ -2390,7 +2412,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-histo"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/36",
@@ -2943,8 +2967,12 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "milk-meat-hygiene"
+    ],
+    "topics": [
+      "milk-biosec-dairy"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/124",
       "scopus": "https://www.scopus.com/authid/detail.url?authorId=13807581100",
@@ -2976,7 +3004,9 @@ export const INSTRUCTOR_DIRECTORY = [
     "slug": "chaidate-inchaisri",
     "nameEn": "Chaidate Inchaisri",
     "nameTh": "ชัยเดช อินทร์ชัยศรี",
-    "aliases": [],
+    "aliases": [
+      "ชัยเดช อินทร์ไชยศรี"
+    ],
     "position": "ศ. น.สพ. ดร.",
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
@@ -3021,13 +3051,19 @@ export const INSTRUCTOR_DIRECTORY = [
     ],
     "subjects": [
       "livestock",
-      "epidemiology"
+      "epidemiology",
+      "ruminant-clinical"
     ],
     "topics": [
       "dairy-cattle",
       "fertility",
       "epidemiology",
-      "decision-modeling"
+      "decision-modeling",
+      "epidem-observational-study",
+      "epidem-software",
+      "epidem-current-research",
+      "rum-hhm",
+      "epidem-sample-size"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/127",
@@ -3447,7 +3483,8 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "com4"
+      "com4",
+      "poa-clinical"
     ],
     "topics": [
       "immune-drugs",
@@ -3458,7 +3495,11 @@ export const INSTRUCTOR_DIRECTORY = [
       "derm-endocrine",
       "derm-nutrition",
       "derm-allergic",
-      "derm-autoimmune"
+      "derm-autoimmune",
+      "endo-cushing",
+      "endo-addison",
+      "poa-derm",
+      "poa-pupd"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/85",
@@ -3788,8 +3829,14 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience",
+      "vet-microbio-1"
+    ],
+    "topics": [
+      "ravb-bacterial-dx",
+      "ravb-bacterial-special"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/4",
       "department": "https://vet.chula.ac.th/en/department/microbiology",
@@ -3997,7 +4044,8 @@ export const INSTRUCTOR_DIRECTORY = [
       "rodent",
       "ferret",
       "reptile",
-      "bird"
+      "bird",
+      "mahahon-exotic"
     ],
     "profiles": {
       "openalex": "https://openalex.org/A5032848216",
@@ -4449,7 +4497,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-physio-3"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/84",
@@ -4615,7 +4665,9 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "com3"
+      "com3",
+      "com4",
+      "poa-clinical"
     ],
     "topics": [
       "shock",
@@ -4624,7 +4676,9 @@ export const INSTRUCTOR_DIRECTORY = [
       "cpcr",
       "metabolic-er",
       "nutrition",
-      "triage"
+      "triage",
+      "endo-dm",
+      "poa-diarrhea"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/146",
@@ -4781,7 +4835,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-neuroanat"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/129",
@@ -5141,7 +5197,8 @@ export const INSTRUCTOR_DIRECTORY = [
       "poultry"
     ],
     "topics": [
-      "quality-assurance"
+      "quality-assurance",
+      "mahahon-poultry-qa"
     ],
     "profiles": {
       "openalex": "https://openalex.org/A5024827985",
@@ -5550,8 +5607,12 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience"
+    ],
+    "topics": [
+      "ravb-proteomics"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/28",
       "department": "https://vet.chula.ac.th/department/%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%A7%E0%B8%A2%E0%B8%8A%E0%B8%B5%E0%B8%A7%E0%B9%80%E0%B8%84%E0%B8%A1%E0%B8%B5",
@@ -5631,7 +5692,9 @@ export const INSTRUCTOR_DIRECTORY = [
     "topics": [
       "first-week-mortality",
       "feed-management",
-      "laying-hen-nutrition"
+      "laying-hen-nutrition",
+      "nutrition",
+      "mahahon-poultry-nutrition"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/102",
@@ -6595,7 +6658,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-histo"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/141",
@@ -6677,10 +6742,26 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "poultry"
+      "poultry",
+      "one-health",
+      "zoonoses"
     ],
     "topics": [
-      "avian-drugs"
+      "avian-drugs",
+      "avian-zoonosis",
+      "mahahon-poultry-zoonosis",
+      "oh-disease-prevention",
+      "zoo-ebola-nipah",
+      "zoo-ai-basic",
+      "zoo-siv-civ",
+      "zoo-vbz",
+      "zoo-rickettsial",
+      "zoo-intro",
+      "zoo-rabies",
+      "zoo-eid-cuvet",
+      "zoo-corona",
+      "zoo-outbreak",
+      "zoo-eid-wildlife"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/120",
@@ -8925,11 +9006,22 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "poultry"
+      "poultry",
+      "avian-medicine"
     ],
     "topics": [
       "quality-assurance",
-      "first-week-mortality"
+      "first-week-mortality",
+      "mahahon-poultry-firstweek",
+      "avian-salmonella",
+      "avian-adeno",
+      "avian-ae",
+      "avian-ahra-set",
+      "avian-duck-plague",
+      "avian-dvh",
+      "avian-nds",
+      "avian-goose-parvo",
+      "avian-duck-flavi"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/144",
@@ -9000,7 +9092,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-histo"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/39",
@@ -9189,8 +9283,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "poultry",
+      "vet-physio-3"
+    ],
+    "topics": [
+      "physiology"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/121",
       "department": "https://vet.chula.ac.th/en/department/physiology-unit",
@@ -9330,13 +9429,16 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "com3"
+      "com3",
+      "poa-clinical"
     ],
     "topics": [
       "neuro-exam",
       "ataxia-tremor",
       "seizure",
-      "neuro-er"
+      "neuro-er",
+      "poa-jaundice",
+      "poa-collapse"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/142",
@@ -10288,8 +10390,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "PubMed"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience",
+      "vet-parasit-1"
+    ],
+    "topics": [
+      "ravb-protozoa-blood"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/21",
       "department": "https://vet.chula.ac.th/en/department/parasitology-unit",
@@ -10510,10 +10617,12 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "surgery"
+      "surgery",
+      "equine-medicine"
     ],
     "topics": [
-      "small-animal-surgery"
+      "small-animal-surgery",
+      "equine-ophth"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/69",
@@ -10752,7 +10861,8 @@ export const INSTRUCTOR_DIRECTORY = [
       "genomic-prediction",
       "BLUP",
       "GBLUP",
-      "breeding-management"
+      "breeding-management",
+      "mahahon-genetic"
     ],
     "profiles": {
       "scholar": "https://scholar.google.co.th/citations?user=ptNWsc4AAAAJ",
@@ -11685,10 +11795,27 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "poultry"
+      "poultry",
+      "avian-medicine"
     ],
     "topics": [
-      "avian-zoonosis"
+      "avian-zoonosis",
+      "biosecurity",
+      "mahahon-poultry-biosec",
+      "avian-nd",
+      "avian-ib",
+      "avian-lt",
+      "avian-mpv",
+      "avian-pox",
+      "avian-ibd",
+      "avian-marek",
+      "avian-cia",
+      "avian-reo",
+      "avian-rss",
+      "avian-cocci",
+      "avian-ne",
+      "avian-leuko",
+      "avian-malaria"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/45",
@@ -12420,10 +12547,12 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "com5"
+      "com5",
+      "poa-clinical"
     ],
     "topics": [
-      "feline-uri"
+      "feline-uri",
+      "poa-respiratory"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/148",
@@ -12747,8 +12876,16 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "zoonoses",
+      "rec-adv-bioscience",
+      "vet-microbio-1"
+    ],
+    "topics": [
+      "zoo-eid-cuvet",
+      "ravb-virology",
+      "zoo-corona"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/67",
       "department": "https://vet.chula.ac.th/department/microbiology",
@@ -13519,10 +13656,28 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "poultry"
+      "poultry",
+      "epidemiology",
+      "avian-medicine"
     ],
     "topics": [
-      "biosecurity"
+      "biosecurity",
+      "avian-drugs",
+      "mahahon-poultry-drugs",
+      "epidem-intro",
+      "epidem-basic-concepts",
+      "epidem-control-prevention",
+      "avian-mycosis",
+      "avian-ort",
+      "avian-campy",
+      "avian-listeria",
+      "avian-histomoniasis",
+      "epidem-disease-transmission",
+      "epidem-causation",
+      "epidem-disease-frequency",
+      "epidem-dx-screening",
+      "epidem-test-agreement",
+      "epidem-govt-policy"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/31",
@@ -14395,8 +14550,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience",
+      "vet-microbio-1"
+    ],
+    "topics": [
+      "ravb-mycology"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/128",
       "department": "https://vet.chula.ac.th/department/microbiology",
@@ -14712,7 +14872,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-histo"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/43",
@@ -14794,10 +14956,12 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "exotic"
+      "exotic",
+      "zoonoses"
     ],
     "topics": [
-      "field-vet"
+      "field-vet",
+      "zoo-eid-wildlife"
     ],
     "profiles": {
       "openalex": "https://openalex.org/A5088192750",
@@ -16014,12 +16178,22 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "aquatic"
+      "aquatic",
+      "aquatic-clinic"
     ],
     "topics": [
       "aquatic-medicine",
       "fish-disease",
-      "shrimp"
+      "shrimp",
+      "aqua-water-quality",
+      "aqua-frog-diseases",
+      "aqua-shrimp-immunology",
+      "aqua-fish-diseases",
+      "aqua-shrimp-diseases",
+      "aqua-intro-thailand",
+      "aqua-life-support",
+      "aqua-amphibian",
+      "aqua-disease-control"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/70",
@@ -16094,7 +16268,8 @@ export const INSTRUCTOR_DIRECTORY = [
     ],
     "topics": [
       "ruminant-anesthesia",
-      "anesthesiology"
+      "anesthesiology",
+      "mahahon-cliapprum-anes"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/138",
@@ -16172,7 +16347,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-microbio-1"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/71",
@@ -17290,8 +17467,16 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "PubMed"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "equine-medicine",
+      "zoonoses",
+      "rec-adv-bioscience"
+    ],
+    "topics": [
+      "equine-parasites",
+      "zoo-helminthic",
+      "ravb-helminths"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/33",
       "department": "https://vet.chula.ac.th/en/department/parasitology-unit",
@@ -17392,7 +17577,9 @@ export const INSTRUCTOR_DIRECTORY = [
       "locomotion-scoring",
       "hoof-trim",
       "animal-nutrition",
-      "hoof-health-fleet"
+      "hoof-health-fleet",
+      "metabolism-nutrition",
+      "mahahon-cliapprum-piyanat-hoof"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/en/department/medicine-uivn",
@@ -18326,11 +18513,15 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "swine"
+      "swine",
+      "swine-clinic"
     ],
     "topics": [
       "swine-medicine",
-      "swine-bacteriology"
+      "swine-bacteriology",
+      "swine-pornchalit-set",
+      "swine-repro",
+      "swine-control-dx"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/38",
@@ -18842,7 +19033,7 @@ export const INSTRUCTOR_DIRECTORY = [
     "nameEn": "Praopilas Phakdeedindan",
     "nameTh": "เพราพิลาส ภักดีดินแดน",
     "aliases": [],
-    "position": "อ. สพ.ญ. ดร.",
+    "position": "ผศ.สพ.ญ. ดร.",
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "praopilas.p@chula.ac.th",
@@ -19047,8 +19238,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience",
+      "biochem-2"
+    ],
+    "topics": [
+      "ravb-pcr-qpcr"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/68",
       "department": "https://vet.chula.ac.th/en/department/biochemistry-unit",
@@ -19301,7 +19497,10 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-histo",
+      "vet-neuroanat"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/47",
@@ -19656,11 +19855,14 @@ export const INSTRUCTOR_DIRECTORY = [
     ],
     "subjects": [
       "com4",
-      "com5"
+      "com5",
+      "poa-clinical"
     ],
     "topics": [
       "peds-geri",
-      "cve"
+      "cve",
+      "poa-vomiting",
+      "poa-anorexia"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/106",
@@ -19926,8 +20128,12 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "livestock-pathology"
+    ],
+    "topics": [
+      "lpath-slaughter"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/2",
       "department": "https://vet.chula.ac.th/en/department/pathology-unit",
@@ -20000,11 +20206,16 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "swine"
+      "swine",
+      "swine-clinic"
     ],
     "topics": [
       "swine-medicine",
-      "swine-respiratory-disease"
+      "swine-respiratory-disease",
+      "swine-csf",
+      "swine-asf",
+      "swine-greasypig",
+      "swine-prv-je"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/73",
@@ -20820,8 +21031,21 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "milk-meat-hygiene",
+      "one-health"
+    ],
+    "topics": [
+      "milk-overview",
+      "milk-mastitis",
+      "milk-raw-storage",
+      "milk-products-storage",
+      "milk-quality-determination",
+      "meat-storage",
+      "meat-quality",
+      "meat-molecular",
+      "oh-amr"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/72",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",
@@ -20893,8 +21117,29 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "epidemiology",
+      "milk-meat-hygiene",
+      "one-health",
+      "food-industry",
+      "zoonoses"
+    ],
+    "topics": [
+      "epidem-surveillance",
+      "epidem-outbreak-investigation",
+      "milk-quality-composition",
+      "milk-raw-std",
+      "milk-microbiology",
+      "milk-borne-pathogens",
+      "milk-industry-std",
+      "milk-processing",
+      "milk-cleaning",
+      "oh-vet-role",
+      "oh-global-network",
+      "oh-integrating-epi",
+      "fiqc-aquatic",
+      "zoo-epi-approach"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/25",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",
@@ -20971,7 +21216,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-physio-3"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/62",
@@ -21856,7 +22103,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-physio-lab-2"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/91",
@@ -22000,8 +22249,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience",
+      "biochem-2"
+    ],
+    "topics": [
+      "ravb-principle-tests"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/76",
       "department": "https://vet.chula.ac.th/en/department/biochemistry-unit",
@@ -22586,8 +22840,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "livestock-pathology"
+    ],
+    "topics": [
+      "lpath-swine-systemic",
+      "lpath-systemic"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/29",
       "department": "https://vet.chula.ac.th/en/department/pathology-unit",
@@ -22663,11 +22922,23 @@ export const INSTRUCTOR_DIRECTORY = [
     ],
     "subjects": [
       "surgery",
-      "cliapprum"
+      "cliapprum",
+      "equine-medicine",
+      "equine-repro"
     ],
     "topics": [
       "small-animal-surgery",
-      "gi-surgery-sawita"
+      "gi-surgery-sawita",
+      "mahahon-cliapprum-sawita-gi",
+      "mahahon-cliapprum-sawita-respi",
+      "equine-anesthesia",
+      "equine-gi",
+      "equine-colic-bestfit",
+      "equine-derm",
+      "equine-surgery-wound",
+      "eqrepro-surgery",
+      "eqrepro-pregnancy",
+      "eqrepro-postpartum"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/en/department/surgery"
@@ -22736,7 +23007,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "PubMed"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-histo"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/75",
@@ -23358,8 +23631,13 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience",
+      "biochem-2"
+    ],
+    "topics": [
+      "ravb-intro"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/89",
       "department": "https://vet.chula.ac.th/en/department/biochemistry-unit",
@@ -23429,8 +23707,25 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "milk-meat-hygiene",
+      "one-health",
+      "food-industry"
+    ],
+    "topics": [
+      "meat-hygiene-intro",
+      "meat-seafood",
+      "meat-slaughter",
+      "meat-ante-post-mortem",
+      "meat-cutting-grading",
+      "oh-concept",
+      "oh-communication",
+      "oh-collaboration",
+      "oh-livestock-waste",
+      "fiqc-intro",
+      "fiqc-feed-qc",
+      "fiqc-slaughter-qc"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/90",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",
@@ -23503,13 +23798,15 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "small-animal-internal-medicine"
+      "small-animal-internal-medicine",
+      "poa-clinical"
     ],
     "topics": [
       "cardiology",
       "MMVD",
       "heart-failure",
-      "biomarkers"
+      "biomarkers",
+      "poa-edema"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/24",
@@ -25237,13 +25534,19 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "poultry"
+      "poultry",
+      "avian-medicine"
     ],
     "topics": [
       "avian-medicine",
       "infectious-bronchitis",
       "salmonella",
-      "AIV"
+      "AIV",
+      "midterm-disease",
+      "avian-myco",
+      "avian-coryza",
+      "avian-fowl-cholera",
+      "avian-coli"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/104",
@@ -25356,8 +25659,12 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "rec-adv-bioscience"
+    ],
+    "topics": [
+      "ravb-avbd"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/23",
       "department": "https://vet.chula.ac.th/en/department/parasitology-unit",
@@ -25583,7 +25890,9 @@ export const INSTRUCTOR_DIRECTORY = [
       "surgical-neutering",
       "gonadectomy-risk",
       "AMH",
-      "TLR-innate-immunity"
+      "TLR-innate-immunity",
+      "mahahon-risk-benefit",
+      "mahahon-surgical"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/61",
@@ -26184,7 +26493,7 @@ export const INSTRUCTOR_DIRECTORY = [
     "nameEn": "Sumpun Thammacharoen",
     "nameTh": "สัมพันธ์ ธรรมเจริญ",
     "aliases": [],
-    "position": "รศ. น.สพ. ดร.",
+    "position": "ศ. น.สพ. ดร.",
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sumpun.p@chula.ac.th",
@@ -26223,7 +26532,9 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-physio-3"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/79",
@@ -26376,7 +26687,7 @@ export const INSTRUCTOR_DIRECTORY = [
     "nameEn": "Suphachai Nuanualsuwan",
     "nameTh": "ศุภชัย เนื้อนวลสุวรรณ",
     "aliases": [],
-    "position": "รองศาสตราจารย์ น.สพ. ดร.",
+    "position": "ศาสตราจารย์ น.สพ. ดร.",
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "suphachai.n@chula.ac.th",
@@ -26416,8 +26727,18 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "milk-meat-hygiene",
+      "one-health",
+      "zoonoses"
+    ],
+    "topics": [
+      "meat-pest-control",
+      "meat-egg-micro",
+      "oh-import-risk",
+      "oh-risk-analysis",
+      "zoo-mycoses"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/32",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",
@@ -26490,13 +26811,18 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "swine"
+      "swine",
+      "swine-clinic"
     ],
     "topics": [
       "swine-bacteriology",
       "lawsonia",
       "ileitis",
-      "AMR"
+      "AMR",
+      "swine-ileitis-bacti",
+      "swine-fmd",
+      "swine-pcv2",
+      "swine-trichinosis"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/80",
@@ -26698,7 +27024,9 @@ export const INSTRUCTOR_DIRECTORY = [
       "USMI",
       "BPH",
       "gonadectomy-risk",
-      "LH-FSH-receptors"
+      "LH-FSH-receptors",
+      "mahahon-hormone",
+      "mahahon-ultrasound"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/77",
@@ -26836,7 +27164,10 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
+    "subjects": [
+      "vet-physio-3",
+      "vet-physio-lab-1"
+    ],
     "topics": [],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/100",
@@ -27533,8 +27864,17 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "milk-meat-hygiene",
+      "one-health",
+      "zoonoses"
+    ],
+    "topics": [
+      "meat-microbiology",
+      "oh-foodborne",
+      "zoo-prion",
+      "zoo-bacterial"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/34",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",
@@ -27837,10 +28177,20 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "surgery"
+      "surgery",
+      "equine-medicine"
     ],
     "topics": [
-      "small-animal-surgery"
+      "small-animal-surgery",
+      "equine-intro",
+      "equine-infectious",
+      "equine-lameness",
+      "equine-hoof",
+      "equine-dentistry",
+      "equine-respi",
+      "equine-poa",
+      "equine-exercise",
+      "equine-nutrition"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/136",
@@ -27916,7 +28266,8 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "research"
+      "research",
+      "biochem-2"
     ],
     "topics": [
       "nanotechnology",
@@ -28138,7 +28489,8 @@ export const INSTRUCTOR_DIRECTORY = [
     ],
     "topics": [
       "internal-medicine",
-      "gi-vdtt"
+      "gi-vdtt",
+      "mahahon-cliapprum-givdtt"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/112",
@@ -28224,7 +28576,9 @@ export const INSTRUCTOR_DIRECTORY = [
       "epidem-applied-stats",
       "epidem-data-analysis",
       "epidem-eid-pandemic",
-      "epidem-economics"
+      "epidem-economics",
+      "epidem-intro",
+      "epidem-observational-study"
     ],
     "profiles": {
       "official": "https://www.vet.chula.ac.th/relation_detail/1311",
@@ -28297,11 +28651,20 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "aquatic"
+      "aquatic",
+      "aquatic-clinic"
     ],
     "topics": [
       "aquatic-animal-medicine",
-      "ornamental-fish"
+      "ornamental-fish",
+      "aqua-life-support",
+      "aqua-conservation",
+      "aqua-amphibian",
+      "aqua-turtle",
+      "aqua-intro-thailand",
+      "aqua-water-quality",
+      "aqua-frog-diseases",
+      "aqua-disease-control"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/111",
@@ -28377,7 +28740,8 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "exotic"
+      "exotic",
+      "poa-clinical"
     ],
     "topics": [
       "intro-turtle",
@@ -28388,7 +28752,8 @@ export const INSTRUCTOR_DIRECTORY = [
       "bird-noninfect",
       "bird-infect",
       "reptile",
-      "ferret"
+      "ferret",
+      "poa-exotic"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/110",
@@ -28757,8 +29122,12 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "equine-repro"
+    ],
+    "topics": [
+      "eqrepro-endometritis"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/37",
       "department": "https://vet.chula.ac.th/en/department/obstetrics-gynaecology-and-reproduction-ntez",
@@ -28833,7 +29202,8 @@ export const INSTRUCTOR_DIRECTORY = [
     ],
     "subjects": [
       "repro-lect",
-      "repro"
+      "repro",
+      "equine-repro"
     ],
     "topics": [
       "semen-evaluation",
@@ -28841,7 +29211,20 @@ export const INSTRUCTOR_DIRECTORY = [
       "oocyte-cryopreservation",
       "IVM-IVF",
       "ICSI",
-      "stem-cells"
+      "stem-cells",
+      "semen-ai",
+      "semen-preservation",
+      "infertility",
+      "mahahon-semen-freezing",
+      "mahahon-semen-eval",
+      "eqrepro-anatomy-cycle",
+      "eqrepro-exam-mare",
+      "eqrepro-art-female",
+      "eqrepro-infertility",
+      "eqrepro-male",
+      "eqrepro-ai",
+      "eqrepro-mare-infect",
+      "eqrepro-stallion-infect"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/64",
@@ -29334,6 +29717,64 @@ export const INSTRUCTOR_DIRECTORY = [
     }
   },
   {
+    "slug": "tussapon-boonyarattanasoonthorn",
+    "nameEn": "Tussapon Boonyarattanasoonthorn",
+    "nameTh": "ทัศน์พล บุณยรัตนสุนทร",
+    "aliases": [],
+    "position": "น.สพ.ดร.",
+    "department": "ศูนย์สัตว์ทดลอง จุฬาลงกรณ์มหาวิทยาลัย (CULAC)",
+    "institution": "จุฬาลงกรณ์มหาวิทยาลัย",
+    "email": "tussapon.b@chula.ac.th",
+    "status": "researcher",
+    "areas": [
+      "Laboratory animal science",
+      "SARS-CoV-2 infection models in hamsters"
+    ],
+    "areaSource": "publications",
+    "papers": [
+      {
+        "title": "In vivo evaluation of Andrographis paniculata and Boesenbergia rotunda extract activity against SARS-CoV-2 Delta variant in Golden Syrian hamsters: Potential herbal alternative for COVID-19 treatment",
+        "year": 2024,
+        "journal": "Journal of Traditional and Complementary Medicine",
+        "authors": "Supasek Kongsomros, Tussapon Boonyarattanasoonthorn, Wallaya Phongphaew, Chaiyan Kasorndorkbua, Piyanate Sunyakumthorn, Rawiwan Im‐Erbsin, Luis A. Lugo‐Roman, Teetat Kongratanapasert, Jiraporn Paha, Suwimon Manopwisedjaroen, Pakakrong Kwankhao, Kittitach Supannapan, Nittaya Ngamkhae, Nitipol Srimongkolpithak, Pornpun Vivithanaporn, Suradej Hongeng, Arunee Thitithanyanont, Phisit Khemawoot",
+        "url": "https://doi.org/10.1016/j.jtcme.2024.05.004",
+        "doi": "10.1016/j.jtcme.2024.05.004",
+        "verifiedBy": "Crossref"
+      },
+      {
+        "title": "Pharmacological Activities of Fingerroot Extract and Its Phytoconstituents Against SARS-CoV-2 Infection in Golden Syrian Hamsters",
+        "year": 2023,
+        "journal": "Journal of Experimental Pharmacology",
+        "authors": "Teetat Kongratanapasert, Supasek Kongsomros, Nlin Arya, Kripitch Sutummaporn, Witthawat Wiriyarat, Yada Akkhawattanangkul, Tussapon Boonyarattanasoonthorn, Nithi Asavapanumas, Phongthon Kanjanasirirat, Ampa Suksatu, Khanit Sa‐ngiamsuntorn, Suparerk Borwornpinyo, Pornpun Vivithanaporn, Somchai Chutipongtanate, Suradej Hongeng, Boonsong Ongphiphadhanakul, Arunee Thitithanyanont, Phisit Khemawoot, Piyamitr Sritara",
+        "url": "https://doi.org/10.2147/jep.s382895",
+        "doi": "10.2147/jep.s382895",
+        "verifiedBy": "Crossref"
+      }
+    ],
+    "subjects": [
+      "vet-physio-lab-2"
+    ],
+    "topics": [],
+    "profiles": {
+      "official": "https://culac.chula.ac.th/about/staff"
+    },
+    "verification": {
+      "status": "verified",
+      "verifiedAt": "2026-11-11",
+      "sources": [
+        {
+          "label": "CULAC staff",
+          "url": "https://culac.chula.ac.th/about/staff"
+        },
+        {
+          "label": "Crossref",
+          "url": "https://www.crossref.org/"
+        }
+      ],
+      "publicationsFound": 2
+    }
+  },
+  {
     "slug": "vachira-hunprasit",
     "nameEn": "Vachira Hunprasit",
     "nameTh": "วชิรา หุ่นประสิทธิ์",
@@ -29380,10 +29821,19 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "com5"
+      "com5",
+      "epidemiology",
+      "poa-clinical"
     ],
     "topics": [
-      "rabies"
+      "rabies",
+      "epidem-disease-frequency",
+      "epidem-dx-screening",
+      "epidem-test-agreement",
+      "poa-intro",
+      "poa-red-urine",
+      "poa-pale-mm",
+      "epidem-basic-concepts"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/49",
@@ -31593,10 +32043,15 @@ export const INSTRUCTOR_DIRECTORY = [
       }
     ],
     "subjects": [
-      "com5"
+      "com5",
+      "zoonoses",
+      "rec-adv-bioscience",
+      "vet-parasit-1"
     ],
     "topics": [
-      "gi-protozoa"
+      "gi-protozoa",
+      "zoo-protozoal",
+      "ravb-protozoa-gi"
     ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/93",
@@ -31671,8 +32126,16 @@ export const INSTRUCTOR_DIRECTORY = [
         "verifiedBy": "Crossref"
       }
     ],
-    "subjects": [],
-    "topics": [],
+    "subjects": [
+      "aquatic-clinic",
+      "one-health"
+    ],
+    "topics": [
+      "aqua-toxicology",
+      "oh-env-carcinogen",
+      "oh-env-mutagen",
+      "oh-gmo"
+    ],
     "profiles": {
       "official": "https://vet.chula.ac.th/researcher_info/87",
       "department": "https://vet.chula.ac.th/en/department/veterinary-public-health",

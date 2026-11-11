@@ -68,9 +68,33 @@ function timestampsIn(md) {
   return out;
 }
 
+const { recordedSummaryTitle } = await import(pathToFileURL(path.join(ROOT, 'src', 'lib', 'summary-title.js')).href);
+
+// The modal reads `title` (or the summary's first `# ` heading) and the
+// numeric `durationMin`. Eighteen COM I entries carried `duration: '126 min'`,
+// which nothing reads, so no length showed; four had `title: null`, an empty
+// heading and a save that threw. These recordings have nothing on record to
+// fill from: no title and no heading in the summary, or no length anywhere
+// (their transcripts were never kept). Each line goes once the value is found.
+const NO_TITLE_ON_RECORD = new Set(['OG8btFPo6U0', 'r-LT4yGdHCY']);
+// The five COM II ids carry `durationMin: 0`, a placeholder the modal hides.
+const NO_LENGTH_ON_RECORD = new Set(['FutkFh-G7eU', 'OG8btFPo6U0', 'gsbPz6CF-5M', 'r-LT4yGdHCY',
+  '6Liof8TfdvQ', 'IdST55vFbwA', 'PyP4DL418tQ', 'aWgDJimmQCE', 'coNscKnIc_c']);
+const used = { title: new Set(), length: new Set() };
+
 function checkEntry(id, e, origin) {
   if (e.videoId !== id) err(id, `videoId field is "${e.videoId}" (${origin})`);
   if (!e.subject) err(id, 'no subject');
+  if (e.title != null && typeof e.title !== 'string') err(id, `title is ${typeof e.title}, not a string`);
+  if (!recordedSummaryTitle(e)) {
+    if (NO_TITLE_ON_RECORD.has(id)) used.title.add(id);
+    else err(id, 'no title and no # heading in the summary: the modal heading would be a placeholder');
+  }
+  if ('duration' in e) err(id, `"duration: ${JSON.stringify(e.duration)}" is read by nothing; write durationMin as a number`);
+  if (!(typeof e.durationMin === 'number' && e.durationMin > 0)) {
+    if (NO_LENGTH_ON_RECORD.has(id)) used.length.add(id);
+    else err(id, `durationMin is ${JSON.stringify(e.durationMin)}, not a number of minutes`);
+  }
   if (typeof e.summary !== 'string' || e.summary.trim().length < 200) {
     err(id, `summary is ${e.summary ? e.summary.length : 0} chars`);
     return;
@@ -146,6 +170,11 @@ if (includeGenerated || onlyGenerated) {
       checked++;
     }
   }
+}
+
+if (!onlyGenerated) {
+  for (const id of NO_TITLE_ON_RECORD) if (!used.title.has(id)) err(id, 'listed in NO_TITLE_ON_RECORD but has a title now (or is gone): remove the line');
+  for (const id of NO_LENGTH_ON_RECORD) if (!used.length.has(id)) err(id, 'listed in NO_LENGTH_ON_RECORD but has durationMin now (or is gone): remove the line');
 }
 
 console.log(`checked ${checked} summaries`);

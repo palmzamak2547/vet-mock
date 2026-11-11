@@ -1,0 +1,97 @@
+# ============================================================
+# Production watch — a failed run is the alert
+# ============================================================
+# On 11 Nov 2026 the first AI provider's account ran out and answered 402 for
+# hours, and nothing told anyone. This run reads production every six hours
+# and fails when something a student needs is broken. The red run is the
+# alarm: GitHub mails a failed scheduled run to the last person who edited
+# this file, if their notification settings allow it, and to nobody else.
+#
+# It costs almost nothing: no checkout, no install, no matrix, about a dozen
+# requests (each once plus at most two retries, never a polling loop: a loop
+# got this traffic challenged by Vercel's DDoS mitigation on 8 Nov), well
+# under a minute when production is up.
+# The AI answer is /api/ai-chat?health=1, which spends no token
+# (api/_lib/ai/health.js). It uses no secret.
+#
+#   fails on: DeepSeek's balance empty (checked first, so its line is the
+#             run's first error: production is then answering from the paid
+#             fallback, the 11 Nov incident), AI health "down" or unreadable,
+#             a home page not 200, no vmx-build meta on vetmock.com, a sitemap
+#             that does not load, any of five URLs sampled from it not 200
+#   warns on: AI health "degraded" with the balance unreadable ("unknown")
+# Every request is retried twice, 10 s apart, so only a failure that repeats
+# turns the run red.
+# ============================================================
+name: Production watch
+
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: production-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Read production
+        shell: bash
+        run: |
+          set -u
+          fail=0
+          bad() { echo "::error::$1"; fail=1; }
+          # One status code per request: curl already prints 000 when it cannot connect.
+          get() {
+            local c
+            c=$(curl -sS -o "$2" -w '%{http_code}' --max-time 20 --retry 2 --retry-delay 10 --retry-all-errors \
+              -A 'vetmock-production-watch' "$1") || true
+            echo "${c:-000}"
+          }
+
+          # The AI first, so an empty balance is the first line of a red run.
+          code=$(get 'https://vetmock.com/api/ai-chat?health=1' health.json)
+          health=$(jq -r '.health // "unreadable"' health.json 2>/dev/null || echo unreadable)
+          balance=$(jq -r '.primary.balance // "unreadable"' health.json 2>/dev/null || echo unreadable)
+          echo "AI health $code $health $(jq -c '{primary, fallback}' health.json 2>/dev/null || true)"
+          if [ "$balance" = empty ]; then
+            bad 'DeepSeek balance is empty: production is answering from the paid fallback; top up at platform.deepseek.com'
+          fi
+          case "$health" in
+            ok) ;;
+            degraded) [ "$balance" = empty ] || echo "::warning::AI health is degraded: the DeepSeek balance could not be read ($balance); the fallback is answering" ;;
+            down) bad 'AI health is down: the first provider has no balance and no fallback is configured' ;;
+            *) bad "AI health answered $code and no health word" ;;
+          esac
+
+          for site in https://vetmock.com/ https://vca.vetmock.com/ https://ai.vetmock.com/; do
+            code=$(get "$site" page.html)
+            echo "$site $code"
+            [ "$code" = 200 ] || bad "$site answered $code"
+            if [ "$site" = https://vetmock.com/ ]; then
+              build=$(grep -o 'vmx-build" content="[0-9a-f]*' page.html | sed 's/.*content="//' || true)
+              echo "vmx-build ${build:-missing}"
+              [ -n "$build" ] || bad 'vetmock.com has no vmx-build meta: the page is not the Vercel build'
+            fi
+          done
+
+          code=$(get https://vetmock.com/sitemap.xml sitemap.xml)
+          count=$(grep -o '<loc>[^<]*</loc>' sitemap.xml 2>/dev/null | wc -l)
+          echo "sitemap $code, $count URLs"
+          if [ "$code" != 200 ] || [ "$count" -lt 5 ]; then
+            bad "sitemap.xml answered $code with $count URLs"
+          else
+            for url in $(grep -o '<loc>[^<]*</loc>' sitemap.xml | sed 's/<[^>]*>//g' | shuf -n 5); do
+              code=$(get "$url" /dev/null)
+              echo "$url $code"
+              [ "$code" = 200 ] || bad "$url (from the sitemap) answered $code"
+            done
+          fi
+
+          exit $fail

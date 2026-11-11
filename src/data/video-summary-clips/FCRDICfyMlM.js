@@ -6,9 +6,9 @@ export default {
   title: "7.1 : Anemia + Surgery of Hemolymphatic System",
   subject: "com1",
   date: "2024-09-16",
+  durationMin: 145,
   instructor: "รุ่นพี่",
   examFormat: "MCQ — anemia approach + IMHA + splenectomy",
-  duration: "145 min",
   summary: `# 7.1 Anemia + Hemolymphatic Surgery
 
 > 🎯 Two parts: **Anemia approach + IMHA** (medical) + **Surgery of bone marrow, spleen, lymph nodes** (surgical). Foundation: distinguish anemia vs other causes of pale mucosa, then narrow down to root cause

@@ -6,9 +6,9 @@ export default {
   title: "4.1 : GI Diagnosis (Imaging-based)",
   subject: "com1",
   date: "2024-08-26",
+  durationMin: 91,
   instructor: "อาจารย์ — vet imaging integration",
   examFormat: "MCQ — image identification + algorithm",
-  duration: "91 min",
   summary: `# 4.1 GI Diagnostics — Imaging-based Approach
 
 > 🎯 Foundation video สำหรับ alimentary tract imaging — ใช้ **X-ray + Ultrasound + CT** ในการวินิจฉัย. เน้น **ภาพถ่ายตามอนาตอมี + GI motility + contrast techniques**. เน้น **case-based image MCQ**

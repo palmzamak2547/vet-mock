@@ -6,9 +6,9 @@ export default {
   title: "5.1 : Intestine Surgery",
   subject: "com1",
   date: "2024-09-02",
+  durationMin: 136,
   instructor: "รุ่นพี่",
   examFormat: "MCQ — surgical principles + suture + technique",
-  duration: "136 min",
   summary: `# 5.1 Intestine Surgery
 
 > 🎯 Surgical principles + techniques for **small + large intestine**: anatomy → suture → cutting → resection-anastomosis → diameter mismatch → unique techniques. Foundation for any GI surgery on Year 5

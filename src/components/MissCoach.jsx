@@ -17,6 +17,10 @@ import { useState } from 'react';
 import { explainMiss, alreadyExplained } from '../lib/study-coach.js';
 import { RichText } from '../lib/richtext.jsx';
 
+// The reasons study-coach.js gives when the service itself did not answer.
+const OUTAGE = new Set(['off', 'error', 'timeout']);
+export const OUTAGE_LINE = 'ตอนนี้ยังอธิบายเพิ่มไม่ได้ ลองใหม่ภายหลัง';
+
 export default function MissCoach({ q, chosen }) {
   const [state, setState] = useState({ status: 'idle' });
 
@@ -29,13 +33,15 @@ export default function MissCoach({ q, chosen }) {
   const run = async () => {
     setState({ status: 'loading' });
     const res = await explainMiss({ qid: q.id, chosen });
-    setState(res.ok ? { status: 'done', data: res.data } : { status: 'quiet' });
+    setState(res.ok ? { status: 'done', data: res.data } : { status: OUTAGE.has(res.reason) ? 'down' : 'quiet' });
   };
 
-  // A failure here removes a button and nothing else. The explanation above it
-  // is the part that matters and it is already on screen, so there is nothing
-  // useful to tell the student and no reason to colour the panel red.
+  // "Nothing to add" (the guards declined, a quota) removes the button and
+  // nothing else: the explanation above it is the part that matters. An outage
+  // says so in one plain line instead, so a dead service is not mistaken for
+  // a question with nothing more to say. Never red: it is not the student's fault.
   if (state.status === 'quiet') return null;
+  if (state.status === 'down') return <p className="vmx-coach-foot" role="status">{OUTAGE_LINE}</p>;
 
   if (state.status !== 'done') {
     return (

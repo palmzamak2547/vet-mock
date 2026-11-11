@@ -11,6 +11,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { writeAnswer, parseDeepSeekEvent, parseAnthropicEvent, alternate } from '../../api/_lib/ai/writer.js';
+import { ANTHROPIC_MODEL } from '../../api/_lib/llm.js';
 import { createOutputFilter, plainText, contextText } from '../../api/_lib/ai/text.js';
 import {
   findPapers, parseEfetchAbstracts, papersFromSummary, invertedAbstract, cleanTerms, pubmedTerm, papersCard, USER_AGENT,
@@ -39,6 +40,17 @@ function streamed(parts, { status = 200, errorAfter = false, hang = false, signa
 }
 
 const ENV = { DEEPSEEK_API_KEY: 'test-key' };
+// Two providers, so a failed first one has somewhere to hand over to. Each
+// answers in its own stream format, chosen by the request's address.
+const ENV2 = { DEEPSEEK_API_KEY: 'test-key', ANTHROPIC_API_KEY: 'test-key' };
+const anthropicText = (text) => [
+  'event: message_start\ndata: {"type":"message_start"}\n\n',
+  `event: content_block_delta\ndata: ${JSON.stringify({ type: 'content_block_delta', delta: { type: 'text_delta', text } })}\n\n`,
+  'event: message_stop\ndata: {"type":"message_stop"}\n\n',
+];
+const answerAs = (url, text, signal) => streamed(
+  String(url).includes('anthropic') ? anthropicText(text) : [ds(text), 'data: [DONE]\n\n'], { signal },
+);
 const quiet = async (fn) => {
   const err = console.error;
   console.error = () => {};
@@ -64,27 +76,43 @@ test('a streamed answer arrives piece by piece from the primary provider', async
 test('a provider that fails before its first word hands over to the next', async () => {
   const models = [];
   const r = await quiet(() => writeAnswer({
-    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV, onDelta: () => {},
+    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV2, onDelta: () => {},
     fetchImpl: async (url, init) => {
       const b = JSON.parse(init.body);
       models.push(b.model);
       if (b.model === 'deepseek-flash') return new Response('{"error":"overloaded"}', { status: 503 });
-      return streamed([ds('ตอบ'), 'data: [DONE]\n\n'], { signal: init.signal });
+      return answerAs(url, 'ตอบ', init.signal);
     },
   }));
   assert.equal(r.ok, true);
   assert.equal(r.model, 'fallback');
-  assert.deepEqual(models, ['deepseek-flash', 'deepseek-chat']);
+  // deepseek-chat (discontinued 24 Jul 2026) is no longer a hop of its own
+  assert.deepEqual(models, ['deepseek-flash', ANTHROPIC_MODEL]);
+});
+
+test('an LLM_MODEL override still falls back to deepseek-flash, with thinking off', async () => {
+  const sent = [];
+  const r = await quiet(() => writeAnswer({
+    system: 's', messages: [{ role: 'user', content: 'q' }], env: { ...ENV, LLM_MODEL: 'deepseek-v4-pro' }, onDelta: () => {},
+    fetchImpl: async (url, init) => {
+      const b = JSON.parse(init.body);
+      sent.push([b.model, b.thinking?.type]);
+      if (b.model === 'deepseek-v4-pro') return new Response('{"error":"bad model"}', { status: 400 });
+      return answerAs(url, 'ตอบ', init.signal);
+    },
+  }));
+  assert.equal(r.ok, true);
+  assert.deepEqual(sent, [['deepseek-v4-pro', 'disabled'], ['deepseek-flash', 'disabled']]);
 });
 
 test('an answer that only "thought" and said nothing counts as a failure', async () => {
   const reasoning = `data: ${JSON.stringify({ choices: [{ delta: { reasoning_content: 'thinking…' } }] })}\n\n`;
   let calls = 0;
   const r = await quiet(() => writeAnswer({
-    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV, onDelta: () => {},
+    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV2, onDelta: () => {},
     fetchImpl: async (url, init) => {
       calls += 1;
-      return calls === 1 ? streamed([reasoning, 'data: [DONE]\n\n'], { signal: init.signal }) : streamed([ds('ok'), 'data: [DONE]\n\n'], { signal: init.signal });
+      return calls === 1 ? streamed([reasoning, 'data: [DONE]\n\n'], { signal: init.signal }) : answerAs(url, 'ok', init.signal);
     },
   }));
   assert.equal(r.ok, true);
@@ -108,10 +136,10 @@ test('after the first word there is no fallback: the answer ends with an error',
 test('a provider that never says a word times out and the next one answers', async () => {
   let calls = 0;
   const r = await quiet(() => writeAnswer({
-    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV, onDelta: () => {}, firstByteMs: 60, idleMs: 60,
+    system: 's', messages: [{ role: 'user', content: 'q' }], env: ENV2, onDelta: () => {}, firstByteMs: 60, idleMs: 60,
     fetchImpl: async (url, init) => {
       calls += 1;
-      return calls === 1 ? streamed([': keep-alive\n\n'], { hang: true, signal: init.signal }) : streamed([ds('มาแล้ว'), 'data: [DONE]\n\n'], { signal: init.signal });
+      return calls === 1 ? streamed([': keep-alive\n\n'], { hang: true, signal: init.signal }) : answerAs(url, 'มาแล้ว', init.signal);
     },
   }));
   assert.equal(r.ok, true);
