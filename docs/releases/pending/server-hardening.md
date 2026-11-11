@@ -110,8 +110,11 @@ branch's head; where an earlier version of it was wrong, that is said.
   address, 8 GB. A document with no catalogued size is counted by the bytes it
   actually streamed (`countStreamed`, added once the stream ends), never as
   less than it sent.
-- Video and audio are outside the byte budget (the mime comes from the signed
-  token, so a client cannot claim it) and keep 300 requests per link. Their
+- Video and audio are outside the byte budget, decided by the signed mime or
+  the extension of the signed storage key or file name (mp4, m4v, mov, webm,
+  mkv, m4a, mp3, wav, ogg, aac), none of which a member can change, and keep
+  300 requests per link. A document with no catalogued size has its streamed
+  bytes counted before the handler returns (`library-blob-settle.test.mjs`). Their
   ranges are served exactly as before the branch: one storage read per
   request, the prefix dropped, the rest streamed.
 - A refusal is a small page in Thai (429, `Retry-After`) that says the account
@@ -261,6 +264,26 @@ branch's head; where an earlier version of it was wrong, that is said.
   the catalogue is read only through `scripts/lib/library-read.mjs` (the
   Management API, production), which this branch does not call. The route's
   own comment recorded 61 library videos on 1 Nov 2026.
+
+- Library rows ingested before `scripts/ingest-library.mjs` knew `.mov`,
+  `.webm`, `.m4v`, `.mkv`, `.wav`, `.ogg` and `.aac` are catalogued as
+  `application/octet-stream`. `api/library-blob.js` already treats them as
+  media by their signed key or file name (`isMedia`); re-tagging the rows is
+  one query, not run here.
+- Parallel opens of a document with no catalogued size are counted only as
+  each stream ends, so several at once all start under the budget. Charging
+  the upstream `content-length` once the headers arrive, and refusing when it
+  is over, would close that.
+- On an aborted download the streamed count relies on `TransformStream`'s
+  `cancel` hook (Node 22 or later); on an older Node an aborted stream is
+  counted as its 1 byte. Which Node the functions run on is not settled in the
+  repo: `package.json` engines says `>=20`, `.node-version` says 22, CI's build
+  uses 24 (`.github/workflows/build.yml:58`); the Vercel project's own setting
+  is not in the repository.
+- `send-feedback` answering when the gate refuses is held only by a source
+  check (`chula-api-gate.test.mjs`); a behavioural test (the gate refuses,
+  the message is still sent as a visitor's) would also catch a hand-written
+  refusal.
 
 ## Later (known, not fixed in this branch)
 - A well-formed token with a bad signature costs one database call (500
