@@ -15,6 +15,7 @@
 { kind: 'fix', scope: 'system', title: 'ข้อจับคู่บอกวิธีตอบตรงกับหน้าจอ', desc: 'โจทย์จับคู่ไม่บอกให้ลากการ์ดแล้ว เพราะทุกหน้าจอเลือกคำตอบจากเมนูของแต่ละข้อ' },
 { kind: 'fix', scope: 'system', title: 'จอแคบและซูมใหญ่ใช้ได้', desc: 'ขยายตัวอักษร 200% บนมือถือ ปุ่มบนการ์ดข้อสอบไม่ล้นจอ และสวิตช์เวลาเฉลยของข้อจับคู่ไม่บีบจนอ่านยาก' },
 { kind: 'fix', scope: 'system', title: 'เวลาสอบไม่เพิ่มเมื่อเปลี่ยนนาฬิกาเครื่อง', desc: 'ตั้งเวลาเครื่องย้อนหลังระหว่างสอบไม่ได้เวลาเพิ่ม และคำตอบในโหมดสอบถูกบันทึกทันทีที่แตะ' },
+{ kind: 'fix', scope: 'system', title: 'พิมพ์คำตอบภาษาไทยที่หน้าตาเหมือนเฉลยได้คะแนน', desc: 'สระอำที่พิมพ์เป็นนิคหิตกับสระอา และวรรณยุกต์ที่พิมพ์ก่อนสระบนหรือล่าง นับเป็นคำเดียวกับเฉลยแล้ว ทั้งข้อเติมคำและข้อตอบสั้น' },
 { kind: 'fix', scope: 'system', title: 'วันนี้เริ่มเที่ยงคืนเวลาไทยทุกที่', desc: 'โจทย์ประจำวัน XP วันนี้ ภารกิจ และเป้าหมายรายวัน นับวันเดียวกับวันต่อเนื่อง แม้เครื่องตั้งเขตเวลาอื่น' },
 ```
 
@@ -89,6 +90,14 @@ Each item below: the reproduction on the main build (production build of `ef993a
 - Fix (`ResultsView.jsx`, `ReminderPicker.jsx`): no year pill; the practice mark stated once (the flag on the bar; the seal says reached or not, the legend keeps 0% and 100%, the ladder note names no number); the first thing to do (redo the misses, the climb, or more of the same) drawn right under the score, the rest of the panel where it was; the reminder is one row (เลือกเวลา opens the picker, ไม่ต้อง ends it for good, as any answer did). The mascot stays: with it the score and the first action fit 812 px at 375 and 320. No number, scoring, saved result or review target changed.
 - After: to be measured on the branch build in the after-probe job (same script, `results-share.mjs`).
 - Guard: e2e at 375x812 and 320x812 on four engines: the score and the first action inside the first viewport, 60% once on the card; `study-reminder.spec.js` holds the offer to one row until asked.
+
+## 12. A typed Thai look-alike of the key was marked wrong (from the scoring-invariants work)
+- Before: a fill key น้ำ typed as น + ้ + ํ + า (SARA AM as NIKHAHIT plus SARA AA), or กิ่ง typed with MAI EK before SARA I, scored ผิด: NFC joins neither (`thai-spelling-scoring.test.mjs` keeps the old scorer beside the new one and shows the first case wrong on it).
+- Fix (`src/hooks/utils.js`, the one module `isCorrect` lives in, which `api/_lib/exam-scoring.js` imports for the leaderboard's re-score): one step, `thaiSpelling`, in `normFill` (fill-in blanks) and `keywordText` (short-answer keywords and SmartGrader's checklist), applied to the answer and the key alike: NIKHAHIT + SARA AA (with a tone mark before, between or after the NIKHAHIT) becomes SARA AM, and a tone mark or thanthakhat before a vowel above or below its consonant moves after it. Nothing else in the comparison changed.
+- Proof it only adds matches: all 418 typed questions in the bank (29 fill, 389 short), answered with their own key, their unordered blanks reversed, the model answer and the keywords: the same verdict from the scorer with and without the step, 0 changed; every fill key retyped in the other spelling scores as its key does. Latin drug names and numbers: unchanged verdicts.
+- Reach: 266 typed questions have SARA AM in their key, 339 a tone or thanthakhat on a vowel above or below (counted by the test).
+- Other places that compare typed text, not changed: the search palette (`CommandPalette.jsx`, its own lowercase match), the faculty search (`FacultyView.jsx`, `toLowerCase().includes`, and `instructor-lookup.js` with NFKC), the library and in-document search (`lib/thai-search.js` `fold`, which can drop marks), and the SR flashcards (self-graded, no typed comparison). Note for the fold: `claude/structural-guards` lists both cases in `KNOWN_FAILURES` of `scoring-invariants.test.mjs`, whose rows fail once fixed ("fixed? then delete its KNOWN_FAILURES row"): delete those two rows when the branches meet.
+- Guard: `tests/unit/thai-spelling-scoring.test.mjs`.
 
 ## Runs
 - Local, no lock (the lane was held): the 133 unit files that read a changed file, 1,163 tests; 7 failed at first, all in harnesses that build the session hook or count the card's panels (two vm harnesses lacked `examNow`, one placed its student with a jump that the move hold now holds, one counted two figure panels where fill-in makes three); fixed in the tests, then 0 failed. The full unit suite, `lint:data`, the build, `perf:budget` and `lint:dist` run in the cloud Build job.

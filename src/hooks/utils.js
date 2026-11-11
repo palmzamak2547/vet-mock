@@ -38,9 +38,22 @@ export const fmtDate = (ts, now = Date.now()) => {
 // One rule for the client and the server: api/_lib/exam-scoring.js imports
 // isCorrect from here, so the leaderboard re-scores with this same code.
 
+// Two Thai spellings that look the same on screen and differ in code points,
+// so a student who typed the key was marked wrong: SARA AM typed as NIKHAHIT
+// plus SARA AA (U+0E4D U+0E32, some keyboards and input methods), with or
+// without a tone mark between or before them; and a tone mark (or the
+// thanthakhat) typed before the vowel above or below the same consonant,
+// which NFC does not reorder because those vowels have no combining class.
+// One fixed form for both, applied to the answer and the key alike: a text
+// that already matched still matches (the same input gives the same output).
+const thaiSpelling = (s) => s
+  .replace(/ํ([่-๋]?)า/g, '$1ำ')
+  .replace(/([่-๋])ํา/g, '$1ำ')
+  .replace(/([่-์])([ัิ-ฺ็])/g, '$2$1');
+
 // Case, spacing, dash style and Thai digits are writing, not knowledge.
-const normFill = (s) => String(s ?? '')
-  .normalize('NFC')
+const normFill = (s) => thaiSpelling(String(s ?? '')
+  .normalize('NFC'))
   .toLowerCase()
   .replace(/[๐-๙]/g, (d) => String(d.charCodeAt(0) - 0x0e50))
   .replace(/[‐-―−]/g, '-')
@@ -241,7 +254,7 @@ const THAI_CHAR = /[฀-๿]/;
 const DIGIT = /[0-9]/;
 const LATIN_OR_DIGIT = /[a-z0-9]/;
 function keywordText(s) {
-  return String(s ?? '').toLowerCase()
+  return thaiSpelling(String(s ?? '')).toLowerCase()
     .replace(/[^a-z0-9฀-๿.,\s]/g, ' ')
     .replace(/[.,]/g, (m, at, all) => (DIGIT.test(all[at - 1] || '') && DIGIT.test(all[at + 1] || '') ? m : ' '))
     .replace(/\s+/g, ' ')
