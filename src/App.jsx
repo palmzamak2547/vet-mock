@@ -6,7 +6,7 @@ import { flushSync } from 'react-dom';
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded, onQBMerged } from './data/questions.js';
-import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
+import { THEME_SYSTEM, THEME_KEY, PALETTE_KEY, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
 
@@ -53,7 +53,7 @@ import './styles.css';
 // AdminView, so their lazy chunks carry them and a student's boot does not
 // (tests/unit/boot-weight.test.mjs). The two app-wide rules the landing sheet
 // used to hold now live in styles.css.
-import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
+import { hasSupabase, getSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { markRelatedReturn } from './lib/related-return.js';
@@ -103,7 +103,7 @@ import {
   FeedbackView, IgCardStudioView, YearSelectView, LandingView,
   PhaseSelectView, TopicSelectView, NotesView, LibraryView, ChulaGateView, ChulaGateExit,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
-  AccountSettingsView, ProfileView, OfflineGameView, MochiView, PomodoroView,
+  AccountSettingsView, ProfileView, StudioView, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
   useIdlePrefetch,
 } from './app/lazy-views.js';
@@ -244,7 +244,7 @@ const IS_LOCAL_HOST = typeof window !== 'undefined'
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
   'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate', 'library',
-  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi', 'bench', 'admin',
+  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi', 'bench', 'admin', 'studio',
 ]);
 
 // Focus views intentionally remove navigation chrome. In particular, hiding
@@ -328,6 +328,20 @@ export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
   // The Chula sign-in wall: until it opens, the app below renders nothing.
   const wall = useChulaWall({ user, loading: authLoading });
+  // The preferences that follow the account (src/lib/prefs/account-sync.js):
+  // loaded after sign-in, never on first paint; guests keep the device's.
+  useEffect(() => {
+    if (!user?.id || !hasSupabase) return undefined;
+    let alive = true;
+    let stop = null;
+    Promise.all([import('./lib/prefs/account-sync.js'), getSupabase()]).then(([sync, client]) => {
+      if (!alive || !client?.auth) return;
+      sync.startPrefsSync({ user, auth: client.auth });
+      stop = sync.stopPrefsSync;
+    }).catch(() => {});
+    return () => { alive = false; stop?.(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
 
   // The back-office door. The database decides who is an admin (is_admin());
   // this only says whether to draw the entry in the menu and palette.
@@ -864,6 +878,13 @@ export default function App() {
     viewRef.current = next;
     withTransition(() => setViewRaw(next));
   }, []);
+  // "ปรับแต่ง" is opened from controls that do not hold setView (the theme
+  // menu); an exam screen shows none of them.
+  useEffect(() => {
+    const open = () => { if (!FOCUS_VIEWS.has(viewRef.current) && !['sr-session', 'race'].includes(viewRef.current)) setView('studio'); };
+    window.addEventListener('vmx-open-studio', open);
+    return () => window.removeEventListener('vmx-open-studio', open);
+  }, [setView]);
 
   const returnFromNotes = () => {
     const origin = notesReturnRef.current;
@@ -1268,7 +1289,7 @@ export default function App() {
 
   // The student's pick ('light', 'dark' or 'system'); a new device follows the
   // phone, live, as index.html paints it first (lib/theme-pref.js).
-  const [themePref, setThemePref] = useLocalStorage('vmx-theme', THEME_SYSTEM);
+  const [themePref, setThemePref] = useLocalStorage(THEME_KEY, THEME_SYSTEM);
   const systemDark = useSystemDark();
   const theme = effectiveTheme(themePref, systemDark);
   // A function receives the theme on screen, so a toggle flips what the
@@ -1300,7 +1321,7 @@ export default function App() {
   // (sage / gold). 'default' uses the original sage+gold; alternatives:
   // ocean / plum / cherry / mono / forest. Stored in localStorage so
   // preference is per-device.
-  const [palette, setPalette] = useLocalStorage('vmx-palette', 'default');
+  const [palette, setPalette] = useLocalStorage(PALETTE_KEY, 'default');
   const {
     data: {
       bookmarks,
@@ -1394,6 +1415,8 @@ export default function App() {
     d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
   }, [theme]);
   useEffect(() => {
+    // "สีของฉัน" is derived from a hue (src/lib/prefs/accent.js), lazily.
+    if (palette === 'custom') import('./lib/prefs/table.js').then((m) => m.ensureAccentStyle()).catch(() => {});
     if (palette && palette !== 'default') {
       document.documentElement.setAttribute('data-palette', palette);
     } else {
@@ -3416,6 +3439,7 @@ export default function App() {
                   openSubject={(id) => { setSubject(id); setTopic(null); setPracticeMode('all'); setView('topic-select'); }}
                 />
               )}
+              {view === 'studio' && <StudioView goBack={() => setView('profile')} {...{ user, profile, history, srCards, theme }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}

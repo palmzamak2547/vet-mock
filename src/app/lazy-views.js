@@ -129,6 +129,10 @@ export const PhaseWrappedView = lazy(() => import('../views/PhaseWrappedView.jsx
 // chunk, which is what tests/unit/boot-weight.test.mjs holds every declaration
 // here to.
 export const ProfileView = lazy(() => import('../views/ProfileView.jsx'));
+// StudioView — "ปรับแต่ง": the card, colours, characters and every
+// preference of src/lib/prefs/table.js. Opened from the profile hub and the
+// header's theme menu; never prefetched (most visits never open it).
+export const StudioView = lazy(() => import('../views/StudioView.jsx'));
 // (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 

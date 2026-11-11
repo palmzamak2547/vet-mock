@@ -7,7 +7,7 @@ import {
   DECIDE_PREFIX, YOURS_WHY, decisionIds, decisionFor, defineDecision,
   decide, recall, remember, rememberRows, forget, adjustOpen, setAdjustOpen,
 } from '../../src/lib/decide.js';
-import { PRACTICE_SETUP, SR_SETUP, PHASE_FIRST_RUN, HOME_MODE } from '../../src/lib/decisions/index.js';
+import { PRACTICE_SETUP, SR_SETUP, PHASE_FIRST_RUN, HOME_MODE, STUDIO_PRESET } from '../../src/lib/decisions/index.js';
 import { readFileSync, readdirSync } from 'node:fs';
 
 const DECISION_IDS = decisionIds();
@@ -20,8 +20,8 @@ const memory = (seed = {}) => {
 const throwing = { get() { throw new Error('blocked'); }, set() { throw new Error('blocked'); }, remove() { throw new Error('blocked'); } };
 
 test('every entry carries the fields the registry promises', () => {
-  assert.deepEqual([...DECISION_IDS].sort(), ['home.mode', 'phase.firstRun', 'practice.setup', 'sr.setup']);
-  assert.deepEqual([PRACTICE_SETUP, SR_SETUP, PHASE_FIRST_RUN, HOME_MODE], ['practice.setup', 'sr.setup', 'phase.firstRun', 'home.mode']);
+  assert.deepEqual([...DECISION_IDS].sort(), ['home.mode', 'phase.firstRun', 'practice.setup', 'sr.setup', 'studio.preset']);
+  assert.deepEqual([PRACTICE_SETUP, SR_SETUP, PHASE_FIRST_RUN, HOME_MODE, STUDIO_PRESET], ['practice.setup', 'sr.setup', 'phase.firstRun', 'home.mode', 'studio.preset']);
   for (const id of DECISION_IDS) {
     const e = decisionFor(id);
     assert.equal(e.id, id);
@@ -257,4 +257,20 @@ test('a why carried to the next screen is read once', async () => {
   assert.equal(peekWhy('home', io), null, 'an empty why leaves nothing');
   assert.doesNotThrow(() => leaveWhy('home', 'x', throwing));
   assert.equal(takeWhy('home', throwing), null);
+});
+
+test('studio.preset: the phone decides, and a phone that asks for less motion gets the still set', () => {
+  const rows = [
+    [{}, 'phone'],
+    [{ systemReduced: false }, 'phone'],
+    [{ systemReduced: true }, 'calm'],
+  ];
+  for (const [signals, value] of rows) {
+    const d = decide('studio.preset', signals, memory());
+    assert.equal(d.value, value, JSON.stringify(signals));
+    assert.equal(d.by, 'auto');
+    assert.ok(d.why.length > 0 && d.why.length < 80);
+  }
+  // nothing is remembered under vmx-decide: the preferences are the memory
+  assert.equal(decisionFor('studio.preset').key, undefined);
 });

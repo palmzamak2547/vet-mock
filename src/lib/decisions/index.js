@@ -5,3 +5,4 @@ export { PRACTICE_SETUP } from './practice-setup.js';
 export { SR_SETUP } from './sr-setup.js';
 export { PHASE_FIRST_RUN } from './phase-first-run.js';
 export { HOME_MODE } from './home-mode.js';
+export { STUDIO_PRESET } from './studio-preset.js';
