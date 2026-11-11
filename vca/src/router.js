@@ -30,6 +30,9 @@ export function parseRoute(pathname, search = '') {
   if (PAGES[path]) return { name: PAGES[path], params: {}, query };
   let m = /^\/d\/([a-z-]{2,40})$/.exec(path);
   if (m) return { name: 'domain', params: { id: m[1] }, query };
+  // One question by its number in a domain (lib/twin.js questionPath).
+  m = /^\/d\/([a-z-]{2,40})\/(\d{1,9})$/.exec(path);
+  if (m) return { name: 'question', params: { domain: m[1], no: m[2] }, query };
   m = /^\/result\/([a-z0-9-]{4,40})$/.exec(path);
   if (m) return { name: 'result', params: { id: m[1] }, query };
   m = /^\/community\/p\/([0-9a-f-]{8,40})(\/edit)?$/.exec(path);

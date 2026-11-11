@@ -4,14 +4,19 @@
 
 import { useEffect, useState } from 'react';
 import { RichText } from '@vetmock/lib/richtext.jsx';
-import { Link } from '../../components/Link.jsx';
-import { Icon } from '../../components/Icon.jsx';
-import { Explain } from '../../components/Question.jsx';
-import { CARD_BY_ID, loadQuestionByNumber } from '../../lib/bank.js';
-import { LETTERS, plateNo } from '../../lib/format.js';
-import { withQuery } from '../../router.js';
+import { Link } from './Link.jsx';
+import { Icon } from './Icon.jsx';
+import { Explain } from './Question.jsx';
+import { CARD_BY_ID, loadQuestionByNumber } from '../lib/bank.js';
+import { LETTERS, plateNo } from '../lib/format.js';
+import { withQuery } from '../router.js';
+import { twinUrl } from '../lib/twin.js';
 
-export function QuestionPeek({ no, domain }) {
+/**
+ * @param {{ no: string|number, domain: string, twin?: boolean, missing?: any }} props
+ *   twin: also link the same question in the VetMock app; missing: what to show when it is not there
+ */
+export function QuestionPeek({ no, domain, twin = false, missing = null }) {
   const card = CARD_BY_ID[domain];
   const [q, setQ] = useState(undefined);
   const [open, setOpen] = useState(false);
@@ -24,7 +29,7 @@ export function QuestionPeek({ no, domain }) {
     return () => { live = false; };
   }, [domain, no]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!card || q === null) return null;
+  if (!card || q === null) return missing;
   if (q === undefined) return <div className="peek skel-card" aria-busy="true"><span className="skel skel-line w40" /><span className="skel skel-line w80" /></div>;
   return (
     <aside className="peek" aria-label={`ข้อ No. ${q.id}`}>
@@ -47,6 +52,7 @@ export function QuestionPeek({ no, domain }) {
       <div className="peek-go">
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setOpen((v) => !v)} aria-expanded={open}>{open ? 'ซ่อนเฉลย' : 'ดูเฉลย'}</button>
         <Link to={withQuery('/bank', { q: q.id, d: domain })} className="text-link">เปิดในคลัง <Icon name="arrowRight" size={16} /></Link>
+        {twin && twinUrl(q) && <a href={twinUrl(q)} className="text-link">เปิดข้อนี้ใน VetMock <Icon name="arrowUpRight" size={14} /></a>}
       </div>
     </aside>
   );

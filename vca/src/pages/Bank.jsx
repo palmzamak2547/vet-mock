@@ -13,6 +13,7 @@ import { searchQuestions } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
 import { useAddressSync, useTitle, useTuck } from '../lib/hooks.js';
 import { LETTERS, num, plateNo } from '../lib/format.js';
+import { questionPath } from '../lib/twin.js';
 
 const PAGE = 30;
 
@@ -40,7 +41,8 @@ function BankItem({ q, query, showAnswers }) {
       <div className="bk-top">
         <span className="q-plate"><span className="q-plate-no">{plateNo(card.plate)}</span>{card.th}</span>
         <KindBadge kind={q.kind} />
-        <span className="bk-no">No. {q.id}</span>
+        {/* The question's own address: shareable, and it links the same question in the VetMock app. */}
+        {questionPath(q.domain, q.id) ? <Link to={questionPath(q.domain, q.id)} className="bk-no" aria-label={`ข้อ No. ${q.id} หน้าของข้อนี้`}>No. {q.id}</Link> : <span className="bk-no">No. {q.id}</span>}
       </div>
       <p className="bk-stem"><RichText text={q.q} highlight={query} /></p>
       {q.image && <figure className="q-fig"><img src={q.image} alt={q.imageAlt || 'ภาพประกอบโจทย์'} loading="lazy" decoding="async" /></figure>}
