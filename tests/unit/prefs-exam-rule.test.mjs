@@ -10,7 +10,7 @@ const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8')
 const CSS = read('src/styles.css');
 const ACCENT_TOKENS = /^--(clr-sage|clr-sage-text|clr-sage-soft|clr-sage-on|clr-gold|clr-gold-text|clr-gold-soft|clr-gold-on|vmx-color-learning|vmx-color-learning-on)$/;
 
-// The verdict pin itself is tests/unit/verdict-palette-pin.test.mjs.
+// The verdict colours themselves are tests/unit/verdict-colours.test.mjs.
 
 test('"สีของฉัน" re-colours the accent only, like the named palettes', () => {
   const offenders = [];

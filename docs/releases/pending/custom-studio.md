@@ -1,12 +1,18 @@
 # Pending: "ปรับแต่ง", the customization studio and "การ์ดของฉัน"
 
+## State
+- On top of `claude/verdict-pin` (7f94e596, verdict colours, its own pull request). The changelog line for
+  the verdict fix belongs to that pull request; it is not repeated below.
+- Waits for `claude/student-profile`: Avatar in the header chip, hub, board rows, groups, presence and
+  comments; the hub entry to the studio; the picture written through `saveIdentity()` (until then the
+  studio keeps it in the local card token); `PICTURE_ANIMALS` matched to IdentityEditor's 16.
+
 ```js
 // Changelog lines (Thai, what a student notices). kind / scope as in src/data/changelog.js.
 { kind: 'feature', scope: 'system', title: 'หน้า "ปรับแต่ง" รวมทุกอย่างไว้ที่เดียว', desc: 'เลือกชุดสำเร็จได้ในแตะเดียว เปลี่ยนแล้วเห็นทันที และกดย้อนกลับได้ ส่วนที่ละเอียดกว่าอยู่ใต้ "ปรับเอง" เปิดจากเมนูธีมด้านบน' },
 { kind: 'feature', scope: 'system', title: 'การ์ดของฉัน', desc: 'เลือกตัวละคร VetMock หรือสัตว์ที่ชอบเป็นรูป เลือกพื้นหลังได้ทุกแบบ ส่วนกรอบ ตำแหน่ง และถ้วยบนการ์ดได้จากการฝึกจริง การ์ดสะท้อนแสงตามนิ้ว' },
 { kind: 'feature', scope: 'system', title: 'สีของฉัน', desc: 'เลือกเฉดสีเองได้ทุกเฉด ระบบปรับความสว่างให้ตัวหนังสือและปุ่มอ่านชัดเสมอ' },
 { kind: 'feature', scope: 'system', title: 'การตั้งค่าตามไปเครื่องอื่น', desc: 'สี เพื่อนติว และการ์ดตามไปเครื่องอื่นที่เข้าบัญชีเดียวกัน เครื่องที่ตั้งไว้เองแล้วยังใช้ค่าของเครื่องนั้น' },
-{ kind: 'fix', scope: 'system', title: 'ข้อที่ตอบถูกเป็นสีเขียวทุกจานสี', desc: 'ในจานสีเชอร์รีและจานสีอื่น ตัวอักษรของข้อที่ตอบถูกเคยเปลี่ยนตามจานสีจนดูคล้ายข้อที่ผิด ตอนนี้เป็นสีเขียวเดิมเสมอ' },
 { kind: 'fix', scope: 'system', title: 'จานสีขึ้นทันทีที่เปิดแอป', desc: 'จานสีที่เลือกไว้ขึ้นตั้งแต่หน้าแรกปรากฏ ไม่กะพริบเป็นสีเขียวก่อน' },
 ```
 
@@ -94,11 +100,9 @@ colours all hold. `index.html` applies the palette attribute and the derived she
 themes, plus the six named palettes resolved from styles.css), `prefs-exam-rule.test.mjs`.
 
 Exam, as found: the companion is not shown in a question set (AGENTS.md, Mochi), celebrations run
-when a set ends and the exam keeps answers until submit, the timer reads only ink and rose. One
-defect: under any non-default palette the right answer's letter and border took the palette
-accent (cherry made it red beside the rose of a wrong answer). Verdict elements now pin the theme's
-own sage; a dead duplicate `.vmx-option.is-correct` pair was removed. No file in `src/views/Exam*`,
-`Question.jsx` or scoring changed.
+when a set ends and the exam keeps answers until submit, the timer reads only ink and rose. The one
+defect, verdicts taking the palette accent, is fixed on `claude/verdict-pin` (verdict tokens, a derived
+test). No file in `src/views/Exam*`, `Question.jsx` or scoring changed in this branch.
 
 ### Weight (gzip 9)
 (measured at the end; see below)
