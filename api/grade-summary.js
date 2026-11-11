@@ -26,7 +26,7 @@ import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { extractJSON, chatJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import WRITTEN from './_lib/written-questions.generated.json' with { type: 'json' };
 import { requireChula } from './_lib/chula-gate.js';
-import { countWords, normalizeGrading } from './_lib/grade-shape.js';
+import { countWords, normalizeGrading, statedPoints } from './_lib/grade-shape.js';
 
 const MAX_PASSAGE = 20000;
 const MAX_ANSWER = 5000;
@@ -92,7 +92,9 @@ export default async function handler(req, res) {
     // your own "model answer" and it will answer anything, on a daily budget
     // shared with every real student. A question id can only ever name one of
     // our own written questions.
-    const known = WRITTEN[String(body.qid ?? '')];
+    const qid = String(body.qid ?? '');
+    // Own keys only: '__proto__', 'constructor' or 'toString' name no question.
+    const known = Object.hasOwn(WRITTEN, qid) ? WRITTEN[qid] : null;
     if (!known) {
       return res.status(400).json({
         error: 'Unknown question',
@@ -107,6 +109,8 @@ export default async function handler(req, res) {
     }
 
     const type = known.type === 'essay' ? 'essay' : 'short';
+    // A short answer is out of the points its question states, else 2.
+    const maxPoints = type === 'short' ? (statedPoints(known.q) || 2) : null;
     const passage = String(known.passage || '').slice(0, MAX_PASSAGE);
     const question = String(known.q || '').slice(0, MAX_QUESTION);
     const modelAnswer = String(known.model_answer || '').slice(0, MAX_MODEL);
@@ -131,7 +135,7 @@ export default async function handler(req, res) {
     // Build the system + user prompt
     const systemPrompt = type === 'essay'
       ? buildEssaySystemPrompt({ targetWords, softMax, hardMax })
-      : buildShortSystemPrompt();
+      : buildShortSystemPrompt(maxPoints);
 
     const userPrompt = buildUserPrompt({ passage, question, userAnswer, modelAnswer, rubric, type });
 
@@ -157,7 +161,7 @@ export default async function handler(req, res) {
     // What the model proposed is checked against the rubric before it is
     // shown: scores clamped, the total recomputed (api/_lib/grade-shape.js).
     const words = countWords(userAnswer);
-    const checked = normalizeGrading(extractJSON(aiText), type, { wordCount: words, softMax, hardMax });
+    const checked = normalizeGrading(extractJSON(aiText), type, { wordCount: words, softMax, hardMax, maxPoints });
     if (!checked.ok) {
       console.error('AI grading refused (' + checked.reason + '):', aiText.slice(0, 500));
       return res.status(502).json({
@@ -233,7 +237,7 @@ CRITICAL:
 - Feedback should be concrete and actionable, not vague`;
 }
 
-function buildShortSystemPrompt() {
+function buildShortSystemPrompt(maxPoints = 2) {
   return `You are an experienced English instructor grading a Thai veterinary student's short-answer response for the Final exam Part I (Reading Vet Research Papers, 20 points total — individual short-answer items are typically worth 1-2 points each).
 
 The student read a research paper passage and answered a short-answer question. They were expected to extract specific information from the passage in their own words (or close paraphrase).
@@ -247,7 +251,7 @@ Grade based on:
 \`\`\`json
 {
   "scores": {
-    "answer": { "earned": 0, "total": 2, "justification": "Correctly identified X and Y; missed Z..." }
+    "answer": { "earned": 0, "total": ${maxPoints}, "justification": "Correctly identified X and Y; missed Z..." }
   },
   "totalScore": 0,
   "overallFeedback": "1-2 sentences in Thai or English",
@@ -261,10 +265,10 @@ Grade based on:
 \`\`\`
 
 CRITICAL:
-- "earned" 0-2 (most short answers are out of 2 pts in actual exam)
-- If the answer is essentially correct but missing minor detail → 1.5 → round to 1 or 2 based on coverage
+- This item is worth ${maxPoints} points: "earned" is 0-${maxPoints}, in steps of 0.5
+- If the answer is essentially correct but missing minor detail → a part of ${maxPoints} matching its coverage
 - If the answer is wrong / off-topic → 0
-- If perfect match to model answer concepts → 2`;
+- If perfect match to model answer concepts → ${maxPoints}`;
 }
 
 function buildUserPrompt({ passage, question, userAnswer, modelAnswer, rubric, type }) {
