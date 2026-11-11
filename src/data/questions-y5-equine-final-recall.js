@@ -4952,7 +4952,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "grading",
       "past-paper"
     ],
-    "image": "/figures/questions/equine-medicine-209596.webp",
+    "image": "/figures/questions/equine-medicine-209595.webp",
     "imageAlt": "ภาพส่องกล้องตรวจภายในหลอดลม (tracheal endoscopy) มองจากกลาง trachea ลงไปจนเห็นจุดแยกของหลอดลม",
     "sourcePages": [
       {
@@ -5009,7 +5009,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "respiratory",
       "past-paper"
     ],
-    "image": "/figures/questions/equine-medicine-209597.webp",
+    "image": "/figures/questions/equine-medicine-209595.webp",
     "imageAlt": "ภาพส่องกล้องตรวจภายในหลอดลม (tracheal endoscopy) มองจากกลาง trachea ลงไปจนเห็นจุดแยกของหลอดลม",
     "sourcePages": [
       {
@@ -5075,7 +5075,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "client-advice",
       "past-paper"
     ],
-    "image": "/figures/questions/equine-medicine-209598.webp",
+    "image": "/figures/questions/equine-medicine-209595.webp",
     "imageAlt": "ภาพส่องกล้องตรวจภายในหลอดลม (tracheal endoscopy) มองจากกลาง trachea ลงไปจนเห็นจุดแยกของหลอดลม",
     "sourcePages": [
       {

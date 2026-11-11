@@ -43,6 +43,7 @@
 // ============================================================
 
 import { BANK_REGISTRY } from './bank-registry.generated.js';
+import { loadMediaSizes } from '../lib/media-size.js';
 
 // LOADERS derived from the generated registry. Each entry: { file, year, fn }
 // where `year` is the curriculum year the bank belongs to (or null for
@@ -125,12 +126,29 @@ export function onQBMerged(listener) {
   return () => _mergeListeners.delete(listener);
 }
 
+// The pixel sizes of the figures these questions show arrive with them, so a
+// card never draws a figure whose place it cannot keep (lib/media-size.js).
+// They never fail the load, and never hold it: a set must start on time even
+// when that one small file is slow, so the wait ends after SIZES_WAIT_MS and
+// the card picks the sizes up when they land.
+export const SIZES_WAIT_MS = 1500;
+export function mediaSizesSoon({ load = loadMediaSizes, waitMs = SIZES_WAIT_MS } = {}) {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, waitMs);
+    const done = () => { clearTimeout(timer); resolve(); };
+    load().then(done, done);
+  });
+}
+
 function _runLoaders(loaders, scopeKey) {
   if (_loadPromises.has(scopeKey)) return _loadPromises.get(scopeKey);
-  const p = Promise.all(loaders.map(({ file, fn, exportName }) => (
-    importBank(fn, exportName).then((questions) => ({ file, questions }))
-  )))
-    .then((parts) => {
+  const p = Promise.all([
+    Promise.all(loaders.map(({ file, fn, exportName }) => (
+      importBank(fn, exportName).then((questions) => ({ file, questions }))
+    ))),
+    mediaSizesSoon(),
+  ])
+    .then(([parts]) => {
       mergeBanks(parts);
       _loadedScopes.add(scopeKey);
       for (const listener of _mergeListeners) {

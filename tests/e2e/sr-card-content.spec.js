@@ -100,7 +100,8 @@ test('SR reveals a safe explanation figure with zoom and never fetches an untrus
   await expect(image).toBeVisible();
   await expect.poll(() => image.evaluate(node => node.naturalWidth)).toBeGreaterThan(0);
   await page.getByRole('button', { name: `เปิดภาพขยาย: ${figure.explainImageAlt}`, exact: true }).click();
-  const zoom = page.getByRole('dialog', { name: 'ภาพขยาย — กดที่ใดก็ได้เพื่อปิด', exact: true });
+  // The dialog is named for what it is. It used to say "กดที่ใดก็ได้เพื่อปิด", which a tap on the picture did not do.
+  const zoom = page.getByRole('dialog', { name: 'ภาพขยาย', exact: true });
   await expect(zoom).toBeVisible();
   await page.screenshot({ path: info.outputPath('sr-explanation-zoom.png') });
   await page.keyboard.press('Escape');

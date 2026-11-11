@@ -7697,7 +7697,7 @@ export const QB_VCA_2569 = [
         "locator": "Cow about 7 months pregnant; Buhner's suture applied parallel to the vulva beneath the skin to keep the vagina in position"
       }
     ],
-    "imagePath": "/images/vca-2569/p3-111-prolapse-tools.jpg",
+    "imagePath": "/images/vca-2569/p3-111-prolapse-tools.webp",
     "imageAlt": "ภาพบนเป็นโคท้องที่มีก้อนเนื้อสีแดงยื่นออกจากปากช่องคลอด ภาพล่างเป็นอุปกรณ์ 5 ชิ้น มีเลข 1 ถึง 5 เขียนกำกับใต้แต่ละชิ้น",
     "noShuffle": true,
     "flag": {
