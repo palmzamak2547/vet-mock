@@ -18,7 +18,8 @@ import * as fr from '../helpers/fake-react.mjs';
 await loadQB();
 const withSection = QB.filter((q) => typeof q.explain === 'string' && q.explain.includes('ทำไมข้ออื่นผิด'));
 const folds = withSection.map((q) => [q, otherOptionsFold(q.explain)]).filter(([, f]) => f);
-const firstParagraph = (t) => t.split(/\n[ \t]*\n/)[0];
+// The opening: everything up to the first line break, which is never folded.
+const firstParagraph = (t) => t.split('\n')[0];
 
 test('the fold cuts the explanation where it already breaks, and keeps its opening outside', () => {
   assert.ok(withSection.length > 2000, `explanations with the section (${withSection.length})`);
@@ -28,13 +29,17 @@ test('the fold cuts the explanation where it already breaks, and keeps its openi
     assert.equal(f.before + f.heading + '\n' + f.body + f.after, q.explain, `${id} is the text as written`);
     assert.match(f.heading.trim(), /^(?:❌|✗)?\s*ทำไมข้ออื่นผิด:?$/, id);
     assert.ok(f.body.trim(), `${id} folds something`);
-    assert.ok(f.before.includes(firstParagraph(q.explain)), `${id}: the opening paragraph is never folded`);
+    assert.ok(f.before.trim() && f.before.includes(firstParagraph(q.explain)), `${id}: the opening is never folded`);
     assert.ok(!/\n[ \t]*\n/.test(f.body), `${id}: one paragraph, never the one after it`);
   }
   // A section that opens the explanation, or a heading with words of its own, stays open.
   assert.equal(otherOptionsFold('❌ ทำไมข้ออื่นผิด\n— ก ผิด'), null);
   assert.equal(otherOptionsFold('เหตุผลหลัก\n\n❌ ทำไมข้ออื่นผิด ในความหมายว่า X\n— ก ผิด'), null);
   assert.equal(otherOptionsFold('ไม่มีส่วนนี้'), null);
+  // The heading after a single newline starts the section too (75 food-industry explanations).
+  assert.deepEqual(otherOptionsFold('เหตุผลหลัก\nทำไมข้ออื่นผิด\n- ก ผิด\n- ข ผิด'), { before: 'เหตุผลหลัก\n', heading: 'ทำไมข้ออื่นผิด', body: '- ก ผิด\n- ข ผิด', after: '' });
+  const food = folds.filter(([q]) => q.subject === 'food-industry' && /[^\n]\nทำไมข้ออื่นผิด\n/.test(q.explain));
+  assert.ok(food.length >= 70, `food-industry explanations whose heading follows a single newline fold (${food.length})`);
   const cut = otherOptionsFold('เหตุผลหลัก\n\n❌ ทำไมข้ออื่นผิด\n— ก ผิด\n— ข ผิด\n\n💡 จำว่า');
   assert.deepEqual(cut, { before: 'เหตุผลหลัก\n\n', heading: '❌ ทำไมข้ออื่นผิด', body: '— ก ผิด\n— ข ผิด', after: '\n\n💡 จำว่า' });
 });
@@ -64,7 +69,7 @@ const STUBS = [
     'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'MatchDragDrop']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
 ];
-const { default: QuestionCard } = await fr.loadModule('src/components/Question.jsx', { stubs: STUBS });
+const { default: QuestionCard, InstantFeedback } = await fr.loadModule('src/components/Question.jsx', { stubs: STUBS });
 
 function panel(q, answer) {
   const store = new Map();
@@ -107,4 +112,20 @@ test('a correct answer folds only that section; a miss reads it open', () => {
   // A reveal without an answer is not a correct answer.
   const [q] = folds[0];
   assert.equal(fr.findAll(panel(q, undefined) || {}, (n) => n.type === 'details').length, 0);
+});
+
+test('read-aloud opens the fold when it starts on the explanation, and leaves it to the student after', () => {
+  const [q] = folds[0];
+  const props = { ok: true, explain: q.explain, subject: q.subject, foldOtherOptions: true, reading: false };
+  const inst = fr.mount(InstantFeedback, props);
+  const [details] = fr.findAll(inst.tree, (n) => n.type === 'details');
+  assert.ok(details?.props.ref, 'the fold carries a ref');
+  const el = { open: false };
+  details.props.ref.current = el;
+  inst.update({ reading: true });
+  assert.equal(el.open, true, 'reading the explanation opens the fold');
+  el.open = false;
+  inst.update({ reading: false });
+  assert.equal(el.open, false, 'stopping does not reopen it or force it shut');
+  inst.unmount();
 });
