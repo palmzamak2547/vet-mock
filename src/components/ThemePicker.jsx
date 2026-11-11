@@ -22,12 +22,22 @@ const loadMotionSettings = () => import('./MotionSettings.jsx');
 const MotionSettings = lazy(loadMotionSettings);
 const MOTION_SETTINGS_SUMMARY = 'ตั้งค่า Mochi และการเคลื่อนไหว';
 function Ready({ onReady }) { useLayoutEffect(onReady, []); return null; }
-// A tap on the row before the settings arrive opens them as soon as they do.
+// A tap on the row before the settings arrive opens them as soon as they do, and keyboard focus on the
+// row moves to the real one (the placeholder leaves the page with the focus on it).
 function MotionSettingsSlot() {
   const opened = useRef(false);
+  const focused = useRef(false);
   const box = useRef(null);
-  const row = <details className="vmx-motion-settings" onToggle={(e) => { opened.current = e.currentTarget.open; }}><summary>{MOTION_SETTINGS_SUMMARY}</summary></details>;
-  const reopen = () => { if (opened.current) box.current?.querySelector('details')?.setAttribute('open', ''); };
+  const row = (
+    <details className="vmx-motion-settings" onToggle={(e) => { opened.current = e.currentTarget.open; }}>
+      <summary onFocus={() => { focused.current = true; }} onBlur={() => { focused.current = false; }}>{MOTION_SETTINGS_SUMMARY}</summary>
+    </details>
+  );
+  const reopen = () => {
+    const details = box.current?.querySelector('details');
+    if (opened.current) details?.setAttribute('open', '');
+    if (focused.current && (document.activeElement === document.body || !document.activeElement)) details?.querySelector('summary')?.focus();
+  };
   return (
     <div className="vmx-theme-motion-settings" ref={box}>
       <ErrorBoundary fallback={row}><Suspense fallback={row}><MotionSettings /><Ready onReady={reopen} /></Suspense></ErrorBoundary>

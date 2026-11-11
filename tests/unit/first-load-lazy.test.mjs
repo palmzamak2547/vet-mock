@@ -76,8 +76,40 @@ test('the theme panel holds the motion settings\' closed row while they load, wo
   const shown = settings.match(/<details className="([^"]+)">\s*<summary>([^<]+)<\/summary>/);
   assert.ok(shown, 'MotionSettings opens from a <details> row');
   assert.match(picker, new RegExp(`const MOTION_SETTINGS_SUMMARY = '${shown[2]}';`));
-  assert.match(picker, new RegExp(`<details className="${shown[1]}".*?><summary>\\{MOTION_SETTINGS_SUMMARY\\}</summary></details>`));
+  assert.match(picker, new RegExp(`<details className="${shown[1]}"[\\s\\S]*?<summary[\\s\\S]*?>\\{MOTION_SETTINGS_SUMMARY\\}</summary>\\s*</details>`));
   assert.match(settings, /export default function MotionSettings\(\)/, 'the component keeps its default export and no props');
+});
+
+// Where each lazyOnly module may be asked for with import(), and the condition each import sits behind.
+// An import() anywhere else on the boot path (an App.jsx effect that warms the settings, say) would
+// fetch it on every visit while every static check above still passed.
+const ASKED_FROM = {
+  'src/lib/origin-move.js': { from: 'src/main.jsx', behind: /^\s*(?:\}\s*else\s+)?if \(move === '(now|later)'\)/ },
+  'src/lib/native-app.js': { from: 'src/main.jsx', behind: /^\s*if \(IS_APP\)/ },
+  'src/components/MotionSettings.jsx': { from: 'src/components/ThemePicker.jsx', behind: /^const loadMotionSettings = \(\) => import/ },
+};
+
+test('a lazyOnly module is asked for only from its gate, and the gate only behind its condition', () => {
+  const boot = staticReach('src/main.jsx');
+  for (const [target, { from, behind }] of Object.entries(ASKED_FROM)) {
+    const askers = [...boot].filter((file) => (inputs[file]?.imports || []).some((e) => e.path === target && e.kind === 'dynamic-import'));
+    assert.deepEqual(askers, [from], `${target} is imported from ${askers.join(', ')}`);
+    // Each import() line in the gate, with the line it depends on: itself, or the if above it.
+    const lines = readFileSync(join(ROOT, from), 'utf8').replace(/\r\n/g, '\n').split('\n');
+    const name = target.split('/').pop();
+    const at = lines.map((l, i) => (l.includes(`import('./`) && l.includes(name) ? i : -1)).filter((i) => i >= 0);
+    assert.ok(at.length, `${from} imports ${name}`);
+    for (const i of at) {
+      const guarded = behind.test(lines[i]) || (i > 0 && behind.test(lines[i - 1])) || (i > 1 && behind.test(lines[i - 2]));
+      assert.ok(guarded, `${from}:${i + 1} imports ${name} outside its condition: ${lines[i].trim()}`);
+    }
+  }
+  // The settings' loader runs on the panel's own events or through lazy(), never at start-up.
+  const picker = readFileSync(join(ROOT, 'src/components/ThemePicker.jsx'), 'utf8');
+  const calls = [...picker.matchAll(/.*\bloadMotionSettings\b.*/g)].map((m) => m[0].trim());
+  for (const line of calls) {
+    assert.match(line, /^(const loadMotionSettings = |const MotionSettings = lazy\(loadMotionSettings\)|on(PointerEnter|Focus)=\{\(\) => \{ loadMotionSettings\(\))/, `ThemePicker calls the loader at: ${line}`);
+  }
 });
 
 test('lazyOnlyProblems: a dynamic chunk outside the route passes, a static or merged one fails', () => {

@@ -34,10 +34,24 @@ holds the same on the source graph), tested in tests/e2e/first-load-lazy.spec.js
   the app starts after the merge; only after-load work: loaded without waiting). The gate mirrors the
   module's own early returns (tests/unit/move-gate.test.mjs). A failed load starts the app and keeps the
   inbox. Measured alone: first-load JS 225,505 -> 220,895 B gzip (-4,610).
+  - The start-up jobs are one table, `MOVE_JOBS` in move-gate.js (inbox, records, notice, note), and
+    origin-move.js runs only the jobs it says are due, so a new job cannot leave the gate behind.
+  - A chunk that stalls gets 4 s (`MOVE_WAIT_MS`), then the app starts and `window.__vmxMoveSkip` tells a
+    late origin-move.js not to merge under the running store; the same flag is set before the module is
+    asked for on the after-load path. The inbox waits for the next boot.
+  - A job that keeps failing is tried 3 times (`MAX_ATTEMPTS`): the inbox merge counts boots in
+    `vmx-move-inbox-attempts` (cleared when a merge goes through), the record import in
+    `vmx-move-received.attempts`. Then boots stop fetching and waiting. What the student keeps: everything
+    stays where it was (the unmerged inbox in localStorage, the PDF ink and study events in the IndexedDB
+    inbox, and the old address's own copy); what the app no longer does is show that carried data here.
+    This hits only a device whose storage is full or whose IndexedDB refuses writes three boots running.
 - `native-app.js`: loaded only when `lib/native-detect.js` (IS_APP) says this is the Android app, and the
   app starts after it; app-lifecycle reads IS_APP so no worker registers in the app.
 - `MotionSettings.jsx` + `lib/haptics.js`: loaded with the theme panel (and on pointer or focus at its
-  button), the same closed row holding the place; the component's export and props are unchanged.
+  button), the same closed row holding the place; the component's export and props are unchanged. A tap
+  on the row meanwhile opens the settings when they arrive, and keyboard focus on it moves to the real row.
+  Accepted: offline, a student who never opened the theme panel while online sees only the closed row
+  (the worker caches an `/assets/` chunk once it has been requested); the other theme controls work.
 - Not moved: `SyncStatusNotice.jsx`. `public/sw.js` precaches only `/`, `/manifest.webmanifest`,
   `/favicon.svg` and `/icon-192.png`; `/assets/` chunks are cached only once requested, so a lazy notice
   could be missing offline, the moment it exists for.
