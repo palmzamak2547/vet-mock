@@ -106,6 +106,15 @@ test('the X and the browser Back ask the same question, and it keeps the set', a
   await expect(page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ })).toBeVisible();
 });
 
+// item 6
+test('the reveal switch of a matching set keeps one line per choice on a phone', async ({ page, context }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await resume(page, context, { questions: [MATCH, ...MCQ.slice(0, 1)] });
+  const toggle = page.locator('.vmx-reveal-toggle');
+  await expect(toggle).toBeVisible();
+  expect((await toggle.boundingBox()).height).toBeLessThan(56);
+});
+
 // item 4
 for (const scheme of ['light', 'dark']) {
   test(`the results card's pass flag clears the score line, and the time reads as one phrase (${scheme})`, async ({ page, context }) => {

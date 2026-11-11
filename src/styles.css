@@ -2997,8 +2997,11 @@ html.dark .vmx-panic-scrim {
 /* The pad keeps the page still under a pen or a finger. */
 .vmx-hand-pad { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 /* AnswerReveal: when a matching set or a written answer shows เฉลย. */
-.vmx-reveal-toggle { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-.vmx-reveal-toggle button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; padding: 5px 11px; cursor: pointer; }
+/* Its labels keep one line each, and the switch takes a line of its own when
+   it does not fit beside its hint: squeezed, it wrapped into a tall blob. */
+.vmx-reveal-toggle { display: inline-flex; flex: none; max-width: 100%; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
+.vmx-reveal-toggle button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; padding: 5px 11px; cursor: pointer; white-space: nowrap; }
+@media (max-width: 300px) { .vmx-reveal-toggle button { white-space: normal; } }
 .vmx-reveal-toggle button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-reveal-toggle button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-match-why { margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
@@ -3066,7 +3069,7 @@ html.dark .vmx-panic-scrim {
 /* ── Match Drag-Drop (Matching Game Showcase) ───────────────────────── */
 .vmx-match-dnd { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
 .vmx-match-dnd-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.vmx-match-dnd-status { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 240px; }
+.vmx-match-dnd-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex: 1; min-width: min(240px, 100%); }
 .vmx-match-dnd-hint { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.5; }
 .vmx-match-status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-size: 14px; line-height: 1.4; }
 .vmx-match-status-pill.selected { background: rgba(184, 137, 64, 0.14); border: 1px solid var(--clr-gold); color: var(--clr-gold-text); animation: vmx-pulse-subtle 2s infinite ease-in-out; }
