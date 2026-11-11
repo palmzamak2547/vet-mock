@@ -3295,6 +3295,8 @@ html.dark .vmx-panic-scrim {
 .vmx-score-label { font-family: inherit; font-size: 14px; color: var(--clr-ink-soft); margin: 8px 0 20px; }
 .vmx-score-frac { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
 .vmx-score-msg { font-family: inherit; font-size: 17px; line-height: 1.55; color: var(--clr-ink-soft); margin-top: 16px; }
+/* The first thing to do after a set, right under the score (ResultsView NextPlayPanel part="primary"). */
+.vmx-results-primary { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 16px auto 0; }
 
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .vmx-stat-card {
@@ -5678,6 +5680,11 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-reminder-offer { display: flex; flex-direction: column; gap: 10px; margin: 0 auto 16px; max-width: 480px; padding: 14px 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
 .vmx-reminder-offer > strong { font-size: 16px; color: var(--clr-ink); }
 .vmx-reminder-offer > .vmx-btn { align-self: flex-start; min-height: 44px; }
+/* The offer is one row until the student asks for the times. */
+.vmx-reminder-offer.is-row { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 10px 16px; }
+.vmx-reminder-offer.is-row > strong { font-size: 15px; flex: 1 1 12em; }
+.vmx-reminder-row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.vmx-reminder-row-actions .vmx-btn { min-height: 44px; }
 .vmx-reminder-picker { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .vmx-reminder-times { display: flex; flex-wrap: wrap; gap: 8px; }
 .vmx-reminder-targets { display: flex; flex-wrap: wrap; gap: 8px; }

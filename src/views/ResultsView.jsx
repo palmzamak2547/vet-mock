@@ -38,14 +38,6 @@ const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer
 // Offered once ever, after the first set of a day: its own chunk, not every result's (1.7 KB gzip).
 const ReminderOffer = lazy(() => import('../components/ReminderPicker.jsx').then((m) => ({ default: m.ReminderOffer })));
 
-// Phase label map — mirrors header pill in App.jsx
-const PHASE_LABEL_RES = {
-  '1-mid':   'ทม.1 กลาง',
-  '1-final': 'ทม.1 ปลาย',
-  '2-mid':   'ทม.2 กลาง',
-  '2-final': 'ทม.2 ปลาย',
-};
-
 // Results already shown once in this page's life, by completion time: Back
 // from the answers shows the page as it is, without its entrance again.
 const shownResults = new Set();
@@ -102,7 +94,6 @@ export default function ResultsView({
     if (ms <= 0) return null;
     return Math.max(1, Math.min(9999, Math.round(ms / 1000)));
   }, [examStartTime, completedAt]);
-  const phaseLabel = selectedPhase ? PHASE_LABEL_RES[selectedPhase] : null;
   // Fire confetti once on mount for a perfect auto-graded score.
   // Lazy-imported so the canvas/animation code never hits the
   // main bundle. Guarded by useRef so React StrictMode's double
@@ -273,7 +264,6 @@ export default function ResultsView({
   // 100 and 79.5% rounds to 80, and neither should count.
   const celebrate = autoQs.length >= 3 && score.total > 0 && score.correct / score.total >= 0.8;
   const perfect = score.total > 0 && score.correct === score.total;
-  const showPassFail = isExam && autoQs.length > 0;
 
   // The ladder's verdict, read the same way NextPlayPanel reads it, so the
   // buddy's words and the ladder under them say one thing: past the practice
@@ -311,24 +301,9 @@ export default function ResultsView({
     <>
       <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
       <ExamSaveNotice status={saveStatus} />
-      {(phaseLabel || selectedYear) && (
-        <div style={{
-          marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
-          fontSize: 14, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)',
-        }}>
-          <span style={{
-            padding: '3px 10px', borderRadius: 999,
-            background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)',
-          }}>
-            ปี {selectedYear}{phaseLabel ? `, ${phaseLabel}` : ''}
-          </span>
-        </div>
-      )}
-      {showPassFail && (
-        <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16 }}>
-          {passed ? `ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)` : `ยังไม่ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)`}, โหมดสอบ
-        </div>
-      )}
+      {/* The score and what to do next come first (owner decision, 11 Nov
+          2026): no year pill above it, and the practice mark is stated once,
+          on the bar under the score. The seal says whether it was reached. */}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
         <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16, color: 'var(--clr-gold-text)' }}>
           ชุดข้อเขียน, รอตรวจให้คะแนน
@@ -358,7 +333,6 @@ export default function ResultsView({
           {autoQs.length > 0 ? (
             <div className={`vmx-clinical-seal ${reached ? 'is-pass' : 'is-review'}`}>
               <span className="vmx-seal-title">{reached ? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'}</span>
-              <span className="vmx-seal-sub">เกณฑ์ซ้อมของแอป {PRACTICE_PASS_PCT}% ของชุด</span>
             </div>
           ) : (
             <div className="vmx-clinical-seal is-writing">
@@ -388,7 +362,6 @@ export default function ResultsView({
               </div>
               <div className="vmx-benchmark-legend">
                 <span>0%</span>
-                <span>เกณฑ์ผ่าน {PRACTICE_PASS_PCT}%</span>
                 <span>100%</span>
               </div>
             </div>
@@ -418,6 +391,30 @@ export default function ResultsView({
           </div>
         )}
       </div>
+
+      {/* What to do next, right under the score: the first viewport holds both. */}
+      <NextPlayPanel
+        part="primary"
+        autoQs={autoQs}
+        wrongCount={wrongCount}
+        score={score}
+        mode={mode}
+        useTimer={useTimer}
+        sessionKind={sessionKind}
+        goHome={goHome}
+        setView={setView}
+        questions={questions}
+        answers={answers}
+        startExam={startExam}
+        setSubject={setSubject}
+        setTopic={setTopic}
+        setPracticeMode={setPracticeMode}
+        setMode={setMode}
+        setNumQuestions={setNumQuestions}
+        setUseTimer={setUseTimer}
+        replayQuestions={replayQuestions}
+        receiverDurationSec={receiverDurationSec}
+      />
 
       {/* The first set of a day: what it did to the day count, right under
           the score (lib/streak-moment.js); nothing for a second set. */}
@@ -601,6 +598,7 @@ export default function ResultsView({
       )}
 
       <NextPlayPanel
+        part="rest"
         autoQs={autoQs}
         wrongCount={wrongCount}
         score={score}
@@ -689,6 +687,9 @@ function NextPlayPanel({
   // Pass through as prop so the ChallengeQuizButton + SendToGroupButton
   // calls below get the correct elapsed time for sender-side URL.
   receiverDurationSec,
+  // 'primary': only the first thing to do, drawn right under the score;
+  // 'rest': everything else, where the panel always sat; 'all': both.
+  part = 'all',
 }) {
   // Detect single-subject + single-topic context so we can offer
   // "continue this topic" buttons rather than generic "random".
@@ -753,6 +754,7 @@ function NextPlayPanel({
 
   // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
+    if (part === 'rest') return null;
     return (
       <div className="vmx-btn-row is-stack" style={{ marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + ให้คะแนนข้อเขียน →</button>
@@ -833,10 +835,10 @@ function NextPlayPanel({
       ? `ได้ ${pctExact}% ยังไม่ถึง ${upBar}% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน`
       : verdict.kind === 'back'
         ? (verdict.next === verdict.step
-          ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ทำขั้นนี้อีกชุดให้ถึง ${PRACTICE_PASS_PCT}% ก่อน`
-          : `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`)
+          ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ทำขั้นนี้อีกชุดให้ถึงเกณฑ์ก่อน`
+          : `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`)
         : verdict.kind === 'done'
-          ? `ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย`
+          ? 'ถึงเกณฑ์ซ้อมในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย'
           : verdict.kind === 'redo'
             ? 'รอบแก้ข้อที่ผิดไม่นับเป็นขั้น ทำชุดใหม่เพื่อวัดอีกครั้ง'
             : `ชุดนี้สั้นกว่า ${STEP_MIN_SET} ข้อ ยังบอกไม่ได้ว่าพร้อมขั้นต่อไปหรือยัง ลองชุด ${ladderStep(verdict.step).count} ข้อ`;
@@ -885,25 +887,7 @@ function NextPlayPanel({
     </button>
   );
 
-  return (
-    <div style={{ marginTop: 18 }}>
-      {/* Where this set sits on the ladder, and what it earned. The rung
-          just climbed is marked, the recommended one is named, and the
-          sentence under the strip states the bar in numbers. */}
-      <section className="vmx-next-ladder" aria-labelledby="vmx-next-ladder-title">
-        <h3 id="vmx-next-ladder-title" className="vmx-next-ladder-title">บันไดฝึก</h3>
-        <LadderStrip
-          done={verdict.step}
-          doneLabel={`ได้ ${pctExact}%`}
-          next={verdict.next !== verdict.step ? verdict.next : null}
-          labelledBy="vmx-next-ladder-title"
-        />
-        <p className="vmx-next-ladder-note">{ladderNote}</p>
-      </section>
-
-      {/* Action stack — primary card on top, secondary row below. */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {!hasWrong && ladderCard ? ladderCard : hasWrong ? (
+  const primaryCard = !hasWrong && ladderCard ? ladderCard : hasWrong ? (
           <button
             type="button"
             onClick={handleRedoWrong}
@@ -981,7 +965,30 @@ function NextPlayPanel({
               ลุย →
             </div>
           </button>
-        )}
+        );
+  // The first thing to do sits right under the score (owner decision, 11 Nov
+  // 2026); the ladder and the other choices stay where they were.
+  if (part === 'primary') return <div className="vmx-results-primary">{primaryCard}</div>;
+
+  return (
+    <div style={{ marginTop: 18 }}>
+      {/* Where this set sits on the ladder, and what it earned. The rung
+          just climbed is marked, the recommended one is named, and the
+          sentence under the strip states the bar in numbers. */}
+      <section className="vmx-next-ladder" aria-labelledby="vmx-next-ladder-title">
+        <h3 id="vmx-next-ladder-title" className="vmx-next-ladder-title">บันไดฝึก</h3>
+        <LadderStrip
+          done={verdict.step}
+          doneLabel={`ได้ ${pctExact}%`}
+          next={verdict.next !== verdict.step ? verdict.next : null}
+          labelledBy="vmx-next-ladder-title"
+        />
+        <p className="vmx-next-ladder-note">{ladderNote}</p>
+      </section>
+
+      {/* Action stack — primary card on top, secondary row below. */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {part !== 'rest' && primaryCard}
         {/* With misses on top, a climb the set earned is the next card. */}
         {hasWrong && ladderCard}
 

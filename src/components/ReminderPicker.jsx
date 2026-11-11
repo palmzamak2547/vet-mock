@@ -31,17 +31,30 @@ export function ReminderOffer({ usual = null, className = '', style }) {
     Promise.resolve(app.status()).then((s) => { if (live && (s === 'granted' || s === 'denied')) setOpen(false); }).catch(() => {});
     return () => { live = false; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once, at the result
+  // One row until the student asks for the times: the whole picker (six
+  // times, two calendars and a paragraph) stood 432 px tall under the score.
+  const [expanded, setExpanded] = useState(false);
   if (!open) return null;
   const choose = (how) => { answerOffer(how); setChosen(how); };
+  const decline = <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { answerOffer('no'); setOpen(false); }}>ไม่ต้อง</button>;
+  if (!expanded && !chosen) {
+    return (
+      <div className={`vmx-reminder-offer is-row ${className}`} style={style}>
+        <strong>{app ? 'ให้ VetMock เตือนทำโจทย์ทุกวันไหม' : 'ให้ปฏิทินเตือนทำโจทย์ทุกวันไหม'}</strong>
+        <span className="vmx-reminder-row-actions">
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-expanded="false" onClick={() => setExpanded(true)}>เลือกเวลา</button>
+          {decline}
+        </span>
+      </div>
+    );
+  }
   return (
     <div className={`vmx-reminder-offer ${className}`} style={style}>
       <strong>{app ? 'ให้ VetMock เตือนทำโจทย์ทุกวันไหม' : 'ให้ปฏิทินเตือนทำโจทย์ทุกวันไหม'}</strong>
       {chosen && chosen !== 'app'
         ? <p className="vmx-reminder-note" role="status">เปิดปฏิทินให้แล้ว กดบันทึกนัดในปฏิทินเพื่อให้เตือน เปลี่ยนเวลาได้ที่หน้าเชื่อมแอป</p>
         : <ReminderPicker usual={usual} onChosen={choose} />}
-      {!chosen && (
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { answerOffer('no'); setOpen(false); }}>ไม่ต้อง</button>
-      )}
+      {!chosen && decline}
     </div>
   );
 }

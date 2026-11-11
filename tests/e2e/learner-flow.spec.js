@@ -191,6 +191,21 @@ for (const scheme of ['light', 'dark']) {
   });
 }
 
+// item 11
+for (const width of [375, 320]) {
+  test(`the results page opens on the score and the next step at ${width}x812`, async ({ page, context }) => {
+    await openResults(page, context, width);
+    const fold = await page.evaluate(() => window.innerHeight);
+    const score = await page.locator('.vmx-score-big').boundingBox();
+    const primary = await page.locator('.vmx-results-primary button').first().boundingBox();
+    expect(score.y + score.height).toBeLessThanOrEqual(fold);
+    expect(primary.y + primary.height, 'the next step is below the fold').toBeLessThanOrEqual(fold);
+    // The practice mark is stated once on the card.
+    const hero = (await page.locator('.vmx-results-hero').innerText()).replace(/\s+/g, ' ');
+    expect(hero.match(/60%/g)?.length).toBe(1);
+  });
+}
+
 // item 9
 test.describe('the exam clock and the device clock', () => {
   test.use({ pinCalendar: false });
