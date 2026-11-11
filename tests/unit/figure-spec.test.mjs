@@ -5,7 +5,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { splitBlocks, tablesToSpeech, wholeExplain, hasFigure, highlightParts } from '../../src/lib/rich-blocks.js';
-import { parseFigure, figureHeight, FIGURE_KINDS } from '../../src/lib/figure-spec.js';
+import { parseFigure, figureHeight, withoutKeys, FIGURE_KINDS } from '../../src/lib/figure-spec.js';
+import { figureProblems } from '../../src/lib/figure-check.js';
 import { lintQuestionFigures, evaluate } from '../../scripts/lint-question-figures.mjs';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
 
@@ -30,7 +31,7 @@ test('an unclosed fence stays prose, and a text without one is unchanged', () =>
 });
 
 test('the 2x2 parses its cells, margins and calc, with the middle steps kept', () => {
-  const fig = splitBlocks(TEXT)[1].fig;
+  const fig = parseFigure('twobytwo', splitBlocks(TEXT)[1].body);
   assert.deepEqual(fig.errors, []);
   assert.deepEqual(fig.cols, ['มดลูกอักเสบ', 'ปกติ']);
   assert.deepEqual(fig.rows[1], { label: 'ไม่ฉีดยาคุมกำเนิด', cells: ['5', '12'] });
@@ -133,9 +134,10 @@ test('lint: pairings the text does not make fail (a step under another number, a
 
 test('parser: a repeated key, a ratio bound at or below 0, an unchecked note are refused', () => {
   assert.ok(parseFigure('twobytwo', 'cols: a | b\ncols: c | d').errors.some((e) => e.includes('twice')));
-  assert.ok(parseFigure('interval', 'null: 1\nrow: OR | 2 | 0 | 5').errors.some((e) => e.includes('above 0')));
-  assert.ok(parseFigure('interval', 'null: 1\nrow: OR | 9 | 1 | 5').errors.some((e) => e.includes('outside')));
-  assert.ok(parseFigure('bars', 'bar: a | x').errors.some((e) => e.includes('not a number')));
+  assert.ok(figureProblems(parseFigure('interval', 'null: 1\nrow: OR | 2 | 0 | 5')).some((e) => e.includes('above 0')));
+  assert.ok(figureProblems(parseFigure('interval', 'null: 1\nrow: OR | 9 | 1 | 5')).some((e) => e.includes('outside')));
+  assert.ok(figureProblems(parseFigure('bars', 'bar: a | x')).some((e) => e.includes('not a number')));
+  assert.ok(figureProblems(parseFigure('timeline', 'span: 5 - 2 | x')).some((e) => e.includes('ends before')));
   const iv = { subject: 's', id: 5, type: 'mcq', q: 'OR = 2.19, CI = 1.5-9.43 ข้อใดถูก', options: ['a'], answer: 0, explainSay: 'OR = 2.19, CI = 1.5-9.43 ครอบค่า 1' };
   const p = lintQuestionFigures([{ ...iv, explain: fence('interval', ['null: 1', 'row: OR | 2.19 | 1.5 | 9.43', 'note: ครอบค่า 1']) }]).problems;
   assert.ok(p.some((x) => x.includes('no interval crosses')), JSON.stringify(p));
@@ -146,10 +148,11 @@ test('the bank: no passage figure flags an answer, and a passage figure reaches 
   for (const file of bankFiles('src/data')) questions.push(...(await readBank(file)).questions);
   for (const q of questions) {
     if (typeof q.passage !== 'string' || !q.passage.includes('```figure')) continue;
-    for (const b of splitBlocks(q.passage).filter((x) => x.type === 'figure')) assert.ok(!JSON.stringify(b.fig).includes('"key":true'), q.id);
+    for (const b of splitBlocks(q.passage).filter((x) => x.type === 'figure')) assert.ok(!JSON.stringify(parseFigure(b.kind, b.body)).includes('"key":true'), q.id);
   }
-  const shown = highlightParts('ข้อมูล\n' + fence('bars', ['bar: a | 1 | key']))[1].fig;
-  assert.equal(shown.bars[0].key, false);
+  // What a passage's figure is handed (FigureSlot `passage`, from SmartPassage and the review list): no mark flagged.
+  assert.equal(withoutKeys(parseFigure('bars', 'bar: a | 1 | key')).bars[0].key, false);
+  assert.equal(highlightParts('ข้อมูล\n' + fence('bars', ['bar: a | 1 | key']))[1].plain, 'a, 1');
 });
 
 test('the bank: every figure parses and passes', async () => {

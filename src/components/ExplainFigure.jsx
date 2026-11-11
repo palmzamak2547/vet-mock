@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { figuresIn, figureLayout } from '../lib/figure-spec.js';
+import { figureProblems } from '../lib/figure-check.js';
 import '../styles-figure.css';
 
 // The drawing of a figure in an explanation (src/lib/figure-spec.js), its own
@@ -243,6 +244,22 @@ function Scale({ fig, lay }) {
   );
 }
 
+/** The figure as a list of short lines (what a screen reader is told, and what a too-narrow screen shows). */
+export function listItems(fig) {
+  const k = (m) => (m.key ? ' (คำตอบ)' : '');
+  const x = (t) => String(t).replace(/s+[x*]s+/g, ' × ');
+  switch (fig.kind) {
+    case 'twobytwo': return [...(fig.rows || []), ...(fig.sum ? [fig.sum] : [])].map((r) => `${r.label}: ${r.cells.map((c, i) => `${(fig.cols || [])[i] || ''} ${c}`).join(', ')}`)
+      .concat((fig.calcs || []).map((c) => `${c.label} = ${x(c.num)}${c.den ? ` / ${x(c.den)}` : ''} = ${c.result}${k(c)}`));
+    case 'interval': return (fig.rows || []).map((r) => `${r.label} ${r.text[0]} (${r.text[1]} ถึง ${r.text[2]})${k(r)}`).concat(fig.note ? [fig.note] : []);
+    case 'bars': return (fig.bars || []).map((b) => `${b.label}: ${b.text}${k(b)}`);
+    case 'timeline': return (fig.start ? [fig.start] : []).concat((fig.events || []).map((e) => `${e.text} ${fig.unit || ''}: ${e.label}${k(e)}`));
+    case 'flow': return (fig.lanes || []).flatMap((l) => (l.title ? [`${l.title}${k(l)}`] : []).concat(l.steps.map((st) => `${st.no ? `${st.no}. ` : ''}${st.label}${st.detail ? `, ${st.detail}` : ''}${k(st)}`)));
+    case 'scale': return (fig.value ? [`${fig.value.label} = ${fig.value.text}`] : []).concat((fig.bands || []).map((b) => `${b.label} ${b.text[0] || ''} ถึง ${b.text[1] || ''}${k(b)}`));
+    default: return [fig.plain || ''];
+  }
+}
+
 const DRAW = { twobytwo: TwoByTwo, interval: Interval, bars: Bars, timeline: Timeline, flow: Flow, scale: Scale };
 
 /**
@@ -284,11 +301,11 @@ export default function ExplainFigure({ fig, play = false, width = 0 }) {
   }, [play, on]);
   const Draw = DRAW[fig.kind];
   // A figure the parser could not read whole is written out in words, never drawn half (the lint fails on it too).
-  if (!Draw || fig.errors?.length) return <p className="vmx-fig-words" style={{ whiteSpace: 'pre-line' }}>{fig.plain}</p>;
+  if (!Draw || figureProblems(fig).length) return <p className="vmx-fig-words" style={{ whiteSpace: 'pre-line' }}>{fig.plain}</p>;
   const lay = figureLayout(fig, width);
   return (
     <figure ref={ref} className={`vmx-fig is-${fig.kind}${play ? ' is-play' : ''}${on ? ' is-on' : ''}`} style={{ minHeight: `${lay.height}px` }} role="img" aria-label={describe(fig)}>
-      {lay.list ? <ul className="vmx-fig-list">{lay.list.map((t, i) => <li key={i}>{t}</li>)}</ul> : <Draw fig={fig} lay={lay} />}
+      {lay.list ? <ul className="vmx-fig-list">{listItems(fig).map((t, i) => <li key={i}>{t}</li>)}</ul> : <Draw fig={fig} lay={lay} />}
     </figure>
   );
 }

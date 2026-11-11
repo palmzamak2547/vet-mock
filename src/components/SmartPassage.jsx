@@ -369,7 +369,7 @@ export default function SmartPassage({ text, title, defaultOpen = true, openSign
               onTouchEnd={handleSelectionEnd}
             >
               {parts.map((part, b) => (part.type === 'figure' ? (
-                <FigureSlot key={`f${b}`} fig={part.fig} />
+                <FigureSlot key={`f${b}`} block={part} passage />
               ) : part.type === 'table' ? (
                 <RichTable key={`t${b}`} table={part} labelledBy={titleId} />
               ) : (

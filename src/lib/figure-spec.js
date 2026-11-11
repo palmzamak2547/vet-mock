@@ -39,8 +39,6 @@ export const FIGURE_KINDS = {
   scale: ['band', 'value'],
 };
 
-export const FENCE_OPEN = /^[^\S\n]*```figure[^\S\n]+([a-z]+)[^\S\n]*$/;
-export const FENCE_CLOSE = /^[^\S\n]*```[^\S\n]*$/;
 
 const cut = (v) => v.split('|').map((s) => s.trim());
 const num = (s) => {
@@ -79,7 +77,6 @@ export function parseFigure(kind, body) {
   const list = (k) => (fig[k] ||= []);
   const seen = new Set();
   const words = [];
-  const need = (n, what, line) => { if (n == null) fig.errors.push(what + ' is not a number: ' + line.slice(0, 50)); return n; };
   for (const raw of String(body).split('\n')) {
     const line = raw.trim();
     if (!line) continue;
@@ -94,7 +91,7 @@ export function parseFigure(kind, body) {
     if (k !== 'null') words.push(k === 'calc' || k === 'value' ? v.trim() : cells.filter(Boolean).join(', '));
     if (k === 'cols' || k === 'head') fig[k] = cells;
     else if (k === 'unit' || k === 'start' || k === 'note') fig[k] = v.trim();
-    else if (k === 'null') fig.nil = need(num(v), 'null', line);
+    else if (k === 'null') fig.nil = num(v);
     else if (k === 'row' && kind === 'twobytwo') list('rows').push({ label: cells[0], cells: cells.slice(1) });
     else if (k === 'sum') fig.sum = { label: cells[0], cells: cells.slice(1) };
     else if (k === 'calc') {
@@ -104,19 +101,14 @@ export function parseFigure(kind, body) {
       const [top, bottom] = fraction(parts[1]);
       list('calcs').push({ label: parts[0], expr: parts[1], num: unwrap(top), den: bottom ? unwrap(bottom) : '', mid: parts.slice(2, -1), result: parts[parts.length - 1], key });
     } else if (k === 'row') {
-      const [est, lo, hi] = [1, 2, 3].map((i) => need(num(cells[i]), 'an interval bound', line));
-      if (est != null && lo != null && hi != null && !(lo <= est && est <= hi)) fig.errors.push('the estimate ' + est + ' is outside ' + lo + ' to ' + hi);
+      const [est, lo, hi] = [1, 2, 3].map((i) => num(cells[i]));
       list('rows').push({ label: cells[0], est, lo, hi, text: cells.slice(1, 4), key });
     } else if (k === 'bar') {
-      const value = need(num(cells[1]), 'a bar', line);
-      if (value != null && value < 0) fig.errors.push('a bar starts at zero and cannot be negative: ' + line.slice(0, 50));
-      list('bars').push({ label: cells[0], value, text: cells[1], key });
-    } else if (k === 'at') list('events').push({ at: need(num(cells[0]), 'a time', line), text: cells[0], label: cells[1] || '', key });
+      list('bars').push({ label: cells[0], value: num(cells[1]), text: cells[1], key });
+    } else if (k === 'at') list('events').push({ at: num(cells[0]), text: cells[0], label: cells[1] || '', key });
     else if (k === 'span') {
       const [x, y] = cells[0].split(/\s*-\s*/);
-      const [at, to] = [need(num(x), 'a span start', line), need(num(y), 'a span end', line)];
-      if (at != null && to != null && to < at) fig.errors.push('a span ends before it starts: ' + line.slice(0, 50));
-      list('events').push({ at, to, text: cells[0], label: cells[1] || '', key });
+      list('events').push({ at: num(x), to: num(y), text: cells[0], label: cells[1] || '', key });
     } else if (k === 'lane') list('lanes').push({ title: cells[0], key, steps: [] });
     else if (k === 'step') {
       if (!fig.lanes) fig.lanes = [{ title: '', key: false, steps: [] }];
@@ -126,11 +118,9 @@ export function parseFigure(kind, body) {
     } else if (k === 'band') list('bands').push({ lo: num(cells[0]), hi: num(cells[1]), text: [cells[0], cells[1]], label: cells[2] || '', key });
     else if (k === 'value') {
       const [label, n] = v.split(/\s+=\s+/);
-      fig.value = { label: (label || '').trim(), value: need(num(n), 'the value', line), text: (n || '').trim() };
+      fig.value = { label: (label || '').trim(), value: num(n), text: (n || '').trim() };
     }
   }
-  // A ratio's axis is logarithmic: every bound must be above zero.
-  if (kind === 'interval' && fig.nil === 1 && (fig.rows || []).some((r) => !(r.lo > 0))) fig.errors.push('a ratio (null: 1) is drawn on a log scale, so every bound must be above 0');
   fig.plain = words.join('\n');
   return fig;
 }
@@ -165,8 +155,8 @@ export function figureLayout(fig, width = 0) {
   // Too narrow to draw (200% zoom on a phone): the figure is listed in words instead, item by item.
   const tooNarrow = { twobytwo: inner < 44 * Math.max(2, n(fig.cols)) + 8, bars: inner < 140, timeline: inner < 150, flow: inner < 150, interval: inner < 170, scale: inner < 150 }[fig.kind];
   if (tooNarrow) {
-    const items = listItems(fig);
-    return { height: BOX + items.reduce((h, t) => h + lines(t, inner - 14, 15) * 22 + 4, 0), narrow: true, list: items };
+    // One item a line of the figure (fig.plain), each wrapping in the width there is.
+    return { height: BOX + 22 + fig.plain.split('\n').reduce((h, t) => h + lines(t, inner - 14, 15) * 22 + 4, 0), narrow: true, list: true };
   }
   switch (fig.kind) {
     case 'twobytwo': {
@@ -216,32 +206,14 @@ export function figureLayout(fig, width = 0) {
       return { height: BOX + rows.reduce((h, r) => h + r.height, 0), narrow, rows };
     }
     case 'flow': {
+      // No figure in the bank is a flow today: a plain estimate, 80 px a step, lanes stacked when narrow.
       const lanes = fig.lanes || [];
-      const stacked = narrow || lanes.length < 2 || inner < 300;
-      const laneW = stacked ? inner : (inner - 10) / lanes.length;
-      const box = (st) => Math.max(62, lines(st.label, laneW - (st.no ? 56 : 22), 15) * 21 + (st.detail ? lines(st.detail, laneW - (st.no ? 56 : 22), 14) * 19 : 0) + 18);
-      const laneH = (l) => (lanes.length > 1 || l.title ? lines(l.title, laneW, 14) * 20 + 12 : 0) + l.steps.reduce((h, st, i) => h + (i ? 18 : 0) + box(st), 0);
-      const hs = lanes.map(laneH);
-      return { height: BOX + (stacked ? hs.reduce((a, b) => a + b + 10, -10) : Math.max(0, ...hs)), narrow: stacked };
+      const stacked = narrow || inner < 300;
+      const hs = lanes.map((l) => (l.title || lanes.length > 1 ? 32 : 0) + l.steps.length * 80 * (stacked ? 1 : 1.25));
+      return { height: BOX + (stacked ? hs.reduce((x, y) => x + y + 10, -10) : Math.max(0, ...hs)), narrow: stacked };
     }
     case 'scale': return { height: BOX + 30 + 34 + 24 * Math.max(1, n(fig.bands)) + 8, narrow };
     default: return { height: 0, narrow };
-  }
-}
-
-/** The figure as a list of short lines (what a screen reader is told, and what a too-narrow screen shows). */
-export function listItems(fig) {
-  const k = (m) => (m.key ? ' (คำตอบ)' : '');
-  const x = (t) => String(t).replace(/s+[x*]s+/g, ' × ');
-  switch (fig.kind) {
-    case 'twobytwo': return [...(fig.rows || []), ...(fig.sum ? [fig.sum] : [])].map((r) => `${r.label}: ${r.cells.map((c, i) => `${(fig.cols || [])[i] || ''} ${c}`).join(', ')}`)
-      .concat((fig.calcs || []).map((c) => `${c.label} = ${x(c.num)}${c.den ? ` / ${x(c.den)}` : ''} = ${c.result}${k(c)}`));
-    case 'interval': return (fig.rows || []).map((r) => `${r.label} ${r.text[0]} (${r.text[1]} ถึง ${r.text[2]})${k(r)}`).concat(fig.note ? [fig.note] : []);
-    case 'bars': return (fig.bars || []).map((b) => `${b.label}: ${b.text}${k(b)}`);
-    case 'timeline': return (fig.start ? [fig.start] : []).concat((fig.events || []).map((e) => `${e.text} ${fig.unit || ''}: ${e.label}${k(e)}`));
-    case 'flow': return (fig.lanes || []).flatMap((l) => (l.title ? [`${l.title}${k(l)}`] : []).concat(l.steps.map((st) => `${st.no ? `${st.no}. ` : ''}${st.label}${st.detail ? `, ${st.detail}` : ''}${k(st)}`)));
-    case 'scale': return (fig.value ? [`${fig.value.label} = ${fig.value.text}`] : []).concat((fig.bands || []).map((b) => `${b.label} ${b.text[0] || ''} ถึง ${b.text[1] || ''}${k(b)}`));
-    default: return [fig.plain || ''];
   }
 }
 

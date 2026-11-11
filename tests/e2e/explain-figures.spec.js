@@ -9,12 +9,13 @@
 import { test, expect } from './fixtures.js';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
 import { splitBlocks, wholeExplain } from '../../src/lib/rich-blocks.js';
+import { parseFigure } from '../../src/lib/figure-spec.js';
 
 async function pick(kind) {
   const found = [];
   for (const file of bankFiles('src/data')) {
     for (const q of (await readBank(file)).questions) {
-      if (q.type === 'mcq' && splitBlocks(q.explain).some((b) => b.type === 'figure' && b.fig.kind === kind)) found.push(q);
+      if (q.type === 'mcq' && splitBlocks(q.explain).some((b) => b.type === 'figure' && b.kind === kind)) found.push(q);
     }
   }
   return found.sort((a, b) => a.id - b.id)[0] || null;
@@ -60,7 +61,8 @@ test('a 2x2 figure under a fresh answer: named, finished, beside its whole text,
   const fig = page.locator('.vmx-instant-feedback figure.vmx-fig');
   await expect(fig).toBeVisible({ timeout: 15_000 });
   await expect(fig).toHaveAttribute('role', 'img');
-  const calc = splitBlocks(q.explain).find((b) => b.type === 'figure').fig.calcs[0];
+  const block = splitBlocks(q.explain).find((b) => b.type === 'figure');
+  const calc = parseFigure(block.kind, block.body).calcs[0];
   expect(await fig.getAttribute('aria-label')).toContain(calc.result);
   // The fence never reaches the screen as text, and every sentence of the explanation is still there.
   const panel = page.locator('.vmx-instant-feedback');

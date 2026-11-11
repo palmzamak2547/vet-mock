@@ -2,7 +2,6 @@ import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { splitBlocks } from '../lib/rich-blocks.js';
 import { RichText } from '../lib/richtext.jsx';
 import FigureSlot from './FigureSlot.jsx';
-import { withoutKeys } from '../lib/figure-spec.js';
 
 // A cell that holds a figure and no word: a count, a rate, a range, a fraction.
 const FIGURE = /^[^A-Za-z฀-๿]*\d[^A-Za-z฀-๿]*$/;
@@ -81,7 +80,7 @@ export default function RichBlocks({ text, renderText = (t) => <RichText text={t
   return blocks.map((b, i) => {
     if (b.type === 'table') return <RichTable key={i} table={b} />;
     // A passage is read before the answer, so its figure never shows which mark answers.
-    if (b.type === 'figure') return <FigureSlot key={i} fig={passage ? withoutKeys(b.fig) : b.fig} play={play} onFail={say ? () => setFailed(true) : undefined} />;
+    if (b.type === 'figure') return <FigureSlot key={i} block={b} passage={passage} play={play} onFail={say ? () => setFailed(true) : undefined} />;
     return <Fragment key={i}>{renderText(b.text)}</Fragment>;
   });
 }

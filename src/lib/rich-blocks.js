@@ -22,7 +22,12 @@
 // tables that parse.
 // ============================================================
 
-import { FENCE_CLOSE, FENCE_OPEN, parseFigure, withoutKeys } from './figure-spec.js';
+// A figure's fence (src/lib/figure-spec.js reads what is inside it; that module loads only where a figure is drawn).
+export const FENCE_OPEN = /^[^\S\n]*```figure[^\S\n]+([a-z]+)[^\S\n]*$/;
+export const FENCE_CLOSE = /^[^\S\n]*```[^\S\n]*$/;
+// A figure in words, a line for each of its lines: "bar: 95% | 384 | key" reads "95%, 384". No mark is named as the answer.
+export const figureWords = (body) => String(body).split('\n').map((l) => /^\s*([a-z]+):\s*(.*)$/.exec(l)).filter((m) => m && m[1] !== 'null')
+  .map(([, k, v]) => (k === 'calc' || k === 'value' ? v.trim() : v.split('|').map((c) => c.trim()).filter((c) => c && c !== 'key').join(', '))).join('\n');
 
 const ROW = /^[^\S\n]*\|.*\|[^\S\n]*$/;
 const RULE = /^[^\S\n]*\|(?:[^\S\n]*:?-{3,}:?[^\S\n]*\|)+[^\S\n]*$/;
@@ -82,7 +87,8 @@ export function splitBlocks(text) {
       if (j < lines.length) {
         prose(at[i]);
         const end = at[j] + lines[j].length;
-        blocks.push({ type: 'figure', fig: parseFigure(open[1], lines.slice(i + 1, j).join('\n')), start: at[i], end });
+        const body = lines.slice(i + 1, j).join('\n');
+        blocks.push({ type: 'figure', kind: open[1], body, plain: figureWords(body), start: at[i], end });
         from = Math.min(str.length, end + 1);
         i = j;
         continue;
@@ -157,7 +163,7 @@ export function readableText(text, say) {
   const str = text == null ? '' : String(text);
   if (!hasFigure(str)) return str;
   if (typeof say === 'string' && say.trim()) return say;
-  return splitBlocks(str).map((b) => (b.type === 'figure' ? b.fig.plain : str.slice(b.start, b.end))).join('\n');
+  return splitBlocks(str).map((b) => (b.type === 'figure' ? b.plain : str.slice(b.start, b.end))).join('\n');
 }
 export const explainText = (q) => readableText(q?.explain, q?.explainSay);
 export const passageText = (q) => readableText(q?.passage);
@@ -176,8 +182,6 @@ export function highlightParts(text, highlights = []) {
   if (!text) return [];
   const sorted = [...highlights].sort((a, b) => a.start - b.start);
   return splitBlocks(text).map((block) => {
-    // A passage is on screen before the answer: a figure in it never shows which mark answers.
-    if (block.type === 'figure') return { ...block, fig: withoutKeys(block.fig) };
     if (block.type !== 'text') return block;
     const segs = [];
     let cursor = block.start;

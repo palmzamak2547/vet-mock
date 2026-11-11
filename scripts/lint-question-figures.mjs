@@ -44,7 +44,8 @@
 import { pathToFileURL } from 'node:url';
 import { bankFiles, readBank } from './lib/bank-file.mjs';
 import { splitBlocks } from '../src/lib/rich-blocks.js';
-import { figuresIn } from '../src/lib/figure-spec.js';
+import { figuresIn, parseFigure } from '../src/lib/figure-spec.js';
+import { figureProblems } from '../src/lib/figure-check.js';
 
 const LINE_FIELDS = ['q', 'say', 'explainSay', 'model_answer', 'passage_title'];
 const LIMIT = { twobytwo: 6, interval: 7, bars: 8, timeline: 7, flow: 7, scale: 5 };
@@ -206,7 +207,7 @@ function checkTwoByTwo(fig, q, say) {
 function checkFigure(fig, q, own, ownNums, id, name) {
   const out = [];
   const say = (m) => out.push(`${id} ${name} (${fig.kind}): ${m}`);
-  for (const e of fig.errors) say(e);
+  for (const e of figureProblems(fig)) say(e);
   if (!LIMIT[fig.kind]) return out;
   const { labels, numbers, marks, markCount } = figureParts(fig);
   const texts = own.texts;
@@ -295,8 +296,9 @@ export function lintQuestionFigures(questions) {
       const ownNums = numSet(texts.join('\n'));
       const tableNums = blocks.filter((b) => b.type === 'table').map((t) => new Set(t.rows.flat().flatMap((c) => figuresIn(c)).map(clean)));
       for (const b of drawn) {
-        problems.push(...checkFigure(b.fig, q, own, ownNums, id, name));
-        const mine = new Set(figureParts(b.fig).numbers.flatMap((s) => figuresIn(s)).map(clean));
+        const fig = parseFigure(b.kind, b.body);
+        problems.push(...checkFigure(fig, q, own, ownNums, id, name));
+        const mine = new Set(figureParts(fig).numbers.flatMap((s) => figuresIn(s)).map(clean));
         if (mine.size && tableNums.some((t) => [...mine].every((x) => t.has(x)))) problems.push(`${id} ${name}: the figure restates the table above it; keep one`);
       }
     }
