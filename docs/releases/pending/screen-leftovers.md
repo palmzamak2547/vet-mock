@@ -48,8 +48,24 @@ Branch `claude/screen-leftovers`, from main at ef993a0e. Before = the production
 - How a device gets that value: no current code writes it. Both writers of vmx-consent-prefs guard with `if (prefs)`, since the key was added (d74e6921); the synced fields go through `dataFromSyncRow`, which refuses null, and the origin move copies only synced fields and snapshots. So it comes from outside the app's own writes (a hand edit, an extension, a tool that clears values to null). `useLocalStorage` itself can write "undefined" (JSON.stringify(undefined)) if a setter is given undefined; that reads back as corrupt, so as the default.
 - Fix: the hook reads a stored null as the default. No caller with a non-null default stores null on purpose (checked by the test).
 - After: not yet run on the build (same job); the unit test covers the hook.
-- Sweep (each stored key the code names, 109 keys, set to null, to "undefined" and to a cut-off JSON string, one at a time, on Home and on the screens whose views read the key; 366 loads): before (4331, main as built for the hunt): 1 breaking load of 366. `vmx-quests-streak` = null puts Home's error card up ("หน้านี้ขัดข้อง"): `readStreak` in `src/lib/quests.js` returns the parsed null and the streak code reads `.lastDate` from it. Not fixed here: quests.js reads localStorage itself, not through the hook, and Home is another lane; reported. "undefined" and a cut-off string broke nothing (every reader catches the parse). `vmx-consent-prefs` = null did not show in the sweep because the sweep seeds consent "essential", where prefs are not read; with consent "custom" it blanks the app (nullstore.mjs above). After: runs in the post-push job.
-- Guard: `tests/unit/use-storage.test.mjs`.
+- Sweep (each stored key the code names, 109 keys, set to null, to "undefined" and to a cut-off JSON string, one at a time, on Home and on the screens whose views read the key; 366 loads): before (4331, main as built for the hunt): 1 breaking load of 366. `vmx-quests-streak` = null puts Home's error card up ("หน้านี้ขัดข้อง"): `readStreak` in `src/lib/quests.js` returns the parsed null and the streak code reads `.lastDate` from it. Fixed in its own commit, in `readStreak` only (a stored null, another shape or a corrupt value reads as no run; `tests/unit/quests-streak-stored.test.mjs`). "undefined" and a cut-off string broke nothing (every reader catches the parse). `vmx-consent-prefs` = null did not show in the sweep because the sweep seeds consent "essential", where prefs are not read; with consent "custom" it blanks the app (nullstore.mjs above). After: runs in the post-push job.
+- Guard: `tests/unit/use-storage.test.mjs` (the hook's three cases and every caller), and for the class: `src/lib/stored-json.js` `readStoredJson` is the one safe reader (storage.get uses it), and `tests/unit/stored-json-readers.test.mjs` finds every other place that parses a stored value itself (JSON.parse of a `.getItem(...)` or of a name assigned from one): 45 files, 66 reads on 11 Nov, each listed with why it is still there. A new one fails until it reads through `readStoredJson`; a count must match exactly, so moving a read lowers it.
+
+#### The stored-key sweep, to run again before a release
+`scripts/stored-key-sweep.mjs` (self-contained; Playwright from the repo). Build, serve the build, run it:
+
+    npm run build
+    npx vite preview --host 127.0.0.1 --port 4342 --strictPort
+    node scripts/stored-key-sweep.mjs http://127.0.0.1:4342 3
+
+It names every key the code reads or writes (a storage call's first argument, a `*KEY*` constant, a synced field's `localKey`), sets each in turn to `null`, `undefined` and `{"v":[1,2`, and loads Home plus every screen whose view names the key, against a clean load of the same screen. A load breaks on a new page error, the error card or an empty `#main`. It exits 1 when anything breaks. It seeds consent "essential", so a key read only under another consent (vmx-consent-prefs, read under "custom") needs a run with that seed changed.
+
+| Build | Keys | Loads | Breaks |
+|---|---|---|---|
+| main as built for the hunt (4331), 11 Nov | 109 | 366 | 1: `vmx-quests-streak` = null, Home error card |
+| this branch (4342) | SWEEP_AFTER_KEYS | SWEEP_AFTER_LOADS | SWEEP_AFTER_BREAKS |
+
+Outside the sweep: `vmx-consent-prefs` = null with consent "custom" blanked the whole app on main (`nullstore.mjs`); fixed by the hook.
 
 ### Checks
 - Unit tests of each item pass on their own (listed under each guard). Full unit suite and build on the merged head: see the head commit's note in the main session's wave.
