@@ -15,12 +15,29 @@ all green). No cloud run.
 ## 1. Unsent exam results are in every backup (3b9400bd)
 - `pendingExamResults` is now in BACKUP_FIELDS, the backup schema (`id` and `user_id` UUIDs, `question_ids` 1 to 5,000
   ids, `answers` a plain object, optional `question_versions`; at most 1,000 records), the error labels, the import
-  preview, the progress backup download, the account export and the progress reset (whose dialog names the count).
+  preview, the progress backup download and the account export. The progress reset (ล้างความคืบหน้าหลัก, now
+  `progressResetPatch()`) leaves it alone: a finished set waiting to be sent is the student's exam result, not
+  practice progress, and still reaches the account after a reset (fixed in review; `user-data-field-lists` records it).
 - What a restore does: the other fields are replaced by the file's copy, as before. The outbox is added to instead:
   results already waiting on the device stay (the device's copy wins on the same id), and the file's results join
   them, only those whose `user_id` is the signed-in account. Signed out, the outbox is left alone and the preview
-  says why. Reason: `exam-result-outbox.js` stops the whole batch at a record of another account, so one foreign
-  record would keep every later result of this account on the device.
+  says why. A foreign record could never be stored for this account anyway (the server keeps a result only for
+  its caller).
+- Restoring phone A's backup on phone B: B's own history, bookmarks, notes, cards, checklist, custom questions and
+  streak are replaced by the file's, exactly as before this branch (the preview lists what will be overwritten).
+  B's results still waiting stay and are still sent; A's waiting results from the file join them (same account),
+  and one the server already has is acknowledged without a second row.
+- Nothing may block the outbox for ever (fixed in review):
+  - an entry carrying the id of another account's stored result made `record_exam_receipt` raise "Receipt
+    unavailable", which `api/exam-result.js` answered 503, a retry, so the outbox stopped at it on every flush. The
+    API now answers that error 409 `result_conflict` (`signedRpc` keeps the function's own message as
+    `error.detail`); the outbox sets the record aside and sends the rest. No migration;
+  - a record of another account at the head (an old device-wide key, the origin move) made the outbox throw on every
+    flush. It is now skipped and left where it is;
+  - after a single conflict the notice keeps its own words (ส่งจากอีกแท็บ… กรุณาสำรองผลชุดนี้) instead of the
+    general line.
+  Test: `tests/unit/exam-result-queue-unblocked.test.mjs` (the handler for that error and for a database that is
+  down, the outbox past a 409 and past a foreign record). They failed on the old code.
 - Sent twice: harmless. `record_exam_receipt` (migration 20261011120200) inserts `ON CONFLICT (id) DO NOTHING` and
   returns ok with the stored row when the stored `submission_fingerprint` equals the new one. The fingerprint
   (`api/_lib/exam-scoring.js`) is a SHA-256 of the record's own question ids, the versions it carries and its
@@ -40,9 +57,18 @@ all green). No cloud run.
   nothing reads it back. No result before or after the release changes.
 - The two fill questions: a result holding one, finished and sent before the release, is verified as before. One
   finished before and sent after (the outbox) reaches a server whose revision differs, so it is stored with
-  `score_source: 'client'` and the device's own count, not refused. One finished after is verified. A result sent
-  before whose response was lost and is retried after is acknowledged by its unchanged fingerprint. A set parked
-  before and resumed after takes the new copy (item 3) and is verified.
+  `score_source: 'client'` and dropped off the default board. Fixed in review: the server also accepts the previous
+  revision of a question that carries `unordered` or `keywords` (`acceptedQuestionRevisions` in study-events.js, the
+  same formula without those two fields: #4002 `q1-4f884c30`, #4012 `q1-1a748086`) and re-scores it as usual with
+  today's fields, which are the rule the student answered under, so such a result is verified (`server`). Every
+  other question accepts only its one revision. Caveat: if `unordered` on those two is ever edited, a result from
+  before 5.214 arriving after that edit is graded by the new grouping; the outbox sends within seconds of a
+  connection, so this stays theoretical. One finished after the release is verified. A result sent before whose
+  response was lost and is retried after is acknowledged by its unchanged fingerprint.
+- A set parked before and resumed after takes the new copy (item 3) and is verified, unless one of its questions was
+  kept as parked or is missing from the bank: then the server cannot verify that question, treats the whole paper as
+  unverified and stores it with `score_source: 'client'` and the device's count. The counts agree; only the flag (and
+  with it the default board) is lost.
 - Test: `question-revision-coverage.test.mjs` now checks behaviour, not source text: each hashed field changes the
   revision, every other field does not, only the carriers changed against the nine-field hash, and the grader,
   run through a Proxy on every bank question with many answers, reads no field outside the hash (this catches
@@ -59,7 +85,14 @@ all green). No cloud run.
   exactly as parked, so an index always names the option picked. A corrected key with the same options is taken:
   the student keeps the option they picked, graded by the key now.
 - Not refreshed: a question the bank no longer has, an id that now names another subject's question (a student's
-  own question), and a submitted set (graded on its parked copy).
+  own question), and a submitted set (graded on its parked copy). Questions are found by subject and id (review);
+  the bank today has no id shared by two subjects (9,047 ids, 0 shared), so that only guards the future.
+- The wait is guarded (fixed in review): one resume runs at a time (a second tap joins the first), the card reads
+  กำลังเปิด… and cannot be tapped from the tap until it settles, and after the wait the resume carries on only if the
+  student is still on Home with the same parked record (same `sessionId` and `savedAt`). A new set started, or the
+  set discarded, during the wait wins. `src/lib/parked-resume.js`; `tests/unit/parked-resume-race.test.mjs` covers
+  two taps with the first timing out (answers given after it opened survive, the questions do not change), a new
+  set during the wait, a discard during the wait, a newer save of the same set, and a submitted set.
 - Races are not changed: two racers on two builds still draw their own copies until the older one reloads.
 - Test: `tests/unit/parked-set-refresh.test.mjs`, one test per case, plus the wiring in `resumePendingExam`. On the
   old code the file could not load (no `refreshParkedQuestions`; the resume primed the session from
