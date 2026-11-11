@@ -12,6 +12,6 @@ export const STUDIO_PRESET = defineDecision({
   valid: (v) => v === 'phone' || v === 'calm',
   auto(s = {}) {
     if (s.systemReduced) return { value: 'calm', why: 'เครื่องนี้ตั้งให้ลดการเคลื่อนไหวไว้' };
-    return { value: 'phone', why: 'สว่างหรือมืดตามเครื่อง ภาพเคลื่อนไหวเท่าที่เครื่องรับได้' };
+    return { value: 'phone', why: 'มืดเมื่อเครื่องมืด และขยับเท่าที่เครื่องรับได้' };
   },
 });
