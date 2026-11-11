@@ -35,7 +35,6 @@
     "components/TemplateLibrary.jsx": 1,
     "components/TermLinkedRichText.jsx": 1,
     "components/TermPopup.jsx": 5,
-    "components/ThemePicker.jsx": 6,
     "components/TodaysQModal.jsx": 3,
     "components/TopLoadingBar.jsx": 3,
     "components/VoiceInputButton.jsx": 3,
@@ -64,6 +63,8 @@
     "lib/motion-kit/particles.js": "Bounded decorative particle and cursor artwork; no text surfaces.",
     "components/HandwritingInput.jsx": "Canvas ink, paper and guide colours: the pad is exported as an image for handwriting reading and must stay dark ink on white in every theme.",
     "lib/share-card/kit.js": "Share-card canvas palette: ctx.fillStyle cannot resolve CSS vars, and a card renders in the theme the student picks (light or dark) whatever the app shows. The values mirror the --clr-* tokens; the card modules read every colour from here.",
-    "lib/vetwiki/shelf.generated.js": "Spine cloth computed at build time from each subject bookplate paper (OKLCH, light and dark), applied through --vw-cloth variables; UI controls use semantic tokens."
+    "lib/vetwiki/shelf.generated.js": "Spine cloth computed at build time from each subject bookplate paper (OKLCH, light and dark), applied through --vw-cloth variables; UI controls use semantic tokens.",
+    "lib/prefs/accent.js": "The base theme colours the derivation solves against (bg, surface, ink, the verdict colours), the definition layer for \"สีของฉัน\"; what it emits is a stylesheet of tokens.",
+    "lib/prefs/labels.js": "Swatch samples of each named palette (its two accent values from styles.css), drawn as the palette picker's dots in both themes on purpose."
   }
 }

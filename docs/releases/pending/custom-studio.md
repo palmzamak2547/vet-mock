@@ -1,11 +1,17 @@
 # Pending: "ปรับแต่ง", the customization studio and "การ์ดของฉัน"
 
 ## State
-- On top of `claude/verdict-pin` (7f94e596, verdict colours, its own pull request). The changelog line for
-  the verdict fix belongs to that pull request; it is not repeated below.
-- Waits for `claude/student-profile`: Avatar in the header chip, hub, board rows, groups, presence and
-  comments; the hub entry to the studio; the picture written through `saveIdentity()` (until then the
-  studio keeps it in the local card token); `PICTURE_ANIMALS` matched to IdentityEditor's 16.
+- On top of `claude/verdict-pin` (5a94722c: verdict colours, its own pull request, with main 99cefe68) and
+  with `claude/student-profile` (fd9bec89) merged in. The verdict fix's changelog line belongs to its own
+  pull request and is not repeated below.
+- Wired to the profile branch: `Avatar` draws every picture (the header chip and its menu, the hub, account
+  settings, the identity picker's options, board and group rows, the group member grid, presence, races,
+  comments; the back office keeps the emoji); the hub has a "ปรับแต่ง" row; the studio writes the picture
+  through `saveIdentity({ avatarEmoji, introDone: false })` for a signed-in student (a guest keeps it in
+  the card) and offers the picker's sixteen animals (`PICTURES`); the card's numbers and trophies come
+  from the hub's readers (`streakShown`, `earnedBadges` and `nextBadge` with the saved streak).
+- Not wired: the hub's own identity card does not show "การ์ดของฉัน" (it keeps the profile branch's card;
+  showing both is a design call); the share card does not draw the card style yet.
 
 ```js
 // Changelog lines (Thai, what a student notices). kind / scope as in src/data/changelog.js.
@@ -77,9 +83,10 @@ parse (unknown parts ignored, values off their lists dropped, no object built fr
 Private to the student's own screens in this release (`vmx-card`, follows the account). Frames:
 plain free; ledger (100 answers), gilt (7-day streak), foil (30-day streak), seal (1,000 answers).
 Titles and trophies on show (up to 3) are earned badges. One quiet line names the next trophy and
-its distance. Picture: `src/lib/avatar.js` maps each character to one emoji, both ways
-(Mochi 🐶, Pawsy 🐕, Mimi 🐱, Moocha 🐮, Porky 🐷, Oto 🦦, Clover 🐴, Chicky 🐥, Hootie 🦉,
-Glidy 🐿️); `components/Avatar.jsx` draws a 96 px portrait (`scripts/make-avatars.mjs`, sharp,
+its distance (`nextBadge`, the hub's own: the hour a student studies is never proposed). Picture: `src/lib/avatar.js` maps each character to one emoji, both ways
+(Mochi 🦮, Pawsy 🐕, Mimi 🐈, Moocha 🐄, Porky 🐖, Clover 🐎, Oto 🦦, Chicky 🐥, Hootie 🦉,
+Glidy 🐿️; none of them is one of the identity picker's sixteen, so a student who picked the dog face
+keeps the dog face); `components/Avatar.jsx` draws a 96 px portrait (`scripts/make-avatars.mjs`, sharp,
 3.0-5.1 KB each) or the emoji. Tests: `prefs-tokens.test.mjs`, `card-trophies.test.mjs`.
 
 ### 4. The account copy (`src/lib/prefs/account-token.js`, `account-sync.js`)
@@ -106,9 +113,3 @@ test). No file in `src/views/Exam*`, `Question.jsx` or scoring changed in this b
 
 ### Weight (gzip 9)
 (measured at the end; see below)
-
-### Waits for `claude/student-profile`
-Wiring the avatar component into the header chip, the hub, board rows, groups, presence and
-comments; the studio entry on the profile hub; the picture written through `saveIdentity()`
-(until then the studio keeps the picture in the local card token); reconciling `PICTURE_ANIMALS`
-with IdentityEditor's 16 animals.
