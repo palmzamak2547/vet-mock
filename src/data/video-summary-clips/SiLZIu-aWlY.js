@@ -6,9 +6,9 @@ export default {
   title: "12.1 : Acquired + Congenital Cardiac Disease",
   subject: "com1",
   date: "2024-11-04",
+  durationMin: 117,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ — disease ID by signalment + auscultation + imaging",
-  duration: "117 min",
   summary: `# 12.1 Acquired + Congenital Cardiac Disease
 
 > 🎯 ครอบคลุม **3 acquired diseases** (MMVD, DCM, HCM) + **5 congenital defects** (PDA, VSD, SAS, PS, ToF). **Don't mix dog/cat/acquired/congenital** in answer ⚠️ ที่ออกสอบบ่อย: **breed + age + murmur location → disease**

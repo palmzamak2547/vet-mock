@@ -13,9 +13,11 @@
 //   • a question is missing its `subject` field
 //   • q-counts.js is stale (stored count ≠ live recount)
 //   • a curriculum subject flagged has_questions:true but has 0 Qs
+//   • a question's `topic` not in its subject's curriculum topics
+//   • a question with no `topic` in a subject that has topics (NO_TOPIC_FITS
+//     lists the few no topic covers, each with its reason)
 // WARNINGS (exit 0 — surface, don't block):
 //   • a question's `year` ≠ curriculum yearForSubject(subject)
-//   • a question's `topic` not in its subject's curriculum topics
 //   • a subject has Qs but isn't flagged has_questions:true
 //
 // Complements lint:ids + lint:dupes (id uniqueness) — this is the
@@ -52,6 +54,39 @@ await loadQB();
 
 const errors = [];
 const warns = [];
+
+// A question with no topic sits in no topic-filtered pool (exam-pool.js), so
+// a student choosing topics never meets it. Every question in a subject that
+// has curriculum topics carries one, except these: each was read against its
+// subject's topic list and none of the topics covers it. Give one a topic, or
+// a new topic to the subject, and its line here goes.
+const NO_TOPIC_FITS = {
+  'surg2:1': 'mastectomy; no surg2 lab covers mammary surgery',
+  'surg2:2': 'mammary blood supply; no surg2 lab covers mammary surgery',
+  'surg2:4': 'sciatic nerve at the hip approach; an orthopaedic approach, not a surg2 lab',
+  'surg2:6': 'cerclage wire loops; wiring is taught in surg3, not a surg2 lab',
+  'surg2:12': 'mandibular cerclage wire; wiring is taught in surg3, not a surg2 lab',
+  'surg3:29': 'approach to the femur; no surg3 lab is the femoral approach',
+  'surg3:40': 'approach to the femur; no surg3 lab is the femoral approach',
+  'surg3:41': 'approach to the femur; no surg3 lab is the femoral approach',
+  'surg3:42': 'approach to the femur; no surg3 lab is the femoral approach',
+  'surg3:211': 'suture absorption times; no surg3 lab covers suture material',
+  'repro:66': 'tom cat urinary catheter; none of the four repro labs',
+  'repro:70': 'dinoprost dose for pyometra; treatment, none of the four repro labs',
+  'repro:71': 'drug for pseudopregnancy; treatment, none of the four repro labs',
+  'repro:75': 'AMH and ovarian reserve; endocrinology, none of the four repro labs',
+  'repro:76': 'progesterone fertile window; ovulation timing, none of the four repro labs',
+  'repro:77': 'hCG to induce ovulation; endocrinology, none of the four repro labs',
+  'repro:78': 'white cell count in closed pyometra; haematology, none of the four repro labs',
+  'repro:79': 'hormone behind BPH; endocrinology, none of the four repro labs',
+  'repro:238': 'mismating treatment; treatment, none of the four repro labs',
+  'com4:262': 'IRIS CKD staging; nephrology is not a COM IV lecture',
+  'com4:263': 'IRIS CKD staging; nephrology is not a COM IV lecture',
+  'com4:270': 'struvite crystals; urology is not a COM IV lecture',
+  'com4:271': 'calcium oxalate crystals; urology is not a COM IV lecture',
+};
+const missingTopic = [];
+const exemptUsed = new Set();
 
 const subjectIds = new Set(SUBJECTS.map((s) => s.id));
 const topicsBySubject = {};
@@ -99,12 +134,26 @@ for (const q of QB) {
   if (q.topic && tset && tset.size && !tset.has(q.topic)) {
     orphanTopics.set(`${subj}/${q.topic}`, (orphanTopics.get(`${subj}/${q.topic}`) || 0) + 1);
   }
+  if (!q.topic && tset && tset.size) {
+    const key = `${subj}:${q.id}`;
+    if (NO_TOPIC_FITS[key]) exemptUsed.add(key);
+    else missingTopic.push(key);
+  }
 }
 
 // ── ERRORS ──
 for (const [subj, n] of [...orphanSubjects].sort((a, b) => b[1] - a[1]))
   errors.push(`subject '${subj}' on ${n} Q(s) not found in curriculum.js (add to SUBJECTS_BY_YEAR or fix the Q)`);
 if (missingFields) errors.push(`${missingFields} question(s) missing a 'subject' field`);
+if (missingTopic.length)
+  errors.push(`${missingTopic.length} question(s) have no 'topic' in a subject that has curriculum topics: ${missingTopic.join(', ')}`);
+const staleExempt = Object.keys(NO_TOPIC_FITS).filter((k) => !exemptUsed.has(k));
+if (staleExempt.length)
+  errors.push(`NO_TOPIC_FITS names question(s) that now have a topic or do not exist: ${staleExempt.join(', ')} (remove the line)`);
+if (orphanTopics.size) {
+  const total = [...orphanTopics.values()].reduce((a, b) => a + b, 0);
+  errors.push(`${orphanTopics.size} topic id(s) on ${total} Q(s) not in curriculum topics: ${[...orphanTopics.keys()].join(', ')}`);
+}
 
 const storedSub = counts.Q_COUNTS_BY_SUBJECT || {};
 const storedYr = counts.Q_COUNTS_BY_YEAR || {};
@@ -194,10 +243,6 @@ for (const y of YEARS || []) {
 for (const [k, n] of [...yearMismatch].sort((a, b) => b[1] - a[1])) warns.push(`year mismatch — ${k} (${n} Q)`);
 if (utilitySubjects.size)
   warns.push(`utility banks (not curriculum subjects): ${[...utilitySubjects].map(([s, n]) => `${s}=${n}`).join(', ')}`);
-if (orphanTopics.size) {
-  const total = [...orphanTopics.values()].reduce((a, b) => a + b, 0);
-  warns.push(`${orphanTopics.size} topic id(s) on ${total} Q(s) not in curriculum topics (sample: ${[...orphanTopics.keys()].slice(0, 6).join(' · ')})`);
-}
 
 // ── REPORT ──
 const line = '━'.repeat(60);

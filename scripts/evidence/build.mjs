@@ -25,7 +25,7 @@ import { librarySql, SERVED } from '../lib/library-read.mjs';
 import { citesOf } from '../provenance/build.mjs';
 import { evidenceHash, keyText } from '../../src/lib/evidence-hash.js';
 // What a model is shown of a question: `say` where its numbers sit in a passage table. The hash that
-// ties a slide to a question (evidenceHash) stays on the stem on screen.
+// ties a slide to a question (evidenceHash) reads the same sentence.
 import { wholeExplain, wholeStem } from '../../src/lib/rich-blocks.js';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');

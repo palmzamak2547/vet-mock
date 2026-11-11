@@ -59,7 +59,9 @@ Each row stores `evidenceHash(question)`. The card compares it with the
 question it is showing and hides the slide when they differ. So a stem or a
 key edited later loses its slide until the pipeline matches it again; nothing
 needs to be remembered by whoever made the edit, and `lint:evidence` counts
-such rows instead of failing.
+such rows instead of failing. The stem that is hashed is the whole sentence
+(`wholeStem`): a stem whose numbers moved into a passage table keeps that
+sentence in `say`, so laying it out as a table keeps its slide.
 
 ## How a slide is matched
 
@@ -113,6 +115,12 @@ What the last reading judges, panel by panel:
   state the correct fact it gets wrong; not mentioning it is `weak`.
 - A number in the key that the lines print differently is `key-doubt`; a
   number they do not print at all is `weak`.
+- A calculation is the exception to that last line: its result comes from the
+  question's own figures, which no slide prints. It is `ok` when the lines
+  print the formula or the definition the key applies, or work the question's
+  own example; `weak` when they only name the measure or work another example.
+  The same holds for a key that reads the question's own figure (an interval,
+  a predictive value) with the wording the lines give.
 - Outside knowledge does not rescue a match: only what the slide shows counts.
 
 A `key-doubt` and a `conflict` are findings about the bank, not about the

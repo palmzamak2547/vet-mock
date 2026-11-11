@@ -63,6 +63,20 @@ if (repeated.length) {
   process.exitCode = 1;
 }
 
+// A flag is `{ severity, note }`. Fourteen questions once carried it as a bare
+// string ('verify-2026', 'minor'): the card read `flag.note` and showed
+// nothing, and the daily question read `flag.severity`, found none, and could
+// pick a question the gate withholds. Every reader expects the object.
+const FLAG_SEVERITIES = new Set(['major', 'minor', 'unclear']);
+const badFlag = [...byYear.values()].flat().filter((q) => q.flag != null && (
+  typeof q.flag !== 'object' || Array.isArray(q.flag)
+  || !FLAG_SEVERITIES.has(q.flag.severity)
+  || typeof q.flag.note !== 'string' || !q.flag.note.trim()));
+if (badFlag.length) {
+  console.error(`✗ ${badFlag.length} question(s) have a flag that is not { severity: major|minor|unclear, note }: ${badFlag.map((q) => `${q.subject}:${q.id}`).join(', ')}`);
+  process.exitCode = 1;
+}
+
 const years = [...byYear.keys()].sort((a, b) => a - b);
 const pct = (n, d) => (d ? `${Math.round((100 * n) / d)}%` : '—');
 const col = (s) => String(s).padStart(7);
