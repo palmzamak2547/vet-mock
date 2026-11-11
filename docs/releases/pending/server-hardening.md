@@ -117,6 +117,26 @@ branch's head; where an earlier version of it was wrong, that is said.
 - Guard: `api-limits.test.mjs` (a member's 41st 50 MB pull is a Thai page and
   20 classmates on the address are served; a ticket link by address; an outage
   still serves, bounded; both mints carry the member), `api-hardening.test.mjs`.
+- Video and audio ranges are answered in bounded pieces: an open-ended range
+  (Chrome's first `bytes=0-`, every seek `bytes=N-`) gets one 206 of at most
+  8 MB (`MEDIA_CHUNK`: 10 to 60 s of lecture video, a few seconds to send,
+  so the function stays short), with an exact `Content-Range`, counted by
+  that piece; a closed range is served and counted as asked, capped the same.
+  A request with no Range, and every document, are answered whole as before.
+  Correction: before, an open-ended range counted the rest of the object, so a
+  300 MB lecture spent the 2 GB budget in six seeks. Watched to the end with 20
+  seeks it now counts at most 460 MB in 58 requests.
+- The link holds a keyed digest of the member (HMAC with the link's secret, 22
+  characters), not the account id, which anyone handed the link could read.
+- Guards: the `media:` cases in `api-limits.test.mjs` (Chrome's pattern,
+  Safari's `bytes=0-1` probe, a range past the end, the 300 MB lecture with
+  its arithmetic, a PDF and a request without Range unchanged) and "the link
+  carries a keyed digest of the member".
+- Not built: library video through the archive worker
+  (`workers/library-archive.js`), which reads storage with a ranged binding,
+  would serve real ranges with no prefix read through the function and no
+  chunking here; moving the videos' links there is mostly a change of where
+  `api/library-file.js` points them, plus the worker's own budget.
 - Unproven: what a real hall uses.
 
 ## The microphone's probe (`api/ai-transcribe.js`)
@@ -184,7 +204,7 @@ branch's head; where an earlier version of it was wrong, that is said.
 - Guard: `tests/unit/outbound-redirects.test.mjs`. A redirect answer from the
   token endpoint makes no second request and puts nothing of the provider's in
   the answer, for the exchange and the refresh; and every fetch under `api/`
-  (found from the source, 50 today) that carries a credential or a body must
+  (found from the source, arrow bodies included, 51 today) that carries a credential or a body must
   set `redirect: 'error'`, unless its file is listed with why it may follow.
 
 ## Origins
@@ -227,6 +247,16 @@ branch's head; where an earlier version of it was wrong, that is said.
 - A phone gets it on its next visit (`sw.js` is `max-age=0, must-revalidate`):
   the browser installs it in the background and switches once every tab of the
   site is closed.
+
+## Later (known, not fixed in this branch)
+- A well-formed token with a bad signature costs one database call (500
+  forgeries made 501 calls, replays too). The bound that cannot refuse an
+  honest member is a local signature check against the project's published
+  keys (JWKS), with an unknown key id or algorithm sent to the database, never
+  refused.
+- `bearerOf` accepts a token of up to 4,096 characters.
+- The library's fallback count during a limiter outage is per instance, so it
+  bounds each instance, not the total: it is not a cost ceiling.
 
 ## Checks
 - The original reproduction scripts and both reviews' probes, at the head:
