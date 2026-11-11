@@ -10,6 +10,7 @@ import { QUESTIONS_MID86_AQUATIC_CLINIC as AQ } from '../../src/data/questions-m
 const FILL = AQ.find((q) => q.id === 202455);
 const MATCH = AQ.find((q) => q.id === 202471);
 const MCQ = AQ.filter((q) => (q.type ?? 'mcq') === 'mcq' && Array.isArray(q.options)).slice(0, 4);
+const LONG5 = AQ.filter((q) => (q.type ?? 'mcq') === 'mcq' && Array.isArray(q.options)).slice(0, 5);
 
 async function resume(page, context, { questions, mode = 'quick', timed = false, answers = {}, currentIdx = 0, deadlineIn = 600_000 }) {
   await context.addInitScript(({ questions, mode, timed, answers, currentIdx, deadlineIn }) => {
@@ -47,11 +48,17 @@ test('a fill-in item shows its key in practice once checked, and nothing in a ti
   const inputs = page.locator('.vmx-fill-input');
   const check = page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true });
   await expect(check).toBeDisabled();
+  await expect(check).toHaveAttribute('aria-describedby', /vmx-fill-hint/);
+  await expect(page.getByText('เติมให้ครบทุกช่องก่อน')).toBeVisible();
   const n = await inputs.count();
   for (let i = 0; i < n; i++) await inputs.nth(i).fill(i === 0 ? 'ผิด' : String(FILL.blanks[i]));
   await check.click();
   const panel = page.locator('.vmx-instant-feedback');
-  await expect(panel).toContainText('ยังไม่ใช่');
+  await expect(panel).toContainText(`ถูก ${n - 1} จาก ${n} ช่อง`);
+  await expect(page.locator('.vmx-fill-mark.is-no')).toHaveCount(1);
+  await expect(page.locator('.vmx-fill-mark.is-ok')).toHaveCount(n - 1);
+  // The verdict takes focus: the button that opened it is gone.
+  await expect(panel.locator('.v')).toBeFocused();
   await expect(panel).toContainText(FILL.blanks[0]);
   await expect(panel).toContainText('เหตุผล');
   await expect(inputs.first()).toHaveJSProperty('readOnly', true);
@@ -138,6 +145,36 @@ test('in a timed paper an answer is in storage a moment after the tap, not up to
   expect(stored).toBe(2);
 });
 
+// item 8
+test('a timed paper hidden before any frame still has the answer in storage', async ({ page, context }) => {
+  await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
+  await page.waitForTimeout(400);
+  // No frame from here on: the write that waits for the paint never runs.
+  await page.evaluate(() => { window.requestAnimationFrame = () => 0; });
+  await page.locator('.vmx-option').nth(1).click();
+  const stored = await page.evaluate(() => {
+    Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' });
+    document.dispatchEvent(new Event('visibilitychange'));
+    return Object.keys(JSON.parse(localStorage.getItem('vmx-inflight-exam:guest') || '{}').answers || {}).length;
+  });
+  expect(stored).toBe(1);
+});
+
+// item 8
+test('a timed paper whose record cannot be written says so', async ({ page, context }) => {
+  await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
+  await page.evaluate(() => {
+    const real = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (k, v) {
+      if (String(k).startsWith('vmx-inflight-exam')) throw new DOMException('full', 'QuotaExceededError');
+      return real.call(this, k, v);
+    };
+  });
+  await page.locator('.vmx-option').first().click();
+  await expect(page.getByText(/บันทึกคำตอบลงเครื่องไม่สำเร็จ/)).toBeVisible();
+  await expect(page.getByText(/บันทึกคำตอบลงเครื่องไม่สำเร็จ/)).toHaveCount(1);
+});
+
 // item 3
 test('the X and the browser Back ask the same question, and it keeps the set', async ({ page, context }) => {
   await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
@@ -212,6 +249,33 @@ for (const width of [375, 320]) {
     expect(hero.match(/60%/g)?.length).toBe(1);
   });
 }
+
+// item 11
+test('at 320x812 the score and the next step still open the page with a personal best and a failed save showing', async ({ page, context }) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  const qs = LONG5;
+  // Four of five right: 80%, over the 60% a personal best needs, with one miss to redo.
+  const answers = Object.fromEntries(qs.map((q, i) => [q.id, i === 0 ? (q.answer + 1) % q.options.length : q.answer]));
+  await resume(page, context, { questions: qs, mode: 'quick', answers, currentIdx: qs.length - 1 });
+  // The result's own save fails (storage full), the set's record and the personal best still write.
+  await page.evaluate(() => {
+    const real = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (k, v) {
+      if (this === window.localStorage && !/^vmx-(inflight-exam|personal-best)/.test(String(k))) throw new DOMException('full', 'QuotaExceededError');
+      return real.call(this, k, v);
+    };
+  });
+  await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
+  await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
+  await expect(page.getByText(/สถิติใหม่ของคุณ/)).toBeVisible();
+  await expect(page.getByRole('status', { name: 'สถานะการบันทึกผลสอบ' })).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  const fold = await page.evaluate(() => window.innerHeight);
+  const score = await page.locator('.vmx-score-big').boundingBox();
+  const primary = await page.locator('.vmx-results-primary button').first().boundingBox();
+  expect(score.y + score.height).toBeLessThanOrEqual(fold);
+  expect(primary.y + primary.height, 'the next step is below the fold').toBeLessThanOrEqual(fold);
+});
 
 // item 9
 // The pinned calendar stays on: moving Date.now() below moves the pinned clock's
