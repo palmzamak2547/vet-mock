@@ -269,7 +269,7 @@ export const QB_POULTRY = [
     q: 'รอยโรคของ ND: hemorrhage ที่ proventricular gland + junction proventriculus-gizzard + cecal tonsils',
     answer: true,
     explain: 'These are classic VVND (velogenic viscerotropic ND) lesions: button ulcers ที่ cecal tonsils, proventricular gland hemorrhages, proventriculus-gizzard junction hemorrhage, pathognomonic ของ vNDV form ในไก่, (corrected from student answer F → T)',
-    flag: { severity: 'unclear', note: 'เฉลยแก้จากคำตอบของนักศึกษาในต้นฉบับ จากผิดเป็นถูก ตามรอยโรค VVND ในคำอธิบาย ยังต้องตรวจยืนยันก่อนใช้' } },
+    flag: { severity: 'unclear', note: 'เฉลยแก้จากคำตอบในต้นฉบับ จากผิดเป็นถูก ตามรอยโรค VVND ในคำอธิบาย ยังต้องตรวจยืนยันก่อนใช้' } },
 
   { id: 1729, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
