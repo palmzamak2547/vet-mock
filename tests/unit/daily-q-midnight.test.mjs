@@ -11,7 +11,8 @@
 //
 // DailyQRow runs from its real source in HomeView.jsx and TodaysQModal from
 // its own, both on the fake React runtime, with a clock the test moves. Times
-// carry no offset, so the days are the zone the suite runs in (Bangkok, UTC).
+// are Bangkok wall times: the daily question's day is Bangkok's, the streak's
+// (lib/study-day.js), so the same midnight holds whatever zone the suite runs in.
 // ============================================================
 
 import test from 'node:test';
@@ -59,7 +60,7 @@ class ClockDate extends RealDate {
   constructor(...args) { if (args.length === 0) super(clockNow); else super(...args); }
   static now() { return clockNow; }
 }
-const setClock = (local) => { clockNow = new RealDate(local).getTime(); };
+const setClock = (bangkok) => { clockNow = new RealDate(`${bangkok}+07:00`).getTime(); };
 function useClock(t, local) {
   setClock(local);
   globalThis.Date = ClockDate;

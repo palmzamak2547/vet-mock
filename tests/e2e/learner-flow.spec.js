@@ -207,8 +207,9 @@ for (const width of [375, 320]) {
 }
 
 // item 9
+// The pinned calendar stays on: moving Date.now() below moves the pinned clock's
+// wall time, and the page's monotonic clock is untouched either way.
 test.describe('the exam clock and the device clock', () => {
-  test.use({ pinCalendar: false });
   test('setting the device clock back an hour adds nothing to a timed paper', async ({ page, context }) => {
     await resume(page, context, { questions: MCQ.slice(0, 2), mode: 'exam', timed: true, deadlineIn: 120_000 });
     const timer = page.locator('.vmx-timer');
