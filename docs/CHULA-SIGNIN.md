@@ -192,6 +192,12 @@ is one tap. One shared session across subdomains is a follow-up, not this releas
 - iOS caps cookies written by script at 7 days, which would sign home-screen
   users out and lock them out offline.
 
+The design for one sign-in across the four sites (a one-time handoff, each site
+keeping its own session) is in [FAMILY-SIGNIN.md](FAMILY-SIGNIN.md); not built.
+A redirect sign-in on vetmock.com, vca and ai keeps the student's destination
+(path, query and section) in the tab's sessionStorage, accepted only as a
+same-origin relative path (`src/lib/family/return-path.js`).
+
 ## Tests
 
 - `tests/unit/chula.test.mjs`: the domain and member rule, the copies in the

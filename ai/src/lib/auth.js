@@ -8,8 +8,28 @@
 // Google comes back to this origin with ?code= (PKCE); the client made on that
 // page load exchanges it (detectSessionInUrl) and the session starts.
 
+import { currentPath, keepDestination, takeDestination } from '../../../src/lib/family/return-path.js';
+
 // Vite inlines import.meta.env; under node --test it is undefined
 const ENV = import.meta.env || {};
+
+// Google brings a redirect sign-in back to /, so where the student was (a path, a query, a
+// section) waits in this tab's sessionStorage and is put back once the session has started.
+// Only a relative path on this origin is ever accepted (src/lib/family/return-path.js).
+const RETURN_KEY = 'vmai-return-to';
+const SIGN_IN_PARAMS = ['code', 'state', 'error', 'error_code', 'error_description'];
+const keepHere = () => { if (globalThis.location) keepDestination(RETURN_KEY, currentPath(globalThis.location, SIGN_IN_PARAMS)); };
+
+/** After a redirect sign-in: show the address the student left from. Once; null when there is none. */
+export function restoreSignInDestination(loc = globalThis.location, hist = globalThis.history, store = globalThis.sessionStorage) {
+  const dest = takeDestination(RETURN_KEY, { store });
+  if (!dest || !loc || dest === '/') return null;
+  try { hist?.replaceState?.(hist.state, '', dest); } catch { return null; }
+  return dest;
+}
+
+// Google sent the student back with a code on this page load.
+const RETURNED_AT_LOAD = (() => { try { return new URLSearchParams(globalThis.location?.search || '').has('code'); } catch { return false; } })();
 
 // A production build falls back to VetMock's public project address and its
 // publishable key (both public by design, the same project vetmock.com uses), so
@@ -78,6 +98,7 @@ export const authPort = {
     if (!client) return { session: null, error: null };
     const init = await client.auth.initialize();
     const { data, error } = await client.auth.getSession();
+    if (RETURNED_AT_LOAD && data?.session) restoreSignInDestination();
     return { session: data?.session || null, error: error || init?.error || null, retryable: isRetryableAuthError(error) };
   },
   async onChange(callback) {
@@ -106,6 +127,7 @@ export const authPort = {
   async linkRedirect(hd) {
     const client = await getAuthClient();
     if (!client) throw new Error('auth not configured');
+    keepHere();
     const { error } = await client.auth.linkIdentity({
       provider: 'google',
       options: { redirectTo: `${globalThis.location.origin}/`, queryParams: { hd, prompt: 'select_account' } },
@@ -116,6 +138,7 @@ export const authPort = {
   async signIn(hd) {
     const client = await getAuthClient();
     if (!client) throw new Error('auth not configured');
+    keepHere();
     const { error } = await client.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${globalThis.location.origin}/`, queryParams: { hd, prompt: 'select_account' } },

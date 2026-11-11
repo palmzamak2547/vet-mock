@@ -15,6 +15,7 @@
 // ============================================================
 
 import { authStorageKey, createAuthStorage, hasStoredAuthToken, storedAuthSession as readStoredSession } from './auth-storage.js';
+import { currentPath, hashToRestore, keepDestination, takeDestination } from './family/return-path.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -152,11 +153,30 @@ export async function signInWithEmail(email, password) {
  *  sign-in left in it (a code, or a refusal the wall would read again), and
  *  without a VetMock AI link's open ticket, which the session makes redundant
  *  and which has no business in the sign-in's own logs. */
+const RETURN_DROP = ['code', 'state', 'error', 'error_code', 'error_description', 'vt', 've'];
 export function returnAddress(href = window.location.href) {
   const url = new URL(href);
-  for (const name of ['code', 'state', 'error', 'error_code', 'error_description', 'vt', 've']) url.searchParams.delete(name);
+  for (const name of RETURN_DROP) url.searchParams.delete(name);
   url.hash = '';
   return url.href;
+}
+
+// The address Google returns to has no hash (the sign-in's own tokens arrive in it), so a link
+// to a section (#…) would land at the top of the page. The whole destination waits in this
+// tab's sessionStorage instead, and only its hash is put back, only on the page it was taken
+// from (family/return-path.js refuses anything that is not a path on this origin).
+const RETURN_KEY = 'vmx-return-to';
+
+function keepSignInDestination() {
+  keepDestination(RETURN_KEY, currentPath(window.location, RETURN_DROP));
+}
+
+/** After a redirect sign-in: put back the section the student was going to. Once. */
+export function restoreSignInDestination(loc = window.location, hist = window.history) {
+  const hash = hashToRestore(takeDestination(RETURN_KEY), loc.href, RETURN_DROP);
+  if (!hash) return null;
+  try { hist.replaceState(hist.state, '', `${loc.pathname}${loc.search}${hash}`); } catch { return null; }
+  return hash;
 }
 
 export async function signInWithGoogle({ hd = '', link = false, allowRedirect = true, back = false } = {}) {
@@ -222,6 +242,7 @@ export async function signInWithGoogle({ hd = '', link = false, allowRedirect = 
   // one that opens after it; `back` asks the same for the wall's other Google
   // button. Google shows its account chooser so a signed-in Gmail is not
   // picked silently.
+  if (hd || back) keepSignInDestination();
   const options = hd
     ? { redirectTo: returnAddress(), queryParams: { hd, prompt: 'select_account' } }
     : { redirectTo: back ? returnAddress() : window.location.origin };

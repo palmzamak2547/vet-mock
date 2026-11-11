@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase, storedAuthSession } from '../lib/supabase.js';
+import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase, storedAuthSession, restoreSignInDestination } from '../lib/supabase.js';
 
 // useAuth() — returns { user, profile, setProfile, loading, isSignedIn }.
 //
@@ -97,7 +97,8 @@ export function useAuth() {
     // Not on a sign-in redirect: the account arriving in the address replaces the
     // one on the device, which must not paint first.
     const held = storedAuthSession();
-    if (held && !hasAuthRedirectInUrl()) {
+    const arriving = hasAuthRedirectInUrl();
+    if (held && !arriving) {
       commitUser(held.user);
       setLoading(false);
     }
@@ -110,6 +111,9 @@ export function useAuth() {
 
       const { data: { session } } = await supabase.auth.getSession();
       if (cancelledRef.current) return;
+      // Back from a redirect sign-in: the SDK has taken its tokens out of the address, so the
+      // section the student was going to can go back in before the page behind the wall mounts.
+      if (arriving && session) restoreSignInDestination();
       // No session but the token still on the device: the refresh could not run
       // (the SDK clears the token itself when the server refuses it). Keep the
       // account until it can.

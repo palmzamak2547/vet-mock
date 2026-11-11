@@ -5,6 +5,7 @@
 import { useSyncExternalStore } from 'react';
 import { AUTH_STORAGE_KEY, MODE, RETURN_KEY } from './config.js';
 import { readJSON, writeJSON } from '../lib/storage.js';
+import { safeReturnPath } from '@vetmock/lib/family/return-path.js';
 
 let backendPending = null;
 /** The community's calls: live.js on the real backend, demo.js in development and tests. */
@@ -135,15 +136,18 @@ export async function ensureAccount() {
   return state;
 }
 
+// The hash is kept too, so a link to a section arrives at that section. Only a relative path on this
+// origin is kept or followed (src/lib/family/return-path.js): never '//host', '/\host' or a full URL.
 /** Where to come back to after a sign-in that leaves the site (Google, LINE, an email link). */
-export function rememberReturn(path = `${window.location.pathname}${window.location.search}`) {
-  try { sessionStorage.setItem(RETURN_KEY, path.startsWith('/auth/') ? '/community' : path); } catch { /* falls back to /community */ }
+export function rememberReturn(path = `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+  const safe = safeReturnPath(path);
+  try { sessionStorage.setItem(RETURN_KEY, !safe || safe.startsWith('/auth/') ? '/community' : safe); } catch { /* falls back to /community */ }
 }
 export function takeReturn() {
   try {
     const path = sessionStorage.getItem(RETURN_KEY);
     sessionStorage.removeItem(RETURN_KEY);
-    return path && path.startsWith('/') && !path.startsWith('//') ? path : '/community';
+    return safeReturnPath(path) || '/community';
   } catch { return '/community'; }
 }
 
