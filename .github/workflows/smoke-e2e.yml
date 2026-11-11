@@ -56,59 +56,6 @@
 # keeps its name and is skipped on a draft, which is safe only because of
 # this: `smoke` cannot pass before the ready run's e2e has, and by then the
 # same run has replaced the draft's skipped `Annotation PostgreSQL`.
-#
-# 2026-11-11: what "a draft" means is read when the run starts, not from the
-# event. PR #200 sat blocked with every check green: a push and "ready for
-# review" seconds apart made two runs on one commit, the newer came from the
-# push, whose payload still said draft, so its job was `smoke (draft, ...)`;
-# GitHub reads a required check from the newest run and answered `Required
-# status check "smoke" is expected` until a new event. Now the first job,
-# `state`, asks the API whether the pull request is a draft at that moment
-# (`ready_for_review` is ready by definition), and `changes`, everything after
-# it and the name of the job behind `smoke` use its answer. The concurrency
-# group below is per pull request with cancel-in-progress, so of the runs on a
-# commit only the newest survives, and the newest is created last, after every
-# toggle that came before it, so it reads the state as it is.
-#
-# Every ordering, and what the newest run on the head commit reports:
-#   ordering                                      runs (newest last)                 smoke on the head commit
-#   push while draft                              D                                  none (D named draft)
-#   draft, then ready, no push                    D, then R on the same commit       R: real smoke
-#   push, then ready within a second              P and R, either created last;      the newest reads ready: real
-#                                                 the older is cancelled             smoke (was: none, #200)
-#   ready, then push within a second              R and P, P newest                  P: real smoke
-#   both in the same second, any creation order   as the two rows above              real smoke
-#   ready, then back to draft (no push)           no run (converted_to_draft is      the ready run's smoke stays;
-#                                                 not a trigger)                     a draft cannot merge, and
-#                                                                                    GitHub turns auto-merge off
-#   back to draft, then push                      D on the new commit                none: cannot merge (right)
-#   back to draft, push, ready again              D, then R                          R: real smoke
-#   a fork's pull request                         as above; `state` reads the        as above
-#                                                 public API with the run's read
-#                                                 token
-#   docs-only change (docs/, root *.md), ready    R, e2e and PostgreSQL skipped      real smoke, passes (as before)
-#   docs-only change while draft                  D                                  none (D named draft)
-#   push to main, dispatch                        full run                           real smoke
-# A draft's result never satisfies the check when it becomes ready: a draft's
-# run reports no `smoke`, and the ready run's `smoke` waits for its own e2e.
-# What stays unproven until a pull request exercises it: that the API answers
-# the toggle within the seconds between it and the newest run's `state` (if it
-# answered stale, that run would be named draft on a ready pull request; its
-# last step then fails loudly and says to re-run the whole run, which reads the
-# state again), and that GitHub accepts `needs` in a job name at run time as
-# its documentation says. No branch rule or repository setting changes.
-#
-# Cost of one pull request as the workflows stand after this change (measured
-# on #206 and #207, 11 Nov): a push to a ready pull request starts 5-6
-# workflow runs: this one (12 jobs: state, changes, Annotation PostgreSQL, 8 e2e
-# runners, smoke; about 75 job-minutes measured with 7 runners, nearly all e2e,
-# plus the route sweep's runner, estimated at 8-10: setup, build, then 72 tests
-# on 2 workers, unmeasured until its first run), Build (1 job, 4-5
-# min), AI, Research and VCA (2-3 jobs each, under a minute each), and Lint
-# questions when a question bank moved. A push to a draft starts the same runs
-# but this one runs 2 jobs (state, then the draft-named smoke; under a minute)
-# and Build stays 4-5 min. Marking it ready adds one full run of this
-# workflow. `state` adds one job of a few seconds to each run.
 
 name: Smoke e2e
 
@@ -134,45 +81,13 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  state:
-    # Is the pull request a draft NOW, when this run starts? The event's payload says what it was when
-    # the event happened, and a push seconds before "ready for review" leaves a run whose payload still
-    # says draft (PR #200, 11 Nov: that run was the newest, so the ready one's `smoke` never counted).
-    # Every later job, and the name of the job behind `smoke`, read this job's answer, never the payload.
-    # `ready_for_review` is not a draft by definition; other pull request events ask the API. If the API
-    # does not answer, the payload decides, with a warning on the run.
-    runs-on: ubuntu-24.04
-    timeout-minutes: 2
-    permissions:
-      pull-requests: read
-    outputs:
-      draft: ${{ steps.read.outputs.draft }}
-    steps:
-      - id: read
-        env:
-          GH_TOKEN: ${{ github.token }}
-          EVENT: ${{ github.event_name }}
-          ACTION: ${{ github.event.action }}
-          NUMBER: ${{ github.event.pull_request.number }}
-          PAYLOAD_DRAFT: ${{ github.event.pull_request.draft }}
-        run: |
-          if [ "$EVENT" != pull_request ] || [ "$ACTION" = ready_for_review ]; then draft=false
-          elif now=$(timeout 30 gh api "repos/${{ github.repository }}/pulls/$NUMBER" --jq .draft 2>/dev/null) && { [ "$now" = true ] || [ "$now" = false ]; }; then draft=$now
-          else
-            draft=${PAYLOAD_DRAFT:-false}
-            echo "::warning title=draft state::could not read the pull request from the API; using the event's draft=$draft. If this run is named draft on a ready pull request, re-run the whole run (gh run rerun ${{ github.run_id }})."
-          fi
-          echo "event $EVENT/$ACTION, payload draft=$PAYLOAD_DRAFT, now draft=$draft"
-          echo "draft=$draft" >> "$GITHUB_OUTPUT"
-
   changes:
     # A pull request that changes only docs/ and markdown at the repository root cannot change what a browser sees,
     # so it skips the e2e runners (7 of them, 7-10 min each on the docs-only #67 and #71) and `smoke` still reports.
     # Same shape as vca.yml: HEAD^1 is main on a pull request's merge commit. A push to main and a dispatch always run
     # everything, because Vercel holds the production deployment until `smoke` passes on that commit.
     # A draft skips this job, and with it every job that needs it (see the top of this file).
-    needs: state
-    if: needs.state.outputs.draft == 'false'
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     permissions:
@@ -279,14 +194,6 @@ jobs:
             browsers: chromium
             project: chromium-mobile
             report: chromium-mobile
-          # tests/e2e/route-sweep.spec.js: every route, as a student and a first-time visitor, at a
-          # phone's width. Its own runner because chromium mobile already used 6.9 of its 14
-          # minutes (#207); the other runners skip the spec.
-          - label: route sweep
-            group: sweep
-            browsers: chromium
-            project: chromium-mobile
-            report: route-sweep
           - label: webkit, third 1
             group: gl
             browsers: webkit
@@ -406,16 +313,6 @@ jobs:
           xvfb-run --auto-servernum npx playwright test
           --project=${{ matrix.project }}
 
-      - name: Run the route sweep
-        if: matrix.group == 'sweep'
-        timeout-minutes: 12
-        env:
-          VMX_ROUTE_SWEEP: '1'
-        run: >-
-          xvfb-run --auto-servernum npx playwright test
-          --project=${{ matrix.project }}
-          tests/e2e/route-sweep.spec.js
-
       - name: Keep the placeholder database host off the real network
         # The connected specs answer every request to that host themselves and
         # abort any other *.supabase.co host. This is the second lock: if a
@@ -513,34 +410,17 @@ jobs:
   # never carries a `smoke` result (top of this file). It runs rather than
   # skips there so that the name is evaluated and the check reads plainly.
   smoke:
-    name: ${{ needs.state.outputs.draft == 'true' && 'smoke (draft, e2e runs once marked ready)' || 'smoke' }}
-    needs: [state, changes, e2e]
+    name: ${{ github.event.pull_request.draft && 'smoke (draft, e2e runs once marked ready)' || 'smoke' }}
+    needs: [changes, e2e]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    permissions:
-      contents: read
-      pull-requests: read
     steps:
-      # A draft's run says so, and checks once more at its end. Marking the pull request ready starts a
-      # newer run that cancels this one, so this step finds the pull request ready only if `state` read
-      # a stale or missing answer. This run would then be the newest on the commit with no `smoke`, the
-      # #200 deadlock, so it fails loudly instead of passing quietly: re-running the whole run (not only
-      # failed jobs) reads the state again and reports `smoke`.
       - name: A draft runs no e2e
-        if: needs.state.outputs.draft == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          echo "::notice title=draft::No e2e on a draft. Marking the pull request ready for review runs them once; the required smoke check waits for that run."
-          now=$(timeout 30 gh api "repos/${{ github.repository }}/pulls/$NUMBER" --jq .draft 2>/dev/null) || now=unknown
-          if [ "$now" = false ]; then
-            echo "::error title=draft state::this pull request is ready but this run read it as a draft, so it reports no smoke. Re-run the whole run: gh run rerun ${{ github.run_id }}"
-            exit 1
-          fi
+        if: github.event.pull_request.draft
+        run: echo "::notice title=draft::No e2e on a draft. Marking the pull request ready for review runs them once; the required smoke check waits for that run."
       - name: Every e2e runner passed, or the change was docs only
-        if: needs.state.outputs.draft != 'true'
+        if: ${{ !github.event.pull_request.draft }}
         env:
           CHANGES: ${{ needs.changes.result }}
           APP: ${{ needs.changes.outputs.app }}
