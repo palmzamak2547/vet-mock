@@ -39,6 +39,13 @@ async function holdBack(page, pattern) {
   return { release, asked: () => asked };
 }
 
+// A request held from before the page opens can keep its load event from ever firing: Firefox
+// counts a fetch the app starts while it boots (the sizes import, a figure) toward load, and
+// Chromium does not. So a page with a held request is opened to DOMContentLoaded, and the fonts
+// are waited for by their faces: document.fonts.ready waits for load as well (WebKit, Firefox).
+const openWhileHeld = (page, url) => page.goto(url, { waitUntil: 'domcontentloaded' });
+const fontsSettled = (page) => page.waitForFunction(() => [...document.fonts].every((face) => face.status !== 'loading'));
+
 /** A set of these questions, parked on the device before the page opens. */
 async function parkSet(page, questions) {
   await page.route(/\/_vercel\/(insights|speed-insights)\/script\.js/, (route) => route.fulfill({ body: '', contentType: 'application/javascript' }));
@@ -81,7 +88,7 @@ test('a question figure holds its frame before the image arrives, and the stem b
   const image = await holdBack(page, `**${figureQuestion.image}`);
   // The sizes arrive with the question banks: wait for them as a student's first tap would.
   const sizes = page.waitForResponse((r) => SIZES_FILE.test(r.url()) && r.ok());
-  await page.goto('/app');
+  await openWhileHeld(page, '/app');
   await sizes;
   await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
 
@@ -90,7 +97,7 @@ test('a question figure holds its frame before the image arrives, and the stem b
   await expect(img).toHaveAttribute('width', String(FIGURE_W));
   await expect(img).toHaveAttribute('height', String(FIGURE_H));
   await expect.poll(image.asked).toBeGreaterThan(0);
-  await page.evaluate(() => document.fonts.ready);
+  await fontsSettled(page);
 
   const measure = () => measureCard(page);
 
@@ -114,7 +121,9 @@ test('a question figure holds its frame before the image arrives, and the stem b
   expect(after.optionsTop, 'the options stayed where they were').toBe(before.optionsTop);
   // Loaded, the frame is white: a line drawing with a clear ground is drawn for a light page.
   await expect(frame).toHaveClass(/is-loaded/);
-  expect(await frame.evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(255, 255, 255)');
+  // The frame has no transition of its own (styles.css), so white is its end state; read it the
+  // way a browser settles it, not at the instant the class lands.
+  await expect(frame).toHaveCSS('background-color', 'rgb(255, 255, 255)');
 });
 
 // The sizes arrive with the question banks. A set kept on the device can be on screen before
@@ -122,7 +131,8 @@ test('a question figure holds its frame before the image arrives, and the stem b
 test('a card drawn before the sizes have arrived takes its frame from the picture, and does not move when the sizes land', async ({ page }) => {
   await parkSet(page, [figureQuestion, NEXT_QUESTION]);
   const sizes = await holdBack(page, SIZES_FILE);
-  await page.goto('/app');
+  // Held on purpose: in Firefox the page's readyState stays "interactive" while it is.
+  await openWhileHeld(page, '/app');
   await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
 
   const img = page.getByRole('img', { name: figureQuestion.imageAlt, exact: true });
@@ -131,7 +141,7 @@ test('a card drawn before the sizes have arrived takes its frame from the pictur
   await expect.poll(sizes.asked).toBeGreaterThan(0);
   expect(await img.getAttribute('width'), 'no size is known while the sizes file is held').toBeNull();
   await expect.poll(async () => (await measureCard(page)).loaded).toBe(true);
-  await page.evaluate(() => document.fonts.ready);
+  await fontsSettled(page);
   const before = await measureCard(page);
   const expected = Math.min(CARD_CAP, before.width * FIGURE_H / FIGURE_W);
   expect(Math.abs(before.height - expected)).toBeLessThanOrEqual(1);
@@ -160,7 +170,7 @@ test('a picture that fails to load keeps its frame, says so with its description
   const card = page.locator('.vmx-question-card');
   await expect(card.getByRole('status').filter({ hasText: 'ภาพโหลดไม่ได้' })).toBeVisible();
   await expect(card.locator('.vmx-zoom-missing-alt')).toHaveText(figureQuestion.imageAlt);
-  await page.evaluate(() => document.fonts.ready);
+  await fontsSettled(page);
   const failed = await measureCard(page);
   // The same box the picture has: full width, the picture's shape, under the card's cap.
   const expected = Math.min(CARD_CAP, failed.width * FIGURE_H / FIGURE_W);
@@ -192,7 +202,7 @@ test('the zoom view draws a small picture as large as the screen allows, never s
   await parkSet(page, [{ ...figureQuestion, image: smallQuestion.image, imageAlt: smallQuestion.imageAlt }, NEXT_QUESTION]);
   const image = await holdBack(page, `**${smallQuestion.image}`);
   const sizes = page.waitForResponse((r) => SIZES_FILE.test(r.url()) && r.ok());
-  await page.goto('/app');
+  await openWhileHeld(page, '/app');
   await sizes;
   await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
   const trigger = page.getByRole('button', { name: `เปิดภาพขยาย: ${smallQuestion.imageAlt}`, exact: true });
@@ -316,20 +326,20 @@ test('a note\'s deck figures hold their frames before the images arrive, and the
     localStorage.setItem('vmx-consent', JSON.stringify('essential'));
   });
   const images = await holdBack(page, `**/figures/${SUBJECT}/**`);
-  await page.goto(`/wiki/${SUBJECT}/${TOPIC}`);
+  await openWhileHeld(page, `/wiki/${SUBJECT}/${TOPIC}`);
 
   const figures = page.locator(`img[src^="/figures/${SUBJECT}/"]`);
   await expect(figures.first()).toBeVisible();
   // A figure near the screen is asked for; the answer is held back.
   await figures.first().scrollIntoViewIfNeeded();
   await expect.poll(images.asked).toBeGreaterThan(0);
-  await page.evaluate(() => document.fonts.ready);
+  await fontsSettled(page);
   await pageSettled(page);
 
   const measure = () => page.evaluate((prefix) => {
     const list = [...document.querySelectorAll(`img[src^="${prefix}"]`)];
     return {
-      // clientWidth and clientHeight leave the 1 px border out: the ratio is the picture's, not the frame's.
+      // The figure's edge is a ring outside its box, so clientWidth and clientHeight are the picture's box.
       figures: list.map((el) => ({ src: el.getAttribute('src'), alt: el.alt, group: list.indexOf(el.closest('div').querySelector('img')), width: el.clientWidth, height: el.clientHeight, loaded: el.complete && el.naturalWidth > 0, top: Math.round(el.getBoundingClientRect().top + window.scrollY) })),
       pageHeight: document.documentElement.scrollHeight,
       viewport: window.innerHeight,
@@ -342,6 +352,9 @@ test('a note\'s deck figures hold their frames before the images arrive, and the
   for (const f of before.figures) {
     const [w, h] = slideImageSize(f.src);
     expect(f.width, `${f.src} has a width`).toBeGreaterThan(100);
+    // Within 1 px: clientWidth and clientHeight are whole pixels of a sub-pixel box. The figure
+    // has no border (a 1 px border put Firefox's ratio on the border box before load and on the
+    // content box after, 1.12 px apart for a 408x637 figure), so every engine has one box to fit.
     expect(Math.abs(f.height - f.width * h / w), `${f.src}: frame ${f.width}x${f.height} for a ${w}x${h} picture`).toBeLessThanOrEqual(1);
     // Never wider than its own pixels (a small figure was stretched to the column) and never
     // taller than most of the screen.
@@ -405,7 +418,7 @@ for (const screen of [{ width: 375, height: 812 }, { width: 1280, height: 800 }]
     await expect(front).toContainText(pictureCard.q.slice(0, 30));
     const picture = front.getByRole('img', { name: pictureCard.imageAlt, exact: true });
     await expect.poll(() => picture.evaluate((el) => el.complete && el.naturalWidth > 0)).toBe(true);
-    await page.evaluate(() => document.fonts.ready);
+    await fontsSettled(page);
 
     const flip = page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true });
     const seen = await page.evaluate(() => {
