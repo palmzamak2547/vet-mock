@@ -1,3 +1,4 @@
+import { parseAccountToken } from './prefs/account-token.js';
 import * as v from 'valibot';
 
 // Runtime schemas for the two places where a user can bring JSON into
@@ -316,4 +317,17 @@ export function userDataPatchFromBackup(data) {
     patch.streakData = { streak: data.streak, lastDate: null, freezeUsedAt: null };
   }
   return patch;
+}
+
+// ── Preferences in a backup (src/lib/prefs/account-token.js) ────────────────
+// The preferences that follow the account travel in a backup as the same
+// token the account keeps: one string, strictly parsed. An old backup without
+// it imports as before; a file whose token does not parse brings no
+// preferences and nothing else is refused for it.
+export const PREFS_BACKUP_FIELD = 'preferences';
+export function parseBackupPreferences(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  if (!Object.prototype.hasOwnProperty.call(value, PREFS_BACKUP_FIELD)) return null;
+  const parsed = parseAccountToken(value[PREFS_BACKUP_FIELD]);
+  return parsed && Object.keys(parsed.values).length ? parsed.values : null;
 }

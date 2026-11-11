@@ -7,8 +7,13 @@ import {
   describeBackupFields,
   parseUserBackup,
   userDataPatchFromBackup,
+  parseBackupPreferences,
+  PREFS_BACKUP_FIELD,
   USER_DATA_IMPORT_MAX_BYTES,
 } from '../lib/user-data-schema.js';
+import { encodeAccountToken } from '../lib/prefs/account-token.js';
+import { accountValues } from '../lib/prefs/account-sync.js';
+import { applyValues, localStamp } from '../lib/prefs/table.js';
 import BackBar from '../components/BackBar.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
 import NightRankCard from '../components/NightRankCard.jsx';
@@ -399,6 +404,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       streakData: streakData || { streak, lastDate: null, freezeUsedAt: null },
       customQuestions,
       readingChecklist,
+      // The preferences that follow the account, as the account keeps them
+      // (src/lib/prefs/account-token.js): colour, buddy, motion taste, card.
+      [PREFS_BACKUP_FIELD]: encodeAccountToken(accountValues(), localStamp() || Date.now()),
     };
     downloadJSON(data, `vetmock-backup-${fileStamp()}.json`);
   };
@@ -488,7 +496,8 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         }
 
         const { data, fields } = parsed;
-        const preview = describeBackupFields(data, fields);
+        const prefs = parseBackupPreferences(decoded);
+        const preview = [...describeBackupFields(data, fields), ...(prefs ? ['การตั้งค่า สี เพื่อนติว และการ์ด'] : [])];
         const accepted = await confirmDialog({
           title: 'ตรวจรายการก่อนนำเข้า',
           body: `ข้อมูลที่จะเขียนทับ:\n${preview.map((line) => `• ${line}`).join('\n')}\n\nรายการที่ไม่มีในไฟล์จะคงเดิม`,
@@ -502,6 +511,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             e.target.value = '';
             return;
           }
+          if (prefs) applyValues(prefs);
           alertDialog('นำเข้าข้อมูลเรียบร้อยแล้ว หน้านี้อัปเดตทันที');
         }
         e.target.value = '';

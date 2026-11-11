@@ -24,6 +24,12 @@ const LEGACY_INFLIGHT = 'vmx-inflight-exam';
 // private data without saying whose it is: the pre-5.141.6 external-doc
 // recents list (links and titles of documents read through a connection).
 const LEGACY_UNOWNED_DEAD = ['vmx-external-docs-v1'];
+// The account copy of the preferences (src/lib/prefs/account-sync.js): this
+// device's mark of what it last took from or wrote to the account, and the
+// card, which shows the account's trophies and picture. The device's own look
+// (theme, palette, motion) is the device's and stays.
+const PREFS_SYNC_PREFIX = 'vmx-prefs-sync:';
+const ACCOUNT_CARD = 'vmx-card';
 
 async function defaults() {
   const [events, pdf] = await Promise.all([import('./study-event-log.js'), import('./pdf-annotations.js')]);
@@ -45,7 +51,7 @@ export async function purgeLocalAccountData(userId, deps = {}) {
   try {
     const storage = d.storage;
     const id = encodeURIComponent(userId);
-    const exact = new Set([...USER_DATA_PREFIXES.map((p) => `${p}${id}`), `vmx-inflight-exam:user:${userId}`, ...LEGACY_UNOWNED_DEAD]);
+    const exact = new Set([...USER_DATA_PREFIXES.map((p) => `${p}${id}`), `vmx-inflight-exam:user:${userId}`, `${PREFS_SYNC_PREFIX}${id}`, ACCOUNT_CARD, ...LEGACY_UNOWNED_DEAD]);
     const ops = OPERATION_PREFIXES.map(prefix => `${prefix}${id}:`);
     const doomed = [];
     for (let i = 0; i < storage.length; i++) {
