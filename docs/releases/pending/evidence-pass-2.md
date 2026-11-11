@@ -107,4 +107,5 @@ calls, 387,000 tokens in and 29,000 out, all off-peak (13:26 to about
   0 stale, 0 missing.
 - `tests/unit/answer-evidence.test.mjs` (two new tests: the split sara am and
   math letters, and a fact over many short lines against a long run of long
-  lines) and `npm run lint:data`: see the commit that adds this note.
+  lines): 16 of 16 pass. `npm run lint:data` passes ("answer evidence: 953
+  slides in 10 subjects").
