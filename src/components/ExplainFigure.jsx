@@ -162,7 +162,8 @@ function Timeline({ fig, height }) {
   const t0 = fig.start ? Math.min(0, ...times) : times[0];
   const t1 = times[times.length - 1];
   const top = fig.start ? 22 : 26;
-  const span = height - 26 - top - 24;
+  const inner = height - 28; // the box's padding and border
+  const span = inner - top - 24;
   // Proportional to time, with room for each label: a later time never sits closer than 44 px.
   let last = -Infinity;
   const y = new Map(times.map((t) => {
@@ -172,7 +173,7 @@ function Timeline({ fig, height }) {
   }));
   const unit = fig.unit ? <span className="u">{fig.unit}</span> : null;
   return (
-    <div className="vmx-fig-time">
+    <div className="vmx-fig-time" style={{ height: `${inner}px` }}>
       <span className="rail" data-s="2" style={{ top: `${top}px`, height: `${span}px` }} />
       {fig.start && <div className="ev is-start" style={{ top: `${top}px` }}><span className="t" /><span className="dot" /><span className="lbls"><span>{fig.start}</span></span></div>}
       {evs.filter((e) => e.to != null).map((e, i) => (
@@ -282,8 +283,11 @@ export default function ExplainFigure({ fig, play = false, height = 0 }) {
   }, [play, on]);
   const Draw = DRAW[fig.kind];
   if (!Draw) return null;
+  // The held height is fitted to a phone; held there, nothing below moves when the drawing arrives.
+  // A wider screen draws it shorter and keeps no empty band under it.
+  const hold = typeof window !== 'undefined' && window.matchMedia?.('(max-width: 767px)').matches;
   return (
-    <figure ref={ref} className={`vmx-fig is-${fig.kind}${play ? ' is-play' : ''}${on ? ' is-on' : ''}`} style={{ minHeight: `${height}px` }} role="img" aria-label={describe(fig)}>
+    <figure ref={ref} className={`vmx-fig is-${fig.kind}${play ? ' is-play' : ''}${on ? ' is-on' : ''}`} style={hold ? { minHeight: `${height}px` } : undefined} role="img" aria-label={describe(fig)}>
       <Draw fig={fig} height={height} />
     </figure>
   );

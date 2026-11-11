@@ -85,7 +85,7 @@ function HouseLines({ text, renderText }) {
     flush(`t${i}`);
     out.push(
       <span key={`h${i}`} className={m[1] === '💡' ? 'vmx-house is-tip' : 'vmx-house'}>
-        <svg viewBox="2 -1 27 26" width="18" height="18" aria-hidden="true" focusable="false">{ICONS[m[1]]}</svg>
+        <svg viewBox="2 -1 27 26" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{ICONS[m[1]]}</svg>
         <span className="vmx-house-t">{renderText(m[2])}</span>
       </span>,
     );
