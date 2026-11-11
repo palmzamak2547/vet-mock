@@ -5,7 +5,7 @@
 // only the header chip (lazy) and the profile hub read these.
 // ============================================================
 
-import { XP_AWARDS, getXpState } from './xp.js';
+import { XP_AWARDS, getXpState, COUNTER_OWNER_KEY } from './xp.js';
 
 /**
  * XP rebuilt from what follows the account: every answer in the synced
@@ -40,7 +40,6 @@ export function accountXp({ history = [], srCards = {} } = {}) {
 
 const SYNC_OWNER_KEY = 'vmx-user-sync-owner-v1';
 const DEVICE_KEY = 'vmx-device-id';
-const OWNER_KEY = 'vmx-xp-owner';
 export const carriedKey = (uid) => `vmx-xp-carried:${uid}`;
 export const pendingKey = (uid) => `vmx-xp-pending:${uid}`;
 
@@ -78,17 +77,17 @@ export const pendingXp = (uid, storage = globalThis.localStorage) => (uid ? coun
 export const setPendingXp = (uid, n, storage = globalThis.localStorage) => { if (uid) write(storage, pendingKey(uid), count(n)); };
 
 /**
- * Whether this device's old counter can be this account's. Every answer the
- * account gave here is in its synced history, so a counter that recorded more
- * answers than the whole history holds also counts someone else's (a second
- * student on a shared phone). Once one account has carried it, it is that
- * account's alone.
+ * Whether this device's old counter is this account's: only the account the
+ * device's data store already belonged to when this release first loaded
+ * (COUNTER_OWNER_KEY, recorded in xp.js before anyone could sign in). With no
+ * recorded owner (a guest's phone, a fresh browser) nobody carries it: the
+ * level is then the account's own calculation, the same on every device,
+ * and nothing the student saw falls because of someone else.
  */
-export function counterIsTheirs({ user, history = [], device = getXpState(), storage = globalThis.localStorage } = {}) {
+export function counterIsTheirs({ user, storage = globalThis.localStorage } = {}) {
   if (!user?.id) return false;
-  const owner = read(storage, OWNER_KEY);
-  if (owner) return owner === user.id;
-  return count(device?.lifetimeQs) <= (Array.isArray(history) ? history.length : 0);
+  const owner = read(storage, COUNTER_OWNER_KEY);
+  return Boolean(owner) && owner !== 'none' && owner === user.id;
 }
 
 /**
@@ -105,7 +104,7 @@ export function shownXp({ history = [], srCards = {}, user = null, device = getX
   if (!user?.id) return Math.max(rebuilt, counter);
   const own = rebuilt + extraXpOf(user) + pendingXp(user.id, storage);
   const carried = read(storage, carriedKey(user.id)) === '1';
-  if (carried || !counterIsTheirs({ user, history, device, storage })) return own;
+  if (carried || !counterIsTheirs({ user, storage })) return own;
   return Math.max(own, counter);
 }
 
@@ -122,7 +121,7 @@ export function xpToCarry({ user, history = [], srCards = {}, device = getXpStat
   if (!user?.id || !ready) return none;
   const pending = pendingXp(user.id, storage);
   if (read(storage, carriedKey(user.id)) === '1') return { ...none, addQuests: pending };
-  if (!counterIsTheirs({ user, history, device, storage })) return { ...none, addQuests: pending, first: true, owns: false };
+  if (!counterIsTheirs({ user, storage })) return { ...none, addQuests: pending, first: true, owns: false };
   const id = deviceId(storage);
   const md = user.user_metadata || {};
   const mine = count(md.xp_carry?.[id]);
@@ -130,15 +129,14 @@ export function xpToCarry({ user, history = [], srCards = {}, device = getXpStat
   const lead = Math.max(0, count(device?.totalXp) - (accountXp({ history, srCards }) + others));
   // Nothing ahead of the account: done here, nothing written (a fresh browser
   // or a private window must not add a key to the metadata every token
-  // carries), and the counter is NOT claimed, so the student whose counter it
-  // is can still carry it when they sign in on this device.
+  // carries).
   if (lead === 0) return { addQuests: pending, carry: null, first: true, owns: false };
   return { addQuests: 0, carry: { device: id, value: lead }, first: true, owns: true };
 }
 
-/** Record on the device that the carry for this account is done; only a
- *  carry above zero claims the counter for the account. */
-export function markCarried(uid, storage = globalThis.localStorage, { owns = false } = {}) {
+/** Record on the device that the carry for this account is done. Whose the
+ *  counter is was fixed when this release first loaded (COUNTER_OWNER_KEY),
+ *  so nothing is claimed here. */
+export function markCarried(uid, storage = globalThis.localStorage) {
   write(storage, carriedKey(uid), '1');
-  if (owns && !read(storage, OWNER_KEY)) write(storage, OWNER_KEY, uid);
 }

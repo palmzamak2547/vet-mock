@@ -42,13 +42,16 @@ export const INVISIBLE = /[\u0000-\u001f\u007f-\u009f­؜᠎​-‏‪-‮⁠-�
 export const shownPicture = (value) => (isPicture(value) ? value : DEFAULT_PICTURE);
 
 // A Chula student number is 10 digits, a Thai phone number 9 or 10, a
-// national id 13: a run of 8 or more digits (any script, \p{Nd}, after NFKC
-// so full-width digits count) not broken by a separator is drawn as one of
-// them. Shorter runs ("ploy55555", "vet86 2567") are ordinary names. A new
-// name is held to a stricter rule when it is chosen (public-identity.js).
-export const ID_DIGITS = 8;
+// national id 13, and the same with its prefix cut is 7. So 7 or more digits
+// (any script, \p{Nd}, after NFKC so full-width digits count), joined by at
+// most one space, dot, dash or underscore between two digits ("081-234-5678",
+// "6431.234.567"), are drawn as an id. Six or fewer stay ("ploy55555",
+// "vet86 2567" is 862567). A new name is held to a stricter rule when it is
+// chosen (public-identity.js).
+export const ID_DIGITS = 7;
+const JOINED = /(\p{Nd})[ ._-](?=\p{Nd})/gu;
 const ID_RUN = new RegExp(`\\p{Nd}{${ID_DIGITS},}`, 'u');
-export const looksLikeAnId = (value) => ID_RUN.test(String(value ?? '').normalize('NFKC'));
+export const looksLikeAnId = (value) => ID_RUN.test(String(value ?? '').normalize('NFKC').replace(JOINED, '$1'));
 
 /** A member's name as drawn: no invisible or bidi characters, one space,
  *  and "นิสิต" for a blank name, a digit run long enough to be an id

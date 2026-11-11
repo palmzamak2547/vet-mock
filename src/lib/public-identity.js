@@ -48,7 +48,7 @@ const isThaiWord = (w) => /[\u0e00-\u0e7f]/.test(w);
 function reservedHit(value) {
   const lower = normalizePublicName(value).toLowerCase();
   const folded = compactName(value);
-  return RESERVED.some((w) => {
+  return RESERVED.find((w) => {
     if (isThaiWord(w)) return lower.replace(/[\s._-]/g, '').includes(w);
     const head = lower.startsWith(w) || folded.startsWith(compactName(w));
     if (!head) return false;
@@ -115,9 +115,8 @@ export function checkPublicName(raw, { email = '' } = {}) {
   const local = emailLocalPart(email);
   if (local && value.toLowerCase() === local) return no('ชื่อนี้มาจากอีเมลของคุณ เลือกชื่ออื่น');
   const plain = value.toLowerCase().replace(/[\s._-]/g, '');
-  if (RESERVED_EXACT.includes(plain) || reservedHit(value)) {
-    return no('ชื่อนี้ใช้ไม่ได้ เพราะอ่านเหมือนทีมงานของแอป');
-  }
+  const word = RESERVED_EXACT.includes(plain) ? plain : reservedHit(value);
+  if (word) return no(`มีคำว่า ${word} ซึ่งอ่านเหมือนทีมงาน`);
   if (isAutoName(value, email)) return no('ชื่อนี้ระบบตั้งให้ เลือกชื่อของคุณเอง');
   return { ok: true, value };
 }

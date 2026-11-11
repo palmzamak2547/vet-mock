@@ -114,3 +114,16 @@ export function xpForNextLevel(totalXp) {
 }
 
 export const XP_EVENT = EVENT_NAME;
+
+// Whose this device's counter is: the account the sync store held the device
+// for when this release first loaded here, recorded once and never moved
+// (xp-account.js reads it). 'none' when the device had no account then.
+export const COUNTER_OWNER_KEY = 'vmx-xp-counter-owner';
+try {
+  const st = typeof window !== 'undefined' ? window.localStorage : null;
+  if (st && st.getItem(COUNTER_OWNER_KEY) === null) {
+    let owner = 'none';
+    try { const v = JSON.parse(st.getItem('vmx-user-sync-owner-v1') || 'null'); if (typeof v === 'string' && v && v !== 'anonymous') owner = v; } catch { /* unreadable: none */ }
+    st.setItem(COUNTER_OWNER_KEY, owner);
+  }
+} catch { /* private mode */ }

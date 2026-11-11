@@ -58,10 +58,17 @@ account page. No database migration, no row-policy change, no new table or colum
    lead, recorded once per device). After the security review (fd9bec89):
    - no carry until the sync store has finished this account's first pull (`xpReady`, phase
      synced or pending), since before that the history is empty and every answer would count twice;
-   - the old counter can be carried only by an account whose synced history holds at least as many
-     answers as the counter recorded here, and once carried it belongs to that account
-     (`vmx-xp-owner`), so a second student on a shared phone never inherits it; quest points are
-     kept per account (`vmx-xp-pending:<uid>`);
+   - the old counter is carried only by the account this phone's data store belonged to when this
+     release first loaded (`vmx-xp-counter-owner`, read from `vmx-user-sync-owner-v1` once, in
+     `xp.js`, before anyone can sign in), so a second student on a shared phone never inherits it,
+     in either order (third read). A phone with no recorded owner (a guest's phone, a fresh browser)
+     carries nobody's counter: a student there gets the account's own calculation, the same on
+     every device. If that is below the old counter they see the lower level once, after the first
+     sync, and from then on the same level everywhere. Quest points are kept per account
+     (`vmx-xp-pending:<uid>`);
+   - until sync is ready the header chip shows the higher of the account's number and the counter
+     where the counter is theirs, and never less than the frame before, so a load does not flash
+     the level away and back;
    - the carry is set per device, never added, and quest points flush under a Web Lock, so two tabs
      cannot double it (a browser without Web Locks can still double a flush of quest points);
    - until the carry lands, the device in use shows its own counter where it is higher, so nobody's
@@ -130,11 +137,11 @@ account page. No database migration, no row-policy change, no new table or colum
   progress page restores only the study data.
 
 ### Re-read of ab7036db (tests in `student-identity-review.test.mjs`)
-- A zero lead writes nothing and claims nothing. A fresh browser, private window or cleared storage
-  used to add `xp_carry[<new id>] = 0` to metadata that rides in every token. Only a carry above
-  zero takes the counter (`vmx-xp-owner`), so a classmate who signs in first on A's phone and
-  is ahead of its counter does not lock A out of their own lead. The property "the level on the
-  device in use never falls" is asserted over every case in the file.
+- A zero lead writes nothing. A fresh browser, private window or cleared storage used to add
+  `xp_carry[<new id>] = 0` to metadata that rides in every token. (The second read also stopped a
+  zero lead from claiming the phone. The third read replaced claiming with the pre-release owner,
+  above.) The property "the level on the device in use never falls" is asserted for A and B in
+  both orders.
 - Known limit, left as it is: with two old devices, device 1's lead is measured against answers
   from both, so quest points counted only on device 1 can carry as less than they were (never a
   drop on the device in use, never a double).
@@ -145,11 +152,14 @@ account page. No database migration, no row-policy change, no new table or colum
   hears the choice through the stored session (`storage` event) and leaves presence.
 - A look-alike of a taken name reads "คล้ายกับชื่อที่มีคนใช้แล้ว". Reserved Latin words match only as
   the whole name or as a prefix followed by a separator or a digit (Rootbeer, Staffy pass; Owner,
-  Staff_1 do not). Thai reserved words still match anywhere, because Thai has no spaces. Each word's
-  reason is in the comment.
-- Display: only an unbroken run of 8 or more digits (`\p{Nd}` after NFKC, so full-width digits count)
-  draws as "นิสิต". That covers a 10-digit student number, a 9 or 10-digit phone number and a
-  13-digit national id, so names like "ploy55555" keep showing. The hub tells the owner in one
+  Staff_1 do not). Thai reserved words still match anywhere, because Thai has no spaces, and the
+  refusal names the word it found ("มีคำว่า อาจารย์ ซึ่งอ่านเหมือนทีมงาน"). Each word's reason is in
+  the comment.
+- Display: 7 or more digits (`\p{Nd}` after NFKC, so full-width digits count), joined by at most one
+  space, dot, dash or underscore between two digits, draw as "นิสิต". That covers a student number,
+  a phone number with or without its prefix and a national id, written plainly or grouped
+  (`081-234-5678`, `6431.234.567`). The third read asked for 8; 7 is used because its own example
+  `1234567` has seven digits. "ploy55555" (5) and "vet86 2567" (6 once joined) keep showing. The hub tells the owner in one
   sentence when others see "นิสิต" instead of their name, and how to fix it.
 - The surface walk reads `.js` and `.jsx`. It flags each name or picture read that is not inside
   `shownName(`/`shownPicture(`, and each destructured `username`/`avatar_emoji`. Every exempt read

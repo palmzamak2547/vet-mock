@@ -48,27 +48,26 @@ test('no carry before the account history has arrived (the early effect)', () =>
   // With the history in, the lead is what it should be: nothing.
   const plan = xpToCarry({ user, history, device, storage: st, ready: true });
   assert.equal(plan.carry, null, 'answers are counted once, from the history: no lead, nothing written');
-  markCarried('A', st, { owns: true });
+  markCarried('A', st);
   assert.equal(shownXp({ history, user, device, storage: st }), rebuilt, '3500 stays 3500, not 7000');
 });
 
 test('a second account on the same phone never gets the first one\'s counter or quest points', () => {
-  const st = store({ 'vmx-user-sync-owner-v1': JSON.stringify('A') });
+  const st = store({ 'vmx-user-sync-owner-v1': JSON.stringify('A'), 'vmx-xp-counter-owner': 'A' });
   const aHistory = answers(990);
   const device = { totalXp: accountXp({ history: aHistory }) + 300, lifetimeQs: 990 }; // A's 300 quest points
   const A = { id: 'A', user_metadata: {} };
   const a = xpToCarry({ user: A, history: aHistory, device, storage: st, ready: true });
   assert.equal(a.carry.value, 300);
-  markCarried('A', st, { owns: true });
+  markCarried('A', st);
   // B signs in on A's phone with a short history of their own.
   const B = { id: 'B', user_metadata: {} };
   const bHistory = answers(12);
   const b = xpToCarry({ user: B, history: bHistory, device, storage: st, ready: true });
   assert.equal(b.carry, null, 'the counter is A\'s: B carries none of it');
   assert.equal(shownXp({ history: bHistory, user: B, device, storage: st }), accountXp({ history: bHistory }), 'B sees only B');
-  // Before A ever carried: a counter that recorded more answers than B's whole
-  // history cannot be B's either.
-  const fresh = store();
+  // A phone with no recorded owner: nobody carries its counter.
+  const fresh = store({ 'vmx-xp-counter-owner': 'none' });
   assert.equal(xpToCarry({ user: B, history: bHistory, device, storage: fresh, ready: true }).carry, null);
   // Quest points are kept per account.
   const xp = read('src/lib/xp.js');
@@ -78,7 +77,7 @@ test('a second account on the same phone never gets the first one\'s counter or 
 });
 
 test('two tabs carrying at once write the same number, never twice', () => {
-  const st = store();
+  const st = store({ 'vmx-xp-counter-owner': 'A' });
   const history = answers(100);
   const device = { totalXp: accountXp({ history }) + 800, lifetimeQs: 100 };
   const user = { id: 'A', user_metadata: {} };
@@ -236,49 +235,57 @@ test('a zero lead writes nothing and claims nothing: 200 fresh devices leave the
     assert.equal(plan.owns, false, 'and the counter is not claimed');
   }
   assert.deepEqual(user.user_metadata, { xp_quests: 10 });
-  assert.match(read('src/components/XpChip.jsx'), /markCarried\(uid, undefined, \{ owns: plan\.owns === true \}\)/);
+  assert.match(read('src/components/XpChip.jsx'), /markCarried\(uid\)/);
 });
 
-test('the first account to sign in after the update does not take the device, and a level never falls', () => {
-  // A's phone: A's counter holds 3,300 XP from 600 answers and quest points.
-  const aHistory = answers(600);
-  const aRebuilt = accountXp({ history: aHistory });
-  const device = { totalXp: 3300, lifetimeQs: 600 };
-  const st = store();
-  // B, with 3,000 answers of their own, signs in first.
+test('the counter is only the pre-release owner\'s: A and B in both orders, and a level never falls', () => {
+  // A's phone: 500 answers, 1,000 SR grades and 400 quest points on the counter.
+  const aHistory = answers(500);
+  const aCards = { c: { totalReviews: 1000 } };
+  const aOwn = accountXp({ history: aHistory, srCards: aCards });
+  const device = { totalXp: aOwn + 400, lifetimeQs: 500 };
   const B = { id: 'B', user_metadata: {} };
-  const bHistory = answers(3000);
-  const bPlan = xpToCarry({ user: B, history: bHistory, device, storage: st, ready: true });
-  assert.equal(bPlan.carry, null, 'B is far ahead of the counter: nothing to carry');
-  markCarried('B', st, { owns: bPlan.owns === true });
-  // A signs in later on the same phone.
-  const A = { id: 'A', user_metadata: {} };
-  const before = shownXp({ history: aHistory, user: A, device, storage: st });
-  const aPlan = xpToCarry({ user: A, history: aHistory, device, storage: st, ready: true });
-  assert.equal(aPlan.carry.value, 3300 - aRebuilt, 'A still carries their own lead');
-  markCarried('A', st, { owns: aPlan.owns === true });
-  const after = shownXp({ history: aHistory, user: { ...A, user_metadata: { xp_carry: { [aPlan.carry.device]: aPlan.carry.value } } }, device, storage: st });
-  assert.equal(before, 3300);
-  assert.equal(after, 3300, 'A\'s level does not fall from 3,300');
-  // The property over every case in this file: what a student sees on the
-  // device they use is never lower after the carry than before it.
-  const cases = [
-    { history: answers(700), device: { totalXp: accountXp({ history: answers(700) }), lifetimeQs: 700 } },
-    { history: answers(990), device: { totalXp: accountXp({ history: answers(990) }) + 300, lifetimeQs: 990 } },
-    { history: answers(100), device: { totalXp: accountXp({ history: answers(100) }) + 800, lifetimeQs: 100 } },
-    { history: answers(50), device: { totalXp: 0, lifetimeQs: 0 } },
-    { history: aHistory, device },
-  ];
-  for (const [i, c] of cases.entries()) {
-    const s2 = store();
-    const u = { id: `u${i}`, user_metadata: {} };
-    const was = shownXp({ history: c.history, user: u, device: c.device, storage: s2 });
-    const plan = xpToCarry({ user: u, history: c.history, device: c.device, storage: s2, ready: true });
-    markCarried(u.id, s2, { owns: plan.owns === true });
-    const md = plan.carry ? { xp_carry: { [plan.carry.device]: plan.carry.value } } : {};
-    const now = shownXp({ history: c.history, user: { ...u, user_metadata: md }, device: c.device, storage: s2 });
-    assert.ok(now >= was, `case ${i}: ${now} >= ${was}`);
+  const bHistory = answers(600);
+  for (const order of [['B', 'A'], ['A', 'B']]) {
+    const st = store({ 'vmx-xp-counter-owner': 'A' });
+    const seen = {};
+    for (const who of order) {
+      const user = who === 'A' ? { id: 'A', user_metadata: {} } : B;
+      const history = who === 'A' ? aHistory : bHistory;
+      const srCards = who === 'A' ? aCards : {};
+      const before = shownXp({ history, srCards, user, device, storage: st });
+      const plan = xpToCarry({ user, history, srCards, device, storage: st, ready: true });
+      markCarried(user.id, st);
+      const md = plan.carry ? { xp_carry: { [plan.carry.device]: plan.carry.value } } : {};
+      const after = shownXp({ history, srCards, user: { ...user, user_metadata: md }, device, storage: st });
+      assert.ok(after >= before, `${order.join(' then ')}: ${who} ${after} >= ${before}`);
+      seen[who] = { plan, after };
+    }
+    assert.equal(seen.B.plan.carry, null, `${order.join(' then ')}: B carries none of A's counter`);
+    assert.equal(seen.B.after, accountXp({ history: bHistory }), 'B sees only B');
+    assert.equal(seen.A.plan.carry.value, 400, `${order.join(' then ')}: A carries A's 400 quest points`);
+    assert.equal(seen.A.after, device.totalXp, 'A keeps 5,150');
   }
+  // The owner is recorded once, before any sign-in, from the data store's own key.
+  const xp = read('src/lib/xp.js');
+  assert.match(xp, /st\.getItem\(COUNTER_OWNER_KEY\) === null/);
+  assert.match(xp, /JSON\.parse\(st\.getItem\('vmx-user-sync-owner-v1'\)/);
+});
+
+test('the level does not flash on a load: guest, signed in before sync, synced', () => {
+  const history = answers(200);
+  const own = accountXp({ history });
+  const device = { totalXp: own + 150, lifetimeQs: 200 };
+  const st = store({ 'vmx-xp-counter-owner': 'A' });
+  const A = { id: 'A', user_metadata: {} };
+  const guest = shownXp({ history: [], user: null, device, storage: st });
+  const early = shownXp({ history: [], user: A, device, storage: st }); // sync not finished: no history yet
+  const plan = xpToCarry({ user: A, history, device, storage: st, ready: true });
+  markCarried('A', st);
+  const synced = shownXp({ history, user: { ...A, user_metadata: { xp_carry: { [plan.carry.device]: plan.carry.value } } }, device, storage: st });
+  assert.deepEqual([guest, early, synced], [device.totalXp, device.totalXp, device.totalXp], 'the same number in all three frames');
+  const chip = read('src/components/XpChip.jsx');
+  assert.match(chip, /const total = ready \|\| !uid \? computed : Math\.max\(computed, lastShown\.current\);/, 'and never less than the frame before until sync is ready');
 });
 
 test('the board line names the board, and a second tab stops publishing when hidden elsewhere', () => {
@@ -294,11 +301,15 @@ test('look-alike names are "similar", not "taken"; reserved words only as a whol
   assert.match(read('src/lib/identity-write.js'), /\? 'taken' : 'similar'/);
   for (const n of ['Rootbeer', 'Rooti', 'Staffy', 'Systema', 'Ownerin']) assert.equal(checkPublicName(n).ok, true, n);
   for (const n of ['Owner', 'admin', 'Staff_1', 'vetmock2', 'AdmIn', 'Support 24', 'อาจารย์ปิง', 'ทีมงานVetMock']) assert.equal(checkPublicName(n).ok, false, n);
+  // A Thai word is matched anywhere, so the refusal names it.
+  assert.equal(checkPublicName('ลูกอาจารย์').reason, 'มีคำว่า อาจารย์ ซึ่งอ่านเหมือนทีมงาน');
+  assert.equal(checkPublicName('ผู้ดูแลแมว').reason, 'มีคำว่า ผู้ดูแล ซึ่งอ่านเหมือนทีมงาน');
 });
 
 test('names saved before this release keep showing, and the owner is told when they do not', () => {
-  for (const n of ['ploy55555', 'vet86 2567', 'ping 2026', '081-234-5678']) assert.equal(shownName(n), n, n);
-  for (const n of ['6531234531', '６４３１２３４５６７', '๖๕๓๑๒๓๔๕๓๑', 'x12345678']) assert.equal(shownName(n), 'นิสิต', n);
+  for (const n of ['ploy55555', 'vet86 2567', 'ping 2026']) assert.equal(shownName(n), n, n);
+  for (const n of ['6531234531', '６４３１２３４５６７', '๖๕๓๑๒๓๔๕๓๑', 'x12345678',
+    '1234567', '643 1234567', '6431.234.567', '081-234-5678', '081 2345678']) assert.equal(shownName(n), 'นิสิต', n);
   const hub = read('src/views/ProfileView.jsx');
   assert.match(hub, /const masked = Boolean\(name\) && shownName\(name\) === 'นิสิต'/);
   assert.match(hub, /เพื่อนเห็นคุณเป็น นิสิต เพราะชื่อนี้อ่านเหมือนรหัสหรืออีเมล แตะการ์ดเพื่อตั้งชื่อใหม่/);

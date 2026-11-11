@@ -88,7 +88,7 @@ export default function XpChip({ history = null, srCards = null, user = null, re
       // Read again inside the lock: another tab may have just done it.
       const plan = xpToCarry({ user, history: history || [], srCards: srCards || {}, device: getXpState(), ready });
       if (!plan.addQuests && !plan.carry) {
-        if (plan.first) { markCarried(uid, undefined, { owns: plan.owns === true }); setBump((n) => n + 1); }
+        if (plan.first) { markCarried(uid); setBump((n) => n + 1); }
         return;
       }
       const pendingBefore = pendingXp(uid);
@@ -96,7 +96,7 @@ export default function XpChip({ history = null, srCards = null, user = null, re
       const md = await writeAccountXp({ addQuests: plan.addQuests, carry: plan.carry });
       if (!md) return;
       if (plan.first) {
-        markCarried(uid, undefined, { owns: plan.owns === true });
+        markCarried(uid);
         // Quest points counted before the carry are inside the carried lead.
         setPendingXp(uid, pendingXp(uid) - (plan.carry ? pendingBefore : plan.addQuests));
       } else {
@@ -113,7 +113,14 @@ export default function XpChip({ history = null, srCards = null, user = null, re
   const seen = user && written?.uid === user.id
     ? { ...user, user_metadata: { ...(user.user_metadata || {}), ...pickXp(written.md), ...pickXp(user.user_metadata, written.md) } }
     : user;
-  const total = shownXp({ history: history || [], srCards: srCards || {}, user: seen, device: state });
+  // Until the sync store has this account's history, the account's number
+  // is incomplete (0 on a fresh load): the chip shows the higher of it and
+  // the device counter where the counter is theirs, and never less than the
+  // frame before, so a load does not flash the level away and back.
+  const computed = shownXp({ history: history || [], srCards: srCards || {}, user: seen, device: state });
+  const lastShown = useRef(0);
+  const total = ready || !uid ? computed : Math.max(computed, lastShown.current);
+  lastShown.current = total;
   const lvl = levelFor(total);
   const prog = xpForNextLevel(total);
 
