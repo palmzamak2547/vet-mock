@@ -24,8 +24,9 @@ const jobs = Object.fromEntries(
 );
 
 // The job's name is an expression since 9 Nov 2026: `smoke` on every push to main, dispatch and
-// pull request that is not a draft, and another name on a draft (see the draft tests below).
-const SMOKE_NAME = /^    name: \$\{\{ github\.event\.pull_request\.draft && '([^']+)' \|\| 'smoke' \}\}$/m;
+// pull request that is not a draft, and another name on a draft (see the draft tests below). Since
+// 11 Nov "a draft" is the `state` job's answer when the run starts, never the event's payload.
+const SMOKE_NAME = /^    name: \$\{\{ needs\.state\.outputs\.draft == 'true' && '([^']+)' \|\| 'smoke' \}\}$/m;
 
 test('the workflow keeps its name and a job called smoke', () => {
   assert.match(workflow, /^name: Smoke e2e$/m);
@@ -40,7 +41,7 @@ test('a draft pull request runs no e2e and no PostgreSQL job, and marking it rea
     'GitHub\'s three default types plus ready_for_review');
   assert.match(triggers, /^  push:\n    branches: \[main\]$/m, 'a push to main is untouched');
   // Skipping `changes` skips every job that needs it: the runners and the PostgreSQL job.
-  assert.match(jobs.changes, /^    if: \$\{\{ !github\.event\.pull_request\.draft \}\}$/m);
+  assert.match(jobs.changes, /^    needs: state\n    if: needs\.state\.outputs\.draft == 'false'$/m);
   for (const id of ['e2e', 'annotation-db']) {
     assert.match(jobs[id], /^    needs: changes$/m, `${id} needs changes`);
     assert.match(jobs[id], /^    if: needs\.changes\.outputs\.app == 'true'$/m, `${id} runs only when changes ran and said app`);
@@ -59,8 +60,26 @@ test('a draft never carries a result named smoke, and nothing else is ever renam
   assert.ok(!['build', 'Annotation PostgreSQL', 'VCA', 'Research R parity'].includes(draftName), 'not another required check either');
   // It runs on a draft (so its name is evaluated) and only says so; the gate step is a non-draft's.
   const steps = jobs.smoke.split(/\n\s*- name: /);
-  assert.match(steps.find((s) => /^A draft runs no e2e/.test(s)), /^        if: github\.event\.pull_request\.draft$/m);
-  assert.match(steps.find((s) => /^Every e2e runner passed/.test(s)), /^        if: \$\{\{ !github\.event\.pull_request\.draft \}\}$/m);
+  assert.match(steps.find((s) => /^A draft runs no e2e/.test(s)), /^        if: needs\.state\.outputs\.draft == 'true'$/m);
+  assert.match(steps.find((s) => /^Every e2e runner passed/.test(s)), /^        if: needs\.state\.outputs\.draft != 'true'$/m);
+});
+
+// PR #200, 11 Nov 2026: a push and "ready for review" seconds apart left two runs on one commit; the
+// newer came from the push, whose payload still said draft, so the newest run had no `smoke` and the
+// pull request sat blocked with every check green. The draft state is read when the run starts.
+test('the draft state comes from the pull request when the run starts, never from the event payload', () => {
+  const state = jobs.state;
+  assert.ok(state, 'a job with id state');
+  assert.doesNotMatch(state, /^    needs:/m, 'state is the first job');
+  assert.match(state, /pull-requests: read/);
+  assert.match(state, /\[ "\$ACTION" = ready_for_review \]; then draft=false/, 'ready_for_review is ready by definition');
+  assert.match(state, /gh api "repos\/\$\{\{ github\.repository \}\}\/pulls\/\$NUMBER" --jq \.draft/);
+  // The payload is read only by state, as its fallback when the API does not answer.
+  const others = Object.entries(jobs).filter(([id]) => id !== 'state').map(([, block]) => block).join('\n');
+  assert.doesNotMatch(others, /github\.event\.pull_request\.draft/, 'nothing but state reads the payload draft');
+  // A run that read draft on a ready pull request fails loudly rather than leave smoke unreported.
+  const draftStep = jobs.smoke.split(/\n\s*- name: /).find((s) => /^A draft runs no e2e/.test(s));
+  assert.match(draftStep, /if \[ "\$now" = false \]; then[\s\S]*exit 1/);
 });
 
 test('Annotation PostgreSQL lives here, under its required name, and nowhere else', () => {
@@ -76,7 +95,7 @@ test('Annotation PostgreSQL lives here, under its required name, and nowhere els
 });
 
 test('smoke waits for every e2e runner and passes only when all of them passed', () => {
-  assert.match(jobs.smoke, /^    needs: \[changes, e2e\]$/m);
+  assert.match(jobs.smoke, /^    needs: \[state, changes, e2e\]$/m);
   // Without always(), a failed runner would SKIP smoke, and a skipped job
   // satisfies a required check.
   assert.match(jobs.smoke, /^    if: always\(\)$/m);
