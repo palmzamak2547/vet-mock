@@ -481,7 +481,7 @@ test('the paper tag shows after the answer, and only where the line itself names
 test('the caution chip is for a disputed key only; a minor note is a หมายเหตุ in the panel', () => {
   const minor = met.filter((q) => q.flag?.severity === 'minor');
   const major = met.filter((q) => q.flag?.severity === 'major');
-  assert.ok(minor.length >= 10 && major.length >= 8, `minor ${minor.length}, major ${major.length}`);
+  assert.ok(minor.length >= 5 && major.length >= 15, `minor ${minor.length}, major ${major.length}`);
   for (const q of met.filter((x) => x.flag)) {
     assert.ok(['major', 'minor'].includes(q.flag.severity), `${q.subject}#${q.id}: an unclear flag is never delivered`);
   }

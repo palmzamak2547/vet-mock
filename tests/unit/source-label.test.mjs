@@ -205,7 +205,9 @@ test('no question shows a middle dot in its source, closed or open, before or af
 
 test('the source panel reads in Thai, with no internal ids or status words', () => {
   // A row with every citation field: source, verified, a flag and tags.
-  const full = bankRow('com5', 568);
+  // com5 568 is major since 11 Nov; as a minor flag its note is a panel row.
+  const row568 = bankRow('com5', 568);
+  const full = { ...row568, flag: { ...row568.flag, severity: 'minor' } };
   const { text } = renderChip(full, { open: true });
   const labels = rowLabels(full);
   for (const english of ['Source', 'Verified', 'Flag', 'Tags']) {
