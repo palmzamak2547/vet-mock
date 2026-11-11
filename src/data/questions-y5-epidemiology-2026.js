@@ -587,7 +587,10 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100040, subject: 'epidemiology', topic: 'epidem-outbreak-investigation', year: 5,
     type: 'mcq',
-    q: 'จากตัวอย่างการระบาดของ vibriosis กลุ่มที่กินหอยนางรม 100 คนป่วย 20 คน ส่วนกลุ่มที่ไม่กิน 100 คนป่วย 1 คน ค่า relative risk เท่ากับเท่าใด',
+    q: 'จากตาราง ค่า relative risk เท่ากับเท่าใด',
+    say: 'จากตัวอย่างการระบาดของ vibriosis กลุ่มที่กินหอยนางรม 100 คนป่วย 20 คน ส่วนกลุ่มที่ไม่กิน 100 คนป่วย 1 คน ค่า relative risk เท่ากับเท่าใด',
+    passage: 'จากตัวอย่างการระบาดของ vibriosis\n\n| | คน | ป่วย (คน) |\n|---|---|---|\n| กลุ่มที่กินหอยนางรม | 100 | 20 |\n| กลุ่มที่ไม่กิน | 100 | 1 |',
+    passage_title: 'การกินหอยนางรมกับ vibriosis',
     options: [
       'RR เท่ากับ 20',
       'RR เท่ากับ 19',

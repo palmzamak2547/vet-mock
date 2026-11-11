@@ -1786,7 +1786,10 @@ export const QB_CLIAPPRUM = [
   { id: 5088, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Kim p21 distribution + curriculum.js note', sourceType: 'lecture',
     tags: ['LCS-distribution', 'fleet-health', 'monitoring'], type: 'mcq',
-    q: 'จาก LCS distribution ของฟาร์มหนึ่ง: LCS1=42%, LCS2=15%, LCS3=40%, LCS4=2%, LCS5=1% — แปลผลและจัดการอย่างไร',
+    q: 'จากตาราง แปลผลและจัดการอย่างไร',
+    say: 'จาก LCS distribution ของฟาร์มหนึ่ง: LCS1=42%, LCS2=15%, LCS3=40%, LCS4=2%, LCS5=1% — แปลผลและจัดการอย่างไร',
+    passage: 'LCS distribution ของฟาร์มหนึ่ง\n\n| LCS1 | LCS2 | LCS3 | LCS4 | LCS5 |\n|---|---|---|---|---|\n| 42% | 15% | 40% | 2% | 1% |',
+    passage_title: 'LCS distribution',
     options: [
       'ฟาร์มสุขภาพดี ไม่ต้องเพิ่มมาตรการใด',
       'LCS ≥ 3 รวม 43% สูงผิดปกติ ต้องเริ่ม RT + tackle LCS3',
