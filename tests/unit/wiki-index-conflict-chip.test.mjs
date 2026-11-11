@@ -1,33 +1,35 @@
-// The VetWiki index marked a topic whose evidence disagrees with the lecture
-// with a red "!6" in the mono face. Its only explanation was a title
-// attribute, which touch screens never show, so on a phone the mark meant
-// nothing. The row now carries the words the article itself uses for the same
-// count, "หลักฐานไม่ตรงกับที่บรรยาย N จุด", in the body face, and keeps the title.
+// A disagreement between the lecture and the evidence is marked ONCE, at the
+// section it concerns (ConflictNote, with both sides and what to write in the
+// exam). Until 5.214 the same 202 points in 91 of 224 topics were also a tag
+// on every index row, a count on each shelf volume, a "!" in every contents
+// list with a legend to explain it, a cell in the article header, a filter and
+// a footer with its own count and button.
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
-const view = fs.readFileSync(new URL('../../src/views/KnowledgeView.jsx', import.meta.url), 'utf8');
-const index = view.slice(view.indexOf('function WikiIndex'), view.indexOf('// ================= ARTICLE'));
-const chipAt = index.indexOf('conflictCountFor(t.subject, t.topic) > 0');
-const chip = index.slice(chipAt, index.indexOf(')}', index.indexOf('</span>', chipAt)));
+const read = (p) => fs.readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8');
+const view = read('src/views/KnowledgeView.jsx');
+const shelves = read('src/components/WikiShelves.jsx');
 
-test('the index row says in words what the conflict mark means', () => {
-  assert.ok(chipAt > 0, 'the index still marks topics with a recorded conflict');
-  assert.ok(!/!\{conflictCountFor/.test(index), 'no bare "!N" left');
-  assert.match(chip, /หลักฐานไม่ตรงกับที่บรรยาย \{conflictCountFor\(t\.subject, t\.topic\)\} จุด/);
-  assert.ok(view.includes('หลักฐานไม่ตรงกับที่บรรยาย {conflictCount} จุด'), 'the same words as the article header');
-  assert.match(chip, /title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"/, 'the tooltip stays for pointer users');
+test('the index, the shelves, the contents and the header carry no conflict marker', () => {
+  for (const gone of ['vw-conflict-chip', 'ConflictLegend', 'vw-flag', 'vw-filter', 'onlyConflicts', 'is-conflict', 'ดูหัวข้อที่มีจุดเหล่านี้', 'conflictCountFor']) {
+    assert.ok(!view.includes(gone), `KnowledgeView still has ${gone}`);
+  }
+  assert.ok(!shelves.includes('s.conflicts'), 'a shelf volume still counts conflicts');
+  assert.ok(!/หลักฐานไม่ตรงกับที่บรรยาย/.test(view), 'the old marker words are still on a wiki screen');
 });
 
-test('the chip is set in the label face, in the rose text colour, at the 14 px floor', () => {
-  assert.ok(!chip.includes('--vmx-mono'), 'Thai in the mono face renders in a fallback font');
-  assert.match(chip, /className="vw-conflict-chip"/);
-  const css = fs.readFileSync(new URL('../../src/styles-wiki.css', import.meta.url), 'utf8');
-  const rule = css.slice(css.indexOf('.vw-conflict-chip {'), css.indexOf('}', css.indexOf('.vw-conflict-chip {')));
-  assert.match(rule, /color: var\(--clr-rose-text\)/);
-  assert.match(rule, /font-family: var\(--vw-label\)/);
-  assert.match(rule, /font-size: 14px/);
-  assert.ok(!chip.includes('·'));
+test('the one marker stays at its section, one per recorded point', () => {
+  const section = view.slice(view.indexOf('const Section = React.memo'), view.indexOf('// Library pages that name'));
+  assert.match(section, /\(s\.corrections \|\| \[\]\)\.map\(\(c, k\) => \(/);
+  assert.match(section, /<ConflictNote item=\{c\} \/>/);
+});
+
+test('the marker says it in plain Thai, both sides and the exam line', () => {
+  const note = read('src/components/ConflictNote.jsx');
+  for (const words of ['ตรงนี้แหล่งอ้างอิงไม่ตรงกับที่สอน', 'ที่สอนในคาบ', 'แหล่งอ้างอิงว่า', 'ตอนสอบ']) {
+    assert.ok(note.includes(words), `ConflictNote lost "${words}"`);
+  }
 });

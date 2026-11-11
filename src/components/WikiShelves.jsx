@@ -84,7 +84,6 @@ function Volume({ id, name, code, year, topics, onOpenTopic, onClose, isRead, is
           <li><b>{n(s.topics)}</b> หัวข้อ</li>
           <li><b>{n(s.sections)}</b> หัวข้อย่อย</li>
           <li><b>{n(s.claims)}</b> จุดที่ตรวจทานแล้ว</li>
-          {s.conflicts > 0 && <li className="is-conflict">หลักฐานไม่ตรงกับที่บรรยาย {n(s.conflicts)} จุด</li>}
           {s.newestReview && <li>ตรวจทานล่าสุด {thaiDay(s.newestReview)}</li>}
           {read > 0 && <li className="is-read">อ่านแล้ว <b>{n(read)}</b> จาก {n(listed.length)} หัวข้อ</li>}
         </ul>
