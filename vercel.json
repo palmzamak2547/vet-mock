@@ -357,7 +357,7 @@
     },
     {
       "source": "/wiki(/.*)?",
-      "destination": "/"
+      "destination": "/wiki-unknown.html"
     },
     {
       "source": "/app/atlas",

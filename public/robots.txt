@@ -1,7 +1,9 @@
 # VetMock — คลังข้อสอบสัตวแพทย์ จุฬา (Chulalongkorn Vet Question Bank)
-# Single-page app: only the landing page is publicly visible to crawlers.
-# All study content (questions, video summaries, schedules) is gated
-# behind Supabase auth and not crawlable.
+# Public to crawlers: the landing page, the blog, VetWiki articles (each
+# prerendered with its own head and a readable copy in <noscript>), the
+# privacy page and the atlas catalogue at /atlas/. Every other /app screen
+# needs a Chula sign-in and carries noindex; the question banks and study
+# tools are not pages to index. The sitemap lists only the public pages.
 
 User-agent: *
 Allow: /
