@@ -4,10 +4,13 @@ import { test, expect, installPinnedCalendar, PINNED_NOW } from './fixtures.js';
 
 const chunk = (name) => new RegExp(`/assets/${name}-[A-Za-z0-9_-]+\\.js$`);
 const ORIGIN_MOVE = chunk('origin-move');
+const NATIVE_APP = chunk('native-app');
+const ANY_LAZY = (url) => ORIGIN_MOVE.test(url.pathname) || NATIVE_APP.test(url.pathname);
 
 async function watch(page, pattern) {
   const seen = [];
-  page.on('request', (r) => { if (pattern.test(new URL(r.url()).pathname)) seen.push(r.url()); });
+  const hit = (url) => (typeof pattern === 'function' ? pattern(url) : pattern.test(url.pathname));
+  page.on('request', (r) => { if (hit(new URL(r.url()))) seen.push(r.url()); });
   return seen;
 }
 
@@ -34,14 +37,14 @@ async function freshPage(browser, entries, block) {
 }
 
 for (const [who, entries] of [['a first-time visitor', {}], ['a returning Year-5 student', RETURNING_Y5]]) {
-  test(`${who}: the move code is never fetched, and blocking it changes nothing on the first screen`, async ({ browser }) => {
+  test(`${who}: the move and app-layer code is never fetched, and blocking it changes nothing on the first screen`, async ({ browser }) => {
     const normal = await freshPage(browser, entries, null);
-    const fetched = await watch(normal, ORIGIN_MOVE);
+    const fetched = await watch(normal, ANY_LAZY);
     await normal.goto('/');
     const shown = await firstScreen(normal);
     expect(fetched).toEqual([]);
 
-    const blocked = await freshPage(browser, entries, ORIGIN_MOVE);
+    const blocked = await freshPage(browser, entries, ANY_LAZY);
     await blocked.goto('/');
     expect(await firstScreen(blocked)).toBe(shown);
     await normal.context().close();
@@ -91,4 +94,43 @@ test('mid-move with the move code unreachable: the app starts and the inbox wait
   await page.locator('#root > *').first().waitFor();
   await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBeNull();
   expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).sort()).toEqual([90001, 90002]);
+});
+
+// The Android app's bridge as the WebView injects it before any page script: enough of Capacitor for
+// native-app.js to install itself, recording what the app layer asks of the shell.
+function fakeAndroidBridge() {
+  window.__nativeCalls = [];
+  window.Capacitor = {
+    isNativePlatform: () => true,
+    getPlatform: () => 'android',
+    nativePromise: (plugin, method) => { window.__nativeCalls.push(method); return Promise.resolve({ languages: [], state: 'prompt' }); },
+    addListener: () => ({ remove() {} }),
+  };
+  new MutationObserver((_, obs) => {
+    const root = document.getElementById('root');
+    if (!root?.firstElementChild) return;
+    obs.disconnect();
+    window.__appAtFirstDraw = typeof window.VetMockApp?.haptic === 'function';
+  }).observe(document, { childList: true, subtree: true });
+}
+
+test('inside the Android app: the app layer is fetched and in place before the app first draws', async ({ page, context }) => {
+  await context.addInitScript(fakeAndroidBridge);
+  const fetched = await watch(page, NATIVE_APP);
+  await page.goto('/');
+  await page.locator('#root > *').first().waitFor();
+  expect(fetched.length).toBe(1);
+  expect(await page.evaluate(() => window.__appAtFirstDraw)).toBe(true);
+  // The splash is told the first screen has painted, and no service worker registers inside the app.
+  await expect.poll(() => page.evaluate(() => window.__nativeCalls.includes('ready'))).toBe(true);
+  await page.waitForLoadState('load');
+  expect(await page.evaluate(async () => (await navigator.serviceWorker?.getRegistrations?.() ?? []).length)).toBe(0);
+});
+
+test('inside the Android app with the app layer unreachable: the app still starts, as a browser page', async ({ page, context }) => {
+  await context.addInitScript(fakeAndroidBridge);
+  await page.route(NATIVE_APP, (route) => route.abort());
+  await page.goto('/');
+  await page.locator('#root > *').first().waitFor();
+  expect(await page.evaluate(() => window.__appAtFirstDraw)).toBe(false);
 });

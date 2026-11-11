@@ -5,7 +5,8 @@
     "about": "Source modules that load only when a boot or a tap needs them. Each must be its own dynamic chunk outside the route's static imports; perf:budget fails otherwise. tests/unit/first-load-lazy.test.mjs holds the same list against the source import graph.",
     "route": "firstLoad",
     "modules": [
-      "src/lib/origin-move.js"
+      "src/lib/origin-move.js",
+      "src/lib/native-app.js"
     ]
   },
   "bundle": {

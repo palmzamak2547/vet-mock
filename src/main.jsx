@@ -1,7 +1,8 @@
 // First: supplies .at(), Object.hasOwn and AbortSignal.timeout on iOS 14-15 before any module uses them.
 import './lib/platform-compat.js'
-// Inside the Android app: window.VetMockApp and the WebView's missing APIs, before anything below reads them.
-import './lib/native-app.js'
+// Inside the Android app, window.VetMockApp and the WebView's missing APIs (lib/native-app.js) are in place
+// before the app starts. Only the check is on the first load; a browser never fetches the rest.
+import { IS_APP } from './lib/native-detect.js'
 // Study data carried over from vetmock.vercel.app is merged before anything reads it. The merge
 // (lib/origin-move.js) loads only on a boot that has move work (lib/move-gate.js), and then the app
 // starts after it; nearly every boot has none and starts at once, as before.
@@ -58,13 +59,15 @@ window.addEventListener('pointerdown', _unlockOnce, { capture: true, passive: tr
 window.addEventListener('keydown', _unlockOnce, { capture: true, passive: true })
 window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: true })
 
-// A move's inbox is merged first. If its code cannot load, the app starts
+// What must be in place before the app starts: the app layer inside the
+// Android app, and a move's inbox merge. If either cannot load, the app starts
 // without it, as a failed lazy screen leaves the rest of the app: the inbox
-// stays in localStorage for the next boot and the old address keeps its copy.
+// stays in localStorage for the next boot and the old address keeps its copy;
+// the app runs as a browser page does.
+const before = []
+if (IS_APP) before.push(import('./lib/native-app.js').catch(() => {}))
 const move = moveWork(window)
-if (move === 'now') {
-  import('./lib/origin-move.js').catch(() => {}).then(startApp)
-} else {
-  if (move === 'later') import('./lib/origin-move.js').catch(() => {})
-  startApp()
-}
+if (move === 'now') before.push(import('./lib/origin-move.js').catch(() => {}))
+else if (move === 'later') import('./lib/origin-move.js').catch(() => {})
+if (before.length) Promise.all(before).then(startApp)
+else startApp()
