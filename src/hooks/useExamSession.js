@@ -107,6 +107,28 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const positionRef = useRef(null);
   positionRef.current = { questions, currentIdx, view };
 
+  // One move at a time. A double tap on ข้อถัดไป took the set from question 1
+  // to question 3: the second tap landed on the next button of a question the
+  // student never saw. A move is held from the tap until the frame after the
+  // one that paints the question it shows, so a second tap, key press, swipe
+  // or map jump in that window is refused. Held only for a move that changes
+  // the question, so nothing is left holding it.
+  const moveHeldRef = useRef(false);
+  const takeMove = () => {
+    if (moveHeldRef.current) return false;
+    moveHeldRef.current = true;
+    return true;
+  };
+  useEffect(() => {
+    if (!moveHeldRef.current) return undefined;
+    if (typeof requestAnimationFrame !== 'function') { moveHeldRef.current = false; return undefined; }
+    let second = 0;
+    const first = requestAnimationFrame(() => { second = requestAnimationFrame(() => { moveHeldRef.current = false; }); });
+    // No release here: the cleanup runs on the very move that took the hold,
+    // before this effect sees it. A later move re-arms the release.
+    return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
+  }, [currentIdx]);
+
   const timedQuestionId = view === 'exam' ? questions[currentIdx]?.id : null;
   useEffect(() => {
     const timer = timingRef.current;
@@ -185,6 +207,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   }, [questions, currentIdx]);
 
   const nextQ = useCallback(async () => {
+    if (moveHeldRef.current) return;
     const cur = questions[currentIdx];
     const isLast = currentIdx === questions.length - 1;
     // Confirm before skipping a blank short/essay — these take real
@@ -210,6 +233,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       }
     }
     if (currentIdx < questions.length - 1) {
+      if (!takeMove()) return;
       const next = questions[currentIdx + 1];
       // The "หมดเวลา" note is for the clock's own move only, never a tap.
       setTimedOutIdx(null);
@@ -226,6 +250,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // Use timeForQuestion so jumping back to an essay restores its
     // 25-min budget instead of shrinking it to the MCQ default.
     if (currentIdx > 0) {
+      if (!takeMove()) return;
       const prev = questions[currentIdx - 1];
       setTimedOutIdx(null);
       setCurrentIdx(currentIdx - 1);
@@ -235,6 +260,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
 
   const jumpToQ = useCallback((idx) => {
     if (idx >= 0 && idx < questions.length) {
+      if (idx !== positionRef.current?.currentIdx && !takeMove()) return;
       setTimedOutIdx(null);
       setCurrentIdx(idx);
       if (!sessionClockRef.current) setTimeLeft(timeForQuestion(questions[idx], timePerQ));

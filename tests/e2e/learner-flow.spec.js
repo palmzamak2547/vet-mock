@@ -69,3 +69,21 @@ test('a timed paper offers no check on a fill-in item and shows no key', async (
   await expect(inputs.first()).toHaveJSProperty('readOnly', false);
 });
 
+// item 2
+test('a double tap on ข้อถัดไป, or a double key press, moves one question', async ({ page, context }) => {
+  await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
+  expect(await position(page)).toBe(1);
+  await page.locator('.vmx-exam-next').dblclick();
+  await expect.poll(() => position(page)).toBe(2);
+  await page.waitForTimeout(300);
+  expect(await position(page)).toBe(2);
+  await page.locator('.vmx-qtext').click();
+  await page.keyboard.press('j');
+  await page.keyboard.press('j');
+  await page.waitForTimeout(300);
+  expect(await position(page)).toBe(3);
+  await page.locator('.vmx-exam-prev').dblclick();
+  await page.waitForTimeout(300);
+  expect(await position(page)).toBe(2);
+});
+
