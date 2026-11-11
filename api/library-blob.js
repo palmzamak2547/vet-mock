@@ -240,7 +240,7 @@ export default async function handler(req, res) {
   try {
     upstream = await fetch(
       `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${objectPath}`,
-      { method: req.method, headers: upstreamHeaders, signal: disconnected.signal },
+      { method: req.method, headers: upstreamHeaders, redirect: 'error', signal: disconnected.signal },
     );
   } catch {
     res.statusCode = 502;

@@ -97,6 +97,7 @@ async function callDeepSeek({ apiKey, model, thinkingOff, system, user, image, m
   };
   if (thinkingOff) body.thinking = { type: 'disabled' };
   const res = await fetch(DEEPSEEK_URL, {
+    redirect: 'error',
     method: 'POST',
     signal,
     headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
@@ -133,6 +134,7 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
   // those fields (400 naming it) the call is made once more with none of
   // them, so an unfamiliar model id still answers.
   const send = (fields) => fetch('https://api.anthropic.com/v1/messages', {
+    redirect: 'error',
     method: 'POST',
     signal,
     headers: {

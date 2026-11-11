@@ -145,6 +145,7 @@ export default async function handler(req, res) {
   let doc;
   try {
     const r = await fetch(`${base.replace(/\/$/, '')}/rest/v1/rpc/library_doc_for_signing`, {
+      redirect: 'error',
       method: 'POST',
       headers: {
         apikey: anon,

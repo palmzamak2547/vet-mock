@@ -64,6 +64,7 @@ const UNAVAILABLE = refuse(503, 'backend-unavailable', 'ตรวจสิทธ
 
 async function askState(cfg, bearer, fetchImpl, production) {
   const response = await fetchImpl(`${cfg.url}/rest/v1/rpc/chula_access_state`, {
+    redirect: 'error',
     method: 'POST',
     headers: { apikey: cfg.key, Authorization: `Bearer ${bearer}`, 'Content-Type': 'application/json' },
     body: '{}',

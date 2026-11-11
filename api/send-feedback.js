@@ -196,6 +196,7 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
     let resp;
     try {
       resp = await fetch('https://api.resend.com/emails', {
+        redirect: 'error',
         method: 'POST',
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({

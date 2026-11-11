@@ -135,6 +135,41 @@ branch's head; where an earlier version of it was wrong, that is said.
   own. Correction: the first version ran with no keys and no bearer, so most
   paid handlers stopped at "not configured" or the wall before their body.
 
+## Outbound requests that carry a secret
+- A 307 or 308 makes fetch resend the same body to the Location. The Google and
+  Notion code exchange (`api/external-connect-callback.js`, client secret and
+  code) and the Google refresh (`api/_lib/external-connections.js`, refresh
+  token and client secret) followed redirects; they now set `redirect:
+  'error'`, and a redirect is a failed exchange (`connect_error=exchange`) or a
+  failed refresh, with no provider text. The unused `isGoogleLandingHost` and
+  `isNotionLandingHost` are removed.
+- Every other fetch under `api/` that sends a credential was checked. Before:
+  all but five (revoke, the Sheets reads, the Drive file list, the Notion
+  search) followed redirects. Now:
+
+| Where | What it sends | Redirects |
+|---|---|---|
+| ai-transcribe (Cloudflare Whisper, iApp) | Bearer; `apikey` + audio | error |
+| external-connect-callback (code exchange) | client secret, code (body) | error |
+| _lib/external-connections (revoke, refresh, Supabase rows, session) | tokens, client secret, service key | error |
+| fetch-external-doc (Drive file name, Notion pages and blocks) | the student's Bearer | error |
+| fetch-external-doc (Drive export) | the student's Bearer, a GET | follow: an export may be answered from googleusercontent.com, the landing host is checked, and fetch drops Authorization on a redirect to another origin |
+| fetch-external-doc (public Docs export) | an API key in the query, a GET | follow: the key is not resent to the Location |
+| list-external-files (Drive, Notion) | the student's Bearer | error |
+| library-blob (storage) and library-file (catalogue RPC) | Cloudflare token; anon key + bearer | error |
+| send-feedback (Resend) and _lib/feedback-usage (log) | mail key + message; service key | error |
+| tts-iapp, _lib/ai/voice, _lib/mochi-voice, _lib/llm, _lib/ai/writer, _lib/ai/health | provider keys, prompts | error |
+| _lib/app-backend, _lib/chula-gate, _lib/ai/library | anon key + bearer, signed RPC bodies | error |
+| _lib/rate-limit (Upstash), _lib/r2 (Cloudflare) | tokens | error |
+| _lib/system-status (admin probes) | provider keys | error, except the public status file, a presigned URL and the domain registry, which carry none |
+| playlist, video-file, _lib/ai/papers | a key in the query, a presigned URL, nothing | follow |
+
+- Guard: `tests/unit/outbound-redirects.test.mjs`. A redirect answer from the
+  token endpoint makes no second request and puts nothing of the provider's in
+  the answer, for the exchange and the refresh; and every fetch under `api/`
+  (found from the source, 50 today) that carries a credential or a body must
+  set `redirect: 'error'`, unless its file is listed with why it may follow.
+
 ## Origins
 - Previews must end in this team's suffix:
   `vetmock-<…>-palmzamak2547s-projects.vercel.app` (the pattern the Supabase

@@ -41,6 +41,7 @@ export function providers(env = process.env, fetchImpl = fetch) {
   if (env.CF_AI_TOKEN && account) {
     list.push(Object.assign(async (wav) => {
       const r = await fetchImpl(`https://api.cloudflare.com/client/v4/accounts/${account}/ai/run/${CF_MODEL}`, {
+        redirect: 'error',
         method: 'POST',
         headers: { Authorization: `Bearer ${env.CF_AI_TOKEN}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ audio: wav.toString('base64'), language: 'th', vad_filter: true }),
@@ -56,7 +57,7 @@ export function providers(env = process.env, fetchImpl = fetch) {
     list.push(Object.assign(async (wav) => {
       const form = new FormData();
       form.append('file', new Blob([wav], { type: 'audio/wav' }), 'question.wav');
-      const r = await fetchImpl(IAPP_ENDPOINT, { method: 'POST', headers: { apikey: env.IAPP_API_KEY }, body: form, signal: AbortSignal.timeout(25_000) });
+      const r = await fetchImpl(IAPP_ENDPOINT, { redirect: 'error', method: 'POST', headers: { apikey: env.IAPP_API_KEY }, body: form, signal: AbortSignal.timeout(25_000) });
       if (!r.ok) return { ok: false, status: r.status };
       const j = await r.json();
       return { ok: true, text: joinSegments((Array.isArray(j?.output) ? j.output : []).map((s) => s?.text)), seconds: Number(j?.audio_duration_in_seconds) || null };

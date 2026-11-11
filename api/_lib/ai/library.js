@@ -230,6 +230,7 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [], specific
 // `token` is the member's own: behind the Chula wall the library answers members only.
 async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, token }) {
   const r = await fetchImpl(url, {
+    redirect: 'error',
     method,
     headers: { apikey: cfg.key, Authorization: `Bearer ${token || cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: body ? JSON.stringify(body) : undefined,

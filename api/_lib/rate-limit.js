@@ -67,6 +67,7 @@ export function sendRateLimitFailure(res, limit) {
 async function upstashPipeline(commands) {
   // Upstash REST pipeline: POST array of commands → array of results.
   const res = await fetch(`${UPSTASH_URL}/pipeline`, {
+    redirect: 'error',
     method: 'POST',
     signal: AbortSignal.timeout(SHARED_TIMEOUT_MS),
     headers: {

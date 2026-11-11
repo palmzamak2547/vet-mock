@@ -85,6 +85,7 @@ export default async function handler(req, res) {
       ? googleTokenRequest({ code, redirectUri: config.redirectUri })
       : notionTokenRequest({ code, redirectUri: config.redirectUri });
     const tokenRes = await fetch(tokenReq.url, {
+      redirect: 'error',
       method: 'POST',
       headers: tokenReq.headers,
       body: tokenReq.body,

@@ -137,6 +137,7 @@ export async function tempCredentials({ permission = 'object-read-only', ttlSeco
   const r = await fetchImpl(
     `https://api.cloudflare.com/client/v4/accounts/${cfg.accountId}/r2/temp-access-credentials`,
     {
+      redirect: 'error',
       method: 'POST',
       headers: { Authorization: `Bearer ${cfg.apiToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ bucket: b, permission, ttlSeconds }),
@@ -222,7 +223,7 @@ export async function tokenKeyEnv(env = process.env, fetchImpl = fetch) {
   if (!token || !accountId) return null;
   const secret = sha256Hex(token);
   if (tokenId.of !== secret || Date.now() - tokenId.at > 6 * 3600 * 1000) {
-    const ask = async (u) => (await fetchImpl(u, { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(6000) })).json();
+    const ask = async (u) => (await fetchImpl(u, { redirect: 'error', headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(6000) })).json();
     // A user token verifies on /user; an account-owned token only on its account.
     let v = await ask('https://api.cloudflare.com/client/v4/user/tokens/verify').catch(() => null);
     if (!v?.success || !v.result?.id) v = await ask(`https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/tokens/verify`).catch(() => null);

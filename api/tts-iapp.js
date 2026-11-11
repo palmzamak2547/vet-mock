@@ -158,6 +158,7 @@ export default async function handler(req, res) {
   const t = setTimeout(() => ctrl.abort(), 9_000);
   try {
     const upstream = await fetch(IAPP_ENDPOINT, {
+      redirect: 'error',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
