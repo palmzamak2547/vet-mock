@@ -2,6 +2,19 @@
 { kind: 'improve', scope: 'system', title: 'แอปโหลดเบาลง', desc: 'คลังข้อสอบและหน้าสรุปก่อนสอบดาวน์โหลดน้อยลง จึงเปิดได้เร็วขึ้น เนื้อหาที่เห็นเหมือนเดิมทุกอย่าง' }
 ```
 
+## Where I stopped (11 Nov, machine shutdown)
+
+- Done and committed: PERF-3 strip (with its unit guard, passing), CSS-2 (4 places), DEAD-3 (17 classes),
+  these notes. Before and after builds measured; `npm run perf:budget` passed on the after build.
+  PERF-2, PERF-4, PERF-5 and PERF-6 investigated and left, with reasons below. Not pushed.
+- Running at shutdown: nothing. The final checks (e2e on four engines, `npm run test:unit`,
+  `npm run lint:data`) were queued for the lock and never started; they were stopped.
+- Next: (1) `npm run build`, then run the e2e specs listed in the scratchpad script
+  weight-checks.sh (smoke, source-line-spoiler, answer-evidence, vca-practice, phase-wrapped-home,
+  connected-study, phase-advance, notes-sidebar-scroll, atlas-entry, atlas, wiki-indexing,
+  mobile-compat) on all four engines under the lock; (2) `npm run test:unit` and `npm run lint:data`;
+  (3) when green, drop this section and `git push -u origin claude/debt-weight` (no pull request).
+
 # Debt batch: weight (what every student downloads and never uses)
 
 Register rows PERF-3, PERF-4, PERF-2, PERF-5, PERF-6, CSS-2, DEAD-3. Nothing a student sees changes and
