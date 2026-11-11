@@ -48,9 +48,11 @@ in a browser at 320 to 390 px; VCA's wall itself has no menu (the wall is the wh
 
 ## 3. Words that are true
 
-VCA no longer says it needs no account: the manifest, About's privacy section, the progress page
-and the sign-in sheet now say it is used with a Chula Google account and that answers stay in this
-browser, not in the account. The cover prints `vca.vetmock.com/u/<handle>` with the host in one
+VCA no longer says it needs no account. After review: About, the progress page and the sign-in sheet
+say single answers and results stay in this browser and the totals a student chooses to show on
+their profile ("โชว์สถิติการฝึกบนโปรไฟล์", `ProfileSheet.jsx`) are saved to the account; nothing claims
+the account depends on the wall (its switch can turn off): the manifest names no account, About says
+the account confirms a Chula student "when the site is open to Chula students only". The cover prints `vca.vetmock.com/u/<handle>` with the host in one
 weight, so it no longer reads as `vetmock.com/u/...` (which is 404).
 Test: `vca/tests/unit/family-seams.test.mjs`. Unproven: the cover was not redrawn and looked at.
 
@@ -66,7 +68,10 @@ existing return (`account.js`) now keeps the hash and uses the same check, which
 storage keys and the wall are as they were.
 Test: `tests/unit/family-return-path.test.mjs` (`//evil.example`, `/\evil.example`, `%2F%2F`,
 `%5C`, credentials, CR/LF, malformed escapes, stale and future entries, blocked storage, the hash
-rule), `ai/tests/unit/family-seams.test.mjs`, `vca/tests/unit/family-seams.test.mjs`.
+rule), `ai/tests/unit/family-seams.test.mjs`, `vca/tests/unit/family-seams.test.mjs`. After review the
+check runs again on the cleaned result, which must pass unchanged (`/./%2f/evil` resolved to
+`/%2f/evil`, which reads `//evil` once decoded), and a decoded path may hold no empty or dot
+segment; both review strings are in the test.
 Unproven: a real redirect sign-in on any site (needs a Chula account; the Google button's own flow
 never leaves the page and was always fine).
 
@@ -99,10 +104,16 @@ branch on purpose; it is its own small piece:
 
 A followed family link carries `?vmt=light|dark` (and `?vml=th|en` only to a site with a language
 switch: the main landing and Research). Each site's boot (main `index.html`, `vca/public/theme-boot.js`,
-`ai/public/theme-boot.js`, `research/src/main.jsx`) writes it once to its own key before the first
-paint and removes it from the address. Unknown values are dropped. The feature-registry dispatchers
-add the theme to family links only.
-Test: `tests/unit/family.test.mjs`, `tests/e2e/family-links.spec.js` (arrival and a followed link).
+`ai/public/theme-boot.js`, `research/src/main.jsx`) reads it before the first paint and removes it
+from the address. After review a value that arrives in an address applies to this visit only
+(sessionStorage `vmx-family-visit`), never to the saved choice, so neither a crossing nor any
+outside link (`vetmock.com/?vml=en`) changes a student's setting for good; the student's own pick on
+the site replaces it (`dropVisit`). A student who follows the system theme sends none: each site
+marks a chosen or visiting theme on `<html data-theme-chosen>` and only that travels. Unknown values
+are dropped.
+Test: `tests/unit/family.test.mjs` (visit store, chosen theme, and that no boot writes a saved key
+from an address), `tests/e2e/family-links.spec.js` (arrival for the visit only, a chosen theme travels,
+a system theme does not).
 Seen: `/?vmt=dark&vml=th` on the local dev server paints dark and the address is left clean.
 
 ## 7. A VCA question has an address
@@ -111,13 +122,25 @@ Seen: `/?vmt=dark&vml=th` on the local dev server paints dark and the address is
 the prerender or the sitemap (`/q/` is taken by question images). It shows the question as the
 community threads do (`QuestionPeek`, moved to `components/` with its styles) with "เปิดข้อนี้ใน
 VetMock", the app's own shared-question link (`?qset=`, built by `src/lib/share-link.js`). The bank's
-"No." is now that link. Nothing inside a question, a set or an exam changed.
+"No." is now that link. Nothing inside a question, a set or an exam changed. After review: a load
+that fails says "เปิดข้อนี้ไม่ได้ ตอนนี้อาจไม่ได้ต่อเน็ต" with "ลองอีกครั้ง" instead of calling the
+question withdrawn, and the bank build stops if two subjects share a number within one domain
+(`assertUniqueNumbers`, `vca/scripts/bank-shards.mjs`), since the page finds a question by number.
 Test: `vca/tests/unit/family-seams.test.mjs`. Unproven: the page was not seen (the VCA wall needs an
 account).
 
+## Known limits
+
+- Research has no CI workflow: a change under `src/lib/family` reaches the Research project's Vercel
+  build untested by CI (its ignore step now rebuilds on it). A failed build keeps the previous
+  deployment, so the risk is a stale Research, not a broken one; run `npm --prefix research test`
+  and `npm --prefix research run build` by hand for any change to the folder.
+- The registry's Research address (`RESEARCH_STUDIO_URL`) now comes from the family list too.
+
 ## Every cross-site link, as it is followed (to check on production)
 
-`<t>` is the theme on screen when tapped (`light` or `dark`), `<l>` the language (`th` or `en`).
+`<t>` is the theme the student chose or arrived with (`light` or `dark`); a student following the
+system theme sends no `vmt`. `<l>` is the language (`th` or `en`).
 The `href` in the page is the plain address (`https://<host>/`); the parameters are added at the tap.
 On arrival each site removes them, so the address bar ends on the plain address.
 

@@ -84,6 +84,34 @@ Threat model:
 | LINE's in-app browser | no gain unless vetmock.com is already signed in inside LINE (Google refuses sign-in there); the "open in the system browser" handoff stays |
 | Session sprawl | each hop creates a session row; the target hops only when it holds none, and mint is rate-limited per user |
 
+## Objections from review (open: answer each before anything is built)
+
+The design above was reviewed adversarially on 11 Nov 2026. Three objections stand against option A
+as written; none has an answer yet.
+
+**(a) The hop accepts any challenge.** Step 1 lets whoever opens the hop page choose the challenge.
+An attacker who sends a student to `vetmock.com/family/hop?to=vca&c=<challenge whose verifier the
+attacker knows>` gets a code minted for the student's account; if that code leaks from the address
+bar (an extension, a screen share, a synced history), the attacker redeems it from their own server
+with a forged `Origin` header, which only browsers enforce. So: the hop must ask the student before
+minting (a visible "เข้าสู่ระบบ VetMock VCA ด้วยบัญชีนี้" with the account named), or deliver the code
+without an address at all (a `postMessage` to a window the target opened, checked against the
+target origin); and redeem must never rely on `Origin` as a proof of anything.
+
+**(b) A minted session is a session for the whole account.** There is one Supabase project, so a
+session minted for VCA reads and writes everything the main app's session can (sync, library,
+paid endpoints). A script injection on a sibling (VCA's community board and chat render content
+other students write) would then reach the main app's data. So either every sibling's content
+handling and CSP are held to the main app's standard and reviewed as part of this change, or the
+session a sibling holds is limited to that site (a token scoped by a claim the row policies and the
+API gate check), which Supabase does not offer as a setting and would be our own work.
+
+**(c) Automatic hops undo a local sign-out.** On a shared computer a student signs out of VCA,
+walks away, and the next person opens VCA: an automatic hop finds vetmock.com still signed in and
+signs them back in as the first student. So: after a local sign-out on a site, no automatic hop
+there until the student asks for one; and "sign out" in the family defaults to signing out of every
+family site in this browser, with "this site only" the exception.
+
 ## Option B: a session cookie on `.vetmock.com`
 
 All four sites use cookie storage with `Domain=.vetmock.com`, so there is one session.
@@ -109,6 +137,9 @@ problem) or a handoff code (option A, with a frame added). A top-level hop does 
 without a frame, so C reduces to A's step 1 to 3.
 
 ## Recommendation: A, started by the target with a top-level hop
+
+Held back by the three open objections above: as written, steps 1 to 3 and the automatic hop in
+the migration do not yet answer them.
 
 It is the only option that gives each site its own session (no shared refresh token, no script
 cookie), keeps every token out of addresses, and can be switched off without touching a session.
