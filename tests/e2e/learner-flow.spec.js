@@ -70,21 +70,50 @@ test('a timed paper offers no check on a fill-in item and shows no key', async (
 });
 
 // item 2
-test('a double tap on ข้อถัดไป, or a double key press, moves one question', async ({ page, context }) => {
-  await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
-  expect(await position(page)).toBe(1);
-  await page.locator('.vmx-exam-next').dblclick();
-  await expect.poll(() => position(page)).toBe(2);
-  await page.waitForTimeout(300);
-  expect(await position(page)).toBe(2);
-  await page.locator('.vmx-qtext').click();
-  await page.keyboard.press('j');
-  await page.keyboard.press('j');
-  await page.waitForTimeout(300);
-  expect(await position(page)).toBe(3);
-  await page.locator('.vmx-exam-prev').dblclick();
-  await page.waitForTimeout(300);
-  expect(await position(page)).toBe(2);
+const LONG = AQ.filter((q) => (q.type ?? 'mcq') === 'mcq' && Array.isArray(q.options)).slice(0, 16);
+test('a double tap, a double key press, or next and the map at once, moves one question', async ({ page, context }) => {
+  await resume(page, context, { questions: LONG, mode: 'exam', timed: true });
+  const steps = { dblNext: [], doubleKey: [], nextThenMap: [], dblPrev: [] };
+  const settle = () => page.waitForTimeout(400);
+  // Real double clicks on ข้อถัดไป.
+  for (let k = 0; k < 4; k++) {
+    const a = await position(page);
+    await page.locator('.vmx-exam-next').dblclick();
+    await settle();
+    steps.dblNext.push(await position(page) - a);
+  }
+  // The next key pressed twice, from the question text.
+  for (let k = 0; k < 3; k++) {
+    await page.locator('.vmx-qtext').click();
+    const a = await position(page);
+    await page.keyboard.press('j');
+    await page.keyboard.press('j');
+    await settle();
+    steps.doubleKey.push(await position(page) - a);
+  }
+  // A tap on next, then at once a tap on a later cell of the open map (both in
+  // one task: no pointer can reach the next button through the map's overlay).
+  for (let k = 0; k < 2; k++) {
+    const a = await position(page);
+    await page.locator('.vmx-progress').click();
+    await expect(page.locator('.vmx-nav-grid button').first()).toBeVisible();
+    await page.evaluate((target) => {
+      document.querySelector('.vmx-exam-next').click();
+      document.querySelectorAll('.vmx-nav-grid button')[target].click();
+    }, a + 2);
+    await settle();
+    if (await page.locator('.vmx-nav-grid').count()) await page.keyboard.press('Escape');
+    steps.nextThenMap.push(await position(page) - a);
+  }
+  // And back.
+  for (let k = 0; k < 2; k++) {
+    const a = await position(page);
+    await page.locator('.vmx-exam-prev').dblclick();
+    await settle();
+    steps.dblPrev.push(await position(page) - a);
+  }
+  test.info().annotations.push({ type: 'steps', description: JSON.stringify(steps) });
+  expect(steps).toEqual({ dblNext: [1, 1, 1, 1], doubleKey: [1, 1, 1], nextThenMap: [1, 1], dblPrev: [-1, -1] });
 });
 
 // item 8
