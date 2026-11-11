@@ -1117,7 +1117,6 @@ html, body {
   /* Mobile Home keeps immediate study actions only. Timetable, deadlines,
      changelog and streak remain available in their dedicated views instead
      of competing with the subject list in the first viewport. */
-  .vmx-home-quick-context,
   .vmx-streak-card-home { display: none !important; }
 }
 @media (max-width: 340px) {
@@ -1529,8 +1528,6 @@ html, body {
    sized in SubjectSelectView (52px) to stay inside this chip. Tinting
    comes from the subject's own colour via inline color-mix. */
 .vmx-subject-card .icon { width: 64px; height: 64px; font-size: 34px; border-radius: var(--r-lg); background: color-mix(in srgb, var(--subject-accent, var(--clr-sage)) 14%, var(--clr-surface-2)); }
-.vmx-subject-head { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
-.vmx-subject-id { min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 3px; padding-right: 26px; /* clear the absolute accent dot */ }
 .vmx-mode-card .title, .vmx-subject-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
 .vmx-mode-card .sub, .vmx-subject-card .sub { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.4; }
 /* The card accent arrives as --badge-accent, not as a background fill.
@@ -3498,7 +3495,7 @@ html.dark .vmx-panic-scrim {
    zoom-and-reflow costs the student time on the clock. The class list restores
    the floor at equal specificity. */
 input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="url"], input[type="number"], textarea, select { font-size: max(16px, 1em); }
-.vmx-match-select, .vmx-note-textarea, .vmx-fill-input, .vmx-search-input { font-size: max(16px, 1em); }
+.vmx-match-select, .vmx-note-textarea, .vmx-fill-input { font-size: max(16px, 1em); }
 .vmx-form-group input:focus, .vmx-form-group textarea:focus { outline: none; border-color: var(--clr-ink); background: var(--clr-surface); }
 .vmx-form-group textarea { min-height: 80px; resize: vertical; }
 
@@ -8485,11 +8482,6 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-wiki-subject-count { font-size: var(--text-sm); white-space: nowrap; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 .vmx-wiki-subject-chevron { font-size: var(--text-sm); color: var(--clr-ink-soft); }
 /* VetWiki article. */
-.vmx-wiki-meta {
-  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); margin-bottom: 14px;
-  font-size: var(--text-sm); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums;
-}
-.vmx-wiki-meta-link { display: inline-flex; align-items: center; min-height: var(--touch-min); }
 .vmx-wiki-toc { scroll-margin-top: var(--space-4); }
 .vmx-wiki-toc:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
 .vmx-wiki-toc:focus:not(:focus-visible) { outline: none; }
