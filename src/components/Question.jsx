@@ -990,7 +990,7 @@ export function InstantFeedback({ ok, run = 0, fresh = false, correctNode, expla
           <div className="vmx-feedback-explain-body" ref={explainRef}>
             {fold ? (
               <>
-                <RichBlocks text={fold.before} renderText={linked} />
+                <RichBlocks text={fold.before.trimEnd()} renderText={linked} />
                 {/* Answered correctly: the other options' reasons wait behind
                     one row. Native details, so the text stays in the page
                     (read-aloud marks it, find-in-page reaches it). */}
@@ -999,7 +999,9 @@ export function InstantFeedback({ ok, run = 0, fresh = false, correctNode, expla
                   <summary>ดูว่าทำไมข้ออื่นผิด</summary>
                   <RichBlocks text={fold.body} renderText={linked} />
                 </details>
-                {fold.after.trim() && <RichBlocks text={fold.after} renderText={linked} />}
+                {/* Trimmed both sides: the blank lines that set the section apart in
+                    the text stood as an empty paragraph above and below the row. */}
+                {fold.after.trim() && <RichBlocks text={fold.after.trimStart()} renderText={linked} />}
               </>
             ) : (
               <RichBlocks text={explain} renderText={linked} />

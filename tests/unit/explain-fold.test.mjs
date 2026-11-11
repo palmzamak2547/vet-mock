@@ -130,3 +130,24 @@ test('read-aloud opens the fold when it starts on the explanation, and leaves it
   assert.equal(el.open, false, 'stopping does not reopen it or force it shut');
   inst.unmount();
 });
+
+test('no blank paragraph stands above or below the fold row', () => {
+  let checked = 0;
+  for (const [q, f] of folds) {
+    const inst = fr.mount(InstantFeedback, { ok: true, explain: q.explain, subject: q.subject, foldOtherOptions: true });
+    const [body] = fr.findAll(inst.tree, (n) => n.props?.className === 'vmx-feedback-explain-body');
+    // The prose keeps its line breaks on screen, so a blank line left at the
+    // edge of the text either side of the row is an empty band.
+    const full = String(fr.textOf(body));
+    const at = full.indexOf('ดูว่าทำไมข้ออื่นผิด');
+    assert.ok(at > 0, `${q.subject}#${q.id}: the row`);
+    assert.doesNotMatch(full.slice(0, at), /\n\s*$/, `${q.subject}#${q.id}: a blank line above the row`);
+    if (f.after.trim()) {
+      const next = full.lastIndexOf(f.after.trim().slice(0, 12));
+      assert.doesNotMatch(full.slice(at, next), /\n\s*$/, `${q.subject}#${q.id}: a blank line below the row`);
+    }
+    inst.unmount();
+    checked += 1;
+  }
+  assert.ok(checked > 2000, "checked " + checked);
+});
