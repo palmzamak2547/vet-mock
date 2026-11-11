@@ -20,3 +20,6 @@ docs/content-inventory.md text eol=lf
 # so the copy flipped to CRLF in 69071671 to match. Same text either way; both are LF from here on.
 research/src/licenses/*.txt text eol=lf
 public/Sarabun/OFL.txt text eol=lf
+
+# Shell scripts run on the Linux runners; a CRLF checkout must never reach a commit.
+*.sh text eol=lf
