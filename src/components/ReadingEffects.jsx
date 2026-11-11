@@ -4,7 +4,8 @@ import { createParticles } from '../lib/motion-kit/particles.js';
 import { selectReadingItem } from '../lib/motion-kit/reading.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { MotionButton } from './MotionFeedback.jsx';
-import { resolveReadingPointer, saveMotionPreferences } from '../lib/motion-preferences.js';
+import { resolveReadingPointer } from '../lib/motion-preferences.js';
+import { writePref } from '../lib/prefs/table.js';
 
 const POINTERS = [
   ['auto', 'อัตโนมัติ (แสงเบา ๆ)'],
@@ -32,7 +33,7 @@ export default function ReadingEffects({ children, contentKey }) {
   const finePointer = useSyncExternalStore(subscribeFinePointer, finePointerSnapshot, noFinePointer);
   const pointer = preferences.readingPointer;
   const effectivePointer = resolveReadingPointer(pointer, { finePointer, reduced });
-  const setPointer = value => setNotice(saveMotionPreferences({ readingPointer: value }) ? '' : 'ใช้ตัวชี้ที่เลือกได้ในครั้งนี้ แต่เบราว์เซอร์จำค่าไว้ไม่ได้');
+  const setPointer = value => setNotice(writePref('motion.readingPointer', value) ? '' : 'ใช้ตัวชี้ที่เลือกได้ในครั้งนี้ แต่เบราว์เซอร์จำค่าไว้ไม่ได้');
   const clearMarks = () => { marked.current.forEach(node => node.classList.remove('vm-reading-selected')); marked.current = []; };
   const collect = () => Array.from(content.current?.querySelectorAll('p, li, blockquote, pre, table') || [])
     .filter(node => node.getClientRects().length && node.textContent.trim().length > 15 && !node.parentElement?.closest('li, blockquote, pre, table'));

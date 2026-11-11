@@ -10,24 +10,18 @@
 // x=16). The hook flips anchor side based on viewport room.
 // ============================================================
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import NavIcon from './NavIcon.jsx';
-import MotionSettings from './MotionSettings.jsx';
 
-const PALETTES = [
-  { id: 'default', name: 'Sage + Gold', dot: '#4a6b4a' },
-  { id: 'forest',  name: 'Forest',      dot: '#2d5a3d' },
-  { id: 'ocean',   name: 'Ocean',       dot: '#3d6b82' },
-  { id: 'plum',    name: 'Plum',        dot: '#7d4a7d' },
-  { id: 'cherry',  name: 'Cherry',      dot: '#c26d6d' },
-  { id: 'mono',    name: 'Mono',        dot: '#4a4a4a' },
-];
+// The menu's rows are rows of src/lib/prefs/table.js, drawn by the panel,
+// which loads on the first open: only the button is on first load.
+const ThemePickerPanel = lazy(() => import('./ThemePickerPanel.jsx'));
 
-export default function ThemePicker({ theme, themePref = theme, setTheme, palette, setPalette }) {
-  // The pick, not the colour on screen: under 'system' neither สว่าง nor มืด is
-  // chosen, the phone is.
-  const picked = themePref === 'light' || themePref === 'dark' ? themePref : 'system';
+// theme, themePref, setTheme, palette and setPalette are still passed by the
+// header and the hub; the panel reads and writes the table itself, and App's
+// state follows the table's change event (hooks/useStorage.js).
+export default function ThemePicker({ theme }) {
   // A pick closes the menu and hands focus back to the button that opened it,
   // as Escape does, instead of dropping it on the page.
   const choose = (apply) => {
@@ -94,51 +88,9 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
             overflowY: 'auto',
           }}
         >
-          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
-            โหมด
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
-            <button
-              type="button"
-              onClick={() => choose(() => setTheme('light'))}
-              className={`vmx-chip ${picked === 'light' ? 'active' : ''}`}
-              aria-pressed={picked === 'light'}
-              style={{ gap: 6 }}
-            ><NavIcon name="sun" size={15} /> สว่าง</button>
-            <button
-              type="button"
-              onClick={() => choose(() => setTheme('dark'))}
-              className={`vmx-chip ${picked === 'dark' ? 'active' : ''}`}
-              aria-pressed={picked === 'dark'}
-              style={{ gap: 6 }}
-            ><NavIcon name="moon" size={15} /> มืด</button>
-            <button
-              type="button"
-              onClick={() => choose(() => setTheme('system'))}
-              className={`vmx-chip ${picked === 'system' ? 'active' : ''}`}
-              aria-pressed={picked === 'system'}
-              style={{ gap: 6, gridColumn: '1 / -1' }}
-            ><NavIcon name="settings" size={15} /> ตามเครื่อง</button>
-          </div>
-          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
-            จานสี
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
-            {PALETTES.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => choose(() => setPalette(p.id))}
-                className={`vmx-chip ${palette === p.id ? 'active' : ''}`}
-                aria-pressed={palette === p.id}
-                style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, padding: '5px 10px' }}
-              >
-                <span style={{ width: 12, height: 12, borderRadius: '50%', background: p.dot, border: '1px solid var(--clr-border)' }} />
-                {p.name}
-              </button>
-            ))}
-          </div>
-          <div className="vmx-theme-motion-settings"><MotionSettings /></div>
+          <Suspense fallback={<p style={{ margin: 0, fontSize: 14, color: 'var(--clr-ink-soft)' }}>กำลังโหลด</p>}>
+            <ThemePickerPanel choose={choose} />
+          </Suspense>
         </div>
       )}
     </div>

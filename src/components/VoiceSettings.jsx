@@ -14,27 +14,32 @@
 // ============================================================
 
 import { useRef, useState } from 'react';
-import { getTtsPrefs, setTtsPrefs, DEFAULT_TTS_PREFS } from '../lib/tts.js';
+import { prefRow, readPref, writePref } from '../lib/prefs/table.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
+// The four sliders are the voice.* rows of src/lib/prefs/table.js: their
+// label, range and default come from there and a change is written through
+// it (lib/tts.js stays the owner of the stored value).
+const ROWS = ['voice.speed', 'voice.afterStem', 'voice.betweenOpts', 'voice.afterLast'];
+const FORMAT = { 'voice.speed': (v) => `${v.toFixed(2)}×` };
+const HINT = {
+  'voice.speed': () => '0.8 ช้า 1.0 ปกติ 1.2 เร็ว',
+  'voice.afterStem': (d) => `หยุดก่อนเข้าตัวเลือก ก (ค่าเริ่มต้น ${d} มิลลิวินาที)`,
+  'voice.betweenOpts': (d) => `ระหว่างตัวเลือกแต่ละข้อ (ค่าเริ่มต้น ${d} มิลลิวินาที)`,
+  'voice.afterLast': (d) => `หยุดหลังอ่านตัวเลือกสุดท้าย (ค่าเริ่มต้น ${d} มิลลิวินาที)`,
+};
+
 export default function VoiceSettings({ onClose }) {
-  // Local state so dragging a slider doesn't write to localStorage on
-  // every pointermove (those writes are ~1ms each but still pointless
-  // — we commit on input release via the slider's onChange-after-pointerup
-  // flow, which fires once per "settled" value).
-  const [prefs, setPrefs] = useState(() => getTtsPrefs());
+  const [prefs, setPrefs] = useState(() => Object.fromEntries(ROWS.map((id) => [id, readPref(id)])));
   const firstControlRef = useRef(null);
   const dialogRef = useModalFocus({ onClose, initialFocusRef: firstControlRef });
 
-  const update = (patch) => {
-    const next = { ...prefs, ...patch };
-    setPrefs(next);
-    setTtsPrefs(next);  // immediate persist — pausesFor() reads on next speak
+  const update = (id, value) => {
+    setPrefs((p) => ({ ...p, [id]: value }));
+    writePref(id, value);  // pausesFor() reads on the next speak
   };
-
   const reset = () => {
-    setPrefs({ ...DEFAULT_TTS_PREFS });
-    setTtsPrefs({ ...DEFAULT_TTS_PREFS });
+    for (const id of ROWS) update(id, prefRow(id).def());
   };
 
   return (
@@ -51,64 +56,33 @@ export default function VoiceSettings({ onClose }) {
         style={{ maxWidth: 480 }}
       >
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            🎚 Voice settings
-          </div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ปรับเสียงพูดข้อสอบ</h2>
+          <h2 style={{ margin: 0, fontSize: 22 }}>ปรับเสียงพูดข้อสอบ</h2>
           <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
-            ค่าที่ตั้งใช้กับการกด 🔊 ครั้งต่อไป ไม่ต้องโหลดหน้าใหม่
-            {' '}เก็บไว้ในเครื่องนี้เท่านั้น ไม่ซิงก์ไปเครื่องอื่น
+            ค่าที่ตั้งใช้กับการกดฟังครั้งต่อไป ไม่ต้องโหลดหน้าใหม่
+            {' '}เก็บไว้ในเครื่องนี้เท่านั้น
           </p>
         </div>
 
-        <SliderRow
-          inputRef={firstControlRef}
-          label="ความเร็วเสียงพูด"
-          hint="0.8 = ช้า, 1.0 = ปกติ, 1.2 = เร็ว"
-          value={prefs.speed}
-          min={0.8}
-          max={1.2}
-          step={0.05}
-          format={(v) => `${v.toFixed(2)}×`}
-          onChange={(v) => update({ speed: v })}
-        />
-
-        <SliderRow
-          label="พักหลังโจทย์"
-          hint={`หยุดก่อนเข้าตัวเลือก A (default ${DEFAULT_TTS_PREFS.afterStem} ms)`}
-          value={prefs.afterStem}
-          min={0}
-          max={800}
-          step={10}
-          format={(v) => `${v} ms`}
-          onChange={(v) => update({ afterStem: v })}
-        />
-
-        <SliderRow
-          label="ช่องว่างระหว่างตัวเลือก"
-          hint={`A → B → C → D (default ${DEFAULT_TTS_PREFS.betweenOpts} ms)`}
-          value={prefs.betweenOpts}
-          min={0}
-          max={500}
-          step={10}
-          format={(v) => `${v} ms`}
-          onChange={(v) => update({ betweenOpts: v })}
-        />
-
-        <SliderRow
-          label="พักท้ายข้อ"
-          hint={`หยุดหลังอ่านตัวเลือกสุดท้าย (ค่าเริ่มต้น ${DEFAULT_TTS_PREFS.afterLast} มิลลิวินาที)`}
-          value={prefs.afterLast}
-          min={0}
-          max={500}
-          step={10}
-          format={(v) => `${v} ms`}
-          onChange={(v) => update({ afterLast: v })}
-        />
+        {ROWS.map((id, i) => {
+          const row = prefRow(id);
+          const d = row.def();
+          return (
+            <SliderRow
+              key={id}
+              inputRef={i === 0 ? firstControlRef : undefined}
+              label={row.label}
+              hint={HINT[id](d)}
+              value={prefs[id]}
+              {...row.range}
+              format={FORMAT[id] || ((v) => `${v} ms`)}
+              onChange={(v) => update(id, v)}
+            />
+          );
+        })}
 
         <div className="vmx-btn-row" style={{ marginTop: 16, justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reset} type="button">
-            ↺ คืนค่าเริ่มต้น
+            คืนค่าเริ่มต้น
           </button>
           <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={onClose} type="button">
             เสร็จ

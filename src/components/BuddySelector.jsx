@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { BUDDIES, pickBuddy } from '../lib/buddy.js';
+import { BUDDIES } from '../lib/buddy.js';
+import { writePref } from '../lib/prefs/table.js';
 import { BUDDY_CHANGED_EVENT, formatBuddyTime, getBuddyStats } from '../lib/buddy-stats.js';
 import { artImgFallback } from '../lib/art-fallback.js';
 import '../styles-buddy.css';
@@ -32,7 +33,7 @@ export default function BuddySelector({ selectedId, onSelect, label = 'เลื
   }, [selectedId]);
 
   const pick = (id) => {
-    pickBuddy(id);
+    writePref('buddy', id);
     setHello((h) => ({ id, n: h.n + 1 }));
     onSelect?.(id);
   };
