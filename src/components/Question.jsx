@@ -31,6 +31,7 @@ import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 import { feedbackReaction, COMBO_MIN } from '../lib/mochi-reactions.js';
 import { haptic } from '../lib/haptics.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
+import { motionIsReduced } from '../lib/motion-preferences.js';
 
 // Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
 // Cross-machine sync needs Supabase schema; deferred to a future session.
@@ -395,9 +396,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   }, [compoundId, hasPassage]);
   const focusPassage = () => {
     setPassageNudge((n) => n + 1);
+    // SmartPassage opens in this same render (see its openSignal), so by the next frame the table is
+    // on the page and the scroll measures where it really is. A student who turned motion down gets
+    // a jump: an explicit 'smooth' would override the page's own setting.
     requestAnimationFrame(() => {
       try {
-        passageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        passageRef.current?.scrollIntoView({ behavior: motionIsReduced() ? 'auto' : 'smooth', block: 'start' });
       } catch {
         passageRef.current?.scrollIntoView();
       }
@@ -428,7 +432,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
           self-optimization rule 1d (hold to facts). */}
-      {currentQ.flag && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
+      {/* Its key must differ from every sibling's. It shared `compoundId` with
+          the source line below (5.189.2 to 5.213.0): React then lost track of
+          the chip when the question changed and left it on the card, so every
+          question after a flagged one carried a chip that was not its own.
+          tests/unit/jsx-sibling-keys.test.mjs guards the whole class. */}
+      {currentQ.flag && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed={keyShown} />}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -668,7 +677,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           Collapsed by default to keep the card clean; tap to expand once the
           key is on screen. Keyed per question: an open panel on one question
           used to stay open on the next. */}
-      <QSourceChip key={compoundId} q={currentQ} revealed={keyShown} />
+      <QSourceChip key={`source:${compoundId}`} q={currentQ} revealed={keyShown} />
     </div>
   );
 
@@ -842,6 +851,7 @@ export function FlagChip({ flag, revealed = false }) {
         onClick={() => { if (revealed) setOpen((o) => !o); }}
         aria-expanded={revealed ? open : undefined}
         aria-disabled={revealed ? undefined : true}
+        data-flag-chip={sev}
         style={{
           all: 'unset',
           cursor: revealed ? 'pointer' : 'default',
