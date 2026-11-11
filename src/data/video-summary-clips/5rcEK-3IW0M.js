@@ -6,9 +6,9 @@ export default {
   title: "6 : Hepato/Pancreas Sx + Hernia",
   subject: "com1",
   date: "2024-09-09",
+  durationMin: 205,
   instructor: "รุ่นพี่",
   examFormat: "MCQ — surgical decision + hepatic/pancreatic technique + hernia",
-  duration: "205 min",
   summary: `# 6 Hepato/Pancreas Surgery + Hernia
 
 > 🎯 ครอบคลุม **liver + biliary + pancreas surgery + abdominal hernia**. Foundation Sx for Year 5+. 205 min lecture covering the most complex GI procedures

@@ -6,9 +6,9 @@ export default {
   title: "14.1 : Common Respiratory Diseases in dog and cat II",
   subject: "com1",
   date: "2024-11-18",
+  durationMin: 61,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ",
-  duration: "61 min",
   summary: `# 14.1 Common Respiratory Diseases II — Lower Airway/Lung/Pleural
 
 > 🎯 ครอบคลุม **lung parenchyma + pleural cavity diseases** ที่เจอบ่อย — bacterial/aspiration pneumonia, pulmonary neoplasia, PTE, pyothorax, chylothorax, hemothorax, pneumothorax. ออกสอบ pulmonary parenchyma + pleural cavity แทร์น ⚠️

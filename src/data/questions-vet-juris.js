@@ -9,7 +9,7 @@
 // Subject slug: vet-juris
 // ID range: 93000–93046 (47 Qs)
 // Topics: animal-epidemic-act-2558, animal-hospital-act-2557, drug-act-2510, slaughter-act-2559, wildlife-act-2562
-// Flagged: 1 (see flag:"minor"|"unclear" — verify before locking)
+// Flagged: 1 (flag { severity, note } — verify before locking)
 //
 // Sources: Y4 Sem 1 past-paper PDFs (Vet 86 study folder).
 // Each Q cross-checked against ≥2 sources per extraction-agent brief.
@@ -985,7 +985,7 @@ export const QB_VET_JURIS = [
       "ผู้ที่อธิบดีแต่งตั้งโดยไม่กำหนดคุณสมบัติ"
     ],
     "answer": 2,
-    "flag": "minor",
+    "flag": { "severity": "unclear", "note": "ต้นฉบับสองฉบับเฉลยไม่ตรงกัน ฉบับหนึ่งตอบ e (ถูกทุกข้อ) อีกฉบับเลือก c ตามมาตรา 4 พ.ร.บ. โรคระบาดสัตว์ พ.ศ. 2558" },
     "explain": "✓ 'สารวัตร' ตามนิยามคือผู้ซึ่งรัฐมนตรีแต่งตั้งให้เป็นสารวัตร + มีคุณสมบัติตามประกาศ (ไม่จำกัดเฉพาะสัตวแพทย์)\n✗ การเป็นนายสัตวแพทย์/นักวิชาการประมงเพียงอย่างเดียวไม่ใช่นิยามสารวัตร\n💡 ตามมาตรา 4 ของ พรบ.โรคระบาดสัตว์ 2558 สารวัตรคือผู้ที่รัฐมนตรีแต่งตั้ง",
     "verified": "TJ ตอบ e (ถูกทุกข้อ) แต่ TJ86 highlight c (รัฐมนตรีแต่งตั้ง) — เลือก c ตามมาตรา 4 พรบ.2558 · ความขัดแย้งระหว่าง 2 ฉบับ flag minor"
   },

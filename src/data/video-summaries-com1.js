@@ -13,9 +13,9 @@ export const VIDEO_SUMMARIES_COM1 = {
     title: "4.2 : Endoscope + Stomach + Esophagus Surgery",
     subject: "com1",
     date: "2024-08-26",
+    durationMin: 126,
     instructor: "รุ่นพี่",
     examFormat: "MCQ — endoscope use + esophageal/gastric surgery",
-    duration: "126 min",
     summary: `# 4.2 Endoscope + Stomach + Esophagus Surgery
 
 > 🎯 ครอบคลุม **Endoscopy** (flexible vs rigid, scope use cases) + **Esophageal disease + surgery** + **Gastric disease + surgery**. Big procedures: **GDV repair**, **Y-U pyloroplasty**, **gastrotomy**
@@ -381,9 +381,9 @@ export const VIDEO_SUMMARIES_COM1 = {
     title: "4.1 : GI Diagnosis (Imaging-based)",
     subject: "com1",
     date: "2024-08-26",
+    durationMin: 91,
     instructor: "อาจารย์ — vet imaging integration",
     examFormat: "MCQ — image identification + algorithm",
-    duration: "91 min",
     summary: `# 4.1 GI Diagnostics — Imaging-based Approach
 
 > 🎯 Foundation video สำหรับ alimentary tract imaging — ใช้ **X-ray + Ultrasound + CT** ในการวินิจฉัย. เน้น **ภาพถ่ายตามอนาตอมี + GI motility + contrast techniques**. เน้น **case-based image MCQ**
@@ -639,9 +639,9 @@ Disease patterns:
     title: "6 : Hepato/Pancreas Sx + Hernia",
     subject: "com1",
     date: "2024-09-09",
+    durationMin: 205,
     instructor: "รุ่นพี่",
     examFormat: "MCQ — surgical decision + hepatic/pancreatic technique + hernia",
-    duration: "205 min",
     summary: `# 6 Hepato/Pancreas Surgery + Hernia
 
 > 🎯 ครอบคลุม **liver + biliary + pancreas surgery + abdominal hernia**. Foundation Sx for Year 5+. 205 min lecture covering the most complex GI procedures
@@ -1085,9 +1085,9 @@ Between quadrate + right medial = **Gallbladder**
     title: "12.2 : Cardiac Arrhythmia + Thromboembolism + Hypertension",
     subject: "com1",
     date: "2024-11-04",
+    durationMin: 110,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ — ECG ID + drug class + ATE 5P + HT target organs",
-    duration: "110 min",
     summary: `# 12.2 Cardiac Arrhythmia + Thromboembolism + Hypertension
 
 > 🎯 ครอบคลุม **3 หัวข้อใหญ่**: ECG arrhythmias (brady + tachy), Anti-arrhythmic drugs (4 classes), ATE (Arterial thromboembolism, 5P sign), Systemic Hypertension. **ECG identification + drug selection** ออกสอบ ⭐
@@ -1450,9 +1450,9 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
     title: "7.2 : Fluid Analysis",
     subject: "com1",
     date: "2024-09-16",
+    durationMin: 82,
     instructor: "DekDokVet85 — รุ่นพี่ (อายุรกรรม)",
     examFormat: "MCQ + practical case",
-    duration: "82 min",
     summary: `# 7.2 Fluid Analysis — Thoracocentesis, Abdominocentesis, Effusion Workup
 
 > 🎯 Two main procedures: **thoracocentesis (เจาะช่องอก) + abdominocentesis (เจาะช่องท้อง)**. Then classify fluid by **transudate / modified transudate / non-septic exudate / septic exudate / chylous / hemorrhagic / neoplastic**. Critical skill ก่อนจบอายุรศาสตร์
@@ -1960,9 +1960,9 @@ When surgery isn't feasible:
     title: "7.1 : Anemia + Surgery of Hemolymphatic System",
     subject: "com1",
     date: "2024-09-16",
+    durationMin: 145,
     instructor: "รุ่นพี่",
     examFormat: "MCQ — anemia approach + IMHA + splenectomy",
-    duration: "145 min",
     summary: `# 7.1 Anemia + Hemolymphatic Surgery
 
 > 🎯 Two parts: **Anemia approach + IMHA** (medical) + **Surgery of bone marrow, spleen, lymph nodes** (surgical). Foundation: distinguish anemia vs other causes of pale mucosa, then narrow down to root cause
@@ -2326,9 +2326,9 @@ When surgery isn't feasible:
     title: "14.1 : Common Respiratory Diseases in dog and cat II",
     subject: "com1",
     date: "2024-11-18",
+    durationMin: 61,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ",
-    duration: "61 min",
     summary: `# 14.1 Common Respiratory Diseases II — Lower Airway/Lung/Pleural
 
 > 🎯 ครอบคลุม **lung parenchyma + pleural cavity diseases** ที่เจอบ่อย — bacterial/aspiration pneumonia, pulmonary neoplasia, PTE, pyothorax, chylothorax, hemothorax, pneumothorax. ออกสอบ pulmonary parenchyma + pleural cavity แทร์น ⚠️
@@ -2597,9 +2597,9 @@ When surgery isn't feasible:
     title: "11 : Cardio Evaluate + Diagnosis Method + CHF",
     subject: "com1",
     date: "2024-10-28",
+    durationMin: 173,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ — clinical eval + workup steps + CHF drug logic",
-    duration: "173 min",
     summary: `# 11 Cardiac Evaluation + Diagnostic Methods + CHF
 
 > 🎯 Foundation lecture สำหรับ cardiology block — **3 parts**: clinical evaluation, diagnostic methods, congestive heart failure (CHF). 173 min ยาว แต่เนื้อสำคัญสุดคือ **CHF treatment 4 goals** + neurohormonal compensation
@@ -3343,9 +3343,9 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     title: "10.1 : Imaging for Urinary System",
     subject: "com1",
     date: "2024-10-31",
+    durationMin: 65,
     instructor: "DekDokVet85 — รุ่นพี่ (vet imaging)",
     examFormat: "Case-based MCQ — เลือก imaging modality ที่เหมาะสม (~5 ข้อ)",
-    duration: "65 min",
     summary: `# 10.1 Imaging for Urinary System
 
 > 🎯 Integration ของ vet imaging + urinary system. เน้นการ **เลือก modality ให้ถูก** (X-ray vs U/S vs CT) ตาม clinical question. ออกสอบเป็น **case-based MCQ ~5 ข้อ** — case มา → ต้องตอบ "ทำอะไรต่อ"
@@ -3627,9 +3627,9 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     title: "12.1 : Acquired + Congenital Cardiac Disease",
     subject: "com1",
     date: "2024-11-04",
+    durationMin: 117,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ — disease ID by signalment + auscultation + imaging",
-    duration: "117 min",
     summary: `# 12.1 Acquired + Congenital Cardiac Disease
 
 > 🎯 ครอบคลุม **3 acquired diseases** (MMVD, DCM, HCM) + **5 congenital defects** (PDA, VSD, SAS, PS, ToF). **Don't mix dog/cat/acquired/congenital** in answer ⚠️ ที่ออกสอบบ่อย: **breed + age + murmur location → disease**
@@ -4055,9 +4055,9 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     title: "10.2 : Surgical Treatment of Urinary System",
     subject: "com1",
     date: "2024-10-21",
+    durationMin: 104,
     instructor: "อ.ณิโคล",
     examFormat: "MCQ — surgical decision + technique + suture choice",
-    duration: "104 min",
     summary: `# 10.2 Surgical Treatment of Urinary System
 
 > 🎯 Surgery สำหรับ urinary system **kidney → ureter → bladder → urethra**. เน้น **technique selection (nephrotomy vs pyelotomy vs nephrectomy)** + **suture choice** + **iatrogenic risks**
@@ -4338,9 +4338,9 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     title: "14.3 : Thoracic Surgery",
     subject: "com1",
     date: "2024-11-18",
+    durationMin: 105,
     instructor: "รุ่นพี่",
     examFormat: "MCQ — approach + technique + chest tube placement",
-    duration: "105 min",
     summary: `# 14.3 Thoracic Surgery
 
 > 🎯 ครอบคลุม **2 main thoracic approaches**: intercostal thoracotomy + median sternotomy + minimally invasive thoracoscopy. Critical: **chest tube placement** + **post-op 4 hypos**
@@ -4810,9 +4810,9 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
     title: "13.2 : Clinical Assessment of the Respiratory System",
     subject: "com1",
     date: "2024-11-11",
+    durationMin: 88,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ — cough receptor location ออกแน่ ⚠️",
-    duration: "88 min",
     summary: `# 13.2 Clinical Assessment of the Respiratory System
 
 > 🎯 Foundation video สำหรับ Common Resp ทั้งหมด — anatomy split + history + auscultation + clinical signs (sneeze, stridor, stertor, cough, dyspnea) + breathing patterns + workup approach. **Cough receptor location ออกสอบทุกครั้ง** ⚠️
@@ -5147,9 +5147,9 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
     title: "13.1 : Surgical Treatment in Heart Disease",
     subject: "com1",
     date: "2024-11-11",
+    durationMin: 61,
     instructor: "พี่มด (รุ่นพี่)",
     examFormat: "MCQ",
-    duration: "61 min",
     summary: `# 13.1 Surgical Treatment in Heart Disease
 
 > 🎯 Surgery สำหรับ congenital cardiac defects ที่เจอบ่อยในสุนัข + การจัดการ pericardial effusion. เน้น **PDA, PRAA, sub-total pericardiectomy** — 3 หัตถการที่ผ่าน thoracotomy ทางซ้าย ที่ Vet 4-5 ต้องเข้าใจขั้นตอน + landmark anatomy
@@ -5310,9 +5310,9 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
     title: "10.3 : Lower Urinary System 3",
     subject: "com1",
     date: "2024-10-21",
+    durationMin: 84,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ + clinical reasoning",
-    duration: "84 min",
     summary: `# 10.3 Lower Urinary System 3 — FIC, UTI, Incontinence, Nutrition
 
 > 🎯 ครอบคลุม **FIC (cat) ⭐, UTI dx & ATB stewardship, USMI, ectopic ureter, feeding calculation**. FIC + UTI ออกสอบแน่ — case-based reasoning เน้น
@@ -6197,9 +6197,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     title: "5.1 : Intestine Surgery",
     subject: "com1",
     date: "2024-09-02",
+    durationMin: 136,
     instructor: "รุ่นพี่",
     examFormat: "MCQ — surgical principles + suture + technique",
-    duration: "136 min",
     summary: `# 5.1 Intestine Surgery
 
 > 🎯 Surgical principles + techniques for **small + large intestine**: anatomy → suture → cutting → resection-anastomosis → diameter mismatch → unique techniques. Foundation for any GI surgery on Year 5
@@ -6546,9 +6546,9 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
     title: "14.2 : Surgical Treatment of Respiratory System",
     subject: "com1",
     date: "2024-11-18",
+    durationMin: 72,
     instructor: "อ.เกียรติพิเชษฐ์",
     examFormat: "MCQ + technique-based",
-    duration: "72 min",
     summary: `# 14.2 Surgical Treatment of Respiratory System
 
 > 🎯 ครอบคลุม upper airway surgery: **nasal cavity, pharynx, larynx, trachea**. หัตถการสำคัญ: **rhinotomy, BAS correction, soft palate resection, laryngeal tieback, tracheal stent, tracheostomy**. ⚠️ Brachycephalic syndrome ออกแน่
@@ -6858,9 +6858,9 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
     title: "13.3 : Common Respiratory Diseases in dog and cat I",
     subject: "com1",
     date: "2024-11-11",
+    durationMin: 83,
     instructor: "DekDokVet85 — รุ่นพี่",
     examFormat: "MCQ",
-    duration: "83 min",
     summary: `# 13.3 Common Respiratory Diseases I — Upper Airway / Trachea / Bronchi
 
 > 🎯 ครอบคลุม **upper airway → trachea → lower airway diseases**: nasal aspergillosis, sinonasal tumor, BAS, laryngeal paralysis, **tracheal collapse** ⭐, chronic bronchitis, **feline asthma** ⭐

@@ -6,9 +6,9 @@ export default {
   title: "10.3 : Lower Urinary System 3",
   subject: "com1",
   date: "2024-10-21",
+  durationMin: 84,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ + clinical reasoning",
-  duration: "84 min",
   summary: `# 10.3 Lower Urinary System 3 — FIC, UTI, Incontinence, Nutrition
 
 > 🎯 ครอบคลุม **FIC (cat) ⭐, UTI dx & ATB stewardship, USMI, ectopic ureter, feeding calculation**. FIC + UTI ออกสอบแน่ — case-based reasoning เน้น

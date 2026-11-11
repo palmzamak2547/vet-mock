@@ -6,9 +6,9 @@ export default {
   title: "13.3 : Common Respiratory Diseases in dog and cat I",
   subject: "com1",
   date: "2024-11-11",
+  durationMin: 83,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ",
-  duration: "83 min",
   summary: `# 13.3 Common Respiratory Diseases I — Upper Airway / Trachea / Bronchi
 
 > 🎯 ครอบคลุม **upper airway → trachea → lower airway diseases**: nasal aspergillosis, sinonasal tumor, BAS, laryngeal paralysis, **tracheal collapse** ⭐, chronic bronchitis, **feline asthma** ⭐

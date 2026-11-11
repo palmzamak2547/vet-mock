@@ -41,3 +41,17 @@ test('a passage comes first on the front, and a table is a table on both sides',
   assert.match(back, /ดูจากตาราง<br><table [^>]*><tr><th>a<\/th><th>b<\/th><\/tr><tr><td>1<\/td><td>&lt;2&gt;<\/td><\/tr><\/table>$/);
   assert.ok(!/\|---/.test(front + back), 'no table syntax reaches the card');
 });
+
+test('a figure goes on the front by an address Anki can open, or the question is left out and counted', () => {
+  const { text, count, noFigure } = ankiText([
+    { id: 6, subject: 'repro', type: 'mcq', q: 'ดูภาพประกอบ', options: ['a', 'b'], answer: 0, imagePath: '/images/questions/repro/x.webp' },
+    { id: 7, subject: 'surg2', type: 'tf', q: 'ดูภาพประกอบ', answer: true, image: '/figures/y.png' },
+    { id: 8, subject: 'surg2', type: 'tf', q: 'local', answer: true, image: 'blob:https://vetmock.com/1' },
+    { id: 9, subject: 'surg2', type: 'tf', q: 'tracker', answer: true, image: 'https://evil.example/p.png' },
+  ]);
+  assert.equal(count, 2);
+  assert.equal(noFigure, 2);
+  const fronts = text.trim().split('\n').slice(5).map((l) => l.split('\t')[0]);
+  assert.match(fronts[0], /^<img src="https:\/\/vetmock\.com\/images\/questions\/repro\/x\.webp"><br><br>ดูภาพประกอบ/);
+  assert.match(fronts[1], /^<img src="https:\/\/vetmock\.com\/figures\/y\.png">/);
+});
