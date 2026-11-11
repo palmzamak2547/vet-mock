@@ -13,6 +13,12 @@
 // disease, drug or organism the key names, or for a true/false or written
 // item the fact it tests.
 //
+// A figure's caption and credit sit under the picture while the question is
+// open, on the question card and on the review card. They are read too, by
+// figureTextLeak, which holds them to more: epidemiology 100004 asked which
+// animal is the mixing vessel above the caption "สุกรเป็น mixing vessel; …",
+// every word of which the stem or another option also carries.
+//
 // It writes src/data/source-line.generated.js, which the card reads, and
 // fails when that file has drifted from the bank, the curriculum, the origin
 // filing or the check: TOPIC_CHIP_HELD, the questions whose topic label would
@@ -33,7 +39,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { bankFiles, readBank } from './lib/bank-file.mjs';
-import { leakOf } from './lib/answer-leak.mjs';
+import { figureTextLeak, leakOf } from './lib/answer-leak.mjs';
 import { sameGenerated } from './lib/same-generated.mjs';
 import {
   sourceLineBeforeAnswer, sourceLineAfterAnswer, SOURCE_LINE_WAIT,
@@ -65,6 +71,24 @@ export function preAnswerText(question) {
     sourceLineBeforeAnswer(question), SOURCE_LINE_WAIT, originPaperNote(question) || '',
     question?.flag ? `${flagChipText(question.flag)} ${SOURCE_LINE_WAIT}` : '',
   ].filter(Boolean).join('\n');
+}
+
+/**
+ * What a figure prints under itself while the question is open
+ * (components/ZoomableImage.jsx, from Question.jsx and SRSessionView.jsx).
+ */
+export const FIGURE_TEXT_FIELDS = ['imageCaption', 'imageCredit'];
+
+/** The fields of a question's figure text that give its key away: [{ field, text, leak }]. */
+export function figureTextLeaks(question) {
+  const out = [];
+  for (const field of FIGURE_TEXT_FIELDS) {
+    const text = question?.[field];
+    if (typeof text !== 'string' || !text.trim()) continue;
+    const leak = figureTextLeak(question, text);
+    if (leak) out.push({ field, text, leak });
+  }
+  return out;
 }
 
 /** What the flag would open: shown only once the key is on screen. */
@@ -111,16 +135,20 @@ export function generatedModule(heldKeys, unconfirmed) {
 export async function sourceLineLeaks() {
   const leaks = [];
   const topicLeaks = [];
+  const figureLeaks = [];
   const shouldHold = new Set();
   const held = [];
   const flagsHeld = [];
   let count = 0;
+  let figureTexts = 0;
   for (const file of bankFiles()) {
     const { questions } = await readBank(file);
     for (const q of questions) {
       count += 1;
       const leak = leakOf(q, preAnswerText(q));
       if (leak) leaks.push({ file, q, leak, text: preAnswerText(q) });
+      figureTexts += FIGURE_TEXT_FIELDS.filter((f) => typeof q[f] === 'string' && q[f].trim()).length;
+      for (const hit of figureTextLeaks(q)) figureLeaks.push({ file, q, ...hit });
       const label = topicLabelOf(q);
       if (label && leakOf(q, label)) shouldHold.add(`${q.subject}:${q.id}`);
       const topicText = topicBeforeAnswer(q);
@@ -137,11 +165,11 @@ export async function sourceLineLeaks() {
   const unconfirmed = unconfirmedCohorts();
   const fresh = generatedModule(shouldHold, unconfirmed);
   const current = fs.existsSync(GENERATED_FILE) ? fs.readFileSync(GENERATED_FILE, 'utf8') : '';
-  return { count, leaks, topicLeaks, held, flagsHeld, shouldHold, unconfirmed, fresh, stale: !sameGenerated(current, fresh) };
+  return { count, leaks, topicLeaks, figureLeaks, figureTexts, held, flagsHeld, shouldHold, unconfirmed, fresh, stale: !sameGenerated(current, fresh) };
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const { count, leaks, topicLeaks, held, flagsHeld, shouldHold, unconfirmed, fresh, stale } = await sourceLineLeaks();
+  const { count, leaks, topicLeaks, figureLeaks, figureTexts, held, flagsHeld, shouldHold, unconfirmed, fresh, stale } = await sourceLineLeaks();
   if (WRITE) {
     fs.writeFileSync(GENERATED_FILE, fresh);
     console.log(`wrote ${path.relative(root, GENERATED_FILE)}: ${shouldHold.size} topic labels wait for the key, ${unconfirmed.size} filed cohorts unconfirmed`);
@@ -172,6 +200,15 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     console.error(`✗ lint:source-line: ${topicLeaks.length} questions show a topic that gives the key away before the answer:`);
     for (const { file, q, leak, text } of topicLeaks.slice(0, 20)) console.error(`  ${q.subject}#${q.id} (${file}) ${leak.rule}: ${leak.words.join(', ')}\n    shows: ${text}`);
   }
+  if (figureLeaks.length) {
+    failed = true;
+    console.error(`✗ lint:source-line: ${figureLeaks.length} figure caption(s) or credit(s) give the key away before the answer:`);
+    for (const { file, q, field, text, leak } of figureLeaks.slice(0, 20)) {
+      console.error(`  ${q.subject}#${q.id} (${file}) ${field}, ${leak.rule}: ${leak.words.join(', ')}\n    shows: ${text}`);
+    }
+    if (figureLeaks.length > 20) console.error(`  ... and ${figureLeaks.length - 20} more`);
+    console.error('A caption says what kind of picture it is or where its data comes from, never what the question asks; a credit names the source without a title that answers it.');
+  }
   if (failed) process.exit(1);
-  console.log(`✓ lint:source-line: ${count} questions, none gives its key away in the source line, the flag or the topic before the answer (${shouldHold.size} topic labels wait for it)`);
+  console.log(`✓ lint:source-line: ${count} questions, none gives its key away in the source line, the flag or the topic before the answer (${shouldHold.size} topic labels wait for it), nor in the ${figureTexts} caption(s) and credit(s) under a figure`);
 }
