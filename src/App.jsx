@@ -3327,6 +3327,8 @@ export default function App() {
               Skip-link below the header lets keyboard users do the same. */}
           <main
             id="main"
+            // Which view App is showing, for tests (tests/e2e/route-sweep.spec.js); nothing reads it.
+            data-view={view}
             tabIndex={-1}
             className={`vmx-main${WIDE_VIEWS.has(view) ? ' vmx-main--wide' : ''}`}
             style={{ outline: 'none' }}

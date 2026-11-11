@@ -15,9 +15,14 @@ import { fileURLToPath } from 'node:url';
 import { compareVersions, readChangelog } from './regen-latest-changelog.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const USAGE = 'usage: npm run release:new -- [minor|patch]   (default minor; renumbering: src/data/changelog/README.md)';
+if (process.argv.includes('--help') || process.argv.includes('-h')) {
+  console.log(USAGE);
+  process.exit(0);
+}
 const bump = process.argv[2] || 'minor';
 if (!['minor', 'patch'].includes(bump)) {
-  console.error('usage: npm run release:new -- [minor|patch]');
+  console.error(USAGE);
   process.exit(1);
 }
 const run = (cmd, args) => {
