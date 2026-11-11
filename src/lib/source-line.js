@@ -23,6 +23,7 @@
 import { isPastPaperQuestion, isExamAlignedQuestion } from './question-metadata.js';
 import { originEntry } from '../data/exam-origins.js';
 import { humanSource } from './source-label.js';
+import { SUBJECTS } from '../data/curriculum.js';
 // Both read by scripts/lint-source-line.mjs with the Node-only check and the
 // parser, so the browser carries two short lists instead of either.
 import { TOPIC_CHIP_HELD, COHORT_UNCONFIRMED } from '../data/source-line.generated.js';
@@ -128,6 +129,21 @@ export const topicChipText = (label) => String(label ?? '').replace(/^คาบ\
 
 /** Shown where a held topic label will appear. */
 export const TOPIC_CHIP_WAIT = 'หัวข้อแสดงหลังเฉลย';
+
+/**
+ * The tags as a student can read them: a tag that is a topic's id becomes that
+ * topic's label, and a tag that is only a working slug ("placentation-types")
+ * is left out. The panel drops its row when nothing is left.
+ */
+let topicLabels = null;
+export function tagTopicLabels(question) {
+  if (!Array.isArray(question?.tags) || !question.tags.length) return [];
+  if (!topicLabels) {
+    topicLabels = new Map();
+    for (const s of SUBJECTS) for (const t of s.topics || []) if (!topicLabels.has(t.id)) topicLabels.set(t.id, topicChipText(t.label));
+  }
+  return [...new Set(question.tags.map((t) => topicLabels.get(t)).filter(Boolean))];
+}
 
 /** Whether this question's topic label waits for the key. */
 export const holdsTopicChip = (question) => TOPIC_CHIP_HELD.has(`${question?.subject}:${question?.id}`);

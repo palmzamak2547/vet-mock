@@ -1,5 +1,5 @@
 import { humanSource } from '../lib/source-label.js';
-import { followsExamPattern, readableSource } from '../lib/source-line.js';
+import { followsExamPattern, readableSource, cautionChipShown, CAUTION_CHIP_TEXT } from '../lib/source-line.js';
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/utils.js';
@@ -545,14 +545,20 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </div>
               );
             })()}
-            {q.flag && (
-              <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 14, color: 'var(--clr-ink)' }}>
-                <strong>{q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}:</strong> {q.flag.note}
+            {/* The same rule as the card (docs/releases/pending/quiet-labels.md): a
+                disputed key (major) is the caution, in rose; a minor flag is a
+                quiet note. Both in the card's own 14px text, sources included. */}
+            {cautionChipShown(q.flag) && q.flag.note && (
+              <div className="vmx-review-caution" style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink)' }}>
+                <strong>{CAUTION_CHIP_TEXT}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
-                  <div style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                    <NavIcon name="wiki" size={11} /> {q.flag.sources.join(', ')}
-                  </div>
+                  <div style={{ marginTop: 4, color: 'var(--clr-ink-soft)', overflowWrap: 'anywhere' }}>แหล่งที่มา: {q.flag.sources.join(', ')}</div>
                 )}
+              </div>
+            )}
+            {!cautionChipShown(q.flag) && typeof q.flag?.note === 'string' && q.flag.note.trim() && (
+              <div className="vmx-review-note" style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
+                หมายเหตุ: {q.flag.note}
               </div>
             )}
             {/* The whole source, as the card's chip shows it once the key is

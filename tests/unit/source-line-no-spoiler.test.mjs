@@ -184,8 +184,10 @@ test('the line that named the key comes back only with the key', () => {
 });
 
 test('"ดูเต็ม" opens the panel only once the key is on screen', () => {
-  // Its tags say size-exclusion; the key is "Permeation (size exclusion)".
-  const q = row('biochem-1', 70003);
+  // A panel that names the key (biochem-1 70003 did through its tag slugs,
+  // which the panel no longer prints): the first such row in the bank.
+  const q = QB.find((x) => leakOf(x, render(x, { revealed: true, open: true }).text));
+  assert.ok(q, 'some panel still names its key');
   const rows = (t) => findAll(t, (n) => typeof n.type === 'function' && n.type.name === 'Row');
   assert.equal(rows(render(q, { open: true }).raw).length, 0, 'no panel row before the key');
   const after = render(q, { revealed: true, open: true });
@@ -455,6 +457,31 @@ test('the caution chip is for a disputed key only; a minor note is a หมา�
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
   assert.match(card, /\{cautionChipShown\(currentQ\.flag\) && <FlagChip /);
   assert.doesNotMatch(card, /ข้อมูลขัดแย้ง|MAJOR|MINOR|Sources:/);
+});
+
+test('the panel names topics by their labels and prints no working slug', async () => {
+  const { tagTopicLabels } = await import('../../src/lib/source-line.js');
+  let labelled = 0;
+  for (const q of met.filter((x) => Array.isArray(x.tags) && x.tags.length)) {
+    const opened = render(q, { revealed: true, open: true }).text;
+    const labels = tagTopicLabels(q);
+    if (labels.length) { labelled += 1; assert.ok(opened.includes(`หัวข้อ ${labels.join(', ')}`), `${q.subject}#${q.id}`); }
+    assert.doesNotMatch(opened, /แท็ก/, `${q.subject}#${q.id}`);
+    for (const tag of q.tags) if (/-/.test(tag) && !labels.length) assert.ok(!opened.includes(`${tag},`) && !opened.endsWith(tag), `${q.subject}#${q.id} prints ${tag}`);
+  }
+  assert.ok(labelled > 1000, `rows that name a topic (${labelled})`);
+  assert.deepEqual(tagTopicLabels({ tags: ['placentation-types', 'diffuse-placenta'] }), []);
+});
+
+test('Review applies the same rule: major as the caution, minor as a note, the card\'s own text size', () => {
+  const review = readFileSync(new URL('../../src/views/ReviewView.jsx', import.meta.url), 'utf8');
+  const start = review.indexOf('{cautionChipShown(q.flag) && q.flag.note && (');
+  assert.ok(start > 0, 'Review draws the caution through cautionChipShown');
+  const block = review.slice(start, review.indexOf("{/* The whole source, as the card's chip shows it", start));
+  assert.match(block, /\{CAUTION_CHIP_TEXT\}/);
+  assert.match(block, /หมายเหตุ: \{q\.flag\.note\}/);
+  assert.match(block, /แหล่งที่มา:/);
+  assert.doesNotMatch(block, /fontSize: 11|vmx-mono|ข้อควรระวังสำคัญ/);
 });
 
 test('one caution per card: with the caution chip the paper tag stays in the panel', () => {

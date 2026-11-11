@@ -34,7 +34,7 @@
 import { useState, lazy, Suspense } from 'react';
 import { originPaperNote, originPaperTag } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
-import { sourceLineAfterAnswer, readableSource as readable, cautionChipShown } from '../lib/source-line.js';
+import { sourceLineAfterAnswer, readableSource as readable, cautionChipShown, tagTopicLabels } from '../lib/source-line.js';
 // Lazy: a question pays for the video code only when its source opens.
 const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
@@ -97,6 +97,7 @@ export default function QSourceChip({ q, revealed = false }) {
   const flagNote = expanded && !cautionChipShown(q?.flag) ? q?.flag?.note : null;
   const moments = expanded ? momentsByClip(q) : [];
   const refs = expanded ? verificationRefs(q) : [];
+  const tagLabels = expanded ? tagTopicLabels(q) : [];
   const pointer = sourceDocumentPointer(q?.sourceDocument);
 
   return (
@@ -241,9 +242,8 @@ export default function QSourceChip({ q, revealed = false }) {
             </div>
           )}
           {flagNote && <Row label="หมายเหตุ" value={readable(flagNote)} />}
-          {q.tags && q.tags.length > 0 && (
-            <Row label="แท็ก" value={q.tags.join(', ')} />
-          )}
+          {/* Topics the question touches, by their labels; working slugs stay out. */}
+          {tagLabels.length > 0 && <Row label="หัวข้อ" value={tagLabels.join(', ')} />}
           {/* The decks these citations name live in the app's own shelf —
               close the loop instead of leaving the reference as dead text. */}
           {q.subject && (q.source || q.verified) && (
