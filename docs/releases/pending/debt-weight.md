@@ -24,6 +24,25 @@ without the public/ copy) and one full `npm run build` of this branch, gzip leve
 The JS difference (+19 B) is the entry chunk naming the renamed data chunks; no first-load module changed.
 This batch frees no first-load JavaScript (PERF-2 below was not done). The budgets are unchanged.
 
+## Three modules moved out of the first load
+
+Each its own commit and guard, listed in `perf-budgets.json` `lazyOnly` (perf:budget fails when one is a
+static import of the first load again, read from the build manifest; tests/unit/first-load-lazy.test.mjs
+holds the same on the source graph), tested in tests/e2e/first-load-lazy.spec.js.
+
+- `origin-move.js` + `move-base.js`: loaded only when `lib/move-gate.js` finds move work (an inbox waiting:
+  the app starts after the merge; only after-load work: loaded without waiting). The gate mirrors the
+  module's own early returns (tests/unit/move-gate.test.mjs). A failed load starts the app and keeps the
+  inbox. Measured alone: first-load JS 225,505 -> 220,895 B gzip (-4,610).
+- `native-app.js`: loaded only when `lib/native-detect.js` (IS_APP) says this is the Android app, and the
+  app starts after it; app-lifecycle reads IS_APP so no worker registers in the app.
+- `MotionSettings.jsx` + `lib/haptics.js`: loaded with the theme panel (and on pointer or focus at its
+  button), the same closed row holding the place; the component's export and props are unchanged.
+- Not moved: `SyncStatusNotice.jsx`. `public/sw.js` precaches only `/`, `/manifest.webmanifest`,
+  `/favicon.svg` and `/icon-192.png`; `/assets/` chunks are cached only once requested, so a lazy notice
+  could be missing offline, the moment it exists for.
+- The first-load budget is not lowered: the room is for the screen lanes.
+
 ## Where the first load goes (a ranked list, not a change)
 
 First-load JS is 225,505 B gzip in six files: main 110,608, daily-q 58,915, vendor-react 46,462,
