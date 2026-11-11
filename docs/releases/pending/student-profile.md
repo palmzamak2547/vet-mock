@@ -1,19 +1,12 @@
 # Student profile (pending, to be folded into a wave release)
 
-## Where I stopped (11 Nov 2026, machine shut down)
-- Done: items 1 to 9 of the brief in code; the coordinator's three follow-ups (level rebuilt from
-  synced records with no caveat, no algorithm names in the review row, one streak for tile and
-  trophies); unit tests `tests/unit/student-identity.test.mjs` (27 pass) and
-  `account-settings-copy.test.mjs` (7 pass); e2e `tests/e2e/student-profile.spec.js` (added to the
-  connected job in `smoke-e2e.yml`); `profile-nav.spec.js` updated; perf:budget passed on the plain
-  build (firstLoad JS within budget after the gate and the write path moved out of the first load).
-- Running when stopped: nothing. The full rerun (plain and connected builds, perf:budget,
-  profile-nav and student-profile on four engines, lint:data, test:unit) was queued and withdrawn
-  before it took the lock. The previous rerun's e2e failures were time-outs of lazy chunks on a
-  loaded machine; the spec now allows 120 s a test. That has not been proven yet.
-- Next: (1) rerun the scratchpad `checks.sh` under the shared lock and fix what it finds;
-  (2) retake the screenshots (dev server on 4327, `shots.mjs`) and build the contact sheet
-  (`sheet.mjs`), looking at each; (3) push `claude/student-profile` (no pull request) and report.
+## Status (11 Nov 2026, at push)
+- Local: the touched unit files (296 tests), the CSS, copy and colour lints pass; on the plain
+  build before the level rework firstLoad JS was 227528 of 227900 B; profile-nav passed on
+  chromium-mobile and webkit-mobile, student-profile 7 of 8 (a focus return on WebKit, fixed
+  since, not rerun locally).
+- Proof now comes from CI (Build and Smoke e2e on four engines, the connected job included).
+- Not yet done: the screenshots and contact sheet, one browser job after the push.
 
 ```js
 // Changelog entry (Thai, for students). Number taken by the wave's pull request.
