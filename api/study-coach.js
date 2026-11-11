@@ -33,7 +33,7 @@ import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kv
 import { chatJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
-import { wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
+import { isTableRow, wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -78,6 +78,63 @@ Return ONLY this JSON object:
 - Do not name options by letter or number and do not restate which one is correct — the app already marks it. Write about the content.
 - No preamble, no encouragement, no restating the question.`;
 
+// A passage is the case or the table the stem refers to, shown above it. In
+// the bank (Nov 2026) 15 multiple-choice passages reach the coach, the longest
+// 1,491 characters with its title, so the cap keeps every one of them whole
+// and only bounds a future one. A longer passage is cut after its last whole
+// line that fits, so a table never loses half a row.
+export const MAX_PASSAGE_CHARS = 2000;
+const PASSAGE_CUT = '[the passage continues]';
+
+export function coachPassage(q) {
+  // A stem whose numbers moved into a passage table keeps the whole sentence
+  // in `say`, and wholeStem() sends that: the passage would say it twice.
+  if (typeof q?.say === 'string' && q.say) return '';
+  const text = typeof q?.passage === 'string' ? q.passage.trim() : '';
+  if (!text) return '';
+  const title = typeof q.passage_title === 'string' ? q.passage_title.trim() : '';
+  const head = `PASSAGE SHOWN ABOVE THE QUESTION${title ? ` (${title})` : ''}:`;
+  const room = MAX_PASSAGE_CHARS - head.length - 1;
+  if (text.length <= room) return `${head}\n${text}`;
+  const kept = [];
+  let used = 0;
+  for (const line of text.split('\n')) {
+    if (used + line.length + 1 > room - PASSAGE_CUT.length - 1) break;
+    kept.push(line);
+    used += line.length + 1;
+  }
+  // One line of prose longer than the whole cap: cut it at a word instead.
+  if (!kept.length && !isTableRow(text.split('\n')[0])) {
+    const first = text.split('\n')[0].slice(0, room - PASSAGE_CUT.length - 1);
+    const space = first.lastIndexOf(' ');
+    kept.push(space > 0 ? first.slice(0, space) : first);
+  }
+  while (kept.length && !kept.at(-1).trim()) kept.pop();
+  if (!kept.length) return '';
+  return `${head}\n${kept.join('\n')}\n${PASSAGE_CUT}`;
+}
+
+// Exactly what the model is shown for a miss, and what the cache key hashes.
+// A question without a passage gets the same text it got before passages were
+// sent, so its cached answers stay valid.
+export function missMaterial(q, chosen) {
+  const options = Array.isArray(q.options) ? q.options : [];
+  const optionList = options.map((o, i) => {
+    const marks = [i === q.answer ? '[CORRECT]' : '', i === chosen ? '[STUDENT PICKED]' : ''].filter(Boolean).join(' ');
+    return `  - ${o}${marks ? `   ${marks}` : ''}`;
+  }).join('\n');
+
+  return [
+    coachPassage(q),
+    // The stem with its numbers: where they sit in a passage table, `say` still holds the whole sentence.
+    `QUESTION: ${wholeStem(q)}`,
+    `OPTIONS:\n${optionList}`,
+    `CORRECT: ${options[q.answer]}`,
+    `STUDENT PICKED: ${options[chosen]}`,
+    q.explain ? `EXPLANATION FROM THE QUESTION BANK: ${wholeExplain(q)}` : '',
+  ].filter(Boolean).join('\n\n');
+}
+
 async function buildMiss(body) {
   const qid = String(body.qid ?? '').slice(0, 32);
   const catalog = await questionCatalog();
@@ -93,26 +150,11 @@ async function buildMiss(body) {
     return { error: 400, message: 'chosen is not an option of this question' };
   }
   if (chosen === q.answer) return { error: 400, message: 'That answer was correct' };
-  const picked = options[chosen];
-  const correct = options[q.answer];
-
-  const optionList = options.map((o, i) => {
-    const marks = [i === q.answer ? '[CORRECT]' : '', i === chosen ? '[STUDENT PICKED]' : ''].filter(Boolean).join(' ');
-    return `  - ${o}${marks ? `   ${marks}` : ''}`;
-  }).join('\n');
-
-  const material = [
-    // The stem with its numbers: where they sit in a passage table, `say` still holds the whole sentence.
-    `QUESTION: ${wholeStem(q)}`,
-    `OPTIONS:\n${optionList}`,
-    `CORRECT: ${correct}`,
-    `STUDENT PICKED: ${picked}`,
-    q.explain ? `EXPLANATION FROM THE QUESTION BANK: ${wholeExplain(q)}` : '',
-  ].filter(Boolean).join('\n\n');
+  const material = missMaterial(q, chosen);
 
   return {
-    // The key carries a hash of exactly what the model is shown (question,
-    // options, which one is correct, the bank's explanation), so correcting
+    // The key carries a hash of exactly what the model is shown (passage,
+    // question, options, which one is correct, the bank's explanation), so correcting
     // any of them retires the old entry instead of serving it for a week.
     cacheKey: `coach:${CACHE_VERSION}:miss:${qid}:${chosen}:${hash(material)}`,
     system: MISS_SYSTEM,
