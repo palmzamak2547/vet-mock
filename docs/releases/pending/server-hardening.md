@@ -1,157 +1,157 @@
 ```js
-{ kind: 'fix', scope: 'system', title: 'ใช้เน็ตมหาวิทยาลัยได้เต็มโควตาของตัวเอง', desc: 'ปุ่มอธิบายใน VetWiki ตรวจคำตอบ ไมค์ เขียนด้วยมือ และเสียงอ่าน นับโควตาตามบัญชีของแต่ละคน ไม่ต้องแบ่งกับเพื่อนที่ใช้ Wi-Fi เดียวกันในห้องเรียนหรือห้องสมุด' },
+{ kind: 'fix', scope: 'system', title: 'ใช้เน็ตมหาวิทยาลัยได้เต็มโควตาของตัวเอง', desc: 'ปุ่มอธิบายใน VetWiki ตรวจคำตอบ ไมค์ เขียนด้วยมือ และเสียงอ่าน นับโควตาตามบัญชีของแต่ละคน ไม่ต้องแบ่งกับเพื่อนที่ใช้ Wi-Fi เดียวกันในห้องเรียนหรือห้องสมุด และข้อเขียนที่มีคะแนนเต็มมากกว่า 2 แสดงคะแนนตามจริง' },
 ```
 
 # Server hardening (pending, branch `claude/server-hardening`)
 
-Eleven items from a review of the API, the service worker and the device-only
-tools. Each lands with a guard that fails if the defect returns.
+Items from a review of the API, the service worker and the device-only tools,
+then the fixes two independent reviews of the branch asked for. Each lands with
+a guard that fails if the defect returns. This file says what is true at the
+branch's head; where an earlier version of it was wrong, that is said.
 
-## 1. A paid route counted only while the limiter worked
-- `api/ai-transcribe.js` let a clip through when the shared limiter could not
-  count. It now refuses (503, retryable) like every other paid route.
-- Other routes with the same shape: `library-file.js`, `library-blob.js`,
-  `video-file.js` (reading surfaces, open through a limiter outage by an earlier
-  decision, AGENTS.md "Library and sync") and the `?health=1` read of
-  `ai-chat.js` (costs no token). Left as they are and listed by name in the guard.
-- Guard: `tests/unit/api-hostile-requests.test.mjs` fails on the fail-open
-  pattern in any file not on that list; `ai-transcribe.test.mjs` checks that a
-  limiter outage reaches no provider.
-
-## 2. Members shared one limit per network
-- `limitCaller(req, gate, route, max, windowMs)` in `api/_lib/rate-limit.js` is
-  the one way a gated route counts: a signed-in caller on `<route>:user:<id>` at
-  the route's limit, the address on `<route>:addr:<ip>` at 15 times that, and a
-  caller without an account on the old `<route>:<ip>` key.
+## Counting callers (`api/_lib/rate-limit.js`)
+- `limitCaller(req, gate, route, max, windowMs)` is the one way a gated route
+  counts. A Chula member (`gate.member === true`, decided by the database) is
+  counted on `<route>:user:<id>` and nowhere else: one limiter call, and nobody
+  on the same address can be refused because of them. Anyone else (a guest, or
+  a free account while the wall is off) is counted by address at `max`, on the
+  same key as before the branch. Correction: the first version also counted
+  members' addresses at 15 times the limit, which refused a hall of 150 from the
+  16th student at full use and let one scripted member lock the whole address
+  for the hour; and it gave any signed-in account its own counter, so throwaway
+  accounts multiplied an address's allowance.
 - Used by wiki-explain (20/h), the mic (40/h), handwriting (40/h), agent-action
-  (30/h), study-coach (120/h), grade-summary (120/h), race-start (60/h), tts
-  (60 per 5 min), tts-iapp, the library link and the video route. The daily
-  provider budgets are unchanged and remain the shared ceiling.
-- Guard: the hostile-request test fails when a gated route builds a limit key
-  from the address and has no per-account count; it also checks that fifteen
-  students on one address each keep their own limit and that the address
-  ceiling still brakes one address cycling accounts.
-- Cost: a gated request now makes two limiter calls instead of one.
+  (30/h), study-coach and grade-summary (120/h), race-start (60/h), tts (60 per
+  5 min), tts-iapp, the library link and the video route. The daily provider
+  budgets are unchanged.
+- Paid routes refuse (503) when the limiter cannot count. Before the branch the
+  mic let every clip through; 100 of 100 reached the provider, now 0. Open
+  through an outage by decision: the library link and the video route (cheap
+  short-lived links) and the AI `?health=1` read.
+- Guards: `tests/unit/api-limits.test.mjs` (150 students on one address, a
+  scripted member and a classmate, throwaway accounts, an outage);
+  `api-hostile-requests.test.mjs` fails on a fail-open limit outside its list
+  and on a gated route that counts by address alone.
 
-## 3. An unauthenticated probe could cost money
-- The microphone's GET probe sent half a second of audio to the provider on each
-  cold instance, and a query string bypassed the edge cache. It now answers from
-  configuration and from what real clips met: a provider that refused a clip for
-  credit or permission (401, 402, 403) is left out for ten minutes and the
-  microphone hides. The admin status card keeps an explicit test clip
-  (`testTranscription`), behind the admin check.
-- Guard: `ai-transcribe.test.mjs` asks the probe 50 times and through the handler
-  with 20 different query strings, and counts zero provider calls.
-- Unproven: until a real clip fails, a provider out of credit shows the
-  microphone; the first clip then fails with the existing message and the
-  microphone hides for ten minutes.
+## The gate (`api/_lib/chula-gate.js`)
+- Failed tokens are braked per address: a token the database refuses is counted
+  on `chula-gate-failed:<ip>`, and an address with 120 refusals in 10 minutes is
+  answered 429 without asking the database. Members are not counted; a member
+  this instance has already checked passes before the brake. This covers every
+  route where the gate runs before a limit (video-file and send-feedback among
+  them). Not counted: a valid account that is not a member.
+- A deployed preview without database settings refuses like production. The
+  signal is `VERCEL_ENV`: `production` or `preview` refuse; unset (the dev
+  server, the unit suite) or `development` (`vercel dev`) stay open. A preview
+  whose database lacks the wall's function also refuses.
+- Guard: `api-limits.test.mjs` (200 forged tokens after the brake cost the
+  database nothing; previews refuse, local development opens).
 
-## 4. The written grader's JSON was shown as it came
-- `api/_lib/grade-shape.js`: each score is an integer clamped to its category's
-  maximum, the maximum comes from the rubric (essay 7/5/3, short answer 2), a
-  category the rubric lacks is dropped, the essay word penalty is counted from
-  the answer (over the soft maximum 1, over the hard maximum 2), and the total is
-  recomputed and never below zero. A grading with a category missing or not a
-  number is refused with the existing "could not read" answer (502).
-- Guard: `api-hardening.test.mjs` (out-of-range scores, made-up categories and a
-  wrong total through the handler; the essay rubric directly).
+## Feedback (`api/send-feedback.js`)
+- Open before sign-in (`ChulaGateView`). A member: 3 in 10 minutes and 10 a day
+  on their own account, then the address as a ceiling (30 and 100), incremented
+  only when the account allowed the message. A visitor (a free account counts
+  as one): 3 in 10 minutes and 20 a day per address. Visitors use at most 40 of
+  the mailer's 100 a day.
+- A full day answers `reason: 'daily_cap', scope: 'caller'`, and the form says
+  "พรุ่งนี้ส่งได้อีก" (`src/lib/feedback-client.js`, `daily_mine`) instead of
+  "wait a little". Correction: the first version answered `rate_limited` there.
+- The mailer's own error text is logged; the sender gets `mailer_error` and a
+  code. Correction: the first version returned it.
+- Guards: `api-limits.test.mjs` (50 throwaway accounts on 5 addresses send 15;
+  a visitor's full day; the mailer's 403 text), `feedback-client.test.mjs`.
 
-## 5. Handlers threw on a hostile body
-- `api/_lib/body.js`: `readJsonBody` (and `readEncodedJsonBody` for the
-  read-aloud routes' base64 body) return a plain object or null, never throw; the
-  handler answers `sendBadBody` (400, fixed Thai message). Every handler that
-  reads a body uses it, except ai-chat, ai-voice and move-in, which parse inside
-  their own guards.
-- Guard: the hostile-request test reads the handler list from `api/`, sends each
-  fifteen hostile requests (no body, null, a string, an array, a number, an
-  unreadable body, a huge body, wrong field types, a foreign origin, a bad query)
-  with the network cut, and fails on any unhandled error, a 5xx other than 503,
-  or a handler reading `req.body` outside the reader.
+## The library's bytes (`api/library-blob.js`)
+- The storage API ignores Range, so every GET pulls the object through the
+  function. The route now fails closed, and besides 300 requests per link per
+  address it budgets bytes per address: 8 GB per 10 minutes (a whole object per
+  request; a media range, the object up to its end). The link carries no
+  account (public links are minted once per window for every caller and the
+  mint is edge-cached), so the address is what can be counted.
+- Guard: `api-limits.test.mjs` (the 164th 50 MB pull from one address is
+  refused before storage is asked; an outage refuses); `api-hardening.test.mjs`.
+- Unproven: what a real hall uses. A higher or per-account budget would need
+  the account in the link, which public links cannot carry.
 
-## 6. Error text reached responses
-- tts, tts-iapp, agent-action, external-connect, external-connect-start,
-  fetch-external-doc, wiki-explain and playlist answered with error or parser
-  text. They log it and answer a fixed message with a short `code`.
-- Guard: the same test fails when a response holds a stack frame, a file path,
-  the network error's text, the body error's text or JSON parser text.
+## The microphone's probe (`api/ai-transcribe.js`)
+- The public GET never calls a provider: it answers from configuration and from
+  what real clips met (a provider that refused a clip for credit or permission
+  is left out for 10 minutes). The admin card keeps an explicit test clip.
+- Guard: `ai-transcribe.test.mjs` (50 asks and 20 query strings, 0 calls).
 
-## 7. The origin rule admitted any `vetmock-*.vercel.app`
-- Narrowed to `vetmock-<…>-palmzamak2547s-projects.vercel.app`, the pattern the
-  Supabase functions already use (`supabase/functions/_shared/app-origins.js`).
-  It covers the previews of the vetmock, vetmock-ai and vetmock-vca projects.
-  The bare `vet-mock-*.vercel.app` pattern is gone.
-- Assumed: Vercel keeps names ending in the team's suffix for that team. The
-  exact legacy names `vetmock.vercel.app` and `vet-mock.vercel.app` stay.
-- Guard: the hostile-request test admits four real preview shapes and refuses
-  five look-alikes.
+## The written grader (`api/_lib/grade-shape.js`, `api/grade-summary.js`)
+- A short answer is out of the points its question states, "(10 คะแนน)" (6 of
+  the 389 short items state 10 or 20; others say nothing and stay at 2), and
+  the grader is told that number. A grader that scored on another positive
+  total is scaled, not capped; a score is cut to the half point below, never
+  rounded up; a category name differing by case, spaces, "-" or "_" is
+  matched; the total is recomputed. Correction: the first version capped every
+  short answer at 2, so 6/10 read 2/2, and rounded 1.5 to 2.
+- A `qid` of `__proto__`, `constructor` or `toString` names no question
+  (`Object.hasOwn`).
+- Guards: `api-hardening.test.mjs` with items 209627, 209545 and 209565.
 
-## 8. Feedback could be shut by a few addresses
-- The form is shown before sign-in (`ChulaGateView`), so it stays open to
-  visitors. A signed-in member is counted on their own account (3 in 10 minutes,
-  10 a day), with the address as a 15x ceiling; a visitor by address at the same
-  numbers. Visitors draw first on a share of 40 of the mailer's 100 a day, so
-  they cannot use up what members' messages need. The client sends the session
-  header when there is one.
-- Guard: `chula-api-gate.test.mjs` (the route asks the gate who is writing and
-  never refuses on its answer) and the hostile-request test (bad bodies).
-- Unproven: 100 a day is the mailer's own allowance; members together can still
-  reach it.
+## Bodies and error text
+- `api/_lib/body.js` reads every JSON body; anything that is not an object is a
+  400 with a fixed message. Error and parser text is logged, never returned.
+  The read-aloud route's debug echo is gone.
+- Guard: `api-hostile-requests.test.mjs` takes the handler list from `api/`,
+  sets every provider key to a fake value, sends a member's bearer through a
+  fake database, fills `req.query` from the URL, and sends 26 requests to each
+  handler (no body, null, strings, arrays, numbers, an unreadable body signed in
+  and out, prototype keys, wrong field types, form, multipart, text and base64
+  content types, PUT, PATCH, HEAD, lowercase post, a foreign origin, hostile
+  queries). 15 of the 28 handlers read a JSON body, and all 15 now reach it
+  (the test fails if one does not); ai-chat, ai-voice and move-in parse their
+  own. Correction: the first version ran with no keys and no bearer, so most
+  paid handlers stopped at "not configured" or the wall before their body.
 
-## 9. Device-only work could be evicted
-- `src/lib/persist-storage.js` asks `navigator.storage.persist()` once per device,
-  the first time a student saves something of their own (any device-only tool
-  except the watch history, and a new notebook). A refusal is remembered; nothing
-  is shown.
-- Guard: `tests/unit/persist-storage.test.mjs` (asked once, never looped, no
-  text, wired in both places).
-- What syncing each would need (not built): flashcards and cloze decks, and
-  image-occlusion decks, need a table per deck with per-card ids and edit times
-  (occlusion masks also need their images in storage, sized like the library's
-  uploads); the pinboard and video notes are small JSON that fit the existing
-  `sync_user_data_v2` payload as new keys with a last-writer rule per item;
-  custom clips are a list of links that fit there too; watch history is a set
-  that merges by union; notebooks need their page list in that payload, while
-  their ink already syncs by document key.
+## Origins
+- Previews must end in this team's suffix:
+  `vetmock-<…>-palmzamak2547s-projects.vercel.app` (the pattern the Supabase
+  functions already use). Assumed: Vercel keeps names with a team's suffix for
+  that team.
 
-## 10. The sitemap
-- The build already added all 224 prerendered VetWiki topics to
-  `dist/sitemap.xml` (`public/sitemap.xml` holds only the hand-kept pages), so
-  the finding read the source file, not the served one. Nothing behind the wall
-  is listed on current main (`og-head.test.mjs` already held the /app covers; an
-  `/app/about` entry seen in an old local build predates that).
-- What changed: `scripts/lib/sitemap.mjs` holds the rules for the three build
-  steps, and the sitemap itself now also refuses an /app screen outside
-  `GATE_PUBLIC_VIEWS`, not only the cover list. `GATE_PUBLIC_VIEWS` moved to
-  `src/lib/gate-public-views.js` so the wall, the sitemap and `og-head.test.mjs`
-  read one list. (The sitemap commit's message says /app/about was listed; that
-  came from the stale local build, and this note is the correct account.)
-- Guard: `tests/unit/sitemap.test.mjs` runs the build's steps on
-  `public/sitemap.xml` and fails if a prerendered topic is missing or anything
-  behind the wall is listed.
-- Unproven here: the sitemap vetmock.com serves (production was not called).
+## Device-only work (`src/lib/persist-storage.js`)
+- The first save of a student's own work asks `navigator.storage.persist()`
+  once per device. Never while a question card or an exam is on screen (that
+  save does not ask; a later one does), never from the flashcards' id
+  migration (a write made during a read), and at most once per session if the
+  browser never answers. A refusal is remembered; nothing is shown.
+- Guard: `persist-storage.test.mjs`.
+- Syncing (not built): flashcard, cloze and occlusion decks need per-card ids
+  and edit times (occlusion images in storage); the pinboard, video notes and
+  own clips fit `sync_user_data_v2` as new keys with last-writer-wins per item;
+  watch history merges by union; notebooks need their page list there (their
+  ink already syncs).
 
-## 11. The service worker called a slow network "offline"
-- Which requests took the path: same-origin GETs that are not /api, not
-  `/assets/`, not a navigation, not an image, font or manifest, and not an atlas
-  model: the landing video, glTF models and JSON under `public/`. Lazy chunks
-  and question banks are under `/assets/`, which is cache-first with no timeout,
-  so study on a weak connection was not affected.
-- On that path, a request with no cached copy now keeps waiting past 4 s
-  instead of answering 503; a cached copy still answers at 4 s, navigations keep
-  the cached home shell fallback. `SW_VERSION` is `v229-2026-11-11`.
-- Guard: five cases in `service-worker-update-safety.test.mjs`.
-- How a phone gets it: `sw.js` is served `max-age=0, must-revalidate`, so the
-  browser compares it on the next navigation (and at least daily), installs the
-  new worker in the background, and activates it once every tab of the site is
-  closed (no early activation, by design). Until then the old worker serves.
+## The sitemap
+- The build already listed the 224 prerendered VetWiki topics and nothing behind
+  the wall. The rules now live in `scripts/lib/sitemap.mjs` for the three build
+  steps, and `GATE_PUBLIC_VIEWS` in `src/lib/gate-public-views.js`. Correction:
+  the sitemap commit's message says `/app/about` was listed; that came from a
+  stale local build.
+- Guard: `sitemap.test.mjs`. Not checked: the sitemap vetmock.com serves.
+
+## The service worker (`public/sw.js`, `SW_VERSION` v229-2026-11-11)
+- Lazy chunks and question banks (`/assets/`) were never affected. Other
+  non-HTML GETs with no cached copy (landing video, models, JSON under
+  `public/`) waited 4 s and then answered 503 on a phone that was online. Now
+  they wait for the network up to 15 s, then answer offline and let the request
+  go; a cached copy still answers at 4 s; navigations, and `Accept: text/html`
+  requests, keep the cached home shell. A 206 is never cached. Correction: the
+  first version waited without an end.
+- Guard: `service-worker-update-safety.test.mjs` (slow, never answering, Range
+  and video, text/html without a navigation, a cache that throws on read).
+- A phone gets it on its next visit (`sw.js` is `max-age=0, must-revalidate`):
+  the browser installs it in the background and switches once every tab of the
+  site is closed.
 
 ## Checks
-- The review's reproduction scripts, before: four handlers threw on an unreadable
-  body, `tts` threw on a body of `null` and put parser text in two answers, and
-  100 of 100 clips reached the provider with the limiter down. After: no throw,
-  no leaked text, 100 of 100 refused with 503 and no provider call.
-- `npm run lint:data`: passed. `npm run test:unit`: 4,153 passed and one
-  failed, `og-head.test.mjs`, which read `GATE_PUBLIC_VIEWS` from App.jsx; it
-  now reads `src/lib/gate-public-views.js` and passes. The retrieval eval's
-  cases marked weak (⚠) are known and unchanged.
+- The original reproduction scripts and both reviews' probes, at the head:
+  no unhandled error, no leaked text, the mic refuses 100 of 100 with the
+  limiter down, prototype qids are 400, the mailer text stays out, 50 throwaway
+  accounts send 15 mails.
+- `npm run lint:data` and `npm run test:unit`: the last run's result is in the
+  branch's final commit message.
 - Not run: build and e2e (CI runs them).

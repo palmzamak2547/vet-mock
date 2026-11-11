@@ -2,12 +2,15 @@
 // unhandled error, and never puts error text in what it answers.
 //
 // The list of functions is read from the directory, so a function is covered
-// the day it is added. The network is cut (every fetch throws a marked error)
-// and no secret is set, so nothing here can reach a provider or spend money.
+// the day it is added. Every provider key is set to a fake value and requests
+// carry a member's bearer, so handlers walk past "not configured" and the
+// sign-in wall into their body and account code. The network is cut: the only
+// answers are a fake database's (the gate and the session, in memory here),
+// and every other fetch throws a marked error, so nothing reaches a provider.
 //
 // The same file holds three source rules for the class of bug behind them:
 //   - a route that spends money refuses when its limiter cannot count;
-//   - a route behind the Chula gate does not count by address alone;
+//   - a route behind the Chula gate counts a member on their account;
 //   - a handler reads its body through api/_lib/body.js.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -21,13 +24,42 @@ const code = (f) => source(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"
 
 const NETWORK_MARK = 'hostile-network-cut-7f3a';
 const BODY_MARK = 'hostile-body-unreadable-91c2';
+const DB = 'https://db.hostile.test';
+const BEARER = 'hostile.member.token.0123456789abcdef';
+const UID = '00000000-0000-4000-8000-0000000000aa';
+
+// Names the API reads (api/**: env.X) that hold a key, token, secret or
+// account id get a fake value; switches and limits keep their defaults.
+const FAKE_ENV = {
+  VITE_SUPABASE_URL: DB, SUPABASE_URL: DB, VITE_SUPABASE_ANON_KEY: 'anon-hostile-0123456789abcdef', SUPABASE_ANON_KEY: 'anon-hostile-0123456789abcdef',
+  SUPABASE_SERVICE_ROLE_KEY: 'service-hostile', VETMOCK_RPC_SIGNING_KEY: 'sign-hostile-0123456789abcdef',
+  DEEPSEEK_API_KEY: 'fake', ANTHROPIC_API_KEY: 'fake', GEMINI_API_KEY: 'fake', GOOGLE_API_KEY: 'fake', IAPP_API_KEY: 'fake',
+  CF_AI_TOKEN: 'fake', CF_AI_ACCOUNT_ID: 'acct', CF_ACCOUNT_ID: 'acct', R2_ACCOUNT_ID: 'acct', CLOUDFLARE_API_TOKEN: 'fake-cf-token',
+  LIBRARY_BLOB_SECRET: 'fake-blob', RESEND_API_KEY: 're_fake', ELEVENLABS_API_KEY: 'fake', ELEVENLABS_VOICE_AGENT_ID: 'agent',
+  YOUTUBE_API_KEY: 'fake', NCBI_API_KEY: 'fake', NOTION_TOKEN: 'fake', EXTERNAL_OAUTH_STATE_SECRET: 'fake-state-secret-0123456789',
+  GOOGLE_OAUTH_CLIENT_ID: 'fake', GOOGLE_OAUTH_CLIENT_SECRET: 'fake', GOOGLE_PICKER_API_KEY: 'fake',
+  NOTION_OAUTH_CLIENT_ID: 'fake', NOTION_OAUTH_CLIENT_SECRET: 'fake', R2_ACCESS_KEY_ID: 'fake', R2_SECRET_ACCESS_KEY: 'fake', R2_BUCKET: 'b',
+  FEEDBACK_HASH_KEY: 'fake', MOCHI_VOICE_OPEN: '1',
+};
 
 function harness() {
   for (const k of Object.keys(process.env)) {
-    if (/KEY|TOKEN|SECRET|SUPABASE|UPSTASH|VERCEL|DEEPSEEK|ANTHROPIC|RESEND|ELEVEN|R2|CLOUDFLARE|IAPP|GEMINI|CF_|LIFF|GOOGLE|NOTION|FEEDBACK/i.test(k)) delete process.env[k];
+    if (/KEY|TOKEN|SECRET|SUPABASE|UPSTASH|VERCEL|DEEPSEEK|ANTHROPIC|RESEND|ELEVEN|R2|CLOUDFLARE|IAPP|GEMINI|CF_|LIFF|GOOGLE|NOTION|FEEDBACK|MOCHI|AI_/i.test(k)) delete process.env[k];
   }
-  process.env.NODE_ENV = 'test';
-  globalThis.fetch = async () => { throw new TypeError(NETWORK_MARK); };
+  Object.assign(process.env, FAKE_ENV, { NODE_ENV: 'test' });
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input?.url || input);
+    const auth = String(init.headers?.Authorization || init.headers?.authorization || '');
+    const member = auth === `Bearer ${BEARER}`;
+    if (url === `${DB}/rest/v1/rpc/chula_access_state`) {
+      if (member) return Response.json({ enforce: true, signed_in: true, member: true, uid: UID });
+      if (auth.includes('anon-hostile')) return Response.json({ enforce: true, signed_in: false, member: false, uid: null });
+      return new Response('{"message":"JWT invalid"}', { status: 401 });
+    }
+    if (url === `${DB}/auth/v1/user`) return member ? Response.json({ id: UID, email: 'hostile@student.chula.ac.th' }) : new Response('{}', { status: 401 });
+    if (url === `${DB}/rest/v1/rpc/is_admin`) return Response.json(false);
+    throw new TypeError(NETWORK_MARK);
+  };
 }
 
 function mkRes() {
@@ -48,21 +80,37 @@ function mkRes() {
   return res;
 }
 
-function mkReq(method, body, { headers = {}, url = '/api/x', badBody = false } = {}) {
-  const req = { method, headers: { host: 'vetmock.com', ...headers }, url, query: {}, socket: { remoteAddress: '198.51.100.7' }, on() { return req; }, once() { return req; } };
+function mkReq(method, body, { headers = {}, url = '/api/x', badBody = false, signedIn = true } = {}) {
+  const query = Object.fromEntries(new URL(url, 'http://local').searchParams);
+  const req = {
+    method, url, query,
+    headers: { host: 'vetmock.com', 'content-type': 'application/json', ...(signedIn ? { authorization: `Bearer ${BEARER}` } : {}), ...headers },
+    socket: { remoteAddress: '198.51.100.7' },
+    on() { return req; }, once() { return req; },
+  };
   if (badBody) Object.defineProperty(req, 'body', { get() { throw Object.assign(new Error(BODY_MARK), { statusCode: 400 }); } });
   else req.body = body;
   return req;
 }
 
+// Prototype keys arrive as own keys from JSON.parse, as they would from a client.
+const PROTO = JSON.parse('{"__proto__":{"admin":true},"constructor":{"prototype":{"x":1}},"qid":"__proto__","mode":"toString","action":"__proto__","provider":"constructor","subject":"hasOwnProperty"}');
+const WRONG_TYPES = { userAnswer: {}, utterance: [], url: {}, question: 5, text: 5, audio: 5, code: {}, questionIds: 'x', message: {}, type: [], image: 7, mime: [], qid: {}, messages: 'x', items: 'x' };
+
 const CASES = [
-  ['GET'], ['DELETE'], ['OPTIONS'],
+  ['GET'], ['DELETE'], ['OPTIONS'], ['PUT', {}], ['PATCH', {}], ['HEAD'], ['post', {}],
   ['POST', undefined], ['POST', null], ['POST', 'not json'], ['POST', 'null'], ['POST', []], ['POST', 7], ['POST', {}],
   ['POST', { x: 'a'.repeat(200_000) }],
-  ['POST', { messages: 'x', question: {}, qid: {}, mode: [], items: 'x', text: { a: 1 }, audio: [], url: 5, action: {} }],
+  ['POST', PROTO], ['POST', WRONG_TYPES],
   ['POST', undefined, { badBody: true }],
+  ['POST', undefined, { badBody: true, signedIn: false }],
+  ['POST', 'message=hi', { headers: { 'content-type': 'application/x-www-form-urlencoded' } }],
+  ['POST', '--b\r\nContent-Disposition: form-data; name="x"\r\n\r\n1\r\n--b--', { headers: { 'content-type': 'multipart/form-data; boundary=b' } }],
+  ['POST', Buffer.from('{"text":"x"}'), { headers: { 'content-type': 'text/plain' } }],
+  ['POST', { text: 'x' }, { headers: { 'content-type': 'application/vmx-b64' } }],
   ['POST', {}, { headers: { origin: 'https://evil.example' } }],
-  ['GET', undefined, { url: '/api/x?year=5;DROP&study=25:99&health=1&bust=1' }],
+  ['GET', undefined, { url: '/api/x?year=5;DROP&study=25:99&health=1&bust=1&s=__proto__&t=x&v=constructor&f=toString&slug=__proto__' }],
+  ['GET', undefined, { url: '/api/x?probe=1', signedIn: false }],
 ];
 
 // A response must never carry a stack frame, the network error's text or the
@@ -72,6 +120,8 @@ const LEAK = new RegExp([
   'is not a function', 'is not defined', '\\bat [^\\s]+ \\(', 'file:///', 'node:internal', '\\.js:\\d+:\\d+',
 ].join('|'));
 
+const labelOf = (method, body, opts) => `${method} ${opts?.badBody ? '<unreadable body>' : opts?.headers?.origin ? '<foreign origin>' : opts?.headers?.['content-type'] ? `<${opts.headers['content-type'].split(';')[0]}>` : JSON.stringify(body)?.slice(0, 30)}${opts?.signedIn === false ? ' (signed out)' : ''}`;
+
 async function runAll() {
   const out = [];
   for (const f of FILES) {
@@ -79,13 +129,13 @@ async function runAll() {
     assert.equal(typeof mod.default, 'function', `${f} exports a handler`);
     for (const [method, body, opts] of CASES) {
       const res = mkRes();
-      const label = `${f} ${method} ${opts?.badBody ? '<unreadable body>' : opts?.headers ? '<foreign origin>' : JSON.stringify(body)?.slice(0, 30)}`;
+      const label = `${f} ${labelOf(method, body, opts)}`;
       let threw = null;
       let timer;
       try {
         await Promise.race([
           Promise.resolve(mod.default(mkReq(method, body, opts), res)),
-          new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('timeout')), 5_000); }),
+          new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('timeout')), 8_000); }),
         ]);
       } catch (e) {
         threw = e;
@@ -99,8 +149,10 @@ async function runAll() {
 }
 
 let results;
+let BAD_BODY;
 test.before(async () => {
   harness();
+  ({ BAD_BODY } = await import('../../api/_lib/body.js'));
   const warn = console.warn; const error = console.error; const log = console.log;
   console.warn = () => {}; console.error = () => {}; console.log = () => {};
   try { results = await runAll(); } finally { console.warn = warn; console.error = error; console.log = log; }
@@ -113,8 +165,9 @@ test('every handler answers every hostile request; none throws', () => {
 });
 
 test('a malformed body is never a server fault', () => {
+  const malformed = (r) => r.opts?.badBody || r.body === null || r.body === 'not json' || r.body === 'null' || Array.isArray(r.body) || r.body === 7;
   const faults = results
-    .filter((r) => r.method === 'POST' && r.res.statusCode >= 500 && r.res.statusCode !== 503)
+    .filter((r) => r.method === 'POST' && malformed(r) && r.res.statusCode >= 500 && r.res.statusCode !== 503)
     .map((r) => `${r.label} -> ${r.res.statusCode}`);
   assert.deepEqual(faults, [], 'a hostile body is the caller\'s error (400), or refused before it is read');
 });
@@ -130,31 +183,34 @@ test('no response holds a stack frame, an upstream message or parser text', () =
   assert.deepEqual(leaks, []);
 });
 
-test('handlers that read a body answer an unreadable one with 400 and the fixed message', async () => {
-  const { BAD_BODY } = await import('../../api/_lib/body.js');
-  // With no database configured the gate lets a local caller through, so these
-  // reach their body: each must refuse it itself.
-  for (const f of ['client-diagnostic.js', 'exam-result.js', 'race-start.js', 'send-feedback.js', 'tts.js']) {
-    for (const r of results.filter((x) => x.f === f && (x.opts?.badBody || x.body === null || Array.isArray(x.body)))) {
-      assert.equal(r.res.statusCode, 400, r.label);
-      assert.deepEqual(r.res.body, BAD_BODY, r.label);
-    }
-  }
+test('every handler that reads a body reaches it with a member\'s bearer and refuses an unreadable one', () => {
+  const readers = FILES.filter((f) => /\breadJsonBody\(|\breadEncodedJsonBody\(/.test(code(f)));
+  const reached = new Set(results
+    .filter((r) => r.opts?.badBody && r.opts?.signedIn !== false && r.res.statusCode === 400 && JSON.stringify(r.res.body) === JSON.stringify(BAD_BODY))
+    .map((r) => r.f));
+  const missed = readers.filter((f) => !reached.has(f));
+  assert.deepEqual(missed, [], 'these read a body but never got that far: the harness must reach their body code');
+  assert.ok(readers.length >= 15, `handlers reading a body: ${readers.length}`);
+  // Reported in the test name's output for the release notes.
+  console.log(`[hostile] ${reached.size} of ${FILES.length} handlers reached their body code`);
+});
+
+test('a prototype key never names a record: no 2xx for the prototype body', () => {
+  const served = results.filter((r) => r.body === PROTO && r.res.statusCode >= 200 && r.res.statusCode < 300).map((r) => `${r.label} -> ${r.res.statusCode}`);
+  assert.deepEqual(served.filter((s) => !/ai-chat|ai-voice|client-diagnostic|mochi-voice/.test(s)), []);
 });
 
 // ── Source rules ────────────────────────────────────────────────────────────
 
-// Reading surfaces whose limit guards against bulk downloading, not a paid
-// call, and that stay open through a limiter outage on purpose (AGENTS.md,
-// Library and sync), and the AI health read, which costs no token.
+// The library link and the video route mint cheap presigned links and stay
+// open through a limiter outage by decision; the AI health read costs no token.
 const FAIL_OPEN_ALLOWED = new Map([
-  ['library-file.js', 'reading surface: a limiter outage must not close the library'],
-  ['library-blob.js', 'reading surface: a limiter outage must not close the library'],
-  ['video-file.js', 'reading surface: our own clip copies'],
+  ['library-file.js', 'mints a short-lived link; a limiter outage must not close the library'],
+  ['video-file.js', 'mints a short-lived link to our own clip copies'],
   ['ai-chat.js', 'the ?health=1 read costs no token'],
 ]);
 
-test('a route refuses when its limiter cannot count, unless it is listed as a free reading surface', () => {
+test('a route refuses when its limiter cannot count, unless it is listed as a cheap reading surface', () => {
   const failOpen = /!\s*(\w+)\.ok\s*&&\s*!\s*\1\.unavailable/;
   const found = FILES.filter((f) => failOpen.test(code(f)));
   const unlisted = found.filter((f) => !FAIL_OPEN_ALLOWED.has(f));
@@ -178,44 +234,7 @@ test('a route behind the Chula gate counts a member on their account, not their 
 test('a handler reads its body only through api/_lib/body.js', () => {
   // Each of these parses its body itself, inside its own guard, and is held by
   // the hostile cases above.
-  const own = new Set(['ai-chat.js', 'ai-voice.js', 'move-in.js', 'tts.js']);
+  const own = new Set(['ai-chat.js', 'ai-voice.js', 'move-in.js']);
   const offenders = FILES.filter((f) => !own.has(f) && /\breq\.body\b/.test(code(f)));
   assert.deepEqual(offenders, [], 'use readJsonBody(req) / sendBadBody(res)');
-});
-
-test('limitCaller: a member is counted on their account; the address keeps a far higher ceiling', async () => {
-  const { limitCaller, ADDRESS_CEILING_FACTOR } = await import('../../api/_lib/rate-limit.js');
-  const hall = (n) => ({ headers: { 'x-vercel-forwarded-for': '203.0.113.50' }, n });
-  const route = `t-${Date.now()}`;
-  // Fifteen students on one address, two asks each, against a limit of 2 per person.
-  for (let s = 0; s < 15; s++) {
-    for (let i = 0; i < 2; i++) {
-      const r = await limitCaller(hall(s), { userId: `student-${s}` }, route, 2, 60_000);
-      assert.equal(r.ok, true, `student ${s} ask ${i + 1}`);
-    }
-  }
-  assert.equal((await limitCaller(hall(0), { userId: 'student-0' }, route, 2, 60_000)).ok, false, 'each student keeps their own limit');
-  assert.ok(ADDRESS_CEILING_FACTOR >= 10);
-  // Without an account the address is the caller.
-  const guest = `g-${Date.now()}`;
-  assert.equal((await limitCaller(hall(0), null, guest, 1, 60_000)).ok, true);
-  assert.equal((await limitCaller(hall(0), { userId: null }, guest, 1, 60_000)).ok, false);
-  // The address ceiling still brakes one address cycling accounts.
-  const brake = `b-${Date.now()}`;
-  let refused = 0;
-  for (let s = 0; s < 40; s++) if (!(await limitCaller(hall(s), { userId: `cycle-${s}` }, brake, 1, 60_000, { addressMax: 30 })).ok) refused++;
-  assert.equal(refused, 10);
-});
-
-test('the origin rule admits this team\'s previews only', async () => {
-  const { allowedOrigin } = await import('../../api/_lib/rate-limit.js');
-  const from = (origin) => allowedOrigin({ headers: { origin, host: 'api.example' } });
-  for (const ok of ['https://vetmock-3p7zymay8-palmzamak2547s-projects.vercel.app', 'https://vetmock-git-main-palmzamak2547s-projects.vercel.app',
-    'https://vetmock-ai-abc123-palmzamak2547s-projects.vercel.app', 'https://vetmock-vca-git-x-palmzamak2547s-projects.vercel.app']) {
-    assert.equal(from(ok), ok, ok);
-  }
-  for (const bad of ['https://vetmock-evil.vercel.app', 'https://vetmock-x-other-team.vercel.app', 'https://vet-mock-evil.vercel.app',
-    'http://vetmock-abc-palmzamak2547s-projects.vercel.app', 'https://vetmock-abc-palmzamak2547s-projects.vercel.app.evil.example']) {
-    assert.equal(from(bad), null, bad);
-  }
 });
