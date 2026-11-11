@@ -308,8 +308,7 @@ test('library-blob: a member\'s link is budgeted on their account; one member lo
   t.after(() => { process.env = saved; });
   Object.assign(process.env, { CLOUDFLARE_API_TOKEN: 'budget-test', R2_ACCOUNT_ID: 'acct' });
   const size = 50 * 1024 ** 2;
-  assert.equal(bytesPulled({ n: size }, 'bytes=0-1023', false), size, 'a PDF range still pulls the whole object');
-  assert.equal(bytesPulled({ n: size }, 'bytes=0-1023', true), 1024, 'a media range pulls up to its end');
+  assert.equal(bytesPulled({ n: size }, false), size, 'a document counts the whole object');
   const doc = { storage_bucket: 'b', storage_key: 'docs/deck.pdf', mime: 'application/pdf', byte_size: size, status: 'public' };
   let upstream = 0;
   t.mock.method(globalThis, 'fetch', async () => { upstream++; return new Response(null, { status: 200 }); });
@@ -364,7 +363,7 @@ test('the library link carries the member it was minted for', async () => {
   for (const m of mints) assert.match(m, /user: gate\?\.member === true \? gate\.userId : null/);
 });
 
-// ── Media ranges: bounded chunks ────────────────────────────────────────────
+// ── Media ranges, and what the byte budget counts ───────────────────────────
 
 async function mediaCall(handler, token, { range, ip = '203.0.113.200' } = {}) {
   const { Writable } = await import('node:stream');
@@ -375,95 +374,94 @@ async function mediaCall(handler, token, { range, ip = '203.0.113.200' } = {}) {
   return res;
 }
 
-async function mediaSetup(t, { size, mime = 'video/mp4', user = 'viewer' }) {
+async function mediaSetup(t, { size, mime = 'video/mp4', user = 'viewer', body = 16 }) {
   const mod = await import('../../api/library-blob.js');
   const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
   const saved = { ...process.env };
   t.after(() => { process.env = saved; });
   Object.assign(process.env, { CLOUDFLARE_API_TOKEN: 'media-test', R2_ACCOUNT_ID: 'acct' });
-  let upstream = 0;
-  // Storage ignores Range and answers the whole object; a few bytes stand for it here.
-  t.mock.method(globalThis, 'fetch', async () => { upstream++; return new Response(new Uint8Array(16), { status: 200 }); });
-  const token = mintBlobToken({ storage_bucket: 'b', storage_key: `docs/${user}.mp4`, mime, byte_size: size, status: 'public' }, { user });
-  return { ...mod, token, upstreams: () => upstream };
+  const reads = { calls: 0, bytes: 0 };
+  // Storage ignores Range and answers the whole object; a few bytes stand for it.
+  t.mock.method(globalThis, 'fetch', async () => {
+    reads.calls++;
+    const bytes = new Uint8Array(body);
+    // highWaterMark 0: a byte counts as read only when the handler asks for it.
+    return new Response(new ReadableStream({ pull(c) { reads.bytes += bytes.length; c.enqueue(bytes); c.close(); } }, { highWaterMark: 0 }), { status: 200 });
+  });
+  const token = mintBlobToken({ storage_bucket: 'b', storage_key: `docs/${user}.bin`, mime, byte_size: size, status: 'public' }, { user });
+  return { ...mod, token, reads };
 }
 
-test('media: Chrome\'s open-ended ranges get one bounded chunk each, with an exact Content-Range', async (t) => {
-  const size = 300 * 1024 * 1024;
-  const { default: handler, token, MEDIA_CHUNK, bytesPulled } = await mediaSetup(t, { size, user: 'chrome' });
+test('media: Chrome\'s 0- then N- are served as asked, as before the branch', async (t) => {
+  const size = 1000;
+  const { default: handler, token } = await mediaSetup(t, { size, user: 'chrome', body: size });
   const first = await mediaCall(handler, token, { range: 'bytes=0-' });
   assert.equal(first.statusCode, 206);
-  assert.equal(first.headers['content-range'], `bytes 0-${MEDIA_CHUNK - 1}/${size}`);
-  assert.equal(first.headers['content-length'], String(MEDIA_CHUNK));
-  const seek = 150 * 1024 * 1024;
-  const next = await mediaCall(handler, token, { range: `bytes=${seek}-` });
-  assert.equal(next.headers['content-range'], `bytes ${seek}-${seek + MEDIA_CHUNK - 1}/${size}`);
-  const tail = size - 1000;
-  const last = await mediaCall(handler, token, { range: `bytes=${tail}-` });
-  assert.equal(last.headers['content-range'], `bytes ${tail}-${size - 1}/${size}`, 'the last piece is what is left');
-  assert.equal(bytesPulled({ n: size }, 'bytes=0-', true), MEDIA_CHUNK, 'counted by the chunk, not the rest of the object');
-  assert.equal(bytesPulled({ n: size }, `bytes=0-${20 * 1024 * 1024}`, true), MEDIA_CHUNK, 'a closed range is capped to the same size');
-  assert.equal(bytesPulled({ n: size }, 'bytes=100-199', true), 100, 'and counted as asked below it');
+  assert.equal(first.headers['content-range'], `bytes 0-999/${size}`);
+  const seek = await mediaCall(handler, token, { range: 'bytes=600-' });
+  assert.equal(seek.headers['content-range'], `bytes 600-999/${size}`);
+  assert.equal(seek.headers['content-length'], '400');
 });
 
-test('media: Safari\'s two-byte probe is answered and counted as two bytes', async (t) => {
-  const size = 50 * 1024 * 1024;
-  const { default: handler, token, bytesPulled } = await mediaSetup(t, { size, user: 'safari' });
+test('media: Safari\'s two-byte probe is answered with two bytes', async (t) => {
+  const { default: handler, token } = await mediaSetup(t, { size: 1000, user: 'safari', body: 1000 });
   const probe = await mediaCall(handler, token, { range: 'bytes=0-1' });
   assert.equal(probe.statusCode, 206);
-  assert.equal(probe.headers['content-range'], `bytes 0-1/${size}`);
+  assert.equal(probe.headers['content-range'], 'bytes 0-1/1000');
   assert.equal(probe.headers['content-length'], '2');
-  assert.equal(bytesPulled({ n: size }, 'bytes=0-1', true), 2);
 });
 
-test('media: a range past the end is 416 and counts next to nothing', async (t) => {
-  // The object, not the catalogue, measures a range (library-doc-open.test.mjs),
-  // so the 416 is decided once storage has answered; the budget took 1 byte.
-  const size = 16;
-  const { default: handler, token, bytesPulled } = await mediaSetup(t, { size, user: 'past-end' });
-  const res = await mediaCall(handler, token, { range: `bytes=${size}-` });
-  assert.equal(res.statusCode, 416);
-  assert.equal(res.headers['content-range'], `bytes */${size}`);
-  assert.equal(bytesPulled({ n: size }, `bytes=${size}-`, true), 1);
+test('media: a range past the end and a multiple range are 416, with no body read', async (t) => {
+  const { default: handler, token, reads } = await mediaSetup(t, { size: 16, user: 'past-end' });
+  const past = await mediaCall(handler, token, { range: 'bytes=16-' });
+  assert.equal(past.statusCode, 416);
+  assert.equal(past.headers['content-range'], 'bytes */16');
+  const multi = await mediaCall(handler, token, { range: 'bytes=0-1,4-5' });
+  assert.equal(multi.statusCode, 416);
+  assert.equal(reads.bytes, 0, 'the object body is let go unread');
 });
 
-test('media: a 300 MB lecture watched to the end with 20 seeks stays inside the budget', async (t) => {
-  // Arithmetic: watching through sends ceil(300 MB / 8 MB) = 38 chunks, 300 MB
-  // in all; each of 20 seeks starts a new chunk, at most 8 MB more: 160 MB.
-  // 300 + 160 = 460 MB counted, under the 2 GB per 10 minutes, in 58 requests,
-  // under the 300 per link. Counted by the rest of the object instead, the
-  // first request alone was 300 MB and six seeks spent the budget.
+test('budget: a 300 MB video with 20 seeks is never refused by the byte budget; a 300 MB document is', async (t) => {
   const size = 300 * 1024 * 1024;
-  const { default: handler, token, MEDIA_CHUNK, BLOB_BYTES, BLOB_RATE } = await mediaSetup(t, { size, user: 'lecture' });
-  let counted = 0;
-  let requests = 0;
-  for (let at = 0; at < size; at += MEDIA_CHUNK) {
-    const res = await mediaCall(handler, token, { range: `bytes=${at}-` });
-    assert.equal(res.statusCode, 206, `chunk at ${at}`);
-    counted += Number(res.headers['content-length']);
-    requests++;
+  const video = await mediaSetup(t, { size, user: 'lecture-video' });
+  assert.equal(video.bytesPulled({ n: size }, true), 0, 'video and audio are outside the byte budget');
+  for (let s = 0; s <= 20; s++) {
+    const at = s === 0 ? 0 : ((s * 7919) % 300) * 1024 * 1024;
+    const res = await mediaCall(video.default, video.token, { range: `bytes=${at}-` });
+    assert.notEqual(res.statusCode, 429, `seek ${s}`);
   }
-  for (let s = 0; s < 20; s++) {
-    const at = Math.floor(((s * 7919) % 300) * 1024 * 1024);
-    const res = await mediaCall(handler, token, { range: `bytes=${at}-` });
-    assert.equal(res.statusCode, 206, `seek ${s}`);
-    counted += Number(res.headers['content-length']);
-    requests++;
-  }
-  assert.equal(requests, 58);
-  assert.ok(counted <= 460 * 1024 * 1024, `counted ${counted}`);
-  assert.ok(counted < BLOB_BYTES.max && requests < BLOB_RATE.max);
+  // The same pattern on a 300 MB document: 2 GB holds six, the seventh is refused.
+  const doc = await mediaSetup(t, { size, mime: 'application/pdf', user: 'big-deck' });
+  const allowed = Math.floor(doc.BLOB_BYTES.max / size);
+  assert.equal(allowed, 6);
+  for (let s = 0; s < allowed; s++) assert.equal((await mediaCall(doc.default, doc.token, { range: `bytes=${s}-` })).statusCode, 200);
+  assert.equal((await mediaCall(doc.default, doc.token, { range: 'bytes=0-' })).statusCode, 429);
 });
 
-test('media: a request with no Range, and a PDF, are answered whole as before', async (t) => {
-  const size = 5 * 1024 * 1024;
-  const pdf = await mediaSetup(t, { size, mime: 'application/pdf', user: 'reader' });
-  const res = await mediaCall(pdf.default, pdf.token, {});
+test('budget: BLOB_RATE still stops the 301st request on one media link', async (t) => {
+  const { default: handler, token, BLOB_RATE } = await mediaSetup(t, { size: 16, user: 'rate-video' });
+  for (let i = 0; i < BLOB_RATE.max; i++) assert.equal((await mediaCall(handler, token, { range: 'bytes=0-1' })).statusCode, 206, `request ${i + 1}`);
+  assert.equal((await mediaCall(handler, token, { range: 'bytes=0-1' })).statusCode, 429);
+});
+
+test('budget: a document with no catalogued size is counted by the bytes it streamed', async (t) => {
+  const mb = 1024 * 1024;
+  const { default: handler, token, BLOB_BYTES, reads } = await mediaSetup(t, { size: 0, mime: 'application/pdf', user: 'unsized', body: 512 * mb });
+  // Each open streams 512 MB; 2 GB holds four, and the fifth finds the budget spent.
+  for (let i = 0; i < 4; i++) assert.equal((await mediaCall(handler, token)).statusCode, 200, `open ${i + 1}`);
+  await new Promise((r) => setImmediate(r));
+  assert.equal(reads.bytes, 4 * 512 * mb);
+  assert.ok(4 * 512 * mb >= BLOB_BYTES.max);
+  assert.equal((await mediaCall(handler, token)).statusCode, 429, 'counted as sent, not as one byte');
+});
+
+test('media: a PDF without Range is answered whole as before', async (t) => {
+  const { default: handler, token, bytesPulled } = await mediaSetup(t, { size: 16, mime: 'application/pdf', user: 'reader' });
+  const res = await mediaCall(handler, token, {});
   assert.equal(res.statusCode, 200);
   assert.equal(res.headers['content-range'], undefined);
   assert.equal(res.headers['accept-ranges'], 'none');
-  assert.equal(pdf.bytesPulled({ n: size }, undefined, false), size);
-  assert.equal(pdf.bytesPulled({ n: size }, 'bytes=0-1', false), size, 'a PDF range still counts the whole object');
+  assert.equal(bytesPulled({ n: 16 }, false), 16);
 });
 
 test('the link carries a keyed digest of the member, never the account id', async () => {
