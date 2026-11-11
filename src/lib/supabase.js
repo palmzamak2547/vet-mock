@@ -15,7 +15,7 @@
 // ============================================================
 
 import { authStorageKey, createAuthStorage, hasStoredAuthToken, storedAuthSession as readStoredSession } from './auth-storage.js';
-import { currentPath, hashToRestore, keepDestination, takeDestination } from './family/return-path.js';
+import { hashToRestore, keepDestination, takeDestination } from './family/return-path.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -153,10 +153,9 @@ export async function signInWithEmail(email, password) {
  *  sign-in left in it (a code, or a refusal the wall would read again), and
  *  without a VetMock AI link's open ticket, which the session makes redundant
  *  and which has no business in the sign-in's own logs. */
-const RETURN_DROP = ['code', 'state', 'error', 'error_code', 'error_description', 'vt', 've'];
 export function returnAddress(href = window.location.href) {
   const url = new URL(href);
-  for (const name of RETURN_DROP) url.searchParams.delete(name);
+  for (const name of ['code', 'state', 'error', 'error_code', 'error_description', 'vt', 've']) url.searchParams.delete(name);
   url.hash = '';
   return url.href;
 }
@@ -168,12 +167,17 @@ export function returnAddress(href = window.location.href) {
 const RETURN_KEY = 'vmx-return-to';
 
 function keepSignInDestination() {
-  keepDestination(RETURN_KEY, currentPath(window.location, RETURN_DROP));
+  // The same address the redirect returns to (returnAddress), plus the hash it cannot carry.
+  const back = new URL(returnAddress());
+  keepDestination(RETURN_KEY, `${back.pathname}${back.search}${window.location.hash}`);
 }
+
+// What a sign-in adds to the address it returns to; ignored when the page is compared.
+const SIGN_IN_PARAMS = ['code', 'state', 'error', 'error_code', 'error_description'];
 
 /** After a redirect sign-in: put back the section the student was going to. Once. */
 export function restoreSignInDestination(loc = window.location, hist = window.history) {
-  const hash = hashToRestore(takeDestination(RETURN_KEY), loc.href, RETURN_DROP);
+  const hash = hashToRestore(takeDestination(RETURN_KEY), loc.href, SIGN_IN_PARAMS);
   if (!hash) return null;
   try { hist.replaceState(hist.state, '', `${loc.pathname}${loc.search}${hash}`); } catch { return null; }
   return hash;

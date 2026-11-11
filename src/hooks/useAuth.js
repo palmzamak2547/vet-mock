@@ -113,7 +113,8 @@ export function useAuth() {
       if (cancelledRef.current) return;
       // Back from a redirect sign-in: the SDK has taken its tokens out of the address, so the
       // section the student was going to can go back in before the page behind the wall mounts.
-      if (arriving && session) restoreSignInDestination();
+      // Never allowed to stand in the sign-in's way: a failure here only loses the section.
+      if (arriving && session) { try { restoreSignInDestination(); } catch { /* the page opens at its top */ } }
       // No session but the token still on the device: the refresh could not run
       // (the SDK clears the token itself when the server refuses it). Keep the
       // account until it can.

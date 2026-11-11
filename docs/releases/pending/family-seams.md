@@ -18,7 +18,7 @@ VCA and AI workflows watch that folder (VCA also `src/lib/share-link.js` and
 
 One list, `src/lib/family/family.js` (`FAMILY`): id, name, a Thai and an English sentence, address.
 The main app shows it in the feature registry (new entries `vca-site` in practice and `ai-tutor` in
-learn; `research-studio` now takes its name and sentence from the list), so the home grid, the
+tools, so the learn group keeps the owner's seven home tiles; `research-studio` now takes its name and sentence from the list), so the home grid, the
 command palette and the tools menus get them from one place; in a "VetMock ทั้งหมด" section on the
 landing before the final call; in the landing footer; and in the in-app footer.
 Test: `tests/unit/family.test.mjs` (every member is a registry entry with the list's own name and

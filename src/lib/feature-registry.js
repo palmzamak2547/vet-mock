@@ -434,7 +434,8 @@ export const FEATURES = [
     invoke: { kind: 'external', url: VCA.url },
   },
   {
-    id: 'ai-tutor', category: 'learn',
+    // Tools, not learn: the learn group's home tiles are the owner's seven (nav-surfaces.test).
+    id: 'ai-tutor', category: 'tools',
     label: TUTOR.label, labelEn: TUTOR.labelEn, icon: '💬',
     hint: TUTOR.hint,
     kw: 'ai tutor ถาม ถามตอบ แชท chat ติว อธิบาย คำถาม ask vetmock ai ผู้ช่วย',
