@@ -83,7 +83,7 @@ export default function ActivityFigure({ days }) {
           <>
             <span><span className="vmx-actfig-key is-right" aria-hidden="true" />ถูก</span>
             <span><span className="vmx-actfig-key" aria-hidden="true" />ผิด</span>
-            {m.activeDays >= 3 && <span><span className="vmx-actfig-key is-median" aria-hidden="true" />วันปกติ {Math.round(m.median)} ข้อ</span>}
+            {m.activeDays >= 3 && <span><span className="vmx-actfig-key is-median" aria-hidden="true" />ปกติวันละ {Math.round(m.median)} ข้อ</span>}
             <span className="vmx-actfig-sum">{m.days} วัน ทำ {m.total.toLocaleString()} ข้อ ใน {m.activeDays} วัน</span>
           </>
         ) : (

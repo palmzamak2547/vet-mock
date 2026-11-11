@@ -61,7 +61,7 @@ export default function IdentityEditor({
   const fieldError = touched && !keepName && !check.ok ? check.reason : free === false || free === 'taken' ? 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น' : free === 'similar' ? 'คล้ายกับชื่อที่มีคนใช้แล้ว ลองชื่ออื่น' : '';
   const hint = auto && current
     ? `ตอนนี้ชื่อของคุณคือ ${current} ซึ่งระบบตั้งให้ ตั้งชื่อเองได้ที่นี่`
-    : `อักษรไทยหรืออังกฤษ ${NAME_MAX} ตัวอักษรไม่เกิน ห้ามใช้อีเมลหรือรหัสนิสิต`;
+    : `อักษรไทยหรืออังกฤษ ไม่เกิน ${NAME_MAX} ตัวอักษร ห้ามใช้อีเมลหรือรหัสนิสิต`;
   const changed = !keepName || picture !== startPicture || shown !== showsOnBoards(user);
 
   const submit = async (event) => {
