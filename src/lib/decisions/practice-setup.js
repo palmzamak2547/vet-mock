@@ -11,7 +11,7 @@ const capTo = (n, available) => (Number.isFinite(available) && available > 0 ? M
 // count, which could disagree with Home's clock; a paper already over is not
 // counted (decide-signals.js reads the paper's end time).
 const nearClause = (days) => (Number.isInteger(days) && days >= 0 && days <= 14
-  ? ' ใกล้สอบวิชานี้แล้ว ลองขั้นแบบสอบได้ใน "ปรับเอง"' : '');
+  ? ' ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง"' : '');
 
 export const PRACTICE_SETUP = defineDecision({
   id: 'practice.setup',
@@ -42,11 +42,12 @@ export const PRACTICE_SETUP = defineDecision({
     };
     // The order the set really gets: rung 1 asks for the gentle order unless
     // the level pick is on (ConfigView's `gentle`), and says "probably" as the
-    // ladder does, since difficulty is mostly a proxy.
+    // ladder does, since difficulty is mostly a proxy. The why never repeats
+    // the line above it (5.214): the clock and the answer are already there.
     const order = value.pick === 'adaptive' ? 'เลือกข้อตามระดับของคุณ' : 'ข้อที่น่าจะง่ายมาก่อน';
-    const base = step === 'timed' ? 'ขั้นใช้ความรู้ ขั้นล่าสุดที่คุณฝึก จับเวลาทีละข้อ'
-      : s.hasHistory ? `ขั้นทำความเข้าใจ ${order} เห็นเฉลยทุกข้อ`
-        : `เริ่มขั้นแรก ${order} เห็นเฉลยทุกข้อ`;
+    const base = step === 'timed' ? 'ขั้นใช้ความรู้ ขั้นล่าสุดที่คุณฝึก'
+      : s.hasHistory ? `ขั้นทำความเข้าใจ ${order}`
+        : `เริ่มขั้นแรก ${order}`;
     return { value, why: base + nearClause(s.daysToPaper) };
   },
   merge(auto, stored, s = {}) {

@@ -186,6 +186,11 @@ test('the clock copy says what each clock does', async (t) => {
   view.unmount();
   view = mount(ConfigView, { ...props, mode: 'exam', useTimer: true, availablePool: [] });
   assert.match(textOf(view.tree), /นาฬิกาเดียวทั้งชุด, หมดเวลาคือส่งทั้งชุด/);
+  // Said once, at the switch where the clock is chosen (5.214), never again
+  // in the ladder's hint or the start bar's summary; the answer rule once too.
+  assert.equal(textOf(view.tree).split('นาฬิกาเดียว').length - 1, 1, 'the clock rule is said more than once');
+  assert.equal(textOf(view.tree).split('หมดเวลาคือส่ง').length - 1, 1);
+  assert.ok(textOf(view.tree).split('เฉลยหลังส่ง').length - 1 <= 1, '"เฉลยหลังส่ง" more than once');
   assert.doesNotMatch(textOf(view.tree), /เฉลยทันที\s*เปิด/, 'exam mode has no instant feedback switch');
   view.unmount();
 });
@@ -227,7 +232,7 @@ test('a set the app decided: the line and its reason, the start under it, the ro
   assert.equal(region.props.role, 'region');
   assert.equal(region.props.hidden, true);
   assert.equal(ladderSteps(region).length, 3, 'the ladder is inside the region');
-  assert.match(textOf(whyLine(view.tree)), /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน เห็นเฉลยทุกข้อ/, 'the hedge the ladder uses');
+  assert.match(textOf(whyLine(view.tree)), /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน(?: ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง")?$/, 'the hedge the ladder uses, and nothing the line above already says');
   assert.deepEqual(order(view.tree), ['start', 'toggle', 'region'], 'closed: the start right under the line');
   toggle.props.onClick();
   view.flush();

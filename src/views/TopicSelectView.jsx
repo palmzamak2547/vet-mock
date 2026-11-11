@@ -494,7 +494,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="icon"><NavIcon name="exam" size={20} /></div>
           <div className="title">สอบจริง</div>
           <div className="sub">{setAvailable
-            ? 'ขั้นแบบสอบ 50 ข้อ × 60 วิ, นาฬิกาเดียวทั้งชุด เฉลยหลังส่ง'
+            ? 'ขั้นแบบสอบ 50 ข้อ × 60 วิ เฉลยหลังส่ง'
             : resources.questions?.available ? `ไม่มีข้อในช่วง${paperLabel}` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
 

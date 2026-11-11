@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openHomeModes } from './fixtures.js';
 
 // Quiet screens (AGENTS.md "Quiet screens"): what a student did not come for
 // is either gone or folded into one row. One test per removed or folded
@@ -18,6 +18,22 @@ test('a first-time Home says "ลองทำ 1 ข้อแรก" once, on the
   await expect(page.locator('.vmx-command-center')).toBeVisible();
   await expect(page.getByText(/ลองทำ\s*1 ข้อแรก/)).toHaveCount(1);
   await expect(page.locator('.vmx-home-hero').getByText(/1 ข้อแรก/)).toHaveCount(0);
+});
+
+test('the exam settings say the clock rule once and give the whole-pool count a unit', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.vmx-command-center')).toBeVisible();
+  await openHomeModes(page);
+  await page.getByRole('button', { name: /จำลองสนามสอบ/ }).first().click();
+  await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า/ })).toBeVisible();
+  await expect(page.locator('#vmx-timer-state')).toContainText('นาฬิกาเดียวทั้งชุด');
+  const text = await page.locator('#main').innerText();
+  expect(text.split('นาฬิกาเดียว').length - 1, 'the clock rule is said more than once').toBe(1);
+  expect(text.split('เฉลยหลังส่ง').length - 1).toBeLessThanOrEqual(1);
+  expect(text).not.toContain('เปลี่ยนวิชาได้ที่นี่');
+  // The whole-pool chip says what it is; no bare four-digit number.
+  const chips = await page.locator('[aria-labelledby="vmx-config-count-label"] .vmx-chip').allTextContents();
+  for (const c of chips) expect(c.trim()).toMatch(/^(\d{1,2}|ทั้งหมด [\d,]+ ข้อ)$/);
 });
 
 test('the wiki index opens on its search, with no lede and no library counts', async ({ page }) => {
