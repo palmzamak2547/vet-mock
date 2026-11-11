@@ -9,7 +9,7 @@ import { lintQuestionTables } from '../../scripts/lint-question-tables.mjs';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
 
 // The explanations that carry a figure (docs/releases/pending/visual-explanations.md). A new one is added here.
-const FIGURES = ['epidemiology:213503', 'epidemiology:214560', 'epidemiology:214561', 'epidemiology:214562', 'epidemiology:214565', 'epidemiology:214602', 'epidemiology:214650', 'equine-repro:105571'];
+const FIGURES = ['epidemiology:214560', 'epidemiology:214561', 'epidemiology:214650', 'equine-repro:105571'];
 const TABLE = '| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |';
 const BEFORE = 'ประเมิน ELISA ในโค 404 ตัว';
 const AFTER = 'fecal culture เป็น gold standard';

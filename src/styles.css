@@ -3041,7 +3041,8 @@ html.dark .vmx-panic-scrim {
 /* A figure in an explanation or a passage (src/lib/figure-spec.js). Only the
    box lives here, so the space FigureSlot holds before the drawing arrives is
    the space the drawing takes; the rest is styles-figure.css, in its own chunk. */
-.vmx-fig { display: block; position: relative; box-sizing: border-box; max-width: 34rem; margin: 12px 0; padding: 14px 14px 12px; border: 1px solid color-mix(in srgb, var(--clr-ink-soft) 28%, transparent); border-radius: var(--r-md); background: var(--clr-surface); }
+.vmx-fig-slot { max-width: 34rem; margin: 12px 0; }
+.vmx-fig { display: block; position: relative; box-sizing: border-box; padding: 14px 14px 12px; border: 1px solid color-mix(in srgb, var(--clr-ink-soft) 28%, transparent); border-radius: var(--r-md); background: var(--clr-surface); }
 @media (max-width: 640px) {
   .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
   .vmx-qtable tbody th { min-width: 5em; }

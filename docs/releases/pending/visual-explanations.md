@@ -1,30 +1,26 @@
 ```js
 // Changelog line for the wave release (src/data/changelog/<ver>.js)
-{ kind: 'feature', scope: 'system', title: 'เฉลย 8 ข้อมีภาพอธิบาย', desc: 'ตาราง 2x2 ที่บอกว่าอ่านตามแถวหรือตามคอลัมน์ ช่วงความเชื่อมั่นที่ครอบค่า 1 กราฟแท่ง ลำดับขั้นตอน เส้นเวลา และแถบช่วงของ kappa ภาพค่อยๆ ปรากฏตามลำดับเหตุผลหลังตอบ ตัวเลขทุกตัวมาจากเฉลยเดิม และเสียงอ่านยังอ่านเหมือนเดิม' }
+{ kind: 'feature', scope: 'system', title: 'เฉลย 4 ข้อมีภาพอธิบาย', desc: 'ภาพอยู่ข้างเฉลยเดิมที่ยังอยู่ครบทุกประโยค ตาราง 2x2 บอกว่าช่องไหนเป็นตัวตั้ง ช่องไหนเป็นตัวหาร และอ่านตามแถวหรือตามคอลัมน์ กราฟแท่งเทียบขนาดตัวอย่าง และเส้นเวลาของกฎ 1-2-3 ตัวเลขทุกตัวมาจากเฉลยเดิม และเสียงอ่านยังอ่านเหมือนเดิม' }
 // headline: 'เฉลยบางข้อมีภาพอธิบาย'
 ```
 
 # Figures in explanations (prototype)
 
-A first, small layer of drawn figures under the answer, on eight real questions, for the owner to
+A first, small layer of drawn figures under the answer, on four real questions, for the owner to
 look at before anything is rolled out. Nothing changes for a question without a figure, nothing
 changes while a timed paper is being taken, and nothing about scoring.
 
 ## What a student sees
 
-After answering one of the eight in practice, the explanation carries one figure, drawn on a
+After answering one of the four in practice, the explanation keeps every sentence it had on main and carries one figure beside it, drawn on a
 lighter paper with a faint rule grid, in the app's own type and colours:
 
 | Kind | Question | What it shows at a glance |
 |---|---|---|
-| `twobytwo` | 214560 | sensitivity and specificity read **down a column**: a rail from the counted cell to the column total |
-| `twobytwo` | 214561 | the same herd, PPV and NPV read **along a row** |
-| `interval` | 213503 | OR 2.19, its interval 0.51 to 9.43 on a log scale (labelled so on the axis), a ring where it crosses the dashed line at 1 |
-| `bars` | 214650 | sample size at four confidence levels, 384 marked; replaces the table that listed them |
-| `flow` | 214602 | outbreak steps 2, 4, 5, 7 (broken links where steps are skipped), step 7 marked |
-| `flow` | 214562 | testing in series against in parallel, side by side, series marked; the paragraph stays above it |
-| `scale` | 214565 | kappa 0.460 inside the moderate band 0.40 to 0.59 (the only band the explanation gives) |
-| `timeline` | 105571 | the foal's 1-2-3 rule, hours after birth, 2 hours marked; the rule's sentence stays above it |
+| `twobytwo` | 214560 | the cell counted (ตัวตั้ง, filled in ink) and the total it is divided by (ตัวหาร, an ink ring), a rail **down the column**, and the words อ่านลงตามคอลัมน์; the answer's fractions wear the accent |
+| `twobytwo` | 214561 | the same herd, PPV and NPV read **along the row** (อ่านตามแถว) |
+| `bars` | 214650 | sample size at four confidence levels, 384 marked; it replaces the four-row table, the one place a figure replaces anything |
+| `timeline` | 105571 | the foal's 1-2-3 rule, hours after birth, 2 hours marked; meconium named as the option names it |
 
 One accent means "this answers": the sage the correct option already wears. Labels sit on their
 marks; there is no legend. Beside a figure the house headers ❌ and 💡 are drawn as line icons
@@ -67,7 +63,7 @@ motion setting, a review list or an answer seen again show the finished figure.
   app's `--ease-out` over 300 ms. `@starting-style` fades the figure in; without it the figure just
   appears. A container query lets the 2x2 breathe on wide screens.
 
-Not done here: a figure in a passage is parsed and drawn but none of the eight uses one; the held
+Not done here: a figure in a passage is parsed and drawn but none of the four uses one; the held
 height is fitted to a 375 px phone, so on another width a figure whose drawing arrives late can
 still move the text below it.
 
@@ -82,11 +78,43 @@ still move the text below it.
 | Parser gaps | A repeated single key, a ratio bound at or below 0, a non-number, an estimate outside its bounds, a negative bar, a span that ends before it starts are refused; a note must name the no-difference value and sit on a crossing interval | `figure-spec.test.mjs` |
 | The speech test was weakened | Restored for every text; the explanations with a figure are named one by one and each must speak its `explainSay` | `rich-blocks.test.mjs` |
 | The screen-reader description left things out | It now carries every cell, step detail, time, band bound, the note, the log axis, and names the answer's mark | rendered with the review's `aria.mjs` |
-| Content | 213520's figure dropped (it redrew the passage's table and added no reading). 214562 and 105571 keep their full sentences above the figure. 214565 shows only the band the text gives. 213503's axis says it is logarithmic. 214560 and 214561 kept: the question is which denominator, and the rail down a column or along a row is the reading the table does not show | the lint's "adds no reading" rule |
+| Content (superseded by round 2) | 213520's figure dropped (it redrew the passage's table and added no reading). 214562 and 105571 keep their full sentences above the figure. 214565 shows only the band the text gives. 213503's axis says it is logarithmic. 214560 and 214561 kept: the question is which denominator, and the rail down a column or along a row is the reading the table does not show | the lint's "adds no reading" rule |
 
 What a machine cannot check: whether values the text gives as two parallel lists ("270, 471 และ 663 ... 90%, 97% และ 99% ตามลำดับ") are paired in that order, whether a label paraphrases faithfully, and whether a figure reads better than its text.
 
+## Review round 2 (reading, motion, access): decisions and fixes
+
+Decided: a figure never replaces a sentence. It sits beside the whole text and stays only where a student gets the answer faster with it.
+
+Removed, each explanation back to main byte for byte:
+
+| Question | Why |
+|---|---|
+| 213520 | it showed how to compute the OR; the question asks which way to read it, and the drawing came 271 px before the interpretation |
+| 213503 | it repeated the sentence above it, and the eye landed on 2.19, the wrong option |
+| 214565 | it repeated the sentence, and its bands taught kappa cut-offs the source does not give |
+| 214602 | 457 px on a 640 px screen, the accent on what the stem already says, the answer small grey text |
+| 214562 | three lines of text became 424 px, with Thai split inside words |
+
+Fixed in the four kept and in the components:
+
+| Finding | Change |
+|---|---|
+| Sentences lost | 214560, 214561 and 105571 keep main's explanation whole; 105571's timeline names meconium as option D does |
+| `/s+/g` deleted the letter s in the screen-reader text | `\s+`, with a test on Latin words that hold an s (`figure-draw.test.mjs`) |
+| The description left things out and joined unrelated steps with แล้ว | it lists every cell, label, value and time, what a formula uses and the way it reads, the answer's mark, separated as a list |
+| Overflow at 320 px, a timeline that spilled onto the paragraph | rows in normal flow, every height from `figureLayout(fig, width)`; a 2x2 moves its row names above the cells when narrow; bars put the value under a full-width bar when narrow; at 200% zoom a figure too narrow to draw is listed in words |
+| The page moved when the drawing arrived late | `FigureSlot` measures its width before paint and holds `figureLayout(fig, width).height`, the height the drawing lays itself out to; the house icons and their lazy styles are gone; e2e case with a 4 s delay |
+| The accent meant two things | sage is the answer only (the answer's fractions, the answer's bar and time); what a formula uses is ink, named ตัวตั้ง and ตัวหาร, with the way to read in words |
+| Dashes meant four things | one: the no-difference line of an interval, a reference that is not a value |
+| Lines under 3:1, the 12 px grid | cell and rail lines are ink or ink-soft; the grid paper is gone |
+| Thai split inside words | labels are cut into words with `Intl.Segmenter` and short pieces joined to their neighbour, each kept whole (`figure-draw.test.mjs`) |
+| The whole figure faded in | the data is there from the first frame; only the emphasis (ตัวตั้ง, ตัวหาร, the answer's mark) comes in, once, never under reduced motion |
+| Line icons only beside figures | removed; the house sections keep their own marks everywhere |
+
 ## Rollout candidates
+
+No rollout in this branch: the four kept must pass a re-review first. The counts below are what a rollout would look at.
 
 A heuristic over the 12 Year-5 final banks (file name holds `y5` and `final`, 1,330 questions), reading
 the passage, the stem and the spoken explanation. It names candidates; it does not judge that a figure

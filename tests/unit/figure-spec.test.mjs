@@ -157,5 +157,5 @@ test('the bank: every figure parses and passes', async () => {
   for (const file of bankFiles('src/data')) questions.push(...(await readBank(file)).questions);
   const { problems, figures } = lintQuestionFigures(questions);
   assert.deepEqual(problems, []);
-  assert.ok(figures >= 8);
+  assert.ok(figures >= 4);
 });
