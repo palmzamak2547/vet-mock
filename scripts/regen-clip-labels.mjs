@@ -62,6 +62,38 @@ export function clipDate(raw) {
   return `${day} ${TH_MONTH[month - 1]}`;
 }
 
+/**
+ * The Buddhist-era year a meta date names, or 0 when it names none. Four
+ * digits above 2400 are already BE, four below are CE; two digits are the
+ * short BE year the hand-written dates use ("11 Feb 68", "27 มิ.ย. 69").
+ */
+export function clipYearBE(raw) {
+  const s = String(raw ?? '').trim();
+  let m = /^(\d{4})-\d{1,2}-\d{1,2}(?!\d)/.exec(s);
+  if (!m) m = /^\d{1,2}\s+\S+\s+(\d{2}|\d{4})(?!\d)/.exec(s);
+  if (!m) return 0;
+  const y = Number(m[1]);
+  if (m[1].length === 2) return 2500 + y;
+  return y > 2400 ? y : y + 543;
+}
+
+/**
+ * A clip from an earlier academic year says its year: "7 พ.ย. 2568", so a
+ * recording of last November never reads as one still to come this term. The
+ * current year's clips stay "7 ต.ค.". The academic year is SEMESTER.id's BE
+ * year and starts in June (the first term opens in August).
+ */
+export function clipDateLabel(raw, academicYearBE) {
+  const day = clipDate(raw);
+  if (!day || !academicYearBE) return day;
+  const year = clipYearBE(raw);
+  if (!year) return day;
+  const [, month] = /^\d+ (\S+)$/.exec(day) || [];
+  const monthIndex = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'].indexOf(month);
+  const academic = monthIndex >= 5 ? year : year - 1;
+  return academic < academicYearBE ? `${day} ${year}` : day;
+}
+
 const byCodePoint = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
 /**
@@ -70,7 +102,7 @@ const byCodePoint = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
  * writes each subject's name once instead of once per clip: 23 KB instead of
  * 56 KB for the same 644 labels.
  */
-export function buildClipLabels({ meta, subjects }) {
+export function buildClipLabels({ meta, subjects, academicYearBE = 0 }) {
   const names = new Map(subjects.map((s) => [s.id, String(s.name || '').trim()]));
   const grouped = new Map();
   for (const id of Object.keys(meta).sort(byCodePoint)) {
@@ -80,7 +112,7 @@ export function buildClipLabels({ meta, subjects }) {
     // honest pointer beats a label naming the wrong course.
     if (!name) continue;
     if (!grouped.has(name)) grouped.set(name, {});
-    grouped.get(name)[id] = clipDate(entry.date);
+    grouped.get(name)[id] = clipDateLabel(entry.date, academicYearBE);
   }
   return Object.fromEntries([...grouped.keys()].sort(byCodePoint).map((name) => [name, grouped.get(name)]));
 }
@@ -99,7 +131,8 @@ export function renderClipLabels(labels) {
 // source-label.js names a timetabled session "คาบ 1 (4 ส.ค.)". A cited clip
 // that is not a session is named from here instead, "คลิป COM V (1 เม.ย.)",
 // so the student never reads a bare eleven-character id. Shape:
-// { subject name: { videoId: day and month, or '' when the meta has none } }.
+// { subject name: { videoId: day and month (and the BE year for a clip from
+// an earlier academic year), or '' when the meta has none } }.
 // ============================================================
 
 export const CLIPS_BY_SUBJECT = ${JSON.stringify(labels, null, 2)};
@@ -114,8 +147,10 @@ export async function generateClipLabels() {
   const { VIDEO_META } = await import(pathToFileURL(path.join(root, 'src/data/video-summaries-meta.js')).href);
   const { VIDEO_REGISTRY } = await import(pathToFileURL(path.join(root, 'src/data/video-registry.generated.js')).href);
   const { SUBJECTS } = await import(pathToFileURL(path.join(root, 'src/data/curriculum.js')).href);
+  const { SEMESTER } = await import(pathToFileURL(path.join(root, 'src/data/semester.js')).href);
   const library = Object.fromEntries(Object.entries(VIDEO_REGISTRY).map(([id, v]) => [id, { subject: v.subject, date: v.date }]));
-  return renderClipLabels(buildClipLabels({ meta: { ...library, ...VIDEO_META }, subjects: SUBJECTS }));
+  const academicYearBE = Number(String(SEMESTER.id).split('-', 1)[0]) || 0;
+  return renderClipLabels(buildClipLabels({ meta: { ...library, ...VIDEO_META }, subjects: SUBJECTS, academicYearBE }));
 }
 
 const invokedDirectly = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;

@@ -354,35 +354,35 @@ test('a question that cites no moment gets no clip link', () => {
 // the 270 KB clip index itself never loads with the chip.
 
 const { CLIPS_BY_SUBJECT } = await import('../../src/data/clip-labels.generated.js');
-const { clipDate, generateClipLabels, OUT: CLIP_LABELS_FILE } = await import('../../scripts/regen-clip-labels.mjs');
+const { clipDate, clipDateLabel, generateClipLabels, OUT: CLIP_LABELS_FILE } = await import('../../scripts/regen-clip-labels.mjs');
 const { sameGenerated } = await import('../../scripts/lib/same-generated.mjs');
 const KNOWN_CLIPS = new Set(Object.values(CLIPS_BY_SUBJECT).flatMap((clips) => Object.keys(clips)));
 
 test('a summarised clip that is not a session is named by its course and date', () => {
-  assert.equal(sessionLabel('ZblHFqIn5wA'), 'คลิป COM V (11 ก.พ.)');
-  assert.equal(sessionLabel('v6uVIpRJxZU'), 'คลิป COM V (1 เม.ย.)');
+  assert.equal(sessionLabel('ZblHFqIn5wA'), 'คลิป COM V (11 ก.พ. 2568)');
+  assert.equal(sessionLabel('v6uVIpRJxZU'), 'คลิป COM V (1 เม.ย. 2568)');
   // A clip whose summary carries no date is still named by its course.
   assert.equal(sessionLabel('0zkTYJYCUWA'), 'คลิป Vet Surg Lab II');
   // A timetabled session keeps its session name.
   assert.match(sessionLabel('gwgmq6oGOWc'), /^คาบ \d/);
   assert.equal(sessionLabel('7XyI0SjnuBA'), 'คาบ 1 (4 ส.ค.)');
-  assert.equal(humanSource('v6uVIpRJxZU [24:05] [24:18]'), 'คลิป COM V (1 เม.ย.) นาที 24:05, 24:18');
-  assert.equal(humanSource('ZblHFqIn5wA'), 'คลิป COM V (11 ก.พ.)');
+  assert.equal(humanSource('v6uVIpRJxZU [24:05] [24:18]'), 'คลิป COM V (1 เม.ย. 2568) นาที 24:05, 24:18');
+  assert.equal(humanSource('ZblHFqIn5wA'), 'คลิป COM V (11 ก.พ. 2568)');
   assert.deepEqual(recordingMoments('ZblHFqIn5wA [14:59]-[15:36]'), [
-    { videoId: 'ZblHFqIn5wA', seconds: 899, stamp: '14:59', session: 'คลิป COM V (11 ก.พ.)', label: 'คลิป COM V (11 ก.พ.) นาที 14:59' },
+    { videoId: 'ZblHFqIn5wA', seconds: 899, stamp: '14:59', session: 'คลิป COM V (11 ก.พ. 2568)', label: 'คลิป COM V (11 ก.พ. 2568) นาที 14:59' },
   ]);
 });
 
 test('208044 and 208058 show readable clip names and clickable minutes', () => {
   const heartworm = renderChip(bankRow('zoonoses', 208044), { open: true });
   assert.doesNotMatch(heartworm.text, /ZblHFqIn5wA|gwgmq6oGOWc/);
-  assert.match(heartworm.text, /คลิป COM V \(11 ก\.พ\.\) นาที 14:59/);
+  assert.match(heartworm.text, /คลิป COM V \(11 ก\.พ\. 2568\) นาที 14:59/);
   assert.ok(momentLinks(heartworm.tree).some((a) => a.props.href === '/app/videos?v=ZblHFqIn5wA&at=899'),
     'the heartworm clip minute must open');
 
   const protozoa = renderChip(bankRow('zoonoses', 208058), { open: true });
   assert.doesNotMatch(protozoa.text, /v6uVIpRJxZU|gwgmq6oGOWc/);
-  assert.match(protozoa.text, /คลิป COM V \(1 เม\.ย\.\) นาที 24:05, 24:18/);
+  assert.match(protozoa.text, /คลิป COM V \(1 เม\.ย\. 2568\) นาที 24:05, 24:18/);
   const hrefs = momentLinks(protozoa.tree).map((a) => a.props.href);
   for (const at of [1445, 1458]) assert.ok(hrefs.includes(`/app/videos?v=v6uVIpRJxZU&at=${at}`), `v6uVIpRJxZU at ${at}`);
 });
@@ -411,6 +411,19 @@ test('a clip summary date is read the ways the index writes it, and never guesse
   for (const none of ['มิถุนายน 69', 'surg1 lab', '31 Foo 68', '2025-13-01', '', null, undefined]) {
     assert.equal(clipDate(none), '', JSON.stringify(none));
   }
+});
+
+test('a clip from an earlier academic year says its year, and this year\'s does not', () => {
+  // 2569's academic year opens in June 2026: last November and this April are earlier.
+  assert.equal(clipDateLabel('2025-11-07', 2569), '7 พ.ย. 2568');
+  assert.equal(clipDateLabel('1 Apr 69', 2569), '1 เม.ย. 2569');
+  assert.equal(clipDateLabel('11 Feb 68', 2569), '11 ก.พ. 2568');
+  assert.equal(clipDateLabel('7 Oct 2024 (DekDokVet85, อ.วชิรา)', 2569), '7 ต.ค. 2567');
+  assert.equal(clipDateLabel('2026-10-09', 2569), '9 ต.ค.');
+  assert.equal(clipDateLabel('27 มิ.ย. 69', 2569), '27 มิ.ย.');
+  // No year in the date, or no academic year to compare: the day alone.
+  assert.equal(clipDateLabel('surg1 lab', 2569), '');
+  assert.equal(clipDateLabel('2025-11-07', 0), '7 พ.ย.');
 });
 
 test('the clip label map is current with the clip summaries, and stays small', async () => {
