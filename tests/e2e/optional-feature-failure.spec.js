@@ -14,7 +14,7 @@ test.beforeEach(async ({ page }) => {
 test('a failed search chunk says so in the search box, keeps the page draft, and retries', async ({ page, browserName }) => {
   let failing = true;
   let chunkFailed = false;
-  await page.route(//assets/CommandPalette-[^/]+.js/, route => {
+  await page.route(/\/assets\/CommandPalette-[^/]+\.js/, route => {
     if (!failing) return route.continue();
     chunkFailed = true;
     return route.abort();
