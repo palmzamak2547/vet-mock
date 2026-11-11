@@ -4839,6 +4839,16 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-feedback-explain-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin: -8px -8px 2px 0; }
 .vmx-instant-feedback .vmx-feedback-explain-head .k { margin-bottom: 0; }
 .vmx-instant-feedback .w .vmx-tts-note { margin: 6px 0 0; }
+/* The other options' reasons, folded after a correct answer: one 44px row. */
+.vmx-other-options { margin-top: 8px; border-top: 1px dashed var(--clr-border); }
+.vmx-other-options > summary {
+  display: flex; align-items: center; gap: 6px; min-height: 44px;
+  cursor: pointer; color: var(--clr-sage-text); font-weight: 600; list-style: none;
+}
+.vmx-other-options > summary::-webkit-details-marker { display: none; }
+.vmx-other-options > summary::after { content: '▾'; margin-left: auto; }
+.vmx-other-options[open] > summary::after { content: '▴'; }
+.vmx-other-options > summary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
 /* The เหตุผล read-aloud: a real 44px button (the touch floor, STABILITY.md §1:
    no pseudo-element hit areas) that draws a 32px circle inside it. */
 .vmx-listen-btn { flex: none; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--clr-ink); display: flex; align-items: center; justify-content: center; cursor: pointer; }

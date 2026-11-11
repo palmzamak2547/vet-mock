@@ -9,6 +9,7 @@ import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
 import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { otherOptionsFold } from '../lib/explain-fold.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -469,6 +470,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               figure={explainFigure}
               evidence={evidence}
               subject={currentQ.subject}
+              foldOtherOptions
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
@@ -942,7 +944,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -963,6 +965,10 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
     return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per revealed answer
   const combo = ok && run >= COMBO_MIN;
+  const linked = (t) => <TermLinkedRichText text={t} subject={subject} />;
+  // Only a correct answer folds the other options' reasons; a miss, or a
+  // reveal without an answer, reads them open as before (lib/explain-fold.js).
+  const fold = ok && foldOtherOptions ? otherOptionsFold(explain) : null;
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <div className="vmx-feedback-header">
@@ -990,7 +996,23 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
-          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}>
+            {fold ? (
+              <>
+                <RichBlocks text={fold.before} renderText={linked} />
+                {/* Answered correctly: the other options' reasons wait behind
+                    one row. Native details, so the text stays in the page
+                    (read-aloud marks it, find-in-page reaches it). */}
+                <details className="vmx-other-options">
+                  <summary>{fold.heading.trim()}</summary>
+                  <RichBlocks text={fold.body} renderText={linked} />
+                </details>
+                {fold.after.trim() && <RichBlocks text={fold.after} renderText={linked} />}
+              </>
+            ) : (
+              <RichBlocks text={explain} renderText={linked} />
+            )}
+          </div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}
