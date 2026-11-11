@@ -227,12 +227,11 @@ export const GUIDE_PATHS = [
   },
 ];
 
-// One hint per feature per day (lib/first-tip.js), rotating through the list
-// so a student who opens the notes every day meets a new capability instead
-// of the same sentence. The FIRST hint is what a student sees on day one, so
-// it is the one the owner asked for where there is one (notes: print to PDF).
-// `surface` limits a hint to one of the screens that share an id (VetWiki's
-// index and article share 'knowledge', so VetWiki speaks once a day).
+// One hint per feature, shown once ever per device (lib/first-tip.js); the
+// how-to guide holds the rest. Where the owner asked for one it is that one
+// (notes: print to PDF). `surface` picks the hint for one of the screens that
+// share an id (VetWiki's index and article share 'knowledge', so VetWiki
+// speaks once, on whichever screen the student meets first).
 // `guide` is the goal "ดูวิธีใช้เรื่องนี้ทั้งหมด" opens.
 export const FEATURE_TIPS = {
   library: {
@@ -242,11 +241,6 @@ export const FEATURE_TIPS = {
         title: 'เปิด PDF ของตัวเองได้ที่นี่',
         text: 'กด {ui:เปิด PDF ของฉัน} แล้ว {ui:เลือกไฟล์ PDF} ขีดเขียนบนไฟล์ได้ทันที',
         src: ['src/views/LibraryView.jsx', 'src/views/PdfAnnotateView.jsx'],
-      },
-      {
-        title: 'ส่งออกพร้อมรอยเขียนได้',
-        text: 'เขียนบน PDF แล้วเปิดเมนู {ui:เครื่องมืออื่น} เลือก {ui:ส่งออกทั้งเล่มพร้อมรอยเขียน}',
-        src: ['src/views/PdfAnnotateView.jsx'],
       },
     ],
   },
@@ -258,18 +252,6 @@ export const FEATURE_TIPS = {
         title: 'ค้นได้ทั้งเนื้อหา ไม่ใช่แค่ชื่อหัวข้อ',
         text: 'พิมพ์คำสำคัญ เช่น ชื่อโรคหรือยา ใต้ผลค้นหามี {ui:พบใน:} บอกส่วนที่เจอ แตะไปอ่านได้เลย',
         src: ['src/views/KnowledgeView.jsx'],
-      },
-      {
-        surface: 'index',
-        title: 'ทุกส่วนบอกที่มา',
-        text: 'เปิดหัวข้อแล้วดูบรรทัด {ui:ที่มา:} ในแต่ละส่วน ว่าข้อความนั้นมาจากเอกสารไหน',
-        src: ['src/views/KnowledgeView.jsx'],
-      },
-      {
-        surface: 'article',
-        title: 'อ่านยาวไม่หลุด',
-        text: 'กด {ui:โฟกัสทีละย่อหน้า} แล้วใช้ {ui:ถัดไป} อ่านทีละย่อหน้า',
-        src: ['src/components/ReadingEffects.jsx'],
       },
       {
         surface: 'article',
@@ -287,11 +269,6 @@ export const FEATURE_TIPS = {
         text: 'กด {ui:พิมพ์} ข้างชื่อหัวข้อ แล้วเลือกบันทึกเป็น PDF เก็บไว้อ่านต่อ',
         src: ['src/views/NotesView.jsx'],
       },
-      {
-        title: 'อ่านยาวไม่หลุด',
-        text: 'กด {ui:โฟกัสทีละย่อหน้า} แล้วใช้ {ui:ถัดไป} อ่านทีละย่อหน้า',
-        src: ['src/components/ReadingEffects.jsx'],
-      },
     ],
   },
   videos: {
@@ -301,16 +278,6 @@ export const FEATURE_TIPS = {
         title: 'สรุปคลิปเก็บเป็น PDF ได้',
         text: 'คลิปที่มีสรุป กด {ui:อ่านสรุปคลิป} ใต้เครื่องเล่น แล้วกด {ui:บันทึกเป็น PDF}',
         src: ['src/views/VideoView.jsx', 'src/components/SummaryModal.jsx'],
-      },
-      {
-        title: 'จดโน้ตตรงนาทีที่สำคัญ',
-        text: 'ระหว่างดู กด {ui:+ จด ณ เวลานี้} แล้วแตะเวลาในโน้ต เพื่อกลับไปฟังช่วงนั้น',
-        src: ['src/components/VideoNotePanel.jsx'],
-      },
-      {
-        title: 'เก็บประโยคสำคัญเป็นการ์ด',
-        text: 'ในสรุปคลิป ลากคลุมข้อความแล้วกด {ui:ทำ flashcard} การ์ดจะไปรอใน {feature:sr-session}',
-        src: ['src/components/HighlightToCard.jsx'],
       },
     ],
   },
@@ -416,16 +383,9 @@ export function guidePathsFor(ctx = {}) {
     .filter((p) => p.steps.length > 0);
 }
 
-/**
- * Today's hint for a feature: the list for this surface, at this turn.
- * `turn` comes from lib/first-tip.js (0 on the first day ever, then +1 per
- * day the hint was shown), so day one always shows the first hint.
- */
-export function pickTip(id, { surface = null, turn = 0 } = {}) {
+/** A feature's one hint for this surface (shown once ever, lib/first-tip.js). */
+export function pickTip(id, { surface = null } = {}) {
   const entry = FEATURE_TIPS[id];
   if (!entry) return null;
-  const list = entry.tips.filter((t) => !t.surface || !surface || t.surface === surface);
-  if (!list.length) return null;
-  const n = Number.isInteger(turn) && turn >= 0 ? turn : 0;
-  return list[n % list.length];
+  return entry.tips.find((t) => !t.surface || !surface || t.surface === surface) || null;
 }
