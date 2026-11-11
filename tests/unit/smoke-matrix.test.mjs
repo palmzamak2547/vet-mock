@@ -147,9 +147,12 @@ test('every engine runs on runners of its own, the software-GL ones on one worke
   const gl = entries.filter((e) => e.group === 'gl').map((e) => `${e.project} ${e.shard}`).sort();
   assert.deepEqual(gl, ['firefox-desktop 1/2', 'firefox-desktop 2/2', 'webkit-mobile 1/3', 'webkit-mobile 2/3', 'webkit-mobile 3/3']);
   // Both Chromium projects on one runner took 12.2-12.3 of 14 min in three of
-  // five runs (14 Oct): one project per runner, the connected specs on one.
+  // five runs (14 Oct): one project per runner, the connected specs on one. On
+  // 11 Nov chromium desktop took 12.8 minutes against Playwright's 13-minute
+  // globalTimeout: each Chromium project is now in halves.
   const chromium = entries.filter((e) => e.group === 'chromium');
-  assert.deepEqual(chromium.map((e) => e.project).sort(), ['chromium-desktop', 'chromium-mobile']);
+  assert.deepEqual(chromium.map((e) => `${e.project} ${e.shard}`).sort(),
+    ['chromium-desktop 1/2', 'chromium-desktop 2/2', 'chromium-mobile 1/2', 'chromium-mobile 2/2']);
   assert.equal(chromium.filter((e) => e.connected).length, 1, 'the connected bundle and specs run on one Chromium runner');
   assert.equal(entries.filter((e) => e.connected).length, 1);
   const steps = e2e.split(/\n\s*- name: /);
@@ -164,6 +167,7 @@ test('every engine runs on runners of its own, the software-GL ones on one worke
   assert.match(chromiumStep, /^        if: matrix\.group == 'chromium'$/m);
   assert.match(glStep, /^        if: matrix\.group == 'gl'$/m);
   assert.match(chromiumStep, /--project=\$\{\{ matrix\.project \}\}/);
+  assert.match(chromiumStep, /--shard=\$\{\{ matrix\.shard \}\}/);
   for (const name of [/^Build the connected bundle/, /^Keep the placeholder database host/, /^Run the connected specs/, /^The connected specs ran/]) {
     assert.match(steps.find((s) => name.test(s)), /if: matrix\.connected$/m, String(name));
   }
@@ -180,4 +184,22 @@ test('a runner whose browser step hits its cap still has time to upload the repo
   assert.match(e2e, /name: playwright-report-\$\{\{ matrix\.report \}\}/);
   const reports = [...e2e.matchAll(/^\s+report: (\S+)$/gm)].map((m) => m[1]);
   assert.equal(new Set(reports).size, reports.length);
+});
+
+// 11 Nov 2026: a runner added or removed must show in the workflow header's list, which carries
+// the minutes measured when the matrix last changed, and the required aggregate must wait for every
+// job that runs e2e: a job outside smoke's needs could fail without turning smoke red.
+test('the runner list in the header, the matrix and smoke\'s needs agree', () => {
+  const labels = jobs.e2e.split(/\n\s+- label: /).slice(1).map((entry) => entry.split('\n')[0].trim());
+  assert.equal(new Set(labels).size, labels.length, 'labels are unique');
+  const header = workflow.split(/\nname: Smoke e2e\n/)[0];
+  const listed = /^# Runners: ([\s\S]*?)\.\n/m.exec(header)?.[1].replace(/\n# /g, ' ').split('; ').map((l) => l.trim());
+  assert.deepEqual(listed?.slice().sort(), labels.slice().sort(), 'the header lists exactly the matrix runners');
+  assert.match(header.replace(/\n# /g, ' '), /split a job when its tests pass 9 of the 13 minutes/);
+  const needs = /^    needs: \[([^\]]*)\]$/m.exec(jobs.smoke)[1].split(',').map((n) => n.trim());
+  const runsE2e = Object.entries(jobs).filter(([, block]) => /npx playwright test/.test(block)).map(([id]) => id);
+  assert.ok(runsE2e.length >= 1);
+  for (const id of runsE2e) assert.ok(needs.includes(id), `smoke needs ${id}`);
+  // The aggregate passes only when the whole matrix passed: a failed or skipped leg fails it.
+  assert.match(jobs.smoke, /test "\$RESULT" = "success"/);
 });

@@ -35,6 +35,23 @@
 # WebKit half 1 9.1 of 16 (its Atlas WebGL specs come first and are slow on
 # Mesa). Chromium now runs one project per runner, WebKit in thirds, Firefox
 # (6.7 and 5.9) stays in halves. Add a shard when one passes about 40%.
+#
+# 2026-11-11: chromium is in halves too. Measured on run 43002929162 (whole job
+# minutes, Playwright suite step in brackets): chromium desktop 12.8 (9.2; the
+# connected bundle and specs take the rest), chromium mobile 9.9 (8.4), webkit
+# thirds 10.6 (8.3), 10.6 (8.2) and 7.5 (5.9), firefox halves 8.2 (6.9) and
+# 10.8 (9.3). Playwright's own globalTimeout in CI is 13 minutes
+# (playwright.config.js), so chromium desktop was a minute from turning every
+# pull request red with more specs landing. The rule: split a job when its tests
+# pass 9 of the 13 minutes. Each new runner repeats checkout, npm ci, the browser
+# install and the build, about 4 minutes, so this adds 2 runners and about 8
+# job-minutes a run (about 76 to about 84) while the slowest job drops from 12.8
+# to about 11 (firefox half 2, then chromium desktop half 1 with the connected
+# specs at about 9). tests/unit/smoke-matrix.test.mjs fails if a runner is added
+# or removed without this list, or if `smoke` stops waiting for the e2e matrix.
+# Runners: chromium desktop, half 1; chromium desktop, half 2; chromium mobile,
+# half 1; chromium mobile, half 2; webkit, third 1; webkit, third 2; webkit,
+# third 3; firefox, half 1; firefox, half 2.
 # The job named `smoke` below is what Vercel and branch protection wait for;
 # it passes only when every runner passed.
 #
@@ -101,8 +118,8 @@
 #
 # Cost of one pull request as the workflows stand after this change (measured
 # on #206 and #207, 11 Nov): a push to a ready pull request starts 5-6
-# workflow runs: this one (11 jobs: state, changes, Annotation PostgreSQL, 7 e2e
-# runners, smoke; about 75 job-minutes, nearly all e2e), Build (1 job, 4-5
+# workflow runs: this one (state, changes, Annotation PostgreSQL, the e2e runners
+# listed above, smoke; about 75 job-minutes with 7 runners, more since), Build (1 job, 4-5
 # min), AI, Research and VCA (2-3 jobs each, under a minute each), and Lint
 # questions when a question bank moved. A push to a draft starts the same runs
 # but this one runs 2 jobs (state, then the draft-named smoke, which reads the
@@ -268,17 +285,31 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - label: chromium desktop
+          - label: chromium desktop, half 1
             group: chromium
             browsers: chromium
             project: chromium-desktop
+            shard: 1/2
             connected: true
-            report: chromium-desktop
-          - label: chromium mobile
+            report: chromium-desktop-1
+          - label: chromium desktop, half 2
+            group: chromium
+            browsers: chromium
+            project: chromium-desktop
+            shard: 2/2
+            report: chromium-desktop-2
+          - label: chromium mobile, half 1
             group: chromium
             browsers: chromium
             project: chromium-mobile
-            report: chromium-mobile
+            shard: 1/2
+            report: chromium-mobile-1
+          - label: chromium mobile, half 2
+            group: chromium
+            browsers: chromium
+            project: chromium-mobile
+            shard: 2/2
+            report: chromium-mobile-2
           - label: webkit, third 1
             group: gl
             browsers: webkit
@@ -397,6 +428,7 @@ jobs:
         run: >-
           xvfb-run --auto-servernum npx playwright test
           --project=${{ matrix.project }}
+          --shard=${{ matrix.shard }}
 
       - name: Keep the placeholder database host off the real network
         # The connected specs answer every request to that host themselves and
