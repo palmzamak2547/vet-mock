@@ -37,7 +37,7 @@ const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl, signedArchiveUrl } from '../lib/vca-library.js';
 import { authHeader } from '../lib/api-auth.js';
-import { verificationRefs, sourceDocumentPointer } from '../lib/source-refs.js';
+import { verificationRefs, sourceDocumentPointer, verifiedLine } from '../lib/source-refs.js';
 import NavIcon from './NavIcon.jsx';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
@@ -167,8 +167,9 @@ export default function QSourceChip({ q, revealed = false }) {
           {q.source && (
             <Row label="ที่มา" value={readable(humanSource(q.source))} />
           )}
-          {q.verified && (
-            <Row label="ตรวจกับ" value={readable(humanSource(q.verified))} icon="✓" iconColor="var(--clr-sage)" />
+          {/* With a references list below, the line leaves its bare addresses to the list. */}
+          {verifiedLine(q) && (
+            <Row label="ตรวจกับ" value={readable(humanSource(verifiedLine(q)))} icon="✓" iconColor="var(--clr-sage)" />
           )}
           {/* Each cited moment of a recording opens that clip at that second.
               A new tab, so the question the student is on stays where it is. */}

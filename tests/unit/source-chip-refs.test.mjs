@@ -17,7 +17,7 @@ import { registerHooks } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { transformSync } from 'esbuild';
 import { QB, loadQB } from '../../src/data/questions.js';
-import { verificationRefs, sourceDocumentPointer } from '../../src/lib/source-refs.js';
+import { verificationRefs, sourceDocumentPointer, verifiedLine } from '../../src/lib/source-refs.js';
 
 const CHIP = 'vetmock-test:source-refs-chip';
 const STUB = 'vetmock-test:source-refs-stub:';
@@ -145,6 +145,35 @@ test('a Google Drive reference in the bank is text, every other one a link', () 
   const { tree } = render(q, { revealed: true, open: true });
   assert.ok(links(tree).some((a) => textOf(a).includes('เปิดเอกสารต้นฉบับ')));
   assert.ok(!links(tree).some((a) => a.props.rel === 'noopener noreferrer nofollow'));
+});
+
+// The "ตรวจกับ" row: the Row whose label child is that word.
+const verifiedRow = (tree) => findAll(tree, (n) => Array.isArray(n.props?.children)
+  && n.props.children.some((c) => c && typeof c === 'object' && c.props?.children === 'ตรวจกับ'))[0];
+
+test('with a references list, the "ตรวจกับ" line leaves its bare addresses to the list', () => {
+  let changed = 0;
+  for (const q of withRefs) {
+    const row = verifiedRow(render(q, { revealed: true, open: true }).tree);
+    if (row) assert.ok(!/http/i.test(textOf(row)), `${q.subject}#${q.id}: ${textOf(row)}`);
+    if (/https?:\/\//.test(q.verified || '')) changed += 1;
+  }
+  assert.ok(changed > 0, 'some verified lines held an address');
+  const q = QB.find((x) => x.subject === 'vca' && x.id === 200221);
+  const row = textOf(verifiedRow(render(q, { revealed: true, open: true }).tree));
+  assert.ok(row.includes('Immunology for VCA 2026, หน้า 15-16'), row);
+  assert.ok(!/[;,]\s*$/.test(row.trim()), row);
+});
+
+test('without a references list, the "ตรวจกับ" line is the bank text as before', () => {
+  const plain = QB.filter((x) => typeof x.verified === 'string' && x.verified && !x.verificationSources?.length);
+  const withUrl = plain.filter((x) => /https?:\/\//.test(x.verified));
+  assert.ok(withUrl.length > 0, 'some verified lines without references hold an address');
+  for (const q of plain) {
+    assert.equal(verifiedLine(q), q.verified, `${q.subject}#${q.id}`);
+  }
+  const row = textOf(verifiedRow(render(withUrl[0], { revealed: true, open: true }).tree));
+  assert.ok(/http/.test(row), row);
 });
 
 test('the source document names its page and its question number', () => {

@@ -23,6 +23,21 @@ export function verificationRefs(q) {
     .filter((r) => r.title);
 }
 
+// A bare address, with the separator in front of it ("…หน้า 15-16; https://…").
+const BARE_URL = /\s*[;,|]?\s*https?:\/\/[^\s,;)]+/g;
+
+/**
+ * The `verified` text the "ตรวจกับ" line prints. When the question lists its references, they carry
+ * the addresses, so the line leaves bare ones out; otherwise it is the text as the bank holds it.
+ */
+export function verifiedLine(q) {
+  const verified = typeof q?.verified === 'string' ? q.verified : '';
+  if (!verificationRefs(q).length) return verified;
+  const kept = verified.replace(BARE_URL, '').replace(/[\s;,|\-–—]+$/, '').trim();
+  // Nothing but an address: no line, the references list names it.
+  return kept;
+}
+
 const positive = (n) => Number.isInteger(n) && n > 0;
 
 /** "อ้างหน้า 9 ข้อ 2", "อ้างหน้า 9", "อ้างข้อ 2", or '' when the document names neither. */
