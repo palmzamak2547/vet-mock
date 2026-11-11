@@ -9,6 +9,7 @@ import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
 import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { displayStem } from '../lib/match-stem.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -146,6 +147,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   };
   // The voice reads `say`: the stem together with the numbers that sit in the passage's table.
   const saysTable = wholeStem(currentQ) !== (currentQ?.q || '');
+  // A matching stem shows without its old drag instruction (lib/match-stem.js); the voice
+  // still reads the whole stem, so no phrase is marked in one that was shortened.
+  const shownStem = displayStem(currentQ);
+  const stemShortened = shownStem !== (currentQ?.q || '');
   // Likewise an explanation laid out as steps: the voice reads the paragraph it was written as.
   const saysParagraph = wholeExplain(currentQ) !== (currentQ?.explain || '');
   // What a job reads: options in the order the student sees them, so
@@ -164,7 +169,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     // A stem read from `say`, or an explanation read from `explainSay`, is not the text on screen, so no
     // phrase is marked in it.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? (saysTable ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
+      ? (what === 'q' ? (saysTable || stemShortened ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
       : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
     // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
     block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
@@ -445,7 +450,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
+      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={shownStem} subject={currentQ.subject} /></h2>
 
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
