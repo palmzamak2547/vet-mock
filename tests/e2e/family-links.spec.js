@@ -47,6 +47,8 @@ test('an arrival from another site takes the theme and language once, then leave
 
 test('a value outside the allowed set is dropped, not applied', async ({ page }) => {
   await page.goto('/?vmt=%22%3E%3Cb%3E&e2e-fresh=1');
-  expect(await page.evaluate(() => localStorage.getItem('vmx-theme'))).not.toContain('<');
+  // Nothing written, or the app's own choice: never the value from the address.
+  const saved = await page.evaluate(() => localStorage.getItem('vmx-theme'));
+  expect([null, '"light"', '"dark"']).toContain(saved);
   expect(new URL(page.url()).searchParams.has('vmt')).toBe(false);
 });

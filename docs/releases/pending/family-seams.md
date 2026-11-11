@@ -2,23 +2,15 @@
 { kind: 'feature', scope: 'multi', title: 'ไปมาระหว่างเว็บ VetMock ได้จากทุกหน้า', desc: 'VetMock, VetMock VCA, VetMock AI และ VetMock Research มีปุ่มไปหากันที่หัวเว็บและท้ายเว็บ ใช้ชื่อเดียวกันทุกที่ ธีมที่เลือกตามไปด้วย และเข้าสู่ระบบแล้วกลับมาที่หัวข้อเดิม' }
 ```
 
-## Where I stopped (11 Nov, machine shutdown)
+## Checks run (11 Nov)
 
-(Placed under the changelog block, which stays first for the release tooling.)
-
-- Done and committed: items 1 to 4, 6 and 7, the sign-in design (`docs/FAMILY-SIGNIN.md`); item 5
-  written up as not done, with the reason. Builds of all four apps, `lint:dist` and `perf:budget`
-  passed. Unit tests: VCA 369/369, AI 89/89; root `lint:data` passed; root `test:unit` had 5
-  failures, 3 mine (fixed in 1dc9bc67 and rerun: those files pass), 1 a Python selftest that timed
-  out under load (passes alone); Research had 2 failures: an unused i18n key (fixed in fadb8f10)
-  and the 20,000-column preview timing (61 s against 10 s, while two builds shared the machine).
-- Running when stopped: the family e2e rerun on four engines (job of the spec change in the WIP
-  commit). First run: chromium desktop and mobile 6/6 passed; webkit-mobile failed one case
-  waiting for the section to stop moving (the scroll is removed in the WIP commit); firefox
-  failed all three on `page.goto` timeouts with GPU crash lines under load.
-- Next three steps: (1) rerun `tests/e2e/family-links.spec.js` on all four engines on a quiet
-  machine; (2) rerun the full root `npm run test:unit` and the Research timing test alone; (3)
-  if green, push `claude/family-seams` (not pushed yet) and report.
+- Builds of all four apps, root `lint:dist` and `perf:budget` (9 routes within budget): passed.
+- Root `lint:data`: passed. Root `test:unit`: 4,149 tests, 0 failures (after the three fixes in 1dc9bc67).
+- VCA unit 369/369, VetMock AI unit 89/89; Research unit passes after the unused-key fix (fadb8f10). Its
+  20,000-column preview test took 61 s against its 10 s limit while two builds shared the machine and
+  1.8 s run alone.
+- `tests/e2e/family-links.spec.js`: local pre-check on chromium-mobile and webkit-mobile (CI runs all four).
+  The first full run's Firefox failures were page-load timeouts under machine load: unproven, not regressions.
 
 # Family seams (pending release)
 
@@ -83,11 +75,25 @@ never leaves the page and was always fine).
 VetMock AI's source cards already link a VetWiki section to its public page
 (`/wiki/<subject>/<topic>#<section>`, `api/_lib/ai/retrieve.js`) and the rest to the app's own
 address; with 4 the section now survives a redirect sign-in. No change there.
-VCA library "open" still lands on a title search: the main library's stable address is
-`/app/pdf-annotate?doc=<slug>`, but the VCA catalogue does not know each document's library slug
-(the slugs in `src/data/vca-materials.js` are R2 archive backups, not library rows) and the mapping
-could not be checked without the database. Next step: export `slug` per VCA title from
-`library_docs` into the bank build, then link `readerUrl(slug)`.
+VCA library "open" still lands on a title search (`vca/src/pages/Library.jsx:17`). Left out of this
+branch on purpose; it is its own small piece:
+
+- **What is missing:** for each document on the VCA shelf, the `slug` of the matching row in
+  `public.library_docs`. The main app's stable address for a document is
+  `https://vetmock.com/app/pdf-annotate?doc=<slug>` (`readerUrl` in `src/lib/view-route.js`). The
+  slugs already in `src/data/vca-materials.js` (`vca-archive-<sha16>`) are R2 archive backups, not
+  library rows.
+- **The join key that exists:** every VCA file in `src/data/vca-materials.js` carries `sha256`;
+  every library row carries `sha256_16` (the first 16 hex of the file's SHA-256,
+  `supabase/migrations/20260827000000_library_docs_init.sql`). So `sha256.slice(0, 16)` =
+  `library_docs.sha256_16` (status published, subject `vca`) gives the slug, with `source_url`
+  (the Drive address both keep) as a cross-check.
+- **Where it comes from:** a read with the scripts' library reader (`scripts/lib/library-read.mjs`,
+  Management API, never the anon key), written once to a committed map
+  (`src/data/vca-library-slugs.js`: `{ [sha256_16]: slug }`), regenerated when VCA material is added.
+- **Then:** `vca/scripts/build-bank.mjs` adds `slug` to each shelf entry (the PDF's, else the first
+  file's), and `Library.jsx` links `readerUrl(slug)` on vetmock.com, keeping the title search only for
+  an entry with no slug. A unit test: every published VCA library row is reached by one shelf entry.
 
 ## 6. Theme and language across a crossing
 
@@ -108,6 +114,29 @@ VetMock", the app's own shared-question link (`?qset=`, built by `src/lib/share-
 "No." is now that link. Nothing inside a question, a set or an exam changed.
 Test: `vca/tests/unit/family-seams.test.mjs`. Unproven: the page was not seen (the VCA wall needs an
 account).
+
+## Every cross-site link, as it is followed (to check on production)
+
+`<t>` is the theme on screen when tapped (`light` or `dark`), `<l>` the language (`th` or `en`).
+The `href` in the page is the plain address (`https://<host>/`); the parameters are added at the tap.
+On arrival each site removes them, so the address bar ends on the plain address.
+
+| From | Where | Address followed |
+|---|---|---|
+| vetmock.com | home grid, command palette, tools menus (registry `vca-site`, `ai-tutor`, `research-studio`) | `https://vca.vetmock.com/?vmt=<t>`, `https://ai.vetmock.com/?vmt=<t>`, `https://research.vetmock.com/?vmt=<t>` |
+| vetmock.com | landing "VetMock ทั้งหมด" section and landing footer | `https://vca.vetmock.com/?vmt=<t>`, `https://ai.vetmock.com/?vmt=<t>`, `https://research.vetmock.com/?vmt=<t>&vml=<l>` |
+| vetmock.com | in-app footer, column "VetMock ทั้งหมด" | `https://vca.vetmock.com/?vmt=<t>`, `https://ai.vetmock.com/?vmt=<t>`, `https://research.vetmock.com/?vmt=<t>` |
+| vca.vetmock.com | top bar menu (grid button) and footer column VetMock | `https://vetmock.com/?vmt=<t>`, `https://ai.vetmock.com/?vmt=<t>`, `https://research.vetmock.com/?vmt=<t>` |
+| vca.vetmock.com | question page `/d/<domain>/<no>`, "เปิดข้อนี้ใน VetMock" | `https://vetmock.com/?qset=<base64url of [{"s":<subject>,"i":<id>}]>` |
+| vca.vetmock.com | bank row "No. <n>" (same site) | `/d/<domain>/<n>` |
+| ai.vetmock.com | header menu (also on the wall) and footer | `https://vetmock.com/?vmt=<t>`, `https://vca.vetmock.com/?vmt=<t>`, `https://research.vetmock.com/?vmt=<t>` |
+| research.vetmock.com | landing header menu, phone menu, public pages' header, workspace top bar, landing footer | `https://vetmock.com/?vmt=<t>&vml=<l>`, `https://vca.vetmock.com/?vmt=<t>`, `https://ai.vetmock.com/?vmt=<t>` |
+
+Unchanged and still live: VCA footer "ส่งความเห็น" `https://vetmock.com/app/feedback`, VCA About
+`https://vetmock.com/app/feedback` and `/app/contribute`, VCA library "open"
+`https://vetmock.com/app/library?subject=vca&q=<title>`, VetMock AI footer VetWiki
+`https://vetmock.com/wiki`, VetMock AI source cards (`/wiki/<subject>/<topic>#<section>`,
+`/?qset=`, `/app/videos?v=&at=`, `/app/library?subject=`), Research footer privacy and feedback.
 
 ## One sign-in for the family
 
