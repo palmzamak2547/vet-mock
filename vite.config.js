@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { atlasLocalPlugin } from './scripts/atlas-local-plugin.mjs'
+import { stripUnreadFieldsPlugin } from './scripts/strip-unread-fields.mjs'
 
 const atlasEntry = (server) => {
   server.middlewares.use((request, _response, next) => {
@@ -11,7 +12,9 @@ const atlasEntry = (server) => {
 };
 
 export default defineConfig({
-  plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry },
+  // stripUnreadFieldsPlugin: question and wrap-up fields only the repository's scripts read stay
+  // in src/ and out of what the browser downloads (scripts/strip-unread-fields.mjs).
+  plugins: [stripUnreadFieldsPlugin(), react(), atlasLocalPlugin(),{ name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry },
     // The commit a Vercel build serves, so a live check reads it from the page instead of from a
     // version string that a release without a changelog entry never changes (5.180.0). Not in
     // atlas.html: its bytes are Atlas's offline revision, and a new revision on every deploy would
