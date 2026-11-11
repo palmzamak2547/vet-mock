@@ -15,8 +15,13 @@
 // checks the new file decodes to the same width and height, and prints both
 // weights. With --write it also removes the original and changes the path
 // string in src/data/questions-*.js: the path and nothing else. Any other file
-// that names the old path is listed so it can be changed by hand. Then run
+// that names the old path is listed so it can be changed by hand, and the
+// redirect to add to vercel.json is printed: a set parked on a device keeps
+// its questions whole and goes on asking for the old address. Then run
 // `npm run regen:media`.
+//
+// A photograph stored on its side with an EXIF orientation is turned upright
+// first, since the WebP carries no such tag.
 //
 // Quality 86 keeps fine labels and thin coloured lines (a radiograph with
 // numbered leaders was the test); a flat graphic with a few colours is smaller
@@ -27,7 +32,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import sharp from 'sharp';
+
+import { toWebp } from './lib/media.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = path.join(ROOT, 'public');
@@ -68,6 +74,7 @@ function otherMentions(sitePath) {
 
 let failed = false;
 let saved = 0;
+const moved = [];
 for (const sitePath of targets) {
   const from = path.join(PUBLIC, sitePath.replace(/^\/+/, ''));
   const ext = path.extname(from).toLowerCase();
@@ -78,11 +85,9 @@ for (const sitePath of targets) {
   if (fs.existsSync(to)) { console.error(`✗ ${sitePath}: ${newSitePath} already exists`); failed = true; continue; }
 
   const source = fs.readFileSync(from);
-  const before = await sharp(source).metadata();
-  const webp = await sharp(source).webp({ quality: QUALITY, effort: 6, smartSubsample: true, alphaQuality: 100 }).toBuffer();
-  const after = await sharp(webp).metadata();
-  if (after.width !== before.width || after.height !== before.height) {
-    console.error(`✗ ${sitePath}: the WebP decodes to ${after.width}x${after.height}, the original is ${before.width}x${before.height}`);
+  const { webp, shown, orientation, decoded } = await toWebp(source, { quality: QUALITY });
+  if (decoded.width !== shown.width || decoded.height !== shown.height || decoded.orientation !== 1) {
+    console.error(`✗ ${sitePath}: the WebP decodes to ${decoded.width}x${decoded.height}, the original shows as ${shown.width}x${shown.height}`);
     failed = true;
     continue;
   }
@@ -93,8 +98,10 @@ for (const sitePath of targets) {
 
   const banks = bankFiles.filter((f) => fs.readFileSync(f, 'utf8').includes(sitePath));
   const others = otherMentions(sitePath);
-  console.log(`${WRITE ? '✓' : '·'} ${sitePath}: ${before.width}x${before.height}, ${kb(source.length)} -> ${kb(webp.length)} (${banks.length} bank file(s))`);
+  console.log(`${WRITE ? '✓' : '·'} ${sitePath}: ${shown.width}x${shown.height}${orientation !== 1 ? ` (turned upright from EXIF orientation ${orientation})` : ''}, ${kb(source.length)} -> ${kb(webp.length)} (${banks.length} bank file(s))`);
   for (const f of others) console.log(`    also named in ${f}: change it by hand`);
+  // A set parked on a device keeps its questions whole, old address included.
+  moved.push([sitePath, newSitePath]);
   saved += source.length - webp.length;
   if (!WRITE) continue;
 
@@ -104,4 +111,9 @@ for (const sitePath of targets) {
 }
 
 console.log(`${WRITE ? 'saved' : 'would save'} ${kb(saved)}${WRITE ? '; now run: npm run regen:media' : '; run again with --write'}`);
+if (moved.length) {
+  // tests/unit/media-redirects.test.mjs holds the table: no rule may lead to a missing file.
+  console.log(`${WRITE ? 'add' : 'with --write, add'} to "redirects" in vercel.json, before the rule for the old host, so a set parked before the deploy still finds its picture:`);
+  for (const [from, to] of moved) console.log(`    { "source": ${JSON.stringify(from)}, "destination": ${JSON.stringify(to)}, "permanent": false },`);
+}
 process.exit(failed ? 1 : 0);

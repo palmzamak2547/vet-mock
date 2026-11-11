@@ -23,7 +23,7 @@ import sharp from 'sharp';
 
 import {
   QUESTION_IMAGE_MAX_BYTES, SAME_BYTES_ALLOWED, buildRegistry, collectReferences, kindByFolder, lintMedia, nameLeak,
-  questionSizesText, registryText, slideSizesText,
+  questionSizesText, registryText, slideSizesText, sourceFiles, sourcePictures, toWebp,
 } from '../../scripts/lib/media.mjs';
 import { QUESTION_MEDIA_SIZES } from '../../src/data/media-sizes.generated.js';
 import { SLIDE_IMAGE_SIZES, slideImageSize } from '../../src/data/slide-image-sizes.generated.js';
@@ -34,7 +34,18 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 
 let tmp;
 let publicDir;
-const picture = (w, h, colour) => sharp({ create: { width: w, height: h, channels: 3, background: colour } }).webp().toBuffer();
+// A picture with texture, as a photograph has: each colour name seeds its own noise. A deck
+// figure of one flat colour is a drawn shape and fails the lint (the test for that is below).
+const picture = (w, h, colour) => {
+  const data = Buffer.alloc(w * h * 3);
+  let x = [...`${w}x${h}${colour}`].reduce((n, c) => (n * 31 + c.charCodeAt(0)) >>> 0, 7);
+  for (let i = 0; i < data.length; i++) {
+    x = (Math.imul(x, 1103515245) + 12345) >>> 0;
+    data[i] = 40 + ((x >>> 16) % 176);
+  }
+  return sharp(data, { raw: { width: w, height: h, channels: 3 } }).webp({ lossless: true }).toBuffer();
+};
+const flat = (w, h, colour) => sharp({ create: { width: w, height: h, channels: 3, background: colour } }).webp({ lossless: true }).toBuffer();
 const put = (sitePath, bytes) => {
   const abs = path.join(publicDir, sitePath.slice(1));
   fs.mkdirSync(path.dirname(abs), { recursive: true });
@@ -105,6 +116,68 @@ test('missing: a picture something shows that is not on disk fails, the explanat
   assert.match(mapGone.join('\n'), /^missing: \/figures\/vet-x\/topic--one\/p9-0\.webp is shown by note:vet-x--topic--one--c/);
 });
 
+// A page's own picture was only ever looked up from the disk: a file nothing
+// showed was searched for in src/. A path a page named that had no file was
+// never looked at, so a renamed landing screenshot would have shipped broken.
+test('missing: a picture a page names whole that is not on disk fails too', async () => {
+  const file = path.join(tmp, 'src', 'views', 'Broken.jsx');
+  fs.writeFileSync(file, [
+    'export default () => <img src="/images/landing/gone.webp" alt="" />;',
+    'const css = "background: url(/figures/questions/gone-too.png)";',
+    'const own = \'https://vetmock.com/images/landing/gone-as-well.jpg\';',
+    // None of these is a picture under public/: a path put together in code, another site's folder, a document.
+    'const built = `/images/${set}/x.png`;',
+    'const other = "https://example.org/th/images/logo.png";',
+    'const paper = "/images/syllabus.pdf";',
+    '',
+  ].join('\n'));
+  try {
+    const errors = await lint();
+    assert.deepEqual(errors.sort(), [
+      'missing: /figures/questions/gone-too.png is shown by source:src/views/Broken.jsx and is not under public/',
+      'missing: /images/landing/gone-as-well.jpg is shown by source:src/views/Broken.jsx and is not under public/',
+      'missing: /images/landing/gone.webp is shown by source:src/views/Broken.jsx and is not under public/',
+    ]);
+    assert.deepEqual([...sourcePictures(tmp).keys()].sort(), ['/figures/questions/gone-too.png', '/images/landing/gone-as-well.jpg', '/images/landing/gone.webp', '/images/landing/shot.webp']);
+  } finally {
+    fs.rmSync(file);
+  }
+  assert.deepEqual(await lint(), []);
+});
+
+// "Unreferenced, delete it" was said of any file src/ did not name. The VCA
+// site is built from this repository and the blog is plain HTML under public/.
+test('a picture only the VCA site or a static page names is that page\'s, with its users in one order', async () => {
+  const sources = {
+    'vca/src/pages/Home.jsx': 'export default () => <img src="/images/shared/vca-only.webp" alt="" />;\n',
+    'public/blog/post.html': '<img src="https://vetmock.com/images/shared/blog.webp" alt=""><img src="/images/shared/both.webp" alt="">\n',
+    'src/views/Zed.jsx': 'export const zed = "/images/shared/both.webp";\n',
+    'src/a/Alpha.jsx': 'export const alpha = "/images/shared/both.webp";\n',
+    'vca/index.html': '<link rel="preload" as="image" href="/images/shared/both.webp">\n',
+  };
+  for (const [file, text] of Object.entries(sources)) {
+    fs.mkdirSync(path.dirname(path.join(tmp, file)), { recursive: true });
+    fs.writeFileSync(path.join(tmp, file), text);
+  }
+  for (const [i, name] of ['vca-only', 'blog', 'both'].entries()) put(`/images/shared/${name}.webp`, await picture(24, 30 + i, '#335577'));
+  try {
+    const built = await build();
+    assert.deepEqual([...built.problems, ...lintMedia({ entries: built.entries, questions: QUESTIONS, allowedSame: [] })], []);
+    const byPath = Object.fromEntries(built.entries.map((e) => [e.path, e]));
+    assert.deepEqual([byPath['/images/shared/vca-only.webp'].kind, byPath['/images/shared/vca-only.webp'].usedBy], ['page', ['source:vca/src/pages/Home.jsx']]);
+    assert.deepEqual(byPath['/images/shared/blog.webp'].usedBy, ['source:public/blog/post.html']);
+    // By code unit, whatever order the folders were read in: the registry is the same file on Windows and on Linux.
+    assert.deepEqual(byPath['/images/shared/both.webp'].usedBy, ['source:public/blog/post.html', 'source:src/a/Alpha.jsx', 'source:src/views/Zed.jsx', 'source:vca/index.html']);
+    const files = sourceFiles(tmp);
+    assert.deepEqual(files, [...files].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
+    assert.deepEqual(files, ['public/blog/post.html', 'src/a/Alpha.jsx', 'src/views/Landing.jsx', 'src/views/Zed.jsx', 'vca/index.html', 'vca/src/pages/Home.jsx']);
+  } finally {
+    for (const file of Object.keys(sources)) fs.rmSync(path.join(tmp, file));
+    fs.rmSync(path.join(publicDir, 'images/shared'), { recursive: true });
+  }
+  assert.deepEqual(await lint(), []);
+});
+
 test('unreferenced: a file in a governed folder that nothing shows fails', async () => {
   const errors = await lint({ questions: QUESTIONS.slice(0, 1) });
   assert.deepEqual(errors.map((e) => e.split(' ').slice(0, 2).join(' ')).sort(), ['unreferenced: /figures/questions/q2.webp', 'unreferenced: /images/set/a.webp']);
@@ -142,6 +215,63 @@ test('too heavy: a question image over the limit fails, a deck figure of the sam
   assert.ok(errors.some((e) => /^too heavy: \/images\/set\/a\.webp/.test(e)), errors.join('\n'));
   assert.ok(errors.every((e) => !e.includes('/figures/vet-x/')), 'the limit is for question images');
   assert.deepEqual(await lint({}, { maxQuestionBytes: 1024 * 1024 }), []);
+});
+
+// scripts/media-to-webp.mjs encoded the stored pixels and dropped the EXIF
+// orientation: a phone photograph stored on its side would have come out lying
+// down. None of the 20 pictures converted on 11 Nov 2026 carried one.
+test('a photograph stored on its side is re-encoded upright, at the size a browser shows it', async () => {
+  // 60x20 as stored, red on the left and blue on the right, tagged "turn a quarter clockwise to show":
+  // a browser draws it 20x60 with the red end on top.
+  const red = await sharp({ create: { width: 30, height: 20, channels: 3, background: '#ff0000' } }).png().toBuffer();
+  const stored = await sharp({ create: { width: 60, height: 20, channels: 3, background: '#0000ff' } })
+    .composite([{ input: red, left: 0, top: 0 }]).withMetadata({ orientation: 6 }).jpeg({ quality: 95 }).toBuffer();
+  assert.equal((await sharp(stored).metadata()).orientation, 6);
+  const { webp, shown, orientation, decoded } = await toWebp(stored);
+  assert.equal(orientation, 6);
+  assert.deepEqual(shown, { width: 20, height: 60 });
+  assert.deepEqual(decoded, { width: 20, height: 60, orientation: 1 }, 'the pixels are turned and the tag is gone');
+  const { data, info } = await sharp(webp).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const at = (x, y) => [...data.subarray((y * info.width + x) * 3, (y * info.width + x) * 3 + 3)];
+  const [topR, , topB] = at(10, 5);
+  const [bottomR, , bottomB] = at(10, 55);
+  assert.ok(topR > 180 && topB < 80, `the top is the red end: ${at(10, 5)}`);
+  assert.ok(bottomB > 180 && bottomR < 80, `the bottom is the blue end: ${at(10, 55)}`);
+
+  // An upright picture keeps its size.
+  const plain = await toWebp(await sharp({ create: { width: 60, height: 20, channels: 3, background: '#0000ff' } }).png().toBuffer());
+  assert.deepEqual([plain.orientation, plain.shown, plain.decoded], [1, { width: 60, height: 20 }, { width: 60, height: 20, orientation: 1 }]);
+  // The script goes through this function and prints the redirect a moved picture needs.
+  const script = fs.readFileSync(path.join(ROOT, 'scripts/media-to-webp.mjs'), 'utf8');
+  assert.match(script, /await toWebp\(source, \{ quality: QUALITY \}\)/);
+  assert.match(script, /"redirects" in vercel\.json/);
+});
+
+// 77 "figures" under the Year-2 notes were shapes a slide draws: 54 dark backdrops, arrows,
+// triangles, gradient bars. scripts/lib/slide-figure-shape.mjs reads it from the pixels.
+test('not a figure: a deck figure whose pixels are a drawn shape fails, a question figure does not', async () => {
+  // A dark backdrop: #333333 on #000000, as 54 of them were.
+  const w = 120;
+  const h = 90;
+  const data = Buffer.alloc(w * h * 3);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) data.fill(x > 8 && x < w - 8 && y > 8 && y < h - 8 ? 0x33 : 0, (y * w + x) * 3, (y * w + x) * 3 + 3);
+  const backdrop = await sharp(data, { raw: { width: w, height: h, channels: 3 } }).webp({ lossless: true }).toBuffer();
+  put('/figures/vet-x/topic--one/p5-0.webp', backdrop);
+  put('/figures/vet-x/topic--one/p6-0.webp', await flat(60, 40, '#2244aa'));
+  put('/figures/questions/q8.webp', await flat(60, 41, '#2244aa'));
+  try {
+    const slideMap = { ...MAP, 'vet-x--topic--one--c': ['/figures/vet-x/topic--one/p5-0.webp', '/figures/vet-x/topic--one/p6-0.webp'] };
+    const questions = [...QUESTIONS, { id: 8, subject: 's', type: 'mcq', q: 'x', options: ['a', 'b'], answer: 0, image: '/figures/questions/q8.webp' }];
+    const errors = await lint({ slideMap, questions });
+    assert.equal(errors.length, 2, errors.join('\n'));
+    assert.match(errors[0], /^not a figure: \/figures\/vet-x\/topic--one\/p5-0\.webp is a flat mask: 2 colours, 100\.0% in three tones, 100\.0% in two exact colours, a shape a slide draws; node scripts\/extract-slide-figures\.mjs --clean --write removes it/);
+    assert.match(errors[1], /^not a figure: \/figures\/vet-x\/topic--one\/p6-0\.webp is one flat colour/);
+    // A real figure that measures as a shape is named in KEEP_FLAT, and then it is not read.
+    const kept = await lint({ slideMap, questions, keepFlat: ['/figures/vet-x/topic--one/p5-0.webp', '/figures/vet-x/topic--one/p6-0.webp'] });
+    assert.deepEqual(kept, []);
+  } finally {
+    for (const p of ['figures/vet-x/topic--one/p5-0.webp', 'figures/vet-x/topic--one/p6-0.webp', 'figures/questions/q8.webp']) fs.rmSync(path.join(publicDir, p));
+  }
 });
 
 test('not an image, wrong folder and two kinds each fail', async () => {

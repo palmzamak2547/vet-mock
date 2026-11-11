@@ -23,6 +23,8 @@ import crypto from 'node:crypto';
 import sharp from 'sharp';
 
 import { answerParts, textWords } from './answer-leak.mjs';
+import { KEEP_FLAT } from './slide-figure-placements.mjs';
+import { describeShape, measureShape } from './slide-figure-shape.mjs';
 
 export const QUESTION_FIELDS = ['image', 'imagePath', 'explainImage'];
 export const IMAGE_EXT = new Set(['.webp', '.png', '.jpg', '.jpeg', '.gif', '.avif', '.svg']);
@@ -114,36 +116,75 @@ export function collectReferences({ questions = [], slideMap = {} }) {
   return { refs, problems, inline };
 }
 
-/** Files of the app's own source that may name a picture: index.html and src/, bar banks and generated files. */
+const byCodeUnit = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+
+/**
+ * Files outside the banks that may name a picture under public/, as paths from
+ * the repository root, sorted: the pages at the root (index.html, atlas.html),
+ * src/ (bar banks and generated files), the VCA site's own source (vca/, which
+ * is built from this repository) and the static pages under public/ (the
+ * blog). Sorted, because a folder is read in a different order on Windows and
+ * on Linux and the registry must be the same file on both.
+ */
 export function sourceFiles(root) {
   const out = [];
-  const index = path.join(root, 'index.html');
-  if (fs.existsSync(index)) out.push(index);
-  const walk = (dir) => {
+  const rel = (abs) => path.relative(root, abs).split(path.sep).join('/');
+  const walk = (dir, keep) => {
+    if (!fs.existsSync(dir)) return;
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const abs = path.join(dir, e.name);
-      if (e.isDirectory()) walk(abs);
-      else if (/\.(jsx?|css|html)$/.test(e.name) && !/\.generated\./.test(e.name) && !/^questions-.*\.js$/.test(e.name)) out.push(abs);
+      if (e.isDirectory()) { if (e.name !== 'node_modules' && e.name !== 'generated') walk(abs, keep); } else if (keep(e.name)) out.push(rel(abs));
     }
   };
-  const src = path.join(root, 'src');
-  if (fs.existsSync(src)) walk(src);
-  return out;
+  const code = (name) => /\.(jsx?|css|html)$/.test(name) && !/\.generated\./.test(name) && !/^questions-.*\.js$/.test(name);
+  const page = (name) => /\.html$/.test(name);
+  for (const e of fs.readdirSync(root, { withFileTypes: true })) if (e.isFile() && page(e.name)) out.push(e.name);
+  walk(path.join(root, 'src'), code);
+  walk(path.join(root, 'vca', 'src'), code);
+  if (fs.existsSync(path.join(root, 'vca', 'index.html'))) out.push('vca/index.html');
+  walk(path.join(root, 'public'), page);
+  return out.sort(byCodeUnit);
 }
 
-/** For each path, the source files that name it as a literal. */
-export function sourceMentions(root, paths) {
+/** For each path, the source files that name it, sorted. */
+export function sourceMentions(root, paths, texts = sourceTexts(root)) {
   const found = new Map(paths.map((p) => [p, []]));
   if (!paths.length) return found;
-  for (const file of sourceFiles(root)) {
-    const text = fs.readFileSync(file, 'utf8');
-    for (const p of paths) if (text.includes(p)) found.get(p).push(path.relative(root, file).split(path.sep).join('/'));
+  for (const [file, text] of texts) {
+    for (const p of paths) if (text.includes(p)) found.get(p).push(file);
   }
   return found;
 }
 
-/** Width and height as a browser lays the image out, bytes and the full SHA-256. */
-export async function measure(abs) {
+/** Each source file's text, in sourceFiles order. */
+export function sourceTexts(root) {
+  return sourceFiles(root).map((file) => [file, fs.readFileSync(path.join(root, file), 'utf8')]);
+}
+
+// A picture under the governed folders written out whole in a source file:
+// "/images/landing/shot.jpg", url(/figures/x.webp), or the same behind the
+// site's own origin. A path put together in code ("/images/${set}/…") is not
+// one, and neither is another site's /images/ folder.
+const LITERAL_PICTURE = /(?:["'`(]|=\s?)(?:https:\/\/(?:www\.)?vetmock\.com)?(\/(?:images|figures)\/[^"'`()\s<>?#${}]+\.(?:webp|png|jpe?g|gif|avif|svg))(?=["'`)\s?#])/gi;
+
+/** Every governed picture a source file names whole: site path -> the files that name it, sorted. */
+export function sourcePictures(root, texts = sourceTexts(root)) {
+  const found = new Map();
+  for (const [file, text] of texts) {
+    for (const m of text.matchAll(LITERAL_PICTURE)) {
+      if (!found.has(m[1])) found.set(m[1], new Set());
+      found.get(m[1]).add(file);
+    }
+  }
+  return new Map([...found].map(([p, files]) => [p, [...files].sort(byCodeUnit)]));
+}
+
+/**
+ * Width and height as a browser lays the image out, bytes and the full SHA-256.
+ * With `shape`, the pixels are read too and a drawn shape is named
+ * (scripts/lib/slide-figure-shape.mjs): { shape: 'flat' | 'smooth' | 'blank', shapeSays }.
+ */
+export async function measure(abs, { shape = false } = {}) {
   let bytes = fs.readFileSync(abs);
   // An SVG is text: Windows checkouts hand it back with CRLF, and the registry
   // must read the same on every machine.
@@ -155,16 +196,40 @@ export async function measure(abs) {
   const width = turned ? meta.height : meta.width;
   const height = turned ? meta.width : meta.height;
   if (!(width > 0 && height > 0)) throw new Error('no width or height');
-  return { width, height, bytes: bytes.length, sha256 };
+  const out = { width, height, bytes: bytes.length, sha256 };
+  if (shape) {
+    const { kind, stats } = await measureShape(bytes);
+    if (kind) Object.assign(out, { shape: kind, shapeSays: describeShape(kind, stats) });
+  }
+  return out;
 }
 
-const byCodeUnit = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+/**
+ * A PNG or a JPEG as WebP, at the size and the way up a browser shows the
+ * original (scripts/media-to-webp.mjs). A phone photograph is stored on its
+ * side with an EXIF orientation and drawn turned; a WebP written by sharp
+ * carries no such tag, so the pixels are turned first (rotate() with no angle
+ * follows the tag). Without that the new file showed the picture lying down.
+ *
+ * @returns {Promise<{ webp: Buffer, shown: { width: number, height: number }, orientation: number,
+ *   decoded: { width: number, height: number, orientation: number } }>}
+ */
+export async function toWebp(source, { quality = 86 } = {}) {
+  const before = await sharp(source).metadata();
+  const orientation = before.orientation || 1;
+  const turned = orientation >= 5;
+  const shown = { width: turned ? before.height : before.width, height: turned ? before.width : before.height };
+  const webp = await sharp(source).rotate().webp({ quality, effort: 6, smartSubsample: true, alphaQuality: 100 }).toBuffer();
+  const after = await sharp(webp).metadata();
+  return { webp, shown, orientation, decoded: { width: after.width, height: after.height, orientation: after.orientation || 1 } };
+}
 
 /**
  * The registry: one entry per governed file and per referenced path, with what
  * each could not be given. Nothing is judged here; lintMedia does that.
  */
-export async function buildRegistry({ publicDir, root, questions, slideMap, concurrency = 12 }) {
+export async function buildRegistry({ publicDir, root, questions, slideMap, concurrency = 12, keepFlat = KEEP_FLAT.map((r) => r.figure) }) {
+  const keptFlat = new Set(keepFlat);
   const files = governedFiles(publicDir);
   const { refs, problems, inline } = collectReferences({ questions, slideMap });
 
@@ -174,10 +239,16 @@ export async function buildRegistry({ publicDir, root, questions, slideMap, conc
     const abs = path.join(publicDir, p.slice(1));
     if (fs.existsSync(abs) && fs.statSync(abs).isFile()) files.set(p, abs);
   }
+  const texts = sourceTexts(root);
   const unreferenced = [...files.keys()].filter((p) => !refs.has(p)).sort(byCodeUnit);
-  const mentions = sourceMentions(root, unreferenced);
+  const mentions = sourceMentions(root, unreferenced, texts);
+  // A picture a page names whole that is not on disk is a broken picture on
+  // that page: it is listed as the page's, so lintMedia reports it missing.
+  for (const [p, named] of sourcePictures(root, texts)) {
+    if (!files.has(p) && !refs.has(p)) mentions.set(p, named);
+  }
 
-  const paths = [...new Set([...files.keys(), ...refs.keys()])].sort(byCodeUnit);
+  const paths = [...new Set([...files.keys(), ...refs.keys(), ...mentions.keys()])].sort(byCodeUnit);
   const entries = new Array(paths.length);
   let next = 0;
   async function worker() {
@@ -196,7 +267,9 @@ export async function buildRegistry({ publicDir, root, questions, slideMap, conc
         isImage: IMAGE_EXT.has(path.extname(p).toLowerCase()),
       };
       if (entry.exists && entry.isImage) {
-        try { Object.assign(entry, await measure(files.get(p))); } catch (error) { entry.unreadable = error.message; }
+        // A deck figure's pixels are read as well: a drawn shape is not a figure.
+        const shape = entry.kind === 'slide' && !keptFlat.has(p);
+        try { Object.assign(entry, await measure(files.get(p), { shape })); } catch (error) { entry.unreadable = error.message; }
       }
       entries[i] = entry;
     }
@@ -261,6 +334,9 @@ export function lintMedia({ entries, questions = [], allowedSame = SAME_BYTES_AL
     }
     if (e.kind === 'question' && e.bytes > maxQuestionBytes) {
       errors.push(`too heavy: ${e.path} is ${kb(e.bytes)}, over the ${kb(maxQuestionBytes)} a question image may weigh; node scripts/media-to-webp.mjs public${e.path} --write`);
+    }
+    if (e.shape) {
+      errors.push(`not a figure: ${e.path} is ${e.shapeSays}, a shape a slide draws; node scripts/extract-slide-figures.mjs --clean --write removes it, and a real figure that measures so goes in KEEP_FLAT (scripts/lib/slide-figure-placements.mjs)`);
     }
   }
 
