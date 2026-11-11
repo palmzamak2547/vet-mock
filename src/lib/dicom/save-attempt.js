@@ -50,7 +50,7 @@ export async function saveAttempt({ tool, measurement_json, numeric_result, seco
 }
 
 /** Which of the closed reasons a Supabase/PostgREST error is, by its code. */
-export function classifySaveError(error) {
+function classifySaveError(error) {
   const code = String(error?.code ?? '');
   if (code === 'PGRST205' || code === '42P01') return 'no-table';
   if (code === '42501') return 'no-permission';

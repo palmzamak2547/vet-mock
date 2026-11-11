@@ -96,7 +96,7 @@ function showsOnLeaderboard(user) {
 // tabs stay one person) and far too short to carry the 122 random bits of the
 // id itself. Synchronous on purpose, so joining the channel takes no longer
 // than it did.
-export function presenceKeyFor(userId) {
+function presenceKeyFor(userId) {
   const text = `vet-mock-buddies:${userId}`;
   let h1 = 0xdeadbeef;
   let h2 = 0x41c6ce57;

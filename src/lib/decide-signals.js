@@ -10,7 +10,7 @@ import { examEndMs, getUpcomingExams } from '../data/schedule.js';
 import { recallLadderStep } from './practice-ladder.js';
 
 /** Bangkok days to the next paper of `subject` in `year`'s timetable, or null. */
-export function daysToSubjectPaper(subject, year, now = new Date()) {
+function daysToSubjectPaper(subject, year, now = new Date()) {
   if (!subject || subject === 'all' || !Number.isFinite(year)) return null;
   // A paper that has ended today is behind the student, as getNextExam reads it.
   const t = now.getTime();

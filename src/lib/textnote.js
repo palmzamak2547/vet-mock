@@ -17,7 +17,7 @@ export const isTextNote = (stroke) => stroke?.mode === 'text';
 
 /** Font height in canvas px for a note on a canvas `canvasH` px tall. */
 export const fontPx = (stroke, canvasH) => Math.max(6, (stroke.size || 3) * 0.008 * canvasH);
-export const textFont = (stroke, canvasH) => `500 ${fontPx(stroke, canvasH)}px ${FONT}`;
+const textFont = (stroke, canvasH) => `500 ${fontPx(stroke, canvasH)}px ${FONT}`;
 
 export function makeTextNote(at, text, { id, color, size = 3, w = TEXT_WIDTH }) {
   const t = String(text || '').replace(/\r/g, '').replace(/\s+$/, '');
@@ -64,7 +64,7 @@ export function wrapLines(text, maxWidth, measure) {
 }
 
 /** The page area a note covers, normalised: { x, y, w, h }. For tap-to-edit. */
-export function textNoteBox(stroke, canvasW, canvasH, measure) {
+function textNoteBox(stroke, canvasW, canvasH, measure) {
   const px = fontPx(stroke, canvasH);
   const lines = wrapLines(stroke.text, (stroke.w || TEXT_WIDTH) * canvasW, measure);
   const width = Math.max(...lines.map((l) => measure(l)), px);

@@ -32,7 +32,7 @@ export const IP_DAY = { max: 150, winMs: 24 * 60 * 60 * 1000 };
 // The whole feature's own daily counter, separate from the 4,000 shared by the
 // other model routes (llm.js LLM_DAILY_BUDGET), so a busy chat day cannot
 // switch off wiki answers, grading and the study coach for everyone else.
-export const DAILY_CAP_DEFAULT = 2500;
+const DAILY_CAP_DEFAULT = 2500;
 
 // ── Deadlines ───────────────────────────────────────────────────────────
 // The planner is a convenience: past this the deterministic plan is used.
@@ -46,7 +46,7 @@ export const WRITER_IDLE_MS = 20_000;
 // Everything in one request ends before the platform limit below, so a slow
 // provider ends in our own `error` event, never in a cut-off connection.
 export const REQUEST_DEADLINE_MS = 55_000;
-export const MAX_DURATION_S = 60;
+const MAX_DURATION_S = 60; // the platform limit: maxDuration in api/ai-chat.js
 
 // ── Retrieval and answer size ───────────────────────────────────────────
 export const MAX_SOURCES = 8;

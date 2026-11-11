@@ -305,13 +305,6 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                         ? 'ยังไม่มีเนื้อหา'
                         : `${count.toLocaleString()} ข้อ`}
               </div>
-              {/* Drop the 7-digit course code on the card — already
-                  searchable via ⌘K; redundant visual noise here. */}
-              {false && s.code && s.id !== 'all' && (
-                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
-                  {s.code}
-                </div>
-              )}
               {/* Coverage mini-bar — how much of this subject's practice
                   pool the student has answered at least once. Sits with
                   the count it explains; hidden while the bank loads or

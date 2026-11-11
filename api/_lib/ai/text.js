@@ -44,7 +44,6 @@ export const stripBroken = (s) => String(s ?? '').replace(BROKEN_G, '');
 
 export const stripCJK = (s) => String(s ?? '').replace(CJK_G, '');
 export const stripEmoji = (s) => String(s ?? '').replace(EMOJI_G, '');
-export const countCJK = (s) => (String(s ?? '').match(CJK_G) || []).length;
 
 /** Collapse whitespace and cut to n characters, marking the cut. */
 export function clip(s, n) {
@@ -53,7 +52,7 @@ export function clip(s, n) {
 }
 
 /** Inline markdown marks that carry emphasis, not words. */
-export function stripInline(s) {
+function stripInline(s) {
   return String(s ?? '')
     .replace(/\*\*|__|`/g, '')
     .replace(/(^|[\s(])\*(?=\S)|(?<=\S)\*(?=[\s).,]|$)/g, '$1')
