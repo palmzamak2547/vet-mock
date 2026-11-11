@@ -7,10 +7,13 @@ import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
+import RichBlocks from './RichBlocks.jsx';
+import { hasTable, wholeStem } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
+import EvidenceSlot, { useEvidenceWarmup } from './EvidenceSlot.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
@@ -96,6 +99,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       maxHeight={320}
     />
   ) : null;
+  // The slide this answer rests on (docs/ANSWER-EVIDENCE.md). Its index and its
+  // view load while the question is read, so it paints with the explanation.
+  useEvidenceWarmup(currentQ?.subject);
+  const evidence = <EvidenceSlot key={compoundId} q={currentQ} />;
   // The read-aloud (lib/read-aloud.js, loaded on the first tap) reads the
   // question, 'q', or its เหตุผล, 'explain'. Its state lives in a store small
   // enough to load with this card, so the buttons, the highlight and the bar
@@ -132,6 +139,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const usedReadAloud = () => {
     try { return window.localStorage.getItem('vmx-tts-used') === '1'; } catch { return false; }
   };
+  // The voice reads `say`: the stem together with the numbers that sit in the passage's table.
+  const saysTable = wholeStem(currentQ) !== (currentQ?.q || '');
   // What a job reads: options in the order the student sees them, so
   // "ตัวเลือก B" is the row with the B chip.
   const jobFor = (what) => ({
@@ -140,14 +149,19 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
     album: SUBJECTS.find((s) => s.id === currentQ.subject)?.name || '',
     subject: currentQ.subject,
-    stem: currentQ.q || '',
+    stem: wholeStem(currentQ),
     options: Array.isArray(currentQ.options) ? getShuffledOptions(currentQ).displayOptions.map(String) : [],
     explain: currentQ.explain || '',
-    // The element a piece is read from: the phrase highlight and the scroll
-    // that keeps it above the bar use it. An option's row for its label too.
+    stemLabel: saysTable ? 'โจทย์และตาราง' : undefined,
+    // The element a piece is read from, for the phrase highlight. An option's row for its label too.
+    // A stem read from `say` is not the text on screen, so no phrase is marked in it.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? stemRef.current : explainRef.current)
+      ? (what === 'q' ? (saysTable ? null : stemRef.current) : explainRef.current)
       : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
+    // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
+    block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
+      || (kind === 'stem' ? (what === 'q' ? stemRef.current : explainRef.current)
+        : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
   });
 
   // A student who has used read-aloud before gets this question's first clip
@@ -313,7 +327,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     </div>
   ) : null;
   const writtenRevealPanel = writtenReveal && writtenTiming === REVEAL_ROW && writtenRevealed
-    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} />
+    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} evidence={evidence} />
     : null;
 
   // Word count for essay-type writing questions
@@ -361,9 +375,23 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     essayWords > softMax ? 'var(--clr-gold-text)' :
     'var(--clr-sage-text)';
 
-  // FAB action — smooth scroll passage into view. SmartPassage manages
-  // open/closed itself; we don't need to force it open from here.
+  // FAB action — smooth scroll passage into view, and open it if the
+  // student had hidden it: a button that brings back a closed box brings back nothing.
+  const [passageNudge, setPassageNudge] = useState(0);
+  // The way back to the passage shows only while the passage is off screen: floating over the
+  // table it names, it covered the table's last cells. (The bottom 140 px belong to the action row.)
+  const [passageInView, setPassageInView] = useState(true);
+  const hasPassage = Boolean(currentQ.passage);
+  useEffect(() => {
+    const el = passageRef.current;
+    if (!hasPassage || !el || typeof IntersectionObserver === 'undefined') { setPassageInView(false); return undefined; }
+    setPassageInView(true);
+    const seen = new IntersectionObserver(([entry]) => setPassageInView(entry.isIntersecting), { rootMargin: '0px 0px -140px 0px' });
+    seen.observe(el);
+    return () => seen.disconnect();
+  }, [compoundId, hasPassage]);
   const focusPassage = () => {
+    setPassageNudge((n) => n + 1);
     requestAnimationFrame(() => {
       try {
         passageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -380,11 +408,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // styles.js). On narrow screens they stack as before, plus a FAB
   // appears for one-tap "back to passage" access.
   const passageBlock = currentQ.passage && (
-    <div ref={passageRef} className="vmx-q-passage-pane">
+    <div ref={passageRef} className={`vmx-q-passage-pane${saysTable && readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}>
       <SmartPassage
         text={currentQ.passage}
         title={currentQ.passage_title}
         defaultOpen={true}
+        openSignal={passageNudge}
       />
     </div>
   );
@@ -436,6 +465,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
               figure={explainFigure}
+              evidence={evidence}
               subject={currentQ.subject}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
@@ -485,6 +515,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 alwaysShowCorrect
                 explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
                 figure={explainFigure}
+                evidence={evidence}
                 subject={currentQ.subject}
                 wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
               />
@@ -746,7 +777,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {/* Layout switch: with-passage = grid on wide / stacked on narrow */}
       {currentQ.passage ? (
-        <div className="vmx-q-with-passage">
+        <div className={hasTable(currentQ.passage) ? "vmx-q-with-passage is-data" : "vmx-q-with-passage"}>
           {passageBlock}
           {contentBlock}
         </div>
@@ -757,15 +788,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* Mobile/tablet only — pinned bottom-right. CSS hides it on
           desktop because the side-by-side grid already keeps the
           passage in view. Tap → expand+scroll the passage block. */}
-      {currentQ.passage && (
+      {currentQ.passage && !passageInView && (
         <button
           type="button"
           className="vmx-passage-fab"
           onClick={focusPassage}
-          aria-label="ดู passage"
-          title="ดู passage"
+          aria-label={hasTable(currentQ.passage) ? 'กลับไปดูตาราง' : 'ดู passage'}
+          title={hasTable(currentQ.passage) ? 'กลับไปดูตาราง' : 'ดู passage'}
         >
-          <NavIcon name="book" size={16} /> Passage
+          <NavIcon name="book" size={16} /> {hasTable(currentQ.passage) ? 'ดูตาราง' : 'Passage'}
         </button>
       )}
     </div>
@@ -921,7 +952,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -969,11 +1000,12 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
-          <div className="vmx-feedback-explain-body" ref={explainRef}><TermLinkedRichText text={explain} subject={subject} /></div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}
       {rest && figure}
+      {rest && evidence}
       {rest && coach}
       {rest && wikiLink}
     </MotionEnter>

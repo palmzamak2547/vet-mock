@@ -4,6 +4,7 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
 import { peekPhaseReturn, takePhaseReturn, takeFrontDoorReturn } from '../lib/phase-return.js';
+import { takeWhy } from '../lib/decide.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
@@ -72,6 +73,9 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
               key={p.id}
               className="vmx-mode-card"
               onClick={() => {
+                // A paper picked here is the student's: Home must not say the
+                // timetable chose it (decide.js, phase.firstRun).
+                takeWhy('home');
                 setSelectedPhase(p.id);
                 setView(takePhaseReturn() || takeFrontDoorReturn() || 'home');
               }}

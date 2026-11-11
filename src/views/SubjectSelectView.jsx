@@ -140,7 +140,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           เลือก <em>วิชา</em>
           {yearMeta && (
             <span style={{ fontSize: '0.55em', marginLeft: 12, color: 'var(--clr-ink-soft)', verticalAlign: 'middle' }}>
-             , {yearMeta.label}
+              {yearMeta.label}
             </span>
           )}
         </h1>
@@ -343,20 +343,28 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 const c = s.examFormat && s.examFormat.choiceCount;
                 if (!w && !c) return null;
                 return (
+                  // A long weighting wraps to three or four lines on a phone's
+                  // half-width card. A full pill radius turned that into an
+                  // oval that cut the corners of its own text, and the icon
+                  // was squeezed to a speck beside it.
                   <div style={{
                     marginTop: 6,
-                    padding: '3px 8px',
-                    borderRadius: 999,
+                    padding: '4px 10px',
+                    borderRadius: 12,
                     background: 'var(--clr-surface-2)',
                     border: '1px solid var(--clr-border)',
                     fontSize: 14,
+                    lineHeight: 1.4,
+                    textAlign: 'left',
                     fontVariantNumeric: 'tabular-nums',
                     color: 'var(--clr-ink-soft)',
                     display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 5,
+                    alignItems: 'flex-start',
+                    gap: 6,
                   }}>
-                    <NavIcon name="pen" size={11} />
+                    <span aria-hidden="true" style={{ flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', height: '1.4em' }}>
+                      <NavIcon name="pen" size={12} />
+                    </span>
                     <span>{[w, c && `${c} ช้อยส์`].filter(Boolean).join(', ')}</span>
                   </div>
                 );

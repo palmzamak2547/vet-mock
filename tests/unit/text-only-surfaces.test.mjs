@@ -23,7 +23,19 @@ const LIVE = [];
 for (const entry of BANK_REGISTRY) for (const q of await entry.load()) LIVE.push(q);
 const DELIVERABLE = LIVE.filter(isQuestionDeliverable);
 
-const needsMore = (q) => Boolean(q.image || q.imagePath || q.passage);
+// A passage question that keeps its whole sentence in `say` needs nothing more: these screens draw that sentence.
+const needsMore = (q) => Boolean(q.image || q.imagePath || (q.passage && !q.say));
+
+test('a question whose numbers sit in a passage table, and whose whole sentence is kept, is still text only', () => {
+  const kept = DELIVERABLE.filter((q) => q.passage && q.say);
+  assert.ok(kept.length >= 13, `${kept.length} questions keep their whole sentence`);
+  for (const q of kept) assert.ok(isTextOnlyQuestion(q), `${q.subject}:${q.id}`);
+  assert.equal(isTextOnlyQuestion({ q: 'ข้อใดถูก', passage: 'เนื้อเรื่องที่ต้องอ่าน' }), false, 'a passage with no whole sentence is still needed');
+  const pool = raceEligibleQuestions(LIVE, 'epidemiology', isQuestionDeliverable);
+  for (const q of kept.filter((x) => x.subject === 'epidemiology' && x.type === 'mcq' && x.options.length >= 3)) {
+    assert.ok(pool.includes(q), `${q.subject}:${q.id} left the race pool`);
+  }
+});
 
 function daysFrom(start, n) {
   const d = new Date(`${start}T00:00:00Z`);

@@ -1,4 +1,4 @@
-import { test, expect, PINNED_NOW } from './fixtures.js';
+import { test, expect, PINNED_NOW, openHomeModes } from './fixtures.js';
 import { FEATURE_TIPS, GUIDE_PATHS } from '../../src/data/how-to.js';
 
 // The pinned calendar fixes the instant (tests/e2e/fixtures.js) and every
@@ -121,6 +121,7 @@ test('no tip card appears while an exam is running, and none was spent on the wa
   await page.goto('/');
   await expect(page.locator('.vmx-command-center')).toBeVisible();
   // Config → start, the way a student reaches a running set from Home.
+  await openHomeModes(page);
   await page.locator('.vmx-mode-card').filter({ hasText: 'ฝึกแบบเลือกจำนวน' }).click();
   await page.getByRole('button', { name: /^เริ่ม/ }).click();
   await expect(page.getByRole('progressbar', { name: 'ความคืบหน้าของชุดข้อสอบ' })).toBeVisible();

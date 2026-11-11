@@ -1,4 +1,4 @@
-import { test, expect, PINNED_NOW } from './fixtures.js';
+import { test, expect, PINNED_NOW, openAdjust, openHomeModes } from './fixtures.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
@@ -63,6 +63,7 @@ test('Home plan and SR agree on paper, due count, private cards, and a bounded s
   await page.screenshot({ path: info.outputPath('home-plan.png'), fullPage: false });
   await action.click();
   await expect(page).toHaveURL(/\/app\/review$/);
+  await openAdjust(page);
   await expect(page.getByRole('combobox', { name: 'วิชา', exact: true })).toHaveValue('all');
   await expect(page.getByRole('button', { name: 'กลางภาค', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(dueCount(page)).toHaveText('2ใบ');
@@ -95,9 +96,11 @@ test('Home review mode resets old filters and scope chips fit at 320px', async (
   await page.setViewportSize({ width: 320, height: 812 });
   await seed(page);
   await page.goto('/app');
+  await openHomeModes(page);
   const mode = page.locator('.vmx-mode-card').filter({ hasText: 'ทบทวนตามรอบ' });
   await expect(mode).toContainText('2 ข้อค้างทบทวน');
   await mode.click();
+  await openAdjust(page);
   await expect(dueCount(page)).toHaveText('2ใบ');
   const subject = page.getByRole('combobox', { name: 'วิชา', exact: true });
   await expect(subject).toHaveValue('all');

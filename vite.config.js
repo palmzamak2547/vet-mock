@@ -81,7 +81,7 @@ export default defineConfig({
           /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
-          /data-instructors/,          // FacultyView (+ palette, on demand) · ~330 KB
+          /data-instructors/,          // FacultyView and an opened profile · ~300 KB gzip
           /vendor-validation/,         // JSON import only · Dashboard/Q manager
         ];
         return deps.filter((dep) => !SKIP_PRELOAD_PATTERNS.some((re) => re.test(dep)));
@@ -211,6 +211,11 @@ export default defineConfig({
           if (id.includes('questions-y5-milk-meat-final-recall')) return 'data-q-y5-milk-meat-final-recall'
           if (id.includes('questions-y5-avian-final-recall')) return 'data-q-y5-avian-final-recall'
           if (id.includes('questions-y5-epid-final-recall')) return 'data-q-y5-epid-final-recall'
+          // The lecturer-string matcher is shared by the faculty directory and
+          // by the slim name index (data/instructor-index.js). Unclaimed, Rollup
+          // filed it inside data-instructors, so the index imported the 300 KB
+          // (gzip) directory it exists to keep off the topic screen.
+          if (id.includes('lib/instructor-lookup')) return 'instructor-lookup'
           if (id.includes('data/instructors')) return 'data-instructors'
           // Palm audit r4 (2026-05-24): video-summaries was a 2.2MB monolith.
           // scripts/split-video-summaries.cjs broke it into per-subject

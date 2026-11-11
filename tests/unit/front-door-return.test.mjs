@@ -133,14 +133,52 @@ test('App settles the wait on every page it draws, and a landing button outranks
   assert.ok(forget < goLanding.indexOf("if (intent?.kind === 'lab')"), 'the Lab button forgets the link too');
 });
 
-test('a year with a phase pick leaves the page for that pick', (t) => {
+test('a year whose timetable picks the paper goes straight to the page, with that paper', (t) => {
   browser(t);
   rememberFrontDoorReturn('subject-select');
   const views = [];
-  const view = mount(YearSelectView, { goHome() {}, selectedYear: null, setSelectedYear() {}, setSelectedPhase() {}, setView: (v) => views.push(v), firstTime: true });
+  const phases = [];
+  // 25 Sep 2026: year 5's midterm is sat and the final is ahead.
+  const view = mount(YearSelectView, { goHome() {}, selectedYear: null, setSelectedYear() {}, setSelectedPhase: (p) => phases.push(p), setView: (v) => views.push(v), firstTime: true, now: () => new Date('2026-09-25T18:15:00+07:00') });
   const year5 = findAll(view.tree, (n) => n.type === 'button' && typeof n.props.onClick === 'function' && textOf(n).includes('ปี 5'))[0];
   assert.ok(year5, 'the year 5 card is drawn');
   year5.props.onClick();
+  assert.deepEqual(phases, ['1-final'], 'the paper the timetable names, as the แนะนำ card would have set');
+  assert.deepEqual(views, ['subject-select'], 'no stop at the phase screen');
+  // A10/B11: the reason is for Home's next visit only; a year pick that opens
+  // another page leaves none for Home to show later beside a paper picked by hand.
+  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), null);
+  view.unmount();
+});
+
+test('a year whose timetable picks the paper and has no page waiting opens Home with the reason', (t) => {
+  browser(t);
+  const views = [];
+  const view = mount(YearSelectView, { goHome() {}, selectedYear: null, setSelectedYear() {}, setSelectedPhase() {}, setView: (v) => views.push(v), firstTime: true, now: () => new Date('2026-09-25T18:15:00+07:00') });
+  findAll(view.tree, (n) => n.type === 'button' && typeof n.props.onClick === 'function' && textOf(n).includes('ปี 5'))[0].props.onClick();
+  assert.deepEqual(views, ['home']);
+  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), 'ตามตารางสอบ', 'Home says why, beside the paper it names');
+  view.unmount();
+});
+
+test('a paper picked on the phase screen clears the timetable reason', (t) => {
+  browser(t);
+  sessionStorage.setItem('vmx-decide:why:home', 'ตามตารางสอบ');
+  const view = mount(PhaseSelectView, { goHome() {}, selectedYear: 5, selectedPhase: null, setSelectedPhase() {}, setView() {} });
+  phaseCards(view.tree)[0].props.onClick();
+  assert.equal(sessionStorage.getItem('vmx-decide:why:home'), null, 'the pick belongs to the student, not to the timetable');
+  view.unmount();
+});
+
+test('a year whose timetable cannot pick a paper still asks, as before', (t) => {
+  browser(t);
+  rememberFrontDoorReturn('subject-select');
+  const views = [];
+  const phases = [];
+  // 20 Dec 2026: every paper of the term sat, the next term's table not in.
+  const view = mount(YearSelectView, { goHome() {}, selectedYear: null, setSelectedYear() {}, setSelectedPhase: (p) => phases.push(p), setView: (v) => views.push(v), firstTime: true, now: () => new Date('2026-12-20T10:00:00+07:00') });
+  findAll(view.tree, (n) => n.type === 'button' && typeof n.props.onClick === 'function' && textOf(n).includes('ปี 5'))[0].props.onClick();
+  assert.deepEqual(phases, [null]);
   assert.deepEqual(views, ['phase-select']);
   assert.equal(takeFrontDoorReturn(), 'subject-select', 'still waiting for the phase pick');
   view.unmount();

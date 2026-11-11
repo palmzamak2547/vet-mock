@@ -20,7 +20,7 @@
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { visionJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
+import { visionJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET, ANTHROPIC_MODEL } from './_lib/llm.js';
 import { requireChula } from './_lib/chula-gate.js';
 
 // The client sends the ink alone, redrawn to the size the model reads at
@@ -32,8 +32,9 @@ const MAX_TEXT = 5000;
 const MIME = new Set(['image/png', 'image/jpeg', 'image/webp']);
 const TIMEOUT_MS = 40_000;
 const PROVIDERS = new Set(['anthropic', 'deepseek']);
-// Strongest first. Each id that the key cannot use (404) falls to the next.
-const ANTHROPIC_MODELS = ['claude-opus-5', 'claude-sonnet-5', 'claude-sonnet-4-5-20250929'];
+// Strongest first. Each id that the key cannot use (404) falls to the next,
+// and the last is the model every other route falls back to.
+const ANTHROPIC_MODELS = ['claude-opus-5', 'claude-sonnet-5', ANTHROPIC_MODEL];
 
 const SYSTEM = `You transcribe HANDWRITING from one image for a Thai veterinary student's practice answer.
 Return ONLY a JSON object: {"text":"..."}

@@ -21,13 +21,18 @@ import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { getUpcomingExams, EXAM_SCHEDULE } from '../data/schedule.js';
 import { examEndMs } from '../lib/exam-countdown.js';
-import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
+import { decide } from '../lib/decide.js';
+import { PRACTICE_SETUP } from '../lib/decisions/practice-setup.js';
+import { practiceSignals } from '../lib/decide-signals.js';
 import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
 
-// Lazy — pulls instructors data (~30KB) only when user clicks an
-// instructor name to view their profile. Most users browse topics
-// without ever opening this, so we keep it out of the main bundle.
-const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
+// The profile, and the faculty directory behind it (papers and sources, about
+// 300 KB gzip), load when a lecturer's name is tapped: most students browse
+// topics without ever opening one. The app shell opens it (onOpenInstructor),
+// beside the palette's, with its loading bar and its failure notice. A finger
+// on the name starts the download here, so the profile is that much closer
+// when the tap completes; a failed warm-up is the tap's to report.
+const warmInstructorProfile = () => { import('../components/InstructorProfile.jsx').catch(() => {}); };
 
 // VCA-specific: cross-link map from VCA topic id → existing notes subject
 // (where direct match exists). Click "📖 Notes" chip → navigate to NotesView
@@ -44,14 +49,15 @@ const VCA_NOTES_MAP = {
 // that no other screen needs, so the topic screen's own chunk stays as it was.
 const LecturerSets = lazy(() => import('../components/LecturerSets.jsx'));
 
-// One lazy directory for the whole view (and every later visit).
+// One lazy index for the whole view (and every later visit): the names that
+// have a profile, not the profiles (data/instructor-index.js).
 let instructorLookupCache = null;
 let instructorLookupPromise = null;
 function loadInstructorLookup() {
   if (instructorLookupCache) return Promise.resolve(instructorLookupCache);
   if (!instructorLookupPromise) {
-    instructorLookupPromise = import('../data/instructors.js')
-      .then((mod) => { instructorLookupCache = mod.getInstructorByLecturerString; return instructorLookupCache; })
+    instructorLookupPromise = import('../data/instructor-index.js')
+      .then((mod) => { instructorLookupCache = mod.findInstructorByLecturerString; return instructorLookupCache; })
       .catch(() => { instructorLookupPromise = null; return null; });
   }
   return instructorLookupPromise;
@@ -67,7 +73,7 @@ function lecturerChip(label, profile) {
   return { kind: 'text', text: label.name };
 }
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ = 60, setTimePerQ, practiceMode = 'all', setPracticeMode = null, hasHistory = false, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
   // The period narrows a course of the student's own year only; another
   // year's course opens whole (phaseForCourse), as its study card counts it
   // and as the config pool serves it. Every period-driven number and notice
@@ -120,7 +126,6 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     }
     return () => { alive = false; };
   }, [subject, !!onOpenDoc]); // eslint-disable-line react-hooks/exhaustive-deps
-  const [openInstructor, setOpenInstructor] = useState(null);
   // Open on the reading tab when the student came here from สรุปบทเรียน. The
   // per-topic summary buttons were always on this screen, but under the
   // practice tab, so the reading intent quietly became a practice flow.
@@ -143,11 +148,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // toggle so the default view focuses on what users can actually do.
   const [showEmptyTopics, setShowEmptyTopics] = useState(false);
 
-  // Open instructor profile by lecturer string. Looks up via the
-  // helper in instructors.js which handles "(KB)" tag stripping +
+  // Open instructor profile by lecturer string. Looks up via the matcher
+  // in lib/instructor-lookup.js, which handles "(KB)" tag stripping +
   // partial match against Thai/English names.
-  // The directory is ~460 KB, so it stays a lazy chunk; the view loads it
-  // once and only then offers a profile button. A lecturer string with no
+  // The name index is a lazy chunk of its own; the view loads it once and
+  // only then offers a profile button. A lecturer string with no
   // profile (a person the directory lacks, "Surgery staff", a past-paper
   // label) used to get a button that did nothing when tapped.
   const [findInstructor, setFindInstructor] = useState(() => instructorLookupCache);
@@ -159,7 +164,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   }, [findInstructor]);
   const openInstructorFor = (lecturerString) => {
     const found = findInstructor?.(lecturerString);
-    if (found) setOpenInstructor(found);
+    if (found) onOpenInstructor?.(found);
   };
 
   const catalog = createStudyCatalog({ customQuestions, readingChecklist });
@@ -309,17 +314,24 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     setView(next.view);
   };
 
-  // A topic opens the config screen on the rung of the practice ladder the
-  // student last used (lib/practice-ladder.js), rung 1 for a newcomer: no
-  // clock, the answer after every question, ten questions. The clock's
-  // seconds are the student's own and are left alone.
+  // A topic opens the config screen set up for the student (decide.js,
+  // practice.setup): the rung of the practice ladder they last used, rung 1
+  // for a newcomer (no clock, the answer after every question, ten
+  // questions), with any row they changed on the config screen kept their
+  // way. The config screen says what was set up and why.
   const choose = (topicId) => {
     const available = countFor(topicId);
     if (setMode) setMode('quick');
-    const preset = ladderPreset(recallLadderStep(), { available: available > 0 ? available : null });
-    if (setUseTimer) setUseTimer(preset.useTimer);
-    if (!preset.useTimer && setInstantFeedback) setInstantFeedback(true);
-    if (setNumQuestions && available > 0) setNumQuestions(preset.numQuestions);
+    const { value, by } = decide(PRACTICE_SETUP, practiceSignals({
+      subject, year: selectedYear, available, timePerQ, instantFeedback, practiceMode, hasHistory,
+    }));
+    if (setUseTimer) setUseTimer(value.useTimer);
+    if (setInstantFeedback && (!value.useTimer || by === 'you')) setInstantFeedback(value.instantFeedback);
+    if (setTimePerQ && value.useTimer && value.timePerQ !== timePerQ) setTimePerQ(value.timePerQ);
+    if (setNumQuestions && available > 0) setNumQuestions(value.numQuestions);
+    if (by === 'you' && setPracticeMode && (practiceMode === 'all' || practiceMode === 'adaptive')) {
+      setPracticeMode(value.pick === 'adaptive' ? 'adaptive' : 'all');
+    }
     setTopic(topicId === 'all' ? null : topicId);
     setView('config');
   };
@@ -845,7 +857,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || related.length > 0 || clipCounts[t.id] > 0 || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
                   {lecturer?.kind === 'profile' && (
-                    <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
+                    <button type="button" className="vmx-topic-action is-wide" onPointerDown={warmInstructorProfile} onFocus={warmInstructorProfile} onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
                       <NavIcon name="user" size={15} /> {lecturer.text}
                     </button>
                   )}
@@ -965,11 +977,6 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           panel; "หน้าแรก" available via BackBar. Saves vertical space
           on long subjects (cliapprum has ~30 topic cards). */}
 
-      {openInstructor && (
-        <Suspense fallback={null}>
-          <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
-        </Suspense>
-      )}
     </>
   );
 }

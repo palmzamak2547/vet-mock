@@ -31,6 +31,7 @@ import { subjectName, topicLabel, questionText } from './corpus.js';
 import { guideSubtitle } from './guide.js';
 import { wikiLink, videoLink, questionSetLink, viewLink } from './links.js';
 import { clip, contextText, plainText, snippetAround } from './text.js';
+import { wholeStem } from '../../../src/lib/rich-blocks.js';
 
 // What one source may contribute to the model's context, by kind.
 const CONTEXT_CAP = { wiki: 2400, note: 2000, video: 2000, question: 1300, guide: 2600, paper: 1600, library: 1500 };
@@ -280,7 +281,7 @@ export function toSource(item, { needles = [] } = {}) {
   }
   if (d.kind === 'question') {
     const tl = topicLabel(d.q.subject, d.q.topic);
-    return { ...base, title: clip(d.q.q, 110), subtitle: `ข้อสอบ ${subjectName(d.q.subject)}${tl ? `, ${tl}` : ''}`, subject: subjectName(d.q.subject), url: questionSetLink([d.q]) };
+    return { ...base, title: clip(wholeStem(d.q), 110), subtitle: `ข้อสอบ ${subjectName(d.q.subject)}${tl ? `, ${tl}` : ''}`, subject: subjectName(d.q.subject), url: questionSetLink([d.q]) };
   }
   // guide
   return {

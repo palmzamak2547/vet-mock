@@ -114,9 +114,7 @@ export const NOTES_85_ZOONOSES = {
                   "ทำให้เกิด ulcer เช่นเดียวกับ glanders ร่วมกับต่อมน้ำเหลืองโตและมีไข้"
                 ]
               },
-              {
-                "text": "สไลด์ชุดสัตว์ป่าระบุ reservoir ว่าเป็นกระต่ายป่า กระต่าย และสัตว์ฟันแทะ"
-              }
+              "สไลด์ชุดสัตว์ป่าระบุ reservoir ว่าเป็นกระต่ายป่า กระต่าย และสัตว์ฟันแทะ"
             ]
           },
           {
@@ -130,9 +128,7 @@ export const NOTES_85_ZOONOSES = {
                   "ป้องกันได้โดย **กำจัดสัตว์ติดเชื้อออก ควบคุมการเคลื่อนย้าย และทำวัคซีนให้ตรงกับ species**"
                 ]
               },
-              {
-                "text": "เอกสารบันทึกว่าโคราชเจอบ่อยมากในแพะแกะ และเคสที่ป่วยมาจากการทำคลอดแพะไม่ใส่ถุงมือ ในคนโรคนี้ถูกมองข้ามเพราะไม่มี CPG ที่ชัดเจน มักมาด้วยไข้และ sepsis จนได้ ABO ไปก่อน แล้วผล hemoculture กลับมาเป็นบวกทีหลัง จึงต้องกลับมารับยาต่อ (โรคนี้ต้องให้ยานานมาก) ปัจจุบันมีการ adapt ใช้ **Rose Bengal test มา screening ในคน**"
-              }
+              "เอกสารบันทึกว่าโคราชเจอบ่อยมากในแพะแกะ และเคสที่ป่วยมาจากการทำคลอดแพะไม่ใส่ถุงมือ ในคนโรคนี้ถูกมองข้ามเพราะไม่มี CPG ที่ชัดเจน มักมาด้วยไข้และ sepsis จนได้ ABO ไปก่อน แล้วผล hemoculture กลับมาเป็นบวกทีหลัง จึงต้องกลับมารับยาต่อ (โรคนี้ต้องให้ยานานมาก) ปัจจุบันมีการ adapt ใช้ **Rose Bengal test มา screening ในคน**"
             ]
           }
         ]
@@ -166,9 +162,7 @@ export const NOTES_85_ZOONOSES = {
                   "ส่วนจับคู่ใช้คำใบ้ว่าสุกรเป็นแหล่งรังโรค พบมากในสุกรหย่านม และ **เชื้ออยู่บริเวณต่อมทอนซิลและโพรงจมูกของสุกร**"
                 ]
               },
-              {
-                "text": "จากบันทึกการสอบสวนโรค เคสมักผูกกับงานบวชงานแต่งที่มีลาบหมูดิบ และ **ตรวจในคนได้ง่ายด้วย haemoculture ซึ่งทุกโรงพยาบาลทำได้** จึงเจอเคสบ่อย"
-              }
+              "จากบันทึกการสอบสวนโรค เคสมักผูกกับงานบวชงานแต่งที่มีลาบหมูดิบ และ **ตรวจในคนได้ง่ายด้วย haemoculture ซึ่งทุกโรงพยาบาลทำได้** จึงเจอเคสบ่อย"
             ]
           }
         ]
@@ -191,9 +185,7 @@ export const NOTES_85_ZOONOSES = {
             "callout": "คำตอบส่วนข้อเขียนปีก่อนเรื่องข้อจำกัดของวัคซีน leptospirosis ในสัตว์คือ ไม่ป้องกันการติดเชื้อ 100 เปอร์เซ็นต์ แค่ป้องกันไม่ให้อาการรุนแรง ลดระยะการขับเชื้อทางปัสสาวะ และถ้าจะให้ดีวัคซีนต้องเป็นชนิดเดียวกับเชื้อก่อโรค",
             "kind": "tip"
           },
-          {
-            "text": "จากไทม์ไลน์การระบาด เคสในคนเยอะหลังเหตุการณ์น้ำท่วม แต่ฝั่งสัตว์ยังไม่เคยสนใจตรวจว่าสัตว์ได้รับผลกระทบแค่ไหน"
-          }
+          "จากไทม์ไลน์การระบาด เคสในคนเยอะหลังเหตุการณ์น้ำท่วม แต่ฝั่งสัตว์ยังไม่เคยสนใจตรวจว่าสัตว์ได้รับผลกระทบแค่ไหน"
         ]
       },
       {
@@ -220,9 +212,7 @@ export const NOTES_85_ZOONOSES = {
               }
             ]
           },
-          {
-            "text": "สไลด์ชุดสัตว์ป่าเสริมว่าเชื้อในกลุ่ม M. tuberculosis complex ครอบคลุมหลายสายพันธุ์ แหล่งเชื้อคือสัตว์กีบ สัตว์ฟันแทะ สัตว์กินเนื้อ และมีเคสเจ้าหน้าที่สวนสัตว์ติดวัณโรคหลังสัมผัสช้างที่ติดเชื้อ"
-          }
+          "สไลด์ชุดสัตว์ป่าเสริมว่าเชื้อในกลุ่ม M. tuberculosis complex ครอบคลุมหลายสายพันธุ์ แหล่งเชื้อคือสัตว์กีบ สัตว์ฟันแทะ สัตว์กินเนื้อ และมีเคสเจ้าหน้าที่สวนสัตว์ติดวัณโรคหลังสัมผัสช้างที่ติดเชื้อ"
         ]
       },
       {
@@ -250,9 +240,7 @@ export const NOTES_85_ZOONOSES = {
                   "**การตรวจให้ผลลบได้จาก intermittent shedding ในนกที่เป็น carrier**"
                 ]
               },
-              {
-                "text": "สไลด์ชุดสัตว์ป่าเพิ่ม reservoir ว่ามี psittacines (serovar A), pigeons (B), ducks และ geese (C), turkey (D) และนกอื่น ติดทางการหายใจเอาละอองของมูล ปัสสาวะ หรือน้ำมูกของนกที่ติดเชื้อเข้าไป อาการคล้ายไข้หวัดใหญ่ ตั้งแต่เบาจนถึงเสียชีวิต"
-              }
+              "สไลด์ชุดสัตว์ป่าเพิ่ม reservoir ว่ามี psittacines (serovar A), pigeons (B), ducks และ geese (C), turkey (D) และนกอื่น ติดทางการหายใจเอาละอองของมูล ปัสสาวะ หรือน้ำมูกของนกที่ติดเชื้อเข้าไป อาการคล้ายไข้หวัดใหญ่ ตั้งแต่เบาจนถึงเสียชีวิต"
             ]
           },
           {
@@ -413,9 +401,7 @@ export const NOTES_85_ZOONOSES = {
                   "**ให้คำแนะนำผู้ประกอบการ**"
                 ]
               },
-              {
-                "text": "จากนั้นทำรายงานสอบสวนโรค **ฉบับเบื้องต้นส่งใน 3 วัน และฉบับเต็มส่งใน 15 วัน**"
-              }
+              "จากนั้นทำรายงานสอบสวนโรค **ฉบับเบื้องต้นส่งใน 3 วัน และฉบับเต็มส่งใน 15 วัน**"
             ]
           },
           {
@@ -438,9 +424,7 @@ export const NOTES_85_ZOONOSES = {
               "**Descriptive statistics เป็นพื้นฐานที่สำคัญในการอธิบาย distribution of disease (time place person) เป็นวิธีที่ไม่ advanced มากแต่เห็นภาพการระบาด**"
             ]
           },
-          {
-            "text": "บัตรรายงานผู้ป่วย รง.506 คือเอกสารหลักที่ใช้ในการลงพื้นที่สอบสวนโรค ระบุข้อมูลพื้นฐานผู้ป่วย ป่วยเป็นอะไร ป่วยตอนไหน วันที่พบผู้ป่วย และรักษาที่ไหน"
-          }
+          "บัตรรายงานผู้ป่วย รง.506 คือเอกสารหลักที่ใช้ในการลงพื้นที่สอบสวนโรค ระบุข้อมูลพื้นฐานผู้ป่วย ป่วยเป็นอะไร ป่วยตอนไหน วันที่พบผู้ป่วย และรักษาที่ไหน"
         ]
       },
       {
@@ -457,9 +441,7 @@ export const NOTES_85_ZOONOSES = {
               "แนวโน้มการระบาดและกิจกรรมที่จะทำต่อ"
             ]
           },
-          {
-            "text": "ตัวอย่างคำแนะนำที่ให้ร้านค้า เช่น คนขายเนื้อหมูควรใส่ถุงมือ ถ้าไม่ใส่ถุงมือด้วยยางอนามัยก็อย่าลืมแยกเขียงที่ใช้กับหมูดิบ ไม่งั้นจะเกิด cross contamination"
-          }
+          "ตัวอย่างคำแนะนำที่ให้ร้านค้า เช่น คนขายเนื้อหมูควรใส่ถุงมือ ถ้าไม่ใส่ถุงมือด้วยยางอนามัยก็อย่าลืมแยกเขียงที่ใช้กับหมูดิบ ไม่งั้นจะเกิด cross contamination"
         ]
       },
       {
@@ -485,9 +467,7 @@ export const NOTES_85_ZOONOSES = {
               }
             ]
           },
-          {
-            "text": "ปัจจัยที่มีผลต่อการระบาดของโรค ได้แก่ microbial adaptation, ecological changes, human behaviors, technology and healthcare, travel trade and industry, breakdown in public health measures เช่น การถอดแมสก์ และ susceptibility to infection"
-          }
+          "ปัจจัยที่มีผลต่อการระบาดของโรค ได้แก่ microbial adaptation, ecological changes, human behaviors, technology and healthcare, travel trade and industry, breakdown in public health measures เช่น การถอดแมสก์ และ susceptibility to infection"
         ]
       },
       {
@@ -522,9 +502,7 @@ export const NOTES_85_ZOONOSES = {
         "heading": "โรคติดต่ออันตราย 13 โรค และระบบเฝ้าระวังของไทย",
         "source": "Zoonoses 85 น.12",
         "body": [
-          {
-            "text": "รายชื่อตามที่เอกสารเขียนไว้ ได้แก่ **Plague, Smallpox, Congo hemorrhagic fever, West Nile, Yellow fever, Lassa fever, Nipah, Marburg, Ebola, Hendra, SARS, MERS และ XDR-TB**"
-          },
+          "รายชื่อตามที่เอกสารเขียนไว้ ได้แก่ **Plague, Smallpox, Congo hemorrhagic fever, West Nile, Yellow fever, Lassa fever, Nipah, Marburg, Ebola, Hendra, SARS, MERS และ XDR-TB**",
           {
             "callout": "ผู้เขียนทำเครื่องหมายเน้นไว้ว่า **SFTS ไม่อยู่ในรายการ 13 โรคนี้** ซึ่งเป็นจุดที่โจทย์เล่นได้ง่าย",
             "kind": "flag"
@@ -605,18 +583,14 @@ export const NOTES_85_ZOONOSES = {
               "Pathogen คือ agent ที่ก่อโรคได้ ส่วน zoonosis คือโรคที่เชื้อแพร่จากสัตว์มาสู่คน ทั้งทาง direct contact กับสัตว์เลี้ยงหรือสัตว์ป่า หรือทางอาหารที่ปนเปื้อน"
             ]
           },
-          {
-            "text": "เส้นทางที่สไลด์วางไว้คือ reservoir host ไปสู่ secondary หรือ spillover host แล้วจึงไปสู่คน โดยเชื้อตัวเดียวกันก่อโรคต่างกันได้ใน host ต่างกัน เช่น CeHV-1 (herpesvirus B) ในลิงแสมให้แค่ oral lesion แต่ในคนให้ fatal meningoencephalitis"
-          }
+          "เส้นทางที่สไลด์วางไว้คือ reservoir host ไปสู่ secondary หรือ spillover host แล้วจึงไปสู่คน โดยเชื้อตัวเดียวกันก่อโรคต่างกันได้ใน host ต่างกัน เช่น CeHV-1 (herpesvirus B) ในลิงแสมให้แค่ oral lesion แต่ในคนให้ fatal meningoencephalitis"
         ]
       },
       {
         "heading": "กลไก spillover 4 แบบ และตัวกำหนด permeability",
         "source": "Zoonoses 85 น.13",
         "body": [
-          {
-            "text": "การแพร่ข้าม boundary ของโรคเกิดได้ 4 รูปแบบ และ **แต่ละแบบมีตัวกำหนด permeability ต่างกัน** ซึ่งผู้เขียนทำเครื่องหมายไว้ว่าเป็นจุดที่ต้องนิยามให้ได้ทีละแบบ"
-          },
+          "การแพร่ข้าม boundary ของโรคเกิดได้ 4 รูปแบบ และ **แต่ละแบบมีตัวกำหนด permeability ต่างกัน** ซึ่งผู้เขียนทำเครื่องหมายไว้ว่าเป็นจุดที่ต้องนิยามให้ได้ทีละแบบ",
           {
             "bullets": [
               "**direct คือ HR สัมผัสกับ HS ที่ boundary permeability ถูกกำหนดโดย host contact rate**",
@@ -673,9 +647,7 @@ export const NOTES_85_ZOONOSES = {
               }
             ]
           },
-          {
-            "text": "modifying factors ที่สไลด์ยกไว้แบ่งตามขั้น เช่น ขั้น contact มี species invasion, human introduction, ความหนาแน่นประชากร HR และ HS, ขั้น cross-species transmission มี quasi-species diversity, conserved viral receptors, ขั้น sustained intra-HS transmission มี superspreaders, urbanization, social interconnectivity และ rapid transport ส่วนขั้น HS adaptation มี pathogen mutation, replication rate และความถี่ของ recombination"
-          },
+          "modifying factors ที่สไลด์ยกไว้แบ่งตามขั้น เช่น ขั้น contact มี species invasion, human introduction, ความหนาแน่นประชากร HR และ HS, ขั้น cross-species transmission มี quasi-species diversity, conserved viral receptors, ขั้น sustained intra-HS transmission มี superspreaders, urbanization, social interconnectivity และ rapid transport ส่วนขั้น HS adaptation มี pathogen mutation, replication rate และความถี่ของ recombination",
           {
             "callout": "โรคบางโรค เช่น rabies ไม่เกิดการติดต่อระหว่างคนสู่คน จึงไม่ผ่าน stage 3 และ 4 และไม่กลายเป็น pandemic",
             "kind": "tip"
@@ -686,9 +658,7 @@ export const NOTES_85_ZOONOSES = {
         "heading": "จุดที่เข้าแทรกแซงได้ (ecological interventions)",
         "source": "Zoonoses 85 น.17",
         "body": [
-          {
-            "text": "สไลด์เรียง barrier ที่เชื้อต้องผ่านไว้เป็นชั้น ได้แก่ reservoir density หรือ distribution, pathogen prevalence, infection intensity หรือ pathogen shedding, pathogen survival and spread, spillover host exposure และ susceptibility and infection **เชื้อจะ spillover สำเร็จก็ต่อเมื่อผ่าน barrier ครบทุกชั้น**"
-          },
+          "สไลด์เรียง barrier ที่เชื้อต้องผ่านไว้เป็นชั้น ได้แก่ reservoir density หรือ distribution, pathogen prevalence, infection intensity หรือ pathogen shedding, pathogen survival and spread, spillover host exposure และ susceptibility and infection **เชื้อจะ spillover สำเร็จก็ต่อเมื่อผ่าน barrier ครบทุกชั้น**",
           {
             "bullets": [
               "**Targeting reservoir hosts** เช่น culling และ test-and-slaughter, chemotherapy, vaccination, test-and-remove, การจัดการพันธุกรรม และการจัดการความหนาแน่นหรือการกระจายตัวของ reservoir ด้วยรั้วและการ cull",
@@ -697,9 +667,7 @@ export const NOTES_85_ZOONOSES = {
               "**Targeting susceptibility และ infection ใน HS** เช่น chemoprophylaxis และ vaccination"
             ]
           },
-          {
-            "text": "ฝั่ง pre-spillover prevention ที่สไลด์เน้นคือ wildlife disease surveillance และงานวิจัยเกี่ยวกับบทบาทของสัตว์ป่าต่อการเกิดโรคอุบัติใหม่"
-          }
+          "ฝั่ง pre-spillover prevention ที่สไลด์เน้นคือ wildlife disease surveillance และงานวิจัยเกี่ยวกับบทบาทของสัตว์ป่าต่อการเกิดโรคอุบัติใหม่"
         ]
       },
       {
@@ -760,9 +728,7 @@ export const NOTES_85_ZOONOSES = {
         "heading": "สถานการณ์ในสัตว์ของไทย",
         "source": "Zoonoses 85 น.15",
         "body": [
-          {
-            "text": "ข้อมูลเคสสัตว์ระหว่างปี 2014 ถึงสิงหาคม 2020"
-          },
+          "ข้อมูลเคสสัตว์ระหว่างปี 2014 ถึงสิงหาคม 2020",
           {
             "bullets": [
               "**พบในสุนัขบ้านเป็นหลัก 3,547 เคส คิดเป็น 87 เปอร์เซ็นต์**",
@@ -771,9 +737,7 @@ export const NOTES_85_ZOONOSES = {
               "**หมาจิ้งจอก (jackal) 7 เคส คิดเป็น 0.17 เปอร์เซ็นต์ ซึ่งเป็นตัวเลขฝั่งสัตว์ป่า**"
             ]
           },
-          {
-            "text": "สไลด์ระบุ reservoir ของ rabies virus ว่าเป็น domestic dogs เป็นหลัก ส่วนในสหรัฐฯ มีหนู แรคคูน โคโยตี้ และ red fox ส่วนในแอฟริกามี mongooses, civets และ genets"
-          }
+          "สไลด์ระบุ reservoir ของ rabies virus ว่าเป็น domestic dogs เป็นหลัก ส่วนในสหรัฐฯ มีหนู แรคคูน โคโยตี้ และ red fox ส่วนในแอฟริกามี mongooses, civets และ genets"
         ]
       },
       {
@@ -801,9 +765,7 @@ export const NOTES_85_ZOONOSES = {
               "**ระบุชนิดสัตว์ได้ในระดับชื่อวงศ์เท่านั้น แม้แต่สัตวแพทย์เองก็ตาม**"
             ]
           },
-          {
-            "text": "การศึกษาที่ยกมาคือ rabies in golden jackal (Canis aureus) ระหว่างกรกฎาคม 2018 ถึงกรกฎาคม 2020 ในไทย สืบเคสแบบ case-by-case โดยระบุบริบทของพื้นที่ว่าเป็น rural, forest, agriculture หรือ military land ร่วมกับการใช้ camera trap และ community survey"
-          }
+          "การศึกษาที่ยกมาคือ rabies in golden jackal (Canis aureus) ระหว่างกรกฎาคม 2018 ถึงกรกฎาคม 2020 ในไทย สืบเคสแบบ case-by-case โดยระบุบริบทของพื้นที่ว่าเป็น rural, forest, agriculture หรือ military land ร่วมกับการใช้ camera trap และ community survey"
         ]
       },
       {
@@ -817,9 +779,7 @@ export const NOTES_85_ZOONOSES = {
               "การขยายตัวของเมืองทำให้ประชากรสัตว์ถูกผลักที่อยู่ ทั้งการทิ้งสัตว์เลี้ยงและสัตว์ป่าเข้าเมือง รวมถึงการขนส่งสัตว์ผิดกฎหมายและรถขนขยะที่พาแรคคูนติดไปด้วย"
             ]
           },
-          {
-            "text": "ผลกระทบของ canine rabies ที่สไลด์รวบรวมไว้ครอบคลุมทั้งด้านสุขภาพคน ผลผลิตปศุสัตว์ และประชากรสัตว์ป่า"
-          }
+          "ผลกระทบของ canine rabies ที่สไลด์รวบรวมไว้ครอบคลุมทั้งด้านสุขภาพคน ผลผลิตปศุสัตว์ และประชากรสัตว์ป่า"
         ]
       }
     ]
@@ -844,9 +804,7 @@ export const NOTES_85_ZOONOSES = {
               "ปัจจัยขับเคลื่อนคือ forest degradation และ fragmentation"
             ]
           },
-          {
-            "text": "แผนภาพเส้นทางการระบาดแบ่ง driver เป็น environmental drivers (deforestation), animal drivers (primary wildlife reservoir ไปสู่ spillover species แล้วไปสู่ animal recipient) และ human health drivers (bush meat, การแพร่เชื้อ, พิธีกรรมฝังศพ, การกระจายไปทั่วโลก และความเสี่ยงของบุคลากรทางการแพทย์)"
-          }
+          "แผนภาพเส้นทางการระบาดแบ่ง driver เป็น environmental drivers (deforestation), animal drivers (primary wildlife reservoir ไปสู่ spillover species แล้วไปสู่ animal recipient) และ human health drivers (bush meat, การแพร่เชื้อ, พิธีกรรมฝังศพ, การกระจายไปทั่วโลก และความเสี่ยงของบุคลากรทางการแพทย์)"
         ]
       },
       {
@@ -1032,9 +990,7 @@ export const NOTES_85_ZOONOSES = {
         "heading": "ข้อเขียน: intermediate host คืออะไร",
         "source": "ซูสุขติ mid น.10",
         "body": [
-          {
-            "text": "สำหรับ coronaviruses แล้ว intermediate host คือสัตว์ที่รับเชื้อต่อจาก natural reservoir และทำหน้าที่เป็น **สะพาน** ให้ไวรัสได้ **adapt, amplify หรือ mutate** ก่อนถ่ายทอดไปสู่ final host ซึ่งมักเป็นคน"
-          },
+          "สำหรับ coronaviruses แล้ว intermediate host คือสัตว์ที่รับเชื้อต่อจาก natural reservoir และทำหน้าที่เป็น **สะพาน** ให้ไวรัสได้ **adapt, amplify หรือ mutate** ก่อนถ่ายทอดไปสู่ final host ซึ่งมักเป็นคน",
           {
             "bullets": [
               "SARS-CoV-1: **Palm civet (Paguma larvata)**",
@@ -1341,9 +1297,7 @@ export const NOTES_85_ZOONOSES = {
               }
             ]
           },
-          {
-            "text": "ทั้ง H5N1 และ H7N9 ใช้หลักเดียวกันในการติดคน = mutation (antigenic drift) + host adaptation แต่ยังไม่ถึงขั้น antigenic shift ที่จะแพร่จากคนสู่คนง่ายๆ จนเป็น pandemic เหมือนโควิด"
-          }
+          "ทั้ง H5N1 และ H7N9 ใช้หลักเดียวกันในการติดคน = mutation (antigenic drift) + host adaptation แต่ยังไม่ถึงขั้น antigenic shift ที่จะแพร่จากคนสู่คนง่ายๆ จนเป็น pandemic เหมือนโควิด"
         ]
       },
       {

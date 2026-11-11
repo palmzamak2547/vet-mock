@@ -57,6 +57,7 @@
 
 import { pathToFileURL } from 'node:url';
 import { questionNeedsAnswerReview } from '../src/lib/question-prediction.js';
+import { wholeStem } from '../src/lib/rich-blocks.js';
 
 export function normalizeText(text) {
   if (!text || typeof text !== 'string') return '';
@@ -191,9 +192,11 @@ export function findNearDuplicates(questions) {
     if (!q || questionNeedsAnswerReview(q)) continue;
     const kind = keyKind(q);
     if (!kind) continue;
-    const g = grams(q.q);
+    // The whole sentence (`say` where the numbers moved to a passage table), which then needs no passage to be the same item.
+    const stem = wholeStem(q);
+    const g = grams(stem);
     if (g.size < 8) continue;
-    const row = { q, kind, g, neg: negations(q.q), num: numbers(q.q), passage: passageKey(q), image: q.image || q.imagePath || '' };
+    const row = { q, kind, g, neg: negations(stem), num: numbers(stem), passage: q.say ? '' : passageKey(q), image: q.image || q.imagePath || '' };
     if (!bySubject.has(q.subject)) bySubject.set(q.subject, []);
     bySubject.get(q.subject).push(row);
   }

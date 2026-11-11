@@ -14,8 +14,9 @@
 // not reached, so a question falls back to g1 whole.
 // ============================================================
 import fs from 'node:fs';
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 import { ELEVEN_TTS, clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
+import { wholeStem } from '../../src/lib/rich-blocks.js';
 
 test.setTimeout(60_000);
 
@@ -32,8 +33,9 @@ async function subjectKeys(subject) {
       for (const q of rows) {
         if (q?.subject !== subject || typeof q.q !== 'string') continue;
         const options = Array.isArray(q.options) ? q.options.map(String) : [];
-        const lang = questionLang(q.q, options);
-        keys.add(await clipKey(clipText(q.q, lang)));
+        const stem = wholeStem(q);   // the sentence the page reads
+        const lang = questionLang(stem, options);
+        keys.add(await clipKey(clipText(stem, lang)));
         if (q.explain) explain.add(await clipKey(clipText(q.explain, questionLang(q.explain, [])), ELEVEN_TTS));
         for (let i = 0; i < options.length; i++) {
           keys.add(await clipKey(optionLabel(i, lang)));
@@ -104,6 +106,7 @@ async function openQuestion(page, { clipMs, e1 = [], noClips = false }) {
   await page.goto('/app/study');
   await page.locator(`[data-subject="${SUBJECT}"]`).click();
   await page.locator('.vmx-topic-main', { hasText: TOPIC_HAS_TEXT }).click();
+  await openAdjust(page);
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('2');
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });

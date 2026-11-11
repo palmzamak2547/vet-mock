@@ -17,6 +17,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
+import RichBlocks from './RichBlocks.jsx';
 import { keywordCoverage } from './SmartGrader.jsx';
 
 const KEY = 'vmx-reveal-timing';
@@ -204,13 +205,13 @@ export function MatchReview({ q, userAns, answered }) {
             return (
               <details key={k} open={missed || undefined} className={missed ? 'is-missed' : ''}>
                 <summary>{name ? `${letterOf(name)}${strip(name)}` : paragraphTitle(p)}{missed ? ' — มีข้อที่พลาด' : ''}</summary>
-                <RichText text={p} />
+                <RichBlocks text={p} />
               </details>
             );
           })}
         </div>
       ) : (
-        <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>
+        <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>
       ))}
     </div>
   );
@@ -221,7 +222,7 @@ export function MatchReview({ q, userAns, answered }) {
  * against what the student has written so far (live, so a missing point
  * can still be added), the model answer, the explain.
  */
-export function WrittenReveal({ q, answer, subject }) {
+export function WrittenReveal({ q, answer, subject, evidence = null }) {
   const text = typeof answer === 'string' ? answer : '';
   const cov = keywordCoverage(text, q.keywords);
   // Not a live region as a whole: the checklist is recomputed on every
@@ -254,9 +255,10 @@ export function WrittenReveal({ q, answer, subject }) {
       {q.explain && (
         <div className="vmx-written-reveal-why">
           <div className="k">เหตุผล</div>
-          <TermLinkedRichText text={q.explain} subject={subject} />
+          <RichBlocks text={q.explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} />
         </div>
       )}
+      {evidence}
     </div>
   );
 }

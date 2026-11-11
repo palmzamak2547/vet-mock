@@ -75,6 +75,7 @@ export const test = base.extend({
 // render that landed between the keystroke and its input event (CI, 27 Oct: "ข้อ 5 จาก 10" after typing 5),
 // so the count is typed again until the start button names it. Returns that button.
 export async function setPracticeCount(page, n) {
+  await openAdjust(page);
   const box = page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ });
   const start = page.getByRole('button', { name: new RegExp(`เริ่มฝึก ${n} ข้อ`) });
   await expect(async () => {
@@ -84,3 +85,25 @@ export async function setPracticeCount(page, n) {
   return start;
 }
 
+
+// The app decides a practice set, the review planner and Home's first practice
+// mode for the student (src/lib/decide.js) and tucks every option into one
+// disclosure: ปรับเอง on the config screen and the planner, โหมดอื่น on Home.
+// A spec that needs a tucked row opens it first. Both helpers fail when their
+// toggle is missing: an exam's config screen has none (its rows stay in view),
+// so a spec on an exam does not call openAdjust.
+export async function openDisclosure(page, name) {
+  const toggle = page.getByRole('button', { name, exact: true });
+  await expect(toggle).toBeVisible({ timeout: 20_000 });
+  if ((await toggle.getAttribute('aria-expanded')) !== 'true') await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+}
+
+export async function openAdjust(page) {
+  await openDisclosure(page, 'ปรับเอง');
+}
+
+/** Home's practice modes: the first is shown, the rest wait under โหมดอื่น. */
+export async function openHomeModes(page) {
+  await openDisclosure(page, 'โหมดอื่น');
+}

@@ -28,3 +28,16 @@ test('question text cannot add a field, a line or markup', () => {
   assert.equal(row.length, 3);
   assert.equal(row[0], 'a b<br>&lt;script&gt;x&lt;/script&gt;<br><br>ถูก หรือ ผิด');
 });
+
+test('a passage comes first on the front, and a table is a table on both sides', () => {
+  const data = 'ประเมิน ELISA ในโค 404 ตัว\n\n| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |';
+  const { text } = ankiText([{
+    id: 5, subject: 'epidemiology', type: 'mcq', q: 'ความชุกคำนวณจากข้อใด', options: ['140/404', '102/404'], answer: 0,
+    passage: data, passage_title: 'ELISA <b>', explain: 'ดูจากตาราง\n\n| a | b |\n|---|---|\n| 1 | <2> |',
+  }]);
+  const [front, back] = text.trim().split('\n').at(-1).split('\t');
+  assert.match(front, /^<b>ELISA &lt;b&gt;<\/b><br>ประเมิน ELISA ในโค 404 ตัว<br><table /);
+  assert.match(front, /<tr><th><\/th><th>เพาะเชื้อบวก<\/th><th>เพาะเชื้อลบ<\/th><\/tr><tr><td>ELISA บวก<\/td><td>102<\/td><td>40<\/td><\/tr><\/table><br><br>ความชุกคำนวณจากข้อใด/);
+  assert.match(back, /ดูจากตาราง<br><table [^>]*><tr><th>a<\/th><th>b<\/th><\/tr><tr><td>1<\/td><td>&lt;2&gt;<\/td><\/tr><\/table>$/);
+  assert.ok(!/\|---/.test(front + back), 'no table syntax reaches the card');
+});

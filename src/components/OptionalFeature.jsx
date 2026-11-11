@@ -5,7 +5,9 @@ import { alertDialog } from '../lib/dialog.js';
 // Optional overlays sit outside the page's boundary. Their import/render
 // failure must not unmount the page and discard its draft or active session.
 // Background helpers omit onClose and disappear quietly if they fail.
-export default function OptionalFeature({ children, label, onClose }) {
+// `pending` is what shows while the feature's code downloads: nothing by
+// default, since most are warm by the time they open.
+export default function OptionalFeature({ children, label, onClose, pending = null }) {
   const failed = () => {
     if (!onClose) return;
     onClose();
@@ -17,7 +19,7 @@ export default function OptionalFeature({ children, label, onClose }) {
   };
   return (
     <ErrorBoundary fallback={null} onError={failed}>
-      <Suspense fallback={null}>{children}</Suspense>
+      <Suspense fallback={pending}>{children}</Suspense>
     </ErrorBoundary>
   );
 }

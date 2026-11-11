@@ -6,11 +6,14 @@ import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/uti
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import RichBlocks from '../components/RichBlocks.jsx';
+import { hasTable } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import { MatchReview } from '../components/AnswerReveal.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
+import EvidenceSlot from '../components/EvidenceSlot.jsx';
 import { copyShareUrl } from '../lib/share-link.js';
 import NavIcon from '../components/NavIcon.jsx';
 
@@ -448,11 +451,11 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </div>
             )}
             {q.passage && (
-              <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 14, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
+              <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 14, lineHeight: 1.65, whiteSpace: 'pre-wrap', ...(hasTable(q.passage) ? {} : { maxHeight: 220, overflowY: 'auto' }) }}>
                 <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                   <NavIcon name="files" size={12} /> {q.passage_title || 'Passage'}
                 </div>
-                <RichText text={q.passage} />
+                <RichBlocks text={q.passage} />
               </div>
             )}
             {(q.type === 'short' || q.type === 'essay') ? (
@@ -494,7 +497,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
               </>
             )}
-            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
+            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>}
             {safeImageUrl(q.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(q.explainImage)}
@@ -502,6 +505,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 maxHeight={320}
               />
             )}
+            {q.type !== 'match' && <EvidenceSlot q={q} late />}
             {/* For a missed question, offer the checked VetWiki summary — the
                 highest-value moment to read the verified version. Correct
                 answers don't need the nudge. */}

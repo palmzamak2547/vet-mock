@@ -22,6 +22,7 @@ import { QUIZ_DEFAULT, QUIZ_MAX } from './config.js';
 import { questionSetLink } from './links.js';
 import { subjectName, topicLabel } from './corpus.js';
 import { subjectsInText } from './subjects.js';
+import { wholeStem } from '../../../src/lib/rich-blocks.js';
 
 const clampN = (n) => {
   const v = Math.round(Number(n));
@@ -44,7 +45,7 @@ export function toQuizQuestion(q) {
   const topic = topicLabel(q.subject, q.topic);
   return {
     id: q.id,
-    stem: String(q.q || '').trim(),
+    stem: wholeStem(q).trim(),
     options: tf ? ['ถูก', 'ผิด'] : q.options.map((o) => String(o)),
     answer: tf ? (q.answer ? 0 : 1) : q.answer,
     explain: q.explain ? String(q.explain).trim() : null,

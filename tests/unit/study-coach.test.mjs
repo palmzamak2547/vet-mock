@@ -130,6 +130,25 @@ test('a miss explanation grounded in the question is returned', async () => {
   assert.equal(res.headers['cache-control'], 'private, no-store');
 });
 
+test('a question whose numbers sit in a passage table is explained from the sentence that holds them', async () => {
+  const q = [...CATALOG.values()].find((x) => x.type === 'mcq' && typeof x.say === 'string' && x.say !== x.q);
+  assert.ok(q, 'no question keeps its numbers in a table and its sentence in `say` any more');
+  const real = globalThis.fetch;
+  let sent = '';
+  globalThis.fetch = async (_url, init) => { sent = String(init?.body || ''); return reply({}); };
+  try { await handler(post({ mode: 'miss', qid: String(q.id), chosen: wrongIndex(q) }), fakeRes()); } finally { globalThis.fetch = real; }
+  const shown = JSON.parse(sent).messages.map((m) => String(m.content)).join('\n');
+  assert.ok(shown.includes(`QUESTION: ${q.say}`), 'the model was shown the stem without its numbers');
+
+  // The session review is shown the same sentence (its first 300 characters), not the stem on screen.
+  globalThis.fetch = async (_url, init) => { sent = String(init?.body || ''); return reply({}); };
+  try {
+    await handler(post({ mode: 'review', items: [{ qid: String(q.id), chosen: wrongIndex(q) }, { qid: String(Q1.id), chosen: wrongIndex(Q1) }] }), fakeRes());
+  } finally { globalThis.fetch = real; }
+  const reviewed = JSON.parse(sent).messages.map((m) => String(m.content)).join('\n');
+  assert.ok(reviewed.includes(`question: ${q.say.slice(0, 120)}`), 'the session review was shown the stem without its numbers');
+});
+
 test('half an explanation is not shown as a whole one', async () => {
   const res = await run(
     { mode: 'miss', qid: String(Q1.id), chosen: wrongIndex(Q1) },

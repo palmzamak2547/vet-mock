@@ -17,6 +17,7 @@ import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import RichBlocks from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
@@ -32,6 +33,8 @@ import ImageOcclusionCard from '../components/ImageOcclusionCard.jsx';
 import ClozeCard from '../components/ClozeCard.jsx';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { stillWrong } from '../lib/wrong-pool.js';
+import { adjustOpen, decide, forget, setAdjustOpen } from '../lib/decide.js';
+import { SR_KEYS, SR_SETUP, SR_SIZES } from '../lib/decisions/sr-setup.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -41,11 +44,17 @@ import { stillWrong } from '../lib/wrong-pool.js';
 // Selections persist via localStorage so the last preset comes back
 // next time.
 //
+// The planning step decides for the student (src/lib/decide.js, sr.setup):
+// one line of what today's session is and why, the start button, and the
+// rows behind one disclosure, ปรับเอง. The rows keep their own keys; a row
+// set away from its default is the student's, and กลับไปใช้ค่าที่จัดให้
+// puts every row back.
+//
 // Eligibility filter (isFlashcardCompatible) lives in hooks/sr-filter.js
 // so the Home dashboard badge and this view always agree.
 // ============================================================
 
-const SIZE_PRESETS = [25, 50, 100, 200];
+const SIZE_PRESETS = SR_SIZES.filter((n) => n !== 'all');
 // Written by HomeView's launchSR (the daily plan), read once here.
 const SR_PLAN_SIZE_KEY = 'vmx-sr-plan-size';
 
@@ -84,7 +93,14 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   useEffect(() => {
     try { window.sessionStorage.removeItem(SR_PLAN_SIZE_KEY); } catch { /* nothing to drop */ }
   }, []);
-  const sessionSize = planSize ?? savedSize;
+  // Only a size the planner offers is a size: a count Home's plan once wrote
+  // into this key (before 5.192.1), or a broken value, reads as the default and
+  // is written back as it (sr.setup).
+  const ownSize = SR_SIZES.includes(savedSize) ? savedSize : 25;
+  useEffect(() => {
+    if (!SR_SIZES.includes(savedSize)) setSavedSize(25);
+  }, [savedSize, setSavedSize]);
+  const sessionSize = planSize ?? ownSize;
   const pickSize = (n) => { setPlanSize(null); setSavedSize(n); };
   const [subjectFilter, setSubjectFilter] = useLocalStorage('vmx-sr-subject-filter', 'all');
   const reviewYear = subjectFilter === 'all' ? selectedYear : (yearForSubject(subjectFilter) ?? selectedYear);
@@ -92,6 +108,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   const selectedPaper = scopeForPhase(selectedPhase);
 
   const [sessionCards, setSessionCards] = useState(null);  // null = planning step
+  const [adjusting, setAdjusting] = useState(() => adjustOpen('sr'));
+  const startButtonRef = useRef(null);
+  const toggleAdjust = () => setAdjusting((open) => { setAdjustOpen('sr', !open); return !open; });
   const [currentIdx, setCurrentIdx] = useState(0);
   // Device preference, mirrored on motion-preferences: SM-2 stays the default,
   // FSRS is opt-in. The subscription re-renders the counts and the interval
@@ -251,14 +270,135 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   if (!sessionCards) {
     const dueCount = duePool.length;
     const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(reviewYear);
+    // What today's session is, in one line, and why (decide.js, sr.setup).
+    // The rows as they are on screen now, not as storage has them: useLocalStorage
+    // writes in an effect, a render after the tap, and the line must not lag.
+    const rowsIO = {
+      get: (k) => JSON.stringify(k === SR_KEYS.size ? ownSize : k === SR_KEYS.subject ? subjectFilter
+        : k === SR_KEYS.yearScope ? yearScope : k === SR_KEYS.phaseScope ? phaseScope : null),
+      set() {}, remove() {},
+    };
+    const signals = { planSize, dueReviewed: dueReviewedCount, newCount };
+    const decision = decide(SR_SETUP, signals, rowsIO);
+    const todayCount = sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount);
+    // What the session holds, so 25 unseen cards are never announced as 25 due.
+    const split = [
+      dueReviewedCount > 0 ? `ค้างทบทวน ${dueReviewedCount.toLocaleString()}` : null,
+      newCount > 0 ? `ใหม่ ${newCount.toLocaleString()}` : null,
+    ].filter(Boolean).join(', ');
+    const subjectName = subjectFilter === 'all' ? 'ทุกวิชา' : (SUBJECTS.find((x) => x.id === subjectFilter)?.name || 'วิชาที่เลือกไว้');
+    const sessionLine = [
+      `${todayCount.toLocaleString()} ใบ${split ? ` (${split})` : ''}`,
+      subjectFilter === 'all' ? (yearScope === 'all' ? 'ทุกปี' : `ปี ${selectedYear}`) : null,
+      subjectName,
+      selectedPaper ? (phaseScope === 'all' ? 'ทุกช่วงสอบ' : EXAM_SCOPE_LABEL[selectedPaper]) : null,
+      scheduler === 'fsrs' ? 'จัดรอบแบบ FSRS' : null,
+    ].filter(Boolean).join(', ');
+    // Every row back to the planner's default (the scheduler is a device
+    // preference and stays), the saved size included: a plan's size still runs
+    // this one session, and a size tapped afterwards is saved as before.
+    const restoreChosen = () => {
+      forget(SR_SETUP);
+      setYearScope('current');
+      setSubjectFilter('all');
+      setPhaseScope('current');
+      setSavedSize(25);
+      globalThis.requestAnimationFrame?.(() => startButtonRef.current?.focus());
+    };
+    const counting = !scopeReady || (yearScope === 'all' && allYearsLoad === 'loading');
+    const startRow = (
+      <div className="vmx-btn-row">
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
+        <button
+          ref={startButtonRef}
+          className="vmx-btn vmx-btn-primary"
+          onClick={() => startSession()}
+          disabled={starting || (dueCount === 0 && scopeReady)}
+        >
+          {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
+        </button>
+      </div>
+    );
     return (
       <>
         <div className="vmx-hero">
           <Mochi state="read" size={56} slot="review-intro" className="vmx-hero-mochi" />
           <h1>ทบทวน <em>ตามรอบ</em></h1>
-          <p>เลือกขนาด session ที่ทำได้สบายๆ — ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
+          <p>ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
         </div>
 
+        <section className="vmx-decide" aria-label="รอบทบทวนวันนี้">
+          {/* Nothing is claimed before the bank that holds the cards is in: a
+              cold visit counted 0 and said nothing was due. */}
+          <p className="vmx-decide-what" id="vmx-srs-summary">
+            {counting ? 'กำลังนับใบที่ถึงรอบ…'
+              : dueCount === 0 ? 'วันนี้ไม่มีใบถึงรอบ'
+                : <><strong>{decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว'}:</strong> {sessionLine}</>}
+          </p>
+          {!counting && dueCount > 0 && (decision.why || decision.by === 'you') && (
+            <p className="vmx-decide-why">
+              {decision.why}
+              {decision.by === 'you' && (
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
+                  กลับไปใช้ค่าที่จัดให้
+                </button>
+              )}
+            </p>
+          )}
+          {yearScope === 'all' && allYearsLoad === 'failed' && (
+            <div className="vmx-config-availability" role="status">
+              ยังโหลดทุกปีไม่ครบ ตอนนี้มีเฉพาะปีที่โหลดแล้ว{' '}
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setAllYearsTry((n) => n + 1)}>
+                ลองใหม่
+              </button>
+            </div>
+          )}
+          {bankError && (
+            <div className="vmx-config-availability" role="alert">
+              ยังโหลดคลังข้อสอบไม่ครบ ตรวจการเชื่อมต่อแล้วลองโหลดอีกครั้ง
+              {dueCount > 0 && (
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => startSession(true)} disabled={starting}>
+                  ทบทวนเฉพาะการ์ดที่โหลดแล้ว ({dueCount} ใบ)
+                </button>
+              )}
+            </div>
+          )}
+          {dueCount === 0 && scopeReady && selectedPaper && phaseScope !== 'all' && (
+            <div className="vmx-config-availability" role="status">
+              ไม่มีการ์ดถึงรอบในขอบเขตนี้ เลือก “ทุกช่วง” ใน “ปรับเอง” เพื่อดูเนื้อหาช่วงอื่น
+            </div>
+          )}
+          {startRow}
+        </section>
+
+        {/* A first miss is not a card yet (a question joins the queue when it is
+            missed twice, App.jsx findAutoPromoteCandidates), so after a first set
+            this page said 0 cards while Home offered the missed questions. Point
+            to the same pool Home uses instead of leaving the student at 0. */}
+        {stats.total === 0 && startExam && hasStillWrong && (
+          <div className="vmx-config-availability" role="note" style={{ marginBottom: 12 }}>
+            ข้อที่ตอบผิดครั้งแรกยังไม่เป็นการ์ด จะเข้ามาเมื่อพลาดข้อเดิมอีกครั้ง ทวนข้อที่ยังตอบผิดตอนนี้ได้เลย
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              style={{ display: 'flex', marginTop: 8, minHeight: 44 }}
+              onClick={() => startExam({ mode: 'quick', practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', numQuestions: 50, useTimer: false })}
+            >
+              ทวนข้อที่ยังตอบผิด
+            </button>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="vmx-decide-toggle"
+          aria-expanded={adjusting}
+          aria-controls="vmx-srs-adjust"
+          onClick={toggleAdjust}
+        >
+          ปรับเอง
+        </button>
+        <div id="vmx-srs-adjust" role="region" aria-label="ปรับเอง" hidden={!adjusting} className="vmx-decide-region">
         <div className="vmx-config-panel">
           {/* Year scope toggle — default to current year so cross-year
               cards don't leak into focused review sessions */}
@@ -283,14 +423,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               </div>
               {yearScope === 'all' && allYearsLoad === 'loading' && (
                 <div className="vmx-config-availability" role="status">กำลังโหลดทุกปี…</div>
-              )}
-              {yearScope === 'all' && allYearsLoad === 'failed' && (
-                <div className="vmx-config-availability" role="status">
-                  ยังโหลดทุกปีไม่ครบ ตอนนี้มีเฉพาะปีที่โหลดแล้ว{' '}
-                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setAllYearsTry((n) => n + 1)}>
-                    ลองใหม่
-                  </button>
-                </div>
               )}
             </div>
           )}
@@ -348,8 +480,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               {SIZE_PRESETS.map((n) => (
                 <button
                   key={n}
-                  className={`vmx-chip ${planSize == null && savedSize === n ? 'active' : ''}`}
-                  aria-pressed={planSize == null && savedSize === n}
+                  className={`vmx-chip ${planSize == null && ownSize === n ? 'active' : ''}`}
+                  aria-pressed={planSize == null && ownSize === n}
                   onClick={() => pickSize(n)}
                   disabled={n > dueCount && dueCount > 0}
                   title={n > dueCount ? `มี due แค่ ${dueCount}` : ''}
@@ -358,8 +490,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                 </button>
               ))}
               <button
-                className={`vmx-chip ${planSize == null && savedSize === 'all' ? 'active' : ''}`}
-                aria-pressed={planSize == null && savedSize === 'all'}
+                className={`vmx-chip ${planSize == null && ownSize === 'all' ? 'active' : ''}`}
+                aria-pressed={planSize == null && ownSize === 'all'}
                 onClick={() => pickSize('all')}
               >
                 ทั้งหมด ({dueCount})
@@ -445,23 +577,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               </span>
             </div>
           )}
-          {/* A first miss is not a card yet (a question joins the queue when it is
-              missed twice, App.jsx findAutoPromoteCandidates), so after a first set
-              this page said 0 cards while Home offered the missed questions. Point
-              to the same pool Home uses instead of leaving the student at 0. */}
-          {stats.total === 0 && startExam && hasStillWrong && (
-            <div className="vmx-config-availability" role="note" style={{ marginTop: 12 }}>
-              ข้อที่ตอบผิดครั้งแรกยังไม่เป็นการ์ด จะเข้ามาเมื่อพลาดข้อเดิมอีกครั้ง ทวนข้อที่ยังตอบผิดตอนนี้ได้เลย
-              <button
-                type="button"
-                className="vmx-btn vmx-btn-ghost"
-                style={{ display: 'flex', marginTop: 8, minHeight: 44 }}
-                onClick={() => startExam({ mode: 'quick', practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', numQuestions: 50, useTimer: false })}
-              >
-                ทวนข้อที่ยังตอบผิด
-              </button>
-            </div>
-          )}
 
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
@@ -469,11 +584,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
           )}
 
-          {dueCount === 0 && scopeReady && selectedPaper && phaseScope !== 'all' && (
-            <div className="vmx-config-availability" role="status">
-              ไม่มีการ์ดถึงรอบในขอบเขตนี้ เลือก “ทุกช่วง” เพื่อดูเนื้อหาช่วงอื่น
-            </div>
-          )}
 
           {/* Mini stats */}
           <div className="vmx-stat-grid" style={{ marginTop: 16 }}>
@@ -492,25 +602,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
         </div>
 
-        {bankError && (
-          <div className="vmx-config-availability" role="alert">
-            ยังโหลดคลังข้อสอบไม่ครบ ตรวจการเชื่อมต่อแล้วลองโหลดอีกครั้ง
-            {dueCount > 0 && (
-              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => startSession(true)} disabled={starting}>
-                ทบทวนเฉพาะการ์ดที่โหลดแล้ว ({dueCount} ใบ)
-              </button>
-            )}
-          </div>
-        )}
-        <div className="vmx-btn-row">
-          <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
-          <button
-            className="vmx-btn vmx-btn-primary"
-            onClick={() => startSession()}
-            disabled={starting || (dueCount === 0 && scopeReady)}
-          >
-            {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
-          </button>
         </div>
       </>
     );
@@ -773,7 +864,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             <div className="answer">
               {answerNode || answerText}
             </div>
-            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
+            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(currentQ.explainImage)}

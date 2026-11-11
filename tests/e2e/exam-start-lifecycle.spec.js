@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust, openHomeModes } from './fixtures.js';
 
 test.use({ reducedMotion: 'reduce' });
 const difficultyChunk = /\/assets\/question-difficulty\.generated-[^/]+\.js(?:\?.*)?$/;
@@ -21,7 +21,9 @@ async function seed(page, parked = false) {
 
 async function adaptiveConfig(page) {
   await page.goto('/app');
+  await openHomeModes(page);
   await page.getByRole('button', { name: /ฝึกแบบเลือกจำนวน/ }).click();
+  await openAdjust(page);
   await page.getByRole('button', { name: 'ปรับระดับ', exact: true }).click();
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('1');
 }
@@ -44,10 +46,12 @@ test('a late adaptive chunk cannot reopen an exam after leaving its configuratio
   await page.getByRole('button', { name: /^เริ่มฝึก/ }).click();
   await expect.poll(() => intercepted).toBe(true);
   await page.getByRole('button', { name: '← หน้าแรก', exact: true }).click();
+  await openHomeModes(page);
   await expect(page.getByRole('button', { name: /ฝึกแบบเลือกจำนวน/ })).toBeVisible();
   release();
   await expect.poll(() => page.evaluate(() => window.__vmxDifficultyExecuted)).toBe(true);
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await openHomeModes(page);
   await expect(page.getByRole('button', { name: /ฝึกแบบเลือกจำนวน/ })).toBeVisible();
   await expect(page.locator('.vmx-question-card')).toHaveCount(0);
 
@@ -69,6 +73,7 @@ test('failed adaptive loading preserves a parked set and ordinary practice remai
   await expect(notice).toBeVisible();
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-inflight-exam:guest'))?.answers?.[60100])).toBe(1);
   await notice.getByRole('button', { name: 'เข้าใจแล้ว', exact: true }).click();
+  await openAdjust(page);
   await page.getByRole('button', { name: 'สุ่มทั่วไป', exact: true }).click();
   await page.getByRole('button', { name: /^เริ่มฝึก/ }).click();
   await page.getByRole('button', { name: 'เริ่มชุดใหม่ ทิ้งชุดเดิม', exact: true }).click();

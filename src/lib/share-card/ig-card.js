@@ -8,6 +8,7 @@
 // ============================================================
 
 import { createCard, paper, masthead, footer, POST, SIZE, FAMILY, layoutProblems } from './kit.js';
+import { wholeStem } from '../rich-blocks.js';
 
 const { live } = POST;
 const WIDTH = live.right - live.left;
@@ -51,7 +52,7 @@ function layout(card, q, { subjectName, stemSize, optSize, backdrop, shift = 0, 
   } else paper(card);
   masthead(card, subjectName || 'ข้อสอบชวนคิด', '@vetmock.cu');
 
-  const stem = card.para(cleanText(q.q), live.left, live.top + shift, WIDTH,
+  const stem = card.para(cleanText(wholeStem(q)), live.left, live.top + shift, WIDTH,
     { weight: 600, size: stemSize, family: FAMILY.serif, color: pal.ink }, { maxLines: 8, balance: true, leading: 1.42, role: 'stem' });
   // A question with a word cut off is not the question: smaller type, or no card.
   const cuts = stem.cut ? ['the stem is cut short'] : [];

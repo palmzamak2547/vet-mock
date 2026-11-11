@@ -93,7 +93,7 @@ import OptionalFeature from './components/OptionalFeature.jsx';
 // declarations, and the idle prefetch of the likely next views, live in
 // src/app/lazy-views.js.
 import {
-  HomeView, CommandPalette, InstructorModal, VoiceSettings,
+  HomeView, CommandPalette, InstructorProfile, VoiceSettings,
   ImageAnnotator, LabView, WrapUpView, AtlasView, PinboardView,
   ContributeView, ConnectAppsView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
   ShortcutSheet, OnboardingTour, SubjectSelectView, ConfigView, ExamView,
@@ -212,7 +212,7 @@ function withTransition(updateFn) {
 // Mobile-clipping fix history: see STABILITY.md rule 11.
 
 
-import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
+import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoadingBar.jsx';
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
@@ -270,6 +270,8 @@ const AUTH_REQUIRED_VIEWS = new Set([
 function isInteractiveKeyTarget(target) {
   if (!(target instanceof Element)) return false;
   if (target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return true;
+  // A wide table's frame takes focus so the arrow keys scroll it (RichBlocks.jsx): they must not turn the page.
+  if (target.closest('.vmx-qtable-wrap')) return true;
   return Boolean(target.closest('[role="button"], [role="checkbox"], [role="radio"], [role="switch"]'));
 }
 
@@ -3348,7 +3350,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} hasHistory={(history?.length || 0) > 0} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -3365,7 +3367,7 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
@@ -3525,8 +3527,8 @@ export default function App() {
       )}
 
       {openInstructor && (
-        <OptionalFeature label="ข้อมูลอาจารย์" onClose={() => setOpenInstructor(null)}>
-          <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
+        <OptionalFeature label="ข้อมูลอาจารย์" onClose={() => setOpenInstructor(null)} pending={<OverlayPending label="กำลังเปิดข้อมูลอาจารย์" />}>
+          <InstructorProfile instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
         </OptionalFeature>
       )}
 

@@ -1459,6 +1459,9 @@ html, body {
 .vmx-subject-scope { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-sm); font-weight: 400; }
 .vmx-subject-scope-action { min-height: var(--touch-min); padding-inline: 8px; display: inline-flex; align-items: center; color: var(--clr-sage-text); font-size: inherit; font-weight: 600; }
 .vmx-phase-moved { margin: -6px 0 14px; color: var(--clr-ink-soft); font-size: var(--text-sm); line-height: 1.5; }
+/* The first run's paper, chosen by the timetable (decide.js, phase.firstRun): said
+   once beside the label it explains, so the subject grid keeps its place. */
+.vmx-subject-scope-why { margin-right: auto; color: var(--clr-sage-text); }
 .vmx-old-content { margin: 4px 0 10px; color: var(--clr-gold-text); font-size: var(--text-sm); font-weight: 600; line-height: 1.5; }
 .vmx-group-preview-icon { width: 44px; height: 44px; flex: 0 0 44px; display: grid; place-items: center; border-radius: 50%; background: var(--clr-surface-2); color: var(--clr-sage-text); }
 @media (max-width: 600px) {
@@ -2621,6 +2624,11 @@ html.dark .vmx-panic-scrim {
     overflow-y: auto;
     margin-bottom: 0;
   }
+  /* A passage that is the question's data (it holds a table) sits above the
+     question at every width: in 42% of the card a table's Thai cells wrap
+     syllable by syllable. */
+  .vmx-q-with-passage.is-data { display: block; }
+  .vmx-q-with-passage.is-data .vmx-q-passage-pane { position: static; max-height: none; overflow-y: visible; margin-bottom: 16px; }
 }
 
 /* ── Floating "back to passage" button (mobile/tablet) ──────
@@ -2629,7 +2637,10 @@ html.dark .vmx-panic-scrim {
    desktop where the side-by-side layout obviates the need. */
 .vmx-passage-fab {
   position: fixed;
-  bottom: 18px;
+  /* Above the previous/next row: at 18 px this button covered the right half of "ข้อถัดไป". The row
+     sticks 8 px above the bottom of a phone and is about 62 px tall, and at the end of the page it
+     rises by the page's bottom padding (48 px in a set), so 128 px clears it in both places. */
+  bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 128px);
   right: 18px;
   z-index: 50;
   border: none;
@@ -2649,10 +2660,14 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-passage-fab:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.22); }
 .vmx-passage-fab:active { transform: translateY(0); }
-@media (min-width: 1024px) { .vmx-passage-fab { display: none; } }
-@supports (padding: env(safe-area-inset-bottom)) {
-  .vmx-passage-fab { bottom: max(18px, env(safe-area-inset-bottom)); }
+@media (min-width: 1024px) {
+  .vmx-passage-fab { display: none; }
+  /* A data passage sits above the question here too, so a long table puts the options below the fold:
+     the way back to it stays. */
+  .vmx-q-with-passage.is-data ~ .vmx-passage-fab { display: inline-flex; }
 }
+/* While the read-aloud bar is up it sits above that row too: this button goes above the bar. */
+.vmx-read-open .vmx-passage-fab { bottom: calc(var(--vmx-read-spacer, 160px) + 4px); }
 
 .vmx-options { display: flex; flex-direction: column; gap: 10px; }
 .vmx-option {
@@ -2897,6 +2912,25 @@ html.dark .vmx-panic-scrim {
 .vmx-explain-acc summary { cursor: pointer; font-weight: 600; color: var(--clr-ink); }
 .vmx-explain-acc details.is-missed summary { color: var(--clr-rose-text); }
 .vmx-explain-acc details > :not(summary) { margin-top: 6px; color: var(--clr-ink-soft); }
+/* A table inside a passage or an explanation (src/lib/rich-blocks.js, components/RichBlocks.jsx). It is as wide
+   as its cells need and its frame scrolls, so a wide one never pushes the card sideways; a frame that does
+   scroll says so under it and keeps the row names in view. It sits on its own surface, the same on every
+   card, and its text is the size of the text around it (never under the 14 px floor). The rules are drawn
+   cell by cell: collapsed borders do not travel with a pinned column. */
+.vmx-qtable-wrap { width: max-content; max-width: 100%; overflow-x: auto; margin: 8px 0 12px; white-space: normal; background: var(--clr-surface); }
+.vmx-qtable { border-collapse: separate; border-spacing: 0; border: 0 solid var(--clr-border); border-color: color-mix(in srgb, var(--clr-ink-soft) 65%, var(--clr-surface)); border-top-width: 1px; border-left-width: 1px; font-size: 1em; font-style: normal; line-height: 1.5; text-align: left; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
+.vmx-qtable th, .vmx-qtable td { border: 0 solid var(--clr-border); border-color: color-mix(in srgb, var(--clr-ink-soft) 65%, var(--clr-surface)); border-right-width: 1px; border-bottom-width: 1px; padding: 6px 10px; vertical-align: top; min-width: 3.5em; }
+.vmx-qtable th { font-weight: 700; }
+.vmx-qtable thead th, .vmx-qtable thead td { border-bottom-width: 2px; }
+.vmx-qtable thead th { text-wrap: balance; }
+.vmx-qtable tbody th { min-width: 6em; }
+.vmx-qtable .num { text-align: right; }
+.vmx-qtable-wrap.is-wide .has-names tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--clr-surface); }
+.vmx-qtable-hint { margin: -6px 0 12px; font-size: 14px; font-style: normal; color: var(--clr-ink-soft); }
+@media (max-width: 640px) {
+  .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
+  .vmx-qtable tbody th { min-width: 5em; }
+}
 .vmx-written-reveal-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-written-reveal-btn { appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); cursor: pointer; }
 .vmx-written-reveal { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }
@@ -4688,6 +4722,8 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 /* What the read-aloud is on: the block (stem, option row, เหตุผล) by an inset
    edge, the phrase being spoken by a CSS highlight. Neither changes a box. */
 .vmx-qtext.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
+/* A stem read together with the numbers of its table: the table carries the edge too. */
+.vmx-q-passage-pane.is-reading { box-shadow: -3px 0 0 var(--clr-ocean); }
 .vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
 ::highlight(vmx-reading) { background-color: var(--clr-gold-soft); color: var(--clr-ink); }
 
@@ -7143,6 +7179,23 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-config-summary { font-size: 14px; }
 }
 
+/* Decided for the student (src/lib/decide.js): what was set up and why, the
+   start under it, then one disclosure, ปรับเอง, for every row. Config, the
+   review planner and Home's practice modes share these. */
+.vmx-decide { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); padding: var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
+.vmx-decide-what { margin: 0; font-size: 16px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-decide-why { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-decide .vmx-config-actions-row, .vmx-decide .vmx-btn-row { margin-top: var(--space-2); }
+.vmx-decide-toggle { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min); padding: 0 var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; }
+.vmx-decide-toggle::after { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-fast) var(--ease-out); }
+.vmx-decide-toggle[aria-expanded="true"]::after { transform: translateY(2px) rotate(-135deg); }
+.vmx-decide-toggle:hover { border-color: var(--clr-ink); }
+.vmx-decide-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-decide-region { margin-top: var(--space-3); }
+.vmx-decide-reset { margin-left: var(--space-2); vertical-align: middle; }
+.vmx-mode-why { margin: var(--space-2) 0 var(--space-2); }
+@media (prefers-reduced-motion: reduce) { .vmx-decide-toggle::after { transition: none; } }
+
 /* The exam screen */
 .vmx-progress.is-opener {
   appearance: none; -webkit-appearance: none;
@@ -7389,6 +7442,11 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 @media (max-width: 359px) {
   .vmx-mode-grid { grid-template-columns: 1fr; }
 }
+/* Home's first practice mode (decide.js, home.mode): a lone card takes the
+   whole row, its reason sits right under it, and โหมดอื่น is a chip under that. */
+.vmx-mode-grid.vmx-mode-first { margin-bottom: 0; }
+.vmx-mode-grid.vmx-mode-first[data-count="1"] { grid-template-columns: 1fr; }
+.vmx-mode-first + .vmx-decide-toggle { margin-top: var(--space-3); }
 
 /* ── วันนี้ panel: rows at the touch floor, Thai in the page's face ──── */
 .vmx-vitals-row { min-height: var(--touch-min); }

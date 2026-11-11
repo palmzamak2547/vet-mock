@@ -3,6 +3,24 @@
 This file documents the security posture of vet-mock and is meant for the
 maintainer (Vet 86). Not user-facing.
 
+## Dependency and provider pass — 2026-11-10
+
+- **Three advisories closed, none needing a major version.** `npm audit`
+  reported `vite` <= 6.4.3 (high, the dev server's launch-editor on Windows),
+  `follow-redirects` 1.16.0 to 1.16.1 (high: credentials could follow a
+  cross-origin redirect; it is in the `/api/tts` runtime through
+  `msedge-tts` and `axios`) and `fast-uri` 3.1.8 (moderate, build chain
+  only). The root app, `ai/`, `vca/` and `research/` now lock Vite 6.4.6,
+  `follow-redirects` 1.16.3 and `fast-uri` 3.1.9, and `npm audit` reports
+  **0 vulnerabilities** in all four.
+- **The Anthropic fallback no longer names a retiring model.** Its id was
+  typed into four files and retires on 30 Nov 2026, after which the fallback
+  for grading, VetWiki answers, the chat writer and image reading would have
+  answered 404. One constant holds the id now (`ANTHROPIC_MODEL` in
+  `api/_lib/llm.js`), the request carries only fields that model accepts, and
+  the admin page's "ระบบภายนอก" card asks Anthropic whether the id is still
+  served (`tests/unit/anthropic-model.test.mjs`).
+
 ## Hardening pass — 2026-09-02 (v5.61.1)
 
 Findings from a whole-repo review checked against the live database

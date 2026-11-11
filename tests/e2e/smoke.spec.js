@@ -19,7 +19,7 @@
 // CI wires this up via .github/workflows/smoke-e2e.yml. Local:
 //   npm run test:e2e
 
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust, openHomeModes } from './fixtures.js';
 
 async function answerCurrentQuestion(page) {
   const mcq = page.locator('.vmx-option:visible').first();
@@ -201,6 +201,7 @@ test.describe('VetMock smoke flow', () => {
     // Just confirm AT LEAST ONE hero CTA is rendered + clickable —
     // proves the App tree mounted and HomeView rendered without
     // a TDZ-class error halting the render.
+    await openHomeModes(page);
     await expect(ctas.first()).toBeVisible({ timeout: 15_000 });
     // Smoke-click the first CTA. Either navigates or opens a config
     // view — either way no exception.
@@ -216,6 +217,7 @@ test.describe('VetMock smoke flow', () => {
   test('completes one-question Quick Practice through results', async ({ page }) => {
     await page.goto('/');
 
+    await openHomeModes(page);
     const quickPractice = page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first();
@@ -223,6 +225,7 @@ test.describe('VetMock smoke flow', () => {
     await quickPractice.click();
 
     await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+    await openAdjust(page);
     await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('1');
     await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
 
@@ -253,6 +256,7 @@ test.describe('VetMock smoke flow', () => {
     test.setTimeout(60_000);
     await page.goto('/');
 
+    await openHomeModes(page);
     const quickPractice = page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first();
@@ -260,6 +264,7 @@ test.describe('VetMock smoke flow', () => {
     await quickPractice.click();
 
     await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+    await openAdjust(page);
     await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('2');
     await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
 
@@ -312,11 +317,13 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByRole('heading', { level: 1, name: /เลือก.*ชั้นปี/ })).toBeVisible();
     await page.getByRole('button', { name: /ปี\s*4\b/ }).click();
 
-    await expect(page.getByRole('heading', { level: 1, name: /เลือก.*ช่วงสอบ/ })).toBeVisible();
-    await page.getByRole('button', { name: /เทอม\s*2\s*ปลายภาค/ }).click();
+    // The timetable names year 4's paper on the pinned day, so the year goes
+    // straight to Home with it (decide.js, phase.firstRun) and says so there.
+    await expect(page.locator('.vmx-subject-scope-why')).toHaveText('ตามตารางสอบ');
 
     await expect(page.locator('main#main')).toBeVisible();
     await expect(page.locator('.vmx-hero h1')).toContainText(/พร้อมฝึกสำหรับ|สวัสดี/);
+    await openHomeModes(page);
     await expect(page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first()).toBeVisible({ timeout: 15_000 });
@@ -356,6 +363,7 @@ test.describe('VetMock smoke flow', () => {
   test('browser Back from config returns to home', async ({ page }) => {
     await page.goto('/');
 
+    await openHomeModes(page);
     const quickPractice = page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first();
@@ -366,6 +374,7 @@ test.describe('VetMock smoke flow', () => {
     await page.goBack();
 
     await expect(page.locator('.vmx-hero h1')).toContainText(/พร้อมฝึกสำหรับ|สวัสดี/);
+    await openHomeModes(page);
     await expect(page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first()).toBeVisible();

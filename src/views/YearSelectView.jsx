@@ -8,6 +8,8 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
 import { takeFrontDoorReturn } from '../lib/phase-return.js';
+import { decide, leaveWhy, takeWhy } from '../lib/decide.js';
+import { PHASE_FIRST_RUN } from '../lib/decisions/phase-first-run.js';
 
 // ──────────────────────────────────────────────────────────────
 // YearSelectView — first-time front door for VetMock.
@@ -21,7 +23,7 @@ import { takeFrontDoorReturn } from '../lib/phase-return.js';
 //   • Other years: collapsed behind a small "ดูชั้นปีอื่น" expander.
 // ──────────────────────────────────────────────────────────────
 
-export default function YearSelectView({ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime = false }) {
+export default function YearSelectView({ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime = false, now = () => new Date() }) {
   const [showAll, setShowAll] = useState(false);
   const liveYears = YEARS.filter((y) => !y.scaffold);
   const scaffoldYears = YEARS.filter((y) => y.scaffold);
@@ -38,9 +40,21 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
     if (y.id === 6) {
       if (setSelectedPhase) setSelectedPhase(null);
       setView(takeFrontDoorReturn() || 'home');
+    } else if (y.scaffold) {
+      if (setSelectedPhase) setSelectedPhase(detectCurrentPhase(now(), y.id));
+      setView(takeFrontDoorReturn() || 'home');
     } else {
-      if (setSelectedPhase) setSelectedPhase(detectCurrentPhase(new Date(), y.id));
-      setView(y.scaffold ? (takeFrontDoorReturn() || 'home') : 'phase-select');
+      // The timetable already knows the paper (decide.js, phase.firstRun), so
+      // the student is not stopped to confirm it: Home names it with เปลี่ยน
+      // beside it. Only when the timetable has no paper to offer (none for
+      // the year, the term over, a past year's) is the phase screen shown.
+      const { value, why } = decide(PHASE_FIRST_RUN, { current: detectCurrentPhase(now(), y.id) });
+      if (setSelectedPhase) setSelectedPhase(value.phase);
+      if (value.ask) { setView('phase-select'); return; }
+      const next = takeFrontDoorReturn() || 'home';
+      // Only Home shows the reason, and only on the visit that follows.
+      if (next === 'home') leaveWhy('home', why); else takeWhy('home');
+      setView(next);
     }
   };
 

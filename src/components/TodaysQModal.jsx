@@ -14,6 +14,7 @@
 
 import { lazy, Suspense, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
+import RichBlocks from './RichBlocks.jsx';
 import { isCorrect } from '../hooks/utils.js';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import { recordTodaysQAnswer } from '../lib/daily-q.js';
@@ -21,6 +22,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { buildShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { wholeStem } from '../lib/rich-blocks.js';
 
 // Lazy-load the share card — it pulls a 1080×1920 canvas helper and
 // isn't needed until the user actually picks an answer + taps share.
@@ -84,7 +86,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
         </div>
 
         <div style={{ marginTop: 16, fontSize: 15, lineHeight: 1.6 }}>
-          <RichText text={q.q} />
+          <RichText text={wholeStem(q)} />
         </div>
 
         <div className="vmx-options" style={{ marginTop: 12 }}>
@@ -127,7 +129,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
             <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
               เฉลย
             </div>
-            <RichText text={q.explain} />
+            <RichBlocks text={q.explain} />
           </div>
         )}
 

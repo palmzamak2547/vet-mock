@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust } from './fixtures.js';
 
 // Panic mode started the set on the spot with the count, the clock and the
 // reveal all fixed, so a student could not say "ten questions" or "show me the
@@ -30,6 +30,7 @@ test('panic offers the count and the reveal, and still uses its own pool', async
   const start = page.getByRole('button', { name: /^เริ่ม(ฝึก|สอบ)/ });
   await expect(start).toBeVisible({ timeout: 20000 });
 
+  await openAdjust(page);
   // Both controls Palm asked for are on it.
   const tenChip = page.getByRole('button', { name: '10', exact: true });
   await expect(tenChip).toBeVisible();

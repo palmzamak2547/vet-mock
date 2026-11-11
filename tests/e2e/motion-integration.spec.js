@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, openAdjust, openHomeModes } from './fixtures.js';
 
 test.setTimeout(90_000);
 test.use({ serviceWorkers: 'block' });
@@ -242,7 +242,9 @@ test('bookmark motion follows a persisted pin, and a failed write never looks sa
     };
   });
   await page.goto('/');
+  await openHomeModes(page);
   await page.getByRole('button', { name: /Quick Practice|ฝึกแบบเลือกจำนวน/i }).first().click();
+  await openAdjust(page);
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('3');
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 25_000 });

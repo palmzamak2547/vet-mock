@@ -37,6 +37,9 @@ tmp/
 # not part of the build. Last-run pointer + traces + screenshots regenerate
 # on every run; do NOT commit (would create noisy diffs every test).
 test-results/
+# The same output under another name (PLAYWRIGHT_OUTPUT_DIR, a --output flag):
+# three such folders of failure screenshots were committed by accident in #141.
+test-results-*/
 playwright-report/
 .playwright-cli/
 .ds-sync/
