@@ -4,6 +4,7 @@
 import { useSyncExternalStore } from 'react';
 import { createStore } from './storage.js';
 import { themeTransition } from './motion.js';
+import { CHOSEN_ATTR, dropVisit, visitPrefs } from '@vetmock/lib/family/family.js';
 
 const THEMES = ['system', 'light', 'dark'];
 
@@ -13,14 +14,23 @@ export const prefsStore = createStore('vca:prefs', { theme: 'system' }, (raw) =>
 
 const media = () => (typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null);
 
+// A theme that arrived from another VetMock site shows for this visit only, over the saved choice,
+// never written into it; the student's own toggle here replaces it (src/lib/family/family.js).
+let visitTheme = visitPrefs().theme;
+
+const chosenOf = (theme) => visitTheme || (theme === 'dark' || theme === 'light' ? theme : null);
+
 export function effectiveTheme(theme = prefsStore.get().theme) {
-  if (theme === 'dark' || theme === 'light') return theme;
-  return media()?.matches ? 'dark' : 'light';
+  return chosenOf(theme) || (media()?.matches ? 'dark' : 'light');
 }
 
 export function applyTheme() {
   const theme = effectiveTheme();
   document.documentElement.dataset.theme = theme;
+  // Only a theme the student chose (or arrived with) travels to another VetMock site.
+  const chosen = chosenOf(prefsStore.get().theme);
+  if (chosen) document.documentElement.setAttribute(CHOSEN_ATTR, chosen);
+  else document.documentElement.removeAttribute(CHOSEN_ATTR);
   const meta = document.querySelectorAll('meta[name="theme-color"]');
   meta.forEach((m) => m.setAttribute('content', theme === 'dark' ? '#0c0e10' : '#f2f0eb'));
 }
@@ -39,6 +49,7 @@ export function watchTheme() {
  */
 export function toggleTheme(x = innerWidth - 60, y = 40) {
   const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+  if (visitTheme) { visitTheme = null; dropVisit('theme'); }
   themeTransition(() => prefsStore.set({ theme: next }), x, y);
 }
 
