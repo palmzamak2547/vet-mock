@@ -1,4 +1,5 @@
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import InstructorPortrait from './InstructorPortrait.jsx';
 
 const STATUS_LABELS = {
   faculty: 'บุคลากรในรายชื่อหน่วยงานปัจจุบัน',
@@ -89,15 +90,18 @@ export default function InstructorModal({ instructor, onClose }) {
             <span aria-hidden="true">✕</span>
           </button>
         </div>
-        <div style={{ marginBottom: 18 }}>
-          <h2 style={{ margin: 0, fontSize: 25, color: 'var(--clr-ink)', lineHeight: 1.25 }}>
-            {nameTh || nameEn}
-          </h2>
-          {nameTh && nameEn && (
-            <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 16, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-              {nameEn}
-            </div>
-          )}
+        <div style={{ marginBottom: 18, display: 'flex', gap: 14, alignItems: 'center' }}>
+          <InstructorPortrait instructor={instructor} size={72} />
+          <div style={{ minWidth: 0 }}>
+            <h2 style={{ margin: 0, fontSize: 25, color: 'var(--clr-ink)', lineHeight: 1.25 }}>
+              {nameTh || nameEn}
+            </h2>
+            {nameTh && nameEn && (
+              <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 16, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                {nameEn}
+              </div>
+            )}
+          </div>
         </div>
 
         <div style={{

@@ -12,6 +12,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Adisorn.A@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "b3b797b0"
+    },
     "status": "faculty",
     "areas": [
       "Anatomy and Medical Technology",
@@ -85,6 +90,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Ajjima.C@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "e6b1ea2f"
+    },
     "status": "faculty",
     "areas": [
       "Salivary Gland Disorders and Functions",
@@ -310,6 +320,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Alongkorn.A@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "d97c6837"
+    },
     "status": "faculty",
     "areas": [
       "Influenza Virus Research Studies",
@@ -809,6 +824,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Anongnart.S@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "3139ab0b"
+    },
     "status": "faculty",
     "areas": [
       "Animal Nutrition and Physiology",
@@ -991,6 +1011,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "anudep.r@chula.ac.th",
+    "photo": {
+      "w": 300,
+      "h": 300,
+      "v": "3a54d1a3"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary Oncology Research",
@@ -1072,6 +1097,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Anusak.K@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "1e7a1778"
+    },
     "status": "faculty",
     "areas": [
       "Cardiovascular Conditions and Treatments",
@@ -1651,6 +1681,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "ARANYA.P@CHULA.AC.TH",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "5a970c77"
+    },
     "status": "faculty",
     "areas": [
       "Aquaculture disease management and microbiota",
@@ -1743,6 +1778,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "araya.ra@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "64c8a50f"
+    },
     "status": "researcher",
     "areas": [
       "Veterinary Clinical Pathology",
@@ -2201,6 +2241,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Athipoo.N@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "cf9777e7"
+    },
     "status": "faculty",
     "areas": [
       "Animal Virus Infections Studies",
@@ -2293,6 +2338,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Aunyaratana.T@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "9f8b19d5"
+    },
     "status": "faculty",
     "areas": [
       "Mosquito-borne diseases and control",
@@ -2377,6 +2427,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "benchaphorn.l@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "04e01116"
+    },
     "status": "faculty",
     "areas": [
       "Transcutaneous drug delivery",
@@ -2729,6 +2784,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "boonrit.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "812815ef"
+    },
     "status": "faculty",
     "areas": [
       "Animal Nutrition and Physiology",
@@ -2929,6 +2989,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "CHACKRIT.N@CHULA.AC.TH",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "893cc60b"
+    },
     "status": "researcher",
     "areas": [
       "Animal Nutrition and Physiology",
@@ -3011,6 +3076,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "chaidate@hotmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "a7253574"
+    },
     "status": "faculty",
     "areas": [
       "Animal Disease Management and Epidemiology",
@@ -3453,6 +3523,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "chaiyot.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "8b3a5898"
+    },
     "status": "faculty",
     "areas": [
       "Barrier Structure and Function Studies",
@@ -3705,6 +3780,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "c.wangdee@hotmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "e6ec5f14"
+    },
     "status": "faculty",
     "areas": [
       "Orthopedic surgery",
@@ -3791,6 +3871,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "channarong.r@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "cfabc483"
+    },
     "status": "faculty",
     "areas": [
       "Fish infectious disease",
@@ -4236,6 +4321,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Chatree.K@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "dc10c56b"
+    },
     "status": "faculty",
     "areas": [
       "Animal Genetics and Reproduction",
@@ -4308,6 +4398,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาเภสัชวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Chenpop.S@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "548f8e8c"
+    },
     "status": "faculty",
     "areas": [
       "Stem cells & regenerative medicine"
@@ -4459,6 +4554,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "chutamas.be@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "848014bb"
+    },
     "status": "faculty",
     "areas": [
       "Human-Animal Interaction Studies",
@@ -4540,6 +4640,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "chutimon.th@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "af894d30"
+    },
     "status": "faculty",
     "areas": [
       "Diagnostic Imaging",
@@ -4718,6 +4823,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "dachrit@gmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "bb087dbd"
+    },
     "status": "faculty",
     "areas": [
       "Swine diseases and pig production systems"
@@ -4797,6 +4907,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Damri.d@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "c536a61f"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary Medicine and Surgery",
@@ -5237,6 +5352,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "ekkapol.a@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "14cf8719"
+    },
     "status": "faculty",
     "areas": [
       "Orthopedic surgery"
@@ -5570,6 +5690,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยชีวเคมี",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "gunnaporn.v@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "f63f03c2"
+    },
     "status": "faculty",
     "areas": [
       "Omics in veterinary science",
@@ -5648,6 +5773,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Hatairat.P@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "e115cf38"
+    },
     "status": "faculty",
     "areas": [
       "Animal Nutrition and Physiology",
@@ -6620,6 +6750,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "kamol.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "93bc9dda"
+    },
     "status": "faculty",
     "areas": [
       "Herpesvirus Infections and Treatments",
@@ -6703,6 +6838,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Kamonpan.C@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "2aa73dee"
+    },
     "status": "faculty",
     "areas": [
       "Animal Virus Infections Studies",
@@ -7148,6 +7288,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาเภสัชวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Kananuch.V@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "7be495f3"
+    },
     "status": "faculty",
     "areas": [
       "SARS-CoV-2 and COVID-19 Research",
@@ -7789,6 +7934,11 @@ export const INSTRUCTOR_DIRECTORY = [
         }
       ],
       "publicationsFound": 3
+    },
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "6a5e18f8"
     }
   },
   {
@@ -7800,6 +7950,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Kaywalee.C@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "e7c45dea"
+    },
     "status": "faculty",
     "areas": [
       "Reproductive Biology and Fertility",
@@ -8077,6 +8232,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "komin3182@hotmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "17d597db"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -8153,6 +8313,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "kittipong.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "392fea1b"
+    },
     "status": "researcher",
     "areas": [
       "Cardiovascular Effects of Exercise",
@@ -8230,6 +8395,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "kittisak.a@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "218622f7"
+    },
     "status": "faculty",
     "areas": [
       "Milk Quality and Mastitis in Dairy Cows",
@@ -8319,6 +8489,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "komkrich.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "1a3e8109"
+    },
     "status": "faculty",
     "areas": [
       "Animal Virus Infections Studies",
@@ -8401,6 +8576,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "kongkiat.s@chula.ac.th",
+    "photo": {
+      "w": 260,
+      "h": 260,
+      "v": "7e6659f2"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -9057,6 +9237,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "kriengyot.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "ccc19752"
+    },
     "status": "faculty",
     "areas": [
       "Anatomical Healing Potion",
@@ -9245,6 +9430,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Kris.A@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "c2839390"
+    },
     "status": "faculty",
     "areas": [
       "Animal Nutrition and Physiology",
@@ -9334,6 +9524,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "krishaporn@gmail.com",
+    "photo": {
+      "w": 296,
+      "h": 296,
+      "v": "1092ed5c"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -9409,6 +9604,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "krissda.b@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "c3156b79"
+    },
     "status": "faculty",
     "areas": [
       "Bartonella species infections research",
@@ -9479,6 +9679,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "kumpanart.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "c3ba221b"
+    },
     "status": "faculty",
     "areas": [
       "Small animal orthopedic"
@@ -10002,6 +10207,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยชีวเคมี",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "meena.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "4e94bfdb"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -10354,6 +10564,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยปรสิตวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Morakot.K@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "22d5afe7"
+    },
     "status": "faculty",
     "areas": [
       "Parasitology",
@@ -10444,6 +10659,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Morakot.n@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "d43036c0"
+    },
     "status": "faculty",
     "areas": [
       "Swine lactation management",
@@ -10581,6 +10801,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "nalinee.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "a9287f1f"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -10737,6 +10962,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Nan.C@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "f511bd90"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary Oncology Research",
@@ -11760,6 +11990,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "nataya.c@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "f96e892f"
+    },
     "status": "researcher",
     "areas": [
       "viral disease in chickens"
@@ -11947,6 +12182,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Natchanon.D@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "a68b839e"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -12840,6 +13080,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "navapont@gmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "03c1a2d7"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -13200,6 +13445,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "cudnicole@gmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "39f28a1a"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -13547,6 +13797,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาเภสัชวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Nipattra.d@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "8bd272da"
+    },
     "status": "faculty",
     "areas": [
       "- Veterinary Pharmacology",
@@ -13620,6 +13875,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "cniwat@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "bbeccefd"
+    },
     "status": "faculty",
     "areas": [
       "Poultry Diseases and management",
@@ -14025,6 +14285,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "nopadon.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "b59aaabb"
+    },
     "status": "researcher",
     "areas": [
       "Aquaculture disease management and microbiota",
@@ -14427,6 +14692,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Nutthee.A@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "d35734a3"
+    },
     "status": "faculty",
     "areas": [
       "Sperm and Testicular Function",
@@ -14512,6 +14782,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "pnuvee@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "7124ce99"
+    },
     "status": "faculty",
     "areas": [
       "Probiotics and Fermented Foods",
@@ -14600,6 +14875,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "cuorapun.j@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "fe1316b6"
+    },
     "status": "faculty",
     "areas": [
       "Pathology & oncology",
@@ -14750,6 +15030,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Padet.T@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "38c1c71e"
+    },
     "status": "faculty",
     "areas": [
       "Animal Behavior and Welfare Studies",
@@ -14833,6 +15118,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "paisan.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "505c4c54"
+    },
     "status": "faculty",
     "areas": [
       "- Animal reproduction",
@@ -15514,6 +15804,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Panrawee.P@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "1e558d6c"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -16141,6 +16436,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "patharapol.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "6ea2963c"
+    },
     "status": "faculty",
     "areas": [
       "Aquatic animal health",
@@ -16236,6 +16536,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "bnadhapat@gmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "35d8e651"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -16311,6 +16616,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "pattrarat.c@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "94bbb6bf"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -16390,6 +16700,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "pawana.u@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "8c1828e9"
+    },
     "status": "faculty",
     "areas": [
       "Animal health and immunology",
@@ -17433,6 +17748,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยปรสิตวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Piyanan.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "8b93d28c"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary Parasitology"
@@ -17524,6 +17844,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Piyanat.P@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "55aab3b1"
+    },
     "status": "faculty",
     "areas": [
       "Animal Behavior and Welfare Studies",
@@ -17714,6 +18039,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาเภสัชวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Piyarat.C@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "75d4f7de"
+    },
     "status": "faculty",
     "areas": [
       "Pharmacology and Toxicology",
@@ -19037,6 +19367,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "praopilas.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "e827ffdb"
+    },
     "status": "faculty",
     "areas": [
       "Biotechnology",
@@ -19114,6 +19449,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "prapaporn.j@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "7a1238c5"
+    },
     "status": "faculty",
     "areas": [
       "Bone Metabolism and Diseases",
@@ -19203,6 +19543,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยชีวเคมี",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "prapruddee.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "2c5a6ac7"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -19462,6 +19807,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "promporn.r@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "fe139569"
+    },
     "status": "faculty",
     "areas": [
       "Biomedical Science",
@@ -19736,6 +20086,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "punnarat.v@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "d5e3c2bc"
+    },
     "status": "faculty",
     "areas": [
       "Dental materials and restorations",
@@ -19815,6 +20170,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "punyamanee.y@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "9a50fc78"
+    },
     "status": "faculty",
     "areas": [
       "Trace Elements in Health",
@@ -20094,6 +20454,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "roongroje.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "b4d33c8a"
+    },
     "status": "faculty",
     "areas": [
       "Emerging and re-emerging diseases in animals Protecting animals"
@@ -20169,6 +20534,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "roongtham.k@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "c57794a2"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -20544,6 +20914,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Ruchikon.J@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "39eb2e85"
+    },
     "status": "faculty",
     "areas": [
       "Ruminant health & production",
@@ -20995,6 +21370,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "rungtip.c@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "77793b0a"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -21083,6 +21463,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Saharuetai.j@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "00eaf54a"
+    },
     "status": "faculty",
     "areas": [
       "- Molecular epidemiology of foodborne zoonotic pathogens in aquaculture using One Health approach"
@@ -21178,6 +21563,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "saikaew.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "7a3fbfab"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -21342,6 +21732,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sanipa.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "7889f17d"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -21599,6 +21994,11 @@ export const INSTRUCTOR_DIRECTORY = [
         }
       ],
       "publicationsFound": 3
+    },
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "ae23255c"
     }
   },
   {
@@ -21610,6 +22010,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Saranporn.P@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "7eb24c7f"
+    },
     "status": "faculty",
     "areas": [
       "Ruminant health & production",
@@ -22068,6 +22473,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Sarinee.Ka@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "bfc3113d"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -22143,6 +22553,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "saritvich.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "d1252e67"
+    },
     "status": "faculty",
     "areas": [
       "Ruminant health & production",
@@ -22214,6 +22629,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยชีวเคมี",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sariya.a@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "f54c8944"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -22806,6 +23226,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sawang.k@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "be473ce2"
+    },
     "status": "faculty",
     "areas": [
       "Swine and wildlife pathology"
@@ -22884,6 +23309,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Sawita.S@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "4d0a0c76"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -22970,6 +23400,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sayamon.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "17db8252"
+    },
     "status": "researcher",
     "areas": [
       "Aquatic animal health",
@@ -23594,6 +24029,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยชีวเคมี",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sirakarnt.D@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "40dca747"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -23673,6 +24113,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Sirawit.P@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "5a45e085"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction"
@@ -23763,6 +24208,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sirilakd27@gmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "4447e783"
+    },
     "status": "faculty",
     "areas": [
       "Small animal cardiology"
@@ -24102,6 +24552,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Sirinun.P@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "4038760e"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -24513,6 +24968,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยชีวเคมี",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "siriwan.sak@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "2a631e52"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine"
@@ -24578,6 +25038,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "siriwat.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "8eb11000"
+    },
     "status": "faculty",
     "areas": [
       "Heat stress and reproductive management in dairy cattle"
@@ -25421,6 +25886,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "somporn.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "81cc6d44"
+    },
     "status": "researcher",
     "areas": [
       "Pathology",
@@ -25495,6 +25965,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Somsak.pa@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "097ec463"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -25625,6 +26100,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยปรสิตวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sonthaya.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "459ec5cf"
+    },
     "status": "faculty",
     "areas": [
       "Vector biology and vector-borne diseases"
@@ -25847,6 +26327,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sroisuda.c@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "6df7d869"
+    },
     "status": "faculty",
     "areas": [
       "Small animal reproduction"
@@ -26136,6 +26621,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sukullaya.a@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "2af4a845"
+    },
     "status": "faculty",
     "areas": [
       "- Feline medicine",
@@ -26342,6 +26832,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sumit.d@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "39dc185b"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary anesthesiology and analgesia"
@@ -26424,6 +26919,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sumonwan.c@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "2dfd3420"
+    },
     "status": "faculty",
     "areas": [
       "Ruminant health & production",
@@ -26497,6 +26997,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "sumpun.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "81fce501"
+    },
     "status": "researcher",
     "areas": [
       "Ruminant health & production",
@@ -26691,6 +27196,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "suphachai.n@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "d24b4775"
+    },
     "status": "faculty",
     "areas": [
       "Microbial Risk Assessment\"",
@@ -26774,6 +27284,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "supot.w@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "71f27020"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -26980,6 +27495,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "suppawiwat.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "0b08dcde"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine"
@@ -27130,6 +27650,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Sutthasinee.P@Chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "5bd8ccf3"
+    },
     "status": "faculty",
     "areas": [
       "Cell & molecular biology"
@@ -27204,6 +27729,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสรีรวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Suwanakiet.s@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "6d01201e"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary Cardiology",
@@ -27317,6 +27847,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวบาล",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Talerngsak.A@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "32ba462e"
+    },
     "status": "faculty",
     "areas": [
       "Avian health"
@@ -27830,6 +28365,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "taradon.l@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "0557463a"
+    },
     "status": "faculty",
     "areas": [
       "Pre- and post-harvest food safety focusing on:"
@@ -28142,6 +28682,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาศัลยศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Teerapol.C@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "04304de5"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine"
@@ -28307,6 +28852,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาจุลชีววิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "teerawut.n@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "525fc8c4"
+    },
     "status": "faculty",
     "areas": [
       "Veterinary Immunology"
@@ -28614,6 +29164,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "thanida.h@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "28e0bebd"
+    },
     "status": "faculty",
     "areas": [
       "Aquatic animal health",
@@ -28702,6 +29257,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "thawat.l@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "39180013"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -29085,6 +29645,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Teerawat.S@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "199f56c4"
+    },
     "status": "faculty",
     "areas": [
       "Ruminant Reproduction",
@@ -29165,6 +29730,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสูติศาสตร์ เธนุเวชวิทยาและวิทยาการสืบพันธุ์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "theerawat.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "8977732d"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -29265,6 +29835,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Theerayuth71@hotmail.com",
+    "photo": {
+      "w": 300,
+      "h": 300,
+      "v": "830d5031"
+    },
     "status": "faculty",
     "areas": [
       "Swine health & reproduction",
@@ -29725,6 +30300,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ศูนย์สัตว์ทดลอง จุฬาลงกรณ์มหาวิทยาลัย (CULAC)",
     "institution": "จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "tussapon.b@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "e4fd92f6"
+    },
     "status": "researcher",
     "areas": [
       "Laboratory animal science",
@@ -29783,6 +30363,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาอายุรศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "vachira.hun@gmail.com",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "a757b003"
+    },
     "status": "faculty",
     "areas": [
       "อายุรศาสตร์สัตว์เลี้ยง",
@@ -31595,6 +32180,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "wijit.k@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "04e52413"
+    },
     "status": "faculty",
     "areas": [
       "Canine medicine",
@@ -32006,6 +32596,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "หน่วยปรสิตวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "Woraporn.S@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "b6c01d73"
+    },
     "status": "faculty",
     "areas": [
       "Feline medicine",
@@ -32090,6 +32685,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาสัตวแพทยสาธารณสุข",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "worrayanee.t@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "fa77acc0"
+    },
     "status": "faculty",
     "areas": [
       "Aquatic animal health",
@@ -32170,6 +32770,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชากายวิภาคศาสตร์",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "wuthichai.k@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "c71b85f5"
+    },
     "status": "faculty",
     "areas": [
       "Cardiovascular morphology",
@@ -32498,6 +33103,11 @@ export const INSTRUCTOR_DIRECTORY = [
     "department": "ภาควิชาพยาธิวิทยา",
     "institution": "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
     "email": "yaowalak.p@chula.ac.th",
+    "photo": {
+      "w": 320,
+      "h": 320,
+      "v": "f19fe842"
+    },
     "status": "faculty",
     "areas": [
       "- Infectious diseases of swine",

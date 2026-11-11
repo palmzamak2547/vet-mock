@@ -21,6 +21,7 @@ import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import InstructorPortrait from '../components/InstructorPortrait.jsx';
 
 const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
 
@@ -365,6 +366,7 @@ const FacultyCard = memo(function FacultyCard({ instructor, onOpen }) {
       onClick={() => onOpen(instructor)}
     >
       <div className="vmx-fac-card-head">
+        <InstructorPortrait instructor={instructor} size={40} className="vmx-fac-card-portrait" />
         <div className="vmx-fac-card-names">
           {nameTh && <div className="vmx-fac-card-name-th">{nameTh}</div>}
           <div className="vmx-fac-card-name-en">{nameEn}</div>
