@@ -52,9 +52,10 @@
 //   tools     🛠 เครื่องมือ & อื่นๆ
 // ============================================================
 
-// Feature flags — a one-line rollback for in-progress features. An entry with
-// `flag: 'X'` is hidden from home + ⌘K (and thus unreachable, since there is
-// no direct URL routing) when FEATURE_FLAGS.X === false.
+// Feature flags — a one-line rollback for a feature. An entry with
+// `flag: 'X'` is hidden from home + ⌘K when FEATURE_FLAGS.X === false, and the
+// readers that check the flag (the question's wiki link, the notes and results
+// links) hide their way in. Its /app route still opens (src/lib/view-route.js).
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 
 export const FEATURE_FLAGS = {

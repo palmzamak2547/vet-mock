@@ -16,13 +16,13 @@ export const DIFFICULTY_MIN_ATTEMPTS = 20;
 // Ability is clamped so a hot streak or a disaster session cannot fling a
 // student into a region where no question in the bank can challenge or serve
 // them. The band also bounds how far one session can move anyone.
-export const ABILITY_MIN = 800;
-export const ABILITY_MAX = 2200;
+const ABILITY_MIN = 800;
+const ABILITY_MAX = 2200;
 
 // Standard Elo K for a session's worth of answers. Applied once per session to
 // the summed surprise, not per question — a 20-question session should move
 // ability about as much as one decisive game, not twenty.
-export const ABILITY_K = 32;
+const ABILITY_K = 32;
 
 export function expectedScore(own, opponent) {
   return 1 / (1 + 10 ** ((opponent - own) / 400));

@@ -47,7 +47,7 @@ export const SYSTEM_PROMPT = `คุณคือผู้ช่วยติว�
 - ถ้ามีงานวิจัยในแหล่งข้อมูล สรุปประเด็นสำคัญของแต่ละเรื่องได้ 1 บรรทัดพร้อม [n]`;
 
 /** Old citation markers out of an earlier answer (they meant other sources). */
-export function stripCitations(text) {
+function stripCitations(text) {
   return String(text ?? '').replace(/\s?\[\d{1,3}(?:\s*[,–-]\s*\d{1,3})*\]/g, '');
 }
 

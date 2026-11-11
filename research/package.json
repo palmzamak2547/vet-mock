@@ -13,7 +13,7 @@
     "preview": "vite preview --port 43111 --strictPort",
     "test": "node --test \"tests/unit/**/*.test.mjs\"",
     "test:utc": "node -e \"process.env.TZ='UTC';const r=require('child_process').spawnSync(process.execPath,['--test','tests/unit/**/*.test.mjs'],{stdio:'inherit'});process.exit(r.status??1)\"",
-    "e2e": "node ../node_modules/@playwright/test/cli.js test -c playwright.config.js"
+    "e2e": "playwright test -c playwright.config.js"
   },
   "browserslist": [
     "defaults",
@@ -44,6 +44,7 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@vitejs/plugin-react": "4.7.0",
     "vite": "6.4.6"
   }

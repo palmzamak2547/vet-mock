@@ -20,7 +20,7 @@ export function thaiWords(text) {
  * Does `re` match whole words of `text`? "ต้องจำ" is study advice; "ต้องจำกัดอาหาร"
  * and "นักท่องเที่ยว" are facts (the review of #147).
  */
-export function wordMatch(re, text) {
+function wordMatch(re, text) {
   const s = String(text || '');
   if (!SEGMENTER) return re.test(s);
   const ends = new Set([s.length]);
@@ -264,7 +264,7 @@ const THAI_CLASS = {
 };
 // A doubled letter (มม, mm) is one sound; the same consonant on either side of
 // a vowel is two (myometrium: m-m-t-r-m).
-export function thaiSkeleton(text) {
+function thaiSkeleton(text) {
   let out = '';
   let last = '';
   for (const ch of String(text || '')) {
@@ -275,7 +275,7 @@ export function thaiSkeleton(text) {
   }
   return out;
 }
-export function latinSkeleton(word) {
+function latinSkeleton(word) {
   const w = String(word || '').toLowerCase()
     .replace(/(.)\1/g, '$1').replace(/ck/g, 'k')
     .replace(/ph/g, 'f').replace(/th/g, 't').replace(/ch/g, 'k').replace(/sh/g, 'c').replace(/qu/g, 'kw')

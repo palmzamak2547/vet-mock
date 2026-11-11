@@ -12,7 +12,7 @@
 export const SUMMARY_TITLE_FALLBACK = 'สรุปคลิปบรรยาย';
 
 /** The summary's first H1 (`# ...`), or '' when it has none. */
-export function summaryHeading(markdown) {
+function summaryHeading(markdown) {
   const m = /^#[ \t]+(.+)$/m.exec(String(markdown ?? ''));
   return m ? m[1].trim() : '';
 }

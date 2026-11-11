@@ -1,3 +1,4 @@
+// @ts-check
 // ============================================================
 // blob-token.js — self-expiring signed links for /api/library-blob.
 // ============================================================
@@ -36,6 +37,10 @@ function macKey(env = process.env) {
   return crypto.createHash('sha256').update(`vetmock-library-blob:${secret}`).digest();
 }
 
+/**
+ * @param {{ storage_bucket?: string, storage_key?: string, mime?: string, byte_size?: number | null, status?: string, file_name?: string }} doc
+ * @param {{ ttlSeconds?: number, expiresAtSec?: number | null, env?: Record<string, string | undefined>, now?: number }} [opts]
+ */
 export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env = process.env, now = Date.now() } = {}) {
   const key = macKey(env);
   if (!key) return null;
@@ -49,7 +54,7 @@ export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env 
     // A fixed expiry makes the token — and therefore the URL — identical for
     // every mint inside a time window, which is what lets the browser's HTTP
     // cache serve a re-opened document instead of re-streaming it.
-    e: Number.isFinite(expiresAtSec) ? Math.floor(expiresAtSec) : Math.floor(now / 1000) + ttlSeconds,
+    e: typeof expiresAtSec === 'number' && Number.isFinite(expiresAtSec) ? Math.floor(expiresAtSec) : Math.floor(now / 1000) + ttlSeconds,
   });
   const t = b64u(payload);
   const s = b64u(crypto.createHmac('sha256', key).update(t).digest());

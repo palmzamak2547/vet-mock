@@ -19,7 +19,7 @@ export const peekBootAuthError = () => bootAuthError;
 export function dropBootAuthError() { bootAuthError = null; }
 
 /** Set by the gate before a sign-in starts; the door opens once when it lands. */
-export const WELCOME_KEY = 'vmx-chula-welcome';
+const WELCOME_KEY = 'vmx-chula-welcome';
 
 function readWelcome() {
   try { return sessionStorage.getItem(WELCOME_KEY) === '1'; } catch { return false; }

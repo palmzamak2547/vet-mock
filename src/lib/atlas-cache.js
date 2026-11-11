@@ -1,6 +1,6 @@
 // Public, content-hashed geometry only. Kept separate from personal study data.
 export const ATLAS_CACHE_NAME = 'vmx-atlas-models-v1';
-export const ATLAS_CACHE_BUDGET = 32 * 1024 * 1024;
+const ATLAS_CACHE_BUDGET = 32 * 1024 * 1024;
 const HASHED_MODEL = /^\/atlas\/[a-z0-9-]+-[a-f0-9]{12}\.glb$/;
 let cacheWrite = Promise.resolve();
 let cacheWritesDisabled = false;
