@@ -52,7 +52,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { clipText, clipKey, optionLabel, questionLang, SHARED_TTS, ELEVEN_TTS } from '../src/lib/tts-text.js';
-import { wholeStem } from '../src/lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -121,7 +121,7 @@ function questionTexts(q, withExplain) {
   const lang = questionLang(stem, options);
   const out = [clipText(stem, lang)];
   options.forEach((o, i) => out.push(optionLabel(i, lang), clipText(o, lang)));
-  if (withExplain && q.explain && (q.type === 'mcq' || q.type === 'tf')) out.push(clipText(q.explain, questionLang(q.explain, [])));
+  if (withExplain && q.explain && (q.type === 'mcq' || q.type === 'tf')) out.push(clipText(wholeExplain(q), questionLang(wholeExplain(q), [])));
   return out.filter(Boolean);
 }
 
@@ -150,7 +150,7 @@ for (const [i, q] of order.entries()) {
   }
   const options = Array.isArray(q.options) ? q.options.map(String) : [];
   worded.add(await clipKey(clipText(wholeStem(q), questionLang(wholeStem(q), options)), G));
-  if (EXPLAIN && q.explain && (q.type === 'mcq' || q.type === 'tf')) worded.add(await clipKey(clipText(q.explain, questionLang(q.explain, [])), G));
+  if (EXPLAIN && q.explain && (q.type === 'mcq' || q.type === 'tf')) worded.add(await clipKey(clipText(wholeExplain(q), questionLang(wholeExplain(q), [])), G));
 }
 // A manifest covers the whole subject, explanations included, so a run
 // that picked fewer questions never drops clips an earlier run made.

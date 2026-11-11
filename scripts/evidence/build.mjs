@@ -26,7 +26,7 @@ import { citesOf } from '../provenance/build.mjs';
 import { evidenceHash, keyText } from '../../src/lib/evidence-hash.js';
 // What a model is shown of a question: `say` where its numbers sit in a passage table. The hash that
 // ties a slide to a question (evidenceHash) reads the same sentence.
-import { wholeStem } from '../../src/lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../../src/lib/rich-blocks.js';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const imp = (rel) => import(pathToFileURL(path.join(REPO, rel)).href);
@@ -156,7 +156,7 @@ function candidatesFor(item, index, cited, extra, topicShas) {
   const weights = new Map();
   const add = (text, w) => { for (const t of tokens(text)) weights.set(t, Math.max(weights.get(t) || 0, w)); };
   add(wholeStem(q), 1);
-  add(String(q.explain || '').slice(0, 600), 1.2);
+  add(wholeExplain(q).slice(0, 600), 1.2);
   add((q.keywords || []).join(' '), 2.5);
   add((extra || []).join(' '), 2.5);   // the same fact in the slide's own words, Thai and English
   add(keyText(q), 3);
@@ -281,7 +281,7 @@ function answerIndex(q) {
 }
 
 function termsPrompt(q) {
-  return `Exam question: ${wholeStem(q).slice(0, 700)}\nCorrect answer: ${keyText(q).slice(0, 400)}\nExplanation: ${String(q.explain || '').slice(0, 400)}\n\n`
+  return `Exam question: ${wholeStem(q).slice(0, 700)}\nCorrect answer: ${keyText(q).slice(0, 400)}\nExplanation: ${wholeExplain(q).slice(0, 400)}\n\n`
     + 'A lecture slide states the fact behind this answer. The slide may be in English or Thai. '
     + 'Give the words and short phrases that slide most likely contains: technical terms, names, numbers, units. '
     + 'Return {"en": [up to 10 English terms], "th": [up to 6 Thai terms]}';
@@ -299,7 +299,7 @@ function pointPrompt(q, cands) {
     ? `Find the ONE page whose lines show that. ${q.answer ? '' : 'For a false statement the lines must state the correct fact the statement gets wrong: a page that merely does not mention it does not count. '}`
     : 'Find the ONE page whose lines state the fact that makes the correct answer correct. ';
   return asked
-    + `Our explanation: ${String(q.explain || '').slice(0, 500)}\n\n`
+    + `Our explanation: ${wholeExplain(q).slice(0, 500)}\n\n`
     + `Lecture pages, every line numbered:\n\n${pages}\n\n`
     + `${want}A page that only names the topic does not count.\n`
     + `Return {"page": "P2" or null, "lines": [line numbers, the fewest that carry the fact, at most ${MAX_LINES}], `
