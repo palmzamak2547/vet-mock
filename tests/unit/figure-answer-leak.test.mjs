@@ -83,7 +83,7 @@ test('an explanation figure is drawn only after the answer is revealed', async (
   const question = read('src/components/Question.jsx');
   const review = read('src/views/ReviewView.jsx');
   assert.match(question, /const explainFigureSrc = safeImageUrl\(currentQ\?\.explainImage\);/);
-  assert.equal((question.match(/figure=\{explainFigure\}/g) || []).length, 2, 'both instant-feedback panels carry the figure');
+  assert.equal((question.match(/figure=\{explainFigure\}/g) || []).length, 3, 'every instant-feedback panel (choice, true/false, fill-in) carries the figure');
   // The figure, like the reason before it, renders one frame after the verdict.
   // The slide the answer rests on (docs/ANSWER-EVIDENCE.md) follows it, held back by the same frame.
   assert.match(question, /\{rest && figure\}\r?\n\s*\{rest && evidence\}\r?\n\s*\{rest && coach\}/, 'the figure sits inside the verdict panel, after the reason');
