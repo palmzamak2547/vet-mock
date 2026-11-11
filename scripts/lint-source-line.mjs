@@ -42,8 +42,8 @@ import { bankFiles, readBank } from './lib/bank-file.mjs';
 import { figureTextLeak, leakOf } from './lib/answer-leak.mjs';
 import { sameGenerated } from './lib/same-generated.mjs';
 import {
-  sourceLineAfterAnswer, SOURCE_LINE_WAIT,
-  topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT, cautionChipShown, CAUTION_CHIP_TEXT,
+  sourceLineAfterAnswer,
+  topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT,
 } from '../src/lib/source-line.js';
 import { SUBJECTS } from '../src/data/curriculum.js';
 import { EXAM_ORIGINS } from '../src/data/exam-origins.js';
@@ -64,13 +64,14 @@ export function unconfirmedCohorts() {
   return out;
 }
 
-/** Everything the source chip and the data-conflict flag say while the question is open. */
-export function preAnswerText(question) {
-  return [
-    // The source line renders nothing before the answer (QSourceChip.jsx);
-    // the caution chip is all that speaks of the source while it is open.
-    cautionChipShown(question?.flag) ? `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}` : '',
-  ].filter(Boolean).join('\n');
+/**
+ * Everything the source chip and the caution chip say while the question is
+ * open: nothing, since 11 Nov 2026. Neither renders before the answer
+ * (QSourceChip.jsx, Question.jsx FlagChip). Kept as the one place a later
+ * change that brings either back has to name what it shows.
+ */
+export function preAnswerText() {
+  return '';
 }
 
 /**

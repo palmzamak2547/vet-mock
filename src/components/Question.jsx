@@ -22,7 +22,7 @@ import { unlockAudio } from '../lib/audio-unlock.js';
 import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
 import ReadAloudBar from './ReadAloudBar.jsx';
 import QSourceChip from './QSourceChip.jsx';
-import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, cautionChipShown, CAUTION_CHIP_TEXT, SOURCE_LINE_WAIT } from '../lib/source-line.js';
+import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, cautionChipShown, CAUTION_CHIP_TEXT } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
@@ -426,10 +426,6 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     <div className="vmx-q-content-pane">
       <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
 
-      {/* The caution chip: a key in dispute (severity major) and nothing
-          else. A minor flag is a note in the source panel (QSourceChip). */}
-      {cautionChipShown(currentQ.flag) && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
-
       {showNote && (
         <div className="vmx-note-panel">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
@@ -471,6 +467,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               evidence={evidence}
               subject={currentQ.subject}
               foldOtherOptions
+              // The caution chip: a key in dispute (severity major) and nothing
+              // else, with the key. A minor flag is a note in the source panel.
+              caution={cautionChipShown(currentQ.flag) && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
@@ -812,45 +811,49 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 // `severity: 'major'` flag). Tap to read the note and its sources. Any other
 // flag draws nothing here; a minor note is a row of the source panel.
 // ────────────────────────────────────────────────────────────────
-// The chip warns before the answer too, but what it opens waits for the key
-// (5.189.2): a note that says which key the seniors marked, or that the
-// answer "should be InPouch TF-Feline", named the key on 26 of the 94
-// flagged questions, timed papers included. Exported for the leak test.
+// It shows with the key and never before (11 Nov 2026): before the answer
+// there is no answer to be careful with, and in a timed paper a red chip told
+// the student the official answer was disputed. It sits in the verdict panel,
+// under the key, so its arrival moves no option under the student's finger;
+// after a submitted paper, Review prints the same note. (5.189.2 measured
+// what the note opened: it named the key on 26 of the 94 flagged questions.)
+// Exported for the leak test.
 export function FlagChip({ flag, revealed = false }) {
   const [open, setOpen] = useState(false);
-  if (!cautionChipShown(flag)) return null;
-  const expanded = revealed && open;
+  if (!revealed || !cautionChipShown(flag)) return null;
   // `text` is the accent as TEXT on a 12% tint of itself — the raw accent
   // reads 2.65 there. The -text variant is what that role is for; border
   // and bg keep the accent, where nothing reads on top of it.
   const palette = { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)' };
 
   return (
-    <div style={{ marginTop: 12 }}>
+    <div className="vmx-caution" data-flag-chip="">
       <button
         type="button"
-        onClick={() => { if (revealed) setOpen((o) => !o); }}
-        aria-expanded={revealed ? open : undefined}
-        aria-disabled={revealed ? undefined : true}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
         style={{
           all: 'unset',
-          cursor: revealed ? 'pointer' : 'default',
+          cursor: 'pointer',
           display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
-          padding: '4px 10px',
+          minHeight: 44,
+          boxSizing: 'border-box',
+          padding: '0 14px',
           background: palette.bg,
           border: `1px solid ${palette.border}`,
           borderRadius: 999,
           fontSize: 14,
+          fontWeight: 600,
           color: palette.text,
         }}
-        title={revealed ? 'เฉลยข้อนี้มีข้อควรระวัง กดอ่าน' : 'เฉลยข้อนี้มีข้อควรระวัง อ่านได้หลังเห็นเฉลย'}
+        title={open ? 'ซ่อนข้อควรระวัง' : 'เฉลยข้อนี้มีข้อควรระวัง กดอ่าน'}
       >
-        <NavIcon name="flag" size={13} filled /> {CAUTION_CHIP_TEXT} {revealed ? (open ? '▾' : '▸') : SOURCE_LINE_WAIT}
+        <NavIcon name="flag" size={13} filled /> {CAUTION_CHIP_TEXT} {open ? '▾' : '▸'}
       </button>
 
-      {expanded && (
+      {open && (
         <div style={{
           marginTop: 8,
           padding: '12px 14px',
@@ -862,14 +865,10 @@ export function FlagChip({ flag, revealed = false }) {
           color: 'var(--clr-ink)',
         }}>
           <div>{flag.note}</div>
+          {/* The card's own text, not 11px mono: it is read, not scanned. */}
           {flag.sources?.length > 0 && (
-            <div style={{
-              marginTop: 8,
-              fontSize: 11,
-              fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-ink-soft)',
-            }}>
-              อ้างอิง: {flag.sources.join(', ')}
+            <div style={{ marginTop: 8, color: 'var(--clr-ink-soft)', overflowWrap: 'anywhere' }}>
+              แหล่งที่มา: {flag.sources.join(', ')}
             </div>
           )}
         </div>
@@ -944,7 +943,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false, caution = null }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -993,6 +992,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {(alwaysShowCorrect || !ok) && correctNode != null && (
         <div className="a"><span className="k">เฉลย</span><div className="vmx-feedback-correct-val">{correctNode}</div></div>
       )}
+      {caution}
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>

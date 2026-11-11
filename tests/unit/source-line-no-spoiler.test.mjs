@@ -145,8 +145,7 @@ test('before the key the line is a kind of source, the same line lint:source-lin
   for (const kind of ['past', 'aligned', 'lecture', 'compilation', 'mock', 'unknown']) assert.ok(kinds[kind] > 0, `${kind} still occurs (${kinds[kind] || 0})`);
   // What the lint reads before the answer is the caution chip alone, never the source.
   for (const q of QB) {
-    if (cautionChipShown(q.flag)) assert.equal(preAnswerText(q), `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}`);
-    else assert.equal(preAnswerText(q), '', `${q.subject}#${q.id}`);
+    assert.equal(preAnswerText(q), '', `${q.subject}#${q.id}: nothing of the source or the caution before the answer`);
   }
 });
 
@@ -249,7 +248,9 @@ test('the topic screen calls past papers ข้อสอบเก่า, and Rev
 test('the question card hands the chip whether the key is on screen, and the data lint runs the same check', () => {
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
   assert.match(card, /<QSourceChip key=\{compoundId\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
-  assert.match(card, /<FlagChip key=\{compoundId\} flag=\{currentQ\.flag\} revealed=\{keyShown\} \/>/);
+  // The caution chip lives in the verdict panel, which exists only once the key is shown.
+  assert.match(card, /caution=\{cautionChipShown\(currentQ\.flag\) && <FlagChip key=\{`flag:\$\{compoundId\}`\} flag=\{currentQ\.flag\} revealed \/>\}/);
+  assert.equal((card.match(/<FlagChip /g) || []).length, 1, 'one place draws the chip');
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
@@ -279,6 +280,8 @@ const CARD_STUBS = [
   ...['WikiLinkForQuestion', 'TermLinkedRichText', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
     'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'MatchDragDrop']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
+  // The slide under a revealed answer loads its own runtime; these tests read the card's text.
+  { match: 'EvidenceSlot\\.jsx$', contents: `${nothing}\nexport const useEvidenceWarmup = () => {};` },
 ];
 const { default: QuestionCard, FlagChip } = await fr.loadModule('src/components/Question.jsx', { stubs: CARD_STUBS });
 
@@ -322,34 +325,58 @@ test('no question\'s meta row gives its key away before the answer', () => {
   assert.equal(leaks.length, 0, `the meta row gives the key away before the answer on ${listed(leaks)}`);
 });
 
-// ── The caution chip under the stem ──────────────────────────────────────
-// "ข้อควรระวัง" shows on every question whose key is in dispute (a major
-// flag), timed papers included, and one tap opened its note and sources:
-// "ควรเป็น InPouch TF-Feline หรือ PCR", "Answer set to inspiratory". The chip
-// stays as a warning; what it opens waits for the key, like the source panel.
-test('a caution chip warns before the answer and opens only once the key is on screen', () => {
+// ── The caution chip ──────────────────────────────────────────────────────
+// "ข้อควรระวัง" marks a key in dispute (a major flag). It used to warn before
+// the answer, timed papers included, where a red chip told the student the
+// official answer was disputed. Since 11 Nov 2026 it shows with the key, in
+// the verdict panel, and never before it: in practice or in a running exam.
+/** The whole card's readable text, answered or not, practice or exam. */
+function cardText(q, { answered = false, practice = true } = {}) {
+  const store = new Map();
+  globalThis.localStorage = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, String(v)), removeItem: (k) => store.delete(k) };
+  globalThis.window = Object.assign(new EventTarget(), { localStorage: globalThis.localStorage });
+  globalThis.document = { body: {}, head: { appendChild() {} }, activeElement: null, querySelector: () => null, createElement: () => ({}) };
+  const inst = fr.mount(QuestionCard, {
+    currentQ: q, currentAnswer: answered ? q.answer : undefined, answerCurrent: () => {},
+    isBookmarked: false, toggleBookmark: () => {}, note: '', onNoteChange: () => {},
+    showNote: false, setShowNote: () => {}, revealAnswer: practice,
+  });
+  const text = readable(inst.tree).replace(/\s+/g, ' ');
+  inst.unmount();
+  // Components are expanded in the tree, so the chip is counted by its words.
+  return { text, chips: text.split(CAUTION_CHIP_TEXT).length - 1 };
+}
+
+test('the caution chip never shows before the key, in practice or mid-exam, and opens with it', () => {
   const flagged = QB.filter((q) => cautionChipShown(q.flag));
   assert.ok(flagged.length >= 8, `questions with a disputed key (${flagged.length})`);
   const press = (q, revealed) => {
     const inst = fr.mount(FlagChip, { flag: q.flag, revealed });
     const [button] = fr.findAll(inst.tree, (n) => n.type === 'button');
-    button.props.onClick?.();
+    button?.props.onClick?.();
     inst.flush();
     const text = readable(inst.tree).replace(/\s+/g, ' ').trim();
     inst.unmount();
     return text;
   };
-  const leaks = [];
   for (const q of flagged) {
-    const text = press(q, false);
-    assert.equal(text, `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}`, `${q.subject}#${q.id} warns, in Thai, with no severity word`);
-    const leak = leakOf(q, text);
-    if (leak) leaks.push(`${q.subject}#${q.id} ${leak.rule} [${leak.words.join(', ')}]: ${text.slice(0, 160)}`);
+    const id = `${q.subject}#${q.id}`;
+    assert.equal(press(q, false), '', `${id}: the chip alone draws nothing before the key`);
+    for (const practice of [true, false]) {
+      const open = cardText(q, { practice });
+      assert.equal(open.chips, 0, `${id} before the answer (${practice ? 'practice' : 'exam'})`);
+      assert.ok(!open.text.includes(CAUTION_CHIP_TEXT), `${id} before the answer (${practice ? 'practice' : 'exam'})`);
+    }
+    // A running exam takes the answer and reveals nothing: still no chip.
+    const exam = cardText(q, { answered: true, practice: false });
+    assert.equal(exam.chips, 0, `${id} answered mid-exam`);
+    assert.ok(!exam.text.includes(CAUTION_CHIP_TEXT), `${id} answered mid-exam`);
+    // With the key on screen: one chip, in Thai, no severity word.
+    const shown = cardText(q, { answered: true, practice: true });
+    assert.equal(shown.chips, 1, `${id} with the key`);
+    assert.equal(press(q, true).startsWith(CAUTION_CHIP_TEXT), true, id);
+    assert.ok(press(q, true).includes(String(q.flag.note).slice(0, 30)), `${id} opens its note`);
   }
-  assert.equal(leaks.length, 0, `the flag gives the key away before the answer on ${listed(leaks)}`);
-  // With the key on screen the same press opens the note.
-  const q = row('epidemiology', 213524);
-  assert.ok(press(q, true).includes(String(q.flag.note).slice(0, 30)));
 });
 
 // ── Quiet labels (Palm, 11 Nov 2026: "อย่าให้มันเยอะไปจนน่ารำคาญ") ─────────

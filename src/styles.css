@@ -4839,6 +4839,8 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-feedback-explain-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin: -8px -8px 2px 0; }
 .vmx-instant-feedback .vmx-feedback-explain-head .k { margin-bottom: 0; }
 .vmx-instant-feedback .w .vmx-tts-note { margin: 6px 0 0; }
+/* The caution chip under the key: air above and below, never against a row. */
+.vmx-instant-feedback .vmx-caution { margin: 10px 0 4px; }
 /* The other options' reasons, folded after a correct answer: one 44px row. */
 .vmx-other-options { margin-top: 8px; border-top: 1px dashed var(--clr-border); }
 .vmx-other-options > summary {
