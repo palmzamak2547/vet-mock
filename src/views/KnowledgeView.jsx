@@ -43,7 +43,7 @@ import RelatedDocs from '../components/RelatedDocs.jsx';
 import { fetchRelatedDocs } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
-import { OverlayPending } from '../components/TopLoadingBar.jsx';
+import { OverlayPending } from '../components/OverlayPending.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
 import Mochi from '../components/Mochi.jsx';
