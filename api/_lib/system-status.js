@@ -10,7 +10,7 @@
 // Only states, dates, balances and env var NAMES leave the server.
 // ============================================================
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
-import { available as transcribeAvailable, providers as transcribeProviders } from '../ai-transcribe.js';
+import { testTranscription as transcribeAvailable, providers as transcribeProviders } from '../ai-transcribe.js';
 import { voiceFor } from '../tts.js';
 import { externalCapabilities } from './external-connections.js';
 import { rateLimit } from './rate-limit.js';

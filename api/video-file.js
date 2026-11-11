@@ -14,7 +14,7 @@
 // must be one the registry says has a copy: a crafted id signs nothing.
 import { presign, tokenKeyEnv } from './_lib/r2.js';
 import { chulaGate } from './_lib/chula-gate.js';
-import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { limitCaller, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { VIDEO_REGISTRY } from '../src/data/video-registry.generated.js';
 
 // A lecture runs three hours; a link that dies mid-lecture breaks seeking.
@@ -41,14 +41,17 @@ export default async function handler(req, res, { env = process.env } = {}) {
   const rec = Object.prototype.hasOwnProperty.call(VIDEO_REGISTRY, v) ? VIDEO_REGISTRY[v] : null;
   if (!rec || !(f === 'transcript' ? rec.card : rec.media)) return send(res, 404, { error: 'not_found' });
 
-  const limit = await rateLimit(`video-file:${clientIP(req)}`, RATE.max, RATE.windowMs);
-  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
-
   // The Chula wall decides who may watch (api/_lib/chula-gate.js); our copy
   // always needs a signed-in student, wall on or off.
   const gate = await chulaGate(req, { env });
   if (!gate.ok) return send(res, gate.status, gate.body);
   if (!gate.userId) return send(res, 401, { error: 'login_required' });
+
+  // Counted per student (the address keeps a far higher ceiling), so a lecture
+  // hall on one network does not share one allowance. A reading surface: an
+  // outage of the shared limiter does not close it (see library-file.js).
+  const limit = await limitCaller(req, gate, 'video-file', RATE.max, RATE.windowMs);
+  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
 
   const r2 = await tokenKeyEnv(env);
   if (!r2) return send(res, 503, { error: 'storage_not_configured' });

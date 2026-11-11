@@ -19,7 +19,7 @@
 
 import { presign, r2Config, cfConfig } from './_lib/r2.js';
 import { mintBlobToken } from './_lib/blob-token.js';
-import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { limitCaller, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { chulaGate } from './_lib/chula-gate.js';
 import { verifyOpenTicket } from './_lib/open-ticket.js';
 
@@ -106,8 +106,9 @@ export default async function handler(req, res) {
 
   // The Chula wall (docs/CHULA-SIGNIN.md): a member's bearer, or a link a member
   // was handed (api/_lib/open-ticket.js), since a tapped link carries no header.
+  let gate = null; // null for a ticketed link: then the address is counted
   if (!verifyOpenTicket(slug, url.searchParams.get('vt'), url.searchParams.get('ve'), { env })) {
-    const gate = await chulaGate(req, { env });
+    gate = await chulaGate(req, { env });
     if (!gate.ok) {
       // A tapped link lands on the app, which asks for sign-in, instead of on JSON.
       if (url.searchParams.get('open') === '1') {
@@ -124,7 +125,7 @@ export default async function handler(req, res) {
   const anon = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
   if (!base || !anon) return send(res, 503, { error: 'not_configured' });
 
-  const limit = await rateLimit(`library-file:${clientIP(req)}`, MINT_RATE.max, MINT_RATE.windowMs);
+  const limit = await limitCaller(req, gate, 'library-file', MINT_RATE.max, MINT_RATE.windowMs);
   // A reading surface, so an outage of the shared limiter does not close the library: this limit guards
   // the bill against someone streaming whole decks, not access, and a rare outage window is cheap.
   if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);

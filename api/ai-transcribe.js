@@ -10,15 +10,17 @@
 // (https://iapp.co.th/docs/speech/speech-to-text/thai: base model, 1 IC per
 // 60 s, header `apikey`, multipart `file`, segments in `output[].text`).
 //
-// GET answers whether any of them works right now (a probe, cached), so the
-// page offers the recorder only where it will really transcribe.
+// GET answers whether any of them can work right now (from configuration and
+// from what real clips met; it never calls a service), so the page offers the
+// recorder only where it will really transcribe.
 //
 // Bounded on purpose: one question is seconds of speech, so a clip over 60 s
-// (about 1.9 MB of WAV) is refused, and an address gets 40 clips an hour.
+// (about 1.9 MB of WAV) is refused, and a student gets 40 clips an hour.
 // ============================================================
 
-import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { allowedOrigin, limitCaller, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 30 };
 
@@ -37,7 +39,7 @@ export function providers(env = process.env, fetchImpl = fetch) {
   const list = [];
   const account = env.CF_AI_ACCOUNT_ID || env.R2_ACCOUNT_ID || env.CF_ACCOUNT_ID;
   if (env.CF_AI_TOKEN && account) {
-    list.push(async (wav) => {
+    list.push(Object.assign(async (wav) => {
       const r = await fetchImpl(`https://api.cloudflare.com/client/v4/accounts/${account}/ai/run/${CF_MODEL}`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${env.CF_AI_TOKEN}`, 'Content-Type': 'application/json' },
@@ -48,29 +50,38 @@ export function providers(env = process.env, fetchImpl = fetch) {
       const j = await r.json();
       const res = j?.result || {};
       return { ok: true, text: String(res.text ?? res.transcription_info?.text ?? '').trim() };
-    });
+    }, { id: 'cf' }));
   }
   if (env.IAPP_API_KEY) {
-    list.push(async (wav) => {
+    list.push(Object.assign(async (wav) => {
       const form = new FormData();
       form.append('file', new Blob([wav], { type: 'audio/wav' }), 'question.wav');
       const r = await fetchImpl(IAPP_ENDPOINT, { method: 'POST', headers: { apikey: env.IAPP_API_KEY }, body: form, signal: AbortSignal.timeout(25_000) });
       if (!r.ok) return { ok: false, status: r.status };
       const j = await r.json();
       return { ok: true, text: joinSegments((Array.isArray(j?.output) ? j.output : []).map((s) => s?.text)), seconds: Number(j?.audio_duration_in_seconds) || null };
-    });
+    }, { id: 'iapp' }));
   }
   return list;
 }
 
+// A service that refused a real clip for want of credit or permission (401,
+// 402, 403) is left out for ten minutes on this instance, and the probe below
+// reads only this: it never sends audio of its own to a paid service.
+const OUT_MS = 10 * 60 * 1000;
+const outUntil = new Map(); // provider id -> ms
+const isOut = (run, now) => (outUntil.get(run.id) || 0) > now;
+
 /** Ask each service in turn; the first that answers wins. */
-export async function transcribeWav(wav, { env = process.env, fetchImpl = fetch } = {}) {
+export async function transcribeWav(wav, { env = process.env, fetchImpl = fetch, now = Date.now() } = {}) {
   let status = 503;
   for (const run of providers(env, fetchImpl)) {
+    if (isOut(run, now)) continue;
     try {
       const r = await run(wav);
-      if (r.ok) return r;
+      if (r.ok) { outUntil.delete(run.id); return r; }
       status = r.status || 502;
+      if (status === 401 || status === 402 || status === 403) outUntil.set(run.id, now + OUT_MS);
       console.warn('[ai-transcribe] provider', status);
     } catch (err) {
       status = 504;
@@ -80,14 +91,19 @@ export async function transcribeWav(wav, { env = process.env, fetchImpl = fetch 
   return { ok: false, status };
 }
 
-// Can the microphone's fallback work right now? A half-second of silence goes
-// through the chain (a service without credits or permission fails it), and
-// the answer is kept ten minutes per instance and at the edge: the page asks
-// only where the browser has no speech recognition of its own, and hides the
-// microphone there when nothing can transcribe, instead of offering a button
-// that fails.
-let probe = { at: 0, available: null };
-const PROBE_MS = 10 * 60 * 1000;
+// Can the microphone's fallback work right now? The page asks only where the
+// browser has no speech recognition of its own, and hides the microphone there
+// when nothing can transcribe. The answer is read from configuration and from
+// what real clips met (a service refused for credit or permission stays out
+// for ten minutes); the probe is unauthenticated, so it sends nothing to a
+// paid service, however often it is asked.
+export async function available({ env = process.env, fetchImpl = fetch, now = Date.now() } = {}) {
+  return providers(env, fetchImpl).some((run) => !isOut(run, now));
+}
+export const resetProbe = () => { outUntil.clear(); };
+
+// The admin's status card (api/system-status.js, admin only) still wants to
+// know that a real clip goes through: half a second of silence, on request.
 function silence(seconds = 0.5) {
   const n = Math.round(16000 * seconds);
   const b = Buffer.alloc(44 + n * 2);
@@ -96,14 +112,10 @@ function silence(seconds = 0.5) {
   b.writeUInt32LE(32000, 28); b.writeUInt16LE(2, 32); b.writeUInt16LE(16, 34); b.write('data', 36); b.writeUInt32LE(n * 2, 40);
   return b;
 }
-export async function available({ env = process.env, fetchImpl = fetch, now = Date.now() } = {}) {
+export async function testTranscription({ env = process.env, fetchImpl = fetch } = {}) {
   if (!providers(env, fetchImpl).length) return false;
-  if (probe.available !== null && now - probe.at < PROBE_MS) return probe.available;
-  const r = await transcribeWav(silence(), { env, fetchImpl });
-  probe = { at: now, available: r.ok };
-  return r.ok;
+  return (await transcribeWav(silence(), { env, fetchImpl })).ok;
 }
-export const resetProbe = () => { probe = { at: 0, available: null }; };
 
 /** Segments joined the way Thai is written: no space between two Thai runs. */
 export function joinSegments(parts) {
@@ -155,13 +167,14 @@ export default async function handler(req, res) {
 
   if (!providers().length) return res.status(503).json({ error: 'unavailable', message: 'ไมค์ยังใช้ไม่ได้ในตอนนี้ ลองพิมพ์แทน' });
 
-  let body = req.body;
-  try { if (typeof body === 'string') body = JSON.parse(body); } catch { body = null; }
-  const wav = readWav(body?.audio);
+  const body = readJsonBody(req);
+  if (!body) return sendBadBody(res);
+  const wav = readWav(body.audio);
   if (!wav) return res.status(400).json({ error: 'input', message: 'เสียงที่อัดไว้ใช้ไม่ได้ ลองพูดใหม่ไม่เกิน 1 นาที' });
 
-  const limit = await rateLimit(`ai-transcribe:${clientIP(req)}`, TRANSCRIBE_RATE.max, TRANSCRIBE_RATE.windowMs);
-  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
+  // Each clip costs money, so a limiter that cannot count refuses (503).
+  const limit = await limitCaller(req, gate, 'ai-transcribe', TRANSCRIBE_RATE.max, TRANSCRIBE_RATE.windowMs);
+  if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   const r = await transcribeWav(wav);
   if (!r.ok) {

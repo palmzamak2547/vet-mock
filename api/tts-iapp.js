@@ -28,8 +28,9 @@
 // proxy the original Content-Type header.
 // ============================================================
 
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, allowedOrigin, limitCaller } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
+import { readEncodedJsonBody, sendBadBody } from './_lib/body.js';
 
 export const config = {
   runtime: 'nodejs',
@@ -108,34 +109,15 @@ export default async function handler(req, res) {
   // protects the free 50 IC trial from being burned in one bad loop.
   // 30/5min/IP = ≤1 call every 10 s on average per user — plenty for
   // ExamView Q-by-Q reading.
-  const limit = await rateLimit(`tts-iapp:${clientIP(req)}`, 30, 5 * 60_000);
+  const limit = await limitCaller(req, gate, 'tts-iapp', 30, 5 * 60_000);
   if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   // ── Parse body (same b64 sentinel trick as /api/tts) ───────
   // Vercel edge HTTP layer mangles non-ASCII bytes upstream of any
   // user code; client base64-encodes the JSON to keep it pure ASCII.
   // See api/tts.js for the full archaeology.
-  let body;
-  try {
-    let raw = typeof req.body === 'string' ? req.body : '';
-    if (!raw && req.rawBody && Buffer.isBuffer(req.rawBody)) raw = req.rawBody.toString('utf8');
-    if (!raw && req.readable) {
-      const chunks = [];
-      for await (const c of req) chunks.push(c);
-      raw = Buffer.concat(chunks).toString('utf8');
-    }
-    if (!raw) return res.status(400).json({ error: 'empty body' });
-
-    const ct = String(req.headers['content-type'] || '');
-    let payload = raw;
-    if (ct.includes('application/vmx-b64') || raw.startsWith('b64:')) {
-      const b64 = raw.startsWith('b64:') ? raw.slice(4) : raw;
-      payload = Buffer.from(b64, 'base64').toString('utf8');
-    }
-    body = payload ? JSON.parse(payload) : {};
-  } catch (e) {
-    return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
-  }
+  const body = await readEncodedJsonBody(req);
+  if (!body) return sendBadBody(res);
 
   const { text, speed } = body;
   if (!text || typeof text !== 'string') {
@@ -188,6 +170,7 @@ export default async function handler(req, res) {
 
     if (!upstream.ok) {
       const errText = await upstream.text().catch(() => '');
+      console.error('[tts-iapp] upstream', upstream.status, errText.slice(0, 200));
       // Map iApp's documented error codes (400/402/413/429/503) to
       // sensible client responses. 402 (insufficient credits) is
       // worth surfacing distinctly so the operator gets a clear
@@ -199,7 +182,7 @@ export default async function handler(req, res) {
           ? 'iapp insufficient credits — top up at iapp.co.th'
           : 'iapp upstream error',
         status: upstream.status,
-        detail: errText.slice(0, 200),
+        code: 'iapp_upstream',
       });
     }
 
@@ -222,7 +205,7 @@ export default async function handler(req, res) {
     console.error('[tts-iapp] error:', err?.message || err);
     return res.status(aborted ? 504 : 502).json({
       error: aborted ? 'iapp upstream timeout' : 'iapp upstream error',
-      detail: String(err?.message || err).slice(0, 200),
+      code: aborted ? 'iapp_timeout' : 'iapp_upstream',
     });
   } finally {
     clearTimeout(t);

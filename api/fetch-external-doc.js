@@ -38,6 +38,7 @@ import {
   MAX_GOOGLE_MARKDOWN_RAW_BYTES,
 } from './_lib/external-doc.js';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { getUserFromRequest, getConnection, googleTokenStale, refreshGoogleAccess, isGoogleApiHost } from './_lib/external-connections.js';
 import { createHash } from 'node:crypto';
 import { requireChula } from './_lib/chula-gate.js';
@@ -392,7 +393,9 @@ export default async function handler(req, res) {
   if (!ceiling.ok) return sendRateLimitFailure(res, ceiling);
 
   try {
-    const rawUrl = typeof req.body?.url === 'string' ? req.body.url.trim() : '';
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
+    const rawUrl = typeof body.url === 'string' ? body.url.trim() : '';
     if (!rawUrl) return res.status(400).json({ error: 'url is required' });
     const target = normalizeExternalDocUrl(rawUrl);
     if (!target) {
@@ -620,6 +623,7 @@ export default async function handler(req, res) {
     if (/invalid json/i.test(String(err?.message || ''))) {
       return res.status(400).json({ error: 'Invalid JSON body' });
     }
-    return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
+    console.error('[fetch-external-doc] unexpected:', String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'Unexpected error', code: 'unexpected' });
   }
 }

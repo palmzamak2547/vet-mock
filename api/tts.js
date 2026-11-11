@@ -27,9 +27,10 @@
 // ============================================================
 
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, allowedOrigin, limitCaller } from './_lib/rate-limit.js';
 import { voiceFor } from '../src/lib/tts-voices.js';
 import { requireChula } from './_lib/chula-gate.js';
+import { readEncodedJsonBody, sendBadBody } from './_lib/body.js';
 
 export const config = {
   runtime: 'nodejs',
@@ -85,7 +86,7 @@ export default async function handler(req, res) {
   if (!gate) return undefined;
 
   // ── Rate limit ─────────────────────────────────────────────
-  const limit = await rateLimit(`tts:${clientIP(req)}`, 60, 5 * 60_000);
+  const limit = await limitCaller(req, gate, 'tts', 60, 5 * 60_000);
   if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   // ── Parse body ─────────────────────────────────────────────
@@ -99,29 +100,8 @@ export default async function handler(req, res) {
   // only so it survives the edge layer intact. We decode here.
   //
   // Backward-compat: also accept plain JSON for ASCII-only clients.
-  let body;
-  try {
-    let raw = typeof req.body === 'string' ? req.body : '';
-    if (!raw && req.rawBody && Buffer.isBuffer(req.rawBody)) raw = req.rawBody.toString('utf8');
-    if (!raw && req.readable) {
-      const chunks = [];
-      for await (const c of req) chunks.push(c);
-      raw = Buffer.concat(chunks).toString('utf8');
-    }
-    if (!raw) return res.status(400).json({ error: 'empty body' });
-
-    // Detect base64-encoded payload via Content-Type: application/vmx-b64
-    // or by a leading "b64:" sentinel. Either decodes to UTF-8 JSON.
-    const ct = String(req.headers['content-type'] || '');
-    let payload = raw;
-    if (ct.includes('application/vmx-b64') || raw.startsWith('b64:')) {
-      const b64 = raw.startsWith('b64:') ? raw.slice(4) : raw;
-      payload = Buffer.from(b64, 'base64').toString('utf8');
-    }
-    body = payload ? JSON.parse(payload) : {};
-  } catch (e) {
-    return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
-  }
+  const body = await readEncodedJsonBody(req);
+  if (!body) return sendBadBody(res);
   const { text, lang = 'th', rate = 1.0, debug } = body;
   // ── Debug echo — diagnoses what Vercel's body parsing delivered.
   // Triggered with {"debug":true} in the body. Returns the received
@@ -172,10 +152,7 @@ export default async function handler(req, res) {
     res.send(audio);
   } catch (err) {
     console.error('[tts] error:', err?.message || err);
-    res.status(502).json({
-      error: 'tts upstream error',
-      detail: String(err?.message || err).slice(0, 200),
-    });
+    res.status(502).json({ error: 'tts upstream error', code: 'tts_upstream' });
   } finally {
     try { tts?.close?.(); } catch {}
   }

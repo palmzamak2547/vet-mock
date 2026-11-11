@@ -134,6 +134,37 @@ export async function rateLimit(key, max, winMs) {
   return rateLimitInMemory(key, max, winMs);
 }
 
+// A signed-in caller is counted on their own account; the address they share
+// with a lecture hall or a library keeps a ceiling this many times higher, as
+// a brake on one address cycling through accounts.
+export const ADDRESS_CEILING_FACTOR = 15;
+
+/**
+ * The one way a route behind the Chula gate counts its caller.
+ *
+ * - A caller the gate identified (`gate.userId`, verified by the database) is
+ *   counted on `<route>:user:<id>` at `max`, and the address on
+ *   `<route>:addr:<ip>` at `addressMax` (default max x ADDRESS_CEILING_FACTOR),
+ *   so classmates on one campus network never share one quota.
+ * - A caller without an account (the wall off) is counted by address at `max`,
+ *   on the same `<route>:<ip>` key as before.
+ *
+ * Fails closed like rateLimit(): an unavailable limiter comes back
+ * `{ ok: false, unavailable: true }`, which sendRateLimitFailure answers 503.
+ * Handlers answer `if (!limit.ok) return sendRateLimitFailure(res, limit)`.
+ */
+export async function limitCaller(req, gate, route, max, windowMs, { addressMax = max * ADDRESS_CEILING_FACTOR } = {}) {
+  const ip = clientIP(req);
+  const uid = gate && typeof gate.userId === 'string' && gate.userId ? gate.userId.slice(0, 64) : '';
+  if (!uid) return rateLimit(`${route}:${ip}`, max, windowMs);
+  const [mine, address] = await Promise.all([
+    rateLimit(`${route}:user:${uid}`, max, windowMs),
+    rateLimit(`${route}:addr:${ip}`, addressMax, windowMs),
+  ]);
+  if (mine.unavailable || address.unavailable) return mine.unavailable ? mine : address;
+  return mine.ok ? address : mine;
+}
+
 /**
  * Give back one count a rateLimit() took for a request that then did not use it
  * (the provider failed before anything started). Best-effort; the TTL is set
@@ -211,6 +242,8 @@ export function clientIP(req) {
  *   2) **Static allowlist fallback** — for cross-origin requests we
  *      genuinely want to support (e.g. local dev hitting prod API).
  */
+export const PREVIEW_ORIGIN_RE = /^https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app$/;
+
 export function allowedOrigin(req) {
   const origin = req.headers.origin;
   if (!origin) return null;
@@ -231,8 +264,11 @@ export function allowedOrigin(req) {
     'https://vetmock.com',
     'https://vetmock.vercel.app',                 // the old address, while learners move
     'https://vet-mock.vercel.app',
-    /^https:\/\/vetmock-[\w-]+\.vercel\.app$/,    // Preview deployments
-    /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,   // Legacy preview pattern
+    // Preview deployments of this team's projects (vetmock, vetmock-ai,
+    // vetmock-vca): Vercel names them <project>-<hash>-<team>.vercel.app and
+    // <project>-git-<branch>-<team>.vercel.app. A bare vetmock-*.vercel.app is
+    // a name any account can take, so the team suffix is required.
+    PREVIEW_ORIGIN_RE,
     'http://localhost:5173',
     'http://localhost:4173',
     'http://localhost:4174',
