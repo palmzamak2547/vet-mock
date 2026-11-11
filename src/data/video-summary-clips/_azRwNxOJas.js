@@ -6,9 +6,9 @@ export default {
   title: "14.3 : Thoracic Surgery",
   subject: "com1",
   date: "2024-11-18",
+  durationMin: 105,
   instructor: "รุ่นพี่",
   examFormat: "MCQ — approach + technique + chest tube placement",
-  duration: "105 min",
   summary: `# 14.3 Thoracic Surgery
 
 > 🎯 ครอบคลุม **2 main thoracic approaches**: intercostal thoracotomy + median sternotomy + minimally invasive thoracoscopy. Critical: **chest tube placement** + **post-op 4 hypos**

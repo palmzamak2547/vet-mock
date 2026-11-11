@@ -6,9 +6,9 @@ export default {
   title: "10.1 : Imaging for Urinary System",
   subject: "com1",
   date: "2024-10-31",
+  durationMin: 65,
   instructor: "DekDokVet85 — รุ่นพี่ (vet imaging)",
   examFormat: "Case-based MCQ — เลือก imaging modality ที่เหมาะสม (~5 ข้อ)",
-  duration: "65 min",
   summary: `# 10.1 Imaging for Urinary System
 
 > 🎯 Integration ของ vet imaging + urinary system. เน้นการ **เลือก modality ให้ถูก** (X-ray vs U/S vs CT) ตาม clinical question. ออกสอบเป็น **case-based MCQ ~5 ข้อ** — case มา → ต้องตอบ "ทำอะไรต่อ"

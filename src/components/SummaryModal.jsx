@@ -19,6 +19,7 @@ import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { safeLinkUrl } from '../lib/safe-url.js';
 import RecallQuiz from './RecallQuiz.jsx';
 import { SUBJECTS } from '../data/curriculum.js';
+import { summaryFileName, summaryTitle } from '../lib/summary-title.js';
 
 // ─────────────────────────────────────────────────────────────
 // Mini markdown → HTML renderer
@@ -274,13 +275,14 @@ export default function SummaryModal({ summary, onClose, onReload }) {
   }, [html, reduced, trackProgress]);
 
   if (!summary) return null;
+  const title = summaryTitle(summary);
 
   const downloadMd = () => {
     const blob = new Blob([summary.summary], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${summary.title.replace(/[^\w.-]+/g, '_')}.md`;
+    a.download = summaryFileName(summary);
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -308,7 +310,7 @@ export default function SummaryModal({ summary, onClose, onReload }) {
     <div className="vmx-print-doc" aria-hidden="true">
       <header className="vmx-print-head">
         <p className="vmx-print-eyebrow">สรุปจากคลิปบรรยาย</p>
-        <h1 className="vmx-print-title">{summary.title}</h1>
+        <h1 className="vmx-print-title">{title}</h1>
         <p className="vmx-print-meta">
           <Inline text={[subjectThaiName(summary.subject), thaiDate(summary.date),
             summary.durationMin ? `${summary.durationMin} นาที` : null,
@@ -369,7 +371,7 @@ export default function SummaryModal({ summary, onClose, onReload }) {
               สรุปจากคลิปอาจารย์
             </div>
             <h2 id="vmx-summary-title" style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'var(--vmx-display)', fontWeight: 600 }}>
-              {summary.title}
+              {title}
             </h2>
             <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 3 }}>
               {[subjectThaiName(summary.subject), thaiDate(summary.date), summary.durationMin ? `${summary.durationMin} นาที` : ''].filter(Boolean).join(', ')}
@@ -378,8 +380,8 @@ export default function SummaryModal({ summary, onClose, onReload }) {
           </div>
           <PinButton
             type="summary"
-            payload={{ videoId: summary.videoId, title: summary.title, subject: summary.subject, instructor: summary.instructor, date: summary.date }}
-            label={summary.title}
+            payload={{ videoId: summary.videoId, title, subject: summary.subject, instructor: summary.instructor, date: summary.date }}
+            label={title}
             compact
             style={{ flexShrink: 0 }}
           />

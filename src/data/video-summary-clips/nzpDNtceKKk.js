@@ -6,9 +6,9 @@ export default {
   title: "14.2 : Surgical Treatment of Respiratory System",
   subject: "com1",
   date: "2024-11-18",
+  durationMin: 72,
   instructor: "อ.เกียรติพิเชษฐ์",
   examFormat: "MCQ + technique-based",
-  duration: "72 min",
   summary: `# 14.2 Surgical Treatment of Respiratory System
 
 > 🎯 ครอบคลุม upper airway surgery: **nasal cavity, pharynx, larynx, trachea**. หัตถการสำคัญ: **rhinotomy, BAS correction, soft palate resection, laryngeal tieback, tracheal stent, tracheostomy**. ⚠️ Brachycephalic syndrome ออกแน่

@@ -6,9 +6,9 @@ export default {
   title: "13.1 : Surgical Treatment in Heart Disease",
   subject: "com1",
   date: "2024-11-11",
+  durationMin: 61,
   instructor: "พี่มด (รุ่นพี่)",
   examFormat: "MCQ",
-  duration: "61 min",
   summary: `# 13.1 Surgical Treatment in Heart Disease
 
 > 🎯 Surgery สำหรับ congenital cardiac defects ที่เจอบ่อยในสุนัข + การจัดการ pericardial effusion. เน้น **PDA, PRAA, sub-total pericardiectomy** — 3 หัตถการที่ผ่าน thoracotomy ทางซ้าย ที่ Vet 4-5 ต้องเข้าใจขั้นตอน + landmark anatomy

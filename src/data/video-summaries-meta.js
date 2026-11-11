@@ -861,45 +861,45 @@ export const VIDEO_META = {
     "title": "4.2 : Endoscope + Stomach + Esophagus Surgery",
     "subject": "com1",
     "date": "2024-08-26",
+    "durationMin": 126,
     "instructor": "รุ่นพี่",
-    "examFormat": "MCQ — endoscope use + esophageal/gastric surgery",
-    "duration": "126 min"
+    "examFormat": "MCQ — endoscope use + esophageal/gastric surgery"
   },
   '2SJ4M6IiJeU': {
     "videoId": "2SJ4M6IiJeU",
     "title": "4.1 : GI Diagnosis (Imaging-based)",
     "subject": "com1",
     "date": "2024-08-26",
+    "durationMin": 91,
     "instructor": "อาจารย์ — vet imaging integration",
-    "examFormat": "MCQ — image identification + algorithm",
-    "duration": "91 min"
+    "examFormat": "MCQ — image identification + algorithm"
   },
   '5rcEK-3IW0M': {
     "videoId": "5rcEK-3IW0M",
     "title": "6 : Hepato/Pancreas Sx + Hernia",
     "subject": "com1",
     "date": "2024-09-09",
+    "durationMin": 205,
     "instructor": "รุ่นพี่",
-    "examFormat": "MCQ — surgical decision + hepatic/pancreatic technique + hernia",
-    "duration": "205 min"
+    "examFormat": "MCQ — surgical decision + hepatic/pancreatic technique + hernia"
   },
   '6mOoAWOWTDw': {
     "videoId": "6mOoAWOWTDw",
     "title": "12.2 : Cardiac Arrhythmia + Thromboembolism + Hypertension",
     "subject": "com1",
     "date": "2024-11-04",
+    "durationMin": 110,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ — ECG ID + drug class + ATE 5P + HT target organs",
-    "duration": "110 min"
+    "examFormat": "MCQ — ECG ID + drug class + ATE 5P + HT target organs"
   },
   '9Fvz4J6dMCo': {
     "videoId": "9Fvz4J6dMCo",
     "title": "7.2 : Fluid Analysis",
     "subject": "com1",
     "date": "2024-09-16",
+    "durationMin": 82,
     "instructor": "DekDokVet85 — รุ่นพี่ (อายุรกรรม)",
-    "examFormat": "MCQ + practical case",
-    "duration": "82 min"
+    "examFormat": "MCQ + practical case"
   },
   'CQIrJmz3APo': {
     "videoId": "CQIrJmz3APo",
@@ -915,27 +915,27 @@ export const VIDEO_META = {
     "title": "7.1 : Anemia + Surgery of Hemolymphatic System",
     "subject": "com1",
     "date": "2024-09-16",
+    "durationMin": 145,
     "instructor": "รุ่นพี่",
-    "examFormat": "MCQ — anemia approach + IMHA + splenectomy",
-    "duration": "145 min"
+    "examFormat": "MCQ — anemia approach + IMHA + splenectomy"
   },
   'FlutqheRR6I': {
     "videoId": "FlutqheRR6I",
     "title": "14.1 : Common Respiratory Diseases in dog and cat II",
     "subject": "com1",
     "date": "2024-11-18",
+    "durationMin": 61,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ",
-    "duration": "61 min"
+    "examFormat": "MCQ"
   },
   'H5z8i1YOteY': {
     "videoId": "H5z8i1YOteY",
     "title": "11 : Cardio Evaluate + Diagnosis Method + CHF",
     "subject": "com1",
     "date": "2024-10-28",
+    "durationMin": 173,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ — clinical eval + workup steps + CHF drug logic",
-    "duration": "173 min"
+    "examFormat": "MCQ — clinical eval + workup steps + CHF drug logic"
   },
   'I7M-pekGTIU': {
     "videoId": "I7M-pekGTIU",
@@ -951,36 +951,36 @@ export const VIDEO_META = {
     "title": "10.1 : Imaging for Urinary System",
     "subject": "com1",
     "date": "2024-10-31",
+    "durationMin": 65,
     "instructor": "DekDokVet85 — รุ่นพี่ (vet imaging)",
-    "examFormat": "Case-based MCQ — เลือก imaging modality ที่เหมาะสม (~5 ข้อ)",
-    "duration": "65 min"
+    "examFormat": "Case-based MCQ — เลือก imaging modality ที่เหมาะสม (~5 ข้อ)"
   },
   'SiLZIu-aWlY': {
     "videoId": "SiLZIu-aWlY",
     "title": "12.1 : Acquired + Congenital Cardiac Disease",
     "subject": "com1",
     "date": "2024-11-04",
+    "durationMin": 117,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ — disease ID by signalment + auscultation + imaging",
-    "duration": "117 min"
+    "examFormat": "MCQ — disease ID by signalment + auscultation + imaging"
   },
   'WtvWyniLMVE': {
     "videoId": "WtvWyniLMVE",
     "title": "10.2 : Surgical Treatment of Urinary System",
     "subject": "com1",
     "date": "2024-10-21",
+    "durationMin": 104,
     "instructor": "อ.ณิโคล",
-    "examFormat": "MCQ — surgical decision + technique + suture choice",
-    "duration": "104 min"
+    "examFormat": "MCQ — surgical decision + technique + suture choice"
   },
   '_azRwNxOJas': {
     "videoId": "_azRwNxOJas",
     "title": "14.3 : Thoracic Surgery",
     "subject": "com1",
     "date": "2024-11-18",
+    "durationMin": 105,
     "instructor": "รุ่นพี่",
-    "examFormat": "MCQ — approach + technique + chest tube placement",
-    "duration": "105 min"
+    "examFormat": "MCQ — approach + technique + chest tube placement"
   },
   'a9cdFzIKIGA': {
     "videoId": "a9cdFzIKIGA",
@@ -996,27 +996,27 @@ export const VIDEO_META = {
     "title": "13.2 : Clinical Assessment of the Respiratory System",
     "subject": "com1",
     "date": "2024-11-11",
+    "durationMin": 88,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ — cough receptor location ออกแน่ ⚠️",
-    "duration": "88 min"
+    "examFormat": "MCQ — cough receptor location ออกแน่ ⚠️"
   },
   'dn_W-7eWQl0': {
     "videoId": "dn_W-7eWQl0",
     "title": "13.1 : Surgical Treatment in Heart Disease",
     "subject": "com1",
     "date": "2024-11-11",
+    "durationMin": 61,
     "instructor": "พี่มด (รุ่นพี่)",
-    "examFormat": "MCQ",
-    "duration": "61 min"
+    "examFormat": "MCQ"
   },
   'eBY8GTlcjiw': {
     "videoId": "eBY8GTlcjiw",
     "title": "10.3 : Lower Urinary System 3",
     "subject": "com1",
     "date": "2024-10-21",
+    "durationMin": 84,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ + clinical reasoning",
-    "duration": "84 min"
+    "examFormat": "MCQ + clinical reasoning"
   },
   'keqE30HxM7Y': {
     "videoId": "keqE30HxM7Y",
@@ -1032,27 +1032,27 @@ export const VIDEO_META = {
     "title": "5.1 : Intestine Surgery",
     "subject": "com1",
     "date": "2024-09-02",
+    "durationMin": 136,
     "instructor": "รุ่นพี่",
-    "examFormat": "MCQ — surgical principles + suture + technique",
-    "duration": "136 min"
+    "examFormat": "MCQ — surgical principles + suture + technique"
   },
   'nzpDNtceKKk': {
     "videoId": "nzpDNtceKKk",
     "title": "14.2 : Surgical Treatment of Respiratory System",
     "subject": "com1",
     "date": "2024-11-18",
+    "durationMin": 72,
     "instructor": "อ.เกียรติพิเชษฐ์",
-    "examFormat": "MCQ + technique-based",
-    "duration": "72 min"
+    "examFormat": "MCQ + technique-based"
   },
   'phyvefbYWqE': {
     "videoId": "phyvefbYWqE",
     "title": "13.3 : Common Respiratory Diseases in dog and cat I",
     "subject": "com1",
     "date": "2024-11-11",
+    "durationMin": 83,
     "instructor": "DekDokVet85 — รุ่นพี่",
-    "examFormat": "MCQ",
-    "duration": "83 min"
+    "examFormat": "MCQ"
   },
   'vLjnPuFgvj4': {
     "videoId": "vLjnPuFgvj4",
