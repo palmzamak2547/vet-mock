@@ -655,7 +655,7 @@ test('UI-18: PinButton lets a toolbar class own its shape, and the exam toolbar 
 
 // ── UI-07: the exam card's meta row and source toggle ─────────────────
 test('UI-07: the exam card meta is a quiet Sarabun line, not a tracked uppercase pill', () => {
-  const meta = chain('div.vmx-question-card', 'div.vmx-q-head', 'div.vmx-qtype-badge.vmx-q-meta');
+  const meta = chain('div.vmx-question-card', 'div.vmx-q-head', 'button.vmx-qtype-badge.vmx-q-meta');
   for (const env of [PHONE, DESKTOP]) {
     // One line in the header row that truncates rather than wrapping.
     assert.equal(computed(meta, 'display', env), 'block');
@@ -666,7 +666,7 @@ test('UI-07: the exam card meta is a quiet Sarabun line, not a tracked uppercase
     assert.equal(computed(meta, 'background', env), 'none');
   }
   assertThaiLabel('exam meta row', meta);
-  assertThaiLabel('exam meta paper', chain('div.vmx-question-card', 'div.vmx-q-head', 'div.vmx-qtype-badge.vmx-q-meta', 'span.vmx-scope-chip'));
+  assertThaiLabel('exam meta paper', chain('div.vmx-question-card', 'div.vmx-q-head', 'button.vmx-qtype-badge.vmx-q-meta', 'span.vmx-scope-chip'));
   // Wherever else the badge is used (VetWiki governance, spaced repetition,
   // the landing), it is a Thai-safe label too.
   assertThaiLabel('type badge', chain('div', 'span.vmx-qtype-badge'));

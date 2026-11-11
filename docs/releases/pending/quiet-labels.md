@@ -22,7 +22,7 @@ added the header row, the source line before the answer, the caution chip's timi
 | Stale flag chip left from an earlier question (live bug, fixed separately in pull request 208) | every question after a flagged one in the same set, one more per flagged question passed (6 on one card in a resumed set); not a fixed count, it depends on the set | 0 (that fix; `tests/e2e/quiet-labels.spec.js` checks the card after a flagged one) |
 | Minor flag note as "หมายเหตุ" in the panel | 0 (it was there, plus the chip) | 15 |
 | Cards with both the chip and the tag | n/a | 0 |
-| "ทำไมข้ออื่นผิด" open after a correct answer | 2,388 | 88 (heading with words of its own, or the section opens the explanation); 2,300 fold |
+| "ทำไมข้ออื่นผิด" open after a correct answer | 2,388 | 13 (heading with words of its own, or the section opens the explanation); 2,375 fold (2,300 in the first cut; the 75 food-industry explanations that write the heading after a single newline now fold too) |
 
 Two effects made the chip look as if it were everywhere. The chip and the source line were sibling
 children of one pane under the same key, so on the next question React kept the old chip's node: a
@@ -80,14 +80,20 @@ row of its own (about 18px with its margin); the exit, counter and timer stay wh
    14px text. A minor note is the panel's "หมายเหตุ" row; a major note is not repeated there.
    Delivery unchanged. Tests: "the caution chip never shows before the key, in practice or
    mid-exam, and opens with it" (every major, practice and exam, answered and not), "the caution
-   chip is for a disputed key only"; e2e `quiet-labels.spec.js`.
+   chip is for a disputed key only"; e2e `quiet-labels.spec.js`. Every type that reveals in
+   session carries it: the multiple-choice and true/false verdict panels, the written เฉลย (short,
+   essay) and the match board once every pair is placed. All 8 majors are multiple choice today.
+   Test: "the caution chip shows with the key on every question type that reveals in session".
 4. **One caution per card.** With the chip, the tag stays in the panel. Test: "one caution per card".
 5. **Header on one row.** `.vmx-q-head` (Question.jsx, styles.css): the meta line truncates at the
    left, the controls stay right; wrap-reverse puts the line under them when both do not fit.
    Tests: `style-metrics-floors.test.mjs` UI-07 and UI-18 (the line is one ellipsised line; the
-   controls are still circles); measurements above.
+   controls are still circles); measurements above. The line is a native button
+   (`aria-expanded`, 44px tall), so the keyboard and a screen reader reach the same unfold.
 6. **"ทำไมข้ออื่นผิด" folds after a correct answer.** `src/lib/explain-fold.js` cuts the explanation
-   where it already breaks (paragraphs); a native `details` row, closed, holds that one paragraph.
+   where it already breaks: the heading line, after a blank line or a single newline, to the next
+   blank line; a native `details` row, closed, holds that section. When read-aloud starts on the
+   explanation the fold opens, so the marked words are in sight (test: "read-aloud opens the fold").
    A miss or a reveal without an answer keeps it open. Read-aloud, the coach and the export read the
    field and are unchanged. Test: `tests/unit/explain-fold.test.mjs` over the real bank (the parts
    joined are the text; the verdict, the key and the opening paragraph are never inside the fold;

@@ -2443,6 +2443,9 @@ html.dark .vmx-panic-scrim {
   margin-bottom: 16px;
 }
 .vmx-q-head > .vmx-q-meta.vmx-qtype-badge {
+  /* A native button: its own font, colour and alignment reset to the line's. */
+  appearance: none; font: inherit; font-size: 14px; color: var(--clr-ink-soft); text-align: left;
+  min-height: 44px; padding-block: 12px; box-sizing: border-box;
   display: block;
   flex: 1 1 64px;
   min-width: 64px;

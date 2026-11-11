@@ -334,8 +334,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
     </div>
   ) : null;
+  // The caution chip: a key in dispute (severity major) and nothing else, with
+  // the key and never before it, in whichever reveal the question type has. A
+  // minor flag is a note in the source panel.
+  const cautionChip = cautionChipShown(currentQ.flag)
+    ? <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />
+    : null;
   const writtenRevealPanel = writtenReveal && writtenTiming === REVEAL_ROW && writtenRevealed
-    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} evidence={evidence} />
+    ? <>{cautionChip}<WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} evidence={evidence} /></>
     : null;
 
   // Word count for essay-type writing questions
@@ -485,9 +491,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               evidence={evidence}
               subject={currentQ.subject}
               foldOtherOptions
-              // The caution chip: a key in dispute (severity major) and nothing
-              // else, with the key. A minor flag is a note in the source panel.
-              caution={cautionChipShown(currentQ.flag) && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />}
+              caution={cautionChip}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
@@ -530,6 +534,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 run={answerRun}
                 fresh={freshVerdict}
                 correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
+                caution={cautionChip}
                 // Say what the statement was even when the student got it
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
                 // are both true at once, and only one of them was on screen.
@@ -568,6 +573,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           revealAnswer={revealAnswer}
         />
       )}
+      {/* The match key shows on the board once every pair is placed. */}
+      {currentQ.type === 'match' && revealAnswer && matchFilled && cautionChip}
 
       {/* Short answer — free-form text input. Auto-grade does loose
           keyword matching against q.keywords; user can also self-grade
@@ -706,7 +713,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         {/* One line that truncates. The full words stay in the tree for a
             screen reader, in the title on hover, and on the line itself
             after a tap, which unfolds it. */}
-        <div className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} title={metaTitle} onClick={() => setMetaOpenFor(metaOpen ? null : compoundId)}>
+        <button type="button" className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} aria-expanded={metaOpen} title={metaTitle} onClick={() => setMetaOpenFor(metaOpen ? null : compoundId)}>
           {(() => {
             const typeLabel = TYPE_LABEL[currentQ.type];
             const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
@@ -740,7 +747,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               อิงแนวเดิม
             </span>
           )}
-        </div>
+        </button>
 
         {/* One flex row instead of five independently absolute-positioned
             buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
@@ -972,7 +979,8 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false, caution = null }) {
+// Exported for the fold tests.
+export function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false, caution = null }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -997,6 +1005,10 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
   // Only a correct answer folds the other options' reasons; a miss, or a
   // reveal without an answer, reads them open as before (lib/explain-fold.js).
   const fold = ok && foldOtherOptions ? otherOptionsFold(explain) : null;
+  // Read-aloud speaks the whole explanation and marks the words it is on, so
+  // the fold opens when that reading starts; the student closes it again.
+  const foldRef = useRef(null);
+  useEffect(() => { if (reading && foldRef.current) foldRef.current.open = true; }, [reading]);
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <div className="vmx-feedback-header">
@@ -1032,7 +1044,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
                 {/* Answered correctly: the other options' reasons wait behind
                     one row. Native details, so the text stays in the page
                     (read-aloud marks it, find-in-page reaches it). */}
-                <details className="vmx-other-options">
+                <details className="vmx-other-options" ref={foldRef}>
                   <summary>{fold.heading.trim()}</summary>
                   <RichBlocks text={fold.body} renderText={linked} />
                 </details>

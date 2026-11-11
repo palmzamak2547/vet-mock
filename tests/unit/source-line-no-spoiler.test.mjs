@@ -252,7 +252,9 @@ test('the question card hands the chip whether the key is on screen, and the dat
   // The two must not share a key with a sibling (tests/unit/jsx-sibling-keys.test.mjs): 5.213.1.
   assert.ok(card.includes('<QSourceChip key={`source:${compoundId}`} q={currentQ} revealed={keyShown} />'));
   // The caution chip lives in the verdict panel, which exists only once the key is shown.
-  assert.ok(card.includes('caution={cautionChipShown(currentQ.flag) && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />}'));
+  // One chip value, handed to every reveal (multiple choice, true/false, written, match).
+  assert.ok(card.includes('const cautionChip = cautionChipShown(currentQ.flag)\n    ? <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />'.replace(/\n/g, card.includes('\r\n') ? '\r\n' : '\n')));
+  assert.equal((card.match(/caution=\{cautionChip\}/g) || []).length, 2, 'both verdict panels');
   assert.equal((card.match(/<FlagChip /g) || []).length, 1, 'one place draws the chip');
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
@@ -349,6 +351,52 @@ function cardText(q, { answered = false, practice = true } = {}) {
   // Components are expanded in the tree, so the chip is counted by its words.
   return { text, chips: text.split(CAUTION_CHIP_TEXT).length - 1 };
 }
+
+// Every type's reveal carries the chip: all 8 disputed keys are multiple
+// choice today, but a disputed true/false, written or match key must not be
+// silent. Real questions of each type, given a major flag.
+test('the caution chip shows with the key on every question type that reveals in session', () => {
+  const disputed = { severity: 'major', note: 'เฉลยข้อนี้ยังไม่ได้ยืนยัน' };
+  const fixture = (type) => {
+    const q = QB.find((x) => x.type === type && (type !== 'match' || (Array.isArray(x.pairs) && x.pairs.length)));
+    assert.ok(q, `a ${type} question in the bank`);
+    return { ...q, flag: disputed };
+  };
+  const shown = (q, answer, { reveal = false, practice = true } = {}) => {
+    const store = new Map();
+    globalThis.localStorage = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, String(v)), removeItem: (k) => store.delete(k) };
+    globalThis.window = Object.assign(new EventTarget(), { localStorage: globalThis.localStorage });
+    globalThis.document = { body: {}, head: { appendChild() {} }, activeElement: null, querySelector: () => null, createElement: () => ({}) };
+    const inst = fr.mount(QuestionCard, {
+      currentQ: q, currentAnswer: answer, answerCurrent: () => {},
+      isBookmarked: false, toggleBookmark: () => {}, note: '', onNoteChange: () => {},
+      showNote: false, setShowNote: () => {}, revealAnswer: practice,
+    });
+    if (reveal) {
+      const [button] = fr.findAll(inst.tree, (n) => n.props?.className === 'vmx-written-reveal-btn');
+      assert.ok(button, `${q.type}: the written answer offers its เฉลย`);
+      button.props.onClick();
+      inst.flush();
+    }
+    const text = readable(inst.tree);
+    inst.unmount();
+    return text.split(CAUTION_CHIP_TEXT).length - 1;
+  };
+  const tf = fixture('tf');
+  assert.equal(shown(tf, undefined), 0, 'tf before the answer');
+  assert.equal(shown(tf, tf.answer), 1, 'tf with the key');
+  assert.equal(shown(tf, tf.answer, { practice: false }), 0, 'tf mid-exam');
+  for (const type of ['short', 'essay']) {
+    const q = fixture(type);
+    assert.equal(shown(q, 'คำตอบของนิสิต'), 0, `${type} before its เฉลย`);
+    assert.equal(shown(q, 'คำตอบของนิสิต', { reveal: true }), 1, `${type} with its เฉลย`);
+  }
+  const match = fixture('match');
+  const placed = Object.fromEntries(match.pairs.map((p, i) => [i, p.right]));
+  assert.equal(shown(match, {}), 0, 'match before every pair is placed');
+  assert.equal(shown(match, placed), 1, 'match once the board shows the key');
+  assert.equal(shown(match, placed, { practice: false }), 0, 'match mid-exam');
+});
 
 test('the caution chip never shows before the key, in practice or mid-exam, and opens with it', () => {
   const flagged = QB.filter((q) => cautionChipShown(q.flag));
@@ -455,7 +503,7 @@ test('the caution chip is for a disputed key only; a minor note is a หมา�
   }
   for (const flag of ['verify-2026', { severity: 'unclear', note: 'x' }]) assert.equal(chip(flag, true), '');
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
-  assert.match(card, /\{cautionChipShown\(currentQ\.flag\) && <FlagChip /);
+  assert.match(card, /cautionChipShown\(currentQ\.flag\)\s*\?\s*<FlagChip /);
   assert.doesNotMatch(card, /ข้อมูลขัดแย้ง|MAJOR|MINOR|Sources:/);
 });
 
