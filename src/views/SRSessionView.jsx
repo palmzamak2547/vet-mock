@@ -736,13 +736,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       ? `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(opt)}`
       : 'คำตอบของข้อนี้ผิดรูปแบบ — แจ้งให้ทีมแก้';
   } else if (currentQ.type === 'tf') {
-    // Visual T/F reveal — green ✓ for true, red ✗ for false
+    // The key of a true/false card: the statement's value, said in words, in a
+    // neutral pill (red here read as "you were wrong").
     answerNode = (
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '6px 16px', borderRadius: 999,
-        background: currentQ.answer ? 'var(--clr-right-soft)' : 'var(--clr-rose-soft)',
-        color: currentQ.answer ? 'var(--clr-right-text)' : 'var(--clr-rose-text)',
+        background: 'var(--clr-surface-2)',
+        color: 'var(--clr-ink)',
+        border: '1px solid var(--clr-border)',
         fontWeight: 700,
         fontSize: 18,
       }}>

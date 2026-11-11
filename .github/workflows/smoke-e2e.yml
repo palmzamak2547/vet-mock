@@ -50,8 +50,22 @@
 # specs at about 9). tests/unit/smoke-matrix.test.mjs fails if a runner is added
 # or removed without this list, or if `smoke` stops waiting for the e2e matrix.
 # Runners: chromium desktop, half 1; chromium desktop, half 2; chromium mobile,
-# half 1; chromium mobile, half 2; webkit, third 1; webkit, third 2; webkit,
-# third 3; firefox, half 1; firefox, half 2.
+# half 1; chromium mobile, half 2; webkit, quarter 1; webkit, quarter 2; webkit,
+# quarter 3; webkit, quarter 4; firefox, third 1; firefox, third 2; firefox,
+# third 3.
+#
+# 2026-11-11, later: WebKit in quarters and Firefox in thirds. Measured on run
+# 43028284316, the first with chromium in halves (job minutes, then the
+# Playwright suite step's minutes in brackets): webkit thirds 12.4 (10.2), 10.0
+# (7.9) and 9.2 (7.4); firefox halves 9.9 (8.3) and 9.2 (7.7); chromium desktop
+# half 1 9.9 (5.9, plus 1.8 for the connected specs), the other chromium halves
+# 5.0-5.3 (3.8-4.0). By the rule above webkit third 1 and firefox half 1 were
+# past 9 of the 13 minutes' worth of tests or close to it, with about eight more
+# specs landing this week. Two more runners (11 in all) at about 4 minutes of
+# setup each: about 8 more job-minutes a run. WebKit's 25.5 suite minutes over
+# four is about 6.4 a quarter and Firefox's 16.0 over three about 5.3 a third
+# (shards cut the test list, not the minutes, so one can run longer), and the
+# slowest job should be about 9.9 (chromium desktop half 1).
 # The job named `smoke` below is what Vercel and branch protection wait for;
 # it passes only when every runner passed.
 #
@@ -225,36 +239,48 @@ jobs:
             project: chromium-mobile
             shard: 2/2
             report: chromium-mobile-2
-          - label: webkit, third 1
+          - label: webkit, quarter 1
             group: gl
             browsers: webkit
             project: webkit-mobile
-            shard: 1/3
+            shard: 1/4
             report: webkit-1
-          - label: webkit, third 2
+          - label: webkit, quarter 2
             group: gl
             browsers: webkit
             project: webkit-mobile
-            shard: 2/3
+            shard: 2/4
             report: webkit-2
-          - label: webkit, third 3
+          - label: webkit, quarter 3
             group: gl
             browsers: webkit
             project: webkit-mobile
-            shard: 3/3
+            shard: 3/4
             report: webkit-3
-          - label: firefox, half 1
+          - label: webkit, quarter 4
+            group: gl
+            browsers: webkit
+            project: webkit-mobile
+            shard: 4/4
+            report: webkit-4
+          - label: firefox, third 1
             group: gl
             browsers: firefox
             project: firefox-desktop
-            shard: 1/2
+            shard: 1/3
             report: firefox-1
-          - label: firefox, half 2
+          - label: firefox, third 2
             group: gl
             browsers: firefox
             project: firefox-desktop
-            shard: 2/2
+            shard: 2/3
             report: firefox-2
+          - label: firefox, third 3
+            group: gl
+            browsers: firefox
+            project: firefox-desktop
+            shard: 3/3
+            report: firefox-3
     # Setup (~2 min) + the longest browser step cap (16) + 3 min + 1 spare, so a step
     # that hits its own cap still leaves time to upload the report. The chromium
     # runner also builds the connected bundle (~2 min) and runs its four specs

@@ -46,7 +46,7 @@ const NOT_VERDICTS = [
   [/^\.vw-found/, 'VetWiki search hits, a find, not a judged answer'],
 ];
 // Verdict elements whose class names no state.
-const NAMED = ['.vmx-check__verdict', '.vmx-check__why', '.vmx-aigrade-gap .vmx-kicker'];
+const NAMED = ['.vmx-check__verdict', '.vmx-check__why', '.vmx-aigrade-gap .vmx-kicker', '.vmx-instant-feedback .a'];
 
 // The accent tokens, and every :root alias that reads one (--vm-green ...).
 function accentNames(css) {
@@ -149,6 +149,7 @@ test('verdict text and labels clear 4.5 on what they sit on, in both themes', ()
       ['part-text on surface', c('--clr-part-text'), c('--clr-surface')],
       ['part-text on part-soft', c('--clr-part-text'), c('--clr-part-soft')],
       ['rose-text on surface', c('--clr-rose-text'), c('--clr-surface')],
+      ['rose-text on rose-soft (the "ผิด" pill, the wrong answer box)', c('--clr-rose-text'), c('--clr-rose-soft')],
     ];
     for (const [what, fg, bg] of pairs) if (contrast(fg, bg) < 4.5) fails.push(`${name} ${what}: ${contrast(fg, bg).toFixed(2)}`);
   }
@@ -174,6 +175,7 @@ const NOT_VERDICT_LINES = [
   [/ResultsView\.jsx$/, /\{skipCount\}|\{hint && |เร็วกว่า/, 'skipped count, a copy hint, the faster player'],
   [/ReviewView\.jsx$/, /id: 'bookmarked'|\{hint && /, 'the bookmark filter, a share hint'],
   [/WikiLinkForQuestion\.jsx$/, /conflicts/, 'a VetWiki link, toned by its conflicts'],
+  [/(HomeView|SubjectSelectView)\.jsx$/, /cov\.pct >= 80/, 'coverage of the reading list is not correctness: it keeps the accent'],
 ];
 export function jsxLeaks(text, name = '') {
   const leaks = [];
@@ -202,4 +204,40 @@ test('the JSX check catches a verdict colour that forgets (mutations)', () => {
     "if (ok) {\n  a();\n  b();\n  c();\n  d();\n  e();\n  return <i style={{ color: 'var(--vm-green)' }} />;\n}",
     "<div style={{ color: Math.abs(gap) <= 1 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }} />",
   ]) assert.ok(jsxLeaks(bad, 'Mutant.jsx').length > 0, bad);
+});
+
+test('only the two theme blocks and the wiki print block declare verdict tokens', () => {
+  const allowed = [':root, [data-theme="light"]', '[data-theme="dark"]', "[data-theme='dark'] .vw"];
+  const found = [];
+  for (const f of STYLES) {
+    for (const { sel, body } of rulesOf(readFileSync(f, 'utf8'))) {
+      if (!/--clr-(right|part|rose)[\w-]*\s*:/.test(body)) continue;
+      if (!allowed.includes(sel.trim())) found.push(`${rel(f)}: ${sel.trim()}`);
+    }
+  }
+  assert.deepEqual(found, []);
+  for (const p of walk(SRC, /\.(js|jsx)$/)) {
+    assert.doesNotMatch(readFileSync(p, 'utf8'), /setProperty\(\s*['"`]--clr-(right|part|rose)/, rel(p));
+  }
+});
+
+test('no rule reads a verdict token and an accent token together', () => {
+  const mixed = [];
+  for (const f of STYLES) {
+    for (const { sel, body } of rulesOf(readFileSync(f, 'utf8'))) {
+      if (/var\(\s*--clr-(right|part)/.test(body) && readsAccent(body)) mixed.push(`${rel(f)}: ${sel.trim()}`);
+    }
+  }
+  assert.deepEqual(mixed, []);
+});
+
+test('VetWiki printed from the dark theme prints verdict text in its light values', () => {
+  const wiki = readFileSync(join(SRC, 'styles-wiki.css'), 'utf8');
+  const at = wiki.indexOf("[data-theme='dark'] .vw {");
+  assert.ok(at > 0);
+  const body = wiki.slice(at, wiki.indexOf('}', at));
+  for (const [k, v] of [['--clr-right-text', LIGHT['--clr-right-text']], ['--clr-part-text', LIGHT['--clr-part-text']], ['--clr-sage-text', LIGHT['--clr-sage-text']]]) {
+    assert.match(body, new RegExp(`${k}:\\s*${v}`), k);
+    assert.ok(contrast(v, '#ffffff') >= 4.5, `${k} on paper`);
+  }
 });
