@@ -13,7 +13,7 @@ const PERMANENT_REFUSAL = new Set([400, 409, 413]);
 export function createExamResultOutbox({ snapshot, send, acknowledge, notify = () => {} }) {
   let running = null;
   const cooldown = new Map();
-  const heldBack = new Map(); // owner -> Set of record ids refused for good this session
+  const heldBack = new Map(); // owner -> Map of record id -> the refusal's own message, this session
   function flush() {
     const current = snapshot();
     if (!current.userId || !current.pending.length) return Promise.resolve();
@@ -21,31 +21,37 @@ export function createExamResultOutbox({ snapshot, send, acknowledge, notify = (
     if (running?.owner === current.userId) return running.promise;
     const batch = { owner: current.userId, promise: null };
     running = batch;
-    if (!heldBack.has(batch.owner)) heldBack.set(batch.owner, new Set());
+    if (!heldBack.has(batch.owner)) heldBack.set(batch.owner, new Map());
     const held = heldBack.get(batch.owner);
     batch.promise = (async () => {
       notify(batch.owner, { sending: true, error: null });
       try {
         for (const record of current.pending.slice(0, 100)) {
           if (snapshot().userId !== batch.owner) return;
-          if (record.user_id !== batch.owner) throw new Error('ผลสอบนี้ไม่ใช่ของบัญชีปัจจุบัน');
+          // Another account's record (an old device-wide key, an origin move) is left where it is and
+          // skipped: stopping at it would hold every later result of this account on the device.
+          if (record.user_id !== batch.owner) continue;
           if (held.has(record.id)) continue;
           try {
             await send(record);
           } catch (error) {
             if (!PERMANENT_REFUSAL.has(Number(error?.status))) throw error;
-            held.add(record.id);
+            held.set(record.id, error?.conflict ? error.message : null);
             continue;
           }
           if (snapshot().userId !== batch.owner) return;
           const result = acknowledge(batch.owner, record.id);
           if (result?.accepted === false) throw new Error('บันทึกสถานะการส่งในเครื่องไม่สำเร็จ กรุณาลองอีกครั้ง');
         }
-        const stillHeld = snapshot().pending.filter((record) => held.has(record.id)).length;
+        const heldNow = snapshot().pending.filter((record) => held.has(record.id));
+        const stillHeld = heldNow.length;
+        // A conflict has its own words (sent from another tab with other answers: back it up); one
+        // refused set says them, more than one the general line.
+        const specific = stillHeld === 1 ? held.get(heldNow[0].id) : null;
         notify(batch.owner, {
           sending: false,
           error: stillHeld
-            ? `ผลสอบ ${stillHeld} ชุดส่งเข้าบัญชีไม่ได้ เพราะระบบไม่รับชุดนั้น ผลชุดอื่นส่งต่อตามปกติ และคำตอบของชุดนั้นยังอยู่ในประวัติบนเครื่องนี้`
+            ? specific || `ผลสอบ ${stillHeld} ชุดส่งเข้าบัญชีไม่ได้ เพราะระบบไม่รับชุดนั้น ผลชุดอื่นส่งต่อตามปกติ และคำตอบของชุดนั้นยังอยู่ในประวัติบนเครื่องนี้`
             : null,
         });
       } catch (error) {

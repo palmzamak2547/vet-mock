@@ -47,7 +47,12 @@ export default async function handler(req, res) {
     }
     const receipt = await signedRpc('record_exam_receipt', 'exam-result', { ...result, user_id: auth.userId }, auth.token);
     return res.status(receipt?.ok ? 200 : 409).json(receipt);
-  } catch {
+  } catch (error) {
+    // record_exam_receipt raises "Receipt unavailable" when the result's id is already another
+    // account's row (migration 20261011120200): no retry can ever store it. Answered as the
+    // conflict it is, so the outbox sets that record aside and sends the ones behind it; a 503
+    // would hold every later result on the device.
+    if (error?.detail === 'Receipt unavailable') return res.status(409).json({ ok: false, error: 'result_conflict' });
     return res.status(503).json({ error: 'result_pending', retryAfter: 30 });
   }
 }

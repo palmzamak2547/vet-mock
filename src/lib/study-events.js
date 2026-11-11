@@ -20,16 +20,36 @@ export function newStudySessionId() {
 // answers), so an edit to either must change the revision. They join the hashed text only when a
 // question carries them, which leaves every other question's revision exactly as it was
 // (tests/unit/question-revision-coverage.test.mjs holds the grader to the hash).
-export function questionRevision(q) {
-  const fields = [q.type, q.q, q.front, q.back, q.options, q.answer, q.blanks, q.pairs, q.distractors];
-  const grading = {};
-  if (q.unordered !== undefined) grading.unordered = q.unordered;
-  if (q.keywords !== undefined) grading.keywords = q.keywords;
-  if (Object.keys(grading).length) fields.push(grading);
+const contentFields = (q) => [q.type, q.q, q.front, q.back, q.options, q.answer, q.blanks, q.pairs, q.distractors];
+const carriesGradingFields = (q) => q.unordered !== undefined || q.keywords !== undefined;
+function revisionOf(fields) {
   const text = JSON.stringify(fields);
   let hash = 2166136261;
   for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 16777619);
   return `q1-${(hash >>> 0).toString(16).padStart(8, '0')}`;
+}
+
+export function questionRevision(q) {
+  const fields = contentFields(q);
+  if (carriesGradingFields(q)) {
+    const grading = {};
+    if (q.unordered !== undefined) grading.unordered = q.unordered;
+    if (q.keywords !== undefined) grading.keywords = q.keywords;
+    fields.push(grading);
+  }
+  return revisionOf(fields);
+}
+
+/**
+ * The revisions the server accepts for a question in a sent result. For a question that carries
+ * unordered or keywords this is also its revision under the formula before 5.214 (nine fields), so a
+ * set finished before that release and sent after it is still verified: only the formula changed,
+ * and the server grades with the question's current fields either way. Every other question has the
+ * one revision it always had.
+ */
+export function acceptedQuestionRevisions(q) {
+  const now = questionRevision(q);
+  return carriesGradingFields(q) ? [now, revisionOf(contentFields(q))] : [now];
 }
 
 export function createAttemptEntries({ questions, answers, sessionId, questionTimes = {}, year, phase, mode, now = Date.now() }) {

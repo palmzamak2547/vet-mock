@@ -253,6 +253,7 @@ export async function saveExamResult(result) {
         ? 'ชุดนี้ถูกส่งจากอีกแท็บด้วยคำตอบต่างกันแล้ว กรุณาสำรองผลชุดนี้'
         : 'ผลสอบยังรอส่ง ระบบจะลองใหม่เมื่อเชื่อมต่อได้');
       error.retryAfter = Number(receipt?.retryAfter) || 0;
+      error.conflict = receipt?.error === 'result_conflict';
       // The outbox sets aside a result the server refuses for good (400, 409,
       // 413) so it cannot hold every later result on the device.
       error.status = response.ok ? 0 : response.status;
