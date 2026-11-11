@@ -291,13 +291,16 @@ function stamp(ctx, f, day, seed, cx, cy, r) {
 function address(ctx, f, handle) {
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'left';
-  ctx.font = `700 22px ${f.mono}`;
-  ctx.fillStyle = C.ink;
-  ctx.fillText('vca', 64, 586);
-  const x = 64 + ctx.measureText('vca').width;
+  // The whole host in one weight, so it reads as vca.vetmock.com (where the profile is), never
+  // as vetmock.com with "vca" in front; the handle carries the weight instead.
+  const host = 'vca.vetmock.com/u/';
   ctx.font = `500 22px ${f.mono}`;
   ctx.fillStyle = C.ink2;
-  ctx.fillText(`.vetmock.com/u/${handle}`, x, 586);
+  ctx.fillText(host, 64, 586);
+  const x = 64 + ctx.measureText(host).width;
+  ctx.font = `700 22px ${f.mono}`;
+  ctx.fillStyle = C.ink;
+  ctx.fillText(handle, x, 586);
 }
 
 /**
