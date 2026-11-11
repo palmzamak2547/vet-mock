@@ -36,7 +36,7 @@ import { SectionEvidence, SourceList } from '../components/WikiEvidence.jsx';
 import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
 import { wikiPracticeTarget } from '../lib/vetwiki/practice-target.js';
 import { copyText } from '../lib/clipboard.js';
-import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
+import { wikiPath, wikiUrl, parseWikiPath, wikiEntry, WIKI_BASE } from '../lib/vetwiki/url.js';
 import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
 import RelatedDocs from '../components/RelatedDocs.jsx';
@@ -1291,7 +1291,13 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   // only count when they name the article in the URL.
   const mountedRef = useRef(false);
   // The subject the index was last asked to show ({ subject, nonce }).
-  const [indexFocus, setIndexFocus] = useState(null);
+  // A subject address (/wiki/com5) asks for the index at that subject, and
+  // keeps its address; a fresh request names its own target.
+  const [indexFocus, setIndexFocus] = useState(() => {
+    if (typeof window === 'undefined' || openNonce > actedOnOpenNonce) return null;
+    const entry = wikiEntry(window.location.pathname, topics);
+    return entry.kind === 'subject' ? { subject: entry.subject, nonce: 'address' } : null;
+  });
   const [articleLoad, setArticleLoad] = useState({ id: null, status: 'idle', data: null, error: '' });
 
   const current = openId ? topics.find((t) => t.id === openId) : null;
@@ -1430,7 +1436,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   // doing so while this view unmounts would rewrite the destination `/` as
   // `/wiki`, leaving the address bar out of step with the restored app view.
   useEffect(() => {
-    syncUrl(openId, true);
+    if (indexFocus?.nonce !== 'address') syncUrl(openId, true);
     const onPop = () => {
       const { subject: s, topic: t } = parseWikiPath(window.location.pathname);
       const id = s && t ? `${s}--${t}` : null;

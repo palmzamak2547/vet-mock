@@ -47,3 +47,20 @@ export function parseWikiPath(pathname) {
   });
   return { isWiki: true, subject: subject || null, topic: topic || null };
 }
+
+/**
+ * What a wiki address opens, given the shelf's topics ({ id, subject }).
+ * A subject address (/wiki/com5) opens the index at that subject; it used to
+ * open the plain index and drop the subject. An unknown subject is the index.
+ * @returns {{ kind: 'none'|'index'|'subject'|'article', id?: string, subject?: string, missing?: boolean }}
+ */
+export function wikiEntry(pathname, topics = []) {
+  const at = parseWikiPath(pathname);
+  if (!at.isWiki) return { kind: 'none' };
+  if (at.subject && at.topic) {
+    const id = `${at.subject}--${at.topic}`;
+    return topics.some((t) => t.id === id) ? { kind: 'article', id } : { kind: 'index', missing: true };
+  }
+  if (at.subject && topics.some((t) => t.subject === at.subject)) return { kind: 'subject', subject: at.subject };
+  return { kind: 'index', missing: false };
+}
