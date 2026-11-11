@@ -107,6 +107,14 @@ test('smoke waits for every e2e runner and passes only when all of them passed',
   assert.match(jobs.smoke, /RESULT: \$\{\{ needs\.e2e\.result \}\}/);
   assert.match(jobs.smoke, /test "\$CHANGES" = "success"/);
   assert.match(jobs.smoke, /test "\$RESULT" = "success"/);
+  // The success test runs on every run that is not a draft: its step has no other condition, and
+  // the one way out before it is the docs-only skip.
+  const gate = jobs.smoke.split(/\n\s*- name: /).find((s) => /^Every e2e runner passed/.test(s));
+  assert.match(gate, /^        if: needs\.state\.outputs\.draft != 'true'$/m);
+  assert.equal((gate.match(/^        if:/gm) || []).length, 1, 'one condition on the gate step');
+  const beforeTest = gate.split('test "$RESULT" = "success"')[0];
+  const exits = beforeTest.split('\n').filter((line) => /\bexit\b/.test(line)).map((line) => line.trim());
+  assert.deepEqual(exits, ['if [ "$APP" = "false" ]; then exit 0; fi'], 'no early exit before the success test but the docs-only one');
 });
 
 // 27 Oct: a pull request that changes only docs/ and root markdown skips the
@@ -152,6 +160,9 @@ test('every engine runs on runners of its own, the software-GL ones on one worke
   assert.match(glStep, /if: matrix\.group == 'gl'/);
   const chromiumStep = steps.find((s) => /^Run smoke e2e \(chromium\)/.test(s));
   assert.match(chromiumStep, /if: matrix\.group == 'chromium'/);
+  // Exactly these conditions: one added to either would silently drop a runner's tests.
+  assert.match(chromiumStep, /^        if: matrix\.group == 'chromium'$/m);
+  assert.match(glStep, /^        if: matrix\.group == 'gl'$/m);
   assert.match(chromiumStep, /--project=\$\{\{ matrix\.project \}\}/);
   for (const name of [/^Build the connected bundle/, /^Keep the placeholder database host/, /^Run the connected specs/, /^The connected specs ran/]) {
     assert.match(steps.find((s) => name.test(s)), /if: matrix\.connected$/m, String(name));
