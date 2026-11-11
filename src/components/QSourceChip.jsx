@@ -22,6 +22,10 @@
 // on 1 Nov 2026, the line named the key on 23 questions and what "ดูเต็ม"
 // opened (the pointer, the checking note, the tags) on 1,795 of 7,814. The
 // row keeps its size either way, so nothing moves when the full line arrives.
+//
+// The panel also lists `verificationSources` (what the key was checked
+// against) and names the question number of `sourceDocument` beside its page
+// (lib/source-refs.js). Both wait for the key like the rest of the panel.
 // ============================================================
 
 import { useState, lazy, Suspense } from 'react';
@@ -33,6 +37,7 @@ const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl, signedArchiveUrl } from '../lib/vca-library.js';
 import { authHeader } from '../lib/api-auth.js';
+import { verificationRefs, sourceDocumentPointer } from '../lib/source-refs.js';
 import NavIcon from './NavIcon.jsx';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
@@ -65,7 +70,8 @@ export default function QSourceChip({ q, revealed = false }) {
   const hasDisplayableWikiRefs = !!eligibleCitation || displayableWikiRefs.length > 0;
 
   // Show nothing if Q has zero citation fields
-  const hasAny = !!(q?.source || q?.verified || q?.examOrigin || q?.flag || eligibleCitation || hasDisplayableWikiRefs);
+  const hasAny = !!(q?.source || q?.verified || q?.examOrigin || q?.flag || eligibleCitation || hasDisplayableWikiRefs
+    || (Array.isArray(q?.verificationSources) && q.verificationSources.length));
   if (!hasAny) return null;
 
   // Compact summary. Once the key is shown: examOrigin, else the source
@@ -78,6 +84,8 @@ export default function QSourceChip({ q, revealed = false }) {
     : sourceLineBeforeAnswer(q);
   const expanded = revealed && open;
   const moments = expanded ? momentsByClip(q) : [];
+  const refs = expanded ? verificationRefs(q) : [];
+  const pointer = sourceDocumentPointer(q?.sourceDocument);
 
   return (
     // The page's face, not mono: the line opens with Thai ("ที่มา:") and
@@ -193,8 +201,34 @@ export default function QSourceChip({ q, revealed = false }) {
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer" onClick={openArchived}
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>
               เปิดเอกสารต้นฉบับ
-              {Number.isInteger(q.sourceDocument.page) && q.sourceDocument.page > 0 ? ` (อ้างหน้า ${q.sourceDocument.page})` : ''}
+              {pointer ? ` (${pointer})` : ''}
             </a>
+          )}
+          {/* The references the key was checked against, worded as
+              vca.vetmock.com lists them: the title (a link when its address
+              passes the URL check) with the locator after it. */}
+          {refs.length > 0 && (
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, lineHeight: 1.5 }}>
+              <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 14, letterSpacing: 0 }}>
+                อ้างอิง
+              </span>
+              <ul style={{ flex: 1, minWidth: 0, margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {refs.map((r, i) => (
+                  <li key={i} style={{ overflowWrap: 'anywhere', fontSize: 14 }}>
+                    {r.href ? (
+                      <a href={r.href} target="_blank" rel="noopener noreferrer nofollow"
+                        title="เปิดเอกสารอ้างอิงในแท็บใหม่"
+                        style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)' }}>
+                        {r.title}
+                      </a>
+                    ) : (
+                      <span style={{ color: 'var(--clr-ink)' }}>{r.title}</span>
+                    )}
+                    {r.locator && <span style={{ display: 'block', color: 'var(--clr-ink-soft)' }}>{r.locator}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           {q.flag?.note && (
             <Row
