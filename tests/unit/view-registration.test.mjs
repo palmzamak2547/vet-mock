@@ -17,6 +17,7 @@ import {
   LEARN_OWNER_ORDER, FEATURE_LINE_ICON, viewTitle,
 } from '../../src/lib/nav.js';
 import { MOCHI_PAGE_POSES } from '../../src/lib/mochi-presence.js';
+import { GATE_PUBLIC_VIEWS } from '../../src/lib/gate-public-views.js';
 
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const APP = read('src/App.jsx');
@@ -118,9 +119,12 @@ test('the registry, the shell sets and the decoration lists name only screens th
   for (const f of FEATURES) {
     if (f.invoke?.kind === 'view') assert.ok(RENDERED.has(f.invoke.view), `feature ${f.id} opens ${f.invoke.view}, which App.jsx never draws`);
   }
-  for (const name of ['WIDE_VIEWS', 'FOCUS_VIEWS', 'GATE_PUBLIC_VIEWS', 'FOOTER_VIEWS', 'AUTH_REQUIRED_VIEWS']) {
+  for (const name of ['WIDE_VIEWS', 'FOCUS_VIEWS', 'FOOTER_VIEWS', 'AUTH_REQUIRED_VIEWS']) {
     for (const view of setOf(name)) assert.ok(RENDERED.has(view), `App.jsx ${name} names ${view}, which it never draws`);
   }
+  // The wall's public screens are a module of their own (the server reads the same list), so the set itself is checked.
+  assert.ok(GATE_PUBLIC_VIEWS.size > 0, 'the wall leaves at least the front door open');
+  for (const view of GATE_PUBLIC_VIEWS) assert.ok(RENDERED.has(view), `GATE_PUBLIC_VIEWS names ${view}, which App.jsx never draws`);
   for (const view of YEAR_SCOPED_VIEW_IDS) assert.ok(RENDERED.has(view), `YEAR_SCOPED_VIEWS names ${view}, which App.jsx never draws`);
   for (const view of Object.keys(MOCHI_PAGE_POSES)) assert.ok(RENDERED.has(view), `MOCHI_PAGE_POSES names ${view}, which App.jsx never draws`);
   for (const item of NAV_ITEMS) assert.ok(RENDERED.has(item.id), `nav item ${item.id} opens no screen`);
