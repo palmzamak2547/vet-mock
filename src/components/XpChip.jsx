@@ -6,14 +6,15 @@
 // Tap → opens a small popover showing total XP + today's XP +
 // lifetime question count.
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { getXpState, levelFor, xpForNextLevel, XP_EVENT, accountXp } from '../lib/xp.js';
+import { useEffect, useRef, useState } from 'react';
+import { getXpState, levelFor, xpForNextLevel, XP_EVENT, shownXp, xpToCarry, carriedKey, pendingXp, setPendingXp } from '../lib/xp.js';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 
-// `history` and `srCards` are the synced records: the chip shows the same
-// number as the profile hub (shownXp), the account's own or this device's
-// counter when that is higher, so a level is the same on every device.
-export default function XpChip({ history = null, srCards = null }) {
+// `history`, `srCards` and `user` are what follows the account: the chip
+// shows the same number as the profile hub (lib/xp.js shownXp), so a level is
+// the same on every device. While signed in it also carries this device's
+// quest points to the account, and the old counter's lead once.
+export default function XpChip({ history = null, srCards = null, user = null }) {
   const [state, setState] = useState(() => getXpState());
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
@@ -68,8 +69,44 @@ export default function XpChip({ history = null, srCards = null }) {
     };
   }, [open]);
 
-  const fromAccount = useMemo(() => accountXp({ history: history || [], srCards: srCards || {} }), [history, srCards]);
-  const total = Math.max(state.totalXp, fromAccount);
+  // Add what this device holds to the account: the one-time carry, then new
+  // quest points. One write at a time; a failure leaves the count for later.
+  const uid = user?.id ?? null;
+  const carrying = useRef(false);
+  // The account's carried total as last written here, until the session's
+  // copy of the metadata catches up, so the number never dips in between.
+  const [written, setWritten] = useState(0);
+  const [, setBump] = useState(0);
+  useEffect(() => {
+    if (!uid || carrying.current) return;
+    const { add, first } = xpToCarry({ user, history: history || [], srCards: srCards || {}, device: state });
+    if (!add) {
+      if (first) { try { window.localStorage.setItem(carriedKey(uid), '1'); } catch { /* private mode */ } setBump((n) => n + 1); }
+      return;
+    }
+    carrying.current = true;
+    const pendingBefore = pendingXp();
+    import('../lib/identity-write.js')
+      .then(({ addAccountXp }) => addAccountXp(add))
+      .then((total) => {
+        if (total == null) return;
+        if (first) {
+          try { window.localStorage.setItem(carriedKey(uid), '1'); } catch { /* private mode */ }
+          setPendingXp(pendingXp() - pendingBefore);
+        } else {
+          setPendingXp(pendingXp() - add);
+        }
+        setWritten(total);
+      })
+      .catch(() => {})
+      .finally(() => { carrying.current = false; });
+  }, [uid, user, history, srCards, state]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const md = user?.user_metadata || {};
+  const seen = user && written > (Number(md.xp_extra) || 0)
+    ? { ...user, user_metadata: { ...md, xp_extra: written } }
+    : user;
+  const total = shownXp({ history: history || [], srCards: srCards || {}, user: seen, device: state });
   const lvl = levelFor(total);
   const prog = xpForNextLevel(total);
 

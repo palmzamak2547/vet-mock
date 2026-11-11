@@ -340,22 +340,65 @@ test('the cohort comes from the app year and the semester note', () => {
 });
 
 // ── Every statement on the hub true ────────────────────────────────
-test('the level is rebuilt from what follows the account, the same on every device, with no caveat', async () => {
-  const { accountXp, shownXp, XP_AWARDS, levelFor } = await import('../../src/lib/xp.js');
+const memStore = (init = {}) => {
+  const m = new Map(Object.entries(init));
+  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), map: m };
+};
+
+test('the level is one function of what follows the account, the same on every device, with no caveat', async () => {
+  const { accountXp, shownXp, XP_AWARDS, levelFor, carriedKey } = await import('../../src/lib/xp.js');
   const history = [{ correct: true }, { correct: false }, { correct: true }, null];
   const srCards = { a: { totalReviews: 3 }, b: { totalReviews: 0 }, c: {} };
-  const fromAccount = 2 * XP_AWARDS.correctAnswer + XP_AWARDS.wrongAnswer + 3 * XP_AWARDS.srGrade;
-  assert.equal(accountXp({ history, srCards }), fromAccount);
-  // A second device with the same account and an empty counter shows the same.
-  assert.equal(shownXp({ history, srCards, device: { totalXp: 0 } }), fromAccount);
-  // A device whose old counter is higher keeps it: nobody's level drops there.
-  assert.equal(shownXp({ history, srCards, device: { totalXp: 900 } }), 900);
+  const rebuilt = 2 * XP_AWARDS.correctAnswer + XP_AWARDS.wrongAnswer + 3 * XP_AWARDS.srGrade;
+  assert.equal(accountXp({ history, srCards }), rebuilt);
+  const user = { id: 'u1', user_metadata: { xp_extra: 140 } };
+  // Two devices, both carried: different old counters, one number.
+  const a = shownXp({ history, srCards, user, device: { totalXp: 9000 }, storage: memStore({ [carriedKey('u1')]: '1' }) });
+  const b = shownXp({ history, srCards, user, device: { totalXp: 0 }, storage: memStore({ [carriedKey('u1')]: '1' }) });
+  assert.equal(a, rebuilt + 140);
+  assert.equal(b, a, 'the same on every device, whatever its old counter');
   assert.equal(levelFor(shownXp({ history: [], srCards: {}, device: { totalXp: 0 } })), 0);
   const hub = read('src/views/ProfileView.jsx');
   assert.doesNotMatch(hub, /ความคืบหน้าถูกเก็บไว้ในบัญชี/);
   assert.doesNotMatch(hub, /ในเครื่องนี้ ยังไม่ตามไปเครื่องอื่น|เลเวลเก็บใน/, 'no storage caveat beside the level');
-  assert.match(hub, /shownXp\(/);
-  assert.match(read('src/components/XpChip.jsx'), /Math\.max\(state\.totalXp, fromAccount\)/, 'the header chip shows the same number');
+  assert.match(hub, /shownXp\(\{ history: history \|\| \[\], srCards: srCards \|\| \{\}, user \}\)/);
+  assert.match(read('src/components/XpChip.jsx'), /shownXp\(\{ history: history \|\| \[\], srCards: srCards \|\| \{\}, user: seen, device: state \}\)/, 'the header chip reads the same function');
+});
+
+test('the old counter is taken into account once, by recording its lead with the account', async () => {
+  const { shownXp, xpToCarry, carriedKey, levelFor, accountXp } = await import('../../src/lib/xp.js');
+  const history = Array.from({ length: 20 }, (_, i) => ({ correct: i % 2 === 0 }));
+  const rebuilt = accountXp({ history });
+  const device = { totalXp: rebuilt + 300 }; // 300 quest points earned here before this release
+  const storage = memStore({ 'vmx-xp-pending': '45' });
+  const user = { id: 'u1', user_metadata: {} };
+  // Before the carry lands, the device in use never shows less than it did.
+  assert.equal(shownXp({ history, user, device, storage }), device.totalXp);
+  const carry = xpToCarry({ user, history, device, storage });
+  assert.deepEqual(carry, { add: 300, first: true }, 'the lead, with pending quest points already inside it');
+  // The write lands: metadata holds the lead, the device records it was carried.
+  storage.setItem(carriedKey('u1'), '1');
+  storage.setItem('vmx-xp-pending', '0');
+  const after = { id: 'u1', user_metadata: { xp_extra: 300 } };
+  assert.equal(shownXp({ history, user: after, device, storage }), device.totalXp, 'no drop on the old device');
+  assert.equal(shownXp({ history, user: after, device: { totalXp: 0 }, storage: memStore({ [carriedKey('u1')]: '1' }) }), device.totalXp, 'and the same on a new one');
+  assert.equal(levelFor(shownXp({ history, user: after, device, storage })), levelFor(device.totalXp));
+  // Never again: later only new quest points travel.
+  storage.setItem('vmx-xp-pending', '20');
+  assert.deepEqual(xpToCarry({ user: after, history, device: { totalXp: device.totalXp + 20 }, storage }), { add: 20, first: false });
+  assert.deepEqual(xpToCarry({ user: null, history, device, storage }), { add: 0, first: false }, 'a guest carries nothing');
+});
+
+test('quest points are the only award counted for the account apart from answers and reviews', async () => {
+  const xp = read('src/lib/xp.js');
+  assert.match(xp, /String\(reason\)\.startsWith\('quest'\)/);
+  // The daily question and reading grant nothing, so nothing of theirs needs carrying.
+  const awards = [...readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').matchAll(/awardXp\(([^,]+)/g)].map((m) => m[1].trim());
+  assert.deepEqual(awards.sort(), ['XP_AWARDS.srGrade', 'xpAmount']);
+  assert.doesNotMatch(read('src/lib/quests.js'), /XP_AWARDS\.(dailyQ|notesRead)/);
+  const write = read('src/lib/identity-write.js');
+  assert.match(write, /export async function addAccountXp/);
+  assert.match(write, /updateUser\(\{ data: \{ xp_extra: current \+ add \} \}\)/, 'only the carried number is written, on top of the account\'s current copy');
 });
 
 test('the review row says what the student gets, no algorithm names', () => {

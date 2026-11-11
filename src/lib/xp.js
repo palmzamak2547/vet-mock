@@ -66,6 +66,11 @@ function persist(state) {
 export function awardXp(amount, reason = 'misc') {
   const safeAmount = Math.max(0, Math.floor(Number(amount) || 0));
   if (safeAmount === 0) return getXpState().totalXp;
+  // Quest points are the one award no synced record holds: count them until
+  // they are added to the account (XpChip, lib/identity-write.js).
+  if (String(reason).startsWith('quest')) {
+    try { const st = window.localStorage; st?.setItem('vmx-xp-pending', String((Math.floor(Number(st.getItem('vmx-xp-pending')) || 0)) + safeAmount)); } catch { /* private mode */ }
+  }
   const cur = getXpState();
   const today = todayKey();
   const next = {
@@ -124,12 +129,65 @@ export function accountXp({ history = [], srCards = {} } = {}) {
   return xp;
 }
 
+// ── The level that follows the account ─────────────────────────────
+// What the app awards XP for today: answers (in the synced history), SR
+// grades (counted on the synced cards) and daily-quest rewards (quests.js,
+// kept per day on the device only). The daily question and reading award
+// nothing (XP_AWARDS.dailyQ and notesRead are never granted). So the one
+// device-only part is quest points, and it travels as a running number in
+// the account's metadata, `xp_extra`, written through identity-write.js
+// rarely: when a quest is claimed (a few times a day at most) and once,
+// when this release first sees an account on a device that already had a
+// higher counter.
+
+/** Account metadata's carried XP (quest points and the one-time carry). */
+export const extraXpOf = (user) => Math.max(0, Math.floor(Number(user?.user_metadata?.xp_extra) || 0));
+
 /**
- * The XP a student sees: the account's number, or this device's own counter
- * when it is higher (points from the daily question and reading, earned
- * before the level followed the account), so nobody's level drops on the
- * device they use. The header chip and the profile hub both read this.
+ * The XP a student sees, one function of data that follows the account:
+ * the rebuilt answers and reviews plus the carried number. Two transitional
+ * terms only, both on the device that earned them: quest points claimed
+ * here and not yet added to the account (`pending`, flushed by XpChip within
+ * a moment when online), and, until this device's one-time carry has been
+ * recorded, the old counter where it is higher, so the level never drops
+ * here while the carry is on its way. A guest has no account: this device's
+ * own counter stands for it.
  */
-export function shownXp({ history = [], srCards = {}, device = getXpState() } = {}) {
-  return Math.max(accountXp({ history, srCards }), Math.max(0, Number(device?.totalXp) || 0));
+export function shownXp({ history = [], srCards = {}, user = null, device = getXpState(), storage = globalThis.localStorage } = {}) {
+  const rebuilt = accountXp({ history, srCards });
+  const counter = Math.max(0, Number(device?.totalXp) || 0);
+  if (!user?.id) return Math.max(rebuilt, counter);
+  let carried = false;
+  try { carried = storage?.getItem(carriedKey(user.id)) === '1'; } catch { carried = false; }
+  const own = rebuilt + extraXpOf(user);
+  return carried ? own + pendingXp(storage) : Math.max(own, counter);
+}
+
+const PENDING_KEY = 'vmx-xp-pending';
+export const carriedKey = (uid) => `vmx-xp-carried:${uid}`;
+
+/** Quest points earned here and not yet added to the account. */
+export function pendingXp(storage = globalThis.localStorage) {
+  try { return Math.max(0, Math.floor(Number(storage?.getItem(PENDING_KEY)) || 0)); } catch { return 0; }
+}
+export function setPendingXp(n, storage = globalThis.localStorage) {
+  try { storage?.setItem(PENDING_KEY, String(Math.max(0, Math.floor(n) || 0))); } catch { /* private mode */ }
+}
+
+/**
+ * How much to add to the account's carried XP now, and whether this is the
+ * one-time carry. The first time a signed-in account is seen on a device
+ * after this release, the old counter's lead over the account's number is
+ * recorded ONCE (so the level never drops on the device in use); quest
+ * points already in that counter are part of the lead, so the pending count
+ * is folded into it. After that, only new quest points are added.
+ */
+export function xpToCarry({ user, history = [], srCards = {}, device = getXpState(), storage = globalThis.localStorage } = {}) {
+  if (!user?.id) return { add: 0, first: false };
+  let carried = false;
+  try { carried = storage?.getItem(carriedKey(user.id)) === '1'; } catch { carried = true; }
+  const pending = pendingXp(storage);
+  if (carried) return { add: pending, first: false };
+  const lead = Math.max(0, Math.floor(Number(device?.totalXp) || 0)) - (accountXp({ history, srCards }) + extraXpOf(user));
+  return { add: Math.max(0, lead), first: true };
 }

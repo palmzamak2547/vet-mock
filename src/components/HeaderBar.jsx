@@ -50,7 +50,7 @@ export default function HeaderBar({
   setPaletteOpen,
   bookmarks, setPracticeMode, setMode,
   streakData,
-  // The synced records the level is rebuilt from (XpChip, lib/xp.js shownXp).
+  // What the level is rebuilt from (XpChip, lib/xp.js shownXp).
   history = null,
   srCards = null,
   user, profile, handleSignOut,
@@ -153,7 +153,7 @@ export default function HeaderBar({
           </div>
         )}
         <Suspense fallback={null}>
-          <XpChip history={history} srCards={srCards} />
+          <XpChip history={history} srCards={srCards} user={user} />
         </Suspense>
 
         {user && (

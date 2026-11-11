@@ -11,8 +11,6 @@ import { test, expect } from './fixtures.js';
 //   2. The identity card on the hub edits in place and confirms in place.
 //   3. A student who chose not to appear is told so on the board.
 test.use({ serviceWorkers: 'block' });
-// Each test walks several lazy screens (Home, the step, the hub, the board).
-test.describe.configure({ timeout: 120_000 });
 
 const HOST = 'mpovsdzdggvksmeehqfj.supabase.co';
 const TOKEN_KEY = 'sb-mpovsdzdggvksmeehqfj-auth-token';

@@ -191,7 +191,7 @@ async function renderSharedTab(deps, props) {
       if (!prev || !d || d.some((x, n) => !Object.is(x, prev.d[n]))) queued.push({ i, fn, d });
     },
   };
-  const scope = { h, Fragment: 'Fragment', Mochi: 'Mochi', StatePanel: 'StatePanel', ...hooks, ...deps };
+  const scope = { h, Fragment: 'Fragment', Mochi: 'Mochi', StatePanel: 'StatePanel', BoardPresenceNotice: 'BoardPresenceNotice', ...hooks, ...deps };
   const View = new Function(...Object.keys(scope), `${code}\nreturn ${name};`)(...Object.values(scope));
   let tree;
   const render = () => {

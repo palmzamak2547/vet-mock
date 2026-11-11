@@ -77,3 +77,24 @@ export async function isPublicNameFree(name, selfId) {
   if (error) return null;
   return (data || []).length === 0;
 }
+
+/**
+ * Add to the account's carried XP (metadata `xp_extra`: quest points and the
+ * one-time carry of an older device counter, lib/xp.js). Read from the
+ * session just before writing, so a second device's addition is kept. Only
+ * the student's own metadata is written, as every metadata write here is.
+ * Returns the new total, or null when it could not be written.
+ */
+export async function addAccountXp(delta) {
+  const add = Math.max(0, Math.floor(Number(delta) || 0));
+  if (!add) return null;
+  const supabase = await getSupabase();
+  if (!supabase) return null;
+  const { data: fresh, error: readError } = await supabase.auth.getUser();
+  if (readError || !fresh?.user) return null;
+  const current = Math.max(0, Math.floor(Number(fresh.user.user_metadata?.xp_extra) || 0));
+  const { error } = await supabase.auth.updateUser({ data: { xp_extra: current + add } });
+  if (error) return null;
+  notifyAuthChanged();
+  return current + add;
+}

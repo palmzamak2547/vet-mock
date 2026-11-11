@@ -23,6 +23,7 @@ changes: [
   { kind: 'feature', scope: 'system', title: 'หน้าโปรไฟล์บอกสอบถัดไป เหรียญ และกราฟ 4 สัปดาห์', desc: 'เห็นวิชาที่จะสอบถัดไปและเวลาที่เหลือ เหรียญที่ได้และเหรียญถัดไปว่าเหลืออีกเท่าไร อันดับของตัวเองในรุ่น และกราฟจำนวนข้อที่ทำและตอบถูกในแต่ละวัน' },
   { kind: 'fix', scope: 'system', title: 'ชื่อไม่ใช้รหัสนิสิตอีกต่อไป', desc: 'แอปไม่เสนออีเมลหรือรหัสนิสิตเป็นชื่อที่เพื่อนเห็น และบอกเมื่อชื่อที่ใช้อยู่เป็นชื่อที่ระบบตั้งให้' },
   { kind: 'feature', scope: 'system', title: 'หน้าบัญชีจัดเป็นหมวด และดาวน์โหลดข้อมูลได้ครบในไฟล์เดียว', desc: 'แยกเป็นการเข้าสู่ระบบ ข้อมูลของคุณ และการออกจากบัญชี ไฟล์ข้อมูลรวมเลเวลและเครื่องมือในเครื่องด้วย และบอกว่าในไฟล์มีอะไร' },
+  { kind: 'fix', scope: 'system', title: 'เลเวลเท่ากันทุกเครื่อง', desc: 'เลเวลนับจากข้อที่ทำ การ์ดที่ทบทวน และภารกิจรายวันในบัญชี จึงเห็นเท่ากันทุกเครื่องที่เข้าบัญชีเดียวกัน และไม่ลดลงจากที่เคยเห็น' },
   { kind: 'fix', scope: 'system', title: 'กระดานอันดับบอกตำแหน่งของคุณ', desc: 'ถ้าเลือกไม่แสดงบนกระดาน หน้ากระดานจะบอกและพาไปเปลี่ยนได้ ถ้าแสดงอยู่จะบอกอันดับของคุณ' },
 ],
 ```
@@ -56,17 +57,27 @@ account page. No database migration, no row-policy change, no new table or colum
    student there. Comments and a group's member list read `profiles` directly and ignore the flag:
    the UI says "แสดงเสมอ เลือกซ่อนไม่ได้". The leaderboard and group board show the student's own
    line (`BoardPresenceNotice.jsx`): hidden by choice, ranked N of M, or not on the board yet.
-6. **True statements.** The hub no longer claims the level is kept in the account, and carries no
-   storage caveat either (coordinator review, 11 Nov). The level is now rebuilt from what already
-   follows the account: `accountXp` in `lib/xp.js` = 5 per right answer and 2 per wrong one in the
-   synced history (the same `XP_AWARDS` the app grants) plus 3 per review on a synced SR card.
-   `shownXp` takes the higher of that and this device's old `vmx-xp` counter, so nobody's level drops
-   on the device they use; the header chip (`XpChip`, given `history` and `srCards`) and the hub read
-   the same number. What a second device cannot reproduce is only the old device-only surplus
-   (daily question and reading points, which no synced record holds); it is shown on the device that
-   earned it and nowhere else, and the counter stays in the export. Test: "the level is rebuilt from
-   what follows the account" in `tests/unit/student-identity.test.mjs`; e2e checks the hub has no
-   caveat line.
+6. **True statements, one level.** The hub claims nothing about storage and carries no caveat
+   (coordinator review, 11 Nov). The level is one function of data that follows the account
+   (`shownXp` in `lib/xp.js`, read by the hub and the header chip alike):
+   - answers in the synced history (5 right, 2 wrong, the `XP_AWARDS` the app grants) and reviews
+     counted on synced SR cards (3 each);
+   - plus `xp_extra` in the account's metadata. What the app awards apart from answers and SR
+     grades is daily-quest points (`quests.js`, kept per day on the device). The daily question and
+     reading grant no XP at all (`XP_AWARDS.dailyQ` and `notesRead` are never awarded), so nothing
+     of theirs needs carrying. Quest points are counted on the device until added to `xp_extra`
+     (`addAccountXp` in `lib/identity-write.js`, one metadata write per claim, a few a day);
+   - the old device counter is taken into account ONCE: the first time a signed-in account is seen
+     on a device after this release, the counter's lead over the account's number is added to
+     `xp_extra` and the device records that it did (`vmx-xp-carried:<uid>`). Until that write
+     lands the device shows its old counter where it is higher, so the level never drops on the
+     device in use; afterwards every device shows the same number. A guest's level is the device
+     counter, as before.
+   - Known edge: two old devices of one account each carry their own lead, so quest points counted
+     on both are added twice (never fewer). Measured cost: none at first load (the carry runs in
+     the lazy header chip).
+   Tests: "the level is one function of what follows the account", "the old counter is taken into
+   account once", "quest points are the only award counted" in `tests/unit/student-identity.test.mjs`.
 7. **No algorithm names.** The review row read "เลือก SM-2 หรือ FSRS ได้ในหน้านี้"; it now says what
    the student gets: "ข้อที่ผิดกลับมาให้ทบทวน แอปเลือกวันให้เอง". Test: "the review row says what the
    student gets, no algorithm names".
@@ -93,6 +104,21 @@ account page. No database migration, no row-policy change, no new table or colum
 - Motion: editor entrance, picture settle, figure bars rising with a geometric stagger, save line;
   transform and opacity only; the figures' spring (0.35 s, 0.82) via `linear()`; nothing under
   reduced motion.
+
+### Words (audit findings 13 to 15)
+- The wall said it takes "ชื่อ อีเมล และรูปโปรไฟล์จาก Google"; the app uses the name (the welcome)
+  and the email, never the photo. It now says "VetMock ใช้แค่ชื่อและอีเมลจาก Google"
+  (`ChulaGateView.jsx`). Google's consent screen still lists the photo, because the `profile` scope
+  carries it: removing it from the scope is a sign-in change and is not in this branch.
+- One language a screen: the leaderboard's "Exam, All", "Practice", "Anon", "cohort", "🌐" and the
+  groups' "code", "join", "invite", "Copy" are Thai (`LeaderboardView.jsx`, `GroupsView.jsx`,
+  `GroupDetailView.jsx`; `group-create-guard.test.mjs` follows the button's new name).
+- One name for one thing: "โปรไฟล์" is the student's own page; the account page is "บัญชีและข้อมูล"
+  everywhere it is named (its heading, the hub row, the header menu, the palette entry, the
+  sign-in prompt), instead of "ตั้งค่าบัญชี", "บัญชีของคุณ" and "บัญชี".
+- A student outside the first 200 on a board: the board and the hub now say "ยังไม่อยู่ใน 200
+  อันดับแรก" instead of nothing (or "not on the board"). Their actual rank needs the ranking RPC
+  to return the caller's own row (a migration; not in this branch).
 
 ### Checks
 See the pull request that folds this branch. Unit: `tests/unit/student-identity.test.mjs`.
@@ -187,15 +213,6 @@ then the leaderboard RPCs read `p.show_on_boards`, the client writes it in `save
 comment list shows "นิสิต" for a row whose author has it off. The `"chula members only"` restrictive
 policy already covers `profiles`.
 
-### Syncing the device-only part of the level
-Not needed for the level a student sees (rebuilt from synced records, above). To carry the old
-device-only surplus (daily question, reading points) across devices, `vmx-xp` would need a `user_data.xp jsonb` column, `'xp'` added to the field list of
-`sync_user_data_v2` (`supabase/migrations/20261005140235_user_data_operation_sync.sql`, the
-`field_name not in (...)` guard and the row write), a `USER_DATA_FIELDS.xp` entry with a max-wins
-merge on `totalXp`, a schema in `user-data-schema.js`, and the purge list in
-`account-local-purge.js`:
-
-```sql
-alter table public.user_data add column if not exists xp jsonb not null default '{}'::jsonb;
-```
-Until then that surplus shows only on the device that earned it.
+### The level
+No migration: the carried number lives in auth metadata, which the student already writes. A
+`user_data.xp` column would only matter if quest history itself should be restorable.

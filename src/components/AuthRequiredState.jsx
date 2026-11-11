@@ -13,7 +13,7 @@ export default function AuthRequiredState({ page, onSignIn, onHome }) {
         {page ? `${page} ใช้บัญชี VetMock` : 'หน้านี้ใช้บัญชี VetMock'}
       </h1>
       <p style={{ margin: '0 0 20px', color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-        เข้าสู่ระบบเพื่อเปิดข้อมูลกลุ่ม อันดับ และการตั้งค่าบัญชี
+        เข้าสู่ระบบเพื่อเปิดข้อมูลกลุ่ม อันดับ และบัญชีและข้อมูล
       </p>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
         <button type="button" className="vmx-btn vmx-btn-primary" onClick={onSignIn}>

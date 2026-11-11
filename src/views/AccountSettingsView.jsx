@@ -127,6 +127,8 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
           username: publicName || null,
           avatar_emoji: profile?.avatar_emoji || null,
           show_on_leaderboard: showsOnBoards(user),
+          // Quest points and the one-time carry the level adds (lib/xp.js).
+          xp_extra: Math.max(0, Math.floor(Number(md.xp_extra) || 0)),
           // Saved by earlier versions of the account page; kept, not asked for.
           ...(md.year ? { year: md.year } : {}),
           ...(md.cohort ? { cohort: md.cohort } : {}),

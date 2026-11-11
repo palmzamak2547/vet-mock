@@ -89,7 +89,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
       alertDialog(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
     } else {
       // Surface the code so the user can long-press to copy manually
-      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
+      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ กดค้างที่รหัสนี้แล้วเลือกคัดลอก:\n\n${group.code}`);
     }
   };
 

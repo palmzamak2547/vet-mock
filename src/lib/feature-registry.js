@@ -386,8 +386,8 @@ export const FEATURES = [
   },
   {
     id: 'account-settings', category: 'tools',
-    label: 'ตั้งค่าบัญชี', labelEn: 'Account settings', icon: '⚙️',
-    hint: 'จัดการบัญชี รหัสผ่าน และการลบบัญชี',
+    label: 'บัญชีและข้อมูล', labelEn: 'Account settings', icon: '⚙️',
+    hint: 'วิธีเข้าสู่ระบบ รหัสผ่าน ดาวน์โหลดข้อมูล และการลบบัญชี',
     kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ บัญชี',
     auth: true,
     invoke: { kind: 'view', view: 'account-settings' },

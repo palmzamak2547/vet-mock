@@ -394,7 +394,7 @@ export default function ChulaGateView({ wall, user, onAbout }) {
   const offlineNote = !online && !problem ? <Notice kind="offline" /> : null;
   const foot = (
     <footer className="vmx-gate-foot">
-      <p>VetMock รับแค่ชื่อ อีเมล และรูปโปรไฟล์จาก Google เป็นแพลตฟอร์มอิสระ ไม่ใช่ระบบทางการของจุฬาฯ</p>
+      <p>VetMock ใช้แค่ชื่อและอีเมลจาก Google เป็นแพลตฟอร์มอิสระ ไม่ใช่ระบบทางการของจุฬาฯ</p>
       <div className="vmx-gate-foot-links"><a href="/app/privacy">ความเป็นส่วนตัวและข้อตกลง</a><HelpForm /></div>
     </footer>
   );

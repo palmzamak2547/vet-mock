@@ -91,7 +91,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
               }}
             >
               <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                บัญชีของคุณ
+                บัญชีและข้อมูล
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, marginTop: 2 }}>
                 <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -99,12 +99,12 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
                 </span>
                 <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', fontSize: 12 }}>›</span>
               </div>
-              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 3 }}>ดูและแก้ไขโปรไฟล์</div>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 3 }}>ชื่อ รูป การเข้าสู่ระบบ และข้อมูลของคุณ</div>
             </button>
           ) : (
             <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
               <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                บัญชีของคุณ
+                บัญชีและข้อมูล
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
                 {profile.avatar_emoji || '🐾'} {profile.username}

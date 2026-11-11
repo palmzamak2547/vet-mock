@@ -16,7 +16,8 @@
 // Every number is read from data the app already keeps (history, the streak
 // record, the reading checklist, SR cards, the timetable, the board) and is
 // said for what it is. The level is rebuilt from the synced history and
-// review cards (lib/xp.js shownXp), so it is the same on every device.
+// review cards plus the quest points the account carries (lib/xp.js shownXp),
+// so it is the same on every device.
 //
 // It works WITHOUT an account: everything but the identity and the board is
 // local study data, and the identity card becomes the invitation to sign in.
@@ -129,9 +130,9 @@ export default function ProfileView({
   const badges = useMemo(() => earnedBadges({ history: history || [], srCards: srCards || {}, currentStreak: stats.streak }), [history, srCards, stats.streak]);
   const upNext = useMemo(() => nextBadge({ history: history || [], srCards: srCards || {}, currentStreak: stats.streak }), [history, srCards, stats.streak]);
 
-  // Level, the number the header chip shows too: rebuilt from the synced
-  // history and review cards, so it is the same on every device (shownXp).
-  const totalXp = shownXp({ history: history || [], srCards: srCards || {} });
+  // Level, the number the header chip shows too: one function of what
+  // follows the account, the same on every device (lib/xp.js shownXp).
+  const totalXp = shownXp({ history: history || [], srCards: srCards || {}, user });
   const level = levelFor(totalXp);
   const progress = xpForNextLevel(totalXp);
   const empty = stats.total === 0;
@@ -384,11 +385,18 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
     return () => clearTimeout(t);
   }, [saved]);
 
+  // Back to the card the student opened, once it is drawn again (an effect,
+  // not a frame callback: WebKit dropped a focus sent before the commit).
+  const refocus = useRef(false);
+  useEffect(() => {
+    if (editing || !refocus.current) return;
+    refocus.current = false;
+    openRef.current?.focus();
+  }, [editing]);
   const close = (result) => {
+    refocus.current = true;
     setEditing(false);
     if (result) setSaved(result);
-    // Back to the card the student opened, once it is drawn again.
-    requestAnimationFrame(() => openRef.current?.focus());
   };
 
   return (
@@ -460,7 +468,11 @@ function StandingStrip({ user, year, setView }) {
   if (state.status === 'error') line = 'ดูอันดับไม่ได้ตอนนี้ เปิดกระดานเพื่อลองอีกครั้ง';
   else if (s?.kind === 'hidden') line = 'คุณเลือกไม่แสดงบนกระดาน เพื่อนจึงไม่เห็นคะแนนของคุณ';
   else if (s?.kind === 'ranked') line = `อันดับ ${s.rank} จาก ${s.of} คนในปี ${year}`;
-  else if (s?.kind === 'absent') line = `ยังไม่มีชื่อบนกระดานปี ${year} ส่งชุดที่ระบบตรวจอย่างน้อย 5 ข้อเพื่อขึ้นกระดาน`;
+  // The board lists its first 200: past them the rank is not known here, and
+  // the line says so rather than "not on the board".
+  else if (s?.kind === 'absent') line = s.capped
+    ? `ยังไม่อยู่ใน ${s.of} อันดับแรกของปี ${year} ทำชุดที่ระบบตรวจให้ได้คะแนนสูงขึ้นเพื่อขึ้นกระดาน`
+    : `ยังไม่มีชื่อบนกระดานปี ${year} ส่งชุดที่ระบบตรวจอย่างน้อย 5 ข้อเพื่อขึ้นกระดาน`;
 
   return (
     <section className="vmx-dash-card vmx-profile-card vmx-hub-standing" aria-labelledby="hub-standing" aria-busy={state.status === 'loading' || undefined}>
