@@ -95,20 +95,19 @@
 .vmx-hub-saved:empty { display: none; }
 
 /* ── The identity editor ──────────────────────────────────── */
-.vmx-id-editor { display: grid; gap: var(--space-4); transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
+.vmx-id-editor { display: grid; gap: var(--space-3); transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
 @starting-style { .vmx-id-editor { opacity: 0; transform: translateY(6px); } }
 .vmx-id-editor .vmx-form-group { margin: 0; }
 .vmx-id-editor input[type="text"] { font-size: var(--text-md); }
 .vmx-id-preview { display: grid; gap: var(--space-1); }
 .vmx-id-preview-label { font-size: var(--text-sm); color: var(--clr-ink-soft); }
 .vmx-id-row {
-  display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; gap: var(--space-2) var(--space-3);
-  padding: var(--space-2) var(--space-3); border-radius: var(--r-md);
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-3);
+  padding: 6px var(--space-3); border-radius: var(--r-md);
   background: var(--clr-surface); border: 1px solid var(--clr-border);
   transition: opacity var(--dur) var(--ease-out);
 }
 .vmx-id-row.is-hidden { opacity: 0.55; border-style: dashed; }
-.vmx-id-row-rank { font-family: var(--vmx-display); color: var(--clr-ink-soft); font-size: var(--text-md); }
 .vmx-id-pic {
   display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; font-size: 20px;
   background: var(--clr-surface-2);
@@ -155,7 +154,43 @@
 .vmx-id-surfaces li > span:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: center; text-align: end; max-width: 9em; }
 .vmx-id-surfaces .is-follows { color: var(--clr-sage-text); }
 .vmx-id-surfaces .is-always { color: var(--clr-gold-text); }
-.vmx-id-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+/* One row for the board choice: the label and what it does on the left,
+   a switch on the right. The switch is a real checkbox (role="switch"). */
+.vmx-id-board { display: grid; gap: 0; }
+.vmx-id-switch {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-3);
+  padding: var(--space-2) 0; cursor: pointer; min-height: 44px;
+}
+.vmx-id-switch-text { display: grid; gap: 2px; font-size: var(--text-sm); line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-id-switch-text strong { color: var(--clr-ink); font-size: var(--text-md); font-weight: 600; }
+.vmx-id-switch input {
+  appearance: none; -webkit-appearance: none; margin: 0; cursor: pointer; position: relative; flex: 0 0 auto;
+  width: 48px; height: 28px; border-radius: var(--r-pill);
+  background: var(--clr-surface-2); box-shadow: inset 0 0 0 1px var(--clr-border);
+  transition: background-color var(--dur) var(--ease-out);
+}
+.vmx-id-switch input::before {
+  content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--clr-surface); box-shadow: var(--shadow-md);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.vmx-id-switch input:checked { background: var(--clr-sage); box-shadow: none; }
+.vmx-id-switch input:checked::before { transform: translateX(20px); }
+.vmx-id-switch input:focus-visible { outline: 2px solid var(--clr-sage-text); outline-offset: 2px; }
+
+/* The save bar: always on screen. Inside the first-run sheet it sticks to
+   the sheet's bottom edge (above the safe area); in the hub it sticks above
+   the phone's bottom bar. */
+.vmx-id-actions {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  position: sticky; bottom: 0; z-index: 1;
+  margin: 0 calc(-1 * var(--space-4)); padding: var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom));
+  background: var(--clr-bg); box-shadow: 0 -1px 0 var(--clr-border);
+}
+.vmx-hub .vmx-id-actions { background: var(--clr-surface); }
+@media (max-width: 767px) {
+  .vmx-hub .vmx-id-actions { bottom: calc(58px + env(safe-area-inset-bottom)); padding-bottom: var(--space-3); }
+}
 
 /* ── The first-run step ───────────────────────────────────── */
 .vmx-id-step-scrim {
@@ -166,18 +201,18 @@
 }
 @starting-style { .vmx-id-step-scrim { opacity: 0; } }
 .vmx-id-step {
-  box-sizing: border-box; width: 100%; max-width: 520px; max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain;
-  padding: var(--space-5) var(--space-4) calc(var(--space-5) + env(safe-area-inset-bottom));
+  box-sizing: border-box; width: 100%; max-width: 520px; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain;
+  padding: var(--space-4) var(--space-4) 0;
   background: var(--clr-bg); color: var(--clr-ink);
   border-radius: var(--r-xl) var(--r-xl) 0 0; box-shadow: var(--shadow-md);
   transition: transform var(--dur-slow) var(--ease-out);
 }
 @starting-style { .vmx-id-step { transform: translateY(24px); } }
-.vmx-id-step h2 { font-family: var(--vmx-display); font-size: var(--text-xl); font-weight: 600; margin: 0 0 var(--space-2); outline: none; }
-.vmx-id-step-lead { margin: 0 0 var(--space-4); font-size: var(--text-sm); line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-id-step h2 { font-family: var(--vmx-display); font-size: var(--text-xl); font-weight: 600; margin: 0 0 var(--space-1); outline: none; }
+.vmx-id-step-lead { margin: 0 0 var(--space-3); font-size: var(--text-sm); line-height: 1.5; color: var(--clr-ink-soft); }
 @media (min-width: 640px) {
   .vmx-id-step-scrim { align-items: center; }
-  .vmx-id-step { border-radius: var(--r-xl); padding-bottom: var(--space-5); max-height: 88dvh; }
+  .vmx-id-step { border-radius: var(--r-xl); max-height: 88dvh; }
 }
 
 /* ── The next paper ───────────────────────────────────────── */
@@ -239,7 +274,7 @@
 }
 @starting-style { .vmx-hub-bar > span { transform: scaleX(0); } }
 .vmx-hub-level { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-1) var(--space-3); align-items: center; margin: var(--space-2) 0 var(--space-3); }
-.vmx-hub-level .vmx-hub-bar { grid-column: 1 / -1; }
+.vmx-hub-level .vmx-hub-bar, .vmx-hub-level .vmx-hub-xp-from { grid-column: 1 / -1; }
 
 /* ── Own line on the board ────────────────────────────────── */
 .vmx-hub-standing-line { display: flex; align-items: center; gap: var(--space-3); margin: 0 0 var(--space-3); font-size: var(--text-md); line-height: 1.55; color: var(--clr-ink); min-height: 48px; }
@@ -317,5 +352,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .vmx-id-editor, .vmx-id-pic, .vmx-id-row, .vmx-id-step, .vmx-id-step-scrim, .vmx-actfig-day rect,
-  .vmx-hub-bar > span, .vmx-hub-saved, .vmx-hub-id-open, .vmx-hub-pic { transition: none !important; }
+  .vmx-hub-bar > span, .vmx-hub-saved, .vmx-hub-id-open, .vmx-hub-pic,
+  .vmx-id-switch input, .vmx-id-switch input::before { transition: none !important; }
 }

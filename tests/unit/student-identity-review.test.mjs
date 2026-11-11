@@ -113,7 +113,7 @@ test('a hidden student is not published, and the sentence names where the name s
   const src = read('src/hooks/useStudyBuddies.js');
   assert.match(src, /if \(!showsOnLeaderboard\(latestRef\.current\.user\)\) \{/);
   const editor = read('src/components/IdentityEditor.jsx');
-  const line = editor.match(/<strong>ไม่แสดง<\/strong>\s*<span>([^<]+)<\/span>/)[1];
+  const line = editor.match(/'(ไม่ขึ้นกระดาน[^']+)'/)[1];
   for (const where of ['ความเห็น', 'ห้องแข่ง', 'สมาชิกกลุ่ม', 'ข้อที่คุณเคยแชร์', 'รายชื่อคนที่กำลังอ่าน']) assert.ok(line.includes(where), where);
   for (const id of ['race', 'shared']) assert.equal(SURFACES.find((s) => s.id === id)?.followsChoice, false, id);
 });

@@ -43,7 +43,7 @@ function IdentitySheet({ user, profile, onSaved, onClose }) {
     <div className="vmx-id-step-scrim">
       <div ref={dialogRef} className="vmx-id-step" role="dialog" aria-modal="true" aria-labelledby={headingId}>
         <h2 id={headingId} ref={firstRef} tabIndex={-1}>เพื่อนจะเห็นคุณแบบไหน</h2>
-        <p className="vmx-id-step-lead">ตั้งชื่อและรูปที่แสดงบนกระดานอันดับ กลุ่มติว และความเห็น ใช้เวลาไม่ถึงนาที เปลี่ยนได้เสมอที่หน้าโปรไฟล์</p>
+        <p className="vmx-id-step-lead">ชื่อและรูปนี้ขึ้นบนกระดาน กลุ่มติว และความเห็น เปลี่ยนได้เสมอที่หน้าโปรไฟล์</p>
         <IdentityEditor
           user={user}
           profile={profile}

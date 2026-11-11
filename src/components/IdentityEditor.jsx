@@ -60,8 +60,8 @@ export default function IdentityEditor({
 
   const fieldError = touched && !keepName && !check.ok ? check.reason : free === false || free === 'taken' ? 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น' : free === 'similar' ? 'คล้ายกับชื่อที่มีคนใช้แล้ว ลองชื่ออื่น' : '';
   const hint = auto && current
-    ? `ตอนนี้ชื่อของคุณคือ ${current} ซึ่งระบบตั้งให้ ตั้งชื่อเองได้ที่นี่`
-    : `อักษรไทยหรืออังกฤษ ไม่เกิน ${NAME_MAX} ตัวอักษร ห้ามใช้อีเมลหรือรหัสนิสิต`;
+    ? `ตอนนี้คือ ${current} ซึ่งระบบตั้งให้`
+    : `ไม่เกิน ${NAME_MAX} ตัวอักษร ห้ามอีเมลหรือรหัสนิสิต`;
   const changed = !keepName || picture !== startPicture || shown !== showsOnBoards(user);
 
   const submit = async (event) => {
@@ -99,10 +99,8 @@ export default function IdentityEditor({
       <div className="vmx-id-preview" aria-live="polite">
         <span className="vmx-id-preview-label">เพื่อนจะเห็นแบบนี้</span>
         <div className={`vmx-id-row${shown ? '' : ' is-hidden'}`}>
-          <span className="vmx-id-row-rank" aria-hidden="true">#</span>
           <span key={picture} className="vmx-id-pic" aria-hidden="true">{picture}</span>
           <span className="vmx-id-row-name">{previewName || 'ชื่อของคุณ'}</span>
-          <span className="vmx-id-row-note">{shown ? 'บนกระดานอันดับ' : 'ไม่แสดงบนกระดาน'}</span>
         </div>
       </div>
 
@@ -128,7 +126,7 @@ export default function IdentityEditor({
       </div>
 
       <fieldset className="vmx-id-pics">
-        <legend>รูป</legend>
+        <legend className="vmx-sr-only">รูป</legend>
         <div className="vmx-id-pic-grid">
           {PICTURES.map((p) => (
             <label key={p.emoji} className="vmx-id-pic-opt">
@@ -140,21 +138,23 @@ export default function IdentityEditor({
         </div>
       </fieldset>
 
-      <fieldset className="vmx-id-board">
-        <legend>กระดานอันดับ</legend>
-        <label className="vmx-id-choice">
-          <input type="radio" name={`${uid}-board`} checked={shown} onChange={() => setShown(true)} />
-          <span>
-            <strong>แสดงชื่อของฉัน</strong>
-            <span>เพื่อนเห็นชื่อ รูป และคะแนนสูงสุดของชุดที่ส่ง และเห็นว่าคุณกำลังอ่านอยู่</span>
+      <div className="vmx-id-board">
+        <label className="vmx-id-switch">
+          <span className="vmx-id-switch-text">
+            <strong>แสดงบนกระดานอันดับ</strong>
+            <span id={`${uid}-board-what`}>
+              {shown
+                ? 'เพื่อนเห็นชื่อ รูป และคะแนนสูงสุดบนกระดาน และเห็นว่าคุณกำลังอ่าน'
+                : 'ไม่ขึ้นกระดาน อันดับในกลุ่ม และรายชื่อคนที่กำลังอ่าน แต่ชื่อยังแสดงในความเห็น ห้องแข่งที่คุณเข้าเอง สมาชิกกลุ่ม และข้อที่คุณเคยแชร์'}
+            </span>
           </span>
-        </label>
-        <label className="vmx-id-choice">
-          <input type="radio" name={`${uid}-board`} checked={!shown} onChange={() => setShown(false)} />
-          <span>
-            <strong>ไม่แสดง</strong>
-            <span>ไม่ขึ้นกระดาน อันดับในกลุ่ม และรายชื่อคนที่กำลังอ่าน แต่ชื่อยังแสดงในความเห็น ห้องแข่งที่คุณเข้าเอง รายชื่อสมาชิกกลุ่ม และข้อที่คุณเคยแชร์</span>
-          </span>
+          <input
+            type="checkbox"
+            role="switch"
+            checked={shown}
+            onChange={(e) => setShown(e.target.checked)}
+            aria-describedby={`${uid}-board-what`}
+          />
         </label>
         <button
           type="button"
@@ -176,7 +176,7 @@ export default function IdentityEditor({
             </li>
           ))}
         </ul>
-      </fieldset>
+      </div>
 
       {error && <p className="vmx-id-err" role="alert">{error}</p>}
 

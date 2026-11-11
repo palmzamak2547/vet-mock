@@ -260,6 +260,8 @@ export default function ProfileView({
                   {totalXp.toLocaleString()} XP อีก {(progress.needed - progress.current).toLocaleString()} XP ถึง Lv {progress.nextLevel}
                 </span>
                 <span className="vmx-hub-bar" aria-hidden="true"><span style={{ transform: `scaleX(${progress.pct / 100})` }} /></span>
+                {/* What lib/xp-account.js counts: answers, review cards, quests. */}
+                <span className="vmx-hub-meta vmx-hub-xp-from">XP ได้จากข้อที่ตอบ การ์ดที่ทบทวน และภารกิจรายวัน</span>
               </div>
 
             </section>

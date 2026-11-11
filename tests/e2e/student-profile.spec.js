@@ -121,10 +121,12 @@ test('the first-run step: never the student number, saved to the profile row, th
 
   await name.fill('หมอปิง');
   await sheet.getByRole('radio', { name: 'แมว' }).check();
-  await sheet.getByRole('radio', { name: /^ไม่แสดง/ }).check();
+  const board = sheet.getByRole('switch', { name: /แสดงบนกระดานอันดับ/ });
+  await expect(board).toBeChecked();
+  await board.uncheck();
   await expect(sheet.locator('.vmx-id-preview')).toContainText('หมอปิง');
   await expect(sheet.locator('.vmx-id-preview')).toContainText('🐱');
-  await expect(sheet.locator('.vmx-id-preview')).toContainText('ไม่แสดงบนกระดาน');
+  await expect(sheet.locator('.vmx-id-switch')).toContainText('ไม่ขึ้นกระดาน');
   // The surfaces list says comments always show the name.
   await sheet.getByRole('button', { name: 'ใครเห็นอะไรบ้าง' }).click();
   await expect(sheet.getByRole('listitem').filter({ hasText: 'ความเห็นในข้อสอบ' })).toContainText('แสดงเสมอ');
@@ -143,6 +145,28 @@ test('the first-run step: never the student number, saved to the profile row, th
   await expect(page.locator('#main')).toBeVisible();
   await expect(menu(page)).toHaveAttribute('aria-label', 'บัญชี หมอปิง');
   await expect(step(page)).toHaveCount(0);
+
+  // The switch shows what was saved.
+  await openHub(page);
+  await page.getByTestId('hub-identity').click();
+  await expect(page.locator('.vmx-hub-id').getByRole('switch', { name: /แสดงบนกระดานอันดับ/ })).not.toBeChecked();
+});
+
+test.describe('a 375x667 phone', () => {
+  test.use({ viewport: { width: 375, height: 667 } });
+  test('the first-run step keeps its save bar on screen from the first frame', async ({ page, context }, testInfo) => {
+    const state = await modeled(page, context);
+    await open(page, state, '/');
+    const sheet = step(page);
+    await expect(sheet).toBeVisible();
+    const save = sheet.getByRole('button', { name: 'บันทึก', exact: true });
+    await expect(save).toBeInViewport({ ratio: 1 });
+    const box = await save.boundingBox();
+    expect(box.y + box.height).toBeLessThanOrEqual(667);
+    // How much of the step needs a scroll at this size (0 when it all fits).
+    const overflow = await sheet.evaluate((el) => el.scrollHeight - el.clientHeight);
+    testInfo.annotations.push({ type: 'first-run overflow px at 375x667', description: String(overflow) });
+  });
 });
 
 test('skipped once, the step does not come back, and never opens outside Home', async ({ page, context }) => {
