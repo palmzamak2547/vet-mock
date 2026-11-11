@@ -57,10 +57,20 @@ on the same picks):
 | 320x700 | 257 | 226 | 31 |
 | 187x406 (200% zoom) | 322 | 318 | 4 |
 
-The stem starts higher than on main at every size, so the line keeps its full 44px button (the
-28px drawing with a pseudo-element hit area was for the case where it ended lower). Drawing it
-28px tall would give about 16px more, if wanted. No overlap, every control 44px, no horizontal
-scroll.
+Fourth review: on its own row the line is shown whole (type, subject, topic, paper and
+อิงแนวเดิม, which the cut line had lost), on a second line only when it needs one, drawn 28px tall with
+its 44px hit area running 16px down into the gap above the stem. Measured again on the same 24:
+
+| Viewport | Main (median) | Branch (median) | Difference |
+|---|---|---|---|
+| 375x812 | 234 | 237 | 3 lower |
+| 375x667 | 234 | 237 | 3 lower |
+| 320x700 | 257 | 248.5 | 8.5 higher |
+
+At 375px most lines take two rows once nothing is cut (the topic and the อิงแนวเดิม chip wrap), so
+the stem starts about where it did on main, with the whole line readable and the controls on one
+row. Tightening the line (line-height 1.3, 2px padding) would win back about 6px, if wanted. No
+overlap, every control 44px, no horizontal scroll. Shots: scratchpad `branch4-812-first.png`.
 
 No overlap between any two header parts at any size; every control 44px; no horizontal scroll.
 The 100px target is not reachable inside the card: the card starts at y 110 (the exam header and
@@ -237,12 +247,35 @@ swine-clinic 8020 and 105591 in two sentences. com5 592 is a clinical caution, n
 จากเตือนไหน?"). Held back with an `unclear` flag ("ตัวเลือก C ถึง E เป็นข้อความจากการสแกนที่อ่านไม่ออก
 รอถอดใหม่จากต้นฉบับ") until it is transcribed again from the source; delivery regenerated (212 held).
 
+Last wording (fourth review): every major note now says what to answer, in a student's words
+("เฉลยของข้อนี้", never "คลัง"):
+- avian-medicine 105871: "ข้อนี้อยู่ในหัวข้อ Intro (กลางภาค) ซึ่งเฉลยว่ารวมซีรัม 5 ตัวเป็น 1 ตัวอย่าง แต่
+  หัวข้อ Serology Interpretation ของปลายภาคสอนว่าเจาะราว 30 ตัวต่อโรงเรือนและไม่รวมซีรัม ถ้าเจอใน
+  ข้อสอบปลายภาคให้ตอบแบบไม่รวมซีรัม". Checked against the bank and the timetable: the question's
+  topic is avian-intro (midterm), its key pools 5 sera, avian-serology is on the final, and "about
+  30, no pooling" is the claim the earlier note made from that topic's source.
+- comp-repro-clinic 8410: "ในข้อสอบนี้ให้ตอบ 8-12 ชั่วโมงตามเฉลย Vet 81 เพราะไม่มีตัวเลือก 6-8 ชั่วโมง
+  แต่ในการทำงานจริงตอนนี้ใช้ 6-8 ชั่วโมงตามแนวทาง AAHA 2020" (AAHA 2020 is what the original note named).
+- epidemiology 213524: "เฉลยของข้อนี้คือ cohort study เพราะโจทย์ถามประสิทธิภาพวัคซีนด้วย แต่ตารางใน
+  สไลด์จัดการวัดความชุก ณ จุดเวลาเดียวเป็น cross-sectional study และยังไม่ได้ยืนยันกับผู้สอนว่าข้อสอบยึด
+  แบบใด" (the stem asks both prevalence and vaccine efficacy).
+- livestock-pathology 8204 (major): "เฉลยคือตัวเลือกที่มี Zinc phosphide เพราะไม่ทำให้เลือดออกเป็นรอยโรค
+  หลัก แต่ ICH และ septicemic salmonellosis ในตัวเลือกเดียวกันทำให้เลือดออกได้ ตัวเลือกที่มี Infectious
+  bronchitis จึงเถียงได้พอกัน".
+- livestock-pathology 8235, swine-clinic 8020 and 105591: "เฉลยของข้อนี้" for "เฉลยในคลัง"; swine-clinic
+  8023 cut to two sentences (its list of other agents went).
+
 Needs a person with the course content (not changed):
 - **comp-repro-clinic:8410** (major now; a bank doubt for the owner, not wording): "ก่อนผ่าตัดทำหมันสุนัข/แมว ควร
   อดอาหาร (NPO) นานเท่าใด". The note says the current guideline (AAHA 2020) is 6-8 hours, but the key
   is "8–12 ชั่วโมง" and no option says 6-8. Either the key or the options are out of date.
 - **com5:614**: opens with the file label "COM V FINAL 86 (ข้อสอบเก่า)"; a plainer opening would be
   "ข้อสอบเก่าบางฉบับ", but which paper it was is evidence, so it stays.
+- **livestock-pathology:8204** (explanation, for the owner; not edited): its explanation says
+  "ข้ออื่นทุกตัวมี hemorrhage ชัดเจน — Warfarin/CSF/ICH/IBD/PDNS/HPAI/Salmonella/CHV ทั้งหมดทำเลือดออกได้",
+  but ICH (Infectious canine hepatitis) and Salmonella sit in the key's own option ("Infectious
+  canine hepatitis, Zinc phosphide intoxication, Septicemic salmonellosis"), and the option with
+  Infectious bronchitis is as arguable. The key or the explanation needs a person who knows it.
 - **livestock-pathology:8214 and 8254**: they say which side a senior's commentary takes; whether the
   key should follow it is a content call.
 
