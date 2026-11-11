@@ -38,13 +38,13 @@ and each ran a ~70 min local gate; now:
    red in CI in a spec it never touched). Its ports are derived from the worktree path
    (`tests/e2e/local-port.js`). `npm run gate:full` runs the full four-profile matrix.
 4. **Push the branch and open the PR.** `git push -u origin <branch>`, `gh pr create`, then
-   `gh pr merge --squash --auto`. CI runs Build, Annotation PostgreSQL, Smoke e2e (7 runners),
+   `gh pr merge --squash --auto`. CI runs Build, Annotation PostgreSQL, Smoke e2e (9 runners),
    VCA and Research R parity (the last two do real work only when their files changed). A pull request
-   that changes only `docs/` and root markdown skips the 7 e2e runners and Annotation PostgreSQL (a
+   that changes only `docs/` and root markdown skips the 9 e2e runners and Annotation PostgreSQL (a
    `changes` job decides; `smoke` still reports), so it waits on Build (2-4 min on the docs-only #67 and
    #71) instead of the runners (7-10 min).
    **Work still in progress goes up as a draft** (`gh pr create --draft`; 9 Nov 2026). A draft runs
-   Build only: Smoke e2e's `changes` job is skipped on a draft and with it the 7 runners and Annotation
+   Build only: Smoke e2e's `changes` job is skipped on a draft and with it the 9 runners and Annotation
    PostgreSQL (which moved from build.yml to smoke-e2e.yml for this). In the week to 9 Nov, 131 Smoke e2e
    runs of 7 runners each were spent, many on pushes still in progress. When the work is done, mark it
    ready once (`gh pr ready`, then `gh pr merge --squash --auto`): `ready_for_review` runs Smoke e2e
