@@ -17,6 +17,7 @@
 // ============================================================
 
 import { isTopicRead } from './study-progress.js';
+import { dayKey } from './study-day.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 export const DOW_SHORT = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
@@ -31,11 +32,8 @@ const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
 /** A Date whose UTC fields read Bangkok's wall clock at that instant. */
 const bangkokWall = (value) => new Date(new Date(value).getTime() + BANGKOK_OFFSET_MS);
 
-/** Bangkok calendar day as YYYY-MM-DD; '' for a value that is not a time. */
-export const dayKey = (value) => {
-  const b = bangkokWall(value);
-  return Number.isNaN(b.getTime()) ? '' : b.toISOString().slice(0, 10);
-};
+/** Bangkok calendar day as YYYY-MM-DD; '' for a value that is not a time (lib/study-day.js). */
+export { dayKey };
 
 /** A history row's time as a number, or null when the row carries none. */
 export function rowTime(value) {

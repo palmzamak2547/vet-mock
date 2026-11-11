@@ -4,11 +4,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useLocalStorage } from '../hooks/useStorage.js';
+import { dayKey, dayKeyStart } from '../lib/study-day.js';
 
-const todayKey = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-};
+// Bangkok's day, the streak's and Home's "วันนี้" (lib/study-day.js).
+const todayKey = () => dayKey(Date.now());
 
 export default function DailyGoalCard({ history = [], selectedYear }) {
   const [goal, setGoal] = useLocalStorage('vmx-daily-goal', 25);
@@ -19,9 +18,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
   const today = todayKey();
 
   const todayCount = useMemo(() => {
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
-    const t = startOfDay.getTime();
+    const t = dayKeyStart(today);
     const yearMatch = (h) => {
       if (!Number.isFinite(selectedYear)) return true;
       if (typeof h.year === 'number') return h.year === selectedYear;
@@ -34,7 +31,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
     // student practised. Every row IS an answered, auto-graded question by
     // construction, so the date + year scope is the whole predicate.
     return history.filter((h) => h.date >= t && yearMatch(h)).length;
-  }, [history, selectedYear]);
+  }, [history, selectedYear, today]);
 
   useEffect(() => {
     setTasksByDay((prev) => {

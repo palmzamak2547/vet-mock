@@ -17,6 +17,7 @@
 
 import { awardXp, XP_AWARDS } from './xp.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { dayKey, dayKeyBefore } from './study-day.js';
 
 // Subject-locked quests only make sense for the year that owns the subject —
 // a ปี 3 student handed "ทำ 10 ข้อ COM III" (a year-4/5 subject) gets a daily
@@ -181,14 +182,10 @@ export function getQuestPoolSize() {
 }
 
 // ── Date helpers ──────────────────────────────────────────────────
-// The LOCAL day quests are credited under. Exported so anything that dedupes
+// The day quests are credited under: Bangkok's, the streak's (lib/study-day.js). Exported so anything that dedupes
 // per day before recording an event (NotesView's reading log) uses the same one.
 export function todayKey() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  return dayKey(Date.now());
 }
 
 function storageKeyFor(date) {
@@ -397,12 +394,7 @@ function readStreak() {
 // The quest day before `date`, on the same calendar as todayKey. One
 // definition for the claim that extends a run and the read that shows it.
 function dayBefore(date) {
-  const yest = new Date(date + 'T00:00:00');
-  yest.setDate(yest.getDate() - 1);
-  const y = yest.getFullYear();
-  const m = String(yest.getMonth() + 1).padStart(2, '0');
-  const d = String(yest.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+  return dayKeyBefore(date);
 }
 
 function bumpQuestStreak(date) {
