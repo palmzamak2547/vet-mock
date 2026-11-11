@@ -3,6 +3,7 @@
 // the card shows the slide only while the question still hashes the same. A
 // stem or a key edited later hides its slide until it is matched again, so a
 // student never sees a highlight that belongs to an older wording.
+import { wholeStem } from './rich-blocks.js';
 
 /** The key as the student reads it: the correct option, ถูก or ผิด, or the model answer. */
 export function keyText(q) {
@@ -12,9 +13,10 @@ export function keyText(q) {
   return typeof q.model_answer === 'string' ? q.model_answer : '';
 }
 
-/** FNV-1a over the stem and the key, eight hex characters. */
+/** FNV-1a over the stem and the key, eight hex characters. The stem is the whole sentence (`say` where
+ *  the numbers sit in a passage table): laying a stem out as a table does not make it another question. */
 export function evidenceHash(q) {
-  const text = `${String(q?.q ?? '').normalize('NFC')}\u0001${keyText(q).normalize('NFC')}`;
+  const text = `${String(wholeStem(q)).normalize('NFC')}\u0001${keyText(q).normalize('NFC')}`;
   let h = 0x811c9dc5;
   for (let i = 0; i < text.length; i++) {
     h ^= text.charCodeAt(i);

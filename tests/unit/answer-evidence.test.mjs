@@ -20,6 +20,9 @@ test('the hash follows the stem and the key, nothing else', () => {
   assert.notEqual(evidenceHash({ ...mcq, answer: 1 }), h, 'a changed key drops it');
   assert.notEqual(evidenceHash({ ...mcq, options: ['ก', 'ข', 'ฮ', 'ง'] }), h, 'a reworded key drops it');
   assert.equal(evidenceHash({ ...mcq, options: ['ฮ', 'ข', 'ค', 'ง'] }), h, 'a reworded distractor keeps it');
+  // A stem whose numbers moved into a passage table keeps the sentence it was in `say`: the same question, the same slide.
+  assert.equal(evidenceHash({ ...mcq, q: 'จากตาราง เชื้อใดก่อโรค', say: mcq.q }), h, 'a stem laid out as a table keeps its slide');
+  assert.notEqual(evidenceHash({ ...mcq, q: 'จากตาราง เชื้อใดก่อโรค', say: 'เชื้อใดก่อโรคนี้' }), h, 'an edited whole sentence drops it');
   assert.equal(keyText({ type: 'tf', answer: false }), 'ผิด');
   assert.equal(keyText({ type: 'tf', answer: true }), 'ถูก');
   assert.equal(keyText({ type: 'short', model_answer: 'คำตอบ' }), 'คำตอบ');
