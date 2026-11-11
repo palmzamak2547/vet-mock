@@ -251,5 +251,9 @@ export function originPaperNote(question) {
 export function originPaperTag(question, line) {
   const named = otherPaperNamed(question);
   if (!named || paperNamedIn(line) !== named) return null;
+  // A line that names this cohort's paper too ("Vet 80 final และ Vet 85
+  // midterm" on a midterm question) already says it; a tag would repeat it.
+  const own = named === 'final' ? ORIGIN_NAMES_MID : ORIGIN_NAMES_FINAL;
+  if (own.test(String(line || ''))) return null;
   return named === 'final' ? '(รุ่นนี้อยู่กลางภาค)' : '(รุ่นนี้อยู่ปลายภาค)';
 }

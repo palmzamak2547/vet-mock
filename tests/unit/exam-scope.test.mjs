@@ -145,6 +145,9 @@ test('the line tag names this year\'s paper, only where the shown line names the
   assert.equal(originPaperTag({ ...fishVaccine, examOrigin: 'อิงแนวข้อสอบ' }, 'อิงแนวข้อสอบ'), null);
   assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'Swine มิดเทอม Vet 85' }, 'Swine มิดเทอม Vet 85'), '(รุ่นนี้อยู่ปลายภาค)');
   assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-gi-viral', examOrigin: 'Swine ไฟนอล Vet 85' }, 'Swine ไฟนอล Vet 85'), '(รุ่นนี้อยู่กลางภาค)');
+  // A line that names this paper too says it already (swine-clinic 202353).
+  assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-gi-viral', examOrigin: 'Swine Medicine Vet 80 final และ Vet 85 midterm' }, 'Swine Medicine Vet 80 final และ Vet 85 midterm'), null);
+  assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-gi-viral', examOrigin: 'Swine Medicine Vet 80 final' }, 'Swine Medicine Vet 80 final'), '(รุ่นนี้อยู่กลางภาค)', 'without the second paper the tag stays');
   // The papers agree: nothing.
   assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'Swine ไฟนอล Vet 85' }, 'Swine ไฟนอล Vet 85'), null);
 });
