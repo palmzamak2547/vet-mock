@@ -288,7 +288,7 @@ export const QB_VCA_SUPER = [
         "page": 3
       }
     ],
-    "imagePath": "/images/vca-super/exotic-p03-118.png",
+    "imagePath": "/images/vca-super/exotic-p03-118.webp",
     "imageAlt": "ภาพจากกล้องจุลทรรศน์แสดงไรตัวกลมรีสีน้ำตาลอ่อน ขายาวเป็นปล้อง บนพื้นหลังสีฟ้า ซึ่งเก็บจากสะเก็ดในหูกระต่าย"
   },
   {
@@ -1496,7 +1496,7 @@ export const QB_VCA_SUPER = [
         "page": 7
       }
     ],
-    "imagePath": "/images/vca-super/exotic-p07-88.png",
+    "imagePath": "/images/vca-super/exotic-p07-88.webp",
     "imageAlt": "ภาพรังสีท่า ventrodorsal ของนกแก้วมาคอว์สองภาพเทียบกัน ภาพหนึ่งไม่มีเครื่องหมาย อีกภาพมีเส้นสีและหมายเลข 1 ถึง 15 ชี้อวัยวะต่าง ๆ",
     "flag": {
       "severity": "unclear",
@@ -5368,7 +5368,7 @@ export const QB_VCA_SUPER = [
         "page": 15
       }
     ],
-    "imagePath": "/images/vca-super/equine-p15-3.png",
+    "imagePath": "/images/vca-super/equine-p15-3.webp",
     "imageAlt": "ภาพวาดลายเส้นแสดงแถวฟันหน้าของม้า เห็นฟันตัดและเขี้ยว",
     "flag": {
       "severity": "unclear",
@@ -7022,7 +7022,7 @@ export const QB_VCA_SUPER = [
         "page": 6
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p06-125-2.png",
+    "imagePath": "/images/vca-super/dogcat-p06-125-2.webp",
     "imageAlt": "ภาพเซลล์วิทยาย้อมสี Wright's จากการเจาะดูดด้วยเข็มเล็กของก้อนใต้ผิวหนังบริเวณคอของแมว"
   },
   {
@@ -12406,7 +12406,7 @@ export const QB_VCA_SUPER = [
         "page": 24
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p24-43.png",
+    "imagePath": "/images/vca-super/dogcat-p24-43.webp",
     "imageAlt": "ภาพรังสีช่องท้องสุนัขด้านข้าง มีลูกศรชี้หลายตำแหน่ง"
   },
   {
@@ -12571,7 +12571,7 @@ export const QB_VCA_SUPER = [
         "page": 25
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p25-34.png",
+    "imagePath": "/images/vca-super/dogcat-p25-34.webp",
     "imageAlt": "ภาพรังสีช่องอกแมวด้านข้าง"
   },
   {
@@ -12681,7 +12681,7 @@ export const QB_VCA_SUPER = [
         "locator": "Etiology (German Shepherd Dogs, deep thoracic conformation); Clinical Findings (abdominal distention, stomach compresses thorax); Diagnosis (radiographs distinguish simple dilation from GDV, right lateral view, double bubble)"
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p25-41.png",
+    "imagePath": "/images/vca-super/dogcat-p25-41.webp",
     "imageAlt": "ภาพรังสีช่องท้องสุนัขสองภาพ มีลูกศรชี้บริเวณกระเพาะ"
   },
   {
@@ -12780,7 +12780,7 @@ export const QB_VCA_SUPER = [
         "page": 25
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p25-84.png",
+    "imagePath": "/images/vca-super/dogcat-p25-84.webp",
     "imageAlt": "ภาพรังสีแมวด้านข้างแสดงช่องอกและช่องท้อง"
   },
   {
@@ -12845,7 +12845,7 @@ export const QB_VCA_SUPER = [
         "page": 26
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p26-5.png",
+    "imagePath": "/images/vca-super/dogcat-p26-5.webp",
     "imageAlt": "ภาพรังสีช่องอกแมวด้านข้าง",
     "flag": {
       "severity": "unclear",
@@ -13014,7 +13014,7 @@ export const QB_VCA_SUPER = [
         "page": 26
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p26-9.png",
+    "imagePath": "/images/vca-super/dogcat-p26-9.webp",
     "imageAlt": "ภาพรังสีช่องอกด้านข้างของแมว มีลูกศรสีเหลืองชี้ตำแหน่งในเนื้อปอด"
   },
   {
@@ -19117,7 +19117,7 @@ export const QB_VCA_SUPER = [
         "page": 48
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p48-27.png",
+    "imagePath": "/images/vca-super/dogcat-p48-27.webp",
     "imageAlt": "ภาพไตของแมวที่ผ่าตามขวางจากการชันสูตรซาก วางบนพื้นสีเขียว ให้เห็นเนื้อไตด้านใน"
   },
   {
@@ -19609,7 +19609,7 @@ export const QB_VCA_SUPER = [
         "page": 49
       }
     ],
-    "imagePath": "/images/vca-super/dogcat-p49-14.png",
+    "imagePath": "/images/vca-super/dogcat-p49-14.webp",
     "imageAlt": "ภาพเซลล์วิทยาจากช่องคลอดสุนัข กำลังขยาย 200 เท่า ย้อมสีม่วง เห็นเซลล์เยื่อบุกระจายอยู่ทั่วภาพ"
   },
   {
@@ -23728,7 +23728,7 @@ export const QB_VCA_SUPER = [
         "page": 13
       }
     ],
-    "imagePath": "/images/vca-super/swine-p13-46.png",
+    "imagePath": "/images/vca-super/swine-p13-46.webp",
     "imageAlt": "ภาพหัวใจลูกสุกรจากการผ่าซาก",
     "flag": {
       "severity": "unclear",

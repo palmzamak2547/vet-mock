@@ -23,8 +23,8 @@ import { transformSync } from 'esbuild';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { panicRank } from '../../src/lib/question-metadata.js';
 import { sourceKind, sourceLineBeforeAnswer, followsExamPattern, SOURCE_KIND_LABEL, SOURCE_LINE_WAIT } from '../../src/lib/source-line.js';
-import { leakOf, answerParts } from '../../scripts/lib/answer-leak.mjs';
-import { preAnswerText } from '../../scripts/lint-source-line.mjs';
+import { leakOf, answerParts, figureTextLeak } from '../../scripts/lib/answer-leak.mjs';
+import { preAnswerText, figureTextLeaks, FIGURE_TEXT_FIELDS } from '../../scripts/lint-source-line.mjs';
 
 // ── The chip, compiled and rendered without a DOM (as source-label.test.mjs) ──
 const CHIP = 'vetmock-test:source-line-chip';
@@ -388,6 +388,76 @@ test('a held topic shows with the key, in a part that keeps its size', async () 
   // A topic that names nothing is printed as before, with no stand-in.
   const plain = QB.find((x) => x.type === 'mcq' && x.topic && !holdsTopicChip(x) && metaRow(x));
   assert.equal(part(metaRow(plain)), undefined);
+});
+
+// ── The caption and the credit under a figure ────────────────────────────
+// Epidemiology 100004 asks which animal is the mixing vessel and which the
+// natural reservoir. Under its picture, before any answer, the card printed
+// "สุกรเป็น mixing vessel; นกป่าและนกอพยพเป็น natural reservoir". leakOf passes that
+// line: every word of the key is in the stem or in another option, and the
+// four options differ only in which animal goes with which role. A caption is
+// held to more (figureTextLeak), and the review card now shows it too.
+test('the caption that gave epidemiology 100004 away is caught, whole or by either half', () => {
+  const q = row('epidemiology', 100004);
+  const old = 'สุกรเป็น mixing vessel; นกป่าและนกอพยพเป็น natural reservoir — แตะภาพเพื่อขยาย';
+  assert.equal(leakOf(q, old), null, 'the source-line rules alone do not see it');
+  assert.deepEqual(figureTextLeak(q, old), { rule: 'restates-key', words: ['สุกร เป็น mixing', 'อพยพ เป็น natural'] });
+  assert.equal(figureTextLeak(q, 'สุกรเป็น mixing vessel')?.rule, 'restates-key', 'half of the key narrows four options to two');
+  assert.equal(figureTextLeak(q, 'นกป่าและนกอพยพเป็น natural reservoir')?.rule, 'restates-key');
+  // A caption that says what the picture is, or where it comes from, passes.
+  for (const neutral of ['การเกิด reassortant H1N1', 'แผนภาพจาก Pawariya et al. (2009)', 'ภาพจากสไลด์ Introduction to Epidemiology; Pawariya et al. (2009)']) {
+    assert.equal(figureTextLeak(q, neutral), null, neutral);
+  }
+  assert.equal(q.imageCaption, undefined, 'the question no longer carries that caption');
+});
+
+test('a caption is held to one word, one number or the whole of the key, where a source line is not', () => {
+  // One Thai word: the country the map question asks for.
+  const map = row('epidemiology', 100002);
+  assert.equal(leakOf(map, 'อินโดนีเซียมีผู้ป่วยสะสม 195 ราย'), null);
+  assert.deepEqual(figureTextLeak(map, 'อินโดนีเซียมีผู้ป่วยสะสม 195 ราย'), { rule: 'key-words', words: ['อินโดนีเซีย'] });
+  assert.equal(figureTextLeak(map, 'ข้อมูล WHO/GIP ณ 24 มกราคม 2014'), null, 'its own caption names the data, not the country');
+  // One number: the rate a calculation question asks for. The stem's own numbers are not a hint.
+  const rate = row('epidemiology', 100003);
+  assert.deepEqual(figureTextLeak(rate, 'case fatality rate เกือบ 60%'), { rule: 'key-words', words: ['60'] });
+  assert.equal(figureTextLeak(rate, 'ผู้ป่วย 433 ราย เสียชีวิต 262 ราย'), null);
+  // The key word for word, though the stem names both choices.
+  const either = { id: 1, subject: 'epidemiology', type: 'mcq', q: 'ภาพนี้เป็น pneumothorax หรือ pleural effusion', options: ['pneumothorax', 'pleural effusion'], answer: 1 };
+  assert.equal(leakOf(either, 'ภาพรังสี pleural effusion ด้านขวา'), null);
+  assert.deepEqual(figureTextLeak(either, 'ภาพรังสี pleural effusion ด้านขวา'), { rule: 'restates-key', words: ['pleural effusion'] });
+  assert.equal(figureTextLeak(either, 'pneumothorax เทียบกับ pleural effusion'), null, 'a caption that names every choice picks none');
+  // A written item: the blank itself.
+  const fill = { id: 2, subject: 'epidemiology', type: 'fill', q: 'อวัยวะในภาพคือ ___', blanks: ['ตับ'] };
+  assert.equal(figureTextLeak(fill, 'ภาพตัดขวางของตับสุนัข')?.rule, 'key-words');
+  assert.equal(figureTextLeak(fill, 'ภาพตัดขวางช่องท้องสุนัข'), null);
+  // A true/false item has no option to restate; the source-line rules still apply.
+  assert.equal(figureTextLeak({ id: 3, subject: 'epidemiology', type: 'tf', q: 'ตับอยู่ในช่องอก', answer: false, explain: 'ตับอยู่ในช่องท้อง' }, 'ภาพช่องท้อง'), null);
+});
+
+test('no question\'s figure gives its key away in its caption or its credit', () => {
+  const leaks = [];
+  let read = 0;
+  for (const q of QB) {
+    read += FIGURE_TEXT_FIELDS.filter((f) => typeof q[f] === 'string' && q[f].trim()).length;
+    for (const { field, text, leak } of figureTextLeaks(q)) leaks.push(`${q.subject}#${q.id} ${field} ${leak.rule} [${leak.words.join(', ')}]: ${text}`);
+  }
+  assert.ok(read >= 3, `captions and credits read (${read})`);
+  assert.equal(leaks.length, 0, `a figure's caption or credit gives the key away before the answer on ${listed(leaks)}`);
+  // No caption tells the student to tap: the strip under the picture says ขยายภาพ.
+  for (const q of QB) assert.doesNotMatch(String(q.imageCaption || ''), /แตะ|กดเพื่อ|คลิก/, `${q.subject}#${q.id}: ${q.imageCaption}`);
+});
+
+test('the fields the check reads are the ones the three cards print under a figure', () => {
+  assert.deepEqual(FIGURE_TEXT_FIELDS, ['imageCaption', 'imageCredit']);
+  for (const [file, name] of [['src/components/Question.jsx', 'currentQ'], ['src/views/SRSessionView.jsx', 'currentQ'], ['src/views/ReviewView.jsx', 'q']]) {
+    const src = readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8');
+    assert.ok(src.includes(`caption={${name}.imageCaption}`), `${file} hands the figure its caption`);
+    assert.ok(src.includes(`credit={${name}.imageCredit}`), `${file} hands the figure its credit`);
+  }
+  // The figure prints those two and a link; nothing else of the question reaches it.
+  const figure = readFileSync(new URL('../../src/components/ZoomableImage.jsx', import.meta.url), 'utf8');
+  assert.match(figure, /\{caption && <span>\{caption\}<\/span>\}/);
+  assert.match(figure, /<span className="vmx-figure-credit">\s*\{credit\}/);
 });
 
 test('a past paper\'s cohort is one the parser reads in its origin, or none', async () => {

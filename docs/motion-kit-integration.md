@@ -58,9 +58,12 @@ Active exams retain the existing reveal/grading guard and have no mascot overlay
   reduced motion. A failed SVG falls back to the supplied PNG without entering
   stale-module recovery or reloading a form. If both images fail, the reserved
   illustration slot stays empty and all controls remain usable.
-- The original PNG/WebP artwork and exported GLB with its 27 clips live in
-  `public/motion/assets/`. They are not eagerly downloaded; the live rig uses the
-  same pose engine as the exported model. No new package dependency is required.
+- `public/motion/assets/` holds the fallback PNG (`mochi.png`) and nothing else.
+  The exported GLB with its 27 clips and the three animated WebP clips (happy,
+  sleep, wave; 1.3 MB) that sat beside it were never loaded by any page: the GLB
+  went in 5.161.1 and the clips in November 2026, and git history keeps both.
+  The live rig uses the same pose engine as the exported model. No new package
+  dependency is required.
 
 ## Verification
 

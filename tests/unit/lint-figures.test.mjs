@@ -65,9 +65,9 @@ test('an inline image is fine, and anything that is not a local figure is not', 
 });
 
 test('a figure without a real imageAlt counts against a budget that may only fall', () => {
-  const noAlt = row({ imagePath: '/images/practrum/dystocia/grid-A-L.png' });
-  const shortAlt = row({ imagePath: '/images/practrum/dystocia/grid-A-L.png', imageAlt: 'ภาพประกอบ' });
-  const good = row({ imagePath: '/images/practrum/dystocia/grid-A-L.png', imageAlt: ALT });
+  const noAlt = row({ imagePath: '/images/practrum/dystocia/grid-A-L.webp' });
+  const shortAlt = row({ imagePath: '/images/practrum/dystocia/grid-A-L.webp', imageAlt: 'ภาพประกอบ' });
+  const good = row({ imagePath: '/images/practrum/dystocia/grid-A-L.webp', imageAlt: ALT });
   assert.ok([...ALT].length >= FIGURE_ALT_MIN && [...'ภาพประกอบ'].length < FIGURE_ALT_MIN);
 
   const over = checkFigures([noAlt, shortAlt, good], { publicDir: PUBLIC, altBudget: 1 });

@@ -2484,7 +2484,6 @@ html.dark .vmx-panic-scrim {
 .vmx-qsource-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
 .vmx-qsource-toggle svg { flex: 0 0 auto; color: var(--clr-sage-text); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
-.vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
 /* Question figures — real source material with an explicit caption and a
    keyboard-accessible zoom affordance. The control stays visually quiet so
@@ -2508,28 +2507,101 @@ html.dark .vmx-panic-scrim {
   outline: 3px solid var(--clr-sage);
   outline-offset: 3px;
 }
+/* The picture's frame. While the file is on the way it is the card's own
+   surface with a pale band across it: until 5.203.0 it was a white page in
+   the dark theme, with nothing to say a picture was coming. Once the file is
+   in it is white, the page a line drawing with a clear ground is drawn for. */
+.vmx-zoom-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--clr-surface-2);
+  /* The switch to white is instant by design. Under reduced motion every element
+     gets a 0.01 ms transition of all properties, which WebKit can leave at its
+     start value until its next frame. */
+  transition: none;
+}
+.vmx-zoom-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 32%, var(--clr-surface) 50%, transparent 68%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.vmx-zoom-frame.is-loaded { background: white; }
+.vmx-zoom-frame.is-loaded::after { content: none; }
+/* The band crosses the frame only where motion is welcome. Still, it is the
+   cue: reduced motion and the app's own quiet setting both leave it in place. */
+@keyframes vmx-zoom-wait { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-zoom-frame:not(.is-loaded)::after { animation: vmx-zoom-wait 1.8s ease-in-out infinite; }
+}
 .vmx-zoom-inline {
   display: block;
   width: 100%;
   max-width: 100%;
   margin-inline: auto;
   object-fit: contain;
-  background: white;
 }
+/* A strip under the picture, never a chip over it: in the corner it covered
+   the label a question asked about (the "6 feet" mark of zoonoses 104006 on a
+   phone). */
 .vmx-zoom-hint {
-  position: absolute;
-  right: var(--space-2);
-  bottom: var(--space-2);
-  min-height: 32px;
-  padding: 6px 10px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  border-radius: var(--r-pill);
-  background: rgba(43, 36, 25, 0.88);
-  color: white;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px var(--space-3);
+  border-top: 1px solid var(--clr-border);
   font-size: var(--text-sm);
   font-weight: 700;
+  line-height: 1.5;
 }
+.vmx-zoom-hint svg { flex: 0 0 auto; }
+/* A picture that did not come keeps the picture's frame, to the pixel: the
+   stem and the options moved 111 to 401 px when an 80 px note took its place.
+   The note and the picture's own description stand where the picture would,
+   and the retry stands where the strip does. The retry is a full touch target,
+   8 px taller than the strip, so it reaches 8 px up into the frame. */
+.vmx-zoom-trigger.is-failed { cursor: default; }
+.vmx-zoom-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 0;
+  margin-bottom: -8px;
+  padding: var(--space-3) var(--space-4) calc(var(--space-3) + 8px);
+  overflow: auto;
+  background: var(--clr-rose-soft);
+  color: var(--clr-ink);
+  text-align: center;
+}
+/* A figure whose size nobody recorded (a student's own link) had no frame to keep. */
+.vmx-zoom-missing:not([style*="aspect-ratio"]) { min-height: 128px; }
+/* Centred by their own margins: where a long description overflows a low
+   frame, the note stays at the top and the rest scrolls inside the frame. */
+.vmx-zoom-missing-note { margin: auto 0 0; font-size: var(--text-base); font-weight: 700; }
+.vmx-zoom-missing-alt { margin: 0 0 auto; max-width: 60ch; color: var(--clr-ink); font-size: var(--text-sm); line-height: 1.55; }
+.vmx-zoom-retry {
+  position: relative;
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--touch-min);
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--clr-border);
+  background: var(--clr-surface-2);
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+.vmx-zoom-retry:focus-visible { outline: 3px solid var(--clr-sage); outline-offset: -3px; }
 .vmx-figure-caption {
   display: grid;
   gap: var(--space-1);
@@ -2546,14 +2618,18 @@ html.dark .vmx-panic-scrim {
   font-weight: 700;
   text-underline-offset: 2px;
 }
-.vmx-image-error {
-  padding: var(--space-4);
-  border: 1px dashed var(--clr-rose-text);
-  border-radius: var(--r-md);
-  background: var(--clr-rose-soft);
-  color: var(--clr-ink);
-  font-size: var(--text-base);
+/* "บันทึกภาพ" under a note's deck figure (components/SlideFigures.jsx): a line of
+   text 81 by 18 px was the whole target. */
+.vmx-slide-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--touch-min);
+  padding-inline-end: var(--space-3);
+  color: inherit;
+  text-underline-offset: 2px;
 }
+.vmx-slide-save:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
 .vmx-image-lightbox {
   position: fixed;
   inset: 0;
@@ -2584,11 +2660,46 @@ html.dark .vmx-panic-scrim {
   outline: 3px solid white;
   outline-offset: 3px;
 }
-.vmx-image-lightbox__image {
+/* The zoomed picture is the largest box of its own shape that fits the screen.
+   It used to be drawn at its natural size, which for a third of the pictures
+   on a desktop was smaller than the card they were opened from (a 204x136
+   figure shown 630 wide on the card "zoomed" to 204). The shape comes from the
+   media registry, so the box is there before the file: a picture opened before
+   it has loaded waits in a frame, not on an empty black screen. */
+.vmx-image-lightbox__frame {
+  --zoom-max-h: calc(100vh - 96px);
+  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;
   max-width: 100%;
-  max-height: calc(100dvh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-  object-fit: contain;
   cursor: default;
+}
+@supports (height: 100dvh) {
+  .vmx-image-lightbox__frame { --zoom-max-h: calc(100dvh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
+}
+.vmx-image-lightbox__frame.is-sized {
+  width: min(100%, calc(var(--zoom-max-h) * var(--zoom-ratio)));
+  aspect-ratio: var(--zoom-ratio);
+  background: rgba(255, 255, 255, 0.1);
+}
+/* A figure with no recorded size has no shape to wait in: give the wait a box. */
+.vmx-image-lightbox__frame:not(.is-sized):not(.is-loaded) { min-width: 220px; min-height: 140px; background: rgba(255, 255, 255, 0.1); }
+.vmx-image-lightbox__frame.is-loaded { background: white; }
+.vmx-image-lightbox__image {
+  display: block;
+  max-width: 100%;
+  max-height: var(--zoom-max-h);
+  object-fit: contain;
+}
+.vmx-image-lightbox__frame.is-sized .vmx-image-lightbox__image { width: 100%; height: 100%; max-height: none; }
+.vmx-image-lightbox__wait {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: var(--text-sm);
+  pointer-events: none;
 }
 .vmx-image-lightbox__hint {
   position: absolute;
@@ -3357,6 +3468,22 @@ html.dark .vmx-panic-scrim {
 .vmx-sr-btn.easy .label { color: var(--clr-ocean-text); }
 
 .vmx-flashcard { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 40px; min-height: 300px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; }
+/* The review card's figure leaves room for the button that turns the card over.
+   At 320 px it put "แสดงคำตอบ" under the bottom bar on a 375x812 phone for every
+   tall picture and under the fold at 1280x800. The cap follows the screen: what
+   is left of its height after the header, the card's own padding, a stem of up
+   to four lines on a phone (three on a wide screen) and the button, measured
+   as 654 px on a phone and 560 px on a wide screen. Never under 120 px, which
+   on a screen 664 px high still leaves the button a short scroll away, and
+   never over the 320 px it was. */
+.vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100vh - 560px))); }
+@media (max-width: 640px) {
+  .vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100vh - 654px))); }
+  /* The height with the browser's bars showing, where a browser knows it. */
+  @supports (height: 100svh) {
+    .vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100svh - 654px))); }
+  }
+}
 .vmx-flashcard .front { font-size: 20px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-flashcard .back { font-size: 17px; line-height: 1.5; color: var(--clr-ink); border-top: 1px dashed var(--clr-border); padding-top: 20px; margin-top: 20px; }
 .vmx-flashcard .back .answer { font-family: var(--vmx-display); font-weight: 600; font-size: 22px; color: var(--clr-sage-text); margin-bottom: 12px; }

@@ -19,7 +19,7 @@ test.beforeEach(async ({ page }) => {
     localStorage.setItem('vmx-seen-landing', '1');
     localStorage.setItem('vmx-consent', JSON.stringify('essential'));
   });
-  await page.route(/https:\/\/(?:[^/]+\.)?(?:youtube\.com|ytimg\.com)\//, (route) => route.abort());
+  await page.route(/https:\/\/(?:[^/]+\.)?(?:youtube\.com|youtube-nocookie\.com|ytimg\.com)\//, (route) => route.abort());
   await page.route('**/api/playlist?*', (route) => route.fulfill({ json: { items: [] } }));
   await page.route(/\/_vercel\/(?:insights|speed-insights)\/script\.js/, (route) => route.fulfill({ contentType: 'application/javascript', body: '' }));
 });

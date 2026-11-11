@@ -125,6 +125,26 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   if (!timingRef.current) timingRef.current = createQuestionTiming();
   const gradedRef = useRef(null);
   const activeQuestion = sessionCards?.[currentIdx]?.questionId;
+  // Space turns the card over, as its button says: "แสดงคำตอบ (Space)" named a
+  // key that did nothing. Only from the page itself. A focused control keeps
+  // its own Space (the button is one, and a passage's frame scrolls with it),
+  // a dialog over the card (the zoomed figure) takes the keys, and the cloze
+  // and occlusion cards reveal by their own controls.
+  const plainCardType = sessionCards?.[currentIdx]?.question?.type;
+  const spaceFlips = Boolean(plainCardType) && plainCardType !== 'cloze' && plainCardType !== 'image-occlusion' && !showAnswer;
+  useEffect(() => {
+    if (!spaceFlips) return undefined;
+    const onKey = (e) => {
+      if (e.key !== ' ' || e.repeat || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+      const target = e.target;
+      if (target instanceof Element && target.closest('input, textarea, select, button, a, summary, [contenteditable="true"], [role="button"], [role="tab"], .vmx-qtable-wrap')) return;
+      if (document.querySelector('.vmx-modal-overlay, [data-vmx-modal="true"]')) return;
+      e.preventDefault();
+      setShowAnswer(true);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [spaceFlips]);
   useEffect(() => {
     timingRef.current.enter(activeQuestion, document.visibilityState !== 'hidden');
     const onVisibility = () => timingRef.current.visibility(document.visibilityState !== 'hidden');
@@ -836,28 +856,24 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <SmartPassage text={currentQ.passage} title={currentQ.passage_title} />
             </div>
           )}
-          {currentQ.image && safeImageUrl(currentQ.image) && (
-            <>
-              <img
-                src={safeImageUrl(currentQ.image)}
-                alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
-                loading="lazy"
-                decoding="async"
-                className="vmx-qimage"
-                style={{ margin: '0 auto 16px' }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const ph = e.currentTarget.nextElementSibling;
-                  if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
-                }}
-              />
-              <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 14, color: 'var(--clr-ink)', fontStyle: 'italic', margin: '0 auto 16px' }}>
-                ภาพประกอบโหลดไม่ได้
-              </div>
-            </>
+          {/* The figure as the practice card shows it (Question.jsx): one figure
+              from image or imagePath, above the stem, with the question's own
+              alt, its caption and its credit. The card used to announce
+              "Question 822 image, com3/…" for one field and a stock phrase for
+              the other, and showed neither caption nor credit. */}
+          {safeImageUrl(currentQ.image || currentQ.imagePath) && (
+            <ZoomableImage
+              src={safeImageUrl(currentQ.image || currentQ.imagePath)}
+              alt={currentQ.imageAlt || `ภาพประกอบข้อ ${currentQ.id} วิชา ${currentQ.subject || ''}`.trim()}
+              caption={currentQ.imageCaption}
+              credit={currentQ.imageCredit}
+              sourceUrl={currentQ.imageSourceUrl}
+              // Capped by the screen (styles.css, .vmx-flashcard): the button
+              // that turns the card over stays in view under the picture.
+              maxHeight="var(--vmx-sr-figure-max, 320px)"
+            />
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
-          {safeImageUrl(currentQ.imagePath) && <ZoomableImage src={safeImageUrl(currentQ.imagePath)} maxHeight={240} />}
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">

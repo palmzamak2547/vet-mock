@@ -275,6 +275,16 @@ function isInteractiveKeyTarget(target) {
   return Boolean(target.closest('[role="button"], [role="checkbox"], [role="radio"], [role="switch"]'));
 }
 
+// A dialog over the exam takes the keys: the nav grid and the submit confirm
+// (.vmx-modal-overlay), and every dialog that marks itself with data-vmx-modal,
+// which the zoomed figure and the evidence slide do without that class. Under
+// the zoomed figure a digit locked an answer and Space, Enter and the arrows
+// turned the page, once a click on the picture had moved focus off its close
+// button.
+function examDialogOpen() {
+  return typeof document !== 'undefined' && Boolean(document.querySelector('.vmx-modal-overlay, [data-vmx-modal="true"]'));
+}
+
 // The question bank loads lazily, so a flaky connection can fail the very
 // tap that starts an exam. Offer a retry rather than a dead end: the
 // student's configuration is still in place, and the network is usually
@@ -1612,9 +1622,10 @@ export default function App() {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       // Don't fire exam shortcuts while command palette is open
       if (paletteOpen) return;
-      // ...or while a modal (nav grid / submit-confirm) is open — let its
-      // focused control receive Enter/Space natively instead of us eating it.
-      if (typeof document !== 'undefined' && document.querySelector('.vmx-modal-overlay')) return;
+      // ...or while a modal (nav grid / submit-confirm / the zoomed figure) is
+      // open — let its focused control receive Enter/Space natively instead of
+      // us eating it.
+      if (examDialogOpen()) return;
       const q = questions[currentIdx];
       if (!q) return;
       // Practice with instant feedback shows the key the moment a choice is
@@ -1693,6 +1704,8 @@ export default function App() {
       // Skip when user is typing — INPUT, TEXTAREA, or contenteditable.
       // Reuse the same guard pattern as the existing exam handler.
       if (isInteractiveKeyTarget(t)) return;
+      // A dialog over the exam (the zoomed figure) takes the keys, as above.
+      if (examDialogOpen()) return;
       // Modifier keys → let the OS / palette handle them
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 

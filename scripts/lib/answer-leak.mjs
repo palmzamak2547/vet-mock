@@ -128,11 +128,13 @@ export function textWords(text, { sourceWordsCount = false } = {}) {
   return out;
 }
 
-function trigrams(tokens) {
+/** Every run of n words in a row, in order. */
+function runs(tokens, n) {
   const out = new Set();
-  for (let i = 0; i + 3 <= tokens.length; i++) out.add(tokens.slice(i, i + 3).join(' '));
+  for (let i = 0; i + n <= tokens.length; i++) out.add(tokens.slice(i, i + n).join(' '));
   return out;
 }
+const trigrams = (tokens) => runs(tokens, 3);
 
 // ── The glossary's names for a disease, drug or organism ──────────────
 const CONCEPTS = GLOSSARY
@@ -252,4 +254,71 @@ export function leakOf(question, shown) {
     .filter((c) => !known.has(c) && lineConcepts.has(c));
   if (named.length) return { rule: parts.kind === 'option' ? 'names-answer' : rule, words: named };
   return null;
+}
+
+// ── A figure's own words: its caption and its credit ──────────────────
+// Epidemiology 100004 asked which animal is the mixing vessel and which the
+// natural reservoir, above a caption that read "สุกรเป็น mixing vessel;
+// นกป่าและนกอพยพเป็น natural reservoir". leakOf passed it: every word of that
+// key is in the stem or in another option, and the four options differ only
+// in which animal goes with which role. A caption is written for one question
+// and sits under its picture while the question is open, so it is held to
+// more than a source line is.
+const numbersIn = (text) => new Set((plain(text).match(/\d+(?:[.,]\d+)*/g) || []).map((n) => n.replace(/,/g, '')));
+
+/**
+ * Whether a figure's caption or credit, shown under the picture before the
+ * answer, gives the key away. leakOf's rules first; then, for a choice or a
+ * written item:
+ *   key-words     one Thai word, or one number, of the key that neither the
+ *                 stem nor another option carries (leakOf asks for two Thai
+ *                 words and reads no numbers, since a document's title shares
+ *                 a word by chance and every source line carries page numbers);
+ *   restates-key  the whole of the key, word for word, and of no other option;
+ *                 or three words in a row of the key, in the key's order, that
+ *                 the stem does not carry and that not every option carries
+ *                 ("สุกร เป็น mixing").
+ * null, or { rule, words }.
+ */
+export function figureTextLeak(question, shown) {
+  const found = leakOf(question, shown);
+  if (found) return found;
+  const parts = answerParts(question);
+  if (!parts || parts.kind === 'statement' || !String(shown ?? '').trim()) return null;
+  const all = { sourceWordsCount: true };
+  const line = textWords(shown);
+  const seen = textWords(parts.seen, all);
+  const rivals = parts.rivals.map((r) => textWords(r, all));
+  const rivalWords = new Set(rivals.flatMap((r) => [...r.words]));
+
+  // One Thai word of the key, or one of its numbers.
+  const thai = new Set();
+  for (const k of parts.key) {
+    for (const w of textWords(k).words) if (THAI.test(w) && !seen.words.has(w) && !rivalWords.has(w) && line.words.has(w)) thai.add(w);
+  }
+  if (thai.size) return { rule: 'key-words', words: [...thai] };
+  const lineNumbers = numbersIn(shown);
+  const knownNumbers = new Set([parts.seen, ...parts.rivals].flatMap((t) => [...numbersIn(t)]));
+  const numbers = [...new Set(parts.key.flatMap((k) => [...numbersIn(k)]))].filter((n) => !knownNumbers.has(n) && lineNumbers.has(n));
+  if (numbers.length) return { rule: 'key-words', words: numbers };
+
+  // The key itself, word for word, where no other option is.
+  const within = (tokens) => tokens.length > 0 && runs(line.tokens, tokens.length).has(tokens.join(' '));
+  const whole = parts.key.filter((k) => textWords(k).words.size > 0 && within(textWords(k, all).tokens));
+  if (whole.length && !rivals.some((r) => within(r.tokens))) return { rule: 'restates-key', words: whole.map((k) => textWords(k, all).tokens.join(' ')) };
+
+  // Three words in a row of the key that tell it from another option.
+  const lineRuns = trigrams(line.tokens);
+  const seenRuns = trigrams(seen.tokens);
+  const rivalRuns = rivals.map((r) => trigrams(r.tokens));
+  const told = new Set();
+  for (const k of parts.key) {
+    const kw = textWords(k, all);
+    for (const g of trigrams(kw.tokens)) {
+      if (!lineRuns.has(g) || seenRuns.has(g)) continue;
+      if (rivalRuns.length && rivalRuns.every((r) => r.has(g))) continue;
+      if (g.split(' ').some((w) => kw.words.has(w))) told.add(g);
+    }
+  }
+  return told.size ? { rule: 'restates-key', words: [...told] } : null;
 }
