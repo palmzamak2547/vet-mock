@@ -59,12 +59,26 @@ async function count(key, max, windowMs, by) {
   return shared.unavailable ? rateLimitLocal(key, max, windowMs, { by }) : shared;
 }
 
-/** What one GET will pull from storage, for the byte budget. */
+// One answer to a video or audio range is at most this long. A player asks
+// open-ended ranges (Chrome's first "bytes=0-", every seek "bytes=N-"); served
+// whole, each counted the rest of the object, and a 300 MB lecture spent the
+// 2 GB budget in six seeks. 8 MB is some 10 to 60 s of lecture video, sent in
+// a few seconds on campus Wi-Fi, so the function stays short and the player
+// asks for the next piece as it plays.
+export const MEDIA_CHUNK = 8 * 1024 * 1024;
+
+/** A media range, cut to MEDIA_CHUNK: { offset, length }, null (no Range) or false (unsatisfiable). */
+export function mediaChunk(rangeHeader, size) {
+  const range = byteRange(rangeHeader, size);
+  return range ? { offset: range.offset, length: Math.min(range.length, MEDIA_CHUNK) } : range;
+}
+
+/** What one GET is counted, for the byte budget: the object, or the media chunk sent. */
 export function bytesPulled(payload, rangeHeader, media) {
   const size = Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : UNKNOWN_SIZE;
   if (!media || !rangeHeader) return size;
-  const range = byteRange(rangeHeader, size);
-  return range ? Math.min(size, range.offset + range.length) : size;
+  const chunk = mediaChunk(rangeHeader, size);
+  return chunk ? chunk.length : 1;
 }
 
 // What the browser is told the bytes are. The catalog is curated under the
@@ -264,7 +278,7 @@ export default async function handler(req, res) {
   if (asksRange && upstream.status === 200) {
     const stored = (upstream.headers.get('content-encoding') || 'identity') === 'identity' ? Number(upstream.headers.get('content-length')) : NaN;
     total = Number.isSafeInteger(stored) && stored > 0 ? stored : Number(payload.n);
-    if (Number.isSafeInteger(total) && total > 0) range = byteRange(req.headers.range, total);
+    if (Number.isSafeInteger(total) && total > 0) range = mediaChunk(req.headers.range, total);
     if (range === false) {
       upstream.body?.cancel().catch(() => {});
       res.statusCode = 416;

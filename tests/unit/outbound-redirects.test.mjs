@@ -68,7 +68,8 @@ const files = [];
 
 function fetchCalls(src) {
   const out = [];
-  const re = /(?:await|return|=)\s*(fetch|fetchImpl)\(/g;
+  // `send = (fields) => fetch(...)` (api/_lib/llm.js) is an arrow's body: `=>` too.
+  const re = /(?:await|return|=>|=)\s*(fetch|fetchImpl)\(/g;
   let m;
   while ((m = re.exec(src))) {
     let depth = 0, end = -1;

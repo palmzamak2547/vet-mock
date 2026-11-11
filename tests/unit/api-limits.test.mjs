@@ -363,3 +363,124 @@ test('the library link carries the member it was minted for', async () => {
   assert.ok(mints.length >= 2);
   for (const m of mints) assert.match(m, /user: gate\?\.member === true \? gate\.userId : null/);
 });
+
+// ── Media ranges: bounded chunks ────────────────────────────────────────────
+
+async function mediaCall(handler, token, { range, ip = '203.0.113.200' } = {}) {
+  const { Writable } = await import('node:stream');
+  const res = new Writable({ write(_c, _e, done) { done(); } });
+  res.headers = {};
+  res.setHeader = (k, v) => { res.headers[k.toLowerCase()] = v; };
+  await handler({ method: 'GET', url: '/api/library-blob?' + new URLSearchParams(token), headers: { 'x-vercel-forwarded-for': ip, ...(range ? { range } : {}) } }, res);
+  return res;
+}
+
+async function mediaSetup(t, { size, mime = 'video/mp4', user = 'viewer' }) {
+  const mod = await import('../../api/library-blob.js');
+  const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
+  const saved = { ...process.env };
+  t.after(() => { process.env = saved; });
+  Object.assign(process.env, { CLOUDFLARE_API_TOKEN: 'media-test', R2_ACCOUNT_ID: 'acct' });
+  let upstream = 0;
+  // Storage ignores Range and answers the whole object; a few bytes stand for it here.
+  t.mock.method(globalThis, 'fetch', async () => { upstream++; return new Response(new Uint8Array(16), { status: 200 }); });
+  const token = mintBlobToken({ storage_bucket: 'b', storage_key: `docs/${user}.mp4`, mime, byte_size: size, status: 'public' }, { user });
+  return { ...mod, token, upstreams: () => upstream };
+}
+
+test('media: Chrome\'s open-ended ranges get one bounded chunk each, with an exact Content-Range', async (t) => {
+  const size = 300 * 1024 * 1024;
+  const { default: handler, token, MEDIA_CHUNK, bytesPulled } = await mediaSetup(t, { size, user: 'chrome' });
+  const first = await mediaCall(handler, token, { range: 'bytes=0-' });
+  assert.equal(first.statusCode, 206);
+  assert.equal(first.headers['content-range'], `bytes 0-${MEDIA_CHUNK - 1}/${size}`);
+  assert.equal(first.headers['content-length'], String(MEDIA_CHUNK));
+  const seek = 150 * 1024 * 1024;
+  const next = await mediaCall(handler, token, { range: `bytes=${seek}-` });
+  assert.equal(next.headers['content-range'], `bytes ${seek}-${seek + MEDIA_CHUNK - 1}/${size}`);
+  const tail = size - 1000;
+  const last = await mediaCall(handler, token, { range: `bytes=${tail}-` });
+  assert.equal(last.headers['content-range'], `bytes ${tail}-${size - 1}/${size}`, 'the last piece is what is left');
+  assert.equal(bytesPulled({ n: size }, 'bytes=0-', true), MEDIA_CHUNK, 'counted by the chunk, not the rest of the object');
+  assert.equal(bytesPulled({ n: size }, `bytes=0-${20 * 1024 * 1024}`, true), MEDIA_CHUNK, 'a closed range is capped to the same size');
+  assert.equal(bytesPulled({ n: size }, 'bytes=100-199', true), 100, 'and counted as asked below it');
+});
+
+test('media: Safari\'s two-byte probe is answered and counted as two bytes', async (t) => {
+  const size = 50 * 1024 * 1024;
+  const { default: handler, token, bytesPulled } = await mediaSetup(t, { size, user: 'safari' });
+  const probe = await mediaCall(handler, token, { range: 'bytes=0-1' });
+  assert.equal(probe.statusCode, 206);
+  assert.equal(probe.headers['content-range'], `bytes 0-1/${size}`);
+  assert.equal(probe.headers['content-length'], '2');
+  assert.equal(bytesPulled({ n: size }, 'bytes=0-1', true), 2);
+});
+
+test('media: a range past the end is 416 and counts next to nothing', async (t) => {
+  // The object, not the catalogue, measures a range (library-doc-open.test.mjs),
+  // so the 416 is decided once storage has answered; the budget took 1 byte.
+  const size = 16;
+  const { default: handler, token, bytesPulled } = await mediaSetup(t, { size, user: 'past-end' });
+  const res = await mediaCall(handler, token, { range: `bytes=${size}-` });
+  assert.equal(res.statusCode, 416);
+  assert.equal(res.headers['content-range'], `bytes */${size}`);
+  assert.equal(bytesPulled({ n: size }, `bytes=${size}-`, true), 1);
+});
+
+test('media: a 300 MB lecture watched to the end with 20 seeks stays inside the budget', async (t) => {
+  // Arithmetic: watching through sends ceil(300 MB / 8 MB) = 38 chunks, 300 MB
+  // in all; each of 20 seeks starts a new chunk, at most 8 MB more: 160 MB.
+  // 300 + 160 = 460 MB counted, under the 2 GB per 10 minutes, in 58 requests,
+  // under the 300 per link. Counted by the rest of the object instead, the
+  // first request alone was 300 MB and six seeks spent the budget.
+  const size = 300 * 1024 * 1024;
+  const { default: handler, token, MEDIA_CHUNK, BLOB_BYTES, BLOB_RATE } = await mediaSetup(t, { size, user: 'lecture' });
+  let counted = 0;
+  let requests = 0;
+  for (let at = 0; at < size; at += MEDIA_CHUNK) {
+    const res = await mediaCall(handler, token, { range: `bytes=${at}-` });
+    assert.equal(res.statusCode, 206, `chunk at ${at}`);
+    counted += Number(res.headers['content-length']);
+    requests++;
+  }
+  for (let s = 0; s < 20; s++) {
+    const at = Math.floor(((s * 7919) % 300) * 1024 * 1024);
+    const res = await mediaCall(handler, token, { range: `bytes=${at}-` });
+    assert.equal(res.statusCode, 206, `seek ${s}`);
+    counted += Number(res.headers['content-length']);
+    requests++;
+  }
+  assert.equal(requests, 58);
+  assert.ok(counted <= 460 * 1024 * 1024, `counted ${counted}`);
+  assert.ok(counted < BLOB_BYTES.max && requests < BLOB_RATE.max);
+});
+
+test('media: a request with no Range, and a PDF, are answered whole as before', async (t) => {
+  const size = 5 * 1024 * 1024;
+  const pdf = await mediaSetup(t, { size, mime: 'application/pdf', user: 'reader' });
+  const res = await mediaCall(pdf.default, pdf.token, {});
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.headers['content-range'], undefined);
+  assert.equal(res.headers['accept-ranges'], 'none');
+  assert.equal(pdf.bytesPulled({ n: size }, undefined, false), size);
+  assert.equal(pdf.bytesPulled({ n: size }, 'bytes=0-1', false), size, 'a PDF range still counts the whole object');
+});
+
+test('the link carries a keyed digest of the member, never the account id', async () => {
+  const { mintBlobToken, verifyBlobToken } = await import('../../api/_lib/blob-token.js');
+  const saved = process.env.CLOUDFLARE_API_TOKEN;
+  process.env.CLOUDFLARE_API_TOKEN = 'digest-test';
+  try {
+    const uid = '7c9e6679-7425-40de-944b-e07fc1f90ae7';
+    const doc = { storage_bucket: 'b', storage_key: 'docs/x.pdf', mime: 'application/pdf', byte_size: 1, status: 'public' };
+    const tok = mintBlobToken(doc, { user: uid });
+    assert.ok(!Buffer.from(tok.t, 'base64url').toString('utf8').includes(uid), 'anyone handed the link reads its payload');
+    const p = verifyBlobToken(tok.t, tok.s);
+    assert.match(p.u, /^[A-Za-z0-9_-]{22}$/);
+    const again = mintBlobToken(doc, { user: uid });
+    assert.equal(verifyBlobToken(again.t, again.s).u, p.u, 'the same member, the same budget');
+    assert.notEqual(verifyBlobToken(...Object.values(mintBlobToken(doc, { user: 'someone-else' }))).u, p.u);
+  } finally {
+    if (saved === undefined) delete process.env.CLOUDFLARE_API_TOKEN; else process.env.CLOUDFLARE_API_TOKEN = saved;
+  }
+});
