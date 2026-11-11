@@ -120,3 +120,16 @@ test('the source-label note reads a paper named in Thai, and stays quiet when th
   assert.match(originPaperNote({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'Swine มิดเทอม Vet 85' }), /ระบุกลางภาค/);
   assert.equal(originPaperNote({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'อิงแนวข้อสอบ' }), null);
 });
+
+test('a row with no origin is noted from the source file the panel shows', () => {
+  // 202424 (fish vaccination) has no examOrigin and shows "Aqua Med Mid 86.pdf":
+  // seniors sat fish diseases before their midterm, Vet 86 after theirs.
+  const fishVaccine = { subject: 'aquatic-clinic', topic: 'aqua-fish-diseases', source: 'Aqua Med Mid 86.pdf หน้า 28 ข้อ 18' };
+  assert.match(originPaperNote(fishVaccine), /ระบุกลางภาค.*ปลายภาค/);
+  // an origin that names no paper leaves the file to speak
+  assert.match(originPaperNote({ ...fishVaccine, examOrigin: 'อิงแนวข้อสอบ' }), /ระบุกลางภาค/);
+  // an origin that names this year's paper wins over the file
+  assert.equal(originPaperNote({ ...fishVaccine, examOrigin: 'Aquatic final Vet 85 บันทึกหลังสอบ' }), null);
+  // "mid-" starts a word, not a paper
+  assert.equal(originPaperNote({ subject: 'aquatic-clinic', topic: 'aqua-fish-diseases', source: 'deck p5 mid-gestation' }), null);
+});

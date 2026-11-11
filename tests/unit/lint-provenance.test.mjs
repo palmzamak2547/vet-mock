@@ -214,11 +214,13 @@ test('a compilation row sat a paper exactly when its origin is filed as one, and
   // 5.171.4 the bank also holds four of those Vet 85 essays in their own format
   // (209058, 209060, 209062, 209063), so the twelve MCQs written from them are
   // exam-aligned: one sat question is counted once, and Panic serves the
-  // essay first and its MCQs right after.
+  // essay first and its MCQs right after. 5.198.0 added two more of that
+  // cohort's written items the bank lacked (209402 JE sampling, 209403 greasy
+  // pig), sat papers in their own format like the rest.
   const swineFinal = rows.filter((q) => String(q.examOrigin || '').startsWith('Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ'));
-  assert.equal(swineFinal.length, 22);
+  assert.equal(swineFinal.length, 24);
   const compiled = swineFinal.filter((q) => q.sourceType === 'student-compilation');
-  assert.equal(compiled.length, 10);
+  assert.equal(compiled.length, 12);
   assert.deepEqual(compiled.filter((q) => !isPastPaperQuestion(q) || q.tags?.includes(MARKER)).map((q) => q.id), []);
   const rewrites = swineFinal.filter((q) => q.sourceType === 'exam-aligned');
   assert.equal(rewrites.length, 12);

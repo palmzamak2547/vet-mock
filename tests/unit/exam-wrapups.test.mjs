@@ -7,6 +7,7 @@ import { WRAPUPS, wrapUpPapers, hasWrapUp, wrapUpFor, loadWrapUp, selfNumbered, 
 import { lecturerSetFor } from '../../src/data/lecturer-sets.js';
 import { PHASES } from '../../src/lib/current-phase.js';
 import { SEMESTER } from '../../src/data/semester.js';
+import { EXAM_SCHEDULE } from '../../src/data/schedule.js';
 
 // A moment inside the term the content is filed under, so these never depend on the day CI runs.
 const IN_TERM = new Date('2026-10-28T23:00:00+07:00');
@@ -52,15 +53,23 @@ for (const { year, phase, subject } of wrapUpPapers()) {
     const w = await loadWrapUp(subject, year, phase);
     const set = lecturerSetFor(subject, year, phase);
     assert.ok(w, 'loads');
-    assert.ok(set, 'the same paper has a lecturer set');
     assert.equal(w.subject, subject);
-    assert.equal(w.exam.date, set.examDate, 'exam date matches the lecturer set');
+    // A paper gets a lecturer set only when an announcement split it by
+    // lecturer; without one, the wrap-up's date must be that paper's own
+    // date in the exam timetable.
+    if (set) assert.equal(w.exam.date, set.examDate, 'exam date matches the lecturer set');
+    else {
+      const scope = PHASES.find((p) => p.id === phase).scope;
+      const dates = (EXAM_SCHEDULE[`y${year}`] || []).filter((e) => e.subject === subject && e.term === scope).map((e) => e.date);
+      assert.ok(dates.includes(w.exam.date), `exam date ${w.exam.date} is a ${scope} date of ${subject} in the timetable`);
+    }
     const topics = topicsOf(subject);
-    const lecturerIds = new Set(set.lecturers.map((l) => l.id));
+    const lecturerIds = set ? new Set(set.lecturers.map((l) => l.id)) : null;
     assert.ok(w.groups.length >= 1);
     let items = 0;
     for (const g of w.groups) {
-      assert.ok(lecturerIds.has(g.id), `lecturer ${g.id} is in the set`);
+      if (lecturerIds) assert.ok(lecturerIds.has(g.id), `lecturer ${g.id} is in the set`);
+      else assert.ok(g.id && g.lecturer, 'every group names its lecturer');
       assert.ok(g.formatNote && !FORBIDDEN.test(g.formatNote));
       for (const it of g.items) {
         items++;
