@@ -50,6 +50,39 @@ test('without the API, or with storage blocked, nothing happens and nothing thro
   assert.equal(await keepDeviceWork({ nav: failing, storage: memory() }), false);
 });
 
+test('never while a question set or an exam is on screen; a later save asks', async () => {
+  resetKeepDeviceWork();
+  const storage = memory();
+  const b = browser(true);
+  const onScreen = { querySelector: (sel) => (/vmx-question-card/.test(sel) ? {} : null) };
+  assert.equal(await keepDeviceWork({ nav: b.nav, storage, session: memory(), doc: onScreen }), false);
+  assert.equal(b.calls.persist, 0, 'the pin button mid-exam does not raise a prompt');
+  assert.equal(storage.getItem('vmx-persist-asked'), null, 'not asked yet, so not marked');
+  assert.equal(await keepDeviceWork({ nav: b.nav, storage, session: memory(), doc: { querySelector: () => null } }), true);
+  assert.equal(b.calls.persist, 1);
+});
+
+test('a prompt that never settles is asked at most once per session', async () => {
+  resetKeepDeviceWork();
+  const session = memory();
+  let calls = 0;
+  const hanging = { storage: { persisted: async () => false, persist: () => { calls++; return new Promise(() => {}); } } };
+  const idle = { querySelector: () => null };
+  keepDeviceWork({ nav: hanging, storage: memory(), session, doc: idle });
+  await new Promise((r) => setTimeout(r, 5));
+  resetKeepDeviceWork(); // a reload in the same tab: the module forgets, the session does not
+  keepDeviceWork({ nav: hanging, storage: memory(), session, doc: idle });
+  await new Promise((r) => setTimeout(r, 5));
+  assert.equal(calls, 1);
+});
+
+test('the flashcards\' id migration, a write made during a read, never asks', () => {
+  const cards = readFileSync(new URL('../../src/lib/user-flashcards.js', import.meta.url), 'utf8');
+  assert.match(cards, /if \(moved\) writeLocalExtra\(STORAGE_KEY, list, \{ ask: false \}\)/);
+  const extras = readFileSync(new URL('../../src/lib/local-extras.js', import.meta.url), 'utf8');
+  assert.match(extras, /if \(ask && key !== 'vmx-watched-videos'\) keepDeviceWork/);
+});
+
 test('the ask is wired where a student first saves their own work', () => {
   const extras = readFileSync(new URL('../../src/lib/local-extras.js', import.meta.url), 'utf8');
   assert.match(extras, /keepDeviceWork\(/);

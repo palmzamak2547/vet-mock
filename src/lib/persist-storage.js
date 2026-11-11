@@ -8,27 +8,46 @@
 //
 // The ask happens at the moment it means something, the first time a student
 // saves something of their own, and only once per device: a refusal is
-// remembered, never repeated, and nothing is shown either way.
+// remembered, never repeated, and nothing is shown either way. Firefox answers
+// with a permission prompt, so:
+// - never while a question set or an exam is on screen (the pin button in the
+//   question toolbar saves mid-exam): that save does not ask, a later one does;
+// - never from a write a read makes (the flashcards' id migration passes
+//   ask: false to writeLocalExtra);
+// - a prompt left unanswered (a promise that never settles) is asked at most
+//   once per session: the session mark is set before asking.
 
 const ASKED_KEY = 'vmx-persist-asked';
 let pending = null;
 
-function askedBefore(storage) {
-  try { return storage?.getItem(ASKED_KEY) === '1'; } catch { return true; }
+function flag(storage, key) {
+  try { return storage?.getItem(key) === '1'; } catch { return true; }
 }
 
-function remember(storage) {
-  try { storage?.setItem(ASKED_KEY, '1'); } catch { /* storage full or blocked: asking again later is harmless */ }
+function mark(storage, key) {
+  try { storage?.setItem(key, '1'); } catch { /* storage full or blocked: asking again later is harmless */ }
+}
+
+/** A question card or an exam is on screen (Question.jsx, ExamView.jsx). */
+export function studyOnScreen(doc = globalThis.document) {
+  try { return !!doc?.querySelector?.('.vmx-question-card, .vmx-exam-top'); } catch { return true; }
 }
 
 /**
  * Resolves to true when storage is (now) persistent, false otherwise. Never
- * throws and never asks twice on one device.
+ * throws, never asks twice on one device, never asks during a set or an exam.
  */
-export function keepDeviceWork({ nav = globalThis.navigator, storage = globalThis.localStorage } = {}) {
+export function keepDeviceWork({
+  nav = globalThis.navigator,
+  storage = globalThis.localStorage,
+  session = globalThis.sessionStorage,
+  doc = globalThis.document,
+} = {}) {
   if (pending) return pending;
   const api = nav?.storage;
-  if (!api || typeof api.persist !== 'function' || askedBefore(storage)) return Promise.resolve(false);
+  if (!api || typeof api.persist !== 'function' || flag(storage, ASKED_KEY) || flag(session, ASKED_KEY)) return Promise.resolve(false);
+  if (studyOnScreen(doc)) return Promise.resolve(false);
+  mark(session, ASKED_KEY);
   pending = (async () => {
     try {
       if (typeof api.persisted === 'function' && await api.persisted()) return true;
@@ -36,7 +55,7 @@ export function keepDeviceWork({ nav = globalThis.navigator, storage = globalThi
     } catch {
       return false;
     } finally {
-      remember(storage);
+      mark(storage, ASKED_KEY);
     }
   })();
   return pending;

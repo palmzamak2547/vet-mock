@@ -55,7 +55,7 @@ export function readLocalExtra(key, fallback) {
   } catch { return copy(fallback); }
 }
 
-export function writeLocalExtra(key, value) {
+export function writeLocalExtra(key, value, { ask = true } = {}) {
   if (!LOCAL_EXTRA_FIELDS[key]) return false;
   try {
     const { storage, bundle } = storageAndBundle();
@@ -67,7 +67,8 @@ export function writeLocalExtra(key, value) {
     } else storage.setItem(key, JSON.stringify(value));
     // The student's own work lives only here: ask once that it be kept. The
     // watch history is written as they watch, not made, so it does not ask.
-    if (key !== 'vmx-watched-videos') keepDeviceWork({ storage });
+    // A write a read makes (a migration) passes ask: false.
+    if (ask && key !== 'vmx-watched-videos') keepDeviceWork({ storage });
     return true;
   } catch { return false; }
 }
