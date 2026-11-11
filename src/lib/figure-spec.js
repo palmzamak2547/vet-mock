@@ -122,7 +122,7 @@ export function figureHeight(fig) {
   // Fitted to a 375 px phone (the box's padding and border included); a wider screen only adds a little.
   const n = (a) => (Array.isArray(a) ? a.length : 0);
   switch (fig.kind) {
-    case 'twobytwo': return 75 + 52 * (n(fig.rows) + (fig.sum ? 1 : 0)) + 92 * Math.ceil(Math.max(1, n(fig.calcs)) / 2);
+    case 'twobytwo': return 75 + 52 * (n(fig.rows) + (fig.sum ? 1 : 0)) + 79 * Math.max(1, n(fig.calcs)) + 13; // calcs stack on a phone, pair on a wider screen
     case 'interval': return 72 + 56 * Math.max(1, n(fig.rows)) + (fig.note ? 0 : -24);
     case 'bars': return 44 + 44 * Math.max(1, n(fig.bars)) + (fig.head ? 28 : 0) + (fig.unit ? 24 : 0);
     case 'timeline': return 52 + 52 * Math.max(1, new Set((fig.events || []).map((e) => e.at)).size) + (fig.start ? 44 : 0);
