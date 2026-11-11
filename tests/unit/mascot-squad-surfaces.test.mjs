@@ -69,16 +69,16 @@ beforeEach(() => {
 });
 
 // ── Results ────────────────────────────────────────────────────────────────
-test('Results: the companion card follows the Mochi preference; its 3D toggle is stateful and 44 px', () => {
+test('Results: one mascot, Mochi beside the score, and no companion card under it', () => {
+  // The Study Squad card (a second mascot with a 3D toggle) sat between the
+  // score and the first thing to do; it went on 11 Nov 2026. Mochi's reaction
+  // follows the motion preference through MochiLive.
   const s = read('src/views/ResultsView.jsx');
-  assert.match(s, /useMotionPreferences\(\)/, 'Results reads the motion preferences');
-  assert.match(s, /\.companion\s*&&\s*\w+\.mode\s*!==\s*'off'/, 'the card uses the same rule as Mochi');
-  const card = s.indexOf('Study Squad Companion Encouragement');
-  assert.ok(card !== -1);
-  assert.match(s.slice(card, s.indexOf('<div', card)), /companionMascot && showCompanion &&/, 'the card renders only when the companion is on');
-  const toggle = s.slice(s.indexOf('onClick={() => setShow3DViewer'), s.indexOf("'ปิดโมเดล 3D'"));
-  assert.match(toggle, /aria-expanded=\{show3DViewer\}/, 'the toggle says whether the model is open');
-  assert.match(toggle, /minHeight: 'var\(--touch-min\)'/, 'the toggle is a full touch target');
+  assert.match(s, /useMotionPreferences()/, 'Results reads the motion preferences');
+  assert.match(s, /<MochiLive /);
+  for (const gone of ['Study Squad Companion Encouragement', 'setShow3DViewer', 'MascotSquad3DViewer', 'resultsCompanion']) {
+    assert.equal(s.includes(gone), false, `${gone} is back on the results page`);
+  }
 });
 
 // ── Mochi page ─────────────────────────────────────────────────────────────

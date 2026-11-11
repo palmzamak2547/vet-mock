@@ -5687,8 +5687,9 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-reminder-offer > strong { font-size: 16px; color: var(--clr-ink); }
 .vmx-reminder-offer > .vmx-btn { align-self: flex-start; min-height: 44px; }
 /* The offer is one row until the student asks for the times. */
-.vmx-reminder-offer.is-row { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 10px 16px; }
-.vmx-reminder-offer.is-row > strong { font-size: 15px; flex: 1 1 12em; }
+.vmx-reminder-offer.is-row { padding: 10px 16px; }
+.vmx-reminder-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.vmx-reminder-row > strong { font-size: 15px; flex: 1 1 12em; color: var(--clr-ink); }
 .vmx-reminder-row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .vmx-reminder-row-actions .vmx-btn { min-height: 44px; }
 .vmx-reminder-picker { display: flex; flex-direction: column; gap: 10px; min-width: 0; }

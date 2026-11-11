@@ -27,14 +27,10 @@ import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
 import NavIcon from '../components/NavIcon.jsx';
-import { resultsCompanion, canShow3D } from '../lib/buddy.js';
-import ErrorBoundary from '../components/ErrorBoundary.jsx';
-import MascotStill from '../components/MascotStill.jsx';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import LadderStrip from '../components/LadderStrip.jsx';
 import { ladderStep, ladderStepFor, ladderVerdict, rememberLadderStep, STEP_UP_RATIO, STEP_MIN_SET } from '../lib/practice-ladder.js';
 
-const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 // Offered once ever, after the first set of a day: its own chunk, not every result's (1.7 KB gzip).
 const ReminderOffer = lazy(() => import('../components/ReminderPicker.jsx').then((m) => ({ default: m.ReminderOffer })));
 
@@ -126,9 +122,9 @@ export default function ResultsView({
     return () => window.removeEventListener(NIGHT_RANK_EVENT, onPromo);
   }, []);
 
-  // Study Squad mascot companion. It follows the same device preference as
-  // Mochi: unticking "แสดง Mochi" or turning effects off hides the card.
-  const [show3DViewer, setShow3DViewer] = useState(false);
+  // One mascot on the result, Mochi's reaction beside the score: the Study
+  // Squad companion card under it (with its 3D model) went on 11 Nov 2026,
+  // a second mascot between the score and what to do.
   const { preferences: motionPrefs } = useMotionPreferences();
   // The first look at this result gets its entrance: Mochi's reaction, the
   // cards in turn and, after the first set of a day, the day count.
@@ -141,13 +137,6 @@ export default function ResultsView({
     if (Number.isFinite(completedAt)) shownResults.add(completedAt);
     markStreakMomentSeen(completedAt);
   }, [completedAt]);
-  const showCompanion = motionPrefs.companion && motionPrefs.mode !== 'off';
-  // The picked buddy wins; without a pick, a one-subject set shows that
-  // clinic's mascot, otherwise Mochi (lib/buddy.js, shared with Home).
-  const companionMascot = useMemo(() => resultsCompanion(questions), [questions]);
-  // No 3D switch where the device cannot draw 3D (WebGL2): a switch that opens
-  // an apology is worse than none.
-  const can3D = useMemo(() => canShow3D(), []);
 
   // mount in dev doesn't trigger the burst twice.
   // Personal-best tracking — per-subject highest pct ever recorded in
@@ -253,6 +242,7 @@ export default function ResultsView({
     : score.pct >= 40 ? 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิดในรอบนี้'
     : 'กลับไปทบทวนหัวข้อนี้ แล้วลองชุดสั้นอีกครั้ง';
 
+  const showMsg = autoQs.length === 0 || (score.total > 0 && score.correct / score.total >= 0.8);
   const isExam = mode === 'exam';
   // pass/fail only meaningful for auto-graded sessions; pure-writing
   // mocks (autoQs.length === 0) get neither banner since the engine
@@ -271,14 +261,6 @@ export default function ResultsView({
   const ladder = sessionKind === 'redo' ? null
     : ladderVerdict({ stepId: ladderStepFor({ mode, useTimer: Boolean(useTimer) }), correct: score.correct, total: score.total, passPct: PRACTICE_PASS_PCT });
   const holdBar = ladder?.kind === 'hold' ? Math.round((STEP_UP_RATIO[ladder.step] || 0) * 100) : null;
-  const companionEncouragement = useMemo(() => {
-    if (perfect) return 'เก่งสุดๆ เลย! ถูกหมดทุกข้อแบบนี้ ยอดเยี่ยมมาก!';
-    if (celebrate) return 'สุดยอดมากเลย! คะแนนรอบนี้สวยมาก ลุยต่อกันนะ!';
-    if (passed && holdBar) return `ถึงเกณฑ์ซ้อมแล้ว อีกนิดถึง ${holdBar}% ก็ขึ้นขั้นถัดไปได้ ลองอีกชุดนะ!`;
-    if (passed) return 'ทำได้ดีมาก! ถึงเกณฑ์ซ้อมแล้ว ทบทวนข้อผิดอีกนิดจะคล่องขึ้น!';
-    if (autoQs.length === 0) return 'ฝึกเขียนเสร็จแล้ว ลองเทียบกับเกณฑ์เฉลยดูนะ!';
-    return 'สู้ๆ นะ! ทุกการฝึกซ้อมทำให้เราเก่งขึ้นเรื่อยๆ เสมอ!';
-  }, [perfect, celebrate, passed, holdBar, autoQs.length]);
 
   // A genuine high point, once: a perfect set of five or more, or a round
   // day count. The phone ticks; inside the Android app the app may offer a
@@ -300,7 +282,6 @@ export default function ResultsView({
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
-      <ExamSaveNotice status={saveStatus} />
       {/* The score and what to do next come first (owner decision, 11 Nov
           2026): no year pill above it, and the practice mark is stated once,
           on the bar under the score. The seal says whether it was reached. */}
@@ -380,7 +361,11 @@ export default function ResultsView({
             <NavIcon name="pen" size={13} /> มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
           </div>
         )}
-        <div className="vmx-score-msg">{msg}</div>
+        {/* The line under the score only where no card below says what to do
+            first: a writing-only set, or 80% and up. Under that the first card
+            (redo the misses) is the advice, and the line said it again or said
+            something else. */}
+        {showMsg && <div className="vmx-score-msg">{msg}</div>}
 
         {/* Pacing Telemetry */}
         {receiverDurationSec != null && receiverDurationSec > 0 && (
@@ -415,6 +400,9 @@ export default function ResultsView({
         replayQuestions={replayQuestions}
         receiverDurationSec={receiverDurationSec}
       />
+      {/* A result that could not be saved says so right under the first action:
+          above the score it pushed the score and the action off a phone's first screen. */}
+      <ExamSaveNotice status={saveStatus} />
 
       {/* The first set of a day: what it did to the day count, right under
           the score (lib/streak-moment.js); nothing for a second set. */}
@@ -424,129 +412,6 @@ export default function ResultsView({
         <Suspense fallback={null}>
           <ReminderOffer usual={moment.usual} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '126ms' }} />
         </Suspense>
-      )}
-
-      {/* Study Squad Companion Encouragement Badge & 3D Toggle */}
-      {companionMascot && showCompanion && (
-        <div
-          style={{
-            margin: '16px auto',
-            maxWidth: 480,
-            padding: '14px 16px',
-            borderRadius: 16,
-            background: 'var(--clr-surface-2)',
-            border: '1px solid var(--clr-border)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <img
-              src={companionMascot.src}
-              alt={companionMascot.alt}
-              style={{
-                width: 52,
-                height: 52,
-                objectFit: 'contain',
-                borderRadius: '50%',
-                background: 'var(--clr-surface)',
-                border: '1.5px solid var(--clr-border)',
-                padding: 4,
-                flexShrink: 0,
-              }}
-            />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 600, fontSize: 14, color: 'var(--clr-ink)' }}>
-                  {companionMascot.nameTh} ({companionMascot.name})
-                </span>
-                <span
-                  style={{
-                    fontSize: 14,
-                    padding: '2px 8px',
-                    borderRadius: 999,
-                    background: 'var(--clr-sage-soft)',
-                    color: 'var(--clr-sage-text)',
-                    fontWeight: 500,
-                  }}
-                >
-                  {companionMascot.role}
-                </span>
-              </div>
-              <div
-                style={{
-                  marginTop: 6,
-                  fontSize: 14,
-                  color: 'var(--clr-ink-soft)',
-                  lineHeight: 1.4,
-                  background: 'var(--clr-surface)',
-                  padding: '6px 10px',
-                  borderRadius: 8,
-                  border: '1px solid var(--clr-border)',
-                }}
-              >
-                {companionEncouragement}
-              </div>
-            </div>
-          </div>
-
-          {can3D && (
-          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-            <button
-              type="button"
-              onClick={() => setShow3DViewer((prev) => !prev)}
-              aria-expanded={show3DViewer}
-              style={{
-                minHeight: 'var(--touch-min)',
-                fontSize: 14,
-                fontWeight: 600,
-                color: show3DViewer ? 'var(--clr-ink)' : 'var(--clr-sage-text)',
-                background: show3DViewer ? 'var(--clr-surface)' : 'var(--clr-sage-soft)',
-                border: '1px solid var(--clr-border)',
-                borderRadius: 999,
-                padding: '6px 14px',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                transition: 'all 0.2s ease',
-              }}
-            >
-              <span>{show3DViewer ? 'ปิดโมเดล 3D' : 'ดูแบบ 3D'}</span>
-            </button>
-          </div>
-          )}
-
-          {/* Loaded only on the tap (never warmed at exam start: it carries
-              three.js). A chunk that fails to load, or a device without
-              WebGL, shows the picture; the score screen stays. */}
-          {show3DViewer && (
-            <ErrorBoundary fallback={<MascotStill mascot={companionMascot} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน" />}>
-              <Suspense
-                fallback={
-                  <div
-                    style={{
-                      padding: 24,
-                      textAlign: 'center',
-                      fontSize: 14,
-                      color: 'var(--clr-ink-soft)',
-                    }}
-                  >
-                    กำลังโหลดโมเดล 3D...
-                  </div>
-                }
-              >
-                <div style={{ marginTop: 6 }}>
-                  <MascotSquad3DViewer
-                    initialId={companionMascot.id}
-                    initialAction={celebrate || reached ? 'celebrate' : 'idle'}
-                  />
-                </div>
-              </Suspense>
-            </ErrorBoundary>
-          )}
-        </div>
       )}
 
       <div className="vmx-stat-grid">
@@ -835,10 +700,10 @@ function NextPlayPanel({
       ? `ได้ ${pctExact}% ยังไม่ถึง ${upBar}% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน`
       : verdict.kind === 'back'
         ? (verdict.next === verdict.step
-          ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ทำขั้นนี้อีกชุดให้ถึงเกณฑ์ก่อน`
-          : `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`)
+          ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ทำขั้นนี้อีกชุดก่อน`
+          : `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`)
         : verdict.kind === 'done'
-          ? 'ถึงเกณฑ์ซ้อมในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย'
+          ? `ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย`
           : verdict.kind === 'redo'
             ? 'รอบแก้ข้อที่ผิดไม่นับเป็นขั้น ทำชุดใหม่เพื่อวัดอีกครั้ง'
             : `ชุดนี้สั้นกว่า ${STEP_MIN_SET} ข้อ ยังบอกไม่ได้ว่าพร้อมขั้นต่อไปหรือยัง ลองชุด ${ladderStep(verdict.step).count} ข้อ`;

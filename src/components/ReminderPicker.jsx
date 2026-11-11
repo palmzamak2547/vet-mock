@@ -33,28 +33,27 @@ export function ReminderOffer({ usual = null, className = '', style }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once, at the result
   // One row until the student asks for the times: the whole picker (six
   // times, two calendars and a paragraph) stood 432 px tall under the score.
+  // The row stays when the picker opens below it, so the button that opened
+  // it keeps focus and says what it controls.
   const [expanded, setExpanded] = useState(false);
   if (!open) return null;
   const choose = (how) => { answerOffer(how); setChosen(how); };
-  const decline = <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { answerOffer('no'); setOpen(false); }}>ไม่ต้อง</button>;
-  if (!expanded && !chosen) {
-    return (
-      <div className={`vmx-reminder-offer is-row ${className}`} style={style}>
-        <strong>{app ? 'ให้ VetMock เตือนทำโจทย์ทุกวันไหม' : 'ให้ปฏิทินเตือนทำโจทย์ทุกวันไหม'}</strong>
-        <span className="vmx-reminder-row-actions">
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-expanded="false" onClick={() => setExpanded(true)}>เลือกเวลา</button>
-          {decline}
-        </span>
-      </div>
-    );
-  }
+  const pickerId = 'vmx-reminder-offer-picker';
   return (
-    <div className={`vmx-reminder-offer ${className}`} style={style}>
-      <strong>{app ? 'ให้ VetMock เตือนทำโจทย์ทุกวันไหม' : 'ให้ปฏิทินเตือนทำโจทย์ทุกวันไหม'}</strong>
-      {chosen && chosen !== 'app'
-        ? <p className="vmx-reminder-note" role="status">เปิดปฏิทินให้แล้ว กดบันทึกนัดในปฏิทินเพื่อให้เตือน เปลี่ยนเวลาได้ที่หน้าเชื่อมแอป</p>
-        : <ReminderPicker usual={usual} onChosen={choose} />}
-      {!chosen && decline}
+    <div className={`vmx-reminder-offer${expanded || chosen ? '' : ' is-row'} ${className}`} style={style}>
+      <div className="vmx-reminder-row">
+        <strong>{app ? 'ให้ VetMock เตือนทำโจทย์ทุกวันไหม' : 'ให้ปฏิทินเตือนทำโจทย์ทุกวันไหม'}</strong>
+        {!chosen && (
+          <span className="vmx-reminder-row-actions">
+            <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-expanded={expanded} aria-controls={pickerId} onClick={() => setExpanded((v) => !v)}>เลือกเวลา</button>
+            <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { answerOffer('no'); setOpen(false); }}>ไม่ต้อง</button>
+          </span>
+        )}
+      </div>
+      {chosen && chosen !== 'app' && (
+        <p className="vmx-reminder-note" role="status">เปิดปฏิทินให้แล้ว กดบันทึกนัดในปฏิทินเพื่อให้เตือน เปลี่ยนเวลาได้ที่หน้าเชื่อมแอป</p>
+      )}
+      {!chosen && expanded && <div id={pickerId}><ReminderPicker usual={usual} onChosen={choose} /></div>}
     </div>
   );
 }
