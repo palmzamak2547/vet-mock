@@ -4,6 +4,19 @@
 // headline: 'เฉลยบางข้อมีภาพอธิบาย'
 ```
 
+## Where I stopped (11 Nov, machine shut down)
+
+**Review 1 (data and code): done.** Passage keys never shown (withoutKeys in FigureSlot `passage`, lint refuses `| key` in a passage); a failed chunk falls back to explainSay or the figure in words (`figure-slot-fallback.test.mjs`); every reader of explain/passage goes through explainText/passageText (`figure-readers.test.mjs`); stricter lint (8 of the review's 11 bad edits caught; the other 3 target figures that no longer exist, their equivalents on kept figures are caught in `figure-spec.test.mjs`); parser gaps refused (`figure-check.js`); the speech test restored with an explicit list.
+
+**Review 2 (reading, motion, access): done in code, not yet proven on four engines.** Five figures back to main byte for byte; four kept beside their whole text; `\s+` fixed with a test; full list-style descriptions; width-true layout (`figureLayout(fig, width)`) held before paint; one accent; one dash meaning; 3:1 lines, no grid paper; Thai compounds kept whole (`Intl.Segmenter`); emphasis-only motion; house icons removed; too-narrow widths list the figure in words. To fit the first-load budget the parser and layout moved to a lazy core chunk (figure-spec.js) that FigureSlot loads and warmFigure prefetches.
+
+**What was running:** nothing of mine. The build + perf-budget + four-engine e2e was queued behind other lanes' locks and was stopped before it started. The last build that ran (before the core chunk moved out) was over budget: firstLoad JS 228,773 B against 227,900, exam JS 156,632 against 156,600. Unit tests for the figures pass (47); `lint:question-figures`, `lint:question-tables`, `lint:css-tokens`, `lint:exam-recurrence`, `lint:source-line` pass.
+
+**Next three steps:**
+1. Under the lock: `npm run build && npm run perf:budget` (confirm the core chunk brought both routes under budget without raising one) and the four-engine run of `tests/e2e/explain-figures.spec.js` (fresh answer, 320/360/188 px, late chunk).
+2. Re-shoot the four at 320, 360, 375, 188 and 1280 in light and dark (`scratchpad/shots2.mjs`), look at each, rebuild the contact sheet.
+3. `npm run lint:data` and `npm run test:unit` once, then push the branch (no pull request) and report to the coordinator.
+
 # Figures in explanations (prototype)
 
 A first, small layer of drawn figures under the answer, on four real questions, for the owner to
