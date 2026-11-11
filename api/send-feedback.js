@@ -11,8 +11,9 @@
 //     without it the key is derived from RESEND_API_KEY
 //
 // Security:
-//   • Rate-limited per member (else per address): 3 per 10 minutes, 10 a day;
-//     visitors share 40 of the mailer's 100 a day (FEEDBACK_RATE)
+//   • Rate-limited (FEEDBACK_RATE): a Chula member per account (3 per 10
+//     minutes, 10 a day) under an address ceiling; a visitor per address
+//     (3 per 10 minutes, 20 a day); visitors share 40 of the mailer's 100 a day
 //   • CORS: only known origins (vetmock.com + vetmock.vercel.app + previews + localhost)
 //   • Input length capped (subject 200, message 5000 chars)
 //   • All HTML output escaped via escapeHtml()
@@ -25,9 +26,15 @@ import { bearerOf, chulaGate } from './_lib/chula-gate.js';
 import { readJsonBody, sendBadBody } from './_lib/body.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-// Per caller (a member's account, else an address): 3 in 10 minutes, 10 a day.
-// The mailer allows 100 a day in all, of which visitors may use 40.
-export const FEEDBACK_RATE = { burst: 3, burstMs: 10 * 60 * 1000, daily: 10, provider: 100, visitorShare: 40 };
+// A member: 3 in 10 minutes and 10 a day on their own account, and the address
+// as a ceiling (30 in 10 minutes, 100 a day), counted only once the account
+// allowed the message. A visitor (the students stuck at the sign-in wall,
+// often a whole campus on one address): 3 in 10 minutes and 20 a day per
+// address. The mailer allows 100 a day in all, of which visitors may use 40.
+export const FEEDBACK_RATE = {
+  burst: 3, burstMs: 10 * 60 * 1000, daily: 10, visitorDaily: 20,
+  addressBurst: 30, addressDaily: 100, provider: 100, visitorShare: 40,
+};
 
 const MAX_SUBJECT = 200;
 const MAX_MESSAGE = 5000;
@@ -73,21 +80,29 @@ export default async function handler(req, res) {
   // ── Who is counted ──
   // The form is open before sign-in too (ChulaGateView: someone stuck at the
   // wall can still write), so a visitor is counted by address. A signed-in
-  // member is counted on their own account (FEEDBACK_RATE), with the address
-  // kept as a much higher ceiling, so classmates on one network do not share
-  // three messages. A gate that cannot answer leaves the caller a visitor.
+  // Chula member is counted on their own account (FEEDBACK_RATE), so
+  // classmates on one network do not share three messages. A free account
+  // while the wall is off, or a gate that cannot answer, leaves a visitor.
   const ip = clientIP(req);
   let gate = null;
   if (bearerOf(req)) {
     try { gate = await chulaGate(req); } catch { gate = null; }
   }
-  const member = gate?.ok && gate.userId ? gate : null;
-  const burst = await limitCaller(req, member, 'feedback', FEEDBACK_RATE.burst, FEEDBACK_RATE.burstMs);
-  const daily = burst.ok ? await limitCaller(req, member, 'feedback-day', FEEDBACK_RATE.daily, DAY_MS) : burst;
+  const member = gate?.ok && gate.member === true && gate.userId ? gate : null;
+  const burst = await limitCaller(req, member, 'feedback', FEEDBACK_RATE.burst, FEEDBACK_RATE.burstMs, { addressMax: FEEDBACK_RATE.addressBurst });
+  const daily = burst.ok
+    ? await limitCaller(req, member, 'feedback-day', member ? FEEDBACK_RATE.daily : FEEDBACK_RATE.visitorDaily, DAY_MS, { addressMax: FEEDBACK_RATE.addressDaily })
+    : burst;
   if (!daily.ok) {
     // A limiter outage is not a student at the burst cap: logging it as one
     // filled the admin's usage log with spam that never happened.
-    if (!daily.unavailable) await logFeedbackUsage(feedbackUsageRow({ type: body.type, ip }, 'capped_burst'));
+    if (daily.unavailable) return sendRateLimitFailure(res, daily);
+    await logFeedbackUsage(feedbackUsageRow({ type: body.type, ip }, 'capped_burst'));
+    // The day's count clears tomorrow, not in ten minutes: say which one it is.
+    if (burst.ok) {
+      res.setHeader('Retry-After', String(daily.retryAfter));
+      return res.status(429).json({ error: 'Daily feedback limit reached', reason: 'daily_cap', scope: 'caller', retryAfter: daily.retryAfter });
+    }
     return sendRateLimitFailure(res, daily);
   }
 
@@ -198,20 +213,9 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
       const errText = await resp.text();
       console.error('Resend error:', resp.status, errText);
       await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'mailer_error'));
-      // Surface Resend's error so client can show diagnostic
-      let detail = '';
-      try {
-        const parsed = JSON.parse(errText);
-        detail = parsed.message || parsed.error?.message || parsed.name || errText.slice(0, 200);
-      } catch {
-        detail = errText.slice(0, 200);
-      }
-      return res.status(502).json({
-        error: `Resend ${resp.status}: ${detail}`,
-        hint: resp.status === 403
-          ? "onboarding@resend.dev only sends to your Resend account email. Verify a domain or check FEEDBACK_EMAIL matches signup email."
-          : undefined,
-      });
+      // The mailer's own text (addresses, account detail) stays in the log
+      // above; the sender gets a fixed code.
+      return res.status(502).json({ error: 'mailer_error', code: resp.status === 403 ? 'mailer_refused' : 'mailer_error' });
     }
     const data = await resp.json();
     await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'sent'));

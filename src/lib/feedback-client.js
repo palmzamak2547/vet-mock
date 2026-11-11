@@ -29,6 +29,8 @@ export const FEEDBACK_EMAIL = 'palmzamak2547@gmail.com';
 // email, the one way out that does not go through this endpoint.
 export const FEEDBACK_MESSAGES = Object.freeze({
   daily_cap: `วันนี้ระบบรับข้อความครบโควตาแล้ว พรุ่งนี้ส่งได้อีก หรือส่งอีเมลถึงทีมงานโดยตรงที่ ${FEEDBACK_EMAIL}`,
+  // The sender's own day is full (not the 10-minute burst): waiting a little does not help.
+  daily_mine: `วันนี้ส่งข้อความครบจำนวนต่อวันแล้ว พรุ่งนี้ส่งได้อีก หรือส่งอีเมลถึงทีมงานโดยตรงที่ ${FEEDBACK_EMAIL}`,
   burst: 'ส่งถี่เกินไป พักสักครู่แล้วลองใหม่ (ส่งได้ 3 ครั้งต่อ 10 นาที)',
   offline: 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',
   preview: 'ส่งได้เฉพาะบนเว็บจริง เปิด vetmock.com แล้วส่งอีกครั้ง',
@@ -111,9 +113,12 @@ export async function sendFeedback(payload, { fetch = globalThis.fetch, auth = a
   }
   const body = await res.json().catch(() => null);
   if (res.ok && body) return { ok: true, status: res.status, reason: null, messageTh: '' };
-  // A 429 has two causes with opposite advice: a burst clears in minutes, the
-  // daily cap not until tomorrow.
-  if (res.status === 429) return failure(429, body?.reason === 'daily_cap' ? 'daily_cap' : 'burst');
+  // A 429 has three causes: a burst clears in minutes; the sender's own day
+  // and the platform's day clear only tomorrow.
+  if (res.status === 429) {
+    if (body?.reason === 'daily_cap') return failure(429, body?.scope === 'caller' ? 'daily_mine' : 'daily_cap');
+    return failure(429, 'burst');
+  }
   // No JSON from a route that is missing or a page served in its place: a
   // local preview. The platform's own 5xx and 403 pages are a server fault.
   if (!body && (res.ok || res.status === 404 || res.status === 405)) return failure(res.status, 'preview');
