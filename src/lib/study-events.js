@@ -16,8 +16,17 @@ export function newStudySessionId() {
 
 // A content revision for one question ID, not an authentication signature.
 // Display-only option shuffling does not change the canonical question object.
+// The grader also reads `unordered` (fill: blanks that may come in any order) and `keywords` (short
+// answers), so an edit to either must change the revision. They join the hashed text only when a
+// question carries them, which leaves every other question's revision exactly as it was
+// (tests/unit/question-revision-coverage.test.mjs holds the grader to the hash).
 export function questionRevision(q) {
-  const text = JSON.stringify([q.type, q.q, q.front, q.back, q.options, q.answer, q.blanks, q.pairs, q.distractors]);
+  const fields = [q.type, q.q, q.front, q.back, q.options, q.answer, q.blanks, q.pairs, q.distractors];
+  const grading = {};
+  if (q.unordered !== undefined) grading.unordered = q.unordered;
+  if (q.keywords !== undefined) grading.keywords = q.keywords;
+  if (Object.keys(grading).length) fields.push(grading);
+  const text = JSON.stringify(fields);
   let hash = 2166136261;
   for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 16777619);
   return `q1-${(hash >>> 0).toString(16).padStart(8, '0')}`;
