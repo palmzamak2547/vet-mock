@@ -212,16 +212,22 @@ export function countByScope(questions) {
  */
 // The Thai transliterations too: "Swine Medicine ไฟนอล Vet 85" names the final.
 const ORIGIN_NAMES_FINAL = /final|ปลายภาค|ไฟนอล/i;
-const ORIGIN_NAMES_MID = /\bmid(?:term)?\b|กลางภาค|มิดเทอม/i;
+// Not "mid-gestation": a hyphen after mid is a word, not a paper.
+const ORIGIN_NAMES_MID = /\bmid(?:term)?\b(?!-)|กลางภาค|มิดเทอม/i;
 
 export function originPaperNote(question) {
   const scope = scopeOfQuestion(question);
   if (scope !== 'midterm' && scope !== 'final') return null;
-  const origin = String(question?.examOrigin || '');
-  if (!origin) return null;
-  const named = ORIGIN_NAMES_FINAL.test(origin)
-    ? 'final'
-    : (ORIGIN_NAMES_MID.test(origin) ? 'midterm' : null);
+  // Both labels the source panel shows: the origin, then the source pointer.
+  // A row whose origin names no paper still shows its file, and "Aqua Med Mid
+  // 86.pdf" under a ปลายภาค question read as a leak from the midterm (Palm,
+  // 10 Nov 2569).
+  const paperIn = (text) => {
+    const s = String(text || '');
+    if (ORIGIN_NAMES_FINAL.test(s)) return 'final';
+    return ORIGIN_NAMES_MID.test(s) ? 'midterm' : null;
+  };
+  const named = paperIn(question?.examOrigin) || paperIn(question?.source);
   if (!named || named === scope) return null;
   return named === 'final'
     ? 'ชื่อแหล่งที่มาของข้อนี้ระบุปลายภาค แต่หลักสูตรรุ่นนี้จัดเนื้อหานี้ไว้ในกลางภาค'

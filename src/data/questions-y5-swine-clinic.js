@@ -41,7 +41,7 @@ export const QB_Y5_SWINE_CLINIC = [
     explain: 'Swine dysentery (Brachyspira hyodysenteriae) = mucohaemorrhagic colitis ที่ลำไส้ใหญ่ในสุกรขุน-รุ่น เริ่มเป็น mucoid → bloody → watery foul-smelling diarrhoea ตามด้วยน้ำหนักลดเร็วและอ่อนแอ. Distinguishes จาก Lawsonia (PPE) ที่มัก melena ในวีนเนอร์/grower ตอนต้น (ileitis) มากกว่า colitis bloody.',
     verified: 'swine clin prac p.1 Q2' },
 
-  { id: 8352, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
+  { id: 8352, subject: 'swine-clinic', topic: 'swine-repro', year: 5,
     source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #3',
     tags: ['vaginal discharge', 'sow reproduction', 'physiological vs pathological'], type: 'mcq',
@@ -89,7 +89,7 @@ export const QB_Y5_SWINE_CLINIC = [
     explain: 'Clinical signs PED vs TGE คล้ายกันมาก (watery diarrhoea, vomiting, dehydration ในลูกสุกรดูดนม) แยกด้วยตาเปล่าไม่แน่ — confirm ด้วย PCR. TGE classic: high morbidity/mortality < 2 wk, นมไม่ย่อย, ตายลดตามอายุ. PED: spread ช้ากว่าเล็กน้อยและ mortality ในลูกสุกรดูดนมมักต่ำกว่า TGE (แต่ปัจจุบันสายพันธุ์ PED รุนแรงก็มี).',
     verified: 'swine clin prac p.1 Q5 (note: "clinical sign คล้ายกัน ตรวจเพิ่ม PCR")' },
 
-  { id: 8355, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
+  { id: 8355, subject: 'swine-clinic', topic: 'swine-repro', year: 5,
     source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #6',
     tags: ['MMA', 'mastitis-metritis-agalactia', 'postpartum sow'], type: 'short',
