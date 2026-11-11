@@ -885,11 +885,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         </h1>
         {isScaffoldYear ? (
           <p><strong>{yearMeta.label}</strong> — อยู่ระหว่างจัดเตรียมข้อสอบและเนื้อหา</p>
-        ) : (history.length === 0 ? (
-          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-            ลองทำ <strong>1 ข้อแรก</strong> ใช้เวลาเพียง 20 วินาทีเพื่อเริ่มสะสมสถิติ
-          </p>
-        ) : null)}
+        ) : null}
+        {/* No "ลองทำ 1 ข้อแรก" line here (5.214): the plan card under it says
+            the same thing with its button (NextActionCard). */}
         {/* Permanent tutorial entry — unlike the first-visit banner below,
             this survives exam attempts and dismissal so mid-term newcomers
             (and anyone who wants a refresher) can always reach the tour.

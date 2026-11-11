@@ -13,6 +13,13 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
+test('a first-time Home says "ลองทำ 1 ข้อแรก" once, on the plan card', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.vmx-command-center')).toBeVisible();
+  await expect(page.getByText(/ลองทำ\s*1 ข้อแรก/)).toHaveCount(1);
+  await expect(page.locator('.vmx-home-hero').getByText(/1 ข้อแรก/)).toHaveCount(0);
+});
+
 test('the wiki index opens on its search, with no lede and no library counts', async ({ page }) => {
   await page.goto('/wiki');
   await expect(page.locator('#vw-search')).toBeVisible();
