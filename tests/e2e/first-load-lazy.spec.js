@@ -95,6 +95,35 @@ test('mid-move with the move code unreachable: the app starts and the inbox wait
   await page.locator('#root > *').first().waitFor();
   await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBeNull();
   expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).sort()).toEqual([90001, 90002]);
+  // The merge that went through clears its count of tries.
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox-attempts'))).toBeNull();
+});
+
+test('mid-move with the move code stalling: the app starts after the wait, and the late code merges nothing', async ({ page, context }) => {
+  const inbox = JSON.stringify({ fields: { 'vmx-bookmarks': '[90002]' }, owner: null });
+  await context.addInitScript(([values, inboxValue]) => {
+    if (sessionStorage.getItem('seeded')) return;
+    sessionStorage.setItem('seeded', '1');
+    for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v);
+    localStorage.setItem('vmx-move-inbox', inboxValue);
+  }, [RETURNING_Y5, inbox]);
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  let arrived = false;
+  await page.route(ORIGIN_MOVE, async (route) => { await held; await route.continue(); arrived = true; });
+  const asked = Date.now();
+  await page.goto('/', { waitUntil: 'commit' });
+  await page.locator('#root > *').first().waitFor({ timeout: 15_000 });
+  expect(Date.now() - asked).toBeGreaterThanOrEqual(3_500);
+  expect(await page.evaluate(() => window.__vmxMoveSkip)).toBe(true);
+
+  // The code arrives under the running app: it must leave the inbox for the next boot.
+  release();
+  await expect.poll(() => arrived).toBe(true);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBe(inbox);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).toBe('[90001]');
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox-attempts'))).toBe('1');
 });
 
 // The Android app's bridge as the WebView injects it before any page script: enough of Capacitor for
@@ -173,4 +202,18 @@ test('the motion settings unreachable: the panel keeps its row and every other c
   await expect(themePanel(page).getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true })).toBeVisible();
   await expect(themePanel(page).getByRole('combobox', { name: 'การเคลื่อนไหว', exact: true })).toHaveCount(0);
   await expect(themePanel(page).getByRole('button', { name: /Ocean/ })).toBeVisible();
+});
+
+test('keyboard focus on the placeholder row moves to the real row when the settings arrive', async ({ page }) => {
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  await page.route(MOTION_SETTINGS, async (route) => { await held; await route.continue(); });
+  await page.goto(THEME_PAGE);
+  await themeButton(page).click();
+  const summary = themePanel(page).locator('.vmx-theme-motion-settings summary');
+  await summary.focus();
+  await expect(summary).toBeFocused();
+  release();
+  await expect(themePanel(page).locator('.vmx-motion-settings-body')).toHaveCount(1);
+  await expect(themePanel(page).locator('.vmx-theme-motion-settings summary')).toBeFocused();
 });

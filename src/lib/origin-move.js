@@ -30,7 +30,7 @@
 
 import { USER_DATA_FIELDS, createUserDataSync, mergeFieldValue } from './user-data-sync.js';
 import { moveBaseKit } from './move-base.js';
-import { MOVE_INBOX, MOVE_RECEIVED, NOTICE_MS } from './move-gate.js';
+import { MAX_ATTEMPTS, MOVE_INBOX, MOVE_INBOX_ATTEMPTS, MOVE_RECEIVED, NOTICE_MS, dueMoveJobs } from './move-gate.js';
 
 export { MOVE_INBOX, MOVE_RECEIVED };
 export const MOVE_BASE = 'vmx-move-base';
@@ -340,6 +340,10 @@ export async function importMovedRecords({
 } = {}) {
   const received = parse(read(storage, MOVE_RECEIVED));
   if (!plain(received) || received.idbDone) return { ok: true, skipped: true };
+  // A fourth boot does not try again (lib/move-gate.js MAX_ATTEMPTS): the records stay in IndexedDB.
+  const tried = Number.isSafeInteger(received.attempts) && received.attempts > 0 ? received.attempts : 0;
+  if (tried >= MAX_ATTEMPTS) return { ok: false, gaveUp: true };
+  try { storage.setItem(MOVE_RECEIVED, JSON.stringify({ ...received, attempts: tried + 1 })); } catch { /* uncounted */ }
   try {
     const entries = await readInbox();
     const of = (db) => entries.filter((e) => e?.record?.db === db && plain(e.record.value)).map((e) => e.record.value);
@@ -410,16 +414,27 @@ export function showOldAddressNote(win, doc, later = (fn, ms) => setTimeout(fn, 
   return true;
 }
 
-// main.jsx imports this only when lib/move-gate.js finds work for it, so it
-// may arrive after the page's load event: then the after-load work starts now.
+// main.jsx imports this only when lib/move-gate.js finds a job due, and this
+// runs exactly the jobs MOVE_JOBS says are due. It may arrive after the page's
+// load event: then the after-load work starts now. With window.__vmxMoveSkip
+// set (the app started without waiting for this file) the inbox is not merged
+// under the running store; it waits for the next boot.
 if (typeof window !== 'undefined') {
-  try { applyMoveInbox(window.localStorage); } catch { /* never block the app */ }
+  const due = dueMoveJobs(window);
+  if (due.has('inbox') && !window.__vmxMoveSkip) {
+    try {
+      if (applyMoveInbox(window.localStorage).applied) window.localStorage.removeItem(MOVE_INBOX_ATTEMPTS);
+    } catch { /* never block the app */ }
+  }
   const afterLoad = () => {
     const run = () => {
-      importMovedRecords()
+      (due.has('records') ? importMovedRecords() : Promise.resolve())
         .catch(() => {})
         .finally(() => {
-          try { showMoveNotice(document, window.localStorage) || showOldAddressNote(window, document); } catch { /* optional */ }
+          try {
+            if (due.has('notice') && showMoveNotice(document, window.localStorage)) return;
+            if (due.has('note')) showOldAddressNote(window, document);
+          } catch { /* optional */ }
         });
     };
     if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 4000 });

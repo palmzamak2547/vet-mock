@@ -6,7 +6,7 @@ import { IS_APP } from './lib/native-detect.js'
 // Study data carried over from vetmock.vercel.app is merged before anything reads it. The merge
 // (lib/origin-move.js) loads only on a boot that has move work (lib/move-gate.js), and then the app
 // starts after it; nearly every boot has none and starts at once, as before.
-import { moveWork } from './lib/move-gate.js'
+import { countInboxAttempt, moveWork, startWhenReady } from './lib/move-gate.js'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -64,10 +64,18 @@ window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: tru
 // without it, as a failed lazy screen leaves the rest of the app: the inbox
 // stays in localStorage for the next boot and the old address keeps its copy;
 // the app runs as a browser page does.
+// A chunk that stalls instead of failing gets MOVE_WAIT_MS: then the app starts
+// and window.__vmxMoveSkip tells origin-move.js, should it still arrive, not to
+// merge under a store that has already read the data. On the 'later' path the
+// app is already running, so the flag is set before the module is asked for.
 const before = []
 if (IS_APP) before.push(import('./lib/native-app.js').catch(() => {}))
 const move = moveWork(window)
-if (move === 'now') before.push(import('./lib/origin-move.js').catch(() => {}))
-else if (move === 'later') import('./lib/origin-move.js').catch(() => {})
-if (before.length) Promise.all(before).then(startApp)
-else startApp()
+if (move === 'now') {
+  countInboxAttempt(window)
+  before.push(import('./lib/origin-move.js').catch(() => {}))
+} else if (move === 'later') {
+  window.__vmxMoveSkip = true
+  import('./lib/origin-move.js').catch(() => {})
+}
+startWhenReady(before, startApp, { onLate: () => { window.__vmxMoveSkip = true } })
