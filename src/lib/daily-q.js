@@ -30,7 +30,8 @@
 
 import { yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { detectCurrentPhase } from './current-phase.js';
-import { questionInScope, scopeForPhase } from './exam-scope.js';
+import { questionInScope, scopeForPhase, topicOnPaper } from './exam-scope.js';
+import { SUBJECT_PAPERS, PAPER_COVERED_YEARS } from '../data/exam-papers.generated.js';
 import { sweepStaleKeys } from './storage-gc.js';
 import { isTextOnlyQuestion } from './question-surfaces.js';
 
@@ -58,7 +59,8 @@ function hashStr(str) {
   return h >>> 0;
 }
 
-export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
+// `hiddenTopics` is the curriculum's own lookup; a test may hand in another.
+export function pickTodaysQ(qb, dateStr = todayKey(), { year = null, hiddenTopics = hiddenTopicIdsFor } = {}) {
   if (!Array.isArray(qb) || qb.length === 0) return null;
   // Filter to MCQ-only, has options, not flagged, not scaffold subject
   let pool = qb.filter((q) =>
@@ -70,32 +72,45 @@ export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
     // off a figure or a passage cannot be answered there.
     isTextOnlyQuestion(q)
   );
+  // Hidden topics are excluded from every advertised count and every pool
+  // (exam-pool.js does the same), so the class question must not come from
+  // one: the app would be handing out a question it says does not exist.
+  // Once per subject, not once per question, like exam-pool.js. They go
+  // before the paper filter below, so a paper whose questions all sit in
+  // hidden topics falls back to the year's pool instead of to nothing.
+  const hiddenBySubject = new Map();
+  const hiddenFor = (subject) => {
+    let hidden = hiddenBySubject.get(subject);
+    if (!hidden) {
+      hidden = hiddenTopics(subject);
+      hiddenBySubject.set(subject, hidden);
+    }
+    return hidden;
+  };
+  pool = pool.filter((q) => !hiddenFor(q.subject).has(q.topic));
   if (year != null) {
     pool = pool.filter((q) => yearForSubject(q.subject) === year);
     // Only the paper in scope that day: from the timetable and the date, so the
     // whole class still gets one question. A midterm topic's question handed out
     // in the final weeks reads as the two papers mixed (Palm, 10 Nov 2569).
     // Between terms, with no paper ahead, the year's pool stands.
-    const paper = scopeForPhase(detectCurrentPhase(new Date(`${dateStr}T12:00:00+07:00`), year));
+    const phase = detectCurrentPhase(new Date(`${dateStr}T12:00:00+07:00`), year);
+    const paper = scopeForPhase(phase);
     if (paper) {
-      const onPaper = pool.filter((q) => questionInScope(q, paper));
+      // Scope alone let other papers in: an unknown scope is kept, and it says
+      // nothing of the term. So also the course's term (topicOnPaper: a
+      // course taught in the other term sits neither of this term's papers)
+      // and, where the year's timetable is published, that the course sits
+      // this paper at all (VCA practice and a course with no written paper
+      // sit none). questionInScope still drops a question marked continuous.
+      const timetabled = PAPER_COVERED_YEARS.includes(year);
+      const sitsPaper = (subject) => !timetabled
+        || SUBJECT_PAPERS[subject] === paper || SUBJECT_PAPERS[subject] === 'both';
+      const onPaper = pool.filter((q) => sitsPaper(q.subject)
+        && topicOnPaper(q.subject, q.topic, phase) && questionInScope(q, paper));
       if (onPaper.length) pool = onPaper;
     }
   }
-  // Hidden topics are excluded from every advertised count and every pool
-  // (exam-pool.js does the same), so the class question must not come from
-  // one: the app would be handing out a question it says does not exist.
-  // Once per subject, not once per question, like exam-pool.js.
-  const hiddenBySubject = new Map();
-  const hiddenFor = (subject) => {
-    let hidden = hiddenBySubject.get(subject);
-    if (!hidden) {
-      hidden = hiddenTopicIdsFor(subject);
-      hiddenBySubject.set(subject, hidden);
-    }
-    return hidden;
-  };
-  pool = pool.filter((q) => !hiddenFor(q.subject).has(q.topic));
   if (pool.length === 0) return null;
   // Stable order, so the pick depends only on (year, date) — never on the
   // order the lazy bank chunks happened to resolve in.

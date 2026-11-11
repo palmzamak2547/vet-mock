@@ -9,7 +9,10 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { SUBJECTS, hiddenTopicIdsFor } from '../../src/data/curriculum.js';
+import { SUBJECTS, hiddenTopicIdsFor, semesterForSubject } from '../../src/data/curriculum.js';
+import { SUBJECT_PAPERS } from '../../src/data/exam-papers.generated.js';
+import { detectCurrentPhase } from '../../src/lib/current-phase.js';
+import { questionInScope, scopeForPhase } from '../../src/lib/exam-scope.js';
 import {
   pickTodaysQ, readTodaysQStatus, recordTodaysQAnswer, getDailyQResultForDate, dailyQStreak, todayKey, TODAY_KEY_PREFIX,
 } from '../../src/lib/daily-q.js';
@@ -56,6 +59,44 @@ test('in the final weeks the daily question never comes from a midterm topic', (
   // Before the midterm the same bank serves its midterm topic.
   const sept = new Set(Array.from({ length: 10 }, (_, i) => pickTodaysQ(bank, `2026-09-${String(i + 1).padStart(2, '0')}`, { year: 5 })?.topic));
   assert.ok(sept.has('swine-gi-viral'), 'the midterm weeks still draw midterm topics');
+});
+
+test('over the real bank, every day of the Year-5 final weeks picks a course that sits that paper', async () => {
+  // A swine-only bank could not show it: questions of unknown scope were kept,
+  // and nothing asked whether the course sits this paper or is taught this
+  // term, so VCA practice and term-2 courses filled most November days.
+  const { QB, loadQB } = await import('../../src/data/questions.js');
+  await loadQB();
+  const { isQuestionDeliverable } = await import('../../src/data/question-delivery.generated.js');
+  const bank = QB.filter(isQuestionDeliverable);
+  let checked = 0;
+  for (let d = new Date('2026-09-26T00:00:00Z'); d <= new Date('2026-12-04T00:00:00Z'); d.setUTCDate(d.getUTCDate() + 1)) {
+    const day = d.toISOString().slice(0, 10);
+    const phase = detectCurrentPhase(new Date(`${day}T12:00:00+07:00`), 5);
+    if (scopeForPhase(phase) !== 'final') continue;
+    const q = pickTodaysQ(bank, day, { year: 5 });
+    assert.ok(q, `${day}: the final has questions, so one is picked`);
+    const sits = SUBJECT_PAPERS[q.subject];
+    assert.ok(sits === 'final' || sits === 'both', `${day}: ${q.subject} sits no final`);
+    assert.equal(semesterForSubject(q.subject), 1, `${day}: ${q.subject} is not taught this term`);
+    assert.ok(questionInScope(q, 'final'), `${day}: ${q.subject}:${q.id} is not on the final`);
+    // One question for the whole class, whatever order the bank loaded in.
+    assert.equal(pickTodaysQ([...bank].reverse(), day, { year: 5 }), q, `${day}: the pick depends on bank order`);
+    checked += 1;
+  }
+  assert.ok(checked >= 30, `the final weeks were walked (${checked} days)`);
+});
+
+test('a paper whose only questions sit in a hidden topic falls back to the year, not to nothing', () => {
+  // No hidden topic of this term sits a paper today, so the lookup is handed
+  // in: swine-asf (a final topic) hidden, swine-gi-viral (midterm) visible.
+  const hiddenTopics = (subject) => new Set(subject === 'swine-clinic' ? ['swine-asf'] : []);
+  const hidden = mcq('swine-clinic', 'swine-asf', 300);
+  const elsewhere = mcq('swine-clinic', 'swine-gi-viral', 301);
+  for (let day = 10; day <= 22; day++) {
+    const q = pickTodaysQ([hidden, elsewhere], `2026-11-${day}`, { year: 5, hiddenTopics });
+    assert.equal(q?.id, 301, `11-${day}: the hidden question's paper emptied the pool`);
+  }
 });
 
 // ── A localStorage the module can sweep ───────────────────────────────
