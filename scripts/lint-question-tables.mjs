@@ -93,7 +93,7 @@ export function lintQuestionTables(questions) {
       else if (typeof q.explain !== 'string' || !q.explain.trim()) problems.push(`${id} explainSay: only an explanation keeps a paragraph`);
       else {
         const [said, shown] = [numbersOf(q.explainSay), numbersOf(q.explain)];
-        const held = numbersOf([q.explainSay, q.q, q.passage, ...(Array.isArray(q.options) ? q.options : [])].filter(Boolean).join('\n'));
+        const held = numbersOf([q.explainSay, q.q, q.passage, q.passage_title, ...(Array.isArray(q.options) ? q.options : [])].filter(Boolean).join('\n'));
         const unshown = [...said].filter((n) => !shown.has(n));
         const brought = [...shown].filter((n) => !held.has(n));
         if (unshown.length) problems.push(`${id} explainSay: the voice says ${unshown.join(', ')}, which the explanation on screen does not show`);
