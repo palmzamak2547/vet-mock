@@ -3467,12 +3467,18 @@ html.dark .vmx-panic-scrim {
 /* The review card's figure leaves room for the button that turns the card over.
    At 320 px it put "แสดงคำตอบ" under the bottom bar on a 375x812 phone for every
    tall picture and under the fold at 1280x800. The cap follows the screen: what
-   is left of its height after the header, the card's own padding, a short stem
-   and the button (640 px of them on a phone, 520 on a wide screen), never under
-   120 px and never over the 320 px it was. */
-.vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100vh - 520px))); }
+   is left of its height after the header, the card's own padding, a stem of up
+   to four lines on a phone (three on a wide screen) and the button, measured
+   as 654 px on a phone and 560 px on a wide screen. Never under 120 px, which
+   on a screen 664 px high still leaves the button a short scroll away, and
+   never over the 320 px it was. */
+.vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100vh - 560px))); }
 @media (max-width: 640px) {
-  .vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100vh - 640px))); }
+  .vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100vh - 654px))); }
+  /* The height with the browser's bars showing, where a browser knows it. */
+  @supports (height: 100svh) {
+    .vmx-flashcard { --vmx-sr-figure-max: min(320px, max(120px, calc(100svh - 654px))); }
+  }
 }
 .vmx-flashcard .front { font-size: 20px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-flashcard .back { font-size: 17px; line-height: 1.5; color: var(--clr-ink); border-top: 1px dashed var(--clr-border); padding-top: 20px; margin-top: 20px; }
