@@ -127,18 +127,19 @@ export default function QSourceChip({ q, revealed = false }) {
         title={!revealed ? 'แหล่งที่มาเต็มจะแสดงหลังเห็นเฉลย' : (open ? 'ซ่อนแหล่งที่มา' : 'ดูแหล่งที่มาของข้อนี้')}
       >
         <NavIcon name="book" size={16} />
+        {/* With a paper tag the line wraps instead of cutting: on a phone the
+            cut fell before the paper's name, and the tag then corrected a
+            word nobody could see. */}
         <span style={{
           flex: 1,
           minWidth: 0,
-          display: 'flex',
-          gap: 4,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: paperTag ? 'normal' : 'nowrap',
           letterSpacing: 0,
         }}>
-          <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            ที่มา: {summary}
-          </span>
-          {/* Its own part, so a long origin cut short never cuts the tag. */}
-          {paperTag && <span className="vmx-qsource-tag" style={{ flex: '0 0 auto', whiteSpace: 'nowrap' }}>{paperTag}</span>}
+          ที่มา: {summary}
+          {paperTag && <> <span className="vmx-qsource-tag" style={{ whiteSpace: 'nowrap' }}>{paperTag}</span></>}
         </span>
         {/* Full opacity: at 0.7 this 11px hint measured 3.48:1 in light and
             3.91:1 in dark, under the 4.5 floor. */}

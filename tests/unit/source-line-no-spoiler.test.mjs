@@ -405,11 +405,14 @@ test('the paper tag shows after the answer, and only where the line itself names
     assert.ok(after.includes(scopeOfQuestion(q) === 'final' ? '(รุ่นนี้อยู่ปลายภาค)' : '(รุ่นนี้อยู่กลางภาค)'), `${q.subject}#${q.id}`);
   }
   assert.ok(tagged > 150 && tagged < clash.length, `tagged ${tagged} of ${clash.length}: a line that names no paper keeps the note in the panel only`);
-  // The tag is its own part of the line, so a long origin cut short keeps it.
+  // With a tag the line wraps rather than cutting off the paper's name the tag corrects.
   const q = clash.find((x) => originPaperTag(x, sourceLineAfterAnswer(x)));
-  const span = findAll(render(q, { revealed: true }).raw, (n) => n.props?.className === 'vmx-qsource-tag');
+  const raw = render(q, { revealed: true }).raw;
+  const span = findAll(raw, (n) => n.props?.className === 'vmx-qsource-tag');
   assert.equal(span.length, 1);
-  assert.equal(span[0].props.style.flex, '0 0 auto');
+  assert.equal(span[0].props.style.whiteSpace, 'nowrap');
+  const line = findAll(raw, (n) => n.type === 'span' && findAll(n.props.children, (c) => c === span[0]).length > 0)[0];
+  assert.equal(line.props.style.whiteSpace, 'normal');
 });
 
 test('the caution chip is for a disputed key only; a minor note is a หมายเหตุ in the panel', () => {
