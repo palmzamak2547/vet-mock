@@ -92,7 +92,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.1',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }] },
 
-  { id: 8204, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8204, noShuffle: true, flag: { severity: 'major', note: 'คำอธิบายของข้อนี้นับ Infectious canine hepatitis และ Salmonella ว่าทำให้เลือดออก ทั้งที่ทั้งสองอยู่ในตัวเลือกที่เป็นเฉลย ตัวเลือก Porcine dermatitis and nephropathy syndrome, Infectious bronchitis, Ancylostomiasis ก็เถียงได้พอกัน' }, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['hemorrhage', 'coagulopathy', 'differential'], type: 'mcq',
@@ -648,7 +648,7 @@ export const QB_Y5_PATHO = [
     explain: 'Liver failure ก็ทำให้เกิด PU/PD ได้ผ่าน:\n- ลด urea synthesis → medullary washout → reduced concentrating ability\n- Hepatic encephalopathy → polydipsia\n→ ตามตำรา ทุกข้อทำ PU/PD ได้ ข้อนี้จึงยังมีข้อโต้แย้งว่าคำตอบที่ถูกคือ "ผิดทุกข้อ"',
     verified: 'Final Patho prac.pdf p.8-9',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 8 }, { doc: 'final-patho-prac', edition: '15p', page: 9 }],
-    flag: { note: 'Vet 81 ตอบ Liver failure แต่คำอธิบายของรุ่นพี่และตำราตอบ \"ผิดทุกข้อ เพราะพบหมด\" เพราะ liver failure ก็ทำให้เกิด PU/PD ได้', sources: ['Final Patho prac.pdf p.8-9'], severity: 'major' } },
+    flag: { note: 'Vet 81 ตอบ Liver failure แต่คำอธิบายของรุ่นพี่และตำราตอบ \"ผิดทุกข้อ เพราะพบหมด\" เพราะ liver failure ก็ทำให้เกิด PU/PD ได้ เฉลยในคลังของข้อนี้ยังเป็น Liver failure ตาม Vet 81', sources: ['Final Patho prac.pdf p.8-9'], severity: 'major' } },
 
   { id: 8236, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',

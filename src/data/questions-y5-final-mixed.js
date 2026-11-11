@@ -256,7 +256,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 1,
     explain: 'กลุ่มโรคที่เกี่ยวข้องกับ PCV2 (PCVAD) ได้แก่ PMWS, reproductive disease ที่ทำให้แท้งช่วงท้าย, PDNS, PRDC, PNP และ PCV2 necrotic enteritis อาการเด่นคือผอมแห้ง หายใจลำบาก โลหิตจาง บางครั้งท้องเสียและดีซ่าน ร่วมกับรอยโรคในเนื้อเยื่อน้ำเหลือง คู่ต่อมน้ำเหลืองโตทั่วตัวกับท้องเสีย คู่ดีซ่านกับผอมแห้ง และคู่ reproductive failure กับ hepatitis ที่ทำให้ดีซ่าน จึงเข้ากับ PCVAD ส่วน mesocolon edema เป็นรอยโรคของ Clostridium difficile ในลูกสุกรแรกเกิดและของ edema disease ไม่ใช่ของ PCV2 คู่นี้จึงเป็นคำตอบ แม้ diffuse pneumonia ที่อยู่ในคู่เดียวกันจะเข้ากับโรคระบบหายใจจาก PCV2 ได้ก็ตาม',
     verified: 'สรุป 80 p.6 (Vet 83 marked B "Mesocolon edema = ไม่ใช่ PCVAD")',
-    flag: { note: 'คำตอบนี้ยึด mesocolon edema ซึ่งเป็นรอยโรคของ Clostridium difficile และ edema disease ไม่ใช่ PCV2 แต่คู่ diphtheritic colitis กับ PDNS ก็มี diphtheritic colitis ซึ่งไม่อยู่ในกลุ่ม PCVAD โดยตรงเช่นกัน (ลำไส้อักเสบของ PCV2 เป็นแบบ necrotic enteritis) ข้อนี้จึงเถียงได้ระหว่างสองคู่', severity: 'major' } },
+    flag: { note: 'เฉลยในคลังคือคู่ที่มี mesocolon edema เพราะเป็นรอยโรคของ Clostridium difficile และ edema disease ไม่ใช่ PCV2 แต่คู่ diphtheritic colitis กับ PDNS ก็เถียงได้ เพราะ diphtheritic colitis ไม่อยู่ในกลุ่ม PCVAD โดยตรงเช่นกัน (ลำไส้อักเสบของ PCV2 เป็นแบบ necrotic enteritis)', severity: 'major' } },
 
   { id: 8021, subject: 'swine-clinic', topic: 'swine-resp-viral', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -525,7 +525,7 @@ export const QB_Y5_FINAL_MIXED = [
     explain: 'S. choleraesuis = septicemic salmonella ใน pig → diffuse interstitial pneumonia + multi-organ\n→ "diffuse pneumonia" ลักษณะ pattern systemic\n\n❌ ข้ออื่น\n— P. multocida = bronchopneumonia (secondary)\n— S. suis II = meningitis เด่น\n— M. hyo = cranioventral specific ไม่ใช่ diffuse\n— APP = caudo-dorsal pleuropneumonia',
     verified: 'สรุป 80 p.13 (Vet 83 marked B "S. choleraesuis")' },
 
-  { id: 8047, noShuffle: true, subject: 'vca', topic: 'dogcat', year: 5,
+  { id: 8047, noShuffle: true, flag: { severity: 'unclear', note: 'ตัวเลือก C ถึง E เป็นข้อความจากการสแกนที่อ่านไม่ออก รอถอดใหม่จากต้นฉบับ' }, subject: 'vca', topic: 'dogcat', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['liver-pathology', 'Pasteurella'], type: 'mcq',

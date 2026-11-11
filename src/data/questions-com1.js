@@ -317,8 +317,8 @@ export const QB_COM1 = [
     "explain": "Localization rule (Ettinger):\n• Extrathoracic upper airway (nose/larynx/cervical trachea) → INSPIRATORY effort เด่น (intraluminal pressure ลบช่วง inspire → collapse เพิ่ม)\n• Intrathoracic airway (intrathoracic trachea/bronchi) → EXPIRATORY effort (positive pleural pressure ช่วง expire → ดัน airway collapse)\n• Tracheal collapse classic ตำแหน่ง cervical = inspiratory, thoracic inlet = mixed, intrathoracic = expiratory\n\n💡 หมา toy breed (Pomeranian, Yorkie, Poodle) + goose-honk cough + inspiratory stridor = tracheal collapse cervical\n\n⚠ Note: Q จาก COM 86 #59 ระบุ abdominal push + obstructive pattern → fit obstructive (Hand off exam grade dyspnea)",
     "verified": "Modified Com1 final TJ (Resp Q9 + breathing pattern flowchart) + COM I Final 86 Q59, lecturer ณัฐวรรณ. Note: original question source pdf ระบุ Expiratory ใน TJ key — flag: 'extrathoracic→inspiratory เป็นหลัก แต่ stem 86 มี abdominal push (expiratory effort) อาจ imply intrathoracic หรือ mixed' ดู verified field",
     "flag": {
-      "severity": "minor",
-      "note": "เฉลยในชีท TJ ตอบ Expiratory dyspnea แต่ตามที่สอนกันทั่วไป รอยโรคนอกช่องอกทำให้หายใจเข้าลำบาก (inspiratory) และโจทย์ชี้ไปทางการอุดกั้นโดยรวม ข้อนี้จึงใช้ inspiratory ตาม flowchart รูปแบบการหายใจ"
+      "severity": "major",
+      "note": "ชีท TJ เฉลย \"Expiratory dyspnea\" — ตามที่สอนกันทั่วไป รอยโรคนอกช่องอกทำให้หายใจเข้าลำบาก และโจทย์ชี้ไปทางการอุดกั้น จึงควรเป็น Inspiratory dyspnea ตาม flowchart รูปแบบการหายใจ"
     }
   },
   {
