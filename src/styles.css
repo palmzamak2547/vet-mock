@@ -2997,11 +2997,12 @@ html.dark .vmx-panic-scrim {
 /* The pad keeps the page still under a pen or a finger. */
 .vmx-hand-pad { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 /* AnswerReveal: when a matching set or a written answer shows เฉลย. */
-/* Its labels keep one line each, and the switch takes a line of its own when
-   it does not fit beside its hint: squeezed, it wrapped into a tall blob. */
-.vmx-reveal-toggle { display: inline-flex; flex: none; max-width: 100%; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-.vmx-reveal-toggle button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; padding: 5px 11px; cursor: pointer; white-space: nowrap; }
-@media (max-width: 300px) { .vmx-reveal-toggle button { white-space: normal; } }
+/* The switch wraps as a whole: each choice keeps its words together and moves
+   to the next line when it does not fit, at any width and any text size
+   (squeezed it wrapped into a tall blob; held to one line it was cut at a 200%
+   text size). */
+.vmx-reveal-toggle { display: inline-flex; flex-wrap: wrap; flex: none; max-width: 100%; border: 1px solid var(--clr-border); border-radius: 16px; overflow: hidden; margin-top: 6px; }
+.vmx-reveal-toggle button { flex: 1 1 auto; appearance: none; border: 0; border-radius: 16px; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; padding: 5px 11px; cursor: pointer; }
 .vmx-reveal-toggle button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-reveal-toggle button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-match-why { margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
