@@ -292,7 +292,9 @@ test('every lazy() screen App declares stays off the boot path', () => {
   // exists, is loaded with import() from the boot path, and is not also
   // imported statically, which would fold it into the entry chunk.
   const source = read('src/app/lazy-views.js');
-  const specs = [...source.matchAll(/lazy\(\(\) => import\('([^']+)'\)\)/g)].map((m) => m[1]);
+  // lazyWithRetry is lazy() that can be tried again (the search palette).
+  const specs = [...source.matchAll(/(?:lazy|lazyWithRetry)\(\(\) => import\('([^']+)'\)\)/g)].map((m) => m[1]);
+  assert.ok(specs.includes('../components/CommandPalette.jsx'), 'the search palette is no longer a lazy declaration');
   assert.ok(specs.length >= 50, `found only ${specs.length} lazy() declarations`);
   const lazy = lazyFromBoot();
   const boot = staticReach('src/main.jsx');

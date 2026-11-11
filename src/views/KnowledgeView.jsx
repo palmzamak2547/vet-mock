@@ -43,6 +43,7 @@ import RelatedDocs from '../components/RelatedDocs.jsx';
 import { fetchRelatedDocs } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
+import { OverlayPending } from '../components/TopLoadingBar.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
 import Mochi from '../components/Mochi.jsx';
@@ -1250,7 +1251,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           onJump={jumpFromSheet} onClose={() => setSheetOpen(false)} />
       )}
       {cardOpen && (
-        <OptionalFeature label="การ์ดหัวข้อ" onClose={() => setCardOpen(false)}>
+        <OptionalFeature label="การ์ดหัวข้อ" onClose={() => setCardOpen(false)} pending={<OverlayPending label="กำลังเปิดการ์ดหัวข้อ" />}>
           <WikiTopicCard
             subject={current.subject} topic={current.topic} title={knowledge.title}
             subjectName={subjectName(current.subject)} chapter={chapter}

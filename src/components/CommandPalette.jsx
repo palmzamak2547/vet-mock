@@ -17,7 +17,9 @@ import Mochi from './Mochi.jsx';
 // the user is NOT typing in an input/textarea/contenteditable.
 // ============================================================
 
-import { useState, useEffect, useMemo, useRef, useId } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo, useRef, useId } from 'react';
+// What the student typed into the frame shown while this chunk downloaded.
+import { peekPaletteHandoff, clearPaletteHandoff } from '../lib/palette-handoff.js';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { getUpcomingExams, fmtThaiDate } from '../data/schedule.js';
 // CommandPalette only needs {title, subject, instructor} for search —
@@ -942,8 +944,12 @@ export default function CommandPalette({
   isAdmin = false,
   ...handlers
 }) {
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  // The frame (PaletteFrame) held the box while this chunk downloaded: its
+  // text is the first query, and focus goes back where the frame found it.
+  const [handoff] = useState(() => peekPaletteHandoff());
+  const [query, setQuery] = useState(() => handoff?.text || '');
+  const [debouncedQuery, setDebouncedQuery] = useState(() => handoff?.text || '');
+  const handoffReturnRef = useRef(handoff?.returnTarget || null);
   const [activeIdx, setActiveIdx] = useState(0);
   const [expandedGroups, setExpandedGroups] = useState(() => new Map());
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
@@ -1033,7 +1039,21 @@ export default function CommandPalette({
     try { rec.start(); } catch { recRef.current = null; setVoice('error'); }
   };
   useEffect(() => () => { try { recRef.current?.stop(); } catch { /* unmount race */ } }, []);
-  const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
+  const dialogRef = useModalFocus({
+    active: open, onClose, initialFocusRef: inputRef,
+    returnFocusRef: handoff?.returnTarget ? handoffReturnRef : undefined,
+  });
+  // Taking over from the frame: focus the box in this commit, caret at the
+  // end, so typing goes on without a key lost to the swap.
+  useLayoutEffect(() => {
+    clearPaletteHandoff();
+    if (!handoff) return;
+    const input = inputRef.current;
+    if (!input) return;
+    input.focus({ preventScroll: true });
+    const end = input.value.length;
+    try { input.setSelectionRange(end, end); } catch { /* not a text box */ }
+  }, []);
   const listRef = useRef(null);
 
   const notesOwner = notes === undefined ? safeReadLS('vmx-user-sync-owner-v1', null) : ownerId;
