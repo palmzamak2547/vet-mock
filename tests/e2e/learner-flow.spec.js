@@ -106,3 +106,15 @@ test('the X and the browser Back ask the same question, and it keeps the set', a
   await expect(page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ })).toBeVisible();
 });
 
+// item 4
+for (const scheme of ['light', 'dark']) {
+  test(`the results card's pass flag clears the score line, and the time reads as one phrase (${scheme})`, async ({ page, context }) => {
+    await page.emulateMedia({ colorScheme: scheme });
+    await openResults(page, context, 375);
+    const flag = await page.locator('.vmx-benchmark-flag').boundingBox();
+    const frac = await page.locator('.vmx-score-frac').boundingBox();
+    expect(flag.y, 'the 60% flag touches the n / m line').toBeGreaterThanOrEqual(frac.y + frac.height + 2);
+    await expect(page.locator('.vmx-pacing-telemetry')).toHaveText(/^เวลารวม \d+:\d\d, เฉลี่ย \d+ วิ\/ข้อ$/);
+  });
+}
+

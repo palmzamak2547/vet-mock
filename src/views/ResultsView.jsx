@@ -413,10 +413,8 @@ export default function ResultsView({
         {receiverDurationSec != null && receiverDurationSec > 0 && (
           <div className="vmx-pacing-telemetry">
             <NavIcon name="exam" size={13} />
-            <span>เวลารวม {fmtTimeSec(receiverDurationSec)}</span>
-            {questions?.length > 0 && (
-              <span>, เฉลี่ย {Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ</span>
-            )}
+            {/* One text run: as two flex items the gap put a space before the comma. */}
+            <span>{`เวลารวม ${fmtTimeSec(receiverDurationSec)}${questions?.length > 0 ? `, เฉลี่ย ${Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ` : ''}`}</span>
           </div>
         )}
       </div>

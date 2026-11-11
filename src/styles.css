@@ -3220,7 +3220,9 @@ html.dark .vmx-panic-scrim {
    Direct clinical comparison against the standard 60% faculty/practice pass line. */
 .vmx-benchmark-container {
   max-width: 320px;
-  margin: 18px auto 6px;
+  /* Room for the flag above the track (one 14 px line), so it never
+     touches the "n / m ถูก" line above it. */
+  margin: 36px auto 6px;
   text-align: left;
 }
 .vmx-benchmark-track {
@@ -3249,7 +3251,8 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-benchmark-flag {
   position: absolute;
-  top: -20px;
+  bottom: calc(100% + 2px);
+  line-height: 1.35;
   transform: translateX(-50%);
   font-family: var(--vmx-mono);
   font-size: 14px;
