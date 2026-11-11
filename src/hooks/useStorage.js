@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { readStoredJson } from '../lib/stored-json.js';
 
 export const storage = {
   // A missing key, an unreadable value and a stored JSON null all read as the
@@ -8,12 +9,7 @@ export const storage = {
   // stores null to mean something other than its default
   // (tests/unit/use-storage.test.mjs lists them).
   get(key, fallback) {
-    try {
-      const v = window.localStorage.getItem(key);
-      if (!v) return fallback;
-      const parsed = JSON.parse(v);
-      return parsed === null ? fallback : parsed;
-    } catch { return fallback; }
+    return readStoredJson(key, fallback);
   },
   set(key, value) {
     try { window.localStorage.setItem(key, JSON.stringify(value)); } catch {}
