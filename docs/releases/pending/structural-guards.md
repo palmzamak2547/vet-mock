@@ -74,10 +74,18 @@ Tooling and tests only: nothing a student sees and nothing about scoring changes
   longer happens, so it only shrinks. CI runs it on a runner of its own (`route sweep`,
   chromium-mobile, `VMX_ROUTE_SWEEP=1`); every other runner skips it, because chromium mobile
   already used 6.9 of its 14 minutes on #207.
-- **Proof.** 37 routes x 2 personas, 75 tests with the two checks. Chromium mobile alone: all 71
-  route tests passed. All four engines at once on one machine (SWEEP_ALL). The detector self-test
-  catches all five kinds. Main fails no route today: `KNOWN` is empty.
-- **Unproven.** Its CI time (estimated 8-10 job-minutes on its own runner, parallel to the others,
+- **Proof.** 35 routes (33 from `APP_VIEW_ROUTES`, `/wiki`, `/#lab`) x 2 personas, 72 tests
+  with the registry check and the detector self-test, which catches all five kinds. Chromium mobile
+  alone: 71 of 71 passed. All four engines at once on one loaded Windows machine (two other lanes'
+  builds and e2e running): chromium-desktop 72 of 72; chromium-mobile 70 and webkit-mobile 66, the
+  other 2 and 6 (student visits to progress, questions, study, schedule, videos, privacy) over the
+  first 60-second budget, then all 8 passed on a rerun with a 120-second budget and 2 workers;
+  Firefox 22 passed and 50 timed out in the browser itself (`page.goto` and `addInitScript`
+  protocol errors, context teardown), which is this machine's headless Firefox, not the app. No
+  engine reported a single console, request, blank, overflow or text failure: main fails no route
+  today and `KNOWN` is empty.
+- **Unproven.** Firefox coverage (CI runs the sweep on chromium-mobile only; locally Firefox did
+  not finish under load). Its CI time (estimated 8-10 job-minutes on its own runner, parallel to the others,
   so no longer wall-clock). Screens that need a running set or an account (topic, config, exam,
   results, review, notes, group, connect) are listed in `NOT_ROUTED` and not opened. Some student
   screens still showed a loading line after 8 s on a loaded machine (reported as a `still-loading`
