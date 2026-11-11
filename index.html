@@ -576,6 +576,9 @@
       ]
     }
     </script>
+    <!-- Palette before first paint (src/lib/prefs/table.js); "สีของฉัน" adds its
+         derived sheet (src/lib/prefs/accent.js), checked before it is used. -->
+    <script>try{var d=document.documentElement,l=localStorage,p=JSON.parse(l.getItem('vmx-palette')||'0'),c=l.getItem('vmx-accent-css');if(p&&p!='default')d.setAttribute('data-palette',p);if(p=='custom'&&/^[\[\]a-z0-9="#:;{}. -]+$/i.test(c||'')){var s=document.createElement('style');s.id='vmx-accent-sheet';s.textContent=c;document.head.appendChild(s)}}catch(e){}</script>
   </head>
   <body style="margin: 0;">
     <div id="root"></div>
