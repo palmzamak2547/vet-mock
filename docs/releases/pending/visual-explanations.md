@@ -4,18 +4,12 @@
 // headline: 'เฉลยบางข้อมีภาพอธิบาย'
 ```
 
-## Where I stopped (11 Nov, machine shut down)
+## State (11 Nov, after the resume)
 
-**Review 1 (data and code): done.** Passage keys never shown (withoutKeys in FigureSlot `passage`, lint refuses `| key` in a passage); a failed chunk falls back to explainSay or the figure in words (`figure-slot-fallback.test.mjs`); every reader of explain/passage goes through explainText/passageText (`figure-readers.test.mjs`); stricter lint (8 of the review's 11 bad edits caught; the other 3 target figures that no longer exist, their equivalents on kept figures are caught in `figure-spec.test.mjs`); parser gaps refused (`figure-check.js`); the speech test restored with an explicit list.
-
-**Review 2 (reading, motion, access): done in code, not yet proven on four engines.** Five figures back to main byte for byte; four kept beside their whole text; `\s+` fixed with a test; full list-style descriptions; width-true layout (`figureLayout(fig, width)`) held before paint; one accent; one dash meaning; 3:1 lines, no grid paper; Thai compounds kept whole (`Intl.Segmenter`); emphasis-only motion; house icons removed; too-narrow widths list the figure in words. To fit the first-load budget the parser and layout moved to a lazy core chunk (figure-spec.js) that FigureSlot loads and warmFigure prefetches.
-
-**What was running:** nothing of mine. The build + perf-budget + four-engine e2e was queued behind other lanes' locks and was stopped before it started. The last build that ran (before the core chunk moved out) was over budget: firstLoad JS 228,773 B against 227,900, exam JS 156,632 against 156,600. Unit tests for the figures pass (47); `lint:question-figures`, `lint:question-tables`, `lint:css-tokens`, `lint:exam-recurrence`, `lint:source-line` pass.
-
-**Next three steps:**
-1. Under the lock: `npm run build && npm run perf:budget` (confirm the core chunk brought both routes under budget without raising one) and the four-engine run of `tests/e2e/explain-figures.spec.js` (fresh answer, 320/360/188 px, late chunk).
-2. Re-shoot the four at 320, 360, 375, 188 and 1280 in light and dark (`scratchpad/shots2.mjs`), look at each, rebuild the contact sheet.
-3. `npm run lint:data` and `npm run test:unit` once, then push the branch (no pull request) and report to the coordinator.
+- **Budgets, measured** (`npm run build && npm run perf:budget`, gzip): before the figure code left the main path, first load JS 228,773 B (budget 227,900, over by 873) and the exam route 156,632 B (budget 156,600, over by 32). After the parser and layout moved to a lazy core and the card kept only a loader: first load JS 225,826 B, exam route 156,371 B, first-load CSS 46,559 B (budget 47,900); all 9 routes within budget, none raised.
+- **What loads where:** the card carries `FigureSlot.jsx` (a loader) and the fence-finding in `rich-blocks.js`. Lazy, asked for while a practice question with a figure is read (`warmFigure`) or when a figure is about to show: `FigureBox` (figure-spec.js with it: read, lay out for the measured width, hold the box) 3.35 KB, `ExplainFigure` 4.47 KB JS + 2.18 KB CSS.
+- **Unproven until CI runs on four engines:** every case of `tests/e2e/explain-figures.spec.js` since review 2, including the 320, 360 and 188 px cases and the late-chunk case, which have never run. Also unproven: the held height against the drawn height on Firefox and WebKit; the hold before the core arrives on a surface other than practice (the review list, the SR card), where the box starts empty and takes its height when the core lands.
+- **Still to do:** the re-shoot of the four at 320, 360, 375, 188 and 1280 in light and dark, and the contact sheet, for a second reading-and-access review.
 
 # Figures in explanations (prototype)
 
@@ -117,7 +111,7 @@ Fixed in the four kept and in the components:
 | `/s+/g` deleted the letter s in the screen-reader text | `\s+`, with a test on Latin words that hold an s (`figure-draw.test.mjs`) |
 | The description left things out and joined unrelated steps with แล้ว | it lists every cell, label, value and time, what a formula uses and the way it reads, the answer's mark, separated as a list |
 | Overflow at 320 px, a timeline that spilled onto the paragraph | rows in normal flow, every height from `figureLayout(fig, width)`; a 2x2 moves its row names above the cells when narrow; bars put the value under a full-width bar when narrow; at 200% zoom a figure too narrow to draw is listed in words |
-| The page moved when the drawing arrived late | `FigureSlot` measures its width before paint and holds `figureLayout(fig, width).height`, the height the drawing lays itself out to; the house icons and their lazy styles are gone; e2e case with a 4 s delay |
+| The page moved when the drawing arrived late | `FigureBox` (lazy, loaded by `FigureSlot`) measures its width before paint and holds `figureLayout(fig, width).height`, the height the drawing lays itself out to; the house icons and their lazy styles are gone; e2e case with a 4 s delay |
 | The accent meant two things | sage is the answer only (the answer's fractions, the answer's bar and time); what a formula uses is ink, named ตัวตั้ง and ตัวหาร, with the way to read in words |
 | Dashes meant four things | one: the no-difference line of an interval, a reference that is not a value |
 | Lines under 3:1, the 12 px grid | cell and rail lines are ink or ink-soft; the grid paper is gone |
