@@ -88,7 +88,7 @@ export default function XpChip({ history = null, srCards = null, user = null, re
       // Read again inside the lock: another tab may have just done it.
       const plan = xpToCarry({ user, history: history || [], srCards: srCards || {}, device: getXpState(), ready });
       if (!plan.addQuests && !plan.carry) {
-        if (plan.first) { markCarried(uid, undefined, { owns: plan.owns !== false }); setBump((n) => n + 1); }
+        if (plan.first) { markCarried(uid, undefined, { owns: plan.owns === true }); setBump((n) => n + 1); }
         return;
       }
       const pendingBefore = pendingXp(uid);
@@ -96,7 +96,7 @@ export default function XpChip({ history = null, srCards = null, user = null, re
       const md = await writeAccountXp({ addQuests: plan.addQuests, carry: plan.carry });
       if (!md) return;
       if (plan.first) {
-        markCarried(uid, undefined, { owns: plan.owns !== false });
+        markCarried(uid, undefined, { owns: plan.owns === true });
         // Quest points counted before the carry are inside the carried lead.
         setPendingXp(uid, pendingXp(uid) - (plan.carry ? pendingBefore : plan.addQuests));
       } else {

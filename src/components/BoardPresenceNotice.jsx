@@ -16,7 +16,7 @@ export default function BoardPresenceNotice({ user, rows, scope = 'global', onEd
   const where = scope === 'group' ? 'อันดับของกลุ่มนี้' : 'กระดานนี้';
   let text;
   if (standing.kind === 'hidden') {
-    text = `คุณเลือกไม่แสดงบนกระดาน จึงไม่มีชื่อคุณใน${where} และเพื่อนไม่เห็นคะแนนของคุณ`;
+    text = `คุณเลือกไม่แสดงบนกระดาน จึงไม่มีชื่อคุณใน${where} และเพื่อนไม่เห็นคะแนนของคุณบนกระดาน`;
   } else if (standing.kind === 'ranked') {
     text = `คุณอยู่อันดับ ${standing.rank} จาก ${standing.of} คนใน${where}`;
   } else {

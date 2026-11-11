@@ -47,7 +47,7 @@ test('no carry before the account history has arrived (the early effect)', () =>
   // Had it run on the empty history it would have carried the whole counter.
   // With the history in, the lead is what it should be: nothing.
   const plan = xpToCarry({ user, history, device, storage: st, ready: true });
-  assert.equal(plan.carry.value, 0, 'answers are counted once, from the history');
+  assert.equal(plan.carry, null, 'answers are counted once, from the history: no lead, nothing written');
   markCarried('A', st, { owns: true });
   assert.equal(shownXp({ history, user, device, storage: st }), rebuilt, '3500 stays 3500, not 7000');
 });
@@ -157,33 +157,151 @@ test('a name or picture the database took is drawn safely', () => {
   assert.equal(shownPicture('🐱'), '🐱');
 });
 
-test('every surface that draws another member goes through public-display.js', () => {
-  // Files that read a member's name or picture to draw it. AdminView shows the
-  // raw value on purpose (moderation); FeedbackView sends the student's own
-  // name in a mail; HeaderBar only hands the profile on.
-  const EXEMPT = new Set(['src/views/AdminView.jsx', 'src/views/FeedbackView.jsx', 'src/components/HeaderBar.jsx', 'src/components/IdentityStep.jsx']);
+test('every read of a member name or picture in src is drawn through public-display.js, or named here with why', () => {
+  // A read is `x.username`, `x.avatar_emoji`, `x.author_name` or `x.avatar`,
+  // and destructured `username` / `avatar_emoji`; it is drawn safely when it
+  // sits directly inside shownName( or shownPicture(. Every other read is
+  // listed with its reason, so a new surface that skips the helper fails.
+  const EXEMPT = {
+    'src/components/IdentityEditor.jsx: profile?.username': 'the student\'s own name, put into the input to edit; the preview draws it through shownName',
+    'src/hooks/useStudyBuddies.js: b?.username': 'copies the presence payload into the panel store; StudyBuddiesPanel draws it with shownName',
+    'src/hooks/useStudyBuddies.js: b?.avatar': 'same store copy; drawn with shownPicture',
+    'src/hooks/useStudyBuddies.js: profile?.username': 'the student\'s own name, published to presence; drawn by others through shownName',
+    'src/hooks/useStudyBuddies.js: profile?.avatar_emoji': 'the student\'s own picture, published to presence; drawn through shownPicture',
+    'src/lib/identity-gate.js: md.username': 'compared, never drawn',
+    'src/lib/identity-gate.js: profile.username': 'compared, never drawn',
+    'src/lib/identity-write.js: patch.username': 'the write path',
+    'src/lib/identity-write.js: patch.avatar_emoji': 'the write path',
+    'src/lib/identity-write.js: meta.username': 'the write path',
+    'src/lib/identity-write.js: meta.avatar_emoji': 'the write path',
+    'src/lib/identity-write.js: row.username': 'compared in the free-name check, never drawn',
+    'src/lib/identity-write.js: destructure': 'saveIdentity\'s own arguments',
+    'src/lib/safe-url.js: u.username': 'URL user info, not a member',
+    'src/lib/safe-url.js: parsed.username': 'URL user info, not a member',
+    'src/lib/vca-library.js: url.username': 'URL user info, not a member',
+    'src/views/AccountSettingsView.jsx: profile?.username': 'the student\'s own name, checked and exported; drawn through shownName',
+    'src/views/AccountSettingsView.jsx: profile?.avatar_emoji': 'exported as stored, in the student\'s own file',
+    'src/views/AdminView.jsx: u.avatar': 'the back office shows raw values on purpose, to moderate them',
+    'src/views/AdminView.jsx: u.username': 'back office, raw on purpose',
+    'src/views/AdminView.jsx: row.username': 'back office, raw on purpose',
+    'src/views/AdminView.jsx: row.avatar': 'back office, raw on purpose',
+    'src/views/AdminView.jsx: s.username': 'back office, raw on purpose',
+    'src/views/AdminView.jsx: e.avatar': 'back office, raw on purpose',
+    'src/views/AdminView.jsx: e.username': 'back office, raw on purpose',
+    'src/views/FeedbackView.jsx: profile?.username': 'the student\'s own name, sent in their own feedback mail',
+    'src/views/HomeView.jsx: profile?.username': 'checked by isAutoName; the greeting draws it through shownName',
+    'src/views/ProfileView.jsx: profile?.username': 'the student\'s own name on their card, drawn through shownName',
+  };
   const files = [];
   const walk = (dir) => {
     for (const name of readdirSync(new URL(dir, ROOT))) {
       const rel = `${dir}${name}`;
       if (statSync(new URL(rel, ROOT)).isDirectory()) { if (name !== 'data') walk(`${rel}/`); continue; }
-      if (rel.endsWith('.jsx')) files.push(rel);
+      if (/\.(jsx?|mjs)$/.test(rel)) files.push(rel);
     }
   };
   walk('src/');
-  const draws = /\.(username|avatar_emoji|author_name)\b|\b[a-z]\.avatar\b/;
-  const missing = [];
+  const unlisted = [];
+  const seen = new Set();
   for (const f of files) {
-    if (EXEMPT.has(f)) continue;
-    const s = read(f);
-    if (draws.test(s) && !/from '\.\.\/lib\/public-display\.js'/.test(s)) missing.push(f);
+    const lines = read(f).split('\n');
+    for (const line of lines) {
+      if (/^\s*(\/\/|\*|\/\*)/.test(line)) continue;
+      for (const m of line.matchAll(/([A-Za-z_$][\w$]*(?:\??\.[A-Za-z_$][\w$]*|\[[^\]]+\])*)\??\.(username|avatar_emoji|author_name|avatar)\b/g)) {
+        if (/(shownName|shownPicture)\($/.test(line.slice(0, m.index))) continue;
+        const key = `${f}: ${m[0]}`;
+        seen.add(key);
+        if (!EXEMPT[key]) unlisted.push(key);
+      }
+      if (/\{[^}]*\b(username|avatar_emoji)\b[^}]*\}\s*=/.test(line)) {
+        const key = `${f}: destructure`;
+        seen.add(key);
+        if (!EXEMPT[key]) unlisted.push(key);
+      }
+    }
   }
-  assert.deepEqual(missing, [], 'these draw a member without shownName/shownPicture');
-  // And the raw forms are gone from the surfaces the review named.
-  for (const f of ['src/components/UserMenu.jsx', 'src/views/LeaderboardView.jsx', 'src/views/GroupDetailView.jsx', 'src/components/QComments.jsx', 'src/components/StudyBuddiesPanel.jsx', 'src/views/RaceView.jsx']) {
-    const s = read(f);
-    assert.doesNotMatch(s, /avatar_emoji \|\| '🐾'|\{p\.avatar\}|\{p\.username\}|\{profile\.username\}|\{m\.username\}/, f);
+  assert.deepEqual([...new Set(unlisted)], [], 'these read a member\'s name or picture without shownName/shownPicture and are not listed with a reason');
+  const stale = Object.keys(EXEMPT).filter((k) => !seen.has(k));
+  assert.deepEqual(stale, [], 'listed reads that are gone: take them off the list');
+});
+
+// ── Re-read of ab7036db ────────────────────────────────────────────
+test('a zero lead writes nothing and claims nothing: 200 fresh devices leave the metadata as it was', () => {
+  const history = answers(50);
+  const user = { id: 'A', user_metadata: { xp_quests: 10 } };
+  for (let i = 0; i < 200; i++) {
+    const st = store();
+    const plan = xpToCarry({ user, history, device: { totalXp: 0, lifetimeQs: 0 }, storage: st, ready: true });
+    assert.equal(plan.carry, null, 'nothing to write');
+    assert.equal(plan.owns, false, 'and the counter is not claimed');
   }
+  assert.deepEqual(user.user_metadata, { xp_quests: 10 });
+  assert.match(read('src/components/XpChip.jsx'), /markCarried\(uid, undefined, \{ owns: plan\.owns === true \}\)/);
+});
+
+test('the first account to sign in after the update does not take the device, and a level never falls', () => {
+  // A's phone: A's counter holds 3,300 XP from 600 answers and quest points.
+  const aHistory = answers(600);
+  const aRebuilt = accountXp({ history: aHistory });
+  const device = { totalXp: 3300, lifetimeQs: 600 };
+  const st = store();
+  // B, with 3,000 answers of their own, signs in first.
+  const B = { id: 'B', user_metadata: {} };
+  const bHistory = answers(3000);
+  const bPlan = xpToCarry({ user: B, history: bHistory, device, storage: st, ready: true });
+  assert.equal(bPlan.carry, null, 'B is far ahead of the counter: nothing to carry');
+  markCarried('B', st, { owns: bPlan.owns === true });
+  // A signs in later on the same phone.
+  const A = { id: 'A', user_metadata: {} };
+  const before = shownXp({ history: aHistory, user: A, device, storage: st });
+  const aPlan = xpToCarry({ user: A, history: aHistory, device, storage: st, ready: true });
+  assert.equal(aPlan.carry.value, 3300 - aRebuilt, 'A still carries their own lead');
+  markCarried('A', st, { owns: aPlan.owns === true });
+  const after = shownXp({ history: aHistory, user: { ...A, user_metadata: { xp_carry: { [aPlan.carry.device]: aPlan.carry.value } } }, device, storage: st });
+  assert.equal(before, 3300);
+  assert.equal(after, 3300, 'A\'s level does not fall from 3,300');
+  // The property over every case in this file: what a student sees on the
+  // device they use is never lower after the carry than before it.
+  const cases = [
+    { history: answers(700), device: { totalXp: accountXp({ history: answers(700) }), lifetimeQs: 700 } },
+    { history: answers(990), device: { totalXp: accountXp({ history: answers(990) }) + 300, lifetimeQs: 990 } },
+    { history: answers(100), device: { totalXp: accountXp({ history: answers(100) }) + 800, lifetimeQs: 100 } },
+    { history: answers(50), device: { totalXp: 0, lifetimeQs: 0 } },
+    { history: aHistory, device },
+  ];
+  for (const [i, c] of cases.entries()) {
+    const s2 = store();
+    const u = { id: `u${i}`, user_metadata: {} };
+    const was = shownXp({ history: c.history, user: u, device: c.device, storage: s2 });
+    const plan = xpToCarry({ user: u, history: c.history, device: c.device, storage: s2, ready: true });
+    markCarried(u.id, s2, { owns: plan.owns === true });
+    const md = plan.carry ? { xp_carry: { [plan.carry.device]: plan.carry.value } } : {};
+    const now = shownXp({ history: c.history, user: { ...u, user_metadata: md }, device: c.device, storage: s2 });
+    assert.ok(now >= was, `case ${i}: ${now} >= ${was}`);
+  }
+});
+
+test('the board line names the board, and a second tab stops publishing when hidden elsewhere', () => {
+  assert.match(read('src/components/BoardPresenceNotice.jsx'), /เพื่อนไม่เห็นคะแนนของคุณบนกระดาน/);
+  const src = read('src/hooks/useStudyBuddies.js');
+  assert.match(src, /window\.addEventListener\('storage', onStorage\)/);
+  assert.match(src, /\/\^sb-\.\*-auth-token\$\/\.test\(event\.key\)/);
+});
+
+test('look-alike names are "similar", not "taken"; reserved words only as a whole or a prefix', () => {
+  const editor = read('src/components/IdentityEditor.jsx');
+  assert.match(editor, /free === 'similar' \? 'คล้ายกับชื่อที่มีคนใช้แล้ว ลองชื่ออื่น'/);
+  assert.match(read('src/lib/identity-write.js'), /\? 'taken' : 'similar'/);
+  for (const n of ['Rootbeer', 'Rooti', 'Staffy', 'Systema', 'Ownerin']) assert.equal(checkPublicName(n).ok, true, n);
+  for (const n of ['Owner', 'admin', 'Staff_1', 'vetmock2', 'AdmIn', 'Support 24', 'อาจารย์ปิง', 'ทีมงานVetMock']) assert.equal(checkPublicName(n).ok, false, n);
+});
+
+test('names saved before this release keep showing, and the owner is told when they do not', () => {
+  for (const n of ['ploy55555', 'vet86 2567', 'ping 2026', '081-234-5678']) assert.equal(shownName(n), n, n);
+  for (const n of ['6531234531', '６４３１２３４５６７', '๖๕๓๑๒๓๔๕๓๑', 'x12345678']) assert.equal(shownName(n), 'นิสิต', n);
+  const hub = read('src/views/ProfileView.jsx');
+  assert.match(hub, /const masked = Boolean\(name\) && shownName\(name\) === 'นิสิต'/);
+  assert.match(hub, /เพื่อนเห็นคุณเป็น นิสิต เพราะชื่อนี้อ่านเหมือนรหัสหรืออีเมล แตะการ์ดเพื่อตั้งชื่อใหม่/);
 });
 
 // ── 6. The export copy ─────────────────────────────────────────────

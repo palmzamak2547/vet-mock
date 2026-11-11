@@ -230,6 +230,23 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id, username, avatar, subject, view, qKey, shown]);
 
+  // The choice made in another tab reaches this one through the stored
+  // session (auth-js writes it on every update): hidden there, gone here.
+  useEffect(() => {
+    if (!user || typeof window.addEventListener !== 'function') return undefined;
+    const onStorage = (event) => {
+      if (!event?.key || !/^sb-.*-auth-token$/.test(event.key) || !event.newValue) return;
+      let stored = null;
+      try { stored = JSON.parse(event.newValue)?.user || null; } catch { stored = null; }
+      if (!stored || stored.id !== latestRef.current.user?.id) return;
+      latestRef.current = { ...latestRef.current, user: stored };
+      sendPresence(true);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
+
   // iOS Safari (and aggressive battery managers on Android) kill background
   // WebSocket connections. When the tab returns to the foreground our
   // presence is gone server-side, so re-announce even if nothing about us

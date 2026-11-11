@@ -129,6 +129,32 @@ account page. No database migration, no row-policy change, no new table or colum
   the editor's (`expectUserId`). `ensure_profile` runs before the update. The export copy says the
   progress page restores only the study data.
 
+### Re-read of ab7036db (tests in `student-identity-review.test.mjs`)
+- A zero lead writes nothing and claims nothing. A fresh browser, private window or cleared storage
+  used to add `xp_carry[<new id>] = 0` to metadata that rides in every token. Only a carry above
+  zero takes the counter (`vmx-xp-owner`), so a classmate who signs in first on A's phone and
+  is ahead of its counter does not lock A out of their own lead. The property "the level on the
+  device in use never falls" is asserted over every case in the file.
+- Known limit, left as it is: with two old devices, device 1's lead is measured against answers
+  from both, so quest points counted only on device 1 can carry as less than they were (never a
+  drop on the device in use, never a double).
+- Writes merge per key from the copy read just before writing. Two devices writing in the same
+  moment can still race (the metadata has no compare-and-set): the carry is the same number again,
+  and a lost quest-point add stays pending on the device.
+- The board line says the score is hidden "บนกระดาน" (the race board still shows it). A second tab
+  hears the choice through the stored session (`storage` event) and leaves presence.
+- A look-alike of a taken name reads "คล้ายกับชื่อที่มีคนใช้แล้ว". Reserved Latin words match only as
+  the whole name or as a prefix followed by a separator or a digit (Rootbeer, Staffy pass; Owner,
+  Staff_1 do not). Thai reserved words still match anywhere, because Thai has no spaces. Each word's
+  reason is in the comment.
+- Display: only an unbroken run of 8 or more digits (`\p{Nd}` after NFKC, so full-width digits count)
+  draws as "นิสิต". That covers a 10-digit student number, a 9 or 10-digit phone number and a
+  13-digit national id, so names like "ploy55555" keep showing. The hub tells the owner in one
+  sentence when others see "นิสิต" instead of their name, and how to fix it.
+- The surface walk reads `.js` and `.jsx`. It flags each name or picture read that is not inside
+  `shownName(`/`shownPicture(`, and each destructured `username`/`avatar_emoji`. Every exempt read
+  is listed with its reason, and a listed read that disappears fails too.
+
 ### Checks
 See the pull request that folds this branch. Unit: `tests/unit/student-identity.test.mjs`.
 E2E: `tests/e2e/student-profile.spec.js` (four projects).

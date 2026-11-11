@@ -127,12 +127,18 @@ export function xpToCarry({ user, history = [], srCards = {}, device = getXpStat
   const md = user.user_metadata || {};
   const mine = count(md.xp_carry?.[id]);
   const others = extraXpOf(user) - mine;
-  const lead = count(device?.totalXp) - (accountXp({ history, srCards }) + others);
-  return { addQuests: 0, carry: { device: id, value: Math.max(0, lead) }, first: true, owns: true };
+  const lead = Math.max(0, count(device?.totalXp) - (accountXp({ history, srCards }) + others));
+  // Nothing ahead of the account: done here, nothing written (a fresh browser
+  // or a private window must not add a key to the metadata every token
+  // carries), and the counter is NOT claimed, so the student whose counter it
+  // is can still carry it when they sign in on this device.
+  if (lead === 0) return { addQuests: pending, carry: null, first: true, owns: false };
+  return { addQuests: 0, carry: { device: id, value: lead }, first: true, owns: true };
 }
 
-/** Record on the device that the carry for this account is done. */
-export function markCarried(uid, storage = globalThis.localStorage, { owns = true } = {}) {
+/** Record on the device that the carry for this account is done; only a
+ *  carry above zero claims the counter for the account. */
+export function markCarried(uid, storage = globalThis.localStorage, { owns = false } = {}) {
   write(storage, carriedKey(uid), '1');
   if (owns && !read(storage, OWNER_KEY)) write(storage, OWNER_KEY, uid);
 }

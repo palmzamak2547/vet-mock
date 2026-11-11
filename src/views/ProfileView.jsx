@@ -376,6 +376,8 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
   const openRef = useRef(null);
   const name = profile?.username || '';
   const auto = isAutoName(name, user?.email, user);
+  // Saved before the display rule: others now see "นิสิต" for it.
+  const masked = Boolean(name) && shownName(name) === 'นิสิต' && name !== 'นิสิต';
   const picture = shownPicture(profile?.avatar_emoji);
   const shown = showsOnBoards(user);
   const headingId = 'hub-identity';
@@ -411,17 +413,20 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
             type="button"
             className="vmx-hub-id-open"
             onClick={() => { setSaved(null); setEditing(true); }}
-            aria-label={`แก้ชื่อและรูปที่เพื่อนเห็น ตอนนี้ ${auto ? 'ยังไม่ได้ตั้งชื่อ' : name} รูป${pictureLabel(picture)}`}
+            aria-label={`แก้ชื่อและรูปที่เพื่อนเห็น ตอนนี้ ${auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)} รูป${pictureLabel(picture)}`}
             data-testid="hub-identity"
           >
             <span key={picture} className={`vmx-hub-pic${saved ? ' is-fresh' : ''}`} aria-hidden="true">{picture}</span>
             <span className="vmx-hub-who">
-              <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : name}</span>
+              <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)}</span>
               <span className="vmx-hub-meta">ปี {year}{cohort ? ` รุ่น ${cohort}` : ''}</span>
               <span className={`vmx-hub-chip${shown ? '' : ' is-off'}`}>{shown ? 'แสดงบนกระดานอันดับ' : 'ไม่แสดงบนกระดานอันดับ'}</span>
             </span>
             <span className="vmx-hub-edit" aria-hidden="true">แก้ไข</span>
           </button>
+          {!auto && masked && (
+            <p className="vmx-hub-auto">เพื่อนเห็นคุณเป็น นิสิต เพราะชื่อนี้อ่านเหมือนรหัสหรืออีเมล แตะการ์ดเพื่อตั้งชื่อใหม่</p>
+          )}
           {auto && (
             <p className="vmx-hub-auto">
               {name ? `ตอนนี้เพื่อนเห็นคุณเป็น ${name} ซึ่งระบบตั้งให้` : 'ยังไม่มีชื่อที่คุณตั้งเอง'} แตะการ์ดเพื่อเลือกชื่อของคุณ
@@ -468,7 +473,7 @@ function StandingStrip({ user, year, setView }) {
   const s = state.standing;
   let line = 'กำลังดูอันดับของคุณ';
   if (state.status === 'error') line = 'ดูอันดับไม่ได้ตอนนี้ เปิดกระดานเพื่อลองอีกครั้ง';
-  else if (s?.kind === 'hidden') line = 'คุณเลือกไม่แสดงบนกระดาน เพื่อนจึงไม่เห็นคะแนนของคุณ';
+  else if (s?.kind === 'hidden') line = 'คุณเลือกไม่แสดงบนกระดาน เพื่อนจึงไม่เห็นคะแนนของคุณบนกระดาน';
   else if (s?.kind === 'ranked') line = `อันดับ ${s.rank} จาก ${s.of} คนในปี ${year}`;
   // The board lists its first 200: past them the rank is not known here, and
   // the line says so rather than "not on the board".

@@ -12,7 +12,7 @@
 // a name is said for what it is and the field starts empty.
 // ============================================================
 
-import { shownPicture } from '../lib/public-display.js';
+import { shownName as drawnName, shownPicture } from '../lib/public-display.js';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { saveIdentity, isPublicNameFree } from '../lib/identity-write.js';
 import {
@@ -45,7 +45,7 @@ export default function IdentityEditor({
   const check = useMemo(() => (keepName ? { ok: true, value: current } : checkPublicName(name, { email })), [name, keepName, current, email]);
   // The preview shows what others would see: a name the rules refuse (a
   // student number, an email) is never drawn as if it were public.
-  const shownName = keepName ? current : (check.ok || nameLength(check.value) < NAME_MIN) ? check.value : '';
+  const previewName = keepName ? drawnName(current) : (check.ok || nameLength(check.value) < NAME_MIN) ? check.value : '';
 
   // Ask whether another member holds the name, once typing pauses.
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function IdentityEditor({
     return () => { alive = false; clearTimeout(t); };
   }, [check.ok, check.value, keepName, user?.id]);
 
-  const fieldError = touched && !keepName && !check.ok ? check.reason : free === false ? 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น' : '';
+  const fieldError = touched && !keepName && !check.ok ? check.reason : free === false || free === 'taken' ? 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น' : free === 'similar' ? 'คล้ายกับชื่อที่มีคนใช้แล้ว ลองชื่ออื่น' : '';
   const hint = auto && current
     ? `ตอนนี้ชื่อของคุณคือ ${current} ซึ่งระบบตั้งให้ ตั้งชื่อเองได้ที่นี่`
     : `อักษรไทยหรืออังกฤษ ${NAME_MAX} ตัวอักษรไม่เกิน ห้ามใช้อีเมลหรือรหัสนิสิต`;
@@ -69,7 +69,7 @@ export default function IdentityEditor({
     setTouched(true);
     setError('');
     if (!keepName && !check.ok) { inputRef.current?.focus(); return; }
-    if (free === false) { inputRef.current?.focus(); return; }
+    if (free === false || free === 'taken' || free === 'similar') { inputRef.current?.focus(); return; }
     if (mode === 'edit' && !changed) { onCancel?.(); return; }
     setSaving(true);
     try {
@@ -101,7 +101,7 @@ export default function IdentityEditor({
         <div className={`vmx-id-row${shown ? '' : ' is-hidden'}`}>
           <span className="vmx-id-row-rank" aria-hidden="true">#</span>
           <span key={picture} className="vmx-id-pic" aria-hidden="true">{picture}</span>
-          <span className="vmx-id-row-name">{shownName || 'ชื่อของคุณ'}</span>
+          <span className="vmx-id-row-name">{previewName || 'ชื่อของคุณ'}</span>
           <span className="vmx-id-row-note">{shown ? 'บนกระดานอันดับ' : 'ไม่แสดงบนกระดาน'}</span>
         </div>
       </div>

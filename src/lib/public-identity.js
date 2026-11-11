@@ -28,13 +28,34 @@ import { PICTURES, DEFAULT_PICTURE, isPicture, INVISIBLE } from './public-displa
 export { PICTURES, DEFAULT_PICTURE, isPicture };
 export const pictureLabel = (value) => PICTURES.find((p) => p.emoji === value)?.label || 'รูปที่ตั้งไว้';
 
-// Words a name may not contain: they would read as the app or its staff
-// speaking. Compared without case, spaces, dots, dashes or underscores.
+// Words that would read as the app, its staff or the faculty speaking.
+// Latin words are refused as the whole name or at its start followed by a
+// separator or a digit ("admin", "Staff_1", "vetmock2"), so a name that only
+// begins with the same letters stays free ("Rootbeer", "Staffy", "Owner" is
+// refused, "Ownerin" is not). Thai words are refused anywhere in the name:
+// Thai is written without spaces, so "อาจารย์ปิง" would read as a lecturer.
+//   admin, administrator, moderator, mod, แอดมิน, ผู้ดูแล   run the app
+//   staff, support, ทีมงาน, เจ้าหน้าที่                   speak for it
+//   vetmock, official, system                       read as the app itself
+//   owner, root                                     claim the account
+//   อาจารย์                                          impersonates faculty
 export const RESERVED = Object.freeze([
   'admin', 'administrator', 'staff', 'vetmock', 'moderator', 'support', 'system',
   'official', 'owner', 'root',
   'แอดมิน', 'ทีมงาน', 'ผู้ดูแล', 'เจ้าหน้าที่', 'อาจารย์',
 ]);
+const isThaiWord = (w) => /[\u0e00-\u0e7f]/.test(w);
+function reservedHit(value) {
+  const lower = normalizePublicName(value).toLowerCase();
+  const folded = compactName(value);
+  return RESERVED.some((w) => {
+    if (isThaiWord(w)) return lower.replace(/[\s._-]/g, '').includes(w);
+    const head = lower.startsWith(w) || folded.startsWith(compactName(w));
+    if (!head) return false;
+    const rest = lower.startsWith(w) ? lower.slice(w.length) : '';
+    return lower === w || folded === compactName(w) || rest === '' || /^[\s._\-0-9\u0e50-\u0e59]/.test(rest);
+  });
+}
 const RESERVED_EXACT = Object.freeze(['mod', 'dev', 'team', 'null', 'undefined']);
 
 const ALLOWED = /^[\p{Script=Thai}A-Za-z0-9_ .-]+$/u;
@@ -93,9 +114,8 @@ export function checkPublicName(raw, { email = '' } = {}) {
   if (!HAS_LETTER.test(value)) return no('ต้องมีตัวอักษรอย่างน้อยหนึ่งตัว');
   const local = emailLocalPart(email);
   if (local && value.toLowerCase() === local) return no('ชื่อนี้มาจากอีเมลของคุณ เลือกชื่ออื่น');
-  const compact = compactName(value);
   const plain = value.toLowerCase().replace(/[\s._-]/g, '');
-  if (RESERVED_EXACT.includes(plain) || RESERVED.some((word) => plain.includes(word) || compact.includes(compactName(word)))) {
+  if (RESERVED_EXACT.includes(plain) || reservedHit(value)) {
     return no('ชื่อนี้ใช้ไม่ได้ เพราะอ่านเหมือนทีมงานของแอป');
   }
   if (isAutoName(value, email)) return no('ชื่อนี้ระบบตั้งให้ เลือกชื่อของคุณเอง');

@@ -353,7 +353,7 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
                 <div className="vmx-acct-id">
                   <span className="vmx-hub-pic" aria-hidden="true">{picture}</span>
                   <div className="vmx-acct-id-body">
-                    <span className="vmx-hub-name">{autoName ? 'ยังไม่ได้ตั้งชื่อ' : publicName}</span>
+                    <span className="vmx-hub-name">{autoName ? 'ยังไม่ได้ตั้งชื่อ' : shownName(publicName)}</span>
                     <span className="vmx-hub-meta">
                       {autoName && publicName ? `ตอนนี้เพื่อนเห็นเป็น ${publicName} ซึ่งระบบตั้งให้ ` : ''}
                       {showsOnBoards(user) ? 'แสดงบนกระดานอันดับ' : 'ไม่แสดงบนกระดานอันดับ'}

@@ -85,9 +85,9 @@ export async function saveIdentity({ username, avatarEmoji, showOnLeaderboard, i
   return { profile, metaSaved };
 }
 
-/** Whether no other member holds this name, ignoring case (the database's
- *  unique index is exact, so "Ping" and "ping" could both be taken there).
- *  true free, false taken, null unknown. */
+/** Whether another member holds this name: true free, 'taken' (the same
+ *  letters, ignoring case; the database's unique index is exact), 'similar'
+ *  (alike once look-alike letters are folded, compactName), null unknown. */
 export async function isPublicNameFree(name, selfId) {
   const supabase = await getSupabase();
   if (!supabase || !name) return null;
@@ -99,7 +99,11 @@ export async function isPublicNameFree(name, selfId) {
   const { data, error } = await query;
   if (error) return null;
   const mine = compactName(name);
-  return !(data || []).some((row) => compactName(row.username) === mine);
+  const exact = String(name).toLowerCase();
+  const rows = (data || []).filter((row) => compactName(row.username) === mine);
+  if (!rows.length) return true;
+  // The same letters: taken. Only alike once look-alikes are folded: similar.
+  return rows.some((row) => String(row.username).toLowerCase() === exact) ? 'taken' : 'similar';
 }
 
 /**
@@ -116,6 +120,10 @@ export async function writeAccountXp({ addQuests = 0, carry = null } = {}) {
   if (!supabase) return null;
   const { data: fresh, error: readError } = await supabase.auth.getUser();
   if (readError || !fresh?.user) return null;
+  // Merged per key from the account's copy read just now: two devices
+  // writing at the same moment can still race between this read and the
+  // write (the metadata has no compare-and-set); the carry, set per device,
+  // is the same number again, and a lost quest-point add stays pending here.
   const md = fresh.user.user_metadata || {};
   const data = {};
   if (add) data.xp_quests = Math.max(0, Math.floor(Number(md.xp_quests) || 0)) + add;
