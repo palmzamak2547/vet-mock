@@ -111,10 +111,14 @@ test('a disagreement with the lecture is marked once, at its section, and nowher
   // The list view, where every topic row used to carry a tag and the bar a filter.
   await page.addInitScript(() => localStorage.setItem('vmx-wiki-layout', 'list'));
   await page.goto('/wiki');
-  await expect(page.locator('.vw-topic').first()).toBeVisible();
-  await expect(page.locator('.vw-conflict-chip')).toHaveCount(0);
+  // The list opens with its subjects folded: the bar, then one subject opened.
+  await expect(page.locator('.vw-view-bar')).toBeVisible();
   await expect(page.locator('.vw-filter')).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'ดูหัวข้อที่มีจุดเหล่านี้' })).toHaveCount(0);
+  // A search lists rows in every subject; Rabies is one with recorded points.
+  await page.locator('#vw-search').fill('rabies');
+  await expect(page.locator('.vw-topic').first()).toBeVisible();
+  await expect(page.locator('.vw-conflict-chip')).toHaveCount(0);
   // Rabies holds a recorded point (corrections.js): its section shows it.
   await page.goto('/wiki/com5/rabies');
   await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible();

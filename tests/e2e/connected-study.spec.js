@@ -252,7 +252,8 @@ test.describe('connected study experience', () => {
     // ConfigView caps its count chips at what the topic actually has, so
     // the pressed chip IS the availability. Reading it from q-counts keeps
     // this assertion true as the bank grows or shrinks.
-    await expect(page.getByRole("button", { name: String(introCount), exact: true })).toHaveAttribute("aria-pressed", "true");
+    // The whole-pool chip says what it is (5.214): "ทั้งหมด N ข้อ".
+    await expect(page.getByRole("button", { name: `ทั้งหมด ${introCount} ข้อ`, exact: true })).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByRole('button', { name: '10', exact: true })).toHaveCount(0);
     // Name the switch: ConfigView grew a second one (เฉลยทันที), and a bare
     // getByRole('switch') that used to be unambiguous now matches both.
