@@ -31,12 +31,13 @@ test('the wrong-answer banner never says the answer is marked with a tick', () =
   assert.ok(body.includes("'✓ คุณตอบถูก'"), 'the right branch is pinned by e2e and stays');
 
   // "ด้านล่าง" is only true while every caller hands over a correct answer and
-  // the row renders on a miss. Both callers do; the true/false one says ✗ False.
+  // the row renders on a miss. Both callers do; the true/false one says True or False.
   assert.match(body, /\(alwaysShowCorrect \|\| !ok\) && correctNode != null/);
   const callers = src.split('<InstantFeedback').slice(1).map((s) => s.slice(0, s.indexOf('/>')));
   assert.equal(callers.length, 2, 'MCQ and true/false are the two callers');
   for (const caller of callers) assert.match(caller, /correctNode=\{/);
-  assert.ok(callers[1].includes("correctIsTrue ? '✓ True' : '✗ False'"));
+  // The words carry the choice (11 Nov 2026): no tick or cross in the true/false key.
+  assert.ok(callers[1].includes("correctIsTrue ? 'True' : 'False'"));
 });
 
 // ── Home ────────────────────────────────────────────────────────────────────

@@ -508,24 +508,39 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           if (currentQ.answer === isAnswer) return 'reveal-correct';
           return currentAnswer === isAnswer ? 'reveal-wrong' : '';
         };
+        // The words carry the choice: no tick or cross in the labels. "✓ True"
+        // and "✗ False" put a tick on the red button and a cross on the green
+        // one whenever the key was False and the pick True, and for a
+        // protanope, or in forced colours, the two fills read the same. After
+        // the key each button says in words what it is, with the marks an MCQ
+        // row gets: ✓ on the key, ✗ on a wrong pick.
+        const tfMark = (value) => {
+          if (!tfRevealed) return null;
+          const isKey = currentQ.answer === value;
+          const picked = currentAnswer === value;
+          if (isKey) return picked ? '✓ เฉลย, คุณตอบ' : '✓ เฉลย';
+          return picked ? '✗ คุณตอบ' : null;
+        };
         const correctIsTrue = currentQ.answer === true;
         return (
           <>
             <div className="vmx-tf-row" role="group" aria-label="เลือกคำตอบ True หรือ False">
-              <button
-                type="button"
-                aria-pressed={currentAnswer === true}
-                aria-disabled={tfRevealed || undefined}
-                className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''} ${tfClass(true)}`}
-                onClick={() => { if (tfRevealed) return; answerCurrent(true); }}
-              >✓ True</button>
-              <button
-                type="button"
-                aria-pressed={currentAnswer === false}
-                aria-disabled={tfRevealed || undefined}
-                className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''} ${tfClass(false)}`}
-                onClick={() => { if (tfRevealed) return; answerCurrent(false); }}
-              >✗ False</button>
+              {[true, false].map((value) => {
+                const mark = tfMark(value);
+                return (
+                  <button
+                    key={value ? 'true' : 'false'}
+                    type="button"
+                    aria-pressed={currentAnswer === value}
+                    aria-disabled={tfRevealed || undefined}
+                    className={`vmx-tf-btn ${currentAnswer === value ? (value ? 'selected-true' : 'selected-false') : ''} ${tfClass(value)}`}
+                    onClick={() => { if (tfRevealed) return; answerCurrent(value); }}
+                  >
+                    {value ? 'True' : 'False'}
+                    {mark && <span className="vmx-tf-mark">{mark}</span>}
+                  </button>
+                );
+              })}
             </div>
             {tfRevealed && (
               <InstantFeedback
@@ -533,7 +548,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 ok={tfOk}
                 run={answerRun}
                 fresh={freshVerdict}
-                correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
+                correctNode={<>{correctIsTrue ? 'True' : 'False'}</>}
                 caution={cautionChip}
                 // Say what the statement was even when the student got it
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"

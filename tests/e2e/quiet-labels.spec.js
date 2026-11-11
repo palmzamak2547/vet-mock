@@ -13,6 +13,7 @@ import { originPaperNote } from '../../src/lib/exam-scope.js';
 import { QUESTIONS_Y5_EQREPRO_2026 } from '../../src/data/questions-y5-eqrepro-2026.js';
 import { QUESTIONS_Y5_EPID_FINAL_RECALL } from '../../src/data/questions-y5-epid-final-recall.js';
 import { QUESTIONS_Y5_EPID_FINAL_MARKED } from '../../src/data/questions-y5-epid-final-marked.js';
+import { QB_COM3 } from '../../src/data/questions-com3.js';
 
 test.use({ serviceWorkers: 'block', reducedMotion: 'reduce' });
 test.setTimeout(90_000);
@@ -203,5 +204,37 @@ test.describe('in a running timed exam', () => {
     // The clock ran the whole time.
     await expect.poll(seconds, { timeout: 5000 }).toBeLessThan(startedAt);
     await expect(page.locator('.vmx-timer')).toBeVisible();
+  });
+});
+
+// ── True/false in forced colours ──────────────────────────────────────────
+// The buttons read "✓ True" and "✗ False": with the key False and the pick
+// True, the tick sat on the red button and the cross on the green one, and in
+// forced colours both fills are gone, so a student read the tick as "I was
+// right" above a panel saying ยังไม่ใช่. The words carry the choice now, and
+// after the key each button says what it is.
+test.describe('true/false in forced colours', () => {
+  test.use({ colorScheme: 'light' });
+
+  test('no tick stands on the wrong pick, no cross on the key', async ({ page }) => {
+    const statement = QB_COM3.find((q) => q.id === 718);
+    expect(statement?.type, 'com3 718 left the bank').toBe('tf');
+    expect(statement.answer).toBe(false);
+    await quietAnalytics(page);
+    await page.emulateMedia({ forcedColors: 'active' });
+    await page.goto(`/?qset=${encodeQuizSet([statement])}`);
+    const row = page.locator('.vmx-tf-row');
+    await expect(row).toBeVisible({ timeout: 30_000 });
+    const [yes, no] = [row.locator('.vmx-tf-btn').nth(0), row.locator('.vmx-tf-btn').nth(1)];
+    await expect(yes).toHaveText('True');
+    await expect(no).toHaveText('False');
+    await yes.click();
+    await expect(page.getByText(/ยังไม่ใช่/)).toBeVisible();
+    await expect(yes).toContainText('คุณตอบ');
+    await expect(yes).toContainText('✗');
+    await expect(yes).not.toContainText('✓');
+    await expect(no).toContainText('เฉลย');
+    await expect(no).toContainText('✓');
+    await expect(no).not.toContainText('✗');
   });
 });

@@ -2891,6 +2891,9 @@ html.dark .vmx-panic-scrim {
 .vmx-tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .vmx-tf-btn { padding: 24px; border-radius: 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; transition: all 0.15s; font-family: var(--vmx-display); font-weight: 600; font-size: 20px; color: var(--clr-ink); }
 .vmx-tf-btn:hover { border-color: var(--clr-ink); }
+/* After the key: what the button is, in words (the fill alone fails a
+   protanope and vanishes in forced colours). */
+.vmx-tf-mark { display: block; margin-top: 6px; font-family: inherit; font-size: 14px; font-weight: 600; }
 /* Which option is chosen, not whether it is right.
    These used to fill True green and False red, so the colour said "False" and
    the student read "wrong": a correct False answer came up in the same red the
