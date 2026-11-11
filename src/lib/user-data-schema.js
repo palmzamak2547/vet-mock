@@ -343,6 +343,15 @@ export function describeBackupFields(data, fields, { ownerId = null } = {}) {
     .filter(Boolean);
 }
 
+/**
+ * What ล้างความคืบหน้าหลัก on the progress screen writes. Study progress only: the questions a
+ * student wrote stay, and so do finished sets still waiting to be sent (pendingExamResults), which
+ * are the student's exam results and still reach the account after a reset.
+ */
+export function progressResetPatch() {
+  return { history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null } };
+}
+
 /** Convert an already validated backup into one atomic user-data command. */
 // The other fields are replaced by the file's copy. The outbox is added to instead: a result already
 // waiting on this device stays (its copy wins on the same id), and the file's results of this

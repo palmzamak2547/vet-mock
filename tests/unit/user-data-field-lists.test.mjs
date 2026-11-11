@@ -13,7 +13,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { USER_DATA_FIELDS } from '../../src/lib/user-data-sync.js';
-import { BACKUP_FIELDS, describeBackupFields } from '../../src/lib/user-data-schema.js';
+import { BACKUP_FIELDS, describeBackupFields, progressResetPatch } from '../../src/lib/user-data-schema.js';
 
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 // The top-level keys of an object literal's body: comments and nested braces dropped first.
@@ -45,7 +45,7 @@ const LISTS = {
   'progress backup download': new Set(keysOf(between(DASHBOARD, 'const exportData = () => {\n    const data = {', '\n    };', 'dashboard export'))
     .filter((k) => !FILE_META.includes(k))),
   'account export': new Set(keysOf(between(APP, 'coreData={{', '}}', 'account export'))),
-  'progress reset': new Set(keysOf(between(DASHBOARD, 'const result = restoreUserData?.({', '});', 'progress reset')).filter((k) => k in USER_DATA_FIELDS)),
+  'progress reset': new Set(Object.keys(progressResetPatch())),
 };
 
 function SAMPLE() {
@@ -59,6 +59,10 @@ const GAPS = {
     lists: ['account export', 'progress reset'],
     sync: true,
     why: 'the bare day count, a legacy mirror of streakData that old backups carry; it is read on import (as streakData) and written to the backup for older versions, never synced',
+  },
+  pendingExamResults: {
+    lists: ['progress reset'],
+    why: 'finished sets still waiting for /api/exam-result are the student\'s exam results, not practice progress: a reset keeps them and they still reach the account',
   },
   customQuestions: {
     lists: ['progress reset'],
@@ -108,4 +112,12 @@ test('the account purge forgets every per-account store the sync engine writes',
   const purged = new Set([...purge.matchAll(/'(vmx-[a-z-]+-v\d+:)'/g)].map((m) => m[1]));
   assert.ok(written.size >= 5, `per-account prefixes found: ${[...written]}`);
   for (const prefix of written) assert.ok(purged.has(prefix), `the sync engine writes ${prefix}<account>, which a deleted account leaves on the device`);
+});
+
+test('the progress screen resets through progressResetPatch, and the reset keeps waiting results', () => {
+  assert.match(DASHBOARD, /restoreUserData\?\.\(progressResetPatch\(\)\)/, 'the reset button writes progressResetPatch()');
+  const waiting = [{ id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa' }];
+  const after = { ...{ history: [1], pendingExamResults: waiting }, ...progressResetPatch() };
+  assert.deepEqual(after.history, []);
+  assert.equal(after.pendingExamResults, waiting, 'a finished set waiting to be sent survives a reset');
 });

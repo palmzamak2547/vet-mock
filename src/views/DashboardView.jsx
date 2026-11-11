@@ -8,6 +8,7 @@ import {
   parseUserBackup,
   userDataPatchFromBackup,
   USER_DATA_IMPORT_MAX_BYTES,
+  progressResetPatch,
 } from '../lib/user-data-schema.js';
 import BackBar from '../components/BackBar.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
@@ -827,12 +828,12 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
           if (await confirmDialog({
             title: 'ล้างความคืบหน้าหลัก?',
-            body: `ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และวันต่อเนื่องจะถูกล้าง${pendingExamResults.length ? ` รวมถึงผลสอบ ${pendingExamResults.length} ชุดที่ยังไม่ได้ส่งเข้าบัญชี` : ''} ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก`,
+            body: 'ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และวันต่อเนื่องจะถูกล้าง ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก',
             note: 'กู้คืนไม่ได้ — ส่งออกไฟล์สำรองไว้ก่อนถ้ายังไม่แน่ใจ',
             confirmLabel: 'ล้างทั้งหมด',
             tone: 'danger',
           })) {
-            const result = restoreUserData?.({ history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null }, pendingExamResults: [] });
+            const result = restoreUserData?.(progressResetPatch());
             if (!result?.accepted) alertDialog('ล้างข้อมูลไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่');
           }
         }}>ล้างความคืบหน้าหลัก</button>
