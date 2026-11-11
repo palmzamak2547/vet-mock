@@ -6,9 +6,9 @@ export default {
   title: "7.2 : Fluid Analysis",
   subject: "com1",
   date: "2024-09-16",
+  durationMin: 82,
   instructor: "DekDokVet85 — รุ่นพี่ (อายุรกรรม)",
   examFormat: "MCQ + practical case",
-  duration: "82 min",
   summary: `# 7.2 Fluid Analysis — Thoracocentesis, Abdominocentesis, Effusion Workup
 
 > 🎯 Two main procedures: **thoracocentesis (เจาะช่องอก) + abdominocentesis (เจาะช่องท้อง)**. Then classify fluid by **transudate / modified transudate / non-septic exudate / septic exudate / chylous / hemorrhagic / neoplastic**. Critical skill ก่อนจบอายุรศาสตร์

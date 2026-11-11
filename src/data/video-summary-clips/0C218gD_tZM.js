@@ -6,9 +6,9 @@ export default {
   title: "4.2 : Endoscope + Stomach + Esophagus Surgery",
   subject: "com1",
   date: "2024-08-26",
+  durationMin: 126,
   instructor: "รุ่นพี่",
   examFormat: "MCQ — endoscope use + esophageal/gastric surgery",
-  duration: "126 min",
   summary: `# 4.2 Endoscope + Stomach + Esophagus Surgery
 
 > 🎯 ครอบคลุม **Endoscopy** (flexible vs rigid, scope use cases) + **Esophageal disease + surgery** + **Gastric disease + surgery**. Big procedures: **GDV repair**, **Y-U pyloroplasty**, **gastrotomy**

@@ -6,9 +6,9 @@ export default {
   title: "12.2 : Cardiac Arrhythmia + Thromboembolism + Hypertension",
   subject: "com1",
   date: "2024-11-04",
+  durationMin: 110,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ — ECG ID + drug class + ATE 5P + HT target organs",
-  duration: "110 min",
   summary: `# 12.2 Cardiac Arrhythmia + Thromboembolism + Hypertension
 
 > 🎯 ครอบคลุม **3 หัวข้อใหญ่**: ECG arrhythmias (brady + tachy), Anti-arrhythmic drugs (4 classes), ATE (Arterial thromboembolism, 5P sign), Systemic Hypertension. **ECG identification + drug selection** ออกสอบ ⭐

@@ -6,9 +6,9 @@ export default {
   title: "11 : Cardio Evaluate + Diagnosis Method + CHF",
   subject: "com1",
   date: "2024-10-28",
+  durationMin: 173,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ — clinical eval + workup steps + CHF drug logic",
-  duration: "173 min",
   summary: `# 11 Cardiac Evaluation + Diagnostic Methods + CHF
 
 > 🎯 Foundation lecture สำหรับ cardiology block — **3 parts**: clinical evaluation, diagnostic methods, congestive heart failure (CHF). 173 min ยาว แต่เนื้อสำคัญสุดคือ **CHF treatment 4 goals** + neurohormonal compensation
