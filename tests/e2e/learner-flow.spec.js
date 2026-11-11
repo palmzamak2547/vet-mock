@@ -87,6 +87,23 @@ test('a double tap on ข้อถัดไป, or a double key press, moves one
   expect(await position(page)).toBe(2);
 });
 
+// item 8
+test('in a timed paper an answer is in storage a moment after the tap, not up to seconds later', async ({ page, context }) => {
+  await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
+  await page.locator('.vmx-option').first().click();
+  await page.locator('.vmx-exam-next').click();
+  await expect.poll(() => position(page)).toBe(2);
+  // Answer the second question at once: under the old throttle this waited
+  // half a second, and a tab killed in that window (no pagehide) lost it.
+  await page.locator('.vmx-option').nth(1).click();
+  const stored = await page.evaluate(() => new Promise((done) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => {
+      done(Object.keys(JSON.parse(localStorage.getItem('vmx-inflight-exam:guest') || '{}').answers || {}).length);
+    }, 60)));
+  }));
+  expect(stored).toBe(2);
+});
+
 // item 3
 test('the X and the browser Back ask the same question, and it keeps the set', async ({ page, context }) => {
   await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });

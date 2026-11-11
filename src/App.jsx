@@ -1485,7 +1485,12 @@ export default function App() {
     // is due it goes just after that paint (rAF runs before it, the timeout
     // after); otherwise half a second later, as before. pagehide and
     // visibilitychange still flush at once.
-    if (Date.now() - inflightWrittenAtRef.current >= 3000) {
+    // In a timed exam every tap is written, not one write in three seconds: a
+    // tab the phone killed half a second after an answer lost that answer
+    // (pagehide never fires on a kill). A typed answer (short, essay, fill)
+    // keeps the throttle, so an essay is not written on every keystroke.
+    const typing = ['short', 'essay', 'fill'].includes(questions[currentIdx]?.type);
+    if ((mode === 'exam' && !typing) || Date.now() - inflightWrittenAtRef.current >= 3000) {
       let soon = 0;
       const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
       return () => { cancelAnimationFrame(frame); clearTimeout(soon); };
