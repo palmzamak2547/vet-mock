@@ -8,7 +8,7 @@ import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
-import { hasTable, wholeStem } from '../lib/rich-blocks.js';
+import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -141,6 +141,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   };
   // The voice reads `say`: the stem together with the numbers that sit in the passage's table.
   const saysTable = wholeStem(currentQ) !== (currentQ?.q || '');
+  // Likewise an explanation laid out as steps: the voice reads the paragraph it was written as.
+  const saysParagraph = wholeExplain(currentQ) !== (currentQ?.explain || '');
   // What a job reads: options in the order the student sees them, so
   // "ตัวเลือก B" is the row with the B chip.
   const jobFor = (what) => ({
@@ -151,12 +153,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     subject: currentQ.subject,
     stem: wholeStem(currentQ),
     options: Array.isArray(currentQ.options) ? getShuffledOptions(currentQ).displayOptions.map(String) : [],
-    explain: currentQ.explain || '',
+    explain: wholeExplain(currentQ),
     stemLabel: saysTable ? 'โจทย์และตาราง' : undefined,
     // The element a piece is read from, for the phrase highlight. An option's row for its label too.
-    // A stem read from `say` is not the text on screen, so no phrase is marked in it.
+    // A stem read from `say`, or an explanation read from `explainSay`, is not the text on screen, so no
+    // phrase is marked in it.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? (saysTable ? null : stemRef.current) : explainRef.current)
+      ? (what === 'q' ? (saysTable ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
       : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
     // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
     block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)

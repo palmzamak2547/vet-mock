@@ -20,7 +20,11 @@
 //     out of the stem into a passage table) on a question with no such table,
 //     one whose figures are not the figures on screen (title, passage, stem):
 //     the voice would say a figure the student cannot see, or stay silent on
-//     one they can; or one that no longer ends as the stem ends.
+//     one they can; or one that no longer ends as the stem ends;
+//   - a spoken explanation (`explainSay`, the paragraph an explanation was
+//     written as before it was laid out as steps) that says a figure the
+//     explanation on screen does not show, or an explanation that shows a
+//     figure neither its paragraph nor the question holds.
 //
 // A formula between bars is not a row: |x − μ| and |0.39 − 0.04| = |−0.35|
 // have no space inside their bars, and a row does ("| a | b |").
@@ -48,6 +52,7 @@ const inlineFields = (q) => [
   ['q', q.q],
   ['model_answer', q.model_answer],
   ['say', q.say],
+  ['explainSay', q.explainSay],
   ['passage_title', q.passage_title],
   ...(Array.isArray(q.options) ? q.options.map((o, i) => [`options[${i}]`, o]) : []),
 ];
@@ -78,6 +83,21 @@ export function lintQuestionTables(questions) {
         // `say` and the stem are two copies of what is asked: an edit to one that misses the other would
         // leave the voice, a recorded clip and the wrong-answer coach on the old question.
         if (!q.say.trim().endsWith(String(q.q || '').trim().slice(-ASK_TAIL))) problems.push(`${id} say: the stem's last words are not the last words of \`say\`; they ask the same thing, so edit both`);
+      }
+    }
+    // An explanation laid out as steps keeps the paragraph it was written as (`explainSay`): the voice, the
+    // coach and the AI's corpus read that paragraph. The two say the same thing, so no figure of the
+    // paragraph may be missing on screen, and the screen may add none the question does not hold.
+    if (q.explainSay != null) {
+      if (typeof q.explainSay !== 'string' || !q.explainSay.trim() || q.explainSay === q.explain) problems.push(`${id} explainSay: the paragraph a voice reads, a text that differs from the explanation`);
+      else if (typeof q.explain !== 'string' || !q.explain.trim()) problems.push(`${id} explainSay: only an explanation keeps a paragraph`);
+      else {
+        const [said, shown] = [numbersOf(q.explainSay), numbersOf(q.explain)];
+        const held = numbersOf([q.explainSay, q.q, q.passage, ...(Array.isArray(q.options) ? q.options : [])].filter(Boolean).join('\n'));
+        const unshown = [...said].filter((n) => !shown.has(n));
+        const brought = [...shown].filter((n) => !held.has(n));
+        if (unshown.length) problems.push(`${id} explainSay: the voice says ${unshown.join(', ')}, which the explanation on screen does not show`);
+        if (brought.length) problems.push(`${id} explain: shows ${brought.join(', ')}, which neither its paragraph nor the question holds`);
       }
     }
     for (const name of BLOCK_FIELDS) {

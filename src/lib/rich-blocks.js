@@ -107,6 +107,14 @@ export function splitBlocks(text) {
  */
 export const wholeStem = (q) => (typeof q?.say === 'string' && q.say ? q.say : q?.q || '');
 
+/**
+ * The explanation as one paragraph. An explanation laid out as steps, lines and a table for the eye
+ * keeps the paragraph it was written as in `explainSay`; for every other question it is `explain`.
+ * The voice reads it (in the card and in the clip generator alike, so a recorded clip keeps its name),
+ * and so does whatever shows an explanation to a model: the coach, the AI's corpus, the evidence build.
+ */
+export const wholeExplain = (q) => (typeof q?.explainSay === 'string' && q.explainSay ? q.explainSay : q?.explain || '');
+
 /** A passage that is the question's data rather than a text to read. */
 export const hasTable = (text) => splitBlocks(text).some((b) => b.type === 'table');
 

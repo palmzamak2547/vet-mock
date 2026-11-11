@@ -16,7 +16,7 @@
 import fs from 'node:fs';
 import { test, expect, openAdjust } from './fixtures.js';
 import { ELEVEN_TTS, clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
-import { wholeStem } from '../../src/lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../../src/lib/rich-blocks.js';
 
 test.setTimeout(60_000);
 
@@ -36,7 +36,7 @@ async function subjectKeys(subject) {
         const stem = wholeStem(q);   // the sentence the page reads
         const lang = questionLang(stem, options);
         keys.add(await clipKey(clipText(stem, lang)));
-        if (q.explain) explain.add(await clipKey(clipText(q.explain, questionLang(q.explain, [])), ELEVEN_TTS));
+        if (q.explain) explain.add(await clipKey(clipText(wholeExplain(q), questionLang(wholeExplain(q), [])), ELEVEN_TTS));
         for (let i = 0; i < options.length; i++) {
           keys.add(await clipKey(optionLabel(i, lang)));
           keys.add(await clipKey(clipText(options[i], lang)));

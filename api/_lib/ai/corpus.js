@@ -27,7 +27,7 @@ import { SUBJECTS } from '../../../src/data/curriculum.js';
 import { questionCatalog } from '../question-catalog.js';
 import { TextIndex } from './textindex.js';
 import { flattenBody, clip } from './text.js';
-import { wholeStem } from '../../../src/lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../../../src/lib/rich-blocks.js';
 
 const SUBJECT_BY_ID = new Map(SUBJECTS.filter((s) => s.id !== 'all').map((s) => [s.id, s]));
 const TOPIC_LABEL = new Map();
@@ -52,7 +52,7 @@ export function questionText(q) {
   } else if (q.type === 'tf') {
     lines.push(`เฉลย: ${q.answer === true ? 'ถูก (True)' : q.answer === false ? 'ผิด (False)' : '-'}`);
   }
-  if (q.explain) lines.push(`คำอธิบาย: ${String(q.explain).trim()}`);
+  if (q.explain) lines.push(`คำอธิบาย: ${wholeExplain(q).trim()}`);
   return lines.join('\n');
 }
 
