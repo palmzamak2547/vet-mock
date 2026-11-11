@@ -3758,11 +3758,19 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
      the five 44px controls leave the meta line some room on one row. */
   .vmx-question-card { padding: 12px 20px 24px; }
   .vmx-q-toolbar { gap: 2px; }
-  .vmx-q-head { margin-bottom: 12px; row-gap: 0; }
+  .vmx-q-head { margin-bottom: 16px; row-gap: 0; }
   /* On a phone the line takes the full width under the controls: beside them
      it had about 66px and showed only "ปรนัย…", while type, subject and topic
      are what a mixed set needs at a glance. */
-  .vmx-q-head > .vmx-q-meta.vmx-qtype-badge { flex-basis: 100%; order: 0; }
+  /* On its own row nothing needs cutting: the whole line, a second line only
+     when it needs one. Drawn 28px tall; its 44px hit area runs 16px down into
+     the gap above the stem (::after), never up toward the controls. */
+  .vmx-q-head > .vmx-q-meta.vmx-qtype-badge {
+    flex-basis: 100%; order: 0;
+    white-space: normal; overflow: visible; text-overflow: clip;
+    min-height: 28px; padding-block: 4px; position: relative;
+  }
+  .vmx-q-head > .vmx-q-meta.vmx-qtype-badge::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: -16px; }
   /* Badge starts below the button strip — keeps long topic labels readable */
   .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }

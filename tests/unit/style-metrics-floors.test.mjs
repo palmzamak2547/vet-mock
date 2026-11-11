@@ -657,10 +657,11 @@ test('UI-18: PinButton lets a toolbar class own its shape, and the exam toolbar 
 test('UI-07: the exam card meta is a quiet Sarabun line, not a tracked uppercase pill', () => {
   const meta = chain('div.vmx-question-card', 'div.vmx-q-head', 'button.vmx-qtype-badge.vmx-q-meta');
   for (const env of [PHONE, DESKTOP]) {
-    // One line in the header row that truncates rather than wrapping.
     assert.equal(computed(meta, 'display', env), 'block');
-    assert.equal(computed(meta, 'white-space', env), 'nowrap');
-    assert.equal(computed(meta, 'text-overflow', env), 'ellipsis');
+    // Beside the controls (desktop) one line that truncates; on its own row
+    // under them (phone) the whole line, wrapping only when it must.
+    assert.equal(computed(meta, 'white-space', env), env === PHONE ? 'normal' : 'nowrap');
+    assert.equal(computed(meta, 'text-overflow', env), env === PHONE ? 'clip' : 'ellipsis');
     assert.equal(computed(meta, 'font-size', env), '14px');
     assert.equal(computed(meta, 'border', env), '0');
     assert.equal(computed(meta, 'background', env), 'none');
