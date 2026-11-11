@@ -35,13 +35,26 @@ branch's head; where an earlier version of it was wrong, that is said.
   and on a gated route that counts by address alone.
 
 ## The gate (`api/_lib/chula-gate.js`)
-- Before any database call a token is read locally: three parts, a payload that
-  decodes, this project's issuer (`<url>/auth/v1`), the `authenticated`
-  audience, a subject, and an expiry still ahead (`tokenLooksValid`). A token
-  that fails is no token: the caller is a guest, nothing is asked and nothing is
-  counted, so an expired token costs nobody anything. A token that passes is
-  always verified by the database. Nothing is counted per address, so no member
-  is ever refused for what someone else on their network sent.
+- Before any database call a token is read locally (`tokenLooksValid`) and
+  refused only when it is certainly not a session: not three dot-separated
+  parts, a payload that is not a JSON object, no subject, or an expiry missing
+  or more than 60 s in the past (`EXPIRY_MARGIN_S`, for clock difference;
+  inside it the database decides). A refused token is no token: the caller is a
+  guest, nothing is asked and nothing is counted. Everything else is always
+  verified by the database. Nothing is counted per address, so no member is
+  ever refused for what someone else on their network sent.
+- The issuer and audience are not grounds for refusal (they stop no forger, who
+  writes them into an unsigned payload, and a mismatch on our side would make
+  every member a guest at once). A differing issuer is logged once a minute,
+  host only, never the token. Correction: the version at 92ad3ec9 refused a
+  token whose `iss` was not exactly `<configured url>/auth/v1` or whose `aud`
+  lacked `authenticated`, and allowed no clock margin. The configured issuer
+  came from one place only: `api/_lib/chula-gate.js:89`, `const cfg =
+  backendConfig(env)`, which is `env.VITE_SUPABASE_URL || env.SUPABASE_URL`
+  (`api/_lib/app-backend.js:3-4`), passed at `chula-gate.js:91` to
+  `tokenLooksValid(token, cfg.url, now())`, which built the issuer at
+  `chula-gate.js:32`. Nothing else read it; the same `cfg.url` remains the
+  address the gate's database calls go to.
 - Correction: the previous version braked failed tokens per address and checked
   that before verifying a token, so 120 forged tokens from a lecture hall's
   address refused every member there for ten minutes, and 30 students with
@@ -58,7 +71,11 @@ branch's head; where an earlier version of it was wrong, that is said.
 - Guard: `api-limits.test.mjs` (600 forged tokens from a hall's address, then an
   honest member there is served, also after the instance forgets them; 30
   students x 4 parallel calls with expired tokens reach the database 0 times
-  and brake nobody; six malformed shapes make no database call; previews
+  and brake nobody; seven shapes that are certainly not a session (an expiry
+  61 s past among them) make no database call; one 30 s past reaches it; six
+  issuer and audience mismatches (trailing slashes, a custom auth domain, a
+  preview's other address, another audience, none) still reach the database
+  and are members when it says so; previews
   refuse, local development opens; 'a session-shaped token: the database
   decides' builds two tokens with identical claims and different signatures).
   Test tokens come from

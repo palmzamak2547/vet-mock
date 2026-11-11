@@ -10,15 +10,24 @@
 import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
 
-// Before any database call a token is read locally: three parts, a payload
-// that decodes, this project's issuer (<url>/auth/v1), the "authenticated"
-// audience and an expiry still ahead. A token that fails is no token at all:
-// the caller is a guest, nothing is asked and nothing is counted, so an
-// expired token costs nobody anything. A token that passes is always verified
-// by the database. Nothing is counted per address: what one caller sends never
-// refuses another on the same network.
+// Before any database call a token is read locally, and refused only when it
+// is certainly not a session: not three dot-separated parts, a payload that is
+// not a JSON object, no subject, or an expiry missing or more than
+// EXPIRY_MARGIN_S in the past (the margin is for clock difference between this
+// server and the auth server; inside it the database decides). A token refused
+// here is no token at all: the caller is a guest, nothing is asked and nothing
+// is counted. Everything else is verified by the database.
+// The issuer and audience are never grounds for refusal: a forger writes the
+// right ones into an unsigned payload, so they stop nobody, while a mismatch on
+// our side (a trailing slash, a custom auth domain, an address that differs
+// between previews and production, another sign-in path of the same project)
+// would turn every member into a guest at once. A mismatch is only logged,
+// without the token.
 // Known limit: a well-formed token with a bad signature still costs one
 // database call, as before; verifying the signature here would end that.
+export const EXPIRY_MARGIN_S = 60;
+let lastIssuerLog = 0;
+
 export function tokenLooksValid(token, projectUrl, nowMs = Date.now()) {
   const parts = String(token || '').split('.');
   if (parts.length !== 3 || parts.some((x) => !x)) return false;
@@ -28,13 +37,17 @@ export function tokenLooksValid(token, projectUrl, nowMs = Date.now()) {
   } catch {
     return false;
   }
-  if (!claims || typeof claims !== 'object') return false;
-  const issuer = `${String(projectUrl || '').replace(/\/+$/, '')}/auth/v1`;
-  const audience = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
-  return claims.iss === issuer
-    && audience.includes('authenticated')
-    && typeof claims.sub === 'string' && claims.sub.length > 0
-    && Number.isFinite(claims.exp) && claims.exp * 1000 > nowMs;
+  if (!claims || typeof claims !== 'object' || Array.isArray(claims)) return false;
+  if (typeof claims.sub !== 'string' || !claims.sub) return false;
+  if (!Number.isFinite(claims.exp) || claims.exp * 1000 < nowMs - EXPIRY_MARGIN_S * 1000) return false;
+  const expected = `${String(projectUrl || '').replace(/\/+$/, '')}/auth/v1`;
+  if (claims.iss !== expected && nowMs - lastIssuerLog > 60_000) {
+    lastIssuerLog = nowMs;
+    console.warn('[chula-gate] session issuer differs from the configured project address; the database decides', {
+      issuerHost: (() => { try { return new URL(String(claims.iss)).host; } catch { return 'unreadable'; } })(),
+    });
+  }
+  return true;
 }
 
 // Where the gate stands open without a database. A deployed preview

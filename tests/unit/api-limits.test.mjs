@@ -128,12 +128,14 @@ test('expired tokens are guests: no database call, and nobody braked', async () 
 
 test('a malformed token makes no database call', async () => {
   const { calls, fetchImpl } = database();
+  const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
   const bad = [
     'forged.token.0123456789abcdefghij',
     'a'.repeat(40),
-    sessionToken(PROJECT, { iss: 'https://other.supabase.co/auth/v1' }),
-    sessionToken(PROJECT, { aud: 'anon' }),
+    `${b64({ alg: 'ES256' })}.${Buffer.from('[1,2]').toString('base64url')}.c2ln`,
     sessionToken(PROJECT, { sub: '' }),
+    `${b64({ alg: 'ES256' })}.${b64({ sub: 'u-x', aud: 'authenticated' })}.c2ln`, // no exp
+    sessionToken(PROJECT, { sub: 'u-old', expInSec: -61 }),
     `${sessionToken(PROJECT).split('.').slice(0, 2).join('.')}.`,
   ];
   for (const t of bad) {
@@ -143,6 +145,49 @@ test('a malformed token makes no database call', async () => {
     assert.equal(g.status, 401, t.slice(0, 30));
     assert.ok(!calls.bearers.includes(t), `${t.slice(0, 30)} reached the database`);
   }
+});
+
+test('a token that expired inside the clock margin still reaches the database', async () => {
+  resetChulaGate();
+  const recent = sessionToken(PROJECT, { sub: 'u-m', expInSec: -30 });
+  const asked = [];
+  const fetchImpl = async (url, init) => {
+    const bearer = init.headers.Authorization.slice(7);
+    asked.push(bearer);
+    if (bearer === recent) return Response.json({ enforce: true, signed_in: true, member: true, uid: 'u-m' });
+    return Response.json({ enforce: true, signed_in: false, member: false, uid: null });
+  };
+  const g = await chulaGate(withToken('203.0.113.91', recent), { env: ENV, fetchImpl });
+  assert.ok(asked.includes(recent), 'thirty seconds past exp: the database decides');
+  assert.equal(g.member, true);
+});
+
+test('an issuer or audience that differs from the configured project never turns a member into a guest', async () => {
+  const shapes = {
+    'configured with a trailing slash': { env: { ...ENV, VITE_SUPABASE_URL: `${PROJECT}/` }, iss: `${PROJECT}/auth/v1` },
+    'token issuer with a trailing slash': { env: ENV, iss: `${PROJECT}/auth/v1/` },
+    'a custom auth domain': { env: ENV, iss: 'https://auth.vetmock.com/auth/v1' },
+    'a preview configured with another address': { env: { ...ENV, VITE_SUPABASE_URL: 'https://preview-branch.supabase.co' }, iss: `${PROJECT}/auth/v1` },
+    'another sign-in path (a different audience)': { env: ENV, iss: `${PROJECT}/auth/v1`, aud: ['authenticated', 'line'] },
+    'no audience at all': { env: ENV, iss: `${PROJECT}/auth/v1`, aud: null },
+  };
+  const warn = console.warn; console.warn = () => {};
+  try {
+    for (const [name, shape] of Object.entries(shapes)) {
+      resetChulaGate();
+      const token = sessionToken(PROJECT, { sub: 'u-real', iss: shape.iss, ...(Object.hasOwn(shape, 'aud') ? { aud: shape.aud } : {}), tag: name });
+      const asked = [];
+      const fetchImpl = async (url, init) => {
+        const bearer = init.headers.Authorization.slice(7);
+        asked.push(bearer);
+        if (bearer === token) return Response.json({ enforce: true, signed_in: true, member: true, uid: 'u-real' });
+        return Response.json({ enforce: true, signed_in: false, member: false, uid: null });
+      };
+      const g = await chulaGate(withToken('203.0.113.92', token), { env: shape.env, fetchImpl });
+      assert.ok(asked.includes(token), `${name}: reached the database`);
+      assert.equal(g.member, true, `${name}: a member when the database says so`);
+    }
+  } finally { console.warn = warn; }
 });
 
 test('a deployed preview without database settings refuses; local development stays open', async () => {
