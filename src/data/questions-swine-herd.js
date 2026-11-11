@@ -360,10 +360,7 @@ export const QB_SWINE_HERD = [
       "embryonic-death"
     ],
     "type": "mcq",
-    "q": "จากตาราง ลักษณะนี้บ่งบอกถึงปัญหาใดมากที่สุด",
-    "say": "ฟาร์มแม่สุกรพบ %return-to-estrus สูง 23% (target 8%) Pattern: return 10-17 d = 2.3%, return 18-24 d = 1.2%, return 25-35 d = 14.9% — ลักษณะนี้บ่งบอกถึงปัญหาใดมากที่สุด",
-    "passage": "ฟาร์มแม่สุกรพบ %return-to-estrus สูง 23% (target 8%) Pattern ดังนี้\n\n| return 10-17 d | return 18-24 d | return 25-35 d |\n|---|---|---|\n| 2.3% | 1.2% | 14.9% |",
-    "passage_title": "Pattern ของ %return-to-estrus",
+    "q": "ฟาร์มแม่สุกรพบ %return-to-estrus สูง 23% (target 8%) Pattern: return 10-17 d = 2.3%, return 18-24 d = 1.2%, return 25-35 d = 14.9% — ลักษณะนี้บ่งบอกถึงปัญหาใดมากที่สุด",
     "options": [
       "Regular return — failure of fertilization หรือ embryo ตายก่อนวันที่ 12 (กลับสัดตามรอบ 18-24 d)",
       "Irregular return — early embryonic death ที่ระหว่าง 12-30 d (pregnancy signal failed)",

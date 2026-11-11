@@ -601,10 +601,7 @@ export const QUESTIONS_MID86_EQUINE_REPRO = [
     "type": "mcq",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "q": "จากตาราง ข้อใดแปลผลได้ถูกต้อง",
-    "say": "ตรวจแม่ม้าสองตัวในวันที่ 1 ธันวาคมวันเดียวกัน ตัวแรกพบ multiple small follicle ทั้งสองข้าง uterine edema เท่ากับ 0 cervix +2 ส่วนตัวที่สองพบ multiple small follicle ร่วมกับฟอลลิเคิลขนาด 2.5 เซนติเมตรทั้งสองข้าง uterine edema เท่ากับ 2 cervix +2 ข้อใดแปลผลได้ถูกต้อง",
-    "passage": "ตรวจแม่ม้าสองตัวในวันที่ 1 ธันวาคมวันเดียวกัน\n\n| | ตัวแรก | ตัวที่สอง |\n|---|---|---|\n| พบ | multiple small follicle ทั้งสองข้าง | multiple small follicle ร่วมกับฟอลลิเคิลขนาด 2.5 เซนติเมตรทั้งสองข้าง |\n| uterine edema | 0 | 2 |\n| cervix | +2 | +2 |",
-    "passage_title": "แม่ม้าสองตัวในวันที่ 1 ธันวาคม",
+    "q": "ตรวจแม่ม้าสองตัวในวันที่ 1 ธันวาคมวันเดียวกัน ตัวแรกพบ multiple small follicle ทั้งสองข้าง uterine edema เท่ากับ 0 cervix +2 ส่วนตัวที่สองพบ multiple small follicle ร่วมกับฟอลลิเคิลขนาด 2.5 เซนติเมตรทั้งสองข้าง uterine edema เท่ากับ 2 cervix +2 ข้อใดแปลผลได้ถูกต้อง",
     "options": [
       "ทั้งสองตัวอยู่ใน anestrus เพราะตรวจในเดือนเดียวกันและไม่พบคอร์ปัสลูเตียม",
       "ตัวแรกอยู่ใน transition ส่วนตัวที่สองอยู่ใน anestrus",
