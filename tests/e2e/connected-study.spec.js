@@ -239,7 +239,7 @@ test.describe('connected study experience', () => {
     const introTopicBox = await introTopic.boundingBox();
     expect(introTopicBox.width).toBeGreaterThan(300);
     await expect(page.getByRole('contentinfo')).toHaveCount(0);
-    await expect(page.getByText('รูปแบบของชุดโจทย์ฝึก')).not.toBeVisible();
+    await expect(page.getByText('สัดส่วนคะแนนและรูปแบบข้อสอบ')).not.toBeVisible();
 
     await page.getByRole('button', { name: introLabel }).click();
     // By id, not a bare getByRole('status'): the sync/offline notice is a

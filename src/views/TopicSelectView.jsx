@@ -981,7 +981,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   );
 }
 
-// ─── Exam-format banner (shows up when subject has examFormat metadata) ───
+// ─── Exam format: one folded row (shows up when subject has examFormat metadata) ───
+// Weighting, cutoffs and where they came from are bookkeeping a student reads
+// once, so they sit closed (5.214; they were also a chip on 12 of 19 cards in
+// the subject picker until then).
 function ExamFormatBanner({ format, accent }) {
   const items = [];
   if (announced(format.weight)) items.push({ k: 'สัดส่วนวิชา', v: announced(format.weight) });
@@ -990,17 +993,17 @@ function ExamFormatBanner({ format, accent }) {
   if (format.choiceCount) items.push({ k: 'รูปแบบ', v: `MCQ ${format.choiceCount} ช้อยส์ (A-${String.fromCharCode(64 + format.choiceCount)})` });
 
   return (
-    <div style={{
-      padding: '14px 18px',
+    <details className="vmx-exam-format" style={{
+      padding: '4px 18px',
       borderRadius: 12,
       borderLeft: `4px solid ${accent || 'var(--clr-ink)'}`,
       background: 'var(--clr-surface)',
       border: '1px solid var(--clr-border)',
       marginBottom: 20,
     }}>
-      <div className="vmx-eyebrow" style={{ marginBottom: 8 }}>
-        รูปแบบของชุดโจทย์ฝึก
-      </div>
+      <summary style={{ minHeight: 44, display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
+        สัดส่วนคะแนนและรูปแบบข้อสอบ
+      </summary>
 
       {items.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 18px', marginBottom: format.notes?.length || format.questionTypes?.length ? 10 : 0 }}>
@@ -1030,10 +1033,10 @@ function ExamFormatBanner({ format, accent }) {
         </div>
       )}
 
-      <div style={{ marginTop: 8, fontSize: 14, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+      <div style={{ margin: '8px 0 10px', fontSize: 14, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
-    </div>
+    </details>
   );
 }
 

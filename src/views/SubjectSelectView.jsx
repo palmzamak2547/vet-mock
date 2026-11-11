@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
 import { topicOnPaper } from '../lib/exam-scope.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE, Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE } from '../data/q-counts.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
@@ -334,41 +334,10 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   </div>
                 );
               })()}
-              {/* Only render the chip when there is something real to put in
-                  it. Guarding on examFormat alone printed a bare "📝" (or
-                  "📝 , 4 ช้อยส์") for every subject whose weighting is not
-                  announced yet. */}
-              {(() => {
-                const w = s.examFormat && announced(s.examFormat.weight);
-                const c = s.examFormat && s.examFormat.choiceCount;
-                if (!w && !c) return null;
-                return (
-                  // A long weighting wraps to three or four lines on a phone's
-                  // half-width card. A full pill radius turned that into an
-                  // oval that cut the corners of its own text, and the icon
-                  // was squeezed to a speck beside it.
-                  <div style={{
-                    marginTop: 6,
-                    padding: '4px 10px',
-                    borderRadius: 12,
-                    background: 'var(--clr-surface-2)',
-                    border: '1px solid var(--clr-border)',
-                    fontSize: 14,
-                    lineHeight: 1.4,
-                    textAlign: 'left',
-                    fontVariantNumeric: 'tabular-nums',
-                    color: 'var(--clr-ink-soft)',
-                    display: 'inline-flex',
-                    alignItems: 'flex-start',
-                    gap: 6,
-                  }}>
-                    <span aria-hidden="true" style={{ flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', height: '1.4em' }}>
-                      <NavIcon name="pen" size={12} />
-                    </span>
-                    <span>{[w, c && `${c} ช้อยส์`].filter(Boolean).join(', ')}</span>
-                  </div>
-                );
-              })()}
+              {/* No grading chip (5.214): weighting, cutoffs and their
+                  provenance are on the subject's own screen, in one folded
+                  row (TopicSelectView ExamFormatBanner). A picker card says
+                  what to open, nothing else. */}
             </button>
           );
             })}

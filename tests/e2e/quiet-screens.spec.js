@@ -21,6 +21,23 @@ test('the wiki index opens on its search, with no lede and no library counts', a
   await expect(page.locator('.vw-totals')).toHaveCount(0);
 });
 
+test('the subject picker carries no grading chip; the subject screen keeps it in one closed row', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.vmx-subject-grid')).toBeVisible();
+  const cards = page.locator('.vmx-subject-card');
+  await expect(cards.first()).toBeVisible();
+  await expect(cards.filter({ hasText: /ตัดเกรด|ช้อยส์|Midterm|OSCE|ประมวลรายวิชา/ })).toHaveCount(0);
+  await cards.filter({ hasText: 'ระบาดวิทยา' }).first().click();
+  await page.getByRole('tab', { name: 'สื่อเรียนและโหมดสอบ' }).click();
+  const fold = page.locator('details.vmx-exam-format');
+  await expect(fold.locator('summary')).toHaveText('สัดส่วนคะแนนและรูปแบบข้อสอบ');
+  await expect(fold).not.toHaveAttribute('open', '');
+  await expect(page.getByText('ตัดเกรดอิงเกณฑ์', { exact: false })).not.toBeVisible();
+  await fold.locator('summary').click();
+  await expect(fold).toContainText('สัดส่วนวิชา');
+  await expect(fold).toContainText('ตัดเกรดอิงเกณฑ์');
+});
+
 test('a wiki section keeps its sources, checks and report control in one closed row', async ({ page }) => {
   await page.goto('/wiki/com5/rabies');
   await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible();
