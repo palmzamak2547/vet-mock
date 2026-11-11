@@ -55,7 +55,8 @@ test('the instant verdict and the results seal speak Thai, with no English kicke
   assert.equal(question.includes("'APPROVED'"), false);
   // The verdict is the Thai headline alone: the Mochi stamp beside it, with
   // its ถูกแล้ว and ลองอีกที label, went in 5.189.2 (Palm: "ดูแปลกตา").
-  assert.match(question, /\{ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\}/);
+  // A partly right fill-in item says how many blanks were right instead (headline).
+  assert.match(question, /\{headline \|\| \(ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\)\}/);
   for (const gone of ["'ลองอีกที'", "'ถูกแล้ว'", 'vmx-mochi-stamp--', 'slot="feedback"']) {
     assert.equal(question.includes(gone), false, `${gone} is back on the verdict`);
   }

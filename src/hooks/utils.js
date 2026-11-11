@@ -226,6 +226,24 @@ function groupCorrect(q, idx, ua) {
   return place(0);
 }
 
+// Which typed blanks are right, for the marks beside each blank in practice.
+// Display only: isCorrect below is the score. In an unordered group a blank is
+// right when its text is any key of the group not taken by an earlier blank.
+export function fillBlankMarks(q, ua) {
+  if (!Array.isArray(q?.blanks)) return [];
+  const answers = Array.isArray(ua) ? ua : [];
+  const marks = q.blanks.map((b, i) => blankCorrect(q, i, answers[i], b));
+  for (const g of unorderedGroups(q)) {
+    const taken = new Set();
+    for (const i of g) {
+      const k = g.find((j) => !taken.has(j) && blankCorrect(q, j, answers[i], q.blanks[j]));
+      marks[i] = k !== undefined;
+      if (k !== undefined) taken.add(k);
+    }
+  }
+  return marks;
+}
+
 function fillCorrect(q, ua) {
   if (!Array.isArray(ua) || !Array.isArray(q.blanks)) return false;
   const groups = unorderedGroups(q);

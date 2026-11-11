@@ -131,3 +131,15 @@ test('in a timed paper no type shows its key or offers a control that would', ()
     }
   }
 });
+
+test('a checked fill-in item marks each blank, and an unordered blank is right as any unused key', async () => {
+  const { fillBlankMarks, isCorrect } = await import('../../src/hooks/utils.js');
+  const ordered = { id: 1, subject: 't', type: 'fill', q: 'A ____ B ____ C ____', blanks: ['ตับ', 'ไต', 'ม้าม'] };
+  assert.deepEqual(fillBlankMarks(ordered, ['ตับ', 'ผิด', 'ม้าม']), [true, false, true]);
+  const unordered = { ...ordered, unordered: true };
+  // Typed in another order than the key: every blank is right, as the score says.
+  assert.deepEqual(fillBlankMarks(unordered, ['ม้าม', 'ตับ', 'ไต']), [true, true, true]);
+  assert.equal(isCorrect(unordered, ['ม้าม', 'ตับ', 'ไต']), true);
+  // The same key twice counts once.
+  assert.deepEqual(fillBlankMarks(unordered, ['ตับ', 'ตับ', 'ไต']), [true, false, true]);
+});
