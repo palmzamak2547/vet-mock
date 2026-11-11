@@ -405,7 +405,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                         width: 44, height: 44, borderRadius: '50%',
                         border: `2px solid ${isCorrect ? 'var(--clr-right)' : 'var(--clr-border)'}`,
                         background: isCorrect ? 'var(--clr-right)' : 'transparent',
-                        color: isCorrect ? 'white' : 'var(--clr-ink-soft)',
+                        color: isCorrect ? 'var(--clr-right-on)' : 'var(--clr-ink-soft)',
                         fontSize: 14, fontWeight: 700,
                         cursor: 'pointer', flexShrink: 0,
                       }}

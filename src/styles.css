@@ -78,7 +78,7 @@
      block sets: a right answer is the house sage in every palette.
      tests/unit/verdict-colours.test.mjs. Wrong answers use --clr-rose,
      which no palette sets either. */
-  --clr-right: #4a6b4a; --clr-right-text: #355a39; --clr-right-soft: #a8c0a8; --clr-right-on: #ffffff;
+  --clr-right: #4a6b4a; --clr-right-text: #355a39; --clr-right-soft: #c2c9b9; --clr-right-on: #ffffff;
   --clr-part: #b88940; --clr-part-text: #76511e; --clr-part-soft: #e8d4a8;
   --clr-gold-on: var(--clr-ink);
   --subject-text-mix: 45%;
@@ -182,8 +182,8 @@
      page background reads on them (gold 7.98, rose 7.12) where white
      does not. */
   --clr-sage-on: var(--clr-bg);
-  --clr-right: #7ba87b; --clr-right-text: #9bc99b; --clr-right-soft: #4a6b4a; --clr-right-on: var(--clr-bg);
-  --clr-part: #d4a556; --clr-part-text: #e4ba73; --clr-part-soft: #7b5d2a;
+  --clr-right: #7ba87b; --clr-right-text: #9bc99b; --clr-right-soft: #41503c; --clr-right-on: var(--clr-bg);
+  --clr-part: #d4a556; --clr-part-text: #e4ba73; --clr-part-soft: #5d492a;
   --clr-gold-on: var(--clr-bg);
   --subject-text-mix: 40%;
   --clr-rose-on: var(--clr-bg);
@@ -3468,10 +3468,10 @@ html.dark .vmx-panic-scrim {
 .vmx-sr-btn .sub { font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; font-size: 14px; color: var(--clr-ink-soft); letter-spacing: 0; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
 .vmx-sr-btn.again .label { color: var(--clr-rose-text); }
-.vmx-sr-btn.hard { border-color: var(--clr-gold); }
-.vmx-sr-btn.hard .label { color: var(--clr-gold-text); }
-.vmx-sr-btn.good { border-color: var(--clr-sage); }
-.vmx-sr-btn.good .label { color: var(--clr-sage-text); }
+.vmx-sr-btn.hard { border-color: var(--clr-part); }
+.vmx-sr-btn.hard .label { color: var(--clr-part-text); }
+.vmx-sr-btn.good { border-color: var(--clr-right); }
+.vmx-sr-btn.good .label { color: var(--clr-right-text); }
 .vmx-sr-btn.easy { border-color: var(--clr-ocean); }
 .vmx-sr-btn.easy .label { color: var(--clr-ocean-text); }
 
@@ -5762,12 +5762,12 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-bench-dial__label { font-size: 14px; font-weight: 700; color: var(--clr-ink); }
 .vmx-bench-dial__value { font-family: var(--vmx-display); font-size: 20px; font-variant-numeric: tabular-nums; }
 .vmx-bench-dial__value--gold { color: var(--clr-gold-text); }
-.vmx-bench-dial__value--hit { color: var(--clr-sage-text); }
+.vmx-bench-dial__value--hit { color: var(--clr-right-text); }
 .vmx-bench-dial__value--miss { color: var(--clr-ocean-text); }
 .vmx-bench-dial__hint { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 
 .vmx-bench-range { width: 100%; height: var(--touch-min); accent-color: var(--clr-gold); cursor: pointer; }
-.vmx-bench-range--hit { accent-color: var(--clr-sage); }
+.vmx-bench-range--hit { accent-color: var(--clr-right); }
 .vmx-bench-range--miss { accent-color: var(--clr-ocean); }
 
 .vmx-bench-sizes { display: flex; flex-direction: column; gap: var(--space-2); }
@@ -5805,7 +5805,7 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-bench-guess__verdict { margin: 0; font-size: 14px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 
-.vmx-bench-hit { color: var(--clr-sage-text); }
+.vmx-bench-hit { color: var(--clr-right-text); }
 .vmx-bench-miss { color: var(--clr-rose-text); }
 
 .vmx-bench-field { margin: 0; display: flex; flex-direction: column; gap: var(--space-3); }
@@ -5820,7 +5820,7 @@ body.vmx-reading .vmx-pdf-body {
   width: 9px; height: 9px; border-radius: 2px; background: var(--clr-rose);
   animation: vmx-bench-pop 260ms ease both; animation-delay: var(--d, 0ms);
 }
-.vmx-bench-dot.is-hit { background: var(--clr-sage); }
+.vmx-bench-dot.is-hit { background: var(--clr-right); }
 @keyframes vmx-bench-pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
 
 /* The 2x2 table is four columns of five-figure numbers inside a side panel.
@@ -5842,7 +5842,7 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-bench-table thead th, .vmx-bench-table tbody th { text-align: left; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-bench-table thead th:not(:first-child) { text-align: right; }
-.vmx-bench-table td.is-hit { color: var(--clr-sage-text); font-weight: 700; }
+.vmx-bench-table td.is-hit { color: var(--clr-right-text); font-weight: 700; }
 .vmx-bench-table td.is-false { color: var(--clr-rose-text); font-weight: 700; }
 .vmx-bench-table td.is-missed { color: var(--clr-plum-text); font-weight: 700; }
 .vmx-bench-table__total td, .vmx-bench-table__total th { border-bottom: 0; color: var(--clr-ink-soft); }
@@ -6010,14 +6010,14 @@ body.vmx-reading .vmx-pdf-body {
 
 .vmx-lesson-compare__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
 .vmx-lesson-compare__side { padding: var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); }
-.vmx-lesson-compare__side.is-good { border-left: 3px solid var(--clr-sage); }
+.vmx-lesson-compare__side.is-good { border-left: 3px solid var(--clr-right); }
 .vmx-lesson-compare__side.is-bad { border-left: 3px solid var(--clr-rose); }
 .vmx-lesson-compare__label { margin: 0 0 var(--space-2); font-weight: 700; color: var(--clr-ink); }
 /* Tone is per ROW. In scenario B the drop in treatment courses is real
    improvement and only the deaths worsened; painting the whole panel red
    would say the opposite of what the slide teaches. */
 .vmx-lesson-compare__after.is-alarm { color: var(--clr-rose-text); font-weight: 700; }
-.vmx-lesson-compare__after.is-good { color: var(--clr-sage-text); font-weight: 700; }
+.vmx-lesson-compare__after.is-good { color: var(--clr-right-text); font-weight: 700; }
 .vmx-lesson-compare .vmx-lesson-table td { font-variant-numeric: tabular-nums; text-align: right; }
 .vmx-lesson-compare .vmx-lesson-table thead th:not(:first-child) { text-align: right; }
 

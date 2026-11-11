@@ -735,8 +735,8 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
 // ─── Past review row ───────────────────────────────────────────
 function PastReviewRow({ review }) {
   const verdictMeta = {
-    approve: { icon: 'check', label: 'Approved', color: 'var(--clr-sage-text)' },
-    nudge: { icon: 'pen', label: 'Nudge', color: 'var(--clr-gold-text)' },
+    approve: { icon: 'check', label: 'Approved', color: 'var(--clr-right-text)' },
+    nudge: { icon: 'pen', label: 'Nudge', color: 'var(--clr-part-text)' },
     reject: { icon: 'close', label: 'Rejected', color: 'var(--clr-rose-text)' },
   }[review.verdict] || { icon: 'more', label: review.verdict, color: 'var(--clr-ink-soft)' };
 

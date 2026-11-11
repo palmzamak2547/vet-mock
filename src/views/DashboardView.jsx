@@ -187,7 +187,7 @@ function TrendChart({ days }) {
             <rect
               key={i}
               x={x} y={y} width={barW - 8} height={h}
-              fill={d.pct !== null && d.pct >= 70 ? 'var(--clr-sage)' : d.pct !== null && d.pct >= 50 ? 'var(--clr-gold)' : d.pct !== null ? 'var(--clr-rose)' : 'var(--clr-border)'}
+              fill={d.pct !== null && d.pct >= 70 ? 'var(--clr-right)' : d.pct !== null && d.pct >= 50 ? 'var(--clr-part)' : d.pct !== null ? 'var(--clr-rose)' : 'var(--clr-border)'}
               rx={2}
               opacity={d.total === 0 ? 0.3 : 0.7}
             >
@@ -584,7 +584,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div className="vmx-stat-lbl">ข้อที่ทำทั้งหมด</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}><DigitRoll value={scopedAnalytics.overallPct} />%</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-right-text)' }}><DigitRoll value={scopedAnalytics.overallPct} />%</div>
               <div className="vmx-stat-lbl">ความแม่นยำรวม</div>
             </div>
             <div className="vmx-stat-card vmx-streak-stat-card">

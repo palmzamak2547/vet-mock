@@ -59,9 +59,9 @@ const ConflictNote = React.lazy(() => import('../components/ConflictNote.jsx'));
 const WikiTopicCard = React.lazy(() => import('../components/WikiTopicCard.jsx'));
 
 const TONE = {
-  strong: 'var(--clr-sage-text)',
+  strong: 'var(--clr-right-text)',
   ok: 'var(--clr-ocean-text)',
-  weak: 'var(--clr-gold-text)',
+  weak: 'var(--clr-part-text)',
   warn: 'var(--clr-rose-text)',
   muted: 'var(--clr-ink-soft)',
 };

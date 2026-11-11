@@ -1353,9 +1353,9 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   const rPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
   const verdict = rPct > sPct ? 'win' : rPct < sPct ? 'lose' : 'tie';
   const verdictMeta = {
-    win:  { icon: 'trophy', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, tint: 'var(--clr-sage)', text: 'var(--clr-sage-text)' },
+    win:  { icon: 'trophy', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, tint: 'var(--clr-right)', text: 'var(--clr-right-text)' },
     lose: { icon: 'repeat', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, tint: 'var(--clr-rose)', text: 'var(--clr-rose-text)' },
-    tie:  { icon: 'users', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, tint: 'var(--clr-gold)', text: 'var(--clr-gold-text)' },
+    tie:  { icon: 'users', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, tint: 'var(--clr-part)', text: 'var(--clr-part-text)' },
   }[verdict];
   // Theme tokens, not fixed hex: the kicker and icon take the -text token
   // (4.5:1 on the tint in both themes), the border and the tint the base.

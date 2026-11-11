@@ -125,8 +125,8 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
         </div>
 
         {revealed && q.explain && (
-          <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 14, lineHeight: 1.6 }}>
-            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
+          <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-right)', fontSize: 14, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-right-text)', marginBottom: 4 }}>
               เฉลย
             </div>
             <RichBlocks text={q.explain} />

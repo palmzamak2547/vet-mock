@@ -228,8 +228,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',    iconName: 'practice', color: 'var(--clr-ink)' },
     { id: 'wrong',      label: 'ผิด',        iconName: 'close',    color: 'var(--clr-rose-text)' },
-    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-sage-text)' },
-    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-gold-text)' },
+    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-right-text)' },
+    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-part-text)' },
     { id: 'skipped',    label: 'ข้าม',       iconName: 'repeat',   color: 'var(--clr-ink-soft)' },
     { id: 'bookmarked', label: 'บันทึกไว้',   iconName: 'bookmark', color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',     iconName: 'note',     color: 'var(--clr-plum-text)' },

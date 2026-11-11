@@ -2290,7 +2290,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               const hasAccData = acc && acc.total >= 5;
               const accPct = hasAccData ? Math.round((acc.correct / acc.total) * 100) : 0;
               const accColor = hasAccData
-                ? (accPct < 60 ? 'var(--clr-rose)' : (accPct < 80 ? 'var(--clr-part)' : 'var(--clr-right)'))
+                ? (accPct < 60 ? 'var(--clr-rose-text)' : (accPct < 80 ? 'var(--clr-part-text)' : 'var(--clr-right-text)'))
                 : 'var(--clr-ink-soft)';
               const cov = progressBySubject[s.id];
               const hasCoverage = cov && cov.covered > 0 && cov.total > 0;
@@ -2308,7 +2308,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                   {hasCoverage && (
                     <span
                       title={`ทำไปแล้ว ${cov.covered}/${cov.total} ข้อที่พร้อมฝึกในวิชานี้`}
-                      style={{ fontWeight: 600, color: cov.pct >= 80 ? 'var(--clr-sage-text)' : 'var(--clr-gold-text)' }}
+                      style={{ fontWeight: 600, color: cov.pct >= 80 ? 'var(--clr-right-text)' : 'var(--clr-part-text)' }}
                     >
                       เรียนไป {cov.pct}%
                     </span>

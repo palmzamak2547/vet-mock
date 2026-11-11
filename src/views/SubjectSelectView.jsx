@@ -328,7 +328,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                       width: `${cov.pct}%`,
                       height: '100%',
                       borderRadius: 999,
-                      background: cov.pct >= 80 ? 'var(--clr-sage)' : cov.pct >= 40 ? 'var(--clr-gold)' : 'var(--clr-rose)',
+                      background: cov.pct >= 80 ? 'var(--clr-right)' : cov.pct >= 40 ? 'var(--clr-part)' : 'var(--clr-rose)',
                       transition: 'width var(--dur) var(--ease-out)',
                     }} />
                   </div>

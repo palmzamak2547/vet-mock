@@ -301,9 +301,10 @@ function ScoreBadge({ total, max, pct, touched }) {
       ติ๊กเกณฑ์เพื่อให้คะแนน
     </div>
   );
-  const color = pct >= 75 ? 'var(--clr-sage)' : pct >= 50 ? 'var(--clr-gold)' : 'var(--clr-rose)';
+  const color = pct >= 75 ? 'var(--clr-right)' : pct >= 50 ? 'var(--clr-part)' : 'var(--clr-rose)';
+  const onColor = pct >= 75 ? 'var(--clr-right-on)' : pct >= 50 ? '#2b2419' : 'var(--clr-rose-on)';
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
+    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: onColor, fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
       <span style={{ fontSize: 14, opacity: 0.85 }}>/ {max}</span>
       <span style={{ fontSize: 14, opacity: 0.85 }}>, {pct}%</span>
@@ -448,7 +449,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
                 <strong>{actual}/{maxScore}</strong>
                 {' '}
                 <span style={{
-                  color: Math.abs(gap) <= 1 ? 'var(--clr-sage-text)' : Math.abs(gap) <= 2 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)',
+                  color: Math.abs(gap) <= 1 ? 'var(--clr-right-text)' : Math.abs(gap) <= 2 ? 'var(--clr-part-text)' : 'var(--clr-rose-text)',
                   fontWeight: 600,
                 }}>
                   ({gap > 0 ? '+' : ''}{gap.toFixed(1)})
