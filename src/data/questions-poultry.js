@@ -55,7 +55,7 @@ export const QB_POULTRY = [
     q: 'สาเหตุของ Avian Metapneumovirus คือไวรัสในวงศ์ Paramyxoviridae',
     answer: true,
     explain: 'ICTV เก่า: aMPV = Paramyxoviridae, ICTV ใหม่ (2018+): แยกเป็น Pneumoviridae, ตำราไทย/Thai vet curriculum หลายแห่งยังใช้ classification เก่า ตอบ T ก็ถือว่าได้',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1703, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -97,7 +97,7 @@ export const QB_POULTRY = [
     q: 'สาเหตุของ AE คือ Picornavirus กลุ่ม enterovirus',
     answer: true,
     explain: 'AE virus เป็น Picornaviridae, genus เก่าจัดเป็น Enterovirus, ICTV ใหม่จัดเป็น genus Tremovirus, ตอบ T ตามตำราเก่ายังถือว่าได้',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1708, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -154,7 +154,7 @@ export const QB_POULTRY = [
     q: 'Chick neuro signs DDx: Newcastle disease, brain mycoses, Streptococcus, Salmonella',
     answer: false,
     explain: 'DDx neuro chick: ND ✓, AE ✓, vit E/Se def, Aspergillus brain (rare), Salmonella sepsis ✓, brain mycosis เป็น rare DDx, list อาจไม่ครอบคลุมหรือมี emphasis ผิด, ตำราไทยน่าจะเน้น AE/Marek/encephalomalacia เป็นหลัก',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   // ── ND (15 Qs) ────────────────────────────────────────────────
   { id: 1715, subject: 'poultry', topic: 'uncertain-scope', year: 4,
@@ -196,7 +196,7 @@ export const QB_POULTRY = [
     q: 'Mesogenic strain (medium virulence) ของ ND ได้แก่ Mukteswar Philippines (MP)',
     answer: true,
     explain: 'Mesogenic strains: Mukteswar (Indian), Roakin, Komarov, Mukteswar Philippines เป็น regional naming, ICPI 0.7-1.5',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1720, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -269,7 +269,7 @@ export const QB_POULTRY = [
     q: 'รอยโรคของ ND: hemorrhage ที่ proventricular gland + junction proventriculus-gizzard + cecal tonsils',
     answer: true,
     explain: 'These are classic VVND (velogenic viscerotropic ND) lesions: button ulcers ที่ cecal tonsils, proventricular gland hemorrhages, proventriculus-gizzard junction hemorrhage, pathognomonic ของ vNDV form ในไก่, (corrected from student answer F → T)',
-    flag: 'corrected-from-student' },
+    flag: { severity: 'unclear', note: 'เฉลยแก้จากคำตอบของนักศึกษาในต้นฉบับ จากผิดเป็นถูก ตามรอยโรค VVND ในคำอธิบาย ยังต้องตรวจยืนยันก่อนใช้' } },
 
   { id: 1729, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -278,7 +278,7 @@ export const QB_POULTRY = [
     q: 'Broiler vaccine program: spray IB + ND day 1 + killed ND injection day 1 + La Sota live day 10 → cover Class II genotype VIIh',
     answer: true,
     explain: 'Modern broiler ND program: prime (live spray + killed inj day 1) → boost (live drinking day 10), Genotype VII = dominant in SE Asia, La Sota provides cross-protection แต่บางสายพันธุ์ใหม่ (VIIh) ต้อง autogenous',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   // ── E. coli / APEC (10 Qs) ────────────────────────────────────
   { id: 1730, subject: 'poultry', topic: 'uncertain-scope', year: 4,
@@ -296,7 +296,7 @@ export const QB_POULTRY = [
     q: 'APEC ในไก่ไทยที่ก่อปัญหา: O1, O2, O35, O87',
     answer: false,
     explain: 'APEC ทั่วโลกหลัก: O1, O2, O78, O35/O87 ไม่ใช่ classic, serotype regional variation มีอยู่',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1732, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -337,7 +337,7 @@ export const QB_POULTRY = [
     q: 'APEC พบ pericarditis + perihepatitis + airsacculitis + peritonitis ที่ 7-10 วันหลังติดเชื้อ',
     answer: false,
     explain: 'APEC pathology classic ปรากฏ 5-7 วัน หลังติดเชื้อ (เร็วกว่า 7-10), acute septicemia อาจตายภายใน 24 hr',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1737, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -379,7 +379,7 @@ export const QB_POULTRY = [
     q: 'Mycoplasma สำคัญในอุตสาหกรรมไก่: M. gallisepticum, M. synoviae, M. meleagridis',
     answer: false,
     explain: 'Big-3 ของ poultry Mycoplasma: M. gallisepticum (MG), M. synoviae (MS), M. meleagridis (MM, turkey), M. iowae (MI, turkey), 3 ชื่อในข้อ correct แต่ขาด M. iowae, ระวัง M. meleagridis สำคัญใน turkey ไม่ใช่ chicken commercial',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1742, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -451,7 +451,7 @@ export const QB_POULTRY = [
     ],
     answer: 0,
     explain: '(a) ✓ killed bacterin ฉีดได้หลาย site (IM/SC), (b) capsule = major antigen แต่อ้างเด่นกว่าวัคซีนทั่วไป, (c) -20°C → cold chain issue, ปกติ 2-8°C, (d) drinking water = live only, (e) cross-protection limited',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1748, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -497,7 +497,7 @@ export const QB_POULTRY = [
     ],
     answer: 2,
     explain: 'Fowl cholera: gentamicin ใช้ได้ในน้ำดื่ม (ตำราไทยบางแห่ง), IC: ใช้ sulfa, tylosin, oxytetra, erythromycin, Enrofloxacin ใน layers = banned (residue) ในหลายประเทศ',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1751, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
@@ -578,7 +578,7 @@ export const QB_POULTRY = [
     q: 'หากวิธีวินิจฉัยมี specificity สูง → false positive จะสูงด้วย',
     answer: false,
     explain: 'กลับกัน — Specificity สูง = false positive ต่ำ, Specificity = ability to correctly identify negatives, sensitivity ต่ำ = false negative สูง, ระวัง trick wording ใน exam',
-    flag: 'tricky-stem' },
+    flag: { severity: 'unclear', note: 'ถ้อยคำโจทย์ชวนให้สับสนระหว่าง specificity กับ false positive ยังต้องตรวจถ้อยคำก่อนใช้' } },
 
   // ── Pre-test: Lymphoid Organs (3 MCQ, page 46) ─────────────
   { id: 1760, subject: 'poultry', topic: 'physiology', year: 4,
@@ -632,7 +632,7 @@ export const QB_POULTRY = [
     ],
     answer: 3,
     explain: 'การวัดผล cleaning/disinfection = bacterial swab + ATP bioluminescence + visual inspection, prevent/control/eradicate เป็นเป้าหมาย ไม่ใช่ measurement method',
-    flag: 'verify-2026' },
+    flag: { severity: 'unclear', note: 'ข้อก้ำกึ่ง ยังต้องตรวจเฉลยเทียบกับสไลด์บรรยายปัจจุบันของรายวิชา' } },
 
   { id: 1764, subject: 'poultry', topic: 'midterm-disease', year: 4,
     source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (page 46)',
