@@ -1425,10 +1425,21 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   }, [subject, topic, openNonce]);
 
   // Runs after the index has rendered the asked-for subject open.
+  // Entering from a subject address the scroll waits two frames: App's
+  // ViewEntry puts the page at the top one frame after mount, and a scroll
+  // made before that was undone (/wiki/com5 stayed at the top on the build,
+  // 11 Nov 2026).
   useEffect(() => {
-    if (!indexFocus) return;
-    const el = typeof document === 'undefined' ? null : document.getElementById(subjectAnchor(indexFocus.subject));
-    el?.scrollIntoView?.({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+    if (!indexFocus || typeof document === 'undefined') return undefined;
+    const fromAddress = indexFocus.nonce === 'address';
+    const go = () => {
+      const el = document.getElementById(subjectAnchor(indexFocus.subject));
+      el?.scrollIntoView?.({ block: 'start', behavior: fromAddress || motionIsReduced() ? 'auto' : 'smooth' });
+    };
+    if (!fromAddress || typeof requestAnimationFrame !== 'function') { go(); return undefined; }
+    let second = 0;
+    const first = requestAnimationFrame(() => { second = requestAnimationFrame(go); });
+    return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
   }, [indexFocus]);
 
   // Normalise the URL on first paint (e.g. entering from the app's feature

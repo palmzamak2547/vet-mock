@@ -42,4 +42,7 @@ test('KnowledgeView seeds the index focus from the address and keeps that addres
   assert.match(src, /wikiEntry\(window\.location\.pathname, topics\)/);
   assert.match(src, /entry\.kind === 'subject' \? \{ subject: entry\.subject, nonce: 'address' \}/);
   assert.match(src, /if \(indexFocus\?\.nonce !== 'address'\) syncUrl\(openId, true\);/);
+  // ViewEntry puts the page at the top one frame after mount: the address
+  // entry scrolls two frames on, or it stays at the top.
+  assert.match(src, /const first = requestAnimationFrame\(\(\) => \{ second = requestAnimationFrame\(go\); \}\);/);
 });
