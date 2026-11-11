@@ -14,6 +14,8 @@ const SCRIPT = path.join(ROOT, 'scripts/ci-apt-mirrors.sh');
 const AZURE = 'http://azure.archive.ubuntu.com/ubuntu/';
 const ARCHIVE = 'https://archive.ubuntu.com/ubuntu/';
 const SECURITY = 'https://security.ubuntu.com/ubuntu/';
+const KERNEL = 'https://mirrors.edge.kernel.org/ubuntu/';
+const MIT = 'https://mirrors.mit.edu/ubuntu/';
 const RUNNER_LIST = `${AZURE}\tpriority:1\n${ARCHIVE}\tpriority:2\n${SECURITY}\tpriority:3\n`;
 
 // The script runs on the Linux runner. On a Windows checkout `bash` may be another system's shell,
@@ -50,10 +52,22 @@ test('Azure is slow or down (22 Oct): apt starts from the public archive', onRun
   assert.deepEqual(priority, { [SECURITY]: 3, [ARCHIVE]: 1, [AZURE]: 9 });
 });
 
-test('neither answers the probe: both stay listed, and the log says so', onRunner, () => {
+test('no ubuntu.com name answers (11 Nov): apt uses only the outside mirrors that do, and the log says so', onRunner, () => {
+  const { text, out } = order(RUNNER_LIST, [KERNEL, MIT]);
+  assert.equal(text, `${KERNEL}\tpriority:1\n${MIT}\tpriority:9\n`);
+  assert.match(out, /::warning::no ubuntu\.com mirror answers on this runner/);
+  assert.equal(order(RUNNER_LIST, [MIT]).text, `${MIT}\tpriority:1\n`, 'a dead outside mirror is not listed either');
+});
+
+test('an outside mirror is never used while a ubuntu.com mirror answers', onRunner, () => {
+  const { text } = order(RUNNER_LIST, [AZURE, KERNEL, MIT]);
+  assert.doesNotMatch(text, /kernel\.org|mit\.edu/);
+});
+
+test('nothing answers the probe: the runner\'s two stay listed, and the log says so', onRunner, () => {
   const { priority, out } = order(RUNNER_LIST, []);
   assert.deepEqual(priority, { [SECURITY]: 3, [ARCHIVE]: 1, [AZURE]: 9 });
-  assert.match(out, /::warning::neither Ubuntu mirror answered/);
+  assert.match(out, /::warning::no Ubuntu mirror answered the probe/);
 });
 
 test('a mirror list the script does not recognise is left exactly as it was', onRunner, () => {
