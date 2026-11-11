@@ -33,7 +33,10 @@
           var raw = localStorage.getItem('vmx-theme');
           var saved = raw ? JSON.parse(raw) : null;
           var chosen = visit.theme === 'light' || visit.theme === 'dark' ? visit.theme : (saved === 'light' || saved === 'dark' ? saved : null);
-          var t = chosen || ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
+          var t = chosen;
+          if (t !== 'light' && t !== 'dark') {
+            t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
           var d = document.documentElement;
           d.setAttribute('data-theme', t);
           if (chosen) d.setAttribute('data-theme-chosen', chosen);
