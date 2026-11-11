@@ -22,13 +22,13 @@ export const PALETTE_DOTS = Object.freeze({
 
 const SPECIAL = {
   'motion.celebration': { contextual: { th: 'ตามสิ่งที่ทำสำเร็จ', symbol: '✓' } },
-  'motion.readingPointer': { auto: { th: 'ตามเครื่อง', symbol: '⌖' }, none: { th: 'ไม่มี', symbol: '·' } },
+  'motion.readingPointer': { auto: { th: 'ตามเครื่อง', symbol: '⌖' }, none: { th: 'ไม่มี', symbol: '○' } },
 };
 
 /** { th, symbol } for a choice of a row. */
 export function choiceMeta(id, value) {
   const fixed = CHOICE_LABEL[id]?.[String(value)];
   if (fixed) return { th: fixed, symbol: '' };
-  return SPECIAL[id]?.[value] || EFFECT[value] || { th: String(value), symbol: '·' };
+  return SPECIAL[id]?.[value] || EFFECT[value] || { th: String(value), symbol: '○' };
 }
 export const choiceLabel = (id, value) => choiceMeta(id, value).th;
