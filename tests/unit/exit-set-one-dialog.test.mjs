@@ -17,10 +17,14 @@ test('the exit dialog keeps the set and says for how long', () => {
   assert.equal(d.title, 'ออกจากชุดนี้?');
   assert.equal(d.confirmLabel, 'เก็บไว้แล้วออก');
   assert.equal(d.cancelLabel, 'ทำต่อ');
-  assert.match(d.body, / 1 จาก 3 ข้อ /, 'a blank typed into and deleted is not answered');
-  assert.match(d.body, /6 ชั่วโมง/);
-  assert.match(d.body, /เวลาที่เหลือจะหยุดนับ/);
-  assert.doesNotMatch(exitSetDialog({ questions: qs, answers: {}, timed: false }).body, /จาก|เวลาที่เหลือ/);
+  assert.equal(d.body, 'ตอบไปแล้ว 1 จาก 3 ข้อ เก็บไว้ที่หน้าแรก 6 ชั่วโมง กลับมาทำต่อจากข้อเดิมได้ เวลาสอบหยุดนับระหว่างนี้', 'a blank typed into and deleted is not answered');
+  assert.equal(d.focusCancel, true, 'in a timed paper ทำต่อ (stay) takes focus');
+  const none = exitSetDialog({ questions: qs, answers: {}, timed: false });
+  assert.equal(none.body, 'ชุดนี้เก็บไว้ที่หน้าแรก 6 ชั่วโมง กลับมาทำต่อจากข้อเดิมได้');
+  assert.equal(none.focusCancel, false);
+  // "ทำต่อ" is the button that stays: the body never says กดทำต่อ.
+  assert.doesNotMatch(d.body, /กดทำต่อ/);
+  assert.doesNotMatch(d.body + none.body, /^ | {2}| $/, 'no stray space');
 });
 
 test('the X button and the Back guard both ask through exitSetDialog, and spell no exit dialog of their own', () => {
