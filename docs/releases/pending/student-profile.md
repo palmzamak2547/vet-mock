@@ -50,27 +50,24 @@ account page. No database migration, no row-policy change, no new table or colum
    student there. Comments and a group's member list read `profiles` directly and ignore the flag:
    the UI says "แสดงเสมอ เลือกซ่อนไม่ได้". The leaderboard and group board show the student's own
    line (`BoardPresenceNotice.jsx`): hidden by choice, ranked N of M, or not on the board yet.
-6. **True statements, one level.** The hub claims nothing about storage and carries no caveat
-   (coordinator review, 11 Nov). The level is one function of data that follows the account
-   (`shownXp` in `lib/xp.js`, read by the hub and the header chip alike):
-   - answers in the synced history (5 right, 2 wrong, the `XP_AWARDS` the app grants) and reviews
-     counted on synced SR cards (3 each);
-   - plus `xp_extra` in the account's metadata. What the app awards apart from answers and SR
-     grades is daily-quest points (`quests.js`, kept per day on the device). The daily question and
-     reading grant no XP at all (`XP_AWARDS.dailyQ` and `notesRead` are never awarded), so nothing
-     of theirs needs carrying. Quest points are counted on the device until added to `xp_extra`
-     (`addAccountXp` in `lib/identity-write.js`, one metadata write per claim, a few a day);
-   - the old device counter is taken into account ONCE: the first time a signed-in account is seen
-     on a device after this release, the counter's lead over the account's number is added to
-     `xp_extra` and the device records that it did (`vmx-xp-carried:<uid>`). Until that write
-     lands the device shows its old counter where it is higher, so the level never drops on the
-     device in use; afterwards every device shows the same number. A guest's level is the device
-     counter, as before.
-   - Known edge: two old devices of one account each carry their own lead, so quest points counted
-     on both are added twice (never fewer). Measured cost: none at first load (the carry runs in
-     the lazy header chip).
-   Tests: "the level is one function of what follows the account", "the old counter is taken into
-   account once", "quest points are the only award counted" in `tests/unit/student-identity.test.mjs`.
+6. **True statements, one level.** The hub claims nothing about storage and carries no caveat.
+   The level is one function of data that follows the account (`shownXp` in `lib/xp.js`, read by
+   the hub and the header chip): answers in the synced history (5 right, 2 wrong) and reviews on
+   synced SR cards (3 each), plus metadata `xp_quests` (quest points, the one award no synced record
+   holds; the daily question and reading grant no XP) and `xp_carry[<device>]` (the old counter's
+   lead, recorded once per device). After the security review (fd9bec89):
+   - no carry until the sync store has finished this account's first pull (`xpReady`, phase
+     synced or pending), since before that the history is empty and every answer would count twice;
+   - the old counter can be carried only by an account whose synced history holds at least as many
+     answers as the counter recorded here, and once carried it belongs to that account
+     (`vmx-xp-owner`), so a second student on a shared phone never inherits it; quest points are
+     kept per account (`vmx-xp-pending:<uid>`);
+   - the carry is set per device, never added, and quest points flush under a Web Lock, so two tabs
+     cannot double it (a browser without Web Locks can still double a flush of quest points);
+   - until the carry lands, the device in use shows its own counter where it is higher, so nobody's
+     level drops; afterwards every device shows the same number.
+   Tests: `tests/unit/student-identity-review.test.mjs` (early effect, second account, two tabs, one
+   function).
 7. **No algorithm names.** The review row read "เลือก SM-2 หรือ FSRS ได้ในหน้านี้"; it now says what
    the student gets: "ข้อที่ผิดกลับมาให้ทบทวน แอปเลือกวันให้เอง". Test: "the review row says what the
    student gets, no algorithm names".
@@ -112,6 +109,25 @@ account page. No database migration, no row-policy change, no new table or colum
 - A student outside the first 200 on a board: the board and the hub now say "ยังไม่อยู่ใน 200
   อันดับแรก" instead of nothing (or "not on the board"). Their actual rank needs the ranking RPC
   to return the caller's own row (a migration; not in this branch).
+
+### Security review fd9bec89, items 2 to 6 (tests in `student-identity-review.test.mjs`)
+- Presence: a student who hides is not tracked at all (`useStudyBuddies.js`), so there is no entry,
+  no place in "N คนกำลังทำข้อนี้" and no key to match. They still see others. The editor's sentence now
+  says where the name still shows: comments, a race room the student joins themself, group member
+  lists, and questions already shared (`shared_questions.author_name` is written once).
+- Names the database made from the Google name (its ASCII letters, with `_N` or `_<hex>`) count as
+  auto-made (`identity-gate.js`), so the editor starts empty and the first-run step asks. A name the
+  student saved through the editor counts as a choice.
+- Name rules: NFKC, sara am recomposed, no Thai mark on a digit, marks and separators ignored when
+  counting digits, no leading or trailing separator, look-alike letters folded in `compactName`,
+  and the free-name check compares in that form. The legacy signup applies `checkPublicName` too.
+- Display: `src/lib/public-display.js` (`shownName`, `shownPicture`) on the header menu, the boards,
+  groups, comments, the reading-now list and races. A picture outside the set draws as the paw,
+  invisible and bidi characters are removed, and a blank name, a digit run or an address draws as
+  "นิสิต". A test walks `src/**/*.jsx` so a new surface cannot skip it.
+- Write order: when hiding, the metadata goes first, then the row. The session's account must be
+  the editor's (`expectUserId`). `ensure_profile` runs before the update. The export copy says the
+  progress page restores only the study data.
 
 ### Checks
 See the pull request that folds this branch. Unit: `tests/unit/student-identity.test.mjs`.
@@ -179,6 +195,29 @@ create unique index concurrently if not exists profiles_username_lower_key on pu
 --    keeping the collision loop and the EXCEPTION block as they are.
 ```
 
+**Corrections the security review found in the SQL above (fd9bec89), to make when the database
+step is written; not built in this branch:**
+- `create unique index concurrently` cannot run inside a migration transaction: give it a migration
+  of its own outside a transaction, or drop `concurrently`.
+- Index the compact NFKC form, not `lower(username)`: the same folding as `compactName` in
+  `src/lib/public-identity.js` (NFKC, sara am recomposed, case, separators, I/l/1 and O/0). List
+  and clear the collisions in that form first.
+- Every refusal raises 23514, which the client read as a length error. The client now says "length"
+  only when the message names the length check. Better still, give each refusal its own message
+  (`public name refused: digits`) and keep the 23514 code.
+- The proposed handle `'นิสิต_' || 6 hex` is not recognised as auto-made by `isAutoName`, and it
+  holds five digits in a row about 19 percent of the time. Use a handle with no digit runs, such as
+  `'นิสิต_' || <6 letters from a-p>`, and add its pattern to `identity-gate.js`.
+- The `public_name_problem` digit rule has the same tone-mark gap the client had (`643่12345`): strip
+  the Thai marks (U+0E31, U+0E34 to U+0E3A, U+0E47 to U+0E4E) before counting digits, and refuse a
+  mark directly after a digit. Normalise with NFKC, not NFC.
+- No existing row is fixed by the trigger, which only runs on update. About 300 rows hold an
+  auto-made or Google-derived name. They need a one-time pass (the student is asked through the
+  first-run step, which already treats those names as auto-made).
+- `show_on_boards`: do not grant SELECT on it to members. The leaderboard RPCs read it as
+  definer, and it is kept in sync with the metadata flag while older clients still write only the
+  metadata. Drop the `grant select (..., show_on_boards)` line below.
+
 The policy stays as it is, written out so its `WITH CHECK` is explicit in the same migration:
 
 ```sql
@@ -199,7 +238,7 @@ update public.profiles p set show_on_boards = coalesce((u.raw_user_meta_data->>'
   from auth.users u where u.id = p.id;
 revoke update on table public.profiles from anon, authenticated;
 grant update (username, avatar_emoji, show_on_boards) on table public.profiles to authenticated;
-grant select (id, username, avatar_emoji, created_at, show_on_boards) on table public.profiles to authenticated;
+-- no SELECT grant on show_on_boards: the RPCs read it as definer (review, item 7)
 -- profiles_update_own above (USING and WITH CHECK auth.uid() = id) covers the new column.
 ```
 then the leaderboard RPCs read `p.show_on_boards`, the client writes it in `saveIdentity`, and the

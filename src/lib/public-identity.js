@@ -23,27 +23,9 @@ export { isAutoName, emailLocalPart };
 export const NAME_MIN = 3;
 export const NAME_MAX = 24;
 
-/** The pictures a student can pick: animals a vet student meets. */
-export const PICTURES = Object.freeze([
-  { emoji: '🐾', label: 'รอยเท้า' },
-  { emoji: '🐶', label: 'สุนัข' },
-  { emoji: '🐱', label: 'แมว' },
-  { emoji: '🐰', label: 'กระต่าย' },
-  { emoji: '🐹', label: 'แฮมสเตอร์' },
-  { emoji: '🐴', label: 'ม้า' },
-  { emoji: '🐮', label: 'วัว' },
-  { emoji: '🐷', label: 'หมู' },
-  { emoji: '🐑', label: 'แกะ' },
-  { emoji: '🐐', label: 'แพะ' },
-  { emoji: '🐔', label: 'ไก่' },
-  { emoji: '🦆', label: 'เป็ด' },
-  { emoji: '🐢', label: 'เต่า' },
-  { emoji: '🐠', label: 'ปลา' },
-  { emoji: '🦜', label: 'นกแก้ว' },
-  { emoji: '🐍', label: 'งู' },
-]);
-export const DEFAULT_PICTURE = '🐾';
-export const isPicture = (value) => PICTURES.some((p) => p.emoji === value);
+import { PICTURES, DEFAULT_PICTURE, isPicture, INVISIBLE } from './public-display.js';
+
+export { PICTURES, DEFAULT_PICTURE, isPicture };
 export const pictureLabel = (value) => PICTURES.find((p) => p.emoji === value)?.label || 'รูปที่ตั้งไว้';
 
 // Words a name may not contain: they would read as the app or its staff
@@ -55,19 +37,31 @@ export const RESERVED = Object.freeze([
 ]);
 const RESERVED_EXACT = Object.freeze(['mod', 'dev', 'team', 'null', 'undefined']);
 
-// Invisible characters that let two names look the same, or reorder text.
-const INVISIBLE = /[\u0000-\u001f\u007f-\u009f­؜᠎​-‏‪-‮⁠-⁯﻿]/g;
 const ALLOWED = /^[\p{Script=Thai}A-Za-z0-9_ .-]+$/u;
 const HAS_LETTER = /[ก-ฮA-Za-z]/;
+// Thai vowel and tone marks that sit on the letter before them.
+const THAI_MARK = /[ัิ-ฺ็-๎]/;
 const toAsciiDigits = (s) => s.replace(/[๐-๙]/g, (d) => String(d.charCodeAt(0) - 0x0e50));
 
-/** The name as it will be stored: NFC, no invisible characters, one space. */
+/** The name as it will be stored: NFKC (one form for look-alike letters and
+ *  digits), sara am recomposed so the typed and the precomposed spelling are
+ *  one name, no invisible characters, one space. */
 export function normalizePublicName(raw) {
   return String(raw ?? '')
-    .normalize('NFC')
+    .normalize('NFKC')
+    .replace(/ํ([่-๋]?)า/g, '$1ำ')
     .replace(INVISIBLE, '')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+/** The form two names are compared in: no case, no separators, and the
+ *  letters that look alike in the app's fonts folded together (I l 1, O 0). */
+export function compactName(value) {
+  return normalizePublicName(value).toLowerCase()
+    .replace(/[\s._-]/g, '')
+    .replace(/[il1|]/g, 'l')
+    .replace(/[o0]/g, 'o');
 }
 
 /** Code points, as Postgres char_length counts them. */
@@ -88,14 +82,20 @@ export function checkPublicName(raw, { email = '' } = {}) {
     return no('ชื่อต้องไม่เป็นอีเมลหรือที่อยู่เว็บ');
   }
   if (!ALLOWED.test(value)) return no('ใช้ได้เฉพาะอักษรไทย อังกฤษ ตัวเลข ช่องว่าง และ _ . -');
-  if (/\d{5,}/.test(toAsciiDigits(value).replace(/[ ._-]/g, ''))) {
+  if (/^[ ._-]|[ ._-]$/.test(value)) return no('ขึ้นต้นและลงท้ายด้วยตัวอักษรหรือตัวเลข');
+  // A mark has no place on a digit, and marks or separators between digits
+  // would hide a student number from the count below.
+  if (new RegExp(`[0-9๐-๙]${THAI_MARK.source}`).test(value)) return no('วางวรรณยุกต์หรือสระบนตัวเลขไม่ได้');
+  const digitsOnly = toAsciiDigits(value).replace(/[ ._-]/g, '').replace(new RegExp(THAI_MARK.source, 'g'), '');
+  if (/\d{5,}/.test(digitsOnly)) {
     return no('มีตัวเลขติดกันมากไป อาจอ่านเป็นรหัสนิสิต ใช้ไม่เกิน 4 ตัว');
   }
   if (!HAS_LETTER.test(value)) return no('ต้องมีตัวอักษรอย่างน้อยหนึ่งตัว');
   const local = emailLocalPart(email);
   if (local && value.toLowerCase() === local) return no('ชื่อนี้มาจากอีเมลของคุณ เลือกชื่ออื่น');
-  const compact = value.toLowerCase().replace(/[\s._-]/g, '');
-  if (RESERVED_EXACT.includes(compact) || RESERVED.some((word) => compact.includes(word))) {
+  const compact = compactName(value);
+  const plain = value.toLowerCase().replace(/[\s._-]/g, '');
+  if (RESERVED_EXACT.includes(plain) || RESERVED.some((word) => plain.includes(word) || compact.includes(compactName(word)))) {
     return no('ชื่อนี้ใช้ไม่ได้ เพราะอ่านเหมือนทีมงานของแอป');
   }
   if (isAutoName(value, email)) return no('ชื่อนี้ระบบตั้งให้ เลือกชื่อของคุณเอง');
@@ -107,9 +107,12 @@ export function identityWriteError(error) {
   const code = error?.code || '';
   const text = `${code} ${error?.message || ''} ${error?.details || ''}`;
   if (code === '23505' || /duplicate key|unique/i.test(text)) return 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น';
-  if (code === '23514' || /check constraint/i.test(text)) return `ชื่อต้องยาว ${NAME_MIN} ถึง ${NAME_MAX} ตัวอักษร`;
+  if ((code === '23514' || /check constraint/i.test(text)) && /length/i.test(text)) return `ชื่อต้องยาว ${NAME_MIN} ถึง ${NAME_MAX} ตัวอักษร`;
+  if (code === '23514' || /check constraint/i.test(text)) return 'ชื่อหรือรูปนี้ใช้ไม่ได้ ลองชื่ออื่น';
   if (code === '42501' || /row-level security|permission denied/i.test(text)) return 'บันทึกไม่ได้ เพราะบัญชีนี้ไม่มีสิทธิ์แก้ข้อมูลนี้ ลองออกจากระบบแล้วเข้าใหม่';
   if (/fetch|network|timeout|offline/i.test(text)) return 'บันทึกไม่สำเร็จ เพราะการเชื่อมต่อขาดหาย ลองอีกครั้ง';
+  if (code === 'session_changed') return 'บัญชีที่เข้าอยู่เปลี่ยนไปแล้ว ปิดหน้านี้แล้วเปิดใหม่';
+  if (code === 'meta_failed') return 'บันทึกไม่สำเร็จ ยังไม่ได้เปลี่ยนอะไร ลองอีกครั้ง';
   return 'บันทึกไม่สำเร็จ ลองอีกครั้ง';
 }
 
@@ -126,9 +129,14 @@ export const showsOnBoards = (user) => user?.user_metadata?.show_on_leaderboard 
 export const SURFACES = Object.freeze([
   { id: 'leaderboard', label: 'กระดานอันดับ', shows: 'ชื่อ รูป และคะแนนสูงสุดของชุดที่ส่ง', followsChoice: true },
   { id: 'group-board', label: 'อันดับในกลุ่มติว', shows: 'ชื่อ รูป และคะแนนสูงสุด', followsChoice: true },
-  { id: 'online', label: 'รายชื่อคนที่กำลังอ่าน', shows: 'ชื่อและรูป ขณะเปิดแอป', followsChoice: true },
+  // Not tracked at all when hidden (useStudyBuddies): no entry, not counted.
+  { id: 'online', label: 'รายชื่อคนที่กำลังอ่าน', shows: 'ชื่อ รูป และวิชาที่อ่าน ขณะเปิดแอป', followsChoice: true },
   { id: 'comments', label: 'ความเห็นในข้อสอบ', shows: 'ชื่อและรูป ข้างความเห็นที่คุณเขียน', followsChoice: false },
   { id: 'group-members', label: 'สมาชิกกลุ่มที่คุณเข้า', shows: 'ชื่อและรูป', followsChoice: false },
+  // RaceView puts the name of everyone in a room on its board.
+  { id: 'race', label: 'ห้องแข่งที่คุณเข้าเอง', shows: 'ชื่อและคะแนนในห้องนั้น', followsChoice: false },
+  // shared_questions.author_name is written once, when a question is shared.
+  { id: 'shared', label: 'ข้อที่คุณเคยแชร์ในกลุ่ม', shows: 'ชื่อตอนที่แชร์ ไม่เปลี่ยนตามชื่อใหม่', followsChoice: false },
 ]);
 
 /** "Vet 86" for a year, from the semester's own note ("Vet 86 = ชั้นปีที่ 5"). */

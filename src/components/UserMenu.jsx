@@ -9,6 +9,7 @@
 // useDropdownAnchor hook + STABILITY.md rule 11.
 // ============================================================
 
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import NavIcon from './NavIcon.jsx';
@@ -44,7 +45,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label={`บัญชี ${profile.username}`}
+        aria-label={`บัญชี ${shownName(profile.username)}`}
         style={{
           all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
           padding: '6px 12px 6px 6px', borderRadius: 999,
@@ -56,7 +57,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
         }}
       >
         <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
-          {profile.avatar_emoji || '🐾'}
+          {shownPicture(profile.avatar_emoji)}
         </span>
         {/* Hidden below 600px (see styles.css): signed in with a long name on
             a phone, this pill pushed the study-context pills out of the row
@@ -64,7 +65,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
             phase pill opened search or this menu instead. The name still
             reaches assistive tech through the button's aria-label. */}
         <span className="vmx-usermenu-name" style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          {profile.username}
+          {shownName(profile.username)}
         </span>
         <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>
       </button>
@@ -95,7 +96,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, marginTop: 2 }}>
                 <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {profile.avatar_emoji || '🐾'} {profile.username}
+                  {shownPicture(profile.avatar_emoji)} {shownName(profile.username)}
                 </span>
                 <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', fontSize: 12 }}>›</span>
               </div>
@@ -107,7 +108,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
                 บัญชีและข้อมูล
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
-                {profile.avatar_emoji || '🐾'} {profile.username}
+                {shownPicture(profile.avatar_emoji)} {shownName(profile.username)}
               </div>
             </div>
           )}

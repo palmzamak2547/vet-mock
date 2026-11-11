@@ -86,7 +86,9 @@ test('guest mode is called โหมดผู้เยี่ยมชม whereve
 test('a classmate with no username is นิสิต on the buddies list, the name presence publishes', () => {
   assert.match(read('src/hooks/useStudyBuddies.js'), /\(shown && username\) \|\| 'นิสิต'/);
   const panel = read('src/components/StudyBuddiesPanel.jsx');
-  assert.ok(panel.includes("b.username || 'นิสิต'"));
+  // shownName (public-display.js) draws a blank name as นิสิต.
+  assert.ok(panel.includes("shownName(b.username)"));
+  assert.match(read('src/lib/public-display.js'), /export const STAND_IN = 'นิสิต';/);
   assert.ok(!panel.includes("|| 'guest'"), 'the panel still falls back to guest');
 });
 

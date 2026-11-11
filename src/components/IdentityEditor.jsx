@@ -12,11 +12,12 @@
 // a name is said for what it is and the field starts empty.
 // ============================================================
 
+import { shownPicture } from '../lib/public-display.js';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { saveIdentity, isPublicNameFree } from '../lib/identity-write.js';
 import {
   PICTURES, DEFAULT_PICTURE, SURFACES, checkPublicName, identityWriteError, isAutoName,
-  isPicture, normalizePublicName, nameLength, showsOnBoards, NAME_MAX, NAME_MIN,
+  normalizePublicName, nameLength, showsOnBoards, NAME_MAX, NAME_MIN,
 } from '../lib/public-identity.js';
 
 export default function IdentityEditor({
@@ -25,9 +26,11 @@ export default function IdentityEditor({
   const uid = useId();
   const email = user?.email || '';
   const current = profile?.username || '';
-  const auto = isAutoName(current, email);
+  const auto = isAutoName(current, email, user);
   const [name, setName] = useState(auto ? '' : current);
-  const startPicture = profile?.avatar_emoji || DEFAULT_PICTURE;
+  // A picture outside the set is never drawn (public-display.js), so the
+  // editor starts from what others actually see.
+  const startPicture = shownPicture(profile?.avatar_emoji || DEFAULT_PICTURE);
   const [picture, setPicture] = useState(startPicture);
   const [shown, setShown] = useState(showsOnBoards(user));
   const [touched, setTouched] = useState(false);
@@ -74,6 +77,7 @@ export default function IdentityEditor({
         username: keepName ? undefined : check.value,
         avatarEmoji: picture !== startPicture ? picture : undefined,
         showOnLeaderboard: shown,
+        expectUserId: user?.id || null,
       });
       const next = result.profile || { ...profile, username: keepName ? current : check.value, avatar_emoji: picture };
       onSaved?.(next, { metaSaved: result.metaSaved, shown });
@@ -126,7 +130,7 @@ export default function IdentityEditor({
       <fieldset className="vmx-id-pics">
         <legend>รูป</legend>
         <div className="vmx-id-pic-grid">
-          {[...(isPicture(startPicture) ? [] : [{ emoji: startPicture, label: 'รูปที่ตั้งไว้' }]), ...PICTURES].map((p) => (
+          {PICTURES.map((p) => (
             <label key={p.emoji} className="vmx-id-pic-opt">
               <input type="radio" name={`${uid}-pic`} value={p.emoji} checked={picture === p.emoji} onChange={() => setPicture(p.emoji)} />
               <span aria-hidden="true">{p.emoji}</span>
@@ -149,7 +153,7 @@ export default function IdentityEditor({
           <input type="radio" name={`${uid}-board`} checked={!shown} onChange={() => setShown(false)} />
           <span>
             <strong>ไม่แสดง</strong>
-            <span>คะแนนยังเก็บในบัญชี แต่ไม่ขึ้นกระดาน ไม่ขึ้นอันดับในกลุ่ม และไม่อยู่ในรายชื่อคนที่กำลังอ่าน</span>
+            <span>ไม่ขึ้นกระดาน อันดับในกลุ่ม และรายชื่อคนที่กำลังอ่าน แต่ชื่อยังแสดงในความเห็น ห้องแข่งที่คุณเข้าเอง รายชื่อสมาชิกกลุ่ม และข้อที่คุณเคยแชร์</span>
           </span>
         </label>
         <button

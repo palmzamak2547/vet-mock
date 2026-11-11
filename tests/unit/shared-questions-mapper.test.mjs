@@ -16,6 +16,7 @@
 // one line that its author can still delete.
 // ============================================================
 
+import { shownName, shownPicture } from '../../src/lib/public-display.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -191,7 +192,7 @@ async function renderSharedTab(deps, props) {
       if (!prev || !d || d.some((x, n) => !Object.is(x, prev.d[n]))) queued.push({ i, fn, d });
     },
   };
-  const scope = { h, Fragment: 'Fragment', Mochi: 'Mochi', StatePanel: 'StatePanel', BoardPresenceNotice: 'BoardPresenceNotice', ...hooks, ...deps };
+  const scope = { h, Fragment: 'Fragment', Mochi: 'Mochi', StatePanel: 'StatePanel', BoardPresenceNotice: 'BoardPresenceNotice', shownName, shownPicture, ...hooks, ...deps };
   const View = new Function(...Object.keys(scope), `${code}\nreturn ${name};`)(...Object.values(scope));
   let tree;
   const render = () => {

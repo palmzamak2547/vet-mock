@@ -53,6 +53,8 @@ export default function HeaderBar({
   // What the level is rebuilt from (XpChip, lib/xp.js shownXp).
   history = null,
   srCards = null,
+  // The sync store has this account's history (the level's carry waits for it).
+  xpReady = false,
   user, profile, handleSignOut,
   theme, themePref, setTheme, palette, setPalette,
 }) {
@@ -153,7 +155,7 @@ export default function HeaderBar({
           </div>
         )}
         <Suspense fallback={null}>
-          <XpChip history={history} srCards={srCards} user={user} />
+          <XpChip history={history} srCards={srCards} user={user} ready={xpReady} />
         </Suspense>
 
         {user && (

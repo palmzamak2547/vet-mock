@@ -23,6 +23,7 @@
 // local study data, and the identity card becomes the invitation to sign in.
 // ============================================================
 
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import ThemePicker from '../components/ThemePicker.jsx';
@@ -373,8 +374,8 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
   const cardRef = useRef(null);
   const openRef = useRef(null);
   const name = profile?.username || '';
-  const auto = isAutoName(name, user?.email);
-  const picture = profile?.avatar_emoji || '🐾';
+  const auto = isAutoName(name, user?.email, user);
+  const picture = shownPicture(profile?.avatar_emoji);
   const shown = showsOnBoards(user);
   const headingId = 'hub-identity';
 

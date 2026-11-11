@@ -27,6 +27,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { shownName, shownPicture } from '../../src/lib/public-display.js';
+
 const { transformWithEsbuild } = await import('vite');
 
 // ── Harness ────────────────────────────────────────────────────────────────
@@ -143,6 +145,7 @@ async function detailView({ members, questions, board, props = {}, deps = {} } =
   const calls = { members: 0, questions: 0, board: 0, deleted: [] };
   const answer = (spec, fallback) => (typeof spec === 'function' ? spec() : Promise.resolve(spec ?? fallback));
   const make = await loadView('src/views/GroupDetailView.jsx', {
+    shownName, shownPicture,
     getGroupMembers: () => { calls.members++; return answer(members, MEMBERS); },
     getSharedQuestions: () => { calls.questions++; return answer(questions, QUESTIONS); },
     getGroupLeaderboard: () => { calls.board++; return answer(board, BOARD); },

@@ -112,15 +112,12 @@ test('the key is the same in every tab of one account, so two tabs stay one pers
   assert.equal(a.configs[0].opts.config.presence.key, b.configs[0].opts.config.presence.key);
 });
 
-test('a student who opted out of the leaderboard is published without name or avatar', async () => {
+test('a student who opted out of the leaderboard is not published at all', async () => {
   for (const flag of [false, 'false', 'off']) {
     const fake = fakeRealtime();
-    loadHook(fake).render({ user: { id: UID, user_metadata: { show_on_leaderboard: flag } }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: 'com5', view: 'home', qKey: null });
-    await settle(() => fake.tracked.length > 0);
-    const [payload] = fake.tracked;
-    assert.ok(payload, 'still counted as online');
-    assert.notEqual(payload.username, 'palm', `username published with show_on_leaderboard=${flag}`);
-    assert.notEqual(payload.avatar, '🐶');
+    loadHook(fake).render({ user: { id: UID, user_metadata: { show_on_leaderboard: flag } }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: 'com5', view: 'exam', qKey: 'com5:q1' });
+    await settle(() => fake.configs.length > 0);
+    assert.equal(fake.tracked.length, 0, `no presence entry with show_on_leaderboard=${flag}: not listed, not counted, no key to match`);
   }
   const shown = fakeRealtime();
   loadHook(shown).render({ user: { id: UID, user_metadata: { show_on_leaderboard: true } }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: null, view: 'home', qKey: null });

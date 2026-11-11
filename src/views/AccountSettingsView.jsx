@@ -21,6 +21,7 @@
 //   • the profile hub (บัญชีและข้อมูล), the header menu, the palette
 // ============================================================
 
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useState, useEffect } from 'react';
 import {
   updatePassword,
@@ -101,8 +102,8 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
   // The public name is the profiles row every other screen shows; metadata is
   // only its mirror, and an account signed in with Google has none there.
   const publicName = profile?.username || '';
-  const autoName = isAutoName(publicName, email);
-  const picture = profile?.avatar_emoji || '🐾';
+  const autoName = isAutoName(publicName, email, user);
+  const picture = shownPicture(profile?.avatar_emoji);
 
   const reset = () => { setError(''); setInfo(''); };
 
@@ -128,7 +129,8 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
           avatar_emoji: profile?.avatar_emoji || null,
           show_on_leaderboard: showsOnBoards(user),
           // Quest points and the one-time carry the level adds (lib/xp.js).
-          xp_extra: Math.max(0, Math.floor(Number(md.xp_extra) || 0)),
+          xp_quests: Math.max(0, Math.floor(Number(md.xp_quests) || 0)),
+          xp_carry: md.xp_carry && typeof md.xp_carry === 'object' ? md.xp_carry : {},
           // Saved by earlier versions of the account page; kept, not asked for.
           ...(md.year ? { year: md.year } : {}),
           ...(md.cohort ? { cohort: md.cohort } : {}),
@@ -148,7 +150,7 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
       URL.revokeObjectURL(url);
       setInfo(localExtras
         ? 'เริ่มดาวน์โหลดไฟล์แล้ว ดูในโฟลเดอร์ดาวน์โหลดของเครื่อง ถ้าเปิดจากในแอปอื่นแล้วไม่เห็นไฟล์ ให้เปิด VetMock ในเบราว์เซอร์ปกติ'
-        : 'เริ่มดาวน์โหลดไฟล์แล้ว แต่อ่าน Flashcard และเครื่องมือในเครื่องนี้ไม่ครบ จึงไม่อยู่ในไฟล์ ดาวน์โหลดแยกได้ที่หน้าความคืบหน้า');
+        : 'เริ่มดาวน์โหลดไฟล์แล้ว แต่อ่าน Flashcard และเครื่องมือในเครื่องนี้ไม่ครบ จึงไม่อยู่ในไฟล์ สำรองแยกได้ที่หน้าความคืบหน้า');
     } catch (err) {
       setError(thaiError(err, 'ส่งออกไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally { setLoading(false); }
@@ -557,7 +559,7 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
           <h2 id="acct-data">ข้อมูลของคุณ</h2>
           <div className="vmx-acct-card">
             <h3>ดาวน์โหลดข้อมูลทั้งหมด</h3>
-            <p className="vmx-acct-note">ไฟล์เดียว นำกลับเข้าได้ที่หน้าความคืบหน้า ในไฟล์มี</p>
+            <p className="vmx-acct-note">ไฟล์เดียวที่มีทุกอย่างด้านล่าง หน้าความคืบหน้านำกลับเข้าได้เฉพาะประวัติ ข้อที่บันทึก โน้ต การ์ดทบทวน ข้อที่เขียนเอง และรายการอ่าน</p>
             <ul className="vmx-acct-holds">
               {EXPORT_HOLDS.map((line) => <li key={line}>{line}</li>)}
             </ul>

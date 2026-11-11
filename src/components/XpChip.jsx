@@ -7,14 +7,14 @@
 // lifetime question count.
 
 import { useEffect, useRef, useState } from 'react';
-import { getXpState, levelFor, xpForNextLevel, XP_EVENT, shownXp, xpToCarry, carriedKey, pendingXp, setPendingXp } from '../lib/xp.js';
+import { getXpState, levelFor, xpForNextLevel, XP_EVENT, shownXp, xpToCarry, markCarried, pendingXp, setPendingXp } from '../lib/xp.js';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 
 // `history`, `srCards` and `user` are what follows the account: the chip
 // shows the same number as the profile hub (lib/xp.js shownXp), so a level is
 // the same on every device. While signed in it also carries this device's
 // quest points to the account, and the old counter's lead once.
-export default function XpChip({ history = null, srCards = null, user = null }) {
+export default function XpChip({ history = null, srCards = null, user = null, ready = false }) {
   const [state, setState] = useState(() => getXpState());
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
@@ -70,41 +70,47 @@ export default function XpChip({ history = null, srCards = null, user = null }) 
   }, [open]);
 
   // Add what this device holds to the account: the one-time carry, then new
-  // quest points. One write at a time; a failure leaves the count for later.
+  // quest points. Only once the sync store has this account's history
+  // (`ready`), one write at a time across tabs (a Web Lock where the browser
+  // has one; the carry itself is keyed by device, so a repeat sets, never
+  // adds), and a failure leaves the count for the next try.
   const uid = user?.id ?? null;
   const carrying = useRef(false);
-  // The account's carried total as last written here, until the session's
-  // copy of the metadata catches up, so the number never dips in between.
-  const [written, setWritten] = useState(0);
+  // The account's metadata as last written here, until the session's copy
+  // catches up, so the number never dips in between.
+  const [written, setWritten] = useState(null);
   const [, setBump] = useState(0);
   useEffect(() => {
-    if (!uid || carrying.current) return;
-    const { add, first } = xpToCarry({ user, history: history || [], srCards: srCards || {}, device: state });
-    if (!add) {
-      if (first) { try { window.localStorage.setItem(carriedKey(uid), '1'); } catch { /* private mode */ } setBump((n) => n + 1); }
-      return;
-    }
+    if (!uid || !ready || carrying.current) return;
     carrying.current = true;
-    const pendingBefore = pendingXp();
-    import('../lib/identity-write.js')
-      .then(({ addAccountXp }) => addAccountXp(add))
-      .then((total) => {
-        if (total == null) return;
-        if (first) {
-          try { window.localStorage.setItem(carriedKey(uid), '1'); } catch { /* private mode */ }
-          setPendingXp(pendingXp() - pendingBefore);
-        } else {
-          setPendingXp(pendingXp() - add);
-        }
-        setWritten(total);
-      })
-      .catch(() => {})
-      .finally(() => { carrying.current = false; });
-  }, [uid, user, history, srCards, state]); // eslint-disable-line react-hooks/exhaustive-deps
+    const run = async () => {
+      // Read again inside the lock: another tab may have just done it.
+      const plan = xpToCarry({ user, history: history || [], srCards: srCards || {}, device: getXpState(), ready });
+      if (!plan.addQuests && !plan.carry) {
+        if (plan.first) { markCarried(uid, undefined, { owns: plan.owns !== false }); setBump((n) => n + 1); }
+        return;
+      }
+      const pendingBefore = pendingXp(uid);
+      const { writeAccountXp } = await import('../lib/identity-write.js');
+      const md = await writeAccountXp({ addQuests: plan.addQuests, carry: plan.carry });
+      if (!md) return;
+      if (plan.first) {
+        markCarried(uid, undefined, { owns: plan.owns !== false });
+        // Quest points counted before the carry are inside the carried lead.
+        setPendingXp(uid, pendingXp(uid) - (plan.carry ? pendingBefore : plan.addQuests));
+      } else {
+        setPendingXp(uid, pendingXp(uid) - plan.addQuests);
+      }
+      setWritten({ uid, md });
+    };
+    const locked = typeof navigator !== 'undefined' && navigator.locks?.request
+      ? navigator.locks.request(`vmx-xp-account:${uid}`, run)
+      : run();
+    Promise.resolve(locked).catch(() => {}).finally(() => { carrying.current = false; });
+  }, [uid, ready, user, history, srCards, state]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const md = user?.user_metadata || {};
-  const seen = user && written > (Number(md.xp_extra) || 0)
-    ? { ...user, user_metadata: { ...md, xp_extra: written } }
+  const seen = user && written?.uid === user.id
+    ? { ...user, user_metadata: { ...(user.user_metadata || {}), ...pickXp(written.md), ...pickXp(user.user_metadata, written.md) } }
     : user;
   const total = shownXp({ history: history || [], srCards: srCards || {}, user: seen, device: state });
   const lvl = levelFor(total);
@@ -224,4 +230,16 @@ export default function XpChip({ history = null, srCards = null, user = null }) 
       )}
     </div>
   );
+}
+
+// The larger of the two copies of the carried numbers (the session's copy
+// catches up with what was just written a moment later).
+function pickXp(md, other = null) {
+  const out = {};
+  const q = Math.max(Number(md?.xp_quests) || 0, Number(other?.xp_quests) || 0);
+  if (q) out.xp_quests = q;
+  const carry = { ...(other?.xp_carry || {}) };
+  for (const [k, v] of Object.entries(md?.xp_carry || {})) carry[k] = Math.max(Number(v) || 0, Number(carry[k]) || 0);
+  if (Object.keys(carry).length) out.xp_carry = carry;
+  return out;
 }

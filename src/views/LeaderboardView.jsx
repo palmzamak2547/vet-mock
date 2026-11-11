@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getLeaderboard } from '../lib/api.js';
 import { aggregateLeaderboard, LEADERBOARD_MIN_QUESTIONS } from '../lib/leaderboard-gate.js';
@@ -145,7 +146,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
                 </div>
                 <div style={{ flex: 1, minWidth: 160 }}>
                   <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17 }}>
-                    {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                    {shownPicture(r.profiles?.avatar_emoji)} {shownName(r.profiles?.username, 'ไม่ระบุชื่อ')}
                     {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>

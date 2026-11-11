@@ -6,6 +6,7 @@
 // ============================================================
 
 import { getSupabase } from './supabase.js';
+import { compactName } from './public-identity.js';
 
 // The same signal lib/supabase.js sends after any auth change: useAuth
 // re-reads the session (and so the metadata) when it hears it.
@@ -27,20 +28,41 @@ function notifyAuthChanged() {
 // (unique name, length check, policy) is thrown with its code, so the caller
 // shows identityWriteError(err) rather than a guess.
 //
+// Order: when the student chooses to be hidden, the metadata (which the
+// boards read) is written FIRST, so a failure in between can never leave a
+// renamed student on the board; otherwise the profile row comes first. The
+// session's account must still be the one the editor was opened for
+// (`expectUserId`), and ensure_profile runs first so a missing row is made
+// rather than failing as a generic error.
+//
 // Returns { profile, metaSaved }: metaSaved is false when the profile row
 // was saved but the metadata mirror was not (the board choice then did not
 // change, and the caller says so).
-export async function saveIdentity({ username, avatarEmoji, showOnLeaderboard, introDone = true } = {}) {
+export async function saveIdentity({ username, avatarEmoji, showOnLeaderboard, introDone = true, expectUserId = null } = {}) {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
   const { data: sess } = await supabase.auth.getSession();
   const userId = sess?.session?.user?.id;
   if (!userId) throw Object.assign(new Error('not signed in'), { code: 'not_signed_in' });
+  if (expectUserId && expectUserId !== userId) throw Object.assign(new Error('account changed'), { code: 'session_changed' });
   const patch = {};
   if (typeof username === 'string' && username) patch.username = username;
   if (typeof avatarEmoji === 'string' && avatarEmoji) patch.avatar_emoji = avatarEmoji;
-  let profile = null;
-  if (Object.keys(patch).length) {
+  const meta = {};
+  if (patch.username) meta.username = patch.username;
+  if (patch.avatar_emoji) meta.avatar_emoji = patch.avatar_emoji;
+  if (typeof showOnLeaderboard === 'boolean') meta.show_on_leaderboard = showOnLeaderboard;
+  if (introDone) meta.identity_intro_done = true;
+
+  const writeMeta = async () => {
+    if (!Object.keys(meta).length) return true;
+    const { error } = await supabase.auth.updateUser({ data: meta });
+    if (!error) notifyAuthChanged();
+    return !error;
+  };
+  const writeProfile = async () => {
+    if (!Object.keys(patch).length) return null;
+    try { await supabase.rpc('ensure_profile'); } catch { /* the update below reports */ }
     const { data, error } = await supabase
       .from('profiles')
       .update(patch)
@@ -48,19 +70,18 @@ export async function saveIdentity({ username, avatarEmoji, showOnLeaderboard, i
       .select('id, username, avatar_emoji, created_at')
       .single();
     if (error) throw error;
-    profile = data;
+    return data;
+  };
+
+  if (showOnLeaderboard === false) {
+    // Hidden first: a refused metadata write stops here, before any rename.
+    const ok = await writeMeta();
+    if (!ok) throw Object.assign(new Error('could not hide'), { code: 'meta_failed' });
+    const profile = await writeProfile();
+    return { profile, metaSaved: true };
   }
-  const meta = {};
-  if (patch.username) meta.username = patch.username;
-  if (patch.avatar_emoji) meta.avatar_emoji = patch.avatar_emoji;
-  if (typeof showOnLeaderboard === 'boolean') meta.show_on_leaderboard = showOnLeaderboard;
-  if (introDone) meta.identity_intro_done = true;
-  let metaSaved = true;
-  if (Object.keys(meta).length) {
-    const { error } = await supabase.auth.updateUser({ data: meta });
-    metaSaved = !error;
-    if (!error) notifyAuthChanged();
-  }
+  const profile = await writeProfile();
+  const metaSaved = await writeMeta();
   return { profile, metaSaved };
 }
 
@@ -70,31 +91,40 @@ export async function saveIdentity({ username, avatarEmoji, showOnLeaderboard, i
 export async function isPublicNameFree(name, selfId) {
   const supabase = await getSupabase();
   if (!supabase || !name) return null;
-  const pattern = String(name).replace(/[\\%_]/g, (c) => `\\${c}`);
-  let query = supabase.from('profiles').select('id').ilike('username', pattern).limit(1);
+  // One wildcard (_) for every letter that has a look-alike, so "Somchal"
+  // finds "SomchaI"; the candidates are then compared in compactName form.
+  const pattern = [...String(name)].map((c) => (/[il1|o0]/i.test(c) ? '_' : /[\%_]/.test(c) ? `\${c}` : c)).join('');
+  let query = supabase.from('profiles').select('id, username').ilike('username', pattern).limit(20);
   if (selfId) query = query.neq('id', selfId);
   const { data, error } = await query;
   if (error) return null;
-  return (data || []).length === 0;
+  const mine = compactName(name);
+  return !(data || []).some((row) => compactName(row.username) === mine);
 }
 
 /**
- * Add to the account's carried XP (metadata `xp_extra`: quest points and the
- * one-time carry of an older device counter, lib/xp.js). Read from the
- * session just before writing, so a second device's addition is kept. Only
- * the student's own metadata is written, as every metadata write here is.
- * Returns the new total, or null when it could not be written.
+ * Add to the account's carried XP (lib/xp.js): quest points to `xp_quests`
+ * (added on top of the account's current copy, read just before writing)
+ * and this device's one-time carry to `xp_carry[device]` (set, not added, so
+ * writing it twice is the same). Only the student's own metadata is written.
+ * Returns the new metadata, or null when it could not be written.
  */
-export async function addAccountXp(delta) {
-  const add = Math.max(0, Math.floor(Number(delta) || 0));
-  if (!add) return null;
+export async function writeAccountXp({ addQuests = 0, carry = null } = {}) {
+  const add = Math.max(0, Math.floor(Number(addQuests) || 0));
+  if (!add && !carry) return null;
   const supabase = await getSupabase();
   if (!supabase) return null;
   const { data: fresh, error: readError } = await supabase.auth.getUser();
   if (readError || !fresh?.user) return null;
-  const current = Math.max(0, Math.floor(Number(fresh.user.user_metadata?.xp_extra) || 0));
-  const { error } = await supabase.auth.updateUser({ data: { xp_extra: current + add } });
+  const md = fresh.user.user_metadata || {};
+  const data = {};
+  if (add) data.xp_quests = Math.max(0, Math.floor(Number(md.xp_quests) || 0)) + add;
+  if (carry) {
+    const prior = md.xp_carry && typeof md.xp_carry === 'object' ? md.xp_carry : {};
+    data.xp_carry = { ...prior, [carry.device]: Math.max(0, Math.floor(Number(carry.value) || 0)) };
+  }
+  const { data: saved, error } = await supabase.auth.updateUser({ data });
   if (error) return null;
   notifyAuthChanged();
-  return current + add;
+  return saved?.user?.user_metadata || { ...md, ...data };
 }

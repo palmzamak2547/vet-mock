@@ -3292,6 +3292,7 @@ export default function App() {
               streakData={streakData}
               history={history}
               srCards={srCards}
+              xpReady={Boolean(user) && ['synced', 'pending'].includes(userDataSync.phase)}
               user={user}
               profile={profile}
               handleSignOut={handleSignOut}

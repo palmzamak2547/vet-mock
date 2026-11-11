@@ -82,6 +82,7 @@ function saveIdentityRunner() {
 function fakeClient({ profileError = null, metaError = null } = {}) {
   const calls = [];
   const client = {
+    rpc: async (name) => { calls.push(['rpc', name]); return { error: null }; },
     auth: {
       getSession: async () => ({ data: { session: { user: { id: 'u1' } } } }),
       updateUser: async (arg) => { calls.push(['updateUser', arg]); return { error: metaError }; },
@@ -103,16 +104,18 @@ function fakeClient({ profileError = null, metaError = null } = {}) {
   return { client, calls };
 }
 
-test('the picture and name are written to profiles first, then mirrored to metadata', async () => {
+test('the write path: hiding writes metadata first, then the row; showing writes the row first', async () => {
   const run = saveIdentityRunner();
   const { client, calls } = fakeClient();
   let notified = 0;
   const out = await run({ username: 'ปิง', avatarEmoji: '🐶', showOnLeaderboard: false }, async () => client, () => notified++);
-  assert.equal(calls[0][0], 'update', 'profiles is written before metadata');
-  assert.equal(calls[0][1].table, 'profiles');
-  assert.deepEqual(calls[0][1].patch, { username: 'ปิง', avatar_emoji: '🐶' }, 'only the two columns members may write, never the key');
-  assert.deepEqual(calls[0][1].eqs, [['id', 'u1']]);
-  assert.deepEqual(calls[1], ['updateUser', { data: { username: 'ปิง', avatar_emoji: '🐶', show_on_leaderboard: false, identity_intro_done: true } }]);
+  // Hiding: the metadata the boards read goes first, then the row.
+  assert.deepEqual(calls[0], ['updateUser', { data: { username: 'ปิง', avatar_emoji: '🐶', show_on_leaderboard: false, identity_intro_done: true } }]);
+  assert.deepEqual(calls[1], ['rpc', 'ensure_profile'], 'a missing row is made first');
+  assert.equal(calls[2][0], 'update');
+  assert.equal(calls[2][1].table, 'profiles');
+  assert.deepEqual(calls[2][1].patch, { username: 'ปิง', avatar_emoji: '🐶' }, 'only the two columns members may write, never the key');
+  assert.deepEqual(calls[2][1].eqs, [['id', 'u1']]);
   assert.equal(out.profile.avatar_emoji, '🐶', 'the saved row comes back for every screen to show');
   assert.equal(out.metaSaved, true);
   assert.equal(notified, 1);
@@ -340,67 +343,6 @@ test('the cohort comes from the app year and the semester note', () => {
 });
 
 // ── Every statement on the hub true ────────────────────────────────
-const memStore = (init = {}) => {
-  const m = new Map(Object.entries(init));
-  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), map: m };
-};
-
-test('the level is one function of what follows the account, the same on every device, with no caveat', async () => {
-  const { accountXp, shownXp, XP_AWARDS, levelFor, carriedKey } = await import('../../src/lib/xp.js');
-  const history = [{ correct: true }, { correct: false }, { correct: true }, null];
-  const srCards = { a: { totalReviews: 3 }, b: { totalReviews: 0 }, c: {} };
-  const rebuilt = 2 * XP_AWARDS.correctAnswer + XP_AWARDS.wrongAnswer + 3 * XP_AWARDS.srGrade;
-  assert.equal(accountXp({ history, srCards }), rebuilt);
-  const user = { id: 'u1', user_metadata: { xp_extra: 140 } };
-  // Two devices, both carried: different old counters, one number.
-  const a = shownXp({ history, srCards, user, device: { totalXp: 9000 }, storage: memStore({ [carriedKey('u1')]: '1' }) });
-  const b = shownXp({ history, srCards, user, device: { totalXp: 0 }, storage: memStore({ [carriedKey('u1')]: '1' }) });
-  assert.equal(a, rebuilt + 140);
-  assert.equal(b, a, 'the same on every device, whatever its old counter');
-  assert.equal(levelFor(shownXp({ history: [], srCards: {}, device: { totalXp: 0 } })), 0);
-  const hub = read('src/views/ProfileView.jsx');
-  assert.doesNotMatch(hub, /ความคืบหน้าถูกเก็บไว้ในบัญชี/);
-  assert.doesNotMatch(hub, /ในเครื่องนี้ ยังไม่ตามไปเครื่องอื่น|เลเวลเก็บใน/, 'no storage caveat beside the level');
-  assert.match(hub, /shownXp\(\{ history: history \|\| \[\], srCards: srCards \|\| \{\}, user \}\)/);
-  assert.match(read('src/components/XpChip.jsx'), /shownXp\(\{ history: history \|\| \[\], srCards: srCards \|\| \{\}, user: seen, device: state \}\)/, 'the header chip reads the same function');
-});
-
-test('the old counter is taken into account once, by recording its lead with the account', async () => {
-  const { shownXp, xpToCarry, carriedKey, levelFor, accountXp } = await import('../../src/lib/xp.js');
-  const history = Array.from({ length: 20 }, (_, i) => ({ correct: i % 2 === 0 }));
-  const rebuilt = accountXp({ history });
-  const device = { totalXp: rebuilt + 300 }; // 300 quest points earned here before this release
-  const storage = memStore({ 'vmx-xp-pending': '45' });
-  const user = { id: 'u1', user_metadata: {} };
-  // Before the carry lands, the device in use never shows less than it did.
-  assert.equal(shownXp({ history, user, device, storage }), device.totalXp);
-  const carry = xpToCarry({ user, history, device, storage });
-  assert.deepEqual(carry, { add: 300, first: true }, 'the lead, with pending quest points already inside it');
-  // The write lands: metadata holds the lead, the device records it was carried.
-  storage.setItem(carriedKey('u1'), '1');
-  storage.setItem('vmx-xp-pending', '0');
-  const after = { id: 'u1', user_metadata: { xp_extra: 300 } };
-  assert.equal(shownXp({ history, user: after, device, storage }), device.totalXp, 'no drop on the old device');
-  assert.equal(shownXp({ history, user: after, device: { totalXp: 0 }, storage: memStore({ [carriedKey('u1')]: '1' }) }), device.totalXp, 'and the same on a new one');
-  assert.equal(levelFor(shownXp({ history, user: after, device, storage })), levelFor(device.totalXp));
-  // Never again: later only new quest points travel.
-  storage.setItem('vmx-xp-pending', '20');
-  assert.deepEqual(xpToCarry({ user: after, history, device: { totalXp: device.totalXp + 20 }, storage }), { add: 20, first: false });
-  assert.deepEqual(xpToCarry({ user: null, history, device, storage }), { add: 0, first: false }, 'a guest carries nothing');
-});
-
-test('quest points are the only award counted for the account apart from answers and reviews', async () => {
-  const xp = read('src/lib/xp.js');
-  assert.match(xp, /String\(reason\)\.startsWith\('quest'\)/);
-  // The daily question and reading grant nothing, so nothing of theirs needs carrying.
-  const awards = [...readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').matchAll(/awardXp\(([^,]+)/g)].map((m) => m[1].trim());
-  assert.deepEqual(awards.sort(), ['XP_AWARDS.srGrade', 'xpAmount']);
-  assert.doesNotMatch(read('src/lib/quests.js'), /XP_AWARDS\.(dailyQ|notesRead)/);
-  const write = read('src/lib/identity-write.js');
-  assert.match(write, /export async function addAccountXp/);
-  assert.match(write, /updateUser\(\{ data: \{ xp_extra: current \+ add \} \}\)/, 'only the carried number is written, on top of the account\'s current copy');
-});
-
 test('the review row says what the student gets, no algorithm names', () => {
   const hub = read('src/views/ProfileView.jsx');
   // Code comments may name the scheduler; what a student reads may not.

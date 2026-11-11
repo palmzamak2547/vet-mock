@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { shownName, shownPicture } from '../lib/public-display.js';
 import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { getGroupMembers, getSharedQuestions, getGroupLeaderboard, deleteSharedQuestion } from '../lib/api.js';
@@ -142,7 +143,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                      {shownPicture(r.profiles?.avatar_emoji)} {shownName(r.profiles?.username, 'ไม่ระบุชื่อ')}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
@@ -172,7 +173,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
             questions.map((q) => (
               <div key={q.id} className="vmx-review-item">
                 <div className="vmx-review-head">
-                  <span>โดย {q.author_name || 'ไม่ระบุชื่อ'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
+                  <span>โดย {shownName(q.author_name, 'ไม่ระบุชื่อ')}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
                       if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
@@ -208,9 +209,9 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>{shownPicture(m.avatar_emoji)}</div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                {m.username}
+                {shownName(m.username)}
                 {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
               {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 Admin</div>}

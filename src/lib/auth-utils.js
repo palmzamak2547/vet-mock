@@ -5,6 +5,8 @@
 // (e.g. by a future profile-edit form).
 // ============================================================
 
+import { checkPublicName } from './public-identity.js';
+
 /**
  * Derive a sensible username from an email's local-part.
  *   palm@gmail.com → 'palm'
@@ -38,7 +40,7 @@ export function sanitizeUsername(value) {
  * Validate a username for client-side display before hitting Supabase.
  * Returns { ok: boolean, reason?: string }.
  */
-export function validateUsername(value) {
+export function validateUsername(value, email = '') {
   const v = String(value || '');
   if (v.length === 0) return { ok: false, reason: 'ใส่ชื่อ' };
   if (v.length < 3) return { ok: false, reason: 'สั้นเกินไป (อย่างน้อย 3 ตัว)' };
@@ -46,7 +48,11 @@ export function validateUsername(value) {
   if (!/^[a-zA-Z0-9_]+$/.test(v)) return { ok: false, reason: 'ใช้ได้แค่ a-z, A-Z, 0-9, _' };
   // The name is public to every member: five digits in a row can be a
   // student number (a Chula address's local part is the 10-digit id).
-  if (/\d{5,}/.test(v)) return { ok: false, reason: 'มีตัวเลขติดกันมากไป อาจอ่านเป็นรหัสนิสิต' };
+  // The name is public to every member: the same rules as every other place
+  // a name is chosen (public-identity.js), so signup cannot publish a
+  // student number, an email or a reserved word either.
+  const shared = checkPublicName(v, { email });
+  if (!shared.ok) return { ok: false, reason: shared.reason };
   return { ok: true };
 }
 

@@ -26,13 +26,32 @@ export function emailLocalPart(email) {
   return at > 0 ? email.slice(0, at).trim().toLowerCase() : '';
 }
 
-/** True when nobody chose this name: made by the database, the app's stand-in,
- *  the email's local part, or a bare run of digits (a student number). */
-export function isAutoName(name, email = '') {
+// handle_new_user keeps the ASCII letters of the Google name (25 at most),
+// so an English Google name is published as the real full name, then _2, _3
+// or _<6 hex> on a collision.
+const googleHandle = (value) => String(value ?? '').replace(/[^a-zA-Z0-9_]/g, '').slice(0, 25);
+function madeFromGoogleName(n, user) {
+  const md = user?.user_metadata || {};
+  // Saved by the student through the editor (or typed at signup): a choice.
+  if (typeof md.username === 'string' && md.username === n) return false;
+  for (const source of [md.full_name, md.name]) {
+    const base = googleHandle(source);
+    if (!base) continue;
+    if (n === base || n.startsWith(`${base}_`) && /^(\d{1,2}|[0-9a-f]{6})$/.test(n.slice(base.length + 1))) return true;
+  }
+  return false;
+}
+
+/** True when nobody chose this name: made by the database (user_N, or the
+ *  ASCII letters of the Google name when `user` is given), the app's
+ *  stand-in, the email's local part, or a bare run of digits (a student
+ *  number). */
+export function isAutoName(name, email = '', user = null) {
   const n = String(name ?? '').trim();
   if (!n) return true;
   if (n === STAND_IN_NAME || AUTO.test(n)) return true;
   if (/^\d{5,}$/.test(n)) return true;
+  if (user && madeFromGoogleName(n, user)) return true;
   const local = emailLocalPart(email);
   return Boolean(local) && n.toLowerCase() === local;
 }
@@ -53,7 +72,7 @@ export function identityIntroDue({ user, profile, view, pendingResume = false, w
   const md = user.user_metadata || {};
   if (md.identity_intro_done) return false;
   const chose = typeof md.username === 'string' && md.username && md.username === profile.username
-    && !isAutoName(profile.username, user.email);
+    && !isAutoName(profile.username, user.email, user);
   return !chose;
 }
 

@@ -258,7 +258,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     if (mode !== 'signup') return;
 
     // Validate locally first — skip the network call for invalid input
-    const v = validateUsername(username);
+    const v = validateUsername(username, email);
     if (!v.ok) {
       setUsernameStatus(username.length === 0 ? 'idle' : 'invalid');
       return;
@@ -288,6 +288,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) throw new Error('รูปแบบอีเมลไม่ถูกต้อง');
         if (!username.trim()) throw new Error('กรุณาใส่ชื่อ username');
+        { const v = validateUsername(username.trim(), email.trim()); if (!v.ok) throw new Error(`ชื่อผู้ใช้: ${v.reason}`); }
         if (password.length < 8) throw new Error('รหัสผ่านต้องยาว 8 ตัวขึ้นไป');
         const result = await signUpWithEmail(email, password, username.trim());
         // If Supabase returned a session → email confirmation is OFF, user is in.
@@ -652,7 +653,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
               />
               <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', minHeight: 16 }}>
                 {(() => {
-                  const v = validateUsername(username);
+                  const v = validateUsername(username, email);
                   if (username && !v.ok) return `⚠️ ${v.reason}`;
                   if (usernameStatus === 'taken') return 'ชื่อนี้ถูกใช้ไปแล้ว — ลองชื่ออื่น';
                   if (usernameStatus === 'available') return '✓ ชื่อนี้ใช้ได้';

@@ -15,6 +15,7 @@
 // fall back to a sign-in CTA + read-only view (anyone can read).
 // ============================================================
 
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useEffect, useRef, useState } from 'react';
 import { hasSupabase } from '../lib/supabase.js';
 import {
@@ -201,8 +202,8 @@ export default function QComments({ qSubject, qId, user, setView }) {
         <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
           {comments.map((c) => {
             const mine = user && c.user_id === user.id;
-            const author = c.profiles?.username || 'ผู้ใช้';
-            const avatar = c.profiles?.avatar_emoji || '🐾';
+            const author = shownName(c.profiles?.username, 'ผู้ใช้');
+            const avatar = shownPicture(c.profiles?.avatar_emoji);
             return (
               <li key={c.id} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
