@@ -423,18 +423,9 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         {/* Kept whole: on a phone the line used to end on its last word alone.
             "ความรู้ที่เชื่อมถึงกัน" went: articles do not link across subjects yet. */}
         <p className="vw-tagline"><span>ความรู้ที่บอกได้ว่ามาจากไหน</span></p>
-        {/* Says what the data holds: checked points are the key statements of
-            a section, not every sentence in it. */}
-        <p className="vw-lede">
-          ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้วมีแหล่งให้ตามไปอ่าน และหัวข้อย่อยที่ไม่ได้ตรวจทานมีป้ายบอกไว้
-        </p>
+        {/* No lede and no library counts (5.214): the tagline says what the
+            lede said, and the search box is what a student came for. */}
         {missing && <p className="vw-missing" role="status">ไม่พบบทความตามลิงก์นี้ ลิงก์อาจเก่าหรือพิมพ์ผิด ค้นหาจากสารบัญด้านล่างได้</p>}
-        <ul className="vw-totals" aria-label="ในคลังนี้">
-          <li><b>{SHELF_TOTALS.topics.toLocaleString('en-US')}</b>หัวข้อ</li>
-          <li><b>{SHELF_TOTALS.sections.toLocaleString('en-US')}</b>หัวข้อย่อย</li>
-          <li><b>{SHELF_TOTALS.claims.toLocaleString('en-US')}</b>จุดที่ตรวจทานแล้ว</li>
-          <li><b>{SHELF_TOTALS.sources.toLocaleString('en-US')}</b>แหล่งอ้างอิง</li>
-        </ul>
       </header>
 
       <FeatureTip id="knowledge" surface="index" />
