@@ -27,25 +27,40 @@ branch's head; where an earlier version of it was wrong, that is said.
 - Paid routes refuse (503) when the limiter cannot count. Before the branch the
   mic let every clip through; 100 of 100 reached the provider, now 0. Open
   through an outage by decision: the library link and the video route (cheap
-  short-lived links) and the AI `?health=1` read.
+  short-lived links), the library bytes (bounded by the instance's own count,
+  below) and the AI `?health=1` read.
 - Guards: `tests/unit/api-limits.test.mjs` (150 students on one address, a
   scripted member and a classmate, throwaway accounts, an outage);
   `api-hostile-requests.test.mjs` fails on a fail-open limit outside its list
   and on a gated route that counts by address alone.
 
 ## The gate (`api/_lib/chula-gate.js`)
-- Failed tokens are braked per address: a token the database refuses is counted
-  on `chula-gate-failed:<ip>`, and an address with 120 refusals in 10 minutes is
-  answered 429 without asking the database. Members are not counted; a member
-  this instance has already checked passes before the brake. This covers every
-  route where the gate runs before a limit (video-file and send-feedback among
-  them). Not counted: a valid account that is not a member.
+- Before any database call a token is read locally: three parts, a payload that
+  decodes, this project's issuer (`<url>/auth/v1`), the `authenticated`
+  audience, a subject, and an expiry still ahead (`tokenLooksValid`). A token
+  that fails is no token: the caller is a guest, nothing is asked and nothing is
+  counted, so an expired token costs nobody anything. A token that passes is
+  always verified by the database. Nothing is counted per address, so no member
+  is ever refused for what someone else on their network sent.
+- Correction: the previous version braked failed tokens per address and checked
+  that before verifying a token, so 120 forged tokens from a lecture hall's
+  address refused every member there for ten minutes, and 30 students with
+  tokens that expired during a lecture tripped it themselves. That brake is
+  removed, not re-keyed: keyed on the token's subject it would bound nothing,
+  since a forger writes any subject into an unsigned payload.
+- Known limit, as before the branch: a well-formed token with a bad signature
+  still costs one database call. Verifying the signature on the server would
+  end that; it waits until after the finals.
 - A deployed preview without database settings refuses like production. The
   signal is `VERCEL_ENV`: `production` or `preview` refuse; unset (the dev
   server, the unit suite) or `development` (`vercel dev`) stay open. A preview
   whose database lacks the wall's function also refuses.
-- Guard: `api-limits.test.mjs` (200 forged tokens after the brake cost the
-  database nothing; previews refuse, local development opens).
+- Guard: `api-limits.test.mjs` (600 forged tokens from a hall's address, then an
+  honest member there is served, also after the instance forgets them; 30
+  students x 4 parallel calls with expired tokens reach the database 0 times
+  and brake nobody; six malformed shapes make no database call; previews
+  refuse, local development opens). Test tokens come from
+  `tests/helpers/supabase-jwt.mjs`.
 
 ## Feedback (`api/send-feedback.js`)
 - Open before sign-in (`ChulaGateView`). A member: 3 in 10 minutes and 10 a day
@@ -53,6 +68,9 @@ branch's head; where an earlier version of it was wrong, that is said.
   only when the account allowed the message. A visitor (a free account counts
   as one): 3 in 10 minutes and 20 a day per address. Visitors use at most 40 of
   the mailer's 100 a day.
+- A member stopped by the address ceiling (they may have sent one message) is
+  answered `reason: 'network_busy'` and told that many messages came from their
+  network, not that it was their own burst or day.
 - A full day answers `reason: 'daily_cap', scope: 'caller'`, and the form says
   "พรุ่งนี้ส่งได้อีก" (`src/lib/feedback-client.js`, `daily_mine`) instead of
   "wait a little". Correction: the first version answered `rate_limited` there.
@@ -63,15 +81,24 @@ branch's head; where an earlier version of it was wrong, that is said.
 
 ## The library's bytes (`api/library-blob.js`)
 - The storage API ignores Range, so every GET pulls the object through the
-  function. The route now fails closed, and besides 300 requests per link per
-  address it budgets bytes per address: 8 GB per 10 minutes (a whole object per
-  request; a media range, the object up to its end). The link carries no
-  account (public links are minted once per window for every caller and the
-  mint is edge-cached), so the address is what can be counted.
-- Guard: `api-limits.test.mjs` (the 164th 50 MB pull from one address is
-  refused before storage is asked; an outage refuses); `api-hardening.test.mjs`.
-- Unproven: what a real hall uses. A higher or per-account budget would need
-  the account in the link, which public links cannot carry.
+  function. A link `api/library-file.js` mints for a member now carries their
+  id (`u`, signed with the rest of the link; the mint answer is cached only in
+  that browser), and the bytes are budgeted on it: 2 GB per 10 minutes, a whole
+  object per request (a media range, the object up to its end), plus 300
+  requests per link. One member looping a link stops only themselves. A link
+  with no member (an open ticket) is budgeted by address, 8 GB.
+- A refusal is a small page in Thai (429, `Retry-After`) that says the account
+  or network has opened many files and when to try again, not JSON.
+- Reading stays open when the shared limiter is down (AGENTS.md, Library and
+  sync): the same budgets are counted in the instance's memory instead
+  (`rateLimitLocal`), a bounded cost per instance.
+- Correction: the previous version budgeted every link by address (one member
+  could empty a hall's budget in seconds), answered JSON, and refused in an
+  outage. It also said the mint answer was edge-cached; it is `private`.
+- Guard: `api-limits.test.mjs` (a member's 41st 50 MB pull is a Thai page and
+  20 classmates on the address are served; a ticket link by address; an outage
+  still serves, bounded; both mints carry the member), `api-hardening.test.mjs`.
+- Unproven: what a real hall uses.
 
 ## The microphone's probe (`api/ai-transcribe.js`)
 - The public GET never calls a provider: it answers from configuration and from

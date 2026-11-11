@@ -98,6 +98,13 @@ export default async function handler(req, res) {
     // filled the admin's usage log with spam that never happened.
     if (daily.unavailable) return sendRateLimitFailure(res, daily);
     await logFeedbackUsage(feedbackUsageRow({ type: body.type, ip }, 'capped_burst'));
+    // A member stopped by the shared network's ceiling sent little themselves:
+    // say it is the network, not their own count.
+    const shared = burst.ok ? daily : burst;
+    if (shared.scope === 'address') {
+      res.setHeader('Retry-After', String(shared.retryAfter));
+      return res.status(429).json({ error: 'Network feedback limit reached', reason: 'network_busy', retryAfter: shared.retryAfter });
+    }
     // The day's count clears tomorrow, not in ten minutes: say which one it is.
     if (burst.ok) {
       res.setHeader('Retry-After', String(daily.retryAfter));

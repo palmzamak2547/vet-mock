@@ -176,7 +176,7 @@ async function allThree(respond) {
 test('the client exists and names one sentence per cause', () => {
   assert.ok(client, 'src/lib/feedback-client.js must exist');
   assert.equal(typeof client.sendFeedback, 'function');
-  assert.deepEqual(Object.keys(client.FEEDBACK_MESSAGES).sort(), ['burst', 'daily_cap', 'daily_mine', 'offline', 'preview', 'server']);
+  assert.deepEqual(Object.keys(client.FEEDBACK_MESSAGES).sort(), ['burst', 'daily_cap', 'daily_mine', 'network_busy', 'offline', 'preview', 'server']);
 });
 
 test('the payload goes out unchanged, as the JSON POST the endpoint reads', async () => {

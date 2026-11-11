@@ -4,7 +4,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { limitCaller, rateLimit } from '../../api/_lib/rate-limit.js';
-import { chulaGate, resetChulaGate, FAILED_TOKEN_BRAKE } from '../../api/_lib/chula-gate.js';
+import { chulaGate, resetChulaGate } from '../../api/_lib/chula-gate.js';
+import { sessionToken } from '../helpers/supabase-jwt.mjs';
 
 const at = (ip) => ({ headers: { 'x-vercel-forwarded-for': ip } });
 const member = (id) => ({ ok: true, userId: id, member: true });
@@ -52,13 +53,16 @@ test('a limiter that cannot count refuses', async () => {
 
 // ── The gate ────────────────────────────────────────────────────────────────
 
-const ENV = { VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' };
+const PROJECT = 'https://x.supabase.co';
+const ENV = { VITE_SUPABASE_URL: PROJECT, VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' };
+const MEMBER = sessionToken(PROJECT, { sub: 'u-m' });
 function database() {
-  const calls = { n: 0 };
+  const calls = { n: 0, bearers: [] };
   const fetchImpl = async (url, init) => {
     calls.n++;
     const bearer = init.headers.Authorization.slice(7);
-    if (bearer === 'member.token.0123456789abcdef') return Response.json({ enforce: true, signed_in: true, member: true, uid: 'u-m' });
+    calls.bearers.push(bearer);
+    if (bearer === MEMBER) return Response.json({ enforce: true, signed_in: true, member: true, uid: 'u-m' });
     if (bearer === ENV.VITE_SUPABASE_ANON_KEY) return Response.json({ enforce: true, signed_in: false, member: false, uid: null });
     return new Response('{"message":"invalid JWT"}', { status: 401 });
   };
@@ -66,23 +70,50 @@ function database() {
 }
 const withToken = (ip, token) => ({ headers: { 'x-vercel-forwarded-for': ip, authorization: `Bearer ${token}` } });
 
-test('forged tokens from one address stop reaching the database once they have failed many times', async () => {
+test('forged tokens from a hall\'s address never refuse an honest member there', async () => {
+  resetChulaGate();
+  const { fetchImpl } = database();
+  const ip = '203.0.113.77';
+  // Well-formed forgeries (a bad signature, refused by the database) and junk.
+  for (let i = 0; i < 300; i++) await chulaGate(withToken(ip, sessionToken(PROJECT, { sub: `forged-${i}`, tag: String(i) })), { env: ENV, fetchImpl });
+  for (let i = 0; i < 300; i++) await chulaGate(withToken(ip, `forged.${i}.0123456789abcdefghij`), { env: ENV, fetchImpl });
+  const honest = await chulaGate(withToken(ip, MEMBER), { env: ENV, fetchImpl });
+  assert.equal(honest.ok, true);
+  assert.equal(honest.member, true);
+  // And again once this instance has forgotten them.
+  const later = await chulaGate(withToken(ip, MEMBER), { env: ENV, fetchImpl, now: () => Date.now() + 61_000 });
+  assert.equal(later.member, true);
+});
+
+test('expired tokens are guests: no database call, and nobody braked', async () => {
   resetChulaGate();
   const { calls, fetchImpl } = database();
-  const ip = '203.0.113.77';
-  for (let i = 0; i < FAILED_TOKEN_BRAKE.max; i++) {
-    const g = await chulaGate(withToken(ip, `forged.${i}.0123456789abcdefghij`), { env: ENV, fetchImpl });
-    assert.equal(g.status, 401);
+  const ip = '203.0.113.78';
+  // 30 students, four parallel calls each, with tokens that expired during a lecture.
+  const stale = Array.from({ length: 30 }, (_, s) => sessionToken(PROJECT, { sub: `student-${s}`, expInSec: -60 }));
+  const answers = await Promise.all(stale.flatMap((t) => [1, 2, 3, 4].map(() => chulaGate(withToken(ip, t), { env: ENV, fetchImpl }))));
+  for (const a of answers) assert.equal(a.status, 401, 'asked to sign in, as a guest is');
+  assert.ok(!calls.bearers.some((b) => stale.includes(b)), 'no expired token reached the database');
+  assert.equal((await chulaGate(withToken(ip, MEMBER), { env: ENV, fetchImpl })).member, true, 'the refreshed member is served');
+});
+
+test('a malformed token makes no database call', async () => {
+  const { calls, fetchImpl } = database();
+  const bad = [
+    'forged.token.0123456789abcdefghij',
+    'a'.repeat(40),
+    sessionToken(PROJECT, { iss: 'https://other.supabase.co/auth/v1' }),
+    sessionToken(PROJECT, { aud: 'anon' }),
+    sessionToken(PROJECT, { sub: '' }),
+    `${sessionToken(PROJECT).split('.').slice(0, 2).join('.')}.`,
+  ];
+  for (const t of bad) {
+    resetChulaGate();
+    calls.bearers.length = 0;
+    const g = await chulaGate(withToken('203.0.113.79', t), { env: ENV, fetchImpl });
+    assert.equal(g.status, 401, t.slice(0, 30));
+    assert.ok(!calls.bearers.includes(t), `${t.slice(0, 30)} reached the database`);
   }
-  const before = calls.n;
-  for (let i = 0; i < 200; i++) {
-    const g = await chulaGate(withToken(ip, `forged.more.${i}.0123456789abcdef`), { env: ENV, fetchImpl });
-    assert.equal(g.status, 429);
-  }
-  assert.equal(calls.n, before, 'a braked address costs the database nothing');
-  // Another address, and a member already checked on this instance, are untouched.
-  assert.equal((await chulaGate(withToken('203.0.113.78', 'member.token.0123456789abcdef'), { env: ENV, fetchImpl })).member, true);
-  assert.equal((await chulaGate(withToken(ip, 'member.token.0123456789abcdef'), { env: ENV, fetchImpl })).member, true, 'remembered members are not braked');
 });
 
 test('a deployed preview without database settings refuses; local development stays open', async () => {
@@ -145,7 +176,7 @@ test('feedback: with the wall off, free accounts are visitors; a full day says d
     throw new TypeError('network cut');
   };
   const reqs = Array.from({ length: 50 }, (_, i) => ({
-    headers: { authorization: `Bearer tok${String(i).padStart(30, '0')}`, 'x-vercel-forwarded-for': `192.0.2.${100 + (i % 5)}` },
+    headers: { authorization: `Bearer ${sessionToken('https://db.example', { sub: `throwaway-${i}` })}`, 'x-vercel-forwarded-for': `192.0.2.${100 + (i % 5)}` },
     body: { message: `spam ${i}` },
   }));
   const out = await feedback(fetchImpl, reqs);
@@ -165,9 +196,38 @@ test('feedback: a visitor\'s full day is answered daily_cap, not "wait ten minut
   assert.equal(res.body.scope, 'caller');
 });
 
+test('feedback: a member stopped by the shared network\'s ceiling is told it is the network', async () => {
+  resetChulaGate();
+  const { FEEDBACK_RATE } = await import('../../api/send-feedback.js');
+  const ip = '192.0.2.240';
+  const token = sessionToken('https://db.example', { sub: 'one-message-member' });
+  for (let i = 0; i < FEEDBACK_RATE.addressBurst; i++) await rateLimit(`feedback:addr:${ip}`, FEEDBACK_RATE.addressBurst, 10 * 60_000);
+  const fetchImpl = async (url, init) => {
+    if (String(url).includes('chula_access_state')) {
+      const auth = init?.headers?.Authorization || '';
+      return auth.includes(token) ? Response.json({ enforce: true, signed_in: true, member: true, uid: 'm-1' }) : Response.json({ enforce: true, signed_in: false, member: false, uid: null });
+    }
+    throw new TypeError('network cut');
+  };
+  const [res] = await feedback(fetchImpl, [{ headers: { 'x-vercel-forwarded-for': ip, authorization: `Bearer ${token}` }, body: { message: 'first and only' } }]);
+  assert.equal(res.statusCode, 429);
+  assert.equal(res.body.reason, 'network_busy');
+  const client = await import('../../src/lib/feedback-client.js');
+  assert.match(client.FEEDBACK_MESSAGES.network_busy, /เครือข่าย/);
+  assert.doesNotMatch(client.FEEDBACK_MESSAGES.network_busy, /ส่งถี่|ครบจำนวนต่อวัน/, 'not the member\'s own burst or day');
+});
+
 // ── The library's byte budget ───────────────────────────────────────────────
 
-test('library-blob: bytes pulled through the function are budgeted per address, and an outage refuses', async (t) => {
+function blobCall(handler, token, ip) {
+  return (async () => {
+    const res = { statusCode: 200, headers: {}, body: '', setHeader(k, v) { this.headers[k.toLowerCase()] = v; }, status(c) { this.statusCode = c; return this; }, json(b) { this.body = b; return this; }, end(b) { if (b !== undefined) this.body = b; return this; }, once() { return this; } };
+    await handler({ method: 'GET', url: '/api/library-blob?' + new URLSearchParams(token), headers: { 'x-vercel-forwarded-for': ip } }, res);
+    return res;
+  })();
+}
+
+test('library-blob: a member\'s link is budgeted on their account; one member looping a link stops only themselves', async (t) => {
   const { default: handler, BLOB_BYTES, bytesPulled } = await import('../../api/library-blob.js');
   const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
   const saved = { ...process.env };
@@ -176,19 +236,56 @@ test('library-blob: bytes pulled through the function are budgeted per address, 
   const size = 50 * 1024 ** 2;
   assert.equal(bytesPulled({ n: size }, 'bytes=0-1023', false), size, 'a PDF range still pulls the whole object');
   assert.equal(bytesPulled({ n: size }, 'bytes=0-1023', true), 1024, 'a media range pulls up to its end');
-  const token = mintBlobToken({ storage_bucket: 'b', storage_key: 'docs/deck.pdf', mime: 'application/pdf', byte_size: size, status: 'public' });
+  const doc = { storage_bucket: 'b', storage_key: 'docs/deck.pdf', mime: 'application/pdf', byte_size: size, status: 'public' };
   let upstream = 0;
   t.mock.method(globalThis, 'fetch', async () => { upstream++; return new Response(null, { status: 200 }); });
-  const call = async (ip) => {
-    const res = { statusCode: 200, headers: {}, setHeader(k, v) { this.headers[k.toLowerCase()] = v; }, status(c) { this.statusCode = c; return this; }, json(b) { this.body = b; return this; }, end() { return this; }, once() { return this; } };
-    await handler({ method: 'GET', url: '/api/library-blob?' + new URLSearchParams(token), headers: { 'x-vercel-forwarded-for': ip } }, res);
-    return res.statusCode;
-  };
+  const hall = '203.0.113.160';
+  const looper = mintBlobToken(doc, { user: 'looping-member' });
   const allowed = Math.floor(BLOB_BYTES.max / size);
-  const ip = '203.0.113.150';
-  for (let i = 0; i < allowed; i++) assert.equal(await call(ip), 200);
-  assert.equal(await call(ip), 429, `the ${allowed + 1}th 50 MB pull in the window is refused`);
-  assert.equal(upstream, allowed);
-  process.env.NODE_ENV = 'production';
-  assert.equal(await call('203.0.113.151'), 503, 'a limiter that cannot count refuses');
+  for (let i = 0; i < allowed; i++) assert.equal((await blobCall(handler, looper, hall)).statusCode, 200);
+  const refused = await blobCall(handler, looper, hall);
+  assert.equal(refused.statusCode, 429);
+  assert.match(String(refused.headers['content-type']), /text\/html/, 'a page, not JSON, in the deck\'s tab');
+  assert.match(String(refused.body), /เปิดไฟล์ไม่ได้ชั่วคราว/);
+  assert.match(String(refused.body), /นาที/, 'and when to try again');
+  assert.ok(Number(refused.headers['retry-after']) > 0);
+  assert.equal(upstream, allowed, 'a refused request never reaches storage');
+  // Classmates on the same address, each with their own link, are untouched.
+  for (let s = 0; s < 20; s++) assert.equal((await blobCall(handler, mintBlobToken(doc, { user: `classmate-${s}` }), hall)).statusCode, 200);
+});
+
+test('library-blob: a link with no member (an open ticket) is budgeted by address', async (t) => {
+  const { default: handler, BLOB_BYTES } = await import('../../api/library-blob.js');
+  const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
+  const saved = { ...process.env };
+  t.after(() => { process.env = saved; });
+  Object.assign(process.env, { CLOUDFLARE_API_TOKEN: 'budget-test', R2_ACCOUNT_ID: 'acct' });
+  t.mock.method(globalThis, 'fetch', async () => new Response(null, { status: 200 }));
+  const size = 200 * 1024 ** 2;
+  const ticket = mintBlobToken({ storage_bucket: 'b', storage_key: 'docs/big.pdf', mime: 'application/pdf', byte_size: size, status: 'public' });
+  const allowed = Math.floor(BLOB_BYTES.address / size);
+  for (let i = 0; i < allowed; i++) assert.equal((await blobCall(handler, ticket, '203.0.113.170')).statusCode, 200);
+  assert.equal((await blobCall(handler, ticket, '203.0.113.170')).statusCode, 429);
+  assert.equal((await blobCall(handler, ticket, '203.0.113.171')).statusCode, 200, 'another address keeps its own');
+});
+
+test('library-blob: reading stays open when the shared limiter is down, bounded by the instance\'s own budget', async (t) => {
+  const { default: handler, BLOB_BYTES } = await import('../../api/library-blob.js');
+  const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
+  const saved = { ...process.env };
+  t.after(() => { process.env = saved; });
+  Object.assign(process.env, { CLOUDFLARE_API_TOKEN: 'budget-test', R2_ACCOUNT_ID: 'acct', NODE_ENV: 'production' });
+  t.mock.method(globalThis, 'fetch', async () => new Response(null, { status: 200 }));
+  const size = 100 * 1024 ** 2;
+  const link = mintBlobToken({ storage_bucket: 'b', storage_key: 'docs/outage.pdf', mime: 'application/pdf', byte_size: size, status: 'public' }, { user: 'outage-member' });
+  const allowed = Math.floor(BLOB_BYTES.max / size);
+  for (let i = 0; i < allowed; i++) assert.equal((await blobCall(handler, link, '203.0.113.180')).statusCode, 200, 'students can still read');
+  assert.equal((await blobCall(handler, link, '203.0.113.180')).statusCode, 429, 'and the cost is still bounded');
+});
+
+test('the library link carries the member it was minted for', async () => {
+  const src = (await import('node:fs')).readFileSync(new URL('../../api/library-file.js', import.meta.url), 'utf8');
+  const mints = src.match(/mintBlobToken\(doc, \{[^}]*\}\)/g) || [];
+  assert.ok(mints.length >= 2);
+  for (const m of mints) assert.match(m, /user: gate\?\.member === true \? gate\.userId : null/);
 });
