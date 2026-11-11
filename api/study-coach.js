@@ -33,7 +33,7 @@ import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kv
 import { chatJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
-import { isTableRow, wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
+import { isTableRow, passageBesideStem, wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -89,8 +89,7 @@ const PASSAGE_CUT = '[the passage continues]';
 export function coachPassage(q) {
   // A stem whose numbers moved into a passage table keeps the whole sentence
   // in `say`, and wholeStem() sends that: the passage would say it twice.
-  if (typeof q?.say === 'string' && q.say) return '';
-  const text = typeof q?.passage === 'string' ? q.passage.trim() : '';
+  const text = passageBesideStem(q);
   if (!text) return '';
   const title = typeof q.passage_title === 'string' ? q.passage_title.trim() : '';
   const head = `PASSAGE SHOWN ABOVE THE QUESTION${title ? ` (${title})` : ''}:`;

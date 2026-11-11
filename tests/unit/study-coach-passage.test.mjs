@@ -13,7 +13,7 @@ import assert from 'node:assert/strict';
 process.env.DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'test-key';
 const { missMaterial, coachPassage, MAX_PASSAGE_CHARS } = await import('../../api/study-coach.js');
 const { questionCatalog } = await import('../../api/_lib/question-catalog.js');
-const { wholeExplain, wholeStem, isTableRow } = await import('../../src/lib/rich-blocks.js');
+const { wholeExplain, wholeStem, isTableRow, passageBesideStem } = await import('../../src/lib/rich-blocks.js');
 
 // The material exactly as the coach built it before passages were sent.
 function legacyMaterial(q, chosen) {
@@ -81,6 +81,10 @@ test('one prose line longer than the cap is cut at a word', () => {
   const p = coachPassage(q);
   assert.ok(p.length <= MAX_PASSAGE_CHARS);
   assert.ok(p.split('\n')[1].endsWith('word'));
+});
+
+test('the coach footer names the passage exactly when the model was shown one', () => {
+  for (const q of mcq) assert.equal(Boolean(passageBesideStem(q)), Boolean(coachPassage(q)), q.id);
 });
 
 test('the passage is inside what the cache key hashes', async () => {
