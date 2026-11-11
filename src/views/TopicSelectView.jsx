@@ -400,11 +400,14 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <button
             type="button"
             onClick={() => setView('reading-checklist')}
-            aria-label={`เปิดรายการอ่าน อ่านแล้ว ${subjReadDone} จาก ${topics.length} หัวข้อ`}
+            aria-label={`เปิดรายการอ่าน อ่านแล้ว ${subjReadDone} จาก ${topics.length} หัวข้อในแผนการสอน`}
             title="เปิดรายการอ่าน"
             className="vmx-topic-progress"
           >
-            อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
+            {/* Every topic of the syllabus, the reading list's own count. The cards
+                below leave out topics with nothing to study yet (24 against 19
+                for epidemiology), so the number says what it counts. */}
+            อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong> หัวข้อในแผนการสอน
           </button>
         )}
       </div>
