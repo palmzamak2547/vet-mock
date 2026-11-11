@@ -2,6 +2,9 @@
 // on 2026-11-10, for the 2569-1 year-5 1-final paper. Edit the JSON and
 // re-run the ingest, not this file. Every bullet names its source (a recording
 // timestamp, a deck page, or a past-paper item); the ingest refuses one that does not.
+// EDITED BY HAND on 2026-11-11 after review (docs/releases/5.198.0.md lists each edit):
+// neither the ingest script nor the source JSON is in this repository, so carry these
+// edits into the source JSON before any re-ingest, or a re-ingest will undo them.
 export const WRAPUP = {
   "subject": "one-health",
   "exam": {
@@ -292,19 +295,19 @@ export const WRAPUP = {
             },
             {
               "text": "Risk characterization บูรณาการผลของ hazard characterization กับ exposure assessment",
-              "src": "แนวข้อสอบ 105991"
+              "src": "ข้อฝึกในคลัง 105991"
             },
             {
               "text": "Exposure assessment ต้องรู้ความชุกของอันตรายในอาหาร ความเข้มข้นของเชื้อ และปริมาณที่บริโภค",
-              "src": "แนวข้อสอบ 105994"
+              "src": "ข้อฝึกในคลัง 105994"
             },
             {
               "text": "Food risk analysis ด้านสาธารณสุขใช้แนวทางของ Codex (CAC) และในการค้าอาหารระหว่างประเทศอยู่ภายใต้ SPS agreement",
-              "src": "แนวข้อสอบ 105989, 105990"
+              "src": "ข้อฝึกในคลัง 105989, 105990"
             },
             {
               "text": "Risk analysis ประกอบด้วย risk assessment, risk management และ risk communication การควบคุมหรือลดความเสี่ยงให้อยู่ในระดับที่ยอมรับได้คือ risk management",
-              "src": "แนวข้อสอบ 105988, 105992"
+              "src": "ข้อฝึกในคลัง 105988, 105992"
             }
           ],
           "pitfall": "ALOP วัดที่การเจ็บป่วย (จำนวนผู้ป่วยต่อปี) ส่วน FSO วัดที่ระดับอันตรายในอาหาร ณ จุดบริโภค",
@@ -312,7 +315,7 @@ export const WRAPUP = {
             "hLl7taXYRWQ (บันทึกคาบ 7 ต.ค. 2026)",
             "เดค Animal and Human Health Risk Analysis หน้า 2-22",
             "ข้อสอบเก่า 210046",
-            "แนวข้อสอบ 105988, 105989, 105990, 105991, 105992, 105994"
+            "ข้อฝึกในคลัง 105988, 105989, 105990, 105991, 105992, 105994"
           ]
         },
         {
