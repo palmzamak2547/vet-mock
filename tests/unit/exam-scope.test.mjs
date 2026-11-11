@@ -133,3 +133,18 @@ test('a row with no origin is noted from the source file the panel shows', () =>
   // "mid-" starts a word, not a paper
   assert.equal(originPaperNote({ subject: 'aquatic-clinic', topic: 'aqua-fish-diseases', source: 'deck p5 mid-gestation' }), null);
 });
+
+test('the line tag names this year\'s paper, only where the shown line names the other one', async () => {
+  const { originPaperTag, paperNamedIn } = await import('../../src/lib/exam-scope.js');
+  assert.equal(paperNamedIn('Swine Medicine ไฟนอล Vet 85'), 'final');
+  assert.equal(paperNamedIn('Aqua Med Mid 86.pdf'), 'midterm');
+  assert.equal(paperNamedIn('deck p5 mid-gestation'), null);
+  const fishVaccine = { subject: 'aquatic-clinic', topic: 'aqua-fish-diseases', source: 'Aqua Med Mid 86.pdf หน้า 28 ข้อ 18' };
+  assert.equal(originPaperTag(fishVaccine, 'Aqua Med Mid 86.pdf หน้า 28 ข้อ 18'), '(รุ่นนี้อยู่ปลายภาค)');
+  // The line shows an origin that names no paper: no tag, the note waits in the panel.
+  assert.equal(originPaperTag({ ...fishVaccine, examOrigin: 'อิงแนวข้อสอบ' }, 'อิงแนวข้อสอบ'), null);
+  assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'Swine มิดเทอม Vet 85' }, 'Swine มิดเทอม Vet 85'), '(รุ่นนี้อยู่ปลายภาค)');
+  assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-gi-viral', examOrigin: 'Swine ไฟนอล Vet 85' }, 'Swine ไฟนอล Vet 85'), '(รุ่นนี้อยู่กลางภาค)');
+  // The papers agree: nothing.
+  assert.equal(originPaperTag({ subject: 'swine-clinic', topic: 'swine-asf', examOrigin: 'Swine ไฟนอล Vet 85' }, 'Swine ไฟนอล Vet 85'), null);
+});

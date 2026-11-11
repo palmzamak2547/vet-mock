@@ -22,7 +22,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { transformSync } from 'esbuild';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { panicRank } from '../../src/lib/question-metadata.js';
-import { sourceKind, sourceLineBeforeAnswer, followsExamPattern, SOURCE_KIND_LABEL, SOURCE_LINE_WAIT } from '../../src/lib/source-line.js';
+import { sourceKind, sourceLineBeforeAnswer, sourceLineAfterAnswer, followsExamPattern, SOURCE_KIND_LABEL, SOURCE_LINE_WAIT, cautionChipShown, CAUTION_CHIP_TEXT } from '../../src/lib/source-line.js';
+import { originPaperNote, originPaperTag, paperNamedIn, scopeOfQuestion } from '../../src/lib/exam-scope.js';
+import { questionNeedsAnswerReview } from '../../src/lib/question-prediction.js';
 import { leakOf, answerParts, figureTextLeak } from '../../scripts/lib/answer-leak.mjs';
 import { preAnswerText, figureTextLeaks, FIGURE_TEXT_FIELDS } from '../../scripts/lint-source-line.mjs';
 
@@ -149,8 +151,8 @@ test('before the key the line is a kind of source, the same line lint:source-lin
   // What the lint reads is what the closed chip says.
   for (const q of [row('poultry', 4033), row('food-industry', 207093), row('com4', 1068), row('zoonoses', 208045)]) {
     const said = render(q).text;
-    // The flag's warning is drawn by the card, not the chip (its own test is below).
-    for (const part of preAnswerText(q).split('\n').filter((p) => !p.startsWith('ข้อมูลขัดแย้ง'))) {
+    // The caution chip is drawn by the card, not the source chip (its own test is below).
+    for (const part of preAnswerText(q).split('\n').filter((p) => !p.startsWith(CAUTION_CHIP_TEXT))) {
       assert.ok(said.includes(part), `${q.subject}#${q.id}: "${part}" in "${said}"`);
     }
   }
@@ -217,7 +219,7 @@ test('the toggle keeps its place and says when the full source comes', () => {
   // One row, the same three parts, either way: icon, one ellipsised line, the hint.
   for (const r of [before, after]) {
     assert.equal(button(r).props.className, 'vmx-qsource-toggle');
-    assert.equal(findAll(button(r), (n) => n.type === 'span').length, 2);
+    assert.equal(button(r).props.children.filter((n) => n?.type === 'span').length, 2);
   }
   assert.match(before.text, new RegExp(`^ที่มา: จากชีทรุ่นพี่ ${SOURCE_LINE_WAIT}$`));
   assert.match(after.text, /^ที่มา: Master 86 p6 \(Cysteine \+ Tyrosine semi-essential\) ▾ ดูเต็ม$/);
@@ -335,14 +337,14 @@ test('no question\'s meta row gives its key away before the answer', () => {
   assert.equal(leaks.length, 0, `the meta row gives the key away before the answer on ${listed(leaks)}`);
 });
 
-// ── The data-conflict flag under the stem ────────────────────────────────
-// "ข้อมูลขัดแย้ง" shows on every flagged question, timed papers included, and
-// one tap opened its note and sources: "ควรเป็น InPouch TF-Feline หรือ PCR",
-// "Answer set to inspiratory". The chip stays as a warning; what it opens
-// waits for the key, like the source panel.
-test('a flag chip warns before the answer and opens only once the key is on screen', () => {
-  const flagged = QB.filter((q) => q.flag);
-  assert.ok(flagged.length > 50, `flagged questions (${flagged.length})`);
+// ── The caution chip under the stem ──────────────────────────────────────
+// "ข้อควรระวัง" shows on every question whose key is in dispute (a major
+// flag), timed papers included, and one tap opened its note and sources:
+// "ควรเป็น InPouch TF-Feline หรือ PCR", "Answer set to inspiratory". The chip
+// stays as a warning; what it opens waits for the key, like the source panel.
+test('a caution chip warns before the answer and opens only once the key is on screen', () => {
+  const flagged = QB.filter((q) => cautionChipShown(q.flag));
+  assert.ok(flagged.length >= 8, `questions with a disputed key (${flagged.length})`);
   const press = (q, revealed) => {
     const inst = fr.mount(FlagChip, { flag: q.flag, revealed });
     const [button] = fr.findAll(inst.tree, (n) => n.type === 'button');
@@ -355,14 +357,99 @@ test('a flag chip warns before the answer and opens only once the key is on scre
   const leaks = [];
   for (const q of flagged) {
     const text = press(q, false);
-    assert.match(text, /ข้อมูลขัดแย้ง/, `${q.subject}#${q.id} still warns`);
+    assert.equal(text, `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}`, `${q.subject}#${q.id} warns, in Thai, with no severity word`);
     const leak = leakOf(q, text);
     if (leak) leaks.push(`${q.subject}#${q.id} ${leak.rule} [${leak.words.join(', ')}]: ${text.slice(0, 160)}`);
   }
   assert.equal(leaks.length, 0, `the flag gives the key away before the answer on ${listed(leaks)}`);
   // With the key on screen the same press opens the note.
-  const q = row('com5', 568);
+  const q = row('epidemiology', 213524);
   assert.ok(press(q, true).includes(String(q.flag.note).slice(0, 30)));
+});
+
+// ── Quiet labels (Palm, 11 Nov 2026: "อย่าให้มันเยอะไปจนน่ารำคาญ") ─────────
+// A label earns a place on the card only when it changes what the student
+// does with the answer. Measured over the 8,836 questions a student meets:
+// the source-scope note stood under 188 cards, before the answer too, and
+// the conflict chip on 23 (15 of them minor).
+const met = QB.filter((q) => !questionNeedsAnswerReview(q));
+const clash = met.filter((q) => originPaperNote(q));
+
+test('the source-scope note never stands on the card: it is a row of the opened panel', () => {
+  assert.ok(clash.length > 150, `questions whose source names the other paper (${clash.length})`);
+  for (const q of clash) {
+    const note = originPaperNote(q);
+    for (const r of [render(q), render(q, { open: true }), render(q, { revealed: true })]) {
+      assert.ok(!r.text.includes(note), `${q.subject}#${q.id} shows the note outside the panel: ${r.text}`);
+      assert.doesNotMatch(r.text, /หมายเหตุ/, `${q.subject}#${q.id}`);
+    }
+    const opened = render(q, { revealed: true, open: true });
+    assert.ok(opened.text.includes(`หมายเหตุ ${note}`), `${q.subject}#${q.id} carries the note in the panel`);
+  }
+});
+
+test('the paper tag shows after the answer, and only where the line itself names the other paper', () => {
+  let tagged = 0;
+  for (const q of met) {
+    assert.doesNotMatch(render(q).text, /รุ่นนี้อยู่/, `${q.subject}#${q.id} tags before the answer`);
+    const after = render(q, { revealed: true }).text;
+    const line = sourceLineAfterAnswer(q);
+    const tag = originPaperTag(q, line);
+    const shows = /\(รุ่นนี้อยู่(?:กลาง|ปลาย)ภาค\)/.test(after);
+    assert.equal(shows, Boolean(tag) && !cautionChipShown(q.flag), `${q.subject}#${q.id}: ${after}`);
+    if (!shows) continue;
+    tagged += 1;
+    // The line names one paper and the tag the other, the one this cohort sits.
+    const named = paperNamedIn(line);
+    assert.ok(named && named !== scopeOfQuestion(q), `${q.subject}#${q.id}`);
+    assert.ok(after.includes(scopeOfQuestion(q) === 'final' ? '(รุ่นนี้อยู่ปลายภาค)' : '(รุ่นนี้อยู่กลางภาค)'), `${q.subject}#${q.id}`);
+  }
+  assert.ok(tagged > 150 && tagged < clash.length, `tagged ${tagged} of ${clash.length}: a line that names no paper keeps the note in the panel only`);
+  // The tag is its own part of the line, so a long origin cut short keeps it.
+  const q = clash.find((x) => originPaperTag(x, sourceLineAfterAnswer(x)));
+  const span = findAll(render(q, { revealed: true }).raw, (n) => n.props?.className === 'vmx-qsource-tag');
+  assert.equal(span.length, 1);
+  assert.equal(span[0].props.style.flex, '0 0 auto');
+});
+
+test('the caution chip is for a disputed key only; a minor note is a หมายเหตุ in the panel', () => {
+  const minor = met.filter((q) => q.flag?.severity === 'minor');
+  const major = met.filter((q) => q.flag?.severity === 'major');
+  assert.ok(minor.length >= 10 && major.length >= 8, `minor ${minor.length}, major ${major.length}`);
+  for (const q of met.filter((x) => x.flag)) {
+    assert.ok(['major', 'minor'].includes(q.flag.severity), `${q.subject}#${q.id}: an unclear flag is never delivered`);
+  }
+  const chip = (flag, revealed) => {
+    const inst = fr.mount(FlagChip, { flag, revealed });
+    const text = readable(inst.tree).replace(/\s+/g, ' ').trim();
+    inst.unmount();
+    return text;
+  };
+  for (const q of minor) {
+    assert.equal(chip(q.flag, false), '', `${q.subject}#${q.id} draws no chip`);
+    assert.equal(chip(q.flag, true), '', `${q.subject}#${q.id} draws no chip after the answer`);
+    assert.ok(!render(q, { revealed: true }).text.includes(q.flag.note.slice(0, 20)), `${q.subject}#${q.id} closed line`);
+    assert.ok(render(q, { revealed: true, open: true }).text.includes(`หมายเหตุ ${q.flag.note.slice(0, 20)}`), `${q.subject}#${q.id} in the panel`);
+  }
+  // A major note is read from the chip, once, not again in the panel.
+  for (const q of major) {
+    assert.ok(!render(q, { revealed: true, open: true }).text.includes(q.flag.note.slice(0, 20)), `${q.subject}#${q.id}`);
+  }
+  for (const flag of ['verify-2026', { severity: 'unclear', note: 'x' }]) assert.equal(chip(flag, true), '');
+  const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
+  assert.match(card, /\{cautionChipShown\(currentQ\.flag\) && <FlagChip /);
+  assert.doesNotMatch(card, /ข้อมูลขัดแย้ง|MAJOR|MINOR|Sources:/);
+});
+
+test('one caution per card: with the caution chip the paper tag stays in the panel', () => {
+  const q = clash.find((x) => originPaperTag(x, sourceLineAfterAnswer(x)));
+  const plain = { ...q, flag: undefined };
+  const disputed = { ...q, flag: { severity: 'major', note: 'เฉลยข้อนี้ยังไม่ได้ยืนยัน' } };
+  assert.match(render(plain, { revealed: true }).text, /\(รุ่นนี้อยู่/);
+  assert.doesNotMatch(render(disputed, { revealed: true }).text, /\(รุ่นนี้อยู่/);
+  assert.ok(render(disputed, { revealed: true, open: true }).text.includes(originPaperNote(q)));
+  // The real bank has no card with both today.
+  assert.equal(met.filter((x) => cautionChipShown(x.flag) && originPaperTag(x, sourceLineAfterAnswer(x))).length, 0);
 });
 
 test('a held topic shows with the key, in a part that keeps its size', async () => {

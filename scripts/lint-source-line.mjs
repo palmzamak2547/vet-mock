@@ -43,9 +43,8 @@ import { figureTextLeak, leakOf } from './lib/answer-leak.mjs';
 import { sameGenerated } from './lib/same-generated.mjs';
 import {
   sourceLineBeforeAnswer, sourceLineAfterAnswer, SOURCE_LINE_WAIT,
-  topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT, flagChipText,
+  topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT, cautionChipShown, CAUTION_CHIP_TEXT,
 } from '../src/lib/source-line.js';
-import { originPaperNote } from '../src/lib/exam-scope.js';
 import { SUBJECTS } from '../src/data/curriculum.js';
 import { EXAM_ORIGINS } from '../src/data/exam-origins.js';
 import { parseExamOrigin, cohortList } from '../src/lib/exam-origin-parse.js';
@@ -68,8 +67,8 @@ export function unconfirmedCohorts() {
 /** Everything the source chip and the data-conflict flag say while the question is open. */
 export function preAnswerText(question) {
   return [
-    sourceLineBeforeAnswer(question), SOURCE_LINE_WAIT, originPaperNote(question) || '',
-    question?.flag ? `${flagChipText(question.flag)} ${SOURCE_LINE_WAIT}` : '',
+    sourceLineBeforeAnswer(question), SOURCE_LINE_WAIT,
+    cautionChipShown(question?.flag) ? `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}` : '',
   ].filter(Boolean).join('\n');
 }
 

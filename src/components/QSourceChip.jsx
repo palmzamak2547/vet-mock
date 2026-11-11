@@ -26,12 +26,16 @@
 // The panel also lists `verificationSources` (what the key was checked
 // against) and names the question number of `sourceDocument` beside its page
 // (lib/source-refs.js). Both wait for the key like the rest of the panel.
+//
+// Quiet labels (11 Nov 2026): nothing stands under the line. The source-scope
+// sentence and a minor flag's note are rows of the panel; the closed line
+// may carry one short paper tag after the answer (lib/exam-scope.js).
 // ============================================================
 
 import { useState, lazy, Suspense } from 'react';
-import { originPaperNote } from '../lib/exam-scope.js';
+import { originPaperNote, originPaperTag } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
-import { sourceLineBeforeAnswer, sourceLineAfterAnswer, readableSource as readable, SOURCE_LINE_WAIT } from '../lib/source-line.js';
+import { sourceLineBeforeAnswer, sourceLineAfterAnswer, readableSource as readable, SOURCE_LINE_WAIT, cautionChipShown } from '../lib/source-line.js';
 // Lazy: a question pays for the video code only when its source opens.
 const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
@@ -78,11 +82,20 @@ export default function QSourceChip({ q, revealed = false }) {
   // pointer read through humanSource ("WRttiWQ7D9s [28:22]" is stored, "คาบ 3
   // (2 ก.ย.) นาที 28:22" is what the นิสิต sees). Before it: only the kind of
   // source, which names no document, page or topic.
-  const paperNote = originPaperNote(q);
   const summary = revealed
     ? sourceLineAfterAnswer(q, { hasWikiRefs: hasDisplayableWikiRefs })
     : sourceLineBeforeAnswer(q);
+  // A source named for the other paper (a senior cohort sat it at another
+  // point of the course). Never a line of its own: the closed line carries a
+  // short tag only where its own text names that paper, and only after the
+  // answer; one caution per card, so a card with the caution chip leaves it
+  // to the panel. The sentence itself waits in the panel beside the source.
+  const paperTag = revealed && !cautionChipShown(q?.flag) ? originPaperTag(q, summary) : null;
   const expanded = revealed && open;
+  const paperNote = expanded ? originPaperNote(q) : null;
+  // The caution chip's note is read from the chip; any other flag's note is a
+  // หมายเหตุ here.
+  const flagNote = expanded && !cautionChipShown(q?.flag) ? q?.flag?.note : null;
   const moments = expanded ? momentsByClip(q) : [];
   const refs = expanded ? verificationRefs(q) : [];
   const pointer = sourceDocumentPointer(q?.sourceDocument);
@@ -116,12 +129,16 @@ export default function QSourceChip({ q, revealed = false }) {
         <NavIcon name="book" size={16} />
         <span style={{
           flex: 1,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
+          minWidth: 0,
+          display: 'flex',
+          gap: 4,
           letterSpacing: 0,
         }}>
-          ที่มา: {summary}
+          <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            ที่มา: {summary}
+          </span>
+          {/* Its own part, so a long origin cut short never cuts the tag. */}
+          {paperTag && <span className="vmx-qsource-tag" style={{ flex: '0 0 auto', whiteSpace: 'nowrap' }}>{paperTag}</span>}
         </span>
         {/* Full opacity: at 0.7 this 11px hint measured 3.48:1 in light and
             3.91:1 in dark, under the 4.5 floor. */}
@@ -129,12 +146,6 @@ export default function QSourceChip({ q, revealed = false }) {
           {!revealed ? SOURCE_LINE_WAIT : (open ? '▴ ซ่อน' : '▾ ดูเต็ม')}
         </span>
       </button>
-
-      {paperNote && (
-        <div style={{ margin: '0 0 8px', fontSize: 14, lineHeight: 1.5 }}>
-          หมายเหตุ: {paperNote}
-        </div>
-      )}
 
       {expanded && (
         <div style={{ margin: '0 0 10px', paddingTop: 10, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -167,6 +178,8 @@ export default function QSourceChip({ q, revealed = false }) {
           {q.source && (
             <Row label="ที่มา" value={readable(humanSource(q.source))} />
           )}
+          {/* Beside the source it explains. */}
+          {paperNote && <Row label="หมายเหตุ" value={paperNote} />}
           {/* With a references list below, the line leaves its bare addresses to the list. */}
           {verifiedLine(q) && (
             <Row label="ตรวจกับ" value={readable(humanSource(verifiedLine(q)))} icon="✓" iconColor="var(--clr-sage)" />
@@ -231,18 +244,7 @@ export default function QSourceChip({ q, revealed = false }) {
               </ul>
             </div>
           )}
-          {q.flag?.note && (
-            <Row
-              label={q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}
-              value={readable(q.flag.note)}
-              icon="⚠️"
-              iconColor={
-                q.flag.severity === 'major' ? 'var(--clr-rose)'
-                : q.flag.severity === 'minor' ? 'var(--clr-gold)'
-                : 'var(--clr-ink-soft)'
-              }
-            />
-          )}
+          {flagNote && <Row label="หมายเหตุ" value={readable(flagNote)} />}
           {q.tags && q.tags.length > 0 && (
             <Row label="แท็ก" value={q.tags.join(', ')} />
           )}

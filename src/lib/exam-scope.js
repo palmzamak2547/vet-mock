@@ -215,21 +215,41 @@ const ORIGIN_NAMES_FINAL = /final|ปลายภาค|ไฟนอล/i;
 // Not "mid-gestation": a hyphen after mid is a word, not a paper.
 const ORIGIN_NAMES_MID = /\bmid(?:term)?\b(?!-)|กลางภาค|มิดเทอม/i;
 
-export function originPaperNote(question) {
+/** The paper a source's text names: 'final', 'midterm', or null. */
+export function paperNamedIn(text) {
+  const s = String(text || '');
+  if (ORIGIN_NAMES_FINAL.test(s)) return 'final';
+  return ORIGIN_NAMES_MID.test(s) ? 'midterm' : null;
+}
+
+/** The paper the source names when it is not the one this cohort sits, else null. */
+function otherPaperNamed(question) {
   const scope = scopeOfQuestion(question);
   if (scope !== 'midterm' && scope !== 'final') return null;
   // Both labels the source panel shows: the origin, then the source pointer.
   // A row whose origin names no paper still shows its file, and "Aqua Med Mid
   // 86.pdf" under a ปลายภาค question read as a leak from the midterm (Palm,
   // 10 Nov 2569).
-  const paperIn = (text) => {
-    const s = String(text || '');
-    if (ORIGIN_NAMES_FINAL.test(s)) return 'final';
-    return ORIGIN_NAMES_MID.test(s) ? 'midterm' : null;
-  };
-  const named = paperIn(question?.examOrigin) || paperIn(question?.source);
-  if (!named || named === scope) return null;
+  const named = paperNamedIn(question?.examOrigin) || paperNamedIn(question?.source);
+  return named && named !== scope ? named : null;
+}
+
+export function originPaperNote(question) {
+  const named = otherPaperNamed(question);
+  if (!named) return null;
   return named === 'final'
     ? 'ชื่อแหล่งที่มาของข้อนี้ระบุปลายภาค แต่หลักสูตรรุ่นนี้จัดเนื้อหานี้ไว้ในกลางภาค'
     : 'ชื่อแหล่งที่มาของข้อนี้ระบุกลางภาค แต่หลักสูตรรุ่นนี้จัดเนื้อหานี้ไว้ในปลายภาค';
+}
+
+/**
+ * The short tag the collapsed source line carries after the answer, or null.
+ * Only when `line`, the text that line shows, itself names the other paper:
+ * a line that names no paper needs no correction, and the full sentence
+ * (originPaperNote) waits in the opened panel beside the source it explains.
+ */
+export function originPaperTag(question, line) {
+  const named = otherPaperNamed(question);
+  if (!named || paperNamedIn(line) !== named) return null;
+  return named === 'final' ? '(รุ่นนี้อยู่กลางภาค)' : '(รุ่นนี้อยู่ปลายภาค)';
 }

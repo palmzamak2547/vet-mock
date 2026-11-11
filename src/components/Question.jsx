@@ -21,7 +21,7 @@ import { unlockAudio } from '../lib/audio-unlock.js';
 import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
 import ReadAloudBar from './ReadAloudBar.jsx';
 import QSourceChip from './QSourceChip.jsx';
-import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, flagChipText, SOURCE_LINE_WAIT } from '../lib/source-line.js';
+import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, cautionChipShown, CAUTION_CHIP_TEXT, SOURCE_LINE_WAIT } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
@@ -425,10 +425,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     <div className="vmx-q-content-pane">
       <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
 
-      {/* Data discrepancy flag — surfaces conflicts between past papers
-          and current lecture content. See vault discrepancies.md +
-          self-optimization rule 1d (hold to facts). */}
-      {currentQ.flag && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
+      {/* The caution chip: a key in dispute (severity major) and nothing
+          else. A minor flag is a note in the source panel (QSourceChip). */}
+      {cautionChipShown(currentQ.flag) && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -807,10 +806,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 }
 
 // ────────────────────────────────────────────────────────────────
-// FlagChip — visual warning that a question has a known data
-// conflict between past paper answer and current lecture content.
-// Severity color: major=rose, minor=gold, unclear=ink-soft.
-// Click expands to show note + sources.
+// FlagChip — "ข้อควรระวัง": the key of this question is in dispute (a
+// `severity: 'major'` flag). Tap to read the note and its sources. Any other
+// flag draws nothing here; a minor note is a row of the source panel.
 // ────────────────────────────────────────────────────────────────
 // The chip warns before the answer too, but what it opens waits for the key
 // (5.189.2): a note that says which key the seniors marked, or that the
@@ -818,22 +816,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 // flagged questions, timed papers included. Exported for the leak test.
 export function FlagChip({ flag, revealed = false }) {
   const [open, setOpen] = useState(false);
+  if (!cautionChipShown(flag)) return null;
   const expanded = revealed && open;
-  const sev = flag?.severity || 'unclear';
-  // `text` is the accent as TEXT on a 12% tint of itself — the raw accents
-  // read 2.65 there. The -text variants are what that role is for; border
+  // `text` is the accent as TEXT on a 12% tint of itself — the raw accent
+  // reads 2.65 there. The -text variant is what that role is for; border
   // and bg keep the accent, where nothing reads on top of it.
-  const PALETTE = {
-    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)' },
-    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)' },
-    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)' },
-  };
-  // Was `}[sev] || palette.unclear`, reading `palette` inside its own
-  // initializer: any severity in the data that is not one of these three
-  // keys threw "Cannot access 'palette' before initialization" and took
-  // the question card down with it. Nothing in the bank uses a fourth
-  // value today, which is the only reason it never fired.
-  const palette = PALETTE[sev] || PALETTE.unclear;
+  const palette = { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)' };
 
   return (
     <div style={{ marginTop: 12 }}>
@@ -855,10 +843,9 @@ export function FlagChip({ flag, revealed = false }) {
           fontSize: 14,
           color: palette.text,
         }}
-        title={revealed ? 'ข้อมูลขัดแย้ง — กดดูรายละเอียด' : 'ข้อมูลขัดแย้ง รายละเอียดแสดงหลังเห็นเฉลย'}
+        title={revealed ? 'เฉลยข้อนี้มีข้อควรระวัง กดอ่าน' : 'เฉลยข้อนี้มีข้อควรระวัง อ่านได้หลังเห็นเฉลย'}
       >
-        {/* One line flag; the severity is the word beside it and the colour. */}
-        <NavIcon name="flag" size={13} filled /> {flagChipText(flag)} {revealed ? (open ? '▾' : '▸') : SOURCE_LINE_WAIT}
+        <NavIcon name="flag" size={13} filled /> {CAUTION_CHIP_TEXT} {revealed ? (open ? '▾' : '▸') : SOURCE_LINE_WAIT}
       </button>
 
       {expanded && (
@@ -880,7 +867,7 @@ export function FlagChip({ flag, revealed = false }) {
               fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink-soft)',
             }}>
-              Sources: {flag.sources.join(', ')}
+              อ้างอิง: {flag.sources.join(', ')}
             </div>
           )}
         </div>
