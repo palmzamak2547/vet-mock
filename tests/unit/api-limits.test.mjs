@@ -374,7 +374,7 @@ async function mediaCall(handler, token, { range, ip = '203.0.113.200' } = {}) {
   return res;
 }
 
-async function mediaSetup(t, { size, mime = 'video/mp4', user = 'viewer', body = 16 }) {
+async function mediaSetup(t, { size, mime = 'video/mp4', user = 'viewer', body = 16, key }) {
   const mod = await import('../../api/library-blob.js');
   const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
   const saved = { ...process.env };
@@ -388,7 +388,7 @@ async function mediaSetup(t, { size, mime = 'video/mp4', user = 'viewer', body =
     // highWaterMark 0: a byte counts as read only when the handler asks for it.
     return new Response(new ReadableStream({ pull(c) { reads.bytes += bytes.length; c.enqueue(bytes); c.close(); } }, { highWaterMark: 0 }), { status: 200 });
   });
-  const token = mintBlobToken({ storage_bucket: 'b', storage_key: `docs/${user}.bin`, mime, byte_size: size, status: 'public' }, { user });
+  const token = mintBlobToken({ storage_bucket: 'b', storage_key: key || `docs/${user}.bin`, mime, byte_size: size, status: 'public' }, { user });
   return { ...mod, token, reads };
 }
 
@@ -454,6 +454,25 @@ test('budget: a document with no catalogued size is counted by the bytes it stre
   assert.ok(4 * 512 * mb >= BLOB_BYTES.max);
   assert.equal((await mediaCall(handler, token)).statusCode, 429, 'counted as sent, not as one byte');
 });
+
+test('budget: an octet-stream row whose signed key ends in .mov is media; one ending in .pdf is not', async (t) => {
+  const { isMedia } = await import('../../api/library-blob.js');
+  for (const ext of ['mov', 'webm', 'm4v', 'mkv', 'wav', 'ogg', 'aac', 'mp4', 'mp3', 'm4a']) {
+    assert.equal(isMedia({ m: 'application/octet-stream', k: `docs/lecture.${ext}` }), true, ext);
+  }
+  assert.equal(isMedia({ m: 'application/octet-stream', k: 'docs/x.bin', f: 'Recording.MOV' }), true, 'the signed file name counts too');
+  assert.equal(isMedia({ m: 'application/octet-stream', k: 'docs/deck.pdf' }), false);
+  const size = 300 * 1024 * 1024;
+  const mov = await mediaSetup(t, { size, mime: 'application/octet-stream', user: 'mov-row', key: 'docs/lecture.mov' });
+  for (let s = 0; s <= 20; s++) assert.notEqual((await mediaCall(mov.default, mov.token, { range: `bytes=${s * 1024}-` })).statusCode, 429, `seek ${s}`);
+  const pdf = await mediaSetup(t, { size, mime: 'application/octet-stream', user: 'pdf-row', key: 'docs/deck.pdf' });
+  for (let s = 0; s < 6; s++) assert.equal((await mediaCall(pdf.default, pdf.token)).statusCode, 200);
+  assert.equal((await mediaCall(pdf.default, pdf.token)).statusCode, 429, 'a document is counted at full size');
+  const ingest = (await import('node:fs')).readFileSync(new URL('../../scripts/ingest-library.mjs', import.meta.url), 'utf8');
+  for (const ext of ['mov', 'webm', 'm4v', 'mkv', 'wav', 'ogg', 'aac']) assert.match(ingest, new RegExp(`\\b${ext}: '(?:video|audio)/`), `ingest knows .${ext}`);
+});
+
+// That the streamed count lands before the handler resolves: library-blob-settle.test.mjs.
 
 test('media: a PDF without Range is answered whole as before', async (t) => {
   const { default: handler, token, bytesPulled } = await mediaSetup(t, { size: 16, mime: 'application/pdf', user: 'reader' });

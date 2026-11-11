@@ -73,6 +73,15 @@ export function bytesPulled(payload, media) {
   return Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : 1;
 }
 
+// Video and audio by the signed mime, or by the extension of the signed storage
+// key or file name: rows ingested as application/octet-stream (.mov, .webm,
+// ...) are still media, and a member can change neither.
+const MEDIA_EXTENSION = /\.(?:mp4|m4v|mov|webm|mkv|m4a|mp3|wav|ogg|aac)$/i;
+export function isMedia(payload) {
+  return /^(?:video|audio)\//i.test(payload?.m || '')
+    || MEDIA_EXTENSION.test(String(payload?.k || '')) || MEDIA_EXTENSION.test(String(payload?.f || ''));
+}
+
 /** Counts the bytes that pass, then calls done(total) once the stream ends or stops. */
 export function countStreamed(body, done) {
   let total = 0;
@@ -216,7 +225,7 @@ export default async function handler(req, res) {
   // 61 library videos used to come back whole with Accept-Ranges: none. Only
   // media: a PDF viewer told it may seek would ask for ranges that each pull
   // the whole object through here (see sliceBody).
-  const media = /^(?:video|audio)\//i.test(payload.m || '');
+  const media = isMedia(payload);
   const asksRange = media && req.method === 'GET' && !!req.headers.range;
 
   // The CF REST object API is a management plane: it ignores Range and
@@ -244,10 +253,13 @@ export default async function handler(req, res) {
     const bytes = await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, charge);
     if (!bytes.ok) return refuse(res, bytes);
   }
-  // A document of unknown size: what it really sent is counted once it ends.
+  // A document of unknown size: what it really sent is counted once it ends,
+  // awaited before the handler returns (a frozen function would lose it).
   const unsized = !media && charge === 1;
-  const settle = (sent) => {
-    if (sent > 1) count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, sent - 1).catch(() => {});
+  let streamed = 0;
+  const settle = (sent) => { streamed = sent; };
+  const settleCount = async () => {
+    if (unsized && streamed > 1) await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, streamed - 1).catch(() => {});
   };
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
@@ -349,4 +361,5 @@ export default async function handler(req, res) {
   } catch {
     // Pipeline cancels abandoned reads and terminates incomplete downloads.
   }
+  await settleCount();
 }
