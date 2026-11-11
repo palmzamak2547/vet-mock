@@ -46,6 +46,8 @@ import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/
 
 // The shortest time between two moves of the set (see the move hold below).
 const MOVE_FLOOR_MS = 120;
+// The longest a move holds the next one when no new question was painted.
+const MOVE_HOLD_MAX_MS = 250;
 
 /**
  * @param {object} params
@@ -124,7 +126,14 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const moveHeldRef = useRef(false);
   const lastMoveAtRef = useRef(-Infinity);
   const moveClock = () => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
-  const moveRefused = () => moveHeldRef.current || moveClock() - lastMoveAtRef.current < MOVE_FLOOR_MS;
+  // The frames release the hold when the question changes. A move that changed
+  // nothing (a stale handler after the clock moved the set on) leaves no
+  // change to release it, so a hold also lapses MOVE_HOLD_MAX_MS after it was
+  // taken: the student is never stuck waiting for the next time-out.
+  const moveRefused = () => {
+    const since = moveClock() - lastMoveAtRef.current;
+    return since < MOVE_FLOOR_MS || (moveHeldRef.current && since < MOVE_HOLD_MAX_MS);
+  };
   const takeMove = () => {
     if (moveRefused()) return false;
     moveHeldRef.current = true;
