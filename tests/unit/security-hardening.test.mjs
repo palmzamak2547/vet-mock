@@ -270,6 +270,15 @@ function walkSrc(dir, out = []) {
   return out;
 }
 
+test('connect-src allows the live voice socket mochi-voice.js opens, and only that origin', () => {
+  const ws = /const WS = '([^']+)'/.exec(readFileSync(resolve('src/lib/mochi-voice.js'), 'utf8'))?.[1];
+  assert.ok(ws, 'mochi-voice.js still names its socket');
+  const connect = directive(cspFor('/app/mochi'), 'connect-src');
+  assert.ok(cspAllowsUrl(connect, ws), `connect-src allows ${new URL(ws).origin}`);
+  assert.equal(connect.filter((s) => s.includes('googleapis.com')).length, 2, 'www.googleapis.com and the voice socket, nothing wider');
+  assert.ok(!connect.includes('wss:') && !connect.some((s) => s.startsWith('wss://*.')), 'no wildcard socket origin');
+});
+
 test('the site keeps the microphone for itself while its own voice input uses it (B54)', () => {
   // microphone=() switched the feature off for vetmock itself: every mic
   // button failed with not-allowed and told the student to fix a browser

@@ -91,7 +91,8 @@ export function citeFault({ start, end }, recording) {
   if (!Number.isFinite(s) || (end != null && !Number.isFinite(e))) return 'malformed time';
   const limit = Number(recording.durationMin) > 0 ? recording.durationMin * 60 + 59 : null;
   if (limit != null && (s > limit || (e != null && e > limit))) return `past the end of a ${recording.durationMin}-minute recording`;
-  if (!recording.moments.length) return 'the summary carries no timestamps';
+  // A library recording with no summary yet: its length is all there is to check.
+  if (!recording.moments.length) return recording.library ? null : 'the summary carries no timestamps';
   if (!recording.moments.some((h) => s >= h - WINDOW.before && s <= h + WINDOW.after)) {
     const closest = recording.moments.reduce((a, b) => (Math.abs(b - s) < Math.abs(a - s) ? b : a));
     return `no summary timestamp within [-${WINDOW.before} s, +${WINDOW.after} s] (closest ${Math.floor(closest / 60)}:${String(closest % 60).padStart(2, '0')})`;
@@ -148,6 +149,14 @@ export async function loadRecordings(root) {
         examFormat: e?.examFormat || '',
       });
     }
+  }
+  // This term's late lectures sit in the video library before anyone summarises
+  // them, and the final-paper gap items cite them. Such a cite is held to the
+  // recording's real length only, until a summary gives it headings to land near.
+  const { VIDEO_REGISTRY } = await import(pathToFileURL(path.join(dir, 'video-registry.generated.js')).href);
+  for (const [id, v] of Object.entries(VIDEO_REGISTRY)) {
+    if (recordings.has(id)) continue;
+    recordings.set(id, { moments: [], durationMin: Number(v.durationSec) > 0 ? Math.floor(v.durationSec / 60) : null, examFormat: '', library: true });
   }
   return recordings;
 }

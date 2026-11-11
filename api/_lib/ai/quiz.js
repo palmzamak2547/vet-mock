@@ -22,7 +22,7 @@ import { QUIZ_DEFAULT, QUIZ_MAX } from './config.js';
 import { questionSetLink } from './links.js';
 import { subjectName, topicLabel } from './corpus.js';
 import { subjectsInText } from './subjects.js';
-import { wholeStem } from '../../../src/lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../../../src/lib/rich-blocks.js';
 
 const clampN = (n) => {
   const v = Math.round(Number(n));
@@ -48,7 +48,8 @@ export function toQuizQuestion(q) {
     stem: wholeStem(q).trim(),
     options: tf ? ['ถูก', 'ผิด'] : q.options.map((o) => String(o)),
     answer: tf ? (q.answer ? 0 : 1) : q.answer,
-    explain: q.explain ? String(q.explain).trim() : null,
+    // The paragraph, not the layout: this card is shown as plain text and spoken by the voice tutor.
+    explain: q.explain ? wholeExplain(q).trim() : null,
     // The course's display name, as in `sources` (the link carries the id).
     subject: subjectName(q.subject),
     ...(topic ? { topic } : {}),

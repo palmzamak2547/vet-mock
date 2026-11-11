@@ -8,7 +8,7 @@
 // what it holds, lowest id first, so every machine opens the same one.
 import { test, expect } from './fixtures.js';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
-import { splitBlocks, wholeStem } from '../../src/lib/rich-blocks.js';
+import { splitBlocks, wholeExplain, wholeStem } from '../../src/lib/rich-blocks.js';
 import { ELEVEN_TTS, clipKey, clipText, optionLabel, questionLang } from '../../src/lib/tts-text.js';
 
 const tablesIn = (text) => splitBlocks(text).filter((b) => b.type === 'table');
@@ -52,6 +52,34 @@ async function expectFrameHonest(frame) {
 }
 
 test.setTimeout(90_000);
+
+// The fixture clips are a few bytes, not audio (as in read-aloud.spec.js): an element's src is only
+// remembered, never loaded, and a clip "plays" for `ms` before it ends.
+function stubPlayback(page, ms) {
+  return page.addInitScript((clipMs) => {
+    HTMLMediaElement.prototype.canPlayType = () => 'probably';
+    const NativeAudio = window.Audio;
+    window.Audio = function Audio(src) { const el = new NativeAudio(); el.__src = String(src || ''); return el; };
+    Object.defineProperty(HTMLMediaElement.prototype, 'src', {
+      configurable: true,
+      get() { return this.__src || ''; },
+      set(v) { clearTimeout(this.__t); this.__src = String(v); },
+    });
+    const removeAttribute = Element.prototype.removeAttribute;
+    HTMLMediaElement.prototype.removeAttribute = function (name) { if (name === 'src') this.__src = ''; return removeAttribute.call(this, name); };
+    HTMLMediaElement.prototype.load = function () {};
+    HTMLMediaElement.prototype.play = function play() {
+      const src = this.__src || '';
+      if (!src || src.startsWith('data:')) return Promise.resolve();
+      const el = this;
+      clearTimeout(el.__t);
+      queueMicrotask(() => el.dispatchEvent(new Event('playing')));
+      el.__t = setTimeout(() => { if (el.__src === src) el.dispatchEvent(new Event('ended')); }, clipMs);
+      return Promise.resolve();
+    };
+    HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); };
+  }, ms);
+}
 
 test('a passage that holds a table shows it as a table, and the page does not widen', async ({ page }) => {
   const q = await pick((x) => x.subject === 'epidemiology' && x.type === 'mcq' && tablesIn(x.passage).length === 1
@@ -168,29 +196,7 @@ test('a stem whose numbers moved to a table is still read aloud with them', asyn
   const manifest = [said];
   for (let i = 0; i < options.length; i++) manifest.push(await key(optionLabel(i, lang)), await key(clipText(options[i], lang)));
   const asked = { clips: [], words: [], live: 0 };
-  await page.addInitScript((ms) => {
-    HTMLMediaElement.prototype.canPlayType = () => 'probably';
-    const NativeAudio = window.Audio;
-    window.Audio = function Audio(src) { const el = new NativeAudio(); el.__src = String(src || ''); return el; };
-    Object.defineProperty(HTMLMediaElement.prototype, 'src', {
-      configurable: true,
-      get() { return this.__src || ''; },
-      set(v) { clearTimeout(this.__t); this.__src = String(v); },
-    });
-    const removeAttribute = Element.prototype.removeAttribute;
-    HTMLMediaElement.prototype.removeAttribute = function (name) { if (name === 'src') this.__src = ''; return removeAttribute.call(this, name); };
-    HTMLMediaElement.prototype.load = function () {};
-    HTMLMediaElement.prototype.play = function play() {
-      const src = this.__src || '';
-      if (!src || src.startsWith('data:')) return Promise.resolve();
-      const el = this;
-      clearTimeout(el.__t);
-      queueMicrotask(() => el.dispatchEvent(new Event('playing')));
-      el.__t = setTimeout(() => { if (el.__src === src) el.dispatchEvent(new Event('ended')); }, ms);
-      return Promise.resolve();
-    };
-    HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); };
-  }, 8000);
+  await stubPlayback(page, 8000);
   await page.route('https://tts.vetmock.com/**', (route) => {
     const url = route.request().url();
     const ok = { status: 200, headers: { 'access-control-allow-origin': '*' } };
@@ -252,4 +258,48 @@ test('the way back to a table shows only while the table is off screen, clear of
   await expect(pane.locator('table.vmx-qtable')).toBeVisible();
   await expect(pane.locator('table.vmx-qtable')).toBeInViewport();
   await expect(back).toHaveCount(0);
+});
+
+test('an explanation laid out as steps shows its lines and its table, and is read aloud as the paragraph it was', async ({ page }) => {
+  const q = await pick((x) => typeof x.explainSay === 'string' && x.type === 'mcq' && !x.passage && !x.image && tablesIn(x.explain).length === 1);
+  expect(q, 'no explanation keeps its paragraph beside a table any more').toBeTruthy();
+  const [table] = tablesIn(q.explain);
+
+  // The clip host holds one clip for the explanation: the one named by the paragraph (`explainSay`).
+  const key = (text) => clipKey(clipText(text, questionLang(text, [])), ELEVEN_TTS);
+  const [said, shown] = [await key(wholeExplain(q)), await key(q.explain)];
+  const asked = { clips: [], live: 0 };
+  await stubPlayback(page, 8000);
+  await page.route('https://tts.vetmock.com/**', (route) => {
+    const url = route.request().url();
+    const ok = { status: 200, headers: { 'access-control-allow-origin': '*' } };
+    if (url.endsWith(`/m/${q.subject}.json`)) return route.fulfill({ ...ok, contentType: 'application/json', body: JSON.stringify(url.includes('/e1/') ? [said] : []) });
+    const [, name, ext] = url.match(/([0-9a-f]{16})\.(mp4|json)$/) || [];
+    if (!url.includes('/e1/') || name !== said) return route.fulfill({ status: 404, headers: ok.headers, body: '' });
+    if (ext === 'json') return route.fulfill({ ...ok, contentType: 'application/json', body: JSON.stringify({ w: clipText(wholeExplain(q), 'th').split(/\s+/).map((_, i) => i * 0.05) }) });
+    asked.clips.push(name);
+    return route.fulfill({ ...ok, contentType: 'audio/mp4', body: Buffer.from('clip') });
+  });
+  await page.route('**/api/tts*', (route) => { asked.live += 1; return route.fulfill({ status: 502, body: 'no' }); });
+
+  await openPinned(page, q);
+  await page.locator('.vmx-option').first().click();
+  const panel = page.locator('.vmx-instant-feedback');
+  const body = panel.locator('.vmx-feedback-explain-body');
+  await expect(body).toBeVisible();
+  // On screen: the steps with their labels in bold, the section on the other options, the table. No markup.
+  await expect(body.locator('strong').first()).toBeVisible();
+  await expect(body.locator('table.vmx-qtable tbody tr')).toHaveCount(table.rows.length);
+  await expect(body).not.toContainText('**');
+  await expect(body).not.toContainText('|---');
+  expect(await pageFits(page), 'the explanation fits the page').toBe(true);
+
+  // Read aloud: the clip of the paragraph, never one named by the text on screen, and no phrase marked.
+  await panel.getByRole('button', { name: 'อ่านเหตุผลออกเสียง' }).click();
+  await expect.poll(() => asked.clips, { timeout: 30_000 }).toContain(said);
+  expect(said).not.toBe(shown);
+  await expect(page.locator('.vmx-instant-feedback .w')).toHaveClass(/is-reading/);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => Boolean(globalThis.CSS?.highlights?.has('vmx-reading')))).toBe(false);
+  expect(asked.live, 'the live voice is not asked while the clip exists').toBe(0);
 });

@@ -8,18 +8,25 @@
 //      model spends the whole max_tokens budget inside reasoning_content
 //      and returns an EMPTY content string (the reasoning-model
 //      budget trap, hit live during the probe).
-//   2. DeepSeek `deepseek-chat` alias — in case the flash id or the
-//      thinking parameter ever stops being accepted.
+//   2. `deepseek-flash` again, only when LLM_MODEL names another id. The
+//      `deepseek-chat` hop that stood here was discontinued by DeepSeek on
+//      24 Jul 2026 (api-docs.deepseek.com/updates, 2026-04-24 entry).
 //   3. Anthropic (ANTHROPIC_MODEL below; AI_GRADER_MODEL overrides) — only
 //      if ANTHROPIC_API_KEY is present.
 // visionJSON (one image + text) walks the same order: DeepSeek's flash model
 // takes images OpenAI-style since 2026; Anthropic as the fallback.
 //
+// A provider that answers "no balance" (402) is skipped for ten minutes by
+// both chains (provider-breaker.js); nothing else changes the order.
+//
 // Every non-OK provider response is logged WITH ITS BODY (truncated).
 // A bare status code cost a day of guessing on another surface; the
 // body usually names the problem outright.
 
+import { breakerOpen, isNoBalance, tripBreaker } from './provider-breaker.js';
+
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
+const DEEPSEEK_MODEL = 'deepseek-flash';
 
 // One ceiling on model spend per day, shared by every route that bills to the
 // same key, and therefore one number. It lived in each route before, and they
@@ -98,6 +105,7 @@ async function callDeepSeek({ apiKey, model, thinkingOff, system, user, image, m
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
     console.error('[llm] deepseek', model, res.status, cut(detail));
+    if (isNoBalance(res.status, detail)) tripBreaker('deepseek', res.status);
     return { ok: false, status: res.status };
   }
   const data = await res.json();
@@ -140,6 +148,7 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
     const detail = await res.text().catch(() => '');
     if (!/thinking|budget_tokens|adaptive|between_tools|effort|output_config/i.test(detail)) {
       console.error('[llm] anthropic', model, res.status, cut(detail));
+      if (isNoBalance(res.status, detail)) tripBreaker('anthropic', res.status);
       return { ok: false, status: res.status };
     }
     console.error('[llm] anthropic', model, 'thinking fields refused, retrying without', cut(detail));
@@ -148,6 +157,7 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
     console.error('[llm] anthropic', model, res.status, cut(detail));
+    if (isNoBalance(res.status, detail)) tripBreaker('anthropic', res.status);
     return { ok: false, status: res.status };
   }
   const data = await res.json();
@@ -209,8 +219,8 @@ export function extractJSON(text) {
 /**
  * Ask the first working provider for a JSON answer about one base64 image
  * ({ mediaType, data }). Default order as chatJSON: DeepSeek's flash model
- * (`deepseek-flash`; the retired `deepseek-v4-flash-vision-exp` id is still
- * served by it), then Anthropic. `prefer: 'anthropic'` puts Anthropic first,
+ * (`deepseek-flash`, again after LLM_VISION_MODEL when that names another id;
+ * `deepseek-v4-flash-vision-exp` is retired), then Anthropic. `prefer: 'anthropic'` puts Anthropic first,
  * `anthropicModels` names the Anthropic ids to try in order (each failed id
  * falls to the next), `thinking` turns extended thinking on for them.
  * Without any key: 503, the caller degrades.
@@ -224,10 +234,10 @@ export async function visionJSON({ system, user, image, maxTokens = 800, timeout
     const deepseek = [];
     const anthropic = [];
     if (env.DEEPSEEK_API_KEY) {
-      for (const model of [env.LLM_VISION_MODEL || 'deepseek-flash', 'deepseek-v4-flash-vision-exp']) {
-        deepseek.push(() => callDeepSeek({
+      for (const model of new Set([env.LLM_VISION_MODEL || DEEPSEEK_MODEL, DEEPSEEK_MODEL])) {
+        deepseek.push({ provider: 'deepseek', run: () => callDeepSeek({
           apiKey: env.DEEPSEEK_API_KEY, model, thinkingOff: true, system, user, image, maxTokens, signal: ac.signal,
-        }));
+        }) });
       }
     }
     if (env.ANTHROPIC_API_KEY) {
@@ -235,16 +245,17 @@ export async function visionJSON({ system, user, image, maxTokens = 800, timeout
         ? anthropicModels
         : [env.AI_VISION_MODEL || anthropicModel(env)];
       for (const model of models) {
-        anthropic.push(() => callAnthropic({
+        anthropic.push({ provider: 'anthropic', run: () => callAnthropic({
           apiKey: env.ANTHROPIC_API_KEY, model, system, user, image, maxTokens, signal: ac.signal, thinking,
-        }));
+        }) });
       }
     }
     const attempts = prefer === 'anthropic' ? [...anthropic, ...deepseek] : [...deepseek, ...anthropic];
     let last = { ok: false, status: 503 };
     for (const attempt of attempts) {
+      if (breakerOpen(attempt.provider)) continue;
       try {
-        last = await attempt();
+        last = await attempt.run();
       } catch (err) {
         if (ac.signal.aborted || err?.name === 'TimeoutError' || err?.name === 'AbortError') return { ok: false, status: 504 };
         console.error('[llm] vision transport', cut(err?.message || err));
@@ -285,25 +296,24 @@ export async function chatJSON({ system, user, maxTokens = 1200, timeoutMs = 25_
   try {
     const attempts = [];
     if (env.DEEPSEEK_API_KEY) {
-      attempts.push(() => callDeepSeek({
-        apiKey: env.DEEPSEEK_API_KEY, model: env.LLM_MODEL || 'deepseek-flash',
-        thinkingOff: true, system, user, maxTokens, signal: ac.signal,
-      }));
-      attempts.push(() => callDeepSeek({
-        apiKey: env.DEEPSEEK_API_KEY, model: 'deepseek-chat',
-        thinkingOff: false, system, user, maxTokens, signal: ac.signal,
-      }));
+      for (const model of new Set([env.LLM_MODEL || DEEPSEEK_MODEL, DEEPSEEK_MODEL])) {
+        attempts.push({ provider: 'deepseek', run: () => callDeepSeek({
+          apiKey: env.DEEPSEEK_API_KEY, model,
+          thinkingOff: true, system, user, maxTokens, signal: ac.signal,
+        }) });
+      }
     }
     if (env.ANTHROPIC_API_KEY) {
-      attempts.push(() => callAnthropic({
+      attempts.push({ provider: 'anthropic', run: () => callAnthropic({
         apiKey: env.ANTHROPIC_API_KEY, model: anthropicModel(env),
         system, user, maxTokens, signal: ac.signal,
-      }));
+      }) });
     }
     let last = { ok: false, status: 503 };
     for (const attempt of attempts) {
+      if (breakerOpen(attempt.provider)) continue;
       try {
-        last = await attempt();
+        last = await attempt.run();
       } catch (err) {
         if (ac.signal.aborted || err?.name === 'TimeoutError' || err?.name === 'AbortError') return { ok: false, status: 504 };
         // Transport failures are provider failures too. Preserve the shared
