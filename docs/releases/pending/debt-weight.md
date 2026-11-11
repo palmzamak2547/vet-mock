@@ -2,20 +2,13 @@
 { kind: 'improve', scope: 'system', title: 'แอปโหลดเบาลง', desc: 'คลังข้อสอบและหน้าสรุปก่อนสอบดาวน์โหลดน้อยลง จึงเปิดได้เร็วขึ้น เนื้อหาที่เห็นเหมือนเดิมทุกอย่าง' }
 ```
 
-## Where I stopped (11 Nov, machine shutdown)
-
-- Done and committed: PERF-3 strip (with its unit guard, passing), CSS-2 (4 places), DEAD-3 (17 classes),
-  these notes. Before and after builds measured; `npm run perf:budget` passed on the after build.
-  PERF-2, PERF-4, PERF-5 and PERF-6 investigated and left, with reasons below. Not pushed.
-- Running at shutdown: nothing. The final checks (e2e on four engines, `npm run test:unit`,
-  `npm run lint:data`) were queued for the lock and never started; they were stopped.
-- Next: (1) `npm run build`, then run the e2e specs listed in the scratchpad script
-  weight-checks.sh (smoke, source-line-spoiler, answer-evidence, vca-practice, phase-wrapped-home,
-  connected-study, phase-advance, notes-sidebar-scroll, atlas-entry, atlas, wiki-indexing,
-  mobile-compat) on all four engines under the lock; (2) `npm run test:unit` and `npm run lint:data`;
-  (3) when green, drop this section and `git push -u origin claude/debt-weight` (no pull request).
-
 # Debt batch: weight (what every student downloads and never uses)
+
+Checks on this branch's build: `npm run perf:budget` ok; e2e smoke, source-line-spoiler,
+answer-evidence, vca-practice, phase-wrapped-home, connected-study, phase-advance,
+notes-sidebar-scroll, atlas-entry, atlas, wiki-indexing, mobile-compat on chromium-mobile and
+webkit-mobile: 111 passed, 7 skipped (the wave's pull request runs all four engines);
+`npm run test:unit` 4,140 tests, 0 failed; `npm run lint:data` ok.
 
 Register rows PERF-3, PERF-4, PERF-2, PERF-5, PERF-6, CSS-2, DEAD-3. Nothing a student sees changes and
 nothing on the exam path is touched. Numbers: one bundle build of the branch point (ef993a0e, `vite build`
@@ -30,6 +23,32 @@ without the public/ copy) and one full `npm run build` of this branch, gzip leve
 
 The JS difference (+19 B) is the entry chunk naming the renamed data chunks; no first-load module changed.
 This batch frees no first-load JavaScript (PERF-2 below was not done). The budgets are unchanged.
+
+## Where the first load goes (a ranked list, not a change)
+
+First-load JS is 225,505 B gzip in six files: main 110,608, daily-q 58,915, vendor-react 46,462,
+app-lifecycle 4,840, supabase 3,299, storage-gc 1,381. Per-module sizes below are each module minified
+with esbuild and gzipped alone (static import walk from src/main.jsx, 114 modules); alone they overstate
+by about a fifth, so read them as ranks. "Loads it" is the static importer that puts it in the first load.
+
+Movable without touching the exam path, largest first (estimated together 11.9 KB, so about 10 KB real):
+
+| Module | gzip (alone) | Loads it | Deferred, does the first screen change? |
+|---|---|---|---|
+| lib/origin-move.js + lib/move-base.js | 3,650 + 1,575 | main.jsx (side-effect import) | No for anyone not moving from vetmock.vercel.app. Its boot work exists only when `vmx-move-inbox` is in localStorage; import it only then. It must still finish before user data is read, so a mover's first paint waits for one small chunk |
+| components/SyncStatusNotice.jsx | 2,505 | App.jsx | No: it renders only when sync has a problem; lazy behind that condition, a notice due at boot shows a moment later |
+| lib/native-app.js | 2,440 | main.jsx | No in a browser (it is a no-op there); import it only when the Android bridge is present |
+| components/MotionSettings.jsx + lib/haptics.js | 1,390 + 422 | ThemePicker.jsx | No: it is inside the theme panel, which opens on a tap |
+
+Not movable without the exam path or a first-screen change:
+
+| What | gzip | Loads it | Verdict |
+|---|---|---|---|
+| Curriculum topic lists (`topics` in SUBJECTS_BY_YEAR) | about 38,300 of curriculum.js's 53,600 (JSON measure: 51,537 with topics, 13,227 without) | statically by App.jsx, lib/exam-scope.js, lib/exam-pool.js, lib/daily-q.js, data/questions.js, lib/quests.js, lib/feature-registry.js, hooks/useSelectedPhase.js, lib/user-data-row.js | Home's subject cards (names, years, colours) come from the part without topics. Home's per-subject counts read topics (`hiddenTopicIdsFor`, `visibleQuestionCount`), but they also wait for the banks, so a topic map loaded with the banks probably leaves the first paint as it is (not verified). exam-scope, exam-pool, the quiz start in App.jsx and the boot migration `migrateUniqueTopicProgress` read topics synchronously, so this is an exam-path change. Saves about 38 KB of first load |
+| The selected year's question banks (Year 5: 74 chunks) | 2,581,598 (2,622,621 before this branch) | not in the first-load budget: App.jsx's boot effect calls `loadQBForYear(selectedYear)` for a student with a saved year | Yes. Home reads `QB` for the due-today cards, the exam-pool counts and the one-tap random question, so deferring them leaves those numbers waiting. The pool is the exam path. A generated per-subject count index could serve Home's numbers first; the review queue and the pool still need the banks |
+| data/exam-origins.js | 4,715 | lib/question-metadata.js, from App.jsx (`panicPool`) and lib/exam-pool.js | Exam path |
+| lib/feature-registry.js, the nav and header components | 5,644 and under 3,000 each | App.jsx, Sidebar, HeaderBar, BottomNav | Yes: they draw the first screen |
+| lib/user-data-sync.js, user-data-atomic.js, api.js | 8,506, 6,350, 3,761 | hooks/useUserDataSync.js from App.jsx | Yes: the store reads the student's progress before the first paint |
 
 ## PERF-3: question-bank and wrap-up fields no screen reads (done)
 
