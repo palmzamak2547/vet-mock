@@ -261,8 +261,9 @@ test('the topic screen calls past papers ข้อสอบเก่า, and Rev
 
 test('the question card hands the chip whether the key is on screen, and the data lint runs the same check', () => {
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
-  assert.match(card, /<QSourceChip key=\{compoundId\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
-  assert.match(card, /<FlagChip key=\{compoundId\} flag=\{currentQ\.flag\} revealed=\{keyShown\} \/>/);
+  // The two are siblings and must not share a key (tests/unit/jsx-sibling-keys.test.mjs): 5.213.1.
+  assert.match(card, /<QSourceChip key=\{`source:\$\{compoundId\}`\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
+  assert.match(card, /<FlagChip key=\{`flag:\$\{compoundId\}`\} flag=\{currentQ\.flag\} revealed=\{keyShown\} \/>/);
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
