@@ -2433,11 +2433,12 @@ html.dark .vmx-panic-scrim {
   margin-left: auto;
 }
 /* One header row: the meta line truncates at the left, the controls keep
-   their 44px at the right. wrap-reverse: when both do not fit, the line goes
-   under the controls, never over them (320px, 200% zoom). */
+   their 44px at the right. The controls come first in the DOM (focus reaches
+   them first); on a wide card the line is drawn before them (order: -1), on a
+   phone it takes its own row under them, never over them. */
 .vmx-q-head {
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin-bottom: 16px;
@@ -2454,6 +2455,7 @@ html.dark .vmx-panic-scrim {
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+  order: -1;
 }
 .vmx-q-head > .vmx-q-meta.vmx-qtype-badge[data-open] { flex-basis: 100%; white-space: normal; }
 .vmx-q-toolbar > * { position: static !important; inset: auto !important; flex: 0 0 auto; }
@@ -3757,10 +3759,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-question-card { padding: 12px 20px 24px; }
   .vmx-q-toolbar { gap: 2px; }
   .vmx-q-head { margin-bottom: 12px; row-gap: 0; }
-  /* On a phone the line takes the full width under the controls (wrap-reverse
-     puts it below): beside them it had about 66px and showed only "ปรนัย…",
-     while type, subject and topic are what a mixed set needs at a glance. */
-  .vmx-q-head > .vmx-q-meta.vmx-qtype-badge { flex-basis: 100%; }
+  /* On a phone the line takes the full width under the controls: beside them
+     it had about 66px and showed only "ปรนัย…", while type, subject and topic
+     are what a mixed set needs at a glance. */
+  .vmx-q-head > .vmx-q-meta.vmx-qtype-badge { flex-basis: 100%; order: 0; }
   /* Badge starts below the button strip — keeps long topic labels readable */
   .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }

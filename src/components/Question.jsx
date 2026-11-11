@@ -519,8 +519,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           if (!tfRevealed) return null;
           const isKey = currentQ.answer === value;
           const picked = currentAnswer === value;
-          if (isKey) return picked ? '✓ เฉลย, คุณตอบ' : '✓ เฉลย';
-          return picked ? '✗ คุณตอบ' : null;
+          if (isKey) return picked ? { mark: '✓ เฉลย, คุณตอบ', said: 'เฉลย และคุณตอบข้อนี้' } : { mark: '✓ เฉลย', said: 'เฉลย' };
+          return picked ? { mark: '✗ คุณตอบ', said: 'คุณตอบข้อนี้ ไม่ใช่เฉลย' } : null;
         };
         const correctIsTrue = currentQ.answer === true;
         return (
@@ -534,11 +534,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                     type="button"
                     aria-pressed={currentAnswer === value}
                     aria-disabled={tfRevealed || undefined}
+                    // Read as a sentence, not "True✓ เฉลย".
+                    aria-label={mark ? `${value ? 'True' : 'False'}, ${mark.said}` : undefined}
                     className={`vmx-tf-btn ${currentAnswer === value ? (value ? 'selected-true' : 'selected-false') : ''} ${tfClass(value)}`}
                     onClick={() => { if (tfRevealed) return; answerCurrent(value); }}
                   >
                     {value ? 'True' : 'False'}
-                    {mark && <span className="vmx-tf-mark">{mark}</span>}
+                    {mark && <> <span className="vmx-tf-mark">{mark.mark}</span></>}
                   </button>
                 );
               })}
@@ -717,53 +719,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* The header is one row (audit item 7, 11 Nov 2026): the type,
           subject, topic and paper on one truncating line at the left, the
           five 44px controls at the right where the thumb finds them. A
-          screen too narrow for both puts the line under the controls
-          (wrap-reverse), never over them. */}
+          screen too narrow for both puts the line under the controls, never
+          over them. The controls come first in the DOM, so focus reaches them
+          before the line, as the eye does on a phone. */}
       <div className="vmx-q-head">
-        {/* The type, subject, topic and paper as separate parts of one quiet
-            row — Thai, like the rest of the card, and never uppercased. The
-            hairline between parts is CSS (.vmx-q-meta), so no separator is
-            written into the copy, and the topic's emoji stays on the topic
-            screen where it is the topic's identity, not chrome. */}
-        {/* One line that truncates. The full words stay in the tree for a
-            screen reader, in the title on hover, and on the line itself
-            after a tap, which unfolds it. */}
-        <button type="button" className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} aria-expanded={metaOpen} title={metaTitle} onClick={() => setMetaOpenFor(metaOpen ? null : compoundId)}>
-          {(() => {
-            const typeLabel = TYPE_LABEL[currentQ.type];
-            const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
-            const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
-            // Only questions that carry exam-scope metadata say which paper
-            // they belong to; a legacy question says nothing rather than guessing.
-            const paper = examScopeLabel(scopeOfQuestion(currentQ));
-            return (
-              <>
-                {typeLabel && <span>{typeLabel}</span>}
-                <span>{subj?.name || currentQ.subject}</span>
-                {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
-                {/* A label that would name the key waits for it (lib/source-line.js).
-                    It and the line standing in for it share one grid cell, so the
-                    row keeps the size the label needs and nothing moves when it
-                    appears; the hidden one is neither seen nor read aloud. */}
-                {topic && holdsTopicChip(currentQ) && (
-                  <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
-                    <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
-                    <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
-                  </span>
-                )}
-                {paper && <span className="vmx-scope-chip">{paper}</span>}
-              </>
-            );
-          })()}
-          {/* Only where the source line agrees: a sat paper, a marked exam
-              point or a mock, never a row written from a lecture or a summary. */}
-          {followsExamPattern(currentQ) && (
-            <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
-              อิงแนวเดิม
-            </span>
-          )}
-        </button>
-
         {/* One flex row instead of five independently absolute-positioned
             buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
             a 44px pitch — while the 44px WCAG floor made each button 44px wide,
@@ -813,6 +772,50 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             label={(currentQ?.q || '').slice(0, 60)}
           />
         </div>
+        {/* The type, subject, topic and paper as separate parts of one quiet
+            row — Thai, like the rest of the card, and never uppercased. The
+            hairline between parts is CSS (.vmx-q-meta), so no separator is
+            written into the copy, and the topic's emoji stays on the topic
+            screen where it is the topic's identity, not chrome. */}
+        {/* One line that truncates. The full words stay in the tree for a
+            screen reader, in the title on hover, and on the line itself
+            after a tap, which unfolds it. */}
+        <button type="button" className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} aria-expanded={metaOpen} title={metaTitle} onClick={() => setMetaOpenFor(metaOpen ? null : compoundId)}>
+          {(() => {
+            const typeLabel = TYPE_LABEL[currentQ.type];
+            const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
+            const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+            // Only questions that carry exam-scope metadata say which paper
+            // they belong to; a legacy question says nothing rather than guessing.
+            const paper = examScopeLabel(scopeOfQuestion(currentQ));
+            return (
+              <>
+                {typeLabel && <span>{typeLabel}</span>}
+                <span>{subj?.name || currentQ.subject}</span>
+                {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
+                {/* A label that would name the key waits for it (lib/source-line.js).
+                    It and the line standing in for it share one grid cell, so the
+                    row keeps the size the label needs and nothing moves when it
+                    appears; the hidden one is neither seen nor read aloud. */}
+                {topic && holdsTopicChip(currentQ) && (
+                  <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
+                    <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
+                    <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
+                  </span>
+                )}
+                {paper && <span className="vmx-scope-chip">{paper}</span>}
+              </>
+            );
+          })()}
+          {/* Only where the source line agrees: a sat paper, a marked exam
+              point or a mock, never a row written from a lecture or a summary. */}
+          {followsExamPattern(currentQ) && (
+            <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
+              อิงแนวเดิม
+            </span>
+          )}
+        </button>
+
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
       <ReadAloudBar jobPrefix={jobPrefix} engine={engine} />

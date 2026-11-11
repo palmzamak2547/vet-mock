@@ -43,7 +43,7 @@ function buttons(answer, picked) {
     showNote: false, setShowNote: () => {}, revealAnswer: true,
   });
   const out = fr.findAll(inst.tree, (n) => n.type === 'button' && String(n.props.className || '').includes('vmx-tf-btn'))
-    .map((n) => ({ text: fr.textOf(n), cls: String(n.props.className) }));
+    .map((n) => ({ text: fr.textOf(n), cls: String(n.props.className), name: n.props['aria-label'] }));
   inst.unmount();
   return out;
 }
@@ -59,6 +59,9 @@ test('in all four cases no tick stands on a wrong button and no cross on the key
       const key = answer ? yes : no;
       const other = answer ? no : yes;
       const label = `key ${answer}, picked ${picked}`;
+      // The accessible name reads as a sentence: the value, a comma, what the button is.
+      assert.match(key.name, /^(True|False), เฉลย/, `${label}: ${key.name}`);
+      assert.doesNotMatch(key.name, /[✓✗]/);
       assert.match(key.cls, /reveal-correct/, label);
       assert.ok(key.text.includes('เฉลย') && key.text.includes('✓') && !key.text.includes('✗'), `${label}: the key says เฉลย with a tick (${key.text})`);
       if (picked === answer) {
@@ -67,6 +70,7 @@ test('in all four cases no tick stands on a wrong button and no cross on the key
       } else {
         assert.match(other.cls, /reveal-wrong/, label);
         assert.ok(other.text.includes('คุณตอบ') && other.text.includes('✗') && !other.text.includes('✓'), `${label}: the wrong pick says คุณตอบ with a cross (${other.text})`);
+        assert.match(other.name, /^(True|False), คุณตอบข้อนี้ ไม่ใช่เฉลย$/);
       }
     }
   }
