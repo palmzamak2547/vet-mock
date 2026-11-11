@@ -99,44 +99,40 @@ branch's head; where an earlier version of it was wrong, that is said.
   a visitor's full day; the mailer's 403 text), `feedback-client.test.mjs`.
 
 ## The library's bytes (`api/library-blob.js`)
-- The storage API ignores Range, so every GET pulls the object through the
-  function. A link `api/library-file.js` mints for a member now carries their
-  id (`u`, signed with the rest of the link; the mint answer is cached only in
-  that browser), and the bytes are budgeted on it: 2 GB per 10 minutes, a whole
-  object per request (a media range, the object up to its end), plus 300
-  requests per link. One member looping a link stops only themselves. A link
-  with no member (an open ticket) is budgeted by address, 8 GB.
+- The storage API ignores Range, so every GET reads the object from byte 0
+  through the function. A link `api/library-file.js` mints for a member
+  carries a keyed digest of their id (`u`: HMAC with the link's secret, 22
+  characters, not the account id, which anyone handed the link could read;
+  the mint answer is cached only in that browser).
+- Documents are budgeted on that digest: 2 GB per 10 minutes, a whole object
+  per request, plus 300 requests per link. One member looping a link stops
+  only themselves. A link with no member (an open ticket) is budgeted by
+  address, 8 GB. A document with no catalogued size is counted by the bytes it
+  actually streamed (`countStreamed`, added once the stream ends), never as
+  less than it sent.
+- Video and audio are outside the byte budget (the mime comes from the signed
+  token, so a client cannot claim it) and keep 300 requests per link. Their
+  ranges are served exactly as before the branch: one storage read per
+  request, the prefix dropped, the rest streamed.
 - A refusal is a small page in Thai (429, `Retry-After`) that says the account
   or network has opened many files and when to try again, not JSON.
 - Reading stays open when the shared limiter is down (AGENTS.md, Library and
   sync): the same budgets are counted in the instance's memory instead
-  (`rateLimitLocal`), a bounded cost per instance.
-- Correction: the previous version budgeted every link by address (one member
+  (`rateLimitLocal`), a bound per instance, not a cost ceiling.
+- Corrections: an earlier version budgeted every link by address (one member
   could empty a hall's budget in seconds), answered JSON, and refused in an
-  outage. It also said the mint answer was edge-cached; it is `private`.
-- Guard: `api-limits.test.mjs` (a member's 41st 50 MB pull is a Thai page and
+  outage. The version at bf57ac7d cut media ranges into 8 MB pieces counted by
+  the piece; every piece still read the object from byte 0, so that cap made
+  things worse (below) and is removed.
+- Guards: `api-limits.test.mjs`: a member's 41st 50 MB pull is a Thai page and
   20 classmates on the address are served; a ticket link by address; an outage
-  still serves, bounded; both mints carry the member), `api-hardening.test.mjs`.
-- Video and audio ranges are answered in bounded pieces: an open-ended range
-  (Chrome's first `bytes=0-`, every seek `bytes=N-`) gets one 206 of at most
-  8 MB (`MEDIA_CHUNK`: 10 to 60 s of lecture video, a few seconds to send,
-  so the function stays short), with an exact `Content-Range`, counted by
-  that piece; a closed range is served and counted as asked, capped the same.
-  A request with no Range, and every document, are answered whole as before.
-  Correction: before, an open-ended range counted the rest of the object, so a
-  300 MB lecture spent the 2 GB budget in six seeks. Watched to the end with 20
-  seeks it now counts at most 460 MB in 58 requests.
-- The link holds a keyed digest of the member (HMAC with the link's secret, 22
-  characters), not the account id, which anyone handed the link could read.
-- Guards: the `media:` cases in `api-limits.test.mjs` (Chrome's pattern,
-  Safari's `bytes=0-1` probe, a range past the end, the 300 MB lecture with
-  its arithmetic, a PDF and a request without Range unchanged) and "the link
-  carries a keyed digest of the member".
-- Not built: library video through the archive worker
-  (`workers/library-archive.js`), which reads storage with a ranged binding,
-  would serve real ranges with no prefix read through the function and no
-  chunking here; moving the videos' links there is mostly a change of where
-  `api/library-file.js` points them, plus the worker's own budget.
+  still serves, bounded; both mints carry the member; the link carries a keyed
+  digest, never the id; Chrome's `0-` then `N-` and Safari's `0-1` served as
+  asked; a range past the end and a multiple range are 416 with no body read; a
+  300 MB video with 20 seeks is never refused by the byte budget while the same
+  pattern on a 300 MB document is refused at the seventh; the 301st request on
+  one media link is refused; a document of unknown size is refused once what
+  it streamed fills the budget. And `api-hardening.test.mjs`.
 - Unproven: what a real hall uses.
 
 ## The microphone's probe (`api/ai-transcribe.js`)
@@ -247,6 +243,24 @@ branch's head; where an earlier version of it was wrong, that is said.
 - A phone gets it on its next visit (`sw.js` is `max-age=0, must-revalidate`):
   the browser installs it in the background and switches once every tab of the
   site is closed.
+
+## Later, after 4 Dec
+- The real fix for library media: serve video and audio through the archive
+  worker (`workers/library-archive.js`), whose storage binding honours Range,
+  as `archives/vca/` already does; then a cap on each answer and an honest
+  count of what it read become possible. Do not cap media ranges here without
+  a ranged read: measured on a 300 MB video with the cap of bf57ac7d,
+  `bytes=0-` counted 8 MB and read 8 MB, `bytes=150000000-` counted 8 MB and
+  read 152 MB, the last byte counted 1 byte and read 300 MB; watching 300 MB
+  straight through read about 5.9 GB from storage (38 pieces, growing with the
+  square), 1 GB about 64.5 GB, one member repeating the last-byte range read
+  90 GB per link per 10 minutes counted as 300 bytes, and one storage call per
+  video became about 38 against an account-wide API limit whose 429 would
+  reach every library file, decks included.
+- How many library rows are video or audio, and their sizes, was not counted:
+  the catalogue is read only through `scripts/lib/library-read.mjs` (the
+  Management API, production), which this branch does not call. The route's
+  own comment recorded 61 library videos on 1 Nov 2026.
 
 ## Later (known, not fixed in this branch)
 - A well-formed token with a bad signature costs one database call (500

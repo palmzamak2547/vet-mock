@@ -25,16 +25,18 @@ import { pipeline } from 'node:stream/promises';
 // while a looping viewer or a script is still capped.
 export const BLOB_RATE = { max: 300, windowMs: 10 * 60 * 1000 };
 
-// The bytes one caller may pull through this function in the same window.
-// Storage ignores Range, so a request costs the whole object (a media range,
-// the object up to the range's end): 300 opens of a 50 MB deck were 15 GB in
-// ten minutes. A link library-file.js mints for a member carries their id (u),
-// and they are counted on it: 2 GB is 40 opens of a 50 MB deck, and one member
-// looping a link stops only themselves. A link without one (an open ticket)
-// is counted by address, 8 GB, enough for a hall opening one deck at once.
-// A request whose size is not catalogued counts as UNKNOWN_SIZE.
+// The bytes one caller may pull through this function in the same window, for
+// documents: 300 opens of a 50 MB deck were 15 GB in ten minutes. A link
+// library-file.js mints for a member carries a digest of their id (u), and
+// they are counted on it: 2 GB is 40 opens of a 50 MB deck, and one member
+// looping a link stops only themselves. A link without one (an open ticket) is
+// counted by address, 8 GB, enough for a hall opening one deck at once.
+// Video and audio are not in this budget (the mime comes from the signed
+// token, so a client cannot claim it): storage ignores Range, so every range
+// reads the object from byte 0 and an honest count of a seek is most of the
+// object; a byte budget would refuse a student who seeks during a lecture.
+// They keep BLOB_RATE per link. The real fix is a ranged read (see the notes).
 export const BLOB_BYTES = { max: 2 * 1024 ** 3, address: 8 * 1024 ** 3, windowMs: 10 * 60 * 1000 };
-const UNKNOWN_SIZE = 25 * 1024 ** 2;
 
 // A refusal is read in the deck's own tab, so it is a page in Thai that says
 // what happened and when to try again, not JSON.
@@ -59,26 +61,28 @@ async function count(key, max, windowMs, by) {
   return shared.unavailable ? rateLimitLocal(key, max, windowMs, { by }) : shared;
 }
 
-// One answer to a video or audio range is at most this long. A player asks
-// open-ended ranges (Chrome's first "bytes=0-", every seek "bytes=N-"); served
-// whole, each counted the rest of the object, and a 300 MB lecture spent the
-// 2 GB budget in six seeks. 8 MB is some 10 to 60 s of lecture video, sent in
-// a few seconds on campus Wi-Fi, so the function stays short and the player
-// asks for the next piece as it plays.
-export const MEDIA_CHUNK = 8 * 1024 * 1024;
-
-/** A media range, cut to MEDIA_CHUNK: { offset, length }, null (no Range) or false (unsatisfiable). */
-export function mediaChunk(rangeHeader, size) {
-  const range = byteRange(rangeHeader, size);
-  return range ? { offset: range.offset, length: Math.min(range.length, MEDIA_CHUNK) } : range;
+/**
+ * What one GET is counted before it is served: a document's catalogued size;
+ * nothing for video and audio (exempt, above). A document whose size is not
+ * catalogued is counted as it streams instead (countStreamed), so it is never
+ * counted as less than it sends; before serving it is counted 1 byte, which
+ * refuses it once the budget is already spent.
+ */
+export function bytesPulled(payload, media) {
+  if (media) return 0;
+  return Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : 1;
 }
 
-/** What one GET is counted, for the byte budget: the object, or the media chunk sent. */
-export function bytesPulled(payload, rangeHeader, media) {
-  const size = Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : UNKNOWN_SIZE;
-  if (!media || !rangeHeader) return size;
-  const chunk = mediaChunk(rangeHeader, size);
-  return chunk ? chunk.length : 1;
+/** Counts the bytes that pass, then calls done(total) once the stream ends or stops. */
+export function countStreamed(body, done) {
+  let total = 0;
+  let reported = false;
+  const report = () => { if (!reported) { reported = true; done(total); } };
+  return body.pipeThrough(new TransformStream({
+    transform(chunk, controller) { total += chunk.byteLength || chunk.length || 0; controller.enqueue(chunk); },
+    flush() { report(); },
+    cancel() { report(); },
+  }));
 }
 
 // What the browser is told the bytes are. The catalog is curated under the
@@ -235,8 +239,16 @@ export default async function handler(req, res) {
   const limit = await count(`library-blob:${who}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs, 1);
   if (!limit.ok) return refuse(res, limit);
   const budget = payload.u ? BLOB_BYTES.max : BLOB_BYTES.address;
-  const bytes = await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, bytesPulled(payload, req.headers.range, asksRange));
-  if (!bytes.ok) return refuse(res, bytes);
+  const charge = bytesPulled(payload, media);
+  if (charge > 0) {
+    const bytes = await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, charge);
+    if (!bytes.ok) return refuse(res, bytes);
+  }
+  // A document of unknown size: what it really sent is counted once it ends.
+  const unsized = !media && charge === 1;
+  const settle = (sent) => {
+    if (sent > 1) count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, sent - 1).catch(() => {});
+  };
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };
@@ -278,7 +290,7 @@ export default async function handler(req, res) {
   if (asksRange && upstream.status === 200) {
     const stored = (upstream.headers.get('content-encoding') || 'identity') === 'identity' ? Number(upstream.headers.get('content-length')) : NaN;
     total = Number.isSafeInteger(stored) && stored > 0 ? stored : Number(payload.n);
-    if (Number.isSafeInteger(total) && total > 0) range = mediaChunk(req.headers.range, total);
+    if (Number.isSafeInteger(total) && total > 0) range = byteRange(req.headers.range, total);
     if (range === false) {
       upstream.body?.cancel().catch(() => {});
       res.statusCode = 416;
@@ -332,7 +344,8 @@ export default async function handler(req, res) {
   // Stream, not buffer: an 18 MB deck must not sit in function memory
   // twice, and first bytes should reach the tab before last bytes leave R2.
   try {
-    await pipeline(Readable.fromWeb(stallGuard(upstream.body, disconnected)), res);
+    const body = stallGuard(upstream.body, disconnected);
+    await pipeline(Readable.fromWeb(unsized ? countStreamed(body, settle) : body), res);
   } catch {
     // Pipeline cancels abandoned reads and terminates incomplete downloads.
   }
