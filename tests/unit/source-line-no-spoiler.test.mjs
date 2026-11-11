@@ -247,9 +247,10 @@ test('the topic screen calls past papers ข้อสอบเก่า, and Rev
 
 test('the question card hands the chip whether the key is on screen, and the data lint runs the same check', () => {
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
-  assert.match(card, /<QSourceChip key=\{compoundId\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
+  // The two must not share a key with a sibling (tests/unit/jsx-sibling-keys.test.mjs): 5.213.1.
+  assert.ok(card.includes('<QSourceChip key={`source:${compoundId}`} q={currentQ} revealed={keyShown} />'));
   // The caution chip lives in the verdict panel, which exists only once the key is shown.
-  assert.match(card, /caution=\{cautionChipShown\(currentQ\.flag\) && <FlagChip key=\{`flag:\$\{compoundId\}`\} flag=\{currentQ\.flag\} revealed \/>\}/);
+  assert.ok(card.includes('caution={cautionChipShown(currentQ.flag) && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />}'));
   assert.equal((card.match(/<FlagChip /g) || []).length, 1, 'one place draws the chip');
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
