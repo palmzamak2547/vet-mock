@@ -56,7 +56,7 @@ test('a palette is painted before the app on the next load, and so is my own col
   expect(early).toEqual({ palette: 'custom', sheet: true, sage });
 });
 
-test('the card shows the chosen character, and a right answer keeps its colour under any palette', async ({ page }) => {
+test('the card shows the chosen character, and a right answer keeps the house sage under cherry', async ({ page }) => {
   await openStudio(page);
   await page.getByRole('radiogroup', { name: 'รูปบนการ์ด' }).getByRole('radio', { name: /ฮูตตี้/ }).click();
   await expect(page.locator('.vmx-scard .vmx-avatar img')).toHaveAttribute('src', '/art/avatars/hootie.webp');
@@ -66,11 +66,12 @@ test('the card shows the chosen character, and a right answer keeps its colour u
     const el = document.createElement('div');
     el.className = 'vmx-option is-correct';
     document.body.append(el);
-    const v = getComputedStyle(el).getPropertyValue('--clr-sage').trim();
+    const v = { border: getComputedStyle(el).borderTopColor, dark: document.documentElement.dataset.theme === 'dark' };
     el.remove();
     return v;
   });
-  expect(pinned).toBe('#4a6b4a');
+  // The house sage of the theme on screen, not cherry's red (--clr-right).
+  expect(pinned.border).toBe(pinned.dark ? 'rgb(123, 168, 123)' : 'rgb(74, 107, 74)');
 });
 
 test('"ปรับเอง" opens to samples, and light or dark applies at once', async ({ page }) => {
