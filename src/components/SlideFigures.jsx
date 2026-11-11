@@ -19,28 +19,63 @@
 // note no longer jumps as its figures come in.
 
 import { useEffect, useState } from 'react';
+import { importFresh } from '../lib/chunk-error.js';
 
 // Both modules, once they are in memory: a section opened after that reads
 // them in its first render, so its figures are there from the first paint.
+// The map is what a section cannot do without. The sizes only keep the page
+// still: when their chunk does not arrive the figures are drawn as they were
+// before sizes existed, and the next section to open asks for the sizes again.
+// A failed map is forgotten too, so a later visit retries instead of showing
+// no figure until the page is reloaded. (One rejected promise used to be kept
+// for the life of the page, and a sizes chunk that failed took every figure of
+// every note with it.) importFresh asks under a new address, since a browser
+// keeps a failed import failed.
 let _loaded = null;
 let _promise = null;
+const noSize = () => null;
 function load() {
   if (!_promise) {
     _promise = Promise.all([
-      import('../data/slide-images.generated.js'),
-      import('../data/slide-image-sizes.generated.js'),
+      importFresh(() => import('../data/slide-images.generated.js')),
+      importFresh(() => import('../data/slide-image-sizes.generated.js')).catch(() => null),
     ]).then(([map, sizes]) => {
-      _loaded = { slidesFor: map.slidesFor, sizeOf: sizes.slideImageSize };
+      const sized = Boolean(sizes?.slideImageSize);
+      // The same object while the sizes stay missing, so a section that asks
+      // again and gets nothing new is not drawn again, and does not ask again.
+      if (!_loaded || sized) _loaded = { slidesFor: map.slidesFor, sizeOf: sized ? sizes.slideImageSize : noSize, sized };
+      if (!sized) _promise = null;
       return _loaded;
+    }, (error) => {
+      _promise = null;
+      throw error;
     });
   }
   return _promise;
 }
 
+// A figure is never drawn wider than its own pixels: an 84 px shadow was drawn
+// 652 px wide. And never taller than most of the screen, by the same box: its
+// width is held to what gives that height, so the frame keeps the picture's
+// shape and its place is still exact before the file arrives.
+const MAX_SCREEN_SHARE = 0.8;
+function boxOf(size) {
+  if (!size) return { width: '100%' };
+  const [w, h] = size;
+  return { width: '100%', maxWidth: `min(${w}px, calc(${MAX_SCREEN_SHARE * 100}vh * ${(w / h).toFixed(4)}))` };
+}
+
+const DownloadIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+    <path d="M12 4v11M7 11l5 5 5-5M5 20h14" />
+  </svg>
+);
+
 export default function SlideFigures({ sectionId, source = '' }) {
   const [data, setData] = useState(_loaded);
   useEffect(() => {
-    if (!sectionId || data) return undefined;
+    // A section that opens while the sizes are missing asks for them again.
+    if (!sectionId || data?.sized) return undefined;
     let alive = true;
     load().then((d) => { if (alive) setData(d); }).catch(() => {});
     return () => { alive = false; };
@@ -48,26 +83,31 @@ export default function SlideFigures({ sectionId, source = '' }) {
 
   const slides = data && sectionId ? data.slidesFor(sectionId) : null;
   if (!slides || slides.length === 0) return null;
+  const from = `ภาพจากสไลด์ ${source || ''}`.trim();
   return (
     <div style={{ marginTop: 14, display: 'grid', gap: 10 }}>
-      {slides.map((src) => {
+      {slides.map((src, i) => {
         const size = data.sizeOf(src);
         return (
           <figure key={src} style={{ margin: 0 }}>
             <img
               src={src}
-              alt={`ภาพจากสไลด์ ${source || ''}`}
+              // Three figures of one slide page each have a name of their own.
+              alt={slides.length > 1 ? `${from} ภาพที่ ${i + 1}` : from}
               width={size?.[0]}
               height={size?.[1]}
               loading="lazy"
               decoding="async"
-              style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
+              style={{ display: 'block', ...boxOf(size), height: 'auto', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
             />
             {/* The file is already served as a plain image, so saving it costs
                 nothing extra to host — this only spares the reader a
                 right-click. */}
-            <figcaption style={{ marginTop: 4, fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
-              <a href={src} download style={{ color: 'inherit' }}>⬇ บันทึกภาพ</a>
+            <figcaption style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+              <a href={src} download className="vmx-slide-save">
+                <DownloadIcon />
+                บันทึกภาพ
+              </a>
             </figcaption>
           </figure>
         );

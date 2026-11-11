@@ -49,6 +49,14 @@ export function mediaSize(src) {
     const height = box ? Number(box[2]) : 0;
     return width > 0 && height > 0 ? { width, height } : null;
   }
-  const hit = sizes && sizes[src.split(/[?#]/)[0]];
+  if (!sizes) return null;
+  const path = src.split(/[?#]/)[0];
+  let hit = sizes[path];
+  // The cards hand over safeImageUrl(path), the path as a browser spells it:
+  // a space is %20 there and a Thai letter its bytes, while the registry
+  // records the path as the bank wrote it.
+  if (!hit && path.includes('%')) {
+    try { hit = sizes[decodeURI(path)]; } catch { hit = undefined; }
+  }
   return hit ? { width: hit[0], height: hit[1] } : null;
 }

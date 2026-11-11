@@ -125,6 +125,26 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   if (!timingRef.current) timingRef.current = createQuestionTiming();
   const gradedRef = useRef(null);
   const activeQuestion = sessionCards?.[currentIdx]?.questionId;
+  // Space turns the card over, as its button says: "แสดงคำตอบ (Space)" named a
+  // key that did nothing. Only from the page itself. A focused control keeps
+  // its own Space (the button is one, and a passage's frame scrolls with it),
+  // a dialog over the card (the zoomed figure) takes the keys, and the cloze
+  // and occlusion cards reveal by their own controls.
+  const plainCardType = sessionCards?.[currentIdx]?.question?.type;
+  const spaceFlips = Boolean(plainCardType) && plainCardType !== 'cloze' && plainCardType !== 'image-occlusion' && !showAnswer;
+  useEffect(() => {
+    if (!spaceFlips) return undefined;
+    const onKey = (e) => {
+      if (e.key !== ' ' || e.repeat || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+      const target = e.target;
+      if (target instanceof Element && target.closest('input, textarea, select, button, a, summary, [contenteditable="true"], [role="button"], [role="tab"], .vmx-qtable-wrap')) return;
+      if (document.querySelector('.vmx-modal-overlay, [data-vmx-modal="true"]')) return;
+      e.preventDefault();
+      setShowAnswer(true);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [spaceFlips]);
   useEffect(() => {
     timingRef.current.enter(activeQuestion, document.visibilityState !== 'hidden');
     const onVisibility = () => timingRef.current.visibility(document.visibilityState !== 'hidden');
