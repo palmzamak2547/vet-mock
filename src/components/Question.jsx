@@ -123,6 +123,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // Why the read-aloud could not start at all (its code did not load), { what, text }.
   const [ttsNote, setTtsNote] = useState(null);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
+  // The header line unfolds on a tap, for this question only.
+  const [metaOpenFor, setMetaOpenFor] = useState(null);
+  const metaOpen = metaOpenFor === compoundId;
 
   // Reset flag display when navigating to a new Q
   useEffect(() => { setFlagState(readFlags()[compoundId] || null); }, [compoundId]);
@@ -367,6 +370,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     && currentAnswer && typeof currentAnswer === 'object'
     && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
   const keyShown = mcqRevealed || tfRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
+  // The header line in words, for the hover title: a held topic stays out
+  // until the key is shown, as on the line itself.
+  const metaTitle = (() => {
+    const subj = SUBJECTS.find((x) => x.id === currentQ.subject);
+    const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+    return [
+      TYPE_LABEL[currentQ.type], subj?.name || currentQ.subject,
+      topic && (keyShown || !holdsTopicChip(currentQ)) ? topicChipText(topic.label) : null,
+      examScopeLabel(scopeOfQuestion(currentQ)), followsExamPattern(currentQ) ? 'อิงแนวเดิม' : null,
+    ].filter(Boolean).join(', ');
+  })();
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -674,98 +688,108 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   return (
     <div className="vmx-question-card">
-      {/* One flex row instead of five independently absolute-positioned
-          buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
-          a 44px pitch — while the 44px WCAG floor made each button 44px wide,
-          so they touched on desktop; and the ≤640px rules moved only the first
-          two to a 40px pitch, leaving the last three overlapping and out of
-          line. Spacing now comes from `gap`, so size and spacing cannot
-          disagree again. */}
-      <div className="vmx-q-toolbar">
-        <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => { setBookmarkPresses((n) => n + 1); toggleBookmark(currentQ.id); }} title="บันทึกข้อนี้ (B)">
-          <NavIcon name="star" size={18} filled={isBookmarked} />
-        </button>
-        <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้">
-          <NavIcon name="note" size={18} filled={Boolean(note)} />
-        </button>
-        {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
-            Click again while speaking to stop. */}
-        <button
-          type="button"
-          aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
-          aria-pressed={isSpeaking}
-          className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
-          onClick={() => speak('q')}
-          onPointerDown={preloadTts}
-          title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
-        >
-          <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
-        </button>
-        {/* Q quality flag — local-only for now (Supabase schema TBD). */}
-        <button
-          type="button"
-          aria-label={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
-          aria-pressed={Boolean(flagState)}
-          className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
-          onClick={toggleFlag}
-          title={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
-        >
-          <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
-        </button>
-        {/* Pin → adds this Q to the personal Pinboard. */}
-        {/* Not `compact`: its 36px inline size sat next to four 44px controls,
-            so the row read as uneven — and 44px is the touch floor anyway.
-            The toolbar's circle class owns its shape, like its four neighbours. */}
-        <PinButton
-          className="vmx-note-btn vmx-pin-btn"
-          type="question"
-          payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
-          label={(currentQ?.q || '').slice(0, 60)}
-        />
+      {/* The header is one row (audit item 7, 11 Nov 2026): the type,
+          subject, topic and paper on one truncating line at the left, the
+          five 44px controls at the right where the thumb finds them. A
+          screen too narrow for both puts the line under the controls
+          (wrap-reverse), never over them. */}
+      <div className="vmx-q-head">
+        {/* The type, subject, topic and paper as separate parts of one quiet
+            row — Thai, like the rest of the card, and never uppercased. The
+            hairline between parts is CSS (.vmx-q-meta), so no separator is
+            written into the copy, and the topic's emoji stays on the topic
+            screen where it is the topic's identity, not chrome. */}
+        {/* One line that truncates. The full words stay in the tree for a
+            screen reader, in the title on hover, and on the line itself
+            after a tap, which unfolds it. */}
+        <div className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} title={metaTitle} onClick={() => setMetaOpenFor(metaOpen ? null : compoundId)}>
+          {(() => {
+            const typeLabel = TYPE_LABEL[currentQ.type];
+            const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
+            const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+            // Only questions that carry exam-scope metadata say which paper
+            // they belong to; a legacy question says nothing rather than guessing.
+            const paper = examScopeLabel(scopeOfQuestion(currentQ));
+            return (
+              <>
+                {typeLabel && <span>{typeLabel}</span>}
+                <span>{subj?.name || currentQ.subject}</span>
+                {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
+                {/* A label that would name the key waits for it (lib/source-line.js).
+                    It and the line standing in for it share one grid cell, so the
+                    row keeps the size the label needs and nothing moves when it
+                    appears; the hidden one is neither seen nor read aloud. */}
+                {topic && holdsTopicChip(currentQ) && (
+                  <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
+                    <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
+                    <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
+                  </span>
+                )}
+                {paper && <span className="vmx-scope-chip">{paper}</span>}
+              </>
+            );
+          })()}
+          {/* Only where the source line agrees: a sat paper, a marked exam
+              point or a mock, never a row written from a lecture or a summary. */}
+          {followsExamPattern(currentQ) && (
+            <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
+              อิงแนวเดิม
+            </span>
+          )}
+        </div>
+
+        {/* One flex row instead of five independently absolute-positioned
+            buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
+            a 44px pitch — while the 44px WCAG floor made each button 44px wide,
+            so they touched on desktop; and the ≤640px rules moved only the first
+            two to a 40px pitch, leaving the last three overlapping and out of
+            line. Spacing now comes from `gap`, so size and spacing cannot
+            disagree again. */}
+        <div className="vmx-q-toolbar">
+          <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => { setBookmarkPresses((n) => n + 1); toggleBookmark(currentQ.id); }} title="บันทึกข้อนี้ (B)">
+            <NavIcon name="star" size={18} filled={isBookmarked} />
+          </button>
+          <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้">
+            <NavIcon name="note" size={18} filled={Boolean(note)} />
+          </button>
+          {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
+              Click again while speaking to stop. */}
+          <button
+            type="button"
+            aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
+            aria-pressed={isSpeaking}
+            className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
+            onClick={() => speak('q')}
+            onPointerDown={preloadTts}
+            title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
+          >
+            <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
+          </button>
+          {/* Q quality flag — local-only for now (Supabase schema TBD). */}
+          <button
+            type="button"
+            aria-label={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+            aria-pressed={Boolean(flagState)}
+            className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
+            onClick={toggleFlag}
+            title={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+          >
+            <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
+          </button>
+          {/* Pin → adds this Q to the personal Pinboard. */}
+          {/* Not `compact`: its 36px inline size sat next to four 44px controls,
+              so the row read as uneven — and 44px is the touch floor anyway.
+              The toolbar's circle class owns its shape, like its four neighbours. */}
+          <PinButton
+            className="vmx-note-btn vmx-pin-btn"
+            type="question"
+            payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
+            label={(currentQ?.q || '').slice(0, 60)}
+          />
+        </div>
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
       <ReadAloudBar jobPrefix={jobPrefix} engine={engine} />
-
-      {/* The type, subject, topic and paper as separate parts of one quiet
-          row — Thai, like the rest of the card, and never uppercased. The
-          hairline between parts is CSS (.vmx-q-meta), so no separator is
-          written into the copy, and the topic's emoji stays on the topic
-          screen where it is the topic's identity, not chrome. */}
-      <div className="vmx-qtype-badge vmx-q-meta">
-        {(() => {
-          const typeLabel = TYPE_LABEL[currentQ.type];
-          const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
-          const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
-          // Only questions that carry exam-scope metadata say which paper
-          // they belong to; a legacy question says nothing rather than guessing.
-          const paper = examScopeLabel(scopeOfQuestion(currentQ));
-          return (
-            <>
-              {typeLabel && <span>{typeLabel}</span>}
-              <span>{subj?.name || currentQ.subject}</span>
-              {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
-              {/* A label that would name the key waits for it (lib/source-line.js).
-                  It and the line standing in for it share one grid cell, so the
-                  row keeps the size the label needs and nothing moves when it
-                  appears; the hidden one is neither seen nor read aloud. */}
-              {topic && holdsTopicChip(currentQ) && (
-                <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
-                  <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
-                  <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
-                </span>
-              )}
-              {paper && <span className="vmx-scope-chip">{paper}</span>}
-            </>
-          );
-        })()}
-        {/* Only where the source line agrees: a sat paper, a marked exam
-            point or a mock, never a row written from a lecture or a summary. */}
-        {followsExamPattern(currentQ) && (
-          <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
-            อิงแนวเดิม
-          </span>
-        )}
-      </div>
 
       {figureSrc && (
         <ZoomableImage

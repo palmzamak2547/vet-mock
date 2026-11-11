@@ -2406,9 +2406,9 @@ html.dark .vmx-panic-scrim {
    the move, on every question. Fill set by --p (0-1) from the view. */
 .vmx-progress-fill { height: 100%; width: 100%; background: var(--clr-ink); transform: scaleX(var(--p, 0)); transform-origin: left center; transition: transform var(--dur-slow) var(--ease-out); }
 
-/* padding-top clears the absolutely-positioned .vmx-q-toolbar (16px inset +
-   44px control) so the type chip and stem always start below it. */
-.vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 72px 32px 32px; margin-bottom: 20px; box-shadow: var(--shadow-workbench); position: relative; }
+/* The header row (.vmx-q-head) is in the flow, so the card needs no padding
+   reserved for an absolutely-placed toolbar (it took 72px, 66px on a phone). */
+.vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 16px 32px 32px; margin-bottom: 20px; box-shadow: var(--shadow-workbench); position: relative; }
 /* Tap-target floor for controls that are inline-styled (often with
    `all: unset`) and so can't inherit .vmx-btn's 44px rule. WCAG 2.5.5.
    Deliberately does NOT force padding — it only guarantees the hit area, so
@@ -2425,14 +2425,34 @@ html.dark .vmx-panic-scrim {
    and states, but position and spacing live here so the 44px touch floor can
    never collide with a hand-picked offset again. */
 .vmx-q-toolbar {
-  position: absolute;
-  top: 16px;
-  right: 16px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: 6px;
-  z-index: var(--z-raised);
+  margin-left: auto;
 }
+/* One header row: the meta line truncates at the left, the controls keep
+   their 44px at the right. wrap-reverse: when both do not fit, the line goes
+   under the controls, never over them (320px, 200% zoom). */
+.vmx-q-head {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.vmx-q-head > .vmx-q-meta.vmx-qtype-badge {
+  display: block;
+  flex: 1 1 64px;
+  min-width: 64px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.vmx-q-head > .vmx-q-meta.vmx-qtype-badge[data-open] { flex-basis: 100%; white-space: normal; }
 .vmx-q-toolbar > * { position: static !important; inset: auto !important; flex: 0 0 auto; }
 
 /* Captions under these five icons were tried on 2026-07-31 and reverted: the
@@ -3719,13 +3739,12 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-mode-grid { grid-template-columns: 1fr; }
   .vmx-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .vmx-tf-row { grid-template-columns: 1fr; }
-  /* Reserve top padding so the toolbar never overlaps the badge/heading.
-     The per-button `top/right` overrides that used to live here moved only
-     the first two controls to a 40px pitch while the other three stayed on
-     the old 44px one — that is what made the row look misaligned. Spacing is
-     the toolbar's `gap` now; only the inset tightens on small screens. */
-  .vmx-question-card { padding: 66px 20px 24px; }
-  .vmx-q-toolbar { top: 12px; right: 12px; gap: 4px; }
+  /* The header row is in the flow, so no top padding is reserved for the
+     toolbar. Spacing is the toolbar's `gap`; it tightens to 2px on a phone so
+     the five 44px controls leave the meta line some room on one row. */
+  .vmx-question-card { padding: 12px 20px 24px; }
+  .vmx-q-toolbar { gap: 2px; }
+  .vmx-q-head { margin-bottom: 12px; }
   /* Badge starts below the button strip — keeps long topic labels readable */
   .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }

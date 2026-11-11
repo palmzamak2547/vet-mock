@@ -615,7 +615,8 @@ test('UI-01: the header context pill carries no tracking', () => {
 // Exam toolbar: four circles and then the pin, a 10px-radius transparent
 // square. Each row now has one shape per kind of control.
 const HEADER_RIGHT = ['header.vmx-header', 'div.vmx-header-right'];
-const TOOLBAR = ['div.vmx-question-card', 'div.vmx-q-toolbar'];
+// The toolbar and the meta line share the card's one header row (11 Nov 2026).
+const TOOLBAR = ['div.vmx-question-card', 'div.vmx-q-head', 'div.vmx-q-toolbar'];
 
 test('UI-18: every icon-only control in the phone header and the exam toolbar is a circle', () => {
   const circles = {
@@ -653,16 +654,19 @@ test('UI-18: PinButton lets a toolbar class own its shape, and the exam toolbar 
 });
 
 // ── UI-07: the exam card's meta row and source toggle ─────────────────
-test('UI-07: the exam card meta is a quiet Sarabun row, not a tracked uppercase pill', () => {
-  const meta = chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta');
+test('UI-07: the exam card meta is a quiet Sarabun line, not a tracked uppercase pill', () => {
+  const meta = chain('div.vmx-question-card', 'div.vmx-q-head', 'div.vmx-qtype-badge.vmx-q-meta');
   for (const env of [PHONE, DESKTOP]) {
-    assert.equal(computed(meta, 'display', env), 'flex');
+    // One line in the header row that truncates rather than wrapping.
+    assert.equal(computed(meta, 'display', env), 'block');
+    assert.equal(computed(meta, 'white-space', env), 'nowrap');
+    assert.equal(computed(meta, 'text-overflow', env), 'ellipsis');
     assert.equal(computed(meta, 'font-size', env), '14px');
     assert.equal(computed(meta, 'border', env), '0');
     assert.equal(computed(meta, 'background', env), 'none');
   }
   assertThaiLabel('exam meta row', meta);
-  assertThaiLabel('exam meta paper', chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta', 'span.vmx-scope-chip'));
+  assertThaiLabel('exam meta paper', chain('div.vmx-question-card', 'div.vmx-q-head', 'div.vmx-qtype-badge.vmx-q-meta', 'span.vmx-scope-chip'));
   // Wherever else the badge is used (VetWiki governance, spaced repetition,
   // the landing), it is a Thai-safe label too.
   assertThaiLabel('type badge', chain('div', 'span.vmx-qtype-badge'));
