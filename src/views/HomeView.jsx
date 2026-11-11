@@ -8,7 +8,7 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { useBuddyPanel } from '../hooks/useStudyBuddies.js';
-import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, calendarDay, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, calendarDay, shortCountdown, getNextClass, getCurrentClass, getHomeMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -96,6 +96,10 @@ const PHASE_LABELS = {
 // Shared empty list so a year without subjects does not mint a fresh array
 // (and a fresh memo dependency) on every render.
 const NO_SUBJECTS = Object.freeze([]);
+const courseNamed = (c) => {
+  const name = c && [...SUBJECTS, ...Object.values(SUBJECTS_BY_YEAR).flat()].find((s) => s.id === c.subject)?.name;
+  return name ? { ...c, title: name } : null;
+};
 // Same idea for list props that may arrive undefined: a fresh [] per render
 // would hand every memo below a new dependency each time.
 const NO_ITEMS = Object.freeze([]);
@@ -166,9 +170,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // published schedule is one tap away instead of buried in a PDF.
   // After the last class of the day this is tomorrow's first (dayOffset 1),
   // so the chip does not go dark every evening.
-  const nextClassToday = getNextClass(selectedYear);
+  // A class row prints the course's own name in the app, never the
+  // registrar's capitals cut mid-word with a room code (5.214); a class whose
+  // course the app does not know shows no row.
+  const nextClassToday = courseNamed(getNextClass(selectedYear));
   const currentClassNow = getCurrentClass(selectedYear);
-  const topMilestone = getTopMilestone();
+  const topMilestone = getHomeMilestone();
   // Faculty/สโมสร announcements with a real date+room (e.g. the stethoscope
   // fitting sessions) — only while they're still ahead, and only for the
   // years they were announced to.
@@ -1723,10 +1730,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     onClick={() => setView('schedule')}
                     className="vmx-vitals-row"
-                    title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
+                    title={`${nextClassToday.title}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
                   >
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {classRowLabel(nextClassToday, currentClassNow, (s) => truncateThai(s, 20))}
+                      {classRowLabel(nextClassToday, currentClassNow, (s) => truncateThai(s, 32))}
                     </span>
                     <span className="vmx-vitals-row-meta">{nextClassToday.room}</span>
                   </button>
