@@ -5,6 +5,12 @@
 // module contains only public, source-traceable fields used by VetMock.
 
 import { readFile, writeFile } from 'node:fs/promises';
+import {
+  COURSE_TEACHING,
+  EXTRA_ALIASES_2026_11,
+  NEW_PROFILES,
+  POSITION_OVERRIDES,
+} from './instructor-course-teaching.mjs';
 
 const ROOT = new URL('..', import.meta.url);
 const CACHE_FILE = new URL('data-cache/instructors/research-audit.json', ROOT);
@@ -803,6 +809,7 @@ function canonicalRecord(record) {
     record.officialResearcher?.nameTh,
     scholarlyName,
     ...(EXTRA_ALIASES[record.slug] || []),
+    ...(EXTRA_ALIASES_2026_11[record.slug] || []),
   ].map(stripNameTitle)).filter((alias) => alias !== nameEn && alias !== nameTh);
   const papers = verifiedPapers(record);
   const research = researchAreas(record, papers);
@@ -822,7 +829,7 @@ function canonicalRecord(record) {
     nameTh,
     aliases,
     nickname: record.nickname,
-    position: cleanPosition(record),
+    position: POSITION_OVERRIDES[record.slug] || cleanPosition(record),
     department: classifyDepartment(record),
     institution: INSTITUTION_OVERRIDES[record.slug]
       || (officialIdentity ? CHULA_VET : repairText(record.institution)),
@@ -848,7 +855,12 @@ async function main() {
   const directory = cache.records
     .filter((record) => !EXCLUDED_SLUGS.has(record.slug))
     .map(canonicalRecord)
-    .concat(MANUAL_PROFILES)
+    .concat(MANUAL_PROFILES, NEW_PROFILES)
+    .map((record) => (COURSE_TEACHING[record.slug] ? {
+      ...record,
+      subjects: unique([...(record.subjects || []), ...COURSE_TEACHING[record.slug].subjects]),
+      topics: unique([...(record.topics || []), ...COURSE_TEACHING[record.slug].topics]),
+    } : record))
     .sort((a, b) => a.nameEn.localeCompare(b.nameEn));
 
   const duplicateSlugs = directory.filter((record, index) => directory.findIndex((entry) => entry.slug === record.slug) !== index);
