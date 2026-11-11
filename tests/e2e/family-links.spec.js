@@ -61,8 +61,12 @@ test('an arrival from another site shows its theme and language for this visit o
 
 test('a value outside the allowed set is dropped, not applied', async ({ page }) => {
   await page.goto('/?vmt=%22%3E%3Cb%3E&e2e-fresh=1');
-  // Nothing written, or the app's own choice: never the value from the address.
+  // The saved key holds nothing or the app's own value (it writes its default, "system", on
+  // mount); the visit holds no theme; the page shows a real theme: never the address's value.
   const saved = await page.evaluate(() => localStorage.getItem('vmx-theme'));
-  expect([null, '"light"', '"dark"']).toContain(saved);
+  expect([null, '"system"', '"light"', '"dark"']).toContain(saved);
+  expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('vmx-family-visit') || '{}').theme ?? null)).toBeNull();
+  expect(['light', 'dark']).toContain(await page.evaluate(() => document.documentElement.getAttribute('data-theme')));
+  expect(await page.evaluate(() => document.documentElement.hasAttribute('data-theme-chosen'))).toBe(false);
   expect(new URL(page.url()).searchParams.has('vmt')).toBe(false);
 });
