@@ -25,7 +25,7 @@ const notesReturnFrom = (state) => ({
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useSelectedPhase } from './hooks/useSelectedPhase.js';
 import { contentPhase } from './lib/current-phase.js';
-import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
+import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved, refreshParkedQuestions } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
@@ -1566,6 +1566,16 @@ export default function App() {
         saved = claimLegacyExam(window.localStorage, owner);
       }
     } catch { alertDialog('ยังเก็บการกู้คืนไม่ได้ กรุณาลองใหม่'); return; }
+    // A set still being answered continues on the bank's current text (exam-recovery.js
+    // refreshParkedQuestions). A submitted one was graded on its parked copy and keeps it. If the
+    // banks cannot load in time (offline), the parked copy is used as before.
+    if (saved && !saved.submitted) {
+      const years = [...new Set(saved.questions.map((q) => q?.year).filter(Number.isFinite))];
+      const loads = Promise.all((years.length ? years : [NaN]).map((y) => loadQBForYear(y)));
+      const loaded = await Promise.race([loads.then(() => true, () => false), new Promise((r) => setTimeout(() => r(false), 8000))]);
+      if (eventContextRef.current.owner !== owner) return;
+      if (loaded) saved = { ...saved, questions: refreshParkedQuestions(saved.questions, QB).questions };
+    }
     if (authLoading || !saved || !session.primeFromSaved(saved)) { setPendingResume(null); return; }
     // Put the session back the way it was graded, not the way the app boots.
     // Older records predate these fields; defaulting to 'exam' would be wrong
