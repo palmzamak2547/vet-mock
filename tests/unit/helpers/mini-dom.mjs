@@ -220,7 +220,8 @@ export async function bundleModule({ contents, plugins = [], prefix = 'mini-dom-
     format: 'esm',
     platform: 'browser',
     jsx: 'automatic',
-    loader: { '.js': 'jsx', '.jsx': 'jsx' },
+    // A stylesheet a lazy chunk imports (ExplainFigure, AnswerEvidence) means nothing to a DOM without CSS.
+    loader: { '.js': 'jsx', '.jsx': 'jsx', '.css': 'empty' },
     plugins: [...plugins, reactExternal],
     write: false,
     logLevel: 'silent',
