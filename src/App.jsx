@@ -25,7 +25,8 @@ const notesReturnFrom = (state) => ({
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useSelectedPhase } from './hooks/useSelectedPhase.js';
 import { contentPhase } from './lib/current-phase.js';
-import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved, refreshParkedQuestions } from './lib/exam-recovery.js';
+import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
+import { createSingleFlight, parkedStillCurrent, resumeParkedSet } from './lib/parked-resume.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
@@ -1552,46 +1553,54 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, user?.id, authLoading]);
 
-  // Handler triggered by the resume banner on HomeView.
-  const resumePendingExam = useCallback(async () => {
+  // Handler triggered by the resume banner on HomeView. One resume runs at a time and the card shows
+  // it as busy; after the wait for the banks it carries on only if the student is still on Home with
+  // the same parked record (src/lib/parked-resume.js).
+  const resumeFlightRef = useRef(null);
+  if (!resumeFlightRef.current) resumeFlightRef.current = createSingleFlight();
+  const [resumeBusy, setResumeBusy] = useState(false);
+  const resumePendingExam = useCallback(() => resumeFlightRef.current(async () => {
     const owner = user?.id ?? null;
-    let saved;
-    try {
-      saved = readOwnedExam(window.localStorage, owner);
-      if (!saved && readUnclaimedExam(window.localStorage)) {
-        if (!(await confirmDialog({ title: 'ชุดที่ค้างไว้นี้เป็นของคุณหรือไม่?',
-          body: 'ชุดที่ค้างจากเวอร์ชันก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
-          confirmLabel: 'เป็นของฉัน กู้คืน', cancelLabel: 'ยังไม่กู้คืน' }))) return;
-        if (eventContextRef.current.owner !== owner) return;
-        saved = claimLegacyExam(window.localStorage, owner);
-      }
-    } catch { alertDialog('ยังเก็บการกู้คืนไม่ได้ กรุณาลองใหม่'); return; }
-    // A set still being answered continues on the bank's current text (exam-recovery.js
-    // refreshParkedQuestions). A submitted one was graded on its parked copy and keeps it. If the
-    // banks cannot load in time (offline), the parked copy is used as before.
-    if (saved && !saved.submitted) {
-      const years = [...new Set(saved.questions.map((q) => q?.year).filter(Number.isFinite))];
-      const loads = Promise.all((years.length ? years : [NaN]).map((y) => loadQBForYear(y)));
-      const loaded = await Promise.race([loads.then(() => true, () => false), new Promise((r) => setTimeout(() => r(false), 8000))]);
-      if (eventContextRef.current.owner !== owner) return;
-      if (loaded) saved = { ...saved, questions: refreshParkedQuestions(saved.questions, QB).questions };
-    }
-    if (authLoading || !saved || !session.primeFromSaved(saved)) { setPendingResume(null); return; }
-    // Put the session back the way it was graded, not the way the app boots.
-    // Older records predate these fields; defaulting to 'exam' would be wrong
-    // for a practice set, so only restore what was actually saved.
-    if (saved.mode) setMode(saved.mode);
-    if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
-    if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
-    // null means nothing was narrowed then; it must not erase the kept pick.
-    if (saved.selectedPhase) setSelectedPhase(saved.selectedPhase);
-    if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
-    if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
-    setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
-    setPendingResume(null);
-    finishingRef.current = false; // arm the finish latch for the resumed session
-    setView(saved.submitted ? 'results' : 'exam');
-  }, [user?.id, authLoading, session.primeFromSaved]);
+    const outcome = await resumeParkedSet({
+      read: async () => {
+        try {
+          let saved = readOwnedExam(window.localStorage, owner);
+          if (!saved && readUnclaimedExam(window.localStorage)) {
+            if (!(await confirmDialog({ title: 'ชุดที่ค้างไว้นี้เป็นของคุณหรือไม่?',
+              body: 'ชุดที่ค้างจากเวอร์ชันก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
+              confirmLabel: 'เป็นของฉัน กู้คืน', cancelLabel: 'ยังไม่กู้คืน' }))) return null;
+            if (eventContextRef.current.owner !== owner) return null;
+            saved = claimLegacyExam(window.localStorage, owner);
+          }
+          if (!saved) setPendingResume(null);
+          return saved;
+        } catch { alertDialog('ยังเก็บการกู้คืนไม่ได้ กรุณาลองใหม่'); return null; }
+      },
+      loadYear: (year) => loadQBForYear(year),
+      bank: () => QB,
+      stillCurrent: (saved) => eventContextRef.current.owner === owner && viewRef.current === 'home'
+        && parkedStillCurrent(window.localStorage, owner, saved),
+      prime: (saved) => !authLoading && session.primeFromSaved(saved),
+      apply: (saved) => {
+        // Put the session back the way it was graded, not the way the app boots.
+        // Older records predate these fields; defaulting to 'exam' would be wrong
+        // for a practice set, so only restore what was actually saved.
+        if (saved.mode) setMode(saved.mode);
+        if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
+        if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
+        // null means nothing was narrowed then; it must not erase the kept pick.
+        if (saved.selectedPhase) setSelectedPhase(saved.selectedPhase);
+        if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
+        if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
+        setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
+        setPendingResume(null);
+        finishingRef.current = false; // arm the finish latch for the resumed session
+        setView(saved.submitted ? 'results' : 'exam');
+      },
+      onBusy: setResumeBusy,
+    });
+    if (outcome === 'refused') setPendingResume(null);
+  }), [user?.id, authLoading, session.primeFromSaved]);
 
   const dismissPendingExam = useCallback(() => {
     try { window.localStorage?.removeItem(inflightExamKey(user?.id ?? null)); } catch {}
@@ -3366,7 +3375,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume: resumeBusy && pendingResume ? { ...pendingResume, busy: true } : pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}

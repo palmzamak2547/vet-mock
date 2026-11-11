@@ -51,11 +51,12 @@ const sameValue = (a, b) => JSON.stringify(a) === JSON.stringify(b);
  */
 export function refreshParkedQuestions(parked, bank) {
   const byId = new Map();
-  for (const q of bank || []) if (q && q.id != null) byId.set(String(q.id), q);
+  // Keyed by subject and id: two subjects may use one id, and the one loaded last must not hide the other.
+  for (const q of bank || []) if (q && q.id != null) byId.set(`${q.subject}:${q.id}`, q);
   const refreshed = [], kept = [], missing = [];
   const questions = (parked || []).map((old) => {
-    const now = old && old.id != null ? byId.get(String(old.id)) : null;
-    if (!now || now.subject !== old.subject) { missing.push(old?.id ?? null); return old; }
+    const now = old && old.id != null ? byId.get(`${old.subject}:${old.id}`) : null;
+    if (!now) { missing.push(old?.id ?? null); return old; }
     if (PARKED_ANSWER_SPACE.some((k) => !sameValue(old[k], now[k]))) { kept.push(old.id); return old; }
     refreshed.push(old.id);
     if (PARKED_KEPT.every((k) => sameValue(old[k], now[k]))) return now;

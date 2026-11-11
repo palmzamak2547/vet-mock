@@ -65,7 +65,9 @@ export default function NextActionCard({
       out.push({
         title: pendingResume.legacy ? 'พบชุดค้างจากเวอร์ชันก่อน' : pendingResume.submitted ? 'กู้ผลชุดที่ยังบันทึกไม่สำเร็จ' : 'ทำต่อจากครั้งล่าสุด',
         sub: pendingResume.legacy ? 'ยืนยันเจ้าของก่อนเปิดคำตอบและกู้คืน' : `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} ข้อ (${timeAgo})`,
-        cta: pendingResume.legacy ? 'ตรวจแล้วกู้คืน' : pendingResume.submitted ? 'กู้ผลชุดนี้' : 'ทำต่อ',
+        cta: pendingResume.busy ? 'กำลังเปิด…' : pendingResume.legacy ? 'ตรวจแล้วกู้คืน' : pendingResume.submitted ? 'กู้ผลชุดนี้' : 'ทำต่อ',
+        // From the tap until the set opens (App waits for the current questions), so a second tap is not needed.
+        busy: !!pendingResume.busy,
         kind: 'resume',
         onClick: () => onPickResume?.(),
         // Escape hatch — a user who wants a clean start could not drop the
@@ -183,6 +185,8 @@ export default function NextActionCard({
         effect={primary ? 'magnet' : 'ripple'}
         type="button"
         onClick={action.onClick}
+        disabled={action.busy || undefined}
+        aria-busy={action.busy || undefined}
         className={`vmx-next-action${primary ? ' is-primary' : ''}`}
         data-kind={action.kind}
       >
@@ -205,6 +209,7 @@ export default function NextActionCard({
           type="button"
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
           onClick={() => setConfirmDiscard(true)}
+          disabled={action.busy || undefined}
           title={action.secondary.title}
         >
           {action.secondary.label}

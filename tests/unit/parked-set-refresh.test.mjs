@@ -69,12 +69,25 @@ test('the order the options were shown in is kept from the parked copy', () => {
   assert.equal(unset.questions[0].noShuffle, undefined);
 });
 
-test('resume refreshes a set still being answered, and only that, before the session takes it', () => {
+test('two subjects that use one id each find their own question', () => {
+  const a = mcq({ id: 7, subject: 'com4', explain: 'com4 old' });
+  const b = mcq({ id: 7, subject: 'com5', explain: 'com5 old' });
+  const bank = [mcq({ id: 7, subject: 'com4', explain: 'com4 new' }), mcq({ id: 7, subject: 'com5', explain: 'com5 new' })];
+  const out = refreshParkedQuestions([a, b], bank);
+  assert.deepEqual(out.questions.map((q) => q.explain), ['com4 new', 'com5 new'], 'the one loaded last does not hide the other');
+  assert.deepEqual(out.missing, []);
+});
+
+test('App resumes through the guarded runner and shows the card busy meanwhile', () => {
   const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
   const fn = app.slice(app.indexOf('const resumePendingExam = useCallback('), app.indexOf('const dismissPendingExam'));
-  const refresh = fn.indexOf('refreshParkedQuestions(saved.questions, QB)');
-  assert.ok(refresh > 0, 'resumePendingExam refreshes the parked questions from QB');
-  assert.ok(refresh < fn.indexOf('session.primeFromSaved(saved)'), 'before the session is primed');
-  assert.match(fn, /if \(saved && !saved\.submitted\) \{/, 'a submitted set keeps the copy it was graded on');
-  assert.match(fn, /if \(eventContextRef\.current\.owner !== owner\) return;\n\s+if \(loaded\)/, 'after the await, a changed account stops the resume');
+  assert.match(fn, /resumeFlightRef\.current\(async \(\) => \{/, 'one resume at a time');
+  assert.match(fn, /resumeParkedSet\(\{/);
+  assert.match(fn, /stillCurrent: \(saved\) => eventContextRef\.current\.owner === owner && viewRef\.current === 'home'\s*&& parkedStillCurrent\(window\.localStorage, owner, saved\)/);
+  assert.match(fn, /onBusy: setResumeBusy/);
+  assert.match(app, /pendingResume: resumeBusy && pendingResume \? \{ \.\.\.pendingResume, busy: true \} : pendingResume/, 'Home is told the resume is running');
+  const card = readFileSync(new URL('../../src/components/NextActionCard.jsx', import.meta.url), 'utf8');
+  assert.match(card, /busy: !!pendingResume\.busy/);
+  assert.match(card, /disabled=\{action\.busy \|\| undefined\}/, 'the card cannot be tapped again while it opens');
 });
+
