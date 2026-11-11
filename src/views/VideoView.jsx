@@ -72,13 +72,20 @@ async function loadVideoSummaryEntry(videoId) {
 // resolves when window.YT is ready. Multiple player instances share
 // the same script + the same readiness promise.
 //
-// The player itself is framed from YouTube's privacy-enhanced host, as
-// docs/VIDEO-LIBRARY.md section 5 specifies and vercel.json's frame-src and
-// Permissions-Policy have allowed from the start: it sets no cookie on a
-// student who has not pressed play. The code framed www.youtube.com until
-// 11 Nov 2026. Both the API player (its `host`) and the playlist-only frame
-// use it.
+// The player itself is framed from www.youtube-nocookie.com, the host
+// docs/VIDEO-LIBRARY.md section 5 names and vercel.json's frame-src and
+// Permissions-Policy have allowed from the start. The code framed
+// www.youtube.com until 11 Nov 2026. Both the API player (its `host`) and the
+// playlist-only frame use it. This is the documented host and no more than
+// that: the API script above comes from www.youtube.com and may set
+// youtube.com cookies before any frame loads, so the frame's host by itself
+// keeps nothing from YouTube.
 const YT_EMBED_HOST = 'https://www.youtube-nocookie.com';
+// How long the frame may take to report ready before the box says so. A frame
+// host a network refuses never answers, and the box stayed black and silent;
+// a slow connection is given this long, and a player that does come up after
+// it takes the notice away.
+const YT_READY_WAIT_MS = 15000;
 let __ytApiPromise = null;
 function loadYouTubeIframeAPI() {
   if (typeof window === 'undefined') return Promise.reject(new Error('no window'));
@@ -1131,11 +1138,22 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     return () => window.removeEventListener('keydown', handleKey);
   }, [currentIdx, playlistItems.length, onClose, openSummary]);
 
-  // Auto-scroll active item into view
+  // Bring the active row into view inside the playlist, and nothing else.
+  // scrollIntoView scrolls every ancestor that can scroll, the page too: on a
+  // phone, where the list sits under the player, opening a clip moved the
+  // player 369 px off the screen.
   useEffect(() => {
-    if (activeItemRef.current && sidebarRef.current) {
-      activeItemRef.current.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-    }
+    const row = activeItemRef.current;
+    const list = sidebarRef.current;
+    if (!row || !list) return;
+    const rowBox = row.getBoundingClientRect();
+    const listBox = list.getBoundingClientRect();
+    let top = list.scrollTop;
+    if (rowBox.top < listBox.top) top += rowBox.top - listBox.top - 8;
+    else if (rowBox.bottom > listBox.bottom) top += rowBox.bottom - listBox.bottom + 8;
+    else return;
+    const still = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    list.scrollTo({ top, behavior: still ? 'auto' : 'smooth' });
   }, [currentVideoId]);
 
   // Build embed URL
@@ -1207,6 +1225,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
     let cancelled = false;
     let player = null;
+    let readyTimer = null;
 
     loadYouTubeIframeAPI().then((YT) => {
       if (cancelled || !ytContainerRef.current) return;
@@ -1227,8 +1246,19 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             // (the Swine Medicine VET86 playlist, 23 Sep 2026).
             ...(startAt > 0 ? { start: startAt } : {}),
           },
+          events: {
+            // The frame answered: no notice, or no longer a notice.
+            onReady: () => {
+              clearTimeout(readyTimer);
+              readyTimer = null;
+              if (!cancelled) setPlayerFailed(false);
+            },
+          },
         });
         playerRef.current = player;
+        // The API loaded and the frame was made, but a frame whose host the
+        // network refuses never reports ready, and nothing else says so.
+        readyTimer = setTimeout(() => { if (!cancelled) setPlayerFailed(true); }, YT_READY_WAIT_MS);
       } catch (err) {
         console.warn('YT.Player init failed:', err?.message);
         setPlayerFailed(true);
@@ -1240,6 +1270,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
     return () => {
       cancelled = true;
+      clearTimeout(readyTimer);
       try { player?.destroy?.(); } catch {}
       try { playerRef.current?.destroy?.(); } catch {}
       playerRef.current = null;
@@ -1387,7 +1418,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   />
                 )}
                 {playerFailed && (
-                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: 'white', fontSize: 14, lineHeight: 1.6 }}>
+                  // Over the frame, with a ground of its own: a frame the network refused may be
+                  // blank or a white page, and a player that comes up late stays usable under it.
+                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', background: 'rgba(16, 14, 11, 0.86)', color: 'white', fontSize: 14, lineHeight: 1.6, pointerEvents: 'none' }}>
                     เปิดเครื่องเล่นในแอปไม่ได้ กดปุ่ม เปิดใน YouTube ด้านล่าง หรือปิดคลิปนี้แล้วเปิดใหม่อีกครั้ง
                   </div>
                 )}

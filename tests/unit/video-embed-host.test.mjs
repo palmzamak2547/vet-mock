@@ -1,5 +1,5 @@
 // ============================================================
-// video-embed-host.test.mjs — YouTube is framed from its privacy-enhanced host
+// video-embed-host.test.mjs — YouTube is framed from the host the policy names
 // ============================================================
 // docs/VIDEO-LIBRARY.md section 5 says the YouTube fallback plays through
 // youtube-nocookie.com, and vercel.json's frame-src and Permissions-Policy
@@ -7,6 +7,11 @@
 // www.youtube.com all along: the API player had no `host` and the
 // playlist-only frame named www.youtube.com/embed. The doc was right and the
 // code was brought to it on 11 Nov 2026.
+//
+// That is all the change claims. The IFrame API script still comes from
+// www.youtube.com and may set youtube.com cookies before any frame loads, so
+// the frame's host by itself keeps nothing from YouTube, and nothing here or
+// in the release says it does.
 //
 // The specs that keep YouTube off the wire must block the new host as well,
 // or a required gate waits on a third party again.
@@ -38,7 +43,17 @@ test('the site policy allows that frame', () => {
   }
 });
 
-test('every spec that blocks YouTube blocks the privacy-enhanced host too', () => {
+test('the view says what the frame host is and claims no privacy for it', () => {
+  const note = view.slice(view.indexOf('// The player itself is framed from'), view.indexOf('const YT_EMBED_HOST'));
+  assert.match(note, /the API script above comes from www\.youtube\.com/);
+  assert.doesNotMatch(view, /privacy-enhanced|sets no cookie/i);
+  assert.match(view, /tag\.src = 'https:\/\/www\.youtube\.com\/iframe_api';/, 'the API script is the one the note describes');
+  for (const doc of ['docs/MEDIA.md', 'docs/releases/5.203.0.md', 'src/data/changelog/5.203.0.js']) {
+    assert.doesNotMatch(read(doc), /privacy-enhanced|sets no cookie|ไม่เก็บคุกกี้|เป็นส่วนตัว/i, `${doc} claims privacy for the frame host`);
+  }
+});
+
+test('every spec that blocks YouTube blocks the frame host too', () => {
   const dir = new URL('../e2e/', import.meta.url);
   const blocking = readdirSync(dir).filter((f) => f.endsWith('.spec.js'))
     .map((f) => [f, readFileSync(new URL(f, dir), 'utf8')])

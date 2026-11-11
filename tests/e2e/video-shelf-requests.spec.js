@@ -28,7 +28,7 @@ import { test, expect } from './fixtures.js';
 // (412px dialog in a 412px viewport, 0 horizontal overflow).
 test.beforeEach(async ({ page }) => {
   await page.route('**://*.youtube.com/**', (route) => route.abort());
-  // The player is framed from YouTube's privacy-enhanced host (VideoView.jsx YT_EMBED_HOST).
+  // The player is framed from www.youtube-nocookie.com (VideoView.jsx YT_EMBED_HOST).
   await page.route('**://*.youtube-nocookie.com/**', (route) => route.abort());
   await page.route('**://*.ytimg.com/**', (route) => route.abort());
 });

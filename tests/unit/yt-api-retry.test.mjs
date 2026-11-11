@@ -32,6 +32,8 @@ const PLAYER_EFFECT = cut('// Mount one YT.Player per (currentVideoId, playlistI
 // The host the player is framed from, a module constant the effect reads
 // (docs/VIDEO-LIBRARY.md section 5; tests/unit/video-embed-host.test.mjs).
 const EMBED_HOST = /^const YT_EMBED_HOST = '([^']+)';$/m.exec(SRC)?.[1];
+// How long the frame may take to report ready before the box says it could not start.
+const READY_WAIT_MS = Number(/^const YT_READY_WAIT_MS = (\d+);$/m.exec(SRC)?.[1]);
 
 // A page: the <script> tags the loader adds, and the window YouTube's script
 // would install YT on.
@@ -106,7 +108,7 @@ test('once the API is ready no further script is added', async () => {
 // The player column's effect with its refs and state under the test's
 // control. `api` is what loadYouTubeIframeAPI returns.
 function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null, ownStatus = 'none' } = {}) {
-  const seen = { players: [], failed: [], warned: 0, effect: null };
+  const seen = { players: [], failed: [], warned: 0, effect: null, timers: [] };
   const container = {};
   const YT = { Player: function Player(node, opts) { seen.players.push({ node, opts }); this.destroy = () => {}; } };
   const ctx = {
@@ -115,12 +117,16 @@ function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null, ownSta
     ownStatus,
     startAt: 0,
     YT_EMBED_HOST: EMBED_HOST,
+    YT_READY_WAIT_MS: READY_WAIT_MS,
     ytContainerRef: { current: container },
     playerRef: { current: null },
     loadYouTubeIframeAPI: () => api(YT),
     setPlayerFailed: (v) => seen.failed.push(v),
     useEffect: (fn) => { seen.effect = fn; },
     console: { warn() { seen.warned += 1; } },
+    // The wait for the frame's ready report, under the test's hand.
+    setTimeout: (fn, ms) => { const timer = { fn, ms, cleared: false }; seen.timers.push(timer); return timer; },
+    clearTimeout: (timer) => { if (timer) timer.cleared = true; },
   };
   vm.createContext(ctx);
   vm.runInContext(PLAYER_EFFECT, ctx);
@@ -155,7 +161,51 @@ test('opening a clip clears the previous failure', async () => {
   assert.equal(p.seen.failed[0], false);
   assert.equal(p.seen.failed.includes(true), false);
   assert.equal(p.seen.players.length, 1);
-  assert.equal(p.seen.players[0].opts.host, 'https://www.youtube-nocookie.com', 'the player is framed from the privacy-enhanced host');
+  assert.equal(p.seen.players[0].opts.host, 'https://www.youtube-nocookie.com', 'the player is framed from the host the policy allows');
+});
+
+// The API loads from www.youtube.com and the frame from another host. With that
+// host refused by the network the frame never answers: the API had loaded, the
+// player object existed, and the box stayed black with nothing said.
+test('a frame that never reports ready says so, after a wait a slow connection can meet', async () => {
+  assert.ok(READY_WAIT_MS >= 10_000 && READY_WAIT_MS <= 30_000, `the wait is ${READY_WAIT_MS} ms`);
+  const p = player((YT) => Promise.resolve(YT));
+  p.mount();
+  await settle();
+  assert.equal(p.seen.timers.length, 1, 'one wait per player');
+  assert.equal(p.seen.timers[0].ms, READY_WAIT_MS);
+  assert.equal(p.seen.failed.includes(true), false, 'nothing is said while the frame may still come');
+  p.seen.timers[0].fn();
+  assert.equal(p.seen.failed.at(-1), true, 'the black box must not stay silent');
+});
+
+test('a frame that reports ready ends the wait, and one that comes up late takes the notice away', async () => {
+  const onTime = player((YT) => Promise.resolve(YT));
+  onTime.mount();
+  await settle();
+  onTime.seen.players[0].opts.events.onReady();
+  assert.equal(onTime.seen.timers[0].cleared, true);
+  assert.equal(onTime.seen.failed.includes(true), false);
+
+  const late = player((YT) => Promise.resolve(YT));
+  late.mount();
+  await settle();
+  late.seen.timers[0].fn();
+  assert.equal(late.seen.failed.at(-1), true);
+  late.seen.players[0].opts.events.onReady();
+  assert.equal(late.seen.failed.at(-1), false, 'a player that is there needs no notice');
+});
+
+test('closing the clip ends the wait: no notice is written for a player that is gone', async () => {
+  const p = player((YT) => Promise.resolve(YT));
+  const cleanup = p.mount();
+  await settle();
+  cleanup();
+  assert.equal(p.seen.timers[0].cleared, true);
+  const said = p.seen.failed.length;
+  p.seen.timers[0].fn();
+  p.seen.players[0].opts.events.onReady();
+  assert.equal(p.seen.failed.length, said, 'neither the wait nor a late ready writes after the close');
 });
 
 test('no player mounts after the modal closed', async () => {
