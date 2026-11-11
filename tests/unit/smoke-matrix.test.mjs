@@ -113,7 +113,10 @@ test('every engine runs on runners of its own, the software-GL ones on one worke
   // 13 Oct) and ran out of its cap. Each engine is sharded on its own, and a
   // shard stays near 40% of its cap (WebKit's first half was at 57%).
   const gl = entries.filter((e) => e.group === 'gl').map((e) => `${e.project} ${e.shard}`).sort();
-  assert.deepEqual(gl, ['firefox-desktop 1/2', 'firefox-desktop 2/2', 'webkit-mobile 1/3', 'webkit-mobile 2/3', 'webkit-mobile 3/3']);
+  // 11 Nov: WebKit third 1 took 12.4 minutes (10.2 of tests) and Firefox half 1 9.9 (8.3): WebKit in
+  // quarters, Firefox in thirds.
+  assert.deepEqual(gl, ['firefox-desktop 1/3', 'firefox-desktop 2/3', 'firefox-desktop 3/3',
+    'webkit-mobile 1/4', 'webkit-mobile 2/4', 'webkit-mobile 3/4', 'webkit-mobile 4/4']);
   // Both Chromium projects on one runner took 12.2-12.3 of 14 min in three of
   // five runs (14 Oct): one project per runner, the connected specs on one. On
   // 11 Nov chromium desktop took 12.8 minutes against Playwright's 13-minute
