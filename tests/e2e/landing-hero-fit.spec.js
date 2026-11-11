@@ -4,8 +4,8 @@ import { test, expect } from './fixtures.js';
 // radiograph lightbox behind it. Found 11 Nov 2026 on a student's iPad (1133 px wide, English):
 // the headline's first line could not break and ran under the card ("Practise subject by sub"),
 // and the lightbox's top edge sat behind the nav's buttons with its side past the screen edge.
-// Measured then: the English line overflowed its column by 70 to 200 px at every width from 1001
-// to 1920; the lightbox reached 23 to 28 px into the nav at every width.
+// Measured then on production: the English line ended 166 to 230 px past its column (110 to 162 px
+// under the card) at every width from 1001 to 1920; the lightbox reached 23 to 28 px into the nav.
 //
 // The rules: a heading word never ends outside the copy column, so it can never reach the card;
 // the lightbox starts below the nav and stays inside the stage; nothing scrolls sideways.
