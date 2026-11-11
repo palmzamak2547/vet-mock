@@ -7376,14 +7376,17 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 }
 /* Below 280 CSS px (a 375 px phone at 200% zoom is 188): the card's five
    tools ran off its left edge, the position pill sat over ออก and ข้อถัดไป
-   was cut at the right. The tools wrap in the card's flow, the header
-   keeps ออก and the position side by side with the rest on a row below,
-   and previous and next take a row each. */
+   was cut at the right. The tools wrap in the card's flow, the position
+   takes the header's first row with ออก and the clock on the row below
+   (side by side, ออก and the pill need more than 188 px), and previous and
+   next take a row each. */
 @media (max-width: 279px) {
   .vmx-question-card { padding: 12px 12px 20px; }
   .vmx-q-toolbar { position: static; flex-wrap: wrap; justify-content: flex-end; margin-bottom: 10px; }
-  .vmx-exam-top { grid-template-columns: auto auto; justify-content: space-between; row-gap: 6px; }
-  .vmx-exam-top-right { grid-column: 1 / -1; }
+  .vmx-exam-top { grid-template-columns: auto 1fr; grid-template-areas: "pill pill" "exit right"; row-gap: 6px; }
+  .vmx-exam-top > .vmx-progress { grid-area: pill; justify-self: center; }
+  .vmx-exam-top-left { grid-area: exit; }
+  .vmx-exam-top-right { grid-area: right; }
   .vmx-exam-actions { flex-wrap: wrap; }
   .vmx-exam-actions .vmx-exam-prev, .vmx-exam-actions .vmx-exam-next { flex: 1 1 100%; }
 }

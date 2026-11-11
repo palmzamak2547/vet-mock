@@ -164,7 +164,9 @@ test('at 188 CSS px (200% zoom on a phone) the card, the header and the buttons 
   const box = (sel) => page.locator(sel).first().boundingBox();
   const exit = await box('.vmx-exam-top-left button');
   const pill = await box('.vmx-progress');
-  expect(pill.x).toBeGreaterThanOrEqual(exit.x + exit.width - 1);
+  const apart = pill.x >= exit.x + exit.width - 1 || exit.x >= pill.x + pill.width - 1
+    || pill.y >= exit.y + exit.height - 1 || exit.y >= pill.y + pill.height - 1;
+  expect(apart, 'the position pill covers ออก').toBe(true);
   for (const sel of ['.vmx-q-toolbar > *', '.vmx-exam-next', '.vmx-exam-prev']) {
     const all = await page.locator(sel).evaluateAll((els) => els.map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.right]; }));
     for (const [l, r] of all) {
