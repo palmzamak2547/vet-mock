@@ -30,7 +30,7 @@
 
 import { USER_DATA_FIELDS, createUserDataSync, mergeFieldValue } from './user-data-sync.js';
 import { moveBaseKit } from './move-base.js';
-import { MAX_ATTEMPTS, MOVE_INBOX, MOVE_INBOX_ATTEMPTS, MOVE_RECEIVED, NOTICE_MS, dueMoveJobs } from './move-gate.js';
+import { MAX_ATTEMPTS, MOVE_INBOX, MOVE_JOBS, MOVE_RECEIVED, NOTICE_MS, dueMoveJobs } from './move-gate.js';
 
 export { MOVE_INBOX, MOVE_RECEIVED };
 export const MOVE_BASE = 'vmx-move-base';
@@ -372,7 +372,7 @@ export function moveNotice(storage, now = Date.now()) {
 }
 
 // The app's notice card (.vmx-update-notice).
-function noticeCard(doc, text, later) {
+function noticeCard(doc, text, later, { link = null, stay = false } = {}) {
   const box = doc.createElement('div');
   box.className = 'vmx-update-notice';
   box.setAttribute('role', 'status');
@@ -386,9 +386,38 @@ function noticeCard(doc, text, later) {
   close.textContent = '✕';
   close.addEventListener('click', () => box.remove());
   box.appendChild(span);
+  if (link) {
+    const a = doc.createElement('a');
+    a.href = link.href;
+    a.textContent = link.text;
+    box.appendChild(a);
+  }
   box.appendChild(close);
   doc.body.appendChild(box);
-  later(() => box.remove(), 12000);
+  if (!stay) later(() => box.remove(), 12000);
+}
+
+const OLD_ADDRESS = 'https://vetmock.vercel.app';
+
+/** After the last try of a merge that did not go through: what the student is told, and the way back.
+ *  `from` is the old address the inbox names (api/move-in.js writes it), when it is one. */
+export function moveGiveUpNotice(inboxRaw) {
+  const from = parse(inboxRaw)?.from;
+  const origin = typeof from === 'string' && /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(from) ? from : OLD_ADDRESS;
+  return {
+    text: 'ย้ายข้อมูลการเรียนจาก vetmock.vercel.app มาที่นี่ไม่สำเร็จ ข้อมูลทั้งหมดยังอยู่ที่ที่อยู่เดิม',
+    link: { href: `${origin}/?vmx-move=retry`, text: 'ลองย้ายอีกครั้ง' },
+  };
+}
+
+/** The inbox job of this boot, when the gate named it and the app waited for it. Returns null when it
+ *  did not run, else the job's result, with the notice to show when that was the last try. */
+export function runInboxJob(win, due, merge = applyMoveInbox) {
+  if (!due.has('inbox') || win.__vmxMoveSkip) return null;
+  const job = MOVE_JOBS.find((j) => j.id === 'inbox');
+  const raw = read(win.localStorage, MOVE_INBOX);
+  const result = job.run(win, merge);
+  return result.gaveUp ? { ...result, notice: moveGiveUpNotice(raw) } : result;
 }
 
 /** The move notice, once. Returns whether shown. */
@@ -420,18 +449,18 @@ export function showOldAddressNote(win, doc, later = (fn, ms) => setTimeout(fn, 
 // set (the app started without waiting for this file) the inbox is not merged
 // under the running store; it waits for the next boot.
 if (typeof window !== 'undefined') {
-  const due = dueMoveJobs(window);
-  if (due.has('inbox') && !window.__vmxMoveSkip) {
-    try {
-      if (applyMoveInbox(window.localStorage).applied) window.localStorage.removeItem(MOVE_INBOX_ATTEMPTS);
-    } catch { /* never block the app */ }
-  }
+  // This boot's answer from main.jsx; read again only if this file was loaded some other way.
+  const due = new Set(Array.isArray(window.__vmxMoveDue) ? window.__vmxMoveDue : dueMoveJobs(window));
+  let inbox = null;
+  try { inbox = runInboxJob(window, due); } catch { /* never block the app */ }
   const afterLoad = () => {
     const run = () => {
       (due.has('records') ? importMovedRecords() : Promise.resolve())
         .catch(() => {})
         .finally(() => {
           try {
+            // The last try of the merge failed: said once, and it stays until closed.
+            if (inbox?.notice && document.body) { noticeCard(document, inbox.notice.text, () => {}, { link: inbox.notice.link, stay: true }); return; }
             if (due.has('notice') && showMoveNotice(document, window.localStorage)) return;
             if (due.has('note')) showOldAddressNote(window, document);
           } catch { /* optional */ }

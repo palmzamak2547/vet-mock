@@ -39,9 +39,14 @@ holds the same on the source graph), tested in tests/e2e/first-load-lazy.spec.js
   - A chunk that stalls gets 4 s (`MOVE_WAIT_MS`), then the app starts and `window.__vmxMoveSkip` tells a
     late origin-move.js not to merge under the running store; the same flag is set before the module is
     asked for on the after-load path. The inbox waits for the next boot.
-  - A job that keeps failing is tried 3 times (`MAX_ATTEMPTS`): the inbox merge counts boots in
-    `vmx-move-inbox-attempts` (cleared when a merge goes through), the record import in
-    `vmx-move-received.attempts`. Then boots stop fetching and waiting. What the student keeps: everything
+  - A job that keeps failing is tried 3 times (`MAX_ATTEMPTS`): the inbox merge counts in
+    `vmx-move-inbox-attempts`, the record import in `vmx-move-received.attempts`. Only a merge or import
+    that actually ran counts: a boot that timed out or was reloaded during the wait never ends a move. The
+    inbox job of `MOVE_JOBS` writes the count just before the merge and clears it when the merge goes
+    through; `api/move-in.js` clears it whenever it writes an inbox, so a retried move gets its own tries.
+    After the merge's last try the app shows one notice that stays until closed: "ย้ายข้อมูลการเรียนจาก
+    vetmock.vercel.app มาที่นี่ไม่สำเร็จ ข้อมูลทั้งหมดยังอยู่ที่ที่อยู่เดิม" with the link "ลองย้ายอีกครั้ง"
+    (the old address's `?vmx-move=retry`). Then boots stop fetching and waiting. What the student keeps: everything
     stays where it was (the unmerged inbox in localStorage, the PDF ink and study events in the IndexedDB
     inbox, and the old address's own copy); what the app no longer does is show that carried data here.
     This hits only a device whose storage is full or whose IndexedDB refuses writes three boots running.

@@ -4,10 +4,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  moveWork, dueMoveJobs, countInboxAttempt, startWhenReady, MOVE_JOBS,
+  moveWork, dueMoveJobs, startWhenReady, MOVE_JOBS,
   MOVE_INBOX, MOVE_INBOX_ATTEMPTS, MOVE_RECEIVED, NOTICE_MS, MAX_ATTEMPTS, MOVE_WAIT_MS,
 } from '../../src/lib/move-gate.js';
-import { applyMoveInbox, importMovedRecords, moveNotice } from '../../src/lib/origin-move.js';
+import { applyMoveInbox, importMovedRecords, moveNotice, moveGiveUpNotice, runInboxJob } from '../../src/lib/origin-move.js';
 
 const store = (entries) => {
   const m = new Map(Object.entries(entries));
@@ -36,16 +36,61 @@ const CASES = [
   ['records whose import failed three boots running', received({ at: NOW - NOTICE_MS - 1, attempts: MAX_ATTEMPTS }), null],
 ];
 
-test('an inbox whose merge was tried three boots running is left where it is', () => {
-  const win = { localStorage: store({ [MOVE_INBOX]: '{"fields":{}}', [MOVE_INBOX_ATTEMPTS]: String(MAX_ATTEMPTS) }) };
-  assert.equal(moveWork(win, NOW), null);
-  assert.equal(dueMoveJobs(win, NOW).has('inbox'), false);
-  win.localStorage.setItem(MOVE_INBOX_ATTEMPTS, String(MAX_ATTEMPTS - 1));
+// One boot as main.jsx and origin-move.js run it: the gate's answer is taken once; `timedOut` is a boot
+// whose chunk missed MOVE_WAIT_MS (main sets the skip flag), `reloaded` one left before the chunk ran.
+const INBOX = JSON.stringify({ from: 'https://vetmock.vercel.app', owner: null, fields: { 'vmx-bookmarks': '[2]' } });
+function boot(win, { timedOut = false, reloaded = false, merge } = {}) {
+  const due = dueMoveJobs(win, NOW);
+  if (reloaded) return null; // the module never evaluated
+  const run = { __vmxMoveSkip: timedOut, localStorage: win.localStorage };
+  return runInboxJob(run, due, merge);
+}
+
+test('three boots that each time out, then a healthy boot: the inbox merges', () => {
+  const win = { localStorage: store({ [MOVE_INBOX]: INBOX, 'vmx-bookmarks': '[1]' }) };
+  for (let i = 0; i < 3; i++) assert.equal(boot(win, { timedOut: true }), null);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), null, 'a timeout is not a try');
   assert.equal(moveWork(win, NOW), 'now');
-  countInboxAttempt(win);
-  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), String(MAX_ATTEMPTS));
-  assert.equal(moveWork(win, NOW), null);
-  assert.equal(win.localStorage.getItem(MOVE_INBOX), '{"fields":{}}', 'the moved data stays in the inbox');
+  assert.equal(boot(win).applied, true);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX), null);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), null);
+  assert.deepEqual(JSON.parse(win.localStorage.getItem('vmx-bookmarks')).sort(), [1, 2]);
+});
+
+test('two reloads during the wait, then a healthy boot: the inbox merges', () => {
+  const win = { localStorage: store({ [MOVE_INBOX]: INBOX, 'vmx-bookmarks': '[1]' }) };
+  boot(win, { reloaded: true });
+  boot(win, { reloaded: true });
+  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), null, 'a reload is not a try');
+  assert.equal(boot(win).applied, true);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX), null);
+});
+
+test('a merge that does not go through three times says so once, then stops, leaving the inbox', () => {
+  const win = { localStorage: store({ [MOVE_INBOX]: INBOX }) };
+  const refused = () => ({ applied: false });
+  const first = boot(win, { merge: refused });
+  const second = boot(win, { merge: refused });
+  assert.deepEqual([first.gaveUp, first.notice, second.gaveUp, second.notice], [false, undefined, false, undefined]);
+  const third = boot(win, { merge: refused });
+  assert.equal(third.gaveUp, true);
+  assert.match(third.notice.text, /ไม่สำเร็จ/);
+  assert.match(third.notice.text, /ยังอยู่ที่ที่อยู่เดิม/);
+  assert.equal(third.notice.link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
+  assert.equal(moveWork(win, NOW), null, 'the fourth boot does not load the merge, so the notice is not shown again');
+  assert.equal(win.localStorage.getItem(MOVE_INBOX), INBOX, 'the moved data stays in the inbox');
+  // A merge that throws counts as a try too.
+  const thrown = { localStorage: store({ [MOVE_INBOX]: INBOX }) };
+  boot(thrown, { merge: () => { throw new Error('quota'); } });
+  assert.equal(thrown.localStorage.getItem(MOVE_INBOX_ATTEMPTS), '1');
+});
+
+test('the give-up notice links only to an address the inbox names as an origin', () => {
+  assert.equal(moveGiveUpNotice(JSON.stringify({ from: 'http://localhost:4173' })).link.href, 'http://localhost:4173/?vmx-move=retry');
+  for (const from of ['javascript:alert(1)', 'https://x.example/path', 42, undefined]) {
+    assert.equal(moveGiveUpNotice(JSON.stringify({ from })).link.href, 'https://vetmock.vercel.app/?vmx-move=retry', String(from));
+  }
+  assert.equal(moveGiveUpNotice('{oops').link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
 });
 
 test('a record import counts its tries and stops after the last one, leaving the records', async () => {

@@ -16,6 +16,10 @@
 // refuses the import) is tried MAX_ATTEMPTS times, then left: the moved data
 // stays where it is (the inbox in localStorage, the records in IndexedDB, and
 // the old address's own copy) and boots stop fetching and waiting for it.
+// Only a run counts: a boot that timed out or was reloaded before the code ran
+// never ends a move. After the merge's last try the app says so once, with
+// the way back (origin-move.js moveGiveUpNotice). A new inbox written by
+// api/move-in.js clears the count, so a retried move gets its own tries.
 // ============================================================
 
 export const MOVE_INBOX = 'vmx-move-inbox';
@@ -41,7 +45,19 @@ const attempts = (value) => (Number.isSafeInteger(value) && value > 0 ? value : 
 /** The module's start-up jobs, each with when it must run and whether it is due on this boot. */
 export const MOVE_JOBS = Object.freeze([
   { id: 'inbox', when: 'now',
-    due: (c) => Boolean(c.read(MOVE_INBOX)) && attempts(Number(c.read(MOVE_INBOX_ATTEMPTS))) < MAX_ATTEMPTS },
+    due: (c) => Boolean(c.read(MOVE_INBOX)) && attempts(Number(c.read(MOVE_INBOX_ATTEMPTS))) < MAX_ATTEMPTS,
+    // Runs the merge and keeps its count. Only a merge that ran counts: a boot that timed out or was
+    // reloaded while the code loaded never got here. The count is written just before the merge (a
+    // merge that throws counts too) and cleared when it goes through. gaveUp: that was the last try.
+    run(win, merge) {
+      const s = win.localStorage;
+      let tried = 0;
+      try { tried = attempts(Number(s.getItem(MOVE_INBOX_ATTEMPTS))) + 1; s.setItem(MOVE_INBOX_ATTEMPTS, String(tried)); } catch { /* no room to count */ }
+      let applied = false;
+      try { applied = merge(s)?.applied === true; } catch { /* counted above */ }
+      if (applied) { try { s.removeItem(MOVE_INBOX_ATTEMPTS); } catch { /* the inbox is gone, so is the job */ } }
+      return { applied, gaveUp: !applied && tried >= MAX_ATTEMPTS };
+    } },
   { id: 'records', when: 'later',
     due: (c) => Boolean(c.received) && !c.received.idbDone && attempts(c.received.attempts) < MAX_ATTEMPTS },
   { id: 'notice', when: 'later',
@@ -59,18 +75,9 @@ export function dueMoveJobs(win, now = Date.now()) {
 }
 
 /** 'now', 'later' or null: what main.jsx does with origin-move.js on this boot. */
-export function moveWork(win, now = Date.now()) {
-  const due = dueMoveJobs(win, now);
+export function moveWork(win, now = Date.now(), due = dueMoveJobs(win, now)) {
   if (MOVE_JOBS.some((job) => job.when === 'now' && due.has(job.id))) return 'now';
   return due.size ? 'later' : null;
-}
-
-/** One more boot spent on the inbox merge, counted before it is tried. */
-export function countInboxAttempt(win) {
-  try {
-    const s = win.localStorage;
-    s.setItem(MOVE_INBOX_ATTEMPTS, String(attempts(Number(s.getItem(MOVE_INBOX_ATTEMPTS))) + 1));
-  } catch { /* uncounted: the merge still runs */ }
 }
 
 /**

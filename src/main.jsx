@@ -6,7 +6,7 @@ import { IS_APP } from './lib/native-detect.js'
 // Study data carried over from vetmock.vercel.app is merged before anything reads it. The merge
 // (lib/origin-move.js) loads only on a boot that has move work (lib/move-gate.js), and then the app
 // starts after it; nearly every boot has none and starts at once, as before.
-import { countInboxAttempt, moveWork, startWhenReady } from './lib/move-gate.js'
+import { dueMoveJobs, moveWork, startWhenReady } from './lib/move-gate.js'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -68,11 +68,14 @@ window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: tru
 // and window.__vmxMoveSkip tells origin-move.js, should it still arrive, not to
 // merge under a store that has already read the data. On the 'later' path the
 // app is already running, so the flag is set before the module is asked for.
+// The module runs the jobs this boot's answer named (window.__vmxMoveDue), not a
+// second reading of storage. Neither a timeout nor a reload counts as a try.
 const before = []
 if (IS_APP) before.push(import('./lib/native-app.js').catch(() => {}))
-const move = moveWork(window)
+const moveDue = dueMoveJobs(window)
+window.__vmxMoveDue = [...moveDue]
+const move = moveWork(window, Date.now(), moveDue)
 if (move === 'now') {
-  countInboxAttempt(window)
   before.push(import('./lib/origin-move.js').catch(() => {}))
 } else if (move === 'later') {
   window.__vmxMoveSkip = true

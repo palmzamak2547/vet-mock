@@ -123,7 +123,43 @@ test('mid-move with the move code stalling: the app starts after the wait, and t
   await page.waitForTimeout(500);
   expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBe(inbox);
   expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).toBe('[90001]');
-  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox-attempts'))).toBe('1');
+  // A timeout is not a try: the next healthy boot merges with all its tries left.
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox-attempts'))).toBeNull();
+  await page.unroute(ORIGIN_MOVE);
+  await page.reload();
+  await page.locator('#root > *').first().waitFor();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBeNull();
+  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).sort()).toEqual([90001, 90002]);
+});
+
+test('a merge the device refuses three boots running: the app says once that the data is still at the old address', async ({ page, context }) => {
+  const inbox = JSON.stringify({ from: 'https://vetmock.vercel.app', fields: { 'vmx-bookmarks': '[90002]' }, owner: null });
+  await context.addInitScript(([values, inboxValue]) => {
+    if (!sessionStorage.getItem('seeded')) {
+      sessionStorage.setItem('seeded', '1');
+      for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v);
+      localStorage.setItem('vmx-move-inbox', inboxValue);
+    }
+    // A full device: the merge's own writes are refused, the count beside it is not.
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function setItem(key, value) {
+      if (key === 'vmx-bookmarks' || key === 'vmx-move-base') throw new DOMException('full', 'QuotaExceededError');
+      return set.call(this, key, value);
+    };
+  }, [RETURNING_Y5, inbox]);
+  const notice = page.locator('.vmx-update-notice', { hasText: 'ยังอยู่ที่ที่อยู่เดิม' });
+  for (let boot = 1; boot <= 3; boot++) {
+    if (boot === 1) await page.goto('/'); else await page.reload();
+    await page.locator('#root > *').first().waitFor();
+    if (boot < 3) await expect(notice).toHaveCount(0);
+  }
+  await expect(notice).toHaveCount(1, { timeout: 10_000 });
+  await expect(notice.getByRole('link', { name: 'ลองย้ายอีกครั้ง' })).toHaveAttribute('href', 'https://vetmock.vercel.app/?vmx-move=retry');
+  await page.reload();
+  await page.locator('#root > *').first().waitFor();
+  await page.waitForTimeout(2_000);
+  await expect(notice).toHaveCount(0);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBe(inbox);
 });
 
 // The Android app's bridge as the WebView injects it before any page script: enough of Capacitor for

@@ -18,6 +18,8 @@ import handler, {
 } from '../../api/move-in.js';
 import { USER_DATA_FIELDS } from '../../src/lib/user-data-sync.js';
 import { MemoryStorage, inboxIndexedDb, encodePayload, pageParts, runMovePage } from '../helpers/move-in-page.mjs';
+import { moveWork, dueMoveJobs, MAX_ATTEMPTS, MOVE_INBOX_ATTEMPTS } from '../../src/lib/move-gate.js';
+import { runInboxJob } from '../../src/lib/origin-move.js';
 
 const OLD = 'https://vetmock.vercel.app';
 
@@ -435,4 +437,24 @@ test('the server never sends `to` back: where the learner was stays in the old t
   const storage = new MemoryStorage();
   storage.refuse = (k) => k === 'vmx-selected-year';
   assert.deepEqual((await runMovePage(await served(PAYLOAD), { storage })).replaced, [`${OLD}/?vmx-move=hold&failed=${H}`]);
+});
+
+// ── the app's retry limit (2026-11-11) ──────────────────────────────────────
+
+test('a retried move after the app gave up on the last one gets its own tries, and merges', async () => {
+  // The app tried the last inbox three times and stopped; the student follows the retry link.
+  const storage = new MemoryStorage({
+    'vmx-bookmarks': '[9]', 'vmx-user-sync-owner-v1': '"anonymous"',
+    'vmx-move-inbox': JSON.stringify({ at: 1, from: OLD, owner: '"anonymous"', fields: { 'vmx-bookmarks': '[7]' } }),
+    [MOVE_INBOX_ATTEMPTS]: String(MAX_ATTEMPTS),
+  });
+  assert.equal(moveWork({ localStorage: storage }), null, 'given up: the app no longer loads the merge');
+  await moveOnce(storage, { 'vmx-user-sync-owner-v1': '"anonymous"', 'vmx-bookmarks': '[1,2]' });
+  assert.equal(storage.getItem(MOVE_INBOX_ATTEMPTS), null, 'writing the inbox clears the old count');
+  const win = { localStorage: storage };
+  assert.equal(moveWork(win), 'now');
+  const result = runInboxJob(win, dueMoveJobs(win));
+  assert.equal(result.applied, true);
+  assert.equal(storage.getItem('vmx-move-inbox'), null);
+  assert.deepEqual(JSON.parse(storage.getItem('vmx-bookmarks')).sort((a, b) => a - b), [1, 2, 9], "the retried move's copy, merged with what vetmock.com had");
 });

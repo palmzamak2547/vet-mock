@@ -71,7 +71,7 @@ const CSS = [
 export const MOVE_IN_SCRIPT = `(function (w, d) {
   'use strict';
   var KIT = (${moveBaseKit.toString()})();
-  var INBOX = 'vmx-move-inbox', RECEIVED = 'vmx-move-received', BASE = 'vmx-move-base';
+  var INBOX = 'vmx-move-inbox', INBOX_ATTEMPTS = 'vmx-move-inbox-attempts', RECEIVED = 'vmx-move-received', BASE = 'vmx-move-base';
   var OWNER = 'vmx-user-sync-owner-v1', GUEST = KIT.V2 + 'anonymous', JOURNAL = 'vmx-user-sync-journal-v1';
   var cfg = null;
   function fail() {
@@ -322,7 +322,9 @@ export const MOVE_IN_SCRIPT = `(function (w, d) {
           };
           if (foldBase) inbox.guestBase = foldBase;
           ls.setItem(INBOX, JSON.stringify(inbox));
-        } else if (prior) ls.removeItem(INBOX);
+          // A new inbox gets its own tries: an earlier move the app gave up on must not block this one.
+          ls.removeItem(INBOX_ATTEMPTS);
+        } else if (prior) { ls.removeItem(INBOX); ls.removeItem(INBOX_ATTEMPTS); }
       }
     } catch (error) {
       saveBase(); // what was written before the failure keeps its fingerprints
