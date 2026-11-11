@@ -27,7 +27,8 @@ function AtlasShell() {
       <a href="#main" className="vmx-skip-link">
         ข้ามไปเนื้อหาหลัก
       </a>
-      <main id="main" className="vmx-main vmx-main--wide" tabIndex={-1}>
+      {/* data-view: which view this is, for tests (tests/e2e/route-sweep.spec.js), as App.jsx sets it. */}
+      <main id="main" data-view="atlas" className="vmx-main vmx-main--wide" tabIndex={-1}>
         <ErrorBoundary onReset={goHome}>
           <AtlasView
             goHome={goHome}

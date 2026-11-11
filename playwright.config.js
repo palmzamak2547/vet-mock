@@ -33,7 +33,9 @@ export default defineConfig({
   outputDir: process.env.PLAYWRIGHT_OUTPUT_DIR || 'test-results',
   // Scratch repros live in testDir too. They are gitignored, but an
   // `add -A` or a local run should not be able to promote one into the gate.
-  testIgnore: ['**/zz-*.spec.js'],
+  // The route sweep is on demand until it gates (after 4 Dec 2026): `npm run test:e2e:sweep`, which
+  // sets VMX_ROUTE_SWEEP=1. Every other run, the CI suite included, leaves it out.
+  testIgnore: ['**/zz-*.spec.js', ...(process.env.VMX_ROUTE_SWEEP === '1' ? [] : ['**/route-sweep.spec.js'])],
   timeout: 30_000,
   // 2026-09-13: was 5s. A cold entry chunk paints in ~1.1s on the slowest
   // engine when it has the machine to itself, but the suite runs fullyParallel

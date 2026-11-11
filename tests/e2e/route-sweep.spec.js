@@ -1,52 +1,43 @@
-// Route sweep: no screen may break silently.
+// Route sweep: no screen may break silently. Run on demand: `npm run test:e2e:sweep` (chromium-mobile
+// and webkit-mobile; extra Playwright arguments pass through). The default e2e run skips this file
+// (playwright.config.js ignores it unless VMX_ROUTE_SWEEP=1), so it cannot block a fix while it is
+// advisory; it is meant to become a CI job, then a gate after the finals (4 Dec 2026).
 //
-// The routes come from the code, not from a list typed here: every view in `APP_VIEW_ROUTES`
-// (src/lib/view-route.js, the map that gives a view its /app/* address) is opened, so a view is
-// covered the day it gets an address. And every view App.jsx renders must either have an address
-// or be named in NOT_ROUTED below with the reason it has none, so a new view that is neither fails
-// here the day it is added.
+// The routes come from the code: every view in `APP_VIEW_ROUTES` (src/lib/view-route.js), plus the
+// two addresses in EXTRA_ROUTES. Every view App.jsx renders must have an address or a reason in
+// NOT_ROUTED, so a new view that is neither fails here the day it is added.
 //
-// Each route is opened twice at a phone's width, as a student with a year, a paper, history and
-// review cards, and as a first-time visitor with nothing stored. Each visit fails on:
+// Each route is opened at a phone's width as a student (a year, a paper, history, review cards, a
+// bookmark, a streak) and as a first-time visitor with nothing stored, and each visit asserts which
+// screen it drew: `#main[data-view]` (App.jsx) names the view App shows, and OUTCOME below names the
+// visits where the app is right to show something else (a page that needs an account shows the
+// sign-in card; a first-time visitor on a year-scoped page gets the landing page). The table is
+// checked against the code that decides those redirects, so it cannot drift. A visit fails on:
+//   screen     it drew another screen than the one expected, or the error card
+//   loading    the screen still said it was loading after LOADING_BUDGET_MS
 //   console    a console error, a page error or an unhandled rejection
-//   request    a failed same-origin request (a missing chunk, asset or data file)
+//   request    a failed same-origin request, or a script, style, picture or font answered with the
+//              app's page (how the preview server hides a missing file)
 //   blank      a main region with no text and no picture
 //   overflow   the page scrolls sideways
 //   text       the visible text "undefined", "NaN", "null" or "[object Object]"
-// /api/* is answered 503 by the stub below, the way a function that is down answers: no model or
-// paid endpoint is ever reached, every screen must survive its functions being down, and an /api
-// response is not counted as a failed request. Third-party hosts are cut off.
+// /api/* answers 503, the way a function that is down answers: no model or paid endpoint is ever
+// reached, and every screen must survive its functions being down; an /api response is not counted
+// as a failed request. Third-party hosts are cut off.
 //
-// KNOWN holds what main fails today, one row per route, persona and failure, with the date and why.
-// It can only shrink: a row whose failure no longer happens fails the spec, so the fix that makes
-// it pass also deletes the row.
-//
-// CI runs it on a runner of its own, chromium-mobile only (it sets a phone's width for every project
-// anyway), so the other runners stay inside their caps; run it locally on all four with
-// `npx playwright test tests/e2e/route-sweep.spec.js`.
+// KNOWN holds what main fails today, one row per route, persona and failure kind, with the date and
+// why. It can only shrink: a row whose failure no longer happens fails the spec.
 import { readFileSync } from 'node:fs';
 import { test, expect, PINNED_NOW } from './fixtures.js';
-import { APP_VIEW_ROUTES } from '../../src/lib/view-route.js';
+import { APP_VIEW_ROUTES, YEAR_SCOPED_VIEW_IDS, frontDoorFor } from '../../src/lib/view-route.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 
-// The student's history and cards name real questions of their year, as a real student's do. Loaded
-// on first use, so a runner that skips the sweep never loads the bank for it.
-let studiedOnce;
-function studiedQuestions() {
-  studiedOnce ??= loadQB().then(() => {
-    const picked = QB.filter((q) => q.year === 5 && isQuestionDeliverable(q) && (q.type === 'mcq' || q.type === 'tf')).slice(0, 12)
-      .map((q) => ({ id: q.id, subject: q.subject }));
-    if (picked.length < 12) throw new Error('the sweep needs twelve year-5 questions for its student');
-    return picked;
-  });
-  return studiedOnce;
-}
+const LOADING_BUDGET_MS = 30_000;
 
-// Views App.jsx renders that have no address of their own, and why. Each still has to be rendered
-// (checked below), so the list cannot keep a view that is gone.
+// Views App.jsx renders that have no address of their own, and why.
 const NOT_ROUTED = {
-  landing: 'the front door at / for a visitor with no year (opened here as the visitor persona of /)',
+  landing: 'the front door at / for a visitor with no year (the visitor persona of / and of year-scoped routes)',
   auth: 'sign-in screen, opened from a button; this bundle has no backend to sign in to',
   'topic-select': 'needs a chosen subject: a step of the practice flow',
   config: 'needs a chosen subject and topic: a step of the practice flow',
@@ -59,28 +50,50 @@ const NOT_ROUTED = {
   wiki: 'the wiki reader, served at /wiki/* (opened below as an extra route)',
   profile: 'a personal hub opened from the bar; view-route.js explains why it has no link',
   'group-detail': 'needs a signed-in account and a chosen group',
-  lab: 'Imaging Practical, opened at /#lab',
+  lab: 'Imaging Practical, opened at /#lab (an extra route below)',
   'connect-apps': 'opened from settings with a signed-in account',
   'mock-exam': 'retired; renders the fallback only',
   'mock-results': 'retired; renders the fallback only',
 };
 
-// Addresses that are routes but not views of APP_VIEW_ROUTES.
+// Addresses that are routes but not views of APP_VIEW_ROUTES: [view App shows, path].
 const EXTRA_ROUTES = [
-  ['wiki', '/wiki'],
+  ['knowledge', '/wiki'],
   ['lab', '/#lab'],
 ];
 
-// What main fails today. Each row: route, persona, failure kind, date, why. Only ever delete rows.
+const appSource = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+const rendered = new Set([...appSource.matchAll(/\{\(?view === '([\w-]+)'(?: \|\| view === '([\w-]+)')?\)? &&/g)]
+  .flatMap((m) => [m[1], m[2]]).filter(Boolean));
+// App.jsx's own list of the views that draw the sign-in card for a visitor with no account.
+const AUTH_REQUIRED = new Set([...(/const AUTH_REQUIRED_VIEWS = new Set\(\[([^\]]*)\]\)/.exec(appSource)?.[1] || '')
+  .matchAll(/'([\w-]+)'/g)].map((m) => m[1]));
+
+// Where the app is right not to draw the route's own screen. Every other visit must draw the view
+// itself. 'auth-required': the view's sign-in card (this bundle has no account, so for both personas).
+// 'landing': the landing page, for a first-time visitor on a year-scoped page (frontDoorFor).
+const OUTCOME = {
+  groups: { student: 'auth-required', visitor: 'auth-required' },
+  'leaderboard-global': { student: 'auth-required', visitor: 'landing' },
+  'account-settings': { student: 'auth-required', visitor: 'auth-required' },
+  race: { student: 'auth-required', visitor: 'auth-required' },
+  'review-queue': { student: 'auth-required', visitor: 'auth-required' },
+  home: { visitor: 'landing' },
+  'subject-select': { visitor: 'landing' },
+  'sr-session': { visitor: 'landing' },
+  dashboard: { visitor: 'landing' },
+  'phase-select': { visitor: 'landing' },
+  'reading-checklist': { visitor: 'landing' },
+};
+const expectedOutcome = (view, persona) => OUTCOME[view]?.[persona] || 'view';
+
+// What main fails today. Each row: { route, persona, kind, since, why, projects? }. Only ever delete rows.
 const KNOWN = [
 ];
 
 const PERSONAS = ['student', 'visitor'];
 const PHONE = { width: 390, height: 844 };
-
-const appSource = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
-const rendered = new Set([...appSource.matchAll(/\{\(?view === '([\w-]+)'(?: \|\| view === '([\w-]+)')?\)? &&/g)]
-  .flatMap((m) => [m[1], m[2]]).filter(Boolean));
+const ROUTES = [...Object.entries(APP_VIEW_ROUTES), ...EXTRA_ROUTES];
 
 test('every view App.jsx renders has an address or a reason it has none', () => {
   const routed = new Set(Object.keys(APP_VIEW_ROUTES));
@@ -93,7 +106,29 @@ test('every view App.jsx renders has an address or a reason it has none', () => 
   expect(rendered.size).toBeGreaterThan(30);
 });
 
-const ROUTES = [...Object.entries(APP_VIEW_ROUTES), ...EXTRA_ROUTES];
+test('the expected redirects are exactly the ones the code makes', () => {
+  expect(AUTH_REQUIRED.size, 'AUTH_REQUIRED_VIEWS read from App.jsx').toBeGreaterThan(3);
+  for (const [view] of ROUTES) {
+    for (const persona of PERSONAS) {
+      const door = persona === 'visitor' ? frontDoorFor(view, { storedYearRaw: null, seenLanding: false }) : null;
+      const code = door === 'landing' ? 'landing' : AUTH_REQUIRED.has(view) ? 'auth-required' : 'view';
+      expect(`${view} as a ${persona}: ${expectedOutcome(view, persona)}`).toBe(`${view} as a ${persona}: ${code}`);
+    }
+  }
+  expect([...YEAR_SCOPED_VIEW_IDS].every((v) => OUTCOME[v]?.visitor === 'landing')).toBe(true);
+});
+
+// The student's history and cards name real questions of their year, as a real student's do.
+let studiedOnce;
+function studiedQuestions() {
+  studiedOnce ??= loadQB().then(() => {
+    const picked = QB.filter((q) => q.year === 5 && isQuestionDeliverable(q) && (q.type === 'mcq' || q.type === 'tf')).slice(0, 12)
+      .map((q) => ({ id: q.id, subject: q.subject }));
+    if (picked.length < 12) throw new Error('the sweep needs twelve year-5 questions for its student');
+    return picked;
+  });
+  return studiedOnce;
+}
 
 function seedStudent({ now, studied }) {
   try {
@@ -117,7 +152,7 @@ function seedStudent({ now, studied }) {
 
 const isNoise = (text) => /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|_vercel\/(insights|speed-insights)|Unrecognized feature|downloadable font.*fonts\.gstatic\.com|__cf_bm|rejected for invalid domain/i.test(text);
 
-async function visit(page, origin, path) {
+async function visit(page, path) {
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
       await page.goto(`.${path}`, { waitUntil: 'domcontentloaded' });
@@ -130,26 +165,23 @@ async function visit(page, origin, path) {
   }
 }
 
-async function settle(page, info) {
-  const t0 = Date.now();
-  await page.locator('main').first().waitFor({ state: 'attached', timeout: 20_000 }).catch(() => {});
-  await page.waitForFunction(() => {
-    const main = document.querySelector('main');
-    if (!main) return false;
-    return ![...main.querySelectorAll('[aria-busy="true"]')].some((el) => /กำลังโหลด/.test(el.textContent || ''));
-  }, null, { timeout: 8_000 }).catch(() => {
-    // Reported, not failed: a part still loading after 8 s with every function down may be a stuck
-    // spinner or only a slow machine, and this spec does not guess which.
-    info?.annotations.push({ type: 'still-loading', description: 'a part of main still said กำลังโหลด after 8 s' });
-  });
-  info?.annotations.push({ type: 'settle-ms', description: String(Date.now() - t0) });
-  // Late effects (lazy chunks, fonts, a deferred fetch) get a moment to fail before the reading.
-  await page.waitForTimeout(500);
+// The screen a visit drew, read in the page.
+function readScreen() {
+  const main = document.querySelector('#main') || document.querySelector('main');
+  const loading = !!main && (!!main.querySelector('.vmx-view-fallback')
+    || [...main.querySelectorAll('[aria-busy="true"]')].some((el) => /กำลังโหลด/.test(el.textContent || '')));
+  return {
+    landing: !!document.querySelector('.lp-root main#lp-main'),
+    view: document.querySelector('#main')?.getAttribute('data-view') || null,
+    authCard: !!document.getElementById('vmx-auth-required-title'),
+    errorCard: /หน้านี้ขัดข้อง/.test(main?.innerText || ''),
+    loading,
+  };
 }
 
 async function readPage(page) {
   return page.evaluate(() => {
-    const main = document.querySelector('main');
+    const main = document.querySelector('#main') || document.querySelector('main');
     const visible = (el) => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
     const mainText = main ? (main.innerText || '').trim() : '';
     const pictures = main ? [...main.querySelectorAll('img, svg, canvas, video, picture')].filter(visible).length : 0;
@@ -168,8 +200,8 @@ async function readPage(page) {
   });
 }
 
-// Everything a visit is judged by, attached before the page loads. `judge` adds what the page
-// shows once it has settled; `failures` is the list both fill.
+// Everything a visit is judged by, attached before the page loads. `judge` waits for the screen,
+// then adds what the page shows; `failures` is the list both fill.
 async function watchVisit(page, context, origin) {
   await context.addInitScript(() => {
     window.addEventListener('unhandledrejection', (event) => {
@@ -207,18 +239,32 @@ async function watchVisit(page, context, origin) {
     const url = response.url();
     if (leaving || !sameOrigin(url) || isApi(url) || url.includes('/_vercel/')) return;
     if (response.status() >= 400) { add('request', `${new URL(url).pathname} ${response.status()}`); return; }
-    // The server's page fallback answers a missing file with the app's HTML and a 200 (vite
-    // preview does; so would a rewrite). A script, style, picture or font that comes back as a
-    // page is a missing file.
     const type = response.request().resourceType();
     if (['script', 'stylesheet', 'image', 'font'].includes(type) && (response.headers()['content-type'] || '').includes('text/html')) {
       add('request', `${new URL(url).pathname} ${type} answered with a page`);
     }
   });
-  const judge = async (info) => {
-    await settle(page, info);
+
+  // expected: 'view' (with the view's id), 'auth-required' or 'landing'.
+  const judge = async ({ expected, view, budget = LOADING_BUDGET_MS }) => {
+    const want = (s) => (expected === 'landing' ? s.landing
+      : s.view === view && !s.errorCard && (expected === 'auth-required' ? s.authCard : !s.authCard)) && !s.loading;
+    const deadline = Date.now() + budget;
+    let screen = await page.evaluate(readScreen).catch(() => ({}));
+    while (!want(screen) && Date.now() < deadline) {
+      await page.waitForTimeout(250);
+      screen = await page.evaluate(readScreen).catch(() => ({}));
+    }
+    // Late effects (lazy chunks, fonts, a deferred fetch) get a moment to fail before the reading.
+    await page.waitForTimeout(500);
+    screen = await page.evaluate(readScreen).catch(() => ({}));
     const seen = await readPage(page);
     leaving = true;
+    if (screen.loading) add('loading', `still loading after ${Math.round(budget / 1000)} s`);
+    else if (!want(screen)) {
+      const drew = screen.landing ? 'landing' : screen.errorCard ? 'the error card' : screen.authCard ? `${screen.view} sign-in card` : String(screen.view);
+      add('screen', `expected ${expected === 'view' ? view : `${view} ${expected}`}, drew ${drew}`);
+    }
     if (!seen.hasMain || !seen.mainVisible || (seen.mainText === 0 && seen.pictures === 0)) {
       add('blank', `main ${seen.hasMain ? (seen.mainVisible ? 'empty' : 'hidden') : 'missing'}`);
     }
@@ -231,39 +277,43 @@ async function watchVisit(page, context, origin) {
 
 // The detectors themselves: a page made to break every rule must be caught on every rule.
 test('the sweep catches each kind of failure', async ({ page, context, baseURL }) => {
-  test.skip(!!process.env.CI && !process.env.VMX_ROUTE_SWEEP, 'runs with the sweep');
   await page.setViewportSize(PHONE);
   const origin = new URL(baseURL).origin;
   const { judge } = await watchVisit(page, context, origin);
-  await context.route('**/zz-sweep-probe', (route) => route.fulfill({ contentType: 'text/html', body: `<!doctype html><html><body>
-    <main></main><div style="width:2000px">กว้างเกินจอ ราคา undefined บาท ได้ NaN คะแนน [object Object]</div>
+  await context.route('**/zz-sweep-probe', (route) => route.fulfill({ contentType: 'text/html; charset=utf-8', body: `<!doctype html><html><head><meta charset="utf-8"></head><body>
+    <main id="main" data-view="home"><div aria-busy="true"><span style="display:none">กำลังโหลด</span></div></main>
+    <div style="width:2000px">กว้างเกินจอ ราคา undefined บาท ได้ NaN คะแนน [object Object]</div>
     <img src="/zz-missing-asset.png" alt="">
     <script>console.error('boom'); Promise.reject(new Error('nobody caught this'));</script></body></html>` }));
   await page.goto('./zz-sweep-probe');
-  const kinds = new Set((await judge()).map((f) => f.kind));
-  expect([...kinds].sort()).toEqual(['blank', 'console', 'overflow', 'request', 'text']);
+  const kinds = new Set((await judge({ expected: 'view', view: 'dashboard', budget: 1_000 })).map((f) => f.kind));
+  expect([...kinds].sort()).toEqual(['blank', 'console', 'loading', 'overflow', 'request', 'text']);
+  // A screen that is not the one expected, once it has finished loading.
+  await page.evaluate(() => document.querySelector('#main [aria-busy]').remove());
+  const screen = await page.evaluate(readScreen);
+  expect(screen).toMatchObject({ view: 'home', loading: false, authCard: false, landing: false });
 });
 
 for (const [view, path] of ROUTES) {
   for (const persona of PERSONAS) {
     test(`${path} as a ${persona}`, async ({ page, context, baseURL }, info) => {
-      test.skip(!!process.env.CI && !process.env.VMX_ROUTE_SWEEP, 'CI runs the sweep on a runner of its own (smoke-e2e.yml, "route sweep")');
-      // A student's first visit to a screen that reads the whole bank (progress, questions) took 30 s on a
-      // loaded machine; the budget bounds a stuck wait, it is not what is asserted.
+      // The loading budget plus a cold start on a busy machine; it bounds a stuck wait, nothing more.
       test.setTimeout(info.project.name === 'firefox-desktop' ? 180_000 : 120_000);
       await page.setViewportSize(PHONE);
       const origin = new URL(baseURL).origin;
       if (persona === 'student') await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
       const { judge } = await watchVisit(page, context, origin);
-      await visit(page, origin, path);
-      const failures = await judge(info);
+      await visit(page, path);
+      const expected = expectedOutcome(view, persona);
+      const failures = await judge({ expected, view });
 
       const project = info.project.name;
       const known = KNOWN.filter((k) => k.route === path && k.persona === persona && (!k.projects || k.projects.includes(project)));
       const unexpected = failures.filter((f) => !known.some((k) => k.kind === f.kind));
       const fixed = known.filter((k) => !failures.some((f) => f.kind === k.kind));
       for (const f of failures.filter((f) => !unexpected.includes(f))) info.annotations.push({ type: 'known', description: `${f.kind}: ${f.detail}` });
-      expect(unexpected, `${path} as a ${persona} (${view}) on ${project}`).toEqual([]);
+      info.annotations.push({ type: 'outcome', description: expected });
+      expect(unexpected, `${path} as a ${persona} (${view}, expected ${expected}) on ${project}`).toEqual([]);
       expect(fixed.map((k) => `${k.kind} (${k.since}: ${k.why})`), 'allow-listed failures that no longer happen: delete their KNOWN rows').toEqual([]);
     });
   }
