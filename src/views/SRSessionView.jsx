@@ -868,7 +868,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               caption={currentQ.imageCaption}
               credit={currentQ.imageCredit}
               sourceUrl={currentQ.imageSourceUrl}
-              maxHeight={320}
+              // Capped by the screen (styles.css, .vmx-flashcard): the button
+              // that turns the card over stays in view under the picture.
+              maxHeight="var(--vmx-sr-figure-max, 320px)"
             />
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
