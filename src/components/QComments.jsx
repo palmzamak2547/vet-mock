@@ -23,6 +23,7 @@ import {
 import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { checkIsAdmin } from '../lib/admin-api.js';
+import Avatar from './Avatar.jsx';
 
 function fmtTime(iso) {
   if (!iso) return '';
@@ -206,7 +207,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
             return (
               <li key={c.id} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                  <span style={{ fontSize: 14 }}>{avatar}</span>
+                  <Avatar emoji={avatar} size={22} />
                   <span style={{ fontSize: 14, fontWeight: 600 }}>{author}</span>
                   <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{fmtTime(c.created_at)}</span>
                   {(mine || isAdmin) && (

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { parseStudyEventArchive } from '../../src/lib/study-event-archive.js';
 import { parseLocalExtras } from '../../src/lib/local-extras.js';
 import { createAttemptEntries, newStudySessionId } from '../../src/lib/study-events.js';
-import { parseUserBackup, userDataPatchFromBackup, describeBackupFields } from '../../src/lib/user-data-schema.js';
+import { parseUserBackup, userDataPatchFromBackup, describeBackupFields, parseBackupPreferences } from '../../src/lib/user-data-schema.js';
 
 // Execute the real FileReader handler; replace only lazy loading and UI/storage
 // boundaries so navigation can occur at each await without wall-clock races.
@@ -15,6 +15,7 @@ assert.ok(start >= 0 && end > start);
 const factory = new Function('FileReader', 'mountedRef', 'load', 'confirmDialog',
   'alertDialog', 'ownerId', 'USER_DATA_IMPORT_MAX_BYTES', 'parseUserBackup',
   'userDataPatchFromBackup', 'describeBackupFields', 'restoreUserData', 'thaiError',
+  'parseBackupPreferences', 'applyValues',
   `${source.slice(start, end).replaceAll('import(', 'load(')}\nreturn importData;`);
 const events = createAttemptEntries({
   questions: [{ id: 0, subject: 'surg2', type: 'tf', q: 'Example', answer: false }],
@@ -48,7 +49,8 @@ async function run(archive, pauseAt) {
     mountedRef, load, async () => { calls.confirms++; pause('confirm'); return true; },
     () => calls.alerts++, 'owner-a', 20 * 1024 * 1024, parseUserBackup,
     userDataPatchFromBackup, describeBackupFields,
-    () => { calls.writes++; return { accepted: true }; }, () => 'read failed');
+    () => { calls.writes++; return { accepted: true }; }, () => 'read failed',
+    parseBackupPreferences, () => {});
   const target = { files: [{ size: 100 }], value: 'archive.json' };
   importData({ target });
   await reader.onload({ target: { result: JSON.stringify(archive) } });

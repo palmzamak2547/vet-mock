@@ -205,7 +205,7 @@
 .vmx-actfig-plot { display: block; width: 100%; height: 88px; overflow: visible; }
 .vmx-actfig-base { stroke: color-mix(in srgb, var(--clr-ink-soft) 45%, transparent); stroke-width: 1; }
 .vmx-actfig-all { fill: color-mix(in srgb, var(--clr-ink-soft) 30%, transparent); }
-.vmx-actfig-right { fill: var(--clr-sage); }
+.vmx-actfig-right { fill: var(--clr-right); }
 .vmx-actfig-median { stroke: var(--clr-ink); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.55; }
 .vmx-actfig-day rect {
   transform-box: fill-box; transform-origin: 50% 100%;
@@ -216,7 +216,7 @@
 .vmx-actfig-axis span { white-space: nowrap; }
 .vmx-actfig figcaption { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); margin-top: var(--space-2); font-size: var(--text-sm); color: var(--clr-ink-soft); }
 .vmx-actfig-key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 6px; vertical-align: -1px; background: color-mix(in srgb, var(--clr-ink-soft) 30%, transparent); }
-.vmx-actfig-key.is-right { background: var(--clr-sage); }
+.vmx-actfig-key.is-right { background: var(--clr-right); }
 .vmx-actfig-key.is-median { height: 0; border-radius: 0; background: none; border-top: 1.5px dashed var(--clr-ink); opacity: 0.7; vertical-align: 3px; }
 .vmx-actfig-sum { flex-basis: 100%; color: var(--clr-ink); }
 
@@ -278,8 +278,8 @@
 .vmx-acct-facts dd { margin: 0; color: var(--clr-ink); min-width: 0; }
 .vmx-acct-mail { overflow-wrap: anywhere; }
 .vmx-acct-tag { display: inline-block; margin-inline-start: var(--space-2); font-size: var(--text-sm); }
-.vmx-acct-tag.is-ok { color: var(--clr-sage-text); }
-.vmx-acct-tag.is-warn { color: var(--clr-gold-text); }
+.vmx-acct-tag.is-ok { color: var(--clr-right-text); }
+.vmx-acct-tag.is-warn { color: var(--clr-part-text); }
 .vmx-acct-methods { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
 .vmx-acct-list { list-style: none; padding: 0; margin: 0 0 var(--space-3); display: grid; gap: var(--space-2); }
 .vmx-acct-list li { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-sm); padding: var(--space-2) var(--space-3); border-radius: var(--r-sm); background: var(--clr-surface-2); }

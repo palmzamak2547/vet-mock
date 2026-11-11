@@ -12,6 +12,7 @@
 
 import { useMemo } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
+import Avatar from './Avatar.jsx';
 
 export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSubject }) {
   const grouped = useMemo(() => {
@@ -74,7 +75,7 @@ export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSu
               <span style={{ flex: 1, fontSize: 14 }}>
                 <strong>{m?.name || 'ยังไม่เลือกวิชา'}</strong>
                 <span style={{ marginLeft: 8, color: 'var(--clr-ink-soft)' }}>
-                  {g.list.length} คน — {g.list.slice(0, 3).map((b) => `${b.avatar || '🐾'} ${b.username || 'นิสิต'}`).join(', ')}
+                  {g.list.length} คน — {g.list.slice(0, 3).map((b, i) => <span key={i}>{i > 0 ? ', ' : ''}<Avatar emoji={b.avatar} size={18} /> {b.username || 'นิสิต'}</span>)}
                   {g.list.length > 3 && ` … +${g.list.length - 3}`}
                 </span>
               </span>

@@ -7,6 +7,7 @@ import StatePanel from '../components/StatePanel.jsx';
 import { thaiError } from '../lib/errors.js';
 import { EMPTY_ART } from '../data/art.js';
 import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
+import Avatar from '../components/Avatar.jsx';
 
 export default function LeaderboardView({ user, goHome, selectedYear, setView }) {
   // Raw rows from the API — 1 row per exam attempt. The display below
@@ -145,7 +146,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
                 </div>
                 <div style={{ flex: 1, minWidth: 160 }}>
                   <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17 }}>
-                    {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                    <Avatar emoji={r.profiles?.avatar_emoji} size={24} /> {r.profiles?.username || 'ไม่ระบุชื่อ'}
                     {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>

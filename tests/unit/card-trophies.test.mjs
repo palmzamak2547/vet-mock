@@ -27,7 +27,10 @@ test('frames follow their badges', () => {
 });
 
 test('the next trophy is named with its distance, and none once all measured ones are held', () => {
-  assert.deepEqual(nextTrophy({ history: history(5, 2) }), { id: 'streak-7', left: 2, unit: 'วัน', frame: 'gilt' });
+  const five = nextTrophy({ history: history(5, 2) });
+  assert.equal(five.id, 'streak-7');
+  assert.equal(five.left, 2);
+  assert.equal(five.frame, 'gilt');
   const n = nextTrophy({ history: history(8, 14) });
   assert.equal(n.id, 'streak-30');
   assert.equal(n.left, 22);

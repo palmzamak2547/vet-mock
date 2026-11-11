@@ -56,7 +56,7 @@ test('the card lists match the art they draw', () => {
   for (const id of CARD_BACKDROPS) assert.ok(id === 'paper' || id === 'graph' || bgs.has(id), id);
 });
 
-test('one emoji per character, both ways, and old emoji stay emoji', () => {
+test('one emoji per character, both ways, and old emoji stay emoji', async () => {
   const emojis = Object.values(CHARACTER_EMOJI);
   assert.equal(new Set(emojis.map((e) => e.replace(/️/g, ''))).size, emojis.length);
   for (const [id, e] of Object.entries(CHARACTER_EMOJI)) {
@@ -65,7 +65,9 @@ test('one emoji per character, both ways, and old emoji stay emoji', () => {
     assert.equal(portraitFor(id), `/art/avatars/${id}.webp`);
   }
   assert.equal(characterFor('🐿'), 'glidy', 'without the variation selector');
-  for (const e of ['🐾', '🦊', '', null, '__proto__', 'constructor']) assert.equal(characterFor(e), null, String(e));
+  const { PICTURES } = await import('../../src/lib/public-identity.js');
+  for (const p of PICTURES) assert.equal(characterFor(p.emoji), null, `the picker's ${p.label} stays itself`);
+  for (const e of ['🐾', '🐶', '🐱', '', null, '__proto__', 'constructor']) assert.equal(characterFor(e), null, String(e));
 });
 
 test('the account token: every account row has a code, and it stays under 512 bytes', () => {

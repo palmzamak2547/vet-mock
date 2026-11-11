@@ -43,6 +43,7 @@ import { confirmDialog } from '../lib/dialog.js';
 import { isSyntheticLineEmail } from '../lib/line-account.js';
 import { isAutoName, showsOnBoards } from '../lib/public-identity.js';
 import { getXpState } from '../lib/xp.js';
+import Avatar from '../components/Avatar.jsx';
 import '../styles-profile.css';
 
 // Typed to confirm a delete. Thai only, so nobody switches keyboards halfway.
@@ -349,7 +350,7 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
             {section !== 'identity' ? (
               <>
                 <div className="vmx-acct-id">
-                  <span className="vmx-hub-pic" aria-hidden="true">{picture}</span>
+                  <span className="vmx-hub-pic" aria-hidden="true"><Avatar emoji={picture} size={48} /></span>
                   <div className="vmx-acct-id-body">
                     <span className="vmx-hub-name">{autoName ? 'ยังไม่ได้ตั้งชื่อ' : publicName}</span>
                     <span className="vmx-hub-meta">

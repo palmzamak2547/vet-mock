@@ -14,6 +14,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { saveIdentity, isPublicNameFree } from '../lib/identity-write.js';
+import Avatar from './Avatar.jsx';
 import {
   PICTURES, DEFAULT_PICTURE, SURFACES, checkPublicName, identityWriteError, isAutoName,
   isPicture, normalizePublicName, nameLength, showsOnBoards, NAME_MAX, NAME_MIN,
@@ -129,7 +130,7 @@ export default function IdentityEditor({
           {[...(isPicture(startPicture) ? [] : [{ emoji: startPicture, label: 'รูปที่ตั้งไว้' }]), ...PICTURES].map((p) => (
             <label key={p.emoji} className="vmx-id-pic-opt">
               <input type="radio" name={`${uid}-pic`} value={p.emoji} checked={picture === p.emoji} onChange={() => setPicture(p.emoji)} />
-              <span aria-hidden="true">{p.emoji}</span>
+              <Avatar emoji={p.emoji} size={30} />
               <span className="vmx-sr-only">{p.label}</span>
             </label>
           ))}

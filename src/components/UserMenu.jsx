@@ -12,6 +12,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import NavIcon from './NavIcon.jsx';
+import Avatar from './Avatar.jsx';
 
 export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, onAccount }) {
   const [open, setOpen] = useState(false);
@@ -55,9 +56,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
           transition: 'background 0.12s',
         }}
       >
-        <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
-          {profile.avatar_emoji || '🐾'}
-        </span>
+        <Avatar emoji={profile.avatar_emoji} size={24} />
         {/* Hidden below 600px (see styles.css): signed in with a long name on
             a phone, this pill pushed the study-context pills out of the row
             and the header controls ended up overlapping, so a tap on the
@@ -95,7 +94,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, marginTop: 2 }}>
                 <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {profile.avatar_emoji || '🐾'} {profile.username}
+                  <Avatar emoji={profile.avatar_emoji} size={20} /> {profile.username}
                 </span>
                 <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', fontSize: 12 }}>›</span>
               </div>
@@ -107,7 +106,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
                 บัญชีและข้อมูล
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
-                {profile.avatar_emoji || '🐾'} {profile.username}
+                <Avatar emoji={profile.avatar_emoji} size={20} /> {profile.username}
               </div>
             </div>
           )}

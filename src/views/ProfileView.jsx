@@ -41,6 +41,7 @@ import {
   dayKey, rowTime, daysTrack, recentSessions, sessionWhen, subjectsStarted, topicsRead, classRowLabel,
 } from '../lib/study-record.js';
 import { streakShown } from '../hooks/utils.js';
+import Avatar from '../components/Avatar.jsx';
 import '../styles-profile.css';
 
 /** Counts the hub shows. Pure, so the numbers can never disagree with the
@@ -336,6 +337,7 @@ export default function ProfileView({
 
           <section className="vmx-dash-card vmx-profile-card" aria-labelledby="hub-settings">
             <h2 id="hub-settings">การตั้งค่า</h2>
+            <Row label="ปรับแต่ง" note="การ์ดของฉัน ตัวละคร สี และการเคลื่อนไหว" onClick={() => setView('studio')} testId="profile-studio-row" />
             <Row label="ตั้งค่าเสียงอ่าน" note="ความเร็วและช่วงพักของเสียงอ่าน" onClick={onVoiceSettings} />
             {/* Theme + motion: ThemePicker is the app's one owner of both, and it
                 lives in the header as a popover. Mounting the same component here
@@ -412,7 +414,7 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
             aria-label={`แก้ชื่อและรูปที่เพื่อนเห็น ตอนนี้ ${auto ? 'ยังไม่ได้ตั้งชื่อ' : name} รูป${pictureLabel(picture)}`}
             data-testid="hub-identity"
           >
-            <span key={picture} className={`vmx-hub-pic${saved ? ' is-fresh' : ''}`} aria-hidden="true">{picture}</span>
+            <span key={picture} className={`vmx-hub-pic${saved ? ' is-fresh' : ''}`} aria-hidden="true"><Avatar emoji={picture} size={48} /></span>
             <span className="vmx-hub-who">
               <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : name}</span>
               <span className="vmx-hub-meta">ปี {year}{cohort ? ` รุ่น ${cohort}` : ''}</span>

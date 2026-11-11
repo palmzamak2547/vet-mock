@@ -8,6 +8,7 @@ import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
+import Avatar from '../components/Avatar.jsx';
 
 // A group page is three independent requests, one per tab.
 const SECTIONS = ['members', 'questions', 'leaderboard'];
@@ -142,7 +143,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                      <Avatar emoji={r.profiles?.avatar_emoji} size={24} /> {r.profiles?.username || 'ไม่ระบุชื่อ'}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
@@ -208,7 +209,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
+              <div style={{ marginBottom: 8 }}><Avatar emoji={m.avatar_emoji} size={48} /></div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                 {m.username}
                 {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}

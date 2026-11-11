@@ -26,7 +26,10 @@ import { deriveTheme } from '../lib/prefs/accent.js';
 import { choiceLabel, choiceMeta, PALETTE_DOTS } from '../lib/prefs/labels.js';
 import { flushPrefsSync } from '../lib/prefs/account-sync.js';
 import { cardAllowance, wearable, nextTrophy, FRAME_EARNED_BY, FRAME_LABEL } from '../lib/card-trophies.js';
-import { CHARACTER_EMOJI, PICTURE_ANIMALS, characterFor } from '../lib/avatar.js';
+import { CHARACTER_EMOJI, characterFor } from '../lib/avatar.js';
+import { PICTURES, isPicture } from '../lib/public-identity.js';
+import { saveIdentity } from '../lib/identity-write.js';
+import { streakShown } from '../hooks/utils.js';
 import { BUDDIES, canShow3D } from '../lib/buddy.js';
 import { BADGE_ART, IG_BACKGROUNDS } from '../data/art.js';
 import { decide } from '../lib/decide.js';
@@ -72,7 +75,7 @@ function withViewTransition(fn, reduced) {
 const BACKDROP_LABEL = { paper: 'กระดาษ', graph: 'กระดาษกราฟ', ...Object.fromEntries(IG_BACKGROUNDS.map((b) => [b.id, b.label])) };
 const BACKDROP_SRC = Object.fromEntries(IG_BACKGROUNDS.filter((b) => b.src).map((b) => [b.id, b.src]));
 const PRESET_SAMPLE = { phone: 'auto', calm: 'still', lively: 'lively', night: 'night' };
-const allowPicture = (e) => Boolean(characterFor(e)) || PICTURE_ANIMALS.includes(e);
+const allowPicture = (e) => Boolean(characterFor(e)) || isPicture(e);
 
 export default function StudioView({ goBack, user, profile, history = [], srCards = {}, streakData = null, selectedYear = null, theme = 'light' }) {
   const prefs = usePrefs();
@@ -113,16 +116,30 @@ export default function StudioView({ goBack, user, profile, history = [], srCard
   useEffect(() => () => { clearTimeout(undoTimer.current); flushPrefsSync(); }, []);
 
   // ── The card ──────────────────────────────────────────────────────────────
-  const allowance = useMemo(() => cardAllowance({ history, srCards }), [history, srCards]);
+  // The hub's readers: the saved streak as of today, earnedBadges and
+  // nextBadge with it (lib/card-trophies.js, lib/student-numbers.js).
+  const currentStreak = streakShown(streakData);
+  const allowance = useMemo(() => cardAllowance({ history, srCards, currentStreak }), [history, srCards, currentStreak]);
   const stored = parseCardToken(prefs.card, { allowPicture }) || parseCardToken(prefRow('card').def());
   const card = wearable(stored, allowance);
-  const picture = card.picture || profile?.avatar_emoji || CHARACTER_EMOJI[prefs.buddy] || CHARACTER_EMOJI.mochi;
+  // Signed in, the picture is the account's (profiles.avatar_emoji, written
+  // through saveIdentity, the one write path); a guest keeps it in the card.
+  const [savedPicture, setSavedPicture] = useState(null);
+  const accountPicture = user ? (savedPicture || profile?.avatar_emoji || null) : null;
+  const picture = accountPicture || card.picture || CHARACTER_EMOJI[prefs.buddy] || CHARACTER_EMOJI.mochi;
+  const pickPicture = (emoji) => {
+    setCard({ picture: emoji });
+    if (!user) return;
+    setSavedPicture(emoji);
+    // A failed write keeps the picture on this device's card and says nothing.
+    saveIdentity({ avatarEmoji: emoji, introDone: false }).catch(() => setSavedPicture(null));
+  };
   const setCard = (patch) => change({ card: encodeCard({ ...stored, ...patch }) });
-  const stats = studentNumbers({ history, streakData, badges: allowance.badges });
+  const stats = studentNumbers({ history, streakData, srCards, badges: allowance.badges });
   // The year the app is set to (the header's pill), never a placeholder.
   const yearLine = Number.isInteger(Number(selectedYear)) && Number(selectedYear) > 0 ? `ปี ${Number(selectedYear)}` : '';
   const name = profile?.username || 'นิสิตสัตวแพทย์';
-  const next = useMemo(() => nextTrophy({ history }, allowance.earned), [history, allowance]);
+  const next = useMemo(() => nextTrophy({ history, srCards, currentStreak }), [history, srCards, currentStreak]);
 
   // ── The ready-made set the app would choose, and what is on screen ───────
   const decided = decide(STUDIO_PRESET, { systemReduced });
@@ -175,7 +192,7 @@ export default function StudioView({ goBack, user, profile, history = [], srCard
             const emoji = CHARACTER_EMOJI[b.id];
             return (
               <button key={b.id} type="button" role="radio" aria-checked={pictureId === b.id} className="vmx-studio__char"
-                onClick={() => setCard({ picture: emoji })}>
+                onClick={() => pickPicture(emoji)}>
                 <Avatar emoji={emoji} size={48} />
                 <span>{b.nameTh}</span>
               </button>
@@ -183,8 +200,8 @@ export default function StudioView({ goBack, user, profile, history = [], srCard
           })}
         </div>
         <div className="vmx-studio__animals" role="radiogroup" aria-label="สัตว์อื่น">
-          {PICTURE_ANIMALS.map((e) => (
-            <button key={e} type="button" role="radio" aria-checked={picture === e} className="vmx-studio__animal" onClick={() => setCard({ picture: e })}>
+          {PICTURES.map(({ emoji: e, label }) => (
+            <button key={e} type="button" role="radio" aria-checked={picture === e} aria-label={label} className="vmx-studio__animal" onClick={() => pickPicture(e)}>
               <span aria-hidden="true">{e}</span>
             </button>
           ))}
@@ -277,7 +294,7 @@ export default function StudioView({ goBack, user, profile, history = [], srCard
         )}
         {next && (
           <p className="vmx-studio__next">
-            ถ้วยถัดไป {BADGE_ART[next.id]?.label} อีก <b>{next.left.toLocaleString('en-US')}</b> {next.unit}
+            ถ้วยถัดไป {next.label} อีก <b>{next.left.toLocaleString('en-US')}</b> {next.unit}
             {next.frame ? ` ได้กรอบ${FRAME_LABEL[next.frame]}` : ''}
           </p>
         )}

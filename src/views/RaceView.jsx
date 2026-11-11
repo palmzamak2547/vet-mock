@@ -15,6 +15,7 @@ import { thaiError } from '../lib/errors.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { raceEligibleQuestions } from '../lib/question-surfaces.js';
 import { wholeStem } from '../lib/rich-blocks.js';
+import Avatar from '../components/Avatar.jsx';
 
 // One per page: a remount (leave and rejoin the same room) keeps its list.
 const resolveRoomQuestions = createRaceQuestionCache();
@@ -241,7 +242,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {Object.entries(participants).map(([k, p]) => (
             <li key={k} style={{ padding: '6px 10px', borderRadius: 8, background: 'var(--clr-surface)', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 16 }}>{p.avatar}</span>
+              <Avatar emoji={p.avatar} size={24} />
               <span style={{ fontSize: 14, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ', host'}</span>
             </li>
           ))}
@@ -295,7 +296,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           {allRows.map((p, i) => (
             <li key={p.user_id} style={{ padding: 12, borderRadius: 10, background: i === 0 ? 'rgba(184, 137, 64, 0.18)' : 'var(--clr-surface)', border: i === 0 ? '1px solid var(--clr-gold)' : '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ fontSize: 22 }}>{['🥇', '🥈', '🥉'][i] || `#${i + 1}`}</span>
-              <span style={{ fontSize: 16 }}>{p.avatar}</span>
+              <Avatar emoji={p.avatar} size={24} />
               <span style={{ flex: 1, fontWeight: p.user_id === user.id ? 700 : 400 }}>{p.username}{p.user_id === user.id && ' (คุณ)'}</span>
               <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 14 }}>{p.correct}/{questions.length}, Q{p.idx}{!p.finished && ' (ยังไม่จบ)'}</span>
             </li>
