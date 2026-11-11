@@ -2,7 +2,8 @@
 // ============================================================
 // audit-coherence.mjs — does the corpus agree with itself?
 // ============================================================
-// Usage: node scripts/audit-coherence.mjs
+// Usage: node scripts/audit-coherence.mjs [--check]
+//   --check  exit 1 when any finding is HIGH (lint:coherence, inside lint:data)
 //
 // The individual gates each guard one rule. This asks a different question:
 // where does the corpus contradict ITSELF -- a question filed under a topic its
@@ -240,3 +241,4 @@ for (const f of findings) {
 }
 const high = findings.filter((f) => f.sev === 'HIGH').length;
 console.log(`\n${findings.length} finding(s), ${high} high`);
+if (high && process.argv.includes('--check')) process.exitCode = 1;
