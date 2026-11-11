@@ -23,6 +23,16 @@
 //      one picture: the first in figure order keeps its file, every section
 //      that listed a copy lists that file instead, once, and the copies go.
 //
+//   3. Drawn shapes. A file whose pixels are a flat mask, a smoothly filled
+//      shape or one flat colour is not a figure: the dark backdrop a slide
+//      puts behind a photograph, an arrow, a gradient bar. The caller measures
+//      the files (scripts/lib/slide-figure-shape.mjs holds the rule and its
+//      numbers) and hands the plan the paths; they go as furniture does.
+//
+// The hand placements (the REKEYS table of scripts/extract-slide-figures.mjs)
+// are applied here too, before and after the plan, so what is tested is what
+// ships: cleanWithPlacements is the whole of `--clean`.
+//
 // Everything is planned from paths and hashes, so it is tested without a deck
 // (tests/unit/slide-figure-clean.test.mjs) and run without one:
 //   node scripts/extract-slide-figures.mjs --clean [--write]
@@ -52,13 +62,16 @@ export function figureOrder(a, b) {
  * @param {object} input
  * @param {Map<string, string>} input.files   figure path -> content hash, every file in the deck folders
  * @param {Record<string, string[]>} input.map   section id -> figure paths
- * @param {Iterable<string>} [input.keep]   figure paths that may repeat in a deck and stay
+ * @param {Iterable<string>} [input.keep]   figure paths a rule would take and that are real figures:
+ *   one that repeats in its deck, one whose pixels read as a shape
  * @param {Iterable<string>} [input.prefer]   figure paths named elsewhere (a hand placement): among
  *   copies of one picture, such a path keeps its file instead of the first in figure order
+ * @param {Iterable<string>} [input.shapes]   figure paths whose pixels are a drawn shape, not a picture
  * @param {number} [input.minRepeats]
  * @returns {{
  *   map: Record<string, string[]>,
  *   furniture: { deck: string, hash: string, files: string[] }[],
+ *   shapes: string[],
  *   copies: { keep: string, drop: string[] }[],
  *   unlisted: string[],
  *   remove: string[],
@@ -66,9 +79,10 @@ export function figureOrder(a, b) {
  *   emptied: string[],
  * }}
  */
-export function planClean({ files, map, keep = [], prefer = [], minRepeats = FURNITURE_MIN_REPEATS }) {
+export function planClean({ files, map, keep = [], prefer = [], shapes = [], minRepeats = FURNITURE_MIN_REPEATS }) {
   const kept = new Set(keep);
   const preferred = new Set(prefer);
+  const drawn = new Set(shapes);
   const paths = [...files.keys()].sort(figureOrder);
 
   // 1. Furniture: the same bytes, minRepeats or more times, inside one deck folder.
@@ -87,6 +101,10 @@ export function planClean({ files, map, keep = [], prefer = [], minRepeats = FUR
     for (const p of list) gone.add(p);
   }
   furniture.sort((a, b) => b.files.length - a.files.length || figureOrder(a.files[0], b.files[0]));
+
+  // 1b. Drawn shapes among what is left: out of the map and off the disk too.
+  const shapeFiles = paths.filter((p) => drawn.has(p) && !gone.has(p) && !kept.has(p));
+  for (const p of shapeFiles) gone.add(p);
 
   // 2. One file per picture among what stays: the first in figure order keeps
   //    its file, unless a copy is named elsewhere, which then keeps its own.
@@ -132,7 +150,98 @@ export function planClean({ files, map, keep = [], prefer = [], minRepeats = FUR
   const unlisted = paths.filter((p) => !gone.has(p) && !alias.has(p) && !used.has(p));
   const remove = [...gone, ...alias.keys(), ...unlisted].sort(figureOrder);
 
-  return { map: out, furniture, copies, unlisted, remove, missing: [...missing].sort(figureOrder), emptied };
+  return { map: out, furniture, shapes: shapeFiles, copies, unlisted, remove, missing: [...missing].sort(figureOrder), emptied };
+}
+
+// ── Figures placed by hand ───────────────────────────────────────────
+// A row of the table (REKEYS in scripts/extract-slide-figures.mjs):
+//   { figure, to: [topic, heading], label }  file it under that note section
+//   { figure, drop }                         take it out of the map
+// One figure may have several `to` rows: it is then shown in each section.
+
+/**
+ * The hand placements applied to a map. Two passes, so applying the table
+ * twice gives the same map byte for byte: every listed figure leaves every
+ * section first, then each placement is appended in table order.
+ *
+ * @param {object} input
+ * @param {Record<string, string[]>} input.map
+ * @param {{ figure: string, to?: [string, string], drop?: string }[]} input.rows
+ * @param {(figure: string) => boolean} input.exists   whether the figure's file is there
+ * @param {(subject: string, topic: string, heading: string) => string | null} input.sectionOf
+ *   the id of that note section, or null when the notes have no such section
+ * @param {string | null} [input.onlySubject]   apply one subject's rows only
+ * @returns {{ map: Record<string, string[]>, problems: string[] }}
+ */
+export function applyPlacements({ map, rows, exists, sectionOf, onlySubject = null }) {
+  const mine = rows.filter((r) => !onlySubject || r.figure.split('/')[2] === onlySubject);
+  const problems = [];
+  const moves = [];
+  for (const r of mine) {
+    // A dropped figure is in no section, so the clean has removed its file.
+    if (!r.to) continue;
+    if (!exists(r.figure)) { problems.push(`${r.figure}: no such file`); continue; }
+    const to = sectionOf(r.figure.split('/')[2], r.to[0], r.to[1]);
+    if (!to) { problems.push(`${r.figure}: no section "${r.to[1]}" in ${r.to[0]}`); continue; }
+    if (moves.some(([figure, id]) => figure === r.figure && id === to)) { problems.push(`${r.figure}: placed twice under "${r.to[1]}"`); continue; }
+    moves.push([r.figure, to]);
+  }
+  const listed = new Set(mine.map((r) => r.figure));
+  const out = {};
+  for (const [id, figs] of Object.entries(map)) {
+    const kept = figs.filter((f) => !listed.has(f));
+    if (kept.length) out[id] = kept;
+  }
+  for (const [figure, to] of moves) (out[to] ||= []).push(figure);
+  return { map: out, problems };
+}
+
+/**
+ * The whole of `--clean`: the map and the disk with no template art, no drawn
+ * shape, one file per picture and no file that no section lists, with the hand
+ * placements applied before and after, so the result is what `--rekey` would
+ * write too.
+ *
+ * A hand-placed figure keeps its own file among copies of one picture, and the
+ * section that showed a copy then shows that file. The table decides where a
+ * listed figure goes, so the placement pass after the plan would take it out
+ * of that section again, without a word: neuroanat--midbrain/p8-1, the same
+ * drawing as the hand-placed p18-0, left the section it stood in on 11 Nov
+ * 2026. That is now a problem, with the row to add, never a silent loss.
+ *
+ * @param {object} input
+ * @param {Record<string, string[]>} input.map
+ * @param {Map<string, string>} input.files   figure path -> content hash
+ * @param {{ figure: string, to?: [string, string], drop?: string }[]} input.rows
+ * @param {Iterable<string>} [input.keep]
+ * @param {Iterable<string>} [input.shapes]
+ * @param {(figure: string) => boolean} [input.exists]
+ * @param {(subject: string, topic: string, heading: string) => string | null} input.sectionOf
+ * @returns {{ problems: string[], plan?: ReturnType<typeof planClean>, map?: Record<string, string[]> }}
+ */
+export function cleanWithPlacements({ map, files, rows, keep = [], shapes = [], exists = (figure) => files.has(figure), sectionOf }) {
+  const first = applyPlacements({ map, rows, exists, sectionOf });
+  if (first.problems.length) return { problems: first.problems };
+  // A figure placed by hand keeps its own file among copies of one picture,
+  // so the table goes on naming a file that exists.
+  const placed = new Set(rows.filter((r) => r.to).map((r) => r.figure));
+  const plan = planClean({ files, map: first.map, keep, shapes, prefer: placed });
+  const problems = plan.remove.filter((p) => placed.has(p))
+    .map((p) => `${p}: placed by hand in REKEYS, and it is template art, a drawn shape or a second file of one picture; keep one file for the picture`);
+  for (const p of plan.missing) problems.push(`${p}: listed in the map, no such file`);
+  if (problems.length) return { problems };
+  const last = applyPlacements({ map: plan.map, rows, exists, sectionOf });
+  if (last.problems.length) return { problems: last.problems };
+  // What the plan pointed at a hand-placed file and the table then took away.
+  const copyOf = new Map(plan.copies.flatMap((c) => c.drop.map((d) => [d, c.keep])));
+  for (const [id, figs] of Object.entries(first.map)) {
+    for (const fig of figs) {
+      const keptFile = copyOf.get(fig);
+      if (!keptFile || !placed.has(keptFile) || (last.map[id] || []).includes(keptFile)) continue;
+      problems.push(`${fig}: the same picture as the hand-placed ${keptFile}, and section ${id} shows it. Add a REKEYS row placing ${keptFile} in that section too, or a drop row for ${fig}`);
+    }
+  }
+  return problems.length ? { problems } : { problems, plan, map: last.map };
 }
 
 /**

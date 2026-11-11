@@ -97,11 +97,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--bone-marrow/p45-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p46-2.webp"
   ],
-  "vet-histo--histo--bone-marrow--method-to-collect-bone-marrow": [
-    "/figures/vet-histo/histo--bone-marrow/p51-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p51-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p51-2.webp"
-  ],
   "vet-histo--histo--circulatory-system--objectives-และการแบ่งระบบไหลเวียน": [
     "/figures/vet-histo/histo--circulatory-system/p2-0.webp",
     "/figures/vet-histo/histo--circulatory-system/p3-0.webp"
@@ -1447,7 +1442,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p18-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--โครงของ-lecture-true-fungus-1-โรค-กับ-fungal-like-3-โรค": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p2-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p2-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p2-2.webp"
   ],
@@ -1456,95 +1450,60 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p4-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p4-2.webp"
   ],
-  "vet-microbio-1--microbio-1--aquatic-fungi--ไทม์ไลน์ของ-chytrid-fungus-และสถานะในไทย": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p5-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p5-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p5-2.webp"
-  ],
   "vet-microbio-1--microbio-1--aquatic-fungi--เชื้อไปอยู่ที่ชั้นไหนของผิวหนัง": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p6-0.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--pathogenesis-ของ-chytridiomycosis-berger-et-al-1998": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p7-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p7-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p7-2.webp"
-  ],
-  "vet-microbio-1--microbio-1--aquatic-fungi--clinical-signs-และ-lesions-ของ-chytridiomycosis": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p8-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p8-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p8-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--fungal-like-infections-oomycetes-คือ-parafungus": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p9-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p9-1.webp"
   ],
-  "vet-microbio-1--microbio-1--aquatic-fungi--saprolegnia-sp-คือ-cotton-mold": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p10-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p10-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p10-2.webp"
-  ],
   "vet-microbio-1--microbio-1--aquatic-fungi--รูปร่างและวงจรของ-saprolegnia": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p11-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p12-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p12-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p12-2.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p13-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p13-1.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--clinical-signs-ของ-saprolegniasis": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p14-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p14-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p14-2.webp"
+    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p14-1.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--susceptible-condition-สำหรับ-saprolegniasis": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p15-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p15-1.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--parafungus-อีกสองตัว-pythium-และ-prototheca": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p16-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p16-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p16-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--ลักษณะของ-pythium-insidiosum-ในห้องปฏิบัติการ": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p18-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p18-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p18-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--pythiosis-ระบาดวิทยาและการติดเชื้อ": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p19-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p19-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p19-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--รูปแบบของ-pythiosis-ในสัตว์": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p20-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p20-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p20-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--cutaneous-pythiosis-และ-kunkers": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p21-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p21-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p21-2.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p22-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p22-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p22-2.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p23-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p23-1.webp"
   ],
-  "vet-microbio-1--microbio-1--aquatic-fungi--differential-signs-ม้า-vs-สุนัข": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p24-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p24-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p24-2.webp"
-  ],
   "vet-microbio-1--microbio-1--aquatic-fungi--สไลด์-p-25-อ่านไม่ได้": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p25-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p25-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p25-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--pythiosis-ในสัตว์ชนิดอื่น-ลา-แพะแกะ-และโค": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p26-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p26-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p27-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p27-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p27-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--pythiosis-ในคน": [
@@ -1554,25 +1513,16 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--clinical-diagnosis-และการยืนยัน-pythiosis": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p30-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p31-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p31-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p31-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--protothecosis-โรคจาก-green-alga": [
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p32-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p32-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p32-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--canine-protothecosis-อาการและรอยโรค": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p33-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p33-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p33-2.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p34-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p34-1.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p34-2.webp"
+    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p33-2.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--แยกกับ-cryptococcosis-look-alike-between-non-staining-bug": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p35-0.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p35-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p35-2.webp"
   ],
@@ -1585,8 +1535,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p37-1.webp"
   ],
   "vet-microbio-1--microbio-1--aquatic-fungi--conclusions-ของทั้งเด็ค": [
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p38-0.webp",
-    "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p38-1.webp",
     "/figures/vet-microbio-1/microbio-1--aquatic-fungi/p21-2.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-genetics--โครงสร้าง-dna-watson-and-crick": [
@@ -1729,8 +1677,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ย้อมสีเพื่อ-identification-เป็น-simple-diagnostic-technique": [
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7-0.webp",
-    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p6-0.webp",
-    "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7-2.webp"
+    "/figures/vet-microbio-1/microbio-1--antimicrobial-resistance/p6-0.webp"
   ],
   "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ขั้นตอนของ-gram-s-staining": [
     "/figures/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p9-0.webp"
@@ -1908,7 +1855,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p6-0.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ภาชนะและ-transport-medium": [
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p8-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p8-1.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p8-2.webp"
   ],
@@ -1952,10 +1898,8 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p22-2.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--blood-agar-และ-macconkey-agar": [
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-0.webp",
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-1.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-2.webp",
-    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p24-0.webp"
+    "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23-2.webp"
   ],
   "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--primary-culture-การ-streak-และการทำ-pure-culture": [
     "/figures/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p25-0.webp",
@@ -1995,28 +1939,23 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--collection-methods-direct-vs-indirect": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--principle-of-fungal-culture-และสูตร-sda": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--veterinary-mycological-diagnosis-วิธีตรวจทั้งชุด": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--type-of-fungal-culture-routine-selective-testing-media": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--fungal-characteristics": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--isolation-และ-slide-culture-technique": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p4-0.webp",
@@ -2024,8 +1963,7 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p4-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--identification-กลุ่ม-zygomycota": [
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-0.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--aspergillus-series": [
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p6-0.webp",
@@ -2043,7 +1981,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p8-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--หน้าปิดท้าย": [
-    "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p9-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p9-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ขอบเขตของเลกเชอร์-key-features-vet-mycology": [
@@ -2053,16 +1990,13 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--fungi-ต่างจาก-bacteria-พืช-และสัตว์-อย่างไร": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--fungi-เป็น-heterotroph": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3-2.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p4-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p4-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p4-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p4-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--growth-condition-และ-nutrition-ของเชื้อรา": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p5-0.webp",
@@ -2071,13 +2005,11 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--โครงสร้างเซลล์และเป้าของยา": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--mold-ชนิดของ-hypha-และหน้าตา-colony": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6-2.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p7-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p7-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p7-2.webp"
@@ -2094,16 +2026,12 @@ export const SLIDE_IMAGES = {
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--clinical-signs-ที่สไลด์ยกเป็นตัวอย่าง": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ปัญหาการจำแนก-teleomorph-กับ-anamorph-และ-fungi-imperfecti": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10-2.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p11-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p11-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p11-2.webp"
+    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p11-1.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--โครงสร้างที่ใช้-identification": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p12-0.webp",
@@ -2119,11 +2047,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p13-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p13-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p13-2.webp"
-  ],
-  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--predisposing-causes-ของการติดเชื้อรา": [
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p14-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p14-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p14-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--เชื้อราก่อโรคอย่างไร-how-do-fungi-cause-disease": [
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p16-0.webp",
@@ -2153,8 +2076,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p19-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p19-2.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20-0.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20-1.webp",
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20-2.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21-2.webp"
   ],
@@ -2176,7 +2097,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p24-2.webp"
   ],
   "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-basidiomycota": [
-    "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p25-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p25-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p17-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-0.webp",
@@ -2187,11 +2107,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-0.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-1.webp",
     "/figures/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26-2.webp"
-  ],
-  "vet-microbio-1--microbio-1--higher-bacteria--mycetoma-คืออะไร": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p5-0.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p5-1.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p5-2.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--mycetoma-family-แบ่งเป็น-3-กลุ่ม": [
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p6-0.webp",
@@ -2206,13 +2121,8 @@ export const SLIDE_IMAGES = {
   "vet-microbio-1--microbio-1--higher-bacteria--องค์ประกอบผนังเซลล์-เทียบ-4-กลุ่ม": [
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p8-0.webp"
   ],
-  "vet-microbio-1--microbio-1--higher-bacteria--actinomycotic-mycetoma": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p12-0.webp"
-  ],
   "vet-microbio-1--microbio-1--higher-bacteria--รอยโรคทางคลินิกของ-mycetoma": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p13-0.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p13-1.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p13-2.webp"
+    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p13-0.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--nocardia-sp": [
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p14-0.webp",
@@ -2231,18 +2141,12 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p17-1.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--actinomyces-bovis": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p18-0.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p18-1.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p18-2.webp"
+    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p18-0.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--actinomyces-epidemiology-and-clinical-syndromes": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p19-0.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p19-1.webp",
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p19-2.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--disease-characteristics-ของ-actinomyces": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p20-0.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p20-1.webp",
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p20-2.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--dermatophilus-congolensis": [
@@ -2267,8 +2171,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p26-2.webp"
   ],
   "vet-microbio-1--microbio-1--higher-bacteria--culture-differentiation-จาก-grain-tissue": [
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p27-0.webp",
-    "/figures/vet-microbio-1/microbio-1--higher-bacteria/p27-1.webp",
     "/figures/vet-microbio-1/microbio-1--higher-bacteria/p27-2.webp"
   ],
   "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--รูปประกอบ-intrinsic-defenses-ระบุจุดที่ถูกบล็อก": [
@@ -3250,9 +3152,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p31-1.webp",
     "/figures/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p31-2.webp"
   ],
-  "vet-neuroanat--neuroanat--basal-nuclei--รายชื่อและการจัดกลุ่มของ-basal-nuclei": [
-    "/figures/vet-neuroanat/neuroanat--basal-nuclei/p3-0.webp"
-  ],
   "vet-neuroanat--neuroanat--basal-nuclei--เลขกำกับนิวเคลียส": [
     "/figures/vet-neuroanat/neuroanat--basal-nuclei/p5-0.webp"
   ],
@@ -3389,6 +3288,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--midbrain--tectum-rostral-และ-caudal-colliculi": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p8-0.webp",
+    "/figures/vet-neuroanat/neuroanat--midbrain/p18-0.webp",
     "/figures/vet-neuroanat/neuroanat--midbrain/p9-0.webp",
     "/figures/vet-neuroanat/neuroanat--midbrain/p9-1.webp"
   ],

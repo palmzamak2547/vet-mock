@@ -18,12 +18,21 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { FURNITURE_MIN_REPEATS, deckOf, figureOrder, furnitureHashes, planClean } from '../../scripts/lib/slide-figure-clean.mjs';
+import {
+  FURNITURE_MIN_REPEATS, applyPlacements, cleanWithPlacements, deckOf, figureOrder, furnitureHashes, planClean,
+} from '../../scripts/lib/slide-figure-clean.mjs';
+import { KEEP_FLAT, KEEP_REPEATED, REKEYS } from '../../scripts/lib/slide-figure-placements.mjs';
 import { SLIDE_IMAGES } from '../../src/data/slide-images.generated.js';
+import { sectionId } from '../../src/lib/vetwiki/schema.js';
 
 const D1 = '/figures/vet-x/deck--one';
 const D2 = '/figures/vet-x/deck--two';
 const files = (rows) => new Map(rows);
+// The notes of the made-up subject: two sections of deck one.
+const LIVE = new Set(['tectum', 'cross section']);
+const sectionOf = (subject, topic, heading) => (LIVE.has(heading) ? `${subject}--${topic}--${heading}` : null);
+const TECTUM = 'vet-x--deck--one--tectum';
+const CROSS = 'vet-x--deck--one--cross section';
 
 test('a picture four times in one deck is its template: out of the map and off the disk', () => {
   const plan = planClean({
@@ -83,6 +92,106 @@ test('a copy that a hand placement names keeps its own file', () => {
   assert.deepEqual(plan.remove, [`${D1}/p8-1.webp`]);
 });
 
+// ── The whole clean, hand placements included ────────────────────────
+// planClean alone is not what ships: the placements are applied to its map
+// afterwards, and that pass takes a listed figure out of every section its
+// rows do not name. On 11 Nov 2026 that cost a real figure its place:
+// neuroanat--midbrain/p8-1, under "Tectum", was the same drawing as p18-0,
+// hand-placed under "Cross section". The plan pointed Tectum at p18-0 (the
+// test above), the pass after it took p18-0 out of Tectum, and nothing said so.
+const P8_0 = `${D1}/p8-0.webp`;
+const P8_1 = `${D1}/p8-1.webp`;
+const P18_0 = `${D1}/p18-0.webp`;
+const midbrain = () => ({
+  files: files([[P8_0, 'a'], [P8_1, 'h'], [P18_0, 'h']]),
+  map: { [TECTUM]: [P8_0, P8_1], [CROSS]: [P18_0] },
+  sectionOf,
+});
+const toCross = { figure: P18_0, to: ['deck--one', 'cross section'], label: 'slide p.18 caption' };
+const toTectum = { figure: P18_0, to: ['deck--one', 'tectum'], label: 'the drawing on slide p.8' };
+
+test('the clean never takes a hand-placed picture out of a section that showed a copy of it without saying so', () => {
+  const result = cleanWithPlacements({ ...midbrain(), rows: [toCross] });
+  assert.equal(result.map, undefined, 'nothing is written');
+  assert.equal(result.problems.length, 1);
+  assert.match(result.problems[0], new RegExp(`^${P8_1}: the same picture as the hand-placed ${P18_0}, and section ${TECTUM} shows it\\. Add a REKEYS row placing ${P18_0} in that section too, or a drop row for ${P8_1}$`));
+});
+
+test('with a row for each section, the picture is one file and both sections show it', () => {
+  // The row for the earlier slide comes first in the table, so the section keeps the deck's order.
+  const result = cleanWithPlacements({ ...midbrain(), rows: [toTectum, toCross] });
+  assert.deepEqual(result.problems, []);
+  assert.deepEqual(result.map, { [TECTUM]: [P8_0, P18_0], [CROSS]: [P18_0] });
+  assert.deepEqual(result.plan.remove, [P8_1]);
+  assert.deepEqual(result.plan.copies, [{ keep: P18_0, drop: [P8_1] }]);
+  // Cleaning what was written changes nothing: `--clean` and `--rekey` agree.
+  const again = cleanWithPlacements({ files: files([[P8_0, 'a'], [P18_0, 'h']]), map: result.map, rows: [toTectum, toCross], sectionOf });
+  assert.deepEqual([again.problems, again.map, again.plan.remove], [[], result.map, []]);
+  assert.deepEqual(applyPlacements({ map: result.map, rows: [toTectum, toCross], exists: () => true, sectionOf }), { map: result.map, problems: [] });
+});
+
+test('a drop row for the copy says the section is to lose it, and then it does', () => {
+  const result = cleanWithPlacements({ ...midbrain(), rows: [toCross, { figure: P8_1, drop: 'the p.18 drawing again; this section is about the colliculi' }] });
+  assert.deepEqual(result.problems, []);
+  assert.deepEqual(result.map, { [TECTUM]: [P8_0], [CROSS]: [P18_0] });
+  assert.deepEqual(result.plan.remove, [P8_1]);
+});
+
+test('the placement table: a figure goes where its rows say and nowhere else, and a bad row is a problem', () => {
+  const exists = (figure) => figure !== `${D1}/p99-0.webp`;
+  const map = { [TECTUM]: [P8_0, P18_0], [CROSS]: [P8_0], other: [P18_0, `${D2}/p1-0.webp`] };
+  const placed = applyPlacements({ map, rows: [toCross, { figure: `${D2}/p1-0.webp`, drop: 'a logo' }], exists, sectionOf });
+  assert.deepEqual(placed, { map: { [TECTUM]: [P8_0], [CROSS]: [P8_0, P18_0] }, problems: [] }, 'moved, dropped, and the emptied section is gone');
+  assert.deepEqual(applyPlacements({ map: placed.map, rows: [toCross, { figure: `${D2}/p1-0.webp`, drop: 'a logo' }], exists, sectionOf }).map, placed.map, 'twice is once');
+
+  const bad = applyPlacements({
+    map,
+    rows: [
+      { figure: `${D1}/p99-0.webp`, to: ['deck--one', 'tectum'] },
+      { figure: P8_0, to: ['deck--one', 'no such heading'] },
+      toCross, { ...toCross, label: 'again' },
+    ],
+    exists, sectionOf,
+  });
+  assert.deepEqual(bad.problems, [
+    `${D1}/p99-0.webp: no such file`,
+    `${P8_0}: no section "no such heading" in deck--one`,
+    `${P18_0}: placed twice under "cross section"`,
+  ]);
+  // One subject's rows only, as a fresh extraction of that subject applies them.
+  const other = applyPlacements({ map: { s: ['/figures/vet-y/deck/p1-0.webp', P18_0] }, rows: [toCross, { figure: '/figures/vet-y/deck/p1-0.webp', drop: 'x' }], exists, sectionOf, onlySubject: 'vet-y' });
+  assert.deepEqual(other.map, { s: [P18_0] });
+});
+
+test('a hand-placed figure the clean would remove is a problem, not a removal', () => {
+  const rows = [[`${D1}/p1-0.webp`, 'T'], [`${D1}/p2-0.webp`, 'T'], [`${D1}/p3-0.webp`, 'T'], [`${D1}/p4-0.webp`, 'T'], [P18_0, 'shape']];
+  const map = { [TECTUM]: [`${D1}/p1-0.webp`], [CROSS]: [P18_0] };
+  const asTemplate = cleanWithPlacements({ files: files(rows), map, rows: [{ figure: `${D1}/p2-0.webp`, to: ['deck--one', 'tectum'] }], sectionOf });
+  assert.match(asTemplate.problems.join('\n'), new RegExp(`^${D1}/p2-0\\.webp: placed by hand in REKEYS, and it is template art, a drawn shape or a second file of one picture`));
+  const asShape = cleanWithPlacements({ files: files(rows), map, rows: [toCross], shapes: [P18_0], sectionOf });
+  assert.match(asShape.problems.join('\n'), new RegExp(`^${P18_0}: placed by hand in REKEYS, and it is template art, a drawn shape`));
+  // Named as a real figure, it stays.
+  const kept = cleanWithPlacements({ files: files(rows), map, rows: [toCross], shapes: [P18_0], keep: [P18_0], sectionOf });
+  assert.deepEqual([kept.problems, kept.map[CROSS]], [[], [P18_0]]);
+});
+
+// ── Drawn shapes ─────────────────────────────────────────────────────
+test('a drawn shape leaves the map and the disk as template art does, unless it is named as a real figure', () => {
+  const rows = [[`${D1}/p5-0.webp`, 'frame-a'], [`${D1}/p5-1.webp`, 'frame-b'], [`${D1}/p5-2.webp`, 'photo'], [`${D1}/p6-0.webp`, 'arrow']];
+  const map = { a: [`${D1}/p5-0.webp`, `${D1}/p5-1.webp`, `${D1}/p5-2.webp`], b: [`${D1}/p6-0.webp`] };
+  const shapes = [`${D1}/p5-0.webp`, `${D1}/p5-1.webp`, `${D1}/p6-0.webp`];
+  const plan = planClean({ files: files(rows), map, shapes });
+  assert.deepEqual(plan.shapes, shapes);
+  assert.deepEqual(plan.map, { a: [`${D1}/p5-2.webp`] });
+  assert.deepEqual(plan.emptied, ['b'], 'a section of shapes only shows no figure');
+  assert.deepEqual(plan.remove, shapes);
+  const named = planClean({ files: files(rows), map, shapes, keep: [`${D1}/p6-0.webp`] });
+  assert.deepEqual([named.shapes, named.map.b], [[`${D1}/p5-0.webp`, `${D1}/p5-1.webp`], [`${D1}/p6-0.webp`]]);
+  // Template art that is also a shape is counted once, as template art.
+  const both = planClean({ files: files([[`${D1}/p1-0.webp`, 'T'], [`${D1}/p2-0.webp`, 'T'], [`${D1}/p3-0.webp`, 'T'], [`${D1}/p4-0.webp`, 'T']]), map: {}, shapes: [`${D1}/p1-0.webp`] });
+  assert.deepEqual([both.furniture.length, both.shapes, both.remove.length], [1, [], 4]);
+});
+
 test('a file no section lists goes, a listed file that is missing is reported, the order inside a section stays', () => {
   const plan = planClean({
     files: files([[`${D1}/p1-0.webp`, 'a'], [`${D1}/p1-1.webp`, 'b'], [`${D1}/p9-0.webp`, 'stale']]),
@@ -138,4 +247,36 @@ test('the nine templates found on 11 Nov 2026 are in no section', () => {
     '/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p14-0.webp',
     '/figures/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2-0.webp',
   ]) assert.ok(shown.has(kept), `${kept} is a real figure and stays`);
+});
+
+test('the shipped map shows every hand-placed figure in each section its rows name, and no dropped one', () => {
+  const shown = new Set(Object.values(SLIDE_IMAGES).flat());
+  const places = new Map();
+  for (const row of REKEYS) {
+    assert.ok(row.to ? row.label : row.drop, `${row.figure}: a row says why`);
+    if (!row.to) { assert.equal(shown.has(row.figure), false, `${row.figure} is dropped and still shown`); continue; }
+    const id = sectionId(row.figure.split('/')[2], row.to[0], row.to[1]);
+    assert.ok((SLIDE_IMAGES[id] || []).includes(row.figure), `${row.figure} is not under "${row.to[1]}"; run --rekey --write`);
+    if (!places.has(row.figure)) places.set(row.figure, new Set());
+    places.get(row.figure).add(id);
+  }
+  // And nowhere else: the table decides where a listed figure goes.
+  for (const [id, figures] of Object.entries(SLIDE_IMAGES)) {
+    for (const figure of figures) if (places.has(figure)) assert.ok(places.get(figure).has(id), `${figure} is under ${id}, which no row names`);
+  }
+  // The drawing that lost its place: one file, in both sections, on the slide's own page order.
+  const drawing = '/figures/vet-neuroanat/neuroanat--midbrain/p18-0.webp';
+  assert.equal(places.get(drawing).size, 2);
+  assert.deepEqual(SLIDE_IMAGES[sectionId('vet-neuroanat', 'neuroanat--midbrain', 'Tectum: rostral และ caudal colliculi')], [
+    '/figures/vet-neuroanat/neuroanat--midbrain/p8-0.webp', drawing,
+    '/figures/vet-neuroanat/neuroanat--midbrain/p9-0.webp', '/figures/vet-neuroanat/neuroanat--midbrain/p9-1.webp',
+  ]);
+  assert.equal(shown.has('/figures/vet-neuroanat/neuroanat--midbrain/p8-1.webp'), false, 'its second file is gone');
+});
+
+test('a figure kept against a rule says what it shows', () => {
+  for (const row of [...KEEP_REPEATED, ...KEEP_FLAT]) {
+    assert.match(row.figure, /^\/figures\/[^/]+\/[^/]+\/p\d+-\d+\.[a-z0-9]+$/);
+    assert.ok(String(row.shows || '').trim().length >= 10, `${row.figure}: say what the figure shows`);
+  }
 });
