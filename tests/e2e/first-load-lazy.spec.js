@@ -5,7 +5,8 @@ import { test, expect, installPinnedCalendar, PINNED_NOW } from './fixtures.js';
 const chunk = (name) => new RegExp(`/assets/${name}-[A-Za-z0-9_-]+\\.js$`);
 const ORIGIN_MOVE = chunk('origin-move');
 const NATIVE_APP = chunk('native-app');
-const ANY_LAZY = (url) => ORIGIN_MOVE.test(url.pathname) || NATIVE_APP.test(url.pathname);
+const MOTION_SETTINGS = chunk('MotionSettings');
+const ANY_LAZY = (url) => [ORIGIN_MOVE, NATIVE_APP, MOTION_SETTINGS].some((re) => re.test(url.pathname));
 
 async function watch(page, pattern) {
   const seen = [];
@@ -133,4 +134,43 @@ test('inside the Android app with the app layer unreachable: the app still start
   await page.goto('/');
   await page.locator('#root > *').first().waitFor();
   expect(await page.evaluate(() => window.__appAtFirstDraw)).toBe(false);
+});
+
+// The theme panel on a page that shows the header's theme button (the same page motion-integration opens).
+const THEME_PAGE = '/wiki/zoonoses/zoo-rabies';
+const themeButton = (page) => page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี', exact: true });
+const themePanel = (page) => page.getByRole('dialog', { name: 'ตั้งค่าธีมและจานสี', exact: true });
+
+test('the motion settings arrive with the theme panel, in the row that held their place', async ({ page }) => {
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  const fetched = await watch(page, MOTION_SETTINGS);
+  await page.route(MOTION_SETTINGS, async (route) => { await held; await route.continue(); });
+  await page.goto(THEME_PAGE);
+  await themeButton(page).waitFor();
+  expect(fetched).toEqual([]);
+
+  await themeButton(page).click();
+  const row = themePanel(page).locator('.vmx-theme-motion-settings');
+  await expect(row.getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true })).toBeVisible();
+  const before = await themePanel(page).boundingBox();
+  // A tap on the row while the code is on its way.
+  await row.getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true }).click();
+  release();
+  const motion = themePanel(page).getByRole('combobox', { name: 'การเคลื่อนไหว', exact: true });
+  await expect(motion).toBeVisible();
+  expect(fetched.length).toBe(1);
+  // Nothing above the row moved when it filled in.
+  const after = await themePanel(page).boundingBox();
+  expect(after.y).toBe(before.y);
+  expect(after.x).toBe(before.x);
+});
+
+test('the motion settings unreachable: the panel keeps its row and every other control works', async ({ page }) => {
+  await page.route(MOTION_SETTINGS, (route) => route.abort());
+  await page.goto(THEME_PAGE);
+  await themeButton(page).click();
+  await expect(themePanel(page).getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true })).toBeVisible();
+  await expect(themePanel(page).getByRole('combobox', { name: 'การเคลื่อนไหว', exact: true })).toHaveCount(0);
+  await expect(themePanel(page).getByRole('button', { name: /Ocean/ })).toBeVisible();
 });

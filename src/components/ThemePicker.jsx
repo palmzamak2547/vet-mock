@@ -10,10 +10,30 @@
 // x=16). The hook flips anchor side based on viewport room.
 // ============================================================
 
-import { useState, useEffect, useRef } from 'react';
+import { lazy, Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import NavIcon from './NavIcon.jsx';
-import MotionSettings from './MotionSettings.jsx';
+import ErrorBoundary from './ErrorBoundary.jsx';
+
+// The motion settings (MotionSettings.jsx, with lib/haptics.js) load when the panel first opens, not with
+// every visit. Until they arrive, and if they cannot, the panel shows the same closed row they open from,
+// so nothing moves when they land. tests/unit/first-load-lazy.test.mjs holds the row to the component's.
+const loadMotionSettings = () => import('./MotionSettings.jsx');
+const MotionSettings = lazy(loadMotionSettings);
+const MOTION_SETTINGS_SUMMARY = 'ตั้งค่า Mochi และการเคลื่อนไหว';
+function Ready({ onReady }) { useLayoutEffect(onReady, []); return null; }
+// A tap on the row before the settings arrive opens them as soon as they do.
+function MotionSettingsSlot() {
+  const opened = useRef(false);
+  const box = useRef(null);
+  const row = <details className="vmx-motion-settings" onToggle={(e) => { opened.current = e.currentTarget.open; }}><summary>{MOTION_SETTINGS_SUMMARY}</summary></details>;
+  const reopen = () => { if (opened.current) box.current?.querySelector('details')?.setAttribute('open', ''); };
+  return (
+    <div className="vmx-theme-motion-settings" ref={box}>
+      <ErrorBoundary fallback={row}><Suspense fallback={row}><MotionSettings /><Ready onReady={reopen} /></Suspense></ErrorBoundary>
+    </div>
+  );
+}
 
 const PALETTES = [
   { id: 'default', name: 'Sage + Gold', dot: '#4a6b4a' },
@@ -67,6 +87,8 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
       <button
         className="vmx-theme-btn"
         onClick={() => setOpen((o) => !o)}
+        onPointerEnter={() => { loadMotionSettings().catch(() => {}); }}
+        onFocus={() => { loadMotionSettings().catch(() => {}); }}
         title="ธีมและสี"
         aria-label="ตัวเลือกธีมและจานสี"
         aria-expanded={open}
@@ -138,7 +160,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
               </button>
             ))}
           </div>
-          <div className="vmx-theme-motion-settings"><MotionSettings /></div>
+          <MotionSettingsSlot />
         </div>
       )}
     </div>

@@ -6,7 +6,8 @@
     "route": "firstLoad",
     "modules": [
       "src/lib/origin-move.js",
-      "src/lib/native-app.js"
+      "src/lib/native-app.js",
+      "src/components/MotionSettings.jsx"
     ]
   },
   "bundle": {
