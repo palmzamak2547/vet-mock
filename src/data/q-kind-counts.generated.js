@@ -3899,8 +3899,8 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 7,
-        "tf": 1,
+        "mcq": 4,
+        "tf": 0,
         "match": 1,
         "writing": 0
       },
@@ -3910,8 +3910,14 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 2
       },
-      "abdominal-surgery": {
+      "dental-scaling-muzzle": {
         "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "abdominal-surgery": {
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -3923,16 +3929,10 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "ophthalmology-lab": {
-        "mcq": 0,
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 1
-      },
-      "dental-scaling-muzzle": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
       },
       "patient-prep-wound": {
         "mcq": 1,
@@ -3955,7 +3955,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "approach-hip": {
-        "mcq": 4,
+        "mcq": 5,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -3967,13 +3967,13 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 4,
+        "mcq": 1,
         "tf": 0,
         "match": 1,
         "writing": 3
       },
       "ortho-exam": {
-        "mcq": 4,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -4017,32 +4017,32 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "repro": {
       "vaginal-cytology": {
-        "mcq": 5,
+        "mcq": 6,
         "tf": 1,
         "match": 0,
         "writing": 0
       },
       "dystocia": {
-        "mcq": 3,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 17,
-        "tf": 1,
+        "mcq": 8,
+        "tf": 0,
         "match": 0,
         "writing": 1
       },
       "repro-exam": {
-        "mcq": 2,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "semen-ai": {
-        "mcq": 1,
-        "tf": 0,
+        "mcq": 2,
+        "tf": 1,
         "match": 0,
         "writing": 0
       }
@@ -5293,8 +5293,8 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 7,
-        "tf": 1,
+        "mcq": 4,
+        "tf": 0,
         "match": 1,
         "writing": 0
       },
@@ -5304,8 +5304,14 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 2
       },
-      "abdominal-surgery": {
+      "dental-scaling-muzzle": {
         "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "abdominal-surgery": {
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -5317,16 +5323,10 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "ophthalmology-lab": {
-        "mcq": 0,
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 1
-      },
-      "dental-scaling-muzzle": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
       },
       "patient-prep-wound": {
         "mcq": 1,
@@ -5349,7 +5349,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "approach-hip": {
-        "mcq": 4,
+        "mcq": 5,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -5361,13 +5361,13 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 4,
+        "mcq": 1,
         "tf": 0,
         "match": 1,
         "writing": 3
       },
       "ortho-exam": {
-        "mcq": 4,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -5411,32 +5411,32 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "repro": {
       "vaginal-cytology": {
-        "mcq": 5,
+        "mcq": 6,
         "tf": 1,
         "match": 0,
         "writing": 0
       },
       "dystocia": {
-        "mcq": 3,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 17,
-        "tf": 1,
+        "mcq": 8,
+        "tf": 0,
         "match": 0,
         "writing": 1
       },
       "repro-exam": {
-        "mcq": 2,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "semen-ai": {
-        "mcq": 1,
-        "tf": 0,
+        "mcq": 2,
+        "tf": 1,
         "match": 0,
         "writing": 0
       }
@@ -8957,8 +8957,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 7,
-        "tf": 1,
+        "mcq": 4,
+        "tf": 0,
         "match": 1,
         "writing": 0
       },
@@ -8968,8 +8968,14 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 2
       },
-      "abdominal-surgery": {
+      "dental-scaling-muzzle": {
         "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "abdominal-surgery": {
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -8981,16 +8987,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "ophthalmology-lab": {
-        "mcq": 0,
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 1
-      },
-      "dental-scaling-muzzle": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
       },
       "patient-prep-wound": {
         "mcq": 1,
@@ -9013,7 +9013,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "approach-hip": {
-        "mcq": 4,
+        "mcq": 5,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -9025,13 +9025,13 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 4,
+        "mcq": 1,
         "tf": 0,
         "match": 1,
         "writing": 3
       },
       "ortho-exam": {
-        "mcq": 4,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -9075,32 +9075,32 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "repro": {
       "vaginal-cytology": {
-        "mcq": 5,
+        "mcq": 6,
         "tf": 1,
         "match": 0,
         "writing": 0
       },
       "dystocia": {
-        "mcq": 3,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 17,
-        "tf": 1,
+        "mcq": 8,
+        "tf": 0,
         "match": 0,
         "writing": 1
       },
       "repro-exam": {
-        "mcq": 2,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "semen-ai": {
-        "mcq": 1,
-        "tf": 0,
+        "mcq": 2,
+        "tf": 1,
         "match": 0,
         "writing": 0
       }
@@ -9885,8 +9885,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "surg2": {
       "__unassigned__": {
-        "mcq": 7,
-        "tf": 1,
+        "mcq": 4,
+        "tf": 0,
         "match": 1,
         "writing": 0
       },
@@ -9896,8 +9896,14 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 2
       },
-      "abdominal-surgery": {
+      "dental-scaling-muzzle": {
         "mcq": 1,
+        "tf": 1,
+        "match": 0,
+        "writing": 0
+      },
+      "abdominal-surgery": {
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -9909,16 +9915,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "ophthalmology-lab": {
-        "mcq": 0,
+        "mcq": 2,
         "tf": 0,
         "match": 0,
         "writing": 1
-      },
-      "dental-scaling-muzzle": {
-        "mcq": 1,
-        "tf": 0,
-        "match": 0,
-        "writing": 0
       },
       "patient-prep-wound": {
         "mcq": 1,
@@ -9941,7 +9941,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "approach-hip": {
-        "mcq": 4,
+        "mcq": 5,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -9953,13 +9953,13 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 4,
+        "mcq": 1,
         "tf": 0,
         "match": 1,
         "writing": 3
       },
       "ortho-exam": {
-        "mcq": 4,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -10003,32 +10003,32 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "repro": {
       "vaginal-cytology": {
-        "mcq": 5,
+        "mcq": 6,
         "tf": 1,
         "match": 0,
         "writing": 0
       },
       "dystocia": {
-        "mcq": 3,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "__unassigned__": {
-        "mcq": 17,
-        "tf": 1,
+        "mcq": 8,
+        "tf": 0,
         "match": 0,
         "writing": 1
       },
       "repro-exam": {
-        "mcq": 2,
+        "mcq": 6,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "semen-ai": {
-        "mcq": 1,
-        "tf": 0,
+        "mcq": 2,
+        "tf": 1,
         "match": 0,
         "writing": 0
       }
