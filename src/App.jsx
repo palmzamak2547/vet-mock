@@ -880,8 +880,14 @@ export default function App() {
   }, []);
   // "ปรับแต่ง" is opened from controls that do not hold setView (the theme
   // menu); an exam screen shows none of them.
+  const studioReturnRef = useRef('profile');
   useEffect(() => {
-    const open = () => { if (!FOCUS_VIEWS.has(viewRef.current) && !['sr-session', 'race'].includes(viewRef.current)) setView('studio'); };
+    const open = () => {
+      if (FOCUS_VIEWS.has(viewRef.current) || ['sr-session', 'race'].includes(viewRef.current)) return;
+      // Leaving the studio returns to the screen it was opened from.
+      if (viewRef.current !== 'studio') studioReturnRef.current = viewRef.current;
+      setView('studio');
+    };
     window.addEventListener('vmx-open-studio', open);
     return () => window.removeEventListener('vmx-open-studio', open);
   }, [setView]);
@@ -3455,7 +3461,7 @@ export default function App() {
                   openSubject={(id) => { setSubject(id); setTopic(null); setPracticeMode('all'); setView('topic-select'); }}
                 />
               )}
-              {view === 'studio' && <StudioView goBack={() => setView('profile')} {...{ user, profile, history, srCards, streakData, selectedYear, theme }} />}
+              {view === 'studio' && <StudioView goBack={() => setView(studioReturnRef.current || 'profile')} {...{ user, profile, history, srCards, streakData, selectedYear, theme }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}

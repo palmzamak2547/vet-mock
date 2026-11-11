@@ -19,7 +19,7 @@ export default function ThemePickerPanel({ choose }) {
   const palette = usePref('palette');
   return (
     <>
-      <div style={heading}>โหมด</div>
+      <div style={heading}>สว่างหรือมืด</div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
         {prefRow('theme').choices.map((id) => (
           <button key={id} type="button" onClick={() => choose(() => writePref('theme', id))}
@@ -29,7 +29,7 @@ export default function ThemePickerPanel({ choose }) {
           </button>
         ))}
       </div>
-      <div style={heading}>จานสี</div>
+      <div style={heading}>สี</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
         {prefRow('palette').choices.filter((id) => id !== 'custom' || palette === 'custom').map((id) => (
           <button key={id} type="button" onClick={() => choose(() => writePref('palette', id))}

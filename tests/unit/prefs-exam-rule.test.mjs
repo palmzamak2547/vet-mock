@@ -38,8 +38,7 @@ test('exam screens import nothing of the studio or the preference table', () => 
 
 test('the studio cannot be opened over a running set', () => {
   const app = read('src/App.jsx');
-  const opener = app.slice(app.indexOf("window.addEventListener('vmx-open-studio'") - 300, app.indexOf("window.addEventListener('vmx-open-studio'"));
-  assert.match(opener, /!FOCUS_VIEWS\.has\(viewRef\.current\)/);
-  assert.match(opener, /'sr-session', 'race'/);
+  const opener = app.slice(app.indexOf("window.addEventListener('vmx-open-studio'") - 600, app.indexOf("window.addEventListener('vmx-open-studio'"));
+  assert.match(opener, /if \(FOCUS_VIEWS\.has\(viewRef\.current\) \|\| \['sr-session', 'race'\]\.includes\(viewRef\.current\)\) return;/);
   assert.match(app, /const FOCUS_VIEWS = new Set\(\['exam',/);
 });
