@@ -296,7 +296,7 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null, recoveryArchive = null }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, pendingExamResults = [], restoreUserData, ownerId = null, recoveryArchive = null }) {
   const [archiveBusy, setArchiveBusy] = useState(false);
   const [eventArchiveParts, setEventArchiveParts] = useState([]);
   const mountedRef = useRef(true);
@@ -399,6 +399,8 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       streakData: streakData || { streak, lastDate: null, freezeUsedAt: null },
       customQuestions,
       readingChecklist,
+      // Finished sets not yet sent to the account; a restore sends them once.
+      pendingExamResults,
     };
     downloadJSON(data, `vetmock-backup-${fileStamp()}.json`);
   };
@@ -488,7 +490,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         }
 
         const { data, fields } = parsed;
-        const preview = describeBackupFields(data, fields);
+        const preview = describeBackupFields(data, fields, { ownerId });
         const accepted = await confirmDialog({
           title: 'ตรวจรายการก่อนนำเข้า',
           body: `ข้อมูลที่จะเขียนทับ:\n${preview.map((line) => `• ${line}`).join('\n')}\n\nรายการที่ไม่มีในไฟล์จะคงเดิม`,
@@ -496,7 +498,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           tone: 'danger',
         });
         if (accepted && mountedRef.current) {
-          const result = restoreUserData?.(userDataPatchFromBackup(data));
+          const result = restoreUserData?.((current) => userDataPatchFromBackup(data, { ownerId, current }));
           if (!result?.accepted) {
             alertDialog('นำเข้าไม่สำเร็จ ข้อมูลเดิมยังไม่ถูกเปลี่ยน พื้นที่ในเครื่องอาจเต็มหรือบัญชีมีการเปลี่ยนแปลง กรุณาลองใหม่');
             e.target.value = '';
@@ -825,12 +827,12 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
           if (await confirmDialog({
             title: 'ล้างความคืบหน้าหลัก?',
-            body: 'ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และวันต่อเนื่องจะถูกล้าง ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก',
+            body: `ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และวันต่อเนื่องจะถูกล้าง${pendingExamResults.length ? ` รวมถึงผลสอบ ${pendingExamResults.length} ชุดที่ยังไม่ได้ส่งเข้าบัญชี` : ''} ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก`,
             note: 'กู้คืนไม่ได้ — ส่งออกไฟล์สำรองไว้ก่อนถ้ายังไม่แน่ใจ',
             confirmLabel: 'ล้างทั้งหมด',
             tone: 'danger',
           })) {
-            const result = restoreUserData?.({ history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null } });
+            const result = restoreUserData?.({ history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null }, pendingExamResults: [] });
             if (!result?.accepted) alertDialog('ล้างข้อมูลไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่');
           }
         }}>ล้างความคืบหน้าหลัก</button>

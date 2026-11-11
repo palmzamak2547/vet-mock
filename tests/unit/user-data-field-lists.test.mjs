@@ -49,18 +49,12 @@ const LISTS = {
 };
 
 function SAMPLE() {
-  return { bookmarks: [], history: [], notes: {}, srCards: {}, streakData: { streak: 0, lastDate: null }, streak: 0, customQuestions: [], readingChecklist: {} };
+  return { bookmarks: [], history: [], notes: {}, srCards: {}, streakData: { streak: 0, lastDate: null }, streak: 0, customQuestions: [], readingChecklist: {}, pendingExamResults: [] };
 }
 
 // Every gap between the lists today, with what a student loses through it. A field leaves this
 // table by joining the list; a new field joins every list or gets a line here.
 const GAPS = {
-  pendingExamResults: {
-    lists: ['BACKUP_FIELDS', 'backup schema', 'backup error labels', 'import preview', 'progress backup download', 'account export', 'progress reset'],
-    why: 'the outbox of finished sets not yet sent to /api/exam-result (local only, remoteKey null). '
-      + 'A set finished offline and not yet sent is in no backup or export: restored on another device, or after the browser is cleared, '
-      + 'its score never reaches the server (leaderboard, results), though its answers stay in history. The reset leaves it, so a reset still sends it.',
-  },
   streak: {
     lists: ['account export', 'progress reset'],
     sync: true,
