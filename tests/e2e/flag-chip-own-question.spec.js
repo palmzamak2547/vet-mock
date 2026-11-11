@@ -16,7 +16,9 @@ import { isQuestionDeliverable } from '../../src/data/question-delivery.generate
 
 const SUBJECT = 'com5';
 const TOPIC = 'vaccine';
-const norm = (s) => String(s).replace(/\s+/g, ' ').trim().slice(0, 24);
+// A question is recognised by the start of its stem. Sixty characters tell every question of the
+// topic apart today (two of them share their first 24); the test checks that this still holds.
+const norm = (s) => String(s).replace(/\s+/g, ' ').trim().slice(0, 60);
 
 async function topicQuestions() {
   const { questions } = await readBank('src/data/questions-com5.js');
@@ -30,6 +32,7 @@ test('a flag chip shows on its own question only, all the way through a set', as
   const flagged = new Set(all.filter((q) => q.flag).map((q) => norm(q.q)));
   expect(flagged.size, `the fixture needs a flagged question in ${SUBJECT}/${TOPIC}; pick another topic if the bank changed`).toBeGreaterThan(0);
   expect(all.length - flagged.size, 'and an unflagged one beside it').toBeGreaterThan(0);
+  expect(new Set(all.map((q) => norm(q.q))).size, 'every stem of the topic is told apart by its start; lengthen norm() if two now begin alike').toBe(all.length);
 
   await context.addInitScript(() => {
     try {
