@@ -791,18 +791,23 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
             neuroanatomy articles were describing structures the
             extracted slides already show. */}
         <SlideFigures sectionId={s.id} source={noteRef?.locator || ''} />
-        {/* "ที่มา", not "ที่มาในเลกเชอร์": 547 sections come from Vet 85
-            summaries, MSD tables or VetMock's own catalog pages. */}
-        {noteRef && <div className="vw-source">ที่มา: {noteRef.locator}</div>}
         {(s.corrections || []).map((c, k) => (
           <React.Suspense key={k} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
             <ConflictNote item={c} />
           </React.Suspense>
         ))}
-      </div>
-      <SectionEvidence chips={chips} onGoToSource={onGoToSource} />
-      <div className="vw-section-report">
-        <ReportConcern topicId={knowledgeId} sectionId={s.id} sectionHeading={s.heading} />
+        {/* One folded row per section, closed (5.214): where the text came
+            from, what it was checked against and the report control were four
+            rows under each section. "ที่มา", not "ที่มาในเลกเชอร์": 547 sections
+            come from Vet 85 summaries, MSD tables or VetMock's own pages. */}
+        <details className="vw-refs">
+          <summary>แหล่งอ้างอิง</summary>
+          {noteRef && <div className="vw-source">ที่มา: {noteRef.locator}</div>}
+          <SectionEvidence chips={chips} onGoToSource={onGoToSource} />
+          <div className="vw-section-report">
+            <ReportConcern topicId={knowledgeId} sectionId={s.id} sectionHeading={s.heading} />
+          </div>
+        </details>
       </div>
     </section>
   );

@@ -21,6 +21,27 @@ test('the wiki index opens on its search, with no lede and no library counts', a
   await expect(page.locator('.vw-totals')).toHaveCount(0);
 });
 
+test('a wiki section keeps its sources, checks and report control in one closed row', async ({ page }) => {
+  await page.goto('/wiki/com5/rabies');
+  await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible();
+  const sections = page.locator('.vw-section');
+  const n = await sections.count();
+  expect(n).toBeGreaterThan(3);
+  // One row per section, closed, and none of the four rows it holds in view.
+  await expect(page.locator('.vw-section .vw-refs')).toHaveCount(n);
+  await expect(page.locator('.vw-section .vw-refs[open]')).toHaveCount(0);
+  for (const sel of ['.vw-source', '.vw-ev-head', '.vw-chip', '.vmx-concern-trigger']) {
+    await expect(page.locator(sel).filter({ visible: true }), `${sel} shows with the row closed`).toHaveCount(0);
+  }
+  // Opened, it holds what the rows held, the report control included.
+  const first = page.locator('#com5--rabies--overview');
+  await first.locator('.vw-refs > summary').click();
+  await expect(first.locator('.vw-source')).toContainText('ที่มา:');
+  await expect(first.locator('.vw-ev-head')).toHaveText('ตรวจทานกับ');
+  await expect(first.locator('.vw-chip').first()).toBeVisible();
+  await expect(first.getByRole('button', { name: /พบข้อมูลที่อาจไม่ถูกต้อง/ })).toBeVisible();
+});
+
 test('a disagreement with the lecture is marked once, at its section, and nowhere else', async ({ page }) => {
   // The list view, where every topic row used to carry a tag and the bar a filter.
   await page.addInitScript(() => localStorage.setItem('vmx-wiki-layout', 'list'));
