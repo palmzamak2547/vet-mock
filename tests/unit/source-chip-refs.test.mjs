@@ -122,14 +122,29 @@ test('a reference links only through safeLinkUrl, in a new tab, with nofollow', 
       { title: 'Plain http', url: 'http://example.org/b' },
       { title: 'Same site', url: '/wiki/x' },
       { title: '', url: 'https://example.org/untitled' },
+      { title: 'Drive copy', locator: 'หน้า 15-16', url: 'https://drive.google.com/file/d/abc/view' },
+      { title: 'Docs copy', url: 'https://docs.google.com/document/d/abc/edit' },
     ],
   };
   const { tree, text } = render(q, { revealed: true, open: true });
   const refLinks = links(tree).filter((a) => a.props.rel === 'noopener noreferrer nofollow');
   assert.deepEqual(refLinks.map((a) => a.props.href), ['https://example.org/a']);
   assert.equal(refLinks[0].props.target, '_blank');
-  for (const t of ['Public page', 'Section 2', 'Script', 'p. 1', 'Plain http', 'Same site']) assert.ok(text.includes(t), t);
-  assert.ok(!links(tree).some((a) => /javascript:|http:\/\/|untitled/.test(a.props.href || '')));
+  for (const t of ['Public page', 'Section 2', 'Script', 'p. 1', 'Plain http', 'Same site', 'Drive copy', 'หน้า 15-16', 'Docs copy']) assert.ok(text.includes(t), t);
+  assert.ok(!links(tree).some((a) => /javascript:|http:\/\/|untitled|google\.com/.test(a.props.href || '')));
+});
+
+test('a Google Drive reference in the bank is text, every other one a link', () => {
+  const refs = withRefs.flatMap((q) => q.verificationSources.map((r) => ({ r, out: verificationRefs({ verificationSources: [r] })[0] })));
+  const drive = refs.filter(({ r }) => /(?:drive|docs)\.google\.com/.test(r.url || ''));
+  assert.ok(drive.length > 0, 'the bank has Drive references');
+  for (const { r, out } of drive) assert.equal(out.href, null, r.url);
+  for (const { r, out } of refs.filter((x) => !drive.includes(x))) assert.ok(out.href, r.url);
+  // The panel's own source-document link is unchanged: it still opens the member's copy.
+  const q = QB.find((x) => x.subject === 'vca' && x.id === 200221);
+  const { tree } = render(q, { revealed: true, open: true });
+  assert.ok(links(tree).some((a) => textOf(a).includes('เปิดเอกสารต้นฉบับ')));
+  assert.ok(!links(tree).some((a) => a.props.rel === 'noopener noreferrer nofollow'));
 });
 
 test('the source document names its page and its question number', () => {

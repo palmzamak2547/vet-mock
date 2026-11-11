@@ -6,6 +6,7 @@
 //                         question sits
 import { safeLinkUrl } from './safe-url.js';
 
+const DRIVE = /^https:\/\/(?:drive|docs)\.google\.com\//i;
 const text = (v) => (typeof v === 'string' || typeof v === 'number' ? String(v).replace(/\s+/g, ' ').trim() : '');
 
 /** Each reference with a title, its locator as text, and a link only when the app's URL check passes it. */
@@ -15,7 +16,9 @@ export function verificationRefs(q) {
     .map((r) => {
       const href = typeof r?.url === 'string' ? safeLinkUrl(r.url) : null;
       // Only an absolute https address: a same-site path in a reference would be ours, not the source's.
-      return { title: text(r?.title), locator: text(r?.locator), href: href && /^https:\/\//.test(href) ? href : null };
+      // A Google Drive file stays text, as on vca.vetmock.com: a member who cannot open it meets a dead link.
+      const linkable = href && /^https:\/\//.test(href) && !DRIVE.test(href);
+      return { title: text(r?.title), locator: text(r?.locator), href: linkable ? href : null };
     })
     .filter((r) => r.title);
 }
