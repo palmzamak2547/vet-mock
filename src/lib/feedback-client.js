@@ -21,6 +21,8 @@
 // caller keeps what the student wrote until a send succeeds.
 // ============================================================
 
+import { authHeader } from './api-auth.js';
+
 export const FEEDBACK_EMAIL = 'palmzamak2547@gmail.com';
 
 // Each one says what to do next. The daily cap and a mailer fault point at
@@ -89,12 +91,16 @@ export function saveFeedbackDraft(draft, storage) {
  * Resolves to { ok, status, reason, messageTh }; reason is null on success,
  * otherwise one of the FEEDBACK_MESSAGES keys. status is 0 when offline.
  */
-export async function sendFeedback(payload, { fetch = globalThis.fetch } = {}) {
+export async function sendFeedback(payload, { fetch = globalThis.fetch, auth = authHeader } = {}) {
   let res;
   try {
+    // Signed in, the message counts on the student's own allowance instead of
+    // the address they share with classmates; signed out, the header is empty.
+    let bearer = {};
+    try { bearer = (await auth()) || {}; } catch { bearer = {}; }
     res = await fetch('/api/send-feedback', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...bearer },
       body: JSON.stringify(payload),
       // The server gives the mailer 10 s; past this the form says so instead
       // of staying on "sending" (AbortSignal.timeout is Safari 16+).

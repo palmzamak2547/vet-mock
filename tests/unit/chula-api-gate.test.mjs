@@ -124,9 +124,16 @@ test('every function is behind the gate or open on purpose, and a new one must s
   const open = ['client-diagnostic', 'send-feedback', 'calendar', 'library-blob', 'external-connect-callback', 'move-in', 'system-status', 'playlist'];
   const all = readdirSync(new URL('../../api/', import.meta.url)).filter((f) => f.endsWith('.js')).map((f) => f.slice(0, -3));
   assert.deepEqual(all.sort(), [...gated, ...open].sort(), 'every api/*.js is listed as gated or open here');
+  // The feedback lifeline asks the gate only who is writing, to count a member
+  // on their own allowance; it never refuses on the gate's answer.
+  const identifiesOnly = new Set(['send-feedback']);
   for (const name of open) {
-    assert.doesNotMatch(readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8'), /chula-gate/, name);
+    const src = readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8');
+    assert.doesNotMatch(src, /requireChula/, name);
+    if (!identifiesOnly.has(name)) assert.doesNotMatch(src, /chula-gate/, name);
   }
+  const feedback = readFileSync(new URL('../../api/send-feedback.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(feedback, /gate\.(status|body)\b/, 'send-feedback never answers with the gate\'s refusal');
 });
 
 test('an open ticket names one document for a day and nothing else', async () => {
