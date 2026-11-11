@@ -106,6 +106,24 @@ test('the X and the browser Back ask the same question, and it keeps the set', a
   await expect(page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ })).toBeVisible();
 });
 
+// item 7
+test('at 188 CSS px (200% zoom on a phone) the card, the header and the buttons stay on screen', async ({ page, context }) => {
+  await page.setViewportSize({ width: 188, height: 640 });
+  await resume(page, context, { questions: MCQ.slice(0, 2), mode: 'quick' });
+  const box = (sel) => page.locator(sel).first().boundingBox();
+  const exit = await box('.vmx-exam-top-left button');
+  const pill = await box('.vmx-progress');
+  expect(pill.x).toBeGreaterThanOrEqual(exit.x + exit.width - 1);
+  for (const sel of ['.vmx-q-toolbar > *', '.vmx-exam-next', '.vmx-exam-prev']) {
+    const all = await page.locator(sel).evaluateAll((els) => els.map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.right]; }));
+    for (const [l, r] of all) {
+      expect(l, sel).toBeGreaterThanOrEqual(0);
+      expect(r, sel).toBeLessThanOrEqual(188);
+    }
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(188);
+});
+
 // item 6
 test('the reveal switch of a matching set keeps one line per choice on a phone', async ({ page, context }) => {
   await page.setViewportSize({ width: 375, height: 812 });

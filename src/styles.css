@@ -7367,6 +7367,19 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-instant-feedback .w { line-height: 1.65; }
   .vmx-question-card { margin-bottom: 12px; }
 }
+/* Below 280 CSS px (a 375 px phone at 200% zoom is 188): the card's five
+   tools ran off its left edge, the position pill sat over ออก and ข้อถัดไป
+   was cut at the right. The tools wrap in the card's flow, the header
+   keeps ออก and the position side by side with the rest on a row below,
+   and previous and next take a row each. */
+@media (max-width: 279px) {
+  .vmx-question-card { padding: 12px 12px 20px; }
+  .vmx-q-toolbar { position: static; flex-wrap: wrap; justify-content: flex-end; margin-bottom: 10px; }
+  .vmx-exam-top { grid-template-columns: auto auto; justify-content: space-between; row-gap: 6px; }
+  .vmx-exam-top-right { grid-column: 1 / -1; }
+  .vmx-exam-actions { flex-wrap: wrap; }
+  .vmx-exam-actions .vmx-exam-prev, .vmx-exam-actions .vmx-exam-next { flex: 1 1 100%; }
+}
 
 /* The results screen */
 .vmx-next-ladder { margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
