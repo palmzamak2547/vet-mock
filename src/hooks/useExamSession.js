@@ -40,7 +40,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { timeForQuestion, isWritingType } from './utils.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { inflightExamKey, isOwnedExam } from '../lib/exam-recovery.js';
-import { secondsUntilDeadline } from '../lib/exam-clock.js';
+import { secondsUntilDeadline, examNow } from '../lib/exam-clock.js';
 import { resumedDeadline, unsavedResult } from '../lib/app-flow.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/study-events.js';
 
@@ -92,7 +92,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const [examStartTime, setExamStartTime] = useState(null);
   const setTimeLeft = useCallback((seconds) => {
     const duration = Math.max(0, Number(seconds) || 0);
-    setQuestionDeadline(Date.now() + duration * 1000);
+    setQuestionDeadline(examNow() + duration * 1000);
     setTimeUp(duration <= 0);
   }, []);
   // Whether THIS session runs on one clock for the whole set. Held in a ref,
@@ -188,7 +188,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     const check = () => {
       clearTimeout(t);
       if (secondsUntilDeadline(questionDeadline) <= 0) { setTimeUp(true); return; }
-      t = setTimeout(check, Math.min(1000, questionDeadline - Date.now()));
+      t = setTimeout(check, Math.min(1000, questionDeadline - examNow()));
     };
     check();
     document.addEventListener('visibilitychange', check);
@@ -355,7 +355,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // ran on through it, so an exam paper left for an hour was submitted, with
     // every blank marked, the moment ทำต่อ opened it; the exit dialog had
     // promised the student would come back to the same question.
-    const deadline = resumedDeadline(saved);
+    const deadline = resumedDeadline(saved, examNow());
     if (deadline !== null) {
       setQuestionDeadline(deadline);
       setTimeUp(secondsUntilDeadline(deadline) <= 0);

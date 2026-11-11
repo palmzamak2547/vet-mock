@@ -217,6 +217,7 @@ import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
 import { exitSetDialog } from './lib/exit-set.js';
+import { deadlineOnWall } from './lib/exam-clock.js';
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
@@ -1456,7 +1457,10 @@ export default function App() {
     const snap = inflightRef.current;
     if (!snap) return;
     try {
-      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionTimes: getQuestionTimes(), savedAt: Date.now() }));
+      // The deadline is kept in the exam's own time (lib/exam-clock.js); the
+      // record stores it on the wall clock, beside savedAt, so a resumed set
+      // gets back exactly what it had left.
+      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionDeadline: deadlineOnWall(snap.questionDeadline), questionTimes: getQuestionTimes(), savedAt: Date.now() }));
       inflightWrittenAtRef.current = Date.now();
     } catch {}
   }, [getQuestionTimes]);

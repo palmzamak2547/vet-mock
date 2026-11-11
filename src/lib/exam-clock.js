@@ -1,6 +1,47 @@
 // A browser may throttle or suspend callbacks while a tab is in the background.
 // Remaining time must depend on the deadline, not the number of callbacks.
-export function secondsUntilDeadline(deadline, now = Date.now()) {
+//
+// Which clock: the device's wall clock alone let a student stretch a timed
+// paper by setting the phone's time back (an hour back was an hour more).
+// The page's monotonic clock cannot be set, but on some phones it stands
+// still while the device sleeps, and a paper must keep running through a
+// locked screen. So the exam's time advances, step by step, by whichever
+// clock moved further: a sleep counts (the wall clock moved), a clock set
+// back does not (the monotonic clock moved, the wall clock went back), and
+// nothing ever runs backwards. A clock set forward counts too: it cannot be
+// told apart from a sleep. A time zone change moves neither. Across a reload
+// a parked set keeps what it had left when it was saved (app-flow.js
+// resumedDeadline), so the page's own clock only has to hold while it lives.
+let lastWall = null;
+let lastMono = null;
+let examTime = null;
+
+const mono = () => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : null);
+
+/** The exam's own "now", in wall-clock milliseconds as the page first read them. */
+export function examNow(wall = Date.now(), monoNow = mono()) {
+  if (examTime === null || monoNow === null || lastMono === null) {
+    examTime = examTime === null ? wall : Math.max(examTime, wall);
+  } else {
+    const stepWall = wall - lastWall;
+    const stepMono = monoNow - lastMono;
+    examTime += Math.max(0, stepWall, stepMono);
+  }
+  lastWall = wall;
+  lastMono = monoNow;
+  return examTime;
+}
+
+/** A deadline in exam time as the wall clock reads it now, for a saved record. */
+export function deadlineOnWall(deadline, wall = Date.now()) {
+  if (!Number.isFinite(deadline)) return deadline;
+  return deadline - (examNow(wall) - wall);
+}
+
+/** For tests: forget what the page has read. */
+export function resetExamClock() { lastWall = null; lastMono = null; examTime = null; }
+
+export function secondsUntilDeadline(deadline, now = examNow()) {
   if (!Number.isFinite(deadline) || deadline <= 0) return 0;
   return Math.max(0, Math.ceil((deadline - now) / 1000));
 }

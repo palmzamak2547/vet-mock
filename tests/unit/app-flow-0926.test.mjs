@@ -79,7 +79,7 @@ test('B06: a parked set gets back the time it had left, not a deadline that ran 
 
 test('B06: resume goes through the paused deadline, and leaving writes the set first', () => {
   const prime = block(SESSION, 'const primeFromSaved = useCallback', 2400);
-  assert.match(prime, /const deadline = resumedDeadline\(saved\);/, 'primeFromSaved must resume on the paused clock');
+  assert.match(prime, /const deadline = resumedDeadline\(saved, examNow\(\)\);/, 'primeFromSaved must resume on the paused clock');
   assert.doesNotMatch(prime, /setQuestionDeadline\(saved\.questionDeadline\)/, 'the wall-clock deadline is what submitted the paper on reopen');
   const goHome = block(APP, 'const goHome = () => {', 900);
   assert.ok(goHome.indexOf('writeInflight()') >= 0 && goHome.indexOf('writeInflight()') < goHome.indexOf('session.resetSession()'),

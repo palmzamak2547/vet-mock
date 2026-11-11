@@ -162,3 +162,21 @@ for (const scheme of ['light', 'dark']) {
   });
 }
 
+// item 9
+test.describe('the exam clock and the device clock', () => {
+  test.use({ pinCalendar: false });
+  test('setting the device clock back an hour adds nothing to a timed paper', async ({ page, context }) => {
+    await resume(page, context, { questions: MCQ.slice(0, 2), mode: 'exam', timed: true, deadlineIn: 120_000 });
+    const timer = page.locator('.vmx-timer');
+    const read = async () => { const [m, s] = (await timer.innerText()).split(':').map(Number); return m * 60 + s; };
+    const before = await read();
+    expect(before).toBeLessThanOrEqual(120);
+    // The device's clock goes back an hour: the wall clock moves, the page's
+    // monotonic clock (performance.now) does not.
+    await page.evaluate(() => { const real = Date.now.bind(Date); Date.now = () => real() - 3_600_000; });
+    await page.waitForTimeout(2_500);
+    const after = await read();
+    expect(after, 'the countdown gained the hour').toBeLessThanOrEqual(before);
+    expect(after).toBeGreaterThan(before - 15);
+  });
+});

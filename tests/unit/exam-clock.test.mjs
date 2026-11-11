@@ -62,6 +62,9 @@ const clock = {
   seq: 0,
   timers: new Map(),
   now: () => clock.wall,
+  // performance.now(), the page's monotonic clock, which the exam's own time
+  // reads beside the wall clock (lib/exam-clock.js): the timers' clock.
+  monoNow: () => clock.mono,
   setTimeout: (fn, ms = 0, ...args) => {
     const id = ++clock.seq;
     clock.timers.set(id, { at: clock.mono + Math.max(0, Number(ms) || 0), fn, args, every: 0 });
@@ -303,6 +306,7 @@ before(async () => {
       setInterval: 'globalThis.__examTestClock.setInterval',
       clearInterval: 'globalThis.__examTestClock.clearInterval',
       'Date.now': 'globalThis.__examTestClock.now',
+      'performance.now': 'globalThis.__examTestClock.monoNow',
     },
     plugins: [harness],
     write: false,
