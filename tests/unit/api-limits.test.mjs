@@ -85,6 +85,35 @@ test('forged tokens from a hall\'s address never refuse an honest member there',
   assert.equal(later.member, true);
 });
 
+// The reviewers' probe sent plain strings as "member" tokens; a real session
+// token is three base64url parts with this project's issuer and audience and
+// an expiry ahead. Two with identical claims, one signature the database
+// accepts and one it refuses: only the database tells them apart.
+test('a session-shaped token: the database decides, a good signature is a member and a bad one a guest', async () => {
+  resetChulaGate();
+  const claims = { sub: 'u-real', expInSec: 1800 };
+  const good = sessionToken(PROJECT, { ...claims, tag: 'good' });
+  const [h, p] = good.split('.');
+  const bad = `${h}.${p}.${Buffer.from('not-the-signature').toString('base64url')}`;
+  const asked = [];
+  const fetchImpl = async (url, init) => {
+    const bearer = init.headers.Authorization.slice(7);
+    asked.push(bearer);
+    if (bearer === good) return Response.json({ enforce: true, signed_in: true, member: true, uid: 'u-real' });
+    if (bearer === ENV.VITE_SUPABASE_ANON_KEY) return Response.json({ enforce: true, signed_in: false, member: false, uid: null });
+    return new Response('{"message":"invalid JWT"}', { status: 401 });
+  };
+  const ip = '203.0.113.90';
+  const refused = await chulaGate(withToken(ip, bad), { env: ENV, fetchImpl });
+  assert.equal(refused.status, 401, 'a bad signature is a guest');
+  assert.ok(asked.includes(bad), 'a well-formed token is always verified by the database');
+  for (let i = 0; i < 300; i++) await chulaGate(withToken(ip, bad), { env: ENV, fetchImpl });
+  const served = await chulaGate(withToken(ip, good), { env: ENV, fetchImpl });
+  assert.equal(served.ok, true);
+  assert.equal(served.member, true, 'the good one is a member, after 300 bad ones from the same address');
+  assert.equal(served.userId, 'u-real');
+});
+
 test('expired tokens are guests: no database call, and nobody braked', async () => {
   resetChulaGate();
   const { calls, fetchImpl } = database();

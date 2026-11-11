@@ -4,17 +4,6 @@
 
 # Server hardening (pending, branch `claude/server-hardening`)
 
-## Where I stopped (11 Nov 2026, machine shutdown)
-- Done and committed locally, not pushed: the third review round (ca7a0a90
-  token checked locally before the database, per-address brake removed;
-  f55250c4 library bytes per member, Thai refusal page, open through an
-  outage; 0569b592 feedback `network_busy`). Their targeted tests pass.
-- Running when stopped: `lint:data` then the full `test:unit` through the lock
-  helper (scratchpad `final-checks.mjs`); its result was not seen.
-- Next: (1) rerun `lint:data` and `npm run test:unit` once through the lock
-  helper; (2) if green, `git push origin claude/server-hardening`; (3) reply to
-  the coordinator with each item's file:line, test, unit result and head.
-
 Items from a review of the API, the service worker and the device-only tools,
 then the fixes two independent reviews of the branch asked for. Each lands with
 a guard that fails if the defect returns. This file says what is true at the
@@ -70,7 +59,9 @@ branch's head; where an earlier version of it was wrong, that is said.
   honest member there is served, also after the instance forgets them; 30
   students x 4 parallel calls with expired tokens reach the database 0 times
   and brake nobody; six malformed shapes make no database call; previews
-  refuse, local development opens). Test tokens come from
+  refuse, local development opens; 'a session-shaped token: the database
+  decides' builds two tokens with identical claims and different signatures).
+  Test tokens come from
   `tests/helpers/supabase-jwt.mjs`.
 
 ## Feedback (`api/send-feedback.js`)
