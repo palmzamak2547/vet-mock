@@ -79,9 +79,9 @@ test('the draft state comes from the pull request when the run starts, never fro
   assert.doesNotMatch(others, /github\.event\.pull_request\.draft/, 'nothing but state reads the payload draft');
   // A run that read draft on a ready pull request fails loudly rather than leave smoke unreported.
   const draftStep = jobs.smoke.split(/\n\s*- name: /).find((s) => /^A draft runs no e2e/.test(s));
-  // It reads three times, and anything but "draft" on any read fails: a stale answer (false) and an
+  // It reads four times over 60 seconds, and anything but "draft" on any read fails: a stale answer (false) and an
   // API error (unknown) alike, since neither proves a newer run exists.
-  assert.match(draftStep, /for attempt in 1 2 3; do/);
+  assert.match(draftStep, /for attempt in 1 2 3 4; do[\s\S]*sleep 20/);
   assert.match(draftStep, /\|\| now=unknown/);
   assert.match(draftStep, /\*false\*\|\*unknown\*\)[\s\S]*gh pr update-branch \$NUMBER[\s\S]*exit 1/);
   assert.doesNotMatch(draftStep, /gh run rerun/, 'a re-run keeps state\'s first answer, so it is not the way out');

@@ -14,12 +14,12 @@ and one revert.
 - **Mechanism.** A first job, `state`, reads whether the pull request is a draft from the API when
   the run starts (`ready_for_review` is ready by definition; if the API does not answer, the payload
   decides, with a warning). `changes`, every job after it and the name of the job behind `smoke` use
-  that answer. A draft run's last step reads the API three times over about a minute and fails on
+  that answer. A draft run's last step reads the API four times over 60 seconds and fails on
   any answer that is not "draft" (a stale `false` and an API error alike), naming the way out:
   `gh pr update-branch <n>` or a push (a re-run of failed jobs keeps `state`'s first answer and fails
   again). The workflow header has the table of every ordering and the cost of one pull request.
 - **Proof so far.** Reasoned through every ordering; `tests/unit/smoke-matrix.test.mjs` pins that
-  only `state` reads the payload's draft flag and the three-read rule of the draft step.
+  only `state` reads the payload's draft flag and the four-read rule of the draft step (60 seconds).
 - **Unproven.** Actions cannot run locally; see the checklist.
 
 ## Checklist for the first pull request that carries it

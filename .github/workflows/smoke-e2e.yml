@@ -111,7 +111,7 @@
 # What stays unproven until a pull request exercises it: that the API answers
 # the toggle within the seconds between it and the newest run's `state` (if it
 # answered stale, that run would be named draft on a ready pull request; its
-# last step reads the API three times over about a minute, fails on any answer
+# last step reads the API four times over 60 seconds, fails on any answer
 # that is not "draft", and names the way out, `gh pr update-branch`), and that
 # GitHub accepts `needs` in a job name at run time as its documentation says.
 # No branch rule or repository setting changes.
@@ -123,7 +123,7 @@
 # min), AI, Research and VCA (2-3 jobs each, under a minute each), and Lint
 # questions when a question bank moved. A push to a draft starts the same runs
 # but this one runs 2 jobs (state, then the draft-named smoke, which reads the
-# draft state three times over about a minute)
+# draft state four times over 60 seconds)
 # and Build stays 4-5 min. Marking it ready adds one full run of this
 # workflow. `state` adds one job of a few seconds to each run.
 
@@ -539,8 +539,8 @@ jobs:
       # A draft's run says so, and checks again at its end. Marking the pull request ready starts a
       # newer run that cancels this one, so this step finds the pull request ready only if `state`
       # read a stale or missing answer. This run would then be the newest on the commit with no
-      # `smoke`, the #200 deadlock, and nothing would say so. So it reads the API three times over
-      # about a minute and passes only if all three say draft: `false` fails, and so does `unknown`
+      # `smoke`, the #200 deadlock, and nothing would say so. So it reads the API four times over
+      # 60 seconds and passes only if all four say draft: `false` fails, and so does `unknown`
       # (an API error), because neither proves this run is not the newest one on a ready pull request.
       - name: A draft runs no e2e
         if: needs.state.outputs.draft == 'true'
@@ -550,8 +550,8 @@ jobs:
         run: |
           echo "::notice title=draft::No e2e on a draft. Marking the pull request ready for review runs them once; the required smoke check waits for that run."
           reads=""
-          for attempt in 1 2 3; do
-            [ "$attempt" = 1 ] || sleep 25
+          for attempt in 1 2 3 4; do
+            [ "$attempt" = 1 ] || sleep 20
             now=$(timeout 20 gh api "repos/${{ github.repository }}/pulls/$NUMBER" --jq .draft 2>/dev/null) || now=unknown
             [ "$now" = true ] || [ "$now" = false ] || now=unknown
             reads="$reads $now"
