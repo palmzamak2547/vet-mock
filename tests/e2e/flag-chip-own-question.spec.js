@@ -72,7 +72,8 @@ test('a caution chip shows on its own question only, with the key, all the way t
     if (answer) {
       // Nothing before the key, on any question.
       await expect(chips, `question ${position} of ${total} before the answer: ${stem}`).toHaveCount(0);
-      await page.locator('.vmx-option').first().click();
+      // The topic holds MCQ and true/false questions.
+      await page.locator('.vmx-option, .vmx-tf-btn').first().click();
       await expect(page.locator('.vmx-instant-feedback')).toBeVisible();
     }
     await expect(chips, `question ${position} of ${total} with the key: ${stem}`).toHaveCount(isFlagged ? 1 : 0);

@@ -233,7 +233,10 @@ test('a stem whose numbers moved to a table is still read aloud with them', asyn
 test('the way back to a table shows only while the table is off screen, clear of the next button, and reopens a hidden table', async ({ page }) => {
   const q = await pick((x) => x.subject === 'epidemiology' && x.type === 'mcq' && tablesIn(x.passage).length === 1 && proseIn(x.passage).length > 0);
   expect(q, 'no Epidemiology passage holds a table under a lead sentence any more').toBeTruthy();
-  await page.setViewportSize({ width: 390, height: 520 });   // short enough that the options sit below the table
+  // Short enough that the options sit below the table and, once it is hidden,
+  // its header scrolls off too: at 520 the one-row card header (11 Nov 2026)
+  // left the folded header on screen, where it is its own way back.
+  await page.setViewportSize({ width: 390, height: 440 });
   await openPinned(page, q);
   const pane = page.locator('.vmx-q-passage-pane');
   const back = page.locator('.vmx-passage-fab');

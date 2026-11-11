@@ -4,19 +4,6 @@
 
 # Quiet labels (pending, branch `claude/quiet-labels`)
 
-## Where I stopped (11 Nov 2026, machine shut down)
-
-- Done and committed: the label rules, the two bank-note commits, the explanation fold (C), the
-  wrapping tag line, nothing of the source before the answer (A), the caution chip with the key only
-  (D, E), the one-row header (B). Unit tests for each pass on their own files.
-- Running when stopped: the before/after screenshot pass (`shots2.mjs`, main and branch); it may not
-  have finished. Not yet run: the e2e on four engines, `npm run lint:data`, `npm run test:unit`.
-- Next: (1) merge `origin/main` once pull request 208 is there, keeping its `flag:`/`source:` keys,
-  `data-flag-chip`, `focusPassage` and `SmartPassage` `openSignal` (13cbbdd9), with the chip now in
-  the verdict panel; (2) run the e2e (quiet-labels, source-line-spoiler, question specs) on the four
-  projects under the shared lock, then lint:data and test:unit; (3) finish screenshots and the contact
-  sheet, then push `claude/quiet-labels`.
-
 Palm, 11 Nov 2026: "เรื่องพวกป้ายย้อนแย้ง อย่าให้มันเยอะไปจนน่ารำคาญนะครับ จุดอื่นๆด้วย ดูดีๆ".
 The rule: a label earns a place on the card only when it changes what the student should do with
 the answer. Everything else is a row of the source panel ("ดูเต็ม"), which opens after the answer.
@@ -67,6 +54,11 @@ words are in the tree, in the title, and unfold on a tap. At 200% zoom the exam 
 counter and timer) overlaps, as before this change (the other lane's item); the card header wraps
 its controls onto three rows and does not overlap.
 
+What the remaining 45px would take, in `src/views/ExamView.jsx` and its styles (another lane's
+files, left as they are): close the 28px between the progress bar and the card to about 12px
+(about 16px), and fold the progress bar into the bottom edge of the exam-header row instead of a
+row of its own (about 18px with its margin); the exit, counter and timer stay where they are.
+
 ## The rules and their tests
 
 1. **Nothing of the source before the answer.** `QSourceChip.jsx` returns null until the key is on
@@ -102,6 +94,19 @@ its controls onto three rows and does not overlap.
    a miss shows the section open).
 7. **epidemiology:213524** note shortened to two sentences, both facts kept, key unchanged.
 8. **Flag notes reworded** where they were plainly internal text (list below).
+9. **The panel names topics, not tag slugs.** `tagTopicLabels` (`src/lib/source-line.js`): a tag
+   that is a topic id shows as the topic's label under "หัวข้อ"; slugs are dropped, and the row with
+   them. Test: "the panel names topics by their labels and prints no working slug" (real bank).
+10. **Review follows the same rule.** `ReviewView.jsx`: a major flag is the caution ("ข้อควรระวัง"),
+    a minor one a quiet "หมายเหตุ" line, both 14px with sources as "แหล่งที่มา". Test: "Review applies
+    the same rule".
+11. **Merged main (5.213.1).** Its keys (`flag:`, `source:`), `data-flag-chip` (now on the chip's
+    button, valued by severity), `focusPassage` and SmartPassage's open-during-render are kept.
+    `flag-chip-own-question.spec.js` walks the whole topic under this branch's rule: no chip before
+    the key on any question, and with the key a chip exactly on the majors.
+    `passage-opens-with-the-tap.test.mjs` now checks behaviour (SmartPassage mounted with effects
+    off, closed, a new `openSignal` must bring the table back in that render; it fails on an
+    effect-based open) and keeps the check that no effect depends on `openSignal`.
 
 ## The 23 flag notes
 
@@ -127,8 +132,9 @@ Left as written (readable Thai already): com5:592 (major), milk-meat-hygiene:104
 and 8020, com5:614.
 
 Needs a person with the course content (not changed):
-- **comp-repro-clinic:8410**: the note says the current guideline is 6-8 hours, but the key is
-  "8–12 ชั่วโมง" and no option says 6-8. Either the key or the note is out of date.
+- **comp-repro-clinic:8410** (a bank doubt for the owner, not wording): "ก่อนผ่าตัดทำหมันสุนัข/แมว ควร
+  อดอาหาร (NPO) นานเท่าใด". The note says the current guideline (AAHA 2020) is 6-8 hours, but the key
+  is "8–12 ชั่วโมง" and no option says 6-8. Either the key or the options are out of date.
 - **com5:614**: opens with the file label "COM V FINAL 86 (ข้อสอบเก่า)"; a plainer opening would be
   "ข้อสอบเก่าบางฉบับ", but which paper it was is evidence, so it stays.
 - **livestock-pathology:8214 and 8254**: they say which side a senior's commentary takes; whether the
@@ -138,6 +144,5 @@ Needs a person with the course content (not changed):
 
 - 74 cards' before-answer source line used to name the other paper ("ข้อสอบเก่า Vet 85 กลางภาค" on a
   final question); with no source row before the answer that is gone too.
-- The opened panel's "แท็ก" row prints internal slugs ("diffuse-placenta, placentation-types").
-- Review after a submitted paper still prints every flag (minor too) as "ข้อควรระวังสำคัญ" or
-  "หมายเหตุ", with its sources in 11px.
+- The opened panel's "แท็ก" row printed internal slugs, and Review printed every flag with 11px
+  sources: both fixed here (rules 9 and 10).

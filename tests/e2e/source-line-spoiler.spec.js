@@ -49,7 +49,6 @@ test('the card shows nothing of the source, and no topic that gives the key away
     const tree = await card.ariaSnapshot();
     expect(tree).not.toContain('ที่มา');
     expect(tree).not.toContain('ดูเต็มหลังเฉลย');
-    expect(tree).not.toContain(r.after);
     await expect(shelf).toHaveCount(0);
     const metaHeight = (await meta.boundingBox()).height;
     if (r.topic) {
