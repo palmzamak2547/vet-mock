@@ -18,9 +18,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { XP_AWARDS, levelFor } from '../../src/lib/xp.js';
 import {
-  accountXp, shownXp, xpToCarry, markCarried, carriedKey, pendingKey, extraXpOf, XP_AWARDS, levelFor,
-} from '../../src/lib/xp.js';
+  accountXp, shownXp, xpToCarry, markCarried, carriedKey, pendingKey, extraXpOf,
+} from '../../src/lib/xp-account.js';
 import { checkPublicName, normalizePublicName, compactName, SURFACES } from '../../src/lib/public-identity.js';
 import { isAutoName, identityIntroDue } from '../../src/lib/identity-gate.js';
 import { shownName, shownPicture } from '../../src/lib/public-display.js';
@@ -71,7 +72,8 @@ test('a second account on the same phone never gets the first one\'s counter or 
   assert.equal(xpToCarry({ user: B, history: bHistory, device, storage: fresh, ready: true }).carry, null);
   // Quest points are kept per account.
   const xp = read('src/lib/xp.js');
-  assert.match(xp, /st\.setItem\(pendingKey\(uid\)/, 'awardXp files quest points under the signed-in account');
+  assert.match(xp, /st\.setItem\(`vmx-xp-pending:\$\{uid\}`/, 'awardXp files quest points under the signed-in account');
+  assert.equal(pendingKey('A'), 'vmx-xp-pending:A', 'the key xp-account.js reads');
   assert.equal(pendingKey('A') === pendingKey('B'), false);
 });
 

@@ -7,7 +7,8 @@
 // lifetime question count.
 
 import { useEffect, useRef, useState } from 'react';
-import { getXpState, levelFor, xpForNextLevel, XP_EVENT, shownXp, xpToCarry, markCarried, pendingXp, setPendingXp } from '../lib/xp.js';
+import { getXpState, levelFor, xpForNextLevel, XP_EVENT } from '../lib/xp.js';
+import { shownXp, xpToCarry, markCarried, pendingXp, setPendingXp } from '../lib/xp-account.js';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 
 // `history`, `srCards` and `user` are what follows the account: the chip
