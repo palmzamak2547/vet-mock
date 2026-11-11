@@ -23,9 +23,16 @@ function decodedOnce(s) {
  * A safe same-origin path ("/x?y#z"), or null. Never a full URL: a value must start with one
  * "/" and stay on the origin when resolved, also after its escapes are decoded once (a router may
  * decode before it navigates).
+ * The check runs again on the cleaned result, which must pass unchanged: resolving can remove a
+ * dot segment and leave a path that reads "//host" once decoded ("/./%2f/evil" becomes "/%2f/evil").
  * @param {unknown} value
  */
 export function safeReturnPath(value) {
+  const cleaned = checkOnce(value);
+  return cleaned != null && checkOnce(cleaned) === cleaned ? cleaned : null;
+}
+
+function checkOnce(value) {
   if (typeof value !== 'string' || !value || value.length > MAX) return null;
   if (!ALLOWED.test(value)) return null;
   if (value.startsWith('//')) return null;
@@ -37,6 +44,9 @@ export function safeReturnPath(value) {
   const decodedAll = decodedOnce(value);
   if (decodedPath == null || decodedAll == null) return null;
   if (!decodedPath.startsWith('/') || decodedPath.startsWith('//') || /[\\@\s\u0000-\u001f\u007f]/.test(decodedPath)) return null;
+  // No empty or dot segment anywhere in it either: an ordinary page address has none, and each is a
+  // way to make a later resolution read "//host".
+  if (/\/\/|\/\.\.?(?:\/|$)/.test(decodedPath)) return null;
   if (/[\\\u0000-\u001f\u007f]/.test(decodedAll)) return null;
   let url;
   try { url = new URL(value, BASE); } catch { return null; }
