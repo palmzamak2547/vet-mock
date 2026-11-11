@@ -69,8 +69,9 @@ export const OG_COVERS = [
   { id: 'about', route: '/app/about',
     title: 'เกี่ยวกับ VetMock',
     description: 'VetMock คืออะไร ฟีเจอร์ที่ใช้ได้ และคนที่ช่วยกันทำ',
-    cover: 'รู้จัก VetMock',
-    indexable: true },
+    // Behind the Chula sign-in wall (App.jsx GATE_PUBLIC_VIEWS holds only the
+    // landing page and privacy), so a crawler would index the sign-in screen.
+    cover: 'รู้จัก VetMock' },
   { id: 'privacy', route: '/app/privacy',
     title: 'ข้อมูลและความเป็นส่วนตัว',
     description: 'เก็บอะไร เก็บที่ไหน ใครประมวลผล และลบบัญชีได้อย่างไร',

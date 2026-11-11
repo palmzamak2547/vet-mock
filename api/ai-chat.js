@@ -10,6 +10,8 @@
 //   GET      { ok, configured, stats }: is a model key set, and how much the
 //            chat can answer from, counted from the loaded corpora. No model
 //            call. Edge-cacheable for 10 minutes.
+//   GET ?health=1  { health: ok|degraded|down, primary, fallback }: no token
+//            spent, no secret (ai/health.js). Cached 3 minutes, rate-limited.
 //   POST     { messages, image } → text/event-stream:
 //            status → sources → cards? → delta… → check → done   (or error)
 //
@@ -36,6 +38,7 @@ import { openStream } from './_lib/ai/sse.js';
 import { runChat, chatStats, questionCounts, ERROR_MESSAGES } from './_lib/ai/pipeline.js';
 import { warmCorpus } from './_lib/ai/corpus.js';
 import { warmLibrary } from './_lib/ai/library.js';
+import { aiHealth, CACHE_MS } from './_lib/ai/health.js';
 import { validateVoiceTool, runVoiceTool, VOICE_TOOL_ERRORS } from './_lib/ai/voice-tools.js';
 
 // Literal on purpose: the platform reads this object statically from the
@@ -59,6 +62,19 @@ export default async function handler(req, res) {
     // the next origin too (or be missing when a header-less request filled
     // the cache), and the chat page's own fetch would fail for ten minutes.
     res.setHeader('Access-Control-Allow-Origin', '*');
+    // ?health=1: can the AI answer right now, from a free balance read and the
+    // fallback's key alone (ai/health.js). For the scheduled watch.
+    if (/[?&]health=1/.test(req.url || '')) {
+      const rl = await rateLimit(`ai-health:${clientIP(req)}`, 20, 10 * 60 * 1000);
+      // A limiter that is down does not hide the answer: it costs no token.
+      if (!rl.ok && !rl.unavailable) {
+        if (rl.retryAfter) res.setHeader('Retry-After', String(rl.retryAfter));
+        res.setHeader('Cache-Control', 'no-store');
+        return res.status(429).json({ error: 'rate' });
+      }
+      res.setHeader('Cache-Control', `public, s-maxage=${CACHE_MS / 1000}`);
+      return res.status(200).json(await aiHealth());
+    }
     const cfg = chatConfig();
     let stats = {};
     try { stats = await chatStats(); } catch { stats = {}; }

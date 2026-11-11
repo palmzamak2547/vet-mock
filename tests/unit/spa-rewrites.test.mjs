@@ -10,6 +10,9 @@ import { readFileSync } from 'node:fs';
 const cfg = JSON.parse(readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8'));
 
 test('the SPA fallbacks cover paths with and without a trailing slash', () => {
-  const spa = cfg.rewrites.filter((r) => r.destination === '/').map((r) => r.source).sort();
-  assert.deepEqual(spa, ['/app(/.*)?', '/wiki(/.*)?']);
+  const spa = cfg.rewrites.filter((r) => r.destination === '/' || r.destination === '/wiki-unknown.html')
+    .map((r) => `${r.source} -> ${r.destination}`).sort();
+  // An unknown /wiki/* path gets the noindex shell prerender-wiki.mjs writes;
+  // a real topic is a prerendered file, which Vercel serves before any rewrite.
+  assert.deepEqual(spa, ['/app(/.*)? -> /', '/wiki(/.*)? -> /wiki-unknown.html']);
 });

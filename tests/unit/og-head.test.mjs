@@ -144,8 +144,18 @@ test('descriptions are short enough to survive a preview', () => {
 
 test('only genuinely public pages are indexable', () => {
   const indexable = OG_COVERS.filter((c) => c.indexable).map((c) => c.id).sort();
-  assert.deepEqual(indexable, ['about', 'blog', 'home', 'privacy', 'wiki'],
+  assert.deepEqual(indexable, ['blog', 'home', 'privacy', 'wiki'],
     'an app screen that needs a year or an account is not a page a search engine should hold');
+});
+
+test('an indexable /app route opens without the Chula sign-in', () => {
+  const app = fs.readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  const open = /const GATE_PUBLIC_VIEWS = new Set\(\[([^\]]*)\]\)/.exec(app)?.[1];
+  assert.ok(open, 'App.jsx still names the views the wall lets through');
+  const publicViews = open.split(',').map((s) => s.trim().replace(/'/g, ''));
+  for (const c of OG_COVERS.filter((x) => x.indexable && x.route.startsWith('/app/'))) {
+    assert.ok(publicViews.includes(c.id), `${c.route} is in the sitemap but needs a sign-in`);
+  }
 });
 
 test('ogCoverFor finds by id', () => {
