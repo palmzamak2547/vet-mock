@@ -108,6 +108,24 @@ row of its own (about 18px with its margin); the exit, counter and timer stay wh
     off, closed, a new `openSignal` must bring the table back in that render; it fails on an
     effect-based open) and keeps the check that no effect depends on `openSignal`.
 
+## Checks
+
+- Local e2e, one job, chromium-mobile and webkit-mobile (before the fixes in the last commit): 51
+  passed, 11 failed. Fixed in the specs, all test-side: the resume button is named by its card
+  (ทำต่อจากครั้งล่าสุด), the chip's text has a leading space, the key is an option so the card's tree
+  holds its words, the walked topic has true/false questions, and the way back to a table needs a
+  390x440 viewport now that the card header is one row (measured on the built branch: no floating
+  button at 520 because the folded table's header stays on screen, the button at 480 and below).
+  Not fixed: `read-aloud.spec.js` "the bar pauses, resumes, changes speed, moves by point and
+  closes" on webkit-mobile (option A not marked as read after a move by point); not shown to be this
+  branch's, left to CI on four engines.
+- Never run yet: the timed-exam way-back case in `quiet-labels.spec.js` ("in a running timed exam"),
+  and the fixed versions of the cases above. CI runs them.
+- Unit: the eight touched test files pass when run directly (`source-line-no-spoiler`,
+  `exam-scope`, `explain-fold`, `style-metrics-floors`, `exam-card-chrome`, `jsx-sibling-keys`,
+  `passage-opens-with-the-tap`, `smoke-matrix`), and `lint:source-line` passes. `lint:data` and the
+  full `test:unit` run in the cloud Build job, not locally (the local lane was held).
+
 ## The 23 flag notes
 
 Changed (wording only, never the claim):
