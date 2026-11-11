@@ -19,6 +19,7 @@
 import { lazy, memo, Suspense, useEffect, useMemo, useState } from 'react';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { foldThaiName, twoPassSearch } from '../lib/thai-name-fold.js';
 import BackBar from '../components/BackBar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 
@@ -97,6 +98,8 @@ export default function FacultyView({ goHome }) {
         ins.institution, ins.nickname, ...(ins.aliases || []),
         ...(ins.areas || []),
       ].filter(Boolean).join(' ').toLowerCase(),
+      // The Thai names, folded for the second pass (lib/thai-name-fold.js).
+      _looseHay: foldThaiName([ins.nameTh, ins.nickname, ...(ins.aliases || [])].filter(Boolean).join(' ')),
       // Pre-lowered English name used as sort key. localeCompare is
       // ~20× slower than numeric < / > comparison, and since faculty
       // names are ASCII-Latin (no diacritics that need collation),
@@ -130,21 +133,24 @@ export default function FacultyView({ goHome }) {
       .map(([id, count]) => ({ id, count, ...STATUS_META[id] }));
   }, [instructorIndex]);
 
-  const filtered = useMemo(() => {
+  // Two passes: the exact text, and only when that finds nobody, the Thai
+  // names folded for look-alike finals, tone marks and silent letters
+  // (อนุวัฒน์ finds อนุวัตน์). Exact matches therefore always come first.
+  const { filtered, looseMatch } = useMemo(() => {
     const q = debouncedFilter.trim().toLowerCase();
-    const out = [];
+    const pool = [];
     for (const entry of instructorIndex) {
       const { ins } = entry;
       if (subjectFilter !== 'all' && !(ins.subjects || []).includes(subjectFilter)) continue;
       if (deptFilter !== 'all' && entry._deptId !== deptFilter) continue;
       if (statusFilter !== 'all' && ins.status !== statusFilter) continue;
-      if (q && !entry._hayLc.includes(q)) continue;
-      out.push(entry);
+      pool.push(entry);
     }
+    const { hits: out, loose } = twoPassSearch(pool, q);
     // Sort by pre-lowered key with native compare — ASCII-only names
     // give the same order as localeCompare at ~20× the speed.
     out.sort((a, b) => (a._sortKey < b._sortKey ? -1 : a._sortKey > b._sortKey ? 1 : 0));
-    return out.map((e) => e.ins);
+    return { filtered: out.map((e) => e.ins), looseMatch: loose };
   }, [instructorIndex, debouncedFilter, subjectFilter, deptFilter, statusFilter]);
 
   const subjectFilters = [
@@ -297,6 +303,7 @@ export default function FacultyView({ goHome }) {
         <div className="vmx-fac-toolbar-foot">
           <span className="vmx-fac-count" role="status">
             แสดง {filtered.length} / {ALL_INSTRUCTORS.length} โปรไฟล์
+            {looseMatch && <> ไม่มีชื่อที่สะกดตรงกัน จึงแสดงชื่อที่สะกดใกล้เคียง</>}
           </span>
           {hasActiveFilters && (
             <button type="button" className="vmx-fac-clear" onClick={clearAllFilters}>
