@@ -1,4 +1,5 @@
 import { humanSource } from '../lib/source-label.js';
+import { displayStem } from '../lib/match-stem.js';
 import { followsExamPattern, readableSource } from '../lib/source-line.js';
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -413,7 +414,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </span>
               </div>
             </div>
-            <h2 className="vmx-review-q"><RichText text={q.q} /></h2>
+            <h2 className="vmx-review-q"><RichText text={displayStem(q)} /></h2>
 
             {isCorrectCollapsed ? (
               <button
