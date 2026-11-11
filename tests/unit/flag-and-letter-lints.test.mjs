@@ -37,3 +37,27 @@ test('no shuffled question names an option by its letter', () => {
   for (const x of held) assert.equal(x.type, 'mcq', `${x.subject}:${x.id}`);
   for (const k of LETTERS_ARE_CONTENT.keys()) assert.ok(QB.some((x) => `${x.subject}:${x.id}` === k), `${k} is in the bank`);
 });
+
+test('the letter lint reads every form an option is named by, and lets the honest texts through', () => {
+  const q = (explain, n = 5) => ({ subject: 's', id: 1, type: 'mcq', options: Array.from({ length: n }, (_, i) => `ตัวเลือก${i}`), explain });
+  const caught = [
+    'ดูที่ option C ก่อน', 'C. ผิดเพราะ...', '(c) ผิด', 'ส่วน B กับ D เป็นตัวลวง', 'ข้อ ค. ผิด', 'ข้อ ก ถูก',
+    'ข้อ 1 ผิดเพราะ', 'ตัวเลือกที่ 2 เป็นตัวลวง', 'choice (c) ถูก', 'ข้อแรกผิดเพราะ',
+  ];
+  for (const text of caught) assert.ok(optionLetterCitations(q(text)).length > 0, text);
+  const honest = [
+    'เกี่ยวข้องกับการซ่อมแซม', 'ไม่ใช่ตัวเลือกแรกในการรักษา', 'คำถามข้อแรกของแผนภูมิ', 'Hepatitis B เป็นไวรัส',
+    'Vitamin A: สำคัญต่อการมองเห็น', 'criteria ข้อ 5: ระยะเวลา',
+  ];
+  for (const text of honest) assert.equal(optionLetterCitations(q(text)).length, 0, text);
+  // A letter past the last option names nothing.
+  assert.equal(optionLetterCitations(q('→ E ผิด', 4)).length, 0);
+});
+
+test('the severity lint knows "ควรเป็น" and "ยังไม่ได้ยืนยัน", and a note that says the key stands', () => {
+  const minor = (note) => ({ subject: 's', id: 1, flag: { severity: 'minor', note } });
+  assert.equal(disputedMinors([minor('ตามสไลด์ปี 2026 ควรเป็น PCR')]).length, 1);
+  assert.equal(disputedMinors([minor('เฉลยข้อนี้ยังไม่ได้ยืนยันกับผู้สอน')]).length, 1);
+  assert.equal(disputedMinors([minor('ตำราบางเล่มควรเป็นอีกแบบ แต่เฉลยไม่เปลี่ยน')]).length, 0);
+  assert.equal(disputedMinors([minor('ควรเป็น X ในทางคลินิก เฉลยนี้ตามสไลด์ปี 2026')]).length, 0);
+});

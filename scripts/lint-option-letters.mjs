@@ -34,6 +34,9 @@ export const LETTERS_ARE_CONTENT = new Map([
   ['vca:693124', 'a cell of the risk matrix'],
   ['aquatic-clinic:211075', 'the options are orders of steps named A to F'],
   ['equine-medicine:105309', 'vitamins C and D'],
+  ['avian-medicine:105043', 'subtypes A to D of a pathogen, named in every option'],
+  ['milk-meat-hygiene:101114', 'the first question of a decision tree, not an option'],
+  ['livestock-pathology:8556', 'held back (unclear flag); a working note about the scanned paper'],
 ]);
 
 /** Shuffled questions whose explanation, read-aloud text or flag note names an option by its letter. */

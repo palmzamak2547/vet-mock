@@ -20,14 +20,20 @@ const imp = (p) => import(pathToFileURL(path.join(root, p)).href);
 export const DISPUTE_WORDS = [
   'เถียงได้', 'กำกวม', 'อาจถูก', 'ถูกเช่นกัน', 'ตอบได้เช่นกัน', 'ล้าสมัย', 'ตอบได้มากกว่าหนึ่ง',
   'มากกว่าหนึ่งตัวเลือก', 'มากกว่าหนึ่งคำตอบ', 'มีคู่ที่ถูกมากกว่า', 'อาจนับเป็น', 'ให้ 2 คำตอบ',
+  'ควรเป็น', 'ยังไม่ได้ยืนยัน',
   'outdated', 'ambiguous', 'arguably', 'two answers', '2 answers',
 ];
+
+/** Words that say the key stands as it is: a note with one disputes nothing. */
+export const KEY_STANDS_WORDS = ['เฉลยไม่เปลี่ยน', 'เฉลยนี้ตาม'];
+const STANDS = new RegExp(KEY_STANDS_WORDS.join('|'));
 const DISPUTE = new RegExp(DISPUTE_WORDS.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'i');
 
 /** The minor flags whose note disputes the key. */
 export function disputedMinors(questions) {
   return questions
-    .filter((q) => q?.flag && typeof q.flag === 'object' && q.flag.severity === 'minor' && DISPUTE.test(String(q.flag.note || '')))
+    .filter((q) => q?.flag && typeof q.flag === 'object' && q.flag.severity === 'minor'
+      && DISPUTE.test(String(q.flag.note || '')) && !STANDS.test(String(q.flag.note || '')))
     .map((q) => ({ key: `${q.subject}:${q.id}`, word: String(q.flag.note).match(DISPUTE)[0], note: q.flag.note }));
 }
 
