@@ -60,7 +60,7 @@ figure.vmx-fig { margin: 0; }
 .vmx-fig-grid .c.is-num { background: var(--clr-ink); border-color: var(--clr-ink); color: var(--clr-surface); }
 .vmx-fig-grid .c.is-den { border: 2.5px solid var(--clr-ink); }
 .vmx-fig-grid .c.is-num .cv, .vmx-fig-grid .c.is-den .cv { font-weight: 700; }
-.vmx-fig-grid .role { font-size: 14px; line-height: 1.1; }
+.vmx-fig-grid .role { margin-top: 2px; font-size: 14px; line-height: 1.1; }
 /* The way to read: an ink rail from the counted cell toward its total, through the cells between. */
 .vmx-fig-grid .c.rail-v::after, .vmx-fig-grid .c.rail-h::after { content: ''; position: absolute; background: var(--clr-ink); border-radius: 1px; pointer-events: none; }
 .vmx-fig-grid .c.rail-v::after { left: 5px; top: 50%; width: 3px; height: calc(100% + 4px); }
@@ -154,5 +154,5 @@ figure.vmx-fig { margin: 0; }
 .vmx-fig-scale .bls .is-key { color: var(--clr-sage-text); font-weight: 700; }
 
 /* Too narrow to draw (200% zoom on a phone): the figure as a list, one item a line. */
-.vmx-fig-list { margin: 0; padding: 0 0 0 14px; font-size: 15px; line-height: 22px; }
+.vmx-fig-list { margin: 0; padding: 0 0 0 14px; font-size: 15px; line-height: 22px; overflow-wrap: anywhere; }
 .vmx-fig-list li + li { margin-top: 4px; }
