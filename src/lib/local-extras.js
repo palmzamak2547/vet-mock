@@ -1,6 +1,8 @@
 // Device-local tools retain their original keys until a user explicitly
 // restores an archive. A restored bundle is one atomic localStorage write;
 // subsequent edits use that bundle so a failed restore cannot apply half of it.
+import { keepDeviceWork } from './persist-storage.js';
+
 export const LOCAL_EXTRA_FIELDS = Object.freeze({
   'vmx-video-notes': { label: 'โน้ตวิดีโอ', type: 'object' },
   'vmx-pinboard': { label: 'Pinboard', type: 'array' },
@@ -63,6 +65,9 @@ export function writeLocalExtra(key, value) {
       storage.setItem(BUNDLE_KEY, JSON.stringify(next));
       cachedBundle = copy(next);
     } else storage.setItem(key, JSON.stringify(value));
+    // The student's own work lives only here: ask once that it be kept. The
+    // watch history is written as they watch, not made, so it does not ask.
+    if (key !== 'vmx-watched-videos') keepDeviceWork({ storage });
     return true;
   } catch { return false; }
 }
