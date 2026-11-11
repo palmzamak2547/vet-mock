@@ -6,9 +6,13 @@
 // this list may carry two display preferences, never anything about the account:
 //   ?vmt=light|dark  the theme the student was looking at
 //   ?vml=th|en       the language, only for a site that has a language switch
-// The site reads them once before its first paint, writes them to its own key and removes them
-// from the address bar (takeCrossing below; the boot scripts that cannot import this file hold
-// the same two names, checked by the test).
+// The site reads them once before its first paint and removes them from the address bar
+// (takeCrossing below; the boot scripts that cannot import this file hold the same names, checked
+// by the test). A value that arrives in an address applies to this visit only: it is kept in
+// sessionStorage under VISIT_KEY, never written over the student's saved choice, and a pick the
+// student makes on the site replaces it (dropVisit). A student who follows the system theme sends
+// none: each site marks an explicit or visiting theme on <html data-theme-chosen>, and only that
+// travels (chosenTheme).
 //
 // No imports: the boot path of every site may load this file.
 
@@ -53,6 +57,12 @@ export const FAMILY_TITLE = Object.freeze({ th: 'VetMock ทั้งหมด',
 /** The two parameter names a crossing may carry. */
 export const CROSSING = Object.freeze({ theme: 'vmt', lang: 'vml' });
 
+/** sessionStorage key for what arrived in an address: { theme?, lang? }, this visit only. */
+export const VISIT_KEY = 'vmx-family-visit';
+
+/** The <html> attribute a site sets to the theme the student chose or arrived with; absent while it follows the system. */
+export const CHOSEN_ATTR = 'data-theme-chosen';
+
 const THEMES = new Set(['light', 'dark']);
 const LANGS = new Set(['th', 'en']);
 
@@ -89,10 +99,36 @@ export function crossingHref(target, { theme = null, lang = null } = {}) {
   return url.href;
 }
 
-/** The theme this page shows now, from <html data-theme>, which every family site sets. */
-export function currentTheme(doc = globalThis.document) {
-  const t = doc?.documentElement?.getAttribute?.('data-theme');
+/** The theme to pass along: the one the student chose (or arrived with), never one the system picked. */
+export function chosenTheme(doc = globalThis.document) {
+  const t = doc?.documentElement?.getAttribute?.(CHOSEN_ATTR);
   return THEMES.has(t) ? t : null;
+}
+
+
+/** What this visit arrived with: { theme, lang }, each null when nothing valid arrived. */
+export function visitPrefs(store = globalThis.sessionStorage) {
+  try {
+    const v = JSON.parse(store?.getItem(VISIT_KEY) || 'null');
+    return { theme: THEMES.has(v?.theme) ? v.theme : null, lang: LANGS.has(v?.lang) ? v.lang : null };
+  } catch { return { theme: null, lang: null }; }
+}
+
+/** Keep what arrived for this visit only. */
+export function keepVisit({ theme = null, lang = null } = {}, store = globalThis.sessionStorage) {
+  const next = { ...visitPrefs(store) };
+  if (THEMES.has(theme)) next.theme = theme;
+  if (LANGS.has(lang)) next.lang = lang;
+  try { store?.setItem(VISIT_KEY, JSON.stringify(next)); } catch { /* storage blocked: the saved choice shows */ }
+}
+
+/** The student picked on this site: their pick replaces what the visit arrived with. */
+export function dropVisit(field, store = globalThis.sessionStorage) {
+  const next = { ...visitPrefs(store), [field]: null };
+  try {
+    if (!next.theme && !next.lang) store?.removeItem(VISIT_KEY);
+    else store?.setItem(VISIT_KEY, JSON.stringify(next));
+  } catch { /* nothing kept */ }
 }
 
 /**
@@ -124,5 +160,5 @@ export function stampCrossing(anchor, { lang = null } = {}) {
   const base = anchor.getAttribute('data-family-href') || anchor.getAttribute('href');
   if (!base) return;
   anchor.setAttribute('data-family-href', base);
-  anchor.setAttribute('href', crossingHref(base, { theme: currentTheme(anchor.ownerDocument), lang }));
+  anchor.setAttribute('href', crossingHref(base, { theme: chosenTheme(anchor.ownerDocument), lang }));
 }

@@ -26,7 +26,7 @@ import { useEffect, useRef, useState } from 'react';
 // quick tool = set fab:true on its registry entry; nothing here changes.
 import { fabFeatures, rememberViewIntent } from '../lib/feature-registry.js';
 import NavIcon from './NavIcon.jsx';
-import { crossingHref, currentTheme } from '../lib/family/family.js';
+import { crossingHref, chosenTheme } from '../lib/family/family.js';
 
 export default function ToolsFAB({ onSketch, onView }) {
   const [open, setOpen] = useState(false);
@@ -42,7 +42,7 @@ export default function ToolsFAB({ onSketch, onView }) {
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;
       case 'view': if (inv.view) { rememberViewIntent(inv.intent); onView?.(inv.view); } return;
-      case 'external': if (inv.url) window.location.assign(crossingHref(inv.url, { theme: currentTheme() })); return;
+      case 'external': if (inv.url) window.location.assign(crossingHref(inv.url, { theme: chosenTheme() })); return;
       default: return;
     }
   };

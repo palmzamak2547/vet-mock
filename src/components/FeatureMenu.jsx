@@ -27,7 +27,7 @@ import { useState } from 'react';
 import { MotionButton } from './MotionFeedback.jsx';
 import { FEATURES, FEATURE_CATEGORIES, visibleFeatures, rememberViewIntent } from '../lib/feature-registry.js';
 import { commandShortcutLabel, homeMenuGroup, homeMenuVisible } from '../lib/nav.js';
-import { crossingHref, currentTheme } from '../lib/family/family.js';
+import { crossingHref, chosenTheme } from '../lib/family/family.js';
 
 const PREVIEW_LIMIT = 4;
 
@@ -58,7 +58,7 @@ export default function FeatureMenu({
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;
       case 'voice': onVoiceSettings?.(); return;
-      case 'external': if (inv.url) window.location.assign(crossingHref(inv.url, { theme: currentTheme() })); return;
+      case 'external': if (inv.url) window.location.assign(crossingHref(inv.url, { theme: chosenTheme() })); return;
       default: return;
     }
   };

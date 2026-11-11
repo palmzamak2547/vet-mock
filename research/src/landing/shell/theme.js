@@ -4,6 +4,7 @@
 // prefs.js, the only module that touches localStorage. OWNER: landing role.
 import { useEffect, useState } from 'react';
 import { writePrefs } from '../../lib/store/prefs.js';
+import { CHOSEN_ATTR, dropVisit } from '../../../../src/lib/family/family.js';
 
 /** @returns {'light'|'dark'} */
 export function currentTheme() {
@@ -13,6 +14,9 @@ export function currentTheme() {
 /** @param {'light'|'dark'} theme */
 export function setTheme(theme) {
   writePrefs({ theme });
+  // The student's own pick replaces a theme the visit arrived with, and is what travels on.
+  dropVisit('theme');
+  document.documentElement.setAttribute(CHOSEN_ATTR, theme);
   document.documentElement.dataset.theme = theme;
 }
 

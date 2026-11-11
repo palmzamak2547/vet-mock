@@ -12,6 +12,8 @@ test('the landing lists every other site, and a link carries the theme on screen
   for (const m of OTHERS) {
     await page.route(`${m.url}**`, (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>ok</title>' }));
   }
+  // A theme the student picked travels; one the system picked does not (the next case).
+  await page.addInitScript(() => { try { localStorage.setItem('vmx-theme', JSON.stringify('dark')); } catch { /* ignore */ } });
   await page.goto('/?e2e-fresh=1');
   // No scroll first: the section's heading reveals as it scrolls in, and the click below scrolls
   // to the link and waits for it to settle.
@@ -24,25 +26,37 @@ test('the landing lists every other site, and a link carries the theme on screen
   }
   await expect(section.locator('a[data-family="main"]')).toHaveCount(0);
 
-  const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
   const lang = await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-landing-lang') || '"th"'));
   await Promise.all([
     page.waitForURL((u) => u.hostname === 'research.vetmock.com'),
     section.locator('a[data-family="research"]').click(),
   ]);
   const arrived = new URL(page.url());
-  expect(arrived.searchParams.get('vmt')).toBe(theme);
+  expect(arrived.searchParams.get('vmt')).toBe('dark');
   expect(arrived.searchParams.get('vml')).toBe(lang === 'en' ? 'en' : 'th');
 });
 
-test('an arrival from another site takes the theme and language once, then leaves a clean address', async ({ page }) => {
+test('a student who follows the system theme sends none', async ({ page }) => {
+  await page.route('https://vca.vetmock.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>ok</title>' }));
+  await page.goto('/?e2e-fresh=1');
+  await Promise.all([
+    page.waitForURL((u) => u.hostname === 'vca.vetmock.com'),
+    page.locator('#family a[data-family="vca"]').click(),
+  ]);
+  expect(new URL(page.url()).searchParams.has('vmt')).toBe(false);
+});
+
+test('an arrival from another site shows its theme and language for this visit only, then leaves a clean address', async ({ page }) => {
   await page.goto('/?vmt=dark&vml=en&e2e-fresh=1#family');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   const url = new URL(page.url());
   expect(url.searchParams.has('vmt')).toBe(false);
   expect(url.searchParams.has('vml')).toBe(false);
   expect(url.searchParams.get('e2e-fresh')).toBe('1');
-  expect(await page.evaluate(() => [localStorage.getItem('vmx-theme'), localStorage.getItem('vmx-landing-lang')])).toEqual(['"dark"', '"en"']);
+  // never written over the saved choice; kept for this visit only
+  expect(await page.evaluate(() => [localStorage.getItem('vmx-theme'), localStorage.getItem('vmx-landing-lang')])).not.toContain('"en"');
+  expect(await page.evaluate(() => localStorage.getItem('vmx-theme'))).not.toBe('"dark"');
+  expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('vmx-family-visit')))).toEqual({ theme: 'dark', lang: 'en' });
 });
 
 test('a value outside the allowed set is dropped, not applied', async ({ page }) => {

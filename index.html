@@ -12,14 +12,18 @@
     <script>
       (function () {
         // Arriving from another VetMock site: ?vmt= (theme) and ?vml= (language) say what the
-        // student was looking at there. Taken once into this site's own keys, then out of the
-        // address. Same names as src/lib/family/family.js (CROSSING), held by its test.
+        // student was looking at there. They apply to this visit only (sessionStorage
+        // vmx-family-visit), never over the saved choice, and leave the address. Same names as
+        // src/lib/family/family.js (CROSSING, VISIT_KEY, CHOSEN_ATTR), held by its test.
+        var visit = {};
         try {
+          visit = JSON.parse(sessionStorage.getItem('vmx-family-visit') || '{}') || {};
           var q = new URLSearchParams(location.search);
           if (q.has('vmt') || q.has('vml')) {
             var vt = q.get('vmt'), vl = q.get('vml');
-            if (vt === 'light' || vt === 'dark') localStorage.setItem('vmx-theme', JSON.stringify(vt));
-            if (vl === 'th' || vl === 'en') localStorage.setItem('vmx-landing-lang', JSON.stringify(vl));
+            if (vt === 'light' || vt === 'dark') visit.theme = vt;
+            if (vl === 'th' || vl === 'en') visit.lang = vl;
+            sessionStorage.setItem('vmx-family-visit', JSON.stringify(visit));
             q.delete('vmt'); q.delete('vml');
             var qs = q.toString();
             history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
@@ -27,12 +31,12 @@
         } catch (e) {}
         try {
           var raw = localStorage.getItem('vmx-theme');
-          var t = raw ? JSON.parse(raw) : null;
-          if (t !== 'light' && t !== 'dark') {
-            t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-          }
+          var saved = raw ? JSON.parse(raw) : null;
+          var chosen = visit.theme === 'light' || visit.theme === 'dark' ? visit.theme : (saved === 'light' || saved === 'dark' ? saved : null);
+          var t = chosen || ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
           var d = document.documentElement;
           d.setAttribute('data-theme', t);
+          if (chosen) d.setAttribute('data-theme-chosen', chosen);
           d.style.colorScheme = t;
           d.style.background = t === 'dark' ? '#1a1612' : '#f6efe4';
         } catch (e) {}

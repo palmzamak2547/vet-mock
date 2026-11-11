@@ -7,6 +7,7 @@ import { createContext, createElement, useCallback, useContext, useEffect, useMe
 import common from './common.js';
 import terms from './terms.js';
 import { readPrefs, writePrefs } from '../lib/store/prefs.js';
+import { dropVisit, visitPrefs } from '../../../src/lib/family/family.js';
 
 export const LANGS = /** @type {const} */ (['th', 'en']);
 
@@ -80,13 +81,15 @@ const I18nContext = createContext({ lang: /** @type {'th'|'en'} */ ('th'), setLa
 
 /** @param {{ children: any }} props */
 export function I18nProvider({ children }) {
-  const [lang, setLangState] = useState(() => readPrefs().lang);
+  // A language that arrived from another VetMock site shows for this visit only (src/lib/family).
+  const [lang, setLangState] = useState(() => visitPrefs().lang || readPrefs().lang);
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
   const setLang = useCallback((next) => {
     if (next !== 'th' && next !== 'en') return;
     writePrefs({ lang: next });
+    dropVisit('lang');
     setLangState(next);
   }, []);
   const t = useCallback((key, params) => translate(lang, key, params), [lang]);

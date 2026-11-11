@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CROSSING, FAMILY, FAMILY_TITLE, crossingHref, familyMember, memberOfUrl, takeCrossing } from '../../src/lib/family/family.js';
+import { CHOSEN_ATTR, CROSSING, FAMILY, FAMILY_TITLE, VISIT_KEY, chosenTheme, crossingHref, dropVisit, familyMember, keepVisit, memberOfUrl, takeCrossing, visitPrefs } from '../../src/lib/family/family.js';
 import { FEATURES } from '../../src/lib/feature-registry.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -89,8 +89,56 @@ test('every site\'s boot reads the same two names before its first paint', () =>
     assert.ok(src.includes(`'${CROSSING.theme}'`), `${file} reads ?${CROSSING.theme}`);
     assert.ok(src.includes(`'${CROSSING.lang}'`), `${file} removes ?${CROSSING.lang}`);
     assert.ok(/history\.replaceState/.test(src), `${file} takes them out of the address`);
+    assert.ok(src.includes(`'${VISIT_KEY}'`), `${file} keeps what arrived for this visit only`);
+    assert.ok(src.includes(`'${CHOSEN_ATTR}'`), `${file} marks the theme that may travel on`);
   }
-  assert.match(read('research/src/main.jsx'), /takeCrossing\(\)/);
+  assert.match(read('research/src/main.jsx'), /keepVisit\(takeCrossing\(\)\)/);
+});
+
+test('a value that arrives in an address never overwrites the saved choice', () => {
+  // Each saved key, and the boot or entry that must never write it from an address.
+  const SAVED = {
+    'index.html': [/localStorage\.setItem\('vmx-theme'/, /localStorage\.setItem\('vmx-landing-lang'/],
+    'vca/public/theme-boot.js': [/localStorage\.setItem\('vca:prefs'/],
+    'ai/public/theme-boot.js': [/localStorage\.setItem\('vmai-theme'/],
+    'research/src/main.jsx': [/writePrefs\(/],
+  };
+  for (const [file, writes] of Object.entries(SAVED)) {
+    const src = read(file);
+    for (const w of writes) assert.doesNotMatch(src, w, `${file} writes a saved choice from the address`);
+  }
+  // and each site's own pick replaces what the visit arrived with
+  for (const file of ['src/App.jsx', 'vca/src/lib/prefs.js', 'ai/src/App.jsx', 'research/src/landing/shell/theme.js', 'research/src/workspace/components/AccountMenu.jsx', 'research/src/i18n/index.js']) {
+    assert.match(read(file), /dropVisit\('(theme|lang)'\)/, `${file}: a pick replaces the visit's value`);
+  }
+});
+
+function memoryStore() {
+  const m = new Map();
+  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k), size: () => m.size };
+}
+
+test('the visit keeps only valid values, and a pick drops them', () => {
+  const store = memoryStore();
+  assert.deepEqual(visitPrefs(store), { theme: null, lang: null });
+  keepVisit({ theme: 'dark', lang: 'en' }, store);
+  assert.deepEqual(visitPrefs(store), { theme: 'dark', lang: 'en' });
+  keepVisit({ theme: 'blue', lang: null }, store);
+  assert.deepEqual(visitPrefs(store), { theme: 'dark', lang: 'en' }, 'an invalid value changes nothing');
+  dropVisit('theme', store);
+  assert.deepEqual(visitPrefs(store), { theme: null, lang: 'en' });
+  dropVisit('lang', store);
+  assert.equal(store.size(), 0);
+  store.setItem(VISIT_KEY, '{"theme":"<b>","lang":"xx"}');
+  assert.deepEqual(visitPrefs(store), { theme: null, lang: null });
+});
+
+test('a student who follows the system theme sends none', () => {
+  const doc = (attrs) => ({ documentElement: { getAttribute: (n) => attrs[n] ?? null } });
+  assert.equal(chosenTheme(doc({ 'data-theme': 'dark' })), null, 'the theme on screen alone is the system\'s');
+  assert.equal(chosenTheme(doc({ 'data-theme': 'dark', [CHOSEN_ATTR]: 'dark' })), 'dark');
+  assert.equal(chosenTheme(doc({ [CHOSEN_ATTR]: 'purple' })), null);
+  assert.equal(new URL(crossingHref('vca', { theme: chosenTheme(doc({ 'data-theme': 'light' })) })).search, '');
 });
 
 // Each surface renders the list through the shared components, which map over FAMILY; so a site
@@ -105,6 +153,11 @@ const SURFACES = {
   'research/src/workspace/components/TopBar.jsx': ['FamilyMenu'],
   'research/src/pages/PublicShell.jsx': ['FamilyMenu'],
 };
+
+test('the registry takes every sibling address from the list', () => {
+  const src = read('src/lib/feature-registry.js');
+  for (const host of ['vca.vetmock.com', 'ai.vetmock.com', 'research.vetmock.com']) assert.ok(!src.includes(host), `feature-registry.js writes ${host} by hand`);
+});
 
 test('every surface lists the family from the one list, with no copied address', () => {
   for (const [file, parts] of Object.entries(SURFACES)) {

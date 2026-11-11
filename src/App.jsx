@@ -7,6 +7,7 @@ import { flushSync } from 'react-dom';
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded, onQBMerged } from './data/questions.js';
 import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
+import { CHOSEN_ATTR, dropVisit, visitPrefs } from './lib/family/family.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
 
@@ -1270,19 +1271,33 @@ export default function App() {
   // phone, live, as index.html paints it first (lib/theme-pref.js).
   const [themePref, setThemePref] = useLocalStorage('vmx-theme', THEME_SYSTEM);
   const systemDark = useSystemDark();
-  const theme = effectiveTheme(themePref, systemDark);
+  // A theme or language that arrived from another VetMock site shows for this visit only and
+  // never touches the saved choice; a pick made here replaces it (lib/family/family.js).
+  const [visit, setVisit] = useState(visitPrefs);
+  const visitRef = useRef(visit);
+  visitRef.current = visit;
+  const theme = visit.theme || effectiveTheme(themePref, systemDark);
   // A function receives the theme on screen, so a toggle flips what the
   // student sees even while the setting is 'system'.
-  const setTheme = useCallback((next) => setThemePref((prev) => (
-    typeof next === 'function' ? next(effectiveTheme(prev, systemPrefersDark())) : next
-  )), [setThemePref]);
+  const setTheme = useCallback((next) => {
+    const shown = visitRef.current.theme;
+    if (shown) { dropVisit('theme'); setVisit((v) => ({ ...v, theme: null })); }
+    setThemePref((prev) => (
+      typeof next === 'function' ? next(shown || effectiveTheme(prev, systemPrefersDark())) : next
+    ));
+  }, [setThemePref]);
   // Landing page: language (landing-local; the app itself is Thai-first
   // with no i18n framework) + cookie consent. Consent gates the optional
   // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
   // Thai by default — the audience is Thai veterinary students and the whole
   // app behind the landing is Thai. (An EN/ไทย toggle stays in the header for
   // exchange students and for sharing the page abroad.)
-  const [landingLang, setLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  const [savedLandingLang, saveLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  const landingLang = visit.lang || savedLandingLang;
+  const setLandingLang = useCallback((l) => {
+    if (visitRef.current.lang) { dropVisit('lang'); setVisit((v) => ({ ...v, lang: null })); }
+    saveLandingLang(l);
+  }, [saveLandingLang]);
   const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
   const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
@@ -1387,12 +1402,15 @@ export default function App() {
   useEffect(() => {
     const d = document.documentElement;
     d.setAttribute('data-theme', theme);
+    // Only a theme the student chose (or arrived with) travels to another VetMock site.
+    const chosen = visit.theme || (themePref === 'light' || themePref === 'dark' ? themePref : null);
+    if (chosen) d.setAttribute(CHOSEN_ATTR, chosen); else d.removeAttribute(CHOSEN_ATTR);
     // Keep the html-level base bg + color-scheme in sync with the toggle
     // (the anti-FOUC inline script in index.html sets them for first paint;
     // this keeps the overscroll/landing area correct after a theme switch).
     d.style.colorScheme = theme;
     d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
-  }, [theme]);
+  }, [theme, visit.theme, themePref]);
   useEffect(() => {
     if (palette && palette !== 'default') {
       document.documentElement.setAttribute('data-palette', palette);

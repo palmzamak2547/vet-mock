@@ -65,7 +65,7 @@ export const FEATURE_FLAGS = {
 export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
 // The statistics workspace is its own app on its own origin; the palette opens it in the same tab, as
 // it does Imaging Pro (window.location.assign).
-export const RESEARCH_STUDIO_URL = 'https://research.vetmock.com';
+export const RESEARCH_STUDIO_URL = familyMember('research').url.replace(/\/$/, '');
 
 // The other VetMock sites take their name and sentence from the one family list (family/family.js),
 // so the palette, the home grid and every site say the same thing. Each opens in the same tab and
