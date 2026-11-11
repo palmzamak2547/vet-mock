@@ -75,7 +75,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.1',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }] },
 
-  { id: 8203, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8203, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['granulomatous', 'inflammation'], type: 'mcq',
@@ -92,7 +92,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.1',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }] },
 
-  { id: 8204, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8204, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['hemorrhage', 'coagulopathy', 'differential'], type: 'mcq',
@@ -109,7 +109,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.1-2',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }, { doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
-  { id: 8205, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
+  { id: 8205, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['postmortem-change', 'autopsy'], type: 'mcq',
@@ -126,7 +126,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.2',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
-  { id: 8206, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8206, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['gi','enteritis','differential'], type: 'mcq',
@@ -143,7 +143,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.2',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
-  { id: 8207, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8207, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['infarction', 'circulation'], type: 'mcq',
@@ -245,7 +245,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.3',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }] },
 
-  { id: 8213, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8213, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['skin', 'dermatology', 'differential'], type: 'mcq',
@@ -301,7 +301,7 @@ export const QB_Y5_PATHO = [
   // Swine Pathology (PRRS, PCV2, CSF, FMD, polyserositis, etc.)
   // ═══════════════════════════════════════════════════════════
 
-  { id: 8216, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8216, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['swine', 'PCV2', 'PRRS', 'general'], type: 'mcq',
@@ -318,7 +318,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.4',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }] },
 
-  { id: 8217, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8217, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['fmd','vesicular','swine'], type: 'mcq',
@@ -335,7 +335,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.4',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }] },
 
-  { id: 8218, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8218, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['PRRS', 'swine'], type: 'mcq',
@@ -352,7 +352,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.4-5',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }, { doc: 'final-patho-prac', edition: '15p', page: 5 }] },
 
-  { id: 8219, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8219, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['polyserositis', 'swine', 'bacterial'], type: 'mcq',
@@ -369,7 +369,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.5',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 5 }] },
 
-  { id: 8220, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8220, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['PCV2', 'PCVAD', 'swine'], type: 'mcq',
@@ -386,7 +386,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.5-6',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 5 }, { doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
-  { id: 8221, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8221, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['neuro', 'differential'], type: 'mcq',
@@ -403,7 +403,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.6',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
-  { id: 8222, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8222, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['arthritis', 'swine'], type: 'mcq',
@@ -420,7 +420,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.6',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
-  { id: 8223, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8223, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['swine', 'enteritis', 'differential'], type: 'mcq',
@@ -437,7 +437,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.6',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
-  { id: 8224, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8224, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['swine', 'pneumonia', 'pathogenesis'], type: 'mcq',
@@ -560,7 +560,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.7',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 7 }] },
 
-  { id: 8231, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
+  { id: 8231, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['zoonosis', 'duck-plague', 'general'], type: 'mcq',
@@ -684,7 +684,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.9',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 9 }] },
 
-  { id: 8238, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8238, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['TVT', 'tumor', 'case'], type: 'mcq',
@@ -701,7 +701,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.9',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 9 }] },
 
-  { id: 8239, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8239, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['PMWS', 'PCV2', 'sampling'], type: 'mcq',
@@ -854,7 +854,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.11-12',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 11 }, { doc: 'final-patho-prac', edition: '15p', page: 12 }] },
 
-  { id: 8248, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
+  { id: 8248, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['Marek', 'leukosis', 'avian'], type: 'mcq',
@@ -871,7 +871,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.12',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 12 }] },
 
-  { id: 8249, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8249, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['Actinobacillus', 'bovine', 'case'], type: 'mcq',
@@ -943,7 +943,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.13',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }] },
 
-  { id: 8253, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8253, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['ehrlichiosis', 'canine', 'diagnostics'], type: 'mcq',
@@ -1066,7 +1066,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.14',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
-  { id: 8260, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
+  { id: 8260, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['necropsy', 'protocol', 'fixative'], type: 'mcq',
@@ -1082,7 +1082,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.14',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
-  { id: 8261, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
+  { id: 8261, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['reticulocyte', 'hematology', 'feline'], type: 'mcq',
@@ -1130,7 +1130,7 @@ export const QB_Y5_PATHO = [
     verified: 'Final Patho prac.pdf p.15',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 15 }] },
 
-  { id: 8264, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
+  { id: 8264, noShuffle: true, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
     tags: ['necropsy', 'protocol', 'sample-collection'], type: 'mcq',

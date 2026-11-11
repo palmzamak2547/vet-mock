@@ -1713,7 +1713,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ]
   },
   {
-    "id": 104672,
+    "id": 104672, "noShuffle": true,
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -2327,7 +2327,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ]
   },
   {
-    "id": 104736,
+    "id": 104736, "noShuffle": true,
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -2540,7 +2540,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ]
   },
   {
-    "id": 104760,
+    "id": 104760, "noShuffle": true,
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,

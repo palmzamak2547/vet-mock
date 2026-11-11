@@ -1020,7 +1020,7 @@ export const QB_COM5 = [
     explain: "Direct wet mount sensitivity <14%\nFecal culture (InPouch TF) sensitivity ~55%\nPCR sensitivity สูงสุด\n\n❌ ทำไมข้ออื่นผิด\n— Centrifugal flotation = T.foetus ไม่มี cyst\n— Serology = ไม่ available\n— Direct smear = sensitivity <14%",
     verified: "GI_protozoa.pdf p.20 + COM V FINAL 86 p.18",
     sourcePages: [{ doc: "com5-final86", edition: "34p", page: 18 }],
-    flag: {"note":"ข้อสอบเก่าบางฉบับเฉลย \"direct fecal smear\" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)","sources":["GI_protozoa.pdf p.20","Gookins & Tolbert 2009"],"severity":"minor"},
+    flag: {"note":"ข้อสอบเก่าบางฉบับเฉลย \"direct fecal smear\" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)","sources":["GI_protozoa.pdf p.20","Gookins & Tolbert 2009"],"severity":"major"},
     wikiRefs: [
           {
                 "pageId": "com5-systemic-mycoses-and-protozoa",
