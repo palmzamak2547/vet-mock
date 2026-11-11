@@ -101,7 +101,8 @@ test('a correct answer folds only that section; a miss reads it open', () => {
     const outside = squash(fr.textOf(right)).replace(inside, '');
     assert.ok(outside.includes(squash('✓ คุณตอบถูก')), `${id}: the verdict is outside the fold`);
     assert.ok(outside.includes(squash(firstParagraph(q.explain)).slice(0, 40)), `${id}: the opening is outside the fold`);
-    assert.equal(inside, squash(`${f.heading} ${f.body}`), `${id}: the fold holds that section and nothing else`);
+    assert.equal(inside, squash(`ดูว่าทำไมข้ออื่นผิด ${f.body}`), `${id}: the fold holds that section and nothing else`);
+    assert.doesNotMatch(inside, /❌|✗/, `${id}: no cross on a correct answer`);
     folded += 1;
     const wrong = panel(q, (q.answer + 1) % q.options.length);
     assert.equal(fr.findAll(wrong, (n) => n.type === 'details').length, 0, `${id} a miss keeps it open`);

@@ -1060,7 +1060,8 @@ export function InstantFeedback({ ok, run = 0, fresh = false, correctNode, expla
                     one row. Native details, so the text stays in the page
                     (read-aloud marks it, find-in-page reaches it). */}
                 <details className="vmx-other-options" ref={foldRef}>
-                  <summary>{fold.heading.trim()}</summary>
+                  {/* Its own words, no cross: after a correct answer the heading's ❌ read as a verdict. */}
+                  <summary>ดูว่าทำไมข้ออื่นผิด</summary>
                   <RichBlocks text={fold.body} renderText={linked} />
                 </details>
                 {fold.after.trim() && <RichBlocks text={fold.after} renderText={linked} />}
