@@ -72,15 +72,21 @@ test('a timed paper offers no check on a fill-in item and shows no key', async (
 // item 2
 const LONG = AQ.filter((q) => (q.type ?? 'mcq') === 'mcq' && Array.isArray(q.options)).slice(0, 16);
 test('a double tap, a double key press, or next and the map at once, moves one question', async ({ page, context }) => {
+  // Eleven moves, each given time to settle, after a resume: more than the default 30 s on a slow runner.
+  test.setTimeout(120_000);
   await resume(page, context, { questions: LONG, mode: 'exam', timed: true });
   const steps = { dblNext: [], doubleKey: [], nextThenMap: [], dblPrev: [] };
   const settle = () => page.waitForTimeout(400);
+  // The counts are the evidence: recorded however the test ends.
+  test.info().annotations.push({ type: 'steps', description: '' });
+  const note = test.info().annotations[test.info().annotations.length - 1];
+  const record = (k, v) => { steps[k].push(v); note.description = JSON.stringify(steps); };
   // Real double clicks on ข้อถัดไป.
   for (let k = 0; k < 4; k++) {
     const a = await position(page);
     await page.locator('.vmx-exam-next').dblclick();
     await settle();
-    steps.dblNext.push(await position(page) - a);
+    record('dblNext', await position(page) - a);
   }
   // The next key pressed twice, from the question text.
   for (let k = 0; k < 3; k++) {
@@ -89,7 +95,7 @@ test('a double tap, a double key press, or next and the map at once, moves one q
     await page.keyboard.press('j');
     await page.keyboard.press('j');
     await settle();
-    steps.doubleKey.push(await position(page) - a);
+    record('doubleKey', await position(page) - a);
   }
   // A tap on next, then at once a tap on a later cell of the open map (both in
   // one task: no pointer can reach the next button through the map's overlay).
@@ -100,19 +106,18 @@ test('a double tap, a double key press, or next and the map at once, moves one q
     await page.evaluate((target) => {
       document.querySelector('.vmx-exam-next').click();
       document.querySelectorAll('.vmx-nav-grid button')[target].click();
-    }, a + 2);
+    }, Math.min(a + 2, LONG.length - 1));
     await settle();
     if (await page.locator('.vmx-nav-grid').count()) await page.keyboard.press('Escape');
-    steps.nextThenMap.push(await position(page) - a);
+    record('nextThenMap', await position(page) - a);
   }
   // And back.
   for (let k = 0; k < 2; k++) {
     const a = await position(page);
     await page.locator('.vmx-exam-prev').dblclick();
     await settle();
-    steps.dblPrev.push(await position(page) - a);
+    record('dblPrev', await position(page) - a);
   }
-  test.info().annotations.push({ type: 'steps', description: JSON.stringify(steps) });
   expect(steps).toEqual({ dblNext: [1, 1, 1, 1], doubleKey: [1, 1, 1], nextThenMap: [1, 1], dblPrev: [-1, -1] });
 });
 
