@@ -34,6 +34,42 @@ test('a clock set back keeps running, and expiry still comes on time', () => {
   assert.equal(secondsUntilDeadline(deadline, now), 0, 'the paper ends at its own two minutes');
 });
 
+// A paper of `dur` driven step by step; returns how early (negative) or late it ends, in seconds.
+function endsAt({ wall, mono, step = 1000, dur = 3_600_000, q = 0 }) {
+  resetExamClock();
+  const Q = (x) => (q ? Math.floor(x / q) * q : x);
+  const deadline = examNow(T0 + Q(wall(0)), Q(mono(0))) + dur;
+  for (let t = step; t < 3 * dur; t += step) {
+    if (secondsUntilDeadline(deadline, examNow(T0 + Q(wall(t)), Q(mono(t)))) <= 0) return (t - dur) / 1000;
+  }
+  return Infinity;
+}
+const H = 3_600_000;
+const same = (t) => t;
+
+test('a clock set back and then corrected costs an honest student nothing', () => {
+  // Back an hour at minute 10, corrected at minute 20 (the reviewer's case: it ended 40 min early).
+  const late = endsAt({ wall: (t) => (t >= 600_000 && t < 1_200_000 ? t - H : t), mono: same });
+  assert.ok(Math.abs(late) <= 1, `ends ${late} s from an honest paper`);
+  // Back five minutes, then corrected.
+  assert.ok(Math.abs(endsAt({ wall: (t) => (t >= 600_000 && t < 900_000 ? t - 300_000 : t), mono: same })) <= 1);
+  // Network time flapping by 30 s every two minutes.
+  assert.ok(Math.abs(endsAt({ wall: (t) => (Math.floor(t / 120_000) % 2 ? t - 30_000 : t), mono: same })) <= 1);
+});
+
+test('coarse timers do not make the paper run fast', () => {
+  // Both clocks read in 100 ms steps, read every 333 ms, for an hour.
+  const late = endsAt({ wall: same, mono: (t) => t + 37, step: 333, q: 100 });
+  assert.ok(Math.abs(late) <= 1, `ends ${late} s from an honest paper`);
+});
+
+test('the set-back and sleep cases hold under the anchor too', () => {
+  assert.equal(endsAt({ wall: (t) => (t >= 600_000 ? t - H : t), mono: same }), 0, 'setting back gains nothing');
+  // Ten minutes asleep with the monotonic clock stopped still count.
+  const asleep = endsAt({ wall: same, mono: (t) => (t < 600_000 ? t : t < 1_200_000 ? 600_000 : t - 600_000) });
+  assert.ok(Math.abs(asleep) <= 1, `ends ${asleep} s from an honest paper`);
+});
+
 test('a sleep that stops the monotonic clock still counts', () => {
   examNow(T0, 0);
   const deadline = T0 + 300_000;
