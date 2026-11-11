@@ -322,8 +322,20 @@ html.lp-active { background: var(--clr-bg); }
   margin: 0 0 clamp(18px, 2.4vw, 28px); color: var(--clr-ink);
 }
 .lp-root:lang(en) .lp-hero-title { line-height: 1.04; letter-spacing: -0.025em; font-weight: 600; }
-/* Each heading line is one phrase; on wide screens it never breaks inside. */
-@media (min-width: 1001px) { .lp-hero-title .lp-line { white-space: nowrap; } }
+/* Beside the question card (two columns) a heading line must stay inside its own column: before
+   11 Nov 2026 the English first line ran 70 to 200 px past it at every desktop width and under the
+   card (a student's iPad screenshot). tests/e2e/landing-hero-fit.spec.js holds both rules below.
+   Thai: each line is one phrase and never breaks inside, so the type is sized from the column;
+   7.95 is the longer line's width in em (measured 7.82) plus a little air. A browser without
+   container units keeps the size above, where the Thai lines fit up to about 1700 px wide.
+   English: words break cleanly, so its long first line wraps, balanced where the browser can. */
+@media (min-width: 1001px) {
+  .lp-hero-copy { container-type: inline-size; }
+  .lp-hero-title { font-size: min(clamp(40px, 3.6vw + 20px, 84px), calc(100cqi / 7.95)); }
+  .lp-hero-title .lp-line { white-space: nowrap; }
+  .lp-root:lang(en) .lp-hero-title { font-size: clamp(40px, 3.6vw + 20px, 84px); }
+  .lp-root:lang(en) .lp-hero-title .lp-line { white-space: normal; text-wrap: balance; }
+}
 .lp-hero-title em { font-style: normal; }
 .lp-root:lang(en) .lp-hero-title em { font-style: italic; font-weight: 500; }
 /* Masks for rising words, padded so Thai stacked marks are never clipped
@@ -364,8 +376,12 @@ html.lp-active { background: var(--clr-bg); }
 /* Desktop: the stage leaves room above the card, where the horse skull
    floats in the top of a radiograph lightbox (XraySkull rest pose). */
 @media (min-width: 1001px) { .lp-hero-stage { padding-top: clamp(150px, 13vw, 200px); } }
+/* The lightbox stays inside the stage: as wide as the card at most and never above the stage's top.
+   It used to be 112% wide and lifted by 14%, which put its top edge behind the nav's buttons at
+   every width and its right side past the screen edge on a tablet. The skull sits in the top
+   quarter of the disc, which still clears the card. */
 .lp-lightbox {
-  position: absolute; z-index: -1; top: 0; left: 50%; width: min(560px, 112%); aspect-ratio: 1; transform: translate(-46%, -14%);
+  position: absolute; z-index: -1; top: 0; left: 50%; width: min(560px, 100%); aspect-ratio: 1; transform: translateX(-50%);
   border-radius: 50%;
   background: radial-gradient(circle at 50% 45%, rgba(143, 211, 238, 0.2), rgba(13, 17, 20, 0.92) 62%), #0b0f12;
   box-shadow: 0 0 0 1px rgba(214, 233, 242, 0.08), 0 40px 90px -30px rgba(13, 17, 20, 0.55);
