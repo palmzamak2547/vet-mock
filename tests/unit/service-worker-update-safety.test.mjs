@@ -424,3 +424,48 @@ test('offline or a server error still opens the cached home shell', async () => 
   const duringOutage = await app.request('/app/notes', { mode: 'navigate' }).response;
   assert.equal(await duringOutage.text(), 'cached home shell');
 });
+
+// A slow network is not an offline one. Past the 4 s timeout, a GET outside
+// /assets/ with no cached copy (a landing video, a model, a JSON file) used to
+// be answered 503 "Offline" and its request aborted, on a phone that was online.
+const quickTimer = (fn) => setTimeout(fn, 1);
+const slowNetwork = (body, ms = 30) => async (request, init) => {
+  await new Promise((resolve, reject) => {
+    const t = setTimeout(resolve, ms);
+    init?.signal?.addEventListener('abort', () => { clearTimeout(t); reject(new Error('aborted')); });
+  });
+  return response(body);
+};
+
+test('a slow GET with no cached copy waits for the network instead of failing as offline', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('model bytes') });
+  const res = await app.request('/landing/skull.glb').response;
+  assert.equal(res.status, 200);
+  assert.equal(await res.text(), 'model bytes');
+});
+
+test('a slow GET with a cached copy still answers from the cache at the timeout', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('fresh') });
+  await (await app.caches.open(runtime)).put('/public-data.json', response('cached'));
+  const res = await app.request('/public-data.json').response;
+  assert.equal(await res.text(), 'cached');
+});
+
+test('a GET with no copy that the network refuses still says offline', async () => {
+  const app = worker({ schedule: quickTimer, network: offline });
+  const res = await app.request('/public-data.json').response;
+  assert.equal(res.status, 503);
+});
+
+test('a slow navigation keeps its fast fallback to the cached home shell', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('fresh page', 200) });
+  await (await app.caches.open(runtime)).put('/', response('cached home shell'));
+  const res = await app.request('/app/notes', { mode: 'navigate' }).response;
+  assert.equal(await res.text(), 'cached home shell');
+});
+
+test('lazy chunks and question banks never take the timed path: /assets/ waits for the network', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('chunk', 40) });
+  const res = await app.request('/assets/questions-epidem-abc123.js').response;
+  assert.equal(await res.text(), 'chunk');
+});

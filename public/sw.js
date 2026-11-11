@@ -8,7 +8,7 @@
 //     New deploy → served fresh. Offline → last cached index.html.
 //   • Images, audio, manifest icons: stale-while-revalidate.
 //   • Same-origin /api requests: network-only, never cached.
-//   • Other GETs: network-first, fall back to cache.
+//   • Other GETs: network-first; a cached copy after 4 s, else wait.
 //
 // Install + activate are kept lean. The small static shell is cached
 // best-effort; Vite's hashed assets populate a shared immutable cache
@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v228-2026-11-01';
+const SW_VERSION = 'v229-2026-11-11';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -212,7 +212,11 @@ function cacheFirst(request, cacheName, event, key = request) {
   );
 }
 
-async function networkFirst(request, cacheName, timeoutMs, event) {
+// waitWhenUncached: past the timeout, a request with no cached copy keeps
+// waiting for the network instead of answering 503. A slow phone is not an
+// offline one; only a cached copy is a reason to stop waiting. Navigations
+// keep the fast fallback, since the cached home shell stands in for them.
+async function networkFirst(request, cacheName, timeoutMs, event, { waitWhenUncached = false } = {}) {
   const offlineResponse = () => new Response('Offline', {
     status: 503,
     headers: { 'Cache-Control': 'no-store' },
@@ -224,8 +228,9 @@ async function networkFirst(request, cacheName, timeoutMs, event) {
 
   const timeout = new Promise((resolve) => {
     timer = setTimeout(async () => {
-      controller?.abort();
       const hit = await runtimeMatch(request, cacheName);
+      if (!hit && waitWhenUncached) return;
+      controller?.abort();
       resolve(hit || offlineResponse());
     }, timeoutMs);
   });
@@ -554,8 +559,9 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Everything else (scripts not under /assets/, data files, etc.):
-  // network-first with a bounded cache fallback.
-  event.respondWith(networkFirst(request, RUNTIME, NAV_TIMEOUT_MS, event));
+  // network-first; a cached copy answers after the timeout, and with none the
+  // request waits for the network rather than failing as "Offline".
+  event.respondWith(networkFirst(request, RUNTIME, NAV_TIMEOUT_MS, event, { waitWhenUncached: true }));
 });
 
 // Allow the page to ask "are you ready?" (used by main.jsx to detect
