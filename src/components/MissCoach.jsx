@@ -16,6 +16,7 @@
 import { useState } from 'react';
 import { explainMiss, alreadyExplained } from '../lib/study-coach.js';
 import { RichText } from '../lib/richtext.jsx';
+import { passageBesideStem } from '../lib/rich-blocks.js';
 
 // The reasons study-coach.js gives when the service itself did not answer.
 const OUTAGE = new Set(['off', 'error', 'timeout']);
@@ -68,7 +69,7 @@ export default function MissCoach({ q, chosen }) {
         <span className="vmx-coach-k">จุดที่ตัดออก</span>
         <RichText text={state.data.tell} />
       </div>
-      <p className="vmx-coach-foot">เรียบเรียงจากตัวเลือกและคำอธิบายของข้อนี้</p>
+      <p className="vmx-coach-foot">{passageBesideStem(q) ? 'เรียบเรียงจากเรื่องที่ให้มา ตัวเลือก และคำอธิบายของข้อนี้' : 'เรียบเรียงจากตัวเลือกและคำอธิบายของข้อนี้'}</p>
     </>
   );
 }
