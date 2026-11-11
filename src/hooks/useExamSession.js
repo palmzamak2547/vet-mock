@@ -44,6 +44,9 @@ import { secondsUntilDeadline, examNow } from '../lib/exam-clock.js';
 import { resumedDeadline, unsavedResult } from '../lib/app-flow.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/study-events.js';
 
+// The shortest time between two moves of the set (see the move hold below).
+const MOVE_FLOOR_MS = 120;
+
 /**
  * @param {object} params
  * @param {string} params.view             — current app view (gates timer)
@@ -112,11 +115,20 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   // student never saw. A move is held from the tap until the frame after the
   // one that paints the question it shows, so a second tap, key press, swipe
   // or map jump in that window is refused. Held only for a move that changes
-  // the question, so nothing is left holding it.
+  // the question, so nothing is left holding it. A painted frame is not yet a
+  // question seen: the next key pressed twice by the test runner landed after
+  // the paint and still skipped one. So a second move also waits until
+  // MOVE_FLOOR_MS have passed since the first, less than the quickest reaction
+  // to a new question (about 150 to 200 ms), so moving on deliberately, however
+  // fast, is never refused.
   const moveHeldRef = useRef(false);
+  const lastMoveAtRef = useRef(-Infinity);
+  const moveClock = () => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
+  const moveRefused = () => moveHeldRef.current || moveClock() - lastMoveAtRef.current < MOVE_FLOOR_MS;
   const takeMove = () => {
-    if (moveHeldRef.current) return false;
+    if (moveRefused()) return false;
     moveHeldRef.current = true;
+    lastMoveAtRef.current = moveClock();
     return true;
   };
   useEffect(() => {
@@ -207,7 +219,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   }, [questions, currentIdx]);
 
   const nextQ = useCallback(async () => {
-    if (moveHeldRef.current) return;
+    if (moveRefused()) return;
     const cur = questions[currentIdx];
     const isLast = currentIdx === questions.length - 1;
     // Confirm before skipping a blank short/essay — these take real
