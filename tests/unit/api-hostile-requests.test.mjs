@@ -16,6 +16,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { sessionToken } from '../helpers/supabase-jwt.mjs';
 
 const API = fileURLToPath(new URL('../../api/', import.meta.url));
 const FILES = readdirSync(API).filter((f) => f.endsWith('.js')).sort();
@@ -25,8 +26,8 @@ const code = (f) => source(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"
 const NETWORK_MARK = 'hostile-network-cut-7f3a';
 const BODY_MARK = 'hostile-body-unreadable-91c2';
 const DB = 'https://db.hostile.test';
-const BEARER = 'hostile.member.token.0123456789abcdef';
 const UID = '00000000-0000-4000-8000-0000000000aa';
+const BEARER = sessionToken(DB, { sub: UID });
 
 // Names the API reads (api/**: env.X) that hold a key, token, secret or
 // account id get a fake value; switches and limits keep their defaults.

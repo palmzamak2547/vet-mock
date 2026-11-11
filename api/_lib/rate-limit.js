@@ -137,25 +137,12 @@ export async function rateLimit(key, max, winMs, { by = 1 } = {}) {
 }
 
 /**
- * How much a counter holds now, without adding to it: a number, or null when
- * the limiter cannot say (unconfigured, unreachable). Used where a refusal
- * must not cost the counter anything (the gate's failed-token brake).
+ * This instance's own counter, for a reading surface that stays open when the
+ * shared limiter cannot count (api/library-blob.js): a bound per instance
+ * instead of a refusal. Never a substitute for a shared spending ceiling.
  */
-export async function rateCount(key) {
-  if (HAS_UPSTASH) {
-    try {
-      const r = await upstashPipeline([['GET', `rl:${key}`]]);
-      const v = r?.[0]?.result;
-      if (v === null || v === undefined) return 0;
-      const n = Number(v);
-      return Number.isFinite(n) ? n : null;
-    } catch {
-      return null;
-    }
-  }
-  if (process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production') return null;
-  const b = buckets.get(key);
-  return b && Date.now() - b.first <= b.winMs ? b.count : 0;
+export function rateLimitLocal(key, max, winMs, { by = 1 } = {}) {
+  return rateLimitInMemory(`local:${key}`, max, winMs, Number.isSafeInteger(by) && by > 0 ? by : 1);
 }
 
 /**
@@ -181,7 +168,9 @@ export async function limitCaller(req, gate, route, max, windowMs, { addressMax 
   if (!uid) return rateLimit(`${route}:${ip}`, max, windowMs);
   const mine = await rateLimit(`${route}:user:${uid}`, max, windowMs);
   if (!mine.ok || !addressMax) return mine;
-  return rateLimit(`${route}:addr:${ip}`, addressMax, windowMs);
+  const address = await rateLimit(`${route}:addr:${ip}`, addressMax, windowMs);
+  // Marked, so the caller can say it was the shared network, not this member.
+  return address.ok || address.unavailable ? address : { ...address, scope: 'address' };
 }
 
 /**

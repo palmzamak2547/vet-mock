@@ -211,8 +211,9 @@ test('search tokens: Thai by word, Latin lowercased with a plural folded, stop w
 test('/api/evidence-pass answers members only, wall on or off, and only with the slide host', async () => {
   const previous = { ...process.env };
   const realFetch = globalThis.fetch;
-  const MEMBER = 'member.token.0123456789abcdef';
-  const GMAIL = 'gmail.token.0123456789abcdef';
+  const { sessionToken } = await import('../helpers/supabase-jwt.mjs');
+  const MEMBER = sessionToken('https://x.supabase.co', { sub: 'u1' });
+  const GMAIL = sessionToken('https://x.supabase.co', { sub: 'u2' });
   let enforce = true;
   Object.assign(process.env, { VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef', EVIDENCE_BASE: `${GOOD}/` });
   globalThis.fetch = async (url, init) => {

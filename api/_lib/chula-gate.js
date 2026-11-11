@@ -9,15 +9,33 @@
 // saw the wall off: the AI costs money and the rows are private.
 import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
-import { clientIP, rateCount, rateLimit } from './rate-limit.js';
 
-// A token the database refuses (forged, expired) costs a database call. An
-// address whose tokens have been refused this often in the window is answered
-// without asking: an honest phone refreshes an expired token and stops
-// failing, so only a stream of bad tokens reaches the brake. Members are not
-// counted at all, and nothing is counted in front of them.
-export const FAILED_TOKEN_BRAKE = { max: 120, windowMs: 10 * 60 * 1000 };
-const failKey = (req) => `chula-gate-failed:${clientIP(req)}`;
+// Before any database call a token is read locally: three parts, a payload
+// that decodes, this project's issuer (<url>/auth/v1), the "authenticated"
+// audience and an expiry still ahead. A token that fails is no token at all:
+// the caller is a guest, nothing is asked and nothing is counted, so an
+// expired token costs nobody anything. A token that passes is always verified
+// by the database. Nothing is counted per address: what one caller sends never
+// refuses another on the same network.
+// Known limit: a well-formed token with a bad signature still costs one
+// database call, as before; verifying the signature here would end that.
+export function tokenLooksValid(token, projectUrl, nowMs = Date.now()) {
+  const parts = String(token || '').split('.');
+  if (parts.length !== 3 || parts.some((x) => !x)) return false;
+  let claims;
+  try {
+    claims = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
+  } catch {
+    return false;
+  }
+  if (!claims || typeof claims !== 'object') return false;
+  const issuer = `${String(projectUrl || '').replace(/\/+$/, '')}/auth/v1`;
+  const audience = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
+  return claims.iss === issuer
+    && audience.includes('authenticated')
+    && typeof claims.sub === 'string' && claims.sub.length > 0
+    && Number.isFinite(claims.exp) && claims.exp * 1000 > nowMs;
+}
 
 // Where the gate stands open without a database. A deployed preview
 // (VERCEL_ENV=preview) may hold live provider keys, so it refuses like
@@ -43,7 +61,6 @@ const refuse = (status, error, message) => ({ ok: false, status, body: { error, 
 export const SIGNIN_REQUIRED = refuse(401, 'signin_required', 'เข้าสู่ระบบด้วยอีเมลจุฬาก่อนใช้งาน');
 export const CHULA_REQUIRED = refuse(403, 'chula_required', 'บัญชีนี้ยังไม่ได้เชื่อมกับอีเมลจุฬา');
 const UNAVAILABLE = refuse(503, 'backend-unavailable', 'ตรวจสิทธิ์ไม่ได้ในตอนนี้ ลองใหม่อีกครั้ง');
-const BRAKED = refuse(429, 'signin_retry_later', 'เข้าสู่ระบบใหม่อีกครั้งในอีกสักครู่');
 
 async function askState(cfg, bearer, fetchImpl, production) {
   const response = await fetchImpl(`${cfg.url}/rest/v1/rpc/chula_access_state`, {
@@ -68,7 +85,9 @@ async function askState(cfg, bearer, fetchImpl, production) {
  * Chula member or the admin), else { ok: false, status, body }.
  */
 export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now = Date.now } = {}) {
-  const token = bearerOf(req);
+  const cfg = backendConfig(env);
+  let token = bearerOf(req);
+  if (token && cfg.url && !tokenLooksValid(token, cfg.url, now())) token = '';
   const key = token ? createHash('sha256').update(token).digest('hex') : '';
   const remembered = key && members.get(key);
   if (remembered && remembered.until > now()) return { ok: true, userId: remembered.uid, token, member: true };
@@ -78,24 +97,16 @@ export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now
     return lastSwitch.enforce ? SIGNIN_REQUIRED : { ok: true, userId: null, token: null, member: false };
   }
 
-  const cfg = backendConfig(env);
   if (!cfg.url || !cfg.key) {
     // No database configured, so no account exists to check: a local API or the
     // unit suite. Production always has one, and there its absence refuses.
     return deployed(env) ? UNAVAILABLE : { ok: true, userId: null, token: null, member: false };
   }
   let state = null;
-  if (token) {
-    const failed = await rateCount(failKey(req));
-    if (failed !== null && failed >= FAILED_TOKEN_BRAKE.max) return BRAKED;
-  }
   try {
     // A token the server refuses (expired, forged) leaves a guest: then only the switch matters.
     const production = deployed(env);
-    if (token) {
-      state = await askState(cfg, token, fetchImpl, production);
-      if (!state?.signed_in) await rateLimit(failKey(req), FAILED_TOKEN_BRAKE.max, FAILED_TOKEN_BRAKE.windowMs).catch(() => {});
-    }
+    if (token) state = await askState(cfg, token, fetchImpl, production);
     if (!state?.signed_in) {
       let enforce = lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS ? lastSwitch.enforce : undefined;
       if (enforce === undefined) {
