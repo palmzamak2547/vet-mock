@@ -28,6 +28,7 @@
 import fs from 'node:fs';
 import { listTopics, loadTopic } from '../src/lib/vetwiki/index.js';
 import { BANK_REGISTRY } from '../src/data/bank-registry.generated.js';
+import { explainText } from '../src/lib/rich-blocks.js';
 
 const OUT = process.argv[2] || 'wiki-link-candidates.json';
 const TOP_N = 5;
@@ -129,7 +130,7 @@ for (const entry of BANK_REGISTRY) {
     const isBucket = BUCKET_TOPIC.test(topic) || BUCKET_SUBJECT.test(q.subject) || topic === '(no topic)';
     if (!isBucket) continue;                                        // teachable gap, needs an article not a link
 
-    const qText = [q.q, ...(q.options || []), q.explain].filter(Boolean).join(' ');
+    const qText = [q.q, ...(q.options || []), explainText(q)].filter(Boolean).join(' ');
     const cands = score(terms(qText));
     if (!cands.length) continue;
     items.push({
@@ -138,7 +139,7 @@ for (const entry of BANK_REGISTRY) {
       options: q.options || [],
       // the banks key the correct option as `answer`; there is no `a` field
       answerIndex: typeof q.answer === 'number' ? q.answer : undefined,
-      explain: q.explain || '',
+      explain: explainText(q),
       candidates: cands.map((c) => ({
         sectionId: c.s.sectionId, heading: c.s.heading,
         articleTitle: c.s.title, wikiSubject: c.s.subject, wikiTopic: c.s.topic,

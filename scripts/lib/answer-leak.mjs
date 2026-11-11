@@ -31,6 +31,7 @@
 // ============================================================
 import { GLOSSARY } from '../../src/data/glossary.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
+import { explainText, passageText } from '../../src/lib/rich-blocks.js';
 
 const SEG = new Intl.Segmenter('th', { granularity: 'word' });
 const words = (list) => new Set(list.trim().split(/\s+/));
@@ -186,7 +187,7 @@ export function courseNames(question) {
  */
 export function answerParts(question) {
   const q = question || {};
-  const seen = [q.q, q.passage, ...courseNames(q)].filter(Boolean).join('\n');
+  const seen = [q.q, passageText(q), ...courseNames(q)].filter(Boolean).join('\n');
   if (q.type === 'mcq' && Array.isArray(q.options) && Number.isInteger(q.answer) && q.options[q.answer] != null) {
     return { kind: 'option', key: [String(q.options[q.answer])], seen, rivals: q.options.filter((_, i) => i !== q.answer).map(String) };
   }
@@ -195,7 +196,7 @@ export function answerParts(question) {
   if (q.type === 'tf' && typeof q.answer === 'boolean') {
     // The fact a true/false item tests is what its explanation's first
     // sentence says is so, which the statement states or contradicts.
-    const firstLine = String(q.explain || '').split('\n')[0];
+    const firstLine = explainText(q).split('\n')[0];
     const verdict = (firstLine.match(/^.*?[.!?](?=\s|$)/) || [firstLine])[0];
     return { kind: 'statement', key: [verdict], seen, rivals: [] };
   }

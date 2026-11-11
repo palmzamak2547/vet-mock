@@ -455,7 +455,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                   <NavIcon name="files" size={12} /> {q.passage_title || 'Passage'}
                 </div>
-                <RichBlocks text={q.passage} />
+                <RichBlocks text={q.passage} passage />
               </div>
             )}
             {(q.type === 'short' || q.type === 'essay') ? (
@@ -497,7 +497,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
               </>
             )}
-            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>}
+            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} say={q.explainSay} /></div>}
             {safeImageUrl(q.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(q.explainImage)}

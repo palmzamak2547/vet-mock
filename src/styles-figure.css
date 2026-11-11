@@ -210,3 +210,5 @@
 .vmx-house svg { flex: none; margin-top: 2px; color: var(--clr-ink-soft); }
 .vmx-house-t { min-width: 0; }
 .vmx-house.is-tip { font-weight: 400; }
+/* A ratio's axis says it is logarithmic: equal distances are equal ratios, not equal differences. */
+.vmx-fig-plot .axis { position: absolute; top: 0; right: 0; font-size: 14px; color: var(--clr-ink-soft); }

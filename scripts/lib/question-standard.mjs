@@ -8,7 +8,7 @@
 // three lists had already drifted apart: two of them missed "checklist", so the
 // same corpus measured 92 defects by one gate and 90 by another. A standard
 // that is copied is a standard that decays.
-import { hasTable } from '../../src/lib/rich-blocks.js';
+import { explainText, hasTable } from '../../src/lib/rich-blocks.js';
 
 /** Words that mean the question is talking about a DOCUMENT rather than about
  *  an animal. The slide is where the ANSWER came from — a citation, never part
@@ -45,7 +45,7 @@ export const namesDocument = (q) => {
 /** True when the EXPLANATION narrates the source instead of stating the fact.
  *  94% of the first Year-2 batch did this; 0 of the 1,746 Year-4 semester-2
  *  questions do. */
-export const narratesDocument = (q) => NAMES_DOCUMENT.test(String(q?.explain || ''));
+export const narratesDocument = (q) => NAMES_DOCUMENT.test(explainText(q));
 
 /** A question must say where it came from, by any of the three routes the
  *  corpus uses. */
@@ -142,7 +142,7 @@ const diceOf = (a, b) => {
 };
 
 export function restatesKey(q) {
-  const explain = String(q?.explain || '').replace(/\s+/g, ' ').trim();
+  const explain = explainText(q).replace(/\s+/g, ' ').trim();
   const len = [...explain].length;
   if (len < 25) return true;
   let key = '';

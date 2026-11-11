@@ -3,11 +3,13 @@
 // that nothing written before tables existed changes by a character.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { highlightParts, isTableRow, splitBlocks, wholeStem, tableCells, tablesToSpeech } from '../../src/lib/rich-blocks.js';
+import { highlightParts, isTableRow, splitBlocks, wholeExplain, wholeStem, tableCells, tablesToSpeech } from '../../src/lib/rich-blocks.js';
 import { clipText } from '../../src/lib/tts-text.js';
 import { lintQuestionTables } from '../../scripts/lint-question-tables.mjs';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
 
+// The explanations that carry a figure (docs/releases/pending/visual-explanations.md). A new one is added here.
+const FIGURES = ['epidemiology:213503', 'epidemiology:214560', 'epidemiology:214561', 'epidemiology:214562', 'epidemiology:214565', 'epidemiology:214602', 'epidemiology:214650', 'equine-repro:105571'];
 const TABLE = '| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |';
 const BEFORE = 'ประเมิน ELISA ในโค 404 ตัว';
 const AFTER = 'fecal culture เป็น gold standard';
@@ -85,6 +87,7 @@ test('the bank: a text with no table is spoken as it was, and every table is one
   for (const file of bankFiles('src/data')) questions.push(...(await readBank(file)).questions);
   let plain = 0;
   let withTable = 0;
+  const figured = [];
   for (const q of questions) {
     for (const text of [q.q, q.explain, q.passage, q.model_answer, ...(Array.isArray(q.options) ? q.options : [])]) {
       if (typeof text !== 'string') continue;
@@ -95,8 +98,9 @@ test('the bank: a text with no table is spoken as it was, and every table is one
       // Judged without the parser: a text with no run of three dashes cannot hold a rule line, so it
       // cannot hold a table, and a voice must be handed the very same string. Recorded clips are named
       // by that string.
-      // A figure is for the eye: the voice is handed the text without it (the figure's question reads explainSay).
-      if (text.includes('```figure')) { assert.ok(!tablesToSpeech(text).includes('```'), `${q.subject}:${q.id} says a figure`); continue; }
+      // The explanations that carry a drawn figure are named, one by one, in FIGURES below; every other text is held
+      // to the same string as before.
+      if (text === q.explain && FIGURES.includes(`${q.subject}:${q.id}`)) { figured.push(`${q.subject}:${q.id}`); continue; }
       if (!text.includes('---')) {
         plain++;
         assert.equal(tablesToSpeech(text), text, `${q.subject}:${q.id}`);
@@ -104,6 +108,14 @@ test('the bank: a text with no table is spoken as it was, and every table is one
     }
   }
   assert.ok(plain > 30000, `read ${plain} texts`);
+  // Each named explanation does carry a figure, its voice is its explainSay, and none is spoken as markup.
+  assert.deepEqual(figured.sort(), [...FIGURES].sort());
+  for (const id of FIGURES) {
+    const q = questions.find((x) => `${x.subject}:${x.id}` === id);
+    assert.ok(splitBlocks(q.explain).some((b) => b.type === 'figure'), `${id} names a figure it does not carry`);
+    assert.equal(wholeExplain(q), q.explainSay, `${id} speaks something other than its paragraph`);
+    assert.ok(!/```|figure|calc:|step:|bar:/.test(tablesToSpeech(q.explain)), `${id} would speak its figure`);
+  }
   assert.ok(withTable >= 12, `${withTable} texts hold a table`);
   assert.deepEqual(lintQuestionTables(questions).problems, []);
 });

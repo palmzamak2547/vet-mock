@@ -11,7 +11,7 @@
 // (src/lib/rich-blocks.js) becomes a table, everything else is escaped, so a
 // question can never inject markup into the card.
 // ============================================================
-import { splitBlocks } from './rich-blocks.js';
+import { explainText, passageText, splitBlocks } from './rich-blocks.js';
 import { safeImageUrl } from './safe-url.js';
 
 const esc = (s) => String(s ?? '')
@@ -44,7 +44,7 @@ function figureSrc(q) {
 
 function front(q, src) {
   const parts = [];
-  if (q.passage) parts.push(`${q.passage_title ? `<b>${html(q.passage_title)}</b><br>` : ''}${rich(q.passage)}`);
+  if (q.passage) parts.push(`${q.passage_title ? `<b>${html(q.passage_title)}</b><br>` : ''}${rich(passageText(q))}`);
   if (src) parts.push(`<img src="${esc(src)}">`);
   parts.push(html(q.q));
   if (q.type === 'mcq' && Array.isArray(q.options)) {
@@ -77,7 +77,7 @@ export function ankiText(questions, { deck = 'VetMock' } = {}) {
     if (!q?.q || !back) continue;
     const src = figureSrc(q);
     if (src === null) { noFigure += 1; continue; }
-    const explain = q.explain ? `<br><br>${rich(q.explain)}` : '';
+    const explain = q.explain ? `<br><br>${rich(explainText(q))}` : '';
     const tags = ['vetmock', q.subject, ...(q.tags || [])].filter(Boolean).map((t) => String(t).replace(/\s+/g, '_')).join(' ');
     rows.push([front(q, src), `<b>${back}</b>${explain}`, tags].join('\t'));
   }

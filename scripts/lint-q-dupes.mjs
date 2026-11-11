@@ -57,7 +57,7 @@
 
 import { pathToFileURL } from 'node:url';
 import { questionNeedsAnswerReview } from '../src/lib/question-prediction.js';
-import { wholeStem } from '../src/lib/rich-blocks.js';
+import { passageText, wholeStem } from '../src/lib/rich-blocks.js';
 
 export function normalizeText(text) {
   if (!text || typeof text !== 'string') return '';
@@ -75,7 +75,7 @@ export function normalizeText(text) {
 // PASSAGE_BATS / PASSAGE_ATOPIC / PASSAGE_EARABSCESS without false
 // flags. Falls back to title when body absent (rare).
 function passageKey(item) {
-  if (item.passage) return normalizeText(item.passage).slice(0, 80);
+  if (item.passage) return normalizeText(passageText(item)).slice(0, 80);
   if (item.passage_title) return normalizeText(item.passage_title).slice(0, 60);
   return '';
 }

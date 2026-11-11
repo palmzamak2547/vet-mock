@@ -22,7 +22,7 @@
 // tables that parse.
 // ============================================================
 
-import { FENCE_CLOSE, FENCE_OPEN, parseFigure } from './figure-spec.js';
+import { FENCE_CLOSE, FENCE_OPEN, parseFigure, withoutKeys } from './figure-spec.js';
 
 const ROW = /^[^\S\n]*\|.*\|[^\S\n]*$/;
 const RULE = /^[^\S\n]*\|(?:[^\S\n]*:?-{3,}:?[^\S\n]*\|)+[^\S\n]*$/;
@@ -145,6 +145,23 @@ export const wholeExplain = (q) => (typeof q?.explainSay === 'string' && q.expla
 /** A text that carries a drawn figure (src/lib/figure-spec.js). */
 export const hasFigure = (text) => typeof text === 'string' && text.includes('```figure') && splitBlocks(text).some((b) => b.type === 'figure');
 
+/**
+ * The text for a reader that cannot draw a figure: the voice, a model, Anki, a
+ * printed proof, a search index, the VCA bank. A text with no figure comes back
+ * as it is. With a figure it is `say` (the paragraph an explanation keeps in
+ * explainSay) where there is one, otherwise the text with each figure written
+ * out in words (no mark flagged as the answer). Every such reader goes through
+ * explainText or passageText; tests/unit/figure-readers.test.mjs lists them.
+ */
+export function readableText(text, say) {
+  const str = text == null ? '' : String(text);
+  if (!hasFigure(str)) return str;
+  if (typeof say === 'string' && say.trim()) return say;
+  return splitBlocks(str).map((b) => (b.type === 'figure' ? b.fig.plain : str.slice(b.start, b.end))).join('\n');
+}
+export const explainText = (q) => readableText(q?.explain, q?.explainSay);
+export const passageText = (q) => readableText(q?.passage);
+
 /** A passage that is the question's data rather than a text to read. */
 export const hasTable = (text) => splitBlocks(text).some((b) => b.type === 'table');
 
@@ -159,6 +176,8 @@ export function highlightParts(text, highlights = []) {
   if (!text) return [];
   const sorted = [...highlights].sort((a, b) => a.start - b.start);
   return splitBlocks(text).map((block) => {
+    // A passage is on screen before the answer: a figure in it never shows which mark answers.
+    if (block.type === 'figure') return { ...block, fig: withoutKeys(block.fig) };
     if (block.type !== 'text') return block;
     const segs = [];
     let cursor = block.start;

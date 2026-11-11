@@ -18,6 +18,7 @@
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { bankFiles, readBank } from './lib/bank-file.mjs';
+import { explainText } from '../src/lib/rich-blocks.js';
 
 /** The text a question asserts as correct. */
 export function keyedText(q) {
@@ -34,7 +35,7 @@ export function keyedText(q) {
   } else if (Array.isArray(q.options)) {
     for (const k of [].concat(q.answer)) if (Number.isInteger(k) && q.options[k] != null) parts.push(q.options[k]);
   }
-  parts.push(q.explain, q.why);
+  parts.push(explainText(q), q.why);
   return parts.filter((p) => typeof p === 'string' && p.trim()).join('\n');
 }
 

@@ -129,7 +129,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
             <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
               เฉลย
             </div>
-            <RichBlocks text={q.explain} />
+            <RichBlocks text={q.explain} say={q.explainSay} />
           </div>
         )}
 

@@ -211,7 +211,7 @@ export function MatchReview({ q, userAns, answered }) {
           })}
         </div>
       ) : (
-        <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>
+        <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} say={q.explainSay} /></div>
       ))}
     </div>
   );
@@ -255,7 +255,7 @@ export function WrittenReveal({ q, answer, subject, evidence = null }) {
       {q.explain && (
         <div className="vmx-written-reveal-why">
           <div className="k">เหตุผล</div>
-          <RichBlocks text={q.explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} />
+          <RichBlocks text={q.explain} say={q.explainSay} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} />
         </div>
       )}
       {evidence}

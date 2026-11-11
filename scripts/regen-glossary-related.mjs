@@ -20,6 +20,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { explainText } from '../src/lib/rich-blocks.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'src', 'data', 'glossary-related.generated.js');
@@ -51,7 +52,7 @@ for (const entry of GLOSSARY) {
     // A card scoped to one discipline must not offer another discipline's
     // questions — that is the same wrong-sense mistake one step later.
     if (scope !== 'universal' && !scope.has(q.subject)) continue;
-    const blobs = [q.q, q.explain, ...(Array.isArray(q.options) ? q.options : [])];
+    const blobs = [q.q, explainText(q), ...(Array.isArray(q.options) ? q.options : [])];
     if (blobs.some((b) => b && re.test(String(b)))) ids.push(q.id);
   }
   if (ids.length) index[entryKey(entry)] = ids;

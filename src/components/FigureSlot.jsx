@@ -11,7 +11,8 @@ import { figureHeight } from '../lib/figure-spec.js';
 let View = null;
 let job = null;
 const load = () => {
-  job ||= import('./ExplainFigure.jsx').then((m) => { View = m.default; }, () => { job = null; });
+  // A module that loads but holds no drawing counts as a failed load, so the next figure asks again.
+  job ||= import('./ExplainFigure.jsx').then((m) => { View = typeof m?.default === 'function' ? m.default : null; if (!View) job = null; }, () => { job = null; });
   return job;
 };
 
@@ -19,7 +20,13 @@ const load = () => {
  *  the explanation. Never during a timed paper: the caller asks only where the answer will be shown. */
 export const warmFigure = () => { load(); };
 
-export default function FigureSlot({ fig, play = false }) {
+/**
+ * `onFail`: what to do when the drawing cannot load (a lost connection, a
+ * chunk the server no longer has). The explanation hands over its whole
+ * paragraph (RichBlocks `say`); without one the figure is written out in
+ * words, so a student never meets a gap.
+ */
+export default function FigureSlot({ fig, play = false, onFail }) {
   const [state, setState] = useState(View ? 'ready' : 'wait');
   useEffect(() => {
     if (state !== 'wait') return undefined;
@@ -27,8 +34,9 @@ export default function FigureSlot({ fig, play = false }) {
     load().then(() => { if (live) setState(View ? 'ready' : 'gone'); });
     return () => { live = false; };
   }, [state]);
+  useEffect(() => { if (state === 'gone') onFail?.(); }, [state]); // eslint-disable-line react-hooks/exhaustive-deps -- once, when it fails
   const height = figureHeight(fig);
-  if (state === 'gone') return null;
+  if (state === 'gone') return onFail ? null : <p className="vmx-fig-words" style={{ whiteSpace: 'pre-line' }}>{fig.plain}</p>;
   if (state === 'wait' || !View) return <div className="vmx-fig is-hold" style={{ minHeight: `${height}px` }} aria-hidden="true" />;
   return <View fig={fig} play={play} height={height} />;
 }

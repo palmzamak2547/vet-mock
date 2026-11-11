@@ -66,38 +66,57 @@ export const figuresIn = (s) => (String(s).match(/\d[\d,]*(?:\.\d+)?/g) || []).m
 
 /**
  * The lines between the fences to a figure:
- * { kind, ...fields, errors: [] }. An unknown key or a malformed line is kept
- * in `errors` (the lint fails on it; the card draws what it understood).
+ * { kind, ...fields, plain, errors: [] }. An unknown key, a repeated key that
+ * holds one value, or a malformed line is kept in errors (the lint fails on
+ * it; the card draws what it understood). plain is the figure in words, for
+ * any surface that cannot draw it (readableText in rich-blocks.js).
  */
+const ONCE = ['cols', 'head', 'unit', 'start', 'note', 'null', 'sum', 'value'];
 export function parseFigure(kind, body) {
-  const fig = { kind, errors: [] };
+  const fig = { kind, errors: [], plain: '' };
   const keys = FIGURE_KINDS[kind];
-  if (!keys) { fig.errors.push(`unknown figure kind "${kind}"`); return fig; }
+  if (!keys) { fig.errors.push('unknown figure kind "' + kind + '"'); return fig; }
   const list = (k) => (fig[k] ||= []);
+  const seen = new Set();
+  const words = [];
+  const need = (n, what, line) => { if (n == null) fig.errors.push(what + ' is not a number: ' + line.slice(0, 50)); return n; };
   for (const raw of String(body).split('\n')) {
     const line = raw.trim();
     if (!line) continue;
     const m = /^([a-z]+):\s*(.*)$/.exec(line);
-    if (!m || !keys.includes(m[1])) { fig.errors.push(`a line the ${kind} figure does not read: ${line.slice(0, 50)}`); continue; }
+    if (!m || !keys.includes(m[1])) { fig.errors.push('a line the ' + kind + ' figure does not read: ' + line.slice(0, 50)); continue; }
     const [, k, v] = m;
+    if (ONCE.includes(k)) {
+      if (seen.has(k)) { fig.errors.push('"' + k + '" given twice; it holds one value'); continue; }
+      seen.add(k);
+    }
     const [cells, key] = keyed(cut(v));
+    if (k !== 'null') words.push(k === 'calc' || k === 'value' ? v.trim() : cells.filter(Boolean).join(', '));
     if (k === 'cols' || k === 'head') fig[k] = cells;
     else if (k === 'unit' || k === 'start' || k === 'note') fig[k] = v.trim();
-    else if (k === 'null') fig.nil = num(v);
+    else if (k === 'null') fig.nil = need(num(v), 'null', line);
     else if (k === 'row' && kind === 'twobytwo') list('rows').push({ label: cells[0], cells: cells.slice(1) });
     else if (k === 'sum') fig.sum = { label: cells[0], cells: cells.slice(1) };
     else if (k === 'calc') {
       // "<name> = <expression> = <result>"
-      const parts = v.split(/\s+=\s+/).map((s) => s.trim());
-      if (parts.length < 3) { fig.errors.push(`a calc line is "<name> = <expression> = <result>": ${line.slice(0, 50)}`); continue; }
+      const parts = v.split(/\s+=\s+/).map((x) => x.trim());
+      if (parts.length < 3) { fig.errors.push('a calc line is "<name> = <expression> = <result>": ' + line.slice(0, 50)); continue; }
       const [top, bottom] = fraction(parts[1]);
       list('calcs').push({ label: parts[0], expr: parts[1], num: unwrap(top), den: bottom ? unwrap(bottom) : '', mid: parts.slice(2, -1), result: parts[parts.length - 1], key });
-    } else if (k === 'row') list('rows').push({ label: cells[0], est: num(cells[1]), lo: num(cells[2]), hi: num(cells[3]), text: cells.slice(1, 4), key });
-    else if (k === 'bar') list('bars').push({ label: cells[0], value: num(cells[1]), text: cells[1], key });
-    else if (k === 'at') list('events').push({ at: num(cells[0]), text: cells[0], label: cells[1] || '', key });
+    } else if (k === 'row') {
+      const [est, lo, hi] = [1, 2, 3].map((i) => need(num(cells[i]), 'an interval bound', line));
+      if (est != null && lo != null && hi != null && !(lo <= est && est <= hi)) fig.errors.push('the estimate ' + est + ' is outside ' + lo + ' to ' + hi);
+      list('rows').push({ label: cells[0], est, lo, hi, text: cells.slice(1, 4), key });
+    } else if (k === 'bar') {
+      const value = need(num(cells[1]), 'a bar', line);
+      if (value != null && value < 0) fig.errors.push('a bar starts at zero and cannot be negative: ' + line.slice(0, 50));
+      list('bars').push({ label: cells[0], value, text: cells[1], key });
+    } else if (k === 'at') list('events').push({ at: need(num(cells[0]), 'a time', line), text: cells[0], label: cells[1] || '', key });
     else if (k === 'span') {
-      const [a, b] = cells[0].split(/\s*-\s*/);
-      list('events').push({ at: num(a), to: num(b), text: cells[0], label: cells[1] || '', key });
+      const [x, y] = cells[0].split(/\s*-\s*/);
+      const [at, to] = [need(num(x), 'a span start', line), need(num(y), 'a span end', line)];
+      if (at != null && to != null && to < at) fig.errors.push('a span ends before it starts: ' + line.slice(0, 50));
+      list('events').push({ at, to, text: cells[0], label: cells[1] || '', key });
     } else if (k === 'lane') list('lanes').push({ title: cells[0], key, steps: [] });
     else if (k === 'step') {
       if (!fig.lanes) fig.lanes = [{ title: '', key: false, steps: [] }];
@@ -107,10 +126,25 @@ export function parseFigure(kind, body) {
     } else if (k === 'band') list('bands').push({ lo: num(cells[0]), hi: num(cells[1]), text: [cells[0], cells[1]], label: cells[2] || '', key });
     else if (k === 'value') {
       const [label, n] = v.split(/\s+=\s+/);
-      fig.value = { label: (label || '').trim(), value: num(n), text: (n || '').trim() };
+      fig.value = { label: (label || '').trim(), value: need(num(n), 'the value', line), text: (n || '').trim() };
     }
   }
+  // A ratio's axis is logarithmic: every bound must be above zero.
+  if (kind === 'interval' && fig.nil === 1 && (fig.rows || []).some((r) => !(r.lo > 0))) fig.errors.push('a ratio (null: 1) is drawn on a log scale, so every bound must be above 0');
+  fig.plain = words.join('\n');
   return fig;
+}
+
+/** The same figure with no mark flagged as the answer: what a passage may show before the answer. */
+export function withoutKeys(fig) {
+  const off = (m) => ({ ...m, key: false });
+  return {
+    ...fig,
+    ...(fig.rows && { rows: fig.rows.map(off) }), ...(fig.bars && { bars: fig.bars.map(off) }),
+    ...(fig.events && { events: fig.events.map(off) }), ...(fig.bands && { bands: fig.bands.map(off) }),
+    ...(fig.calcs && { calcs: fig.calcs.map(off) }),
+    ...(fig.lanes && { lanes: fig.lanes.map((l) => ({ ...off(l), steps: l.steps.map(off) })) }),
+  };
 }
 
 /**

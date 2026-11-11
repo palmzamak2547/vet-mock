@@ -31,6 +31,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { SHARD_SIZE, shardDomain } from './bank-shards.mjs';
+import { explainText } from '../../src/lib/rich-blocks.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, '..');
@@ -173,7 +174,7 @@ function record(q) {
   const r = {
     id: q.id, subject: q.subject, topic: q.topic || undefined, kind: kindOf(q),
     q: String(q.q).trim(), options: q.options.map((o) => String(o)), answer: q.answer,
-    explain: q.explain ? String(q.explain) : undefined,
+    explain: q.explain ? explainText(q) : undefined,
     source: q.source ? scrub(q.source) || undefined : undefined,
     origin: q.examOrigin && !String(q.examOrigin).includes('อิงแนวข้อสอบ') ? String(q.examOrigin) : undefined,
     verified: typeof q.verified === 'string' && q.verified.trim() && q.verified.trim() !== 'อิงแนวข้อสอบ' ? scrub(q.verified) || undefined : undefined,

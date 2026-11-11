@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { bankFiles, readBank } from './lib/bank-file.mjs';
+import { explainText } from '../src/lib/rich-blocks.js';
 
 const { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } = await import('../src/data/curriculum.js');
 
@@ -175,8 +176,8 @@ const add = (sev, area, msg, detail) => findings.push({ sev, area, msg, detail }
     if (!byYear.has(y)) byYear.set(y, { n: 0, why: 0, hook: 0, empty: 0 });
     const r = byYear.get(y);
     r.n++;
-    if (/ทำไมข้ออื่นผิด|❌/.test(q.explain || '')) r.why++;
-    if (/💡/.test(q.explain || '')) r.hook++;
+    if (/ทำไมข้ออื่นผิด|❌/.test(explainText(q))) r.why++;
+    if (/💡/.test(explainText(q))) r.hook++;
     if (!String(q.explain || '').trim()) r.empty++;
   }
   const empties = [...byYear].filter(([, r]) => r.empty);

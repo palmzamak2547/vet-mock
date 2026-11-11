@@ -20,6 +20,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { passageText } from '../src/lib/rich-blocks.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'api', '_lib', 'written-questions.generated.json');
@@ -38,7 +39,7 @@ for (const entry of BANK_REGISTRY) {
       rubric: q.rubric || '',
       // Only the engprof reading questions carry a passage, and the grader
       // needs it to judge paraphrasing.
-      ...(q.passage ? { passage: q.passage } : {}),
+      ...(q.passage ? { passage: passageText(q) } : {}),
       ...(q.target_words ? { target_words: q.target_words } : {}),
       ...(q.soft_max_words ? { soft_max_words: q.soft_max_words } : {}),
       ...(q.hard_max_words ? { hard_max_words: q.hard_max_words } : {}),

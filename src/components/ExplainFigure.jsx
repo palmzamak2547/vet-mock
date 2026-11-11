@@ -113,6 +113,7 @@ function Interval({ fig }) {
   return (
     <div className="vmx-fig-plot">
       <div className="nil" style={{ left: pct(at(nil)) }}><span className="nl">{nil}</span></div>
+      {log && <span className="axis">สเกลลอการิทึม</span>}
       {rows.map((r, i) => {
         const crosses = r.lo <= nil && nil <= r.hi;
         const [lo, hi, est] = [at(r.lo), at(r.hi), at(r.est)];
@@ -257,15 +258,18 @@ const DRAW = { twobytwo: TwoByTwo, interval: Interval, bars: Bars, timeline: Tim
 
 /** One Thai sentence for a screen reader: what the figure shows and what answers. */
 export function describe(fig) {
-  const keyOf = (list) => (list || []).find((m) => m.key);
+  // Everything the drawing shows, in the order the eye reads it; the answer's mark is named as such.
+  const ans = ' (คำตอบ)';
+  const k = (m) => (m.key ? ans : '');
+  const rowCells = (r) => `${r.label}: ${r.cells.map((c, i) => `${(fig.cols || [])[i] || ''} ${c}`.trim()).join(', ')}`;
   switch (fig.kind) {
-    case 'twobytwo': return `ตาราง 2x2 ${(fig.cols || []).join(', ')}. ${(fig.calcs || []).map((c) => `${c.label} = ${x(c.num)}${c.den ? ` หารด้วย ${x(c.den)}` : ''} = ${c.result}`).join('. ')}`;
-    case 'interval': return (fig.rows || []).map((r) => `${r.label} ${r.text[0]} ช่วงความเชื่อมั่น ${r.text[1]} ถึง ${r.text[2]}${r.lo <= (fig.nil ?? 0) && (fig.nil ?? 0) <= r.hi ? ` ครอบค่า ${fig.nil ?? 0}` : ''}`).join('. ');
-    case 'bars': return `${(fig.head || []).join(' กับ ')}: ${(fig.bars || []).map((b) => `${b.label} ${b.text}`).join(', ')}${keyOf(fig.bars) ? `. คำตอบคือ ${keyOf(fig.bars).label} ${keyOf(fig.bars).text}` : ''}`;
-    case 'timeline': return `${fig.start ? `นับจาก${fig.start}: ` : ''}${(fig.events || []).map((e) => `${e.text} ${fig.unit || ''} ${e.label}`.replace(/\s+/g, ' ')).join(', ')}`;
-    case 'flow': return (fig.lanes || []).map((l) => `${l.title ? `${l.title}: ` : ''}${l.steps.map((s) => `${s.no ? `${s.no} ` : ''}${s.label}`).join(' แล้ว ')}`).join('. ');
-    case 'scale': return `${fig.value ? `${fig.value.label} = ${fig.value.text}` : ''} ${(fig.bands || []).filter((b) => b.key).map((b) => `อยู่ในช่วง ${b.label}`).join('')}`.trim();
-    default: return '';
+    case 'twobytwo': return [`ตาราง 2x2`, ...(fig.rows || []).map(rowCells), ...(fig.sum ? [rowCells(fig.sum)] : []), ...(fig.calcs || []).map((c) => `${c.label} = ${x(c.num)}${c.den ? ` หารด้วย ${x(c.den)}` : ''} = ${c.result}${k(c)}`)].join('. ');
+    case 'interval': return [...(fig.rows || []).map((r) => `${r.label} ${r.text[0]} ช่วงความเชื่อมั่น ${r.text[1]} ถึง ${r.text[2]}${r.lo <= fig.nil && fig.nil <= r.hi ? ` ครอบค่า ${fig.nil}` : ` ไม่ครอบค่า ${fig.nil}`}${k(r)}`), fig.note || '', fig.nil === 1 ? 'แกนเป็นสเกลลอการิทึม' : ''].filter(Boolean).join('. ');
+    case 'bars': return [`${(fig.head || []).join(' กับ ')}`, ...(fig.bars || []).map((b) => `${b.label} ${b.text}${k(b)}`), fig.unit || ''].filter(Boolean).join(', ');
+    case 'timeline': return `${fig.start ? `นับจาก${fig.start}: ` : ''}${(fig.events || []).map((e) => `${e.text} ${fig.unit || ''} ${e.label}${k(e)}`.replace(/s+/g, ' ')).join(', ')}`;
+    case 'flow': return (fig.lanes || []).map((l) => `${l.title ? `${l.title}${k(l)}: ` : ''}${l.steps.map((st) => `${st.no ? `ขั้นตอนที่ ${st.no} ` : ''}${st.label}${st.detail ? ` (${st.detail})` : ''}${k(st)}`).join(' แล้ว ')}`).join('. ');
+    case 'scale': return [fig.value ? `${fig.value.label} = ${fig.value.text}` : '', ...(fig.bands || []).map((b) => `ช่วง ${b.label} ${b.text[0] || ''} ถึง ${b.text[1] || ''}${k(b)}`.replace(/s+/g, ' '))].filter(Boolean).join('. ');
+    default: return fig.plain || '';
   }
 }
 
@@ -282,7 +286,8 @@ export default function ExplainFigure({ fig, play = false, height = 0 }) {
     return () => watch.disconnect();
   }, [play, on]);
   const Draw = DRAW[fig.kind];
-  if (!Draw) return null;
+  // A figure the parser could not read whole is written out in words, never drawn half (the lint fails on it too).
+  if (!Draw || fig.errors?.length) return <p className="vmx-fig-words" style={{ whiteSpace: 'pre-line' }}>{fig.plain}</p>;
   // The held height is fitted to a phone; held there, nothing below moves when the drawing arrives.
   // A wider screen draws it shorter and keeps no empty band under it.
   const hold = typeof window !== 'undefined' && window.matchMedia?.('(max-width: 767px)').matches;

@@ -18,7 +18,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { bankFiles, readBank } from '../lib/bank-file.mjs';
 import { citationChunks, pageRuns } from '../lint-source-docs.mjs';
-import { wholeStem } from '../../src/lib/rich-blocks.js';
+import { explainText, wholeStem } from '../../src/lib/rich-blocks.js';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const imp = (rel) => import(pathToFileURL(path.join(REPO, rel)).href);
@@ -101,7 +101,7 @@ async function exportSubjects(subjects) {
     const questions = rows.filter(([, q]) => q.subject === id).map(([bankFile, q]) => ({
       qid: `${q.subject}:${q.id}`, bankFile, id: q.id, subject: q.subject, topic: q.topic, type: q.type,
       q: wholeStem(q), options: q.options ?? null, answer: q.answer ?? null, model_answer: q.model_answer ?? null,
-      keywords: q.keywords ?? null, explain: q.explain ?? '', source: q.source ?? null, verified: q.verified ?? null,
+      keywords: q.keywords ?? null, explain: explainText(q), source: q.source ?? null, verified: q.verified ?? null,
       sourceType: q.sourceType ?? null, examOrigin: q.examOrigin ?? null, scope: scopeOfQuestion(q) ?? null,
       image: q.image ?? null, cites: citesOf(q, SOURCE_DOCS),
     }));

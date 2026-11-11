@@ -9,6 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { explainText } from '../../src/lib/rich-blocks.js';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -105,7 +106,7 @@ function itemHtml(q, n, recs, root, humanSource) {
     ${opts}
     ${key ? `<div class="keyline"><b>เฉลย</b> ${esc(key)}</div>` : ''}
     ${answer}
-    ${why(q.explain) ? `<div class="why"><b>ทำไม</b> ${esc(why(q.explain))}</div>` : ''}
+    ${why(explainText(q)) ? `<div class="why"><b>ทำไม</b> ${esc(why(explainText(q)))}</div>` : ''}
     <div class="src"><b>ที่มาในคลัง</b> ${esc(humanSource(q.source) || '-')}${q.verified ? `<br><b>ตรวจกับ</b> ${esc(humanSource(q.verified))}` : ''}</div>
     ${figs}${more}
     <div class="ev"><b>สรุปหลักฐาน</b> ${esc(SUMMARY[ev] || SUMMARY.none)}</div>${blind}

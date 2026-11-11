@@ -471,7 +471,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               run={answerRun}
               fresh={freshVerdict}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
-              explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
+              explain={currentQ.explain} explainSay={currentQ.explainSay} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
               figure={explainFigure}
               evidence={evidence}
               subject={currentQ.subject}
@@ -521,7 +521,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
                 // are both true at once, and only one of them was on screen.
                 alwaysShowCorrect
-                explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
+                explain={currentQ.explain} explainSay={currentQ.explainSay} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
                 figure={explainFigure}
                 evidence={evidence}
                 subject={currentQ.subject}
@@ -960,7 +960,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, explainSay = '', listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -1008,7 +1008,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
-          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} play={isFresh && !reduced} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} say={explainSay} play={isFresh && !reduced} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}

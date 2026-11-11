@@ -2,6 +2,7 @@ import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { splitBlocks } from '../lib/rich-blocks.js';
 import { RichText } from '../lib/richtext.jsx';
 import FigureSlot from './FigureSlot.jsx';
+import { withoutKeys } from '../lib/figure-spec.js';
 
 // A cell that holds a figure and no word: a count, a rate, a range, a fraction.
 const FIGURE = /^[^A-Za-z฀-๿]*\d[^A-Za-z฀-๿]*$/;
@@ -100,13 +101,17 @@ function HouseLines({ text, renderText }) {
  * goes to `renderText` whole, as it always did. `play`: the figure may reveal
  * itself in the order of its reasoning (an answer given just now).
  */
-export default function RichBlocks({ text, renderText = (t) => <RichText text={t} />, play = false }) {
+export default function RichBlocks({ text, renderText = (t) => <RichText text={t} />, play = false, say = '', passage = false }) {
   const blocks = useMemo(() => splitBlocks(text), [text]);
+  const [failed, setFailed] = useState(false);
   if (blocks.length === 1 && blocks[0].type === 'text') return renderText(text);
+  // The drawing did not load: the explanation reads as the paragraph it was written as.
+  if (failed && say) return renderText(say);
   const drawn = blocks.some((b) => b.type === 'figure');
   return blocks.map((b, i) => {
     if (b.type === 'table') return <RichTable key={i} table={b} />;
-    if (b.type === 'figure') return <FigureSlot key={i} fig={b.fig} play={play} />;
+    // A passage is read before the answer, so its figure never shows which mark answers.
+    if (b.type === 'figure') return <FigureSlot key={i} fig={passage ? withoutKeys(b.fig) : b.fig} play={play} onFail={say ? () => setFailed(true) : undefined} />;
     return <Fragment key={i}>{drawn ? <HouseLines text={b.text} renderText={renderText} /> : renderText(b.text)}</Fragment>;
   });
 }

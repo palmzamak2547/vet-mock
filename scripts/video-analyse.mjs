@@ -19,6 +19,7 @@ import { normalizeQuery, segmentWords } from '../src/lib/vetwiki/query-terms.js'
 import { transliterated } from '../src/lib/video-summary-check.js';
 import { SUBJECTS_BY_YEAR } from '../src/data/curriculum.js';
 import { BANK_REGISTRY } from '../src/data/bank-registry.generated.js';
+import { explainText } from '../src/lib/rich-blocks.js';
 
 const WINDOW = 60; // seconds per scoring window
 const BREAK_GAP = 45; // silence long enough to be a break
@@ -220,7 +221,7 @@ function topicProfiles(subject, questions) {
     const p = byTopic.get(q.topic);
     if (!p) continue;
     p.n += 1;
-    add(q.topic, [q.q, (q.options || [])[q.answer], q.explain].filter(Boolean).join(' '));
+    add(q.topic, [q.q, (q.options || [])[q.answer], explainText(q)].filter(Boolean).join(' '));
   }
   const df = new Map();
   for (const p of byTopic.values()) for (const k of p.counts.keys()) df.set(k, (df.get(k) || 0) + 1);
@@ -608,7 +609,7 @@ function analyse({ dir, subjectId, title = '', lecturerTopics = [], durationSec 
 
     // A slide number the bank's questions on this lecture's topics also use
     // is the one to remember first.
-    const asked = questions.filter((q) => mainTopics.includes(q.topic)).map((q) => [q.q, ...(q.options || []), q.explain].join(' '));
+    const asked = questions.filter((q) => mainTopics.includes(q.topic)).map((q) => [q.q, ...(q.options || []), explainText(q)].join(' '));
     for (const n of numbers) {
       const nums = (n.text.match(/\d+(?:[.,]\d+)?(?:\s*[-–]\s*\d+)?/g) || []).filter((x) => x.length > 1 || /%/.test(n.text));
       if (nums.some((x) => asked.some((q) => q.includes(x)))) n.asked = true;

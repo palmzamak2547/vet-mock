@@ -880,7 +880,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             <div className="answer">
               {answerNode || answerText}
             </div>
-            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
+            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} say={currentQ.explainSay} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(currentQ.explainImage)}

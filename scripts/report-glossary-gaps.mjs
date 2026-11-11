@@ -16,6 +16,7 @@
 // ============================================================
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { explainText } from '../src/lib/rich-blocks.js';
 
 // Words common enough in the bank's English that they are never a term.
 const PLAIN = new Set(`
@@ -33,7 +34,7 @@ outbreaks examination sample samples important different disinfection concentrat
 
 const TOKEN = /(?<![A-Za-z0-9])([A-Z][A-Za-z0-9-]{2,}|[a-z][a-z-]{6,})(?![A-Za-z0-9])/g;
 
-const textOf = (q) => `${q.q || ''}\n${q.explain || ''}\n${q.model_answer || ''}`;
+const textOf = (q) => `${q.q || ''}\n${explainText(q)}\n${q.model_answer || ''}`;
 
 /**
  * @param questions bank rows

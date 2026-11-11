@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import AiGradePanel from './AiGradePanel.jsx';
 import { keywordHit } from '../hooks/utils.js';
+import { passageText } from '../lib/rich-blocks.js';
 
 // ============================================================
 // SmartGrader — rubric-based self-grading without an LLM
@@ -120,7 +121,7 @@ export default function SmartGrader({ q, userAnswer }) {
 
   // Auto analyses
   const coverage = useMemo(() => keywordCoverage(ans, q.keywords), [ans, q.keywords]);
-  const copied = useMemo(() => copyDetector(q.passage || '', ans, isEssay ? 6 : 4), [q.passage, ans, isEssay]);
+  const copied = useMemo(() => copyDetector(passageText(q), ans, isEssay ? 6 : 4), [q.passage, ans, isEssay]);
 
   // Per-question saved state
   const storageKey = `vmx-grade-${q.id}`;

@@ -76,47 +76,80 @@ test('the arithmetic a calc claims is checked to its own decimals', () => {
   assert.equal(evaluate('abc'), null);
 });
 
+// A 2x2 that reads the passage's table: one cell over its column's total (the reading the table does not draw).
+const SE = fence('twobytwo', ['cols: เพาะเชื้อบวก | เพาะเชื้อลบ', 'row: ELISA บวก | 102 | 40', 'row: ELISA ลบ | 38 | 224', 'sum: รวม | 140 | 264', 'calc: Sensitivity = 102/140 = 0.73']);
 const Q = (over = {}) => ({
   subject: 'epidemiology', id: 1, type: 'mcq',
-  passage: 'สุนัข 33 ตัว\n\n| | มดลูกอักเสบ | ปกติ |\n|---|---|---|\n| ฉีดยาคุมกำเนิด | 10 | 6 |\n| ไม่ฉีดยาคุมกำเนิด | 5 | 12 |',
-  q: 'ค่า odds ratio (OR) แปลว่าอย่างไร', options: ['น้อยกว่า', 'มากกว่า'], answer: 1,
-  explain: TEXT, explainSay: 'OR = (10 x 12)/(6 x 5) = 120/30 = 4 ค่า 4',
+  passage: 'ELISA ในโค 404 ตัว\n\n| | เพาะเชื้อบวก | เพาะเชื้อลบ |\n|---|---|---|\n| ELISA บวก | 102 | 40 |\n| ELISA ลบ | 38 | 224 |\n| รวม | 140 | 264 |',
+  q: 'sensitivity ของ ELISA คำนวณจากข้อใด', options: ['102/142', '102/140'], answer: 1,
+  explain: '**Sensitivity** คือ ...\n' + SE, explainSay: 'Sensitivity คือสัดส่วนที่ให้ผลบวก 102/140 = 0.73',
   ...over,
 });
+const problems = (over) => lintQuestionFigures([Q(over)]).problems;
+const caught = (over, what) => assert.ok(problems(over).some((p) => p.includes(what)), JSON.stringify(problems(over)));
 
 test('lint: a figure that says only what the question holds passes', () => {
-  assert.deepEqual(lintQuestionFigures([Q()]).problems, []);
+  assert.deepEqual(problems({}), []);
 });
 
 test('lint: an explanation with a figure keeps its paragraph for the voice', () => {
-  const { problems } = lintQuestionFigures([Q({ explainSay: undefined })]);
-  assert.ok(problems.some((p) => p.includes('explainSay')));
+  caught({ explainSay: undefined }, 'explainSay');
 });
 
 test('lint: a number, a label or a sum the question does not hold fails', () => {
-  const wrongSum = TEXT.replace('= 120/30 = 4', '= 120/30 = 5');
-  assert.ok(lintQuestionFigures([Q({ explain: wrongSum })]).problems.some((p) => p.includes('does not give 5')));
-  const newLabel = TEXT.replace('cols: มดลูกอักเสบ', 'cols: ติดเชื้อ');
-  assert.ok(lintQuestionFigures([Q({ explain: newLabel })]).problems.some((p) => p.includes('"ติดเชื้อ"')));
-  const newNumber = TEXT.replace('| 5 | 12', '| 5 | 13');
-  assert.ok(lintQuestionFigures([Q({ explain: newNumber })]).problems.some((p) => p.includes('13')));
+  caught({ explain: SE.replace('= 0.73', '= 0.74') }, 'does not give 0.74');
+  caught({ explain: SE.replace('cols: เพาะเชื้อบวก', 'cols: ติดเชื้อ') }, '"ติดเชื้อ"');
+  caught({ explain: SE.replace('| 38 | 224', '| 38 | 225') }, '225');
 });
 
-test('lint: the accent goes on what answers, once', () => {
-  const q = { subject: 's', id: 2, type: 'mcq', q: 'ขนาดตัวอย่างที่ระดับความเชื่อมั่น 95%', options: ['270', '384'], answer: 1, explainSay: 'ระดับความเชื่อมั่น 90% 270 95% 384' };
-  const bars = (a, b) => fence('bars', ['head: ระดับความเชื่อมั่น', `bar: 90% | 270${a}`, `bar: 95% | 384${b}`]);
+test('lint: a 2x2 keeps the passage\'s cells under the passage\'s headers, and its totals add up', () => {
+  caught({ explain: SE.replace('row: ELISA บวก | 102 | 40', 'row: ELISA บวก | 40 | 102') }, 'not the sum of its cells');
+  caught({ explain: SE.replace('cols: เพาะเชื้อบวก | เพาะเชื้อลบ', 'cols: เพาะเชื้อลบ | เพาะเชื้อบวก') }, 'the passage\'s table has');
+  // Redrawing the table with a cross product only adds nothing a reader cannot see in the table.
+  caught({ explain: SE.replace('calc: Sensitivity = 102/140 = 0.73', 'calc: OR = (102 x 224)/(40 x 38) = 15.03') }, 'adds no reading');
+});
+
+test('lint: the accent goes on what answers, once, and never in a passage', () => {
+  const q = { subject: 's', id: 2, type: 'mcq', q: 'ขนาดตัวอย่างที่ระดับความเชื่อมั่น 95%', options: ['270', '384', '663'], answer: 1, explainSay: 'ระดับความเชื่อมั่น 90% ได้ 270 และ 95% ได้ 384 ส่วน 99% ได้ 663' };
+  const bars = (a, b, c = '') => fence('bars', ['head: ระดับความเชื่อมั่น', `bar: 90% | 270${a}`, `bar: 95% | 384${b}`, `bar: 99% | 663${c}`]);
   assert.deepEqual(lintQuestionFigures([{ ...q, explain: bars('', ' | key') }]).problems, []);
-  assert.ok(lintQuestionFigures([{ ...q, explain: bars(' | key', '') }]).problems.some((p) => p.includes('neither the correct option')));
+  assert.ok(lintQuestionFigures([{ ...q, explain: bars('', '', ' | key') }]).problems.some((p) => p.includes('a wrong option')));
   assert.ok(lintQuestionFigures([{ ...q, explain: bars(' | key', ' | key') }]).problems.some((p) => p.includes('one accent')));
+  assert.ok(lintQuestionFigures([{ ...q, explain: bars('', '') }]).problems.some((p) => p.includes('flags the mark')));
+  // Hostile: a passage figure that would show the answer before the student answers.
+  assert.ok(lintQuestionFigures([{ ...q, passage: 'ขนาดตัวอย่าง\n' + bars('', ' | key'), explain: 'x' }]).problems.some((p) => p.includes('flags no mark')));
 });
 
-test('lint: no figure in a stem or an option, none restating its own table, none past the glance limit', () => {
-  assert.ok(lintQuestionFigures([Q({ q: `x\n${OR}` })]).problems.some((p) => p.includes(' q: ')));
-  const both = `| ระดับ | n |\n|---|---|\n| 90% | 270 |\n| 95% | 384 |\n${fence('bars', ['bar: 90% | 270', 'bar: 95% | 384'])}`;
-  const q = { subject: 's', id: 3, type: 'mcq', q: 'n', options: ['384'], answer: 0, explain: both, explainSay: '90% 270 95% 384' };
-  assert.ok(lintQuestionFigures([q]).problems.some((p) => p.includes('restates the table')));
-  const many = fence('bars', Array.from({ length: 9 }, (_, i) => `bar: 9${i} | ${i}`));
-  assert.ok(lintQuestionFigures([{ ...q, explain: many }]).problems.some((p) => p.includes('at a glance')));
+test('lint: pairings the text does not make fail (a step under another number, an estimate off its interval)', () => {
+  const q = { subject: 's', id: 3, type: 'mcq', q: 'ในขั้นตอนที่ 7 ประเมินสมมติฐาน ใช้วิธีใด', options: ['ค่าฐาน', 'ระบาดวิทยาเชิงวิเคราะห์'], answer: 1, explainSay: 'การเทียบกับค่าฐานอยู่ในขั้นตอนที่ 2 และต้องใช้ระบาดวิทยาเชิงวิเคราะห์' };
+  const flow = (a, b) => fence('flow', [`step: ${a} | เทียบกับค่าฐาน`, `step: ${b} | ประเมินสมมติฐาน | ระบาดวิทยาเชิงวิเคราะห์ | key`]);
+  assert.deepEqual(lintQuestionFigures([{ ...q, explain: flow(2, 7) }]).problems, []);
+  assert.ok(lintQuestionFigures([{ ...q, explain: flow(3, 7) }]).problems.some((p) => p.includes('as step 3')));
+  const iv = { subject: 's', id: 4, type: 'mcq', q: 'ได้ OR = 2.19, CI = 0.51-9.43 ข้อใดถูก', say: 'E- D- = 3, OR = 2.19, CI = 0.51-9.43 ข้อใดถูก', options: ['a', 'b'], answer: 0, explainSay: 'ช่วงความเชื่อมั่น 0.51-9.43 ครอบค่า 1' };
+  const interval = (est) => fence('interval', ['null: 1', `row: OR | ${est} | 0.51 | 9.43`, 'note: ครอบค่า 1']);
+  assert.deepEqual(lintQuestionFigures([{ ...iv, explain: interval('2.19') }]).problems, []);
+  assert.ok(lintQuestionFigures([{ ...iv, explain: interval('3') }]).problems.length > 0);
+});
+
+test('parser: a repeated key, a ratio bound at or below 0, an unchecked note are refused', () => {
+  assert.ok(parseFigure('twobytwo', 'cols: a | b\ncols: c | d').errors.some((e) => e.includes('twice')));
+  assert.ok(parseFigure('interval', 'null: 1\nrow: OR | 2 | 0 | 5').errors.some((e) => e.includes('above 0')));
+  assert.ok(parseFigure('interval', 'null: 1\nrow: OR | 9 | 1 | 5').errors.some((e) => e.includes('outside')));
+  assert.ok(parseFigure('bars', 'bar: a | x').errors.some((e) => e.includes('not a number')));
+  const iv = { subject: 's', id: 5, type: 'mcq', q: 'OR = 2.19, CI = 1.5-9.43 ข้อใดถูก', options: ['a'], answer: 0, explainSay: 'OR = 2.19, CI = 1.5-9.43 ครอบค่า 1' };
+  const p = lintQuestionFigures([{ ...iv, explain: fence('interval', ['null: 1', 'row: OR | 2.19 | 1.5 | 9.43', 'note: ครอบค่า 1']) }]).problems;
+  assert.ok(p.some((x) => x.includes('no interval crosses')), JSON.stringify(p));
+});
+
+test('the bank: no passage figure flags an answer, and a passage figure reaches the card with none flagged', async () => {
+  const questions = [];
+  for (const file of bankFiles('src/data')) questions.push(...(await readBank(file)).questions);
+  for (const q of questions) {
+    if (typeof q.passage !== 'string' || !q.passage.includes('```figure')) continue;
+    for (const b of splitBlocks(q.passage).filter((x) => x.type === 'figure')) assert.ok(!JSON.stringify(b.fig).includes('"key":true'), q.id);
+  }
+  const shown = highlightParts('ข้อมูล\n' + fence('bars', ['bar: a | 1 | key']))[1].fig;
+  assert.equal(shown.bars[0].key, false);
 });
 
 test('the bank: every figure parses and passes', async () => {

@@ -81,7 +81,7 @@ import { originEntry } from '../src/data/exam-origins.js';
 import { isPastPaperQuestion, questionTopicId } from '../src/lib/question-metadata.js';
 import { cohortList, compiledForCohorts, namesCohort, parseProvenance } from '../src/lib/exam-origin-parse.js';
 import { sameGenerated } from './lib/same-generated.mjs';
-import { wholeStem } from '../src/lib/rich-blocks.js';
+import { explainText, wholeStem } from '../src/lib/rich-blocks.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const OUT = 'src/data/exam-recurrence.generated.js';
@@ -229,7 +229,7 @@ export function fingerprint(question) {
     stemNumbers: numbersIn(raw),
     species: speciesIn(raw),
     terms: termsIn(unbracketed(whole)),
-    fullText: plain([whole, ...(q.options || []), q.explain, q.model_answer, ...(q.blanks || []),
+    fullText: plain([whole, ...(q.options || []), explainText(q), q.model_answer, ...(q.blanks || []),
       ...(q.pairs || []).map((p) => `${p?.left ?? ''} ${p?.right ?? ''}`)].filter(Boolean).join(' ')),
   };
 }
