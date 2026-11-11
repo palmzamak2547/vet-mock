@@ -6,6 +6,7 @@ import { useT } from '../../i18n/index.js';
 import Icon from './Icon.jsx';
 import Link from './Link.jsx';
 import AccountMenu from './AccountMenu.jsx';
+import { FamilyMenu } from '@vetmock/lib/family/FamilyMenu.jsx';
 
 /** ไทย/EN: a pressed-button group; the choice is kept per device (prefs.lang). */
 export function LangSwitch() {
@@ -22,7 +23,7 @@ export function LangSwitch() {
  * @param {{ crumb?: string|null, onMenu?: (() => void) | null, menuOpen?: boolean }} props
  */
 export default function TopBar({ crumb = null, onMenu = null, menuOpen = false }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [account, setAccount] = useState(false);
   return (
     <header className="rs-top">
@@ -50,6 +51,7 @@ export default function TopBar({ crumb = null, onMenu = null, menuOpen = false }
         <span className="rs-only-narrow">{t('ws.top.localShort')}</span>
       </span>
       <LangSwitch />
+      <FamilyMenu self="research" lang={lang} carryLang={lang} buttonClassName="rs-iconbtn" />
       <button type="button" className="rs-avatar" onClick={() => setAccount(true)} aria-haspopup="dialog" aria-label={t('ws.account.open')}>
         <Icon name="user" />
       </button>

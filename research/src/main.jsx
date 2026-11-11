@@ -5,7 +5,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/base.css';
 import { App } from './App.jsx';
-import { readPrefs } from './lib/store/prefs.js';
+import { readPrefs, writePrefs } from './lib/store/prefs.js';
+import { takeCrossing } from '@vetmock/lib/family/family.js';
 import { registerWhenInStudio } from './lib/runtime/sw-register.js';
 
 function applyTheme() {
@@ -13,6 +14,13 @@ function applyTheme() {
   const dark = theme === 'dark' || (theme === 'system' && window.matchMedia?.('(prefers-color-scheme: dark)').matches);
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   document.documentElement.lang = lang;
+}
+
+// Arriving from another VetMock site: the theme and language the student was looking at there
+// (?vmt, ?vml) become this site's own, once, and leave the address (src/lib/family).
+{
+  const { theme, lang } = takeCrossing();
+  if (theme || lang) writePrefs({ ...(theme ? { theme } : {}), ...(lang ? { lang } : {}) });
 }
 
 applyTheme();

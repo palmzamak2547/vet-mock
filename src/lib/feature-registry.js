@@ -56,6 +56,7 @@
 // `flag: 'X'` is hidden from home + ⌘K (and thus unreachable, since there is
 // no direct URL routing) when FEATURE_FLAGS.X === false.
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { familyMember } from './family/family.js';
 
 export const FEATURE_FLAGS = {
   VETWIKI_ENABLED: true,
@@ -65,6 +66,14 @@ export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
 // The statistics workspace is its own app on its own origin; the palette opens it in the same tab, as
 // it does Imaging Pro (window.location.assign).
 export const RESEARCH_STUDIO_URL = 'https://research.vetmock.com';
+
+// The other VetMock sites take their name and sentence from the one family list (family/family.js),
+// so the palette, the home grid and every site say the same thing. Each opens in the same tab and
+// carries the theme on screen (crossingHref, applied by the dispatchers).
+const fromFamily = (id) => { const m = familyMember(id); return { label: m.name, labelEn: m.name, hint: m.th, url: m.url.replace(/\/$/, '') }; };
+const VCA = fromFamily('vca');
+const TUTOR = fromFamily('ai');
+const RESEARCH = fromFamily('research');
 
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',          labelEn: 'Practice & Exam',  icon: '📝' },
@@ -304,8 +313,8 @@ export const FEATURES = [
   },
   {
     id: 'research-studio', category: 'tools',
-    label: 'วิเคราะห์ข้อมูลวิจัย', labelEn: 'VetMock Research', icon: '📊',
-    hint: 'สถิติสำหรับงานวิจัยสัตวแพทย์ คำนวณในเครื่องนี้ ข้อมูลไม่ส่งออกนอกเครื่อง',
+    label: RESEARCH.label, labelEn: RESEARCH.labelEn, icon: '📊',
+    hint: RESEARCH.hint,
     kw: 'research studio spss openepi epi info winepiscope epitools สถิติ วิเคราะห์ข้อมูล วิจัย t-test chi-square odds ratio sample size ขนาดตัวอย่าง statistics',
     invoke: { kind: 'external', url: RESEARCH_STUDIO_URL },
   },
@@ -415,6 +424,21 @@ export const FEATURES = [
     hint: 'ตารางสอบเข้าปฏิทิน การ์ด Anki และแอปที่เชื่อมได้',
     kw: 'connect apps เชื่อมแอป google drive notion calendar ปฏิทิน ตารางสอบ anki การ์ด outlook apple ics เชื่อมบัญชี',
     invoke: { kind: 'view', view: 'connect-apps' },
+  },
+  {
+    // The licensing-exam site. Last in the practice group, after the study modes.
+    id: 'vca-site', category: 'practice',
+    label: VCA.label, labelEn: VCA.labelEn, icon: '📜',
+    hint: VCA.hint,
+    kw: 'vca ใบประกอบ ใบประกอบวิชาชีพ สัตวแพทยสภา licensing license board exam สอบใบประกอบ สนามสอบ mock vetmock vca',
+    invoke: { kind: 'external', url: VCA.url },
+  },
+  {
+    id: 'ai-tutor', category: 'learn',
+    label: TUTOR.label, labelEn: TUTOR.labelEn, icon: '💬',
+    hint: TUTOR.hint,
+    kw: 'ai tutor ถาม ถามตอบ แชท chat ติว อธิบาย คำถาม ask vetmock ai ผู้ช่วย',
+    invoke: { kind: 'external', url: TUTOR.url },
   },
 ];
 

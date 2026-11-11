@@ -17,6 +17,9 @@
 // descriptive anchor text.
 // ============================================================
 
+import { FAMILY_TITLE } from '../lib/family/family.js';
+import { FamilyLinks } from '../lib/family/FamilyMenu.jsx';
+
 export default function Footer({ setView }) {
   const handleNav = (targetView) => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -38,6 +41,12 @@ export default function Footer({ setView }) {
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('landing')}>หน้าแนะนำ</button>
           <a href="/blog/">บทความ</a>
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('feedback')}>แจ้งปัญหา</button>
+        </nav>
+
+        {/* The other VetMock sites, from the one family list (lib/family). */}
+        <nav className="vmx-footer-col vmx-footer-family" aria-label={FAMILY_TITLE.th}>
+          <h2>{FAMILY_TITLE.th}</h2>
+          <FamilyLinks self="main" lang="th" />
         </nav>
 
         <nav className="vmx-footer-col" aria-label="เครือข่าย Vet 86">

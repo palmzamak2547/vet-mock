@@ -12,6 +12,7 @@ import { toggleTheme, useTheme } from '../lib/prefs.js';
 import { useActiveSession } from '../lib/hooks.js';
 import { mountLiquidBar } from '../lib/liquid.js';
 import { AccountButton, COMMUNITY_ON } from '../online/index.js';
+import { FamilyLinks, FamilyMenu } from '@vetmock/lib/family/FamilyMenu.jsx';
 
 const NAV = [
   { name: 'practice', to: '/practice', label: 'ฝึก', icon: 'target' },
@@ -134,6 +135,8 @@ export function TopBar({ route }) {
           </ul>
         </div>
         <div className="topbar-act cap">
+          {/* The other VetMock sites, from the one family list (src/lib/family). */}
+          <FamilyMenu self="vca" buttonClassName="icon-btn" />
           <ThemeButton />
           <AccountButton />
           {session ? (
@@ -209,9 +212,8 @@ export function Footer() {
           )}
           <div>
             <h2 className="footer-h">VetMock</h2>
+            <FamilyLinks self="vca" line={false} className="footer-family" />
             <ul>
-              <li><a href="https://vetmock.com/">vetmock.com <Icon name="arrowUpRight" size={14} /></a></li>
-              <li><a href="https://research.vetmock.com/">Research <Icon name="arrowUpRight" size={14} /></a></li>
               <li><a href="https://vetmock.com/app/feedback">ส่งความเห็น <Icon name="arrowUpRight" size={14} /></a></li>
               <li><InstallLink className="foot-btn" /></li>
             </ul>

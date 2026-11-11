@@ -105,3 +105,29 @@ a {
 
 /* A heading focused by the route change (tabIndex -1) is not a control; no focus box (review round 1). */
 [tabindex="-1"]:focus { outline: none; }
+
+/* ---------- the other VetMock sites (src/lib/family/FamilyMenu.jsx) ----------
+   Loaded on every page (landing, public pages, workspace). The panel hangs from the right end of
+   the bar, not from the button, so on a phone it never runs off the left edge. */
+.rs-top .vm-family, .rs-l-header-tools .vm-family { position: static; }
+.vm-family > summary { list-style: none; cursor: pointer; }
+.vm-family > summary::-webkit-details-marker { display: none; }
+.vm-family[open] > summary { background: var(--rs-surface-2); }
+.vm-family-pop {
+  position: absolute; right: 8px; top: calc(100% + 6px); z-index: 40;
+  width: min(330px, calc(100vw - 32px)); padding: 8px; border-radius: 14px;
+  background: var(--rs-surface); border: 1px solid var(--rs-line); box-shadow: var(--rs-shadow);
+}
+.rs-l-header-tools .vm-family-pop { right: 0; }
+.vm-family-h { margin: 6px 10px; font-size: 13px; color: var(--rs-ink-soft); }
+.vm-family-list, .rs-l-menu-family { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.vm-family-pop .vm-family-row, .rs-l-menu-family .vm-family-row {
+  display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 44px;
+  padding: 10px 12px; border-radius: 10px; color: var(--rs-ink); text-decoration: none;
+}
+.vm-family-pop a.vm-family-row:hover, .rs-l-menu-family a.vm-family-row:hover { background: var(--rs-surface-2); }
+.vm-family-pop .vm-family-here { background: var(--rs-surface-2); }
+.vm-family-pop .vm-family-name, .rs-l-menu-family .vm-family-name { font-weight: 600; font-size: 15px; }
+.vm-family-pop .vm-family-line, .rs-l-menu-family .vm-family-line { font-size: 13px; line-height: 1.5; color: var(--rs-ink-soft); }
+.rs-l-menu-family { margin-top: 16px; }
+.rs-l-footer-family, .rs-l-footer-family li { display: contents; }

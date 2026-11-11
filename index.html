@@ -11,6 +11,20 @@
          persists (vmx-theme), falls back to the OS preference. -->
     <script>
       (function () {
+        // Arriving from another VetMock site: ?vmt= (theme) and ?vml= (language) say what the
+        // student was looking at there. Taken once into this site's own keys, then out of the
+        // address. Same names as src/lib/family/family.js (CROSSING), held by its test.
+        try {
+          var q = new URLSearchParams(location.search);
+          if (q.has('vmt') || q.has('vml')) {
+            var vt = q.get('vmt'), vl = q.get('vml');
+            if (vt === 'light' || vt === 'dark') localStorage.setItem('vmx-theme', JSON.stringify(vt));
+            if (vl === 'th' || vl === 'en') localStorage.setItem('vmx-landing-lang', JSON.stringify(vl));
+            q.delete('vmt'); q.delete('vml');
+            var qs = q.toString();
+            history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+          }
+        } catch (e) {}
         try {
           var raw = localStorage.getItem('vmx-theme');
           var t = raw ? JSON.parse(raw) : null;

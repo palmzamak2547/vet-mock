@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { setTheme, useTheme } from './theme.js';
 import { appLinkProps } from './nav.js';
+import { FamilyLinks, FamilyMenu } from '@vetmock/lib/family/FamilyMenu.jsx';
 
 export const SECTIONS = Object.freeze([
   ['how', 'landing.nav.how'],
@@ -64,6 +65,12 @@ export function ThemeSwitch({ className = '' }) {
       )}
     </button>
   );
+}
+
+/** The other VetMock sites, in the phone menu (src/lib/family). */
+function MenuFamily() {
+  const { lang } = useT();
+  return <FamilyLinks self="research" lang={lang} carryLang={lang} className="rs-l-menu-family" />;
 }
 
 function Menu({ onClose }) {
@@ -125,6 +132,7 @@ function Menu({ onClose }) {
         <LangSwitch />
         <ThemeSwitch />
       </div>
+      <MenuFamily />
       <span className="rs-l-grow" />
       <a className="rs-l-btn rs-l-btn-primary rs-l-menu-cta" {...appLinkProps('/app', () => onClose())}>
         {t('landing.nav.open')}
@@ -134,7 +142,7 @@ function Menu({ onClose }) {
 }
 
 export default function SiteHeader() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [menu, setMenu] = useState(false);
   const btnRef = useRef(null);
   const close = useRef(() => {});
@@ -163,6 +171,7 @@ export default function SiteHeader() {
         ))}
       </nav>
       <div className="rs-l-header-tools">
+        <FamilyMenu self="research" lang={lang} carryLang={lang} className="rs-l-hide-phone" buttonClassName="rs-l-icon-btn" />
         <LangSwitch className="rs-l-hide-phone" />
         <ThemeSwitch className="rs-l-hide-phone" />
         <a className="rs-l-btn rs-l-btn-primary rs-l-btn-sm rs-l-hide-phone" {...appLinkProps('/app')}>

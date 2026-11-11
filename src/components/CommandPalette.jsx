@@ -60,6 +60,7 @@ import {
 } from '../lib/omni-ask.js';
 import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { authHeader } from '../lib/api-auth.js';
+import { crossingHref, currentTheme } from '../lib/family/family.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -345,7 +346,7 @@ function runItem(item, handlers) {
         case 'panic':     onPanic?.(inv.timeKey || '30'); return;
         case 'event':     try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
         case 'sketch':    onSketch?.(); return;
-        case 'external':  if (inv.url) window.location.assign(inv.url); return;
+        case 'external':  if (inv.url) window.location.assign(crossingHref(inv.url, { theme: currentTheme() })); return;
         // voice-settings opens an overlay instead of navigating — keeps
         // the user on the current Q if they triggered from ExamView.
         case 'voice':     openVoiceSettings?.(); return;

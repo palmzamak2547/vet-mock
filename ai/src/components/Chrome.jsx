@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import GlyphText from './GlyphText.jsx';
 import { IconHistory, IconMoon, IconNew, IconSun, IconClose, IconTrash } from './icons.jsx';
+// The other VetMock sites, from the one family list the four sites share.
+import { FamilyLinks, FamilyMenu } from '../../../src/lib/family/FamilyMenu.jsx';
 
 export function Header({ theme, onTheme, onNew, onHistory, hasChat, walled = false }) {
   return (
@@ -15,6 +17,7 @@ export function Header({ theme, onTheme, onNew, onHistory, hasChat, walled = fal
         <GlyphText text="Preview" className="tag-short" />
       </span>
       <nav className="hdr-actions" aria-label="เมนู">
+        <FamilyMenu self="ai" buttonClassName="icon-btn" />
         {hasChat && (
           <button type="button" className="icon-btn" onClick={onNew} aria-label="แชทใหม่" title="แชทใหม่"><IconNew /></button>
         )}
@@ -139,10 +142,8 @@ export function Footer({ stats }) {
         </dl>
       )}
       <nav className="ftr-links" aria-label="VetMock">
-        <a href="https://vetmock.com">VetMock</a>
+        <FamilyLinks self="ai" line={false} />
         <a href="https://vetmock.com/wiki">VetWiki</a>
-        <a href="https://research.vetmock.com">Research</a>
-        <a href="https://vca.vetmock.com">VCA</a>
       </nav>
       <p className="ftr-note">
         <span>VetMock AI</span>

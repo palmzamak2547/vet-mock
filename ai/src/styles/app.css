@@ -1103,21 +1103,43 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 @media (hover: hover) and (pointer: fine) { .ftr-links a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 4px; } }
 .ftr-note { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px var(--s4); font-size: 13px; color: var(--text-3); padding-top: var(--s4); border-top: 1px solid var(--line); }
 
+/* ── the other VetMock sites (src/lib/family/FamilyMenu.jsx) ─ */
+/* The panel hangs from the header's right edge (the header is fixed, so it is the
+   panel's box), not from the button, so it never runs off a phone's left edge. */
+.hdr .vm-family { position: static; }
+.vm-family > summary { list-style: none; cursor: pointer; }
+.vm-family > summary::-webkit-details-marker { display: none; }
+.vm-family[open] > summary { color: var(--text); background: var(--glass-edge); }
+.vm-family-pop {
+  position: absolute; top: calc(100% + 6px); right: max(var(--s4), var(--safe-r));
+  width: min(340px, calc(100vw - 2 * var(--s4))); padding: var(--s2);
+  border-radius: 16px; background: var(--raise); border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.vm-family-h { margin: var(--s1) var(--s3) var(--s2); font-size: 13px; color: var(--text-3); }
+.vm-family-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.vm-family-pop .vm-family-row { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 44px; padding: 10px var(--s3); border-radius: 12px; color: var(--text); text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .vm-family-pop a.vm-family-row:hover { background: var(--glass-edge); } }
+.vm-family-pop .vm-family-here { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.vm-family-name { font-weight: 600; font-size: 15px; }
+.vm-family-line { font-size: 13px; line-height: 1.5; color: var(--text-2); }
+/* the footer: the names alone, in the row of links */
+.ftr-links .vm-family-links, .ftr-links .vm-family-links li { display: contents; }
+
 /* ── small screens ────────────────────────────────────── */
-/* The header row, measured: 16 + brand 137 + tag + actions (90 on the landing
-   page, 136 in a chat) + 16, with 8 px gaps. The long tag (124) fits both from
-   470 px; the short one (64) fits a chat from 390 (iPhone 12 to 16); below
+/* The header row, measured: 16 + brand 137 + tag + actions (142 on the landing
+   page, 188 in a chat, with the family button) + 16, with 8 px gaps. The long tag
+   (124) fits both from 522 px; the short one (64) fits a chat from 442; below
    that the tag gives way to the buttons. */
 .tag-short { display: none; }
 @media (max-width: 560px) {
   .preview-tag { font-size: 11px; padding: 5px 8px; }
   .hdr { gap: var(--s2); }
 }
-@media (max-width: 469px) {
+@media (max-width: 521px) {
   .tag-long { display: none; }
   .tag-short { display: inline; }
 }
-@media (max-width: 389px) {
+@media (max-width: 441px) {
   .preview-tag { display: none; }
 }
 @media (max-width: 560px) {
