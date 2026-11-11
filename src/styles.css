@@ -3044,6 +3044,10 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-written-reveal-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-written-reveal-btn { appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); cursor: pointer; }
+.vmx-fill-check-btn { min-height: 44px; padding: 8px 18px; }
+.vmx-fill-check-btn:disabled { cursor: default; opacity: 0.45; }
+.vmx-fill-check-hint { font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-fill-key { margin: 0; padding-left: 1.4em; }
 .vmx-written-reveal { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }
 .vmx-written-reveal .k { font-weight: 700; color: var(--clr-gold-text); margin-bottom: 4px; }
 .vmx-written-reveal .k .c { font-family: var(--vmx-mono); font-weight: 400; color: var(--clr-ink-soft); margin-left: 6px; }

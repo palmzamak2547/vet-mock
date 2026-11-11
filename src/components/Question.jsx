@@ -1,7 +1,7 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered } from '../hooks/utils.js';
+import { subjectText, isAnswered, isCorrect } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
@@ -69,6 +69,11 @@ const TYPE_LABEL = {
   short: 'ตอบสั้น',
   essay: 'เขียนบรรยาย',
 };
+
+// Fill-in items checked with ตรวจคำตอบ in practice, by subject:id, for this
+// page load. Outside the component because one instance serves the whole
+// set (ExamView renders the card without a key) and a set may be revisited.
+const FILL_CHECKED = new Set();
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0 }) {
   // A verdict is fresh when this visit to the question began unanswered: the
@@ -344,9 +349,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // When `revealAnswer` is on (practice modes only — ExamView never
   // sets it in exam mode), choice questions reveal their verdict the
   // moment they are answered: correct option glows green, a wrong pick
-  // glows red and locks, and q.explain shows inline. Fill/match/short/
-  // essay keep submit-time grading — revealing while half-typing a
-  // blank would just flash misleading ✗ marks.
+  // glows red and locks, and q.explain shows inline. A fill-in item waits
+  // for its ตรวจคำตอบ press (revealing while half-typing a blank would
+  // flash misleading ✗ marks); match and the written kinds have their own
+  // timing (AnswerReveal.jsx).
   const mcqRevealed = Boolean(revealAnswer)
     && currentQ.type === 'mcq'
     && typeof currentAnswer === 'number';
@@ -365,7 +371,23 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const matchFilled = currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0
     && currentAnswer && typeof currentAnswer === 'object'
     && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
-  const keyShown = mcqRevealed || tfRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
+  // A fill-in item is typed, so it is answered when the student says so:
+  // ตรวจคำตอบ, once every blank holds text, in practice only. The check is
+  // kept for this page load (FILL_CHECKED) and locks the blanks, or the key
+  // just read could be typed in and scored as the student's own. Emptied
+  // blanks are a fresh start of the same question (a new set).
+  const fillComplete = currentQ.type === 'fill' && Array.isArray(currentQ.blanks) && currentQ.blanks.length > 0
+    && Array.isArray(currentAnswer) && currentQ.blanks.every((_, i) => String(currentAnswer[i] ?? '').trim().length > 0);
+  if (currentQ.type === 'fill' && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
+  const [fillCheckedNow, setFillCheckedNow] = useState(null);
+  const fillRevealed = Boolean(revealAnswer) && fillComplete && FILL_CHECKED.has(compoundId);
+  const fillOk = fillRevealed && isCorrect(currentQ, currentAnswer);
+  const checkFill = () => {
+    if (!revealAnswer || !fillComplete) return;
+    FILL_CHECKED.add(compoundId);
+    setFillCheckedNow(compoundId);
+  };
+  const keyShown = mcqRevealed || tfRevealed || fillRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -535,10 +557,34 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 {currentQ.blanks.length > 1 ? `ช่องที่ ${i + 1}` : 'คำตอบ'}
               </label>
               <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
-                onChange={(e) => { const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
+                readOnly={fillRevealed}
+                onChange={(e) => { if (fillRevealed) return; const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' && fillComplete && !fillRevealed && revealAnswer) { e.preventDefault(); checkFill(); } }}
                 placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
             </div>
           ))}
+          {revealAnswer && !fillRevealed && (
+            <div className="vmx-written-reveal-bar">
+              <button type="button" className="vmx-written-reveal-btn vmx-fill-check-btn" disabled={!fillComplete} onClick={checkFill}>ตรวจคำตอบ</button>
+              {!fillComplete && <span className="vmx-fill-check-hint">เติมครบทุกช่องแล้วกดตรวจ</span>}
+            </div>
+          )}
+          {fillRevealed && (
+            <InstantFeedback
+              key={compoundId}
+              ok={fillOk}
+              run={answerRun}
+              fresh={fillCheckedNow === compoundId}
+              correctNode={currentQ.blanks.length > 1
+                ? <ol className="vmx-fill-key">{currentQ.blanks.map((b, i) => <li key={i}><RichText text={b} /></li>)}</ol>
+                : <RichText text={currentQ.blanks[0]} />}
+              explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
+              figure={explainFigure}
+              evidence={evidence}
+              subject={currentQ.subject}
+              wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={fillOk} />}
+            />
+          )}
         </div>
       )}
 

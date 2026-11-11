@@ -263,7 +263,7 @@ test('the question card hands the chip whether the key is on screen, and the dat
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
   assert.match(card, /<QSourceChip key=\{compoundId\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
   assert.match(card, /<FlagChip key=\{compoundId\} flag=\{currentQ\.flag\} revealed=\{keyShown\} \/>/);
-  assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
+  assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
   assert.match(pkg.scripts['lint:data'], /npm run lint:source-line/);
