@@ -8,12 +8,16 @@
 //   1. DeepSeek `deepseek-flash` (LLM_MODEL overrides), thinking DISABLED —
 //      left on, the model can spend the whole token budget inside its hidden
 //      reasoning and stream back nothing (llm.js documents the trap, hit live)
-//   2. DeepSeek `deepseek-chat`
+//   2. DeepSeek `deepseek-flash` again, only when LLM_MODEL names another id
+//      (`deepseek-chat`, which stood here, was discontinued on 24 Jul 2026)
 //   3. Anthropic (llm.js names the model; AI_GRADER_MODEL overrides), only
 //      when its key is set. It answers directly, with no thinking pass: the
 //      thinking would run before the first word and past the first-byte
 //      deadline. llm.js's anthropicFields knows the field each model takes
 //      for that, and which models still accept `temperature`.
+//
+// A provider whose account answers "no balance" (402) is skipped for ten
+// minutes (provider-breaker.js), the same breaker llm.js uses.
 //
 // A provider is abandoned for the next one ONLY before it has produced its
 // first words: once text has gone to the student, switching providers would
@@ -29,6 +33,7 @@
 
 import { WRITER_FIRST_BYTE_MS, WRITER_IDLE_MS, WRITER_MAX_TOKENS, WRITER_TEMPERATURE } from './config.js';
 import { anthropicModel, anthropicFields } from '../llm.js';
+import { breakerOpen, isNoBalance, tripBreaker } from '../provider-breaker.js';
 
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
@@ -83,6 +88,7 @@ export function providerChain(env = process.env) {
     const primary = env.LLM_MODEL || 'deepseek-flash';
     const deepseek = (model, thinkingOff) => ({
       id: `deepseek:${model}`,
+      breaker: 'deepseek',
       parse: parseDeepSeekEvent,
       request: ({ system, messages, maxTokens, temperature }) => ({
         url: DEEPSEEK_URL,
@@ -98,12 +104,13 @@ export function providerChain(env = process.env) {
       }),
     });
     chain.push(deepseek(primary, true));
-    if (primary !== 'deepseek-chat') chain.push(deepseek('deepseek-chat', false));
+    if (primary !== 'deepseek-flash') chain.push(deepseek('deepseek-flash', true));
   }
   if (env.ANTHROPIC_API_KEY) {
     const model = anthropicModel(env);
     chain.push({
       id: `anthropic:${model}`,
+      breaker: 'anthropic',
       parse: parseAnthropicEvent,
       request: ({ system, messages, maxTokens, temperature }) => ({
         url: ANTHROPIC_URL,
@@ -150,6 +157,7 @@ async function attempt(provider, { system, messages, maxTokens, temperature, onD
     if (!res.ok) {
       const detail = await res.text().catch(() => '');
       console.error('[ai-chat] writer', provider.id, res.status, cut(detail));
+      if (provider.breaker && isNoBalance(res.status, detail)) tripBreaker(provider.breaker, res.status);
       return { ok: false, reason: 'provider', status: res.status, partial: false };
     }
     const reader = res.body.getReader();
@@ -223,6 +231,7 @@ export async function writeAnswer({
   if (!chain.length) return { ok: false, model: null, reason: 'provider', partial: false };
   let last = { ok: false, model: 'primary', reason: 'provider', partial: false };
   for (let k = 0; k < chain.length; k++) {
+    if (chain[k].breaker && breakerOpen(chain[k].breaker)) continue;
     const model = k === 0 ? 'primary' : 'fallback';
     const r = await attempt(chain[k], { system, messages, maxTokens, temperature, onDelta, signal, firstByteMs, idleMs, fetchImpl });
     if (r.ok || r.partial || r.reason === 'aborted') return { ...r, model, provider: chain[k].id };
