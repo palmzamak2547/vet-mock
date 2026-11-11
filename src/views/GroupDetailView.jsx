@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { getGroupMembers, getSharedQuestions, getGroupLeaderboard, deleteSharedQuestion } from '../lib/api.js';
 import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
@@ -13,7 +14,7 @@ const SECTIONS = ['members', 'questions', 'leaderboard'];
 const ALL_PENDING = { members: true, questions: true, leaderboard: true };
 const NONE_FAILED = { members: '', questions: '', leaderboard: '' };
 
-export default function GroupDetailView({ group, user, goBack }) {
+export default function GroupDetailView({ group, user, goBack, onEditIdentity = null }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'questions' | 'members'
   const [members, setMembers] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -129,6 +130,7 @@ export default function GroupDetailView({ group, user, goBack }) {
           <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             อันดับจากผลดีที่สุดของสมาชิกแต่ละคนที่ระบบตรวจคะแนนแล้ว (อย่างน้อย 5 ข้อ) สมาชิกที่ปิดการแสดงบนอันดับจะไม่ปรากฏ
           </div>
+          <BoardPresenceNotice user={user} rows={leaderboard} scope="group" onEdit={onEditIdentity} />
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
           ) : (

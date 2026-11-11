@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
+import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
 import { QB, isQBYearLoaded } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
@@ -880,7 +881,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       <div className="vmx-hero vmx-home-hero">
         <h1>
           {user
-            ? <>สวัสดีคุณ <em>{profile?.username || 'นิสิต'}</em></>
+            ? <>สวัสดีคุณ <em>{isAutoName(profile?.username, user?.email) ? 'นิสิต' : profile.username}</em></>
             : <>พร้อมฝึกสำหรับ <em>{phaseMeta?.short || yearMeta?.label || 'วันนี้'}</em></>}
         </h1>
         {isScaffoldYear ? (

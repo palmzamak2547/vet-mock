@@ -6,11 +6,14 @@
 // Tap → opens a small popover showing total XP + today's XP +
 // lifetime question count.
 
-import { useEffect, useRef, useState } from 'react';
-import { getXpState, levelFor, xpForNextLevel, XP_EVENT } from '../lib/xp.js';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { getXpState, levelFor, xpForNextLevel, XP_EVENT, accountXp } from '../lib/xp.js';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 
-export default function XpChip() {
+// `history` and `srCards` are the synced records: the chip shows the same
+// number as the profile hub (shownXp), the account's own or this device's
+// counter when that is higher, so a level is the same on every device.
+export default function XpChip({ history = null, srCards = null }) {
   const [state, setState] = useState(() => getXpState());
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
@@ -65,15 +68,17 @@ export default function XpChip() {
     };
   }, [open]);
 
-  const lvl = levelFor(state.totalXp);
-  const prog = xpForNextLevel(state.totalXp);
+  const fromAccount = useMemo(() => accountXp({ history: history || [], srCards: srCards || {} }), [history, srCards]);
+  const total = Math.max(state.totalXp, fromAccount);
+  const lvl = levelFor(total);
+  const prog = xpForNextLevel(total);
 
   // Nothing earned yet? Say nothing. This chip sat in the most valuable slot
   // in the header telling a brand-new student they have zero, next to an
   // empty progress bar — a scoreboard before the game starts. It appears on
   // its own the first time XP lands, which makes it a reward instead of a
   // reminder. (The XP_EVENT listener above is what brings it back.)
-  if (state.totalXp <= 0) return null;
+  if (total <= 0) return null;
 
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
@@ -84,8 +89,8 @@ export default function XpChip() {
         key={levelUp ? 'lv-up' : gained ? 'gain' : 'lv'}
         className={`vmx-xp-chip${levelUp ? ' vmx-pop-in' : gained ? ' vmx-xp-bump' : ''}`}
         onClick={() => setOpen((v) => !v)}
-        title={`Lv ${lvl}, ${state.totalXp.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
-        aria-label={`ระดับ ${lvl}, ${state.totalXp} XP`}
+        title={`Lv ${lvl}, ${total.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
+        aria-label={`ระดับ ${lvl}, ${total} XP`}
         aria-expanded={open}
         style={{
           all: 'unset',
@@ -113,7 +118,7 @@ export default function XpChip() {
           className="vmx-xp-chip-total"
           style={{ paddingLeft: 8, borderLeft: '1px solid currentColor' }}
         >
-          {state.totalXp.toLocaleString()} XP
+          {total.toLocaleString()} XP
         </span>
         <span
           aria-hidden
@@ -165,7 +170,7 @@ export default function XpChip() {
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
             <span style={{ color: 'var(--clr-ink-soft)' }}>Total XP</span>
-            <span><strong>{state.totalXp.toLocaleString()}</strong></span>
+            <span><strong>{total.toLocaleString()}</strong></span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
             <span style={{ color: 'var(--clr-ink-soft)' }}>วันนี้</span>

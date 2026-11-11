@@ -50,6 +50,9 @@ export default function HeaderBar({
   setPaletteOpen,
   bookmarks, setPracticeMode, setMode,
   streakData,
+  // The synced records the level is rebuilt from (XpChip, lib/xp.js shownXp).
+  history = null,
+  srCards = null,
   user, profile, handleSignOut,
   theme, themePref, setTheme, palette, setPalette,
 }) {
@@ -150,15 +153,14 @@ export default function HeaderBar({
           </div>
         )}
         <Suspense fallback={null}>
-          <XpChip />
+          <XpChip history={history} srCards={srCards} />
         </Suspense>
 
         {user && (
           <UserMenu
-            profile={profile || {
-              username: user.email?.split('@')[0] || 'บัญชีของฉัน',
-              avatar_emoji: '🐾',
-            }}
+            // While the profile row loads: never the email's local part, which
+            // for a Chula address is the student number.
+            profile={profile || { username: 'นิสิต', avatar_emoji: '🐾' }}
             onLogout={handleSignOut}
             onGroups={() => setView('groups')}
             onLeaderboard={() => setView('leaderboard-global')}

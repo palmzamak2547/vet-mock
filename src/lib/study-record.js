@@ -84,6 +84,32 @@ export function weekTrack(history, now = Date.now()) {
 }
 
 /**
+ * The last `days` Bangkok days ending today, oldest first, each with its
+ * answers and how many were right: { date, day, dow, isToday, count, correct }.
+ * weekTrack is the seven-day reading of the same rows.
+ */
+export function daysTrack(history, days = 28, now = Date.now()) {
+  const counts = new Map();
+  for (const row of Array.isArray(history) ? history : []) {
+    const t = rowTime(row?.date);
+    if (t == null) continue;
+    const key = dayKey(t);
+    const cell = counts.get(key) || { count: 0, correct: 0 };
+    cell.count += 1;
+    if (row?.correct === true) cell.correct += 1;
+    counts.set(key, cell);
+  }
+  const out = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const b = bangkokWall(new Date(now).getTime() - i * DAY_MS);
+    const key = b.toISOString().slice(0, 10);
+    const cell = counts.get(key) || { count: 0, correct: 0 };
+    out.push({ date: key, day: b.getUTCDate(), dow: b.getUTCDay(), isToday: i === 0, ...cell });
+  }
+  return out;
+}
+
+/**
  * Recent practice as sessions, newest first, at most `limit`.
  * Consecutive answers in one subject with less than `gapMs` between them
  * are one session; a change of subject or a longer pause starts another.

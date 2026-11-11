@@ -44,6 +44,9 @@ export function validateUsername(value) {
   if (v.length < 3) return { ok: false, reason: 'สั้นเกินไป (อย่างน้อย 3 ตัว)' };
   if (v.length > 30) return { ok: false, reason: 'ยาวเกินไป (สูงสุด 30 ตัว)' };
   if (!/^[a-zA-Z0-9_]+$/.test(v)) return { ok: false, reason: 'ใช้ได้แค่ a-z, A-Z, 0-9, _' };
+  // The name is public to every member: five digits in a row can be a
+  // student number (a Chula address's local part is the 10-digit id).
+  if (/\d{5,}/.test(v)) return { ok: false, reason: 'มีตัวเลขติดกันมากไป อาจอ่านเป็นรหัสนิสิต' };
   return { ok: true };
 }
 

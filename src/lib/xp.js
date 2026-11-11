@@ -104,3 +104,32 @@ export function xpForNextLevel(totalXp) {
 }
 
 export const XP_EVENT = EVENT_NAME;
+
+/**
+ * XP rebuilt from what follows the account: every answer in the synced
+ * history (XP_AWARDS for a right or a wrong answer) and every review counted
+ * on a synced SR card. Any device holding the account computes the same
+ * number from the same rows, so the level is the same everywhere.
+ */
+export function accountXp({ history = [], srCards = {} } = {}) {
+  let xp = 0;
+  for (const row of Array.isArray(history) ? history : []) {
+    if (!row) continue;
+    xp += row.correct === true ? XP_AWARDS.correctAnswer : XP_AWARDS.wrongAnswer;
+  }
+  for (const card of Object.values(srCards && typeof srCards === 'object' ? srCards : {})) {
+    const n = Math.max(0, Math.floor(Number(card?.totalReviews) || 0));
+    xp += n * XP_AWARDS.srGrade;
+  }
+  return xp;
+}
+
+/**
+ * The XP a student sees: the account's number, or this device's own counter
+ * when it is higher (points from the daily question and reading, earned
+ * before the level followed the account), so nobody's level drops on the
+ * device they use. The header chip and the profile hub both read this.
+ */
+export function shownXp({ history = [], srCards = {}, device = getXpState() } = {}) {
+  return Math.max(accountXp({ history, srCards }), Math.max(0, Number(device?.totalXp) || 0));
+}

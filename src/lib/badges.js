@@ -64,24 +64,15 @@ export function answersInHourRange(history, fromHour, toHour) {
   return n;
 }
 
-/**
- * Which badges this student has earned.
- *
- * @param {object} src  history, srCards, stats, and the counts the history
- *   cannot tell: contributions, panicAnswers, groupCount, raceWins
- * @returns {Array<{id, label, src, why}>} earned only, in display order
- */
-export function earnedBadges({
-  history = [],
-  srCards = {},
-  stats = null,
-  contributions = 0,
-  panicAnswers = 0,
-  groupCount = 0,
-  raceWins = 0,
-} = {}) {
-  const answered = history.length;
-  const streak = longestDayStreak(history);
+/** The counts the derived badges read, from history and SR cards alone.
+ *  `currentStreak` is the saved streak a screen shows beside the badges (it
+ *  knows about a freeze, which history cannot): the streak badges count the
+ *  longer of it and the longest run in history, so a tile reading 4 days and
+ *  a badge line reading "2 of 7" can never sit side by side. */
+export function badgeMetrics({ history = [], srCards = {}, currentStreak = 0 } = {}) {
+  history = Array.isArray(history) ? history : [];
+  const answered = (history || []).length;
+  const streak = Math.max(longestDayStreak(history), Math.max(0, Math.floor(Number(currentStreak) || 0)));
   const nightAnswers = answersInHourRange(history, 22, 4);
   const earlyAnswers = answersInHourRange(history, 5, 8);
   const reviewedCards = Object.values(srCards || {})
@@ -110,6 +101,62 @@ export function earnedBadges({
     if (prior === false && h?.correct) { corrected += 1; seen.set(key, 'done'); }
     else if (prior === undefined) seen.set(key, h?.correct ? 'done' : false);
   }
+
+  return { answered, streak, nightAnswers, earlyAnswers, reviewedCards, corrected };
+}
+
+// Badges counted from history and SR cards, with the count each needs. The
+// thresholds are earnedBadges' own; a test holds the two to each other.
+const COUNTED = Object.freeze([
+  ['questions-100', 'answered', 100, 'ข้อ'],
+  ['questions-1000', 'answered', 1000, 'ข้อ'],
+  ['streak-7', 'streak', 7, 'วันต่อเนื่อง'],
+  ['streak-30', 'streak', 30, 'วันต่อเนื่อง'],
+  ['corrected-mistakes', 'corrected', 20, 'ข้อที่แก้ได้'],
+  ['review-cycle', 'reviewedCards', 50, 'การ์ดที่ทบทวน'],
+  ['night-owl', 'nightAnswers', 50, 'ข้อหลังสี่ทุ่ม'],
+  ['early-bird', 'earlyAnswers', 50, 'ข้อก่อนแปดโมง'],
+]);
+export const COUNTED_BADGES = COUNTED.map(([id, metric, need]) => ({ id, metric, need }));
+
+/**
+ * The badge closest to being earned, counted from the same metrics: the
+ * unearned one with the largest share done (a goal that is nearly reached
+ * pulls hardest), ties to the earlier in the list. null when every counted
+ * badge is earned. Night and early badges are never proposed: the hour a
+ * student studies is not something to push.
+ */
+export function nextBadge({ history = [], srCards = {}, currentStreak = 0 } = {}) {
+  const m = badgeMetrics({ history, srCards, currentStreak });
+  let best = null;
+  for (const [id, metric, need, unit] of COUNTED) {
+    if (metric === 'nightAnswers' || metric === 'earlyAnswers') continue;
+    const have = Math.min(m[metric] || 0, need);
+    if (have >= need || !BADGE_ART[id]) continue;
+    const share = have / need;
+    if (!best || share > best.share) best = { id, label: BADGE_ART[id].label, src: BADGE_ART[id].src, have, need, unit, share };
+  }
+  return best;
+}
+
+/**
+ * Which badges this student has earned.
+ *
+ * @param {object} src  history, srCards, stats, and the counts the history
+ *   cannot tell: contributions, panicAnswers, groupCount, raceWins
+ * @returns {Array<{id, label, src, why}>} earned only, in display order
+ */
+export function earnedBadges({
+  history = [],
+  srCards = {},
+  stats = null,
+  contributions = 0,
+  panicAnswers = 0,
+  groupCount = 0,
+  raceWins = 0,
+  currentStreak = 0,
+} = {}) {
+  const { answered, streak, nightAnswers, earlyAnswers, reviewedCards, corrected } = badgeMetrics({ history, srCards, currentStreak });
 
   const candidates = [
     ['streak-7', streak >= 7, `ทำข้อสอบต่อเนื่อง ${streak} วัน`],

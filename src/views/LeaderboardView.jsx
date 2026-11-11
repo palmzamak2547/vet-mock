@@ -6,8 +6,9 @@ import { SUBJECTS } from '../data/questions.js';
 import StatePanel from '../components/StatePanel.jsx';
 import { thaiError } from '../lib/errors.js';
 import { EMPTY_ART } from '../data/art.js';
+import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
 
-export default function LeaderboardView({ user, goHome, selectedYear }) {
+export default function LeaderboardView({ user, goHome, selectedYear, setView }) {
   // Raw rows from the API — 1 row per exam attempt. The display below
   // aggregates per-user so the same student doesn't appear N times.
   const [rawScores, setRawScores] = useState([]);
@@ -62,10 +63,12 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
         <h1>อันดับคะแนน <em>รวม</em></h1>
         <p>
           {yearScope === 'current' && Number.isFinite(selectedYear)
-            ? <>เฉพาะปี {selectedYear} — สู้กับ cohort เดียวกัน 💪</>
-            : <>คะแนนสูงสุดจากผู้ใช้ทุกปี, cross-year ranking 🏅</>}
+            ? <>เฉพาะปี {selectedYear} เทียบกับเพื่อนรุ่นเดียวกัน</>
+            : <>คะแนนสูงสุดของทุกชั้นปี</>}
         </p>
       </div>
+      {/* Where the student stands on this board, or why they are not on it. */}
+      <BoardPresenceNotice user={user} rows={loading || error ? null : scores} onEdit={setView ? () => setView('profile') : null} />
 
       <div className="vmx-btn-row" role="group" aria-label="แหล่งคะแนน" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
         {[['server', 'ตรวจคำตอบบนระบบ'], ['client', 'คะแนนเดิม / ชุดส่วนตัว']].map(([value, label]) => (
@@ -95,7 +98,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
         }}>
           {[
             { id: 'current', label: `ปี ${selectedYear}` },
-            { id: 'all', label: '🌐 ทั้งหมด' },
+            { id: 'all', label: 'ทุกชั้นปี' },
           ].map((opt) => (
             <button
               key={opt.id}
@@ -142,11 +145,11 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                 </div>
                 <div style={{ flex: 1, minWidth: 160 }}>
                   <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17 }}>
-                    {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
+                    {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
                     {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
-                    {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                    {r.mode === 'exam' ? 'สอบ' : 'ฝึก'} {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'ทุกวิชา'}
                     {r.attempts > 1 && (
                       <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 14 }}>
                         × {r.attempts}

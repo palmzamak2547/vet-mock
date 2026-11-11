@@ -129,6 +129,8 @@ export const PhaseWrappedView = lazy(() => import('../views/PhaseWrappedView.jsx
 // chunk, which is what tests/unit/boot-weight.test.mjs holds every declaration
 // here to.
 export const ProfileView = lazy(() => import('../views/ProfileView.jsx'));
+// The first-run "how classmates see you" sheet: once per account, on Home.
+export const IdentityStep = lazy(() => import('../components/IdentityStep.jsx'));
 // (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 
