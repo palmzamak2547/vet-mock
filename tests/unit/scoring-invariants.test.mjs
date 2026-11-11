@@ -5,13 +5,18 @@
 //   totalling    App.jsx's count, `autoQs = questions.filter(!isWritingType)` then
 //                `autoQs.filter(isCorrect).length`, in the score memo and in finishExam; it is inline
 //                there, so it is modelled here as clientTotal and pinned to App.jsx's text below
-//   shuffling    getShuffledOptions (src/lib/option-shuffle.js), a new session seed per module copy
+//   shuffling    getShuffledOptions (src/lib/option-shuffle.js), a new session seed per module copy;
+//                the tap and the digit key map a row through its displayToOriginal (Question.jsx's
+//                option list, App.jsx's key handler), modelled here, not driven: Question.jsx needs
+//                a large harness, and option-shuffle-keyboard.test.mjs pins the key path
 //   answering    useExamSession's answerCurrent / jumpToQ / primeFromSaved (src/hooks/useExamSession.js)
 //   resuming     the in-flight record App writes, read back by readOwnedExam (src/lib/exam-recovery.js)
 //   the server   scoreSubmission (api/_lib/exam-scoring.js), fed the body finishExam builds
 //
 // Every expected count comes from `oracle` below, written from what each type means, not from the
-// app's code. The generator is a seeded PRNG, so a failure names its seed and case and replays.
+// app's code: that count is the independent one. The client and the server import the same
+// isCorrect, so their agreement checks the wiring between them (the body finishExam sends, JSON,
+// revisions, the fallback), not the marking itself. The generator is a seeded PRNG, so a failure names its seed and case and replays.
 // If an invariant ever fails on main, the scoring code is not to be changed in the same pull request:
 // the case goes in KNOWN_FAILURES with the exact input, and the fix comes on its own.
 import test from 'node:test';
@@ -23,8 +28,14 @@ import { createAttemptEntries, questionRevision } from '../../src/lib/study-even
 import { inflightExamKey, readOwnedExam } from '../../src/lib/exam-recovery.js';
 import { loadModule, mount } from '../helpers/fake-react.mjs';
 
-// Known failures on main: { invariant, seed, case, why }. Empty: none found on 11 Nov 2026.
-const KNOWN_FAILURES = [];
+// Known failures on main: { invariant, case, why }. Found 11 Nov 2026; the scoring code is not
+// changed here. Each row is asserted to still fail, so the fix that makes it pass must delete it.
+const KNOWN_FAILURES = [
+  { invariant: 'thai spelling', case: { key: 'น้ำตาล', typed: 'น้ําตาล' },
+    why: 'SARA AM typed as NIKHAHIT + SARA AA looks the same and NFC does not join them, so the key is marked wrong' },
+  { invariant: 'thai spelling', case: { key: 'กิ่ง', typed: 'ก่ิง' },
+    why: 'a tone mark typed before SARA I looks the same; NFC reorders only marks that both have a combining class, so the key is marked wrong' },
+];
 
 // ── A PRNG of the test's own (not the app's mulberry32) ──────────────────────────────────────────
 function prng(seed) {
@@ -344,7 +355,7 @@ test('the generator really covers every type, blanks, wrong and right answers', 
     assert.ok((seen.get(`${type}:${kind}`) || 0) >= 20, `${type} ${kind}: ${seen.get(`${type}:${kind}`) || 0}`);
   }
   assert.ok(seen.get('essay:blank') && (seen.get('essay:wrong') || 0) > 0);
-  assert.deepEqual(KNOWN_FAILURES, [], 'a known failure is listed: fix it, then empty this list');
+
 });
 
 // The bank itself: a student who answers any question with its own key gets the mark, on the client
@@ -381,4 +392,55 @@ test('every question in the bank gives the mark for its own key, on the client a
   assert.equal(server.score_source, 'server');
   assert.equal(server.correct, paper.filter((q) => !known.has(q.id)).length + paper.filter((q) => known.has(q.id) && isCorrect(q, keyOf(q))).length);
   assert.equal(server.correct, body.correct);
+});
+
+// ── The rules the generator above avoids ─────────────────────────────────────────────────────────
+const fill1 = (key) => ({ id: 1, type: 'fill', q: 'เติมคำ ____', blanks: [key] });
+
+test('a fill-in fragment is right only from 60% of the key and three characters up, on each side of the line', () => {
+  const r = prng(0xf4a9);
+  for (let n = 0; n < 200; n++) {
+    const key = word(r, KEY_LETTERS, 5 + r.int(10));
+    // The documented rule (utils.js): writing less than the key is fine when it covers most of it,
+    // at least 60% of its length, and never under three characters.
+    const line = Math.max(3, Math.ceil(key.length * 0.6));
+    const start = r.int(key.length - line + 1);
+    const at = (len) => key.slice(start, start + len);
+    if (!isCorrect(fill1(key), [at(line)])) fail('a fragment on the line was marked wrong', n, { key, typed: at(line) });
+    if (line - 1 >= 1 && isCorrect(fill1(key), [at(line - 1)])) fail('a fragment under the line was marked right', n, { key, typed: at(line - 1) });
+  }
+});
+
+test('Thai and accented keys: exact text, case, spacing and NFC forms count, known look-alikes are listed', () => {
+  const cases = [
+    ['ตับอ่อน', 'ตับอ่อน', true],
+    ['ตับอ่อน', '  ตับอ่อน ', true],
+    ['ปู่', 'ปู่', true], // tone before SARA UU: NFC puts them in order
+    ['café au lait', 'café au lait', true], // e + combining acute is é under NFC
+    ['Café', 'CAFÉ', true],
+    ['ตับอ่อน', 'ตับ', false], // a fragment under 60%: another organ
+    ['ตับอ่อน', 'ไม่ใช่ตับอ่อน', false], // the answer says it is not the key
+  ];
+  for (const [key, typed, want] of cases) assert.equal(isCorrect(fill1(key), [typed]), want, `${key} typed as ${JSON.stringify(typed)}`);
+  for (const k of KNOWN_FAILURES.filter((x) => x.invariant === 'thai spelling')) {
+    assert.equal(k.case.typed.normalize('NFC') === k.case.key, false, 'the look-alike really differs after NFC');
+    assert.equal(isCorrect(fill1(k.case.key), [k.case.typed]), false, `${k.case.key}: fixed? then delete its KNOWN_FAILURES row`);
+  }
+});
+
+test('a short answer is right from 75% of its keywords: one keyword either side of the line', () => {
+  const r = prng(0x5a0);
+  for (let n = 0; n < 200; n++) {
+    const keywords = distinctWords(r, 2 + r.int(7));
+    const q = { id: 1, type: 'short', q: 'อธิบาย', keywords };
+    const need = Math.ceil(keywords.length * 0.75);
+    const say = (k) => r.shuffle([...r.shuffle(keywords).slice(0, k), word(r, WRONG_LETTERS, 4), 'คำตอบ']).join(' ');
+    const at = say(need);
+    if (!isCorrect(q, at)) fail('a short answer on the line was marked wrong', n, { keywords, at });
+    const under = say(need - 1);
+    if (isCorrect(q, under)) fail('a short answer one keyword under the line was marked right', n, { keywords, under });
+    // A near miss on a keyword (its last letter changed) is not that keyword.
+    const near = keywords.slice(0, need).map((k, i) => (i === 0 ? k.slice(0, -1) + 'z' : k)).join(' ');
+    if (need === keywords.length && isCorrect(q, near)) fail('a misspelt keyword counted', n, { keywords, near });
+  }
 });
