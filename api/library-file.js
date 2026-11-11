@@ -181,7 +181,7 @@ export default async function handler(req, res) {
     const copy = (await archives()).slugs.get(slug);
     if (copy) doc.file_name = copy.title.replace(/\.(pdf|docx|xlsx|mp4)$/i, '') + '.' + copy.format;
     const expiresAtSec = (Math.floor(Date.now() / 1000 / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
-    const token = mintBlobToken(doc, { expiresAtSec, env });
+    const token = mintBlobToken(doc, { expiresAtSec, env, user: gate?.member === true ? gate.userId : null });
     if (!token) return send(res, 503, { error: 'storage_not_configured' });
     return sendLink({ url: `${ARCHIVE_ORIGIN}/?${new URLSearchParams(token)}`, expiresIn: expiresAtSec - Math.floor(Date.now() / 1000), mime: doc.mime, byteSize: doc.byte_size });
   }
@@ -211,7 +211,7 @@ export default async function handler(req, res) {
   if (!cfConfig(env).configured) return send(res, 503, { error: 'storage_not_configured' });
   const nowSec = Math.floor(Date.now() / 1000);
   const expiresAtSec = (Math.floor(nowSec / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
-  const tok = mintBlobToken(doc, { expiresAtSec, env });
+  const tok = mintBlobToken(doc, { expiresAtSec, env, user: gate?.member === true ? gate.userId : null });
   if (!tok) return send(res, 503, { error: 'storage_not_configured' });
   // Public rows resolve identically for every caller, so the mint response
   // itself may be cached until the window rolls — the URL inside keeps at

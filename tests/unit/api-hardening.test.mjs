@@ -324,17 +324,16 @@ test('the library bytes route refuses one link hammered from one address, not th
     assert.ok(limited, 'one link was streamed 1000 times from one address with no limit');
     assert.equal(served, mod.BLOB_RATE?.max);
     assert.equal(upstreamCalls, served, 'a refused request must not reach storage');
-    assert.equal(limited.body?.reason ?? JSON.parse(limited.body || '{}').reason, 'rate_limited');
+    assert.match(String(limited.headers['content-type']), /text\/html/, 'a page in Thai, not JSON');
     const next = fakeRes(); next.once = () => {};
     await mod.default(req(linkFor('deck-b')), next);
     assert.equal(next.statusCode, 404, 'another deck from the same address keeps its own budget');
   });
   const { readFileSync } = await import('node:fs');
   const src = readFileSync(new URL('../../api/library-blob.js', import.meta.url), 'utf8');
-  // Decided 11 Nov 2026: every byte here passes through the function, so this
-  // route refuses when the limiter cannot count (api-limits.test.mjs walks it).
-  assert.match(src, /if \(!limit\.ok\) return sendRateLimitFailure\(res, limit\);/, 'the bytes route fails closed');
-  assert.doesNotMatch(src, /!limit\.ok && !limit\.unavailable/);
+  // A reading surface (AGENTS.md, Library and sync): an outage falls back to
+  // the instance's own budget instead of refusing (api-limits.test.mjs walks it).
+  assert.match(src, /shared\.unavailable \? rateLimitLocal\(/);
 });
 
 // The limit protects the bill, not access: when the shared limiter is down the library still opens.
