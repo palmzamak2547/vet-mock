@@ -149,7 +149,8 @@ test('verdict text and labels clear 4.5 on what they sit on, in both themes', ()
       ['part-text on surface', c('--clr-part-text'), c('--clr-surface')],
       ['part-text on part-soft', c('--clr-part-text'), c('--clr-part-soft')],
       ['rose-text on surface', c('--clr-rose-text'), c('--clr-surface')],
-      ['rose-text on rose-soft (the "ผิด" pill, the wrong answer box)', c('--clr-rose-text'), c('--clr-rose-soft')],
+      ['rose-soft-text on rose-soft (the "ผิด" pill, the wrong answer box, error boxes)', c('--clr-rose-soft-text'), c('--clr-rose-soft')],
+      ['rose-text on surface-2', c('--clr-rose-text'), c('--clr-surface-2')],
     ];
     for (const [what, fg, bg] of pairs) if (contrast(fg, bg) < 4.5) fails.push(`${name} ${what}: ${contrast(fg, bg).toFixed(2)}`);
   }
@@ -217,15 +218,37 @@ test('only the two theme blocks and the wiki print block declare verdict tokens'
   }
   assert.deepEqual(found, []);
   for (const p of walk(SRC, /\.(js|jsx)$/)) {
-    assert.doesNotMatch(readFileSync(p, 'utf8'), /setProperty\(\s*['"`]--clr-(right|part|rose)/, rel(p));
+    const text = readFileSync(p, 'utf8');
+    assert.doesNotMatch(text, /setProperty\(\s*['"`]--clr-(right|part|rose)/, rel(p));
+    assert.doesNotMatch(text, /['"]--clr-(right|part|rose)[\w-]*['"]\s*:/, `${rel(p)} writes a verdict token as a style key`);
+    assert.doesNotMatch(text, /cssText[^;\n]*--clr-(right|part|rose)/, `${rel(p)} writes a verdict token through cssText`);
   }
+});
+
+test('text on rose-soft reads its own token, never rose-text', () => {
+  const bad = [];
+  for (const f of STYLES) {
+    for (const { sel, body } of rulesOf(readFileSync(f, 'utf8'))) {
+      if (/background[^;]*var\(--clr-rose-soft\)/.test(body) && /(^|[^-])color:\s*var\(--clr-rose-text\)/.test(body)) bad.push(`${rel(f)}: ${sel.trim()}`);
+    }
+  }
+  for (const p of walk(SRC, /\.jsx$/)) {
+    readFileSync(p, 'utf8').split('\n').forEach((line, i) => {
+      if (line.includes('--clr-rose-soft') && line.includes('var(--clr-rose-text)')) bad.push(`${rel(p)}:${i + 1}`);
+    });
+  }
+  assert.deepEqual(bad, []);
 });
 
 test('no rule reads a verdict token and an accent token together', () => {
   const mixed = [];
   for (const f of STYLES) {
     for (const { sel, body } of rulesOf(readFileSync(f, 'utf8'))) {
-      if (/var\(\s*--clr-(right|part)/.test(body) && readsAccent(body)) mixed.push(`${rel(f)}: ${sel.trim()}`);
+      if (!readsAccent(body) || /^(:root|\[data-theme)/.test(sel.trim())) continue;
+      // Rose is also an ordinary colour (a lasso swatch, a landing demo lane):
+      // it counts only in a rule whose selector names a verdict state.
+      const verdictSel = sel.split(',').some((x) => (x.match(/\.[\w-]+/g) || []).some((c) => STATE.test(c.slice(1))));
+      if (/var\(\s*--clr-(right|part)/.test(body) || (verdictSel && /var\(\s*--clr-rose/.test(body))) mixed.push(`${rel(f)}: ${sel.trim()}`);
     }
   }
   assert.deepEqual(mixed, []);

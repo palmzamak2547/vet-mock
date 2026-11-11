@@ -256,7 +256,7 @@
   .vmx-skip-link, .vmx-bottom-nav { display: none !important; }
   [data-theme='dark'] .vw {
     --clr-ink: #2b2419; --clr-ink-soft: #5c4f3d; --clr-border: #d8c9a8;
-    --clr-rose: #b05555; --clr-rose-text: #93454b; --clr-sage-text: #355a39; --clr-ocean-text: #386278; --clr-gold-text: #76511e;
+    --clr-rose: #b05555; --clr-rose-text: #6a2c34; --clr-sage-text: #355a39; --clr-ocean-text: #386278; --clr-gold-text: #76511e;
     --clr-right-text: #355a39; --clr-part-text: #76511e;
     --clr-bg: #fff; --clr-surface: #fff; --clr-surface-2: #f6efe4; color: var(--clr-ink);
   }
