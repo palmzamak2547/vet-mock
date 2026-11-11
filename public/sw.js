@@ -8,7 +8,7 @@
 //     New deploy → served fresh. Offline → last cached index.html.
 //   • Images, audio, manifest icons: stale-while-revalidate.
 //   • Same-origin /api requests: network-only, never cached.
-//   • Other GETs: network-first; a cached copy after 4 s, else wait.
+//   • Other GETs: network-first; a cached copy after 4 s, else wait up to 15 s.
 //
 // Install + activate are kept lean. The small static shell is cached
 // best-effort; Vite's hashed assets populate a shared immutable cache
@@ -46,6 +46,9 @@ const LIB_ACCESS_URL = '/__vmx/library-access.json';
 const libraryClients = new Map();
 let libraryWrites = Promise.resolve();
 const NAV_TIMEOUT_MS = 4000;
+// The longest a GET with no cached copy waits on a stalled connection before
+// the offline answer (networkFirst, waitWhenUncached).
+const UNCACHED_WAIT_MS = 15000;
 const ASSET_CLEANUP_DELAY_MS = 1000;
 
 self.addEventListener('install', (event) => {
@@ -216,6 +219,8 @@ function cacheFirst(request, cacheName, event, key = request) {
 // waiting for the network instead of answering 503. A slow phone is not an
 // offline one; only a cached copy is a reason to stop waiting. Navigations
 // keep the fast fallback, since the cached home shell stands in for them.
+// Waiting has an end: past UNCACHED_WAIT_MS a stalled request is aborted and
+// answered offline, so a connection that never answers cannot hold it forever.
 async function networkFirst(request, cacheName, timeoutMs, event, { waitWhenUncached = false } = {}) {
   const offlineResponse = () => new Response('Offline', {
     status: 503,
@@ -225,6 +230,7 @@ async function networkFirst(request, cacheName, timeoutMs, event, { waitWhenUnca
     ? null
     : new AbortController();
   let timer;
+  let bound;
 
   const timeout = new Promise((resolve) => {
     timer = setTimeout(async () => {
@@ -233,11 +239,18 @@ async function networkFirst(request, cacheName, timeoutMs, event, { waitWhenUnca
       controller?.abort();
       resolve(hit || offlineResponse());
     }, timeoutMs);
+    if (waitWhenUncached) {
+      bound = setTimeout(() => {
+        controller?.abort();
+        resolve(offlineResponse());
+      }, Math.max(timeoutMs, UNCACHED_WAIT_MS));
+    }
   });
 
   const network = fetch(request, controller ? { signal: controller.signal } : undefined)
     .then((res) => {
-      if (res && res.ok) {
+      // Only a whole answer is kept: a 206 for a Range request is a part.
+      if (res && res.ok && res.status === 200) {
         const clone = res.clone();
         keepAlive(event, caches.open(cacheName).then((cache) => cache.put(request, clone)));
       }
@@ -252,6 +265,7 @@ async function networkFirst(request, cacheName, timeoutMs, event, { waitWhenUnca
     return await Promise.race([network, timeout]);
   } finally {
     clearTimeout(timer);
+    clearTimeout(bound);
   }
 }
 

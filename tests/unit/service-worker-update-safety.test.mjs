@@ -428,13 +428,14 @@ test('offline or a server error still opens the cached home shell', async () => 
 // A slow network is not an offline one. Past the 4 s timeout, a GET outside
 // /assets/ with no cached copy (a landing video, a model, a JSON file) used to
 // be answered 503 "Offline" and its request aborted, on a phone that was online.
-const quickTimer = (fn) => setTimeout(fn, 1);
-const slowNetwork = (body, ms = 30) => async (request, init) => {
+// The worker's timers at 1/200 of their length: 4 s is 20 ms, 15 s is 75 ms.
+const quickTimer = (fn, ms) => setTimeout(fn, ms / 200);
+const slowNetwork = (body, ms = 45, init200 = {}) => async (request, init) => {
   await new Promise((resolve, reject) => {
     const t = setTimeout(resolve, ms);
     init?.signal?.addEventListener('abort', () => { clearTimeout(t); reject(new Error('aborted')); });
   });
-  return response(body);
+  return response(body, init200);
 };
 
 test('a slow GET with no cached copy waits for the network instead of failing as offline', async () => {
@@ -468,4 +469,37 @@ test('lazy chunks and question banks never take the timed path: /assets/ waits f
   const app = worker({ schedule: quickTimer, network: slowNetwork('chunk', 40) });
   const res = await app.request('/assets/questions-epidem-abc123.js').response;
   assert.equal(await res.text(), 'chunk');
+});
+
+test('a GET whose connection never answers gets the offline answer at the 15 s bound', async () => {
+  let aborted = false;
+  const app = worker({ schedule: quickTimer, network: async (request, init) => new Promise((_, reject) => {
+    init?.signal?.addEventListener('abort', () => { aborted = true; reject(new Error('aborted')); });
+  }) });
+  const res = await app.request('/landing/skull.glb').response;
+  assert.equal(res.status, 503);
+  assert.equal(aborted, true, 'the stalled request is let go');
+});
+
+test('a Range or media request with no copy waits, passes its 206 through, and is never cached', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('part', 45, { status: 206, headers: { 'Content-Range': 'bytes 0-3/100' } }) });
+  const headers = new Headers({ Range: 'bytes=0-3' });
+  const res = await app.request('/landing/hero.mp4', { headers, destination: 'video' }).response;
+  assert.equal(res.status, 206);
+  assert.equal(await res.text(), 'part');
+  assert.equal(await (await app.caches.open(runtime)).match('/landing/hero.mp4'), undefined, 'a part of a file is not a cached copy of it');
+});
+
+test('an Accept: text/html request that is not a navigation takes the navigation path', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('fresh page', 200) });
+  await (await app.caches.open(runtime)).put('/', response('cached home shell'));
+  const res = await app.request('/blog/x.html', { headers: new Headers({ Accept: 'text/html' }) }).response;
+  assert.equal(await res.text(), 'cached home shell', 'the fast fallback, as for a navigation');
+});
+
+test('a cache that throws on read is a miss: the request still waits for the network', async () => {
+  const app = worker({ schedule: quickTimer, network: slowNetwork('bytes') });
+  app.setReadHook(() => { throw new Error('cache read failed'); });
+  const res = await app.request('/public-data.json').response;
+  assert.equal(await res.text(), 'bytes');
 });
