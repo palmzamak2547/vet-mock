@@ -94,3 +94,39 @@ export function loadSeen(releases, store) {
 export function saveSeen(seen, store) {
   try { storageOf(store)?.setItem(SEEN_KEY, JSON.stringify(capSeen(seen))); } catch { /* storage blocked */ }
 }
+
+// ── Home's update chip (5.214) ───────────────────────────────────────────
+// Twelve releases shipped on 11 Nov 2026 and the chip, with a count, stayed on
+// Home until the note was opened and closed. Now it is raised only by news a
+// student can use (a change of kind 'feature' or 'content'; a fix never
+// raises it), carries no count, and appears on at most one Home visit a
+// calendar day: CHIP_DAY_KEY holds the local day it last appeared. It ends
+// when the note is closed (the releases become seen). The note itself, from
+// the link at the foot of Home, still lists everything.
+export const CHIP_DAY_KEY = 'vmx-update-chip-day';
+const NEWS_KINDS = new Set(['feature', 'content']);
+
+/** True when a release holds a change a student would want to hear about. */
+export const isNews = (release) => Array.isArray(release?.changes) && release.changes.some((c) => NEWS_KINDS.has(c?.kind));
+
+/** The local calendar day as YYYY-MM-DD (the student's day, never UTC). */
+export function localDay(now = new Date()) {
+  const p = (n) => String(n).padStart(2, '0');
+  return `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}`;
+}
+
+/** Whether Home shows the chip on this visit: news is unseen and it has not appeared today. */
+export function chipDue(unseen, lastDay, today) {
+  return unseen.some(isNews) && lastDay !== today;
+}
+
+/** The day the chip last appeared (never throws). */
+export function loadChipDay(store) {
+  const v = read(storageOf(store), CHIP_DAY_KEY);
+  return typeof v === 'string' ? v : null;
+}
+
+/** Record that the chip appeared today (never throws). */
+export function saveChipDay(day, store) {
+  try { storageOf(store)?.setItem(CHIP_DAY_KEY, JSON.stringify(day)); } catch { /* storage blocked */ }
+}

@@ -13,7 +13,7 @@ import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, 
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, RECENT_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
-import { loadSeen, markSeen, markUnseen, saveSeen, unseenReleases } from '../lib/changelog-seen.js';
+import { loadSeen, markSeen, markUnseen, saveSeen, unseenReleases, isNews, chipDue, loadChipDay, saveChipDay, localDay } from '../lib/changelog-seen.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
 import { SEASONAL_MOCHI } from '../data/art.js';
@@ -277,11 +277,16 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // One tap (the chip that opens the banner) now yields the whole list.
   const [expanded, setExpanded] = useState(true);
   const showAnnouncement = unseenChangelog.length > 0;
-  const newestUnseen = unseenChangelog[0];
   // What the note lists: the unseen releases, else (reopened from the bottom
   // strip with nothing unread) the newest one.
   const noteReleases = showAnnouncement ? unseenChangelog : (LATEST_CHANGELOG ? [LATEST_CHANGELOG] : []);
   const noteChangeCount = noteReleases.reduce((n, release) => n + release.changes.length, 0);
+  // The chip: news only, no count, one Home visit a day (lib/changelog-seen.js).
+  // Decided once per visit, so it does not vanish under the reader when the
+  // day is recorded.
+  const [chipToday] = useState(() => chipDue(unseenChangelog, loadChipDay(), localDay()));
+  const newestNews = unseenChangelog.find(isNews);
+  useEffect(() => { if (chipToday) saveChipDay(localDay()); }, [chipToday]);
 
   // Onboarding tour — opt-in via a friendly banner.
   //
@@ -707,7 +712,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const [forceChangelogOpen, setForceChangelogOpen] = useState(false);
   // Once the full banner is open, the chip that opened it must go — two
   // changelog affordances on screen at once read as a glitch.
-  const showChangelogChip = showAnnouncement && !forceChangelogOpen;
+  const showChangelogChip = chipToday && Boolean(newestNews) && !forceChangelogOpen;
   // The bottom-strip link opens the note itself. The note renders at the top
   // of Home and the link sits at the very bottom, so the note has to be
   // scrolled to and handed focus, or on a phone the tap looks like nothing
@@ -1775,13 +1780,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     onClick={revealChangelogNote}
                     className="vmx-vitals-row"
-                    title={`${newestUnseen.headline}, ${fmtThaiDate(newestUnseen.date)}`}
+                    title={`${newestNews.headline}, ${fmtThaiDate(newestNews.date)}`}
                   >
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {truncateThai(newestUnseen.headline, 30)}
+                      {truncateThai(newestNews.headline, 30)}
                     </span>
                     <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>
-                      {noteChangeCount ? `${noteChangeCount} รายการ` : 'ใหม่'}
+                      ใหม่
                     </span>
                   </button>
                 )}
@@ -1961,7 +1966,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={openChangelogNote} style={linkStyle}>
-            {showAnnouncement ? `มีอะไรใหม่ (${newestUnseen.version})` : `อัปเดตล่าสุด (${LATEST_CHANGELOG.version})`}
+            {showAnnouncement ? 'มีอะไรใหม่' : 'อัปเดตล่าสุด'}
           </button>
         </div>
       )}
