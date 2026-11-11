@@ -59,7 +59,7 @@
      as text on cream 3.48. #b05555 clears both — 4.91 and 4.64 — so rose
      needs no separate on-colour in light, the way sage does not. */
   --clr-rose: #b05555;
-  --clr-rose-soft: #e8b8b8;
+  --clr-rose-soft: #f2d0d0;
   --clr-gold: #b88940;
   --clr-gold-soft: #e8d4a8;
   --clr-ocean: #3d6b82;
@@ -78,7 +78,7 @@
      block sets: a right answer is the house sage in every palette.
      tests/unit/verdict-colours.test.mjs. Wrong answers use --clr-rose,
      which no palette sets either. */
-  --clr-right: #4a6b4a; --clr-right-text: #355a39; --clr-right-soft: #c2c9b9; --clr-right-on: #ffffff;
+  --clr-right: #4a6b4a; --clr-right-text: #355a39; --clr-right-soft: #b8cfa8; --clr-right-on: #ffffff;
   --clr-part: #b88940; --clr-part-text: #76511e; --clr-part-soft: #e8d4a8;
   --clr-gold-on: var(--clr-ink);
   --subject-text-mix: 45%;
@@ -169,7 +169,7 @@
   --clr-sage: #7ba87b;
   --clr-sage-soft: #4a6b4a;
   --clr-rose: #d89090;
-  --clr-rose-soft: #8b4f4f;
+  --clr-rose-soft: #6e3c3c;
   --clr-gold: #d4a556;
   --clr-gold-soft: #7b5d2a;
   --clr-ocean: #6b94a8;
@@ -182,7 +182,7 @@
      page background reads on them (gold 7.98, rose 7.12) where white
      does not. */
   --clr-sage-on: var(--clr-bg);
-  --clr-right: #7ba87b; --clr-right-text: #9bc99b; --clr-right-soft: #41503c; --clr-right-on: var(--clr-bg);
+  --clr-right: #7ba87b; --clr-right-text: #9bc99b; --clr-right-soft: #34532e; --clr-right-on: var(--clr-bg);
   --clr-part: #d4a556; --clr-part-text: #e4ba73; --clr-part-soft: #5d492a;
   --clr-gold-on: var(--clr-bg);
   --subject-text-mix: 40%;
@@ -4806,7 +4806,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   padding: 10px 14px;
   border-radius: var(--r-sm);
   background: rgba(74, 107, 74, 0.12);
-  border: 1px solid var(--clr-sage-soft);
+  border: 1px solid color-mix(in srgb, var(--clr-right) 45%, var(--clr-surface));
   color: var(--clr-ink);
   display: flex;
   align-items: baseline;

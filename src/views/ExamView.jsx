@@ -362,12 +362,12 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                   fontWeight: isCurrent ? 700 : 500,
                   position: 'relative',
                   background: isCurrent
-                    ? 'var(--clr-rose)'
+                    ? 'var(--clr-ink)'
                     : answeredHere
                       ? 'var(--clr-sage-soft)'
                       : 'var(--clr-surface-2)',
-                  color: isCurrent ? 'white' : 'var(--clr-ink)',
-                  border: isCurrent ? '2px solid var(--clr-rose)' : '1px solid var(--clr-border)',
+                  color: isCurrent ? 'var(--clr-surface)' : 'var(--clr-ink)',
+                  border: isCurrent ? '2px solid var(--clr-ink)' : '1px solid var(--clr-border)',
                   transition: 'transform 0.1s',
                   minHeight: 44,
                 }}
@@ -376,7 +376,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
               >
                 {i + 1}
                 {isBookmarked && (
-                  <span style={{ position: 'absolute', top: 1, right: 4, fontSize: 9, color: isCurrent ? 'white' : 'var(--clr-gold-text)' }}>★</span>
+                  <span style={{ position: 'absolute', top: 1, right: 4, fontSize: 9, color: isCurrent ? 'var(--clr-surface)' : 'var(--clr-gold-text)' }}>★</span>
                 )}
               </button>
             );
@@ -384,7 +384,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         </div>
 
         <div style={{ marginTop: 12, display: 'flex', gap: 12, fontSize: 14, color: 'var(--clr-ink-soft)', flexWrap: 'wrap' }}>
-          <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-rose)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
+          <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-ink)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-sage-soft)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ตอบแล้ว</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-surface-2)', borderRadius: 3, border: '1px solid var(--clr-border)', verticalAlign: 'middle', marginRight: 4 }} /> ยังไม่ตอบ</span>
           <span>★ Bookmark</span>

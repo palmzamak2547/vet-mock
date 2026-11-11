@@ -2308,7 +2308,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                   {hasCoverage && (
                     <span
                       title={`ทำไปแล้ว ${cov.covered}/${cov.total} ข้อที่พร้อมฝึกในวิชานี้`}
-                      style={{ fontWeight: 600, color: cov.pct >= 80 ? 'var(--clr-right-text)' : 'var(--clr-part-text)' }}
+                      style={{ fontWeight: 600, color: cov.pct >= 80 ? 'var(--clr-sage-text)' : 'var(--clr-gold-text)' }}
                     >
                       เรียนไป {cov.pct}%
                     </span>

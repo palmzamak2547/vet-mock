@@ -205,7 +205,7 @@ function Check({ check, cleared, onClear }) {
                 disabled={answered}
                 aria-pressed={picked === i}
               >
-                <span className="vmx-check__mark" aria-hidden="true">{String.fromCharCode(97 + i)}</span>
+                <span className="vmx-check__mark" aria-hidden="true">{state === 'is-right' ? '✓' : state === 'is-wrong' ? '✗' : String.fromCharCode(97 + i)}</span>
                 <span>{opt}</span>
               </button>
             </li>
