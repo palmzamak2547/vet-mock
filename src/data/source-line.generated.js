@@ -122,7 +122,6 @@ export const TOPIC_CHIP_HELD = new Set([
   "swine-clinic:209058",
   "swine-clinic:209059",
   "swine-clinic:209132",
-  "swine-clinic:8016",
   "swine-clinic:8021",
   "swine-herd:92005",
   "swine-herd:92021",

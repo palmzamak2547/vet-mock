@@ -215,8 +215,18 @@ test.describe('connected study experience', () => {
     expect(Math.abs(headerContextBox.y - headerToolsBox.y)).toBeLessThan(6);
     // Search, the icon grid and today's plan come first on a phone Home
     // (owner review 2026-10-12); the first subject card starts at the fold.
+    // In an exam window the wrap-up strip sits above the cards on purpose
+    // (5.198.0 gave the final its first wrap-ups, so the pinned day shows it):
+    // the fold allowance is the same, below that strip.
     const epidemiologyBox = await epidemiology.boundingBox();
-    expect(epidemiologyBox.y).toBeLessThan(900);
+    const wrapStrip = page.locator('.vmx-wrap-strip');
+    const wrapStripHeight = await wrapStrip.count()
+      ? await wrapStrip.evaluate((el) => {
+        const style = getComputedStyle(el);
+        return el.getBoundingClientRect().height + parseFloat(style.marginTop) + parseFloat(style.marginBottom);
+      })
+      : 0;
+    expect(epidemiologyBox.y - wrapStripHeight).toBeLessThan(900);
     await expect(page.locator('.vmx-tools-fab')).not.toBeVisible();
     await epidemiology.click();
 

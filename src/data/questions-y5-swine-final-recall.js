@@ -4360,4 +4360,218 @@ export const QUESTIONS_Y5_SWINE_FINAL_RECALL = [
       }
     ]
   },
+  {
+    "id": 209400,
+    "subject": "swine-clinic",
+    "topic": "swine-csf",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การติดเชื้อ classical swine fever virus ในลักษณะใดที่สามารถทำให้เกิดภาวะ late-onset disease ตามมาได้",
+    "options": [
+      "ติดเชื้อ low virulent ในขณะที่สุกรตั้งท้องช่วงประมาณ 50 - 70 วัน",
+      "ติดเชื้อ high virulent ช่วงสุกรแรกคลอด (perinatal infection)",
+      "ติดเชื้อ low virulent ช่วงสุกรอายุมากกว่า 4 สัปดาห์",
+      "ไม่มีข้อใดถูก"
+    ],
+    "answer": 0,
+    "explain": "Late-onset CSF เกิดจากไวรัสสายพันธุ์รุนแรงปานกลางถึงต่ำที่ติดลูกสุกรตั้งแต่ในท้อง โดยเฉพาะเมื่อแม่สุกรติดเชื้อช่วงตั้งท้อง 50-70 วัน หรือติดช่วงแรกคลอด ลูกสุกรเกิด immunotolerance จนเป็น persistent infection ช่วงแรกดูปกติแต่ขับเชื้อตลอดและไม่สร้าง antibody แล้วจึงแสดงอาการแบบ atypical และตายในราว 6-12 เดือน ไวรัสสายพันธุ์รุนแรงสูงทำให้เกิดโรคแบบเฉียบพลัน ไม่ใช่ late-onset ส่วนสุกรที่ติดเชื้อหลังอายุ 4 สัปดาห์ไม่ได้ติดในช่วงที่ทำให้เกิด immunotolerance จึงไม่กลายเป็น late-onset",
+    "source": "CSF, deck 6 (Roongtham, 2024) หน้า 68, 69, 71 และ 72",
+    "verified": "swine med final2 หน้า 1 ข้อ 6",
+    "sourceType": "past-paper",
+    "examOrigin": "Swine Medicine final Vet 80 บันทึกหลังสอบ",
+    "tags": [
+      "swine-csf",
+      "csf",
+      "late-onset",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 68
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 69
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 71
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 72
+      },
+      {
+        "doc": "swine-med-final2-vet80",
+        "edition": "12p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209401,
+    "subject": "swine-clinic",
+    "topic": "swine-prv-je",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดต่อไปนี้เป็นลักษณะของโรค pseudorabies",
+    "options": [
+      "เป็นโรคทางระบบสืบพันธุ์",
+      "เป็นโรคทางระบบประสาท",
+      "เป็นโรคทางระบบทางเดินหายใจ",
+      "ถูกทุกข้อ"
+    ],
+    "answer": 3,
+    "explain": "Pseudorabies แสดงอาการได้ทั้งสามระบบ ขึ้นกับกลุ่มสุกร แม่สุกรอุ้มท้องมีอาการทางระบบสืบพันธุ์ เช่น ตัวอ่อนถูกดูดซึม แท้ง และลูกตายแรกคลอด ลูกสุกรดูดนมมีอาการทางระบบประสาท เช่น พายขาและขาหลังอัมพาต ระยะฟักตัวสั้น 2-4 วัน และตายมาก ส่วนสุกรรุ่นมีอาการทางระบบทางเดินหายใจ เช่น จาม มีน้ำมูก หายใจลำบาก และไอ ตายน้อยเว้นแต่มีเชื้อแทรกซ้อน และยังพบอาการทางระบบประสาทได้ การเลือกระบบใดระบบหนึ่งจึงไม่ครอบคลุมลักษณะของโรคนี้",
+    "source": "Pseudorabies, deck 6 (Roongtham, 2024) หน้า 44, 46 และ 47",
+    "verified": "swine med final2 หน้า 3 ข้อ 18",
+    "sourceType": "past-paper",
+    "examOrigin": "Swine Medicine final Vet 80 บันทึกหลังสอบ",
+    "tags": [
+      "swine-prv-je",
+      "pseudorabies",
+      "clinical-signs",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 44
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 46
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 47
+      },
+      {
+        "doc": "swine-med-final2-vet80",
+        "edition": "12p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 209402,
+    "subject": "swine-clinic",
+    "topic": "swine-prv-je",
+    "year": 5,
+    "type": "short",
+    "examScope": "final",
+    "q": "การเก็บตัวอย่างเพื่อตรวจหา Japanese encephalitis virus ในสุกรหลังพ้นช่วง viremia ไปแล้ว ควรเก็บตัวอย่างจากอะไร",
+    "keywords": [
+      "tonsil",
+      "oro-nasal swab",
+      "nasal viral shedding",
+      "viremia สั้น",
+      "วันที่ 3",
+      "วันที่ 11"
+    ],
+    "model_answer": "ควรเก็บ tonsil เป็นหลัก เพราะไวรัสยังมีปริมาณสูงในทอนซิลทั้งวันที่ 3 และวันที่ 11 หลังติดเชื้อ ขณะที่อวัยวะอื่นลดลงจนแทบตรวจไม่พบในวันที่ 11 และเก็บ swab จากช่องปากและจมูก (oro-nasal swab) เพราะสุกรยังขับเชื้อทางจมูกต่อไปอีกหลายวันหลังช่วง viremia ส่วนเลือดไม่เหมาะ เพราะ viremia ของ JEV ในสุกรสั้น สูงสุดในช่วง 3 วันแรก แล้ว RNA ในซีรัมลดลงเร็วหลังวันที่ 3 จนแทบตรวจไม่พบ",
+    "explain": "หลักคือเก็บจากตำแหน่งที่ไวรัสยังอยู่หลังเลือดไม่มีเชื้อแล้ว ช่วงที่ไวรัสอยู่ในเลือดสั้นมาก ตัวอย่างเลือดที่เก็บหลังช่วงนี้จึงให้ผลลบได้แม้สุกรติดเชื้อ ทอนซิลเป็นอวัยวะที่ไวรัสคงอยู่นานที่สุด และสิ่งคัดหลั่งจากช่องปากและจมูกยังมีไวรัสหลังช่วง viremia",
+    "source": "JE, deck 6 (Roongtham, 2024) หน้า 6, 8 และ 9",
+    "verified": "บันทึกหลังสอบ Swine Medicine ไฟนอล Vet 85 ฉบับ 3 แผ่นที่ 3 ข้อ 5",
+    "sourceType": "student-compilation",
+    "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 2 ไม่มีเฉลย",
+    "tags": [
+      "swine-prv-je",
+      "je",
+      "sampling",
+      "ข้อเขียน"
+    ],
+    "sourcePages": [
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 6
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 8
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 209403,
+    "subject": "swine-clinic",
+    "topic": "swine-greasypig",
+    "year": 5,
+    "type": "short",
+    "examScope": "final",
+    "q": "สุกรที่ป่วยเป็น exudative epidermitis (greasy pig disease) มีวิธีจัดการและรักษาอย่างไร",
+    "keywords": [
+      "early treatment",
+      "penicillin",
+      "lincomycin",
+      "ceftiofur",
+      "enrofloxacin",
+      "chlorhexidine",
+      "Virkon",
+      "keep warm",
+      "fluid and electrolyte",
+      "farrowing hygiene"
+    ],
+    "model_answer": "รักษาให้เร็วตั้งแต่เริ่มพบรอยโรค ใช้ยาต้านจุลชีพ ยาแรกคือ penicillin หรือ lincomycin ทางเลือกรองคือ ceftiofur หรือ enrofloxacin ถ้าเพาะเชื้อได้ให้เลือกยาตามผลทดสอบความไวต่อยา ล้างตัวสุกรป่วยด้วยยาฆ่าเชื้อ เช่น chlorhexidine 5% หรือ Virkon 1% และรักษาประคับประคองโดยให้ความอบอุ่น ไม่ให้สุกรหนาว และให้สารน้ำกับอิเล็กโทรไลต์ทดแทนในตัวที่เสียน้ำ ส่วนการจัดการฝูง ลดปริมาณเชื้อด้วยสุขอนามัยในคอกคลอด ทำความสะอาดและฆ่าเชื้อ ล้างตัวแม่สุกรด้วยยาฆ่าเชื้อก่อนเข้าคอกคลอด ลดบาดแผลด้วยการตัดเขี้ยวลูกสุกรและเอาพื้นผิวที่หยาบออก และดูแลความชื้นกับการระบายอากาศในโรงเรือน",
+    "explain": "Staphylococcus hyicus เป็นเชื้อประจำถิ่นบนผิวหนังสุกร โรคจึงเกิดเมื่อมีบาดแผล ความชื้นสูง การระบายอากาศไม่ดี และสุขอนามัยไม่ดี toxin ของเชื้อทำลายผิวหนังจนลูกสุกรที่เป็นรุนแรงเสียน้ำและอิเล็กโทรไลต์จนตาย การจัดการจึงมีสองส่วน คือรักษาตัวที่ป่วยให้เร็วพร้อมดูแลเรื่องน้ำและความอบอุ่น และลดปริมาณเชื้อกับบาดแผลที่เป็นทางเข้าของเชื้อในฝูง",
+    "source": "Exudative epidermitis, deck 6 (Roongtham, 2024) หน้า 23, 25, 26, 31, 32 และ 33",
+    "verified": "บันทึกหลังสอบ Swine Medicine ไฟนอล Vet 85 ฉบับ 3 แผ่นที่ 3 ข้อ 6",
+    "sourceType": "student-compilation",
+    "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 2 ไม่มีเฉลย",
+    "tags": [
+      "swine-greasypig",
+      "greasy-pig",
+      "treatment",
+      "ข้อเขียน"
+    ],
+    "sourcePages": [
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 23
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 25
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 26
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 31
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 32
+      },
+      {
+        "doc": "swine-roongtham-deck6-2024",
+        "edition": "85p",
+        "page": 33
+      }
+    ]
+  },
 ];

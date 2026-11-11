@@ -4,6 +4,7 @@ export const EVIDENCE_LOADERS = {
   'avian-medicine': () => import('./avian-medicine.generated.js'),
   'epidemiology': () => import('./epidemiology.generated.js'),
   'equine-medicine': () => import('./equine-medicine.generated.js'),
+  'equine-repro': () => import('./equine-repro.generated.js'),
   'food-industry': () => import('./food-industry.generated.js'),
   'milk-meat-hygiene': () => import('./milk-meat-hygiene.generated.js'),
   'one-health': () => import('./one-health.generated.js'),

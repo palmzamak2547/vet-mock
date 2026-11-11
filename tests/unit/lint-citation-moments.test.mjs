@@ -72,3 +72,11 @@ test('plain words are not read as recording ids', () => {
   assert.deepEqual(citesIn('information [12:30]'), []);
   assert.deepEqual(citesIn('ดู 7XyI0SjnuBA [12:34], [13:00-13:20]').map((c) => [c.start, c.end]), [['12:34', null], ['13:00', '13:20']]);
 });
+
+test('a library recording with no summary is held to its length only', () => {
+  const lib = { moments: [], durationMin: 30, examFormat: '', library: true };
+  assert.equal(citeFault({ start: '12:00' }, lib), null);
+  assert.match(citeFault({ start: '45:00' }, lib), /past the end/);
+  // a summarised recording without headings still fails
+  assert.match(citeFault({ start: '12:00' }, { ...lib, library: false }), /no timestamps/);
+});
