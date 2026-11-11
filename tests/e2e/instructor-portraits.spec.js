@@ -15,6 +15,8 @@ const WITH = INSTRUCTOR_DIRECTORY.find((p) => p.photo && p.nameTh);
 const WITHOUT = INSTRUCTOR_DIRECTORY.find((p) => !p.photo && p.nameTh && p.nameEn);
 
 test.beforeEach(async ({ page }) => {
+  // The faculty screen loads the whole directory (about 1.2 MB of script) before its search box.
+  test.slow();
   await page.addInitScript(() => {
     localStorage.setItem('vmx-selected-year', '5');
     localStorage.setItem('vmx-seen-landing', '1');
