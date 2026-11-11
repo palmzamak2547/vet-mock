@@ -130,8 +130,8 @@ test('a transport exception gives the next provider a chance within the same bud
   let calls = 0;
   const out = await withFetch(async () => {
     if (++calls === 1) throw new Error('connection reset');
-    return jsonRes({ choices: [{ message: { content: '{"claims":[]}' } }] });
-  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'test' } }));
+    return jsonRes({ content: [{ type: 'text', text: '{"claims":[]}' }] });
+  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'test', ANTHROPIC_API_KEY: 'a', AI_GRADER_MODEL: 'claude-test' } }));
   assert.equal(out.ok, true);
   assert.equal(calls, 2);
 });

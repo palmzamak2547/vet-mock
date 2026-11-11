@@ -117,12 +117,13 @@ for (const t of topics) {
 // but it is noindex: before this the home shell answered with `index, follow`
 // and canonical "/", so every unknown wiki URL could be indexed as the home page.
 {
+  const wikiCover = ogImageUrl(ORIGIN, 'wiki');
   const html = buildOgHead(shell, {
     title: 'VetWiki',
     description: 'ไม่พบหัวข้อนี้ใน VetWiki',
     url: `${ORIGIN}/wiki`,
     indexable: false,
-    image: ogImageUrl(ORIGIN, 'wiki'),
+    image: wikiCover,
     imageAlt: 'ความรู้ที่ เชื่อมถึงกัน — VetWiki บน VetMock',
   });
   fs.writeFileSync(path.join(DIST, 'wiki-unknown.html'), html, 'utf8');
