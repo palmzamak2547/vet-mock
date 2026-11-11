@@ -17,11 +17,10 @@
 // Placement: inside the Question component, below the options +
 // explain panel, above the optional image-fallback strip.
 //
-// 5.189.2: until the key is on screen (`revealed`) the line names only the
-// kind of source (lib/source-line.js) and the panel does not open. Measured
-// on 1 Nov 2026, the line named the key on 23 questions and what "ดูเต็ม"
-// opened (the pointer, the checking note, the tags) on 1,795 of 7,814. The
-// row keeps its size either way, so nothing moves when the full line arrives.
+// 5.189.2: measured on 1 Nov 2026, the line named the key on 23 questions and
+// what "ดูเต็ม" opened (the pointer, the checking note, the tags) on 1,795 of
+// 7,814. Until the key is on screen (`revealed`) the line then named only the
+// kind of source; since 11 Nov nothing of the source renders before it.
 //
 // The panel also lists `verificationSources` (what the key was checked
 // against) and names the question number of `sourceDocument` beside its page
@@ -35,7 +34,7 @@
 import { useState, lazy, Suspense } from 'react';
 import { originPaperNote, originPaperTag } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
-import { sourceLineBeforeAnswer, sourceLineAfterAnswer, readableSource as readable, SOURCE_LINE_WAIT, cautionChipShown } from '../lib/source-line.js';
+import { sourceLineAfterAnswer, readableSource as readable, cautionChipShown } from '../lib/source-line.js';
 // Lazy: a question pays for the video code only when its source opens.
 const TopicClips = lazy(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
@@ -76,22 +75,22 @@ export default function QSourceChip({ q, revealed = false }) {
   // Show nothing if Q has zero citation fields
   const hasAny = !!(q?.source || q?.verified || q?.examOrigin || q?.flag || eligibleCitation || hasDisplayableWikiRefs
     || (Array.isArray(q?.verificationSources) && q.verificationSources.length));
-  if (!hasAny) return null;
+  // Nothing of the source before the answer (audit item 8, 11 Nov 2026): a
+  // row that said only "later" stood on every question. It arrives with the
+  // verdict, below the answer area, so nothing above it moves.
+  if (!hasAny || !revealed) return null;
 
-  // Compact summary. Once the key is shown: examOrigin, else the source
-  // pointer read through humanSource ("WRttiWQ7D9s [28:22]" is stored, "คาบ 3
-  // (2 ก.ย.) นาที 28:22" is what the นิสิต sees). Before it: only the kind of
-  // source, which names no document, page or topic.
-  const summary = revealed
-    ? sourceLineAfterAnswer(q, { hasWikiRefs: hasDisplayableWikiRefs })
-    : sourceLineBeforeAnswer(q);
+  // Compact summary: examOrigin, else the source pointer read through
+  // humanSource ("WRttiWQ7D9s [28:22]" is stored, "คาบ 3 (2 ก.ย.) นาที 28:22"
+  // is what the นิสิต sees).
+  const summary = sourceLineAfterAnswer(q, { hasWikiRefs: hasDisplayableWikiRefs });
   // A source named for the other paper (a senior cohort sat it at another
   // point of the course). Never a line of its own: the closed line carries a
   // short tag only where its own text names that paper, and only after the
   // answer; one caution per card, so a card with the caution chip leaves it
   // to the panel. The sentence itself waits in the panel beside the source.
-  const paperTag = revealed && !cautionChipShown(q?.flag) ? originPaperTag(q, summary) : null;
-  const expanded = revealed && open;
+  const paperTag = !cautionChipShown(q?.flag) ? originPaperTag(q, summary) : null;
+  const expanded = open;
   const paperNote = expanded ? originPaperNote(q) : null;
   // The caution chip's note is read from the chip; any other flag's note is a
   // หมายเหตุ here.
@@ -115,16 +114,12 @@ export default function QSourceChip({ q, revealed = false }) {
       {/* A class, not an inline all:unset (which reset the very rules the
           control needs): the 44px floor, a focus ring, and a line icon in
           place of the 📚 emoji. */}
-      {/* aria-disabled, not disabled, while the key is hidden: the
-          browser's disabled style greys the text under the contrast floor,
-          and the line is still worth reading. */}
       <button
         type="button"
         className="vmx-qsource-toggle"
-        onClick={() => { if (revealed) setOpen((v) => !v); }}
-        aria-expanded={revealed ? open : undefined}
-        aria-disabled={revealed ? undefined : true}
-        title={!revealed ? 'แหล่งที่มาเต็มจะแสดงหลังเห็นเฉลย' : (open ? 'ซ่อนแหล่งที่มา' : 'ดูแหล่งที่มาของข้อนี้')}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        title={open ? 'ซ่อนแหล่งที่มา' : 'ดูแหล่งที่มาของข้อนี้'}
       >
         <NavIcon name="book" size={16} />
         {/* With a paper tag the line wraps instead of cutting: on a phone the
@@ -144,7 +139,7 @@ export default function QSourceChip({ q, revealed = false }) {
         {/* Full opacity: at 0.7 this 11px hint measured 3.48:1 in light and
             3.91:1 in dark, under the 4.5 floor. */}
         <span style={{ fontSize: 14, flex: '0 0 auto' }}>
-          {!revealed ? SOURCE_LINE_WAIT : (open ? '▴ ซ่อน' : '▾ ดูเต็ม')}
+          {open ? '▴ ซ่อน' : '▾ ดูเต็ม'}
         </span>
       </button>
 

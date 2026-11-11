@@ -110,28 +110,23 @@ const row = (subject, id) => {
 // ── Every question, before its key is shown ─────────────────────────────
 const listed = (rows) => `${rows.length}:\n  ${rows.slice(0, 12).join('\n  ')}${rows.length > 12 ? `\n  ... and ${rows.length - 12} more` : ''}`;
 
-test('no question\'s source chip gives its key away before the answer, closed or with its panel asked open', () => {
+// Since 11 Nov 2026 nothing of the source renders before the answer, the
+// stronger rule than "names nothing that gives the key away": the old row
+// said only "ดูเต็มหลังเฉลย" and stood on every question.
+test('before the answer the source chip renders nothing at all, closed or with its panel asked open', () => {
   assert.ok(QB.length > 7000, `the whole bank is loaded (${QB.length})`);
-  const leaks = { closed: [], open: [] };
-  const opened = [];
+  const shown = [];
+  let after = 0;
   let judged = 0;
   for (const q of QB) {
-    const closed = render(q);
-    const asked = render(q, { open: true });
-    if (asked.text !== closed.text) opened.push(`${q.subject}#${q.id}`);
-    if (!closed.text) continue;
-    if (answerParts(q)) judged += 1;
-    const leak = leakOf(q, closed.text);
-    if (leak) leaks.closed.push(`${q.subject}#${q.id} ${leak.rule} [${leak.words.join(', ')}]: ${closed.text}`);
-    else {
-      const more = leakOf(q, asked.text);
-      if (more) leaks.open.push(`${q.subject}#${q.id} ${more.rule} [${more.words.join(', ')}]`);
+    for (const r of [render(q), render(q, { open: true })]) {
+      if (r.raw !== null || r.text) shown.push(`${q.subject}#${q.id}: ${r.text}`);
     }
+    if (render(q, { revealed: true }).text) after += 1;
+    if (answerParts(q)) judged += 1;
   }
-  assert.ok(judged > 7000, `the check reads the key of most questions (${judged})`);
-  assert.equal(leaks.closed.length, 0, `the closed line gives the key away on ${listed(leaks.closed)}`);
-  assert.equal(leaks.open.length, 0, `"ดูเต็ม" gives the key away on ${listed(leaks.open)}`);
-  assert.equal(opened.length, 0, `the panel opens before the key is shown on ${listed(opened)}`);
+  assert.equal(shown.length, 0, `the source shows before the answer on ${listed(shown)}`);
+  assert.ok(after > 7000 && judged > 7000, `and arrives with the answer (${after})`);
 });
 
 test('before the key the line is a kind of source, the same line lint:source-line reads', () => {
@@ -148,13 +143,10 @@ test('before the key the line is a kind of source, the same line lint:source-lin
     assert.equal(kind === 'aligned', panicRank(q) === 1, `${q.subject}#${q.id} aligned`);
   }
   for (const kind of ['past', 'aligned', 'lecture', 'compilation', 'mock', 'unknown']) assert.ok(kinds[kind] > 0, `${kind} still occurs (${kinds[kind] || 0})`);
-  // What the lint reads is what the closed chip says.
-  for (const q of [row('poultry', 4033), row('food-industry', 207093), row('com4', 1068), row('zoonoses', 208045)]) {
-    const said = render(q).text;
-    // The caution chip is drawn by the card, not the source chip (its own test is below).
-    for (const part of preAnswerText(q).split('\n').filter((p) => !p.startsWith(CAUTION_CHIP_TEXT))) {
-      assert.ok(said.includes(part), `${q.subject}#${q.id}: "${part}" in "${said}"`);
-    }
+  // What the lint reads before the answer is the caution chip alone, never the source.
+  for (const q of QB) {
+    if (cautionChipShown(q.flag)) assert.equal(preAnswerText(q), `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}`);
+    else assert.equal(preAnswerText(q), '', `${q.subject}#${q.id}`);
   }
 });
 
@@ -206,24 +198,17 @@ test('"ดูเต็ม" opens the panel only once the key is on screen', () =
   assert.ok(findAll(render(clip, { revealed: true, open: true }).tree, (n) => n.type === 'a').length > 0);
 });
 
-test('the toggle keeps its place and says when the full source comes', () => {
+test('the source line arrives with the key, one row: icon, line, "ดูเต็ม"', () => {
   const q = row('poultry', 4033);
   const button = (r) => findAll(r.raw, (n) => n.type === 'button')[0];
-  const before = render(q);
+  assert.equal(render(q).raw, null, 'no row before the answer, not even a disabled one');
   const after = render(q, { revealed: true });
-  assert.equal(button(before).props['aria-disabled'], true);
-  assert.equal(button(before).props['aria-expanded'], undefined);
-  assert.equal(button(before).props.disabled, undefined, 'not disabled: the browser greys a disabled button below the contrast floor');
   assert.equal(button(after).props['aria-disabled'], undefined);
   assert.equal(button(after).props['aria-expanded'], false);
-  // One row, the same three parts, either way: icon, one ellipsised line, the hint.
-  for (const r of [before, after]) {
-    assert.equal(button(r).props.className, 'vmx-qsource-toggle');
-    assert.equal(button(r).props.children.filter((n) => n?.type === 'span').length, 2);
-  }
-  assert.match(before.text, new RegExp(`^ที่มา: จากชีทรุ่นพี่ ${SOURCE_LINE_WAIT}$`));
+  assert.equal(button(after).props.className, 'vmx-qsource-toggle');
+  assert.equal(button(after).props.children.filter((n) => n?.type === 'span').length, 2);
   assert.match(after.text, /^ที่มา: Master 86 p6 \(Cysteine \+ Tyrosine semi-essential\) ▾ ดูเต็ม$/);
-  // The wait hint and every kind's wording are plain Thai, with no middle dot.
+  // The wait hint (the caution chip still uses it) and every kind's wording: plain Thai, no middle dot.
   for (const words of [SOURCE_LINE_WAIT, ...Object.values(SOURCE_KIND_LABEL)]) assert.ok(!words.includes('·'), words);
 });
 

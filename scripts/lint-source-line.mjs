@@ -42,7 +42,7 @@ import { bankFiles, readBank } from './lib/bank-file.mjs';
 import { figureTextLeak, leakOf } from './lib/answer-leak.mjs';
 import { sameGenerated } from './lib/same-generated.mjs';
 import {
-  sourceLineBeforeAnswer, sourceLineAfterAnswer, SOURCE_LINE_WAIT,
+  sourceLineAfterAnswer, SOURCE_LINE_WAIT,
   topicChipText, holdsTopicChip, TOPIC_CHIP_WAIT, cautionChipShown, CAUTION_CHIP_TEXT,
 } from '../src/lib/source-line.js';
 import { SUBJECTS } from '../src/data/curriculum.js';
@@ -67,7 +67,8 @@ export function unconfirmedCohorts() {
 /** Everything the source chip and the data-conflict flag say while the question is open. */
 export function preAnswerText(question) {
   return [
-    sourceLineBeforeAnswer(question), SOURCE_LINE_WAIT,
+    // The source line renders nothing before the answer (QSourceChip.jsx);
+    // the caution chip is all that speaks of the source while it is open.
     cautionChipShown(question?.flag) ? `${CAUTION_CHIP_TEXT} ${SOURCE_LINE_WAIT}` : '',
   ].filter(Boolean).join('\n');
 }
