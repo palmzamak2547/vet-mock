@@ -22,6 +22,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { buildShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { wholeStem } from '../lib/rich-blocks.js';
 
 // Lazy-load the share card — it pulls a 1080×1920 canvas helper and
 // isn't needed until the user actually picks an answer + taps share.
@@ -85,7 +86,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
         </div>
 
         <div style={{ marginTop: 16, fontSize: 15, lineHeight: 1.6 }}>
-          <RichText text={q.q} />
+          <RichText text={wholeStem(q)} />
         </div>
 
         <div className="vmx-options" style={{ marginTop: 12 }}>

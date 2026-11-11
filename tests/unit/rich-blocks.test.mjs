@@ -3,7 +3,7 @@
 // that nothing written before tables existed changes by a character.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { highlightParts, isTableRow, splitBlocks, tableCells, tablesToSpeech } from '../../src/lib/rich-blocks.js';
+import { highlightParts, isTableRow, splitBlocks, wholeStem, tableCells, tablesToSpeech } from '../../src/lib/rich-blocks.js';
 import { clipText } from '../../src/lib/tts-text.js';
 import { lintQuestionTables } from '../../scripts/lint-question-tables.mjs';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
@@ -125,4 +125,58 @@ test('the lint names a table where it cannot be drawn and a table that does not 
   assert.match(messages({ type: 'match', explain: TABLE }), /matching question/);
   // A formula between bars is not a row, in an option or in an explanation.
   assert.equal(messages({ options: ['|x − μ|', '|x| + |y|'], explain: 'ผลต่างคือ |0.39 − 0.04| = |−0.35|\n|a| > |b|' }), '');
+});
+
+// A stem whose numbers moved into a passage table keeps the sentence that says them (`say`): a passage is
+// not read aloud, and a clip recorded for that sentence is named by it.
+test('the spoken stem is `say` where a question has one, and its numbers are the numbers on screen', async () => {
+  assert.equal(wholeStem({ q: 'short', say: 'the sentence with 12 and 36' }), 'the sentence with 12 and 36');
+  assert.equal(wholeStem({ q: 'short' }), 'short');
+  assert.equal(wholeStem({ q: 'short', say: '' }), 'short');
+  assert.equal(wholeStem(null), '');
+
+  const q = (over) => ({
+    subject: 's', id: 1, type: 'mcq', options: ['a', 'b'], q: 'จากข้อมูลนี้ odds ratio คำนวณจากข้อใด',
+    passage: 'ข้อมูลเป็นดังนี้\n\n| | เคย | ไม่เคย |\n|---|---|---|\n| Case | 8 | 4 |',
+    say: 'case เคยสัมผัส 8 ราย ไม่เคย 4 ราย odds ratio คำนวณจากข้อใด',
+    ...over,
+  });
+  const messages = (over) => lintQuestionTables([q(over)]).problems.join('\n');
+  assert.equal(messages({}), '');
+  assert.match(messages({ say: 'case เคยสัมผัส 8 ราย odds ratio คำนวณจากข้อใด' }), /never says 4/);
+  assert.match(messages({ say: 'case 12 ราย เคยสัมผัส 8 ราย ไม่เคย 4 ราย' }), /says 12, which the screen does not show/);
+  assert.match(messages({ passage: 'เคย 8 ราย ไม่เคย 4 ราย' }), /only a question whose passage holds a table/);
+  assert.match(messages({ say: 'จากข้อมูลนี้ odds ratio คำนวณจากข้อใด' }), /differs from the stem/);
+  assert.match(messages({ say: '| a | b |' }), /say: a table row/);
+  // A passage that is only a table says nothing about what the table is, and neither does a second table with no line of its own.
+  assert.match(messages({ passage: '| | เคย | ไม่เคย |\n|---|---|---|\n| Case | 8 | 4 |' }), /no sentence above it/);
+  assert.match(messages({ passage: 'ข้อมูลเป็นดังนี้\n\n| | เคย |\n|---|---|\n| Case | 8 |\n\n| | ไม่เคย |\n|---|---|\n| Case | 4 |' }), /no sentence above it/);
+  assert.equal(messages({ passage: 'กลุ่มแรก\n\n| | เคย |\n|---|---|\n| Case | 8 |\n\nกลุ่มที่สอง\n\n| | ไม่เคย |\n|---|---|\n| Case | 4 |' }), '');
+  // A figure in the passage's title is on screen too.
+  assert.match(messages({ passage_title: 'การศึกษาปี 1854' }), /never says 1854, which the title/);
+  // The stem and `say` ask the same thing: a stem reworded without its `say` is caught by its last words.
+  assert.match(messages({ q: 'จากข้อมูลนี้ ข้อใดไม่ใช่วิธีคำนวณ odds ratio' }), /edit both/);
+
+  // The bank: every spoken stem belongs to a question that shows a table, and says more than its stem does.
+  let spoken = 0;
+  for (const file of bankFiles('src/data')) {
+    for (const question of (await readBank(file)).questions) {
+      if (question.say == null) continue;
+      spoken++;
+      assert.ok(splitBlocks(question.passage).some((b) => b.type === 'table'), `${question.subject}:${question.id}`);
+      assert.ok(question.say.length > question.q.length, `${question.subject}:${question.id} says less than it shows`);
+    }
+  }
+  assert.ok(spoken >= 13, `${spoken} questions have a spoken stem`);
+});
+
+// The standard forbids a stem that names a document ("จากตาราง" of a deck nobody is holding). A table
+// the question carries in its own passage is on screen with the stem, so the stem may point at it.
+test('a stem may point at a table only when the question carries one', async () => {
+  const { namesDocument } = await import('../../scripts/lib/question-standard.mjs');
+  const passage = 'ข้อมูลเป็นดังนี้\n\n| | เคย |\n|---|---|\n| Case | 8 |';
+  assert.equal(namesDocument({ q: 'จากตาราง odds ratio คำนวณจากข้อใด', passage }), false);
+  assert.equal(namesDocument({ q: 'จากตาราง odds ratio คำนวณจากข้อใด' }), true);
+  assert.equal(namesDocument({ q: 'จากตาราง odds ratio คำนวณจากข้อใด', passage: 'เนื้อเรื่องที่ไม่มีตาราง' }), true);
+  assert.equal(namesDocument({ q: 'จากตารางในสไลด์ odds ratio คำนวณจากข้อใด', passage }), true, 'a slide is still a document');
 });

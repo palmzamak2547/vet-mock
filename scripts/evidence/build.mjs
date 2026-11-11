@@ -24,6 +24,9 @@ import { bankFiles, readBank } from '../lib/bank-file.mjs';
 import { librarySql, SERVED } from '../lib/library-read.mjs';
 import { citesOf } from '../provenance/build.mjs';
 import { evidenceHash, keyText } from '../../src/lib/evidence-hash.js';
+// What a model is shown of a question: `say` where its numbers sit in a passage table. The hash that
+// ties a slide to a question (evidenceHash) stays on the stem on screen.
+import { wholeStem } from '../../src/lib/rich-blocks.js';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const imp = (rel) => import(pathToFileURL(path.join(REPO, rel)).href);
@@ -152,7 +155,7 @@ function candidatesFor(item, index, cited, extra, topicShas) {
   const { q } = item;
   const weights = new Map();
   const add = (text, w) => { for (const t of tokens(text)) weights.set(t, Math.max(weights.get(t) || 0, w)); };
-  add(q.q, 1);
+  add(wholeStem(q), 1);
   add(String(q.explain || '').slice(0, 600), 1.2);
   add((q.keywords || []).join(' '), 2.5);
   add((extra || []).join(' '), 2.5);   // the same fact in the slide's own words, Thai and English
@@ -278,7 +281,7 @@ function answerIndex(q) {
 }
 
 function termsPrompt(q) {
-  return `Exam question: ${q.q.slice(0, 700)}\nCorrect answer: ${keyText(q).slice(0, 400)}\nExplanation: ${String(q.explain || '').slice(0, 400)}\n\n`
+  return `Exam question: ${wholeStem(q).slice(0, 700)}\nCorrect answer: ${keyText(q).slice(0, 400)}\nExplanation: ${String(q.explain || '').slice(0, 400)}\n\n`
     + 'A lecture slide states the fact behind this answer. The slide may be in English or Thai. '
     + 'Give the words and short phrases that slide most likely contains: technical terms, names, numbers, units. '
     + 'Return {"en": [up to 10 English terms], "th": [up to 6 Thai terms]}';
@@ -289,8 +292,8 @@ function pointPrompt(q, cands) {
   const pages = cands.map((c, i) => `[P${i + 1}] ${c.p.doc.title} — page ${c.p.page.n}\n`
     + c.p.page.lines.slice(0, PAGE_LINES).map((l, k) => `L${k + 1}: ${l[4].slice(0, 200)}`).join('\n')).join('\n\n');
   const asked = q.type === 'tf'
-    ? `Statement: ${q.q.slice(0, 900)}\nThe statement is ${q.answer ? 'TRUE' : 'FALSE'}.\n`
-    : `Question: ${q.q.slice(0, 900)}\n${opts ? `Options:\n${opts.map((o, i) => `${LETTERS[i]}. ${o.slice(0, 300)}`).join('\n')}\n` : ''}`
+    ? `Statement: ${wholeStem(q).slice(0, 900)}\nThe statement is ${q.answer ? 'TRUE' : 'FALSE'}.\n`
+    : `Question: ${wholeStem(q).slice(0, 900)}\n${opts ? `Options:\n${opts.map((o, i) => `${LETTERS[i]}. ${o.slice(0, 300)}`).join('\n')}\n` : ''}`
       + `Correct answer: ${keyText(q).slice(0, 500)}\n`;
   const want = q.type === 'tf'
     ? `Find the ONE page whose lines show that. ${q.answer ? '' : 'For a false statement the lines must state the correct fact the statement gets wrong: a page that merely does not mention it does not count. '}`
@@ -309,13 +312,13 @@ function pointPrompt(q, cands) {
 function blindPrompt(q, lines) {
   const opts = choices(q);
   if (q.type === 'tf') {
-    return `A lecture slide says:\n"""\n${lines.join('\n')}\n"""\n\nStatement: ${q.q.slice(0, 900)}\n\n`
+    return `A lecture slide says:\n"""\n${lines.join('\n')}\n"""\n\nStatement: ${wholeStem(q).slice(0, 900)}\n\n`
       + 'Using ONLY what the slide lines say, with no outside knowledge: is the statement "true" (the lines say it), '
       + '"false" (the lines say something that contradicts it) or "undecided" (the lines do not settle it)? '
       + 'A statement the lines simply do not mention is undecided, never false. '
       + 'Return {"verdict": "true" | "false" | "undecided", "because": "the words of the slide that confirm or contradict it, copied exactly"}';
   }
-  const head = `A lecture slide says:\n"""\n${lines.join('\n')}\n"""\n\nQuestion: ${q.q.slice(0, 900)}\n`;
+  const head = `A lecture slide says:\n"""\n${lines.join('\n')}\n"""\n\nQuestion: ${wholeStem(q).slice(0, 900)}\n`;
   if (opts) {
     return `${head}Options:\n${opts.map((o, i) => `${i + 1}. ${o.slice(0, 300)}`).join('\n')}\n\n`
       + 'Using ONLY what the slide lines say, with no outside knowledge, which option is the answer? '

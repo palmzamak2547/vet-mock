@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_PHYSIO_3 = {
@@ -52,9 +52,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกว่าช่วง 94-104°F หมายถึงอุณหภูมิร่างกายหรืออุณหภูมิสิ่งแวดล้อม บอกเพียงว่าสัมพันธ์กับ emotion, exercise และ extreme heat/cold"
-          }
+          "สไลด์ไม่ได้บอกว่าช่วง 94-104°F หมายถึงอุณหภูมิร่างกายหรืออุณหภูมิสิ่งแวดล้อม บอกเพียงว่าสัมพันธ์กับ emotion, exercise และ extreme heat/cold"
         ]
       },
       {
@@ -74,9 +72,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "อุณหภูมิร่างกายปกติรายชนิดสัตว์",
         "source": "Body Temperature p.1",
         "body": [
-          {
-            "text": "ตารางในสไลด์ให้ค่า °C, °F และคอลัมน์ Range (หน่วย °F) เรียงตามลำดับสัตว์เดียวกัน"
-          },
+          "ตารางในสไลด์ให้ค่า °C, °F และคอลัมน์ Range (หน่วย °F) เรียงตามลำดับสัตว์เดียวกัน",
           {
             "bullets": [
               "Man 36.0°C / 97.0°F (range 97.0-99.5)",
@@ -102,21 +98,15 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Temperature integrator: posterior hypothalamus",
         "source": "Body Temperature p.2",
         "body": [
-          {
-            "text": "การควบคุมอุณหภูมิร่างกายใช้ **nervous feedback mechanisms** ผ่าน thermoregulatory center ที่ hypothalamus ร่วมกับ temperature detectors"
-          },
-          {
-            "text": "**Temperature integrator = posterior hypothalamus** ทำหน้าที่รวมสัญญาณ 2 อย่าง"
-          },
+          "การควบคุมอุณหภูมิร่างกายใช้ **nervous feedback mechanisms** ผ่าน thermoregulatory center ที่ hypothalamus ร่วมกับ temperature detectors",
+          "**Temperature integrator = posterior hypothalamus** ทำหน้าที่รวมสัญญาณ 2 อย่าง",
           {
             "bullets": [
               "Sensory signals: อุณหภูมิของ skin, deep body และ anterior hypothalamic preoptic area",
               "Set-point temperature"
             ]
           },
-          {
-            "text": "จากนั้นส่ง motor signals ออกไปควบคุมอุณหภูมิร่างกายให้อยู่ในช่วง **97-100°F**"
-          },
+          "จากนั้นส่ง motor signals ออกไปควบคุมอุณหภูมิร่างกายให้อยู่ในช่วง **97-100°F**",
           {
             "sub": "ตัวอย่างในสไลด์ (nude person)",
             "body": [
@@ -219,9 +209,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Shivering",
         "source": "Body Temperature p.3",
         "body": [
-          {
-            "text": "สไลด์วางเป็น flow chart จาก anterior hypothalamic-preoptic hyperthermic center และความรู้สึกหนาว ร่วมกับ cold signals จาก skin และ spinal cord"
-          },
+          "สไลด์วางเป็น flow chart จาก anterior hypothalamic-preoptic hyperthermic center และความรู้สึกหนาว ร่วมกับ cold signals จาก skin และ spinal cord",
           {
             "bullets": [
               "สัญญาณไปที่ **primary motor center ที่ dorsomedial posterior hypothalamus**",
@@ -231,9 +219,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ถึง skeletal muscles"
             ]
           },
-          {
-            "text": "ผลคือ **เพิ่ม muscle tone เหนือ critical level** เกิดการเคลื่อนไหวแบบ nonrhythmical และ involuntary โดย**ยังไม่เห็นกล้ามเนื้อสั่นจริง**"
-          },
+          "ผลคือ **เพิ่ม muscle tone เหนือ critical level** เกิดการเคลื่อนไหวแบบ nonrhythmical และ involuntary โดย**ยังไม่เห็นกล้ามเนื้อสั่นจริง**",
           {
             "bullets": [
               "เพิ่ม heat production ได้ **4-5 เท่า**",
@@ -261,9 +247,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Sympathetic chemical thermogenesis และ BAT",
         "source": "Body Temperature p.3",
         "body": [
-          {
-            "text": "เมื่อรู้สึกหนาว จะเกิด sympathetic stimulation, NE และ Epi หรือ thyroxine ทำให้ **chemical thermogenesis เพิ่มขึ้นในทุกเซลล์**"
-          },
+          "เมื่อรู้สึกหนาว จะเกิด sympathetic stimulation, NE และ Epi หรือ thyroxine ทำให้ **chemical thermogenesis เพิ่มขึ้นในทุกเซลล์**",
           {
             "bullets": [
               "ออกฤทธิ์ผ่าน **β3 adrenergic receptor ของ BAT**",
@@ -298,9 +282,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Insensible / evaporative heat loss: ไปได้ทิศทางเดียว**"
             ]
           },
-          {
-            "text": "อัตรา heat loss ขึ้นกับ 2 ขั้นตอน คือ (1) rate of heat transfer to skin และ (2) rate of heat transfer to the environment"
-          }
+          "อัตรา heat loss ขึ้นกับ 2 ขั้นตอน คือ (1) rate of heat transfer to skin และ (2) rate of heat transfer to the environment"
         ]
       },
       {
@@ -326,9 +308,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การกระจายความร้อนที่ผิวหนังอาศัย continuous venous plexus และ capillary ทำให้ **skin blood flow ทำหน้าที่เป็นตัวคุม body heat radiator**"
-          }
+          "การกระจายความร้อนที่ผิวหนังอาศัย continuous venous plexus และ capillary ทำให้ **skin blood flow ทำหน้าที่เป็นตัวคุม body heat radiator**"
         ]
       },
       {
@@ -453,9 +433,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Control และ regulation ของเหงื่อ",
         "source": "Body Temperature p.5",
         "body": [
-          {
-            "text": "Warmth receptor ที่ skin และ brain ส่งสัญญาณไป hypothalamus และ thermoregulatory center แล้วออกเป็น sympathetic stimulation โดยมี ANS, emotion และ exercise เข้ามาเกี่ยวข้อง"
-          },
+          "Warmth receptor ที่ skin และ brain ส่งสัญญาณไป hypothalamus และ thermoregulatory center แล้วออกเป็น sympathetic stimulation โดยมี ANS, emotion และ exercise เข้ามาเกี่ยวข้อง",
           {
             "sub": "เส้นทางการควบคุม",
             "body": [
@@ -513,9 +491,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Panting",
         "source": "Body Temperature p.5",
         "body": [
-          {
-            "text": "ใช้ในสัตว์ที่มี fur หรือมีต่อมเหงื่อน้อย ซึ่งระบายความร้อนทางผิวได้น้อย"
-          },
+          "ใช้ในสัตว์ที่มี fur หรือมีต่อมเหงื่อน้อย ซึ่งระบายความร้อนทางผิวได้น้อย",
           {
             "bullets": [
               "เลือดที่ร้อนเกินไปกระตุ้น thermoregulatory centers ที่ hypothalamus",
@@ -595,9 +571,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "4. ย้ายไปที่เย็นกว่า",
             "body": [
-              {
-                "text": "เป็นการปรับตัวเชิงพฤติกรรมที่สไลด์ระบุไว้ในกลุ่มเดียวกัน"
-              }
+              "เป็นการปรับตัวเชิงพฤติกรรมที่สไลด์ระบุไว้ในกลุ่มเดียวกัน"
             ]
           }
         ]
@@ -635,12 +609,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Fever: สาเหตุและกลไก pyrogen",
         "source": "Body Temperature p.6",
         "body": [
-          {
-            "text": "Fever มีคำเรียกอื่นว่า pyrexia และ febrile response สาเหตุที่สไลด์ระบุคือ primary brain abnormality, dehydration และ pyrogens"
-          },
-          {
-            "text": "**Pyrogens = สารจากภายในหรือภายนอกร่างกายที่เพิ่ม set-point ของ hypothalamus** ได้แก่ bacterial proteins, protein breakdown, สารเคมีบางชนิด, virus และเนื้อเยื่อร่างกายที่เสื่อมจาก infection หรือ inflammation"
-          },
+          "Fever มีคำเรียกอื่นว่า pyrexia และ febrile response สาเหตุที่สไลด์ระบุคือ primary brain abnormality, dehydration และ pyrogens",
+          "**Pyrogens = สารจากภายในหรือภายนอกร่างกายที่เพิ่ม set-point ของ hypothalamus** ได้แก่ bacterial proteins, protein breakdown, สารเคมีบางชนิด, virus และเนื้อเยื่อร่างกายที่เสื่อมจาก infection หรือ inflammation",
           {
             "sub": "ลำดับเหตุการณ์ที่สไลด์ไล่เป็นขั้น",
             "body": [
@@ -739,18 +709,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ช่วยให้ hypothalamus **ลบล้างฤทธิ์ pyretic ของ IL-1 และ PGE2**"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้ระบุชื่อยาตัวใดตัวหนึ่ง ขนาดยา หรือข้อควรระวังในสัตว์แต่ละชนิด"
-          }
+          "สไลด์ไม่ได้ระบุชื่อยาตัวใดตัวหนึ่ง ขนาดยา หรือข้อควรระวังในสัตว์แต่ละชนิด"
         ]
       },
       {
         "heading": "Heat stress",
         "source": "Body Temperature p.8",
         "body": [
-          {
-            "text": "สไลด์แสดงหัวข้อ heat-induced alteration in body functions โดยระบุระบบที่ถูกกระทบไว้เป็นรายการ"
-          },
+          "สไลด์แสดงหัวข้อ heat-induced alteration in body functions โดยระบุระบบที่ถูกกระทบไว้เป็นรายการ",
           {
             "bullets": [
               "Milk และ egg production",
@@ -759,9 +725,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "CVS functions"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกทิศทางหรือขนาดของการเปลี่ยนแปลงในแต่ละหัวข้อ บอกเพียงว่าความร้อนทำให้หน้าที่เหล่านี้เปลี่ยนไป"
-          }
+          "สไลด์ไม่ได้บอกทิศทางหรือขนาดของการเปลี่ยนแปลงในแต่ละหัวข้อ บอกเพียงว่าความร้อนทำให้หน้าที่เหล่านี้เปลี่ยนไป"
         ]
       },
       {
@@ -797,9 +761,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "ความเสียหายของเนื้อเยื่อจากความร้อนที่สไลด์ระบุคือ **hemorrhage และ cellular degeneration**"
-          },
+          "ความเสียหายของเนื้อเยื่อจากความร้อนที่สไลด์ระบุคือ **hemorrhage และ cellular degeneration**",
           {
             "callout": "สไลด์ไม่ได้ให้แนวทางการรักษาหรือการลดอุณหภูมิในสัตว์ป่วย heatstroke ให้ยึดตามที่อาจารย์สอนในคาบคลินิก",
             "kind": "warn"
@@ -818,27 +780,17 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "หน้าที่หลักของ gastrointestinal system",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.1",
         "body": [
-          {
-            "text": "หน้าที่หลักของ gastrointestinal tract คือ **เป็น portal ให้ nutrients และน้ำถูกดูดซึมเข้าสู่ร่างกาย** โดยอาหารที่กินเข้าไปจะถูกผสมกับ secretions ทั้งจากตัวทางเดินอาหารเองและจากอวัยวะที่ระบายเข้ามา ได้แก่ pancreas, gallbladder และ salivary glands"
-          },
-          {
-            "text": "intestine มี motility patterns หลายรูปแบบที่ทำหน้าที่ผสมอาหารกับ digestive secretions และเคลื่อนอาหารไปตามความยาวของทางเดินอาหาร ส่วนกากที่ดูดซึมไม่ได้พร้อม cellular debris จะถูกขับออกจากร่างกาย"
-          },
-          {
-            "text": "เพราะทางเดินอาหารต่อเนื่องกับสิ่งแวดล้อมภายนอกและอยู่ร่วมกับ microbiota ที่ซับซ้อนตลอดชีวิต จึงมีทั้ง innate และ adaptive immune systems ที่พัฒนาดี แต่กระนั้น **ทางเดินอาหารก็ยังคงเป็น portal สำคัญของการติดเชื้อ**"
-          },
-          {
-            "text": "การทำงานทั้งหมดถูกควบคุมอย่างแน่นหนาให้สอดคล้องกับการกินอาหาร ระบบทางเดินอาหารจึงพัฒนา regulatory mechanisms จำนวนมากที่ออกฤทธิ์ทั้งเฉพาะที่ (locally) และในระยะไกล (over long distances) เพื่อประสานการทำงานของ gut กับอวัยวะที่ระบายเข้ามา"
-          }
+          "หน้าที่หลักของ gastrointestinal tract คือ **เป็น portal ให้ nutrients และน้ำถูกดูดซึมเข้าสู่ร่างกาย** โดยอาหารที่กินเข้าไปจะถูกผสมกับ secretions ทั้งจากตัวทางเดินอาหารเองและจากอวัยวะที่ระบายเข้ามา ได้แก่ pancreas, gallbladder และ salivary glands",
+          "intestine มี motility patterns หลายรูปแบบที่ทำหน้าที่ผสมอาหารกับ digestive secretions และเคลื่อนอาหารไปตามความยาวของทางเดินอาหาร ส่วนกากที่ดูดซึมไม่ได้พร้อม cellular debris จะถูกขับออกจากร่างกาย",
+          "เพราะทางเดินอาหารต่อเนื่องกับสิ่งแวดล้อมภายนอกและอยู่ร่วมกับ microbiota ที่ซับซ้อนตลอดชีวิต จึงมีทั้ง innate และ adaptive immune systems ที่พัฒนาดี แต่กระนั้น **ทางเดินอาหารก็ยังคงเป็น portal สำคัญของการติดเชื้อ**",
+          "การทำงานทั้งหมดถูกควบคุมอย่างแน่นหนาให้สอดคล้องกับการกินอาหาร ระบบทางเดินอาหารจึงพัฒนา regulatory mechanisms จำนวนมากที่ออกฤทธิ์ทั้งเฉพาะที่ (locally) และในระยะไกล (over long distances) เพื่อประสานการทำงานของ gut กับอวัยวะที่ระบายเข้ามา"
         ]
       },
       {
         "heading": "ลำดับของทางเดินอาหารและ sphincters ที่แบ่ง functional segments",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.1",
         "body": [
-          {
-            "text": "ส่วนของทางเดินอาหารที่อาหารหรือกากอาหารผ่าน เรียงตามลำดับ:"
-          },
+          "ส่วนของทางเดินอาหารที่อาหารหรือกากอาหารผ่าน เรียงตามลำดับ:",
           {
             "bullets": [
               "mouth",
@@ -853,12 +805,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               "anus"
             ]
           },
-          {
-            "text": "ตลอดความยาวของลำไส้มี glandular structures ปล่อย secretions เข้า lumen โดยเฉพาะที่ stomach และ mouth และยังมี secretions จาก pancreas และ biliary system ของ liver ที่สำคัญต่อการย่อย ตัว intestine เองมี surface area มากซึ่งสำคัญต่อหน้าที่ดูดซึม"
-          },
-          {
-            "text": "**ทางเดินอาหารถูกแบ่งเป็น functional segments ด้วย sphincters ซึ่งเป็นวงกล้ามเนื้อ (muscle rings) ที่จำกัดการไหลของสิ่งที่อยู่ในลำไส้ เพื่อให้ digestion และ absorption เกิดได้ดีที่สุด**"
-          },
+          "ตลอดความยาวของลำไส้มี glandular structures ปล่อย secretions เข้า lumen โดยเฉพาะที่ stomach และ mouth และยังมี secretions จาก pancreas และ biliary system ของ liver ที่สำคัญต่อการย่อย ตัว intestine เองมี surface area มากซึ่งสำคัญต่อหน้าที่ดูดซึม",
+          "**ทางเดินอาหารถูกแบ่งเป็น functional segments ด้วย sphincters ซึ่งเป็นวงกล้ามเนื้อ (muscle rings) ที่จำกัดการไหลของสิ่งที่อยู่ในลำไส้ เพื่อให้ digestion และ absorption เกิดได้ดีที่สุด**",
           {
             "sub": "sphincters ที่ระบุไว้",
             "body": [
@@ -878,9 +826,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ชั้น (functional layers) ของผนังลำไส้",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.2",
         "body": [
-          {
-            "text": "ชั้นที่ติดกับ nutrients ใน lumen คือ **single layer ของ columnar epithelial cells ซึ่งเป็น barrier ที่ nutrients ต้องข้ามเพื่อเข้าสู่ร่างกาย**"
-          },
+          "ชั้นที่ติดกับ nutrients ใน lumen คือ **single layer ของ columnar epithelial cells ซึ่งเป็น barrier ที่ nutrients ต้องข้ามเพื่อเข้าสู่ร่างกาย**",
           {
             "bullets": [
               "ใต้ epithelium คือ lamina propria ซึ่งเป็น loose connective tissue ที่มี immune และ inflammatory cells จำนวนมากแม้ในภาวะปกติ",
@@ -896,18 +842,10 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Villi, crypts, brush border และการผลัดเซลล์ของ epithelium",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.3",
         "body": [
-          {
-            "text": "epithelium ของลำไส้ถูกออกแบบให้เพิ่ม surface area สำหรับดูดซึม โดยตลอด small intestine จะพับเป็นแท่งคล้ายนิ้วมือเรียกว่า **villi** และรอยพับลงไประหว่าง villi เรียกว่า **crypts**"
-          },
-          {
-            "text": "**stem cells ที่ให้กำเนิดทั้ง crypt และ villus epithelial cells อยู่ที่ฐานของ crypt** และรับผิดชอบการสร้าง epithelium ใหม่ทั้งหมดทุกไม่กี่วัน gastrointestinal epithelium จึงเป็นเนื้อเยื่อที่แบ่งตัวเร็วที่สุดชุดหนึ่งของร่างกาย daughter cells แบ่งตัวหลายรอบใน crypt แล้วเคลื่อนออกไปบน villi และสุดท้ายหลุดออกไปกับอุจจาระ"
-          },
-          {
-            "text": "villus epithelial cells มี **microvilli** จำนวนมากบน apical membrane และ microvilli เหล่านี้มี glycocalyx หนาแน่นเรียกว่า **brush border** ซึ่งน่าจะช่วยป้องกันเซลล์จาก digestive enzymes ได้ระดับหนึ่ง"
-          },
-          {
-            "text": "digestive enzymes บางตัวเป็น membrane-bound proteins ที่เป็นส่วนหนึ่งของ brush border เรียกว่า **brush border hydrolases** ทำหน้าที่ย่อยขั้นสุดท้าย (final steps of digestion) ของ nutrients บางชนิด"
-          },
+          "epithelium ของลำไส้ถูกออกแบบให้เพิ่ม surface area สำหรับดูดซึม โดยตลอด small intestine จะพับเป็นแท่งคล้ายนิ้วมือเรียกว่า **villi** และรอยพับลงไประหว่าง villi เรียกว่า **crypts**",
+          "**stem cells ที่ให้กำเนิดทั้ง crypt และ villus epithelial cells อยู่ที่ฐานของ crypt** และรับผิดชอบการสร้าง epithelium ใหม่ทั้งหมดทุกไม่กี่วัน gastrointestinal epithelium จึงเป็นเนื้อเยื่อที่แบ่งตัวเร็วที่สุดชุดหนึ่งของร่างกาย daughter cells แบ่งตัวหลายรอบใน crypt แล้วเคลื่อนออกไปบน villi และสุดท้ายหลุดออกไปกับอุจจาระ",
+          "villus epithelial cells มี **microvilli** จำนวนมากบน apical membrane และ microvilli เหล่านี้มี glycocalyx หนาแน่นเรียกว่า **brush border** ซึ่งน่าจะช่วยป้องกันเซลล์จาก digestive enzymes ได้ระดับหนึ่ง",
+          "digestive enzymes บางตัวเป็น membrane-bound proteins ที่เป็นส่วนหนึ่งของ brush border เรียกว่า **brush border hydrolases** ทำหน้าที่ย่อยขั้นสุดท้าย (final steps of digestion) ของ nutrients บางชนิด",
           {
             "sub": "จาก caption ของ Figure 25-3",
             "body": [
@@ -926,9 +864,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Salivary secretion: ต่อม องค์ประกอบ และการปรับที่ duct",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.4",
         "body": [
-          {
-            "text": "secretion แรกที่อาหารพบคือ saliva ซึ่งผลิตจาก **salivary glands 3 คู่ ได้แก่ parotid, submandibular และ sublingual glands** ที่ระบายเข้าสู่ oral cavity"
-          },
+          "secretion แรกที่อาหารพบคือ saliva ซึ่งผลิตจาก **salivary glands 3 คู่ ได้แก่ parotid, submandibular และ sublingual glands** ที่ระบายเข้าสู่ oral cavity",
           {
             "sub": "organic constituents ของน้ำลาย",
             "body": [
@@ -941,34 +877,22 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**saliva เป็น hypotonic เมื่อเทียบกับ plasma และเป็น alkaline** ความเป็นด่างนี้สำคัญเพราะช่วย neutralize gastric secretions ที่ reflux ขึ้นมาใน esophagus"
-          },
-          {
-            "text": "ต่อมน้ำลายประกอบด้วย acini (blind end pieces) ที่สร้าง primary secretion ซึ่งมี organic constituents ละลายอยู่ในของเหลวที่องค์ประกอบเหมือน plasma แทบทุกประการ ต่อมน้ำลายทำงานหนักมากเมื่อถูกกระตุ้นเต็มที่ คือ **หลั่งน้ำลายได้เท่ากับน้ำหนักตัวเองในหนึ่งนาที** จึงมี blood vessels ล้อมรอบจำนวนมากที่ขยายตัวเมื่อเริ่มการหลั่ง"
-          },
-          {
-            "text": "องค์ประกอบของน้ำลายถูกดัดแปลงระหว่างไหลจาก acini ออกไปตาม ducts คือ **Na+ และ Cl− ถูกดึงออก ส่วน K+ และ bicarbonate ถูกเติมเข้า** และเพราะ ducts ค่อนข้าง impermeable ต่อน้ำ การสูญเสีย NaCl จึงทำให้น้ำลาย hypotonic โดยเฉพาะที่อัตราการหลั่งต่ำ"
-          },
+          "**saliva เป็น hypotonic เมื่อเทียบกับ plasma และเป็น alkaline** ความเป็นด่างนี้สำคัญเพราะช่วย neutralize gastric secretions ที่ reflux ขึ้นมาใน esophagus",
+          "ต่อมน้ำลายประกอบด้วย acini (blind end pieces) ที่สร้าง primary secretion ซึ่งมี organic constituents ละลายอยู่ในของเหลวที่องค์ประกอบเหมือน plasma แทบทุกประการ ต่อมน้ำลายทำงานหนักมากเมื่อถูกกระตุ้นเต็มที่ คือ **หลั่งน้ำลายได้เท่ากับน้ำหนักตัวเองในหนึ่งนาที** จึงมี blood vessels ล้อมรอบจำนวนมากที่ขยายตัวเมื่อเริ่มการหลั่ง",
+          "องค์ประกอบของน้ำลายถูกดัดแปลงระหว่างไหลจาก acini ออกไปตาม ducts คือ **Na+ และ Cl− ถูกดึงออก ส่วน K+ และ bicarbonate ถูกเติมเข้า** และเพราะ ducts ค่อนข้าง impermeable ต่อน้ำ การสูญเสีย NaCl จึงทำให้น้ำลาย hypotonic โดยเฉพาะที่อัตราการหลั่งต่ำ",
           {
             "callout": "เมื่ออัตราการหลั่งสูงขึ้น เวลาที่ดึง NaCl ออกน้อยลง tonicity ของน้ำลายจึงสูงขึ้น แต่ยังคง hypotonic เมื่อเทียบกับ plasma เสมอ",
             "kind": "tip"
           },
-          {
-            "text": "รวมทั้ง 3 คู่ ต่อมน้ำลายผลิตน้ำลาย **1000-1500 mL ต่อวัน**"
-          }
+          "รวมทั้ง 3 คู่ ต่อมน้ำลายผลิตน้ำลาย **1000-1500 mL ต่อวัน**"
         ]
       },
       {
         "heading": "การควบคุมการหลั่งน้ำลาย และหน้าที่ของน้ำลาย",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.5",
         "body": [
-          {
-            "text": "**การหลั่งน้ำลายถูกควบคุมด้วย neural influences แทบทั้งหมด โดย parasympathetic branch ของ autonomic nervous system มีบทบาทเด่นที่สุด** ส่วน sympathetic input ปรับองค์ประกอบเล็กน้อย (เพิ่ม proteinaceous content) แต่มีผลต่อ volume น้อยมาก"
-          },
-          {
-            "text": "การหลั่งถูกกระตุ้นด้วย reflexes จากการเคี้ยว แต่เริ่มขึ้นตั้งแต่ก่อนอาหารเข้าปากด้วย central triggers จากการคิดถึง เห็น หรือได้กลิ่นอาหาร และ **การหลั่งน้ำลาย conditioned ได้ง่าย เช่นการทดลองคลาสสิกของ Pavlov ที่สุนัขถูก condition ให้หลั่งน้ำลายเมื่อได้ยินเสียงกระดิ่ง**"
-          },
+          "**การหลั่งน้ำลายถูกควบคุมด้วย neural influences แทบทั้งหมด โดย parasympathetic branch ของ autonomic nervous system มีบทบาทเด่นที่สุด** ส่วน sympathetic input ปรับองค์ประกอบเล็กน้อย (เพิ่ม proteinaceous content) แต่มีผลต่อ volume น้อยมาก",
+          "การหลั่งถูกกระตุ้นด้วย reflexes จากการเคี้ยว แต่เริ่มขึ้นตั้งแต่ก่อนอาหารเข้าปากด้วย central triggers จากการคิดถึง เห็น หรือได้กลิ่นอาหาร และ **การหลั่งน้ำลาย conditioned ได้ง่าย เช่นการทดลองคลาสสิกของ Pavlov ที่สุนัขถูก condition ให้หลั่งน้ำลายเมื่อได้ยินเสียงกระดิ่ง**",
           {
             "bullets": [
               "nausea กระตุ้นการหลั่งน้ำลาย",
@@ -987,23 +911,17 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "buffers ในน้ำลายรักษา oral pH ไว้ที่ประมาณ 7.0"
                 ]
               },
-              {
-                "text": "ผู้ป่วยที่หลั่งน้ำลายบกพร่อง (**xerostomia**) มีอุบัติการณ์ dental caries สูงกว่าปกติ"
-              }
+              "ผู้ป่วยที่หลั่งน้ำลายบกพร่อง (**xerostomia**) มีอุบัติการณ์ dental caries สูงกว่าปกติ"
             ]
           },
-          {
-            "text": "caption ของ Figure 25-4 ระบุว่ารูปแสดงการควบคุมโดย parasympathetic nervous system (ACh = acetylcholine) และว่า sublingual glands ซึ่งไม่ได้วาดไว้ในรูปเป็นตัวที่มีส่วนร่วมน้อยที่สุดทั้งใน resting และ stimulated salivary flow"
-          }
+          "caption ของ Figure 25-4 ระบุว่ารูปแสดงการควบคุมโดย parasympathetic nervous system (ACh = acetylcholine) และว่า sublingual glands ซึ่งไม่ได้วาดไว้ในรูปเป็นตัวที่มีส่วนร่วมน้อยที่สุดทั้งใน resting และ stimulated salivary flow"
         ]
       },
       {
         "heading": "Gastric secretion: กายวิภาคของต่อมในกระเพาะอาหาร",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.5",
         "body": [
-          {
-            "text": "อาหารถูกเก็บใน stomach ผสมกับ acid, mucus และ pepsin แล้วปล่อยเข้าสู่ duodenum ในอัตราที่ควบคุมและสม่ำเสมอ"
-          },
+          "อาหารถูกเก็บใน stomach ผสมกับ acid, mucus และ pepsin แล้วปล่อยเข้าสู่ duodenum ในอัตราที่ควบคุมและสม่ำเสมอ",
           {
             "bullets": [
               "gastric mucosa มี deep glands จำนวนมาก",
@@ -1014,21 +932,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               "mucus cells ที่ผิว epithelium ระหว่างต่อมหลั่ง mucus พร้อมกับ HCO3−"
             ]
           },
-          {
-            "text": "caption ของ Figure 25-6 ระบุว่าต่อมที่สร้าง acid และ pepsinogen ในบางตำราเรียกว่า **oxyntic glands** และเรียก parietal cells ว่า oxyntic cells ส่วน ECL ย่อมาจาก enterochromaffin-like"
-          },
-          {
-            "text": "กระเพาะมี blood และ lymphatic supply มาก **parasympathetic nerve supply มาจาก vagi และ sympathetic supply มาจาก celiac plexus** (หน้า 7)"
-          }
+          "caption ของ Figure 25-6 ระบุว่าต่อมที่สร้าง acid และ pepsinogen ในบางตำราเรียกว่า **oxyntic glands** และเรียก parietal cells ว่า oxyntic cells ส่วน ECL ย่อมาจาก enterochromaffin-like",
+          "กระเพาะมี blood และ lymphatic supply มาก **parasympathetic nerve supply มาจาก vagi และ sympathetic supply มาจาก celiac plexus** (หน้า 7)"
         ]
       },
       {
         "heading": "สามระยะของการหลั่งน้ำย่อยกระเพาะ และสิ่งที่แต่ละเซลล์หลั่ง",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.7",
         "body": [
-          {
-            "text": "เช่นเดียวกับน้ำลาย กระเพาะเตรียมตัวรับอาหารก่อนอาหารเข้าจริง แบ่งเป็น 3 ระยะ:"
-          },
+          "เช่นเดียวกับน้ำลาย กระเพาะเตรียมตัวรับอาหารก่อนอาหารเข้าจริง แบ่งเป็น 3 ระยะ:",
           {
             "bullets": [
               "cephalic phase ซึ่งได้รับอิทธิพลจากความชอบอาหาร (food preferences)",
@@ -1036,9 +948,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "intestinal phase หลังอาหารออกจากกระเพาะไปแล้ว"
             ]
           },
-          {
-            "text": "แต่ละระยะถูกควบคุมอย่างใกล้ชิดด้วย triggers ทั้งแบบ local และ distant"
-          },
+          "แต่ละระยะถูกควบคุมอย่างใกล้ชิดด้วย triggers ทั้งแบบ local และ distant",
           {
             "sub": "แหล่งของ gastric secretions",
             "body": [
@@ -1049,9 +959,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "chief cells หลั่ง pepsinogens และ gastric lipase"
                 ]
               },
-              {
-                "text": "**acid จาก parietal cells ทำหน้าที่ sterilize อาหาร และเริ่ม hydrolysis โดยเฉพาะของ dietary protein ส่วน intrinsic factor สำคัญต่อการดูดซึม vitamin B12 (cobalamin) ในภายหลัง** pepsinogen เป็น precursor ของ pepsin ซึ่งเริ่มการย่อยโปรตีน และ lipase เริ่มการย่อยไขมัน"
-              }
+              "**acid จาก parietal cells ทำหน้าที่ sterilize อาหาร และเริ่ม hydrolysis โดยเฉพาะของ dietary protein ส่วน intrinsic factor สำคัญต่อการดูดซึม vitamin B12 (cobalamin) ในภายหลัง** pepsinogen เป็น precursor ของ pepsin ซึ่งเริ่มการย่อยโปรตีน และ lipase เริ่มการย่อยไขมัน"
             ]
           },
           {
@@ -1075,15 +983,9 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "สามตัวกระตุ้นการหลั่งกรด: gastrin, histamine, acetylcholine",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.8",
         "body": [
-          {
-            "text": "**Gastrin** เป็นฮอร์โมนที่ถูกปล่อยจาก **G cells ใน antrum** ทั้งจากการตอบสนองต่อ neurotransmitter จากปลายประสาท enteric ที่ชื่อ **gastrin-releasing peptide (GRP)** และจากการมี oligopeptides ใน gastric lumen"
-          },
-          {
-            "text": "gastrin ถูกลำเลียงทางกระแสเลือดไปยัง fundic glands จับกับ receptors บน parietal cells (และน่าจะรวม chief cells) เพื่อกระตุ้นการหลั่ง และจับกับ **enterochromaffin-like cells (ECL cells)** ในต่อมซึ่งจะปล่อย **histamine** ออกมา histamine เป็นตัวกระตุ้น parietal cell อีกทางผ่านการจับ **H2-receptors**"
-          },
-          {
-            "text": "ท้ายที่สุด parietal และ chief cells ยังถูกกระตุ้นด้วย **acetylcholine** ที่ปล่อยจากปลายประสาท enteric ใน fundus ได้ด้วย"
-          },
+          "**Gastrin** เป็นฮอร์โมนที่ถูกปล่อยจาก **G cells ใน antrum** ทั้งจากการตอบสนองต่อ neurotransmitter จากปลายประสาท enteric ที่ชื่อ **gastrin-releasing peptide (GRP)** และจากการมี oligopeptides ใน gastric lumen",
+          "gastrin ถูกลำเลียงทางกระแสเลือดไปยัง fundic glands จับกับ receptors บน parietal cells (และน่าจะรวม chief cells) เพื่อกระตุ้นการหลั่ง และจับกับ **enterochromaffin-like cells (ECL cells)** ในต่อมซึ่งจะปล่อย **histamine** ออกมา histamine เป็นตัวกระตุ้น parietal cell อีกทางผ่านการจับ **H2-receptors**",
+          "ท้ายที่สุด parietal และ chief cells ยังถูกกระตุ้นด้วย **acetylcholine** ที่ปล่อยจากปลายประสาท enteric ใน fundus ได้ด้วย",
           {
             "callout": "caption ของ Figure 25-7 ระบุตรงว่า agonists จำเพาะตัวอื่นของ chief cell ยังเข้าใจกันไม่ดี (not well understood) และการปล่อย gastrin ถูก negatively regulated ด้วยความเป็นกรดใน lumen ผ่านการปล่อย somatostatin จาก antral D cells",
             "kind": "flag"
@@ -1091,9 +993,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "cephalic phase",
             "body": [
-              {
-                "text": "การหลั่งช่วง cephalic phase ถูกกระตุ้นเป็นหลักด้วย vagal input ที่มาจากสมองส่วน **dorsal vagal complex** ซึ่งประสานสัญญาณจาก higher centers vagal outflow ไปกระเพาะจะปล่อย GRP และ acetylcholine เพื่อเริ่มการหลั่ง แต่ก่อนอาหารเข้ากระเพาะยังมี triggers อื่นน้อย **ปริมาณการหลั่งในระยะนี้จึงจำกัด**"
-              }
+              "การหลั่งช่วง cephalic phase ถูกกระตุ้นเป็นหลักด้วย vagal input ที่มาจากสมองส่วน **dorsal vagal complex** ซึ่งประสานสัญญาณจาก higher centers vagal outflow ไปกระเพาะจะปล่อย GRP และ acetylcholine เพื่อเริ่มการหลั่ง แต่ก่อนอาหารเข้ากระเพาะยังมี triggers อื่นน้อย **ปริมาณการหลั่งในระยะนี้จึงจำกัด**"
             ]
           }
         ]
@@ -1102,12 +1002,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Gastric phase และการปิดการหลั่งด้วย somatostatin",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.9",
         "body": [
-          {
-            "text": "เมื่อกลืนอาหารลงไปแล้ว องค์ประกอบของอาหารกระตุ้นการปล่อย gastrin อย่างมาก และ **การมีอาหารอยู่จริงยังทำให้กระเพาะขยาย (distends) กระตุ้น stretch receptors ซึ่งกระตุ้น vago-vagal reflex และ local reflexes ที่ยิ่งขยายการหลั่งใน gastric phase**"
-          },
-          {
-            "text": "การมีอาหารอยู่ยัง buffer ความเป็นกรดของกระเพาะด้วย ถ้าไม่มีอาหาร ความเป็นกรดจะทำหน้าที่เป็น **feedback inhibitory signal** ปิดการหลั่ง โดยผ่านการปล่อย **somatostatin ซึ่งยับยั้งทั้ง G cells, ECL cells และการหลั่งของ parietal cells เอง**"
-          },
+          "เมื่อกลืนอาหารลงไปแล้ว องค์ประกอบของอาหารกระตุ้นการปล่อย gastrin อย่างมาก และ **การมีอาหารอยู่จริงยังทำให้กระเพาะขยาย (distends) กระตุ้น stretch receptors ซึ่งกระตุ้น vago-vagal reflex และ local reflexes ที่ยิ่งขยายการหลั่งใน gastric phase**",
+          "การมีอาหารอยู่ยัง buffer ความเป็นกรดของกระเพาะด้วย ถ้าไม่มีอาหาร ความเป็นกรดจะทำหน้าที่เป็น **feedback inhibitory signal** ปิดการหลั่ง โดยผ่านการปล่อย **somatostatin ซึ่งยับยั้งทั้ง G cells, ECL cells และการหลั่งของ parietal cells เอง**",
           {
             "callout": "กลไก somatostatin นี้น่าจะเป็นกลไกสำคัญที่ทำให้ gastric secretion ยุติลงหลังอาหารเคลื่อนจากกระเพาะเข้าสู่ small intestine",
             "kind": "tip"
@@ -1118,9 +1014,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Parietal cell: proton pump, tubulovesicles และ canaliculi",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.9",
         "body": [
-          {
-            "text": "parietal cells ถูกออกแบบมาเฉพาะสำหรับงานผิดปกติคือหลั่งกรดเข้มข้น เซลล์อัดแน่นด้วย mitochondria ที่ให้พลังงานขับ **apical H+, K+-ATPase หรือ proton pump ซึ่งดัน H+ ออกจากเซลล์ทวน concentration gradient มากกว่าล้านเท่า**"
-          },
+          "parietal cells ถูกออกแบบมาเฉพาะสำหรับงานผิดปกติคือหลั่งกรดเข้มข้น เซลล์อัดแน่นด้วย mitochondria ที่ให้พลังงานขับ **apical H+, K+-ATPase หรือ proton pump ซึ่งดัน H+ ออกจากเซลล์ทวน concentration gradient มากกว่าล้านเท่า**",
           {
             "bullets": [
               "ขณะพัก proton pumps ถูกเก็บไว้ในเซลล์ในถุงเยื่อชุดหนึ่งเรียกว่า tubulovesicles",
@@ -1129,27 +1023,21 @@ export const NOTES_Y2_PHYSIO_3 = {
               "การหลั่ง protons มาพร้อมกับการปล่อย bicarbonate ions จำนวนเท่ากันเข้าสู่กระแสเลือด ซึ่งจะถูกนำไป neutralize กรดในกระเพาะภายหลังเมื่อกรดทำหน้าที่เสร็จแล้ว"
             ]
           },
-          {
-            "text": "caption ของ Figure 25-10 ระบุว่า protons ถูกสร้างใน cytoplasm ด้วยการทำงานของ **carbonic anhydrase II** และ bicarbonate ถูกส่งออกทาง basolateral pole ผ่าน vesicular fusion หรือผ่าน chloride/bicarbonate exchanger ส่วน **NHE1** ที่ basolateral membrane ถือเป็น housekeeping transporter ที่รักษา intracellular pH ในภาวะไม่ถูกกระตุ้น (หน้า 10)"
-          }
+          "caption ของ Figure 25-10 ระบุว่า protons ถูกสร้างใน cytoplasm ด้วยการทำงานของ **carbonic anhydrase II** และ bicarbonate ถูกส่งออกทาง basolateral pole ผ่าน vesicular fusion หรือผ่าน chloride/bicarbonate exchanger ส่วน **NHE1** ที่ basolateral membrane ถือเป็น housekeeping transporter ที่รักษา intracellular pH ในภาวะไม่ถูกกระตุ้น (หน้า 10)"
         ]
       },
       {
         "heading": "Second messengers ของ parietal cell และ synergism",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.10",
         "body": [
-          {
-            "text": "agonists ทั้งสามของ parietal cell คือ gastrin, histamine และ acetylcholine ต่างจับกับ receptors คนละตัวบน basolateral membrane"
-          },
+          "agonists ทั้งสามของ parietal cell คือ gastrin, histamine และ acetylcholine ต่างจับกับ receptors คนละตัวบน basolateral membrane",
           {
             "bullets": [
               "**gastrin และ acetylcholine กระตุ้นการหลั่งโดยเพิ่ม cytosolic free calcium**",
               "**histamine เพิ่ม intracellular cyclic AMP (cAMP)**"
             ]
           },
-          {
-            "text": "**สองวิถีนี้เป็น synergistic คือรวมกันแล้วได้ผลมากกว่าผลบวก (greater than additive)** เมื่อ histamine กับ gastrin หรือ acetylcholine หรือทั้งสามตัวมีพร้อมกัน"
-          },
+          "**สองวิถีนี้เป็น synergistic คือรวมกันแล้วได้ผลมากกว่าผลบวก (greater than additive)** เมื่อ histamine กับ gastrin หรือ acetylcholine หรือทั้งสามตัวมีพร้อมกัน",
           {
             "sub": "ความสำคัญของ synergism",
             "body": [
@@ -1167,9 +1055,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Clinical Box 25-1 Peptic ulcer disease",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.11",
         "body": [
-          {
-            "text": "gastric และ duodenal ulceration ในคนเกี่ยวข้องเป็นหลักกับ **การพังของ barrier ที่ปกติป้องกัน mucosa จากการระคายและการย่อยตัวเองโดย gastric secretions**"
-          },
+          "gastric และ duodenal ulceration ในคนเกี่ยวข้องเป็นหลักกับ **การพังของ barrier ที่ปกติป้องกัน mucosa จากการระคายและการย่อยตัวเองโดย gastric secretions**",
           {
             "bullets": [
               "การติดเชื้อ Helicobacter pylori ทำลาย barrier นี้",
@@ -1196,12 +1082,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปริมาณน้ำย่อยกระเพาะ และความ dispensable ของมัน",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.11",
         "body": [
-          {
-            "text": "gastric secretion เพิ่มของเหลวเข้าสู่ลำไส้ประมาณ **2.5 L ต่อวัน**"
-          },
-          {
-            "text": "แม้จะมีปริมาณมากและควบคุมละเอียด แต่ **gastric secretions เป็นสิ่งที่ dispensable สำหรับการย่อยและดูดซึมอาหารอย่างครบถ้วน ยกเว้นการดูดซึม cobalamin** ซึ่งสะท้อนหลักการสำคัญข้อหนึ่งของ gastrointestinal physiology คือ digestive และ absorptive capacities มีมากเกินความต้องการปกติอย่างชัดเจน"
-          },
+          "gastric secretion เพิ่มของเหลวเข้าสู่ลำไส้ประมาณ **2.5 L ต่อวัน**",
+          "แม้จะมีปริมาณมากและควบคุมละเอียด แต่ **gastric secretions เป็นสิ่งที่ dispensable สำหรับการย่อยและดูดซึมอาหารอย่างครบถ้วน ยกเว้นการดูดซึม cobalamin** ซึ่งสะท้อนหลักการสำคัญข้อหนึ่งของ gastrointestinal physiology คือ digestive และ absorptive capacities มีมากเกินความต้องการปกติอย่างชัดเจน",
           {
             "callout": "แต่ถ้า gastric secretion ลดลงเรื้อรัง คนคนนั้นอาจมีความไวต่อการติดเชื้อที่เข้าทางปาก (oral route) เพิ่มขึ้น",
             "kind": "warn"
@@ -1228,21 +1110,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               "intestinal mucosa: maltase, lactase, sucrase, isomaltase, dipeptidases และ nuclease and related enzymes"
             ]
           },
-          {
-            "text": "หมายเหตุใต้ตารางระบุว่า proenzymes ที่เกี่ยวข้องเขียนไว้ในวงเล็บ และว่า **sucrase กับ isomaltase เป็น separate subunits ของโปรตีนตัวเดียวกัน** (หน้า 13)"
-          }
+          "หมายเหตุใต้ตารางระบุว่า proenzymes ที่เกี่ยวข้องเขียนไว้ในวงเล็บ และว่า **sucrase กับ isomaltase เป็น separate subunits ของโปรตีนตัวเดียวกัน** (หน้า 13)"
         ]
       },
       {
         "heading": "กายวิภาคของ exocrine pancreas และทางเดินท่อ",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.13",
         "body": [
-          {
-            "text": "ส่วนของ pancreas ที่หลั่ง pancreatic juice เป็น **compound alveolar gland ที่คล้าย salivary glands** ต้องแยกจาก **endocrine pancreas ที่สร้าง insulin และฮอร์โมนอื่นจาก islets of Langerhans** แม้ทั้งสองส่วนอยู่ในอวัยวะเดียวกัน"
-          },
-          {
-            "text": "granules ที่บรรจุ digestive enzymes เรียกว่า **zymogen granules** ถูกสร้างในเซลล์และปล่อยออกด้วย exocytosis จากยอดเซลล์เข้าสู่ lumen ของ pancreatic ducts"
-          },
+          "ส่วนของ pancreas ที่หลั่ง pancreatic juice เป็น **compound alveolar gland ที่คล้าย salivary glands** ต้องแยกจาก **endocrine pancreas ที่สร้าง insulin และฮอร์โมนอื่นจาก islets of Langerhans** แม้ทั้งสองส่วนอยู่ในอวัยวะเดียวกัน",
+          "granules ที่บรรจุ digestive enzymes เรียกว่า **zymogen granules** ถูกสร้างในเซลล์และปล่อยออกด้วย exocytosis จากยอดเซลล์เข้าสู่ lumen ของ pancreatic ducts",
           {
             "bullets": [
               "ท่อเล็กรวมกันเป็นท่อเดียวคือ pancreatic duct of Wirsung",
@@ -1256,12 +1132,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "องค์ประกอบของ pancreatic juice และการทำให้กรดเป็นกลาง",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.14",
         "body": [
-          {
-            "text": "**pancreatic juice เป็น alkaline และมี HCO3− สูง ประมาณ 113 mEq/L เทียบกับ 24 mEq/L ใน plasma** หลั่งประมาณ **1500 mL ต่อวัน**"
-          },
-          {
-            "text": "**bile และ intestinal juices ก็เป็นกลางหรือด่าง ทั้งสามสารคัดหลั่งนี้รวมกัน neutralize กรดจากกระเพาะ ทำให้ pH ของสิ่งที่อยู่ใน duodenum ขึ้นมาที่ 6.0-7.0** และเมื่อ chyme ไปถึง jejunum pH จะเกือบเป็นกลาง"
-          },
+          "**pancreatic juice เป็น alkaline และมี HCO3− สูง ประมาณ 113 mEq/L เทียบกับ 24 mEq/L ใน plasma** หลั่งประมาณ **1500 mL ต่อวัน**",
+          "**bile และ intestinal juices ก็เป็นกลางหรือด่าง ทั้งสามสารคัดหลั่งนี้รวมกัน neutralize กรดจากกระเพาะ ทำให้ pH ของสิ่งที่อยู่ใน duodenum ขึ้นมาที่ 6.0-7.0** และเมื่อ chyme ไปถึง jejunum pH จะเกือบเป็นกลาง",
           {
             "sub": "Table 25-3 composition of normal human pancreatic juice",
             "body": [
@@ -1281,24 +1153,14 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การ activate เอนไซม์ตับอ่อน trypsin inhibitor และ acute pancreatitis",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.14",
         "body": [
-          {
-            "text": "เอนไซม์ส่วนใหญ่ใน pancreatic juice **ถูกปล่อยออกมาในรูป inactive และถูก activate เมื่อไปถึง intestinal lumen เท่านั้น** โดยเอนไซม์ถูก activate ผ่าน proteolytic cleavage ด้วย **trypsin ซึ่งเองก็ถูกปล่อยมาในรูป inactive precursor คือ trypsinogen**"
-          },
-          {
-            "text": "อันตรายของการปล่อย active trypsin แม้เพียงเล็กน้อยภายใน pancreas เห็นได้ชัด เพราะจะเกิด chain reaction สร้างเอนไซม์ active ที่ย่อยอวัยวะตัวเองได้ **จึงไม่น่าแปลกใจที่ pancreas หลั่ง trypsin inhibitor ออกมาด้วยตามปกติ**"
-          },
+          "เอนไซม์ส่วนใหญ่ใน pancreatic juice **ถูกปล่อยออกมาในรูป inactive และถูก activate เมื่อไปถึง intestinal lumen เท่านั้น** โดยเอนไซม์ถูก activate ผ่าน proteolytic cleavage ด้วย **trypsin ซึ่งเองก็ถูกปล่อยมาในรูป inactive precursor คือ trypsinogen**",
+          "อันตรายของการปล่อย active trypsin แม้เพียงเล็กน้อยภายใน pancreas เห็นได้ชัด เพราะจะเกิด chain reaction สร้างเอนไซม์ active ที่ย่อยอวัยวะตัวเองได้ **จึงไม่น่าแปลกใจที่ pancreas หลั่ง trypsin inhibitor ออกมาด้วยตามปกติ**",
           {
             "sub": "phospholipase A2 กับสมมติฐานของ acute pancreatitis",
             "body": [
-              {
-                "text": "phospholipase A2 ซึ่งถูก activate ด้วย trypsin ตัด fatty acid ออกจาก phosphatidylcholine (PC) ได้เป็น lyso-PC ซึ่ง **ทำลาย cell membranes**"
-              },
-              {
-                "text": "มีสมมติฐานว่าใน acute pancreatitis ซึ่งเป็นโรครุนแรงและบางครั้งถึงตาย phospholipase A2 ถูก activate ก่อนเวลาใน pancreatic ducts เกิด lyso-PC จาก PC ที่เป็นองค์ประกอบปกติของ bile ทำให้เนื้อ pancreas ถูกทำลายและมี necrosis ของไขมันโดยรอบ"
-              },
-              {
-                "text": "ปกติมี pancreatic digestive enzymes รั่วเข้ากระแสเลือดเล็กน้อย แต่ใน acute pancreatitis ระดับในเลือดจะสูงขึ้นชัดเจน **การวัด plasma amylase หรือ lipase จึงมีค่าในการวินิจฉัยโรคนี้**"
-              }
+              "phospholipase A2 ซึ่งถูก activate ด้วย trypsin ตัด fatty acid ออกจาก phosphatidylcholine (PC) ได้เป็น lyso-PC ซึ่ง **ทำลาย cell membranes**",
+              "มีสมมติฐานว่าใน acute pancreatitis ซึ่งเป็นโรครุนแรงและบางครั้งถึงตาย phospholipase A2 ถูก activate ก่อนเวลาใน pancreatic ducts เกิด lyso-PC จาก PC ที่เป็นองค์ประกอบปกติของ bile ทำให้เนื้อ pancreas ถูกทำลายและมี necrosis ของไขมันโดยรอบ",
+              "ปกติมี pancreatic digestive enzymes รั่วเข้ากระแสเลือดเล็กน้อย แต่ใน acute pancreatitis ระดับในเลือดจะสูงขึ้นชัดเจน **การวัด plasma amylase หรือ lipase จึงมีค่าในการวินิจฉัยโรคนี้**"
             ]
           }
         ]
@@ -1307,9 +1169,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การควบคุมการหลั่ง pancreatic juice: secretin กับ CCK",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.14",
         "body": [
-          {
-            "text": "**การหลั่ง pancreatic juice อยู่ใต้การควบคุมของฮอร์โมนเป็นหลัก** โดยควบคุมบางส่วนด้วย reflex mechanism และบางส่วนด้วยฮอร์โมน secretin และ cholecystokinin (CCK)"
-          },
+          "**การหลั่ง pancreatic juice อยู่ใต้การควบคุมของฮอร์โมนเป็นหลัก** โดยควบคุมบางส่วนด้วย reflex mechanism และบางส่วนด้วยฮอร์โมน secretin และ cholecystokinin (CCK)",
           {
             "bullets": [
               "**secretin ออกฤทธิ์ที่ pancreatic ducts ทำให้หลั่งน้ำย่อยปริมาณมากที่เป็นด่างจัด rich ใน HCO3− แต่ poor ในเอนไซม์** ผลต่อ duct cells เกิดจากการเพิ่ม intracellular cAMP และ secretin ยังกระตุ้น bile secretion ด้วย",
@@ -1317,24 +1177,16 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ทั้งสองตัวทำงานร่วมกัน คือ CCK เติมเอนไซม์เข้าไป และ secretin ทำให้เอนไซม์ถูกชะล้างเข้าสู่ลำไส้ (หน้า 15)"
             ]
           },
-          {
-            "text": "จาก Figure 25-13 เมื่อ volume ของ pancreatic secretion เพิ่มขึ้น **ความเข้มข้นของ Cl− จะลดลงและ HCO3− จะเพิ่มขึ้นแบบสวนทางกัน** ทั้งนี้ HCO3− ถูกหลั่งที่ท่อเล็กแต่ถูกดูดกลับที่ท่อใหญ่โดยแลกกับ Cl− และขนาดของการแลกเปลี่ยนแปรผกผันกับอัตราการไหล ส่วนการที่ amylase concentration ลดลงในรูปนั้นสะท้อนการเจือจางเมื่อ volume เพิ่มขึ้น (หน้า 15)"
-          },
-          {
-            "text": "acetylcholine ก็ออกฤทธิ์ที่ acinar cells ผ่าน phospholipase C เหมือน CCK ทำให้ปล่อย zymogen granules และ **การกระตุ้น vagi ทำให้หลั่ง pancreatic juice ปริมาณน้อยที่ rich ในเอนไซม์** มีหลักฐานว่ามี conditioned reflex secretion ของ pancreatic juice ผ่าน vagus เมื่อเห็นหรือได้กลิ่นอาหาร (หน้า 16)"
-          },
-          {
-            "text": "caption ของ Figure 25-14 ระบุตัวขนส่งที่ pancreatic duct cells ได้แก่ **CFTR** (cystic fibrosis transmembrane conductance regulator), **NHE-1** (sodium/hydrogen exchanger-1) และ **NBC** (sodium-bicarbonate cotransporter)"
-          }
+          "จาก Figure 25-13 เมื่อ volume ของ pancreatic secretion เพิ่มขึ้น **ความเข้มข้นของ Cl− จะลดลงและ HCO3− จะเพิ่มขึ้นแบบสวนทางกัน** ทั้งนี้ HCO3− ถูกหลั่งที่ท่อเล็กแต่ถูกดูดกลับที่ท่อใหญ่โดยแลกกับ Cl− และขนาดของการแลกเปลี่ยนแปรผกผันกับอัตราการไหล ส่วนการที่ amylase concentration ลดลงในรูปนั้นสะท้อนการเจือจางเมื่อ volume เพิ่มขึ้น (หน้า 15)",
+          "acetylcholine ก็ออกฤทธิ์ที่ acinar cells ผ่าน phospholipase C เหมือน CCK ทำให้ปล่อย zymogen granules และ **การกระตุ้น vagi ทำให้หลั่ง pancreatic juice ปริมาณน้อยที่ rich ในเอนไซม์** มีหลักฐานว่ามี conditioned reflex secretion ของ pancreatic juice ผ่าน vagus เมื่อเห็นหรือได้กลิ่นอาหาร (หน้า 16)",
+          "caption ของ Figure 25-14 ระบุตัวขนส่งที่ pancreatic duct cells ได้แก่ **CFTR** (cystic fibrosis transmembrane conductance regulator), **NHE-1** (sodium/hydrogen exchanger-1) และ **NBC** (sodium-bicarbonate cotransporter)"
         ]
       },
       {
         "heading": "Biliary secretion: หน้าที่ของ bile และชนิดของ bile acids",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.16",
         "body": [
-          {
-            "text": "bile มาจาก liver **bile acids ในน้ำดีสำคัญต่อการย่อยและดูดซึมไขมัน** นอกจากนี้ bile ยังเป็น **excretory fluid สำคัญ** ที่ร่างกายใช้กำจัด lipid soluble end products ของ metabolism และ lipid soluble xenobiotics"
-          },
+          "bile มาจาก liver **bile acids ในน้ำดีสำคัญต่อการย่อยและดูดซึมไขมัน** นอกจากนี้ bile ยังเป็น **excretory fluid สำคัญ** ที่ร่างกายใช้กำจัด lipid soluble end products ของ metabolism และ lipid soluble xenobiotics",
           {
             "callout": "bile เป็นทางเดียวที่ร่างกายกำจัด cholesterol ได้ ไม่ว่าจะในรูปเดิมหรือหลังเปลี่ยนเป็น bile acids",
             "kind": "tip"
@@ -1350,9 +1202,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "primary กับ secondary bile acids",
             "body": [
-              {
-                "text": "bile acids ถูกสังเคราะห์จาก **cholesterol** และหลั่งเข้าน้ำดีในรูป conjugated กับ **glycine หรือ taurine** และมี steroid nucleus เช่นเดียวกับ vitamin D, cholesterol และ steroid hormones"
-              },
+              "bile acids ถูกสังเคราะห์จาก **cholesterol** และหลั่งเข้าน้ำดีในรูป conjugated กับ **glycine หรือ taurine** และมี steroid nucleus เช่นเดียวกับ vitamin D, cholesterol และ steroid hormones",
               {
                 "bullets": [
                   "**primary bile acids ที่สร้างในตับคือ cholic acid และ chenodeoxycholic acid**",
@@ -1369,12 +1219,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Micelles การดูดซึม bile acids และ enterohepatic circulation",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.17",
         "body": [
-          {
-            "text": "bile acids ลด surface tension และร่วมกับ phospholipids และ monoglycerides ทำให้เกิด **emulsification ของไขมัน** เตรียมพร้อมสำหรับการย่อยและดูดซึมใน small intestine"
-          },
-          {
-            "text": "bile acids เป็น **amphipathic** คือมีทั้งด้าน hydrophilic (จากพันธะ peptide ที่มีขั้ว กลุ่ม carboxyl และ hydroxyl) และด้าน hydrophobic จึงรวมกันเป็นแผ่นทรงกระบอกเรียกว่า **micelles** โดยหันด้าน hydrophilic ออกและด้าน hydrophobic เข้า **เมื่อเกินความเข้มข้นระดับหนึ่งที่เรียกว่า critical micellar concentration bile salts ทั้งหมดที่เติมลงไปจะรวมเป็น micelles**"
-          },
+          "bile acids ลด surface tension และร่วมกับ phospholipids และ monoglycerides ทำให้เกิด **emulsification ของไขมัน** เตรียมพร้อมสำหรับการย่อยและดูดซึมใน small intestine",
+          "bile acids เป็น **amphipathic** คือมีทั้งด้าน hydrophilic (จากพันธะ peptide ที่มีขั้ว กลุ่ม carboxyl และ hydroxyl) และด้าน hydrophobic จึงรวมกันเป็นแผ่นทรงกระบอกเรียกว่า **micelles** โดยหันด้าน hydrophilic ออกและด้าน hydrophobic เข้า **เมื่อเกินความเข้มข้นระดับหนึ่งที่เรียกว่า critical micellar concentration bile salts ทั้งหมดที่เติมลงไปจะรวมเป็น micelles**",
           {
             "sub": "การดูดซึมกลับ",
             "body": [
@@ -1388,21 +1234,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "bile acids ที่ถูกดูดซึมจะถูกส่งกลับตับทาง **portal vein** แล้วขับออกทางน้ำดีอีกครั้ง (enterohepatic circulation) ส่วนที่เสียไปกับอุจจาระถูกทดแทนด้วยการสังเคราะห์ที่ตับ **อัตราการสังเคราะห์ปกติคือ 0.2-0.4 g ต่อวัน bile acid pool ทั้งหมดประมาณ 3.5 g และหมุนเวียนซ้ำประมาณ 2 ครั้งต่อมื้ออาหาร หรือ 6-8 ครั้งต่อวัน** (หน้า 18)"
-          },
-          {
-            "text": "caption ของ Figure 25-17 ระบุว่า **fecal loss ต้องเท่ากับ hepatic synthesis ของ bile acids ที่ steady state** และมี bile acid ส่วนน้อยอยู่ใน systemic circulation เพราะ hepatocyte เก็บจาก portal blood ได้ไม่หมด"
-          }
+          "bile acids ที่ถูกดูดซึมจะถูกส่งกลับตับทาง **portal vein** แล้วขับออกทางน้ำดีอีกครั้ง (enterohepatic circulation) ส่วนที่เสียไปกับอุจจาระถูกทดแทนด้วยการสังเคราะห์ที่ตับ **อัตราการสังเคราะห์ปกติคือ 0.2-0.4 g ต่อวัน bile acid pool ทั้งหมดประมาณ 3.5 g และหมุนเวียนซ้ำประมาณ 2 ครั้งต่อมื้ออาหาร หรือ 6-8 ครั้งต่อวัน** (หน้า 18)",
+          "caption ของ Figure 25-17 ระบุว่า **fecal loss ต้องเท่ากับ hepatic synthesis ของ bile acids ที่ steady state** และมี bile acid ส่วนน้อยอยู่ใน systemic circulation เพราะ hepatocyte เก็บจาก portal blood ได้ไม่หมด"
         ]
       },
       {
         "heading": "สามกลไกของ gastrointestinal regulation",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.19",
         "body": [
-          {
-            "text": "หน้าที่ต่าง ๆ ของทางเดินอาหาร ทั้ง secretion, digestion, absorption และ motility ต้องถูกควบคุมอย่างบูรณาการ มี 3 modalities หลักที่ทำงานเสริมกัน:"
-          },
+          "หน้าที่ต่าง ๆ ของทางเดินอาหาร ทั้ง secretion, digestion, absorption และ motility ต้องถูกควบคุมอย่างบูรณาการ มี 3 modalities หลักที่ทำงานเสริมกัน:",
           {
             "bullets": [
               "**endocrine** คือปล่อยฮอร์โมนจาก triggers ที่มากับมื้ออาหาร ฮอร์โมนเดินทางทางกระแสเลือดไปเปลี่ยนการทำงานของทางเดินอาหารส่วนที่อยู่ไกลออกไป หรือของอวัยวะที่ระบายเข้ามาเช่น pancreas หรือทั้งสองอย่าง",
@@ -1410,18 +1250,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**neural** คือทั้ง extrinsic innervation ที่เชื่อมกับ CNS และ enteric nervous system ที่เป็นอิสระเป็นส่วนใหญ่ ประกอบด้วย sensory และ secretomotor neurons"
             ]
           },
-          {
-            "text": "enteric nervous system รวมสัญญาณจากส่วนกลางเข้ากับ gut แต่ก็ควบคุมการทำงานของ gut ได้เองตามการเปลี่ยนแปลงของ luminal environment **ในบางกรณีสารตัวเดียวกันทำหน้าที่ได้ทั้ง endocrine, paracrine และ neurocrine เช่น CCK**"
-          }
+          "enteric nervous system รวมสัญญาณจากส่วนกลางเข้ากับ gut แต่ก็ควบคุมการทำงานของ gut ได้เองตามการเปลี่ยนแปลงของ luminal environment **ในบางกรณีสารตัวเดียวกันทำหน้าที่ได้ทั้ง endocrine, paracrine และ neurocrine เช่น CCK**"
         ]
       },
       {
         "heading": "ตระกูลของฮอร์โมนทางเดินอาหาร และ enteroendocrine cells",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.19",
         "body": [
-          {
-            "text": "polypeptides ที่มี biological activity ซึ่งหลั่งจาก nerve cells และ gland cells ใน mucosa ออกฤทธิ์แบบ paracrine แต่ก็เข้าสู่กระแสเลือดด้วย เมื่อให้ฮอร์โมนขนาดสูง ฤทธิ์จะซ้อนทับกัน แต่ฤทธิ์ทางสรีรวิทยาจริงค่อนข้างแยกกันชัด"
-          },
+          "polypeptides ที่มี biological activity ซึ่งหลั่งจาก nerve cells และ gland cells ใน mucosa ออกฤทธิ์แบบ paracrine แต่ก็เข้าสู่กระแสเลือดด้วย เมื่อให้ฮอร์โมนขนาดสูง ฤทธิ์จะซ้อนทับกัน แต่ฤทธิ์ทางสรีรวิทยาจริงค่อนข้างแยกกันชัด",
           {
             "bullets": [
               "**gastrin family** สมาชิกหลักคือ gastrin และ CCK",
@@ -1429,18 +1265,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ยังมี regulatory peptides อื่นที่ไม่อยู่ในสองตระกูลนี้"
             ]
           },
-          {
-            "text": "มีการระบุ **enteroendocrine cells ที่หลั่งฮอร์โมนมากกว่า 15 ชนิด** ใน mucosa ของ stomach, small intestine และ colon หลายชนิดหลั่งฮอร์โมนเพียงตัวเดียวและเรียกด้วยตัวอักษร เช่น G cells, S cells ส่วนเซลล์ที่สร้าง serotonin หรือ histamine เรียกว่า **enterochromaffin cells** และ **ECL cells** ตามลำดับ"
-          }
+          "มีการระบุ **enteroendocrine cells ที่หลั่งฮอร์โมนมากกว่า 15 ชนิด** ใน mucosa ของ stomach, small intestine และ colon หลายชนิดหลั่งฮอร์โมนเพียงตัวเดียวและเรียกด้วยตัวอักษร เช่น G cells, S cells ส่วนเซลล์ที่สร้าง serotonin หรือ histamine เรียกว่า **enterochromaffin cells** และ **ECL cells** ตามลำดับ"
         ]
       },
       {
         "heading": "Gastrin",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.20",
         "body": [
-          {
-            "text": "gastrin สร้างจาก **G cells ใน antral portion ของ gastric mucosa** G cells รูปร่างคล้ายขวด ฐานกว้างบรรจุ gastrin granules จำนวนมาก ปลายแคบไปถึงผิว mucosa มี microvilli ยื่นเข้า lumen และมี receptors ที่ microvilli ทำหน้าที่รับสัญญาณการเปลี่ยนแปลงของสิ่งที่อยู่ในกระเพาะ เซลล์หลั่งฮอร์โมนอื่นในทางเดินอาหารมี morphology คล้ายกัน"
-          },
+          "gastrin สร้างจาก **G cells ใน antral portion ของ gastric mucosa** G cells รูปร่างคล้ายขวด ฐานกว้างบรรจุ gastrin granules จำนวนมาก ปลายแคบไปถึงผิว mucosa มี microvilli ยื่นเข้า lumen และมี receptors ที่ microvilli ทำหน้าที่รับสัญญาณการเปลี่ยนแปลงของสิ่งที่อยู่ในกระเพาะ เซลล์หลั่งฮอร์โมนอื่นในทางเดินอาหารมี morphology คล้ายกัน",
           {
             "sub": "รูปแบบโมเลกุล",
             "body": [
@@ -1454,12 +1286,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**ฤทธิ์ทางสรีรวิทยาหลักของ gastrin คือกระตุ้นการหลั่ง gastric acid และ pepsin และกระตุ้นการเจริญของ mucosa ของ stomach และทั้ง small และ large intestine (trophic action)**"
-          },
-          {
-            "text": "gastrin ออกฤทธิ์ผ่าน receptor **CCK-B** ซึ่งสัมพันธ์กับ receptor หลักของ cholecystokinin คือ **CCK-A** สะท้อนความคล้ายเชิงโครงสร้างของฮอร์โมนสองตัว และอาจทำให้ฤทธิ์ทับซ้อนกันถ้ามีฮอร์โมนตัวใดตัวหนึ่งมากผิดปกติ เช่นในกรณี gastrinoma"
-          }
+          "**ฤทธิ์ทางสรีรวิทยาหลักของ gastrin คือกระตุ้นการหลั่ง gastric acid และ pepsin และกระตุ้นการเจริญของ mucosa ของ stomach และทั้ง small และ large intestine (trophic action)**",
+          "gastrin ออกฤทธิ์ผ่าน receptor **CCK-B** ซึ่งสัมพันธ์กับ receptor หลักของ cholecystokinin คือ **CCK-A** สะท้อนความคล้ายเชิงโครงสร้างของฮอร์โมนสองตัว และอาจทำให้ฤทธิ์ทับซ้อนกันถ้ามีฮอร์โมนตัวใดตัวหนึ่งมากผิดปกติ เช่นในกรณี gastrinoma"
         ]
       },
       {
@@ -1489,12 +1317,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การหลั่ง gastrin เพิ่มขึ้นจากการมี products of protein digestion ในกระเพาะ โดยเฉพาะ **amino acids ซึ่งออกฤทธิ์ตรงที่ G cells และ phenylalanine กับ tryptophan ได้ผลดีเป็นพิเศษ** (หน้า 20)"
-          },
-          {
-            "text": "**acid ใน antrum ยับยั้งการหลั่ง gastrin ส่วนหนึ่งโดยออกฤทธิ์ตรงที่ G cells และอีกส่วนโดยปล่อย somatostatin ซึ่งเป็นตัวยับยั้งที่ค่อนข้างแรง นี่คือฐานของ negative feedback loop** คือ gastrin เพิ่ม acid แล้ว acid ย้อนกลับมายับยั้ง gastrin"
-          },
+          "การหลั่ง gastrin เพิ่มขึ้นจากการมี products of protein digestion ในกระเพาะ โดยเฉพาะ **amino acids ซึ่งออกฤทธิ์ตรงที่ G cells และ phenylalanine กับ tryptophan ได้ผลดีเป็นพิเศษ** (หน้า 20)",
+          "**acid ใน antrum ยับยั้งการหลั่ง gastrin ส่วนหนึ่งโดยออกฤทธิ์ตรงที่ G cells และอีกส่วนโดยปล่อย somatostatin ซึ่งเป็นตัวยับยั้งที่ค่อนข้างแรง นี่คือฐานของ negative feedback loop** คือ gastrin เพิ่ม acid แล้ว acid ย้อนกลับมายับยั้ง gastrin",
           {
             "callout": "ในภาวะเช่น pernicious anemia ที่เซลล์หลั่งกรดของกระเพาะถูกทำลาย การหลั่ง gastrin จะสูงเรื้อรัง",
             "kind": "warn"
@@ -1505,9 +1329,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Cholecystokinin (CCK)",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.21",
         "body": [
-          {
-            "text": "CCK หลั่งจาก endocrine cells ที่เรียกว่า **I cells ใน mucosa ของ upper small intestine**"
-          },
+          "CCK หลั่งจาก endocrine cells ที่เรียกว่า **I cells ใน mucosa ของ upper small intestine**",
           {
             "sub": "ฤทธิ์ที่สำคัญที่สุด",
             "body": [
@@ -1533,9 +1355,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "นอกจากหลั่งจาก I cells ยังพบ CCK ในเส้นประสาทที่ distal ileum และ colon และในเซลล์ประสาทในสมองโดยเฉพาะ cerebral cortex รวมทั้งในเส้นประสาทหลายส่วนของร่างกาย **ในสมอง CCK อาจเกี่ยวข้องกับการควบคุม food intake**"
-          },
+          "นอกจากหลั่งจาก I cells ยังพบ CCK ในเส้นประสาทที่ distal ileum และ colon และในเซลล์ประสาทในสมองโดยเฉพาะ cerebral cortex รวมทั้งในเส้นประสาทหลายส่วนของร่างกาย **ในสมอง CCK อาจเกี่ยวข้องกับการควบคุม food intake**",
           {
             "sub": "ฤทธิ์เพิ่มเติมและ receptors (หน้า 22)",
             "body": [
@@ -1555,15 +1375,9 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "การควบคุมการหลั่ง CCK (หน้า 22)",
             "body": [
-              {
-                "text": "การหลั่ง CCK เพิ่มขึ้นเมื่อ intestinal mucosa สัมผัสกับ products of digestion โดยเฉพาะ peptides และ amino acids และเมื่อมี **fatty acids ที่มีคาร์บอนมากกว่า 10 อะตอมใน duodenum**"
-              },
-              {
-                "text": "มี protein-releasing factors สองตัวที่กระตุ้นการหลั่ง CCK คือ **CCK-releasing peptide (จาก intestinal mucosa) และ monitor peptide (จาก pancreas)** เพราะ bile และ pancreatic juice ที่เข้ามาตอบสนอง CCK ช่วยย่อยโปรตีนและไขมัน และผลผลิตของการย่อยไปกระตุ้น CCK ต่อ จึงเกิด **positive feedback**"
-              },
-              {
-                "text": "positive feedback นี้ยุติเมื่อผลผลิตการย่อยเคลื่อนไปยังส่วนล่างของทางเดินอาหาร และเพราะ CCK-releasing peptide กับ monitor peptide ถูกย่อยด้วย proteolytic enzymes เมื่อเอนไซม์เหล่านั้นไม่ได้ยุ่งอยู่กับการย่อยโปรตีนในอาหารแล้ว"
-              }
+              "การหลั่ง CCK เพิ่มขึ้นเมื่อ intestinal mucosa สัมผัสกับ products of digestion โดยเฉพาะ peptides และ amino acids และเมื่อมี **fatty acids ที่มีคาร์บอนมากกว่า 10 อะตอมใน duodenum**",
+              "มี protein-releasing factors สองตัวที่กระตุ้นการหลั่ง CCK คือ **CCK-releasing peptide (จาก intestinal mucosa) และ monitor peptide (จาก pancreas)** เพราะ bile และ pancreatic juice ที่เข้ามาตอบสนอง CCK ช่วยย่อยโปรตีนและไขมัน และผลผลิตของการย่อยไปกระตุ้น CCK ต่อ จึงเกิด **positive feedback**",
+              "positive feedback นี้ยุติเมื่อผลผลิตการย่อยเคลื่อนไปยังส่วนล่างของทางเดินอาหาร และเพราะ CCK-releasing peptide กับ monitor peptide ถูกย่อยด้วย proteolytic enzymes เมื่อเอนไซม์เหล่านั้นไม่ได้ยุ่งอยู่กับการย่อยโปรตีนในอาหารแล้ว"
             ]
           }
         ]
@@ -1572,9 +1386,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Secretin",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.22",
         "body": [
-          {
-            "text": "secretin มีตำแหน่งพิเศษในประวัติศาสตร์สรีรวิทยา **ปี 1902 Bayliss และ Starling แสดงให้เห็นเป็นครั้งแรกว่าผลกระตุ้นการหลั่งของตับอ่อนจากการกระตุ้น duodenum เกิดจาก bloodborne factor นำไปสู่การค้นพบฮอร์โมนตัวแรกคือ secretin**"
-          },
+          "secretin มีตำแหน่งพิเศษในประวัติศาสตร์สรีรวิทยา **ปี 1902 Bayliss และ Starling แสดงให้เห็นเป็นครั้งแรกว่าผลกระตุ้นการหลั่งของตับอ่อนจากการกระตุ้น duodenum เกิดจาก bloodborne factor นำไปสู่การค้นพบฮอร์โมนตัวแรกคือ secretin**",
           {
             "bullets": [
               "หลั่งจาก **S cells** ที่อยู่ลึกในต่อมของ mucosa ส่วนบนของ small intestine",
@@ -1594,9 +1406,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การหลั่ง secretin เพิ่มขึ้นจาก products of protein digestion และจาก **กรดที่อาบ mucosa ของ small intestine ส่วนบน** การปล่อย secretin ด้วยกรดเป็นอีกตัวอย่างของ feedback control คือ secretin ทำให้ alkaline pancreatic juice ไหลท่วม duodenum ทำให้กรดจากกระเพาะเป็นกลาง จึงยับยั้งการหลั่งฮอร์โมนตัวเองต่อไป"
-          }
+          "การหลั่ง secretin เพิ่มขึ้นจาก products of protein digestion และจาก **กรดที่อาบ mucosa ของ small intestine ส่วนบน** การปล่อย secretin ด้วยกรดเป็นอีกตัวอย่างของ feedback control คือ secretin ทำให้ alkaline pancreatic juice ไหลท่วม duodenum ทำให้กรดจากกระเพาะเป็นกลาง จึงยับยั้งการหลั่งฮอร์โมนตัวเองต่อไป"
         ]
       },
       {
@@ -1670,9 +1480,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Peptide YY",
             "body": [
-              {
-                "text": "**ยับยั้ง gastric acid secretion และ motility และเป็นตัวเต็งที่จะเป็น gastric inhibitory peptide ตัวจริง การปล่อยจาก jejunum ถูกกระตุ้นด้วยไขมัน**"
-              }
+              "**ยับยั้ง gastric acid secretion และ motility และเป็นตัวเต็งที่จะเป็น gastric inhibitory peptide ตัวจริง การปล่อยจาก jejunum ถูกกระตุ้นด้วยไขมัน**"
             ]
           },
           {
@@ -1720,30 +1528,22 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Enteric nervous system",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.24",
         "body": [
-          {
-            "text": "มี network ของเส้นประสาทสองชุดที่เป็น intrinsic ของทางเดินอาหาร คือ **myenteric plexus ระหว่างชั้นกล้ามเนื้อ longitudinal ด้านนอกกับ circular ตรงกลาง** และ **submucous plexus ระหว่างชั้น circular กับ mucosa** รวมกันเรียกว่า enteric nervous system"
-          },
-          {
-            "text": "**ระบบนี้มี sensory neurons, interneurons และ motor neurons ประมาณ 100 ล้านเซลล์ในคน ซึ่งมากพอ ๆ กับที่พบใน spinal cord ทั้งอัน** จึงมองได้ว่าเป็นส่วนของ CNS ที่ย้ายตำแหน่งมาดูแลการทำงานของทางเดินอาหาร และถูกเรียกว่า **little brain** เชื่อมกับ CNS ผ่าน parasympathetic และ sympathetic fibers แต่ทำงานเองได้โดยไม่ต้องมีการเชื่อมต่อเหล่านี้"
-          },
+          "มี network ของเส้นประสาทสองชุดที่เป็น intrinsic ของทางเดินอาหาร คือ **myenteric plexus ระหว่างชั้นกล้ามเนื้อ longitudinal ด้านนอกกับ circular ตรงกลาง** และ **submucous plexus ระหว่างชั้น circular กับ mucosa** รวมกันเรียกว่า enteric nervous system",
+          "**ระบบนี้มี sensory neurons, interneurons และ motor neurons ประมาณ 100 ล้านเซลล์ในคน ซึ่งมากพอ ๆ กับที่พบใน spinal cord ทั้งอัน** จึงมองได้ว่าเป็นส่วนของ CNS ที่ย้ายตำแหน่งมาดูแลการทำงานของทางเดินอาหาร และถูกเรียกว่า **little brain** เชื่อมกับ CNS ผ่าน parasympathetic และ sympathetic fibers แต่ทำงานเองได้โดยไม่ต้องมีการเชื่อมต่อเหล่านี้",
           {
             "bullets": [
               "**myenteric plexus เลี้ยงกล้ามเนื้อ longitudinal และ circular และเกี่ยวข้องกับ motor control เป็นหลัก**",
               "**submucous plexus เลี้ยง glandular epithelium, intestinal endocrine cells และ submucosal blood vessels และเกี่ยวข้องกับการควบคุม intestinal secretion เป็นหลัก**"
             ]
           },
-          {
-            "text": "neurotransmitters ในระบบนี้ได้แก่ acetylcholine, amines คือ norepinephrine และ serotonin, amino acid คือ GABA, purine คือ ATP, ก๊าซคือ NO และ CO และ peptides กับ polypeptides อีกหลายชนิด บางตัวออกฤทธิ์แบบ paracrine บางตัวเข้ากระแสเลือดกลายเป็นฮอร์โมน และส่วนใหญ่พบในสมองด้วย"
-          }
+          "neurotransmitters ในระบบนี้ได้แก่ acetylcholine, amines คือ norepinephrine และ serotonin, amino acid คือ GABA, purine คือ ATP, ก๊าซคือ NO และ CO และ peptides กับ polypeptides อีกหลายชนิด บางตัวออกฤทธิ์แบบ paracrine บางตัวเข้ากระแสเลือดกลายเป็นฮอร์โมน และส่วนใหญ่พบในสมองด้วย"
         ]
       },
       {
         "heading": "Extrinsic innervation และเลือดที่มาเลี้ยงลำไส้",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.24",
         "body": [
-          {
-            "text": "ลำไส้ได้รับ dual extrinsic innervation จาก autonomic nervous system โดย **parasympathetic cholinergic activity โดยทั่วไปเพิ่มการทำงานของ intestinal smooth muscle ส่วน sympathetic noradrenergic activity โดยทั่วไปลดการทำงานลงพร้อมกับทำให้ sphincters หดตัว**"
-          },
+          "ลำไส้ได้รับ dual extrinsic innervation จาก autonomic nervous system โดย **parasympathetic cholinergic activity โดยทั่วไปเพิ่มการทำงานของ intestinal smooth muscle ส่วน sympathetic noradrenergic activity โดยทั่วไปลดการทำงานลงพร้อมกับทำให้ sphincters หดตัว**",
           {
             "bullets": [
               "preganglionic parasympathetic fibers ประกอบด้วย **vagal efferents ประมาณ 2000 เส้น** และ efferents อื่นใน sacral nerves โดยทั่วไปไปสิ้นสุดที่ cholinergic nerve cells ของ myenteric และ submucous plexuses",
@@ -1752,9 +1552,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ยังมี fibers ที่เลี้ยง blood vessels ทำให้เกิด vasoconstriction"
             ]
           },
-          {
-            "text": "intestinal blood vessels ดูจะมี dual innervation คือ extrinsic noradrenergic innervation และ intrinsic innervation จาก enteric nervous system โดยมี **VIP และ NO เป็น mediators ของ intrinsic innervation ซึ่งน่าจะรับผิดชอบ hyperemia คือการเพิ่ม local blood flow ที่มาพร้อมกับการย่อยอาหาร**"
-          },
+          "intestinal blood vessels ดูจะมี dual innervation คือ extrinsic noradrenergic innervation และ intrinsic innervation จาก enteric nervous system โดยมี **VIP และ NO เป็น mediators ของ intrinsic innervation ซึ่งน่าจะรับผิดชอบ hyperemia คือการเพิ่ม local blood flow ที่มาพร้อมกับการย่อยอาหาร**",
           {
             "callout": "สไลด์ระบุว่ายังไม่ลงตัว (unsettled) ว่าหลอดเลือดเหล่านี้มี cholinergic innervation เพิ่มอีกชุดหรือไม่",
             "kind": "flag"
@@ -1765,12 +1563,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Mucosal immune system และ microbiota",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.25",
         "body": [
-          {
-            "text": "การที่ intestinal lumen ต่อเนื่องกับโลกภายนอกทำให้ระบบทางเดินอาหารเป็น **portal สำคัญของการติดเชื้อ** ขณะเดียวกันลำไส้ก็ได้ประโยชน์จาก **commensal bacteria** ที่ให้ metabolic functions ที่เป็นประโยชน์และน่าจะเพิ่มความต้านทานต่อเชื้อก่อโรค"
-          },
-          {
-            "text": "ภายใต้การกระตุ้นจากจุลชีพตลอดเวลา ลำไส้ของสัตว์เลี้ยงลูกด้วยนมจึงพัฒนากลไก innate และ adaptive immunity ที่ซับซ้อนเพื่อแยกมิตรจากศัตรู **intestinal mucosa มี lymphocytes มากกว่าที่พบในกระแสเลือด** และมี inflammatory cells จำนวนมากที่วางตัวพร้อมป้องกัน mucosa หากด่าน epithelium ถูกทะลุ"
-          },
+          "การที่ intestinal lumen ต่อเนื่องกับโลกภายนอกทำให้ระบบทางเดินอาหารเป็น **portal สำคัญของการติดเชื้อ** ขณะเดียวกันลำไส้ก็ได้ประโยชน์จาก **commensal bacteria** ที่ให้ metabolic functions ที่เป็นประโยชน์และน่าจะเพิ่มความต้านทานต่อเชื้อก่อโรค",
+          "ภายใต้การกระตุ้นจากจุลชีพตลอดเวลา ลำไส้ของสัตว์เลี้ยงลูกด้วยนมจึงพัฒนากลไก innate และ adaptive immunity ที่ซับซ้อนเพื่อแยกมิตรจากศัตรู **intestinal mucosa มี lymphocytes มากกว่าที่พบในกระแสเลือด** และมี inflammatory cells จำนวนมากที่วางตัวพร้อมป้องกัน mucosa หากด่าน epithelium ถูกทะลุ",
           {
             "callout": "immune cells และผลผลิตของมันน่าจะมีผลต่อการทำงานเชิงสรีรวิทยาของ epithelium, endocrine cells, nerves และ smooth muscle โดยเฉพาะช่วงติดเชื้อและเมื่อมี immune response ที่ไม่เหมาะสมยืดเยื้อ เช่นใน inflammatory bowel diseases",
             "kind": "warn"
@@ -1786,9 +1580,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "microbiota น่าจะเพิ่มความต้านทานต่อการ colonize ของเชื้อก่อโรค สอน mucosal immune system ในช่วงต้นหลังคลอด และส่งสัญญาณไปสมองที่เปลี่ยนพฤติกรรมได้"
                 ]
               },
-              {
-                "text": "เมื่อสมดุลของชุมชนจุลชีพเสียไป เรียกว่า **dysbiosis** จากโรคหรือจากการใช้ broad spectrum antibiotics อาจกระทบสรีรวิทยาของลำไส้หรือเปิดโอกาสให้เชื้อก่อโรคเข้ามา เช่น **Clostridium difficile ที่มักเจริญเกินในลำไส้ของผู้ป่วยในโรงพยาบาลที่ได้รับ antibiotics** ทำให้เกิดอาการทางเดินอาหารรุนแรงและกำจัดยากมาก โดยการศึกษาทางคลินิกล่าสุดพบว่าผู้ป่วยที่ติดเชื้อ C. difficile ซ้ำ ๆ มักได้ประโยชน์อย่างมากจากการปลูกถ่ายจุลชีพจากอุจจาระของผู้บริจาคที่สุขภาพดีผ่านการสวน (enema)"
-              }
+              "เมื่อสมดุลของชุมชนจุลชีพเสียไป เรียกว่า **dysbiosis** จากโรคหรือจากการใช้ broad spectrum antibiotics อาจกระทบสรีรวิทยาของลำไส้หรือเปิดโอกาสให้เชื้อก่อโรคเข้ามา เช่น **Clostridium difficile ที่มักเจริญเกินในลำไส้ของผู้ป่วยในโรงพยาบาลที่ได้รับ antibiotics** ทำให้เกิดอาการทางเดินอาหารรุนแรงและกำจัดยากมาก โดยการศึกษาทางคลินิกล่าสุดพบว่าผู้ป่วยที่ติดเชื้อ C. difficile ซ้ำ ๆ มักได้ประโยชน์อย่างมากจากการปลูกถ่ายจุลชีพจากอุจจาระของผู้บริจาคที่สุขภาพดีผ่านการสวน (enema)"
             ]
           }
         ]
@@ -1797,9 +1589,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Splanchnic circulation",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.25",
         "body": [
-          {
-            "text": "เลือดที่ไปเลี้ยง stomach, intestines, pancreas และ liver **จัดเรียงเป็น series of parallel circuits โดยเลือดทั้งหมดจากลำไส้และตับอ่อนระบายเข้า portal vein ไปยัง liver**"
-          },
+          "เลือดที่ไปเลี้ยง stomach, intestines, pancreas และ liver **จัดเรียงเป็น series of parallel circuits โดยเลือดทั้งหมดจากลำไส้และตับอ่อนระบายเข้า portal vein ไปยัง liver**",
           {
             "bullets": [
               "เลือดจาก intestines, pancreas และ spleen ระบายผ่าน hepatic portal vein ไป liver แล้วออกทาง hepatic veins สู่ inferior vena cava",
@@ -1817,9 +1607,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Water balance ในทางเดินอาหาร (Table 25-5)",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.26",
         "body": [
-          {
-            "text": "**ในแต่ละวันลำไส้ได้รับของเหลวที่กินเข้าไปประมาณ 2000 mL บวกกับ secretions อีก 7000 mL จาก mucosa ของทางเดินอาหารและต่อมที่เกี่ยวข้อง มี 98% ถูกดูดซึมกลับ เหลือสูญเสียไปกับอุจจาระเพียง 200 mL ต่อวัน**"
-          },
+          "**ในแต่ละวันลำไส้ได้รับของเหลวที่กินเข้าไปประมาณ 2000 mL บวกกับ secretions อีก 7000 mL จาก mucosa ของทางเดินอาหารและต่อมที่เกี่ยวข้อง มี 98% ถูกดูดซึมกลับ เหลือสูญเสียไปกับอุจจาระเพียง 200 mL ต่อวัน**",
           {
             "sub": "ตัวเลขใน Table 25-5 (หน่วย mL ต่อวัน, หน้า 27)",
             "body": [
@@ -1834,18 +1622,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**น้ำเคลื่อนเข้าออก lumen แบบ passive ตาม electrochemical gradients ที่สร้างโดย active transport ของ ions และ solutes อื่น** หลังมื้ออาหาร การดูดน้ำกลับส่วนใหญ่ขับเคลื่อนด้วย coupled transport ของ nutrients เช่น glucose ร่วมกับ sodium ส่วนช่วงระหว่างมื้อ กลไกการดูดซึมอาศัย electrolytes ล้วน ๆ และในทั้งสองกรณี secretory fluxes ถูกขับเคลื่อนด้วย **active transport ของ chloride เข้า lumen** เป็นหลัก แม้โดยรวมการดูดซึมจะเหนือกว่าเสมอ"
-          }
+          "**น้ำเคลื่อนเข้าออก lumen แบบ passive ตาม electrochemical gradients ที่สร้างโดย active transport ของ ions และ solutes อื่น** หลังมื้ออาหาร การดูดน้ำกลับส่วนใหญ่ขับเคลื่อนด้วย coupled transport ของ nutrients เช่น glucose ร่วมกับ sodium ส่วนช่วงระหว่างมื้อ กลไกการดูดซึมอาศัย electrolytes ล้วน ๆ และในทั้งสองกรณี secretory fluxes ถูกขับเคลื่อนด้วย **active transport ของ chloride เข้า lumen** เป็นหลัก แม้โดยรวมการดูดซึมจะเหนือกว่าเสมอ"
         ]
       },
       {
         "heading": "การดูดซึม Na+ แบบ electroneutral กับ electrogenic",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.27",
         "body": [
-          {
-            "text": "ใน small intestine **secondary active transport ของ Na+ สำคัญต่อการดูดซึม glucose, amino acids บางตัว และสารอื่นเช่น bile acids** และในทางกลับกัน **การมี glucose ใน intestinal lumen ช่วยให้ดูดซึม Na+ ได้ดีขึ้น**"
-          },
+          "ใน small intestine **secondary active transport ของ Na+ สำคัญต่อการดูดซึม glucose, amino acids บางตัว และสารอื่นเช่น bile acids** และในทางกลับกัน **การมี glucose ใน intestinal lumen ช่วยให้ดูดซึม Na+ ได้ดีขึ้น**",
           {
             "bullets": [
               "ช่วงระหว่างมื้อที่ไม่มี nutrients **sodium และ chloride ถูกดูดซึมพร้อมกันด้วยการทำงานคู่กันของ sodium/hydrogen exchanger (NHE) และ chloride/bicarbonate exchanger ที่ apical membrane เรียกว่า electroneutral mechanism** แล้วน้ำตามมาเพื่อรักษาสมดุล osmotic",
@@ -1853,18 +1637,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**เมื่อกินอาหาร low-salt การแสดงออกของ ENaC เพิ่มขึ้นตอบสนองต่อ aldosterone ทำให้กู้ sodium จากอุจจาระได้มากขึ้น**"
             ]
           },
-          {
-            "text": "caption ของ Figure 25-21 ระบุว่า chloride/bicarbonate exchanger คือ DRA (down-regulated in adenoma) หรือ PAT1 (putative anion transporter-1) มี putative potassium/chloride cotransporter (KCC1) ที่ basolateral membrane ให้ chloride ออก ส่วน sodium ถูกดันออกด้วย Na+, K+ ATPase (หน้า 28)"
-          }
+          "caption ของ Figure 25-21 ระบุว่า chloride/bicarbonate exchanger คือ DRA (down-regulated in adenoma) หรือ PAT1 (putative anion transporter-1) มี putative potassium/chloride cotransporter (KCC1) ที่ basolateral membrane ให้ chloride ออก ส่วน sodium ถูกดันออกด้วย Na+, K+ ATPase (หน้า 28)"
         ]
       },
       {
         "heading": "Chloride secretion: NKCC1 และ CFTR",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.28",
         "body": [
-          {
-            "text": "แม้กลไกดูดซึมจะเด่นกว่า แต่ **การหลั่งเกิดขึ้นต่อเนื่องตลอด small intestine และ colon เพื่อปรับความเหลวของสิ่งที่อยู่ในลำไส้ให้เหมาะกับการผสม การแพร่ และการเคลื่อนของอาหารและกาก**"
-          },
+          "แม้กลไกดูดซึมจะเด่นกว่า แต่ **การหลั่งเกิดขึ้นต่อเนื่องตลอด small intestine และ colon เพื่อปรับความเหลวของสิ่งที่อยู่ในลำไส้ให้เหมาะกับการผสม การแพร่ และการเคลื่อนของอาหารและกาก**",
           {
             "bullets": [
               "**Cl− เข้าสู่ enterocytes จาก interstitial fluid ผ่าน Na+-K+-2Cl− cotransporters (NKCC1) ที่ basolateral membrane**",
@@ -1878,9 +1658,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Clinical Box 25-2 Cholera และ oral rehydration",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.29",
         "body": [
-          {
-            "text": "cholera เป็น **secretory diarrheal disease รุนแรง** ที่มักระบาดพร้อมภัยพิบัติธรรมชาติซึ่งระบบสุขาภิบาลปกติล่มสลาย และร่วมกับโรคท้องเสียชนิด secretory อื่นจากแบคทีเรียและไวรัส ก่อ morbidity และ mortality จำนวนมาก โดยเฉพาะในเด็กเล็กและในประเทศกำลังพัฒนา"
-          },
+          "cholera เป็น **secretory diarrheal disease รุนแรง** ที่มักระบาดพร้อมภัยพิบัติธรรมชาติซึ่งระบบสุขาภิบาลปกติล่มสลาย และร่วมกับโรคท้องเสียชนิด secretory อื่นจากแบคทีเรียและไวรัส ก่อ morbidity และ mortality จำนวนมาก โดยเฉพาะในเด็กเล็กและในประเทศกำลังพัฒนา",
           {
             "sub": "กลไก",
             "body": [
@@ -1914,9 +1692,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Osmolality ในลำไส้และการจัดการ K+",
         "source": "Chapter 25 Overview of Gastrointestinal Function and Regulation p.30",
         "body": [
-          {
-            "text": "**น้ำเคลื่อนเข้าออกลำไส้จนกว่า osmotic pressure ของสิ่งที่อยู่ในลำไส้จะเท่ากับของ plasma** osmolality ของสิ่งที่อยู่ใน duodenum อาจ hypertonic หรือ hypotonic ขึ้นกับมื้ออาหาร แต่ **เมื่ออาหารเข้าสู่ jejunum osmolality จะใกล้เคียงกับ plasma** และคงระดับนี้ตลอด small intestine ที่เหลือ เพราะอนุภาคที่ osmotically active ที่เกิดจากการย่อยถูกดูดซึมออกไปและน้ำเคลื่อนออกจาก gut ตาม osmotic gradient ที่เกิดขึ้น ส่วนใน colon เมื่อ Na+ ถูกดูดซึม น้ำก็เคลื่อนตามไปแบบ passive ตาม osmotic gradient เช่นกัน"
-          },
+          "**น้ำเคลื่อนเข้าออกลำไส้จนกว่า osmotic pressure ของสิ่งที่อยู่ในลำไส้จะเท่ากับของ plasma** osmolality ของสิ่งที่อยู่ใน duodenum อาจ hypertonic หรือ hypotonic ขึ้นกับมื้ออาหาร แต่ **เมื่ออาหารเข้าสู่ jejunum osmolality จะใกล้เคียงกับ plasma** และคงระดับนี้ตลอด small intestine ที่เหลือ เพราะอนุภาคที่ osmotically active ที่เกิดจากการย่อยถูกดูดซึมออกไปและน้ำเคลื่อนออกจาก gut ตาม osmotic gradient ที่เกิดขึ้น ส่วนใน colon เมื่อ Na+ ถูกดูดซึม น้ำก็เคลื่อนตามไปแบบ passive ตาม osmotic gradient เช่นกัน",
           {
             "bullets": [
               "**saline cathartics เช่น magnesium sulfate เป็นเกลือที่ดูดซึมได้ไม่ดี จึงกักน้ำในปริมาณเทียบเท่า osmotic ไว้ในลำไส้ เพิ่ม intestinal volume และให้ฤทธิ์ระบาย**",
@@ -1969,9 +1745,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ภาพรวม: ทางเดินอาหารคือประตูเข้าของสารอาหาร",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.1",
         "body": [
-          {
-            "text": "gastrointestinal system คือ portal ที่สารอาหาร vitamins minerals และของเหลวเข้าสู่ร่างกาย proteins fats และ complex carbohydrates ถูกย่อยเป็นหน่วยที่ดูดซึมได้ (digested) **โดยหลักที่ small intestine แม้จะไม่ใช่ทั้งหมด** จากนั้นผลิตภัณฑ์ของการย่อยพร้อมกับ vitamins minerals และน้ำจะข้าม mucosa เข้าสู่ lymph หรือเลือด (absorption)"
-          },
+          "gastrointestinal system คือ portal ที่สารอาหาร vitamins minerals และของเหลวเข้าสู่ร่างกาย proteins fats และ complex carbohydrates ถูกย่อยเป็นหน่วยที่ดูดซึมได้ (digested) **โดยหลักที่ small intestine แม้จะไม่ใช่ทั้งหมด** จากนั้นผลิตภัณฑ์ของการย่อยพร้อมกับ vitamins minerals และน้ำจะข้าม mucosa เข้าสู่ lymph หรือเลือด (absorption)",
           {
             "sub": "แหล่งของ digestive enzymes ตามที่บทนี้เรียง",
             "body": [
@@ -1985,21 +1759,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การทำงานของเอนไซม์เหล่านี้อาศัย hydrochloric acid ที่หลั่งจากกระเพาะและ bile ที่หลั่งจากตับช่วย"
-          },
-          {
-            "text": "สารส่วนใหญ่ผ่านจาก intestinal lumen เข้า enterocytes แล้วออกจาก enterocytes สู่ interstitial fluid โดย **กระบวนการที่พาสารข้าม luminal cell membrane มักต่างจากกระบวนการที่พาข้าม basal และ lateral membrane**"
-          }
+          "การทำงานของเอนไซม์เหล่านี้อาศัย hydrochloric acid ที่หลั่งจากกระเพาะและ bile ที่หลั่งจากตับช่วย",
+          "สารส่วนใหญ่ผ่านจาก intestinal lumen เข้า enterocytes แล้วออกจาก enterocytes สู่ interstitial fluid โดย **กระบวนการที่พาสารข้าม luminal cell membrane มักต่างจากกระบวนการที่พาข้าม basal และ lateral membrane**"
         ]
       },
       {
         "heading": "Caloric intake และการกระจาย calorie",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.2",
         "body": [
-          {
-            "text": "อาหารที่ดี (optimal diet) นอกจากน้ำที่เพียงพอ ต้องมี calories, protein, fat, minerals และ vitamins อย่างเพียงพอ ค่าพลังงานของอาหารที่กินต้องใกล้เคียงกับพลังงานที่ใช้ ถ้าจะรักษาน้ำหนักตัวไว้"
-          },
+          "อาหารที่ดี (optimal diet) นอกจากน้ำที่เพียงพอ ต้องมี calories, protein, fat, minerals และ vitamins อย่างเพียงพอ ค่าพลังงานของอาหารที่กินต้องใกล้เคียงกับพลังงานที่ใช้ ถ้าจะรักษาน้ำหนักตัวไว้",
           {
             "bullets": [
               "basal needs ประมาณ **2000 kcal/d**",
@@ -2009,29 +1777,21 @@ export const NOTES_Y2_PHYSIO_3 = {
               "carbohydrate เป็นแหล่ง calorie ที่ถูกที่สุด และให้ 50% หรือมากกว่าของ calories ในอาหารส่วนใหญ่"
             ]
           },
-          {
-            "text": "ใน average middle-class American diet ประมาณ **50% ของ calories มาจาก carbohydrate, 15% จาก protein และ 35% จาก fat**"
-          },
+          "ใน average middle-class American diet ประมาณ **50% ของ calories มาจาก carbohydrate, 15% จาก protein และ 35% จาก fat**",
           {
             "sub": "ตัวอย่างการคำนวณตามบทนี้",
             "body": [
-              {
-                "text": "เวลาคำนวณความต้องการอาหาร ให้ตอบความต้องการ protein ก่อน แล้วค่อยแบ่ง calorie ที่เหลือระหว่าง fat กับ carbohydrate ตามรสนิยม รายได้ และปัจจัยอื่น ตัวอย่างในบท: ชาย 65 kg ที่ moderately active ต้องการประมาณ 2800 kcal/d ควรกิน protein อย่างน้อย 65 g ซึ่งให้ 267 kcal (65 x 4.1) ตัวเลข fat ที่สมเหตุสมผลคือ 50-60 g ส่วนที่เหลือเติมด้วย carbohydrate"
-              }
+              "เวลาคำนวณความต้องการอาหาร ให้ตอบความต้องการ protein ก่อน แล้วค่อยแบ่ง calorie ที่เหลือระหว่าง fat กับ carbohydrate ตามรสนิยม รายได้ และปัจจัยอื่น ตัวอย่างในบท: ชาย 65 kg ที่ moderately active ต้องการประมาณ 2800 kcal/d ควรกิน protein อย่างน้อย 65 g ซึ่งให้ 267 kcal (65 x 4.1) ตัวเลข fat ที่สมเหตุสมผลคือ 50-60 g ส่วนที่เหลือเติมด้วย carbohydrate"
             ]
           },
-          {
-            "text": "เรื่อง fat: ในชุมชน Central และ South American Indian ที่ใช้ corn (carbohydrate) เป็นอาหารหลัก ผู้ใหญ่อยู่ได้หลายปีโดยไม่มีผลเสียแม้กิน fat ต่ำมาก ดังนั้นถ้าได้ essential fatty acids (FA) เพียงพอ การกิน fat ต่ำดูจะไม่เป็นอันตราย และ diet ที่ต่ำใน saturated fats เป็นสิ่งที่พึงประสงค์"
-          }
+          "เรื่อง fat: ในชุมชน Central และ South American Indian ที่ใช้ corn (carbohydrate) เป็นอาหารหลัก ผู้ใหญ่อยู่ได้หลายปีโดยไม่มีผลเสียแม้กิน fat ต่ำมาก ดังนั้นถ้าได้ essential fatty acids (FA) เพียงพอ การกิน fat ต่ำดูจะไม่เป็นอันตราย และ diet ที่ต่ำใน saturated fats เป็นสิ่งที่พึงประสงค์"
         ]
       },
       {
         "heading": "Essential amino acids และคุณภาพของ protein (Grade I vs Grade II)",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.2",
         "body": [
-          {
-            "text": "**essential amino acids คือกรดอะมิโนที่ร่างกายมนุษย์สังเคราะห์เองไม่ได้ จึงต้องได้จาก dietary protein** บทนี้ระบุว่ามี 8 ตัว ตาม Table 26-1"
-          },
+          "**essential amino acids คือกรดอะมิโนที่ร่างกายมนุษย์สังเคราะห์เองไม่ได้ จึงต้องได้จาก dietary protein** บทนี้ระบุว่ามี 8 ตัว ตาม Table 26-1",
           {
             "sub": "Table 26-1 จัดกลุ่มตาม class",
             "body": [
@@ -2059,9 +1819,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Carbohydrate digestion ในช่วง luminal: alpha-amylase",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.3",
         "body": [
-          {
-            "text": "carbohydrate ในอาหารหลัก ๆ คือ polysaccharides, disaccharides และ monosaccharides โดย **starches (glucose polymers) และอนุพันธ์ เป็น polysaccharide ชนิดเดียวที่ถูกย่อยได้จริงในทางเดินอาหารมนุษย์ด้วยเอนไซม์ของมนุษย์**"
-          },
+          "carbohydrate ในอาหารหลัก ๆ คือ polysaccharides, disaccharides และ monosaccharides โดย **starches (glucose polymers) และอนุพันธ์ เป็น polysaccharide ชนิดเดียวที่ถูกย่อยได้จริงในทางเดินอาหารมนุษย์ด้วยเอนไซม์ของมนุษย์**",
           {
             "bullets": [
               "amylopectin ซึ่งเป็นราว **75% ของ dietary starch** เป็นโมเลกุลแบบ branched",
@@ -2069,12 +1827,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               "disaccharides ที่กิน ได้แก่ lactose (milk sugar) และ sucrose (table sugar) ส่วน monosaccharides ได้แก่ fructose และ glucose"
             ]
           },
-          {
-            "text": "ในปาก starch ถูกโจมตีโดย salivary alpha-amylase ซึ่งมี **optimal pH 6.7** แต่ยังทำงานได้บางส่วนเมื่อเข้าไปในกระเพาะแม้ gastric juice จะเป็นกรด เพราะ active site ถูกป้องกันบางส่วนเมื่อมี substrate อยู่"
-          },
-          {
-            "text": "ใน small intestine ทั้ง salivary และ pancreatic alpha-amylase ออกฤทธิ์ต่อ polysaccharides ทั้งคู่ **hydrolyze internal alpha1:4 linkages แต่ไม่แตะ alpha1:6 linkages และ terminal alpha1:4 linkages**"
-          },
+          "ในปาก starch ถูกโจมตีโดย salivary alpha-amylase ซึ่งมี **optimal pH 6.7** แต่ยังทำงานได้บางส่วนเมื่อเข้าไปในกระเพาะแม้ gastric juice จะเป็นกรด เพราะ active site ถูกป้องกันบางส่วนเมื่อมี substrate อยู่",
+          "ใน small intestine ทั้ง salivary และ pancreatic alpha-amylase ออกฤทธิ์ต่อ polysaccharides ทั้งคู่ **hydrolyze internal alpha1:4 linkages แต่ไม่แตะ alpha1:6 linkages และ terminal alpha1:4 linkages**",
           {
             "sub": "end products ของการย่อยด้วย alpha-amylase เป็น oligosaccharides",
             "body": [
@@ -2093,9 +1847,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Brush border oligosaccharidases และผลของการขาดเอนไซม์",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.3",
         "body": [
-          {
-            "text": "oligosaccharidases ที่ย่อยอนุพันธ์ของ starch ต่อ **อยู่ที่ brush border ของ small intestinal epithelial cells** และบางตัวมี substrate มากกว่าหนึ่งชนิด"
-          },
+          "oligosaccharidases ที่ย่อยอนุพันธ์ของ starch ต่อ **อยู่ที่ brush border ของ small intestinal epithelial cells** และบางตัวมี substrate มากกว่าหนึ่งชนิด",
           {
             "bullets": [
               "isomaltase รับผิดชอบ hydrolysis ของ alpha1:6 linkages เป็นหลัก และร่วมกับ maltase และ sucrase ย่อย maltotriose และ maltose ด้วย",
@@ -2111,9 +1863,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "เมื่อขาด brush border oligosaccharidase ตัวใดตัวหนึ่ง",
             "body": [
-              {
-                "text": "อาจเกิด diarrhea, bloating และ flatulence หลังกินน้ำตาล กลไกตามบทนี้คือ **diarrhea เกิดจากจำนวนโมเลกุล oligosaccharide ที่ osmotically active ค้างใน intestinal lumen มากขึ้น ทำให้ปริมาตรของ intestinal contents เพิ่ม** และใน colon แบคทีเรียย่อย oligosaccharides บางส่วนต่อ ยิ่งเพิ่มจำนวนอนุภาคที่ osmotically active ส่วน bloating และ flatulence เกิดจากการสร้างแก๊ส **CO2 และ H2** จากเศษ disaccharide ใน lower small intestine และ colon"
-              }
+              "อาจเกิด diarrhea, bloating และ flatulence หลังกินน้ำตาล กลไกตามบทนี้คือ **diarrhea เกิดจากจำนวนโมเลกุล oligosaccharide ที่ osmotically active ค้างใน intestinal lumen มากขึ้น ทำให้ปริมาตรของ intestinal contents เพิ่ม** และใน colon แบคทีเรียย่อย oligosaccharides บางส่วนต่อ ยิ่งเพิ่มจำนวนอนุภาคที่ osmotically active ส่วน bloating และ flatulence เกิดจากการสร้างแก๊ส **CO2 และ H2** จากเศษ disaccharide ใน lower small intestine และ colon"
             ]
           }
         ]
@@ -2122,24 +1872,18 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Clinical Box 26-1: Lactose intolerance",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.4",
         "body": [
-          {
-            "text": "ใน mammals ส่วนใหญ่และในมนุษย์หลายเชื้อชาติ **intestinal lactase activity สูงตอนแรกเกิด แล้วลดลงสู่ระดับต่ำในวัยเด็กและวัยผู้ใหญ่** ระดับ lactase ที่ต่ำนี้สัมพันธ์กับภาวะทนนมไม่ได้ (lactose intolerance)"
-          },
+          "ใน mammals ส่วนใหญ่และในมนุษย์หลายเชื้อชาติ **intestinal lactase activity สูงตอนแรกเกิด แล้วลดลงสู่ระดับต่ำในวัยเด็กและวัยผู้ใหญ่** ระดับ lactase ที่ต่ำนี้สัมพันธ์กับภาวะทนนมไม่ได้ (lactose intolerance)",
           {
             "bullets": [
               "ชาว Europeans ส่วนใหญ่และลูกหลานชาวอเมริกันของพวกเขายังคงมี lactase เพียงพอในวัยผู้ใหญ่ อุบัติการณ์ของ lactase deficiency ใน northern และ western Europeans เพียงประมาณ **15%**",
               "แต่อุบัติการณ์ใน blacks, American Indians, Asians และประชากรแถบ Mediterranean สูงถึง **70-100%**"
             ]
           },
-          {
-            "text": "เมื่อคนกลุ่มนี้กิน dairy products จะย่อย lactose ได้ไม่พอ จึงเกิดอาการ bloating, pain, gas และ diarrhea จาก unabsorbed osmoles ที่ถูก colonic bacteria ย่อยต่อ"
-          },
+          "เมื่อคนกลุ่มนี้กิน dairy products จะย่อย lactose ได้ไม่พอ จึงเกิดอาการ bloating, pain, gas และ diarrhea จาก unabsorbed osmoles ที่ถูก colonic bacteria ย่อยต่อ",
           {
             "sub": "Therapeutic highlights",
             "body": [
-              {
-                "text": "วิธีที่ง่ายที่สุดคือเลี่ยง dairy products แต่บางครั้งก็ทำได้ยาก อาการบรรเทาได้ด้วยการให้ commercial lactase preparations แต่ราคาแพง"
-              }
+              "วิธีที่ง่ายที่สุดคือเลี่ยง dairy products แต่บางครั้งก็ทำได้ยาก อาการบรรเทาได้ด้วยการให้ commercial lactase preparations แต่ราคาแพง"
             ]
           }
         ]
@@ -2148,12 +1892,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การดูดซึม hexoses และ SGLT-1",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.5",
         "body": [
-          {
-            "text": "hexoses ถูกดูดซึมอย่างรวดเร็วผ่านผนัง small intestine **แทบทั้งหมดถูกเอาออกไปก่อนที่เศษอาหารจะถึงส่วนปลายของ ileum** โมเลกุลน้ำตาลผ่านจาก mucosal cells เข้าสู่เลือดใน capillaries ที่ระบายลง portal vein"
-          },
-          {
-            "text": "การขนส่ง glucose และ galactose ขึ้นกับ Na+ ใน intestinal lumen โดย **Na+ ความเข้มข้นสูงที่ผิว mucosal ช่วยให้น้ำตาลไหลเข้าเซลล์ epithelial ส่วนความเข้มข้นต่ำจะยับยั้ง** เพราะน้ำตาลกลุ่มนี้กับ Na+ ใช้ cotransporter (symport) ตัวเดียวกัน คือ sodium-dependent glucose transporter (SGLT หรือ Na+ glucose cotransporter)"
-          },
+          "hexoses ถูกดูดซึมอย่างรวดเร็วผ่านผนัง small intestine **แทบทั้งหมดถูกเอาออกไปก่อนที่เศษอาหารจะถึงส่วนปลายของ ileum** โมเลกุลน้ำตาลผ่านจาก mucosal cells เข้าสู่เลือดใน capillaries ที่ระบายลง portal vein",
+          "การขนส่ง glucose และ galactose ขึ้นกับ Na+ ใน intestinal lumen โดย **Na+ ความเข้มข้นสูงที่ผิว mucosal ช่วยให้น้ำตาลไหลเข้าเซลล์ epithelial ส่วนความเข้มข้นต่ำจะยับยั้ง** เพราะน้ำตาลกลุ่มนี้กับ Na+ ใช้ cotransporter (symport) ตัวเดียวกัน คือ sodium-dependent glucose transporter (SGLT หรือ Na+ glucose cotransporter)",
           {
             "bullets": [
               "**SGLT-1 รับผิดชอบการนำ dietary glucose เข้าจากลำไส้**",
@@ -2170,12 +1910,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Secondary active transport, GLUT2 และเส้นทางของ fructose",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.6",
         "body": [
-          {
-            "text": "เพราะ intracellular Na+ ใน intestinal epithelial cells ต่ำ Na+ จึงเคลื่อนเข้าเซลล์ตาม concentration gradient และ glucose เคลื่อนตาม Na+ เข้ามาด้วย จากนั้น **Na+ ถูกส่งออกทาง basolateral โดย Na+, K+ ATPase** ส่วน glucose ที่เซลล์ไม่ต้องการจะออกจากเซลล์โดย facilitated diffusion ผ่าน **GLUT2** เข้า interstitium แล้วไปยัง capillaries"
-          },
-          {
-            "text": "**การขนส่ง glucose จึงเป็นตัวอย่างของ secondary active transport** พลังงานมาทางอ้อมจาก active transport ของ Na+ ออกจากเซลล์ ซึ่งรักษา concentration gradient ที่ luminal border ให้ Na+ และ glucose เข้ามาได้อีก"
-          },
+          "เพราะ intracellular Na+ ใน intestinal epithelial cells ต่ำ Na+ จึงเคลื่อนเข้าเซลล์ตาม concentration gradient และ glucose เคลื่อนตาม Na+ เข้ามาด้วย จากนั้น **Na+ ถูกส่งออกทาง basolateral โดย Na+, K+ ATPase** ส่วน glucose ที่เซลล์ไม่ต้องการจะออกจากเซลล์โดย facilitated diffusion ผ่าน **GLUT2** เข้า interstitium แล้วไปยัง capillaries",
+          "**การขนส่ง glucose จึงเป็นตัวอย่างของ secondary active transport** พลังงานมาทางอ้อมจาก active transport ของ Na+ ออกจากเซลล์ ซึ่งรักษา concentration gradient ที่ luminal border ให้ Na+ และ glucose เข้ามาได้อีก",
           {
             "callout": "เมื่อ Na+/glucose cotransporter บกพร่องแต่กำเนิด จะเกิด glucose/galactose malabsorption ทำให้ diarrhea รุนแรงและมักถึงแก่ชีวิตถ้าไม่รีบเอา glucose และ galactose ออกจากอาหาร ในทางกลับกัน glucose และ polymers ของมันใช้ retain Na+ ในโรคท้องร่วงได้",
             "kind": "warn"
@@ -2187,18 +1923,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "fructose บางส่วนถูกเปลี่ยนเป็น glucose ใน mucosal cells"
             ]
           },
-          {
-            "text": "**insulin มีผลน้อยมากต่อการขนส่งน้ำตาลในลำไส้** ในแง่นี้การดูดซึมในลำไส้คล้ายกับการดูดกลับ glucose ที่ proximal convoluted tubules ของไต คือทั้งสองกระบวนการไม่ต้องการ phosphorylation ยังปกติในผู้ป่วย diabetes แต่ถูกกดโดยยา phlorizin อัตราการดูดซึม glucose สูงสุดจากลำไส้ประมาณ **120 g/h**"
-          }
+          "**insulin มีผลน้อยมากต่อการขนส่งน้ำตาลในลำไส้** ในแง่นี้การดูดซึมในลำไส้คล้ายกับการดูดกลับ glucose ที่ proximal convoluted tubules ของไต คือทั้งสองกระบวนการไม่ต้องการ phosphorylation ยังปกติในผู้ป่วย diabetes แต่ถูกกดโดยยา phlorizin อัตราการดูดซึม glucose สูงสุดจากลำไส้ประมาณ **120 g/h**"
         ]
       },
       {
         "heading": "Protein digestion เริ่มที่กระเพาะ: pepsin",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.7",
         "body": [
-          {
-            "text": "การย่อย protein เริ่มในกระเพาะที่ pepsin ตัด peptide linkages บางส่วน เช่นเดียวกับเอนไซม์ย่อยโปรตีนอื่น ๆ **pepsin ถูกหลั่งในรูป inactive precursor (proenzyme) คือ pepsinogen แล้วจึงถูก activate ด้วย gastric acid ในทางเดินอาหาร**"
-          },
+          "การย่อย protein เริ่มในกระเพาะที่ pepsin ตัด peptide linkages บางส่วน เช่นเดียวกับเอนไซม์ย่อยโปรตีนอื่น ๆ **pepsin ถูกหลั่งในรูป inactive precursor (proenzyme) คือ pepsinogen แล้วจึงถูก activate ด้วย gastric acid ในทางเดินอาหาร**",
           {
             "bullets": [
               "pepsin hydrolyze พันธะระหว่าง aromatic amino acids เช่น phenylalanine หรือ tyrosine กับกรดอะมิโนตัวที่สอง ผลิตภัณฑ์จึงเป็น polypeptides ขนาดหลากหลายมาก",
@@ -2212,9 +1944,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Pancreatic proteases และกลไกความปลอดภัยด้วย enterokinase",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.7",
         "body": [
-          {
-            "text": "ใน small intestine polypeptides ที่ได้จากกระเพาะถูกย่อยต่อโดย proteolytic enzymes ที่ทรงพลังของ pancreas และ intestinal mucosa **trypsin, chymotrypsin และ elastase ออกฤทธิ์ที่พันธะ peptide ภายในโมเลกุล จึงเรียกว่า endopeptidases**"
-          },
+          "ใน small intestine polypeptides ที่ได้จากกระเพาะถูกย่อยต่อโดย proteolytic enzymes ที่ทรงพลังของ pancreas และ intestinal mucosa **trypsin, chymotrypsin และ elastase ออกฤทธิ์ที่พันธะ peptide ภายในโมเลกุล จึงเรียกว่า endopeptidases**",
           {
             "sub": "ทำไมตับอ่อนถึงไม่ย่อยตัวเอง",
             "body": [
@@ -2226,14 +1956,10 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "trypsin เปลี่ยน chymotrypsinogen เป็น chymotrypsin และเปลี่ยน proenzyme อื่นให้ active ทั้งยัง activate trypsinogen ได้เอง จึงเกิด **auto-catalytic chain reaction** เมื่อมี trypsin เกิดขึ้นแล้วบางส่วน"
                 ]
               },
-              {
-                "text": "**enterokinase deficiency เป็นความผิดปกติแต่กำเนิด และนำไปสู่ protein malnutrition**"
-              }
+              "**enterokinase deficiency เป็นความผิดปกติแต่กำเนิด และนำไปสู่ protein malnutrition**"
             ]
           },
-          {
-            "text": "carboxypeptidases ของ pancreas เป็น **exopeptidases** ที่ hydrolyze กรดอะมิโนที่ปลาย carboxyl ของ polypeptides กรดอะมิโนอิสระบางส่วนถูกปลดปล่อยใน intestinal lumen ด้วยกลไกนี้ แต่บางส่วนถูกปลดปล่อยที่ผิวเซลล์โดย aminopeptidases, carboxypeptidases, endopeptidases และ dipeptidases ที่อยู่ใน brush border ของ mucosal cells"
-          },
+          "carboxypeptidases ของ pancreas เป็น **exopeptidases** ที่ hydrolyze กรดอะมิโนที่ปลาย carboxyl ของ polypeptides กรดอะมิโนอิสระบางส่วนถูกปลดปล่อยใน intestinal lumen ด้วยกลไกนี้ แต่บางส่วนถูกปลดปล่อยที่ผิวเซลล์โดย aminopeptidases, carboxypeptidases, endopeptidases และ dipeptidases ที่อยู่ใน brush border ของ mucosal cells",
           {
             "callout": "จุดที่ต้องจำ: dipeptides และ tripeptides บางส่วนถูกขนส่งเข้าเซลล์ลำไส้แบบ active แล้วถูก hydrolyze โดย intracellular peptidases ดังนั้นการย่อยขั้นสุดท้ายจนเป็น amino acids เกิดขึ้นใน 3 ตำแหน่ง คือ intestinal lumen, brush border และ cytoplasm ของ mucosal cells",
             "kind": "tip"
@@ -2252,21 +1978,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               "อีก 2 ระบบ ขนส่งได้โดยไม่ขึ้นกับ Na+"
             ]
           },
-          {
-            "text": "**dipeptides และ tripeptides ถูกขนส่งเข้า enterocytes โดยระบบ PepT1 (peptide transporter 1) ซึ่งต้องการ H+ แทน Na+** โดย proton มาจาก apical sodium/hydrogen exchanger (NHE) ส่วน peptide ที่ใหญ่กว่านั้นซึ่งมาจากอาหาร ถูกดูดซึมน้อยมากหลังพ้นช่วง neonatal"
-          },
-          {
-            "text": "ใน enterocytes กรดอะมิโนที่ได้จากการ hydrolysis ภายในเซลล์ รวมกับกรดอะมิโนที่ดูดซึมจาก lumen และ brush border จะถูกขนส่งออกทาง basolateral border โดย **transport systems อย่างน้อย 5 ระบบ** จากนั้นเข้าสู่ hepatic portal blood"
-          }
+          "**dipeptides และ tripeptides ถูกขนส่งเข้า enterocytes โดยระบบ PepT1 (peptide transporter 1) ซึ่งต้องการ H+ แทน Na+** โดย proton มาจาก apical sodium/hydrogen exchanger (NHE) ส่วน peptide ที่ใหญ่กว่านั้นซึ่งมาจากอาหาร ถูกดูดซึมน้อยมากหลังพ้นช่วง neonatal",
+          "ใน enterocytes กรดอะมิโนที่ได้จากการ hydrolysis ภายในเซลล์ รวมกับกรดอะมิโนที่ดูดซึมจาก lumen และ brush border จะถูกขนส่งออกทาง basolateral border โดย **transport systems อย่างน้อย 5 ระบบ** จากนั้นเข้าสู่ hepatic portal blood"
         ]
       },
       {
         "heading": "ตัวเลขและความผิดปกติทางพันธุกรรมของการดูดซึม protein",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.9",
         "body": [
-          {
-            "text": "การดูดซึม amino acids รวดเร็วที่ duodenum และ jejunum ในภาวะปกติมีการดูดซึมที่ ileum เพียงเล็กน้อย เพราะ free amino acids ส่วนใหญ่ถูกดูดซึมไปก่อนถึงจุดนั้นแล้ว"
-          },
+          "การดูดซึม amino acids รวดเร็วที่ duodenum และ jejunum ในภาวะปกติมีการดูดซึมที่ ileum เพียงเล็กน้อย เพราะ free amino acids ส่วนใหญ่ถูกดูดซึมไปก่อนถึงจุดนั้นแล้ว",
           {
             "bullets": [
               "protein ที่ถูกย่อยมาจาก ingested food ประมาณ **50%** จาก proteins ใน digestive juices **25%** และจาก desquamated mucosal cells อีก **25%**",
@@ -2274,9 +1994,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**protein ในอุจจาระเกือบทั้งหมดไม่ได้มาจากอาหาร แต่มาจาก bacteria และ cellular debris**"
             ]
           },
-          {
-            "text": "มีหลักฐานว่า peptidase activity ของ brush border และ cytoplasm ของ mucosal cell เพิ่มขึ้นเมื่อ resect ileum บางส่วน และเปลี่ยนแปลงอย่างเป็นอิสระในภาวะ starvation ดังนั้นเอนไซม์เหล่านี้ดูจะอยู่ภายใต้ homeostatic regulation"
-          },
+          "มีหลักฐานว่า peptidase activity ของ brush border และ cytoplasm ของ mucosal cell เพิ่มขึ้นเมื่อ resect ileum บางส่วน และเปลี่ยนแปลงอย่างเป็นอิสระในภาวะ starvation ดังนั้นเอนไซม์เหล่านี้ดูจะอยู่ภายใต้ homeostatic regulation",
           {
             "sub": "ความผิดปกติแต่กำเนิดในมนุษย์",
             "body": [
@@ -2286,9 +2004,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**cystinuria** = ความบกพร่องแต่กำเนิดของการขนส่ง basic amino acids"
                 ]
               },
-              {
-                "text": "อย่างไรก็ตามผู้ป่วยส่วนใหญ่ไม่เกิดภาวะขาดสารอาหารจากกรดอะมิโนเหล่านี้ **เพราะ peptide transport ชดเชยให้**"
-              }
+              "อย่างไรก็ตามผู้ป่วยส่วนใหญ่ไม่เกิดภาวะขาดสารอาหารจากกรดอะมิโนเหล่านี้ **เพราะ peptide transport ชดเชยให้**"
             ]
           }
         ]
@@ -2297,9 +2013,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การดูดซึม protein ที่ยังไม่ถูกย่อยในทารก และ food allergy",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.9",
         "body": [
-          {
-            "text": "ในทารก มีการดูดซึม undigested proteins ในปริมาณปานกลาง **antibodies ใน maternal colostrum ส่วนใหญ่เป็น secretory immunoglobulins (IgAs)** ซึ่งการผลิตเพิ่มขึ้นในเต้านมช่วงท้ายของการตั้งครรภ์"
-          },
+          "ในทารก มีการดูดซึม undigested proteins ในปริมาณปานกลาง **antibodies ใน maternal colostrum ส่วนใหญ่เป็น secretory immunoglobulins (IgAs)** ซึ่งการผลิตเพิ่มขึ้นในเต้านมช่วงท้ายของการตั้งครรภ์",
           {
             "bullets": [
               "IgA ข้าม mammary epithelium โดย **transcytosis** และเข้าสู่ circulation ของทารกจากลำไส้ ให้ passive immunity ต่อการติดเชื้อ",
@@ -2307,9 +2021,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "การดูดซึม intact proteins ลดลงอย่างชัดเจนหลัง weaning แต่ผู้ใหญ่ยังดูดซึมได้ปริมาณเล็กน้อย"
             ]
           },
-          {
-            "text": "foreign proteins ที่เข้าสู่ circulation กระตุ้นการสร้าง antibodies และปฏิกิริยา antigen-antibody เมื่อได้รับ protein เดิมซ้ำ อาจทำให้เกิดอาการภูมิแพ้ **การดูดซึม protein จากลำไส้จึงอาจอธิบายอาการแพ้หลังกินอาหารบางชนิด** อุบัติการณ์ food allergy ในเด็กมีการกล่าวว่าสูงถึง 8% แต่ในคนส่วนใหญ่ไม่เกิด และมีหลักฐานว่ามี genetic component ในความไวต่อภาวะนี้"
-          }
+          "foreign proteins ที่เข้าสู่ circulation กระตุ้นการสร้าง antibodies และปฏิกิริยา antigen-antibody เมื่อได้รับ protein เดิมซ้ำ อาจทำให้เกิดอาการภูมิแพ้ **การดูดซึม protein จากลำไส้จึงอาจอธิบายอาการแพ้หลังกินอาหารบางชนิด** อุบัติการณ์ food allergy ในเด็กมีการกล่าวว่าสูงถึง 8% แต่ในคนส่วนใหญ่ไม่เกิด และมีหลักฐานว่ามี genetic component ในความไวต่อภาวะนี้"
         ]
       },
       {
@@ -2331,12 +2043,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Fat digestion: lingual/gastric lipase, pancreatic lipase และ colipase",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.10",
         "body": [
-          {
-            "text": "**lingual lipase หลั่งจาก Ebner glands บนผิวด้านหลังของลิ้นในสัตว์บางชนิด (in some species) และกระเพาะก็หลั่ง lipase ด้วย** ทั้งสองมีความสำคัญเชิงปริมาณน้อยต่อการย่อย lipid ยกเว้นในภาวะ pancreatic insufficiency แต่อาจสร้าง free fatty acids (FFA) ที่ส่งสัญญาณไปยังทางเดินอาหารส่วนปลาย เช่น ทำให้หลั่ง CCK"
-          },
-          {
-            "text": "**การย่อยไขมันส่วนใหญ่จึงเริ่มที่ duodenum โดยมี pancreatic lipase เป็นเอนไซม์ที่สำคัญที่สุดตัวหนึ่ง**"
-          },
+          "**lingual lipase หลั่งจาก Ebner glands บนผิวด้านหลังของลิ้นในสัตว์บางชนิด (in some species) และกระเพาะก็หลั่ง lipase ด้วย** ทั้งสองมีความสำคัญเชิงปริมาณน้อยต่อการย่อย lipid ยกเว้นในภาวะ pancreatic insufficiency แต่อาจสร้าง free fatty acids (FFA) ที่ส่งสัญญาณไปยังทางเดินอาหารส่วนปลาย เช่น ทำให้หลั่ง CCK",
+          "**การย่อยไขมันส่วนใหญ่จึงเริ่มที่ duodenum โดยมี pancreatic lipase เป็นเอนไซม์ที่สำคัญที่สุดตัวหนึ่ง**",
           {
             "bullets": [
               "pancreatic lipase hydrolyze พันธะที่ตำแหน่ง **1 และ 3** ของ triglycerides (triacylglycerols) ได้ง่าย แต่ออกฤทธิ์ที่พันธะตำแหน่ง 2 ในอัตราที่ต่ำมาก",
@@ -2347,17 +2055,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "colipase",
             "body": [
-              {
-                "text": "colipase เป็น accessory factor ที่หลั่งใน pancreatic juice ในรูป inactive proform และถูก **activate โดย trypsin ใน intestinal lumen** ช่วย stabilize pancreatic lipase ให้อยู่ใน active conformation และสำคัญมากเพราะ **ทำให้ lipase ยังเกาะกับหยดไขมันในอาหารได้แม้จะมี bile acids อยู่**"
-              }
+              "colipase เป็น accessory factor ที่หลั่งใน pancreatic juice ในรูป inactive proform และถูก **activate โดย trypsin ใน intestinal lumen** ช่วย stabilize pancreatic lipase ให้อยู่ใน active conformation และสำคัญมากเพราะ **ทำให้ lipase ยังเกาะกับหยดไขมันในอาหารได้แม้จะมี bile acids อยู่**"
             ]
           },
           {
             "sub": "cholesterol esterase",
             "body": [
-              {
-                "text": "เป็น pancreatic lipase อีกตัวที่ถูก activate โดย bile acids คิดเป็นราว **4% ของ total protein ใน pancreatic juice** ในผู้ใหญ่ pancreatic lipase active กว่า 10-60 เท่า แต่ต่างกันตรงที่ cholesterol esterase เร่งการ hydrolysis ของ cholesterol esters, esters ของ fat-soluble vitamins และ phospholipids ได้ด้วย นอกเหนือจาก triglycerides และพบเอนไซม์คล้ายกันมากใน human milk"
-              }
+              "เป็น pancreatic lipase อีกตัวที่ถูก activate โดย bile acids คิดเป็นราว **4% ของ total protein ใน pancreatic juice** ในผู้ใหญ่ pancreatic lipase active กว่า 10-60 เท่า แต่ต่างกันตรงที่ cholesterol esterase เร่งการ hydrolysis ของ cholesterol esters, esters ของ fat-soluble vitamins และ phospholipids ได้ด้วย นอกเหนือจาก triglycerides และพบเอนไซม์คล้ายกันมากใน human milk"
             ]
           }
         ]
@@ -2366,24 +2070,16 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Micelle formation และการข้าม unstirred layer",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.10",
         "body": [
-          {
-            "text": "ไขมันละลายน้ำได้ไม่ดี ซึ่งจำกัดความสามารถในการข้าม unstirred layer ไปถึงผิวของ mucosal cells แต่ไขมันถูก **emulsify อย่างละเอียดใน small intestine โดย detergent action ของ bile acids, phosphatidylcholine และ monoglycerides**"
-          },
-          {
-            "text": "เมื่อความเข้มข้นของ bile acids ในลำไส้สูงหลังกินอาหารและ gallbladder หดตัว lipids และ bile acids จะรวมตัวกันเองเป็น **micelles** ซึ่งเป็น cylindrical aggregates ที่รับ lipids เข้าไป โดยทั่วไปมี FA, monoglycerides และ cholesterol อยู่ในแกน hydrophobic"
-          },
-          {
-            "text": "การเกิด micelle ทำให้ lipids ละลายได้มากขึ้นและเป็นกลไกขนส่งไปยัง enterocytes **micelles เคลื่อนตาม concentration gradient ผ่าน unstirred layer ไปถึง brush border แล้ว lipids จึง diffuse ออกจาก micelle** ทำให้มีสารละลายอิ่มตัวของ lipids สัมผัสกับ brush border ตลอดเวลา"
-          }
+          "ไขมันละลายน้ำได้ไม่ดี ซึ่งจำกัดความสามารถในการข้าม unstirred layer ไปถึงผิวของ mucosal cells แต่ไขมันถูก **emulsify อย่างละเอียดใน small intestine โดย detergent action ของ bile acids, phosphatidylcholine และ monoglycerides**",
+          "เมื่อความเข้มข้นของ bile acids ในลำไส้สูงหลังกินอาหารและ gallbladder หดตัว lipids และ bile acids จะรวมตัวกันเองเป็น **micelles** ซึ่งเป็น cylindrical aggregates ที่รับ lipids เข้าไป โดยทั่วไปมี FA, monoglycerides และ cholesterol อยู่ในแกน hydrophobic",
+          "การเกิด micelle ทำให้ lipids ละลายได้มากขึ้นและเป็นกลไกขนส่งไปยัง enterocytes **micelles เคลื่อนตาม concentration gradient ผ่าน unstirred layer ไปถึง brush border แล้ว lipids จึง diffuse ออกจาก micelle** ทำให้มีสารละลายอิ่มตัวของ lipids สัมผัสกับ brush border ตลอดเวลา"
         ]
       },
       {
         "heading": "Steatorrhea และ anatomic reserve",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.11",
         "body": [
-          {
-            "text": "สัตว์ที่ถูก pancreatectomize และผู้ป่วยที่มีโรคทำลาย exocrine portion ของตับอ่อน จะมีอุจจาระ **fatty, bulky, clay-colored (steatorrhea)** เพราะการย่อยและดูดซึมไขมันบกพร่อง steatorrhea แบบนี้ **ส่วนใหญ่เกิดจาก lipase deficiency**"
-          },
+          "สัตว์ที่ถูก pancreatectomize และผู้ป่วยที่มีโรคทำลาย exocrine portion ของตับอ่อน จะมีอุจจาระ **fatty, bulky, clay-colored (steatorrhea)** เพราะการย่อยและดูดซึมไขมันบกพร่อง steatorrhea แบบนี้ **ส่วนใหญ่เกิดจาก lipase deficiency**",
           {
             "bullets": [
               "กรดยับยั้ง lipase และการขาด alkaline secretion จากตับอ่อนยังซ้ำเติมโดยทำให้ pH ของ intestinal contents ต่ำลง",
@@ -2391,9 +2087,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "อีกสาเหตุคือ **การดูดกลับ bile acids ที่ distal ileum บกพร่อง**"
             ]
           },
-          {
-            "text": "เมื่อ bile ถูกกันออกจากลำไส้อย่างสมบูรณ์ ไขมันที่กินเข้าไปอาจปรากฏในอุจจาระได้ถึง **50%** และเกิด malabsorption ของ fat-soluble vitamins อย่างรุนแรงด้วย เมื่อการดูดกลับ bile acid ถูกขัดขวางจากการ resect terminal ileum หรือมีโรคที่ส่วนนี้ ปริมาณไขมันในอุจจาระอาจเพิ่มขึ้น เพราะเมื่อ enterohepatic circulation ถูกตัด ตับอาจเพิ่มอัตราการผลิต bile acid ได้ไม่มากพอจะชดเชย"
-          },
+          "เมื่อ bile ถูกกันออกจากลำไส้อย่างสมบูรณ์ ไขมันที่กินเข้าไปอาจปรากฏในอุจจาระได้ถึง **50%** และเกิด malabsorption ของ fat-soluble vitamins อย่างรุนแรงด้วย เมื่อการดูดกลับ bile acid ถูกขัดขวางจากการ resect terminal ileum หรือมีโรคที่ส่วนนี้ ปริมาณไขมันในอุจจาระอาจเพิ่มขึ้น เพราะเมื่อ enterohepatic circulation ถูกตัด ตับอาจเพิ่มอัตราการผลิต bile acid ได้ไม่มากพอจะชดเชย",
           {
             "callout": "anatomic reserve: บางคนอาจไม่เกิด steatorrhea แม้ไม่มี micelles เพราะลำไส้มี absorptive surface area สำรองมาก ซึ่งดูดซึม lipid ในรูป molecular form ได้ เพียงแต่ช้ากว่าแบบ micellar หลักการสำรองนี้ใช้กับผลิตภัณฑ์การย่อยของ protein และ carbohydrate ด้วย",
             "kind": "tip"
@@ -2404,9 +2098,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Clinical Box 26-2: Malabsorption syndrome และ celiac disease",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.11",
         "body": [
-          {
-            "text": "หน้าที่ย่อยและดูดซึมของ small intestine จำเป็นต่อชีวิต แต่ **ความสามารถนี้มีมากกว่าที่ต้องใช้ในภาวะปกติ (anatomic reserve)** การตัด jejunum หรือ ileum เป็นช่วงสั้น ๆ มักไม่ทำให้เกิดอาการรุนแรง และเกิด compensatory hypertrophy กับ hyperplasia ของ mucosa ที่เหลือ"
-          },
+          "หน้าที่ย่อยและดูดซึมของ small intestine จำเป็นต่อชีวิต แต่ **ความสามารถนี้มีมากกว่าที่ต้องใช้ในภาวะปกติ (anatomic reserve)** การตัด jejunum หรือ ileum เป็นช่วงสั้น ๆ มักไม่ทำให้เกิดอาการรุนแรง และเกิด compensatory hypertrophy กับ hyperplasia ของ mucosa ที่เหลือ",
           {
             "bullets": [
               "แต่เมื่อ **small intestine ถูก resect หรือ bypass มากกว่า 50% (short gut syndrome)** การดูดซึมสารอาหารและ vitamins จะเสียหายจนป้องกัน malnutrition และ wasting ได้ยากมาก",
@@ -2417,17 +2109,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "รูปแบบของ malabsorption syndrome",
             "body": [
-              {
-                "text": "โรคหลายอย่างทำให้การดูดซึมเสียได้โดยไม่ต้องสูญเสียความยาวลำไส้ รูปแบบการขาดสารอาหารต่างกันไปตามสาเหตุ แต่อาจรวมถึงการดูดซึม amino acids บกพร่องจน body wasting ชัดเจน และในที่สุดเกิด hypoproteinemia และ edema การดูดซึม carbohydrate และ fat ก็ลดลง และเพราะการดูดซึมไขมันบกพร่อง **fat-soluble vitamins (A, D, E, K) จึงถูกดูดซึมไม่เพียงพอ**"
-              }
+              "โรคหลายอย่างทำให้การดูดซึมเสียได้โดยไม่ต้องสูญเสียความยาวลำไส้ รูปแบบการขาดสารอาหารต่างกันไปตามสาเหตุ แต่อาจรวมถึงการดูดซึม amino acids บกพร่องจน body wasting ชัดเจน และในที่สุดเกิด hypoproteinemia และ edema การดูดซึม carbohydrate และ fat ก็ลดลง และเพราะการดูดซึมไขมันบกพร่อง **fat-soluble vitamins (A, D, E, K) จึงถูกดูดซึมไม่เพียงพอ**"
             ]
           },
           {
             "sub": "celiac disease",
             "body": [
-              {
-                "text": "เป็น autoimmune disease ที่เกิดในผู้ที่มี genetic predisposition ซึ่ง **gluten และ proteins ที่เกี่ยวข้องใกล้ชิดทำให้ intestinal T cells สร้าง immune response ที่ไม่เหมาะสม ทำลาย intestinal epithelial cells จนสูญเสีย villi และ mucosa แบนราบ** โปรตีนกลุ่มนี้พบใน wheat, rye, barley และพบน้อยกว่าใน oats แต่ไม่พบใน rice หรือ corn เมื่องดธัญพืชที่มี gluten การทำงานของลำไส้มักกลับคืนสู่ปกติ"
-              }
+              "เป็น autoimmune disease ที่เกิดในผู้ที่มี genetic predisposition ซึ่ง **gluten และ proteins ที่เกี่ยวข้องใกล้ชิดทำให้ intestinal T cells สร้าง immune response ที่ไม่เหมาะสม ทำลาย intestinal epithelial cells จนสูญเสีย villi และ mucosa แบนราบ** โปรตีนกลุ่มนี้พบใน wheat, rye, barley และพบน้อยกว่าใน oats แต่ไม่พบใน rice หรือ corn เมื่องดธัญพืชที่มี gluten การทำงานของลำไส้มักกลับคืนสู่ปกติ"
             ]
           },
           {
@@ -2450,9 +2138,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Fat absorption: ความยาวสาย FA เป็นตัวตัดสินเส้นทาง",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.12",
         "body": [
-          {
-            "text": "เดิมเชื่อว่า lipids เข้า enterocytes โดย passive diffusion แต่ปัจจุบันมีหลักฐานบ่งชี้ว่ามี carriers เกี่ยวข้อง เมื่อเข้าไปในเซลล์ **lipids ถูก esterified อย่างรวดเร็ว จึงคง concentration gradient ที่เอื้อให้ไหลจาก lumen เข้าเซลล์ต่อไป** และยังมี carriers ที่ export lipid บางชนิดกลับเข้า lumen ซึ่งจำกัด oral availability ของมัน กรณีนี้ใช้กับทั้ง plant sterols และ cholesterol"
-          },
+          "เดิมเชื่อว่า lipids เข้า enterocytes โดย passive diffusion แต่ปัจจุบันมีหลักฐานบ่งชี้ว่ามี carriers เกี่ยวข้อง เมื่อเข้าไปในเซลล์ **lipids ถูก esterified อย่างรวดเร็ว จึงคง concentration gradient ที่เอื้อให้ไหลจาก lumen เข้าเซลล์ต่อไป** และยังมี carriers ที่ export lipid บางชนิดกลับเข้า lumen ซึ่งจำกัด oral availability ของมัน กรณีนี้ใช้กับทั้ง plant sterols และ cholesterol",
           {
             "sub": "ชะตากรรมของ FA ใน enterocytes ขึ้นกับขนาด",
             "body": [
@@ -2478,9 +2164,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Short-chain fatty acids (SCFAs) ใน colon",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.12",
         "body": [
-          {
-            "text": "**SCFAs ถูกผลิตใน colon และดูดซึมจาก colon** เป็น weak acids ที่มี carbon 2-5 อะตอม มีความเข้มข้นปกติเฉลี่ยประมาณ **80 mmol/L** ใน lumen"
-          },
+          "**SCFAs ถูกผลิตใน colon และดูดซึมจาก colon** เป็น weak acids ที่มี carbon 2-5 อะตอม มีความเข้มข้นปกติเฉลี่ยประมาณ **80 mmol/L** ใน lumen",
           {
             "bullets": [
               "ประมาณ **60% เป็น acetate, 25% propionate และ 15% butyrate**",
@@ -2507,9 +2191,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Minerals และ trace elements",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.13",
         "body": [
-          {
-            "text": "ต้องได้รับ minerals จำนวนหนึ่งทุกวันเพื่อรักษาสุขภาพ นอกจากตัวที่มี recommended daily dietary allowance แล้วยังต้องมี trace elements หลายชนิด **trace elements นิยามว่าเป็นธาตุที่พบในเนื้อเยื่อในปริมาณน้อยมาก และในหลายกรณีกลไกการนำเข้าจากอาหารยังเข้าใจได้ไม่ดี**"
-          },
+          "ต้องได้รับ minerals จำนวนหนึ่งทุกวันเพื่อรักษาสุขภาพ นอกจากตัวที่มี recommended daily dietary allowance แล้วยังต้องมี trace elements หลายชนิด **trace elements นิยามว่าเป็นธาตุที่พบในเนื้อเยื่อในปริมาณน้อยมาก และในหลายกรณีกลไกการนำเข้าจากอาหารยังเข้าใจได้ไม่ดี**",
           {
             "sub": "Table 26-3 trace elements ที่เชื่อว่าจำเป็นต่อชีวิต",
             "body": [
@@ -2535,9 +2217,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "fluorine deficiency: เพิ่มอุบัติการณ์ของ dental caries"
                 ]
               },
-              {
-                "text": "sodium และ potassium ก็เป็น essential minerals แต่การระบุไว้เป็นเพียงเชิงวิชาการ เพราะเตรียมอาหารที่ปราศจาก sodium หรือ potassium ได้ยากมาก อย่างไรก็ตาม low-salt diet ทนได้เป็นเวลานานเพราะมีกลไกชดเชยที่สงวน Na+"
-              }
+              "sodium และ potassium ก็เป็น essential minerals แต่การระบุไว้เป็นเพียงเชิงวิชาการ เพราะเตรียมอาหารที่ปราศจาก sodium หรือ potassium ได้ยากมาก อย่างไรก็ตาม low-salt diet ทนได้เป็นเวลานานเพราะมีกลไกชดเชยที่สงวน Na+"
             ]
           },
           {
@@ -2564,9 +2244,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "สมดุลของ iron และเคมีของการดูดซึม",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.13",
         "body": [
-          {
-            "text": "ในผู้ใหญ่ ปริมาณ iron ที่สูญเสียจากร่างกายค่อนข้างน้อย และการสูญเสียโดยทั่วไปไม่ถูกควบคุม **ปริมาณ iron สะสมทั้งร่างกายจึงถูกควบคุมด้วยการเปลี่ยนอัตราการดูดซึมจากลำไส้**"
-          },
+          "ในผู้ใหญ่ ปริมาณ iron ที่สูญเสียจากร่างกายค่อนข้างน้อย และการสูญเสียโดยทั่วไปไม่ถูกควบคุม **ปริมาณ iron สะสมทั้งร่างกายจึงถูกควบคุมด้วยการเปลี่ยนอัตราการดูดซึมจากลำไส้**",
           {
             "bullets": [
               "ผู้ชายเสีย iron ประมาณ **0.6 mg/d** ส่วนใหญ่ทางอุจจาระ",
@@ -2575,9 +2253,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ปัจจัยในอาหารมีผลต่อ availability เช่น **phytic acid ในธัญพืช** ทำปฏิกิริยากับ iron เกิดสารประกอบที่ไม่ละลาย เช่นเดียวกับ phosphates และ oxalates"
             ]
           },
-          {
-            "text": "**iron ในอาหารส่วนใหญ่อยู่ในรูป ferric (Fe3+) แต่รูปที่ถูกดูดซึมคือ ferrous (Fe2+)** โดยมี Fe3+ reductase activity อยู่คู่กับ iron transporter ที่ brush borders ของ enterocytes"
-          },
+          "**iron ในอาหารส่วนใหญ่อยู่ในรูป ferric (Fe3+) แต่รูปที่ถูกดูดซึมคือ ferrous (Fe2+)** โดยมี Fe3+ reductase activity อยู่คู่กับ iron transporter ที่ brush borders ของ enterocytes",
           {
             "callout": "gastric secretions ละลาย iron และทำให้มันสร้าง soluble complexes กับ ascorbic acid และสารอื่นที่ช่วย reduction เป็น Fe2+ ความสำคัญของหน้าที่นี้เห็นได้จากข้อเท็จจริงที่ว่า iron deficiency anemia เป็นภาวะแทรกซ้อนที่กวนใจและพบได้ค่อนข้างบ่อยหลัง partial gastrectomy",
             "kind": "tip"
@@ -2588,9 +2264,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Transporters และการเก็บสะสม iron",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.14",
         "body": [
-          {
-            "text": "**การดูดซึม iron เกือบทั้งหมดเกิดที่ duodenum**"
-          },
+          "**การดูดซึม iron เกือบทั้งหมดเกิดที่ duodenum**",
           {
             "sub": "โมเลกุลที่ Figure 26-8 ระบุตามลำดับเส้นทาง",
             "body": [
@@ -2624,9 +2298,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Clinical Box 26-3: Disorders of iron uptake",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.15",
         "body": [
-          {
-            "text": "iron deficiency ทำให้เกิด anemia ในทางกลับกัน **iron overload ทำให้ hemosiderin สะสมในเนื้อเยื่อ เกิดเป็น hemosiderosis** และ hemosiderin ปริมาณมากทำลายเนื้อเยื่อได้ ดังที่เห็นในโรคทางพันธุกรรมที่พบบ่อยคือ hemochromatosis"
-          },
+          "iron deficiency ทำให้เกิด anemia ในทางกลับกัน **iron overload ทำให้ hemosiderin สะสมในเนื้อเยื่อ เกิดเป็น hemosiderosis** และ hemosiderin ปริมาณมากทำลายเนื้อเยื่อได้ ดังที่เห็นในโรคทางพันธุกรรมที่พบบ่อยคือ hemochromatosis",
           {
             "sub": "ลักษณะของ hemochromatosis ตามที่บทนี้ระบุ",
             "body": [
@@ -2641,22 +2313,16 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "hemochromatosis เป็นได้ทั้ง hereditary และ acquired สาเหตุที่พบบ่อยที่สุดของแบบ hereditary คือ **mutated HFE gene** ซึ่งพบบ่อยในประชากรผิวขาว อยู่บน short arm ของ chromosome 6 และเชื่อมโยงใกล้ชิดกับ HLA-A locus"
-          },
+          "hemochromatosis เป็นได้ทั้ง hereditary และ acquired สาเหตุที่พบบ่อยที่สุดของแบบ hereditary คือ **mutated HFE gene** ซึ่งพบบ่อยในประชากรผิวขาว อยู่บน short arm ของ chromosome 6 และเชื่อมโยงใกล้ชิดกับ HLA-A locus",
           {
             "callout": "บทนี้บอกตรงว่า ยังไม่ทราบแน่ชัดว่า mutations ใน HFE ทำให้เกิด hemochromatosis ได้อย่างไร ทราบเพียงว่าผู้ที่ homogenous สำหรับ HFE mutations ดูดซึม iron มากเกินไป เพราะปกติ HFE ยับยั้งการแสดงออกของ duodenal transporters ที่ร่วมในการนำ iron เข้า",
             "kind": "flag"
           },
-          {
-            "text": "แบบ acquired เกิดเมื่อระบบควบคุม iron ถูก overwhelm ด้วย iron load ที่มากเกิน จาก chronic destruction ของ red blood cells, liver disease หรือการให้เลือดซ้ำ ๆ ในโรคเช่น intractable anemia"
-          },
+          "แบบ acquired เกิดเมื่อระบบควบคุม iron ถูก overwhelm ด้วย iron load ที่มากเกิน จาก chronic destruction ของ red blood cells, liver disease หรือการให้เลือดซ้ำ ๆ ในโรคเช่น intractable anemia",
           {
             "sub": "Therapeutic highlights",
             "body": [
-              {
-                "text": "ถ้าวินิจฉัย hereditary hemochromatosis ได้ก่อนที่ iron จะสะสมในเนื้อเยื่อมากเกินไป จะยืดอายุขัยได้อย่างมากด้วยการ **withdrawal of blood ซ้ำ ๆ**"
-              }
+              "ถ้าวินิจฉัย hereditary hemochromatosis ได้ก่อนที่ iron จะสะสมในเนื้อเยื่อมากเกินไป จะยืดอายุขัยได้อย่างมากด้วยการ **withdrawal of blood ซ้ำ ๆ**"
             ]
           }
         ]
@@ -2665,9 +2331,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การดูดซึม vitamins",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.15",
         "body": [
-          {
-            "text": "คำว่า vitamin ปัจจุบันหมายถึง **องค์ประกอบอินทรีย์ในอาหารที่จำเป็นต่อชีวิต สุขภาพ และการเจริญเติบโต ซึ่งไม่ได้ทำหน้าที่โดยการให้พลังงาน และร่างกายสังเคราะห์เองไม่ได้ (อย่างน้อยในปริมาณที่เพียงพอ)** vitamins ถูกค้นพบเมื่อสังเกตว่าอาหารบางแบบซึ่งมี calories กรดอะมิโนจำเป็น ไขมัน และแร่ธาตุเพียงพอ กลับไม่สามารถรักษาสุขภาพไว้ได้"
-          },
+          "คำว่า vitamin ปัจจุบันหมายถึง **องค์ประกอบอินทรีย์ในอาหารที่จำเป็นต่อชีวิต สุขภาพ และการเจริญเติบโต ซึ่งไม่ได้ทำหน้าที่โดยการให้พลังงาน และร่างกายสังเคราะห์เองไม่ได้ (อย่างน้อยในปริมาณที่เพียงพอ)** vitamins ถูกค้นพบเมื่อสังเกตว่าอาหารบางแบบซึ่งมี calories กรดอะมิโนจำเป็น ไขมัน และแร่ธาตุเพียงพอ กลับไม่สามารถรักษาสุขภาพไว้ได้",
           {
             "bullets": [
               "vitamins ส่วนใหญ่ถูกดูดซึมที่ **upper small intestine** แต่ **vitamin B12 ถูกดูดซึมที่ ileum** โดยจับกับ **intrinsic factor** ซึ่งเป็นโปรตีนที่หลั่งจาก parietal cells ของกระเพาะ และ complex นี้คือรูปที่ถูกดูดซึมข้าม ileal mucosa",
@@ -2678,9 +2342,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "fat-soluble vitamins",
             "body": [
-              {
-                "text": "water-soluble vitamins ดูดซึมได้ง่าย แต่ **fat-soluble vitamins (A, D, E, K) ดูดซึมได้ไม่ดีเมื่อไม่มี bile และ/หรือ pancreatic juice เพราะการดูดซึมของมันขึ้นกับ micellar solubilization แทบทั้งหมด** และยังต้องมีไขมันในอาหารบ้าง ดังนั้นใน obstructive jaundice หรือโรคของ exocrine pancreas จึงเกิดภาวะขาด fat-soluble vitamins ได้แม้กินเข้าไปเพียงพอ"
-              },
+              "water-soluble vitamins ดูดซึมได้ง่าย แต่ **fat-soluble vitamins (A, D, E, K) ดูดซึมได้ไม่ดีเมื่อไม่มี bile และ/หรือ pancreatic juice เพราะการดูดซึมของมันขึ้นกับ micellar solubilization แทบทั้งหมด** และยังต้องมีไขมันในอาหารบ้าง ดังนั้นใน obstructive jaundice หรือโรคของ exocrine pancreas จึงเกิดภาวะขาด fat-soluble vitamins ได้แม้กินเข้าไปเพียงพอ",
               {
                 "bullets": [
                   "vitamin A และ vitamin D จับกับ transfer proteins ใน circulation",
@@ -2700,9 +2362,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Table 26-4 (ตอนที่ 1): vitamin A และ B complex",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.16",
         "body": [
-          {
-            "text": "ตารางนี้ระบุ action, deficiency symptoms และ sources ของ vitamins ที่จำเป็นหรือน่าจะจำเป็นต่อโภชนาการมนุษย์ ส่วนที่อ่านได้ชัดในหน้านี้มีดังนี้"
-          },
+          "ตารางนี้ระบุ action, deficiency symptoms และ sources ของ vitamins ที่จำเป็นหรือน่าจะจำเป็นต่อโภชนาการมนุษย์ ส่วนที่อ่านได้ชัดในหน้านี้มีดังนี้",
           {
             "bullets": [
               "**A (A1, A2)**: เป็นองค์ประกอบของ visual pigments จำเป็นต่อ fetal development และ cell development ตลอดชีวิต ขาดแล้วเกิด night blindness และ dry skin แหล่ง yellow vegetables and fruit",
@@ -2736,9 +2396,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Choline และความเป็นพิษของ vitamins ขนาดสูง",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.18",
         "body": [
-          {
-            "text": "เชิงอรรถของตาราง 26-4 ระบุว่า **choline ถูกสังเคราะห์ในร่างกายได้ในปริมาณเล็กน้อย แต่เพิ่งถูกเพิ่มเข้าในรายการ essential nutrients**"
-          },
+          "เชิงอรรถของตาราง 26-4 ระบุว่า **choline ถูกสังเคราะห์ในร่างกายได้ในปริมาณเล็กน้อย แต่เพิ่งถูกเพิ่มเข้าในรายการ essential nutrients**",
           {
             "callout": "ควรจำไว้ว่า fat-soluble vitamins ในขนาดที่สูงมากเป็นพิษอย่างแน่นอน",
             "kind": "warn"
@@ -2757,21 +2415,13 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Control of food intake: สัญญาณจากรอบนอกและ CNS",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.18",
         "body": [
-          {
-            "text": "การกินสารอาหารอยู่ภายใต้การควบคุมที่ซับซ้อน โดยมีสัญญาณจากทั้งรอบนอกและ central nervous system ที่ทำให้ภาพซับซ้อนขึ้นคือ **higher functions ยังปรับการตอบสนองต่อสัญญาณทั้งจากส่วนกลางและรอบนอกที่กระตุ้นหรือยับยั้งการกิน** ดังนั้น food preferences, emotions, environment, lifestyle และ circadian rhythms จึงมีผลอย่างมากต่อการที่จะหาอาหารหรือไม่ และจะกินอาหารชนิดใด"
-          },
-          {
-            "text": "hormones และปัจจัยหลายอย่างที่ถูกปล่อยพร้อมกับมื้ออาหาร และมีบทบาทสำคัญอื่นในการย่อยและดูดซึม ก็เกี่ยวข้องกับการควบคุม feeding behavior ด้วย ตัวอย่างเช่น **CCK ไม่ว่าจะสร้างจาก I cells ในลำไส้หรือปล่อยจาก nerve endings ในสมอง ยับยั้งการกินอาหารต่อ จึงนิยามว่าเป็น satiety factor หรือ anorexin**"
-          },
-          {
-            "text": "CCK และปัจจัยคล้ายกันดึงดูดความสนใจอย่างมากจากอุตสาหกรรมยา ด้วยความหวังว่าอนุพันธ์อาจใช้ช่วยการลดน้ำหนักได้ ซึ่งเป็นเป้าหมายที่เร่งด่วนขึ้นเมื่อพิจารณาการระบาดของ obesity ในประเทศตะวันตก"
-          },
+          "การกินสารอาหารอยู่ภายใต้การควบคุมที่ซับซ้อน โดยมีสัญญาณจากทั้งรอบนอกและ central nervous system ที่ทำให้ภาพซับซ้อนขึ้นคือ **higher functions ยังปรับการตอบสนองต่อสัญญาณทั้งจากส่วนกลางและรอบนอกที่กระตุ้นหรือยับยั้งการกิน** ดังนั้น food preferences, emotions, environment, lifestyle และ circadian rhythms จึงมีผลอย่างมากต่อการที่จะหาอาหารหรือไม่ และจะกินอาหารชนิดใด",
+          "hormones และปัจจัยหลายอย่างที่ถูกปล่อยพร้อมกับมื้ออาหาร และมีบทบาทสำคัญอื่นในการย่อยและดูดซึม ก็เกี่ยวข้องกับการควบคุม feeding behavior ด้วย ตัวอย่างเช่น **CCK ไม่ว่าจะสร้างจาก I cells ในลำไส้หรือปล่อยจาก nerve endings ในสมอง ยับยั้งการกินอาหารต่อ จึงนิยามว่าเป็น satiety factor หรือ anorexin**",
+          "CCK และปัจจัยคล้ายกันดึงดูดความสนใจอย่างมากจากอุตสาหกรรมยา ด้วยความหวังว่าอนุพันธ์อาจใช้ช่วยการลดน้ำหนักได้ ซึ่งเป็นเป้าหมายที่เร่งด่วนขึ้นเมื่อพิจารณาการระบาดของ obesity ในประเทศตะวันตก",
           {
             "sub": "Figure 26-9 สรุปกลไก",
             "body": [
-              {
-                "text": "สิ่งกระตุ้นและตัวยับยั้งจากรอบนอกซึ่งถูกปล่อยเพื่อรอรับหรือเพื่อตอบสนองต่อการกินอาหาร ข้าม blood-brain barrier ไปกระตุ้นการปล่อยและ/หรือการสังเคราะห์ central factors ใน hypothalamus ที่เพิ่มหรือลดการกินอาหารในเวลาต่อมา และการกินยังถูกปรับได้ด้วยสัญญาณจาก higher centers ตัวย่อในภาพได้แก่ AA (amino acid), CART (cocaine- and amphetamine-regulated transcript), CCK (cholecystokinin), CRH (corticotropin-releasing hormone), FFA (free fatty acids), NE (norepinephrine), NPY (neuropeptide Y), POMC (pro-opiomelanocortin) และ PYY (Peptide YY)"
-              }
+              "สิ่งกระตุ้นและตัวยับยั้งจากรอบนอกซึ่งถูกปล่อยเพื่อรอรับหรือเพื่อตอบสนองต่อการกินอาหาร ข้าม blood-brain barrier ไปกระตุ้นการปล่อยและ/หรือการสังเคราะห์ central factors ใน hypothalamus ที่เพิ่มหรือลดการกินอาหารในเวลาต่อมา และการกินยังถูกปรับได้ด้วยสัญญาณจาก higher centers ตัวย่อในภาพได้แก่ AA (amino acid), CART (cocaine- and amphetamine-regulated transcript), CCK (cholecystokinin), CRH (corticotropin-releasing hormone), FFA (free fatty acids), NE (norepinephrine), NPY (neuropeptide Y), POMC (pro-opiomelanocortin) และ PYY (Peptide YY)"
             ]
           }
         ]
@@ -2780,9 +2430,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Leptin และ ghrelin: คู่ตรงข้ามที่ควบคุมการกิน",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.19",
         "body": [
-          {
-            "text": "**leptin และ ghrelin เป็น peripheral factors ที่ออกฤทธิ์สวนทางกันต่อการกินอาหาร** ทั้งคู่ activate receptors ของตัวเองใน hypothalamus ซึ่งเริ่ม signaling cascades ที่นำไปสู่การเปลี่ยนแปลงการกิน"
-          },
+          "**leptin และ ghrelin เป็น peripheral factors ที่ออกฤทธิ์สวนทางกันต่อการกินอาหาร** ทั้งคู่ activate receptors ของตัวเองใน hypothalamus ซึ่งเริ่ม signaling cascades ที่นำไปสู่การเปลี่ยนแปลงการกิน",
           {
             "sub": "leptin",
             "body": [
@@ -2817,9 +2465,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Clinical Box 26-4: Obesity",
         "source": "Chapter 26 Digestion and Absorption of Nutrients p.19",
         "body": [
-          {
-            "text": "obesity เป็นปัญหาโภชนาการที่พบบ่อยที่สุดและแพงที่สุดใน United States ตัวชี้วัดไขมันในร่างกายที่สะดวกและเชื่อถือได้คือ **body mass index (BMI) = น้ำหนักตัวเป็นกิโลกรัม หารด้วยส่วนสูงเป็นเมตรยกกำลังสอง**"
-          },
+          "obesity เป็นปัญหาโภชนาการที่พบบ่อยที่สุดและแพงที่สุดใน United States ตัวชี้วัดไขมันในร่างกายที่สะดวกและเชื่อถือได้คือ **body mass index (BMI) = น้ำหนักตัวเป็นกิโลกรัม หารด้วยส่วนสูงเป็นเมตรยกกำลังสอง**",
           {
             "bullets": [
               "ค่ามากกว่า **25 ถือว่าผิดปกติ**",
@@ -2843,20 +2489,14 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "สาเหตุ",
             "body": [
-              {
-                "text": "สาเหตุน่าจะมีหลายอย่าง การศึกษาในฝาแฝดที่ถูกเลี้ยงแยกกันแสดง genetic component ที่ชัดเจน มีการชี้ว่าตลอดวิวัฒนาการของมนุษย์ ทุพภิกขภัยเกิดบ่อย กลไกที่เพิ่มการเก็บพลังงานเป็นไขมันจึงมีคุณค่าต่อการอยู่รอด แต่ปัจจุบันอาหารมีอย่างเหลือเฟือ ความสามารถในการสะสมไขมันจึงกลายเป็นภาระ **สาเหตุพื้นฐานยังคงเป็นการที่พลังงานที่ได้รับจากอาหารเกินพลังงานที่ใช้ไป**"
-              },
-              {
-                "text": "เมื่อให้อาสาสมัครกินอาหาร high-calorie แบบตายตัว บางคนน้ำหนักขึ้นเร็วกว่าคนอื่น แต่คนที่น้ำหนักขึ้นช้ากว่ามีการใช้พลังงานเพิ่มในรูปของการเคลื่อนไหวเล็ก ๆ ยุกยิก เรียกว่า **nonexercise activity thermogenesis (NEAT)** น้ำหนักตัวโดยทั่วไปเพิ่มขึ้นช้า ๆ แต่สม่ำเสมอตลอดวัยผู้ใหญ่ กิจกรรมทางกายที่ลดลงเป็นปัจจัยแน่นอน แต่ความไวต่อ leptin ที่ลดลงก็อาจมีส่วนด้วย"
-              }
+              "สาเหตุน่าจะมีหลายอย่าง การศึกษาในฝาแฝดที่ถูกเลี้ยงแยกกันแสดง genetic component ที่ชัดเจน มีการชี้ว่าตลอดวิวัฒนาการของมนุษย์ ทุพภิกขภัยเกิดบ่อย กลไกที่เพิ่มการเก็บพลังงานเป็นไขมันจึงมีคุณค่าต่อการอยู่รอด แต่ปัจจุบันอาหารมีอย่างเหลือเฟือ ความสามารถในการสะสมไขมันจึงกลายเป็นภาระ **สาเหตุพื้นฐานยังคงเป็นการที่พลังงานที่ได้รับจากอาหารเกินพลังงานที่ใช้ไป**",
+              "เมื่อให้อาสาสมัครกินอาหาร high-calorie แบบตายตัว บางคนน้ำหนักขึ้นเร็วกว่าคนอื่น แต่คนที่น้ำหนักขึ้นช้ากว่ามีการใช้พลังงานเพิ่มในรูปของการเคลื่อนไหวเล็ก ๆ ยุกยิก เรียกว่า **nonexercise activity thermogenesis (NEAT)** น้ำหนักตัวโดยทั่วไปเพิ่มขึ้นช้า ๆ แต่สม่ำเสมอตลอดวัยผู้ใหญ่ กิจกรรมทางกายที่ลดลงเป็นปัจจัยแน่นอน แต่ความไวต่อ leptin ที่ลดลงก็อาจมีส่วนด้วย"
             ]
           },
           {
             "sub": "Therapeutic highlights",
             "body": [
-              {
-                "text": "obesity เป็นปัญหาที่แก้ยากเพราะการรักษาที่ได้ผลขึ้นกับการเปลี่ยน lifestyle อย่างมาก **การลดน้ำหนักระยะยาวทำได้ด้วยการลดการกิน เพิ่มการใช้พลังงาน หรือดีที่สุดคือทั้งสองอย่างรวมกัน** การออกกำลังกายอย่างเดียวมักไม่พอเพราะโดยทั่วไปทำให้ผู้ป่วยกินแคลอรีมากขึ้น สำหรับผู้ที่อ้วนมากและมีภาวะแทรกซ้อนรุนแรง มีการพัฒนาวิธีผ่าตัดหลายแบบที่ลดขนาด stomach reservoir และ/หรือ bypass ไปเลย ซึ่งตั้งใจให้ลดขนาดมื้ออาหารที่ทนได้ แต่ยังมีผลทาง metabolic อย่างชัดเจนตั้งแต่ก่อนน้ำหนักจะลดมาก อาจเป็นเพราะการผลิต peripheral orexins เช่น ghrelin จากลำไส้ลดลง"
-              }
+              "obesity เป็นปัญหาที่แก้ยากเพราะการรักษาที่ได้ผลขึ้นกับการเปลี่ยน lifestyle อย่างมาก **การลดน้ำหนักระยะยาวทำได้ด้วยการลดการกิน เพิ่มการใช้พลังงาน หรือดีที่สุดคือทั้งสองอย่างรวมกัน** การออกกำลังกายอย่างเดียวมักไม่พอเพราะโดยทั่วไปทำให้ผู้ป่วยกินแคลอรีมากขึ้น สำหรับผู้ที่อ้วนมากและมีภาวะแทรกซ้อนรุนแรง มีการพัฒนาวิธีผ่าตัดหลายแบบที่ลดขนาด stomach reservoir และ/หรือ bypass ไปเลย ซึ่งตั้งใจให้ลดขนาดมื้ออาหารที่ทนได้ แต่ยังมีผลทาง metabolic อย่างชัดเจนตั้งแต่ก่อนน้ำหนักจะลดมาก อาจเป็นเพราะการผลิต peripheral orexins เช่น ghrelin จากลำไส้ลดลง"
             ]
           }
         ]
@@ -2890,9 +2530,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "OBJECTIVES และภาพรวมของบท",
         "source": "Chapter 27 Gastrointestinal Motility p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดบทวาง objectives ไว้ 6 ข้อ ใช้เป็นโครงอ่านทั้งบทได้เลย"
-          },
+          "สไลด์เปิดบทวาง objectives ไว้ 6 ข้อ ใช้เป็นโครงอ่านทั้งบทได้เลย",
           {
             "bullets": [
               "บอกรูปแบบหลักของ motility ใน gastrointestinal tract และบทบาทต่อ digestion กับ excretion และ **แยก peristalsis ออกจาก segmentation ให้ได้**",
@@ -2903,9 +2541,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "อธิบายว่า motility pattern ของ colon ทำหน้าที่ desiccate และ evacuate อุจจาระได้อย่างไร"
             ]
           },
-          {
-            "text": "INTRODUCTION ระบุว่ากลไกเหล่านี้ทำให้อาหารนุ่มลง ถูกขับเคลื่อนไปตามความยาวของทางเดินอาหาร และผสมกับ bile จาก gallbladder และ digestive enzymes จาก salivary glands และ pancreas โดยบางกลไกอาศัย intrinsic properties ของ intestinal smooth muscle เอง ส่วนที่เหลืออาศัย reflex ของ neurons ที่อยู่ในลำไส้เอง reflex ที่ผ่าน central nervous system (CNS) ผลแบบ paracrine ของ chemical messengers และ gastrointestinal hormones"
-          },
+          "INTRODUCTION ระบุว่ากลไกเหล่านี้ทำให้อาหารนุ่มลง ถูกขับเคลื่อนไปตามความยาวของทางเดินอาหาร และผสมกับ bile จาก gallbladder และ digestive enzymes จาก salivary glands และ pancreas โดยบางกลไกอาศัย intrinsic properties ของ intestinal smooth muscle เอง ส่วนที่เหลืออาศัย reflex ของ neurons ที่อยู่ในลำไส้เอง reflex ที่ผ่าน central nervous system (CNS) ผลแบบ paracrine ของ chemical messengers และ gastrointestinal hormones",
           {
             "sub": "TABLE 27-1 ความยาวเฉลี่ยของแต่ละส่วน (วัดด้วย intubation ในคนที่มีชีวิต)",
             "body": [
@@ -2925,15 +2561,9 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "PERISTALSIS",
         "source": "Chapter 27 Gastrointestinal Motility p.2",
         "body": [
-          {
-            "text": "**Peristalsis คือ reflex response ที่เริ่มเมื่อผนังลำไส้ถูกยืดด้วยสิ่งที่อยู่ใน lumen** และเกิดได้ทุกส่วนของ gastrointestinal tract ตั้งแต่ esophagus จนถึง rectum"
-          },
-          {
-            "text": "การยืดกระตุ้นให้เกิด **circular contraction ด้านหลังจุดกระตุ้น และเกิด relaxation ด้านหน้า** จากนั้น wave of contraction เคลื่อนในทิศ oral-to-caudal ดันสิ่งที่อยู่ใน lumen ไปข้างหน้าด้วยอัตรา **2 ถึง 25 cm/s**"
-          },
-          {
-            "text": "Autonomic input เพิ่มหรือลด peristaltic activity ได้ แต่ **การเกิด peristalsis ไม่ขึ้นกับ extrinsic innervation** หลักฐานที่หนังสือยกมาคือ ถ้าตัดลำไส้ออกมาแล้วเย็บกลับที่เดิมในทิศเดิม การเคลื่อนของสิ่งที่อยู่ข้างในไม่ถูกขวาง จะถูกขวางก็ต่อเมื่อกลับหัวกลับหางชิ้นนั้นก่อนเย็บกลับ"
-          },
+          "**Peristalsis คือ reflex response ที่เริ่มเมื่อผนังลำไส้ถูกยืดด้วยสิ่งที่อยู่ใน lumen** และเกิดได้ทุกส่วนของ gastrointestinal tract ตั้งแต่ esophagus จนถึง rectum",
+          "การยืดกระตุ้นให้เกิด **circular contraction ด้านหลังจุดกระตุ้น และเกิด relaxation ด้านหน้า** จากนั้น wave of contraction เคลื่อนในทิศ oral-to-caudal ดันสิ่งที่อยู่ใน lumen ไปข้างหน้าด้วยอัตรา **2 ถึง 25 cm/s**",
+          "Autonomic input เพิ่มหรือลด peristaltic activity ได้ แต่ **การเกิด peristalsis ไม่ขึ้นกับ extrinsic innervation** หลักฐานที่หนังสือยกมาคือ ถ้าตัดลำไส้ออกมาแล้วเย็บกลับที่เดิมในทิศเดิม การเคลื่อนของสิ่งที่อยู่ข้างในไม่ถูกขวาง จะถูกขวางก็ต่อเมื่อกลับหัวกลับหางชิ้นนั้นก่อนเย็บกลับ",
           {
             "sub": "ลำดับสารสื่อประสาทตามที่บทนี้เขียนไว้",
             "body": [
@@ -2944,41 +2574,27 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "พร้อมกันนั้น cholinergic neurons ที่วิ่งไปข้างหน้า (anterograde) กระตุ้น neurons ที่หลั่ง **NO และ vasoactive intestinal polypeptide (VIP) ทำให้เกิด relaxation ด้านหน้าจุดกระตุ้น**"
                 ]
               },
-              {
-                "text": "หนังสือสรุปว่า peristalsis เป็นตัวอย่างชั้นดีของการทำงานแบบบูรณาการของ enteric nervous system"
-              }
+              "หนังสือสรุปว่า peristalsis เป็นตัวอย่างชั้นดีของการทำงานแบบบูรณาการของ enteric nervous system"
             ]
           },
-          {
-            "text": "คำบรรยาย FIGURE 27-1 เทียบสามแบบไว้ในภาพเดียว isolated contraction เคลื่อนสิ่งที่อยู่ข้างในทั้งทาง orally และ aborally, segmentation ผสมสิ่งที่อยู่ข้างในในช่วงสั้น ๆ ของลำไส้, ส่วน peristalsis มีทั้ง contraction และ relaxation และเคลื่อนสิ่งที่อยู่ข้างในไปทาง aborally"
-          }
+          "คำบรรยาย FIGURE 27-1 เทียบสามแบบไว้ในภาพเดียว isolated contraction เคลื่อนสิ่งที่อยู่ข้างในทั้งทาง orally และ aborally, segmentation ผสมสิ่งที่อยู่ข้างในในช่วงสั้น ๆ ของลำไส้, ส่วน peristalsis มีทั้ง contraction และ relaxation และเคลื่อนสิ่งที่อยู่ข้างในไปทาง aborally"
         ]
       },
       {
         "heading": "SEGMENTATION และการผสม",
         "source": "Chapter 27 Gastrointestinal Motility p.2",
         "body": [
-          {
-            "text": "เมื่อมีอาหารอยู่ enteric nervous system จะสร้าง motility pattern ที่เกี่ยวข้องกับ peristalsis แต่ **ออกแบบมาเพื่อหน่วงการเคลื่อนที่ของสิ่งที่อยู่ในลำไส้ เพื่อให้มีเวลา digestion และ absorption** เรียกว่า segmentation"
-          },
-          {
-            "text": "กลไก คือ **ลำไส้ท่อนหนึ่งหดตัวที่ปลายทั้งสองข้าง แล้วเกิดการหดตัวครั้งที่สองตรงกลางท่อน ดัน chyme ทั้งถอยหลังและไปข้างหน้า** ดังนั้นต่างจาก peristalsis ตรงที่ **retrograde movement ของ chyme เกิดขึ้นเป็นปกติใน segmentation**"
-          },
-          {
-            "text": "pattern การผสมนี้คงอยู่ตราบเท่าที่ยังมี nutrients เหลือใน lumen ให้ดูดซึม หนังสือบอกว่าน่าจะสะท้อน programmed activity ของลำไส้ที่ถูกกำหนดโดย enteric nervous system และเกิดได้โดยไม่ต้องพึ่ง central input แม้ central input จะ modulate ได้"
-          }
+          "เมื่อมีอาหารอยู่ enteric nervous system จะสร้าง motility pattern ที่เกี่ยวข้องกับ peristalsis แต่ **ออกแบบมาเพื่อหน่วงการเคลื่อนที่ของสิ่งที่อยู่ในลำไส้ เพื่อให้มีเวลา digestion และ absorption** เรียกว่า segmentation",
+          "กลไก คือ **ลำไส้ท่อนหนึ่งหดตัวที่ปลายทั้งสองข้าง แล้วเกิดการหดตัวครั้งที่สองตรงกลางท่อน ดัน chyme ทั้งถอยหลังและไปข้างหน้า** ดังนั้นต่างจาก peristalsis ตรงที่ **retrograde movement ของ chyme เกิดขึ้นเป็นปกติใน segmentation**",
+          "pattern การผสมนี้คงอยู่ตราบเท่าที่ยังมี nutrients เหลือใน lumen ให้ดูดซึม หนังสือบอกว่าน่าจะสะท้อน programmed activity ของลำไส้ที่ถูกกำหนดโดย enteric nervous system และเกิดได้โดยไม่ต้องพึ่ง central input แม้ central input จะ modulate ได้"
         ]
       },
       {
         "heading": "BASIC ELECTRICAL RHYTHM (BER) และ interstitial cells of Cajal",
         "source": "Chapter 27 Gastrointestinal Motility p.3",
         "body": [
-          {
-            "text": "**ยกเว้น esophagus และส่วนต้นของ stomach** smooth muscle ของ gastrointestinal tract มี spontaneous rhythmic fluctuations ของ membrane potential อยู่ระหว่างประมาณ **-65 ถึง -45 mV** เรียกว่า basic electrical rhythm (BER)"
-          },
-          {
-            "text": "**BER ถูกริเริ่มโดย interstitial cells of Cajal** ซึ่งเป็น stellate mesenchymal pacemaker cells ที่มีลักษณะคล้าย smooth muscle และแตกแขนงยาวหลายแขนงเข้าไปใน intestinal smooth muscle"
-          },
+          "**ยกเว้น esophagus และส่วนต้นของ stomach** smooth muscle ของ gastrointestinal tract มี spontaneous rhythmic fluctuations ของ membrane potential อยู่ระหว่างประมาณ **-65 ถึง -45 mV** เรียกว่า basic electrical rhythm (BER)",
+          "**BER ถูกริเริ่มโดย interstitial cells of Cajal** ซึ่งเป็น stellate mesenchymal pacemaker cells ที่มีลักษณะคล้าย smooth muscle และแตกแขนงยาวหลายแขนงเข้าไปใน intestinal smooth muscle",
           {
             "bullets": [
               "ใน stomach และ small intestine เซลล์เหล่านี้อยู่ที่ **outer circular muscle layer ใกล้ myenteric plexus**",
@@ -2989,12 +2605,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "BER เองไม่ทำให้กล้ามเนื้อหดตัว",
             "body": [
-              {
-                "text": "**ตัว BER แทบไม่ทำให้กล้ามเนื้อหดตัว แต่ spike potentials ที่ซ้อนอยู่บนช่วงที่ depolarize มากที่สุดของ BER wave ต่างหากที่เพิ่ม muscle tension** ส่วน depolarizing ของแต่ละ spike เกิดจาก Ca2+ influx และส่วน repolarizing เกิดจาก K+ efflux"
-              },
-              {
-                "text": "**Acetylcholine เพิ่มจำนวน spike และ tension ของ smooth muscle ส่วน epinephrine ลดจำนวน spike และ tension** หนังสือระบุว่ามี polypeptides และ neurotransmitters อีกหลายชนิดที่มีผลต่อ BER แต่ยกตัวอย่างไว้แค่สองตัวนี้"
-              }
+              "**ตัว BER แทบไม่ทำให้กล้ามเนื้อหดตัว แต่ spike potentials ที่ซ้อนอยู่บนช่วงที่ depolarize มากที่สุดของ BER wave ต่างหากที่เพิ่ม muscle tension** ส่วน depolarizing ของแต่ละ spike เกิดจาก Ca2+ influx และส่วน repolarizing เกิดจาก K+ efflux",
+              "**Acetylcholine เพิ่มจำนวน spike และ tension ของ smooth muscle ส่วน epinephrine ลดจำนวน spike และ tension** หนังสือระบุว่ามี polypeptides และ neurotransmitters อีกหลายชนิดที่มีผลต่อ BER แต่ยกตัวอย่างไว้แค่สองตัวนี้"
             ]
           },
           {
@@ -3009,21 +2621,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**หน้าที่ของ BER คือประสาน peristaltic activity และ motor activity อื่น เช่นตั้งจังหวะของ segmentation โดยการหดตัวเกิดได้เฉพาะช่วง depolarizing ของคลื่นเท่านั้น** หลักฐานคือหลัง vagotomy หรือหลังตัดผนัง stomach ขาด peristalsis ใน stomach จะกลายเป็นแบบไม่สม่ำเสมอและวุ่นวาย"
-          },
-          {
-            "text": "คำบรรยาย FIGURE 27-2 แสดง membrane potential ที่มี spike potentials ภายใต้ maximal cholinergic tone เทียบกับการถูกยับยั้งภายใต้ adrenergic tone และแถบล่างคือการเปลี่ยนแปลงของ muscle tension ที่เกิดตามกัน"
-          }
+          "**หน้าที่ของ BER คือประสาน peristaltic activity และ motor activity อื่น เช่นตั้งจังหวะของ segmentation โดยการหดตัวเกิดได้เฉพาะช่วง depolarizing ของคลื่นเท่านั้น** หลักฐานคือหลัง vagotomy หรือหลังตัดผนัง stomach ขาด peristalsis ใน stomach จะกลายเป็นแบบไม่สม่ำเสมอและวุ่นวาย",
+          "คำบรรยาย FIGURE 27-2 แสดง membrane potential ที่มี spike potentials ภายใต้ maximal cholinergic tone เทียบกับการถูกยับยั้งภายใต้ adrenergic tone และแถบล่างคือการเปลี่ยนแปลงของ muscle tension ที่เกิดตามกัน"
         ]
       },
       {
         "heading": "MIGRATING MOTOR COMPLEX (MMC) รูปแบบตอนอดอาหาร",
         "source": "Chapter 27 Gastrointestinal Motility p.3",
         "body": [
-          {
-            "text": "ช่วง fasting ระหว่างมื้อ รูปแบบ electrical และ motor activity ถูกดัดแปลงจนเกิด cycle ของ motor activity ที่ **เคลื่อนจาก stomach ไปยัง distal ileum** เรียกว่า migrating motor complex (MMC)"
-          },
+          "ช่วง fasting ระหว่างมื้อ รูปแบบ electrical และ motor activity ถูกดัดแปลงจนเกิด cycle ของ motor activity ที่ **เคลื่อนจาก stomach ไปยัง distal ileum** เรียกว่า migrating motor complex (MMC)",
           {
             "bullets": [
               "**Phase I** ช่วงเงียบ (quiescent period)",
@@ -3031,12 +2637,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Phase III** ปิดท้ายด้วย burst ของ regular activity"
             ]
           },
-          {
-            "text": "**MMC ถูกริเริ่มโดย motilin** โดยระดับฮอร์โมนนี้ในเลือดสูงขึ้นเป็นช่วง ๆ ทุกประมาณ **100 นาที** ในภาวะ interdigestive สอดคล้องกับ contractile phases ของ MMC การหดตัวเคลื่อนไปทาง aborally ด้วยอัตราประมาณ **5 cm/min** และเกิดทุกประมาณ 100 นาทีเช่นกัน"
-          },
-          {
-            "text": "ระหว่างแต่ละ MMC **gastric secretion, bile flow และ pancreatic secretion เพิ่มขึ้น** หนังสือบอกว่าน่าจะทำหน้าที่กวาด stomach และ small intestine ให้ว่างจากสิ่งที่ค้างใน lumen เพื่อเตรียมรับมื้อถัดไป"
-          },
+          "**MMC ถูกริเริ่มโดย motilin** โดยระดับฮอร์โมนนี้ในเลือดสูงขึ้นเป็นช่วง ๆ ทุกประมาณ **100 นาที** ในภาวะ interdigestive สอดคล้องกับ contractile phases ของ MMC การหดตัวเคลื่อนไปทาง aborally ด้วยอัตราประมาณ **5 cm/min** และเกิดทุกประมาณ 100 นาทีเช่นกัน",
+          "ระหว่างแต่ละ MMC **gastric secretion, bile flow และ pancreatic secretion เพิ่มขึ้น** หนังสือบอกว่าน่าจะทำหน้าที่กวาด stomach และ small intestine ให้ว่างจากสิ่งที่ค้างใน lumen เพื่อเตรียมรับมื้อถัดไป",
           {
             "callout": "คำบรรยาย FIGURE 27-3 ให้ตัวเลขละเอียดกว่าเนื้อความ คือ phase III กินเวลาประมาณ 5 นาที และกวาดไปตามความยาวลำไส้ ส่วนทั้ง cycle เกิดซ้ำทุก 90 ถึง 100 นาทีในภาวะ fasting และถูกยับยั้งอย่างสมบูรณ์เมื่อกินอาหาร แล้วกลับมาใหม่ในอีก 90 ถึง 120 นาที",
             "kind": "tip"
@@ -3047,9 +2649,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "MMC ถูกดับเมื่อกินอาหาร",
         "source": "Chapter 27 Gastrointestinal Motility p.4",
         "body": [
-          {
-            "text": "ในทางกลับกัน เมื่อกินอาหาร **การหลั่ง motilin ถูกกด และ MMC ถูกยกเลิกไปจนกว่า digestion และ absorption จะเสร็จ**"
-          },
+          "ในทางกลับกัน เมื่อกินอาหาร **การหลั่ง motilin ถูกกด และ MMC ถูกยกเลิกไปจนกว่า digestion และ absorption จะเสร็จ**",
           {
             "callout": "หนังสือระบุตรง ๆ ว่ากลไกที่การกินอาหารไปกดการหลั่ง motilin นั้น ยังไม่ถูกอธิบาย (have not yet been elucidated) จึงเป็นจุดที่สไลด์ไม่ได้บอกกลไก",
             "kind": "flag"
@@ -3060,12 +2660,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "MOUTH & ESOPHAGUS และ MASTICATION",
         "source": "Chapter 27 Gastrointestinal Motility p.4",
         "body": [
-          {
-            "text": "ในปาก อาหารถูกผสมกับ saliva แล้วถูกดันเข้า esophagus จากนั้น peristaltic waves ใน esophagus พาอาหารลงสู่ stomach"
-          },
-          {
-            "text": "**Chewing (mastication) ทำให้ชิ้นอาหารใหญ่แตกและผสมกับสารคัดหลั่งจาก salivary glands** การทำให้เปียกและเป็นเนื้อเดียวนี้ช่วยทั้งการกลืนและการย่อยต่อไป"
-          },
+          "ในปาก อาหารถูกผสมกับ saliva แล้วถูกดันเข้า esophagus จากนั้น peristaltic waves ใน esophagus พาอาหารลงสู่ stomach",
+          "**Chewing (mastication) ทำให้ชิ้นอาหารใหญ่แตกและผสมกับสารคัดหลั่งจาก salivary glands** การทำให้เปียกและเป็นเนื้อเดียวนี้ช่วยทั้งการกลืนและการย่อยต่อไป",
           {
             "bullets": [
               "ชิ้นอาหารใหญ่ย่อยได้ แต่ทำให้ esophageal musculature หดตัวแรงและมักเจ็บ",
@@ -3080,31 +2676,21 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "SWALLOWING (deglutition)",
         "source": "Chapter 27 Gastrointestinal Motility p.4",
         "body": [
-          {
-            "text": "**Swallowing เป็น reflex response ที่ถูกกระตุ้นโดย afferent impulses ใน trigeminal, glossopharyngeal และ vagus nerves** impulses เหล่านี้ถูกบูรณาการที่ **nucleus of the tractus solitarius และ nucleus ambiguus** ส่วน efferent fibers วิ่งไปยัง pharyngeal musculature และลิ้นผ่าน **trigeminal, facial และ hypoglossal nerves**"
-          },
-          {
-            "text": "จุดเริ่มต้นเป็น **voluntary** คือรวบสิ่งที่อยู่ในปากไว้บนลิ้นแล้วดันไปทาง pharynx จากนั้นจึงเกิดคลื่นการหดตัวแบบ involuntary ของ pharyngeal muscles ที่ดันอาหารเข้า esophagus โดย **การยับยั้งการหายใจและการปิด glottis เป็นส่วนหนึ่งของ reflex นี้**"
-          },
-          {
-            "text": "peristaltic ring contraction ของกล้ามเนื้อ esophagus ก่อตัวขึ้นด้านหลังอาหาร แล้วกวาดลงไปด้วยความเร็วประมาณ **4 cm/s**"
-          },
+          "**Swallowing เป็น reflex response ที่ถูกกระตุ้นโดย afferent impulses ใน trigeminal, glossopharyngeal และ vagus nerves** impulses เหล่านี้ถูกบูรณาการที่ **nucleus of the tractus solitarius และ nucleus ambiguus** ส่วน efferent fibers วิ่งไปยัง pharyngeal musculature และลิ้นผ่าน **trigeminal, facial และ hypoglossal nerves**",
+          "จุดเริ่มต้นเป็น **voluntary** คือรวบสิ่งที่อยู่ในปากไว้บนลิ้นแล้วดันไปทาง pharynx จากนั้นจึงเกิดคลื่นการหดตัวแบบ involuntary ของ pharyngeal muscles ที่ดันอาหารเข้า esophagus โดย **การยับยั้งการหายใจและการปิด glottis เป็นส่วนหนึ่งของ reflex นี้**",
+          "peristaltic ring contraction ของกล้ามเนื้อ esophagus ก่อตัวขึ้นด้านหลังอาหาร แล้วกวาดลงไปด้วยความเร็วประมาณ **4 cm/s**",
           {
             "callout": "จุดที่ชอบออกสอบ ในท่ายืน ของเหลวและอาหารกึ่งแข็งมักตกลงสู่ esophagus ส่วนล่างด้วยแรงโน้มถ่วงนำหน้า peristaltic wave ไปก่อน แต่ถ้ายังมีอาหารค้าง จะถูกกวาดด้วย peristalsis คลื่นที่สอง หนังสือจึงสรุปว่า **กลืนอาหารในท่าหัวกลับลงก็ยังทำได้**",
             "kind": "tip"
           },
-          {
-            "text": "คำบรรยาย FIGURE 27-4 ไล่ลำดับสี่ขั้น A ลิ้นดัน food bolus ไปด้านหลังปาก B soft palate ยกขึ้นกันอาหารเข้าโพรงจมูก C epiglottis ปิด glottis กันอาหารเข้า trachea และ upper esophageal sphincter คลายตัว D อาหารลงสู่ esophagus"
-          }
+          "คำบรรยาย FIGURE 27-4 ไล่ลำดับสี่ขั้น A ลิ้นดัน food bolus ไปด้านหลังปาก B soft palate ยกขึ้นกันอาหารเข้าโพรงจมูก C epiglottis ปิด glottis กันอาหารเข้า trachea และ upper esophageal sphincter คลายตัว D อาหารลงสู่ esophagus"
         ]
       },
       {
         "heading": "LOWER ESOPHAGEAL SPHINCTER (LES) สามองค์ประกอบ",
         "source": "Chapter 27 Gastrointestinal Motility p.5",
         "body": [
-          {
-            "text": "ต่างจาก esophagus ส่วนที่เหลือ กล้ามเนื้อของ gastroesophageal junction หรือ lower esophageal sphincter (LES) **มี tonic activity ตลอดเวลาแต่คลายตัวเมื่อกลืน** และ **tonic activity ระหว่างมื้อนี่เองที่กันไม่ให้สิ่งที่อยู่ในกระเพาะไหลย้อนขึ้น esophagus**"
-          },
+          "ต่างจาก esophagus ส่วนที่เหลือ กล้ามเนื้อของ gastroesophageal junction หรือ lower esophageal sphincter (LES) **มี tonic activity ตลอดเวลาแต่คลายตัวเมื่อกลืน** และ **tonic activity ระหว่างมื้อนี่เองที่กันไม่ให้สิ่งที่อยู่ในกระเพาะไหลย้อนขึ้น esophagus**",
           {
             "sub": "LES ประกอบด้วยสามส่วน",
             "body": [
@@ -3120,17 +2706,11 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "การควบคุมด้วยระบบประสาท",
             "body": [
-              {
-                "text": "**Acetylcholine จาก vagal endings ทำให้ intrinsic sphincter หดตัว ส่วน NO และ VIP จาก interneurons ที่ถูกเลี้ยงด้วย vagal fibers อีกชุดหนึ่งทำให้คลายตัว**"
-              },
-              {
-                "text": "การหดตัวของ crural portion ของ diaphragm ซึ่งเลี้ยงด้วย **phrenic nerves** ถูกประสานกับการหายใจและการหดตัวของกล้ามเนื้อทรวงอกกับหน้าท้อง ทั้ง intrinsic และ extrinsic sphincter จึงทำงานร่วมกันเพื่อให้อาหารไหลเข้ากระเพาะอย่างเป็นระเบียบและกัน reflux"
-              }
+              "**Acetylcholine จาก vagal endings ทำให้ intrinsic sphincter หดตัว ส่วน NO และ VIP จาก interneurons ที่ถูกเลี้ยงด้วย vagal fibers อีกชุดหนึ่งทำให้คลายตัว**",
+              "การหดตัวของ crural portion ของ diaphragm ซึ่งเลี้ยงด้วย **phrenic nerves** ถูกประสานกับการหายใจและการหดตัวของกล้ามเนื้อทรวงอกกับหน้าท้อง ทั้ง intrinsic และ extrinsic sphincter จึงทำงานร่วมกันเพื่อให้อาหารไหลเข้ากระเพาะอย่างเป็นระเบียบและกัน reflux"
             ]
           },
-          {
-            "text": "คำบรรยาย FIGURE 27-5 ย้ำว่า intrinsic sphincter ถูกเสริมด้วย crural portion ของ diaphragm และทั้งสองถูกยึดเข้าหากันด้วย **phrenoesophageal ligament**"
-          }
+          "คำบรรยาย FIGURE 27-5 ย้ำว่า intrinsic sphincter ถูกเสริมด้วย crural portion ของ diaphragm และทั้งสองถูกยึดเข้าหากันด้วย **phrenoesophageal ligament**"
         ]
       },
       {
@@ -3140,23 +2720,15 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Achalasia",
             "body": [
-              {
-                "text": "แปลตรงตัวว่า failure to relax เป็นภาวะที่ **อาหารสะสมใน esophagus จนอวัยวะขยายใหญ่มากได้** เกิดจาก **resting LES tone ที่สูงขึ้นและการคลายตัวที่ไม่สมบูรณ์เมื่อกลืน**"
-              },
-              {
-                "text": "กลไกที่หนังสือระบุคือ **myenteric plexus ของ esophagus บกพร่องที่ตำแหน่ง LES และการปล่อย NO กับ VIP เสียไป**"
-              }
+              "แปลตรงตัวว่า failure to relax เป็นภาวะที่ **อาหารสะสมใน esophagus จนอวัยวะขยายใหญ่มากได้** เกิดจาก **resting LES tone ที่สูงขึ้นและการคลายตัวที่ไม่สมบูรณ์เมื่อกลืน**",
+              "กลไกที่หนังสือระบุคือ **myenteric plexus ของ esophagus บกพร่องที่ตำแหน่ง LES และการปล่อย NO กับ VIP เสียไป**"
             ]
           },
           {
             "sub": "LES incompetence และ gastroesophageal reflux disease",
             "body": [
-              {
-                "text": "เป็นภาวะตรงข้ามกับ achalasia คือยอมให้ **acid gastric contents ไหลย้อนขึ้น esophagus** หนังสือระบุว่าเป็น **ความผิดปกติทางเดินอาหารที่พบบ่อยที่สุดที่ทำให้ผู้ป่วยมาพบแพทย์** ทำให้เกิด heartburn และ esophagitis และนำไปสู่ ulceration กับ stricture ของ esophagus จาก scarring ได้"
-              },
-              {
-                "text": "ในรายที่รุนแรง intrinsic sphincter หรือ extrinsic sphincter หรือทั้งคู่จะอ่อนแรง ส่วนรายที่ไม่รุนแรงเกิดจากช่วงที่ neural drive ไปยัง sphincter ทั้งสองลดลงเป็นพัก ๆ ซึ่งหนังสือบอกเองว่า **ยังเข้าใจได้ไม่ดี (poorly understood)**"
-              }
+              "เป็นภาวะตรงข้ามกับ achalasia คือยอมให้ **acid gastric contents ไหลย้อนขึ้น esophagus** หนังสือระบุว่าเป็น **ความผิดปกติทางเดินอาหารที่พบบ่อยที่สุดที่ทำให้ผู้ป่วยมาพบแพทย์** ทำให้เกิด heartburn และ esophagitis และนำไปสู่ ulceration กับ stricture ของ esophagus จาก scarring ได้",
+              "ในรายที่รุนแรง intrinsic sphincter หรือ extrinsic sphincter หรือทั้งคู่จะอ่อนแรง ส่วนรายที่ไม่รุนแรงเกิดจากช่วงที่ neural drive ไปยัง sphincter ทั้งสองลดลงเป็นพัก ๆ ซึ่งหนังสือบอกเองว่า **ยังเข้าใจได้ไม่ดี (poorly understood)**"
             ]
           },
           {
@@ -3178,12 +2750,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "AEROPHAGIA และแก๊สในลำไส้",
         "source": "Chapter 27 Gastrointestinal Motility p.6",
         "body": [
-          {
-            "text": "การกลืนอากาศบางส่วนเลี่ยงไม่ได้ระหว่างกินและดื่ม เรียกว่า **aerophagia** อากาศบางส่วนถูกเรอออก (belching) แก๊สบางส่วนถูกดูดซึม แต่ส่วนใหญ่ผ่านลงไปถึง colon"
-          },
-          {
-            "text": "ที่ colon ออกซิเจนบางส่วนถูกดูดซึม และมี **hydrogen, hydrogen sulfide, carbon dioxide และ methane ที่ colonic bacteria สร้างจาก carbohydrates และสารอื่น** เติมเข้าไป ก่อนถูกขับออกเป็น flatus โดย **กลิ่นส่วนใหญ่มาจาก sulfides**"
-          },
+          "การกลืนอากาศบางส่วนเลี่ยงไม่ได้ระหว่างกินและดื่ม เรียกว่า **aerophagia** อากาศบางส่วนถูกเรอออก (belching) แก๊สบางส่วนถูกดูดซึม แต่ส่วนใหญ่ผ่านลงไปถึง colon",
+          "ที่ colon ออกซิเจนบางส่วนถูกดูดซึม และมี **hydrogen, hydrogen sulfide, carbon dioxide และ methane ที่ colonic bacteria สร้างจาก carbohydrates และสารอื่น** เติมเข้าไป ก่อนถูกขับออกเป็น flatus โดย **กลิ่นส่วนใหญ่มาจาก sulfides**",
           {
             "bullets": [
               "ปริมาตรแก๊สที่พบตามปกติในทางเดินอาหารมนุษย์ประมาณ **200 mL**",
@@ -3197,12 +2765,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "GASTRIC MOTILITY & EMPTYING",
         "source": "Chapter 27 Gastrointestinal Motility p.6",
         "body": [
-          {
-            "text": "หน้าที่ของ stomach ตามที่หนังสือสรุปคือ เก็บอาหาร ผสมกับกรด mucus และ pepsin แล้วปล่อยเข้า duodenum ในอัตราที่ควบคุมและสม่ำเสมอ"
-          },
-          {
-            "text": "**เมื่ออาหารเข้ากระเพาะ fundus และส่วนบนของ body คลายตัวรับอาหารโดยความดันแทบไม่เพิ่ม เรียกว่า receptive relaxation** จากนั้น peristalsis เริ่มที่ส่วนล่างของ body ผสมและบดอาหาร แล้วปล่อยส่วนที่เป็นกึ่งเหลวปริมาณน้อย ๆ ผ่าน pylorus เข้า duodenum"
-          },
+          "หน้าที่ของ stomach ตามที่หนังสือสรุปคือ เก็บอาหาร ผสมกับกรด mucus และ pepsin แล้วปล่อยเข้า duodenum ในอัตราที่ควบคุมและสม่ำเสมอ",
+          "**เมื่ออาหารเข้ากระเพาะ fundus และส่วนบนของ body คลายตัวรับอาหารโดยความดันแทบไม่เพิ่ม เรียกว่า receptive relaxation** จากนั้น peristalsis เริ่มที่ส่วนล่างของ body ผสมและบดอาหาร แล้วปล่อยส่วนที่เป็นกึ่งเหลวปริมาณน้อย ๆ ผ่าน pylorus เข้า duodenum",
           {
             "bullets": [
               "Receptive relaxation **ส่วนหนึ่งผ่าน vagus** และถูกกระตุ้นโดยการเคลื่อนไหวของ pharynx และ esophagus นอกจากนี้ intrinsic reflexes ก็ทำให้คลายตัวเมื่อผนังกระเพาะถูกยืด",
@@ -3213,12 +2777,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "antrum, pylorus และ upper duodenum ทำงานเป็นหน่วยเดียวกัน",
             "body": [
-              {
-                "text": "การหดตัวของ antrum ตามด้วยการหดตัวเป็นลำดับของ pyloric region และ duodenum **ที่ antrum การหดตัวบางส่วนนำหน้าสิ่งที่เคลื่อนมา จึงกันไม่ให้ก้อนแข็งเข้า duodenum และถูกผสมกับบดแทน ส่วนที่เหลวกว่าถูกฉีดเข้าลำไส้เล็กทีละนิด**"
-              },
-              {
-                "text": "ตามปกติไม่มี regurgitation จาก duodenum เพราะ **การหดตัวของ pyloric segment มักคงอยู่นานกว่าของ duodenum เล็กน้อย** และหนังสือเสริมว่าการป้องกัน regurgitation อาจเกิดจากฤทธิ์กระตุ้นของ **cholecystokinin (CCK) และ secretin ต่อ pyloric sphincter** ด้วย"
-              }
+              "การหดตัวของ antrum ตามด้วยการหดตัวเป็นลำดับของ pyloric region และ duodenum **ที่ antrum การหดตัวบางส่วนนำหน้าสิ่งที่เคลื่อนมา จึงกันไม่ให้ก้อนแข็งเข้า duodenum และถูกผสมกับบดแทน ส่วนที่เหลวกว่าถูกฉีดเข้าลำไส้เล็กทีละนิด**",
+              "ตามปกติไม่มี regurgitation จาก duodenum เพราะ **การหดตัวของ pyloric segment มักคงอยู่นานกว่าของ duodenum เล็กน้อย** และหนังสือเสริมว่าการป้องกัน regurgitation อาจเกิดจากฤทธิ์กระตุ้นของ **cholecystokinin (CCK) และ secretin ต่อ pyloric sphincter** ด้วย"
             ]
           }
         ]
@@ -3227,9 +2787,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "REGULATION OF GASTRIC MOTILITY & EMPTYING",
         "source": "Chapter 27 Gastrointestinal Motility p.7",
         "body": [
-          {
-            "text": "**อัตราที่กระเพาะปล่อยอาหารลง duodenum ขึ้นกับชนิดของอาหารที่กิน** โดยเรียงตามที่หนังสือระบุ"
-          },
+          "**อัตราที่กระเพาะปล่อยอาหารลง duodenum ขึ้นกับชนิดของอาหารที่กิน** โดยเรียงตามที่หนังสือระบุ",
           {
             "bullets": [
               "อาหารที่มี carbohydrate มาก ออกจากกระเพาะภายในไม่กี่ชั่วโมง",
@@ -3237,50 +2795,32 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**การปล่อยช้าที่สุดคือหลังมื้อที่มี fat**"
             ]
           },
-          {
-            "text": "อัตรายังขึ้นกับ **osmotic pressure ของสิ่งที่เข้า duodenum** ด้วย โดย hyperosmolality ของสิ่งที่อยู่ใน duodenum ถูกรับรู้โดย duodenal osmoreceptors ที่ทำให้ gastric emptying ลดลง ซึ่งหนังสือระบุว่ากลไก **น่าจะ (probably) เป็นทางประสาท** จึงยังไม่ฟันธง"
-          },
-          {
-            "text": "**Fats, carbohydrates และกรดใน duodenum ยับยั้งทั้ง gastric acid secretion, pepsin secretion และ gastric motility ผ่านกลไกทางประสาทและฮอร์โมน** โดยหนังสือระบุว่า messenger ที่เกี่ยวข้องน่าจะเป็น **peptide YY** และมีการเสนอว่า **CCK** เป็นตัวยับยั้ง gastric emptying ด้วย"
-          },
-          {
-            "text": "คำบรรยาย FIGURE 27-6 ระบุว่ากราฟผลของ protein และ fat ต่ออัตราการปล่อยอาหารของกระเพาะมนุษย์นั้น ได้จากอาสาสมัครที่กินมื้ออาหารเหลวปริมาณ 300 mL"
-          }
+          "อัตรายังขึ้นกับ **osmotic pressure ของสิ่งที่เข้า duodenum** ด้วย โดย hyperosmolality ของสิ่งที่อยู่ใน duodenum ถูกรับรู้โดย duodenal osmoreceptors ที่ทำให้ gastric emptying ลดลง ซึ่งหนังสือระบุว่ากลไก **น่าจะ (probably) เป็นทางประสาท** จึงยังไม่ฟันธง",
+          "**Fats, carbohydrates และกรดใน duodenum ยับยั้งทั้ง gastric acid secretion, pepsin secretion และ gastric motility ผ่านกลไกทางประสาทและฮอร์โมน** โดยหนังสือระบุว่า messenger ที่เกี่ยวข้องน่าจะเป็น **peptide YY** และมีการเสนอว่า **CCK** เป็นตัวยับยั้ง gastric emptying ด้วย",
+          "คำบรรยาย FIGURE 27-6 ระบุว่ากราฟผลของ protein และ fat ต่ออัตราการปล่อยอาหารของกระเพาะมนุษย์นั้น ได้จากอาสาสมัครที่กินมื้ออาหารเหลวปริมาณ 300 mL"
         ]
       },
       {
         "heading": "CLINICAL BOX 27-2 ผลของ Gastric Bypass Surgery และ dumping syndrome",
         "source": "Chapter 27 Gastrointestinal Motility p.7",
         "body": [
-          {
-            "text": "ผู้ป่วยอ้วนมากอาจได้รับการผ่าตัดที่เย็บลวดหรือลดขนาดกระเพาะจนส่วนใหญ่ถูก bypass ทำให้ **เสียหน้าที่ reservoir ของกระเพาะไป พร้อมกับเสียสัญญาณจากกระเพาะเช่น ghrelin ที่กระตุ้นการกินอาหาร** ผลคือกินได้ครั้งละน้อย"
-          },
+          "ผู้ป่วยอ้วนมากอาจได้รับการผ่าตัดที่เย็บลวดหรือลดขนาดกระเพาะจนส่วนใหญ่ถูก bypass ทำให้ **เสียหน้าที่ reservoir ของกระเพาะไป พร้อมกับเสียสัญญาณจากกระเพาะเช่น ghrelin ที่กระตุ้นการกินอาหาร** ผลคือกินได้ครั้งละน้อย",
           {
             "sub": "ทำไมกินมื้อใหญ่แล้วมีอาการ",
             "body": [
-              {
-                "text": "ถ้ากินมื้อใหญ่ จะเกิด **การดูดซึม glucose จากลำไส้อย่างรวดเร็ว ตามด้วย hyperglycemia และการหลั่ง insulin ที่พุ่งขึ้นทันที ทำให้เกิดอาการ hypoglycemia ประมาณ 2 ชั่วโมงหลังอาหาร**"
-              },
-              {
-                "text": "อาการอ่อนแรง เวียนศีรษะ และเหงื่อออกหลังอาหาร ซึ่งส่วนหนึ่งมาจาก hypoglycemia นี้เป็นส่วนหนึ่งของภาพ **dumping syndrome** ซึ่งเกิดได้ในผู้ป่วยที่ถูกตัดกระเพาะบางส่วนหรือถูกต่อ jejunum เข้ากับกระเพาะด้วย"
-              },
-              {
-                "text": "อีกสาเหตุของอาการคือ **การที่มื้ออาหาร hypertonic เข้าลำไส้อย่างรวดเร็ว ดึงน้ำเข้าลำไส้มากจนเกิด hypovolemia และ hypotension อย่างมีนัยสำคัญ**"
-              }
+              "ถ้ากินมื้อใหญ่ จะเกิด **การดูดซึม glucose จากลำไส้อย่างรวดเร็ว ตามด้วย hyperglycemia และการหลั่ง insulin ที่พุ่งขึ้นทันที ทำให้เกิดอาการ hypoglycemia ประมาณ 2 ชั่วโมงหลังอาหาร**",
+              "อาการอ่อนแรง เวียนศีรษะ และเหงื่อออกหลังอาหาร ซึ่งส่วนหนึ่งมาจาก hypoglycemia นี้เป็นส่วนหนึ่งของภาพ **dumping syndrome** ซึ่งเกิดได้ในผู้ป่วยที่ถูกตัดกระเพาะบางส่วนหรือถูกต่อ jejunum เข้ากับกระเพาะด้วย",
+              "อีกสาเหตุของอาการคือ **การที่มื้ออาหาร hypertonic เข้าลำไส้อย่างรวดเร็ว ดึงน้ำเข้าลำไส้มากจนเกิด hypovolemia และ hypotension อย่างมีนัยสำคัญ**"
             ]
           },
-          {
-            "text": "THERAPEUTIC HIGHLIGHTS ของกล่องนี้ระบุว่า **ไม่มีการรักษาจำเพาะสำหรับ dumping syndrome** นอกจากเลี่ยงมื้อใหญ่ โดยเฉพาะมื้อที่มี simple sugars เข้มข้น และหนังสือตั้งข้อสังเกตว่าการเกิดอาการนี้อาจมีส่วนช่วยให้การผ่าตัด bypass ลดการกินและลดความอ้วนได้สำเร็จ"
-          }
+          "THERAPEUTIC HIGHLIGHTS ของกล่องนี้ระบุว่า **ไม่มีการรักษาจำเพาะสำหรับ dumping syndrome** นอกจากเลี่ยงมื้อใหญ่ โดยเฉพาะมื้อที่มี simple sugars เข้มข้น และหนังสือตั้งข้อสังเกตว่าการเกิดอาการนี้อาจมีส่วนช่วยให้การผ่าตัด bypass ลดการกินและลดความอ้วนได้สำเร็จ"
         ]
       },
       {
         "heading": "VOMITING ลำดับเหตุการณ์และศูนย์ควบคุม",
         "source": "Chapter 27 Gastrointestinal Motility p.8",
         "body": [
-          {
-            "text": "**Vomiting เป็นตัวอย่างของการควบคุม gut motility จากส่วนกลาง** ลำดับตามที่หนังสือเขียน"
-          },
+          "**Vomiting เป็นตัวอย่างของการควบคุม gut motility จากส่วนกลาง** ลำดับตามที่หนังสือเขียน",
           {
             "bullets": [
               "เริ่มด้วย **salivation และความรู้สึก nausea**",
@@ -3290,9 +2830,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**LES และ esophagus คลายตัว แล้วสิ่งที่อยู่ในกระเพาะถูกขับออก**"
             ]
           },
-          {
-            "text": "**vomiting center อยู่ใน reticular formation ของ medulla** ประกอบด้วยกลุ่ม neurons กระจายอยู่หลายกลุ่มในบริเวณนี้ ที่ควบคุมองค์ประกอบต่าง ๆ ของการอาเจียนคนละส่วนกัน"
-          },
+          "**vomiting center อยู่ใน reticular formation ของ medulla** ประกอบด้วยกลุ่ม neurons กระจายอยู่หลายกลุ่มในบริเวณนี้ ที่ควบคุมองค์ประกอบต่าง ๆ ของการอาเจียนคนละส่วนกัน",
           {
             "sub": "สิ่งกระตุ้นที่ทำให้อาเจียน",
             "body": [
@@ -3308,12 +2846,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Chemoreceptor trigger zone",
             "body": [
-              {
-                "text": "Chemoreceptor cells ใน medulla เริ่มการอาเจียนได้เมื่อถูกกระตุ้นด้วยสารเคมีในกระแสเลือด **chemoreceptor trigger zone อยู่ที่ area postrema ซึ่งเป็นแถบเนื้อเยื่อรูปตัว V บนผนังด้านข้างของ fourth ventricle ใกล้ obex เป็นหนึ่งใน circumventricular organs และไม่ถูกปกป้องด้วย blood-brain barrier**"
-              },
-              {
-                "text": "**Lesions ของ area postrema แทบไม่มีผลต่อการอาเจียนจากการระคายทางเดินอาหารหรือจาก motion sickness แต่ยกเลิกการอาเจียนที่ตามมาหลังฉีด apomorphine และยา emetic อื่น ๆ** และยังลดการอาเจียนใน uremia และ radiation sickness ซึ่งทั้งสองภาวะอาจสัมพันธ์กับการสร้าง emetic substances ในกระแสเลือดเอง"
-              }
+              "Chemoreceptor cells ใน medulla เริ่มการอาเจียนได้เมื่อถูกกระตุ้นด้วยสารเคมีในกระแสเลือด **chemoreceptor trigger zone อยู่ที่ area postrema ซึ่งเป็นแถบเนื้อเยื่อรูปตัว V บนผนังด้านข้างของ fourth ventricle ใกล้ obex เป็นหนึ่งใน circumventricular organs และไม่ถูกปกป้องด้วย blood-brain barrier**",
+              "**Lesions ของ area postrema แทบไม่มีผลต่อการอาเจียนจากการระคายทางเดินอาหารหรือจาก motion sickness แต่ยกเลิกการอาเจียนที่ตามมาหลังฉีด apomorphine และยา emetic อื่น ๆ** และยังลดการอาเจียนใน uremia และ radiation sickness ซึ่งทั้งสองภาวะอาจสัมพันธ์กับการสร้าง emetic substances ในกระแสเลือดเอง"
             ]
           }
         ]
@@ -3322,9 +2856,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ตัวรับและยาที่เกี่ยวกับการอาเจียน",
         "source": "Chapter 27 Gastrointestinal Motility p.9",
         "body": [
-          {
-            "text": "**Serotonin (5-HT) ที่ปล่อยจาก enterochromaffin cells ใน small intestine ดูเหมือนจะเริ่ม impulses ผ่าน 5-HT3 receptors ที่กระตุ้นการอาเจียน** และยังมี **dopamine D2 receptors กับ 5-HT3 receptors ที่ area postrema และ nucleus of the solitary tract ที่อยู่ติดกัน**"
-          },
+          "**Serotonin (5-HT) ที่ปล่อยจาก enterochromaffin cells ใน small intestine ดูเหมือนจะเริ่ม impulses ผ่าน 5-HT3 receptors ที่กระตุ้นการอาเจียน** และยังมี **dopamine D2 receptors กับ 5-HT3 receptors ที่ area postrema และ nucleus of the solitary tract ที่อยู่ติดกัน**",
           {
             "bullets": [
               "**5-HT3 antagonists เช่น ondansetron** และ **D2 antagonists เช่น chlorpromazine และ haloperidol** เป็น antiemetic agents ที่ได้ผล",
@@ -3341,12 +2873,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "SMALL INTESTINE และสามชนิดของการหดตัว",
         "source": "Chapter 27 Gastrointestinal Motility p.9",
         "body": [
-          {
-            "text": "ใน small intestine สิ่งที่อยู่ในลำไส้ถูกผสมกับสารคัดหลั่งของ mucosal cells กับ pancreatic juice และ bile และ **chyme ถูกกักไว้นานพอให้ nutrient absorption เกิดขึ้น**"
-          },
-          {
-            "text": "ในลำไส้เล็ก BER เฉลี่ย **12 cycles/min ที่ proximal jejunum ลดลงเหลือ 8/min ที่ distal ileum**"
-          },
+          "ใน small intestine สิ่งที่อยู่ในลำไส้ถูกผสมกับสารคัดหลั่งของ mucosal cells กับ pancreatic juice และ bile และ **chyme ถูกกักไว้นานพอให้ nutrient absorption เกิดขึ้น**",
+          "ในลำไส้เล็ก BER เฉลี่ย **12 cycles/min ที่ proximal jejunum ลดลงเหลือ 8/min ที่ distal ileum**",
           {
             "sub": "smooth muscle contractions มีสามชนิด",
             "body": [
@@ -3357,9 +2885,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**Tonic contractions** เป็นการหดตัวที่ยาวนานกว่า ซึ่งมีผลเป็นการ **แยกลำไส้ท่อนหนึ่งออกจากอีกท่อน**"
                 ]
               },
-              {
-                "text": "หนังสือย้ำว่า **สองชนิดหลังทำให้ transit ในลำไส้เล็กช้าลงจน transit time ในภาวะกินอาหารยาวกว่าภาวะอดอาหาร** ซึ่งทำให้ chyme สัมผัส enterocytes นานขึ้นและส่งเสริมการดูดซึม"
-              }
+              "หนังสือย้ำว่า **สองชนิดหลังทำให้ transit ในลำไส้เล็กช้าลงจน transit time ในภาวะกินอาหารยาวกว่าภาวะอดอาหาร** ซึ่งทำให้ chyme สัมผัส enterocytes นานขึ้นและส่งเสริมการดูดซึม"
             ]
           }
         ]
@@ -3375,28 +2901,20 @@ export const NOTES_Y2_PHYSIO_3 = {
               "การยับยั้งทั้งสองแบบร่วมกันทำให้เกิด **paralytic (adynamic) ileus หลังผ่าตัดช่องท้อง**"
             ]
           },
-          {
-            "text": "เพราะ peristaltic activity ในลำไส้เล็กลดลงแบบกระจาย สิ่งที่อยู่ข้างในจึงไม่ถูกดันเข้า colon และลำไส้พองไม่สม่ำเสมอด้วยกระเปาะแก๊สและของเหลว"
-          },
+          "เพราะ peristaltic activity ในลำไส้เล็กลดลงแบบกระจาย สิ่งที่อยู่ข้างในจึงไม่ถูกดันเข้า colon และลำไส้พองไม่สม่ำเสมอด้วยกระเปาะแก๊สและของเหลว",
           {
             "callout": "ตัวเลขการฟื้นตัวที่กล่องนี้ให้ไว้ **intestinal peristalsis กลับมาใน 6 ถึง 8 ชั่วโมง ตามด้วย gastric peristalsis ส่วน colonic activity ใช้เวลา 2 ถึง 3 วันจึงกลับมา**",
             "kind": "tip"
           },
-          {
-            "text": "THERAPEUTIC HIGHLIGHTS ระบุว่า adynamic ileus บรรเทาได้ด้วยการใส่ท่อผ่านจมูกลงไปยังลำไส้เล็กแล้วดูดของเหลวและแก๊สออกสองสามวันจนกว่า peristalsis จะกลับมา อุบัติการณ์ของ ileus ลดลงจากการใช้การผ่าตัดแบบ minimally invasive เช่น laparoscopic มากขึ้น การให้ผู้ป่วยลุกเดินเร็วก็ช่วยเพิ่ม intestinal motility และมีการศึกษาวิจัยเรื่อง specific opioid antagonists อยู่"
-          }
+          "THERAPEUTIC HIGHLIGHTS ระบุว่า adynamic ileus บรรเทาได้ด้วยการใส่ท่อผ่านจมูกลงไปยังลำไส้เล็กแล้วดูดของเหลวและแก๊สออกสองสามวันจนกว่า peristalsis จะกลับมา อุบัติการณ์ของ ileus ลดลงจากการใช้การผ่าตัดแบบ minimally invasive เช่น laparoscopic มากขึ้น การให้ผู้ป่วยลุกเดินเร็วก็ช่วยเพิ่ม intestinal motility และมีการศึกษาวิจัยเรื่อง specific opioid antagonists อยู่"
         ]
       },
       {
         "heading": "COLON หน้าที่ reservoir และการดูดน้ำ",
         "source": "Chapter 27 Gastrointestinal Motility p.10",
         "body": [
-          {
-            "text": "**Colon เป็น reservoir สำหรับกากอาหารที่ย่อยหรือดูดซึมไม่ได้** และ motility ในส่วนนี้ถูกทำให้ช้าลงเพื่อให้ colon ดูดซึม water, Na+ และแร่ธาตุอื่น"
-          },
-          {
-            "text": "**โดยการเอาน้ำออกประมาณ 90% colon เปลี่ยน isotonic chyme 1000 ถึง 2000 mL ที่เข้ามาจาก ileum ในแต่ละวัน ให้เหลือ semisolid feces ประมาณ 200 mL**"
-          }
+          "**Colon เป็น reservoir สำหรับกากอาหารที่ย่อยหรือดูดซึมไม่ได้** และ motility ในส่วนนี้ถูกทำให้ช้าลงเพื่อให้ colon ดูดซึม water, Na+ และแร่ธาตุอื่น",
+          "**โดยการเอาน้ำออกประมาณ 90% colon เปลี่ยน isotonic chyme 1000 ถึง 2000 mL ที่เข้ามาจาก ileum ในแต่ละวัน ให้เหลือ semisolid feces ประมาณ 200 mL**"
         ]
       },
       {
@@ -3406,15 +2924,9 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Ileocecal valve",
             "body": [
-              {
-                "text": "**ileum ต่อกับ colon ด้วย ileocecal valve ซึ่งจำกัดการไหลย้อนของสิ่งที่อยู่ใน colon โดยเฉพาะ commensal bacteria จำนวนมาก ไม่ให้เข้า ileum ที่ค่อนข้างปลอดเชื้อ**"
-              },
-              {
-                "text": "ส่วนของ ileum ที่มี ileocecal valve ยื่นเข้าไปใน cecum เล็กน้อย ดังนั้น **ความดันใน colon ที่เพิ่มขึ้นจะบีบให้ปิด ส่วนความดันใน ileum ที่เพิ่มขึ้นจะเปิด** ตามปกติ valve นี้ปิดอยู่ และเปิดสั้น ๆ ทุกครั้งที่ peristaltic wave มาถึง ปล่อยให้ ileal chyme บางส่วนพุ่งเข้า cecum"
-              },
-              {
-                "text": "**เมื่ออาหารออกจากกระเพาะ cecum คลายตัวและการผ่านของ chyme ผ่าน ileocecal valve เพิ่มขึ้น เรียกว่า gastroileal reflex** ซึ่งหนังสือระบุว่า presumably เป็น vagovagal reflex"
-              }
+              "**ileum ต่อกับ colon ด้วย ileocecal valve ซึ่งจำกัดการไหลย้อนของสิ่งที่อยู่ใน colon โดยเฉพาะ commensal bacteria จำนวนมาก ไม่ให้เข้า ileum ที่ค่อนข้างปลอดเชื้อ**",
+              "ส่วนของ ileum ที่มี ileocecal valve ยื่นเข้าไปใน cecum เล็กน้อย ดังนั้น **ความดันใน colon ที่เพิ่มขึ้นจะบีบให้ปิด ส่วนความดันใน ileum ที่เพิ่มขึ้นจะเปิด** ตามปกติ valve นี้ปิดอยู่ และเปิดสั้น ๆ ทุกครั้งที่ peristaltic wave มาถึง ปล่อยให้ ileal chyme บางส่วนพุ่งเข้า cecum",
+              "**เมื่ออาหารออกจากกระเพาะ cecum คลายตัวและการผ่านของ chyme ผ่าน ileocecal valve เพิ่มขึ้น เรียกว่า gastroileal reflex** ซึ่งหนังสือระบุว่า presumably เป็น vagovagal reflex"
             ]
           },
           {
@@ -3435,12 +2947,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "CLINICAL BOX 27-4 Hirschsprung Disease",
         "source": "Chapter 27 Gastrointestinal Motility p.11",
         "body": [
-          {
-            "text": "เด็กบางคนมีภาวะ colonic motility ผิดปกติที่กำหนดโดยพันธุกรรม เรียกว่า **Hirschsprung disease หรือ aganglionic megacolon** มีลักษณะเด่นคือ **abdominal distension, anorexia และ lassitude** มักวินิจฉัยได้ตั้งแต่วัยทารก และพบได้มากถึง **1 ใน 5000 การเกิดมีชีพ**"
-          },
-          {
-            "text": "**สาเหตุคือการขาด ganglion cells แต่กำเนิดทั้งใน myenteric และ submucous plexuses ของ colon ส่วน distal ท่อนหนึ่ง อันเป็นผลจากความล้มเหลวของการอพยพของ neural crest cells จาก cranial ไป caudal ตามปกติระหว่างการเจริญ**"
-          },
+          "เด็กบางคนมีภาวะ colonic motility ผิดปกติที่กำหนดโดยพันธุกรรม เรียกว่า **Hirschsprung disease หรือ aganglionic megacolon** มีลักษณะเด่นคือ **abdominal distension, anorexia และ lassitude** มักวินิจฉัยได้ตั้งแต่วัยทารก และพบได้มากถึง **1 ใน 5000 การเกิดมีชีพ**",
+          "**สาเหตุคือการขาด ganglion cells แต่กำเนิดทั้งใน myenteric และ submucous plexuses ของ colon ส่วน distal ท่อนหนึ่ง อันเป็นผลจากความล้มเหลวของการอพยพของ neural crest cells จาก cranial ไป caudal ตามปกติระหว่างการเจริญ**",
           {
             "bullets": [
               "ฤทธิ์ของ **endothelins ต่อ endothelin B receptor** จำเป็นต่อการอพยพตามปกติของ neural crest cells บางกลุ่ม",
@@ -3448,12 +2956,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ในคน สาเหตุหนึ่งของ congenital aganglionic megacolon ดูเหมือนจะเป็น **mutation ใน endothelin B receptor gene**"
             ]
           },
-          {
-            "text": "**การไม่มี peristalsis ทำให้อุจจาระผ่านบริเวณ aganglionic ได้ยาก และเด็กที่เป็นโรคนี้อาจถ่ายอุจจาระห่างถึง 3 สัปดาห์ต่อครั้ง**"
-          },
-          {
-            "text": "THERAPEUTIC HIGHLIGHTS ระบุว่าอาการหายได้อย่างสมบูรณ์ถ้าตัดส่วน aganglionic ของ colon ออกแล้วต่อ colon ส่วนเหนือขึ้นไปเข้ากับ rectum แต่ทำไม่ได้ถ้าส่วนที่เป็นยาวมาก ในกรณีนั้นผู้ป่วยอาจต้องทำ colectomy"
-          },
+          "**การไม่มี peristalsis ทำให้อุจจาระผ่านบริเวณ aganglionic ได้ยาก และเด็กที่เป็นโรคนี้อาจถ่ายอุจจาระห่างถึง 3 สัปดาห์ต่อครั้ง**",
+          "THERAPEUTIC HIGHLIGHTS ระบุว่าอาการหายได้อย่างสมบูรณ์ถ้าตัดส่วน aganglionic ของ colon ออกแล้วต่อ colon ส่วนเหนือขึ้นไปเข้ากับ rectum แต่ทำไม่ได้ถ้าส่วนที่เป็นยาวมาก ในกรณีนั้นผู้ป่วยอาจต้องทำ colectomy",
           {
             "callout": "หน้าเดียวกันยังปิดท้ายด้วยข้อมูล BER ของ colon ว่า **การเคลื่อนไหวของ colon ถูกประสานด้วย BER ของ colon ซึ่งต่างจากลำไส้เล็กตรงที่ความถี่เพิ่มขึ้นเรื่อย ๆ ไปตามความยาว จากประมาณ 2/min ที่ ileocecal valve เป็น 6/min ที่ sigmoid**",
             "kind": "tip"
@@ -3472,21 +2976,15 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**จาก sigmoid colon ถึง anus การเคลื่อนที่ช้ากว่านั้นมาก**"
             ]
           },
-          {
-            "text": "เมื่อป้อนเม็ดลูกปัดสีเล็ก ๆ พร้อมอาหาร **เฉลี่ย 70% ถูกเก็บได้จากอุจจาระภายใน 72 ชั่วโมง แต่การเก็บได้ครบต้องใช้เวลามากกว่าหนึ่งสัปดาห์**"
-          },
-          {
-            "text": "หนังสือยังระบุว่า transit time, ความผันผวนของความดัน และการเปลี่ยนแปลง pH ในทางเดินอาหาร สังเกตได้ด้วยการติดตามเม็ดยาขนาดเล็กที่บรรจุ sensors และเครื่องส่งวิทยุจิ๋ว"
-          }
+          "เมื่อป้อนเม็ดลูกปัดสีเล็ก ๆ พร้อมอาหาร **เฉลี่ย 70% ถูกเก็บได้จากอุจจาระภายใน 72 ชั่วโมง แต่การเก็บได้ครบต้องใช้เวลามากกว่าหนึ่งสัปดาห์**",
+          "หนังสือยังระบุว่า transit time, ความผันผวนของความดัน และการเปลี่ยนแปลง pH ในทางเดินอาหาร สังเกตได้ด้วยการติดตามเม็ดยาขนาดเล็กที่บรรจุ sensors และเครื่องส่งวิทยุจิ๋ว"
         ]
       },
       {
         "heading": "CLINICAL BOX 27-5 Constipation",
         "source": "Chapter 27 Gastrointestinal Motility p.11",
         "body": [
-          {
-            "text": "**Constipation หมายถึงการลดลงของการถ่ายอุจจาระในเชิงพยาธิสภาพ** เดิมเชื่อว่าสะท้อนการเปลี่ยนแปลงของ motility แต่ความสำเร็จของยาที่ออกแบบมาเพื่อเพิ่ม chloride secretion ในการรักษา chronic constipation บ่งชี้ว่า **ความไม่สมดุลระหว่าง secretion กับ absorption ใน colon ก็อาจมีส่วนทำให้เกิดอาการ**"
-          },
+          "**Constipation หมายถึงการลดลงของการถ่ายอุจจาระในเชิงพยาธิสภาพ** เดิมเชื่อว่าสะท้อนการเปลี่ยนแปลงของ motility แต่ความสำเร็จของยาที่ออกแบบมาเพื่อเพิ่ม chloride secretion ในการรักษา chronic constipation บ่งชี้ว่า **ความไม่สมดุลระหว่าง secretion กับ absorption ใน colon ก็อาจมีส่วนทำให้เกิดอาการ**",
           {
             "bullets": [
               "ผู้ป่วยที่ท้องผูกเรื้อรัง โดยเฉพาะรายที่เพิ่งมีการเปลี่ยนแปลงของนิสัยการขับถ่าย ควรถูกตรวจอย่างละเอียดเพื่อแยกโรคทางกาย",
@@ -3495,18 +2993,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "อาการเหล่านี้ **ไม่ได้เกิดจากการดูดซึม toxic substances** เพราะหายทันทีเมื่อถ่ายอุจจาระออกจาก rectum และสร้างขึ้นใหม่ได้ด้วยการขยาย rectum ด้วยวัสดุ inert"
             ]
           },
-          {
-            "text": "THERAPEUTIC HIGHLIGHTS ระบุว่ากรณีส่วนใหญ่บรรเทาได้ด้วยการปรับอาหารให้มี fiber มากขึ้น หรือใช้ laxatives ที่เก็บของเหลวไว้ใน colon จึงเพิ่ม bulk ของอุจจาระและกระตุ้น reflexes ที่นำไปสู่การขับถ่าย และ **lubiprostone เพิ่งถูกเพิ่มเข้ามาในการรักษา constipation โดยเชื่อว่าออกฤทธิ์เพิ่มการหลั่ง chloride และน้ำเข้า colon จึงเพิ่มความเหลวของสิ่งที่อยู่ใน colon**"
-          }
+          "THERAPEUTIC HIGHLIGHTS ระบุว่ากรณีส่วนใหญ่บรรเทาได้ด้วยการปรับอาหารให้มี fiber มากขึ้น หรือใช้ laxatives ที่เก็บของเหลวไว้ใน colon จึงเพิ่ม bulk ของอุจจาระและกระตุ้น reflexes ที่นำไปสู่การขับถ่าย และ **lubiprostone เพิ่งถูกเพิ่มเข้ามาในการรักษา constipation โดยเชื่อว่าออกฤทธิ์เพิ่มการหลั่ง chloride และน้ำเข้า colon จึงเพิ่มความเหลวของสิ่งที่อยู่ใน colon**"
         ]
       },
       {
         "heading": "DEFECATION",
         "source": "Chapter 27 Gastrointestinal Motility p.12",
         "body": [
-          {
-            "text": "**การขยายของ rectum ด้วยอุจจาระเริ่ม reflex contractions ของกล้ามเนื้อ rectum และความรู้สึกอยากถ่าย**"
-          },
+          "**การขยายของ rectum ด้วยอุจจาระเริ่ม reflex contractions ของกล้ามเนื้อ rectum และความรู้สึกอยากถ่าย**",
           {
             "sub": "การเลี้ยงของเส้นประสาทต่อ sphincter ทั้งสอง",
             "body": [
@@ -3533,32 +3027,20 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "การเบ่งถ่ายโดยตั้งใจ",
             "body": [
-              {
-                "text": "ก่อนถึงความดันที่ทำให้ external anal sphincter คลาย การถ่ายโดยตั้งใจเริ่มได้ด้วยการเบ่ง ตามปกติ **มุมระหว่าง anus กับ rectum อยู่ที่ประมาณ 90 ถึง 100 องศา ซึ่งเมื่อรวมกับการหดตัวของ puborectalis muscle จะยับยั้งการถ่าย**"
-              },
-              {
-                "text": "เมื่อเบ่ง **กล้ามเนื้อหน้าท้องหดตัว pelvic floor ลดต่ำลง 1 ถึง 3 cm และ puborectalis muscle คลายตัว ทำให้ anorectal angle ตรงขึ้น** เมื่อรวมกับการคลายของ external anal sphincter การถ่ายจึงเกิดขึ้น"
-              },
-              {
-                "text": "หนังสือสรุปว่า **defecation เป็น spinal reflex ที่ยับยั้งได้ตามใจด้วยการหดเกร็ง external sphincter ไว้ หรือส่งเสริมได้ด้วยการคลาย sphincter ร่วมกับหดกล้ามเนื้อหน้าท้อง**"
-              }
+              "ก่อนถึงความดันที่ทำให้ external anal sphincter คลาย การถ่ายโดยตั้งใจเริ่มได้ด้วยการเบ่ง ตามปกติ **มุมระหว่าง anus กับ rectum อยู่ที่ประมาณ 90 ถึง 100 องศา ซึ่งเมื่อรวมกับการหดตัวของ puborectalis muscle จะยับยั้งการถ่าย**",
+              "เมื่อเบ่ง **กล้ามเนื้อหน้าท้องหดตัว pelvic floor ลดต่ำลง 1 ถึง 3 cm และ puborectalis muscle คลายตัว ทำให้ anorectal angle ตรงขึ้น** เมื่อรวมกับการคลายของ external anal sphincter การถ่ายจึงเกิดขึ้น",
+              "หนังสือสรุปว่า **defecation เป็น spinal reflex ที่ยับยั้งได้ตามใจด้วยการหดเกร็ง external sphincter ไว้ หรือส่งเสริมได้ด้วยการคลาย sphincter ร่วมกับหดกล้ามเนื้อหน้าท้อง**"
             ]
           },
-          {
-            "text": "คำบรรยาย FIGURE 27-9 อธิบายว่าการขยายทำให้เกิด passive tension จากการยืดผนัง rectum และเกิด active tension เพิ่มเมื่อ smooth muscle ในผนังหดตัว โดย internal และ external sphincter จะคลายและหดตามลำดับ แล้ว accommodate ในการขยายแต่ละขั้น จนถึง pressure threshold ของการถ่าย"
-          }
+          "คำบรรยาย FIGURE 27-9 อธิบายว่าการขยายทำให้เกิด passive tension จากการยืดผนัง rectum และเกิด active tension เพิ่มเมื่อ smooth muscle ในผนังหดตัว โดย internal และ external sphincter จะคลายและหดตามลำดับ แล้ว accommodate ในการขยายแต่ละขั้น จนถึง pressure threshold ของการถ่าย"
         ]
       },
       {
         "heading": "GASTROCOLIC REFLEX",
         "source": "Chapter 27 Gastrointestinal Motility p.13",
         "body": [
-          {
-            "text": "**การขยายของ stomach ด้วยอาหารเริ่มการหดตัวของ rectum และมักทำให้อยากถ่าย เรียกว่า gastrocolic reflex** และหนังสือระบุว่าอาจถูกขยายผลด้วยฤทธิ์ของ **gastrin** ต่อ colon"
-          },
-          {
-            "text": "เพราะการตอบสนองนี้ **การถ่ายหลังอาหารจึงพบบ่อยในเด็ก ส่วนในผู้ใหญ่ นิสัยและปัจจัยทางวัฒนธรรมมีบทบาทมากในการกำหนดว่าจะถ่ายเมื่อใด**"
-          }
+          "**การขยายของ stomach ด้วยอาหารเริ่มการหดตัวของ rectum และมักทำให้อยากถ่าย เรียกว่า gastrocolic reflex** และหนังสือระบุว่าอาจถูกขยายผลด้วยฤทธิ์ของ **gastrin** ต่อ colon",
+          "เพราะการตอบสนองนี้ **การถ่ายหลังอาหารจึงพบบ่อยในเด็ก ส่วนในผู้ใหญ่ นิสัยและปัจจัยทางวัฒนธรรมมีบทบาทมากในการกำหนดว่าจะถ่ายเมื่อใด**"
         ]
       },
       {
@@ -3596,12 +3078,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "The functional analysis of eating: กินเป็นมื้อ ไม่ใช่กินตลอดเวลา",
         "source": "Food intake & body weight control p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยหัวข้อ PHENOMENOLOGY แล้ววางข้อเท็จจริงตั้งต้นว่า **EATING in mammals occurs as discrete meals** คือสัตว์เลี้ยงลูกด้วยนมกินเป็นมื้อ ๆ แยกจากกันชัดเจน"
-          },
-          {
-            "text": "จากข้อเท็จจริงนั้นสไลด์สรุปต่อ 3 ข้อ (Therefore)"
-          },
+          "สไลด์เปิดด้วยหัวข้อ PHENOMENOLOGY แล้ววางข้อเท็จจริงตั้งต้นว่า **EATING in mammals occurs as discrete meals** คือสัตว์เลี้ยงลูกด้วยนมกินเป็นมื้อ ๆ แยกจากกันชัดเจน",
+          "จากข้อเท็จจริงนั้นสไลด์สรุปต่อ 3 ข้อ (Therefore)",
           {
             "bullets": [
               "The meal is a product of the integratory action of the brain — มื้ออาหารเป็นผลจากการทำงานประสานกันของสมอง",
@@ -3615,9 +3093,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "4 กระบวนการทางจิตวิทยาใน 1 meal cycle",
         "source": "Food intake & body weight control p.2",
         "body": [
-          {
-            "text": "สไลด์เขียนหัวข้อว่า (THEORETICAL) PSYCHOLOGICAL PROCESSES INVOLVED in MEALS แล้ววางแผนภาพ Meal 1 → Intermeal Interval → Meal 2 พร้อมกำกับหมายเลข (1) ถึง (4)"
-          },
+          "สไลด์เขียนหัวข้อว่า (THEORETICAL) PSYCHOLOGICAL PROCESSES INVOLVED in MEALS แล้ววางแผนภาพ Meal 1 → Intermeal Interval → Meal 2 พร้อมกำกับหมายเลข (1) ถึง (4)",
           {
             "bullets": [
               "(1) **HUNGER causes meal initiation** — ความหิวเป็นตัวเริ่มมื้อ",
@@ -3636,9 +3112,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Metabolism & Energy Balance: แผนภาพภาพรวมของระบบ",
         "source": "Food intake & body weight control p.2",
         "body": [
-          {
-            "text": "สไลด์เป็นแผนภาพ Energy input → Energy balance → Energy output โดยมีคำกำกับกระจายอยู่ในแผนภาพดังนี้"
-          },
+          "สไลด์เป็นแผนภาพ Energy input → Energy balance → Energy output โดยมีคำกำกับกระจายอยู่ในแผนภาพดังนี้",
           {
             "sub": "ฝั่ง input และ output",
             "body": [
@@ -3675,9 +3149,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Daily meal pattern ในหนูและในคน",
         "source": "Food intake & body weight control p.2",
         "body": [
-          {
-            "text": "สไลด์เอากรอบทฤษฎี 4 ขั้นตอนไปทาบกับข้อมูลจริง เฉพาะรูปหนู (Daily meal pattern of one representative rat, Strubbe 2002) ที่กำกับ Meal 1 / Intermeal int / Meal 2 พร้อมเลข (1) (2) (3) (4) ส่วนรูปคน (Daily meal pattern in human) มีแต่เลข (1) (2) (3) (4) อย่างเดียว"
-          },
+          "สไลด์เอากรอบทฤษฎี 4 ขั้นตอนไปทาบกับข้อมูลจริง เฉพาะรูปหนู (Daily meal pattern of one representative rat, Strubbe 2002) ที่กำกับ Meal 1 / Intermeal int / Meal 2 พร้อมเลข (1) (2) (3) (4) ส่วนรูปคน (Daily meal pattern in human) มีแต่เลข (1) (2) (3) (4) อย่างเดียว",
           {
             "callout": "ทั้งสองสไลด์เป็นกราฟ ไม่มีตัวเลขหรือคำบรรยายเพิ่มในเนื้อความ สไลด์ไม่ได้บอกว่าหนูหรือคนกินกี่มื้อต่อวัน",
             "kind": "flag"
@@ -3688,12 +3160,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "The controls of eating: เริ่ม กินต่อ และหยุด",
         "source": "Food intake & body weight control p.3",
         "body": [
-          {
-            "text": "สไลด์วางโครงการควบคุมการกินเป็น 3 จังหวะ **Start eating → Continue eating → Stop eating**"
-          },
-          {
-            "text": "และแยกชนิดของการควบคุมเป็น 3 แบบ"
-          },
+          "สไลด์วางโครงการควบคุมการกินเป็น 3 จังหวะ **Start eating → Continue eating → Stop eating**",
+          "และแยกชนิดของการควบคุมเป็น 3 แบบ",
           {
             "bullets": [
               "**Endocrine control**",
@@ -3701,9 +3169,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Metabolic control**"
             ]
           },
-          {
-            "text": "โครงสร้างที่เข้ามาเกี่ยวข้องตามที่สไลด์เขียนไว้"
-          },
+          "โครงสร้างที่เข้ามาเกี่ยวข้องตามที่สไลด์เขียนไว้",
           {
             "bullets": [
               "Sensory Organs",
@@ -3722,9 +3188,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Neural control: the dual-center hypothesis (VMH กับ LHA)",
         "source": "Food intake & body weight control p.3",
         "body": [
-          {
-            "text": "สไลด์เรียกว่า The classic satiety & hungry center (the dual-center hypothesis) อ้าง King, 2006"
-          },
+          "สไลด์เรียกว่า The classic satiety & hungry center (the dual-center hypothesis) อ้าง King, 2006",
           {
             "bullets": [
               "The lesion encompassing the VMH resulted in **hyperphagia and obesity**",
@@ -3744,9 +3208,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Neural control: cFos mapping ของสมองที่ตอบสนองต่อการกิน",
         "source": "Food intake & body weight control p.4",
         "body": [
-          {
-            "text": "สไลด์แรกของชุดนี้ชื่อ The Hypothalamus: Forebrain control of eating เป็นรูปล้วน ไม่มีข้อความอธิบาย จากนั้นเป็นชุด Temporal pattern of eating induced cFos สองสไลด์ อ้าง Johnstone, 2006"
-          },
+          "สไลด์แรกของชุดนี้ชื่อ The Hypothalamus: Forebrain control of eating เป็นรูปล้วน ไม่มีข้อความอธิบาย จากนั้นเป็นชุด Temporal pattern of eating induced cFos สองสไลด์ อ้าง Johnstone, 2006",
           {
             "sub": "ชุดที่ 1",
             "body": [
@@ -3787,9 +3249,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Fasting induced cFos ถูก reverse ด้วย refeeding",
         "source": "Food intake & body weight control p.4",
         "body": [
-          {
-            "text": "หัวสไลด์เขียนว่า **Fasting induced cFos in mice is reversed by refeeding** อ้าง Becskei et al. บริเวณที่แสดงคือ Paraventricular nucleus และ Arcuate nucleus"
-          },
+          "หัวสไลด์เขียนว่า **Fasting induced cFos in mice is reversed by refeeding** อ้าง Becskei et al. บริเวณที่แสดงคือ Paraventricular nucleus และ Arcuate nucleus",
           {
             "bullets": [
               "รูป Arc เปรียบเทียบสภาวะ fasted กับ refed",
@@ -3807,9 +3267,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Eating behavior ถูกควบคุมจากหลายระบบพร้อมกัน",
         "source": "Food intake & body weight control p.5",
         "body": [
-          {
-            "text": "สไลด์วาง Eating behavior ไว้ตรงกลาง แล้วโยงปัจจัยรอบตัวพร้อมระบุสมองส่วนที่เกี่ยวข้องของแต่ละปัจจัย"
-          },
+          "สไลด์วาง Eating behavior ไว้ตรงกลาง แล้วโยงปัจจัยรอบตัวพร้อมระบุสมองส่วนที่เกี่ยวข้องของแต่ละปัจจัย",
           {
             "bullets": [
               "**Homeostasis control: Hypothalamus & NTS** (สไลด์ใส่เครื่องหมายคำถามไว้ท้ายหัวข้อนี้)",
@@ -3822,9 +3280,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "Aging และ Growth วางอยู่ในแผนภาพด้วย แต่สไลด์ไม่ได้ระบุสมองส่วนที่เกี่ยวข้องของสองอันนี้"
             ]
           },
-          {
-            "text": "ถัดจากแผนภาพมีสไลด์ Neural control of eating: Environmental temperature และ Neural control of eating: Reproductive cycle (กำกับ ThammacharoenS08a) ทั้งสองเป็นรูปล้วน ไม่มีเนื้อความ"
-          },
+          "ถัดจากแผนภาพมีสไลด์ Neural control of eating: Environmental temperature และ Neural control of eating: Reproductive cycle (กำกับ ThammacharoenS08a) ทั้งสองเป็นรูปล้วน ไม่มีเนื้อความ",
           {
             "callout": "แผนภาพนี้คือคำตอบของประโยคที่ว่า dual-center hypothesis ง่ายเกินไป เพราะการกินถูกดึงด้วย homeostasis, hedonic, stress, อุณหภูมิ, circadian และ reproductive cycle พร้อมกัน",
             "kind": "tip"
@@ -3835,9 +3291,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Metabolic control: Glucostatic theory และ TDBG",
         "source": "Food intake & body weight control p.5",
         "body": [
-          {
-            "text": "**Small transient declines in blood glucose (TDBG) before meals may stimulate hunger** คือระดับกลูโคสในเลือดตกลงเล็กน้อยชั่วคราวก่อนมื้ออาหาร อาจกระตุ้นความหิว (สไลด์สะกดตัวย่อสลับไปมาทั้ง TDBG และ TGBG) อ้าง Campfield & Smith, Physiol Rev 83: 25, 2002 และมีข้อมูลกำกับ SuwannapapornP17a"
-          },
+          "**Small transient declines in blood glucose (TDBG) before meals may stimulate hunger** คือระดับกลูโคสในเลือดตกลงเล็กน้อยชั่วคราวก่อนมื้ออาหาร อาจกระตุ้นความหิว (สไลด์สะกดตัวย่อสลับไปมาทั้ง TDBG และ TGBG) อ้าง Campfield & Smith, Physiol Rev 83: 25, 2002 และมีข้อมูลกำกับ SuwannapapornP17a",
           {
             "bullets": [
               "รูปที่แสดงคือ Transient premeal decline in blood glucose ในหนู",
@@ -3855,9 +3309,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "หลักฐานฝั่งตรงข้าม: การป้องกัน TDBG ทำให้มื้ออาหารเลื่อนออกไป",
         "source": "Food intake & body weight control p.6",
         "body": [
-          {
-            "text": "สไลด์ทวนประโยคเดิมแล้วเติมประโยคสำคัญว่า **Preventing TDBG delays meal onset** คือถ้าไม่ให้เกิดการตกของกลูโคสชั่วคราวก่อนมื้อ การเริ่มมื้อจะช้าลง อ้าง Campfield & Smith, Physiol Rev 83: 25, 2002"
-          },
+          "สไลด์ทวนประโยคเดิมแล้วเติมประโยคสำคัญว่า **Preventing TDBG delays meal onset** คือถ้าไม่ให้เกิดการตกของกลูโคสชั่วคราวก่อนมื้อ การเริ่มมื้อจะช้าลง อ้าง Campfield & Smith, Physiol Rev 83: 25, 2002",
           {
             "callout": "คู่ประโยค TDBG กระตุ้นความหิว กับ preventing TDBG delays meal onset คือหลักฐานสองทางของ glucostatic theory ที่ควรจำคู่กัน",
             "kind": "tip"
@@ -3868,9 +3320,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Endocrine control of eating: ตารางฮอร์โมนแยก Inhibitory กับ Excitatory",
         "source": "Food intake & body weight control p.6",
         "body": [
-          {
-            "text": "สไลด์ทำเป็นตาราง 2 คอลัมน์คือ Inhibitory และ Excitatory โดยระบุอวัยวะต้นทางกำกับแต่ละฮอร์โมน อ้าง Geary, Physiol Behav 81: 719, 2004"
-          },
+          "สไลด์ทำเป็นตาราง 2 คอลัมน์คือ Inhibitory และ Excitatory โดยระบุอวัยวะต้นทางกำกับแต่ละฮอร์โมน อ้าง Geary, Physiol Behav 81: 719, 2004",
           {
             "sub": "ฝั่ง Inhibitory",
             "body": [
@@ -3906,9 +3356,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Leptin และ insulin กับ DIO diet",
         "source": "Food intake & body weight control p.6",
         "body": [
-          {
-            "text": "หัวข้อ Metabolic & Endocrine controls of eating โยงมาที่ **Leptin & insulin** (กำกับ SchwartzMW05a) และมีสไลด์การทดลองเปรียบเทียบอาหาร 2 สูตร (กำกับ ThammacharoenS24, Unpublished)"
-          },
+          "หัวข้อ Metabolic & Endocrine controls of eating โยงมาที่ **Leptin & insulin** (กำกับ SchwartzMW05a) และมีสไลด์การทดลองเปรียบเทียบอาหาร 2 สูตร (กำกับ ThammacharoenS24, Unpublished)",
           {
             "bullets": [
               "**Control: Chow, 3.04 kcal/g**",
@@ -3925,9 +3373,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Obesity & energy homeostasis: สมการสมดุลพลังงาน",
         "source": "Food intake & body weight control p.7",
         "body": [
-          {
-            "text": "**ENERGY BALANCE EQUATION: ENERGY IN − ENERGY OUT = ENERGY STORED**"
-          },
+          "**ENERGY BALANCE EQUATION: ENERGY IN − ENERGY OUT = ENERGY STORED**",
           {
             "bullets": [
               "ในสัตว์โตเต็มวัย สไลด์เขียนว่า **Food intake − (MR, physical work) = Δ Fat mass**",
@@ -3945,9 +3391,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "The long term control: lipostatic hypothesis",
         "source": "Food intake & body weight control p.7",
         "body": [
-          {
-            "text": "สไลด์วางแผนภาพ Stored Energy (Low – Balance – High) โยงกับ Food intake ภายใต้หัวข้อ Energy homeostasis อ้าง WoodsSC et al., 1998"
-          },
+          "สไลด์วางแผนภาพ Stored Energy (Low – Balance – High) โยงกับ Food intake ภายใต้หัวข้อ Energy homeostasis อ้าง WoodsSC et al., 1998",
           {
             "bullets": [
               "**The lipostatic hypothesis** คือสมมติฐานที่เชื่อมปริมาณอาหารที่กินเข้ากับปริมาณพลังงานสะสม (fat mass และ leptin/insulin)",
@@ -3964,9 +3408,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "What is obesity: นิยามและวิธีวัด (BMI)",
         "source": "Food intake & body weight control p.7",
         "body": [
-          {
-            "text": "**Obesity is an unusual or abnormal amount of body fat (= adiposity)** สไลด์ให้วิธีวัด 2 แบบคือ Body Mass Index (BMI) และ % Body fat content (= adiposity) พร้อม Nomogram for BMI (Bray, 1978)"
-          },
+          "**Obesity is an unusual or abnormal amount of body fat (= adiposity)** สไลด์ให้วิธีวัด 2 แบบคือ Body Mass Index (BMI) และ % Body fat content (= adiposity) พร้อม Nomogram for BMI (Bray, 1978)",
           {
             "bullets": [
               "**BMI = mass / height², usually kg/m²**",
@@ -3981,9 +3423,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Body Condition Score ในสุนัขและแมว",
         "source": "Food intake & body weight control p.8",
         "body": [
-          {
-            "text": "มีสไลด์ตั้งคำถามซ้ำสองสไลด์ว่า **Body Condition Score in dog: 5, 6, 7 or 9 ?** โดยใช้แผนภูมิของ Purina กำกับที่มาไว้ว่า CanineBCSPurina14a และ FelineBCSPurina14a รวมถึง GossellinJ07a"
-          },
+          "มีสไลด์ตั้งคำถามซ้ำสองสไลด์ว่า **Body Condition Score in dog: 5, 6, 7 or 9 ?** โดยใช้แผนภูมิของ Purina กำกับที่มาไว้ว่า CanineBCSPurina14a และ FelineBCSPurina14a รวมถึง GossellinJ07a",
           {
             "callout": "สไลด์ตั้งคำถามค้างไว้เป็นรูปให้ดูและตอบในห้อง สไลด์ไม่ได้เขียนคำตอบว่าเป็น 5, 6, 7 หรือ 9 และไม่ได้ให้เกณฑ์ของแต่ละสกอร์เป็นตัวหนังสือ",
             "kind": "warn"
@@ -4016,27 +3456,21 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "สไลด์อ้าง Gregoire et al 1998 และ Rosen and Spiegelman, 2000"
-          }
+          "สไลด์อ้าง Gregoire et al 1998 และ Rosen and Spiegelman, 2000"
         ]
       },
       {
         "heading": "Adipose tissue: lipogenesis, TG synthesis และ lipolysis",
         "source": "Food intake & body weight control p.9",
         "body": [
-          {
-            "text": "สไลด์แบ่งการควบคุม lipid metabolism เป็น 2 หัวข้อใหญ่"
-          },
+          "สไลด์แบ่งการควบคุม lipid metabolism เป็น 2 หัวข้อใหญ่",
           {
             "bullets": [
               "**Metabolic control of lipid metabolism** โยงกับ Energy balance",
               "**Neuroendocrine control of lipid metabolism** ได้แก่ **Insulin & Epinephrine** และ **Autonomic nervous system**"
             ]
           },
-          {
-            "text": "อ้างอิงหลายฉบับ (LargeV04a, DuncanRE07a, NyeC08a, JaworskiK07a, WangS08a และ ZechnerR09a) และมีสไลด์ Adipose tissue functions: endocrine organ ที่เป็นรูปล้วน อ้าง Flier 2003 กับ Trayhurn and Beattie 2001"
-          },
+          "อ้างอิงหลายฉบับ (LargeV04a, DuncanRE07a, NyeC08a, JaworskiK07a, WangS08a และ ZechnerR09a) และมีสไลด์ Adipose tissue functions: endocrine organ ที่เป็นรูปล้วน อ้าง Flier 2003 กับ Trayhurn and Beattie 2001",
           {
             "callout": "สไลด์ endocrine organ มีแต่หัวข้อกับรูป ไม่มีรายชื่อฮอร์โมนที่ adipose tissue หลั่งเป็นตัวหนังสือในเนื้อความ สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -4071,9 +3505,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "อ้าง MartinS, 2006 และสไลด์ท้ายเด็คมีรายการอ้างอิงยาว (BernotieneE06a, LargoR08a, MorrisonCD08a, MyerMG08a, HillJ08a, MoschosS02a, SchwartzMW00a, TrayhurnP01a)"
-          }
+          "อ้าง MartinS, 2006 และสไลด์ท้ายเด็คมีรายการอ้างอิงยาว (BernotieneE06a, LargoR08a, MorrisonCD08a, MyerMG08a, HillJ08a, MoschosS02a, SchwartzMW00a, TrayhurnP01a)"
         ]
       }
     ]
@@ -4089,9 +3521,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การวัดผลและหนังสืออ่านเพิ่มเติม",
         "source": "Gastrointestinal Physiology (final) p.2",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นสไลด์ธุรการของรายวิชา ภาคปลาย ปีการศึกษา 2566 (CU VET 86)"
-          },
+          "สไลด์นี้เป็นสไลด์ธุรการของรายวิชา ภาคปลาย ปีการศึกษา 2566 (CU VET 86)",
           {
             "bullets": [
               "Lecture 12 ชม แบ่งเป็น **90% สอบข้อเขียนปลายภาค + 10% Home work**",
@@ -4121,9 +3551,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ทางเดินอาหารเปลี่ยนไปตามชนิดอาหารที่กิน",
         "source": "Gastrointestinal Physiology (final) p.3",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยประโยค **Gut health indicates Animal health** แล้วเทียบลักษณะทางเดินอาหารตามชนิดอาหาร"
-          },
+          "สไลด์เปิดด้วยประโยค **Gut health indicates Animal health** แล้วเทียบลักษณะทางเดินอาหารตามชนิดอาหาร",
           {
             "sub": "Herbivore (กินพืช)",
             "body": [
@@ -4195,9 +3623,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Comparison of GI capacity",
         "source": "Gastrointestinal Physiology (final) p.5",
         "body": [
-          {
-            "text": "สไลด์เทียบสัดส่วนความจุของทางเดินอาหารในสามชนิดสัตว์ ตัวเลขนี้เป็นตัวเลขที่ควรจำเพราะสะท้อนตำแหน่งที่เกิด fermentation"
-          },
+          "สไลด์เทียบสัดส่วนความจุของทางเดินอาหารในสามชนิดสัตว์ ตัวเลขนี้เป็นตัวเลขที่ควรจำเพราะสะท้อนตำแหน่งที่เกิด fermentation",
           {
             "bullets": [
               "**Cow: 71% ของ GI capacity อยู่ที่ Rumen** และ 11% อยู่ที่ colon และ rectum",
@@ -4211,9 +3637,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "โครงสร้างผิวดูดซึมและเซลล์เฉพาะบน villi",
         "source": "Gastrointestinal Physiology (final) p.7-8",
         "body": [
-          {
-            "text": "หัวข้อสไลด์คือ Enhanced Surface Area for Increased Nutrient Absorption โดยอาศัย **Intestinal villi** และ **Brush border** ของ Intestinal Epithelial Cell"
-          },
+          "หัวข้อสไลด์คือ Enhanced Surface Area for Increased Nutrient Absorption โดยอาศัย **Intestinal villi** และ **Brush border** ของ Intestinal Epithelial Cell",
           {
             "sub": "Specialized Cells Lining Villi",
             "body": [
@@ -4268,9 +3692,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Blood flow to various organs",
         "source": "Gastrointestinal Physiology (final) p.12",
         "body": [
-          {
-            "text": "ตารางเทียบเลือดที่ไปเลี้ยงอวัยวะ จุดที่ต้องจำคือ **splanchnic circulation รับ 25% ของ cardiac output ซึ่งมากที่สุดในตาราง ทั้งที่มีน้ำหนักเพียง 5.7% ของ body weight**"
-          },
+          "ตารางเทียบเลือดที่ไปเลี้ยงอวัยวะ จุดที่ต้องจำคือ **splanchnic circulation รับ 25% ของ cardiac output ซึ่งมากที่สุดในตาราง ทั้งที่มีน้ำหนักเพียง 5.7% ของ body weight**",
           {
             "bullets": [
               "Splanchnic: 25 %C.O., 1,400 ml/min/organ, 5.7 % of BW",
@@ -4287,9 +3709,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Blood circulation ของ GI tract",
         "source": "Gastrointestinal Physiology (final) p.13",
         "body": [
-          {
-            "text": "**Autoregulation of splanchnic vessels อยู่ในช่วง 70-170 mmHg**"
-          },
+          "**Autoregulation of splanchnic vessels อยู่ในช่วง 70-170 mmHg**",
           {
             "sub": "เส้นทางเลือดตามผังในสไลด์",
             "body": [
@@ -4318,9 +3738,7 @@ export const NOTES_Y2_PHYSIO_3 = {
             "callout": "สไลด์ยกโรค ลำไส้ใหญ่โป่งพองแต่กำเนิด (Hirschsprung's disease) ขึ้นมาคู่กับหัวข้อ ENS แต่ไม่ได้อธิบายกลไกหรืออาการไว้ สไลด์ไม่ได้บอก",
             "kind": "flag"
           },
-          {
-            "text": "แผนภาพหน้าเดียวกันมีคำ Nodose ganglion, Solitary nucleus, Dorsal Root Ganglia, Vagus nerve พร้อมกำกับ Ach และ NE และคำว่า inhibitory กับ stimulatory แต่ไม่มีคำบรรยายประกอบ"
-          }
+          "แผนภาพหน้าเดียวกันมีคำ Nodose ganglion, Solitary nucleus, Dorsal Root Ganglia, Vagus nerve พร้อมกำกับ Ach และ NE และคำว่า inhibitory กับ stimulatory แต่ไม่มีคำบรรยายประกอบ"
         ]
       },
       {
@@ -4356,9 +3774,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Receptors ของ GI tract",
         "source": "Gastrointestinal Physiology (final) p.15",
         "body": [
-          {
-            "text": "หัวข้อสไลด์คือ LOCAL AND CENTRAL REFLEX PATHWAYS IN THE GASTROINTESTINAL SYSTEM"
-          },
+          "หัวข้อสไลด์คือ LOCAL AND CENTRAL REFLEX PATHWAYS IN THE GASTROINTESTINAL SYSTEM",
           {
             "bullets": [
               "**Mechanoreceptors และ chemoreceptors** ตอบสนองต่อ **stretch, osmolarity และ pH**",
@@ -4381,9 +3797,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "มี Paracrine control ร่วมด้วย"
             ]
           },
-          {
-            "text": "**GI hormones ทุกตัวเป็นสารพวก peptides** และ GI peptides แบ่งได้เป็น Endocrines (hormones), Paracrines และ Neurocrines (neurotransmitters)"
-          }
+          "**GI hormones ทุกตัวเป็นสารพวก peptides** และ GI peptides แบ่งได้เป็น Endocrines (hormones), Paracrines และ Neurocrines (neurotransmitters)"
         ]
       },
       {
@@ -4398,9 +3812,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**ต้องรู้โครงสร้างทางเคมีที่แน่นอน**"
             ]
           },
-          {
-            "text": "เส้นทางของ GI hormone ตามผังคือ release จาก endocrine cells ใน mucosa ของ stomach และ intestine ไปสู่ **portal circulation ผ่าน liver ไป heart แล้วจึงกลับมาออกฤทธิ์ที่ digestive system**"
-          }
+          "เส้นทางของ GI hormone ตามผังคือ release จาก endocrine cells ใน mucosa ของ stomach และ intestine ไปสู่ **portal circulation ผ่าน liver ไป heart แล้วจึงกลับมาออกฤทธิ์ที่ digestive system**"
         ]
       },
       {
@@ -4410,25 +3822,19 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Endocrine mechanism",
             "body": [
-              {
-                "text": "ปล่อย transmitter (เช่น peptide) เข้าสู่เลือด: **Protein กระตุ้น antral G cells ให้หลั่ง gastrin เข้า blood ไปที่ stomach (parietal cells) ได้ H+**"
-              }
+              "ปล่อย transmitter (เช่น peptide) เข้าสู่เลือด: **Protein กระตุ้น antral G cells ให้หลั่ง gastrin เข้า blood ไปที่ stomach (parietal cells) ได้ H+**"
             ]
           },
           {
             "sub": "Neural mechanism",
             "body": [
-              {
-                "text": "กระตุ้นเส้นประสาทและ neurotransmitter ที่มีผลต่อ secretory หรือ motor activity: **smell of food กระตุ้น vagus nerve หลั่ง acetylcholine ไปที่ parietal cells ได้ H+**"
-              }
+              "กระตุ้นเส้นประสาทและ neurotransmitter ที่มีผลต่อ secretory หรือ motor activity: **smell of food กระตุ้น vagus nerve หลั่ง acetylcholine ไปที่ parietal cells ได้ H+**"
             ]
           },
           {
             "sub": "Paracrine mechanism",
             "body": [
-              {
-                "text": "transmitter ถูกปล่อยจาก sensor cell แล้วออกฤทธิ์ต่อเซลล์ข้างเคียงโดยไม่เข้าเลือดและไม่ผ่านเส้นประสาท: **enterochromaffin-like (ECL) cells หลั่ง histamine ไปที่ parietal cells ได้ H+**"
-              }
+              "transmitter ถูกปล่อยจาก sensor cell แล้วออกฤทธิ์ต่อเซลล์ข้างเคียงโดยไม่เข้าเลือดและไม่ผ่านเส้นประสาท: **enterochromaffin-like (ECL) cells หลั่ง histamine ไปที่ parietal cells ได้ H+**"
             ]
           },
           {
@@ -4454,9 +3860,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Gastrin (Gastrin-Cholecystokinin family)",
         "source": "Gastrointestinal Physiology (final) p.18",
         "body": [
-          {
-            "text": "**Gastrin สร้างจาก G-cell ใน Antral และ Duodenal mucosa**"
-          },
+          "**Gastrin สร้างจาก G-cell ใน Antral และ Duodenal mucosa**",
           {
             "sub": "Effect ของ gastrin ตามสไลด์",
             "body": [
@@ -4471,24 +3875,18 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "สไลด์เสริมว่า **Gastrin stimulates acid secretion, release of histamine, and regulates mucosal growth** และสร้างมาจาก Pre-pro Gastrin ขนาด 101 aa ที่ผ่าน cleavage และ post-translational modifications ทำให้ **more active และ lower rate of degradation**"
-          }
+          "สไลด์เสริมว่า **Gastrin stimulates acid secretion, release of histamine, and regulates mucosal growth** และสร้างมาจาก Pre-pro Gastrin ขนาด 101 aa ที่ผ่าน cleavage และ post-translational modifications ทำให้ **more active และ lower rate of degradation**"
         ]
       },
       {
         "heading": "Cholecystokinin-Pancreozymin (CCK-PZ)",
         "source": "Gastrointestinal Physiology (final) p.19",
         "body": [
-          {
-            "text": "**CCK มี sequence homology บางส่วนกับ gastrin แต่มาจากคนละ gene และมีผลตรงข้ามกันในการควบคุม gastric acid secretion**"
-          },
+          "**CCK มี sequence homology บางส่วนกับ gastrin แต่มาจากคนละ gene และมีผลตรงข้ามกันในการควบคุม gastric acid secretion**",
           {
             "sub": "Site of secretion",
             "body": [
-              {
-                "text": "Primarily duodenal mucosa"
-              }
+              "Primarily duodenal mucosa"
             ]
           },
           {
@@ -4548,9 +3946,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Prehension (การคาบหรือจับอาหารเข้าปาก)",
         "source": "Gastrointestinal Physiology (final) p.20",
         "body": [
-          {
-            "text": "**Prehension = Seizing and conveying of food to the mouth** ใช้ teeth, lips และ tongue โดย **สัตว์เคี้ยวเอื้องส่วนใหญ่มี dental pad**"
-          },
+          "**Prehension = Seizing and conveying of food to the mouth** ใช้ teeth, lips และ tongue โดย **สัตว์เคี้ยวเอื้องส่วนใหญ่มี dental pad**",
           {
             "bullets": [
               "**Bovine spp**: Tongue, Immobile lips",
@@ -4567,9 +3963,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Mastication (Chewing)",
         "source": "Gastrointestinal Physiology (final) p.21",
         "body": [
-          {
-            "text": "**Mastication = Mechanical reduction of food to smaller particle size**"
-          },
+          "**Mastication = Mechanical reduction of food to smaller particle size**",
           {
             "bullets": [
               "**Carnivores และ Omnivores เคี้ยวในแนว Vertical direction**",
@@ -4587,9 +3981,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "1. Oral stage: Voluntary stage",
             "body": [
-              {
-                "text": "อาหารกระตุ้นผ่าน **CN 5, 9 และ 10** ไปยัง **Deglutition center in Medulla** แล้วส่งออกทาง **CN 5, 9, 10, 11 และ 12** ไปยัง Pharyngeal และ Laryngeal muscle"
-              }
+              "อาหารกระตุ้นผ่าน **CN 5, 9 และ 10** ไปยัง **Deglutition center in Medulla** แล้วส่งออกทาง **CN 5, 9, 10, 11 และ 12** ไปยัง Pharyngeal และ Laryngeal muscle"
             ]
           },
           {
@@ -4608,9 +4000,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "3. Esophageal stage (รายละเอียดอยู่ที่ p.23)",
             "body": [
-              {
-                "text": "เริ่มจาก cranio-esophageal ไปถึง caudo-esophageal sphincter"
-              }
+              "เริ่มจาก cranio-esophageal ไปถึง caudo-esophageal sphincter"
             ]
           }
         ]
@@ -4645,9 +4035,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Function and Properties of Saliva",
         "source": "Gastrointestinal Physiology (final) p.23",
         "body": [
-          {
-            "text": "**pH ของน้ำลาย: Pig 7.3, Dog และ Cat 7.5, Ruminant 8-8.5**"
-          },
+          "**pH ของน้ำลาย: Pig 7.3, Dog และ Cat 7.5, Ruminant 8-8.5**",
           {
             "bullets": [
               "Mixing และ lubricate foods ช่วยการกลืน (aid deglutition)",
@@ -4763,9 +4151,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Enterogastric reflex = การยับยั้ง gastric emptying",
             "body": [
-              {
-                "text": "เกิดขึ้นเมื่อมีอาหารอยู่ใน duodenum แล้ว โดยทำงานผ่าน 3 ทาง: **ผ่าน enteric nervous system**, **ผ่าน extrinsic nerve ไป sympathetic ganglion** และ **ผ่าน vagus nerve (ยับยั้งสัญญาณกระตุ้นปกติ)**"
-              },
+              "เกิดขึ้นเมื่อมีอาหารอยู่ใน duodenum แล้ว โดยทำงานผ่าน 3 ทาง: **ผ่าน enteric nervous system**, **ผ่าน extrinsic nerve ไป sympathetic ganglion** และ **ผ่าน vagus nerve (ยับยั้งสัญญาณกระตุ้นปกติ)**",
               {
                 "bullets": [
                   "Distension of duodenum",
@@ -4851,9 +4237,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Overview of gastric function และเซลล์ในกระเพาะ",
         "source": "Gastrointestinal Physiology (final) p.30",
         "body": [
-          {
-            "text": "**The Proximal Portion of the Stomach Secretes Acid, Pepsinogens, Intrinsic Factor, Bicarbonate, and Mucus, Whereas the Distal Part Releases Gastrin and Somatostatin**"
-          },
+          "**The Proximal Portion of the Stomach Secretes Acid, Pepsinogens, Intrinsic Factor, Bicarbonate, and Mucus, Whereas the Distal Part Releases Gastrin and Somatostatin**",
           {
             "sub": "CORPUS (Body)",
             "body": [
@@ -4874,9 +4258,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การกระตุ้น parietal cell ให้หลั่งกรด",
         "source": "Gastrointestinal Physiology (final) p.31",
         "body": [
-          {
-            "text": "**Acetylcholine, Gastrin และ Histamine กระตุ้นการหลั่งกรดของ parietal cells ทั้งทางตรงและทางอ้อม**"
-          },
+          "**Acetylcholine, Gastrin และ Histamine กระตุ้นการหลั่งกรดของ parietal cells ทั้งทางตรงและทางอ้อม**",
           {
             "bullets": [
               "Direct stimulation of parietal cells",
@@ -4948,25 +4330,19 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "1. Cephalic phase (neural control) 45 %",
             "body": [
-              {
-                "text": "vision, taste, smell, chewing, swallow กระตุ้น chemoreceptor และ mechanoreceptor ส่งผ่าน **afferent vagus nerve ไป Medulla แล้วกลับมาทาง efferent vagus nerve** กระตุ้น parietal cell ให้หลั่งกรด และกระตุ้น **G-cell in the mucosa ผ่าน Bombesin ให้หลั่ง Gastrin**"
-              }
+              "vision, taste, smell, chewing, swallow กระตุ้น chemoreceptor และ mechanoreceptor ส่งผ่าน **afferent vagus nerve ไป Medulla แล้วกลับมาทาง efferent vagus nerve** กระตุ้น parietal cell ให้หลั่งกรด และกระตุ้น **G-cell in the mucosa ผ่าน Bombesin ให้หลั่ง Gastrin**"
             ]
           },
           {
             "sub": "2. Gastric phase 45 %",
             "body": [
-              {
-                "text": "**Distended stomach กระตุ้น mechanoreceptor ที่ fundus และ pylorus** ผ่าน 3 ทาง: local nervous secretory reflex (short reflex), **vago-vagal reflex (long reflex)** และ gastrin stimulation. สไลด์อีกหน้าระบุ **Gastrin Releasing Peptide (GRP) และ Bombesin** ในเฟสนี้"
-              }
+              "**Distended stomach กระตุ้น mechanoreceptor ที่ fundus และ pylorus** ผ่าน 3 ทาง: local nervous secretory reflex (short reflex), **vago-vagal reflex (long reflex)** และ gastrin stimulation. สไลด์อีกหน้าระบุ **Gastrin Releasing Peptide (GRP) และ Bombesin** ในเฟสนี้"
             ]
           },
           {
             "sub": "3. Intestinal phase 10 %",
             "body": [
-              {
-                "text": "**Amino acids และ polypeptides ใน duodenum กระตุ้นการหลั่ง** ผ่าน Nervous mechanism (local reflex) และ **Hormonal mechanism (secretin)**"
-              }
+              "**Amino acids และ polypeptides ใน duodenum กระตุ้นการหลั่ง** ผ่าน Nervous mechanism (local reflex) และ **Hormonal mechanism (secretin)**"
             ]
           },
           {
@@ -4979,9 +4355,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "เส้นทางยับยั้งการหลั่งกรดเพิ่มเติม",
         "source": "Gastrointestinal Physiology (final) p.34",
         "body": [
-          {
-            "text": "สไลด์ ADDITIONAL INHIBITORY PATHWAYS แสดงตัวยับยั้งและแหล่งที่มา แต่เป็นแผนภาพเป็นส่วนใหญ่"
-          },
+          "สไลด์ ADDITIONAL INHIBITORY PATHWAYS แสดงตัวยับยั้งและแหล่งที่มา แต่เป็นแผนภาพเป็นส่วนใหญ่",
           {
             "bullets": [
               "**Neurotensin และ Peptide YY**",
@@ -5002,39 +4376,29 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Physiology of Vomiting และการแยกศัพท์",
         "source": "Gastrointestinal Physiology (final) p.34",
         "body": [
-          {
-            "text": "**Vomiting = Forceful expulsion ของสิ่งที่อยู่ในกระเพาะและ proximal small intestine** ผลตามมาที่สไลด์ระบุคือ **acid-base imbalance, malnutrition และ aspiration pneumonia** และเป็น reflex ที่ต้องอาศัย complex neural integration"
-          },
+          "**Vomiting = Forceful expulsion ของสิ่งที่อยู่ในกระเพาะและ proximal small intestine** ผลตามมาที่สไลด์ระบุคือ **acid-base imbalance, malnutrition และ aspiration pneumonia** และเป็น reflex ที่ต้องอาศัย complex neural integration",
           {
             "sub": "Nausea",
             "body": [
-              {
-                "text": "ความรู้สึกไม่สบายและมี psychic changes โดย **gastric motility ลดลง แต่ tone ของ small intestine เพิ่มขึ้น** อาการที่สังเกตได้คือ depression, salivation, licking of the lip และ repeated swallowing"
-              }
+              "ความรู้สึกไม่สบายและมี psychic changes โดย **gastric motility ลดลง แต่ tone ของ small intestine เพิ่มขึ้น** อาการที่สังเกตได้คือ depression, salivation, licking of the lip และ repeated swallowing"
             ]
           },
           {
             "sub": "Retching",
             "body": [
-              {
-                "text": "**spasmodic respiratory movements ขณะ glottis ปิด** เกิด sudden inspiratory movement และ **pyloric กับ antrum portion ของกระเพาะหดตัว**"
-              }
+              "**spasmodic respiratory movements ขณะ glottis ปิด** เกิด sudden inspiratory movement และ **pyloric กับ antrum portion ของกระเพาะหดตัว**"
             ]
           },
           {
             "sub": "Vomiting (Emesis)",
             "body": [
-              {
-                "text": "gastric และ duodenal contents ถูกดันขึ้นมาที่ปาก โดย **cardia คลายตัว และ intra-abdominal pressure ที่สูงขับสิ่งที่อยู่ในกระเพาะออกมา**"
-              }
+              "gastric และ duodenal contents ถูกดันขึ้นมาที่ปาก โดย **cardia คลายตัว และ intra-abdominal pressure ที่สูงขับสิ่งที่อยู่ในกระเพาะออกมา**"
             ]
           },
           {
             "sub": "Regurgitation",
             "body": [
-              {
-                "text": "**เป็นความผิดปกติของ esophagus** เป็นการขับออกแบบ passive และ **เกิดก่อนที่ ingesta จะไปถึงกระเพาะ**"
-              }
+              "**เป็นความผิดปกติของ esophagus** เป็นการขับออกแบบ passive และ **เกิดก่อนที่ ingesta จะไปถึงกระเพาะ**"
             ]
           }
         ]
@@ -5083,9 +4447,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**Acinar Cells Are Specialized Protein-Synthesizing Cells** สร้าง Trypsinogen, Chymotrypsinogen, Proelastase, Procarboxypeptidase A และ B พร้อมกับ HCO3- และ digesting enzymes (proteases, amylases, nucleases, lipases), NaCl-rich fluid และ high-molecular weight proteoglycans"
-          }
+          "**Acinar Cells Are Specialized Protein-Synthesizing Cells** สร้าง Trypsinogen, Chymotrypsinogen, Proelastase, Procarboxypeptidase A และ B พร้อมกับ HCO3- และ digesting enzymes (proteases, amylases, nucleases, lipases), NaCl-rich fluid และ high-molecular weight proteoglycans"
         ]
       },
       {
@@ -5123,9 +4485,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Activation ของ pancreatic proteases ในลำไส้เล็ก",
         "source": "Gastrointestinal Physiology (final) p.37-38",
         "body": [
-          {
-            "text": "**CCK กระตุ้น duodenal mucosal cells ให้สร้าง enteropeptidase (enterokinase)** ซึ่งเป็นตัวจุดชนวนของ cascade ทั้งหมด"
-          },
+          "**CCK กระตุ้น duodenal mucosal cells ให้สร้าง enteropeptidase (enterokinase)** ซึ่งเป็นตัวจุดชนวนของ cascade ทั้งหมด",
           {
             "bullets": [
               "**Trypsinogen ถูกเปลี่ยนเป็น Trypsin โดย enterokinase และโดย trypsin เอง**",
@@ -5172,9 +4532,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "2. Gastric phase 10 %",
             "body": [
-              {
-                "text": "**distended stomach และ digestion products** ทำงานผ่าน **vagovagal reflex**"
-              }
+              "**distended stomach และ digestion products** ทำงานผ่าน **vagovagal reflex**"
             ]
           },
           {
@@ -5189,18 +4547,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "ผลผลิตสองแบบที่สไลด์แยกไว้คือ **water + HCO3- (hydrelatic)** และ **pancreatic enzymes (ecbolic)** โดย secretin เป็นตัวคุมส่วนแรก และ CCK คุมส่วนหลัง"
-          }
+          "ผลผลิตสองแบบที่สไลด์แยกไว้คือ **water + HCO3- (hydrelatic)** และ **pancreatic enzymes (ecbolic)** โดย secretin เป็นตัวคุมส่วนแรก และ CCK คุมส่วนหลัง"
         ]
       },
       {
         "heading": "Bile: ส่วนประกอบและหน้าที่",
         "source": "Gastrointestinal Physiology (final) p.40",
         "body": [
-          {
-            "text": "**Bile salts ถูกสังเคราะห์โดย hepatocytes จาก cholesterol**"
-          },
+          "**Bile salts ถูกสังเคราะห์โดย hepatocytes จาก cholesterol**",
           {
             "sub": "องค์ประกอบหลัก 2 อย่าง",
             "body": [
@@ -5228,18 +4582,14 @@ export const NOTES_Y2_PHYSIO_3 = {
             "callout": "**Gall bladder ไม่มีในสัตว์บางชนิด เช่น Horse, rat, deer, camel และ elephant**",
             "kind": "warn"
           },
-          {
-            "text": "สไลด์ p.41 แสดง structure of bile acids และคำว่า chenodeoxycholic acid กับ Taurine รวมทั้ง bilirubin glucuronide แต่เป็นภาพสูตรโครงสร้าง ไม่มีคำอธิบายเป็นข้อความ"
-          }
+          "สไลด์ p.41 แสดง structure of bile acids และคำว่า chenodeoxycholic acid กับ Taurine รวมทั้ง bilirubin glucuronide แต่เป็นภาพสูตรโครงสร้าง ไม่มีคำอธิบายเป็นข้อความ"
         ]
       },
       {
         "heading": "เปรียบเทียบ bile จากตับกับ bile จากถุงน้ำดี",
         "source": "Gastrointestinal Physiology (final) p.42",
         "body": [
-          {
-            "text": "ตารางนี้แสดงผลของการ concentrate น้ำดีในถุงน้ำดี คือ **น้ำลดลง ส่วน bile salts, bilirubin, cholesterol และ Ca2+ เข้มข้นขึ้น ขณะที่ Na+ และ Cl- ลดลง**"
-          },
+          "ตารางนี้แสดงผลของการ concentrate น้ำดีในถุงน้ำดี คือ **น้ำลดลง ส่วน bile salts, bilirubin, cholesterol และ Ca2+ เข้มข้นขึ้น ขณะที่ Na+ และ Cl- ลดลง**",
           {
             "bullets": [
               "water: **Liver bile 97.5 gm% เทียบกับ Gall bladder bile 92 gm%**",
@@ -5270,9 +4620,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Jaundice และการแยก conjugated กับ free bilirubin",
         "source": "Gastrointestinal Physiology (final) p.42-43",
         "body": [
-          {
-            "text": "**Jaundice = Increase plasma bilirubin level** สาเหตุตามสไลด์มี 5 กลุ่ม"
-          },
+          "**Jaundice = Increase plasma bilirubin level** สาเหตุตามสไลด์มี 5 กลุ่ม",
           {
             "bullets": [
               "**Overproduction**",
@@ -5421,9 +4769,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Mucosal phase",
             "body": [
-              {
-                "text": "**Aminopolypeptidase และ di-peptidase รวมทั้ง intracellular oligopeptidases**"
-              }
+              "**Aminopolypeptidase และ di-peptidase รวมทั้ง intracellular oligopeptidases**"
             ]
           },
           {
@@ -5459,9 +4805,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Mucosal phase",
             "body": [
-              {
-                "text": "**Formation of micelles** ได้ผลผลิตเป็น **2 free fatty acids + monoglyceride**"
-              }
+              "**Formation of micelles** ได้ผลผลิตเป็น **2 free fatty acids + monoglyceride**"
             ]
           },
           {
@@ -5498,9 +4842,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Absorption: การเพิ่มพื้นที่ผิวและชั้นเยื่อที่ต้องผ่าน",
         "source": "Gastrointestinal Physiology (final) p.51-52",
         "body": [
-          {
-            "text": "**GI tract เปลี่ยนรูปเพื่อเพิ่มการดูดซึมให้มากที่สุด โดยพื้นที่ผิวเพิ่มขึ้นเป็นชั้น ๆ**"
-          },
+          "**GI tract เปลี่ยนรูปเพื่อเพิ่มการดูดซึมให้มากที่สุด โดยพื้นที่ผิวเพิ่มขึ้นเป็นชั้น ๆ**",
           {
             "bullets": [
               "**Submucosal fold: เพิ่มพื้นที่ 3 เท่า**",
@@ -5610,9 +4952,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Defecation",
         "source": "Gastrointestinal Physiology (final) p.57",
         "body": [
-          {
-            "text": "**Defecation เป็น reflex ที่เกี่ยวข้องกับ sphincter สองตัว**"
-          },
+          "**Defecation เป็น reflex ที่เกี่ยวข้องกับ sphincter สองตัว**",
           {
             "bullets": [
               "**1. Internal anal sphincter**: เป็น smooth muscle รับ **parasympathetic nerve จาก pelvic nerve และ sympathetic nerve จาก hypogastric nerve**",
@@ -5622,9 +4962,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "ลำดับของ reflex",
             "body": [
-              {
-                "text": "distention ทำให้เกิด **Intrinsic reflex** และ **peristaltic wave** ร่วมกับ **parasympathetic defecation reflex** โดย **reflex นี้จะจางหายไปเองถ้า external anal sphincter ถูกเกร็งไว้ (It dies out if external anal sphincter is kept contracted)** สไลด์ระบุ Pudendal nerve ไว้ในผังด้วย แต่ไม่ได้บอกว่า reflex เดินผ่านเส้นใด"
-              }
+              "distention ทำให้เกิด **Intrinsic reflex** และ **peristaltic wave** ร่วมกับ **parasympathetic defecation reflex** โดย **reflex นี้จะจางหายไปเองถ้า external anal sphincter ถูกเกร็งไว้ (It dies out if external anal sphincter is kept contracted)** สไลด์ระบุ Pudendal nerve ไว้ในผังด้วย แต่ไม่ได้บอกว่า reflex เดินผ่านเส้นใด"
             ]
           }
         ]
@@ -5694,9 +5032,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Mechanism of Salmonella invasion",
         "source": "Gastrointestinal Physiology (final) p.59",
         "body": [
-          {
-            "text": "ผังในสไลด์แสดงลำดับว่า **Salmonella จับกับ Saccharide chain receptor แล้วเกิด Feed Induced Endocytosis เข้าสู่ Epithelium mucosa Cells จากนั้น Exocytosis ออกสู่ Lamina propria mucosa และ submucosa**"
-          },
+          "ผังในสไลด์แสดงลำดับว่า **Salmonella จับกับ Saccharide chain receptor แล้วเกิด Feed Induced Endocytosis เข้าสู่ Epithelium mucosa Cells จากนั้น Exocytosis ออกสู่ Lamina propria mucosa และ submucosa**",
           {
             "callout": "สไลด์แสดงเป็นผังลำดับเท่านั้น ไม่ได้อธิบายกลไกระดับโมเลกุลหรือผลทางคลินิกเพิ่มเติม สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -5707,9 +5043,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Pathophysiology of Diarrhea",
         "source": "Gastrointestinal Physiology (final) p.59",
         "body": [
-          {
-            "text": "สไลด์สุดท้ายแบ่งกลไกการเกิดท้องเสียเป็น 4 ข้อ ซึ่งเป็นชุดที่ควรท่องให้ครบ"
-          },
+          "สไลด์สุดท้ายแบ่งกลไกการเกิดท้องเสียเป็น 4 ข้อ ซึ่งเป็นชุดที่ควรท่องให้ครบ",
           {
             "bullets": [
               "**1. Accumulation of osmotically active particles in GI tract: sugar, salt**",
@@ -5733,9 +5067,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "แผนที่ของเรื่อง lactation ทั้งหมด (ใช้จับว่าเด็คนี้อยู่ตรงไหน)",
         "source": "Lactation physiology I p.2",
         "body": [
-          {
-            "text": "สไลด์นี้กาง scope ของ **lactation and mammary gland physiology** ออกเป็นสองแกนใหญ่ คือ **evolution & structure** และ **stage & mechanism of lactation**"
-          },
+          "สไลด์นี้กาง scope ของ **lactation and mammary gland physiology** ออกเป็นสองแกนใหญ่ คือ **evolution & structure** และ **stage & mechanism of lactation**",
           {
             "sub": "stage ของ lactation ที่จะเดินตามลำดับ",
             "body": [
@@ -5767,9 +5099,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ส่วนของคอร์สที่ประกาศไว้แต่ยังไม่ได้สอนในเด็คนี้",
         "source": "Lactation physiology I p.3",
         "body": [
-          {
-            "text": "สไลด์นี้ list หัวข้อที่เหลือของวิชาไว้ ให้รู้ว่ามันมีอยู่ แต่รายละเอียดไม่ได้อยู่ในเด็คนี้"
-          },
+          "สไลด์นี้ list หัวข้อที่เหลือของวิชาไว้ ให้รู้ว่ามันมีอยู่ แต่รายละเอียดไม่ได้อยู่ในเด็คนี้",
           {
             "bullets": [
               "**Functions**: colostrum & immunity, milk & nutrient, mother & offspring bond",
@@ -5847,9 +5177,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ทางเดินน้ำนม: cistern และ teat canal",
         "source": "Lactation physiology I p.11",
         "body": [
-          {
-            "text": "ไล่จากบนลงล่างตามที่สไลด์ label ไว้"
-          },
+          "ไล่จากบนลงล่างตามที่สไลด์ label ไว้",
           {
             "bullets": [
               "**Opening from milk ducts**",
@@ -5930,9 +5258,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "และมี **alveolar capillaries & nerve** ประกอบอยู่ด้วย"
-          }
+          "และมี **alveolar capillaries & nerve** ประกอบอยู่ด้วย"
         ]
       },
       {
@@ -5946,9 +5272,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "มี **local signaling molecules หลายตัว** ที่รับผิดชอบการควบคุม mammogenesis I"
             ]
           },
-          {
-            "text": "ที่ **E18.5** mammary bud ประกอบด้วย **duct system, fat pad, mesenchymal cell และ nipple** (p.16)"
-          },
+          "ที่ **E18.5** mammary bud ประกอบด้วย **duct system, fat pad, mesenchymal cell และ nipple** (p.16)",
           {
             "callout": "สไลด์บอกว่ามี local signaling molecules หลายตัว แต่ไม่ได้ระบุว่าเป็นโมเลกุลใดบ้าง",
             "kind": "flag"
@@ -6003,9 +5327,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Knockout models ที่ใช้พิสูจน์ฮอร์โมนในช่วง ductal growth",
         "source": "Lactation physiology I p.21-24",
         "body": [
-          {
-            "text": "สี่สไลด์กลุ่มนี้ (p.21, 22, 23, 24) เป็นรูปเปรียบเทียบ knockout กับ wild type โดย p.22 มีข้อความบรรยายวิธี graft กำกับไว้ด้วย"
-          },
+          "สี่สไลด์กลุ่มนี้ (p.21, 22, 23, 24) เป็นรูปเปรียบเทียบ knockout กับ wild type โดย p.22 มีข้อความบรรยายวิธี graft กำกับไว้ด้วย",
           {
             "bullets": [
               "**αERKO** คือ estrogen receptor knockout mouse เทียบกับ WT ที่อายุ 3, 4 และ 10 weeks (p.21)",
@@ -6036,27 +5358,21 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Alveologenesis ในช่วงตั้งท้อง",
         "source": "Lactation physiology I p.27",
         "body": [
-          {
-            "text": "**Alveologenesis คือการทำให้ mammogenesis II สมบูรณ์ (P 16.5)**"
-          },
+          "**Alveologenesis คือการทำให้ mammogenesis II สมบูรณ์ (P 16.5)**",
           {
             "bullets": [
               "**Side branching หรือ tertiary duct ควบคุมโดย progesterone**",
               "**Alveolar bud ควบคุมโดย prolactin**"
             ]
           },
-          {
-            "text": "รูปประกอบเป็น cow mammary epithelial cell ที่ **mid-pregnancy (150 days)** กำลังขยายสูงสุด 5,000 เท่า โดย label ไว้ว่า E คือ endoplasmic reticulum, G คือ golgi apparatus, L คือ lipid droplet, N คือ nucleus"
-          }
+          "รูปประกอบเป็น cow mammary epithelial cell ที่ **mid-pregnancy (150 days)** กำลังขยายสูงสุด 5,000 เท่า โดย label ไว้ว่า E คือ endoplasmic reticulum, G คือ golgi apparatus, L คือ lipid droplet, N คือ nucleus"
         ]
       },
       {
         "heading": "Lactogenesis I: การ differentiate ของเซลล์ให้พร้อมหลั่ง",
         "source": "Lactation physiology I p.28-29",
         "body": [
-          {
-            "text": "**Alveolar differentiation เกิดระหว่างตั้งท้อง และนี่คือ lactogenesis I หรือ initiation phase**"
-          },
+          "**Alveolar differentiation เกิดระหว่างตั้งท้อง และนี่คือ lactogenesis I หรือ initiation phase**",
           {
             "sub": "สิ่งที่เกิดใน mammocyte",
             "body": [
@@ -6069,9 +5385,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "รูปเทียบอีกใบเป็น cow mammary epithelial cell ที่ **three weeks after parturition** ขยายสูงสุด 5,000 เท่า ใช้ label ชุดเดียวกับสไลด์ก่อนหน้า"
-          }
+          "รูปเทียบอีกใบเป็น cow mammary epithelial cell ที่ **three weeks after parturition** ขยายสูงสุด 5,000 เท่า ใช้ label ชุดเดียวกับสไลด์ก่อนหน้า"
         ]
       },
       {
@@ -6104,9 +5418,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Casein synthetic pathway (p.32)",
             "body": [
-              {
-                "text": "สไลด์มีแต่หัวเรื่องกับรูป **สไลด์ไม่ได้บอก** ชื่อ enzyme ในเส้นทางนี้เป็นตัวอักษร"
-              }
+              "สไลด์มีแต่หัวเรื่องกับรูป **สไลด์ไม่ได้บอก** ชื่อ enzyme ในเส้นทางนี้เป็นตัวอักษร"
             ]
           }
         ]
@@ -6115,9 +5427,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Colostrogenesis: IgG ข้ามเซลล์ด้วย FcRn",
         "source": "Lactation physiology I p.33",
         "body": [
-          {
-            "text": "สไลด์วางลำดับสี่ขั้นจากด้าน basal ไป apical พร้อมกำกับ pH ไว้"
-          },
+          "สไลด์วางลำดับสี่ขั้นจากด้าน basal ไป apical พร้อมกำกับ pH ไว้",
           {
             "bullets": [
               "**1 Fluid-phase endocytosis** ที่ด้าน basal ซึ่ง pH 7.4",
@@ -6136,12 +5446,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Lactogenesis II: จุดเริ่มหลั่งน้ำนมจริง",
         "source": "Lactation physiology I p.34",
         "body": [
-          {
-            "text": "**Lactogenesis II คือช่วงที่ mammary gland เริ่ม secretion process ทั้ง colostrum และ milk** มี copious milk secretion และมีการเปลี่ยนองค์ประกอบจาก colostrum ไปเป็น mature milk"
-          },
-          {
-            "text": "**The high level of prolactin and the fall of progesterone are necessary for the onset of lactogenesis II**"
-          },
+          "**Lactogenesis II คือช่วงที่ mammary gland เริ่ม secretion process ทั้ง colostrum และ milk** มี copious milk secretion และมีการเปลี่ยนองค์ประกอบจาก colostrum ไปเป็น mature milk",
+          "**The high level of prolactin and the fall of progesterone are necessary for the onset of lactogenesis II**",
           {
             "bullets": [
               "**Prolactin (Prl) is essential for lactogenesis**",
@@ -6149,18 +5455,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Exogenous progesterone prevents lactose and lipid synthesis** แม้จะเอาแหล่ง endogenous progesterone ออกไปแล้ว"
             ]
           },
-          {
-            "text": "สไลด์ถัดไป (p.35) เป็นกราฟ plasma progesterone ช่วง peri-parturition ใน mouse, women และ dairy cattle เป็นรูปอย่างเดียว ไม่มีข้อความสรุป"
-          }
+          "สไลด์ถัดไป (p.35) เป็นกราฟ plasma progesterone ช่วง peri-parturition ใน mouse, women และ dairy cattle เป็นรูปอย่างเดียว ไม่มีข้อความสรุป"
         ]
       },
       {
         "heading": "Galactopoiesis: การคงสภาพการให้นม",
         "source": "Lactation physiology I p.36-37",
         "body": [
-          {
-            "text": "p.36 วาง timeline ของ bovine, rat และ human ให้เห็นว่า **lactogenesis I ไป lactogenesis II ไป galactopoiesis ไป involution** วางตัวอย่างไรเทียบกับ pregnancy (P) และ lactation (L) โดยใน bovine มีหมุด 105, 165 และ 221 และปิดท้ายด้วย Dry1 กับ Dry2"
-          },
+          "p.36 วาง timeline ของ bovine, rat และ human ให้เห็นว่า **lactogenesis I ไป lactogenesis II ไป galactopoiesis ไป involution** วางตัวอย่างไรเทียบกับ pregnancy (P) และ lactation (L) โดยใน bovine มีหมุด 105, 165 และ 221 และปิดท้ายด้วย Dry1 กับ Dry2",
           {
             "sub": "บทบาทของ prolactin ต่างกันตามสปีชีส์ (p.37)",
             "body": [
@@ -6224,9 +5526,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Marker ระดับ mRNA ที่ใช้ติดตาม involution",
         "source": "Lactation physiology I p.43",
         "body": [
-          {
-            "text": "สไลด์วิเคราะห์ mRNA จาก mouse mammary gland ที่ involute เป็นช่วงเวลาต่าง ๆ โดยตัวย่อบนสไลด์แปลว่า"
-          },
+          "สไลด์วิเคราะห์ mRNA จาก mouse mammary gland ที่ involute เป็นช่วงเวลาต่าง ๆ โดยตัวย่อบนสไลด์แปลว่า",
           {
             "bullets": [
               "**SGP-2** คือ sulfated glycoprotein-2 ซึ่งเป็น **apoptotic marker**",
@@ -6237,9 +5537,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Urokinase** คือ urokinase plasminogen activator (uPA)"
             ]
           },
-          {
-            "text": "สไลด์ 41-42 เป็นรูป histology ของ involution วันที่ 2, 3 และ 4 เทียบกับ lactation วันที่ 7 โดยลูกศรชี้ apoptotic cells ใน lumen ของ alveolus ลูกศรตรงชี้ collapsed alveoli และลูกศรโค้งชี้ adipocytes"
-          }
+          "สไลด์ 41-42 เป็นรูป histology ของ involution วันที่ 2, 3 และ 4 เทียบกับ lactation วันที่ 7 โดยลูกศรชี้ apoptotic cells ใน lumen ของ alveolus ลูกศรตรงชี้ collapsed alveoli และลูกศรโค้งชี้ adipocytes"
         ]
       },
       {
@@ -6252,12 +5550,8 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Dry period ยาว 40-60 days และมีผลต่อ milk yield** (p.44)"
             ]
           },
-          {
-            "text": "p.46 เทียบภาพต่อมนมโคที่ dry ต่างกันคือ **7-day, 25-day, 40-day และ 53-day dry** เป็นรูปอย่างเดียว"
-          },
-          {
-            "text": "p.47 สรุป **mammary epithelial cell turnover ช่วง late gestation ถึง early lactation** โดยแท่งสีดำคือ **60 days dry** และแท่งสีเทาคือ **continuous milking**"
-          },
+          "p.46 เทียบภาพต่อมนมโคที่ dry ต่างกันคือ **7-day, 25-day, 40-day และ 53-day dry** เป็นรูปอย่างเดียว",
+          "p.47 สรุป **mammary epithelial cell turnover ช่วง late gestation ถึง early lactation** โดยแท่งสีดำคือ **60 days dry** และแท่งสีเทาคือ **continuous milking**",
           {
             "callout": "สไลด์บอกว่า dry period มีผลต่อ milk yield และเทียบ 60 days dry กับ continuous milking ไว้ในรูป แต่ไม่ได้เขียนตัวเลขผลลัพธ์เป็นข้อความ",
             "kind": "flag"
@@ -6290,9 +5584,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ขอบเขตของเด็คนี้",
         "source": "Lactation Physiology II p.4",
         "body": [
-          {
-            "text": "สไลด์วางหัวข้อทั้งหมดไว้เป็น 3 กลุ่ม ใช้เป็นแผนที่อ่านสอบได้เลย"
-          },
+          "สไลด์วางหัวข้อทั้งหมดไว้เป็น 3 กลุ่ม ใช้เป็นแผนที่อ่านสอบได้เลย",
           {
             "bullets": [
               "Lactation and mammary gland physiology: Functions ได้แก่ Colostrum และ immunity, Milk และ nutrient, Mother และ offspring bond",
@@ -6337,9 +5629,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "องค์ประกอบน้ำนมเปรียบเทียบข้ามสปีชีส์",
         "source": "Lactation Physiology II p.9",
         "body": [
-          {
-            "text": "ตารางเทียบ Fat, Protein (Casein/Whey), Lactose, Ash และ Total Solid ระหว่างวัวสายพันธุ์ต่าง ๆ กับสัตว์ชนิดอื่น"
-          },
+          "ตารางเทียบ Fat, Protein (Casein/Whey), Lactose, Ash และ Total Solid ระหว่างวัวสายพันธุ์ต่าง ๆ กับสัตว์ชนิดอื่น",
           {
             "bullets": [
               "Cows: fat 3.90%, protein 3.20%, lactose 4.60%, ash 0.72%, total solid 12.60%",
@@ -6350,18 +5640,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Horse ตรงข้าม คือ fat ต่ำสุด 1.57% protein 2.17% แต่ lactose สูงสุด 6.36% และ total solid ต่ำสุด 10.80%**"
             ]
           },
-          {
-            "text": "ในคอลัมน์ Casein/Whey ที่สไลด์แจกแจงเฉพาะสายพันธุ์วัวจะเห็นว่า casein มากกว่า whey ทุกสายพันธุ์ เช่น Ayrshire 2.68/0.60, Jersey 3.02/0.63"
-          }
+          "ในคอลัมน์ Casein/Whey ที่สไลด์แจกแจงเฉพาะสายพันธุ์วัวจะเห็นว่า casein มากกว่า whey ทุกสายพันธุ์ เช่น Ayrshire 2.68/0.60, Jersey 3.02/0.63"
         ]
       },
       {
         "heading": "สัตว์ที่น้ำนมสุดขั้ว",
         "source": "Lactation Physiology II p.10",
         "body": [
-          {
-            "text": "ตารางที่สองขยายไปยังสัตว์กลุ่มอื่น โดยเทียบกับ Cows fat 3.90%"
-          },
+          "ตารางที่สองขยายไปยังสัตว์กลุ่มอื่น โดยเทียบกับ Cows fat 3.90%",
           {
             "bullets": [
               "**Blue whale fat 39.40% และ Common dolphin fat 30.00%**",
@@ -6381,9 +5667,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Carbohydrate กับ fat ในน้ำนมสวนทางกัน",
         "source": "Lactation Physiology II p.11",
         "body": [
-          {
-            "text": "ตารางของ Jones 1977 เรียง order ตาม carbohydrate จากน้อยไปมาก แล้วให้ fat, energy content และสัดส่วนแคลอรีที่มาจาก CHO"
-          },
+          "ตารางของ Jones 1977 เรียง order ตาม carbohydrate จากน้อยไปมาก แล้วให้ fat, energy content และสัดส่วนแคลอรีที่มาจาก CHO",
           {
             "bullets": [
               "Pinnipedia (seals): CHO 0.80, fat 43.90 g/100ml, energy 465 kcal/100ml, CHO ให้พลังงาน 1%",
@@ -6409,9 +5693,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ข้อมูลน้ำนมของไทย",
         "source": "Lactation Physiology II p.12",
         "body": [
-          {
-            "text": "สไลด์เอาตารางสายพันธุ์วัวชุดเดิมมาต่อด้วยข้อมูลไทย คือ Crossbred HF แยกเป็น Early, Mid, Late (อ้าง ChaiyabutrN07a) และ Crossbred dairy goat (อ้าง ThammacharoenT14a) เทียบกับ Goat Thailand ที่ fat 3.60% protein 3.30% lactose 4.60% total solid 12.10%"
-          },
+          "สไลด์เอาตารางสายพันธุ์วัวชุดเดิมมาต่อด้วยข้อมูลไทย คือ Crossbred HF แยกเป็น Early, Mid, Late (อ้าง ChaiyabutrN07a) และ Crossbred dairy goat (อ้าง ThammacharoenT14a) เทียบกับ Goat Thailand ที่ fat 3.60% protein 3.30% lactose 4.60% total solid 12.10%",
           {
             "callout": "ตัวเลขของแถวไทยใน text layer เรียงไม่ตรงกับชื่อแถว จึงระบุไม่ได้ว่าค่า fat protein lactose ใดเป็นของ Early Mid Late หรือของแพะลูกผสม สไลด์ในไฟล์ที่อ่านได้บอกได้แค่ว่ามีการเก็บข้อมูลชุดนี้ไว้เทียบ",
             "kind": "warn"
@@ -6437,9 +5719,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ห้าเส้นทางของการหลั่งน้ำนม",
         "source": "Lactation Physiology II p.15",
         "body": [
-          {
-            "text": "Five major routes of milk secretion ตามแบบจำลองของ Linzell และ Peaker 1971 และ Shennan และ Peaker 2000"
-          },
+          "Five major routes of milk secretion ตามแบบจำลองของ Linzell และ Peaker 1971 และ Shennan และ Peaker 2000",
           {
             "bullets": [
               "**1. Membrane route: water, urea, Na+, K+ และ Cl-**",
@@ -6449,9 +5729,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**5. Paracellular route: interstitial fluid ซึ่งสไลด์วงเล็บกำกับว่า mastitis**"
             ]
           },
-          {
-            "text": "สไลด์ p.14 ที่มาก่อนหน้าเป็นรูป overview ของ Lactose synthesis, Casein synthesis, Fat synthesis, Aqueous phase และ Milk secretion โดยไม่มีข้อความอธิบาย"
-          }
+          "สไลด์ p.14 ที่มาก่อนหน้าเป็นรูป overview ของ Lactose synthesis, Casein synthesis, Fat synthesis, Aqueous phase และ Milk secretion โดยไม่มีข้อความอธิบาย"
         ]
       },
       {
@@ -6476,9 +5754,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "เส้นทางเมแทบอลิซึมสู่ lactose ในเซลล์",
         "source": "Lactation Physiology II p.18",
         "body": [
-          {
-            "text": "แผนภาพเดินจาก glucose เข้าเซลล์แล้วแปลงเป็น G-6-P ไปเป็น UDP-Glucose และ UDP-Galactose ก่อนเข้า Golgi apparatus"
-          },
+          "แผนภาพเดินจาก glucose เข้าเซลล์แล้วแปลงเป็น G-6-P ไปเป็น UDP-Glucose และ UDP-Galactose ก่อนเข้า Golgi apparatus",
           {
             "bullets": [
               "ใน Golgi App เกิด lactose synthase ทำงานบน UDP-Galactose กับ Glucose ได้ Lactose แล้วปล่อย UMP",
@@ -6541,9 +5817,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "alpha-lactalbumin: โครงสร้างและหน้าที่",
         "source": "Lactation Physiology II p.21",
         "body": [
-          {
-            "text": "ระดับ alpha-LA ในน้ำนมที่สไลด์ระบุคือ 70-480 micromol/L"
-          },
+          "ระดับ alpha-LA ในน้ำนมที่สไลด์ระบุคือ 70-480 micromol/L",
           {
             "bullets": [
               "เป็น soluble protein ขนาดประมาณ 14 kDa MW ที่มี ratio ของ essential amino acids สูง",
@@ -6552,9 +5826,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "alpha-LA เป็น metalloprotein ที่มี high affinity binding site สำหรับ Ca2+"
             ]
           },
-          {
-            "text": "แผนภาพข้างสไลด์แสดง beta1-4 GT1 ที่มี Cytoplasmic domain, Transmembrane, Stem และ Catalytic domain ยื่นเข้า Golgi lumen โดยมี Mn2+ กับ UDP จับที่ catalytic domain"
-          }
+          "แผนภาพข้างสไลด์แสดง beta1-4 GT1 ที่มี Cytoplasmic domain, Transmembrane, Stem และ Catalytic domain ยื่นเข้า Golgi lumen โดยมี Mn2+ กับ UDP จับที่ catalytic domain"
         ]
       },
       {
@@ -6599,9 +5871,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**The concentration of milk protein: 3.3 g/dl = 33 g/L = 660 g ต่อน้ำนม 20 L ส่วน human milk อยู่ที่ 1.2 g/dl**"
             ]
           },
-          {
-            "text": "สไลด์ปิดท้ายด้วยหัวข้อ The amino acid requirement for milk protein synthesis แต่ไม่ได้ให้ตัวเลขหรือรายละเอียดไว้"
-          }
+          "สไลด์ปิดท้ายด้วยหัวข้อ The amino acid requirement for milk protein synthesis แต่ไม่ได้ให้ตัวเลขหรือรายละเอียดไว้"
         ]
       },
       {
@@ -6719,9 +5989,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Major fatty acids ของน้ำนมคนกับน้ำนมวัว",
         "source": "Lactation Physiology II p.34",
         "body": [
-          {
-            "text": "สไลด์เป็นกราฟเทียบ major fatty acids สองสปีชีส์ มีป้ายกำกับว่า High fat diet, Hi carb diet (และ Fish) และ Product from ruminal fermentation พร้อมช่วงเปอร์เซ็นต์ 5%, 10-15%, 20-30% และ 30-40% กำกับบนแท่ง"
-          },
+          "สไลด์เป็นกราฟเทียบ major fatty acids สองสปีชีส์ มีป้ายกำกับว่า High fat diet, Hi carb diet (และ Fish) และ Product from ruminal fermentation พร้อมช่วงเปอร์เซ็นต์ 5%, 10-15%, 20-30% และ 30-40% กำกับบนแท่ง",
           {
             "callout": "text layer ไม่ได้ผูกช่วงเปอร์เซ็นต์เข้ากับ fatty acid ตัวใดตัวหนึ่ง จึงบอกไม่ได้ว่า 30-40% เป็นของกรดไขมันตัวใด ต้องกลับไปดูรูปจริง สไลด์ p.35 เป็นกราฟชุดเดียวกันที่กำกับ 20-30% และ 10% ในลักษณะเดียวกัน",
             "kind": "warn"
@@ -6732,9 +6000,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Low milk fat syndrome",
         "source": "Lactation Physiology II p.36",
         "body": [
-          {
-            "text": "แผนภาพเดินจากกระเพาะ ruminant (1 Cardia, 2 Rumen, 3 Reticulum, 4 Omasum, 5 Abomasum) มายัง mammary gland"
-          },
+          "แผนภาพเดินจากกระเพาะ ruminant (1 Cardia, 2 Rumen, 3 Reticulum, 4 Omasum, 5 Abomasum) มายัง mammary gland",
           {
             "bullets": [
               "**Linoleic acid ถูกเปลี่ยนใน rumen ได้ trans-10 C18:1 และ t10/c12 CLA คือ Trans 10 cis 12 conjugated linoleic acid**",
@@ -6767,9 +6033,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Na+, K+ และ Cl- ในน้ำนม",
         "source": "Lactation Physiology II p.39",
         "body": [
-          {
-            "text": "สไลด์อ้าง transport model ของ Linzell และ Peaker (1971)"
-          },
+          "สไลด์อ้าง transport model ของ Linzell และ Peaker (1971)",
           {
             "bullets": [
               "**Na+ และ K+ pump อยู่ที่ basolateral membrane**",
@@ -6790,9 +6054,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Phosphate ในน้ำนม",
         "source": "Lactation Physiology II p.40",
         "body": [
-          {
-            "text": "Total concentration ของ phosphate ใน goat milk ที่สไลด์ให้ไว้คือ 20.5 mM แบ่งเป็นสามรูปแบบ"
-          },
+          "Total concentration ของ phosphate ใน goat milk ที่สไลด์ให้ไว้คือ 20.5 mM แบ่งเป็นสามรูปแบบ",
           {
             "bullets": [
               "**Free inorganic orthophosphate (Pi) คือ HPO4 2- และ HPO4 - ที่ 6.7 mM**",
@@ -6817,9 +6079,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Calcium ในน้ำนมและ milk fever",
         "source": "Lactation Physiology II p.42",
         "body": [
-          {
-            "text": "p.41 ระบุว่า Milk is a calcium-rich fluid โดยแบ่งรูปของ calcium เป็น Free ionized calcium, Casein bound calcium และ Calcium complexed to inorganic anions คือ Ca-citrate และ Ca-Pi"
-          },
+          "p.41 ระบุว่า Milk is a calcium-rich fluid โดยแบ่งรูปของ calcium เป็น Free ionized calcium, Casein bound calcium และ Calcium complexed to inorganic anions คือ Ca-citrate และ Ca-Pi",
           {
             "bullets": [
               "**Mammary epithelium cells maintain intracellular calcium at low concentration**",
@@ -6857,9 +6117,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Sodium dependent iodide transport เป็นระบบที่ prolactin sensitive**"
             ]
           },
-          {
-            "text": "สไลด์วางเทียบกับ Iodine trapping by thyroid gland ที่ใช้ Iodine pump คือ Na+/I- symporter (NIS) และเอ่ยถึง Pendrin กับ Pendred syndrome ไว้ด้วย แต่ไม่ได้อธิบายรายละเอียดของ Pendred syndrome"
-          }
+          "สไลด์วางเทียบกับ Iodine trapping by thyroid gland ที่ใช้ Iodine pump คือ Na+/I- symporter (NIS) และเอ่ยถึง Pendrin กับ Pendred syndrome ไว้ด้วย แต่ไม่ได้อธิบายรายละเอียดของ Pendred syndrome"
         ]
       },
       {
@@ -6919,9 +6177,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Hormonal control of lactation: ภาพรวม",
         "source": "Lactation Physiology II p.49",
         "body": [
-          {
-            "text": "สไลด์จับคู่ฮอร์โมนกับช่วงเวลาทางสรีรวิทยาที่ฮอร์โมนนั้นทำงาน"
-          },
+          "สไลด์จับคู่ฮอร์โมนกับช่วงเวลาทางสรีรวิทยาที่ฮอร์โมนนั้นทำงาน",
           {
             "sub": "Steroid hormones",
             "body": [
@@ -6951,9 +6207,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Oxytocin และ milk ejection",
         "source": "Lactation Physiology II p.51",
         "body": [
-          {
-            "text": "สไลด์แสดงการบันทึกไฟฟ้าจาก magnocellular neuron ที่ PVN ในสมองหนู โดยเริ่มกระตุ้นหัวนมก่อนเริ่มบันทึก"
-          },
+          "สไลด์แสดงการบันทึกไฟฟ้าจาก magnocellular neuron ที่ PVN ในสมองหนู โดยเริ่มกระตุ้นหัวนมก่อนเริ่มบันทึก",
           {
             "bullets": [
               "การบันทึกแสดงทั้ง individual extracellular recorded action potential, discharge rate และ intramammary duct pressure พร้อมกัน",
@@ -6994,9 +6248,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Intracellular signaling: JAK/STAT และ MAPKinase โดยแผนภาพระบุ Jak2 และ Stat5 ที่ถูก phosphorylate**"
             ]
           },
-          {
-            "text": "แผนภาพประกอบแสดง Arc, ME, Portal vessels และ Lactotroph เป็นเส้นทางจาก hypothalamus ลงสู่ต่อมใต้สมองส่วนหน้า ส่วน p.50 ก่อนหน้าเป็นแผนที่ hypothalamus ของสมองหนู (MnPO, MPO, LPOA, PVN, DMH, LH, VMH, Arc, ME) โดยไม่มีข้อความอธิบาย"
-          }
+          "แผนภาพประกอบแสดง Arc, ME, Portal vessels และ Lactotroph เป็นเส้นทางจาก hypothalamus ลงสู่ต่อมใต้สมองส่วนหน้า ส่วน p.50 ก่อนหน้าเป็นแผนที่ hypothalamus ของสมองหนู (MnPO, MPO, LPOA, PVN, DMH, LH, VMH, Arc, ME) โดยไม่มีข้อความอธิบาย"
         ]
       },
       {
@@ -7032,9 +6284,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "โครงสร้างและทางเดินของ sperm",
         "source": "male reproductive system p.2",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพ 2 ส่วน คือ A. various portions of the male reproductive systems และ B. โครงสร้างที่ละเอียดขึ้นของ testis กับความสัมพันธ์ระหว่าง testis กับ epididymis"
-          },
+          "สไลด์เป็นภาพ 2 ส่วน คือ A. various portions of the male reproductive systems และ B. โครงสร้างที่ละเอียดขึ้นของ testis กับความสัมพันธ์ระหว่าง testis กับ epididymis",
           {
             "bullets": [
               "testis ประกอบด้วย coiled seminiferous tubules ซึ่งเป็นที่สร้าง sperm",
@@ -7047,18 +6297,14 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "หน้าที่ของ testis",
         "source": "male reproductive system p.3",
         "body": [
-          {
-            "text": "testicle เป็น homologous กับ ovary และทำหน้าที่ในสองระบบพร้อมกัน"
-          },
+          "testicle เป็น homologous กับ ovary และทำหน้าที่ในสองระบบพร้อมกัน",
           {
             "bullets": [
               "Reproductive system (เป็น gonad) สร้าง sperm หรือ spermatozoa",
               "Endocrine system (เป็น endocrine gland) สร้าง male sex hormone ซึ่งตัวที่รู้จักดีที่สุดคือ **testosterone**"
             ]
           },
-          {
-            "text": "**หน้าที่ทั้งสองอย่างของ testicle อยู่ภายใต้การควบคุมของ gonadotropic hormone ที่สร้างจาก anterior pituitary คือ luteinizing hormone (LH) และ follicle-stimulating hormone (FSH)**"
-          }
+          "**หน้าที่ทั้งสองอย่างของ testicle อยู่ภายใต้การควบคุมของ gonadotropic hormone ที่สร้างจาก anterior pituitary คือ luteinizing hormone (LH) และ follicle-stimulating hormone (FSH)**"
         ]
       },
       {
@@ -7071,9 +6317,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "seminiferous tubules บุด้วย germinal epithelial cells จำนวนมากที่เรียกว่า **spermatogonia** ซึ่ง proliferate อย่างต่อเนื่องเพื่อ replenish ตัวเอง และ differentiate ผ่าน definite stages ของ development จนกลายเป็น sperm"
             ]
           },
-          {
-            "text": "สไลด์ p.5 ให้ไว้เพียงชื่อเรียกว่า **Leydig cells หรือ interstitial cells (of Leydig)** ประกอบภาพ ไม่มีคำอธิบายอื่นในสไลด์"
-          }
+          "สไลด์ p.5 ให้ไว้เพียงชื่อเรียกว่า **Leydig cells หรือ interstitial cells (of Leydig)** ประกอบภาพ ไม่มีคำอธิบายอื่นในสไลด์"
         ]
       },
       {
@@ -7094,9 +6338,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "LH ในเพศผู้ยังมีอีกชื่อว่า **interstitial cell stimulating hormone (ICSH)**"
-          },
+          "LH ในเพศผู้ยังมีอีกชื่อว่า **interstitial cell stimulating hormone (ICSH)**",
           {
             "sub": "Androgen-binding protein (ABP)",
             "body": [
@@ -7137,9 +6379,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Descent of the testis",
         "source": "male reproductive system p.11-12",
         "body": [
-          {
-            "text": "มีการเสนอว่าการเคลื่อนที่ของ testis เกิดเป็น 2 phases"
-          },
+          "มีการเสนอว่าการเคลื่อนที่ของ testis เกิดเป็น 2 phases",
           {
             "bullets": [
               "**Phase แรก** เคลื่อนข้าม abdomen มาถึงทางเข้าของ inguinal canal ถูกควบคุม หรืออย่างน้อยได้รับอิทธิพลอย่างมาก จาก **anti-mullerian hormone (AMH)**",
@@ -7159,9 +6399,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "Cat: 2 ถึง 5 วันหลังเกิด"
                 ]
               },
-              {
-                "text": "อ่านจากรายการนี้จะเห็นว่า horse, cattle, sheep และ pig testis ลงตั้งแต่ยังอยู่ในระยะ gestation ส่วน **dog และ cat ลงหลังคลอด**"
-              }
+              "อ่านจากรายการนี้จะเห็นว่า horse, cattle, sheep และ pig testis ลงตั้งแต่ยังอยู่ในระยะ gestation ส่วน **dog และ cat ลงหลังคลอด**"
             ]
           }
         ]
@@ -7170,9 +6408,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Cryptorchidism",
         "source": "male reproductive system p.13-14",
         "body": [
-          {
-            "text": "Cryptorchidism คือศัพท์ทางการแพทย์ที่หมายถึงการไม่มี testis ข้างใดข้างหนึ่งหรือทั้งสองข้างใน scrotum โดยทั่วไปเป็นผลจาก failure ของ testis ที่จะเคลื่อนที่หรือ descend ระหว่าง fetal development จากตำแหน่งใน abdomen ผ่าน inguinal canal ลงสู่ scrotum"
-          },
+          "Cryptorchidism คือศัพท์ทางการแพทย์ที่หมายถึงการไม่มี testis ข้างใดข้างหนึ่งหรือทั้งสองข้างใน scrotum โดยทั่วไปเป็นผลจาก failure ของ testis ที่จะเคลื่อนที่หรือ descend ระหว่าง fetal development จากตำแหน่งใน abdomen ผ่าน inguinal canal ลงสู่ scrotum",
           {
             "callout": "**cryptorchid testis ยังสามารถสร้าง testosterone ได้ แต่ไม่สามารถสร้าง normal spermatozoa ได้**",
             "kind": "tip"
@@ -7188,9 +6424,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "เหตุผล 2 ข้อที่สไลด์ให้ไว้ คือ ถ้าไม่เอา testicle ออกจะมีความเสี่ยง testicular cancer เพิ่มขึ้น และถ้านำสุนัขไปผสมพันธุ์ trait นี้จะถ่ายทอดไปยังรุ่นถัดไป"
                 ]
               },
-              {
-                "text": "พันธุ์ที่สไลด์ระบุว่าพบ cryptorchidism บ่อยที่สุด ได้แก่ toy and miniature poodle, pomeranian, Yorkshire และ Cairn terrier, dachshund, Chihuahua, Maltese, boxer, Pekingese, English bulldog, miniature schnauzer และ Shetland sheepdog"
-              }
+              "พันธุ์ที่สไลด์ระบุว่าพบ cryptorchidism บ่อยที่สุด ได้แก่ toy and miniature poodle, pomeranian, Yorkshire และ Cairn terrier, dachshund, Chihuahua, Maltese, boxer, Pekingese, English bulldog, miniature schnauzer และ Shetland sheepdog"
             ]
           }
         ]
@@ -7269,9 +6503,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**sperm อยู่ใน testes ในสภาพ suppressed ได้หลายสัปดาห์ แต่ ejaculated sperm ใน female genital tract มี life expectancy เพียง 1 ถึง 2 วัน**"
             ]
           },
-          {
-            "text": "p.22 เป็นภาพเปรียบเทียบ abnormal infertile sperm กับ normal sperm ที่อยู่ด้านขวา สไลด์ไม่ได้เขียนอธิบายลักษณะความผิดปกติเป็นข้อความ"
-          }
+          "p.22 เป็นภาพเปรียบเทียบ abnormal infertile sperm กับ normal sperm ที่อยู่ด้านขวา สไลด์ไม่ได้เขียนอธิบายลักษณะความผิดปกติเป็นข้อความ"
         ]
       },
       {
@@ -7312,9 +6544,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Function of seminal vesicles",
         "source": "male reproductive system p.25",
         "body": [
-          {
-            "text": "หลั่ง mucoid material ที่มี **fructose**, citric acid และสารอาหารอื่น ๆ อยู่มาก รวมทั้ง prostaglandins และ fibrinogen ในปริมาณมาก"
-          },
+          "หลั่ง mucoid material ที่มี **fructose**, citric acid และสารอาหารอื่น ๆ อยู่มาก รวมทั้ง prostaglandins และ fibrinogen ในปริมาณมาก",
           {
             "sub": "Prostaglandins เชื่อว่าช่วย fertilization ได้ 2 ทาง",
             "body": [
@@ -7326,18 +6556,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**Fibrinogen เมื่อรวมกับ clotting enzyme จาก prostatic fluid จะสร้าง weak fibrin ที่ยึด semen ไว้ในส่วนลึกของ vagina**"
-          }
+          "**Fibrinogen เมื่อรวมกับ clotting enzyme จาก prostatic fluid จะสร้าง weak fibrin ที่ยึด semen ไว้ในส่วนลึกของ vagina**"
         ]
       },
       {
         "heading": "เปรียบเทียบ accessory glands ระหว่าง species",
         "source": "male reproductive system p.26-27",
         "body": [
-          {
-            "text": "สไลด์เปรียบเทียบขนาดสัมพัทธ์ของ accessory glands ต่าง ๆ ในแต่ละ species พร้อมข้อสังเกตดังนี้"
-          },
+          "สไลด์เปรียบเทียบขนาดสัมพัทธ์ของ accessory glands ต่าง ๆ ในแต่ละ species พร้อมข้อสังเกตดังนี้",
           {
             "bullets": [
               "**ทุก species ในภาพมี prostate gland**",
@@ -7349,9 +6575,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "Boar มี preputial pouch"
             ]
           },
-          {
-            "text": "p.27 หัวข้อ Accessory glands เป็นสไลด์ภาพล้วน ไม่มีข้อความอธิบาย"
-          }
+          "p.27 หัวข้อ Accessory glands เป็นสไลด์ภาพล้วน ไม่มีข้อความอธิบาย"
         ]
       },
       {
@@ -7385,9 +6609,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Function of testosterone ต่อ primary และ secondary sexual characteristics",
         "source": "male reproductive system p.30-31",
         "body": [
-          {
-            "text": "**หลัง puberty การหลั่ง testosterone ที่เพิ่มขึ้นทำให้ penis, scrotum และ testes ขยายขนาดประมาณ 8 เท่า ก่อนอายุ 20 ปี**"
-          },
+          "**หลัง puberty การหลั่ง testosterone ที่เพิ่มขึ้นทำให้ penis, scrotum และ testes ขยายขนาดประมาณ 8 เท่า ก่อนอายุ 20 ปี**",
           {
             "sub": "secondary sexual characteristics ที่สไลด์ไล่ไว้ 4 ข้อ",
             "body": [
@@ -7455,9 +6677,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "2. Lubrication",
             "body": [
-              {
-                "text": "ระหว่าง sexual stimulation parasympathetic impulses นอกจากจะส่งเสริม erection แล้ว ยังทำให้ **urethral glands และ bulbourethral glands หลั่ง mucus**"
-              }
+              "ระหว่าง sexual stimulation parasympathetic impulses นอกจากจะส่งเสริม erection แล้ว ยังทำให้ **urethral glands และ bulbourethral glands หลั่ง mucus**"
             ]
           },
           {
@@ -7509,12 +6729,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Metabolism คืออะไร",
         "source": "Metabolism p.3",
         "body": [
-          {
-            "text": "Metabolism มาจากภาษากรีก แปลว่า **\"Change\"** หมายถึงชุดของ chemical และ energy transformations ที่เกิดภายใน living cell หรือ body"
-          },
-          {
-            "text": "สไลด์วางกรอบไว้ว่าเป็นวงจร Acquire—Inter-convert—Use or dispose energy เพื่อรองรับการทำงานตั้งแต่ระดับเซลล์ไปจนถึงทั้งร่างกาย"
-          },
+          "Metabolism มาจากภาษากรีก แปลว่า **\"Change\"** หมายถึงชุดของ chemical และ energy transformations ที่เกิดภายใน living cell หรือ body",
+          "สไลด์วางกรอบไว้ว่าเป็นวงจร Acquire—Inter-convert—Use or dispose energy เพื่อรองรับการทำงานตั้งแต่ระดับเซลล์ไปจนถึงทั้งร่างกาย",
           {
             "sub": "Work ที่ metabolism ไปรองรับ",
             "body": [
@@ -7545,9 +6761,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Metabolic pathway",
             "body": [
-              {
-                "text": "คือ chemical reaction chain ที่มีหลายขั้นตอนของ chemical transformation"
-              },
+              "คือ chemical reaction chain ที่มีหลายขั้นตอนของ chemical transformation",
               {
                 "bullets": [
                   "เป็น fixed step",
@@ -7560,9 +6774,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Enzyme",
             "body": [
-              {
-                "text": "ทำหน้าที่เป็น catalyzer คือ **speed up the reaction โดยลด activation energy** และถูก regulate ได้"
-              }
+              "ทำหน้าที่เป็น catalyzer คือ **speed up the reaction โดยลด activation energy** และถูก regulate ได้"
             ]
           },
           {
@@ -7582,9 +6794,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "พลังงานจากอาหาร, กฎ thermodynamic และหน่วยวัดพลังงาน",
         "source": "Metabolism p.5",
         "body": [
-          {
-            "text": "สัตว์ได้พลังงานจาก chemical energy bonds ของอาหาร (glucose, proteins หรือ fats) ผ่านปฏิกิริยาอย่าง glycolysis, β-oxidation ฯลฯ แล้วปลดปล่อยพลังงานเป็น ATP"
-          },
+          "สัตว์ได้พลังงานจาก chemical energy bonds ของอาหาร (glucose, proteins หรือ fats) ผ่านปฏิกิริยาอย่าง glycolysis, β-oxidation ฯลฯ แล้วปลดปล่อยพลังงานเป็น ATP",
           {
             "bullets": [
               "Use energy และ convert ไปเป็นรูปพลังงานที่เสถียรและเหมาะสม (ATP)",
@@ -7621,9 +6831,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Metabolic rate (MR) และองค์ประกอบของ energy expenditure",
         "source": "Metabolism p.6",
         "body": [
-          {
-            "text": "Metabolic rate คือ **all cellular energy expenditure ต่อหนึ่งหน่วยเวลา**"
-          },
+          "Metabolic rate คือ **all cellular energy expenditure ต่อหนึ่งหน่วยเวลา**",
           {
             "sub": "หน่วยที่ใช้รายงาน",
             "body": [
@@ -7636,9 +6844,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "Total energy expenditure (kcal/day) = all cellular metabolism and functions + physical activity + thermogenesis"
-          },
+          "Total energy expenditure (kcal/day) = all cellular metabolism and functions + physical activity + thermogenesis",
           {
             "sub": "สองสมการที่สไลด์เขียนไว้",
             "body": [
@@ -7648,9 +6854,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**TDEE = BMR + TEF (หรือ SDA) + NEAT + EAT**"
                 ]
               },
-              {
-                "text": "TEF = Thermic Effect of Food หรือ Specific Dynamic Action of Food (SDA), NEAT = Non-Exercise Activity Thermogenesis, EAT = Exercise Activity Thermogenesis"
-              }
+              "TEF = Thermic Effect of Food หรือ Specific Dynamic Action of Food (SDA), NEAT = Non-Exercise Activity Thermogenesis, EAT = Exercise Activity Thermogenesis"
             ]
           }
         ]
@@ -7659,9 +6863,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Basal metabolic rate (BMR) และเงื่อนไขการวัด",
         "source": "Metabolism p.7",
         "body": [
-          {
-            "text": "BMR คือ **minimal energy for sustaining body functions** วัดในภาวะ at rest, post-absorptive และ thermal neutrality"
-          },
+          "BMR คือ **minimal energy for sustaining body functions** วัดในภาวะ at rest, post-absorptive และ thermal neutrality",
           {
             "bullets": [
               "คิดเป็น **60-70% ของ total energy expenditure**",
@@ -7705,17 +6907,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Resting Metabolic Rate (RMR)",
             "body": [
-              {
-                "text": "วัดก่อนมื้ออาหารเช้า ในท่า resting position และอยู่ใน TNZ"
-              }
+              "วัดก่อนมื้ออาหารเช้า ในท่า resting position และอยู่ใน TNZ"
             ]
           },
           {
             "sub": "Resting Energy Requirements (RER)",
             "body": [
-              {
-                "text": "คือ calculated daily energy requirement สำหรับสุนัขและแมว อ้างอิง The OSU, 2019"
-              },
+              "คือ calculated daily energy requirement สำหรับสุนัขและแมว อ้างอิง The OSU, 2019",
               {
                 "callout": "สูตรคำนวณ RER ของสุนัขและแมวอยู่ในรูปภาพบนสไลด์ ไม่ได้อยู่ในชั้นข้อความ จึงยกตัวเลขสูตรมาให้ไม่ได้ ต้องเปิดสไลด์ตัวจริงดู",
                 "kind": "warn"
@@ -7725,12 +6923,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Standard Metabolic Rate (SMR) สำหรับ ectotherm",
             "body": [
-              {
-                "text": "วัดในภาวะ rest, post-absorptive และ non-growing/active metabolic stage"
-              },
-              {
-                "text": "ตัวอย่างที่สไลด์ยก คือ Crocodiles (0.19–389 kg) = **1.01 kcal/kg0.829/day** (Seymour et al., 2013)"
-              }
+              "วัดในภาวะ rest, post-absorptive และ non-growing/active metabolic stage",
+              "ตัวอย่างที่สไลด์ยก คือ Crocodiles (0.19–389 kg) = **1.01 kcal/kg0.829/day** (Seymour et al., 2013)"
             ]
           }
         ]
@@ -7762,9 +6956,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การวัด MR หรือ energy expenditure ทำโดยวัด **rate of heat liberation** ซึ่งมี 2 วิธี"
-          },
+          "การวัด MR หรือ energy expenditure ทำโดยวัด **rate of heat liberation** ซึ่งมี 2 วิธี",
           {
             "bullets": [
               "**Direct calorimetry**: วัด heat โดยตรง เพราะ energy expenditure ทั้งหมดจาก metabolism ออกมาเป็น heat energy",
@@ -7777,15 +6969,11 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Direct calorimetry: room-sized และ bomb calorimeter",
         "source": "Metabolism p.10",
         "body": [
-          {
-            "text": "Direct calorimetry วัด total heat ที่เกิดจากระบบใน closed chamber ใช้ได้ทั้งกับทั้งตัวสัตว์และกับ chemical reaction"
-          },
+          "Direct calorimetry วัด total heat ที่เกิดจากระบบใน closed chamber ใช้ได้ทั้งกับทั้งตัวสัตว์และกับ chemical reaction",
           {
             "sub": "Room-sized calorimeter",
             "body": [
-              {
-                "text": "วัด total heat production จากสิ่งมีชีวิต แบ่งความร้อนที่วัดเป็น"
-              },
+              "วัด total heat production จากสิ่งมีชีวิต แบ่งความร้อนที่วัดเป็น",
               {
                 "bullets": [
                   "Sensible heat loss: Conduction, Convection, Radiation",
@@ -7797,9 +6985,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Bomb calorimetry",
             "body": [
-              {
-                "text": "วัด heat energy จากการเผา substrate"
-              },
+              "วัด heat energy จากการเผา substrate",
               {
                 "bullets": [
                   "CHO = **4.1 kcal/g**",
@@ -7807,9 +6993,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "Proteins = **5.4 kcal/g**"
                 ]
               },
-              {
-                "text": "**The protein oxidation is incomplete** end product คือ Urea และ related nitrogen compounds ไม่ใช่ CO2 + H2O"
-              }
+              "**The protein oxidation is incomplete** end product คือ Urea และ related nitrogen compounds ไม่ใช่ CO2 + H2O"
             ]
           }
         ]
@@ -7818,9 +7002,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Indirect calorimetry: พลังงานต่อ L O2 และรูปแบบเครื่องมือ",
         "source": "Metabolism p.11-12",
         "body": [
-          {
-            "text": "Indirect calorimetry ประมาณ heat generation ทางอ้อมจาก O2 consumption (VO2) หรือ CO2 production เพราะ 95% ของพลังงานปล่อยจาก oxidative metabolism"
-          },
+          "Indirect calorimetry ประมาณ heat generation ทางอ้อมจาก O2 consumption (VO2) หรือ CO2 production เพราะ 95% ของพลังงานปล่อยจาก oxidative metabolism",
           {
             "sub": "พลังงานที่ได้ต่อ 1 ลิตร O2 ที่ STP แปรผันตามชนิดเชื้อเพลิง",
             "body": [
@@ -7851,39 +7033,29 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ตัวอย่างคำนวณ MR จาก spirometer",
         "source": "Metabolism p.13",
         "body": [
-          {
-            "text": "สไลด์ไล่ตัวอย่างคำนวณ liberated heat energy ต่อพื้นที่ผิวต่อเวลา (kcal/m2/hr) ทีละขั้น"
-          },
+          "สไลด์ไล่ตัวอย่างคำนวณ liberated heat energy ต่อพื้นที่ผิวต่อเวลา (kcal/m2/hr) ทีละขั้น",
           {
             "sub": "1. หา O2 consumption ใน 1 ชม.",
             "body": [
-              {
-                "text": "กำหนด 1 mm = 30 mL ถ้ากราฟ drift 100 mm ใน 10 นาที จะได้ VO2 = 30 x 100 x (60/10) = 18,000 mL/hr = **18 L/hr**"
-              }
+              "กำหนด 1 mm = 30 mL ถ้ากราฟ drift 100 mm ใน 10 นาที จะได้ VO2 = 30 x 100 x (60/10) = 18,000 mL/hr = **18 L/hr**"
             ]
           },
           {
             "sub": "2. แปลงปริมาตร O2 เป็น STP",
             "body": [
-              {
-                "text": "STP กำหนด P2 = 760 mmHg, T2 = 273 ˚K ใช้ P1V1/T1 = P2V2/T2 จาก 750 x 18/(25+273) = 760 x V2/273 ได้ **V2 = 16.3 L**"
-              }
+              "STP กำหนด P2 = 760 mmHg, T2 = 273 ˚K ใช้ P1V1/T1 = P2V2/T2 จาก 750 x 18/(25+273) = 760 x V2/273 ได้ **V2 = 16.3 L**"
             ]
           },
           {
             "sub": "3. แปลงเป็น kcal/hr จาก mixed food",
             "body": [
-              {
-                "text": "16.3 x 4.825 = **78.65 kcal/hr**"
-              }
+              "16.3 x 4.825 = **78.65 kcal/hr**"
             ]
           },
           {
             "sub": "4. Normalize ด้วย body surface area (A)",
             "body": [
-              {
-                "text": "Human A = 0.007184 x H0.725 x W0.425 (A เป็น m2, H เป็น cm, W เป็น kg) ถ้า A = 1.462 m2 จะได้ Metabolic rate = 78.65/1.462 = **53.79 kcal/m2/hr**"
-              }
+              "Human A = 0.007184 x H0.725 x W0.425 (A เป็น m2, H เป็น cm, W เป็น kg) ถ้า A = 1.462 m2 จะได้ Metabolic rate = 78.65/1.462 = **53.79 kcal/m2/hr**"
             ]
           }
         ]
@@ -7898,18 +7070,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "ขนาดต่างกัน: ต่างที่ basal body activities ได้แก่ HR, cellular metabolism และ thermoregulation"
             ]
           },
-          {
-            "text": "**สัตว์ตัวเล็กมี heat production ต่อตัวต่ำกว่า แต่ BMR ต่อ body mass สูงกว่า**"
-          },
+          "**สัตว์ตัวเล็กมี heat production ต่อตัวต่ำกว่า แต่ BMR ต่อ body mass สูงกว่า**",
           {
             "bullets": [
               "Mice = 4 kcal/20 g = **200 kcal/kg**",
               "Cow = 7,000 kcal/500 kg = **14 kcal/kg**"
             ]
           },
-          {
-            "text": "BMR แปรผันตาม body surface (พื้นที่ผิวมากกว่า = heat loss มากกว่า)"
-          },
+          "BMR แปรผันตาม body surface (พื้นที่ผิวมากกว่า = heat loss มากกว่า)",
           {
             "sub": "Race และ breed",
             "body": [
@@ -7927,9 +7095,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปัจจัยที่ 2 Gender",
         "source": "Metabolism p.15",
         "body": [
-          {
-            "text": "**Male RMR > Female ประมาณ 23%** หลังปรับ body composition และ aerobic fitness แล้ว (Arciero et al., 1993)"
-          },
+          "**Male RMR > Female ประมาณ 23%** หลังปรับ body composition และ aerobic fitness แล้ว (Arciero et al., 1993)",
           {
             "sub": "Testosterone",
             "body": [
@@ -7947,15 +7113,11 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปัจจัยที่ 3 Physical activity",
         "source": "Metabolism p.16",
         "body": [
-          {
-            "text": "ขึ้นกับ types, intensity และ duration และสไลด์ระบุว่าเป็น **most important factor ของ MR**"
-          },
+          "ขึ้นกับ types, intensity และ duration และสไลด์ระบุว่าเป็น **most important factor ของ MR**",
           {
             "sub": "Exercise เพิ่ม heat production จากทั้งร่างกาย",
             "body": [
-              {
-                "text": "ทั้งจาก muscle work, utilization of nutrients, waste elimination (CO2, acid และ excess heat) และการทำงานของระบบอื่น"
-              },
+              "ทั้งจาก muscle work, utilization of nutrients, waste elimination (CO2, acid และ excess heat) และการทำงานของระบบอื่น",
               {
                 "bullets": [
                   "Maximal exercise เพิ่มได้ **50 เท่า**",
@@ -7978,9 +7140,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปัจจัยที่ 4 Age",
         "source": "Metabolism p.17",
         "body": [
-          {
-            "text": "**BMR declines with aging** ลำดับคือ Adolescent > adult > elderly"
-          },
+          "**BMR declines with aging** ลำดับคือ Adolescent > adult > elderly",
           {
             "sub": "Adolescent",
             "body": [
@@ -8012,9 +7172,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปัจจัยที่ 5 Hormones: Thyroxine",
         "source": "Metabolism p.18",
         "body": [
-          {
-            "text": "Thyroxine เพิ่ม cellular chemical reaction rate โดยมี main targets คือ **brain, liver, pancreas, skeletal muscle และ adipocyte**"
-          },
+          "Thyroxine เพิ่ม cellular chemical reaction rate โดยมี main targets คือ **brain, liver, pancreas, skeletal muscle และ adipocyte**",
           {
             "bullets": [
               "ทำงาน synergist กับ sympathetic nervous system",
@@ -8022,9 +7180,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "Cold climate adaptation สัมพันธ์กับระดับ thyroxine"
             ]
           },
-          {
-            "text": "ตัวเลขที่สไลด์เขียน คือ Max level of thyroxine: **MR หรือ BMR 50-100%** และ Without thyroxine: **MR หรือ BMR 40-60%**"
-          },
+          "ตัวเลขที่สไลด์เขียน คือ Max level of thyroxine: **MR หรือ BMR 50-100%** และ Without thyroxine: **MR หรือ BMR 40-60%**",
           {
             "callout": "บนสไลด์เดิมสองบรรทัดนี้มีลูกศรขึ้น/ลงกำกับ แต่ลูกศรหายไปตอนดึงข้อความออกมา จึงเก็บเฉพาะตัวเลขที่อ่านได้ ให้ไปดูทิศทางลูกศรจากสไลด์ตัวจริง",
             "kind": "warn"
@@ -8059,18 +7215,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "Main targets: **Liver, skeletal muscle และ adipose tissue** (Mohd Azmi et al., 2021)"
-          }
+          "Main targets: **Liver, skeletal muscle และ adipose tissue** (Mohd Azmi et al., 2021)"
         ]
       },
       {
         "heading": "ปัจจัยที่ 6 Sympathetic function",
         "source": "Metabolism p.20",
         "body": [
-          {
-            "text": "ออกฤทธิ์ผ่าน **β-adrenergic receptor** ให้ผลแบบ catabolic effect"
-          },
+          "ออกฤทธิ์ผ่าน **β-adrenergic receptor** ให้ผลแบบ catabolic effect",
           {
             "sub": "Increase",
             "body": [
@@ -8083,15 +7235,11 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "Targets ครอบคลุมเนื้อเยื่อส่วนใหญ่ ได้แก่ CVS, liver, adipose tissue, pancreas และ skeletal muscle"
-          },
+          "Targets ครอบคลุมเนื้อเยื่อส่วนใหญ่ ได้แก่ CVS, liver, adipose tissue, pancreas และ skeletal muscle",
           {
             "sub": "Sympathetic tone reduction ทำให้ RMR ลดลง",
             "body": [
-              {
-                "text": "เห็นชัดในคนที่มี basal sympathetic tone สูงอยู่แล้ว"
-              },
+              "เห็นชัดในคนที่มี basal sympathetic tone สูงอยู่แล้ว",
               {
                 "bullets": [
                   "Young, aerobic fit และ men (Bell et al., 2001)",
@@ -8121,18 +7269,14 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Fever (p.21)",
             "body": [
-              {
-                "text": "สไลด์เขียนว่าเพิ่ม cellular MR ประมาณ **120% ต่อการเพิ่มอุณหภูมิทุก 10 °C** ร่วมกับการเปลี่ยน body temperature set point ที่ hypothalamus"
-              },
+              "สไลด์เขียนว่าเพิ่ม cellular MR ประมาณ **120% ต่อการเพิ่มอุณหภูมิทุก 10 °C** ร่วมกับการเปลี่ยน body temperature set point ที่ hypothalamus",
               {
                 "bullets": [
                   "Chill: เพิ่ม heat production ทำให้ body temperature สูงขึ้นและเร่ง cellular chemical reactions",
                   "Flush: เพิ่ม heat loss"
                 ]
               },
-              {
-                "text": "อ้างอิง Guyton and Hall, 2006"
-              }
+              "อ้างอิง Guyton and Hall, 2006"
             ]
           },
           {
@@ -8155,9 +7299,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปัจจัยที่ 8 Specific dynamic action (SDA)",
         "source": "Metabolism p.23",
         "body": [
-          {
-            "text": "SDA หรือ thermic effect of food หรือ heat increment คือพลังงานส่วนเกินที่ใช้ไปกับ **ingestion, digestion, secretion, absorption, transformation, mobilization, elimination และ storage** โดยหลักเกิดจาก liver deamination"
-          },
+          "SDA หรือ thermic effect of food หรือ heat increment คือพลังงานส่วนเกินที่ใช้ไปกับ **ingestion, digestion, secretion, absorption, transformation, mobilization, elimination และ storage** โดยหลักเกิดจาก liver deamination",
           {
             "sub": "ตามชนิดและปริมาณอาหาร",
             "body": [
@@ -8193,18 +7335,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "Duration of SDA: **dog 5-10 ชม. และ human 10 ชม.** (Mccue, 2006)"
-          }
+          "Duration of SDA: **dog 5-10 ชม. และ human 10 ชม.** (Mccue, 2006)"
         ]
       },
       {
         "heading": "ปัจจัยที่ 9 Environment: อุณหภูมิและความชื้น",
         "source": "Metabolism p.24",
         "body": [
-          {
-            "text": "อุณหภูมิสัมพันธ์กับ MR แบบ **U-shape curve** โดยจุดต่ำสุดคือ Thermoneutral zone (TNZ) ซึ่งเป็นช่วงอุณหภูมิที่ MR ต่ำที่สุด"
-          },
+          "อุณหภูมิสัมพันธ์กับ MR แบบ **U-shape curve** โดยจุดต่ำสุดคือ Thermoneutral zone (TNZ) ซึ่งเป็นช่วงอุณหภูมิที่ MR ต่ำที่สุด",
           {
             "bullets": [
               "Human **25-30°C**",
@@ -8222,9 +7360,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Humidity",
             "body": [
-              {
-                "text": "Relative humidity สูงทำให้ evaporative cooling ไม่มีประสิทธิภาพ ร่างกายต้องเพิ่มการกำจัดความร้อนด้วยวิธีอื่น จนเกิด heat stress (อ้างอิง Kingma and Lichtenbelt, 2015)"
-              }
+              "Relative humidity สูงทำให้ evaporative cooling ไม่มีประสิทธิภาพ ร่างกายต้องเพิ่มการกำจัดความร้อนด้วยวิธีอื่น จนเกิด heat stress (อ้างอิง Kingma and Lichtenbelt, 2015)"
             ]
           },
           {
@@ -8237,12 +7373,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Intermediary metabolism และ energy balance",
         "source": "Metabolism p.25",
         "body": [
-          {
-            "text": "Intermediary metabolism คือ intracellular process ที่เปลี่ยน nutritive materials ไปเป็น cellular components"
-          },
-          {
-            "text": "สไลด์ย้ำ 1st law of thermodynamic ว่า \"the energy is neither created nor destroyed when it is converted from one form to another form\" พลังงานจึงไปได้ 3 ทาง คือ energy intake, energy expenditure หรือ storage fuel"
-          },
+          "Intermediary metabolism คือ intracellular process ที่เปลี่ยน nutritive materials ไปเป็น cellular components",
+          "สไลด์ย้ำ 1st law of thermodynamic ว่า \"the energy is neither created nor destroyed when it is converted from one form to another form\" พลังงานจึงไปได้ 3 ทาง คือ energy intake, energy expenditure หรือ storage fuel",
           {
             "bullets": [
               "**Energy balance**: E intake = E output (น้ำหนักคงที่)",
@@ -8250,9 +7382,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Positive energy balance**: E intake > E output (น้ำหนักเพิ่ม)"
             ]
           },
-          {
-            "text": "การเพิ่ม calorie intake จะเพิ่ม thermogenesis และ metabolism และอาจเพิ่ม body mass โดยสไลด์ให้ตัวเลขว่า **พลังงานส่วนเกิน 7,700 kcal = ไขมัน 1 kg**"
-          }
+          "การเพิ่ม calorie intake จะเพิ่ม thermogenesis และ metabolism และอาจเพิ่ม body mass โดยสไลด์ให้ตัวเลขว่า **พลังงานส่วนเกิน 7,700 kcal = ไขมัน 1 kg**"
         ]
       },
       {
@@ -8275,9 +7405,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "ทำไมต้องเป็น coupled reaction",
             "body": [
-              {
-                "text": "การเผาสารอาหารนอกร่างกายให้ heat energy ออกมาแบบระเบิด แต่ **ไม่ใช่ทุก cellular function ที่ต้องการพลังงานในรูป heat**"
-              },
+              "การเผาสารอาหารนอกร่างกายให้ heat energy ออกมาแบบระเบิด แต่ **ไม่ใช่ทุก cellular function ที่ต้องการพลังงานในรูป heat**",
               {
                 "bullets": [
                   "เซลล์จึงเปลี่ยน fuel substrates ไปเป็นพลังงานรูปแบบเฉพาะที่เหมาะกับแต่ละหน้าที่",
@@ -8292,18 +7420,12 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Energy transfer: free energy ของอาหาร และรูปพลังงานที่เซลล์ใช้",
         "source": "Metabolism p.27",
         "body": [
-          {
-            "text": "Free energy of oxidation of food (G) คือพลังงานที่ได้จากการ oxidize อาหารสมบูรณ์ สไลด์ยกตัวอย่าง **Glucose 1 mol (180 g) = 686,000 cal/mol**"
-          },
-          {
-            "text": "**ATP คือ energy currency** ทั้งฝั่งผลิตและฝั่งใช้ metabolism ของอาหารคือการสร้าง ATP จาก ADP"
-          },
+          "Free energy of oxidation of food (G) คือพลังงานที่ได้จากการ oxidize อาหารสมบูรณ์ สไลด์ยกตัวอย่าง **Glucose 1 mol (180 g) = 686,000 cal/mol**",
+          "**ATP คือ energy currency** ทั้งฝั่งผลิตและฝั่งใช้ metabolism ของอาหารคือการสร้าง ATP จาก ADP",
           {
             "sub": "รูปพลังงานที่ถูกแปลงไป",
             "body": [
-              {
-                "text": "1. High-energy phosphate compounds"
-              },
+              "1. High-energy phosphate compounds",
               {
                 "bullets": [
                   "ATP: Adenosine triphosphate",
@@ -8314,9 +7436,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "ITP: Inosine triphosphate"
                 ]
               },
-              {
-                "text": "2. Thioester ได้แก่ CoA (Co-enzyme A)"
-              }
+              "2. Thioester ได้แก่ CoA (Co-enzyme A)"
             ]
           },
           {
@@ -8335,9 +7455,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Reduction**: gain electron หรือ H+ หรือ loss O2"
             ]
           },
-          {
-            "text": "Cellular respiration ที่ผลิต ATP คือการ oxidize glucose และ reduce O2 ตามสมการ **C6H12O6 + 6 O2 → 6 CO2 + 6 H2O + ATP**"
-          },
+          "Cellular respiration ที่ผลิต ATP คือการ oxidize glucose และ reduce O2 ตามสมการ **C6H12O6 + 6 O2 → 6 CO2 + 6 H2O + ATP**",
           {
             "sub": "Coenzyme ที่ต้องใช้",
             "body": [
@@ -8350,18 +7468,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การส่ง H+ ใช้ **flavoprotein-cytochrome system** ปลายทางคือ O2 + H+ → H2O"
-          }
+          "การส่ง H+ ใช้ **flavoprotein-cytochrome system** ปลายทางคือ O2 + H+ → H2O"
         ]
       },
       {
         "heading": "Oxidative phosphorylation และการใช้ ATP ของเซลล์",
         "source": "Metabolism p.29",
         "body": [
-          {
-            "text": "Flavoprotein-cytochrome system ใน mitochondria ทำหน้าที่ transport H+ คือ (1) ข้าม mitochondrial membrane สร้าง electrochemical gradient และ (2) จาก intracisterna space เข้า matrix space"
-          },
+          "Flavoprotein-cytochrome system ใน mitochondria ทำหน้าที่ transport H+ คือ (1) ข้าม mitochondrial membrane สร้าง electrochemical gradient และ (2) จาก intracisterna space เข้า matrix space",
           {
             "sub": "ปัจจัยที่กำหนด rate of phosphorylation",
             "body": [
@@ -8374,9 +7488,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**Mitochondria ใช้ 90% ของ O2 consumption โดย 80% ใช้ไปกับการสร้าง ATP**"
-          },
+          "**Mitochondria ใช้ 90% ของ O2 consumption โดย 80% ใช้ไปกับการสร้าง ATP**",
           {
             "sub": "Utilization of ATP",
             "body": [
@@ -8399,9 +7511,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "CHO digestion และ glucose homeostasis",
         "source": "Metabolism p.30-31",
         "body": [
-          {
-            "text": "สไลด์ 30 เป็นสไลด์คั่นหัวข้อ ไล่หัวข้อย่อยของ carbohydrate metabolism ไว้ คือ CHO digestion and glucose conversion, glucose transportation into cell, glucose phosphorylation, glucose utilization and storage, anaerobic CHO metabolism, pentose phosphate pathway และ gluconeogenesis"
-          },
+          "สไลด์ 30 เป็นสไลด์คั่นหัวข้อ ไล่หัวข้อย่อยของ carbohydrate metabolism ไว้ คือ CHO digestion and glucose conversion, glucose transportation into cell, glucose phosphorylation, glucose utilization and storage, anaerobic CHO metabolism, pentose phosphate pathway และ gluconeogenesis",
           {
             "sub": "ชนิดของ CHO (p.31)",
             "body": [
@@ -8413,9 +7523,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**Glucose คือ final common CHO circulating unit** โดย CHO digestion ให้ monosaccharides เป็น glucose 80%, fructose และ galactose"
-          },
+          "**Glucose คือ final common CHO circulating unit** โดย CHO digestion ให้ monosaccharides เป็น glucose 80%, fructose และ galactose",
           {
             "sub": "Glucose homeostasis",
             "body": [
@@ -8428,18 +7536,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "**แมวเป็น obligate carnivore จึงมี limited capacity ในการย่อย CHO**"
-          }
+          "**แมวเป็น obligate carnivore จึงมี limited capacity ในการย่อย CHO**"
         ]
       },
       {
         "heading": "Glucose transport เข้าเซลล์ และบทบาทของ insulin",
         "source": "Metabolism p.32",
         "body": [
-          {
-            "text": "Glucose transporters เป็น transmembrane protein carriers แบ่งเป็น 2 แบบ"
-          },
+          "Glucose transporters เป็น transmembrane protein carriers แบ่งเป็น 2 แบบ",
           {
             "bullets": [
               "**Facilitated diffusion: GLUT** ไปตาม concentration gradient พบในเซลล์ส่วนใหญ่",
@@ -8449,12 +7553,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Insulin",
             "body": [
-              {
-                "text": "เป็น **hypoglycemic hormone ตัวเดียว** ออกฤทธิ์กระตุ้น **GLUT4 translocation** เพิ่มอัตราการขนส่ง glucose ผ่าน GLUT4 ในเซลล์ส่วนใหญ่ **ยกเว้น liver และ brain**"
-              },
-              {
-                "text": "ถ้าไม่มี insulin จะเกิด Diabetes mellitus (DM) และเซลล์ไม่สามารถรักษาการทำงานไว้ได้"
-              }
+              "เป็น **hypoglycemic hormone ตัวเดียว** ออกฤทธิ์กระตุ้น **GLUT4 translocation** เพิ่มอัตราการขนส่ง glucose ผ่าน GLUT4 ในเซลล์ส่วนใหญ่ **ยกเว้น liver และ brain**",
+              "ถ้าไม่มี insulin จะเกิด Diabetes mellitus (DM) และเซลล์ไม่สามารถรักษาการทำงานไว้ได้"
             ]
           }
         ]
@@ -8463,9 +7563,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Glucose phosphorylation",
         "source": "Metabolism p.33",
         "body": [
-          {
-            "text": "glucose ถูกดักไว้ในเซลล์ในรูป **Glucose-6-phosphate**"
-          },
+          "glucose ถูกดักไว้ในเซลล์ในรูป **Glucose-6-phosphate**",
           {
             "sub": "สิ่งที่ต้องใช้",
             "body": [
@@ -8477,9 +7575,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "ปฏิกิริยานี้ reversible ได้ด้วย **Glucose 6-phosphatase** ซึ่งปล่อย glucose ออกนอกเซลล์ได้ พบที่ **liver, renal tubular และ intestinal epithelial cell**"
-          }
+          "ปฏิกิริยานี้ reversible ได้ด้วย **Glucose 6-phosphatase** ซึ่งปล่อย glucose ออกนอกเซลล์ได้ พบที่ **liver, renal tubular และ intestinal epithelial cell**"
         ]
       },
       {
@@ -8500,17 +7596,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Glycogenesis (สร้าง glycogen)",
             "body": [
-              {
-                "text": "สร้างได้จาก monosaccharides, lactic acid, pyruvic acid และ de-aminated amino acid โดย **insulin กระตุ้นการทำงานของ glycogen synthase**"
-              }
+              "สร้างได้จาก monosaccharides, lactic acid, pyruvic acid และ de-aminated amino acid โดย **insulin กระตุ้นการทำงานของ glycogen synthase**"
             ]
           },
           {
             "sub": "Glycogenolysis (สลาย glycogen)",
             "body": [
-              {
-                "text": "ใช้ phosphorylation แยก glucose ออกทีละโมเลกุล โดย **epinephrine และ glucagon เพิ่ม cAMP แล้ว cAMP ไป activate phosphorylase**"
-              }
+              "ใช้ phosphorylation แยก glucose ออกทีละโมเลกุล โดย **epinephrine และ glucagon เพิ่ม cAMP แล้ว cAMP ไป activate phosphorylase**"
             ]
           }
         ]
@@ -8519,37 +7611,25 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การสลาย glucose: glycolysis, acetyl-CoA และ citric acid cycle",
         "source": "Metabolism p.35-36",
         "body": [
-          {
-            "text": "Glucose 1 mol ให้พลังงาน ~668,000 cal ขณะที่การสร้าง ATP 1 mol จาก ADP ใช้ 12,000 cal การสลาย glucose จึงทำเป็นหลายขั้นเพื่อปล่อยพลังงานทีละน้อย รวมแล้ว **1 glucose ให้ 38 ATP**"
-          },
+          "Glucose 1 mol ให้พลังงาน ~668,000 cal ขณะที่การสร้าง ATP 1 mol จาก ADP ใช้ 12,000 cal การสลาย glucose จึงทำเป็นหลายขั้นเพื่อปล่อยพลังงานทีละน้อย รวมแล้ว **1 glucose ให้ 38 ATP**",
           {
             "sub": "1. Glycolysis",
             "body": [
-              {
-                "text": "1 glucose ให้ **2 ATP (สร้าง 4 ATP ใช้ไป 2 ATP) + 2 pyruvic acid + 4 H+**"
-              }
+              "1 glucose ให้ **2 ATP (สร้าง 4 ATP ใช้ไป 2 ATP) + 2 pyruvic acid + 4 H+**"
             ]
           },
           {
             "sub": "2. Conversion of pyruvic acid to acetyl-CoA",
             "body": [
-              {
-                "text": "1 glucose ให้ 2 pyruvic acid ซึ่งเปลี่ยนเป็น **2 acetyl-CoA + 4 H+ โดยไม่มี ATP เกิดขึ้น** acetyl-CoA จะไปให้ ATP ต่อใน Citric acid cycle"
-              }
+              "1 glucose ให้ 2 pyruvic acid ซึ่งเปลี่ยนเป็น **2 acetyl-CoA + 4 H+ โดยไม่มี ATP เกิดขึ้น** acetyl-CoA จะไปให้ ATP ต่อใน Citric acid cycle"
             ]
           },
           {
             "sub": "3. Citric acid cycle (CAC) (p.36)",
             "body": [
-              {
-                "text": "หรือ Krebs cycle หรือ tricarboxylic acid cycle (TCA) เกิดที่ **mitochondrial matrix**"
-              },
-              {
-                "text": "2 Acetyl-part + 2 oxaloacetic acid → 2 oxaloacetic acid + **16 H+ + 2 ATP**"
-              },
-              {
-                "text": "รวม 1 glucose ได้ **24 H+ แต่ใช้จริงเพียง 20 H+**"
-              }
+              "หรือ Krebs cycle หรือ tricarboxylic acid cycle (TCA) เกิดที่ **mitochondrial matrix**",
+              "2 Acetyl-part + 2 oxaloacetic acid → 2 oxaloacetic acid + **16 H+ + 2 ATP**",
+              "รวม 1 glucose ได้ **24 H+ แต่ใช้จริงเพียง 20 H+**"
             ]
           }
         ]
@@ -8558,15 +7638,11 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Oxidative phosphorylation 3 ขั้นใน mitochondria",
         "source": "Metabolism p.37",
         "body": [
-          {
-            "text": "หลังแยก H atom จากอาหารเป็น H+ และ e- แล้ว **NAD+ รับ H+ กลายเป็น NADH และ FAD รับ 2H+ กลายเป็น FADH2**"
-          },
+          "หลังแยก H atom จากอาหารเป็น H+ และ e- แล้ว **NAD+ รับ H+ กลายเป็น NADH และ FAD รับ 2H+ กลายเป็น FADH2**",
           {
             "sub": "1. Electron transport chain",
             "body": [
-              {
-                "text": "อยู่ที่ mitochondria matrix และ inner membrane"
-              },
+              "อยู่ที่ mitochondria matrix และ inner membrane",
               {
                 "bullets": [
                   "Electron carrier: **NADH และ FADH2**",
@@ -8578,17 +7654,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "2. Chemiosmotic mechanism",
             "body": [
-              {
-                "text": "ที่ inner membrane ของ mitochondria มีการปั๊ม H+ ออกไป outer chamber โดยใช้พลังงานที่ปล่อยระหว่างการขนส่ง e- แล้ว **special ATPase (ATP synthetase) เปลี่ยน ADP เป็น ATP โดยใช้พลังงานจากการไหลของ H+**"
-              }
+              "ที่ inner membrane ของ mitochondria มีการปั๊ม H+ ออกไป outer chamber โดยใช้พลังงานที่ปล่อยระหว่างการขนส่ง e- แล้ว **special ATPase (ATP synthetase) เปลี่ยน ADP เป็น ATP โดยใช้พลังงานจากการไหลของ H+**"
             ]
           },
           {
             "sub": "3. ATP transportation into cytosol",
             "body": [
-              {
-                "text": "ขนส่ง **3 ATP (จาก 2e-)** ออกสู่ cytosol ด้วย facilitated และ passive diffusion"
-              }
+              "ขนส่ง **3 ATP (จาก 2e-)** ออกสู่ cytosol ด้วย facilitated และ passive diffusion"
             ]
           }
         ]
@@ -8609,9 +7681,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**รวม 38 ATP = 456,000 cal จาก glucose 1 mol (~668,000 cal)**"
                 ]
               },
-              {
-                "text": "คิดเป็น **energy transfer efficiency 66% และเป็น heat 34%**"
-              }
+              "คิดเป็น **energy transfer efficiency 66% และเป็น heat 34%**"
             ]
           },
           {
@@ -8632,9 +7702,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Anaerobic CHO metabolism, Cori cycle และ oxygen debt",
         "source": "Metabolism p.39",
         "body": [
-          {
-            "text": "Anaerobic energy คือกลไก lifesaving ตอน O2 ไม่พอ"
-          },
+          "Anaerobic energy คือกลไก lifesaving ตอน O2 ไม่พอ",
           {
             "bullets": [
               "**Glycogenolysis** ปล่อย glucose ได้นานถึง 1 ชม.",
@@ -8644,23 +7712,15 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Formation of lactic acid",
             "body": [
-              {
-                "text": "เกิดมากที่ skeletal muscle เมื่อมี pyruvic acid, H+ และ NADH เกิน จะถูกเปลี่ยนเป็น lactic acid โดย **Lactic dehydrogenase (LDH)**"
-              },
-              {
-                "text": "เมื่อมี O2 แล้ว lactic acid ถูกใช้เป็น fuel เปลี่ยนกลับเป็น pyruvic acid หรือ glucose โดยเกิดมากที่ **liver และ heart**"
-              },
-              {
-                "text": "**Cori cycle**: skeletal muscle เปลี่ยน glucose เป็น lactate ส่วน liver และ heart เปลี่ยน lactate กลับเป็น glucose"
-              }
+              "เกิดมากที่ skeletal muscle เมื่อมี pyruvic acid, H+ และ NADH เกิน จะถูกเปลี่ยนเป็น lactic acid โดย **Lactic dehydrogenase (LDH)**",
+              "เมื่อมี O2 แล้ว lactic acid ถูกใช้เป็น fuel เปลี่ยนกลับเป็น pyruvic acid หรือ glucose โดยเกิดมากที่ **liver และ heart**",
+              "**Cori cycle**: skeletal muscle เปลี่ยน glucose เป็น lactate ส่วน liver และ heart เปลี่ยน lactate กลับเป็น glucose"
             ]
           },
           {
             "sub": "Oxygen debt",
             "body": [
-              {
-                "text": "เกิดหลัง anaerobic metabolism สูง เช่น strenuous exercise ที่ทำให้ glycogen, ATP และ creatine phosphate พร่อง"
-              },
+              "เกิดหลัง anaerobic metabolism สูง เช่น strenuous exercise ที่ทำให้ glycogen, ATP และ creatine phosphate พร่อง",
               {
                 "bullets": [
                   "มี prolonged increased O2 consumption และ high oxidation metabolic process",
@@ -8676,9 +7736,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Gluconeogenesis",
         "source": "Metabolism p.40",
         "body": [
-          {
-            "text": "Gluconeogenesis คือการเปลี่ยน amino acid และ fat ไปเป็น CHO เกิดเมื่อ cellular CHO หรือ blood glucose level ลดลง"
-          },
+          "Gluconeogenesis คือการเปลี่ยน amino acid และ fat ไปเป็น CHO เกิดเมื่อ cellular CHO หรือ blood glucose level ลดลง",
           {
             "sub": "Substrates",
             "body": [
@@ -8720,9 +7778,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Pentose phosphate pathway",
         "source": "Metabolism p.41",
         "body": [
-          {
-            "text": "คิดเป็น **30% ของการสลาย glucose** เกิดที่ **liver และ fat tissue**"
-          },
+          "คิดเป็น **30% ของการสลาย glucose** เกิดที่ **liver และ fat tissue**",
           {
             "sub": "สิ่งที่สร้างได้",
             "body": [
@@ -8748,15 +7804,11 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ชนิดของ lipid ในร่างกาย",
         "source": "Metabolism p.42-44",
         "body": [
-          {
-            "text": "สไลด์ 42 เป็นสไลด์คั่นหัวข้อ ไล่หัวข้อย่อยของ lipid metabolism คือ Lipids, Lipid absorption, Lipid transportation และ Lipid utilization and storage"
-          },
+          "สไลด์ 42 เป็นสไลด์คั่นหัวข้อ ไล่หัวข้อย่อยของ lipid metabolism คือ Lipids, Lipid absorption, Lipid transportation และ Lipid utilization and storage",
           {
             "sub": "Simple lipids (p.43)",
             "body": [
-              {
-                "text": "เป็น ester ของ fatty acid (FA) กับ alcohol โดย FA คือ long-chain hydrocarbon organic acid ตัวอย่างคือ **Triglyceride = 3 long-chain FA กับ 1 glycerol**"
-              }
+              "เป็น ester ของ fatty acid (FA) กับ alcohol โดย FA คือ long-chain hydrocarbon organic acid ตัวอย่างคือ **Triglyceride = 3 long-chain FA กับ 1 glycerol**"
             ]
           },
           {
@@ -8773,9 +7825,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Derived lipids (p.43)",
             "body": [
-              {
-                "text": "เป็น metabolites ของ simple หรือ compound lipid อาจไม่มี FA เช่น steroid nucleus (สร้างจาก FA) และ cholesterol"
-              }
+              "เป็น metabolites ของ simple หรือ compound lipid อาจไม่มี FA เช่น steroid nucleus (สร้างจาก FA) และ cholesterol"
             ]
           },
           {
@@ -8863,9 +7913,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การกำจัด chylomicron ออกจากเลือด และผลต่อการเจาะเลือด",
         "source": "Metabolism p.47",
         "body": [
-          {
-            "text": "Plasma chylomicron **เพิ่มเป็น 1-2% ที่ 1 ชม. หลังอาหาร ทำให้พลาสมาขุ่น (turbid)**"
-          },
+          "Plasma chylomicron **เพิ่มเป็น 1-2% ที่ 1 ชม. หลังอาหาร ทำให้พลาสมาขุ่น (turbid)**",
           {
             "bullets": [
               "**Lipoprotein lipase** ที่ fat tissue และ liver capillary ย่อย TG และ phospholipid ปล่อย FA และ glycerol",
@@ -8883,9 +7931,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Free fatty acid (FFA)",
         "source": "Metabolism p.48",
         "body": [
-          {
-            "text": "เมื่อ blood glucose และ α-glycerophosphate ต่ำ ร่างกายต้องดึงไขมันจากที่เก็บมาใช้เป็นเชื้อเพลิง"
-          },
+          "เมื่อ blood glucose และ α-glycerophosphate ต่ำ ร่างกายต้องดึงไขมันจากที่เก็บมาใช้เป็นเชื้อเพลิง",
           {
             "bullets": [
               "**Epinephrine และ glucagon เพิ่ม cAMP ไป activate hormone-sensitive triglycerol lipase**",
@@ -8904,18 +7950,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "การเพิ่มการใช้ไขมันจะเพิ่มทั้งระดับในพลาสมาและการขนส่ง"
-          }
+          "การเพิ่มการใช้ไขมันจะเพิ่มทั้งระดับในพลาสมาและการขนส่ง"
         ]
       },
       {
         "heading": "Lipoproteins และการแบ่งชนิดตาม density",
         "source": "Metabolism p.49-50",
         "body": [
-          {
-            "text": "Lipoproteins คือ lipid-binding proteins ซึ่งคิดเป็น **95% ของ plasma lipid** ทำหน้าที่ขนส่งไขมันระหว่างอวัยวะ สังเคราะห์ที่ liver และ intestinal epithelial cell ประกอบด้วย TG, phospholipid, cholesterol และ protein"
-          },
+          "Lipoproteins คือ lipid-binding proteins ซึ่งคิดเป็น **95% ของ plasma lipid** ทำหน้าที่ขนส่งไขมันระหว่างอวัยวะ สังเคราะห์ที่ liver และ intestinal epithelial cell ประกอบด้วย TG, phospholipid, cholesterol และ protein",
           {
             "bullets": [
               "Density แปรผันตามสัดส่วนองค์ประกอบ โดย **TG ทำให้ density ต่ำ ส่วน protein ทำให้ density สูง**",
@@ -8942,15 +7984,11 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การใช้ TG เป็น ATP และการขนส่ง FA เข้า mitochondria",
         "source": "Metabolism p.51",
         "body": [
-          {
-            "text": "เมื่อ CHO เกิน ร่างกายเปลี่ยน CHO เป็น TG เก็บเป็น energy reserve และเมื่อ CHO ต่ำหรือต้องการพลังงานเพิ่ม จึงเปลี่ยน TG กลับเป็น ATP"
-          },
+          "เมื่อ CHO เกิน ร่างกายเปลี่ยน CHO เป็น TG เก็บเป็น energy reserve และเมื่อ CHO ต่ำหรือต้องการพลังงานเพิ่ม จึงเปลี่ยน TG กลับเป็น ATP",
           {
             "sub": "1. TG ใน storage cell",
             "body": [
-              {
-                "text": "**Hormone-sensitive triglycerol lipase** ถูกกระตุ้นโดย glucagon หรือ epinephrine ผ่าน cAMP ย่อย TG เป็น FA + glycerol (lipolysis) แล้วขนส่ง FA ในรูป lipoproteins หรือ FFA ไปเซลล์อื่น **ยกเว้น brain และ RBC**"
-              }
+              "**Hormone-sensitive triglycerol lipase** ถูกกระตุ้นโดย glucagon หรือ epinephrine ผ่าน cAMP ย่อย TG เป็น FA + glycerol (lipolysis) แล้วขนส่ง FA ในรูป lipoproteins หรือ FFA ไปเซลล์อื่น **ยกเว้น brain และ RBC**"
             ]
           },
           {
@@ -8965,18 +8003,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "3. Fatty acyl-CoA ใน mitochondrial matrix เข้าสู่ **beta-oxidation pathway** ให้ acetyl-CoA, NAD+ และ FAD"
-          }
+          "3. Fatty acyl-CoA ใน mitochondrial matrix เข้าสู่ **beta-oxidation pathway** ให้ acetyl-CoA, NAD+ และ FAD"
         ]
       },
       {
         "heading": "Beta-oxidation และบัญชี ATP ของ steric acid",
         "source": "Metabolism p.52",
         "body": [
-          {
-            "text": "Beta-oxidation เกิดมากที่ **heart และ skeletal muscle**"
-          },
+          "Beta-oxidation เกิดมากที่ **heart และ skeletal muscle**",
           {
             "sub": "ขั้นตอน",
             "body": [
@@ -9020,12 +8054,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Acetoacetic acid formation (p.53)",
             "body": [
-              {
-                "text": "ที่ liver เมื่อ acetyl-CoA จาก beta-oxidation มากกว่า oxaloacetate จะเกิด **2 acetyl-CoA + H2O → acetoacetic acid + 2 HCoA** แล้ว acetoacetic acid เปลี่ยนต่อเป็น hydroxybutyric (มากกว่า) หรือ acetone"
-              },
-              {
-                "text": "**Ketone body ประกอบด้วย acetoacetic acid, hydroxybutyric และ acetone**"
-              },
+              "ที่ liver เมื่อ acetyl-CoA จาก beta-oxidation มากกว่า oxaloacetate จะเกิด **2 acetyl-CoA + H2O → acetoacetic acid + 2 HCoA** แล้ว acetoacetic acid เปลี่ยนต่อเป็น hydroxybutyric (มากกว่า) หรือ acetone",
+              "**Ketone body ประกอบด้วย acetoacetic acid, hydroxybutyric และ acetone**",
               {
                 "bullets": [
                   "Diffuse ออกจาก liver cell แบบ passive เข้าสู่กระแสเลือดไปยัง target cells ได้เร็วเพราะละลายน้ำได้ดี",
@@ -9037,9 +8067,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Ketosis (p.54)",
             "body": [
-              {
-                "text": "คือภาวะที่ ketone bodies ใน ECF สูงมาก พบระหว่าง"
-              },
+              "คือภาวะที่ ketone bodies ใน ECF สูงมาก พบระหว่าง",
               {
                 "bullets": [
                   "มีอัตราการใช้ไขมันหรือ deamination เพิ่มขึ้น",
@@ -9048,9 +8076,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "อาหารที่ขาด CHO หรือ high fat diet"
                 ]
               },
-              {
-                "text": "**Ketoacidosis** คือ ketosis ที่ควบคุมไม่ได้ร่วมกับ acidosis เช่น **Diabetic ketoacidosis (DKA)** ซึ่งสไลด์ระบุว่าเป็น lethal situation"
-              }
+              "**Ketoacidosis** คือ ketosis ที่ควบคุมไม่ได้ร่วมกับ acidosis เช่น **Diabetic ketoacidosis (DKA)** ซึ่งสไลด์ระบุว่าเป็น lethal situation"
             ]
           }
         ]
@@ -9059,9 +8085,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Lipogenesis",
         "source": "Metabolism p.55",
         "body": [
-          {
-            "text": "คือการเปลี่ยน CHO ส่วนเกินไปเป็น FA และ TG โดย CHO จะไปเป็น glycogen ก่อนแล้วจึงเป็น TG เกิดที่ **liver และ fat cells** โดย liver ขนส่ง TG ออกในรูป VLDL ส่วน fat cell ย่อย FA แล้วเก็บเป็น TG"
-          },
+          "คือการเปลี่ยน CHO ส่วนเกินไปเป็น FA และ TG โดย CHO จะไปเป็น glycogen ก่อนแล้วจึงเป็น TG เกิดที่ **liver และ fat cells** โดย liver ขนส่ง TG ออกในรูป VLDL ส่วน fat cell ย่อย FA แล้วเก็บเป็น TG",
           {
             "sub": "ขั้นตอนที่สไลด์เขียนไว้",
             "body": [
@@ -9105,9 +8129,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**Desaturate FA เป็น unsaturated FA ด้วย dehydrogenase** แล้วส่งต่อไปเซลล์อื่น (สไลด์ระบุว่ายังไม่พอ)"
                 ]
               },
-              {
-                "text": "**Feline hepatic lipidosis** พบใน early starvation, DM และภาวะที่ใช้ไขมันสูง กลไกตามสไลด์คือ adipocyte ปล่อย TG เป็น plasma FFA แล้ว liver resynthesize กลับเป็น TG จนเกิด fatty liver (Verbrugghe and Bakovic, 2013)"
-              }
+              "**Feline hepatic lipidosis** พบใน early starvation, DM และภาวะที่ใช้ไขมันสูง กลไกตามสไลด์คือ adipocyte ปล่อย TG เป็น plasma FFA แล้ว liver resynthesize กลับเป็น TG จนเกิด fatty liver (Verbrugghe and Bakovic, 2013)"
             ]
           }
         ]
@@ -9116,9 +8138,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "การควบคุมการปล่อยพลังงานจาก TG",
         "source": "Metabolism p.57",
         "body": [
-          {
-            "text": "สไลด์ไล่ 5 ภาวะ โดย 4 ข้อแรก (insulin insufficiency, exercise-induced sympathetic stimulation, stress-induced corticotrophin และ glucocorticoid release, growth hormone) สไลด์ระบุตรงกันว่า **activate hormone-sensitive triglycerol lipase ใน fat cells** ส่วนข้อ 5 Thyroid hormone สไลด์เขียนเพียงว่าเพิ่ม MR และ lipolysis ไม่ได้ระบุกลไกผ่าน hormone-sensitive triglycerol lipase"
-          },
+          "สไลด์ไล่ 5 ภาวะ โดย 4 ข้อแรก (insulin insufficiency, exercise-induced sympathetic stimulation, stress-induced corticotrophin และ glucocorticoid release, growth hormone) สไลด์ระบุตรงกันว่า **activate hormone-sensitive triglycerol lipase ใน fat cells** ส่วนข้อ 5 Thyroid hormone สไลด์เขียนเพียงว่าเพิ่ม MR และ lipolysis ไม่ได้ระบุกลไกผ่าน hormone-sensitive triglycerol lipase",
           {
             "bullets": [
               "**Insulin insufficiency**: ใช้ CHO ไม่ได้ จึงเพิ่มการใช้ TG และเพิ่มความเสี่ยง ketosis และ DKA",
@@ -9149,15 +8169,9 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Proteins: องค์ประกอบและชนิดของ amino acid",
         "source": "Metabolism p.59-60",
         "body": [
-          {
-            "text": "สไลด์ 59 เป็นสไลด์คั่นหัวข้อ ระบุหัวข้อย่อย 3 ส่วน คือ Proteins, Protein absorption transportation and storage และ Controls of protein metabolism"
-          },
-          {
-            "text": "Proteins คิดเป็น **สามในสี่ของ body solid** ได้แก่ structural proteins, enzymes, nucleoproteins, transporters, contractile proteins ฯลฯ"
-          },
-          {
-            "text": "**Amino acids (AA)** เป็น subunit ของ protein และให้พลังงานได้ (muscle fiber) โครงสร้างประกอบด้วย amino group (-NH2), carboxyl group (-COOH), hydrogen atom (-H) และ central (alpha) carbon ที่มี side chain (-R)"
-          },
+          "สไลด์ 59 เป็นสไลด์คั่นหัวข้อ ระบุหัวข้อย่อย 3 ส่วน คือ Proteins, Protein absorption transportation and storage และ Controls of protein metabolism",
+          "Proteins คิดเป็น **สามในสี่ของ body solid** ได้แก่ structural proteins, enzymes, nucleoproteins, transporters, contractile proteins ฯลฯ",
+          "**Amino acids (AA)** เป็น subunit ของ protein และให้พลังงานได้ (muscle fiber) โครงสร้างประกอบด้วย amino group (-NH2), carboxyl group (-COOH), hydrogen atom (-H) และ central (alpha) carbon ที่มี side chain (-R)",
           {
             "sub": "การแบ่งชนิดของ AA ตามสไลด์",
             "body": [
@@ -9185,17 +8199,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Essential AA",
             "body": [
-              {
-                "text": "ได้จากอาหาร มีประมาณ **10 ชนิด และเป็น species specific** เพราะร่างกายสังเคราะห์เองไม่ได้ (หรือได้ไม่พอ)"
-              }
+              "ได้จากอาหาร มีประมาณ **10 ชนิด และเป็น species specific** เพราะร่างกายสังเคราะห์เองไม่ได้ (หรือได้ไม่พอ)"
             ]
           },
           {
             "sub": "Non-essential AA",
             "body": [
-              {
-                "text": "สังเคราะห์ที่ liver ผ่าน **transamination** โดยย้าย -NH2 จาก AA ตัวหนึ่ง (glutamate) ไปยัง keto oxygen ของ α-keto acid (เช่น pyruvic acid) ได้เป็น AA ตัวใหม่ (เช่น alanine)"
-              },
+              "สังเคราะห์ที่ liver ผ่าน **transamination** โดยย้าย -NH2 จาก AA ตัวหนึ่ง (glutamate) ไปยัง keto oxygen ของ α-keto acid (เช่น pyruvic acid) ได้เป็น AA ตัวใหม่ (เช่น alanine)",
               {
                 "bullets": [
                   "Enzyme: **amino transferase เช่น alanine transferase (ALT)**",
@@ -9214,9 +8224,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Peptide bond",
             "body": [
-              {
-                "text": "เป็น **covalent bond** ระหว่าง C ของ -COOH กับ N ของ -NH2 โดยเกิด dehydration (ปล่อย H2O ออก) ส่วนพันธะอื่นที่เชื่อม peptide chain เข้าด้วยกันคือ hydrogen, disulphide หรือ salt bond"
-              }
+              "เป็น **covalent bond** ระหว่าง C ของ -COOH กับ N ของ -NH2 โดยเกิด dehydration (ปล่อย H2O ออก) ส่วนพันธะอื่นที่เชื่อม peptide chain เข้าด้วยกันคือ hydrogen, disulphide หรือ salt bond"
             ]
           },
           {
@@ -9243,9 +8251,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               }
             ]
           },
-          {
-            "text": "แบ่งตาม structures ได้เป็น primary, secondary, tertiary และ quaternary structures"
-          }
+          "แบ่งตาม structures ได้เป็น primary, secondary, tertiary และ quaternary structures"
         ]
       },
       {
@@ -9267,18 +8273,14 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Plasma protein formation",
             "body": [
-              {
-                "text": "**Liver** สร้าง albumin, fibrinogen และ **50-80% ของ globulin**"
-              },
+              "**Liver** สร้าง albumin, fibrinogen และ **50-80% ของ globulin**",
               {
                 "bullets": [
                   "อัตราการสร้างเพิ่มขึ้นเมื่อมีการใช้หรือสูญเสียเพิ่ม เช่น burn, PLE และ PLN",
                   "อัตราการสร้างลดลงใน cirrhosis และ starvation"
                 ]
               },
-              {
-                "text": "**Lymphoid tissue** สร้าง gamma globulin โดยอัตราการสร้างแปรผันตาม immune status"
-              }
+              "**Lymphoid tissue** สร้าง gamma globulin โดยอัตราการสร้างแปรผันตาม immune status"
             ]
           }
         ]
@@ -9341,9 +8343,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Protein equilibrium",
         "source": "Metabolism p.67",
         "body": [
-          {
-            "text": "สไลด์ระบุ **cell-to-blood ratio ของโปรตีนที่ 33:1**"
-          },
+          "สไลด์ระบุ **cell-to-blood ratio ของโปรตีนที่ 33:1**",
           {
             "sub": "รักษาสมดุลโดย",
             "body": [
@@ -9375,23 +8375,17 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Ketogenic และ glucogenic amino acid",
         "source": "Metabolism p.68",
         "body": [
-          {
-            "text": "Liver จะใช้ protein เป็นพลังงานเมื่อ CHO หรือ fat พร่อง และเมื่อกิน AA มากเกิน"
-          },
+          "Liver จะใช้ protein เป็นพลังงานเมื่อ CHO หรือ fat พร่อง และเมื่อกิน AA มากเกิน",
           {
             "sub": "Ketogenic amino acid",
             "body": [
-              {
-                "text": "ได้แก่ **Leucine, isoleucine และ valine** สังเคราะห์ไปเป็น ketone body หรือ acetyl-CoA แล้วเข้า CAC เพื่อให้พลังงาน หรือไปเป็น fatty acid (ketogenesis)"
-              }
+              "ได้แก่ **Leucine, isoleucine และ valine** สังเคราะห์ไปเป็น ketone body หรือ acetyl-CoA แล้วเข้า CAC เพื่อให้พลังงาน หรือไปเป็น fatty acid (ketogenesis)"
             ]
           },
           {
             "sub": "Glucogenic amino acid",
             "body": [
-              {
-                "text": "ได้แก่ **Alanine, aspartate, glutamate และ glutamine** ผ่าน deamination แล้วเข้า gluconeogenesis และ glycogenesis"
-              },
+              "ได้แก่ **Alanine, aspartate, glutamate และ glutamine** ผ่าน deamination แล้วเข้า gluconeogenesis และ glycogenesis",
               {
                 "bullets": [
                   "Skeletal muscle เป็นตัวส่ง **alanine** ให้ liver",
@@ -9409,9 +8403,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "1. Deamination of AA เกิดที่ liver และ kidney (p.69)",
             "body": [
-              {
-                "text": "สไลด์แบ่งไว้ 2 แบบตามชื่อและ enzyme ที่เขียนกำกับ"
-              },
+              "สไลด์แบ่งไว้ 2 แบบตามชื่อและ enzyme ที่เขียนกำกับ",
               {
                 "bullets": [
                   "**Non oxidative deamination**: ใช้ deaminase enzyme ได้ α-keto acid และ **Ammonia (NH3)**",
@@ -9436,9 +8428,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "3. Oxidation of deaminated AA (p.70)",
             "body": [
-              {
-                "text": "**α-ketoglutaric acid ซึ่งเป็น carbon skeleton** เปลี่ยนเป็น substrate ใน CAC และเป็น acetyl-CoA เพื่อให้พลังงาน (ATP) โดยสไลด์ระบุว่า **ได้ ATP น้อยกว่า glucose เล็กน้อย**"
-              }
+              "**α-ketoglutaric acid ซึ่งเป็น carbon skeleton** เปลี่ยนเป็น substrate ใน CAC และเป็น acetyl-CoA เพื่อให้พลังงาน (ATP) โดยสไลด์ระบุว่า **ได้ ATP น้อยกว่า glucose เล็กน้อย**"
             ]
           }
         ]
@@ -9450,12 +8440,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Obligatory degradation of proteins",
             "body": [
-              {
-                "text": "คือปริมาณโปรตีนที่ต้องถูกสลายและใช้ไปแม้ไม่ได้กินโปรตีนเลย ประมาณ **20-30 g/day**"
-              },
-              {
-                "text": "ขณะที่ recommended protein intake อยู่ที่ประมาณ **60-75 g/day (1-1.2 g/kg BW/day)**"
-              }
+              "คือปริมาณโปรตีนที่ต้องถูกสลายและใช้ไปแม้ไม่ได้กินโปรตีนเลย ประมาณ **20-30 g/day**",
+              "ขณะที่ recommended protein intake อยู่ที่ประมาณ **60-75 g/day (1-1.2 g/kg BW/day)**"
             ]
           },
           {
@@ -9502,18 +8488,14 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "กรอบใหญ่ของเด็ค: การปรับตัว 2 อย่างของทารกแรกเกิด",
         "source": "Neonatal Physiology p.2",
         "body": [
-          {
-            "text": "สไลด์วางกรอบไว้ว่า Adjustments of the Infant to Extrauterine Life มี **2 หัวข้อ คือ 1. Onset of Breathing และ 2. Circulatory Readjustments at birth** ทั้งเด็คเดินตามสองหัวข้อนี้"
-          }
+          "สไลด์วางกรอบไว้ว่า Adjustments of the Infant to Extrauterine Life มี **2 หัวข้อ คือ 1. Onset of Breathing และ 2. Circulatory Readjustments at birth** ทั้งเด็คเดินตามสองหัวข้อนี้"
         ]
       },
       {
         "heading": "Onset of Breathing และสาเหตุที่ทำให้เริ่มหายใจ",
         "source": "Neonatal Physiology p.2",
         "body": [
-          {
-            "text": "สไลด์ระบุว่าการเริ่มหายใจคือ one of the most important immediate adjustments"
-          },
+          "สไลด์ระบุว่าการเริ่มหายใจคือ one of the most important immediate adjustments",
           {
             "bullets": [
               "หลัง normal delivery จากแม่ที่ไม่ถูกกด (not depressed by anesthetics) เด็ก **เริ่มหายใจภายในไม่กี่วินาที และมี normal respiratory rhythm ภายในน้อยกว่า 1 นาทีหลังคลอด**"
@@ -9528,9 +8510,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**Sensory impulses ที่มาจากผิวหนังที่เย็นลงอย่างทันที** (suddenly cooled skin)"
                 ]
               },
-              {
-                "text": "ถ้าเด็กไม่หายใจทันที ร่างกายจะ **hypoxic และ hypercapnia มากขึ้นเรื่อย ๆ ซึ่งเป็น additional stimulus ต่อ respiratory center** และมักทำให้เริ่มหายใจได้ภายในอีก 1 นาทีหลังคลอด"
-              }
+              "ถ้าเด็กไม่หายใจทันที ร่างกายจะ **hypoxic และ hypercapnia มากขึ้นเรื่อย ๆ ซึ่งเป็น additional stimulus ต่อ respiratory center** และมักทำให้เริ่มหายใจได้ภายในอีก 1 นาทีหลังคลอด"
             ]
           }
         ]
@@ -9552,9 +8532,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Prolonged hypoxia ระหว่างคลอด เกิดจากอะไร",
         "source": "Neonatal Physiology p.3",
         "body": [
-          {
-            "text": "สไลด์ให้เหตุ 4 ข้อของ prolong hypoxia ระหว่างคลอด"
-          },
+          "สไลด์ให้เหตุ 4 ข้อของ prolong hypoxia ระหว่างคลอด",
           {
             "bullets": [
               "Compression of the umbilical cord",
@@ -9586,9 +8564,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Respiratory Distress Syndrome กับ surfactant",
         "source": "Neonatal Physiology p.4",
         "body": [
-          {
-            "text": "สไลด์บอกว่า **หนึ่งใน most characteristic findings ของ respiratory distress syndrome คือ failure ของ respiratory epithelium ที่จะหลั่ง surfactant ในปริมาณเพียงพอ**"
-          },
+          "สไลด์บอกว่า **หนึ่งใน most characteristic findings ของ respiratory distress syndrome คือ failure ของ respiratory epithelium ที่จะหลั่ง surfactant ในปริมาณเพียงพอ**",
           {
             "bullets": [
               "Surfactant คือสารที่ปกติหลั่งเข้าสู่ alveoli เพื่อ **ลด surface tension ของ alveolar fluid ทำให้ alveoli เปิดออกได้ง่ายตอน inspiration**",
@@ -9608,9 +8584,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "นอกจากนี้ circulatory adjustments ในช่วง **first few hours of life** ยังทำให้เลือดไหลผ่าน **liver** มากขึ้นเรื่อย ๆ ซึ่งก่อนหน้านี้มีเลือดผ่านน้อยมาก"
             ]
           },
-          {
-            "text": "เหตุผลที่สไลด์ให้คือ **เพราะ lungs แทบไม่ทำงานใน fetal life และ liver ทำงานเพียงบางส่วน จึงไม่จำเป็นที่ fetal heart จะต้องปั๊มเลือดผ่านทั้ง lungs และ liver มากนัก**"
-          }
+          "เหตุผลที่สไลด์ให้คือ **เพราะ lungs แทบไม่ทำงานใน fetal life และ liver ทำงานเพียงบางส่วน จึงไม่จำเป็นที่ fetal heart จะต้องปั๊มเลือดผ่านทั้ง lungs และ liver มากนัก**"
         ]
       },
       {
@@ -9635,9 +8609,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Fetal circulation ต่อ: เลือดจากซีกขวาไปที่ไหน",
         "source": "Neonatal Physiology p.6",
         "body": [
-          {
-            "text": "เลือดชุดนี้เป็น **deoxygenated blood จาก head region ของ fetus เป็นหลัก** ถูก right ventricle ปั๊มเข้า **pulmonary artery** แล้วผ่าน **ductus arteriosus เข้าสู่ descending aorta เป็นหลัก** จากนั้นผ่าน **umbilical arteries ทั้งสองเส้นกลับไปที่ placenta** ซึ่งเลือด deoxygenated จะกลายเป็น oxygenated"
-          }
+          "เลือดชุดนี้เป็น **deoxygenated blood จาก head region ของ fetus เป็นหลัก** ถูก right ventricle ปั๊มเข้า **pulmonary artery** แล้วผ่าน **ductus arteriosus เข้าสู่ descending aorta เป็นหลัก** จากนั้นผ่าน **umbilical arteries ทั้งสองเส้นกลับไปที่ placenta** ซึ่งเลือด deoxygenated จะกลายเป็น oxygenated"
         ]
       },
       {
@@ -9647,9 +8619,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "First: เสีย placental blood flow",
             "body": [
-              {
-                "text": "การสูญเสีย blood flow มหาศาลผ่าน placenta ทำให้ **systemic vascular resistance เพิ่มขึ้นประมาณ 2 เท่า** ซึ่งไปเพิ่ม **aortic pressure รวมทั้ง pressure ใน left ventricle และ left atrium**"
-              }
+              "การสูญเสีย blood flow มหาศาลผ่าน placenta ทำให้ **systemic vascular resistance เพิ่มขึ้นประมาณ 2 เท่า** ซึ่งไปเพิ่ม **aortic pressure รวมทั้ง pressure ใน left ventricle และ left atrium**"
             ]
           },
           {
@@ -9670,9 +8640,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ผลรวมของการเปลี่ยนแปลง และ Closure of the Foramen Ovale",
         "source": "Neonatal Physiology p.7",
         "body": [
-          {
-            "text": "การเปลี่ยนแปลงทั้งหมดรวมกันลด resistance ของการไหลผ่านปอด **ได้ถึง 5 เท่า** ซึ่งลด **pulmonary arterial pressure, right ventricular pressure และ right atrial pressure**"
-          },
+          "การเปลี่ยนแปลงทั้งหมดรวมกันลด resistance ของการไหลผ่านปอด **ได้ถึง 5 เท่า** ซึ่งลด **pulmonary arterial pressure, right ventricular pressure และ right atrial pressure**",
           {
             "sub": "กลไกการปิด",
             "body": [
@@ -9701,9 +8669,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Closure of the Ductus Arteriosus",
         "source": "Neonatal Physiology p.8",
         "body": [
-          {
-            "text": "สไลด์เน้นว่า **ductus arteriosus ก็ปิดเช่นกัน แต่ด้วยเหตุผลที่ต่างออกไป (for different reasons)**"
-          },
+          "สไลด์เน้นว่า **ductus arteriosus ก็ปิดเช่นกัน แต่ด้วยเหตุผลที่ต่างออกไป (for different reasons)**",
           {
             "bullets": [
               "**First:** systemic resistance ที่เพิ่มขึ้นทำให้ aortic pressure สูงขึ้น ขณะที่ pulmonary resistance ที่ลดลงทำให้ pulmonary arterial pressure ต่ำลง",
@@ -9752,9 +8718,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "Recirculation",
             "body": [
-              {
-                "text": "ในเด็กโตที่มี patent ductus **หนึ่งในสองถึงสองในสามของ aortic blood flow ไหลย้อนผ่าน ductus เข้า pulmonary artery แล้วผ่านปอด กลับเข้า left ventricle และ aorta** ทำให้เลือดผ่านปอดและหัวใจซีกซ้าย **สองรอบหรือมากกว่า ต่อการผ่าน systemic circulation หนึ่งรอบ**"
-              }
+              "ในเด็กโตที่มี patent ductus **หนึ่งในสองถึงสองในสามของ aortic blood flow ไหลย้อนผ่าน ductus เข้า pulmonary artery แล้วผ่านปอด กลับเข้า left ventricle และ aorta** ทำให้เลือดผ่านปอดและหัวใจซีกซ้าย **สองรอบหรือมากกว่า ต่อการผ่าน systemic circulation หนึ่งรอบ**"
             ]
           },
           {
@@ -9775,9 +8739,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Closure of the Ductus Venosus",
         "source": "Neonatal Physiology p.10",
         "body": [
-          {
-            "text": "ทันทีหลังคลอด **blood flow ผ่าน umbilical vein หยุดลง แต่ portal blood ส่วนใหญ่ยังไหลผ่าน ductus venosus อยู่ โดยมีเพียงส่วนน้อยที่ผ่าน channels ของ liver**"
-          }
+          "ทันทีหลังคลอด **blood flow ผ่าน umbilical vein หยุดลง แต่ portal blood ส่วนใหญ่ยังไหลผ่าน ductus venosus อยู่ โดยมีเพียงส่วนน้อยที่ผ่าน channels ของ liver**"
         ]
       },
       {
@@ -9800,9 +8762,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "สรุปเทียบ 3 shunt ตามตัวเลขที่สไลด์ให้",
         "source": "Neonatal Physiology p.7–p.11 (foramen ovale p.7 · ductus arteriosus p.8–p.9 · ductus venosus p.11)",
         "body": [
-          {
-            "text": "จุดที่ออกสอบง่ายที่สุดคือกรอบเวลาและกลไกของแต่ละ shunt ซึ่งสไลด์ให้ไว้ครบทั้งสาม"
-          },
+          "จุดที่ออกสอบง่ายที่สุดคือกรอบเวลาและกลไกของแต่ละ shunt ซึ่งสไลด์ให้ไว้ครบทั้งสาม",
           {
             "bullets": [
               "**Foramen ovale** ปิดด้วยความต่างของ atrial pressure (left สูงกว่า right) valve ปิดทันที และ adherent ถาวรใน two thirds ของคนภายใน a few months ถึง a few years โดยมี pressure gradient 2 ถึง 4 mm Hg ค้ำไว้ตลอดชีวิต (p.7)",
@@ -9829,9 +8789,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Aging คืออะไร และอะไรทำให้คนอายุเท่ากันต่างกัน",
         "source": "Physiology of Aging p.2",
         "body": [
-          {
-            "text": "สไลด์นิยามว่า **Aging เป็นส่วนหนึ่งตามปกติของชีวิต ไม่ใช่โรค (normal part of life not disease)** และย้ำว่าคน 2 คนที่อายุเท่ากันอาจต่างกันอย่างมากทั้งรูปลักษณ์ภายนอกและสรีรวิทยา"
-          },
+          "สไลด์นิยามว่า **Aging เป็นส่วนหนึ่งตามปกติของชีวิต ไม่ใช่โรค (normal part of life not disease)** และย้ำว่าคน 2 คนที่อายุเท่ากันอาจต่างกันอย่างมากทั้งรูปลักษณ์ภายนอกและสรีรวิทยา",
           {
             "bullets": [
               "**genetic factors**",
@@ -9839,24 +8797,18 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Gender** ในประเทศพัฒนาแล้วส่วนใหญ่ ผู้หญิงมีอายุยืนกว่าผู้ชายประมาณ 7-10 ปี"
             ]
           },
-          {
-            "text": "ขอบเขตที่เด็คนี้จะพูดถึงมี 2 ระบบ คือ **Cardiovascular system** และ **Respiratory system** โดยฝั่ง cardiovascular แบ่งเป็น vascular change (tunica media, endothelium), cardiac change (cardiac muscle, conductive system) และ blood pressure change"
-          }
+          "ขอบเขตที่เด็คนี้จะพูดถึงมี 2 ระบบ คือ **Cardiovascular system** และ **Respiratory system** โดยฝั่ง cardiovascular แบ่งเป็น vascular change (tunica media, endothelium), cardiac change (cardiac muscle, conductive system) และ blood pressure change"
         ]
       },
       {
         "heading": "Vascular changes: หลอดเลือดแข็งขึ้น ความต้านทานเพิ่มขึ้น",
         "source": "Physiology of Aging p.3",
         "body": [
-          {
-            "text": "ในคนอายุน้อย arteries มีลักษณะ elastic, flexible และ compliant ระหว่าง ventricular systole เลือดถูกฉีดออกไปยัง pulmonary และ systemic circuits แล้ว **arteries ยืดออกเพื่อลดความต้านทานต่อการไหลของเลือด** เมื่ออายุมากขึ้น หลอดเลือดโดยเฉพาะ arteries สูญเสีย elasticity และ compliant น้อยลง ทำให้ **ความต้านทาน (resistance) เพิ่มขึ้น**"
-          },
+          "ในคนอายุน้อย arteries มีลักษณะ elastic, flexible และ compliant ระหว่าง ventricular systole เลือดถูกฉีดออกไปยัง pulmonary และ systemic circuits แล้ว **arteries ยืดออกเพื่อลดความต้านทานต่อการไหลของเลือด** เมื่ออายุมากขึ้น หลอดเลือดโดยเฉพาะ arteries สูญเสีย elasticity และ compliant น้อยลง ทำให้ **ความต้านทาน (resistance) เพิ่มขึ้น**",
           {
             "sub": "The tunica media",
             "body": [
-              {
-                "text": "เป็นชั้นของ smooth muscle ที่เชื่อมและอยู่ภายใต้อิทธิพลของ vasomotor center ใน medulla oblongata ที่ brain stem"
-              },
+              "เป็นชั้นของ smooth muscle ที่เชื่อมและอยู่ภายใต้อิทธิพลของ vasomotor center ใน medulla oblongata ที่ brain stem",
               {
                 "bullets": [
                   "**หนาตัวขึ้นทีละน้อย (gradual thickening)** ร่วมกับจำนวนและความหนาแน่นของ collagen fibers ที่เพิ่มขึ้น ทำให้ artery แข็ง (rigid) ขึ้นและ compliant น้อยลง",
@@ -9868,12 +8820,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "The endothelium",
             "body": [
-              {
-                "text": "endothelium คือชั้นในสุดของหลอดเลือด ประกอบด้วย squamous epithelial cells ชั้นเดียว ในเด็กและผู้ใหญ่วัยหนุ่มสาวเซลล์เหล่านี้เรียงตัวสม่ำเสมอและเรียบ จึงให้ความต้านทานต่อการไหลของเลือดน้อยที่สุด"
-              },
-              {
-                "text": "เมื่ออายุมากขึ้น endothelial layer เริ่มมีเซลล์รูปร่างไม่สม่ำเสมอ และมักหนาขึ้นจาก **smooth muscle fibers ที่ migrate มาจาก tunica media**"
-              }
+              "endothelium คือชั้นในสุดของหลอดเลือด ประกอบด้วย squamous epithelial cells ชั้นเดียว ในเด็กและผู้ใหญ่วัยหนุ่มสาวเซลล์เหล่านี้เรียงตัวสม่ำเสมอและเรียบ จึงให้ความต้านทานต่อการไหลของเลือดน้อยที่สุด",
+              "เมื่ออายุมากขึ้น endothelial layer เริ่มมีเซลล์รูปร่างไม่สม่ำเสมอ และมักหนาขึ้นจาก **smooth muscle fibers ที่ migrate มาจาก tunica media**"
             ]
           }
         ]
@@ -9882,9 +8830,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Cardiac changes: หัวใจต้องบีบแรงขึ้น จึง hypertrophy",
         "source": "Physiology of Aging p.3-4",
         "body": [
-          {
-            "text": "เพื่อเอาชนะ arterial compliance ที่ลดลงและ peripheral resistance ที่เพิ่มขึ้น **ventricles ต้องบีบด้วยแรงที่มากขึ้น** และ myocardium ก็ตอบสนองเหมือนกล้ามเนื้ออื่นที่เจอ load เพิ่ม คือ **enlargement และ hypertrophy** (p.3)"
-          },
+          "เพื่อเอาชนะ arterial compliance ที่ลดลงและ peripheral resistance ที่เพิ่มขึ้น **ventricles ต้องบีบด้วยแรงที่มากขึ้น** และ myocardium ก็ตอบสนองเหมือนกล้ามเนื้ออื่นที่เจอ load เพิ่ม คือ **enlargement และ hypertrophy** (p.3)",
           {
             "bullets": [
               "**left ventricle หนาขึ้นประมาณ 30% ระหว่างอายุ 20 ถึง 80 ปี** และน้ำหนักหัวใจค่อย ๆ เพิ่มขึ้น",
@@ -9897,9 +8843,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Functional cardiac changes และ conductive system",
         "source": "Physiology of Aging p.4",
         "body": [
-          {
-            "text": "การเปลี่ยนแปลงเชิงหน้าที่ที่สไลด์เน้นคือ **maximal heart rate ที่ทำได้ขณะออกกำลังกายลดลง**"
-          },
+          "การเปลี่ยนแปลงเชิงหน้าที่ที่สไลด์เน้นคือ **maximal heart rate ที่ทำได้ขณะออกกำลังกายลดลง**",
           {
             "bullets": [
               "ในเด็กที่แข็งแรง maximal heart rate ประมาณ **220 bpm** หลังออกกำลังกายหนักถือว่าปกติ",
@@ -9916,9 +8860,7 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "จำนวนเซลล์ใน **atrioventricular node ค่อนข้างคงที่** แต่มี fibrosis และการตายของเซลล์ใน **atrioventricular bundle (bundle of His)**"
                 ]
               },
-              {
-                "text": "การเปลี่ยนแปลงของ conductive tissues เหล่านี้อาจลดประสิทธิภาพการนำไฟฟ้าของหัวใจ และมีส่วนทำให้ **maximal heart rate ลดลง** และ **arrhythmias เพิ่มขึ้น** ตามอายุ"
-              }
+              "การเปลี่ยนแปลงของ conductive tissues เหล่านี้อาจลดประสิทธิภาพการนำไฟฟ้าของหัวใจ และมีส่วนทำให้ **maximal heart rate ลดลง** และ **arrhythmias เพิ่มขึ้น** ตามอายุ"
             ]
           }
         ]
@@ -9945,9 +8887,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Baroreceptor function และ postural hypotension",
         "source": "Physiology of Aging p.5",
         "body": [
-          {
-            "text": "เมื่อเปลี่ยนท่าทาง เช่น จากนั่งเป็นยืน เลือดจะไหลลงสู่ lower extremities และความดันเลือดตก"
-          },
+          "เมื่อเปลี่ยนท่าทาง เช่น จากนั่งเป็นยืน เลือดจะไหลลงสู่ lower extremities และความดันเลือดตก",
           {
             "bullets": [
               "hypotension นี้ถูกตรวจจับทันทีโดย **baroreceptors ที่ aortic arch และ carotid sinus**",
@@ -9958,12 +8898,8 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "ในผู้สูงอายุ",
             "body": [
-              {
-                "text": "**baroreceptor reflexes ทำงานมีประสิทธิภาพน้อยลง** เพราะผนังหลอดเลือดที่หนาตัวขึ้นรบกวนความสามารถในการวัดระดับการยืด (stretch) ของหลอดเลือดอย่างแม่นยำ จึงนำไปสู่ postural hypotension และเป็นลมได้"
-              },
-              {
-                "text": "สไลด์ระบุว่า **postural hypotension พบใน 30-50% ของคนอายุมากกว่า 75 ปี**"
-              }
+              "**baroreceptor reflexes ทำงานมีประสิทธิภาพน้อยลง** เพราะผนังหลอดเลือดที่หนาตัวขึ้นรบกวนความสามารถในการวัดระดับการยืด (stretch) ของหลอดเลือดอย่างแม่นยำ จึงนำไปสู่ postural hypotension และเป็นลมได้",
+              "สไลด์ระบุว่า **postural hypotension พบใน 30-50% ของคนอายุมากกว่า 75 ปี**"
             ]
           }
         ]
@@ -9972,9 +8908,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Aging respiratory system: changes of the chest wall",
         "source": "Physiology of Aging p.6",
         "body": [
-          {
-            "text": "ฝั่ง respiratory สไลด์แบ่งเป็น chest wall changes (rib, muscle), airway changes (cilia, sensory receptor) และ lung volume changes (residual volume, vital capacity)"
-          },
+          "ฝั่ง respiratory สไลด์แบ่งเป็น chest wall changes (rib, muscle), airway changes (cilia, sensory receptor) และ lung volume changes (residual volume, vital capacity)",
           {
             "sub": "rib",
             "body": [
@@ -9990,9 +8924,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "muscle",
             "body": [
-              {
-                "text": "การสูญเสีย muscle mass (motor units) ใน **diaphragm และ intercostal** ทำให้ **แรงของ respiratory muscles ลดลงตามอายุ** การหายใจจึงอาจเหนื่อยหนัก (labored) ขึ้น และเห็นชัดเป็นพิเศษในคนที่ใช้ชีวิตแบบ sedentary เพราะทราบกันว่าทำให้กล้ามเนื้อลีบและอ่อนแรง"
-              }
+              "การสูญเสีย muscle mass (motor units) ใน **diaphragm และ intercostal** ทำให้ **แรงของ respiratory muscles ลดลงตามอายุ** การหายใจจึงอาจเหนื่อยหนัก (labored) ขึ้น และเห็นชัดเป็นพิเศษในคนที่ใช้ชีวิตแบบ sedentary เพราะทราบกันว่าทำให้กล้ามเนื้อลีบและอ่อนแรง"
             ]
           }
         ]
@@ -10021,20 +8953,14 @@ export const NOTES_Y2_PHYSIO_3 = {
                   "**จำนวน cilia ลดลง**"
                 ]
               },
-              {
-                "text": "ผลรวมคือ **การกำจัด pathogens และ debris ออกจากปอดลดลง เพิ่มโอกาสติดเชื้อ**"
-              }
+              "ผลรวมคือ **การกำจัด pathogens และ debris ออกจากปอดลดลง เพิ่มโอกาสติดเชื้อ**"
             ]
           },
           {
             "sub": "sensory receptor และ coughing reflex",
             "body": [
-              {
-                "text": "ในคนอายุน้อย airways ไวต่อ mechanical stimulation อย่างมาก เศษวัสดุที่สูดเข้าไปมักกระตุ้น **coughing reflex** ที่รุนแรงเพื่อขับออก"
-              },
-              {
-                "text": "แต่ **sensory receptors ที่คอยตรวจ airways ดูจะไวน้อยลงตามอายุ** จึงอาจไม่เกิด coughing reflex ตอบสนองต่อสิ่งที่สูดเข้าไปในผู้สูงอายุ เพิ่มโอกาสที่ pathogens และสารระคายเคืองจะลงไปถึงเนื้อปอดส่วนลึกและทำให้เกิด respiratory tract infections"
-              }
+              "ในคนอายุน้อย airways ไวต่อ mechanical stimulation อย่างมาก เศษวัสดุที่สูดเข้าไปมักกระตุ้น **coughing reflex** ที่รุนแรงเพื่อขับออก",
+              "แต่ **sensory receptors ที่คอยตรวจ airways ดูจะไวน้อยลงตามอายุ** จึงอาจไม่เกิด coughing reflex ตอบสนองต่อสิ่งที่สูดเข้าไปในผู้สูงอายุ เพิ่มโอกาสที่ pathogens และสารระคายเคืองจะลงไปถึงเนื้อปอดส่วนลึกและทำให้เกิด respiratory tract infections"
             ]
           }
         ]
@@ -10043,9 +8969,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ปอดสูญเสีย elasticity และ lung volume ที่เปลี่ยนไป",
         "source": "Physiology of Aging p.8",
         "body": [
-          {
-            "text": "แม้ **ปริมาณ elastin และ collagen fibers ในปอดจะค่อนข้างคงที่** แต่ปอดค่อย ๆ สูญเสีย elasticity และ distensible (ขยายตัว) มากขึ้น เชื่อว่าเกิดจากการเปลี่ยนคุณสมบัติของ collagen และ elastin fibers ที่เกิด **cross-linked** ทำให้ recoil ของเนื้อปอดลดลงเรื่อย ๆ"
-          },
+          "แม้ **ปริมาณ elastin และ collagen fibers ในปอดจะค่อนข้างคงที่** แต่ปอดค่อย ๆ สูญเสีย elasticity และ distensible (ขยายตัว) มากขึ้น เชื่อว่าเกิดจากการเปลี่ยนคุณสมบัติของ collagen และ elastin fibers ที่เกิด **cross-linked** ทำให้ recoil ของเนื้อปอดลดลงเรื่อย ๆ",
           {
             "sub": "Residual volume (RV)",
             "body": [
@@ -10082,9 +9006,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "บทสรุปฝั่ง respiratory",
         "source": "Physiology of Aging p.9",
         "body": [
-          {
-            "text": "สไลด์ปิดท้ายส่วน respiratory ว่า **ในกรณีที่ไม่มีพยาธิสภาพ respiratory system ยังคงสามารถรักษา gas exchange ให้เพียงพอและทำหน้าที่อื่น ๆ ได้ตลอดชีวิต**"
-          }
+          "สไลด์ปิดท้ายส่วน respiratory ว่า **ในกรณีที่ไม่มีพยาธิสภาพ respiratory system ยังคงสามารถรักษา gas exchange ให้เพียงพอและทำหน้าที่อื่น ๆ ได้ตลอดชีวิต**"
         ]
       },
       {
@@ -10201,9 +9123,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "หน้าที่ของ ovary",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.3",
         "body": [
-          {
-            "text": "สไลด์แบ่งหน้าที่ของ ovary เป็น 3 ข้อ"
-          },
+          "สไลด์แบ่งหน้าที่ของ ovary เป็น 3 ข้อ",
           {
             "bullets": [
               "**Produce the gametes**",
@@ -10224,17 +9144,13 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "1. Fallopian tube",
             "body": [
-              {
-                "text": "เป็น **site of fertilization ที่ AIJ** ซึ่งสไลด์กางชื่อไว้ว่า Ampullo-ischemic-Junction โดย haploid sperm กับ egg รวมกันได้ diploid zygote"
-              }
+              "เป็น **site of fertilization ที่ AIJ** ซึ่งสไลด์กางชื่อไว้ว่า Ampullo-ischemic-Junction โดย haploid sperm กับ egg รวมกันได้ diploid zygote"
             ]
           },
           {
             "sub": "2. Uterine horn / Uterus",
             "body": [
-              {
-                "text": "เป็นที่พัฒนาของ embryo และ fetus และ **สร้าง prostaglandin เมื่อไม่ตั้งท้อง ซึ่งทำให้เกิด luteolysis**"
-              }
+              "เป็นที่พัฒนาของ embryo และ fetus และ **สร้าง prostaglandin เมื่อไม่ตั้งท้อง ซึ่งทำให้เกิด luteolysis**"
             ]
           },
           {
@@ -10252,9 +9168,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "4. Vagina และ 5. Vulva",
             "body": [
-              {
-                "text": "Vagina เป็น female copulatory organ และเป็น birth canal ส่วน vulva เป็นทางเปิดของ female reproductive tract"
-              }
+              "Vagina เป็น female copulatory organ และเป็น birth canal ส่วน vulva เป็นทางเปิดของ female reproductive tract"
             ]
           }
         ]
@@ -10270,24 +9184,16 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Endometrium** เป็นชั้นในสุด โดย functional zone เป็นชั้นบางบุด้วย simple columnar epithelium ที่ **หลุดลอกระหว่าง estrus cycle**"
             ]
           },
-          {
-            "text": "subepithelial tissue ของ endometrium มี lymphocytes, monocytes, plasma cells, fibroblasts และ connective tissue cell กับ fiber อื่นๆ และสไลด์ระบุว่า **พบ melanocytes ใน sheep**"
-          },
-          {
-            "text": "ถัดจาก functional zone คือ basal zone และใน endometrium มี simple branched tubular gland จำนวนมาก ซึ่งบุด้วย pseudostratified columnar epithelium"
-          }
+          "subepithelial tissue ของ endometrium มี lymphocytes, monocytes, plasma cells, fibroblasts และ connective tissue cell กับ fiber อื่นๆ และสไลด์ระบุว่า **พบ melanocytes ใน sheep**",
+          "ถัดจาก functional zone คือ basal zone และใน endometrium มี simple branched tubular gland จำนวนมาก ซึ่งบุด้วย pseudostratified columnar epithelium"
         ]
       },
       {
         "heading": "Oogenesis กับ folliculogenesis เดินคู่กัน",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.8",
         "body": [
-          {
-            "text": "สไลด์วางสองกระบวนการเทียบกันคนละแกน คือ **oogenesis = nuclear maturation** และ **folliculogenesis = follicular cell maturation** โดยมี **pre-ovulatory LH surge** เป็นจุดเปลี่ยน และปลายทางฝั่ง oogenesis ที่สไลด์เขียนไว้คือ pronucleated ootid"
-          },
-          {
-            "text": "รายละเอียดที่เหลือของหน้านี้อยู่ในรูป สไลด์ไม่ได้เขียนเป็นข้อความ"
-          }
+          "สไลด์วางสองกระบวนการเทียบกันคนละแกน คือ **oogenesis = nuclear maturation** และ **folliculogenesis = follicular cell maturation** โดยมี **pre-ovulatory LH surge** เป็นจุดเปลี่ยน และปลายทางฝั่ง oogenesis ที่สไลด์เขียนไว้คือ pronucleated ootid",
+          "รายละเอียดที่เหลือของหน้านี้อยู่ในรูป สไลด์ไม่ได้เขียนเป็นข้อความ"
         ]
       },
       {
@@ -10324,9 +9230,7 @@ export const NOTES_Y2_PHYSIO_3 = {
           {
             "sub": "I. Oocyte development",
             "body": [
-              {
-                "text": "Germinal epithelium ไป oogonium ไป **primary oocyte** ไป **secondary oocyte** ไป pronucleate egg (ootid)"
-              }
+              "Germinal epithelium ไป oogonium ไป **primary oocyte** ไป **secondary oocyte** ไป pronucleate egg (ootid)"
             ]
           },
           {
@@ -10420,12 +9324,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "หน้ารูปแบบแผนของ GnRH และ estrogen ระหว่างชนิดสัตว์",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.14-15",
         "body": [
-          {
-            "text": "หน้า 14 หัวข้อคือ patterns of gonadotropin-releasing hormone (GnRH) secretion in domestic animals อ้างอิง Duittoz และคณะ (2016) Animal reproduction 13:313-333 ส่วนหน้า 15 มีคำเดียวคือ estrogen อ้างอิง Brown J.L., Theriogenology (2018)"
-          },
-          {
-            "text": "ทั้งสองหน้าเป็นกราฟ **สไลด์ไม่ได้เขียนคำอธิบายเป็นข้อความ** ว่ารูปแบบของแต่ละชนิดสัตว์ต่างกันอย่างไร"
-          }
+          "หน้า 14 หัวข้อคือ patterns of gonadotropin-releasing hormone (GnRH) secretion in domestic animals อ้างอิง Duittoz และคณะ (2016) Animal reproduction 13:313-333 ส่วนหน้า 15 มีคำเดียวคือ estrogen อ้างอิง Brown J.L., Theriogenology (2018)",
+          "ทั้งสองหน้าเป็นกราฟ **สไลด์ไม่ได้เขียนคำอธิบายเป็นข้อความ** ว่ารูปแบบของแต่ละชนิดสัตว์ต่างกันอย่างไร"
         ]
       },
       {
@@ -10449,21 +9349,15 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Two-cell two-gonadotropin theory",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.19-20",
         "body": [
-          {
-            "text": "หน้า 19 มีเพียงชื่อทฤษฎีและคำกำกับว่า **LH surge** อ้างอิง Berne and Levy Physiology ฉบับที่ 6 หน้า 20 ต่อเนื่องกัน หัวข้อคือ growth and maturation of a primary, secondary and tertiary follicle และ two cell mechanism endocrine regulation of follicular estrogen synthesis กำกับด้วย LH surge แล้ว ovulation อ้างอิง Fails A.D., Magee C., Anatomy and physiology of farm animals (2018)"
-          },
-          {
-            "text": "**เนื้อหาของทฤษฎีทั้งหมดอยู่ในรูป สไลด์ไม่ได้เขียนขั้นตอนเป็นข้อความ** ต้องอ่านจากรูปในสไลด์จริงหรือที่จดในคาบ"
-          }
+          "หน้า 19 มีเพียงชื่อทฤษฎีและคำกำกับว่า **LH surge** อ้างอิง Berne and Levy Physiology ฉบับที่ 6 หน้า 20 ต่อเนื่องกัน หัวข้อคือ growth and maturation of a primary, secondary and tertiary follicle และ two cell mechanism endocrine regulation of follicular estrogen synthesis กำกับด้วย LH surge แล้ว ovulation อ้างอิง Fails A.D., Magee C., Anatomy and physiology of farm animals (2018)",
+          "**เนื้อหาของทฤษฎีทั้งหมดอยู่ในรูป สไลด์ไม่ได้เขียนขั้นตอนเป็นข้อความ** ต้องอ่านจากรูปในสไลด์จริงหรือที่จดในคาบ"
         ]
       },
       {
         "heading": "Ovulation: นิยามและกระบวนการ 6 ขั้น",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.21",
         "body": [
-          {
-            "text": "นิยามตามสไลด์คือ การปล่อย mature oocyte จาก ovary เข้าสู่ fallopian tube โดยอาศัย **chemical, mechanical และ hormonal means**"
-          },
+          "นิยามตามสไลด์คือ การปล่อย mature oocyte จาก ovary เข้าสู่ fallopian tube โดยอาศัย **chemical, mechanical และ hormonal means**",
           {
             "bullets": [
               "**LH binding to G-cells**",
@@ -10480,9 +9374,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "กลไกของ LH surge ต่อ ovulation (สไลด์เติมช่องว่าง)",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.22",
         "body": [
-          {
-            "text": "หน้านี้เป็นแผนภาพที่เว้นช่องให้เติม มีหัวข้อว่า what is the mechanism of LH surge on ovulation และมีเลขข้อ 1 ถึง 6 แต่คำที่ปรากฏจริงมีเพียง COX-2 (อยู่ที่ข้อ 2 และ 3), histamine, progesterone, TNF-α และปลายทางคือ ovulation"
-          },
+          "หน้านี้เป็นแผนภาพที่เว้นช่องให้เติม มีหัวข้อว่า what is the mechanism of LH surge on ovulation และมีเลขข้อ 1 ถึง 6 แต่คำที่ปรากฏจริงมีเพียง COX-2 (อยู่ที่ข้อ 2 และ 3), histamine, progesterone, TNF-α และปลายทางคือ ovulation",
           {
             "callout": "**ลำดับกลไกเต็มของหน้านี้ สไลด์ไม่ได้เขียนไว้** ต้องเติมจากที่อาจารย์บรรยายในคาบ อย่าเดาเอง",
             "kind": "warn"
@@ -10508,21 +9400,15 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Spontaneous vs reflex ovulation",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.24",
         "body": [
-          {
-            "text": "หน้านี้เป็นภาพเปรียบเทียบ อ้างอิง Physiological Review 79:263 ข้อความที่เหลือมีเพียงหน่วยเวลาบนแกน คือ Weeks, Days/Weeks และ Months"
-          },
-          {
-            "text": "**สไลด์ไม่ได้เขียนเป็นข้อความ** ว่าสัตว์ชนิดใดจัดอยู่กลุ่ม spontaneous หรือ reflex ovulation ต้องอ่านจากรูป"
-          }
+          "หน้านี้เป็นภาพเปรียบเทียบ อ้างอิง Physiological Review 79:263 ข้อความที่เหลือมีเพียงหน่วยเวลาบนแกน คือ Weeks, Days/Weeks และ Months",
+          "**สไลด์ไม่ได้เขียนเป็นข้อความ** ว่าสัตว์ชนิดใดจัดอยู่กลุ่ม spontaneous หรือ reflex ovulation ต้องอ่านจากรูป"
         ]
       },
       {
         "heading": "Induced ovulation ในกระต่าย",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.25",
         "body": [
-          {
-            "text": "หัวข้อคือ the physiology of induced ovulation in female rabbits คำเดียวที่ปรากฏในเนื้อสไลด์คือ **norepinephrine** ส่วนกลไกที่เหลือเป็นรูป สไลด์ไม่ได้เขียนไว้"
-          }
+          "หัวข้อคือ the physiology of induced ovulation in female rabbits คำเดียวที่ปรากฏในเนื้อสไลด์คือ **norepinephrine** ส่วนกลไกที่เหลือเป็นรูป สไลด์ไม่ได้เขียนไว้"
         ]
       },
       {
@@ -10541,9 +9427,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "คำถามในสไลด์: ฮอร์โมนที่มีฤทธิ์ luteolytic",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.28",
         "body": [
-          {
-            "text": "โจทย์บนสไลด์คือ ฮอร์โมนข้อใดมีฤทธิ์เป็น luteolytic ในสัตว์เกือบทุก species"
-          },
+          "โจทย์บนสไลด์คือ ฮอร์โมนข้อใดมีฤทธิ์เป็น luteolytic ในสัตว์เกือบทุก species",
           {
             "bullets": [
               "ก. LH",
@@ -10579,27 +9463,21 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ระยะเวลาการทำงานของ CL ระหว่างชนิดสัตว์",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.30",
         "body": [
-          {
-            "text": "หัวข้อคือ duration of luteal function across species ใช้ภาพชุดเดียวกับหน้า 24 อ้างอิง Physiological Review 79:263 ข้อความที่เหลือมีเพียง Weeks, Days/Weeks และ Months **ไม่มีตัวเลขรายชนิดสัตว์เป็นข้อความ**"
-          }
+          "หัวข้อคือ duration of luteal function across species ใช้ภาพชุดเดียวกับหน้า 24 อ้างอิง Physiological Review 79:263 ข้อความที่เหลือมีเพียง Weeks, Days/Weeks และ Months **ไม่มีตัวเลขรายชนิดสัตว์เป็นข้อความ**"
         ]
       },
       {
         "heading": "การควบคุม corpus luteum ของ primate",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.31",
         "body": [
-          {
-            "text": "หัวข้อคือ control of the primate corpus luteum และวงเล็บกำกับไว้ว่า **(LH action)** ส่วนที่เหลือเป็นรูป สไลด์ไม่ได้เขียนรายละเอียด"
-          }
+          "หัวข้อคือ control of the primate corpus luteum และวงเล็บกำกับไว้ว่า **(LH action)** ส่วนที่เหลือเป็นรูป สไลด์ไม่ได้เขียนรายละเอียด"
         ]
       },
       {
         "heading": "Ovarian cycle แบ่งเป็นสองระยะ",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.32",
         "body": [
-          {
-            "text": "สไลด์แบ่งวงจรเป็น **1. follicular phase** และ **2. luteal phase** โดยมี **ovulation คั่นระหว่างสองระยะ**"
-          }
+          "สไลด์แบ่งวงจรเป็น **1. follicular phase** และ **2. luteal phase** โดยมี **ovulation คั่นระหว่างสองระยะ**"
         ]
       },
       {
@@ -10649,9 +9527,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Estrous cycle ควบคุมอะไร",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.37",
         "body": [
-          {
-            "text": "สไลด์นิยามว่า estrous cycle คือ dynamic hormonal cycle ที่ควบคุมการสืบพันธุ์ในสัตว์เลี้ยงลูกด้วยนมเพศเมีย โดยสัมพันธ์กับ 2 เรื่อง"
-          },
+          "สไลด์นิยามว่า estrous cycle คือ dynamic hormonal cycle ที่ควบคุมการสืบพันธุ์ในสัตว์เลี้ยงลูกด้วยนมเพศเมีย โดยสัมพันธ์กับ 2 เรื่อง",
           {
             "bullets": [
               "**Ovulation คือการปล่อย egg หรือ oocyte**",
@@ -10664,9 +9540,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Estrus pattern อยู่ใต้การควบคุมของ GnRH neurons",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.38",
         "body": [
-          {
-            "text": "หัวข้อระบุว่า estrus pattern อยู่ภายใต้การควบคุมของ **GnRH neurons** อ้างอิง Brown J.L., Theriogenology (2018) ที่เหลือเป็นรูป สไลด์ไม่ได้เขียนคำอธิบาย"
-          }
+          "หัวข้อระบุว่า estrus pattern อยู่ภายใต้การควบคุมของ **GnRH neurons** อ้างอิง Brown J.L., Theriogenology (2018) ที่เหลือเป็นรูป สไลด์ไม่ได้เขียนคำอธิบาย"
         ]
       },
       {
@@ -10745,9 +9619,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Luteal phase 14-15 วัน** ประกอบด้วย 3. secretory phase และ 4. regression phase"
             ]
           },
-          {
-            "text": "สไลด์แสดงสองแถบคู่กันคือ endometrium และ ovary ส่วนรายละเอียดของแต่ละแถบอยู่ในรูป"
-          }
+          "สไลด์แสดงสองแถบคู่กันคือ endometrium และ ovary ส่วนรายละเอียดของแต่ละแถบอยู่ในรูป"
         ]
       },
       {
@@ -10772,9 +9644,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Cervical mucus และ spinnbarkeit (หน้ารูปล้วน)",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.49",
         "body": [
-          {
-            "text": "หน้านี้มีเพียงหัวข้อ cervical mucus and spinnbarkeit เช่นเดียวกับหน้า 48 ที่มีเพียงหัวข้อ characteristic of primate estrous cycle **สไลด์ไม่ได้อธิบายเป็นข้อความ** ทั้งสองหน้า"
-          }
+          "หน้านี้มีเพียงหัวข้อ cervical mucus and spinnbarkeit เช่นเดียวกับหน้า 48 ที่มีเพียงหัวข้อ characteristic of primate estrous cycle **สไลด์ไม่ได้อธิบายเป็นข้อความ** ทั้งสองหน้า"
         ]
       },
       {
@@ -10788,9 +9658,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**Ovulation เกิดที่ 10-14 ชั่วโมงหลัง estrus**"
             ]
           },
-          {
-            "text": "อ้างอิง Galina and Orihuela, Hormones and Behavior (2007) 52:32-38"
-          }
+          "อ้างอิง Galina and Orihuela, Hormones and Behavior (2007) 52:32-38"
         ]
       },
       {
@@ -10809,9 +9677,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ม้า: Flehmen response",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.54",
         "body": [
-          {
-            "text": "หน้า estrus detection in mare ระบุคำเดียวคือ **Flehmen response** ที่เหลือเป็นรูป ส่วนพฤติกรรมอื่นของ mare อยู่ในตารางหน้า 43"
-          }
+          "หน้า estrus detection in mare ระบุคำเดียวคือ **Flehmen response** ที่เหลือเป็นรูป ส่วนพฤติกรรมอื่นของ mare อยู่ในตารางหน้า 43"
         ]
       },
       {
@@ -10845,9 +9711,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Vaginal smear ในสุนัข",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.59",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพ smear ของ 4 ระยะ คือ anestrus, proestrus, estrus และ diestrus พร้อม label ชนิดเซลล์"
-          },
+          "สไลด์เป็นภาพ smear ของ 4 ระยะ คือ anestrus, proestrus, estrus และ diestrus พร้อม label ชนิดเซลล์",
           {
             "bullets": [
               "**Estrus**: unucleated cell (keratinized) ตามที่สไลด์สะกด",
@@ -10860,9 +9724,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "คำถามในสไลด์: vaginal smear day 1 ในสุนัข",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.60",
         "body": [
-          {
-            "text": "โจทย์คือ ผลการตรวจ vaginal smear ของสุนัขพบ **เซลล์เม็ดเลือดแดงจำนวนมากปะปนกับ intermediate cell และ parabasal cell** ถามว่าสุนัขเพศเมียตัวนี้อยู่ระยะใดของการเป็นสัด และควรแนะนำให้ผสมในอีกกี่วันต่อมา"
-          },
+          "โจทย์คือ ผลการตรวจ vaginal smear ของสุนัขพบ **เซลล์เม็ดเลือดแดงจำนวนมากปะปนกับ intermediate cell และ parabasal cell** ถามว่าสุนัขเพศเมียตัวนี้อยู่ระยะใดของการเป็นสัด และควรแนะนำให้ผสมในอีกกี่วันต่อมา",
           {
             "bullets": [
               "ก. ระยะ diestrus ให้รอผสมรอบหน้า",
@@ -10882,9 +9744,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "แมว (queen): reflex ovulator",
         "source": "UnderGrad Reproductive 2023 (Female Repro) p.62",
         "body": [
-          {
-            "text": "หัวข้อระบุว่า estrus detection in queen และกำกับว่า **reflex ovulators** ที่เหลือเป็นรูป ตัวเลขของแมวอยู่ในหน้า 44 (estrus 5 วัน, ovulation 24 ชั่วโมงหลังผสม) และพฤติกรรมอยู่ในหน้า 43"
-          }
+          "หัวข้อระบุว่า estrus detection in queen และกำกับว่า **reflex ovulators** ที่เหลือเป็นรูป ตัวเลขของแมวอยู่ในหน้า 44 (estrus 5 วัน, ovulation 24 ชั่วโมงหลังผสม) และพฤติกรรมอยู่ในหน้า 43"
         ]
       }
     ]
@@ -10900,9 +9760,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ขอบเขตของ lecture นี้",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.2",
         "body": [
-          {
-            "text": "Learning objectives ที่อาจารย์วางไว้มี 5 หัวข้อใหญ่ ใช้เป็นโครงอ่านทั้งเด็คได้เลย"
-          },
+          "Learning objectives ที่อาจารย์วางไว้มี 5 หัวข้อใหญ่ ใช้เป็นโครงอ่านทั้งเด็คได้เลย",
           {
             "bullets": [
               "บทนำขั้นตอนการปฏิสนธิ การฝังตัว การตั้งท้อง และการคลอด",
@@ -10918,9 +9776,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ตำแหน่งสำคัญบนท่อนำไข่",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.3-4",
         "body": [
-          {
-            "text": "สไลด์ชี้ตำแหน่งบนท่อนำไข่ไว้ 2 จุดที่ต้องแยกให้ออก"
-          },
+          "สไลด์ชี้ตำแหน่งบนท่อนำไข่ไว้ 2 จุดที่ต้องแยกให้ออก",
           {
             "bullets": [
               "**Ampullary-Isthmic Junction (AIJ) คือ site of fertilization**",
@@ -10928,18 +9784,14 @@ export const NOTES_Y2_PHYSIO_3 = {
               "โครงสร้างอื่นที่ระบุบนภาพคือ Ampulla และ Isthmus"
             ]
           },
-          {
-            "text": "หน้าถัดมาสรุปว่าการปฏิสนธิคือการที่ viable gametes เคลื่อนมาพบกันที่ ampullary portion นับจาก AIJ โดยมีทั้ง oocyte transport และ spermatozoa transport และสไลด์ย้ำด้วยดอกจันสี่ตัวว่า **appropriated time is important**"
-          }
+          "หน้าถัดมาสรุปว่าการปฏิสนธิคือการที่ viable gametes เคลื่อนมาพบกันที่ ampullary portion นับจาก AIJ โดยมีทั้ง oocyte transport และ spermatozoa transport และสไลด์ย้ำด้วยดอกจันสี่ตัวว่า **appropriated time is important**"
         ]
       },
       {
         "heading": "Sperm transport และ capacitation",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.5",
         "body": [
-          {
-            "text": "สไลด์เป็นผังไล่จาก mating ไปจนถึง ampullo-isthmus ready for fertilization"
-          },
+          "สไลด์เป็นผังไล่จาก mating ไปจนถึง ampullo-isthmus ready for fertilization",
           {
             "bullets": [
               "ตำแหน่งหลั่งน้ำเชื้อ sperm deposition อยู่ที่ vagina ในสัตว์ส่วนใหญ่ แต่ **dog และ sow หลั่งที่ cervix**",
@@ -10954,12 +9806,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "Oocyte transport และฮอร์โมนที่คุมการบีบตัวของ oviduct",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.9-10",
         "body": [
-          {
-            "text": "oocyte พร้อม cumulus mass ถูกเก็บโดย ciliated epithelial cells ของ infundibulum และ **ใช้เวลาผ่าน AIJ ประมาณ 60-72 ชั่วโมง**"
-          },
-          {
-            "text": "กลไกที่พา oocyte ลงมาตามสไลด์มี 3 ข้อ"
-          },
+          "oocyte พร้อม cumulus mass ถูกเก็บโดย ciliated epithelial cells ของ infundibulum และ **ใช้เวลาผ่าน AIJ ประมาณ 60-72 ชั่วโมง**",
+          "กลไกที่พา oocyte ลงมาตามสไลด์มี 3 ข้อ",
           {
             "bullets": [
               "Cilia beating toward uterus พร้อม directional flow ของ oviductal fluid มายัง AIJ",
@@ -10983,27 +9831,17 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ลำดับเหตุการณ์ตั้งแต่ ovulation ถึง first cleavage",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.8, p.11",
         "body": [
-          {
-            "text": "ผัง p.8 เริ่มที่ mating และ ovulation ซึ่งปล่อย **secondary oocyte ที่ระยะ metaphase II** ออกมา"
-          },
-          {
-            "text": "Ovum transport ถูกคุมด้วย E2 and P4 balance ผ่าน motility ที่สไลด์แจกแจงเป็น cilia, smooth muscle contraction, peristalsis, segmentation, mixing movement และ secretion"
-          },
-          {
-            "text": "เมื่อถึง ampulla แล้วเกิด sperm penetration สไลด์ให้ oocyte reaction ออกมา 2 อย่าง"
-          },
+          "ผัง p.8 เริ่มที่ mating และ ovulation ซึ่งปล่อย **secondary oocyte ที่ระยะ metaphase II** ออกมา",
+          "Ovum transport ถูกคุมด้วย E2 and P4 balance ผ่าน motility ที่สไลด์แจกแจงเป็น cilia, smooth muscle contraction, peristalsis, segmentation, mixing movement และ secretion",
+          "เมื่อถึง ampulla แล้วเกิด sperm penetration สไลด์ให้ oocyte reaction ออกมา 2 อย่าง",
           {
             "bullets": [
               "**Block to polyspermy ผ่าน zona reaction**",
               "**Resume และ complete meiosis II**"
             ]
           },
-          {
-            "text": "จากนั้นไล่ต่อเป็น sperm รวมกับ ootid แบบ cytoplasmic fusion ไปสู่ pronuclei development แล้ว **syngamy หรือ amphimixis** และจบที่ first cleavage"
-          },
-          {
-            "text": "สไลด์ p.11 สรุปเรื่องเดียวกันเป็น 3 หัวข้อคือ sperm penetration (capacitation, acrosomal reaction ที่มีทั้ง release of enzyme และ polyspermy block), oocyte reaction (harden of zona pellucida, complete of meiosis II) และ pronucleus formation and syngamy"
-          }
+          "จากนั้นไล่ต่อเป็น sperm รวมกับ ootid แบบ cytoplasmic fusion ไปสู่ pronuclei development แล้ว **syngamy หรือ amphimixis** และจบที่ first cleavage",
+          "สไลด์ p.11 สรุปเรื่องเดียวกันเป็น 3 หัวข้อคือ sperm penetration (capacitation, acrosomal reaction ที่มีทั้ง release of enzyme และ polyspermy block), oocyte reaction (harden of zona pellucida, complete of meiosis II) และ pronucleus formation and syngamy"
         ]
       },
       {
@@ -11107,9 +9945,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "LIF cascade ในการฝังตัว",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.19",
         "body": [
-          {
-            "text": "สไลด์ไล่การฝังตัวเป็น 6 ขั้นโดยยึด LIF เป็นแกน โดยระบุว่า **LIF คือ Leukemia inhibiting Factor ในกลุ่ม IL-6 และ LIF receptor คือ gp130**"
-          },
+          "สไลด์ไล่การฝังตัวเป็น 6 ขั้นโดยยึด LIF เป็นแกน โดยระบุว่า **LIF คือ Leukemia inhibiting Factor ในกลุ่ม IL-6 และ LIF receptor คือ gp130**",
           {
             "bullets": [
               "Free floating blastocyst ยังถูกหุ้มด้วย zona pellucida",
@@ -11126,12 +9962,8 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ชั้นเซลล์และหน้าที่ของ placenta",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.18",
         "body": [
-          {
-            "text": "สไลด์เป็นรูปไล่ 5 phase ของการฝังตัว โดยมีป้ายชื่อชั้นเซลล์คือ endometrium, syncytiotrophoblast, cytotrophoblast และ inner mass cell"
-          },
-          {
-            "text": "หน้าที่ของ placenta ที่สไลด์ระบุมี 4 ข้อ"
-          },
+          "สไลด์เป็นรูปไล่ 5 phase ของการฝังตัว โดยมีป้ายชื่อชั้นเซลล์คือ endometrium, syncytiotrophoblast, cytotrophoblast และ inner mass cell",
+          "หน้าที่ของ placenta ที่สไลด์ระบุมี 4 ข้อ",
           {
             "bullets": [
               "**Respiration**",
@@ -11146,9 +9978,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "บทบาทของ Progesterone และ Estrogen ระหว่างตั้งท้อง",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.20-21",
         "body": [
-          {
-            "text": "สไลด์ p.20 เป็นรูปที่กำกับไว้สั้น ๆ ว่า **Progesterone ที่เพิ่มขึ้นคือสิ่งที่ maintain pregnancy** และคำว่า recognition of pregnancy"
-          },
+          "สไลด์ p.20 เป็นรูปที่กำกับไว้สั้น ๆ ว่า **Progesterone ที่เพิ่มขึ้นคือสิ่งที่ maintain pregnancy** และคำว่า recognition of pregnancy",
           {
             "sub": "ระหว่างตั้งท้อง Progesterone",
             "body": [
@@ -11238,9 +10068,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ทิศทางการหลั่ง PGF ใน swine",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.33",
         "body": [
-          {
-            "text": "**สัญญาณ anti luteolytic สำหรับ pregnancy recognition ใน swine คือ estrogen**"
-          },
+          "**สัญญาณ anti luteolytic สำหรับ pregnancy recognition ใน swine คือ estrogen**",
           {
             "bullets": [
               "**Cyclic gilt หลั่ง PGF ในทิศทาง endocrine ออกไปยัง uterine vasculature แล้วถูกส่งไปที่ CL ทำให้ CL regression**",
@@ -11310,18 +10138,14 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "ฮอร์โมนเมื่อครบกำหนดคลอด",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.41",
         "body": [
-          {
-            "text": "สไลด์นี้มีข้อความสั้นเพียงบรรทัดเดียวคือ **เมื่อ pregnancy is completed แล้ว estrogen จะเพิ่มขึ้น** ที่เหลือเป็นกราฟ สไลด์ไม่ได้อธิบายกลไกต่อ"
-          }
+          "สไลด์นี้มีข้อความสั้นเพียงบรรทัดเดียวคือ **เมื่อ pregnancy is completed แล้ว estrogen จะเพิ่มขึ้น** ที่เหลือเป็นกราฟ สไลด์ไม่ได้อธิบายกลไกต่อ"
         ]
       },
       {
         "heading": "Parturition",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.43",
         "body": [
-          {
-            "text": "สไลด์ปิดท้ายเรื่องการคลอดเป็นรูปที่กำกับช่วงเวลาไว้ 3 ค่าคือ 2-6 ชั่วโมง, น้อยกว่า 2 ชั่วโมง และ 2-8 ชั่วโมง แต่ text layer ไม่ได้บอกว่าค่าใดคู่กับระยะใดของการคลอด"
-          },
+          "สไลด์ปิดท้ายเรื่องการคลอดเป็นรูปที่กำกับช่วงเวลาไว้ 3 ค่าคือ 2-6 ชั่วโมง, น้อยกว่า 2 ชั่วโมง และ 2-8 ชั่วโมง แต่ text layer ไม่ได้บอกว่าค่าใดคู่กับระยะใดของการคลอด",
           {
             "bullets": [
               "**Normal process ใช้เวลา 30 นาทีถึง 4 ชั่วโมง**",
@@ -11329,9 +10153,7 @@ export const NOTES_Y2_PHYSIO_3 = {
               "**ถ้าไม่เข้าสู่ labor ภายใน 24 ชั่วโมง ถือว่าเป็น dystocia**"
             ]
           },
-          {
-            "text": "สไลด์แนบลิงก์วิดีโอ YouTube ให้ไปดูขั้นตอนการคลอดเพิ่ม"
-          },
+          "สไลด์แนบลิงก์วิดีโอ YouTube ให้ไปดูขั้นตอนการคลอดเพิ่ม",
           {
             "callout": "objective ข้อ 5 เขียนว่าจะสอนกลไกและขั้นตอนของ parturition แต่ในเด็คมีสไลด์ที่มีข้อความเรื่องการคลอดแค่หน้านี้หน้าเดียว รายละเอียดกลไกและ stage of labor สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -11342,9 +10164,7 @@ export const NOTES_Y2_PHYSIO_3 = {
         "heading": "สไลด์ที่เป็นรูปล้วนหรือมีแต่ป้ายกำกับ",
         "source": "Undergrad Reproductive 2023 (Fer Par Preg) p.6-7, p.12, p.22, p.24-26, p.28, p.30-32, p.34-35, p.37, p.39-40, p.42, p.44",
         "body": [
-          {
-            "text": "ส่วนนี้ไม่ใช่เนื้อหา แต่บันทึกไว้ให้รู้ว่าอ่านจาก text อย่างเดียวจะไม่ครบ ต้องเปิดสไลด์จริงดูรูป"
-          },
+          "ส่วนนี้ไม่ใช่เนื้อหา แต่บันทึกไว้ให้รู้ว่าอ่านจาก text อย่างเดียวจะไม่ครบ ต้องเปิดสไลด์จริงดูรูป",
           {
             "bullets": [
               "p.6, p.7, p.12, p.22, p.25, p.28, p.30, p.31, p.34, p.42 และ p.44 ไม่มีข้อความเลย มีแต่เลขหน้า",

@@ -10,7 +10,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y5_EPIDEMIOLOGY = {
@@ -42,9 +42,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "แผนที่สถานการณ์การระบาดของ WAHID/OIE",
         "source": "1_vet epidem intro p.3",
         "body": [
-          {
-            "text": "สไลด์แสดงแผนที่โลกจาก WAHID/OIE ปี 2017 โดย legend แบ่งสถานะการระบาดออกเป็น 8 กลุ่ม"
-          },
+          "สไลด์แสดงแผนที่โลกจาก WAHID/OIE ปี 2017 โดย legend แบ่งสถานะการระบาดออกเป็น 8 กลุ่ม",
           {
             "bullets": [
               "Resolved (outbreak cluster, domestic)",
@@ -98,9 +96,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Avian influenza A(H5N1) ในคน ปี 2003 ถึง 2013 (แผนที่ WHO)",
         "source": "1_vet epidem intro p.6",
         "body": [
-          {
-            "text": "แผนที่ผู้ป่วยยืนยัน avian influenza A(H5N1) ในคน ระหว่างปี 2003 ถึง 2013 ข้อมูล ณ วันที่ 24 January 2014 รายงานเป็นจำนวนผู้ป่วยต่อจำนวนผู้เสียชีวิต"
-          },
+          "แผนที่ผู้ป่วยยืนยัน avian influenza A(H5N1) ในคน ระหว่างปี 2003 ถึง 2013 ข้อมูล ณ วันที่ 24 January 2014 รายงานเป็นจำนวนผู้ป่วยต่อจำนวนผู้เสียชีวิต",
           {
             "sub": "ประเทศที่มีจำนวนสูงสุด",
             "body": [
@@ -198,9 +194,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Pretest: แยกให้ออกว่างานไหนเป็นศาสตร์ใด",
         "source": "1_vet epidem intro p.8",
         "body": [
-          {
-            "text": "สไลด์ให้จับคู่แต่ละสถานการณ์กับ 1 ใน 5 ศาสตร์ ได้แก่ ก. Biostatistics, ข. Public health, ค. Preventive medicine, ง. Epidemiology, จ. Herd health"
-          },
+          "สไลด์ให้จับคู่แต่ละสถานการณ์กับ 1 ใน 5 ศาสตร์ ได้แก่ ก. Biostatistics, ข. Public health, ค. Preventive medicine, ง. Epidemiology, จ. Herd health",
           {
             "sub": "5 สถานการณ์ที่โจทย์ให้มา",
             "body": [
@@ -511,9 +505,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "การประยุกต์ใช้หลักและวิธีการทางระบาดวิทยาสัตวแพทย์",
         "source": "2_vet epidem basic concept p.8",
         "body": [
-          {
-            "text": "หลักและวิธีการทางระบาดวิทยาสัตวแพทย์ถูกนำไปใช้ **4 เรื่อง**"
-          },
+          "หลักและวิธีการทางระบาดวิทยาสัตวแพทย์ถูกนำไปใช้ **4 เรื่อง**",
           {
             "bullets": [
               "ศึกษาการเกิดโรค (disease occurrence)",
@@ -1378,9 +1370,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "วัตถุประสงค์ของการสอบสวนโรคระบาด (7 ข้อ)",
         "source": "Outbreak_investigation_2026_SJ_Handout p.2-4",
         "body": [
-          {
-            "text": "สไลด์ไล่วัตถุประสงค์ไว้ **7 ข้อ** แบ่งพิมพ์ 3 หน้า ข้อสอบชอบถามจำนวนและลำดับ"
-          },
+          "สไลด์ไล่วัตถุประสงค์ไว้ **7 ข้อ** แบ่งพิมพ์ 3 หน้า ข้อสอบชอบถามจำนวนและลำดับ",
           {
             "bullets": [
               "**(1) Protect public/animal health** — หา source และหยุด ongoing transmission, ลดการป่วย การตาย และความสูญเสียทางเศรษฐกิจ",
@@ -1422,9 +1412,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "**ENVIRONMENT** — weather, housing, geography, air quality"
                 ]
               },
-              {
-                "text": "ประชากร host ใน outbreak แบ่งเป็น **4 กลุ่ม** ได้แก่ clinical animals, sub-clinical animals, convalescent animals และ immune animals"
-              }
+              "ประชากร host ใน outbreak แบ่งเป็น **4 กลุ่ม** ได้แก่ clinical animals, sub-clinical animals, convalescent animals และ immune animals"
             ]
           },
           {
@@ -1491,9 +1479,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "11 ขั้นตอนของการสอบสวนโรคระบาด",
         "source": "Outbreak_investigation_2026_SJ_Handout p.12",
         "body": [
-          {
-            "text": "สไลด์เดียวที่เป็นแกนของทั้งเลคเชอร์ ต้องจำได้ครบ **11 ขั้นตอน** และเรียงลำดับถูก"
-          },
+          "สไลด์เดียวที่เป็นแกนของทั้งเลคเชอร์ ต้องจำได้ครบ **11 ขั้นตอน** และเรียงลำดับถูก",
           {
             "bullets": [
               "**Step 1** Prepare for field work",
@@ -1842,21 +1828,15 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "Causal inference"
             ]
           },
-          {
-            "text": "รหัสวิชา **3107508** ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์ ผู้บรรยาย Thanicha Chanchaidechachai (Thanicha.c@chula.ac.th)"
-          }
+          "รหัสวิชา **3107508** ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์ ผู้บรรยาย Thanicha Chanchaidechachai (Thanicha.c@chula.ac.th)"
         ]
       },
       {
         "heading": "ระบาดวิทยาศึกษาอะไร (Introduction)",
         "source": "Concept_of_causation p.3",
         "body": [
-          {
-            "text": "Epidemiology is the study of the **causes and determinants** of disease to prevent, control, and improve population health."
-          },
-          {
-            "text": "แกนกลางของงานคือ **Identification of causal relationship between disease and suspected factor** โดยสไลด์วางแผนภาพเป็น Risk factor (ภาพโรงงานและรถยนต์) ชี้ลูกศรไปยัง Disease or health-related problem (ภาพปอด)"
-          },
+          "Epidemiology is the study of the **causes and determinants** of disease to prevent, control, and improve population health.",
+          "แกนกลางของงานคือ **Identification of causal relationship between disease and suspected factor** โดยสไลด์วางแผนภาพเป็น Risk factor (ภาพโรงงานและรถยนต์) ชี้ลูกศรไปยัง Disease or health-related problem (ภาพปอด)",
           {
             "callout": "สไลด์พิมพ์คำว่า \"casual relationship\" ทั้งที่บริบทหมายถึง causal relationship (ความสัมพันธ์เชิงสาเหตุ) คำนี้พิมพ์ผิดซ้ำอีกครั้งในสไลด์หน้า 4 ด้วย",
             "kind": "flag"
@@ -1867,9 +1847,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "ลำดับขั้นจากการสังเกตไปสู่การทดสอบสมมติฐาน",
         "source": "Concept_of_causation p.4",
         "body": [
-          {
-            "text": "สไลด์เป็นแผนภาพไหลตามลำดับ ไม่มีข้อความอธิบายเพิ่มนอกจากกล่องเหล่านี้"
-          },
+          "สไลด์เป็นแผนภาพไหลตามลำดับ ไม่มีข้อความอธิบายเพิ่มนอกจากกล่องเหล่านี้",
           {
             "bullets": [
               "Identify disease ไปสู่ Descriptive study",
@@ -1888,12 +1866,8 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Association และการวัดด้วย correlation",
         "source": "Concept_of_causation p.5",
         "body": [
-          {
-            "text": "Association คือ **Concurrence of two variables more often than would be expected by chance** (การเกิดร่วมกันของสองตัวแปรบ่อยกว่าที่ควรจะเป็นโดยบังเอิญ)"
-          },
-          {
-            "text": "**Correlation indicates the degree of association** สไลด์แสดง scatter plot 5 แบบเรียงตามค่า correlation"
-          },
+          "Association คือ **Concurrence of two variables more often than would be expected by chance** (การเกิดร่วมกันของสองตัวแปรบ่อยกว่าที่ควรจะเป็นโดยบังเอิญ)",
+          "**Correlation indicates the degree of association** สไลด์แสดง scatter plot 5 แบบเรียงตามค่า correlation",
           {
             "bullets": [
               "Positive association: correlation = **1** และ **0.3**",
@@ -1911,24 +1885,16 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Association ไม่เท่ากับ Causation",
         "source": "Concept_of_causation p.6",
         "body": [
-          {
-            "text": "When studies find an **ASSOCIATION** between two things (เครื่องหมาย ไม่เท่ากับ) It does not mean one thing **CAUSED** the one to happen."
-          },
-          {
-            "text": "สไลด์ใช้การ์ตูนประกอบเป็นบทสนทนา ทำนองว่าทุกคนที่ไปดวงจันทร์เคยกินไก่ จึงสรุปว่ากินไก่ทำให้ได้ไปดวงจันทร์ ที่มาของภาพระบุเป็นลิงก์ linkedin.com/pulse/stop-confusing-correlation-causation-david-thomson/"
-          }
+          "When studies find an **ASSOCIATION** between two things (เครื่องหมาย ไม่เท่ากับ) It does not mean one thing **CAUSED** the one to happen.",
+          "สไลด์ใช้การ์ตูนประกอบเป็นบทสนทนา ทำนองว่าทุกคนที่ไปดวงจันทร์เคยกินไก่ จึงสรุปว่ากินไก่ทำให้ได้ไปดวงจันทร์ ที่มาของภาพระบุเป็นลิงก์ linkedin.com/pulse/stop-confusing-correlation-causation-david-thomson/"
         ]
       },
       {
         "heading": "Causation และนิยามของ Cause",
         "source": "Concept_of_causation p.7",
         "body": [
-          {
-            "text": "**Cause** is an event, condition, characteristic (or a combination) which plays an important role / regular / predictable change in occurrence of the outcome."
-          },
-          {
-            "text": "ภาพประกอบแสดงหลายปัจจัย (บุหรี่ ไฟป่า มลพิษจากโรงงานและรถยนต์ พันธุกรรมที่แทนด้วย DNA) ชี้ไปยังผลลัพธ์เดียวคือปอดที่เป็นโรค"
-          }
+          "**Cause** is an event, condition, characteristic (or a combination) which plays an important role / regular / predictable change in occurrence of the outcome.",
+          "ภาพประกอบแสดงหลายปัจจัย (บุหรี่ ไฟป่า มลพิษจากโรงงานและรถยนต์ พันธุกรรมที่แทนด้วย DNA) ชี้ไปยังผลลัพธ์เดียวคือปอดที่เป็นโรค"
         ]
       },
       {
@@ -1952,9 +1918,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Spurious association (ความสัมพันธ์ลวง)",
         "source": "Concept_of_causation p.9",
         "body": [
-          {
-            "text": "Some observed association between suspected factor and outcome **may not be real** สไลด์ระบุสาเหตุไว้ 2 อย่าง"
-          },
+          "Some observed association between suspected factor and outcome **may not be real** สไลด์ระบุสาเหตุไว้ 2 อย่าง",
           {
             "bullets": [
               "**Chance** คือ the pattern arose from random variation",
@@ -1964,18 +1928,14 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "ตัวอย่างบนสไลด์",
             "body": [
-              {
-                "text": "คำถามคือ Is treatment at referral hospital associated with mortality of dogs?"
-              },
+              "คำถามคือ Is treatment at referral hospital associated with mortality of dogs?",
               {
                 "bullets": [
                   "โรงพยาบาล (referral hospital): Mortality **50 from 1,000 cases (5%)**",
                   "คลินิกขนาดเล็ก: Mortality **1 from 50 cases (2%)**"
                 ]
               },
-              {
-                "text": "สไลด์แสดงเฉพาะตัวเลขและคำถาม **ไม่ได้เขียนคำเฉลยหรือคำอธิบายว่าตัวเลขที่ต่างกันนี้เกิดจาก chance หรือ bias ตัวใด** จึงไม่ควรเติมข้อสรุปเอง"
-              }
+              "สไลด์แสดงเฉพาะตัวเลขและคำถาม **ไม่ได้เขียนคำเฉลยหรือคำอธิบายว่าตัวเลขที่ต่างกันนี้เกิดจาก chance หรือ bias ตัวใด** จึงไม่ควรเติมข้อสรุปเอง"
             ]
           },
           {
@@ -1988,12 +1948,8 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Indirect association",
         "source": "Concept_of_causation p.10",
         "body": [
-          {
-            "text": "A statistical association between a suspected factor and an outcome **is not causal**; it occurs because a third factor (**a confounding factor**) is involved."
-          },
-          {
-            "text": "แผนภาพบนสไลด์: Confounding factor มีลูกศรทึบชี้ลงไปทั้งที่ Suspected factor และที่ Outcome ส่วนเส้นระหว่าง Suspected factor กับ Outcome เป็น **เส้นประ** (แสดงว่าไม่ใช่ความสัมพันธ์เชิงสาเหตุจริง)"
-          }
+          "A statistical association between a suspected factor and an outcome **is not causal**; it occurs because a third factor (**a confounding factor**) is involved.",
+          "แผนภาพบนสไลด์: Confounding factor มีลูกศรทึบชี้ลงไปทั้งที่ Suspected factor และที่ Outcome ส่วนเส้นระหว่าง Suspected factor กับ Outcome เป็น **เส้นประ** (แสดงว่าไม่ใช่ความสัมพันธ์เชิงสาเหตุจริง)"
         ]
       },
       {
@@ -2016,9 +1972,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "**Chronic kidney disease (CKD)** คือ Outcome"
                 ]
               },
-              {
-                "text": "เส้นเชื่อมบนสไลด์เขียนกำกับว่า Old cat tends to stay indoor (อายุไปยังการเลี้ยงในบ้าน) และ Old cat develops CKD (อายุไปยัง CKD) ทำให้ Indoor cat will appear to be linked with CKD ทั้งที่เส้นนั้นเป็นเส้นประ"
-              }
+              "เส้นเชื่อมบนสไลด์เขียนกำกับว่า Old cat tends to stay indoor (อายุไปยังการเลี้ยงในบ้าน) และ Old cat develops CKD (อายุไปยัง CKD) ทำให้ Indoor cat will appear to be linked with CKD ทั้งที่เส้นนั้นเป็นเส้นประ"
             ]
           }
         ]
@@ -2027,12 +1981,8 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Direct association แบบ One-to-one causal association",
         "source": "Concept_of_causation p.12",
         "body": [
-          {
-            "text": "**One-to-one causal association** คือ The factors A and B exhibit one-to-one relationship"
-          },
-          {
-            "text": "แผนภาพเป็นวงกลม A (cause) ลูกศรทึบชี้ไปยังวงกลม B (effect) เพียงเส้นเดียว"
-          },
+          "**One-to-one causal association** คือ The factors A and B exhibit one-to-one relationship",
+          "แผนภาพเป็นวงกลม A (cause) ลูกศรทึบชี้ไปยังวงกลม B (effect) เพียงเส้นเดียว",
           {
             "callout": "สไลด์พิมพ์ว่า \"reationship\" ตัวสะกดที่ถูกคือ relationship",
             "kind": "flag"
@@ -2058,9 +2008,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "ตัวอย่างโรคที่ต้องอาศัยหลายปัจจัย",
             "body": [
-              {
-                "text": "สไลด์ยกกรณี **Swine respiratory disease complex (PRDC)** โดยมีลูกศรจากหลายปัจจัยเข้าหากล่องเดียวกัน"
-              },
+              "สไลด์ยกกรณี **Swine respiratory disease complex (PRDC)** โดยมีลูกศรจากหลายปัจจัยเข้าหากล่องเดียวกัน",
               {
                 "bullets": [
                   "PRRSV",
@@ -2084,18 +2032,14 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "As our knowledge of disease increases, we may discover **common biochemical events**, which can be altered by each of these factors"
             ]
           },
-          {
-            "text": "ภาพประกอบแสดงหลายปัจจัยรอบหัวใจ ได้แก่ อาหารหวานและอาหารแปรรูป พันธุกรรม การสูบบุหรี่ ภาวะอ้วน และความเครียด"
-          }
+          "ภาพประกอบแสดงหลายปัจจัยรอบหัวใจ ได้แก่ อาหารหวานและอาหารแปรรูป พันธุกรรม การสูบบุหรี่ ภาวะอ้วน และความเครียด"
         ]
       },
       {
         "heading": "Web of causation ของโรคในสัตว์",
         "source": "Concept_of_causation p.15",
         "body": [
-          {
-            "text": "แผนภาพระบุหลักการว่า An animal disease results from the complex interaction of multiple factors. **No single cause acts alone.** โดยมี DISEASE OCCURS อยู่ตรงกลางและมีลูกศรโยงไปมาระหว่างทุกกล่อง"
-          },
+          "แผนภาพระบุหลักการว่า An animal disease results from the complex interaction of multiple factors. **No single cause acts alone.** โดยมี DISEASE OCCURS อยู่ตรงกลางและมีลูกศรโยงไปมาระหว่างทุกกล่อง",
           {
             "sub": "กล่องปัจจัยทั้ง 7 กลุ่มบนแผนภาพ",
             "body": [
@@ -2119,9 +2063,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Guideline to assess causality: The Bradford Hill criteria",
         "source": "Concept_of_causation p.16",
         "body": [
-          {
-            "text": "Criteria by **Bradford Hill (1965)** to assess causality สไลด์แสดงเป็นวงล้อ 9 วง ล้อมรอบคำว่า Bradford Hill Criteria"
-          },
+          "Criteria by **Bradford Hill (1965)** to assess causality สไลด์แสดงเป็นวงล้อ 9 วง ล้อมรอบคำว่า Bradford Hill Criteria",
           {
             "bullets": [
               "Strength",
@@ -2193,9 +2135,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Odds ratio (OR)",
         "source": "Concept_of_causation p.19",
         "body": [
-          {
-            "text": "ใช้ตาราง 2x2 ชุดเดียวกับ Relative risk (Exposed = A, B และ Non-exposed = C, D)"
-          },
+          "ใช้ตาราง 2x2 ชุดเดียวกับ Relative risk (Exposed = A, B และ Non-exposed = C, D)",
           {
             "sub": "สูตร",
             "body": [
@@ -2235,9 +2175,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "In some cases, a **threshold** may exist. Disease may not develop until exposure reaches a certain threshold"
             ]
           },
-          {
-            "text": "แผนภาพแสดง A (cause) มีลูกศรชี้ขึ้น และ B (effect) มีลูกศรชี้ขึ้นเช่นกัน สื่อว่าเมื่อ cause เพิ่ม effect ก็เพิ่มตาม"
-          }
+          "แผนภาพแสดง A (cause) มีลูกศรชี้ขึ้น และ B (effect) มีลูกศรชี้ขึ้นเช่นกัน สื่อว่าเมื่อ cause เพิ่ม effect ก็เพิ่มตาม"
         ]
       },
       {
@@ -2263,9 +2201,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               }
             ]
           },
-          {
-            "text": "ภาพประกอบเปรียบเทียบ Healthy cow brain under microscope กับ Cow brain with bovine spongiform encephalopathy ที่มา texasfarmbureau.org/bse-case-alabama-announced/"
-          }
+          "ภาพประกอบเปรียบเทียบ Healthy cow brain under microscope กับ Cow brain with bovine spongiform encephalopathy ที่มา texasfarmbureau.org/bse-case-alabama-announced/"
         ]
       },
       {
@@ -2295,15 +2231,11 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "เกณฑ์ที่ 5 Consistency",
         "source": "Concept_of_causation p.23",
         "body": [
-          {
-            "text": "**Consistent findings observed by different persons in different places with different samples strengthen the likelihood of an effect**"
-          },
+          "**Consistent findings observed by different persons in different places with different samples strengthen the likelihood of an effect**",
           {
             "sub": "ตัวอย่างงานวิจัยที่สไลด์อ้าง",
             "body": [
-              {
-                "text": "Studies from the Netherlands (**Gonzales et al. 2021**), Italy (**Galleti et al., 2018**), and France (**Guinat et al., 2025**) show that **outdoor flocks have a higher risk of HPAI introduction than indoor flocks**"
-              }
+              "Studies from the Netherlands (**Gonzales et al. 2021**), Italy (**Galleti et al., 2018**), and France (**Guinat et al., 2025**) show that **outdoor flocks have a higher risk of HPAI introduction than indoor flocks**"
             ]
           }
         ]
@@ -2315,9 +2247,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "6. Biological plausibility",
             "body": [
-              {
-                "text": "The association must be **consistent with the current knowledge of disease** (e.g. mechanism of action, evidence from experiments etc.)"
-              }
+              "The association must be **consistent with the current knowledge of disease** (e.g. mechanism of action, evidence from experiments etc.)"
             ]
           },
           {
@@ -2337,15 +2267,9 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "เมื่อความรู้ปัจจุบันจำกัด plausibility: กรณี BSE และ prion",
         "source": "Concept_of_causation p.25",
         "body": [
-          {
-            "text": "Sometimes the **lack of plausibility is limited by current knowledge**"
-          },
-          {
-            "text": "**Bovine Spongiform Encephalopathy (BSE)**: In the early 1980s, it seemed biologically implausible that an infectious disease could occur without bacteria, viruses, fungi, or parasites. Scientists later discovered **prions** คือ infectious misfolded proteins which completely changed our understanding of disease mechanisms"
-          },
-          {
-            "text": "ภาพประกอบเป็นโครงสร้างโปรตีนและภาพเปรียบเทียบสมองวัวปกติกับสมองวัวที่เป็น BSE ที่มา texasfarmbureau.org/bse-case-alabama-announced/"
-          }
+          "Sometimes the **lack of plausibility is limited by current knowledge**",
+          "**Bovine Spongiform Encephalopathy (BSE)**: In the early 1980s, it seemed biologically implausible that an infectious disease could occur without bacteria, viruses, fungi, or parasites. Scientists later discovered **prions** คือ infectious misfolded proteins which completely changed our understanding of disease mechanisms",
+          "ภาพประกอบเป็นโครงสร้างโปรตีนและภาพเปรียบเทียบสมองวัวปกติกับสมองวัวที่เป็น BSE ที่มา texasfarmbureau.org/bse-case-alabama-announced/"
         ]
       },
       {
@@ -2355,17 +2279,13 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "8. Experiment",
             "body": [
-              {
-                "text": "**Occasionally, it is possible to appeal to experimental evidence**"
-              }
+              "**Occasionally, it is possible to appeal to experimental evidence**"
             ]
           },
           {
             "sub": "9. Analogy",
             "body": [
-              {
-                "text": "**Similar cause-and-effect relationships have already been established in other, similar situations or exposures**"
-              }
+              "**Similar cause-and-effect relationships have already been established in other, similar situations or exposures**"
             ]
           },
           {
@@ -2390,9 +2310,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Decision tree ของ causal inference",
         "source": "Concept_of_causation p.28",
         "body": [
-          {
-            "text": "สไลด์เรียงคำถามเป็นขั้นบันได โดยต้องตอบ **No** ในทุกขั้นจึงจะเดินต่อไปได้ ขั้นสุดท้ายตอบ **Yes**"
-          },
+          "สไลด์เรียงคำถามเป็นขั้นบันได โดยต้องตอบ **No** ในทุกขั้นจึงจะเดินต่อไปได้ ขั้นสุดท้ายตอบ **Yes**",
           {
             "bullets": [
               "เริ่มที่ **Observed association**",
@@ -2434,9 +2352,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "เปิดเรื่อง: ทำไมต้องรู้ว่าโรคแพร่อย่างไร",
         "source": "concept_of_disease_transmission p.2-3",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยรูปเคสสุนัขที่ถ่าย/อาเจียนเป็นเลือด (ที่มาภาพระบุเป็นเคส canine parvovirus) แล้วตั้งคำถามที่สัตวแพทย์ต้องตอบหน้างาน 3 ข้อ"
-          },
+          "สไลด์เปิดด้วยรูปเคสสุนัขที่ถ่าย/อาเจียนเป็นเลือด (ที่มาภาพระบุเป็นเคส canine parvovirus) แล้วตั้งคำถามที่สัตวแพทย์ต้องตอบหน้างาน 3 ข้อ",
           {
             "bullets": [
               "Where did this come from?",
@@ -2448,9 +2364,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
             "callout": "You cannot answer any of them without knowing how the disease spreads คือถ้าไม่รู้กลไกการแพร่ ก็ตอบทั้ง 3 ข้อไม่ได้เลย",
             "kind": "flag"
           },
-          {
-            "text": "นิยามบนสไลด์: Disease transmission คือ **the movement of an infectious agent from one host to another** (การเคลื่อนที่ของเชื้อก่อโรคจากโฮสต์หนึ่งไปอีกโฮสต์หนึ่ง)"
-          },
+          "นิยามบนสไลด์: Disease transmission คือ **the movement of an infectious agent from one host to another** (การเคลื่อนที่ของเชื้อก่อโรคจากโฮสต์หนึ่งไปอีกโฮสต์หนึ่ง)",
           {
             "sub": "ทำไมเรื่องนี้สำคัญ (3 เหตุผลบนสไลด์)",
             "body": [
@@ -2484,9 +2398,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Epidemiological triad (สามเหลี่ยมการเกิดโรค)",
         "source": "concept_of_disease_transmission p.6",
         "body": [
-          {
-            "text": "สไลด์วางสามเหลี่ยม **Agent - Host - Environment** โดยมี Disease อยู่ตรงกลาง แต่ละมุมมีตัวอย่างปัจจัยกำกับไว้"
-          },
+          "สไลด์วางสามเหลี่ยม **Agent - Host - Environment** โดยมี Disease อยู่ตรงกลาง แต่ละมุมมีตัวอย่างปัจจัยกำกับไว้",
           {
             "sub": "Agent",
             "body": [
@@ -2497,9 +2409,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "**Physical**: trauma, nutrition lack/excess"
                 ]
               },
-              {
-                "text": "จุดที่ควรจำคือ agent ในความหมายนี้ไม่ได้แปลว่าเชื้อโรคอย่างเดียว สารเคมีและปัจจัยทางกายภาพก็นับเป็น agent ด้วย"
-              }
+              "จุดที่ควรจำคือ agent ในความหมายนี้ไม่ได้แปลว่าเชื้อโรคอย่างเดียว สารเคมีและปัจจัยทางกายภาพก็นับเป็น agent ด้วย"
             ]
           },
           {
@@ -2574,9 +2484,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Natural history of disease: 4 ระยะของโรคในสัตว์ 1 ตัว",
         "source": "concept_of_disease_transmission p.11",
         "body": [
-          {
-            "text": "นิยามบนสไลด์: **How the disease progresses in the individual animal over time without treatment** คือการดำเนินโรคในสัตว์รายตัวตามเวลาโดยไม่ได้รับการรักษา"
-          },
+          "นิยามบนสไลด์: **How the disease progresses in the individual animal over time without treatment** คือการดำเนินโรคในสัตว์รายตัวตามเวลาโดยไม่ได้รับการรักษา",
           {
             "sub": "แถบเวลา 4 ระยะ (เรียงซ้ายไปขวา)",
             "body": [
@@ -2601,9 +2509,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "**Usual time of diagnosis** ชี้อยู่ในช่วง clinical disease"
                 ]
               },
-              {
-                "text": "ประเด็นที่ภาพนี้สื่อคือ พยาธิสภาพเกิดก่อนที่จะเห็นอาการ และการวินิจฉัยตามปกติเกิดหลังอาการปรากฏไปแล้ว"
-              }
+              "ประเด็นที่ภาพนี้สื่อคือ พยาธิสภาพเกิดก่อนที่จะเห็นอาการ และการวินิจฉัยตามปกติเกิดหลังอาการปรากฏไปแล้ว"
             ]
           }
         ]
@@ -2612,9 +2518,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Timeline: latency, incubation, infectiousness",
         "source": "concept_of_disease_transmission p.12",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นเส้นเวลาที่เริ่มจาก **Exposure** แล้วแยกช่วงเวลาไว้เหนือเส้นและใต้เส้น"
-          },
+          "สไลด์นี้เป็นเส้นเวลาที่เริ่มจาก **Exposure** แล้วแยกช่วงเวลาไว้เหนือเส้นและใต้เส้น",
           {
             "sub": "เหนือเส้นเวลา",
             "body": [
@@ -2695,9 +2599,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Incubation period ของแต่ละโรคต่างกันมาก (ตาราง)",
         "source": "concept_of_disease_transmission p.15",
         "body": [
-          {
-            "text": "หัวเรื่องบนสไลด์คือ Incubation periods vary widely ตารางมี 3 คอลัมน์ Disease, Species, Typical incubation period"
-          },
+          "หัวเรื่องบนสไลด์คือ Incubation periods vary widely ตารางมี 3 คอลัมน์ Disease, Species, Typical incubation period",
           {
             "bullets": [
               "Foot-and-mouth disease, Cattle, pigs, sheep, **2-14 days**",
@@ -2713,9 +2615,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "ใช้ incubation period ในการสอบสวนโรค (outbreak investigation)",
         "source": "concept_of_disease_transmission p.16",
         "body": [
-          {
-            "text": "สไลด์แสดง epidemic curve (แกน y = Number of cases, แกน x = วันที่ 1/1/2020 ถึง 1/15/2020) พร้อมเส้นประสีแดง 3 เส้นและลูกศรกำกับ"
-          },
+          "สไลด์แสดง epidemic curve (แกน y = Number of cases, แกน x = วันที่ 1/1/2020 ถึง 1/15/2020) พร้อมเส้นประสีแดง 3 เส้นและลูกศรกำกับ",
           {
             "bullets": [
               "จุด **Exposure** ทำเครื่องหมายไว้ที่ราวช่วง 1/2/2020",
@@ -2728,18 +2628,14 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
             "callout": "สไลด์ไม่ได้ติดตัวเลขกำกับบนแท่งกราฟ จึงอ่านจำนวนเคสรายวันเป็นตัวเลขที่แน่นอนจากภาพไม่ได้ อ่านได้แค่วันที่บนแกน x และรูปทรงของกราฟ",
             "kind": "flag"
           },
-          {
-            "text": "ไอเดียของสไลด์คือ ถ้ารู้ incubation period ของโรคอยู่แล้ว จะย้อนจากวันเริ่มป่วยของเคสไปหาช่วงเวลาที่น่าจะเกิด exposure ได้"
-          }
+          "ไอเดียของสไลด์คือ ถ้ารู้ incubation period ของโรคอยู่แล้ว จะย้อนจากวันเริ่มป่วยของเคสไปหาช่วงเวลาที่น่าจะเกิด exposure ได้"
         ]
       },
       {
         "heading": "Chain of infection: ข้อต่อทั้ง 6 ของวงจรการติดเชื้อ",
         "source": "concept_of_disease_transmission p.18",
         "body": [
-          {
-            "text": "สไลด์เป็นวงโซ่ 6 ข้อต่อ พร้อมกล่องตัวอย่างกำกับแต่ละข้อต่อ"
-          },
+          "สไลด์เป็นวงโซ่ 6 ข้อต่อ พร้อมกล่องตัวอย่างกำกับแต่ละข้อต่อ",
           {
             "bullets": [
               "**INFECTIOUS AGENT**: Bacteria, Virus, Fungus, Parasite",
@@ -2756,9 +2652,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Susceptible host: ปัจจัยด้านตัวสัตว์ (age, breed, sex, genetics)",
         "source": "concept_of_disease_transmission p.19",
         "body": [
-          {
-            "text": "หัวข้อบนสไลด์คือ Factors related to susceptibility of hosts"
-          },
+          "หัวข้อบนสไลด์คือ Factors related to susceptibility of hosts",
           {
             "bullets": [
               "**Age**: young animals (immature immune system) and old animals (**immunosenescence**) are more susceptible",
@@ -2786,9 +2680,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "Active immunity",
             "body": [
-              {
-                "text": "นิยามบนสไลด์: **immunity that is triggered by a pathogen to produce antibodies to that pathogen**"
-              },
+              "นิยามบนสไลด์: **immunity that is triggered by a pathogen to produce antibodies to that pathogen**",
               {
                 "bullets": [
                   "Previous natural exposure",
@@ -2813,9 +2705,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Herd immunity (ภูมิคุ้มกันหมู่)",
         "source": "concept_of_disease_transmission p.21",
         "body": [
-          {
-            "text": "นิยามบนสไลด์: Herd immunity **occurs when a sufficient percentage of a population has become immune to an infection, whether through previous infections or vaccination** (ที่มา Wikipedia)"
-          },
+          "นิยามบนสไลด์: Herd immunity **occurs when a sufficient percentage of a population has become immune to an infection, whether through previous infections or vaccination** (ที่มา Wikipedia)",
           {
             "sub": "ภาพประกอบ 3 สถานการณ์",
             "body": [
@@ -2826,9 +2716,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "**Most of the population gets immunized** ผลคือ Spread of contagious disease is contained"
                 ]
               },
-              {
-                "text": "สไลด์ไม่ได้ระบุตัวเลขเปอร์เซ็นต์ว่า sufficient percentage คือเท่าไหร่ บอกแค่ว่าต้องมากพอ"
-              }
+              "สไลด์ไม่ได้ระบุตัวเลขเปอร์เซ็นต์ว่า sufficient percentage คือเท่าไหร่ บอกแค่ว่าต้องมากพอ"
             ]
           }
         ]
@@ -2854,9 +2742,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Infectious agent: infectivity, pathogenicity, virulence",
         "source": "concept_of_disease_transmission p.23",
         "body": [
-          {
-            "text": "หัวข้อบนสไลด์คือ Factors related to infectious agents"
-          },
+          "หัวข้อบนสไลด์คือ Factors related to infectious agents",
           {
             "bullets": [
               "**Infectivity (ความสามารถในการติดเชื้อ)**: The ability of an infectious agent to cause infection",
@@ -2899,9 +2785,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "ตัวอย่าง Viability: เวลารอดของเชื้อ avian influenza ที่ 20 องศาเซลเซียส",
         "source": "concept_of_disease_transmission p.26",
         "body": [
-          {
-            "text": "ภาพ infographic ชื่อ Survival Time of Avian Influenza at 20°C โดยระบุกำกับว่า The following times are approximate and may consider various AI sub-types (ที่มา inspection.canada.ca)"
-          },
+          "ภาพ infographic ชื่อ Survival Time of Avian Influenza at 20°C โดยระบุกำกับว่า The following times are approximate and may consider various AI sub-types (ที่มา inspection.canada.ca)",
           {
             "bullets": [
               "Skin **5 hours**",
@@ -2935,9 +2819,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "ตัวอย่าง Host range: influenza viruses แยกตามชนิดสัตว์",
         "source": "concept_of_disease_transmission p.27",
         "body": [
-          {
-            "text": "ภาพเป็นวงกลมซ้อนทับกัน 4 วง แสดงว่า influenza แต่ละ type ติดสัตว์ชนิดใดได้บ้าง (ที่มา doi.org/10.3390/vetsci5030071)"
-          },
+          "ภาพเป็นวงกลมซ้อนทับกัน 4 วง แสดงว่า influenza แต่ละ type ติดสัตว์ชนิดใดได้บ้าง (ที่มา doi.org/10.3390/vetsci5030071)",
           {
             "bullets": [
               "**Influenza A viruses** (วงใหญ่ที่สุด): Duck, Turkey, Leopard, Tiger, Chicken, Emu, Quail, Raccoon, Ferret, Bat, Water fowl, Ostrich, Whale, Dog, Cat, Horse, Seal",
@@ -2956,9 +2838,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Infectious agent: Transmissibility",
         "source": "concept_of_disease_transmission p.28",
         "body": [
-          {
-            "text": "**Transmissibility (ความสามารถในการแพร่โรค)**: The capacity of a pathogen to spread from one host to another"
-          },
+          "**Transmissibility (ความสามารถในการแพร่โรค)**: The capacity of a pathogen to spread from one host to another",
           {
             "sub": "Influenced by",
             "body": [
@@ -2982,9 +2862,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Basic reproduction number (R0)",
         "source": "concept_of_disease_transmission p.29",
         "body": [
-          {
-            "text": "นิยามบนสไลด์: **The average number of new infections caused by one infected animal introduced into a fully susceptible population**"
-          },
+          "นิยามบนสไลด์: **The average number of new infections caused by one infected animal introduced into a fully susceptible population**",
           {
             "bullets": [
               "**R0 greater than 1**: infection spreads and an outbreak grows",
@@ -2992,18 +2870,14 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "**R0 less than 1**: infection dies out"
             ]
           },
-          {
-            "text": "ภาพประกอบด้านขวาแสดงกรณี **R0 = 4** โดยที่เวลา t มีสัตว์ป่วย 1 ตัว แล้วที่ t+1 กลายเป็น 4 ตัว และที่ t+2 แต่ละตัวก็แพร่ต่ออีก (ที่มา sciencedirect.com)"
-          }
+          "ภาพประกอบด้านขวาแสดงกรณี **R0 = 4** โดยที่เวลา t มีสัตว์ป่วย 1 ตัว แล้วที่ t+1 กลายเป็น 4 ตัว และที่ t+2 แต่ละตัวก็แพร่ต่ออีก (ที่มา sciencedirect.com)"
         ]
       },
       {
         "heading": "Reservoir (แหล่งรังโรค)",
         "source": "concept_of_disease_transmission p.30-31",
         "body": [
-          {
-            "text": "นิยามบนสไลด์: **Reservoir (แหล่งรังโรค) คือ The natural habitat where a pathogen normally lives, grows, and multiplies**"
-          },
+          "นิยามบนสไลด์: **Reservoir (แหล่งรังโรค) คือ The natural habitat where a pathogen normally lives, grows, and multiplies**",
           {
             "bullets": [
               "**Animal reservoirs**: bats, wildlife, rodents",
@@ -3013,12 +2887,8 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "ตัวอย่าง: ค้างคาว (p.31)",
             "body": [
-              {
-                "text": "ข้อความบนสไลด์: Bats are **reservoir hosts** for multiple diseases, such as rabies, Nipah virus, Ebola virus, SARs-CoV, MERS-CoV, and Hendra virus"
-              },
-              {
-                "text": "ภาพประกอบวาดเส้นทาง spillover จาก Reservoir (Wildlife) ผ่านสัตว์ตัวกลางไปสู่คน โดยกำกับว่า Spillover 1 คือจากค้างคาวไปยังสัตว์ชนิดอื่น และ Spillover 2 คือจากสัตว์นั้นไปสู่คน สัตว์ตัวกลางที่ปรากฏในภาพ ได้แก่ วัว (Rabies), หมู (SADS-CoV, Nipah virus), ลิง (Ebolavirus), ตัวสัตว์กินเนื้อขนาดเล็ก (SARS-CoV), อูฐ (MERS-CoV), ม้า (Hendra) และตัวนิ่ม (SARS-CoV-2) (ที่มา mednexus.org)"
-              }
+              "ข้อความบนสไลด์: Bats are **reservoir hosts** for multiple diseases, such as rabies, Nipah virus, Ebola virus, SARs-CoV, MERS-CoV, and Hendra virus",
+              "ภาพประกอบวาดเส้นทาง spillover จาก Reservoir (Wildlife) ผ่านสัตว์ตัวกลางไปสู่คน โดยกำกับว่า Spillover 1 คือจากค้างคาวไปยังสัตว์ชนิดอื่น และ Spillover 2 คือจากสัตว์นั้นไปสู่คน สัตว์ตัวกลางที่ปรากฏในภาพ ได้แก่ วัว (Rabies), หมู (SADS-CoV, Nipah virus), ลิง (Ebolavirus), ตัวสัตว์กินเนื้อขนาดเล็ก (SARS-CoV), อูฐ (MERS-CoV), ม้า (Hendra) และตัวนิ่ม (SARS-CoV-2) (ที่มา mednexus.org)"
             ]
           }
         ]
@@ -3056,9 +2926,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "มีดาวสีแดงทำเครื่องหมายไว้ตรงจุดที่สัตว์เข้าสู่ช่วง Infectious แล้วแต่ยังอยู่ในช่วง Incubating ทางคลินิก"
                 ]
               },
-              {
-                "text": "ที่มา cfsph.iastate.edu"
-              }
+              "ที่มา cfsph.iastate.edu"
             ]
           },
           {
@@ -3083,9 +2951,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "ตัวอย่าง Chronic carrier: ลูกโค persistently infected จาก BVD",
         "source": "concept_of_disease_transmission p.35",
         "body": [
-          {
-            "text": "ข้อความบนสไลด์: When an early pregnant (**fetus less than 4 months**) uninfected cow gets infected with BVD, the resulting calf is often born a **chronic carrier** for BVD"
-          },
+          "ข้อความบนสไลด์: When an early pregnant (**fetus less than 4 months**) uninfected cow gets infected with BVD, the resulting calf is often born a **chronic carrier** for BVD",
           {
             "sub": "ลำดับเหตุการณ์ในภาพประกอบ A ถึง F",
             "body": [
@@ -3098,9 +2964,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "(E)(F) **Superinfection** of this and other viremic animals with cytopathic virus causes **fatal mucosal disease**"
                 ]
               },
-              {
-                "text": "ที่มา doi.org/10.1016/B978-012263951-7/50017-X"
-              }
+              "ที่มา doi.org/10.1016/B978-012263951-7/50017-X"
             ]
           }
         ]
@@ -3115,9 +2979,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "**Portal of Entry (ทางเข้าของเชื้อ)**: Mucous membranes, respiratory tract, gastrointestinal tract, urinary tract, teat canal, skin wounds, placenta"
             ]
           },
-          {
-            "text": "ภาพประกอบชื่อ HOW ORGANISMS ENTER AND LEAVE THE PIG ชี้ตำแหน่งบนตัวหมู ได้แก่ Skin, Eyes, Nose, Saliva Aerosol, Mouth, Ruptured vestibs, Prepuce Semen Urine และ Faeces (ที่มา thepigsite.com)"
-          }
+          "ภาพประกอบชื่อ HOW ORGANISMS ENTER AND LEAVE THE PIG ชี้ตำแหน่งบนตัวหมู ได้แก่ Skin, Eyes, Nose, Saliva Aerosol, Mouth, Ruptured vestibs, Prepuce Semen Urine และ Faeces (ที่มา thepigsite.com)"
         ]
       },
       {
@@ -3127,9 +2989,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "Direct transmission",
             "body": [
-              {
-                "text": "นิยาม: **agent passes straight from an infected to a susceptible host**"
-              },
+              "นิยาม: **agent passes straight from an infected to a susceptible host**",
               {
                 "bullets": [
                   "Direct contact",
@@ -3143,9 +3003,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "Indirect transmission",
             "body": [
-              {
-                "text": "นิยาม: **agent passes via an intermediate**"
-              },
+              "นิยาม: **agent passes via an intermediate**",
               {
                 "bullets": [
                   "Vehicle-borne (fomites, feed, water)",
@@ -3191,9 +3049,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "**Vertical transmission**: Mother to offspring, ผ่านทาง **Transplacental, at birth, or through colostrum and milk**. Example: **BVD persistently infected calves, PRRS**"
             ]
           },
-          {
-            "text": "มีรูปประกอบรอยโรคที่อวัยวะสืบพันธุ์ 2 ภาพกำกับ A และ B (ที่มา doi.org/10.3390/ani15121675) สไลด์ไม่ได้ระบุว่ารอยโรคในภาพเป็นของโรคใด"
-          }
+          "มีรูปประกอบรอยโรคที่อวัยวะสืบพันธุ์ 2 ภาพกำกับ A และ B (ที่มา doi.org/10.3390/ani15121675) สไลด์ไม่ได้ระบุว่ารอยโรคในภาพเป็นของโรคใด"
         ]
       },
       {
@@ -3203,9 +3059,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "Fomites",
             "body": [
-              {
-                "text": "นิยาม: **inanimate objects that carry the agent**"
-              },
+              "นิยาม: **inanimate objects that carry the agent**",
               {
                 "bullets": [
                   "ตัวอย่างวัตถุ: Milking equipment, needles, boots, clothing, buckets, vehicles, halters",
@@ -3240,9 +3094,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Indirect transmission: Vector-borne (mechanical vs biological vector)",
         "source": "concept_of_disease_transmission p.42",
         "body": [
-          {
-            "text": "สไลด์เปรียบเทียบเป็นตาราง 4 แถว"
-          },
+          "สไลด์เปรียบเทียบเป็นตาราง 4 แถว",
           {
             "sub": "Agent development",
             "body": [
@@ -3310,9 +3162,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "ตัวอย่าง Airborne: การพัดพาละอองเชื้อ FMD ระยะไกล",
         "source": "concept_of_disease_transmission p.44",
         "body": [
-          {
-            "text": "ข้อความบนสไลด์: The factors required for airborne transport of foot-and-mouth disease virus aerosols over long distances (**up to 50 km over land and 200km over water**)"
-          },
+          "ข้อความบนสไลด์: The factors required for airborne transport of foot-and-mouth disease virus aerosols over long distances (**up to 50 km over land and 200km over water**)",
           {
             "sub": "ปัจจัย 4 ข้อในภาพประกอบ (ที่มา doi.org/10.3390/v14051009)",
             "body": [
@@ -3336,9 +3186,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         "heading": "Type of prevention: primary, secondary, tertiary",
         "source": "concept_of_disease_transmission p.46",
         "body": [
-          {
-            "text": "สไลด์นำแถบ natural history of disease เดิม (จาก p.11) มาวางแล้วชี้ว่าการป้องกันแต่ละระดับเข้าไปแทรกที่ระยะใด"
-          },
+          "สไลด์นำแถบ natural history of disease เดิม (จาก p.11) มาวางแล้วชี้ว่าการป้องกันแต่ละระดับเข้าไปแทรกที่ระยะใด",
           {
             "bullets": [
               "**Primary prevention** เข้าที่ **Stage of susceptibility**: remove risk factors, avoid disease occurring",
@@ -3346,9 +3194,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "**Tertiary prevention** เข้าที่ **Stage of clinical disease**: prevent complications and disability"
             ]
           },
-          {
-            "text": "จุดเวลาบนแถบยังเป็นชุดเดิม คือ Exposure, Pathological change, Onset of symptom และ Usual time of diagnosis ส่วนระยะสุดท้ายคือ Stage of recovery, disability or death ซึ่งสไลด์ไม่ได้ระบุการป้องกันระดับใดกำกับไว้"
-          }
+          "จุดเวลาบนแถบยังเป็นชุดเดิม คือ Exposure, Pathological change, Onset of symptom และ Usual time of diagnosis ส่วนระยะสุดท้ายคือ Stage of recovery, disability or death ซึ่งสไลด์ไม่ได้ระบุการป้องกันระดับใดกำกับไว้"
         ]
       },
       {
@@ -3359,9 +3205,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
             "callout": "ประโยคหลักของสไลด์: **Break any one link and transmission stops!**",
             "kind": "tip"
           },
-          {
-            "text": "สไลด์ยิงสายฟ้าเข้าที่ข้อต่อทั้ง 6 พร้อมมาตรการกำกับ"
-          },
+          "สไลด์ยิงสายฟ้าเข้าที่ข้อต่อทั้ง 6 พร้อมมาตรการกำกับ",
           {
             "bullets": [
               "**Infectious Agent**: Diagnosis and treatment, antimicrobial stewardship",
@@ -3402,9 +3246,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "Internal biosecurity",
             "body": [
-              {
-                "text": "นิยาม: **limiting spread within the farm** (จำกัดการแพร่ภายในฟาร์ม)"
-              },
+              "นิยาม: **limiting spread within the farm** (จำกัดการแพร่ภายในฟาร์ม)",
               {
                 "bullets": [
                   "Separate age groups and health status groups",
@@ -3419,9 +3261,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
           {
             "sub": "External biosecurity",
             "body": [
-              {
-                "text": "นิยาม: **keeping agents from entering a farm or facility** (กันเชื้อไม่ให้เข้าฟาร์ม)"
-              },
+              "นิยาม: **keeping agents from entering a farm or facility** (กันเชื้อไม่ให้เข้าฟาร์ม)",
               {
                 "bullets": [
                   "Quarantine and test purchased animals before mixing",

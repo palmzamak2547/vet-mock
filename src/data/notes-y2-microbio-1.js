@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_MICROBIO_1 = {
@@ -28,9 +28,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Outline ของบทเรียน",
         "source": "Antimicrobial resistance p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดวางกรอบไว้ 5 หัวข้อ ใช้เป็นแผนที่อ่านทั้งเด็คได้เลย"
-          },
+          "สไลด์เปิดวางกรอบไว้ 5 หัวข้อ ใช้เป็นแผนที่อ่านทั้งเด็คได้เลย",
           {
             "bullets": [
               "Antimicrobial resistance: a public health problem",
@@ -46,9 +44,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "AMR เป็นปัญหาสาธารณสุข: เรื่องราวจนถึงตอนนี้",
         "source": "Antimicrobial resistance p.1",
         "body": [
-          {
-            "text": "ผลของการดื้อยาที่สไลด์ระบุไว้ 4 ข้อ"
-          },
+          "ผลของการดื้อยาที่สไลด์ระบุไว้ 4 ข้อ",
           {
             "bullets": [
               "Limit antimicrobial uses (ยาที่เลือกใช้ได้เหลือน้อยลง)",
@@ -73,18 +69,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Resistant resident bacteria can survive** คือตัวที่รอดและถูกคัดเลือกไว้"
             ]
           },
-          {
-            "text": "สไลด์ยกบริบท in-feed antimicrobials และชื่อเชื้อที่เกี่ยวข้อง ได้แก่ Staphylococcus aureus, E. coli, Klebsiella pneumoniae, Enterococcus sp. และ Campylobacter sp."
-          }
+          "สไลด์ยกบริบท in-feed antimicrobials และชื่อเชื้อที่เกี่ยวข้อง ได้แก่ Staphylococcus aureus, E. coli, Klebsiella pneumoniae, Enterococcus sp. และ Campylobacter sp."
         ]
       },
       {
         "heading": "เส้นทางเชื่อมระหว่างคน สัตว์ และสิ่งแวดล้อม",
         "source": "Antimicrobial resistance p.2",
         "body": [
-          {
-            "text": "**Pig and human share common resident bacteria** สไลด์ระบุเส้นทางที่เชื้อและยาเดินทางถึงกันไว้ 3 ทาง"
-          },
+          "**Pig and human share common resident bacteria** สไลด์ระบุเส้นทางที่เชื้อและยาเดินทางถึงกันไว้ 3 ทาง",
           {
             "bullets": [
               "Food chain",
@@ -92,21 +84,15 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Shared environment"
             ]
           },
-          {
-            "text": "ช่องทาง/จุดที่สไลด์วางไว้ในแผนภาพ ได้แก่ human, livestock, companion animals, food products, agricultural products และ environment โดยสิ่งที่ไหลเวียนคือ ยาปฏิชีวนะตกค้าง และ แบคทีเรียดื้อยาต้านจุลชีพ"
-          },
-          {
-            "text": "เชื้อที่ระบุซ้ำในกลุ่ม resident bacteria คือ Escherichia coli, Enterococcus sp., Staphylococcus sp., Klebsiella pneumoniae เป็นต้น"
-          }
+          "ช่องทาง/จุดที่สไลด์วางไว้ในแผนภาพ ได้แก่ human, livestock, companion animals, food products, agricultural products และ environment โดยสิ่งที่ไหลเวียนคือ ยาปฏิชีวนะตกค้าง และ แบคทีเรียดื้อยาต้านจุลชีพ",
+          "เชื้อที่ระบุซ้ำในกลุ่ม resident bacteria คือ Escherichia coli, Enterococcus sp., Staphylococcus sp., Klebsiella pneumoniae เป็นต้น"
         ]
       },
       {
         "heading": "ทำไม resident bacteria ถึงกลายเป็นปัญหา",
         "source": "Antimicrobial resistance p.2",
         "body": [
-          {
-            "text": "สไลด์ลำดับให้เห็นเป็นสายโซ่"
-          },
+          "สไลด์ลำดับให้เห็นเป็นสายโซ่",
           {
             "bullets": [
               "Resident bacteria: keep silent and be friendly in healthy people",
@@ -120,9 +106,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ยาต้านจุลชีพที่ผสมในอาหารสัตว์ในภูมิภาค SEA",
         "source": "Antimicrobial resistance p.2",
         "body": [
-          {
-            "text": "ตารางจาก Nhung et al., 2016. Antibiotics. 5:37 จับคู่ตัวยากับ class ไว้ดังนี้"
-          },
+          "ตารางจาก Nhung et al., 2016. Antibiotics. 5:37 จับคู่ตัวยากับ class ไว้ดังนี้",
           {
             "bullets": [
               "Chlortetracycline และ Oxytetracycline = Tetracyclines",
@@ -138,21 +122,15 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Trimethoprim = Dihydrofolate reductase inhibitor"
             ]
           },
-          {
-            "text": "หน้าถัดมา (p.3) เป็นแผนภาพ links between AMR in animal and human health ที่มีแต่ชื่อยา Avoparcin, Colistin, Neomycin, Amoxicillin, Florfenicol, Lincomycin, Virginiamycin, Chlortetracycline/Oxytetracycline และ Tiamulin วางอยู่บนภาพ สไลด์ไม่ได้เขียนคำอธิบายกำกับว่าแต่ละตัวเชื่อมโยงกันอย่างไร"
-          }
+          "หน้าถัดมา (p.3) เป็นแผนภาพ links between AMR in animal and human health ที่มีแต่ชื่อยา Avoparcin, Colistin, Neomycin, Amoxicillin, Florfenicol, Lincomycin, Virginiamycin, Chlortetracycline/Oxytetracycline และ Tiamulin วางอยู่บนภาพ สไลด์ไม่ได้เขียนคำอธิบายกำกับว่าแต่ละตัวเชื่อมโยงกันอย่างไร"
         ]
       },
       {
         "heading": "เคสตัวอย่างที่ 1: Pan drug-resistant P. aeruginosa ในคน",
         "source": "Antimicrobial resistance p.3",
         "body": [
-          {
-            "text": "Pseudomonas aeruginosa เป็นแบคทีเรียแกรมลบ รูปร่างท่อน พบได้ในสิ่งแวดล้อม"
-          },
-          {
-            "text": "ลำดับเหตุการณ์ตามสไลด์: นิ่วในไต → ติดเชื้อ P. aeruginosa ในทางเดินปัสสาวะ → ติดเชื้อในกระแสเลือดและอวัยวะอื่น ๆ"
-          },
+          "Pseudomonas aeruginosa เป็นแบคทีเรียแกรมลบ รูปร่างท่อน พบได้ในสิ่งแวดล้อม",
+          "ลำดับเหตุการณ์ตามสไลด์: นิ่วในไต → ติดเชื้อ P. aeruginosa ในทางเดินปัสสาวะ → ติดเชื้อในกระแสเลือดและอวัยวะอื่น ๆ",
           {
             "callout": "**เชื้อรายนี้ดื้อยาต้านจุลชีพทุกชนิดที่ใช้รักษาการติดเชื้อแบคทีเรียในทางการแพทย์ = Pan drug-resistant (PDR) P. aeruginosa**",
             "kind": "warn"
@@ -170,12 +148,8 @@ export const NOTES_Y2_MICROBIO_1 = {
               "สุนัขตัวที่ 2 ติดเชื้อ carbapenem-resistant P. aeruginosa ที่ช่องหูส่วนนอก"
             ]
           },
-          {
-            "text": "เชื้อที่พบ **เป็นสายพันธุ์เดียวกันและมีรูปแบบการดื้อยาเหมือนกัน** ข้อสรุปที่สไลด์เขียนไว้คือ เจ้าของสุนัขมีโอกาสได้รับเชื้อในโรงพยาบาลและเป็นพาหะ แล้วสุนัขได้รับเชื้อจากเจ้าของ ซึ่งเรียกว่า **zooanthroponotic transmission** (คนสู่สัตว์)"
-          },
-          {
-            "text": "อ้างอิง Mariam et al. (2018) Emerg Infect Dis. 24(6): 1160-1162"
-          }
+          "เชื้อที่พบ **เป็นสายพันธุ์เดียวกันและมีรูปแบบการดื้อยาเหมือนกัน** ข้อสรุปที่สไลด์เขียนไว้คือ เจ้าของสุนัขมีโอกาสได้รับเชื้อในโรงพยาบาลและเป็นพาหะ แล้วสุนัขได้รับเชื้อจากเจ้าของ ซึ่งเรียกว่า **zooanthroponotic transmission** (คนสู่สัตว์)",
+          "อ้างอิง Mariam et al. (2018) Emerg Infect Dis. 24(6): 1160-1162"
         ]
       },
       {
@@ -303,9 +277,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "จาก MDR ไป XDR ไป PDR ใน P. aeruginosa",
         "source": "Antimicrobial resistance p.5",
         "body": [
-          {
-            "text": "สไลด์ไล่เป็นขั้นบันไดจาก natural resistance แล้วสะสม acquired resistance ทีละกลุ่ม"
-          },
+          "สไลด์ไล่เป็นขั้นบันไดจาก natural resistance แล้วสะสม acquired resistance ทีละกลุ่ม",
           {
             "bullets": [
               "Natural resistance",
@@ -325,12 +297,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "การเลือกยาและ AST panel สำหรับ P. aeruginosa",
         "source": "Antimicrobial resistance p.5",
         "body": [
-          {
-            "text": "หลักคือ **ตัดยาที่เชื้อ natural resistance ออกจาก panel ตั้งแต่ต้น** แล้วทดสอบเฉพาะยาที่มีโอกาสใช้ได้จริง"
-          },
-          {
-            "text": "Antimicrobial susceptibility testing panel ที่สไลด์ติ๊กไว้ให้ทดสอบ"
-          },
+          "หลักคือ **ตัดยาที่เชื้อ natural resistance ออกจาก panel ตั้งแต่ต้น** แล้วทดสอบเฉพาะยาที่มีโอกาสใช้ได้จริง",
+          "Antimicrobial susceptibility testing panel ที่สไลด์ติ๊กไว้ให้ทดสอบ",
           {
             "bullets": [
               "Aminoglycosides",
@@ -347,9 +315,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Antimicrobial classes แบ่งตามกลไกออกฤทธิ์",
         "source": "Antimicrobial resistance p.5-6",
         "body": [
-          {
-            "text": "สไลด์รวมหัวข้อไว้ 4 กลุ่ม"
-          },
+          "สไลด์รวมหัวข้อไว้ 4 กลุ่ม",
           {
             "bullets": [
               "Cell wall synthesis inhibitors",
@@ -428,9 +394,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "5. Overproduction of or additional target"
             ]
           },
-          {
-            "text": "อ้างอิง Wilson 2014. Nat Rev Microbiol."
-          }
+          "อ้างอิง Wilson 2014. Nat Rev Microbiol."
         ]
       },
       {
@@ -445,9 +409,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "**Decreased expression of specific channel** ทำให้ยาเข้าเซลล์ได้น้อยลง"
                 ]
               },
-              {
-                "text": "อ้างอิง Li et al. 2015. Clin Microbiol Rev. 28(2)"
-              }
+              "อ้างอิง Li et al. 2015. Clin Microbiol Rev. 28(2)"
             ]
           },
           {
@@ -459,9 +421,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Multidrug efflux pump"
                 ]
               },
-              {
-                "text": "อ้างอิง Beceiro et al., 2013. Clin Microbiol Rev. 26(2):185"
-              }
+              "อ้างอิง Beceiro et al., 2013. Clin Microbiol Rev. 26(2):185"
             ]
           }
         ]
@@ -485,9 +445,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Aminoglycoside-modifying enzymes",
             "body": [
-              {
-                "text": "ทำงานแบบ enzymatic modification คือ **เติมหมู่เคมีเข้าไปที่ตัวยา** (addition of chemical groups) แบ่งเป็น 3 กลุ่มตามหมู่ที่เติม"
-              },
+              "ทำงานแบบ enzymatic modification คือ **เติมหมู่เคมีเข้าไปที่ตัวยา** (addition of chemical groups) แบ่งเป็น 3 กลุ่มตามหมู่ที่เติม",
               {
                 "bullets": [
                   "AAC = aminoglycoside acetyltransferase",
@@ -524,9 +482,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "ได้แก่ Tet(O) และ Tet(M)"
                 ]
               },
-              {
-                "text": "อ้างอิง Connell et al. 2003. Antimicrob Agents Chemother. 47(12)"
-              }
+              "อ้างอิง Connell et al. 2003. Antimicrob Agents Chemother. 47(12)"
             ]
           }
         ]
@@ -547,9 +503,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Empirical treatment: ให้ยาก่อนรู้ผลเพาะเชื้อ",
         "source": "Antimicrobial resistance p.8-9",
         "body": [
-          {
-            "text": "ลำดับการทำงานตามสไลด์คือ clinical diagnosis and onset of treatment ใช้ empirical treatment ไปก่อน แล้วจึงตามด้วย species identification และผล AST"
-          },
+          "ลำดับการทำงานตามสไลด์คือ clinical diagnosis and onset of treatment ใช้ empirical treatment ไปก่อน แล้วจึงตามด้วย species identification และผล AST",
           {
             "sub": "นิยามของ empirical treatment",
             "body": [
@@ -626,9 +580,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "CLSI documents และ quality control",
         "source": "Antimicrobial resistance p.10",
         "body": [
-          {
-            "text": "CLSI documents เป็น an approved standard ที่ให้ precise instructions ว่าจะทำ AST in vitro อย่างไร ครอบคลุม medium (รวม supplements), inoculum density และ test conditions"
-          },
+          "CLSI documents เป็น an approved standard ที่ให้ precise instructions ว่าจะทำ AST in vitro อย่างไร ครอบคลุม medium (รวม supplements), inoculum density และ test conditions",
           {
             "sub": "Quality controls (QCs)",
             "body": [
@@ -659,9 +611,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Disk diffusion test: หลักการและวิธีทำ",
         "source": "Antimicrobial resistance p.10",
         "body": [
-          {
-            "text": "เรียกอีกชื่อว่า **Kirby-Bauer method** จัดเป็น qualitative testing"
-          },
+          "เรียกอีกชื่อว่า **Kirby-Bauer method** จัดเป็น qualitative testing",
           {
             "sub": "หลักการ",
             "body": [
@@ -769,9 +719,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "การแปลผล disk diffusion และตัวอย่าง breakpoint",
         "source": "Antimicrobial resistance p.11-12",
         "body": [
-          {
-            "text": "การแปลผลต้องรู้ 3 อย่างพร้อมกันเสมอ คือ **organism, drug และ breakpoint** โดยอ้างตารางจาก www.clsi.org"
-          },
+          "การแปลผลต้องรู้ 3 อย่างพร้อมกันเสมอ คือ **organism, drug และ breakpoint** โดยอ้างตารางจาก www.clsi.org",
           {
             "sub": "ตัวอย่างจากตาราง Zone diameter and MIC breakpoint for Staphylococcus spp. (adapted from CLSI-V08-ED4-2018)",
             "body": [
@@ -783,9 +731,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "**MIC breakpoint: S ที่ 0.25 µg/mL และ R ที่ 0.5 µg/mL ไม่มีช่วง I**"
                 ]
               },
-              {
-                "text": "เครื่องหมายมากกว่า/น้อยกว่าเท่ากับในตารางอ่านจาก text layer ได้ไม่ชัด ให้ยึดตามตารางในสไลด์จริงเวลาอ่านทบทวน"
-              }
+              "เครื่องหมายมากกว่า/น้อยกว่าเท่ากับในตารางอ่านจาก text layer ได้ไม่ชัด ให้ยึดตามตารางในสไลด์จริงเวลาอ่านทบทวน"
             ]
           }
         ]
@@ -850,9 +796,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ความเข้มข้นที่ใช้เป็น 2-fold diluted concentration หน่วย µg/mL หรือ mg/L ไล่ตั้งแต่ 0.06, 0.125, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 ถึง 1024"
-          },
+          "ความเข้มข้นที่ใช้เป็น 2-fold diluted concentration หน่วย µg/mL หรือ mg/L ไล่ตั้งแต่ 0.06, 0.125, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 ถึง 1024",
           {
             "sub": "วิธีหา MIC ที่สไลด์แบ่งไว้",
             "body": [
@@ -954,9 +898,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Antimicrobial gradient technique (Etest)",
         "source": "Antimicrobial resistance p.15",
         "body": [
-          {
-            "text": "**หลักการคือรวมหลักการของ disk diffusion กับ agar dilution เข้าด้วยกัน**"
-          },
+          "**หลักการคือรวมหลักการของ disk diffusion กับ agar dilution เข้าด้วยกัน**",
           {
             "sub": "ตัวแถบทดสอบ Etest (bioMérieux AB)",
             "body": [
@@ -1035,18 +977,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ย้ำนิยามอีกครั้งเป็นภาษาไทยว่า MIC คือความเข้มข้นของยาต่ำสุดในการยับยั้งการเจริญของแบคทีเรีย (µg/mL หรือ mg/L) และใช้ตัวอย่าง Staphylococcus pseudintermedius กับตาราง oxacillin breakpoint ชุดเดิม"
-          }
+          "สไลด์ย้ำนิยามอีกครั้งเป็นภาษาไทยว่า MIC คือความเข้มข้นของยาต่ำสุดในการยับยั้งการเจริญของแบคทีเรีย (µg/mL หรือ mg/L) และใช้ตัวอย่าง Staphylococcus pseudintermedius กับตาราง oxacillin breakpoint ชุดเดิม"
         ]
       },
       {
         "heading": "Vitek 2 Compact และลำดับขั้นงานในห้องปฏิบัติการ",
         "source": "Antimicrobial resistance p.16-17",
         "body": [
-          {
-            "text": "Vitek 2 Compact เป็น automated ID/AST instrument ใช้ **ID card สำหรับ bacterial identification และ AST card สำหรับ antimicrobial susceptibility testing**"
-          },
+          "Vitek 2 Compact เป็น automated ID/AST instrument ใช้ **ID card สำหรับ bacterial identification และ AST card สำหรับ antimicrobial susceptibility testing**",
           {
             "sub": "ลำดับงานที่สไลด์วางไว้",
             "body": [
@@ -1067,9 +1005,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Gram-positive AST panel ครอบคลุมยา 21 ชนิด**"
             ]
           },
-          {
-            "text": "สไลด์ p.17-18 ที่เหลือเป็นภาพหน้าจอ/ใบรายงานผล species identification และ antimicrobial susceptibility results โดยไม่มีข้อความอธิบายกำกับ"
-          }
+          "สไลด์ p.17-18 ที่เหลือเป็นภาพหน้าจอ/ใบรายงานผล species identification และ antimicrobial susceptibility results โดยไม่มีข้อความอธิบายกำกับ"
         ]
       },
       {
@@ -1092,23 +1028,17 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "การแปลผล AST: susceptible, intermediate, resistant",
         "source": "Antimicrobial resistance p.15, p.18",
         "body": [
-          {
-            "text": "clinical breakpoints แบ่งเป็น 3 categories คือ susceptible, intermediate และ resistant โดยสไลด์ระบุว่ามี **inverse relationship ระหว่างค่าผลที่วัดได้กับ interpretative categories**"
-          },
+          "clinical breakpoints แบ่งเป็น 3 categories คือ susceptible, intermediate และ resistant โดยสไลด์ระบุว่ามี **inverse relationship ระหว่างค่าผลที่วัดได้กับ interpretative categories**",
           {
             "sub": "susceptible",
             "body": [
-              {
-                "text": "เชื้อของผู้ป่วย **ควรตอบสนองต่อการรักษาด้วยยานั้น เมื่อใช้ขนาดยาที่แนะนำตามปกติสำหรับการติดเชื้อชนิดนั้นและสัตว์ชนิดนั้น**"
-              }
+              "เชื้อของผู้ป่วย **ควรตอบสนองต่อการรักษาด้วยยานั้น เมื่อใช้ขนาดยาที่แนะนำตามปกติสำหรับการติดเชื้อชนิดนั้นและสัตว์ชนิดนั้น**"
             ]
           },
           {
             "sub": "resistant",
             "body": [
-              {
-                "text": "เชื้อของผู้ป่วย **ไม่ควรถูกยับยั้งด้วยความเข้มข้นของยาที่ทำได้จากขนาดยาที่ใช้ตามปกติ**"
-              }
+              "เชื้อของผู้ป่วย **ไม่ควรถูกยับยั้งด้วยความเข้มข้นของยาที่ทำได้จากขนาดยาที่ใช้ตามปกติ**"
             ]
           },
           {
@@ -1128,9 +1058,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "MIC50 และ MIC90",
         "source": "Antimicrobial resistance p.18",
         "body": [
-          {
-            "text": "เป็นพารามิเตอร์สำคัญเมื่อทดสอบความไวรับของเชื้อ **หลาย isolates พร้อมกัน** ไม่ใช่ตัวเดียว"
-          },
+          "เป็นพารามิเตอร์สำคัญเมื่อทดสอบความไวรับของเชื้อ **หลาย isolates พร้อมกัน** ไม่ใช่ตัวเดียว",
           {
             "bullets": [
               "**MIC50 = ค่า MIC ที่ยับยั้งเชื้อได้มากกว่า 50% ของ isolates**",
@@ -1168,9 +1096,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "โครงของ lecture: true fungus 1 โรค กับ fungal-like 3 โรค",
         "source": "Aquatic fungi p.2",
         "body": [
-          {
-            "text": "สไลด์ outline แยกหัวข้อไว้ชัดเป็นสองกลุ่ม และกลุ่มหลังคือกลุ่มที่เด็คใช้เวลาเยอะที่สุด"
-          },
+          "สไลด์ outline แยกหัวข้อไว้ชัดเป็นสองกลุ่ม และกลุ่มหลังคือกลุ่มที่เด็คใช้เวลาเยอะที่สุด",
           {
             "bullets": [
               "**Fungal disease: Chytridiomycosis**",
@@ -1196,9 +1122,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "สไลด์อ้าง (Daszak et al. 2003) กับประเด็น extinctions of amphibian species"
             ]
           },
-          {
-            "text": "พื้นที่ที่สไลด์ระบุ: Western North America, Central America, South America, Eastern Australia และ Dominica กับ Montserrat ใน Caribbean"
-          }
+          "พื้นที่ที่สไลด์ระบุ: Western North America, Central America, South America, Eastern Australia และ Dominica กับ Montserrat ใน Caribbean"
         ]
       },
       {
@@ -1214,9 +1138,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "In 2007: numerous frog species, salamander species, a caecilian species"
             ]
           },
-          {
-            "text": "**McLeod et al. (2008) found no evidence of Bd in Thailand amphibians** แต่พบใน Japan, China, Hongkong, Korea"
-          },
+          "**McLeod et al. (2008) found no evidence of Bd in Thailand amphibians** แต่พบใน Japan, China, Hongkong, Korea",
           {
             "callout": "สไลด์นี้จัดหน้าแบบสลับปีกับข้อความ การจับคู่ปีกับเหตุการณ์อ่านตามลำดับที่ปรากฏใน text layer ส่วนรายละเอียดอื่นของแต่ละปีสไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -1227,9 +1149,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "เชื้อไปอยู่ที่ชั้นไหนของผิวหนัง",
         "source": "Aquatic fungi p.6",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นแผนภาพสั้น ๆ ไล่จาก Environment เข้าสู่ Animals ที่ **keratin layer** โดยระบุตำแหน่งเป็น **stratum granulosum หรือ stratum corneum of the epidermis**"
-          },
+          "สไลด์นี้เป็นแผนภาพสั้น ๆ ไล่จาก Environment เข้าสู่ Animals ที่ **keratin layer** โดยระบุตำแหน่งเป็น **stratum granulosum หรือ stratum corneum of the epidermis**",
           {
             "callout": "สไลด์ไม่ได้บอกว่าเชื้อเข้าสู่ตัวสัตว์จากสิ่งแวดล้อมด้วยกลไกใด บอกแค่ปลายทางว่าไปที่ keratin layer",
             "kind": "warn"
@@ -1240,9 +1160,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Pathogenesis ของ Chytridiomycosis (Berger et al. 1998)",
         "source": "Aquatic fungi p.7",
         "body": [
-          {
-            "text": "สไลด์วางเป็นลูกโซ่ในสัตว์ระยะ juveniles และ adults"
-          },
+          "สไลด์วางเป็นลูกโซ่ในสัตว์ระยะ juveniles และ adults",
           {
             "bullets": [
               "**Bd encysts within skin cells**",
@@ -1253,9 +1171,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**death from cardiac arrest**"
             ]
           },
-          {
-            "text": "ตำแหน่งรอยโรคที่สไลด์วงเล็บไว้คือ belly, digits และ pelvic"
-          },
+          "ตำแหน่งรอยโรคที่สไลด์วงเล็บไว้คือ belly, digits และ pelvic",
           {
             "sub": "Mortality rate depend on",
             "body": [
@@ -1269,9 +1185,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Strain"
                 ]
               },
-              {
-                "text": "มีคำว่า Eastern tiger salamander กำกับอยู่บนสไลด์ในฐานะภาพประกอบ ส่วนรายละเอียดของตัวอย่างนี้สไลด์ไม่ได้บอก"
-              }
+              "มีคำว่า Eastern tiger salamander กำกับอยู่บนสไลด์ในฐานะภาพประกอบ ส่วนรายละเอียดของตัวอย่างนี้สไลด์ไม่ได้บอก"
             ]
           }
         ]
@@ -1298,9 +1212,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Fungal-like infections: Oomycetes คือ parafungus",
         "source": "Aquatic fungi p.9",
         "body": [
-          {
-            "text": "สไลด์อ้าง Baldauf, 2003; Science จัดตำแหน่งเป็น **Phylum Heterokontophyta, Class Oomycetes** และสรุปด้วยประโยค **Oomycetes = Parafungus**"
-          },
+          "สไลด์อ้าง Baldauf, 2003; Science จัดตำแหน่งเป็น **Phylum Heterokontophyta, Class Oomycetes** และสรุปด้วยประโยค **Oomycetes = Parafungus**",
           {
             "bullets": [
               "**Motile spores (zoospores) with two flagella (feather และ smooth)**",
@@ -1335,9 +1247,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "รูปร่างและวงจรของ Saprolegnia",
         "source": "Aquatic fungi p.11-13",
         "body": [
-          {
-            "text": "สามสไลด์นี้เป็นภาพเกือบทั้งหมด ข้อความที่มีจริงบนสไลด์มีเท่านี้"
-          },
+          "สามสไลด์นี้เป็นภาพเกือบทั้งหมด ข้อความที่มีจริงบนสไลด์มีเท่านี้",
           {
             "bullets": [
               "p.11 หัวเรื่อง Life cycle of Saprolegnia (เป็นแผนภาพ ไม่มีข้อความอื่น)",
@@ -1370,9 +1280,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Susceptible condition สำหรับ Saprolegniasis",
         "source": "Aquatic fungi p.15",
         "body": [
-          {
-            "text": "สไลด์ไล่ปัจจัยเสี่ยงเป็นคำ ๆ ไม่ได้อธิบายว่าแต่ละอันทำให้ติดเชื้อง่ายขึ้นอย่างไร"
-          },
+          "สไลด์ไล่ปัจจัยเสี่ยงเป็นคำ ๆ ไม่ได้อธิบายว่าแต่ละอันทำให้ติดเชื้อง่ายขึ้นอย่างไร",
           {
             "bullets": [
               "Crowed hatchery condition",
@@ -1392,9 +1300,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Parafungus อีกสองตัว: Pythium และ Prototheca",
         "source": "Aquatic fungi p.16-17",
         "body": [
-          {
-            "text": "สไลด์ p.16 เป็นหน้าคั่นที่จับคู่ **PYTHIUM กับ Pythiosis** และ **PROTOTHECA กับ Protothecosis** ไว้ใต้หัวข้อ PARAFUNGUS ส่วน p.17 เป็นหน้าชื่อเรื่องที่ระบุเชื้อว่า **Pythium insidiosum**"
-          }
+          "สไลด์ p.16 เป็นหน้าคั่นที่จับคู่ **PYTHIUM กับ Pythiosis** และ **PROTOTHECA กับ Protothecosis** ไว้ใต้หัวข้อ PARAFUNGUS ส่วน p.17 เป็นหน้าชื่อเรื่องที่ระบุเชื้อว่า **Pythium insidiosum**"
         ]
       },
       {
@@ -1427,18 +1333,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Infects by drink water, contamination**"
             ]
           },
-          {
-            "text": "สไลด์ระบุว่า human and horse hair, skin และ decaying animal and plant tissue เป็น **chemoattractants for its zoospores**"
-          }
+          "สไลด์ระบุว่า human and horse hair, skin และ decaying animal and plant tissue เป็น **chemoattractants for its zoospores**"
         ]
       },
       {
         "heading": "รูปแบบของ Pythiosis ในสัตว์",
         "source": "Aquatic fungi p.20",
         "body": [
-          {
-            "text": "สไลด์เน้นด้วยดาวว่า **Immunocompetent hosts: horses and dogs**"
-          },
+          "สไลด์เน้นด้วยดาวว่า **Immunocompetent hosts: horses and dogs**",
           {
             "bullets": [
               "Cutaneous form",
@@ -1453,9 +1355,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Cutaneous pythiosis และ kunkers",
         "source": "Aquatic fungi p.21-23",
         "body": [
-          {
-            "text": "ชื่อเรียกอีกอย่างบนสไลด์คือ **Swamp cancer**"
-          },
+          "ชื่อเรียกอีกอย่างบนสไลด์คือ **Swamp cancer**",
           {
             "bullets": [
               "**Itching at ventral trunk, leg and head**",
@@ -1518,9 +1418,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "สไลด์ p.25 อ่านไม่ได้",
         "source": "Aquatic fungi p.25",
         "body": [
-          {
-            "text": "text layer ของสไลด์นี้ออกมาซ้อนกันจนอ่านไม่ออก ส่วนที่ยังอ่านได้เป็นประโยคเดียวคือ **Intestinal pythiosis is the most ...** ที่เหลือของสไลด์นี้อ่านไม่ได้ จึงไม่สรุปเนื้อหาเพิ่ม"
-          },
+          "text layer ของสไลด์นี้ออกมาซ้อนกันจนอ่านไม่ออก ส่วนที่ยังอ่านได้เป็นประโยคเดียวคือ **Intestinal pythiosis is the most ...** ที่เหลือของสไลด์นี้อ่านไม่ได้ จึงไม่สรุปเนื้อหาเพิ่ม",
           {
             "callout": "ถ้าจะใช้สไลด์นี้ตอนอ่านสอบ ต้องเปิดไฟล์สไลด์ตัวจริงดูเอง อย่าเดาจากข้อความที่ปนกัน",
             "kind": "warn"
@@ -1534,9 +1432,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Donkey (p.26)",
             "body": [
-              {
-                "text": "**Cutaneous and rhinopharyngeal disease** ร่วมกับ **bilateral serosanguineous nasal discharge** และ **swelling of nostrils** ส่วนหัวข้อ Goat and sheep with pythiosis บนสไลด์เดียวกันมีแต่ชื่อกับภาพ รายละเอียดสไลด์ไม่ได้บอก"
-              }
+              "**Cutaneous and rhinopharyngeal disease** ร่วมกับ **bilateral serosanguineous nasal discharge** และ **swelling of nostrils** ส่วนหัวข้อ Goat and sheep with pythiosis บนสไลด์เดียวกันมีแต่ชื่อกับภาพ รายละเอียดสไลด์ไม่ได้บอก"
             ]
           },
           {
@@ -1560,9 +1456,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Pythiosis ในคน",
         "source": "Aquatic fungi p.28-29",
         "body": [
-          {
-            "text": "สองสไลด์นี้เป็นภาพผู้ป่วยพร้อมคำบรรยาย"
-          },
+          "สองสไลด์นี้เป็นภาพผู้ป่วยพร้อมคำบรรยาย",
           {
             "bullets": [
               "**Subcutaneous pythiosis in human**",
@@ -1610,9 +1504,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Protothecosis: โรคจาก green alga",
         "source": "Aquatic fungi p.32",
         "body": [
-          {
-            "text": "สไลด์พาดหัวตรง ๆ ว่า **disease from green alga**"
-          },
+          "สไลด์พาดหัวตรง ๆ ว่า **disease from green alga**",
           {
             "bullets": [
               "เชื้อ: **Prototheca wickerhamii และ P. zopfii**",
@@ -1707,9 +1599,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Conclusions ของทั้งเด็ค",
         "source": "Aquatic fungi p.38",
         "body": [
-          {
-            "text": "สไลด์สุดท้ายแบ่งเป็นสองคอลัมน์คือ **True Fungus** กับ **Parafungus**"
-          },
+          "สไลด์สุดท้ายแบ่งเป็นสองคอลัมน์คือ **True Fungus** กับ **Parafungus**",
           {
             "sub": "True Fungus",
             "body": [
@@ -1767,12 +1657,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "นิยาม (p.3)",
             "body": [
-              {
-                "text": "**GENETICS คือการศึกษา genes, heredity และ variation** ครอบคลุมข้อมูลที่เก็บใน gene, genetic materials และ gene expression"
-              },
-              {
-                "text": "**genotype (arrangement of genes) เมื่อ interaction กับ environment จะแสดงออกเป็น phenotype (physical characteristics)** สไลด์อ้างถึง Johann Gregor Mendel (1822-1884)"
-              }
+              "**GENETICS คือการศึกษา genes, heredity และ variation** ครอบคลุมข้อมูลที่เก็บใน gene, genetic materials และ gene expression",
+              "**genotype (arrangement of genes) เมื่อ interaction กับ environment จะแสดงออกเป็น phenotype (physical characteristics)** สไลด์อ้างถึง Johann Gregor Mendel (1822-1884)"
             ]
           }
         ]
@@ -1795,9 +1681,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "โครงสร้าง DNA (Watson and Crick)",
         "source": "Bacterial genetics p.5",
         "body": [
-          {
-            "text": "**DNA เป็น nucleotide polymer ที่เป็น double helix และ antiparallel**"
-          },
+          "**DNA เป็น nucleotide polymer ที่เป็น double helix และ antiparallel**",
           {
             "bullets": [
               "COMPONENTS: Sugar phosphate backbone และ Nitrogenous bases"
@@ -1806,12 +1690,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "องค์ประกอบย่อย (p.6)",
             "body": [
-              {
-                "text": "Deoxyribonucleic acid ประกอบด้วย Deoxyribose sugar, Phosphate group และ Nitrogenous bases"
-              },
-              {
-                "text": "**เบสแบ่งเป็น Pyrimidine (Thymine, Cytosine) และ Purine (Adenine, Guanine)** สไลด์จับคู่ Thymine กับ Adenine และ Cytosine กับ Guanine"
-              }
+              "Deoxyribonucleic acid ประกอบด้วย Deoxyribose sugar, Phosphate group และ Nitrogenous bases",
+              "**เบสแบ่งเป็น Pyrimidine (Thymine, Cytosine) และ Purine (Adenine, Guanine)** สไลด์จับคู่ Thymine กับ Adenine และ Cytosine กับ Guanine"
             ]
           }
         ]
@@ -1863,9 +1743,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Non-coding region = จำเป็นต่อการ expression ของข้อมูลพันธุกรรม แต่ไม่ถูก translate เป็น peptide เช่น promotor, intron"
             ]
           },
-          {
-            "text": "**Bacterial chromosome ไม่มี intron จึงไม่มี mRNA maturation** ต่างจาก eukaryotes ที่มี processes of mRNA"
-          }
+          "**Bacterial chromosome ไม่มี intron จึงไม่มี mRNA maturation** ต่างจาก eukaryotes ที่มี processes of mRNA"
         ]
       },
       {
@@ -1878,24 +1756,18 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Cistron = segment of DNA ที่ carry codons ซึ่งกำหนด peptide ตัวหนึ่ง"
             ]
           },
-          {
-            "text": "**EUKARYOTIC GENES เป็น monocistronic คือ 1 promotor สร้าง 1 mRNA ที่มักแปลได้โปรตีนเดียว ส่วน BACTERIAL GENES เป็น polycistronic คือ 1 promotor สร้าง 1 mRNA ที่แปลได้โปรตีนมากกว่า 1 ชนิด**"
-          }
+          "**EUKARYOTIC GENES เป็น monocistronic คือ 1 promotor สร้าง 1 mRNA ที่มักแปลได้โปรตีนเดียว ส่วน BACTERIAL GENES เป็น polycistronic คือ 1 promotor สร้าง 1 mRNA ที่แปลได้โปรตีนมากกว่า 1 ชนิด**"
         ]
       },
       {
         "heading": "Central Dogma และ codon",
         "source": "Bacterial genetics p.11",
         "body": [
-          {
-            "text": "**Flow of genetic information คือ DNA makes RNA makes protein** ผ่าน Replication, Transcription และ Translation"
-          },
+          "**Flow of genetic information คือ DNA makes RNA makes protein** ผ่าน Replication, Transcription และ Translation",
           {
             "sub": "Codon (p.12)",
             "body": [
-              {
-                "text": "messenger RNA คือ sense strand และ **Codon คือ triplet code ที่กำหนด amino acid**"
-              },
+              "messenger RNA คือ sense strand และ **Codon คือ triplet code ที่กำหนด amino acid**",
               {
                 "bullets": [
                   "**start codon = AUG**",
@@ -1907,12 +1779,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Redundant / degenerate code (p.13)",
             "body": [
-              {
-                "text": "**CODON เป็น redundant หรือ degenerate** สไลด์ยกตัวอย่าง ARGININE ที่มีได้หลาย codon คือ AGA AGG CGU CGC CGA CGG ส่วน AUG = METHIONINE"
-              },
-              {
-                "text": "stop codon เป็น non sense codons ที่ไม่ code สำหรับ amino acid ใดเลย"
-              }
+              "**CODON เป็น redundant หรือ degenerate** สไลด์ยกตัวอย่าง ARGININE ที่มีได้หลาย codon คือ AGA AGG CGU CGC CGA CGG ส่วน AUG = METHIONINE",
+              "stop codon เป็น non sense codons ที่ไม่ code สำหรับ amino acid ใดเลย"
             ]
           }
         ]
@@ -1921,9 +1789,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "OPERON concept และ lac operon",
         "source": "Bacterial genetics p.14",
         "body": [
-          {
-            "text": "โปรตีนบางตัวไม่ได้จำเป็นตลอดเวลา จะถูกสร้างเมื่อมีความต้องการหรือถูกกระตุ้นด้วยสภาพแวดล้อมบางอย่าง สไลด์เรียกว่า **a special energy saving system of genetic control**"
-          },
+          "โปรตีนบางตัวไม่ได้จำเป็นตลอดเวลา จะถูกสร้างเมื่อมีความต้องการหรือถูกกระตุ้นด้วยสภาพแวดล้อมบางอย่าง สไลด์เรียกว่า **a special energy saving system of genetic control**",
           {
             "sub": "ส่วนประกอบของ lac operon ใน E. coli",
             "body": [
@@ -1935,9 +1801,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "lacZ, lacY, lacA = Structural genes สร้างเอนไซม์ย่อย lactose ได้แก่ beta galactosidase, galactoside permease และ transacetylase"
                 ]
               },
-              {
-                "text": "**เมื่อมี lactose repressor protein จะออกจาก operator แล้วไปจับกับ lactose แทน**"
-              }
+              "**เมื่อมี lactose repressor protein จะออกจาก operator แล้วไปจับกับ lactose แทน**"
             ]
           },
           {
@@ -1950,9 +1814,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "MUTATIONS หลักการพื้นฐาน",
         "source": "Bacterial genetics p.16",
         "body": [
-          {
-            "text": "Mutation คือ **การเปลี่ยนแปลงลำดับของ template DNA ซึ่งมีผลต่อชนิดของโปรตีนที่เป็น end product** ทำให้เกิด mutants ต่างจาก wild type"
-          },
+          "Mutation คือ **การเปลี่ยนแปลงลำดับของ template DNA ซึ่งมีผลต่อชนิดของโปรตีนที่เป็น end product** ทำให้เกิด mutants ต่างจาก wild type",
           {
             "bullets": [
               "เกิดได้ทั้งแบบ spontaneously และจาก mutagens ทั้ง chemical และ physical",
@@ -1966,9 +1828,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Mutation rate แยกตามชนิดของยีน",
         "source": "Bacterial genetics p.17",
         "body": [
-          {
-            "text": "สไลด์แบ่งยีนเป็น 3 กลุ่มตามอัตราการกลายพันธุ์ ข้อนี้ออกสอบง่ายเพราะจับคู่ชื่อยีนกับกลุ่มได้ตรง ๆ"
-          },
+          "สไลด์แบ่งยีนเป็น 3 กลุ่มตามอัตราการกลายพันธุ์ ข้อนี้ออกสอบง่ายเพราะจับคู่ชื่อยีนกับกลุ่มได้ตรง ๆ",
           {
             "bullets": [
               "**STRUCTURAL GENES (low mutation rate) เช่น 16S rRNA gene, 23S rRNA gene**",
@@ -1996,9 +1856,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "2. Deletion or insertion of nucleotide (p.19)",
             "body": [
-              {
-                "text": "สไลด์ระบุกลไกที่สองไว้เท่านี้ ที่เหลือเป็นภาพประกอบ สไลด์ไม่ได้อธิบายรายละเอียดเพิ่ม"
-              }
+              "สไลด์ระบุกลไกที่สองไว้เท่านี้ ที่เหลือเป็นภาพประกอบ สไลด์ไม่ได้อธิบายรายละเอียดเพิ่ม"
             ]
           }
         ]
@@ -2036,26 +1894,18 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่างทางคลินิก fluoroquinolone resistance",
         "source": "Bacterial genetics p.22",
         "body": [
-          {
-            "text": "**FLUOROQUINOLONES เช่น ciprofloxacin, norfloxacin, enrofloxacin ออกฤทธิ์ยับยั้ง DNA replication ของแบคทีเรีย โดยจับกับ DNA gyrase และ topoisomerase IV**"
-          },
+          "**FLUOROQUINOLONES เช่น ciprofloxacin, norfloxacin, enrofloxacin ออกฤทธิ์ยับยั้ง DNA replication ของแบคทีเรีย โดยจับกับ DNA gyrase และ topoisomerase IV**",
           {
             "sub": "กลไกดื้อยาจาก mutation (p.23)",
             "body": [
-              {
-                "text": "**ภายใต้ antibiotic pressure เกิด mutation ของ gyr genes ได้ โดย DNA gyrase เป็นโปรตีนที่ถูก encode ด้วย gyrA และ gyrB genes**"
-              },
-              {
-                "text": "ตำแหน่งที่ fluoroquinolone จับเรียกว่า **quinolone-binding pocket** และบริเวณที่กลายพันธุ์แล้วทำให้ดื้อยาเรียกว่า **Quinolone-resistant determining regions (QRDR)**"
-              },
+              "**ภายใต้ antibiotic pressure เกิด mutation ของ gyr genes ได้ โดย DNA gyrase เป็นโปรตีนที่ถูก encode ด้วย gyrA และ gyrB genes**",
+              "ตำแหน่งที่ fluoroquinolone จับเรียกว่า **quinolone-binding pocket** และบริเวณที่กลายพันธุ์แล้วทำให้ดื้อยาเรียกว่า **Quinolone-resistant determining regions (QRDR)**",
               {
                 "bullets": [
                   "การเปลี่ยน amino acid ที่สไลด์ยกไว้: Alanine (A) เป็น Glycine (G), Aspartate (D) เป็น Asparagine (N), Serine (S) เป็น Leucine (L)"
                 ]
               },
-              {
-                "text": "**ผลลัพธ์คือ FQ จับไม่ได้ แต่ gyrase ยังทำงานได้ตามปกติ** จึงเป็นการดื้อยาที่แบคทีเรียไม่ต้องเสียการทำงานของเอนไซม์ตัวเอง"
-              }
+              "**ผลลัพธ์คือ FQ จับไม่ได้ แต่ gyrase ยังทำงานได้ตามปกติ** จึงเป็นการดื้อยาที่แบคทีเรียไม่ต้องเสียการทำงานของเอนไซม์ตัวเอง"
             ]
           },
           {
@@ -2073,9 +1923,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Genetic recombination เกิดเมื่อ DNA สองชิ้นมาสัมผัสกัน แล้วมีการแลกเปลี่ยนบางส่วนของ DNA แต่ละสาย"
             ]
           },
-          {
-            "text": "**CROSSING OVER คือเมื่อ DNA สองสายที่มี homologous regions มาอยู่ใกล้กัน สายหนึ่งจากแต่ละฝั่งจะ cross over ไปติดกับสายใหม่ ทำให้ยีนใหม่ถูกถ่ายไปยังอีกสายหนึ่ง เรียกว่า HOMOLOGOUS RECOMBINATION**"
-          }
+          "**CROSSING OVER คือเมื่อ DNA สองสายที่มี homologous regions มาอยู่ใกล้กัน สายหนึ่งจากแต่ละฝั่งจะ cross over ไปติดกับสายใหม่ ทำให้ยีนใหม่ถูกถ่ายไปยังอีกสายหนึ่ง เรียกว่า HOMOLOGOUS RECOMBINATION**"
         ]
       },
       {
@@ -2094,9 +1942,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "TRANSFORMATION",
         "source": "Bacterial genetics p.27",
         "body": [
-          {
-            "text": "**Transformation คือ recipient bacterium รับ free หรือ naked DNA ที่ donor ปล่อยออกมา แล้ว free DNA เข้าไป incorporate ใน chromosome**"
-          },
+          "**Transformation คือ recipient bacterium รับ free หรือ naked DNA ที่ donor ปล่อยออกมา แล้ว free DNA เข้าไป incorporate ใน chromosome**",
           {
             "sub": "STEPS ตามสไลด์",
             "body": [
@@ -2117,9 +1963,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Griffith's experiment (1928)",
         "source": "Bacterial genetics p.28",
         "body": [
-          {
-            "text": "การทดลองใช้ Streptococcus pneumoniae (pneumococci) 2 แบบ"
-          },
+          "การทดลองใช้ Streptococcus pneumoniae (pneumococci) 2 แบบ",
           {
             "bullets": [
               "**TYPE I = capsulated strain ขึ้นเป็น smooth (S) colonies**",
@@ -2149,9 +1993,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "CONJUGATION",
         "source": "Bacterial genetics p.30",
         "body": [
-          {
-            "text": "**Conjugation คือการถ่ายทอด DNA จาก living donor bacterium ไปยัง recipient bacterium** เกิดได้ใน same species หรือ related species"
-          },
+          "**Conjugation คือการถ่ายทอด DNA จาก living donor bacterium ไปยัง recipient bacterium** เกิดได้ใน same species หรือ related species",
           {
             "sub": "Plasmid ที่ถูกถ่าย",
             "body": [
@@ -2179,9 +2021,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "ผลของ F+ conjugation (p.32)",
             "body": [
-              {
-                "text": "**F+ conjugation คือการถ่าย F plasmid ซึ่ง code เฉพาะ sex pilus เท่านั้น ไม่ได้ถ่าย chromosomal DNA และผลคือ recipient กลายเป็น F+**"
-              }
+              "**F+ conjugation คือการถ่าย F plasmid ซึ่ง code เฉพาะ sex pilus เท่านั้น ไม่ได้ถ่าย chromosomal DNA และผลคือ recipient กลายเป็น F+**"
             ]
           }
         ]
@@ -2190,9 +2030,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "TRANSDUCTION และวงจรชีวิตของ bacteriophage",
         "source": "Bacterial genetics p.33",
         "body": [
-          {
-            "text": "**Bacteriophage คือไวรัสที่ parasitize แบคทีเรีย โดยใช้ machinery ของแบคทีเรียในการเพิ่มจำนวนของตัวเอง**"
-          },
+          "**Bacteriophage คือไวรัสที่ parasitize แบคทีเรีย โดยใช้ machinery ของแบคทีเรียในการเพิ่มจำนวนของตัวเอง**",
           {
             "bullets": [
               "Progeny ของ phage อาจมีทั้ง host chromosome และ DNA ของ phage เอง",
@@ -2203,9 +2041,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Lytic และ lysogenic cycle (p.34-35)",
             "body": [
-              {
-                "text": "**lysogenic cycle คือ phage DNA เข้าไป incorporate กับ chromosome ของแบคทีเรีย เรียกกระบวนการนี้ว่า lysogenic conversion แบคทีเรียกลายเป็น lysogenic bacteria และ phage ที่แทรกอยู่เรียกว่า prophage**"
-              },
+              "**lysogenic cycle คือ phage DNA เข้าไป incorporate กับ chromosome ของแบคทีเรีย เรียกกระบวนการนี้ว่า lysogenic conversion แบคทีเรียกลายเป็น lysogenic bacteria และ phage ที่แทรกอยู่เรียกว่า prophage**",
               {
                 "bullets": [
                   "1. lytic bacteriophage adsorbs กับแบคทีเรียที่ susceptible",
@@ -2220,9 +2056,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "การส่งต่อไปยังตัวรับ (p.36)",
             "body": [
-              {
-                "text": "6. Phage ที่มี bacterial chromosomal DNA เข้าไปติดแบคทีเรียตัวใหม่ จากนั้น 7. **transduced chromosomal DNA แลกเปลี่ยนยีนกับ host chromosome โดย recombination**"
-              }
+              "6. Phage ที่มี bacterial chromosomal DNA เข้าไปติดแบคทีเรียตัวใหม่ จากนั้น 7. **transduced chromosomal DNA แลกเปลี่ยนยีนกับ host chromosome โดย recombination**"
             ]
           }
         ]
@@ -2252,9 +2086,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**ขนาดตั้งแต่ 1 kilobasepairs ถึง 400 kilobasepairs**"
             ]
           },
-          {
-            "text": "**Plasmid บรรจุยีนที่ไม่จำเป็นต่อการอยู่รอด แต่ให้ข้อได้เปรียบเพิ่มเติมแก่เซลล์**"
-          },
+          "**Plasmid บรรจุยีนที่ไม่จำเป็นต่อการอยู่รอด แต่ให้ข้อได้เปรียบเพิ่มเติมแก่เซลล์**",
           {
             "sub": "ความสำคัญและการประยุกต์ (p.39)",
             "body": [
@@ -2266,9 +2098,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "code สำหรับ resistance to UV light ผ่าน DNA repairing enzymes"
                 ]
               },
-              {
-                "text": "Application ที่สไลด์ระบุคือใช้เป็น vectors ใน genetic engineering และใช้ plasmid profiling เป็น genotyping method"
-              }
+              "Application ที่สไลด์ระบุคือใช้เป็น vectors ใน genetic engineering และใช้ plasmid profiling เป็น genotyping method"
             ]
           }
         ]
@@ -2277,12 +2107,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Colistin resistance",
         "source": "Bacterial genetics p.40",
         "body": [
-          {
-            "text": "**Colistin เป็น last-resort antimicrobial และเป็น critically important drug สำหรับ serious infection ตาม WHO ปี 2014**"
-          },
-          {
-            "text": "p.41 พาดหัวว่า Discovery of Mechanism of Colistin Resistance โดยระบุว่าเป็น colistin resistance ใน E. coli แต่ **สไลด์ไม่ได้บอกชื่อยีนหรือกลไกระดับโมเลกุลไว้เป็นข้อความ** ส่วนที่เหลือของสไลด์เป็นภาพ"
-          },
+          "**Colistin เป็น last-resort antimicrobial และเป็น critically important drug สำหรับ serious infection ตาม WHO ปี 2014**",
+          "p.41 พาดหัวว่า Discovery of Mechanism of Colistin Resistance โดยระบุว่าเป็น colistin resistance ใน E. coli แต่ **สไลด์ไม่ได้บอกชื่อยีนหรือกลไกระดับโมเลกุลไว้เป็นข้อความ** ส่วนที่เหลือของสไลด์เป็นภาพ",
           {
             "callout": "สไลด์วาง colistin ไว้ในหมวด MOBILE GENETIC ELEMENTS จึงอนุมานบริบทได้ว่าเกี่ยวกับ plasmid แต่สไลด์ไม่ได้เขียนไว้ตรง ๆ อย่าเติมเอง",
             "kind": "warn"
@@ -2293,12 +2119,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Integron และ gene cassette",
         "source": "Bacterial genetics p.42",
         "body": [
-          {
-            "text": "**Integron คือ genetic element ที่สามารถ acquire และ rearrange ORFs ที่ฝังอยู่ใน gene cassette units แล้วเปลี่ยนให้กลายเป็น functional genes**"
-          },
-          {
-            "text": "สไลด์ระบุทิศทางว่า CHROMOSOMAL INTEGRONS ไปสู่ MOBILE INTEGRONS"
-          },
+          "**Integron คือ genetic element ที่สามารถ acquire และ rearrange ORFs ที่ฝังอยู่ใน gene cassette units แล้วเปลี่ยนให้กลายเป็น functional genes**",
+          "สไลด์ระบุทิศทางว่า CHROMOSOMAL INTEGRONS ไปสู่ MOBILE INTEGRONS",
           {
             "sub": "องค์ประกอบที่ต้องจำ",
             "body": [
@@ -2318,9 +2140,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Transposable genetic elements",
         "source": "Bacterial genetics p.43",
         "body": [
-          {
-            "text": "**Transposable genetic elements คือ segments of DNA ที่มีความสามารถย้ายจากตำแหน่งหนึ่งไปอีกตำแหน่งหนึ่ง หรือที่เรียกว่า jumping gene**"
-          },
+          "**Transposable genetic elements คือ segments of DNA ที่มีความสามารถย้ายจากตำแหน่งหนึ่งไปอีกตำแหน่งหนึ่ง หรือที่เรียกว่า jumping gene**",
           {
             "sub": "Properties ตามสไลด์",
             "body": [
@@ -2337,9 +2157,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "TRANSPOSON (Tn) (p.44)",
             "body": [
-              {
-                "text": "**transposonase จดจำ inverted repeats แล้วตัด transposon ออกมา และยีนดื้อยาปฏิชีวนะมักอยู่บน transposon**"
-              }
+              "**transposonase จดจำ inverted repeats แล้วตัด transposon ออกมา และยีนดื้อยาปฏิชีวนะมักอยู่บน transposon**"
             ]
           },
           {
@@ -2360,9 +2178,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "ตัวอย่าง E. coli",
             "body": [
-              {
-                "text": "E. coli เป็น normal flora in animal intestine และเป็น causative agent ของ opportunistic infection, diarrhea, urinary tract infection และ hemolytic uremic syndrome"
-              },
+              "E. coli เป็น normal flora in animal intestine และเป็น causative agent ของ opportunistic infection, diarrhea, urinary tract infection และ hemolytic uremic syndrome",
               {
                 "bullets": [
                   "**E. coli O157:H7 = Enterohaemorrhagic E. coli ที่สร้าง Shiga-like toxin ซึ่งอยู่บน prophage**",
@@ -2378,29 +2194,19 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "GENOTYPING",
         "source": "Bacterial genetics p.48",
         "body": [
-          {
-            "text": "สไลด์ยกตัวอย่างการใช้ **WHOLE GENOME OF BACTERIA ด้วย DNA sequencing** เพื่อแยก MRSA (methicillin-resistant S. aureus) ออกจาก MSSA (methicillin-susceptible S. aureus)"
-          },
+          "สไลด์ยกตัวอย่างการใช้ **WHOLE GENOME OF BACTERIA ด้วย DNA sequencing** เพื่อแยก MRSA (methicillin-resistant S. aureus) ออกจาก MSSA (methicillin-susceptible S. aureus)",
           {
             "sub": "Clonal relation (p.49)",
             "body": [
-              {
-                "text": "อีกวิธีคือดู nucleotide sequence ของยีนบางตัว เพื่อดู **clonal relation คือมีต้นกำเนิดจากบรรพบุรุษเดียวกันแต่ผ่าน mutational events บางอย่าง**"
-              },
-              {
-                "text": "Different bacterial strain หมายถึงมี different property ทั้ง phenotype และหรือ genotype ในระดับ DNA sequence"
-              }
+              "อีกวิธีคือดู nucleotide sequence ของยีนบางตัว เพื่อดู **clonal relation คือมีต้นกำเนิดจากบรรพบุรุษเดียวกันแต่ผ่าน mutational events บางอย่าง**",
+              "Different bacterial strain หมายถึงมี different property ทั้ง phenotype และหรือ genotype ในระดับ DNA sequence"
             ]
           },
           {
             "sub": "DNA fingerprint (p.50-51)",
             "body": [
-              {
-                "text": "สไลด์แสดง DNA fingerprint ของ MRSA ที่แยกได้จาก man 1, man 2, man 3 และ dog เทียบกับ DNA marker"
-              },
-              {
-                "text": "**หลักการคือใช้ restriction enzyme (endonuclease) ตัด chromosomal DNA ของแบคทีเรียที่ restriction site ทำให้ได้ DNA fragment ขนาดต่าง ๆ แล้วแยกด้วย electrophoresis**"
-              },
+              "สไลด์แสดง DNA fingerprint ของ MRSA ที่แยกได้จาก man 1, man 2, man 3 และ dog เทียบกับ DNA marker",
+              "**หลักการคือใช้ restriction enzyme (endonuclease) ตัด chromosomal DNA ของแบคทีเรียที่ restriction site ทำให้ได้ DNA fragment ขนาดต่าง ๆ แล้วแยกด้วย electrophoresis**",
               {
                 "bullets": [
                   "สไลด์ยกตัวอย่าง restriction site เป็น CCC GGG และ GGG CCC",
@@ -2441,12 +2247,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "METABOLISM คืออะไร",
         "source": "Bacterial Metabolism p.2",
         "body": [
-          {
-            "text": "METABOLISM = **all of organism's chemical processes** คือ interaction of the molecules of the cell"
-          },
-          {
-            "text": "IMPORTANCE ที่สไลด์เน้นคือ management of cellular materials and energy resources"
-          },
+          "METABOLISM = **all of organism's chemical processes** คือ interaction of the molecules of the cell",
+          "IMPORTANCE ที่สไลด์เน้นคือ management of cellular materials and energy resources",
           {
             "sub": "Metabolic reactions",
             "body": [
@@ -2490,18 +2292,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "จับคู่ให้ติด **catabolism สร้าง ATP ส่วน anabolism ใช้ ATP**"
-          }
+          "จับคู่ให้ติด **catabolism สร้าง ATP ส่วน anabolism ใช้ ATP**"
         ]
       },
       {
         "heading": "การจำแนกสิ่งมีชีวิตตาม carbon, energy และ electron source",
         "source": "Bacterial Metabolism p.4-6",
         "body": [
-          {
-            "text": "สไลด์แยกเกณฑ์การจำแนกออกเป็นสามแกน แต่ละแกนมีสองขั้ว"
-          },
+          "สไลด์แยกเกณฑ์การจำแนกออกเป็นสามแกน แต่ละแกนมีสองขั้ว",
           {
             "sub": "Carbon source (p.4)",
             "body": [
@@ -2620,9 +2418,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Heterotrophic (Chemoorganotrophic) metabolism",
         "source": "Bacterial Metabolism p.8",
         "body": [
-          {
-            "text": "นิยามตามสไลด์: conversion of organic substrate molecules to end products by metabolic pathway that releases sufficient energy to form ATP"
-          },
+          "นิยามตามสไลด์: conversion of organic substrate molecules to end products by metabolic pathway that releases sufficient energy to form ATP",
           {
             "sub": "Metabolic process",
             "body": [
@@ -2637,9 +2433,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "3 Options for generating ATP",
             "body": [
-              {
-                "text": "สไลด์บอกว่าสามทางนี้ต่างกันที่ **Differences of electron acceptors**"
-              },
+              "สไลด์บอกว่าสามทางนี้ต่างกันที่ **Differences of electron acceptors**",
               {
                 "bullets": [
                   "1. Aerobic respiration",
@@ -2655,9 +2449,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ภาพรวม CATABOLISM (degradative reactions)",
         "source": "Bacterial Metabolism p.9",
         "body": [
-          {
-            "text": "สไลด์วางแผนผังว่าสารอาหารสามหมู่ถูกย่อยลงมารวมกันที่จุดเดียว"
-          },
+          "สไลด์วางแผนผังว่าสารอาหารสามหมู่ถูกย่อยลงมารวมกันที่จุดเดียว",
           {
             "bullets": [
               "Proteins ลงมาเป็น Amino acids",
@@ -2665,9 +2457,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Lipids ลงมาเป็น Glycerol และ fatty acids"
             ]
           },
-          {
-            "text": "จากนั้นเข้าเส้นทาง Glucose ไปเป็น **Pyruvate** ซึ่งเป็นจุดแยกสองทาง"
-          },
+          "จากนั้นเข้าเส้นทาง Glucose ไปเป็น **Pyruvate** ซึ่งเป็นจุดแยกสองทาง",
           {
             "bullets": [
               "Anaerobic reactions ไปเป็น Fermentation products (ATP + NADH)",
@@ -2680,9 +2470,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "RESPIRATION",
         "source": "Bacterial Metabolism p.10",
         "body": [
-          {
-            "text": "ลักษณะเฉพาะของ respiration ตามสไลด์"
-          },
+          "ลักษณะเฉพาะของ respiration ตามสไลด์",
           {
             "bullets": [
               "**Terminal electron acceptor is present**",
@@ -2690,9 +2478,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "ATP produced predominantly by **oxidative phosphorylation**"
             ]
           },
-          {
-            "text": "ประกอบด้วยสามช่วง: Glycolysis, Krebs cycle, Electron transport chain and oxidative phosphorylation"
-          },
+          "ประกอบด้วยสามช่วง: Glycolysis, Krebs cycle, Electron transport chain and oxidative phosphorylation",
           {
             "sub": "แบ่งตามตัวรับอิเล็กตรอนตัวสุดท้าย",
             "body": [
@@ -2702,14 +2488,10 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Anaerobic respiration: others serve as electron acceptor ได้แก่ NO3-, SO42-, CO2"
                 ]
               },
-              {
-                "text": "Some microbe can carry out both aerobic and anaerobic respiration"
-              }
+              "Some microbe can carry out both aerobic and anaerobic respiration"
             ]
           },
-          {
-            "text": "สมการรวมที่สไลด์เขียน: C6H12O6 + 6O2 ให้ 6CO2 + 6H2O + (ATP + Heat)"
-          }
+          "สมการรวมที่สไลด์เขียน: C6H12O6 + 6O2 ให้ 6CO2 + 6H2O + (ATP + Heat)"
         ]
       },
       {
@@ -2735,18 +2517,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ปลายทางของ glycolysis ที่สไลด์ชี้ไว้มีสองทาง คือ Krebs cycle หรือ Fermentation"
-          }
+          "ปลายทางของ glycolysis ที่สไลด์ชี้ไว้มีสองทาง คือ Krebs cycle หรือ Fermentation"
         ]
       },
       {
         "heading": "FERMENTATION",
         "source": "Bacterial Metabolism p.13-14",
         "body": [
-          {
-            "text": "p.13 เป็นแผนภาพ alcoholic fermentation in yeasts ต่อจาก glycolysis ไม่มีข้อความอธิบายอื่นบนสไลด์"
-          },
+          "p.13 เป็นแผนภาพ alcoholic fermentation in yeasts ต่อจาก glycolysis ไม่มีข้อความอธิบายอื่นบนสไลด์",
           {
             "sub": "คุณสมบัติของ fermentation (p.14)",
             "body": [
@@ -2772,9 +2550,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Acetyl CoA จุดเชื่อมระหว่าง glycolysis กับ Krebs cycle",
         "source": "Bacterial Metabolism p.15",
         "body": [
-          {
-            "text": "Conversion of pyruvate to acetyl CoA คือ **the junction between glycolysis and the Krebs cycle**"
-          },
+          "Conversion of pyruvate to acetyl CoA คือ **the junction between glycolysis and the Krebs cycle**",
           {
             "bullets": [
               "Acetyl CoA เป็น a very unstable and reactive product",
@@ -2782,21 +2558,15 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Carbohydrate, fatty acids และ amino acids may be converted into acetyl CoA during aerobic respiration"
             ]
           },
-          {
-            "text": "สมการ: Pyruvate + NAD+ + CoA ให้ Acetyl CoA + NADH + CO2"
-          }
+          "สมการ: Pyruvate + NAD+ + CoA ให้ Acetyl CoA + NADH + CO2"
         ]
       },
       {
         "heading": "KREBS CYCLE หรือ TCA CYCLE",
         "source": "Bacterial Metabolism p.16-17",
         "body": [
-          {
-            "text": "p.16 เป็นวงจรพร้อมกำกับผลผลิตต่อรอบไว้สั้น ๆ ว่า **3NADH, FADH2, GTP (ATP)** โดยระบุว่า GTP มาจาก substrate-level phosphorylation"
-          },
-          {
-            "text": "p.17 เป็นแผนภาพล้วน ไม่มีข้อความบนสไลด์"
-          },
+          "p.16 เป็นวงจรพร้อมกำกับผลผลิตต่อรอบไว้สั้น ๆ ว่า **3NADH, FADH2, GTP (ATP)** โดยระบุว่า GTP มาจาก substrate-level phosphorylation",
+          "p.17 เป็นแผนภาพล้วน ไม่มีข้อความบนสไลด์",
           {
             "callout": "สไลด์หน้านี้ไม่ได้ไล่ชื่อสารตัวกลางหรือชื่อเอนไซม์ในวงจรให้ ให้ดูตัวเลขผลผลิตกับที่มาของ GTP เป็นหลัก แล้วไปต่อที่ตาราง net ATP ใน p.20",
             "kind": "flag"
@@ -2807,9 +2577,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ELECTRON TRANSPORT SYSTEM และ OXIDATIVE PHOSPHORYLATION",
         "source": "Bacterial Metabolism p.18-19",
         "body": [
-          {
-            "text": "p.18 เป็นภาพระบบล้วน มีเฉพาะหัวข้อ ELECTRON TRANSPORT SYSTEM"
-          },
+          "p.18 เป็นภาพระบบล้วน มีเฉพาะหัวข้อ ELECTRON TRANSPORT SYSTEM",
           {
             "sub": "หลักการที่สไลด์ p.19 เขียนไว้",
             "body": [
@@ -2854,12 +2622,8 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ข้อยกเว้นที่สไลด์เขียนไว้: If membrane non permeable to NADH จะได้ 0-2 ATP เพราะ e- ถูก relayed across membrane at the expense of 2 ATP"
-          },
-          {
-            "text": "รวมทั้งหมด **36-38 ATP**"
-          }
+          "ข้อยกเว้นที่สไลด์เขียนไว้: If membrane non permeable to NADH จะได้ 0-2 ATP เพราะ e- ถูก relayed across membrane at the expense of 2 ATP",
+          "รวมทั้งหมด **36-38 ATP**"
         ]
       },
       {
@@ -2887,9 +2651,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "**catalase** ทำงานต่อกับ H2O2 ได้ H2O และ O2"
                 ]
               },
-              {
-                "text": "สมการทั้งสองบนสไลด์ถูกจัดวางแยกบรรทัด อ่านลำดับสารตั้งต้นกับผลิตภัณฑ์ได้ตามข้างต้น แต่ตัวเลขสัมประสิทธิ์บนสไลด์วางสลับกันจนอ่านเป็นสมการเต็มไม่ได้"
-              }
+              "สมการทั้งสองบนสไลด์ถูกจัดวางแยกบรรทัด อ่านลำดับสารตั้งต้นกับผลิตภัณฑ์ได้ตามข้างต้น แต่ตัวเลขสัมประสิทธิ์บนสไลด์วางสลับกันจนอ่านเป็นสมการเต็มไม่ได้"
             ]
           }
         ]
@@ -2898,9 +2660,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "BIOCHEMICAL PROPERTIES for BACTERIAL IDENTIFICATION ภาพรวม",
         "source": "Bacterial Metabolism p.22",
         "body": [
-          {
-            "text": "สไลด์เปิดหัวข้อใหญ่ท่อนสอง โดยเริ่มที่ CARBOHYDRATE METABOLISM แล้วไล่ test ตามขนาดของ substrate"
-          },
+          "สไลด์เปิดหัวข้อใหญ่ท่อนสอง โดยเริ่มที่ CARBOHYDRATE METABOLISM แล้วไล่ test ตามขนาดของ substrate",
           {
             "bullets": [
               "Polysaccharide ใช้ starch hydrolysis",
@@ -2916,9 +2676,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "STARCH HYDROLYSIS (amylase production)",
         "source": "Bacterial Metabolism p.23",
         "body": [
-          {
-            "text": "ปฏิกิริยา: Starch ถูก amylase ย่อยเป็น Oligosaccharides และ Disaccharides (maltose) แล้วต่อเป็น Monosaccharide (glucose)"
-          },
+          "ปฏิกิริยา: Starch ถูก amylase ย่อยเป็น Oligosaccharides และ Disaccharides (maltose) แล้วต่อเป็น Monosaccharide (glucose)",
           {
             "bullets": [
               "หยด Starch + Iodine (Starch reagent) จะได้ purple compound = **negative**",
@@ -2931,9 +2689,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "SUGAR ASSIMILATION TEST",
         "source": "Bacterial Metabolism p.24-25",
         "body": [
-          {
-            "text": "หลักการคือ acid production from disaccharides และ monosaccharides โดย Disaccharides ถูกย่อยเป็น Monosaccharides แล้วเข้า glycolysis pathway ได้ acid ผ่านทาง fermentation หรือ oxidation ทำให้ **decreasing pH**"
-          },
+          "หลักการคือ acid production from disaccharides และ monosaccharides โดย Disaccharides ถูกย่อยเป็น Monosaccharides แล้วเข้า glycolysis pathway ได้ acid ผ่านทาง fermentation หรือ oxidation ทำให้ **decreasing pH**",
           {
             "sub": "pH indicator ที่สไลด์ระบุ (p.24)",
             "body": [
@@ -2944,9 +2700,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "BROMOCRESOL PURPLE เปลี่ยน PURPLE เป็น YELLOW"
                 ]
               },
-              {
-                "text": "ทุกตัวชี้ไปทาง **สีเหลืองเมื่อเป็นกรด**"
-              }
+              "ทุกตัวชี้ไปทาง **สีเหลืองเมื่อเป็นกรด**"
             ]
           },
           {
@@ -2966,9 +2720,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "OF (OXIDATION-FERMENTATION) TEST",
         "source": "Bacterial Metabolism p.26",
         "body": [
-          {
-            "text": "ทดสอบ acid production from glucose in aerobic and anaerobic conditions"
-          },
+          "ทดสอบ acid production from glucose in aerobic and anaerobic conditions",
           {
             "bullets": [
               "**Glucose fermenter** utilizes glucose in both aerobic and anaerobic conditions",
@@ -2982,9 +2734,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "TSI (TRIPLE SUGAR IRON) TEST",
         "source": "Bacterial Metabolism p.27-28",
         "body": [
-          {
-            "text": "ใช้สำหรับ **genus and species identification of Enterobacteriaceae**"
-          },
+          "ใช้สำหรับ **genus and species identification of Enterobacteriaceae**",
           {
             "sub": "สิ่งที่ TSI อ่านได้ 3 อย่าง (p.27)",
             "body": [
@@ -2995,12 +2745,8 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "3. H2S production"
                 ]
               },
-              {
-                "text": "pH indicator = **PHENOL RED** วิธีเพาะคือ stab into the butt and streak onto the slant"
-              },
-              {
-                "text": "เคมีของ H2S ตามสไลด์: Bacteria ในภาวะ acid environment + sodium thiosulfate ให้ H2S แล้ว H2S + ferric ion ให้ FeS (ferrous sulfide) ซึ่ง insoluble black"
-              }
+              "pH indicator = **PHENOL RED** วิธีเพาะคือ stab into the butt and streak onto the slant",
+              "เคมีของ H2S ตามสไลด์: Bacteria ในภาวะ acid environment + sodium thiosulfate ให้ H2S แล้ว H2S + ferric ion ให้ FeS (ferrous sulfide) ซึ่ง insoluble black"
             ]
           },
           {
@@ -3012,9 +2758,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Bacteria ferment GLUCOSE only จะได้ strong acid (yellow butt) ส่วน slant may utilize protein (alkaline) จึงเป็น red slant มี gas และ H2S เขียนเป็น **K/A/+/+**"
                 ]
               },
-              {
-                "text": "ลำดับการอ่านรหัสคือ slant/butt/gas/H2S"
-              }
+              "ลำดับการอ่านรหัสคือ slant/butt/gas/H2S"
             ]
           }
         ]
@@ -3023,9 +2767,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตารางผล TSI รายเชื้อ",
         "source": "Bacterial Metabolism p.29",
         "body": [
-          {
-            "text": "อ่านเรียง slant / butt / gas / H2S วงเล็บคือผลที่พบได้อีกแบบ"
-          },
+          "อ่านเรียง slant / butt / gas / H2S วงเล็บคือผลที่พบได้อีกแบบ",
           {
             "bullets": [
               "*Escherichia*: slant A (K), butt A, gas + (-), H2S -",
@@ -3046,9 +2788,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "MR และ VP TEST",
         "source": "Bacterial Metabolism p.30-32",
         "body": [
-          {
-            "text": "ทั้งสอง test ใช้อาหารเดียวกันคือ **Clark and Lubs medium (MR/VP broth)** แต่อ่านคนละปลายทางของการหมัก glucose"
-          },
+          "ทั้งสอง test ใช้อาหารเดียวกันคือ **Clark and Lubs medium (MR/VP broth)** แต่อ่านคนละปลายทางของการหมัก glucose",
           {
             "bullets": [
               "METHYL RED TEST อ่านเชื้อที่ continue producing acids",
@@ -3058,29 +2798,21 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "METHYL RED TEST (p.31)",
             "body": [
-              {
-                "text": "MR positive = **produce stable acid maintaining high conc. of H+**"
-              },
+              "MR positive = **produce stable acid maintaining high conc. of H+**",
               {
                 "bullets": [
                   "2 glucose + H2O ให้ 2 lactic acid + acetic acid + ethanol + 2CO2 + 2H2",
                   "formic acid ให้ H2 + CO2"
                 ]
               },
-              {
-                "text": "อ่านผลโดย Add methyl red reagent"
-              }
+              "อ่านผลโดย Add methyl red reagent"
             ]
           },
           {
             "sub": "VOGES-PRAUSKER TEST (p.32)",
             "body": [
-              {
-                "text": "VP positive = **produce acetoin to neutralize acid**"
-              },
-              {
-                "text": "2 glucose + 1/2 O ให้ acetoin (acetomethyl carbinol) แล้วต่อเป็น 2,3-Butanediol + lactic acid + 2CO2 + 2H2O"
-              },
+              "VP positive = **produce acetoin to neutralize acid**",
+              "2 glucose + 1/2 O ให้ acetoin (acetomethyl carbinol) แล้วต่อเป็น 2,3-Butanediol + lactic acid + 2CO2 + 2H2O",
               {
                 "bullets": [
                   "1. Add 40% KOH",
@@ -3096,9 +2828,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "CITRATE UTILIZATION TEST (Simmon's citrate)",
         "source": "Bacterial Metabolism p.33",
         "body": [
-          {
-            "text": "เงื่อนไขสำคัญที่สไลด์เน้นคือ **No presence of glucose** ในอาหาร เชื้อจึงต้องใช้ citrate เป็นแหล่งคาร์บอน"
-          },
+          "เงื่อนไขสำคัญที่สไลด์เน้นคือ **No presence of glucose** ในอาหาร เชื้อจึงต้องใช้ citrate เป็นแหล่งคาร์บอน",
           {
             "bullets": [
               "Citrate ถูกนำเข้าโดย **citrate permease** แล้วเปลี่ยนเป็น oxaloacetate + acetic acid แล้วต่อเป็น pyruvate + CO2",
@@ -3111,9 +2841,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "PROTEIN and AMINO ACID METABOLISM ภาพรวม",
         "source": "Bacterial Metabolism p.34",
         "body": [
-          {
-            "text": "สไลด์ลิสต์ test ในหมวดนี้ไว้ 5 รายการ"
-          },
+          "สไลด์ลิสต์ test ในหมวดนี้ไว้ 5 รายการ",
           {
             "bullets": [
               "Gelatin hydrolysis test",
@@ -3132,9 +2860,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Gelatin hydrolysis (p.35)",
             "body": [
-              {
-                "text": "Collagen (connective tissue) ให้ gelatin แล้ว gelatinase ย่อย gelatin เป็น amino acid"
-              },
+              "Collagen (connective tissue) ให้ gelatin แล้ว gelatinase ย่อย gelatin เป็น amino acid",
               {
                 "bullets": [
                   "1. Bacteria grown on gelatin agar",
@@ -3147,9 +2873,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Digestion of casein (p.36)",
             "body": [
-              {
-                "text": "caseinase ย่อย casein เป็น amino acid"
-              },
+              "caseinase ย่อย casein เป็น amino acid",
               {
                 "bullets": [
                   "ใช้ casein agar (5% skim milk)",
@@ -3185,9 +2909,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Bacteria cannot hydrolyze amino acid but utilize glucose จะได้ acid pH เห็นเป็นสีเหลือง"
                 ]
               },
-              {
-                "text": "หลอด control (C) ที่สไลด์กำกับไว้คือหลอดที่มี only glucose และ no amino acid"
-              }
+              "หลอด control (C) ที่สไลด์กำกับไว้คือหลอดที่มี only glucose และ no amino acid"
             ]
           }
         ]
@@ -3196,36 +2918,24 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "INDOLE TEST",
         "source": "Bacterial Metabolism p.39",
         "body": [
-          {
-            "text": "Tryptophan ถูก **tryptophanase** ย่อยเป็น Indole + pyruvic acid + ammonia"
-          },
-          {
-            "text": "อ่านผลด้วย **Kovac's reagent** ซึ่งประกอบด้วย p-dimethylaminobenzaldehyde, butanol และ acid ผลบวกได้ **red violet compound**"
-          }
+          "Tryptophan ถูก **tryptophanase** ย่อยเป็น Indole + pyruvic acid + ammonia",
+          "อ่านผลด้วย **Kovac's reagent** ซึ่งประกอบด้วย p-dimethylaminobenzaldehyde, butanol และ acid ผลบวกได้ **red violet compound**"
         ]
       },
       {
         "heading": "HIPPURATE HYDROLYSIS TEST",
         "source": "Bacterial Metabolism p.40",
         "body": [
-          {
-            "text": "Hippurate ถูก **hippuricase** ย่อยเป็น glycine (amino acid) + benzoic acid"
-          },
-          {
-            "text": "**Positive = hippuricase production เห็นเป็นสี purple blue** ตรวจด้วย 3.5% ninhydrin"
-          }
+          "Hippurate ถูก **hippuricase** ย่อยเป็น glycine (amino acid) + benzoic acid",
+          "**Positive = hippuricase production เห็นเป็นสี purple blue** ตรวจด้วย 3.5% ninhydrin"
         ]
       },
       {
         "heading": "LIPID METABOLISM: LECITHOVITELLIN TEST",
         "source": "Bacterial Metabolism p.41-42",
         "body": [
-          {
-            "text": "p.41 เปิดหัวข้อว่าหมวด LIPID METABOLISM มี Lecithovitelline test และหมวด NITROGEN METABOLISM มี Nitrate reduction test"
-          },
-          {
-            "text": "หลักการ (p.42): **Digestion of lecithin (phospholipid) in egg yolk** โดยเอนไซม์ lecithinase"
-          },
+          "p.41 เปิดหัวข้อว่าหมวด LIPID METABOLISM มี Lecithovitelline test และหมวด NITROGEN METABOLISM มี Nitrate reduction test",
+          "หลักการ (p.42): **Digestion of lecithin (phospholipid) in egg yolk** โดยเอนไซม์ lecithinase",
           {
             "bullets": [
               "ผลบวกเห็นเป็น **insoluble precipitation คือ opalescent หรือ opaque zone around colony**",
@@ -3238,9 +2948,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "NITRATE REDUCTION TEST",
         "source": "Bacterial Metabolism p.43",
         "body": [
-          {
-            "text": "ปฏิกิริยาหลัก: NO3- + 2H+ + e- ให้ NO2- + H2O"
-          },
+          "ปฏิกิริยาหลัก: NO3- + 2H+ + e- ให้ NO2- + H2O",
           {
             "sub": "Phase I ตรวจว่ามี nitrite หรือไม่",
             "body": [
@@ -3252,9 +2960,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "ถ้า no color change ตีความได้ 2 ทางคือ 1. Negative หรือ 2. N2 production"
                 ]
               },
-              {
-                "text": "denitrification ที่สไลด์เขียนไว้: NO3- + 10e- + 12H+ ให้ N2 + 6H2O"
-              }
+              "denitrification ที่สไลด์เขียนไว้: NO3- + 10e- + 12H+ ให้ N2 + 6H2O"
             ]
           },
           {
@@ -3279,12 +2985,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "UREASE TEST",
         "source": "Bacterial Metabolism p.44",
         "body": [
-          {
-            "text": "โน้ตบนสไลด์เขียนไว้ว่าเทสนี้ดูว่า bac. มีการใช้ urea ได้หรือเปล่า"
-          },
-          {
-            "text": "ปฏิกิริยา: (NH2)2CO + 2H2O ถูก **urease** ย่อยเป็น CO2 + H2O + 2NH3"
-          },
+          "โน้ตบนสไลด์เขียนไว้ว่าเทสนี้ดูว่า bac. มีการใช้ urea ได้หรือเปล่า",
+          "ปฏิกิริยา: (NH2)2CO + 2H2O ถูก **urease** ย่อยเป็น CO2 + H2O + 2NH3",
           {
             "bullets": [
               "Indicator = **phenol red**",
@@ -3298,9 +3000,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตาราง screening เบื้องต้นระดับ family และ genus",
         "source": "Bacterial Metabolism p.45",
         "body": [
-          {
-            "text": "อ่านเรียง Gram's staining / motility / catalase / oxidase / OF"
-          },
+          "อ่านเรียง Gram's staining / motility / catalase / oxidase / OF",
           {
             "bullets": [
               "*Staphylococcus*: Gram + cocci เรียงตัวแบบ grape-like, motility -, catalase +, oxidase -, OF = F",
@@ -3309,9 +3009,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Enterobacteriaceae: Gram - bacilli, motility + (-), catalase +, oxidase -, OF = F"
             ]
           },
-          {
-            "text": "สไลด์ปิดท้ายว่า **ALL can grow in aerobic condition**"
-          },
+          "สไลด์ปิดท้ายว่า **ALL can grow in aerobic condition**",
           {
             "callout": "ตัวแยกที่คมที่สุดในตารางนี้คือ oxidase กับ OF *Pseudomonas* เป็นตัวเดียวที่ oxidase + และ OF เป็น O ส่วน Enterobacteriaceae oxidase - และ OF เป็น F",
             "kind": "tip"
@@ -3322,9 +3020,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่างที่ 1: Family Enterobacteriaceae",
         "source": "Bacterial Metabolism p.46",
         "body": [
-          {
-            "text": "สไลด์เอา test ที่เรียนมาทั้งหมดมาเรียงเป็นตารางแยกเชื้อ 4 ตัว คือ *Escherichia coli*, *Klebsiella pneumoniae*, *Salmonella enterica* และ *Shigella dysenteriae*"
-          },
+          "สไลด์เอา test ที่เรียนมาทั้งหมดมาเรียงเป็นตารางแยกเชื้อ 4 ตัว คือ *Escherichia coli*, *Klebsiella pneumoniae*, *Salmonella enterica* และ *Shigella dysenteriae*",
           {
             "sub": "คอลัมน์ที่ตารางใช้",
             "body": [
@@ -3363,9 +3059,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่างที่ 2: coagulase-positive staphylococci",
         "source": "Bacterial Metabolism p.47",
         "body": [
-          {
-            "text": "ตารางแยก coagulase-positive *Staphylococcus* sp. 4 ตัว ด้วย coagulase test, VP, sugar assimilation test (maltose, galactose, lactose, trehalose) และ mannitol fermentation test"
-          },
+          "ตารางแยก coagulase-positive *Staphylococcus* sp. 4 ตัว ด้วย coagulase test, VP, sugar assimilation test (maltose, galactose, lactose, trehalose) และ mannitol fermentation test",
           {
             "bullets": [
               "*Staphylococcus aureus*: coagulase +, VP +, maltose +, galactose +, lactose +, trehalose +, mannitol +",
@@ -3413,9 +3107,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "MALDI-TOF mass spectrometry",
         "source": "Bacterial Metabolism p.50-54",
         "body": [
-          {
-            "text": "โน้ตบนสไลด์สรุปว่านี่คือการหามวลโมเลกุลของแบคทีเรียเพื่อจำแนกชนิด bac."
-          },
+          "โน้ตบนสไลด์สรุปว่านี่คือการหามวลโมเลกุลของแบคทีเรียเพื่อจำแนกชนิด bac.",
           {
             "sub": "หลักการ (p.50)",
             "body": [
@@ -3456,12 +3148,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "จุดเด่นและข้อจำกัด (p.54)",
             "body": [
-              {
-                "text": "โน้ตบนสไลด์เขียนว่ารู้ชนิดของ bac. ไม่ถึง 3 นาที **But! ต้องมี database**"
-              },
-              {
-                "text": "รูปประกอบเป็น spectral fingerprints obtained from whole colonies of five different bacterial species โดย matrix ที่ใช้คือ HCCA อ้างอิง Carbonnelle et al., 2011. Clinical Biochemistry. 44(1): 104-109"
-              }
+              "โน้ตบนสไลด์เขียนว่ารู้ชนิดของ bac. ไม่ถึง 3 นาที **But! ต้องมี database**",
+              "รูปประกอบเป็น spectral fingerprints obtained from whole colonies of five different bacterial species โดย matrix ที่ใช้คือ HCCA อ้างอิง Carbonnelle et al., 2011. Clinical Biochemistry. 44(1): 104-109"
             ]
           },
           {
@@ -3483,9 +3171,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขอบเขตของ deck นี้",
         "source": "Bacterial Physiology and taxonomy p.2",
         "body": [
-          {
-            "text": "สไลด์ Overviews วางลำดับเรื่องไว้ชัดเจน ให้ใช้เป็นโครงในการทบทวน"
-          },
+          "สไลด์ Overviews วางลำดับเรื่องไว้ชัดเจน ให้ใช้เป็นโครงในการทบทวน",
           {
             "bullets": [
               "Bacterial physiology: structure and function ประกอบด้วย bacterial cell, shapes and arrangements",
@@ -3502,9 +3188,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ส่วนประกอบของ prokaryotic cell",
         "source": "Bacterial Physiology and taxonomy p.3",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพ bacterial cell พร้อมป้ายชื่อโครงสร้าง ไม่ได้อธิบายหน้าที่ในหน้านี้ (หน้าที่จะไปอยู่ในสไลด์ถัด ๆ ไปของแต่ละโครงสร้าง)"
-          },
+          "สไลด์เป็นภาพ bacterial cell พร้อมป้ายชื่อโครงสร้าง ไม่ได้อธิบายหน้าที่ในหน้านี้ (หน้าที่จะไปอยู่ในสไลด์ถัด ๆ ไปของแต่ละโครงสร้าง)",
           {
             "bullets": [
               "cell wall, periplasm, cell membrane, cytoplasm",
@@ -3536,9 +3220,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "โครงสร้างที่อยู่นอก cell wall มีอะไรบ้าง",
         "source": "Bacterial Physiology and taxonomy p.6",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นหน้าคั่นหัวข้อ ระบุแค่รายการโครงสร้างสามอย่าง"
-          },
+          "สไลด์นี้เป็นหน้าคั่นหัวข้อ ระบุแค่รายการโครงสร้างสามอย่าง",
           {
             "bullets": [
               "flagella",
@@ -3552,9 +3234,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ย้อมสีเพื่อ identification เป็น simple diagnostic technique",
         "source": "Bacterial Physiology and taxonomy p.7",
         "body": [
-          {
-            "text": "สไลด์วางกรอบคิดของทั้ง deck ไว้ตรงนี้ คือมองเซลล์แบคทีเรียเป็นสองมุมพร้อมกัน"
-          },
+          "สไลด์วางกรอบคิดของทั้ง deck ไว้ตรงนี้ คือมองเซลล์แบคทีเรียเป็นสองมุมพร้อมกัน",
           {
             "bullets": [
               "**การย้อมสีคือเทคนิควินิจฉัยอย่างง่าย** ภาพตัวอย่างที่สไลด์แสดงคือ Gram-negative bacilli และ Gram-positive cocci",
@@ -3567,9 +3247,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตารางยาต้านจุลชีพ กลไก และเป้าที่โครงสร้างเซลล์",
         "source": "Bacterial Physiology and taxonomy p.8",
         "body": [
-          {
-            "text": "ตารางนี้เป็นแกนเชื่อมของ deck ทั้งอัน โครงสร้างที่เรียนหน้าถัดไปแทบทุกอันโผล่มาเป็น Target ในตารางนี้"
-          },
+          "ตารางนี้เป็นแกนเชื่อมของ deck ทั้งอัน โครงสร้างที่เรียนหน้าถัดไปแทบทุกอันโผล่มาเป็น Target ในตารางนี้",
           {
             "bullets": [
               "**b-lactams** เช่น Penicillin, Amoxicillin, cephalexin กลไก Inhibition of cell wall synthesis เป้าคือ Peptidoglycan (cell wall)",
@@ -3587,9 +3265,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นตอนของ Gram's staining",
         "source": "Bacterial Physiology and taxonomy p.9",
         "body": [
-          {
-            "text": "สไลด์เป็นไดอะแกรมที่มีเฉพาะป้ายกำกับขั้นตอน ไม่ได้เขียนคำอธิบายกลไกเป็นประโยค"
-          },
+          "สไลด์เป็นไดอะแกรมที่มีเฉพาะป้ายกำกับขั้นตอน ไม่ได้เขียนคำอธิบายกลไกเป็นประโยค",
           {
             "bullets": [
               "**CV-I complex**",
@@ -3607,18 +3283,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Bacterial cell wall หน้าที่ และการแบ่งสองกลุ่มใหญ่",
         "source": "Bacterial Physiology and taxonomy p.10",
         "body": [
-          {
-            "text": "**Functions ของ cell wall คือ mechanical strength และกำหนด shape ของแบคทีเรีย** และ Gram's stain ใช้แยกแบคทีเรียเป็นสองกลุ่มใหญ่"
-          },
+          "**Functions ของ cell wall คือ mechanical strength และกำหนด shape ของแบคทีเรีย** และ Gram's stain ใช้แยกแบคทีเรียเป็นสองกลุ่มใหญ่",
           {
             "bullets": [
               "**GRAM-POSITIVE** มี thick layer of peptidoglycan ติดสีม่วง (purple)",
               "**GRAM-NEGATIVE** มี outer membrane และ lipopolysaccharide (LPS) กับ thin layer of peptidoglycan ติดสีแดง (red)"
             ]
           },
-          {
-            "text": "ที่มาทางประวัติศาสตร์ที่สไลด์เล่า คือ Hans Christian Joachim Gram (1853-1938) พัฒนาวิธีนี้เพื่อแยก Streptococcus pneumoniae ออกจาก Klebsiella ซึ่งเป็นสาเหตุของ severe pneumonia"
-          }
+          "ที่มาทางประวัติศาสตร์ที่สไลด์เล่า คือ Hans Christian Joachim Gram (1853-1938) พัฒนาวิธีนี้เพื่อแยก Streptococcus pneumoniae ออกจาก Klebsiella ซึ่งเป็นสาเหตุของ severe pneumonia"
         ]
       },
       {
@@ -3632,9 +3304,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "เป็น pathogen-associated molecular patterns (PAMPs) ที่จับกับ pattern recognizing receptors (PRRs)"
             ]
           },
-          {
-            "text": "**PRRs ที่สไลด์ระบุคือ TLR-2 และคู่ TLR-2/TLR-6 ซึ่งจดจำ peptidoglycan และ teichoic acid**"
-          }
+          "**PRRs ที่สไลด์ระบุคือ TLR-2 และคู่ TLR-2/TLR-6 ซึ่งจดจำ peptidoglycan และ teichoic acid**"
         ]
       },
       {
@@ -3654,9 +3324,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Periplasm",
         "source": "Bacterial Physiology and taxonomy p.13",
         "body": [
-          {
-            "text": "**Periplasm พบเฉพาะใน gram-negative bacteria เท่านั้น เป็นช่องว่างระหว่าง inner membrane กับ outer membrane**"
-          },
+          "**Periplasm พบเฉพาะใน gram-negative bacteria เท่านั้น เป็นช่องว่างระหว่าง inner membrane กับ outer membrane**",
           {
             "sub": "Functions ตามสไลด์",
             "body": [
@@ -3700,18 +3368,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "PAMPs และ PRRs ที่เกี่ยวข้อง สไลด์ระบุ **TLR-4**"
-          }
+          "PAMPs และ PRRs ที่เกี่ยวข้อง สไลด์ระบุ **TLR-4**"
         ]
       },
       {
         "heading": "Bacterial endotoxin เทียบกับ exotoxin",
         "source": "Bacterial Physiology and taxonomy p.15",
         "body": [
-          {
-            "text": "**BACTERIAL ENDOTOXIN คือ Lipid A ของ Lipopolysaccharide** สไลด์ระบุผลว่า elicits a variety of immune response, releasing of proinflammatory cytokines และ causing fever and septic shock"
-          },
+          "**BACTERIAL ENDOTOXIN คือ Lipid A ของ Lipopolysaccharide** สไลด์ระบุผลว่า elicits a variety of immune response, releasing of proinflammatory cytokines และ causing fever and septic shock",
           {
             "sub": "ตารางเปรียบเทียบ ENDOTOXIN กับ EXOTOXIN",
             "body": [
@@ -3735,21 +3399,15 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Peptidoglycan คือ Achilles' heel ของแบคทีเรีย",
         "source": "Bacterial Physiology and taxonomy p.16",
         "body": [
-          {
-            "text": "สไลด์อ้างคำว่า **Bacterial Achilles' heel (Coyette, 2008)** และระบุว่า peptidoglycan เป็น target of successful sets of antibacterial agents ได้แก่ beta-lactams, glycopeptides และอื่น ๆ"
-          },
-          {
-            "text": "สไลด์เสริมว่า งานวิจัยระยะหลังทำให้เข้าใจมากขึ้นว่าจะใช้ประโยชน์จาก peptidoglycan-based therapeutics ได้อย่างไร (Lovering et al., 2012)"
-          }
+          "สไลด์อ้างคำว่า **Bacterial Achilles' heel (Coyette, 2008)** และระบุว่า peptidoglycan เป็น target of successful sets of antibacterial agents ได้แก่ beta-lactams, glycopeptides และอื่น ๆ",
+          "สไลด์เสริมว่า งานวิจัยระยะหลังทำให้เข้าใจมากขึ้นว่าจะใช้ประโยชน์จาก peptidoglycan-based therapeutics ได้อย่างไร (Lovering et al., 2012)"
         ]
       },
       {
         "heading": "เป้าของยาบน peptidoglycan",
         "source": "Bacterial Physiology and taxonomy p.17",
         "body": [
-          {
-            "text": "**Peptidoglycan พบทั้งใน gram-positive และ gram-negative** จึงเป็นเป้าที่ใช้ได้กว้าง"
-          },
+          "**Peptidoglycan พบทั้งใน gram-positive และ gram-negative** จึงเป็นเป้าที่ใช้ได้กว้าง",
           {
             "bullets": [
               "**beta-lactams เช่น penicillin ยับยั้ง transpeptidase**",
@@ -3831,9 +3489,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Counter stain คือ methylene blue**"
             ]
           },
-          {
-            "text": "สไลด์แสดงผลเป็นสองแบบคือ acid-fast กับ non acid-fast แต่ไม่ได้เขียนกำกับว่าสีที่เห็นในแต่ละแบบเรียกว่าอะไร"
-          }
+          "สไลด์แสดงผลเป็นสองแบบคือ acid-fast กับ non acid-fast แต่ไม่ได้เขียนกำกับว่าสีที่เห็นในแต่ละแบบเรียกว่าอะไร"
         ]
       },
       {
@@ -3869,9 +3525,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "หน้าที่ของ flagellum และ motility test",
         "source": "Bacterial Physiology and taxonomy p.24",
         "body": [
-          {
-            "text": "**Function ของ bacterial flagellum คือ bacterial motility and movement**"
-          },
+          "**Function ของ bacterial flagellum คือ bacterial motility and movement**",
           {
             "bullets": [
               "**Motility test ใช้ motility test medium ซึ่งเป็น semisolid**",
@@ -3884,9 +3538,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Fimbria และ pilus",
         "source": "Bacterial Physiology and taxonomy p.25",
         "body": [
-          {
-            "text": "**Fimbria และ pilus เป็น thin and short appendages** สไลด์แสดงภาพเทียบให้เห็น flagella, fimbriae และ sex pilus บนเซลล์เดียวกัน"
-          },
+          "**Fimbria และ pilus เป็น thin and short appendages** สไลด์แสดงภาพเทียบให้เห็น flagella, fimbriae และ sex pilus บนเซลล์เดียวกัน",
           {
             "sub": "Function",
             "body": [
@@ -3901,9 +3553,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ p.26 ขยายว่า fimbria เป็นกลไก bacterial adhesion โดยจับกับ oligosaccharides บน target cells และเป็น protein receptors สำหรับ bacteriophage ส่วน sex pilus ใช้ในการ conjugation"
-          }
+          "สไลด์ p.26 ขยายว่า fimbria เป็นกลไก bacterial adhesion โดยจับกับ oligosaccharides บน target cells และเป็น protein receptors สำหรับ bacteriophage ส่วน sex pilus ใช้ในการ conjugation"
         ]
       },
       {
@@ -3965,36 +3615,28 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Efflux pump** สไลด์ชี้ตำแหน่งไว้ที่ cell membrane"
             ]
           },
-          {
-            "text": "สไลด์อ้างอิงภาพจาก Li et al. 2015. Clin Microbiol Rev. 28(2): 337-418"
-          }
+          "สไลด์อ้างอิงภาพจาก Li et al. 2015. Clin Microbiol Rev. 28(2): 337-418"
         ]
       },
       {
         "heading": "Efflux pump กับการดื้อยา",
         "source": "Bacterial Physiology and taxonomy p.30",
         "body": [
-          {
-            "text": "**Efflux pump ทำหน้าที่ expulsion of toxic compounds คือขับสารพิษออกจากเซลล์**"
-          },
+          "**Efflux pump ทำหน้าที่ expulsion of toxic compounds คือขับสารพิษออกจากเซลล์**",
           {
             "bullets": [
               "**Multidrug efflux pump**",
               "**Cross resistance เพราะปั๊มรับ substrates ได้หลากหลาย**"
             ]
           },
-          {
-            "text": "สไลด์อ้างอิงภาพ Functional roles of bacterial multidrug efflux pumps จาก Beceiro et al., 2013. Clin Microbiol. Rev. 26(2):185"
-          }
+          "สไลด์อ้างอิงภาพ Functional roles of bacterial multidrug efflux pumps จาก Beceiro et al., 2013. Clin Microbiol. Rev. 26(2):185"
         ]
       },
       {
         "heading": "Bacterial secretion systems",
         "source": "Bacterial Physiology and taxonomy p.31",
         "body": [
-          {
-            "text": "**สไลด์ระบุว่า bacterial secretion systems มี 6 types** แต่ไม่ได้ไล่ชื่อครบทั้งหกในหน้านี้"
-          },
+          "**สไลด์ระบุว่า bacterial secretion systems มี 6 types** แต่ไม่ได้ไล่ชื่อครบทั้งหกในหน้านี้",
           {
             "bullets": [
               "หน้าที่คือ secretion of bacterial substances",
@@ -4012,9 +3654,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ยาที่ออกฤทธิ์ที่ cell membrane",
         "source": "Bacterial Physiology and taxonomy p.32",
         "body": [
-          {
-            "text": "**Polymyxins ได้แก่ Polymyxin B และ colistin ออกฤทธิ์โดย destabilization of membranes**"
-          },
+          "**Polymyxins ได้แก่ Polymyxin B และ colistin ออกฤทธิ์โดย destabilization of membranes**",
           {
             "bullets": [
               "**Binding to LPS แล้ว displaces cations**",
@@ -4022,18 +3662,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Lysis of bacterial cells**"
             ]
           },
-          {
-            "text": "สไลด์อ้างอิงภาพ Action of colistin on bacterial membrane จาก Matis et al. 2014. J Infect. 69(1): 1-12"
-          }
+          "สไลด์อ้างอิงภาพ Action of colistin on bacterial membrane จาก Matis et al. 2014. J Infect. 69(1): 1-12"
         ]
       },
       {
         "heading": "Mesosome",
         "source": "Bacterial Physiology and taxonomy p.33",
         "body": [
-          {
-            "text": "**Mesosome คือ folded invaginations ของ cell membrane**"
-          },
+          "**Mesosome คือ folded invaginations ของ cell membrane**",
           {
             "sub": "Functions",
             "body": [
@@ -4066,9 +3702,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Ribosome",
         "source": "Bacterial Physiology and taxonomy p.35",
         "body": [
-          {
-            "text": "**Ribosome เป็น non membrane-bounded organelle หน้าที่คือ protein synthesis**"
-          },
+          "**Ribosome เป็น non membrane-bounded organelle หน้าที่คือ protein synthesis**",
           {
             "bullets": [
               "องค์ประกอบคือ 65% ribosomal RNA และ 35% ribosomal protein",
@@ -4083,9 +3717,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ยาที่ออกฤทธิ์ที่ ribosome",
         "source": "Bacterial Physiology and taxonomy p.37",
         "body": [
-          {
-            "text": "**กลไกร่วมคือ inhibition of protein synthesis** สไลด์แยกตาม subunit ที่ยาไปจับ"
-          },
+          "**กลไกร่วมคือ inhibition of protein synthesis** สไลด์แยกตาม subunit ที่ยาไปจับ",
           {
             "bullets": [
               "**Small subunit (30S) ได้แก่ Tetracyclines และ Aminoglycosides**",
@@ -4132,9 +3764,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Bacterial endospore",
         "source": "Bacterial Physiology and taxonomy p.39",
         "body": [
-          {
-            "text": "**Spore-forming bacteria ที่สไลด์ยกตัวอย่างคือ Bacillus spp. และ Clostridium spp.** วงจรที่สไลด์กำกับไว้คือ sporulation และ germination"
-          },
+          "**Spore-forming bacteria ที่สไลด์ยกตัวอย่างคือ Bacillus spp. และ Clostridium spp.** วงจรที่สไลด์กำกับไว้คือ sporulation และ germination",
           {
             "bullets": [
               "**มี hard protective coating เปรียบเหมือน mummified bacterium**",
@@ -4213,9 +3843,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Quorum sensing",
         "source": "Bacterial Physiology and taxonomy p.43",
         "body": [
-          {
-            "text": "หัวข้อบนสไลด์คือ bacterial communication"
-          },
+          "หัวข้อบนสไลด์คือ bacterial communication",
           {
             "bullets": [
               "**แบคทีเรียสร้าง signaling molecules เรียกว่า autoinducer**",
@@ -4223,9 +3851,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**ผลคือ expression of virulence factors และ biofilm formation**"
             ]
           },
-          {
-            "text": "ตัวอย่างที่สไลด์แสดงคือ bioluminescence of Vibrio fischeri"
-          }
+          "ตัวอย่างที่สไลด์แสดงคือ bioluminescence of Vibrio fischeri"
         ]
       },
       {
@@ -4261,9 +3887,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Concepts of classification",
         "source": "Bacterial Physiology and taxonomy p.45",
         "body": [
-          {
-            "text": "สไลด์แบ่งแนวคิดเป็นสองแบบใหญ่"
-          },
+          "สไลด์แบ่งแนวคิดเป็นสองแบบใหญ่",
           {
             "sub": "Theory-based model for speciation",
             "body": [
@@ -4307,9 +3931,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Genotypic approach และตัวเลข cut-off",
         "source": "Bacterial Physiology and taxonomy p.47",
         "body": [
-          {
-            "text": "หน้านี้เป็นตัวเลขที่ต้องจำ"
-          },
+          "หน้านี้เป็นตัวเลขที่ต้องจำ",
           {
             "bullets": [
               "**DNA-DNA hybridization มากกว่า 70% identity**",
@@ -4317,9 +3939,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Average nucleotide identity จาก complete genome sequence ที่ 95%**"
             ]
           },
-          {
-            "text": "สไลด์อธิบายรากศัพท์ PHYLOGENETICS ไว้ว่า phylo- (phylon) แปลว่า race หรือ tribe และ genetics (genesis) แปลว่า source พร้อมภาพ phylogenetic tree"
-          },
+          "สไลด์อธิบายรากศัพท์ PHYLOGENETICS ไว้ว่า phylo- (phylon) แปลว่า race หรือ tribe และ genetics (genesis) แปลว่า source พร้อมภาพ phylogenetic tree",
           {
             "callout": "สไลด์ p.48 เป็นภาพเปรียบเทียบ DNA-DNA hybridization กับ DNA sequence analysis โดยไม่มีข้อความอธิบาย",
             "kind": "flag"
@@ -4330,9 +3950,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "BACTERIAL PHYLA",
         "source": "Bacterial Physiology and taxonomy p.49",
         "body": [
-          {
-            "text": "หน้าสุดท้ายเป็นภาพต้นไม้ที่มีเฉพาะป้ายกำกับ ไม่มีคำบรรยาย ป้ายที่ปรากฏคือ"
-          },
+          "หน้าสุดท้ายเป็นภาพต้นไม้ที่มีเฉพาะป้ายกำกับ ไม่มีคำบรรยาย ป้ายที่ปรากฏคือ",
           {
             "bullets": [
               "Phylum Bacillota",
@@ -4359,12 +3977,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Biohazards คืออะไร",
         "source": "Biosafety p.2",
         "body": [
-          {
-            "text": "**Biohazards คือ infectious agents หรือ disease causing agents ที่เป็นภัยคุกคามต่อ public health หรือต่อสิ่งแวดล้อม**"
-          },
-          {
-            "text": "สไลด์ยกตัวอย่างสิ่งที่นับเป็น biohazard ไว้ดังนี้"
-          },
+          "**Biohazards คือ infectious agents หรือ disease causing agents ที่เป็นภัยคุกคามต่อ public health หรือต่อสิ่งแวดล้อม**",
+          "สไลด์ยกตัวอย่างสิ่งที่นับเป็น biohazard ไว้ดังนี้",
           {
             "bullets": [
               "bacteria",
@@ -4386,12 +4000,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Biosafety level ภาพรวม",
         "source": "Biosafety p.3",
         "body": [
-          {
-            "text": "**Biosafety level คือชุดของ biocontainment precautions ที่ต้องใช้เพื่อ isolate เชื้อที่อันตราย ไว้ในห้องปฏิบัติการที่ปิด (enclosed laboratory facility)**"
-          },
-          {
-            "text": "ระดับของ containment ไล่จากต่ำสุด **BSL-1** ไปสูงสุด **BSL-4** และสไลด์ระบุว่าในสหรัฐอเมริกา **CDC (Centers for Disease Control and Prevention) เป็นผู้กำหนดระดับเหล่านี้**"
-          },
+          "**Biosafety level คือชุดของ biocontainment precautions ที่ต้องใช้เพื่อ isolate เชื้อที่อันตราย ไว้ในห้องปฏิบัติการที่ปิด (enclosed laboratory facility)**",
+          "ระดับของ containment ไล่จากต่ำสุด **BSL-1** ไปสูงสุด **BSL-4** และสไลด์ระบุว่าในสหรัฐอเมริกา **CDC (Centers for Disease Control and Prevention) เป็นผู้กำหนดระดับเหล่านี้**",
           {
             "sub": "ระดับต่ำสุดกับระดับสูงต่างกันตรงไหน",
             "body": [
@@ -4409,9 +4019,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "BSL-1",
         "source": "Biosafety p.4",
         "body": [
-          {
-            "text": "**เหมาะกับงานที่ใช้เชื้อที่ well-characterized และไม่ก่อโรคในคนสุขภาพดี** เชื้อกลุ่มนี้ควรมี potential hazard น้อยที่สุดทั้งต่อผู้ปฏิบัติงานและต่อสิ่งแวดล้อม"
-          },
+          "**เหมาะกับงานที่ใช้เชื้อที่ well-characterized และไม่ก่อโรคในคนสุขภาพดี** เชื้อกลุ่มนี้ควรมี potential hazard น้อยที่สุดทั้งต่อผู้ปฏิบัติงานและต่อสิ่งแวดล้อม",
           {
             "sub": "ข้อปฏิบัติตามสไลด์",
             "body": [
@@ -4439,18 +4047,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์บอกว่าห้องระดับนี้คือแบบที่ใช้เป็น **teaching space ของโรงเรียนมัธยมและมหาวิทยาลัย**"
-          }
+          "สไลด์บอกว่าห้องระดับนี้คือแบบที่ใช้เป็น **teaching space ของโรงเรียนมัธยมและมหาวิทยาลัย**"
         ]
       },
       {
         "heading": "BSL-2",
         "source": "Biosafety p.5",
         "body": [
-          {
-            "text": "**ใช้ข้อปฏิบัติทั้งหมดของ BSL-1 เป็นพื้นฐาน** แล้วเพิ่มมาตรการต่อไปนี้ (สไลด์เขียนชัดว่า BSL-2 ต่างจาก BSL-1 ตรงจุดเหล่านี้)"
-          },
+          "**ใช้ข้อปฏิบัติทั้งหมดของ BSL-1 เป็นพื้นฐาน** แล้วเพิ่มมาตรการต่อไปนี้ (สไลด์เขียนชัดว่า BSL-2 ต่างจาก BSL-1 ตรงจุดเหล่านี้)",
           {
             "bullets": [
               "บุคลากรได้รับ **specific training ในการจัดการ pathogenic agents** และทำงานภายใต้การกำกับของนักวิทยาศาสตร์ที่ผ่านการอบรมขั้นสูง",
@@ -4459,9 +4063,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**บางขั้นตอน (certain procedures) ที่อาจเกิด infectious aerosols ทำใน biological safety cabinets** หรือ physical containment equipment อื่น สไลด์เขียนว่า \"Certain procedures in which infectious aerosols may be created are conducted in biological safety cabinets or other physical containment equipment\" ไม่ได้เขียนว่าทุกขั้นตอน"
             ]
           },
-          {
-            "text": "**เหมาะกับงานที่ใช้เชื้อซึ่งมี moderate potential hazard ต่อคนและสิ่งแวดล้อม** ได้แก่เชื้อที่ก่อโรคไม่รุนแรงในคน หรือเชื้อที่ติดทาง aerosol ในห้องแล็บได้ยาก"
-          },
+          "**เหมาะกับงานที่ใช้เชื้อซึ่งมี moderate potential hazard ต่อคนและสิ่งแวดล้อม** ได้แก่เชื้อที่ก่อโรคไม่รุนแรงในคน หรือเชื้อที่ติดทาง aerosol ในห้องแล็บได้ยาก",
           {
             "sub": "ตัวอย่างเชื้อที่สไลด์ยกไว้",
             "body": [
@@ -4487,12 +4089,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "BSL-3",
         "source": "Biosafety p.6",
         "body": [
-          {
-            "text": "**เหมาะกับงานที่ใช้เชื้อซึ่งก่อโรครุนแรงและอาจถึงตายผ่าน inhalation route** สไลด์ระบุว่างานลักษณะนี้ทำได้ทั้งใน clinical, diagnostic, teaching, research หรือ production facilities"
-          },
-          {
-            "text": "ใช้ข้อปฏิบัติของ BSL-1 และ BSL-2 ทั้งหมด แล้วเพิ่ม 4 ข้อนี้"
-          },
+          "**เหมาะกับงานที่ใช้เชื้อซึ่งก่อโรครุนแรงและอาจถึงตายผ่าน inhalation route** สไลด์ระบุว่างานลักษณะนี้ทำได้ทั้งใน clinical, diagnostic, teaching, research หรือ production facilities",
+          "ใช้ข้อปฏิบัติของ BSL-1 และ BSL-2 ทั้งหมด แล้วเพิ่ม 4 ข้อนี้",
           {
             "bullets": [
               "บุคลากรทุกคนได้รับ **medical surveillance และได้รับข้อเสนอให้ immunization ที่เกี่ยวข้อง** เพื่อลดความเสี่ยงการติดเชื้อโดยอุบัติเหตุหรือแบบไม่รู้ตัว",
@@ -4533,15 +4131,11 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "BSL-4",
         "source": "Biosafety p.7",
         "body": [
-          {
-            "text": "**ระดับสูงสุด เหมาะกับเชื้อที่ติดทาง aerosol ในห้องแล็บได้ง่าย และก่อโรครุนแรงถึงตายในคน โดยที่ยังไม่มี vaccine หรือ treatment ที่ใช้ได้**"
-          },
+          "**ระดับสูงสุด เหมาะกับเชื้อที่ติดทาง aerosol ในห้องแล็บได้ง่าย และก่อโรครุนแรงถึงตายในคน โดยที่ยังไม่มี vaccine หรือ treatment ที่ใช้ได้**",
           {
             "sub": "รูปแบบห้อง BSL-4",
             "body": [
-              {
-                "text": "สไลด์บอกว่าโดยทั่วไปจัดเป็น 2 แบบ คือ **cabinet laboratories** หรือ **protective-suit laboratories**"
-              },
+              "สไลด์บอกว่าโดยทั่วไปจัดเป็น 2 แบบ คือ **cabinet laboratories** หรือ **protective-suit laboratories**",
               {
                 "bullets": [
                   "ใน cabinet laboratories งานทุกอย่างต้องทำใน **class III biosafety cabinet**",
@@ -4553,12 +4147,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "การออกจากห้องและการควบคุมคนเข้า",
             "body": [
-              {
-                "text": "**ขั้นตอนออกจากห้อง BSL-4 ตามสไลด์เรียงตามลำดับคือ chemical shower เพื่อ decontamination แล้วเข้าห้องถอด positive-pressure suit แล้วจึงอาบน้ำส่วนตัว (personal shower)**"
-              },
-              {
-                "text": "การเข้าห้อง BSL-4 จำกัดเฉพาะผู้ที่ผ่านการอบรมและได้รับอนุญาต และ **ทุกคนที่เข้าและออกต้องถูกบันทึกไว้**"
-              }
+              "**ขั้นตอนออกจากห้อง BSL-4 ตามสไลด์เรียงตามลำดับคือ chemical shower เพื่อ decontamination แล้วเข้าห้องถอด positive-pressure suit แล้วจึงอาบน้ำส่วนตัว (personal shower)**",
+              "การเข้าห้อง BSL-4 จำกัดเฉพาะผู้ที่ผ่านการอบรมและได้รับอนุญาต และ **ทุกคนที่เข้าและออกต้องถูกบันทึกไว้**"
             ]
           }
         ]
@@ -4567,9 +4157,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "สไลด์หน้า 8 ถึง 11",
         "source": "Biosafety p.8-11",
         "body": [
-          {
-            "text": "สไลด์ 4 หน้านี้ **ไม่มีข้อความในชั้น text เลย** น่าจะเป็นสไลด์รูปหรือแผนผังล้วน จึงสรุปเป็นตัวอักษรไม่ได้ ต้องกลับไปดูสไลด์จริงหรือฟังที่อาจารย์บรรยายในห้อง"
-          },
+          "สไลด์ 4 หน้านี้ **ไม่มีข้อความในชั้น text เลย** น่าจะเป็นสไลด์รูปหรือแผนผังล้วน จึงสรุปเป็นตัวอักษรไม่ได้ ต้องกลับไปดูสไลด์จริงหรือฟังที่อาจารย์บรรยายในห้อง",
           {
             "callout": "อย่าเดาเนื้อหาช่วงนี้ ตำแหน่งของมันอยู่ระหว่าง BSL-4 กับ Biosafety Cabinets แต่สไลด์ไม่ได้บอกว่าเป็นเรื่องอะไร",
             "kind": "warn"
@@ -4580,34 +4168,24 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Biosafety Cabinets (BSC)",
         "source": "Biosafety p.12-13",
         "body": [
-          {
-            "text": "**BSC ออกแบบมาเพื่อป้องกัน 3 อย่าง คือ ผู้ใช้ (user), ตัวอย่าง (samples) และ/หรือสิ่งแวดล้อม จากการปนเปื้อนด้วย biological materials**"
-          },
-          {
-            "text": "มี **3 classes คือ Class I, II และ III** ซึ่งให้ระดับการป้องกันต่อผู้ปฏิบัติงาน ตัวอย่าง และสิ่งแวดล้อม เพิ่มขึ้นตามลำดับ"
-          },
+          "**BSC ออกแบบมาเพื่อป้องกัน 3 อย่าง คือ ผู้ใช้ (user), ตัวอย่าง (samples) และ/หรือสิ่งแวดล้อม จากการปนเปื้อนด้วย biological materials**",
+          "มี **3 classes คือ Class I, II และ III** ซึ่งให้ระดับการป้องกันต่อผู้ปฏิบัติงาน ตัวอย่าง และสิ่งแวดล้อม เพิ่มขึ้นตามลำดับ",
           {
             "sub": "Class I",
             "body": [
-              {
-                "text": "**ป้องกัน user และ environment แต่ไม่ป้องกัน sample** เพราะอากาศถูกดูดจากห้องปฏิบัติการผ่านตัวอย่างแล้วไหลออกทางด้านหลังตู้ ตัวอย่างจึงอาจปนเปื้อนได้ เหมาะกับงานที่ใช้เชื้อความเสี่ยง low ถึง moderate"
-              }
+              "**ป้องกัน user และ environment แต่ไม่ป้องกัน sample** เพราะอากาศถูกดูดจากห้องปฏิบัติการผ่านตัวอย่างแล้วไหลออกทางด้านหลังตู้ ตัวอย่างจึงอาจปนเปื้อนได้ เหมาะกับงานที่ใช้เชื้อความเสี่ยง low ถึง moderate"
             ]
           },
           {
             "sub": "Class II",
             "body": [
-              {
-                "text": "**ป้องกันครบทั้ง user, sample และ environment และเป็น class ที่ใช้กันเป็นหลัก** class นี้ยังแบ่งย่อยเป็นหลาย types ตามปริมาณอากาศที่ถูกดูดเข้าตู้และวิธีระบายอากาศออก (สไลด์ไม่ได้ระบุว่ามี type อะไรบ้าง)"
-              }
+              "**ป้องกันครบทั้ง user, sample และ environment และเป็น class ที่ใช้กันเป็นหลัก** class นี้ยังแบ่งย่อยเป็นหลาย types ตามปริมาณอากาศที่ถูกดูดเข้าตู้และวิธีระบายอากาศออก (สไลด์ไม่ได้ระบุว่ามี type อะไรบ้าง)"
             ]
           },
           {
             "sub": "Class III",
             "body": [
-              {
-                "text": "**ใช้กับสารที่อันตรายอย่างยิ่ง ซึ่งพบในห้องปฏิบัติการ BSL-4**"
-              }
+              "**ใช้กับสารที่อันตรายอย่างยิ่ง ซึ่งพบในห้องปฏิบัติการ BSL-4**"
             ]
           },
           {
@@ -4620,9 +4198,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "สิ่งที่ชื่อเด็คสัญญาไว้แต่ตัวสไลด์ไม่ได้พูดถึง",
         "source": "Biosafety p.1",
         "body": [
-          {
-            "text": "หน้าปกตั้งชื่อว่า **Biosafety, Biosecurity and Good laboratory practice** แต่ในข้อความของสไลด์ทั้งเด็คมีแต่ส่วน Biosafety (biohazards, BSL 1-4, BSC)"
-          },
+          "หน้าปกตั้งชื่อว่า **Biosafety, Biosecurity and Good laboratory practice** แต่ในข้อความของสไลด์ทั้งเด็คมีแต่ส่วน Biosafety (biohazards, BSL 1-4, BSC)",
           {
             "bullets": [
               "**Biosecurity** สไลด์ไม่ได้บอกนิยามหรือรายละเอียด",
@@ -4648,12 +4224,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Epidemiology คืออะไร",
         "source": "epidemiology of viral infection p.2-3",
         "body": [
-          {
-            "text": "สไลด์แยกรากศัพท์ให้ดูก่อน คือ **epi \"upon\" + demos \"people\" + logos \"study\"**"
-          },
-          {
-            "text": "นิยามที่เดคยกมา (John Murray Last) คือ **\"the study of the distribution and determinants of health-related states or events in specified populations, and the application of this study to the prevention and control of health problems\"** อ้างอิง Last, J.M. A dictionary of epidemiology, 4th ed. 2001"
-          },
+          "สไลด์แยกรากศัพท์ให้ดูก่อน คือ **epi \"upon\" + demos \"people\" + logos \"study\"**",
+          "นิยามที่เดคยกมา (John Murray Last) คือ **\"the study of the distribution and determinants of health-related states or events in specified populations, and the application of this study to the prevention and control of health problems\"** อ้างอิง Last, J.M. A dictionary of epidemiology, 4th ed. 2001",
           {
             "sub": "ตารางแตกความหมายทีละคำ (p.3)",
             "body": [
@@ -4675,21 +4247,15 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Epidemiology of viral infection นิยามเฉพาะทาง",
         "source": "epidemiology of viral infection p.4",
         "body": [
-          {
-            "text": "เดคให้นิยามไว้ว่า **\"the circumstances under which both viral infection and disease occur in a population and the factors that influence their occurrence\"**"
-          },
-          {
-            "text": "จุดที่ต้องสังเกตคือ นิยามพูดถึง **ทั้ง infection และ disease** ไม่ใช่แค่โรค ซึ่งเป็นการปูไปสไลด์ถัดไปที่แยกสองคำนี้ออกจากกัน"
-          }
+          "เดคให้นิยามไว้ว่า **\"the circumstances under which both viral infection and disease occur in a population and the factors that influence their occurrence\"**",
+          "จุดที่ต้องสังเกตคือ นิยามพูดถึง **ทั้ง infection และ disease** ไม่ใช่แค่โรค ซึ่งเป็นการปูไปสไลด์ถัดไปที่แยกสองคำนี้ออกจากกัน"
         ]
       },
       {
         "heading": "viral infection ≠ disease: สเปกตรัมระดับเซลล์ถึงระดับตัวสัตว์",
         "source": "epidemiology of viral infection p.5",
         "body": [
-          {
-            "text": "สไลด์แบ่งการมองออกเป็น 2 ระดับ คือ **cellular level** และ **host level**"
-          },
+          "สไลด์แบ่งการมองออกเป็น 2 ระดับ คือ **cellular level** และ **host level**",
           {
             "sub": "cellular level",
             "body": [
@@ -4729,9 +4295,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**disease = recognisable pattern of responses to such infection** ระบุลักษณะไว้ว่า clinical manifestation"
             ]
           },
-          {
-            "text": "ครึ่งล่างของสไลด์ขึ้นหัวว่า \"the factors\" และแบ่งเป็น **3 กลุ่ม คือ environment, host และ virus** ซึ่งตรงกับสไลด์ p.7, p.9 และ p.14 ที่ตามมา"
-          },
+          "ครึ่งล่างของสไลด์ขึ้นหัวว่า \"the factors\" และแบ่งเป็น **3 กลุ่ม คือ environment, host และ virus** ซึ่งตรงกับสไลด์ p.7, p.9 และ p.14 ที่ตามมา",
           {
             "sub": "รายการปัจจัยที่พิมพ์อยู่บนสไลด์",
             "body": [
@@ -4746,9 +4310,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "immunogenetic"
                 ]
               },
-              {
-                "text": "สไลด์ไม่ได้เขียนเส้นโยงชัดว่ารายการไหนอยู่ใต้กลุ่มไหนในรูปแบบที่อ่านจากข้อความได้ตรง ๆ จึงไม่ควรจำแบบจับคู่ตายตัวจากสไลด์นี้ แต่ให้ไปดูสไลด์ที่แจกแจงแต่ละกลุ่มโดยเฉพาะ (p.7 environmental, p.9 และ p.11 viral, p.14 host)"
-              }
+              "สไลด์ไม่ได้เขียนเส้นโยงชัดว่ารายการไหนอยู่ใต้กลุ่มไหนในรูปแบบที่อ่านจากข้อความได้ตรง ๆ จึงไม่ควรจำแบบจับคู่ตายตัวจากสไลด์นี้ แต่ให้ไปดูสไลด์ที่แจกแจงแต่ละกลุ่มโดยเฉพาะ (p.7 environmental, p.9 และ p.11 viral, p.14 host)"
             ]
           }
         ]
@@ -4757,9 +4319,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Environmental factors",
         "source": "epidemiology of viral infection p.7-8",
         "body": [
-          {
-            "text": "สไลด์กรอบไว้ว่าเป็นปัจจัยด้าน **availability ที่ส่งผลต่อ virus ตัวใดก็ได้ (that could affect any given virus)**"
-          },
+          "สไลด์กรอบไว้ว่าเป็นปัจจัยด้าน **availability ที่ส่งผลต่อ virus ตัวใดก็ได้ (that could affect any given virus)**",
           {
             "bullets": [
               "**population size** ยกตัวอย่าง city vs. provincial",
@@ -4777,9 +4337,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Viral factors ตอนที่ 1: infectivity",
         "source": "epidemiology of viral infection p.9",
         "body": [
-          {
-            "text": "สไลด์นิยาม viral factors ว่าเป็น **quantifiable properties of virus** คือคุณสมบัติที่วัดเป็นตัวเลขได้"
-          },
+          "สไลด์นิยาม viral factors ว่าเป็น **quantifiable properties of virus** คือคุณสมบัติที่วัดเป็นตัวเลขได้",
           {
             "sub": "infectivity แตกเป็น 3 ความสามารถ",
             "body": [
@@ -4798,9 +4356,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "R0 (R naught)",
         "source": "epidemiology of viral infection p.10",
         "body": [
-          {
-            "text": "สไลด์ยกลำดับความ contagious ไว้ว่า **Measles is more contagious than SARS > COVID-19 > seasonal influenza** อ้างอิง Department of Health, Republic of Ireland"
-          },
+          "สไลด์ยกลำดับความ contagious ไว้ว่า **Measles is more contagious than SARS > COVID-19 > seasonal influenza** อ้างอิง Department of Health, Republic of Ireland",
           {
             "callout": "สไลด์ใช้คำว่า R0 เป็นหัวเรื่องและแสดงเป็นการเปรียบเทียบระหว่างเชื้อ แต่ไม่ได้เขียนนิยามของ R0 เป็นข้อความ และไม่ได้ให้ค่าตัวเลข R0 ของแต่ละเชื้อไว้ในข้อความ สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -4818,9 +4374,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**adaptability** สไลด์ระบุตัวอย่างเดียวคือ **immune evasion**"
             ]
           },
-          {
-            "text": "p.12 ยกลำดับ virulence ไว้ว่า **MERS is more fatal (virulence) than SARS > COVID-19 > seasonal influenza**"
-          },
+          "p.12 ยกลำดับ virulence ไว้ว่า **MERS is more fatal (virulence) than SARS > COVID-19 > seasonal influenza**",
           {
             "callout": "คู่ที่ออกสอบง่ายคือลำดับสองแถวนี้ไม่เหมือนกัน แถว contagious (p.10) ขึ้นต้นด้วย Measles ส่วนแถว fatal (p.12) ขึ้นต้นด้วย MERS",
             "kind": "tip"
@@ -4862,18 +4416,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์เป็นรายการชื่อ route ล้วน ไม่ได้ยกตัวอย่างไวรัสประจำแต่ละ route ไว้ สไลด์ไม่ได้บอก"
-          }
+          "สไลด์เป็นรายการชื่อ route ล้วน ไม่ได้ยกตัวอย่างไวรัสประจำแต่ละ route ไว้ สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "Host factors",
         "source": "epidemiology of viral infection p.14-16",
         "body": [
-          {
-            "text": "สไลด์กำกับหัวข้อไว้ด้วยคำ 4 คำที่บอกว่า host factors ไปกำหนดอะไร คือ **susceptibility - resistance - severity - duration**"
-          },
+          "สไลด์กำกับหัวข้อไว้ด้วยคำ 4 คำที่บอกว่า host factors ไปกำหนดอะไร คือ **susceptibility - resistance - severity - duration**",
           {
             "bullets": [
               "age at onset of infection",
@@ -4899,9 +4449,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Interactions between factors",
         "source": "epidemiology of viral infection p.17",
         "body": [
-          {
-            "text": "สไลด์นี้ผูก 3 ปัจจัยเข้าด้วยกันด้วยศัพท์ประจำแต่ละฝั่ง"
-          },
+          "สไลด์นี้ผูก 3 ปัจจัยเข้าด้วยกันด้วยศัพท์ประจำแต่ละฝั่ง",
           {
             "bullets": [
               "environmental → **\"inoculum\" = amount of transmitted virus**",
@@ -4915,9 +4463,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Occurrence measurement ภาพรวม 3 หัวข้อ",
         "source": "epidemiology of viral infection p.18",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นสารบัญของครึ่งหลังของเดค ควรจำโครง 3 ชั้นนี้ไว้"
-          },
+          "สไลด์นี้เป็นสารบัญของครึ่งหลังของเดค ควรจำโครง 3 ชั้นนี้ไว้",
           {
             "bullets": [
               "**type of study** → prospective vs. retrospective",
@@ -4972,9 +4518,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Frequency: incidence vs. prevalence",
         "source": "epidemiology of viral infection p.21-22",
         "body": [
-          {
-            "text": "สไลด์กรอบทั้งสองคำไว้ว่าเป็นการ determining the number of infected individuals"
-          },
+          "สไลด์กรอบทั้งสองคำไว้ว่าเป็นการ determining the number of infected individuals",
           {
             "bullets": [
               "**incidence = number of new cases within a population in a specific period** เขียนเป็นหน่วยได้ 2 แบบคือ new cases/location/time และ new cases/population/time",
@@ -5016,9 +4560,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่างการคำนวณจากแผนภาพ",
         "source": "epidemiology of viral infection p.24",
         "body": [
-          {
-            "text": "สไลด์ให้ป้ายกำกับสูตรไว้เป็น incidence (infection/population), morbidity (illness/infection), mortality (death/infection) และ case fatality ratio (death/illness)"
-          },
+          "สไลด์ให้ป้ายกำกับสูตรไว้เป็น incidence (infection/population), morbidity (illness/infection), mortality (death/infection) และ case fatality ratio (death/illness)",
           {
             "sub": "ตัวเลขที่พิมพ์อยู่บนสไลด์",
             "body": [
@@ -5049,9 +4591,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**secular trend = no fluctuation over long period**"
             ]
           },
-          {
-            "text": "กราฟทั้งสองรูปมีแกนตั้งเป็น no. of cases อ้างอิง www.cdc.gov สไลด์ไม่ได้ยกตัวอย่างโรคประกอบกราฟไว้เป็นข้อความ"
-          }
+          "กราฟทั้งสองรูปมีแกนตั้งเป็น no. of cases อ้างอิง www.cdc.gov สไลด์ไม่ได้ยกตัวอย่างโรคประกอบกราฟไว้เป็นข้อความ"
         ]
       },
       {
@@ -5070,9 +4610,7 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "ให้จำคำคู่ฝั่งสัตว์ด้วย เพราะสไลด์วงเล็บไว้ทุกตัว คือ endemic-enzootic, epidemic-epizootic และ pandemic-panzootic",
             "kind": "tip"
           },
-          {
-            "text": "p.28 สรุปคู่เทียบสั้น ๆ ว่า **endemic คือ constant number of cases ส่วน epidemic คือ increased number of cases**"
-          },
+          "p.28 สรุปคู่เทียบสั้น ๆ ว่า **endemic คือ constant number of cases ส่วน epidemic คือ increased number of cases**",
           {
             "callout": "p.27 เป็นสไลด์รูปล้วน มีเพียงคำกำกับสามคำคือ endemic, pandemic, epidemic ไม่มีข้อความอธิบายบนสไลด์",
             "kind": "flag"
@@ -5092,9 +4630,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "วัตถุประสงค์ของปฏิบัติการ",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.1-2",
         "body": [
-          {
-            "text": "ปฏิบัติการนี้ตั้งวัตถุประสงค์ไว้ 3 ข้อ"
-          },
+          "ปฏิบัติการนี้ตั้งวัตถุประสงค์ไว้ 3 ข้อ",
           {
             "bullets": [
               "ศึกษาวิธี กระบวนการ และอุปกรณ์ในการเก็บตัวอย่างจากสัตว์ป่วย สำหรับการตรวจวินิจฉัยทางแบคทีเรียวิทยาด้วยการเพาะเชื้อ",
@@ -5108,9 +4644,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Microbiological diagnosis ใช้กับตัวอย่างแบบไหน",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.3",
         "body": [
-          {
-            "text": "สไลด์วางกรอบไว้ว่างานตรวจวินิจฉัยทางจุลชีววิทยามี 2 เป้าหมาย คือ **หาเชื้อแบคทีเรียก่อโรคใน clinical samples หรือตัวอย่างจาก necropsy** และ **หาการปนเปื้อนของแบคทีเรียในอาหาร สิ่งแวดล้อม หรือ inanimate samples**"
-          },
+          "สไลด์วางกรอบไว้ว่างานตรวจวินิจฉัยทางจุลชีววิทยามี 2 เป้าหมาย คือ **หาเชื้อแบคทีเรียก่อโรคใน clinical samples หรือตัวอย่างจาก necropsy** และ **หาการปนเปื้อนของแบคทีเรียในอาหาร สิ่งแวดล้อม หรือ inanimate samples**",
           {
             "bullets": [
               "Lesions from diseased animals",
@@ -5124,9 +4658,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ลำดับงานตั้งแต่คลินิกจนถึงห้องแล็บ",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.4",
         "body": [
-          {
-            "text": "สไลด์วางเส้นทางไว้ว่า history และ physical examination นำไปสู่การตรวจในคลินิก แล้วจึง sample collection และ sample submission เข้าห้องแล็บ โดยมี **communication ระหว่างคลินิกกับห้องแล็บคั่นอยู่ตลอดเส้นทาง**"
-          },
+          "สไลด์วางเส้นทางไว้ว่า history และ physical examination นำไปสู่การตรวจในคลินิก แล้วจึง sample collection และ sample submission เข้าห้องแล็บ โดยมี **communication ระหว่างคลินิกกับห้องแล็บคั่นอยู่ตลอดเส้นทาง**",
           {
             "sub": "On clinic laboratory diagnosis",
             "body": [
@@ -5153,9 +4685,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ปลายทางคือ report and interpretation ซึ่งนำไปสู่ therapeutic plan quarantine และ management"
-          }
+          "ปลายทางคือ report and interpretation ซึ่งนำไปสู่ therapeutic plan quarantine และ management"
         ]
       },
       {
@@ -5187,9 +4717,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "กรณีสัตว์ตาย",
             "body": [
-              {
-                "text": "เก็บก่อนเกิด autolytic changes สไลด์ระบุว่าถ้าเกิน 6 ชั่วโมงตัวอย่างจะ **heavily contaminated ด้วย GI contaminants**"
-              }
+              "เก็บก่อนเกิด autolytic changes สไลด์ระบุว่าถ้าเกิน 6 ชั่วโมงตัวอย่างจะ **heavily contaminated ด้วย GI contaminants**"
             ]
           }
         ]
@@ -5198,9 +4726,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ลำดับการเก็บตัวอย่างจาก necropsy",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.6",
         "body": [
-          {
-            "text": "สไลด์เรียงลำดับการเก็บจากตำแหน่งที่สะอาดที่สุดไปหาสกปรกที่สุด **เก็บที่ปกติปลอดเชื้อหรือปนเปื้อนน้อยที่สุดก่อนเสมอ**"
-          },
+          "สไลด์เรียงลำดับการเก็บจากตำแหน่งที่สะอาดที่สุดไปหาสกปรกที่สุด **เก็บที่ปกติปลอดเชื้อหรือปนเปื้อนน้อยที่สุดก่อนเสมอ**",
           {
             "bullets": [
               "ลำดับ 1 ตำแหน่งที่ปกติ sterile หรือปนเปื้อนน้อย ได้แก่ heart spleen brain",
@@ -5212,18 +4738,14 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "ลำดับที่ 3 สไลด์เขียนไว้แค่ว่า high number of organisms ไม่ได้บอกว่าเป็นอวัยวะใดบ้าง",
             "kind": "flag"
           },
-          {
-            "text": "หัวสไลด์ยังแบ่งกลุ่มตัวอย่างเป็น tissue from outside the body cavities tissue from thorax และ tissue from abdomen"
-          }
+          "หัวสไลด์ยังแบ่งกลุ่มตัวอย่างเป็น tissue from outside the body cavities tissue from thorax และ tissue from abdomen"
         ]
       },
       {
         "heading": "แยกตำแหน่งเก็บตัวอย่างตามการมี normal flora และการแปลผล",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.7",
         "body": [
-          {
-            "text": "หน้านี้เป็นหัวใจของการแปลผลเพาะเชื้อ เพราะ **เชื้อที่ขึ้นจะหมายความว่าอะไร ขึ้นกับว่าเก็บมาจากตำแหน่งกลุ่มไหน**"
-          },
+          "หน้านี้เป็นหัวใจของการแปลผลเพาะเชื้อ เพราะ **เชื้อที่ขึ้นจะหมายความว่าอะไร ขึ้นกับว่าเก็บมาจากตำแหน่งกลุ่มไหน**",
           {
             "sub": "Sterile sites ตำแหน่งที่ในภาวะปกติไม่มีเชื้อประจำถิ่น",
             "body": [
@@ -5235,9 +4757,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "urinary bladder"
                 ]
               },
-              {
-                "text": "แปลผลเป็น **infection**"
-              }
+              "แปลผลเป็น **infection**"
             ]
           },
           {
@@ -5251,9 +4771,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "intestinal mucosa"
                 ]
               },
-              {
-                "text": "แปลผลเป็น opportunistic infection หรือ contamination ซึ่ง **ต้องประเมินร่วมกับรอยโรคและผลการตอบสนองต่อการรักษา**"
-              }
+              "แปลผลเป็น opportunistic infection หรือ contamination ซึ่ง **ต้องประเมินร่วมกับรอยโรคและผลการตอบสนองต่อการรักษา**"
             ]
           },
           {
@@ -5264,9 +4782,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "open wound"
                 ]
               },
-              {
-                "text": "แปลผลเป็น opportunistic infection หรือ contamination ต้องประเมินร่วมกับรอยโรคและผลการรักษาเช่นเดียวกัน"
-              }
+              "แปลผลเป็น opportunistic infection หรือ contamination ต้องประเมินร่วมกับรอยโรคและผลการรักษาเช่นเดียวกัน"
             ]
           }
         ]
@@ -5389,9 +4905,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Feces",
             "body": [
-              {
-                "text": "สไลด์ระบุว่าการเก็บอุจจาระใช้สำหรับ specific detection of particular bacterial species"
-              },
+              "สไลด์ระบุว่าการเก็บอุจจาระใช้สำหรับ specific detection of particular bacterial species",
               {
                 "bullets": [
                   "Freshly voided เก็บจาก rectum 5-10 g ใส่ sterile screw-capped container",
@@ -5450,9 +4964,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ปัสสาวะสำหรับ urine quantitative culture",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.17-18",
         "body": [
-          {
-            "text": "สไลด์เรียงวิธีเก็บปัสสาวะ 3 วิธีตามระดับการปนเปื้อนจากน้อยไปมาก คือ **abdominal cystocentesis ปนเปื้อนน้อยที่สุด ตามด้วย urinary catheterization และ voiding ปนเปื้อนมากที่สุด** โดยแยกหัวคอลัมน์เป็น companion animals กับ large animals"
-          },
+          "สไลด์เรียงวิธีเก็บปัสสาวะ 3 วิธีตามระดับการปนเปื้อนจากน้อยไปมาก คือ **abdominal cystocentesis ปนเปื้อนน้อยที่สุด ตามด้วย urinary catheterization และ voiding ปนเปื้อนมากที่สุด** โดยแยกหัวคอลัมน์เป็น companion animals กับ large animals",
           {
             "sub": "การเก็บและการส่งตรวจ",
             "body": [
@@ -5470,9 +4982,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "ตารางเกณฑ์ quantitative culture หน่วย colony forming unit ต่อ mL",
             "body": [
-              {
-                "text": "สไลด์ทำเป็นตาราง 3 แถวตามวิธีเก็บ คูณ 4 คอลัมน์คือ Dog male Dog female Cat male Cat female ค่าที่ปรากฏในสไลด์คือ"
-              },
+              "สไลด์ทำเป็นตาราง 3 แถวตามวิธีเก็บ คูณ 4 คอลัมน์คือ Dog male Dog female Cat male Cat female ค่าที่ปรากฏในสไลด์คือ",
               {
                 "bullets": [
                   "Cystocentesis มากกว่า 10 ยกกำลัง 2 ทั้งสี่ช่อง",
@@ -5517,9 +5027,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่างสำหรับ anaerobic bacterial culture",
         "source": "Exercise 2 Sample collection bacterial isolation primary identification p.20",
         "body": [
-          {
-            "text": "**Anaerobes ทนการสัมผัสออกซิเจนในอากาศได้ไม่เกิน 20 นาที** ตัวอย่างจึงต้องถึงห้องแล็บให้เร็วที่สุด"
-          },
+          "**Anaerobes ทนการสัมผัสออกซิเจนในอากาศได้ไม่เกิน 20 นาที** ตัวอย่างจึงต้องถึงห้องแล็บให้เร็วที่สุด",
           {
             "bullets": [
               "sterile closed container",
@@ -5570,9 +5078,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Liquid media มี agar 0% เรียกว่า broth"
             ]
           },
-          {
-            "text": "รูปแบบภาชนะที่สไลด์แสดงคือ agar plate agar tube และ agar slant"
-          }
+          "รูปแบบภาชนะที่สไลด์แสดงคือ agar plate agar tube และ agar slant"
         ]
       },
       {
@@ -5597,17 +5103,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Blood agar",
             "body": [
-              {
-                "text": "คือ **nutrient agar ที่เติม sheep blood 5%**"
-              }
+              "คือ **nutrient agar ที่เติม sheep blood 5%**"
             ]
           },
           {
             "sub": "MacConkey agar",
             "body": [
-              {
-                "text": "ส่วนประกอบที่สไลด์ระบุคือ peptone proteose peptone lactose bile salt neutral red NaCl และ water"
-              },
+              "ส่วนประกอบที่สไลด์ระบุคือ peptone proteose peptone lactose bile salt neutral red NaCl และ water",
               {
                 "bullets": [
                   "เป็น indicator medium โดย neutral red ทำให้ **โคโลนีสีชมพูเท่ากับ lactose fermenter**",
@@ -5625,12 +5127,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Primary plate",
             "body": [
-              {
-                "text": "การ inoculate ตัวอย่างลงบน blood agar และ MacConkey agar เรียกว่า primary plate หรือ primary culture"
-              },
-              {
-                "text": "**ประชากรเชื้อที่ขึ้นเป็นกลุ่มใหญ่ที่สุดคือกลุ่มที่ควรสงสัยว่าเป็น primary pathogen**"
-              }
+              "การ inoculate ตัวอย่างลงบน blood agar และ MacConkey agar เรียกว่า primary plate หรือ primary culture",
+              "**ประชากรเชื้อที่ขึ้นเป็นกลุ่มใหญ่ที่สุดคือกลุ่มที่ควรสงสัยว่าเป็น primary pathogen**"
             ]
           },
           {
@@ -5648,12 +5146,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Colony morphology",
             "body": [
-              {
-                "text": "**หนึ่ง colony มาจากแบคทีเรียหนึ่งเซลล์**"
-              },
-              {
-                "text": "สไลด์แสดงรูปลักษณะ hemolysis 3 แบบคือ beta hemolysis double hemolysis และ alpha hemolysis เป็นรูปประกอบ โดยไม่ได้เขียนคำอธิบายลักษณะของแต่ละแบบเป็นข้อความ"
-              }
+              "**หนึ่ง colony มาจากแบคทีเรียหนึ่งเซลล์**",
+              "สไลด์แสดงรูปลักษณะ hemolysis 3 แบบคือ beta hemolysis double hemolysis และ alpha hemolysis เป็นรูปประกอบ โดยไม่ได้เขียนคำอธิบายลักษณะของแต่ละแบบเป็นข้อความ"
             ]
           }
         ]
@@ -5674,9 +5168,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "oxidation-fermentation test หรือ O F test"
                 ]
               },
-              {
-                "text": "ระดับที่บอกได้คือ **Genus หรือ Family**"
-              }
+              "ระดับที่บอกได้คือ **Genus หรือ Family**"
             ]
           },
           {
@@ -5692,9 +5184,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "และอื่น ๆ"
                 ]
               },
-              {
-                "text": "ระดับที่บอกได้คือ **Species หรือ Genus**"
-              }
+              "ระดับที่บอกได้คือ **Species หรือ Genus**"
             ]
           }
         ]
@@ -5706,17 +5196,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Catalase test",
             "body": [
-              {
-                "text": "อุปกรณ์ที่สไลด์ระบุคือ glass slide เชื้อแบคทีเรีย และ **3% hydrogen peroxide**"
-              }
+              "อุปกรณ์ที่สไลด์ระบุคือ glass slide เชื้อแบคทีเรีย และ **3% hydrogen peroxide**"
             ]
           },
           {
             "sub": "Oxidase test",
             "body": [
-              {
-                "text": "ใช้ filter paper ที่ชุบ oxidase reagent สไลด์ระบุว่าเป็น **Wurster's reagent** และแสดงผลลบกับผลบวกเป็นรูป"
-              }
+              "ใช้ filter paper ที่ชุบ oxidase reagent สไลด์ระบุว่าเป็น **Wurster's reagent** และแสดงผลลบกับผลบวกเป็นรูป"
             ]
           },
           {
@@ -5739,9 +5225,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "ระวังเรื่อง aseptic technique"
                 ]
               },
-              {
-                "text": "การแปลผลที่สไลด์ระบุมี 3 แบบคือ Negative หรือ non utilizer, Oxidation และ Fermentation"
-              }
+              "การแปลผลที่สไลด์ระบุมี 3 แบบคือ Negative หรือ non utilizer, Oxidation และ Fermentation"
             ]
           },
           {
@@ -5757,25 +5241,19 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "1. Sample collection for bacterial culture",
             "body": [
-              {
-                "text": "เป็น demonstration อุปกรณ์เก็บตัวอย่างและภาชนะ"
-              }
+              "เป็น demonstration อุปกรณ์เก็บตัวอย่างและภาชนะ"
             ]
           },
           {
             "sub": "2. Bacterial culture and isolation",
             "body": [
-              {
-                "text": "สังเกต colony บน BA และ MAC ของ sample 2A แล้วทำ **4-way cross streak** จาก blood agar plate 2A ซึ่งเป็น primary culture โดยใช้ reusable metal loop"
-              }
+              "สังเกต colony บน BA และ MAC ของ sample 2A แล้วทำ **4-way cross streak** จาก blood agar plate 2A ซึ่งเป็น primary culture โดยใช้ reusable metal loop"
             ]
           },
           {
             "sub": "3. Primary identification",
             "body": [
-              {
-                "text": "ทำ Gram's staining จาก plate 2B 2C 2D และ 2E โดยดู 3 อย่างคือ **stained, shape และ arrangement**"
-              },
+              "ทำ Gram's staining จาก plate 2B 2C 2D และ 2E โดยดู 3 อย่างคือ **stained, shape และ arrangement**",
               {
                 "bullets": [
                   "Test catalase ด้วย 3% hydrogen peroxide",
@@ -5801,9 +5279,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขอบเขตของ lecture",
         "source": "Fundamental of Host Microbe interaction p.2",
         "body": [
-          {
-            "text": "สไลด์ Outline วางหัวข้อไว้ 4 เรื่อง"
-          },
+          "สไลด์ Outline วางหัวข้อไว้ 4 เรื่อง",
           {
             "bullets": [
               "Types of host-pathogen interactions",
@@ -5818,9 +5294,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Types of hosts-microbe interaction",
         "source": "Fundamental of Host Microbe interaction p.3",
         "body": [
-          {
-            "text": "สไลด์แบ่งความสัมพันธ์ระหว่าง host กับ microbe เป็น 3 แบบ โดยดูที่ว่าใครได้ประโยชน์และใครเสียหาย"
-          },
+          "สไลด์แบ่งความสัมพันธ์ระหว่าง host กับ microbe เป็น 3 แบบ โดยดูที่ว่าใครได้ประโยชน์และใครเสียหาย",
           {
             "bullets": [
               "**Mutualism : ทั้ง host และ microbe ได้ประโยชน์ และไม่มีฝ่ายใดเสียหาย**",
@@ -5846,9 +5320,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "เมื่อไรที่ normal microflora กลายเป็นตัวก่อโรค",
         "source": "Fundamental of Host Microbe interaction p.5",
         "body": [
-          {
-            "text": "สไลด์ให้เงื่อนไขที่ทำให้ members of normal microflora ก่อโรคได้ 7 ข้อ"
-          },
+          "สไลด์ให้เงื่อนไขที่ทำให้ members of normal microflora ก่อโรคได้ 7 ข้อ",
           {
             "bullets": [
               "Damage to the epithelium",
@@ -5866,15 +5338,9 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Bacterial pathogen และ virulence",
         "source": "Fundamental of Host Microbe interaction p.6",
         "body": [
-          {
-            "text": "**Bacterial pathogens = bacteria ที่สามารถ induce disease ในตัวที่มี specific และ non-specific defense systems ครบสมบูรณ์ (intact)**"
-          },
-          {
-            "text": "**Virulence = ความสามารถโดยเปรียบเทียบ (relative capacity) ของ microbe ในการทำให้เกิด damage ใน host**"
-          },
-          {
-            "text": "สไลด์ย้ำว่า different strains ของ bacterial species เดียวกัน สามารถมี virulence ต่างกันได้มาก"
-          }
+          "**Bacterial pathogens = bacteria ที่สามารถ induce disease ในตัวที่มี specific และ non-specific defense systems ครบสมบูรณ์ (intact)**",
+          "**Virulence = ความสามารถโดยเปรียบเทียบ (relative capacity) ของ microbe ในการทำให้เกิด damage ใน host**",
+          "สไลด์ย้ำว่า different strains ของ bacterial species เดียวกัน สามารถมี virulence ต่างกันได้มาก"
         ]
       },
       {
@@ -5895,9 +5361,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "General virulence factors ของ pathogenic bacteria",
         "source": "Fundamental of Host Microbe interaction p.8",
         "body": [
-          {
-            "text": "สไลด์เป็นรูป bacterial cell ที่ชี้ป้ายองค์ประกอบที่เป็น virulence factor ทั่วไป ได้แก่"
-          },
+          "สไลด์เป็นรูป bacterial cell ที่ชี้ป้ายองค์ประกอบที่เป็น virulence factor ทั่วไป ได้แก่",
           {
             "bullets": [
               "Capsular polysaccharide",
@@ -5929,9 +5393,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Bacterial disease process ทั้งเส้น",
         "source": "Fundamental of Host Microbe interaction p.10",
         "body": [
-          {
-            "text": "สไลด์วางลำดับของ disease process เป็นเส้นเดียวกัน จาก entry ไปจนถึง clinical disease"
-          },
+          "สไลด์วางลำดับของ disease process เป็นเส้นเดียวกัน จาก entry ไปจนถึง clinical disease",
           {
             "sub": "1. Bacteria entry to host",
             "body": [
@@ -5948,17 +5410,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "2. Adherence",
             "body": [
-              {
-                "text": "อาศัย **adhesins**"
-              }
+              "อาศัย **adhesins**"
             ]
           },
           {
             "sub": "3. Colonization",
             "body": [
-              {
-                "text": "สไลด์ระบุเป็นขั้นตอนถัดจาก adherence แต่ไม่ได้ให้รายละเอียดเพิ่ม"
-              }
+              "สไลด์ระบุเป็นขั้นตอนถัดจาก adherence แต่ไม่ได้ให้รายละเอียดเพิ่ม"
             ]
           },
           {
@@ -5975,9 +5433,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "5. Activation of host cells signalling cascade แล้วจึงเป็น Clinical disease",
             "body": [
-              {
-                "text": "สไลด์ไม่ได้ลงรายละเอียดว่า signalling cascade ใดบ้าง"
-              }
+              "สไลด์ไม่ได้ลงรายละเอียดว่า signalling cascade ใดบ้าง"
             ]
           }
         ]
@@ -5986,9 +5442,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Pre-adhesion events: ระยะห่างกำหนดว่าแรงใดทำงาน",
         "source": "Fundamental of Host Microbe interaction p.14",
         "body": [
-          {
-            "text": "ก่อนจะเกิดการเกาะจริง สไลด์อธิบายด้วย distance between host cells and bacteria คู่กับ physiochemical forces ที่ทำงานในแต่ละช่วงระยะ"
-          },
+          "ก่อนจะเกิดการเกาะจริง สไลด์อธิบายด้วย distance between host cells and bacteria คู่กับ physiochemical forces ที่ทำงานในแต่ละช่วงระยะ",
           {
             "bullets": [
               "**> 50 nm : Van der Waals forces ทำงาน ทำให้เกิด mutual interaction**",
@@ -5997,9 +5451,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**< 1 nm : specific interaction ได้แก่ hydrogen bonding, cation binding และ receptor-ligand interaction**"
             ]
           },
-          {
-            "text": "สไลด์ p.15 เป็นรูปสรุปช่วงระยะทั้งสี่นี้เทียบกับ substratum โดยไม่มีข้อความเพิ่ม"
-          },
+          "สไลด์ p.15 เป็นรูปสรุปช่วงระยะทั้งสี่นี้เทียบกับ substratum โดยไม่มีข้อความเพิ่ม",
           {
             "callout": "ช่วง 0.5-2 nm กับ < 1 nm ทับซ้อนกันตามที่สไลด์เขียน สไลด์ไม่ได้บอกว่าแยกสองช่วงนี้ออกจากกันอย่างไร",
             "kind": "flag"
@@ -6010,9 +5462,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Adhesive interactions หรือ specific interaction",
         "source": "Fundamental of Host Microbe interaction p.16",
         "body": [
-          {
-            "text": "สไลด์ระบุ principle types ของ molecular interaction ที่เกี่ยวข้องกับ bacterial adhesion และย้ำว่าการเกาะของ bacterium กับ substratum หนึ่งครั้ง **อาจใช้แบบใดแบบหนึ่งหรือหลายแบบร่วมกันก็ได้**"
-          },
+          "สไลด์ระบุ principle types ของ molecular interaction ที่เกี่ยวข้องกับ bacterial adhesion และย้ำว่าการเกาะของ bacterium กับ substratum หนึ่งครั้ง **อาจใช้แบบใดแบบหนึ่งหรือหลายแบบร่วมกันก็ได้**",
           {
             "bullets": [
               "Hydrophobic interactions (hydrogen bonding)",
@@ -6026,9 +5476,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Bacterial structures ที่ใช้ในการเกาะ และธรรมชาติของ adhesins",
         "source": "Fundamental of Host Microbe interaction p.17",
         "body": [
-          {
-            "text": "สไลด์ตั้งคำถามสองข้อคือ bacterial structures ใดบ้างที่เกี่ยวข้องกับ adhesion และ adhesins บนโครงสร้างเหล่านั้นมีลักษณะอย่างไร แล้วตอบด้วยประเด็นต่อไปนี้"
-          },
+          "สไลด์ตั้งคำถามสองข้อคือ bacterial structures ใดบ้างที่เกี่ยวข้องกับ adhesion และ adhesins บนโครงสร้างเหล่านั้นมีลักษณะอย่างไร แล้วตอบด้วยประเด็นต่อไปนี้",
           {
             "bullets": [
               "โมเลกุลหลากหลายชนิดที่อยู่บน adherent structures ของ bacteria สามารถทำหน้าที่เป็น adhesins ได้",
@@ -6036,18 +5484,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Enzyme glyceraldehyde-3-phosphate dehydrogenase (GADPH ตามที่สไลด์สะกด) ซึ่งเป็น key enzyme ของ glycolytic pathway เมื่ออยู่ที่ surface structures จะทำหน้าที่เป็น adhesin** และเกี่ยวข้องกับ acquisition of transferrin-bound iron รวมถึง bacteria-host signalling"
             ]
           },
-          {
-            "text": "สไลด์ p.18 และ p.19 ที่ตามมาเป็นรูปประกอบคำถาม what bacterial structures are involved in adhesion อ้างอิง Wilson et al. โดยไม่มีข้อความบรรยาย"
-          }
+          "สไลด์ p.18 และ p.19 ที่ตามมาเป็นรูปประกอบคำถาม what bacterial structures are involved in adhesion อ้างอิง Wilson et al. โดยไม่มีข้อความบรรยาย"
         ]
       },
       {
         "heading": "Host molecules ที่ทำหน้าที่เป็น receptors",
         "source": "Fundamental of Host Microbe interaction p.20",
         "body": [
-          {
-            "text": "สไลด์ลิสต์โมเลกุลบนผิว host cell ที่ทำหน้าที่เป็น receptor ให้ bacterial adhesins"
-          },
+          "สไลด์ลิสต์โมเลกุลบนผิว host cell ที่ทำหน้าที่เป็น receptor ให้ bacterial adhesins",
           {
             "bullets": [
               "Membrane spanning protein หรือ transmembrane protein",
@@ -6057,49 +5501,33 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Extracellular matrix proteins เช่น fibronectin และ collagen**"
             ]
           },
-          {
-            "text": "**สไลด์เขียนข้อยกเว้นไว้หนึ่งอันคือ translocated intimin receptor (Tir) ใน E. coli**"
-          },
+          "**สไลด์เขียนข้อยกเว้นไว้หนึ่งอันคือ translocated intimin receptor (Tir) ใน E. coli**",
           {
             "callout": "สไลด์ระบุ Tir เป็นข้อยกเว้นของกลุ่ม host molecules แต่ไม่ได้อธิบายเหตุผลไว้ที่หน้านี้ ให้ไปอ่านคู่กับ p.37 ที่พูดถึง protein translocation และ intimin-Tir interaction",
             "kind": "tip"
           },
-          {
-            "text": "สไลด์ p.21 เป็น diagram ของโมเลกุลหลักบนผิว typical mammalian cell พร้อมคำบรรยายว่าโมเลกุลเหล่านี้ส่วนใหญ่ทำหน้าที่เป็น receptors ให้ bacterial adhesins ได้"
-          }
+          "สไลด์ p.21 เป็น diagram ของโมเลกุลหลักบนผิว typical mammalian cell พร้อมคำบรรยายว่าโมเลกุลเหล่านี้ส่วนใหญ่ทำหน้าที่เป็น receptors ให้ bacterial adhesins ได้"
         ]
       },
       {
         "heading": "Tissue tropism",
         "source": "Fundamental of Host Microbe interaction p.22",
         "body": [
-          {
-            "text": "**Bacterial species หนึ่ง ๆ มักจะ adhere, colonize และอาจ induce pathology ในเนื้อเยื่อเพียงชนิดเดียว**"
-          },
-          {
-            "text": "**พื้นฐานของ bacterial adhesion คือ specific ligand-receptor interactions**"
-          },
-          {
-            "text": "สไลด์มีหัวข้อ example of tissue tropism และ p.23 เป็นตาราง bacterial adhesins and their receptors แต่ทั้งสองหน้าเป็นรูปอ้างอิง Wilson et al. ที่ไม่มีข้อความในไฟล์ จึงไม่มีตัวอย่างเชื้อระบุไว้ในโน้ตนี้"
-          }
+          "**Bacterial species หนึ่ง ๆ มักจะ adhere, colonize และอาจ induce pathology ในเนื้อเยื่อเพียงชนิดเดียว**",
+          "**พื้นฐานของ bacterial adhesion คือ specific ligand-receptor interactions**",
+          "สไลด์มีหัวข้อ example of tissue tropism และ p.23 เป็นตาราง bacterial adhesins and their receptors แต่ทั้งสองหน้าเป็นรูปอ้างอิง Wilson et al. ที่ไม่มีข้อความในไฟล์ จึงไม่มีตัวอย่างเชื้อระบุไว้ในโน้ตนี้"
         ]
       },
       {
         "heading": "Consequences of bacterial adhesion",
         "source": "Fundamental of Host Microbe interaction p.24",
         "body": [
-          {
-            "text": "สไลด์แยกผลของการเกาะเป็นสองฝั่งคือ effect on the bacterium และ effect on the host"
-          },
+          "สไลด์แยกผลของการเกาะเป็นสองฝั่งคือ effect on the bacterium และ effect on the host",
           {
             "sub": "Effect on the host แยกตามชนิดเซลล์",
             "body": [
-              {
-                "text": "ชนิดเซลล์ที่สไลด์ยกมาคือ epithelial cells, fibroblasts, endothelial cells และ phagocytic cells"
-              },
-              {
-                "text": "สำหรับ epithelial cells สไลด์ไล่ผลที่เกิดได้เป็น"
-              },
+              "ชนิดเซลล์ที่สไลด์ยกมาคือ epithelial cells, fibroblasts, endothelial cells และ phagocytic cells",
+              "สำหรับ epithelial cells สไลด์ไล่ผลที่เกิดได้เป็น",
               {
                 "bullets": [
                   "**Adhesion without apparent effect** คือเกาะแล้วไม่เห็นผลอะไร",
@@ -6111,9 +5539,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ p.25 ถึง p.30 เป็นรูปประกอบหัวข้อ effect on the bacterium และ effect on the host อ้างอิง Wilson et al. โดยไม่มีข้อความ สไลด์จึงไม่ได้บอกรายละเอียดของผลฝั่ง bacterium ไว้เป็นตัวหนังสือ"
-          }
+          "สไลด์ p.25 ถึง p.30 เป็นรูปประกอบหัวข้อ effect on the bacterium และ effect on the host อ้างอิง Wilson et al. โดยไม่มีข้อความ สไลด์จึงไม่ได้บอกรายละเอียดของผลฝั่ง bacterium ไว้เป็นตัวหนังสือ"
         ]
       },
       {
@@ -6139,9 +5565,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ p.34 มีคำบรรยายสั้น ๆ ว่ารูปแสดง two of the three types of filament ที่ประกอบเป็น cytoskeleton ของ eukaryotic cells แต่ไม่ได้ระบุชื่อ filament ทั้งสามไว้เป็นข้อความ"
-          }
+          "สไลด์ p.34 มีคำบรรยายสั้น ๆ ว่ารูปแสดง two of the three types of filament ที่ประกอบเป็น cytoskeleton ของ eukaryotic cells แต่ไม่ได้ระบุชื่อ filament ทั้งสามไว้เป็นข้อความ"
         ]
       },
       {
@@ -6151,17 +5575,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "แบบ A ใช้ injection secretion system",
             "body": [
-              {
-                "text": "**Bacterial cell มี injection secretion system ที่ฉีด proteins หลายตัวเข้าไปใน host cell โปรตีนบางตัวทำให้เกิด cytoskeletal reorganization ซึ่งไป engulf ตัว bacteria เข้ามา** เมื่ออยู่ใน cytosol แล้ว bacteria จะ lyse vacuolar membrane หนีออกมา และเคลื่อนที่ไปมาได้"
-              }
+              "**Bacterial cell มี injection secretion system ที่ฉีด proteins หลายตัวเข้าไปใน host cell โปรตีนบางตัวทำให้เกิด cytoskeletal reorganization ซึ่งไป engulf ตัว bacteria เข้ามา** เมื่ออยู่ใน cytosol แล้ว bacteria จะ lyse vacuolar membrane หนีออกมา และเคลื่อนที่ไปมาได้"
             ]
           },
           {
             "sub": "แบบ B ใช้ bacterial surface protein",
             "body": [
-              {
-                "text": "**Bacterial surface protein จับกับผิวเซลล์แล้วชักนำให้เซลล์ทำ endocytosis ตัวมันเอง** เมื่อเข้าไปในเซลล์ บางตัวหนีออกมาเหมือนแบบ A ส่วนบางตัว **multiply อยู่ใน phagosome**"
-              }
+              "**Bacterial surface protein จับกับผิวเซลล์แล้วชักนำให้เซลล์ทำ endocytosis ตัวมันเอง** เมื่อเข้าไปในเซลล์ บางตัวหนีออกมาเหมือนแบบ A ส่วนบางตัว **multiply อยู่ใน phagosome**"
             ]
           }
         ]
@@ -6170,27 +5590,17 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่าง EPEC และ EHEC: intimin, Tir และ pedestal formation",
         "source": "Fundamental of Host Microbe interaction p.37",
         "body": [
-          {
-            "text": "**EPEC และ EHEC จับกับ plasma membrane ของ epithelial cells ผ่าน hollow EspA filaments**"
-          },
-          {
-            "text": "**หลังจากนั้นเกิด protein translocation แล้วตามด้วย interaction ระหว่าง outer membrane adhesin intimin กับ Tir**"
-          },
-          {
-            "text": "**Intimin-Tir interaction นำไปสู่ reorganisation ของทั้ง micro filaments และ intermediate filaments ใต้ตัวเชื้อที่เกาะอยู่ เกิด pedestal formation และ intimate attachment**"
-          },
-          {
-            "text": "สไลด์ p.36 เป็นรูป invasion mechanism of E. coli และ p.38 เป็นรูป type III secretion system ซึ่งทั้งสองหน้าไม่มีข้อความบรรยาย"
-          }
+          "**EPEC และ EHEC จับกับ plasma membrane ของ epithelial cells ผ่าน hollow EspA filaments**",
+          "**หลังจากนั้นเกิด protein translocation แล้วตามด้วย interaction ระหว่าง outer membrane adhesin intimin กับ Tir**",
+          "**Intimin-Tir interaction นำไปสู่ reorganisation ของทั้ง micro filaments และ intermediate filaments ใต้ตัวเชื้อที่เกาะอยู่ เกิด pedestal formation และ intimate attachment**",
+          "สไลด์ p.36 เป็นรูป invasion mechanism of E. coli และ p.38 เป็นรูป type III secretion system ซึ่งทั้งสองหน้าไม่มีข้อความบรรยาย"
         ]
       },
       {
         "heading": "Consequences of invasion: effect on host cells",
         "source": "Fundamental of Host Microbe interaction p.40",
         "body": [
-          {
-            "text": "สไลด์ลิสต์ผลต่อ host cells ไว้ 5 ข้อ"
-          },
+          "สไลด์ลิสต์ผลต่อ host cells ไว้ 5 ข้อ",
           {
             "bullets": [
               "Cytokine release",
@@ -6203,12 +5613,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Tissue factor ตามที่สไลด์ขยายความ",
             "body": [
-              {
-                "text": "**เป็น transmembrane protein ที่สร้างโดย endothelial cells เพื่อตอบสนองต่อ stimuli หลายชนิด**"
-              },
-              {
-                "text": "**ผลคือเกิดการสร้าง fibrin ที่มาเคลือบเซลล์ ซึ่งสไลด์โยงไปที่ vegetative endocarditis ของ heart valves**"
-              }
+              "**เป็น transmembrane protein ที่สร้างโดย endothelial cells เพื่อตอบสนองต่อ stimuli หลายชนิด**",
+              "**ผลคือเกิดการสร้าง fibrin ที่มาเคลือบเซลล์ ซึ่งสไลด์โยงไปที่ vegetative endocarditis ของ heart valves**"
             ]
           }
         ]
@@ -6217,12 +5623,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Consequences of invasion: effect on bacteria",
         "source": "Fundamental of Host Microbe interaction p.43",
         "body": [
-          {
-            "text": "**สไลด์ระบุผลต่อตัวเชื้อไว้ประโยคเดียวคือ up- หรือ down-regulate ของ bacterial genes**"
-          },
-          {
-            "text": "สไลด์ไม่ได้บอกว่ายีนกลุ่มใดถูก regulate หรือ regulate ไปในทิศทางใด"
-          }
+          "**สไลด์ระบุผลต่อตัวเชื้อไว้ประโยคเดียวคือ up- หรือ down-regulate ของ bacterial genes**",
+          "สไลด์ไม่ได้บอกว่ายีนกลุ่มใดถูก regulate หรือ regulate ไปในทิศทางใด"
         ]
       }
     ]
@@ -6237,9 +5639,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "โจทย์และงานที่ต้องทำใน lab นี้",
         "source": "Fungal Culture and Identification LAB p.1",
         "body": [
-          {
-            "text": "Lab exercise ทำ **by group หรือ by person** โดยหัวข้อคือ Type of Fungi เทคนิคที่ต้องทำมี 4 อย่าง"
-          },
+          "Lab exercise ทำ **by group หรือ by person** โดยหัวข้อคือ Type of Fungi เทคนิคที่ต้องทำมี 4 อย่าง",
           {
             "bullets": [
               "Fungal culture",
@@ -6261,18 +5661,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ตัวอย่างที่นำมา collection และ culture มี 2 แหล่ง คือ **environmental samples** และ **human or animal samples**"
-          }
+          "ตัวอย่างที่นำมา collection และ culture มี 2 แหล่ง คือ **environmental samples** และ **human or animal samples**"
         ]
       },
       {
         "heading": "Collection methods: direct vs indirect",
         "source": "Fungal Culture and Identification LAB p.2",
         "body": [
-          {
-            "text": "สไลด์แบ่งวิธีเก็บเป็น 2 แบบ ซึ่งใช้ PPE และการนำส่งเหมือนกันทุกอย่าง **ต่างกันแค่อุปกรณ์ที่ใช้เก็บ**"
-          },
+          "สไลด์แบ่งวิธีเก็บเป็น 2 แบบ ซึ่งใช้ PPE และการนำส่งเหมือนกันทุกอย่าง **ต่างกันแค่อุปกรณ์ที่ใช้เก็บ**",
           {
             "sub": "Direct",
             "body": [
@@ -6309,9 +5705,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Principle of fungal culture และสูตร SDA",
         "source": "Fungal Culture and Identification LAB p.2",
         "body": [
-          {
-            "text": "องค์ประกอบของการเพาะเชื้อตามสไลด์มี 3 ส่วน"
-          },
+          "องค์ประกอบของการเพาะเชื้อตามสไลด์มี 3 ส่วน",
           {
             "bullets": [
               "Container: test tube หรือ Petri dish",
@@ -6319,9 +5713,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Culture medium: **Sabouraud dextrose agar (SDA)**"
             ]
           },
-          {
-            "text": "สไลด์ระบุว่า SDA มาจาก **Raymond Sabouraud ปี 1892**"
-          },
+          "สไลด์ระบุว่า SDA มาจาก **Raymond Sabouraud ปี 1892**",
           {
             "sub": "องค์ประกอบ SDA ที่สไลด์เขียนไว้",
             "body": [
@@ -6337,9 +5729,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สำหรับการกระตุ้นให้สร้าง conidia (**for conidial development**) สไลด์ระบุให้ใช้ **Potato dextrose agar และ Corn meal agar**"
-          }
+          "สำหรับการกระตุ้นให้สร้าง conidia (**for conidial development**) สไลด์ระบุให้ใช้ **Potato dextrose agar และ Corn meal agar**"
         ]
       },
       {
@@ -6357,9 +5747,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Biochemical tests"
                 ]
               },
-              {
-                "text": "สไลด์กำกับตัวย่อไว้ว่า **CHX และ CHPC = cycloheximide และ chloramphenicol**"
-              }
+              "สไลด์กำกับตัวย่อไว้ว่า **CHX และ CHPC = cycloheximide และ chloramphenicol**"
             ]
           },
           {
@@ -6383,12 +5771,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Type of fungal culture: routine / selective / testing media",
         "source": "Fungal Culture and Identification LAB p.3",
         "body": [
-          {
-            "text": "**Mycosel agar (BBL)** = highly selective medium ที่ได้จากการผสม **cycloheximide กับ chloramphenicol**"
-          },
-          {
-            "text": "สไลด์แบ่ง media เป็น 3 กลุ่ม"
-          },
+          "**Mycosel agar (BBL)** = highly selective medium ที่ได้จากการผสม **cycloheximide กับ chloramphenicol**",
+          "สไลด์แบ่ง media เป็น 3 กลุ่ม",
           {
             "bullets": [
               "Routine media: Sabouraud Dextrose Agar (SDA), Potato Dextrose Agar (PDA), Corn Meal Agar",
@@ -6396,9 +5780,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Testing media: Urea agar, Cremophor EL agar, Tween esculine agar"
             ]
           },
-          {
-            "text": "ท้ายหน้าสไลด์ยังมีคำกำกับลอย ๆ อีกชุด คือ Red; Phenol red / Violet; Bromcresol purple / Vitamine B1, thymine / Lipid; castrol oil, olive oil"
-          },
+          "ท้ายหน้าสไลด์ยังมีคำกำกับลอย ๆ อีกชุด คือ Red; Phenol red / Violet; Bromcresol purple / Vitamine B1, thymine / Lipid; castrol oil, olive oil",
           {
             "callout": "สไลด์วางคำชุดหลังนี้ไว้เฉย ๆ ไม่ได้เขียนว่า indicator หรือ supplement ตัวไหนคู่กับ media ตัวไหน จำแค่ว่า phenol red กับ bromcresol purple เป็นสีที่ถูกพูดถึงคู่กับกลุ่ม media เหล่านี้ อย่าเดาการจับคู่เอง",
             "kind": "warn"
@@ -6428,9 +5810,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Isolation และ slide culture technique",
         "source": "Fungal Culture and Identification LAB p.4",
         "body": [
-          {
-            "text": "หน้านี้เป็นรูปประกอบเป็นหลัก หัวข้อที่เขียนไว้คือ Isolation by culturing on appropriated medium ซึ่งทำได้ทั้งบน **plate agar** และ **slant agar**"
-          },
+          "หน้านี้เป็นรูปประกอบเป็นหลัก หัวข้อที่เขียนไว้คือ Isolation by culturing on appropriated medium ซึ่งทำได้ทั้งบน **plate agar** และ **slant agar**",
           {
             "sub": "Slide culture technique: equipments ที่สไลด์ระบุ",
             "body": [
@@ -6453,9 +5833,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Identification: กลุ่ม Zygomycota",
         "source": "Fungal Culture and Identification LAB p.5",
         "body": [
-          {
-            "text": "หน้า Identification หน้าแรกจัดกลุ่ม **Zygomycota** และยกตัวอย่าง 3 genus"
-          },
+          "หน้า Identification หน้าแรกจัดกลุ่ม **Zygomycota** และยกตัวอย่าง 3 genus",
           {
             "bullets": [
               "**Rhizopus spp.**",
@@ -6463,9 +5841,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Syncephalastrum sp.**"
             ]
           },
-          {
-            "text": "โครงสร้างที่สไลด์ชี้ไว้บนรูปคือ **sporangium**, **columella** และ **aseptate hypha**"
-          },
+          "โครงสร้างที่สไลด์ชี้ไว้บนรูปคือ **sporangium**, **columella** และ **aseptate hypha**",
           {
             "callout": "สไลด์ให้เฉพาะชื่อโครงสร้างกับรูป ไม่ได้เขียนว่า Rhizopus, Mucor และ Syncephalastrum ต่างกันตรงจุดไหน ต้องเทียบจากรูปในสไลด์และของจริงใต้กล้อง",
             "kind": "flag"
@@ -6476,9 +5852,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Aspergillus series",
         "source": "Fungal Culture and Identification LAB p.6",
         "body": [
-          {
-            "text": "สไลด์ยก Aspergillus series มา 4 species"
-          },
+          "สไลด์ยก Aspergillus series มา 4 species",
           {
             "bullets": [
               "**As. flavus**",
@@ -6509,12 +5883,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Penicillium และเชื้อราอื่นในหน้าเดียวกัน",
         "source": "Fungal Culture and Identification LAB p.7",
         "body": [
-          {
-            "text": "หัวข้อหลักคือ **Penicillium spp.** โดยมีคำกำกับข้างชื่อว่า **Penicillium marneffei**, **antibiotic producer** และ **ear rot in corn**"
-          },
-          {
-            "text": "genus อื่นที่ปรากฏชื่อในหน้านี้"
-          },
+          "หัวข้อหลักคือ **Penicillium spp.** โดยมีคำกำกับข้างชื่อว่า **Penicillium marneffei**, **antibiotic producer** และ **ear rot in corn**",
+          "genus อื่นที่ปรากฏชื่อในหน้านี้",
           {
             "bullets": [
               "**Helminthosporium spp.**",
@@ -6532,20 +5902,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Fusarium, Alternaria และ MALDI-TOF",
         "source": "Fungal Culture and Identification LAB p.8",
         "body": [
-          {
-            "text": "genus ที่ปรากฏในหน้านี้คือ **Fusarium sp.** และ **Alternaria sp.**"
-          },
+          "genus ที่ปรากฏในหน้านี้คือ **Fusarium sp.** และ **Alternaria sp.**",
           {
             "sub": "คำอธิบายรูป Fusarium ที่สไลด์อ้างจากแหล่งภายนอก",
             "body": [
-              {
-                "text": "a F. equiseti, b F. oxysporum, c F. graminearum, d F. solani, e F. commune, f F. verticillioides, g F. proliferatum, h F. fujikuroi, i F. avenaceum โดย scale bar = 20 ไมโครเมตร (สไลด์ให้ image source เป็น DOI 10.1007/s10658-017-1410-7)"
-              }
+              "a F. equiseti, b F. oxysporum, c F. graminearum, d F. solani, e F. commune, f F. verticillioides, g F. proliferatum, h F. fujikuroi, i F. avenaceum โดย scale bar = 20 ไมโครเมตร (สไลด์ให้ image source เป็น DOI 10.1007/s10658-017-1410-7)"
             ]
           },
-          {
-            "text": "ท้ายหน้ามีหัวข้อ **Fungal identification by MALDI-TOF**"
-          },
+          "ท้ายหน้ามีหัวข้อ **Fungal identification by MALDI-TOF**",
           {
             "callout": "สไลด์เขียนชื่อ MALDI-TOF ไว้เป็นหัวข้อเฉย ๆ ไม่ได้อธิบายหลักการ ขั้นตอน หรือข้อจำกัดของวิธีนี้เลย",
             "kind": "warn"
@@ -6556,9 +5920,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "หน้าปิดท้าย",
         "source": "Fungal Culture and Identification LAB p.9",
         "body": [
-          {
-            "text": "สไลด์สุดท้ายมีข้อความเดียวคือ **Let's identify your own fungus** ซึ่งเป็นการส่งต่อให้ไปทำงานจริงตาม assignment ในหน้าแรก"
-          }
+          "สไลด์สุดท้ายมีข้อความเดียวคือ **Let's identify your own fungus** ซึ่งเป็นการส่งต่อให้ไปทำงานจริงตาม assignment ในหน้าแรก"
         ]
       }
     ]
@@ -6574,9 +5936,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขอบเขตของเลกเชอร์ (Key Features: VET Mycology)",
         "source": "Fungal Disease and classification Lect1 p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดวางกรอบไว้ว่าวิชานี้จะเดินตามหัวข้อเหล่านี้ ใช้เป็นโครงในการทบทวนได้เลย"
-          },
+          "สไลด์เปิดวางกรอบไว้ว่าวิชานี้จะเดินตามหัวข้อเหล่านี้ ใช้เป็นโครงในการทบทวนได้เลย",
           {
             "bullets": [
               "What's fungus",
@@ -6594,9 +5954,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Fungi ต่างจาก Bacteria พืช และสัตว์ อย่างไร",
         "source": "Fungal Disease and classification Lect1 p.3",
         "body": [
-          {
-            "text": "สไลด์เทียบ 5 features ได้แก่ Cell type, DNA, Reproductive, Ribosomes และ Cell wall"
-          },
+          "สไลด์เทียบ 5 features ได้แก่ Cell type, DNA, Reproductive, Ribosomes และ Cell wall",
           {
             "sub": "แถวของ Fungi (ตัวที่ต้องจำ)",
             "body": [
@@ -6627,18 +5985,14 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "จุดที่ออกสอบง่ายสุดในตารางนี้คือคู่ ribosome 50S ของ bacteria กับ 80S ของ eukaryote และคู่ผนังเซลล์ peptidoglycan กับ chitin",
             "kind": "tip"
           },
-          {
-            "text": "สไลด์ยังเขียนเรื่องความหลากหลายไว้ว่า Species มีราว **1.5-5 ล้านชนิด แต่ระบุชนิดได้แล้วเพียง 5%** และเชื้อรามีบทบาททั้ง symbiosis, commensalism, mutualism และเป็น decomposer รวมถึงเป็นแหล่งของ antibiotic และ antinematode"
-          }
+          "สไลด์ยังเขียนเรื่องความหลากหลายไว้ว่า Species มีราว **1.5-5 ล้านชนิด แต่ระบุชนิดได้แล้วเพียง 5%** และเชื้อรามีบทบาททั้ง symbiosis, commensalism, mutualism และเป็น decomposer รวมถึงเป็นแหล่งของ antibiotic และ antinematode"
         ]
       },
       {
         "heading": "Fungi เป็น Heterotroph",
         "source": "Fungal Disease and classification Lect1 p.3-4",
         "body": [
-          {
-            "text": "**Heterotroph** (héteros = other + trophe = nutrition) คือสิ่งมีชีวิตที่สร้างอาหารเองไม่ได้ ต้องรับสารอาหารจากแหล่ง organic carbon อื่น ส่วนใหญ่คือซากพืชหรือซากสัตว์ สไลด์กำกับเป็นภาษาไทยไว้สั้น ๆ ว่า หาอาหารเองไม่ได้"
-          },
+          "**Heterotroph** (héteros = other + trophe = nutrition) คือสิ่งมีชีวิตที่สร้างอาหารเองไม่ได้ ต้องรับสารอาหารจากแหล่ง organic carbon อื่น ส่วนใหญ่คือซากพืชหรือซากสัตว์ สไลด์กำกับเป็นภาษาไทยไว้สั้น ๆ ว่า หาอาหารเองไม่ได้",
           {
             "sub": "ตัวอย่าง heterotroph ที่สไลด์ยกมา",
             "body": [
@@ -6663,9 +6017,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "หน้าเดียวกันมีรายชื่อจุลินทรีย์แบ่งเป็น 3 กลุ่ม คือ ราชนิดที่ไม่เปลี่ยนแอลกอฮอล์ (Amylomyces rouxii, Rhizopus spp.) ยีสต์หรือราเซลล์เดียวที่เปลี่ยนแอลกอฮอล์ (Endomycopsis spp. พบจำนวนมาก, Hasenula spp. พบจำนวนมาก, Saccharomyces cerevisiae พบน้อย) และแบคทีเรีย (Pediococcus pentosaceus, Lactobacillus spp.)"
-          },
+          "หน้าเดียวกันมีรายชื่อจุลินทรีย์แบ่งเป็น 3 กลุ่ม คือ ราชนิดที่ไม่เปลี่ยนแอลกอฮอล์ (Amylomyces rouxii, Rhizopus spp.) ยีสต์หรือราเซลล์เดียวที่เปลี่ยนแอลกอฮอล์ (Endomycopsis spp. พบจำนวนมาก, Hasenula spp. พบจำนวนมาก, Saccharomyces cerevisiae พบน้อย) และแบคทีเรีย (Pediococcus pentosaceus, Lactobacillus spp.)",
           {
             "callout": "ข้อความไทยในหน้านี้ text layer แตกอ่านยาก จับได้แค่โครงสามกลุ่มกับรายชื่อเชื้อ สไลด์ไม่ได้อธิบายต่อว่ากลุ่มพวกนี้ใช้ทำอะไร",
             "kind": "flag"
@@ -6701,9 +6053,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "หน้านี้ยังพาดหัวว่า Three Major Types of Fungus แต่รูป Fungal morphologies ที่วางไว้มี 5 ป้ายคือ Mushroom, Sponge, Mold, Yeast และ Lichen สไลด์ไม่ได้เขียนว่า three major types หมายถึงอันไหนบ้าง"
-          }
+          "หน้านี้ยังพาดหัวว่า Three Major Types of Fungus แต่รูป Fungal morphologies ที่วางไว้มี 5 ป้ายคือ Mushroom, Sponge, Mold, Yeast และ Lichen สไลด์ไม่ได้เขียนว่า three major types หมายถึงอันไหนบ้าง"
         ]
       },
       {
@@ -6768,9 +6118,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "หน้า p.7 ที่เหลือเป็นรูป TREE of Fungi, Mold: Asexual sporulation และ Structure of Fungus แบบ filamentous ซึ่งเป็นภาพล้วน ไม่มีคำอธิบายเป็นข้อความในสไลด์"
-          }
+          "หน้า p.7 ที่เหลือเป็นรูป TREE of Fungi, Mold: Asexual sporulation และ Structure of Fungus แบบ filamentous ซึ่งเป็นภาพล้วน ไม่มีคำอธิบายเป็นข้อความในสไลด์"
         ]
       },
       {
@@ -6811,28 +6159,20 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Virulence Factors",
             "body": [
-              {
-                "text": "เชื้อราสร้าง virulence factors หลายอย่างที่ช่วยให้ติดเชื้อ หลบ immune response และก่อโรค ได้แก่ enzymes ที่ย่อย host tissues, toxins และโมเลกุลที่รบกวนภูมิคุ้มกันของ host"
-              },
-              {
-                "text": "ตัวอย่างที่สไลด์ยก: **Cryptococcus neoformans สร้าง capsule ที่ป้องกัน phagocytosis** โดย immune cells ทำให้อยู่รอดและกระจายตัวในตัว host ได้"
-              }
+              "เชื้อราสร้าง virulence factors หลายอย่างที่ช่วยให้ติดเชื้อ หลบ immune response และก่อโรค ได้แก่ enzymes ที่ย่อย host tissues, toxins และโมเลกุลที่รบกวนภูมิคุ้มกันของ host",
+              "ตัวอย่างที่สไลด์ยก: **Cryptococcus neoformans สร้าง capsule ที่ป้องกัน phagocytosis** โดย immune cells ทำให้อยู่รอดและกระจายตัวในตัว host ได้"
             ]
           },
           {
             "sub": "Metabolism",
             "body": [
-              {
-                "text": "เชื้อราเป็น heterotroph ได้สารอาหารจาก organic sources และมี metabolic pathways ที่ย่อย substrate ได้หลากหลายรวมถึง polymer ซับซ้อนอย่าง **cellulose และ lignin** จึงเป็น decomposer สำคัญของระบบนิเวศ ส่วนเชื้อราก่อโรคก็วิวัฒน์กลไกในการ metabolize host tissues ซึ่งเป็นที่มาของอาการแสดงของโรค"
-              }
+              "เชื้อราเป็น heterotroph ได้สารอาหารจาก organic sources และมี metabolic pathways ที่ย่อย substrate ได้หลากหลายรวมถึง polymer ซับซ้อนอย่าง **cellulose และ lignin** จึงเป็น decomposer สำคัญของระบบนิเวศ ส่วนเชื้อราก่อโรคก็วิวัฒน์กลไกในการ metabolize host tissues ซึ่งเป็นที่มาของอาการแสดงของโรค"
             ]
           },
           {
             "sub": "Environmental Adaptations",
             "body": [
-              {
-                "text": "เชื้อราอยู่รอดในสิ่งแวดล้อมที่หลากหลายและรุนแรงได้ ตั้งแต่ความเย็นจัดถึงความเค็มสูง กลไกหนึ่งคือ **การสร้าง spores ที่ทน desiccation, heat และ UV radiation** เชื้อก่อโรคใช้กลไกเหล่านี้อยู่รอดในตัว host ด้วย และ **spores มีบทบาทสำคัญในการ transmission และการเริ่มต้นการติดเชื้อ**"
-              }
+              "เชื้อราอยู่รอดในสิ่งแวดล้อมที่หลากหลายและรุนแรงได้ ตั้งแต่ความเย็นจัดถึงความเค็มสูง กลไกหนึ่งคือ **การสร้าง spores ที่ทน desiccation, heat และ UV radiation** เชื้อก่อโรคใช้กลไกเหล่านี้อยู่รอดในตัว host ด้วย และ **spores มีบทบาทสำคัญในการ transmission และการเริ่มต้นการติดเชื้อ**"
             ]
           }
         ]
@@ -6847,9 +6187,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Systemic infection เช่น histoplasmosis ทำให้มี fever, cough และ fatigue** สะท้อนการกระจายแบบ systemic"
             ]
           },
-          {
-            "text": "สไลด์สรุปว่าอาการแสดงที่หลากหลายนี้เป็นเหตุผลว่าทำไมต้องนึกถึง fungal infection ไว้ใน differential diagnoses โดยเฉพาะในผู้ป่วยที่มีอาการอธิบายไม่ได้"
-          }
+          "สไลด์สรุปว่าอาการแสดงที่หลากหลายนี้เป็นเหตุผลว่าทำไมต้องนึกถึง fungal infection ไว้ใน differential diagnoses โดยเฉพาะในผู้ป่วยที่มีอาการอธิบายไม่ได้"
         ]
       },
       {
@@ -6859,9 +6197,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "กรอบคิดของหัวข้อนี้ (p.10)",
             "body": [
-              {
-                "text": "สไลด์วางหัวข้อว่า How to study mycology: taxonomic exemption แล้วเขียนกำกับไว้เป็นภาษาไทยสี่ประเด็นคือ ความหมายและคุณลักษณะ วิธีคิดในเรื่องของการจำแนก ความสำคัญต่อวิชาชีพ และโครงสร้างกับการเกิดโรค"
-              },
+              "สไลด์วางหัวข้อว่า How to study mycology: taxonomic exemption แล้วเขียนกำกับไว้เป็นภาษาไทยสี่ประเด็นคือ ความหมายและคุณลักษณะ วิธีคิดในเรื่องของการจำแนก ความสำคัญต่อวิชาชีพ และโครงสร้างกับการเกิดโรค",
               {
                 "bullets": [
                   "**Past**: เคยเป็น formal phylum ของ kingdom Fungi",
@@ -6873,12 +6209,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Fungi Imperfecti (p.11)",
             "body": [
-              {
-                "text": "สมาชิกที่สืบพันธุ์แบบ asexual มาจาก **Ascomycota** และ **Basidiomycota**"
-              },
-              {
-                "text": "สไลด์ยกตัวอย่างปัญหาการตั้งชื่อไว้ตรง ๆ คือเชื้อตัวเดียวกันมีสองชื่อ **Teleomorph = Emericella nidulans ส่วน Anamorph = Aspergillus nidulans** และยก Aspergillus niger มาในกลุ่มเดียวกัน"
-              },
+              "สมาชิกที่สืบพันธุ์แบบ asexual มาจาก **Ascomycota** และ **Basidiomycota**",
+              "สไลด์ยกตัวอย่างปัญหาการตั้งชื่อไว้ตรง ๆ คือเชื้อตัวเดียวกันมีสองชื่อ **Teleomorph = Emericella nidulans ส่วน Anamorph = Aspergillus nidulans** และยก Aspergillus niger มาในกลุ่มเดียวกัน",
               {
                 "bullets": [
                   "**Deuteromycota มี septate mycelium**",
@@ -6968,9 +6300,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "เกณฑ์ที่ใช้ตั้งชื่อและจัดกลุ่มโรค",
             "body": [
-              {
-                "text": "สไลด์ลิสต์เกณฑ์ไว้ว่า **Phylum names, Organ involvement, Species of Fungi, Feature of diseases และ Rule of fungus** แล้วโยงกับตัวอย่างชื่อโรคชุดหนึ่งคือ Zygomycosis, Ascomycosis, Cutaneous mycoses, Subcutaneous mycoses, Systemic mycoses, Candidiasis, Actinomycosis, Aspergillosis, Mycetoma, Chromoblastomycosis รวมถึงคำว่า Opportunistic fungi และ Pathogenic fungi"
-              },
+              "สไลด์ลิสต์เกณฑ์ไว้ว่า **Phylum names, Organ involvement, Species of Fungi, Feature of diseases และ Rule of fungus** แล้วโยงกับตัวอย่างชื่อโรคชุดหนึ่งคือ Zygomycosis, Ascomycosis, Cutaneous mycoses, Subcutaneous mycoses, Systemic mycoses, Candidiasis, Actinomycosis, Aspergillosis, Mycetoma, Chromoblastomycosis รวมถึงคำว่า Opportunistic fungi และ Pathogenic fungi",
               {
                 "callout": "สไลด์วางชื่อเกณฑ์กับชื่อโรคเป็นแผนภาพ ไม่ได้เขียนจับคู่ทีละบรรทัดว่าโรคไหนมาจากเกณฑ์ไหน แต่เห็นแนวได้ว่า Zygomycosis กับ Ascomycosis มาจาก phylum ส่วน cutaneous, subcutaneous, systemic mycoses มาจาก organ involvement",
                 "kind": "flag"
@@ -7022,9 +6352,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "หน้าเดียวกันมีรูปกำกับว่า Canine dermatophytosis and seborrheic dermatitis และหน้า p.14 มีรูป Disseminated Cryptococcosis and Candidiasis สไลด์ไม่ได้เขียนคำบรรยายรอยโรคไว้"
-          }
+          "หน้าเดียวกันมีรูปกำกับว่า Canine dermatophytosis and seborrheic dermatitis และหน้า p.14 มีรูป Disseminated Cryptococcosis and Candidiasis สไลด์ไม่ได้เขียนคำบรรยายรอยโรคไว้"
         ]
       },
       {
@@ -7106,9 +6434,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "เชื้อราก่อโรคอย่างไร (How do fungi cause disease?)",
         "source": "Fungal Disease and classification Lect1 p.16-17",
         "body": [
-          {
-            "text": "สไลด์ตั้งคำถามนี้ไว้ที่ p.16 ท้ายชุดรูปเคส (Feline cryptococcosis, Feline Sporotrichosis, Equine Pythiosis) แล้วตอบด้วยหัวข้อสั้น ๆ ที่ p.17"
-          },
+          "สไลด์ตั้งคำถามนี้ไว้ที่ p.16 ท้ายชุดรูปเคส (Feline cryptococcosis, Feline Sporotrichosis, Equine Pythiosis) แล้วตอบด้วยหัวข้อสั้น ๆ ที่ p.17",
           {
             "bullets": [
               "**Asexual stage** คือรูปที่เกี่ยวข้องกับการก่อโรค",
@@ -7122,18 +6448,14 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "จุดที่ต่างจาก bacteria ชัดที่สุดตามสไลด์คือเชื้อราไม่สร้าง endotoxin และ exotoxin การก่อโรคจึงพึ่ง predisposing factors เป็นหลัก และพยาธิสภาพส่วนหนึ่งมาจาก hypersensitivity กับ mycotoxin",
             "kind": "tip"
           },
-          {
-            "text": "หน้า p.15 และ p.16 ที่เหลือเป็นชุดรูปเคส (Aspergillosis: a case study, Chronic seborrheic dermatitis, Fungal allergic diseases, Canine Dermatophytosis) ที่ไม่มีข้อความอธิบายในสไลด์"
-          }
+          "หน้า p.15 และ p.16 ที่เหลือเป็นชุดรูปเคส (Aspergillosis: a case study, Chronic seborrheic dermatitis, Fungal allergic diseases, Canine Dermatophytosis) ที่ไม่มีข้อความอธิบายในสไลด์"
         ]
       },
       {
         "heading": "Five important true fungi และจำนวน species",
         "source": "Fungal Disease and classification Lect1 p.17",
         "body": [
-          {
-            "text": "สไลด์ใช้ตัวย่อ **A B C G Z** แทน 5 phylum หลัก"
-          },
+          "สไลด์ใช้ตัวย่อ **A B C G Z** แทน 5 phylum หลัก",
           {
             "bullets": [
               "**A = Ascomycota**",
@@ -7168,9 +6490,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Phylum Chytridiomycota",
         "source": "Fungal Disease and classification Lect1 p.19",
         "body": [
-          {
-            "text": "สไลด์ระบุว่ามี **Class Chytridiomycetes เพียง class เดียว**"
-          },
+          "สไลด์ระบุว่ามี **Class Chytridiomycetes เพียง class เดียว**",
           {
             "bullets": [
               "ส่วนใหญ่ **unicellular** มีบางส่วนที่เป็น multicellular และสร้าง hyphae",
@@ -7181,18 +6501,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**ก่อโรคผิวหนังใน amphibians**"
             ]
           },
-          {
-            "text": "สไลด์อีกกล่องในหน้าเดียวกัน (The Chytrids) เขียนย้ำว่ารูปร่างเป็น spherical unicellular และ filamentous และภายในบรรจุ **motile zoospores**"
-          }
+          "สไลด์อีกกล่องในหน้าเดียวกัน (The Chytrids) เขียนย้ำว่ารูปร่างเป็น spherical unicellular และ filamentous และภายในบรรจุ **motile zoospores**"
         ]
       },
       {
         "heading": "ตารางเปรียบเทียบ phylum ที่เกี่ยวกับ mycotic disease",
         "source": "Fungal Disease and classification Lect1 p.19",
         "body": [
-          {
-            "text": "ตารางเทียบ 4 phylum ตาม sexual spore, asexual spore, septate hyphae และชื่อโรค"
-          },
+          "ตารางเทียบ 4 phylum ตาม sexual spore, asexual spore, septate hyphae และชื่อโรค",
           {
             "bullets": [
               "**Ascomycota**: sexual spore = **Ascospore**, asexual = conidia, **septate hyphae +**, โรค = Ascomycosis",
@@ -7201,9 +6517,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Deuteromycota (Fungi Imperfecti)**: **No sexual stage**, asexual = conidia, **septate hyphae +**, โรค = Deuteromycosis"
             ]
           },
-          {
-            "text": "สไลด์ปิดท้ายตารางว่า **เชื้อก่อโรคจำนวนมากไม่สร้าง sexual structures จึงถูกจัดอยู่ใน class deuteromycetes**"
-          },
+          "สไลด์ปิดท้ายตารางว่า **เชื้อก่อโรคจำนวนมากไม่สร้าง sexual structures จึงถูกจัดอยู่ใน class deuteromycetes**",
           {
             "callout": "ตารางนี้คือหน้าที่คุ้มค่าที่สุดของเลกเชอร์ จำสามคู่ ascospore กับ ascomycota, basidiospore กับ basidiomycota, zygospore กับ zygomycota แล้วจำว่า Zygomycota คือตัวเดียวที่ไม่มี septum และ Deuteromycota คือตัวเดียวที่ไม่มี sexual stage",
             "kind": "tip"
@@ -7239,12 +6553,8 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "เมื่อ mating types หรือ strains ต่างกันโตใกล้กัน จะสืบพันธุ์แบบ sexual ด้วย **conjugation**"
                 ]
               },
-              {
-                "text": "คำศัพท์ **Sexual phase**: HOMOTHALLIC (self-fertile), HETEROTHALLIC (self-sterile), PROGAMETANGIUM, GAMETANGIUM, KARYOGAMY, ZYGOSPORE"
-              },
-              {
-                "text": "คำศัพท์ **Asexual phase**: SPORANGIOPHORE, SPORANGIUM (พหูพจน์ SPORANGIA), **non-motile sporangiospores**, APLANOSPORES, COLUMELLA"
-              }
+              "คำศัพท์ **Sexual phase**: HOMOTHALLIC (self-fertile), HETEROTHALLIC (self-sterile), PROGAMETANGIUM, GAMETANGIUM, KARYOGAMY, ZYGOSPORE",
+              "คำศัพท์ **Asexual phase**: SPORANGIOPHORE, SPORANGIUM (พหูพจน์ SPORANGIA), **non-motile sporangiospores**, APLANOSPORES, COLUMELLA"
             ]
           },
           {
@@ -7265,9 +6575,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Identification (p.21)",
             "body": [
-              {
-                "text": "สไลด์วางรูป **Rhizopus spp., Mucor spp., Syncephalastrum sp.** ให้เทียบกัน โดยชี้โครงสร้างที่ใช้ดูคือ **sporangium, columella และ aseptate hypha** สไลด์ไม่ได้เขียนว่าสามสกุลนี้ต่างกันที่จุดใดเป็นข้อความ ต้องดูจากรูป"
-              }
+              "สไลด์วางรูป **Rhizopus spp., Mucor spp., Syncephalastrum sp.** ให้เทียบกัน โดยชี้โครงสร้างที่ใช้ดูคือ **sporangium, columella และ aseptate hypha** สไลด์ไม่ได้เขียนว่าสามสกุลนี้ต่างกันที่จุดใดเป็นข้อความ ต้องดูจากรูป"
             ]
           }
         ]
@@ -7279,9 +6587,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "ภาพรวม (p.21)",
             "body": [
-              {
-                "text": "สไลด์เรียกว่าเป็น **the most diverse group of fungi with 64,000 species**"
-              },
+              "สไลด์เรียกว่าเป็น **the most diverse group of fungi with 64,000 species**",
               {
                 "bullets": [
                   "รวม unicellular yeast, cup fungi และ truffles",
@@ -7343,9 +6649,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Ascomycota: การแยก Aspergillus และสกุลใกล้เคียง",
         "source": "Fungal Disease and classification Lect1 p.24",
         "body": [
-          {
-            "text": "สไลด์เทียบ **A. fumigatus** กับ **A. flavus** โดยระบุจุดที่ใช้ดูสามอย่าง"
-          },
+          "สไลด์เทียบ **A. fumigatus** กับ **A. flavus** โดยระบุจุดที่ใช้ดูสามอย่าง",
           {
             "bullets": [
               "**Biseriate หรือ uniseriate**",
@@ -7426,9 +6730,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตารางสรุปสี่ division ท้ายเลกเชอร์",
         "source": "Fungal Disease and classification Lect1 p.26",
         "body": [
-          {
-            "text": "ตารางเทียบ Division, Species, Wall, Life Cycle, Examples และ Special Vocabulary"
-          },
+          "ตารางเทียบ Division, Species, Wall, Life Cycle, Examples และ Special Vocabulary",
           {
             "bullets": [
               "**Zygomycota (Bread Mold)**: 750 species, wall = **chitin**, life cycle = **zygotic**, ตัวอย่าง = **Rhizopus**",
@@ -7454,9 +6756,7 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "ในช่อง Examples ของตารางนี้มีชื่อ Saccharomyces และ Cryptococcus วางคาบระหว่างคอลัมน์ Ascomycota กับ Basidiomycota จน text layer แยกไม่ออกว่าตัวใดอยู่ช่องไหน แต่หน้าเดียวกันระบุชัดว่า Cryptococcus spp. เป็น Basidiomycota member for VET",
             "kind": "flag"
           },
-          {
-            "text": "หน้า p.18 ในไฟล์เป็นสไลด์ที่ไม่มีข้อความเลย"
-          }
+          "หน้า p.18 ในไฟล์เป็นสไลด์ที่ไม่มีข้อความเลย"
         ]
       }
     ]
@@ -7471,12 +6771,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Mycetoma คืออะไร",
         "source": "Higher Bacteria p.5",
         "body": [
-          {
-            "text": "สไลด์แปลคำว่า mycetoma ตรงตัวว่า **ก้อนของเส้นใย**"
-          },
-          {
-            "text": "**Mycetoma is a chronic subcutaneous infection caused by actinomycetes or fungi** คือติดเชื้อเรื้อรังใต้ผิวหนัง เกิดได้จากทั้ง actinomycetes และเชื้อรา"
-          },
+          "สไลด์แปลคำว่า mycetoma ตรงตัวว่า **ก้อนของเส้นใย**",
+          "**Mycetoma is a chronic subcutaneous infection caused by actinomycetes or fungi** คือติดเชื้อเรื้อรังใต้ผิวหนัง เกิดได้จากทั้ง actinomycetes และเชื้อรา",
           {
             "bullets": [
               "สาเหตุมาได้จาก true fungi หรือ higher bacteria",
@@ -7488,9 +6784,7 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "ตัวช่วยจำบนสไลด์: ร = ร้อน เรื้อรัง ระยาง ซึ่งเข้ากับคำว่า tropical zone และ chronic localized lesions ที่อยู่บนสไลด์เดียวกัน แต่สไลด์ไม่ได้ขยายความคำว่า ระยาง ไว้",
             "kind": "tip"
           },
-          {
-            "text": "สไลด์เขียนคำว่า Appendix part กำกับไว้ด้วย แต่สไลด์ไม่ได้บอกว่าหมายถึงส่วนไหน"
-          }
+          "สไลด์เขียนคำว่า Appendix part กำกับไว้ด้วย แต่สไลด์ไม่ได้บอกว่าหมายถึงส่วนไหน"
         ]
       },
       {
@@ -7504,9 +6798,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Pseudomycetoma in cat : atypical dermatophytosis**"
             ]
           },
-          {
-            "text": "สไลด์ให้แค่ชื่อกลุ่ม ไม่ได้อธิบายเกณฑ์แบ่งในหน้านี้"
-          }
+          "สไลด์ให้แค่ชื่อกลุ่ม ไม่ได้อธิบายเกณฑ์แบ่งในหน้านี้"
         ]
       },
       {
@@ -7532,9 +6824,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "องค์ประกอบผนังเซลล์ เทียบ 4 กลุ่ม",
         "source": "Higher Bacteria p.8",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพเปรียบเทียบผนังเซลล์ 4 คอลัมน์"
-          },
+          "สไลด์เป็นภาพเปรียบเทียบผนังเซลล์ 4 คอลัมน์",
           {
             "bullets": [
               "**Fungi: Mannanoprotein, Glucan, Chitin**",
@@ -7583,9 +6873,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "เชื้อก่อ Mycetoma: Eumycetoma เทียบ Actinomycetoma",
         "source": "Higher Bacteria p.11",
         "body": [
-          {
-            "text": "สไลด์ใช้ชื่อไทยว่า โรคฝีรั่ว และย้ำนิยามเดิมว่า mycetoma is a chronic subcutaneous infection caused by actinomycetes or fungi"
-          },
+          "สไลด์ใช้ชื่อไทยว่า โรคฝีรั่ว และย้ำนิยามเดิมว่า mycetoma is a chronic subcutaneous infection caused by actinomycetes or fungi",
           {
             "sub": "Eumycetoma (เชื้อรา)",
             "body": [
@@ -7623,9 +6911,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Actinomycotic mycetoma",
         "source": "Higher Bacteria p.12",
         "body": [
-          {
-            "text": "สไลด์ระบุ genus ที่ทำให้เกิด actinomycotic mycetoma ไว้ 4 กลุ่ม"
-          },
+          "สไลด์ระบุ genus ที่ทำให้เกิด actinomycotic mycetoma ไว้ 4 กลุ่ม",
           {
             "bullets": [
               "**Nocardia sp.**",
@@ -7640,9 +6926,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "รอยโรคทางคลินิกของ Mycetoma",
         "source": "Higher Bacteria p.13",
         "body": [
-          {
-            "text": "การติดเชื้อ: **เชื้อจากธรรมชาติเข้าทางบาดแผลที่ผิวหนัง**"
-          },
+          "การติดเชื้อ: **เชื้อจากธรรมชาติเข้าทางบาดแผลที่ผิวหนัง**",
           {
             "bullets": [
               "**การบวม (Tumefaction)**",
@@ -7676,9 +6960,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "เคสรายงานของ Nocardia ในแมว",
         "source": "Higher Bacteria p.15-16",
         "body": [
-          {
-            "text": "สไลด์สองหน้านี้เป็นภาพเคสพร้อมคำบรรยายภาพ ไม่มีเนื้อหาบรรยายเพิ่ม"
-          },
+          "สไลด์สองหน้านี้เป็นภาพเคสพร้อมคำบรรยายภาพ ไม่มีเนื้อหาบรรยายเพิ่ม",
           {
             "bullets": [
               "Cutaneous pyogranulomas associated with **Nocardia jiangxiensis** in a cat",
@@ -7712,9 +6994,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Multinodular, ulcerated lesions at elbow and thorax และ subcutaneous tissues บริเวณนั้นมี brown purulent material with multiple black flecks"
                 ]
               },
-              {
-                "text": "สไลด์ไม่ได้บอกชัดว่าคำบรรยายภาพชุด elbow และ thorax เป็นของเชื้อชนิดใดในสองชนิดนี้"
-              }
+              "สไลด์ไม่ได้บอกชัดว่าคำบรรยายภาพชุด elbow และ thorax เป็นของเชื้อชนิดใดในสองชนิดนี้"
             ]
           }
         ]
@@ -7735,9 +7015,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "โรคที่รู้จักกันคือ **Lumpy Jaw**"
             ]
           },
-          {
-            "text": "สไลด์มีภาพ direct microscopic finding ประกอบ แต่ไม่มีคำบรรยายภาพเพิ่ม"
-          }
+          "สไลด์มีภาพ direct microscopic finding ประกอบ แต่ไม่มีคำบรรยายภาพเพิ่ม"
         ]
       },
       {
@@ -7816,9 +7094,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Trueperella pyogenes",
         "source": "Higher Bacteria p.24",
         "body": [
-          {
-            "text": "**เดิมชื่อ Actinomyces pyogenes**"
-          },
+          "**เดิมชื่อ Actinomyces pyogenes**",
           {
             "bullets": [
               "**Non-motile**",
@@ -7836,9 +7112,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Trueperella pyogenes ในสุกร",
         "source": "Higher Bacteria p.25",
         "body": [
-          {
-            "text": "สไลด์เป็นภาพ 2 ภาพพร้อมคำบรรยาย"
-          },
+          "สไลด์เป็นภาพ 2 ภาพพร้อมคำบรรยาย",
           {
             "bullets": [
               "A: **Inflammatory and degenerative lesions of the mammary gland**",
@@ -7851,9 +7125,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "การตรวจ Grains ทางห้องปฏิบัติการ",
         "source": "Higher Bacteria p.26",
         "body": [
-          {
-            "text": "สไลด์ระบุวิธีดู grains ด้วย **KOH** และ **Gram**"
-          },
+          "สไลด์ระบุวิธีดู grains ด้วย **KOH** และ **Gram**",
           {
             "bullets": [
               "Grains คือ **microcolonies ที่เป็น hyphae อัดตัวกันแน่น**",
@@ -7882,9 +7154,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Culture Differentiation จาก grain tissue",
         "source": "Higher Bacteria p.27",
         "body": [
-          {
-            "text": "สไลด์แตกแนวทางเพาะเชื้อจาก **grain tissue** ออกเป็น 2 ทาง"
-          },
+          "สไลด์แตกแนวทางเพาะเชื้อจาก **grain tissue** ออกเป็น 2 ทาง",
           {
             "sub": "Fungus-like bacteria",
             "body": [
@@ -7961,9 +7231,7 @@ export const NOTES_Y2_MICROBIO_1 = {
             "callout": "เชิงอรรถบนสไลด์: The spores of some Streptomyces spp. may be acid fast",
             "kind": "warn"
           },
-          {
-            "text": "สไลด์ไม่ได้ให้ข้อมูล aerobic growth และ produce granule grains ของ Mycobacterium ไว้ในตารางนี้"
-          }
+          "สไลด์ไม่ได้ให้ข้อมูล aerobic growth และ produce granule grains ของ Mycobacterium ไว้ในตารางนี้"
         ]
       }
     ]
@@ -7979,9 +7247,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "อะไรทำให้การติดเชื้อไวรัสสำเร็จ และ viral tropism",
         "source": "Immune Responses to viral infections p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยเงื่อนไขของ **a successful viral infection** ว่าต้องมีทั้งปริมาณไวรัสที่พอ และเซลล์เป้าหมายที่ \"ใช่\""
-          },
+          "สไลด์เปิดด้วยเงื่อนไขของ **a successful viral infection** ว่าต้องมีทั้งปริมาณไวรัสที่พอ และเซลล์เป้าหมายที่ \"ใช่\"",
           {
             "bullets": [
               "**sufficient number of infectious virion** จำนวน virion ที่ติดเชื้อได้ต้องมากพอ",
@@ -7990,9 +7256,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**permissive** = เซลล์สนับสนุนให้ไวรัสทำ replication ได้ครบวงจร"
             ]
           },
-          {
-            "text": "ทั้งหมดนี้สไลด์สรุปด้วยคำเดียวว่า **viral tropism**"
-          },
+          "ทั้งหมดนี้สไลด์สรุปด้วยคำเดียวว่า **viral tropism**",
           {
             "callout": "จำแยกให้ชัด susceptible คือเข้าเซลล์ได้ (มี receptor) ส่วน permissive คือ replicate ได้จนจบ สองคำนี้ไม่เหมือนกัน และสไลด์ไม่ได้ยกตัวอย่างไวรัสหรือ receptor ตัวใดประกอบ",
             "kind": "tip"
@@ -8003,9 +7267,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ชั้นการป้องกันเรียงตามเวลาหลังได้รับเชื้อ",
         "source": "Immune Responses to viral infections p.3",
         "body": [
-          {
-            "text": "สไลด์ series of defenses against invaders วางแกน **time post-exposure** แล้วเรียงด่านป้องกันสี่ชั้นตามช่วงเวลาที่ออกฤทธิ์"
-          },
+          "สไลด์ series of defenses against invaders วางแกน **time post-exposure** แล้วเรียงด่านป้องกันสี่ชั้นตามช่วงเวลาที่ออกฤทธิ์",
           {
             "bullets": [
               "**continuous** = physical/anatomical barriers ได้แก่ tear/saliva, skin, mucus, acid/alkaline",
@@ -8024,23 +7286,17 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "physical/anatomical barriers",
         "source": "Immune Responses to viral infections p.4",
         "body": [
-          {
-            "text": "ด่านแรกที่ทำงานตลอดเวลา สไลด์แจกแจงเป็น 4 กลุ่ม"
-          },
+          "ด่านแรกที่ทำงานตลอดเวลา สไลด์แจกแจงเป็น 4 กลุ่ม",
           {
             "sub": "tear/saliva",
             "body": [
-              {
-                "text": "มี **antibodies** และ **lysozyme**"
-              }
+              "มี **antibodies** และ **lysozyme**"
             ]
           },
           {
             "sub": "skin",
             "body": [
-              {
-                "text": "อาศัย **dryness, acidity และ normal bacterial flora**"
-              }
+              "อาศัย **dryness, acidity และ normal bacterial flora**"
             ]
           },
           {
@@ -8057,9 +7313,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "acid/alkaline ของทางเดินอาหาร",
             "body": [
-              {
-                "text": "**acidic stomach** และ **alkalinic intestine**"
-              }
+              "**acidic stomach** และ **alkalinic intestine**"
             ]
           }
         ]
@@ -8068,31 +7322,23 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "intrinsic cellular defenses",
         "source": "Immune Responses to viral infections p.5",
         "body": [
-          {
-            "text": "สไลด์ให้นิยามไว้ตรง ๆ ว่า **pre-existing คือมีอยู่ในเซลล์เสมอ ออกฤทธิ์ทันทีและโดยตรง** ไม่ต้องรอถูกกระตุ้น"
-          },
+          "สไลด์ให้นิยามไว้ตรง ๆ ว่า **pre-existing คือมีอยู่ในเซลล์เสมอ ออกฤทธิ์ทันทีและโดยตรง** ไม่ต้องรอถูกกระตุ้น",
           {
             "sub": "viral genome editing",
             "body": [
-              {
-                "text": "**APOBEC (apolipoprotein B mRNA editing catalytic polypeptide)** ทำ **cytidine deamination** ทำให้เกิด **G-to-A hypermutation**"
-              }
+              "**APOBEC (apolipoprotein B mRNA editing catalytic polypeptide)** ทำ **cytidine deamination** ทำให้เกิด **G-to-A hypermutation**"
             ]
           },
           {
             "sub": "blocking viral replication cycle",
             "body": [
-              {
-                "text": "**TRIM5α และ tetherin** เป็นต้น สไลด์เขียนต่อท้ายว่า etc. แต่ไม่ได้ระบุตัวอื่นเพิ่ม"
-              }
+              "**TRIM5α และ tetherin** เป็นต้น สไลด์เขียนต่อท้ายว่า etc. แต่ไม่ได้ระบุตัวอื่นเพิ่ม"
             ]
           },
           {
             "sub": "apoptosis",
             "body": [
-              {
-                "text": "**programmed cell death**"
-              }
+              "**programmed cell death**"
             ]
           }
         ]
@@ -8101,9 +7347,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "รูปประกอบ intrinsic defenses ระบุจุดที่ถูกบล็อก",
         "source": "Immune Responses to viral infections p.6",
         "body": [
-          {
-            "text": "หน้านี้เป็นรูปพร้อมคำกำกับสั้น ๆ สิ่งที่สไลด์เขียนไว้จริงคือ"
-          },
+          "หน้านี้เป็นรูปพร้อมคำกำกับสั้น ๆ สิ่งที่สไลด์เขียนไว้จริงคือ",
           {
             "bullets": [
               "**APOBEC3G หรือ 3F** ทำ cytidine deamination, G-to-A hypermutation",
@@ -8121,9 +7365,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "innate immunity แยกตัวเองจากสิ่งแปลกปลอมด้วย pattern",
         "source": "Immune Responses to viral infections p.7",
         "body": [
-          {
-            "text": "สไลด์นิยาม innate immunity ว่า **induced by infection** คือถูกเหนี่ยวนำเมื่อมีการติดเชื้อ ต่างจาก intrinsic ที่มีอยู่ก่อนแล้ว"
-          },
+          "สไลด์นิยาม innate immunity ว่า **induced by infection** คือถูกเหนี่ยวนำเมื่อมีการติดเชื้อ ต่างจาก intrinsic ที่มีอยู่ก่อนแล้ว",
           {
             "bullets": [
               "ทำงานโดย **distinguish patterns (self/non-self)**",
@@ -8131,9 +7373,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "ฝั่ง host คือ **Patterns-Recognition-Receptor (PRRs)**"
             ]
           },
-          {
-            "text": "สไลด์ระบุว่า innate immunity มี **two major components** คือ **interferons** และ **sentinel cells** ซึ่งเป็นหัวข้อของสองสไลด์ถัดไป"
-          }
+          "สไลด์ระบุว่า innate immunity มี **two major components** คือ **interferons** และ **sentinel cells** ซึ่งเป็นหัวข้อของสองสไลด์ถัดไป"
         ]
       },
       {
@@ -8163,9 +7403,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ผลลัพธ์ที่สไลด์เน้นเป็นวลีเดี่ยวคือ **antiviral state**"
-          },
+          "ผลลัพธ์ที่สไลด์เน้นเป็นวลีเดี่ยวคือ **antiviral state**",
           {
             "callout": "จุดที่ทำให้ IFN สำคัญคือมันเตือนเซลล์ข้างเคียงที่ยังไม่ติดเชื้อด้วย ไม่ใช่แค่เซลล์ที่โดนแล้ว สไลด์ไม่ได้แจกแจงว่ามี IFN กี่ type หรือ ISG ตัวใดบ้าง",
             "kind": "tip"
@@ -8176,18 +7414,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "หน้ารูป interferons",
         "source": "Immune Responses to viral infections p.9",
         "body": [
-          {
-            "text": "หน้านี้มีเพียงหัวเรื่อง interferons (IFNs) กับรูปและเครดิตอ้างอิงสองแหล่ง **ไม่มีข้อความอธิบายบนสไลด์** จึงไม่มีข้อเท็จจริงใหม่ให้จดนอกจากที่อยู่ใน p.8"
-          }
+          "หน้านี้มีเพียงหัวเรื่อง interferons (IFNs) กับรูปและเครดิตอ้างอิงสองแหล่ง **ไม่มีข้อความอธิบายบนสไลด์** จึงไม่มีข้อเท็จจริงใหม่ให้จดนอกจากที่อยู่ใน p.8"
         ]
       },
       {
         "heading": "sentinel cells",
         "source": "Immune Responses to viral infections p.10",
         "body": [
-          {
-            "text": "สไลด์บรรยายบทบาทว่า **patrolling and constantly sampling for foreign invaders** คือลาดตระเวนและสุ่มตรวจสิ่งแปลกปลอมตลอดเวลา แล้วแบ่งหน้าที่เป็น 3 อย่าง"
-          },
+          "สไลด์บรรยายบทบาทว่า **patrolling and constantly sampling for foreign invaders** คือลาดตระเวนและสุ่มตรวจสิ่งแปลกปลอมตลอดเวลา แล้วแบ่งหน้าที่เป็น 3 อย่าง",
           {
             "bullets": [
               "**kill infected cell** โดย **natural killer (NK) cell**",
@@ -8205,42 +7439,30 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "to kill or not to kill",
         "source": "Immune Responses to viral infections p.11",
         "body": [
-          {
-            "text": "หน้านี้เป็นรูปพร้อมหัวเรื่องคำถาม to kill or not to kill? คำที่พิมพ์บนสไลด์มีเพียง **perforin, granzyme** กับเครดิตอ้างอิง"
-          },
-          {
-            "text": "เกณฑ์การตัดสินใจว่า NK cell จะฆ่าหรือไม่ฆ่าเซลล์เป้าหมาย **สไลด์ไม่ได้บอก** เป็นตัวอักษร ต้องดูรูปในสไลด์จริงหรือถามในคาบ"
-          }
+          "หน้านี้เป็นรูปพร้อมหัวเรื่องคำถาม to kill or not to kill? คำที่พิมพ์บนสไลด์มีเพียง **perforin, granzyme** กับเครดิตอ้างอิง",
+          "เกณฑ์การตัดสินใจว่า NK cell จะฆ่าหรือไม่ฆ่าเซลล์เป้าหมาย **สไลด์ไม่ได้บอก** เป็นตัวอักษร ต้องดูรูปในสไลด์จริงหรือถามในคาบ"
         ]
       },
       {
         "heading": "การสื่อสารกับ adaptive immunity",
         "source": "Immune Responses to viral infections p.12",
         "body": [
-          {
-            "text": "หัวเรื่อง communicating with adaptive immunity คำบนสไลด์มีแค่ **ligands** และ **cytokines** ที่เหลือเป็นรูปกับเครดิต"
-          },
-          {
-            "text": "รายละเอียดว่า ligand คู่ไหนจับกับ receptor ตัวใด หรือ cytokine ตัวใดทำอะไร **สไลด์ไม่ได้บอก**"
-          }
+          "หัวเรื่อง communicating with adaptive immunity คำบนสไลด์มีแค่ **ligands** และ **cytokines** ที่เหลือเป็นรูปกับเครดิต",
+          "รายละเอียดว่า ligand คู่ไหนจับกับ receptor ตัวใด หรือ cytokine ตัวใดทำอะไร **สไลด์ไม่ได้บอก**"
         ]
       },
       {
         "heading": "Major Histocompatibility Complex (MHC)",
         "source": "Immune Responses to viral infections p.13",
         "body": [
-          {
-            "text": "หน้านี้มีเพียงหัวเรื่อง **Major Histocompatibility Complex (MHC)** กับรูปและเครดิต **ไม่มีข้อความอธิบาย** ความแตกต่างระหว่าง class I กับ class II ไม่ได้เขียนไว้ที่หน้านี้ แต่ไปโผล่เป็นคู่กับ CD8+ และ CD4+ ที่ p.19 และ p.20"
-          }
+          "หน้านี้มีเพียงหัวเรื่อง **Major Histocompatibility Complex (MHC)** กับรูปและเครดิต **ไม่มีข้อความอธิบาย** ความแตกต่างระหว่าง class I กับ class II ไม่ได้เขียนไว้ที่หน้านี้ แต่ไปโผล่เป็นคู่กับ CD8+ และ CD4+ ที่ p.19 และ p.20"
         ]
       },
       {
         "heading": "epitope และ peptide",
         "source": "Immune Responses to viral infections p.14",
         "body": [
-          {
-            "text": "สไลด์ยกคำสำคัญไว้ 4 คำคู่กับรูป ได้แก่ **epitope/peptide**, **envelope glycoprotein**, **linear epitope** และ **conformational epitope**"
-          },
+          "สไลด์ยกคำสำคัญไว้ 4 คำคู่กับรูป ได้แก่ **epitope/peptide**, **envelope glycoprotein**, **linear epitope** และ **conformational epitope**",
           {
             "callout": "สไลด์ตั้งคำคู่ linear epitope กับ conformational epitope ไว้ให้เทียบกัน แต่ไม่ได้เขียนนิยามหรือความต่างของสองแบบนี้เป็นตัวอักษร สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -8259,18 +7481,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**CD8+ cytotoxic T lymphocyte**"
             ]
           },
-          {
-            "text": "โครงนี้คือแกนของสไลด์ p.17 ถึง p.20 ที่ขยายทีละเซลล์"
-          }
+          "โครงนี้คือแกนของสไลด์ p.17 ถึง p.20 ที่ขยายทีละเซลล์"
         ]
       },
       {
         "heading": "phases of adaptive immune responses",
         "source": "Immune Responses to viral infections p.16",
         "body": [
-          {
-            "text": "หน้านี้มีเพียงหัวเรื่อง phases of adaptive immune responses กับรูปและเครดิตหนังสือ **ไม่มีข้อความบนสไลด์** ว่าแต่ละ phase ชื่ออะไรหรือกินเวลาเท่าไร สไลด์ไม่ได้บอก"
-          }
+          "หน้านี้มีเพียงหัวเรื่อง phases of adaptive immune responses กับรูปและเครดิตหนังสือ **ไม่มีข้อความบนสไลด์** ว่าแต่ละ phase ชื่ออะไรหรือกินเวลาเท่าไร สไลด์ไม่ได้บอก"
         ]
       },
       {
@@ -8295,9 +7513,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "รูปโครงสร้าง antibody บนสไลด์กำกับสองส่วนคือ **Fab** และ **Fc**"
-          },
+          "รูปโครงสร้าง antibody บนสไลด์กำกับสองส่วนคือ **Fab** และ **Fc**",
           {
             "callout": "สไลด์บอกแค่ชื่อกลไก neutralisation กับ opsonisation ไม่ได้อธิบายว่าแต่ละกลไกทำงานอย่างไร หรือส่วน Fab กับ Fc ทำหน้าที่อะไร",
             "kind": "warn"
@@ -8308,9 +7524,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "five classes of antibodies",
         "source": "Immune Responses to viral infections p.18",
         "body": [
-          {
-            "text": "หัวเรื่องคือ **five classes of antibodies** และคำที่พิมพ์บนสไลด์อีกสองคำคือ **affinity maturation** กับ **heavy chain isotype (class) switching**"
-          },
+          "หัวเรื่องคือ **five classes of antibodies** และคำที่พิมพ์บนสไลด์อีกสองคำคือ **affinity maturation** กับ **heavy chain isotype (class) switching**",
           {
             "callout": "ชื่อ antibody ทั้งห้า class ไม่ปรากฏเป็นข้อความบนสไลด์ อยู่ในรูป สไลด์ไม่ได้บอก แต่คำที่ต้องจำจากหน้านี้คือการเปลี่ยน class เกิดที่ **heavy chain** และเรียกว่า isotype switching ส่วนการเพิ่มความแรงในการจับคือ affinity maturation",
             "kind": "warn"
@@ -8377,9 +7591,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "innate versus adaptive immunity ตารางเปรียบเทียบ",
         "source": "Immune Responses to viral infections p.21",
         "body": [
-          {
-            "text": "สไลด์เทียบ 6 หัวข้อ ได้แก่ responses, diversity, specificity, memory, improvement และ location"
-          },
+          "สไลด์เทียบ 6 หัวข้อ ได้แก่ responses, diversity, specificity, memory, improvement และ location",
           {
             "sub": "innate immunity",
             "body": [
@@ -8434,17 +7646,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "hidden epitopes",
             "body": [
-              {
-                "text": "ตัวอย่างที่สไลด์ยกคือ **heavily glycosylated envelope of HIV**"
-              }
+              "ตัวอย่างที่สไลด์ยกคือ **heavily glycosylated envelope of HIV**"
             ]
           },
           {
             "sub": "escape mutation",
             "body": [
-              {
-                "text": "สไลด์อธิบายสั้น ๆ ว่า **changing target** คือเปลี่ยนเป้าที่ภูมิคุ้มกันเล็งไว้"
-              }
+              "สไลด์อธิบายสั้น ๆ ว่า **changing target** คือเปลี่ยนเป้าที่ภูมิคุ้มกันเล็งไว้"
             ]
           },
           {
@@ -8466,9 +7674,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Outline ของเด็ค",
         "source": "Lab PCR other molecular techniques p.2",
         "body": [
-          {
-            "text": "สไลด์วาง scope ของ lecture ไว้ที่ **viral nucleic acid detection** อย่างเดียว แบ่งเป็น 3 หัวข้อย่อย"
-          },
+          "สไลด์วาง scope ของ lecture ไว้ที่ **viral nucleic acid detection** อย่างเดียว แบ่งเป็น 3 หัวข้อย่อย",
           {
             "bullets": [
               "Nucleic acid hybridization",
@@ -8482,9 +7688,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Laboratory diagnosis of virus infection ภาพใหญ่ก่อนเข้าเรื่อง",
         "source": "Lab PCR other molecular techniques p.3",
         "body": [
-          {
-            "text": "สไลด์แบ่งการวินิจฉัยการติดเชื้อ virus เป็น 2 ขา และบอกว่าขาไหนเรียนวิชาไหน"
-          },
+          "สไลด์แบ่งการวินิจฉัยการติดเชื้อ virus เป็น 2 ขา และบอกว่าขาไหนเรียนวิชาไหน",
           {
             "sub": "Virus detection (เรียนใน Vet Micro I)",
             "body": [
@@ -8517,9 +7721,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Viral nucleic acid detection เอาไปใช้ทำอะไร",
         "source": "Lab PCR other molecular techniques p.4",
         "body": [
-          {
-            "text": "สไลด์แบ่ง application ออกเป็น 2 กลุ่ม"
-          },
+          "สไลด์แบ่ง application ออกเป็น 2 กลุ่ม",
           {
             "sub": "ใช้ detect viral nucleic acid โดยตรงใน clinical specimens หรือใน cultures",
             "body": [
@@ -8599,9 +7801,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Nucleic acid hybridization techniques",
         "source": "Lab PCR other molecular techniques p.7",
         "body": [
-          {
-            "text": "หลักการคือ detect viral nucleic acid target ด้วยการ hybridization โดยใช้ **labeled specific DNA/RNA probes**"
-          },
+          "หลักการคือ detect viral nucleic acid target ด้วยการ hybridization โดยใช้ **labeled specific DNA/RNA probes**",
           {
             "sub": "Procedure 3 ขั้นตอนตามสไลด์",
             "body": [
@@ -8614,12 +7814,8 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "ตัวอย่างเทคนิคที่สไลด์ยกไว้ ได้แก่ **Southern blot, Northern blot และ in situ hybridization**"
-          },
-          {
-            "text": "ส่วนการ detection สไลด์ระบุเครื่องมือไว้เป็น radioactivity detector, fluorimeter และ colorimeter หรือการดูด้วยตา (visual inspection)"
-          }
+          "ตัวอย่างเทคนิคที่สไลด์ยกไว้ ได้แก่ **Southern blot, Northern blot และ in situ hybridization**",
+          "ส่วนการ detection สไลด์ระบุเครื่องมือไว้เป็น radioactivity detector, fluorimeter และ colorimeter หรือการดูด้วยตา (visual inspection)"
         ]
       },
       {
@@ -8679,9 +7875,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Primer extension** DNA polymerase สังเคราะห์ DNA สายใหม่ที่ **68-72 องศาเซลเซียส**"
             ]
           },
-          {
-            "text": "Note ในสไลด์ระบุว่า ทั้ง 3 ขั้นตอนนี้ทำซ้ำ **30-40 รอบ** และทำอยู่ในหลอดเดียวกันแต่คนละอุณหภูมิ จึงต้องใช้ **thermal cycler**"
-          }
+          "Note ในสไลด์ระบุว่า ทั้ง 3 ขั้นตอนนี้ทำซ้ำ **30-40 รอบ** และทำอยู่ในหลอดเดียวกันแต่คนละอุณหภูมิ จึงต้องใช้ **thermal cycler**"
         ]
       },
       {
@@ -8706,21 +7900,15 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "เวลาที่ใช้ในขั้น extension ตามสไลด์คือ **68-72 องศาเซลเซียส ประมาณ 0.5-2 นาที**"
-          }
+          "เวลาที่ใช้ในขั้น extension ตามสไลด์คือ **68-72 องศาเซลเซียส ประมาณ 0.5-2 นาที**"
         ]
       },
       {
         "heading": "จำนวน product ที่ได้ และการอ่านผลด้วย gel electrophoresis",
         "source": "Lab PCR other molecular techniques p.13-14",
         "body": [
-          {
-            "text": "สไลด์ p.13 ให้สูตรเดียวคือ **Total DNA no. = 2 ยกกำลัง n** โดย n คือจำนวนรอบ (cycle) ของ PCR"
-          },
-          {
-            "text": "สไลด์ p.14 หัวข้อ Gel electrophoresis เป็นรูปเจลล้วน มีเพียงป้ายกำกับ lane คือ M และเลข 1 ถึง 5 กับช่อง + และ - **สไลด์ไม่ได้บอก** วิธีแปลผลเจลเป็นข้อความไว้"
-          },
+          "สไลด์ p.13 ให้สูตรเดียวคือ **Total DNA no. = 2 ยกกำลัง n** โดย n คือจำนวนรอบ (cycle) ของ PCR",
+          "สไลด์ p.14 หัวข้อ Gel electrophoresis เป็นรูปเจลล้วน มีเพียงป้ายกำกับ lane คือ M และเลข 1 ถึง 5 กับช่อง + และ - **สไลด์ไม่ได้บอก** วิธีแปลผลเจลเป็นข้อความไว้",
           {
             "callout": "ถ้าอาจารย์ถามว่า 20 รอบได้ product กี่เท่า ให้กลับไปที่สูตร 2 ยกกำลัง n ตัวเดียวนี้ อย่าไปจำตัวเลขที่ไม่ได้อยู่ในสไลด์",
             "kind": "tip"
@@ -8798,12 +7986,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "การแปลผล real-time PCR: Ct value",
         "source": "Lab PCR other molecular techniques p.20",
         "body": [
-          {
-            "text": "**Ct หรือ threshold cycle คือ cycle number ที่ fluorescence ซึ่งเกิดขึ้นในปฏิกิริยาตัดผ่านเส้น fluorescence threshold** โดย threshold นี้หมายถึงระดับสัญญาณ fluorescent ที่สูงกว่า background fluorescence อย่างมีนัยสำคัญ"
-          },
-          {
-            "text": "ตัวอย่างในกราฟของสไลด์แสดง Ct = 19 ที่ปริมาณราว 10 ยกกำลัง 7 copies ต่อไมโครลิตร"
-          },
+          "**Ct หรือ threshold cycle คือ cycle number ที่ fluorescence ซึ่งเกิดขึ้นในปฏิกิริยาตัดผ่านเส้น fluorescence threshold** โดย threshold นี้หมายถึงระดับสัญญาณ fluorescent ที่สูงกว่า background fluorescence อย่างมีนัยสำคัญ",
+          "ตัวอย่างในกราฟของสไลด์แสดง Ct = 19 ที่ปริมาณราว 10 ยกกำลัง 7 copies ต่อไมโครลิตร",
           {
             "callout": "สไลด์ให้เพียงนิยามของ Ct กับตัวอย่างเส้นเดียวเท่านั้น **สไลด์ไม่ได้บอก** เกณฑ์ว่า Ct เท่าไรถือว่าบวกหรือลบ",
             "kind": "warn"
@@ -8814,9 +7998,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "DNA sequencing",
         "source": "Lab PCR other molecular techniques p.21",
         "body": [
-          {
-            "text": "นิยามตามสไลด์คือ **การหาลำดับ (order หรือ sequence) ของ nucleotides ในชิ้นส่วน DNA**"
-          },
+          "นิยามตามสไลด์คือ **การหาลำดับ (order หรือ sequence) ของ nucleotides ในชิ้นส่วน DNA**",
           {
             "sub": "ใช้ทำอะไร",
             "body": [
@@ -8883,18 +8065,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่างที่ 1: HPAI H5 clade nomenclature",
         "source": "Lab PCR other molecular techniques p.25",
         "body": [
-          {
-            "text": "สไลด์ให้เกณฑ์ของ clade nomenclature system ไว้ 2 ข้อ"
-          },
+          "สไลด์ให้เกณฑ์ของ clade nomenclature system ไว้ 2 ข้อ",
           {
             "bullets": [
               "**Phylogenetic tree**: ต้องมี common node ร่วมกันและรวมกันเป็น monophyletic group ที่มี **isolate ตั้งแต่ 4 ตัวขึ้นไป** โดยมี **bootstrap value ตั้งแต่ 60% ขึ้นไป**",
               "**HA gene sequence homology**: within-clade average pairwise nucleotide distance ต้อง **ไม่เกิน 1.5%**"
             ]
           },
-          {
-            "text": "สไลด์อ้างอิงเกณฑ์นี้จาก WHO / OIE / FAO H5N1 Evolution Working Group ปี 2008"
-          }
+          "สไลด์อ้างอิงเกณฑ์นี้จาก WHO / OIE / FAO H5N1 Evolution Working Group ปี 2008"
         ]
       },
       {
@@ -8944,9 +8122,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "กรอบใหญ่: Laboratory diagnosis of virus infection",
         "source": "Lab Virus isolation propagation embryonated egg Handout p.2",
         "body": [
-          {
-            "text": "สไลด์แบ่งการวินิจฉัยโรคไวรัสในห้องปฏิบัติการเป็น 2 ทางหลัก และบอกไว้ชัดว่า **Virus detection อยู่ในขอบเขตของ Vet Micro I ส่วน Antibody detection (serological test) ไปเรียนใน Vet Micro II**"
-          },
+          "สไลด์แบ่งการวินิจฉัยโรคไวรัสในห้องปฏิบัติการเป็น 2 ทางหลัก และบอกไว้ชัดว่า **Virus detection อยู่ในขอบเขตของ Vet Micro I ส่วน Antibody detection (serological test) ไปเรียนใน Vet Micro II**",
           {
             "sub": "Virus detection",
             "body": [
@@ -8956,9 +8132,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Virus isolation & identification"
                 ]
               },
-              {
-                "text": "ในส่วน virus isolation สไลด์ระบุ **host system ได้แก่ cell culture, embryonated eggs & experimental animals** และ sample preparation ได้แก่ tissue, swab & blood etc. ส่วน virus identification คือ identify virus ด้วย direct detection tests"
-              }
+              "ในส่วน virus isolation สไลด์ระบุ **host system ได้แก่ cell culture, embryonated eggs & experimental animals** และ sample preparation ได้แก่ tissue, swab & blood etc. ส่วน virus identification คือ identify virus ด้วย direct detection tests"
             ]
           },
           {
@@ -8978,23 +8152,17 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Virus isolation & identification ใช้เมื่อไหร่",
         "source": "Lab Virus isolation propagation embryonated egg Handout p.3",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า **มีประโยชน์มากในกรณีที่ตัวอย่างมีปริมาณไวรัสน้อย จนตรวจด้วย direct examination ไม่ได้**"
-          },
+          "สไลด์ระบุว่า **มีประโยชน์มากในกรณีที่ตัวอย่างมีปริมาณไวรัสน้อย จนตรวจด้วย direct examination ไม่ได้**",
           {
             "sub": "1. Virus isolation",
             "body": [
-              {
-                "text": "คือการ isolate (amplify) ไวรัสด้วย host system อย่างใดอย่างหนึ่งใน 3 แบบ ได้แก่ **1. Cell cultures 2. Embryonated eggs 3. Experimental animals**"
-              }
+              "คือการ isolate (amplify) ไวรัสด้วย host system อย่างใดอย่างหนึ่งใน 3 แบบ ได้แก่ **1. Cell cultures 2. Embryonated eggs 3. Experimental animals**"
             ]
           },
           {
             "sub": "2. Virus identification",
             "body": [
-              {
-                "text": "คือการ identify ไวรัสด้วย direct detection techniques"
-              }
+              "คือการ identify ไวรัสด้วย direct detection techniques"
             ]
           }
         ]
@@ -9037,9 +8205,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Egg source: SPF eggs",
         "source": "Lab Virus isolation propagation embryonated egg Handout p.7",
         "body": [
-          {
-            "text": "สไลด์ระบุให้ใช้ **Specific pathogen free (SPF) embryonated eggs** ซึ่งได้มาจาก flocks ที่ปลอดทั้งการติดเชื้อไวรัสที่สนใจและปลอดการทำวัคซีน (free of specific virus infections and vaccinations)"
-          }
+          "สไลด์ระบุให้ใช้ **Specific pathogen free (SPF) embryonated eggs** ซึ่งได้มาจาก flocks ที่ปลอดทั้งการติดเชื้อไวรัสที่สนใจและปลอดการทำวัคซีน (free of specific virus infections and vaccinations)"
         ]
       },
       {
@@ -9053,9 +8219,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Turned **2-4 times/day**"
             ]
           },
-          {
-            "text": "สไลด์อธิบายว่าการกลับไข่มีไว้เพื่อ **prevent adhesions of embryonic membranes และ keep embryo centralized** และเน้นว่า **การกลับไข่ทำเฉพาะก่อน virus inoculation เท่านั้น**"
-          }
+          "สไลด์อธิบายว่าการกลับไข่มีไว้เพื่อ **prevent adhesions of embryonic membranes และ keep embryo centralized** และเน้นว่า **การกลับไข่ทำเฉพาะก่อน virus inoculation เท่านั้น**"
         ]
       },
       {
@@ -9133,12 +8297,8 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "ภาพประกอบ p.11 และ p.13 (หัวข้อ Route of inoculation)",
             "body": [
-              {
-                "text": "ภาพทั้งสองหน้าวาดทางฉีดไว้ **4 ทาง** คือ chorioallantoic membrane, amniotic, allantoic และ **yolk sac inoculation** ซึ่งทาง yolk sac ไม่อยู่ในสไลด์ข้อความ p.14-16"
-              },
-              {
-                "text": "ชื่อไวรัสข้างแต่ละทางบนภาพ p.11 เป็นตัวอย่างของภาพเอง บางตัวไม่อยู่ในรายชื่อของสไลด์ข้อความ เช่น Herpes simplex virus และ Mumps virus ส่วนภาพซ้ายของ p.13 เป็นส่วนประกอบของไข่ (Shell membrane, Air sac, Egg shell, Allantoic fluid, Amniotic fluid, Embryo, Yolk, Albumen)"
-              }
+              "ภาพทั้งสองหน้าวาดทางฉีดไว้ **4 ทาง** คือ chorioallantoic membrane, amniotic, allantoic และ **yolk sac inoculation** ซึ่งทาง yolk sac ไม่อยู่ในสไลด์ข้อความ p.14-16",
+              "ชื่อไวรัสข้างแต่ละทางบนภาพ p.11 เป็นตัวอย่างของภาพเอง บางตัวไม่อยู่ในรายชื่อของสไลด์ข้อความ เช่น Herpes simplex virus และ Mumps virus ส่วนภาพซ้ายของ p.13 เป็นส่วนประกอบของไข่ (Shell membrane, Air sac, Egg shell, Allantoic fluid, Amniotic fluid, Embryo, Yolk, Albumen)"
             ]
           }
         ]
@@ -9153,9 +8313,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Post-inoculation: **33-37 องศาเซลเซียส**"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกเหตุผลว่าทำไมอุณหภูมิหลัง inoculation จึงต่ำลง"
-          }
+          "สไลด์ไม่ได้บอกเหตุผลว่าทำไมอุณหภูมิหลัง inoculation จึงต่ำลง"
         ]
       },
       {
@@ -9176,9 +8334,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Pock formation (p.20-21)",
             "body": [
-              {
-                "text": "สไลด์ระบุ **pock formation on CA membrane** เป็นอีกลักษณะที่บอกว่าไข่ติดเชื้อ โดยมี 2 สไลด์ติดกันที่หัวข้อเดียวกัน เนื้อความที่เป็นตัวอักษรมีเท่านี้ ที่เหลือเป็นรูป"
-              }
+              "สไลด์ระบุ **pock formation on CA membrane** เป็นอีกลักษณะที่บอกว่าไข่ติดเชื้อ โดยมี 2 สไลด์ติดกันที่หัวข้อเดียวกัน เนื้อความที่เป็นตัวอักษรมีเท่านี้ ที่เหลือเป็นรูป"
             ]
           },
           {
@@ -9289,9 +8445,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "สไลด์ชุดนี้พูดถึงอะไรจริง ๆ",
         "source": "Lab Virus isolation propagation embryonated egg p.1",
         "body": [
-          {
-            "text": "หน้าไตเติ้ลระบุหัวข้อว่า **Vet Microbiol Lab: Virology — Sample collection, handling and preparation** ไม่ใช่หัวข้อ embryonated egg ตามชื่อไฟล์"
-          },
+          "หน้าไตเติ้ลระบุหัวข้อว่า **Vet Microbiol Lab: Virology — Sample collection, handling and preparation** ไม่ใช่หัวข้อ embryonated egg ตามชื่อไฟล์",
           {
             "callout": "ถ้าจะอ่านเรื่อง virus isolation ใน embryonated eggs ต้องไปดูสไลด์อีกชุด สไลด์ชุดนี้ไม่ได้บอกวิธีฉีดไข่ฟักหรือ route การฉีดใด ๆ เลย",
             "kind": "warn"
@@ -9302,9 +8456,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ภาพรวมการวินิจฉัยโรคไวรัส",
         "source": "Lab Virus isolation propagation embryonated egg p.2",
         "body": [
-          {
-            "text": "การวินิจฉัยโรคไวรัสโดยรวมประกอบด้วย 4 ส่วน"
-          },
+          "การวินิจฉัยโรคไวรัสโดยรวมประกอบด้วย 4 ส่วน",
           {
             "bullets": [
               "History taking",
@@ -9313,9 +8465,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Laboratory diagnosis"
             ]
           },
-          {
-            "text": "สไลด์ย้ำว่า **Laboratory diagnosis คือวิธีที่ดีที่สุดในการ confirm โรคติดเชื้อไวรัส และใช้ identify causative agents**"
-          }
+          "สไลด์ย้ำว่า **Laboratory diagnosis คือวิธีที่ดีที่สุดในการ confirm โรคติดเชื้อไวรัส และใช้ identify causative agents**"
         ]
       },
       {
@@ -9331,20 +8481,14 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "**Virus isolation & identification** คือ isolate ไวรัสใน host system แล้วจึง identify"
                 ]
               },
-              {
-                "text": "Host system ที่สไลด์ระบุมี 3 อย่าง คือ **cell culture, embryonated eggs และ experimental animals** ส่วน sample ที่เอามาเตรียมได้แก่ tissue, swab, blood เป็นต้น"
-              },
-              {
-                "text": "ขั้น virus identification สไลด์บอกว่าใช้วิธี direct detection เดิมมา identify ไวรัสที่ isolate ได้"
-              }
+              "Host system ที่สไลด์ระบุมี 3 อย่าง คือ **cell culture, embryonated eggs และ experimental animals** ส่วน sample ที่เอามาเตรียมได้แก่ tissue, swab, blood เป็นต้น",
+              "ขั้น virus identification สไลด์บอกว่าใช้วิธี direct detection เดิมมา identify ไวรัสที่ isolate ได้"
             ]
           },
           {
             "sub": "Antibody detection (serological test, เรียนใน Vet Micro II)",
             "body": [
-              {
-                "text": "ตัวอย่างที่สไลด์ยกไว้คือ SN, HI, ELISA, IFA และ AGID เป็นต้น"
-              }
+              "ตัวอย่างที่สไลด์ยกไว้คือ SN, HI, ELISA, IFA และ AGID เป็นต้น"
             ]
           }
         ]
@@ -9353,9 +8497,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Sample collection: right time และ right place",
         "source": "Lab Virus isolation propagation embryonated egg p.5",
         "body": [
-          {
-            "text": "หลักคือ **ต้องรู้จักโรคก่อน จึงจะรู้ว่าเก็บอะไร (right place) และเก็บเมื่อไหร่ (right time)**"
-          },
+          "หลักคือ **ต้องรู้จักโรคก่อน จึงจะรู้ว่าเก็บอะไร (right place) และเก็บเมื่อไหร่ (right time)**",
           {
             "sub": "Right time",
             "body": [
@@ -9406,9 +8548,7 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Serum samples ใส่ lock tight tubes"
                 ]
               },
-              {
-                "text": "ส่วนประกอบของ VTM ตามสไลด์ = **PBS หรือ cell culture medium + bovine serum albumin (BSA) + antibiotic/antifungal agents**"
-              }
+              "ส่วนประกอบของ VTM ตามสไลด์ = **PBS หรือ cell culture medium + bovine serum albumin (BSA) + antibiotic/antifungal agents**"
             ]
           }
         ]
@@ -9445,9 +8585,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Sample preparation: หลักการก่อนลงมือ",
         "source": "Lab Virus isolation propagation embryonated egg p.10",
         "body": [
-          {
-            "text": "**เป้าหมายของ sample preparation คือปล่อยไวรัสออกจาก infected cells ลงมาอยู่ใน solution** และยังต้องเลี่ยง contamination ด้วย aseptic technique เช่นเดิม วิธีเตรียมขึ้นกับชนิดของตัวอย่าง"
-          },
+          "**เป้าหมายของ sample preparation คือปล่อยไวรัสออกจาก infected cells ลงมาอยู่ใน solution** และยังต้องเลี่ยง contamination ด้วย aseptic technique เช่นเดิม วิธีเตรียมขึ้นกับชนิดของตัวอย่าง",
           {
             "sub": "Tissue samples",
             "body": [
@@ -9478,9 +8616,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "LAB I: Materials สำหรับเตรียม tissue sample",
         "source": "Lab Virus isolation propagation embryonated egg p.11",
         "body": [
-          {
-            "text": "ตัวอย่างที่ใช้ในแลปคือ **pig liver ประมาณ 1 กรัม**"
-          },
+          "ตัวอย่างที่ใช้ในแลปคือ **pig liver ประมาณ 1 กรัม**",
           {
             "bullets": [
               "Pestle & mortar",
@@ -9527,9 +8663,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตารางแลป Virology (ข้อมูลบริหารจัดการ)",
         "source": "Lab Virus isolation propagation embryonated egg p.4",
         "body": [
-          {
-            "text": "หน้านี้เป็นตารางเรียนของ Vet Microbiol I 2024: Virology lab ล้วน ๆ ไม่ใช่เนื้อหาวิชาการ ลำดับหัวข้อทั้ง 5 คาบเรียงตามนี้"
-          },
+          "หน้านี้เป็นตารางเรียนของ Vet Microbiol I 2024: Virology lab ล้วน ๆ ไม่ใช่เนื้อหาวิชาการ ลำดับหัวข้อทั้ง 5 คาบเรียงตามนี้",
           {
             "bullets": [
               "2 Apr 24 — Sample collection, handling and preparation",
@@ -9539,9 +8673,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "7 May 24 — Virus titration"
             ]
           },
-          {
-            "text": "คาบอื่นแบ่งเป็น lecture 13.00-13.45 ที่ห้อง 201 แล้วต่อด้วย lab 14.00-16.00 ที่ห้อง 602"
-          }
+          "คาบอื่นแบ่งเป็น lecture 13.00-13.45 ที่ห้อง 201 แล้วต่อด้วย lab 14.00-16.00 ที่ห้อง 602"
         ]
       }
     ]
@@ -9557,9 +8689,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ลำดับขั้นตอนของ bacterial diagnosis ทั้งกระบวนการ",
         "source": "Principle of bacterial diagnosis in clinical p.2",
         "body": [
-          {
-            "text": "สไลด์วางลำดับงานทั้งหมดไว้เป็นโครงของทั้งเด็ค ให้จำลำดับนี้ก่อน แล้วค่อยเอา test ย่อย ๆ ทีหลังไปแขวนไว้ในขั้น Bacterial Identification"
-          },
+          "สไลด์วางลำดับงานทั้งหมดไว้เป็นโครงของทั้งเด็ค ให้จำลำดับนี้ก่อน แล้วค่อยเอา test ย่อย ๆ ทีหลังไปแขวนไว้ในขั้น Bacterial Identification",
           {
             "bullets": [
               "**Specimen Collection และ Transportation**",
@@ -9609,18 +8739,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Tissue biopsy"
             ]
           },
-          {
-            "text": "หน้า How to Sampling ยกตัวอย่างเทคนิคเดียวคือ **Cystocentesis** ที่เหลือเป็นรูปประกอบ สไลด์ไม่ได้อธิบายขั้นตอนการทำ"
-          }
+          "หน้า How to Sampling ยกตัวอย่างเทคนิคเดียวคือ **Cystocentesis** ที่เหลือเป็นรูปประกอบ สไลด์ไม่ได้อธิบายขั้นตอนการทำ"
         ]
       },
       {
         "heading": "Direct Microscopic Examination",
         "source": "Principle of bacterial diagnosis in clinical p.6",
         "body": [
-          {
-            "text": "สไลด์ยกตัวอย่างเดียวคือ **Stapylococcus และ Streptococcus จาก throat swab** ที่เหลือเป็นรูป ไม่มีคำอธิบายวิธีอ่านหรือเกณฑ์ตัดสินบนสไลด์"
-          }
+          "สไลด์ยกตัวอย่างเดียวคือ **Stapylococcus และ Streptococcus จาก throat swab** ที่เหลือเป็นรูป ไม่มีคำอธิบายวิธีอ่านหรือเกณฑ์ตัดสินบนสไลด์"
         ]
       },
       {
@@ -9641,9 +8767,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Specimen Processing",
         "source": "Principle of bacterial diagnosis in clinical p.8",
         "body": [
-          {
-            "text": "สไลด์ให้ไว้แค่ 3 คำ ไม่ได้ขยายว่าแต่ละอันทำอย่างไรหรือใช้เมื่อไร"
-          },
+          "สไลด์ให้ไว้แค่ 3 คำ ไม่ได้ขยายว่าแต่ละอันทำอย่างไรหรือใช้เมื่อไร",
           {
             "bullets": [
               "**Pre-enrichment**",
@@ -9674,9 +8798,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Culture Media: องค์ประกอบพื้นฐาน",
         "source": "Principle of bacterial diagnosis in clinical p.10",
         "body": [
-          {
-            "text": "Basic Nutrient Media ประกอบด้วย Peptones, Infusion and Extract, Solidifying agents, Indicators, Salt (NaCl), Dextrose, Water, Selective agents, reducing agent และ Blood"
-          }
+          "Basic Nutrient Media ประกอบด้วย Peptones, Infusion and Extract, Solidifying agents, Indicators, Salt (NaCl), Dextrose, Water, Selective agents, reducing agent และ Blood"
         ]
       },
       {
@@ -9759,9 +8881,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "organism ที่ **ไม่ ferment lactose จะไม่ทำให้สีเปลี่ยน**"
             ]
           },
-          {
-            "text": "สไลด์ถัดมาเป็นรูปเปรียบเทียบ colony ของ lactose fermentor กับ non-lactose fermentor บน MacConkey agar ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "สไลด์ถัดมาเป็นรูปเปรียบเทียบ colony ของ lactose fermentor กับ non-lactose fermentor บน MacConkey agar ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
@@ -9776,9 +8896,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Select colonies for identification**"
             ]
           },
-          {
-            "text": "หน้า How to streak a plate เป็นรูปล้วน สไลด์ไม่ได้เขียนขั้นตอนการ streak เป็นตัวอักษร"
-          }
+          "หน้า How to streak a plate เป็นรูปล้วน สไลด์ไม่ได้เขียนขั้นตอนการ streak เป็นตัวอักษร"
         ]
       },
       {
@@ -9831,18 +8949,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Hemolysis**"
             ]
           },
-          {
-            "text": "สไลด์ยกรูป colony ของ **Salmonella Enteritidis** เป็นตัวอย่าง และมีสไลด์ Hemolysis เป็นรูปล้วน ไม่ได้เขียนชนิดของ hemolysis เป็นตัวอักษร"
-          }
+          "สไลด์ยกรูป colony ของ **Salmonella Enteritidis** เป็นตัวอย่าง และมีสไลด์ Hemolysis เป็นรูปล้วน ไม่ได้เขียนชนิดของ hemolysis เป็นตัวอักษร"
         ]
       },
       {
         "heading": "หลักการของ phenotypic based identification",
         "source": "Principle of bacterial diagnosis in clinical p.21-22",
         "body": [
-          {
-            "text": "สไลด์เรียงหลักการเป็น 4 ขั้น ซึ่งเป็นโครงเดียวกับที่ใช้ในทุก test ที่เหลือของเด็ค"
-          },
+          "สไลด์เรียงหลักการเป็น 4 ขั้น ซึ่งเป็นโครงเดียวกับที่ใช้ในทุก test ที่เหลือของเด็ค",
           {
             "bullets": [
               "**Selection และ inoculation of the test**",
@@ -9869,9 +8983,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "โครงของ Phenotypic Bacterial Identification: Primary กับ Secondary test",
         "source": "Principle of bacterial diagnosis in clinical p.23, 28, 47",
         "body": [
-          {
-            "text": "สไลด์ย้ำโครงนี้ซ้ำสองครั้ง (p.23 และ p.28) แล้วค่อยไล่ test ทีละอัน ให้ใช้หน้านี้เป็นสารบัญของครึ่งหลังทั้งเด็ค"
-          },
+          "สไลด์ย้ำโครงนี้ซ้ำสองครั้ง (p.23 และ p.28) แล้วค่อยไล่ test ทีละอัน ให้ใช้หน้านี้เป็นสารบัญของครึ่งหลังทั้งเด็ค",
           {
             "sub": "Primary Test",
             "body": [
@@ -9929,9 +9041,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์ Gram stain, Acid Fast stain และ Microscopic Morphology เป็นรูปล้วน ไม่มีขั้นตอนการย้อมเขียนไว้ในเด็คนี้"
-          }
+          "สไลด์ Gram stain, Acid Fast stain และ Microscopic Morphology เป็นรูปล้วน ไม่มีขั้นตอนการย้อมเขียนไว้ในเด็คนี้"
         ]
       },
       {
@@ -9971,17 +9081,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถของเชื้อในการสร้าง **oxidase enzyme**"
-              }
+              "ดูความสามารถของเชื้อในการสร้าง **oxidase enzyme**"
             ]
           },
           {
             "sub": "Reagent",
             "body": [
-              {
-                "text": "**Tetramethyl-p-phenylenediamine dihydrochloride (Oxidase Reagent)**"
-              }
+              "**Tetramethyl-p-phenylenediamine dihydrochloride (Oxidase Reagent)**"
             ]
           },
           {
@@ -10020,9 +9126,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose และ reaction",
             "body": [
-              {
-                "text": "ดูความสามารถในการสร้าง **catalase** ที่ย่อย **2 H2O2 ไปเป็น 2 H2O + O2** (free oxygen)"
-              }
+              "ดูความสามารถในการสร้าง **catalase** ที่ย่อย **2 H2O2 ไปเป็น 2 H2O + O2** (free oxygen)"
             ]
           },
           {
@@ -10045,9 +9149,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูว่าเชื้อใช้ carbohydrate แบบไหน ใช้แบบ aerobic เรียก **oxidation / oxidative / oxidizer** ใช้แบบ anaerobic เรียก **fermentation / fermentative / fermenter** ถ้าใช้ไม่ได้ทั้งสองทางเรียก **non saccharolytic หรือ non utilizer**"
-              }
+              "ดูว่าเชื้อใช้ carbohydrate แบบไหน ใช้แบบ aerobic เรียก **oxidation / oxidative / oxidizer** ใช้แบบ anaerobic เรียก **fermentation / fermentative / fermenter** ถ้าใช้ไม่ได้ทั้งสองทางเรียก **non saccharolytic หรือ non utilizer**"
             ]
           },
           {
@@ -10086,9 +9188,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการเคลื่อนที่ เชื้อที่เคลื่อนที่ด้วย **flagella** แสดงผลได้โดย inoculate ลง **semi-solid media** ส่วนเชื้อที่เคลื่อนที่แบบ **gliding หรือ flexioning** ต้องใช้เทคนิค **hanging drop preparation**"
-              }
+              "ดูความสามารถในการเคลื่อนที่ เชื้อที่เคลื่อนที่ด้วย **flagella** แสดงผลได้โดย inoculate ลง **semi-solid media** ส่วนเชื้อที่เคลื่อนที่แบบ **gliding หรือ flexioning** ต้องใช้เทคนิค **hanging drop preparation**"
             ]
           },
           {
@@ -10111,9 +9211,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการใช้ carbohydrate (sugars) ชนิดจำเพาะ แล้วเกิดเป็นกรด"
-              }
+              "ดูความสามารถในการใช้ carbohydrate (sugars) ชนิดจำเพาะ แล้วเกิดเป็นกรด"
             ]
           },
           {
@@ -10147,17 +9245,13 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการสร้าง **urease** ซึ่งบ่งว่าเชื้อใช้ **urea เป็น sole source of nitrogen** ได้ ผลของปฏิกิริยาเหลือ **ammonia จึงทำให้เป็นด่าง (alkalinity)**"
-              }
+              "ดูความสามารถในการสร้าง **urease** ซึ่งบ่งว่าเชื้อใช้ **urea เป็น sole source of nitrogen** ได้ ผลของปฏิกิริยาเหลือ **ammonia จึงทำให้เป็นด่าง (alkalinity)**"
             ]
           },
           {
             "sub": "Reaction",
             "body": [
-              {
-                "text": "Urea + 2H2O ผ่าน urease ได้เป็น CO2 + H2O + 2NH3 (ammonia, alkaline)"
-              }
+              "Urea + 2H2O ผ่าน urease ได้เป็น CO2 + H2O + 2NH3 (ammonia, alkaline)"
             ]
           },
           {
@@ -10191,9 +9285,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการสร้าง **decarboxylase** ที่ตัด carboxyl bond ของ amino acid แล้วได้ **amine**"
-              }
+              "ดูความสามารถในการสร้าง **decarboxylase** ที่ตัด carboxyl bond ของ amino acid แล้วได้ **amine**"
             ]
           },
           {
@@ -10225,9 +9317,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Interpretation",
             "body": [
-              {
-                "text": "สไลด์อธิบาย reaction ว่า **กรดที่เกิดจาก glucose fermentation เป็นตัวกระตุ้นปฏิกิริยา decarboxylation**"
-              },
+              "สไลด์อธิบาย reaction ว่า **กรดที่เกิดจาก glucose fermentation เป็นตัวกระตุ้นปฏิกิริยา decarboxylation**",
               {
                 "bullets": [
                   "**Positive: สีม่วง (purple) และมี growth**",
@@ -10246,9 +9336,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถของเชื้อในการ **reduce nitrate เป็น nitrite** บางตัวลดต่อไปได้เป็น nitrogen, nitrous oxide หรือ ammonia ซึ่งสไลด์เรียกรวมว่า gas ทั้งหมดนี้เป็นการทำงานของ **nitrate reductase**"
-              }
+              "ดูความสามารถของเชื้อในการ **reduce nitrate เป็น nitrite** บางตัวลดต่อไปได้เป็น nitrogen, nitrous oxide หรือ ammonia ซึ่งสไลด์เรียกรวมว่า gas ทั้งหมดนี้เป็นการทำงานของ **nitrate reductase**"
             ]
           },
           {
@@ -10267,9 +9355,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Method",
             "body": [
-              {
-                "text": "inoculate เชื้อลงในแต่ละหลอด nitrate broth แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
-              }
+              "inoculate เชื้อลงในแต่ละหลอด nitrate broth แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
             ]
           },
           {
@@ -10310,9 +9396,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการสร้าง **indole** จาก amino acid **tryptophan** (สไลด์บรรยาย indole ว่าเป็น the volatile alcohol)"
-              }
+              "ดูความสามารถในการสร้าง **indole** จาก amino acid **tryptophan** (สไลด์บรรยาย indole ว่าเป็น the volatile alcohol)"
             ]
           },
           {
@@ -10329,9 +9413,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Method",
             "body": [
-              {
-                "text": "inoculate เชื้อลงใน indole broth แล้ว incubate 24 ชั่วโมง (สไลด์เว้นอุณหภูมิไว้ ไม่ได้ระบุ)"
-              }
+              "inoculate เชื้อลงใน indole broth แล้ว incubate 24 ชั่วโมง (สไลด์เว้นอุณหภูมิไว้ ไม่ได้ระบุ)"
             ]
           },
           {
@@ -10355,9 +9437,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการ **ferment glucose ใน glucose phosphate medium จนได้กรดที่ pH ต่ำ (ประมาณ 4.5 หรือต่ำกว่า)**"
-              }
+              "ดูความสามารถในการ **ferment glucose ใน glucose phosphate medium จนได้กรดที่ pH ต่ำ (ประมาณ 4.5 หรือต่ำกว่า)**"
             ]
           },
           {
@@ -10374,9 +9454,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Method",
             "body": [
-              {
-                "text": "inoculate เชื้อลงใน MR-VP medium แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
-              }
+              "inoculate เชื้อลงใน MR-VP medium แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
             ]
           },
           {
@@ -10400,9 +9478,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถในการ ferment glucose ใน glucose phosphate medium **แล้วเปลี่ยนต่อไปเป็น acetylmethylcarbinol หรือที่เรียกว่า acetoin**"
-              }
+              "ดูความสามารถในการ ferment glucose ใน glucose phosphate medium **แล้วเปลี่ยนต่อไปเป็น acetylmethylcarbinol หรือที่เรียกว่า acetoin**"
             ]
           },
           {
@@ -10420,9 +9496,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Method",
             "body": [
-              {
-                "text": "inoculate เชื้อลงใน MR-VP medium แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
-              }
+              "inoculate เชื้อลงใน MR-VP medium แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
             ]
           },
           {
@@ -10447,25 +9521,19 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Purpose",
             "body": [
-              {
-                "text": "ดูความสามารถของเชื้อในการใช้ **citrate เป็น sole source of carbon** สำหรับ metabolism ผลลัพธ์ทำให้เกิดสภาพเป็นด่าง"
-              }
+              "ดูความสามารถของเชื้อในการใช้ **citrate เป็น sole source of carbon** สำหรับ metabolism ผลลัพธ์ทำให้เกิดสภาพเป็นด่าง"
             ]
           },
           {
             "sub": "Media",
             "body": [
-              {
-                "text": "**Simmons citrate agar slant** 2 หลอด"
-              }
+              "**Simmons citrate agar slant** 2 หลอด"
             ]
           },
           {
             "sub": "Method",
             "body": [
-              {
-                "text": "inoculate colony ของเชื้อลงบน citrate agar slant แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
-              }
+              "inoculate colony ของเชื้อลงบน citrate agar slant แล้ว **incubate 37 องศาเซลเซียส 24 ชั่วโมง**"
             ]
           },
           {
@@ -10488,9 +9556,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Principle",
             "body": [
-              {
-                "text": "การ metabolism น้ำตาลจำเพาะที่ผสมอยู่ใน basal medium ทำให้เกิดกรดและแก๊ส หรือไม่เกิดก็ได้ ให้ปฏิกิริยาที่ซับซ้อน และอาจมีหรือไม่มี **H2S production** ร่วมด้วย"
-              }
+              "การ metabolism น้ำตาลจำเพาะที่ผสมอยู่ใน basal medium ทำให้เกิดกรดและแก๊ส หรือไม่เกิดก็ได้ ให้ปฏิกิริยาที่ซับซ้อน และอาจมีหรือไม่มี **H2S production** ร่วมด้วย"
             ]
           },
           {
@@ -10569,9 +9635,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Principle",
             "body": [
-              {
-                "text": "ดูความสามารถของเชื้อในการ **oxidize gluconic acid เป็น sole carbon source** โดยรีดิวซ์สารประกอบไปเป็น **alpha-2-ketogluconate**"
-              }
+              "ดูความสามารถของเชื้อในการ **oxidize gluconic acid เป็น sole carbon source** โดยรีดิวซ์สารประกอบไปเป็น **alpha-2-ketogluconate**"
             ]
           },
           {
@@ -10645,9 +9709,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "medium สูตรดัดแปลงบางสูตรใส่ **sodium azide เพื่อยับยั้งการเจริญของแบคทีเรีย Gram-positive และ Gram-negative อื่นทั้งหมด**"
             ]
           },
-          {
-            "text": "หน้าถัดไปเป็นรูป BILE ESCULIN AGAR อย่างเดียว ไม่มีข้อความ"
-          }
+          "หน้าถัดไปเป็นรูป BILE ESCULIN AGAR อย่างเดียว ไม่มีข้อความ"
         ]
       },
       {
@@ -10681,9 +9743,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "โครงของ lecture นี้",
         "source": "Vaccination against viral diseases p.2",
         "body": [
-          {
-            "text": "สไลด์ outline วางหัวข้อไว้ 4 ก้อน ใช้เป็นแผนที่อ่านทั้งเด็ค"
-          },
+          "สไลด์ outline วางหัวข้อไว้ 4 ก้อน ใช้เป็นแผนที่อ่านทั้งเด็ค",
           {
             "bullets": [
               "Types of immunization: passive immunization และ active immunization",
@@ -10698,26 +9758,18 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Passive immunization",
         "source": "Vaccination against viral diseases p.4",
         "body": [
-          {
-            "text": "**Passive immunization คือการถ่าย preformed antibodies จากสัตว์ที่ต้านทานโรคไปให้สัตว์ที่ไวต่อโรค** ได้ภูมิคุ้มกันชั่วคราว เป็น HMI (antibodies) เป็นหลัก ป้องกันได้ทันที แต่ภูมิที่ได้อยู่ได้ไม่นาน"
-          },
+          "**Passive immunization คือการถ่าย preformed antibodies จากสัตว์ที่ต้านทานโรคไปให้สัตว์ที่ไวต่อโรค** ได้ภูมิคุ้มกันชั่วคราว เป็น HMI (antibodies) เป็นหลัก ป้องกันได้ทันที แต่ภูมิที่ได้อยู่ได้ไม่นาน",
           {
             "sub": "1. Artificial passive immunity (injection of antibody)",
             "body": [
-              {
-                "text": "ใช้ hyperimmune serum คือ serum ที่มี anti-viral specific antibody อยู่"
-              },
-              {
-                "text": "ตัวอย่างในสไลด์: การให้ HRIG/ERIG แก่คนที่ถูกสัตว์สงสัยเป็นโรคพิษสุนัขบ้ากัด"
-              }
+              "ใช้ hyperimmune serum คือ serum ที่มี anti-viral specific antibody อยู่",
+              "ตัวอย่างในสไลด์: การให้ HRIG/ERIG แก่คนที่ถูกสัตว์สงสัยเป็นโรคพิษสุนัขบ้ากัด"
             ]
           },
           {
             "sub": "2. Natural passive immunity",
             "body": [
-              {
-                "text": "คือ maternal derived antibody (MDA)"
-              },
+              "คือ maternal derived antibody (MDA)",
               {
                 "bullets": [
                   "Primates ผ่าน placenta เป็น IgG",
@@ -10732,18 +9784,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Active immunization",
         "source": "Vaccination against viral diseases p.5",
         "body": [
-          {
-            "text": "**Active immunization คือการให้ antigen แก่สัตว์เพื่อให้ร่างกายสัตว์สร้าง immune response ขึ้นเอง** ภูมิเกิดช้ากว่า passive แต่อยู่ได้นานและมี immunological memory"
-          },
+          "**Active immunization คือการให้ antigen แก่สัตว์เพื่อให้ร่างกายสัตว์สร้าง immune response ขึ้นเอง** ภูมิเกิดช้ากว่า passive แต่อยู่ได้นานและมี immunological memory",
           {
             "bullets": [
               "1. Natural infection",
               "2. Artificial immunization หรือ vaccination"
             ]
           },
-          {
-            "text": "ในกรณี vaccination จะใช้ vaccine ที่มี live หรือ dead organisms เพื่อกระตุ้น specific immune response ต่อไวรัส **โดยไม่ผ่านกระบวนการก่อโรค (without the course of causing pathogenesis)**"
-          }
+          "ในกรณี vaccination จะใช้ vaccine ที่มี live หรือ dead organisms เพื่อกระตุ้น specific immune response ต่อไวรัส **โดยไม่ผ่านกระบวนการก่อโรค (without the course of causing pathogenesis)**"
         ]
       },
       {
@@ -10763,9 +9811,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Modified-live (live-attenuated) virus vaccine",
         "source": "Vaccination against viral diseases p.9-10",
         "body": [
-          {
-            "text": "Traditional vaccine ในเด็คนี้มี 2 ตัว คือ modified-live (live-attenuated) virus vaccine และ inactivated (killed) virus vaccine"
-          },
+          "Traditional vaccine ในเด็คนี้มี 2 ตัว คือ modified-live (live-attenuated) virus vaccine และ inactivated (killed) virus vaccine",
           {
             "bullets": [
               "**สร้างโดยลด virulence ของ wild-type virus จนได้ avirulent mutant virus แต่ไวรัสยังมีชีวิต (viable) อยู่**",
@@ -10793,9 +9839,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "จากการ attenuation ของ wild-type viruses",
             "body": [
-              {
-                "text": "**หลักคือทำให้ wild-type virus ปรับตัวไปโตใน unusual host จนสูญเสียการปรับตัวต่อ host เดิมของมัน**"
-              },
+              "**หลักคือทำให้ wild-type virus ปรับตัวไปโตใน unusual host จนสูญเสียการปรับตัวต่อ host เดิมของมัน**",
               {
                 "bullets": [
                   "Serial passage in heterologous host เช่น **CSFV passage ในกระต่าย**",
@@ -10847,9 +9891,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Inactivated (killed) virus vaccine",
         "source": "Vaccination against viral diseases p.13",
         "body": [
-          {
-            "text": "**ทำจาก natural virulent virus ที่ถูก inactivate ด้วย chemical หรือ physical agents เพื่อทำลาย infectivity แต่ยังคง immunogenicity ไว้ (ไม่ทำให้ antigen เปลี่ยนไป)**"
-          },
+          "**ทำจาก natural virulent virus ที่ถูก inactivate ด้วย chemical หรือ physical agents เพื่อทำลาย infectivity แต่ยังคง immunogenicity ไว้ (ไม่ทำให้ antigen เปลี่ยนไป)**",
           {
             "bullets": [
               "Physical methods: UV light",
@@ -10869,9 +9911,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Adjuvant",
         "source": "Vaccination against viral diseases p.14-15",
         "body": [
-          {
-            "text": "Adjuvant แปลว่า to help คือ **สารที่เสริม immune response ต่อวัคซีน** สไลด์ให้กลไกไว้ 3 ข้อ"
-          },
+          "Adjuvant แปลว่า to help คือ **สารที่เสริม immune response ต่อวัคซีน** สไลด์ให้กลไกไว้ 3 ข้อ",
           {
             "bullets": [
               "ยืดกระบวนการ antigen degradation ให้นานขึ้น",
@@ -10970,9 +10010,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Subunit vaccine",
         "source": "Vaccination against viral diseases p.19",
         "body": [
-          {
-            "text": "**Subunit vaccine ประกอบด้วย viral protein หนึ่งตัวหรือมากกว่า แต่ไม่ใช่โปรตีนทั้งหมดของไวรัส**"
-          },
+          "**Subunit vaccine ประกอบด้วย viral protein หนึ่งตัวหรือมากกว่า แต่ไม่ใช่โปรตีนทั้งหมดของไวรัส**",
           {
             "bullets": [
               "Traditional: purified subunit",
@@ -10998,9 +10036,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Gene deleted หรือ marker vaccine",
         "source": "Vaccination against viral diseases p.21",
         "body": [
-          {
-            "text": "**ทำโดยลบ non-essential genes ที่มีส่วนทำให้เกิด virulence ออก**"
-          },
+          "**ทำโดยลบ non-essential genes ที่มีส่วนทำให้เกิด virulence ออก**",
           {
             "bullets": [
               "ตัวอย่างคือ herpesvirus vaccines เช่น **TK และ gE deleted pseudorabies vaccine ในสุกร**",
@@ -11028,9 +10064,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "DNA vaccine",
         "source": "Vaccination against viral diseases p.23",
         "body": [
-          {
-            "text": "**ฉีด plasmid DNA เข้าตัวสัตว์โดยตรง** ตัวอย่างที่สไลด์ยกคือ West Nile virus commercial vaccine ในม้า"
-          },
+          "**ฉีด plasmid DNA เข้าตัวสัตว์โดยตรง** ตัวอย่างที่สไลด์ยกคือ West Nile virus commercial vaccine ในม้า",
           {
             "bullets": [
               "1. สร้าง recombinant plasmids ที่มี DNA ซึ่ง encode key viral antigens",
@@ -11049,9 +10083,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "mRNA vaccine",
         "source": "Vaccination against viral diseases p.24-25",
         "body": [
-          {
-            "text": "**ส่ง mRNA ที่ encode key viral antigens เข้าไปในตัวสัตว์**"
-          },
+          "**ส่ง mRNA ที่ encode key viral antigens เข้าไปในตัวสัตว์**",
           {
             "sub": "Concept ตามลำดับที่สไลด์เขียน",
             "body": [
@@ -11087,9 +10119,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Reverse genetic vaccine",
         "source": "Vaccination against viral diseases p.26",
         "body": [
-          {
-            "text": "สไลด์หน้านี้มีแค่หัวข้อ Reverse genetic vaccine กับลิงก์รูปแผนภาพเท่านั้น **ไม่มีข้อความอธิบายกลไกเลย สไลด์ไม่ได้บอก** ว่า reverse genetics ทำอย่างไรหรือใช้กับไวรัสตัวใด รู้เพียงว่ามันถูกจัดอยู่ในกลุ่ม new generation vaccine ตามที่ระบุไว้ใน p.18"
-          }
+          "สไลด์หน้านี้มีแค่หัวข้อ Reverse genetic vaccine กับลิงก์รูปแผนภาพเท่านั้น **ไม่มีข้อความอธิบายกลไกเลย สไลด์ไม่ได้บอก** ว่า reverse genetics ทำอย่างไรหรือใช้กับไวรัสตัวใด รู้เพียงว่ามันถูกจัดอยู่ในกลุ่ม new generation vaccine ตามที่ระบุไว้ใน p.18"
         ]
       },
       {
@@ -11144,12 +10174,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "งานนี้ให้ทำอะไร (Assignment Objective + Stem)",
         "source": "Veterinary Mycology Practical Assignment p.1",
         "body": [
-          {
-            "text": "วัตถุประสงค์คือประเมิน knowledge และ skills ใน basic mycological practices ได้แก่ **sample collection, laboratory identification ผ่าน microscopic findings และ colony morphology, และการใช้ MALDI-TOF กับเชื้อราที่ระบุไม่ได้**"
-          },
-          {
-            "text": "แต่ละกลุ่มจะได้รับ sample ที่แตกต่างกัน ซึ่งสงสัยว่ามี fungal organisms อยู่ งานคือต้องไปเก็บเอง identify เอง และวิเคราะห์เอง ด้วยเทคนิคและขั้นตอนที่ระบุไว้ในเอกสารนี้"
-          },
+          "วัตถุประสงค์คือประเมิน knowledge และ skills ใน basic mycological practices ได้แก่ **sample collection, laboratory identification ผ่าน microscopic findings และ colony morphology, และการใช้ MALDI-TOF กับเชื้อราที่ระบุไม่ได้**",
+          "แต่ละกลุ่มจะได้รับ sample ที่แตกต่างกัน ซึ่งสงสัยว่ามี fungal organisms อยู่ งานคือต้องไปเก็บเอง identify เอง และวิเคราะห์เอง ด้วยเทคนิคและขั้นตอนที่ระบุไว้ในเอกสารนี้",
           {
             "callout": "การ identification ใช้ทั้ง morphological และ microscopic analysis ก่อน **ถ้าระบุเชื้อไม่ได้ด้วยสองวิธีนี้ จึงใช้ MALDI-TOF mass spectrometry** ไม่ใช่ใช้ตั้งแต่แรก",
             "kind": "tip"
@@ -11163,33 +10189,25 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Sample Collection",
             "body": [
-              {
-                "text": "ใช้ **aseptic technique** เก็บ sample ที่ได้รับมอบหมาย เก็บวัสดุตัวอย่างไว้ใน clean envelop หรือภาชนะแข็งที่สะอาด (hard clean container) ติด label ให้ถูกต้องและเก็บในภาชนะที่เหมาะสม"
-              }
+              "ใช้ **aseptic technique** เก็บ sample ที่ได้รับมอบหมาย เก็บวัสดุตัวอย่างไว้ใน clean envelop หรือภาชนะแข็งที่สะอาด (hard clean container) ติด label ให้ถูกต้องและเก็บในภาชนะที่เหมาะสม"
             ]
           },
           {
             "sub": "Culturing and Isolation",
             "body": [
-              {
-                "text": "เตรียม culture media ที่เหมาะสมคือ **SDA** แล้ว inoculate ด้วย sample จากนั้น incubate ภายใต้ recommended conditions เพื่อให้เชื้อราขึ้นได้ดีที่สุด"
-              }
+              "เตรียม culture media ที่เหมาะสมคือ **SDA** แล้ว inoculate ด้วย sample จากนั้น incubate ภายใต้ recommended conditions เพื่อให้เชื้อราขึ้นได้ดีที่สุด"
             ]
           },
           {
             "sub": "Morphological and Microscopic Analysis",
             "body": [
-              {
-                "text": "ดู colony characteristics ได้แก่ **color, texture, size** หลังปล่อยให้เจริญเป็นช่วงเวลาที่เหมาะสม จากนั้นเตรียม slide สำหรับ microscopic examination โดยย้อมสีตามความจำเป็นเพื่อดู fungal structures"
-              }
+              "ดู colony characteristics ได้แก่ **color, texture, size** หลังปล่อยให้เจริญเป็นช่วงเวลาที่เหมาะสม จากนั้นเตรียม slide สำหรับ microscopic examination โดยย้อมสีตามความจำเป็นเพื่อดู fungal structures"
             ]
           },
           {
             "sub": "MALDI-TOF Analysis (ถ้าจำเป็น)",
             "body": [
-              {
-                "text": "เตรียม sample สำหรับ MALDI-TOF ตาม manufacturer's instructions แล้ว analyze และ interpret spectral data เพื่อระบุชนิดเชื้อรา"
-              }
+              "เตรียม sample สำหรับ MALDI-TOF ตาม manufacturer's instructions แล้ว analyze และ interpret spectral data เพื่อระบุชนิดเชื้อรา"
             ]
           },
           {
@@ -11228,9 +10246,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "8. Microscopic Findings"
             ]
           },
-          {
-            "text": "สังเกตว่าฟอร์มบังคับให้แยก **Colony Description** กับ **Microscopic Findings** ออกจากกัน ตรงกับที่ Laboratory Directions บอกว่า identification ต้องใช้ทั้ง morphological และ microscopic analysis"
-          }
+          "สังเกตว่าฟอร์มบังคับให้แยก **Colony Description** กับ **Microscopic Findings** ออกจากกัน ตรงกับที่ Laboratory Directions บอกว่า identification ต้องใช้ทั้ง morphological และ microscopic analysis"
         ]
       },
       {
@@ -11254,9 +10270,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Final Examination: วิดีโอนำเสนอกลุ่ม 5 นาที",
         "source": "Veterinary Mycology Practical Assignment p.4",
         "body": [
-          {
-            "text": "แต่ละกลุ่มต้องทำ **video presentation ความยาว 5 นาที** อธิบายโปรเจกต์ของตัวเอง โดยต้องมีครบ 5 ส่วน"
-          },
+          "แต่ละกลุ่มต้องทำ **video presentation ความยาว 5 นาที** อธิบายโปรเจกต์ของตัวเอง โดยต้องมีครบ 5 ส่วน",
           {
             "bullets": [
               "Introduction: ภาพรวมสั้น ๆ ของ sample และแหล่งที่มา",
@@ -11283,9 +10297,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Educational Value = **10** ให้ความรู้ผู้ฟังได้จริงเรื่องความสำคัญของเชื้อราต่อ biomedical science รวมถึง health implications"
             ]
           },
-          {
-            "text": "น้ำหนักคะแนนบอกว่าอะไรสำคัญ **Content Accuracy กับ Use of Visual Aids รวมกัน 40 คะแนน** มากกว่าคุณภาพการผลิตวิดีโอ (10) หลายเท่า"
-          }
+          "น้ำหนักคะแนนบอกว่าอะไรสำคัญ **Content Accuracy กับ Use of Visual Aids รวมกัน 40 คะแนน** มากกว่าคุณภาพการผลิตวิดีโอ (10) หลายเท่า"
         ]
       },
       {
@@ -11308,73 +10320,55 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Safety and PPE",
             "body": [
-              {
-                "text": "ใส่ PPE ตลอดเวลา ได้แก่ lab coats, gloves และ eye protection เพื่อลดการสัมผัส fungal spores และสารเคมี และ **ใช้ face mask หรือ respirator เมื่อจัดการเชื้อราที่ก่อภูมิแพ้สูงหรือเป็น pathogen เพื่อไม่ให้สูดดม spores**"
-              }
+              "ใส่ PPE ตลอดเวลา ได้แก่ lab coats, gloves และ eye protection เพื่อลดการสัมผัส fungal spores และสารเคมี และ **ใช้ face mask หรือ respirator เมื่อจัดการเชื้อราที่ก่อภูมิแพ้สูงหรือเป็น pathogen เพื่อไม่ให้สูดดม spores**"
             ]
           },
           {
             "sub": "Work Area Preparation",
             "body": [
-              {
-                "text": "disinfect พื้นผิวทำงานทั้งก่อนและหลังทุกขั้นตอน และใช้ **laminar flow hood หรือ biosafety cabinet** ในการจัดการและเตรียม sample เพื่อให้ได้พื้นที่ปลอดเชื้อและกักละออง aerosols ไว้"
-              }
+              "disinfect พื้นผิวทำงานทั้งก่อนและหลังทุกขั้นตอน และใช้ **laminar flow hood หรือ biosafety cabinet** ในการจัดการและเตรียม sample เพื่อให้ได้พื้นที่ปลอดเชื้อและกักละออง aerosols ไว้"
             ]
           },
           {
             "sub": "Aseptic Technique",
             "body": [
-              {
-                "text": "ทำ aseptic technique อย่างเคร่งครัดตอนเก็บ ถ่าย และเพาะเชื้อ เพื่อกัน cross-contamination ระหว่าง sample และกันสิ่งปนเปื้อนจากสิ่งแวดล้อม และ **flame sterilize เครื่องมือทุกครั้งระหว่างการใช้ และเมื่อเปลี่ยนไปทำ sample หรือ media อื่น**"
-              }
+              "ทำ aseptic technique อย่างเคร่งครัดตอนเก็บ ถ่าย และเพาะเชื้อ เพื่อกัน cross-contamination ระหว่าง sample และกันสิ่งปนเปื้อนจากสิ่งแวดล้อม และ **flame sterilize เครื่องมือทุกครั้งระหว่างการใช้ และเมื่อเปลี่ยนไปทำ sample หรือ media อื่น**"
             ]
           },
           {
             "sub": "Sample Handling",
             "body": [
-              {
-                "text": "ลดเวลาที่ sample สัมผัสอากาศเปิดให้น้อยที่สุด และปิดภาชนะให้แน่นเสมอเมื่อไม่ได้ใช้และตอนเก็บรักษา"
-              }
+              "ลดเวลาที่ sample สัมผัสอากาศเปิดให้น้อยที่สุด และปิดภาชนะให้แน่นเสมอเมื่อไม่ได้ใช้และตอนเก็บรักษา"
             ]
           },
           {
             "sub": "Waste Disposal",
             "body": [
-              {
-                "text": "ทิ้งของเสียทั้งหมดรวมถึง used media, gloves และ pipette tips ลงภาชนะ biohazard waste ที่กำหนด และ **autoclave ขยะเชื้อราก่อนทิ้งเพื่อฆ่า spores ที่ยังมีชีวิต** ไม่ให้ปนเปื้อนสู่สิ่งแวดล้อม"
-              }
+              "ทิ้งของเสียทั้งหมดรวมถึง used media, gloves และ pipette tips ลงภาชนะ biohazard waste ที่กำหนด และ **autoclave ขยะเชื้อราก่อนทิ้งเพื่อฆ่า spores ที่ยังมีชีวิต** ไม่ให้ปนเปื้อนสู่สิ่งแวดล้อม"
             ]
           },
           {
             "sub": "Incident Response",
             "body": [
-              {
-                "text": "ต้องมี protocol ชัดเจนสำหรับกรณีหกและการสัมผัสโดยอุบัติเหตุ เพื่อตอบสนองได้เร็วและลดความเสี่ยงการปนเปื้อนกับการสัมผัสเชื้อ"
-              }
+              "ต้องมี protocol ชัดเจนสำหรับกรณีหกและการสัมผัสโดยอุบัติเหตุ เพื่อตอบสนองได้เร็วและลดความเสี่ยงการปนเปื้อนกับการสัมผัสเชื้อ"
             ]
           },
           {
             "sub": "Equipment and Material Sterilization",
             "body": [
-              {
-                "text": "sterilize อุปกรณ์และวัสดุที่ใช้เก็บกับจัดการ sample อย่างสม่ำเสมอ ด้วย autoclave หรือ disinfectant ที่เหมาะสม และใช้ของ disposable เมื่อทำได้เพื่อลด cross-contamination"
-              }
+              "sterilize อุปกรณ์และวัสดุที่ใช้เก็บกับจัดการ sample อย่างสม่ำเสมอ ด้วย autoclave หรือ disinfectant ที่เหมาะสม และใช้ของ disposable เมื่อทำได้เพื่อลด cross-contamination"
             ]
           },
           {
             "sub": "Culturing and Incubation",
             "body": [
-              {
-                "text": "ตรวจ culture สม่ำเสมอว่ามีสัญญาณของ contamination หรือไม่ ถ้าเจอให้ **แยก culture ที่ปนเปื้อนออกทันที** เพื่อกันการแพร่ และใช้ selective media กับ incubation conditions ที่เหมาะสมเพื่อกดการเจริญของเชื้อปนเปื้อน"
-              }
+              "ตรวจ culture สม่ำเสมอว่ามีสัญญาณของ contamination หรือไม่ ถ้าเจอให้ **แยก culture ที่ปนเปื้อนออกทันที** เพื่อกันการแพร่ และใช้ selective media กับ incubation conditions ที่เหมาะสมเพื่อกดการเจริญของเชื้อปนเปื้อน"
             ]
           },
           {
             "sub": "Documentation and Training",
             "body": [
-              {
-                "text": "เก็บบันทึกทุกขั้นตอน ทุกการสังเกต และทุกเหตุการณ์ contamination อย่างละเอียด เพราะช่วยหาต้นตอและรูปแบบการปนเปื้อนได้"
-              }
+              "เก็บบันทึกทุกขั้นตอน ทุกการสังเกต และทุกเหตุการณ์ contamination อย่างละเอียด เพราะช่วยหาต้นตอและรูปแบบการปนเปื้อนได้"
             ]
           }
         ]
@@ -11383,9 +10377,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Training ของผู้ปฏิบัติงาน",
         "source": "Veterinary Mycology Practical Assignment p.6",
         "body": [
-          {
-            "text": "สไลด์หน้าสุดท้ายมีประโยคเดียวคือ ต้องมั่นใจว่าผู้ปฏิบัติงานทุกคนได้รับการ training อย่างทั่วถึงใน **mycological techniques, contamination prevention และ safety protocols**"
-          }
+          "สไลด์หน้าสุดท้ายมีประโยคเดียวคือ ต้องมั่นใจว่าผู้ปฏิบัติงานทุกคนได้รับการ training อย่างทั่วถึงใน **mycological techniques, contamination prevention และ safety protocols**"
         ]
       }
     ]
@@ -11401,17 +10393,13 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "หลักการของ viral antigen detection",
         "source": "Viral Ag detection p.2",
         "body": [
-          {
-            "text": "เป็น **immunoassay ที่อาศัย antigen-antibody interaction เพื่อ detect viral antigen ในตัวอย่างโดยตรง**"
-          },
+          "เป็น **immunoassay ที่อาศัย antigen-antibody interaction เพื่อ detect viral antigen ในตัวอย่างโดยตรง**",
           {
             "bullets": [
               "ตัวอย่างที่สไลด์ระบุ: tissue sections, infected cell cultures หรือ fresh smear"
             ]
           },
-          {
-            "text": "หัวใจของวิธีคือ **viral antigen specific antibodies ถูก labelled ด้วย indicator** แล้วเราอ่านสัญญาณจาก indicator นั้น แผนภาพในสไลด์เรียงชั้นจากล่างขึ้นบนเป็น antigen แล้ว primary antibody แล้ว secondary antibody แล้ว reporter"
-          },
+          "หัวใจของวิธีคือ **viral antigen specific antibodies ถูก labelled ด้วย indicator** แล้วเราอ่านสัญญาณจาก indicator นั้น แผนภาพในสไลด์เรียงชั้นจากล่างขึ้นบนเป็น antigen แล้ว primary antibody แล้ว secondary antibody แล้ว reporter",
           {
             "sub": "แบ่งตามชนิดของ indicator",
             "body": [
@@ -11439,17 +10427,13 @@ export const NOTES_Y2_MICROBIO_1 = {
                   "Chromogen: **diaminobenzidine (DAB)**"
                 ]
               },
-              {
-                "text": "อ่านผลจาก **DAB precipitate** ที่เกิดขึ้นตรงตำแหน่งที่มี antigen ในแผนภาพ HRP ติดอยู่กับ secondary antibody"
-              }
+              "อ่านผลจาก **DAB precipitate** ที่เกิดขึ้นตรงตำแหน่งที่มี antigen ในแผนภาพ HRP ติดอยู่กับ secondary antibody"
             ]
           },
           {
             "sub": "Fluorochrome labelled antibody (FA)",
             "body": [
-              {
-                "text": "แผนภาพเรียงเป็น antigen แล้ว primary antibody แล้ว secondary antibody ที่ติด fluorochrome จากนั้น **laser beam กระตุ้นให้เกิด emission แล้วอ่านด้วย fluorescent detector**"
-              }
+              "แผนภาพเรียงเป็น antigen แล้ว primary antibody แล้ว secondary antibody ที่ติด fluorochrome จากนั้น **laser beam กระตุ้นให้เกิด emission แล้วอ่านด้วย fluorescent detector**"
             ]
           }
         ]
@@ -11509,9 +10493,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "สไลด์เครื่องมือ (ภาพล้วน)",
         "source": "Viral Ag detection p.5-6",
         "body": [
-          {
-            "text": "สองหน้านี้เป็นรูปเครื่องมือล้วน หัวสไลด์เขียนว่า Microtome & Cryostat (p.5) และ Fluorescent microscope (p.6) **ไม่มีข้อความอธิบายหลักการหรือวิธีใช้เครื่องในสไลด์**"
-          }
+          "สองหน้านี้เป็นรูปเครื่องมือล้วน หัวสไลด์เขียนว่า Microtome & Cryostat (p.5) และ Fluorescent microscope (p.6) **ไม่มีข้อความอธิบายหลักการหรือวิธีใช้เครื่องในสไลด์**"
         ]
       },
       {
@@ -11525,21 +10507,15 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**preserve cellular structure ก่อนที่ cell จะ react จนเกิด structural artifacts**"
             ]
           },
-          {
-            "text": "น้ำยาที่สไลด์ระบุ: **ethanol, methanol, acetone, carbon tetrachloride**"
-          }
+          "น้ำยาที่สไลด์ระบุ: **ethanol, methanol, acetone, carbon tetrachloride**"
         ]
       },
       {
         "heading": "ภาพเปรียบเทียบ Immunochemical vs. Immunofluorescent",
         "source": "Viral Ag detection p.8-9",
         "body": [
-          {
-            "text": "สองหน้านี้เป็นภาพผลย้อมเทียบกันล้วน ๆ p.8 มี label ชนิดตัวอย่างว่าเป็น **effusion smear** (สองภาพ) และ **tissue biopsy** ส่วน p.9 ไม่มี label ชนิดตัวอย่าง มีแต่เครดิตรูป"
-          },
-          {
-            "text": "เครดิตรูปที่ปรากฏ: Kipar, 2014 และ Litster, 2013 (p.8) กับ Kipar, 2014 และ Melzi, 2016 (p.9)"
-          },
+          "สองหน้านี้เป็นภาพผลย้อมเทียบกันล้วน ๆ p.8 มี label ชนิดตัวอย่างว่าเป็น **effusion smear** (สองภาพ) และ **tissue biopsy** ส่วน p.9 ไม่มี label ชนิดตัวอย่าง มีแต่เครดิตรูป",
+          "เครดิตรูปที่ปรากฏ: Kipar, 2014 และ Litster, 2013 (p.8) กับ Kipar, 2014 และ Melzi, 2016 (p.9)",
           {
             "callout": "สไลด์ไม่ได้เขียนข้อสรุปเป็นข้อความว่า ICC กับ FA ต่างกันอย่างไรในภาพเหล่านี้ ต้องดูรูปจริงจากสไลด์อาจารย์ประกอบ",
             "kind": "warn"
@@ -11557,9 +10533,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**FA** ย้อมติด **N protein**"
             ]
           },
-          {
-            "text": "เครดิตรูป: Chiou et al., 2015"
-          },
+          "เครดิตรูป: Chiou et al., 2015",
           {
             "callout": "สไลด์ไม่ได้บอกว่าเป็นเชื้ออะไรหรือสัตว์ชนิดใด บอกแค่ว่าย้อมด้วยวิธีไหนแล้วเห็นอะไร",
             "kind": "flag"
@@ -11594,9 +10568,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Direct detection protocol",
         "source": "Viral Ag detection p.13",
         "body": [
-          {
-            "text": "เริ่มจาก virus infected cell/tissue บน slide แล้วหยด **fluorochrome conjugated Ab** ลงไป"
-          },
+          "เริ่มจาก virus infected cell/tissue บน slide แล้วหยด **fluorochrome conjugated Ab** ลงไป",
           {
             "bullets": [
               "**positive = มี Ag/Ab binding จึงได้ fluorescent signal**",
@@ -11609,9 +10581,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Indirect detection protocol",
         "source": "Viral Ag detection p.14",
         "body": [
-          {
-            "text": "เริ่มจาก virus infected cell/tissue บน slide แล้วหยด **primary antigen specific antibody** ก่อน จากนั้นตามด้วย **fluorochrome conjugated secondary Ab**"
-          },
+          "เริ่มจาก virus infected cell/tissue บน slide แล้วหยด **primary antigen specific antibody** ก่อน จากนั้นตามด้วย **fluorochrome conjugated secondary Ab**",
           {
             "bullets": [
               "ขั้นแรก positive = มี Ag/Ab binding, negative = ไม่มี Ag/Ab binding",
@@ -11624,9 +10594,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Secondary species-specific antibody มาจากไหน",
         "source": "Viral Ag detection p.15",
         "body": [
-          {
-            "text": "สไลด์ยกตัวอย่าง **rabbit anti-swine IgG conjugated with fluorochrome** โดยเรียงขั้นตอนว่า"
-          },
+          "สไลด์ยกตัวอย่าง **rabbit anti-swine IgG conjugated with fluorochrome** โดยเรียงขั้นตอนว่า",
           {
             "bullets": [
               "เริ่มจาก **purified swine IgG**",
@@ -11634,9 +10602,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "แล้วนำไป **conjugate rabbit anti-swine IgG กับ fluorochrome**"
             ]
           },
-          {
-            "text": "ในแผนภาพชั้นล่างสุดคือ antigen แล้ว primary antibody ซึ่งเป็น swine IgG ที่ **specific ต่อ viral antigen** ส่วน secondary antibody **specific ต่อ swine IgG** ไม่ใช่ต่อ virus"
-          }
+          "ในแผนภาพชั้นล่างสุดคือ antigen แล้ว primary antibody ซึ่งเป็น swine IgG ที่ **specific ต่อ viral antigen** ส่วน secondary antibody **specific ต่อ swine IgG** ไม่ใช่ต่อ virus"
         ]
       },
       {
@@ -11649,18 +10615,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**cheaper**"
             ]
           },
-          {
-            "text": "ตัวอย่างในสไลด์: primary antibody ที่ specific ต่อ **CSFV antigen**, **PRRSV antigen** และ **PRV antigen** ต่างก็เป็น swine IgG จึงใช้ **rabbit IgG specific to swine IgG** ตัวเดียวกันอ่านได้ทั้งหมด"
-          }
+          "ตัวอย่างในสไลด์: primary antibody ที่ specific ต่อ **CSFV antigen**, **PRRSV antigen** และ **PRV antigen** ต่างก็เป็น swine IgG จึงใช้ **rabbit IgG specific to swine IgG** ตัวเดียวกันอ่านได้ทั้งหมด"
         ]
       },
       {
         "heading": "Signal amplification",
         "source": "Viral Ag detection p.17",
         "body": [
-          {
-            "text": "หน้านี้เทียบ direct FA กับ indirect FA ภายใต้หัวข้อ **signal amplification** โดยแผนภาพ direct FA มี reporter อยู่บน primary antibody ส่วน indirect FA มี reporter อยู่บน secondary antibody ที่มาจับ primary antibody อีกที"
-          },
+          "หน้านี้เทียบ direct FA กับ indirect FA ภายใต้หัวข้อ **signal amplification** โดยแผนภาพ direct FA มี reporter อยู่บน primary antibody ส่วน indirect FA มี reporter อยู่บน secondary antibody ที่มาจับ primary antibody อีกที",
           {
             "callout": "สไลด์ไม่ได้เขียนเป็นข้อความว่าขยายสัญญาณได้กี่เท่าหรือด้วยกลไกใด มีแค่คำว่า signal amplification กับแผนภาพเทียบ",
             "kind": "warn"
@@ -11709,9 +10671,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "General diagnostic methods กับที่ทางของ laboratory diagnosis",
         "source": "Viral diagnosis p.2",
         "body": [
-          {
-            "text": "สไลด์ไล่วิธีวินิจฉัยทั่วไปไว้ 4 อย่าง"
-          },
+          "สไลด์ไล่วิธีวินิจฉัยทั่วไปไว้ 4 อย่าง",
           {
             "bullets": [
               "History taking",
@@ -11720,18 +10680,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "Laboratory diagnosis"
             ]
           },
-          {
-            "text": "และระบุชัดว่า **Laboratory diagnosis คือ the best way to confirm the viral infectious diseases เพราะเป็นวิธีที่ identify causative agents ได้**"
-          }
+          "และระบุชัดว่า **Laboratory diagnosis คือ the best way to confirm the viral infectious diseases เพราะเป็นวิธีที่ identify causative agents ได้**"
         ]
       },
       {
         "heading": "Sample collection ถูกเวลาและถูกที่",
         "source": "Viral diagnosis p.3",
         "body": [
-          {
-            "text": "หลักคือ know the disease แล้วจึงรู้ว่าจะเก็บอะไร (right place) และเก็บเมื่อไหร่ (right time)"
-          },
+          "หลักคือ know the disease แล้วจึงรู้ว่าจะเก็บอะไร (right place) และเก็บเมื่อไหร่ (right time)",
           {
             "sub": "Right time",
             "body": [
@@ -11746,9 +10702,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Right place",
             "body": [
-              {
-                "text": "เลือกตามที่สัมพันธ์กับ clinical signs หรือ lesions หรือ target organs"
-              }
+              "เลือกตามที่สัมพันธ์กับ clinical signs หรือ lesions หรือ target organs"
             ]
           },
           {
@@ -11775,9 +10729,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**ตัวอย่างต้อง keep cold และ moist และทุกตัวอย่างยกเว้น clotted blood ให้เก็บที่ 4 องศาเซลเซียสระหว่างขนส่ง**"
             ]
           },
-          {
-            "text": "ถ้า process ทันทีไม่ได้"
-          },
+          "ถ้า process ทันทีไม่ได้",
           {
             "bullets": [
               "**เก็บที่ 4 องศาเซลเซียส ได้ไม่เกิน 24 ชั่วโมง**",
@@ -11804,9 +10756,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Antibody detection (serological test)",
             "body": [
-              {
-                "text": "แสดงการมีอยู่และ quantification ของ antiviral antibodies"
-              }
+              "แสดงการมีอยู่และ quantification ของ antiviral antibodies"
             ]
           }
         ]
@@ -11845,9 +10795,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Electron microscopy (EM)",
         "source": "Viral diagnosis p.8",
         "body": [
-          {
-            "text": "มองเห็น virus particles ที่อยู่ในตัวอย่างโดยตรง และดู virus morphology ได้"
-          },
+          "มองเห็น virus particles ที่อยู่ในตัวอย่างโดยตรง และดู virus morphology ได้",
           {
             "sub": "Advantages",
             "body": [
@@ -11876,9 +10824,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Immunofluorescent antibody (FA) staining",
         "source": "Viral diagnosis p.9",
         "body": [
-          {
-            "text": "เป็นการ direct detection of viral antigens ใน clinical samples"
-          },
+          "เป็นการ direct detection of viral antigens ใน clinical samples",
           {
             "bullets": [
               "ตัด cryostat tissue section หรือ smear cells แล้ว fix บน slide",
@@ -11911,18 +10857,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**ข้อจำกัด: ใช้ได้เฉพาะไวรัสที่ agglutinate RBC ได้เท่านั้น**"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกว่าไวรัสชนิดใดบ้างที่ agglutinate RBC ได้ และไม่ได้ระบุ species ของ RBC ที่ใช้"
-          }
+          "สไลด์ไม่ได้บอกว่าไวรัสชนิดใดบ้างที่ agglutinate RBC ได้ และไม่ได้ระบุ species ของ RBC ที่ใช้"
         ]
       },
       {
         "heading": "Molecular techniques: Polymerase chain reaction (PCR)",
         "source": "Viral diagnosis p.12",
         "body": [
-          {
-            "text": "ใช้ detect viral nucleic acid โดยตรงจาก clinical specimens"
-          },
+          "ใช้ detect viral nucleic acid โดยตรงจาก clinical specimens",
           {
             "sub": "มีประโยชน์เมื่อ",
             "body": [
@@ -11946,9 +10888,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "2. Virus isolation and identification ทำเมื่อไหร่",
         "source": "Viral diagnosis p.13",
         "body": [
-          {
-            "text": "**มีประโยชน์มากในกรณีที่ตัวอย่างมีปริมาณไวรัสน้อยจน direct examination ตรวจไม่เจอ**"
-          },
+          "**มีประโยชน์มากในกรณีที่ตัวอย่างมีปริมาณไวรัสน้อยจน direct examination ตรวจไม่เจอ**",
           {
             "bullets": [
               "ขั้น Virus isolation คือ isolate หรือ amplify ไวรัสใน host system 1 ใน 3 แบบ ได้แก่ cell cultures, embryonated eggs และ experimental animals",
@@ -11961,12 +10901,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "The host systems ทำไมต้องมี",
         "source": "Viral diagnosis p.14",
         "body": [
-          {
-            "text": "**เพราะไวรัสเป็น obligate intracellular parasite จึงต้องเพาะในเซลล์ที่มีชีวิต**"
-          },
-          {
-            "text": "สไลด์เรียง 3 host systems ที่ใช้บ่อยไว้ว่า experimental animals, embryonated eggs และ cell cultures"
-          }
+          "**เพราะไวรัสเป็น obligate intracellular parasite จึงต้องเพาะในเซลล์ที่มีชีวิต**",
+          "สไลด์เรียง 3 host systems ที่ใช้บ่อยไว้ว่า experimental animals, embryonated eggs และ cell cultures"
         ]
       },
       {
@@ -11987,9 +10923,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Indirect experimental animals",
             "body": [
-              {
-                "text": "เป็นสัตว์ที่พิสูจน์แล้วว่า reproduce โรค หรือแสดง indication of infection อื่นได้"
-              }
+              "เป็นสัตว์ที่พิสูจน์แล้วว่า reproduce โรค หรือแสดง indication of infection อื่นได้"
             ]
           }
         ]
@@ -12053,18 +10987,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "เป็นระบบที่ inexpensive สำหรับ virus isolation"
             ]
           },
-          {
-            "text": "สไลด์ทิ้งคำว่า Available? ไว้เป็นคำถามเรื่องความหาง่ายของไข่ แต่สไลด์ไม่ได้บอกคำตอบ"
-          }
+          "สไลด์ทิ้งคำว่า Available? ไว้เป็นคำถามเรื่องความหาง่ายของไข่ แต่สไลด์ไม่ได้บอกคำตอบ"
         ]
       },
       {
         "heading": "Routes of inoculation ในไข่",
         "source": "Viral diagnosis p.19",
         "body": [
-          {
-            "text": "สไลด์นี้มีแต่หัวข้อ Routes of inoculation กับรูปประกอบ **สไลด์ไม่ได้บอกชื่อ route แต่ละเส้นทางเป็นตัวอักษร** ต้องดูจากรูปในไฟล์สไลด์จริง"
-          }
+          "สไลด์นี้มีแต่หัวข้อ Routes of inoculation กับรูปประกอบ **สไลด์ไม่ได้บอกชื่อ route แต่ละเส้นทางเป็นตัวอักษร** ต้องดูจากรูปในไฟล์สไลด์จริง"
         ]
       },
       {
@@ -12099,9 +11029,7 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "สไลด์แสดงรูปเซลล์ 2 แบบกำกับไว้คือ epithelial-like และ fibroblast-like"
-          }
+          "สไลด์แสดงรูปเซลล์ 2 แบบกำกับไว้คือ epithelial-like และ fibroblast-like"
         ]
       },
       {
@@ -12111,9 +11039,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "1. Monolayer culture (stationary culture)",
             "body": [
-              {
-                "text": "เซลล์โตเป็นชั้นเดียวบน solid surface แบ่งย่อยเป็น"
-              },
+              "เซลล์โตเป็นชั้นเดียวบน solid surface แบ่งย่อยเป็น",
               {
                 "bullets": [
                   "**Primary culture ได้มาจาก animal tissues โดยตรง และ susceptible ต่อ virus isolation มากกว่า continuous cell lines**",
@@ -12139,21 +11065,15 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Types of cell culture: organ culture",
         "source": "Viral diagnosis p.22",
         "body": [
-          {
-            "text": "**Organ culture คือ 3D culture ของเนื้อเยื่อที่ยังไม่ถูก disaggregate จึงคง histological features บางส่วนหรือทั้งหมดเหมือน in vivo**"
-          },
-          {
-            "text": "ตัวอย่างที่สไลด์ยกคือ thin section of trachea ที่เลี้ยงใน cell culture medium"
-          }
+          "**Organ culture คือ 3D culture ของเนื้อเยื่อที่ยังไม่ถูก disaggregate จึงคง histological features บางส่วนหรือทั้งหมดเหมือน in vivo**",
+          "ตัวอย่างที่สไลด์ยกคือ thin section of trachea ที่เลี้ยงใน cell culture medium"
         ]
       },
       {
         "heading": "Virus isolation ขั้นเตรียมตัวอย่าง",
         "source": "Viral diagnosis p.24",
         "body": [
-          {
-            "text": "**วัตถุประสงค์ของ sample preparation คือปล่อยไวรัสออกจาก infected cells มาอยู่ใน solution**"
-          },
+          "**วัตถุประสงค์ของ sample preparation คือปล่อยไวรัสออกจาก infected cells มาอยู่ใน solution**",
           {
             "bullets": [
               "เตรียม tissues เป็น 10% suspension (ถ้าเป็น swab ใช้ transport medium)",
@@ -12175,18 +11095,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "ชนิดเซลล์ที่ใช้ขึ้นกับไวรัสที่สงสัย เช่น primary cells, MDBK, MDCK, Vero, PK-15, BHK-21"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้บอกว่าเซลล์ไลน์แต่ละตัวคู่กับไวรัสชนิดใด"
-          }
+          "สไลด์ไม่ได้บอกว่าเซลล์ไลน์แต่ละตัวคู่กับไวรัสชนิดใด"
         ]
       },
       {
         "heading": "Identification of virus-infected cells: cytopathic effect (CPE)",
         "source": "Viral diagnosis p.26-28",
         "body": [
-          {
-            "text": "สไลด์กลุ่มนี้เป็นรูปเปรียบเทียบ normal cells กับเซลล์ที่ติดเชื้อ โดยมีข้อความกำกับ CPE 3 แบบ"
-          },
+          "สไลด์กลุ่มนี้เป็นรูปเปรียบเทียบ normal cells กับเซลล์ที่ติดเชื้อ โดยมีข้อความกำกับ CPE 3 แบบ",
           {
             "bullets": [
               "**Round CPE** (p.26 คู่กับรูป normal cells)",
@@ -12211,30 +11127,22 @@ export const NOTES_Y2_MICROBIO_1 = {
               "ในกรณี lab animals สังเกต specific clinical signs หรือ lesions (p.31)"
             ]
           },
-          {
-            "text": "สไลด์ไม่ได้อธิบายลักษณะของ pock หรือ lesion ที่จำเพาะกับไวรัสแต่ละชนิด"
-          }
+          "สไลด์ไม่ได้อธิบายลักษณะของ pock หรือ lesion ที่จำเพาะกับไวรัสแต่ละชนิด"
         ]
       },
       {
         "heading": "Virus identification หลัง isolation",
         "source": "Viral diagnosis p.32",
         "body": [
-          {
-            "text": "**หลังเพาะได้แล้วต้อง identify ไวรัสใน inoculated cell cultures หรือ eggs หรือ lab animals ด้วยเทคนิค direct examination ได้แก่ FA, IHC/ICC, PCR หรือ electron microscope**"
-          },
-          {
-            "text": "ตัวอย่างที่สไลด์ยกคือการย้อม FA และ ICC"
-          }
+          "**หลังเพาะได้แล้วต้อง identify ไวรัสใน inoculated cell cultures หรือ eggs หรือ lab animals ด้วยเทคนิค direct examination ได้แก่ FA, IHC/ICC, PCR หรือ electron microscope**",
+          "ตัวอย่างที่สไลด์ยกคือการย้อม FA และ ICC"
         ]
       },
       {
         "heading": "3. Serological diagnosis หลักการและข้อจำกัด",
         "source": "Viral diagnosis p.33",
         "body": [
-          {
-            "text": "เป็นการวัด antibody response ของ host ต่อไวรัสที่สนใจ"
-          },
+          "เป็นการวัด antibody response ของ host ต่อไวรัสที่สนใจ",
           {
             "callout": "**เป็น indirect measure of virus คือตรวจ host antiviral response ไม่ใช่ตัว viral particles**",
             "kind": "warn"
@@ -12263,18 +11171,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "อีกทางเลือกที่สไลด์ระบุคือการตรวจ **virus-specific IgM antibodies ใน single acute-phase serum**"
-          }
+          "อีกทางเลือกที่สไลด์ระบุคือการตรวจ **virus-specific IgM antibodies ใน single acute-phase serum**"
         ]
       },
       {
         "heading": "Serological tests 4 ตัวที่เด็คนี้เน้น",
         "source": "Viral diagnosis p.35",
         "body": [
-          {
-            "text": "สไลด์บอกว่าเนื้อหาส่วนนี้จำกัดอยู่ที่ Ab detection ด้วย serological tests ต่อไปนี้"
-          },
+          "สไลด์บอกว่าเนื้อหาส่วนนี้จำกัดอยู่ที่ Ab detection ด้วย serological tests ต่อไปนี้",
           {
             "bullets": [
               "**Serum neutralization (SN) test ซึ่งเป็น gold standard**",
@@ -12293,12 +11197,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Serum / viral neutralization (SN/VN) test",
         "source": "Viral diagnosis p.36",
         "body": [
-          {
-            "text": "**ถือเป็น gold standard ของ serological tests เพราะ antibodies ที่วัดได้คือ neutralizing antibodies ซึ่งเป็น protective antibodies**"
-          },
-          {
-            "text": "หลักการ: อาศัยกลไกที่ specific antibodies ยับยั้ง virus infection จึงป้องกันการเปลี่ยนแปลงที่ไวรัสก่อใน host system รวมถึง CPE ใน cell culture"
-          },
+          "**ถือเป็น gold standard ของ serological tests เพราะ antibodies ที่วัดได้คือ neutralizing antibodies ซึ่งเป็น protective antibodies**",
+          "หลักการ: อาศัยกลไกที่ specific antibodies ยับยั้ง virus infection จึงป้องกันการเปลี่ยนแปลงที่ไวรัสก่อใน host system รวมถึง CPE ใน cell culture",
           {
             "bullets": [
               "**High antibody เท่ากับไวรัสถูก neutralized ไวรัสที่ถูก neutralized จะ infect เซลล์ไม่ได้ จึงเห็น normal cell monolayer**"
@@ -12310,9 +11210,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Enzyme-Linked Immunosorbent Assay (ELISA)",
         "source": "Viral diagnosis p.37",
         "body": [
-          {
-            "text": "หลักการ: อาศัย specific interactions ระหว่าง antigens กับ antibodies ร่วมกับคุณสมบัติของ enzyme ที่ catalyze substrate ที่เหมาะสม เกิด colored products แล้ว **quantify ด้วย spectrophotometer**"
-          },
+          "หลักการ: อาศัย specific interactions ระหว่าง antigens กับ antibodies ร่วมกับคุณสมบัติของ enzyme ที่ catalyze substrate ที่เหมาะสม เกิด colored products แล้ว **quantify ด้วย spectrophotometer**",
           {
             "bullets": [
               "**ตรวจได้ทั้ง antigen หรือ antibodies**",
@@ -12321,18 +11219,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**อาจแยกตรวจ Ig แต่ละ class ได้ เช่น IgG, IgM, IgA**"
             ]
           },
-          {
-            "text": "p.38 เป็นแผนภาพ indirect ELISA พร้อมเอกสารอ้างอิง ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "p.38 เป็นแผนภาพ indirect ELISA พร้อมเอกสารอ้างอิง ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
         "heading": "Hemagglutination Inhibition (HI) test",
         "source": "Viral diagnosis p.39",
         "body": [
-          {
-            "text": "**ตรวจแอนติบอดีที่จำเพาะต่อ viral HA protein ซึ่งยับยั้ง hemagglutination activity ของไวรัสได้**"
-          },
+          "**ตรวจแอนติบอดีที่จำเพาะต่อ viral HA protein ซึ่งยับยั้ง hemagglutination activity ของไวรัสได้**",
           {
             "bullets": [
               "**เห็น hemagglutination เท่ากับ antibody negative**",
@@ -12385,9 +11279,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ผลของไวรัสในระดับเซลล์ (cellular level)",
         "source": "Viral pathogenesis p.2",
         "body": [
-          {
-            "text": "สไลด์แบ่งผลที่ไวรัสทำกับเซลล์ออกเป็น 4 กลุ่ม โดยกลุ่มแรกคือ **Cytopathic Effects (CPE)** ซึ่งเด็คจะขยายรายละเอียดต่อไปอีกหลายสไลด์"
-          },
+          "สไลด์แบ่งผลที่ไวรัสทำกับเซลล์ออกเป็น 4 กลุ่ม โดยกลุ่มแรกคือ **Cytopathic Effects (CPE)** ซึ่งเด็คจะขยายรายละเอียดต่อไปอีกหลายสไลด์",
           {
             "bullets": [
               "**Cytopathic Effects (CPE)** ได้แก่ Round, Shrink, Syncytia, Inclusion Bodies, Apoptosis",
@@ -12406,12 +11298,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "CPE คืออะไร",
         "source": "Viral pathogenesis p.3",
         "body": [
-          {
-            "text": "สไลด์ให้คำนิยามสั้นมากคำเดียวว่า CPE คือ **a morphological alteration of cells** คือการเปลี่ยนแปลงรูปร่างลักษณะของเซลล์"
-          },
-          {
-            "text": "สไลด์ถัดมาเป็นรูปเปรียบเทียบ **fresh monolayer of cell culture** กับ **stained monolayer of cell culture** ซึ่งเป็นภาพล้วน ไม่มีข้อความอธิบายกำกับ"
-          }
+          "สไลด์ให้คำนิยามสั้นมากคำเดียวว่า CPE คือ **a morphological alteration of cells** คือการเปลี่ยนแปลงรูปร่างลักษณะของเซลล์",
+          "สไลด์ถัดมาเป็นรูปเปรียบเทียบ **fresh monolayer of cell culture** กับ **stained monolayer of cell culture** ซึ่งเป็นภาพล้วน ไม่มีข้อความอธิบายกำกับ"
         ]
       },
       {
@@ -12424,63 +11312,45 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**2. Round Up and Shrink** คือเซลล์กลมขึ้นแล้วหดตัว"
             ]
           },
-          {
-            "text": "เด็คให้เห็นเป็นรูป Round CPE ตามมา 1 สไลด์ ไม่มีคำอธิบายกลไกเพิ่ม"
-          }
+          "เด็คให้เห็นเป็นรูป Round CPE ตามมา 1 สไลด์ ไม่มีคำอธิบายกลไกเพิ่ม"
         ]
       },
       {
         "heading": "CPE แบบที่ 3: Syncytial formation",
         "source": "Viral pathogenesis p.8",
         "body": [
-          {
-            "text": "สไลด์นิยามว่าเป็น **a fusion of cellular membrane of cells** ทำให้เกิดเซลล์ที่มี **หลายนิวเคลียส (multinuclear cell)** และมี cytoplasm ขนาดใหญ่ขึ้นอยู่ภายใน cell membrane เดียวกัน"
-          },
-          {
-            "text": "หลังสไลด์นิยามเป็นรูป syncytial formation ติดกัน 3 สไลด์ ไม่มีข้อความประกอบ"
-          }
+          "สไลด์นิยามว่าเป็น **a fusion of cellular membrane of cells** ทำให้เกิดเซลล์ที่มี **หลายนิวเคลียส (multinuclear cell)** และมี cytoplasm ขนาดใหญ่ขึ้นอยู่ภายใน cell membrane เดียวกัน",
+          "หลังสไลด์นิยามเป็นรูป syncytial formation ติดกัน 3 สไลด์ ไม่มีข้อความประกอบ"
         ]
       },
       {
         "heading": "CPE แบบที่ 4: Inclusion bodies",
         "source": "Viral pathogenesis p.12",
         "body": [
-          {
-            "text": "สไลด์นิยามว่าเป็น **foreign intracellular masses with abnormal staining** และเน้นว่า **usually are sites of viral replication** คือส่วนใหญ่เป็นตำแหน่งที่ไวรัสเพิ่มจำนวน"
-          },
+          "สไลด์นิยามว่าเป็น **foreign intracellular masses with abnormal staining** และเน้นว่า **usually are sites of viral replication** คือส่วนใหญ่เป็นตำแหน่งที่ไวรัสเพิ่มจำนวน",
           {
             "bullets": [
               "**Intranuclear inclusion bodies**",
               "**Intracytoplasmic inclusion bodies**"
             ]
           },
-          {
-            "text": "สไลด์ถัดมาเป็นรูปตัวอย่างของทั้งสองแบบอย่างละ 1 สไลด์ เด็คไม่ได้ระบุว่าไวรัสตัวใดสร้าง inclusion body แบบไหน สไลด์ไม่ได้บอก"
-          }
+          "สไลด์ถัดมาเป็นรูปตัวอย่างของทั้งสองแบบอย่างละ 1 สไลด์ เด็คไม่ได้ระบุว่าไวรัสตัวใดสร้าง inclusion body แบบไหน สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "CPE แบบที่ 5: Apoptosis",
         "source": "Viral pathogenesis p.15",
         "body": [
-          {
-            "text": "สไลด์เขียนกำกับว่า **APOPTOSIS : PROGRAMMED CELL DEATH** และนิยามว่าเป็นการตายของเซลล์ที่ถูกเหนี่ยวนำโดย **expression of a group of genes** ที่โปรแกรม physiological aging ของเซลล์ไว้"
-          },
-          {
-            "text": "ผลที่ตามมาตามที่สไลด์ระบุคือ **chromatin condensation**, **DNA fragmentation** และ **blebbing to apoptotic bodies**"
-          },
-          {
-            "text": "อีกสไลด์หนึ่งตั้งหัวเรื่องว่า Virus induced cell death: **Apoptosis and Necrosis** แต่เป็นรูปเปรียบเทียบล้วน เด็คไม่ได้เขียนข้อแตกต่างระหว่าง apoptosis กับ necrosis เป็นตัวหนังสือ สไลด์ไม่ได้บอก"
-          }
+          "สไลด์เขียนกำกับว่า **APOPTOSIS : PROGRAMMED CELL DEATH** และนิยามว่าเป็นการตายของเซลล์ที่ถูกเหนี่ยวนำโดย **expression of a group of genes** ที่โปรแกรม physiological aging ของเซลล์ไว้",
+          "ผลที่ตามมาตามที่สไลด์ระบุคือ **chromatin condensation**, **DNA fragmentation** และ **blebbing to apoptotic bodies**",
+          "อีกสไลด์หนึ่งตั้งหัวเรื่องว่า Virus induced cell death: **Apoptosis and Necrosis** แต่เป็นรูปเปรียบเทียบล้วน เด็คไม่ได้เขียนข้อแตกต่างระหว่าง apoptosis กับ necrosis เป็นตัวหนังสือ สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "CPE แบบที่ 6: Plaque formation",
         "source": "Viral pathogenesis p.18",
         "body": [
-          {
-            "text": "สไลด์มีเพียงหัวข้อ **6. Plaque formation** เท่านั้น ไม่มีคำนิยามหรือคำอธิบายว่า plaque เกิดขึ้นอย่างไรหรือใช้ทำอะไร สไลด์ไม่ได้บอก"
-          },
+          "สไลด์มีเพียงหัวข้อ **6. Plaque formation** เท่านั้น ไม่มีคำนิยามหรือคำอธิบายว่า plaque เกิดขึ้นอย่างไรหรือใช้ทำอะไร สไลด์ไม่ได้บอก",
           {
             "callout": "จุดที่ต้องระวังตอนท่อง: สไลด์ภาพรวม p.2 ลิสต์ CPE ไว้ 5 อย่าง (Round, Shrink, Syncytia, Inclusion Bodies, Apoptosis) แต่สไลด์ที่ไล่หมายเลขจริงนับถึง **6 แบบ** โดยมี Plaque formation เป็นข้อที่ 6",
             "kind": "flag"
@@ -12491,9 +11361,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ระดับตัวสัตว์: ทางเข้า การกระจาย และการปล่อยเชื้อ",
         "source": "Viral pathogenesis p.19",
         "body": [
-          {
-            "text": "เมื่อขึ้นหัวข้อ **HOST ANIMAL LEVEL** เด็คไล่หัวข้อไว้ 3 เรื่องต่อกันเป็นสไลด์หัวเรื่องกับรูป"
-          },
+          "เมื่อขึ้นหัวข้อ **HOST ANIMAL LEVEL** เด็คไล่หัวข้อไว้ 3 เรื่องต่อกันเป็นสไลด์หัวเรื่องกับรูป",
           {
             "bullets": [
               "**Route of Virus Entry**",
@@ -12511,9 +11379,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "รูปแบบการติดเชื้อในระดับตัวสัตว์ 6 แบบ",
         "source": "Viral pathogenesis p.22",
         "body": [
-          {
-            "text": "สไลด์นี้คือโครงของครึ่งหลังทั้งเด็ค สไลด์ที่เหลือหลังจากนี้คือรูปตัวอย่างของหัวข้อทั้ง 6 นี้"
-          },
+          "สไลด์นี้คือโครงของครึ่งหลังทั้งเด็ค สไลด์ที่เหลือหลังจากนี้คือรูปตัวอย่างของหัวข้อทั้ง 6 นี้",
           {
             "bullets": [
               "**Acute Lytic Infection**",
@@ -12530,9 +11396,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Acute lytic infection แสดงออกได้ 4 ระดับ",
         "source": "Viral pathogenesis p.23",
         "body": [
-          {
-            "text": "เด็คใช้สไลด์รูป 4 สไลด์ติดกัน แต่ละสไลด์มีแคปชันบอกว่ากำลังดู acute lytic infection ในระดับใด"
-          },
+          "เด็คใช้สไลด์รูป 4 สไลด์ติดกัน แต่ละสไลด์มีแคปชันบอกว่ากำลังดู acute lytic infection ในระดับใด",
           {
             "bullets": [
               "**Clinical Signs**",
@@ -12541,18 +11405,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Histopathologic Lesions**"
             ]
           },
-          {
-            "text": "ทั้ง 4 สไลด์ไม่ได้ระบุชื่อโรคหรือชื่อไวรัสที่เป็นเจ้าของรูป สไลด์ไม่ได้บอก"
-          }
+          "ทั้ง 4 สไลด์ไม่ได้ระบุชื่อโรคหรือชื่อไวรัสที่เป็นเจ้าของรูป สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "Acute lytic vs Persistent infection",
         "source": "Viral pathogenesis p.27",
         "body": [
-          {
-            "text": "สไลด์เปรียบเทียบสองแบบนี้ด้วยแผนภาพ โดยเขียนหัวข้อที่ใช้เทียบไว้ **3 แกน**"
-          },
+          "สไลด์เปรียบเทียบสองแบบนี้ด้วยแผนภาพ โดยเขียนหัวข้อที่ใช้เทียบไว้ **3 แกน**",
           {
             "bullets": [
               "**Viruses shedding** คือการปล่อยเชื้อ",
@@ -12570,9 +11430,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Transplacental infection กับตัวอย่างไวรัสที่เด็คยกไว้",
         "source": "Viral pathogenesis p.28",
         "body": [
-          {
-            "text": "ส่วนนี้เป็นส่วนที่จำง่ายที่สุดของเด็ค เพราะแต่ละสไลด์จับคู่ **ผลต่อลูกในท้อง** กับ **ไวรัสตัวอย่าง** ไว้ตรง ๆ"
-          },
+          "ส่วนนี้เป็นส่วนที่จำง่ายที่สุดของเด็ค เพราะแต่ละสไลด์จับคู่ **ผลต่อลูกในท้อง** กับ **ไวรัสตัวอย่าง** ไว้ตรง ๆ",
           {
             "bullets": [
               "**Mummification** ตัวอย่างคือ **Porcine Parvovirus**",
@@ -12591,9 +11449,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Transformation: ไวรัสที่เหนี่ยวนำให้เกิดเนื้องอก",
         "source": "Viral pathogenesis p.33",
         "body": [
-          {
-            "text": "เด็คแสดงรูปเนื้องอกพร้อมแคปชัน **Tumors induced** และระบุไวรัสตัวอย่างไว้"
-          },
+          "เด็คแสดงรูปเนื้องอกพร้อมแคปชัน **Tumors induced** และระบุไวรัสตัวอย่างไว้",
           {
             "bullets": [
               "**Marek's virus** มี 2 สไลด์",
@@ -12601,36 +11457,28 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Papillomavirus**"
             ]
           },
-          {
-            "text": "หลังจากนั้นมีสไลด์หัวเรื่อง **Oncogenesis by viruses** แต่เป็นสไลด์รูป ไม่มีข้อความอธิบายกลไกการก่อมะเร็งของไวรัส สไลด์ไม่ได้บอก"
-          }
+          "หลังจากนั้นมีสไลด์หัวเรื่อง **Oncogenesis by viruses** แต่เป็นสไลด์รูป ไม่มีข้อความอธิบายกลไกการก่อมะเร็งของไวรัส สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "Virus induced immunologic disease",
         "source": "Viral pathogenesis p.40",
         "body": [
-          {
-            "text": "เด็คยกตัวอย่างโรคที่พยาธิสภาพเกิดจากปฏิกิริยาทางภูมิคุ้มกันไว้ 2 ตัวอย่าง"
-          },
+          "เด็คยกตัวอย่างโรคที่พยาธิสภาพเกิดจากปฏิกิริยาทางภูมิคุ้มกันไว้ 2 ตัวอย่าง",
           {
             "bullets": [
               "**Feline Infectious Peritonitis virus** มี 2 สไลด์",
               "**Blue eyes** จาก **Canine Hepatitis virus**"
             ]
           },
-          {
-            "text": "มีอีกสไลด์หนึ่งที่ตั้งหัวเรื่องว่า Virus induced immunologic disease เฉย ๆ โดยไม่ระบุไวรัส และเด็คไม่ได้อธิบายว่ากลไกทางภูมิคุ้มกันที่ทำให้เกิดรอยโรคเหล่านี้คืออะไร สไลด์ไม่ได้บอก"
-          }
+          "มีอีกสไลด์หนึ่งที่ตั้งหัวเรื่องว่า Virus induced immunologic disease เฉย ๆ โดยไม่ระบุไวรัส และเด็คไม่ได้อธิบายว่ากลไกทางภูมิคุ้มกันที่ทำให้เกิดรอยโรคเหล่านี้คืออะไร สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "Immunodeficiency",
         "source": "Viral pathogenesis p.45",
         "body": [
-          {
-            "text": "สไลด์ 3 สไลด์สุดท้ายของเด็คเป็นรูปชุดเดียวกัน แคปชันว่า **Immunodeficiency : Feline Immunodeficiency virus with Feline Calicivirus** คือแมวที่ติด **FIV** ร่วมกับ **Feline Calicivirus**"
-          },
+          "สไลด์ 3 สไลด์สุดท้ายของเด็คเป็นรูปชุดเดียวกัน แคปชันว่า **Immunodeficiency : Feline Immunodeficiency virus with Feline Calicivirus** คือแมวที่ติด **FIV** ร่วมกับ **Feline Calicivirus**",
           {
             "callout": "สไลด์ p.22 ลิสต์หัวข้อนี้ไว้ว่า Immunodeficiency, Immunosuppression แต่ตอนลงรายละเอียดเด็คให้เพียงชุดรูปตัวอย่างนี้ ไม่มีคำอธิบายว่า FIV กดภูมิคุ้มกันอย่างไรจนทำให้ Feline Calicivirus แสดงอาการรุนแรงขึ้น สไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -12650,9 +11498,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ทำไมต้อง isolate ไวรัส และ host system ที่ใช้ได้",
         "source": "Virus isolation in cell culture p.2",
         "body": [
-          {
-            "text": "เหตุผลพื้นฐานคือ **ไวรัสเป็น obligate intracellular parasite จึงต้องมี host cell ให้ replication** เพาะบนอาหารเลี้ยงเชื้อเปล่าแบบแบคทีเรียไม่ได้"
-          },
+          "เหตุผลพื้นฐานคือ **ไวรัสเป็น obligate intracellular parasite จึงต้องมี host cell ให้ replication** เพาะบนอาหารเลี้ยงเชื้อเปล่าแบบแบคทีเรียไม่ได้",
           {
             "sub": "host system ที่สไลด์ระบุไว้ 3 แบบ",
             "body": [
@@ -12687,9 +11533,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Cell culture คืออะไร",
         "source": "Virus isolation in cell culture p.3",
         "body": [
-          {
-            "text": "นิยามตามสไลด์คือ **การนำเซลล์ออกจากสัตว์หรือพืช แล้วส่งเสริมให้เซลล์เติบโตใน favourable artificial environment**"
-          },
+          "นิยามตามสไลด์คือ **การนำเซลล์ออกจากสัตว์หรือพืช แล้วส่งเสริมให้เซลล์เติบโตใน favourable artificial environment**",
           {
             "sub": "วิธีนำเซลล์ออกมา",
             "body": [
@@ -12723,15 +11567,11 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Culture conditions",
         "source": "Virus isolation in cell culture p.4",
         "body": [
-          {
-            "text": "สไลด์เน้นว่า **culture condition vary widely for each cell type** ไม่มีสูตรเดียวที่ใช้ได้กับทุกเซลล์"
-          },
+          "สไลด์เน้นว่า **culture condition vary widely for each cell type** ไม่มีสูตรเดียวที่ใช้ได้กับทุกเซลล์",
           {
             "sub": "culture vessel",
             "body": [
-              {
-                "text": "mostly polystyrene plastic"
-              }
+              "mostly polystyrene plastic"
             ]
           },
           {
@@ -12768,9 +11608,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Morphology of cells in culture",
         "source": "Virus isolation in cell culture p.5",
         "body": [
-          {
-            "text": "สไลด์แบ่งเซลล์ตามรูปร่างและการเกาะพื้นผิวเป็น 3 กลุ่ม โดยจัดกลุ่มแรกและกลุ่มที่สองเป็น **adherent cell** ส่วนกลุ่มสุดท้ายเป็น **suspension cell**"
-          },
+          "สไลด์แบ่งเซลล์ตามรูปร่างและการเกาะพื้นผิวเป็น 3 กลุ่ม โดยจัดกลุ่มแรกและกลุ่มที่สองเป็น **adherent cell** ส่วนกลุ่มสุดท้ายเป็น **suspension cell**",
           {
             "bullets": [
               "**Fibroblastic (fibroblast-like) cells** เป็น bipolar หรือ multipolar รูปร่างยาว elongated และ grow attached to a surface",
@@ -12784,9 +11622,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Cell monolayer และ contact inhibition",
         "source": "Virus isolation in cell culture p.6",
         "body": [
-          {
-            "text": "หน้านี้เป็นสไลด์ภาพ monolayer สองแบบคือ epithelial-like cell monolayer และ fibroblastic cell monolayer โดยมีคำที่ต้องจำคำเดียวคือ **contact inhibition**"
-          },
+          "หน้านี้เป็นสไลด์ภาพ monolayer สองแบบคือ epithelial-like cell monolayer และ fibroblastic cell monolayer โดยมีคำที่ต้องจำคำเดียวคือ **contact inhibition**",
           {
             "callout": "สไลด์ใส่คำว่า contact inhibition ไว้ในเครื่องหมายคำพูดเฉย ๆ ไม่ได้อธิบายกลไกหรือความหมายเป็นข้อความ สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -12797,9 +11633,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Subculture of cell monolayer",
         "source": "Virus isolation in cell culture p.7",
         "body": [
-          {
-            "text": "หน้านี้เป็นแผนภาพการ subculture ของ monolayer โดยมีคำสำคัญคำเดียวคือ **trypsinisation** อ้างอิงจาก Freshney IR, Culture of animal cells, 6 edition: 198, 2010"
-          },
+          "หน้านี้เป็นแผนภาพการ subculture ของ monolayer โดยมีคำสำคัญคำเดียวคือ **trypsinisation** อ้างอิงจาก Freshney IR, Culture of animal cells, 6 edition: 198, 2010",
           {
             "callout": "ขั้นตอนย่อยของ trypsinisation ไม่ได้เขียนเป็นข้อความบนสไลด์ อยู่ในรูปอย่างเดียว สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -12824,9 +11658,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Cell line",
             "body": [
-              {
-                "text": "**หลังจาก subculture ครั้งแรก primary culture จะเรียกว่า cell line** และสไลด์แบ่งต่อเป็น finite กับ continuous cell line"
-              }
+              "**หลังจาก subculture ครั้งแรก primary culture จะเรียกว่า cell line** และสไลด์แบ่งต่อเป็น finite กับ continuous cell line"
             ]
           },
           {
@@ -12869,18 +11701,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "อ้างอิงบนสไลด์คือ Freshney IR, Culture of animal cells, 6 edition: 198, 2010 และ Frade MAC et al., An Bras Dermatol 2015"
-          }
+          "อ้างอิงบนสไลด์คือ Freshney IR, Culture of animal cells, 6 edition: 198, 2010 และ Frade MAC et al., An Bras Dermatol 2015"
         ]
       },
       {
         "heading": "Specimens for virus isolation",
         "source": "Virus isolation in cell culture p.10",
         "body": [
-          {
-            "text": "หลักการเดียวที่สไลด์ย้ำคือ **appropriate clinical specimens depends on suspected viral disease** และตัวอย่าง **ต้องอยู่ในรูป liquid form**"
-          },
+          "หลักการเดียวที่สไลด์ย้ำคือ **appropriate clinical specimens depends on suspected viral disease** และตัวอย่าง **ต้องอยู่ในรูป liquid form**",
           {
             "sub": "ตัวอย่างที่สไลด์ยกมา",
             "body": [
@@ -12923,9 +11751,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "co-culture",
             "body": [
-              {
-                "text": "ใช้ **trypsinised cell หรือ cell suspension** มา culture together กับ sample"
-              }
+              "ใช้ **trypsinised cell หรือ cell suspension** มา culture together กับ sample"
             ]
           },
           {
@@ -12938,9 +11764,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Cytopathic effect (CPE) คืออะไร และดูด้วยอะไร",
         "source": "Virus isolation in cell culture p.12",
         "body": [
-          {
-            "text": "CPE คือ **evidence of viral growth in cultured cells** คือหลักฐานว่าไวรัสโตในเซลล์ที่เลี้ยงไว้"
-          },
+          "CPE คือ **evidence of viral growth in cultured cells** คือหลักฐานว่าไวรัสโตในเซลล์ที่เลี้ยงไว้",
           {
             "sub": "simple light หรือ phase-contrast microscope ที่ low power",
             "body": [
@@ -12955,9 +11779,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "high-power microscopy",
             "body": [
-              {
-                "text": "เห็น intracellular masses of viral particle คือ **inclusion bodies**"
-              }
+              "เห็น intracellular masses of viral particle คือ **inclusion bodies**"
             ]
           },
           {
@@ -12970,9 +11792,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Round CPE ตามเวลาหลัง inoculation",
         "source": "Virus isolation in cell culture p.13",
         "body": [
-          {
-            "text": "หน้านี้เป็นภาพเปรียบเทียบ round CPE 4 ภาพ ไล่ตามเวลา โดยมีเพียง caption กำกับว่า **uninfected control, 5 hours, 8 hours และ 24 hours after inoculation** ดัดแปลงจาก Principle of Virology, 4th edition, 2015"
-          },
+          "หน้านี้เป็นภาพเปรียบเทียบ round CPE 4 ภาพ ไล่ตามเวลา โดยมีเพียง caption กำกับว่า **uninfected control, 5 hours, 8 hours และ 24 hours after inoculation** ดัดแปลงจาก Principle of Virology, 4th edition, 2015",
           {
             "callout": "สไลด์ไม่ได้บรรยายเป็นข้อความว่าแต่ละช่วงเวลาเซลล์เปลี่ยนไปอย่างไร ต้องดูจากภาพในสไลด์เอง และหน้า 14 กับ 15 เป็นสไลด์ภาพ round CPE ต่อเนื่องที่มีแต่หัวเรื่อง ไม่มีข้อความใด ๆ",
             "kind": "flag"
@@ -12983,21 +11803,15 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ตัวอย่าง CPE ที่มีชื่อเรียกเฉพาะ: FHV-1",
         "source": "Virus isolation in cell culture p.16",
         "body": [
-          {
-            "text": "สไลด์ยกตัวอย่างเดียวคือ **FHV-1 ใน FK81 cell** ให้ลักษณะ **cell rounding, pyknosis และ Fleece-Pulling CPE**"
-          },
-          {
-            "text": "อ้างอิงบนสไลด์คือ Sun H et al., Viruses, 2014 และดัดแปลงจาก Principle of Virology, 4th edition, 2015"
-          }
+          "สไลด์ยกตัวอย่างเดียวคือ **FHV-1 ใน FK81 cell** ให้ลักษณะ **cell rounding, pyknosis และ Fleece-Pulling CPE**",
+          "อ้างอิงบนสไลด์คือ Sun H et al., Viruses, 2014 และดัดแปลงจาก Principle of Virology, 4th edition, 2015"
         ]
       },
       {
         "heading": "CPE แบบ syncytial formation",
         "source": "Virus isolation in cell culture p.17",
         "body": [
-          {
-            "text": "หน้านี้เป็นแผนภาพการเกิด syncytium โดยมีคำอธิบายสัญลักษณ์เพียง 2 อย่างคือ **viral glycoprotein** และ **cellular receptor** ดัดแปลงจาก Principle of Virology, 4th edition, 2015"
-          },
+          "หน้านี้เป็นแผนภาพการเกิด syncytium โดยมีคำอธิบายสัญลักษณ์เพียง 2 อย่างคือ **viral glycoprotein** และ **cellular receptor** ดัดแปลงจาก Principle of Virology, 4th edition, 2015",
           {
             "callout": "ลำดับขั้นของการเกิด syncytium ไม่ได้เขียนเป็นข้อความบนสไลด์ มีแต่รูปกับ key สองตัวนี้ สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -13008,9 +11822,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "CPE แบบ inclusion body และตัวอย่างที่ต้องจำ",
         "source": "Virus isolation in cell culture p.18",
         "body": [
-          {
-            "text": "สไลด์แบ่ง inclusion body ตามตำแหน่งเป็น **intranuclear inclusion body** กับ **intracytoplasmic inclusion body** แล้วยกตัวอย่างคู่กับเชื้อไว้ 2 คู่"
-          },
+          "สไลด์แบ่ง inclusion body ตามตำแหน่งเป็น **intranuclear inclusion body** กับ **intracytoplasmic inclusion body** แล้วยกตัวอย่างคู่กับเชื้อไว้ 2 คู่",
           {
             "bullets": [
               "**intranuclear eosinophilic viral bodies คือ Cowdry type A inclusions พบใน herpesvirus**",
@@ -13027,9 +11839,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ถ้าไวรัสไม่ทำให้เกิด CPE จะตรวจอย่างไร",
         "source": "Virus isolation in cell culture p.19",
         "body": [
-          {
-            "text": "สไลด์ระบุทางเลือกเมื่อเจอ **virus without CPE** ไว้ 3 แนวทาง"
-          },
+          "สไลด์ระบุทางเลือกเมื่อเจอ **virus without CPE** ไว้ 3 แนวทาง",
           {
             "bullets": [
               "**Immunostaining ได้แก่ ICC (immunocytochemistry) และ IF (immunofluorescence)**",
@@ -13056,9 +11866,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ทำไมต้องเรียน virus replication",
         "source": "Virus replication&genetic p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยคำถามว่า Why we need to learn virus replication? แล้วตอบเป็นเหตุผล 5 ข้อ"
-          },
+          "สไลด์เปิดด้วยคำถามว่า Why we need to learn virus replication? แล้วตอบเป็นเหตุผล 5 ข้อ",
           {
             "bullets": [
               "To classify virus",
@@ -13074,15 +11882,9 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Virus คือ obligate intracellular parasite",
         "source": "Virus replication&genetic p.3",
         "body": [
-          {
-            "text": "**Virus ไม่เรียกว่าการแบ่งตัว แต่เรียกว่าการเพิ่มจำนวน** และ **unable to replicate outside the host cell**"
-          },
-          {
-            "text": "genome ของไวรัสต้องเข้าไปใน host cell ก่อน เพื่อสร้าง viral nucleic acid และ protein สำหรับการเพิ่มจำนวน (สไลด์เขียนกำกับว่า ปล่อย genome เข้า host cell แล้วเกิดการสร้างโปรตีนขึ้นมาใหม่)"
-          },
-          {
-            "text": "ไวรัสยืม host cell ไปทั้งสองบทบาท"
-          },
+          "**Virus ไม่เรียกว่าการแบ่งตัว แต่เรียกว่าการเพิ่มจำนวน** และ **unable to replicate outside the host cell**",
+          "genome ของไวรัสต้องเข้าไปใน host cell ก่อน เพื่อสร้าง viral nucleic acid และ protein สำหรับการเพิ่มจำนวน (สไลด์เขียนกำกับว่า ปล่อย genome เข้า host cell แล้วเกิดการสร้างโปรตีนขึ้นมาใหม่)",
+          "ไวรัสยืม host cell ไปทั้งสองบทบาท",
           {
             "bullets": [
               "Host cell as a **manufacture** ได้แก่ nucleus, ribosome, golgi apparatus",
@@ -13095,9 +11897,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "One-step growth curve",
         "source": "Virus replication&genetic p.4",
         "body": [
-          {
-            "text": "สไลด์อธิบายวิธีทำว่า ทดลองใส่ไวรัสเข้าเซลล์เพาะเลี้ยง แล้วตรวจหาจำนวนไวรัสมา plot กราฟ กราฟแบ่งได้เป็น 3 ระยะ"
-          },
+          "สไลด์อธิบายวิธีทำว่า ทดลองใส่ไวรัสเข้าเซลล์เพาะเลี้ยง แล้วตรวจหาจำนวนไวรัสมา plot กราฟ กราฟแบ่งได้เป็น 3 ระยะ",
           {
             "bullets": [
               "**Attachment stage** ระยะที่ virus ยึดเกาะกับ cell",
@@ -13105,18 +11905,14 @@ export const NOTES_Y2_MICROBIO_1 = {
               "**Productive stage** (maturation และ release)"
             ]
           },
-          {
-            "text": "อ้างอิงบนสไลด์ Shore T (2009) Understanding viruses, USA, Jones and Bartlett Publishers"
-          }
+          "อ้างอิงบนสไลด์ Shore T (2009) Understanding viruses, USA, Jones and Bartlett Publishers"
         ]
       },
       {
         "heading": "ภาพรวม 6 ขั้นตอนของ virus replication",
         "source": "Virus replication&genetic p.5",
         "body": [
-          {
-            "text": "ลำดับที่เด็คใช้เดินเรื่องทั้งครึ่งแรก จำให้ครบและเรียงถูก"
-          },
+          "ลำดับที่เด็คใช้เดินเรื่องทั้งครึ่งแรก จำให้ครบและเรียงถูก",
           {
             "bullets": [
               "**1. Attachment**",
@@ -13133,12 +11929,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นที่ 1 Attachment หรือ adsorption",
         "source": "Virus replication&genetic p.6",
         "body": [
-          {
-            "text": "คือการจับกันระหว่าง **viral attachment proteins** กับ **specific receptors บน host cell membrane**"
-          },
-          {
-            "text": "การจับคู่นี้เป็นตัวกำหนดสองอย่าง"
-          },
+          "คือการจับกันระหว่าง **viral attachment proteins** กับ **specific receptors บน host cell membrane**",
+          "การจับคู่นี้เป็นตัวกำหนดสองอย่าง",
           {
             "bullets": [
               "**Host species specific of virus** เรียกว่า host range",
@@ -13177,9 +11969,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นที่ 2 Penetration หรือ uptake มี 3 แบบ",
         "source": "Virus replication&genetic p.9-11",
         "body": [
-          {
-            "text": "เด็คแยกวิธีเข้าเซลล์เป็นสไลด์ละแบบ ให้จำคู่กับว่าไวรัสมี envelope หรือไม่"
-          },
+          "เด็คแยกวิธีเข้าเซลล์เป็นสไลด์ละแบบ ให้จำคู่กับว่าไวรัสมี envelope หรือไม่",
           {
             "bullets": [
               "**Direct penetration หรือ translocation** เป็นของ **non-enveloped viruses** ที่แทรกผ่าน plasma membrane เข้าสู่ cytoplasm ได้โดยตรง (p.9)",
@@ -13193,12 +11983,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นที่ 3 Uncoating",
         "source": "Virus replication&genetic p.12",
         "body": [
-          {
-            "text": "คือการ **remove หรือ degrade capsid** ซึ่งเกิดได้ที่ตำแหน่งต่างกันไปในเซลล์ ผลคือปล่อย genome ออกสู่ host cell"
-          },
-          {
-            "text": "หลังจากนั้น genome จะถูกขนส่งไปยังตำแหน่งที่ transcription หรือ replication จะเริ่มได้"
-          },
+          "คือการ **remove หรือ degrade capsid** ซึ่งเกิดได้ที่ตำแหน่งต่างกันไปในเซลล์ ผลคือปล่อย genome ออกสู่ host cell",
+          "หลังจากนั้น genome จะถูกขนส่งไปยังตำแหน่งที่ transcription หรือ replication จะเริ่มได้",
           {
             "callout": "สไลด์ 13 เป็นรูป uncoating ล้วน ไม่มีข้อความ",
             "kind": "flag"
@@ -13209,9 +11995,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นที่ 4 ชนิดของ viral genome",
         "source": "Virus replication&genetic p.14",
         "body": [
-          {
-            "text": "สไลด์ไล่ผังชนิดของ nucleic acid genome ออกเป็น"
-          },
+          "สไลด์ไล่ผังชนิดของ nucleic acid genome ออกเป็น",
           {
             "bullets": [
               "**DNA** แยกเป็น **dsDNA** และ **ssDNA**",
@@ -13219,33 +12003,25 @@ export const NOTES_Y2_MICROBIO_1 = {
               "ssRNA ยังแยกย่อยเป็น **(+) sense ssRNA** และ **(-) sense ssRNA**"
             ]
           },
-          {
-            "text": "ประเด็นที่สไลด์เน้น **genome ต่างชนิดกันบังคับให้ใช้ replication strategy ต่างกัน**"
-          },
+          "ประเด็นที่สไลด์เน้น **genome ต่างชนิดกันบังคับให้ใช้ replication strategy ต่างกัน**",
           {
             "bullets": [
               "Replication strategy ของ DNA viruses ส่วนใหญ่คล้ายกับ eukaryotic DNA replication และ transcription",
               "**RNA virus replication ซับซ้อนกว่า DNA virus** เพราะ genome ของมันหลากหลายและมีลักษณะเฉพาะตัว"
             ]
           },
-          {
-            "text": "สไลด์ 15 สรุปว่าขั้น viral synthesis มี 2 ขั้นสำคัญคือ 1. viral protein production (transcription, translation) และ 2. viral nucleic acid replication"
-          }
+          "สไลด์ 15 สรุปว่าขั้น viral synthesis มี 2 ขั้นสำคัญคือ 1. viral protein production (transcription, translation) และ 2. viral nucleic acid replication"
         ]
       },
       {
         "heading": "ขั้นที่ 4.1 Transcription",
         "source": "Virus replication&genetic p.17",
         "body": [
-          {
-            "text": "หลักที่สไลด์ขีดเส้นใต้ **ไวรัสทุกชนิดต้องแสดงยีนออกมาเป็น viral mRNA ตั้งแต่ระยะต้นของการติดเชื้อ เพื่อจะสร้าง viral proteins ได้**"
-          },
+          "หลักที่สไลด์ขีดเส้นใต้ **ไวรัสทุกชนิดต้องแสดงยีนออกมาเป็น viral mRNA ตั้งแต่ระยะต้นของการติดเชื้อ เพื่อจะสร้าง viral proteins ได้**",
           {
             "sub": "DNA viruses",
             "body": [
-              {
-                "text": "ส่วนใหญ่อาศัย **DNA-dependent RNA polymerase ของ host cell**"
-              }
+              "ส่วนใหญ่อาศัย **DNA-dependent RNA polymerase ของ host cell**"
             ]
           },
           {
@@ -13269,9 +12045,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นที่ 4.1 Translation",
         "source": "Virus replication&genetic p.19",
         "body": [
-          {
-            "text": "**Translation อาศัย host cell translation machinery ทั้งหมด (completely rely)**"
-          },
+          "**Translation อาศัย host cell translation machinery ทั้งหมด (completely rely)**",
           {
             "sub": "DNA viruses แบ่งโปรตีนเป็นสองช่วง",
             "body": [
@@ -13286,9 +12060,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "RNA viruses",
             "body": [
-              {
-                "text": "**All genes are expressed continuously** ไม่ได้แบ่ง early กับ late แบบ DNA viruses"
-              }
+              "**All genes are expressed continuously** ไม่ได้แบ่ง early กับ late แบบ DNA viruses"
             ]
           }
         ]
@@ -13337,9 +12109,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Baltimore classification",
         "source": "Virus replication&genetic p.22",
         "body": [
-          {
-            "text": "ตารางแบ่งไวรัสเป็น 7 class ตามชนิด nucleic acid พร้อมตัวอย่าง เอนไซม์ที่ใช้ และตำแหน่งที่เกิด transcription กับ replication"
-          },
+          "ตารางแบ่งไวรัสเป็น 7 class ตามชนิด nucleic acid พร้อมตัวอย่าง เอนไซม์ที่ใช้ และตำแหน่งที่เกิด transcription กับ replication",
           {
             "bullets": [
               "**Class I dsDNA** ตัวอย่าง Herpesvirus, Adenovirus, Poxvirus เอนไซม์ที่ตารางระบุคือ cellular DdRp และ DpDp กับ viral DdRp และ DpDp ตำแหน่งคือ nucleus และ cytoplasm",
@@ -13365,12 +12135,8 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ขั้นที่ 5 Assembly",
         "source": "Virus replication&genetic p.23",
         "body": [
-          {
-            "text": "คือกระบวนการที่ virus particle ถูกประกอบขึ้น เมื่อองค์ประกอบทั้งหมดของไวรัส (viral genome และ proteins ที่เพิ่งสังเคราะห์เสร็จ) มารวมกันที่ตำแหน่งจำเพาะในเซลล์"
-          },
-          {
-            "text": "**Assembly sites ได้แก่ nucleus, cytoplasm และ cellular membrane**"
-          }
+          "คือกระบวนการที่ virus particle ถูกประกอบขึ้น เมื่อองค์ประกอบทั้งหมดของไวรัส (viral genome และ proteins ที่เพิ่งสังเคราะห์เสร็จ) มารวมกันที่ตำแหน่งจำเพาะในเซลล์",
+          "**Assembly sites ได้แก่ nucleus, cytoplasm และ cellular membrane**"
         ]
       },
       {
@@ -13402,30 +12168,22 @@ export const NOTES_Y2_MICROBIO_1 = {
               }
             ]
           },
-          {
-            "text": "อ้างอิงบนสไลด์ MacLachlan (2011) Fenner's Veterinary Virology, 4th edition, USA, Elsevier"
-          }
+          "อ้างอิงบนสไลด์ MacLachlan (2011) Fenner's Veterinary Virology, 4th edition, USA, Elsevier"
         ]
       },
       {
         "heading": "แผนภาพสรุป replication cycle",
         "source": "Virus replication&genetic p.26",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นแผนภาพวงจรที่ไล่ ATTACHMENT ไป PENETRATION ไป UNCOATING ไป REPLICATION (transcription, translation) ไป ASSEMBLY (MATURATION) ไป RELEASE"
-          },
-          {
-            "text": "จุดที่แผนภาพกำกับไว้คือคำว่า **HOST FUNCTIONS** ซึ่งครอบช่วง replication, transcription และ translation นอกนั้นเป็นรูปล้วน ไม่มีคำอธิบายเพิ่ม"
-          }
+          "สไลด์นี้เป็นแผนภาพวงจรที่ไล่ ATTACHMENT ไป PENETRATION ไป UNCOATING ไป REPLICATION (transcription, translation) ไป ASSEMBLY (MATURATION) ไป RELEASE",
+          "จุดที่แผนภาพกำกับไว้คือคำว่า **HOST FUNCTIONS** ซึ่งครอบช่วง replication, transcription และ translation นอกนั้นเป็นรูปล้วน ไม่มีคำอธิบายเพิ่ม"
         ]
       },
       {
         "heading": "ทำไมต้องรู้ viral genetics",
         "source": "Virus replication&genetic p.28",
         "body": [
-          {
-            "text": "สไลด์ 27 เป็นสไลด์คั่นหัวข้อ Viral genetics เฉย ๆ ส่วนสไลด์ 28 ให้เหตุผลว่าความรู้ด้าน viral genetics สำคัญต่อ"
-          },
+          "สไลด์ 27 เป็นสไลด์คั่นหัวข้อ Viral genetics เฉย ๆ ส่วนสไลด์ 28 ให้เหตุผลว่าความรู้ด้าน viral genetics สำคัญต่อ",
           {
             "bullets": [
               "การเข้าใจ **viral pathogenesis และ transmission**",
@@ -13453,9 +12211,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ผังรวมการเปลี่ยนแปลงทางพันธุกรรมของไวรัส",
         "source": "Virus replication&genetic p.30",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นสารบัญของครึ่งหลัง แบ่งเป็นสองสาย"
-          },
+          "สไลด์นี้เป็นสารบัญของครึ่งหลัง แบ่งเป็นสองสาย",
           {
             "sub": "Mutation (genetic drift)",
             "body": [
@@ -13489,9 +12245,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Mutation คืออะไร และเกิดจากอะไร",
         "source": "Virus replication&genetic p.31",
         "body": [
-          {
-            "text": "นิยามบนสไลด์ **mutation คือการเปลี่ยนแปลงของ nucleotide sequence ที่เกิดเฉพาะจุด (localized) และถ่ายทอดต่อได้ (inheritable)**"
-          },
+          "นิยามบนสไลด์ **mutation คือการเปลี่ยนแปลงของ nucleotide sequence ที่เกิดเฉพาะจุด (localized) และถ่ายทอดต่อได้ (inheritable)**",
           {
             "bullets": [
               "**Spontaneous mutation** เกิดจาก errors ในการ copy viral nucleic acid โดย viral polymerase ระหว่าง replication cycle",
@@ -13504,9 +12258,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Spontaneous mutation และ quasispecies",
         "source": "Virus replication&genetic p.32",
         "body": [
-          {
-            "text": "สไลด์นี้ขยายเรื่อง polymerase error ซึ่งเป็นข้อสอบคลาสสิก"
-          },
+          "สไลด์นี้ขยายเรื่อง polymerase error ซึ่งเป็นข้อสอบคลาสสิก",
           {
             "bullets": [
               "**Mutation rates สูงกว่าใน RNA viruses มากกว่า DNA viruses**",
@@ -13567,9 +12319,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Types of mutation แบบที่ 2 จำแนกตาม phenotype",
         "source": "Virus replication&genetic p.36",
         "body": [
-          {
-            "text": "สไลด์ไล่ชื่อ mutant ตามลักษณะที่แสดงออก ไม่ได้อธิบายแต่ละตัว"
-          },
+          "สไลด์ไล่ชื่อ mutant ตามลักษณะที่แสดงออก ไม่ได้อธิบายแต่ละตัว",
           {
             "bullets": [
               "**Plaque morphology mutants**",
@@ -13591,9 +12341,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Mixed infection: viral genetic interactions",
         "source": "Virus replication&genetic p.37-38",
         "body": [
-          {
-            "text": "สไลด์ 37 วางกรอบว่า mixed infection ทำให้เกิด genetic interaction (recombination, reassortment) และ protein interaction (complementation, phenotypic mixing) สไลด์ 38 นิยามฝั่ง genetic"
-          },
+          "สไลด์ 37 วางกรอบว่า mixed infection ทำให้เกิด genetic interaction (recombination, reassortment) และ protein interaction (complementation, phenotypic mixing) สไลด์ 38 นิยามฝั่ง genetic",
           {
             "bullets": [
               "**Recombination คือการแลกเปลี่ยน nucleotide sequences ระหว่าง genome สองอัน**",
@@ -13623,18 +12371,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Mixed infection: phenotypic mixing",
         "source": "Virus replication&genetic p.41",
         "body": [
-          {
-            "text": "**Progeny virions ได้ลักษณะทาง phenotype มาจาก parental viruses ทั้งสองตัว หลังเกิด mixed infection** สไลด์เขียนไว้เท่านี้ ที่เหลือเป็นรูปประกอบ"
-          }
+          "**Progeny virions ได้ลักษณะทาง phenotype มาจาก parental viruses ทั้งสองตัว หลังเกิด mixed infection** สไลด์เขียนไว้เท่านี้ ที่เหลือเป็นรูปประกอบ"
         ]
       },
       {
         "heading": "Mixed infection: interference และ DI mutants",
         "source": "Virus replication&genetic p.42",
         "body": [
-          {
-            "text": "**Interference คือปรากฏการณ์ที่ไวรัสสองตัวมีปฏิสัมพันธ์กันในโฮสต์ แล้วส่งผลต่อความสามารถในการเพิ่มจำนวนของอย่างน้อยหนึ่งในสองตัวนั้น**"
-          },
+          "**Interference คือปรากฏการณ์ที่ไวรัสสองตัวมีปฏิสัมพันธ์กันในโฮสต์ แล้วส่งผลต่อความสามารถในการเพิ่มจำนวนของอย่างน้อยหนึ่งในสองตัวนั้น**",
           {
             "sub": "Defective interfering (DI) mutants",
             "body": [
@@ -13691,9 +12435,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Virus คืออะไร",
         "source": "Virus Structure Classification p.2",
         "body": [
-          {
-            "text": "สไลด์นิยาม virus ว่าเป็น **subcellular organism ขนาด 25-300 nm** และเป็น **obligate parasite** ของ animals, plants และ bacteria"
-          },
+          "สไลด์นิยาม virus ว่าเป็น **subcellular organism ขนาด 25-300 nm** และเป็น **obligate parasite** ของ animals, plants และ bacteria",
           {
             "bullets": [
               "**cannot grow without host cells** คือเจริญเองไม่ได้ ต้องอาศัย host cell เสมอ",
@@ -13725,9 +12467,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Viral structure: ทุกไวรัสมีอะไรบ้าง",
         "source": "Virus Structure Classification p.10",
         "body": [
-          {
-            "text": "**ไวรัสทุกชนิดมี nucleic acid genome (RNA หรือ DNA) และ protective protein coat ที่เรียกว่า capsid** และเรียก nucleic acid genome รวมกับ protective protein coat ว่า **nucleocapsid**"
-          }
+          "**ไวรัสทุกชนิดมี nucleic acid genome (RNA หรือ DNA) และ protective protein coat ที่เรียกว่า capsid** และเรียก nucleic acid genome รวมกับ protective protein coat ว่า **nucleocapsid**"
         ]
       },
       {
@@ -13747,9 +12487,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Viral nucleic acids: ประเภทของ genome",
         "source": "Virus Structure Classification p.12",
         "body": [
-          {
-            "text": "Viral genes ถูก encode อยู่ใน genome ที่เป็น DNA หรือ RNA และแบ่งย่อยได้ตามลักษณะดังนี้"
-          },
+          "Viral genes ถูก encode อยู่ใน genome ที่เป็น DNA หรือ RNA และแบ่งย่อยได้ตามลักษณะดังนี้",
           {
             "bullets": [
               "**Double stranded หรือ Single stranded**",
@@ -13762,9 +12500,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Sense (polarity) ของ single stranded RNA",
         "source": "Virus Structure Classification p.13",
         "body": [
-          {
-            "text": "**Single stranded genomic RNA จำแนกตาม sense หรือที่เรียกอีกอย่างว่า polarity**"
-          },
+          "**Single stranded genomic RNA จำแนกตาม sense หรือที่เรียกอีกอย่างว่า polarity**",
           {
             "bullets": [
               "**Positive sense** คือมี sense เดียวกับ mRNA",
@@ -13777,9 +12513,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "รูปร่างของ genome: Linear หรือ Circular",
         "source": "Virus Structure Classification p.14",
         "body": [
-          {
-            "text": "สไลด์ระบุเพียงว่า viral nucleic acid เป็นได้ทั้งแบบ **Linear หรือ Circular** ส่วนที่เหลือของสไลด์เป็นภาพประกอบ ไม่มีคำอธิบายเพิ่ม"
-          }
+          "สไลด์ระบุเพียงว่า viral nucleic acid เป็นได้ทั้งแบบ **Linear หรือ Circular** ส่วนที่เหลือของสไลด์เป็นภาพประกอบ ไม่มีคำอธิบายเพิ่ม"
         ]
       },
       {
@@ -13798,18 +12532,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Icosahedral symmetry",
         "source": "Virus Structure Classification p.16",
         "body": [
-          {
-            "text": "**icosahedron เป็น Platonic solid ที่มี 12 vertices, 30 edges และ 20 faces**"
-          }
+          "**icosahedron เป็น Platonic solid ที่มี 12 vertices, 30 edges และ 20 faces**"
         ]
       },
       {
         "heading": "5:3:2 rotational symmetry",
         "source": "Virus Structure Classification p.17",
         "body": [
-          {
-            "text": "สไลด์นี้ระบุสั้น ๆ ว่า icosahedral symmetry เป็นแบบ **5:3:2 rotational symmetry** ส่วนรายละเอียดว่าแกนแต่ละชุดวางตัวอย่างไร สไลด์ไม่ได้บอก"
-          }
+          "สไลด์นี้ระบุสั้น ๆ ว่า icosahedral symmetry เป็นแบบ **5:3:2 rotational symmetry** ส่วนรายละเอียดว่าแกนแต่ละชุดวางตัวอย่างไร สไลด์ไม่ได้บอก"
         ]
       },
       {
@@ -13829,18 +12559,14 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Helical symmetry",
         "source": "Virus Structure Classification p.20",
         "body": [
-          {
-            "text": "**Protein subunits สามารถ interact กันเองและ interact กับ nucleic acid เกิดเป็นโครงสร้างขดแบบ coiled ribbon like structure** ตัวอย่างที่สไลด์ยกคือ **Tobacco mosaic virus, Sendai virus** เป็นต้น"
-          }
+          "**Protein subunits สามารถ interact กันเองและ interact กับ nucleic acid เกิดเป็นโครงสร้างขดแบบ coiled ribbon like structure** ตัวอย่างที่สไลด์ยกคือ **Tobacco mosaic virus, Sendai virus** เป็นต้น"
         ]
       },
       {
         "heading": "Complex symmetry",
         "source": "Virus Structure Classification p.21",
         "body": [
-          {
-            "text": "**เป็นโครงสร้างที่ regular แต่ธรรมชาติของ symmetry ยังไม่เข้าใจอย่างสมบูรณ์ (not fully understood)** ตัวอย่างคือ **Poxvirus**"
-          }
+          "**เป็นโครงสร้างที่ regular แต่ธรรมชาติของ symmetry ยังไม่เข้าใจอย่างสมบูรณ์ (not fully understood)** ตัวอย่างคือ **Poxvirus**"
         ]
       },
       {
@@ -13891,9 +12617,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "FIVE BASIC STRUCTURAL FORMS OF VIRUSES",
         "source": "Virus Structure Classification p.25",
         "body": [
-          {
-            "text": "สไลด์แบ่งไวรัสตามโครงสร้างเป็น 5 แบบพร้อมตัวอย่าง ควรจำคู่ตัวอย่างให้ได้เพราะเป็นสไลด์สรุปที่รวบทุกอย่างก่อนหน้าเข้าด้วยกัน"
-          },
+          "สไลด์แบ่งไวรัสตามโครงสร้างเป็น 5 แบบพร้อมตัวอย่าง ควรจำคู่ตัวอย่างให้ได้เพราะเป็นสไลด์สรุปที่รวบทุกอย่างก่อนหน้าเข้าด้วยกัน",
           {
             "bullets": [
               "**Naked icosahedral** เช่น circovirus, parvovirus, adenovirus, reovirus, birnavirus",
@@ -13909,27 +12633,21 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Classification of viruses",
         "source": "Virus Structure Classification p.27",
         "body": [
-          {
-            "text": "การจำแนกไวรัสอ้างอิงจากสองอย่าง คือ"
-          },
+          "การจำแนกไวรัสอ้างอิงจากสองอย่าง คือ",
           {
             "bullets": [
               "**The structure หรือ composition ของ virus particle (virion)**",
               "**The mode of replication**"
             ]
           },
-          {
-            "text": "สไลด์ถัดไปอีกสองหน้าเป็นแผนภาพ RNA Viruses และ DNA Viruses ที่อ้างที่มาว่า From Principles of Virology Flint et al ASM Press โดยไม่มีข้อความอธิบายในสไลด์ ต้องดูจากภาพในเด็คของอาจารย์เอง"
-          }
+          "สไลด์ถัดไปอีกสองหน้าเป็นแผนภาพ RNA Viruses และ DNA Viruses ที่อ้างที่มาว่า From Principles of Virology Flint et al ASM Press โดยไม่มีข้อความอธิบายในสไลด์ ต้องดูจากภาพในเด็คของอาจารย์เอง"
         ]
       },
       {
         "heading": "Virus Taxonomy: ลำดับขั้นและคำลงท้าย",
         "source": "Virus Structure Classification p.30",
         "body": [
-          {
-            "text": "Universal Scheme จัดไวรัสเข้าลำดับขั้นต่อไปนี้ โดยแต่ละขั้นมี **suffix** ประจำที่ต้องจำ"
-          },
+          "Universal Scheme จัดไวรัสเข้าลำดับขั้นต่อไปนี้ โดยแต่ละขั้นมี **suffix** ประจำที่ต้องจำ",
           {
             "bullets": [
               "**Orders ลงท้าย -virales** เช่น Mononegavirales",
@@ -13945,9 +12663,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "Some Properties of Viruses Used in Taxonomy",
         "source": "Virus Structure Classification p.31",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นตารางยาวรวมคุณสมบัติที่ใช้ในการจัดหมวดหมู่ไวรัส แบ่งเป็นกลุ่มใหญ่ ๆ ดังนี้"
-          },
+          "สไลด์นี้เป็นตารางยาวรวมคุณสมบัติที่ใช้ในการจัดหมวดหมู่ไวรัส แบ่งเป็นกลุ่มใหญ่ ๆ ดังนี้",
           {
             "sub": "Morphology",
             "body": [
@@ -14001,9 +12717,7 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "sub": "Lipids และ Carbohydrates",
             "body": [
-              {
-                "text": "สไลด์ระบุเพียง content, character เป็นต้น ไม่ได้ลงรายละเอียดมากกว่านี้"
-              }
+              "สไลด์ระบุเพียง content, character เป็นต้น ไม่ได้ลงรายละเอียดมากกว่านี้"
             ]
           },
           {
@@ -14035,9 +12749,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "ฐานข้อมูล taxonomy ที่ใช้อ้างอิง",
         "source": "Virus Structure Classification p.32",
         "body": [
-          {
-            "text": "สไลด์ชี้ไปที่ **Virus Taxonomy: The database of the International Committee on Taxonomy of Viruses (ICTV)** เป็นแหล่งอ้างอิง taxonomy ส่วนสไลด์ถัดไปเป็นภาพประกอบไม่มีข้อความ"
-          }
+          "สไลด์ชี้ไปที่ **Virus Taxonomy: The database of the International Committee on Taxonomy of Viruses (ICTV)** เป็นแหล่งอ้างอิง taxonomy ส่วนสไลด์ถัดไปเป็นภาพประกอบไม่มีข้อความ"
         ]
       },
       {
@@ -14075,9 +12787,7 @@ export const NOTES_Y2_MICROBIO_1 = {
         "heading": "สไลด์ที่เป็นภาพล้วน ต้องเปิดเด็คจริงประกอบ",
         "source": "Virus Structure Classification p.4",
         "body": [
-          {
-            "text": "เด็คนี้มี 36 สไลด์ แต่มีหลายสไลด์ที่ text layer ว่างเปล่าเพราะเป็นภาพล้วน ได้แก่ **สไลด์ 4, 5, 6, 8, 9, 26 และ 33** และสไลด์ 7 มีแต่หัวเรื่อง **CORONAVIRUS STRUCTURE** โดยไม่มีข้อความอธิบาย เนื้อหาในภาพเหล่านี้อ่านจากไฟล์ข้อความไม่ได้ ต้องเปิดสไลด์ของอาจารย์ดูเอง"
-          },
+          "เด็คนี้มี 36 สไลด์ แต่มีหลายสไลด์ที่ text layer ว่างเปล่าเพราะเป็นภาพล้วน ได้แก่ **สไลด์ 4, 5, 6, 8, 9, 26 และ 33** และสไลด์ 7 มีแต่หัวเรื่อง **CORONAVIRUS STRUCTURE** โดยไม่มีข้อความอธิบาย เนื้อหาในภาพเหล่านี้อ่านจากไฟล์ข้อความไม่ได้ ต้องเปิดสไลด์ของอาจารย์ดูเอง",
           {
             "callout": "สไลด์ 19 ไม่ได้ว่างเปล่า แต่มีเฉพาะที่อยู่ของรูปสามบรรทัด คือ www.vir.gla.ac.uk/staff/rixonfj/hexpen.jpg, hub.med.uth.tmc.edu/~plo/subunits-new.jpg (herpes) และ www.fhcrc.org/.../2002/mar21/CAPSID.jpg (human papilloma) ส่วนสไลด์ 23 มีลิงก์วิดีโอ youtube.com/watch?v=M1zws0bF4w8 และไฟล์ coronavirus-diagram.gif แนบไว้ ตัวเนื้อหาในภาพและวิดีโอ สไลด์ไม่ได้เขียนเป็นตัวอักษร",
             "kind": "flag"

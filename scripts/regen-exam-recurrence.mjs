@@ -81,6 +81,7 @@ import { originEntry } from '../src/data/exam-origins.js';
 import { isPastPaperQuestion, questionTopicId } from '../src/lib/question-metadata.js';
 import { cohortList, compiledForCohorts, namesCohort, parseProvenance } from '../src/lib/exam-origin-parse.js';
 import { sameGenerated } from './lib/same-generated.mjs';
+import { wholeStem } from '../src/lib/rich-blocks.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const OUT = 'src/data/exam-recurrence.generated.js';
@@ -205,10 +206,13 @@ const WRITTEN = new Set(['tf', 'short', 'essay']);
 /** Everything the same-item rule compares, computed once per question. */
 export function fingerprint(question) {
   const q = question || {};
-  const stem = normalizeStem(q.q);
+  // The whole sentence: where a question's numbers sit in a passage table, `say` still holds them, and
+  // a recall of the same item arrives written as that one sentence.
+  const whole = wholeStem(q);
+  const stem = normalizeStem(whole);
   const key = keyText(q);
   const core = lettersAndDigits(keyCore(key));
-  const raw = plain(q.q);
+  const raw = plain(whole);
   return {
     key: questionDeliveryKey(q),
     type: q.type,
@@ -224,8 +228,8 @@ export function fingerprint(question) {
     negations: (raw.match(NEGATION) || []).length,
     stemNumbers: numbersIn(raw),
     species: speciesIn(raw),
-    terms: termsIn(unbracketed(q.q)),
-    fullText: plain([q.q, ...(q.options || []), q.explain, q.model_answer, ...(q.blanks || []),
+    terms: termsIn(unbracketed(whole)),
+    fullText: plain([whole, ...(q.options || []), q.explain, q.model_answer, ...(q.blanks || []),
       ...(q.pairs || []).map((p) => `${p?.left ?? ''} ${p?.right ?? ''}`)].filter(Boolean).join(' ')),
   };
 }

@@ -8,10 +8,12 @@
 // into the class pulse. Those surfaces take text-only questions; practice,
 // mock and review render the figure and keep every question.
 // ============================================================
+import { wholeStem } from './rich-blocks.js';
 
-/** True when everything needed to answer is in the stem and the options. */
+/** True when everything needed to answer is in the stem (wholeStem) and the options. */
 export function isTextOnlyQuestion(q) {
-  return !q?.image && !q?.imagePath && !q?.passage;
+  // A passage question whose whole sentence is kept in `say` is still text only: these screens draw that sentence (wholeStem).
+  return !q?.image && !q?.imagePath && (!q?.passage || wholeStem(q) !== q.q);
 }
 
 /** The race pool for one subject: deliverable, multiple choice with at

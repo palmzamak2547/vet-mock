@@ -107,3 +107,15 @@ test('the real corpus has no contradicting copies and no unlisted near-duplicate
   assert.deepEqual(result.duplicates.map((p) => `${p.a} / ${p.b}`), []);
   assert.deepEqual(result.stale.map((p) => p.pair.join(' / ')), []);
 });
+
+// A stem whose numbers moved to a passage table keeps its sentence in `say`. A recall of the same item
+// arrives written as that one sentence, with no passage, and the two are still one item.
+test('a question whose data sits in a passage table is matched by its whole sentence', () => {
+  const sentence = 'การศึกษาหนึ่งพบว่ากลุ่มที่สัมผัสปัจจัยมี 50 ตัว ป่วย 30 ตัว ไม่ป่วย 20 ตัว ส่วนกลุ่มที่ไม่สัมผัสมี 100 ตัว ป่วย 20 ตัว ไม่ป่วย 80 ตัว ค่า relative risk เท่ากับเท่าใด';
+  const options = ['0.6', '1.5', '3.0', '6.0'];
+  const shown = mcq('จากตาราง ค่า relative risk เท่ากับเท่าใด', options, 2, { say: sentence, passage: 'การศึกษาหนึ่งได้ข้อมูลดังนี้ (จำนวนเป็นตัว)\n\n| | ป่วย | ไม่ป่วย | รวม |\n|---|---|---|---|\n| สัมผัสปัจจัย | 30 | 20 | 50 |\n| ไม่สัมผัส | 20 | 80 | 100 |', passage_title: 'การสัมผัสปัจจัยกับการป่วย' });
+  const recalled = mcq(sentence, options, 2);
+  assert.equal(findNearDuplicates([shown, recalled]).length, 1);
+  // By the stem on screen alone they would not meet: the short stem is a quarter of the sentence.
+  assert.equal(findNearDuplicates([{ ...shown, say: undefined }, recalled]).length, 0);
+});

@@ -13,7 +13,7 @@
 //   { bullets: [string] }        — bulleted list
 //   { sub, body }                — sub-section
 //   { callout, kind }            — kind: 'tip' | 'warn' | 'flag'
-//   { text }                     — paragraph
+//   "..."                        — paragraph: a plain string (lint:note-shapes)
 // ============================================================
 
 export const NOTES_Y2_NEUROANAT = {
@@ -28,9 +28,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Basal nuclei อยู่ตรงไหนใน Telencephalon",
         "source": "Basal nuclei p.2",
         "body": [
-          {
-            "text": "สไลด์แบ่งเนื้อของ telencephalon เป็น gray matter กับ white matter แล้ววาง basal nuclei ไว้ในฝั่ง gray matter"
-          },
+          "สไลด์แบ่งเนื้อของ telencephalon เป็น gray matter กับ white matter แล้ววาง basal nuclei ไว้ในฝั่ง gray matter",
           {
             "sub": "Gray matter",
             "body": [
@@ -64,9 +62,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "รายชื่อและการจัดกลุ่มของ basal nuclei",
         "source": "Basal nuclei p.3",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นแผนผังชื่อ ไล่ตามที่สไลด์วางไว้คือ caudate nucleus, accumbens nucleus, striatum, putamen, pallidum, lentiform nucleus, endopeduncular (subthalamic) nucleus, claustrum และ amygdala"
-          },
+          "สไลด์นี้เป็นแผนผังชื่อ ไล่ตามที่สไลด์วางไว้คือ caudate nucleus, accumbens nucleus, striatum, putamen, pallidum, lentiform nucleus, endopeduncular (subthalamic) nucleus, claustrum และ amygdala",
           {
             "bullets": [
               "**Striatum** เป็นชื่อกลุ่ม วางคร่อม caudate nucleus, accumbens nucleus และ putamen",
@@ -85,9 +81,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "เลขกำกับนิวเคลียส",
         "source": "Basal nuclei p.5",
         "body": [
-          {
-            "text": "ต้องท่องคู่เลขให้ได้เพราะเป็นชุดเดียวกับที่ใช้ในสไลด์ถัดไป (p.6)"
-          },
+          "ต้องท่องคู่เลขให้ได้เพราะเป็นชุดเดียวกับที่ใช้ในสไลด์ถัดไป (p.6)",
           {
             "bullets": [
               "1: accumbens",
@@ -193,9 +187,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "หน้าที่รวมของ basal nuclei",
         "source": "Basal nuclei p.15",
         "body": [
-          {
-            "text": "สไลด์สรุปหน้าที่ไว้คำเดียวคือ **movement co-ordination** แล้วไล่ลำดับของ voluntary movement เป็นสามขั้น"
-          },
+          "สไลด์สรุปหน้าที่ไว้คำเดียวคือ **movement co-ordination** แล้วไล่ลำดับของ voluntary movement เป็นสามขั้น",
           {
             "bullets": [
               "Motivated by limbic system",
@@ -235,9 +227,7 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "สไลด์มีเชิงอรรถกำกับว่าทั้งสองทางถูกกำกับ (supervises) โดย **dopamine จาก substantia nigra ซึ่ง activate direct pathway และ suppress indirect pathway**"
-          },
+          "สไลด์มีเชิงอรรถกำกับว่าทั้งสองทางถูกกำกับ (supervises) โดย **dopamine จาก substantia nigra ซึ่ง activate direct pathway และ suppress indirect pathway**",
           {
             "callout": "จุดต่างของสองทางอยู่ที่ผ่าน pallidum หรือไม่ผ่านเท่านั้น ไม่ผ่าน = เร่ง ผ่าน = ลด และ dopamine เอียงไปทางเร่ง",
             "kind": "tip"
@@ -264,9 +254,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "สิ่งที่เด็คเอ่ยชื่อแต่ไม่ได้อธิบาย",
         "source": "Basal nuclei",
         "body": [
-          {
-            "text": "อ่านครบทั้งเด็คแล้วยังมีช่องว่างที่ต้องไปหาต่อจากแหล่งอื่น หรือถามอาจารย์"
-          },
+          "อ่านครบทั้งเด็คแล้วยังมีช่องว่างที่ต้องไปหาต่อจากแหล่งอื่น หรือถามอาจารย์",
           {
             "bullets": [
               "**Amygdala** ปรากฏในรายการ (p.3) และเป็นเลข 6 บนภาพ (p.5, p.6) แต่ไม่มีสไลด์อธิบายตำแหน่ง การเชื่อมต่อ หรือหน้าที่ สไลด์ไม่ได้บอก",
@@ -294,18 +282,14 @@ export const NOTES_Y2_NEUROANAT = {
               "To learn the functional relationship of diencephalon to other structures"
             ]
           },
-          {
-            "text": "สไลด์บอกว่ามี five major divisions แต่ไม่มีสไลด์ไหนลิสต์ทั้งห้าชื่อไว้ในหน้าเดียว ส่วนที่เด็คเอ่ยชื่อจริง ๆ กระจายอยู่คือ **thalamus** และ **metathalamus** (p.5, p.15), **epithalamus** (p.5, p.11-13), **subthalamus** (p.5, p.14) และ **hypothalamus** (p.19-20)"
-          }
+          "สไลด์บอกว่ามี five major divisions แต่ไม่มีสไลด์ไหนลิสต์ทั้งห้าชื่อไว้ในหน้าเดียว ส่วนที่เด็คเอ่ยชื่อจริง ๆ กระจายอยู่คือ **thalamus** และ **metathalamus** (p.5, p.15), **epithalamus** (p.5, p.11-13), **subthalamus** (p.5, p.14) และ **hypothalamus** (p.19-20)"
         ]
       },
       {
         "heading": "แผนผัง diencephalon (สไลด์เติมคำ)",
         "source": "Diencephalon p.5",
         "body": [
-          {
-            "text": "สไลด์นี้เป็นรูปตัดพร้อมป้ายชื่อให้เติมเอง โครงสร้างที่สไลด์เขียนชื่อไว้ครบแล้วมีดังนี้"
-          },
+          "สไลด์นี้เป็นรูปตัดพร้อมป้ายชื่อให้เติมเอง โครงสร้างที่สไลด์เขียนชื่อไว้ครบแล้วมีดังนี้",
           {
             "bullets": [
               "thalamus & metathalamus",
@@ -314,9 +298,7 @@ export const NOTES_Y2_NEUROANAT = {
               "lamina terminalis"
             ]
           },
-          {
-            "text": "ส่วนที่เว้นว่างไว้ให้เติม ได้แก่ CN _?_ (_? nerve), __?__ ventricle, ________ nucleus, S___ h______ thalami, ___________ adhesion และ ____ ____"
-          },
+          "ส่วนที่เว้นว่างไว้ให้เติม ได้แก่ CN _?_ (_? nerve), __?__ ventricle, ________ nucleus, S___ h______ thalami, ___________ adhesion และ ____ ____",
           {
             "callout": "สไลด์ไม่ได้เฉลยช่องว่างเหล่านี้ไว้ในหน้าเดียวกัน มีเพียงช่อง ___________ adhesion ที่ไปตรงกับคำว่า Interthalamic adhesion ซึ่งเขียนไว้ในสไลด์ thalamus (p.15) ช่องที่เหลือสไลด์ไม่ได้บอก",
             "kind": "warn"
@@ -327,9 +309,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Geniculate nuclei",
         "source": "Diencephalon p.8",
         "body": [
-          {
-            "text": "สไลด์ทำเป็นตารางเทียบสองนิวเคลียส โดยระบุ type, output และ function ให้ทั้งคู่"
-          },
+          "สไลด์ทำเป็นตารางเทียบสองนิวเคลียส โดยระบุ type, output และ function ให้ทั้งคู่",
           {
             "sub": "Medial geniculate nucleus",
             "body": [
@@ -364,9 +344,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Epithalamus: habenula กับ pineal body",
         "source": "Diencephalon p.11-13",
         "body": [
-          {
-            "text": "สไลด์ p.11 กับ p.12 เป็นหน้าเดียวกันซ้ำสองครั้ง เนื้อหาแบ่งเป็นสองโครงสร้าง"
-          },
+          "สไลด์ p.11 กับ p.12 เป็นหน้าเดียวกันซ้ำสองครั้ง เนื้อหาแบ่งเป็นสองโครงสร้าง",
           {
             "sub": "Habenula",
             "body": [
@@ -388,9 +366,7 @@ export const NOTES_Y2_NEUROANAT = {
                   "**circadian rhythm**"
                 ]
               },
-              {
-                "text": "สไลด์ p.13 ย้ำสองคำนี้อีกครั้งเป็นหน้าเต็ม (melatonin, circadian rhythm) ประกอบรูป"
-              }
+              "สไลด์ p.13 ย้ำสองคำนี้อีกครั้งเป็นหน้าเต็ม (melatonin, circadian rhythm) ประกอบรูป"
             ]
           }
         ]
@@ -399,9 +375,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Subthalamus",
         "source": "Diencephalon p.14",
         "body": [
-          {
-            "text": "สไลด์นี้ชี้ชื่อโครงสร้างสองอย่างบนรูป โดยไม่มีข้อความอธิบายหน้าที่กำกับ"
-          },
+          "สไลด์นี้ชี้ชื่อโครงสร้างสองอย่างบนรูป โดยไม่มีข้อความอธิบายหน้าที่กำกับ",
           {
             "bullets": [
               "**zona incerta**",
@@ -418,9 +392,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Thalamus: กลุ่มนิวเคลียสหลัก",
         "source": "Diencephalon p.15",
         "body": [
-          {
-            "text": "สไลด์ชี้ป้ายบนรูป thalamus แบ่งเป็นกลุ่มใหญ่ตามตำแหน่ง"
-          },
+          "สไลด์ชี้ป้ายบนรูป thalamus แบ่งเป็นกลุ่มใหญ่ตามตำแหน่ง",
           {
             "bullets": [
               "**anterior nuclei**",
@@ -439,9 +411,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Lateral nuclei ของ thalamus: ส่วนบนกับส่วนล่าง",
         "source": "Diencephalon p.16",
         "body": [
-          {
-            "text": "สไลด์แบ่งกลุ่ม lateral ออกเป็น ส่วนบน และ ส่วนล่าง แล้วกำกับหน้าที่พร้อมชนิด (associate-sensory / relay-motor / sensory)"
-          },
+          "สไลด์แบ่งกลุ่ม lateral ออกเป็น ส่วนบน และ ส่วนล่าง แล้วกำกับหน้าที่พร้อมชนิด (associate-sensory / relay-motor / sensory)",
           {
             "sub": "ส่วนบน",
             "body": [
@@ -453,9 +423,7 @@ export const NOTES_Y2_NEUROANAT = {
                   "หน้าที่ที่สไลด์กำกับกลุ่มนี้: **visual attention (associate-sensory)**"
                 ]
               },
-              {
-                "text": "สไลด์เขียนหน้าที่ให้กลุ่มนี้บรรทัดเดียว ไม่ได้แยกหน้าที่ของ LD กับ LP ออกจาก pulvinar"
-              }
+              "สไลด์เขียนหน้าที่ให้กลุ่มนี้บรรทัดเดียว ไม่ได้แยกหน้าที่ของ LD กับ LP ออกจาก pulvinar"
             ]
           },
           {
@@ -476,12 +444,8 @@ export const NOTES_Y2_NEUROANAT = {
             "callout": "จุดที่ออกสอบง่ายที่สุดในหน้านี้คือคู่ VPM กับ VPL: **VPM = head, VPL = body**",
             "kind": "tip"
           },
-          {
-            "text": "รูปที่แนบในหัวข้อนี้ระบายสีแยก Lateral nuclei, Medial nuclei และ Anterior nuclei พร้อมคำอธิบายตัวย่อ LD, LP, VA, VL, VP, VI, VPM, VPL โดย VI พิมพ์ว่า Ventral intermediat nucleus ซึ่งไม่อยู่ในตารางของสไลด์ และสไลด์ไม่ได้บอกหน้าที่ของ VI"
-          },
-          {
-            "text": "สไลด์แปะลิงก์วิดีโอประกอบไว้ท้ายหน้า: https://www.youtube.com/watch?v=JiTz2i4VHFw&t=77s"
-          }
+          "รูปที่แนบในหัวข้อนี้ระบายสีแยก Lateral nuclei, Medial nuclei และ Anterior nuclei พร้อมคำอธิบายตัวย่อ LD, LP, VA, VL, VP, VI, VPM, VPL โดย VI พิมพ์ว่า Ventral intermediat nucleus ซึ่งไม่อยู่ในตารางของสไลด์ และสไลด์ไม่ได้บอกหน้าที่ของ VI",
+          "สไลด์แปะลิงก์วิดีโอประกอบไว้ท้ายหน้า: https://www.youtube.com/watch?v=JiTz2i4VHFw&t=77s"
         ]
       },
       {
@@ -495,18 +459,14 @@ export const NOTES_Y2_NEUROANAT = {
               "**posterior**"
             ]
           },
-          {
-            "text": "สไลด์หน้านี้มีแค่ชื่อสาม region กับรูป รายละเอียดนิวเคลียสอยู่ในตารางหน้าถัดไป"
-          }
+          "สไลด์หน้านี้มีแค่ชื่อสาม region กับรูป รายละเอียดนิวเคลียสอยู่ในตารางหน้าถัดไป"
         ]
       },
       {
         "heading": "ตาราง hypothalamic nuclei กับหน้าที่",
         "source": "Diencephalon p.20",
         "body": [
-          {
-            "text": "ตารางสามคอลัมน์ Region / Nucleus / Function เป็นสไลด์ที่มีเนื้อหาหนาที่สุดของเด็คนี้"
-          },
+          "ตารางสามคอลัมน์ Region / Nucleus / Function เป็นสไลด์ที่มีเนื้อหาหนาที่สุดของเด็คนี้",
           {
             "sub": "Anterior region",
             "body": [
@@ -544,9 +504,7 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "ตารางยังมีป้ายคร่อมกลุ่มหน้าที่ไว้ด้วยคือ Hormone release (กลุ่ม preoptic/SO/PV), Homeostasis และ food intake"
-          },
+          "ตารางยังมีป้ายคร่อมกลุ่มหน้าที่ไว้ด้วยคือ Hormone release (กลุ่ม preoptic/SO/PV), Homeostasis และ food intake",
           {
             "callout": "สไลด์ใส่เครื่องหมาย * ไว้ที่ Paraventricular nucleus* (PV) แต่ไม่มีคำอธิบายว่าดอกจันหมายถึงอะไร สไลด์ไม่ได้บอก",
             "kind": "flag"
@@ -567,9 +525,7 @@ export const NOTES_Y2_NEUROANAT = {
               "Narcolepsy"
             ]
           },
-          {
-            "text": "รูปที่แนบในหัวข้อนี้พิมพ์คำว่า Obesity และ Narcolepsy ไว้มุมล่าง ชี้ชื่อ lateral hypothalamic area, supraoptic nucleus, paraventricular nucleus, periventricular zone, IIIrd ventricle, optic tract, ant. pituitary และ post. pituitary และมีกล่อง Inputs include: nucleus of the solitary tract, reticular formation, retina กับ Outputs: to autonomic systems"
-          },
+          "รูปที่แนบในหัวข้อนี้พิมพ์คำว่า Obesity และ Narcolepsy ไว้มุมล่าง ชี้ชื่อ lateral hypothalamic area, supraoptic nucleus, paraventricular nucleus, periventricular zone, IIIrd ventricle, optic tract, ant. pituitary และ post. pituitary และมีกล่อง Inputs include: nucleus of the solitary tract, reticular formation, retina กับ Outputs: to autonomic systems",
           {
             "callout": "สไลด์หน้านี้ต่อจากตาราง hypothalamus และมีแค่สองหัวข้อนี้กับรูป ไม่ได้เขียนกลไก ไม่ได้เขียนว่าเชื่อมกับนิวเคลียสตัวไหน สไลด์ไม่ได้บอก ตรงนี้ต้องฟังจากที่อาจารย์พูดในคาบ",
             "kind": "warn"
@@ -589,9 +545,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "ทำไมถึงเรียกว่า Limbic System",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.2",
         "body": [
-          {
-            "text": "สไลด์วางกรอบไว้ก่อนว่า limbic system เกี่ยวข้องกับ **emotion และ behavior**"
-          },
+          "สไลด์วางกรอบไว้ก่อนว่า limbic system เกี่ยวข้องกับ **emotion และ behavior**",
           {
             "bullets": [
               "**Limbus แปลว่า edge หรือ border** จึงเป็นที่มาของชื่อ",
@@ -609,9 +563,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Background: Rhinencephalon และการแบ่ง cerebral cortex",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.3",
         "body": [
-          {
-            "text": "Cerebrum มี neuronal cells อยู่ 2 ที่ คือ external surface ของ gyri และ basal nuclei"
-          },
+          "Cerebrum มี neuronal cells อยู่ 2 ที่ คือ external surface ของ gyri และ basal nuclei",
           {
             "sub": "Cerebral cortex แบ่งเป็น 3 ส่วน",
             "body": [
@@ -624,18 +576,14 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "**Rhinencephalon = smell brain** ประกอบด้วย olfactory component (paleopallium) และ **non-olfactory component ซึ่งก็คือ limbic system** ตรงนี้คือที่มาของชื่อเด็คว่า Nonolfactory Rhinencephalon"
-          }
+          "**Rhinencephalon = smell brain** ประกอบด้วย olfactory component (paleopallium) และ **non-olfactory component ซึ่งก็คือ limbic system** ตรงนี้คือที่มาของชื่อเด็คว่า Nonolfactory Rhinencephalon"
         ]
       },
       {
         "heading": "วงแหวนสองวงของ limbic system (Telencephalon)",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.3",
         "body": [
-          {
-            "text": "Limbic system ในส่วน telencephalon คือ **two cortical rings ที่ border ของ diencephalic-telencephalic junction**"
-          },
+          "Limbic system ในส่วน telencephalon คือ **two cortical rings ที่ border ของ diencephalic-telencephalic junction**",
           {
             "bullets": [
               "**Inner ring**: amygdaloid body, hippocampus และ fornix ของมัน",
@@ -727,18 +675,14 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Septal area",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.5",
         "body": [
-          {
-            "text": "อยู่ที่ **medial surface ของ cerebral hemisphere** ประกอบด้วย 2 ส่วน"
-          },
+          "อยู่ที่ **medial surface ของ cerebral hemisphere** ประกอบด้วย 2 ส่วน",
           {
             "bullets": [
               "**Subcallosal area** คือ cerebral cortex ที่อยู่ ventral ต่อ genu ของ corpus callosum",
               "**Septal nuclei** คือ neuronal cell bodies ใน rostral septum pellucidum"
             ]
           },
-          {
-            "text": "Septum pellucidum ยึด body และส่วน proximal ของ fornix ไว้กับ corpus callosum และ rostral ต่อ septum pellucidum จะพบ neuronal cells ของ septal nuclei"
-          },
+          "Septum pellucidum ยึด body และส่วน proximal ของ fornix ไว้กับ corpus callosum และ rostral ต่อ septum pellucidum จะพบ neuronal cells ของ septal nuclei",
           {
             "sub": "การเชื่อมต่อของ septal area",
             "body": [
@@ -750,12 +694,8 @@ export const NOTES_Y2_NEUROANAT = {
                   "เชื่อมกับ hypothalamus ด้วย **medial forebrain bundle (MFB)**"
                 ]
               },
-              {
-                "text": "เพราะเส้นทาง MFB นี้ limbic system จึงมีอิทธิพลต่อ hypothalamic centers ที่ควบคุมการทำงานของ **general visceral efferent (GVE) system** โดย hypothalamic nuclei ทำหน้าที่เป็น upper motor neuron ที่ regulate GVE และรับ efferents จาก limbic system จำนวนมาก"
-              },
-              {
-                "text": "หน้าที่: เป็น **pleasure center** เกี่ยวกับ pleasure และ emotion (sexual behavior และ aggression)"
-              }
+              "เพราะเส้นทาง MFB นี้ limbic system จึงมีอิทธิพลต่อ hypothalamic centers ที่ควบคุมการทำงานของ **general visceral efferent (GVE) system** โดย hypothalamic nuclei ทำหน้าที่เป็น upper motor neuron ที่ regulate GVE และรับ efferents จาก limbic system จำนวนมาก",
+              "หน้าที่: เป็น **pleasure center** เกี่ยวกับ pleasure และ emotion (sexual behavior และ aggression)"
             ]
           }
         ]
@@ -779,9 +719,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Limbic system ส่วน Diencephalon: habenular nucleus และ rostral thalamic nucleus",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.6",
         "body": [
-          {
-            "text": "ใน diencephalon ตัวที่ทำหน้าที่หลักใน limbic system คือ **epithalamic habenular nucleus และ rostral thalamic nuclei**"
-          },
+          "ใน diencephalon ตัวที่ทำหน้าที่หลักใน limbic system คือ **epithalamic habenular nucleus และ rostral thalamic nuclei**",
           {
             "bullets": [
               "Habenular nucleus เป็นส่วนหนึ่งของ **epithalamus**",
@@ -797,9 +735,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Mamillary body",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.6",
         "body": [
-          {
-            "text": "เป็น **limbic system component ของ hypothalamus**"
-          },
+          "เป็น **limbic system component ของ hypothalamus**",
           {
             "bullets": [
               "อยู่เป็นคู่ที่ ventral midline ในส่วนที่ caudal ที่สุดของ hypothalamus",
@@ -830,9 +766,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "สไลด์รูปที่มีแต่ชื่อ label และ reference",
         "source": "Limbic System (Nonolfactory Rhinencephalon) p.7-9",
         "body": [
-          {
-            "text": "สองหน้าท้ายเด็คเป็นภาพ specimen และ section ของสมองที่มีเฉพาะชื่อ label ไม่มีข้อความบรรยาย ควรใช้ฝึกชี้โครงสร้างจากสไลด์จริง ชื่อที่ปรากฏ ได้แก่"
-          },
+          "สองหน้าท้ายเด็คเป็นภาพ specimen และ section ของสมองที่มีเฉพาะชื่อ label ไม่มีข้อความบรรยาย ควรใช้ฝึกชี้โครงสร้างจากสไลด์จริง ชื่อที่ปรากฏ ได้แก่",
           {
             "bullets": [
               "ภาพตัด midbrain X-section: lateral ventricle, internal capsule, optic tract, caudate nucleus, crus of fornix, parahippocampal gyrus, cerebral peduncle, crus cerebri, cerebral aqueduct, third ventricle",
@@ -844,9 +778,7 @@ export const NOTES_Y2_NEUROANAT = {
             "callout": "หน้า 9 เพิ่ม label ชุด septum pellucidum, septal nuclei, dentate gyrus, fornix (body/crus/column), stria habinularis thalami, pineal gland, rostral commissure, hypothalamus, mammillary body, caudal colliculus, middle cerebellar peduncle, 4th ventricle, dorsal acoustic stria, splenial sulcus, colossal sulcus",
             "kind": "tip"
           },
-          {
-            "text": "Reference ที่สไลด์ให้ไว้เล่มเดียว (อยู่ในสไลด์สุดท้ายของหน้า 7) คือ De Lahunta A, Glass E, and Kent M 2021. Nonolfactory Rhinencephalon: Limbic System In: Veterinary neuroanatomy and clinical neurology 5th ed. Saunders Elsevier 471-476"
-          }
+          "Reference ที่สไลด์ให้ไว้เล่มเดียว (อยู่ในสไลด์สุดท้ายของหน้า 7) คือ De Lahunta A, Glass E, and Kent M 2021. Nonolfactory Rhinencephalon: Limbic System In: Veterinary neuroanatomy and clinical neurology 5th ed. Saunders Elsevier 471-476"
         ]
       }
     ]
@@ -862,9 +794,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Metencephalon อยู่ตรงไหนใน Rhombencephalon",
         "source": "Metencephalon p.2",
         "body": [
-          {
-            "text": "สไลด์เปิดด้วยการวางตำแหน่งก่อนว่า **Rhombencephalon ประกอบด้วย Metencephalon และ Myelencephalon** แล้วจึงแตก Metencephalon ออกเป็นสองส่วนตามทิศทาง"
-          },
+          "สไลด์เปิดด้วยการวางตำแหน่งก่อนว่า **Rhombencephalon ประกอบด้วย Metencephalon และ Myelencephalon** แล้วจึงแตก Metencephalon ออกเป็นสองส่วนตามทิศทาง",
           {
             "bullets": [
               "Metencephalon: **Dorsal portion คือ Cerebellum, Ventral portion คือ Pons**",
@@ -872,9 +802,7 @@ export const NOTES_Y2_NEUROANAT = {
               "Fourth ventricle"
             ]
           },
-          {
-            "text": "สไลด์เขียน Fourth ventricle ไว้เป็นหัวข้อคู่กันในระดับเดียวกับ Metencephalon และ Myelencephalon แต่ไม่ได้อธิบายรายละเอียดต่อในหน้านี้"
-          }
+          "สไลด์เขียน Fourth ventricle ไว้เป็นหัวข้อคู่กันในระดับเดียวกับ Metencephalon และ Myelencephalon แต่ไม่ได้อธิบายรายละเอียดต่อในหน้านี้"
         ]
       },
       {
@@ -891,17 +819,13 @@ export const NOTES_Y2_NEUROANAT = {
                   "Tentorium cerebelli"
                 ]
               },
-              {
-                "text": "สไลด์นี้เป็นภาพติดป้ายชื่อ ไม่มีคำอธิบายความสัมพันธ์ของทั้งสามโครงสร้าง"
-              }
+              "สไลด์นี้เป็นภาพติดป้ายชื่อ ไม่มีคำอธิบายความสัมพันธ์ของทั้งสามโครงสร้าง"
             ]
           },
           {
             "sub": "p.4 เนื้อ cerebellum",
             "body": [
-              {
-                "text": "หัวข้อสไลด์เขียนว่า **Cerebellar cortex and cerebellar medullarae** แล้วติดป้ายโครงสร้างต่อไปนี้"
-              },
+              "หัวข้อสไลด์เขียนว่า **Cerebellar cortex and cerebellar medullarae** แล้วติดป้ายโครงสร้างต่อไปนี้",
               {
                 "bullets": [
                   "Folium และ Sulcus",
@@ -917,9 +841,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Developmental classification",
         "source": "Metencephalon p.5-6",
         "body": [
-          {
-            "text": "แบ่งตามพัฒนาการ ได้ 3 ส่วน จับคู่ตรง ๆ กับ lobe"
-          },
+          "แบ่งตามพัฒนาการ ได้ 3 ส่วน จับคู่ตรง ๆ กับ lobe",
           {
             "bullets": [
               "**Archicerebellum คือ Flocculonodular lobe**",
@@ -927,9 +849,7 @@ export const NOTES_Y2_NEUROANAT = {
               "**Neocerebellum คือ Caudal lobe**"
             ]
           },
-          {
-            "text": "p.6 เป็นภาพติดป้าย Caudal lobe, Flocculonodular lobe และ Rostral lobe ไม่มีข้อความอธิบายเพิ่ม"
-          }
+          "p.6 เป็นภาพติดป้าย Caudal lobe, Flocculonodular lobe และ Rostral lobe ไม่มีข้อความอธิบายเพิ่ม"
         ]
       },
       {
@@ -951,9 +871,7 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Internal structures",
             "body": [
-              {
-                "text": "คือ **Cerebellar nuclei** ได้แก่ **Fastigial / Interposital / Dentate (lateral) nucleus**"
-              }
+              "คือ **Cerebellar nuclei** ได้แก่ **Fastigial / Interposital / Dentate (lateral) nucleus**"
             ]
           }
         ]
@@ -962,9 +880,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Cerebellar nuclei กับ afferent และ efferent ของแต่ละนิวเคลียส",
         "source": "Metencephalon p.8",
         "body": [
-          {
-            "text": "สไลด์นี้จับคู่ nucleus แต่ละตัวกับโซนของ cerebellum ที่มันสังกัด แล้วไล่ afferent กับ efferent ให้ครบ เป็นสไลด์ที่มีข้อมูลแน่นที่สุดของเด็ค"
-          },
+          "สไลด์นี้จับคู่ nucleus แต่ละตัวกับโซนของ cerebellum ที่มันสังกัด แล้วไล่ afferent กับ efferent ให้ครบ เป็นสไลด์ที่มีข้อมูลแน่นที่สุดของเด็ค",
           {
             "sub": "Fastigial nucleus (Vermis)",
             "body": [
@@ -1004,15 +920,11 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Functional zones และ Functional classification",
         "source": "Metencephalon p.9-11",
         "body": [
-          {
-            "text": "p.9 และ p.10 เป็นภาพ Functional zones of the cerebellum ติดป้ายเพียง 3 คำคือ Hemisphere, Paravermis, Vermis ส่วนเนื้อหาจริงอยู่ที่ p.11"
-          },
+          "p.9 และ p.10 เป็นภาพ Functional zones of the cerebellum ติดป้ายเพียง 3 คำคือ Hemisphere, Paravermis, Vermis ส่วนเนื้อหาจริงอยู่ที่ p.11",
           {
             "sub": "Cerebellar hemispheres คือ Cerebro-cerebellum (D)",
             "body": [
-              {
-                "text": "**Control voluntary movement ในแง่ direction, timing และ force**"
-              }
+              "**Control voluntary movement ในแง่ direction, timing และ force**"
             ]
           },
           {
@@ -1093,9 +1005,7 @@ export const NOTES_Y2_NEUROANAT = {
                   "**Caudolateral fissure**"
                 ]
               },
-              {
-                "text": "p.15 ติดป้าย lobule เรียงคู่กับ fissure เหล่านี้ด้วย ได้แก่ Culmen, Central, Folium, Tuber, Declive, Pyramis, Uvula, Lingula, Nodulus และ Rostral medullary velum จำง่ายที่สุดคือดูภาพประกอบ เพราะสไลด์ไม่ได้เขียนลำดับเป็นข้อความ"
-              }
+              "p.15 ติดป้าย lobule เรียงคู่กับ fissure เหล่านี้ด้วย ได้แก่ Culmen, Central, Folium, Tuber, Declive, Pyramis, Uvula, Lingula, Nodulus และ Rostral medullary velum จำง่ายที่สุดคือดูภาพประกอบ เพราะสไลด์ไม่ได้เขียนลำดับเป็นข้อความ"
             ]
           },
           {
@@ -1108,9 +1018,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Cerebellar peduncles ทั้งสามคู่",
         "source": "Metencephalon p.17-18",
         "body": [
-          {
-            "text": "p.17 เป็นภาพติดป้ายเพียง Rostral, middle, caudal ส่วนเนื้อหาอยู่ที่ p.18 ซึ่งบอกทั้งว่าแต่ละ peduncle เชื่อมกับที่ใด และมี fiber อะไรวิ่งเข้าออก"
-          },
+          "p.17 เป็นภาพติดป้ายเพียง Rostral, middle, caudal ส่วนเนื้อหาอยู่ที่ p.18 ซึ่งบอกทั้งว่าแต่ละ peduncle เชื่อมกับที่ใด และมี fiber อะไรวิ่งเข้าออก",
           {
             "sub": "Rostral cerebellar peduncle: Midbrain and forebrain",
             "body": [
@@ -1126,9 +1034,7 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Middle cerebellar peduncle: Pons",
             "body": [
-              {
-                "text": "Afferent fiber จาก **contralateral pontine nucleus** มาในรูป **transverse fiber of pons (pontocerebellar tract)**"
-              }
+              "Afferent fiber จาก **contralateral pontine nucleus** มาในรูป **transverse fiber of pons (pontocerebellar tract)**"
             ]
           },
           {
@@ -1157,9 +1063,7 @@ export const NOTES_Y2_NEUROANAT = {
               "**Cervicospinocerebellar tract: proprioception from head and neck**"
             ]
           },
-          {
-            "text": "สไลด์นี้จัดเป็นคอลัมน์ให้ tract คู่บนแชร์คำอธิบายเดียวกัน จึงต้องอ่านเป็นคู่ ไม่ใช่ทีละบรรทัด"
-          }
+          "สไลด์นี้จัดเป็นคอลัมน์ให้ tract คู่บนแชร์คำอธิบายเดียวกัน จึงต้องอ่านเป็นคู่ ไม่ใช่ทีละบรรทัด"
         ]
       },
       {
@@ -1174,18 +1078,14 @@ export const NOTES_Y2_NEUROANAT = {
               "To **vestibular nuclei**"
             ]
           },
-          {
-            "text": "สไลด์เขียนคำว่า Medulla oblongata กำกับไว้ข้างสองข้อล่าง แต่ไม่ได้อธิบายเพิ่มว่าหมายถึงอะไร"
-          }
+          "สไลด์เขียนคำว่า Medulla oblongata กำกับไว้ข้างสองข้อล่าง แต่ไม่ได้อธิบายเพิ่มว่าหมายถึงอะไร"
         ]
       },
       {
         "heading": "Cerebellar functions",
         "source": "Metencephalon p.22-23",
         "body": [
-          {
-            "text": "สองสไลด์นี้เขียนข้อความเหมือนกันทุกตัวอักษร ต่างกันแค่ภาพประกอบ"
-          },
+          "สองสไลด์นี้เขียนข้อความเหมือนกันทุกตัวอักษร ต่างกันแค่ภาพประกอบ",
           {
             "bullets": [
               "**Coordination of movement**",
@@ -1205,9 +1105,7 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Cerebellar Ataxia",
             "body": [
-              {
-                "text": "สไลด์นิยามว่า **loss of balance (sensory dysfunction)** และเน้นว่าเป็น **an incoordination of movements โดยไม่มี paresis หรือ weakness**"
-              },
+              "สไลด์นิยามว่า **loss of balance (sensory dysfunction)** และเน้นว่าเป็น **an incoordination of movements โดยไม่มี paresis หรือ weakness**",
               {
                 "bullets": [
                   "**Wide-based stance, Swaying**",
@@ -1221,9 +1119,7 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Intention tremor",
             "body": [
-              {
-                "text": "**Involuntary shaking during movement** สไลด์ยกตัวอย่างว่า **overshoot หรือ undershoot ตอนกินหรือดื่ม**"
-              }
+              "**Involuntary shaking during movement** สไลด์ยกตัวอย่างว่า **overshoot หรือ undershoot ตอนกินหรือดื่ม**"
             ]
           },
           {
@@ -1252,9 +1148,7 @@ export const NOTES_Y2_NEUROANAT = {
                   "Tremor"
                 ]
               },
-              {
-                "text": "p.25 แนบลิงก์วิดีโอ YouTube ไว้ 3 ลิงก์ อันหนึ่งชื่อ Neurological Disease. Cerebellar Ataxia in an older poodle สไลด์ไม่ได้เขียนคำบรรยายวิดีโอไว้"
-              }
+              "p.25 แนบลิงก์วิดีโอ YouTube ไว้ 3 ลิงก์ อันหนึ่งชื่อ Neurological Disease. Cerebellar Ataxia in an older poodle สไลด์ไม่ได้เขียนคำบรรยายวิดีโอไว้"
             ]
           }
         ]
@@ -1263,9 +1157,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "PONS ภาพรวม",
         "source": "Metencephalon p.26",
         "body": [
-          {
-            "text": "สไลด์เปิดหัวข้อว่า **PONS (ventral metencephalon)** แล้วแบ่ง pons ออกเป็นสองส่วนตามภาพ"
-          },
+          "สไลด์เปิดหัวข้อว่า **PONS (ventral metencephalon)** แล้วแบ่ง pons ออกเป็นสองส่วนตามภาพ",
           {
             "bullets": [
               "**Dorsal portion (tegmentum)**",
@@ -1297,14 +1189,10 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Nuclei",
             "body": [
-              {
-                "text": "**Pontine nuclei** สไลด์อธิบายว่า **fibers จาก cerebral cortex มา synapse แล้ว decussate ไป cerebellum**"
-              }
+              "**Pontine nuclei** สไลด์อธิบายว่า **fibers จาก cerebral cortex มา synapse แล้ว decussate ไป cerebellum**"
             ]
           },
-          {
-            "text": "p.29 เป็นภาพติดป้าย Rostral cerebellar peduncle, Middle cerebellar peduncle, RF, Pontine nuclei, Transverse fibers of pons, Lateral lemniscus และ Longitudinal fibers of pons โดยอ้างที่มาภาพจาก vanat.cvm.umn.edu"
-          }
+          "p.29 เป็นภาพติดป้าย Rostral cerebellar peduncle, Middle cerebellar peduncle, RF, Pontine nuclei, Transverse fibers of pons, Lateral lemniscus และ Longitudinal fibers of pons โดยอ้างที่มาภาพจาก vanat.cvm.umn.edu"
         ]
       },
       {
@@ -1340,18 +1228,14 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "p.31 เป็นภาพติดป้าย RF, transverse fiber, longitudinal fiber, sensory nucleus of CN V, CN V, motor nucleus of CN V, lateral lemniscus และ medial lemniscus ซึ่งตรงกับรายการข้างบน"
-          }
+          "p.31 เป็นภาพติดป้าย RF, transverse fiber, longitudinal fiber, sensory nucleus of CN V, CN V, motor nucleus of CN V, lateral lemniscus และ medial lemniscus ซึ่งตรงกับรายการข้างบน"
         ]
       },
       {
         "heading": "Cerebellum & Pons Laboratory Guide",
         "source": "Metencephalon p.32-37",
         "body": [
-          {
-            "text": "หกสไลด์สุดท้ายเป็น Laboratory Guide ทั้งหมดเป็นภาพติดป้ายชื่อโครงสร้าง ไม่มีคำบรรยายหรือคำถามใด ๆ ใช้เป็นเช็กลิสต์ว่าต้องชี้อะไรได้บ้างในแล็บ"
-          },
+          "หกสไลด์สุดท้ายเป็น Laboratory Guide ทั้งหมดเป็นภาพติดป้ายชื่อโครงสร้าง ไม่มีคำบรรยายหรือคำถามใด ๆ ใช้เป็นเช็กลิสต์ว่าต้องชี้อะไรได้บ้างในแล็บ",
           {
             "sub": "p.33",
             "body": [
@@ -1381,9 +1265,7 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "p.35 lobules และ fissures ของ vermis",
             "body": [
-              {
-                "text": "ติดป้าย Folium, Declive, 1o fissure, Tuber, Prepyramidal fissure, Pyramis, 2o fissure, Uvula, Caudolateral fissure, Nodulus, Culmen, Central และ Lingula ซึ่งเป็นชุดเดียวกับ p.15"
-              }
+              "ติดป้าย Folium, Declive, 1o fissure, Tuber, Prepyramidal fissure, Pyramis, 2o fissure, Uvula, Caudolateral fissure, Nodulus, Culmen, Central และ Lingula ซึ่งเป็นชุดเดียวกับ p.15"
             ]
           },
           {
@@ -1426,21 +1308,15 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Development ของ midbrain",
         "source": "Midbrain p.2",
         "body": [
-          {
-            "text": "สไลด์หัวข้อ development ให้ข้อความไว้คำเดียวคือ **Cerebral/Mesencephalic Aqueduct**"
-          },
-          {
-            "text": "ส่วนขั้นตอนการพัฒนา (จาก vesicle ไหน แบ่งอย่างไร) สไลด์ไม่ได้บอกเป็นข้อความ หน้านี้เป็นภาพประกอบ"
-          }
+          "สไลด์หัวข้อ development ให้ข้อความไว้คำเดียวคือ **Cerebral/Mesencephalic Aqueduct**",
+          "ส่วนขั้นตอนการพัฒนา (จาก vesicle ไหน แบ่งอย่างไร) สไลด์ไม่ได้บอกเป็นข้อความ หน้านี้เป็นภาพประกอบ"
         ]
       },
       {
         "heading": "ตำแหน่งของ midbrain: dorsal part",
         "source": "Midbrain p.3",
         "body": [
-          {
-            "text": "Midbrain วางตัวอยู่ **ระหว่าง diencephalon กับ pons**"
-          },
+          "Midbrain วางตัวอยู่ **ระหว่าง diencephalon กับ pons**",
           {
             "sub": "ขอบเขตด้าน dorsal",
             "body": [
@@ -1554,9 +1430,7 @@ export const NOTES_Y2_NEUROANAT = {
                   "ภาพที่สองของหน้า 9 ไม่มีชื่อบนตัวภาพ สไลด์วางชื่อ Medial geniculate body, Caudal colliculus, Trapezoid nuclei, Lateral lemniscus และ Cochlear nuclei ไว้รอบภาพ"
                 ]
               },
-              {
-                "text": "ตัวเลข 1-8 บนภาพที่สอง สไลด์ไม่ได้บอกว่าเลขใดคือโครงสร้างใด"
-              }
+              "ตัวเลข 1-8 บนภาพที่สอง สไลด์ไม่ได้บอกว่าเลขใดคือโครงสร้างใด"
             ]
           }
         ]
@@ -1565,9 +1439,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Tegmentum และของที่อยู่ในนั้น",
         "source": "Midbrain p.10",
         "body": [
-          {
-            "text": "Tegmentum คือ **core ของ midbrain**"
-          },
+          "Tegmentum คือ **core ของ midbrain**",
           {
             "bullets": [
               "Reticular formation: consciousness",
@@ -1632,9 +1504,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Cross section ที่ระดับ rostral colliculi (ภาพ label)",
         "source": "Midbrain p.14-15",
         "body": [
-          {
-            "text": "หน้า 14 เป็นภาพชื่อ Level of rostral colliculi หน้า 15 เป็น label ของภาพเดียวกัน คำที่ปรากฏได้แก่"
-          },
+          "หน้า 14 เป็นภาพชื่อ Level of rostral colliculi หน้า 15 เป็น label ของภาพเดียวกัน คำที่ปรากฏได้แก่",
           {
             "bullets": [
               "Mesencephalic nuclei of CN V",
@@ -1648,9 +1518,7 @@ export const NOTES_Y2_NEUROANAT = {
               "Red nuclei"
             ]
           },
-          {
-            "text": "ใช้หน้านี้ฝึกชี้ตำแหน่งบนภาพตัดขวาง สไลด์ไม่ได้เขียนคำอธิบายของแต่ละ label ไว้ที่หน้านี้"
-          }
+          "ใช้หน้านี้ฝึกชี้ตำแหน่งบนภาพตัดขวาง สไลด์ไม่ได้เขียนคำอธิบายของแต่ละ label ไว้ที่หน้านี้"
         ]
       },
       {
@@ -1681,9 +1549,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Cross section ที่ระดับ caudal colliculus (ภาพ label)",
         "source": "Midbrain p.17-19",
         "body": [
-          {
-            "text": "หน้า 17 เป็นภาพชื่อ Level of caudal colliculus และหน้า 18 เป็นภาพชื่อ Level of caudal part of caudal colliculus คำที่พิมพ์บนภาพตัดขวางหน้า 18 ได้แก่"
-          },
+          "หน้า 17 เป็นภาพชื่อ Level of caudal colliculus และหน้า 18 เป็นภาพชื่อ Level of caudal part of caudal colliculus คำที่พิมพ์บนภาพตัดขวางหน้า 18 ได้แก่",
           {
             "bullets": [
               "Caudal colliculus of the midbrain",
@@ -1696,15 +1562,11 @@ export const NOTES_Y2_NEUROANAT = {
               "Medial lemniscus"
             ]
           },
-          {
-            "text": "อีกภาพในหน้า 18 เป็นก้านสมองทั้งแท่ง กำกับเลขโรมัน II, IV, V, VIII และตัวเลข 1-14 สไลด์ไม่ได้บอกว่าตัวเลขแต่ละตัวคือโครงสร้างใด"
-          },
+          "อีกภาพในหน้า 18 เป็นก้านสมองทั้งแท่ง กำกับเลขโรมัน II, IV, V, VIII และตัวเลข 1-14 สไลด์ไม่ได้บอกว่าตัวเลขแต่ละตัวคือโครงสร้างใด",
           {
             "sub": "หน้า 19",
             "body": [
-              {
-                "text": "สไลด์วางชื่อ Rostral colliculus, Medial geniculate body, Caudal colliculus และ Middle cerebellar peduncle ไว้ข้างภาพตัด ส่วนบนตัวภาพพิมพ์ Midbrain (Atlas 15) และ Midbrain (Atlas 14) กับชื่อเหล่านี้"
-              },
+              "สไลด์วางชื่อ Rostral colliculus, Medial geniculate body, Caudal colliculus และ Middle cerebellar peduncle ไว้ข้างภาพตัด ส่วนบนตัวภาพพิมพ์ Midbrain (Atlas 15) และ Midbrain (Atlas 14) กับชื่อเหล่านี้",
               {
                 "bullets": [
                   "**Parasympathetic nucleus III** และ **Motor nucleus III**, Oculomotor nerve, Ciliary ganglion",
@@ -1714,9 +1576,7 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "ทั้งสามหน้าไม่ได้เขียนคำอธิบายเป็นประโยค ใช้ฝึกชี้ตำแหน่งบนภาพแบบเดียวกับภาพระดับ rostral colliculi"
-          }
+          "ทั้งสามหน้าไม่ได้เขียนคำอธิบายเป็นประโยค ใช้ฝึกชี้ตำแหน่งบนภาพแบบเดียวกับภาพระดับ rostral colliculi"
         ]
       },
       {
@@ -1750,9 +1610,7 @@ export const NOTES_Y2_NEUROANAT = {
               "ควบคุม voluntary movement ในระบบ extrapyramidal system"
             ]
           },
-          {
-            "text": "หน้า 23 พาดหัวว่า Red nucleus pathway แต่เป็นภาพล้วน ไม่มีข้อความอธิบาย"
-          }
+          "หน้า 23 พาดหัวว่า Red nucleus pathway แต่เป็นภาพล้วน ไม่มีข้อความอธิบาย"
         ]
       },
       {
@@ -1793,25 +1651,19 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Crus cerebri",
             "body": [
-              {
-                "text": "เป็น white matter mass ที่บรรจุ **3 tracts จาก internal capsule** ได้แก่ Corticopontine, Corticonuclear และ Corticospinal tracts"
-              }
+              "เป็น white matter mass ที่บรรจุ **3 tracts จาก internal capsule** ได้แก่ Corticopontine, Corticonuclear และ Corticospinal tracts"
             ]
           },
           {
             "sub": "Interpeduncular fossa",
             "body": [
-              {
-                "text": "อยู่ระหว่าง crus ซ้ายและขวา **CN III โผล่ออกจาก medial side ของ crus ในแอ่งนี้**"
-              }
+              "อยู่ระหว่าง crus ซ้ายและขวา **CN III โผล่ออกจาก medial side ของ crus ในแอ่งนี้**"
             ]
           },
           {
             "sub": "Caudal perforated substance",
             "body": [
-              {
-                "text": "สไลด์เขียนกำกับไว้เพียงว่า Caudal cerebral artery รายละเอียดอื่นสไลด์ไม่ได้บอก"
-              }
+              "สไลด์เขียนกำกับไว้เพียงว่า Caudal cerebral artery รายละเอียดอื่นสไลด์ไม่ได้บอก"
             ]
           }
         ]
@@ -1893,9 +1745,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "ขอบเขต (Boundaries) ของ medulla oblongata",
         "source": "Myelencephalon p.1",
         "body": [
-          {
-            "text": "สไลด์แบ่งขอบเขตเป็น cranial กับ caudal และให้ cranial boundary ต่างกันระหว่างด้าน dorsal กับ ventral"
-          },
+          "สไลด์แบ่งขอบเขตเป็น cranial กับ caudal และให้ cranial boundary ต่างกันระหว่างด้าน dorsal กับ ventral",
           {
             "bullets": [
               "Cranial boundary ด้าน Dorsal: **caudal cerebellar peduncle**",
@@ -1951,9 +1801,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Lateral external surface",
         "source": "Myelencephalon p.2",
         "body": [
-          {
-            "text": "หน้านี้ให้ทั้งชื่อโครงสร้างและหน้าที่กำกับไว้ในวงเล็บ"
-          },
+          "หน้านี้ให้ทั้งชื่อโครงสร้างและหน้าที่กำกับไว้ในวงเล็บ",
           {
             "bullets": [
               "**Superficial arcuate fiber**: proprioception จาก **thoracic limb** ไป cerebellum",
@@ -1967,23 +1815,17 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Internal structure: nuclei แบ่ง 3 กลุ่ม",
         "source": "Myelencephalon p.2",
         "body": [
-          {
-            "text": "สไลด์บอกว่า nuclei ใน medulla oblongata มี **3 groups**"
-          },
+          "สไลด์บอกว่า nuclei ใน medulla oblongata มี **3 groups**",
           {
             "sub": "1. Reticular formation nuclei",
             "body": [
-              {
-                "text": "สไลด์ระบุว่าเป็นที่ตั้งของ **cardiovascular center และ respiratory center**"
-              }
+              "สไลด์ระบุว่าเป็นที่ตั้งของ **cardiovascular center และ respiratory center**"
             ]
           },
           {
             "sub": "2. Nuclei of cranial nerve VI-XII",
             "body": [
-              {
-                "text": "สไลด์กำกับ **Ambiguous nucleus** ไว้ด้วยดาวในกลุ่มนี้"
-              }
+              "สไลด์กำกับ **Ambiguous nucleus** ไว้ด้วยดาวในกลุ่มนี้"
             ]
           },
           {
@@ -2005,9 +1847,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Internal structure: tracts",
         "source": "Myelencephalon p.2",
         "body": [
-          {
-            "text": "ภายในมีทั้ง ascending และ descending tracts รวมทั้ง cranial nerves **VI-XII**, fibers to cerebellum (**olivocerebellar tract**) และ fibers ที่ traverse หรือ terminate ใน medulla oblongata"
-          },
+          "ภายในมีทั้ง ascending และ descending tracts รวมทั้ง cranial nerves **VI-XII**, fibers to cerebellum (**olivocerebellar tract**) และ fibers ที่ traverse หรือ terminate ใน medulla oblongata",
           {
             "sub": "Motor",
             "body": [
@@ -2042,9 +1882,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Nuclei ของ cranial nerves V-XII",
         "source": "Myelencephalon p.3",
         "body": [
-          {
-            "text": "หน้านี้เป็นภาพ cranial nuclei in brainstem พร้อมลิสต์ว่าเส้นประสาทแต่ละคู่มี nucleus ชนิดใดบ้าง"
-          },
+          "หน้านี้เป็นภาพ cranial nuclei in brainstem พร้อมลิสต์ว่าเส้นประสาทแต่ละคู่มี nucleus ชนิดใดบ้าง",
           {
             "bullets": [
               "**CN V**: nucleus of spinal tract of trigeminal nerve",
@@ -2063,9 +1901,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "อาการทางคลินิกที่สไลด์ยกหัวข้อไว้",
         "source": "Myelencephalon p.4",
         "body": [
-          {
-            "text": "หน้านี้เป็นสไลด์รูป nuclei of cranial nerves พร้อมหัวข้ออาการเป็นคำ ๆ ไม่มีข้อความอธิบาย"
-          },
+          "หน้านี้เป็นสไลด์รูป nuclei of cranial nerves พร้อมหัวข้ออาการเป็นคำ ๆ ไม่มีข้อความอธิบาย",
           {
             "bullets": [
               "**MEDIAL STRABISMUS**",
@@ -2083,9 +1919,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Reticular formation, ARAS และ reticulospinal pathway",
         "source": "Myelencephalon p.5",
         "body": [
-          {
-            "text": "สไลด์พาดหัวว่า **RETICULAR FORMATION NUCLEI: CONTROLS VITAL FUNCTIONS (GI, RESP, CARDIO)**"
-          },
+          "สไลด์พาดหัวว่า **RETICULAR FORMATION NUCLEI: CONTROLS VITAL FUNCTIONS (GI, RESP, CARDIO)**",
           {
             "sub": "ARAS (Ascending Reticular Activating System)",
             "body": [
@@ -2128,9 +1962,7 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "NUCLEUS GRACILIS",
             "body": [
-              {
-                "text": "**Discriminative touch และ proprioception** จาก **caudal half of the body และ pelvic limb** ไปที่ **thalamus**"
-              },
+              "**Discriminative touch และ proprioception** จาก **caudal half of the body และ pelvic limb** ไปที่ **thalamus**",
               {
                 "callout": "สไลด์กำกับดาวไว้ว่า some textbook บอกว่าส่วนนี้ conveys by **spinomedullary tract** แล้วไป terminate ที่ **Nucleus Z** ซึ่งอยู่ rostral ต่อ nucleus gracilis",
                 "kind": "tip"
@@ -2153,9 +1985,7 @@ export const NOTES_Y2_NEUROANAT = {
               "**OLIVARY NUCLEUS**: relay nuclei จาก **telencephalon, diencephalon, mesencephalon** ไปที่ **cerebellum** ที่ระดับ **CN VII-XII**"
             ]
           },
-          {
-            "text": "ภาพในหน้าเดียวกันยังชี้ตำแหน่ง vestibular nuclei, cochlear nuclei, RF (reticular formation), cuneate nucleus และ nucleus of spinal tract of trigeminal nerve"
-          }
+          "ภาพในหน้าเดียวกันยังชี้ตำแหน่ง vestibular nuclei, cochlear nuclei, RF (reticular formation), cuneate nucleus และ nucleus of spinal tract of trigeminal nerve"
         ]
       },
       {
@@ -2186,18 +2016,14 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "ภาพ cross section ในหน้านี้กำกับตำแหน่ง gracile nucleus, cuneate nucleus, nucleus of the spinal tract of C.N. V และ pyramidal decussation"
-          }
+          "ภาพ cross section ในหน้านี้กำกับตำแหน่ง gracile nucleus, cuneate nucleus, nucleus of the spinal tract of C.N. V และ pyramidal decussation"
         ]
       },
       {
         "heading": "The fourth ventricle: รูปร่างและขอบเขต",
         "source": "Myelencephalon p.6",
         "body": [
-          {
-            "text": "สไลด์ระบุว่าเป็น **diamond-shape cavity**"
-          },
+          "สไลด์ระบุว่าเป็น **diamond-shape cavity**",
           {
             "bullets": [
               "**Ventral**: pons & medulla",
@@ -2262,9 +2088,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "ทำไมต้องตรวจระบบประสาท",
         "source": "Neuro exam anatomy2024 p.1",
         "body": [
-          {
-            "text": "สไลด์เปิดตั้งคำถามว่า Why doing the neurological examination? แล้วตอบเป็น 3 ข้อสั้น ๆ"
-          },
+          "สไลด์เปิดตั้งคำถามว่า Why doing the neurological examination? แล้วตอบเป็น 3 ข้อสั้น ๆ",
           {
             "bullets": [
               "**Neurological problem?** คือดูว่าเป็นปัญหาทางระบบประสาทจริงหรือไม่",
@@ -2282,18 +2106,14 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "อุปกรณ์และแบบฟอร์มการตรวจ",
         "source": "Neuro exam anatomy2024 p.2",
         "body": [
-          {
-            "text": "สไลด์มีหัวข้อ **Equipments** และ **Neurological examination sheet** แต่ตัวรายการอุปกรณ์เป็นรูปภาพ ไม่มีข้อความในสไลด์ จึงบอกไม่ได้ว่ามีอุปกรณ์อะไรบ้าง สไลด์ไม่ได้บอก"
-          }
+          "สไลด์มีหัวข้อ **Equipments** และ **Neurological examination sheet** แต่ตัวรายการอุปกรณ์เป็นรูปภาพ ไม่มีข้อความในสไลด์ จึงบอกไม่ได้ว่ามีอุปกรณ์อะไรบ้าง สไลด์ไม่ได้บอก"
         ]
       },
       {
         "heading": "โครงของการตรวจ: hands-off กับ hands-on",
         "source": "Neuro exam anatomy2024 p.3",
         "body": [
-          {
-            "text": "สไลด์แบ่งการตรวจออกเป็น **2 ส่วนใหญ่** คือ Observation (Hands-off examination) และ Hands-on examination"
-          },
+          "สไลด์แบ่งการตรวจออกเป็น **2 ส่วนใหญ่** คือ Observation (Hands-off examination) และ Hands-on examination",
           {
             "sub": "Observation (Hands-off examination) ประกอบด้วย 4 หัวข้อ",
             "body": [
@@ -2344,16 +2164,12 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "สไลด์หน้าเดียวกันยังพิมพ์คำว่า **Brainstem**, **Ascending reticular activating system (ARAS)**, **Forebrain** และ **Severe systemic disease** วางไว้ด้วย ซึ่งเป็นโครงสร้างและสาเหตุที่เกี่ยวข้องกับ mental status"
-          },
+          "สไลด์หน้าเดียวกันยังพิมพ์คำว่า **Brainstem**, **Ascending reticular activating system (ARAS)**, **Forebrain** และ **Severe systemic disease** วางไว้ด้วย ซึ่งเป็นโครงสร้างและสาเหตุที่เกี่ยวข้องกับ mental status",
           {
             "callout": "สไลด์วางคำเหล่านี้ไว้เป็นกล่อง ไม่ได้เขียนเป็นประโยคว่าอาการระดับไหนจับคู่กับโครงสร้างใด ตรงนี้สไลด์ไม่ได้บอก ต้องฟังคำอธิบายในคาบ",
             "kind": "warn"
           },
-          {
-            "text": "p.5 และ p.6 เป็นสไลด์รูปหรือคลิปตัวอย่าง mental status and behaviour ไม่มีข้อความ"
-          }
+          "p.5 และ p.6 เป็นสไลด์รูปหรือคลิปตัวอย่าง mental status and behaviour ไม่มีข้อความ"
         ]
       },
       {
@@ -2406,9 +2222,7 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "p.9 เพิ่มอีกหนึ่งท่าคือ **Plantigrade or palmigrade postures** โดยเป็นสไลด์รูปสองหน้าย่อยที่มีแค่ชื่อท่า"
-          },
+          "p.9 เพิ่มอีกหนึ่งท่าคือ **Plantigrade or palmigrade postures** โดยเป็นสไลด์รูปสองหน้าย่อยที่มีแค่ชื่อท่า",
           {
             "callout": "สไลด์พิมพ์ไว้เฉพาะชื่อ ไม่ได้บรรยายลักษณะขาหน้าขาหลังหรือตำแหน่งรอยโรค",
             "kind": "warn"
@@ -2456,9 +2270,7 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "p.11 และ p.12 เป็นคลิปหรือรูปสาธิต cerebellar ataxia, vestibular ataxia และ proprioceptive ataxia ไม่มีข้อความอธิบายความต่างของแต่ละแบบในสไลด์"
-          },
+          "p.11 และ p.12 เป็นคลิปหรือรูปสาธิต cerebellar ataxia, vestibular ataxia และ proprioceptive ataxia ไม่มีข้อความอธิบายความต่างของแต่ละแบบในสไลด์",
           {
             "callout": "จุดที่สไลด์แยกชัดคือ ataxia จัดอยู่ฝั่ง sensory ส่วน paresis/paralysis จัดอยู่ฝั่ง motor",
             "kind": "tip"
@@ -2501,12 +2313,8 @@ export const NOTES_Y2_NEUROANAT = {
               }
             ]
           },
-          {
-            "text": "หลักที่สไลด์เน้นสำหรับ postural reactions คือเป็น **conscious reaction ที่วิ่งไปที่ contralateral forebrain**"
-          },
-          {
-            "text": "สไลด์อ้างอิงรูปจาก André Jaggy (ed.), Small Animal Neurology An Illustrated Text, 2010"
-          }
+          "หลักที่สไลด์เน้นสำหรับ postural reactions คือเป็น **conscious reaction ที่วิ่งไปที่ contralateral forebrain**",
+          "สไลด์อ้างอิงรูปจาก André Jaggy (ed.), Small Animal Neurology An Illustrated Text, 2010"
         ]
       },
       {
@@ -2532,9 +2340,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Spinal reflexes: reflex กับ nerve กับ spinal cord segment",
         "source": "Neuro exam anatomy2024 p.18-19",
         "body": [
-          {
-            "text": "หลักที่สไลด์เขียนไว้ตัวใหญ่คือ spinal reflexes เป็น **segmental และ do not require consciousness** ตารางแบ่งเป็นสามกลุ่ม คือ thoracic limbs, pelvic limbs และ tail and anus โดยมีสามคอลัมน์ ได้แก่ spinal reflex, peripheral nerve และ spinal cord segments"
-          },
+          "หลักที่สไลด์เขียนไว้ตัวใหญ่คือ spinal reflexes เป็น **segmental และ do not require consciousness** ตารางแบ่งเป็นสามกลุ่ม คือ thoracic limbs, pelvic limbs และ tail and anus โดยมีสามคอลัมน์ ได้แก่ spinal reflex, peripheral nerve และ spinal cord segments",
           {
             "sub": "Thoracic limbs",
             "body": [
@@ -2575,18 +2381,14 @@ export const NOTES_Y2_NEUROANAT = {
             "callout": "ตารางนี้ถูกดึงออกมาเป็นข้อความเรียงกันเป็นคอลัมน์ การจับคู่ข้างบนเรียงตามลำดับที่สไลด์พิมพ์ทั้งสามคอลัมน์ ตอนอ่านทวนควรเปิดสไลด์จริงเทียบแถวอีกครั้ง",
             "kind": "warn"
           },
-          {
-            "text": "p.19 เป็นรูปสาธิตการทำ cranial tibial reflex, patellar reflex, gastrocnemius reflex และ withdrawal reflex ไม่มีข้อความเพิ่ม"
-          }
+          "p.19 เป็นรูปสาธิตการทำ cranial tibial reflex, patellar reflex, gastrocnemius reflex และ withdrawal reflex ไม่มีข้อความเพิ่ม"
         ]
       },
       {
         "heading": "Cutaneous trunci reflex",
         "source": "Neuro exam anatomy2024 p.20",
         "body": [
-          {
-            "text": "สไลด์เขียนไว้บรรทัดเดียวและซ้ำสองครั้งในหน้าเดียวกันว่า **Start at L4 -> T2** คือเริ่มทดสอบจาก L4 ไล่ขึ้นไปทาง T2"
-          },
+          "สไลด์เขียนไว้บรรทัดเดียวและซ้ำสองครั้งในหน้าเดียวกันว่า **Start at L4 -> T2** คือเริ่มทดสอบจาก L4 ไล่ขึ้นไปทาง T2",
           {
             "callout": "สไลด์ไม่ได้บอกวงจร afferent หรือ efferent ของ cutaneous trunci reflex ไว้ในหน้านี้",
             "kind": "flag"
@@ -2597,9 +2399,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Cranial nerve examination: afferent, efferent, effect",
         "source": "Neuro exam anatomy2024 p.21",
         "body": [
-          {
-            "text": "ตารางนี้มี 4 คอลัมน์ คือ clinical testing, afferent innervation, efferent innervation และ effect"
-          },
+          "ตารางนี้มี 4 คอลัมน์ คือ clinical testing, afferent innervation, efferent innervation และ effect",
           {
             "bullets": [
               "**Palpebral reflex** afferent **CN V** efferent **Facial nerve** ผลคือ blink เมื่อสัมผัสที่ lateral และ medial canthus ของตา",
@@ -2625,12 +2425,8 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Palpebral reflex และ pathological nystagmus",
         "source": "Neuro exam anatomy2024 p.23-24",
         "body": [
-          {
-            "text": "p.23 เป็นรูปสาธิต **palpebral reflex** ไม่มีข้อความเพิ่มจากตารางหน้าก่อน"
-          },
-          {
-            "text": "p.24 หัวข้อ **Pathological nystagmus** แยกไว้ 2 แบบ"
-          },
+          "p.23 เป็นรูปสาธิต **palpebral reflex** ไม่มีข้อความเพิ่มจากตารางหน้าก่อน",
+          "p.24 หัวข้อ **Pathological nystagmus** แยกไว้ 2 แบบ",
           {
             "bullets": [
               "**Vertical nystagmus**",
@@ -2647,9 +2443,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Palpation and sensory testing",
         "source": "Neuro exam anatomy2024 p.25",
         "body": [
-          {
-            "text": "ลำดับการคลำที่สไลด์กำหนดคือ **From Head ไป vertebral columns ไป limbs**"
-          },
+          "ลำดับการคลำที่สไลด์กำหนดคือ **From Head ไป vertebral columns ไป limbs**",
           {
             "sub": "สิ่งที่ต้องมองหาระหว่างคลำ",
             "body": [
@@ -2685,15 +2479,9 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Case study, examination sheet และ suggested reading",
         "source": "Neuro exam anatomy2024 p.26-29",
         "body": [
-          {
-            "text": "p.26 และ p.27 เป็นสไลด์ **Case study** ที่มีแต่หัวข้อกับรูปหรือคลิป ไม่มีตัวเคสเป็นข้อความ"
-          },
-          {
-            "text": "p.28 เป็น **Neurological examination sheet** ซ้ำกับ p.2 เป็นรูปแบบฟอร์ม ไม่มีข้อความให้อ่าน"
-          },
-          {
-            "text": "p.29 เป็นสไลด์ **Suggested reading** และคำขอบคุณปิดท้าย แต่รายชื่อหนังสือเป็นรูป ไม่มีข้อความ หนังสือเล่มเดียวที่ถูกพิมพ์เป็นตัวอักษรในเดคนี้คือ André Jaggy (ed.), Small Animal Neurology An Illustrated Text, 2010 ที่อ้างไว้ที่ p.15"
-          }
+          "p.26 และ p.27 เป็นสไลด์ **Case study** ที่มีแต่หัวข้อกับรูปหรือคลิป ไม่มีตัวเคสเป็นข้อความ",
+          "p.28 เป็น **Neurological examination sheet** ซ้ำกับ p.2 เป็นรูปแบบฟอร์ม ไม่มีข้อความให้อ่าน",
+          "p.29 เป็นสไลด์ **Suggested reading** และคำขอบคุณปิดท้าย แต่รายชื่อหนังสือเป็นรูป ไม่มีข้อความ หนังสือเล่มเดียวที่ถูกพิมพ์เป็นตัวอักษรในเดคนี้คือ André Jaggy (ed.), Small Animal Neurology An Illustrated Text, 2010 ที่อ้างไว้ที่ p.15"
         ]
       }
     ]
@@ -2708,12 +2496,8 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Retina receptors และ transduction",
         "source": "visual vestibular systems p.12-14",
         "body": [
-          {
-            "text": "สไลด์ช่วงต้นของเด็ค (หัวข้อ การรับภาพ) เป็นภาพล้วน ข้อความที่มีจริงคือชื่อ receptor สองชนิด **Rods & cones**"
-          },
-          {
-            "text": "สไลด์ Transduction in retina ไล่ลำดับไว้เป็นสามบรรทัดตามนี้"
-          },
+          "สไลด์ช่วงต้นของเด็ค (หัวข้อ การรับภาพ) เป็นภาพล้วน ข้อความที่มีจริงคือชื่อ receptor สองชนิด **Rods & cones**",
+          "สไลด์ Transduction in retina ไล่ลำดับไว้เป็นสามบรรทัดตามนี้",
           {
             "bullets": [
               "rods & cones",
@@ -2731,12 +2515,8 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Visual field: nasal half กับ temporal half",
         "source": "visual vestibular systems p.18, p.21",
         "body": [
-          {
-            "text": "สไลด์ VISUAL FIELD แบ่ง retina ออกเป็น **nasal half** และ **temporal half**"
-          },
-          {
-            "text": "สไลด์ถัดมาระบุว่า **ในคน 50%** และเขียนกำกับว่า **nasal half = contralateral ส่วน temporal half = ipsilateral**"
-          },
+          "สไลด์ VISUAL FIELD แบ่ง retina ออกเป็น **nasal half** และ **temporal half**",
+          "สไลด์ถัดมาระบุว่า **ในคน 50%** และเขียนกำกับว่า **nasal half = contralateral ส่วน temporal half = ipsilateral**",
           {
             "callout": "ตัวเลขเปอร์เซ็นต์ของสัตว์แต่ละชนิด สไลด์ไม่ได้บอก บนสไลด์มีเฉพาะเลข 50% ของคน",
             "kind": "flag"
@@ -2747,9 +2527,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Visual pathway ตั้งแต่ photoreceptor ถึง visual cortex",
         "source": "visual vestibular systems p.20",
         "body": [
-          {
-            "text": "สไลด์เขียน pathway เป็นผังไล่ลงมาแบบนี้"
-          },
+          "สไลด์เขียน pathway เป็นผังไล่ลงมาแบบนี้",
           {
             "bullets": [
               "photoreceptors in retina",
@@ -2771,9 +2549,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "20% ของ fibres จาก optic tract ไปไหนบ้าง",
         "source": "visual vestibular systems p.24-26",
         "body": [
-          {
-            "text": "สไลด์หัวข้อ 20% ของ fibres จาก optic tract ลิสต์ปลายทางไว้ตามนี้"
-          },
+          "สไลด์หัวข้อ 20% ของ fibres จาก optic tract ลิสต์ปลายทางไว้ตามนี้",
           {
             "bullets": [
               "1. **motor of CN III, IV, VI และ pupillary reflex (ANS)**",
@@ -2792,18 +2568,14 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Monocular vs Binocular vision",
         "source": "visual vestibular systems p.22-23",
         "body": [
-          {
-            "text": "มีสองสไลด์ติดกันชื่อ Monocular vs. Binocular Vision ข้อความบนสไลด์มีแค่สองคำคือ **Predator** และ **Prey** ที่เหลือเป็นภาพประกอบ สไลด์ไม่ได้เขียนอธิบายว่าแต่ละแบบต่างกันอย่างไร"
-          }
+          "มีสองสไลด์ติดกันชื่อ Monocular vs. Binocular Vision ข้อความบนสไลด์มีแค่สองคำคือ **Predator** และ **Prey** ที่เหลือเป็นภาพประกอบ สไลด์ไม่ได้เขียนอธิบายว่าแต่ละแบบต่างกันอย่างไร"
         ]
       },
       {
         "heading": "รายการตรวจ Neuro-ophthalmology",
         "source": "visual vestibular systems p.31",
         "body": [
-          {
-            "text": "สไลด์ Neuro-ophthalmology Evaluation ลิสต์หัวข้อที่ต้องตรวจไว้ดังนี้"
-          },
+          "สไลด์ Neuro-ophthalmology Evaluation ลิสต์หัวข้อที่ต้องตรวจไว้ดังนี้",
           {
             "bullets": [
               "**menace**",
@@ -2840,17 +2612,13 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "sub": "Pupillary light reflex (PLR)",
             "body": [
-              {
-                "text": "มีสไลด์ PLR สามสไลด์ติดกัน แต่ข้อความที่พิมพ์ไว้บนสไลด์มีเพียงชื่อ reflex กับชื่อนิวเคลียส **Edinger-Westphal n.** ส่วนวงจรที่เหลือเป็นแผนภาพ"
-              }
+              "มีสไลด์ PLR สามสไลด์ติดกัน แต่ข้อความที่พิมพ์ไว้บนสไลด์มีเพียงชื่อ reflex กับชื่อนิวเคลียส **Edinger-Westphal n.** ส่วนวงจรที่เหลือเป็นแผนภาพ"
             ]
           },
           {
             "sub": "ตัวอย่างรอยโรค",
             "body": [
-              {
-                "text": "สไลด์ภาพเคสเขียนคำบรรยายว่า **Left mydriasis and ptosis due to oculomotor nerve paralysis**"
-              }
+              "สไลด์ภาพเคสเขียนคำบรรยายว่า **Left mydriasis and ptosis due to oculomotor nerve paralysis**"
             ]
           },
           {
@@ -2863,24 +2631,16 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Menace response",
         "source": "visual vestibular systems p.27, p.38, p.40",
         "body": [
-          {
-            "text": "มีสองสไลด์ที่พิมพ์คำว่า **menace response** ไว้เป็นหัวเรื่อง ส่วนเนื้อหาเป็นภาพหรือคลิป สไลด์ไม่ได้เขียนเส้นทางประสาทหรือเกณฑ์แปลผลของ menace response ไว้"
-          },
-          {
-            "text": "ในเด็คยังมีสไลด์หนึ่งที่เป็นลิงก์ไปวิดีโอสอนทางระบบประสาทของ Cornell เพียงอย่างเดียว ไม่มีข้อความอื่น"
-          }
+          "มีสองสไลด์ที่พิมพ์คำว่า **menace response** ไว้เป็นหัวเรื่อง ส่วนเนื้อหาเป็นภาพหรือคลิป สไลด์ไม่ได้เขียนเส้นทางประสาทหรือเกณฑ์แปลผลของ menace response ไว้",
+          "ในเด็คยังมีสไลด์หนึ่งที่เป็นลิงก์ไปวิดีโอสอนทางระบบประสาทของ Cornell เพียงอย่างเดียว ไม่มีข้อความอื่น"
         ]
       },
       {
         "heading": "Horner syndrome",
         "source": "visual vestibular systems p.41",
         "body": [
-          {
-            "text": "สไลด์นิยามไว้ตรง ๆ ว่า **Horner syndrome (HS) = decreased sympathetic supply to the eye**"
-          },
-          {
-            "text": "อาการที่สไลด์ลิสต์ไว้"
-          },
+          "สไลด์นิยามไว้ตรง ๆ ว่า **Horner syndrome (HS) = decreased sympathetic supply to the eye**",
+          "อาการที่สไลด์ลิสต์ไว้",
           {
             "bullets": [
               "**miosis**",
@@ -2895,30 +2655,22 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Heterochromia iridis",
         "source": "visual vestibular systems p.30",
         "body": [
-          {
-            "text": "มีสไลด์ภาพหนึ่งที่พิมพ์คำว่า **heterochromia iridis** ไว้คำเดียว สไลด์ไม่ได้เขียนคำอธิบายหรือความเกี่ยวข้องกับหัวข้ออื่นในเด็ค"
-          }
+          "มีสไลด์ภาพหนึ่งที่พิมพ์คำว่า **heterochromia iridis** ไว้คำเดียว สไลด์ไม่ได้เขียนคำอธิบายหรือความเกี่ยวข้องกับหัวข้ออื่นในเด็ค"
         ]
       },
       {
         "heading": "Vestibular receptors",
         "source": "visual vestibular systems p.42-44",
         "body": [
-          {
-            "text": "สไลด์ระบุโครงสร้างที่เกี่ยวข้องคือ **saccule, utricle และ semicircular canal (ampulla)**"
-          },
-          {
-            "text": "และระบุตัวรับไว้ชัดเจนว่า **Receptor = hair cells**"
-          }
+          "สไลด์ระบุโครงสร้างที่เกี่ยวข้องคือ **saccule, utricle และ semicircular canal (ampulla)**",
+          "และระบุตัวรับไว้ชัดเจนว่า **Receptor = hair cells**"
         ]
       },
       {
         "heading": "Vestibular pathway จาก hair cell ไป 5 ปลายทาง",
         "source": "visual vestibular systems p.48",
         "body": [
-          {
-            "text": "สไลด์สรุปทางเดินไว้ว่า **receptor = hair cell ใน saccule, utricle, ampullae** แล้วส่งสัญญาณผ่าน **CN VIII ผ่าน vestibular ganglion** เข้าสู่ **vestibular nuclei** จากนั้นแตกออกเป็นห้าทาง"
-          },
+          "สไลด์สรุปทางเดินไว้ว่า **receptor = hair cell ใน saccule, utricle, ampullae** แล้วส่งสัญญาณผ่าน **CN VIII ผ่าน vestibular ganglion** เข้าสู่ **vestibular nuclei** จากนั้นแตกออกเป็นห้าทาง",
           {
             "bullets": [
               "1. วิ่งขึ้นไป **cerebellum (vestibulocerebellar tract) ผ่าน caudal peduncle**",
@@ -2934,12 +2686,8 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Vestibulo-ocular reflex (VOR)",
         "source": "visual vestibular systems p.49-52",
         "body": [
-          {
-            "text": "สไลด์ให้คำนิยามสั้น ๆ ว่า **Vestibulo-ocular reflex = keep head balance & gaze steady**"
-          },
-          {
-            "text": "จากนั้นเป็นแผนภาพเทียบสองสถานการณ์ โดยข้อความที่ติดมาบนสไลด์คือชื่อโครงสร้างในผัง"
-          },
+          "สไลด์ให้คำนิยามสั้น ๆ ว่า **Vestibulo-ocular reflex = keep head balance & gaze steady**",
+          "จากนั้นเป็นแผนภาพเทียบสองสถานการณ์ โดยข้อความที่ติดมาบนสไลด์คือชื่อโครงสร้างในผัง",
           {
             "bullets": [
               "สไลด์แรกหัวเรื่อง **PATHWAY ปกติ**",
@@ -2957,9 +2705,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Extra-ocular muscles กับ innervation",
         "source": "visual vestibular systems p.53-54",
         "body": [
-          {
-            "text": "สไลด์ระบุว่า Extra-ocular muscles **controlled by CN III, IV, VI** แล้วให้ตารางกล้ามเนื้อ การทำงาน และเส้นประสาทที่เลี้ยง"
-          },
+          "สไลด์ระบุว่า Extra-ocular muscles **controlled by CN III, IV, VI** แล้วให้ตารางกล้ามเนื้อ การทำงาน และเส้นประสาทที่เลี้ยง",
           {
             "bullets": [
               "**Lateral rectus** moves eye laterally, **CN VI**",
@@ -2980,9 +2726,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "อาการของ Vestibular diseases",
         "source": "visual vestibular systems p.55",
         "body": [
-          {
-            "text": "สไลด์ Vestibular diseases ลิสต์อาการไว้ดังนี้"
-          },
+          "สไลด์ Vestibular diseases ลิสต์อาการไว้ดังนี้",
           {
             "bullets": [
               "**head tilt**",
@@ -2999,9 +2743,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "Central vs Peripheral vestibular disease",
         "source": "visual vestibular systems p.56",
         "body": [
-          {
-            "text": "สไลด์เป็นตารางเทียบสองคอลัมน์ Central กับ Peripheral ตามที่พิมพ์ไว้บนสไลด์"
-          },
+          "สไลด์เป็นตารางเทียบสองคอลัมน์ Central กับ Peripheral ตามที่พิมพ์ไว้บนสไลด์",
           {
             "bullets": [
               "Loss of balance / ataxia: Central **Yes**, Peripheral **Yes**",
@@ -3022,9 +2764,7 @@ export const NOTES_Y2_NEUROANAT = {
         "heading": "สไลด์ท้ายเด็ค: strabismus และ nystagmus",
         "source": "visual vestibular systems p.57, p.59",
         "body": [
-          {
-            "text": "สองสไลด์สุดท้ายที่มีตัวอักษรคือ **strabismus** และ **nystagmus** พิมพ์ไว้เป็นหัวเรื่องคำเดียว เนื้อหาเป็นภาพหรือคลิปตัวอย่าง สไลด์ไม่ได้เขียนการจำแนกชนิดหรือการแปลผลไว้เป็นตัวหนังสือ"
-          }
+          "สองสไลด์สุดท้ายที่มีตัวอักษรคือ **strabismus** และ **nystagmus** พิมพ์ไว้เป็นหัวเรื่องคำเดียว เนื้อหาเป็นภาพหรือคลิปตัวอย่าง สไลด์ไม่ได้เขียนการจำแนกชนิดหรือการแปลผลไว้เป็นตัวหนังสือ"
         ]
       }
     ]

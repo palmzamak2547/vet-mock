@@ -92,6 +92,21 @@ export function splitBlocks(text) {
   return blocks;
 }
 
+/**
+ * The question as one sentence that holds its own data. A question whose
+ * numbers were moved out of the stem into a passage table keeps the sentence
+ * that says them in `say`; for every other question it is the stem. Whatever
+ * meets a question without its passage asks here:
+ *   - the voice (a passage is not read aloud), in the card and in the clip
+ *     generator alike, so both name the same clip and a recorded one is kept;
+ *   - the screens that draw a stem and options and nothing else (the daily
+ *     question, the race, the share card), and the AI's question corpus;
+ *   - the wrong-answer coach and the evidence build, which show it to a model;
+ *   - what compares questions by their words: duplicates, recurrence, the
+ *     gentle order of a practice set.
+ */
+export const wholeStem = (q) => (typeof q?.say === 'string' && q.say ? q.say : q?.q || '');
+
 /** A passage that is the question's data rather than a text to read. */
 export const hasTable = (text) => splitBlocks(text).some((b) => b.type === 'table');
 
