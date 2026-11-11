@@ -31,6 +31,7 @@ import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 import { feedbackReaction, COMBO_MIN } from '../lib/mochi-reactions.js';
 import { haptic } from '../lib/haptics.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
+import { motionIsReduced } from '../lib/motion-preferences.js';
 
 // Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
 // Cross-machine sync needs Supabase schema; deferred to a future session.
@@ -395,9 +396,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   }, [compoundId, hasPassage]);
   const focusPassage = () => {
     setPassageNudge((n) => n + 1);
+    // SmartPassage opens in this same render (see its openSignal), so by the next frame the table is
+    // on the page and the scroll measures where it really is. A student who turned motion down gets
+    // a jump: an explicit 'smooth' would override the page's own setting.
     requestAnimationFrame(() => {
       try {
-        passageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        passageRef.current?.scrollIntoView({ behavior: motionIsReduced() ? 'auto' : 'smooth', block: 'start' });
       } catch {
         passageRef.current?.scrollIntoView();
       }

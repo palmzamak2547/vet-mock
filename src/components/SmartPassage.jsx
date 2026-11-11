@@ -53,8 +53,16 @@ export default function SmartPassage({ text, title, defaultOpen = true, openSign
   // Another passage is another piece of data: it arrives open and in reading mode, whatever the one
   // before it was left as. (A passage shared by two questions in a row keeps the state it was given.)
   useEffect(() => { setOpen(defaultOpen); setMode('read'); }, [text, defaultOpen]);
-  // The card's "back to the passage" button opens a passage the student had hidden.
-  useEffect(() => { if (openSignal) setOpen(true); }, [openSignal]);
+  // The card's "back to the passage" button opens a passage the student had hidden. It opens in the
+  // same render as the tap, not in an effect a render later: the card scrolls to the passage on the
+  // next frame, and a table that arrived after that scroll had started made the page taller above the
+  // reader, so an engine that keeps the reader's place dropped the scroll and the button brought back
+  // a table nobody could see (tests/unit/passage-opens-with-the-tap.test.mjs).
+  const [seenSignal, setSeenSignal] = useState(openSignal);
+  if (openSignal !== seenSignal) {
+    setSeenSignal(openSignal);
+    if (openSignal) setOpen(true);
+  }
   const [hlColor, setHlColor] = useState('yellow');
   const [penColor, setPenColor] = useState('black');
   const [highlights, setHighlights] = useState([]);
