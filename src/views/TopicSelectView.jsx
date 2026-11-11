@@ -793,8 +793,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const related = relatedDocs.get(`${subject}/${t.id}`) || [];
           const isEmpty = !hasTopicContent(t);
           const isRead = t.read;
-          // A note that says the topic is off the paper (curriculum.js flags it)
-          // keeps a warning sign; a provenance note is plain text.
+          // Only a note that changes what to study (curriculum.js marks it
+          // 'caveat': off the timetable, not examined, still on the paper)
+          // stays on the card, with its warning sign. Schedule and
+          // provenance notes are in the page's one folded row (5.214).
           const caveat = t.lecturerNoteKind === 'caveat';
           // The name the lecturer section above uses for the same person;
           // null for TBD, which gets no button at all.
@@ -843,13 +845,15 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   // ข้อสอบเก่า, the word the question card's source line uses for
                   // the same predicate (isPastPaperQuestion). It read อิงแนวเดิม,
                   // the card chip's word for a wider set, until 5.189.2.
-                  <span className="vmx-topic-past" title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้)`}>
-                    ข้อสอบเก่า {ppCount}/{count}, {ppPct}%
+                  // One figure, said as a sentence (5.214): "36% of these are
+                  // past-paper questions", with the count in the tooltip.
+                  <span className="vmx-topic-past" title={`ข้อสอบเก่า ${ppCount} จาก ${count} ข้อ`}>
+                    เป็นข้อสอบเก่า {ppPct}%
                   </span>
                 )}
-                {t.lecturerNote && !isEmpty && (
-                  <span className={`vmx-topic-note${caveat ? ' is-caveat' : ''}`}>
-                    {caveat && <span aria-hidden="true">⚠️ </span>}{t.lecturerNote}
+                {caveat && t.lecturerNote && !isEmpty && (
+                  <span className="vmx-topic-note is-caveat">
+                    <span aria-hidden="true">⚠️ </span>{t.lecturerNote}
                   </span>
                 )}
               </button>
@@ -928,6 +932,21 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         })()}
       </div>
       )}
+
+      {/* Schedule and provenance notes for the topics on this page, one
+          closed row (5.214); they were a line on 17 of 25 equine cards. */}
+      {(() => {
+        const notes = topics.filter((t) => hasTopicContent(t) && t.lecturerNote && t.lecturerNoteKind !== 'caveat');
+        if (!notes.length) return null;
+        return (
+          <details className="vmx-topic-prov">
+            <summary>ที่มาและตารางสอนของแต่ละหัวข้อ</summary>
+            <ul>
+              {notes.map((t) => <li key={t.id}><b>{t.label}</b> {t.lecturerNote}</li>)}
+            </ul>
+          </details>
+        );
+      })()}
 
       {/* Content-empty topic disclosure — only render when curriculum topics
           have no connected questions, Notes, or VetWiki article yet. */}

@@ -1724,6 +1724,12 @@ html, body {
 /* A note that says the topic is off the paper — the one a student may use to
    skip it this week — keeps its warning sign and reads in full ink. */
 .vmx-topic-note.is-caveat { color: var(--clr-ink); }
+/* Every other topic note: one closed row under the list (5.214). */
+.vmx-topic-prov { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+.vmx-topic-prov > summary { min-height: var(--touch-min, 44px); display: flex; align-items: center; cursor: pointer; font-weight: 600; color: var(--clr-ink); }
+.vmx-topic-prov ul { margin: 0 0 8px; padding-left: 18px; }
+.vmx-topic-prov li { margin-bottom: 6px; overflow-wrap: anywhere; }
+.vmx-topic-prov b { color: var(--clr-ink); font-weight: 600; margin-right: 6px; }
 /* One row of text actions under a hairline, not three bordered boxes inside
    the card. Each stays a 44px target; the lecturer's name may wrap. */
 .vmx-topic-actions {

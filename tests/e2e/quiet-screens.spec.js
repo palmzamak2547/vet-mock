@@ -38,6 +38,31 @@ test('the subject picker carries no grading chip; the subject screen keeps it in
   await expect(fold).toContainText('ตัดเกรดอิงเกณฑ์');
 });
 
+test('topic cards keep one past-paper chip and only the notes that change what to study', async ({ page }) => {
+  // Equine, under the final: 17 of its cards carried a schedule or provenance note.
+  await page.addInitScript(() => localStorage.setItem('vmx-selected-phase', JSON.stringify('1-final')));
+  await page.goto('/');
+  await expect(page.locator('.vmx-subject-grid')).toBeVisible();
+  await page.locator('.vmx-subject-card').filter({ hasText: 'เวชปฏิบัติม้า' }).first().click();
+  const cards = page.locator('.vmx-topic-card');
+  await expect(cards.first()).toBeVisible();
+  // The chip says one figure as a sentence, never "N/M, P%".
+  const chips = page.locator('.vmx-topic-past');
+  expect(await chips.count()).toBeGreaterThan(0);
+  for (const text of await chips.allTextContents()) expect(text).toMatch(/^เป็นข้อสอบเก่า \d+%$/);
+  // A note on a card is a caveat; course codes and slide covers are not on any card.
+  for (const text of await page.locator('.vmx-topic-card .vmx-topic-note').allTextContents()) {
+    expect(text).not.toMatch(/ตารางสอน Vet 86|ปกสไลด์|3106510/);
+  }
+  await expect(page.locator('.vmx-topic-card .vmx-topic-note.is-caveat').filter({ hasText: 'ไม่มีคาบหัวข้อนี้' }).first()).toBeVisible();
+  // The rest are in one closed row for the page.
+  const fold = page.locator('details.vmx-topic-prov');
+  await expect(fold).toHaveCount(1);
+  await expect(fold).not.toHaveAttribute('open', '');
+  await fold.locator('summary').click();
+  await expect(fold).toContainText('ตารางสอน Vet 86');
+});
+
 test('a wiki section keeps its sources, checks and report control in one closed row', async ({ page }) => {
   await page.goto('/wiki/com5/rabies');
   await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible();
