@@ -149,9 +149,10 @@ test('only genuinely public pages are indexable', () => {
 });
 
 test('an indexable /app route opens without the Chula sign-in', () => {
-  const app = fs.readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  // App.jsx gates on this list (src/lib/gate-public-views.js), and so does the sitemap.
+  const app = fs.readFileSync(new URL('../../src/lib/gate-public-views.js', import.meta.url), 'utf8');
   const open = /const GATE_PUBLIC_VIEWS = new Set\(\[([^\]]*)\]\)/.exec(app)?.[1];
-  assert.ok(open, 'App.jsx still names the views the wall lets through');
+  assert.ok(open, 'gate-public-views.js still names the views the wall lets through');
   const publicViews = open.split(',').map((s) => s.trim().replace(/'/g, ''));
   for (const c of OG_COVERS.filter((x) => x.indexable && x.route.startsWith('/app/'))) {
     assert.ok(publicViews.includes(c.id), `${c.route} is in the sitemap but needs a sign-in`);

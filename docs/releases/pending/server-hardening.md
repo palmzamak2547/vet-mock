@@ -115,17 +115,20 @@ tools. Each lands with a guard that fails if the defect returns.
 
 ## 10. The sitemap
 - The build already added all 224 prerendered VetWiki topics to
-  `dist/sitemap.xml` (`public/sitemap.xml` holds only the hand-kept pages). What
-  was wrong: it also listed `/app/about`, which sits behind the sign-in wall.
-- `scripts/lib/sitemap.mjs` now holds the rules for the three build steps; an
-  /app screen is listed only when it is indexable and open before sign-in.
-  `GATE_PUBLIC_VIEWS` moved to `src/lib/gate-public-views.js` so the wall and the
-  sitemap read one list.
+  `dist/sitemap.xml` (`public/sitemap.xml` holds only the hand-kept pages), so
+  the finding read the source file, not the served one. Nothing behind the wall
+  is listed on current main (`og-head.test.mjs` already held the /app covers; an
+  `/app/about` entry seen in an old local build predates that).
+- What changed: `scripts/lib/sitemap.mjs` holds the rules for the three build
+  steps, and the sitemap itself now also refuses an /app screen outside
+  `GATE_PUBLIC_VIEWS`, not only the cover list. `GATE_PUBLIC_VIEWS` moved to
+  `src/lib/gate-public-views.js` so the wall, the sitemap and `og-head.test.mjs`
+  read one list. (The sitemap commit's message says /app/about was listed; that
+  came from the stale local build, and this note is the correct account.)
 - Guard: `tests/unit/sitemap.test.mjs` runs the build's steps on
   `public/sitemap.xml` and fails if a prerendered topic is missing or anything
   behind the wall is listed.
-- Left: `/app/about` keeps `indexable: true` in `src/data/og-covers.js`; whether
-  it should be public or noindex is the owner's call.
+- Unproven here: the sitemap vetmock.com serves (production was not called).
 
 ## 11. The service worker called a slow network "offline"
 - Which requests took the path: same-origin GETs that are not /api, not
@@ -147,4 +150,8 @@ tools. Each lands with a guard that fails if the defect returns.
   body, `tts` threw on a body of `null` and put parser text in two answers, and
   100 of 100 clips reached the provider with the limiter down. After: no throw,
   no leaked text, 100 of 100 refused with 503 and no provider call.
-- `npm run test:unit` and `npm run lint:data`: see the branch's last run.
+- `npm run lint:data`: passed. `npm run test:unit`: 4,153 passed and one
+  failed, `og-head.test.mjs`, which read `GATE_PUBLIC_VIEWS` from App.jsx; it
+  now reads `src/lib/gate-public-views.js` and passes. The retrieval eval's
+  cases marked weak (⚠) are known and unchanged.
+- Not run: build and e2e (CI runs them).
