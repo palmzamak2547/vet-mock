@@ -100,8 +100,10 @@
 #
 # Cost of one pull request as the workflows stand after this change (measured
 # on #206 and #207, 11 Nov): a push to a ready pull request starts 5-6
-# workflow runs: this one (11 jobs: state, changes, Annotation PostgreSQL, 7 e2e
-# runners, smoke; about 75 job-minutes, nearly all e2e), Build (1 job, 4-5
+# workflow runs: this one (12 jobs: state, changes, Annotation PostgreSQL, 8 e2e
+# runners, smoke; about 75 job-minutes measured with 7 runners, nearly all e2e,
+# plus the route sweep's runner, estimated at 8-10: setup, build, then 72 tests
+# on 2 workers, unmeasured until its first run), Build (1 job, 4-5
 # min), AI, Research and VCA (2-3 jobs each, under a minute each), and Lint
 # questions when a question bank moved. A push to a draft starts the same runs
 # but this one runs 2 jobs (state, then the draft-named smoke; under a minute)
@@ -277,6 +279,14 @@ jobs:
             browsers: chromium
             project: chromium-mobile
             report: chromium-mobile
+          # tests/e2e/route-sweep.spec.js: every route, as a student and a first-time visitor, at a
+          # phone's width. Its own runner because chromium mobile already used 6.9 of its 14
+          # minutes (#207); the other runners skip the spec.
+          - label: route sweep
+            group: sweep
+            browsers: chromium
+            project: chromium-mobile
+            report: route-sweep
           - label: webkit, third 1
             group: gl
             browsers: webkit
@@ -395,6 +405,16 @@ jobs:
         run: >-
           xvfb-run --auto-servernum npx playwright test
           --project=${{ matrix.project }}
+
+      - name: Run the route sweep
+        if: matrix.group == 'sweep'
+        timeout-minutes: 12
+        env:
+          VMX_ROUTE_SWEEP: '1'
+        run: >-
+          xvfb-run --auto-servernum npx playwright test
+          --project=${{ matrix.project }}
+          tests/e2e/route-sweep.spec.js
 
       - name: Keep the placeholder database host off the real network
         # The connected specs answer every request to that host themselves and

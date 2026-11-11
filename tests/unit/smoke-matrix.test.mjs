@@ -153,6 +153,22 @@ test('every engine runs on runners of its own, the software-GL ones on one worke
   }
 });
 
+// 11 Nov 2026: the route sweep opens every route twice and has a runner of its own, because the
+// chromium mobile runner already used 6.9 of its 14 minutes. Only that runner sets VMX_ROUTE_SWEEP,
+// which is what makes the spec run in CI; every other runner skips it.
+test('the route sweep runs once, on its own chromium-mobile runner', () => {
+  const sweep = jobs.e2e.split(/\n\s+- label: /).slice(1).filter((entry) => /^\s+group: sweep$/m.test(entry));
+  assert.equal(sweep.length, 1);
+  assert.match(sweep[0], /^\s+project: chromium-mobile$/m);
+  const step = jobs.e2e.split(/\n\s*- name: /).find((s) => /^Run the route sweep/.test(s));
+  assert.match(step, /if: matrix\.group == 'sweep'/);
+  assert.match(step, /VMX_ROUTE_SWEEP: '1'/);
+  assert.match(step, /tests\/e2e\/route-sweep\.spec\.js/);
+  assert.equal((workflow.match(/VMX_ROUTE_SWEEP/g) || []).length, 1, 'no other step turns the sweep on');
+  const spec = readFileSync(new URL('../e2e/route-sweep.spec.js', import.meta.url), 'utf8');
+  assert.match(spec, /test\.skip\(!!process\.env\.CI && !process\.env\.VMX_ROUTE_SWEEP/);
+});
+
 test('a runner whose browser step hits its cap still has time to upload the report', () => {
   const e2e = jobs.e2e;
   const jobCap = Number(/^    timeout-minutes: (\d+)$/m.exec(e2e)[1]);

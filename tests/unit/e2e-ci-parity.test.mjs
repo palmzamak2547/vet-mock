@@ -36,7 +36,9 @@ const projectsOf = (cmd) => {
 
 const playwrightSteps = workflow
   .split(/\n\s*- name: /)
-  .filter((step) => /npx playwright test/.test(step));
+  // The route sweep runs one spec on a runner of its own that the suite steps skip; it is pinned in
+  // smoke-matrix.test.mjs, not here.
+  .filter((step) => /npx playwright test/.test(step) && !/^Run the route sweep/.test(step));
 // One step is not part of the suite: it runs a few named specs against a second,
 // database-configured bundle (see the last test). It names its spec files; the
 // two suite steps never do.
