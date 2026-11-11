@@ -97,19 +97,10 @@ const GOOGLE_API_HOST = 'www.googleapis.com';
 const GOOGLE_TOKEN_HOST = 'oauth2.googleapis.com';
 const NOTION_API_HOST = 'api.notion.com';
 
-/** The host a Google TOKEN answer may land on (the Drive export path checks GOOGLE_API_HOST separately). */
-export function isGoogleLandingHost(hostname) {
-  return String(hostname || '').toLowerCase() === GOOGLE_TOKEN_HOST;
-}
-
 /** The host a Drive/Sheets export answer may land on. */
 export function isGoogleApiHost(hostname) {
   const host = String(hostname || '').toLowerCase();
   return host === GOOGLE_API_HOST || host.endsWith('.googleusercontent.com');
-}
-
-export function isNotionLandingHost(hostname) {
-  return String(hostname || '').toLowerCase() === NOTION_API_HOST;
 }
 
 /**
@@ -304,6 +295,7 @@ export function sanitizeConnection(row) {
 
 async function restFetch(path, { method = 'GET', body, url, key, fetch = globalThis.fetch } = {}) {
   const res = await fetch(`${url}${path}`, {
+    redirect: 'error',
     method,
     headers: {
       apikey: key,
@@ -327,6 +319,7 @@ export async function getUserFromRequest(req, deps = {}) {
   if (!url || !key) return null;
   try {
     const res = await fetch(`${url}/auth/v1/user`, {
+      redirect: 'error',
       headers: { apikey: key, Authorization: `Bearer ${jwt}` },
       signal: AbortSignal.timeout(IO_TIMEOUT_MS),
     });
@@ -414,6 +407,7 @@ export async function refreshGoogleAccess(row, deps = {}) {
   const fetch = rest.fetch || globalThis.fetch;
   try {
     const res = await fetch(req.url, {
+      redirect: 'error',
       method: 'POST',
       headers: req.headers,
       body: req.body,

@@ -17,16 +17,16 @@ export function sweepInMemory(now = Date.now()) {
   }
 }
 
-function rateLimitInMemory(key, max, winMs) {
+function rateLimitInMemory(key, max, winMs, by = 1) {
   const now = Date.now();
   if (Math.random() < 0.01) sweepInMemory(now);
   let b = buckets.get(key);
   if (!b || now - b.first > winMs) {
-    b = { first: now, winMs, count: 1 };
+    b = { first: now, winMs, count: by };
     buckets.set(key, b);
-    return { ok: true, retryAfter: 0 };
+    return b.count > max ? { ok: false, retryAfter: Math.max(1, Math.ceil(winMs / 1000)) } : { ok: true, retryAfter: 0 };
   }
-  b.count++;
+  b.count += by;
   if (b.count > max) {
     // Never 0: a Retry-After of zero invites an immediate retry into the
     // same closed window.
@@ -67,6 +67,7 @@ export function sendRateLimitFailure(res, limit) {
 async function upstashPipeline(commands) {
   // Upstash REST pipeline: POST array of commands → array of results.
   const res = await fetch(`${UPSTASH_URL}/pipeline`, {
+    redirect: 'error',
     method: 'POST',
     signal: AbortSignal.timeout(SHARED_TIMEOUT_MS),
     headers: {
@@ -79,7 +80,7 @@ async function upstashPipeline(commands) {
   return res.json();
 }
 
-async function rateLimitUpstash(key, max, winMs) {
+async function rateLimitUpstash(key, max, winMs, by = 1) {
   const winSec = Math.ceil(winMs / 1000);
   const k = `rl:${key}`;
   try {
@@ -88,7 +89,7 @@ async function rateLimitUpstash(key, max, winMs) {
     // (NX = only set TTL if not already set — preserves the original
     //  window start across requests within the same window)
     const results = await upstashPipeline([
-      ['INCR', k],
+      by === 1 ? ['INCR', k] : ['INCRBY', k, String(by)],
       ['EXPIRE', k, String(winSec), 'NX'],
     ]);
     const count = Array.isArray(results) && results[0]?.result;
@@ -121,17 +122,56 @@ async function rateLimitUpstash(key, max, winMs) {
  * @param {string} key   — identifier (usually IP)
  * @param {number} max   — max requests in window
  * @param {number} winMs — window size (ms)
+ * @param {{ by?: number }} [opts] — how much this request counts (bytes, for a byte budget)
  * @returns {Promise<{ ok: boolean, retryAfter: number }>}
  */
-export async function rateLimit(key, max, winMs) {
+export async function rateLimit(key, max, winMs, { by = 1 } = {}) {
+  const step = Number.isSafeInteger(by) && by > 0 ? by : 1;
   const sharedRequired = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
   if (!_loggedBackend) {
     console.log(`[rate-limit] using ${HAS_UPSTASH ? 'upstash' : sharedRequired ? 'unconfigured' : 'in-memory'}`);
     _loggedBackend = true;
   }
-  if (HAS_UPSTASH) return rateLimitUpstash(key, max, winMs);
+  if (HAS_UPSTASH) return rateLimitUpstash(key, max, winMs, step);
   if (sharedRequired) return unavailable();
-  return rateLimitInMemory(key, max, winMs);
+  return rateLimitInMemory(key, max, winMs, step);
+}
+
+/**
+ * This instance's own counter, for a reading surface that stays open when the
+ * shared limiter cannot count (api/library-blob.js): a bound per instance
+ * instead of a refusal. Never a substitute for a shared spending ceiling.
+ */
+export function rateLimitLocal(key, max, winMs, { by = 1 } = {}) {
+  return rateLimitInMemory(`local:${key}`, max, winMs, Number.isSafeInteger(by) && by > 0 ? by : 1);
+}
+
+/**
+ * The one way a route behind the Chula gate counts its caller.
+ *
+ * - A Chula member (`gate.member === true`, decided by the database) is
+ *   counted on `<route>:user:<id>` at `max` and nowhere else: one limiter
+ *   call, and classmates on one campus address never share a quota or lock
+ *   each other out.
+ * - Anyone else (a guest, or a free account while the wall is off) is counted
+ *   by address at `max`, on the same `<route>:<ip>` key as before. A free
+ *   account gets no counter of its own, so throwaway accounts buy nothing.
+ * - `addressMax` (feedback only, since it sends mail): a member allowed by
+ *   their own counter is then counted on `<route>:addr:<ip>` too. The address
+ *   is never incremented by a request the account's counter refused.
+ *
+ * Fails closed like rateLimit(): an unavailable limiter comes back
+ * `{ ok: false, unavailable: true }`, which sendRateLimitFailure answers 503.
+ */
+export async function limitCaller(req, gate, route, max, windowMs, { addressMax = 0 } = {}) {
+  const ip = clientIP(req);
+  const uid = gate?.member === true && typeof gate.userId === 'string' && gate.userId ? gate.userId.slice(0, 64) : '';
+  if (!uid) return rateLimit(`${route}:${ip}`, max, windowMs);
+  const mine = await rateLimit(`${route}:user:${uid}`, max, windowMs);
+  if (!mine.ok || !addressMax) return mine;
+  const address = await rateLimit(`${route}:addr:${ip}`, addressMax, windowMs);
+  // Marked, so the caller can say it was the shared network, not this member.
+  return address.ok || address.unavailable ? address : { ...address, scope: 'address' };
 }
 
 /**
@@ -211,6 +251,8 @@ export function clientIP(req) {
  *   2) **Static allowlist fallback** — for cross-origin requests we
  *      genuinely want to support (e.g. local dev hitting prod API).
  */
+export const PREVIEW_ORIGIN_RE = /^https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app$/;
+
 export function allowedOrigin(req) {
   const origin = req.headers.origin;
   if (!origin) return null;
@@ -231,8 +273,11 @@ export function allowedOrigin(req) {
     'https://vetmock.com',
     'https://vetmock.vercel.app',                 // the old address, while learners move
     'https://vet-mock.vercel.app',
-    /^https:\/\/vetmock-[\w-]+\.vercel\.app$/,    // Preview deployments
-    /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,   // Legacy preview pattern
+    // Preview deployments of this team's projects (vetmock, vetmock-ai,
+    // vetmock-vca): Vercel names them <project>-<hash>-<team>.vercel.app and
+    // <project>-git-<branch>-<team>.vercel.app. A bare vetmock-*.vercel.app is
+    // a name any account can take, so the team suffix is required.
+    PREVIEW_ORIGIN_RE,
     'http://localhost:5173',
     'http://localhost:4173',
     'http://localhost:4174',

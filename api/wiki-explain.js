@@ -41,7 +41,8 @@
 // platform error page the client cannot read.
 // ============================================================
 
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, allowedOrigin, kvGetJSON, kvSetJSON, limitCaller } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { createHash } from 'node:crypto';
 
 import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from './_lib/llm.js';
@@ -174,8 +175,7 @@ export default async function handler(req, res) {
   const gate = await requireChula(req, res);
   if (!gate) return undefined;
 
-  const ip = clientIP(req);
-  const rl = await rateLimit(`wiki-explain:${ip}`, 20, 60 * 60 * 1000);
+  const rl = await limitCaller(req, gate, 'wiki-explain', 20, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   if (!llmConfigured()) {
@@ -187,7 +187,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = req.body || {};
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
     const question = String(body.question || '').slice(0, MAX_QUESTION).trim();
     const subject = String(body.subject || '').slice(0, 100);
     const topic = String(body.topic || '').slice(0, 200);
@@ -384,6 +385,7 @@ export default async function handler(req, res) {
     if (/invalid json/i.test(String(err?.message || ''))) {
       return res.status(400).json({ error: 'Invalid JSON body' });
     }
-    return res.status(500).json({ error: 'Unexpected error', reason: 'unexpected', detail: String(err?.message || err).slice(0, 200) });
+    console.error('[wiki-explain] unexpected:', String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'Unexpected error', reason: 'unexpected', code: 'unexpected' });
   }
 }

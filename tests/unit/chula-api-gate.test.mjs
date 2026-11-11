@@ -4,11 +4,14 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { chulaGate, requireChula, resetChulaGate } from '../../api/_lib/chula-gate.js';
 import { API_DIR, apiHandlerNames } from '../helpers/api-handlers.mjs';
+import { sessionToken } from '../helpers/supabase-jwt.mjs';
 
 const env = { VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' };
-const MEMBER = 'member.token.0123456789abcdef';
-const GMAIL = 'gmail.token.0123456789abcdef';
-const EXPIRED = 'expired.token.0123456789abcdef';
+// Well-formed session tokens: the gate reads them locally before asking the database.
+const MEMBER = sessionToken('https://x.supabase.co', { sub: 'u-member' });
+const GMAIL = sessionToken('https://x.supabase.co', { sub: 'u-gmail' });
+// Well-formed, and refused by the database (a revoked session).
+const EXPIRED = sessionToken('https://x.supabase.co', { sub: 'u-revoked' });
 const req = (token) => ({ headers: token ? { authorization: `Bearer ${token}` } : {} });
 
 function backend(enforce) {
@@ -131,10 +134,16 @@ test('every function is behind the gate or open on purpose, and a new one must s
   for (const name of all) {
     assert.ok(gated.includes(name) || OPEN[name], `api/${name}.js does not call the Chula gate and is not named as open on purpose: gate it, or add it to OPEN with the reason`);
   }
+  // The feedback lifeline asks the gate only who is writing, to count a member
+  // on their own allowance; it never refuses on the gate's answer.
+  const identifiesOnly = new Set(['send-feedback']);
   for (const name of Object.keys(OPEN)) {
     assert.ok(all.includes(name), `OPEN names api/${name}.js, which no longer exists`);
-    assert.doesNotMatch(src(name), /chula-gate/, `${name} is listed as open but imports the gate: drop it from OPEN`);
+    assert.doesNotMatch(src(name), /requireChula/, `${name} is listed as open but refuses on the gate: drop it from OPEN`);
+    if (!identifiesOnly.has(name)) assert.doesNotMatch(src(name), /chula-gate/, `${name} is listed as open but imports the gate: drop it from OPEN`);
   }
+  const feedback = readFileSync(new URL('../../api/send-feedback.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(feedback, /gate\.(status|body)\b/, 'send-feedback never answers with the gate\'s refusal');
 });
 
 test('an open ticket names one document for a day and nothing else', async () => {

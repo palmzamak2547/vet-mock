@@ -9,6 +9,8 @@
 //
 // The list of notebooks (title, paper, page count) lives in this browser.
 
+import { keepDeviceWork } from './persist-storage.js';
+
 const KEY = 'vmx-notebooks-v1';
 export const NOTEBOOK_MAX_PAGES = 200;
 
@@ -48,7 +50,8 @@ export function createNotebook({ title, paper = 'lined', pages = 4, now = Date.n
     createdAt: now,
     updatedAt: now,
   };
-  write([nb, ...read()]);
+  // A notebook's list lives only in this browser: ask once that it be kept.
+  if (write([nb, ...read()])) keepDeviceWork();
   return nb;
 }
 

@@ -11,15 +11,30 @@
 //     without it the key is derived from RESEND_API_KEY
 //
 // Security:
-//   • Rate-limited: 3 requests per 10 minutes per IP
+//   • Rate-limited (FEEDBACK_RATE): a Chula member per account (3 per 10
+//     minutes, 10 a day) under an address ceiling; a visitor per address
+//     (3 per 10 minutes, 20 a day); visitors share 40 of the mailer's 100 a day
 //   • CORS: only known origins (vetmock.com + vetmock.vercel.app + previews + localhost)
 //   • Input length capped (subject 200, message 5000 chars)
 //   • All HTML output escaped via escapeHtml()
 //   • The usage log stores counts and keyed fingerprints only, never the message
 // ============================================================
 
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, limitCaller } from './_lib/rate-limit.js';
 import { feedbackUsageRow, logFeedbackUsage } from './_lib/feedback-usage.js';
+import { bearerOf, chulaGate } from './_lib/chula-gate.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+// A member: 3 in 10 minutes and 10 a day on their own account, and the address
+// as a ceiling (30 in 10 minutes, 100 a day), counted only once the account
+// allowed the message. A visitor (the students stuck at the sign-in wall,
+// often a whole campus on one address): 3 in 10 minutes and 20 a day per
+// address. The mailer allows 100 a day in all, of which visitors may use 40.
+export const FEEDBACK_RATE = {
+  burst: 3, burstMs: 10 * 60 * 1000, daily: 10, visitorDaily: 20,
+  addressBurst: 30, addressDaily: 100, provider: 100, visitorShare: 40,
+};
 
 const MAX_SUBJECT = 200;
 const MAX_MESSAGE = 5000;
@@ -53,24 +68,52 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
-  // ── Rate limit: 3 / 10 minutes / IP ──
+  const body = readJsonBody(req);
+  if (!body) return sendBadBody(res);
+
+  // ── Who is counted ──
+  // The form is open before sign-in too (ChulaGateView: someone stuck at the
+  // wall can still write), so a visitor is counted by address. A signed-in
+  // Chula member is counted on their own account (FEEDBACK_RATE), so
+  // classmates on one network do not share three messages. A free account
+  // while the wall is off, or a gate that cannot answer, leaves a visitor.
   const ip = clientIP(req);
-  const rl = await rateLimit(`feedback:${ip}`, 3, 10 * 60 * 1000);
-  if (!rl.ok) {
+  let gate = null;
+  if (bearerOf(req)) {
+    try { gate = await chulaGate(req); } catch { gate = null; }
+  }
+  const member = gate?.ok && gate.member === true && gate.userId ? gate : null;
+  const burst = await limitCaller(req, member, 'feedback', FEEDBACK_RATE.burst, FEEDBACK_RATE.burstMs, { addressMax: FEEDBACK_RATE.addressBurst });
+  const daily = burst.ok
+    ? await limitCaller(req, member, 'feedback-day', member ? FEEDBACK_RATE.daily : FEEDBACK_RATE.visitorDaily, DAY_MS, { addressMax: FEEDBACK_RATE.addressDaily })
+    : burst;
+  if (!daily.ok) {
     // A limiter outage is not a student at the burst cap: logging it as one
     // filled the admin's usage log with spam that never happened.
-    if (!rl.unavailable) await logFeedbackUsage(feedbackUsageRow({ type: req.body?.type, ip }, 'capped_burst'));
-    return sendRateLimitFailure(res, rl);
+    if (daily.unavailable) return sendRateLimitFailure(res, daily);
+    await logFeedbackUsage(feedbackUsageRow({ type: body.type, ip }, 'capped_burst'));
+    // A member stopped by the shared network's ceiling sent little themselves:
+    // say it is the network, not their own count.
+    const shared = burst.ok ? daily : burst;
+    if (shared.scope === 'address') {
+      res.setHeader('Retry-After', String(shared.retryAfter));
+      return res.status(429).json({ error: 'Network feedback limit reached', reason: 'network_busy', retryAfter: shared.retryAfter });
+    }
+    // The day's count clears tomorrow, not in ten minutes: say which one it is.
+    if (burst.ok) {
+      res.setHeader('Retry-After', String(daily.retryAfter));
+      return res.status(429).json({ error: 'Daily feedback limit reached', reason: 'daily_cap', scope: 'caller', retryAfter: daily.retryAfter });
+    }
+    return sendRateLimitFailure(res, daily);
   }
 
   try {
-    const body = req.body || {};
     const type = headerText(body.type || 'Feedback', 50) || 'Feedback';
     const subject = headerText(body.subject, MAX_SUBJECT);
     const message = String(body.message || '').slice(0, MAX_MESSAGE);
@@ -101,7 +144,11 @@ export default async function handler(req, res) {
       return res.status(503).json({ error: 'Email service not configured', reason: 'not_configured' });
     }
 
-    const providerBudget = await rateLimit('provider:resend:daily', 100, 24 * 60 * 60 * 1000);
+    // The mailer's daily allowance is the last brake. Visitors draw on a share
+    // of it of their own first, so addresses with no account cannot use up
+    // what members' messages need.
+    let providerBudget = member ? { ok: true } : await rateLimit('provider:resend:daily:visitors', FEEDBACK_RATE.visitorShare, DAY_MS);
+    if (providerBudget.ok) providerBudget = await rateLimit('provider:resend:daily', FEEDBACK_RATE.provider, DAY_MS);
 
     if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
@@ -149,6 +196,7 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
     let resp;
     try {
       resp = await fetch('https://api.resend.com/emails', {
+        redirect: 'error',
         method: 'POST',
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -173,20 +221,9 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
       const errText = await resp.text();
       console.error('Resend error:', resp.status, errText);
       await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'mailer_error'));
-      // Surface Resend's error so client can show diagnostic
-      let detail = '';
-      try {
-        const parsed = JSON.parse(errText);
-        detail = parsed.message || parsed.error?.message || parsed.name || errText.slice(0, 200);
-      } catch {
-        detail = errText.slice(0, 200);
-      }
-      return res.status(502).json({
-        error: `Resend ${resp.status}: ${detail}`,
-        hint: resp.status === 403
-          ? "onboarding@resend.dev only sends to your Resend account email. Verify a domain or check FEEDBACK_EMAIL matches signup email."
-          : undefined,
-      });
+      // The mailer's own text (addresses, account detail) stays in the log
+      // above; the sender gets a fixed code.
+      return res.status(502).json({ error: 'mailer_error', code: resp.status === 403 ? 'mailer_refused' : 'mailer_error' });
     }
     const data = await resp.json();
     await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'sent'));

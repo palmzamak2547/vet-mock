@@ -19,7 +19,7 @@
 
 import { presign, r2Config, cfConfig } from './_lib/r2.js';
 import { mintBlobToken } from './_lib/blob-token.js';
-import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { limitCaller, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { chulaGate } from './_lib/chula-gate.js';
 import { verifyOpenTicket } from './_lib/open-ticket.js';
 
@@ -106,8 +106,9 @@ export default async function handler(req, res) {
 
   // The Chula wall (docs/CHULA-SIGNIN.md): a member's bearer, or a link a member
   // was handed (api/_lib/open-ticket.js), since a tapped link carries no header.
+  let gate = null; // null for a ticketed link: then the address is counted
   if (!verifyOpenTicket(slug, url.searchParams.get('vt'), url.searchParams.get('ve'), { env })) {
-    const gate = await chulaGate(req, { env });
+    gate = await chulaGate(req, { env });
     if (!gate.ok) {
       // A tapped link lands on the app, which asks for sign-in, instead of on JSON.
       if (url.searchParams.get('open') === '1') {
@@ -124,7 +125,7 @@ export default async function handler(req, res) {
   const anon = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
   if (!base || !anon) return send(res, 503, { error: 'not_configured' });
 
-  const limit = await rateLimit(`library-file:${clientIP(req)}`, MINT_RATE.max, MINT_RATE.windowMs);
+  const limit = await limitCaller(req, gate, 'library-file', MINT_RATE.max, MINT_RATE.windowMs);
   // A reading surface, so an outage of the shared limiter does not close the library: this limit guards
   // the bill against someone streaming whole decks, not access, and a rare outage window is cheap.
   if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
@@ -144,6 +145,7 @@ export default async function handler(req, res) {
   let doc;
   try {
     const r = await fetch(`${base.replace(/\/$/, '')}/rest/v1/rpc/library_doc_for_signing`, {
+      redirect: 'error',
       method: 'POST',
       headers: {
         apikey: anon,
@@ -180,7 +182,7 @@ export default async function handler(req, res) {
     const copy = (await archives()).slugs.get(slug);
     if (copy) doc.file_name = copy.title.replace(/\.(pdf|docx|xlsx|mp4)$/i, '') + '.' + copy.format;
     const expiresAtSec = (Math.floor(Date.now() / 1000 / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
-    const token = mintBlobToken(doc, { expiresAtSec, env });
+    const token = mintBlobToken(doc, { expiresAtSec, env, user: gate?.member === true ? gate.userId : null });
     if (!token) return send(res, 503, { error: 'storage_not_configured' });
     return sendLink({ url: `${ARCHIVE_ORIGIN}/?${new URLSearchParams(token)}`, expiresIn: expiresAtSec - Math.floor(Date.now() / 1000), mime: doc.mime, byteSize: doc.byte_size });
   }
@@ -210,7 +212,7 @@ export default async function handler(req, res) {
   if (!cfConfig(env).configured) return send(res, 503, { error: 'storage_not_configured' });
   const nowSec = Math.floor(Date.now() / 1000);
   const expiresAtSec = (Math.floor(nowSec / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
-  const tok = mintBlobToken(doc, { expiresAtSec, env });
+  const tok = mintBlobToken(doc, { expiresAtSec, env, user: gate?.member === true ? gate.userId : null });
   if (!tok) return send(res, 503, { error: 'storage_not_configured' });
   // Public rows resolve identically for every caller, so the mint response
   // itself may be cached until the window rolls — the URL inside keeps at
