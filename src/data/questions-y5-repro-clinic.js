@@ -167,7 +167,7 @@ export const QB_Y5_REPRO_CLINIC = [
     explain: '8–12 hr fasting = ลดความเสี่ยง aspiration ระหว่าง intubation/recovery\n⚠️ Update 2026: AAHA/WSAVA แนะ 6–8 hr ใน healthy adult (long fast เพิ่ม hypoglycemia/GI ulcer)\n💡 < 12 wk puppy + kitten = อดสั้นกว่า 4–6 hr',
     verified: '7. Anl Repro Clin.pdf p.3 Q28',
     sourcePages: [{ doc: 'anl-repro-clin', edition: '5p', page: 3 }],
-    flag: { note: 'เฉลยของ Vet 81 คือ 8-12 ชั่วโมง แต่แนวทาง AAHA 2020 ปัจจุบันให้ 6-8 ชั่วโมง ในข้อนี้ให้ตอบ 8-12 ชั่วโมง เพราะไม่มีตัวเลือก 6-8 ชั่วโมง', severity: 'major' } },
+    flag: { note: 'ในข้อสอบนี้ให้ตอบ 8-12 ชั่วโมงตามเฉลย Vet 81 เพราะไม่มีตัวเลือก 6-8 ชั่วโมง แต่ในการทำงานจริงตอนนี้ใช้ 6-8 ชั่วโมงตามแนวทาง AAHA 2020', severity: 'major' } },
 
   { id: 8411, subject: 'comp-repro-clinic', topic: 'comp-repro-surgery', year: 5,
     source: '7. ข้อสอบ 81 Anl Repro Clin.pdf',

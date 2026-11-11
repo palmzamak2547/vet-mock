@@ -1564,7 +1564,7 @@ export const QUESTIONS_Y5_EPID_FINAL_RECALL = [
   },
   {
     "id": 213524,
-    "flag": { "severity": "major", "note": "ตารางเปรียบเทียบในสไลด์จัดการวัดความชุก ณ จุดเวลาเดียวให้ cross-sectional study ส่วนเฉลยในคลังคือ cohort study ซึ่งยังไม่ได้ยืนยันกับผู้สอน ในข้อนี้ให้ตอบตามเฉลยในคลัง" },
+    "flag": { "severity": "major", "note": "เฉลยของข้อนี้คือ cohort study เพราะโจทย์ถามประสิทธิภาพวัคซีนด้วย แต่ตารางในสไลด์จัดการวัดความชุก ณ จุดเวลาเดียวเป็น cross-sectional study และยังไม่ได้ยืนยันกับผู้สอนว่าข้อสอบยึดแบบใด" },
     "subject": "epidemiology",
     "topic": "epidem-observational-study",
     "year": 5,

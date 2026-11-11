@@ -256,7 +256,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 1,
     explain: 'กลุ่มโรคที่เกี่ยวข้องกับ PCV2 (PCVAD) ได้แก่ PMWS, reproductive disease ที่ทำให้แท้งช่วงท้าย, PDNS, PRDC, PNP และ PCV2 necrotic enteritis อาการเด่นคือผอมแห้ง หายใจลำบาก โลหิตจาง บางครั้งท้องเสียและดีซ่าน ร่วมกับรอยโรคในเนื้อเยื่อน้ำเหลือง คู่ต่อมน้ำเหลืองโตทั่วตัวกับท้องเสีย คู่ดีซ่านกับผอมแห้ง และคู่ reproductive failure กับ hepatitis ที่ทำให้ดีซ่าน จึงเข้ากับ PCVAD ส่วน mesocolon edema เป็นรอยโรคของ Clostridium difficile ในลูกสุกรแรกเกิดและของ edema disease ไม่ใช่ของ PCV2 คู่นี้จึงเป็นคำตอบ แม้ diffuse pneumonia ที่อยู่ในคู่เดียวกันจะเข้ากับโรคระบบหายใจจาก PCV2 ได้ก็ตาม',
     verified: 'สรุป 80 p.6 (Vet 83 marked B "Mesocolon edema = ไม่ใช่ PCVAD")',
-    flag: { note: 'เฉลยในคลังคือคู่ที่มี mesocolon edema เพราะเป็นรอยโรคของ Clostridium difficile และ edema disease ไม่ใช่ PCV2 แต่คู่ diphtheritic colitis กับ PDNS ก็เถียงได้ เพราะ diphtheritic colitis ไม่อยู่ในกลุ่ม PCVAD โดยตรงเช่นกัน (ลำไส้อักเสบของ PCV2 เป็นแบบ necrotic enteritis)', severity: 'major' } },
+    flag: { note: 'เฉลยของข้อนี้คือคู่ที่มี mesocolon edema เพราะเป็นรอยโรคของ Clostridium difficile และ edema disease ไม่ใช่ PCV2 แต่คู่ diphtheritic colitis กับ PDNS ก็เถียงได้ เพราะ diphtheritic colitis ไม่อยู่ในกลุ่ม PCVAD โดยตรงเช่นกัน (ลำไส้อักเสบของ PCV2 เป็นแบบ necrotic enteritis)', severity: 'major' } },
 
   { id: 8021, subject: 'swine-clinic', topic: 'swine-resp-viral', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -288,7 +288,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 1,
     explain: 'Streptococcus suis ก่อโรคแบบลุกลามได้ทั้ง septicemia, meningitis, endocarditis, pneumonia และ arthritis ส่วน Haemophilus (Glaesserella) parasuis ทำให้เกิด fibrinopurulent polyserositis, polyarthritis และ meningitis คู่ S. suis type II กับ H. parasuis จึงทำให้ข้ออักเสบได้ทั้งคู่ แต่ไม่ใช่คู่เดียว Erysipelothrix rhusiopathiae, Mycoplasma hyosynoviae และ Mycoplasma hyorhinis ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกรหลังหย่านม คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกด้วย คู่ osteochondrosis กับ M. hyopneumoniae ไม่ถูก เพราะแม้ osteochondrosis จะเป็นรอยโรคที่ข้อ แต่ M. hyopneumoniae ก่อโรคปอด ส่วน FMD กับการขาด biotin ทำให้ขาเจ็บจากรอยโรคที่กีบ ไม่ใช่โรคของข้อ',
     verified: 'สรุป 80 p.7 (Vet 83 marked "S. suis, Glasser")',
-    flag: { note: 'ข้อนี้มีคู่ที่ถูกมากกว่าหนึ่งคู่ คำตอบที่ใช้คือ S. suis type II กับ H. parasuis แต่ M. hyorhinis, E. rhusiopathiae และ M. hyosynoviae ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกร คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกเช่นกัน', severity: 'major' } },
+    flag: { note: 'เฉลยของข้อนี้คือคู่ S. suis type II กับ H. parasuis แต่คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกรเช่นกัน จึงถูกได้มากกว่าหนึ่งคู่', severity: 'major' } },
 
   { id: 8024, subject: 'swine-clinic', topic: 'swine-ileitis-bacti', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
