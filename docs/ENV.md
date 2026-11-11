@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-121 names, 12 required; 10 more are set by the platform.
+122 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -171,6 +171,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
 | `VMX_GATE_LOCK` | optional | script | `scripts/gate.mjs` | Moves the local gate's e2e lock file. |
+| `VMX_ROUTE_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out. |
 | `VCA_BUILD_QUIET` | optional | script | `vca/scripts/build-bank.mjs` | 1 is --quiet for vca/scripts/build-bank.mjs. |
 | `VCA_E2E_PORT` | optional | test | `vca/playwright.config.js` | Port of the VCA e2e server. |
 | `RESEARCH_BASE_URL` | optional | test | `research/playwright.config.js`, `research/tests/e2e/research-headers.spec.js` | Runs the Research e2e against another origin. |
