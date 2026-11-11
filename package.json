@@ -153,7 +153,7 @@
     "@cornerstonejs/core": "4.22.13",
     "@cornerstonejs/dicom-image-loader": "4.22.13",
     "@cornerstonejs/tools": "4.22.13",
-    "@line/liff": "^2.29.0",
+    "@line/liff": "^2.31.1",
     "@supabase/supabase-js": "^2.111.0",
     "@vercel/analytics": "1.5.0",
     "@vercel/speed-insights": "1.2.0",
