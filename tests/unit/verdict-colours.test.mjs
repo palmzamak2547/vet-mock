@@ -37,7 +37,7 @@ const STYLES = walk(SRC, /\.css$/);
 const rel = (p) => p.slice(ROOT.length).replace(/\\/g, '/');
 const MAIN_CSS = readFileSync(join(SRC, 'styles.css'), 'utf8');
 
-const STATE = /(?:^|[.\-_])(ok|is-ok|correct|is-correct|reveal-correct|correct-ans|correct-val|right|is-right|pass|is-pass|found|is-found|hit|is-hit|good|is-good|partial|is-partial|half|wrong|is-wrong|reveal-wrong|wrong-ans|incorrect|is-incorrect|fail|is-fail|miss|is-miss|bad|is-bad|alarm|is-alarm)(?![\w-])/;
+const STATE = /(?:^|[.\-_])(ok|is-ok|correct|is-correct|reveal-correct|correct-ans|correct-val|right|is-right|pass|is-pass|found|is-found|hit|is-hit|good|is-good|partial|is-partial|half|wrong|is-wrong|reveal-wrong|wrong-ans|incorrect|is-incorrect|fail|is-fail|miss|is-miss|bad|is-bad|alarm|is-alarm|no|is-no|review|is-review)(?![\w-])/;
 // Ranked sets whose members are not named by a state word.
 const RANKED = [/^\.vmx-sr-btn\./, /^\.vmx-lesson-compare__/];
 // Classes that carry a state word but paint no verdict, each with its reason.
@@ -102,6 +102,7 @@ test('the stylesheet check catches a verdict rule that forgets (mutations)', () 
     '.x-row.good{border:1px solid var(--clr-sage)}',
     '.vmx-sr-btn.easy { border-color: var(--clr-gold); }',
     '.vmx-lesson-compare__after.is-fine { color: var(--clr-sage-text); }',
+    '.vmx-instant-feedback.is-no .vmx-feedback-kicker { color: var(--clr-sage-text); }',
     '.x-a.is-wrong, .x-b.is-right { color: var( --clr-sage ); }',
   ]) assert.ok(verdictLeaks(`${MAIN_CSS}\n${bad}\n`).length > 0, bad);
 });
@@ -233,8 +234,13 @@ test('text on rose-soft reads its own token, never rose-text', () => {
     }
   }
   for (const p of walk(SRC, /\.jsx$/)) {
-    readFileSync(p, 'utf8').split('\n').forEach((line, i) => {
-      if (line.includes('--clr-rose-soft') && line.includes('var(--clr-rose-text)')) bad.push(`${rel(p)}:${i + 1}`);
+    // The whole style object: a background and a colour often sit on lines
+    // of their own, so read the six lines either side.
+    const lines = readFileSync(p, 'utf8').split('\n');
+    lines.forEach((line, i) => {
+      if (!line.includes('var(--clr-rose-text)')) return;
+      const around = lines.slice(Math.max(0, i - 6), i + 7).join(' ');
+      if (/background[^,;}]*var\(--clr-rose-soft/.test(around)) bad.push(`${rel(p)}:${i + 1}`);
     });
   }
   assert.deepEqual(bad, []);
