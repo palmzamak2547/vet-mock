@@ -496,21 +496,21 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                         fontSize: 14,
                         lineHeight: 1.6,
                         background: isCorrect ? 'rgba(74, 107, 74, 0.15)' : 'var(--clr-bg)',
-                        border: isCorrect ? '1px solid var(--clr-sage)' : '1px solid var(--clr-border)',
+                        border: isCorrect ? '1px solid var(--clr-right)' : '1px solid var(--clr-border)',
                         color: 'var(--clr-ink)',
                       }}
                     >
                       <span style={{
                         fontFamily: 'var(--vmx-mono)',
                         marginRight: 8,
-                        color: isCorrect ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)',
+                        color: isCorrect ? 'var(--clr-right-text)' : 'var(--clr-ink-soft)',
                         fontWeight: isCorrect ? 600 : 400,
                       }}>
                         {String.fromCharCode(65 + i)}.
                       </span>
                       {opt}
                       {isCorrect && (
-                        <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)' }}>
+                        <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-right-text)', fontFamily: 'var(--vmx-mono)' }}>
                           ← คำตอบ
                         </span>
                       )}

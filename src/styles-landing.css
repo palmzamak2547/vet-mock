@@ -427,7 +427,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-qcard-explain { position: relative; margin-top: 18px; padding: 14px 16px 18px; border-radius: 16px; background: var(--clr-bg); border-left: 3px solid var(--clr-gold); animation: lp-why-in .7s var(--lp-ease) both; }
 .lp-qcard-verdict-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .lp-qcard-verdict { margin: 0; font-family: var(--lp-mono); font-size: 14px; font-weight: 700; }
-.lp-qcard-verdict.is-right { color: var(--clr-sage-text); }
+.lp-qcard-verdict.is-right { color: var(--clr-right-text); }
 .lp-qcard-verdict.is-wrong { color: var(--clr-rose-text); }
 .lp-qcard-why, .lp-qcard-src { margin: 0 0 8px; font-size: 14px; line-height: 1.75; color: var(--clr-ink-soft); }
 .lp-qcard-why b, .lp-qcard-src b { color: var(--clr-ink); font-weight: 700; margin-right: 4px; }

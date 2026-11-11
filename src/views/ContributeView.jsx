@@ -395,7 +395,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                     display: 'flex', alignItems: 'center', gap: 8,
                     padding: 8, borderRadius: 10,
                     background: isCorrect ? 'rgba(74, 107, 74, 0.08)' : 'transparent',
-                    border: `1px solid ${isCorrect ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
+                    border: `1px solid ${isCorrect ? 'var(--clr-right)' : 'var(--clr-border)'}`,
                   }}>
                     <button
                       type="button"
@@ -403,8 +403,8 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                       aria-label={`ทำเครื่องหมายตัวเลือก ${i + 1} เป็นคำตอบที่ถูก`}
                       style={{
                         width: 44, height: 44, borderRadius: '50%',
-                        border: `2px solid ${isCorrect ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
-                        background: isCorrect ? 'var(--clr-sage)' : 'transparent',
+                        border: `2px solid ${isCorrect ? 'var(--clr-right)' : 'var(--clr-border)'}`,
+                        background: isCorrect ? 'var(--clr-right)' : 'transparent',
                         color: isCorrect ? 'white' : 'var(--clr-ink-soft)',
                         fontSize: 14, fontWeight: 700,
                         cursor: 'pointer', flexShrink: 0,

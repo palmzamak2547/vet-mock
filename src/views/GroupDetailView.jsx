@@ -148,7 +148,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                    <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-right-text)' : r.pct >= 60 ? 'var(--clr-part-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
                     <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                   </div>
                 </div>

@@ -408,7 +408,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   <NavIcon name="star" size={16} filled={bookmarks.includes(q.id)} />
                 </button>
                 <span className={`vmx-review-result ${correct ? 'ok' : (outcome === 'self' || isPartial ? '' : 'no')}`}
-                  style={outcome === 'self' ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : undefined}>
+                  style={outcome === 'self' ? { background: 'var(--clr-part-soft)', color: 'var(--clr-part-text)' } : isPartial ? { background: 'var(--clr-part-soft)', color: 'var(--clr-part-text)' } : undefined}>
                   {!answered ? 'ข้าม' : outcome === 'self' ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
                 </span>
               </div>
