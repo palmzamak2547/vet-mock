@@ -1,3 +1,12 @@
+## Where I stopped (11 Nov, before the shutdown; delete this section when folding)
+
+- Done: all four guards, committed and pushed on `claude/structural-guards` (no pull request).
+  lint:data passed, test:unit 4149 passed and 0 failed, the route sweep ran on four engines.
+- Running: nothing. No heavy job and no dev server left.
+- Next: (1) the wave's pull request takes the first real reserved number through `release:new`;
+  (2) watch the first run of the `route sweep` runner and the `state` job and put their minutes in
+  the smoke-e2e.yml header; (3) run the sweep on Firefox on a quiet machine or CI once.
+
 ```js
 // Changelog entry for the wave's release file (src/data/changelog/<version>.js).
 { kind: 'fix', scope: 'system', title: 'ระบบตรวจตัวเองละเอียดขึ้น', desc: 'ก่อนปล่อยแต่ละรุ่น แอปจะเปิดทุกหน้าบนจอมือถือและตรวจการคิดคะแนนทุกแบบข้อสอบโดยอัตโนมัติ หน้าที่พังหรือคะแนนที่คิดผิดจึงหลุดไปถึงนิสิตได้ยากขึ้น' },
