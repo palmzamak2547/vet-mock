@@ -1,16 +1,24 @@
 // ============================================================
-// AccountSettingsView — manage account (post-login)
+// AccountSettingsView — "บัญชีและข้อมูล" (post-login)
 // ============================================================
-// Sections:
-//   • Profile info (email + username, read-only)
-//   • Change password (not for LINE-only accounts: see lib/line-account.js)
-//   • Change email (sends verify link to new email)
-//   • Logout all devices (security)
-//   • Delete account (danger zone — best-effort client-side delete)
+// Four groups, in the order a student looks for them:
+//   • How classmates see you   name, picture and the board choice, edited
+//                              with the same editor as the profile hub
+//   • Signing in and security  the address, the linked sign-in methods,
+//                              passkeys, password (two steps), email change,
+//                              signing out every device
+//   • Your data                one download that holds everything the app
+//                              keeps for this account and this device, and
+//                              says what is in it; connected apps
+//   • Leaving                  sign out here; delete the account
+//
+// How passwords, passkeys, the email change and deletion work is unchanged;
+// only where they sit and how they are named. Year, cohort and bio are no
+// longer asked for: nothing read them, and the app's year is the one the
+// student picks for the whole app (shown on the profile hub).
 //
 // Reachable from:
-//   • HomeView when signed in (gear/avatar dropdown)
-//   • ⌘K palette → "Account settings"
+//   • the profile hub (บัญชีและข้อมูล), the header menu, the palette
 // ============================================================
 
 import { useState, useEffect } from 'react';
@@ -25,19 +33,17 @@ import {
   signOut,
   signOutAllDevices,
   deleteAccountData,
-  updateProfileMetadata,
-  updateUsername,
 } from '../lib/supabase.js';
 import { isWebAuthnDismissal, thaiAuthError } from '../lib/auth-errors.js';
 import { thaiError } from '../lib/errors.js';
-import {
-  passwordStrength,
-  validateUsername,
-  sanitizeUsername,
-} from '../lib/auth-utils.js';
+import { passwordStrength } from '../lib/auth-utils.js';
 import BackBar from '../components/BackBar.jsx';
+import IdentityEditor from '../components/IdentityEditor.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 import { isSyntheticLineEmail } from '../lib/line-account.js';
+import { isAutoName, showsOnBoards } from '../lib/public-identity.js';
+import { getXpState } from '../lib/xp.js';
+import '../styles-profile.css';
 
 // Typed to confirm a delete. Thai only, so nobody switches keyboards halfway.
 const DELETE_PHRASE = 'ลบบัญชี';
@@ -45,8 +51,18 @@ const DELETE_PHRASE = 'ลบบัญชี';
 // password until it has a real email (OV-data-9).
 const LINE_ONLY_PASSWORD = 'บัญชีนี้เข้าด้วย LINE เพิ่มอีเมลจริงก่อนจึงตั้งรหัสผ่านได้';
 
-export default function AccountSettingsView({ user, goHome, setView, onSignedOut, coreData }) {
-  const [section, setSection] = useState(null); // null | 'profile' | 'password' | 'email' | 'delete'
+// What the one download holds, said on the page before it is pressed.
+export const EXPORT_HOLDS = Object.freeze([
+  'ประวัติการทำข้อสอบ ข้อที่บันทึกไว้ โน้ต การ์ดทบทวน วันต่อเนื่อง ข้อที่เขียนเอง และรายการอ่าน',
+  'ชื่อ รูป และการเลือกเรื่องกระดานอันดับ',
+  'เลเวลและชั้นปีที่เลือกไว้ในเครื่องนี้',
+  'Flashcard ชุดปิดภาพ Pinboard โน้ตวิดีโอ และคลิปที่เพิ่มเองในเครื่องนี้',
+]);
+
+const PROVIDER_NAME = { google: 'Google', line: 'LINE', email: 'อีเมลและรหัสผ่าน' };
+
+export default function AccountSettingsView({ user, profile = null, goHome, setView, onSignedOut, coreData, onIdentitySaved = null, selectedYear = null }) {
+  const [section, setSection] = useState(null); // null | 'identity' | 'password' | 'email' | 'delete'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
@@ -64,17 +80,11 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
   const [passkeyLoad, setPasskeyLoad] = useState(0);
   const [newEmail, setNewEmail] = useState('');
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
+  const [identitySaved, setIdentitySaved] = useState('');
 
-  // Profile-edit form state — pre-populated from current user_metadata
   const md = user?.user_metadata || {};
   // The LINE placeholder's local part is line_<sub>, never a username to offer.
   const lineOnly = isSyntheticLineEmail(user);
-  const [editUsername, setEditUsername] = useState(md.username || (lineOnly ? '' : user?.email?.split('@')[0]) || '');
-  const [editYear, setEditYear] = useState(md.year ?? '');
-  const [editCohort, setEditCohort] = useState(md.cohort || '');
-  const [editAvatar, setEditAvatar] = useState(md.avatar_emoji || '🐾');
-  const [editBio, setEditBio] = useState(md.bio || '');
-  const [editShowLb, setEditShowLb] = useState(md.show_on_leaderboard !== false); // default true
 
   if (!user) {
     return (
@@ -88,44 +98,45 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
   }
 
   const email = user.email || '';
-  const username = user.user_metadata?.username || '—';
+  // The public name is the profiles row every other screen shows; metadata is
+  // only its mirror, and an account signed in with Google has none there.
+  const publicName = profile?.username || '';
+  const autoName = isAutoName(publicName, email);
+  const picture = profile?.avatar_emoji || '🐾';
 
   const reset = () => { setError(''); setInfo(''); };
 
-  const handleSaveProfile = async (e) => {
-    e?.preventDefault();
-    reset();
-    setLoading(true);
-    try {
-      // Username: only call updateUsername if changed (round-trip + uniqueness re-check)
-      const currentUsername = md.username || '';
-      if (editUsername && editUsername !== currentUsername) {
-        const v = validateUsername(editUsername);
-        if (!v.ok) { setError(`ชื่อผู้ใช้: ${v.reason}`); setLoading(false); return; }
-        await updateUsername(editUsername);
-      }
-      // Other profile fields → user_metadata in one batched updateUser call
-      await updateProfileMetadata({
-        year: editYear ? Number(editYear) : null,
-        cohort: editCohort || null,
-        avatar_emoji: editAvatar || null,
-        bio: (editBio || '').slice(0, 140) || null,
-        show_on_leaderboard: editShowLb,
-      });
-      setInfo('✓ บันทึกโปรไฟล์เรียบร้อย — รีเฟรชหน้าเพื่อเห็นผลทุกที่');
-      setTimeout(() => { setSection(null); setInfo(''); }, 1800);
-    } catch (err) {
-      setError(thaiAuthError(err));
-    } finally { setLoading(false); }
-  };
-
+  // One file for everything the app keeps for this student: the synced study
+  // data in the shape the progress page restores, the account's public
+  // identity and choices, and what lives on this device only (level, year,
+  // device tools). The detailed answer log and PDF handwriting stay separate.
   const handleExportData = async () => {
     reset();
     setLoading(true);
     try {
       if (!coreData) throw new Error('ยังโหลดข้อมูลบัญชีไม่ครบ กรุณาลองใหม่');
-      const exportBlob = { version: '5.2', exportDate: new Date().toISOString(), ...coreData,
-        account: { id: user.id, email: user.email, username: md.username } };
+      let localExtras = null;
+      try { localExtras = (await import('../lib/local-extras.js')).exportLocalExtras(); } catch { localExtras = null; }
+      const exportBlob = {
+        version: '5.2',
+        exportDate: new Date().toISOString(),
+        ...coreData,
+        account: {
+          id: user.id,
+          email: lineOnly ? null : user.email,
+          username: publicName || null,
+          avatar_emoji: profile?.avatar_emoji || null,
+          show_on_leaderboard: showsOnBoards(user),
+          // Quest points and the one-time carry the level adds (lib/xp.js).
+          xp_extra: Math.max(0, Math.floor(Number(md.xp_extra) || 0)),
+          // Saved by earlier versions of the account page; kept, not asked for.
+          ...(md.year ? { year: md.year } : {}),
+          ...(md.cohort ? { cohort: md.cohort } : {}),
+          ...(md.bio ? { bio: md.bio } : {}),
+        },
+        device: { selectedYear: selectedYear ?? null, xp: getXpState() },
+        ...(localExtras ? { localExtras } : {}),
+      };
       const blob = new Blob([JSON.stringify(exportBlob, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -135,7 +146,9 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      setInfo('✓ ดาวน์โหลดข้อมูลหลักของบัญชีแล้ว นำเข้าคืนได้ที่ Dashboard ส่วนเครื่องมือและลายมือ PDF ส่งออกแยกจากหน้าของแต่ละส่วน');
+      setInfo(localExtras
+        ? 'เริ่มดาวน์โหลดไฟล์แล้ว ดูในโฟลเดอร์ดาวน์โหลดของเครื่อง ถ้าเปิดจากในแอปอื่นแล้วไม่เห็นไฟล์ ให้เปิด VetMock ในเบราว์เซอร์ปกติ'
+        : 'เริ่มดาวน์โหลดไฟล์แล้ว แต่อ่าน Flashcard และเครื่องมือในเครื่องนี้ไม่ครบ จึงไม่อยู่ในไฟล์ ดาวน์โหลดแยกได้ที่หน้าความคืบหน้า');
     } catch (err) {
       setError(thaiError(err, 'ส่งออกไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally { setLoading(false); }
@@ -315,416 +328,327 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
     } finally { setLoading(false); }
   };
 
+  const identities = (Array.isArray(user.identities) ? user.identities : [])
+    .map((i) => ({ provider: i?.provider, email: i?.identity_data?.email || '' }))
+    .filter((i) => i.provider);
+
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
 
-      <div className="vmx-hero">
-        <h1>ตั้งค่า <em>บัญชี</em></h1>
-        <p>จัดการบัญชี เปลี่ยนรหัสผ่าน อีเมล หรือลบบัญชี</p>
+      <div className="vmx-hero vmx-acct-hero">
+        <h1>บัญชีและข้อมูล</h1>
+        <p>วิธีเข้าสู่ระบบ ข้อมูลของคุณ และการออกจากบัญชี</p>
       </div>
 
-      <div className="vmx-config-panel" style={{ maxWidth: 560, margin: '0 auto' }}>
-        {/* Profile info — read-only summary + last sign-in metadata */}
-        <Card>
-          <h3 style={cardHeading}>ข้อมูลบัญชี</h3>
-          {/* The LINE placeholder is not the student's email; it is never printed. */}
-          <KV label="อีเมล" value={lineOnly ? 'ยังไม่มีอีเมล (เข้าด้วย LINE)' : !email ? 'ยังไม่มีอีเมล' : (
-            <>
-              {email}
-              {user.email_confirmed_at
-                ? <span style={{ marginLeft: 6, color: 'var(--clr-sage-text)', fontSize: 14 }}>✓ ยืนยันแล้ว</span>
-                : <span style={{ marginLeft: 6, color: 'var(--clr-gold-text)', fontSize: 14 }}>ยังไม่ยืนยัน</span>}
-            </>
-          )} />
-          <KV label="ชื่อผู้ใช้" value={
-            <>
-              {md.avatar_emoji || ''} {username}
-            </>
-          } />
-          {md.year && <KV label="ชั้นปี" value={`ปี ${md.year}${md.cohort ? `, ${md.cohort}` : ''}`} />}
-          {md.bio && <KV label="แนะนำตัว" value={<span style={{ maxWidth: 280, textAlign: 'right' }}>{md.bio}</span>} />}
-          {user.last_sign_in_at && (
-            <KV label="เข้าสู่ระบบล่าสุด" value={
-              <span title={new Date(user.last_sign_in_at).toLocaleString('th-TH')}>
-                {timeAgoTh(user.last_sign_in_at)}
-              </span>
-            } />
-          )}
-          <KV label="รหัสบัญชี" value={<code style={{ fontSize: 11 }}>{user.id?.slice(0, 8)}…</code>} />
-        </Card>
-
-        {/* Edit profile (year + cohort + avatar + bio + privacy) */}
-        <Card>
-          <h3 style={cardHeading}>แก้ไขโปรไฟล์</h3>
-          {section !== 'profile' ? (
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('profile'); }}>
-              แก้ไขชื่อผู้ใช้ ชั้นปี รูปโปรไฟล์ และแนะนำตัว →
-            </button>
-          ) : (
-            <form onSubmit={handleSaveProfile}>
-              <div className="vmx-form-group">
-                <label htmlFor="vmx-account-username">ชื่อผู้ใช้</label>
-                <input
-                  id="vmx-account-username"
-                  type="text"
-                  value={editUsername}
-                  onChange={(e) => setEditUsername(sanitizeUsername(e.target.value))}
-                  placeholder="vet86_ping"
-                  maxLength={30}
-                  autoComplete="username"
-                />
-                <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                  ใช้ได้: a-z, A-Z, 0-9, _, 3-30 ตัว
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <div className="vmx-form-group" style={{ flex: '0 0 100px' }}>
-                  <label htmlFor="vmx-account-year">ชั้นปี</label>
-                  <select id="vmx-account-year" value={editYear} onChange={(e) => setEditYear(e.target.value)}>
-                    <option value="">—</option>
-                    <option value="1">ปี 1</option>
-                    <option value="2">ปี 2</option>
-                    <option value="3">ปี 3</option>
-                    <option value="4">ปี 4</option>
-                    <option value="5">ปี 5</option>
-                    <option value="6">ปี 6</option>
-                  </select>
-                </div>
-                <div className="vmx-form-group" style={{ flex: 1, minWidth: 140 }}>
-                  <label htmlFor="vmx-account-cohort">รุ่น</label>
-                  <input
-                    id="vmx-account-cohort"
-                    type="text"
-                    value={editCohort}
-                    onChange={(e) => setEditCohort(e.target.value.slice(0, 30))}
-                    placeholder="Vet 86"
-                    maxLength={30}
-                  />
-                </div>
-                <div className="vmx-form-group" style={{ flex: '0 0 90px' }}>
-                  <label htmlFor="vmx-account-avatar">รูปโปรไฟล์</label>
-                  <input
-                    id="vmx-account-avatar"
-                    type="text"
-                    value={editAvatar}
-                    onChange={(e) => setEditAvatar(e.target.value.slice(0, 4))}
-                    placeholder="🐾"
-                    maxLength={4}
-                    style={{ textAlign: 'center', fontSize: 18 }}
-                  />
-                </div>
-              </div>
-              <div className="vmx-form-group">
-                <label htmlFor="vmx-account-bio">แนะนำตัว (ไม่เกิน 140 ตัวอักษร)</label>
-                <textarea
-                  id="vmx-account-bio"
-                  value={editBio}
-                  onChange={(e) => setEditBio(e.target.value.slice(0, 140))}
-                  placeholder="แนะนำตัวสั้น ๆ — อะไรที่อยากให้คนรู้"
-                  maxLength={140}
-                  rows={2}
-                  style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit', fontSize: 14, padding: 8, border: '1px solid var(--clr-border)', borderRadius: 8, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
-                />
-                <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
-                  {editBio.length}/140
-                </div>
-              </div>
-              <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink)' }}>
-                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    checked={editShowLb}
-                    onChange={(e) => setEditShowLb(e.target.checked)}
-                  />
-                  แสดงในอันดับคะแนน (ปิดไว้ถ้าอยากเก็บความคืบหน้าเป็นส่วนตัว)
-                </label>
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
-                  {loading ? '…' : 'บันทึก'}
-                </button>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); reset(); }}>
-                  ยกเลิก
-                </button>
-              </div>
-            </form>
-          )}
-        </Card>
-
-        {/* Banners */}
-        {error && (
-          <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
-            ⚠️ {error}
-          </div>
-        )}
-        {info && (
-          <div style={{ padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
-            {info}
-          </div>
-        )}
-
-        {/* Passkeys — the only place they can be created, since registering
-            one requires being signed in already. Hidden entirely on browsers
-            that cannot do WebAuthn rather than shown as a dead control. */}
-        {isPasskeySupported() && (
-          <Card>
-            <h3 style={cardHeading}>Passkey</h3>
-            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6, margin: '0 0 12px' }}>
-              เข้าสู่ระบบด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของเครื่อง ไม่ต้องจำรหัสผ่าน
-              และหน้าเว็บปลอมขโมยไปใช้ไม่ได้ เพราะ passkey ผูกกับที่อยู่เว็บจริงเท่านั้น
-            </p>
-            {passkeysFailed && (
-              <div role="alert" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, fontSize: 14, margin: '0 0 12px' }}>
-                <span style={{ flex: '1 1 14em' }}>โหลดรายการ passkey ไม่สำเร็จ</span>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setPasskeyLoad((n) => n + 1)}>ลองอีกครั้ง</button>
-              </div>
-            )}
-            {passkeys.length > 0 && (
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 12px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {passkeys.map((pk) => (
-                  <li key={pk.id} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface-2)' }}>
-                    <span style={{ flex: 1, minWidth: 0 }}>
-                      {pk.friendly_name || 'Passkey'}
-                      {pk.created_at && (
-                        <span style={{ color: 'var(--clr-ink-soft)', marginLeft: 8, fontSize: 14 }}>
-                          เพิ่มเมื่อ {new Date(pk.created_at).toLocaleDateString('th-TH')}
-                        </span>
-                      )}
+      <div className="vmx-acct">
+        {/* ── How classmates see you ─────────────────────────────────── */}
+        <section className="vmx-acct-group" aria-labelledby="acct-identity">
+          <h2 id="acct-identity">ตัวตนที่เพื่อนเห็น</h2>
+          <div className="vmx-acct-card">
+            {section !== 'identity' ? (
+              <>
+                <div className="vmx-acct-id">
+                  <span className="vmx-hub-pic" aria-hidden="true">{picture}</span>
+                  <div className="vmx-acct-id-body">
+                    <span className="vmx-hub-name">{autoName ? 'ยังไม่ได้ตั้งชื่อ' : publicName}</span>
+                    <span className="vmx-hub-meta">
+                      {autoName && publicName ? `ตอนนี้เพื่อนเห็นเป็น ${publicName} ซึ่งระบบตั้งให้ ` : ''}
+                      {showsOnBoards(user) ? 'แสดงบนกระดานอันดับ' : 'ไม่แสดงบนกระดานอันดับ'}
                     </span>
-                    <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleDeletePasskey(pk.id)} disabled={loading}>
-                      ลบ
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleRegisterPasskey} disabled={loading}>
-              {loading ? '…' : passkeys.length ? 'เพิ่ม passkey อีกอัน' : 'สร้าง passkey บนเครื่องนี้'}
-            </button>
-          </Card>
-        )}
-
-        {/* Change password */}
-        <Card>
-          <h3 style={cardHeading}>{lineOnly ? 'ตั้งรหัสผ่าน' : 'เปลี่ยนรหัสผ่าน'}</h3>
-          {lineOnly ? (
-            /* The reauth code would go to the LINE placeholder, which no mail
-               reaches, so the form could never finish. Say what to do instead. */
-            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: 0, lineHeight: 1.6 }}>
-              {LINE_ONLY_PASSWORD}
-            </p>
-          ) : section !== 'password' ? (
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('password'); }}>
-              เปลี่ยนรหัสผ่าน →
-            </button>
-          ) : (
-            /* Two steps on purpose. A live session alone used to be enough to
-               set a new password, so a borrowed phone or a shared library
-               machine handed over the account for good. The second step proves
-               whoever is typing can also read the account's email. */
-            <form onSubmit={reauthSent ? handleChangePassword : handleRequestReauth}>
-              <div className="vmx-form-group">
-                <label htmlFor="vmx-account-password">รหัสผ่านใหม่</label>
-                <input id="vmx-account-password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="อย่างน้อย 8 ตัว" autoComplete="new-password" disabled={reauthSent} />
-                {newPassword && <PasswordStrengthBar password={newPassword} />}
-              </div>
-              <div className="vmx-form-group">
-                <label htmlFor="vmx-account-password-confirm">ยืนยันรหัสผ่านใหม่</label>
-                <input id="vmx-account-password-confirm" type="password" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} autoComplete="new-password" disabled={reauthSent} />
-              </div>
-              {reauthSent && (
-                <div className="vmx-form-group">
-                  <label htmlFor="vmx-account-reauth-code">รหัสยืนยันจากอีเมล</label>
-                  <input
-                    id="vmx-account-reauth-code"
-                    type="text" inputMode="numeric" autoComplete="one-time-code"
-                    value={reauthCode} onChange={(e) => setReauthCode(e.target.value)}
-                    placeholder="กรอกรหัสที่ส่งไปทางอีเมล" autoFocus
-                  />
-                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
-                    ส่งไปที่ {email} หากไม่พบ ลองดูในกล่องสแปม
                   </div>
                 </div>
-              )}
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
-                  {loading ? '…' : reauthSent ? 'ยืนยันและเปลี่ยนรหัสผ่าน' : 'ส่งรหัสยืนยัน'}
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setIdentitySaved(''); setSection('identity'); }}>
+                  แก้ไขชื่อ รูป และการแสดงบนกระดาน
                 </button>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); setReauthSent(false); setReauthCode(''); reset(); }}>
-                  ยกเลิก
-                </button>
-              </div>
-            </form>
-          )}
-        </Card>
+                {identitySaved && <p className="vmx-hub-saved is-on" role="status">{identitySaved}</p>}
+              </>
+            ) : (
+              <IdentityEditor
+                user={user}
+                profile={profile}
+                mode="edit"
+                headingId="acct-identity"
+                nameInputId="vmx-account-username"
+                onCancel={() => setSection(null)}
+                onSaved={(next, saved) => {
+                  onIdentitySaved?.(next, saved);
+                  setSection(null);
+                  setIdentitySaved(saved?.metaSaved === false
+                    ? 'บันทึกชื่อและรูปแล้ว แต่เรื่องกระดานอันดับยังไม่ได้บันทึก ลองอีกครั้ง'
+                    : 'บันทึกแล้ว เพื่อนเห็นแบบนี้ตั้งแต่ตอนนี้');
+                }}
+              />
+            )}
+          </div>
+        </section>
 
-        {/* Change email */}
-        <Card>
-          <h3 style={cardHeading}>{lineOnly ? 'เพิ่มอีเมล' : 'เปลี่ยนอีเมล'}</h3>
-          {section !== 'email' ? (
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('email'); }}>
-              {lineOnly ? 'เพิ่มอีเมล →' : 'เปลี่ยนอีเมล →'}
-            </button>
-          ) : (
-            <form onSubmit={handleChangeEmail}>
-              <div className="vmx-form-group">
-                <label htmlFor="vmx-account-email">อีเมลใหม่</label>
-                <input id="vmx-account-email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="new@example.com" autoComplete="email" />
-                <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                  เราจะส่งลิงก์ยืนยันไปที่อีเมลใหม่ — ต้องกดลิงก์เพื่อยืนยันก่อน
+        {/* ── Signing in and security ────────────────────────────────── */}
+        <section className="vmx-acct-group" aria-labelledby="acct-signin">
+          <h2 id="acct-signin">การเข้าสู่ระบบและความปลอดภัย</h2>
+          <div className="vmx-acct-card">
+            <dl className="vmx-acct-facts">
+              <div>
+                <dt>อีเมล</dt>
+                {/* The LINE placeholder is not the student's email; it is never printed. */}
+                <dd>
+                  {lineOnly ? 'ยังไม่มีอีเมล (เข้าด้วย LINE)' : !email ? 'ยังไม่มีอีเมล' : (
+                    <>
+                      <span className="vmx-acct-mail">{email}</span>
+                      {user.email_confirmed_at
+                        ? <span className="vmx-acct-tag is-ok">ยืนยันแล้ว</span>
+                        : <span className="vmx-acct-tag is-warn">ยังไม่ยืนยัน</span>}
+                    </>
+                  )}
+                </dd>
+              </div>
+              {identities.length > 0 && (
+                <div>
+                  <dt>เข้าด้วย</dt>
+                  <dd>
+                    <ul className="vmx-acct-methods">
+                      {identities.map((i, n) => (
+                        <li key={`${i.provider}-${n}`}>
+                          {PROVIDER_NAME[i.provider] || i.provider}
+                          {i.email && !isSyntheticLineEmail(i.email) ? <span className="vmx-acct-mail"> {i.email}</span> : null}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
                 </div>
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
-                  {loading ? '…' : 'ส่งลิงก์ยืนยัน'}
-                </button>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); reset(); }}>
-                  ยกเลิก
-                </button>
-              </div>
-            </form>
+              )}
+              {user.last_sign_in_at && (
+                <div>
+                  <dt>เข้าสู่ระบบล่าสุด</dt>
+                  <dd title={new Date(user.last_sign_in_at).toLocaleString('th-TH')}>{timeAgoTh(user.last_sign_in_at)}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+
+          {/* Passkeys — the only place they can be created, since registering
+              one requires being signed in already. Hidden entirely on browsers
+              that cannot do WebAuthn rather than shown as a dead control. */}
+          {isPasskeySupported() && (
+            <div className="vmx-acct-card">
+              <h3>Passkey</h3>
+              <p className="vmx-acct-note">
+                เข้าสู่ระบบด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของเครื่อง ไม่ต้องจำรหัสผ่าน
+                และหน้าเว็บปลอมขโมยไปใช้ไม่ได้ เพราะ passkey ผูกกับที่อยู่เว็บจริงเท่านั้น
+              </p>
+              {passkeysFailed && (
+                <div role="alert" className="vmx-acct-inline">
+                  <span>โหลดรายการ passkey ไม่สำเร็จ</span>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setPasskeyLoad((n) => n + 1)}>ลองอีกครั้ง</button>
+                </div>
+              )}
+              {passkeys.length > 0 && (
+                <ul className="vmx-acct-list">
+                  {passkeys.map((pk) => (
+                    <li key={pk.id}>
+                      <span>
+                        {pk.friendly_name || 'Passkey'}
+                        {pk.created_at && <span className="vmx-hub-meta"> เพิ่มเมื่อ {new Date(pk.created_at).toLocaleDateString('th-TH')}</span>}
+                      </span>
+                      <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleDeletePasskey(pk.id)} disabled={loading}>
+                        ลบ
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleRegisterPasskey} disabled={loading}>
+                {loading ? '…' : passkeys.length ? 'เพิ่ม passkey อีกอัน' : 'สร้าง passkey บนเครื่องนี้'}
+              </button>
+            </div>
           )}
-        </Card>
 
-        {/* Google Drive and Notion grants are ended on the connected-apps page. */}
-        {setView && (
-          <Card>
-            <h3 style={cardHeading}>แอปที่เชื่อมไว้</h3>
-            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-              เพิ่มตารางสอบเข้าปฏิทิน และดูแอปที่เชื่อมไว้
-            </p>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('connect-apps')}>เปิดหน้าเชื่อมแอป</button>
-          </Card>
-        )}
+          {/* Change password */}
+          <div className="vmx-acct-card">
+            <h3>{lineOnly ? 'ตั้งรหัสผ่าน' : 'เปลี่ยนรหัสผ่าน'}</h3>
+            {lineOnly ? (
+              /* The reauth code would go to the LINE placeholder, which no mail
+                 reaches, so the form could never finish. Say what to do instead. */
+              <p className="vmx-acct-note">{LINE_ONLY_PASSWORD}</p>
+            ) : section !== 'password' ? (
+              <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('password'); }}>
+                เปลี่ยนรหัสผ่าน →
+              </button>
+            ) : (
+              /* Two steps on purpose. A live session alone used to be enough to
+                 set a new password, so a borrowed phone or a shared library
+                 machine handed over the account for good. The second step proves
+                 whoever is typing can also read the account's email. */
+              <form onSubmit={reauthSent ? handleChangePassword : handleRequestReauth}>
+                <div className="vmx-form-group">
+                  <label htmlFor="vmx-account-password">รหัสผ่านใหม่</label>
+                  <input id="vmx-account-password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="อย่างน้อย 8 ตัว" autoComplete="new-password" disabled={reauthSent} />
+                  {newPassword && <PasswordStrengthBar password={newPassword} />}
+                </div>
+                <div className="vmx-form-group">
+                  <label htmlFor="vmx-account-password-confirm">ยืนยันรหัสผ่านใหม่</label>
+                  <input id="vmx-account-password-confirm" type="password" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} autoComplete="new-password" disabled={reauthSent} />
+                </div>
+                {reauthSent && (
+                  <div className="vmx-form-group">
+                    <label htmlFor="vmx-account-reauth-code">รหัสยืนยันจากอีเมล</label>
+                    <input
+                      id="vmx-account-reauth-code"
+                      type="text" inputMode="numeric" autoComplete="one-time-code"
+                      value={reauthCode} onChange={(e) => setReauthCode(e.target.value)}
+                      placeholder="กรอกรหัสที่ส่งไปทางอีเมล" autoFocus
+                    />
+                    <div className="vmx-acct-note">
+                      ส่งไปที่ {email} หากไม่พบ ลองดูในกล่องสแปม
+                    </div>
+                  </div>
+                )}
+                <div className="vmx-acct-actions">
+                  <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
+                    {loading ? '…' : reauthSent ? 'ยืนยันและเปลี่ยนรหัสผ่าน' : 'ส่งรหัสยืนยัน'}
+                  </button>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); setReauthSent(false); setReauthCode(''); reset(); }}>
+                    ยกเลิก
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
 
-        {/* Export data — GDPR portability + offline backup */}
-        <Card>
-          <h3 style={cardHeading}>ส่งออกข้อมูล</h3>
-          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-            ดาวน์โหลด progress ทั้งหมด (bookmarks, history, notes, custom Q, streak) เป็น JSON
-          </p>
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleExportData} disabled={loading}>
-            {loading ? '…' : '↓ ดาวน์โหลด JSON'}
-          </button>
-        </Card>
+          {/* Change email */}
+          <div className="vmx-acct-card">
+            <h3>{lineOnly ? 'เพิ่มอีเมล' : 'เปลี่ยนอีเมล'}</h3>
+            {section !== 'email' ? (
+              <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('email'); }}>
+                {lineOnly ? 'เพิ่มอีเมล →' : 'เปลี่ยนอีเมล →'}
+              </button>
+            ) : (
+              <form onSubmit={handleChangeEmail}>
+                <div className="vmx-form-group">
+                  <label htmlFor="vmx-account-email">อีเมลใหม่</label>
+                  <input id="vmx-account-email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="new@example.com" autoComplete="email" />
+                  <div className="vmx-acct-note">
+                    เราจะส่งลิงก์ยืนยันไปที่อีเมลใหม่ ต้องกดลิงก์เพื่อยืนยันก่อน
+                  </div>
+                </div>
+                <div className="vmx-acct-actions">
+                  <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
+                    {loading ? '…' : 'ส่งลิงก์ยืนยัน'}
+                  </button>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); reset(); }}>
+                    ยกเลิก
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
 
-        {/* Logout all devices */}
-        <Card>
-          <h3 style={cardHeading}>ออกจากระบบ</h3>
-          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-            ออกจากระบบทุกเครื่องในครั้งเดียว ใช้ตอนสงสัยว่ารหัสรั่ว
-          </p>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleSignOut} disabled={loading}>
-              ออกจากระบบเฉพาะเครื่องนี้
-            </button>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleLogoutAll} disabled={loading} style={{ borderColor: 'var(--clr-gold)' }}>
+          <div className="vmx-acct-card">
+            <h3>ออกจากระบบทุกเครื่อง</h3>
+            <p className="vmx-acct-note">ใช้ตอนลืมออกจากเครื่องคนอื่น หรือสงสัยว่ามีคนอื่นเข้าบัญชีนี้</p>
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleLogoutAll} disabled={loading}>
               ออกจากระบบทุกเครื่อง
             </button>
           </div>
-        </Card>
+        </section>
 
-        {/* Danger zone — delete account */}
-        <Card style={{ borderColor: 'var(--clr-rose)', borderWidth: 1, borderStyle: 'solid' }}>
-          <h3 style={{ ...cardHeading, color: 'var(--clr-rose-text)' }}>ลบบัญชี</h3>
-          {section !== 'delete' ? (
-            <>
-              <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-                ลบบัญชีและข้อมูลทั้งหมด กู้คืนไม่ได้
-              </p>
-              <button
-                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                onClick={() => { reset(); setSection('delete'); }}
-                style={{ color: 'var(--clr-rose-text)', borderColor: 'var(--clr-rose)' }}
-              >
-                ลบบัญชี →
-              </button>
-            </>
-          ) : (
-            <form onSubmit={handleDelete}>
-              <div style={{ padding: 12, borderRadius: 8, background: 'var(--clr-rose-soft)', marginBottom: 12, fontSize: 14, lineHeight: 1.6 }}>
-                <strong>การลบบัญชีจะ:</strong>
-                <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
-                  <li>ลบความคืบหน้า คะแนน bookmarks และข้อมูลของบัญชีนี้ทั้งหมด ทั้งในบัญชีและในเครื่องนี้</li>
-                  <li>Flashcard ชุดปิดภาพ และ Pinboard เก็บไว้ในเบราว์เซอร์นี้ ไม่ได้อยู่ในบัญชี จึงไม่ถูกลบ ลบเองได้จากหน้าเครื่องมือนั้น หรือล้างข้อมูลเว็บไซต์ในเบราว์เซอร์</li>
-                  <li>ออกจากระบบทุกเครื่อง</li>
-                  <li>ไม่สามารถกู้คืนได้</li>
-                </ul>
-              </div>
-              <div className="vmx-form-group">
-                <label htmlFor="vmx-account-delete-confirm">พิมพ์ <code>{DELETE_PHRASE}</code> เพื่อยืนยัน</label>
-                <input
-                  id="vmx-account-delete-confirm"
-                  type="text"
-                  value={deleteConfirmText}
-                  onChange={(e) => setDeleteConfirmText(e.target.value)}
-                  placeholder={DELETE_PHRASE}
-                  autoComplete="off"
-                />
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button
-                  type="submit"
-                  className="vmx-btn vmx-btn-sm"
-                  disabled={loading || deleteConfirmText !== DELETE_PHRASE}
-                  style={{ background: 'var(--clr-rose)', color: '#fff', borderColor: 'var(--clr-rose)' }}
-                >
-                  {loading ? '…' : '☠️ ยืนยันลบบัญชี'}
-                </button>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); setDeleteConfirmText(''); reset(); }}>
-                  ยกเลิก
-                </button>
-              </div>
-            </form>
+        {/* ── Your data ──────────────────────────────────────────────── */}
+        <section className="vmx-acct-group" aria-labelledby="acct-data">
+          <h2 id="acct-data">ข้อมูลของคุณ</h2>
+          <div className="vmx-acct-card">
+            <h3>ดาวน์โหลดข้อมูลทั้งหมด</h3>
+            <p className="vmx-acct-note">ไฟล์เดียว นำกลับเข้าได้ที่หน้าความคืบหน้า ในไฟล์มี</p>
+            <ul className="vmx-acct-holds">
+              {EXPORT_HOLDS.map((line) => <li key={line}>{line}</li>)}
+            </ul>
+            <p className="vmx-acct-note">ประวัติแบบละเอียดรายข้อและลายมือบน PDF ไฟล์ใหญ่ จึงดาวน์โหลดแยกที่หน้าความคืบหน้าและหน้า PDF</p>
+            <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={handleExportData} disabled={loading}>
+              {loading ? '…' : 'ดาวน์โหลดไฟล์ข้อมูล'}
+            </button>
+          </div>
+          {/* Google Drive and Notion grants are ended on the connected-apps page. */}
+          {setView && (
+            <div className="vmx-acct-card">
+              <h3>แอปที่เชื่อมไว้</h3>
+              <p className="vmx-acct-note">ตารางสอบในปฏิทิน และแอปที่ได้รับสิทธิ์อ่านข้อมูล ยกเลิกสิทธิ์ได้ที่หน้านี้</p>
+              <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('connect-apps')}>เปิดหน้าเชื่อมแอป</button>
+            </div>
           )}
-        </Card>
-      </div>
+        </section>
 
-      <div className="vmx-btn-row" style={{ marginTop: 24, justifyContent: 'center' }}>
-        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome}>← หน้าแรก</button>
+        {/* ── Leaving ────────────────────────────────────────────────── */}
+        <section className="vmx-acct-group" aria-labelledby="acct-leave">
+          <h2 id="acct-leave">ออกจากบัญชี</h2>
+          <div className="vmx-acct-card">
+            <h3>ออกจากระบบเครื่องนี้</h3>
+            <p className="vmx-acct-note">ข้อมูลในบัญชียังอยู่ครบ เข้าสู่ระบบใหม่เมื่อไหร่ก็ใช้ต่อได้</p>
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleSignOut} disabled={loading}>
+              ออกจากระบบเฉพาะเครื่องนี้
+            </button>
+          </div>
+
+          {/* Danger zone — delete account */}
+          <div className="vmx-acct-card is-danger">
+            <h3>ลบบัญชี</h3>
+            {section !== 'delete' ? (
+              <>
+                <p className="vmx-acct-note">ลบบัญชีและข้อมูลในบัญชีทั้งหมด กู้คืนไม่ได้ ดาวน์โหลดข้อมูลไว้ก่อนได้จากหัวข้อด้านบน</p>
+                <button
+                  className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-acct-danger"
+                  onClick={() => { reset(); setSection('delete'); }}
+                >
+                  ลบบัญชี →
+                </button>
+              </>
+            ) : (
+              <form onSubmit={handleDelete}>
+                <div className="vmx-acct-warn">
+                  <strong>การลบบัญชีจะ:</strong>
+                  <ul>
+                    <li>ลบความคืบหน้า คะแนน bookmarks และข้อมูลของบัญชีนี้ทั้งหมด ทั้งในบัญชีและในเครื่องนี้</li>
+                    <li>Flashcard ชุดปิดภาพ และ Pinboard เก็บไว้ในเบราว์เซอร์นี้ ไม่ได้อยู่ในบัญชี จึงไม่ถูกลบ ลบเองได้จากหน้าเครื่องมือนั้น หรือล้างข้อมูลเว็บไซต์ในเบราว์เซอร์</li>
+                    <li>ออกจากระบบทุกเครื่อง</li>
+                    <li>ไม่สามารถกู้คืนได้</li>
+                  </ul>
+                </div>
+                <div className="vmx-form-group">
+                  <label htmlFor="vmx-account-delete-confirm">พิมพ์ <code>{DELETE_PHRASE}</code> เพื่อยืนยัน</label>
+                  <input
+                    id="vmx-account-delete-confirm"
+                    type="text"
+                    value={deleteConfirmText}
+                    onChange={(e) => setDeleteConfirmText(e.target.value)}
+                    placeholder={DELETE_PHRASE}
+                    autoComplete="off"
+                  />
+                </div>
+                <div className="vmx-acct-actions">
+                  <button
+                    type="submit"
+                    className="vmx-btn vmx-btn-sm"
+                    disabled={loading || deleteConfirmText !== DELETE_PHRASE}
+                    style={{ background: 'var(--clr-rose)', color: '#fff', borderColor: 'var(--clr-rose)' }}
+                  >
+                    {loading ? '…' : 'ยืนยันลบบัญชี'}
+                  </button>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); setDeleteConfirmText(''); reset(); }}>
+                    ยกเลิก
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </section>
+
+        {/* The result of the last action, held at the bottom of the screen
+            while the page is in view, so it is seen wherever the button was. */}
+        {error && <div className="vmx-acct-banner is-error" role="alert">{error}</div>}
+        {info && <div className="vmx-acct-banner is-info" role="status">{info}</div>}
       </div>
     </>
   );
 }
 
-const cardHeading = {
-  margin: '0 0 12px',
-  fontFamily: 'var(--vmx-display)',
-  fontSize: 16,
-  fontWeight: 600,
-  color: 'var(--clr-ink)',
-};
-
-function Card({ children, style }) {
-  return (
-    <div
-      style={{
-        background: 'var(--clr-surface)',
-        border: '1px solid var(--clr-border)',
-        borderRadius: 12,
-        padding: 16,
-        marginBottom: 12,
-        ...style,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function KV({ label, value }) {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '6px 0', fontSize: 14 }}>
-      <span style={{ color: 'var(--clr-ink-soft)' }}>{label}</span>
-      <span style={{ fontFamily: 'var(--vmx-mono)' }}>{value}</span>
-    </div>
-  );
-}
-
-// Cheap Thai relative-time formatter — used for "เข้าสู่ระบบล่าสุด" display.
-// No timezone math; relies on the user's clock matching their actual TZ
-// (always true for browser-based UIs).
 function timeAgoTh(iso) {
   if (!iso) return '—';
   const ts = new Date(iso).getTime();

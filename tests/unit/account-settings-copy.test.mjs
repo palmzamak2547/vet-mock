@@ -32,7 +32,7 @@ let View;
 before(async () => {
   const mod = await loadModule(FILE, {
     stubs: [
-      { match: '/lib/supabase\\.js$', contents: `
+      { match: '(^|/)supabase\\.js$', contents: `
         const rec = (name) => async (...args) => { globalThis.__acct.calls.push(name); return globalThis.__acct.returns[name]; };
         export const updatePassword = rec('updatePassword');
         export const requestReauthOtp = rec('requestReauthOtp');
@@ -45,7 +45,8 @@ before(async () => {
         export const signOutAllDevices = rec('signOutAllDevices');
         export const deleteAccountData = rec('deleteAccountData');
         export const updateProfileMetadata = rec('updateProfileMetadata');
-        export const updateUsername = rec('updateUsername');` },
+        export const updateUsername = rec('updateUsername');
+        export const getSupabase = async () => null;` },
       { match: '/lib/dialog\\.js$', contents: 'export const confirmDialog = async () => true; export const alertDialog = async () => {};' },
       { match: '/BackBar\\.jsx$', contents: 'export default function BackBar() { return null; }' },
     ],

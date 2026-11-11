@@ -7,10 +7,14 @@
 // lifetime question count.
 
 import { useEffect, useRef, useState } from 'react';
-import { getXpState, levelFor, xpForNextLevel, XP_EVENT } from '../lib/xp.js';
+import { getXpState, levelFor, xpForNextLevel, XP_EVENT, shownXp, xpToCarry, carriedKey, pendingXp, setPendingXp } from '../lib/xp.js';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 
-export default function XpChip() {
+// `history`, `srCards` and `user` are what follows the account: the chip
+// shows the same number as the profile hub (lib/xp.js shownXp), so a level is
+// the same on every device. While signed in it also carries this device's
+// quest points to the account, and the old counter's lead once.
+export default function XpChip({ history = null, srCards = null, user = null }) {
   const [state, setState] = useState(() => getXpState());
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
@@ -65,15 +69,53 @@ export default function XpChip() {
     };
   }, [open]);
 
-  const lvl = levelFor(state.totalXp);
-  const prog = xpForNextLevel(state.totalXp);
+  // Add what this device holds to the account: the one-time carry, then new
+  // quest points. One write at a time; a failure leaves the count for later.
+  const uid = user?.id ?? null;
+  const carrying = useRef(false);
+  // The account's carried total as last written here, until the session's
+  // copy of the metadata catches up, so the number never dips in between.
+  const [written, setWritten] = useState(0);
+  const [, setBump] = useState(0);
+  useEffect(() => {
+    if (!uid || carrying.current) return;
+    const { add, first } = xpToCarry({ user, history: history || [], srCards: srCards || {}, device: state });
+    if (!add) {
+      if (first) { try { window.localStorage.setItem(carriedKey(uid), '1'); } catch { /* private mode */ } setBump((n) => n + 1); }
+      return;
+    }
+    carrying.current = true;
+    const pendingBefore = pendingXp();
+    import('../lib/identity-write.js')
+      .then(({ addAccountXp }) => addAccountXp(add))
+      .then((total) => {
+        if (total == null) return;
+        if (first) {
+          try { window.localStorage.setItem(carriedKey(uid), '1'); } catch { /* private mode */ }
+          setPendingXp(pendingXp() - pendingBefore);
+        } else {
+          setPendingXp(pendingXp() - add);
+        }
+        setWritten(total);
+      })
+      .catch(() => {})
+      .finally(() => { carrying.current = false; });
+  }, [uid, user, history, srCards, state]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const md = user?.user_metadata || {};
+  const seen = user && written > (Number(md.xp_extra) || 0)
+    ? { ...user, user_metadata: { ...md, xp_extra: written } }
+    : user;
+  const total = shownXp({ history: history || [], srCards: srCards || {}, user: seen, device: state });
+  const lvl = levelFor(total);
+  const prog = xpForNextLevel(total);
 
   // Nothing earned yet? Say nothing. This chip sat in the most valuable slot
   // in the header telling a brand-new student they have zero, next to an
   // empty progress bar — a scoreboard before the game starts. It appears on
   // its own the first time XP lands, which makes it a reward instead of a
   // reminder. (The XP_EVENT listener above is what brings it back.)
-  if (state.totalXp <= 0) return null;
+  if (total <= 0) return null;
 
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
@@ -84,8 +126,8 @@ export default function XpChip() {
         key={levelUp ? 'lv-up' : gained ? 'gain' : 'lv'}
         className={`vmx-xp-chip${levelUp ? ' vmx-pop-in' : gained ? ' vmx-xp-bump' : ''}`}
         onClick={() => setOpen((v) => !v)}
-        title={`Lv ${lvl}, ${state.totalXp.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
-        aria-label={`ระดับ ${lvl}, ${state.totalXp} XP`}
+        title={`Lv ${lvl}, ${total.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
+        aria-label={`ระดับ ${lvl}, ${total} XP`}
         aria-expanded={open}
         style={{
           all: 'unset',
@@ -113,7 +155,7 @@ export default function XpChip() {
           className="vmx-xp-chip-total"
           style={{ paddingLeft: 8, borderLeft: '1px solid currentColor' }}
         >
-          {state.totalXp.toLocaleString()} XP
+          {total.toLocaleString()} XP
         </span>
         <span
           aria-hidden
@@ -165,7 +207,7 @@ export default function XpChip() {
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
             <span style={{ color: 'var(--clr-ink-soft)' }}>Total XP</span>
-            <span><strong>{state.totalXp.toLocaleString()}</strong></span>
+            <span><strong>{total.toLocaleString()}</strong></span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
             <span style={{ color: 'var(--clr-ink-soft)' }}>วันนี้</span>

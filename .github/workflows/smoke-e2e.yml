@@ -386,7 +386,8 @@ jobs:
             tests/e2e/chula-wall.spec.js \
             tests/e2e/external-doc-recovery.spec.js \
             tests/e2e/pdf-recent-delete.spec.js \
-            tests/e2e/private-notes-reader.spec.js
+            tests/e2e/private-notes-reader.spec.js \
+            tests/e2e/student-profile.spec.js
 
       - name: The connected specs ran, none skipped
         # A skip is how these specs went unnoticed before: green, 0 run. This
