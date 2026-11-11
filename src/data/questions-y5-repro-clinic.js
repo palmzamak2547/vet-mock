@@ -167,7 +167,7 @@ export const QB_Y5_REPRO_CLINIC = [
     explain: '8–12 hr fasting = ลดความเสี่ยง aspiration ระหว่าง intubation/recovery\n⚠️ Update 2026: AAHA/WSAVA แนะ 6–8 hr ใน healthy adult (long fast เพิ่ม hypoglycemia/GI ulcer)\n💡 < 12 wk puppy + kitten = อดสั้นกว่า 4–6 hr',
     verified: '7. Anl Repro Clin.pdf p.3 Q28',
     sourcePages: [{ doc: 'anl-repro-clin', edition: '5p', page: 3 }],
-    flag: { note: 'Vet 81 answer 8-12 hr; current AAHA 2020 guideline = 6-8 hr', severity: 'minor' } },
+    flag: { note: 'เฉลยของ Vet 81 คือ 8-12 ชั่วโมง แนวทาง AAHA 2020 ปัจจุบันให้ 6-8 ชั่วโมง', severity: 'minor' } },
 
   { id: 8411, subject: 'comp-repro-clinic', topic: 'comp-repro-surgery', year: 5,
     source: '7. ข้อสอบ 81 Anl Repro Clin.pdf',
@@ -536,7 +536,7 @@ export const QB_Y5_REPRO_CLINIC = [
     explain: 'Serial progesterone (q 2-3 d) = clinically แม่นยำที่สุด + practical:\n— P4 ~ 2 ng/mL = LH surge\n— P4 ~ 5 ng/mL = ovulation\n— P4 ~ 4-10 ng/mL = optimal breeding window (2-4 d post-ovulation)\n\n💡 LH measurement = gold standard "ทางวิทยาศาสตร์" แต่ต้องเก็บ daily + lab limited → impractical\n💡 US = "เห็น" follicle แต่ rupture detection ทำได้ยาก',
     verified: '7. Anl Repro Clin.pdf p.4 Q33',
     sourcePages: [{ doc: 'anl-repro-clin', edition: '5p', page: 4 }],
-    flag: { note: 'Vet 81 answer: ovarian US — but current consensus = serum progesterone. Updated answer to reflect 2026 standard.', severity: 'minor' } },
+    flag: { note: 'เฉลยของ Vet 81 คือ ovarian ultrasound แต่ปัจจุบันยึด serum progesterone เป็นหลัก ข้อนี้จึงใช้เฉลยตามแนวปี 2026', severity: 'minor' } },
 
   // ═══════════════════════════════════════════════════════════
   // Block G — Misc / anomalies / feline penile spines
@@ -598,5 +598,5 @@ export const QB_Y5_REPRO_CLINIC = [
     explain: 'Dystocia = "true emergency" — fetal hypoxia/death + maternal exhaustion + uterine rupture risk — golden window ~ 2-4 hr\n\n⚠️ Pyometra with peritonitis = ก็ฉุกเฉินจริงๆ + sepsis risk แต่ถ้าต้องเลือกคำตอบเดียวที่ดีที่สุดคือ dystocia\n\nMummified fetus = chronic, non-urgent · Vaginal bleeding mild = workup ไม่ใช่ stat surgery',
     verified: '7. Anl Repro Clin.pdf p.5 Q48',
     sourcePages: [{ doc: 'anl-repro-clin', edition: '5p', page: 5 }],
-    flag: { note: 'Past paper key marks 2 answers (dystocia + pyometra peritonitis). Single best answer = dystocia (more time-sensitive for fetal survival).', severity: 'minor' } },
+    flag: { note: 'เฉลยข้อสอบเก่าให้ 2 คำตอบ (dystocia และ pyometra ที่มี peritonitis) ข้อนี้ใช้ dystocia เป็นคำตอบที่ดีที่สุดข้อเดียว เพราะเร่งด่วนกว่าต่อการรอดของลูก', severity: 'minor' } },
 ];

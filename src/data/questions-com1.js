@@ -318,7 +318,7 @@ export const QB_COM1 = [
     "verified": "Modified Com1 final TJ (Resp Q9 + breathing pattern flowchart) + COM I Final 86 Q59, lecturer ณัฐวรรณ. Note: original question source pdf ระบุ Expiratory ใน TJ key — flag: 'extrathoracic→inspiratory เป็นหลัก แต่ stem 86 มี abdominal push (expiratory effort) อาจ imply intrathoracic หรือ mixed' ดู verified field",
     "flag": {
       "severity": "minor",
-      "note": "TJ key marks Expiratory dyspnea; classic teaching = extrathoracic→inspiratory; stem hints at obstructive overall. Answer set to inspiratory per breathing-pattern flowchart standard."
+      "note": "เฉลยในชีท TJ ตอบ Expiratory dyspnea แต่ตามที่สอนกันทั่วไป รอยโรคนอกช่องอกทำให้หายใจเข้าลำบาก (inspiratory) และโจทย์ชี้ไปทางการอุดกั้นโดยรวม ข้อนี้จึงใช้ inspiratory ตาม flowchart รูปแบบการหายใจ"
     }
   },
   {
@@ -672,7 +672,7 @@ export const QB_COM1 = [
     "verified": "Modified Com1 final TJ (Renal Q4) + COM I Final 86 Q33",
     "flag": {
       "severity": "minor",
-      "note": "Original Q stem subtle: hypokalemia is common complication in feline CKD but not universal — wording 'ทุกรายเป็นภาวะหลัก' makes it the 'not a complication' answer per TJ key"
+      "note": "ข้อนี้ต้องอ่านโจทย์ละเอียด ภาวะโพแทสเซียมต่ำพบบ่อยในแมวที่เป็นไตเรื้อรังแต่ไม่ได้พบทุกราย คำว่า 'ทุกรายเป็นภาวะหลัก' จึงทำให้ข้อนี้เป็นคำตอบที่ไม่ใช่ภาวะแทรกซ้อน ตามเฉลยในชีท TJ"
     }
   },
   {

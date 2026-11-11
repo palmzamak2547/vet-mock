@@ -278,7 +278,7 @@ export const QB_Y5_PATHO = [
     explain: 'CDV มี IB ได้ทั้ง intranuclear และ intracytoplasmic ในหลายชนิดเซลล์ (urothelium, lymphocyte, bronchiolar epi, neuron, astrocyte)\nClinical signs ระบบประสาท + GI + URI = CDV ชัด ไม่ใช่ Rabies\nNote: บางตำราเน้น intracytoplasmic IB ของ CDV ใน neuron',
     verified: 'Final Patho prac.pdf p.3-4',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }, { doc: 'final-patho-prac', edition: '15p', page: 4 }],
-    flag: { note: 'CDV inclusion bodies เจอได้ทั้ง intranuclear และ intracytoplasmic — บางตำราเน้น intracytoplasmic เป็นหลัก แต่ Vet 81 key ตอบ B', sources: ['Final Patho prac.pdf p.3-4'], severity: 'minor' } },
+    flag: { note: 'CDV inclusion bodies เจอได้ทั้ง intranuclear และ intracytoplasmic — บางตำราเน้น intracytoplasmic เป็นหลัก แต่ เฉลยของ Vet 81 ตอบ Canine distemper: intranuclear IB in neuron and astrocyte', sources: ['Final Patho prac.pdf p.3-4'], severity: 'minor' } },
 
   { id: 8215, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -648,7 +648,7 @@ export const QB_Y5_PATHO = [
     explain: 'Liver failure ก็ทำให้เกิด PU/PD ได้ผ่าน:\n- ลด urea synthesis → medullary washout → reduced concentrating ability\n- Hepatic encephalopathy → polydipsia\n→ ตามตำรา ทุกข้อทำ PU/PD ได้ ข้อนี้จึงยังมีข้อโต้แย้งว่าคำตอบที่ถูกคือ "ผิดทุกข้อ"',
     verified: 'Final Patho prac.pdf p.8-9',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 8 }, { doc: 'final-patho-prac', edition: '15p', page: 9 }],
-    flag: { note: 'Vet 81 group ตอบ D (Liver failure) แต่ commentary พี่ปอ + textbook ตอบ E (ผิดทุกข้อ เพราะ liver failure ก็ทำ PU/PD ได้)', sources: ['Final Patho prac.pdf p.8-9'], severity: 'major' } },
+    flag: { note: 'Vet 81 ตอบ Liver failure แต่คำอธิบายของรุ่นพี่และตำราตอบ ผิดทุกข้อ เพราะ liver failure ก็ทำให้เกิด PU/PD ได้', sources: ['Final Patho prac.pdf p.8-9'], severity: 'major' } },
 
   { id: 8236, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -976,7 +976,7 @@ export const QB_Y5_PATHO = [
     explain: 'DDx สำคัญคือ Prototheca กับ Pythium\nClinical (collie outdoor + bloody diarrhea + capsulated organism + no response to enrofloxacin) เข้าได้ทั้ง:\n- Prototheca = colorless algae, round/oval ขนาดเล็ก, แคปซูลใส, antibiotic ไม่ตอบสนอง\n- Pythium = oomycete, GI granuloma + bloody diarrhea, antibiotic ไม่ตอบสนอง\nMorphology "เมล็ดถั่ว + capsule ใส" → Prototheca มากกว่า (Pythium = hyphae, ไม่ใช่ round)\n→ Prototheca',
     verified: 'Final Patho prac.pdf p.13',
     sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }],
-    flag: { note: 'Vet 81 ตอบ Prototheca, commentary พี่ปอ ชี้ Pythium — morphology "round + capsule" เข้า Prototheca มากกว่า', sources: ['Final Patho prac.pdf p.13'], severity: 'minor' } },
+    flag: { note: 'Vet 81 ตอบ Prototheca แต่คำอธิบายของรุ่นพี่ชี้ไปที่ Pythium ลักษณะที่กลมและมีแคปซูลเข้ากับ Prototheca มากกว่า', sources: ['Final Patho prac.pdf p.13'], severity: 'minor' } },
 
   // ═══════════════════════════════════════════════════════════
   // Aquaculture Pathology

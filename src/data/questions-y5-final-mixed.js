@@ -57,7 +57,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 2,
     explain: 'PCV-2 ไม่ทำให้เกิด jaundice เป็นหลัก (PCV-2 = PMWS/PDNS/PRDC) → คู่ IMHA + PCV2 ผิด\nIMHA → hemolysis → unconjugated bilirubinemia → jaundice (ถูก)\nแต่ PCV-2 ไม่ใช่ cause ของ jaundice\n\n❌ ข้ออื่น (เข้าเกณฑ์ jaundice ได้)\n— Babesiosis = hemolytic anemia, Lipidosis = hepatic\n— M. haemofelis = hemolysis, Lepto = hepatic+renal\n— Anaplasma = hemolytic, Copper = hepatic',
     verified: 'สรุป 80 p.1 (Vet 83 marked "PCV-2 ไม่ทำ jaundice")',
-    flag: { note: 'Vet 83 noted "All are incorrect" suggesting Q ambiguous — answer = pair containing PCV-2', severity: 'minor' } },
+    flag: { note: 'Vet 83 บันทึกว่าผิดทุกข้อ แปลว่าโจทย์อาจกำกวม ข้อนี้ใช้คู่ที่มี PCV-2 เป็นคำตอบ', severity: 'minor' } },
 
   { id: 8002, subject: 'livestock-pathology', topic: 'lpath-systemic', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -99,7 +99,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 3,
     explain: 'Postmortem changes sequence: Pallor → Algor (เย็น) → Rigor (แข็ง) → Livor (เลือดตก) → Putrefaction (เน่า)\nPutrefaction + algor mortis = ทั้งคู่ postmortem changes (เน่า + เย็นตัว) ✓\n\n❌ ทำไมข้ออื่นผิด\n— Pseudomelanosis = PM change แต่ bile imbibition = อาจเป็น antemortem\n— Rigor มี Hb imbibition ผสม\n— Hypostatic congestion เป็น PM แต่ gas accumulation = แค่ในบางกรณี\n— Bloat = อาจเกิด antemortem ใน GDV',
     verified: 'สรุป 80 p.2 (Vet 83 marked "เฉลยที่อาจารย์อยากให้")',
-    flag: { note: 'multiple options arguably PM changes; (D) selected per Vet 83 key', severity: 'minor' } },
+    flag: { note: 'หลายตัวเลือกอาจนับเป็นการเปลี่ยนแปลงหลังตายได้ ข้อนี้ใช้ Putrefaction, algor mortis (decomposed) ตามเฉลยของ Vet 83', severity: 'minor' } },
 
   { id: 8006, subject: 'vca', topic: 'dogcat', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',

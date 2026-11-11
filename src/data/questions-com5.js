@@ -1020,7 +1020,7 @@ export const QB_COM5 = [
     explain: "Direct wet mount sensitivity <14%\nFecal culture (InPouch TF) sensitivity ~55%\nPCR sensitivity สูงสุด\n\n❌ ทำไมข้ออื่นผิด\n— Centrifugal flotation = T.foetus ไม่มี cyst\n— Serology = ไม่ available\n— Direct smear = sensitivity <14%",
     verified: "GI_protozoa.pdf p.20 + COM V FINAL 86 p.18",
     sourcePages: [{ doc: "com5-final86", edition: "34p", page: 18 }],
-    flag: {"note":"ข้อสอบข้อสอบเก่าบางฉบับเฉลย \"direct fecal smear\" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)","sources":["GI_protozoa.pdf p.20","Gookins & Tolbert 2009"],"severity":"minor"},
+    flag: {"note":"ข้อสอบเก่าบางฉบับเฉลย \"direct fecal smear\" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)","sources":["GI_protozoa.pdf p.20","Gookins & Tolbert 2009"],"severity":"minor"},
     wikiRefs: [
           {
                 "pageId": "com5-systemic-mycoses-and-protozoa",
@@ -1666,7 +1666,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "VPAT 2024: FPV/FCV/FHV always core + Rabies* (endemic) + FeLV*** (endemic + อายุ < 2 ปี หรือเสี่ยง expose)\nตรวจ FeLV-ve ก่อนฉีด FeLV\n\n⚠️ core ตามนิยามเคร่งครัดคือ FPV, FHV, FCV เท่านั้น ส่วน Rabies เป็น core เฉพาะพื้นที่ระบาด และ FeLV เป็น conditional core สำหรับลูกแมวและแมวที่เสี่ยงสัมผัส ไม่ใช่ core แท้\n\n❌ ทำไมข้ออื่นผิด\n— \"FPV+FIV+FIP+Rabies\" = FIV/FIP ไม่ใช่ core\n— \"+ Bordetella\" = ผิด\n— ขาด FCV / FHV = ผิด core list\n\n💡 conditional FeLV/Rabies",
     verified: "Vaccination_guideline.pdf p.26 (VPAT 2024)",
-    flag: {"note":"ข้อสอบข้อสอบเก่าบางฉบับเฉลย \"FPV/FHV/FCV/Rabies\" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions), ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี","sources":["VPAT 2024 (vpatthailand.org)","WSAVA 2024 §FeLV","Vaccination_guideline.pdf p.22, 26"],"severity":"major"},
+    flag: {"note":"ข้อสอบเก่าบางฉบับเฉลย \"FPV/FHV/FCV/Rabies\" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions), ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี","sources":["VPAT 2024 (vpatthailand.org)","WSAVA 2024 §FeLV","Vaccination_guideline.pdf p.22, 26"],"severity":"major"},
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
