@@ -185,7 +185,6 @@ export default function FacultyView({ goHome }) {
 
       <div className="vmx-hero">
         <h1>คณาจารย์และ<em>ผู้สอน</em></h1>
-        <p>{ALL_INSTRUCTORS.length} โปรไฟล์, ผลงานวิจัยคัดเลือก {ALL_INSTRUCTORS.reduce((sum, ins) => sum + (ins.papers?.length || 0), 0)} รายการ, ตรวจสอบล่าสุด 12 ส.ค. 2569</p>
       </div>
 
       <div className="vmx-fac-toolbar">
