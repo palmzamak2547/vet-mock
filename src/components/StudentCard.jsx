@@ -15,7 +15,7 @@ import { BADGE_ART, IG_BACKGROUNDS } from '../data/art.js';
 
 const BACKDROP_SRC = Object.fromEntries(IG_BACKGROUNDS.filter((b) => b.src).map((b) => [b.id, b.src]));
 
-export default function StudentCard({ card, name, picture, stats, serial, compact = false }) {
+export default function StudentCard({ card, name, picture, stats, yearLine = '', compact = false }) {
   const ref = useRef(null);
   const { reduced } = useMotionPreferences();
   useEffect(() => attachSheen(ref.current, { reduced }), [reduced]);
@@ -33,7 +33,7 @@ export default function StudentCard({ card, name, picture, stats, serial, compac
       <span className="vmx-scard__sheen" aria-hidden="true" />
       <div className="vmx-scard__top">
         <span className="vmx-scard__brand">VetMock</span>
-        <span className="vmx-scard__serial">{serial}</span>
+        {yearLine && <span className="vmx-scard__year">{yearLine}</span>}
       </div>
       <div className="vmx-scard__body">
         <div className="vmx-scard__ring" aria-hidden="true">
@@ -46,7 +46,7 @@ export default function StudentCard({ card, name, picture, stats, serial, compac
       </div>
       <dl className="vmx-scard__stats">
         <div><dt>ทำแล้ว</dt><dd>{stats.answered.toLocaleString('en-US')}<small>ข้อ</small></dd></div>
-        <div><dt>ต่อเนื่องสูงสุด</dt><dd>{stats.streak}<small>วัน</small></dd></div>
+        <div><dt>ต่อเนื่อง</dt><dd>{stats.streak}<small>วัน</small></dd></div>
         <div><dt>ถ้วย</dt><dd>{stats.trophies}<small>ใบ</small></dd></div>
       </dl>
       {card.trophies.length > 0 && (

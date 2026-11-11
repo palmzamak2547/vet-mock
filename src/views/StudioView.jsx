@@ -33,7 +33,7 @@ import { decide } from '../lib/decide.js';
 import { STUDIO_PRESET } from '../lib/decisions/studio-preset.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { canVibrate } from '../lib/haptics.js';
-import { longestDayStreak } from '../lib/badges.js';
+import { studentNumbers } from '../lib/student-numbers.js';
 import '../styles-studio.css';
 
 const Mascot3D = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
@@ -74,7 +74,7 @@ const BACKDROP_SRC = Object.fromEntries(IG_BACKGROUNDS.filter((b) => b.src).map(
 const PRESET_SAMPLE = { phone: 'auto', calm: 'still', lively: 'lively', night: 'night' };
 const allowPicture = (e) => Boolean(characterFor(e)) || PICTURE_ANIMALS.includes(e);
 
-export default function StudioView({ goBack, user, profile, history = [], srCards = {}, theme = 'light' }) {
+export default function StudioView({ goBack, user, profile, history = [], srCards = {}, streakData = null, selectedYear = null, theme = 'light' }) {
   const prefs = usePrefs();
   const { reduced, systemReduced } = useMotionPreferences();
   const [open, setOpen] = useState(false);
@@ -118,8 +118,9 @@ export default function StudioView({ goBack, user, profile, history = [], srCard
   const card = wearable(stored, allowance);
   const picture = card.picture || profile?.avatar_emoji || CHARACTER_EMOJI[prefs.buddy] || CHARACTER_EMOJI.mochi;
   const setCard = (patch) => change({ card: encodeCard({ ...stored, ...patch }) });
-  const stats = { answered: history.length, streak: longestDayStreak(history), trophies: allowance.badges.length };
-  const serial = user?.id ? `No. ${user.id.replace(/[^0-9a-f]/gi, '').slice(0, 4).toUpperCase()}` : 'No. ----';
+  const stats = studentNumbers({ history, streakData, badges: allowance.badges });
+  // The year the app is set to (the header's pill), never a placeholder.
+  const yearLine = Number.isInteger(Number(selectedYear)) && Number(selectedYear) > 0 ? `ปี ${Number(selectedYear)}` : '';
   const name = profile?.username || 'นิสิตสัตวแพทย์';
   const next = useMemo(() => nextTrophy({ history }, allowance.earned), [history, allowance]);
 
@@ -150,7 +151,7 @@ export default function StudioView({ goBack, user, profile, history = [], srCard
         <span className="vmx-studio__dockdots"><i /><i /></span>
       </div></div>
       <div className="vmx-studio__stage" ref={stageRef}>
-        <StudentCard card={card} name={name} picture={picture} stats={stats} serial={serial} />
+        <StudentCard card={card} name={name} picture={picture} stats={stats} yearLine={yearLine} />
       </div>
 
       <section className="vmx-studio__sec" aria-labelledby="st-sets">

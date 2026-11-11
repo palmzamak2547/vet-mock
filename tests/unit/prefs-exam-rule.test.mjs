@@ -10,42 +10,9 @@ const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8')
 const CSS = read('src/styles.css');
 const ACCENT_TOKENS = /^--(clr-sage|clr-sage-text|clr-sage-soft|clr-sage-on|clr-gold|clr-gold-text|clr-gold-soft|clr-gold-on|vmx-color-learning|vmx-color-learning-on)$/;
 
-function pinned(theme) {
-  const head = theme === 'dark' ? '[data-theme="dark"][data-palette] :is(' : '[data-palette] :is(';
-  const at = CSS.indexOf(`\n${head}`);
-  assert.ok(at > 0, `the ${theme} verdict pin rule exists`);
-  const line = CSS.slice(at + 1, CSS.indexOf('\n', at + 1));
-  const selectors = line.slice(head.length, line.indexOf(')')).split(',').map((s) => s.trim());
-  const vars = Object.fromEntries([...line.matchAll(/(--[\w-]+):\s*([^;}]+)/g)].map((m) => [m[1], m[2].trim()]));
-  return { selectors, vars };
-}
+// The verdict pin itself is tests/unit/verdict-palette-pin.test.mjs.
 
-test('every verdict style in styles.css is pinned against the palettes', () => {
-  const verdictClasses = new Set();
-  for (const m of CSS.matchAll(/^([^{@/\n][^{\n]*)\{/gm)) {
-    for (const sel of m[1].split(',')) {
-      const s = sel.trim();
-      if (/\[data-palette\]/.test(s)) continue;
-      const hit = /(\.[\w-]+)?\.(is-correct|correct|correct-ans|is-right|reveal-correct)(?![\w-])|\.vmx-feedback-correct-val|\.vmx-check__why(?![\w-])/.exec(s);
-      if (hit) verdictClasses.add(hit[0]);
-    }
-  }
-  const { selectors } = pinned('light');
-  const dark = pinned('dark').selectors;
-  assert.deepEqual(dark, selectors, 'light and dark pin the same elements');
-  const missing = [...verdictClasses].filter((c) => !selectors.some((s) => s === c || s.endsWith(c)));
-  assert.deepEqual(missing, []);
-});
-
-test('the pinned sage is the theme\'s own sage', () => {
-  const light = pinned('light').vars;
-  const dark = pinned('dark').vars;
-  assert.equal(light['--clr-sage'], '#4a6b4a');
-  assert.equal(dark['--clr-sage'], '#7ba87b');
-  assert.match(CSS, /:root, \[data-theme="light"\] \{[^}]*--clr-sage: #4a6b4a;/);
-});
-
-test('a palette re-colours the accent only: never the wrong answer, the timer or the page', () => {
+test('"สีของฉัน" re-colours the accent only, like the named palettes', () => {
   const offenders = [];
   for (const m of CSS.matchAll(/\n(\[data-theme="(?:light|dark)"\])?\[data-palette="[\w-]+"\] \{([^}]*)\}/g)) {
     for (const v of m[2].matchAll(/(--[\w-]+)\s*:/g)) if (!ACCENT_TOKENS.test(v[1])) offenders.push(`${m[0].trim().split('{')[0]} sets ${v[1]}`);

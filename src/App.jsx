@@ -3439,7 +3439,7 @@ export default function App() {
                   openSubject={(id) => { setSubject(id); setTopic(null); setPracticeMode('all'); setView('topic-select'); }}
                 />
               )}
-              {view === 'studio' && <StudioView goBack={() => setView('profile')} {...{ user, profile, history, srCards, theme }} />}
+              {view === 'studio' && <StudioView goBack={() => setView('profile')} {...{ user, profile, history, srCards, streakData, selectedYear, theme }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}

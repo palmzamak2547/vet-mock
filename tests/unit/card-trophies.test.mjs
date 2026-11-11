@@ -39,3 +39,16 @@ test('trophies never read the device-only XP counter', () => {
     assert.doesNotMatch(text, /from '[./]*(lib\/)?xp\.js'|vmx-xp/, f);
   }
 });
+
+test('the card counts with the hub\'s own readers', async () => {
+  const { studentNumbers } = await import('../../src/lib/student-numbers.js');
+  const { streakShown } = await import('../../src/hooks/utils.js');
+  const h = history(3, 4);
+  const streakData = { streak: 3, lastDate: new Date(NOW).toISOString().slice(0, 10), freezeUsedAt: null };
+  const n = studentNumbers({ history: h, streakData, now: NOW });
+  assert.equal(n.answered, h.length);
+  assert.equal(n.streak, streakShown(streakData, NOW));
+  assert.equal(n.trophies, cardAllowance({ history: h }).badges.length);
+  const text = readFileSync(new URL('../../src/lib/student-numbers.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(text, /xp\.js|vmx-xp/);
+});
