@@ -17,10 +17,21 @@ export const OPEN_MS = 10 * 60 * 1000;
 const NO_BALANCE_RE = /insufficient[ _]balance|credit balance is too low/i;
 const openUntil = new Map();
 
+/** The provider's own error words ({ error: { message, type } }), never the rest of the
+ *  body, so a prompt echoed back in an error cannot open the breaker. */
+function errorWords(body) {
+  try {
+    const e = JSON.parse(String(body || ''))?.error;
+    return typeof e === 'string' ? e : [e?.message, e?.type].filter((x) => typeof x === 'string').join(' ');
+  } catch {
+    return '';
+  }
+}
+
 /** Whether a provider's error answer means its account has no balance. */
 export function isNoBalance(status, body = '') {
   if (status === 402) return true;
-  return status >= 400 && status < 500 && status !== 429 && NO_BALANCE_RE.test(String(body || ''));
+  return status >= 400 && status < 500 && status !== 429 && NO_BALANCE_RE.test(errorWords(body));
 }
 
 /** True while the provider is being skipped; logs once when the window ends. */

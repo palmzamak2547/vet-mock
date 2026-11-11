@@ -83,6 +83,13 @@ test('an "insufficient balance" body opens it too, and so does Anthropic saying 
   assert.equal(isNoBalance(503, ''), false);
 });
 
+test('only the provider\'s own error field counts, never a prompt echoed back in the body', () => {
+  const echoed = JSON.stringify({ error: { message: 'Invalid request', type: 'invalid_request_error' }, echo: 'user said insufficient balance on my card' });
+  assert.equal(isNoBalance(400, echoed), false);
+  assert.equal(isNoBalance(400, 'user said insufficient balance on my card'), false, 'a body that is not the provider\'s JSON error');
+  assert.equal(isNoBalance(402, 'anything'), true, 'a 402 opens it whatever the body says');
+});
+
 test('a 500 does not open the breaker: the next request asks DeepSeek again', async () => {
   const first = await ask(() => json({ error: 'boom' }, 500));
   assert.deepEqual(first.calls, ['api.deepseek.com', 'api.anthropic.com']);
