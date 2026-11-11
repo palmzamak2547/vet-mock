@@ -391,11 +391,30 @@ test('the caution chip shows with the key on every question type that reveals in
     assert.equal(shown(q, 'คำตอบของนิสิต'), 0, `${type} before its เฉลย`);
     assert.equal(shown(q, 'คำตอบของนิสิต', { reveal: true }), 1, `${type} with its เฉลย`);
   }
-  const match = fixture('match');
-  const placed = Object.fromEntries(match.pairs.map((p, i) => [i, p.right]));
-  assert.equal(shown(match, {}), 0, 'match before every pair is placed');
-  assert.equal(shown(match, placed), 1, 'match once the board shows the key');
-  assert.equal(shown(match, placed, { practice: false }), 0, 'match mid-exam');
+  // The match board draws the chip itself, with its first key (next test);
+  // the card hands it over only in practice.
+  const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
+  assert.ok(card.includes('caution={revealAnswer ? cautionChip : null}'));
+});
+
+test('the match board shows the caution with its first key, a whole set or one row', async () => {
+  const { default: MatchDragDrop } = await fr.loadModule('src/components/MatchDragDrop.jsx', {
+    stubs: [{ match: '/lib/richtext\\.jsx$', contents: 'export function RichText({ text }) { return text ?? null; }' }],
+  });
+  const q = QB.find((x) => x.type === 'match' && Array.isArray(x.pairs) && x.pairs.length > 1 && !x.bank);
+  const marker = { type: 'span', props: { className: 'caution-marker', children: CAUTION_CHIP_TEXT } };
+  const has = (props) => {
+    const store = new Map();
+    globalThis.localStorage = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, String(v)), removeItem: (k) => store.delete(k) };
+    globalThis.window = Object.assign(new EventTarget(), { localStorage: globalThis.localStorage });
+    const inst = fr.mount(MatchDragDrop, { currentQ: { ...q, id: `${q.id}-${Math.random()}` }, answerCurrent: () => {}, revealAnswer: true, caution: marker, ...props });
+    const n = fr.findAll(inst.tree, (x) => x.props?.className === 'caution-marker').length;
+    inst.unmount();
+    return n;
+  };
+  assert.equal(has({ currentAnswer: {} }), 0, 'no row shows its key yet');
+  assert.equal(has({ currentAnswer: { 0: q.pairs[0].right } }), 1, 'เฉลยทีละข้อ: the first row that shows its answer');
+  assert.equal(has({ currentAnswer: Object.fromEntries(q.pairs.map((p, i) => [i, p.right])) }), 1, 'the whole set');
 });
 
 test('the caution chip never shows before the key, in practice or mid-exam, and opens with it', () => {

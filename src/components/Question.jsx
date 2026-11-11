@@ -587,10 +587,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           currentAnswer={currentAnswer}
           answerCurrent={answerCurrent}
           revealAnswer={revealAnswer}
+          caution={revealAnswer ? cautionChip : null}
         />
       )}
-      {/* The match key shows on the board once every pair is placed. */}
-      {currentQ.type === 'match' && revealAnswer && matchFilled && cautionChip}
 
       {/* Short answer — free-form text input. Auto-grade does loose
           keyword matching against q.keywords; user can also self-grade
