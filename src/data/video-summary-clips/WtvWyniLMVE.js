@@ -6,9 +6,9 @@ export default {
   title: "10.2 : Surgical Treatment of Urinary System",
   subject: "com1",
   date: "2024-10-21",
+  durationMin: 104,
   instructor: "อ.ณิโคล",
   examFormat: "MCQ — surgical decision + technique + suture choice",
-  duration: "104 min",
   summary: `# 10.2 Surgical Treatment of Urinary System
 
 > 🎯 Surgery สำหรับ urinary system **kidney → ureter → bladder → urethra**. เน้น **technique selection (nephrotomy vs pyelotomy vs nephrectomy)** + **suture choice** + **iatrogenic risks**

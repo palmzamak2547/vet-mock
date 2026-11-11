@@ -7,11 +7,12 @@
 // the front is the stem with its choices, the back the answer and the
 // explanation. Every type the app grades has a back; an essay keeps its
 // model answer. A passage comes first on the front, since the question cannot
-// be answered without it. Markdown bold and line breaks become HTML, a table
+// be answered without it, and so does its figure (see figureSrc). Markdown bold and line breaks become HTML, a table
 // (src/lib/rich-blocks.js) becomes a table, everything else is escaped, so a
 // question can never inject markup into the card.
 // ============================================================
 import { splitBlocks } from './rich-blocks.js';
+import { safeImageUrl } from './safe-url.js';
 
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -26,9 +27,24 @@ const rich = (s) => splitBlocks(s).map((b) => (b.type === 'table' ? table(b) : h
 
 const LETTERS = 'ABCDEFGHIJ';
 
-function front(q) {
+// A figure is part of the question. Anki opens the card away from the app, so
+// a path the app serves goes in as an absolute vetmock.com address; a data:
+// image or an allow-listed host stays as it is. Anything else (a blob: made on
+// this device, a host the app would not render) has no address Anki can open,
+// and the question is left out and counted rather than sent without it.
+const ORIGIN = 'https://vetmock.com';
+function figureSrc(q) {
+  const raw = q.image || q.imagePath;
+  if (!raw) return '';
+  const safe = safeImageUrl(raw);
+  if (!safe || safe.startsWith('blob:')) return null;
+  return safe.startsWith('/') ? ORIGIN + safe : safe;
+}
+
+function front(q, src) {
   const parts = [];
   if (q.passage) parts.push(`${q.passage_title ? `<b>${html(q.passage_title)}</b><br>` : ''}${rich(q.passage)}`);
+  if (src) parts.push(`<img src="${esc(src)}">`);
   parts.push(html(q.q));
   if (q.type === 'mcq' && Array.isArray(q.options)) {
     parts.push(q.options.map((o, i) => `${LETTERS[i]}. ${html(o)}`).join('<br>'));
@@ -47,16 +63,23 @@ function answer(q) {
   return '';
 }
 
-/** Tab-separated Anki text for these questions; questions with no answer to show are left out. */
+/**
+ * Tab-separated Anki text for these questions; questions with no answer to
+ * show are left out, and so are questions whose figure cannot travel with the
+ * card (`noFigure` counts them, so the screen can say so).
+ */
 export function ankiText(questions, { deck = 'VetMock' } = {}) {
   const rows = [];
+  let noFigure = 0;
   for (const q of questions) {
     const back = answer(q);
     if (!q?.q || !back) continue;
+    const src = figureSrc(q);
+    if (src === null) { noFigure += 1; continue; }
     const explain = q.explain ? `<br><br>${rich(q.explain)}` : '';
     const tags = ['vetmock', q.subject, ...(q.tags || [])].filter(Boolean).map((t) => String(t).replace(/\s+/g, '_')).join(' ');
-    rows.push([front(q), `<b>${back}</b>${explain}`, tags].join('\t'));
+    rows.push([front(q, src), `<b>${back}</b>${explain}`, tags].join('\t'));
   }
   const header = ['#separator:tab', '#html:true', '#notetype:Basic', `#deck:${deck.replace(/[\t\r\n]/g, ' ')}`, '#tags column:3'];
-  return { text: [...header, ...rows].join('\n') + '\n', count: rows.length };
+  return { text: [...header, ...rows].join('\n') + '\n', count: rows.length, noFigure };
 }

@@ -6,9 +6,9 @@ export default {
   title: "13.2 : Clinical Assessment of the Respiratory System",
   subject: "com1",
   date: "2024-11-11",
+  durationMin: 88,
   instructor: "DekDokVet85 — รุ่นพี่",
   examFormat: "MCQ — cough receptor location ออกแน่ ⚠️",
-  duration: "88 min",
   summary: `# 13.2 Clinical Assessment of the Respiratory System
 
 > 🎯 Foundation video สำหรับ Common Resp ทั้งหมด — anatomy split + history + auscultation + clinical signs (sneeze, stridor, stertor, cough, dyspnea) + breathing patterns + workup approach. **Cough receptor location ออกสอบทุกครั้ง** ⚠️
