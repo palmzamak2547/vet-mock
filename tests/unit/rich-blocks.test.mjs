@@ -95,6 +95,8 @@ test('the bank: a text with no table is spoken as it was, and every table is one
       // Judged without the parser: a text with no run of three dashes cannot hold a rule line, so it
       // cannot hold a table, and a voice must be handed the very same string. Recorded clips are named
       // by that string.
+      // A figure is for the eye: the voice is handed the text without it (the figure's question reads explainSay).
+      if (text.includes('```figure')) { assert.ok(!tablesToSpeech(text).includes('```'), `${q.subject}:${q.id} says a figure`); continue; }
       if (!text.includes('---')) {
         plain++;
         assert.equal(tablesToSpeech(text), text, `${q.subject}:${q.id}`);

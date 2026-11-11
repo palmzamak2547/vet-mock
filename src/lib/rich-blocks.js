@@ -22,6 +22,8 @@
 // tables that parse.
 // ============================================================
 
+import { FENCE_CLOSE, FENCE_OPEN, parseFigure } from './figure-spec.js';
+
 const ROW = /^[^\S\n]*\|.*\|[^\S\n]*$/;
 const RULE = /^[^\S\n]*\|(?:[^\S\n]*:?-{3,}:?[^\S\n]*\|)+[^\S\n]*$/;
 
@@ -49,14 +51,16 @@ function fit(cells, n) {
 }
 
 /**
- * [{ type: 'text', text, start, end } | { type: 'table', head, rows, start, end }]
+ * [{ type: 'text', text, start, end } | { type: 'table', head, rows, start, end }
+ * | { type: 'figure', fig, start, end }]
  * in reading order. start and end are offsets in `text`; the newlines that set
  * a table apart from the prose belong to neither.
  */
 export function splitBlocks(text) {
   const str = text == null ? '' : String(text);
   const whole = [{ type: 'text', text: str, start: 0, end: str.length }];
-  if (!str.includes('|') || !str.includes('---')) return whole;
+  const figures = str.includes('```figure');
+  if (!figures && (!str.includes('|') || !str.includes('---'))) return whole;
   const lines = str.split('\n');
   const at = [];
   let pos = 0;
@@ -70,8 +74,21 @@ export function splitBlocks(text) {
     while (b > a && str[b - 1] === '\n') b--;
     if (b > a) blocks.push({ type: 'text', text: str.slice(a, b), start: a, end: b });
   };
-  for (let i = 0; i < lines.length - 1; i++) {
-    if (!ROW.test(lines[i]) || !RULE.test(lines[i + 1])) continue;
+  for (let i = 0; i < lines.length; i++) {
+    const open = figures && FENCE_OPEN.exec(lines[i]);
+    if (open) {
+      let j = i + 1;
+      while (j < lines.length && !FENCE_CLOSE.test(lines[j])) j++;
+      if (j < lines.length) {
+        prose(at[i]);
+        const end = at[j] + lines[j].length;
+        blocks.push({ type: 'figure', fig: parseFigure(open[1], lines.slice(i + 1, j).join('\n')), start: at[i], end });
+        from = Math.min(str.length, end + 1);
+        i = j;
+        continue;
+      }
+    }
+    if (i + 1 >= lines.length || !ROW.test(lines[i]) || !RULE.test(lines[i + 1])) continue;
     const head = tableCells(lines[i].trim());
     if (tableCells(lines[i + 1].trim()).length !== head.length) continue;
     const rows = [];
@@ -115,6 +132,9 @@ export const wholeStem = (q) => (typeof q?.say === 'string' && q.say ? q.say : q
  */
 export const wholeExplain = (q) => (typeof q?.explainSay === 'string' && q.explainSay ? q.explainSay : q?.explain || '');
 
+/** A text that carries a drawn figure (src/lib/figure-spec.js). */
+export const hasFigure = (text) => typeof text === 'string' && text.includes('```figure') && splitBlocks(text).some((b) => b.type === 'figure');
+
 /** A passage that is the question's data rather than a text to read. */
 export const hasTable = (text) => splitBlocks(text).some((b) => b.type === 'table');
 
@@ -129,7 +149,7 @@ export function highlightParts(text, highlights = []) {
   if (!text) return [];
   const sorted = [...highlights].sort((a, b) => a.start - b.start);
   return splitBlocks(text).map((block) => {
-    if (block.type === 'table') return block;
+    if (block.type !== 'text') return block;
     const segs = [];
     let cursor = block.start;
     for (const hl of sorted) {
@@ -171,5 +191,6 @@ export function tablesToSpeech(text) {
   const blocks = splitBlocks(text);
   if (blocks.length === 1 && blocks[0].type === 'text') return text == null ? '' : String(text);
   const thai = /[฀-๿]/.test(String(text));
-  return blocks.map((b) => (b.type === 'table' ? tableSpeech(b, thai) : b.text)).join('\n');
+  // A figure is for the eye; what it shows is said by the paragraph it came with (explainSay).
+  return blocks.filter((b) => b.type !== 'figure').map((b) => (b.type === 'table' ? tableSpeech(b, thai) : b.text)).join('\n');
 }

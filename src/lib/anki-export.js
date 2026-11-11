@@ -23,7 +23,8 @@ const html = (s) => esc(s).replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/\
 const row = (cells, tag) => `<tr>${cells.map((c) => `<${tag}>${html(c)}</${tag}>`).join('')}</tr>`;
 const table = (t) => `<table border="1" cellpadding="4" style="border-collapse:collapse">${row(t.head, 'th')}${t.rows.map((r) => row(r, 'td')).join('')}</table>`;
 // A passage or an explanation: its prose as text, its tables as tables.
-const rich = (s) => splitBlocks(s).map((b) => (b.type === 'table' ? table(b) : html(b.text))).join('<br>');
+// A drawn figure stays in the app: the card keeps the explanation's prose and tables around it.
+const rich = (s) => splitBlocks(s).filter((b) => b.type !== 'figure').map((b) => (b.type === 'table' ? table(b) : html(b.text))).join('<br>');
 
 const LETTERS = 'ABCDEFGHIJ';
 

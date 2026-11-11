@@ -1,0 +1,200 @@
+/* ============================================================
+   styles-figure.css — the figures of an explanation (ExplainFigure.jsx)
+   ============================================================
+   Loaded with the figure's own chunk. The box itself (.vmx-fig) is in
+   styles.css, so the space held for a figure before this arrives is the
+   space the figure takes.
+
+   One accent, sage: the colour the key option already wears on the card
+   (.vmx-option.is-correct), so it reads as "the answer" without a legend. Ink
+   for data, ink-soft for what the reasoning does not use. Numerals are
+   tabular; a result is set in the display serif.
+
+   Motion (only .is-play, an answer given just now, and only from .is-on, the
+   figure in view): the data is drawn from the first frame; what the
+   reasoning uses (data-s="2") comes in at once and the result (data-s="3")
+   one step later. The step, 180 ms, is the app's --dur. The easing is a
+   damped spring, response 0.35 s and damping 0.82 (overshoot 1.1%), sampled
+   into linear() over its 480 ms settle; it looks finished at about 290 ms.
+   Only opacity and transform move. An engine without linear() gets the app's
+   --ease-out over 300 ms; without @starting-style the figure appears without
+   its fade; reduced motion shows the finished figure.
+   ============================================================ */
+.vmx-fig {
+  font-family: var(--vmx-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-style: normal;
+  color: var(--clr-ink);
+  line-height: 1.35;
+  transition: opacity var(--dur) var(--ease-out);
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  .vmx-fig {
+    --fig-ease: linear(0, 0.053, 0.174, 0.32, 0.467, 0.6, 0.712, 0.802, 0.871, 0.922, 0.958, 0.982, 0.997, 1.005, 1.01, 1.011, 1.011, 1.01, 1.008, 1.006, 1.005, 1.004, 1.002, 1.002, 1);
+    --fig-dur: 480ms;
+  }
+}
+@starting-style { .vmx-fig:not(.is-hold) { opacity: 0; } }
+
+/* ── Motion ─────────────────────────────────────────────── */
+.vmx-fig.is-play [data-s],
+.vmx-fig.is-play .c::before,
+.vmx-fig.is-play .fill {
+  transition: opacity var(--fig-dur) var(--fig-ease), transform var(--fig-dur) var(--fig-ease);
+}
+.vmx-fig.is-play [data-s="3"],
+.vmx-fig.is-play [data-s="3"] .dot { transition-delay: var(--fig-step); }
+.vmx-fig.is-play:not(.is-on) [data-s] { opacity: 0; transform: translateY(4px); }
+.vmx-fig.is-play:not(.is-on) .c::before { opacity: 0; transform: scale(0.86); }
+.vmx-fig.is-play:not(.is-on) .fill { transform: scaleX(0); }
+.vmx-fig.is-play:not(.is-on) .ci { opacity: 1; transform: scaleX(0); }
+.vmx-fig.is-play:not(.is-on) .rail,
+.vmx-fig.is-play:not(.is-on) .link { opacity: 1; transform: scaleY(0); }
+.vmx-fig.is-play:not(.is-on) .mk { transform: translate(-50%, -6px); }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-fig, .vmx-fig [data-s], .vmx-fig .c::before, .vmx-fig .fill { transition: none !important; }
+}
+
+/* ── twobytwo ───────────────────────────────────────────── */
+.vmx-fig-grid { position: relative; display: grid; gap: 4px; align-items: stretch; max-width: 24rem; }
+.vmx-fig-grid > span { display: flex; align-items: center; min-height: 48px; font-size: 14px; }
+.vmx-fig-grid .h { min-height: 36px; justify-content: center; text-align: center; color: var(--clr-ink-soft); font-weight: 600; text-wrap: balance; }
+.vmx-fig-grid .rl { font-weight: 600; padding-right: 6px; text-wrap: balance; }
+.vmx-fig-grid .is-sum { color: var(--clr-ink-soft); font-weight: 400; }
+.vmx-fig-grid .c {
+  position: relative; justify-content: center; border-radius: var(--r-sm);
+  font-family: var(--vmx-display); font-size: 18px; font-weight: 500;
+  border: 1px solid var(--fig-faint); background: var(--clr-surface);
+}
+.vmx-fig-grid .c.is-sum { border-style: dashed; font-family: var(--vmx-sans); font-size: 16px; }
+.vmx-fig-grid .c::before { content: ''; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; pointer-events: none; }
+.vmx-fig-grid .c.is-num::before { background: var(--fig-tint); border: 1.5px solid var(--fig-accent); }
+.vmx-fig-grid .c.is-den::before { border: 1.5px solid var(--fig-accent); }
+.vmx-fig-grid .c.is-num, .vmx-fig-grid .c.is-den { color: var(--fig-accent-text); font-weight: 700; border-color: transparent; }
+.vmx-fig-grid .c { isolation: isolate; }
+.vmx-fig-grid .c.is-off { color: color-mix(in srgb, var(--clr-ink-soft) 80%, transparent); }
+.vmx-fig-grid > .vmx-fig-cross { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 1; min-height: 0; }
+.vmx-fig-cross svg { width: 26px; height: 26px; padding: 3px; border-radius: 50%; background: var(--clr-surface); overflow: visible; }
+.vmx-fig-cross line { stroke: var(--fig-accent); stroke-width: 2; stroke-linecap: round; }
+.vmx-fig-cross line.d { stroke-dasharray: 3 3; }
+/* Two calcs (sensitivity and specificity) sit side by side: one reading, two columns. */
+.vmx-fig-calcs { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 0 16px; margin-top: 12px; border-top: 1px solid var(--fig-faint); }
+.vmx-fig-calc {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
+  padding-top: 10px;
+  font-size: 16px;
+}
+.vmx-fig-calc .lbl { flex-basis: 100%; font-size: 14px; font-weight: 700; color: var(--clr-ink-soft); }
+.vmx-fig-calc .eq { color: var(--clr-ink-soft); }
+.vmx-fig-calc .frac { display: inline-grid; justify-items: center; line-height: 1.2; }
+.vmx-fig-calc .frac .n { padding: 0 4px 3px; border-bottom: 1.5px solid currentColor; }
+.vmx-fig-calc .frac .d { padding: 3px 4px 0; }
+.vmx-fig-calc .is-lit { color: var(--fig-accent-text); font-weight: 700; }
+.vmx-fig-calc .res { font-family: var(--vmx-display); font-size: 22px; font-weight: 600; color: var(--fig-accent-text); }
+
+/* ── interval ───────────────────────────────────────────── */
+.vmx-fig-plot { position: relative; padding-top: 22px; }
+.vmx-fig-plot .nil { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px dashed var(--fig-line); }
+.vmx-fig-plot .nl { position: absolute; top: 0; transform: translateX(-50%); font-size: 14px; color: var(--clr-ink-soft); background: var(--clr-surface); padding: 0 3px; }
+.vmx-fig-plot .row { display: grid; gap: 2px; min-height: 56px; }
+.vmx-fig-plot .rl { font-size: 14px; font-weight: 700; }
+.vmx-fig-plot .track { position: relative; height: 34px; }
+.vmx-fig-plot .ci { position: absolute; top: 10px; height: 2px; background: var(--clr-ink); border-radius: 1px; }
+.vmx-fig-plot .ci::before, .vmx-fig-plot .ci::after { content: ''; position: absolute; top: -5px; width: 1.5px; height: 12px; background: var(--clr-ink); }
+.vmx-fig-plot .ci::before { left: 0; } .vmx-fig-plot .ci::after { right: 0; }
+.vmx-fig-plot .est { position: absolute; top: 5px; width: 12px; height: 12px; margin-left: -6px; background: var(--clr-ink); transform: rotate(45deg); border: 2px solid var(--clr-surface); box-sizing: border-box; }
+.vmx-fig-plot .v { position: absolute; top: 19px; transform: translateX(-50%); font-size: 14px; color: var(--clr-ink-soft); white-space: nowrap; }
+.vmx-fig-plot .est-v { top: -16px; font-family: var(--vmx-display); font-size: 16px; font-weight: 600; color: var(--clr-ink); }
+.vmx-fig-plot .lo-v { transform: translateX(-30%); } .vmx-fig-plot .hi-v { transform: translateX(-70%); }
+.vmx-fig-plot .hit { position: absolute; top: 3px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; border: 2px solid var(--fig-accent); background: var(--fig-tint); box-sizing: border-box; }
+.vmx-fig-plot .note { position: relative; margin: 2px 0 0; font-size: 14px; font-weight: 600; color: var(--fig-accent-text); }
+
+/* ── bars ───────────────────────────────────────────────── */
+.vmx-fig-bars .bh, .vmx-fig-bars .bar { display: grid; grid-template-columns: 3.4em 1fr; gap: 10px; align-items: center; }
+.vmx-fig-bars .bh { display: flex; justify-content: space-between; gap: 12px; min-height: 28px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-fig-bars .bar { min-height: 44px; }
+.vmx-fig-bars .rl { font-size: 16px; text-align: right; color: var(--clr-ink-soft); }
+.vmx-fig-bars .track { position: relative; height: 14px; margin-right: 2.6em; border-left: 1px solid var(--fig-line); }
+.vmx-fig-bars .fill { position: absolute; inset: 0 auto 0 0; border-radius: 0 4px 4px 0; background: color-mix(in srgb, var(--clr-ink-soft) 42%, transparent); transform-origin: left center; }
+.vmx-fig-bars .v { position: absolute; top: 50%; transform: translateY(-50%); padding-left: 8px; font-size: 16px; font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-fig-bars .is-key .rl { color: var(--clr-ink); font-weight: 700; }
+.vmx-fig-bars .is-key .fill { background: var(--fig-accent); }
+.vmx-fig-bars .is-key .v { font-family: var(--vmx-display); font-size: 20px; font-weight: 600; color: var(--fig-accent-text); }
+.vmx-fig-bars .unit { margin: 2px 0 0 calc(3.4em + 10px); font-size: 14px; color: var(--clr-ink-soft); }
+
+/* ── timeline ───────────────────────────────────────────── */
+.vmx-fig-time { position: relative; min-height: inherit; }
+.vmx-fig-time .rail { position: absolute; left: calc(4.2em + 11px); width: 2px; background: var(--fig-line); transform-origin: top center; }
+.vmx-fig-time .span { position: absolute; left: calc(4.2em + 8px); width: 8px; border-radius: 4px; background: color-mix(in srgb, var(--clr-ink-soft) 35%, transparent); }
+.vmx-fig-time .span.is-key { background: var(--fig-accent); }
+.vmx-fig-time .ev { position: absolute; left: 0; right: 0; display: grid; grid-template-columns: 4.2em 24px 1fr; align-items: start; transform: translateY(-11px); }
+.vmx-fig-time .t { text-align: right; padding-right: 2px; font-family: var(--vmx-display); font-size: 18px; font-weight: 500; line-height: 22px; }
+.vmx-fig-time .u, .vmx-fig .u { margin-left: 3px; font-family: var(--vmx-sans); font-size: 14px; font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-fig-time .dot { justify-self: center; margin-top: 5px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--clr-ink); background: var(--clr-surface); box-sizing: border-box; }
+.vmx-fig-time .lbls { display: grid; gap: 2px; font-size: 15px; line-height: 22px; }
+.vmx-fig-time .is-start .dot { border-color: var(--fig-line); }
+.vmx-fig-time .is-start .lbls { color: var(--clr-ink-soft); }
+.vmx-fig-time .ev.is-key .t { color: var(--fig-accent-text); font-weight: 600; }
+.vmx-fig-time .ev.is-key .dot { width: 16px; height: 16px; margin-top: 3px; border-color: var(--fig-accent); background: var(--fig-accent); box-shadow: 0 0 0 4px var(--fig-tint); }
+.vmx-fig-time .lbls .is-key { font-weight: 700; color: var(--fig-accent-text); }
+.vmx-fig.is-play:not(.is-on) .ev[data-s] { transform: translateY(-7px); }
+
+/* ── flow ───────────────────────────────────────────────── */
+.vmx-fig-flow { display: grid; gap: 10px; }
+.vmx-fig-flow .lane { display: grid; align-content: start; }
+.vmx-fig-flow .lt { min-height: 32px; font-size: 14px; font-weight: 700; color: var(--clr-ink-soft); }
+.vmx-fig-flow .lane.is-key .lt { color: var(--fig-accent-text); }
+.vmx-fig-flow .step { display: grid; }
+.vmx-fig-flow .link { justify-self: center; position: relative; width: 0; height: 18px; border-left: 1.5px solid var(--fig-line); transform-origin: top center; }
+.vmx-fig-flow .link::after { content: ''; position: absolute; left: -4.75px; bottom: -1px; border: 4px solid transparent; border-top: 5px solid var(--fig-line); border-bottom: 0; }
+.vmx-fig-flow .link.is-gap { border-left-style: dashed; }
+.vmx-fig-flow .box {
+  display: grid; align-items: baseline;
+  min-height: 62px; box-sizing: border-box; padding: 8px 10px; align-content: center;
+  border: 1px solid var(--fig-line); border-radius: var(--r-sm); background: var(--clr-surface);
+}
+.vmx-fig-flow .box.has-no { grid-template-columns: auto 1fr; column-gap: 10px; }
+.vmx-fig-flow .no { grid-row: span 2; align-self: center; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--fig-line); font-family: var(--vmx-display); font-size: 15px; font-weight: 600; }
+.vmx-fig-flow .sl { font-size: 15px; font-weight: 600; grid-column: -2; }
+.vmx-fig-flow .sd { font-size: 14px; color: var(--clr-ink-soft); grid-column: -2; }
+.vmx-fig-flow .lane.is-off .box { border-style: dashed; }
+.vmx-fig-flow .lane.is-off .sl { font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-fig-flow .lane.is-key .box, .vmx-fig-flow .step.is-key .box { border: 1.5px solid var(--fig-accent); }
+.vmx-fig-flow .step.is-key .box { background: var(--fig-tint); }
+.vmx-fig-flow .step.is-key .no { border-color: var(--fig-accent); background: var(--fig-accent); color: var(--clr-sage-on); }
+.vmx-fig-flow .step.is-key .sl { color: var(--fig-accent-text); }
+
+/* ── scale ──────────────────────────────────────────────── */
+.vmx-fig-scale { position: relative; padding-top: 44px; }
+.vmx-fig-scale .mk { position: absolute; top: 0; transform: translateX(-50%); display: grid; justify-items: center; z-index: 1; }
+.vmx-fig-scale .ml { font-size: 15px; white-space: nowrap; }
+.vmx-fig-scale .ml b { font-family: var(--vmx-display); font-size: 20px; font-weight: 600; color: var(--fig-accent-text); }
+.vmx-fig-scale .needle { width: 2px; height: 50px; margin-top: 2px; background: var(--clr-ink); border-radius: 1px; }
+.vmx-fig-scale .strip { position: relative; height: 26px; margin-top: 4px; }
+.vmx-fig-scale .band { position: absolute; top: 0; bottom: 0; box-sizing: border-box; border: 1px solid var(--fig-faint); background: color-mix(in srgb, var(--clr-ink-soft) 10%, transparent); }
+.vmx-fig-scale .band.is-open { border-style: dashed; background: transparent; }
+.vmx-fig-scale .band.is-key { background: var(--fig-tint); border: 1.5px solid var(--fig-accent); }
+.vmx-fig-scale .bls { position: relative; height: 40px; }
+.vmx-fig-scale .bls span { position: absolute; top: 0; text-align: center; font-size: 14px; line-height: 1.25; color: var(--clr-ink-soft); }
+.vmx-fig-scale .bls .is-key { color: var(--fig-accent-text); font-weight: 700; }
+.vmx-fig-scale .ticks { position: relative; height: 20px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-fig-scale .ticks span { position: absolute; top: 2px; transform: translateX(-50%); }
+
+/* Wider than a phone: the 2x2 cells and the flow boxes may breathe. */
+@container (min-width: 30rem) {
+  .vmx-fig-grid > span { min-height: 52px; }
+  .vmx-fig-grid .c { font-size: 20px; }
+  .vmx-fig-flow { gap: 16px; }
+}
+
+/* The reading of a 2x2: a rail from the cell a formula counts to the total it
+   divides by, down a column (sensitivity, specificity) or along a row (the
+   predictive values). It runs along the cells' inner edge, clear of the numerals. */
+.vmx-fig-grid .c.is-v:not(.is-end)::after,
+.vmx-fig-grid .c.is-h:not(.is-end)::after { content: ''; position: absolute; z-index: -1; background: var(--fig-accent); border-radius: 1px; }
+.vmx-fig-grid .c.is-v:not(.is-end)::after { left: 4px; top: 50%; width: 2px; height: calc(100% + 4px); transform-origin: top center; }
+.vmx-fig-grid .c.is-h:not(.is-end)::after { left: 50%; bottom: 4px; height: 2px; width: calc(100% + 4px); transform-origin: left center; }
+.vmx-fig.is-play .c::after { transition: transform var(--fig-dur) var(--fig-ease); }
+.vmx-fig.is-play:not(.is-on) .c.is-v::after { transform: scaleY(0); }
+.vmx-fig.is-play:not(.is-on) .c.is-h::after { transform: scaleX(0); }
+.vmx-fig-calc .mid { color: var(--clr-ink-soft); }

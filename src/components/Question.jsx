@@ -8,7 +8,8 @@ import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
-import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { hasFigure, hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { warmFigure } from './FigureSlot.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -102,6 +103,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // The slide this answer rests on (docs/ANSWER-EVIDENCE.md). Its index and its
   // view load while the question is read, so it paints with the explanation.
   useEvidenceWarmup(currentQ?.subject);
+  // A drawn figure in the explanation (FigureSlot) loads while the question is read, only where the
+  // answer is shown right after it (practice), never during a timed paper.
+  const figureAhead = Boolean(revealAnswer) && hasFigure(currentQ?.explain);
+  useEffect(() => { if (figureAhead) warmFigure(); }, [figureAhead]);
   const evidence = <EvidenceSlot key={compoundId} q={currentQ} />;
   // The read-aloud (lib/read-aloud.js, loaded on the first tap) reads the
   // question, 'q', or its เหตุผล, 'explain'. Its state lives in a store small
@@ -960,7 +965,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
   const reaction = feedbackReaction({ ok, run });
-  const { preferences } = useMotionPreferences();
+  const { preferences, reduced } = useMotionPreferences();
   // A verdict given just now paints on its own first, and the explanation,
   // figure, coach and wiki link follow one frame later. Laying out that Thai
   // text was most of the tap (79 of 192 ms on a 4x-slowed phone, 22 Oct
@@ -1003,7 +1008,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
-          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} play={isFresh && !reduced} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}

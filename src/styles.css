@@ -2927,6 +2927,34 @@ html.dark .vmx-panic-scrim {
 .vmx-qtable .num { text-align: right; }
 .vmx-qtable-wrap.is-wide .has-names tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--clr-surface); }
 .vmx-qtable-hint { margin: -6px 0 12px; font-size: 14px; font-style: normal; color: var(--clr-ink-soft); }
+/* A figure in an explanation or a passage (src/lib/figure-spec.js). Only the
+   box lives here, so the space FigureSlot holds before the drawing arrives is
+   the space the drawing takes; the rest is styles-figure.css, in the figure's
+   own chunk. Paper a shade lighter than the explanation around it, with a
+   faint 12 px rule grid, the way a lab notebook figure sits on its page. */
+.vmx-fig {
+  /* The figure's own names for the app's tokens (styles-figure.css): one accent, the key's sage. */
+  --fig-accent: var(--clr-sage);
+  --fig-accent-text: var(--clr-sage-text);
+  --fig-tint: color-mix(in srgb, var(--clr-sage) 20%, var(--clr-surface));
+  --fig-line: color-mix(in srgb, var(--clr-ink-soft) 70%, transparent);
+  --fig-faint: color-mix(in srgb, var(--clr-ink-soft) 16%, transparent);
+  --fig-ease: var(--ease-out);
+  --fig-dur: 300ms;
+  --fig-step: var(--dur);
+  display: block; position: relative; box-sizing: border-box; container-type: inline-size;
+  max-width: 34rem; margin: 12px 0; padding: 14px 14px 12px;
+  border: 1px solid color-mix(in srgb, var(--clr-ink-soft) 28%, transparent); border-radius: var(--r-md);
+  background-color: var(--clr-surface);
+  background-image: linear-gradient(color-mix(in srgb, var(--clr-ink-soft) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--clr-ink-soft) 7%, transparent) 1px, transparent 1px);
+  background-size: 12px 12px; background-position: -1px -1px;
+}
+.vmx-fig.is-hold { background-image: none; }
+/* The house sections beside a figure: a drawn icon in place of the emoji. */
+.vmx-house { display: flex; align-items: flex-start; gap: 6px; margin-top: 10px; font-weight: 700; }
+.vmx-house svg { flex: none; margin-top: 2px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; color: var(--clr-ink-soft); }
+.vmx-house-t { min-width: 0; }
+.vmx-house.is-tip { font-weight: 400; }
 @media (max-width: 640px) {
   .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
   .vmx-qtable tbody th { min-width: 5em; }

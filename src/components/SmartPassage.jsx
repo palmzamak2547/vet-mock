@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react'
 import { confirmDialog } from '../lib/dialog.js';
 import { highlightParts } from '../lib/rich-blocks.js';
 import { RichTable } from './RichBlocks.jsx';
+import FigureSlot from './FigureSlot.jsx';
 
 // ============================================================
 // SmartPassage — reading-comprehension passage with annotations
@@ -292,7 +293,7 @@ export default function SmartPassage({ text, title, defaultOpen = true, openSign
   // A passage that holds a table is the question's data and is shown whole:
   // in the 380 px box a long table scrolled inside a box that scrolls, and
   // its header left the screen.
-  const isData = parts.some((part) => part.type === 'table');
+  const isData = parts.some((part) => part.type !== 'text');
   const titleId = useId();
 
   const clearAll = async () => {
@@ -367,7 +368,9 @@ export default function SmartPassage({ text, title, defaultOpen = true, openSign
               onMouseUp={handleSelectionEnd}
               onTouchEnd={handleSelectionEnd}
             >
-              {parts.map((part, b) => (part.type === 'table' ? (
+              {parts.map((part, b) => (part.type === 'figure' ? (
+                <FigureSlot key={`f${b}`} fig={part.fig} />
+              ) : part.type === 'table' ? (
                 <RichTable key={`t${b}`} table={part} labelledBy={titleId} />
               ) : (
                 <span key={`p${b}`} data-off={part.start}>
