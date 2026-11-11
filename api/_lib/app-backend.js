@@ -50,6 +50,9 @@ export async function signedRpc(name, purpose, data, token, env = process.env) {
   if (!response.ok) {
     const error = new Error('write-unavailable');
     error.status = response.status;
+    // The function's own message (PostgREST's `message`), so a caller can tell a refusal that will
+    // never change from one worth retrying.
+    error.detail = await response.json().then((body) => (typeof body?.message === 'string' ? body.message : null), () => null);
     throw error;
   }
   return response.json();
