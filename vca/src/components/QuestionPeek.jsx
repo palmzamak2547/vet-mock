@@ -20,15 +20,30 @@ export function QuestionPeek({ no, domain, twin = false, missing = null }) {
   const card = CARD_BY_ID[domain];
   const [q, setQ] = useState(undefined);
   const [open, setOpen] = useState(false);
+  // Not there (null) and could not be loaded (failed) are different: a student who is offline
+  // must not read that the question was taken out of the bank.
+  const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     if (!card || !no) { setQ(null); return undefined; }
     let live = true;
     setQ(undefined);
-    loadQuestionByNumber(domain, no).then((found) => { if (live) setQ(found); }).catch(() => { if (live) setQ(null); });
+    setFailed(false);
+    loadQuestionByNumber(domain, no)
+      .then((found) => { if (live) setQ(found); })
+      .catch(() => { if (live) setFailed(true); });
     return () => { live = false; };
-  }, [domain, no]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [domain, no, attempt]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (failed) {
+    return (
+      <div className="peek peek-failed" role="status">
+        <p>เปิดข้อนี้ไม่ได้ ตอนนี้อาจไม่ได้ต่อเน็ต</p>
+        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setAttempt((n) => n + 1)}>ลองอีกครั้ง</button>
+      </div>
+    );
+  }
   if (!card || q === null) return missing;
   if (q === undefined) return <div className="peek skel-card" aria-busy="true"><span className="skel skel-line w40" /><span className="skel skel-line w80" /></div>;
   return (

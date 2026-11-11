@@ -30,7 +30,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { SHARD_SIZE, shardDomain } from './bank-shards.mjs';
+import { SHARD_SIZE, assertUniqueNumbers, shardDomain } from './bank-shards.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, '..');
@@ -192,6 +192,7 @@ const totalsByKind = { vca: 0, paper: 0, aligned: 0, lecture: 0, course: 0 };
 for (const d of DOMAINS) {
   const items = ready.filter((x) => x.domain === d.id).map((x) => x.q).sort(byKey).map(record);
   DOMAIN_ITEMS.set(d.id, items);
+  assertUniqueNumbers(d.id, items);
   const files = shardDomain(d.id, items);
   // A domain with no question yet writes nothing (and is not on the site; see BANK below).
   if (items.length) {

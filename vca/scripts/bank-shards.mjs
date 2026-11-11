@@ -46,6 +46,21 @@ const sha = (text) => crypto.createHash('sha256').update(text).digest('hex');
  *   written as (`{ domain, questions }`, and the name that file carried), so that the shards can
  *   be proven to hold exactly the same questions: tests/unit/bank-shards.test.mjs does.
  */
+/**
+ * A question's own page (/d/<domain>/<no>) and the community's question threads find a question by
+ * its number within a domain (src/lib/bank.js loadQuestionByNumber), while the bank's key is subject
+ * plus id: two subjects sharing a number in one domain would open the wrong question. The build
+ * stops instead.
+ */
+export function assertUniqueNumbers(domainId, items) {
+  const byNo = new Map();
+  for (const q of items) {
+    const had = byNo.get(String(q.id));
+    if (had !== undefined) throw new Error(`domain ${domainId}: No. ${q.id} is both ${had}:${q.id} and ${q.subject}:${q.id}; numbers must be unique within a domain`);
+    byNo.set(String(q.id), q.subject);
+  }
+}
+
 export function shardDomain(domainId, items, size = SHARD_SIZE) {
   const digest = sha(JSON.stringify({ domain: domainId, questions: items })).slice(0, 10);
 

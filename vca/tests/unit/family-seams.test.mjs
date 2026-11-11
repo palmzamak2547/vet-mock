@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { parseRoute } from '../../src/router.js';
 import { questionPath, twinUrl } from '../../src/lib/twin.js';
+import { assertUniqueNumbers } from '../../scripts/bank-shards.mjs';
 
 const read = (rel) => fs.readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8');
 
@@ -46,8 +47,41 @@ test('no page says VCA needs no account while the wall covers every page', () =>
   }
 });
 
+// The profile sheet's "โชว์สถิติการฝึกบนโปรไฟล์" saves the totals (answered, accuracy, streak, mocks) to
+// the account, where others see them: no line may say nothing reaches the account.
+const SHOWN_TOTALS = 'ยอดรวมที่เลือกโชว์บนโปรไฟล์จะบันทึกไว้ในบัญชี';
+
+test('the pages that say where answers live also say the shown totals are saved to the account', () => {
+  assert.match(read('src/online/ui/ProfileSheet.jsx'), /stats: showStats \? local : \{\}/, 'the opt-in this wording describes');
+  for (const file of ['src/pages/About.jsx', 'src/pages/Progress.jsx', 'src/online/ui/SignInSheet.jsx']) {
+    const src = read(file);
+    assert.ok(src.includes(SHOWN_TOTALS), `${file} says the shown totals are saved`);
+    assert.ok(!src.includes('ไม่ส่งขึ้นบัญชี'), `${file} must not say nothing reaches the account`);
+  }
+});
+
+test('no line depends on the wall being on: the switch can turn it off', () => {
+  for (const file of ['public/manifest.webmanifest', 'src/pages/About.jsx']) {
+    assert.ok(!read(file).includes('เข้าใช้ด้วยบัญชี Google ของจุฬาฯ'), file);
+  }
+});
+
 test('the cover prints the profile\'s real host in one piece', () => {
   const src = read('src/online/cover.js');
   assert.match(src, /'vca\.vetmock\.com\/u\/'/);
   assert.doesNotMatch(src, /`\.vetmock\.com\/u\/\$\{handle\}`/);
+});
+
+test('a question number opens one question: the bank build refuses a number two subjects share in a domain', () => {
+  assert.doesNotThrow(() => assertUniqueNumbers('anatomy', [{ subject: 'a', id: 1 }, { subject: 'a', id: 2 }, { subject: 'b', id: 3 }]));
+  assert.throws(() => assertUniqueNumbers('anatomy', [{ subject: 'a', id: 7 }, { subject: 'b', id: 7 }]), /No\. 7 is both a:7 and b:7/);
+  assert.throws(() => assertUniqueNumbers('anatomy', [{ subject: 'a', id: 7 }, { subject: 'a', id: '7' }]), /numbers must be unique/);
+  assert.ok(read('scripts/build-bank.mjs').includes('assertUniqueNumbers(d.id, items)'), 'the build runs it on every domain');
+});
+
+test('a question that could not be loaded is not called withdrawn', () => {
+  const src = read('src/components/QuestionPeek.jsx');
+  assert.ok(src.includes('.catch(() => { if (live) setFailed(true); })'), 'a failed load is its own state');
+  assert.ok(src.includes('ตอนนี้อาจไม่ได้ต่อเน็ต') && src.includes('ลองอีกครั้ง'), 'it says so and offers to try again');
+  assert.ok(!/\.catch\([^)]*setQ\(null\)/.test(src), 'a failure never reads as "not in the bank"');
 });
