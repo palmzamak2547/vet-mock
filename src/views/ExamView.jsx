@@ -8,6 +8,7 @@ import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
 import { correctRun } from '../lib/mochi-reactions.js';
+import { exitSetDialog } from '../lib/exit-set.js';
 import { preloadMochiRig } from '../components/MochiLive.jsx';
 
 export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
@@ -236,10 +237,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           completed, explicitly discarded, or expires. */}
       <ConfirmDialog
         open={confirmExit}
-        title="ออกจากชุดนี้?"
-        body={`ความคืบหน้า${answeredCount > 0 ? ` ${answeredCount} จาก ${questions.length} ข้อ` : ''} จะถูกเก็บไว้ที่หน้าแรก กดทำต่อเพื่อกลับมาข้อเดิมได้ภายใน 6 ชั่วโมง${useTimer ? ' เวลาที่เหลือจะหยุดนับจนกว่าจะกลับมาทำต่อ' : ''}`}
-        confirmLabel="เก็บไว้แล้วออก"
-        cancelLabel="ทำต่อ"
+        {...exitSetDialog({ questions, answers, timed: useTimer })}
         onConfirm={() => { setConfirmExit(false); goHome(); }}
         onCancel={() => setConfirmExit(false)}
       />

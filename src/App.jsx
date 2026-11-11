@@ -216,6 +216,7 @@ import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoa
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
+import { exitSetDialog } from './lib/exit-set.js';
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
@@ -944,10 +945,9 @@ export default function App() {
             '',
           );
         } catch {}
+        // The X button's dialog, word for word (lib/exit-set.js).
         confirmDialog({
-          title: 'ออกจากชุดนี้?',
-          body: 'ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้',
-          confirmLabel: 'ออกจากชุด',
+          ...exitSetDialog({ questions: sessionRef.current?.questions, answers: sessionRef.current?.answers, timed: useTimerRef.current }),
           scope: 'exam',
         }).then((leave) => {
           if (!leave) return;
@@ -1158,6 +1158,9 @@ export default function App() {
   // useTimer + timePerQ at construction time.
   const [numQuestions, setNumQuestions] = useState(10);
   const [useTimer, setUseTimer] = useState(true);
+  // For the Back guard's exit dialog, which lives in a listener set up once.
+  const useTimerRef = useRef(useTimer);
+  useTimerRef.current = useTimer;
   const [timePerQ, setTimePerQ] = useState(60);
   // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
   const [questionCategory, setQuestionCategory] = useState('all');

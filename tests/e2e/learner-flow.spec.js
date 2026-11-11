@@ -87,3 +87,22 @@ test('a double tap on ข้อถัดไป, or a double key press, moves one
   expect(await position(page)).toBe(2);
 });
 
+// item 3
+test('the X and the browser Back ask the same question, and it keeps the set', async ({ page, context }) => {
+  await resume(page, context, { questions: MCQ, mode: 'exam', timed: true });
+  await page.locator('.vmx-option').first().click();
+  const dialog = page.getByRole('dialog');
+  await page.locator('.vmx-exam-top-left button').first().click();
+  await expect(dialog).toBeVisible();
+  const fromX = (await dialog.innerText()).replace(/\s+/g, ' ').trim();
+  await dialog.getByRole('button', { name: 'ทำต่อ', exact: true }).click();
+  await expect(dialog).toHaveCount(0);
+  await page.goBack();
+  await expect(dialog).toBeVisible();
+  const fromBack = (await dialog.innerText()).replace(/\s+/g, ' ').trim();
+  expect(fromBack).toBe(fromX);
+  expect(fromBack).toContain('6 ชั่วโมง');
+  await dialog.getByRole('button', { name: 'เก็บไว้แล้วออก', exact: true }).click();
+  await expect(page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ })).toBeVisible();
+});
+
