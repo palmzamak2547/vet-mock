@@ -58,6 +58,22 @@ export function entryFiles(manifest, selectors) {
 }
 
 /**
+ * Modules that must reach the browser only when asked for: each has to be a chunk of its own (a dynamic
+ * entry in the manifest) that the route `selectors` does not load through static imports. Returns one
+ * line per module that breaks this, none when all hold.
+ */
+export function lazyOnlyProblems(manifest, selectors, sources) {
+  const first = new Set(entryFiles(manifest, selectors).js);
+  return sources.flatMap((source) => {
+    const chunk = manifest[source];
+    if (!chunk) return [`${source} has no chunk of its own: something imports it statically, so it rides in another chunk`];
+    if (!chunk.isDynamicEntry) return [`${source} is not loaded with import()`];
+    if (first.has(chunk.file)) return [`${source} (${chunk.file}) is statically reachable from the first load`];
+    return [];
+  });
+}
+
+/**
  * What one route costs, in gzipped bytes. With `except` (another entryFiles result, normally the
  * first load) the files that are already there are left out, which is what opening the route after the
  * first load adds. Each file is gzipped on its own, as the browser fetches it; `read(file)` returns its bytes.

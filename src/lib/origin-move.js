@@ -30,9 +30,9 @@
 
 import { USER_DATA_FIELDS, createUserDataSync, mergeFieldValue } from './user-data-sync.js';
 import { moveBaseKit } from './move-base.js';
+import { MOVE_INBOX, MOVE_RECEIVED, NOTICE_MS } from './move-gate.js';
 
-export const MOVE_INBOX = 'vmx-move-inbox';
-export const MOVE_RECEIVED = 'vmx-move-received';
+export { MOVE_INBOX, MOVE_RECEIVED };
 export const MOVE_BASE = 'vmx-move-base';
 const UNREADABLE = 'vmx-move-inbox-unreadable';
 // Key names the sync store writes (user-data-sync.js, user-data-atomic.js),
@@ -41,7 +41,6 @@ const OWNER_KEY = 'vmx-user-sync-owner-v1';
 const V1_DATA = 'vmx-user-data-v1:';
 const V2_DATA = 'vmx-user-data-v2:';
 const GUEST_V2 = `${V2_DATA}anonymous`;
-const NOTICE_MS = 10 * 60 * 1000;
 const KIT = moveBaseKit();
 const FIELD_BY_KEY = new Map(Object.entries(USER_DATA_FIELDS).map(([field, d]) => [d.localKey, field]));
 
@@ -411,9 +410,11 @@ export function showOldAddressNote(win, doc, later = (fn, ms) => setTimeout(fn, 
   return true;
 }
 
+// main.jsx imports this only when lib/move-gate.js finds work for it, so it
+// may arrive after the page's load event: then the after-load work starts now.
 if (typeof window !== 'undefined') {
   try { applyMoveInbox(window.localStorage); } catch { /* never block the app */ }
-  window.addEventListener('load', () => {
+  const afterLoad = () => {
     const run = () => {
       importMovedRecords()
         .catch(() => {})
@@ -423,5 +424,7 @@ if (typeof window !== 'undefined') {
     };
     if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 4000 });
     else setTimeout(run, 1500);
-  }, { once: true });
+  };
+  if (typeof document !== 'undefined' && document.readyState === 'complete') afterLoad();
+  else window.addEventListener('load', afterLoad, { once: true });
 }

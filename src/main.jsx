@@ -2,8 +2,10 @@
 import './lib/platform-compat.js'
 // Inside the Android app: window.VetMockApp and the WebView's missing APIs, before anything below reads them.
 import './lib/native-app.js'
-// Second: study data carried over from vetmock.vercel.app is merged before any module reads it.
-import './lib/origin-move.js'
+// Study data carried over from vetmock.vercel.app is merged before anything reads it. The merge
+// (lib/origin-move.js) loads only on a boot that has move work (lib/move-gate.js), and then the app
+// starts after it; nearly every boot has none and starts at once, as before.
+import { moveWork } from './lib/move-gate.js'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -16,14 +18,24 @@ import './lib/app-lifecycle.js'
 import './lib/install-prompt.js'
 import { applyMotionPreference, subscribeMotionPreferences } from './lib/motion-preferences.js'
 
-applyMotionPreference()
-const stopMotionSync = subscribeMotionPreferences(applyMotionPreference)
-if (import.meta.hot) import.meta.hot.dispose(stopMotionSync)
+// Everything that reads the student's stored data, in the order it always ran.
+function startApp() {
+  applyMotionPreference()
+  const stopMotionSync = subscribeMotionPreferences(applyMotionPreference)
+  if (import.meta.hot) import.meta.hot.dispose(stopMotionSync)
 
-// One-time migration of user-stored Q IDs after the 2026-05-13 renumber
-// of 165 cross-subject ID collisions. Runs once per browser (gated by
-// `vmx-id-migration-v1` flag). No-op for users who never had history.
-applyIdMigration()
+  // One-time migration of user-stored Q IDs after the 2026-05-13 renumber
+  // of 165 cross-subject ID collisions. Runs once per browser (gated by
+  // `vmx-id-migration-v1` flag). No-op for users who never had history.
+  applyIdMigration()
+
+  // index.html's bridge is handing this learner's data to vetmock.com: no app on this page.
+  if (!window.__vmxMoving) ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  )
+}
 
 // Begin Core Web Vitals monitoring before React mounts so we capture
 // FCP / LCP from the very first paint. Zero deps, zero UI impact —
@@ -46,9 +58,13 @@ window.addEventListener('pointerdown', _unlockOnce, { capture: true, passive: tr
 window.addEventListener('keydown', _unlockOnce, { capture: true, passive: true })
 window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: true })
 
-// index.html's bridge is handing this learner's data to vetmock.com: no app on this page.
-if (!window.__vmxMoving) ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+// A move's inbox is merged first. If its code cannot load, the app starts
+// without it, as a failed lazy screen leaves the rest of the app: the inbox
+// stays in localStorage for the next boot and the old address keeps its copy.
+const move = moveWork(window)
+if (move === 'now') {
+  import('./lib/origin-move.js').catch(() => {}).then(startApp)
+} else {
+  if (move === 'later') import('./lib/origin-move.js').catch(() => {})
+  startApp()
+}
