@@ -98,7 +98,11 @@ export default function SlideFigures({ sectionId, source = '' }) {
               height={size?.[1]}
               loading="lazy"
               decoding="async"
-              style={{ display: 'block', ...boxOf(size), height: 'auto', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
+              // The edge is a ring, not a border: with a border Firefox gives the
+              // width and height's ratio to the border box before the file
+              // arrives and the picture's own to the content box after, so a tall
+              // figure lost a pixel on load and the page below it moved.
+              style={{ display: 'block', ...boxOf(size), height: 'auto', borderRadius: 8, boxShadow: '0 0 0 1px var(--clr-border)', background: 'var(--clr-surface)' }}
             />
             {/* The file is already served as a plain image, so saving it costs
                 nothing extra to host — this only spares the reader a

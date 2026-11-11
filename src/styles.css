@@ -2516,6 +2516,10 @@ html.dark .vmx-panic-scrim {
   display: block;
   overflow: hidden;
   background: var(--clr-surface-2);
+  /* The switch to white is instant by design. Under reduced motion every element
+     gets a 0.01 ms transition of all properties, which WebKit can leave at its
+     start value until its next frame. */
+  transition: none;
 }
 .vmx-zoom-frame::after {
   content: '';
