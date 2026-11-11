@@ -21,6 +21,7 @@ import RichBlocks from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
+import FlagChip from '../components/FlagChip.jsx';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -880,6 +881,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             <div className="answer">
               {answerNode || answerText}
             </div>
+            {/* A disputed key (major flag) carries its caution here too: all
+                15 can enter spaced repetition, and the card shows the key. */}
+            <FlagChip flag={currentQ.flag} revealed />
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage

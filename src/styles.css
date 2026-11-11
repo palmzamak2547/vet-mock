@@ -3382,6 +3382,12 @@ html.dark .vmx-panic-scrim {
   background: var(--clr-surface-2);
   color: var(--clr-ink-soft);
 }
+/* Beside the verdict on Review: the key it was marked against is in dispute. */
+.vmx-review-caution-badge {
+  display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px;
+  font-size: 14px; font-weight: 600; color: var(--clr-rose-text);
+  background: rgba(194, 109, 109, 0.12); border: 1px solid var(--clr-rose);
+}
 .vmx-review-result.ok {
   color: var(--clr-sage-text);
   background: var(--clr-sage-soft);
@@ -4869,7 +4875,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-instant-feedback .vmx-feedback-explain-head .k { margin-bottom: 0; }
 .vmx-instant-feedback .w .vmx-tts-note { margin: 6px 0 0; }
 /* The caution chip under the key: air above and below, never against a row. */
-.vmx-instant-feedback .vmx-caution { margin: 10px 0 4px; }
+.vmx-caution { margin: 10px 0 4px; }
 /* The other options' reasons, folded after a correct answer: one 44px row. */
 .vmx-other-options { margin-top: 8px; border-top: 1px dashed var(--clr-border); }
 .vmx-other-options > summary {

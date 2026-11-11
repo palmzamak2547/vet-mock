@@ -525,11 +525,34 @@ test('Review applies the same rule: major as the caution, minor as a note, the c
   const review = readFileSync(new URL('../../src/views/ReviewView.jsx', import.meta.url), 'utf8');
   const start = review.indexOf('{cautionChipShown(q.flag) && q.flag.note && (');
   assert.ok(start > 0, 'Review draws the caution through cautionChipShown');
-  const block = review.slice(start, review.indexOf("{/* The whole source, as the card's chip shows it", start));
+  const explainAt = review.indexOf("{q.explain && q.type !== 'match' && <div className=\"vmx-review-explain\">", start);
+  const block = review.slice(start, explainAt);
   assert.match(block, /\{CAUTION_CHIP_TEXT\}/);
   assert.match(block, /หมายเหตุ: \{q\.flag\.note\}/);
   assert.match(block, /แหล่งที่มา:/);
   assert.doesNotMatch(block, /fontSize: 11|vmx-mono|ข้อควรระวังสำคัญ/);
+  // Right under the key, before the reason, the note editor and the topics.
+  const keyRow = review.indexOf('<span className="k">เฉลย:</span>');
+  assert.ok(keyRow > 0 && keyRow < start && start < explainAt, 'the caution sits between the key and the reason');
+  assert.ok(start < review.indexOf('<ReviewNoteEditor'), 'and before the note editor');
+  // Beside the verdict badge too.
+  const badge = review.indexOf("'✗ ผิด'");
+  const cautionBadge = review.indexOf('className="vmx-review-caution-badge"');
+  assert.ok(cautionBadge > badge && cautionBadge - badge < 400, 'the caution is named beside the verdict');
+  // Topics by their labels, never a slug.
+  assert.doesNotMatch(review, /#\{t\}/);
+  assert.match(review, /tagTopicLabels\(q\)\.map/);
+});
+
+test('the spaced-repetition card shows the caution with its key', () => {
+  const sr = readFileSync(new URL('../../src/views/SRSessionView.jsx', import.meta.url), 'utf8');
+  assert.match(sr, /import FlagChip from '\.\.\/components\/FlagChip\.jsx';/);
+  const back = sr.indexOf('{showAnswer && (');
+  const chip = sr.indexOf('<FlagChip flag={currentQ.flag} revealed />');
+  assert.ok(back > 0 && chip > back && chip < sr.indexOf('</MotionEnter>', back), 'the chip is on the answer side of the card');
+  // One chip component for the card, Review's caution words and the SR card.
+  const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
+  assert.match(card, /import FlagChip from '\.\/FlagChip\.jsx';/);
 });
 
 test('one caution per card: with the caution chip the paper tag stays in the panel', () => {
