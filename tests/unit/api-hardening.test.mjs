@@ -108,7 +108,7 @@ test('a grade survives the junk a model appends after the JSON object', async ()
 test('a grade above its maximum or a total that does not add up never reaches the student', async () => {
   process.env.ANTHROPIC_API_KEY = 'test-key';
   const { default: handler } = await import('../../api/grade-summary.js');
-  const text = '{"scores":{"answer":{"earned":9,"total":50,"justification":"x"},"bonus":{"earned":40,"total":40}},"totalScore":99}';
+  const text = '{"scores":{"answer":{"earned":9,"justification":"x"},"bonus":{"earned":40,"total":40}},"totalScore":99}';
   const res = fakeRes();
   await withFetch(async () => claudeReply(text), () => handler(gradeReq(), res));
   assert.equal(res.statusCode, 200);
@@ -120,6 +120,52 @@ test('a grade above its maximum or a total that does not add up never reaches th
     const r = fakeRes();
     await withFetch(async () => claudeReply(bad), () => handler(gradeReq(), r));
     assert.equal(r.statusCode, 502, bad);
+  }
+});
+
+test('a short answer is out of the points its question states; another scale is scaled, a half point kept', async () => {
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const { default: handler } = await import('../../api/grade-summary.js');
+  const { default: written } = await import('../../api/_lib/written-questions.generated.json', { with: { type: 'json' } });
+  const { statedPoints, normalizeGrading } = await import('../../api/_lib/grade-shape.js');
+  // Real items: 209627 and 209545 state 10 points, 209565 states 20.
+  assert.equal(statedPoints(written['209627'].q), 10);
+  assert.equal(statedPoints(written['209545'].q), 10);
+  assert.equal(statedPoints(written['209565'].q), 20);
+  const stated = Object.values(written).filter((q) => q.type !== 'essay' && statedPoints(q.q));
+  assert.ok(stated.length >= 6, `items that state their points: ${stated.length}`);
+  const grade = async (qid, reply) => {
+    const res = fakeRes();
+    let prompt = '';
+    await withFetch(async (url, init) => { prompt = String(init?.body || ''); return claudeReply(reply); },
+      () => handler({ ...gradeReq(), body: { qid, userAnswer: 'An answer.' } }, res));
+    return { res, prompt };
+  };
+  const ten = await grade('209627', '{"scores":{"answer":{"earned":6,"total":10}}}');
+  assert.equal(ten.res.statusCode, 200, JSON.stringify(ten.res.body));
+  assert.deepEqual([ten.res.body.scores.answer.earned, ten.res.body.scores.answer.total, ten.res.body.totalScore], [6, 10, 6], '6 of 10 stays 6/10');
+  assert.match(ten.prompt, /worth 10 points/, 'the grader is told the item\'s points');
+  const scaled = await grade('209627', '{"scores":{"answer":{"earned":1.5,"total":2}}}');
+  assert.equal(scaled.res.body.scores.answer.earned, 7.5, '1.5 of 2 is scaled to 7.5 of 10');
+  const half = normalizeGrading({ scores: { ' Answer ': { earned: 1.5, total: 2 } } }, 'short');
+  assert.equal(half.ok, true, 'a category name differing by case or spacing is matched');
+  assert.equal(half.grading.scores.answer.earned, 1.5, '1.5 of 2 is never shown as 2/2');
+  assert.equal(half.grading.totalScore, 1.5);
+  assert.equal(normalizeGrading({ scores: { answer: { earned: 1.9 } } }, 'short').grading.scores.answer.earned, 1.5, 'cut to the half point below');
+  const caps = normalizeGrading({ scores: { Content: { earned: 6 }, GRAMMAR: { earned: 4 }, 'para_phrase': { earned: 2 } } }, 'essay', { wordCount: 150 });
+  assert.equal(caps.ok, true);
+  assert.equal(caps.grading.totalScore, 12);
+});
+
+test('a question id on the object prototype names no question', async () => {
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const { default: handler } = await import('../../api/grade-summary.js');
+  for (const qid of ['__proto__', 'constructor', 'toString', 'hasOwnProperty']) {
+    const res = fakeRes();
+    let called = false;
+    await withFetch(async () => { called = true; return claudeReply('{}'); }, () => handler({ ...gradeReq(), body: { qid, userAnswer: 'x' } }, res));
+    assert.equal(res.statusCode, 400, qid);
+    assert.equal(called, false, qid);
   }
 });
 
@@ -285,7 +331,10 @@ test('the library bytes route refuses one link hammered from one address, not th
   });
   const { readFileSync } = await import('node:fs');
   const src = readFileSync(new URL('../../api/library-blob.js', import.meta.url), 'utf8');
-  assert.match(src, /if \(!limit\.ok && !limit\.unavailable\) return sendRateLimitFailure\(res, limit\);/, 'a limiter outage must not close the library');
+  // Decided 11 Nov 2026: every byte here passes through the function, so this
+  // route refuses when the limiter cannot count (api-limits.test.mjs walks it).
+  assert.match(src, /if \(!limit\.ok\) return sendRateLimitFailure\(res, limit\);/, 'the bytes route fails closed');
+  assert.doesNotMatch(src, /!limit\.ok && !limit\.unavailable/);
 });
 
 // The limit protects the bill, not access: when the shared limiter is down the library still opens.

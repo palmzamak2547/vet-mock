@@ -7,10 +7,9 @@
 // verifies the signature and streams the bytes from R2 through the
 // Cloudflare REST API, which the standing account token CAN do.
 //
-// Range requests are forwarded so a PDF viewer can seek without pulling
-// the whole deck; the upstream's 200/206 and range headers pass through.
-// R2 charges nothing for egress and Vercel Pro streams responses, so an
-// 18 MB deck is bandwidth, not a bill.
+// Range is forwarded, but the storage API ignores it and sends the whole
+// object, so every GET pulls it through this function: the bytes are budgeted
+// per address (BLOB_BYTES), and the route fails closed.
 
 import { verifyBlobToken } from './_lib/blob-token.js';
 import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
@@ -24,6 +23,24 @@ import { pipeline } from 'node:stream/promises';
 // URL at once: 300 per 10 minutes stays above the largest class (about 150)
 // while a looping viewer or a script is still capped.
 export const BLOB_RATE = { max: 300, windowMs: 10 * 60 * 1000 };
+
+// The bytes one address may pull through this function in the same window.
+// Storage ignores Range, so a request costs the whole object (a media range,
+// the object up to the range's end): 300 opens of a 50 MB deck were 15 GB in
+// ten minutes. 8 GB still lets a hall of 150 open one 50 MB deck at once. The
+// link carries no account (public links are minted once per window for every
+// caller and the mint is edge-cached), so the address is what is counted.
+// A request whose size is not catalogued counts as UNKNOWN_SIZE.
+export const BLOB_BYTES = { max: 8 * 1024 ** 3, windowMs: 10 * 60 * 1000 };
+const UNKNOWN_SIZE = 25 * 1024 ** 2;
+
+/** What one GET will pull from storage, for the byte budget. */
+export function bytesPulled(payload, rangeHeader, media) {
+  const size = Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : UNKNOWN_SIZE;
+  if (!media || !rangeHeader) return size;
+  const range = byteRange(rangeHeader, size);
+  return range ? Math.min(size, range.offset + range.length) : size;
+}
 
 // What the browser is told the bytes are. The catalog is curated under the
 // service role, but this route answers on the app's OWN origin — a row whose
@@ -174,9 +191,13 @@ export default async function handler(req, res) {
   }
 
   const linkKey = String(url.searchParams.get('s') || '').slice(0, 22);
-  const limit = await rateLimit(`library-blob:${clientIP(req)}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs);
-  // Like the link endpoint: an outage of the shared limiter must not close the library.
-  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
+  const ip = clientIP(req);
+  // Every byte here passes through the function and is paid for, so unlike
+  // the link endpoint this route refuses (503) when the limiter cannot count.
+  const limit = await rateLimit(`library-blob:${ip}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs);
+  if (!limit.ok) return sendRateLimitFailure(res, limit);
+  const bytes = await rateLimit(`library-blob-bytes:${ip}`, BLOB_BYTES.max, BLOB_BYTES.windowMs, { by: bytesPulled(payload, req.headers.range, asksRange) });
+  if (!bytes.ok) return sendRateLimitFailure(res, bytes);
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };

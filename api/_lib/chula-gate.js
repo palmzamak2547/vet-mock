@@ -9,6 +9,21 @@
 // saw the wall off: the AI costs money and the rows are private.
 import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
+import { clientIP, rateCount, rateLimit } from './rate-limit.js';
+
+// A token the database refuses (forged, expired) costs a database call. An
+// address whose tokens have been refused this often in the window is answered
+// without asking: an honest phone refreshes an expired token and stops
+// failing, so only a stream of bad tokens reaches the brake. Members are not
+// counted at all, and nothing is counted in front of them.
+export const FAILED_TOKEN_BRAKE = { max: 120, windowMs: 10 * 60 * 1000 };
+const failKey = (req) => `chula-gate-failed:${clientIP(req)}`;
+
+// Where the gate stands open without a database. A deployed preview
+// (VERCEL_ENV=preview) may hold live provider keys, so it refuses like
+// production; local development (no VERCEL_ENV, or `vercel dev`'s
+// "development") and the unit suite stay open.
+const deployed = (env) => env.VERCEL_ENV === 'production' || env.VERCEL_ENV === 'preview';
 
 const SWITCH_TTL_MS = 30_000;
 // How long a switch seen off keeps the API open through a database outage. Long
@@ -28,6 +43,7 @@ const refuse = (status, error, message) => ({ ok: false, status, body: { error, 
 export const SIGNIN_REQUIRED = refuse(401, 'signin_required', 'เข้าสู่ระบบด้วยอีเมลจุฬาก่อนใช้งาน');
 export const CHULA_REQUIRED = refuse(403, 'chula_required', 'บัญชีนี้ยังไม่ได้เชื่อมกับอีเมลจุฬา');
 const UNAVAILABLE = refuse(503, 'backend-unavailable', 'ตรวจสิทธิ์ไม่ได้ในตอนนี้ ลองใหม่อีกครั้ง');
+const BRAKED = refuse(429, 'signin_retry_later', 'เข้าสู่ระบบใหม่อีกครั้งในอีกสักครู่');
 
 async function askState(cfg, bearer, fetchImpl, production) {
   const response = await fetchImpl(`${cfg.url}/rest/v1/rpc/chula_access_state`, {
@@ -66,13 +82,20 @@ export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now
   if (!cfg.url || !cfg.key) {
     // No database configured, so no account exists to check: a local API or the
     // unit suite. Production always has one, and there its absence refuses.
-    return env.VERCEL_ENV === 'production' ? UNAVAILABLE : { ok: true, userId: null, token: null, member: false };
+    return deployed(env) ? UNAVAILABLE : { ok: true, userId: null, token: null, member: false };
   }
   let state = null;
+  if (token) {
+    const failed = await rateCount(failKey(req));
+    if (failed !== null && failed >= FAILED_TOKEN_BRAKE.max) return BRAKED;
+  }
   try {
     // A token the server refuses (expired, forged) leaves a guest: then only the switch matters.
-    const production = env.VERCEL_ENV === 'production';
-    if (token) state = await askState(cfg, token, fetchImpl, production);
+    const production = deployed(env);
+    if (token) {
+      state = await askState(cfg, token, fetchImpl, production);
+      if (!state?.signed_in) await rateLimit(failKey(req), FAILED_TOKEN_BRAKE.max, FAILED_TOKEN_BRAKE.windowMs).catch(() => {});
+    }
     if (!state?.signed_in) {
       let enforce = lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS ? lastSwitch.enforce : undefined;
       if (enforce === undefined) {
