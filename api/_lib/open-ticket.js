@@ -1,3 +1,4 @@
+// @ts-check
 // open-ticket.js — a library link a member was handed, usable without a header.
 //
 // Behind the Chula wall /api/library-file wants the member's bearer token, but

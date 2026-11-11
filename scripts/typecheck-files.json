@@ -1,0 +1,16 @@
+[
+  "api/_lib/ai/config.js",
+  "api/_lib/ai/text.js",
+  "api/_lib/blob-token.js",
+  "api/_lib/open-ticket.js",
+  "api/_lib/r2.js",
+  "src/lib/api-auth.js",
+  "src/lib/errors.js",
+  "src/lib/inapp.js",
+  "src/lib/local-extras.js",
+  "src/lib/nav.js",
+  "src/lib/user-data-schema.js",
+  "src/lib/view-route.js",
+  "src/lib/vetwiki/schema.js",
+  "src/lib/vetwiki/url.js"
+]

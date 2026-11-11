@@ -1,3 +1,4 @@
+// @ts-check
 // ============================================================
 // Canonical top-level navigation — ONE source for both the desktop
 // Sidebar and the mobile BottomNav, so the two surfaces can never expose
@@ -196,7 +197,11 @@ export function splitForQuickGrid(features, limit = 8) {
   return { visible: ordered.slice(0, limit), rest: ordered.slice(limit) };
 }
 
-/** Platform-aware command-menu hint. Safe during SSR/build evaluation. */
+/**
+ * Platform-aware command-menu hint. Safe during SSR/build evaluation.
+ * `userAgentData` is Chromium's and not in the DOM types yet.
+ * @param {(Navigator & { userAgentData?: { platform?: string } }) | null} [nav]
+ */
 export function commandShortcutLabel(nav = typeof navigator !== 'undefined' ? navigator : null) {
   const platform = nav?.userAgentData?.platform || nav?.platform || nav?.userAgent || '';
   return /Mac|iPhone|iPad|iPod/i.test(platform) ? '⌘K' : 'Ctrl K';

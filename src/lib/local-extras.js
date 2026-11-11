@@ -1,3 +1,4 @@
+// @ts-check
 // Device-local tools retain their original keys until a user explicitly
 // restores an archive. A restored bundle is one atomic localStorage write;
 // subsequent edits use that bundle so a failed restore cannot apply half of it.
@@ -71,8 +72,9 @@ export function exportLocalExtras() {
   const { storage, bundle } = storageAndBundle();
   if (corrupt) throw new Error('อ่านข้อมูลเครื่องมือไม่ได้ กรุณาเก็บข้อมูลเว็บไซต์ไว้แล้วลองอีกครั้ง');
   const data = Object.fromEntries(Object.entries(LOCAL_EXTRA_FIELDS).map(([key, field]) => {
+    const stored = storage.getItem(key);
     const value = bundle && Object.prototype.hasOwnProperty.call(bundle, key) ? copy(bundle[key])
-      : storage.getItem(key) ? JSON.parse(storage.getItem(key)) : field.type === 'array' ? [] : {};
+      : stored ? JSON.parse(stored) : field.type === 'array' ? [] : {};
     return [key, value];
   }));
   const archive = { format: 'vetmock-local-extras-v1', exportedAt: new Date().toISOString(), data };

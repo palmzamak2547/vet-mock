@@ -1,3 +1,4 @@
+// @ts-check
 // Readable URLs for stable, self-contained app destinations. Stateful flows
 // (topic config, an active exam, results) intentionally stay out of this map:
 // restoring only half their state would be worse than returning to Home.
@@ -54,7 +55,7 @@ export const APP_PATH_ALIASES = Object.freeze({
 const PATH_TO_VIEW = new Map([
   ...Object.entries(VIEW_TO_PATH)
     .filter(([, path]) => path !== '/')
-    .map(([view, path]) => [path, view]),
+    .map(([view, path]) => /** @type {[string, string]} */ ([path, view])),
   ...Object.entries(APP_PATH_ALIASES),
 ]);
 
@@ -88,9 +89,14 @@ export function isAppPath(pathname) {
 const READER_SLUG = /^[a-z0-9฀-๿][a-z0-9฀-๿-]{0,160}$/;
 const TICKET_SIG = /^[A-Za-z0-9_-]{20,100}$/;
 
+/**
+ * @param {string} slug
+ * @param {number | null} [page]
+ * @param {{ vt: string, ve: number | string } | null} [ticket]
+ */
 export function readerUrl(slug, page = null, ticket = null) {
   const query = new URLSearchParams({ doc: slug });
-  if (Number.isInteger(page) && page > 1) query.set('page', String(page));
+  if (typeof page === 'number' && Number.isInteger(page) && page > 1) query.set('page', String(page));
   if (ticket) { query.set('vt', ticket.vt); query.set('ve', String(ticket.ve)); }
   return `${VIEW_TO_PATH['pdf-annotate']}?${query}`;
 }
@@ -161,6 +167,10 @@ export function hasPickedYear(storedRaw) {
  *
  * Returns 'landing' the very first time (the marketing front door, which is
  * what "/" already does) and 'year-select' afterwards.
+ */
+/**
+ * @param {string} view
+ * @param {{ storedYearRaw?: string | null, seenLanding?: boolean }} [state]
  */
 export function frontDoorFor(view, { storedYearRaw, seenLanding } = {}) {
   if (hasPickedYear(storedYearRaw)) return null;
