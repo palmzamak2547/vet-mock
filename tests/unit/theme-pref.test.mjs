@@ -23,13 +23,16 @@ test('a pick wins; no pick or system follows the phone', () => {
   assert.equal(effectiveTheme('nonsense', false), 'light');
 });
 
-test('index.html, App and the Atlas entry start from the same rule', () => {
+test('index.html, App and the Atlas entry start from the same rule', async () => {
+  const { THEME_KEY } = await import('../../src/lib/theme-pref.js');
+  assert.equal(THEME_KEY, 'vmx-theme');
   const html = read('index.html');
   assert.match(html, /if \(t !== 'light' && t !== 'dark'\) \{\s*t = \(window\.matchMedia && window\.matchMedia\('\(prefers-color-scheme: dark\)'\)\.matches\)/,
     'index.html paints a pick, else the phone');
   for (const file of ['src/App.jsx', 'src/atlas-main.jsx']) {
     const src = read(file);
-    assert.match(src, /useLocalStorage\('vmx-theme', THEME_SYSTEM\)/, `${file}: a new device starts on the phone's setting`);
+    // The key is declared once in theme-pref.js (src/lib/prefs/table.js reads it there).
+    assert.match(src, /useLocalStorage\(THEME_KEY, THEME_SYSTEM\)/, `${file}: a new device starts on the phone's setting`);
     assert.match(src, /effectiveTheme\(/, `${file}: what is painted comes from the shared rule`);
   }
 });

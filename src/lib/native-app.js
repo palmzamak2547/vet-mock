@@ -19,6 +19,7 @@
 // which the app does not use: its bundle and updater do that job.
 // ============================================================
 
+import { THEME_KEY } from './theme-pref.js';
 const cap = typeof window !== 'undefined' ? window.Capacitor : undefined;
 
 /** True only inside the Android app. */
@@ -169,7 +170,7 @@ function reportFirstPaint() {
 function syncTheme() {
   const send = () => {
     let pref = 'system';
-    try { pref = JSON.parse(localStorage.getItem('vmx-theme')) || 'system'; } catch { /* default */ }
+    try { pref = JSON.parse(localStorage.getItem(THEME_KEY)) || 'system'; } catch { /* default */ }
     const shown = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
     quiet('setTheme', { pref, shown });
   };

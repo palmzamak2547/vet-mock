@@ -19,5 +19,12 @@ export const storage = {
 export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => storage.get(key, initialValue));
   useEffect(() => { storage.set(key, value); }, [key, value]);
+  // A value written elsewhere in this tab (src/lib/prefs/table.js) is read back.
+  useEffect(() => {
+    const on = (e) => { if (e.detail?.key === key) setValue(storage.get(key, initialValue)); };
+    window.addEventListener('vmx-pref-change', on);
+    return () => window.removeEventListener('vmx-pref-change', on);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
   return [value, setValue];
 }

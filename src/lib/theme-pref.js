@@ -10,6 +10,10 @@
 import { useEffect, useState } from 'react';
 
 export const THEME_SYSTEM = 'system';
+// The keys themselves, declared here for src/lib/prefs/table.js and the files
+// that read them before React (index.html, native-app.js, atlas-main.jsx).
+export const THEME_KEY = 'vmx-theme';
+export const PALETTE_KEY = 'vmx-palette';
 
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 

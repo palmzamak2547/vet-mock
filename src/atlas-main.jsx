@@ -7,14 +7,14 @@ import { createRoot } from 'react-dom/client';
 import AtlasView from './views/AtlasView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { useLocalStorage } from './hooks/useStorage.js';
-import { THEME_SYSTEM, effectiveTheme, useSystemDark } from './lib/theme-pref.js';
+import { THEME_SYSTEM, THEME_KEY, effectiveTheme, useSystemDark } from './lib/theme-pref.js';
 import { startWebVitals } from './lib/web-vitals.js';
 import './lib/dom-compat.js';
 import './lib/app-lifecycle.js';
 import './styles.css';
 
 function AtlasShell() {
-  const [themePref, setThemePref] = useLocalStorage('vmx-theme', THEME_SYSTEM);
+  const [themePref, setThemePref] = useLocalStorage(THEME_KEY, THEME_SYSTEM);
   const theme = effectiveTheme(themePref, useSystemDark());
   useEffect(() => {
     document.documentElement.dataset.theme = theme === 'dark' ? 'dark' : 'light';
