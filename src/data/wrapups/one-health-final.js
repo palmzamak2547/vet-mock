@@ -52,7 +52,7 @@ export const WRAPUP = {
               "src": "2sG_D3pcAwc [15:17-16:57]; เดค Understanding and addressing AMR from One Health Perspective หน้า 5"
             },
             {
-              "text": "ปี 2017 สุกรใช้ยามากสุด 193 mg/PCU ไก่ 68 โค 42 และการเพิ่มขึ้นทั่วโลกปี 2017-2030 มาจากสุกร 45% ไก่ 33% โค 22%",
+              "text": "ปี 2017 สุกรใช้ยามากสุด รองลงมาคือไก่ และต่ำสุดคือวัวนม เดคหน้า 5 พิมพ์ตัวเลขเรียงตามลำดับนี้ 193, 68 และ 42 mg/PCU และส่วนของการเพิ่มขึ้นทั่วโลกปี 2017-2030 เป็น 45%, 33% และ 22%",
               "src": "2sG_D3pcAwc [16:57-17:53]; เดค Understanding and addressing AMR from One Health Perspective หน้า 5"
             }
           ],
@@ -62,7 +62,7 @@ export const WRAPUP = {
               "src": "ข้อสอบเก่า 210000"
             }
           ],
-          "pitfall": "73% คือสัดส่วนยอดขายยาต้านจุลชีพทั่วโลกที่ใช้ใน food animals ส่วน 45% และ 33% คือส่วนแบ่งของการเพิ่มขึ้นทั่วโลกปี 2017-2030 ที่มาจากสุกรและไก่ ไม่ใช่อัตราเพิ่มของแต่ละชนิด",
+          "pitfall": "73% คือสัดส่วนยอดขายยาต้านจุลชีพทั่วโลกที่ใช้ใน food animals คนละตัวเลขกับ 45% และ 33% ซึ่งในคาบอาจารย์พูดว่าสุกรจะใช้ยาสูงขึ้น 45% และไก่สูงขึ้น 33% ส่วนเดคหน้า 5 พิมพ์ตัวเลขชุดนี้กำกับว่า % of the global increase (2017-2030)",
           "sources": [
             "2sG_D3pcAwc (บันทึกคาบ 30 ก.ย. 2026)",
             "เดค Understanding and addressing AMR from One Health Perspective หน้า 2-5, 34",
@@ -407,7 +407,19 @@ export const WRAPUP = {
               "src": "hLl7taXYRWQ [65:57-67:49]; เดค Import Risk Assessment for Prawn and Prawn Products หน้า 25-28"
             },
             {
-              "text": "PALEE (LR x PLE) ของฟาร์ม Low, hatchery High, wild High รวมกับ overall likely consequence (High, High, Low) ได้ partial annual risk Moderate, High, Low และ overall annual risk ยึดค่าสูงสุดคือ HIGH",
+              "text": "ฟาร์ม: PALEE (LR x PLE) Low กับ overall likely consequence High ได้ partial annual risk Moderate",
+              "src": "hLl7taXYRWQ [67:24-71:35]; เดค Import Risk Assessment for Prawn and Prawn Products หน้า 31, 36-41"
+            },
+            {
+              "text": "Hatchery: PALEE High กับ consequence High ได้ partial annual risk High",
+              "src": "hLl7taXYRWQ [67:24-71:35]; เดค Import Risk Assessment for Prawn and Prawn Products หน้า 31, 36-41"
+            },
+            {
+              "text": "Wild: PALEE High กับ consequence Low ได้ partial annual risk Low",
+              "src": "hLl7taXYRWQ [67:24-71:35]; เดค Import Risk Assessment for Prawn and Prawn Products หน้า 31, 36-41"
+            },
+            {
+              "text": "Overall annual risk ยึดค่าสูงสุดของสามกลุ่มคือ HIGH",
               "src": "hLl7taXYRWQ [67:24-71:35]; เดค Import Risk Assessment for Prawn and Prawn Products หน้า 31, 36-41"
             },
             {
