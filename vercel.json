@@ -330,6 +330,146 @@
       "permanent": false
     },
     {
+      "source": "/figures/questions/eqmed-dent-buccal-ulcer.webp",
+      "destination": "/figures/questions/q207544.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/eqmed-intro-face-star.webp",
+      "destination": "/figures/questions/q207498.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/equine-medicine-209596.webp",
+      "destination": "/figures/questions/equine-medicine-209595.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/equine-medicine-209597.webp",
+      "destination": "/figures/questions/equine-medicine-209595.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/equine-medicine-209598.webp",
+      "destination": "/figures/questions/equine-medicine-209595.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/milk-meat-hygiene-212015.webp",
+      "destination": "/figures/questions/milk-meat-hygiene-212014.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/milk-meat-hygiene-212016.webp",
+      "destination": "/figures/questions/milk-meat-hygiene-212014.webp",
+      "permanent": false
+    },
+    {
+      "source": "/figures/questions/milk-meat-hygiene-212017.webp",
+      "destination": "/figures/questions/milk-meat-hygiene-212014.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/practrum/dystocia/grid-A-L.png",
+      "destination": "/images/practrum/dystocia/grid-A-L.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/repro-us/q10-hydrocephalus.png",
+      "destination": "/images/repro-us/q10.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/repro-us/q4-ceh.png",
+      "destination": "/images/repro-us/q4.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/repro-us/q5-bloodvessel.png",
+      "destination": "/images/repro-us/q5.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/repro-us/q6-fluid.png",
+      "destination": "/images/repro-us/q6.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/repro-us/q7-estrus.png",
+      "destination": "/images/repro-us/q7.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-2569/p3-111-prolapse-tools.jpg",
+      "destination": "/images/vca-2569/p3-111-prolapse-tools.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p06-125-2.png",
+      "destination": "/images/vca-super/dogcat-p06-125-2.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p24-43.png",
+      "destination": "/images/vca-super/dogcat-p24-43.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p25-34.png",
+      "destination": "/images/vca-super/dogcat-p25-34.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p25-41.png",
+      "destination": "/images/vca-super/dogcat-p25-41.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p25-84.png",
+      "destination": "/images/vca-super/dogcat-p25-84.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p26-5.png",
+      "destination": "/images/vca-super/dogcat-p26-5.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p26-9.png",
+      "destination": "/images/vca-super/dogcat-p26-9.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p48-27.png",
+      "destination": "/images/vca-super/dogcat-p48-27.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/dogcat-p49-14.png",
+      "destination": "/images/vca-super/dogcat-p49-14.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/equine-p15-3.png",
+      "destination": "/images/vca-super/equine-p15-3.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/exotic-p03-118.png",
+      "destination": "/images/vca-super/exotic-p03-118.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/exotic-p07-88.png",
+      "destination": "/images/vca-super/exotic-p07-88.webp",
+      "permanent": false
+    },
+    {
+      "source": "/images/vca-super/swine-p13-46.png",
+      "destination": "/images/vca-super/swine-p13-46.webp",
+      "permanent": false
+    },
+    {
       "source": "/:path(.*)",
       "has": [
         {
