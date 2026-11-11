@@ -101,7 +101,8 @@ export function saveSeen(seen, store) {
 // student can use (a change of kind 'feature' or 'content'; a fix never
 // raises it), carries no count, and appears on at most one Home visit a
 // calendar day: CHIP_DAY_KEY holds the local day it last appeared. It ends
-// when the note is closed (the releases become seen). The note itself, from
+// when the note is opened (what it shows is seen from then on, however the
+// student leaves). The note itself, from
 // the link at the foot of Home, still lists everything.
 export const CHIP_DAY_KEY = 'vmx-update-chip-day';
 const NEWS_KINDS = new Set(['feature', 'content']);

@@ -186,3 +186,19 @@ test('Home shows no count on the chip and no version on the foot link', () => {
   assert.ok(!/มีอะไรใหม่ \(|อัปเดตล่าสุด \(/.test(home), 'the foot link names a version again');
   assert.match(home, /const showChangelogChip = chipToday && Boolean\(newestNews\) && !forceChangelogOpen;/);
 });
+
+test('opening the note marks what it shows as seen, so leaving without the ✕ ends the chip too', () => {
+  const home = readFileSync(new URL('../../src/views/HomeView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const reveal = home.slice(home.indexOf('const revealChangelogNote = () => {'), home.indexOf('const openChangelogNote'));
+  assert.match(reveal, /setSeenChangelog\(\(seen\) => markSeen\(seen, shown\.map\(\(r\) => r\.version\)\)\)/, 'opening no longer marks the releases seen');
+  assert.match(reveal, /setOpenedReleases\(shown\)/, 'the note must keep the list it opened with');
+  assert.ok(!/markUnseen/.test(home), 'reopening an old note makes it news again');
+  // What a later visit then decides: nothing unseen, so no chip on any day.
+  const seen = markSeen([], ['5.3.0']);
+  const unseen = unseenReleases([{ version: '5.3.0', changes: [{ kind: 'feature' }] }], seen);
+  assert.equal(chipDue(unseen, '2026-11-11', '2026-11-12'), false, 'a day later');
+  assert.equal(chipDue(unseen, '2026-11-11', '2026-11-18'), false, 'a week later');
+  // A release that ships later raises it once.
+  const later = unseenReleases([{ version: '5.4.0', changes: [{ kind: 'content' }] }, { version: '5.3.0', changes: [{ kind: 'feature' }] }], seen);
+  assert.equal(chipDue(later, '2026-11-11', '2026-11-18'), true);
+});

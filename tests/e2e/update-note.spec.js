@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, PINNED_NOW } from './fixtures.js';
 import { CHANGELOG } from '../../src/data/changelog-all.js';
 import { truncateThai } from '../../src/lib/thai-text.js';
 import { isNews, CHIP_DAY_KEY } from '../../src/lib/changelog-seen.js';
@@ -121,7 +121,8 @@ test('the ✕ closes the announcement and the bottom strip re-opens the release'
   await expect(notice).toBeFocused();
   // One changelog affordance at a time: the note is open, so the chip is gone.
   await expect(page.getByTitle(entry.headline)).toHaveCount(0);
-  await expect(stripLink).toHaveText('มีอะไรใหม่');
+  // Opened is seen (5.214): reopening an old note does not make it news again.
+  await expect(stripLink).toHaveText('อัปเดตล่าสุด');
 });
 
 test('on a phone the bottom strip opens the release note by itself, unread or read', async ({ page }) => {
@@ -172,4 +173,30 @@ test('a release that merged after a higher number is announced, and then reads a
   await expect(page.getByTitle(entry.headline)).toHaveCount(0);
   // Kept as seen, so the next visit stays quiet (tests/unit/changelog-seen.test.mjs walks that visit).
   await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_KEY)).toContain(entry.version);
+});
+
+// Opening the note is reading it (5.214): the chip does not come back for what
+// the note showed, however the student leaves, the next day or a week later.
+test.describe('own clock', () => {
+  test.use({ pinCalendar: false });
+  test('a note opened from the chip and left without the ✕ raises no chip a day or a week later', async ({ page }) => {
+    const start = Date.parse(PINNED_NOW);
+    await page.clock.install({ time: new Date(start) });
+    const { stripLink, entry } = await announce(page);
+    const chip = page.getByTitle(entry.headline);
+    await chip.click();
+    await expect(page.locator('.vmx-changelog-notice')).toBeVisible();
+    // Seen the moment it opened, before any ✕.
+    await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_KEY)).toContain(entry.version);
+    // Leave the way a phone does: no ✕, just away and back.
+    await page.goto('/app/study');
+    for (const days of [1, 7]) {
+      await page.clock.setSystemTime(new Date(start + days * 864e5));
+      await page.goto('/');
+      await expect(stripLink).toBeVisible();
+      await expect(stripLink, `${days} day(s) later`).toHaveText('อัปเดตล่าสุด');
+      await expect(page.getByTitle(entry.headline), `the chip came back ${days} day(s) later`).toHaveCount(0);
+      await expect(page.locator('.vmx-changelog-notice')).toHaveCount(0);
+    }
+  });
 });

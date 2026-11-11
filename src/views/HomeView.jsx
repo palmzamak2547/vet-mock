@@ -13,7 +13,7 @@ import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, 
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, RECENT_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
-import { loadSeen, markSeen, markUnseen, saveSeen, unseenReleases, isNews, chipDue, loadChipDay, saveChipDay, localDay } from '../lib/changelog-seen.js';
+import { loadSeen, markSeen, saveSeen, unseenReleases, isNews, chipDue, loadChipDay, saveChipDay, localDay } from '../lib/changelog-seen.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
 import { SEASONAL_MOCHI } from '../data/art.js';
@@ -287,7 +287,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // What the note lists: the unseen releases, else (reopened from the bottom
   // strip with nothing unread) the newest one.
   const noteReleases = showAnnouncement ? unseenChangelog : (LATEST_CHANGELOG ? [LATEST_CHANGELOG] : []);
-  const noteChangeCount = noteReleases.reduce((n, release) => n + release.changes.length, 0);
+  // Opening the note marks what it shows as seen at that moment (5.214), so
+  // the chip does not come back for those releases however the student
+  // leaves (back gesture, a tap elsewhere, no ✕). The list is kept as it was
+  // opened, so marking it seen does not change the note under the reader.
+  const [openedReleases, setOpenedReleases] = useState(null);
+  const shownReleases = openedReleases || noteReleases;
+  const noteChangeCount = shownReleases.reduce((n, release) => n + release.changes.length, 0);
   // The chip: news only, no count, one Home visit a day (lib/changelog-seen.js).
   // Decided once per visit, so it does not vanish under the reader when the
   // day is recorded.
@@ -732,6 +738,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // scrolls to the note and hands it focus; the bottom strip additionally
   // clears the read mark so a closed note can be opened again.
   const revealChangelogNote = () => {
+    // A second tap while the note is open keeps the list it opened with.
+    const shown = forceChangelogOpen && openedReleases ? openedReleases : noteReleases;
+    setOpenedReleases(shown);
+    setSeenChangelog((seen) => markSeen(seen, shown.map((r) => r.version)));
     setForceChangelogOpen(true);
     requestAnimationFrame(() => {
       const note = changelogNoticeRef.current;
@@ -740,12 +750,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       note.focus({ preventScroll: true });
     });
   };
-  const openChangelogNote = () => {
-    // With nothing unread, the newest release reads as unread again until
-    // the note is closed, as a cleared read mark did before.
-    if (!showAnnouncement && LATEST_CHANGELOG) setSeenChangelog((seen) => markUnseen(seen, LATEST_CHANGELOG.version));
-    revealChangelogNote();
-  };
+  // The foot link opens the unread releases, else the newest one; either way
+  // what it shows is seen from then on.
+  const openChangelogNote = () => revealChangelogNote();
 
   // Whether the vitals rail's chip row has anything to show.
   // ⚠️ This MUST list every child of the rail's chip row. The condition
@@ -1044,7 +1051,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       )}
       {/* bannerWinner can never be 'announcement' (see its ternary) — the
           banner opens only from the chip. */}
-      {forceChangelogOpen && noteReleases.length > 0 && (
+      {forceChangelogOpen && shownReleases.length > 0 && (
         <div
           ref={changelogNoticeRef}
           tabIndex={-1}
@@ -1055,7 +1062,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         >
           {/* One block per unseen release, newest first; the first carries
               the ✕, which marks every listed release seen. */}
-          {noteReleases.map((release, index) => (
+          {shownReleases.map((release, index) => (
             <div
               key={release.version}
               style={index ? { marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' } : undefined}
@@ -1074,8 +1081,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     className="vmx-icon-close vmx-tap"
                     onClick={() => {
-                      setSeenChangelog((seen) => markSeen(seen, noteReleases.map((r) => r.version)));
+                      setSeenChangelog((seen) => markSeen(seen, shownReleases.map((r) => r.version)));
                       setForceChangelogOpen(false);
+                      setOpenedReleases(null);
                     }}
                     aria-label="ปิดประกาศ"
                     title="ปิดประกาศ"
@@ -1948,8 +1956,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           This is also the escape hatch for the banner's own ✕: that button
           marks every listed release seen, which makes showAnnouncement
           false, and this link then sits below the fold-out menu waiting to be
-          tapped. The link opens the note itself (openChangelogNote marks the
-          newest release unread again when nothing else is, opens the banner,
+          tapped. The link opens the note itself (openChangelogNote shows the unread releases, else the
+          newest, marks them seen, opens the banner,
           scrolls to it and hands it focus) with the details open, since
           `expanded` now starts true. Bringing back only the chip is not
           enough: on a phone it sits far above this link, so the tap would
