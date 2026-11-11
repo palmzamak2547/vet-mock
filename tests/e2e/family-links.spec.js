@@ -13,8 +13,9 @@ test('the landing lists every other site, and a link carries the theme on screen
     await page.route(`${m.url}**`, (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>ok</title>' }));
   }
   await page.goto('/?e2e-fresh=1');
+  // No scroll first: the section's heading reveals as it scrolls in, and the click below scrolls
+  // to the link and waits for it to settle.
   const section = page.locator('#family');
-  await section.scrollIntoViewIfNeeded();
   for (const m of OTHERS) {
     const link = section.locator(`a[data-family="${m.id}"]`);
     await expect(link).toHaveAttribute('href', m.url);

@@ -2,6 +2,24 @@
 { kind: 'feature', scope: 'multi', title: 'ไปมาระหว่างเว็บ VetMock ได้จากทุกหน้า', desc: 'VetMock, VetMock VCA, VetMock AI และ VetMock Research มีปุ่มไปหากันที่หัวเว็บและท้ายเว็บ ใช้ชื่อเดียวกันทุกที่ ธีมที่เลือกตามไปด้วย และเข้าสู่ระบบแล้วกลับมาที่หัวข้อเดิม' }
 ```
 
+## Where I stopped (11 Nov, machine shutdown)
+
+(Placed under the changelog block, which stays first for the release tooling.)
+
+- Done and committed: items 1 to 4, 6 and 7, the sign-in design (`docs/FAMILY-SIGNIN.md`); item 5
+  written up as not done, with the reason. Builds of all four apps, `lint:dist` and `perf:budget`
+  passed. Unit tests: VCA 369/369, AI 89/89; root `lint:data` passed; root `test:unit` had 5
+  failures, 3 mine (fixed in 1dc9bc67 and rerun: those files pass), 1 a Python selftest that timed
+  out under load (passes alone); Research had 2 failures: an unused i18n key (fixed in fadb8f10)
+  and the 20,000-column preview timing (61 s against 10 s, while two builds shared the machine).
+- Running when stopped: the family e2e rerun on four engines (job of the spec change in the WIP
+  commit). First run: chromium desktop and mobile 6/6 passed; webkit-mobile failed one case
+  waiting for the section to stop moving (the scroll is removed in the WIP commit); firefox
+  failed all three on `page.goto` timeouts with GPU crash lines under load.
+- Next three steps: (1) rerun `tests/e2e/family-links.spec.js` on all four engines on a quiet
+  machine; (2) rerun the full root `npm run test:unit` and the Research timing test alone; (3)
+  if green, push `claude/family-seams` (not pushed yet) and report.
+
 # Family seams (pending release)
 
 Branch `claude/family-seams`. No version number yet: the main session takes one when it folds this
