@@ -16,14 +16,11 @@
 // ============================================================
 
 import { BADGE_ART } from '../data/art.js';
+// Days are the streak's (Bangkok, lib/study-day.js), so the badge's longest run and the streak agree.
+import { dayKey } from './study-day.js';
 
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
-const dayKey = (value) => {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return null;
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-};
 
 /** Longest run of consecutive calendar days that have at least one answer. */
 export function longestDayStreak(history) {

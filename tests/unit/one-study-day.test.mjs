@@ -55,7 +55,7 @@ test('day arithmetic is calendar arithmetic', () => {
 });
 
 test('no "today" counter keeps a device day of its own', () => {
-  for (const file of ['src/lib/daily-q.js', 'src/lib/daily-q-history.js', 'src/lib/xp.js', 'src/lib/quests.js', 'src/components/DailyGoalCard.jsx']) {
+  for (const file of ['src/lib/daily-q.js', 'src/lib/daily-q-history.js', 'src/lib/xp.js', 'src/lib/quests.js', 'src/components/DailyGoalCard.jsx', 'src/lib/badges.js']) {
     const src = readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8');
     assert.match(src, /from '(\.\.\/lib|\.)\/study-day\.js'/, `${file} reads the day from lib/study-day.js`);
     assert.doesNotMatch(src, /\.getDate\(\)\)?\.padStart|setHours\(0, 0, 0, 0\)/, `${file} computes a device-local day`);
