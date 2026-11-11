@@ -47,20 +47,19 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 import { FEATURES, visibleFeatures, FEATURE_FLAGS, rememberViewIntent } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
-import { alertDialog } from '../lib/dialog.js';
+import { alertDialog, confirmDialog } from '../lib/dialog.js';
 import ErrorBoundary from './ErrorBoundary.jsx';
 // Async sources (library shelf, drug DB) + deterministic intent cards —
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
 import { detectIntents, detectStudyIntent, studyActions } from '../lib/omni-intents.js';
-import { openDocInTab } from '../lib/library.js';
 // What a knowledge-base reply means for the student, and where to go when
 // there is no answer: pure, so every state is unit-tested (omni-ask.test).
 import {
   ASK_COPY, classifyAskResponse, shouldAutoRetry, AUTO_RETRY_DELAY_MS, isEmptyAnswer,
   relatedSections, relatedTopicsFor, librarySuggestion, unmatchedLine,
 } from '../lib/omni-ask.js';
-import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
+import { displayDocTitle, docOpenMode, openDocOrOffer, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { authHeader } from '../lib/api-auth.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
@@ -1316,9 +1315,22 @@ export default function CommandPalette({
         handlersRef.current.onOpenLibraryDoc?.(readerPayload(doc));
         return;
       }
-      // openDocInTab opens the tab inside this click, before the mint.
-      openDocInTab(() => resolveDocUrl(doc)).catch(() => {
-        handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
+      // The tab opens inside this click, before the mint. A failed lookup
+      // used to land on the shelf without a word (with a blocked tab, nothing
+      // at all): now it says so, offers a retry, or the shelf with this
+      // document searched, so the student ends with the file or its card.
+      void openDocOrOffer(() => resolveDocUrl(doc), {
+        title: displayDocTitle(doc?.title || ''),
+        ask: (title) => confirmDialog({
+          title: 'เปิดเอกสารไม่สำเร็จ',
+          body: title ? `ยังเปิด "${title}" ไม่ได้ ลองอีกครั้ง หรือไปเปิดจากชั้นเอกสาร` : 'ยังเปิดเอกสารนี้ไม่ได้ ลองอีกครั้ง หรือไปเปิดจากชั้นเอกสาร',
+          confirmLabel: 'ลองอีกครั้ง',
+          cancelLabel: 'ไปที่ชั้นเอกสาร',
+        }),
+        toShelf: (title) => {
+          try { if (title) sessionStorage.setItem('vmx-library-q', title); } catch { /* the shelf still opens */ }
+          handlersRef.current.goView?.('library');
+        },
       });
       return;
     }

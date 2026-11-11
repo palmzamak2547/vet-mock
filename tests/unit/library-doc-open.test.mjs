@@ -15,12 +15,13 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { Writable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 import handler, { contentHeaders, sliceBody } from '../../api/library-blob.js';
 import { mintBlobToken } from '../../api/_lib/blob-token.js';
 import { readerTarget, readerUrl, viewForAppPath } from '../../src/lib/view-route.js';
-import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab, readerPayload, resolveDocUrl } from '../../src/lib/library.js';
+import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab, openDocOrOffer, readerPayload, resolveDocUrl } from '../../src/lib/library.js';
 import { vcaLibraryDocs } from '../../src/lib/vca-library.js';
 import { VCA_MATERIALS } from '../../src/data/vca-materials.js';
 
@@ -133,6 +134,50 @@ test('a file opens in the tab opened inside the tap, or here when the browser gi
   const failed = page(t);
   await assert.rejects(openDocInTab(async () => { throw new Error('ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป'); }), /ไม่พบไฟล์/);
   assert.deepEqual(failed.calls.at(-1), ['close']);
+});
+
+// A document picked in the search palette: a blocked tab together with a
+// failed lookup sent the student to the shelf without a word. They now end
+// with the document, or a retry, or the shelf with that document searched.
+test('a palette document with a blocked tab and a failed lookup is never a silent redirect', async (t) => {
+  const asked = [];
+  const shelf = [];
+  const fails = () => { throw new Error('ลิงก์หมดอายุ'); };
+
+  // Blocked tab, link found: the file opens here.
+  const blocked = page(t, { tab: false });
+  assert.equal(await openDocOrOffer(async () => '/api/library-blob?t=x', {
+    title: 'สไลด์ FIQC', ask: async (title) => { asked.push(title); return false; }, toShelf: (title) => shelf.push(title),
+  }), 'opened');
+  assert.deepEqual(blocked.calls, [['open', '', '_blank'], ['here', '/api/library-blob?t=x']]);
+  assert.deepEqual(asked, []);
+
+  // Blocked tab, lookup fails, the student declines the retry: the shelf, searched for it.
+  const declined = page(t, { tab: false });
+  assert.equal(await openDocOrOffer(async () => fails(), {
+    title: 'สไลด์ FIQC', ask: async (title) => { asked.push(title); return false; }, toShelf: (title) => shelf.push(title),
+  }), 'shelf');
+  assert.deepEqual(asked, ['สไลด์ FIQC']);
+  assert.deepEqual(shelf, ['สไลด์ FIQC']);
+  assert.ok(!declined.calls.some(([kind]) => kind === 'here'), 'nothing navigated away on its own');
+
+  // Lookup fails once, the retry (inside the dialog's tap) works: the document.
+  page(t, { tab: false });
+  let tries = 0;
+  const retried = await openDocOrOffer(async () => { tries += 1; if (tries === 1) fails(); return '/api/library-blob?t=y'; }, {
+    title: 'สไลด์ FIQC', ask: async () => true, toShelf: (title) => shelf.push(title),
+  });
+  assert.equal(retried, 'opened');
+  assert.equal(tries, 2);
+  assert.equal(shelf.length, 1, 'a retry that worked does not also go to the shelf');
+});
+
+test('the palette opens a tab document through openDocOrOffer, with words for the student', () => {
+  const src = readFileSync(new URL('../../src/components/CommandPalette.jsx', import.meta.url), 'utf8');
+  assert.match(src, /void openDocOrOffer\(\(\) => resolveDocUrl\(doc\), \{/);
+  assert.match(src, /title: 'เปิดเอกสารไม่สำเร็จ'/);
+  assert.match(src, /confirmLabel: 'ลองอีกครั้ง',\s*cancelLabel: 'ไปที่ชั้นเอกสาร'/);
+  assert.doesNotMatch(src, /openDocInTab\(/, 'the palette opens a document only through the fallback');
 });
 
 test('a download names the file on the blob route, and offline says when the device has no copy', async (t) => {

@@ -33,10 +33,10 @@ const { default: CommandPalette } = await loadModule('src/components/CommandPale
   { match: '/hooks/useModalFocus\\.js$', contents: 'export const useModalFocus = () => ({ current: null });' },
   { match: '(^|/)Mochi\\.jsx$', contents: 'export default () => null;' },
   { match: '(^|/)ErrorBoundary\\.jsx$', contents: 'export default ({ children }) => children;' },
-  { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {};' },
+  { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {}; export const confirmDialog = async () => false;' },
   { match: '/lib/omni-intents\\.js$', contents: 'export const detectIntents = () => []; export const detectStudyIntent = () => null; export const studyActions = () => ({ actions: [], missing: null });' },
   { match: '/lib/omni-sources\\.js$', contents: 'export const OMNI_SOURCES = [];' },
-  { match: '/lib/library\\.js$', contents: 'export const openDocInTab = async () => {}; export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => "";' },
+  { match: '/lib/library\\.js$', contents: 'export const openDocInTab = async () => {}; export const displayDocTitle = t => t; export const openDocOrOffer = async () => "opened"; export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => "";' },
 ] });
 
 function setup({ notes = {} } = {}) {

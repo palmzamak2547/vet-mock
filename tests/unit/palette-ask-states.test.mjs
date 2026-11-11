@@ -36,9 +36,9 @@ const { default: CommandPalette } = await loadModule('src/components/CommandPale
   { match: '/hooks/useModalFocus\\.js$', contents: 'export const useModalFocus = () => ({ current: null });' },
   { match: '(^|/)Mochi\\.jsx$', contents: 'export default () => null;' },
   { match: '(^|/)ErrorBoundary\\.jsx$', contents: 'export default ({ children }) => children;' },
-  { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {};' },
+  { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {}; export const confirmDialog = async () => false;' },
   { match: '/lib/omni-sources\\.js$', contents: 'export const OMNI_SOURCES = [];' },
-  { match: '(^|/)library\\.js$', contents: 'export const openDocInTab = async () => {}; export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => ""; export const subjectMeta = () => null;' },
+  { match: '(^|/)library\\.js$', contents: 'export const openDocInTab = async () => {}; export const displayDocTitle = t => t; export const openDocOrOffer = async () => "opened"; export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => ""; export const subjectMeta = () => null;' },
 ] });
 
 const searchInput = (view) => findAll(view.tree, (n) => n.type === 'input' && n.props['aria-label'] === 'ค้นหาใน VetMock')[0];
