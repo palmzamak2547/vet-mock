@@ -21,10 +21,12 @@
 //     back to self-grade gracefully
 // ============================================================
 
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, allowedOrigin, limitCaller } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { extractJSON, chatJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import WRITTEN from './_lib/written-questions.generated.json' with { type: 'json' };
 import { requireChula } from './_lib/chula-gate.js';
+import { countWords, normalizeGrading } from './_lib/grade-shape.js';
 
 const MAX_PASSAGE = 20000;
 const MAX_ANSWER = 5000;
@@ -66,8 +68,7 @@ export default async function handler(req, res) {
   // through a set of written answers in one sitting, re-reads the feedback and
   // asks again after rewriting. The shared daily budget below is what protects
   // the bill; this number only needs to stop one machine hammering it.
-  const ip = clientIP(req);
-  const rl = await rateLimit(`grade:${ip}`, 120, 60 * 60 * 1000);
+  const rl = await limitCaller(req, gate, 'grade', 120, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   if (!llmConfigured(process.env)) {
@@ -78,7 +79,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = req.body || {};
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
     const userAnswer = String(body.userAnswer || '').slice(0, MAX_ANSWER);
     if (!userAnswer.trim()) {
       return res.status(400).json({ error: 'Empty answer — write something first' });
@@ -152,15 +154,19 @@ export default async function handler(req, res) {
     // to the LAST one, so that trailing junk made the whole grade unparseable.
     // extractJSON walks brace depth and returns the first complete object —
     // the same parser the other model routes already rely on.
-    const grading = extractJSON(aiText);
-    if (!grading || typeof grading !== 'object' || Array.isArray(grading)) {
-      console.error('AI did not return a JSON object:', aiText.slice(0, 500));
+    // What the model proposed is checked against the rubric before it is
+    // shown: scores clamped, the total recomputed (api/_lib/grade-shape.js).
+    const words = countWords(userAnswer);
+    const checked = normalizeGrading(extractJSON(aiText), type, { wordCount: words, softMax, hardMax });
+    if (!checked.ok) {
+      console.error('AI grading refused (' + checked.reason + '):', aiText.slice(0, 500));
       return res.status(502).json({
         error: 'AI response not parseable',
         hint: 'ผลตรวจรอบนี้อ่านไม่ออก ลองกดตรวจอีกครั้ง',
       });
     }
 
+    const grading = checked.grading;
     // Tag with metadata for the UI
     grading._meta = {
       model: reply.model,

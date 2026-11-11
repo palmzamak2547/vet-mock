@@ -105,6 +105,37 @@ test('a grade survives the junk a model appends after the JSON object', async ()
   assert.equal(res.headers['cache-control'], 'private, no-store');
 });
 
+test('a grade above its maximum or a total that does not add up never reaches the student', async () => {
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const { default: handler } = await import('../../api/grade-summary.js');
+  const text = '{"scores":{"answer":{"earned":9,"total":50,"justification":"x"},"bonus":{"earned":40,"total":40}},"totalScore":99}';
+  const res = fakeRes();
+  await withFetch(async () => claudeReply(text), () => handler(gradeReq(), res));
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(Object.keys(res.body.scores), ['answer'], 'a category the rubric does not have is dropped');
+  assert.equal(res.body.scores.answer.earned, 2, 'clamped to the rubric maximum');
+  assert.equal(res.body.scores.answer.total, 2, 'the maximum comes from the rubric, not the model');
+  assert.equal(res.body.totalScore, 2, 'recomputed from the parts');
+  for (const bad of ['{"scores":{"answer":{"earned":"lots"}},"totalScore":2}', '{"totalScore":2}', '{"scores":{}}', '[1,2]']) {
+    const r = fakeRes();
+    await withFetch(async () => claudeReply(bad), () => handler(gradeReq(), r));
+    assert.equal(r.statusCode, 502, bad);
+  }
+});
+
+test('the essay rubric: scores clamped, the word penalty counted on the server, the total recomputed', async () => {
+  const { normalizeGrading } = await import('../../api/_lib/grade-shape.js');
+  const raw = { scores: { content: { earned: 7.6 }, grammar: { earned: -3 }, paraphrase: { earned: '2' } }, totalScore: 15, wordCountPenalty: { applied: 0 } };
+  const r = normalizeGrading(raw, 'essay', { wordCount: 190, softMax: 180, hardMax: 200 });
+  assert.equal(r.ok, true);
+  assert.deepEqual([r.grading.scores.content.earned, r.grading.scores.grammar.earned, r.grading.scores.paraphrase.earned], [7, 0, 2]);
+  assert.equal(r.grading.wordCountPenalty.applied, 1);
+  assert.equal(r.grading.totalScore, 8);
+  assert.equal(r.grading.maxScore, 15);
+  assert.equal(normalizeGrading({ scores: { content: { earned: 1 }, grammar: { earned: 1 } } }, 'essay').ok, false, 'a missing category is refused');
+  assert.equal(normalizeGrading({ scores: { content: { earned: 0 }, grammar: { earned: 0 }, paraphrase: { earned: 0 } } }, 'essay', { wordCount: 300 }).grading.totalScore, 0, 'never below zero');
+});
+
 test('a reply with no JSON object is a 502 the client can explain, not a 500', async () => {
   process.env.ANTHROPIC_API_KEY = 'test-key';
   const { default: handler } = await import('../../api/grade-summary.js');
@@ -133,7 +164,7 @@ test('grading works with the configured primary provider and no optional provide
   try {
     const { default: handler } = await import('../../api/grade-summary.js');
     const res = fakeRes();
-    await withFetch(async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"totalScore":2,"scores":{}}' } }] }), {
+    await withFetch(async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"totalScore":2,"scores":{"answer":{"earned":2,"total":2}}}' } }] }), {
       headers: { 'content-type': 'application/json' },
     }), () => handler(gradeReq(), res));
     assert.equal(res.statusCode, 200);
