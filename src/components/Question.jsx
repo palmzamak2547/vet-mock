@@ -428,7 +428,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
           self-optimization rule 1d (hold to facts). */}
-      {currentQ.flag && <FlagChip key={compoundId} flag={currentQ.flag} revealed={keyShown} />}
+      {/* Its key must differ from every sibling's. It shared `compoundId` with
+          the source line below (5.189.2 to 5.213.0): React then lost track of
+          the chip when the question changed and left it on the card, so every
+          question after a flagged one carried a chip that was not its own.
+          tests/unit/jsx-sibling-keys.test.mjs guards the whole class. */}
+      {currentQ.flag && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed={keyShown} />}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -668,7 +673,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           Collapsed by default to keep the card clean; tap to expand once the
           key is on screen. Keyed per question: an open panel on one question
           used to stay open on the next. */}
-      <QSourceChip key={compoundId} q={currentQ} revealed={keyShown} />
+      <QSourceChip key={`source:${compoundId}`} q={currentQ} revealed={keyShown} />
     </div>
   );
 
@@ -842,6 +847,7 @@ export function FlagChip({ flag, revealed = false }) {
         onClick={() => { if (revealed) setOpen((o) => !o); }}
         aria-expanded={revealed ? open : undefined}
         aria-disabled={revealed ? undefined : true}
+        data-flag-chip={sev}
         style={{
           all: 'unset',
           cursor: revealed ? 'pointer' : 'default',
