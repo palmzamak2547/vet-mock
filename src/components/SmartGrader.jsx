@@ -348,7 +348,7 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
             <div style={{ fontSize: 14, marginTop: 4 }}>
               <span style={{ color: 'var(--clr-ink-soft)' }}>ขาด:</span>{' '}
               {coverage.missing.slice(0, 4).map((m, i) => (
-                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 14 }}>{m}</span>
+                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-soft-text)', fontSize: 14 }}>{m}</span>
               ))}
               {coverage.missing.length > 4 && <span style={{ color: 'var(--clr-ink-soft)' }}>+{coverage.missing.length - 4}</span>}
             </div>

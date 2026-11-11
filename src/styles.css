@@ -59,7 +59,7 @@
      as text on cream 3.48. #b05555 clears both — 4.91 and 4.64 — so rose
      needs no separate on-colour in light, the way sage does not. */
   --clr-rose: #b05555;
-  --clr-rose-soft: #f2d0d0;
+  --clr-rose-soft: #dea0a0;
   --clr-gold: #b88940;
   --clr-gold-soft: #e8d4a8;
   --clr-ocean: #3d6b82;
@@ -67,7 +67,7 @@
   --clr-border: #d8c9a8;
   --clr-sage-text: #355a39;
   --clr-gold-text: #76511e;
-  --clr-rose-text: #93454b;
+  --clr-rose-text: #6a2c34;
   /* Labels for the accent fills. Gold is the one that cannot serve both
      roles: white on #b88940 is 3.14 and darkening it far enough to carry
      white turns gold into brown, so gold keeps its brightness and takes
@@ -80,6 +80,8 @@
      which no palette sets either. */
   --clr-right: #4a6b4a; --clr-right-text: #355a39; --clr-right-soft: #b8cfa8; --clr-right-on: #ffffff;
   --clr-part: #b88940; --clr-part-text: #76511e; --clr-part-soft: #e8d4a8;
+  /* Text that sits on --clr-rose-soft (the "ผิด" pill, the wrong answer box, error boxes). */
+  --clr-rose-soft-text: #6a2c34;
   --clr-gold-on: var(--clr-ink);
   --subject-text-mix: 45%;
   --clr-rose-on: #ffffff;
@@ -169,7 +171,7 @@
   --clr-sage: #7ba87b;
   --clr-sage-soft: #4a6b4a;
   --clr-rose: #d89090;
-  --clr-rose-soft: #6e3c3c;
+  --clr-rose-soft: #8b4f4f;
   --clr-gold: #d4a556;
   --clr-gold-soft: #7b5d2a;
   --clr-ocean: #6b94a8;
@@ -184,6 +186,7 @@
   --clr-sage-on: var(--clr-bg);
   --clr-right: #7ba87b; --clr-right-text: #9bc99b; --clr-right-soft: #34532e; --clr-right-on: var(--clr-bg);
   --clr-part: #d4a556; --clr-part-text: #e4ba73; --clr-part-soft: #5d492a;
+  --clr-rose-soft-text: #ffd6d6;
   --clr-gold-on: var(--clr-bg);
   --subject-text-mix: 40%;
   --clr-rose-on: var(--clr-bg);
@@ -2180,7 +2183,7 @@ html.dark .vmx-panic-scrim {
 .vmx-pdf-dropzone { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-8) var(--space-4); border: 2px dashed var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); transition: border-color var(--dur-fast), background var(--dur-fast); }
 .vmx-pdf-dropzone[data-dragging] { border-color: var(--clr-sage); background: var(--clr-sage-soft); }
 .vmx-pdf-library-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); color: var(--clr-ink-soft); font-size: var(--text-sm); }
-.vmx-pdf-open-error { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--r-sm); background: var(--clr-rose-soft); color: var(--clr-rose-text); font-size: var(--text-sm); }
+.vmx-pdf-open-error { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--r-sm); background: var(--clr-rose-soft); color: var(--clr-rose-soft-text); font-size: var(--text-sm); }
 /* A shelf deck on its way into the reader: its title, the progress and, on a
    failure, every way to the file, at the top where a phone shows them. */
 .vmx-doc-opening { width: 100%; max-width: 720px; margin: 0 auto; padding: var(--space-2) var(--space-4) var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); }
@@ -3375,7 +3378,7 @@ html.dark .vmx-panic-scrim {
   border-color: color-mix(in srgb, var(--clr-right) 30%, transparent);
 }
 .vmx-review-result.no {
-  color: var(--clr-rose-text);
+  color: var(--clr-rose-soft-text);
   background: var(--clr-rose-soft);
   border-color: color-mix(in srgb, var(--clr-rose) 30%, transparent);
 }
@@ -3431,7 +3434,7 @@ html.dark .vmx-panic-scrim {
   border: 1px solid color-mix(in srgb, var(--clr-rose) 35%, transparent);
 }
 .vmx-review-ans.wrong-ans .k {
-  color: var(--clr-rose-text);
+  color: var(--clr-rose-soft-text);
 }
 .vmx-review-explain {
   margin-top: 12px;
@@ -6991,7 +6994,7 @@ body.vmx-reading .vmx-pdf-body {
   border: 1px solid var(--clr-rose);
   border-radius: 10px;
   background: var(--clr-rose-soft);
-  color: var(--clr-rose-text);
+  color: var(--clr-rose-soft-text);
   padding: 10px 12px;
   font-size: 14px;
 }

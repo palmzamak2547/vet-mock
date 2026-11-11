@@ -619,7 +619,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                 />
               )}
               {voteError && (
-                <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-rose-text)', padding: '6px 10px', background: 'var(--clr-rose-soft)', borderRadius: 6 }}>
+                <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-rose-soft-text)', padding: '6px 10px', background: 'var(--clr-rose-soft)', borderRadius: 6 }}>
                   ⚠️ {voteError}
                 </div>
               )}
