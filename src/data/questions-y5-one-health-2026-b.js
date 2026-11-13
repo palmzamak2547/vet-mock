@@ -1384,7 +1384,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "import-risk-analysis"
     ],
     "subject": "one-health",
-    "topic": "oh-risk-analysis",
+    "topic": "oh-import-risk",
     "year": 5,
     "type": "mcq",
     "q": "เชื้อที่ออสเตรเลียระบุเป็น hazard หลักในการประเมินความเสี่ยงการนำเข้ากุ้ง คือเชื้อใด",
@@ -1408,7 +1408,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "import-risk-analysis"
     ],
     "subject": "one-health",
-    "topic": "oh-risk-analysis",
+    "topic": "oh-import-risk",
     "year": 5,
     "type": "mcq",
     "q": "ค่า PALEE ในการประเมินความเสี่ยงการนำเข้ากุ้ง คำนวณมาจากอะไร",
@@ -1432,7 +1432,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "exposure-assessment"
     ],
     "subject": "one-health",
-    "topic": "oh-risk-analysis",
+    "topic": "oh-import-risk",
     "year": 5,
     "type": "mcq",
     "q": "กลุ่มที่ออสเตรเลียประเมินว่ามีโอกาสสัมผัสเชื้อ WSSV ต่ำที่สุด คือกลุ่มใด",
@@ -1443,7 +1443,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "ฟาร์มเลี้ยงกุ้งทั่วไป (farm)"
     ],
     "answer": 3,
-    "explain": "ค่า partial likelihood of exposure ของฟาร์มกุ้งทั่วไปเท่ากับ low ส่วนโรงเพาะฟักและกุ้งธรรมชาติเท่ากับ high โดยโรงเพาะฟักเป็นกลุ่มที่สัมผัสเชื้อสูงที่สุด และกุ้งธรรมชาติเสี่ยงเพราะกุ้งดิบอาจถูกทิ้งลงทะเลหรือใช้เป็นเหยื่อ โรงงานแปรรูปไม่ได้ถูกจัดเป็นหนึ่งในสามกลุ่มที่ประเมิน",
+    "explain": "ค่า partial likelihood of exposure ของฟาร์มกุ้งทั่วไปเท่ากับ low ส่วนโรงเพาะฟักและกุ้งธรรมชาติเท่ากับ high ทั้งคู่ โรงเพาะฟักเสี่ยงเพราะอาจนำกุ้งดิบมาเป็นอาหารปรับสภาพพ่อแม่พันธุ์ และกุ้งธรรมชาติเสี่ยงเพราะกุ้งดิบอาจถูกทิ้งลงทะเลหรือใช้เป็นเหยื่อ โรงงานแปรรูปไม่ได้ถูกจัดเป็นหนึ่งในสามกลุ่มที่ประเมิน",
     "verified": "OneHealth final น.15",
     "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 15 }],
     "sourceType": "lecture-derived",
@@ -1456,7 +1456,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "risk-management"
     ],
     "subject": "one-health",
-    "topic": "oh-risk-analysis",
+    "topic": "oh-import-risk",
     "year": 5,
     "type": "mcq",
     "q": "ระดับ ALOP ของออสเตรเลียในกรณีการนำเข้ากุ้ง และผลที่ตามมา คือข้อใด",
@@ -1480,7 +1480,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "white-spot-syndrome-virus"
     ],
     "subject": "one-health",
-    "topic": "oh-risk-analysis",
+    "topic": "oh-import-risk",
     "year": 5,
     "type": "mcq",
     "q": "มาตรการหนึ่งที่ออสเตรเลียกำหนดคือการทำให้กุ้งสุกที่อุณหภูมิเท่าใดเพื่อทำลายเชื้อ",
