@@ -18,7 +18,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  describe, insertSql, inspect, localSetup, permissionEvidence, reconcile, run, shelve, textDoubt, urlKey,
+  describe, insertSql, inspect, localSetup, permissionEvidence, reconcile, run, sameTextSql, shelve, textDoubt, urlKey,
 } from '../../scripts/mcv-sync.mjs';
 import { rosterReason, rosterTitleMatch } from '../../scripts/lib/library-pii.mjs';
 
@@ -77,6 +77,29 @@ test('a file the library holds is not listed, whatever its status and whichever 
   assert.equal(reconcile(dump, []).items.length, 4);
 });
 
+test('a course that lists nothing while the library holds its files is reported, never read as "nothing new"', () => {
+  // Two 2026/1 courses kept their files outside folders, and the listing came back empty for them for months.
+  const course = (cv_cid, course_no) => ({ cv_cid, course_no, title: 'A course [Section 1]', year: '2026', semester: '1' });
+  const files = 'https://mycourseville-default.s3.ap-southeast-1.amazonaws.com/useruploaded_course_files/2026_1/';
+  const dump = {
+    term: '2026/1',
+    courses: [COURSE, course('2', '3107520'), course('3', '3107507'), course('4', '3109504')],
+    materials: { 1: { folders: { _other: [{ name: 'Deck', url: `${S3}deck-838816-17561234567890.pdf` }] } }, 2: { folders: {} }, 3: { folders: {} } },
+    errors: [{ cv_cid: '4', course_no: '3109504', error: 'request failed (Timeout)' }],
+  };
+  const catalog = [
+    libraryRow({ source_url: `${files}2/materials/fish_1-838816-17561234567890.pdf` }),
+    libraryRow({ source_url: `${files}2/materials/fish_2-838816-17561234567891.pdf`, status: 'archived' }),
+    libraryRow({ source_url: `${files}4/materials/prion-838816-17561234567892.pdf` }), // its course failed to list: said once, by the bridge
+    libraryRow({ source_url: `${files}22/materials/another_course-838816-17561234567893.pdf` }),
+  ];
+  assert.deepEqual(reconcile(dump, catalog).silent, [
+    { cv_cid: '2', course_no: '3107520', error: 'it lists no files, yet the library holds 2 from it: the listing may be broken' },
+  ]);
+  // A course with nothing listed and nothing shelved is an empty course.
+  assert.deepEqual(reconcile(dump, []).silent, []);
+});
+
 test('the listing alone holds a score sheet, a roster, an external link and a file that is not a PDF', () => {
   const dump = dumpOf({
     _other: [
@@ -124,10 +147,11 @@ test('a title reads as a list of students, groups, seats or attendance; a lesson
 
 const PDF = { deck: Buffer.from('%PDF deck'), twin: Buffer.from('%PDF deck'), held: Buffer.from('%PDF archived once'), roster: Buffer.from('%PDF roster'), scan: Buffer.from('%PDF scan'), fresh: Buffer.from('%PDF fresh') };
 
-function fakes({ bytes = {}, verdicts = {}, checkError } = {}) {
-  const calls = { fetched: [], checked: [], saved: [] };
+function fakes({ bytes = {}, verdicts = {}, checkError, sameText = [] } = {}) {
+  const calls = { fetched: [], checked: [], saved: [], sql: [] };
   return {
     calls,
+    sql: async (query, opts = {}) => { calls.sql.push({ query, readOnly: opts.readOnly === true }); return sameText; },
     fetchFile: async (url) => {
       calls.fetched.push(url);
       const hit = Object.entries(bytes).find(([needle]) => url.includes(needle));
@@ -192,6 +216,47 @@ test('bytes decide the rest: a duplicate of any row, a twin in the same run, a t
   assert.equal(io.calls.checked.length, 4, 'deck, roster, scan and fresh: not the duplicates');
 });
 
+test('a deck saved again is a duplicate of the stored copy, whatever its bytes', async () => {
+  // On 1 Nov 2026 a 110-page deck came back from MyCourseVille 4 MB lighter: other bytes, a new URL, the same words
+  // on every page. library-pages.py's fingerprint of the text is what the stored pages hash to.
+  const names = ['Marine mammals', 'Biosecurity', 'Biosecurity (v2 upload)', 'Photo plates', 'New deck'];
+  const dump = dumpOf({ _other: names.map((name, i) => ({ name, url: `${S3}t${i}-838816-1756123456780${i}.pdf` })) });
+  const { items } = reconcile(dump, []);
+  const md5 = (c) => c.repeat(32);
+  const io = fakes({
+    bytes: { 't0-': Buffer.from('%PDF resaved'), 't1-': Buffer.from('%PDF bio one'), 't2-': Buffer.from('%PDF bio two'), 't3-': Buffer.from('%PDF plates'), 't4-': Buffer.from('%PDF new') },
+    verdicts: {
+      resaved: { status: 'ok', page_count: 110, text_chars: 48_000, text_md5: md5('a') },
+      'bio one': { status: 'ok', page_count: 31, text_chars: 9_000, text_md5: md5('b') },
+      'bio two': { status: 'ok', page_count: 31, text_chars: 9_000, text_md5: md5('b') },
+      plates: { status: 'ok', page_count: 110, text_chars: 60, text_md5: md5('a') }, // too little text to call it the same deck
+      new: { status: 'partial', page_count: 87, text_chars: 30_000, text_md5: md5('c') },
+    },
+    sameText: [{ slug: 'marine-mammals-52bd37', title: 'Marine mammals (2026)', status: 'public', text_status: 'ok', md5: md5('a') }],
+  });
+  await inspect(items, [], io);
+  const by = (name) => items.find((item) => item.name === name);
+
+  assert.equal(by('Marine mammals').fate, 'duplicate');
+  assert.deepEqual(by('Marine mammals').duplicateOf, { slug: 'marine-mammals-52bd37', title: 'Marine mammals (2026)', status: 'public' });
+  assert.match(by('Marine mammals').reason, /^the same text across the same 110 pages as "Marine mammals \(2026\)" \(marine-mammals-52bd37, public\)$/);
+  assert.equal(by('Biosecurity').fate, 'shelve');
+  assert.equal(by('Biosecurity (v2 upload)').fate, 'duplicate');
+  assert.match(by('Biosecurity (v2 upload)').reason, /the same text across the same 31 pages as "Biosecurity", listed in this run/);
+  assert.equal(by('Photo plates').fate, 'shelve');
+  assert.equal(by('New deck').fate, 'shelve');
+
+  // One read-only question for the whole run, about documents of those page counts only.
+  assert.equal(io.calls.sql.length, 1);
+  assert.equal(io.calls.sql[0].readOnly, true);
+  assert.equal(io.calls.sql[0].query, sameTextSql([{ md5: md5('b'), pages: 31 }, { md5: md5('a'), pages: 110 }, { md5: md5('c'), pages: 87 }]));
+  assert.match(io.calls.sql[0].query, /where k\.page_count in \(31, 110, 87\)/);
+  assert.match(io.calls.sql[0].query, new RegExp(`where t\\.md5 in \\('${md5('b')}', '${md5('a')}', '${md5('c')}'\\)$`));
+  assert.match(io.calls.sql[0].query, /md5\(string_agg\(p\.body, ' ' order by p\.page\)\)/);
+  // Nothing but page counts and fingerprints is ever written into that statement.
+  assert.doesNotMatch(sameTextSql([{ md5: "x'; drop table library_docs; --", pages: '1; select 1' }, { md5: md5('a'), pages: 2 }]), /drop|select 1/);
+});
+
 test('every status library-pages.py can give is a pass or a stated doubt', () => {
   assert.equal(textDoubt({ status: 'ok' }), null);
   assert.equal(textDoubt({ status: 'partial', notes: { garbled_pages: 3 } }), null);
@@ -212,7 +277,7 @@ const READY = dumpOf({
 });
 
 function runDeps({ catalog = [], refuseWrites = false, putStatus = 200, keepRow = true, readBack } = {}) {
-  const io = fakes({ bytes: { Esophageal: PDF.deck }, verdicts: { deck: { status: 'ok', page_count: 12, notes: {} } } });
+  const io = fakes({ bytes: { Esophageal: PDF.deck }, verdicts: { deck: { status: 'ok', page_count: 12, text_chars: 4_000, text_md5: 'd'.repeat(32), notes: {} } } });
   const log = { sql: [], put: [], readBack: [] };
   const never = (what) => () => { throw new Error(`${what} must not happen in a run that changes nothing`); };
   let inserted = [];
@@ -223,6 +288,7 @@ function runDeps({ catalog = [], refuseWrites = false, putStatus = 200, keepRow 
     sql: async (query, opts = {}) => {
       log.sql.push({ query, readOnly: opts.readOnly === true });
       if (/^select slug, title, status/.test(query)) return catalog;
+      if (query.startsWith('select d.slug, d.title, d.status, d.text_status, t.md5')) return [];
       if (refuseWrites) throw new Error('a write was sent');
       if (query.startsWith('insert into library_docs')) {
         const [, , json] = query.match(/jsonb_to_recordset\((\$r[0-9a-f]{12}\$)([\s\S]*)\1::jsonb\)/);
@@ -238,12 +304,13 @@ function runDeps({ catalog = [], refuseWrites = false, putStatus = 200, keepRow 
   };
 }
 
-test('the default run changes nothing: one read-only catalog query, no upload, no insert', async () => {
+test('the default run changes nothing: two read-only questions to the catalog, no upload, no insert', async () => {
   const deps = runDeps({ refuseWrites: true });
   const result = await run({ dump: READY, day: '2026-11-13' }, deps);
   assert.equal(result.mode, 'check');
-  assert.deepEqual(deps.log.sql.map((call) => call.readOnly), [true], 'the one statement sent is marked read-only for the database to enforce');
+  assert.deepEqual(deps.log.sql.map((call) => call.readOnly), [true, true], 'every statement sent is marked read-only for the database to enforce');
   assert.match(deps.log.sql[0].query, /^select .+ from library_docs$/, 'every row, every status');
+  assert.ok(deps.log.sql.every((call) => call.query.startsWith('select ')));
   assert.equal(fate(result.items, 'รายชื่อนิสิต'), 'held');
   assert.equal(fate(result.items, 'ตรี &amp; Esophageal'), 'shelve');
   assert.equal(result.term, '2026/1');
@@ -343,6 +410,7 @@ test('a run is told in the order a reader acts on it, each held file with its re
   const lines = describe(result);
   assert.equal(lines[0], 'MyCourseVille 2026/1: 1 course, 2 files listed, 0 already in the library, 2 not.');
   assert.match(lines[1], /NOT LISTED: course 3107507: request failed \(Timeout\)/);
+  assert.deepEqual(result.errors, [{ cv_cid: '9', course_no: '3107507', error: 'request failed (Timeout)' }], 'what the bridge could not list, then any course gone silent');
   const text = lines.join('\n');
   assert.ok(text.indexOf('Would be shelved (1)') < text.indexOf('Held for a person (1)'));
   assert.match(text, /3109501 \S+ {2}Lecture Slides \/ ตรี & Esophageal {2}\[12 pages, 1 KB\]/);
@@ -398,14 +466,17 @@ const PY = pythonWithPyMuPdf();
 const MAKE_PDFS = `
 import fitz, sys
 out = sys.argv[1]
-def pdf(name, pages):
+def pdf(name, pages, **save):
     doc = fitz.open()
+    doc.set_metadata({'title': name})
     for text in pages:
         page = doc.new_page()
         if text:
             page.insert_textbox(fitz.Rect(40, 40, 560, 800), text, fontsize=9)
-    doc.save(out + '/' + name + '.pdf')
-pdf('deck', ['Canine distemper: aetiology, clinical signs and control in a kennel. ' * 3, 'Vaccination schedule and maternal antibody interference in puppies.'])
+    doc.save(out + '/' + name + '.pdf', **save)
+DECK = ['Canine distemper: aetiology, clinical signs and control in a kennel. ' * 3, 'Vaccination schedule and maternal antibody interference in puppies.']
+pdf('deck', DECK)
+pdf('resaved', DECK, deflate=True, garbage=4)
 pdf('roster', ['Laboratory groups for week 3, rooms and tables for each group.', ' '.join('%d 653 %d 31' % (i, 99900 + i) for i in range(1, 9))])
 pdf('scan', ['', ''])
 open(out + '/notpdf.pdf', 'w').write('<html><body>Sign in with your university account to continue to this file.</body></html>')
@@ -416,13 +487,20 @@ test('library-pages.py check reads a PDF on disk and says ok, held, no text or u
   try {
     const made = spawnSync(PY, ['-I', '-c', MAKE_PDFS, tmp], { encoding: 'utf8' });
     assert.equal(made.status, 0, made.stderr);
-    const files = ['deck', 'roster', 'scan', 'notpdf'].map((name) => path.join(tmp, `${name}.pdf`));
+    const files = ['deck', 'roster', 'scan', 'notpdf', 'resaved'].map((name) => path.join(tmp, `${name}.pdf`));
     const run = spawnSync(PY, ['-I', 'scripts/library-pages.py', 'check', ...files], { cwd: ROOT, encoding: 'utf8' });
     assert.equal(run.status, 0, run.stderr);
-    const [deck, roster, scan, notpdf] = run.stdout.trim().split(/\r?\n/).map((line) => JSON.parse(line));
+    const [deck, roster, scan, notpdf, resaved] = run.stdout.trim().split(/\r?\n/).map((line) => JSON.parse(line));
     assert.deepEqual([deck.file, deck.status, deck.page_count, deck.pages_read], [files[0], 'ok', 2, 2]);
+    // The same deck saved again: other bytes, the same fingerprint of its text.
+    assert.notEqual(sha16(fs.readFileSync(files[0])), sha16(fs.readFileSync(files[4])));
+    assert.match(deck.text_md5, /^[0-9a-f]{32}$/);
+    assert.equal(resaved.text_md5, deck.text_md5);
+    assert.equal(resaved.text_chars, deck.text_chars);
+    assert.ok(deck.text_chars > 200);
     assert.equal(roster.status, 'pii_held');
     assert.deepEqual(roster.notes, { id_matches: 8, roster_pages: [2] }, 'counts and page numbers only: no text from around an ID');
+    assert.equal(roster.text_md5, null, 'and no fingerprint of a text that is not kept');
     assert.equal(scan.status, 'no_text');
     assert.equal(notpdf.status, 'unreadable', 'a saved sign-in page is not a document, however much text it has');
     // The command's own reading of those four verdicts.

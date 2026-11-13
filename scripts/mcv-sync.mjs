@@ -22,7 +22,8 @@
 //   mcv-manifest.mjs                listing -> items; score announcements left out
 //   library_docs, read in full      the base of the diff: a file is known by its
 //                                   upload URL, then by its bytes (sha256_16)
-//   library-pages.py check          a PDF's text, read before it is shelved
+//   library-pages.py check          a PDF's text, read before it is shelved, and
+//                                   its fingerprint against library_doc_pages
 //   ingest-library.mjs              the R2 object, the catalog row, the rights gate
 //   library-pages.py extract, load  page text, once rows are in
 //   library-links.mjs propose, apply  topic links
@@ -43,7 +44,9 @@
 //      national ID and no page that lists students ('ok' or 'partial'). A scan,
 //      an unreadable font, a spreadsheet, a deck or a video is held: nothing
 //      here can read it, and what cannot be read cannot be vouched for.
-//   5. With --shelve: the upload reads back from R2 with the hash it went up with.
+//   5. No stored document has the same number of pages and the same text: that
+//      is the same deck saved again, a duplicate whatever its bytes.
+//   6. With --shelve: the upload reads back from R2 with the hash it went up with.
 //
 // WHAT THE GATES CANNOT SEE: a name printed without an ID inside an otherwise
 // ordinary deck (a student's case presentation), and a page that is only a
@@ -119,7 +122,24 @@ export function reconcile(dump, catalog) {
     items.push(item);
   }
   items.sort((a, b) => `${a.courseNo}\n${a.folder}\n${a.name}`.localeCompare(`${b.courseNo}\n${b.folder}\n${b.name}`, 'en'));
-  return { items, listed: listed.length + scoreSheets.length, inLibrary: listed.length + scoreSheets.length - items.length };
+  return { items, listed: listed.length + scoreSheets.length, inLibrary: listed.length + scoreSheets.length - items.length, silent: silentCourses(dump, catalog) };
+}
+
+/** Courses that list no file at all while the library holds files from them.
+ *  An empty listing reads as "nothing new", and two courses that kept their files
+ *  outside folders listed nothing for months before anyone saw it (the bridge's
+ *  parser, fixed 13 Nov 2026). The library's own rows say when to doubt it. */
+function silentCourses(dump, catalog) {
+  const failed = new Set((dump.errors || []).map((error) => String(error.cv_cid)));
+  const out = [];
+  for (const course of dump.courses || []) {
+    const cid = String(course.cv_cid);
+    if (failed.has(cid) || Object.values(dump.materials?.[cid]?.folders || {}).flat().length) continue;
+    const from = `/${course.year}_${course.semester}/${cid}/materials/`;
+    const held = catalog.filter((row) => String(row.source_url || '').includes(from)).length;
+    if (held) out.push({ cv_cid: cid, course_no: course.course_no, error: `it lists no files, yet the library holds ${held} from it: the listing may be broken` });
+  }
+  return out;
 }
 
 function hold(item, reason) {
@@ -149,10 +169,38 @@ export function textDoubt(check) {
   }
 }
 
+function duplicate(item, same, row, twin) {
+  item.fate = 'duplicate';
+  item.duplicateOf = row ? { slug: row.slug, title: row.title, status: row.status } : { listedAs: twin.title };
+  item.reason = row
+    ? `${same} as "${row.title}" (${row.slug}, ${row.status}${row.text_status === 'pii_held' ? ', held' : ''})`
+    : `${same} as "${twin.title}", listed in this run`;
+}
+
+// Below this much text two different decks of pictures could share their few words.
+const SAME_TEXT_MIN_CHARS = 500;
+
+/** Which stored documents have these page counts and exactly this text. A deck
+ *  saved again has other bytes and the same words: on 1 Nov 2026 a 110-page deck
+ *  came back 4 MB lighter, and its text matched the stored copy on every page.
+ *  `text_md5` is library-pages.py's fingerprint, computed here the way it is there. */
+export function sameTextSql(candidates) {
+  const pages = [...new Set(candidates.map((c) => Number(c.pages)))].filter(Number.isInteger);
+  const md5s = [...new Set(candidates.map((c) => c.md5))].filter((m) => /^[0-9a-f]{32}$/.test(m));
+  return `select d.slug, d.title, d.status, d.text_status, t.md5
+from (select p.doc_id, md5(string_agg(p.body, ' ' order by p.page)) as md5
+      from library_doc_pages p join library_docs k on k.id = p.doc_id
+      where k.page_count in (${pages.join(', ')})
+      group by p.doc_id) t
+join library_docs d on d.id = t.doc_id
+where t.md5 in (${md5s.map((m) => `'${m}'`).join(', ')})`;
+}
+
 /** Second pass: fetch what is still undecided, then duplicate, held or shelve.
  *  `fetchFile(url)` -> { ok, status, bytes }; `saveFile(bytes)` -> a path;
- *  `checkPdfs(paths)` -> Map(path -> library-pages.py's verdict). */
-export async function inspect(items, catalog, { fetchFile, saveFile, checkPdfs }) {
+ *  `checkPdfs(paths)` -> Map(path -> library-pages.py's verdict);
+ *  `sql(query, { readOnly })` -> rows. */
+export async function inspect(items, catalog, { fetchFile, saveFile, checkPdfs, sql }) {
   const bySha = new Map(catalog.map((row) => [row.sha256_16, row]));
   const firstInRun = new Map();
   const toCheck = [];
@@ -165,25 +213,34 @@ export async function inspect(items, catalog, { fetchFile, saveFile, checkPdfs }
     item.sha256_16 = sha16(got.bytes);
     const row = bySha.get(item.sha256_16);
     const twin = firstInRun.get(item.sha256_16);
-    if (row || twin) {
-      item.fate = 'duplicate';
-      item.duplicateOf = row ? { slug: row.slug, title: row.title, status: row.status } : { listedAs: twin.title };
-      item.reason = row
-        ? `the same bytes as "${row.title}" (${row.slug}, ${row.status}${row.text_status === 'pii_held' ? ', held' : ''})`
-        : `the same bytes as "${twin.title}", listed in this run`;
-      continue;
-    }
+    if (row || twin) { duplicate(item, 'the same bytes', row, twin); continue; }
     firstInRun.set(item.sha256_16, item);
     item.file = saveFile(got.bytes);
     toCheck.push(item);
   }
+
   const verdicts = toCheck.length ? await checkPdfs(toCheck.map((item) => item.file)) : new Map();
+  const readable = [];
   for (const item of toCheck) {
     const check = verdicts.get(item.file) || { error: verdicts.error };
     item.pages = check.page_count ?? null;
     const doubt = textDoubt(check);
-    if (doubt) hold(item, doubt);
-    else item.fate = 'shelve';
+    if (doubt) { hold(item, doubt); continue; }
+    item.fate = 'shelve';
+    if (/^[0-9a-f]{32}$/.test(check.text_md5 || '') && Number.isInteger(check.page_count) && check.text_chars >= SAME_TEXT_MIN_CHARS) {
+      readable.push({ item, md5: check.text_md5, pages: check.page_count });
+    }
+  }
+
+  if (readable.length) {
+    const stored = new Map((await sql(sameTextSql(readable), { readOnly: true })).map((row) => [row.md5, row]));
+    const firstByText = new Map();
+    for (const { item, md5 } of readable) {
+      const row = stored.get(md5);
+      const twin = firstByText.get(md5);
+      if (row || twin) duplicate(item, `the same text across the same ${item.pages} pages`, row, twin);
+      else firstByText.set(md5, item);
+    }
   }
   return items;
 }
@@ -387,19 +444,20 @@ export function describe(result) {
 const termsOf = (dump) => [...new Set((dump.courses || []).map((c) => `${c.year}/${c.semester}`))].join(', ') || 'no term';
 
 /** One pass over one listing. Without `shelve`, reading is all that leaves this
- *  process: the catalog query is sent read-only, so the database itself would
- *  refuse a write, and nothing is put or inserted.
+ *  process: what it asks the catalog is sent read-only, so the database itself
+ *  would refuse a write, and nothing is put or inserted.
  *  deps: sql(query, { readOnly }), fetchFile, saveFile, checkPdfs, and for
  *  shelving bucket, readFile, put, readBack. */
 export async function run({ dump, shelve: doShelve = false, day }, deps) {
   // The whole catalog, every status: a restricted, archived or held row is still a file the library has.
   const catalog = await deps.sql('select slug, title, status, text_status, sha256_16, source_url from library_docs', { readOnly: true });
+  const { silent, ...found } = reconcile(dump, catalog);
   const result = {
     mode: doShelve ? 'shelve' : 'check',
     term: dump.term || termsOf(dump),
     courses: (dump.courses || []).length,
-    errors: dump.errors || [],
-    ...reconcile(dump, catalog),
+    errors: [...(dump.errors || []), ...silent],
+    ...found,
   };
   await inspect(result.items, catalog, deps);
   if (doShelve) await shelve(result.items, { ...deps, day });

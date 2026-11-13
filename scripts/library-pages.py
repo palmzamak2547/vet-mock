@@ -18,6 +18,9 @@ project is on Supabase's free plan, 500 MB).
 check: the status extract would give each PDF on this disk, one JSON line per
 file, before it is anywhere near the shelf. No network, no database, nothing
 written. scripts/mcv-sync.mjs shelves a file only when this says ok or partial.
+text_md5 is the md5 of the kept pages joined by a space, in page order: what
+md5(string_agg(body, ' ' order by page)) gives for a stored document, so the
+same deck saved again (other bytes, same words) can be recognised.
 
 Env: SUPABASE_ACCESS_TOKEN (Management API PAT), plus the R2 vars above.
 
@@ -38,6 +41,7 @@ What is stored, and what is not:
   attendance sheet, a score sheet, a group report listing its members.
 """
 import concurrent.futures as cf
+import hashlib
 import json
 import os
 import re
@@ -248,8 +252,10 @@ def check():
                 if not doc.is_pdf or not doc.page_count:  # MuPDF opens a saved error page as a one-page text document
                     raise ValueError('not a PDF')
                 status, kept, notes = read_pdf(doc)
+                text = ' '.join(kept[k] for k in sorted(kept))
                 # Not notes['context']: it quotes the page around an ID, and this output is logged and kept.
                 rec = {'file': path, 'status': status, 'page_count': doc.page_count, 'pages_read': len(kept),
+                       'text_chars': len(text), 'text_md5': hashlib.md5(text.encode()).hexdigest() if text else None,
                        'notes': {k: v for k, v in notes.items() if k != 'context'}}
         except Exception as e:  # not a PDF, encrypted, damaged: nothing here can vouch for it
             rec = {'file': path, 'status': 'unreadable', 'page_count': None, 'pages_read': 0, 'notes': {'error': str(e)[:200]}}
