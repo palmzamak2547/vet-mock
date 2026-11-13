@@ -30,6 +30,16 @@ test('without a Management API token the read says why instead of trying the ano
   await assert.rejects(librarySql('select 1', { env: {}, fetchImpl: async () => { throw new Error('no network expected'); } }), /behind the Chula wall: set SUPABASE_ACCESS_TOKEN/);
 });
 
+test('a caller that promises to change nothing has the database refuse a write', async () => {
+  // scripts/mcv-sync.mjs reads the catalog this way: the Management API then
+  // runs the statement as its read-only role, whatever the statement says.
+  const { calls, fetchImpl } = fake([[], []]);
+  await librarySql('select 1', { env, fetchImpl, readOnly: true });
+  await librarySql('select 1', { env, fetchImpl });
+  assert.deepEqual(JSON.parse(calls[0].init.body), { query: 'select 1', read_only: true });
+  assert.deepEqual(JSON.parse(calls[1].init.body), { query: 'select 1' });
+});
+
 test('the catalog and first pages are served documents only', async () => {
   const { calls, fetchImpl } = fake([[{ id: 'a' }], [{ doc_id: 'a', body: 'x' }]]);
   assert.deepEqual(await libraryCatalog({ env, fetchImpl }), [{ id: 'a' }]);
