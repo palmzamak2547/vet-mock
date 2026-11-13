@@ -411,5 +411,239 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
     "predictionTier": "medium",
     "predictionSignals": ["current-lecture"],
     "tags": ["quadripartite", "framework-roles", "global-governance"]
-  }
+  },
+  {
+    "id": 215000,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "q": "กุ้งแช่แข็งดิบทั้งตัวที่ออสเตรเลียนำเข้าเพื่อให้คนบริโภค ถูกนักตกปลานำไปใช้เป็นเหยื่อหรือ berley (เหยื่อล่อที่โปรยลงน้ำ) ทำให้ WSSV ที่ติดมากับกุ้งมีโอกาสไปพบ wild crustaceans ที่ไวต่อเชื้อในแหล่งน้ำธรรมชาติ การประเมินโอกาสของเส้นทางนี้อยู่ในขั้นใดของ import risk analysis",
+    "options": [
+      "Hazard identification",
+      "Entry assessment",
+      "Exposure assessment",
+      "Consequence assessment",
+      "Risk estimation"
+    ],
+    "answer": 2,
+    "explain": "Exposure assessment ประเมินโอกาสที่ exposure group ในประเทศผู้นำเข้าจะได้พบเชื้อที่ยังก่อโรคได้ โดยไล่เส้นทางของสินค้าตั้งแต่ด่านนำเข้าไปจนถึงการใช้ปลายทาง กุ้งดิบที่ถูกใช้เป็นเหยื่อตกปลาหรือ berley เป็นเส้นทางที่พา WSSV ลงสู่น้ำธรรมชาติ และเชื้อยังติดต่อได้เมื่อไปถึง wild crustaceans ซึ่งเป็นหนึ่งในสาม exposure group ของการนำเข้ากุ้ง (farm, hatchery และ wild crustaceans) ขั้นนี้จบที่การที่เชื้อมาพบสัตว์ที่ไวต่อเชื้อ ยังไม่รวมการระบาดที่ตามมา\n\n❌ ทำไมข้ออื่นผิด\n— Hazard identification: ขั้นตั้งต้นที่แยกออกมาก่อน risk assessment เพื่อดูว่าเชื้อจากประเทศผู้ส่งออกก่อผลเสียในประเทศผู้นำเข้าได้หรือไม่ ไม่ได้ประเมินโอกาสของเส้นทางใด\n— Entry assessment: ประเมินโอกาสที่เชื้อซึ่งยังมีชีวิตและติดเชื้อได้จะติดมากับกุ้งจนถึงประเทศผู้นำเข้า จากเส้นทางในประเทศผู้ส่งออก\n— Consequence assessment: เริ่มหลังสัตว์ได้รับเชื้อแล้ว ประเมินโอกาสที่เชื้อจะ establish และ spread กับผลกระทบเมื่อเกิดการระบาด\n— Risk estimation: รวมผลของ entry, exposure และ consequence เป็นความเสี่ยงของแต่ละกลุ่มและความเสี่ยงรวม ไม่ได้ประเมินเส้นทางใดเส้นทางหนึ่ง\n\n💡 แยกขั้นด้วยตำแหน่งของเหตุการณ์ ในประเทศผู้ส่งออกคือ entry ในประเทศผู้นำเข้าจนเชื้อพบสัตว์ที่ไวต่อเชื้อคือ exposure ส่วนการระบาดและสัตว์ป่วยตายคือ consequence",
+    "source": "Import Risk Assessment (Present) หน้า 8, 10, 27; hLl7taXYRWQ [38:39-40:07], [41:31-42:29], [65:26]",
+    "verified": "Import Risk Assessment (Present) หน้า 27 (wild crustaceans สัมผัส WSSV ผ่านเหยื่อตกปลาหรือ berley) กับหน้า 8, 10; hLl7taXYRWQ [41:31-42:29], [65:26]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk",
+      "exposure-assessment"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 8
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 10
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 27
+      }
+    ]
+  },
+  {
+    "id": 215001,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "q": "ในขั้น consequence assessment ของการประเมินความเสี่ยงการนำเข้ากุ้ง แต่ละ exposure group ถูกแยกเป็น outbreak scenario เช่น เชื้อ establish และ spread ได้ กับไม่เกิดการระบาด likely consequence ของแต่ละ scenario ได้จากการรวมค่าคู่ใด",
+    "options": [
+      "PLE ของกลุ่มนั้น กับ impact ของ scenario นั้น",
+      "PALEE ของกลุ่มนั้น กับ overall likely consequence ของกลุ่มนั้น",
+      "LR ของเชื้อ กับ PLE ของกลุ่มนั้น",
+      "PLES ของ scenario นั้น กับ impact ของ scenario นั้น",
+      "PLES ของ scenario นั้น กับ PALEE ของกลุ่มนั้น"
+    ],
+    "answer": 3,
+    "explain": "Likely consequence ของ outbreak scenario หนึ่งตอบสองคำถามของ scenario เดียวกัน คือ scenario นั้นมีโอกาสเกิดเท่าใด ซึ่งก็คือ PLES (partial likelihood of establishment and/or spread) และถ้าเกิดขึ้นจะรุนแรงเท่าใด ซึ่งก็คือ impact สองค่านี้รวมกันด้วย matrix เป็น likely consequence ของ scenario นั้น เช่น ฟาร์มกุ้งในกรณีที่ WSSV establish และ spread มี PLES เป็น Moderate และ impact เป็น High ได้ likely consequence เป็น High จากนั้นจึงนำ likely consequence ของทุก scenario มารวมเป็น overall likely consequence ของกลุ่ม\n\n❌ ทำไมข้ออื่นผิด\n— PLE กับ impact: PLE คือโอกาสที่กลุ่มสัตว์จะได้รับเชื้อในขั้น exposure ไม่ใช่โอกาสที่ scenario การระบาดจะเกิด\n— PALEE กับ overall likely consequence: เป็นคู่ที่รวมกันได้ partial annual risk (PAR) ของกลุ่มในขั้น risk estimation\n— LR กับ PLE: เป็นคู่ที่รวมกันได้ PALEE ของแต่ละ exposure group ซึ่งยังไม่มีผลกระทบของการระบาดอยู่ในนั้น\n— PLES กับ PALEE: ทั้งสองค่าเป็นโอกาส ไม่มีค่าใดบอกความรุนแรงของการระบาด\n\n💡 PALEE กับ PLES ชื่อคล้ายกันแต่อยู่คนละขั้น PALEE คือ entry และ exposure ส่วน PLES คือ establishment และ spread ในขั้น consequence",
+    "source": "Import Risk Assessment (Present) หน้า 12, 13, 21, 31, 36; hLl7taXYRWQ [51:02-51:56], [61:23-62:17], [69:21]",
+    "verified": "Import Risk Assessment (Present) หน้า 13 (Likely consequence = PLES รวมกับ Impact) กับหน้า 21, 31; hLl7taXYRWQ [51:29-51:56]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk",
+      "likely-consequence"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 12
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 13
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 21
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 31
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 36
+      }
+    ]
+  },
+  {
+    "id": 215002,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "q": "ผลการประเมิน WSSV จากการนำเข้ากุ้งแช่แข็งดิบทั้งตัวเข้าออสเตรเลีย กลุ่ม wild crustaceans มี PALEE เป็น High และ overall likely consequence เป็น Low เมื่อรวมสองค่านี้ด้วย risk estimation matrix จะได้ partial annual risk (PAR) ของกลุ่มนี้เป็นระดับใด",
+    "options": [
+      "Moderate",
+      "Low",
+      "High",
+      "Very low",
+      "Negligible"
+    ],
+    "answer": 1,
+    "explain": "Risk estimation matrix รวม likelihood ของ entry และ exposure (PALEE) เข้ากับ consequence ของกลุ่มเดียวกัน หลักของ matrix นี้คือ likelihood ไม่ทำให้ความเสี่ยงสูงกว่าระดับ consequence และเมื่อ likelihood เป็น High ความเสี่ยงจะเท่ากับระดับ consequence พอดี PALEE ระดับ High กับ overall likely consequence ระดับ Low จึงได้ PAR เป็น Low ในกรณี WSSV โอกาสที่ wild crustaceans จะได้รับเชื้อสูง แต่เชื้อ establish และ spread ในสัตว์ธรรมชาติได้ยาก consequence ของกลุ่มนี้จึงต่ำ และเป็นตัวจำกัดความเสี่ยงของกลุ่มไว้ที่ Low\n\n❌ ทำไมข้ออื่นผิด\n— Moderate: เป็นการหาค่ากลางระหว่าง High กับ Low ระดับเชิงคุณภาพเป็นคำ นำมาบวกลบคูณหารหรือเฉลี่ยไม่ได้ จึงต้องรวมด้วย matrix\n— High: likelihood ที่สูงไม่ได้ดันความเสี่ยงให้เกินระดับ consequence ความเสี่ยงของกลุ่มนี้สูงได้ไม่เกิน Low\n— Very low: ความเสี่ยงจะต่ำกว่าระดับ consequence ก็ต่อเมื่อ likelihood ต่ำกว่า Moderate แต่ PALEE ที่นี่เป็น High\n— Negligible: ต้องมี PALEE ต่ำกว่านี้มากจึงจะดึงความเสี่ยงลงจากระดับ consequence ได้หลายขั้น",
+    "source": "Import Risk Assessment (Present) หน้า 20, 21, 32, 39, 40; hLl7taXYRWQ [56:04-56:55], [70:45-71:09]",
+    "verified": "Import Risk Assessment (Present) หน้า 40 (wild: PALEE High, overall likely consequence Low, PAR Low) กับ risk estimation matrix หน้า 20; hLl7taXYRWQ [70:45-71:09]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk",
+      "risk-estimation-matrix"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 20
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 21
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 32
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 39
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 40
+      }
+    ]
+  },
+  {
+    "id": 215003,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "q": "สำหรับ farmed crustaceans ในการประเมิน WSSV ของกุ้งนำเข้า likely consequence ของ scenario ที่เชื้อ establish และ spread ได้เป็น High ส่วนของ scenario ที่ไม่เกิดการระบาดเป็น Negligible overall likely consequence ของกลุ่มนี้เป็นระดับใด",
+    "options": [
+      "High",
+      "Negligible",
+      "Moderate",
+      "Low",
+      "Extreme"
+    ],
+    "answer": 0,
+    "explain": "Overall likely consequence รวม likely consequence ของทุก outbreak scenario ในกลุ่มเดียวกัน ขั้นนี้ไม่ใช้ matrix แต่ยึดระดับที่สูงที่สุด เพราะเป็นการรวมผลของหลายกรณีที่อาจเกิดขึ้น (ระบาดกับไม่ระบาด) ไม่ใช่การรวมโอกาสเข้ากับผลกระทบ High กับ Negligible จึงได้ High ฟาร์มและ hatchery ได้ High ส่วน wild crustaceans ที่ scenario ระบาดได้เพียง Low ก็ได้ Low หลักยึดค่าสูงสุดนี้ใช้อีกครั้งตอนรวม partial annual risk ของสามกลุ่มเป็น overall annual risk\n\n❌ ทำไมข้ออื่นผิด\n— Negligible: เป็นผลของการนำสองค่าเข้า matrix ซึ่งดึงผลลงไปที่ค่าต่ำ การรวม scenario ไม่ใช้ matrix scenario ที่ไม่ระบาดจึงไม่ลบล้างผลของ scenario ที่ระบาด\n— Moderate: เป็นค่ากลางระหว่าง High กับ Negligible ระดับเชิงคุณภาพเฉลี่ยไม่ได้\n— Low: เป็น overall likely consequence ของ wild crustaceans ที่ scenario ระบาดได้ Low ไม่ใช่ของฟาร์ม\n— Extreme: การยึดค่าสูงสุดไม่เพิ่มระดับเกิน scenario ที่หนักที่สุด Negligible ไม่ได้เพิ่มความรุนแรงให้ High",
+    "source": "Import Risk Assessment (Present) หน้า 13, 36, 37, 41; hLl7taXYRWQ [69:21-70:14], [71:09]",
+    "verified": "Import Risk Assessment (Present) หน้า 37 (farm: High กับ Negligible ได้ High) กับหน้า 41; hLl7taXYRWQ [69:21-69:48]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk",
+      "overall-likely-consequence"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 13
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 36
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 37
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 41
+      }
+    ]
+  },
+  {
+    "id": 215004,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "q": "import risk assessment ของการนำเข้ากุ้งสู่ออสเตรเลียเป็นการประเมินเชิงคุณภาพ (qualitative) ระดับ likelihood ใดเป็นระดับต่ำที่สุดของมาตราที่ใช้",
+    "options": [
+      "Extremely low",
+      "Very low",
+      "Negligible",
+      "Zero"
+    ],
+    "answer": 2,
+    "explain": "มาตรา likelihood เชิงคุณภาพเรียงจากสูงไปต่ำเป็น High, Moderate, Low, Very low, Extremely low และ Negligible ระดับ Negligible ต่ำที่สุด คำนี้มีรากเดียวกับ neglect หมายถึงน้อยจนละเลยได้ การประเมินความเสี่ยงไม่มีความเสี่ยงที่เท่ากับศูนย์ ระดับต่ำสุดจึงเป็นระดับที่เข้าใกล้ศูนย์แต่ไม่ใช่ศูนย์ มาตราของ impact และของ risk ในการประเมินเดียวกันก็เริ่มที่ Negligible เช่นกัน\n\n❌ ทำไมข้ออื่นผิด\n— Extremely low: อยู่เหนือ Negligible หนึ่งขั้น\n— Very low: อยู่เหนือ Extremely low อีกหนึ่งขั้น\n— Zero: การประเมินความเสี่ยงไม่ใช้ระดับศูนย์ ความเสี่ยงที่ต่ำที่สุดยังเป็นค่าที่เข้าใกล้ศูนย์ ซึ่งเรียกว่า Negligible",
+    "source": "Import Risk Assessment (Present) หน้า 11, 17, 20; hLl7taXYRWQ [47:42-49:08]",
+    "verified": "hLl7taXYRWQ [48:11-49:08]; Import Risk Assessment (Present) หน้า 11",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk",
+      "qualitative-scale"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 11
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 17
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 20
+      }
+    ]
+  },
 ];

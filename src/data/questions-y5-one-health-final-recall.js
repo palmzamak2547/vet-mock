@@ -1416,7 +1416,11 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
         "edition": "15p",
         "page": 11
       }
-    ]
+    ],
+    "flag": {
+      "severity": "major",
+      "note": "เนื้อหาปีนี้ไม่ได้กล่าวถึง Codex แต่ระบุการประเมินความปลอดภัยของอาหาร GM ต่อสุขภาพคน 4 ด้าน คือ molecular characterization, nutritional, toxicological และ allergenicity assessment ว่าเป็นการประเมินของ FDA คำตอบตามเนื้อหาปีนี้จึงเป็น FDA ส่วน Codex Alimentarius เป็นผู้วางแนวทางการประเมินอาหาร GM ในระดับสากล"
+    }
   },
   {
     "id": 210030,
@@ -1564,7 +1568,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
       "Toxicity, allergen, anti-nutrition และ enzymes"
     ],
     "answer": 4,
-    "explain": "การประเมินความปลอดภัยของอาหาร GM ต้องทดสอบ 4 เรื่อง คือ ความเป็นพิษ (toxicity) ทั้ง in vivo และ in vitro สารก่อภูมิแพ้ (allergen) ซึ่งมักเป็นโปรตีนขนาด 10,000 ถึง 40,000 Dalton สารต้านโภชนาการ (anti-nutrition) เช่น lectin และ protease inhibitor และเอนไซม์ (enzymes) ตัวเลือกอื่นแทนที่เรื่องใดเรื่องหนึ่งด้วย carcinogenicity, mutagenicity, teratogenicity หรือโลหะหนัก ซึ่งไม่อยู่ในรายการทดสอบชุดนี้",
+    "explain": "รายการทดสอบความปลอดภัยของอาหาร GM ชุดนี้มี 4 เรื่อง คือ ความเป็นพิษ (toxicity) ทั้ง in vivo และ in vitro สารก่อภูมิแพ้ (allergen) ซึ่งมักเป็นโปรตีนขนาด 10,000 ถึง 40,000 Dalton สารต้านโภชนาการ (anti-nutrition) เช่น lectin และ protease inhibitor และเอนไซม์ (enzymes) ตัวเลือกอื่นเอา carcinogenicity, mutagenicity, teratogenicity หรือโลหะหนัก มาแทนเรื่องใดเรื่องหนึ่ง\n\nการประเมินความปลอดภัยของอาหาร GM ก่อนวางจำหน่ายอีกแบบหนึ่งแบ่งเป็น 4 ด้าน คือ molecular characterization ดูการเปลี่ยนแปลงของ DNA ที่ถูกดัดแปลง, nutritional assessment ดูคุณค่าทางโภชนาการ, toxicological assessment ดูความเป็นพิษ และ allergenicity assessment ดูการก่อภูมิแพ้",
     "source": "One Health perspective of food and feed GMOs deck 2024 หน้า 23",
     "verified": "สมุดบันทึกข้อสอบปลายภาค One Health ฉบับภาพถ่าย หน้า 2 ส่วน GMO ข้อ 4; ถามซ้ำในรีวิวข้อสอบปลายภาค One Health รุ่น Vet 82 หน้า 4 (ลูกศรแดงที่รายการทดสอบ); ตัวเลือกเรียบเรียงจากสไลด์ ไม่ใช่ตัวเลือกเดิมของข้อสอบ",
     "sourceType": "past-paper",
@@ -1591,7 +1595,11 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
         "edition": "16p",
         "page": 4
       }
-    ]
+    ],
+    "flag": {
+      "severity": "major",
+      "note": "เนื้อหาปีนี้แบ่งการประเมินความปลอดภัยของอาหาร GM ก่อนวางจำหน่ายเป็น 4 ด้าน คือ molecular characterization, nutritional assessment, toxicological assessment และ allergenicity assessment ไม่มี anti-nutrition และ enzymes เป็นหัวข้อแยก จึงไม่มีตัวเลือกใดตรงกับชุดนี้ครบ คำตอบ toxicity, allergen, anti-nutrition และ enzymes มาจากรายการทดสอบชุดเดิม"
+    }
   },
   {
     "id": 210034,
@@ -1708,7 +1716,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
       "อาหาร GM ต้องผ่านการทดสอบสารก่อภูมิแพ้ก่อนวางจำหน่าย"
     ],
     "answer": 4,
-    "explain": "อาหาร GM ต้องผ่านการประเมินความปลอดภัยก่อนวางจำหน่าย ซึ่งรวมการทดสอบสารก่อภูมิแพ้ ความเป็นพิษ สารต้านโภชนาการ และเอนไซม์ จึงเป็นข้อเท็จจริง ส่วนตัวเลือกที่เหลือเป็นความเข้าใจผิดที่พบบ่อย ไม่มีหลักฐานว่าอาหาร GM ก่อความเสี่ยงต่อสุขภาพคน และอาหาร GM มีคุณค่าทางโภชนาการเทียบเท่าอาหารทั่วไป เนื้อสัตว์เพาะเลี้ยงจากเซลล์ไม่ได้หมายความว่าเป็นอาหาร GM และผักผลไม้หลายชนิดได้มาจากการปรับปรุงพันธุ์แบบดั้งเดิม ซึ่งมีมานานก่อนพันธุวิศวกรรม",
+    "explain": "อาหาร GM ต้องผ่านการประเมินความปลอดภัยก่อนวางจำหน่าย 4 ด้าน คือ molecular characterization, nutritional assessment, toxicological assessment และ allergenicity assessment การทดสอบการก่อภูมิแพ้จึงเป็นข้อเท็จจริง ส่วนตัวเลือกที่เหลือเป็นความเข้าใจผิดที่พบบ่อย ผลเสียโดยตรงต่อสุขภาพคนจากการกินอาหาร GM ถือว่าน้อยมาก และอาหาร GM มีคุณค่าทางโภชนาการเทียบเท่าอาหารทั่วไป เนื้อสัตว์เพาะเลี้ยงจากเซลล์ไม่ได้หมายความว่าเป็นอาหาร GM และผักผลไม้หลายชนิดได้มาจากการปรับปรุงพันธุ์แบบดั้งเดิม ซึ่งมีมานานก่อนพันธุวิศวกรรม",
     "source": "One Health perspective of food and feed GMOs deck 2024 หน้า 15, 16 และ 23",
     "verified": "สมุดบันทึกข้อสอบปลายภาค One Health ฉบับภาพถ่าย หน้า 2 ส่วน GMO ข้อ 8; โจทย์และตัวเลือกเรียบเรียงจากบันทึกและสไลด์ ไม่ใช่ถ้อยคำเดิมของข้อสอบ",
     "sourceType": "past-paper",
