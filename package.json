@@ -76,6 +76,7 @@
     "fetch:videos": "node scripts/fetch-video-transcripts.mjs",
     "flat:transcript": "node scripts/flatten-transcript.mjs",
     "ping:indexnow": "node scripts/ping-indexnow.mjs",
+    "mcv:sync": "node scripts/mcv-sync.mjs",
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project=chromium-desktop --project=chromium-mobile --workers=2 --retries=1 --forbid-only --output=test-results/chromium",
     "test:e2e:gl": "playwright test --project=webkit-mobile --project=firefox-desktop --workers=1 --retries=1 --forbid-only --output=test-results/gl",

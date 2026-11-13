@@ -226,6 +226,57 @@ async function sb(path, init = {}) {
   return r.status === 204 ? null : r.json();
 }
 
+/** The title a file carries on the shelf: its MyCourseVille name cleaned, or,
+ *  when that is leaked listing HTML, the name in its upload URL. */
+export function displayName(it) {
+  const cleaned = cleanDisplayText(it.name || '');
+  return isJunkTitle(cleaned) ? titleFromUrl(it.url) : cleaned;
+}
+
+/** Where one file's bytes go in R2, and the catalog row that will point at
+ *  them. The key is content-addressed: the same bytes always land on the same
+ *  object, so a re-run uploads nothing new. */
+export function shelfEntry(it, buf, { name = displayName(it), publication, bucket }) {
+  const fileName = it.path ? String(it.path).split(/[\\/]/).pop() : it.url.split('?')[0];
+  const sha = createHash('sha256').update(buf).digest('hex').slice(0, 16);
+  const ext = (fileName.split('.').pop() || 'bin').toLowerCase().slice(0, 5);
+  const key = `docs/${sha}/${slugify(name, sha)}.${ext}`;
+  const mime = mimeFor(fileName);
+  const row = {
+    slug: slugify(name, sha), title: name || key, kind: kindFor(it.folder, name),
+    // The course lives in `subject` (the app's own subject id via
+    // subjectForCourse), so the description carries only what the
+    // subject heading cannot: the folder / topic within the course.
+    description: folderLabel(it.folder),
+    subject: it.subject || subjectForCourse(it.courseNo), year: it.year ?? null, semester: it.semester ?? null,
+    academic_year: it.academicYear ?? null,
+    storage_provider: 'r2', storage_bucket: bucket, storage_key: key,
+    mime, byte_size: buf.length, sha256_16: sha,
+    license: publication.license, status: publication.status,
+    source_url: it.url, attribution: it.attribution || 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
+    permission_evidence: publication.permissionEvidence,
+  };
+  return { sha, key, mime, row };
+}
+
+/** PUT one object into R2 and hand back the response.
+ *
+ *  Through the Cloudflare REST API: the standing token can write objects even
+ *  though it cannot mint S3 credentials (R2's temp-credential endpoint needs a
+ *  parent access key — probed, documented in api/_lib/blob-token.js). Presigned
+ *  PUT switches back on by itself if permanent keys ever land in the env. */
+export async function r2Put(key, buf, mime, bucket, fetchImpl = fetch) {
+  const put = presignAny.name && r2Config().configured
+    ? await presignAny(key, { method: 'PUT', expiresIn: 900 })
+    : null;
+  return put
+    ? fetchImpl(put, { method: 'PUT', body: buf, headers: { 'Content-Type': mime } })
+    : fetchImpl(
+        `https://api.cloudflare.com/client/v4/accounts/${cfConfig().accountId}/r2/buckets/${encodeURIComponent(bucket)}/objects/${key.split('/').map(encodeURIComponent).join('/')}`,
+        { method: 'PUT', body: buf, headers: { Authorization: `Bearer ${cfConfig().apiToken}`, 'Content-Type': mime } },
+      );
+}
+
 async function main() {
   const manifestPath = arg('manifest');
   if (!manifestPath) {
@@ -241,8 +292,9 @@ async function main() {
 
   // No service key exists on this machine, and the runtime was redesigned
   // not to want one — so the ingest cannot INSERT rows directly either.
-  // It writes them to rows.ndjson instead, and a Claude session bulk-loads
-  // that file through the Supabase MCP. --rows-out overrides the path.
+  // It writes them to rows.ndjson instead, for a guarded insert through the
+  // Management API afterwards (scripts/mcv-sync.mjs uploads and inserts in one
+  // run for MyCourseVille files). --rows-out overrides the path.
   const rowsOut = arg('rows-out', '.mcv/rows.ndjson');
   const canInsert = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY);
 
@@ -262,8 +314,7 @@ async function main() {
   const n = Math.min(items.length, LIMIT);
   for (let i = 0; i < n; i++) {
     const it = items[i];
-    const cleaned = cleanDisplayText(it.name || '');
-    const name = isJunkTitle(cleaned) ? titleFromUrl(it.url) : cleaned;
+    const name = displayName(it);
     try {
       // Google Drive links are not ours to mirror and cannot be fetched
       // without a browser session; they stay as catalog rows pointing home.
@@ -283,48 +334,16 @@ async function main() {
         buf = Buffer.from(await res.arrayBuffer());
       }
       if (!buf.length) { failed++; console.warn(`  ✗ empty ${name}`); continue; }
-      const fileName = it.path ? String(it.path).split(/[\\/]/).pop() : it.url.split('?')[0];
 
-      const sha = createHash('sha256').update(buf).digest('hex').slice(0, 16);
+      const { sha, key, mime, row } = shelfEntry(it, buf, { name, publication, bucket: cfg.bucket });
       if (known.has(sha)) { skipped++; continue; }
-
-      const ext = (fileName.split('.').pop() || 'bin').toLowerCase().slice(0, 5);
-      const key = `docs/${sha}/${slugify(name, sha)}.${ext}`;
-      const mime = mimeFor(fileName);
 
       if (DRY) {
         console.log(`  would upload ${(buf.length / 1048576).toFixed(1)} MB  ${key}`);
       } else {
-        // Upload through the Cloudflare REST API: the standing token can
-        // write objects even though it cannot mint S3 credentials (R2's
-        // temp-credential endpoint needs a parent access key — probed,
-        // documented in api/_lib/blob-token.js). Presigned PUT switches
-        // back on by itself if permanent keys ever land in the env.
-        const put = presignAny.name && r2Config().configured
-          ? await presignAny(key, { method: 'PUT', expiresIn: 900 })
-          : null;
-        const up = put
-          ? await fetch(put, { method: 'PUT', body: buf, headers: { 'Content-Type': mime } })
-          : await fetch(
-              `https://api.cloudflare.com/client/v4/accounts/${cfConfig().accountId}/r2/buckets/${encodeURIComponent(cfg.bucket)}/objects/${key.split('/').map(encodeURIComponent).join('/')}`,
-              { method: 'PUT', body: buf, headers: { Authorization: `Bearer ${cfConfig().apiToken}`, 'Content-Type': mime } },
-            );
+        const up = await r2Put(key, buf, mime, cfg.bucket);
         if (!up.ok) { failed++; console.warn(`  ✗ r2 ${up.status} ${name}`); continue; }
 
-        const row = {
-            slug: slugify(name, sha), title: name || key, kind: kindFor(it.folder, name),
-            // The course lives in `subject` (the app's own subject id via
-            // subjectForCourse), so the description carries only what the
-            // subject heading cannot: the folder / topic within the course.
-            description: folderLabel(it.folder),
-            subject: it.subject || subjectForCourse(it.courseNo), year: it.year ?? null, semester: it.semester ?? null,
-            academic_year: it.academicYear ?? null,
-            storage_provider: 'r2', storage_bucket: cfg.bucket, storage_key: key,
-            mime, byte_size: buf.length, sha256_16: sha,
-            license: publication.license, status: publication.status,
-            source_url: it.url, attribution: it.attribution || 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
-            permission_evidence: publication.permissionEvidence,
-        };
         if (canInsert) {
           await sb('library_docs', {
             method: 'POST',
