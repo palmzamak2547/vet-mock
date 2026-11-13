@@ -45,10 +45,12 @@ test('UI-19: over every shipped wrap-up, the split is lossless and lands where t
         }
       }
     }
-    perSubject[s] = [terms, lines];
+    // One subject has a wrap-up per paper, so the count is per paper: the
+    // audit counted the midterm pages.
+    perSubject[`${s}:${phase}`] = [terms, lines];
   }
-  assert.deepEqual(perSubject['equine-medicine'], [42, 83]);
-  assert.deepEqual(perSubject['equine-repro'], [1, 60]);
+  assert.deepEqual(perSubject['equine-medicine:1-mid'], [42, 83]);
+  assert.deepEqual(perSubject['equine-repro:1-mid'], [1, 60]);
 });
 
 test('UI-19: the list bolds the term for a plain list only, and a numbered list keeps its text', () => {
