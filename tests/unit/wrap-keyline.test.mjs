@@ -77,9 +77,11 @@ test('UI-19: over every shipped wrap-up, the split is lossless and lands where t
 });
 
 test('UI-19: the list bolds the term for a plain list only, and a numbered list keeps its text', () => {
-  const view = read('src/views/WrapUpView.jsx');
+  // The keyword list is drawn by components/WrapParts.jsx, for reading mode and the deck alike.
+  const view = read('src/components/WrapParts.jsx');
+  assert.match(read('src/views/WrapUpView.jsx'), /<Keywords keywords=\{it\.keywords\} \/>/);
   assert.match(view, /import \{ keyTerm \} from '\.\.\/lib\/wrap-keyline\.js';/);
-  assert.match(view, /const numbered = selfNumbered\(it\.keywords\);/);
+  assert.match(view, /const numbered = selfNumbered\(keywords\);/);
   assert.match(view, /const parts = numbered \? null : keyTerm\(k\);/);
   assert.match(view, /<li key=\{k\}>\{parts \? <><b>\{parts\.term\}<\/b>\{parts\.sep\}\{parts\.rest\}<\/> : k\}<\/li>/);
   // A chip leads with its term the same way, and a plain chip is untouched.

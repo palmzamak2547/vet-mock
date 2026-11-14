@@ -23,10 +23,6 @@ import { FORMAT_LABEL } from '../data/lecturer-sets.js';
 import { Keywords, Line, SignalLabel } from './WrapParts.jsx';
 import WrapSlide from './WrapSlide.jsx';
 
-const reducedMotion = () => {
-  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
-};
-
 function loadState(key, ids) {
   try { return readDeck(window.localStorage.getItem(key), ids); } catch { return readDeck(null, ids); }
 }
@@ -137,15 +133,15 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
     (state.done ? sumRef.current : titleRef.current)?.focus({ preventScroll: true });
   }, [state.pos, state.done, state.queue?.length]);
 
-  // The pile button acknowledges a card it received; a pop that explains where
-  // the card went, so it is skipped under reduced motion.
+  // The pile's count pops when a card lands on it, which says where the card
+  // went; only when it grows, never when a redo round takes cards off. The
+  // pop is CSS (styles-wrap.css, the chip spring) and off under reduced motion.
   const pileRef = useRef(null);
   const againCount = marked(state, ids, AGAIN).length;
   const lastAgain = useRef(againCount);
+  const [grew, setGrew] = useState(0);
   useEffect(() => {
-    if (againCount > lastAgain.current && !reducedMotion()) {
-      try { pileRef.current?.animate([{ transform: 'scale(1.12)' }, { transform: 'none' }], { duration: 220, easing: 'ease-out' }); } catch { /* no WAAPI */ }
-    }
+    if (againCount > lastAgain.current) setGrew((g) => g + 1);
     lastAgain.current = againCount;
   }, [againCount]);
 
@@ -197,7 +193,9 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
     return () => window.removeEventListener('keydown', onKey);
   }, [ids]);
 
-  if (!items.length || !item) return null;
+  if (!items.length || !item) {
+    return <p className="vmx-wrap-empty">wrap-up นี้ยังไม่มีหัวข้อให้ทวนทีละใบ อ่านแบบเต็มได้ตามปกติ</p>;
+  }
   const segs = segments(state, ids);
   const t = tally(state, ids);
   const againIds = marked(state, ids, AGAIN);
@@ -226,7 +224,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
           <button type="button" className={quick ? 'is-on' : ''} aria-pressed={quick} onClick={() => setPace('quick')}>รอบเร็ว</button>
         </div>
         <button ref={pileRef} type="button" className="vmx-deck-pile-btn" aria-haspopup="dialog" onClick={() => setPileOpen(true)}>
-          ต้องทวน <b>{againCount}</b>
+          ต้องทวน <b key={grew} className={grew ? 'is-new' : undefined}>{againCount}</b>
         </button>
       </div>
 

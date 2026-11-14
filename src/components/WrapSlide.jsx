@@ -29,15 +29,16 @@ const isOffline = () => typeof navigator !== 'undefined' && navigator.onLine ===
  * show, again when the connection comes back or the account changes.
  */
 export function useSlideBase(wanted) {
-  const [base, setBase] = useState(() => (wanted ? knownBase() ?? null : null));
+  // undefined while it is still being asked, so the page can wait for the answer before it draws.
+  const [base, setBase] = useState(() => knownBase());
   const [round, setRound] = useState(0);
   useEffect(() => {
     if (!wanted) return undefined;
     let live = true;
     const known = knownBase();
-    if (typeof known === 'string') { setBase(known); return undefined; }
+    if (typeof known === 'string' || known === null) { setBase(known); return undefined; }
     // Offline the wall cannot be asked; a refusal now would hold for minutes.
-    if (isOffline()) return undefined;
+    if (isOffline()) { setBase(null); return undefined; }
     evidenceBase().then((b) => { if (live) setBase(b); });
     return () => { live = false; };
   }, [wanted, round]);

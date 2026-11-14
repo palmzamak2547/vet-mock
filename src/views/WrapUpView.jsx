@@ -14,15 +14,14 @@
 // ============================================================
 import { useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
-import { loadWrapUp, selfNumbered } from '../data/exam-wrapups.js';
+import { loadWrapUp } from '../data/exam-wrapups.js';
 import { lecturerSetIn, FORMAT_LABEL } from '../data/lecturer-sets.js';
 import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
 import { oldContentLine, oldYearTag, termYearLabel } from '../lib/current-phase.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
-import { humanSource, momentHref } from '../lib/source-label.js';
-import { citeParts } from '../lib/wrap-cite.js';
+import { humanSource } from '../lib/source-label.js';
 import { cohortIndex, itemCohorts, cohortList } from '../lib/wrap-cohorts.js';
 import { READING_BAND, currentItem, progressLabel } from '../lib/wrap-progress.js';
 
@@ -32,7 +31,13 @@ const reducedMotion = () => {
   try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
 };
 import NavIcon from '../components/NavIcon.jsx';
-import { keyTerm } from '../lib/wrap-keyline.js';
+import { Keywords, Line, SignalLabel } from '../components/WrapParts.jsx';
+import WrapDeck from '../components/WrapDeck.jsx';
+import WrapSlide, { useSlideBase } from '../components/WrapSlide.jsx';
+import { slideFor, slideIndex } from '../lib/wrap-slide.js';
+import { deckKey } from '../lib/wrap-deck.js';
+import { EVIDENCE_LOADERS } from '../data/evidence/loaders.generated.js';
+import '../styles-wrap.css';
 import { topicPractice } from '../lib/lecturer-count.js';
 import { isChunkLoadError } from '../lib/chunk-error.js';
 
@@ -63,76 +68,29 @@ function deckIndex(subject, year, phase, term) {
   return map;
 }
 
-// Where a line was said. A cited clip minute is a link that opens that clip
-// at that minute, in a new tab so the page keeps its place; the rest of the
-// citation (a deck page, a past paper) reads as text. A line with no clip
-// shows its citation as before.
-function Cite({ src, course }) {
-  const parts = citeParts(src, course);
-  if (!parts.length) return null;
-  return (
-    <small className="vmx-wrap-src">
-      {parts.map((p, i) => (p.kind === 'text' ? (
-        <span key={i} className="vmx-wrap-src-text">{p.text}</span>
-      ) : (
-        <span key={i} className="vmx-wrap-clip">
-          <span className="vmx-wrap-clip-name">{p.session} นาที</span>
-          {p.moments.map((m) => (
-            <a
-              key={m.seconds}
-              className="vmx-wrap-min"
-              href={momentHref(m)}
-              target="_blank"
-              rel="noopener"
-              aria-label={`เปิด${m.label.startsWith('คลิป') ? '' : 'คลิป'}${m.label}`}
-              title="เปิดคลิปที่นาทีนี้ในแท็บใหม่"
-            >
-              <span className="vmx-wrap-min-face"><NavIcon name="play" size={12} />{m.stamp}</span>
-            </a>
-          ))}
-        </span>
-      )))}
-    </small>
-  );
-}
-
-// The three kinds of line, each with its own icon, so a student scanning the
-// page finds "what the lecturer stressed", "what past papers asked" and "the
-// usual mix-up" by shape before reading a word. The icon is decorative: the
-// label beside it says the same thing to a screen reader.
-const SIGNAL_ICON = { emphasis: 'said', examined: 'sheet', pitfall: 'caution' };
-function SignalLabel({ kind, children }) {
-  return (
-    <div className={`vmx-wrap-list-label is-${kind}`}>
-      <span className="vmx-wrap-signal"><NavIcon name={SIGNAL_ICON[kind]} size={16} /></span>
-      {children}
-    </div>
-  );
-}
-
-function Bullets({ label, items, kind, course }) {
+// `slideAt(line)` is the slide element to draw under a line, or null: the
+// item decides, so one page cited by three lines is drawn under the first.
+function Bullets({ label, items, kind, course, slideAt = () => null }) {
   if (!items?.length) return null;
   return (
     <div className={`vmx-wrap-list is-${kind}`}>
       <SignalLabel kind={kind}>{label}</SignalLabel>
       <ul>
-        {items.map((b, i) => (
-          <li key={i}>
-            <span>{b.text}</span>
-            {b.src && <Cite src={b.src} course={course} />}
-          </li>
-        ))}
+        {items.map((b, i) => <Line key={i} line={b} course={course} slide={slideAt(b)} />)}
       </ul>
     </div>
   );
 }
 
-// Two ways this page is read, and the student says which: the whole thing
-// the night before, or the keywords alone in a spare minute. The choice is
-// remembered, because whoever wants one mode wants it every time.
+// Three ways this page is used, and the student says which: the whole thing
+// read the night before (the first pass), the keywords alone in a spare
+// minute, or one card at a time, recalling before looking (the second pass,
+// components/WrapDeck.jsx). The choice is remembered, because whoever wants
+// one mode wants it every time.
 const MODE_KEY = 'vmx-wrap-mode';
+const MODES = ['full', 'keys', 'deck'];
 const readMode = () => {
-  try { return localStorage.getItem(MODE_KEY) === 'keys' ? 'keys' : 'full'; } catch { return 'full'; }
+  try { const m = localStorage.getItem(MODE_KEY); return MODES.includes(m) ? m : 'full'; } catch { return 'full'; }
 };
 
 export default function WrapUpView({ subject, subjectName = '', goBack, onStartTopic = null, onOpenDoc = null, selectedYear = null, selectedPhase = null }) {
@@ -170,6 +128,42 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
       .catch(() => {});
     return () => { live = false; };
   }, [subject]);
+
+  // Which cited deck pages have a picture (lib/wrap-slide.js): the answer
+  // evidence's own record for this subject, loaded beside the page like the
+  // cohort tags. Without it, or offline, the lines keep their citations.
+  const [slides, setSlides] = useState(null);
+  useEffect(() => {
+    let live = true;
+    setSlides(null);
+    const load = Object.hasOwn(EVIDENCE_LOADERS, subject) ? EVIDENCE_LOADERS[subject] : null;
+    if (!load) { setSlides(new Map()); return () => { live = false; }; }
+    load().then((m) => { if (live) setSlides(slideIndex(m.EVIDENCE)); }, () => { if (live) setSlides(new Map()); });
+    return () => { live = false; };
+  }, [subject, attempt]);
+  const items = useMemo(() => (data ? data.groups.flatMap((g) => g.items.map((it) => ({ ...it, lecturer: g.lecturer }))) : []), [data]);
+  const hasSlides = useMemo(() => Boolean(slides?.size) && items.some((it) => [...(it.emphasis || []), ...(it.examined || [])].some((l) => slideFor(l.src, slides))), [slides, items]);
+  // The images' address is asked for once, and only when a line has a picture.
+  const slideBase = useSlideBase(hasSlides && mode !== 'keys');
+  // The page is drawn once, with its frames: it waits for the record of
+  // pictures and, when a line has one, for the wall's answer, so no frame
+  // pushes a line down after the student has started reading. A slow answer
+  // is waited for 1.5 s at most; after that a frame may still join.
+  const [patience, setPatience] = useState(false);
+  useEffect(() => {
+    setPatience(false);
+    const t = setTimeout(() => setPatience(true), 1500);
+    return () => clearTimeout(t);
+  }, [subject, attempt]);
+  const settled = patience || (slides !== null && (!hasSlides || mode === 'keys' || slideBase !== undefined));
+  const slideOfItem = useMemo(() => (it) => {
+    if (!slides) return null;
+    for (const l of [...(it.emphasis || []), ...(it.examined || [])]) {
+      const rec = slideFor(l.src, slides);
+      if (rec) return rec;
+    }
+    return null;
+  }, [slides]);
 
   const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase, data?.source?.term), [subject, selectedYear, selectedPhase, data?.source?.term]);
   const covers = LECTURE_COVERS[subject] || {};
@@ -209,7 +203,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     }, { rootMargin: READING_BAND, threshold: 0 });
     document.querySelectorAll('.vmx-wrap-item[data-n]').forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [data]);
+  }, [data, mode, settled]);
   // The strip follows: the marked chip is brought into view inside the strip
   // only (never the page), and only when it is out of sight.
   useEffect(() => {
@@ -256,7 +250,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
       </div>
     );
   }
-  if (!data) {
+  if (!data || !settled) {
     return (
       <div className="vmx-wrap">
         <BackBar onBack={goBack} label="หน้าหัวข้อ" />
@@ -269,8 +263,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
   // ascites and staphylococcosis are three items under one topic id, so
   // matching on topic (or on topic plus name) would number them wrong the
   // day two of them are renamed alike.
-  const items = data.groups.flatMap((g) => g.items);
-  const numberOf = new Map(items.map((it, i) => [it, i + 1]));
+  const numberOf = new Map(data.groups.flatMap((g) => g.items).map((it, i) => [it, i + 1]));
   const unit = subject === 'avian-medicine' ? 'โรค' : 'หัวข้อ';
 
   return (
@@ -291,17 +284,34 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
         <div className="vmx-wrap-mode" role="group" aria-label="โหมดการอ่าน">
           <button type="button" className={mode === 'full' ? 'is-on' : ''} aria-pressed={mode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
           <button type="button" className={mode === 'keys' ? 'is-on' : ''} aria-pressed={mode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>
+          <button type="button" className={mode === 'deck' ? 'is-on' : ''} aria-pressed={mode === 'deck'} onClick={() => pickMode('deck')}>ทวนทีละใบ</button>
         </div>
+        {mode === 'deck' && <p className="vmx-wrap-mode-note">นึกให้ได้ก่อน แล้วค่อยเปิดดู ใบที่ยังไม่แม่นจะวนกลับมาให้ทวนอีกรอบ</p>}
         {/* The key to the page, one kind of line per row, each with the
-            icon the items use, so it is learned once here. */}
-        <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
+            icon the items use, so it is learned once here. The deck is
+            read one card at a time and labels its own parts. */}
+        {mode !== 'deck' && <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
           <li><span className="vmx-wrap-signal" /><span><b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น</span></li>
           <li><span className="vmx-wrap-signal is-emphasis"><NavIcon name="said" size={16} /></span><span><b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ แตะนาทีเพื่อเปิดคลิป</span></li>
           <li><span className="vmx-wrap-signal is-examined"><NavIcon name="sheet" size={16} /></span><span><b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม</span></li>
           <li><span className="vmx-wrap-signal is-pitfall"><NavIcon name="caution" size={16} /></span><span><b>ระวังสับสน</b> จุดที่มักสับสนกับโรคหรือหัวข้อใกล้กัน</span></li>
           <li><span className="vmx-wrap-signal" /><span><b>เคยออกกี่รุ่น</b> รุ่นพี่กี่รุ่นที่เจอข้อสอบเก่าของ{unit}นั้น</span></li>
-        </ul>
+          {hasSlides && slideBase && <li><span className="vmx-wrap-signal" /><span><b>สไลด์</b> หน้าที่บรรทัดนั้นอ้าง แตะเพื่อดูเต็มจอ</span></li>}
+        </ul>}
       </header>
+
+      {mode === 'deck' ? (
+        <WrapDeck
+          items={items}
+          storageKey={deckKey(subject, data.source?.term, selectedPhase)}
+          course={subjectName}
+          slideOf={slideOfItem}
+          base={slideBase}
+          kindTable={kindTable}
+          subject={subject}
+          onStartTopic={onStartTopic}
+        />
+      ) : (<>
 
       {/* The index is also the progress strip: "5 จาก 28" stays pinned at its
           start and the item being read is marked, so a look up says how far
@@ -342,11 +352,17 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               const lecFormat = deck?.format || g.format;
               const { format, count, fellBack } = topicPractice(kindTable, [it.topic], lecFormat);
               const doc = deck?.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
-              // A list the lecturer numbered is printed as written; a plain one
-              // leads each 'Term — explanation' or 'Term: explanation' line
-              // with the term in bold, chips included, so the eye lands on the
-              // term first (lib/wrap-keyline.js decides what is a term).
-              const numbered = selfNumbered(it.keywords);
+              // The slide each line cites, drawn under the first line that
+              // cites that page (lib/wrap-slide.js); the rest keep the text.
+              const drawn = new Set();
+              const slideAt = (line) => {
+                if (!slides || typeof slideBase !== 'string') return null;
+                const rec = slideFor(line.src, slides);
+                const id = rec && `${rec.sha16}#${rec.page}`;
+                if (!rec || drawn.has(id)) return null;
+                drawn.add(id);
+                return <WrapSlide rec={rec} base={slideBase} />;
+              };
               // History, never a forecast: the cohorts that were asked this
               // item's cited past papers. No resolved cohort, no tag.
               const seen = cohorts ? itemCohorts(it, cohorts) : [];
@@ -365,34 +381,13 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                     {art && <img className="vmx-wrap-cover" src={art.src} alt="" loading="lazy" decoding="async" />}
                   </div>
 
-                  {/* Short keywords are chips; a line to memorise (a definition
-                      with its clauses, a numbered principle) reads as a row.
-                      When the lecturer's own numbering is already in the text
-                      ("1 Emerging Infectious Diseases", "2 Public Health"), the
-                      list must not add a second set of numbers beside it. */}
-                  {it.keywords?.length > 0 && (it.keywords.some((k) => k.length > 44) ? (
-                    <ul className={`vmx-wrap-keylist${numbered ? ' is-self-numbered' : ''}`} aria-label="คีย์เวิร์ดและรายการที่ต้องจำ">
-                      {it.keywords.map((k) => {
-                        const parts = numbered ? null : keyTerm(k);
-                        return <li key={k}>{parts ? <><b>{parts.term}</b>{parts.sep}{parts.rest}</> : k}</li>;
-                      })}
-                    </ul>
-                  ) : (
-                    <div className="vmx-wrap-keys" aria-label="คีย์เวิร์ด">
-                      {it.keywords.map((k) => {
-                        const parts = numbered ? null : keyTerm(k);
-                        return parts
-                          ? <span key={k} className="vmx-wrap-key has-term"><b>{parts.term}</b>{parts.sep}{parts.rest}</span>
-                          : <span key={k} className="vmx-wrap-key">{k}</span>;
-                      })}
-                    </div>
-                  ))}
+                  <Keywords keywords={it.keywords} />
 
                   {mode === 'full' && (
                     <div className="vmx-wrap-cols">
-                      <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" course={subjectName} />
+                      <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" course={subjectName} slideAt={slideAt} />
                       {it.examined?.length ? (
-                        <Bullets label="มีในข้อสอบเก่า" items={it.examined} kind="examined" course={subjectName} />
+                        <Bullets label="มีในข้อสอบเก่า" items={it.examined} kind="examined" course={subjectName} slideAt={slideAt} />
                       ) : (
                         // Say it plainly. An empty column could mean either
                         // "nothing was found" or "nobody looked", and those
@@ -438,6 +433,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           </section>
         );
       })}
+      </>)}
 
       <footer className="vmx-wrap-foot">
         ทุกบรรทัดอ้างคลิปบันทึกคาบ สไลด์ หรือข้อสอบเก่าที่ระบุไว้ ถ้าเนื้อหาในคาบกับสไลด์ต่างกัน ยึดสไลด์เป็นหลักและตัดที่ยืนยันไม่ได้ออก

@@ -19,9 +19,11 @@ test('the three glyphs are line icons in NavIcon, not emoji', () => {
 
 test('every kind of line wears its icon beside its label, on the item and in the key', () => {
   const view = read('src/views/WrapUpView.jsx');
-  assert.match(view, /const SIGNAL_ICON = \{ emphasis: 'said', examined: 'sheet', pitfall: 'caution' \};/);
+  // The label is drawn by components/WrapParts.jsx, for reading mode and the deck alike.
+  const parts = read('src/components/WrapParts.jsx');
+  assert.match(parts, /export const SIGNAL_ICON = \{ emphasis: 'said', examined: 'sheet', pitfall: 'caution' \};/);
   // The label carries the words; the icon is decorative (NavIcon is aria-hidden).
-  assert.match(view, /<NavIcon name=\{SIGNAL_ICON\[kind\]\} size=\{16\} \/><\/span>\n\s+\{children\}/);
+  assert.match(parts, /<NavIcon name=\{SIGNAL_ICON\[kind\]\} size=\{16\} \/><\/span>\n\s+\{children\}/);
   assert.match(view, /<SignalLabel kind="examined">มีในข้อสอบเก่า<\/SignalLabel>/);
   assert.match(view, /<SignalLabel kind="pitfall">ระวังสับสน<\/SignalLabel>/);
   for (const [name, label] of [['said', 'อาจารย์เน้น'], ['sheet', 'มีในข้อสอบเก่า'], ['caution', 'ระวังสับสน']]) {

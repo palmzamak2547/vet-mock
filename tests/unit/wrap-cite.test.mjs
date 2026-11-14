@@ -82,7 +82,9 @@ test('over every shipped wrap-up, every cited minute the helper can open becomes
 });
 
 test('the view links each minute through the helper, in a new tab', () => {
-  const view = read('src/views/WrapUpView.jsx');
+  // The citation is drawn by components/WrapParts.jsx, for reading mode and the deck alike.
+  const view = read('src/components/WrapParts.jsx');
+  assert.match(read('src/views/WrapUpView.jsx'), /import \{ Keywords, Line, SignalLabel \} from '\.\.\/components\/WrapParts\.jsx';/);
   assert.match(view, /import \{ citeParts \} from '\.\.\/lib\/wrap-cite\.js';/);
   assert.match(view, /href=\{momentHref\(m\)\}\s+target="_blank"\s+rel="noopener"/);
 });
