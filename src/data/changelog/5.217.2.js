@@ -1,8 +1,8 @@
-// Release 5.214.0. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
+// Release 5.217.2. Fill in what a student notices (AGENTS.md Rule 2); kinds and scopes are listed in
 // src/data/changelog.js. One file per release, so releases in flight never edit the same lines.
 export default {
-  version: '5.214.0',
-  date: '2026-11-11',
+  version: '5.217.2',
+  date: '2026-11-14',
   headline: 'ผู้ช่วยนับการใช้ตามบัญชีของแต่ละคน และระบบตรวจตัวเองก่อนปล่อยละเอียดขึ้น',
   changes: [
     { kind: 'fix', scope: 'system', title: 'ใช้ Wi-Fi เดียวกับเพื่อนแล้วไม่โดนจำกัดร่วมกัน', desc: 'ปุ่มอธิบายใน VetWiki ตรวจคำตอบ ไมค์ เขียนด้วยมือ และเสียงอ่าน นับจำนวนครั้งที่ใช้ได้ตามบัญชีของแต่ละคน ไม่ต้องแบ่งกับเพื่อนที่ใช้ Wi-Fi เดียวกันในห้องเรียนหรือห้องสมุด' },

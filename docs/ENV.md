@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-122 names, 12 required; 10 more are set by the platform.
+123 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -74,7 +74,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `ANTHROPIC_API_KEY` | optional | function | `api/_lib/ai/config.js`, `api/_lib/ai/health.js`, `api/_lib/ai/writer.js` +2 | Anthropic key (secret), the fallback model. Without it a DeepSeek outage leaves the AI with no fallback. |
 | `LLM_MODEL` | optional | function, script | `api/_lib/ai/config.js`, `api/_lib/ai/writer.js`, `api/_lib/llm.js` +1 | Overrides the primary DeepSeek model id; also the video-summary script's model. |
 | `LLM_VISION_MODEL` | optional | function | `api/_lib/llm.js` | Overrides the DeepSeek model for image reading. |
-| `AI_GRADER_MODEL` | optional | function | `api/_lib/llm.js`, `api/_lib/system-status.js` | Overrides the Anthropic model id. Set it when the default is retired (/app/admin says so). |
+| `AI_GRADER_MODEL` | optional | function | `api/_lib/ai/health.js`, `api/_lib/llm.js`, `api/_lib/system-status.js` | Overrides the Anthropic model id. Set it when the default is retired (/app/admin says so). |
 | `AI_VISION_MODEL` | optional | function | `api/_lib/llm.js` | Overrides the Anthropic model for image reading. |
 | `AI_CHAT_DAILY_CAP` | optional | function | `api/_lib/ai/config.js` | VetMock AI questions a day across all students; default 2,500. |
 | `NCBI_API_KEY` | optional | function | `api/_lib/ai/config.js`, `api/_lib/ai/papers.js` | NCBI key for PubMed lookups in VetMock AI; without it the lower anonymous rate applies. |
@@ -144,6 +144,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `VMX_EVIDENCE_POINTER` | optional | script | `scripts/evidence/build.mjs` | Model that points at slide lines. Scripts only. |
 | `VMX_EVIDENCE_READER` | optional | script | `scripts/evidence/build.mjs` | Model that reads those lines without the key. Scripts only. |
 | `VMX_PROVENANCE_DATA` | optional | script | `scripts/provenance/build.mjs`, `scripts/provenance/crops.py` | Provenance data root outside the checkout. Scripts only. |
+| `LIBRARY_PII_REVIEWS` | optional | script | `scripts/library-pages.py` | Path of the file that records reviewed releases of a library hold; default scripts/library-pii-reviews.json. Scripts only. |
 | `VMX_PROBE_TOKEN` | optional | script | `scripts/probe-api-latency.mjs` | Access token scripts/probe-api-latency.mjs signs in with. Scripts only. |
 | `VETMOCK_ORIGIN` | optional | script | `scripts/prerender-og.mjs`, `scripts/prerender-wiki.mjs` | Origin the prerendered wiki and covers link to; default https://vetmock.com. Build scripts. |
 | `VETMOCK_INSTRUCTOR_VAULT` | optional | script | `scripts/research-instructor-profiles.mjs` | Notes vault the instructor profile script reads. Scripts only. |
@@ -165,8 +166,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PLAYWRIGHT_CHROMIUM` | optional | test, script | `vca/playwright.config.js`, `vca/scripts/make-icons.mjs`, `vca/scripts/render-og.mjs` | A Chromium binary for the VCA specs and image scripts. |
 | `PERF_BUDGET_CPU` | optional | test | `tests/e2e/perf-budget.spec.js` | CPU slowdown for the perf budget spec. |
 | `UPDATE_PERF_BUDGETS` | optional | test | `tests/e2e/perf-budget.spec.js` | 1 rewrites perf-budgets.json from a fresh measurement. |
-| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +3 | Path of the pglite module the SQL harnesses load. |
-| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-rpc-boundaries-db.mjs` +1 | Postgres service container the SQL harnesses use in CI. |
+| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +4 | Path of the pglite module the SQL harnesses load. |
+| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +2 | Postgres service container the SQL harnesses use in CI. |
 | `PG_MODULE` | optional | script | `vca/scripts/test-community-db.mjs` | Path of the pg module the VCA community harness loads. |
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
@@ -203,7 +204,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Read in | Meaning |
 |---|---|---|
 | `CI` | `playwright.config.js`, `research/playwright.config.js`, `scripts/check-ci-graphics.mjs` +1 | set by GitHub Actions; Playwright and a few scripts switch to CI mode |
-| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-rpc-boundaries-db.mjs` +1 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
+| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +2 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
 | `GITHUB_STEP_SUMMARY` | `scripts/e2e-durations.mjs`, `scripts/perf-budget.mjs`, `tests/e2e/perf-budget.spec.js` | set by GitHub Actions; perf and e2e duration reports append to it |
 | `NODE_ENV` | `api/_lib/rate-limit.js` | set by Node tooling and Vercel; production makes the rate limiter require Upstash |
 | `PATH` | `scripts/video-asr.py` | the system search path; scripts/video-asr.py adds its CUDA folder |

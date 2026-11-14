@@ -123,6 +123,7 @@ export const ENV = [
   { name: 'VMX_EVIDENCE_POINTER', group: 'Content scripts', need: 'optional', does: 'Model that points at slide lines. Scripts only.' },
   { name: 'VMX_EVIDENCE_READER', group: 'Content scripts', need: 'optional', does: 'Model that reads those lines without the key. Scripts only.' },
   { name: 'VMX_PROVENANCE_DATA', group: 'Content scripts', need: 'optional', does: 'Provenance data root outside the checkout. Scripts only.' },
+  { name: 'LIBRARY_PII_REVIEWS', group: 'Content scripts', need: 'optional', does: 'Path of the file that records reviewed releases of a library hold; default scripts/library-pii-reviews.json. Scripts only.' },
   { name: 'VMX_PROBE_TOKEN', group: 'Content scripts', need: 'optional', does: 'Access token scripts/probe-api-latency.mjs signs in with. Scripts only.' },
   { name: 'VETMOCK_ORIGIN', group: 'Content scripts', need: 'optional', does: 'Origin the prerendered wiki and covers link to; default https://vetmock.com. Build scripts.' },
   { name: 'VETMOCK_INSTRUCTOR_VAULT', group: 'Content scripts', need: 'optional', does: 'Notes vault the instructor profile script reads. Scripts only.' },
