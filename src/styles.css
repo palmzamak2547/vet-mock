@@ -3768,7 +3768,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-q-head > .vmx-q-meta.vmx-qtype-badge {
     flex-basis: 100%; order: 0;
     white-space: normal; overflow: visible; text-overflow: clip;
-    min-height: 28px; padding-block: 4px; position: relative;
+    min-height: 28px; padding-block: 2px; line-height: 1.3; position: relative;
   }
   .vmx-q-head > .vmx-q-meta.vmx-qtype-badge::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: -16px; }
   /* Badge starts below the button strip — keeps long topic labels readable */
