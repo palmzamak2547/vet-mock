@@ -129,7 +129,7 @@ test('an item with no picture draws no frame, and the deck shows the slide besid
   for (let i = 0; i < firstWith; i++) await page.keyboard.press('ArrowRight');
   await expect(page.locator('.vmx-deck-where > span').first()).toHaveText(new RegExp(`^ใบที่ ${firstWith + 1} จาก`));
   await expect(page.locator('.vmx-deck-aside')).toHaveCount(0);   // covered: the slide would give the keywords away
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await expect(page.locator('.vmx-deck-aside .vmx-wrap-slide-frame')).toHaveClass(/is-ready/);
   await expect(page.locator('.vmx-deck-aside-l')).toContainText(/หน้า \d+/);
 });

@@ -52,7 +52,7 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
   await heads.first().click();
   await expect(heads.first()).toHaveAttribute('aria-expanded', 'true');
 
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   // Everything but the lecturer's long list is open.
   for (const h of await page.locator('.vmx-deck-facet:not(.is-emphasis) .vmx-deck-facet-h').all()) {
     await expect(h).toHaveAttribute('aria-expanded', 'true');
@@ -64,10 +64,10 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
   await expect(title(page)).toBeFocused();
   await expect(page.locator('.vmx-deck-segs i').first()).toHaveClass(/is-known/);
   // The new card starts covered again.
-  await expect(page.getByRole('button', { name: 'เปิดทั้งใบ' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'เปิดคำตอบ' })).toBeVisible();
   // Thumb-sized controls, measured once the arriving card has settled (it rises in, slightly scaled).
   await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
-  for (const b of [page.getByRole('button', { name: 'เปิดทั้งใบ' }), page.locator('.vmx-deck-pile-btn'), heads.first()]) {
+  for (const b of [page.getByRole('button', { name: 'เปิดคำตอบ' }), page.locator('.vmx-deck-pile-btn'), heads.first()]) {
     expect((await b.boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
 });
@@ -75,10 +75,10 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
 test('a card marked ต้องทวน comes back in its own round', async ({ page, context }) => {
   await openDeck(page, context);
   const first = await title(page).innerText();
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'ต้องทวน', exact: true }).click();
   await expect(pileCount(page)).toHaveText('1');
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'จำได้' }).click();
 
   await page.locator('.vmx-deck-pile-btn').click();
@@ -91,7 +91,7 @@ test('a card marked ต้องทวน comes back in its own round', async ({
   await expect(sheet).toHaveCount(0);
   await expect(title(page)).toHaveText(first);
   await expect(where(page)).toContainText('รอบทวน เหลือ 1 ใบ');
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'จำได้' }).click();
   // The round is over: what is left to revise, with nothing left.
   await expect(page.getByRole('heading', { name: 'จำได้ครบทุกใบที่ผ่านมา' })).toBeVisible();
@@ -108,9 +108,9 @@ test('a card marked ต้องทวน comes back in its own round', async ({
 test('the deck is where it was after a reload, and a broken record starts it clean', async ({ page, context }) => {
   await openDeck(page, context);
   const n = await total(page);
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'ต้องทวน', exact: true }).click();
-  await page.getByRole('button', { name: 'เปิดทั้งใบ' }).click();
+  await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'จำได้' }).click();
   await expect(where(page)).toHaveText(`ใบที่ 3 จาก ${n}`);
 
@@ -121,7 +121,7 @@ test('the deck is where it was after a reload, and a broken record starts it cle
   await expect(page.locator('.vmx-deck-segs i').nth(0)).toHaveClass(/is-again/);
   await expect(page.locator('.vmx-deck-segs i').nth(1)).toHaveClass(/is-known/);
   // Recall first, after a reload too.
-  await expect(page.getByRole('button', { name: 'เปิดทั้งใบ' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'เปิดคำตอบ' })).toBeVisible();
 
   const keys = await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('vmx-wrap-deck-')));
   expect(keys.length).toBe(1);

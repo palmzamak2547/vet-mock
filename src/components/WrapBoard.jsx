@@ -173,7 +173,7 @@ export default function WrapBoard({ board, items, storageKey, course = '', slide
   return (
     <section className="vmx-board" data-hide={prefs.hide ? 'on' : 'off'} aria-label="กระดานแยกโรค">
       <header className="vmx-board-head">
-        <h2>{slideWord(board.title)}</h2>
+        <h2>{board.titleParts.map((part, i) => <span key={i} className="vmx-board-phrase">{i ? ' ' : ''}{slideWord(part)}</span>)}</h2>
         <p className="vmx-board-lede">{subtitle}</p>
         <button type="button" className="vmx-board-hide" aria-pressed={prefs.hide} onClick={() => setHide(!prefs.hide)}>
           <EyeOff />

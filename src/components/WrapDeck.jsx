@@ -16,7 +16,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import {
-  AGAIN, KNOWN, cardId, goTo, marked, openAllLabel, rate, readDeck, restart, resume, segments, startRedo, tally,
+  AGAIN, KNOWN, cardId, goTo, marked, OPEN_ALL, rate, readDeck, restart, resume, segments, startRedo, tally,
 } from '../lib/wrap-deck.js';
 import { topicPractice } from '../lib/lecturer-count.js';
 import { FORMAT_LABEL } from '../data/lecturer-sets.js';
@@ -39,9 +39,8 @@ function facetsOf(item) {
   if (item.emphasis?.length) out.push({ id: 'emphasis', label: 'อาจารย์เน้น', signal: 'emphasis', count: item.emphasis.length });
   return out;
 }
-// The open-all button opens everything but the lecturer's long list, which is
-// there to read when wanted (the drawing's own choice), and says so: on a
-// card that has that list it reads "เปิดทั้งใบ ยกเว้นอาจารย์เน้น".
+// The open-all button ("เปิดคำตอบ") opens everything but the lecturer's long
+// list, which is there to read when wanted (the drawing's own choice).
 const coreOf = (facets) => {
   const core = facets.filter((f) => f.id !== 'emphasis');
   return core.length ? core : facets;
@@ -133,7 +132,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
   // What is open belongs to one visit of one card. Every move to a card
   // starts a new visit in the same update, so a card arrives covered from its
   // first paint: an effect that closed it afterwards could undo a tap that
-  // came first (a fast "เปิดทั้งใบ" right after the card changed).
+  // came first (a fast "เปิดคำตอบ" right after the card changed).
   const [visit, setVisit] = useState(0);
   const [opened, setOpened] = useState(() => ({ visit: 0, ids: new Set() }));
   const open = opened.visit === visit ? opened.ids : NONE;
@@ -321,7 +320,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
             {!back ? (
               <>
                 <p className="vmx-deck-hint">นึกก่อน แล้วค่อยเปิด</p>
-                <button type="button" className="vmx-deck-btn is-primary is-wide" onClick={reveal}>{openAllLabel(facets, core)}</button>
+                <button type="button" className="vmx-deck-btn is-primary is-wide" onClick={reveal}>{OPEN_ALL}</button>
               </>
             ) : (
               <div className="vmx-deck-rate">
@@ -331,7 +330,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
             )}
             {/* Only the keys that do something now: Space opens a card that is still covered. */}
             <p className="vmx-deck-keys" aria-hidden="true">
-              {!back && <><kbd>Space</kbd> {openAllLabel(facets, core)} </>}
+              {!back && <><kbd>Space</kbd> {OPEN_ALL} </>}
               {back && <><kbd>1</kbd> ต้องทวน <kbd>2</kbd> {quick ? 'ถัดไป' : 'จำได้'} </>}
               <kbd>←</kbd><kbd>→</kbd> เลื่อนใบ
             </p>

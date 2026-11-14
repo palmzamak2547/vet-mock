@@ -66,8 +66,8 @@ function lineOf(item, code) {
 /**
  * The resolved board for this wrap-up, or null when the board is for another
  * paper or too little of it holds:
- * { title, frame, items: [n], steps: [{ title, rows: [{ clue: { text, n },
- *   note?, to: [{ kind: 'item', n, name, short, th, notes: [text] } | { kind: 'text', text, n }] }],
+ * { title, frame, items: [n], steps: [{ title, rows: [{ clue: { text, n, quote },
+ *   note?, to: [{ kind: 'item', n, name, short, labelled, th, notes: [text] } | { kind: 'text', text, n }] }],
  *   cites: [{ n, kind, src? }] }], dropped: [why] }.
  * n is the item's number on the page (1-based, across lecturers).
  */
@@ -93,7 +93,25 @@ export function resolveBoard(board, wrapup) {
       return null;
     }
     used.push({ n: i + 1, kind: line.kind, at: line.at ?? -1, src: line.src });
-    return { text: fold(text), n: i + 1 };
+    return { text: fold(text), n: i + 1, line: line.text };
+  };
+
+  // A clue's chip: the board's own short Thai label for the condition its
+  // quoted words state ([words, item, line, label]). It may say it in Thai and
+  // in the board's one form ("อายุ 2-6 เดือน" for "2-6 months of age"), never
+  // add a fact: every number in it must be in the quoted line, and it must be
+  // Thai. Without a label the chip is the quoted words.
+  const clueOf = (spec, used, what) => {
+    const c = cell(spec, used, what);
+    if (!c) return null;
+    const label = Array.isArray(spec) && typeof spec[3] === 'string' ? fold(spec[3]) : '';
+    const shown = label || c.text;
+    const extra = (shown.match(/\d+(?:[.,]\d+)?/g) || []).filter((num) => !c.line.includes(num));
+    if (extra.length || !/[\u0E00-\u0E7F]/.test(shown)) {
+      dropped.push(`${what}: "${shown}" ${extra.length ? `has ${extra.join(', ')}, not in its line` : 'is not Thai'}`);
+      return null;
+    }
+    return { text: shown, n: c.n, quote: c.text };
   };
 
   const steps = [];
@@ -103,7 +121,7 @@ export function resolveBoard(board, wrapup) {
     const rows = [];
     for (const row of step.rows || []) {
       const rowUsed = [];
-      const clue = cell(row.clue, rowUsed, `${step.title} clue`);
+      const clue = clueOf(row.clue, rowUsed, `${step.title} clue`);
       if (!clue) continue;
       const to = [];
       for (const target of row.to || []) {
@@ -113,8 +131,20 @@ export function resolveBoard(board, wrapup) {
           const notes = (target.notes || []).map((spec) => cell(spec, rowUsed, `${step.title} note`)).filter(Boolean).map((c) => c.text);
           // The node is labelled by the key, the start of the item's own name
           // ("Colibacillosis" for "Colibacillosis: enterotoxigenic E. coli and
-          // edema disease"); the card beside it carries the whole name.
-          to.push({ kind: 'item', n: i + 1, name: items[i].name, short: fold(target.item), th: items[i].th || '', notes });
+          // edema disease"); the card beside it carries the whole name. When the
+          // line is about another organism or entity inside the topic (B.
+          // pilosicoli inside swine dysentery), the node is named by that
+          // entity, in the words of a line it quotes, and keeps the topic's
+          // number, so a student never reads one disease's fact under another's name.
+          let short = fold(target.item);
+          let labelled = false;
+          if (target.label) {
+            const named = cell(target.label, rowUsed, `${step.title} name`);
+            if (!named) continue;
+            short = named.text;
+            labelled = true;
+          }
+          to.push({ kind: 'item', n: i + 1, name: items[i].name, short, labelled, th: items[i].th || '', notes });
         } else {
           const t = cell(target?.text, rowUsed, `${step.title} result`);
           if (t) to.push({ kind: 'text', text: t.text, n: t.n });
@@ -147,7 +177,10 @@ export function resolveBoard(board, wrapup) {
   if (steps.length < BOARD_MIN.steps || rowCount < BOARD_MIN.rows || onBoard.size < BOARD_MIN.items) return null;
   const frame = find(board.frame);
   return {
-    title: fold(board.title),
+    // A title may come in phrases, each kept on one line where it fits, so a
+    // phone never splits one ("สิ่ง|ที่เห็น"); Thai has no spaces to break at.
+    title: (Array.isArray(board.title) ? board.title : [board.title]).map(fold).join(' '),
+    titleParts: (Array.isArray(board.title) ? board.title : [board.title]).map(fold).filter(Boolean),
     frame: frame >= 0 ? frame + 1 : null,
     items: [...onBoard].sort((a, b) => a - b),
     steps,

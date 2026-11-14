@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  AGAIN, KNOWN, cardId, deckKey, freshDeck, goTo, marked, openAllLabel, rate, readDeck, restart, resume, segments, startRedo, tally,
+  AGAIN, KNOWN, cardId, deckKey, freshDeck, goTo, marked, OPEN_ALL, rate, readDeck, restart, resume, segments, startRedo, tally,
 } from '../../src/lib/wrap-deck.js';
 import { readFileSync } from 'node:fs';
 
@@ -79,13 +79,12 @@ test('the strip marks the card on screen, then each card by its mark', () => {
   assert.deepEqual(segments({ ...s, done: true }, ids), ['known', 'again', 'known', '']);
 });
 
-test('the open-all button says what it opens, and the keys shown are the ones that work now', () => {
-  const all = [{ id: 'keys' }, { id: 'pitfall' }, { id: 'emphasis' }];
-  assert.equal(openAllLabel(all, all.slice(0, 2)), 'เปิดทั้งใบ ยกเว้นอาจารย์เน้น');
-  assert.equal(openAllLabel(all.slice(0, 2), all.slice(0, 2)), 'เปิดทั้งใบ');
+test('the open-all button opens the answer, and the keys shown are the ones that work now', () => {
+  assert.equal(OPEN_ALL, 'เปิดคำตอบ');
   const view = readFileSync(new URL('../../src/components/WrapDeck.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  assert.match(view, />\{OPEN_ALL\}<\/button>/);
   // Space is offered only while something is covered; 1 and 2 only once it is open.
-  assert.match(view, /\{!back && <><kbd>Space<\/kbd>/);
+  assert.match(view, /\{!back && <><kbd>Space<\/kbd> \{OPEN_ALL\} <\/>\}/);
   assert.match(view, /\{back && <><kbd>1<\/kbd> ต้องทวน/);
-  assert.doesNotMatch(view, /<kbd>Space<\/kbd> เปิดทั้งใบ <kbd>1<\/kbd>/);
+  assert.doesNotMatch(view, /เปิดทั้งใบ/);
 });

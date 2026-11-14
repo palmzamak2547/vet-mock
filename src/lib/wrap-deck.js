@@ -116,7 +116,7 @@ export function segments(state, ids) {
 
 /**
  * The open-all button's words. It opens every part but the lecturer's long
- * list (`core` is what it opens), and on a card that has that list it says
- * so, rather than claim the whole card while one part stays covered.
+ * list, which stays covered by design (it is there to read when wanted), so it
+ * opens the answer rather than the whole card.
  */
-export const openAllLabel = (facets, core) => (core.length < facets.length ? 'เปิดทั้งใบ ยกเว้นอาจารย์เน้น' : 'เปิดทั้งใบ');
+export const OPEN_ALL = 'เปิดคำตอบ';

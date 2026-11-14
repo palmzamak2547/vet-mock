@@ -53,7 +53,7 @@ const board = {
       title: 'ดูอุจจาระ',
       rows: [
         { clue: ['มูกปนเลือดสด', SD, 'e0'], to: [{ item: SD, notes: [['เลือดออกที่ลำไส้ใหญ่', SD, 'e0']] }] },
-        { clue: ['Dark watery feces', Y, 'k0'], to: [{ item: Y }] },
+        { clue: ['Dark watery feces', Y, 'k0', 'อุจจาระเป็นน้ำสีเข้ม'], to: [{ item: Y }] },
         { clue: ['สุกรขุน', SD, 'x0'], to: [{ item: SD }, { item: Y }], note: ['ถ่ายมูกเลือด', SD, 'x0'] },
       ],
     },
@@ -113,6 +113,34 @@ test('a target naming no item, or two, is dropped; a row left with none goes', (
   assert.equal(r.steps[1].rows[0].to.length, 1, 'an ambiguous prefix is not guessed');
 });
 
+test('a chip is the board Thai label for its quoted words, and may add no number', () => {
+  const r = resolveBoard(board, wrap);
+  assert.equal(r.steps[1].rows[1].clue.text, 'อุจจาระเป็นน้ำสีเข้ม');
+  assert.equal(r.steps[1].rows[1].clue.quote, 'Dark watery feces');
+  const number = structuredClone(board);
+  number.steps[1].rows[1].clue[3] = 'อุจจาระเป็นน้ำ 3 วัน';
+  number.steps[1].rows.push(structuredClone(board.steps[1].rows[0]));
+  assert.match(resolveBoard(number, wrap).dropped.join('|'), /has 3, not in its line/);
+  const english = structuredClone(board);
+  english.steps[1].rows[0].clue = ['มูกปนเลือดสด', SD, 'e0', 'mucoid bloody'];
+  english.steps[1].rows.push(structuredClone(board.steps[1].rows[1]));
+  assert.match(resolveBoard(english, wrap).dropped.join('|'), /is not Thai/);
+});
+
+test('a node whose line is about another entity is named by that entity, in its own line words', () => {
+  const b = structuredClone(board);
+  b.steps[1].rows[0].to[0].label = ['ลำไส้ใหญ่', SD, 'e0'];
+  const r = resolveBoard(b, wrap);
+  const node = r.steps[1].rows[0].to[0];
+  assert.equal(node.short, 'ลำไส้ใหญ่');
+  assert.equal(node.labelled, true);
+  assert.equal(node.n, 2, 'the tap still opens the topic');
+  b.steps[1].rows[0].to[0].label = ['B. pilosicoli', SD, 'e0'];
+  const r2 = resolveBoard(b, wrap);
+  assert.match(r2.dropped.join('|'), /name: "B\. pilosicoli" not in Swine dysentery e0/, 'a name not in its line is no name');
+  assert.ok(!r2.steps[1].rows.some((row) => row.to.some((t) => t.short === 'B. pilosicoli')));
+});
+
 test('a board for another paper, or with too little left, is no board at all', () => {
   assert.equal(resolveBoard(board, { ...wrap, exam: { date: '2027-11-23' } }), null);
   assert.equal(resolveBoard(board, { ...wrap, subject: 'cows' }), null);
@@ -162,8 +190,16 @@ test('the Swine final board: the steps and diseases the data supports', async ()
   const r = resolveBoard(BOARD, WRAPUP);
   assert.ok(r.steps.length >= 4);
   assert.equal(r.frame, 1);
+  // The four nodes whose lines are about another entity inside their topic.
+  const named = r.steps.flatMap((st) => st.rows.flatMap((row) => row.to)).filter((t) => t.labelled).map((t) => `${t.n} ${t.short}`);
+  assert.deepEqual([...new Set(named)].sort(), ['4 B. pilosicoli', '6 ETEC', '6 edema disease', '9 Balantidium coli']);
   for (const n of r.items) assert.ok(n >= 2 && n <= 10, `item ${n} is one of the enteric topics`);
   for (const step of r.steps) {
+    // A node reads its topic's title, or a phrase its own line says word for word (the resolver checked it).
+    for (const row of step.rows) {
+      assert.match(row.clue.text, /[\u0E00-\u0E7F]/, `${row.clue.text}: a chip is Thai`);
+      for (const t of row.to) if (t.kind === 'item' && !t.labelled) assert.ok(t.name.startsWith(t.short), `${t.short} is the start of ${t.name}`);
+    }
     assert.ok(step.cites.length > 0, `${step.title} cites its lines`);
     assert.doesNotMatch(step.title, /·/);
   }

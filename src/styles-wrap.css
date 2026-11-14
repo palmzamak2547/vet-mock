@@ -153,6 +153,8 @@
 /* The differential board (components/WrapBoard.jsx): a step per question
    asked of the farm, each clue on the left pointing to what it suggests. */
 .vmx-board-head { margin: 0 0 14px; }
+/* Each phrase of the title stays whole where it fits (inline-block wraps inside only when it must). */
+.vmx-board-phrase { display: inline-block; }
 .vmx-board-head h2 { margin: 0 0 6px; font-family: var(--vmx-display); font-size: clamp(22px, 3.4vw, 28px); line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
 .vmx-board-lede { margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 .vmx-board-hide { appearance: none; min-height: var(--touch-min); display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
@@ -216,8 +218,12 @@
 .vmx-board-pane-empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 /* A wide screen: the board and, beside it, the disease picked on it. */
 @media (min-width: 1024px) {
-  .vmx-wrap[data-mode="board"] { max-width: 1120px; }
-  .vmx-board-body.is-wide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 360px); gap: 20px; align-items: start; }
+  /* The board takes the width the screen has, not the reading measure (the
+     shell's main column is 820 px for reading views). A browser without :has
+     keeps the reading column, where the board still fits beside its pane. */
+  .vmx-main:has(.vmx-wrap[data-mode="board"]) { max-width: 1100px; }
+  .vmx-wrap[data-mode="board"] { max-width: none; }
+  .vmx-board-body.is-wide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.5fr); gap: 20px; align-items: start; }
   .vmx-board-pane { position: sticky; top: 72px; max-height: calc(100vh - 88px); overflow: auto; overscroll-behavior: contain; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: 16px; }
   .vmx-board-pane .vmx-board-detail-head { padding-right: 0; }
 }
