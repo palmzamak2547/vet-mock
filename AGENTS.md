@@ -102,6 +102,7 @@ Palm, 2026-11-14: "การจัดวางlayoutต่างๆ จิตว
 - **Pictures and structure before a wall of text:** a table, a timeline, a real figure where the facts form one. Never invented or generated medical imagery.
 - **Words are design.** Plain Thai that a tired student gets on the first read, one idea per line, calm, each thing said once. Terms come from `src/data/glossary.js`. No middle dot as a separator: a comma, a line break or a table.
 - **Before it ships:** walk the real path on a production build, phone and desktop. A heading that can carry Thai has line-height 1.2 and letter-spacing 0; look at each one at 2x.
+- **The measure:** [docs/VETMOCK-STANDARD.md](docs/VETMOCK-STANDARD.md) says what good means for every part of the product, one testable clause each; `npm run standard` prints which are met today.
 
 ### 12. How a bug becomes impossible
 Every fix lands with the smallest guard that fails if the bug returns: a unit test, a lint or an e2e assertion, in the same pull request, and the guard is shown failing on the old code before the fix makes it pass. A guard is never loosened to get a release through; a known failure goes on an explicit list that can only shrink. The structural guards (11 Nov 2026):
