@@ -62,7 +62,8 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
   await expect(page.locator('.vmx-deck-segs i').first()).toHaveClass(/is-known/);
   // The new card starts covered again.
   await expect(page.getByRole('button', { name: 'เปิดทั้งใบ' })).toBeVisible();
-  // Thumb-sized controls.
+  // Thumb-sized controls, measured once the arriving card has settled (it rises in, slightly scaled).
+  await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
   for (const b of [page.getByRole('button', { name: 'เปิดทั้งใบ' }), page.locator('.vmx-deck-pile-btn'), heads.first()]) {
     expect((await b.boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
@@ -92,6 +93,13 @@ test('a card marked ต้องทวน comes back in its own round', async ({
   // The round is over: what is left to revise, with nothing left.
   await expect(page.getByRole('heading', { name: 'จำได้ครบทุกใบที่ผ่านมา' })).toBeVisible();
   await expect(pileCount(page)).toHaveText('0');
+  // Two cards seen, the rest not: the strip says so, and the way on is the
+  // first unseen card, not only a restart that would wipe the marks.
+  const n = await page.locator('.vmx-deck-segs i').count();
+  await expect(where(page)).toHaveText(`ผ่านไปแล้ว 2 จาก ${n} ใบ`);
+  await page.getByRole('button', { name: 'ทวนต่อจากใบที่ 3' }).click();
+  await expect(where(page)).toHaveText(`ใบที่ 3 จาก ${n}`);
+  await expect(page.locator('.vmx-deck-segs i').nth(0)).toHaveClass(/is-known/);
 });
 
 test('the deck is where it was after a reload, and a broken record starts it clean', async ({ page, context }) => {

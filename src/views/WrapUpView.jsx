@@ -280,7 +280,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           <span className="vmx-wrap-pill">{items.length} {unit}</span>
           <span className="vmx-wrap-pill">{data.groups.length} อาจารย์</span>
         </div>
-        {data.intro && <p className="vmx-wrap-intro">{data.intro}</p>}
+        {/* The deck is the second pass: the paper's overview was read on the
+            first, and on a phone it would push the card off the first screen. */}
+        {data.intro && mode !== 'deck' && <p className="vmx-wrap-intro">{data.intro}</p>}
         <div className="vmx-wrap-mode" role="group" aria-label="โหมดการอ่าน">
           <button type="button" className={mode === 'full' ? 'is-on' : ''} aria-pressed={mode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
           <button type="button" className={mode === 'keys' ? 'is-on' : ''} aria-pressed={mode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>

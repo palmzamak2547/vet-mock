@@ -70,7 +70,7 @@
 .vmx-deck-keys { display: none; margin: 0; text-align: center; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-deck-keys kbd { display: inline-block; min-width: 22px; margin: 0 2px 0 8px; padding: 0 5px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-surface); font-family: var(--vmx-sans); font-size: 12px; line-height: 20px; }
 .vmx-deck-keys kbd + kbd { margin-left: 0; }
-@media (hover: hover) and (pointer: fine) { .vmx-deck-keys { display: block; } }
+@media (hover: hover) and (pointer: fine) and (min-width: 641px) { .vmx-deck-keys { display: block; } }
 /* What is left to revise: inline at the end of the deck, or as a sheet over it. */
 .vmx-deck-sum h2 { margin: 0 0 4px; font-size: 20px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
 .vmx-deck-sum h2:focus { outline: none; }

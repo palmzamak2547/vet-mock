@@ -55,6 +55,7 @@ function FacetBody({ facet, item, course }) {
 function Summary({ state, ids, items, done, onJump, onRedo, onResume, onRestart, practice, headingRef, headingId }) {
   const t = tally(state, ids);
   const again = marked(state, ids, AGAIN);
+  const unseen = ids.findIndex((id) => !state.marks[id]);
   return (
     <div className="vmx-deck-sum">
       <h2 id={headingId} ref={headingRef} tabIndex={-1}>
@@ -87,8 +88,13 @@ function Summary({ state, ids, items, done, onJump, onRedo, onResume, onRestart,
           <button type="button" className="vmx-deck-btn is-primary" onClick={onRedo}>ทวน {again.length} ใบนี้อีกรอบ</button>
         )}
         {practice}
+        {/* At the end of a redo round there may be cards never seen: carry on
+            from the first of them, never only a restart that wipes the marks. */}
+        {done && unseen >= 0 && (
+          <button type="button" className={`vmx-deck-btn${again.length ? '' : ' is-primary'}`} onClick={() => onJump(unseen)}>ทวนต่อจากใบที่ {unseen + 1}</button>
+        )}
         {done
-          ? <button type="button" className="vmx-deck-btn" onClick={onRestart}>เริ่มสำรับใหม่</button>
+          ? <button type="button" className="vmx-deck-btn is-quiet" onClick={onRestart}>เริ่มสำรับใหม่</button>
           : <button type="button" className="vmx-deck-btn is-quiet" onClick={onResume}>ทวนต่อจากใบที่ {state.pos + 1}</button>}
       </div>
     </div>
@@ -235,8 +241,8 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
           {segs.map((s, i) => <i key={ids[i]} className={s ? `is-${s}` : undefined} />)}
         </div>
         <div className="vmx-deck-where">
-          <span aria-live="polite">{state.done ? `ครบ ${t.total} ใบ` : `ใบที่ ${state.pos + 1} จาก ${t.total}`}{inRound ? ` รอบทวน เหลือ ${state.queue.length} ใบ` : ''}</span>
-          <span className="vmx-deck-lect">{quick ? 'รอบเร็ว: คีย์เวิร์ดกับระวังสับสน' : item.lecturer}</span>
+          <span aria-live="polite">{state.done ? `ผ่านไปแล้ว ${t.seen} จาก ${t.total} ใบ` : `ใบที่ ${state.pos + 1} จาก ${t.total}`}{inRound ? ` รอบทวน เหลือ ${state.queue.length} ใบ` : ''}</span>
+          {!state.done && <span className="vmx-deck-lect">{quick ? 'รอบเร็ว: คีย์เวิร์ดกับระวังสับสน' : item.lecturer}</span>}
         </div>
       </div>
 
