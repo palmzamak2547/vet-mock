@@ -37,7 +37,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Course: Equine medicine and Surgery — code **3106 510**',
-            'Note ในสไลด์: lameness เป็นหัวข้อยาก ออกสอบเป็น case-based · ม้ารวมๆ กลับ lameness',
+            'Note ในสไลด์: lameness เป็นหัวข้อยาก ออกสอบเป็น case-based, ม้ารวมๆ กลับ lameness',
             'Grading note: **70% สอบ + 10% เข้าเรียน** (ที่เหลือ activity/case)',
             'ออกสอบเรื่อง vet กับการขี่ม้า/เชือก/อุปกรณ์ → ตอนฝึกงานเทอมหน้า',
           ] },
@@ -61,9 +61,9 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '1 - Intro 67.pdf p.3',
         body: [
           { bullets: [
-            '**น.สพ. ฐาปนา จารุธรรมสิริ** (Zoo.one.siri) — nutrition · "ออกข้อสอบเกตร"',
+            '**น.สพ. ฐาปนา จารุธรรมสิริ** (Zoo.one.siri) — nutrition, "ออกข้อสอบเกตร"',
             '**ผศ.น.สพ.ดร. วีรพงศ์ ตั้งจิตเจริญ** — acupuncture',
-            '**ผศ.สพ.ญ. สุพรรณิกา พุทธชาลี** — คณะสัตวแพทย์ ม.ขอนแก่น · ลูกม้า/neonatal',
+            '**ผศ.สพ.ญ. สุพรรณิกา พุทธชาลี** — คณะสัตวแพทย์ ม.ขอนแก่น, ลูกม้า/neonatal',
             '**สพ.ญ. ทศร สง่างาม** — รพส. จุฬา นครปฐม',
           ] },
         ],
@@ -131,8 +131,8 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Same breed / age / sex / environment / health / activity → Nutritional requirements **may still differ** between individuals',
-            'ตัวแปร: **Genetics** (ex. metabolic horse) · **History** (ex. previous pain) · **Intrauterine events** (nutritional status of the mare)',
-            'TH เลย: ยกธรรมชาติเข้าเป็นเล็กที่สุด · ภัยพิบัติ ออก ตัดเชื้อก่อน',
+            'ตัวแปร: **Genetics** (ex. metabolic horse), **History** (ex. previous pain), **Intrauterine events** (nutritional status of the mare)',
+            'TH เลย: ยกธรรมชาติเข้าเป็นเล็กที่สุด, ภัยพิบัติ ออก ตัดเชื้อก่อน',
           ] },
         ],
       },
@@ -143,9 +143,9 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             '**Body Condition Score (BCS)** — Fat Thickness, scale 1-9',
             '**Topline Evaluation Score (TES)** — Muscle Development → Amino Acid Balance + Genetics + Training Level',
-            'BCS linked → Calories · TES linked → Protein',
+            'BCS linked → Calories, TES linked → Protein',
             'BCS 5 = ฝ้ายอ่อน (ปกติ), BCS 7-9 = obese, BCS 1-3 = emaciate',
-            'BCS + TES ไม่จำเป็นต้องเหมือนกัน → ex. คนใหญ่ fat แต่ไม่ค่อย trained · muscle ก็ต้องการ TES มากกว่า',
+            'BCS + TES ไม่จำเป็นต้องเหมือนกัน → ex. คนใหญ่ fat แต่ไม่ค่อย trained, muscle ก็ต้องการ TES มากกว่า',
           ] },
         ],
       },
@@ -154,7 +154,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '2.5 - What_must_diet_provide___CU_2024.pdf + Feeds_for_horse___CU_2024.pdf',
         body: [
           { bullets: [
-            '🚧 รอเติม — จาก slides 10+: water · energy (DE) · protein (AA) · vitamins/minerals · forage:concentrate ratio · feeding behavior',
+            '🚧 รอเติม — จาก slides 10+: water, energy (DE), protein (AA), vitamins/minerals, forage:concentrate ratio, feeding behavior',
           ] },
         ],
       },
@@ -237,7 +237,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '3 - Eq_inf_dz_67.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — slide 4+ ยังไม่ได้เปิด: pathogenesis · CS · Dx · Tx · vaccine schedule (core vs risk-based)',
+            '🚧 รอเติม — slide 4+ ยังไม่ได้เปิด: pathogenesis, CS, Dx, Tx, vaccine schedule (core vs risk-based)',
           ] },
         ],
       },
@@ -278,10 +278,10 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '4 - equine_med_2024.pdf p.3',
         body: [
           { bullets: [
-            '**GI parasite** — หนอนพยาธิทางเดินอาหาร (Strongyles · Parascaris · Strongyloides · Anoplocephala · Oxyuris · bots/Gasterophilus)',
-            '**Blood parasite** — Trypanosoma · Babesia/Theileria',
-            '**Skin disease due to parasite** — ectoparasites (lice · mites · ticks · Habronema)',
-            '**Eyes disease due to parasite** — Thelazia · Habronema/Draschia · Onchocerca',
+            '**GI parasite** — หนอนพยาธิทางเดินอาหาร (Strongyles, Parascaris, Strongyloides, Anoplocephala, Oxyuris, bots/Gasterophilus)',
+            '**Blood parasite** — Trypanosoma, Babesia/Theileria',
+            '**Skin disease due to parasite** — ectoparasites (lice, mites, ticks, Habronema)',
+            '**Eyes disease due to parasite** — Thelazia, Habronema/Draschia, Onchocerca',
           ] },
           { callout: 'Outline page เท่านั้น p.1-3 — รายละเอียดต่อปรสิต อยู่ slide 4+', kind: 'tip' },
         ],
@@ -291,7 +291,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '4 - equine_med_2024.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — life cycle · CS · Dx · Tx · anthelmintic resistance · deworming schedule',
+            '🚧 รอเติม — life cycle, CS, Dx, Tx, anthelmintic resistance, deworming schedule',
           ] },
         ],
       },
@@ -323,7 +323,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             '**TCVM in brief** = Traditional Chinese Veterinary Medicine — context, philosophy',
-            '**TCVM essentials** — Yin-Yang · 5 elements · meridians · acupoints',
+            '**TCVM essentials** — Yin-Yang, 5 elements, meridians, acupoints',
             '**Case examples** — clinical applications ในม้า',
             'รูปประกอบ: case ไก่ที่ใช้ electroacupuncture (technique generalizable)',
           ] },
@@ -345,7 +345,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '5 - Acupuncture_BW_Sep_2024_CU_.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — Yin/Yang/Qi · meridians · acupoint techniques · equine-specific points · dry needle vs electroacupuncture · indications (lameness, GI, behavior) · case-based examples',
+            '🚧 รอเติม — Yin/Yang/Qi; meridians; acupoint techniques; equine-specific points; dry needle vs electroacupuncture; indications (lameness, GI, behavior); case-based examples',
           ] },
         ],
       },
@@ -415,7 +415,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '1 - _Eq_lame.pdf + 2 - Diagnostic_analgesia p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — full gait evaluation · AAEP lameness scale (0-5) · flexion tests · low PD / abaxial / low 4 / high 4 / median-ulnar / TMR blocks · troubleshooting false +/−',
+            '🚧 รอเติม — full gait evaluation, AAEP lameness scale (0-5), flexion tests, low PD / abaxial / low 4 / high 4 / median-ulnar / TMR blocks, troubleshooting false +/−',
           ] },
         ],
       },
@@ -474,7 +474,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '3 - _Eq_pathologic_of_hoof.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — laminitis (acute/chronic, rotation, founder) · navicular syndrome · sub-solar abscess · canker · thrush · quarter/heel cracks · hoof wall avulsion · keratoma',
+            '🚧 รอเติม — laminitis (acute/chronic, rotation, founder); navicular syndrome; sub-solar abscess; canker; thrush; quarter/heel cracks; hoof wall avulsion; keratoma',
           ] },
         ],
       },
@@ -519,7 +519,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             '**SDFT** (Superficial Digital Flexor Tendon) — **Fore >> Hind**',
-            '**Suspensory ligament** — Fore ≥ Hind ใน flat racehorses · Hind ≥ Fore ใน trotters + show jumpers',
+            '**Suspensory ligament** — Fore ≥ Hind ใน flat racehorses, Hind ≥ Fore ใน trotters + show jumpers',
             '**Inferior check ligament** — มักเข้าลำตอน 70-80% (ม้าเข้าลำตาก)',
             '**DDFT** (Deep Digital Flexor Tendon, tenosynovitis) — RARE',
             '**Others**: biceps, extensor, calcaneal',
@@ -531,7 +531,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '4 - _Tendon_injuries_and_treatments.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — pathophysiology (collagen damage → fibrosis) · grading (US bands) · Tx options (rest · cold/laser/SWT · IRAP / PRP / stem cell injections · platelets · controlled rehab · prognosis return-to-race rates)',
+            '🚧 รอเติม — pathophysiology (collagen damage → fibrosis), grading (US bands), Tx options (rest, cold/laser/SWT, IRAP / PRP / stem cell injections, platelets, controlled rehab, prognosis return-to-race rates)',
           ] },
         ],
       },
@@ -572,7 +572,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: 'ทั่วไป — รอเปิดสไลด์จริงที่ลดขนาดแล้ว',
         body: [
           { bullets: [
-            '🚧 รอเติม — pre-anesthetic assessment (BCS, blood, sedation choice) · sedation/standing chemical restraint (α-2 + opioid) · induction (ketamine + diazepam vs guaifenesin) · maintenance (TIVA — triple drip; or inhalant) · recovery (assisted vs unassisted; main mortality risk!) · field anes considerations · post-anes myopathy/neuropathy · monitoring (HR, RR, MAP, SpO2)',
+            '🚧 รอเติม — pre-anesthetic assessment (BCS, blood, sedation choice); sedation/standing chemical restraint (α-2 + opioid); induction (ketamine + diazepam vs guaifenesin); maintenance (TIVA — triple drip; or inhalant); recovery (assisted vs unassisted; main mortality risk!); field anes considerations; post-anes myopathy/neuropathy; monitoring (HR, RR, MAP, SpO2)',
           ] },
         ],
       },
@@ -630,7 +630,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '7 - Equine_dent_CU_2024.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — Triadan numbering (101-411) · eruption schedule · Galvayne\'s groove · cup/star/ring change · common pathology (sharp enamel points, hooks, ramps, wave/step mouth, EOTRH, apical infection, EORTH) · floating · extraction techniques',
+            '🚧 รอเติม — Triadan numbering (101-411); eruption schedule; Galvayne\'s groove; cup/star/ring change; common pathology (sharp enamel points, hooks, ramps, wave/step mouth, EOTRH, apical infection, EORTH); floating; extraction techniques',
           ] },
         ],
       },
@@ -721,13 +721,13 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             '**Physical examination / Auscultation** — short sounds vs runs vs silent (HR ~40 normal, ม้ามาก = pain)',
             '**Examination of mouth/teeth** — ดูฟันโกง',
-            '**Fecal exam** — ก่อน check ว่าเป็นซีกอะไรบ้าง · normal ไม่เหลือเศษเนื้อ + ตรวจพยาธิ',
+            '**Fecal exam** — ก่อน check ว่าเป็นซีกอะไรบ้าง, normal ไม่เหลือเศษเนื้อ + ตรวจพยาธิ',
             '**Nasogastric intubation** — vital! ม้า vomit ไม่ได้ → ต้อง decompress + check reflux (>2L = sig ตามนิยาม postoperative ileus ที่ต้องมี pulse ตั้งแต่ 60 ครั้งต่อนาที หรืออาการปวดร่วมด้วย)',
             '**Rectal palpation** — มั่งมือใน rectum, สำคัญสุดในประเทศ',
             '**Abdominocentesis** — peritoneal fluid; sepsis → น้ำในช่องท้องจะเปลี่ยน',
             '**Radiography** — sand, enteroliths, gas pattern (ม้าเด็กทำได้, ม้าใหญ่ทำ x)',
             '**Endoscopy / Gastroscopy** — gastric ulcer (เจอตรงผิวด้าน ventral)',
-            '**Blood exam** — inflam markers · BUN · serum AA',
+            '**Blood exam** — inflam markers, BUN, serum AA',
           ] },
         ],
       },
@@ -747,7 +747,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
                 '**Ulceration** — loss of mucosal epithelial cell',
                 '**Enteritis & Colitis** — inflammation of SI / LI',
                 '**Peritonitis** — inflammation of peritoneal lining',
-                '**Non-strangulation infraction** — loss of blood supply without displacement (ไม่ได้พันกัน · ขาดเลือด)',
+                '**Non-strangulation infraction** — loss of blood supply without displacement (ไม่ได้พันกัน, ขาดเลือด)',
               ] },
             ] },
         ],
@@ -782,7 +782,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '10 - GI Mg 67.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — stomach (EGUS, ulcer Tx omeprazole + sucralfate) · SI (ileus, strangulation, EPE) · cecum (impaction, perforation) · large colon (impaction, displacement, volvulus) · small colon (impaction, RDC) · enteritis/colitis (salmonella, clostridia, PHF) · peritonitis',
+            '🚧 รอเติม — stomach (EGUS, ulcer Tx omeprazole + sucralfate); SI (ileus, strangulation, EPE); cecum (impaction, perforation); large colon (impaction, displacement, volvulus); small colon (impaction, RDC); enteritis/colitis (salmonella, clostridia, PHF); peritonitis',
           ] },
         ],
       },
@@ -804,8 +804,8 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             'Title: **การจัดการที่เหมาะสมสำหรับปัญหาโคลิกในม้า**',
             'Speaker: **ผศ.สพ.ญ. อารีย์ ไหลกุล** (Aree Laikul)',
-            'ภาควิชาเวชศาสตร์คลินิกสัตว์ใหญ่และสัตว์ป่า · คณะสัตวแพทยศาสตร์ · มหาวิทยาลัยเกษตรศาสตร์ (KU)',
-            'Annotation: colic = **สาเหตุการตายอันดับ 1 ในม้า** · ปวดท้องแบบ acute (ER)',
+            'ภาควิชาเวชศาสตร์คลินิกสัตว์ใหญ่และสัตว์ป่า, คณะสัตวแพทยศาสตร์, มหาวิทยาลัยเกษตรศาสตร์ (KU)',
+            'Annotation: colic = **สาเหตุการตายอันดับ 1 ในม้า**, ปวดท้องแบบ acute (ER)',
           ] },
         ],
       },
@@ -814,7 +814,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '11 - colic_Best_fit.pdf p.2+',
         body: [
           { bullets: [
-            '🚧 รอเติม — initial triage · medical vs surgical decision criteria (HR > 60 = ผ่า ตามที่สไลด์สอน แต่หลักฐานรองรับ HR ตั้งแต่ 60 ในฐานะตัวบอก prognosis ที่แย่มากกว่าเป็นเกณฑ์สั่งผ่าเดี่ยว ๆ; pain not controllable; gastric reflux > 4L; rectal palpation findings; abdominocentesis values [WBC, TP, lactate]) · fluid therapy · analgesia (NSAIDs, α-2, butorphanol) · sedation · NGT decompression · pain management protocol · referral timing',
+            '🚧 รอเติม — initial triage; medical vs surgical decision criteria (HR > 60 = ผ่า ตามที่สไลด์สอน แต่หลักฐานรองรับ HR ตั้งแต่ 60 ในฐานะตัวบอก prognosis ที่แย่มากกว่าเป็นเกณฑ์สั่งผ่าเดี่ยว ๆ; pain not controllable; gastric reflux > 4L; rectal palpation findings; abdominocentesis values [WBC, TP, lactate]); fluid therapy; analgesia (NSAIDs, α-2, butorphanol); sedation; NGT decompression; pain management protocol; referral timing',
           ] },
         ],
       },
@@ -835,7 +835,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Title: **SURGICAL COLIC CASES**',
-            'Speaker: **Assist Prof. Aree Laikul** · Faculty of Veterinary Medicine · Kasetsart University',
+            'Speaker: **Assist Prof. Aree Laikul**, Faculty of Veterinary Medicine, Kasetsart University',
           ] },
         ],
       },
@@ -844,13 +844,13 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '12 - surgical colic cases.pdf p.2',
         body: [
           { bullets: [
-            '**Ventral midline celiotomy** — เปิดหน้าท้องตาม linea alba · skin → SC → fat → linea alba → retroperitoneal fat → peritoneum',
-            '**Manual exploratory** — duodenum ออกไม่ได้ · ileocecal valve ออก x · base ของ cecum ออกได้',
+            '**Ventral midline celiotomy** — เปิดหน้าท้องตาม linea alba, skin → SC → fat → linea alba → retroperitoneal fat → peritoneum',
+            '**Manual exploratory** — duodenum ออกไม่ได้, ileocecal valve ออก x, base ของ cecum ออกได้',
             '**Exteriorize** — ดึงไส้ออกมาผูกผ่า',
             '**Enterotomy** of small intestine, cecum, large colon, small colon',
             '**Pelvic flexure enterotomy** ⭐ — นิยมที่สุด (เปิดลำใส้ที่ pelvic flexure of large colon, dorsal/ventral ออกถาด)',
             '**Resection and anastomosis** — ตัดและต่อ ระยอด ด้วยผูกล',
-            '**Abdominal closure** — ปิดช่องท้อง · 1 simple continuous + 2 cushing (เย็บ double layer)',
+            '**Abdominal closure** — ปิดช่องท้อง, 1 simple continuous + 2 cushing (เย็บ double layer)',
             'ม้ามีลำดับ checklist ตามลำดับ!',
           ] },
         ],
@@ -860,11 +860,11 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '12 - surgical colic cases.pdf p.3+',
         body: [
           { bullets: [
-            'Pre-op pic: ม้าหมดสติ · dorsal recumbency · ห้องวางยาและพักฟื้นม้า (induction and recovery)',
-            'Pre-op: ล้างเท้าสะอาดปากให้ละเอียดก่อน · because จะลอดท่อ (ET) ผ่านทาง oropharynx',
+            'Pre-op pic: ม้าหมดสติ, dorsal recumbency, ห้องวางยาและพักฟื้นม้า (induction and recovery)',
+            'Pre-op: ล้างเท้าสะอาดปากให้ละเอียดก่อน, because จะลอดท่อ (ET) ผ่านทาง oropharynx',
             'Intra-op pics: enterolith (หิน) ในลำไส้, pelvic flexure exteriorized, double-layer suture',
-            'Post-op: enterolith สาเหตุไม่ใส่ก. อาหาร · post-op สำคัญมาก! ดูทุกวัน',
-            'Wound care: ล้างแผลด้วย betadine every 5 days · ผูกใจหมูก่อนจะอักษกใหม่',
+            'Post-op: enterolith สาเหตุไม่ใส่ก. อาหาร, post-op สำคัญมาก! ดูทุกวัน',
+            'Wound care: ล้างแผลด้วย betadine every 5 days, ผูกใจหมูก่อนจะอักษกใหม่',
           ] },
         ],
       },
@@ -873,7 +873,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '12 - surgical colic cases.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — case 1-N: nephrosplenic entrapment · large colon volvulus · cecal impaction · SI strangulation (lipoma, epiploic foramen, Meckel\'s) · enterolith · sand impaction · adhesions · post-op complications (incisional infection/dehiscence, post-op ileus, laminitis, peritonitis) · long-term prognosis',
+            '🚧 รอเติม — case 1-N: nephrosplenic entrapment; large colon volvulus; cecal impaction; SI strangulation (lipoma, epiploic foramen, Meckel\'s); enterolith; sand impaction; adhesions; post-op complications (incisional infection/dehiscence, post-op ileus, laminitis, peritonitis); long-term prognosis',
           ] },
         ],
       },
@@ -904,7 +904,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '15 - Farabella.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — Falabella breed history (Argentina, smallest horse breed) · congenital conditions (chondrodysplasia, ALD/FLD) · anesthesia considerations · orthopedic surgery indications and fixation methods · mandibular fracture repair technique in mini horses',
+            '🚧 รอเติม — Falabella breed history (Argentina, smallest horse breed); congenital conditions (chondrodysplasia, ALD/FLD); anesthesia considerations; orthopedic surgery indications and fixation methods; mandibular fracture repair technique in mini horses',
           ] },
         ],
       },
@@ -925,7 +925,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Title: **Tumor Series — Equine Med/Surg**',
-            'Speaker: **Aree Laikul, DVM, DTBVS** · Dept of Large Animal and Wildlife Clinical Sciences · KU',
+            'Speaker: **Aree Laikul, DVM, DTBVS**, Dept of Large Animal and Wildlife Clinical Sciences, KU',
             'CUVET 83 tag — ดูเหมือนเป็นชุดสไลด์ที่ใช้สอน CU Vet 83 ด้วย',
           ] },
         ],
@@ -989,7 +989,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '16 - Tumor series - CUVET83.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — additional cases · SCC etiology (UV, lack of pigment) · sarcoid 6 types (occult, verrucous, nodular, fibroblastic, mixed, malevolent) · sarcoid Tx options (cisplatin, BCG, surgery, cryotherapy, immunomodulation) · melanoma Tx · prognosis',
+            '🚧 รอเติม — additional cases; SCC etiology (UV, lack of pigment); sarcoid 6 types (occult, verrucous, nodular, fibroblastic, mixed, malevolent); sarcoid Tx options (cisplatin, BCG, surgery, cryotherapy, immunomodulation); melanoma Tx; prognosis',
           ] },
         ],
       },
@@ -1009,7 +1009,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Anatomy diagram: Rectum (dorsal) / Vagina (ventral) — separated by **Shelf** (perineal body)',
-            'RVF = communication ตรงกลางระหว่าง rectum + vagina · anal ring ไม่ดับเดน · ดู่ม้าเอาเท้าหุ้มกะดู',
+            'RVF = communication ตรงกลางระหว่าง rectum + vagina, anal ring ไม่ดับเดน, ดู่ม้าเอาเท้าหุ้มกะดู',
             'Etiology hint: คลอดถ่กลูกม้ามีฟิ่นเขาก่ายค่ → ฉีกผนัง vagina + rectum',
           ] },
         ],
@@ -1045,7 +1045,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '17 - Rectovaginal Fistula Tract.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — post-op care · dehiscence rate · second-intention vs primary repair · staged approach (Aanes technique) · breeding prognosis',
+            '🚧 รอเติม — post-op care, dehiscence rate, second-intention vs primary repair, staged approach (Aanes technique), breeding prognosis',
           ] },
         ],
       },
@@ -1066,8 +1066,8 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Title: **Laparoscopic Ovariectomy (LapOVE)**',
-            'Speaker: **Aree Laikul, DVM, DTBVS** · Dept of Large Animal and Wildlife Clinical Sciences · KU',
-            'Indications: OVH แผลในตัว, colic management · annotation: "manage GI ด้วย ลาpara ก็ทำได้ด้วย"',
+            'Speaker: **Aree Laikul, DVM, DTBVS**, Dept of Large Animal and Wildlife Clinical Sciences, KU',
+            'Indications: OVH แผลในตัว, colic management; annotation: "manage GI ด้วย ลาpara ก็ทำได้ด้วย"',
             'ต้อง prepare for laparotomy เสมอนะ (convert ถ้าจำเป็น)',
           ] },
         ],
@@ -1111,7 +1111,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '18 - LapOVE - CUVET.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — fasting protocol · sedation (xylazine + butorphanol detomidine) · paralumbar fossa port placement (3 ports — camera + 2 working) · pneumoperitoneum (CO2) · mesovarium injection (mepivacaine) · ligation methods (LigaSure, harmonic, ENDO GIA, ligature) · specimen retrieval · port closure · post-op care · indications (granulosa cell tumor, behavior problems, mare-stallion conversion)',
+            '🚧 รอเติม — fasting protocol; sedation (xylazine + butorphanol detomidine); paralumbar fossa port placement (3 ports — camera + 2 working); pneumoperitoneum (CO2); mesovarium injection (mepivacaine); ligation methods (LigaSure, harmonic, ENDO GIA, ligature); specimen retrieval; port closure; post-op care; indications (granulosa cell tumor, behavior problems, mare-stallion conversion)',
           ] },
         ],
       },
@@ -1132,7 +1132,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             'หน้า 1: pre-op X-ray of mandible — handwritten "pre-op X-ray กลางถนนไป" + "mandible แตก"',
             'หน้า 2: close-up X-ray detail of fracture site',
-            'หน้า 3: post-op X-ray showing **plate + screws** for fixation · handwritten: "ลำใหญ่ใน long bone อาจปนของแตก → ทำได้ใน parasite ลาย (ทำในชั้นเล็ก ๆ)"',
+            'หน้า 3: post-op X-ray showing **plate + screws** for fixation, handwritten: "ลำใหญ่ใน long bone อาจปนของแตก → ทำได้ใน parasite ลาย (ทำในชั้นเล็ก ๆ)"',
           ] },
         ],
       },
@@ -1141,7 +1141,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '19 - Nicole ortho.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — fracture classification (open vs closed; configuration) · stabilization principles (4 A\'s + AO/ASIF) · external coaptation vs internal fixation · plate/screw systems · region-specific: mandible · long-bone (radius/tibia/MC3/MT3) · pastern arthrodesis · luxations · prognosis · post-op rehabilitation',
+            '🚧 รอเติม — fracture classification (open vs closed; configuration), stabilization principles (4 A\'s + AO/ASIF), external coaptation vs internal fixation, plate/screw systems, region-specific: mandible, long-bone (radius/tibia/MC3/MT3), pastern arthrodesis, luxations, prognosis, post-op rehabilitation',
             'Reference: ดู Vet 84 final past papers + lecture notes ของ อ. Niphapha',
           ] },
         ],
@@ -1163,7 +1163,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             'PDF filename บอกตรง: **"ไม่แจกชีท"** → ผู้บรรยายไม่ให้สไลด์',
             'Reference: equine pythiosis อยู่ในหมวด Fungi ของ infectious dz lecture (3 - Eq_inf_dz_67.pdf p.2)',
-            '🚧 รอเติม — pathogen (Pythium insidiosum, oomycete) · habitat (stagnant water TH/Australia) · CS (granulomatous skin lesion with kunkers, GI form) · Dx (culture + serology + PCR + biopsy histopath) · Tx (surgery + immunotherapy vaccine + amphotericin B / itraconazole; difficult) · prognosis · prevention',
+            '🚧 รอเติม — pathogen (Pythium insidiosum, oomycete); habitat (stagnant water TH/Australia); CS (granulomatous skin lesion with kunkers, GI form); Dx (culture + serology + PCR + biopsy histopath); Tx (surgery + immunotherapy vaccine + amphotericin B / itraconazole; difficult); prognosis; prevention',
           ] },
           { callout: 'อ่านเพิ่ม: textbook + journal — ไม่มีสไลด์ official.', kind: 'warn' },
         ],
@@ -1218,7 +1218,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '21 - Equine Ophthalmology_67_NT.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — orbit · adnexa (eyelids, third eyelid, NLD) · conjunctiva · cornea (ulcer, melting, abscess) · uvea (ERU/uveitis — leptospirosis link ที่พบชัดในม้ายุโรปกลาง คือ MAT 83% และ PCR 72% แต่ไม่พบความสัมพันธ์นี้ในม้าสหรัฐฯ ตะวันออกเฉียงใต้, moon blindness) · lens (cataract) · retina · optic nerve · medical mgmt vs surgical mgmt (lavage system, sub-palpebral lavage)',
+            '🚧 รอเติม — orbit; adnexa (eyelids, third eyelid, NLD); conjunctiva; cornea (ulcer, melting, abscess); uvea (ERU/uveitis — leptospirosis link ที่พบชัดในม้ายุโรปกลาง คือ MAT 83% และ PCR 72% แต่ไม่พบความสัมพันธ์นี้ในม้าสหรัฐฯ ตะวันออกเฉียงใต้, moon blindness); lens (cataract); retina; optic nerve; medical mgmt vs surgical mgmt (lavage system, sub-palpebral lavage)',
           ] },
         ],
       },
@@ -1267,7 +1267,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
             '**Auscultation** — Increase / Decrease / Adventitious sounds',
             '**Percussion**',
             '**Radiograph** — Sinus + Technique and position',
-            '**Ultrasound** — ใช้ใจ.ในกา.หายใจ ใช้เยอะเลย · ม.ชั้นกลาง lower abdomen เห็นมามากกล',
+            '**Ultrasound** — ใช้ใจ.ในกา.หายใจ ใช้เยอะเลย, ม.ชั้นกลาง lower abdomen เห็นมามากกล',
             '**CT and MRI** — ในศัตว์อื่นไม่ค่อยเจอ',
           ] },
         ],
@@ -1299,7 +1299,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'Title: **Neonatal & Foal management**',
-            'Speaker: **Suphannika Phutthachalee** · Faculty of Veterinary Medicine · Khon Kaen University (KKU), Thailand',
+            'Speaker: **Suphannika Phutthachalee**, Faculty of Veterinary Medicine, Khon Kaen University (KKU), Thailand',
             'Note: ⭐ มีสรุปจากรุ่นพี่ไว้ (จาก filename)',
           ] },
         ],
@@ -1338,7 +1338,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '23 - neonatal & foal management.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — Stages I/II/III of labor · dystocia + obstetric assistance · APGAR score adapted to foal · 1-2-3 rule (1h stand, 2h nurse, 3h pass meconium) · IgG snap test (failure of passive transfer if < 800 mg/dL at 18-24h) · sepsis score · NMS (neonatal maladjustment syndrome, "dummy foal") · prematurity vs dysmaturity · placentitis · placental check (F-shape, weight, color, umbilicus, allantochorionic surface)',
+            '🚧 รอเติม — Stages I/II/III of labor; dystocia + obstetric assistance; APGAR score adapted to foal; 1-2-3 rule (1h stand, 2h nurse, 3h pass meconium); IgG snap test (failure of passive transfer if < 800 mg/dL at 18-24h); sepsis score; NMS (neonatal maladjustment syndrome, "dummy foal"); prematurity vs dysmaturity; placentitis; placental check (F-shape, weight, color, umbilicus, allantochorionic surface)',
           ] },
         ],
       },
@@ -1360,7 +1360,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
             'PDF: POA.pdf (36MB)',
             'หน้า 1: case Pretty, 13yr Thoroughbred-Thai Pony, 516kg, dressage discipline → ลามครั้งติด',
             'Question approach: "Choose the nine best questions" จาก list (history-taking framework)',
-            'Examples ของ good question: How old? · Where housed? · Color? · Sire/dam? · Duration of lameness? · Last day shod? · Bedding? · Medications?',
+            'Examples ของ good question: How old?, Where housed?, Color?, Sire/dam?, Duration of lameness?, Last day shod?, Bedding?, Medications?',
           ] },
         ],
       },
@@ -1372,7 +1372,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
             body: [
               { bullets: [
                 'มัดเล็บ ไม่มี heat / swelling',
-                'Left eye cloudy · ไม่ม uncration',
+                'Left eye cloudy, ไม่ม uncration',
                 'ทำให้ lame หน้าซ้าย',
               ] },
             ] },
