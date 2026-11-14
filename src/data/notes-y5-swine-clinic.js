@@ -569,7 +569,7 @@ export const NOTES_Y5_SWINE_CLINIC = {
                   "**MIC** = ความเข้มข้นต่ำสุดที่ยับยั้งการโตของ LI ได้ 99% วัดจาก heavily infected cells (HIC) เทียบกับ control ที่ไม่ได้รับยา",
                   "**Extracellular MIC** = ผลของยาต่อ LI ก่อนเชื้อเข้าเซลล์ลำไส้; **Intracellular MIC** = ผลของยาต่อ LI หลังเชื้อเข้าเซลล์แล้ว",
                   "p.30 เป็นภาพ cell culture ที่ความเข้มข้นยา 0.5-128 µg/ml เทียบ control โดย 8 µg/ml พิมพ์เน้นสีแดง: ความเข้มข้นนี้ยับยั้งเชื้อได้ 99% จึงเป็น MIC ของตัวอย่างนี้ (คาบ 1 ต.ค. 2569 [41:35])",
-                  "กราฟ p.31 (อ่านจากภาพ): **intracellular MIC** ของ carbadox, tiamulin และ valnemulin ต่ำที่สุด (ราว 0.1-0.5 µg/ml) tylosin ปานกลาง ส่วน CTC และ lincomycin สูง (ราว 10-100 µg/ml); extracellular MIC ของ valnemulin ต่ำสุด และ CTC, lincomycin, tylosin สูง",
+                  "กราฟ p.31 (อ่านจากภาพ): **intracellular MIC** ของ carbadox, tiamulin และ valnemulin ต่ำที่สุด (ราว 0.1-0.5 µg/ml) tylosin (ราว 2 µg/ml) และ CTC (ราว 8 µg/ml) อยู่ระดับกลาง ส่วน lincomycin สูงที่สุด (ราว 100 µg/ml); extracellular MIC ของ valnemulin ต่ำสุด และ CTC, lincomycin, tylosin สูง",
                   "MIC ทั้งในและนอกเซลล์ของ isolate จากยุโรปมักต่ำกว่า isolate จาก US และแต่ละ isolate มีรูปแบบความไวต่อยาต่างกัน",
                   "ข้อจำกัด: ไม่มี breakpoint ของยาแต่ละตัวต่อเชื้อในเซลล์, แปลว่า susceptible หรือ resistant ไม่ชัด, ยังต้องทดสอบ isolate เพิ่ม"
                 ]
@@ -3654,7 +3654,7 @@ export const NOTES_Y5_SWINE_CLINIC = {
                     [
                       "Cross-protection",
                       "ดีที่สุดกับสายพันธุ์ homologous; heterologous ได้บางส่วน; PRRSV-2 MLV ป้องกัน PRRSV-1 challenge ในสุกรสาวได้",
-                      "ไม่ได้ระบุ"
+                      "-"
                     ],
                     [
                       "ความปลอดภัย",
@@ -4026,8 +4026,8 @@ export const NOTES_Y5_SWINE_CLINIC = {
                     [
                       "Salmonella spp.",
                       "14-16",
-                      "ไม่ระบุ",
-                      "ไม่ระบุ"
+                      "-",
+                      "-"
                     ],
                     [
                       "Leptospira spp.",
