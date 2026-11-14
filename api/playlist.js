@@ -119,7 +119,7 @@ export default async function handler(req, res) {
     }
     console.error('playlist fetch error:', err);
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(502).json({ error: err.message || 'fetch failed', reason: 'upstream_unreachable' });
+    return res.status(502).json({ error: 'fetch failed', reason: 'upstream_unreachable' });
   }
 }
 

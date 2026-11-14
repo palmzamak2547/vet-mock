@@ -449,11 +449,9 @@ test('crawlers on the old host are sent to vetmock.com permanently; browsers, th
 test('Google popup and LINE sign-in work on vetmock.com, LINE no longer on the old host', async () => {
   const gis = await import('../../src/lib/google-gis.js');
   const liff = await import('../../src/lib/line-liff.js');
-  // One constant each; flipping it follows the console change. vetmock.com
-  // became an Authorized JavaScript origin of the GIS client on 2026-10-12;
-  // the LIFF endpoint moved to https://vetmock.com on 2026-10-21.
-  assert.equal(gis.GIS_AUTHORISED_ON_VETMOCK_COM, true);
-  assert.equal(liff.LIFF_ENDPOINT_ON_VETMOCK_COM, true);
+  // The origins follow the consoles: vetmock.com became an Authorized
+  // JavaScript origin of the GIS client on 2026-10-12; the LIFF endpoint moved
+  // to https://vetmock.com on 2026-10-21.
   assert.equal(gis.gisOriginAllowed('https://vetmock.vercel.app'), true);
   assert.equal(liff.liffOriginAllowed('https://vetmock.vercel.app'), false, 'LIFF logs in under one endpoint only');
   for (const allowed of [gis.gisOriginAllowed, liff.liffOriginAllowed]) {

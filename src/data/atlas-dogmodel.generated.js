@@ -243,7 +243,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-trapezius-cervical",
     "en": "Left trapezius cervical (path)",
-    "th": "แนวกล้ามเนื้อ trapezius cervical · ซ้าย",
+    "th": "แนวกล้ามเนื้อ trapezius cervical, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -253,7 +253,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-trapezius-thoracic",
     "en": "Left trapezius thoracic (path)",
-    "th": "แนวกล้ามเนื้อ trapezius thoracic · ซ้าย",
+    "th": "แนวกล้ามเนื้อ trapezius thoracic, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -263,7 +263,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-rhomboideus-thoracic",
     "en": "Left rhomboideus thoracic (path)",
-    "th": "แนวกล้ามเนื้อ rhomboideus thoracic · ซ้าย",
+    "th": "แนวกล้ามเนื้อ rhomboideus thoracic, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -273,7 +273,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-rhomboideus-cervicis",
     "en": "Left rhomboideus cervicis (path)",
-    "th": "แนวกล้ามเนื้อ rhomboideus cervicis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ rhomboideus cervicis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -283,7 +283,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-latissimus-dorsi",
     "en": "Left latissimus dorsi (path)",
-    "th": "แนวกล้ามเนื้อ latissimus dorsi · ซ้าย",
+    "th": "แนวกล้ามเนื้อ latissimus dorsi, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -293,7 +293,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-brachiocephalicus-1",
     "en": "Left brachiocephalicus 1 (path)",
-    "th": "แนวกล้ามเนื้อ brachiocephalicus 1 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ brachiocephalicus 1, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -303,7 +303,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-brachiocephalicus-2",
     "en": "Left brachiocephalicus 2 (path)",
-    "th": "แนวกล้ามเนื้อ brachiocephalicus 2 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ brachiocephalicus 2, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -313,7 +313,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-1",
     "en": "Left serratus 1 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 1 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 1, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -323,7 +323,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-2",
     "en": "Left serratus 2 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 2 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 2, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -333,7 +333,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-3",
     "en": "Left serratus 3 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 3 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 3, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -343,7 +343,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-4",
     "en": "Left serratus 4 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 4 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 4, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -353,7 +353,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-5",
     "en": "Left serratus 5 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 5 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 5, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -363,7 +363,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-6",
     "en": "Left serratus 6 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 6 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 6, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -373,7 +373,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-7",
     "en": "Left serratus 7 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 7 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 7, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -383,7 +383,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-8",
     "en": "Left serratus 8 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 8 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 8, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -393,7 +393,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-9",
     "en": "Left serratus 9 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 9 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 9, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -403,7 +403,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-10",
     "en": "Left serratus 10 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 10 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 10, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -413,7 +413,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-11",
     "en": "Left serratus 11 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 11 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 11, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -423,7 +423,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-serratus-12",
     "en": "Left serratus 12 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 12 · ซ้าย",
+    "th": "แนวกล้ามเนื้อ serratus 12, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -433,7 +433,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-pectoralis-profundus",
     "en": "Left pectoralis profundus (path)",
-    "th": "แนวกล้ามเนื้อ pectoralis profundus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ pectoralis profundus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -443,7 +443,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-pectoralis-superficialis",
     "en": "Left pectoralis superficialis (path)",
-    "th": "แนวกล้ามเนื้อ pectoralis superficialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ pectoralis superficialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -453,7 +453,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-supraspinatus",
     "en": "Left supraspinatus (path)",
-    "th": "แนวกล้ามเนื้อ supraspinatus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ supraspinatus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -463,7 +463,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-infraspinatus",
     "en": "Left infraspinatus (path)",
-    "th": "แนวกล้ามเนื้อ infraspinatus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ infraspinatus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -473,7 +473,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-subscapularis",
     "en": "Left subscapularis (path)",
-    "th": "แนวกล้ามเนื้อ subscapularis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ subscapularis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -483,7 +483,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-deltoideus-sca",
     "en": "Left deltoideus sca (path)",
-    "th": "แนวกล้ามเนื้อ deltoideus sca · ซ้าย",
+    "th": "แนวกล้ามเนื้อ deltoideus sca, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -493,7 +493,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-deltoideus-acr",
     "en": "Left deltoideus acr (path)",
-    "th": "แนวกล้ามเนื้อ deltoideus acr · ซ้าย",
+    "th": "แนวกล้ามเนื้อ deltoideus acr, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -503,7 +503,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-teres-major",
     "en": "Left teres major (path)",
-    "th": "แนวกล้ามเนื้อ teres major · ซ้าย",
+    "th": "แนวกล้ามเนื้อ teres major, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -513,7 +513,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-teres-minor",
     "en": "Left teres minor (path)",
-    "th": "แนวกล้ามเนื้อ teres minor · ซ้าย",
+    "th": "แนวกล้ามเนื้อ teres minor, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -523,7 +523,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-coracobrachialis",
     "en": "Left coracobrachialis (path)",
-    "th": "แนวกล้ามเนื้อ coracobrachialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ coracobrachialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -533,7 +533,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-biceps-brachii",
     "en": "Left biceps brachii (path)",
-    "th": "แนวกล้ามเนื้อ biceps brachii · ซ้าย",
+    "th": "แนวกล้ามเนื้อ biceps brachii, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -543,7 +543,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-brachialis",
     "en": "Left brachialis (path)",
-    "th": "แนวกล้ามเนื้อ brachialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ brachialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -553,7 +553,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-triceps-caput-longum",
     "en": "Left triceps caput longum (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput longum · ซ้าย",
+    "th": "แนวกล้ามเนื้อ triceps caput longum, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -563,7 +563,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-triceps-caput-laterale",
     "en": "Left triceps caput laterale (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput laterale · ซ้าย",
+    "th": "แนวกล้ามเนื้อ triceps caput laterale, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -573,7 +573,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-triceps-caput-accessorium",
     "en": "Left triceps caput accessorium (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput accessorium · ซ้าย",
+    "th": "แนวกล้ามเนื้อ triceps caput accessorium, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -583,7 +583,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-triceps-caput-medial",
     "en": "Left triceps caput medial (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput medial · ซ้าย",
+    "th": "แนวกล้ามเนื้อ triceps caput medial, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -593,7 +593,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-anconeus",
     "en": "Left anconeus (path)",
-    "th": "แนวกล้ามเนื้อ anconeus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ anconeus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -603,7 +603,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-pronator-teres",
     "en": "Left pronator teres (path)",
-    "th": "แนวกล้ามเนื้อ pronator teres · ซ้าย",
+    "th": "แนวกล้ามเนื้อ pronator teres, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -613,7 +613,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-supinator",
     "en": "Left supinator (path)",
-    "th": "แนวกล้ามเนื้อ supinator · ซ้าย",
+    "th": "แนวกล้ามเนื้อ supinator, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -623,7 +623,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-flexor-carpi-radialis",
     "en": "Left flexor carpi radialis (path)",
-    "th": "แนวกล้ามเนื้อ flexor carpi radialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ flexor carpi radialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -633,7 +633,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-flexor-carpi-ulnaris",
     "en": "Left flexor carpi ulnaris (path)",
-    "th": "แนวกล้ามเนื้อ flexor carpi ulnaris · ซ้าย",
+    "th": "แนวกล้ามเนื้อ flexor carpi ulnaris, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -643,7 +643,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-extensor-carpi-ulnaris",
     "en": "Left extensor carpi ulnaris (path)",
-    "th": "แนวกล้ามเนื้อ extensor carpi ulnaris · ซ้าย",
+    "th": "แนวกล้ามเนื้อ extensor carpi ulnaris, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -653,7 +653,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-extensor-carpi-radialis",
     "en": "Left extensor carpi radialis (path)",
-    "th": "แนวกล้ามเนื้อ extensor carpi radialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ extensor carpi radialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -663,7 +663,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-abductor-policis-longum",
     "en": "Left abductor policis longum (path)",
-    "th": "แนวกล้ามเนื้อ abductor policis longum · ซ้าย",
+    "th": "แนวกล้ามเนื้อ abductor policis longum, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -673,7 +673,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-trapezius-cervical",
     "en": "Right trapezius cervical (path)",
-    "th": "แนวกล้ามเนื้อ trapezius cervical · ขวา",
+    "th": "แนวกล้ามเนื้อ trapezius cervical, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -683,7 +683,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-trapezius-thoracic",
     "en": "Right trapezius thoracic (path)",
-    "th": "แนวกล้ามเนื้อ trapezius thoracic · ขวา",
+    "th": "แนวกล้ามเนื้อ trapezius thoracic, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -693,7 +693,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-rhomboideus-thoracic",
     "en": "Right rhomboideus thoracic (path)",
-    "th": "แนวกล้ามเนื้อ rhomboideus thoracic · ขวา",
+    "th": "แนวกล้ามเนื้อ rhomboideus thoracic, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -703,7 +703,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-rhomboideus-cervicis",
     "en": "Right rhomboideus cervicis (path)",
-    "th": "แนวกล้ามเนื้อ rhomboideus cervicis · ขวา",
+    "th": "แนวกล้ามเนื้อ rhomboideus cervicis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -713,7 +713,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-latissimus-dorsi",
     "en": "Right latissimus dorsi (path)",
-    "th": "แนวกล้ามเนื้อ latissimus dorsi · ขวา",
+    "th": "แนวกล้ามเนื้อ latissimus dorsi, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -723,7 +723,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-brachiocephalicus-1",
     "en": "Right brachiocephalicus 1 (path)",
-    "th": "แนวกล้ามเนื้อ brachiocephalicus 1 · ขวา",
+    "th": "แนวกล้ามเนื้อ brachiocephalicus 1, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -733,7 +733,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-brachiocephalicus-2",
     "en": "Right brachiocephalicus 2 (path)",
-    "th": "แนวกล้ามเนื้อ brachiocephalicus 2 · ขวา",
+    "th": "แนวกล้ามเนื้อ brachiocephalicus 2, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -743,7 +743,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-1",
     "en": "Right serratus 1 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 1 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 1, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -753,7 +753,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-2",
     "en": "Right serratus 2 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 2 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 2, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -763,7 +763,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-3",
     "en": "Right serratus 3 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 3 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 3, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -773,7 +773,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-4",
     "en": "Right serratus 4 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 4 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 4, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -783,7 +783,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-5",
     "en": "Right serratus 5 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 5 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 5, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -793,7 +793,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-6",
     "en": "Right serratus 6 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 6 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 6, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -803,7 +803,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-7",
     "en": "Right serratus 7 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 7 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 7, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -813,7 +813,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-8",
     "en": "Right serratus 8 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 8 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 8, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -823,7 +823,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-9",
     "en": "Right serratus 9 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 9 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 9, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -833,7 +833,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-10",
     "en": "Right serratus 10 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 10 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 10, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -843,7 +843,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-11",
     "en": "Right serratus 11 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 11 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 11, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -853,7 +853,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-serratus-12",
     "en": "Right serratus 12 (path)",
-    "th": "แนวกล้ามเนื้อ serratus 12 · ขวา",
+    "th": "แนวกล้ามเนื้อ serratus 12, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -863,7 +863,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-pectoralis-profundus",
     "en": "Right pectoralis profundus (path)",
-    "th": "แนวกล้ามเนื้อ pectoralis profundus · ขวา",
+    "th": "แนวกล้ามเนื้อ pectoralis profundus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -873,7 +873,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-pectoralis-superficialis",
     "en": "Right pectoralis superficialis (path)",
-    "th": "แนวกล้ามเนื้อ pectoralis superficialis · ขวา",
+    "th": "แนวกล้ามเนื้อ pectoralis superficialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -883,7 +883,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-supraspinatus",
     "en": "Right supraspinatus (path)",
-    "th": "แนวกล้ามเนื้อ supraspinatus · ขวา",
+    "th": "แนวกล้ามเนื้อ supraspinatus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -893,7 +893,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-infraspinatus",
     "en": "Right infraspinatus (path)",
-    "th": "แนวกล้ามเนื้อ infraspinatus · ขวา",
+    "th": "แนวกล้ามเนื้อ infraspinatus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -903,7 +903,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-subscapularis",
     "en": "Right subscapularis (path)",
-    "th": "แนวกล้ามเนื้อ subscapularis · ขวา",
+    "th": "แนวกล้ามเนื้อ subscapularis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -913,7 +913,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-deltoideus-sca",
     "en": "Right deltoideus sca (path)",
-    "th": "แนวกล้ามเนื้อ deltoideus sca · ขวา",
+    "th": "แนวกล้ามเนื้อ deltoideus sca, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -923,7 +923,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-deltoideus-acr",
     "en": "Right deltoideus acr (path)",
-    "th": "แนวกล้ามเนื้อ deltoideus acr · ขวา",
+    "th": "แนวกล้ามเนื้อ deltoideus acr, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -933,7 +933,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-teres-major",
     "en": "Right teres major (path)",
-    "th": "แนวกล้ามเนื้อ teres major · ขวา",
+    "th": "แนวกล้ามเนื้อ teres major, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -943,7 +943,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-teres-minor",
     "en": "Right teres minor (path)",
-    "th": "แนวกล้ามเนื้อ teres minor · ขวา",
+    "th": "แนวกล้ามเนื้อ teres minor, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -953,7 +953,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-coracobrachialis",
     "en": "Right coracobrachialis (path)",
-    "th": "แนวกล้ามเนื้อ coracobrachialis · ขวา",
+    "th": "แนวกล้ามเนื้อ coracobrachialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -963,7 +963,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-biceps-brachii",
     "en": "Right biceps brachii (path)",
-    "th": "แนวกล้ามเนื้อ biceps brachii · ขวา",
+    "th": "แนวกล้ามเนื้อ biceps brachii, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -973,7 +973,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-brachialis",
     "en": "Right brachialis (path)",
-    "th": "แนวกล้ามเนื้อ brachialis · ขวา",
+    "th": "แนวกล้ามเนื้อ brachialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -983,7 +983,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-triceps-caput-longum",
     "en": "Right triceps caput longum (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput longum · ขวา",
+    "th": "แนวกล้ามเนื้อ triceps caput longum, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -993,7 +993,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-triceps-caput-laterale",
     "en": "Right triceps caput laterale (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput laterale · ขวา",
+    "th": "แนวกล้ามเนื้อ triceps caput laterale, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1003,7 +1003,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-triceps-caput-accessorium",
     "en": "Right triceps caput accessorium (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput accessorium · ขวา",
+    "th": "แนวกล้ามเนื้อ triceps caput accessorium, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1013,7 +1013,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-triceps-caput-medial",
     "en": "Right triceps caput medial (path)",
-    "th": "แนวกล้ามเนื้อ triceps caput medial · ขวา",
+    "th": "แนวกล้ามเนื้อ triceps caput medial, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1023,7 +1023,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-anconeus",
     "en": "Right anconeus (path)",
-    "th": "แนวกล้ามเนื้อ anconeus · ขวา",
+    "th": "แนวกล้ามเนื้อ anconeus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1033,7 +1033,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-pronator-teres",
     "en": "Right pronator teres (path)",
-    "th": "แนวกล้ามเนื้อ pronator teres · ขวา",
+    "th": "แนวกล้ามเนื้อ pronator teres, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1043,7 +1043,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-supinator",
     "en": "Right supinator (path)",
-    "th": "แนวกล้ามเนื้อ supinator · ขวา",
+    "th": "แนวกล้ามเนื้อ supinator, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1053,7 +1053,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-flexor-carpi-radialis",
     "en": "Right flexor carpi radialis (path)",
-    "th": "แนวกล้ามเนื้อ flexor carpi radialis · ขวา",
+    "th": "แนวกล้ามเนื้อ flexor carpi radialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1063,7 +1063,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-flexor-carpi-ulnaris",
     "en": "Right flexor carpi ulnaris (path)",
-    "th": "แนวกล้ามเนื้อ flexor carpi ulnaris · ขวา",
+    "th": "แนวกล้ามเนื้อ flexor carpi ulnaris, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1073,7 +1073,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-extensor-carpi-ulnaris",
     "en": "Right extensor carpi ulnaris (path)",
-    "th": "แนวกล้ามเนื้อ extensor carpi ulnaris · ขวา",
+    "th": "แนวกล้ามเนื้อ extensor carpi ulnaris, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1083,7 +1083,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-extensor-carpi-radialis",
     "en": "Right extensor carpi radialis (path)",
-    "th": "แนวกล้ามเนื้อ extensor carpi radialis · ขวา",
+    "th": "แนวกล้ามเนื้อ extensor carpi radialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1093,7 +1093,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-abductor-policis-longum",
     "en": "Right abductor policis longum (path)",
-    "th": "แนวกล้ามเนื้อ abductor policis longum · ขวา",
+    "th": "แนวกล้ามเนื้อ abductor policis longum, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1103,7 +1103,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-longissimus",
     "en": "Left longissimus (path)",
-    "th": "แนวกล้ามเนื้อ longissimus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ longissimus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1113,7 +1113,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-quadratus-lumborum",
     "en": "Left quadratus lumborum (path)",
-    "th": "แนวกล้ามเนื้อ quadratus lumborum · ซ้าย",
+    "th": "แนวกล้ามเนื้อ quadratus lumborum, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1123,7 +1123,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-iliocostalis",
     "en": "Left iliocostalis (path)",
-    "th": "แนวกล้ามเนื้อ iliocostalis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ iliocostalis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1133,7 +1133,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-longissimus",
     "en": "Right longissimus (path)",
-    "th": "แนวกล้ามเนื้อ longissimus · ขวา",
+    "th": "แนวกล้ามเนื้อ longissimus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1143,7 +1143,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-quadratus-lumborum",
     "en": "Right quadratus lumborum (path)",
-    "th": "แนวกล้ามเนื้อ quadratus lumborum · ขวา",
+    "th": "แนวกล้ามเนื้อ quadratus lumborum, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1153,7 +1153,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-iliocostalis",
     "en": "Right iliocostalis (path)",
-    "th": "แนวกล้ามเนื้อ iliocostalis · ขวา",
+    "th": "แนวกล้ามเนื้อ iliocostalis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1163,7 +1163,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-sacrocaudalis",
     "en": "Left sacrocaudalis (path)",
-    "th": "แนวกล้ามเนื้อ sacrocaudalis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ sacrocaudalis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1173,7 +1173,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-psoas-major",
     "en": "Left psoas major (path)",
-    "th": "แนวกล้ามเนื้อ psoas major · ซ้าย",
+    "th": "แนวกล้ามเนื้อ psoas major, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1183,7 +1183,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-psoas-minor",
     "en": "Left psoas minor (path)",
-    "th": "แนวกล้ามเนื้อ psoas minor · ซ้าย",
+    "th": "แนวกล้ามเนื้อ psoas minor, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1193,7 +1193,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-adductor-longus",
     "en": "Left adductor longus (path)",
-    "th": "แนวกล้ามเนื้อ adductor longus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ adductor longus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1203,7 +1203,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gemelli",
     "en": "Left gemelli (path)",
-    "th": "แนวกล้ามเนื้อ gemelli · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gemelli, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1213,7 +1213,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gluteus-medius",
     "en": "Left gluteus medius (path)",
-    "th": "แนวกล้ามเนื้อ gluteus medius · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gluteus medius, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1223,7 +1223,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gluteus-profundus",
     "en": "Left gluteus profundus (path)",
-    "th": "แนวกล้ามเนื้อ gluteus profundus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gluteus profundus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1233,7 +1233,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gluteus-superficialis",
     "en": "Left gluteus superficialis (path)",
-    "th": "แนวกล้ามเนื้อ gluteus superficialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gluteus superficialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1243,7 +1243,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-iliacus",
     "en": "Left iliacus (path)",
-    "th": "แนวกล้ามเนื้อ iliacus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ iliacus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1253,7 +1253,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-obturator-ext",
     "en": "Left obturator ext (path)",
-    "th": "แนวกล้ามเนื้อ obturator ext · ซ้าย",
+    "th": "แนวกล้ามเนื้อ obturator ext, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1263,7 +1263,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-obturator-int",
     "en": "Left obturator int (path)",
-    "th": "แนวกล้ามเนื้อ obturator int · ซ้าย",
+    "th": "แนวกล้ามเนื้อ obturator int, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1273,7 +1273,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-piriformis",
     "en": "Left piriformis (path)",
-    "th": "แนวกล้ามเนื้อ piriformis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ piriformis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1283,7 +1283,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-pectineus",
     "en": "Left pectineus (path)",
-    "th": "แนวกล้ามเนื้อ pectineus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ pectineus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1293,7 +1293,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-sartorius-caudal",
     "en": "Left sartorius caudal (path)",
-    "th": "แนวกล้ามเนื้อ sartorius caudal · ซ้าย",
+    "th": "แนวกล้ามเนื้อ sartorius caudal, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1303,7 +1303,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-sartorius-cranial",
     "en": "Left sartorius cranial (path)",
-    "th": "แนวกล้ามเนื้อ sartorius cranial · ซ้าย",
+    "th": "แนวกล้ามเนื้อ sartorius cranial, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1313,7 +1313,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-tensor-fasciae",
     "en": "Left tensor fasciae (path)",
-    "th": "แนวกล้ามเนื้อ tensor fasciae · ซ้าย",
+    "th": "แนวกล้ามเนื้อ tensor fasciae, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1323,7 +1323,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-quadratus-femoris",
     "en": "Left quadratus femoris (path)",
-    "th": "แนวกล้ามเนื้อ quadratus femoris · ซ้าย",
+    "th": "แนวกล้ามเนื้อ quadratus femoris, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1333,7 +1333,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-vastus-lateralis",
     "en": "Left vastus lateralis (path)",
-    "th": "แนวกล้ามเนื้อ vastus lateralis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ vastus lateralis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1343,7 +1343,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-vastus-medialis",
     "en": "Left vastus medialis (path)",
-    "th": "แนวกล้ามเนื้อ vastus medialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ vastus medialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1353,7 +1353,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-rectus-femoris",
     "en": "Left rectus femoris (path)",
-    "th": "แนวกล้ามเนื้อ rectus femoris · ซ้าย",
+    "th": "แนวกล้ามเนื้อ rectus femoris, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1363,7 +1363,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-abductor-cruris",
     "en": "Left abductor cruris (path)",
-    "th": "แนวกล้ามเนื้อ abductor cruris · ซ้าย",
+    "th": "แนวกล้ามเนื้อ abductor cruris, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1373,7 +1373,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-adductoren",
     "en": "Left adductoren (path)",
-    "th": "แนวกล้ามเนื้อ adductoren · ซ้าย",
+    "th": "แนวกล้ามเนื้อ adductoren, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1383,7 +1383,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-biceps-femoris-longum",
     "en": "Left biceps femoris longum (path)",
-    "th": "แนวกล้ามเนื้อ biceps femoris longum · ซ้าย",
+    "th": "แนวกล้ามเนื้อ biceps femoris longum, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1393,7 +1393,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-biceps-femoris-breve",
     "en": "Left biceps femoris breve (path)",
-    "th": "แนวกล้ามเนื้อ biceps femoris breve · ซ้าย",
+    "th": "แนวกล้ามเนื้อ biceps femoris breve, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1403,7 +1403,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gracilis-tractus-calcaneus",
     "en": "Left gracilis tractus calcaneus (path)",
-    "th": "แนวกล้ามเนื้อ gracilis tractus calcaneus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gracilis tractus calcaneus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1413,7 +1413,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-semimembranosus",
     "en": "Left semimembranosus (path)",
-    "th": "แนวกล้ามเนื้อ semimembranosus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ semimembranosus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1423,7 +1423,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-semitendinosus",
     "en": "Left semitendinosus (path)",
-    "th": "แนวกล้ามเนื้อ semitendinosus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ semitendinosus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1433,7 +1433,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gastrocnemius-lateralis",
     "en": "Left gastrocnemius lateralis (path)",
-    "th": "แนวกล้ามเนื้อ gastrocnemius lateralis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gastrocnemius lateralis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1443,7 +1443,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-gastrocnemius-medialis",
     "en": "Left gastrocnemius medialis (path)",
-    "th": "แนวกล้ามเนื้อ gastrocnemius medialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ gastrocnemius medialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1453,7 +1453,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-peroneus-longus",
     "en": "Left peroneus longus (path)",
-    "th": "แนวกล้ามเนื้อ peroneus longus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ peroneus longus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1463,7 +1463,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-tibialis-caudalis",
     "en": "Left tibialis caudalis (path)",
-    "th": "แนวกล้ามเนื้อ tibialis caudalis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ tibialis caudalis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1473,7 +1473,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-tibialis-cranialis",
     "en": "Left tibialis cranialis (path)",
-    "th": "แนวกล้ามเนื้อ tibialis cranialis · ซ้าย",
+    "th": "แนวกล้ามเนื้อ tibialis cranialis, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1483,7 +1483,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-left-popliteus",
     "en": "Left popliteus (path)",
-    "th": "แนวกล้ามเนื้อ popliteus · ซ้าย",
+    "th": "แนวกล้ามเนื้อ popliteus, ซ้าย",
     "group": "Left muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1493,7 +1493,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-sacrocaudalis",
     "en": "Right sacrocaudalis (path)",
-    "th": "แนวกล้ามเนื้อ sacrocaudalis · ขวา",
+    "th": "แนวกล้ามเนื้อ sacrocaudalis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1503,7 +1503,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-psoas-major",
     "en": "Right psoas major (path)",
-    "th": "แนวกล้ามเนื้อ psoas major · ขวา",
+    "th": "แนวกล้ามเนื้อ psoas major, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1513,7 +1513,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-psoas-minor",
     "en": "Right psoas minor (path)",
-    "th": "แนวกล้ามเนื้อ psoas minor · ขวา",
+    "th": "แนวกล้ามเนื้อ psoas minor, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1523,7 +1523,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-adductor-longus",
     "en": "Right adductor longus (path)",
-    "th": "แนวกล้ามเนื้อ adductor longus · ขวา",
+    "th": "แนวกล้ามเนื้อ adductor longus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1533,7 +1533,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gemelli",
     "en": "Right gemelli (path)",
-    "th": "แนวกล้ามเนื้อ gemelli · ขวา",
+    "th": "แนวกล้ามเนื้อ gemelli, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1543,7 +1543,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gluteus-medius",
     "en": "Right gluteus medius (path)",
-    "th": "แนวกล้ามเนื้อ gluteus medius · ขวา",
+    "th": "แนวกล้ามเนื้อ gluteus medius, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1553,7 +1553,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gluteus-profundus",
     "en": "Right gluteus profundus (path)",
-    "th": "แนวกล้ามเนื้อ gluteus profundus · ขวา",
+    "th": "แนวกล้ามเนื้อ gluteus profundus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1563,7 +1563,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gluteus-superficialis",
     "en": "Right gluteus superficialis (path)",
-    "th": "แนวกล้ามเนื้อ gluteus superficialis · ขวา",
+    "th": "แนวกล้ามเนื้อ gluteus superficialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1573,7 +1573,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-iliacus",
     "en": "Right iliacus (path)",
-    "th": "แนวกล้ามเนื้อ iliacus · ขวา",
+    "th": "แนวกล้ามเนื้อ iliacus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1583,7 +1583,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-obturator-ext",
     "en": "Right obturator ext (path)",
-    "th": "แนวกล้ามเนื้อ obturator ext · ขวา",
+    "th": "แนวกล้ามเนื้อ obturator ext, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1593,7 +1593,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-obturator-int",
     "en": "Right obturator int (path)",
-    "th": "แนวกล้ามเนื้อ obturator int · ขวา",
+    "th": "แนวกล้ามเนื้อ obturator int, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1603,7 +1603,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-piriformis",
     "en": "Right piriformis (path)",
-    "th": "แนวกล้ามเนื้อ piriformis · ขวา",
+    "th": "แนวกล้ามเนื้อ piriformis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1613,7 +1613,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-pectineus",
     "en": "Right pectineus (path)",
-    "th": "แนวกล้ามเนื้อ pectineus · ขวา",
+    "th": "แนวกล้ามเนื้อ pectineus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1623,7 +1623,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-sartorius-caudal",
     "en": "Right sartorius caudal (path)",
-    "th": "แนวกล้ามเนื้อ sartorius caudal · ขวา",
+    "th": "แนวกล้ามเนื้อ sartorius caudal, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1633,7 +1633,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-sartorius-cranial",
     "en": "Right sartorius cranial (path)",
-    "th": "แนวกล้ามเนื้อ sartorius cranial · ขวา",
+    "th": "แนวกล้ามเนื้อ sartorius cranial, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1643,7 +1643,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-tensor-fasciae",
     "en": "Right tensor fasciae (path)",
-    "th": "แนวกล้ามเนื้อ tensor fasciae · ขวา",
+    "th": "แนวกล้ามเนื้อ tensor fasciae, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1653,7 +1653,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-quadratus-femoris",
     "en": "Right quadratus femoris (path)",
-    "th": "แนวกล้ามเนื้อ quadratus femoris · ขวา",
+    "th": "แนวกล้ามเนื้อ quadratus femoris, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1663,7 +1663,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-vastus-lateralis",
     "en": "Right vastus lateralis (path)",
-    "th": "แนวกล้ามเนื้อ vastus lateralis · ขวา",
+    "th": "แนวกล้ามเนื้อ vastus lateralis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1673,7 +1673,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-vastus-medialis",
     "en": "Right vastus medialis (path)",
-    "th": "แนวกล้ามเนื้อ vastus medialis · ขวา",
+    "th": "แนวกล้ามเนื้อ vastus medialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1683,7 +1683,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-rectus-femoris",
     "en": "Right rectus femoris (path)",
-    "th": "แนวกล้ามเนื้อ rectus femoris · ขวา",
+    "th": "แนวกล้ามเนื้อ rectus femoris, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1693,7 +1693,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-abductor-cruris",
     "en": "Right abductor cruris (path)",
-    "th": "แนวกล้ามเนื้อ abductor cruris · ขวา",
+    "th": "แนวกล้ามเนื้อ abductor cruris, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1703,7 +1703,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-adductoren",
     "en": "Right adductoren (path)",
-    "th": "แนวกล้ามเนื้อ adductoren · ขวา",
+    "th": "แนวกล้ามเนื้อ adductoren, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1713,7 +1713,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-biceps-femoris-longum",
     "en": "Right biceps femoris longum (path)",
-    "th": "แนวกล้ามเนื้อ biceps femoris longum · ขวา",
+    "th": "แนวกล้ามเนื้อ biceps femoris longum, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1723,7 +1723,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-biceps-femoris-breve",
     "en": "Right biceps femoris breve (path)",
-    "th": "แนวกล้ามเนื้อ biceps femoris breve · ขวา",
+    "th": "แนวกล้ามเนื้อ biceps femoris breve, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1733,7 +1733,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gracilis-tractus-calcaneus",
     "en": "Right gracilis tractus calcaneus (path)",
-    "th": "แนวกล้ามเนื้อ gracilis tractus calcaneus · ขวา",
+    "th": "แนวกล้ามเนื้อ gracilis tractus calcaneus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1743,7 +1743,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-semimembranosus",
     "en": "Right semimembranosus (path)",
-    "th": "แนวกล้ามเนื้อ semimembranosus · ขวา",
+    "th": "แนวกล้ามเนื้อ semimembranosus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1753,7 +1753,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-semitendinosus",
     "en": "Right semitendinosus (path)",
-    "th": "แนวกล้ามเนื้อ semitendinosus · ขวา",
+    "th": "แนวกล้ามเนื้อ semitendinosus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1763,7 +1763,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gastrocnemius-lateralis",
     "en": "Right gastrocnemius lateralis (path)",
-    "th": "แนวกล้ามเนื้อ gastrocnemius lateralis · ขวา",
+    "th": "แนวกล้ามเนื้อ gastrocnemius lateralis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1773,7 +1773,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-gastrocnemius-medialis",
     "en": "Right gastrocnemius medialis (path)",
-    "th": "แนวกล้ามเนื้อ gastrocnemius medialis · ขวา",
+    "th": "แนวกล้ามเนื้อ gastrocnemius medialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1783,7 +1783,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-peroneus-longus",
     "en": "Right peroneus longus (path)",
-    "th": "แนวกล้ามเนื้อ peroneus longus · ขวา",
+    "th": "แนวกล้ามเนื้อ peroneus longus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1793,7 +1793,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-tibialis-caudalis",
     "en": "Right tibialis caudalis (path)",
-    "th": "แนวกล้ามเนื้อ tibialis caudalis · ขวา",
+    "th": "แนวกล้ามเนื้อ tibialis caudalis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1803,7 +1803,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-tibialis-cranialis",
     "en": "Right tibialis cranialis (path)",
-    "th": "แนวกล้ามเนื้อ tibialis cranialis · ขวา",
+    "th": "แนวกล้ามเนื้อ tibialis cranialis, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",
@@ -1813,7 +1813,7 @@ export const ATLAS_DOGMODEL_PARTS = Object.freeze([
   {
     "id": "path-right-popliteus",
     "en": "Right popliteus (path)",
-    "th": "แนวกล้ามเนื้อ popliteus · ขวา",
+    "th": "แนวกล้ามเนื้อ popliteus, ขวา",
     "group": "Right muscle paths",
     "systemLabel": "แนวกล้ามเนื้อจำลอง",
     "representation": "muscle-path",

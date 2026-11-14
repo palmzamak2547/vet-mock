@@ -151,6 +151,10 @@ export function slugify(title, sha) {
 
 const MIME = {
   pdf: 'application/pdf', mp4: 'video/mp4', m4a: 'audio/mp4', mp3: 'audio/mpeg',
+  // The rest of the media a phone or a lecture recorder makes; api/library-blob.js
+  // also treats these extensions as media whatever the stored mime says.
+  m4v: 'video/x-m4v', mov: 'video/quicktime', webm: 'video/webm', mkv: 'video/x-matroska',
+  wav: 'audio/wav', ogg: 'audio/ogg', aac: 'audio/aac',
   pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

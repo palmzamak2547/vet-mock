@@ -10,7 +10,6 @@
 // ============================================================
 
 import fs from 'node:fs';
-import { canonicalTag } from './lib/tag-case.mjs';
 
 const DIR = process.argv.find((a) => a.startsWith("--dir="))?.slice(6) || '.tags-fix';
 const batches = JSON.parse(fs.readFileSync(`${DIR}/batches.json`, 'utf8'));
@@ -44,7 +43,8 @@ for (const b of batches) {
     if (tags.length < 2 || tags.length > 3) { report.push(`✗ ${b.key} #${r.id}: ${tags.length} tag(s)`); problems++; }
     if (new Set(tags.map((t) => t.toLowerCase())).size !== tags.length) { report.push(`✗ ${b.key} #${r.id}: duplicate tags ${JSON.stringify(tags)}`); problems++; }
 
-    for (const t of tags.map(canonicalTag)) {
+    // Tags as written: a split spelling is reported below, never silently merged.
+    for (const t of tags) {
       if (!SHAPE.test(t)) { report.push(`✗ ${b.key} #${r.id}: malformed tag "${t}"`); problems++; }
       if (CONTAINER.test(t)) { report.push(`✗ ${b.key} #${r.id}: "${t}" names the container, not the concept`); problems++; }
       if (/\s/.test(t)) { report.push(`✗ ${b.key} #${r.id}: "${t}" has a space — use kebab-case`); problems++; }

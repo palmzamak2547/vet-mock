@@ -12,6 +12,7 @@
 // ============================================================
 
 import { allowedOrigin, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { authenticatedUser, isAdmin } from './_lib/app-backend.js';
 import { voiceConfig, monthKey, secondsToMonthEnd, mintToken, searchKnowledge } from './_lib/mochi-voice.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -39,14 +40,16 @@ export default async function handler(req, res) {
   if (!enabled) {
     try { enabled = await isAdmin(user.token); } catch { enabled = false; }
   }
-  const action = String(req.body?.action || '');
+  const body = readJsonBody(req);
+  if (!body) return sendBadBody(res);
+  const action = String(body.action || '');
   if (action === 'status') return res.status(200).json({ enabled: enabled && cfg.configured, sessionMinutes: cfg.sessionMinutes });
   if (!enabled) return res.status(403).json({ error: 'not_enabled' });
 
   if (action === 'search') {
     const rl = await rateLimit(`mochi-voice:search:${user.userId}`, 240, 60 * 60 * 1000);
     if (!rl.ok) return sendRateLimitFailure(res, rl);
-    return res.status(200).json(searchKnowledge(req.body?.query));
+    return res.status(200).json(searchKnowledge(body.query));
   }
 
   if (action === 'token') {

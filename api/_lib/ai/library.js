@@ -40,6 +40,7 @@ import { clip, stripBroken } from './text.js';
 import { RARE_SHARE } from './textindex.js';
 import { mintOpenTicket, ticketQuery } from '../open-ticket.js';
 import { readerUrl } from '../../../src/lib/view-route.js';
+import { cardDescription } from '../../../src/lib/reading-layout.js';
 
 const SITE = 'https://vetmock.com';
 const TIMEOUT_MS = 1400;
@@ -49,9 +50,9 @@ const FILES_TIMEOUT_MS = 4000;
 // pages ~4.5, a syllabus that mentions it once ~2.9; a deck that only words any
 // lecture uses found can reach ~4.7, and findFiles' gate keeps it off instead)
 const RELATED_FLOOR = 3.5;
-const COLUMNS = 'id,slug,title,kind,subject,year,semester,academic_year,lecturer,page_count,byte_size,mime,storage_provider';
+const COLUMNS = 'id,slug,title,description,kind,subject,year,semester,academic_year,lecturer,page_count,byte_size,mime,storage_provider';
 
-export const FILE_KINDS = Object.freeze({
+const FILE_KINDS = Object.freeze({
   slide: 'สไลด์',
   handout: 'เอกสารประกอบ',
   summary: 'สรุป',
@@ -60,6 +61,14 @@ export const FILE_KINDS = Object.freeze({
   guideline: 'แนวปฏิบัติ',
   other: 'เอกสาร',
 });
+
+// A description names the deck as a title does (a deck titled OHVPH_SP_E4 whose
+// description says "One Health approach for livestock waste management"), but a
+// title is the author's own word for it, so a description counts a little less
+// and a title match never ranks worse for it. One that only restates the kind
+// ("Lecture Slides") is no topic: the library screen's own rule drops it.
+const DESCRIPTION_SHARE = 0.9;
+const topicOf = (d) => cardDescription(d, FILE_KINDS[d?.kind]) || '';
 
 const ADMIN_TITLE = /syllabus|course (?:outline|plan|schedule)|time ?table|schedule|ประมวลรายวิชา|แผนการสอน|ตารางเรียน|ตารางสอน|ตารางสอบ|มคอ/i;
 
@@ -77,7 +86,7 @@ export function subjectLabel(id) {
   return SUBJECT_NAME.get(id) || (id.length <= 5 ? id.toUpperCase() : id);
 }
 
-export function libraryConfig(env = process.env) {
+function libraryConfig(env = process.env) {
   const base = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
   const key = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
   return base && key ? { base: String(base).replace(/\/$/, ''), key } : null;
@@ -140,7 +149,7 @@ const STOP_TH = new Set(['\u0E42\u0E23\u0E04', '\u0E2D\u0E32\u0E01\u0E32\u0E23',
 
 /** A retrieval needle as text: retrieve.js hands { thai } or { re } objects;
  *  only the Thai ones are words (the English side comes from the plan's terms). */
-export const needleText = (n) => (typeof n === 'string' ? n : n?.thai || '');
+const needleText = (n) => (typeof n === 'string' ? n : n?.thai || '');
 
 /** Whether a normalised text holds one of a concept's forms ({ thai } or { re }). */
 function formsIn(forms) {
@@ -202,7 +211,10 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [], specific
       // a file name's underscores are spaces ("Powerpoint_Newcastle disease virus")
       const title = normalizeQuery(d.title || '').replace(/_/g, ' ');
       // a row the title search found carries every word of the asked title
-      const naming = d.titleHit ? 1 : Math.max(0, ...named.filter((n) => n.in(title)).map((n) => specific(n.t)));
+      const about = normalizeQuery(topicOf(d)).replace(/_/g, ' ');
+      const naming = d.titleHit ? 1 : Math.max(0,
+        ...named.filter((n) => n.in(title)).map((n) => specific(n.t)),
+        ...(about ? named.filter((n) => n.in(about)).map((n) => specific(n.t) * DESCRIPTION_SHARE) : []));
       const pages = Math.max(1, Number(d.page_count) || 1);
       const found = d.found?.length ? d.found : [{ hits: d.hits, weight: 1 }];
       // each phrase that found it is worth what the phrase is worth
@@ -230,6 +242,7 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [], specific
 // `token` is the member's own: behind the Chula wall the library answers members only.
 async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, token }) {
   const r = await fetchImpl(url, {
+    redirect: 'error',
     method,
     headers: { apikey: cfg.key, Authorization: `Bearer ${token || cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: body ? JSON.stringify(body) : undefined,
@@ -242,7 +255,7 @@ async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, toke
 const inList = (values) => `(${values.map((v) => `"${String(v).replace(/["\\]/g, '')}"`).join(',')})`;
 
 /** A snippet as the card shows it: one line, never garbled, marked when cut. */
-export function tidySnippet(s) {
+function tidySnippet(s) {
   let t = stripBroken(s).replace(/\s+/g, ' ').trim();
   if (!t || garbled(t)) return '';
   // library_search returns a 200-character window from 60 before the match;
@@ -287,7 +300,10 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
     // every word of the named title, or of the main term, in any order
     const searches = phrases.map((q) => getJSON(`${cfg.base}/rest/v1/rpc/library_search`, { ...io, method: 'POST', body: { q, max_docs: files ? 16 : 10 } }).catch(miss));
     const titleWords = (title ? phrase([title]) : phrases[0]).split(' ').filter((w) => w.length >= 2).slice(0, 3);
-    const titleFilter = titleWords.map((w) => `title.ilike."*${w.replace(/["\\,()]/g, '')}*"`).join(',');
+    const titleFilter = titleWords.map((w) => {
+      const x = w.replace(/["\\,()]/g, '');
+      return `or(title.ilike."*${x}*",description.ilike."*${x}*")`;
+    }).join(',');
     const titled = files && titleWords.length
       ? getJSON(`${cfg.base}/rest/v1/library_docs?select=${COLUMNS}&status=eq.public&and=${encodeURIComponent(`(${titleFilter})`)}&limit=12`, io).catch(miss)
       : Promise.resolve([]);
@@ -355,6 +371,7 @@ export async function findFiles({ terms = [], needles = [], subjects = [], kind 
       return {
         slug: d.slug,
         title: clip(displayTitle(d.title), 140),
+        description: clip(topicOf(d), 160),
         format: formatOf(d.mime, d.title),
         kind: FILE_KINDS[d.kind] ? d.kind : 'other',
         kindLabel: FILE_KINDS[d.kind] || FILE_KINDS.other,
@@ -428,7 +445,7 @@ export function filesCard(items, { related = false } = {}) {
 export function filesLead(items) {
   const f = items[0];
   const meta = [f.subjectName, f.pages ? `${f.pages} หน้า` : ''].filter(Boolean).join(', ');
-  const parts = [`ไฟล์ที่ตรงที่สุดคือ${f.kindLabel} **${f.title}**${meta ? ` (${meta})` : ''}`];
+  const parts = [`ไฟล์ที่ตรงที่สุดคือ${f.kindLabel} **${f.title}**${meta ? ` (${meta})` : ''}${f.description ? ` เรื่อง ${f.description}` : ''}`];
   if (f.page > 1) parts.push(`เปิดแล้วไปที่หน้า ${f.page} ซึ่งตรงกับคำค้น`);
   parts.push(items.length > 1 ? `การ์ดด้านล่างมี ${items.length} ไฟล์ กดเปิดหรือดาวน์โหลดได้` : 'กดเปิดหรือดาวน์โหลดจากการ์ดด้านล่างได้');
   return parts.join(' ');

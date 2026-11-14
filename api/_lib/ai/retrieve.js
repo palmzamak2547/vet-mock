@@ -51,7 +51,7 @@ function wikiPositions(corpus) {
 }
 
 /** VetWiki's nominations for a question, as rank-based multipliers. */
-export function wikiNominations(corpus, questions) {
+function wikiNominations(corpus, questions) {
   const pos = wikiPositions(corpus);
   const boost = new Map();
   for (const q of questions) {

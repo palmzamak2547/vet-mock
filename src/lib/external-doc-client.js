@@ -159,7 +159,7 @@ export async function startExternalConnection(provider, options = {}) {
 export const NO_CONNECTABLE = Object.freeze({ google: false, notion: false });
 
 /** The server's answer as two booleans, or null when it is not exactly that. */
-export function parseConnectable(data) {
+function parseConnectable(data) {
   const connect = data && typeof data === 'object' ? data.connect : null;
   if (!connect || typeof connect !== 'object') return null;
   if (typeof connect.google !== 'boolean' || typeof connect.notion !== 'boolean') return null;
