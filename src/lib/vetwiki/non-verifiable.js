@@ -311,6 +311,21 @@ export const METADATA_SECTIONS = new Set([
   // documents themselves are verified in their per-organisation sections.
   "one-health--vet-standards-catalog--ใช้กับวิชาในหลักสูตร",
 
+  // Epidemiology notes of 2569 (14 Nov 2026): class exercises, lab briefings, made-up teaching scenarios and
+  // descriptions of what a slide or a calculator screen shows. No paper states them; each was judged one by one.
+  "epidemiology--epidem-dx-screening--module-1-ก่อนเริ่ม-computer-lab", // Lab briefing: readiness questions, activity list and further-reading list
+  "epidemiology--epidem-software--สไลด์-intro-ของแต่ละ-module-พูดถึงซอฟต์แวร์แค่ไหน", // Course logistics: which software each intro slide mentions
+  "epidemiology--epidem-software--วิธีหาขนาดตัวอย่าง-และรายชื่อซอฟต์แวร์บนสไลด์", // List of programs and approaches a slide names
+  "epidemiology--epidem-software--statulator-สองตัวอย่างที่ใช้แทน-openepi", // Describes calculator screenshots and teaching inputs
+  "epidemiology--epidem-sample-size--software-และเครื่องคำนวณออนไลน์ที่สไลด์ใช้", // Lists programs a slide names and calculator screenshot outputs; no checkable fact.
+  "epidemiology--epidem-current-research--เป้าหมายของบทและ-scenario-เปิด", // Learning outcomes plus a scenario the slide labels imaginary
+  "epidemiology--epidem-current-research--digital-twin-ฟาร์มโคนม", // Slide of unclear origin; lecture says scenarios are hypothetical
+  "epidemiology--epidem-current-research--ทักษะที่ควรเตรียมและเส้นทางอาชีพ", // Skills list and career advice
+  "epidemiology--epidem-current-research--extended-session-you-are-the-outbreak-intelligence-team", // Group activity on a hypothetical scenario
+  "epidemiology--epidem-current-research--งานจริงที่สไลด์อ้าง", // List of what the slides cite
+  "epidemiology--epidem-outbreak-investigation--module-3-สถานการณ์ลูกโค-100-ตัว", // Hypothetical calf teaching scenario and its assumptions
+  "epidemiology--epidem-outbreak-investigation--module-3-computer-laboratory-briefing", // Lab briefing: review questions, exercises, report contents
+  "epidemiology--epidem-govt-policy--การจัดลำดับและแบ่งกลุ่มโรคของประเทศไทย", // Describes the DLD Bureau of Disease Control 2569 operational plan and its 2024 notifiable-disease prioritisation list, an administrative programme document; web search and PubMed (Thailand disease prioritization/notifiable) reached no official copy or paper stating it.
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */
