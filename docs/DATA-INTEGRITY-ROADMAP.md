@@ -218,3 +218,57 @@ engine ต้องการ "the machine to itself"
 3. **ถ้า lint สร้างปัญหาเอง ให้แก้ lint ไม่ใช่ไปรับมือปลายทาง**
    (`lint-academic-safety.mjs` ผลิตคำสะกดสั้นเอง จึงต้องแก้ที่ต้นทาง)
 4. **อย่าเริ่มตอนใกล้สอบ** ทุกข้อแตะสิ่งที่นิสิตกำลังเปิดอ่าน
+
+---
+
+## Scorecard: six numbers for the whole bank (added 15 Nov 2026)
+
+`npm run scorecard` prints the owner's six properties (14 Nov 2026) as one number each, with the
+counts behind it, in about 25 seconds and with no install. It writes nothing.
+
+```
+npm run scorecard                 the six numbers
+npm run scorecard -- --json       the same, plus every defect id (subject:id), for machines
+npm run scorecard -- --backtest   the past-paper backtest, per subject and per paper
+npm run scorecard -- --full       also runs the slow guards (lint:exam-recurrence, about 30 s)
+```
+
+What each number is (`scripts/scorecard.mjs`; the backtest is `scripts/lib/backtest.mjs`; the
+shape is pinned by `tests/unit/scorecard.test.mjs`, never the values):
+
+1. **Organised**: deliverable questions with one complete home (a curriculum topic, a known paper
+   scope where the subject sits a paper this year, a `sourceType`, a sitting cohort for a past paper)
+   and not a stored copy of another (exact groups, `KNOWN_NEAR_DUPLICATES`, same-item clusters with
+   fewer than two cohorts).
+2. **Correct**: questions whose key a machine can follow to a primary or reliable source (a library
+   slide matched to the question by `evidenceHash`, a cited lecture moment, a reference list or
+   `answerStatus: 'verified'`) and that carry no open `flag`. It measures traceability, not agreement.
+3. **Linked**: questions whose topic, VetWiki article (`articleForQuestion`) and source pointer
+   (structured `sourcePages`, an evidence slide or a lecture moment) all resolve.
+4. **Retrievable**: questions a topic card opens, under counts that equal what the tap serves:
+   every subject, Panic, topic and past-paper cell of `q-counts.js`, and their per-phase forms,
+   against `buildExamPool` / `panicPool` for the same tap.
+5. **Stable**: lint:data guards (expanded from `package.json`) green with no slack in their budgets.
+   A guard that cannot import a package is reported as not run, not as red.
+6. **Predictive**: Panic Mode's band order (`panicRank`) against a shuffle. Each recorded paper with
+   5 or more items is hidden in turn; a hidden item is covered when its topic's first 10 hold a sibling
+   (stems at the recurrence rule's first gate, trigram Jaccard 0.25) or the same item (the generator's
+   `sameItem`). Expectations are exact hypergeometric sums. "Forward" counts only earlier cohorts'
+   papers; band-1/2 rows naming the hidden cohort are removed as leakage. A subject needs 3 papers and
+   20 coverable items before its figure means anything. Internal only: nothing student-facing may
+   claim what will be asked.
+
+**On the day (15 Nov 2026, main 77d2cbe8, 8,841 deliverable of 9,052):**
+
+| Property | Number | Behind it |
+|---|---|---|
+| Organised | 48.9% | 2,911 without `sourceType`; 2,663 past papers without a sitting cohort; 87 stored copies; 23 without a topic; scope unknown only in courses the timetable does not hold (3,736, not scored) |
+| Correct | 22.4% | 6,860 keys with no machine-followable primary source (818 slide, 650 lecture moment, 627 reference); 26 open doubts (11 major); 211 held out of every pool |
+| Linked | 32.5% | 3,385 without a wiki article; 2,470 pointers that are page text only; 2,115 with no pointer; 0 broken (1,355 lecture moments, 0 faults) |
+| Retrievable | 98.7% | 2,920 count cells, 0 disagree; 118 questions no topic card opens (hidden topics, no topic) |
+| Stable | 94.9% | 56 guards run green, 2 with slack (`lint:provenance` noSourceType 3015 vs 2978, `lint:questions` surg3 38% vs 36%); 5 need `npm ci`; 1 skipped as slow |
+| Predictive | 1.09x | 45 papers, 1,204 hidden items; only 135 have any sibling left; first 10 cover 5.1% against 4.7% for a shuffle; 9 papers better, 7 worse, 29 tied; only aquatic-clinic and milk-meat-hygiene have enough evidence, neither significant |
+
+Read the backtest as: there is no evidence yet that the band order beats a shuffle, and the reason
+is mostly the ceiling, not the order. 89% of a hidden paper's items have no sibling anywhere else in
+their topic. `EXAM_RECURRENCE` is consumed by no ordering in `src/`, and band 0 is a shuffle inside.
