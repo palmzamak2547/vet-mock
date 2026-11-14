@@ -215,7 +215,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
             placeholder="พิมพ์โน้ต… (Enter = save, Shift+Enter = ขึ้นบรรทัด, Esc = ยกเลิก)"
             rows={2}
             style={{
-              width: '100%', padding: '8px 10px', fontSize: 14,
+              width: '100%', padding: '8px 10px', fontSize: 16,
               borderRadius: 6, border: '1px solid var(--clr-border)',
               background: 'var(--clr-bg)', color: 'var(--clr-ink)',
               fontFamily: 'inherit', resize: 'vertical', minHeight: 60,
@@ -272,7 +272,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                     }}
                     rows={2}
                     style={{
-                      flex: 1, minWidth: 0, padding: '6px 8px', fontSize: 14,
+                      flex: 1, minWidth: 0, padding: '6px 8px', fontSize: 16,
                       borderRadius: 6, border: '1px solid var(--clr-border)',
                       background: 'var(--clr-bg)', color: 'var(--clr-ink)',
                       fontFamily: 'inherit', resize: 'vertical',

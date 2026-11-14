@@ -288,7 +288,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 1,
     explain: 'Streptococcus suis ก่อโรคแบบลุกลามได้ทั้ง septicemia, meningitis, endocarditis, pneumonia และ arthritis ส่วน Haemophilus (Glaesserella) parasuis ทำให้เกิด fibrinopurulent polyserositis, polyarthritis และ meningitis คู่ S. suis type II กับ H. parasuis จึงทำให้ข้ออักเสบได้ทั้งคู่ แต่ไม่ใช่คู่เดียว Erysipelothrix rhusiopathiae, Mycoplasma hyosynoviae และ Mycoplasma hyorhinis ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกรหลังหย่านม คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกด้วย คู่ osteochondrosis กับ M. hyopneumoniae ไม่ถูก เพราะแม้ osteochondrosis จะเป็นรอยโรคที่ข้อ แต่ M. hyopneumoniae ก่อโรคปอด ส่วน FMD กับการขาด biotin ทำให้ขาเจ็บจากรอยโรคที่กีบ ไม่ใช่โรคของข้อ',
     verified: 'สรุป 80 p.7 (Vet 83 marked "S. suis, Glasser")',
-    flag: { note: 'ข้อนี้มีคู่ที่ถูกมากกว่าหนึ่งคู่ คำตอบที่ใช้คือ S. suis type II กับ H. parasuis แต่ M. hyorhinis, E. rhusiopathiae และ M. hyosynoviae ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกร คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกเช่นกัน', severity: 'major' } },
+    flag: {"severity":"major","note":"ข้อนี้มีคู่ที่ถูกมากกว่าหนึ่งคู่ คำตอบที่บันทึกไว้คือ S. suis type II กับ H. parasuis แต่ M. hyorhinis, E. rhusiopathiae และ M. hyosynoviae ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกรหลังหย่านม คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกเช่นกัน บันทึกอีกฉบับของข้อเดียวกันมีคำว่า แตกต่างจากกลุ่มอื่น ต่อท้ายโจทย์ และให้คำตอบเป็นคู่ osteochondrosis กับ M. hyopneumoniae เพราะ M. hyopneumoniae ก่อโรคที่ปอด ไม่ใช่ที่ข้อ โจทย์ที่บันทึกไว้ในข้อนี้จึงอาจตกคำนั้นไป"} },
 
   { id: 8024, subject: 'swine-clinic', topic: 'swine-ileitis-bacti', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -479,7 +479,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 4,
     explain: 'กลุ่มโรคที่สัมพันธ์กับ PCV2 (PCVAD) ได้แก่ PMWS, reproductive disease ที่ทำให้แท้งช่วงท้าย, PDNS, PRDC, PNP และ PCV2 necrotic enteritis โดย necrotizing vasculitis เป็นรอยโรคหลักของ PDNS และ hepatitis พบได้ใน PMWS ซึ่งทำให้ดีซ่าน คำตอบที่ใช้คือผิดทุกข้อ ซึ่งนับทุกคู่เป็นรอยโรคของ PCV2 แต่ congenital tremor ไม่อยู่ในกลุ่ม PCVAD และ congenital tremor type A-II ปัจจุบันพบว่าเกิดจาก atypical porcine pestivirus ไม่ใช่ PCV2 คู่ hepatitis กับ congenital tremor จึงเป็นคำตอบที่เถียงได้',
     verified: 'สรุป 80 p.12 (Vet 83 marked E + checked all options)',
-    flag: { note: 'คำตอบผิดทุกข้อนับ congenital tremor เป็นรอยโรคของ PCV2 แต่ congenital tremor ไม่อยู่ในกลุ่มโรค PCVAD และ type A-II ปัจจุบันพบว่าเกิดจาก atypical porcine pestivirus คู่ hepatitis กับ congenital tremor จึงตอบได้เช่นกัน', severity: 'major' } },
+    flag: {"severity":"major","note":"คำตอบที่บันทึกไว้คือผิดทุกข้อ ซึ่งนับ congenital tremor เป็นรอยโรคของ PCV2 แต่กลุ่มโรค PCVAD ในเนื้อหาปีนี้มี PMWS, reproductive disease, PDNS, PRDC, PNP และ PCV2 necrotic enteritis ไม่มี congenital tremor และ congenital tremor type A-II ปัจจุบันพบว่าเกิดจาก atypical porcine pestivirus (de Groof และคณะ 2016, Postel และคณะ 2016) คู่ hepatitis กับ congenital tremor จึงตอบได้เช่นกัน"} },
 
   { id: 8043, subject: 'vca', topic: 'dogcat', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',

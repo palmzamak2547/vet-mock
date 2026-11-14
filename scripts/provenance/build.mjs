@@ -45,7 +45,7 @@ function itemAfter(text) {
  *  its page run, else the words before the run as `name` (crops.py matches
  *  that against its private aliases). */
 export function citesOf(q, docs) {
-  const own = docs.filter((d) => d.subject === q.subject);
+  const own = docs.filter((d) => d.subject === q.subject || (d.alsoSubjects ?? []).includes(q.subject));
   const out = (q.sourcePages || []).map((c) => ({ slug: c.doc, edition: c.edition, page: c.page, name: null, item: null, structured: true }));
   for (const chunk of citationChunks(q)) {
     let from = 0;

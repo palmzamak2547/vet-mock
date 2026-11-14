@@ -6,6 +6,180 @@
 // ============================================================
 
 export const VIDEO_TOPIC_INDEX = {
+ "oh-livestock-waste": [
+  {
+   "v": "720ploUu9Oo",
+   "s": 1920,
+   "e": 2940,
+   "conf": "high"
+  }
+ ],
+ "meat-ante-post-mortem": [
+  {
+   "v": "HjybdZFuD8E",
+   "s": 2400,
+   "e": 7440,
+   "conf": "high"
+  },
+  {
+   "v": "HjybdZFuD8E",
+   "s": 180,
+   "e": 1200,
+   "conf": "high"
+  }
+ ],
+ "zoo-bacterial": [
+  {
+   "v": "w1EAbprOd_M",
+   "s": 360,
+   "e": 4080,
+   "conf": "high"
+  },
+  {
+   "v": "YZhZ86q6bHk",
+   "s": 180,
+   "e": 600,
+   "conf": "high"
+  }
+ ],
+ "zoo-helminthic": [
+  {
+   "v": "YZhZ86q6bHk",
+   "s": 1080,
+   "e": 1920,
+   "conf": "high"
+  },
+  {
+   "v": "w1EAbprOd_M",
+   "s": 5220,
+   "e": 5640,
+   "conf": "high"
+  }
+ ],
+ "zoo-prion": [
+  {
+   "v": "w1EAbprOd_M",
+   "s": 5640,
+   "e": 8820,
+   "conf": "high"
+  }
+ ],
+ "equine-lameness": [
+  {
+   "v": "rLIJCE3ij9s",
+   "s": 8160,
+   "e": 8700,
+   "conf": "high"
+  },
+  {
+   "v": "rLIJCE3ij9s",
+   "s": 9180,
+   "e": 11340,
+   "conf": "medium"
+  }
+ ],
+ "oh-concept": [
+  {
+   "v": "pXxxZN-3hNA",
+   "s": 780,
+   "e": 1380,
+   "conf": "high"
+  }
+ ],
+ "oh-gmo": [
+  {
+   "v": "pXxxZN-3hNA",
+   "s": 1380,
+   "e": 2760,
+   "conf": "medium"
+  }
+ ],
+ "aqua-toxicology": [
+  {
+   "v": "zYRQuoLlrWg",
+   "s": 480,
+   "e": 720,
+   "conf": "high"
+  },
+  {
+   "v": "zYRQuoLlrWg",
+   "s": 3180,
+   "e": 4200,
+   "conf": "medium"
+  }
+ ],
+ "avian-mycosis": [
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 0,
+   "e": 2940,
+   "conf": "high"
+  },
+  {
+   "v": "VGXvQVrud_A",
+   "s": 120,
+   "e": 3060,
+   "conf": "high"
+  },
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 3000,
+   "e": 3653,
+   "conf": "high"
+  },
+  {
+   "v": "pWwhXN2E4yY",
+   "s": 1020,
+   "e": 3462,
+   "conf": "medium"
+  }
+ ],
+ "fiqc-aquatic": [
+  {
+   "v": "TLdoEVtldtE",
+   "s": 600,
+   "e": 3300,
+   "conf": "high"
+  }
+ ],
+ "oh-env-carcinogen": [
+  {
+   "v": "pj_zkis2ziU",
+   "s": 480,
+   "e": 1500,
+   "conf": "high"
+  },
+  {
+   "v": "_gZS4uB8SJ4",
+   "s": 2340,
+   "e": 3120,
+   "conf": "high"
+  }
+ ],
+ "meat-pest-control": [
+  {
+   "v": "ckTr460hIn4",
+   "s": 0,
+   "e": 1260,
+   "conf": "high"
+  }
+ ],
+ "meat-egg-micro": [
+  {
+   "v": "ckTr460hIn4",
+   "s": 1260,
+   "e": 3420,
+   "conf": "high"
+  }
+ ],
+ "zoo-rickettsial": [
+  {
+   "v": "YZhZ86q6bHk",
+   "s": 3780,
+   "e": 6720,
+   "conf": "medium"
+  }
+ ],
  "equine-anesthesia": [
   {
    "v": "MGU2qNX2paA",
@@ -23,14 +197,6 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "MGU2qNX2paA",
    "s": 5700,
    "e": 6660,
-   "conf": "high"
-  }
- ],
- "oh-env-carcinogen": [
-  {
-   "v": "pj_zkis2ziU",
-   "s": 480,
-   "e": 1500,
    "conf": "high"
   }
  ],
@@ -103,26 +269,6 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "WX7vrDP9MjA",
    "s": 7620,
    "e": 8700,
-   "conf": "high"
-  }
- ],
- "avian-mycosis": [
-  {
-   "v": "1dAsMNt_5XA",
-   "s": 0,
-   "e": 2940,
-   "conf": "high"
-  },
-  {
-   "v": "VGXvQVrud_A",
-   "s": 120,
-   "e": 3060,
-   "conf": "high"
-  },
-  {
-   "v": "1dAsMNt_5XA",
-   "s": 3000,
-   "e": 3653,
    "conf": "high"
   }
  ],
@@ -210,7 +356,7 @@ export const VIDEO_TOPIC_INDEX = {
   {
    "v": "aepa8Zi_QhM",
    "s": 2280,
-   "e": 5071,
+   "e": 5070,
    "conf": "high"
   },
   {
@@ -306,6 +452,14 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "milk-cleaning": [
+  {
+   "v": "eFol_YfalMg",
+   "s": 540,
+   "e": 4647,
+   "conf": "high"
+  }
+ ],
  "aqua-fish-diseases": [
   {
    "v": "J0_PVwAL884",
@@ -326,6 +480,38 @@ export const VIDEO_TOPIC_INDEX = {
    "s": 12360,
    "e": 12976,
    "conf": "medium"
+  }
+ ],
+ "equine-respi": [
+  {
+   "v": "WeikQjYjlK0",
+   "s": 0,
+   "e": 3420,
+   "conf": "high"
+  }
+ ],
+ "avian-ae": [
+  {
+   "v": "ezb2wLM_R2o",
+   "s": 4920,
+   "e": 5520,
+   "conf": "high"
+  }
+ ],
+ "avian-adeno": [
+  {
+   "v": "ezb2wLM_R2o",
+   "s": 5520,
+   "e": 6240,
+   "conf": "medium"
+  }
+ ],
+ "avian-salmonella": [
+  {
+   "v": "ezb2wLM_R2o",
+   "s": 6240,
+   "e": 9300,
+   "conf": "high"
   }
  ],
  "epidem-dx-screening": [
@@ -416,6 +602,44 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "avian-ibd": [
+  {
+   "v": "ScpsvwW0FhM",
+   "s": 240,
+   "e": 2040,
+   "conf": "high"
+  }
+ ],
+ "avian-marek": [
+  {
+   "v": "ScpsvwW0FhM",
+   "s": 2040,
+   "e": 4440,
+   "conf": "high"
+  }
+ ],
+ "avian-rss": [
+  {
+   "v": "ScpsvwW0FhM",
+   "s": 6720,
+   "e": 7500,
+   "conf": "high"
+  },
+  {
+   "v": "ScpsvwW0FhM",
+   "s": 4440,
+   "e": 6120,
+   "conf": "medium"
+  }
+ ],
+ "avian-reo": [
+  {
+   "v": "ScpsvwW0FhM",
+   "s": 6120,
+   "e": 6720,
+   "conf": "high"
+  }
+ ],
  "aqua-ornamental": [
   {
    "v": "Nto0dg3GP1w",
@@ -498,6 +722,20 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "aqua-shrimp-immunology": [
+  {
+   "v": "hHvKF5h22RU",
+   "s": 4440,
+   "e": 7080,
+   "conf": "high"
+  },
+  {
+   "v": "hHvKF5h22RU",
+   "s": 7260,
+   "e": 8288,
+   "conf": "high"
+  }
+ ],
  "avian-intro": [
   {
    "v": "F1jwpqQCGBM",
@@ -511,6 +749,14 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "F1jwpqQCGBM",
    "s": 5760,
    "e": 8100,
+   "conf": "high"
+  }
+ ],
+ "aqua-life-support": [
+  {
+   "v": "4n_3DBI9LXA",
+   "s": 480,
+   "e": 2520,
    "conf": "high"
   }
  ],
@@ -654,6 +900,22 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "avian-myco": [
+  {
+   "v": "8ekNMuG25gI",
+   "s": 180,
+   "e": 780,
+   "conf": "high"
+  }
+ ],
+ "aqua-fish-biology": [
+  {
+   "v": "r8YaeGUc4E0",
+   "s": 2580,
+   "e": 3600,
+   "conf": "high"
+  }
+ ],
  "epidem-basic-concepts": [
   {
    "v": "uGAmgxPrb2Y",
@@ -676,12 +938,66 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "zoo-intro": [
+  {
+   "v": "oWZEdlLXcpo",
+   "s": 1800,
+   "e": 2400,
+   "conf": "medium"
+  }
+ ],
+ "zoo-ai-basic": [
+  {
+   "v": "oWZEdlLXcpo",
+   "s": 2400,
+   "e": 5220,
+   "conf": "high"
+  }
+ ],
+ "zoo-siv-civ": [
+  {
+   "v": "oWZEdlLXcpo",
+   "s": 6420,
+   "e": 9181,
+   "conf": "medium"
+  }
+ ],
  "oh-communication": [
   {
    "v": "R4k7-CbupPc",
    "s": 2820,
    "e": 3120,
    "conf": "medium"
+  }
+ ],
+ "avian-nd": [
+  {
+   "v": "7XyI0SjnuBA",
+   "s": 420,
+   "e": 2040,
+   "conf": "high"
+  },
+  {
+   "v": "7XyI0SjnuBA",
+   "s": 2580,
+   "e": 3240,
+   "conf": "high"
+  }
+ ],
+ "avian-lt": [
+  {
+   "v": "7XyI0SjnuBA",
+   "s": 3840,
+   "e": 5400,
+   "conf": "high"
+  }
+ ],
+ "avian-mpv": [
+  {
+   "v": "7XyI0SjnuBA",
+   "s": 5400,
+   "e": 6060,
+   "conf": "high"
   }
  ],
  "epidem-disease-transmission": [

@@ -1525,4 +1525,483 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากสไลด์บรรยาย Aquatic Med 3107520 (สรุป Vet 85)"
   },
+  {
+    "id": 216200,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "บ่อเลี้ยงปลาสองบ่อปนเปื้อนโลหะหนักชนิดเดียวกันที่ความเข้มข้นเท่ากัน ต่างกันเพียงความกระด้างของน้ำ บ่อใดคาดว่าปลาได้รับพิษรุนแรงกว่า และด้วยกลไกใด",
+    "options": [
+      "บ่อน้ำกระด้างสูง เพราะ gill permeability เพิ่มขึ้น โลหะหนักจึงเข้าสู่ตัวปลามากขึ้น",
+      "บ่อน้ำกระด้างสูง เพราะอัตราการหายใจเพิ่มขึ้น โลหะหนักจึงเข้าสู่ตัวปลามากขึ้น",
+      "บ่อน้ำกระด้างต่ำ เพราะ gill permeability เพิ่มขึ้น โลหะหนักจึงเข้าสู่ตัวปลามากขึ้น",
+      "บ่อน้ำกระด้างต่ำ เพราะอัตราการหายใจเพิ่มขึ้น โลหะหนักจึงเข้าสู่ตัวปลามากขึ้น"
+    ],
+    "answer": 2,
+    "explain": "ความกระด้างของน้ำเป็นปัจจัยของ surrounding medium ที่เปลี่ยนความเป็นพิษได้ เมื่อความกระด้างต่ำ gill permeability จะเพิ่มขึ้น โลหะหนักจึงผ่านเหงือกเข้าสู่ร่างกายได้มากขึ้น และความเป็นพิษสูงขึ้น ที่ความเข้มข้นเท่ากัน บ่อน้ำอ่อนจึงเสี่ยงกว่า\n\n❌ ทำไมข้ออื่นผิด\n- น้ำกระด้างสูงกับ gill permeability: ทิศกลับกัน gill permeability เพิ่มเมื่อความกระด้างลดลง\n- น้ำกระด้างสูงกับอัตราการหายใจ: ผิดทั้งทิศและกลไก\n- น้ำกระด้างต่ำกับอัตราการหายใจ: ทิศถูกแต่กลไกผิด อัตราการหายใจที่เพิ่มจนรับสารพิษมากขึ้นเป็นผลของ DO ต่ำ",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 8",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 8 เรนเดอร์หน้า PDF ตรวจทิศลูกศรแล้ว: Water hardness↓ → Gill permeability↑ → Heavy metal uptake↑ → Toxicity↑",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "water-hardness-metal-uptake"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 216201,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "Adverse Outcome Pathway (AOP) ของ endocrine disruptor ตัวอย่างหนึ่งจบที่ population decline เหตุการณ์ใดในเส้นทางนี้คือ Molecular Initiating Event (MIE)",
+    "options": [
+      "สารจับกับเอนไซม์ aromatase และยับยั้งการทำงาน",
+      "การสังเคราะห์ vitellogenin (VTG) ลดลง",
+      "การผลิตไข่ (egg production) ลดลง",
+      "การวางไข่ (spawning) ลดลง"
+    ],
+    "answer": 0,
+    "explain": "MIE คือจุดเริ่มของ AOP ที่ระดับโมเลกุล เป็นปฏิสัมพันธ์ครั้งแรกระหว่างสารกับเป้าหมายในร่างกาย ในตัวอย่างนี้คือสารจับเอนไซม์และยับยั้ง aromatase จากนั้นจึงเกิด key event ต่อกันขึ้นไปทีละระดับ คือ estrogen และ VTG สังเคราะห์ได้น้อยลง ผลิตไข่ลดลง วางไข่ลดลง จนถึง adverse outcome ระดับประชากรคือ population decline\n\n❌ ทำไมข้ออื่นผิด\n- VTG ลดลง: เป็น key event ระดับเซลล์และเนื้อเยื่อ เกิดตามหลังการยับยั้ง aromatase\n- egg production ลดลง: เป็นเหตุการณ์ระดับอวัยวะ อยู่ปลายทางกว่า\n- spawning ลดลง: เป็นผลระดับตัวสัตว์ (organism) ซึ่งนับเป็น adverse outcome แล้ว",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 10 และ 13",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 13 เรนเดอร์แล้ว: Molecular = Enzyme binding (QSAR), Inhibited aromatase; Aquatic toxicology (3 พ.ย. 69) หน้า 10 วาง MIE ที่ระดับ Molecular",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "aop-mie-aromatase"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 10
+      },
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 216202,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "chlorpyrifos (organophosphate) และ carbofuran (carbamate) ที่ปนเปื้อนลงแหล่งน้ำ ก่อพิษต่อสัตว์น้ำโดยเริ่มจาก MIE ใดเหมือนกัน",
+    "options": [
+      "ทำให้ voltage-gated Na channels ปิดช้าลง เยื่อหุ้มเซลล์จึงเกิด depolarization",
+      "จับ acetylcholine receptor แบบ competitive agonist กล้ามเนื้อจึงถูกกระตุ้นมากขึ้น",
+      "จับและยับยั้ง serotonin transporter (SERT) ทำให้ serotonin นอกเซลล์เพิ่มขึ้น",
+      "จับและยับยั้ง acetylcholinesterase (AChE) ทำให้ acetylcholine คั่งที่ synapse"
+    ],
+    "answer": 3,
+    "explain": "organophosphate และ carbamate มี MIE เดียวกันคือจับ acetylcholinesterase ทำให้เอนไซม์ถูกยับยั้ง acetylcholine ใน nerve synapse จึงเพิ่มขึ้นและการส่งสัญญาณประสาทผิดปกติ ผลระดับตัวสัตว์คือพฤติกรรมทางระบบประสาทบกพร่องและตาย\n\n❌ ทำไมข้ออื่นผิด\n- Na channels ปิดช้า: เป็น MIE ของ pyrethroids เช่น permethrin\n- competitive agonist ที่ acetylcholine receptor: เป็น MIE ของ guanitoxin หรือ anatoxin ซึ่งเป็น cyanotoxin\n- ยับยั้ง SERT: เป็น MIE ของยากลุ่ม SSRI เช่น fluoxetine ในกลุ่ม PPCPs",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 38",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 38 เรนเดอร์แล้ว: OP และ carbamates = Binding acetylcholinesterase (AChE inhibition), Acetylcholine in nerve synapses↑; Aquatic toxicology (3 พ.ย. 69) ตัวลวงจากหน้า 35, 38 และ 41",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "op-carbamate-ache"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 38
+      }
+    ]
+  },
+  {
+    "id": 216203,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "PCBs, dioxins และ PAHs เป็น Persistent Organic Pollutants (POPs) ที่รบกวนระบบต่อมไร้ท่อและการสืบพันธุ์ของสัตว์น้ำ โดยมี MIE ร่วมกันคือการจับกับตัวรับใด",
+    "options": [
+      "Androgen และ estrogen receptors",
+      "Aryl hydrocarbon receptor (AhR)",
+      "N-methyl-D-aspartate (NMDA) receptors",
+      "Acetylcholine receptor (AChR)"
+    ],
+    "answer": 1,
+    "explain": "PCBs, dioxins และ PAHs มี MIE เดียวกันคือจับ aryl hydrocarbon receptor (AhR) แล้วทำตัวเป็น hormone mimics, receptor blockers หรือ enzyme inhibitors การทำงานของระบบต่อมไร้ท่อจึงผิดปกติ อวัยวะที่กำลังพัฒนาและอวัยวะสืบพันธุ์ถูกรบกวน ผลระดับตัวสัตว์คือการสืบพันธุ์ผิดปกติ (oocyte maturation และ steroidogenesis) และ embryogenesis ผิดปกติ คือตัวอ่อนตายและพิการเพิ่มขึ้น\n\n❌ ทำไมข้ออื่นผิด\n- Androgen และ estrogen receptors: เป็น MIE ของ organochlorine pesticides เช่น DDT, dieldrin, toxaphene\n- NMDA receptors: เป็นเป้าหมายของ lead (Pb) ซึ่งยับยั้งตัวรับนี้จนเกิด neurodegeneration\n- Acetylcholine receptor: เป็นเป้าหมายของ guanitoxin หรือ anatoxin ซึ่งเป็น cyanotoxin",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 30",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 30 เรนเดอร์แล้ว: ช่อง MIE = Aryl hydrocarbon receptor (AhR) คร่อมทั้ง PCBs, Dioxins และ PAHs; Aquatic toxicology (3 พ.ย. 69) ตัวลวงจากหน้า 26, 37 (เรนเดอร์แล้ว) และ 41",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "pops-ahr"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 30
+      }
+    ]
+  },
+  {
+    "id": 216204,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "ปลาในแหล่งน้ำท้ายเหมืองแร่มีกระดูกสันหลังผิดรูป (backbone deformity) กล้ามเนื้อหดเกร็ง (muscle spasm) และไตเสียหาย ลักษณะนี้เข้ากับพิษของโลหะหนักชนิดใดมากที่สุด",
+    "options": [
+      "Methylmercury (MeHg)",
+      "Lead (Pb)",
+      "Cadmium (Cd)",
+      "Arsenic (As)"
+    ],
+    "answer": 2,
+    "explain": "cadmium เข้าเซลล์ด้วย receptor-mediated endocytosis แล้วรบกวนการทำงานของ lysosome จนเกิด ROS และเอนไซม์จาก lysosome ที่เป็นพิษต่อเซลล์ อวัยวะเป้าหมายคือไต (nephrotoxicity) และผลระดับตัวสัตว์คือ backbone deformity กับ muscle spasm\n\n❌ ทำไมข้ออื่นผิด\n- Methylmercury: จับโปรตีนที่มีหมู่ SH/SeH เกิด oxidative stress และ neuroinflammation ผลเด่นคือ neurodegeneration\n- Lead: รบกวน intracellular Ca2+ และยับยั้ง NMDA receptors ผลเด่นคือ neurodegeneration เช่นกัน\n- Arsenic: จับโปรตีนที่มีหมู่ SH และยับยั้ง glutathione เกิดพิษหลายอวัยวะ กดภูมิคุ้มกัน และการเจริญพันธุ์ลดลง",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 26 ถึง 28",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 27 เรนเดอร์แล้ว: Cadmium, Receptor-mediated endocytosis → Nephrotoxicity → Backbone deformity and muscle spasm; Aquatic toxicology (3 พ.ย. 69) หน้า 26 และ 28 อ่านจากข้อความ",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "cadmium-backbone-deformity"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 26
+      }
+    ]
+  },
+  {
+    "id": 216205,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "ในการใช้ biochemical marker ประเมินสัตว์น้ำที่สัมผัสสารพิษ cytochrome P450 และ ethoxyresorufin O-deethylase (EROD) จัดเป็น marker ของกระบวนการใด",
+    "options": [
+      "Detoxification",
+      "Endocrine disruption",
+      "Oxidative damage",
+      "Metal elimination"
+    ],
+    "answer": 0,
+    "explain": "biochemical marker คือการตอบสนองที่วัดได้ของสิ่งมีชีวิตหลังสัมผัสสารพิษ โดยแบ่งกลุ่มตามสิ่งที่ต้องการประเมิน cytochrome P450 และ EROD อยู่ในกลุ่ม detoxification ร่วมกับ glutathione S-transferase (GST) และ glutathione (GSH)\n\n❌ ทำไมข้ออื่นผิด\n- Endocrine disruption: ใช้ vitellogenin, 17β-estradiol, testosterone และ gonad histopathology (intersex)\n- Oxidative damage: ใช้ ROS และระบบ antioxidant เช่น SOD, CAT, GPx\n- Metal elimination: ใช้ metalloproteins คือ metallothionein, transferrin และ selenoprotein",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 43 และ 44",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 43: Detoxification = Cytochrome P450, EROD, GST, GSH; Aquatic toxicology (3 พ.ย. 69) หน้า 44: Metal elimination = metallothionein, transferrin, selenoprotein",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "biomarker-detoxification"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 43
+      },
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 44
+      }
+    ]
+  },
+  {
+    "id": 216206,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "ตู้ปลาหลายตู้วัดแอมโมเนียรวม (TAN) ได้เท่ากัน ตู้ที่มีสภาพน้ำแบบใดจะมีสัดส่วน NH₃ ซึ่งเป็นรูปที่เป็นพิษมากกว่าสูงที่สุด",
+    "options": [
+      "ตู้ที่ pH ต่ำและอุณหภูมิน้ำต่ำ",
+      "ตู้ที่ pH สูงและอุณหภูมิน้ำสูง",
+      "ตู้ที่ pH ต่ำและอุณหภูมิน้ำสูง",
+      "ตู้ที่ pH สูงและอุณหภูมิน้ำต่ำ"
+    ],
+    "answer": 1,
+    "explain": "TAN ประกอบด้วย NH₃ และ NH₄⁺ โดย NH₃ เป็นพิษมากกว่า และสัดส่วนของ NH₃ เพิ่มขึ้นเมื่อ pH และอุณหภูมิสูงขึ้น ค่า TAN เท่ากันจึงอันตรายไม่เท่ากัน ต้องแปลผลร่วมกับ pH และอุณหภูมิเสมอ\n\n❌ ทำไมข้ออื่นผิด\n- pH ต่ำและอุณหภูมิต่ำ: เป็นสภาพที่สัดส่วน NH₃ ต่ำที่สุด\n- pH ต่ำและอุณหภูมิสูง: มีปัจจัยเพิ่ม NH₃ เพียงอย่างเดียวคืออุณหภูมิ\n- pH สูงและอุณหภูมิต่ำ: มีปัจจัยเพิ่ม NH₃ เพียงอย่างเดียวคือ pH",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 11 และ 50",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 11: NH₃ เป็นพิษมากกว่า และสัดส่วน NH₃ เพิ่มขึ้นเมื่อ pH และอุณหภูมิสูงขึ้น; Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 50 ย้ำว่าความเป็นพิษขึ้นกับ pH และอุณหภูมิ",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "ammonia-ph-temperature"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 11
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 50
+      }
+    ]
+  },
+  {
+    "id": 216207,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "ตู้จัดแสดงเพิ่งทำความสะอาดโดยเปลี่ยนสื่อกรองเกือบทั้งหมดและล้างด้วยน้ำประปา อีก 24 ถึง 48 ชั่วโมงปลาเริ่มซึม ไม่กิน และตายเพิ่ม สมมติฐานสำคัญที่สุดคือข้อใด",
+    "options": [
+      "ปรสิตภายนอกระบาดจากสื่อกรองชุดใหม่ ทำให้เหงือกปลาเสียหาย",
+      "อัลคาไลนิตีสูงเกินจากสื่อกรองชุดใหม่ ทำให้ pH พุ่งสูงขึ้น",
+      "ออกซิเจนละลายอิ่มตัวเกินหลังล้างตู้ ทำให้เกิดฟองก๊าซในเลือด",
+      "กรองชีวภาพเสียหายจากการล้าง ทำให้ TAN และไนไตรต์เพิ่มขึ้น"
+    ],
+    "answer": 3,
+    "explain": "แบคทีเรียไนตริไฟอิงอาศัยอยู่บนพื้นผิวสื่อกรอง การล้างด้วยน้ำที่มีคลอรีนหรือเปลี่ยนสื่อกรองทั้งหมดทำให้กรองชีวภาพล่ม แอมโมเนียจากของเสียจึงไม่ถูกเปลี่ยนต่อ TAN และไนไตรต์สะสมจนปลาป่วยภายใน 1 ถึง 2 วัน สิ่งที่ต้องตรวจคือ TAN ไนไตรต์ pH DO อุณหภูมิ และคลอรีนในน้ำเติม ระหว่างนั้นเพิ่มอากาศ ลดหรืองดอาหารชั่วคราว และจัดการน้ำอย่างมีแผน\n\n❌ ทำไมข้ออื่นผิด\n- ปรสิตจากสื่อกรองใหม่: ประวัติชี้ไปที่งานบำรุงรักษาระบบ และอาการเกิดตามหลังงานนั้นภายใน 1 ถึง 2 วัน\n- อัลคาไลนิตีสูงเกิน: ไม่ใช่ผลของการล้างหรือเปลี่ยนสื่อกรอง\n- ออกซิเจนอิ่มตัวเกิน: การล้างสื่อกรองไม่ได้ทำให้ก๊าซละลายเกิน",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 29, 30 และ 11",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 29 (โจทย์กรณีศึกษา 1) และหน้า 30: สมมติฐานสำคัญคือระบบกรองชีวภาพเสียหายทำให้ TAN/ไนไตรต์เพิ่ม; Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 11: ล้างสื่อกรองด้วยน้ำคลอรีนหรือเปลี่ยนสื่อทั้งหมดอาจทำให้ระบบล่ม",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "biofilter-crash-after-cleaning"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 29
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 30
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 216208,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "ระบบไหลเวียนน้ำของตู้รวมหยุดทำงาน แล้วพบปลาหลายชนิดขึ้นมาอยู่ใกล้ผิวน้ำและหายใจเร็วพร้อมกัน สิ่งที่ควรทำเป็นอันดับแรกคือข้อใด",
+    "options": [
+      "เพิ่มการเติมอากาศและคืนการไหลเวียน แล้วจึงวัด DO กับอุณหภูมิ",
+      "เก็บน้ำส่งตรวจ TAN ไนไตรต์ และ pH ให้ครบก่อน แล้วจึงเริ่มแก้ไขระบบ",
+      "ขูดเมือกและตัดเหงือกตรวจปรสิตให้ได้ผลก่อน แล้วจึงเริ่มแก้ไขระบบ",
+      "เปลี่ยนน้ำปริมาณมากด้วยน้ำประปาทันที แล้วจึงตรวจปั๊มกับระบบกรอง"
+    ],
+    "answer": 0,
+    "explain": "ปลาหลายชนิดขึ้นผิวน้ำพร้อมกันหลังการไหลเวียนหยุด สมมติฐานเร่งด่วนที่สุดคือ DO ต่ำ ซึ่งคร่าชีวิตได้เร็ว จึงต้องเพิ่มออกซิเจนและการแลกเปลี่ยนก๊าซทันทีเมื่อสงสัย พร้อมคืนการไหล แล้วตรวจปั๊ม ไฟฟ้า สัญญาณเตือน วัด DO กับอุณหภูมิ และบันทึกเวลากับค่าก่อนและหลัง การตรวจต้องไม่ทำให้การช่วยชีวิตล่าช้า\n\n❌ ทำไมข้ออื่นผิด\n- รอผล TAN ไนไตรต์ pH ก่อน: ค่าพวกนี้ควรตรวจ แต่ทำหลังเพิ่มอากาศ ไม่ใช่ก่อน\n- ตรวจปรสิตก่อน: อาการเกิดพร้อมกันหลายชนิดหลังอุปกรณ์หยุด ชี้ปัญหาระบบน้ำมากกว่าปรสิต\n- เปลี่ยนน้ำประปาปริมาณมากทันที: เป็นการแก้แบบสุ่มโดยไม่รู้คุณภาพน้ำต้นทาง และน้ำเติมอาจมีคลอรีน",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 55, 26 และ 13",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 55 แนวคำตอบ: ให้ความสำคัญกับการเติมอากาศและคืนการไหลอย่างปลอดภัย ตรวจ DO/อุณหภูมิและระบบ; Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 26 ลำดับงานเมื่อสัตว์เริ่มหอบ; Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 13 เพิ่มอากาศทันทีเมื่อสงสัยภาวะพร่องออกซิเจน",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "low-do-first-response"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 55
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 26
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 216209,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "ปัญหาคุณภาพน้ำข้อใดก่อโรคในปลาโดยรบกวนการขนส่งออกซิเจนในเลือดเป็นกลไกหลัก",
+    "options": [
+      "แอมโมเนียสูง",
+      "คลอรีนหรือคลอรามีนในน้ำเติม",
+      "ไนไตรต์สูง",
+      "pH เปลี่ยนอย่างรวดเร็ว"
+    ],
+    "answer": 2,
+    "explain": "ไนไตรต์รบกวนการขนส่งออกซิเจนในเลือดของปลา ปลาจึงขาดออกซิเจนในระดับเนื้อเยื่อได้แม้น้ำมี DO เพียงพอ ไนไตรต์สะสมเมื่อกรองชีวภาพเปลี่ยนแอมโมเนียเป็นไนไตรต์แล้วเปลี่ยนต่อเป็นไนเตรตไม่ทัน\n\n❌ ทำไมข้ออื่นผิด\n- แอมโมเนียสูง: ระคายเหงือก กระทบการหายใจและระบบประสาท\n- คลอรีนหรือคลอรามีน: ทำลายเหงือกและเนื้อเยื่อโดยตรงเมื่อปนมากับน้ำเติม\n- pH เปลี่ยนเร็ว: ก่อความเครียดหรือช็อก",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 50",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 50: ไนไตรต์รบกวนการขนส่งออกซิเจนในเลือดของปลา; แอมโมเนีย คลอรีน และ pH อยู่ในหน้าเดียวกัน",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "nitrite-oxygen-transport"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 50
+      }
+    ]
+  },
+  {
+    "id": 216210,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "ตู้ระบบหมุนเวียนที่กรองชีวภาพรับภาระของเสียสูงต่อเนื่องและมีอัลคาไลนิตีต่ำ เสี่ยงต่อการเปลี่ยนแปลงใดมากที่สุด และเพราะอะไร",
+    "options": [
+      "pH พุ่งสูงขึ้น เพราะไนตริฟิเคชันสร้างความเป็นด่างสะสมในน้ำ",
+      "pH ตกลง เพราะไนตริฟิเคชันใช้ความเป็นด่างจนบัฟเฟอร์ไม่พอ",
+      "ความเค็มสูงขึ้น เพราะไนตริฟิเคชันปล่อยไอออนสะสมในน้ำ",
+      "DO สูงขึ้น เพราะไนตริฟิเคชันปล่อยออกซิเจนออกมาในน้ำ"
+    ],
+    "answer": 1,
+    "explain": "pH บอกสภาพกรดด่าง ณ เวลาที่วัด ส่วนอัลคาไลนิตีบอกความสามารถของน้ำในการต้านการเปลี่ยนแปลง pH ไนตริฟิเคชันใช้ความเป็นด่างไปเรื่อยๆ ระบบที่อัลคาไลนิตีต่ำจึงอาจ pH ตก ค่า pH ที่ยังคงที่ในวันนี้จึงไม่ได้แปลว่าระบบมีบัฟเฟอร์เพียงพอ\n\n❌ ทำไมข้ออื่นผิด\n- pH พุ่งสูง: ทิศกลับกัน ไนตริฟิเคชันใช้ความเป็นด่าง ไม่ได้สร้าง\n- ความเค็มสูงขึ้น: ไนตริฟิเคชันไม่ใช่ตัวกำหนดความเค็มของระบบ\n- DO สูงขึ้น: กรองชีวภาพต้องใช้ออกซิเจนในการทำงาน ไม่ได้ปล่อยออกมา",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 14 และ 11",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 14: ไนตริฟิเคชันใช้ความเป็นด่าง ระบบที่อัลคาไลนิตีต่ำอาจ pH ตก; Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 11: กรองชีวภาพต้องมีพื้นผิว ออกซิเจน และการไหลที่เหมาะสม",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "alkalinity-nitrification-ph"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 14
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 216211,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "โรคจุดขาวในปลาทะเลเกิดจากปรสิตชนิดใด ซึ่งควรยืนยันด้วยการตรวจเมือกหรือเหงือกด้วยกล้องจุลทรรศน์ก่อนเลือกวิธีควบคุม",
+    "options": [
+      "Ichthyophthirius multifiliis",
+      "Trichodina",
+      "Chilodonella",
+      "Cryptocaryon irritans"
+    ],
+    "answer": 3,
+    "explain": "Cryptocaryon irritans เป็นสาเหตุของโรคจุดขาวในปลาทะเล การควบคุมต้องคิดถึงวงจรชีวิตของปรสิตและระบบกักกัน และจุดขาวที่เห็นด้วยตาไม่พอจะเป็นคำวินิจฉัย ต้องตรวจเมือกหรือเหงือกยืนยัน\n\n❌ ทำไมข้ออื่นผิด\n- Ichthyophthirius multifiliis: ก่อโรคจุดขาวเหมือนกัน แต่เป็นของปลาน้ำจืด\n- Trichodina: ปรสิตภายนอกที่ทำให้เมือกมาก ระคายเคือง หายใจเร็ว ไม่ใช่โรคจุดขาว\n- Chilodonella: ปรสิตภายนอกกลุ่มเดียวกับ Trichodina อาการแบบเดียวกัน",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 42",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 42: Cryptocaryon irritans (ทะเล) โรคจุดขาวในปลาทะเล; Ichthyophthirius multifiliis (น้ำจืด); Trichodina / Chilodonella เมือกมาก ระคายเคือง หายใจเร็ว",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "marine-white-spot-cryptocaryon"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 42
+      }
+    ]
+  },
+  {
+    "id": 216212,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "Ichthyophthirius multifiliis สาเหตุของ Ich ในปลาน้ำจืด มีวงจรชีวิตครบรอบในเวลาเท่าใด",
+    "options": [
+      "1 ถึง 2 วัน",
+      "3 ถึง 8 วัน",
+      "10 ถึง 14 วัน",
+      "3 ถึง 4 สัปดาห์"
+    ],
+    "answer": 1,
+    "explain": "Ichthyophthirius multifiliis เป็น holotrichous ciliate รูปกลมหรือรี ขนาด 0.5 ถึง 1.5 มิลลิเมตร มี macronucleus และ micronucleus วงจรชีวิตใช้เวลา 3 ถึง 8 วัน และระยะของวงจรชีวิตสัมพันธ์กับอุณหภูมิ การวางแผนควบคุมจึงต้องครอบคลุมเวลาอย่างน้อยหนึ่งรอบวงจร\n\n❌ ทำไมข้ออื่นผิด\n- 1 ถึง 2 วัน: สั้นกว่าวงจรชีวิตที่ระบุไว้\n- 10 ถึง 14 วัน: ยาวเกินช่วงที่ระบุไว้\n- 3 ถึง 4 สัปดาห์: ยาวเกินช่วงที่ระบุไว้มาก",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 43 และ 42",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 43: Size 0.5-1.5 mm, 25-26 °C, Life cycle 3-8 days; Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 42: ระยะชีวิตสัมพันธ์กับอุณหภูมิ",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "ich-life-cycle-days"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 43
+      },
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 42
+      }
+    ]
+  },
+  {
+    "id": 216213,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "เมื่อประเมินความเสี่ยงในงานอะควาเรียมแล้ว ควรเลือกมาตรการควบคุมตามลำดับใด เรียงจากที่ควรพิจารณาก่อนไปหลัง",
+    "options": [
+      "PPE → ขั้นตอนงาน → วิศวกรรม → กำจัดอันตราย",
+      "ขั้นตอนงาน → PPE → กำจัดอันตราย → วิศวกรรม",
+      "กำจัดอันตราย → วิศวกรรม → ขั้นตอนงาน → PPE",
+      "วิศวกรรม → กำจัดอันตราย → PPE → ขั้นตอนงาน"
+    ],
+    "answer": 2,
+    "explain": "การประเมินความเสี่ยงใช้วงจร ระบุ ประเมิน ควบคุม ทบทวน และในขั้นควบคุมให้เลือกมาตรการตามลำดับ คือกำจัดอันตรายก่อน ถ้าทำไม่ได้จึงใช้การควบคุมทางวิศวกรรม ตามด้วยขั้นตอนงาน และ PPE เป็นด่านสุดท้าย เพราะมาตรการต้นลำดับไม่ต้องพึ่งการปฏิบัติของคนทุกครั้ง\n\n❌ ทำไมข้ออื่นผิด\n- เริ่มที่ PPE: กลับลำดับทั้งหมด PPE เป็นด่านสุดท้าย ไม่ใช่ด่านแรก\n- เริ่มที่ขั้นตอนงาน: ขั้นตอนงานอยู่หลังการกำจัดอันตรายและวิศวกรรม\n- เริ่มที่วิศวกรรม: ต้องพิจารณากำจัดอันตรายก่อนวิศวกรรม และ PPE อยู่ท้ายสุด",
+    "source": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 33",
+    "verified": "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69) หน้า 33: ควบคุมตามลำดับ กำจัดอันตราย → วิศวกรรม → ขั้นตอนงาน → PPE",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "risk-control-hierarchy"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-aquarium-mgmt-2569",
+        "edition": "57p",
+        "page": 33
+      }
+    ]
+  },
 ];

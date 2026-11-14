@@ -163,9 +163,10 @@ export function SourceList({ list, sections, onJump }) {
                 <span>{[SOURCE_KIND[src.kind], src.citation ? '' : src.organization, src.citation ? '' : src.year].filter(Boolean).join(', ')}</span>
                 <span>
                 {'อ้างในหัวข้อย่อย '}
-                {at.map((si, k) => (
+                {/* No comma between the numbers: each is a 44 px target centred on two digits, so a comma
+                    after one floated 8 px from it ("01 , 03"). The targets' own width spaces them. */}
+                {at.map((si) => (
                   <React.Fragment key={si}>
-                    {k > 0 && ', '}
                     <a href={`#${sections[si].id}`} onClick={(e) => { e.preventDefault(); onJump(sections[si].id); }}
                       aria-label={`หัวข้อย่อย ${pad(si)} ${sections[si].heading}`}>
                       {pad(si)}

@@ -244,6 +244,7 @@ export default defineConfig({
           if (id.includes('notes-y5-zoonoses')) return 'data-notes-y5-zoonoses'
           if (id.includes('notes-y5-milk-meat-hygiene')) return 'data-notes-y5-milk-meat'
           if (id.includes('notes-y5-equine-medicine')) return 'data-notes-y5-equine'
+          if (id.includes('notes-y5-swine-clinic')) return 'data-notes-y5-swine-clinic'
         },
       },
     },

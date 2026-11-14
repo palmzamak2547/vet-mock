@@ -11,7 +11,7 @@ export const WRAPUP = {
     "date": "2026-11-25",
     "time": "13:00-14:30"
   },
-  "intro": "ปลายภาค One Health วันที่ 25 พ.ย. 13:00-14:30 ครอบคลุมเจ็ดคาบหลังกลางภาค แยกตามอาจารย์ห้าท่าน ศ.รุ่งทิพย์ สอน AMR (30 ก.ย.) รศ.ศุภชัย สอน risk analysis และ import risk assessment (7 ต.ค.) ผศ.ธราดล สอน foodborne diseases (14 ต.ค.) อ.วรญาณี สอน environmental health risks I และ II (21 และ 28 ต.ค.) กับ GMOs (4 พ.ย.) และ อ.สิรวิทย์ สอน livestock waste management (11 พ.ย.) ส่วนของคาบ 28 ต.ค. 4 พ.ย. และ 11 พ.ย. เขียนจากเดคล่าสุดที่มีและข้อสอบเก่า",
+  "intro": "ปลายภาค One Health วันที่ 25 พ.ย. 13:00-14:30 ครอบคลุมเจ็ดคาบหลังกลางภาค แยกตามอาจารย์ห้าท่าน ศ.รุ่งทิพย์ สอน AMR (30 ก.ย.) ศ.ศุภชัย สอน risk analysis และ import risk assessment (7 ต.ค.) ผศ.ธราดล สอน foodborne diseases (14 ต.ค.) อ.วรญาณี สอน environmental health risks I และ II (21 และ 28 ต.ค.) กับ GMOs (4 พ.ย.) และ อ.สิรวิทย์ สอน livestock waste management (11 พ.ย.) ส่วนของคาบ 28 ต.ค. 4 พ.ย. และ 11 พ.ย. เขียนจากเดคล่าสุดที่มีและข้อสอบเก่า",
   "groups": [
     {
       "id": "rungtip",
@@ -241,7 +241,7 @@ export const WRAPUP = {
     },
     {
       "id": "suphachai",
-      "lecturer": "รศ.น.สพ.ดร.ศุภชัย เนื้อนวลสุวรรณ",
+      "lecturer": "ศ.น.สพ.ดร.ศุภชัย เนื้อนวลสุวรรณ",
       "format": "all",
       "formatNote": "ยังไม่มีประกาศรูปแบบข้อสอบปลายภาคของส่วนนี้ ต้นคาบ 7 ต.ค. แจ้งว่าเวลาสอบให้อ่าน PowerPoint ของคาบ ไม่ต้องอ่าน Reading Material [hLl7taXYRWQ 6:13] ข้อสอบเก่าของส่วนนี้ในคลังจากปลายภาครุ่น Vet 85 เป็นปรนัย",
       "items": [

@@ -42,7 +42,6 @@ export const METADATA_SECTIONS = new Set([
   "exotic--wildlife-career--funding-sources", // career funding routes
   "equine-medicine--equine-poa--poa-infectious-dz-station-final-exam-2-questions", // exam-station logistics
   "equine-medicine--equine-tumors--cases-02-n-detail-per-tumor-type", // case slides, no extractable claim
-  "equine-medicine--equine-gi--lecture-2-exam-techniques-for-equine-alimentary", // a deck section header
   "exotic--field-vet--veterinary-analogy-body-to-ecosystem", // the lecturer's teaching analogy
   "cliapprum--hoof-health-fleet--tli-framework-4-elements", // a framework taught by this lecturer
   "poultry--quality-assurance--bqm-4-มิติ-better-quality-management", // a framework taught by this lecturer
@@ -62,30 +61,12 @@ export const METADATA_SECTIONS = new Set([
   "epidemiology--epidem-intro--ตารางเรียน-กำหนดสอบ-และเงื่อนไขการเข้าเรียน", // ตารางเรียน กำหนดสอบ และเงื่อนไขการเข้าเรียน
   "equine-medicine--equine-acupuncture--title-speaker", // Title + speaker
   "equine-medicine--equine-acupuncture--reference-textbooks-สไลด์โชว์", // Reference textbooks (สไลด์โชว์)
-  "equine-medicine--equine-anesthesia--course-position-จาก-intro-deck", // Course position (จาก Intro deck)
-  "equine-medicine--equine-anesthesia--แหล่งอ่านสำรอง-สรุป-equine-med-mid-สรุป-anes-พี่อันนา", // แหล่งอ่านสำรอง — สรุป Equine Med (mid) + สรุป Anes พี่อันนา
-  "equine-medicine--equine-colic-bestfit--title-lecturer", // Title + lecturer
-  "equine-medicine--equine-colic-surgery--title-lecturer", // Title + lecturer
-  "equine-medicine--equine-colic-surgery--pre-op-intra-op-pictures-case-slides", // Pre-op + intra-op pictures (Case slides)
-  "equine-medicine--equine-dentistry--title-speaker", // Title + speaker
-  "equine-medicine--equine-dentistry--introduction-to-dentistry-4-หัวข้อหลัก", // Introduction to dentistry — 4 หัวข้อหลัก
-  "equine-medicine--equine-hoof--lecture-title-scope", // Lecture title + scope
-  "equine-medicine--equine-infectious--course-lecturer-intro", // Course / lecturer intro
   "equine-medicine--equine-intro--welcome-course-code", // Welcome + course code
   "equine-medicine--equine-intro--course-director-vet-cu-lecturers", // Course director + Vet CU lecturers
   "equine-medicine--equine-intro--guest-lecturers", // Guest lecturers
   "equine-medicine--equine-intro--exam-format-hints-จากสไลด์-handwritten-note", // Exam format hints (จากสไลด์ + handwritten note)
   "equine-medicine--equine-lapove--outline-2-parts", // Outline — 2 parts
-  "equine-medicine--equine-neonatal--title-speaker", // Title + speaker
-  "equine-medicine--equine-neonatal--table-of-contents-8-หัวข้อ", // Table of Contents — 8 หัวข้อ
-  "equine-medicine--equine-nutrition--basic-nutrition-for-your-partner-opening", // Basic Nutrition for Your Partner — opening
-  "equine-medicine--equine-ophth--title-speaker", // Title + speaker
-  "equine-medicine--equine-ophth--lecture-guideline", // Lecture guideline
-  "equine-medicine--equine-parasites--course-intro-speaker", // Course intro — speaker
   "equine-medicine--equine-poa--source-pdf-poa-workflow-snapshots", // Source PDF — POA workflow snapshots
-  "equine-medicine--equine-respi--title-speaker", // Title + speaker
-  "equine-medicine--equine-respi--outline-4-หัวข้อ-อาการ-exam-upper-lower", // Outline — 4 หัวข้อ (อาการ → exam → upper → lower)
-  "equine-medicine--equine-tendon--title-speaker", // Title + speaker
   "equine-medicine--equine-tumors--title-lecturer", // Title + lecturer
   "milk-meat-hygiene--meat-ante-post-mortem--lecture-identity", // Lecture identity
   "milk-meat-hygiene--meat-cutting-grading--lecture-identity", // Lecture identity
@@ -326,6 +307,21 @@ export const METADATA_SECTIONS = new Set([
   "epidemiology--epidem-outbreak-investigation--module-3-สถานการณ์ลูกโค-100-ตัว", // Hypothetical calf teaching scenario and its assumptions
   "epidemiology--epidem-outbreak-investigation--module-3-computer-laboratory-briefing", // Lab briefing: review questions, exercises, report contents
   "epidemiology--epidem-govt-policy--การจัดลำดับและแบ่งกลุ่มโรคของประเทศไทย", // Describes the DLD Bureau of Disease Control 2569 operational plan and its 2024 notifiable-disease prioritisation list, an administrative programme document; web search and PubMed (Thailand disease prioritization/notifiable) reached no official copy or paper stating it.
+  // Equine Medicine notes of 2569 (15 Nov 2026): class cases, worked examples, local practice and descriptions of
+  // what a slide shows. No paper states them; each was judged one by one.
+  "equine-medicine--equine-infectious--ตารางวัคซีนลูกม้าและแม่ม้าตั้งท้อง", // Dose-and-age schedule taken from one lecture deck and the lecturer; published schedules differ by product and country (Merck lists tetanus toxoid for foals of unvaccinated mares at 3, 4 and 6 months and killed EHV-1 for pregnant mares at 3, 5, 7 and 9 months, not the deck schedule), so no source states this table as written.
+  "equine-medicine--equine-tendon--para-peri-tendonitis-rupture-และ-sdft-branch-injuries", // Slide outline of aetiologies and ultrasound categories for para/peri-tendonitis, spontaneous rupture and SDFT branch injuries; no published page found that states this classification (Merck covers only tendinitis, suspensory and ICL desmitis, and rupture of the common digital extensor tendon and peroneus tertius, not these categories), so no source can state it as written.
+  "equine-medicine--equine-respi--อาการของปัญหาระบบหายใจ-และขั้นตอนการตรวจ", // The course outline of a respiratory work-up (signs, then the order of examination steps from history to endoscopy) and the class advice on history taking; a teaching sequence, not a statement a paper makes as written.
+  "equine-medicine--equine-respi--pulmonary-edema", // Section lists causes and treatment of pulmonary edema from the course slides; no equine page found (Merck covers pulmonary edema only for cattle and small animals) that states these lists as written.
+  "equine-medicine--equine-neonatal--พัฒนาการและพฤติกรรมปกติของลูกม้า", // Table of foal developmental milestones and daily behaviour from the deck; no published page found that states these timings as written, and the one source found on replacer intake (Cymbaluk 1993, PMID 17424268) gives 10-12 L/100 kg BW per day, which disagrees with the note (see V8 notes).
+  "equine-medicine--equine-derm--ผิวหนังและขนม้า", // Anatomy and hair-coat description summarised from the course deck (hair types, sweat glands, regional thickness); no single published page found that states these points as written.
+  "equine-medicine--equine-derm--อาการคัน-pruritus-และ-pvas", // Pruritic visual analogue scale wording from the deck; a teaching scale, no published page found that states it as written.
+  "equine-medicine--equine-surgery-wound--field-surgery-เทียบ-hospital-based-surgery", // Comparison table of field and hospital surgery (drugs, monitoring, risk) from the 5th-year surgery lecture; a course framing, no published page found that states it as written.
+  "equine-medicine--equine-surgery-wound--ตัดขน-เตรียมผิว-และห้องผ่าตัด", // Operating-room layout and clipper/skin-prep specifics (Oster no. 40, 2 h, 12 inches) from the deck; the only published evidence found is a human meta-analysis (PMID 39810848) that says clipping is safer than shaving and does not state these specifics.
+  "equine-medicine--equine-surgery-wound--การคลุมผ้า-และการผ่าตัดแบบยืน", // Draping routines and standing-surgery stock design from the deck; no published page found that states these as written.
+  "equine-medicine--equine-surgery-wound--ประเมิน-เตรียม-สำรวจ-และ-debride-แผล", // Step-by-step wound assessment, preparation, exploration and debridement routine from the deck; no equine page found that states it as written (Merck wound pages found are for small animals only).
+  "equine-medicine--equine-surgery-wound--robert-jones-bandage-และ-splints", // Bandage layering and splint material comparison (PVC, wood, fibreglass, commercial) from the deck; no published page found that states it as written.
+  "equine-medicine--equine-surgery-wound--stent-abdominal-และ-head-bandages", // Description of tie-over stent, abdominal and head bandage techniques from the deck; no published page found that states it as written.
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

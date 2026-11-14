@@ -113,6 +113,19 @@ test('chapter titles: spaced capitals read back, and a stretch without a slide h
   assert.deepEqual(chapterTitles(['o', 'Equine', 'Equine (ต่อ)', 'ไต'], count), ['', '', '', 'ไต']);
 });
 
+test('chapter titles lose what a slide\'s text layer adds: bullets, URLs, a split sara am, page numbers (15 Nov)', () => {
+  const count = () => 1;
+  assert.equal(tidyHeading('o โรคนิวคาสเซิล (ต่อ)', count), 'โรคนิวคาสเซิล (ต่อ)');
+  assert.equal(tidyHeading('û Intro to zoonoses (7 Aug 26)', count), 'Intro to zoonoses (7 Aug 26)');
+  assert.equal(tidyHeading('อาการ #IBD o ซึม ขนหยอง o ถ่าย', count), 'อาการ #IBD');
+  assert.equal(tidyHeading('Mercury https://www.zrtlab.com', count), 'Mercury');
+  assert.equal(tidyHeading('การน ำไปใช้เป็นอาหารเลี้ยงสัตว์', count), 'การนำไปใช้เป็นอาหารเลี้ยงสัตว์');
+  assert.equal(tidyHeading('O antigen and H antigen', count), 'O antigen and H antigen', 'a capital O is no bullet');
+  assert.deepEqual(chapterTitles(['หน้า 1', 'วิชา Avian Medicine (3107510)', 'Page 12', 'Treatment'], count), ['', '', '', 'Treatment']);
+  assert.equal(tidyHeading('หลังจำกทำลำยสัตว์ตัวสุดท้ำย', count), null, 'a font that maps sara aa to sara am');
+  assert.equal(tidyHeading('การทำความสะอาด', count), 'การทำความสะอาด', 'sara am beside sara aa is Thai as written');
+});
+
 test('a topic\'s clip list has one row per clip, as its count says', () => {
   // The audit of 2 Nov: the button said "คลิป 1" and the list opened three rows of one lecture.
   const rows = clipRows([{ v: 'a', s: 10, e: 70 }, { v: 'b', s: 0, e: 30 }, { v: 'a', s: 200, e: 260 }]);

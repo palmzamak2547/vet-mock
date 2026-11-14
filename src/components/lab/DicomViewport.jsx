@@ -636,7 +636,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             💡 <strong>ลองวัด:</strong>{' '}
             กด <kbd style={kbdInlineStyle}>N</kbd> Norberg,{' '}
             <kbd style={kbdInlineStyle}>V</kbd> VHS,{' '}
-            <kbd style={kbdInlineStyle}>L</kbd> Length{' '}
+            <kbd style={kbdInlineStyle}>L</kbd> Length
             <span style={{ opacity: 0.7, fontSize: '0.78em' }}>, กด <kbd style={kbdInlineStyle}>?</kbd> ดูทั้งหมด</span>
           </div>
         )}

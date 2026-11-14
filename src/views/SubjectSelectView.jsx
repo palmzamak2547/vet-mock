@@ -171,7 +171,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="vmx-input"
-            style={{ width: '100%', padding: '12px 16px 12px 42px', borderRadius: 12, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)', fontSize: 15 }}
+            style={{ width: '100%', padding: '12px 16px 12px 42px', borderRadius: 12, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)', fontSize: 16 }}
           />
           {searchQuery && (
             <button

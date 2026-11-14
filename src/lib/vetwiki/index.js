@@ -30,6 +30,7 @@ import { NOTES_Y5_AQUATIC } from '../../data/notes-y5-aquatic.js';
 import { NOTES_Y5_ONE_HEALTH } from '../../data/notes-y5-one-health.js';
 import { NOTES_Y5_FIQC } from '../../data/notes-y5-fiqc.js';
 import { NOTES_Y5_POA } from '../../data/notes-y5-poa.js';
+import { NOTES_Y5_SWINE_CLINIC } from '../../data/notes-y5-swine-clinic.js';
 import { NOTES_85_AQUATIC_CLINIC } from '../../data/notes-85-aquatic-clinic.js';
 import { NOTES_85_AVIAN_MEDICINE } from '../../data/notes-85-avian-medicine.js';
 import { NOTES_85_EQUINE_MEDICINE } from '../../data/notes-85-equine-medicine.js';
@@ -82,6 +83,7 @@ const NOTES_BY_SUBJECT_BASE = {
   'one-health': NOTES_Y5_ONE_HEALTH,
   'food-industry': NOTES_Y5_FIQC,
   'poa-clinical': NOTES_Y5_POA,
+  'swine-clinic': NOTES_Y5_SWINE_CLINIC,
 };
 
 // Fold the Vet 85 summaries in so their topics become governed articles too.

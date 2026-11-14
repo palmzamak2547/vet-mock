@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,841** |
+| **Questions ready for learners** | **8,884** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 211 |
-| Total questions in source banks | 9,052 |
+| Total questions in source banks | 9,095 |
 | Question banks (files) | 107 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,18 +19,18 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 6,262 |
+| — year 5 | 6,305 |
 
-Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**, registry sums to **9052**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**, registry sums to **9095**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
 | | |
 |---|---|
-| Note files | 37 |
-| Topics | 404 |
-| Sections | 4169 |
-| Sections carrying a source locator | 4169 (100%) |
+| Note files | 38 |
+| Topics | 423 |
+| Sections | 4409 |
+| Sections carrying a source locator | 4409 (100%) |
 
 ## Video summaries
 
@@ -44,11 +44,11 @@ Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**,
 
 | | |
 |---|---|
-| Governed topics | 235 |
-| Governed sections | 1897 |
-| Claims verified against an external source | 3338 |
-| Distinct external sources cited | 2154 |
-| Share of note sections governed | 45.5% |
+| Governed topics | 249 |
+| Governed sections | 2099 |
+| Claims verified against an external source | 3480 |
+| Distinct external sources cited | 2236 |
+| Share of note sections governed | 47.6% |
 
 ## VetWiki coverage of questions
 
@@ -56,7 +56,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 
 | Subject | Questions | Reach an article | Via a judged link | Coverage |
 |---|---|---|---|---|
-| aquatic-clinic | 518 | 425 | 12 | 82.0% |
+| aquatic-clinic | 532 | 433 | 12 | 81.4% |
 | avian-medicine | 581 | 431 | 0 | 74.2% |
 | biochem-1 | 271 | 0 | 0 | 0.0% |
 | cliapprum | 136 | 95 | 51 | 69.9% |
@@ -69,15 +69,15 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 372 | 355 | 0 | 95.4% |
-| equine-medicine | 594 | 541 | 0 | 91.1% |
-| equine-repro | 188 | 153 | 7 | 81.4% |
+| equine-medicine | 559 | 559 | 0 | 100.0% |
+| equine-repro | 242 | 207 | 7 | 85.5% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 300 | 61 | 0 | 20.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
 | milk-meat-hygiene | 1192 | 1192 | 0 | 100.0% |
-| one-health | 242 | 180 | 0 | 74.4% |
+| one-health | 242 | 234 | 0 | 96.7% |
 | poa-clinical | 71 | 35 | 0 | 49.3% |
 | poultry | 178 | 114 | 42 | 64.0% |
 | practrum | 117 | 68 | 18 | 58.1% |
@@ -88,10 +88,10 @@ Learner-ready questions that open an article, through their own topic or a judge
 | surg1 | 29 | 3 | 3 | 10.3% |
 | surg2 | 18 | 1 | 1 | 5.6% |
 | surg3 | 40 | 0 | 0 | 0.0% |
-| swine-clinic | 258 | 155 | 0 | 60.1% |
+| swine-clinic | 268 | 268 | 0 | 100.0% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
-| vca | 1342 | 88 | 88 | 6.6% |
+| vca | 1342 | 87 | 87 | 6.5% |
 | vet-dev-anat | 26 | 0 | 0 | 0.0% |
 | vet-histo | 104 | 0 | 0 | 0.0% |
 | vet-imaging | 35 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8841 | 5456 | 332 | 61.7% |
+| **All** | 8884 | 5702 | 331 | 64.2% |
