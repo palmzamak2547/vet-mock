@@ -85,6 +85,24 @@ test('a merge that does not go through three times says so once, then stops, lea
   assert.equal(thrown.localStorage.getItem(MOVE_INBOX_ATTEMPTS), '1');
 });
 
+test('two tabs boot together at the count of 2: the first merges, the second finds the inbox gone and neither counts nor tells', () => {
+  const shared = store({ [MOVE_INBOX]: JSON.stringify({ fields: {} }), [MOVE_INBOX_ATTEMPTS]: String(MAX_ATTEMPTS - 1) });
+  const first = { localStorage: shared };
+  const second = { localStorage: shared };
+  const dueFirst = dueMoveJobs(first, NOW);
+  const dueSecond = dueMoveJobs(second, NOW);
+  assert.ok(dueFirst.has('inbox') && dueSecond.has('inbox'), 'both gates saw the inbox');
+  const merged = runInboxJob(first, dueFirst, (s) => { s.removeItem(MOVE_INBOX); return { applied: true }; });
+  assert.equal(merged.applied, true);
+  let calls = 0;
+  const late = runInboxJob(second, dueSecond, () => { calls++; return { applied: false }; });
+  assert.equal(calls, 0, 'no merge runs on an inbox that is gone');
+  assert.equal(late.applied, true);
+  assert.equal(late.gaveUp, false);
+  assert.equal(late.notice, undefined, 'no notice in the second tab');
+  assert.equal(shared.getItem(MOVE_INBOX_ATTEMPTS), null, 'no count left behind');
+});
+
 test('the give-up notice links only to an address the inbox names as an origin', () => {
   assert.equal(moveGiveUpNotice(JSON.stringify({ from: 'http://localhost:4173' })).link.href, 'http://localhost:4173/?vmx-move=retry');
   for (const from of ['javascript:alert(1)', 'https://x.example/path', 42, undefined]) {

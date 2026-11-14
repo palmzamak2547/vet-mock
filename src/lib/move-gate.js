@@ -51,6 +51,8 @@ export const MOVE_JOBS = Object.freeze([
     // merge that throws counts too) and cleared when it goes through. gaveUp: that was the last try.
     run(win, merge) {
       const s = win.localStorage;
+      // Gone already: another tab merged it while this one loaded. Nothing failed, so no try counts.
+      if (!s.getItem(MOVE_INBOX)) { try { s.removeItem(MOVE_INBOX_ATTEMPTS); } catch { /* nothing left to count */ } return { applied: true, gaveUp: false }; }
       let tried = 0;
       try { tried = attempts(Number(s.getItem(MOVE_INBOX_ATTEMPTS))) + 1; s.setItem(MOVE_INBOX_ATTEMPTS, String(tried)); } catch { /* no room to count */ }
       let applied = false;
