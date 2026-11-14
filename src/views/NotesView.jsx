@@ -27,6 +27,11 @@ import { saveNoteRetryTarget } from '../lib/note-retry.js';
 import { recordQuestEvent, todayKey } from '../lib/quests.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { motionIsReduced } from '../lib/motion-preferences.js';
+import { noteSourceLabel } from '../lib/source-label.js';
+import { NOTE_SOURCE_TITLES } from '../data/note-source-titles.generated.js';
+
+// A file name a registered document claims is shown as that document's title.
+const registeredTitle = (name) => (Object.prototype.hasOwnProperty.call(NOTE_SOURCE_TITLES, name) ? NOTE_SOURCE_TITLES[name] : null);
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -676,7 +681,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
           <SlideFigures sectionId={figSectionId} source={section.source || ''} />
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-              แหล่งที่มา: {section.source.replace(/\s*·\s*/g, ', ')}
+              แหล่งที่มา: {noteSourceLabel(section.source.replace(/\s*·\s*/g, ', '), registeredTitle)}
             </div>
           )}
         </MotionEnter>

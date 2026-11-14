@@ -12,8 +12,8 @@ export const SHELF_TOTALS = {
   "sections": 2099,
   "claims": 3480,
   "sources": 2236,
-  "conflicts": 199,
-  "conflictTopics": 88,
+  "conflicts": 234,
+  "conflictTopics": 104,
   "newestReview": "2026-11-15"
 };
 
@@ -110,7 +110,7 @@ export const SHELF_SUBJECTS = {
     "topics": 25,
     "sections": 305,
     "claims": 396,
-    "conflicts": 5,
+    "conflicts": 16,
     "newestReview": "2026-11-15",
     "cloth": {
       "light": "#cb9876",
@@ -165,7 +165,7 @@ export const SHELF_SUBJECTS = {
     "topics": 14,
     "sections": 106,
     "claims": 148,
-    "conflicts": 1,
+    "conflicts": 7,
     "newestReview": "2026-11-15",
     "cloth": {
       "light": "#8eaf8c",
@@ -220,7 +220,7 @@ export const SHELF_SUBJECTS = {
     "topics": 14,
     "sections": 93,
     "claims": 131,
-    "conflicts": 0,
+    "conflicts": 18,
     "newestReview": "2026-11-15",
     "cloth": {
       "light": "#d1928d",
