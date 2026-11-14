@@ -94,6 +94,15 @@ Rules that follow from it, and they are not negotiable:
 - **Guards.** `tests/unit/exam-period-matrix.test.mjs` (saved pick × eight moments from Sep 2026 to Feb 2028 with nothing updated × years 5, 4, 2: the paper, the badge, the line, a non-empty set for every subject that has questions, and the same matrix under TZ=UTC, Bangkok and Los Angeles); `exam-period-foundation.test.mjs` (a single-paper scope in a registry or reader, a label that hard-codes the paper, timetable rows outside SEMESTER's periods); `lint:exam-scope` (every topic of a subject with a paper still ahead, and `audit-scope-contradictions.mjs --check`, midterm against final, budget 10, may only shrink); `tests/e2e/phase-advance.spec.js`.
 - **A new term:** the `vetmock-new-term` skill. In short: SEMESTER and EXAM_SCHEDULE together, `npm run regen:exam-papers`, then the topics' `examScope`, then check /app/admin → ช่วงสอบ.
 
+### 11. Design is part of every change a student can see
+Palm, 2026-11-14: "การจัดวางlayoutต่างๆ จิตวิทยาการออกแบบที่เข้าใจผู้ใช้ การเก็บความpolish พวกนี้ต้องฝั่งรากลงในทุกๆจุดครับ ทั้งจุดเก่าและใหม่". Polish had been a later pass that never reached the old screens. It is a gate now, like a test.
+- **State the design with the change.** The pull request says what the layout is and why each element is there, in terms of how a student reads, decides or remembers, and covers four states: loading, empty, error, offline.
+- **More than a fix: show before building.** Contact sheets at phone width, drawn on real content, go to Palm first; motion goes as a prototype he can play. Offer the bold version and let him choose.
+- **An old screen is left better.** A task that touches a screen for any reason also fixes the layout and polish problems seen there, and lists them in the pull request.
+- **Pictures and structure before a wall of text:** a table, a timeline, a real figure where the facts form one. Never invented or generated medical imagery.
+- **Words are design.** Plain Thai that a tired student gets on the first read, one idea per line, calm, each thing said once. Terms come from `src/data/glossary.js`. No middle dot as a separator: a comma, a line break or a table.
+- **Before it ships:** walk the real path on a production build, phone and desktop. A heading that can carry Thai has line-height 1.2 and letter-spacing 0; look at each one at 2x.
+
 ## 🔀 Gitflow & parallel harnesses
 Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
 - **Releases are pull requests, and CI is the gate** (OWNER DECISION 2026-10-22, top of this file). Branch from origin/main in your own worktree, push the branch, `gh pr create`, then `gh pr merge --squash --auto`; no local gate first. CI runs the full matrix on the PR and GitHub squash-merges it when its own checks pass (no up-to-date rule, no Queue workflow; rebase only on a reported conflict). No messages about push order or version numbers.
