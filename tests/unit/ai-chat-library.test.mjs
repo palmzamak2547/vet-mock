@@ -304,3 +304,25 @@ test('asking for files in so many words beats a model that read it as a question
   assert.ok(card && !card.related, 'the files card, not a related one');
   assert.equal(card.items[0].slug, 'rabies-com5');
 });
+
+test('a deck titled by a code is found and named through its description, a kind-only description is not', async () => {
+  const docs = [
+    { id: 'c1', slug: 'ohvph-sp-e4', title: 'OHVPH_SP_E4', description: 'One Health approach for livestock waste management', kind: 'slide', subject: 'ohvph', page_count: 30, mime: 'application/pdf' },
+    { id: 'c2', slug: 'mi-sp-e3', title: 'MI_SP_E3', description: 'Lecture Slides', kind: 'slide', subject: 'mi', page_count: 30, mime: 'application/pdf' },
+    { id: 'c3', slug: 'waste-title', title: 'Livestock waste management', kind: 'slide', subject: 'ohvph', page_count: 30, mime: 'application/pdf' },
+  ];
+  const terms = ['livestock waste'];
+  const ranked = rankFiles(docs.map((d) => ({ ...d, hits: 3 })), { terms }).map((d) => d.slug);
+  assert.ok(ranked.indexOf('ohvph-sp-e4') < ranked.indexOf('mi-sp-e3'), `description finds the deck: ${ranked}`);
+  assert.ok(ranked.indexOf('waste-title') < ranked.indexOf('ohvph-sp-e4'), 'a title match still ranks first');
+  const byCode = rankFiles([docs[1]].map((d) => ({ ...d, hits: 0 })), { terms });
+  assert.equal(byCode[0].titleHit, false, '"Lecture Slides" names no topic');
+
+  const lib = fakeLibrary({ search: { 'livestock waste': [{ slug: 'ohvph-sp-e4', page: 5, hits: 4, snippet: 'manure' }, { slug: 'mi-sp-e3', page: 2, hits: 4, snippet: 'x' }] }, docs });
+  const r = await findFiles({ terms, files: true }, { env: ENV, fetchImpl: lib.fetchImpl });
+  const code = r.items.find((i) => i.slug === 'ohvph-sp-e4');
+  assert.equal(code.description, 'One Health approach for livestock waste management');
+  assert.equal(r.items.find((i) => i.slug === 'mi-sp-e3').description, '', 'a kind-only description is not shown');
+  assert.ok(filesLead([code]).includes('เรื่อง One Health approach for livestock waste management'));
+  assert.ok(lib.calls.some((u) => decodeURIComponent(u).includes('description,kind')), 'the description column is fetched');
+});
