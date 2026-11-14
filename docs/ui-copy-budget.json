@@ -1,12 +1,6 @@
 {
   "note": "lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ, หน้าหลัก and three dots (write เช็ก, อัป, หน้าแรก and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. \"allow\" names text that keeps a middle dot on purpose, with the reason.",
-  "allow": [
-    {
-      "file": "src/components/SummaryModal.jsx",
-      "text": "  ·  ",
-      "reason": "The print header joins its fields with this and replaces every middle dot with an em dash on the same line, so the dot never reaches the page."
-    }
-  ],
+  "allow": [],
   "englishLeaks": {
     "src/components/CommandPalette.jsx": 1,
     "src/components/DiagramLabelDrill.jsx": 1,

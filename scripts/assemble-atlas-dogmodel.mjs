@@ -71,7 +71,7 @@ for (const path of source.musclePaths) {
   const mesh = new T.Mesh(mergeGeometries(segments), material); mesh.name = path.id; model.add(mesh);
   const side = path.sourceName.startsWith('left_') ? 'Left' : 'Right';
   const label = path.sourceName.replace(/^(left|right)_/, '').replaceAll('_', ' ');
-  parts.push({ id: path.id, en: `${side} ${label} (path)`, th: `แนวกล้ามเนื้อ ${label} · ${side === 'Left' ? 'ซ้าย' : 'ขวา'}`,
+  parts.push({ id: path.id, en: `${side} ${label} (path)`, th: `แนวกล้ามเนื้อ ${label}, ${side === 'Left' ? 'ซ้าย' : 'ขวา'}`,
     group: `${side} muscle paths`, systemLabel: 'แนวกล้ามเนื้อจำลอง', representation: 'muscle-path',
     sourceFile: source.modelFile, pair: path.id.replace(side.toLowerCase(), side === 'Left' ? 'right' : 'left') });
 }
