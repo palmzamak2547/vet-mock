@@ -28,9 +28,9 @@ Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**,
 | | |
 |---|---|
 | Note files | 37 |
-| Topics | 404 |
-| Sections | 4169 |
-| Sections carrying a source locator | 4169 (100%) |
+| Topics | 414 |
+| Sections | 4245 |
+| Sections carrying a source locator | 4245 (100%) |
 
 ## Video summaries
 
@@ -44,11 +44,11 @@ Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**,
 
 | | |
 |---|---|
-| Governed topics | 235 |
-| Governed sections | 1897 |
-| Claims verified against an external source | 3338 |
-| Distinct external sources cited | 2154 |
-| Share of note sections governed | 45.5% |
+| Governed topics | 240 |
+| Governed sections | 1935 |
+| Claims verified against an external source | 3376 |
+| Distinct external sources cited | 2177 |
+| Share of note sections governed | 45.6% |
 
 ## VetWiki coverage of questions
 
@@ -77,7 +77,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
 | milk-meat-hygiene | 1192 | 1192 | 0 | 100.0% |
-| one-health | 242 | 180 | 0 | 74.4% |
+| one-health | 242 | 234 | 0 | 96.7% |
 | poa-clinical | 71 | 35 | 0 | 49.3% |
 | poultry | 178 | 114 | 42 | 64.0% |
 | practrum | 117 | 68 | 18 | 58.1% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8841 | 5456 | 332 | 61.7% |
+| **All** | 8841 | 5510 | 332 | 62.3% |
