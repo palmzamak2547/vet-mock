@@ -20,6 +20,7 @@
 
 import { GENERATED_VERIFICATIONS } from './verification-generated.js';
 import { EPIDEMIOLOGY_VERIFICATIONS } from './verification-epidemiology.js';
+import { SWINE_CLINIC_VERIFICATIONS } from './verification-swine-clinic.js';
 
 const TODAY = '2026-07-24';
 
@@ -2786,7 +2787,7 @@ function mergeOverlays(base, extra) {
 }
 
 /** @type {Record<string, Record<string, object>>} */
-export const VERIFICATIONS = mergeOverlays(mergeOverlays(CURATED, GENERATED_VERIFICATIONS), EPIDEMIOLOGY_VERIFICATIONS);
+export const VERIFICATIONS = mergeOverlays(mergeOverlays(mergeOverlays(CURATED, GENERATED_VERIFICATIONS), EPIDEMIOLOGY_VERIFICATIONS), SWINE_CLINIC_VERIFICATIONS);
 
 /** Look up the verification overlay for a topic (or empty object). */
 export function verificationFor(topicId) {

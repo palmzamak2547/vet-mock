@@ -1878,6 +1878,15 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "swine-clinic--swine-ileitis-bacti",
+    "subject": "swine-clinic",
+    "topic": "swine-ileitis-bacti",
+    "title": "Swine enteric diseases: ileitis, Clostridium, Brachyspira, Yersinia, E. coli, Campylobacter, Salmonella",
+    "icon": "🦠",
+    "summary": "โรคทางเดินอาหารของสุกรจากแบคทีเรีย เรียงตามเดค Swine Enteric Diseases: แนวทางแยกสาเหตุ, proliferative enteropathy (ileitis), Clostridium, Brachyspira, Yersinia, MMA, colibacillosis กับ edema disease, Campylobacter, salmonellosis แล้วปิดด้วย coccidiosis, balantidiasis, yeast และ gastric ulcer",
+    "flagship": false
+  },
+  {
     "id": "swine-clinic--swine-fmd",
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -1896,12 +1905,66 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "swine-clinic--swine-trichinosis",
+    "subject": "swine-clinic",
+    "topic": "swine-trichinosis",
+    "title": "Trichinosis and trypanosomosis",
+    "icon": "🪱",
+    "summary": "โรคทริคิโนซิส (Trichinella spiralis) และโรคทริพพาโนโซโมซิส (Trypanosoma evansi) จากเดค \"โรคทริคิโนซิส (Trichinosis)\" ทริคิโนซิส: วงชีวิตที่ติดคนจากการกินเนื้อดิบ, กล้ามเนื้อที่พยาธิตัวอ่อนชอบฝังตัว, อาการในสุกรและในคน 3 ระยะ, การวินิจฉัย ยาไทอาเบนดาโซล และการระบาดในไทยตั้งแต่ปี 2505 ทริพพาโนโซโมซิส: อาการในสุกรและแม่สุกร การตรวจเลือด และยา Berenil®",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-csf",
+    "subject": "swine-clinic",
+    "topic": "swine-csf",
+    "title": "Classical Swine Fever (CSF)",
+    "icon": "🦠",
+    "summary": "อหิวาต์สุกร (Classical Swine Fever, CSF) จากเดค RK Slide ปี 2569 (p.58-87): กลุ่มอาการ atypical กับ typical, รอยโรคและ congenital CSF, การดำเนินโรค 5 แบบ (acute-lethal, acute-transient, chronic, late-onset, subclinical), pathogenesis, การกระจายของโรค, การตรวจหาไวรัสและแอนติบอดี และวัคซีน (MLV, การทำวัคซีนแม่, ระดับ SN titer กับ MDA, เหตุที่วัคซีนล้มเหลว, กรณีเกาะเชจู)",
+    "flagship": false
+  },
+  {
     "id": "swine-clinic--swine-asf",
     "subject": "swine-clinic",
     "topic": "swine-asf",
-    "title": "ASF และ CSF: หัวข้อข้อเขียนที่รุ่นพี่บันทึกไว้",
-    "icon": "🔬",
-    "summary": "ชุดข้อเขียนอีกชุดหนึ่งที่รุ่นพี่ Vet 85 จดไว้เป็นรายการคำถามล้วน ไม่มีคำตอบแนบมา ใช้เป็นแผนที่ขอบเขตการอ่านได้ดี แต่คำตอบต้องไปหาจากเลกเชอร์และตำราเอง",
+    "title": "African Swine Fever (ASF)",
+    "icon": "🐖",
+    "summary": "โรคอหิวาต์แอฟริกาในสุกร (African Swine Fever, ASF) จากเดค ASF ของ Swine Medicine 3107507: ภาพรวม prevent, detect, respond, ประวัติการแพร่และ ASF ในไทย, host, ตัวไวรัสและความทนทาน, clinical courses 4 แบบกับรอยโรค, pathogenesis, การแพร่ในฟาร์ม, การแพร่ในยุคปัจจุบัน, biosecurity, การตรวจหาเชื้อ และการตอบสนองด้วย depopulation, stamping out กับหลักเกณฑ์ฟาร์มปลอดโรค",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-greasypig",
+    "subject": "swine-clinic",
+    "topic": "swine-greasypig",
+    "title": "Greasy pig disease and Mycoplasma suis",
+    "icon": "🦠",
+    "summary": "Exudative epidermitis (greasy pig disease) และการติดเชื้อ Mycoplasma suis (eperythrozoonosis) ในสุกร greasy pig: staphylococci เป็น normal flora บนผิวสุกร, exfoliative toxin ทำให้ผิวหนังอักเสบแบบไม่คัน, ปัจจัยโน้มนำ, การเก็บตัวอย่าง และยาแรก M. suis: การติดต่อทางเข็มและเหา, กลไกทำลายเม็ดเลือดแดง, อาการตามกลุ่มอายุ และขนาดยา",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-repro",
+    "subject": "swine-clinic",
+    "topic": "swine-repro",
+    "title": "Reproductive diseases: PRRS, parvovirus, brucellosis, MMA",
+    "icon": "🐷",
+    "summary": "โรคและปัญหาระบบสืบพันธุ์ของแม่สุกร: สาเหตุของ reproductive failure, ตกขาว, น้ำนมแห้ง, production failure, porcine parvovirus, porcine brucellosis, กลุ่มอาการ MMA และ PRRS การควบคุมโรคระดับฟาร์มและการอ่านผล serology อยู่ในหัวข้อ Epidemic disease control and diagnostic approach",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-control-dx",
+    "subject": "swine-clinic",
+    "topic": "swine-control-dx",
+    "title": "Epidemic disease control and diagnostic approach",
+    "icon": "🛡️",
+    "summary": "การควบคุมโรคระบาดในฟาร์มสุกรด้วย biosecurity (ลดปริมาณเชื้อ และแยกกลุ่มสัตว์: AIAO, P0-1, batch production, multi-site), มาตรการหลัง ASF และการลงสุกรใหม่, การแยกกักและปรับสภาพสุกรทดแทน แล้วต่อด้วยแนวทางวินิจฉัยระดับฝูง (ผลแล็บ, serology S/P, farm pattern ตาม CPG ของไทย, PCR จาก tonsil และ oral fluid)",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-prv-je",
+    "subject": "swine-clinic",
+    "topic": "swine-prv-je",
+    "title": "Pseudorabies, Nipah and Japanese encephalitis",
+    "icon": "🧠",
+    "summary": "Japanese encephalitis (JE), Nipah virus disease (NiVD) และ pseudorabies (Aujeszky's disease) จากเดค RK Slide ปี 2569 JE: บทบาท amplification host กับ dead-end, อาการตามกลุ่มสุกร, การแยกโรคของ reproductive failure ในแม่สุกร และการตอบสนองของฟาร์ม Nipah: วงจรค้างคาว สุกร คน pseudorabies: gE กับ gB, latent infection และการใช้ marker vaccine คู่ ELISA แบบ DIVA ตัวเลขในกราฟอ่านจากรูป",
     "flagship": false
   },
   {

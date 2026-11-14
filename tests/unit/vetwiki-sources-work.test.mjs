@@ -59,5 +59,7 @@ test('a topic counts a work once: Rabies cites the WOAH chapter under two ids an
 });
 
 test('the masthead counts works', () => {
-  assert.equal(SHELF_TOTALS.sources, 2154); // 2102 + four zoonoses works (5.146.1) + 48 works the Epidemiology notes of 2569 cite
+  // 2102 + four zoonoses works (5.146.1) + 48 works the Epidemiology notes of 2569 cite
+  // + 47 works the Swine Medicine notes of 2569 cite (45 PubMed records, 2 pages)
+  assert.equal(SHELF_TOTALS.sources, 2201);
 });
