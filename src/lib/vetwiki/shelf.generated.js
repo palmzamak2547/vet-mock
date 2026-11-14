@@ -12,8 +12,8 @@ export const SHELF_TOTALS = {
   "sections": 2099,
   "claims": 3480,
   "sources": 2236,
-  "conflicts": 196,
-  "conflictTopics": 86,
+  "conflicts": 199,
+  "conflictTopics": 88,
   "newestReview": "2026-11-15"
 };
 
@@ -110,7 +110,7 @@ export const SHELF_SUBJECTS = {
     "topics": 25,
     "sections": 305,
     "claims": 396,
-    "conflicts": 2,
+    "conflicts": 5,
     "newestReview": "2026-11-15",
     "cloth": {
       "light": "#cb9876",

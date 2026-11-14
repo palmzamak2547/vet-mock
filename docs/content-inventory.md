@@ -91,7 +91,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | swine-clinic | 258 | 258 | 0 | 100.0% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
-| vca | 1342 | 88 | 88 | 6.6% |
+| vca | 1342 | 87 | 87 | 6.5% |
 | vet-dev-anat | 26 | 0 | 0 | 0.0% |
 | vet-histo | 104 | 0 | 0 | 0.0% |
 | vet-imaging | 35 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8841 | 5666 | 332 | 64.1% |
+| **All** | 8841 | 5665 | 331 | 64.1% |
