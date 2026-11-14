@@ -33,8 +33,8 @@ test('every form control draws in the app typeface, at zero specificity and befo
   assert.ok(at < firstClass, 'the reset comes before the class rules');
 });
 
-test('the phone header logo keeps its 44 px width beside the pills', () => {
-  assert.match(CSS, /\.vmx-logo-btn \{ width: var\(--touch-min\); flex: none;/);
+test('the phone header logo may give way, so the paper pill never runs under the search button', () => {
+  assert.match(CSS, /\.vmx-logo-btn \{ width: var\(--touch-min\); padding: 0;/);
 });
 
 test('Home prints a subject\'s accuracy in the text shades, which read 4.5:1, not the fill shades', () => {

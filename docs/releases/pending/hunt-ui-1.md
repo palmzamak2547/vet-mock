@@ -8,7 +8,7 @@
 - รายการแหล่งอ้างอิงใน VetWiki เรียงเลขหัวข้อย่อยได้สะอาดขึ้น ไม่มีจุลภาคลอยห่างจากตัวเลข
 - ปฏิทินลงทะเบียนในหน้าตารางเรียนตัวใหญ่ขึ้น อ่านประเภทและวันที่ได้ชัด
 - ความแม่นยำของแต่ละวิชาในหน้าแรก และชื่อผู้สอนของหัวข้อที่เปิดอยู่ในหน้าสรุป อ่านชัดขึ้นทั้งโหมดสว่างและโหมดมืด
-- ปุ่มแสดงหัวข้อที่ยังไม่มีเนื้อหา และโลโก้มุมบนบนมือถือ กดง่ายขึ้น
+- ปุ่มแสดงหัวข้อที่ยังไม่มีเนื้อหา กดง่ายขึ้น
 
 ## Reviewer notes (English)
 
@@ -30,7 +30,7 @@ Each fix has a guard shown failing on the old code first:
 | Wiki sources: "อ้างในหัวข้อย่อย 01 , 03", the comma 8 px from a 44 px centred link box; the comma is dropped, the boxes space the numbers | `screen-hunt-wave1.test.mjs` |
 | Home subject accuracy in fill tokens (2.97:1 light) | `screen-hunt-wave1.test.mjs` |
 | Notes list, open topic: lecturer and size in ink-soft on the rose tint (2.72:1 dark) | `screen-hunt-wave1.test.mjs` (also proves the token pair) |
-| "Show empty topics" row 23 px tall; phone header logo squeezed to 36 px | `screen-hunt-wave1.test.mjs` |
+| "Show empty topics" row 23 px tall | `screen-hunt-wave1.test.mjs` |
 
 Layout (Rule 11): nothing moved place. The results card loses one label and gains 14 px above the bar, so the
 flag reads as the bar's own caption rather than a fourth line of the score. Inputs grow by about 2 px in height.

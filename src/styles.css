@@ -1113,8 +1113,8 @@ html, body {
   .vmx-logo { font-size: 19px; }
   .vmx-wordmark-text,
   .vmx-xp-chip { display: none !important; }
-  /* flex: none: the pills beside it squeezed it to 36 px, under the 44 px target. */
-  .vmx-logo-btn { width: var(--touch-min); flex: none; padding: 0; justify-content: center; }
+  /* The logo gives way first, to 36 px at 390 px beside the longest paper label. Held at 44 px with flex: none it pushed that pill under the search button; the pills must truncate before the logo can keep its width. */
+  .vmx-logo-btn { width: var(--touch-min); padding: 0; justify-content: center; }
   .vmx-login-btn { width: var(--touch-min); min-width: var(--touch-min); padding-inline: 0; justify-content: center; }
   /* Icon-only here, between two circles: a circle too. */
   .vmx-btn.vmx-login-btn, .vmx-cmdk-btn { border-radius: 50%; }
