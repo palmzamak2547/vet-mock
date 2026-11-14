@@ -294,7 +294,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               const { format, count, fellBack } = topicPractice(kindTable, [it.topic], lecFormat);
               const doc = deck?.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
               // A list the lecturer numbered is printed as written; a plain one
-              // leads each 'Term — explanation' line with the term in bold.
+              // leads each 'Term — explanation' or 'Term: explanation' line
+              // with the term in bold, chips included, so the eye lands on the
+              // term first (lib/wrap-keyline.js decides what is a term).
               const numbered = selfNumbered(it.keywords);
               // History, never a forecast: the cohorts that were asked this
               // item's cited past papers. No resolved cohort, no tag.
@@ -323,12 +325,17 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                     <ul className={`vmx-wrap-keylist${numbered ? ' is-self-numbered' : ''}`} aria-label="คีย์เวิร์ดและรายการที่ต้องจำ">
                       {it.keywords.map((k) => {
                         const parts = numbered ? null : keyTerm(k);
-                        return <li key={k}>{parts ? <><b>{parts.term}</b>{' — '}{parts.rest}</> : k}</li>;
+                        return <li key={k}>{parts ? <><b>{parts.term}</b>{parts.sep}{parts.rest}</> : k}</li>;
                       })}
                     </ul>
                   ) : (
                     <div className="vmx-wrap-keys" aria-label="คีย์เวิร์ด">
-                      {it.keywords.map((k) => <span key={k} className="vmx-wrap-key">{k}</span>)}
+                      {it.keywords.map((k) => {
+                        const parts = numbered ? null : keyTerm(k);
+                        return parts
+                          ? <span key={k} className="vmx-wrap-key has-term"><b>{parts.term}</b>{parts.sep}{parts.rest}</span>
+                          : <span key={k} className="vmx-wrap-key">{k}</span>;
+                      })}
                     </div>
                   ))}
 

@@ -2958,7 +2958,10 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-seen b { font-weight: 700; }
 .vmx-wrap-cover { flex: 0 0 auto; width: 84px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--clr-border); }
 .vmx-wrap-keys { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; }
-.vmx-wrap-key { display: inline-flex; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
+.vmx-wrap-key { display: inline-block; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
+/* A "Term: detail" chip: the term carries the weight, the detail reads plain. */
+.vmx-wrap-key.has-term { font-weight: 400; }
+.vmx-wrap-key b { font-weight: 700; }
 .vmx-wrap-mode { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin: 0 0 10px; }
 .vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 12px; cursor: pointer; }
 .vmx-wrap-mode button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
