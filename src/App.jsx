@@ -3374,6 +3374,7 @@ export default function App() {
                   goBack={() => setView('topic-select')}
                   onStartTopic={startLecturerPractice}
                   onOpenDoc={openLibraryReader}
+                  onOpenQuestion={openQuestionById}
                   selectedYear={selectedYear}
                   selectedPhase={paperPhase}
                 />

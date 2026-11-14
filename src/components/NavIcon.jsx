@@ -295,6 +295,23 @@ const PATHS = {
       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </>
   ),
+  // The three kinds of line a wrap-up item holds, so the eye finds each by
+  // shape before it reads the label: what the lecturer said (a speech
+  // bubble), what a past paper asked (a ruled answer sheet), and the usual
+  // mix-up (a warning triangle).
+  said: <path d="M4.5 5.5h15a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H11l-4.5 3.5V16.5h-2a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1ZM8 9.5h8M8 12.5h5" />,
+  sheet: (
+    <>
+      <path d="M7 3h7.5L19 7.5V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
+      <path d="M14.5 3v4.5H19M9 12h6M9 15.5h6M9 8.5h3" />
+    </>
+  ),
+  caution: (
+    <>
+      <path d="M10.3 4.2 2.9 17.5A2 2 0 0 0 4.6 20.5h14.8a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z" />
+      <path d="M12 9.5v4.5M12 17.2v.1" />
+    </>
+  ),
   bulb: (
     <>
       <path d="M9 18h6M10 21h4" />
