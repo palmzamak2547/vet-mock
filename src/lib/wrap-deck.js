@@ -113,3 +113,10 @@ export function tally(state, ids) {
 export function segments(state, ids) {
   return ids.map((id, i) => (i === state.pos && !state.done ? 'now' : state.marks[id] === KNOWN ? 'known' : state.marks[id] === AGAIN ? 'again' : ''));
 }
+
+/**
+ * The open-all button's words. It opens every part but the lecturer's long
+ * list (`core` is what it opens), and on a card that has that list it says
+ * so, rather than claim the whole card while one part stays covered.
+ */
+export const openAllLabel = (facets, core) => (core.length < facets.length ? 'เปิดทั้งใบ ยกเว้นอาจารย์เน้น' : 'เปิดทั้งใบ');

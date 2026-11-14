@@ -16,11 +16,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import {
-  AGAIN, KNOWN, cardId, goTo, marked, rate, readDeck, restart, resume, segments, startRedo, tally,
+  AGAIN, KNOWN, cardId, goTo, marked, openAllLabel, rate, readDeck, restart, resume, segments, startRedo, tally,
 } from '../lib/wrap-deck.js';
 import { topicPractice } from '../lib/lecturer-count.js';
 import { FORMAT_LABEL } from '../data/lecturer-sets.js';
-import { Keywords, Line, SignalLabel } from './WrapParts.jsx';
+import { CitedText, Keywords, Line, SignalLabel } from './WrapParts.jsx';
 import WrapSlide from './WrapSlide.jsx';
 
 const NONE = new Set();
@@ -39,7 +39,9 @@ function facetsOf(item) {
   if (item.emphasis?.length) out.push({ id: 'emphasis', label: 'อาจารย์เน้น', signal: 'emphasis', count: item.emphasis.length });
   return out;
 }
-// "เปิดทั้งใบ" opens everything but the lecturer's long list, which is there to read when wanted.
+// The open-all button opens everything but the lecturer's long list, which is
+// there to read when wanted (the drawing's own choice), and says so: on a
+// card that has that list it reads "เปิดทั้งใบ ยกเว้นอาจารย์เน้น".
 const coreOf = (facets) => {
   const core = facets.filter((f) => f.id !== 'emphasis');
   return core.length ? core : facets;
@@ -48,7 +50,7 @@ const coreOf = (facets) => {
 function FacetBody({ facet, item, course }) {
   if (facet.id === 'agent') return <p className="vmx-deck-text">{item.agent}</p>;
   if (facet.id === 'keys') return <Keywords keywords={item.keywords} rows />;
-  if (facet.id === 'pitfall') return <p className="vmx-deck-text">{item.pitfall}</p>;
+  if (facet.id === 'pitfall') return <p className="vmx-deck-text"><CitedText text={item.pitfall} /></p>;
   const lines = facet.id === 'examined' ? item.examined : item.emphasis;
   return <ul className="vmx-deck-lines">{lines.map((l, i) => <Line key={i} line={l} course={course} />)}</ul>;
 }
@@ -103,7 +105,7 @@ function Summary({ state, ids, items, done, onJump, onRedo, onResume, onRestart,
   );
 }
 
-export default function WrapDeck({ items, storageKey, course = '', slideOf = () => null, base = null, kindTable = {}, subject, onStartTopic = null }) {
+export default function WrapDeck({ items, storageKey, course = '', slideOf = () => null, base = null, kindTable = {}, subject, onStartTopic = null, onStarted = null }) {
   const ids = useMemo(() => items.map(cardId), [items]);
   const [state, setState] = useState(() => loadState(storageKey, ids));
   // Another paper, or the content changed under a kept page: read that paper's deck.
@@ -117,6 +119,13 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
   useEffect(() => {
     try { window.localStorage.setItem(storageKey, JSON.stringify(state)); } catch { /* kept for this visit only */ }
   }, [storageKey, state]);
+  // A round under way: past the first card, or anything marked. The page then
+  // keeps only the deck's own bar above the card on a phone.
+  const started = state.pos > 0 || state.done || Object.keys(state.marks).length > 0;
+  useEffect(() => {
+    onStarted?.(started);
+  }, [started, onStarted]);
+  useEffect(() => () => onStarted?.(false), [onStarted]);
 
   const item = items[state.pos];
   const facets = useMemo(() => (item ? facetsOf(item) : []), [item]);
@@ -275,7 +284,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
                   {item.pitfall && (
                     <div className="vmx-wrap-pitfall">
                       <SignalLabel kind="pitfall">ระวังสับสน</SignalLabel>
-                      <p>{item.pitfall}</p>
+                      <p><CitedText text={item.pitfall} /></p>
                     </div>
                   )}
                 </div>
@@ -312,7 +321,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
             {!back ? (
               <>
                 <p className="vmx-deck-hint">นึกก่อน แล้วค่อยเปิด</p>
-                <button type="button" className="vmx-deck-btn is-primary is-wide" onClick={reveal}>เปิดทั้งใบ</button>
+                <button type="button" className="vmx-deck-btn is-primary is-wide" onClick={reveal}>{openAllLabel(facets, core)}</button>
               </>
             ) : (
               <div className="vmx-deck-rate">
@@ -320,7 +329,12 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
                 <button type="button" className="vmx-deck-btn is-primary" onClick={() => mark(quick ? null : KNOWN)}>{quick ? 'ถัดไป' : 'จำได้'}</button>
               </div>
             )}
-            <p className="vmx-deck-keys" aria-hidden="true"><kbd>Space</kbd> เปิดทั้งใบ <kbd>1</kbd> ต้องทวน <kbd>2</kbd> {quick ? 'ถัดไป' : 'จำได้'} <kbd>←</kbd><kbd>→</kbd> เลื่อนใบ</p>
+            {/* Only the keys that do something now: Space opens a card that is still covered. */}
+            <p className="vmx-deck-keys" aria-hidden="true">
+              {!back && <><kbd>Space</kbd> {openAllLabel(facets, core)} </>}
+              {back && <><kbd>1</kbd> ต้องทวน <kbd>2</kbd> {quick ? 'ถัดไป' : 'จำได้'} </>}
+              <kbd>←</kbd><kbd>→</kbd> เลื่อนใบ
+            </p>
           </div>
         </>
       )}

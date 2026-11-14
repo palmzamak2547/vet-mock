@@ -8,7 +8,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { pastPaperIds, cohortIndex, itemCohorts, cohortList } from '../../src/lib/wrap-cohorts.js';
+import { pastPaperIds, cohortIndex, itemCohorts, cohortList, originIndex } from '../../src/lib/wrap-cohorts.js';
 import { EXAM_RECURRENCE, EXAM_RECURRENCE_CLUSTERS } from '../../src/data/exam-recurrence.generated.js';
 import { wrapUpPapers, loadWrapUp } from '../../src/data/exam-wrapups.js';
 
@@ -72,4 +72,15 @@ test('the view loads the recurrence file lazily and words the tag as history', (
   assert.doesNotMatch(view, /^import .*exam-recurrence\.generated/m, 'a static import would put 180 KB in the wrap-up chunk');
   assert.match(view, /เคยออก \{seen\.length\} รุ่น/);
   assert.match(view, /\{seen\.length > 0 && \(/);
+});
+
+test('a cited question is named by its own filed cohorts and paper', async () => {
+  const { EXAM_RECURRENCE } = await import('../../src/data/exam-recurrence.generated.js');
+  const { questionPointerLabel } = await import('../../src/lib/source-label.js');
+  const index = originIndex(EXAM_RECURRENCE, 'swine-clinic');
+  const label = (ids) => questionPointerLabel({ kind: 'past', ids, remarks: [] }, ids.flatMap((id) => index.get(id) || []));
+  assert.equal(label(['209058']), 'ข้อสอบเก่า Vet 78, 81, 85 ปลายภาค');
+  assert.equal(label(['209058', '209059']), 'ข้อสอบเก่า Vet 78, 80, 81, 83, 85 ปลายภาค', 'two questions: every cohort of either');
+  assert.equal(label(['8351']), 'ข้อสอบเก่า', 'filed under no cohort: the kind alone');
+  assert.equal(originIndex(EXAM_RECURRENCE, 'equine-medicine').has('209573'), false);
 });

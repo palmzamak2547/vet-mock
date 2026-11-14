@@ -59,10 +59,13 @@ export default function WrapSlide({ rec, base }) {
   const [state, setState] = useState(() => (isOffline() ? 'offline' : 'wait'));
   const [attempt, setAttempt] = useState(0);
   const [open, setOpen] = useState(false);
+  // The full view opens on the whole page; zoom is the student's to ask for.
+  const [zoomed, setZoomed] = useState(false);
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
   const close = () => {
     setOpen(false);
+    setZoomed(false);
     window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
   };
   const dialogRef = useModalFocus({ active: open, onClose: close, initialFocusRef: closeRef });
@@ -82,7 +85,7 @@ export default function WrapSlide({ rec, base }) {
     return () => { document.body.style.overflow = before; };
   }, [open]);
 
-  // Read once: on a phone a landscape page opens magnified, panned by dragging.
+  // Read once: on a phone a landscape page can be magnified, then panned by dragging.
   const [narrow] = useState(() => typeof window !== 'undefined' && window.matchMedia?.('(max-width: 640px)').matches === true);
   if (typeof base !== 'string' || !rec) return null;
   const kind = KIND[rec.kind] || 'เอกสาร';
@@ -90,7 +93,8 @@ export default function WrapSlide({ rec, base }) {
   const alt = `${kind} ${cite}`;
   const src = `${slideUrl(base, rec)}${attempt ? `?r=${attempt}` : ''}`;
   const ratio = rec.w / rec.h;
-  const zoom = narrow && ratio > 1.2 ? 2 : 1;
+  const canZoom = narrow && ratio > 1.2;
+  const zoom = canZoom && zoomed ? 2 : 1;
 
   const retry = () => {
     if (isOffline()) { setState('offline'); return; }
@@ -151,7 +155,7 @@ export default function WrapSlide({ rec, base }) {
         >
           <button ref={closeRef} type="button" onClick={(e) => { e.stopPropagation(); close(); }} aria-label="ปิด" className="vmx-image-lightbox__close">×</button>
           <div
-            className="vmx-evi-scroll"
+            className={`vmx-evi-scroll${zoom > 1 ? ' is-zoomed' : ''}`}
             style={narrow ? undefined : { width: `min(100%, calc((100vh - 120px) * ${ratio}))` }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -161,7 +165,19 @@ export default function WrapSlide({ rec, base }) {
               </span>
             </div>
           </div>
-          <div className="vmx-image-lightbox__hint">{cite}</div>
+          <div className="vmx-image-lightbox__hint">
+            {cite}
+            {canZoom && (
+              <button
+                type="button"
+                className="vmx-wrap-slide-zoom"
+                aria-pressed={zoomed}
+                onClick={(e) => { e.stopPropagation(); setZoomed((z) => !z); }}
+              >
+                {zoomed ? 'ดูทั้งหน้า' : 'ขยาย 2 เท่า'}
+              </button>
+            )}
+          </div>
         </div>
       ), document.body)}
     </div>

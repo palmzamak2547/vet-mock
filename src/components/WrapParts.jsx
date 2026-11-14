@@ -2,11 +2,40 @@
 // WrapParts — the pieces a wrap-up line is drawn with, in reading mode and
 // in the revision deck alike, so a line looks the same in both
 // ============================================================
-import { momentHref } from '../lib/source-label.js';
-import { citeParts } from '../lib/wrap-cite.js';
+import { createContext, useContext } from 'react';
+import { momentHref, questionPointerLabel } from '../lib/source-label.js';
+import { citeParts, citedText } from '../lib/wrap-cite.js';
 import { keyTerm } from '../lib/wrap-keyline.js';
 import { selfNumbered } from '../data/exam-wrapups.js';
 import NavIcon from './NavIcon.jsx';
+
+// What a citation needs from the page to name a cited question: the cohorts
+// and paper filed for each id (wrap-cohorts.js originIndex, loaded lazily, so
+// null at first) and, when the app can open one question, how.
+export const WrapCiteContext = createContext({ origins: null, openQuestion: null });
+
+// A question the line cites, named by the paper it was sat on, never by its
+// bank id. Where the app can open one question, each id is a button that does.
+function CitedQuestion({ pointer }) {
+  const { origins, openQuestion } = useContext(WrapCiteContext);
+  const label = questionPointerLabel(pointer, pointer.ids.flatMap((id) => origins?.get(id) || []));
+  return (
+    <span className="vmx-wrap-q">
+      <span className="vmx-wrap-q-name">{label}</span>
+      {openQuestion && !pointer.range && pointer.ids.map((id, i) => (
+        <button
+          key={id}
+          type="button"
+          className="vmx-wrap-q-open"
+          onClick={() => openQuestion(id)}
+          aria-label={pointer.ids.length > 1 ? `เปิดข้อที่ ${i + 1} ของ${label}` : `เปิดข้อนี้: ${label}`}
+        >
+          {pointer.ids.length > 1 ? `ข้อ ${i + 1}` : 'เปิดข้อนี้'}
+        </button>
+      ))}
+    </span>
+  );
+}
 
 // Where a line was said. A cited clip minute is a link that opens that clip
 // at that minute, in a new tab so the page keeps its place; the rest of the
@@ -19,6 +48,8 @@ export function Cite({ src, course }) {
     <small className="vmx-wrap-src">
       {parts.map((p, i) => (p.kind === 'text' ? (
         <span key={i} className="vmx-wrap-src-text">{p.text}</span>
+      ) : p.kind === 'question' ? (
+        <CitedQuestion key={i} pointer={p.pointer} />
       ) : (
         <span key={i} className="vmx-wrap-clip">
           <span className="vmx-wrap-clip-name">{p.session} นาที</span>
@@ -55,6 +86,13 @@ export function SignalLabel({ kind, children, as: Tag = 'div' }) {
   );
 }
 
+/** Text the page prints, with any question it names drawn by its paper (CitedQuestion). */
+export function CitedText({ text, human = false }) {
+  return citedText(text, { human }).map((p, i) => (p.kind === 'question'
+    ? <CitedQuestion key={i} pointer={p.pointer} />
+    : <span key={i}>{p.text}</span>));
+}
+
 /**
  * A line, its citation, and the slide it cites when there is a picture for it
  * (`slide` is the element to draw, or null).
@@ -62,7 +100,7 @@ export function SignalLabel({ kind, children, as: Tag = 'div' }) {
 export function Line({ line, course, slide = null }) {
   return (
     <li>
-      <span>{line.text}</span>
+      <span><CitedText text={line.text} /></span>
       {line.src && <Cite src={line.src} course={course} />}
       {slide}
     </li>

@@ -224,3 +224,62 @@ export function momentFromSearch(search) {
   // A second that is not one plays the clip from its start rather than not at all.
   return { videoId, seconds: Number.isInteger(seconds) && seconds >= 0 && seconds <= 86400 ? seconds : 0 };
 }
+
+// ── A question the wrap-up cites by its bank id ───────────────────
+// The wrap-ups cite past papers and bank questions by id: "ข้อสอบเก่า
+// 209058, 209059", "แนวข้อสอบ 105579", "ข้อฝึกในคลัง 209163". A six-digit id
+// says nothing to a student; the paper it was sat on does. The stored pointer
+// stays as written (the cohort tags and the lints read it); these find the
+// pointers in a citation and name each the way the question card's chip names
+// an origin (source-line.js): "ข้อสอบเก่า Vet 78, 81, 85 ปลายภาค". The cohorts
+// and papers come from that question's own filing, passed in by the caller
+// (wrap-cohorts.js reads them from exam-recurrence.generated.js), so this
+// module loads no bank. An id with no filed cohort is still never printed:
+// it reads "ข้อสอบเก่า".
+
+const POINTER_KIND = { 'ข้อสอบเก่า': 'past', 'แนวข้อสอบ': 'aligned', 'ข้อฝึกในคลัง': 'practice' };
+/** What each kind of pointer reads as; the first two are the chip's own words. */
+export const POINTER_LABEL = Object.freeze({ past: 'ข้อสอบเก่า', aligned: 'อิงแนวข้อสอบ', practice: 'ข้อฝึกในคลัง' });
+const POINTER_PAPER = Object.freeze({ midterm: 'กลางภาค', final: 'ปลายภาค' });
+const ONE_ID = String.raw`\d{3,7}(?:\s*\([^)]*\))?`;
+const POINTER = new RegExp(String.raw`(ข้อสอบเก่า|แนวข้อสอบ|ข้อฝึกในคลัง)(\s*ปี\s*\d)?\s+(${ONE_ID}(?:\s*(?:,|และ|ถึง)\s*${ONE_ID})*)`, 'g');
+// A remark that only restates who sat it and which paper ("(ปลายภาค Vet 78, Vet 81)").
+const ORIGIN_ONLY = /^(?:(?:กลางภาค|ปลายภาค|ไม่ระบุรุ่น|Vet\s*\d+)[\s,]*)+$/;
+
+/**
+ * The question pointers in one citation, in order:
+ * [{ start, end, kind: 'past'|'aligned'|'practice', ids: ['209058', ...], remarks: ['...'], range? }].
+ * A bracket after an id is a remark about it, kept in `remarks`; `range` is
+ * set for "<id> ถึง <id>", whose ids are only the two ends.
+ */
+export function questionPointers(text) {
+  const out = [];
+  const s = String(text ?? '');
+  for (const m of s.matchAll(POINTER)) {
+    const ids = [];
+    const remarks = [];
+    for (const [, id, remark] of m[3].matchAll(/(\d{3,7})(?:\s*\(([^)]*)\))?/g)) {
+      if (!ids.includes(id)) ids.push(id);
+      if (remark && remark.trim()) remarks.push(remark.trim());
+    }
+    // "209058 ถึง 209064" names a run of items by its ends: the ends say which
+    // papers, but they are not the only items cited, so nothing offers to open them.
+    const range = /\d\s*(?:\([^)]*\)\s*)?ถึง/.test(m[3]);
+    out.push({ start: m.index, end: m.index + m[0].length, kind: POINTER_KIND[m[1]], ids, remarks, ...(range ? { range: true } : {}) });
+  }
+  return out;
+}
+
+/**
+ * The words for one pointer. `origins` is every { cohort, paper } filed for
+ * its ids: "ข้อสอบเก่า Vet 78, 81, 85 ปลายภาค", "ข้อสอบเก่า", "อิงแนวข้อสอบ".
+ * A remark that only restates the filed cohort and paper is left out.
+ */
+export function questionPointerLabel(pointer, origins = []) {
+  const head = POINTER_LABEL[pointer?.kind] || POINTER_LABEL.past;
+  const cohorts = [...new Set(origins.map((o) => Number(o?.cohort)).filter(Number.isInteger))].sort((a, b) => a - b);
+  const papers = [...new Set(origins.map((o) => POINTER_PAPER[o?.paper]).filter(Boolean))];
+  const label = [head, cohorts.length ? `Vet ${cohorts.join(', ')}` : '', papers.join(', ')].filter(Boolean).join(' ');
+  const remarks = (pointer?.remarks || []).filter((r) => !(cohorts.length && ORIGIN_ONLY.test(r)));
+  return remarks.length ? `${label} (${remarks.join(', ')})` : label;
+}

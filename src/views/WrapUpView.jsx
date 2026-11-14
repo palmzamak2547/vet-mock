@@ -21,8 +21,11 @@ import { oldContentLine, oldYearTag, termYearLabel } from '../lib/current-phase.
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
-import { humanSource } from '../lib/source-label.js';
-import { cohortIndex, itemCohorts, cohortList } from '../lib/wrap-cohorts.js';
+import { cohortIndex, itemCohorts, cohortList, originIndex } from '../lib/wrap-cohorts.js';
+import { readingCopy } from '../lib/wrap-cite.js';
+import { boardKey, resolveBoard } from '../lib/wrap-board.js';
+import { BOARD_LOADERS } from '../data/wrapup-boards/index.js';
+import { alertDialog } from '../lib/dialog.js';
 import { READING_BAND, currentItem, progressLabel } from '../lib/wrap-progress.js';
 
 // Motion is decided per effect: a jump or the strip following along is a
@@ -31,8 +34,9 @@ const reducedMotion = () => {
   try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
 };
 import NavIcon from '../components/NavIcon.jsx';
-import { Keywords, Line, SignalLabel } from '../components/WrapParts.jsx';
+import { CitedText, Keywords, Line, SignalLabel, WrapCiteContext } from '../components/WrapParts.jsx';
 import WrapDeck from '../components/WrapDeck.jsx';
+import WrapBoard from '../components/WrapBoard.jsx';
 import WrapSlide, { useSlideBase } from '../components/WrapSlide.jsx';
 import { slideFor, slideIndex } from '../lib/wrap-slide.js';
 import { deckKey } from '../lib/wrap-deck.js';
@@ -82,18 +86,32 @@ function Bullets({ label, items, kind, course, slideAt = () => null }) {
   );
 }
 
-// Three ways this page is used, and the student says which: the whole thing
+// Four ways this page is used, and the student says which: the whole thing
 // read the night before (the first pass), the keywords alone in a spare
-// minute, or one card at a time, recalling before looking (the second pass,
-// components/WrapDeck.jsx). The choice is remembered, because whoever wants
-// one mode wants it every time.
+// minute, one card at a time, recalling before looking (the second pass,
+// components/WrapDeck.jsx), or the paper laid out as a farm case is worked,
+// clue to disease (components/WrapBoard.jsx, only on a paper that has a
+// board). The choice is remembered, because whoever wants one mode wants it
+// every time; a paper without a board reads in full without forgetting it.
 const MODE_KEY = 'vmx-wrap-mode';
-const MODES = ['full', 'keys', 'deck'];
+const MODES = ['full', 'keys', 'deck', 'board'];
 const readMode = () => {
   try { const m = localStorage.getItem(MODE_KEY); return MODES.includes(m) ? m : 'full'; } catch { return 'full'; }
 };
 
-export default function WrapUpView({ subject, subjectName = '', goBack, onStartTopic = null, onOpenDoc = null, selectedYear = null, selectedPhase = null }) {
+// While the page waits: the shape of what is coming, in the page's skeleton tone.
+function Skeleton({ label }) {
+  return (
+    <div className="vmx-wrap-skel" role="status" aria-label={label}>
+      <span className="vmx-skeleton vmx-skeleton-line" style={{ width: '40%' }} />
+      <span className="vmx-skeleton vmx-skeleton-line" style={{ width: '75%', height: 28 }} />
+      <span className="vmx-skeleton vmx-skeleton-card" />
+      <span className="vmx-skeleton vmx-skeleton-card" />
+    </div>
+  );
+}
+
+export default function WrapUpView({ subject, subjectName = '', goBack, onStartTopic = null, onOpenDoc = null, onOpenQuestion = null, selectedYear = null, selectedPhase = null }) {
   const [data, setData] = useState(null);
   // 'none': this paper has no wrap-up. An Error: it exists but did not load
   // (offline, or a release replaced its file), which needs a retry, not
@@ -119,15 +137,58 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
   // own recurrence file. It loads beside the page and never before it: the
   // text reads at once, and the "เคยออก N รุ่น" tags join it when they arrive.
   // A failed load only leaves the tags out.
+  // The same file names each cited question by the paper it was sat on.
   const [cohorts, setCohorts] = useState(null);
+  const [origins, setOrigins] = useState(null);
   useEffect(() => {
     let live = true;
     setCohorts(null);
+    setOrigins(null);
     import('../data/exam-recurrence.generated.js')
-      .then((m) => { if (live) setCohorts(cohortIndex(m.EXAM_RECURRENCE, m.EXAM_RECURRENCE_CLUSTERS, subject)); })
+      .then((m) => {
+        if (!live) return;
+        setCohorts(cohortIndex(m.EXAM_RECURRENCE, m.EXAM_RECURRENCE_CLUSTERS, subject));
+        setOrigins(originIndex(m.EXAM_RECURRENCE, subject));
+      })
       .catch(() => {});
     return () => { live = false; };
   }, [subject]);
+  // A cited question opens through the app's own one-question path; one that
+  // is gone from the bank says so.
+  const cite = useMemo(() => ({
+    origins,
+    openQuestion: onOpenQuestion ? async (id) => {
+      const opened = await onOpenQuestion(id);
+      if (!opened) alertDialog('ไม่พบข้อนี้ในคลังแล้ว อาจถูกแก้ไขหรือนำออกไป');
+    } : null,
+  }), [origins, onOpenQuestion]);
+
+  // The differential board, when this paper has one that still holds against
+  // its wrap-up (lib/wrap-board.js): undefined while it loads, null for none.
+  const [board, setBoard] = useState(undefined);
+  useEffect(() => {
+    let live = true;
+    setBoard(undefined);
+    if (!data) return () => { live = false; };
+    const load = Object.hasOwn(BOARD_LOADERS, subject) ? BOARD_LOADERS[subject] : null;
+    if (!load) { setBoard(null); return () => { live = false; }; }
+    load().then((m) => { if (live) setBoard(resolveBoard(m.BOARD, data)); }, () => { if (live) setBoard(null); });
+    return () => { live = false; };
+  }, [data, subject]);
+  const shownMode = mode === 'board' && board === null ? 'full' : mode;
+
+  // The deck under way on a phone keeps only its own bar above the card.
+  const [deckStarted, setDeckStarted] = useState(false);
+
+  // "อ่านหัวข้อ N แบบเต็ม" from the board: reading mode, at that item.
+  const [readAt, setReadAt] = useState(null);
+  const readItem = (n) => { pickMode('full'); setReadAt(n); };
+  useEffect(() => {
+    if (readAt === null || shownMode !== 'full') return;
+    const el = document.querySelector(`.vmx-wrap-item[data-n="${readAt - 1}"]`);
+    if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+    setReadAt(null);
+  }, [readAt, shownMode]);
 
   // Which cited deck pages have a picture (lib/wrap-slide.js): the answer
   // evidence's own record for this subject, loaded beside the page like the
@@ -141,10 +202,12 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     load().then((m) => { if (live) setSlides(slideIndex(m.EVIDENCE)); }, () => { if (live) setSlides(new Map()); });
     return () => { live = false; };
   }, [subject, attempt]);
-  const items = useMemo(() => (data ? data.groups.flatMap((g) => g.items.map((it) => ({ ...it, lecturer: g.lecturer }))) : []), [data]);
+  // What the page draws: the same wrap-up with สไลด์ for the authors' เดค (lib/wrap-cite.js).
+  const shown = useMemo(() => readingCopy(data), [data]);
+  const items = useMemo(() => (shown ? shown.groups.flatMap((g) => g.items.map((it) => ({ ...it, lecturer: g.lecturer }))) : []), [shown]);
   const hasSlides = useMemo(() => Boolean(slides?.size) && items.some((it) => [...(it.emphasis || []), ...(it.examined || [])].some((l) => slideFor(l.src, slides))), [slides, items]);
   // The images' address is asked for once, and only when a line has a picture.
-  const slideBase = useSlideBase(hasSlides && mode !== 'keys');
+  const slideBase = useSlideBase(hasSlides && shownMode !== 'keys');
   // The page is drawn once, with its frames: it waits for the record of
   // pictures and, when a line has one, for the wall's answer, so no frame
   // pushes a line down after the student has started reading. A slow answer
@@ -155,7 +218,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     const t = setTimeout(() => setPatience(true), 1500);
     return () => clearTimeout(t);
   }, [subject, attempt]);
-  const settled = patience || (slides !== null && (!hasSlides || mode === 'keys' || slideBase !== undefined));
+  const settled = patience || (slides !== null && (!hasSlides || shownMode === 'keys' || slideBase !== undefined));
   const slideOfItem = useMemo(() => (it) => {
     if (!slides) return null;
     for (const l of [...(it.emphasis || []), ...(it.examined || [])]) {
@@ -203,7 +266,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     }, { rootMargin: READING_BAND, threshold: 0 });
     document.querySelectorAll('.vmx-wrap-item[data-n]').forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [data, mode, settled]);
+  }, [data, shownMode, settled]);
   // The strip follows: the marked chip is brought into view inside the strip
   // only (never the page), and only when it is out of sight.
   useEffect(() => {
@@ -254,7 +317,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     return (
       <div className="vmx-wrap">
         <BackBar onBack={goBack} label="หน้าหัวข้อ" />
-        <p className="vmx-wrap-empty">กำลังโหลด</p>
+        <Skeleton label="กำลังโหลด wrap-up" />
       </div>
     );
   }
@@ -263,11 +326,12 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
   // ascites and staphylococcosis are three items under one topic id, so
   // matching on topic (or on topic plus name) would number them wrong the
   // day two of them are renamed alike.
-  const numberOf = new Map(data.groups.flatMap((g) => g.items).map((it, i) => [it, i + 1]));
+  const numberOf = new Map(shown.groups.flatMap((g) => g.items).map((it, i) => [it, i + 1]));
   const unit = subject === 'avian-medicine' ? 'โรค' : 'หัวข้อ';
 
   return (
-    <div className="vmx-wrap">
+    <WrapCiteContext.Provider value={cite}>
+    <div className="vmx-wrap" data-mode={shownMode} data-deck-started={shownMode === 'deck' && deckStarted ? 'yes' : undefined}>
       <BackBar onBack={goBack} label="หน้าหัวข้อ" />
 
       <header className="vmx-wrap-hero">
@@ -282,17 +346,21 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
         </div>
         {/* The deck is the second pass: the paper's overview was read on the
             first, and on a phone it would push the card off the first screen. */}
-        {data.intro && mode !== 'deck' && <p className="vmx-wrap-intro">{data.intro}</p>}
+        {shown.intro && shownMode !== 'deck' && shownMode !== 'board' && <p className="vmx-wrap-intro"><CitedText text={shown.intro} /></p>}
         <div className="vmx-wrap-mode" role="group" aria-label="โหมดการอ่าน">
-          <button type="button" className={mode === 'full' ? 'is-on' : ''} aria-pressed={mode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
-          <button type="button" className={mode === 'keys' ? 'is-on' : ''} aria-pressed={mode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>
-          <button type="button" className={mode === 'deck' ? 'is-on' : ''} aria-pressed={mode === 'deck'} onClick={() => pickMode('deck')}>ทวนทีละใบ</button>
+          <button type="button" className={shownMode === 'full' ? 'is-on' : ''} aria-pressed={shownMode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
+          <button type="button" className={shownMode === 'keys' ? 'is-on' : ''} aria-pressed={shownMode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>
+          <button type="button" className={shownMode === 'deck' ? 'is-on' : ''} aria-pressed={shownMode === 'deck'} onClick={() => pickMode('deck')}>ทวนทีละใบ</button>
+          {/* Offered once this paper's board holds; kept in place while it loads for a student who chose it. */}
+          {(board || (board === undefined && mode === 'board')) && (
+            <button type="button" className={shownMode === 'board' ? 'is-on' : ''} aria-pressed={shownMode === 'board'} onClick={() => pickMode('board')}>แยกโรค</button>
+          )}
         </div>
-        {mode === 'deck' && <p className="vmx-wrap-mode-note">นึกให้ได้ก่อน แล้วค่อยเปิดดู ใบที่ยังไม่แม่นจะวนกลับมาให้ทวนอีกรอบ</p>}
+        {shownMode === 'deck' && <p className="vmx-wrap-mode-note">นึกให้ได้ก่อน แล้วค่อยเปิดดู ใบที่ยังไม่แม่นจะวนกลับมาให้ทวนอีกรอบ</p>}
         {/* The key to the page, one kind of line per row, each with the
             icon the items use, so it is learned once here. The deck is
             read one card at a time and labels its own parts. */}
-        {mode !== 'deck' && <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
+        {shownMode !== 'deck' && shownMode !== 'board' && <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
           <li><span className="vmx-wrap-signal" /><span><b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น</span></li>
           <li><span className="vmx-wrap-signal is-emphasis"><NavIcon name="said" size={16} /></span><span><b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ แตะนาทีเพื่อเปิดคลิป</span></li>
           <li><span className="vmx-wrap-signal is-examined"><NavIcon name="sheet" size={16} /></span><span><b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม</span></li>
@@ -302,7 +370,19 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
         </ul>}
       </header>
 
-      {mode === 'deck' ? (
+      {shownMode === 'board' ? (
+        board ? (
+          <WrapBoard
+            board={board}
+            items={items}
+            storageKey={boardKey(subject, data.source?.term, selectedPhase)}
+            course={subjectName}
+            slideOf={slideOfItem}
+            base={slideBase}
+            onRead={readItem}
+          />
+        ) : <Skeleton label="กำลังโหลดกระดานแยกโรค" />
+      ) : shownMode === 'deck' ? (
         <WrapDeck
           items={items}
           storageKey={deckKey(subject, data.source?.term, selectedPhase)}
@@ -312,6 +392,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           kindTable={kindTable}
           subject={subject}
           onStartTopic={onStartTopic}
+          onStarted={setDeckStarted}
         />
       ) : (<>
 
@@ -328,19 +409,19 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
             className={i === here ? 'is-here' : undefined}
             aria-current={i === here ? 'location' : undefined}
           >
-            <b>{i + 1}</b> {mode === 'keys' && it.th ? it.th : it.name}
+            <b>{i + 1}</b> {shownMode === 'keys' && it.th ? it.th : it.name}
           </a>
         ))}
       </nav>
 
-      {data.groups.map((g) => {
+      {shown.groups.map((g) => {
         const formatLabel = FORMAT_LABEL[g.format] || g.format;
         return (
           <section key={g.id} className="vmx-wrap-group" aria-label={g.lecturer}>
             <header className="vmx-wrap-group-head">
               <h2>{g.lecturer}</h2>
               <span className="vmx-lect-chip">{formatLabel}{oldYearTag(data.source)}</span>
-              {g.formatNote && <p className="vmx-wrap-group-note">{data.source?.own === false ? `${termYearLabel(data.source.term)}: ` : ''}{humanSource(g.formatNote)}</p>}
+              {g.formatNote && <p className="vmx-wrap-group-note">{data.source?.own === false ? `${termYearLabel(data.source.term)}: ` : ''}<CitedText text={g.formatNote} human /></p>}
             </header>
 
             {g.items.map((it) => {
@@ -385,7 +466,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
 
                   <Keywords keywords={it.keywords} />
 
-                  {mode === 'full' && (
+                  {shownMode === 'full' && (
                     <div className="vmx-wrap-cols">
                       <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" course={subjectName} slideAt={slideAt} />
                       {it.examined?.length ? (
@@ -402,14 +483,14 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                     </div>
                   )}
 
-                  {mode === 'full' && it.pitfall && (
+                  {shownMode === 'full' && it.pitfall && (
                     <div className="vmx-wrap-pitfall">
                       <SignalLabel kind="pitfall">ระวังสับสน</SignalLabel>
-                      <p>{it.pitfall}</p>
+                      <p><CitedText text={it.pitfall} /></p>
                     </div>
                   )}
 
-                  {mode === 'full' && (onStartTopic || doc) && (
+                  {shownMode === 'full' && (onStartTopic || doc) && (
                     <div className="vmx-wrap-actions">
                       {onStartTopic && count > 0 && (
                         <button
@@ -441,5 +522,6 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
         ทุกบรรทัดอ้างคลิปบันทึกคาบ สไลด์ หรือข้อสอบเก่าที่ระบุไว้ ถ้าเนื้อหาในคาบกับสไลด์ต่างกัน ยึดสไลด์เป็นหลักและตัดที่ยืนยันไม่ได้ออก
       </footer>
     </div>
+    </WrapCiteContext.Provider>
   );
 }

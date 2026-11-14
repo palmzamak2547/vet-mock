@@ -30,7 +30,7 @@ test('every kind of line wears its icon beside its label, on the item and in the
     assert.match(view, new RegExp(`<NavIcon name="${name}" size=\\{16\\} /></span><span><b>${label}</b>`), `the key lacks ${label}`);
   }
   // No pitfall, no box: the block renders only with one.
-  assert.match(view, /\{mode === 'full' && it\.pitfall && \(\n\s+<div className="vmx-wrap-pitfall">/);
+  assert.match(view, /\{shownMode === 'full' && it\.pitfall && \(\n\s+<div className="vmx-wrap-pitfall">/);
 });
 
 test('each kind keeps one AA text colour', () => {

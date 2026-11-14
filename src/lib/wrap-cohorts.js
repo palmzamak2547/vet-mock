@@ -68,3 +68,28 @@ export function itemCohorts(item, index) {
 export function cohortList(cohorts) {
   return cohorts.length ? `Vet ${cohorts.join(', ')}` : '';
 }
+
+/**
+ * subject's question id -> [{ cohort, paper }] as filed for that question
+ * itself (the paper as the recurrence file keys it: 'midterm', 'final' or
+ * 'unknown'). What the page names a cited question by (source-label.js
+ * questionPointerLabel); copies of the item are not counted here, since the
+ * line names this question, not its recurrence.
+ */
+export function originIndex(recurrence, subject) {
+  const index = new Map();
+  const prefix = `${subject}:`;
+  for (const topic of Object.values(recurrence?.[subject]?.topics || {})) {
+    for (const [cohort, papers] of Object.entries(topic.sat || {})) {
+      for (const [paper, keys] of Object.entries(papers)) {
+        for (const key of keys) {
+          if (!key.startsWith(prefix)) continue;
+          const id = key.slice(prefix.length);
+          if (!index.has(id)) index.set(id, []);
+          index.get(id).push({ cohort: Number(cohort), paper });
+        }
+      }
+    }
+  }
+  return index;
+}

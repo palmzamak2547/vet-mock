@@ -13,7 +13,36 @@
 // recording the app cannot name (no session, no summarised clip) stays in the
 // text exactly as humanSource leaves it, so nothing cited is dropped.
 // ============================================================
-import { humanSource, recordingMoments, sessionLabel } from './source-label.js';
+import { humanSource, questionPointers, recordingMoments, sessionLabel } from './source-label.js';
+
+/**
+ * One word for a slide on the wrap-up. The authors wrote "เดค" in their
+ * citations and notes, while the page's key and the deck say "สไลด์";
+ * src/data/glossary.js names neither, so the page says สไลด์ everywhere.
+ * Display only: the stored text keeps "เดค", which lib/wrap-slide.js reads.
+ */
+export const slideWord = (text) => String(text ?? '').replace(/เดค/g, 'สไลด์');
+
+/**
+ * A text piece with the questions it cites taken out as their own parts, so
+ * no bank id is printed: [{ kind: 'text', text } | { kind: 'question', pointer }].
+ */
+function textParts(text, { human = true } = {}) {
+  const out = [];
+  const s = human ? humanSource(text) : String(text ?? '');
+  let at = 0;
+  const push = (t) => {
+    const clean = human ? slideWord(t).replace(/^[\s,;/+]+|[\s,;/+]+$/g, '').replace(/\s{2,}/g, ' ') : slideWord(t);
+    if (clean) out.push({ kind: 'text', text: clean });
+  };
+  for (const p of questionPointers(s)) {
+    push(s.slice(at, p.start));
+    out.push({ kind: 'question', pointer: { kind: p.kind, ids: p.ids, remarks: p.remarks, ...(p.range ? { range: true } : {}) } });
+    at = p.end;
+  }
+  push(s.slice(at));
+  return out;
+}
 
 // The same shape source-label.js reads: an id, then its bracketed times.
 // No lookbehind (iOS 14): a start inside a longer token is checked by hand.
@@ -42,7 +71,8 @@ export function shortSession(session, course = '') {
 
 /**
  * [{ kind: 'clip', videoId, session, moments: [{ seconds, stamp, label }] }
- *  | { kind: 'text', text }] in the order the citation names them.
+ *  | { kind: 'question', pointer: { kind, ids, remarks } } | { kind: 'text', text }]
+ * in the order the citation names them.
  * `course` is the page's course name, for shortSession.
  */
 export function citeParts(raw, course = '') {
@@ -52,14 +82,12 @@ export function citeParts(raw, course = '') {
     if (!piece.trim()) continue;
     const moments = recordingMoments(piece);
     if (!moments.length) {
-      const text = humanSource(piece);
-      if (text) out.push({ kind: 'text', text });
+      out.push(...textParts(piece));
       continue;
     }
     // What the piece says besides its clips ("TJ ข้อ 53 (บล็อก 6),") comes first.
     const rest = withoutNamedRecordings(piece).replace(/^[\s,/+]+|[\s,/+]+$/g, '').replace(/\s{2,}/g, ' ');
-    const text = rest ? humanSource(rest) : '';
-    if (text) out.push({ kind: 'text', text });
+    if (rest) out.push(...textParts(rest));
     for (const m of moments) {
       let clip = clips.get(m.videoId);
       if (!clip) {
@@ -74,3 +102,41 @@ export function citeParts(raw, course = '') {
   }
   return out;
 }
+
+/**
+ * The wrap-up as the page draws it: every word a student reads says สไลด์
+ * (slideWord). Citations (`src`, `sources`) are left as stored: they are
+ * parsed for clips, slides and cited questions, and drawn through citeParts,
+ * which applies the same word.
+ */
+export function readingCopy(wrapup) {
+  if (!wrapup) return wrapup;
+  const line = (l) => (l && typeof l.text === 'string' ? { ...l, text: slideWord(l.text) } : l);
+  const text = (t) => (typeof t === 'string' ? slideWord(t) : t);
+  return {
+    ...wrapup,
+    intro: text(wrapup.intro),
+    groups: (wrapup.groups || []).map((g) => ({
+      ...g,
+      formatNote: text(g.formatNote),
+      items: (g.items || []).map((it) => ({
+        ...it,
+        th: text(it.th),
+        agent: text(it.agent),
+        pitfall: text(it.pitfall),
+        keywords: Array.isArray(it.keywords) ? it.keywords.map(text) : it.keywords,
+        emphasis: Array.isArray(it.emphasis) ? it.emphasis.map(line) : it.emphasis,
+        examined: Array.isArray(it.examined) ? it.examined.map(line) : it.examined,
+      })),
+    })),
+  };
+}
+
+/**
+ * A sentence the page prints (a line, a pitfall, a lecturer's note) with the
+ * questions it names taken out as their own parts, the rest kept exactly as
+ * written but for สไลด์: [{ kind: 'text', text } | { kind: 'question', pointer }].
+ * `human` also reads the recordings and pages it cites (humanSource), for a
+ * note written in citation form.
+ */
+export const citedText = (text, { human = false } = {}) => textParts(text, { human });
