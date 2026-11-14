@@ -13,7 +13,7 @@ export function exitSetDialog({ questions = [], answers = {}, timed = false } = 
   const kept = answered > 0 ? `ตอบไปแล้ว ${answered} จาก ${total} ข้อ เก็บไว้ที่หน้าแรก` : 'ชุดนี้เก็บไว้ที่หน้าแรก';
   return {
     title: 'ออกจากชุดนี้?',
-    body: `${kept} 6 ชั่วโมง กลับมาทำต่อจากข้อเดิมได้${timed ? ' เวลาสอบหยุดนับระหว่างนี้' : ''}`,
+    body: `${kept} 6 ชั่วโมง กลับมาที่ข้อเดิมได้${timed ? ' เวลาหยุดนับระหว่างนี้' : ''}`,
     confirmLabel: 'เก็บไว้แล้วออก',
     cancelLabel: 'ทำต่อ',
     // In a timed paper staying is the safer answer, so it takes focus.
