@@ -69,8 +69,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 151948,
-          "budget": 156600
+          "measured": 156672,
+          "budget": 161400
         },
         "css": {
           "measured": 0,
@@ -114,8 +114,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 121269,
-          "budget": 125000
+          "measured": 126626,
+          "budget": 130500
         },
         "css": {
           "measured": 11958,
@@ -132,8 +132,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 165129,
-          "budget": 170100
+          "measured": 170890,
+          "budget": 176100
         },
         "css": {
           "measured": 11958,

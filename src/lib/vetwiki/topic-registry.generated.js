@@ -771,6 +771,51 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "epidemiology--epidem-disease-frequency",
+    "subject": "epidemiology",
+    "topic": "epidem-disease-frequency",
+    "title": "Measurement of Disease Frequency และ Measurement of Association",
+    "icon": "📊",
+    "summary": "สรุปจากเด็ค Measurement of disease frequency, measurement of association, diagnostic test (สอน 10 ส.ค. 2569) ส่วน p.2-77 ครอบคลุม prevalence, incidence (cumulative incidence และ incidence rate), ดัชนีการตาย การป่วย case fatality และ attack rate แล้วต่อด้วย measurement of association ได้แก่ RR, PR, IRR, odds และ OR, การแปลผลด้วย 95%CI, confounder กับ Mantel-Haenszel และ attributable risk ทั้งระดับกลุ่มสัมผัสและระดับประชากร แบบฝึกหลายข้อในสไลด์ไม่มีเฉลย และมีตัวเลขบางจุดที่ไม่ตรงกันเอง ซึ่งทำเครื่องหมายไว้ตามหน้า",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-dx-screening",
+    "subject": "epidemiology",
+    "topic": "epidem-dx-screening",
+    "title": "Diagnostic and screening test",
+    "icon": "🩺",
+    "summary": "สรุปจากเด็ค Measurement of disease frequency, measurement of association, diagnostic test (สอน 10 ส.ค. 2569) ส่วน p.79-99 และ p.108-111 ครอบคลุม screening test กับ diagnostic test, accuracy กับ precision, sensitivity, specificity, accuracy, PPV, NPV, Bayes' theorem กับผลของ prevalence, rule-in กับ rule-out, serial กับ parallel testing, ROC curve กับ Youden J index และเกณฑ์เลือกเครื่องมือคัดกรอง likelihood ratio ปรากฏเพียงในรายชื่อหัวข้อศึกษาเพิ่มเติม (p.111) เด็คไม่ได้สอนเนื้อหา",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-test-agreement",
+    "subject": "epidemiology",
+    "topic": "epidem-test-agreement",
+    "title": "Agreement of test",
+    "icon": "🤝",
+    "summary": "สรุปจากเด็ค Measurement of disease frequency, measurement of association, diagnostic test (สอน 10 ส.ค. 2569) ส่วน p.100-107 และ p.111 ครอบคลุมความหมายของ agreement หรือ reliability ของ test, inter-rater กับ intra-rater reliability, Cohen's kappa พร้อมตารางแปลผล, weighted kappa สำหรับหลาย category และการเทียบ test ที่ให้ค่า continuous ด้วย scatter plot, Pearson's correlation coefficient และวิธีที่สไลด์แนะนำ สไลด์ไม่ได้คำนวณค่า kappa หรือค่า r ของตัวอย่างให้",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-observational-study",
+    "subject": "epidemiology",
+    "topic": "epidem-observational-study",
+    "title": "Study designs",
+    "icon": "👀",
+    "summary": "เลกเชอร์ Study Design (สอน 17 ส.ค. 2569) เดินตาม 4 ขั้น ตั้งคำถาม เลือกแบบ วัดผล ตรวจอคติ ครอบคลุม cross-sectional, cohort, case-control, ตาราง 2×2 กับ OR, RR, PR, AR, AF และ bias, confounding, interaction, mediator โดยใช้ตัวอย่างสุกร ลูกโค FMD และ Brucellosis เสริมด้วย Module 2 intro ส่วน objective, measurement, การเลือก design และ RR, OR, chi-square ซึ่งสไลด์ปิดของ Module 2 ระบุว่าตัวเลขตัวอย่างทุกตัวในเลกเชอร์นั้นเป็นข้อมูลสมมติเพื่อการสอน",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-sample-size",
+    "subject": "epidemiology",
+    "topic": "epidem-sample-size",
+    "title": "Sample size determination",
+    "icon": "🔢",
+    "summary": "เลกเชอร์ Sample size determination (สอน 17 ส.ค. 2569) เริ่มจาก sampling uncertainty และ 4 ปัจจัย คือ standard deviation, significance level, power และ effect size แล้วไล่สูตร mean เดี่ยว, สอง mean, paired, proportion, finite population correction, multi-stage, unmatched case-control, cohort และ RCT, และ dropout พร้อมตัวอย่างตัวเลขและภาพหน้าจอ OpenEpi หรือ Statulator เสริมด้วย Module 2 intro ส่วน sampling unit, วิธีสุ่ม, การปัดขึ้น, imperfect test และ freedom from infection (สไลด์ระบุว่าตัวเลขของ Module 2 เป็นข้อมูลสมมติเพื่อการสอน)",
+    "flagship": false
+  },
+  {
     "id": "epidemiology--epidem-surveillance",
     "subject": "epidemiology",
     "topic": "epidem-surveillance",
@@ -786,6 +831,60 @@ export const VETWIKI_TOPICS = [
     "title": "Outbreak Investigation",
     "icon": "🔍",
     "summary": "เลคเชอร์ Outbreak investigation ครอบคลุมวัตถุประสงค์ 7 ข้อของการสอบสวนโรค การจำแนกประเภทและสาเหตุของ outbreak แล้วเดินตาม 11 ขั้นตอนการสอบสวนตั้งแต่เตรียมงานภาคสนามจนถึงการติดตามข้อเสนอแนะ พร้อมกรณีศึกษา Salmonellosis ในงานแต่งงาน และเกณฑ์นิยามผู้ป่วย COVID-19 ทั้งของ WHO และกรมควบคุมโรค กระดาษของ handout พิมพ์เป็นภาษาอังกฤษทั้งเล่ม ยกเว้นสไลด์นิยามผู้ป่วยของไทยหน้าเดียว",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-control-prevention",
+    "subject": "epidemiology",
+    "topic": "epidem-control-prevention",
+    "title": "Principle of Disease prevention, control and eradication",
+    "icon": "🛡",
+    "summary": "หลักการควบคุม ป้องกัน และกำจัดโรค จากเด็ค 7 (นิยาม, ธรรมชาติของโรค, การป้องกัน 3 ระดับ, เป้าหมายและมาตรการ 14 ข้อ, กรณีศึกษาไข้หวัดนกในประเทศไทย) ต่อด้วยสิ่งที่ Intro. to Module 4 เพิ่ม (control เทียบ elimination เทียบ eradication, monitoring กับ surveillance, ความถี่ของการทำงาน, การประเมินผลโปรแกรม และผลทางเศรษฐกิจสังคม) ตัวเลขทุกตัวใน Module 4 เป็นตัวอย่างสมมติตามที่สไลด์ระบุ",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-govt-policy",
+    "subject": "epidemiology",
+    "topic": "epidem-govt-policy",
+    "title": "Government Policy and Practice on Disease prevention, control and eradication",
+    "icon": "🏛",
+    "summary": "นโยบายภาครัฐและการป้องกัน ควบคุม และกำจัดโรคระบาดสัตว์ ตั้งแต่ WOAH Terrestrial Animal Health Code และรายชื่อโรคของ WOAH, การจัดลำดับและแบ่งกลุ่มโรคของไทย, กฎหมายด้านการปศุสัตว์รวม พ.ร.บ.โรคระบาดสัตว์ พ.ศ. 2558, ไปจนถึง 10 กิจกรรมของแผนปฏิบัติการ (เฝ้าระวัง, ภูมิคุ้มกัน, ควบคุมเคลื่อนย้าย, ระบบป้องกันโรคในฟาร์ม, ควบคุมโรค, ฟาร์มและพื้นที่ปลอดโรค, ข้อมูลการผลิต, Televet, เตือนภัยและประชาสัมพันธ์, วิเคราะห์ความเสี่ยง) เด็คนี้ระบุเลขมาตราของ พ.ร.บ. ไว้เพียงมาตราเดียวคือมาตรา 7 (p.50)",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-applied-stats",
+    "subject": "epidemiology",
+    "topic": "epidem-applied-stats",
+    "title": "Applied statistic for Epidemiology",
+    "icon": "📐",
+    "summary": "ส่วน Applied statistics ของเด็ค Applied statistics & Data analysis for Epidemiology (สอน 7 ก.ย. 2569) หน้า 5-129 ไล่จากชนิดของข้อมูล, descriptive statistics (ตาราง กราฟ central tendency dispersion skewness), normal distribution และ central limit theorem, confidence interval, hypothesis testing กับ p-value, การเลือก test, parametric tests (Z-test, t-test, paired t-test, ANOVA), chi-squared กับ Fisher's exact test จนถึง correlation และ linear regression ตัวอย่างคำนวณทุกข้อใช้ตัวเลขของสไลด์ เด็คเป็นภาษาอังกฤษทั้งเล่ม",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-data-analysis",
+    "subject": "epidemiology",
+    "topic": "epidem-data-analysis",
+    "title": "Epidemiology data analysis",
+    "icon": "📈",
+    "summary": "ส่วนการวิเคราะห์ข้อมูลระบาดวิทยาของเด็ค Applied statistics & Data analysis for Epidemiology (สอน 7 ก.ย. 2569) ใช้สไลด์เปิดเรื่องขั้นตอนการวิเคราะห์ข้อมูล (p.2-4) และส่วน Analyses for Epidemiological data (p.130-163) ครอบคลุม measure of disease frequency (prevalence, cumulative incidence, incidence rate), measure of association (risk ratio, odds ratio และการเลือกตาม study design), logistic regression กับการอ่าน adjusted OR จากงานวิจัย FMD ในเชียงใหม่ และ survival time analysis, epidemic curve, temporal analysis, disease mapping, spatial scan statistics เด็คนี้ไม่มีสไลด์ที่อธิบายวิธี clean ข้อมูล และไม่มีสไลด์เรื่อง confounding หรือ interaction",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-software",
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "title": "Intro to Module and Software",
+    "icon": "💻",
+    "summary": "ปี 2569 ไม่มีสไลด์ชุดไหนสอนวิธีใช้ซอฟต์แวร์โดยตรง สไลด์ intro ของ Module 1, 2, 4 และ Module 5 (The Future Veterinarian) พูดถึงซอฟต์แวร์แค่ว่าให้ทำแล็บใน Excel, R หรือโปรแกรมที่เลือกเอง ให้สูตรสำหรับ spreadsheet และอ้าง Epitools เป็น further reading หน้าที่แสดงโปรแกรมจริงพร้อมหน้าจออยู่ในเด็ค Sample size determination_TC (p.40-72) ได้แก่ OpenEpi, Statulator, Epitools ของ Ausvet และ G*Power โน้ตนี้รวบรวมเฉพาะส่วนนั้น ส่วน WinEpiscope และ SPSS ที่ตารางสอนเขียนไว้ ไม่พบบนสไลด์ที่ตรวจได้",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-current-research",
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "title": "Epidemiology Application in Current Research",
+    "icon": "🔬",
+    "summary": "ปี 2569 หัวข้อนี้สอนด้วยสไลด์ Module 5 The Future Veterinarian: Epidemiology in the Age of Big Data, AI, One Health & AMR (19 หน้า) เนื้อหาคือการใช้หลักระบาดวิทยาอ่าน big data, ประเมิน AI, คิดแบบ One Health และดูแล AMR สไลด์ระบุเองว่าทุก scenario และตัวเลขเป็นตัวอย่างสมมติเพื่อการสอน งานจริงที่อ้างมีแค่ชื่อแหล่ง เช่น WOAH, PADI-web, Nature H5N1 in U.S. dairy cattle (2024) และ FAO RENOFARM โดยไม่มีชื่อผู้แต่งหรือผลการศึกษา",
     "flagship": false
   },
   {
