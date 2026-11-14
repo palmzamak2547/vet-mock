@@ -127,6 +127,8 @@ export const VETWIKI_TOPIC_KEYS = [
   "equine-medicine--equine-respi",
   "equine-medicine--equine-neonatal",
   "equine-medicine--equine-poa",
+  "equine-medicine--equine-derm",
+  "equine-medicine--equine-surgery-wound",
   "equine-repro--eqrepro-anatomy-cycle",
   "equine-repro--eqrepro-exam-mare",
   "equine-repro--eqrepro-art-female",
