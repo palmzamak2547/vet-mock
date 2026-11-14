@@ -34,7 +34,7 @@ function python3(modules = '') {
 }
 const PY = python3();
 const PY_FITZ = python3(', fitz');
-const skip = (cmd) => (!cmd && !process.env.CI ? 'no Python 3 (with PyMuPDF for the file test) on this machine' : false);
+const skip = (cmd) => (!cmd && !process.env.CI ? 'no Python 3 on this machine' : false);
 
 // Digits are synthetic: a 13-digit run in the national-ID shape, belonging to nobody.
 const RUN = '1 2345 67890 12 3';
@@ -71,7 +71,7 @@ print(json.dumps({
   });
 });
 
-test('release records a review that the next check honours, for this file only', { skip: skip(PY_FITZ) }, () => {
+test('release records a review that the next check honours, for this file only', { skip: PY_FITZ ? false : 'no Python 3 with PyMuPDF on this machine (the build job installs none, as in mcv-sync.test.mjs)' }, () => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'pii-release-'));
   try {
     const env = { LIBRARY_PII_REVIEWS: path.join(tmp, 'reviews.json') };
