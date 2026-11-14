@@ -297,6 +297,11 @@ export const SOURCE_DOCS = [
     editions: [{ id: '34p', pages: 34 }],
   },
   {
+    slug: 'oh-import-risk-2569', subject: 'one-health', title: "Import Risk Assessment (Present)",
+    match: /Import Risk Assessment \(Present\)/,
+    editions: [{ id: '47p', pages: 47 }],
+  },
+  {
     slug: 'kimchii85-final', subject: 'repro-lect', title: 'Kimchii85 final',
     match: /\bKimchii85 final\b/,
     editions: [{ id: '34p', pages: 34 }],

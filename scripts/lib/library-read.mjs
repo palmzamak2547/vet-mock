@@ -17,7 +17,10 @@ export const SERVED = "d.status = 'public' and d.text_status is distinct from 'p
 
 const lit = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
-export async function librarySql(query, { env = process.env, fetchImpl = fetch } = {}) {
+/** `readOnly` makes the database refuse a write, whatever the query says: the
+ *  Management API then runs it as its read-only role, in a read-only
+ *  transaction. A caller that promises to change nothing passes it. */
+export async function librarySql(query, { env = process.env, fetchImpl = fetch, readOnly = false } = {}) {
   const token = env.SUPABASE_ACCESS_TOKEN;
   if (!token) {
     throw new Error('the library is behind the Chula wall: set SUPABASE_ACCESS_TOKEN (a Supabase Management API token), as for library-pages.py');
@@ -26,7 +29,7 @@ export async function librarySql(query, { env = process.env, fetchImpl = fetch }
     const res = await fetchImpl(`https://api.supabase.com/v1/projects/${REF}/database/query`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'User-Agent': 'vetmock-library-read' },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify(readOnly ? { query, read_only: true } : { query }),
     });
     if (res.ok) return res.json();
     if ((res.status === 429 || res.status >= 500) && attempt < 4) {

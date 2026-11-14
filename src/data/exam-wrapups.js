@@ -39,7 +39,9 @@ export const WRAPUPS = {
       '1-final': {
         // In paper order, which is the order Home's strip shows them.
         'swine-clinic': () => import('./wrapups/swine-clinic-final.js'),
+        'equine-medicine': () => import('./wrapups/equine-medicine-final.js'),
         'one-health': () => import('./wrapups/one-health-final.js'),
+        'zoonoses': () => import('./wrapups/zoonoses-final.js'),
       },
     },
   },

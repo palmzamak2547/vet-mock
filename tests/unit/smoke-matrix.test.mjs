@@ -65,7 +65,7 @@ test('a draft never carries a result named smoke, and nothing else is ever renam
 
 test('Annotation PostgreSQL lives here, under its required name, and nowhere else', () => {
   assert.match(jobs['annotation-db'], /^    name: Annotation PostgreSQL$/m);
-  for (const harness of ['test-annotation-db', 'test-user-data-db', 'test-chula-wall-db']) {
+  for (const harness of ['test-annotation-db', 'test-user-data-db', 'test-chula-wall-db', 'test-library-held-db']) {
     assert.match(jobs['annotation-db'], new RegExp(`run: node scripts/${harness}\\.mjs --backend=postgres`));
   }
   const build = readFileSync(new URL('../../.github/workflows/build.yml', import.meta.url), 'utf8');

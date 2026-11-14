@@ -1,19 +1,71 @@
 # ============================================================
-# Dependabot — auto PRs for npm + GitHub Actions security patches
+# Dependabot: what updates itself (the whole picture: docs/GITFLOW.md section 7)
 # ============================================================
-# Strategy:
-#   • Production deps: only security updates (avoid noise from
-#     non-breaking minor bumps for stable libs like react/supabase)
-#   • Dev deps: weekly minor+patch updates (vite, sharp, etc.)
-#   • Github Actions: weekly minor+patch (cheap to keep current)
+# Every Monday 09:00 Bangkok Dependabot proposes the week's updates for the app
+# and each sub-app (ai, vca, research, mobile) and for GitHub Actions, grouped
+# so a week brings a few pull requests, not one per package:
+#   npm-production   minor + patch of runtime dependencies, every directory
+#   npm-development  minor + patch of build and test tools, every directory
+#   actions          minor + patch of the workflows' actions
+# A major update gets a pull request of its own and waits for a person.
+# .github/workflows/dependency-updates.yml merges a green group by itself,
+# never a major, and never from 7 days before an exam until it ends.
 #
-# Dependabot opens PRs that go through the build CI workflow
-# automatically — if build passes, safe to merge.
+# The cooldown keeps a version out of a proposal until it is 3 days old, so a
+# release that is pulled or found malicious in its first days never lands.
+# Security updates (when the repository's Dependabot security updates are on)
+# skip the cooldown and the schedule, as GitHub runs them.
 # ============================================================
 version: 2
 updates:
-  # npm — production deps (security only)
   - package-ecosystem: "npm"
+    directories: ["/", "/ai", "/vca", "/research", "/mobile"]
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Bangkok"
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      npm-production:
+        applies-to: version-updates
+        patterns: ["*"]
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      npm-development:
+        applies-to: version-updates
+        patterns: ["*"]
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+      npm-security:
+        applies-to: security-updates
+        patterns: ["*"]
+    ignore:
+      # Measured early in Nov 2026 and held until after the Year-5 finals
+      # (they end 4 Dec 2026): each needs its own pull request and its own
+      # checks by a person. Delete a line to have Dependabot propose that major.
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "vite"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vitejs/plugin-react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "pdfjs-dist"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@cornerstonejs/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vercel/analytics"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vercel/speed-insights"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -22,37 +74,8 @@ updates:
       timezone: "Asia/Bangkok"
     open-pull-requests-limit: 5
     commit-message:
-      prefix: "chore(deps)"
-    labels:
-      - "dependencies"
-    # Allow only security updates for production deps
-    allow:
-      - dependency-type: "production"
-        update-type: "security"
-      - dependency-type: "development"
-    ignore:
-      # Pin React to 18.x (don't auto-upgrade to 19 yet)
-      - dependency-name: "react"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react-dom"
-        update-types: ["version-update:semver-major"]
-      # Vite 5.x → don't auto-jump to 6.x
-      - dependency-name: "vite"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@vitejs/plugin-react"
-        update-types: ["version-update:semver-major"]
-
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Asia/Bangkok"
-    open-pull-requests-limit: 3
-    commit-message:
       prefix: "chore(ci)"
-    labels:
-      - "ci"
-      - "dependencies"
+    groups:
+      actions:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]

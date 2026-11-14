@@ -3,6 +3,7 @@ what a document says and linked to the topics it covers, page by page.
 
   python -I scripts/library-pages.py extract [--limit=N] [--workers=6]
   python -I scripts/library-pages.py load [--dry-run]
+  python -I scripts/library-pages.py check <file.pdf>...
   python -I scripts/library-pages.py selftest
 
 extract: reads every R2 PDF row whose text_status is null, downloads it from
@@ -13,6 +14,13 @@ skipped. Nothing reaches the database in this step.
 load: writes those files into library_doc_pages and sets library_docs
 page_count + text_status. Stops before the database passes DB_CAP_MB (the
 project is on Supabase's free plan, 500 MB).
+
+check: the status extract would give each PDF on this disk, one JSON line per
+file, before it is anywhere near the shelf. No network, no database, nothing
+written. scripts/mcv-sync.mjs shelves a file only when this says ok or partial.
+text_md5 is the md5 of the kept pages joined by a space, in page order: what
+md5(string_agg(body, ' ' order by page)) gives for a stored document, so the
+same deck saved again (other bytes, same words) can be recognised.
 
 Env: SUPABASE_ACCESS_TOKEN (Management API PAT), plus the R2 vars above.
 
@@ -33,6 +41,7 @@ What is stored, and what is not:
   attendance sheet, a score sheet, a group report listing its members.
 """
 import concurrent.futures as cf
+import hashlib
 import json
 import os
 import re
@@ -191,6 +200,19 @@ def page_text(doc, page, cache):
     return (fixed, True) if fixed and not tfr.garbled(fixed) else (text, False)
 
 
+def read_pdf(doc):
+    """An open PDF -> (status, kept {page_no: text}, notes): every page read, then classified."""
+    cache, pages, repaired = {}, [], 0
+    for p in doc:
+        text, fixed = page_text(doc, p, cache)
+        pages.append(text)
+        repaired += fixed
+    status, kept, notes = classify(pages)
+    if repaired:
+        notes['repaired_pages'] = repaired
+    return status, kept, notes
+
+
 def extract_one(row):
     import fitz  # imported per worker so `load` does not need PyMuPDF
     path = os.path.join(OUT, row['sha256_16'] + '.json')
@@ -198,14 +220,7 @@ def extract_one(row):
         return row['slug'], 'cached'
     try:
         doc = fitz.open(stream=r2_get(row['storage_key']), filetype='pdf')
-        cache, pages, repaired = {}, [], 0
-        for p in doc:
-            text, fixed = page_text(doc, p, cache)
-            pages.append(text)
-            repaired += fixed
-        status, kept, notes = classify(pages)
-        if repaired:
-            notes['repaired_pages'] = repaired
+        status, kept, notes = read_pdf(doc)
         rec = {'id': row['id'], 'slug': row['slug'], 'page_count': doc.page_count,
                'status': status, 'notes': notes, 'pages': kept}
     except Exception as e:  # unreadable or encrypted PDF: record it, move on
@@ -227,6 +242,24 @@ def extract():
     with cf.ThreadPoolExecutor(int(arg('workers', '6'))) as ex:
         for n, (slug, status) in enumerate(ex.map(extract_one, rows), 1):
             print(f'{n}/{len(rows)} {status} {slug}', flush=True)
+
+
+def check():
+    import fitz
+    for path in sys.argv[2:]:
+        try:
+            with fitz.open(path, filetype='pdf') as doc:
+                if not doc.is_pdf or not doc.page_count:  # MuPDF opens a saved error page as a one-page text document
+                    raise ValueError('not a PDF')
+                status, kept, notes = read_pdf(doc)
+                text = ' '.join(kept[k] for k in sorted(kept))
+                # Not notes['context']: it quotes the page around an ID, and this output is logged and kept.
+                rec = {'file': path, 'status': status, 'page_count': doc.page_count, 'pages_read': len(kept),
+                       'text_chars': len(text), 'text_md5': hashlib.md5(text.encode()).hexdigest() if text else None,
+                       'notes': {k: v for k, v in notes.items() if k != 'context'}}
+        except Exception as e:  # not a PDF, encrypted, damaged: nothing here can vouch for it
+            rec = {'file': path, 'status': 'unreadable', 'page_count': None, 'pages_read': 0, 'notes': {'error': str(e)[:200]}}
+        print(json.dumps(rec), flush=True)
 
 
 def lit(s):
@@ -328,4 +361,4 @@ def selftest():
 
 
 if __name__ == '__main__':
-    {'extract': extract, 'load': load, 'selftest': selftest}[sys.argv[1]]()
+    {'extract': extract, 'load': load, 'check': check, 'selftest': selftest}[sys.argv[1]]()

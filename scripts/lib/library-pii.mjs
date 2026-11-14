@@ -11,7 +11,9 @@
 //   - publicationMetadata() in scripts/ingest-library.mjs refuses it, which
 //     covers ingest-library.mjs and ingest-local-docs.mjs before any byte is
 //     read, and scripts/upload-library-doc.mjs refuses its --title;
-//   - scripts/audit-library-pii.mjs lists any public row that carries one.
+//   - scripts/audit-library-pii.mjs lists any public row that carries one;
+//   - scripts/mcv-sync.mjs holds it, and holds a title that reads as a list of
+//     students (rosterReason, below) for a person to decide.
 //
 // The title test is deliberately narrow. คะแนน alone is "score" in every sense
 // ("Class 10 G.6 คะแนน PISA ลดลง" is a lecture topic, "รายงาน 10 คะแนน" an
@@ -64,18 +66,55 @@ export function readableTitle(s) {
     .trim();
 }
 
-/** The rule a title breaks, or null. */
-export function scoreTitleMatch(title) {
+function firstRule(title, rules) {
   const text = readableTitle(title);
   if (!text) return null;
-  for (const [reason, re] of RULES) {
+  for (const [reason, re] of rules) {
     const m = text.match(re);
     if (m) return { reason, text, matched: m[0].trim() };
   }
   return null;
 }
 
+/** The rule a title breaks, or null. */
+export function scoreTitleMatch(title) {
+  return firstRule(title, RULES);
+}
+
 export const isScoreTitle = (title) => Boolean(scoreTitleMatch(title));
+
+// A list of students: who is in the class, in which group, in which seat, who
+// attended. Unlike a score announcement it is not refused everywhere, because a
+// person may still decide to shelve one. It is what scripts/mcv-sync.mjs holds
+// by title, since nobody reads a file between MyCourseVille and the shelf there
+// and the title is the only place a scanned sheet or a spreadsheet says what it
+// is (library-pages.py reads text, and only a PDF's).
+//
+// Calibrated on 13 Nov 2026 over the 2,167 library rows (title, folder, file
+// name): 39 match. 34 are lists of students: 31 the text check had already
+// held, and two scanned attendance sheets and a spreadsheet it could not read.
+// The other 5 a person would let through (two lab lists called รายชื่อ in the
+// file name only, two decks filed in a folder that also holds a roster, a blank
+// sign-in form). รายชื่อ is "list of names", and an anatomy lab's list of
+// structures is titled the same way ("รายชื่อที่สำคัญในปฏิบัติการ integument",
+// "รายชื่อสิ่งที่ต้องรู้…"), so those three continuations pass and every other
+// รายชื่อ is held. กลุ่ม alone is not a signal ("PBL สำหรับกลุ่มที่ 1" is the case
+// handed to a group), and "group assignment" is a task as often as an allocation.
+const ROSTER_RULES = [
+  ['a list of names (รายชื่อ)', /รายชื่อ(?!\s*(?:ที่สำคัญ|สิ่งที่|ใน\s*ปฏิบัติการ))/],
+  ['a group allocation', /(?:แบ่ง|จัด)\s*กลุ่ม|กลุ่ม\s*(?:ของ\s*)?นิสิต/],
+  ['an attendance record', /เช็[คก]\s*ชื่อ|ใบ\s*ลง\s*ชื่อ|(?:สรุป|ผล|ประกาศ|บันทึก)\s*(?:ผล\s*)?(?:การ\s*)?เข้า\s*(?:ชั้น\s*)?เรียน/],
+  ['a seat or examinee list', /ที่นั่ง|ผัง\s*(?:ห้อง\s*)?สอบ|ผู้\s*(?:เข้า|มี\s*สิทธิ์?)\s*สอบ/],
+  ['a list of students', new RegExp(
+    String.raw`\b(?:name|student|class|group|seat(?:ing)?)s?\s*lists?\b|\blists?\s+of\s+(?:students?|names?|groups?|members?)\b|`
+    + String.raw`\broster\b|\battendance\b|\bseating\b|\bseat\s*(?:plan|chart|map|no|numbers?)\b|\bgroup\s*(?:members?|allocation)\b|`
+    + String.raw`\bsign[- ]?(?:in|up)\s*sheets?\b`, 'i')],
+];
+
+/** The roster rule a title matches, or null. */
+export function rosterTitleMatch(title) {
+  return firstRule(title, ROSTER_RULES);
+}
 
 // A file name, from a local path or a URL: last segment, decoded, without its
 // extension or MyCourseVille's "-<upload id>-<timestamp>" tail.
@@ -90,12 +129,22 @@ function fileStem(p) {
  *  Reads the title it would carry, its MCV folder and its file name; not a
  *  free-text description, where "สัดส่วนคะแนนสอบ 40%" is a syllabus line. */
 export function scoreSheetReason(item = {}) {
+  return titledReason(item, scoreTitleMatch);
+}
+
+/** Why a manifest item reads as a list of students, groups, seats or attendance,
+ *  or null. Same fields as scoreSheetReason. */
+export function rosterReason(item = {}) {
+  return titledReason(item, rosterTitleMatch);
+}
+
+function titledReason(item, match) {
   const fields = [
     ['name', item.name], ['title', item.title], ['folder', item.folder],
     ['file', fileStem(item.path)], ['file', fileStem(item.url)], ['file', fileStem(item.sourceUrl ?? item.source_url)],
   ];
   for (const [field, value] of fields) {
-    const hit = scoreTitleMatch(value);
+    const hit = match(value);
     if (hit) return `${field} "${hit.text}" reads as ${hit.reason} ("${hit.matched}")`;
   }
   return null;
