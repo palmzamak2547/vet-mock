@@ -10,12 +10,12 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8860;
-export const QB_SOURCE_TOTAL = 9071;
+export const QB_TOTAL = 8884;
+export const QB_SOURCE_TOTAL = 9095;
 export const QB_BLOCKED_TOTAL = 211;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 518,
+  'aquatic-clinic': 532,
   'avian-medicine': 581,
   'biochem-1': 271,
   'cliapprum': 136,
@@ -47,7 +47,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 258,
+  'swine-clinic': 268,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 1342,
@@ -65,7 +65,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 518,
+  'aquatic-clinic': 532,
   'avian-medicine': 581,
   'biochem-1': 271,
   'cliapprum': 134,
@@ -97,7 +97,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 258,
+  'swine-clinic': 268,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 1342,
@@ -266,7 +266,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'zoonoses': 373,
   },
   '1-final': {
-    'aquatic-clinic': 229,
+    'aquatic-clinic': 243,
     'avian-medicine': 109,
     'com1': 31,
     'com2': 39,
@@ -280,7 +280,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'milk-meat-hygiene': 417,
     'one-health': 90,
     'surg1': 29,
-    'swine-clinic': 164,
+    'swine-clinic': 174,
     'swine-herd': 16,
     'swine-repro': 18,
     'vca': 1342,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3667,
+    5: 3691,
   },
   '2-mid': {
     1: 297,
@@ -641,11 +641,12 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': {
-      'aqua-aquarium-vet': 3,
+      'aqua-aquarium-vet': 11,
       'aqua-conservation': 12,
       'aqua-disease-control': 119,
       'aqua-fish-diseases': 55,
       'aqua-shrimp-diseases': 40,
+      'aqua-toxicology': 6,
     },
     'avian-medicine': {
       'avian-campy': 6,
@@ -869,7 +870,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'swine-clinic': {
       'swine-asf': 29,
-      'swine-control-dx': 5,
+      'swine-control-dx': 10,
       'swine-csf': 22,
       'swine-fmd': 17,
       'swine-greasypig': 16,
@@ -877,6 +878,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'swine-pcv2': 15,
       'swine-prv-je': 25,
       'swine-repro': 16,
+      'swine-trichinosis': 5,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -2400,7 +2402,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6281,
+  5: 6305,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2412,7 +2414,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6281,
+  5: 6305,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2421,7 +2423,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
 export const Q_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
     "aqua-amphibian": 12,
-    "aqua-aquarium-vet": 3,
+    "aqua-aquarium-vet": 11,
     "aqua-conservation": 12,
     "aqua-disease-control": 119,
     "aqua-fish-biology": 45,
@@ -2432,6 +2434,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "aqua-ornamental": 38,
     "aqua-shrimp-diseases": 40,
     "aqua-shrimp-immunology": 26,
+    "aqua-toxicology": 6,
     "aqua-turtle": 15,
     "aqua-water-quality": 30,
   },
@@ -2960,7 +2963,7 @@ export const Q_COUNTS_BY_TOPIC = {
   "swine-clinic": {
     "swine-asf": 29,
     "swine-cns": 8,
-    "swine-control-dx": 5,
+    "swine-control-dx": 10,
     "swine-csf": 22,
     "swine-fmd": 17,
     "swine-gi-viral": 12,
@@ -2971,6 +2974,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "swine-prv-je": 25,
     "swine-repro": 16,
     "swine-resp-viral": 12,
+    "swine-trichinosis": 5,
   },
   "swine-herd": {
     "adg-calculation": 1,
@@ -3738,4 +3742,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-14T17:46:57.356Z
+// Built: 2026-11-14T18:19:41.324Z

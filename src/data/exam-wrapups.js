@@ -42,6 +42,8 @@ export const WRAPUPS = {
         'equine-medicine': () => import('./wrapups/equine-medicine-final.js'),
         'one-health': () => import('./wrapups/one-health-final.js'),
         'zoonoses': () => import('./wrapups/zoonoses-final.js'),
+        'aquatic-clinic': () => import('./wrapups/aquatic-clinic-final.js'),
+        'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene-final.js'),
         'epidemiology': () => import('./wrapups/epidemiology-final.js'),
       },
     },

@@ -1419,7 +1419,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
     ],
     "flag": {
       "severity": "major",
-      "note": "เนื้อหาปีนี้ไม่ได้กล่าวถึง Codex แต่ระบุการประเมินความปลอดภัยของอาหาร GM ต่อสุขภาพคน 4 ด้าน คือ molecular characterization, nutritional, toxicological และ allergenicity assessment ว่าเป็นการประเมินของ FDA คำตอบตามเนื้อหาปีนี้จึงเป็น FDA ส่วน Codex Alimentarius เป็นผู้วางแนวทางการประเมินอาหาร GM ในระดับสากล"
+      "note": "เนื้อหาปีนี้ไม่ได้กล่าวถึง Codex แต่ระบุการประเมินความปลอดภัยของอาหาร GM ต่อสุขภาพคน 4 ด้าน คือ molecular characterization, nutritional, toxicological และ allergenicity assessment ว่าเป็นการประเมินของ FDA คำตอบตามเนื้อหาปีนี้จึงเป็น FDA ส่วนคำตอบที่บันทึกไว้คือ Codex Alimentarius ซึ่งเป็นผู้วางแนวทางการประเมินอาหาร GM ในระดับสากล (Codex CAC/GL 45-2003) และเป็นแนวทางที่องค์การอนามัยโลกอ้างถึง"
     }
   },
   {
@@ -1597,8 +1597,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
       }
     ],
     "flag": {
-      "severity": "major",
-      "note": "เนื้อหาปีนี้แบ่งการประเมินความปลอดภัยของอาหาร GM ก่อนวางจำหน่ายเป็น 4 ด้าน คือ molecular characterization, nutritional assessment, toxicological assessment และ allergenicity assessment ไม่มี anti-nutrition และ enzymes เป็นหัวข้อแยก จึงไม่มีตัวเลือกใดตรงกับชุดนี้ครบ คำตอบ toxicity, allergen, anti-nutrition และ enzymes มาจากรายการทดสอบชุดเดิม"
+      "severity": "minor",
+      "note": "เนื้อหาปีนี้แบ่งการประเมินความปลอดภัยของอาหาร GM ก่อนวางจำหน่ายเป็น 4 ด้าน คือ molecular characterization, nutritional assessment, toxicological assessment และ allergenicity assessment ไม่มี anti-nutrition และ enzymes เป็นหัวข้อแยก คำตอบที่บันทึกไว้คือ toxicity, allergen, anti-nutrition และ enzymes ซึ่งมาจากรายการทดสอบชุดเดิม และยังเป็นตัวเลือกเดียวที่ไม่มีรายการนอกเหนือจากทั้งสองชุด เพราะตัวเลือกอื่นมี carcinogenicity, mutagenicity, teratogenicity หรือโลหะหนักปนอยู่"
     }
   },
   {

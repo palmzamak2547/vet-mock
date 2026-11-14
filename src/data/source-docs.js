@@ -447,6 +447,18 @@ export const SOURCE_DOCS = [
     match: /ไฟล์ Greasy Pig, ฝีดาษ, พยาธิเม็ดเลือด/,
     editions: [{ id: '3p', pages: 3 }],
   },
+  // อ.สุพจน์'s 2569 trichinosis and trypanosomiasis deck (library, 15 pages).
+  {
+    slug: 'swine-trichinosis-2569', subject: 'swine-clinic', title: 'โรคทริคิโนซิส (Trichinosis)',
+    match: /โรคทริคิโนซิส \(Trichinosis\)/,
+    editions: [{ id: '15p', pages: 15 }],
+  },
+  // The 2024 Swine Medicine lecture note in the library (335 pages); the 9 Oct 2026 control and diagnosis class teaches from it.
+  {
+    slug: 'swine-lecture-note-2024', subject: 'swine-clinic', title: 'Lecture note: Swine Medicine 2024',
+    match: /Lecture note:? Swine Medicine 2024/i,
+    editions: [{ id: '335p', pages: 335 }],
+  },
   // Kimchii #85 notes; 18 of its pages are pages of Aqua Med Mid 86.
   {
     slug: 'aquatic-med-mid86-kimchii', subject: 'aquatic-clinic', title: 'AQUATIC MED MID 86 🏅',
@@ -714,6 +726,12 @@ export const SOURCE_DOCS = [
     slug: 'aqua-aquarium-mgmt-2569', subject: 'aquatic-clinic', title: "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69)",
     match: /Aquarium Management สรุปภาษาไทย \(20 ต\.ค\. 69\)/i,
     editions: [{ id: '57p', pages: 57 }],
+  },
+  // อ.วรญาณี's 3 Nov 2026 aquatic toxicology deck (library, 47 pages).
+  {
+    slug: 'aqua-toxicology-2569', subject: 'aquatic-clinic', title: 'Aquatic toxicology (3 พ.ย. 69)',
+    match: /Aquatic toxicology \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '47p', pages: 47 }],
   },
   {
     slug: 'aqua-marine-mammals-2569', subject: 'aquatic-clinic', title: "Conservation Aquatic Animal Management & Medicine: marine mammals (2026)",
