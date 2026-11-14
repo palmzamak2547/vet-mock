@@ -89,11 +89,25 @@ function Cite({ src, course }) {
   );
 }
 
+// The three kinds of line, each with its own icon, so a student scanning the
+// page finds "what the lecturer stressed", "what past papers asked" and "the
+// usual mix-up" by shape before reading a word. The icon is decorative: the
+// label beside it says the same thing to a screen reader.
+const SIGNAL_ICON = { emphasis: 'said', examined: 'sheet', pitfall: 'caution' };
+function SignalLabel({ kind, children }) {
+  return (
+    <div className={`vmx-wrap-list-label is-${kind}`}>
+      <span className="vmx-wrap-signal"><NavIcon name={SIGNAL_ICON[kind]} size={16} /></span>
+      {children}
+    </div>
+  );
+}
+
 function Bullets({ label, items, kind, course }) {
   if (!items?.length) return null;
   return (
     <div className={`vmx-wrap-list is-${kind}`}>
-      <div className="vmx-wrap-list-label">{label}</div>
+      <SignalLabel kind={kind}>{label}</SignalLabel>
       <ul>
         {items.map((b, i) => (
           <li key={i}>
@@ -239,9 +253,15 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           <button type="button" className={mode === 'full' ? 'is-on' : ''} aria-pressed={mode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
           <button type="button" className={mode === 'keys' ? 'is-on' : ''} aria-pressed={mode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>
         </div>
-        <p className="vmx-wrap-legend">
-          <b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น <b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ พร้อมนาทีในคลิปหรือหน้าสไลด์ <b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม
-        </p>
+        {/* The key to the page, one kind of line per row, each with the
+            icon the items use, so it is learned once here. */}
+        <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
+          <li><span className="vmx-wrap-signal" /><span><b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น</span></li>
+          <li><span className="vmx-wrap-signal is-emphasis"><NavIcon name="said" size={16} /></span><span><b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ แตะนาทีเพื่อเปิดคลิป</span></li>
+          <li><span className="vmx-wrap-signal is-examined"><NavIcon name="sheet" size={16} /></span><span><b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม</span></li>
+          <li><span className="vmx-wrap-signal is-pitfall"><NavIcon name="caution" size={16} /></span><span><b>ระวังสับสน</b> จุดที่มักสับสนกับโรคหรือหัวข้อใกล้กัน</span></li>
+          <li><span className="vmx-wrap-signal" /><span><b>เคยออก N รุ่น</b> จำนวนรุ่นพี่ที่เคยเจอข้อสอบเก่าของหัวข้อนี้</span></li>
+        </ul>
       </header>
 
       <nav className="vmx-wrap-index" aria-label={`สารบัญ ${items.length} ${unit}`}>
@@ -322,7 +342,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                         // "nothing was found" or "nobody looked", and those
                         // are not the same thing to someone revising.
                         <div className="vmx-wrap-list is-examined">
-                          <div className="vmx-wrap-list-label">มีในข้อสอบเก่า</div>
+                          <SignalLabel kind="examined">มีในข้อสอบเก่า</SignalLabel>
                           <p className="vmx-wrap-none">ยังไม่พบข้อสอบเก่าหรือบันทึกรุ่นก่อนที่ถามหัวข้อนี้</p>
                         </div>
                       )}
@@ -330,7 +350,10 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                   )}
 
                   {mode === 'full' && it.pitfall && (
-                    <p className="vmx-wrap-pitfall"><b>ระวังสับสน</b> {it.pitfall}</p>
+                    <div className="vmx-wrap-pitfall">
+                      <SignalLabel kind="pitfall">ระวังสับสน</SignalLabel>
+                      <p>{it.pitfall}</p>
+                    </div>
                   )}
 
                   {mode === 'full' && (onStartTopic || doc) && (

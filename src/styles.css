@@ -2932,7 +2932,8 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; letter-spacing: 0; background: var(--clr-gold-soft); color: var(--clr-ink); }
 .vmx-wrap-intro { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); max-width: 70ch; }
-.vmx-wrap-legend { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-wrap-legend { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-wrap-legend li { display: flex; align-items: flex-start; gap: 6px; }
 .vmx-wrap-legend b { color: var(--clr-ink); font-weight: 700; }
 .vmx-wrap-index { position: sticky; top: 0; z-index: 2; display: flex; gap: 6px; overflow-x: auto; padding: 8px 0; margin: 0 0 12px; background: color-mix(in srgb, var(--clr-bg) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); scrollbar-width: thin; }
 .vmx-wrap-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font-size: 14px; text-decoration: none; white-space: nowrap; }
@@ -2975,9 +2976,14 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-keylist.is-self-numbered li::before { content: none; }
 .vmx-wrap-cols { display: grid; grid-template-columns: 1fr; gap: 10px 18px; margin-top: 12px; }
 @media (min-width: 720px) { .vmx-wrap-cols { grid-template-columns: 1fr 1fr; } }
-.vmx-wrap-list-label { font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-wrap-list-label { display: flex; align-items: center; gap: 6px; font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
+/* Each kind of line keeps one icon and one colour wherever it appears. Colour is never the only cue: the label is always beside it. */
+.vmx-wrap-signal { flex: 0 0 auto; display: inline-grid; place-items: center; width: 16px; height: 21px; }
+.is-emphasis > .vmx-wrap-signal, .vmx-wrap-signal.is-emphasis { color: var(--clr-sage-text); }
+.is-examined > .vmx-wrap-signal, .vmx-wrap-signal.is-examined { color: var(--clr-gold-text); }
+.is-pitfall > .vmx-wrap-signal, .vmx-wrap-signal.is-pitfall { color: var(--clr-rose-text); }
 .vmx-wrap-list ul { margin: 0; padding-left: 18px; }
-.vmx-wrap-list li { font-size: 14px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 4px; }
+.vmx-wrap-list li { font-size: 14px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 8px; }
 .vmx-wrap-src { display: flex; flex-direction: column; align-items: flex-start; gap: 0; font-family: var(--vmx-sans); font-size: 14px; letter-spacing: 0; color: var(--clr-ink-soft); }
 /* A cited clip: its name, then one link per minute. The link is 44px tall to the thumb and a small pill to the eye. */
 .vmx-wrap-clip { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
@@ -2991,7 +2997,9 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-min:focus-visible .vmx-wrap-min-face { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .vmx-wrap-min-face { transition: none; } }
 .vmx-wrap-none { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-style: italic; }
-.vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-gold-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-rose-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-wrap-pitfall .vmx-wrap-list-label { color: var(--clr-ink); font-weight: 700; margin-bottom: 2px; }
+.vmx-wrap-pitfall p { margin: 0; }
 .vmx-wrap-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
 .vmx-wrap-foot { margin-top: 8px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 /* Entry card on the topic screen, and the strip under the countdown on Home. */
