@@ -113,9 +113,10 @@
           "KnowledgeView"
         ],
         "after": "firstLoad",
+        "note": "5.221.0: js 126,626 B (5.218.0 measurement, 130,500 B budget) to 131,456 B (budget 135,400 B, the rule). The wiki registry data grew with the final-paper notes: Swine 8 topics and 64 sections, One Health 5 topics and 38 sections, Equine Medicine 2 new topics (equine-derm, equine-surgery-wound) with 163 sections written or rewritten; the wiki went from 235 topics and 1,897 sections on origin/main of 15 Nov to 249 and 2,099.",
         "js": {
-          "measured": 126626,
-          "budget": 130500
+          "measured": 131456,
+          "budget": 135400
         },
         "css": {
           "measured": 11958,
