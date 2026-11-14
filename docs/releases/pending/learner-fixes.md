@@ -108,6 +108,12 @@ Each item below: the reproduction on the main build (production build of `ef993a
 - Other places that compare typed text, not changed: the search palette (`CommandPalette.jsx`, its own lowercase match), the faculty search (`FacultyView.jsx`, `toLowerCase().includes`, and `instructor-lookup.js` with NFKC), the library and in-document search (`lib/thai-search.js` `fold`, which can drop marks), and the SR flashcards (self-graded, no typed comparison). Note for the fold: `claude/structural-guards` lists both cases in `KNOWN_FAILURES` of `scoring-invariants.test.mjs`, whose rows fail once fixed ("fixed? then delete its KNOWN_FAILURES row"): delete those two rows when the branches meet.
 - Guard: `tests/unit/thai-spelling-scoring.test.mjs`.
 
+## 13. Second review fixes
+- Submit: on the last question `nextQ` no longer checks the move hold, so the submit dialog's confirm within 120 ms of the Enter that opened it now submits (`exam-move-hold.test.mjs`, 3 pass).
+- Fill-in marks: `fillBlankMarks` and `groupCorrect` share one maximum pairing (`groupPairing`), so a scored-correct item has no cross; typed ตับอ่อน, ตับ against keys ตับ, ตับอ่อน was [true, false] before (`reveal-every-type.test.mjs` plus both fill-grader files, 27 pass).
+- Wording: leave-set dialog "กลับมาที่ข้อเดิมได้" and timed "เวลาหยุดนับระหว่างนี้" (`exit-set-one-dialog.test.mjs`, 2 pass); the record-write notice (pinned in `learner-flow.spec.js`, e2e not run locally); the ladder note "แก้ข้อที่ผิดก่อน แล้วทำขั้นนี้อีกชุด" (`exam-results-ladder-pins.test.mjs`, 6 pass).
+- Only the touched unit files were run; no build, no e2e, no full suite.
+
 ## Runs
 - Local, no lock (the lane was held): the 133 unit files that read a changed file, 1,163 tests; 7 failed at first, all in harnesses that build the session hook or count the card's panels (two vm harnesses lacked `examNow`, one placed its student with a jump that the move hold now holds, one counted two figure panels where fill-in makes three); fixed in the tests, then 0 failed. The full unit suite, `lint:data`, the build, `perf:budget` and `lint:dist` run in the cloud Build job.
 - e2e: CI, four engines (not run locally).
