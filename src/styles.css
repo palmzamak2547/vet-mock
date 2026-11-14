@@ -2975,7 +2975,18 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-list-label { font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
 .vmx-wrap-list ul { margin: 0; padding-left: 18px; }
 .vmx-wrap-list li { font-size: 14px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 4px; }
-.vmx-wrap-src { display: block; font-family: var(--vmx-sans); font-size: 14px; letter-spacing: 0; color: var(--clr-ink-soft); }
+.vmx-wrap-src { display: flex; flex-direction: column; align-items: flex-start; gap: 0; font-family: var(--vmx-sans); font-size: 14px; letter-spacing: 0; color: var(--clr-ink-soft); }
+/* A cited clip: its name, then one link per minute. The link is 44px tall to the thumb and a small pill to the eye. */
+.vmx-wrap-clip { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
+.vmx-wrap-clip-name { margin-right: 2px; }
+.vmx-wrap-min { display: inline-flex; align-items: center; min-height: var(--touch-min); min-width: var(--touch-min); justify-content: center; text-decoration: none; color: var(--clr-sage-text); -webkit-tap-highlight-color: transparent; }
+.vmx-wrap-min-face { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid var(--clr-border); background: var(--clr-surface); font-size: 14px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; white-space: nowrap; transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out); }
+.vmx-wrap-min-face svg { flex: 0 0 auto; }
+.vmx-wrap-min:hover .vmx-wrap-min-face { border-color: var(--clr-sage-text); }
+.vmx-wrap-min:active .vmx-wrap-min-face { background: var(--clr-surface-2); }
+.vmx-wrap-min:focus-visible { outline: none; }
+.vmx-wrap-min:focus-visible .vmx-wrap-min-face { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .vmx-wrap-min-face { transition: none; } }
 .vmx-wrap-none { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-style: italic; }
 .vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-gold-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-wrap-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }

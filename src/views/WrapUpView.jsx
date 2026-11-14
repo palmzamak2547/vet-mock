@@ -21,7 +21,9 @@ import { oldContentLine, oldYearTag, termYearLabel } from '../lib/current-phase.
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
-import { humanSource } from '../lib/source-label.js';
+import { humanSource, momentHref } from '../lib/source-label.js';
+import { citeParts } from '../lib/wrap-cite.js';
+import NavIcon from '../components/NavIcon.jsx';
 import { keyTerm } from '../lib/wrap-keyline.js';
 import { topicPractice } from '../lib/lecturer-count.js';
 import { isChunkLoadError } from '../lib/chunk-error.js';
@@ -53,7 +55,40 @@ function deckIndex(subject, year, phase, term) {
   return map;
 }
 
-function Bullets({ label, items, kind }) {
+// Where a line was said. A cited clip minute is a link that opens that clip
+// at that minute, in a new tab so the page keeps its place; the rest of the
+// citation (a deck page, a past paper) reads as text. A line with no clip
+// shows its citation as before.
+function Cite({ src, course }) {
+  const parts = citeParts(src, course);
+  if (!parts.length) return null;
+  return (
+    <small className="vmx-wrap-src">
+      {parts.map((p, i) => (p.kind === 'text' ? (
+        <span key={i} className="vmx-wrap-src-text">{p.text}</span>
+      ) : (
+        <span key={i} className="vmx-wrap-clip">
+          <span className="vmx-wrap-clip-name">{p.session} นาที</span>
+          {p.moments.map((m) => (
+            <a
+              key={m.seconds}
+              className="vmx-wrap-min"
+              href={momentHref(m)}
+              target="_blank"
+              rel="noopener"
+              aria-label={`เปิด${m.label.startsWith('คลิป') ? '' : 'คลิป'}${m.label}`}
+              title="เปิดคลิปที่นาทีนี้ในแท็บใหม่"
+            >
+              <span className="vmx-wrap-min-face"><NavIcon name="play" size={12} />{m.stamp}</span>
+            </a>
+          ))}
+        </span>
+      )))}
+    </small>
+  );
+}
+
+function Bullets({ label, items, kind, course }) {
   if (!items?.length) return null;
   return (
     <div className={`vmx-wrap-list is-${kind}`}>
@@ -62,7 +97,7 @@ function Bullets({ label, items, kind }) {
         {items.map((b, i) => (
           <li key={i}>
             <span>{b.text}</span>
-            {b.src && <small className="vmx-wrap-src">{humanSource(b.src)}</small>}
+            {b.src && <Cite src={b.src} course={course} />}
           </li>
         ))}
       </ul>
@@ -258,9 +293,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
 
                   {mode === 'full' && (
                     <div className="vmx-wrap-cols">
-                      <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" />
+                      <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" course={subjectName} />
                       {it.examined?.length ? (
-                        <Bullets label="มีในข้อสอบเก่า" items={it.examined} kind="examined" />
+                        <Bullets label="มีในข้อสอบเก่า" items={it.examined} kind="examined" course={subjectName} />
                       ) : (
                         // Say it plainly. An empty column could mean either
                         // "nothing was found" or "nobody looked", and those
