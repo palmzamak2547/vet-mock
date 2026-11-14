@@ -15,8 +15,9 @@ import { QB, loadQB } from '../../src/data/questions.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 
 test('an article with no questions of its own offers the whole subject, with no dialog step', () => {
-  assert.equal(Q_COUNTS_BY_TOPIC['equine-medicine']?.['equine-hoof'] || 0, 0, 'fixture: equine-hoof has no questions');
-  assert.deepEqual(wikiPracticeTarget('equine-medicine', 'equine-hoof'), { label: 'ฝึกทั้งวิชา', topic: null });
+  // equine-acupuncture since equine-hoof gained questions (15 Nov 2026).
+  assert.equal(Q_COUNTS_BY_TOPIC['equine-medicine']?.['equine-acupuncture'] || 0, 0, 'fixture: equine-acupuncture has no questions');
+  assert.deepEqual(wikiPracticeTarget('equine-medicine', 'equine-acupuncture'), { label: 'ฝึกทั้งวิชา', topic: null });
 });
 
 test('an article with questions keeps its topic practice', () => {

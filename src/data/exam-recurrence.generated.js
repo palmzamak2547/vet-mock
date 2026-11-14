@@ -1674,7 +1674,7 @@ export const EXAM_RECURRENCE = {
   },
   "equine-medicine": {
     "cohorts": [81, 83, 84, 85],
-    "items": 253,
+    "items": 199,
     "topics": {
       "equine-anesthesia": {
         "cohorts": [83, 85],
@@ -1771,14 +1771,6 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["equine-medicine:209600", "equine-medicine:209601", "equine-medicine:209602", "equine-medicine:209603", "equine-medicine:209604", "equine-medicine:209605", "equine-medicine:209606", "equine-medicine:209607", "equine-medicine:209608", "equine-medicine:209609", "equine-medicine:209610", "equine-medicine:209611", "equine-medicine:209612", "equine-medicine:209613", "equine-medicine:209614", "equine-medicine:209615", "equine-medicine:209633", "equine-medicine:209634"],
       },
-      "equine-neonatal": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 54,
-        "sat": {},
-        "unattributed": ["equine-medicine:209513", "equine-medicine:209514", "equine-medicine:209515", "equine-medicine:209516", "equine-medicine:209517", "equine-medicine:209518", "equine-medicine:209519", "equine-medicine:209520", "equine-medicine:209521", "equine-medicine:209522", "equine-medicine:209523", "equine-medicine:209524", "equine-medicine:209525", "equine-medicine:209526", "equine-medicine:209527", "equine-medicine:209528", "equine-medicine:209529", "equine-medicine:209530", "equine-medicine:209531", "equine-medicine:209532", "equine-medicine:209533", "equine-medicine:209534", "equine-medicine:209535", "equine-medicine:209536", "equine-medicine:209537", "equine-medicine:209538", "equine-medicine:209539", "equine-medicine:209540", "equine-medicine:209541", "equine-medicine:209542", "equine-medicine:209543", "equine-medicine:209544", "equine-medicine:209545", "equine-medicine:209546", "equine-medicine:209547", "equine-medicine:209548", "equine-medicine:209549", "equine-medicine:209550", "equine-medicine:209551", "equine-medicine:209552", "equine-medicine:209553", "equine-medicine:209554", "equine-medicine:209555", "equine-medicine:209556", "equine-medicine:209557", "equine-medicine:209558", "equine-medicine:209559", "equine-medicine:209560", "equine-medicine:209561", "equine-medicine:209562", "equine-medicine:209563", "equine-medicine:209564", "equine-medicine:209565", "equine-medicine:209566"],
-      },
       "equine-nutrition": {
         "cohorts": [85],
         "first": 85,
@@ -1844,7 +1836,7 @@ export const EXAM_RECURRENCE = {
   },
   "equine-repro": {
     "cohorts": [84, 85],
-    "items": 133,
+    "items": 187,
     "topics": {
       "eqrepro-ai": {
         "cohorts": [],
@@ -1953,7 +1945,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [84, 85],
         "first": 84,
         "last": 85,
-        "items": 18,
+        "items": 72,
         "sat": {
           "84": {
             "final": ["equine-repro:105432", "equine-repro:105433", "equine-repro:105434", "equine-repro:105435", "equine-repro:105437", "equine-repro:105438", "equine-repro:105439", "equine-repro:105440", "equine-repro:105441", "equine-repro:105442", "equine-repro:105443", "equine-repro:105444", "equine-repro:105445"],
@@ -1962,7 +1954,7 @@ export const EXAM_RECURRENCE = {
             "midterm": ["equine-repro:105513", "equine-repro:105518", "equine-repro:105519", "equine-repro:105522", "equine-repro:105547"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["equine-repro:209513", "equine-repro:209514", "equine-repro:209515", "equine-repro:209516", "equine-repro:209517", "equine-repro:209518", "equine-repro:209519", "equine-repro:209520", "equine-repro:209521", "equine-repro:209522", "equine-repro:209523", "equine-repro:209524", "equine-repro:209525", "equine-repro:209526", "equine-repro:209527", "equine-repro:209528", "equine-repro:209529", "equine-repro:209530", "equine-repro:209531", "equine-repro:209532", "equine-repro:209533", "equine-repro:209534", "equine-repro:209535", "equine-repro:209536", "equine-repro:209537", "equine-repro:209538", "equine-repro:209539", "equine-repro:209540", "equine-repro:209541", "equine-repro:209542", "equine-repro:209543", "equine-repro:209544", "equine-repro:209545", "equine-repro:209546", "equine-repro:209547", "equine-repro:209548", "equine-repro:209549", "equine-repro:209550", "equine-repro:209551", "equine-repro:209552", "equine-repro:209553", "equine-repro:209554", "equine-repro:209555", "equine-repro:209556", "equine-repro:209557", "equine-repro:209558", "equine-repro:209559", "equine-repro:209560", "equine-repro:209561", "equine-repro:209562", "equine-repro:209563", "equine-repro:209564", "equine-repro:209565", "equine-repro:209566"],
       },
       "eqrepro-stallion-infect": {
         "cohorts": [85],

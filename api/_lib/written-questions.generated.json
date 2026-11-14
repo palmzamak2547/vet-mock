@@ -1895,7 +1895,7 @@
  "212074": {
   "type": "short",
   "q": "ปัจจัยที่ใช้กำหนด Quality grade ในหมู 2 ข้อ",
-  "model_answer": "quality grade ของสุกรตามมาตรฐานที่ปรับปรุงของ USDA ใช้ 2 ปัจจัย คือ 1. สีของเนื้อแดงที่เห็น (color of exposed lean) แบ่ง 6 ระดับ และ 2. ปริมาณไขมันแทรก (marbling) แบ่ง 10 ระดับ ดูที่หน้าตัด longissimus dorsi ที่ซี่โครงที่ 10 แล้วจัดเป็น Prime, Choice หรือ Select ส่วนเกรด U.S. No. 1-4 ของซากที่คุณภาพยอมรับได้ คิดจากผลผลิตที่คาดของ 4 lean cuts ซึ่งประเมินจากความหนาไขมันสันหลังเหนือซี่โครงซี่สุดท้าย (backfat thickness over the last rib) และระดับกล้ามเนื้อ (degree of muscling) ปัจจัยชุดหลังนี้บอกปริมาณเนื้อ ไม่ใช่ลักษณะคุณภาพ",
+  "model_answer": "ซากสุกรตามมาตรฐาน USDA แบ่งระดับคุณภาพเป็น acceptable กับ unacceptable ก่อน ซากที่ unacceptable จัดเป็น Utility ส่วนซากที่ acceptable จัดเกรด U.S. No. 1 ถึง 4 จาก 2 ปัจจัย คือ 1. ความหนาไขมันสันหลังเหนือซี่โครงซี่สุดท้าย (backfat thickness over the last rib) และ 2. ระดับกล้ามเนื้อ (degree of muscling) ซึ่งใช้คาดผลผลิตของ 4 lean cuts",
   "rubric": ""
  },
  "212075": {

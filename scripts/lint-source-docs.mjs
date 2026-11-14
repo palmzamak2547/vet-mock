@@ -71,6 +71,9 @@ export function citationChunks(q) {
     .flatMap((v) => v.split(/[;|+]/));
 }
 
+/** A document is cited by its own subject and by any listed in `alsoSubjects`. */
+export const servesSubject = (d, subject) => d.subject === subject || (d.alsoSubjects ?? []).includes(subject);
+
 /**
  * Every problem with the registry and with the questions' structured cites,
  * and the count of page citations still held only as text.
@@ -87,6 +90,7 @@ export function checkSourceDocs({ questions, docs, subjects }) {
     else if (bySlug.has(d.slug)) errors.push(`${at}: slug is listed twice`);
     else bySlug.set(d.slug, d);
     if (!subjects.has(d?.subject)) errors.push(`${at}: unknown subject ${JSON.stringify(d?.subject)}`);
+    for (const x of d?.alsoSubjects ?? []) if (!subjects.has(x)) errors.push(`${at}: unknown alsoSubjects entry ${JSON.stringify(x)}`);
     if (typeof d?.title !== 'string' || !d.title.trim()) errors.push(`${at}: no title`);
     if (!(d?.match instanceof RegExp)) errors.push(`${at}: match must be a RegExp`);
     else if (d.match.global || d.match.sticky) errors.push(`${at}: match must not be global or sticky (test() would keep state)`);
@@ -123,7 +127,7 @@ export function checkSourceDocs({ questions, docs, subjects }) {
           if (!Number.isInteger(c.page) || c.page < 1 || c.page > e.pages) {
             errors.push(`${where}: page ${c.page} is past the end of ${d.slug} ${e.id} (${e.pages} pages)`);
           }
-          if (q.subject !== d.subject) errors.push(`${where}: ${d.slug} belongs to ${d.subject}`);
+          if (!servesSubject(d, q.subject)) errors.push(`${where}: ${d.slug} belongs to ${d.subject}`);
           if (!d.match.test(raw)) errors.push(`${where}: the raw citation does not name ${d.title}`);
           else if (!pageNumbers(raw).includes(c.page)) errors.push(`${where}: the raw citation has no page ${c.page}`);
           const key = `${c.doc}|${c.edition}|${c.page}`;
@@ -135,7 +139,7 @@ export function checkSourceDocs({ questions, docs, subjects }) {
     for (const chunk of citationChunks(q)) {
       const pages = pageNumbers(chunk);
       if (!pages.length) continue;
-      const own = docs.filter((d) => d.match instanceof RegExp && d.subject === q.subject && d.match.test(chunk));
+      const own = docs.filter((d) => d.match instanceof RegExp && servesSubject(d, q.subject) && d.match.test(chunk));
       // A document that exists in more than one edition must be cited with one.
       for (const d of own) {
         if (d.editions.length > 1 && !cited.has(d.slug)) {

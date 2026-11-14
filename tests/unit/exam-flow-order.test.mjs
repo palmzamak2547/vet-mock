@@ -306,9 +306,10 @@ const minutesIn = (label) => [...label.matchAll(/\d+/g)].map((x) => Number(x[0])
 const clockFor = (qs, base) => qs.reduce((total, q) => total + timeForQuestion(q, base), 0);
 
 test('an MCQ-only subject shows exactly its minutes', () => {
-  const pool = poolOf('equine-repro');
+  // vet-histo since the Equine Med neonatal rows moved into equine-repro (15 Nov 2026) and brought other allowances with them.
+  const pool = poolOf('vet-histo');
   assert.ok(pool.length >= 50 && pool.every((q) => timeForQuestion(q, 60) === 60),
-    'equine-repro is no longer an all-base-allowance pool; pick another for this case');
+    'vet-histo is no longer an all-base-allowance pool; pick another for this case');
   assert.equal(configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: pool }), '50 นาที');
 });
 
