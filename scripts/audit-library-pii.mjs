@@ -8,6 +8,9 @@
 //      library_doc_links all skip text_status 'pii_held'
 //      (supabase/migrations/20261107140012_library_pii_held_not_served.sql),
 //      and library_search still asks chula_access() itself (20261107141605);
+//      and a held document is not listed or opened: every permissive select
+//      policy on library_docs and library_doc_for_signing skip it, except for
+//      the admin (20261114120000_library_held_not_listed_or_opened.sql);
 //   1. public library_docs rows whose title or original file name reads as a
 //      score or grade announcement (scripts/lib/library-pii.mjs, the rule
 //      mcv-manifest.mjs and the ingest scripts enforce);
@@ -51,10 +54,16 @@ export function servingRuleSql() {
   const policy = (table) => `(select string_agg(qual, ' ') from pg_policies
       where schemaname = 'public' and tablename = '${table}' and policyname = '${table} follow their document')`;
   const search = `pg_get_functiondef('public.library_search(text,int)'::regprocedure)`;
+  const signing = `pg_get_functiondef('public.library_doc_for_signing(text)'::regprocedure)`;
+  // Every permissive policy that grants reads on the catalogue (SELECT or ALL), so a new one without the rule fails too.
+  const catalogue = `(select count(*) > 0 and bool_and(${has('qual')}) from pg_policies
+      where schemaname = 'public' and tablename = 'library_docs' and cmd in ('SELECT', 'ALL') and permissive = 'PERMISSIVE')`;
   return `select
     ${has(search)} as search,
     ${has(policy('library_doc_pages'))} as pages,
     ${has(policy('library_doc_links'))} as links,
+    coalesce(${catalogue}, false) as catalogue,
+    ${has(signing)} as signing,
     coalesce(${search} ~* 'if not public\\.chula_access\\(\\) then', false) as wall`;
 }
 
@@ -94,7 +103,7 @@ async function main() {
   const heldPublic = docs.filter((r) => r.status === 'public' && r.text_status === 'pii_held');
 
   const missing = Object.entries(rule).filter(([, ok]) => !ok).map(([k]) => k);
-  console.log(`0. Held text is never served, and library_search asks the Chula wall: ${missing.length ? `MISSING in ${missing.join(', ')}` : 'library_search, the page policy and the link policy all skip pii_held; library_search calls chula_access()'}`);
+  console.log(`0. A held document is never served, and library_search asks the Chula wall: ${missing.length ? `MISSING in ${missing.join(', ')}` : 'library_search, the page and link policies, the catalogue policies and library_doc_for_signing all skip pii_held; library_search calls chula_access()'}`);
   console.log(`\nlibrary_docs: ${docs.length} rows, ${docs.filter((r) => r.status === 'public').length} public`);
 
   console.log(`\n1. Public rows titled as a score or grade announcement: ${titled.length}`);
@@ -107,7 +116,7 @@ async function main() {
   for (const r of rosters) console.log(line(r, `[${r.text_status}] ${r.ids} IDs, ${r.pages} page(s) of ${ROSTER_IDS}+, at most ${r.most} on one page`));
 
   const archivedStored = heldStored.filter((r) => r.status !== 'public');
-  console.log(`\nFor information: ${heldPublic.length} public row(s) are held (pii_held): their text is not served, their files still open for members.`);
+  console.log(`\nFor information: ${heldPublic.length} public row(s) are held (pii_held): a member is served neither their row, their file nor their text.`);
   console.log(`${heldStored.length} held row(s) still have text stored, not served; ${archivedStored.length} of them archived, which a person decides on:`);
   for (const r of archivedStored) console.log(line(r, `[${r.status}] ${r.pages} page(s) of text stored`));
 

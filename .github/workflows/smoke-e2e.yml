@@ -202,6 +202,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-chula-wall-db.mjs --backend=postgres
+      - name: Verify a document held for personal data reaches no member (catalogue, file, text, search, links, bucket)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-library-held-db.mjs --backend=postgres
 
   e2e:
     name: e2e (${{ matrix.label }})
