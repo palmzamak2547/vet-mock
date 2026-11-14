@@ -122,6 +122,8 @@ test('chapter titles lose what a slide\'s text layer adds: bullets, URLs, a spli
   assert.equal(tidyHeading('การน ำไปใช้เป็นอาหารเลี้ยงสัตว์', count), 'การนำไปใช้เป็นอาหารเลี้ยงสัตว์');
   assert.equal(tidyHeading('O antigen and H antigen', count), 'O antigen and H antigen', 'a capital O is no bullet');
   assert.deepEqual(chapterTitles(['หน้า 1', 'วิชา Avian Medicine (3107510)', 'Page 12', 'Treatment'], count), ['', '', '', 'Treatment']);
+  assert.equal(tidyHeading('หลังจำกทำลำยสัตว์ตัวสุดท้ำย', count), null, 'a font that maps sara aa to sara am');
+  assert.equal(tidyHeading('การทำความสะอาด', count), 'การทำความสะอาด', 'sara am beside sara aa is Thai as written');
 });
 
 test('a topic\'s clip list has one row per clip, as its count says', () => {

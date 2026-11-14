@@ -115,6 +115,9 @@ export function tidyHeading(title, count = lectureWords) {
     .replace(/\s*https?:\/\/\S+/g, '')
     .replace(/\s+ำ/g, 'ำ');
   title = cleaned;
+  // Some decks' fonts map every sara aa to sara am ("หลังจำกทำลำยสัตว์", "อำกำร"): two or more
+  // sara am and not one sara aa is that corruption, never Thai as written, so it is no title.
+  if ((title.match(/ำ/g) || []).length >= 2 && !/า/.test(title)) return null;
   const spaced = SPACED.test(String(title));
   let unread = false;
   let t = tidyText(title).replace(new RegExp(SPACED.source, 'g'), (run) => readSpaced(run, count) ?? ((unread = true), run))
