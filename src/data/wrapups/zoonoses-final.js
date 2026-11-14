@@ -8,11 +8,11 @@ export const WRAPUP = {
     "date": "2026-11-26",
     "time": "13:00-16:00"
   },
-  "intro": "ปลายภาค Zoonoses วันที่ 26 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค รศ.ศุภชัย สอน mycozoonoses (2 ต.ค.) ผศ.ธราดล สอน bacterial zoonoses (30 ต.ค. และ 6 พ.ย.) กับ prion zoonoses (13 พ.ย.) รศ.สหฤทัย สอน epidemiological approach to zoonoses (13 พ.ย.) และคาบ emerging threat (20 พ.ย.) สอนโดยวิทยากรหลายท่าน หน้านี้มีส่วน prion แต่ยังไม่มีส่วน bacterial zoonoses ซึ่งฝึกได้จากข้อสอบเก่าของหัวข้อนั้น ส่วนของคาบ 13 และ 20 พ.ย. เขียนก่อนคลิปของปีนี้เข้า",
+  "intro": "ปลายภาค Zoonoses วันที่ 26 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค ศ.ศุภชัย สอน mycozoonoses (2 ต.ค.) ผศ.ธราดล สอน bacterial zoonoses (30 ต.ค. และ 6 พ.ย.) กับ prion zoonoses (13 พ.ย.) รศ.สหฤทัย สอน epidemiological approach to zoonoses (13 พ.ย.) และคาบ emerging threat (20 พ.ย.) สอนโดยวิทยากรหลายท่าน หน้านี้มีส่วน prion แต่ยังไม่มีส่วน bacterial zoonoses ซึ่งฝึกได้จากข้อสอบเก่าของหัวข้อนั้น ส่วนของคาบ 13 และ 20 พ.ย. เขียนก่อนคลิปของปีนี้เข้า",
   "groups": [
     {
       "id": "suphachai",
-      "lecturer": "รศ.น.สพ.ดร.ศุภชัย เนื้อนวลสุวรรณ",
+      "lecturer": "ศ.น.สพ.ดร.ศุภชัย เนื้อนวลสุวรรณ",
       "format": "mcq",
       "formatNote": "ท้ายคาบ 2 ต.ค. แจ้งว่าข้อสอบส่วนนี้เป็นแบบเลือกตอบ น่าจะเป็น multiple choice [Q90_Y5fAX4I 79:00] และต้นคาบบอกว่าเพื่อสอบให้ผ่านดู PowerPoint ก็พอ ส่วน Reading Material ใน MyCourseVille สำหรับผู้ที่อยากรู้ลึกกว่านั้น [Q90_Y5fAX4I 23:42]",
       "items": [

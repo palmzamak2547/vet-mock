@@ -8,11 +8,11 @@ export const WRAPUP = {
     "date": "2026-11-24",
     "time": "13:00-16:00"
   },
-  "intro": "ปลายภาค Equine Medicine & Surgery วันที่ 24 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค แยกตามอาจารย์สามท่าน ผศ.นลินี สอน ophthalmology (1 ต.ค.) อ.ศวิตา สอน dermatology และ wound management (8 ต.ค.) กับ concept of surgery และ anesthesia (22 ต.ค.) อ.ธีรพล สอน infectious disease และ biosecurity (15 ต.ค.) lameness (5 และ 12 พ.ย.) POA case discussion (16 พ.ย.) และ exercise related disease (19 พ.ย.) ส่วน POA ของปลายภาคดึงได้ทุกหัวข้อรวมหัวข้อกลางภาค ส่วน lameness และ foot เขียนจากเดคปีนี้กับคลิปปีก่อน และจะเติมเมื่อคลิปปีนี้เข้า",
+  "intro": "ปลายภาค Equine Medicine & Surgery วันที่ 24 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค แยกตามอาจารย์สามท่าน รศ.นลินี สอน ophthalmology (1 ต.ค.) อ.ศวิตา สอน dermatology และ wound management (8 ต.ค.) กับ concept of surgery และ anesthesia (22 ต.ค.) อ.ธีรพล สอน infectious disease และ biosecurity (15 ต.ค.) lameness (5 และ 12 พ.ย.) POA case discussion (16 พ.ย.) และ exercise related disease (19 พ.ย.) ส่วน POA ของปลายภาคดึงได้ทุกหัวข้อรวมหัวข้อกลางภาค ส่วน lameness และ foot เขียนจากเดคปีนี้กับคลิปปีก่อน และจะเติมเมื่อคลิปปีนี้เข้า",
   "groups": [
     {
       "id": "nalinee",
-      "lecturer": "ผศ.สพ.ญ.ดร.นลินี ตันติวนิช",
+      "lecturer": "รศ.สพ.ญ.ดร.นลินี ตันติวนิช",
       "format": "all",
       "formatNote": "ยังไม่มีประกาศรูปแบบข้อสอบปลายภาคของส่วนนี้ คำถามอาจต่อยอดจากพื้นฐานตาที่เรียนในสุนัขและแมว จึงควรทบทวนพื้นฐานเดิมก่อน [Ztccmz_HjfY 104:06] ข้อสอบเก่าของส่วนนี้ที่บันทึกไว้ 17 ข้อเป็นแบบเลือกตอบ",
       "items": [

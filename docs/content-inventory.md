@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,841** |
+| **Questions ready for learners** | **8,884** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 211 |
-| Total questions in source banks | 9,052 |
+| Total questions in source banks | 9,095 |
 | Question banks (files) | 107 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 6,262 |
+| — year 5 | 6,305 |
 
-Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**, registry sums to **9052**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**, registry sums to **9095**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -56,7 +56,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 
 | Subject | Questions | Reach an article | Via a judged link | Coverage |
 |---|---|---|---|---|
-| aquatic-clinic | 518 | 425 | 12 | 82.0% |
+| aquatic-clinic | 532 | 433 | 12 | 81.4% |
 | avian-medicine | 581 | 431 | 0 | 74.2% |
 | biochem-1 | 271 | 0 | 0 | 0.0% |
 | cliapprum | 136 | 95 | 51 | 69.9% |
@@ -69,8 +69,8 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 372 | 355 | 0 | 95.4% |
-| equine-medicine | 594 | 541 | 0 | 91.1% |
-| equine-repro | 188 | 153 | 7 | 81.4% |
+| equine-medicine | 559 | 506 | 0 | 90.5% |
+| equine-repro | 242 | 207 | 7 | 85.5% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 300 | 61 | 0 | 20.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
@@ -88,7 +88,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | surg1 | 29 | 3 | 3 | 10.3% |
 | surg2 | 18 | 1 | 1 | 5.6% |
 | surg3 | 40 | 0 | 0 | 0.0% |
-| swine-clinic | 258 | 155 | 0 | 60.1% |
+| swine-clinic | 268 | 155 | 0 | 57.8% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
 | vca | 1342 | 88 | 88 | 6.6% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8841 | 5456 | 332 | 61.7% |
+| **All** | 8884 | 5483 | 332 | 61.7% |
