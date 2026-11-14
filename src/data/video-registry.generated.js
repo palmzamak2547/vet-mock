@@ -45,6 +45,51 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "HjybdZFuD8E": {
+  "title": "Antemortem & Postmortem inspection",
+  "session": "7",
+  "date": "2026-11-11",
+  "durationSec": 8495,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-ante-post-mortem",
+    180,
+    1200,
+    "high"
+   ],
+   [
+    "meat-ante-post-mortem",
+    2400,
+    7440,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "4ISFo-PV2lc": {
+  "title": "หน่วยงาน และองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ มกอช",
+  "session": "6",
+  "date": "2026-11-10",
+  "durationSec": 9177,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "TYLIbgerEsw": {
   "title": "Japanese encephalitis",
   "session": "6",
@@ -161,6 +206,73 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "D9sbVGJAEWA": {
+  "title": "Slaughterhouse",
+  "session": "6",
+  "date": "2026-11-04",
+  "durationSec": 9798,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "oLzElKUr0dU": {
+  "title": "Ornithobacteriosis + Campylobacteriosis + Listeriosis + Histomoniasis",
+  "session": "5",
+  "date": "2026-11-03",
+  "durationSec": 6772,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "zYRQuoLlrWg": {
+  "title": "Aquatic toxicology",
+  "session": "5",
+  "date": "2026-11-03",
+  "durationSec": 7540,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-toxicology",
+    0,
+    60,
+    "ambiguous"
+   ],
+   [
+    "aqua-toxicology",
+    480,
+    720,
+    "high"
+   ],
+   [
+    "aqua-toxicology",
+    3180,
+    4200,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "oQpo0GnOTj0": {
   "title": "Trichinosis + FMD + PCV2",
   "session": "5",
@@ -172,6 +284,87 @@ export const VIDEO_REGISTRY = {
   "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
   "playlist": "PLXVS-5YCQzqk",
   "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "pWwhXN2E4yY": {
+  "title": "Mycotoxicosis(ต่อ)",
+  "session": "4.2",
+  "date": "2026-11-02",
+  "durationSec": 3462,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-mycosis",
+    1020,
+    3462,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "4la33MLOYhM": {
+  "title": "Equine reproductive surgery + 13,14 Equine pregnancy & Its complications",
+  "session": "12",
+  "date": "2026-10-29",
+  "durationSec": 9531,
+  "subject": "equine-repro",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLK_0ekR-txos",
+  "topics": [
+   [
+    "eqrepro-male",
+    1200,
+    1500,
+    "ambiguous"
+   ],
+   [
+    "eqrepro-pregnancy",
+    4920,
+    6360,
+    "ambiguous"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "TLdoEVtldtE": {
+  "title": "Aquatic animals products",
+  "session": "2",
+  "date": "2026-10-28",
+  "durationSec": 5988,
+  "subject": "food-industry",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLakGwr0kO4UE",
+  "topics": [
+   [
+    "fiqc-aquatic",
+    600,
+    3300,
+    "high"
+   ],
+   [
+    "fiqc-aquatic",
+    4920,
+    5640,
+    "ambiguous"
+   ]
+  ],
   "skips": [],
   "media": false,
   "captions": "youtube",
@@ -192,6 +385,35 @@ export const VIDEO_REGISTRY = {
     "oh-env-carcinogen",
     2340,
     3120,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "ckTr460hIn4": {
+  "title": "Pest control + Microbiology of the avian egg",
+  "session": "5",
+  "date": "2026-10-28",
+  "durationSec": 3520,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-pest-control",
+    0,
+    1260,
+    "high"
+   ],
+   [
+    "meat-egg-micro",
+    1260,
+    3420,
     "high"
    ]
   ],

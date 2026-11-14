@@ -14,6 +14,20 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "high"
   }
  ],
+ "meat-ante-post-mortem": [
+  {
+   "v": "HjybdZFuD8E",
+   "s": 2400,
+   "e": 7440,
+   "conf": "high"
+  },
+  {
+   "v": "HjybdZFuD8E",
+   "s": 180,
+   "e": 1200,
+   "conf": "high"
+  }
+ ],
  "zoo-bacterial": [
   {
    "v": "w1EAbprOd_M",
@@ -80,6 +94,54 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "medium"
   }
  ],
+ "aqua-toxicology": [
+  {
+   "v": "zYRQuoLlrWg",
+   "s": 480,
+   "e": 720,
+   "conf": "high"
+  },
+  {
+   "v": "zYRQuoLlrWg",
+   "s": 3180,
+   "e": 4200,
+   "conf": "medium"
+  }
+ ],
+ "avian-mycosis": [
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 0,
+   "e": 2940,
+   "conf": "high"
+  },
+  {
+   "v": "VGXvQVrud_A",
+   "s": 120,
+   "e": 3060,
+   "conf": "high"
+  },
+  {
+   "v": "1dAsMNt_5XA",
+   "s": 3000,
+   "e": 3653,
+   "conf": "high"
+  },
+  {
+   "v": "pWwhXN2E4yY",
+   "s": 1020,
+   "e": 3462,
+   "conf": "medium"
+  }
+ ],
+ "fiqc-aquatic": [
+  {
+   "v": "TLdoEVtldtE",
+   "s": 600,
+   "e": 3300,
+   "conf": "high"
+  }
+ ],
  "oh-env-carcinogen": [
   {
    "v": "pj_zkis2ziU",
@@ -91,6 +153,22 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "_gZS4uB8SJ4",
    "s": 2340,
    "e": 3120,
+   "conf": "high"
+  }
+ ],
+ "meat-pest-control": [
+  {
+   "v": "ckTr460hIn4",
+   "s": 0,
+   "e": 1260,
+   "conf": "high"
+  }
+ ],
+ "meat-egg-micro": [
+  {
+   "v": "ckTr460hIn4",
+   "s": 1260,
+   "e": 3420,
    "conf": "high"
   }
  ],
@@ -191,26 +269,6 @@ export const VIDEO_TOPIC_INDEX = {
    "v": "WX7vrDP9MjA",
    "s": 7620,
    "e": 8700,
-   "conf": "high"
-  }
- ],
- "avian-mycosis": [
-  {
-   "v": "1dAsMNt_5XA",
-   "s": 0,
-   "e": 2940,
-   "conf": "high"
-  },
-  {
-   "v": "VGXvQVrud_A",
-   "s": 120,
-   "e": 3060,
-   "conf": "high"
-  },
-  {
-   "v": "1dAsMNt_5XA",
-   "s": 3000,
-   "e": 3653,
    "conf": "high"
   }
  ],
