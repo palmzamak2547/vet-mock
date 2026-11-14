@@ -143,3 +143,13 @@ test('a checked fill-in item marks each blank, and an unordered blank is right a
   // The same key twice counts once.
   assert.deepEqual(fillBlankMarks(unordered, ['ตับ', 'ตับ', 'ไต']), [true, false, true]);
 });
+
+test('the marks follow the pairing the score uses when one answer fits two keys', async () => {
+  const { fillBlankMarks, isCorrect } = await import('../../src/hooks/utils.js');
+  // "ตับอ่อน" fits both keys (it contains "ตับ"). Taking the first key that
+  // fits left "ตับ" with no key and a cross, under "คุณตอบถูก".
+  const q = { id: 2, subject: 't', type: 'fill', q: 'A ____ B ____', blanks: ['ตับ', 'ตับอ่อน'], unordered: true };
+  const typed = ['ตับอ่อน', 'ตับ'];
+  assert.equal(isCorrect(q, typed), true);
+  assert.deepEqual(fillBlankMarks(q, typed), [true, true]);
+});

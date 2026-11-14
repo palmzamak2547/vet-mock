@@ -208,38 +208,39 @@ function unorderedGroups(q) {
   return groups;
 }
 
-// Each typed answer in a group must match a different key of that group.
-function groupCorrect(q, idx, ua) {
-  const keys = idx.map((i) => ({ i, key: q.blanks[i] }));
-  const taken = new Array(keys.length).fill(false);
-  const place = (a) => {
-    if (a === idx.length) return true;
-    const answer = ua[idx[a]];
-    for (let k = 0; k < keys.length; k++) {
-      if (taken[k] || !blankCorrect(q, keys[k].i, answer, keys[k].key)) continue;
-      taken[k] = true;
-      if (place(a + 1)) return true;
-      taken[k] = false;
+// The best pairing of a group's typed answers with its keys, each key used
+// once (augmenting paths, so it is a maximum pairing). Returns the positions
+// whose answer is paired with a key. Scoring and the marks both read it, so
+// the marks can never disagree with the score.
+function groupPairing(q, idx, ua) {
+  const owner = new Array(idx.length).fill(-1); // key slot -> answer slot
+  const tryPlace = (a, seen) => {
+    for (let k = 0; k < idx.length; k++) {
+      if (seen[k] || !blankCorrect(q, idx[k], ua[idx[a]], q.blanks[idx[k]])) continue;
+      seen[k] = true;
+      if (owner[k] === -1 || tryPlace(owner[k], seen)) { owner[k] = a; return true; }
     }
     return false;
   };
-  return place(0);
+  for (let a = 0; a < idx.length; a++) tryPlace(a, new Array(idx.length).fill(false));
+  return new Set(owner.filter((a) => a !== -1).map((a) => idx[a]));
+}
+
+// Each typed answer in a group must match a different key of that group.
+function groupCorrect(q, idx, ua) {
+  return groupPairing(q, idx, ua).size === idx.length;
 }
 
 // Which typed blanks are right, for the marks beside each blank in practice.
 // Display only: isCorrect below is the score. In an unordered group a blank is
-// right when its text is any key of the group not taken by an earlier blank.
+// right when the best pairing (the one scoring uses) gives it a key.
 export function fillBlankMarks(q, ua) {
   if (!Array.isArray(q?.blanks)) return [];
   const answers = Array.isArray(ua) ? ua : [];
   const marks = q.blanks.map((b, i) => blankCorrect(q, i, answers[i], b));
   for (const g of unorderedGroups(q)) {
-    const taken = new Set();
-    for (const i of g) {
-      const k = g.find((j) => !taken.has(j) && blankCorrect(q, j, answers[i], q.blanks[j]));
-      marks[i] = k !== undefined;
-      if (k !== undefined) taken.add(k);
-    }
+    const paired = groupPairing(q, g, answers);
+    for (const i of g) marks[i] = paired.has(i);
   }
   return marks;
 }
