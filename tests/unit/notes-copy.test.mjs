@@ -35,7 +35,7 @@ test('the notes screen prints a stored source in its readable form', () => {
   // The same rule as readableSource, written in place: importing
   // source-line.js would pull the stored origins into the notes chunk.
   assert.doesNotMatch(view, /แหล่งที่มา: \{section\.source\}/);
-  const written = /แหล่งที่มา: \{section\.source\.replace\(\/(.+?)\/g, ', '\)\}/.exec(view);
+  const written = /แหล่งที่มา: \{noteSourceLabel\(section\.source\.replace\(\/(.+?)\/g, ', '\), \w+\)\}/.exec(view);
   assert.ok(written, 'the source line replaces the stored dot');
   const stored = 'Neonatal Physiology p.7 · ductus arteriosus p.8';
   assert.equal(stored.replace(new RegExp(written[1], 'g'), ', '), 'Neonatal Physiology p.7, ductus arteriosus p.8');
