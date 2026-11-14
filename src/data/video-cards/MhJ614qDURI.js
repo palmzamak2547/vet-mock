@@ -567,7 +567,7 @@ export default {
    "t": 2041
   },
   {
-   "term": "code",
+   "term": "Code",
    "t": 453
   },
   {

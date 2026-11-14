@@ -1136,7 +1136,7 @@ export default {
    "t": 8916
   },
   {
-   "term": "Spring",
+   "term": "spring",
    "t": 9897
   },
   {

@@ -82,7 +82,7 @@ export default {
  "chapters": [
   {
    "t": 0,
-   "title": "หน้า 1",
+   "title": "",
    "line": "ม้าเป็น grazer อยู่เป็นฝูง มี hierarchy และเป็น prey animal ที่หนีหรือสู้",
    "slides": [
     {

@@ -194,7 +194,7 @@ export default {
   },
   {
    "t": 1980,
-   "title": "Milk secretion in the secretory cells http://www.delaval.com/Dairy_Knowledge/EfficientMilking/The_Mammary_Gland.htm",
+   "title": "Milk secretion in the secretory cells",
    "line": "สารอาหารจากเลือดผ่าน secretory cell สู่ lumen ด้วย diffusion และสร้างเป็นโปรตีน แลคโตส และไขมัน",
    "slides": [
     {
