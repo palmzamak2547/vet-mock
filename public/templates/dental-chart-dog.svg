@@ -2,7 +2,7 @@
   <rect width="800" height="1000" fill="#ffffff"/>
   <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
     <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">Dental chart — สุนัข (modified Triadan)</text>
-    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Upper 101–110 · 201–210  /  Lower 401–411 · 301–311 — mark M = missing, F = fractured, C = caries, ✓ = scaled</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Upper 101–110, 201–210  /  Lower 401–411, 301–311 — mark M = missing, F = fractured, C = caries, ✓ = scaled</text>
   </g>
 
   <!-- Quadrant dividers / midline / horizontal mid -->
@@ -13,10 +13,10 @@
 
   <!-- Quadrant labels -->
   <g fill="#555" font-family="JetBrains Mono, monospace" font-size="13">
-    <text x="120" y="155">Right upper · 101–110</text>
-    <text x="490" y="155">Left upper · 201–210</text>
-    <text x="120" y="895">Right lower · 401–411</text>
-    <text x="490" y="895">Left lower · 301–311</text>
+    <text x="120" y="155">Right upper, 101–110</text>
+    <text x="490" y="155">Left upper, 201–210</text>
+    <text x="120" y="895">Right lower, 401–411</text>
+    <text x="490" y="895">Left lower, 301–311</text>
   </g>
   <g fill="#888" font-family="JetBrains Mono, monospace" font-size="10">
     <text x="385" y="495" text-anchor="end">buccal ←</text>
@@ -138,7 +138,7 @@
   <text x="50" y="762" fill="#888" font-family="system-ui, sans-serif" font-size="12">Lower findings:</text>
 
   <g fill="#555" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="12">
-    <text x="50" y="940">Legend: M=missing · F=fractured · C=caries · R=retained · ✓=scaled · P=probe (mm)</text>
+    <text x="50" y="940">Legend: M=missing, F=fractured, C=caries, R=retained, ✓=scaled, P=probe (mm)</text>
     <text x="50" y="960" fill="#888">Adult dog: 3-1-4-2 / 3-1-4-3 = 42 teeth</text>
   </g>
 </svg>

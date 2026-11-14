@@ -3,7 +3,7 @@
   <!-- Header -->
   <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
     <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">ECG strip — กระดาษเปล่า</text>
-    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">25 mm/s · 10 mm/mV — 1 small box = 0.04 s × 0.1 mV · 1 large box = 0.2 s × 0.5 mV</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">25 mm/s, 10 mm/mV — 1 small box = 0.04 s × 0.1 mV, 1 large box = 0.2 s × 0.5 mV</text>
   </g>
 
   <!-- ECG grid: 6 large × 4 large rows, each large = 120 px = 5 small (24 px each).
@@ -101,5 +101,5 @@
     <text x="50" y="895">QRS duration</text>
   </g>
 
-  <text x="400" y="970" text-anchor="middle" fill="#888" font-family="system-ui, sans-serif" font-size="12">วาด tracing แล้วกรอกค่า · 6 sec rhythm strip ทำได้ใน 1.2 s × 5 grid</text>
+  <text x="400" y="970" text-anchor="middle" fill="#888" font-family="system-ui, sans-serif" font-size="12">วาด tracing แล้วกรอกค่า, 6 sec rhythm strip ทำได้ใน 1.2 s × 5 grid</text>
 </svg>
