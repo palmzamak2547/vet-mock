@@ -299,7 +299,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           <li><span className="vmx-wrap-signal is-emphasis"><NavIcon name="said" size={16} /></span><span><b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ แตะนาทีเพื่อเปิดคลิป</span></li>
           <li><span className="vmx-wrap-signal is-examined"><NavIcon name="sheet" size={16} /></span><span><b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม</span></li>
           <li><span className="vmx-wrap-signal is-pitfall"><NavIcon name="caution" size={16} /></span><span><b>ระวังสับสน</b> จุดที่มักสับสนกับโรคหรือหัวข้อใกล้กัน</span></li>
-          <li><span className="vmx-wrap-signal" /><span><b>เคยออก N รุ่น</b> จำนวนรุ่นพี่ที่เคยเจอข้อสอบเก่าของหัวข้อนี้</span></li>
+          <li><span className="vmx-wrap-signal" /><span><b>เคยออกกี่รุ่น</b> จำนวนรุ่นพี่ที่เจอข้อสอบเก่าของ{unit}นั้น</span></li>
         </ul>
       </header>
 
