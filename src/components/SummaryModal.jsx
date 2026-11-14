@@ -314,7 +314,7 @@ export default function SummaryModal({ summary, onClose, onReload }) {
         <p className="vmx-print-meta">
           <Inline text={[subjectThaiName(summary.subject), thaiDate(summary.date),
             summary.durationMin ? `${summary.durationMin} นาที` : null,
-            summary.instructor].filter(Boolean).join('  ·  ').replace(/·/g, '—')} />
+            summary.instructor].filter(Boolean).join(', ')} />
         </p>
       </header>
       {summary.examFormat && (
