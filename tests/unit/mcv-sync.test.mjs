@@ -499,7 +499,7 @@ test('library-pages.py check reads a PDF on disk and says ok, held, no text or u
     assert.equal(resaved.text_chars, deck.text_chars);
     assert.ok(deck.text_chars > 200);
     assert.equal(roster.status, 'pii_held');
-    assert.deepEqual(roster.notes, { id_matches: 8, roster_pages: [2] }, 'counts and page numbers only: no text from around an ID');
+    assert.deepEqual(roster.notes, { id_matches: 8, roster_pages: [2], held_findings: { 2: { roster: 8 } } }, 'counts and page numbers only: no text from around an ID');
     assert.equal(roster.text_md5, null, 'and no fingerprint of a text that is not kept');
     assert.equal(scan.status, 'no_text');
     assert.equal(notpdf.status, 'unreadable', 'a saved sign-in page is not a document, however much text it has');
