@@ -6001,7 +6001,7 @@ export const NOTES_Y2_HISTO = {
         "heading": "ปลาอยู่ตรงไหนในอนุกรมวิธาน และแบ่งเป็น 3 กลุ่ม",
         "source": "Fish p.2",
         "body": [
-          "Phylum: **Chordata** · Subphylum: **Vertebrata** ลักษณะทางสัณฐานคือมี Head, Trunk, Tail แบบ symmetry ไม่มี limb แต่มี fins แทน",
+          "Phylum: **Chordata**; Subphylum: **Vertebrata** ลักษณะทางสัณฐานคือมี Head, Trunk, Tail แบบ symmetry ไม่มี limb แต่มี fins แทน",
           {
             "sub": "Classification (3 กลุ่ม)",
             "body": [
@@ -6030,7 +6030,7 @@ export const NOTES_Y2_HISTO = {
                   "Mouth ใหญ่ อยู่ใต้หัว (underside of the head)",
                   "เกล็ดเป็น dermal **placoid scales**",
                   "มี **cloaca** (urinary & genital) และ **ไม่มี swim bladder**",
-                  "ไข่จำนวนน้อย ฟองใหญ่ yolk มาก · Ovoviviparous (develop internally) หรือ Oviparous (develop externally in egg)"
+                  "ไข่จำนวนน้อย ฟองใหญ่ yolk มาก, Ovoviviparous (develop internally) หรือ Oviparous (develop externally in egg)"
                 ]
               }
             ]
@@ -6077,13 +6077,13 @@ export const NOTES_Y2_HISTO = {
             "body": [
               {
                 "bullets": [
-                  "**Fusiform** รูปร่างปกติคล้ายลูกศร ว่ายเร็วมาก เช่น tuna, salmon, seabass · เด็คจัดเป็นพวก fast @ long distance",
+                  "**Fusiform** รูปร่างปกติคล้ายลูกศร ว่ายเร็วมาก เช่น tuna, salmon, seabass; เด็คจัดเป็นพวก fast @ long distance",
                   "**Anguiculiform/snake shape** ลำตัวยาว เช่น eel",
                   "**Taeniform** รูปริบบิ้น ว่ายช้า เช่น scabbard fish (ปลาดาบเงิน)",
-                  "**Compressiform** แบนด้านข้าง เช่น pompadour, butterfly fish · fast @ short distance",
-                  "**Depressiform/flattened** แบนบนลงล่าง เช่น stingray · เคลื่อนที่แบบ flying like bird",
+                  "**Compressiform** แบนด้านข้าง เช่น pompadour, butterfly fish; fast @ short distance",
+                  "**Depressiform/flattened** แบนบนลงล่าง เช่น stingray, เคลื่อนที่แบบ flying like bird",
                   "**Globiform** เช่น globefish",
-                  "**Filiform** คล้ายเส้นด้าย · ตารางหน้า 7 ยก eel เป็นตัวอย่าง เคลื่อนที่แบบ move like snake"
+                  "**Filiform** คล้ายเส้นด้าย, ตารางหน้า 7 ยก eel เป็นตัวอย่าง เคลื่อนที่แบบ move like snake"
                 ]
               }
             ]
@@ -6202,8 +6202,8 @@ export const NOTES_Y2_HISTO = {
             "body": [
               {
                 "bullets": [
-                  "**Pectoral fins** อยู่หลัง operculum · **homologous กับ forelimbs**",
-                  "**Pelvic/ventral fins** อยู่ด้านล่างและถัดจาก pectoral fins · **homologous กับ hindlimbs** · ใช้ขึ้นลง เลี้ยวหักศอก และหยุดเร็ว"
+                  "**Pectoral fins** อยู่หลัง operculum, **homologous กับ forelimbs**",
+                  "**Pelvic/ventral fins** อยู่ด้านล่างและถัดจาก pectoral fins, **homologous กับ hindlimbs**, ใช้ขึ้นลง เลี้ยวหักศอก และหยุดเร็ว"
                 ]
               }
             ]
@@ -6230,7 +6230,7 @@ export const NOTES_Y2_HISTO = {
           "Caudal fin เกาะที่ปลาย **caudal peduncle** ซึ่งเป็นส่วนคอดของลำตัวที่หางติดอยู่ แบ่งตามการทอดของ vertebrae ได้ 4 แบบ",
           {
             "bullets": [
-              "**Heterocercal**: vertebrae ทอดเข้าไปใน upper lobe ทำให้พูบนยาวกว่า พบใน shark · ส่วน **Hypocercal** พูล่างยาวกว่า พบใน Anaspida",
+              "**Heterocercal**: vertebrae ทอดเข้าไปใน upper lobe ทำให้พูบนยาวกว่า พบใน shark, ส่วน **Hypocercal** พูล่างยาวกว่า พบใน Anaspida",
               "**Protocercal**: vertebrae ทอดถึงปลาย สมมาตรแต่ไม่แผ่ขยาย พบใน amphioxus",
               "**Diphycercal**: vertebrae ทอดถึงปลาย สมมาตรและแผ่ขยาย พบใน lungfish, lamprey และ coelacanth",
               "**Homocercal**: พบในปลากระดูกแข็งส่วนใหญ่ ดูเผิน ๆ สมมาตร แต่จริง ๆ vertebrae ทอดเข้า upper lobe เพียงสั้นมาก"
@@ -6474,7 +6474,7 @@ export const NOTES_Y2_HISTO = {
             "body": [
               {
                 "bullets": [
-                  "**Agranulocyte** ได้แก่ lymphocyte, monocyte · **Granulocyte** ได้แก่ neutrophil, eosinophil, basophil",
+                  "**Agranulocyte** ได้แก่ lymphocyte, monocyte; **Granulocyte** ได้แก่ neutrophil, eosinophil, basophil",
                   "ที่พบบ่อยคือ **Lymphocytes และ Neutrophil**",
                   "**Lymphocytes**: ขนาด 1/3 ถึง 1/2 ของ erythrocyte (5-9 microns) nucleus อยู่กลาง กลม/รี ใหญ่ chromatin เข้ม ติดสีน้ำเงินเข้ม cytoplasm มี pale perinuclear zone สัดส่วน **70-90% (48 × 10³ /mm³)**",
                   "**Neutrophils**: ใหญ่กว่า erythrocyte nucleus กลม/รี อยู่เยื้องศูนย์ (ตัวอ่อนรูป kidney ตัวแก่แบ่ง 2-3 lobed) สัดส่วน **6-8% (3-6 × 10³ /mm³) เท่ากับใน mammals**",
@@ -6489,7 +6489,7 @@ export const NOTES_Y2_HISTO = {
               {
                 "bullets": [
                   "พบได้บ่อย รูป **spindle หรือ ellipsoidal** สั้นกว่า erythrocyte",
-                  "Nucleus chromatin เข้ม ติดสี dark violet · cytoplasm น้อยมาก ติดสีฟ้าอ่อน",
+                  "Nucleus chromatin เข้ม ติดสี dark violet, cytoplasm น้อยมาก ติดสีฟ้าอ่อน",
                   "จำนวน **60,000 ถึง 70,000 /mm³**"
                 ]
               }
@@ -6527,7 +6527,7 @@ export const NOTES_Y2_HISTO = {
                   "**Mucosa**: Epithelium, Lamina propria, Muscularis mucosae",
                   "**Submucosa**: areolar CNT, blood vessels และ nerves ทำให้ mucosa ขยับได้",
                   "**Muscularis**: smooth muscle **inner circular / outer longitudinal** ใช้ดันอาหารด้วย peristalsis และผสมอาหารกับเอนไซม์",
-                  "**Adventitia**: dense CNT + blood vessels, nerves, lymph · ถ้าถูกคลุมด้วย peritoneum จะเรียกว่า serosa"
+                  "**Adventitia**: dense CNT + blood vessels, nerves, lymph; ถ้าถูกคลุมด้วย peritoneum จะเรียกว่า serosa"
                 ]
               }
             ]
@@ -6582,7 +6582,7 @@ export const NOTES_Y2_HISTO = {
             "body": [
               {
                 "bullets": [
-                  "**T. Mucosa** พับเป็นคลื่น เยื่อบุด้านหน้าเป็น simple columnar มี microvilli ส่วนด้านหลังมี goblet cell จำนวนมาก · lamina propria เป็น loose connective tissue **ไม่มี muscularis mucosae**",
+                  "**T. Mucosa** พับเป็นคลื่น เยื่อบุด้านหน้าเป็น simple columnar มี microvilli ส่วนด้านหลังมี goblet cell จำนวนมาก, lamina propria เป็น loose connective tissue **ไม่มี muscularis mucosae**",
                   "**ไม่มี T. submucosa**",
                   "**T. Muscularis** inner circular และ outer longitudinal",
                   "**Serosa**"
@@ -6629,7 +6629,7 @@ export const NOTES_Y2_HISTO = {
                   "เป็น **อวัยวะที่ใหญ่ที่สุด** เป็นต่อมใหญ่ที่อยู่ถัดจากผิวหนัง เจริญเป็น outgrowth ของ foregut และทอดไปตามทางเดินอาหาร",
                   "หน้าที่: detoxification, protein และ enzyme synthesis",
                   "**Hepatocytes ไม่ได้เรียงเป็น cords ที่ชัดเจน** แต่เป็นร่างแหคล้ายฟองน้ำของเซลล์ polyhedral ขนาดใหญ่ร่วมกับ reticular fibers",
-                  "Nucleus ติดสีเข้ม cytoplasm เป็น granular · **Sinusoid** เป็นช่องหลอดเลือดที่ขยายไม่สม่ำเสมอและซึมผ่านได้"
+                  "Nucleus ติดสีเข้ม cytoplasm เป็น granular, **Sinusoid** เป็นช่องหลอดเลือดที่ขยายไม่สม่ำเสมอและซึมผ่านได้"
                 ]
               }
             ]
@@ -6735,7 +6735,7 @@ export const NOTES_Y2_HISTO = {
                   "**ไม่มี outer eyelid** แต่มี nictitating membrane ในฉลามบางชนิด และมีฟิล์มบางใสคลุมป้องกันตา",
                   "**Lens ค่อนข้างกลม (spherical) และไม่ยืดหยุ่น (inelastic)**",
                   "การโฟกัสต่างจากสัตว์บก: นกและสัตว์เลี้ยงลูกด้วยนมเปลี่ยนรูปร่างของ lens แต่ **ปลาเลื่อน lens เข้าออกจาก retina**",
-                  "Cornea มี refractive index ใกล้เคียงน้ำ · Retina เป็นเนื้อเยื่อไวแสง มีชั้นของ nervous tissue, rod และ cone cells, ชั้น black pigmented และแบ่งได้ **8 specific layers**",
+                  "Cornea มี refractive index ใกล้เคียงน้ำ; Retina เป็นเนื้อเยื่อไวแสง มีชั้นของ nervous tissue, rod และ cone cells, ชั้น black pigmented และแบ่งได้ **8 specific layers**",
                   "**Choroid gland** เป็นร่างแห capillary ใต้ sclera ทำหน้าที่เลี้ยง retina และหลั่ง oxygen ให้ retina มีระดับออกซิเจนสูง",
                   "โครงสร้างที่ต้องชี้ในภาพ: retina, optic nerve, lens, iris, cornea, corneal epithelium, choroid gland"
                 ]
@@ -6777,10 +6777,10 @@ export const NOTES_Y2_HISTO = {
                 "bullets": [
                   "เป็น accessory hematopoietic organ ปกติมีอันเดียว บางชนิดแยกเป็นสองอันหรือมากกว่า",
                   "อยู่ใน mesentery ใกล้ greater curvature ของ stomach หรือใกล้ flexure ของ intestine",
-                  "หน้าที่: **ตัวกรองหลักของระบบไหลเวียน**, ทำลายเซลล์ และเก็บสำรอง erythrocyte · เป็นอวัยวะที่มีลักษณะคล้าย lymph node",
+                  "หน้าที่: **ตัวกรองหลักของระบบไหลเวียน**, ทำลายเซลล์ และเก็บสำรอง erythrocyte; เป็นอวัยวะที่มีลักษณะคล้าย lymph node",
                   "ในปลาสุขภาพดีมีสี **แดงเข้มหรือดำ** การผ่าซากจึงจำเป็นเพื่อดู size, color และ texture",
                   "**Capsule** เป็น thin squamous epithelium + CNT คลุมด้วย serous membrane",
-                  "**Red pulp** เป็น sinusoid ที่มี erythrocyte, erythroblast และ macrophage · **White pulp** มี basophilic reticular cell, lymphocyte และ macrophage",
+                  "**Red pulp** เป็น sinusoid ที่มี erythrocyte, erythroblast และ macrophage; **White pulp** มี basophilic reticular cell, lymphocyte และ macrophage",
                   "สไลด์เตือนว่า pancreas อาจวางตัวเป็นชั้น subcapsular ของม้ามได้"
                 ]
               }
@@ -6821,7 +6821,7 @@ export const NOTES_Y2_HISTO = {
               {
                 "bullets": [
                   "ภูมิคุ้มกันและ hematopoiesis",
-                  "osmotic regulation ของน้ำและเกลือ · โดย **ของเสียไนโตรเจนถูกขับทาง gills ไม่ใช่ไต**",
+                  "osmotic regulation ของน้ำและเกลือ, โดย **ของเสียไนโตรเจนถูกขับทาง gills ไม่ใช่ไต**",
                   "ในปลาน้ำจืด (freshwater) ไตต้อง **สงวนเกลือ**: glomerular filtration rate สูง, ดูดเกลือกลับที่ proximal tubules และเจือจางปัสสาวะที่ distal tubule"
                 ]
               }

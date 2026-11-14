@@ -107,8 +107,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'หัวข้อ: **Composition and quality of raw milk** (lecture #1 ของ SJ ในรายวิชา)',
-            'ผู้สอน: **รศ.สพ.ญ.ดร. สหฤทัย เจียมศรีพงษ์** (Saharuetai Jeamsripong, DVM · MPVM · PhD)',
-            'Dept. of Veterinary Public Health · Faculty of Veterinary Science · Chulalongkorn University',
+            'ผู้สอน: **รศ.สพ.ญ.ดร. สหฤทัย เจียมศรีพงษ์** (Saharuetai Jeamsripong, DVM, MPVM, PhD)',
+            'Dept. of Veterinary Public Health, Faculty of Veterinary Science, Chulalongkorn University',
           ] },
         ],
       },
@@ -134,8 +134,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             '**Chemical property** — สัดส่วน fat / protein / lactose / minerals / vitamins',
-            '**Physicochemical property** — pH · density · freezing point · acidity · titratable acidity',
-            '**Physical property** — สี · กลิ่น · viscosity · sediment',
+            '**Physicochemical property** — pH, density, freezing point, acidity, titratable acidity',
+            '**Physical property** — สี, กลิ่น, viscosity, sediment',
           ] },
           { bullets: ['🚧 รอเติม — detail composition แต่ละ category อ่านจาก slide หน้าหลังๆ'] },
         ],
@@ -191,7 +191,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { sub: 'Ministry of Agriculture and Cooperatives — มาตรฐาน "น้ำนมโคดิบ"',
             body: [
               { bullets: [
-                'ประกาศกระทรวงเกษตรและสหกรณ์ · **มกษ. 6003-2553** (Thai Agricultural Standard) — เรื่อง น้ำนมโคดิบ',
+                'ประกาศกระทรวงเกษตรและสหกรณ์, **มกษ. 6003-2553** (Thai Agricultural Standard) — เรื่อง น้ำนมโคดิบ',
                 'ออกโดยสำนักงานมาตรฐานสินค้าเกษตรและอาหารแห่งชาติ (มกอช.)',
               ] },
             ] },
@@ -229,7 +229,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'หัวข้อ: **ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี** (biosecurity for good milk quality production)',
-            'ผู้สอน: **รศ.น.สพ.ดร. จักรกริศน์ เนื่องจำนงค์** — ภาควิชาสัตวบาล (ไม่ใช่ Vet Public Health) · คณะสัตวแพทยศาสตร์ · จุฬาฯ',
+            'ผู้สอน: **รศ.น.สพ.ดร. จักรกริศน์ เนื่องจำนงค์** — ภาควิชาสัตวบาล (ไม่ใช่ Vet Public Health), คณะสัตวแพทยศาสตร์, จุฬาฯ',
           ] },
         ],
       },
@@ -341,7 +341,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             'จุดรับน้ำนมขนาดเล็ก → รับน้ำนมจากเกษตรกร เพื่อรอการนำส่ง MCC',
             'โค 1 ตัวจะรีดน้ำนมได้ไม่เกิน **10 ลิตร/วัน** (slide reference number) — ตัวเลขนี้เป็นเกณฑ์เชิงปฏิบัติของจุดรับน้ำนมขนาดเล็ก ไม่ใช่เพดานทางสรีรวิทยาของแม่โครีดนม',
             '⚠️ ในระบบการผลิตจริง โคนม Holstein ให้ผลผลิตสูงกว่านี้มาก (milk yield เฉลี่ย 36 ± 7.8 kg/วัน, PMID 30879826) จึงไม่ควรจำว่า 10 ลิตร/วัน คือความสามารถสูงสุดในการให้นมของโค 1 ตัว',
-            'ตรวจคุณภาพเบื้องต้น: **ชั่งน้ำหนัก · ดมกลิ่น · ดูสี · วัดความถ่วงจำเพาะ · อุณหภูมิ**',
+            'ตรวจคุณภาพเบื้องต้น: **ชั่งน้ำหนัก, ดมกลิ่น, ดูสี, วัดความถ่วงจำเพาะ, อุณหภูมิ**',
           ] },
         ],
       },
@@ -391,7 +391,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { bullets: [
             'Definition: food produced from the milk of mammals',
             'Usually **high energy-yielding food products**',
-            'Primary sources: milk of **cows** (หลัก) · goats · sheep · yaks · camels',
+            'Primary sources: milk of **cows** (หลัก), goats, sheep, yaks, camels',
             '⚠️ เพิ่มจากหลักฐาน: โคให้ราว **83%** ของน้ำนมและผลิตภัณฑ์นมที่มนุษย์บริโภคทั่วโลก ที่เหลือมาจาก **buffalo (กระบือ)**, goat, sheep, camel และ **donkey/equine** สไลด์ไม่ได้ระบุ buffalo ซึ่งเป็นแหล่งน้ำนมสำคัญมากในเอเชีย ส่วน yak ไม่มีข้อมูลในแหล่งอ้างอิงนี้',
           ] },
         ],
@@ -411,7 +411,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Storage methodology per product class',
         source: '7_RC_Storage_of_milk_products_2024.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — pasteurized vs UHT vs sterilized · cheese ripening temp · yogurt cold-chain · butter / cream shelf-life'] },
+          { bullets: ['🚧 รอเติม — pasteurized vs UHT vs sterilized, cheese ripening temp, yogurt cold-chain, butter / cream shelf-life'] },
         ],
       },
     ],
@@ -462,7 +462,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Methods of milk quality testing',
         source: '8_Determination_of_milk_quality_2024.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — sensory · TBC · SCC · resazurin · methylene blue · API / Petrifilm · antibiotic residue test'] },
+          { bullets: ['🚧 รอเติม — sensory, TBC, SCC, resazurin, methylene blue, API / Petrifilm, antibiotic residue test'] },
         ],
       },
     ],
@@ -491,7 +491,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '9 - _Milk_microbiology_SJ_2024.pdf p.2',
         body: [
           { bullets: [
-            'Nutritious food (protein · fat · vitamins · minerals)',
+            'Nutritious food (protein, fat, vitamins, minerals)',
             'Good for bone health',
             '**Good medium for pathogen growth** — yeasts, molds, bacteria',
             'Source of bacterial infection ถ้าไม่ผ่าน processing',
@@ -517,7 +517,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { sub: '2. Spoilage organisms',
             body: [
               { bullets: [
-                '**Pseudomonas** — psychrotroph, grow at refrigerator temp · produce enzymes degrading protein & fat',
+                '**Pseudomonas** — psychrotroph, grow at refrigerator temp; produce enzymes degrading protein & fat',
                 'Enterobacteriaceae',
                 '*Bacillus cereus* (spore-former)',
                 '*Clostridium* spp.',
@@ -530,7 +530,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Sources of contamination + indicator organisms',
         source: '9 - _Milk_microbiology_SJ_2024.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — udder origin vs environmental vs handling · indicator: coliforms / *E. coli* / total plate count / psychrotrophic count'] },
+          { bullets: ['🚧 รอเติม — udder origin vs environmental vs handling, indicator: coliforms / *E. coli* / total plate count / psychrotrophic count'] },
         ],
       },
     ],
@@ -596,14 +596,14 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             '**3. Spoilage bacteria** — เสื่อมคุณภาพ',
             '**4. Starter cultures** — ใช้หมัก (cheese, yogurt)',
           ] },
-          { callout: 'นอกจาก bacteria ยังมี **fungi · virus · parasite** ใน milk products ด้วย (slide diagram p.3).', kind: 'tip' },
+          { callout: 'นอกจาก bacteria ยังมี **fungi, virus, parasite** ใน milk products ด้วย (slide diagram p.3).', kind: 'tip' },
         ],
       },
       {
-        heading: 'Detail per pathogen (Brucella · Listeria · Salmonella · STEC · Mycobacterium ...)',
+        heading: 'Detail per pathogen (Brucella, Listeria, Salmonella, STEC, Mycobacterium ...)',
         source: '10 - _Milk_borne_pathogens_and_diseases_SJ_2024.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — incubation, dose response, pasteurization kill-step (LTLT 63°C/30min · HTST 72°C/15s · UHT 135°C/2s), outbreak case studies'] },
+          { bullets: ['🚧 รอเติม — incubation, dose response, pasteurization kill-step (LTLT 63°C/30min, HTST 72°C/15s, UHT 135°C/2s), outbreak case studies'] },
         ],
       },
     ],
@@ -638,7 +638,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             '**GMP (International)** — voluntary, สำหรับ export',
             '**GMP (Law)** — minimum requirement บังคับตามกฎหมาย',
           ] },
-          { callout: 'พื้นฐานสุดอย่างหนึ่ง: **5ส** = สะสาง · สะดวก · สะอาด · สุขลักษณะ · สร้างนิสัย.', kind: 'tip' },
+          { callout: 'พื้นฐานสุดอย่างหนึ่ง: **5ส** = สะสาง, สะดวก, สะอาด, สุขลักษณะ, สร้างนิสัย.', kind: 'tip' },
         ],
       },
       {
@@ -646,7 +646,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '11 - _Standard_of_milk_industry_and_milk_products_SJ_2024.pdf p.3',
         body: [
           { bullets: [
-            'หน่วยงาน: **National Bureau of Agricultural Commodity and Food Standards** (มกอช.) · กระทรวงเกษตรและสหกรณ์',
+            'หน่วยงาน: **National Bureau of Agricultural Commodity and Food Standards** (มกอช.), กระทรวงเกษตรและสหกรณ์',
             'มาตรฐาน: **มกษ. 6401-2558** — "การปฏิบัติที่ดีสำหรับศูนย์รวบรวมน้ำนมดิบ" (Good manufacturing practices for milk collection center) ออกโดย มกอช. ภายใต้ พ.ร.บ. มาตรฐานสินค้าเกษตร พ.ศ. 2551',
             '⚠️ สไลด์เขียนว่าตัวมาตรฐานคือ **มกษ. 6401(G) – 2560** แต่เอกสารเลขนั้นคือ "แนวปฏิบัติในการใช้มาตรฐานสินค้าเกษตร มกษ. 6401(G)-2560" ซึ่งเป็นคู่มือประกอบการใช้มาตรฐาน ไม่ใช่ตัวมาตรฐาน ส่วนสถานะบังคับ/ไม่บังคับ ยังยืนยันจากตัวบทกฎหมายไม่ได้ (ไฟล์ของกรมปศุสัตว์เป็นภาพสแกน) จึงคงข้อความบรรทัดถัดไปของอาจารย์ไว้ตามเดิม',
             'ลักษณะ: แนวปฏิบัติ (G = guidance) — ไม่บังคับ แต่ใช้ขอตราเครื่องหมาย Q',
@@ -708,7 +708,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             'Heat treatment',
             'Evaporation (สำหรับ condensed/powdered)',
             'Cleaning in place (CIP)',
-            '→ Dairy products variety (drinking milk · cream · butter · cheese · yogurt · ice cream · milk powder)',
+            '→ Dairy products variety (drinking milk, cream, butter, cheese, yogurt, ice cream, milk powder)',
           ] },
         ],
       },
@@ -716,7 +716,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Heat treatment time/temp + product-specific lines',
         source: '12 - _Processing_and_manufacturing_technologies_for_milk_and_milk_products_SJ_2024.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — LTLT 63°C/30min · HTST 72°C/15s · UHT 135–150°C/1–5s · ESL · ผลต่อ vitamin/protein · spray drying & roller drying'] },
+          { bullets: ['🚧 รอเติม — LTLT 63°C/30min, HTST 72°C/15s, UHT 135–150°C/1–5s, ESL, ผลต่อ vitamin/protein, spray drying & roller drying'] },
         ],
       },
     ],
@@ -735,7 +735,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '1 - _Cleaning_and_disinfectants_in_milk_collecting_center_and_milk_processing_SJ_2024.pdf p.1',
         body: [
           { bullets: [
-            'หัวข้อ: **Cleaning and disinfectants in milk collecting center and milk processing** (SJ lecture #7 · หลัง midterm)',
+            'หัวข้อ: **Cleaning and disinfectants in milk collecting center and milk processing** (SJ lecture #7, หลัง midterm)',
             'ผู้สอน: Saharuetai Jeamsripong — Dept. of Veterinary Public Health, CU',
           ] },
         ],
@@ -775,7 +775,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Cleaning agents & disinfectants detail',
         source: '1 - _Cleaning_and_disinfectants_in_milk_collecting_center_and_milk_processing_SJ_2024.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — alkaline detergent vs acid detergent · chlorine · QAC · peracetic acid · iodophor · sanitizer rotation · CIP loop'] },
+          { bullets: ['🚧 รอเติม — alkaline detergent vs acid detergent, chlorine, QAC, peracetic acid, iodophor, sanitizer rotation, CIP loop'] },
         ],
       },
     ],
@@ -807,9 +807,9 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'Meat = **"animal tissues that are suitable for use as food"**',
-            '**Red meat**: beef · pork · lamb/mutton · veal',
-            '**Poultry meat**: chickens · turkeys · ducks · geese · quails',
-            '**Seafood**: fish · clams · crabs · shrimps',
+            '**Red meat**: beef, pork, lamb/mutton, veal',
+            '**Poultry meat**: chickens, turkeys, ducks, geese, quails',
+            '**Seafood**: fish, clams, crabs, shrimps',
             '**Game meat**: flesh of non-domesticated animal',
           ] },
         ],
@@ -828,10 +828,10 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         ],
       },
       {
-        heading: 'Nutrition · structure · global trends',
+        heading: 'Nutrition, structure, global trends',
         source: '2 - MeatHyg_E1.1Intro_SP_67_1.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — myofibril structure (sarcomere · actin/myosin) · meat color (myoglobin) · per-capita consumption · meat alternative trend'] },
+          { bullets: ['🚧 รอเติม — myofibril structure (sarcomere, actin/myosin), meat color (myoglobin), per-capita consumption, meat alternative trend'] },
         ],
       },
     ],
@@ -861,8 +861,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'Large variation & number of species in seafood',
-            'Examples: **fish · shrimp · crab · snails · bivalves · squid**',
-            'แบ่ง phylum: chordata (ปลา) · mollusks (หอย · หมึก) · crustaceans/arthropod (กุ้ง · ปู)',
+            'Examples: **fish, shrimp, crab, snails, bivalves, squid**',
+            'แบ่ง phylum: chordata (ปลา), mollusks (หอย, หมึก), crustaceans/arthropod (กุ้ง, ปู)',
           ] },
         ],
       },
@@ -871,21 +871,21 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '3 - MeatHyg_E1.2SeaFood_SP_67_1.pdf p.3',
         body: [
           { bullets: [
-            '**Fish** — water 60-81% · protein 16.4-25.2% · lipid 0.4-21.5% · ash 1.2-1.5%',
-            '**Beef** — water 54.7-75.0% · protein 16.5-22.3% · lipid 1.8-28.0%',
-            '**Pork** — water 41.1-75.1% · protein 11.2-22.8% · lipid 1.2-47.0%',
-            '**Chicken** — water 75.0% · protein 22.8% · lipid 0.9%',
-            '**Milk (pasteurized)** — water 87.6% · protein 3.2% · lipid 3.5%',
-            '**Egg (boiled)** — water 74.6% · protein 12.1% · lipid 11.2%',
+            '**Fish** — water 60-81%, protein 16.4-25.2%, lipid 0.4-21.5%, ash 1.2-1.5%',
+            '**Beef** — water 54.7-75.0%, protein 16.5-22.3%, lipid 1.8-28.0%',
+            '**Pork** — water 41.1-75.1%, protein 11.2-22.8%, lipid 1.2-47.0%',
+            '**Chicken** — water 75.0%, protein 22.8%, lipid 0.9%',
+            '**Milk (pasteurized)** — water 87.6%, protein 3.2%, lipid 3.5%',
+            '**Egg (boiled)** — water 74.6%, protein 12.1%, lipid 11.2%',
           ] },
-          { callout: 'Source: FAO, 2015 · ดูว่า fish lipid swing กว้างเพราะ pelagic (salmon, mackerel) vs lean white fish ต่างกันมาก.', kind: 'tip' },
+          { callout: 'Source: FAO, 2015; ดูว่า fish lipid swing กว้างเพราะ pelagic (salmon, mackerel) vs lean white fish ต่างกันมาก.', kind: 'tip' },
         ],
       },
       {
         heading: 'Spoilage mechanisms + seafood toxins detail',
         source: '3 - MeatHyg_E1.2SeaFood_SP_67_1.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — autolysis / oxidation / microbial spoilage · histamine fish poisoning · ciguatoxin · PSP/DSP/ASP/NSP · TTX · scombrotoxin'] },
+          { bullets: ['🚧 รอเติม — autolysis / oxidation / microbial spoilage, histamine fish poisoning, ciguatoxin, PSP/DSP/ASP/NSP, TTX, scombrotoxin'] },
         ],
       },
     ],
@@ -933,7 +933,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             'Sources of contamination **start at farm**',
             'Contamination mainly occurs during **slaughter, storage, and distribution**',
             'Most important microorganism on meat = **bacteria** (spoilage + pathogenic)',
-            'Other microbes: yeast & mold · virus · parasite · protozoa',
+            'Other microbes: yeast & mold, virus, parasite, protozoa',
             'Affect both **safety** and **shelf-life**',
           ] },
         ],
@@ -942,7 +942,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Intrinsic/extrinsic factors + standard pathogen panel',
         source: '4 - Microbiology_of_Meat___Meat_Hygiene_2567.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — pH/aw/temp/redox/competing flora · Salmonella · Campylobacter · STEC O157 · Listeria · S. aureus · Yersinia · Clostridium · sampling methods (excision · swab) · TBC/coliform/E. coli criteria'] },
+          { bullets: ['🚧 รอเติม — pH/aw/temp/redox/competing flora, Salmonella, Campylobacter, STEC O157, Listeria, S. aureus, Yersinia, Clostridium, sampling methods (excision, swab), TBC/coliform/E. coli criteria'] },
         ],
       },
     ],
@@ -971,8 +971,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '5 - Revised 2023_storage of meat.pdf p.2',
         body: [
           { bullets: [
-            '**Meat quality** (sensory · WHC · color · texture)',
-            '**Safety** (microbial · toxin · residue)',
+            '**Meat quality** (sensory, WHC, color, texture)',
+            '**Safety** (microbial, toxin, residue)',
             '**Scientific approval** (validated method)',
             '**Distribution & marketing**',
             '**Investment** (capital cost)',
@@ -985,16 +985,16 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '5 - Revised 2023_storage of meat.pdf p.3',
         body: [
           { bullets: [
-            '**1. Extrinsic factor** — storage temp · humidity · gas atmosphere · packaging',
-            '**2. Intrinsic factor** — pH · aw · nutrients · redox · natural antimicrobials in meat',
+            '**1. Extrinsic factor** — storage temp, humidity, gas atmosphere, packaging',
+            '**2. Intrinsic factor** — pH, aw, nutrients, redox, natural antimicrobials in meat',
           ] },
         ],
       },
       {
-        heading: 'Specific storage methods (chilling · freezing · MAP · curing · drying)',
+        heading: 'Specific storage methods (chilling, freezing, MAP, curing, drying)',
         source: '5 - Revised 2023_storage of meat.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — temperature ranges (chilling 0-4°C · freezing -18°C · superchilling -1°C) · MAP gas blends · vacuum · cured/salted/smoked product · canned · irradiation'] },
+          { bullets: ['🚧 รอเติม — temperature ranges (chilling 0-4°C, freezing -18°C, superchilling -1°C), MAP gas blends, vacuum, cured/salted/smoked product, canned, irradiation'] },
         ],
       },
     ],
@@ -1024,9 +1024,9 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'Meat that has undergone chemical & physical change that follow slaughter',
-            'But has been only **minimally processed** — e.g. fabrication into retail cuts · cubing · grinding · marination · freezing',
+            'But has been only **minimally processed** — e.g. fabrication into retail cuts, cubing, grinding, marination, freezing',
             '⚠️ นี่คือนิยามฝั่ง meat science ซึ่งกว้างกว่า Codex ตาม **Codex Code of Hygienic Practice for Meat** fresh meat = เนื้อที่นอกจาก refrigeration แล้วไม่ผ่านการ treat เพื่อถนอมอาหารด้วยวิธีอื่นนอกจาก protective packaging และยังคง natural characteristics ไว้ ถ้าเติมเครื่องปรุงหรือ additive จะกลายเป็น **meat preparation** ส่วน minced meat และ mechanically separated meat นิยามแยกไว้ใต้ raw meat',
-            'Examples: **roasts · chops · stew · ground beef**',
+            'Examples: **roasts, chops, stew, ground beef**',
           ] },
         ],
       },
@@ -1046,7 +1046,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Quality defects + wholesomeness criteria detail',
         source: '6 - Revised 2023_Meat quality Wholesomeness.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — PSE / DFD pork · dark cutter beef · myoglobin → oxymyoglobin → metmyoglobin · drip loss measurement · WBSF · sensory panel'] },
+          { bullets: ['🚧 รอเติม — PSE / DFD pork, dark cutter beef, myoglobin → oxymyoglobin → metmyoglobin, drip loss measurement, WBSF, sensory panel'] },
         ],
       },
     ],
@@ -1090,16 +1090,16 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             '**Molecular genetics**',
             '**Quantitative genetics**',
             '**Mendelian genetics**',
-            '**Bioinformatics** (software · whole-genome sequencing analysis)',
+            '**Bioinformatics** (software, whole-genome sequencing analysis)',
             '⚠️ หัวข้อเขียนว่า combination of **4** sub-disciplines แต่สไลด์ไล่มา **5** ข้อ และ Genetics ก็ครอบ molecular/quantitative/Mendelian genetics อยู่แล้ว ควรทวนจำนวนกับสไลด์ต้นฉบับก่อนท่อง',
           ] },
         ],
       },
       {
-        heading: 'Applications: species ID · authentication · adulteration · qPCR',
+        heading: 'Applications: species ID, authentication, adulteration, qPCR',
         source: '7 - Revised 2023_MoleinMeatSci.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — PCR · qPCR · RFLP · DNA barcoding (COI gene) · cytochrome b · halal/haram detection · religious-compliance testing · whole-genome sequencing for outbreak tracing'] },
+          { bullets: ['🚧 รอเติม — PCR, qPCR, RFLP, DNA barcoding (COI gene), cytochrome b, halal/haram detection, religious-compliance testing, whole-genome sequencing for outbreak tracing'] },
         ],
       },
     ],
@@ -1144,9 +1144,9 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'Proper **water, electricity supply & sewerage**',
-            '**Hot & cold water** supply · water quality/pressure adequate',
+            '**Hot & cold water** supply, water quality/pressure adequate',
             '**Standby generator** should be installed',
-            '**Pollution-free area** (odor · dust · smoke)',
+            '**Pollution-free area** (odor, dust, smoke)',
             '**Remoteness from townships / urban area**',
             '**Good foundation** (soil bearing) — considered factor',
           ] },
@@ -1156,7 +1156,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Layout, zoning, water consumption, waste handling detail',
         source: '8 - MeatHyg_E2SlaugtHygDes_67_1.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — clean/dirty zone separation · lairage · stunning area · bleeding · dressing · evisceration · chilling room · offal handling · effluent treatment · animal welfare audit'] },
+          { bullets: ['🚧 รอเติม — clean/dirty zone separation, lairage, stunning area, bleeding, dressing, evisceration, chilling room, offal handling, effluent treatment, animal welfare audit'] },
         ],
       },
     ],
@@ -1187,7 +1187,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { bullets: [
             'Ensure only **apparently healthy, physiologically normal animals** are slaughtered for human consumption',
             'Abnormal animals are **separated**',
-            'Ensure meat is **free from disease · wholesome · no risk to human health**',
+            'Ensure meat is **free from disease, wholesome, no risk to human health**',
             'Achieved by AM + PM inspection procedure + hygienic dressing with **minimum contamination**',
           ] },
         ],
@@ -1200,7 +1200,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             body: [
               { bullets: [
                 'General behavior',
-                'Nutritional status (BCS) · cleanliness',
+                'Nutritional status (BCS), cleanliness',
                 'Signs of diseases & abnormalities',
               ] },
             ] },
@@ -1218,7 +1218,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'AM/PM lesion-judgement table per organ + disposition',
         source: '9 - MeatHyg_E3AmPmInspect_67_1.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — palpation/incision sites · liver-fluke / cysticercosis / TB / abscess / icterus / sepsis · disposition: passed/conditional/condemned · zoonosis-priority lesions'] },
+          { bullets: ['🚧 รอเติม — palpation/incision sites, liver-fluke / cysticercosis / TB / abscess / icterus / sepsis, disposition: passed/conditional/condemned, zoonosis-priority lesions'] },
         ],
       },
     ],
@@ -1247,7 +1247,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '10 - MeatHyg_E4PmChngCuttGrad_67_1.pdf p.2',
         body: [
           { bullets: [
-            'Muscle function efficiency only within **narrow range of physiological conditions** (pH · temperature · O₂ concentration · energy supply)',
+            'Muscle function efficiency only within **narrow range of physiological conditions** (pH, temperature, O₂ concentration, energy supply)',
             '**Homeostasis** = system of check & balance maintaining body physiological state',
             'After slaughter → loss of homeostasis control → many changes occur during conversion of muscle to meat',
             'Condition **immediately prior to slaughter** ส่งผลต่อคุณภาพเนื้อปลายทาง',
@@ -1261,7 +1261,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { sub: 'Immobilization',
             body: [
               { bullets: [
-                'Methods: **electrical · gas stunning**',
+                'Methods: **electrical, gas stunning**',
                 'Goal: render unconscious — must be done as quick as possible',
                 'Avoid method that cause tissue damage',
                 'Extensive struggling & excessive movement → **hemorrhage of blood into muscle and other tissue**',
@@ -1280,7 +1280,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Rigor mortis → ageing → cutting → grading detail',
         source: '10 - MeatHyg_E4PmChngCuttGrad_67_1.pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — rigor mortis biochemistry · ageing 14-day · primal cuts (beef/pork/poultry) · USDA Prime/Choice/Select grading · marbling score · yield grade'] },
+          { bullets: ['🚧 รอเติม — rigor mortis biochemistry, ageing 14-day, primal cuts (beef/pork/poultry), USDA Prime/Choice/Select grading, marbling score, yield grade'] },
         ],
       },
     ],
@@ -1301,7 +1301,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { bullets: [
             'หัวข้อ: **Meat Hygiene: Pest Control**',
             'ผู้สอน: **รศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ** (ตามตารางสอน วันที่ 28 ต.ค.)',
-            'Lecture objectives: principles of pest control · types of pest · how to control pests',
+            'Lecture objectives: principles of pest control, types of pest, how to control pests',
           ] },
         ],
       },
@@ -1326,9 +1326,9 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '11 - MH_2.Pest_Control_(Color).pdf p.3',
         body: [
           { bullets: [
-            '**1. Rodents** — rats · mice',
-            '**2. Insects** — cockroaches · flies',
-            '**3. Birds** — sparrow · pigeon · starling',
+            '**1. Rodents** — rats, mice',
+            '**2. Insects** — cockroaches, flies',
+            '**3. Birds** — sparrow, pigeon, starling',
           ] },
         ],
       },
@@ -1336,7 +1336,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Control methods — IPM, traps, baits, exclusion',
         source: '11 - MH_2.Pest_Control_(Color).pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — IPM 4 pillars (exclusion · sanitation · monitoring · control) · snap trap vs glue · bait station · UV trap · netting · pesticide rotation · MSDS record'] },
+          { bullets: ['🚧 รอเติม — IPM 4 pillars (exclusion, sanitation, monitoring, control), snap trap vs glue, bait station, UV trap, netting, pesticide rotation, MSDS record'] },
         ],
       },
     ],
@@ -1356,7 +1356,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'หัวข้อ: **Microbiology of the avian egg**',
-            'ผู้สอน: **Suphachai, DVM · MPVM · PhD** (initials บน slide เท่านั้น — เดาว่าเป็น อ. ในภาควิชา Vet Public Health)',
+            'ผู้สอน: **Suphachai, DVM, MPVM, PhD** (initials บน slide เท่านั้น — เดาว่าเป็น อ. ในภาควิชา Vet Public Health)',
           ] },
         ],
       },
@@ -1367,7 +1367,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { bullets: [
             'Microbial contamination leading to:',
             '  • **Spoilage** — economic issue',
-            '  • **Foodborne diseases** — e.g. **Salmonellosis** (1st) · *E. coli* (2nd) · *Campylobacter*',
+            '  • **Foodborne diseases** — e.g. **Salmonellosis** (1st), *E. coli* (2nd), *Campylobacter*',
           ] },
         ],
       },
@@ -1386,7 +1386,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         heading: 'Egg contamination routes + Salmonella vertical/horizontal + processing detail',
         source: '12 - MH_1.Micro_Egg_(Color).pdf p.4+',
         body: [
-          { bullets: ['🚧 รอเติม — vertical (transovarian, *S. Enteritidis*) vs horizontal (cloacal · shell-penetration) · cuticle · pasteurization of liquid egg · table-egg vs hatching-egg microbiology'] },
+          { bullets: ['🚧 รอเติม — vertical (transovarian, *S. Enteritidis*) vs horizontal (cloacal, shell-penetration), cuticle, pasteurization of liquid egg, table-egg vs hatching-egg microbiology'] },
         ],
       },
     ],
