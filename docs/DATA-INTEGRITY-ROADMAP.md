@@ -272,3 +272,25 @@ shape is pinned by `tests/unit/scorecard.test.mjs`, never the values):
 Read the backtest as: there is no evidence yet that the band order beats a shuffle, and the reason
 is mostly the ceiling, not the order. 89% of a hidden paper's items have no sibling anywhere else in
 their topic. `EXAM_RECURRENCE` is consumed by no ordering in `src/`, and band 0 is a shuffle inside.
+
+### Topic-level backtest (added 15 Nov 2026)
+
+The item-level figure above is capped by the bank, so the order was also measured one level up:
+given only earlier cohorts' papers of a subject, which topics does the next cohort's paper examine?
+`node scripts/topic-backtest.mjs` (`scripts/lib/topic-backtest.mjs`, pinned by
+`tests/unit/topic-backtest.test.mjs`) hides each recorded paper with 5 or more items that has an
+earlier cohort behind it, ranks the subject's topics by each scorer and reports the share of the
+hidden paper's items in the top 3, 5 and half of the topics, and Spearman's rho. The scorers, the
+metrics and the rule for shipping one were written down before the first run: a candidate replaces
+today's order only if, against it, share@5 rises with a 98.75% paired bootstrap interval above zero
+(Bonferroni over four candidates), it wins on 60% of untied papers, share@3, share@half and rho do
+not fall, and no subject with 3 papers and 30 items loses more than 2 points.
+
+On 15 Nov (32 papers, 818 items, 12 subjects; 6 subjects with enough to read alone) every
+candidate beat a uniform order (share@5 about 55% against 32%) and today's implied order (40%),
+but none passed: all were about a point behind today's at half the topics and 7.5 to 10.3 points
+behind in equine-medicine (three Vet 85 papers, one a station). Cohort frequency, frequency with
+recency, mean share and frequency with this term's teaching were tried; **no ordering changed**.
+What would settle it: cohorts on the 2,663 undated past-paper items, more cohorts per subject
+(milk-meat-hygiene has only Vet 85 and cannot be tested), and enough papers per paper kind to score
+each kind from its own history.
