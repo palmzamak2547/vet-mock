@@ -115,7 +115,8 @@ function readRaw() {
     moved = true;
     return { ...c, id: c.id + LEGACY_OFFSET, legacyId: c.id };
   });
-  if (moved) writeLocalExtra(STORAGE_KEY, list);
+  // A write during a read: it never asks the browser to keep storage.
+  if (moved) writeLocalExtra(STORAGE_KEY, list, { ask: false });
   return list;
 }
 

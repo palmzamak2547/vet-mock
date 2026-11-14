@@ -1,3 +1,4 @@
+// @ts-check
 import * as v from 'valibot';
 
 // Runtime schemas for the two places where a user can bring JSON into
@@ -30,7 +31,12 @@ const tagsSchema = v.optional(v.pipe(
   v.maxLength(50, 'หนึ่งข้อมี tag ได้ไม่เกิน 50 รายการ'),
 ));
 
-function questionObject(type, fields = {}) {
+/**
+ * @template {v.ObjectEntries} T
+ * @param {string} type
+ * @param {T} fields
+ */
+function questionObject(type, fields = /** @type {T} */ ({})) {
   return v.looseObject({
     id: v.optional(idSchema),
     type: v.literal(type),

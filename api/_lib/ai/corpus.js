@@ -37,7 +37,6 @@ for (const s of SUBJECT_BY_ID.values()) {
 
 export const subjectName = (id) => SUBJECT_BY_ID.get(id)?.name || id || '';
 export const topicLabel = (subject, topic) => TOPIC_LABEL.get(`${subject}:${topic}`) || '';
-export const subjectById = (id) => SUBJECT_BY_ID.get(id) || null;
 
 const LETTERS = 'ABCDEFGH';
 
@@ -58,7 +57,7 @@ export function questionText(q) {
 
 /** A clip summary cut at its "## " headings. The text before the first one
  *  (title line, intro) is a section of its own. */
-export function videoSections(summary) {
+function videoSections(summary) {
   const md = String(summary || '');
   const parts = md.split(/\n(?=## )/);
   return parts.map((part, i) => {
@@ -129,7 +128,7 @@ const stamp = (t) => {
  * it, each with its minute. The heading carries the chapter's start, so a
  * citation opens the clip there.
  */
-export function cardDocs(videoId, card, [title = videoId, subject = ''] = []) {
+function cardDocs(videoId, card, [title = videoId, subject = ''] = []) {
   const docs = [];
   const chapters = card?.chapters || [];
   chapters.forEach((c, i) => {

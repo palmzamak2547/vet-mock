@@ -9,6 +9,7 @@ import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded,
 import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
+import { GATE_PUBLIC_VIEWS } from './lib/gate-public-views.js';
 
 // A tag only counts as weak below this accuracy — the same line the accuracy
 // chart on the dashboard already draws.
@@ -251,9 +252,6 @@ const WIDE_VIEWS = new Set([
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
 const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config', 'atlas']);
-// Open before sign-in while the Chula wall is on: the public front door and
-// the privacy terms a student reads before agreeing (docs/CHULA-SIGNIN.md).
-const GATE_PUBLIC_VIEWS = new Set(['landing', 'privacy']);
 // Marketing/ecosystem links belong on destination pages, not after every
 // internal workflow. Keeping the footer off topic, notes, schedule and tool
 // views shortens those tasks without removing any top-level navigation.
@@ -3327,6 +3325,8 @@ export default function App() {
               Skip-link below the header lets keyboard users do the same. */}
           <main
             id="main"
+            // Which view App is showing, for tests (tests/e2e/route-sweep.spec.js); nothing reads it.
+            data-view={view}
             tabIndex={-1}
             className={`vmx-main${WIDE_VIEWS.has(view) ? ' vmx-main--wide' : ''}`}
             style={{ outline: 'none' }}

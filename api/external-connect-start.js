@@ -80,6 +80,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ url: config.buildAuthorizeUrl(state), provider });
 
   } catch (err) {
-    return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
+    console.error('[external-connect-start] unexpected:', String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'Unexpected error', code: 'unexpected' });
   }
 }

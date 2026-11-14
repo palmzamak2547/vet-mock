@@ -17,7 +17,7 @@ import { visionJSON, extractJSON } from '../llm.js';
 import { VISION_TIMEOUT_MS } from './config.js';
 import { clip, stripCJK } from './text.js';
 
-export const VISION_SYSTEM = `You read an image a Thai veterinary student attached to a study question.
+const VISION_SYSTEM = `You read an image a Thai veterinary student attached to a study question.
 Return ONLY JSON: {"kind":"slide|text|photo|radiograph|micrograph|diagram|chart|other","description":"...","text":"..."}
 - "description": in Thai, 1-4 short sentences: what is shown (species, organ, lesion, structure, chart type), as seen. English technical terms are fine. No diagnosis beyond what is visibly labelled.
 - "text": every legible word and number in the image, transcribed exactly in reading order (keep the original language). "" if there is none.

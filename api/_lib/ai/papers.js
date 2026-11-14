@@ -36,7 +36,7 @@ const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }
 // entity-encoded (&lt;i&gt;), efetch as real tags; after decoding, only these
 // names are removed, so a literal "<37>" in an abstract survives.
 const INLINE_TAG = /<\/?(?:i|b|u|em|strong|sup|sub|span|sc|mml:[a-z]+)(?:\s[^>]*)?>/gi;
-export function decodeXml(s) {
+function decodeXml(s) {
   return String(s ?? '')
     .replace(/<[^>]+>/g, '')
     .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
@@ -114,7 +114,7 @@ export function invertedAbstract(inv) {
   return words.filter((w) => w !== undefined).join(' ').replace(/\s+/g, ' ').trim();
 }
 
-export function papersFromOpenAlex(json) {
+function papersFromOpenAlex(json) {
   return (json?.results || []).map((w) => {
     const pmid = /(\d+)\/?$/.exec(w.ids?.pmid || '')?.[1] || null;
     const doi = String(w.doi || '').replace(/^https?:\/\/(dx\.)?doi\.org\//i, '') || null;
@@ -138,7 +138,7 @@ async function get(url, { signal, fetchImpl, as }) {
   return as === 'json' ? res.json() : res.text();
 }
 
-export async function searchPubMed(terms, { recent = false, signal, fetchImpl = fetch, apiKey = '', max = MAX_PAPERS } = {}) {
+async function searchPubMed(terms, { recent = false, signal, fetchImpl = fetch, apiKey = '', max = MAX_PAPERS } = {}) {
   const term = pubmedTerm(terms);
   if (!term) return [];
   const base = { db: 'pubmed', tool: 'vetmock-ai', ...(apiKey ? { api_key: apiKey } : {}) };
@@ -155,7 +155,7 @@ export async function searchPubMed(terms, { recent = false, signal, fetchImpl = 
   return papersFromSummary(summary, ids, parseEfetchAbstracts(xml));
 }
 
-export async function searchOpenAlex(terms, { recent = false, signal, fetchImpl = fetch, max = MAX_PAPERS, now = new Date() } = {}) {
+async function searchOpenAlex(terms, { recent = false, signal, fetchImpl = fetch, max = MAX_PAPERS, now = new Date() } = {}) {
   const words = cleanTerms(terms).join(' ');
   if (!words) return [];
   const filter = ['has_abstract:true'];

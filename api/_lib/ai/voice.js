@@ -93,7 +93,7 @@ export async function readBalance(cfg, { fetchImpl = fetch, kv = null, now = Dat
     localBalance = { at: cached.at, value: cached };
     return cached;
   }
-  const res = await fetchImpl(`${EL_API}/v1/user/subscription`, { headers: { 'xi-api-key': cfg.key }, signal: AbortSignal.timeout(5000) });
+  const res = await fetchImpl(`${EL_API}/v1/user/subscription`, { redirect: 'error', headers: { 'xi-api-key': cfg.key }, signal: AbortSignal.timeout(5000) });
   if (!res.ok) throw Object.assign(new Error('balance'), { status: res.status });
   const s = await res.json();
   const limit = Number(s.character_limit);
@@ -178,6 +178,7 @@ export async function attachPhoto(cfg, { conversationId, mediaType, bytes, fetch
   const form = new FormData();
   form.append('file', new Blob([bytes], { type: mediaType }), `photo.${mediaType.split('/')[1]}`);
   const res = await fetchImpl(`${EL_API}/v1/convai/conversations/${encodeURIComponent(conversationId)}/files`, {
+    redirect: 'error',
     method: 'POST', headers: { 'xi-api-key': cfg.key }, body: form, signal: AbortSignal.timeout(10_000),
   });
   if (!res.ok) throw Object.assign(new Error('photo'), { status: res.status });
@@ -198,7 +199,7 @@ export async function mintConversation(cfg, { transport = 'webrtc', participant 
   const path = transport === 'websocket' ? '/v1/convai/conversation/get-signed-url' : '/v1/convai/conversation/token';
   if (transport === 'websocket') q.set('include_conversation_id', 'true');
   else if (participant) q.set('participant_name', participant);
-  const res = await fetchImpl(`${EL_API}${path}?${q}`, { headers: { 'xi-api-key': cfg.key }, signal: AbortSignal.timeout(6000) });
+  const res = await fetchImpl(`${EL_API}${path}?${q}`, { redirect: 'error', headers: { 'xi-api-key': cfg.key }, signal: AbortSignal.timeout(6000) });
   if (!res.ok) throw Object.assign(new Error('mint'), { status: res.status });
   const body = await res.json();
   if (transport === 'websocket') {

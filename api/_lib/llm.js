@@ -60,6 +60,7 @@ export async function anthropicModelStatus({ env = process.env, fetchImpl = fetc
   if (!env.ANTHROPIC_API_KEY) return { state: 'off', status: null, model };
   try {
     const res = await fetchImpl(`https://api.anthropic.com/v1/models/${encodeURIComponent(model)}`, {
+      redirect: 'error',
       headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
       signal: AbortSignal.timeout(timeoutMs),
     });
@@ -122,6 +123,7 @@ async function callDeepSeek({ apiKey, model, thinkingOff, system, user, image, m
   };
   if (thinkingOff) body.thinking = { type: 'disabled' };
   const res = await fetch(DEEPSEEK_URL, {
+    redirect: 'error',
     method: 'POST',
     signal,
     headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
@@ -158,6 +160,7 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
   // those fields (400 naming it) the call is made once more with none of
   // them, so an unfamiliar model id still answers.
   const send = (fields) => fetch('https://api.anthropic.com/v1/messages', {
+    redirect: 'error',
     method: 'POST',
     signal,
     headers: {

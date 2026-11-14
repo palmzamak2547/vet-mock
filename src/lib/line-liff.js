@@ -25,8 +25,8 @@
 //   │  2. "Create a new channel" → LINE Login.
 //   │  3. Set scopes: openid, profile, email.
 //   │  4. Tab "LIFF" → "Add":
-//   │       - Endpoint URL: https://vetmock.vercel.app (moving to
-//   │         https://vetmock.com: see LIFF_ENDPOINT_ON_VETMOCK_COM)
+//   │       - Endpoint URL: https://vetmock.com (since 2026-10-21;
+//   │         https://vetmock.vercel.app before)
 //   │       - Scope: openid profile email
 //   │       - Size: Full
 //   │     Copy the LIFF ID (format: 1234567890-abcdefgh).
@@ -76,13 +76,11 @@ async function getLiff() {
 // LIFF logs in only under the Endpoint URL set in the LINE Developers
 // console (step 4 above). The VetMock LIFF app's endpoint is
 // https://vetmock.com since 2026-10-21 (channel published the same day), so
-// the LINE button shows there and no longer on the old host.
-export const LIFF_ENDPOINT_ON_VETMOCK_COM = true;
-
+// the LINE button shows there and no longer on the old host. If the endpoint
+// ever moves, move it here.
 /** Whether LIFF can log in on this origin. */
 export function liffOriginAllowed(origin) {
-  if (origin === 'https://vetmock.vercel.app') return !LIFF_ENDPOINT_ON_VETMOCK_COM;
-  if (origin === 'https://vetmock.com') return LIFF_ENDPOINT_ON_VETMOCK_COM;
+  if (origin === 'https://vetmock.com') return true;
   return typeof origin === 'string' && /^http:\/\/localhost(:\d+)?$/.test(origin);
 }
 

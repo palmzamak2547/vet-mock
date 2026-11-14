@@ -78,15 +78,59 @@ test('the transcript comes back as one text from iApp segments', async () => {
   }
 });
 
-test('the probe says no when the only service has no credits, and caches it', async () => {
+test('the probe never calls a service; it says no once a real clip met no credits', async () => {
   resetProbe();
   let calls = 0;
   const fetchImpl = async () => { calls++; return new Response('{"error_code":"INSUFFICIENT_CREDIT"}', { status: 402 }); };
-  assert.equal(await available({ env: { IAPP_API_KEY: 'k' }, fetchImpl, now: 1_000 }), false);
-  assert.equal(await available({ env: { IAPP_API_KEY: 'k' }, fetchImpl, now: 2_000 }), false);
-  assert.equal(calls, 1, 'cached between asks');
+  const env = { IAPP_API_KEY: 'k' };
+  for (let i = 0; i < 50; i++) assert.equal(await available({ env, fetchImpl, now: 1_000 + i }), true);
+  assert.equal(calls, 0, 'an unauthenticated probe spends nothing, however often it is asked');
+  const r = await transcribeWav(Buffer.alloc(64), { env, fetchImpl, now: 2_000 });
+  assert.equal(r.ok, false);
+  assert.equal(calls, 1);
+  assert.equal(await available({ env, fetchImpl, now: 3_000 }), false, 'out of credit: the microphone hides');
+  assert.equal((await transcribeWav(Buffer.alloc(64), { env, fetchImpl, now: 4_000 })).ok, false);
+  assert.equal(calls, 1, 'a service out of credit is not asked again for ten minutes');
+  assert.equal(await available({ env, fetchImpl, now: 2_000 + 10 * 60 * 1000 + 1 }), true, 'and is tried again after');
   resetProbe();
   assert.equal(await available({ env: {}, fetchImpl }), false, 'no service configured');
+});
+
+test('the GET probe sends nothing anywhere, whatever query string busts the cache', async () => {
+  resetProbe();
+  const realFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; return Response.json({ result: { text: '' } }); };
+  const saved = { ...process.env };
+  Object.assign(process.env, { CF_AI_TOKEN: 't', CF_AI_ACCOUNT_ID: 'a', IAPP_API_KEY: 'k' });
+  try {
+    for (let i = 0; i < 20; i++) {
+      const res = { statusCode: 200, headers: {}, body: null, setHeader(k, v) { this.headers[k.toLowerCase()] = v; }, status(c) { this.statusCode = c; return this; }, json(b) { this.body = b; return this; }, end() { return this; } };
+      await handler({ method: 'GET', headers: {}, url: `/api/ai-transcribe?bust=${i}` }, res);
+      assert.equal(res.statusCode, 200);
+      assert.deepEqual(res.body, { available: true });
+    }
+    assert.equal(calls, 0);
+  } finally {
+    globalThis.fetch = realFetch;
+    process.env = saved;
+  }
+});
+
+test('a limiter that cannot count refuses the clip: nothing reaches the paid service', async () => {
+  resetProbe();
+  const realFetch = globalThis.fetch;
+  let paid = 0;
+  globalThis.fetch = async () => { paid++; return Response.json({ output: [{ text: 'x' }] }); };
+  try {
+    // NODE_ENV=production with no shared limiter configured: rateLimit() reports unavailable.
+    const res = await call({ audio: wav() }, { env: { IAPP_API_KEY: 'k', NODE_ENV: 'production' } });
+    assert.equal(res.statusCode, 503);
+    assert.equal(res.body.reason, 'temporarily_unavailable');
+    assert.equal(paid, 0);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
 });
 
 test('Cloudflare Whisper goes first; iApp answers when it fails', async () => {
@@ -99,6 +143,7 @@ test('Cloudflare Whisper goes first; iApp answers when it fails', async () => {
   const r = await transcribeWav(wav, { env: { CF_AI_TOKEN: 't', R2_ACCOUNT_ID: 'a', IAPP_API_KEY: 'k' }, fetchImpl });
   assert.deepEqual(seen, ['cf', 'iapp']);
   assert.equal(r.text, 'ทดสอบ');
+  resetProbe(); // the 401 above left Cloudflare out for ten minutes
   const cf = await transcribeWav(wav, { env: { CF_AI_TOKEN: 't', R2_ACCOUNT_ID: 'a' }, fetchImpl: async () => Response.json({ result: { text: ' ระยะฟักตัว ' } }) });
   assert.equal(cf.text, 'ระยะฟักตัว');
 });

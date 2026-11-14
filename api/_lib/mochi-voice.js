@@ -84,6 +84,7 @@ export async function mintToken(apiKey, { now = new Date(), sessionMinutes, fetc
   const at = (ms) => new Date(now.getTime() + ms).toISOString();
   const setup = liveSetup();
   const res = await fetchImpl('https://generativelanguage.googleapis.com/v1beta/auth_tokens', {
+    redirect: 'error',
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
     body: JSON.stringify({

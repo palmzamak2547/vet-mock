@@ -35,11 +35,11 @@
 
 // Mali, a clear young Thai voice from the shared library (the most used Thai
 // female voice there). ค่ะ/คะ in the prompt follow from it: change both together.
-export const VOICE_ID = '7XW5JhaNn90bnFojQ5DA';
+const VOICE_ID = '7XW5JhaNn90bnFojQ5DA';
 export const LLM = 'gemini-3.5-flash-lite';
-export const BACKUP_LLM = 'gemini-3.1-flash-lite';
-export const TTS_MODEL = 'eleven_v3_conversational';
-export const AGENT_NAME = 'VetMock AI voice (ai.vetmock.com)';
+const BACKUP_LLM = 'gemini-3.1-flash-lite';
+const TTS_MODEL = 'eleven_v3_conversational';
+const AGENT_NAME = 'VetMock AI voice (ai.vetmock.com)';
 
 export const PROMPT = `คุณคือผู้ช่วยของ VetMock ที่คุยด้วยเสียงกับนิสิตสัตวแพทย์ไทยแบบสด ๆ เหมือนรุ่นพี่ที่เก่งและใจดีนั่งติวให้ เสียงของคุณเป็นผู้หญิง
 
@@ -183,7 +183,7 @@ const PAPERS_TOOL = {
 export const CLIENT_TOOLS = Object.freeze([SEARCH_TOOL, QUIZ_TOOL, CHECK_TOOL, PAPERS_TOOL]);
 
 // The tones a tutor moves between; the voice performs them (eleven_v3_conversational).
-export const AUDIO_TAGS = Object.freeze([
+const AUDIO_TAGS = Object.freeze([
   { tag: 'warmly', description: 'greeting the student, or saying goodbye' },
   { tag: 'encouraging', description: 'the student answered right, or is trying hard' },
   { tag: 'curious', description: 'asking the student a question back, or checking what they meant' },

@@ -70,6 +70,7 @@ export async function logFeedbackUsage(row, {
   if (!url || !key) return false;
   try {
     const res = await fetch(`${url.replace(/\/+$/, '')}/rest/v1/feedback_usage_log`, {
+      redirect: 'error',
       method: 'POST',
       headers: {
         apikey: key,

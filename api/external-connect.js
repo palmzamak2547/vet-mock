@@ -17,6 +17,7 @@
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { getUserFromRequest, listConnections, deleteConnection, getConnection, revokeProviderGrant, externalCapabilities } from './_lib/external-connections.js';
 import { requireChula } from './_lib/chula-gate.js';
 
@@ -64,14 +65,16 @@ export default async function handler(req, res) {
     const userLimit = await rateLimit(`external-connect-manage-user:${userId}`, USER_CALLS_PER_HOUR, HOUR_MS);
     if (!userLimit.ok) return sendRateLimitFailure(res, userLimit);
 
-    const action = String(req.body?.action || '');
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
+    const action = String(body.action || '');
     if (action === 'status') {
       const connections = await listConnections({ userId });
       if (!connections) return res.status(503).json({ error: 'Could not read connections', reason: 'storage' });
       return res.status(200).json({ connections });
     }
     if (action === 'disconnect') {
-      const provider = String(req.body?.provider || '');
+      const provider = String(body.provider || '');
       if (!PROVIDERS.has(provider)) {
         return res.status(400).json({ error: 'Unsupported provider', reason: 'unsupported_provider' });
       }
@@ -85,6 +88,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Unknown action', reason: 'unknown_action' });
 
   } catch (err) {
-    return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
+    console.error('[external-connect] unexpected:', String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'Unexpected error', code: 'unexpected' });
   }
 }
