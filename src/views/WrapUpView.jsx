@@ -12,7 +12,7 @@
 // same lecturer-practice start the topic screen uses, and "สไลด์ PDF" opens
 // the deck in the reader, so nothing here has a second copy of that logic.
 // ============================================================
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { loadWrapUp, selfNumbered } from '../data/exam-wrapups.js';
 import { lecturerSetIn, FORMAT_LABEL } from '../data/lecturer-sets.js';
@@ -21,7 +21,17 @@ import { oldContentLine, oldYearTag, termYearLabel } from '../lib/current-phase.
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
-import { humanSource } from '../lib/source-label.js';
+import { humanSource, momentHref } from '../lib/source-label.js';
+import { citeParts } from '../lib/wrap-cite.js';
+import { cohortIndex, itemCohorts, cohortList } from '../lib/wrap-cohorts.js';
+import { READING_BAND, currentItem, progressLabel } from '../lib/wrap-progress.js';
+
+// Motion is decided per effect: a jump or the strip following along is a
+// convenience, so under reduced motion it lands at once instead of gliding.
+const reducedMotion = () => {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
+};
+import NavIcon from '../components/NavIcon.jsx';
 import { keyTerm } from '../lib/wrap-keyline.js';
 import { topicPractice } from '../lib/lecturer-count.js';
 import { isChunkLoadError } from '../lib/chunk-error.js';
@@ -53,16 +63,63 @@ function deckIndex(subject, year, phase, term) {
   return map;
 }
 
-function Bullets({ label, items, kind }) {
+// Where a line was said. A cited clip minute is a link that opens that clip
+// at that minute, in a new tab so the page keeps its place; the rest of the
+// citation (a deck page, a past paper) reads as text. A line with no clip
+// shows its citation as before.
+function Cite({ src, course }) {
+  const parts = citeParts(src, course);
+  if (!parts.length) return null;
+  return (
+    <small className="vmx-wrap-src">
+      {parts.map((p, i) => (p.kind === 'text' ? (
+        <span key={i} className="vmx-wrap-src-text">{p.text}</span>
+      ) : (
+        <span key={i} className="vmx-wrap-clip">
+          <span className="vmx-wrap-clip-name">{p.session} นาที</span>
+          {p.moments.map((m) => (
+            <a
+              key={m.seconds}
+              className="vmx-wrap-min"
+              href={momentHref(m)}
+              target="_blank"
+              rel="noopener"
+              aria-label={`เปิด${m.label.startsWith('คลิป') ? '' : 'คลิป'}${m.label}`}
+              title="เปิดคลิปที่นาทีนี้ในแท็บใหม่"
+            >
+              <span className="vmx-wrap-min-face"><NavIcon name="play" size={12} />{m.stamp}</span>
+            </a>
+          ))}
+        </span>
+      )))}
+    </small>
+  );
+}
+
+// The three kinds of line, each with its own icon, so a student scanning the
+// page finds "what the lecturer stressed", "what past papers asked" and "the
+// usual mix-up" by shape before reading a word. The icon is decorative: the
+// label beside it says the same thing to a screen reader.
+const SIGNAL_ICON = { emphasis: 'said', examined: 'sheet', pitfall: 'caution' };
+function SignalLabel({ kind, children }) {
+  return (
+    <div className={`vmx-wrap-list-label is-${kind}`}>
+      <span className="vmx-wrap-signal"><NavIcon name={SIGNAL_ICON[kind]} size={16} /></span>
+      {children}
+    </div>
+  );
+}
+
+function Bullets({ label, items, kind, course }) {
   if (!items?.length) return null;
   return (
     <div className={`vmx-wrap-list is-${kind}`}>
-      <div className="vmx-wrap-list-label">{label}</div>
+      <SignalLabel kind={kind}>{label}</SignalLabel>
       <ul>
         {items.map((b, i) => (
           <li key={i}>
             <span>{b.text}</span>
-            {b.src && <small className="vmx-wrap-src">{humanSource(b.src)}</small>}
+            {b.src && <Cite src={b.src} course={course} />}
           </li>
         ))}
       </ul>
@@ -100,6 +157,20 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     return () => { live = false; };
   }, [subject, selectedYear, selectedPhase, attempt]);
 
+  // Which senior cohorts sat each past paper the page cites, from the bank's
+  // own recurrence file. It loads beside the page and never before it: the
+  // text reads at once, and the "เคยออก N รุ่น" tags join it when they arrive.
+  // A failed load only leaves the tags out.
+  const [cohorts, setCohorts] = useState(null);
+  useEffect(() => {
+    let live = true;
+    setCohorts(null);
+    import('../data/exam-recurrence.generated.js')
+      .then((m) => { if (live) setCohorts(cohortIndex(m.EXAM_RECURRENCE, m.EXAM_RECURRENCE_CLUSTERS, subject)); })
+      .catch(() => {});
+    return () => { live = false; };
+  }, [subject]);
+
   const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase, data?.source?.term), [subject, selectedYear, selectedPhase, data?.source?.term]);
   const covers = LECTURE_COVERS[subject] || {};
   const kindTable = Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE[selectedPhase]?.[subject] || {};
@@ -120,9 +191,41 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
   }, [subject]);
 
+  // Where the student is: the item in the reading band under the sticky
+  // index, reported by an IntersectionObserver as items cross it (never a
+  // scroll listener). Without the observer the strip simply stays on item 1.
+  const [here, setHere] = useState(0);
+  const indexRef = useRef(null);
+  useEffect(() => {
+    setHere(0);
+    if (!data || typeof IntersectionObserver === 'undefined') return undefined;
+    const inBand = new Set();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const n = Number(e.target.dataset.n);
+        if (e.isIntersecting) inBand.add(n); else inBand.delete(n);
+      }
+      setHere((last) => currentItem(inBand, last));
+    }, { rootMargin: READING_BAND, threshold: 0 });
+    document.querySelectorAll('.vmx-wrap-item[data-n]').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [data]);
+  // The strip follows: the marked chip is brought into view inside the strip
+  // only (never the page), and only when it is out of sight.
+  useEffect(() => {
+    const nav = indexRef.current;
+    const chip = nav?.querySelector('[aria-current="location"]');
+    if (!nav || !chip) return;
+    const pinned = nav.querySelector('.vmx-wrap-where')?.offsetWidth || 0;
+    const left = chip.offsetLeft - pinned - 6;
+    const right = chip.offsetLeft + chip.offsetWidth;
+    if (left >= nav.scrollLeft && right <= nav.scrollLeft + nav.clientWidth) return;
+    try { nav.scrollTo({ left: Math.max(0, left), behavior: reducedMotion() ? 'auto' : 'smooth' }); } catch { nav.scrollLeft = Math.max(0, left); }
+  }, [here]);
+
   const jump = (e, id) => {
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
   };
 
   if (failed === 'none') {
@@ -189,14 +292,30 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
           <button type="button" className={mode === 'full' ? 'is-on' : ''} aria-pressed={mode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
           <button type="button" className={mode === 'keys' ? 'is-on' : ''} aria-pressed={mode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>
         </div>
-        <p className="vmx-wrap-legend">
-          <b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น <b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ พร้อมนาทีในคลิปหรือหน้าสไลด์ <b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม
-        </p>
+        {/* The key to the page, one kind of line per row, each with the
+            icon the items use, so it is learned once here. */}
+        <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
+          <li><span className="vmx-wrap-signal" /><span><b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น</span></li>
+          <li><span className="vmx-wrap-signal is-emphasis"><NavIcon name="said" size={16} /></span><span><b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ แตะนาทีเพื่อเปิดคลิป</span></li>
+          <li><span className="vmx-wrap-signal is-examined"><NavIcon name="sheet" size={16} /></span><span><b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม</span></li>
+          <li><span className="vmx-wrap-signal is-pitfall"><NavIcon name="caution" size={16} /></span><span><b>ระวังสับสน</b> จุดที่มักสับสนกับโรคหรือหัวข้อใกล้กัน</span></li>
+          <li><span className="vmx-wrap-signal" /><span><b>เคยออกกี่รุ่น</b> รุ่นพี่กี่รุ่นที่เจอข้อสอบเก่าของ{unit}นั้น</span></li>
+        </ul>
       </header>
 
-      <nav className="vmx-wrap-index" aria-label={`สารบัญ ${items.length} ${unit}`}>
+      {/* The index is also the progress strip: "5 จาก 28" stays pinned at its
+          start and the item being read is marked, so a look up says how far
+          the student is and how much is left. */}
+      <nav ref={indexRef} className="vmx-wrap-index" aria-label={`สารบัญ ${items.length} ${unit}`}>
+        <span className="vmx-wrap-where">{progressLabel(here, items.length)}</span>
         {items.map((it, i) => (
-          <a key={anchorId(it.topic, i)} href={`#${anchorId(it.topic, i)}`} onClick={(e) => jump(e, anchorId(it.topic, i))}>
+          <a
+            key={anchorId(it.topic, i)}
+            href={`#${anchorId(it.topic, i)}`}
+            onClick={(e) => jump(e, anchorId(it.topic, i))}
+            className={i === here ? 'is-here' : undefined}
+            aria-current={i === here ? 'location' : undefined}
+          >
             <b>{i + 1}</b> {mode === 'keys' && it.th ? it.th : it.name}
           </a>
         ))}
@@ -224,16 +343,24 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               const { format, count, fellBack } = topicPractice(kindTable, [it.topic], lecFormat);
               const doc = deck?.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
               // A list the lecturer numbered is printed as written; a plain one
-              // leads each 'Term — explanation' line with the term in bold.
+              // leads each 'Term — explanation' or 'Term: explanation' line
+              // with the term in bold, chips included, so the eye lands on the
+              // term first (lib/wrap-keyline.js decides what is a term).
               const numbered = selfNumbered(it.keywords);
+              // History, never a forecast: the cohorts that were asked this
+              // item's cited past papers. No resolved cohort, no tag.
+              const seen = cohorts ? itemCohorts(it, cohorts) : [];
               return (
-                <article key={anchorId(it.topic, n - 1)} id={anchorId(it.topic, n - 1)} className="vmx-wrap-item">
+                <article key={anchorId(it.topic, n - 1)} id={anchorId(it.topic, n - 1)} data-n={n - 1} className="vmx-wrap-item">
                   <div className="vmx-wrap-item-head">
                     <span className="vmx-wrap-n" aria-hidden="true">{n}</span>
                     <div className="vmx-wrap-title">
                       <h3>{it.name}</h3>
                       {it.th && <div className="vmx-wrap-th">{it.th}</div>}
                       {it.agent && <div className="vmx-wrap-agent">{it.agent}</div>}
+                      {seen.length > 0 && (
+                        <div className="vmx-wrap-seen"><b>เคยออก {seen.length} รุ่น</b> <span>({cohortList(seen)})</span></div>
+                      )}
                     </div>
                     {art && <img className="vmx-wrap-cover" src={art.src} alt="" loading="lazy" decoding="async" />}
                   </div>
@@ -247,26 +374,31 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                     <ul className={`vmx-wrap-keylist${numbered ? ' is-self-numbered' : ''}`} aria-label="คีย์เวิร์ดและรายการที่ต้องจำ">
                       {it.keywords.map((k) => {
                         const parts = numbered ? null : keyTerm(k);
-                        return <li key={k}>{parts ? <><b>{parts.term}</b>{' — '}{parts.rest}</> : k}</li>;
+                        return <li key={k}>{parts ? <><b>{parts.term}</b>{parts.sep}{parts.rest}</> : k}</li>;
                       })}
                     </ul>
                   ) : (
                     <div className="vmx-wrap-keys" aria-label="คีย์เวิร์ด">
-                      {it.keywords.map((k) => <span key={k} className="vmx-wrap-key">{k}</span>)}
+                      {it.keywords.map((k) => {
+                        const parts = numbered ? null : keyTerm(k);
+                        return parts
+                          ? <span key={k} className="vmx-wrap-key has-term"><b>{parts.term}</b>{parts.sep}{parts.rest}</span>
+                          : <span key={k} className="vmx-wrap-key">{k}</span>;
+                      })}
                     </div>
                   ))}
 
                   {mode === 'full' && (
                     <div className="vmx-wrap-cols">
-                      <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" />
+                      <Bullets label="อาจารย์เน้น" items={it.emphasis} kind="emphasis" course={subjectName} />
                       {it.examined?.length ? (
-                        <Bullets label="มีในข้อสอบเก่า" items={it.examined} kind="examined" />
+                        <Bullets label="มีในข้อสอบเก่า" items={it.examined} kind="examined" course={subjectName} />
                       ) : (
                         // Say it plainly. An empty column could mean either
                         // "nothing was found" or "nobody looked", and those
                         // are not the same thing to someone revising.
                         <div className="vmx-wrap-list is-examined">
-                          <div className="vmx-wrap-list-label">มีในข้อสอบเก่า</div>
+                          <SignalLabel kind="examined">มีในข้อสอบเก่า</SignalLabel>
                           <p className="vmx-wrap-none">ยังไม่พบข้อสอบเก่าหรือบันทึกรุ่นก่อนที่ถามหัวข้อนี้</p>
                         </div>
                       )}
@@ -274,7 +406,10 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                   )}
 
                   {mode === 'full' && it.pitfall && (
-                    <p className="vmx-wrap-pitfall"><b>ระวังสับสน</b> {it.pitfall}</p>
+                    <div className="vmx-wrap-pitfall">
+                      <SignalLabel kind="pitfall">ระวังสับสน</SignalLabel>
+                      <p>{it.pitfall}</p>
+                    </div>
                   )}
 
                   {mode === 'full' && (onStartTopic || doc) && (

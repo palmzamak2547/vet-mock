@@ -2932,12 +2932,19 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; letter-spacing: 0; background: var(--clr-gold-soft); color: var(--clr-ink); }
 .vmx-wrap-intro { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); max-width: 70ch; }
-.vmx-wrap-legend { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-wrap-legend { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-wrap-legend li { display: flex; align-items: flex-start; gap: 6px; }
 .vmx-wrap-legend b { color: var(--clr-ink); font-weight: 700; }
 .vmx-wrap-index { position: sticky; top: 0; z-index: 2; display: flex; gap: 6px; overflow-x: auto; padding: 8px 0; margin: 0 0 12px; background: color-mix(in srgb, var(--clr-bg) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); scrollbar-width: thin; }
 .vmx-wrap-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font-size: 14px; text-decoration: none; white-space: nowrap; }
 .vmx-wrap-index a b { font-family: var(--vmx-mono); font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-wrap-index a:hover { border-color: var(--clr-ink); }
+/* The progress strip: the count stays pinned at the strip's start while the chips scroll under it, and the item being read is the dark chip. */
+.vmx-wrap-where { position: sticky; left: 0; z-index: 1; flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 36px; padding: 0 8px 0 0; margin-right: -2px; background: var(--clr-bg); color: var(--clr-ink); font-family: var(--vmx-sans); font-size: 14px; font-weight: 700; letter-spacing: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-wrap-index a { transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
+.vmx-wrap-index a.is-here { background: var(--clr-ink); border-color: var(--clr-ink); color: var(--clr-bg); }
+.vmx-wrap-index a.is-here b { color: var(--clr-bg); }
+@media (prefers-reduced-motion: reduce) { .vmx-wrap-index a { transition: none; } }
 .vmx-wrap-group { margin: 0 0 22px; }
 .vmx-wrap-group-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 10px; }
 .vmx-wrap-group-head h2 { margin: 0; font-size: 17px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
@@ -2952,9 +2959,15 @@ html.dark .vmx-panic-scrim {
    token: monospace broke it into a ragged column with Thai falling back to
    another face mid-line. */
 .vmx-wrap-agent { margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+/* "เคยออก N รุ่น": how many senior cohorts were asked this item, with which. History, so it reads as a quiet fact, not an alarm. */
+.vmx-wrap-seen { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px; margin-top: 6px; padding: 2px 10px; border-radius: var(--r-pill); background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.vmx-wrap-seen b { font-weight: 700; }
 .vmx-wrap-cover { flex: 0 0 auto; width: 84px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--clr-border); }
 .vmx-wrap-keys { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; }
-.vmx-wrap-key { display: inline-flex; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
+.vmx-wrap-key { display: inline-block; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
+/* A "Term: detail" chip: the term carries the weight, the detail reads plain. */
+.vmx-wrap-key.has-term { font-weight: 400; }
+.vmx-wrap-key b { font-weight: 700; }
 .vmx-wrap-mode { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin: 0 0 10px; }
 .vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 12px; cursor: pointer; }
 .vmx-wrap-mode button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
@@ -2972,12 +2985,30 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-keylist.is-self-numbered li::before { content: none; }
 .vmx-wrap-cols { display: grid; grid-template-columns: 1fr; gap: 10px 18px; margin-top: 12px; }
 @media (min-width: 720px) { .vmx-wrap-cols { grid-template-columns: 1fr 1fr; } }
-.vmx-wrap-list-label { font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-wrap-list-label { display: flex; align-items: center; gap: 6px; font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
+/* Each kind of line keeps one icon and one colour wherever it appears. Colour is never the only cue: the label is always beside it. */
+.vmx-wrap-signal { flex: 0 0 auto; display: inline-grid; place-items: center; width: 16px; height: 21px; }
+.is-emphasis > .vmx-wrap-signal, .vmx-wrap-signal.is-emphasis { color: var(--clr-sage-text); }
+.is-examined > .vmx-wrap-signal, .vmx-wrap-signal.is-examined { color: var(--clr-gold-text); }
+.is-pitfall > .vmx-wrap-signal, .vmx-wrap-signal.is-pitfall { color: var(--clr-rose-text); }
 .vmx-wrap-list ul { margin: 0; padding-left: 18px; }
-.vmx-wrap-list li { font-size: 14px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 4px; }
-.vmx-wrap-src { display: block; font-family: var(--vmx-sans); font-size: 14px; letter-spacing: 0; color: var(--clr-ink-soft); }
+.vmx-wrap-list li { font-size: 14px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 8px; }
+.vmx-wrap-src { display: flex; flex-direction: column; align-items: flex-start; gap: 0; font-family: var(--vmx-sans); font-size: 14px; letter-spacing: 0; color: var(--clr-ink-soft); }
+/* A cited clip: its name, then one link per minute. The link is 44px tall to the thumb and a small pill to the eye. */
+.vmx-wrap-clip { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
+.vmx-wrap-clip-name { margin-right: 2px; }
+.vmx-wrap-min { display: inline-flex; align-items: center; min-height: var(--touch-min); min-width: var(--touch-min); justify-content: center; text-decoration: none; color: var(--clr-sage-text); -webkit-tap-highlight-color: transparent; }
+.vmx-wrap-min-face { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid var(--clr-border); background: var(--clr-surface); font-size: 14px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; white-space: nowrap; transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out); }
+.vmx-wrap-min-face svg { flex: 0 0 auto; }
+.vmx-wrap-min:hover .vmx-wrap-min-face { border-color: var(--clr-sage-text); }
+.vmx-wrap-min:active .vmx-wrap-min-face { background: var(--clr-surface-2); }
+.vmx-wrap-min:focus-visible { outline: none; }
+.vmx-wrap-min:focus-visible .vmx-wrap-min-face { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .vmx-wrap-min-face { transition: none; } }
 .vmx-wrap-none { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-style: italic; }
-.vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-gold-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-rose-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-wrap-pitfall .vmx-wrap-list-label { color: var(--clr-ink); font-weight: 700; margin-bottom: 2px; }
+.vmx-wrap-pitfall p { margin: 0; }
 .vmx-wrap-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
 .vmx-wrap-foot { margin-top: 8px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 /* Entry card on the topic screen, and the strip under the countdown on Home. */
