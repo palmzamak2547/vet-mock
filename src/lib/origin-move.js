@@ -410,6 +410,21 @@ export function moveGiveUpNotice(inboxRaw) {
   };
 }
 
+// The screens of a running session: the give-up notice is fixed at the bottom of a phone and would cover
+// their controls. App.jsx publishes its view as window.__vmxView and a 'vmx-view' event.
+const SESSION_VIEWS = new Set(['exam', 'sr-session']);
+
+/** Runs `show` once: now unless a session is on screen, else when the student is next on Home. */
+export function whenNotInSession(win, show) {
+  if (!SESSION_VIEWS.has(win.__vmxView)) { show(); return; }
+  const onView = (event) => {
+    if (event?.detail !== 'home') return;
+    win.removeEventListener('vmx-view', onView);
+    show();
+  };
+  win.addEventListener('vmx-view', onView);
+}
+
 /** The inbox job of this boot, when the gate named it and the app waited for it. Returns null when it
  *  did not run, else the job's result, with the notice to show when that was the last try. */
 export function runInboxJob(win, due, merge = applyMoveInbox) {
@@ -460,7 +475,11 @@ if (typeof window !== 'undefined') {
         .finally(() => {
           try {
             // The last try of the merge failed: said once, and it stays until closed.
-            if (inbox?.notice && document.body) { noticeCard(document, inbox.notice.text, () => {}, { link: inbox.notice.link, stay: true }); return; }
+            if (inbox?.notice && document.body) {
+              const { text, link } = inbox.notice;
+              whenNotInSession(window, () => noticeCard(document, text, () => {}, { link, stay: true }));
+              return;
+            }
             if (due.has('notice') && showMoveNotice(document, window.localStorage)) return;
             if (due.has('note')) showOldAddressNote(window, document);
           } catch { /* optional */ }

@@ -7,7 +7,7 @@ import {
   moveWork, dueMoveJobs, startWhenReady, MOVE_JOBS,
   MOVE_INBOX, MOVE_INBOX_ATTEMPTS, MOVE_RECEIVED, NOTICE_MS, MAX_ATTEMPTS, MOVE_WAIT_MS,
 } from '../../src/lib/move-gate.js';
-import { applyMoveInbox, importMovedRecords, moveNotice, moveGiveUpNotice, runInboxJob } from '../../src/lib/origin-move.js';
+import { applyMoveInbox, importMovedRecords, moveNotice, moveGiveUpNotice, runInboxJob, whenNotInSession } from '../../src/lib/origin-move.js';
 
 const store = (entries) => {
   const m = new Map(Object.entries(entries));
@@ -113,6 +113,27 @@ test('the give-up notice links only to the old address, whatever the inbox names
     assert.equal(moveGiveUpNotice(JSON.stringify({ from })).link.href, 'https://vetmock.vercel.app/?vmx-move=retry', String(from));
   }
   assert.equal(moveGiveUpNotice('{oops').link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
+});
+
+test('the give-up notice is held while an exam is on screen and shows once the student is on Home', () => {
+  const win = new EventTarget();
+  const view = (v) => { win.__vmxView = v; win.dispatchEvent(new CustomEvent('vmx-view', { detail: v })); };
+  win.__vmxView = 'exam';
+  let shown = 0;
+  whenNotInSession(win, () => { shown++; });
+  assert.equal(shown, 0, 'held during the exam');
+  view('exam');
+  view('results');
+  assert.equal(shown, 0, 'still held until Home');
+  view('home');
+  assert.equal(shown, 1, 'shown on Home');
+  view('exam');
+  view('home');
+  assert.equal(shown, 1, 'shown once');
+  const onHome = new EventTarget();
+  onHome.__vmxView = 'home';
+  whenNotInSession(onHome, () => { shown++; });
+  assert.equal(shown, 2, 'on Home it shows at once');
 });
 
 test('a record import counts its tries and stops after the last one, leaving the records', async () => {
