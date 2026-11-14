@@ -23,6 +23,8 @@ import { FORMAT_LABEL } from '../data/lecturer-sets.js';
 import { Keywords, Line, SignalLabel } from './WrapParts.jsx';
 import WrapSlide from './WrapSlide.jsx';
 
+const NONE = new Set();
+
 function loadState(key, ids) {
   try { return readDeck(window.localStorage.getItem(key), ids); } catch { return readDeck(null, ids); }
 }
@@ -110,6 +112,7 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
     if (loadedFor.current === storageKey) return;
     loadedFor.current = storageKey;
     setState(loadState(storageKey, ids));
+    setVisit((v) => v + 1);
   }, [storageKey, ids]);
   useEffect(() => {
     try { window.localStorage.setItem(storageKey, JSON.stringify(state)); } catch { /* kept for this visit only */ }
@@ -118,7 +121,14 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
   const item = items[state.pos];
   const facets = useMemo(() => (item ? facetsOf(item) : []), [item]);
   const core = useMemo(() => coreOf(facets), [facets]);
-  const [open, setOpen] = useState(() => new Set());
+  // What is open belongs to one visit of one card. Every move to a card
+  // starts a new visit in the same update, so a card arrives covered from its
+  // first paint: an effect that closed it afterwards could undo a tap that
+  // came first (a fast "เปิดทั้งใบ" right after the card changed).
+  const [visit, setVisit] = useState(0);
+  const [opened, setOpened] = useState(() => ({ visit: 0, ids: new Set() }));
+  const open = opened.visit === visit ? opened.ids : NONE;
+  const move = (fn) => { setState(fn); setVisit((v) => v + 1); };
   const quick = state.pace === 'quick';
   const back = quick || core.every((f) => open.has(f.id));
   const slide = item ? slideOf(item) : null;
@@ -130,7 +140,6 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
   const sumRef = useRef(null);
   const firstRender = useRef(true);
   useEffect(() => {
-    setOpen(new Set());
     if (firstRender.current) { firstRender.current = false; return; }
     const top = deckRef.current?.getBoundingClientRect().top;
     if (top !== undefined && top < 0) {
@@ -159,21 +168,21 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
   const pileHeading = useRef(null);
   const sheetRef = useModalFocus({ active: pileOpen, onClose: closePile, initialFocusRef: pileHeading });
 
-  const toggle = (id) => setOpen((cur) => {
-    const next = new Set(cur);
+  const toggle = (id) => setOpened((cur) => {
+    const next = new Set(cur.visit === visit ? cur.ids : NONE);
     if (next.has(id)) next.delete(id); else next.add(id);
-    return next;
+    return { visit, ids: next };
   });
-  const reveal = () => setOpen(new Set(core.map((f) => f.id)));
-  const mark = (m) => setState((s) => rate(s, ids, m));
-  const jump = (i) => { setPileOpen(false); setState((s) => goTo(resume(s), ids, i)); };
+  const reveal = () => setOpened({ visit, ids: new Set(core.map((f) => f.id)) });
+  const mark = (m) => move((s) => rate(s, ids, m));
+  const jump = (i) => { setPileOpen(false); move((s) => goTo(resume(s), ids, i)); };
   const setPace = (p) => setState((s) => ({ ...s, pace: p }));
 
   // The keyboard does what a tap does: Space opens the card, 1 is ต้องทวน,
   // 2 is จำได้ (in the quick round, ถัดไป), the arrows move without marking.
   // Marks wait for the open card, as the buttons do.
   const keys = useRef(null);
-  keys.current = { back, quick, done: state.done, reveal, mark, pos: state.pos };
+  keys.current = { back, quick, done: state.done, reveal, mark, move, pos: state.pos };
   useEffect(() => {
     const onKey = (e) => {
       if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
@@ -190,9 +199,9 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
       } else if (e.key === '2' && k.back) {
         k.mark(k.quick ? null : KNOWN);
       } else if (e.key === 'ArrowRight' && !t?.closest?.('[role="group"]')) {
-        setState((s) => goTo(s, ids, s.pos + 1));
+        k.move((s) => goTo(s, ids, s.pos + 1));
       } else if (e.key === 'ArrowLeft' && !t?.closest?.('[role="group"]')) {
-        setState((s) => goTo(s, ids, s.pos - 1));
+        k.move((s) => goTo(s, ids, s.pos - 1));
       }
     };
     window.addEventListener('keydown', onKey);
@@ -214,9 +223,9 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
   ) : null;
   const summaryProps = {
     state, ids, items, onJump: jump,
-    onRedo: () => { setPileOpen(false); setState((s) => startRedo(s, ids)); },
-    onResume: () => { closePile(); setState(resume); },
-    onRestart: () => setState(restart),
+    onRedo: () => { setPileOpen(false); move((s) => startRedo(s, ids)); },
+    onResume: () => { closePile(); move(resume); },
+    onRestart: () => move(restart),
     practice,
   };
   const inRound = Boolean(state.queue);

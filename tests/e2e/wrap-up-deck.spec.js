@@ -4,6 +4,9 @@ import { test, expect } from './fixtures.js';
 // then judge. Assertions read the card on screen and the counts the page
 // prints, never today's content, so new wrap-up content cannot turn this red.
 
+// Each test walks Home, the subject and the deck, some twice: room for a busy machine.
+test.setTimeout(60_000);
+
 async function openDeck(page, context) {
   await context.addInitScript(() => {
     try {
