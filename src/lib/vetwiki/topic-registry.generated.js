@@ -938,7 +938,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-lameness",
     "title": "Equine lameness: an introduction + Diagnostic analgesia",
     "icon": "🐎",
-    "summary": "การตรวจม้าขาเจ็บจากเด็ค Equine lameness: an introduction ปี 2026 (นิยาม, เป้าหมายการตรวจ, ประวัติ, การดูตอนยืน, conformation, เกรด 1-5, head nod และอาการขาหลัง, การคลำทีละส่วน, flexion test, imaging และการตรวจเสริม) ต่อด้วยเด็ค Diagnostic analgesia in horses ปี 2026 (ยาชา onset และ duration, กลยุทธ์ sequential หรือ targeted, บล็อกขาหน้าขาหลัง, แผนผังแปลผลบล็อกปลายขา, การแปลผล, ผลลบลวง ผลบวกลวง และกรณีที่ไม่ควรบล็อก) ส่วนกีบและเอ็นอยู่ในหัวข้อ equine-hoof และ equine-tendon",
+    "summary": "การตรวจม้าขาเจ็บจากเด็ค Equine lameness: an introduction ปี 2026 (นิยาม, เป้าหมายการตรวจ, ประวัติ, การดูตอนยืน, conformation, เกรด 1-5, head nod และอาการขาหลัง, การคลำทีละส่วน, flexion test, imaging และการตรวจเสริม) ต่อด้วยเด็ค Diagnostic analgesia in horses ปี 2026 (ยาชา onset และ duration, กลยุทธ์ sequential หรือ targeted, บล็อกขาหน้าขาหลัง, แผนผังแปลผลบล็อกปลายขา, การแปลผล, ผลลบลวง ผลบวกลวง และกรณีที่ไม่ควรบล็อก) ส่วนกีบและเอ็นอยู่ในหัวข้อ Pathologic conditions of the equine foot และ Tendon/Ligament injuries and treatment",
     "flagship": false
   },
   {
@@ -1001,7 +1001,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-colic-surgery",
     "title": "Surgical colic: when to refer and perioperative care",
     "icon": "🔪",
-    "summary": "ม้าโคลิกที่ต้องไปทางผ่าตัด จากเด็ค Equine GI I, GI II และ Equine surgery & anesthesia ปี 2026 กับบันทึกคาบ GI วันที่ 27 ส.ค. 2569: เกณฑ์ที่ชี้ว่าต้องผ่าตัดหรือส่งต่อ, colic แต่ละแบบที่อาจต้องผ่า, การงดอาหารก่อนและหลังผ่าตัดช่องท้อง, การเตรียมผิวและท่านอน และสิ่งที่ต้องรู้เกี่ยวกับการผ่า colon การประเมิน CCS และการรักษาทางยาอยู่ในหัวข้อ equine-colic-bestfit",
+    "summary": "ม้าโคลิกที่ต้องไปทางผ่าตัด จากเด็ค Equine GI I, GI II และ Equine surgery & anesthesia ปี 2026 กับบันทึกคาบ GI วันที่ 27 ส.ค. 2569: เกณฑ์ที่ชี้ว่าต้องผ่าตัดหรือส่งต่อ, colic แต่ละแบบที่อาจต้องผ่า, การงดอาหารก่อนและหลังผ่าตัดช่องท้อง, การเตรียมผิวและท่านอน และสิ่งที่ต้องรู้เกี่ยวกับการผ่า colon การประเมิน CCS และการรักษาทางยาอยู่ในหัวข้อ Equine colic: evaluation and treatment choice",
     "flagship": false
   },
   {
@@ -1100,7 +1100,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-derm",
     "title": "Equine dermatology",
     "icon": "🐾",
-    "summary": "โรคผิวหนังม้าจากครึ่งแรกของเด็ค Equine dermatology and wound management ปี 2026: ผิวและขนม้าที่ต่างจากสัตว์อื่น, การซักประวัติและตารางโรคตามพันธุ์ สี อายุ, การตรวจและการเก็บตัวอย่าง, อาการคันกับ PVAS แล้วไล่ตามกลุ่มอาการ คือ คัน (เหา, Chorioptes, Oxyuris, แมลงกัด, Culicoides hypersensitivity, atopic dermatitis), สะเก็ดและขุย (dermatophytosis, dermatophilosis), erosion (habronemiasis, coital exanthema), ขนร่วง (PPID) และเนื้องอก (sarcoid, papilloma, SCC, melanoma, eosinophilic granuloma) การจัดการบาดแผลอยู่ในหัวข้อ equine-surgery-wound",
+    "summary": "โรคผิวหนังม้าจากครึ่งแรกของเด็ค Equine dermatology and wound management ปี 2026: ผิวและขนม้าที่ต่างจากสัตว์อื่น, การซักประวัติและตารางโรคตามพันธุ์ สี อายุ, การตรวจและการเก็บตัวอย่าง, อาการคันกับ PVAS แล้วไล่ตามกลุ่มอาการ คือ คัน (เหา, Chorioptes, Oxyuris, แมลงกัด, Culicoides hypersensitivity, atopic dermatitis), สะเก็ดและขุย (dermatophytosis, dermatophilosis), erosion (habronemiasis, coital exanthema), ขนร่วง (PPID) และเนื้องอก (sarcoid, papilloma, SCC, melanoma, eosinophilic granuloma) การจัดการบาดแผลอยู่ในหัวข้อ Concept of equine surgery and wound management",
     "flagship": false
   },
   {
@@ -1109,7 +1109,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-surgery-wound",
     "title": "Concept of equine surgery and wound management",
     "icon": "🩹",
-    "summary": "สองส่วนจากปี 2026: แนวคิดการผ่าตัดม้า จากเด็ค Equine surgery & anesthesia (field เทียบ hospital surgery, การไหลของห้องผ่าตัด, surgical checklist, การตัดขน, ห้องผ่าตัด, การคลุมผ้าแบบนอนและแบบยืนในซอง) และการจัดการบาดแผล จากครึ่งหลังของเด็ค Equine dermatology and wound management (ระยะการหาย, ม้าเทียบ pony, ประเมิน เตรียม สำรวจ debride แผล, เลือกปิดแผล, ไหมและรูปแบบการเย็บ, drain, dressing, EGT, การพันแผลแต่ละตำแหน่ง, Robert Jones bandage และ splint) การวางยาสลบและท่านอนอยู่ในหัวข้อ equine-anesthesia",
+    "summary": "สองส่วนจากปี 2026: แนวคิดการผ่าตัดม้า จากเด็ค Equine surgery & anesthesia (field เทียบ hospital surgery, การไหลของห้องผ่าตัด, surgical checklist, การตัดขน, ห้องผ่าตัด, การคลุมผ้าแบบนอนและแบบยืนในซอง) และการจัดการบาดแผล จากครึ่งหลังของเด็ค Equine dermatology and wound management (ระยะการหาย, ม้าเทียบ pony, ประเมิน เตรียม สำรวจ debride แผล, เลือกปิดแผล, ไหมและรูปแบบการเย็บ, drain, dressing, EGT, การพันแผลแต่ละตำแหน่ง, Robert Jones bandage และ splint) การวางยาสลบและท่านอนอยู่ในหัวข้อ Equine anesthesia, analgesia and euthanasia",
     "flagship": false
   },
   {

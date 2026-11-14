@@ -2759,7 +2759,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     "title": "Equine lameness: an introduction + Diagnostic analgesia",
     "lecturer": "Teerapol Chinkangsadarn",
     "icon": "🐎",
-    "summary": "การตรวจม้าขาเจ็บจากเด็ค Equine lameness: an introduction ปี 2026 (นิยาม, เป้าหมายการตรวจ, ประวัติ, การดูตอนยืน, conformation, เกรด 1-5, head nod และอาการขาหลัง, การคลำทีละส่วน, flexion test, imaging และการตรวจเสริม) ต่อด้วยเด็ค Diagnostic analgesia in horses ปี 2026 (ยาชา onset และ duration, กลยุทธ์ sequential หรือ targeted, บล็อกขาหน้าขาหลัง, แผนผังแปลผลบล็อกปลายขา, การแปลผล, ผลลบลวง ผลบวกลวง และกรณีที่ไม่ควรบล็อก) ส่วนกีบและเอ็นอยู่ในหัวข้อ equine-hoof และ equine-tendon",
+    "summary": "การตรวจม้าขาเจ็บจากเด็ค Equine lameness: an introduction ปี 2026 (นิยาม, เป้าหมายการตรวจ, ประวัติ, การดูตอนยืน, conformation, เกรด 1-5, head nod และอาการขาหลัง, การคลำทีละส่วน, flexion test, imaging และการตรวจเสริม) ต่อด้วยเด็ค Diagnostic analgesia in horses ปี 2026 (ยาชา onset และ duration, กลยุทธ์ sequential หรือ targeted, บล็อกขาหน้าขาหลัง, แผนผังแปลผลบล็อกปลายขา, การแปลผล, ผลลบลวง ผลบวกลวง และกรณีที่ไม่ควรบล็อก) ส่วนกีบและเอ็นอยู่ในหัวข้อ Pathologic conditions of the equine foot และ Tendon/Ligament injuries and treatment",
     "sections": [
       {
         "heading": "นิยาม และเป้าหมายของการตรวจ",
@@ -2834,7 +2834,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
             "bullets": [
               "ต้องรู้ก่อนว่าม้าปกติเป็นอย่างไร, ความสัมพันธ์ของ lameness กับ conformation, การประเมินแบบ subjective เทียบ objective; ระวัง poor performance, gait deficit ที่ไม่ได้มาจาก lameness และ lameness ที่อธิบายไม่ได้ (p.11)",
               "Limb conformation: **angular** (valgus/varus), **flexural** (club foot, straight fetlocks), **rotational** (toe out); back at knee, straight hocks, bench knee, dropped fetlocks, 'post legged' (p.12-13)",
-              "Foot conformation และ foot/pastern axis ดูหัวข้อ equine-hoof (p.14-17)",
+              "Foot conformation และ foot/pastern axis ดูหัวข้อ Pathologic conditions of the equine foot (p.14-17)",
               "**กล้ามเนื้อ gluteal ลด** อาจบอก lameness ขาหลังเรื้อรังหรือรุนแรง ต้องแยกจากกระดูกไม่สมมาตร (pelvis หัก); **กล้ามเนื้อเหนือ shoulder ฝ่อ** อาจสัมพันธ์กับ shoulder pain (p.19)",
               "ตัวอย่าง stifle lameness: ท่ายืนหมุนขาหรือพักขาเข้าหาแนวกลางตัว ท่าเดิน abduct เล็กน้อย (p.23)"
             ]
@@ -2969,7 +2969,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
             "bullets": [
               "Manipulative tests: flexion, extension, direct digital pressure, hoof tester, wedge test, stress tests ต้อง **ระวังการแปลผล** (p.37)",
               "**Flexion test**: งอข้อค้างไว้ **½-1 นาที** แล้วปล่อยให้ trot ออกไปทันที ดูความเจ็บ การถ่ายน้ำหนัก หรือการเคลื่อนผิดปกติที่อาจไม่เห็นตอนปกติ (p.55)",
-              "วิธีใช้ hoof tester ดูหัวข้อ equine-hoof (p.52-54)"
+              "วิธีใช้ hoof tester ดูหัวข้อ Pathologic conditions of the equine foot (p.52-54)"
             ]
           }
         ]
@@ -4224,7 +4224,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
               "ประวัติ: โรคปัจจุบัน, ยา, ปัญหาการวางยาหรือการฟื้นครั้งก่อน, นิสัย, ประวัติอาหาร (p.4)",
               "หาสัญญาณแฝงที่เพิ่มความเสี่ยง: influenza ไอหรือน้ำมูก, colic, rhabdomyolysis, salmonellosis, ความเสี่ยงจากการขนส่ง, **hyperkalemic periodic paralysis ใน quarter horse กล้ามเนื้อมาก** (p.4)",
               "**Tetanus prophylaxis**: ต้องแน่ใจก่อนผ่า; ถ้าวัคซีนครบและยังไม่หมดอายุไม่ต้อง booster; ลูกม้าแรกเกิดได้ภูมิผ่าน colostrum; ลูกม้าโตที่วัคซีนยังไม่ครบให้ **tetanus toxoid** ก่อนผ่า (p.5)",
-              "งดอาหาร: ลด grain 2 สัปดาห์; งด grain 24 ชม. หรือหญ้า 12 ชม.; **ให้น้ำได้ตลอด**; รายละเอียดผ่าตัดช่องท้องและ GI ดูหัวข้อ equine-colic-surgery (p.6)",
+              "งดอาหาร: ลด grain 2 สัปดาห์; งด grain 24 ชม. หรือหญ้า 12 ชม.; **ให้น้ำได้ตลอด**; รายละเอียดผ่าตัดช่องท้องและ GI ดูหัวข้อ Surgical colic: when to refer and perioperative care (p.6)",
               "ตรวจร่างกาย: หัวใจ หายใจ hydration ความปวด ระบบประสาท body condition (p.7)",
               "เลือด: **PCV > 30%, hemoglobin > 10 g/dL, WBC < 12,000 cells/mm³**; ระวัง stress leukogram จากการขนส่ง (p.7)",
               "วางแผน: ความเร่งด่วน ระยะเวลา ท่า ความปวดที่คาด เลือดที่เสีย การต้องนิ่ง; สถานที่ induction/recovery ที่ปลอดภัย ออกซิเจน airway monitor และคนที่ฝึกแล้ว; ปัจจัยที่อาจเปลี่ยนแผน เช่น ไม่เสถียร ปวดรุนแรง หายใจลำบาก (p.7)"
@@ -4331,7 +4331,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           },
           {
             "bullets": [
-              "ซองและการคลุมผ้าสำหรับผ่าตัดยืน ดูหัวข้อ equine-surgery-wound (p.56-57)"
+              "ซองและการคลุมผ้าสำหรับผ่าตัดยืน ดูหัวข้อ Concept of equine surgery and wound management (p.56-57)"
             ]
           }
         ]
@@ -6731,7 +6731,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     "title": "Surgical colic: when to refer and perioperative care",
     "lecturer": "Sawita Santiviparat",
     "icon": "🔪",
-    "summary": "ม้าโคลิกที่ต้องไปทางผ่าตัด จากเด็ค Equine GI I, GI II และ Equine surgery & anesthesia ปี 2026 กับบันทึกคาบ GI วันที่ 27 ส.ค. 2569: เกณฑ์ที่ชี้ว่าต้องผ่าตัดหรือส่งต่อ, colic แต่ละแบบที่อาจต้องผ่า, การงดอาหารก่อนและหลังผ่าตัดช่องท้อง, การเตรียมผิวและท่านอน และสิ่งที่ต้องรู้เกี่ยวกับการผ่า colon การประเมิน CCS และการรักษาทางยาอยู่ในหัวข้อ equine-colic-bestfit",
+    "summary": "ม้าโคลิกที่ต้องไปทางผ่าตัด จากเด็ค Equine GI I, GI II และ Equine surgery & anesthesia ปี 2026 กับบันทึกคาบ GI วันที่ 27 ส.ค. 2569: เกณฑ์ที่ชี้ว่าต้องผ่าตัดหรือส่งต่อ, colic แต่ละแบบที่อาจต้องผ่า, การงดอาหารก่อนและหลังผ่าตัดช่องท้อง, การเตรียมผิวและท่านอน และสิ่งที่ต้องรู้เกี่ยวกับการผ่า colon การประเมิน CCS และการรักษาทางยาอยู่ในหัวข้อ Equine colic: evaluation and treatment choice",
     "sections": [
       {
         "heading": "สัญญาณที่ชี้ว่าต้องผ่าตัดหรือส่งต่อ",
@@ -6769,7 +6769,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           },
           {
             "bullets": [
-              "ถ้าถึงเกณฑ์การุณยฆาต (ปวดคุมไม่ได้, HR > 90, PCV > 60%, cyanosis, สัญญาณลำไส้แตก) ดูหัวข้อ equine-colic-bestfit (GI II p.10)"
+              "ถ้าถึงเกณฑ์การุณยฆาต (ปวดคุมไม่ได้, HR > 90, PCV > 60%, cyanosis, สัญญาณลำไส้แตก) ดูหัวข้อ Equine colic: evaluation and treatment choice (GI II p.10)"
             ]
           }
         ]
@@ -8978,7 +8978,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     "title": "Equine dermatology",
     "lecturer": "Sawita Santiviparat",
     "icon": "🐾",
-    "summary": "โรคผิวหนังม้าจากครึ่งแรกของเด็ค Equine dermatology and wound management ปี 2026: ผิวและขนม้าที่ต่างจากสัตว์อื่น, การซักประวัติและตารางโรคตามพันธุ์ สี อายุ, การตรวจและการเก็บตัวอย่าง, อาการคันกับ PVAS แล้วไล่ตามกลุ่มอาการ คือ คัน (เหา, Chorioptes, Oxyuris, แมลงกัด, Culicoides hypersensitivity, atopic dermatitis), สะเก็ดและขุย (dermatophytosis, dermatophilosis), erosion (habronemiasis, coital exanthema), ขนร่วง (PPID) และเนื้องอก (sarcoid, papilloma, SCC, melanoma, eosinophilic granuloma) การจัดการบาดแผลอยู่ในหัวข้อ equine-surgery-wound",
+    "summary": "โรคผิวหนังม้าจากครึ่งแรกของเด็ค Equine dermatology and wound management ปี 2026: ผิวและขนม้าที่ต่างจากสัตว์อื่น, การซักประวัติและตารางโรคตามพันธุ์ สี อายุ, การตรวจและการเก็บตัวอย่าง, อาการคันกับ PVAS แล้วไล่ตามกลุ่มอาการ คือ คัน (เหา, Chorioptes, Oxyuris, แมลงกัด, Culicoides hypersensitivity, atopic dermatitis), สะเก็ดและขุย (dermatophytosis, dermatophilosis), erosion (habronemiasis, coital exanthema), ขนร่วง (PPID) และเนื้องอก (sarcoid, papilloma, SCC, melanoma, eosinophilic granuloma) การจัดการบาดแผลอยู่ในหัวข้อ Concept of equine surgery and wound management",
     "sections": [
       {
         "heading": "ผิวหนังและขนม้า",
@@ -9553,7 +9553,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     "title": "Concept of equine surgery and wound management",
     "lecturer": "Sawita Santiviparat",
     "icon": "🩹",
-    "summary": "สองส่วนจากปี 2026: แนวคิดการผ่าตัดม้า จากเด็ค Equine surgery & anesthesia (field เทียบ hospital surgery, การไหลของห้องผ่าตัด, surgical checklist, การตัดขน, ห้องผ่าตัด, การคลุมผ้าแบบนอนและแบบยืนในซอง) และการจัดการบาดแผล จากครึ่งหลังของเด็ค Equine dermatology and wound management (ระยะการหาย, ม้าเทียบ pony, ประเมิน เตรียม สำรวจ debride แผล, เลือกปิดแผล, ไหมและรูปแบบการเย็บ, drain, dressing, EGT, การพันแผลแต่ละตำแหน่ง, Robert Jones bandage และ splint) การวางยาสลบและท่านอนอยู่ในหัวข้อ equine-anesthesia",
+    "summary": "สองส่วนจากปี 2026: แนวคิดการผ่าตัดม้า จากเด็ค Equine surgery & anesthesia (field เทียบ hospital surgery, การไหลของห้องผ่าตัด, surgical checklist, การตัดขน, ห้องผ่าตัด, การคลุมผ้าแบบนอนและแบบยืนในซอง) และการจัดการบาดแผล จากครึ่งหลังของเด็ค Equine dermatology and wound management (ระยะการหาย, ม้าเทียบ pony, ประเมิน เตรียม สำรวจ debride แผล, เลือกปิดแผล, ไหมและรูปแบบการเย็บ, drain, dressing, EGT, การพันแผลแต่ละตำแหน่ง, Robert Jones bandage และ splint) การวางยาสลบและท่านอนอยู่ในหัวข้อ Equine anesthesia, analgesia and euthanasia",
     "sections": [
       {
         "heading": "Field surgery เทียบ hospital-based surgery",
