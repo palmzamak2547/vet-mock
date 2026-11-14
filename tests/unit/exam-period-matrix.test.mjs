@@ -305,7 +305,7 @@ test('Aug to Dec 2027, nothing updated: a ปี 5 pick opens 2569 content, labe
 test('a newer term\'s content replaces the old the moment it is filed, and a term with none of its own falls back to the same paper', () => {
   const was = SEMESTER.id;
   const now = new Date('2027-11-25T10:00:00+07:00');
-  WRAPUPS['2570-1'] = { 5: { '1-final': { zoonoses: async () => null } } };
+  WRAPUPS['2570-1'] = { 5: { '1-final': { zoonoses: async () => null, 'avian-medicine': async () => null } } };
   try {
     SEMESTER.id = '2570-1';
     // This term has a final wrap-up for zoonoses: it is used, not 2569's.
@@ -316,7 +316,8 @@ test('a newer term\'s content replaces the old the moment it is filed, and a ter
     assert.equal(wrapUpFor('zoonoses', 5, '2-mid', now), null, 'a term-2 midterm never borrows the term-1 one');
     // A future term's content never shows early.
     SEMESTER.id = '2569-1';
-    assert.equal(wrapUpFor('zoonoses', 5, '1-final', now), null);
+    // (avian medicine: 2569 has no final wrap-up for it; zoonoses has had one since 5.215.0.)
+    assert.equal(wrapUpFor('avian-medicine', 5, '1-final', now), null);
   } finally {
     SEMESTER.id = was;
     delete WRAPUPS['2570-1'];
