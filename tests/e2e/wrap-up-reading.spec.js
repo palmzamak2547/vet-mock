@@ -45,7 +45,9 @@ test('"เคยออก N รุ่น" counts the cohorts it names, and an it
   const tags = page.locator('.vmx-wrap-seen');
   await expect(tags.first()).toBeVisible({ timeout: 20000 });
   for (const text of await tags.allInnerTexts()) {
-    const m = /^เคยออก (\d+) รุ่น \(Vet ([\d, ]+)\)$/.exec(text.trim());
+    // The count and the cohorts are two flex items, so innerText puts a line
+    // break between them where the page shows a space.
+    const m = /^เคยออก (\d+) รุ่น\s+\(Vet ([\d, ]+)\)$/.exec(text.trim());
     expect(m, text).not.toBeNull();
     expect(m[2].split(',').length).toBe(Number(m[1]));
   }
