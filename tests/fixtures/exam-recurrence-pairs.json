@@ -400,6 +400,41 @@
           "answer": 3
         }
       ]
+    },
+    {
+      "why": "traps and rodenticide: one frame and one key (the class of pest control), two things, told apart only by the bracketed gloss",
+      "pair": [
+        {
+          "subject": "milk-meat-hygiene",
+          "id": 212030,
+          "type": "mcq",
+          "q": "กับดัก (traps and sticky boards) จัดอยู่ในหลักการควบคุมสัตว์รังควานใด",
+          "options": [
+            "การกำจัดสิ่งที่จะเป็นอาหาร (Elimination of the food of the pest)",
+            "การกำจัดแหล่งที่จะเป็นที่อยู่อาศัย (Elimination of the harborage of the pest)",
+            "การกำจัดตัวสัตว์รังควาน (Destruction of the pest)",
+            "ป้องกันการบุกรุกของสัตว์รังควาน (Prevention from advent of the pest)",
+            "ถูกทุกข้อ"
+          ],
+          "answer": 2,
+          "explain": "กับดักและแผ่นกาว (traps and sticky boards) จับตัวหนูไว้โดยตรง จึงเป็นการกำจัดตัวสัตว์รังควาน อยู่ในกลุ่ม direct demolition ร่วมกับเหยื่อ ยาฆ่าหนู การรมควัน กาวจับหนู และคลื่นเสียง ultrasound ไม่ได้ตัดอาหารหรือที่อยู่ และไม่ได้กันไม่ให้หนูเข้ามา"
+        },
+        {
+          "subject": "milk-meat-hygiene",
+          "id": 212031,
+          "type": "mcq",
+          "q": "ยาฆ่าหนู (rodenticide) จัดอยู่ในหลักการควบคุมสัตว์รังควานใด",
+          "options": [
+            "การกำจัดสิ่งที่จะเป็นอาหาร (Elimination of the food of the pest)",
+            "การกำจัดแหล่งที่จะเป็นที่อยู่อาศัย (Elimination of the harborage of the pest)",
+            "การกำจัดตัวสัตว์รังควาน (Destruction of the pest)",
+            "ป้องกันการบุกรุกของสัตว์รังควาน (Prevention from advent of the pest)",
+            "ถูกทุกข้อ"
+          ],
+          "answer": 2,
+          "explain": "ยาฆ่าหนู (rodenticide) ทั้งชนิดที่กินครั้งเดียวก็ออกฤทธิ์ เช่น bromethalin และ brodifacoum และชนิดที่ต้องกินหลายครั้ง เช่น warfarin ฆ่าตัวหนูโดยตรง จึงเป็นการกำจัดตัวสัตว์รังควาน"
+        }
+      ]
     }
   ]
 }

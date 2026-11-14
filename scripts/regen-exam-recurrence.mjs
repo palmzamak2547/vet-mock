@@ -201,6 +201,14 @@ const numbersIn = (text) => [...new Set(text.match(/\d+(?:\.\d+)?/g) || [])].sor
 const speciesIn = (text) => new Set(SPECIES.filter(([, re]) => re.test(text)).map(([name]) => name));
 // Latin terms of six letters or more, plural folded: the named things a stem is about.
 const termsIn = (text) => new Set((text.match(/[a-z]{6,}/g) || []).map((w) => w.replace(/e?s$/, '')));
+// Latin words of three letters or more, plural folded. A bracket in a stem
+// often glosses the thing asked about: "กับดัก (traps and sticky boards)" and
+// "ยาฆ่าหนู (rodenticide)" share every other word and the key, and are two
+// items. Terms above ignore brackets, because a gloss one copy of an item
+// carries and its recall does not must not split them.
+const GLOSS_STOP = new Set(['and', 'the', 'for', 'with', 'from']);
+const wordsIn = (text) => new Set((text.match(/[a-z]{3,}/g) || []).map((w) => w.replace(/e?s$/, '')).filter((w) => !GLOSS_STOP.has(w)));
+const glossIn = (text) => wordsIn((text.match(/\([^()]*\)|\[[^[\]]*\]/g) || []).join(' '));
 const WRITTEN = new Set(['tf', 'short', 'essay']);
 
 /** Everything the same-item rule compares, computed once per question. */
@@ -229,6 +237,8 @@ export function fingerprint(question) {
     stemNumbers: numbersIn(raw),
     species: speciesIn(raw),
     terms: termsIn(unbracketed(whole)),
+    gloss: glossIn(raw),
+    stemWords: wordsIn(raw),
     fullText: plain([whole, ...(q.options || []), q.explain, q.model_answer, ...(q.blanks || []),
       ...(q.pairs || []).map((p) => `${p?.left ?? ''} ${p?.right ?? ''}`)].filter(Boolean).join(' ')),
   };
@@ -261,6 +271,9 @@ export function sameItem(a, b, rule = SAME_ITEM) {
   const aOnly = [...a.terms].filter((t) => !b.terms.has(t) && !b.fullText.includes(t));
   const bOnly = [...b.terms].filter((t) => !a.terms.has(t) && !a.fullText.includes(t));
   if (aOnly.length && bOnly.length) return null;
+  // Both stems gloss what they ask about, and neither gloss shares a word with the other stem.
+  if (a.gloss?.size && b.gloss?.size
+    && ![...a.gloss].some((w) => b.stemWords.has(w)) && ![...b.gloss].some((w) => a.stemWords.has(w))) return null;
   if (a.written) {
     if (a.type === 'tf' && b.type === 'tf') {
       return a.truth === b.truth && stem >= rule.trueFalseStem ? { stem } : null;

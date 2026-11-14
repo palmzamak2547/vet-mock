@@ -5263,24 +5263,15 @@ export const EXAM_RECURRENCE_CLUSTERS = [
   {
     "cohorts": [],
     "members": [
-      ["milk-meat-hygiene:212030", []],
-      ["milk-meat-hygiene:212031", []],
-      ["milk-meat-hygiene:212032", []],
-      ["milk-meat-hygiene:212037", []],
-      ["milk-meat-hygiene:212038", []],
-      ["milk-meat-hygiene:212040", []],
-      ["milk-meat-hygiene:212041", []],
+      ["milk-meat-hygiene:212034", []],
+      ["milk-meat-hygiene:212035", []],
     ],
   },
   {
     "cohorts": [],
     "members": [
-      ["milk-meat-hygiene:212033", []],
-      ["milk-meat-hygiene:212034", []],
-      ["milk-meat-hygiene:212035", []],
-      ["milk-meat-hygiene:212036", []],
-      ["milk-meat-hygiene:212039", []],
-      ["milk-meat-hygiene:212042", []],
+      ["milk-meat-hygiene:212037", []],
+      ["milk-meat-hygiene:212038", []],
     ],
   },
   {
