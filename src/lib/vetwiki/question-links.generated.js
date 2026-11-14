@@ -14,7 +14,7 @@
 // question. A wrong link is worse than none: it teaches the reader that the
 // article is useless.
 //
-// 335 link(s): 223 answer the question directly, 112 give supporting context.
+// 333 link(s): 222 answer the question directly, 111 give supporting context.
 // ============================================================
 
 /** @type {Record<string, {subject: string, topic: string, sectionId: string, confidence: string}>} */
@@ -1405,28 +1405,16 @@ export const QUESTION_LINKS = {
     "sectionId": "com4--imha--pathogenesis",
     "confidence": "supporting"
   },
-  "6631": {
-    "subject": "equine-medicine",
-    "topic": "equine-respi",
-    "sectionId": "equine-medicine--equine-respi--urt-vs-lrt-specific-diseases",
-    "confidence": "supporting"
-  },
-  "6642": {
-    "subject": "equine-medicine",
-    "topic": "equine-gi",
-    "sectionId": "equine-medicine--equine-gi--esophagus-choke",
-    "confidence": "supporting"
-  },
   "6644": {
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
-    "sectionId": "equine-medicine--equine-colic-bestfit--approach-classification-decision-tree",
+    "sectionId": "equine-medicine--equine-colic-bestfit--colic-คืออะไร-สาเหตุโน้มนำ-และอาการ",
     "confidence": "supporting"
   },
   "6650": {
     "subject": "equine-medicine",
     "topic": "equine-tendon",
-    "sectionId": "equine-medicine--equine-tendon--incidence",
+    "sectionId": "equine-medicine--equine-tendon--อุบัติการณ์-และเอ็นที่บาดเจ็บบ่อย",
     "confidence": "strong"
   },
   "6651": {
@@ -1438,8 +1426,8 @@ export const QUESTION_LINKS = {
   "6701": {
     "subject": "equine-medicine",
     "topic": "equine-colic-surgery",
-    "sectionId": "equine-medicine--equine-colic-surgery--pre-op-intra-op-pictures-case-slides",
-    "confidence": "strong"
+    "sectionId": "equine-medicine--equine-colic-surgery--เตรียมม้า-ผ่า-colon-และหลังผ่าตัด",
+    "confidence": "supporting"
   },
   "6810": {
     "subject": "cliapprum",
