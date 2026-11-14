@@ -174,3 +174,35 @@ Before a lane's pull request is set to auto-merge:
   production alias points at that deployment, then run the usual proof chain on
   the exact SHA. It replaces the failed deploy, so it is not a second deploy on
   top of a good one.
+
+## 7. Dependency updates (since 14 Nov 2026)
+
+Dependencies keep themselves current; nobody asks for an update by hand.
+
+- **What updates itself.** Every Monday 09:00 Bangkok Dependabot (`.github/dependabot.yml`)
+  proposes the minor and patch updates of the app and of `ai/`, `vca/`, `research/` and `mobile/`,
+  runtime and development dependencies alike, plus the workflows' GitHub Actions. They come grouped:
+  one pull request for runtime packages across every directory, one for build and test tools, one
+  for actions. A version is proposed only once it is 3 days old (`cooldown`). Each pull request runs
+  the full CI like any other.
+- **What merges itself.** `.github/workflows/dependency-updates.yml` squash-merges a Dependabot pull
+  request when `scripts/dependabot-merge-gate.mjs` allows it: Dependabot's own single commit, every
+  update minor or patch, required checks green, open 48 hours, not a draft, and no exam near. It runs
+  when a required workflow finishes on a Dependabot branch and once a day (10:23 Bangkok). After a
+  merge it starts main's CI itself, because a merge made with the workflow's token starts no
+  workflow on main, and Vercel promotes only a commit whose `build` and `smoke` passed. Each run's
+  summary lists every open Dependabot pull request with the reason it merged or waits.
+- **What waits for a person.** Every major update, as a pull request of its own; a pull request a
+  person has pushed a commit to; any update whose level Dependabot did not state. The majors held
+  until after the Year-5 finals (React 19, Vite 7+, pdf.js 6, Cornerstone 5, the Vercel analytics
+  packages) are on the `ignore` list and are not proposed at all: delete a line there to have one
+  proposed.
+- **The exam rule.** Nothing merges itself from 7 days before an exam period starts until that period
+  ends, Bangkok time. The periods are `midtermPeriod` and `finalPeriod` in `src/data/semester.js`,
+  so a new term needs no edit here. In term 2569-1 the freeze runs 16 Nov to 4 Dec 2026, and with the
+  48-hour wait nothing opened on or after 14 Nov merges before 5 Dec (proved by
+  `tests/unit/dependabot-merge-gate.test.mjs`). A calendar date that does not parse stops every merge.
+- **How to hold or pause.** One pull request: mark it draft (`gh pr ready <n> --undo`), or close it.
+  The automatic merge: `gh workflow disable "Dependency updates"` (`enable` to resume); pull requests
+  still open and wait. Everything: also set `open-pull-requests-limit: 0` on each entry of
+  `.github/dependabot.yml`, or pause Dependabot under the repository's Settings, Code security.
