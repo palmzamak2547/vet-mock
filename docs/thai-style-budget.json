@@ -1,0 +1,104 @@
+{
+  "note": "lint:thai-style budgets, per rule and per file (docs/THAI-STYLE.md). A number may only go down; a file with no row may have none. node scripts/lint-thai-style.mjs --list prints every hit with its plain form; --write lowers the numbers after a cleanup.",
+  "rules": {
+    "tham-kan": {},
+    "mii-kan-event": {
+      "src/views/AboutView.jsx": 1,
+      "src/views/DashboardView.jsx": 1,
+      "src/views/LibraryView.jsx": 1
+    },
+    "in-order-to": {},
+    "samart-dai": {
+      "src/components/VoiceInputButton.jsx": 1,
+      "src/views/AccountSettingsView.jsx": 1,
+      "src/views/ReviewQueueView.jsx": 1
+    },
+    "passive-thuk": {
+      "src/App.jsx": 1,
+      "src/components/ReportConcern.jsx": 1,
+      "src/components/SyncStatusNotice.jsx": 1,
+      "src/data/changelog/5.174.0.js": 1,
+      "src/data/changelog/5.185.0.js": 1,
+      "src/data/changelog/5.205.1.js": 1,
+      "src/data/how-to.js": 3,
+      "src/lib/api.js": 1,
+      "src/lib/custom-question-ids.js": 1,
+      "src/lib/motion-kit/interactions.js": 1,
+      "src/views/AdminView.jsx": 2,
+      "src/views/ExamView.jsx": 1,
+      "src/views/FeedbackView.jsx": 1,
+      "src/views/PdfAnnotateView.jsx": 2,
+      "src/views/PrivacyView.jsx": 1,
+      "src/views/ProfileView.jsx": 1,
+      "src/views/ResultsView.jsx": 1,
+      "src/views/landing/dict.js": 1
+    },
+    "essay-connector": {},
+    "please": {
+      "src/App.jsx": 7,
+      "src/components/CommandPalette.jsx": 1,
+      "src/components/PinButton.jsx": 1,
+      "src/components/SyncStatusNotice.jsx": 6,
+      "src/components/VideoNotePanel.jsx": 2,
+      "src/lib/api.js": 3,
+      "src/lib/auth-errors.js": 8,
+      "src/lib/exam-result-outbox.js": 1,
+      "src/lib/local-extras.js": 1,
+      "src/lib/owned-rpc.js": 1,
+      "src/lib/race-session.js": 2,
+      "src/lib/user-data-atomic.js": 9,
+      "src/views/AboutView.jsx": 1,
+      "src/views/AccountSettingsView.jsx": 3,
+      "src/views/AuthView.jsx": 7,
+      "src/views/DashboardView.jsx": 10,
+      "src/views/FeedbackView.jsx": 1,
+      "src/views/HomeView.jsx": 2,
+      "src/views/ImageOcclusionView.jsx": 1,
+      "src/views/KnowledgeView.jsx": 1,
+      "src/views/PdfAnnotateView.jsx": 5,
+      "src/views/PinboardView.jsx": 3,
+      "src/views/QuestionManagerView.jsx": 7,
+      "src/views/RaceView.jsx": 3,
+      "src/views/ReadingChecklistView.jsx": 2,
+      "src/views/SRSessionView.jsx": 1,
+      "src/views/TopicSelectView.jsx": 1,
+      "src/views/VideoView.jsx": 4
+    },
+    "riap-roi": {
+      "src/components/lab/CaseLibrary.jsx": 1,
+      "src/views/AccountSettingsView.jsx": 2,
+      "src/views/AuthView.jsx": 1,
+      "src/views/ContributeView.jsx": 1,
+      "src/views/DashboardView.jsx": 1,
+      "src/views/ImageOcclusionView.jsx": 1,
+      "src/views/ReviewQueueView.jsx": 1
+    },
+    "dam-noen-kan": {
+      "src/views/ChulaGateView.jsx": 2
+    },
+    "hype": {
+      "src/lib/motion-kit/play.js": 1,
+      "src/lib/pomodoro-run.js": 1,
+      "src/views/DashboardView.jsx": 2,
+      "src/views/HomeView.jsx": 2,
+      "src/views/ResultsView.jsx": 3
+    },
+    "thai-exclamation": {
+      "src/components/MatchDragDrop.jsx": 1,
+      "src/components/QuestsPanel.jsx": 1,
+      "src/components/SmartGrader.jsx": 1,
+      "src/components/StudyBreak.jsx": 1,
+      "src/lib/pomodoro-run.js": 3,
+      "src/views/AuthView.jsx": 1,
+      "src/views/DashboardView.jsx": 3,
+      "src/views/FeedbackView.jsx": 2,
+      "src/views/GroupDetailView.jsx": 1,
+      "src/views/GroupsView.jsx": 1,
+      "src/views/HomeView.jsx": 3,
+      "src/views/PomodoroView.jsx": 2,
+      "src/views/RaceView.jsx": 1,
+      "src/views/ResultsView.jsx": 8,
+      "src/views/ScheduleView.jsx": 1
+    }
+  }
+}
