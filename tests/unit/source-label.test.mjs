@@ -642,7 +642,8 @@ test('every Equine Med Mid 86 citation at p20 or later names its edition', () =>
   const edition = (id) => [...new Set(QB.find((q) => q.subject === 'equine-medicine' && q.id === id).sourcePages.map((c) => c.edition))];
   assert.deepEqual(edition(207538), ['45p'], 'the dentistry recall page, read from the revision');
   assert.deepEqual(edition(207549), ['44p'], 'the colic page, read from the 44-page copy');
-  assert.deepEqual(edition(207580), ['44p'], 'p44 of the 44-page copy is p45 of the revision');
+  // 207580 also cites Eq Respi (80p) since the 2569 deck check added its pages 68 and 72; the Mid 86 page is still the 44-page copy's.
+  assert.deepEqual(edition(207580), ['44p', '80p'], 'p44 of the 44-page copy is p45 of the revision, plus the Eq Respi deck pages');
 });
 
 test('the food-industry questions written from the 25-page re-upload cite its pages', () => {

@@ -59,7 +59,7 @@
 
   <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
     <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">หัวใจสุนัข 4 ห้อง (box-and-line)</text>
-    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Canine heart — RA · RV · LA · LV with valves and great vessels</text>
-    <text x="400" y="940" text-anchor="middle" font-size="12" fill="#888">วาด flow ของเลือดเองได้ (ลูกศร) · เพิ่ม pressure ค่าได้ในแต่ละห้อง</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Canine heart — RA, RV, LA, LV with valves and great vessels</text>
+    <text x="400" y="940" text-anchor="middle" font-size="12" fill="#888">วาด flow ของเลือดเองได้ (ลูกศร), เพิ่ม pressure ค่าได้ในแต่ละห้อง</text>
   </g>
 </svg>

@@ -33,8 +33,7 @@ export const NOTES_Y5_ZOONOSES = {
           { bullets: [
             'รหัสวิชา: **3109504 Zoonoses** (โรคสัตว์→คน)',
             'จัดโดย Department of Veterinary Public Health, Faculty of Veterinary Sciences, Chulalongkorn University',
-            'อาจารย์: Alongkorn Amonsin, DVM, PhD (Henri-Dunant Road, Patumwan, Bangkok 10330)',
-            'ติดต่อ: Alongkorn.a@chula.ac.th · Tel 0-2218-9577',
+            'อาจารย์: Alongkorn Amonsin, DVM, PhD',
           ] },
         ],
       },
@@ -43,8 +42,8 @@ export const NOTES_Y5_ZOONOSES = {
         source: '1 - 25_1._Intro_Zoonoses_updated_Aug_2024_SET_I-503004.pdf p.2',
         body: [
           { bullets: [
-            '**Intro to zoonoses** (9 Aug 24) — one health concept · definition · classification · emerging zoonotic disease (model: Influenza, COVID-19)',
-            '**Viral zoonoses** — coronavirus · Ebola/Nipah · AI · SIV/CIV · vector-borne viral',
+            '**Intro to zoonoses** (9 Aug 24) — one health concept; definition; classification; emerging zoonotic disease (model: Influenza, COVID-19)',
+            '**Viral zoonoses** — coronavirus, Ebola/Nipah, AI, SIV/CIV, vector-borne viral',
             '**Bacterial zoonoses**',
             '**Mycozoonoses** (รา ยีสต์)',
             '**Prion zoonoses**',
@@ -1038,14 +1037,14 @@ export const NOTES_Y5_ZOONOSES = {
         source: '5 - Avian_Influenza_Virus_(AIV)_22_Aug_2024.pdf p.1 (ref slide ใน Intro) + 4 - Basic_of_AI_22_8_24_for_present.pdf p.1',
         body: [
           { bullets: [
-            '**Family**: Orthomyxoviridae · **Genus**: Influenza A virus (สายพันธุ์ A)',
+            '**Family**: Orthomyxoviridae, **Genus**: Influenza A virus (สายพันธุ์ A)',
             'Single-stranded **RNA**, 8 segments',
             'Lipoprotein envelope + capsid',
           ] },
           { sub: 'Surface proteins — 2 ตัวสำคัญ',
             body: [
               { bullets: [
-                '**Hemagglutinin (H/HA)** — จับ receptor ของ host cell → ทำหน้าที่ entry · viral recognition',
+                '**Hemagglutinin (H/HA)** — จับ receptor ของ host cell → ทำหน้าที่ entry, viral recognition',
                 '**Neuraminidase (N/NA)** — enzyme ที่ช่วย release virion จาก host cell (เอาตัวเองออก)',
                 'อยู่บนผิว cell → ใช้จำแนก Influenza A subtype (H1-16, N1-9)',
               ] },
@@ -1075,7 +1074,7 @@ export const NOTES_Y5_ZOONOSES = {
                 'Swine ↔ Human: H1N1, H3N2',
                 'Wild bird → poultry: H1-H13 subtypes (H2N2, HP H5N1, H9N2, H7N2, HP H7N3, LP/HP H7N7, H10N7)',
                 'Wild bird → seal/marine mammal: H13N2, H13N9, H3N2, H4N5, H4N6, H7N7',
-                'Wild bird → cat: HP H5N1 · Wild bird → horse: H3N8 · Wild bird → dog: H3N8, H3N2',
+                'Wild bird → cat: HP H5N1; Wild bird → horse: H3N8; Wild bird → dog: H3N8, H3N2',
                 'Bat: HP H5N1, H3N2 (และ H17/H18 ใน bat-specific)',
               ] },
             ] },
@@ -1845,7 +1844,7 @@ export const NOTES_Y5_ZOONOSES = {
             'NIAH = สถาบันสุขภาพสัตว์แห่งชาติ',
             'อยู่ภายใต้กรมปศุสัตว์ ใต้กระทรวงเกษตรฯ',
             'มี 10 lab — เน้น livestock + aquatic + wildlife',
-            'รายงานเลย:  swine ASFV · bovine FMD · equine AHS · companion rabies COVID · poultry AI/ND · aquatic กรมประมง · wildlife DNP',
+            'รายงานเลย:  swine ASFV, bovine FMD, equine AHS, companion rabies COVID, poultry AI/ND, aquatic กรมประมง, wildlife DNP',
             'มาตรฐานเลย: ISO 17025 — เพื่อบอก standard ทาง lab + ผลที่ได้จากเอกสารน่าเชื่อถือ',
           ] },
         ],
@@ -1855,10 +1854,10 @@ export const NOTES_Y5_ZOONOSES = {
         source: '8 - การเก็บตัวอย่างและวินิจฉัยrabiesในสัตว์ (ไม่แจกสไลด์).pdf p.2',
         body: [
           { bullets: [
-            '**Family**: Rhabdoviridae · **Genus**: *Lyssavirus*',
+            '**Family**: Rhabdoviridae, **Genus**: *Lyssavirus*',
             'Negative-sense single-stranded RNA, ~12 kb (วัดได้ 11,923 nt), 5 genes (N, P, M, G, L) — สไลด์เขียนว่า 11 kb',
-            'Linear RNA genome · ใช้ตามใจไหน + dx ทาง molecular ตามเชื่อ',
-            'Shape: **Bullet shape** · size ~180 nm × 75 nm (เล็ก)',
+            'Linear RNA genome, ใช้ตามใจไหน + dx ทาง molecular ตามเชื่อ',
+            'Shape: **Bullet shape**, size ~180 nm × 75 nm (เล็ก)',
             'genome ~12 kb ประกอบด้วย: nucleoprotein (N), phosphoprotein (P), matrix protein (M), glycoprotein (G), RNA-dependent RNA polymerase (L) โดยความยาวของ 5 coding region ค่อนข้างคงที่ระหว่าง strain',
           ] },
           { sub: 'Pathogenesis',
@@ -1879,7 +1878,7 @@ export const NOTES_Y5_ZOONOSES = {
           { sub: 'PPE — Personal Protective Equipment',
             body: [
               { bullets: [
-                'Mask · Glove · hair net · goggle · Boots · Disinfectants',
+                'Mask, Glove, hair net, goggle, Boots, Disinfectants',
                 'ผ่าหัวสัตว์ด้วยความระมัดระวัง — สัตว์เล็กตัดหัวด้วยมีดคม, สัตว์ใหญ่ใช้ขวานปอกหัวคน',
               ] },
             ] },
@@ -1916,7 +1915,7 @@ export const NOTES_Y5_ZOONOSES = {
             body: [
               { bullets: [
                 '**Direct Fluorescent Antibody (DFA) Test** = WOAH **Gold standard method** ⭐',
-                'RT-PCR · Real-time RT-PCR — molecular technique (หาสายพันธุ์ของเชื้อ)',
+                'RT-PCR, Real-time RT-PCR — molecular technique (หาสายพันธุ์ของเชื้อ)',
               ] },
             ] },
           { sub: 'Antibody detection (สำหรับ export)',
@@ -1950,7 +1949,7 @@ export const NOTES_Y5_ZOONOSES = {
             'อาจารย์: **Saharuetai Jeamsripong**, DVM, MPVM, PhD',
             'Department of Veterinary Public Health, Faculty of Veterinary Science, CU',
             'เอา epidemiology มาใช้ในงาน adaptive กับโรคอาจารย์ที่ไม่เกิน',
-            'ตัวอย่าง application: AMR (antimicrobial resistance) · chemical/biological contamination · etc.',
+            'ตัวอย่าง application: AMR (antimicrobial resistance), chemical/biological contamination, etc.',
           ] },
         ],
       },
@@ -1990,8 +1989,8 @@ export const NOTES_Y5_ZOONOSES = {
           { sub: 'A) Observational study (เก็บข้อมูลโดยไม่ intervene)',
             body: [
               { bullets: [
-                '**Descriptive** (บรรยาย): Case report (case เดียว, รายงานอาการที่ใหม่/dx แบบใหม่) · Case series · Cross-sectional · Ecological · Longitudinal',
-                '**Analytic** (วิเคราะห์ — มักทำกัน!): Cross-sectional (prevalence ratio/odds ratio) · Case-control (prevalence) · Cohort (relative risk)',
+                '**Descriptive** (บรรยาย): Case report (case เดียว, รายงานอาการที่ใหม่/dx แบบใหม่); Case series; Cross-sectional; Ecological; Longitudinal',
+                '**Analytic** (วิเคราะห์ — มักทำกัน!): Cross-sectional (prevalence ratio/odds ratio), Case-control (prevalence), Cohort (relative risk)',
                 'ตัวอย่าง: ก.มี.ระบาด ของ สัตว์ในเดือนนี้ไม่ได้ ก.ระบาดมาก่อน',
               ] },
             ] },
@@ -3160,7 +3159,7 @@ export const NOTES_Y5_ZOONOSES = {
             '**Fatal Familial Insomnia (FFI)** — เคยมีรายงาน',
             '**Kuru** — กินสมองคนตาย, เจอใน คน Papua New Guinea',
           ] },
-          { callout: 'CJD เจอเอง · vCJD เกี่ยวกับ BSE (จากเนื้อวัว) — เป็น "true zoonosis" ของกลุ่ม prion', kind: 'tip' },
+          { callout: 'CJD เจอเอง, vCJD เกี่ยวกับ BSE (จากเนื้อวัว) — เป็น "true zoonosis" ของกลุ่ม prion', kind: 'tip' },
         ],
       },
       {
@@ -5942,7 +5941,7 @@ export const NOTES_Y5_ZOONOSES = {
         source: '5 - EID_Zoonoses_CU_Vet ⭐️ซซดาวข้อสอบ.pdf p.2',
         body: [
           { bullets: [
-            '**Epidemic = เริ่มก.คาดเดา** · น่ากลัวสุดคือ "ความไม่รู้"',
+            '**Epidemic = เริ่มก.คาดเดา**, น่ากลัวสุดคือ "ความไม่รู้"',
             'ตอนนี้เป็น **endemic** ไปแล้ว: ก็ไม่เคยเจอมาก่อน = emerging infectious dz',
             '**1957** — Dengue (ไข้เลือดออก) → ปัจจุบัน endemic',
             '**1970s** — Chikungunya',
@@ -5953,11 +5952,11 @@ export const NOTES_Y5_ZOONOSES = {
             '**1999** — Nipah',
             '**2000s** — Antimicrobial Resistant',
             '**2002** — Anthrax hoax',
-            '**2003** — SARS · **2004** — H5N1 · **2009** — H1N1',
-            '**2010** — Cholera in Haiti · **2012** — MERS · **2013** — H7N9',
-            '**2014** — Ebola in West Africa · **2016** — Zika',
-            '**2018** — Ebola in DRC · **2019** — COVID-19 (ตอนนี้เป็น endemic ไปแล้ว)',
-            '**2022** — Mpox (สมัยก่อนชื่อ monkeypox · สถานการณ์ในไทย ปัจจุบัน ≈ 10-20 คน/wk แต่สื่อตามไม่ค่อยลงข่าว, สังคมไม่ค่อยสนใจ)',
+            '**2003** — SARS, **2004** — H5N1, **2009** — H1N1',
+            '**2010** — Cholera in Haiti, **2012** — MERS, **2013** — H7N9',
+            '**2014** — Ebola in West Africa, **2016** — Zika',
+            '**2018** — Ebola in DRC, **2019** — COVID-19 (ตอนนี้เป็น endemic ไปแล้ว)',
+            '**2022** — Mpox (สมัยก่อนชื่อ monkeypox; สถานการณ์ในไทย ปัจจุบัน ≈ 10-20 คน/wk แต่สื่อตามไม่ค่อยลงข่าว, สังคมไม่ค่อยสนใจ)',
           ] },
         ],
       },
@@ -6602,7 +6601,6 @@ export const NOTES_Y5_ZOONOSES = {
           { bullets: [
             'อาจารย์: **Woraporn Sukhumavasi**, DVM, PhD',
             'Parasitology Unit, Department of Pathology, Faculty of Veterinary Science, Chulalongkorn University',
-            'Email: vetkwan@hotmail.com',
             '⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — ดู "Zoonosis Final Vet82 Myco Protozoa ตรงมาก.pdf"',
           ] },
         ],
@@ -6628,7 +6626,7 @@ export const NOTES_Y5_ZOONOSES = {
         heading: 'Type of parasitic zoonoses — 4 categories',
         source: '6 - Protozoal_zoonosis_(Dr._Woraporn).pdf p.1',
         body: [
-          'Diseases of mankind associated with animal parasites · classified according to various **biological pathways** that lead to human infection.',
+          'Diseases of mankind associated with animal parasites, classified according to various **biological pathways** that lead to human infection.',
           { sub: '1) Direct zoonoses',
             body: [
               { bullets: [
