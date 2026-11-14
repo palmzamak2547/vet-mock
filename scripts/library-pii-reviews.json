@@ -1,0 +1,69 @@
+{
+ "releases": [
+  {
+   "sha256_16": "2c249b3e8decb76f",
+   "date": "2026-11-14",
+   "reason": "Lecturer slide with handwriting over it: the flagged run is OCR noise from the ink, no name or ID, checked on the rendered page",
+   "pages": {
+    "98": {
+     "national": 1
+    }
+   },
+   "slug": "swine-enteric-diseases-2c249b"
+  },
+  {
+   "sha256_16": "431a1410a9a34bcc",
+   "date": "2026-11-14",
+   "reason": "Lecturer slide with handwriting over it: the flagged run is OCR noise from the ink, no name or ID, checked on the rendered page",
+   "pages": {
+    "66": {
+     "national": 1
+    }
+   },
+   "slug": "african-swine-fever-431a14"
+  },
+  {
+   "sha256_16": "d61d29d1dd03f3a8",
+   "date": "2026-11-14",
+   "reason": "Eight lecture slides with handwriting over them: each flagged run is OCR noise from the ink, no name or ID, checked on the rendered pages",
+   "pages": {
+    "38": {
+     "national": 1
+    },
+    "49": {
+     "national": 1
+    },
+    "101": {
+     "national": 1
+    },
+    "151": {
+     "national": 1
+    },
+    "193": {
+     "national": 1
+    },
+    "229": {
+     "national": 1
+    },
+    "258": {
+     "national": 1
+    },
+    "268": {
+     "national": 1
+    }
+   },
+   "slug": "lecture-note-swine-medicine-2024-d61d29"
+  },
+  {
+   "sha256_16": "db1dd1baaff85b84",
+   "date": "2026-11-14",
+   "reason": "Lecturer slide with handwriting over it: the flagged run is OCR noise from the ink, no name or ID, checked on the rendered page",
+   "pages": {
+    "71": {
+     "national": 1
+    }
+   },
+   "slug": "tendon-ligament-injuries-and-treatment-db1dd1"
+  }
+ ]
+}

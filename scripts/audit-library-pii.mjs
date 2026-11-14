@@ -16,7 +16,12 @@
 //      mcv-manifest.mjs and the ingest scripts enforce);
 //   2. served text with a page of ROSTER_IDS or more student-ID-like numbers:
 //      a public document that is not held, whose stored pages search and the
-//      AI can read. library-pages.py would hold it today.
+//      AI can read. library-pages.py would hold it today;
+//   3. public rows whose title reads as a list of people (a class list, an
+//      attendance sheet, a sign-in sheet) and whose text was never checked or
+//      could not be read, so no text check ever saw them: "needs a person to
+//      look". Teaching material that merely says รายชื่อ (a list of structures)
+//      is not listed (rosterTitleMatch's own exceptions).
 // For information only, it counts held documents whose text is still stored
 // (not served; what happens to it is a person's decision) and lists the
 // archived ones among them.
@@ -24,7 +29,7 @@
 //
 //   SUPABASE_ACCESS_TOKEN=<Management API PAT> node scripts/audit-library-pii.mjs
 
-import { ROSTER_ID_PATTERN, ROSTER_IDS, scoreSheetReason } from './lib/library-pii.mjs';
+import { ROSTER_ID_PATTERN, ROSTER_IDS, rosterTitleMatch, scoreSheetReason } from './lib/library-pii.mjs';
 
 const REF = 'mpovsdzdggvksmeehqfj';
 
@@ -75,6 +80,19 @@ export function scoreTitleRows(rows) {
     .filter((r) => r.reason);
 }
 
+// A document the text check passed unseen: never read (null: a spreadsheet, an image, a file not yet extracted) or
+// read with nothing usable. 'partial' had text read and is not here; 'pii_held' is already held.
+export const UNSEEN_TEXT = ['unreadable', 'no_text', 'garbled'];
+
+/** Public rows titled as a list of people whose text no check has read: a person has to look at the file. */
+export function unseenRosterRows(rows) {
+  return rows
+    .filter((r) => r.status === 'public' && (r.text_status == null || UNSEEN_TEXT.includes(r.text_status)))
+    .map((r) => ({ ...r, match: rosterTitleMatch(r.title) }))
+    .filter((r) => r.match)
+    .map(({ match, ...r }) => ({ ...r, reason: `${match.reason} ("${match.matched}")` }));
+}
+
 const lit = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
 /** Per served document (public, not held): pages with ROSTER_IDS or more student-ID-like numbers. Counts only. */
@@ -97,6 +115,7 @@ async function main() {
   const docs = await sql('select id, title, subject, status, text_status, mime, source_url from library_docs');
   const titled = scoreTitleRows(docs);
   const rosters = await sql(rosterSql());
+  const unseen = unseenRosterRows(docs);
   const heldStored = await sql(`select d.id, d.title, d.subject, d.status, count(*) as pages
     from library_docs d join library_doc_pages p on p.doc_id = d.id
     where d.text_status = 'pii_held' group by d.id order by d.status, d.subject, d.title`);
@@ -115,13 +134,17 @@ async function main() {
   if (rosters.length) console.log(`   by subject: ${[...bySubject].map(([s, n]) => `${s} ${n}`).join(', ')}`);
   for (const r of rosters) console.log(line(r, `[${r.text_status}] ${r.ids} IDs, ${r.pages} page(s) of ${ROSTER_IDS}+, at most ${r.most} on one page`));
 
+  console.log(`
+3. Public rows titled as a list of people, text never read: ${unseen.length}${unseen.length ? ' (needs a person to look)' : ''}`);
+  for (const r of unseen) console.log(line(r, `[${r.text_status ?? 'unread'}, ${r.mime}] needs a person to look: ${r.reason}`));
+
   const archivedStored = heldStored.filter((r) => r.status !== 'public');
   console.log(`\nFor information: ${heldPublic.length} public row(s) are held (pii_held): a member is served neither their row, their file nor their text.`);
   console.log(`${heldStored.length} held row(s) still have text stored, not served; ${archivedStored.length} of them archived, which a person decides on:`);
   for (const r of archivedStored) console.log(line(r, `[${r.status}] ${r.pages} page(s) of text stored`));
 
-  const found = missing.length + titled.length + rosters.length;
-  console.log(found ? `\n${found} problem(s) in 0 to 2. Nothing was changed.` : '\nClean: nothing in 0 to 2. Nothing was changed.');
+  const found = missing.length + titled.length + rosters.length + unseen.length;
+  console.log(found ? `\n${found} problem(s) in 0 to 3. Nothing was changed.` : '\nClean: nothing in 0 to 3. Nothing was changed.');
   if (found) process.exitCode = 1;
 }
 
