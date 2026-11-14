@@ -323,7 +323,7 @@ export const GENERIC_ALIAS_HEADS = new Set([
 // the right article, not on its definition just because the definition says
 // the disease's name more often. The heading words are the ones VetWiki
 // headings actually use, in both languages.
-export const FACETS = [
+const FACETS = [
   { id: 'treatment', q: /(รักษา|ให้ยา|ใช้ยา|ยาอะไร|ยาตัวไหน|ยาตัวใด|\btreat|\btherap|\btx\b|\bmanag)/, heading: ['treatment', 'tx', 'therapy', 'management', 'รักษา', 'drug'] },
   { id: 'diagnosis', q: /(วินิจฉัย|ตรวจ|\bdiagnos|\bdx\b|\btests?\b|\bdetect)/, heading: ['diagnos', 'dx', 'วินิจฉัย', 'ตรวจ', 'test', 'detection'] },
   { id: 'signs', q: /(อาการ|รอยโรค|\bsigns?\b|\bsymptom|\bpresentation)/, heading: ['clinical sign', 'sign', 'symptom', 'อาการ', 'รอยโรค', 'lesion'] },
@@ -348,7 +348,7 @@ const INFLECTION = /(ations?|ings?|ied|ies|ed|es|s)$/;
 const ENDINGS = '(?:e|es|s|ed|ing|ings|ion|ions|ation|ations|ic|tic|tics|is|ia|y|ies|al)?';
 
 /** Base form of a Latin word for matching: diagnosed → diagnos, cats → cat. */
-export function latinBase(word) {
+function latinBase(word) {
   if (word.length < 4 || /\d/.test(word)) return word;
   const m = word.length >= 5 ? word.match(INFLECTION) : null;
   if (m && word.length - m[0].length >= 4) return word.slice(0, -m[0].length);

@@ -1,6 +1,6 @@
 # VetMock project knowledge base
 
-Source checkpoint: **2026-10-20, study 5.149.0 / SW v227** (pushed to main; the deployed receipt is in docs/LAUNCH_READINESS.md).
+This map carries no version number. The source version is the newest file in `src/data/changelog/`, the service worker's is `SW_VERSION` in `public/sw.js`, and what production serves is in docs/LAUNCH_READINESS.md and each release's `docs/releases/<version>.md`. (It said "2026-10-20, study 5.149.0 / SW v227" until 11 Nov 2026, when the source was 5.213.0.)
 Subject cards share 85 course bookplates, with names, counts and availability
 remaining live text. Source versions do not establish a production deployment;
 use the dated acceptance receipts below for the deployed SHA and live checks.

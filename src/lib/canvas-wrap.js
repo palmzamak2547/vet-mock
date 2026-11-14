@@ -328,7 +328,7 @@ export function wrapLines(measure, text, maxW, { maxLines = Infinity, ellipsis =
 // Thai stacks tone marks above the cap height and vowels below the baseline,
 // so a line box comes from the tallest and deepest clusters, not the font
 // size. The probe holds the stacks that reach furthest in Thai and Latin.
-export const METRIC_PROBE = 'ฟ้าผู้ปู่ญูฐูฏูฎู่ปั้นป๊ะÅÉgjpqy';
+const METRIC_PROBE = 'ฟ้าผู้ปู่ญูฐูฏูฎู่ปั้นป๊ะÅÉgjpqy';
 
 /** Ink ascent and descent of the probe in the context's current font. */
 export function inkMetrics(ctx, probe = METRIC_PROBE) {

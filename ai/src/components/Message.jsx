@@ -236,6 +236,7 @@ function FileRow({ f, i }) {
       )}
       <div className="file-body">
         <a className="file-title" href={link.href} target="_blank" rel="noopener noreferrer">{f.title}</a>
+        {f.description && <span className="file-meta">{f.description}</span>}
         <span className="file-meta">{meta.join(', ')}</span>
         {f.snippet && (
           <p className="file-snip">{f.page > 1 ? <span className="file-page">หน้า {f.page}</span> : null}{f.snippet}</p>

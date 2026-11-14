@@ -12,7 +12,7 @@
 
 const TITLE_PATTERN = /(?:ศาสตราจารย์|รองศาสตราจารย์|ผู้ช่วยศาสตราจารย์|professor|associate professor|assistant professor|assoc\.?\s*prof\.?|asst\.?\s*prof\.?|prof\.?|lecturer|instructor|นายสัตวแพทย์|สัตวแพทย์หญิง|น\.สพ\.|สพ\.ญ\.|ผศ\.|รศ\.|ศ\.|อ\.|ดร\.|dr\.?|dvm|phd)/giu;
 
-export function normalizeInstructorName(value = '') {
+function normalizeInstructorName(value = '') {
   return String(value)
     .normalize('NFKC')
     .replace(/\([^)]*\)|\[[^\]]*\]/g, ' ')

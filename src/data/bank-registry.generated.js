@@ -245,7 +245,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-one-health-2026-b.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_B', year: 5, count: 61,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-b.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_B) },
-  { file: 'questions-y5-one-health-2026-c.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_C', year: 5, count: 16,
+  { file: 'questions-y5-one-health-2026-c.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_C', year: 5, count: 21,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-c.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_C) },
   { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 14,
@@ -331,4 +331,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-10T16:37:00.497Z — 107 banks · 9047 Qs
+// Built: 2026-11-14T06:40:42.603Z — 107 banks · 9052 Qs

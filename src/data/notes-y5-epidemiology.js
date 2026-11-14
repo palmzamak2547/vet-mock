@@ -1828,7 +1828,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
               "Causal inference"
             ]
           },
-          "รหัสวิชา **3107508** ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์ ผู้บรรยาย Thanicha Chanchaidechachai (Thanicha.c@chula.ac.th)"
+          "รหัสวิชา **3107508** ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์ ผู้บรรยาย Thanicha Chanchaidechachai"
         ]
       },
       {

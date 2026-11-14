@@ -11,7 +11,7 @@
 import { defineDecision, parse, safeGet, safeRemove, validRows } from '../decide.js';
 
 export const SR_SIZES = Object.freeze([25, 50, 100, 200, 'all']);
-export const SR_DEFAULT = Object.freeze({ yearScope: 'current', subject: 'all', phaseScope: 'current', size: 25 });
+const SR_DEFAULT = Object.freeze({ yearScope: 'current', subject: 'all', phaseScope: 'current', size: 25 });
 export const SR_KEYS = Object.freeze({ size: 'vmx-sr-session-size', subject: 'vmx-sr-subject-filter', yearScope: 'vmx-sr-year-scope', phaseScope: 'vmx-sr-phase-scope' });
 const plannedSize = (s) => (Number.isInteger(s.planSize) && s.planSize > 0 ? s.planSize : null);
 

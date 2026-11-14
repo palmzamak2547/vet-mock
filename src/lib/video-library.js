@@ -37,7 +37,7 @@ export function loadVideoCard(id) {
 }
 const lazy = new Map();
 export const loadVideoRegistry = () => cached(lazy, 'registry', () => import('../data/video-registry.generated.js').then((m) => m.VIDEO_REGISTRY));
-export const loadVideoTopicIndex = () => cached(lazy, 'topics', () => import('../data/video-topic-index.generated.js').then((m) => m.VIDEO_TOPIC_INDEX));
+const loadVideoTopicIndex = () => cached(lazy, 'topics', () => import('../data/video-topic-index.generated.js').then((m) => m.VIDEO_TOPIC_INDEX));
 
 /** The stretches of video that teach a topic, surest first; [] when none. */
 /**
@@ -60,7 +60,7 @@ export async function topicClips(topicId) {
 }
 
 /** The signed-in student's token, or null; the Supabase SDK loads only when a session is stored. */
-export async function videoAccessToken() {
+async function videoAccessToken() {
   if (!hasStoredAuthToken()) return null;
   try {
     const { getSupabase } = await import('./supabase.js');

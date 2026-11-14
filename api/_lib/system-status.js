@@ -10,13 +10,13 @@
 // Only states, dates, balances and env var NAMES leave the server.
 // ============================================================
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
-import { available as transcribeAvailable, providers as transcribeProviders } from '../ai-transcribe.js';
+import { testTranscription as transcribeAvailable, providers as transcribeProviders } from '../ai-transcribe.js';
 import { voiceFor } from '../tts.js';
 import { externalCapabilities } from './external-connections.js';
 import { rateLimit } from './rate-limit.js';
 import { presign, tokenKeyEnv } from './r2.js';
 import { voiceConfig, readBalance, budgetVerdict } from './ai/voice.js';
-import { anthropicModel } from './llm.js';
+import { anthropicModelStatus } from './llm.js';
 
 const DAY = 86_400_000;
 const CHECK_MS = 8000;
@@ -75,6 +75,7 @@ const CHECKS = [
       if (!env.IAPP_API_KEY) return r('off', 'ไม่ได้ตั้ง IAPP_API_KEY ภาษาไทยใช้เสียง Edge แทน', 'ไม่จำเป็นถ้า Edge ใช้ได้');
       // One word: 0.02 credit when the account has credit, only when the admin opens the card.
       const res = await fetchImpl(IAPP_TTS, {
+        redirect: 'error',
         method: 'POST', headers: { 'Content-Type': 'application/json', apikey: env.IAPP_API_KEY },
         body: JSON.stringify({ text: 'ทดสอบ', speed: 1 }), signal: signal(),
       });
@@ -97,7 +98,7 @@ const CHECKS = [
     fix: 'เติมเงินที่ platform.deepseek.com ระหว่างนี้ AI ตอบด้วย Anthropic ถ้ายังมีเครดิต',
     async run({ env, fetchImpl }, r) {
       if (!env.DEEPSEEK_API_KEY) return r('off', 'ไม่ได้ตั้ง DEEPSEEK_API_KEY AI ตอบด้วย Anthropic อย่างเดียว', 'ตั้งคีย์ DeepSeek ใน Vercel');
-      const res = await fetchImpl('https://api.deepseek.com/user/balance', { headers: { Authorization: `Bearer ${env.DEEPSEEK_API_KEY}` }, signal: signal() });
+      const res = await fetchImpl('https://api.deepseek.com/user/balance', { redirect: 'error', headers: { Authorization: `Bearer ${env.DEEPSEEK_API_KEY}` }, signal: signal() });
       if (!res.ok) return r('down', `DeepSeek ตอบ ${res.status}`);
       const j = await res.json();
       const bal = (j?.balance_infos || []).map((b) => `${b.total_balance} ${b.currency}`).join(', ');
@@ -111,18 +112,17 @@ const CHECKS = [
       if (!env.ANTHROPIC_API_KEY) return r('off', 'ไม่ได้ตั้ง ANTHROPIC_API_KEY ถ้า DeepSeek ล่ม AI จะไม่มีทางสำรอง');
       // Asks for the model the routes use, not for the list: a key can be
       // fine while the model has been retired, which Anthropic answers with
-      // 404 and which ends the fallback as surely as a dead key.
-      const model = anthropicModel(env);
-      const res = await fetchImpl(`https://api.anthropic.com/v1/models/${encodeURIComponent(model)}`, {
-        headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' }, signal: signal(),
-      });
-      if (res.ok) return r('ok', `คีย์ใช้ได้ และรุ่น ${model} ยังให้บริการ ส่วนยอดเครดิตดูที่ console.anthropic.com`);
-      if (res.status === 404) {
+      // 404 and which ends the fallback as surely as a dead key. The same
+      // check feeds the public health answer (api/_lib/ai/health.js).
+      const { state, status, model, error } = await anthropicModelStatus({ env, fetchImpl, timeoutMs: CHECK_MS });
+      if (state === 'served') return r('ok', `คีย์ใช้ได้ และรุ่น ${model} ยังให้บริการ ส่วนยอดเครดิตดูที่ console.anthropic.com`);
+      if (state === 'retired') {
         return r('down', `Anthropic เลิกให้บริการรุ่น ${model} แล้ว AI จึงไม่มีทางสำรอง`, env.AI_GRADER_MODEL
           ? 'แก้ AI_GRADER_MODEL ใน Vercel เป็นรุ่นปัจจุบัน หรือลบออกเพื่อใช้รุ่นเริ่มต้นของระบบ'
           : 'แก้ ANTHROPIC_MODEL ใน api/_lib/llm.js เป็นรุ่นปัจจุบัน หรือตั้ง AI_GRADER_MODEL ใน Vercel');
       }
-      return r('down', `คีย์ใช้ไม่ได้ (Anthropic ตอบ ${res.status})`);
+      if (status == null) throw error;
+      return r('down', `คีย์ใช้ไม่ได้ (Anthropic ตอบ ${status})`);
     },
   },
   {
@@ -130,7 +130,7 @@ const CHECKS = [
     fix: 'สร้างคีย์ใหม่ที่ aistudio.google.com แล้วแก้ GEMINI_API_KEY ใน Vercel',
     async run({ env, fetchImpl }, r) {
       if (!env.GEMINI_API_KEY) return r('off', 'ไม่ได้ตั้ง GEMINI_API_KEY', 'ฟีเจอร์นี้ยังไม่เปิดให้นิสิต ไม่ต้องทำอะไรจนกว่าจะเปิด');
-      const res = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models?pageSize=1&key=${encodeURIComponent(env.GEMINI_API_KEY)}`, { signal: signal() });
+      const res = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models?pageSize=1&key=${encodeURIComponent(env.GEMINI_API_KEY)}`, { redirect: 'error', signal: signal() });
       return res.ok ? r('ok', 'คีย์ใช้ได้ ตรวจจากตรงนี้ไม่ได้ว่ามีเครดิตพอคุยสด') : r('down', `คีย์ใช้ไม่ได้ (Google ตอบ ${res.status})`);
     },
   },
@@ -166,7 +166,7 @@ const CHECKS = [
       const account = env.R2_ACCOUNT_ID || env.CF_ACCOUNT_ID;
       if (!env.CLOUDFLARE_API_TOKEN || !account) return r('down', 'ไม่ได้ตั้ง CLOUDFLARE_API_TOKEN หรือ R2_ACCOUNT_ID ไฟล์ในคลังเอกสารจึงเปิดไม่ได้');
       const verify = async (url) => {
-        const res = await fetchImpl(url, { headers: { Authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}` }, signal: signal() });
+        const res = await fetchImpl(url, { redirect: 'error', headers: { Authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}` }, signal: signal() });
         const j = res.ok ? await res.json() : null;
         return j?.success ? j.result : null;
       };

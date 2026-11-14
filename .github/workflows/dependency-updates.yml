@@ -1,0 +1,112 @@
+# ============================================================
+# Dependency updates: a green minor or patch update from Dependabot merges itself
+# ============================================================
+# Dependabot opens the pull requests (.github/dependabot.yml). This workflow
+# merges the ones scripts/dependabot-merge-gate.mjs allows: Dependabot's own
+# commit, only minor and patch updates, required checks green, open 48 hours,
+# not a draft, and no exam within 7 days (the periods in src/data/semester.js).
+# A major update is never merged here. The whole picture, and how to pause it,
+# is docs/GITFLOW.md section 7.
+#
+# When it runs: each time one of the workflows behind the required checks
+# finishes on a Dependabot branch, and once a day to merge what waited for
+# the soak or for the exams to end.
+#
+# Safety (the documented pattern for automating Dependabot):
+#   - it never checks out or runs the pull request's code: it checks out main,
+#     reads only the pull request's metadata through gh, and the gate runs from
+#     main; a commit message is data written to a file, never shell text;
+#   - permissions, job-scoped, nothing else:
+#       contents: write       to merge
+#       pull-requests: write  to merge (and to enable auto-merge, see below)
+#       checks/statuses: read to see whether the required checks are green
+#       actions: write        to start main's CI after a merge (see below)
+#
+# Why it merges itself instead of turning on GitHub's auto-merge: a merge made
+# with this workflow's token starts no workflow on main (GitHub's rule against
+# loops; queue.yml hit the same rule), and auto-merge turned on with that token
+# merges as the token. Main's push CI would never run, and Vercel promotes a
+# main commit only once build and smoke pass on it, so the update would sit
+# unserved and untested. Merging here lets the same job start main's CI by
+# workflow_dispatch, the one event that token may start. It also means the
+# exam rule is read at the moment of the merge, not when the pull request opened.
+# A pull request that changes a workflow file may be refused a direct merge by
+# this token; it then gets GitHub's auto-merge, and main's CI is started the same way.
+# ============================================================
+name: Dependency updates
+
+on:
+  workflow_run:
+    workflows: [Build, Smoke e2e, VCA, Research R parity]
+    types: [completed]
+  schedule:
+    - cron: '23 3 * * *' # 10:23 Bangkok
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: dependency-updates
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       startsWith(github.event.workflow_run.head_branch, 'dependabot/'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
+      statuses: read
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/dependabot-merge-gate.mjs
+            src/data/semester.js
+          sparse-checkout-cone-mode: false
+
+      - name: Merge what the gate allows
+        shell: bash
+        run: |
+          set -u
+          merged=0
+          merge() { # number, head sha
+            gh pr merge "$1" --squash --match-head-commit "$2" && return 0
+            echo "::warning::#$1 was refused a direct merge; turning on auto-merge"
+            gh pr merge "$1" --squash --auto --match-head-commit "$2" || return 1
+            for _ in 1 2 3 4 5 6; do
+              sleep 10
+              [ "$(gh pr view "$1" --json state --jq .state)" = MERGED ] && return 0
+            done
+            gh pr merge "$1" --disable-auto || true
+            return 1
+          }
+          numbers=$(gh pr list --author 'app/dependabot' --base main --state open --limit 50 --json number --jq '.[].number') || exit 1
+          for n in $numbers; do
+            gh pr view "$n" --json author,isDraft,createdAt,commits,headRefOid > "pr-$n.json" || continue
+            if gh pr checks "$n" --required > /dev/null 2>&1; then checks=pass; else checks=wait; fi
+            verdict=$(node scripts/dependabot-merge-gate.mjs "pr-$n.json" "$checks")
+            echo "#$n $verdict" | tee -a "$GITHUB_STEP_SUMMARY"
+            case "$verdict" in
+              merge:*)
+                if merge "$n" "$(jq -r .headRefOid "pr-$n.json")"; then merged=1
+                else echo "::error::#$n could not be merged"; fi ;;
+            esac
+          done
+          if [ "$merged" = 1 ]; then
+            for wf in build.yml smoke-e2e.yml vca.yml research-r-parity.yml ai.yml; do
+              gh workflow run "$wf" --ref main || echo "::error::could not start $wf on main"
+            done
+          fi
