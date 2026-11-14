@@ -386,9 +386,10 @@ export default function ResultsView({
                   <div className="vmx-benchmark-flag">เกณฑ์ {PRACTICE_PASS_PCT}%</div>
                 </div>
               </div>
+              {/* The bar's ends only: the line itself is the mark, and the flag above it names it.
+                  A middle label sat at 50% under a mark at 60% and said the same thing a third time. */}
               <div className="vmx-benchmark-legend">
                 <span>0%</span>
-                <span>เกณฑ์ผ่าน {PRACTICE_PASS_PCT}%</span>
                 <span>100%</span>
               </div>
             </div>
@@ -413,10 +414,11 @@ export default function ResultsView({
         {receiverDurationSec != null && receiverDurationSec > 0 && (
           <div className="vmx-pacing-telemetry">
             <NavIcon name="exam" size={13} />
-            <span>เวลารวม {fmtTimeSec(receiverDurationSec)}</span>
-            {questions?.length > 0 && (
-              <span>, เฉลี่ย {Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ</span>
-            )}
+            {/* One text, not two flex items: the row's gap set the comma off from the time before it. */}
+            <span>
+              เวลารวม {fmtTimeSec(receiverDurationSec)}
+              {questions?.length > 0 && `, เฉลี่ย ${Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ`}
+            </span>
           </div>
         )}
       </div>

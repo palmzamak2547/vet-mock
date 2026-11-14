@@ -170,8 +170,7 @@ export default function OSCEDrill({ onClose }) {
               <button type="button" onClick={() => pickStation(null)} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← เปลี่ยน station</button>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'var(--vmx-mono)', fontSize: 14 }}>
                 <span>⏱ {fmtMs(elapsed)}</span>
-                <span style={{ color: 'var(--clr-ink-soft)' }}>/ {station.minutes}:00</span>
-                <span>,</span>
+                <span style={{ color: 'var(--clr-ink-soft)' }}>/ {station.minutes}:00,</span>
                 <span style={{ fontWeight: 700 }}>{liveScore}%</span>
               </div>
             </div>

@@ -324,6 +324,12 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+/* A form control keeps the browser's own typeface (Arial on Windows, the system face on a phone)
+   unless told otherwise: Home's daily-minutes picker, the subject and library searches, the countdown
+   strip and a dozen more drew their Thai in it, beside Sarabun (screen hunt, 14 Nov 2026). Family
+   only, at zero specificity: every size and weight the app sets still wins. */
+:where(button, input, select, textarea) { font-family: inherit; }
+
 .vmx-sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
 
 /* Eliminate the 300ms tap-delay iOS Safari adds when it's waiting to
@@ -1107,7 +1113,8 @@ html, body {
   .vmx-logo { font-size: 19px; }
   .vmx-wordmark-text,
   .vmx-xp-chip { display: none !important; }
-  .vmx-logo-btn { width: var(--touch-min); padding: 0; justify-content: center; }
+  /* flex: none: the pills beside it squeezed it to 36 px, under the 44 px target. */
+  .vmx-logo-btn { width: var(--touch-min); flex: none; padding: 0; justify-content: center; }
   .vmx-login-btn { width: var(--touch-min); min-width: var(--touch-min); padding-inline: 0; justify-content: center; }
   /* Icon-only here, between two circles: a circle too. */
   .vmx-btn.vmx-login-btn, .vmx-cmdk-btn { border-radius: 50%; }
@@ -3216,7 +3223,8 @@ html.dark .vmx-panic-scrim {
    Direct clinical comparison against the standard 60% faculty/practice pass line. */
 .vmx-benchmark-container {
   max-width: 320px;
-  margin: 18px auto 6px;
+  /* The flag stands 20 px above the track: 32 leaves it a clear gap under the score line. */
+  margin: 32px auto 6px;
   text-align: left;
 }
 .vmx-benchmark-track {
@@ -6030,6 +6038,9 @@ body.vmx-reading .vmx-pdf-body {
   padding: var(--space-3) var(--space-4); text-align: left; cursor: pointer;
   background: var(--clr-surface); border: 1px solid var(--clr-border);
   border-radius: var(--r-md); color: var(--clr-ink); line-height: 1.6;
+  /* A button keeps the browser's own font (Arial, 13.33 px) unless told otherwise: the answers drew
+     in a different typeface from the question above them, under the 14 px Thai floor. */
+  font: inherit;
   transition: border-color 140ms ease;
 }
 .vmx-check__option:hover:not(:disabled) { border-color: var(--clr-sage); }

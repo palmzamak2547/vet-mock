@@ -955,6 +955,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
+                // A line of text is 23 px tall: the row is the target, 44 px like every other.
+                minHeight: 44,
                 gap: 8,
                 fontWeight: 600,
                 color: 'var(--clr-ink)',
