@@ -103,9 +103,13 @@ test('two tabs boot together at the count of 2: the first merges, the second fin
   assert.equal(shared.getItem(MOVE_INBOX_ATTEMPTS), null, 'no count left behind');
 });
 
-test('the give-up notice links only to an address the inbox names as an origin', () => {
-  assert.equal(moveGiveUpNotice(JSON.stringify({ from: 'http://localhost:4173' })).link.href, 'http://localhost:4173/?vmx-move=retry');
-  for (const from of ['javascript:alert(1)', 'https://x.example/path', 42, undefined]) {
+test('the give-up notice links only to the old address, whatever the inbox names', () => {
+  assert.equal(moveGiveUpNotice(JSON.stringify({ from: 'https://vetmock.vercel.app' })).link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
+  for (const from of [
+    'https://evil.example', 'http://vetmock.vercel.app', 'https://vetmock.vercel.app:8443', 'https://vetmock.vercel.app.',
+    'https://vetmock.vercel.app.evil.example', 'HTTPS://VETMOCK.VERCEL.APP', 'http://localhost:4173',
+    'javascript:alert(1)', 'https://x.example/path', 42, undefined,
+  ]) {
     assert.equal(moveGiveUpNotice(JSON.stringify({ from })).link.href, 'https://vetmock.vercel.app/?vmx-move=retry', String(from));
   }
   assert.equal(moveGiveUpNotice('{oops').link.href, 'https://vetmock.vercel.app/?vmx-move=retry');

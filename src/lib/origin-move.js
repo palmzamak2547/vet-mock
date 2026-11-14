@@ -400,10 +400,10 @@ function noticeCard(doc, text, later, { link = null, stay = false } = {}) {
 const OLD_ADDRESS = 'https://vetmock.vercel.app';
 
 /** After the last try of a merge that did not go through: what the student is told, and the way back.
- *  `from` is the old address the inbox names (api/move-in.js writes it), when it is one. */
+ *  The link goes only to the old address itself: the inbox's `from` is used only when it is exactly it. */
 export function moveGiveUpNotice(inboxRaw) {
   const from = parse(inboxRaw)?.from;
-  const origin = typeof from === 'string' && /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(from) ? from : OLD_ADDRESS;
+  const origin = from === OLD_ADDRESS ? from : OLD_ADDRESS;
   return {
     text: 'ย้ายข้อมูลการเรียนจาก vetmock.vercel.app มาที่นี่ไม่สำเร็จ ข้อมูลทั้งหมดยังอยู่ที่ที่อยู่เดิม',
     link: { href: `${origin}/?vmx-move=retry`, text: 'ลองย้ายอีกครั้ง' },
