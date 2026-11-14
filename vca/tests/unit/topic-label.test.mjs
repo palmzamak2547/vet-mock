@@ -20,7 +20,7 @@ const CHANGED = [
   ['➕ Reptile (general)', 'Reptile (general)'],
   ['➕ Ferret', 'Ferret'],
   ['WSI ↔ fertility', 'WSI and fertility'],
-  ['Mycotoxin · Zearalenone', 'Mycotoxin — Zearalenone'],
+  ['Mycotoxin · Zearalenone', 'Mycotoxin, Zearalenone'],
   // lecture and week numbers
   ['คาบ 27-28, Pediatrics & Geriatrics', 'Pediatrics & Geriatrics'],
   ['คาบ 17, IBD + GN (Inflammatory disease)', 'IBD + GN (Inflammatory disease)'],

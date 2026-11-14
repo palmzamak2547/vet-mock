@@ -79,7 +79,7 @@ export function cleanTopicLabel(raw) {
   if (internal) text = cleanInternal(text).replace(LECTURE_CODE, '');
   return text
     .replace(LECTURE, '')
-    .replace(/\s*·\s*/g, ' — ') // the site writes no middle dot between words
+    .replace(/\s*·\s*/g, ', ') // the site writes no middle dot between words: a comma, as the curriculum's own names have
     .replace(/\s*↔\s*/g, ' and ') // nor an arrow that some phones draw as a picture
     .replace(/\(\s*\)/g, ' ')
     .replace(/\s+/g, ' ')
