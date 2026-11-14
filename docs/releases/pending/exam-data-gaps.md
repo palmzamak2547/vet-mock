@@ -114,3 +114,5 @@ all green). No cloud run.
   provider credentials exist. Smallest safe step: give it `/app/connect` in view-route.js with a cover in
   og-covers.js (lint:og needs one) when the connections are switched on; `view-registration.test.mjs` then asks for
   both.
+- **Waiting results with no owner are named.** A record from an old build with no `user_id` is skipped like another account's and kept on the device; the outbox notice now says how many there are (`exam-result-outbox.test.mjs`).
+- **The two-revision window is guarded.** `question-revision-window.test.mjs` pins the `unordered`/`keywords` of poultry 4002 and 4012 while their old revision is accepted, and fails from 1 Jan 2027 if the window is still open for any question.
