@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const ATLAS_SHELL_CACHE = 'vmx-atlas-shell-v1';
+const ATLAS_SHELL_CACHE = 'vmx-atlas-shell-v1';
 const MANIFEST_KEY = '/__atlas-shell-manifest';
 export function offlineHeaders(source) {
   const headers = new Headers(source);
@@ -152,7 +152,7 @@ async function prepare() {
     clearTimeout(timeout);
   }
 }
-export function prepareAtlasOffline() {
+function prepareAtlasOffline() {
   if (!preparation)
     preparation = prepare().then((result) => {
       if (!result) preparation = null;

@@ -1,3 +1,4 @@
+// @ts-check
 // User-facing error text. Raw exception messages are English infrastructure
 // speak ("Failed to fetch", "JWT expired") dropped into an all-Thai UI — map
 // the common classes to a sentence a student can act on. A message that is

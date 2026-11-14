@@ -51,7 +51,7 @@ const FILES_TIMEOUT_MS = 4000;
 const RELATED_FLOOR = 3.5;
 const COLUMNS = 'id,slug,title,kind,subject,year,semester,academic_year,lecturer,page_count,byte_size,mime,storage_provider';
 
-export const FILE_KINDS = Object.freeze({
+const FILE_KINDS = Object.freeze({
   slide: 'สไลด์',
   handout: 'เอกสารประกอบ',
   summary: 'สรุป',
@@ -77,7 +77,7 @@ export function subjectLabel(id) {
   return SUBJECT_NAME.get(id) || (id.length <= 5 ? id.toUpperCase() : id);
 }
 
-export function libraryConfig(env = process.env) {
+function libraryConfig(env = process.env) {
   const base = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
   const key = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
   return base && key ? { base: String(base).replace(/\/$/, ''), key } : null;
@@ -140,7 +140,7 @@ const STOP_TH = new Set(['\u0E42\u0E23\u0E04', '\u0E2D\u0E32\u0E01\u0E32\u0E23',
 
 /** A retrieval needle as text: retrieve.js hands { thai } or { re } objects;
  *  only the Thai ones are words (the English side comes from the plan's terms). */
-export const needleText = (n) => (typeof n === 'string' ? n : n?.thai || '');
+const needleText = (n) => (typeof n === 'string' ? n : n?.thai || '');
 
 /** Whether a normalised text holds one of a concept's forms ({ thai } or { re }). */
 function formsIn(forms) {
@@ -230,6 +230,7 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [], specific
 // `token` is the member's own: behind the Chula wall the library answers members only.
 async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, token }) {
   const r = await fetchImpl(url, {
+    redirect: 'error',
     method,
     headers: { apikey: cfg.key, Authorization: `Bearer ${token || cfg.key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: body ? JSON.stringify(body) : undefined,
@@ -242,7 +243,7 @@ async function getJSON(url, { cfg, fetchImpl, signal, method = 'GET', body, toke
 const inList = (values) => `(${values.map((v) => `"${String(v).replace(/["\\]/g, '')}"`).join(',')})`;
 
 /** A snippet as the card shows it: one line, never garbled, marked when cut. */
-export function tidySnippet(s) {
+function tidySnippet(s) {
   let t = stripBroken(s).replace(/\s+/g, ' ').trim();
   if (!t || garbled(t)) return '';
   // library_search returns a 200-character window from 60 before the match;

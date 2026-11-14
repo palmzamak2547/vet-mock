@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { ATLAS_CATALOG } from '../src/data/atlas-catalog.js';
 import { atlasSharePath } from '../src/lib/atlas-workspace.js';
+import { addToSitemap } from './lib/sitemap.mjs';
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 const url = 'https://vetmock.com/atlas/';
 const species = new Set(ATLAS_CATALOG.map(specimen => specimen.speciesId)).size;
@@ -48,5 +49,6 @@ const revision = createHash('sha256').update(entryHtml).update(JSON.stringify(sh
 await writeFile(resolve('dist/atlas-offline.json'), JSON.stringify({ version: 1, revision, entryScript: viteManifest['atlas.html'].file, assets: shellAssets }));
 const sitemapPath = resolve('dist/sitemap.xml');
 const sitemap = await readFile(sitemapPath, 'utf8');
-if (!sitemap.includes(`${url}</loc>`)) await writeFile(sitemapPath, sitemap.replace('</urlset>', `  <url><loc>${url}</loc><changefreq>monthly</changefreq></url>\n</urlset>`));
+const withAtlas = addToSitemap(sitemap, new URL(url).origin, [new URL(url).pathname]);
+if (withAtlas !== sitemap) await writeFile(sitemapPath, withAtlas);
 console.log(`Atlas entry prerendered: ${ATLAS_CATALOG.length} specimens / ${species} species.`);

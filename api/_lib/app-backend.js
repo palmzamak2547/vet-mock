@@ -10,6 +10,7 @@ export async function authenticatedUser(req, env = process.env) {
   const { url, key } = backendConfig(env);
   if (!url || !key) throw new Error('backend-unavailable');
   const response = await fetch(`${url}/auth/v1/user`, {
+    redirect: 'error',
     headers: { apikey: key, Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(8000),
   });
   if (response.status === 401 || response.status === 403) return null;
@@ -22,6 +23,7 @@ export async function authenticatedUser(req, env = process.env) {
 export async function isAdmin(token, env = process.env) {
   const { url, key } = backendConfig(env);
   const res = await fetch(`${url}/rest/v1/rpc/is_admin`, {
+    redirect: 'error',
     method: 'POST', headers: { apikey: key, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     body: '{}', signal: AbortSignal.timeout(6000),
   });
@@ -40,6 +42,7 @@ export async function signedRpc(name, purpose, data, token, env = process.env) {
   if (!url || !key) throw new Error('backend-unavailable');
   const signed = signAppPayload(purpose, data, env);
   const response = await fetch(`${url}/rest/v1/rpc/${name}`, {
+    redirect: 'error',
     method: 'POST', headers: { apikey: key, Authorization: `Bearer ${token || key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ p_payload: signed.payload, p_signature: signed.signature }),
     signal: AbortSignal.timeout(12000),

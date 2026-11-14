@@ -289,24 +289,29 @@ not cover missing runtime APIs.
 
 ---
 
-## 8. Service Worker version bump on every CSS/JS-shape change
+## 8. Service Worker version bump when the worker itself changes
 
-**Rule:** When you change CSS rules or the index chunk hash, bump
-`SW_VERSION` in `public/sw.js`. The SW caches assets by content hash
-but indexes them by URL — without a bump, returning users get a mix
-of new code referencing old chunks → cryptic errors.
+**Rule:** Bump `SW_VERSION` in `public/sw.js` when you change the worker:
+its caches, routing or precache (as its own header says). A CSS or JS change
+needs no bump: Vite's assets are named by their content hash and cached under
+that name, and the HTML is network-first, so a new build never reads an old
+chunk under a new name. (Until 11 Nov 2026 this rule asked for a bump on every
+CSS or chunk change; the worker had moved to hashed, immutable assets, and the
+bumps since follow worker changes, e.g. 5.185.0.)
 
 Format: `vN-YYYY-MM-DD`. Read the version from `public/sw.js`; never freeze a
 current worker number in this guide. Preserve rule 0.1.1 during any version bump.
 
 ---
 
-## 9. Build verification before push (universal)
+## 9. Build verification before merge (universal)
 
-**Rule:** When touching `src/styles.css`, `vite.config.js`, or
-`package.json`, run `npm run build` locally before commit. If the
-build breaks, the next commit-push fails-silently at Vercel and the
-previous (possibly broken) deploy stays live.
+**Rule:** A change reaches main only through a pull request whose CI is
+green, and CI builds it (Build: unit tests, `lint:data`, `npm run build`,
+`perf:budget`, `lint:dist`). Owner decision 2026-10-22 (top of AGENTS.md):
+no local gate before a pull request; run a build or a spec locally only to
+debug a CI failure. A broken build on main still leaves the previous deploy
+live at Vercel, so watch main's push CI after each merge.
 
 ---
 
@@ -438,15 +443,15 @@ a changing date or a busy machine is a hypothesis until the failing mechanism is
 
 ## Process checklist before any commit touching UI / data layer
 
-- [ ] Did this change `src/styles.css`? → Run `npm run build` locally (verify the CSS chunk still extracts to `dist/assets/*.css`).
+- [ ] Did this change `src/styles.css`? → CI's build and `lint:dist` check the CSS chunk still extracts to `dist/assets/*.css`.
 - [ ] Did this add a `::before` or `::after` pseudo with `position: absolute`?
       → Read rule 1. If you still want to ship it, set `pointer-events: none`.
 - [ ] Did this set new React state in a click handler?
       → Will another click handler also see that state and misinterpret it?
 - [ ] Did this add a new view route?
       → Does it reset implicit state from the previous view?
-- [ ] Did this change CSS rules or the entry chunk hash?
-      → Bump `SW_VERSION`.
+- [ ] Did this change `public/sw.js`?
+      → Bump `SW_VERSION` (rule 8).
 - [ ] Did this touch `vite.config.js`?
       → Keep `target: 'es2020'` (or older); never `esnext`.
 - [ ] Did this change a Q-bank file?

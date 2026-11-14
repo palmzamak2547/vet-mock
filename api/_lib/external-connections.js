@@ -93,23 +93,14 @@ export function verifyState(token, { secret, provider, nowMs } = {}) {
 // drive.file: only files the student picks in the Google Picker (no restricted-scope review).
 const GOOGLE_SCOPE = 'openid email https://www.googleapis.com/auth/drive.file';
 
-export const GOOGLE_API_HOST = 'www.googleapis.com';
-export const GOOGLE_TOKEN_HOST = 'oauth2.googleapis.com';
-export const NOTION_API_HOST = 'api.notion.com';
-
-/** The host a Google TOKEN answer may land on (the Drive export path checks GOOGLE_API_HOST separately). */
-export function isGoogleLandingHost(hostname) {
-  return String(hostname || '').toLowerCase() === GOOGLE_TOKEN_HOST;
-}
+const GOOGLE_API_HOST = 'www.googleapis.com';
+const GOOGLE_TOKEN_HOST = 'oauth2.googleapis.com';
+const NOTION_API_HOST = 'api.notion.com';
 
 /** The host a Drive/Sheets export answer may land on. */
 export function isGoogleApiHost(hostname) {
   const host = String(hostname || '').toLowerCase();
   return host === GOOGLE_API_HOST || host.endsWith('.googleusercontent.com');
-}
-
-export function isNotionLandingHost(hostname) {
-  return String(hostname || '').toLowerCase() === NOTION_API_HOST;
 }
 
 /**
@@ -204,7 +195,7 @@ export function googleTokenRequest({ code, redirectUri, env = process.env }) {
   };
 }
 
-export function googleRefreshRequest({ refreshToken, env = process.env }) {
+function googleRefreshRequest({ refreshToken, env = process.env }) {
   const body = new URLSearchParams({
     refresh_token: refreshToken,
     client_id: env.GOOGLE_OAUTH_CLIENT_ID || '',
@@ -238,9 +229,9 @@ export function notionTokenRequest({ code, redirectUri, env = process.env }) {
 // grant. Notion's takes the token with the client's Basic credentials.
 // https://developers.google.com/identity/protocols/oauth2/web-server#tokenrevoke
 // https://developers.notion.com/reference/revoke-token
-export const NOTION_REVOKE_VERSION = '2026-03-11';
+const NOTION_REVOKE_VERSION = '2026-03-11';
 
-export function googleRevokeRequest({ token }) {
+function googleRevokeRequest({ token }) {
   return {
     url: 'https://oauth2.googleapis.com/revoke',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -248,7 +239,7 @@ export function googleRevokeRequest({ token }) {
   };
 }
 
-export function notionRevokeRequest({ token, env = process.env }) {
+function notionRevokeRequest({ token, env = process.env }) {
   const clientId = env.NOTION_OAUTH_CLIENT_ID || '';
   const clientSecret = env.NOTION_OAUTH_CLIENT_SECRET || '';
   if (!clientId || !clientSecret) return null;
@@ -304,6 +295,7 @@ export function sanitizeConnection(row) {
 
 async function restFetch(path, { method = 'GET', body, url, key, fetch = globalThis.fetch } = {}) {
   const res = await fetch(`${url}${path}`, {
+    redirect: 'error',
     method,
     headers: {
       apikey: key,
@@ -327,6 +319,7 @@ export async function getUserFromRequest(req, deps = {}) {
   if (!url || !key) return null;
   try {
     const res = await fetch(`${url}/auth/v1/user`, {
+      redirect: 'error',
       headers: { apikey: key, Authorization: `Bearer ${jwt}` },
       signal: AbortSignal.timeout(IO_TIMEOUT_MS),
     });
@@ -414,6 +407,7 @@ export async function refreshGoogleAccess(row, deps = {}) {
   const fetch = rest.fetch || globalThis.fetch;
   try {
     const res = await fetch(req.url, {
+      redirect: 'error',
       method: 'POST',
       headers: req.headers,
       body: req.body,

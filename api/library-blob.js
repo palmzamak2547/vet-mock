@@ -7,13 +7,13 @@
 // verifies the signature and streams the bytes from R2 through the
 // Cloudflare REST API, which the standing account token CAN do.
 //
-// Range requests are forwarded so a PDF viewer can seek without pulling
-// the whole deck; the upstream's 200/206 and range headers pass through.
-// R2 charges nothing for egress and Vercel Pro streams responses, so an
-// 18 MB deck is bandwidth, not a bill.
+// Range is forwarded, but the storage API ignores it and sends the whole
+// object, so every GET pulls it through this function: the bytes are budgeted
+// per member (BLOB_BYTES). A reading surface: when the shared limiter cannot
+// count, this instance's own counter bounds it instead of a refusal.
 
 import { verifyBlobToken } from './_lib/blob-token.js';
-import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { rateLimit, rateLimitLocal, clientIP } from './_lib/rate-limit.js';
 import { byteRange } from '../workers/library-archive.js';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
@@ -24,6 +24,75 @@ import { pipeline } from 'node:stream/promises';
 // URL at once: 300 per 10 minutes stays above the largest class (about 150)
 // while a looping viewer or a script is still capped.
 export const BLOB_RATE = { max: 300, windowMs: 10 * 60 * 1000 };
+
+// The bytes one caller may pull through this function in the same window, for
+// documents: 300 opens of a 50 MB deck were 15 GB in ten minutes. A link
+// library-file.js mints for a member carries a digest of their id (u), and
+// they are counted on it: 2 GB is 40 opens of a 50 MB deck, and one member
+// looping a link stops only themselves. A link without one (an open ticket) is
+// counted by address, 8 GB, enough for a hall opening one deck at once.
+// Video and audio are not in this budget (the mime comes from the signed
+// token, so a client cannot claim it): storage ignores Range, so every range
+// reads the object from byte 0 and an honest count of a seek is most of the
+// object; a byte budget would refuse a student who seeks during a lecture.
+// They keep BLOB_RATE per link. The real fix is a ranged read (see the notes).
+export const BLOB_BYTES = { max: 2 * 1024 ** 3, address: 8 * 1024 ** 3, windowMs: 10 * 60 * 1000 };
+
+// A refusal is read in the deck's own tab, so it is a page in Thai that says
+// what happened and when to try again, not JSON.
+export function refusalPage(retryAfter) {
+  const minutes = Math.max(1, Math.ceil(Number(retryAfter || 60) / 60));
+  return `<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>เปิดไฟล์ไม่ได้ชั่วคราว</title>
+<style>body{font-family:system-ui,sans-serif;max-width:32rem;margin:15vh auto;padding:0 1rem;line-height:1.6;color:#2b2419;background:#f6efe4}h1{font-size:1.25rem}</style></head>
+<body><h1>เปิดไฟล์ไม่ได้ชั่วคราว</h1><p>ช่วงนี้บัญชีหรือเครือข่ายนี้เปิดไฟล์จากคลังเอกสารไปมากแล้ว ลองเปิดอีกครั้งในอีกประมาณ ${minutes} นาที</p><p>ไฟล์ที่เคยเปิดในเครื่องนี้แล้วยังอ่านได้จากหน้าคลังเอกสาร</p></body></html>`;
+}
+
+function refuse(res, limit) {
+  res.statusCode = 429;
+  res.setHeader('Retry-After', String(limit.retryAfter || 60));
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  return res.end(refusalPage(limit.retryAfter));
+}
+
+// The shared count, or this instance's own when the shared limiter cannot count.
+async function count(key, max, windowMs, by) {
+  const shared = await rateLimit(key, max, windowMs, { by });
+  return shared.unavailable ? rateLimitLocal(key, max, windowMs, { by }) : shared;
+}
+
+/**
+ * What one GET is counted before it is served: a document's catalogued size;
+ * nothing for video and audio (exempt, above). A document whose size is not
+ * catalogued is counted as it streams instead (countStreamed), so it is never
+ * counted as less than it sends; before serving it is counted 1 byte, which
+ * refuses it once the budget is already spent.
+ */
+export function bytesPulled(payload, media) {
+  if (media) return 0;
+  return Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : 1;
+}
+
+// Video and audio by the signed mime, or by the extension of the signed storage
+// key or file name: rows ingested as application/octet-stream (.mov, .webm,
+// ...) are still media, and a member can change neither.
+const MEDIA_EXTENSION = /\.(?:mp4|m4v|mov|webm|mkv|m4a|mp3|wav|ogg|aac)$/i;
+export function isMedia(payload) {
+  return /^(?:video|audio)\//i.test(payload?.m || '')
+    || MEDIA_EXTENSION.test(String(payload?.k || '')) || MEDIA_EXTENSION.test(String(payload?.f || ''));
+}
+
+/** Counts the bytes that pass, then calls done(total) once the stream ends or stops. */
+export function countStreamed(body, done) {
+  let total = 0;
+  let reported = false;
+  const report = () => { if (!reported) { reported = true; done(total); } };
+  return body.pipeThrough(new TransformStream({
+    transform(chunk, controller) { total += chunk.byteLength || chunk.length || 0; controller.enqueue(chunk); },
+    flush() { report(); },
+    cancel() { report(); },
+  }));
+}
 
 // What the browser is told the bytes are. The catalog is curated under the
 // service role, but this route answers on the app's OWN origin — a row whose
@@ -156,7 +225,7 @@ export default async function handler(req, res) {
   // 61 library videos used to come back whole with Accept-Ranges: none. Only
   // media: a PDF viewer told it may seek would ask for ranges that each pull
   // the whole object through here (see sliceBody).
-  const media = /^(?:video|audio)\//i.test(payload.m || '');
+  const media = isMedia(payload);
   const asksRange = media && req.method === 'GET' && !!req.headers.range;
 
   // The CF REST object API is a management plane: it ignores Range and
@@ -174,9 +243,24 @@ export default async function handler(req, res) {
   }
 
   const linkKey = String(url.searchParams.get('s') || '').slice(0, 22);
-  const limit = await rateLimit(`library-blob:${clientIP(req)}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs);
-  // Like the link endpoint: an outage of the shared limiter must not close the library.
-  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
+  const ip = clientIP(req);
+  const who = typeof payload.u === 'string' && payload.u ? `user:${payload.u}` : `addr:${ip}`;
+  const limit = await count(`library-blob:${who}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs, 1);
+  if (!limit.ok) return refuse(res, limit);
+  const budget = payload.u ? BLOB_BYTES.max : BLOB_BYTES.address;
+  const charge = bytesPulled(payload, media);
+  if (charge > 0) {
+    const bytes = await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, charge);
+    if (!bytes.ok) return refuse(res, bytes);
+  }
+  // A document of unknown size: what it really sent is counted once it ends,
+  // awaited before the handler returns (a frozen function would lose it).
+  const unsized = !media && charge === 1;
+  let streamed = 0;
+  const settle = (sent) => { streamed = sent; };
+  const settleCount = async () => {
+    if (unsized && streamed > 1) await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, streamed - 1).catch(() => {});
+  };
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };
@@ -194,7 +278,7 @@ export default async function handler(req, res) {
   try {
     upstream = await fetch(
       `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${objectPath}`,
-      { method: req.method, headers: upstreamHeaders, signal: disconnected.signal },
+      { method: req.method, headers: upstreamHeaders, redirect: 'error', signal: disconnected.signal },
     );
   } catch {
     res.statusCode = 502;
@@ -272,8 +356,10 @@ export default async function handler(req, res) {
   // Stream, not buffer: an 18 MB deck must not sit in function memory
   // twice, and first bytes should reach the tab before last bytes leave R2.
   try {
-    await pipeline(Readable.fromWeb(stallGuard(upstream.body, disconnected)), res);
+    const body = stallGuard(upstream.body, disconnected);
+    await pipeline(Readable.fromWeb(unsized ? countStreamed(body, settle) : body), res);
   } catch {
     // Pipeline cancels abandoned reads and terminates incomplete downloads.
   }
+  await settleCount();
 }

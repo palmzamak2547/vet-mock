@@ -25,6 +25,7 @@ async function primaryBalance(env, fetchImpl) {
   if (!env.DEEPSEEK_API_KEY) return 'none';
   try {
     const res = await fetchImpl(BALANCE_URL, {
+      redirect: 'error',
       headers: { authorization: `Bearer ${env.DEEPSEEK_API_KEY}` },
       signal: AbortSignal.timeout(CHECK_MS),
     });

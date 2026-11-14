@@ -21,12 +21,19 @@
 // caller keeps what the student wrote until a send succeeds.
 // ============================================================
 
+import { authHeader } from './api-auth.js';
+
 export const FEEDBACK_EMAIL = 'palmzamak2547@gmail.com';
 
 // Each one says what to do next. The daily cap and a mailer fault point at
 // email, the one way out that does not go through this endpoint.
 export const FEEDBACK_MESSAGES = Object.freeze({
   daily_cap: `วันนี้ระบบรับข้อความครบโควตาแล้ว พรุ่งนี้ส่งได้อีก หรือส่งอีเมลถึงทีมงานโดยตรงที่ ${FEEDBACK_EMAIL}`,
+  // The sender's own day is full (not the 10-minute burst): waiting a little does not help.
+  // Many messages came from this network (a campus or a library) in a short
+  // time; the student's own count is not the reason.
+  network_busy: `มีคนในเครือข่ายเดียวกันส่งข้อความเข้ามามากในช่วงนี้ ลองใหม่ภายหลัง หรือส่งอีเมลถึงทีมงานโดยตรงที่ ${FEEDBACK_EMAIL}`,
+  daily_mine: `วันนี้ส่งข้อความครบจำนวนต่อวันแล้ว พรุ่งนี้ส่งได้อีก หรือส่งอีเมลถึงทีมงานโดยตรงที่ ${FEEDBACK_EMAIL}`,
   burst: 'ส่งถี่เกินไป พักสักครู่แล้วลองใหม่ (ส่งได้ 3 ครั้งต่อ 10 นาที)',
   offline: 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',
   preview: 'ส่งได้เฉพาะบนเว็บจริง เปิด vetmock.com แล้วส่งอีกครั้ง',
@@ -89,12 +96,16 @@ export function saveFeedbackDraft(draft, storage) {
  * Resolves to { ok, status, reason, messageTh }; reason is null on success,
  * otherwise one of the FEEDBACK_MESSAGES keys. status is 0 when offline.
  */
-export async function sendFeedback(payload, { fetch = globalThis.fetch } = {}) {
+export async function sendFeedback(payload, { fetch = globalThis.fetch, auth = authHeader } = {}) {
   let res;
   try {
+    // Signed in, the message counts on the student's own allowance instead of
+    // the address they share with classmates; signed out, the header is empty.
+    let bearer = {};
+    try { bearer = (await auth()) || {}; } catch { bearer = {}; }
     res = await fetch('/api/send-feedback', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...bearer },
       body: JSON.stringify(payload),
       // The server gives the mailer 10 s; past this the form says so instead
       // of staying on "sending" (AbortSignal.timeout is Safari 16+).
@@ -105,9 +116,13 @@ export async function sendFeedback(payload, { fetch = globalThis.fetch } = {}) {
   }
   const body = await res.json().catch(() => null);
   if (res.ok && body) return { ok: true, status: res.status, reason: null, messageTh: '' };
-  // A 429 has two causes with opposite advice: a burst clears in minutes, the
-  // daily cap not until tomorrow.
-  if (res.status === 429) return failure(429, body?.reason === 'daily_cap' ? 'daily_cap' : 'burst');
+  // A 429 has three causes: a burst clears in minutes; the sender's own day
+  // and the platform's day clear only tomorrow.
+  if (res.status === 429) {
+    if (body?.reason === 'daily_cap') return failure(429, body?.scope === 'caller' ? 'daily_mine' : 'daily_cap');
+    if (body?.reason === 'network_busy') return failure(429, 'network_busy');
+    return failure(429, 'burst');
+  }
   // No JSON from a route that is missing or a page served in its place: a
   // local preview. The platform's own 5xx and 403 pages are a server fault.
   if (!body && (res.ok || res.status === 404 || res.status === 405)) return failure(res.status, 'preview');

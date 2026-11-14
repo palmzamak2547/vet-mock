@@ -29,6 +29,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { buildOgHead } from './lib/og-head.mjs';
+import { addToSitemap, appRoutes } from './lib/sitemap.mjs';
+import { GATE_PUBLIC_VIEWS } from '../src/lib/gate-public-views.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -110,16 +112,11 @@ if (missingCovers.length) {
 // a search console will report back.
 const sitemapPath = path.join(DIST, 'sitemap.xml');
 if (fs.existsSync(sitemapPath)) {
-  let xml = fs.readFileSync(sitemapPath, 'utf8');
-  let added = 0;
-  for (const cover of OG_COVERS) {
-    if (!cover.indexable || !cover.route.startsWith('/app/')) continue;
-    const loc = `${ORIGIN}${cover.route}`;
-    if (xml.includes(`<loc>${loc}</loc>`)) continue;
-    xml = xml.replace('</urlset>', `  <url><loc>${loc}</loc><changefreq>monthly</changefreq></url>\n</urlset>`);
-    added += 1;
-  }
-  if (added) fs.writeFileSync(sitemapPath, xml, 'utf8');
+  // An /app screen behind the Chula wall shows a crawler the sign-in screen,
+  // so only those open before sign-in are listed (scripts/lib/sitemap.mjs).
+  const xml = fs.readFileSync(sitemapPath, 'utf8');
+  const next = addToSitemap(xml, ORIGIN, appRoutes(OG_COVERS, GATE_PUBLIC_VIEWS));
+  if (next !== xml) fs.writeFileSync(sitemapPath, next, 'utf8');
 }
 
 console.log(`OG shells prerendered: ${written.length} route(s), ${OG_COVERS.length} covers registered.`);

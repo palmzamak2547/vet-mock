@@ -47,7 +47,7 @@ void main() {
   o = vec4(uTint * a, a);
 }`;
 
-export function parseGlb(buf) {
+function parseGlb(buf) {
   const dv = new DataView(buf);
   if (dv.getUint32(0, true) !== 0x46546c67) throw new Error('not a glb');
   let off = 12, json = null, bin = null;
@@ -78,7 +78,7 @@ function perspective(fovy, aspect, near, far) {
   return new Float32Array([f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0]);
 }
 /** View * model: rotate (pitch after yaw) about the point `at`, then step back. */
-export function modelView(yaw, pitch, dist, at = [0, 0, 0]) {
+function modelView(yaw, pitch, dist, at = [0, 0, 0]) {
   const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
   const r = [cy, sp * sy, -cp * sy, 0, cp, sp, sy, -sp * cy, cp * cy];
   const [ax, ay, az] = at;

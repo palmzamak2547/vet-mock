@@ -102,5 +102,3 @@ export function resolveSubjectRef(ref) {
   if (KNOWN.has(r)) return r;
   return subjectsInText(r)[0] || null;
 }
-
-export const isKnownSubject = (id) => KNOWN.has(id);

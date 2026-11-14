@@ -38,6 +38,7 @@ import {
   MAX_GOOGLE_MARKDOWN_RAW_BYTES,
 } from './_lib/external-doc.js';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { getUserFromRequest, getConnection, googleTokenStale, refreshGoogleAccess, isGoogleApiHost } from './_lib/external-connections.js';
 import { createHash } from 'node:crypto';
 import { requireChula } from './_lib/chula-gate.js';
@@ -225,7 +226,7 @@ async function fetchConnectedGoogle(target, row) {
       const base = `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(id)}`;
       const headers = { Authorization: `Bearer ${token}` };
       const meta = await fetch(`${base}?fields=properties(title),sheets(properties(sheetId,title))`, {
-        headers, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
+        headers, redirect: 'error', signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
       });
       if (!meta.ok) return { failure: await googleRefusal(meta) };
       const data = await meta.json().catch(() => null);
@@ -234,7 +235,7 @@ async function fetchConnectedGoogle(target, row) {
       if (typeof sheet?.title !== 'string') return { failure: 'sheet_tab' };
       const range = `'${sheet.title.replace(/'/g, "''")}'`;
       const values = await fetch(`${base}/values/${encodeURIComponent(range)}?majorDimension=ROWS`, {
-        headers, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
+        headers, redirect: 'error', signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
       });
       if (!values.ok) return { failure: values.status === 401 ? 'reconnect' : 'sheet_tab' };
       const raw = await values.text();
@@ -257,6 +258,10 @@ async function fetchConnectedGoogle(target, row) {
     let resp;
     try {
       resp = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}/export?mimeType=${encodeURIComponent(mimeType)}`, {
+        // An export may be answered from googleusercontent.com, so it follows,
+        // and the landing host is checked below. Fetch drops Authorization on
+        // a redirect to another origin; nothing else secret is sent (a GET).
+        redirect: 'follow',
         headers: { Authorization: `Bearer ${token}` },
         signal: AbortSignal.timeout(TIMEOUT_MS),
       });
@@ -295,6 +300,7 @@ async function fetchConnectedGoogle(target, row) {
   let title = null;
   try {
     const meta = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?fields=name`, {
+      redirect: 'error',
       headers: { Authorization: `Bearer ${token}` },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -316,7 +322,7 @@ async function fetchNotionMarkdown(id, token) {
   let markdown = null;
   try {
     const resp = await fetch(`${NOTION_API}/pages/${id}/markdown`, {
-      headers, signal: AbortSignal.timeout(TIMEOUT_MS),
+      headers, redirect: 'error', signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     if (resp.ok && notionLanded(resp)) {
       const raw = await resp.text();
@@ -343,7 +349,7 @@ async function fetchNotionMarkdown(id, token) {
       const qs = new URLSearchParams({ page_size: '100' });
       if (cursor) qs.set('start_cursor', cursor);
       const resp = await fetch(`${NOTION_API}/blocks/${id}/children?${qs}`, {
-        headers, signal: AbortSignal.timeout(TIMEOUT_MS),
+        headers, redirect: 'error', signal: AbortSignal.timeout(TIMEOUT_MS),
       });
       if (!resp.ok) return { status: resp.status, markdown: null, title: null };
       if (!notionLanded(resp)) return { status: resp.status, markdown: null, title: null };
@@ -361,7 +367,7 @@ async function fetchNotionMarkdown(id, token) {
   let title = null;
   try {
     const resp = await fetch(`${NOTION_API}/pages/${id}`, {
-      headers, signal: AbortSignal.timeout(TIMEOUT_MS),
+      headers, redirect: 'error', signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     if (resp.ok && notionLanded(resp)) title = notionTitleFromPage(await resp.json().catch(() => null));
   } catch { /* title is optional */ }
@@ -392,7 +398,9 @@ export default async function handler(req, res) {
   if (!ceiling.ok) return sendRateLimitFailure(res, ceiling);
 
   try {
-    const rawUrl = typeof req.body?.url === 'string' ? req.body.url.trim() : '';
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
+    const rawUrl = typeof body.url === 'string' ? body.url.trim() : '';
     if (!rawUrl) return res.status(400).json({ error: 'url is required' });
     const target = normalizeExternalDocUrl(rawUrl);
     if (!target) {
@@ -620,6 +628,7 @@ export default async function handler(req, res) {
     if (/invalid json/i.test(String(err?.message || ''))) {
       return res.status(400).json({ error: 'Invalid JSON body' });
     }
-    return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
+    console.error('[fetch-external-doc] unexpected:', String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'Unexpected error', code: 'unexpected' });
   }
 }

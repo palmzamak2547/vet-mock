@@ -29,7 +29,8 @@
 // ============================================================
 
 import { createHash } from 'node:crypto';
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, allowedOrigin, kvGetJSON, kvSetJSON, limitCaller } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { chatJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
@@ -334,8 +335,7 @@ export default async function handler(req, res) {
   const gate = await requireChula(req, res);
   if (!gate) return undefined;
 
-  const ip = clientIP(req);
-  const rl = await rateLimit(`coach:${ip}`, 120, 60 * 60 * 1000);
+  const rl = await limitCaller(req, gate, 'coach', 120, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   if (!llmConfigured()) {
@@ -343,7 +343,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = req.body || {};
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
     const mode = String(body.mode || '');
     const build = Object.prototype.hasOwnProperty.call(BUILDERS, mode) ? BUILDERS[mode] : null;
     if (!build) return res.status(400).json({ error: 'Unknown mode' });

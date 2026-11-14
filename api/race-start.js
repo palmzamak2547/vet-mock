@@ -1,5 +1,6 @@
 import { questionRevision } from '../src/lib/study-events.js';
-import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { allowedOrigin, sendRateLimitFailure, limitCaller } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { authenticatedUser, signedRpc } from './_lib/app-backend.js';
 import { questionCatalog } from './_lib/question-catalog.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -17,10 +18,12 @@ export default async function handler(req, res) {
   if (req.headers.origin && !origin) return res.status(403).json({ error: 'origin_not_allowed' });
   const gate = await requireChula(req, res);
   if (!gate) return undefined;
-  const ids = req.body?.questionIds;
-  if (!/^[A-F0-9]{6}$/.test(req.body?.code || '') || !Array.isArray(ids) || ids.length < 5 || ids.length > 50
+  const body = readJsonBody(req);
+  if (!body) return sendBadBody(res);
+  const ids = body.questionIds;
+  if (!/^[A-F0-9]{6}$/.test(body.code || '') || !Array.isArray(ids) || ids.length < 5 || ids.length > 50
     || new Set(ids.map(String)).size !== ids.length) return res.status(400).json({ error: 'invalid-race' });
-  const limited = await rateLimit(`race-start:${clientIP(req)}`, 60, 60 * 60 * 1000);
+  const limited = await limitCaller(req, gate, 'race-start', 60, 60 * 60 * 1000);
   if (!limited.ok) return sendRateLimitFailure(res, limited);
   try {
     const auth = await authenticatedUser(req);
@@ -29,9 +32,9 @@ export default async function handler(req, res) {
     const questions = ids.map(id => bank.get(String(id)));
     if (questions.some(q => !q || q.type !== 'mcq' || !Number.isInteger(q.answer))
       || new Set(questions.map(q => q.subject)).size !== 1
-      || questions.some(q => req.body.questionVersions?.[q.id] !== questionRevision(q))) return res.status(400).json({ error: 'invalid-questions' });
+      || questions.some(q => body.questionVersions?.[q.id] !== questionRevision(q))) return res.status(400).json({ error: 'invalid-questions' });
     const result = await signedRpc('start_verified_race', 'race-start', {
-      user_id: auth.userId, code: req.body.code, subject: questions[0].subject, year: questions[0].year,
+      user_id: auth.userId, code: body.code, subject: questions[0].subject, year: questions[0].year,
       question_ids: questions.map(q => q.id), question_versions: Object.fromEntries(questions.map(q => [q.id, questionRevision(q)])), answers: questions.map(q => q.answer),
       option_counts: questions.map(q => q.options.length),
     }, auth.token);
