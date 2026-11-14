@@ -94,7 +94,9 @@ test('a copy that fails says so', async () => {
 
 test('an article with no checked point says so, and shows no "0 checked"', async (t) => {
   browser(t);
-  const v = mount(KnowledgeView, { subject: 'swine-clinic', topic: 'swine-asf', openNonce: 7, goHome() {}, setView() {} });
+  // A senior summary with no checked point. It was swine-asf until that topic got its lecture note and claims;
+  // avian-intro is the one article left with none (a single exempt section of the Vet 85 summary).
+  const v = mount(KnowledgeView, { subject: 'avian-medicine', topic: 'avian-intro', openNonce: 7, goHome() {}, setView() {} });
   await settle(v);
   const text = textOf(v.tree);
   assert.ok(text.includes(provenanceHeadline(0, 0)), 'the headline stands where the strip would');
