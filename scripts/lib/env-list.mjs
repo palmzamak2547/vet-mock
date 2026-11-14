@@ -110,6 +110,7 @@ export const ENV = [
   { name: 'VIDEO_BATCH', group: 'Video scripts', need: 'optional', does: 'File of video ids one registry run adds. Scripts only.' },
   { name: 'VIDEO_CACHE_DIR', group: 'Video scripts', need: 'optional', does: 'Transcript and media cache folder; default data-cache/. Scripts only.' },
   { name: 'VIDEO_DATA_DIR', group: 'Video scripts', need: 'optional', does: 'Video data root outside the checkout. Scripts only.' },
+  { name: 'HEAVY_LOCK_PID', group: 'Video scripts', need: 'optional', does: 'Set by the shared heavy-job lock wrapper for its command: a lock naming this pid is the run\'s own. Scripts only.' },
   { name: 'VIDEO_HEAVY_LOCK', group: 'Video scripts', need: 'optional', does: 'Lock file the media download takes. Scripts only.' },
   { name: 'VIDEO_MIN_FREE_GB', group: 'Video scripts', need: 'optional', does: 'Free disk the media download keeps; default 20. Scripts only.' },
   { name: 'VIDEO_RATE', group: 'Video scripts', need: 'optional', does: 'Download rate cap in yt-dlp syntax. Scripts only.' },

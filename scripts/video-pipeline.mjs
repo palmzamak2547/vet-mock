@@ -47,6 +47,23 @@ async function pool(items, n, fn) {
 const STOP = new Set(['vet86', 'and', 'the', 'of', 'in', 'to', 'for', 'with', 'part', 'lecture', 'lect', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'ต่อ']);
 const words = (s) => new Set(segmentWords(normalizeQuery(String(s || '').replace(/\d+/g, ' ')))
   .filter((w) => w.wordLike && w.word.trim().length >= 3).map((w) => w.word.trim()).filter((w) => !STOP.has(w)));
+// A class timetable names every session, so it matches every title (on 14 Nov a two-page
+// "ตารางเรียนค่ะ" became the deck of two avian lectures): never a lecture's deck.
+export const TIMETABLE = /ตารางเรียน|ตารางสอน|กำหนดการ|course schedule|timetable/i;
+const EN_MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const TH_MONTHS = ['มค', 'กพ', 'มีค', 'เมย', 'พค', 'มิย', 'กค', 'สค', 'กย', 'ตค', 'พย', 'ธค'];
+/** The day and month a title carries ("4 Nov 69", "(4 พ.ย. 69)", "_28 Oct 26"), as "4/11", or null. */
+export function titleDate(title) {
+  for (const m of String(title || '').toLowerCase().matchAll(/(?:^|[^0-9])([0-3]?[0-9]) ?([a-z]+|[ก-๛]+[.][ก-๛]+[.]?)/g)) {
+    const day = Number(m[1]);
+    const word = m[2].replaceAll('.', '');
+    let month = TH_MONTHS.indexOf(word);
+    // "Nov", "Sept" or "November", never "marked" or "decks"
+    if (month < 0 && word.length >= 3) month = EN_MONTHS.findIndex((x) => x.startsWith(word));
+    if (day >= 1 && day <= 31 && month >= 0) return `${day}/${month + 1}`;
+  }
+  return null;
+}
 
 async function fetchDeck(slug, file) {
   fs.writeFileSync(file, await libraryFileBytes(slug));
@@ -105,7 +122,7 @@ async function main() {
       const key = subjectIds.join(',');
       if (!dfBySubject.has(key)) {
         const df = new Map();
-        for (const doc of catalog.filter((d) => subjectIds.includes(d.subject) && d.kind !== 'video')) {
+        for (const doc of catalog.filter((d) => subjectIds.includes(d.subject) && d.kind !== 'video' && !TIMETABLE.test(d.title))) {
           for (const w of words(`${doc.title} ${await pageOne(doc)}`)) df.set(w, (df.get(w) || 0) + 1);
         }
         dfBySubject.set(key, df);
@@ -130,7 +147,7 @@ async function main() {
         const parts = v.title.split(/\s(?:\+|&)\s?|\s\d+\.\s*/).map((p) => words(p)).filter((w) => w.size);
         const scored = [];
         const df = await subjectDf(v.subjects);
-        for (const doc of catalog.filter((d) => v.subjects.includes(d.subject) && d.kind !== 'video')) {
+        for (const doc of catalog.filter((d) => v.subjects.includes(d.subject) && d.kind !== 'video' && !TIMETABLE.test(d.title))) {
           const dw = words(`${doc.title} ${await pageOne(doc)}`);
           let best = 0;
           for (const p of parts) {
@@ -141,6 +158,15 @@ async function main() {
           if (best >= 0.6) scored.push({ slug: doc.slug, score: Math.round(best * 100) / 100, why: 'title' });
         }
         chosen = scored.sort((a, b) => b.score - a.score).slice(0, Math.max(1, Math.min(3, parts.length)));
+      }
+      if (!chosen.length) {
+        // Every word of "One health perspective on food and feed GMOs" is common in its subject, so
+        // no title word is distinctive; this year's decks carry their teaching date, and so does
+        // the recording's title: the subject's decks of that day are the session's (3 Nov had four).
+        // ponytail: day and month only; the catalog carries no year, add it if a date ever collides.
+        const day = titleDate(v.title);
+        if (day) chosen = catalog.filter((d) => v.subjects.includes(d.subject) && d.kind !== 'video' && !TIMETABLE.test(d.title) && titleDate(d.title) === day)
+          .slice(0, 4).map((d) => ({ slug: d.slug, score: 0.5, why: 'date' }));
       }
       st.decks = chosen;
       delete st.deckError; // an earlier attempt's error, not this one's
@@ -224,8 +250,9 @@ async function main() {
       const dir = path.join(DATA, v.id);
       const st = (state[v.id] ||= {});
       const af = path.join(dir, 'analysis.json');
-      // A summary polished by hand (polished.json beside it) is never redrafted or re-anchored.
-      if (fs.existsSync(path.join(dir, 'polished.json'))) return;
+      // A summary polished by hand (polished.json beside it) is never redrafted or re-anchored. A clip
+      // with no summary yet is drafted even so: its polished.json can hold only hand-chosen "decks".
+      if (fs.existsSync(path.join(dir, 'polished.json')) && fs.existsSync(path.join(dir, 'summary.json'))) return;
       if (!fs.existsSync(af) || (fs.existsSync(path.join(dir, 'summary.json')) && !force && !String(st.summary || '').startsWith('held'))) return;
       const a = JSON.parse(fs.readFileSync(af, 'utf8'));
       const spoken = a.lines.reduce((n, [, t]) => n + String(t).split(/\s+/).length, 0);
