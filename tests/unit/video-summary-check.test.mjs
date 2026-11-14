@@ -182,6 +182,19 @@ test('review of 9 Nov: an acronym covers as a whole word, and a Thai mark list b
   assert.deepEqual(coverage(card('ประกาศเขตเฝ้าระวังโรครัศมี 50 กม.'), [mark('m:2', 'เขตโรคระบาด, เขตเฝ้าระวังโรค')]).missing, []);
 });
 
+test('a Thai mark matches whichever way the slide spells sara am (15 Nov)', () => {
+  const at = 600;
+  const c = (...n) => String.fromCharCode(...n);
+  const card = (text) => ({ oneLiner: 'x', keyPoints: [{ t: at, text }], emphasis: [], remember: [], chapters: [] });
+  const mark = (text) => ({ id: 'm:1', kind: 'mark', text, at, page: 1 });
+  const typed = `${c(0x0e19, 0x0e49, 0x0e33)}ดื่มสะอาด`; // น้ำ as a keyboard types it
+  const toneFirst = `${c(0x0e19, 0x0e49, 0x0e4d, 0x0e32)}ดื่มสะอาด`; // tone, nikhahit, sara aa
+  const toneAfter = `${c(0x0e19, 0x0e4d, 0x0e49, 0x0e32)}ดื่มสะอาด`; // nikhahit, tone, sara aa
+  assert.deepEqual(coverage(card(`ให้${typed}แก่ไก่ทุกวัน`), [mark(toneFirst)]).missing, []);
+  assert.deepEqual(coverage(card(`ให้${typed}แก่ไก่ทุกวัน`), [mark(toneAfter)]).missing, []);
+  assert.deepEqual(coverage(card('ให้อาหารแก่ไก่ทุกวัน'), [mark(toneAfter)]).missing, ['m:1'], 'a line without the word still misses');
+});
+
 test('two chapters with the same line are flagged', () => {
   const line = 'แบบฝึกหัด cost benefit analysis เปรียบเทียบ vaccination กับ test and slaughter';
   const card = { oneLiner: 'x', keyPoints: [], emphasis: [], remember: [], chapters: [{ id: 'c8', t: 3480, line }, { id: 'c9', t: 4030, line }] };

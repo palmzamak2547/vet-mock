@@ -206,7 +206,7 @@ export default {
   },
   {
    "t": 3180,
-   "title": "HPV outbreak in Europe https://inside.fei.org/fei/ehv-1/department-updates?year=",
+   "title": "HPV outbreak in Europe",
    "line": "การระบาดในยุโรปทำให้ยกเลิกการแข่งขัน วัคซีน Flu Innovator 41 ครอบคลุม EHV-1, EHV-4 และ influenza",
    "slides": [
     {

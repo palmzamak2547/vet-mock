@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-123 names, 12 required; 10 more are set by the platform.
+124 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -128,6 +128,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `VIDEO_BATCH` | optional | script | `scripts/video-registry.mjs` | File of video ids one registry run adds. Scripts only. |
 | `VIDEO_CACHE_DIR` | optional | script | `scripts/video-analyse.mjs`, `scripts/video-channel-inventory.mjs`, `scripts/video-media.mjs` +2 | Transcript and media cache folder; default data-cache/. Scripts only. |
 | `VIDEO_DATA_DIR` | optional | script | `scripts/video-media.mjs`, `scripts/video-pipeline.mjs`, `scripts/video-registry.mjs` | Video data root outside the checkout. Scripts only. |
+| `HEAVY_LOCK_PID` | optional | script | `scripts/video-media.mjs` | Set by the shared heavy-job lock wrapper for its command: a lock naming this pid is the run's own. Scripts only. |
 | `VIDEO_HEAVY_LOCK` | optional | script | `scripts/video-media.mjs` | Lock file the media download takes. Scripts only. |
 | `VIDEO_MIN_FREE_GB` | optional | script | `scripts/video-media.mjs` | Free disk the media download keeps; default 20. Scripts only. |
 | `VIDEO_RATE` | optional | script | `scripts/video-media.mjs` | Download rate cap in yt-dlp syntax. Scripts only. |
