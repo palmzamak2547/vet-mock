@@ -1581,6 +1581,51 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "one-health--oh-env-carcinogen",
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "title": "OH approach to address environmental health risks I: ปศุสัตว์แบบเข้มข้นกับสิ่งแวดล้อม",
+    "icon": "☠️",
+    "summary": "ความเสี่ยงต่อสุขภาพจากสิ่งแวดล้อมที่มาจากการผลิตปศุสัตว์แบบเข้มข้น จากเด็ค One Health Approach to Address Environmental Health Risks I (13 หน้า) และบันทึกคาบ 21 ต.ค. 2569 เริ่มจากคำศัพท์ (GHG, VOCs, PM) การปล่อยก๊าซเรือนกระจกต่อกิโลกรัมอาหาร farm-to-fork life cycle assessment แล้วไล่แผนผังผลกระทบของอาหารสัตว์ ฟาร์ม คุณภาพอากาศ และคุณภาพน้ำ ปิดด้วยกลยุทธ์ลดความเสี่ยง 3 แนวและกรอบการเปลี่ยนระบบปศุสัตว์",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-env-mutagen",
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "title": "OH approach to address environmental health risks II: สัตว์เลี้ยงเป็น sentinel",
+    "icon": "🧬",
+    "summary": "สัตว์เลี้ยงในฐานะ sentinel ของอันตรายจากสิ่งแวดล้อม และในฐานะแบบจำลองมะเร็งและความชราของคน จากเด็ค One Health Approach to Address Environmental Health Risks II (20 หน้า, สอน 28 ต.ค. 2569) ได้แก่ นิยาม sentinel, กรณีผู้ป่วยพิษปรอทที่แมวในบ้านตายก่อน, บทบาทสัตวแพทย์, สารพิษในบ้าน 6 ชนิดพร้อมแหล่ง ทางเข้า ระยะเวลา และอาการในสัตว์เทียบคน, และแนวคิด One Medicine – One Pathogenesis",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-gmo",
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "title": "One Health perspective of food and feed GMOs",
+    "icon": "🌾",
+    "summary": "GMO ในอาหารคนและอาหารสัตว์มองผ่านสุขภาพคน สุขภาพสัตว์ และสุขภาพสิ่งแวดล้อม จากเด็ค One Health Perspective on Food and Feed GMOs (21 หน้า, สอน 4 พ.ย. 2569) ได้แก่ นิยามและตัวอย่าง GMO, ห่วงโซ่อาหาร, ผลโดยตรงและการประเมินความปลอดภัย 4 ด้าน, ผลทางอ้อมจากพืช HT และ Bt ต่อสารตกค้าง รายได้ และสิ่งแวดล้อม, มาตรการป้องกัน 3 ข้อ และสถานะในประเทศไทย หน้า 8-17 วิเคราะห์ฉากเดียวกันคือพืช GM ที่ทนสารกำจัดวัชพืชและต้านแมลงที่ขายในตลาด ผลทางอ้อม (หน้า 10-11, 16-17), ช่องว่างความรู้ (หน้า 18) และมาตรการป้องกัน (หน้า 19) อ้างอิงบทความ Noack et al. (2024)",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-livestock-waste",
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "title": "Application of OH approach for livestock waste management",
+    "icon": "🚜",
+    "summary": "การจัดการของเสียจากฟาร์มปศุสัตว์ในมุม One Health จากเด็ค One Health Approach for Livestock Waste Management ฉบับปี 2569 (56 หน้า) ได้แก่ ของเสียและปัญหาที่เกิด, หลัก 3 ประการ reduce, reuse, treatment, กระบวนการบำบัดทางกายภาพ เคมี และชีวภาพ, ระบบบ่อบำบัด 4 บ่อ, ระบบก๊าซชีวภาพ 3 แบบ, การเลือกระบบ และมาตรฐานน้ำทิ้งจากฟาร์มสุกร",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-import-risk",
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "title": "Import risk assessment: กุ้งและผลิตภัณฑ์กุ้ง",
+    "icon": "🚢",
+    "summary": "การประเมินความเสี่ยงการนำเข้าตามกรอบ WOAH (entry, exposure, consequence, risk estimation) สอนผ่านตัวอย่าง WSSV ในกุ้งนำเข้าเพื่อการบริโภคของออสเตรเลีย จากเด็ค Import Risk Assessment for Prawn and Prawn Products, เอกสารประกอบการอ่าน 4 หน้า และบันทึกคาบ 7 ต.ค. 2569 รายงานนี้ประเมินเชิงคุณภาพทั้งหมด จึงรวมระดับ likelihood กับ impact ด้วย matrix ไม่ใช่ด้วยการคำนวณ",
+    "flagship": false
+  },
+  {
     "id": "one-health--oh-amr",
     "subject": "one-health",
     "topic": "oh-amr",
