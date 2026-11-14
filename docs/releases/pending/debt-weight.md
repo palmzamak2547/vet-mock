@@ -50,6 +50,9 @@ holds the same on the source graph), tested in tests/e2e/first-load-lazy.spec.js
     stays where it was (the unmerged inbox in localStorage, the PDF ink and study events in the IndexedDB
     inbox, and the old address's own copy); what the app no longer does is show that carried data here.
     This hits only a device whose storage is full or whose IndexedDB refuses writes three boots running.
+  - Two tabs booting together: an inbox already gone when the job runs (the other tab merged it) clears the count and counts no try, so no false give-up notice.
+  - The retry link uses the inbox's `from` only when it is exactly `https://vetmock.vercel.app`, else that address (any other host, http, a port, a trailing dot fall back).
+  - The give-up notice waits while an exam or review session is on screen (App.jsx publishes `window.__vmxView` and a `vmx-view` event) and shows on Home; tests in tests/unit/move-gate.test.mjs.
 - `native-app.js`: loaded only when `lib/native-detect.js` (IS_APP) says this is the Android app, and the
   app starts after it; app-lifecycle reads IS_APP so no worker registers in the app.
 - `MotionSettings.jsx` + `lib/haptics.js`: loaded with the theme panel (and on pointer or focus at its
