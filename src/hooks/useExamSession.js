@@ -228,9 +228,12 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   }, [questions, currentIdx]);
 
   const nextQ = useCallback(async () => {
-    if (moveRefused()) return;
     const cur = questions[currentIdx];
     const isLast = currentIdx === questions.length - 1;
+    // The hold is for moves between questions only. On the last question this
+    // call is the submit dialog's confirm, often within the floor of the key
+    // press that opened it; refusing it would close the dialog unsubmitted.
+    if (!isLast && moveRefused()) return;
     // Confirm before skipping a blank short/essay — these take real
     // effort so accidental "Next →" clicks shouldn't lose them. Not on the
     // last question: the only way here is ExamView's submit dialog, which

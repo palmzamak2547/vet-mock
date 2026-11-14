@@ -31,7 +31,7 @@ const HOOK = readFileSync(new URL('../../src/hooks/useExamSession.js', import.me
 const mcq = (id) => ({ id, type: 'mcq', q: `ข้อ ${id}`, options: ['a', 'b'], answer: 0 });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-function session() {
+function session(onFinish = () => {}) {
   const cells = [];
   let cursor = 0;
   const slot = (init) => { const i = cursor++; if (!(i in cells)) cells[i] = init(); return i; };
@@ -49,7 +49,7 @@ function session() {
     createQuestionTiming, newStudySessionId, validSessionId,
   });
   const useExamSession = vm.runInContext(`${HOOK}\nuseExamSession`, ctx);
-  const props = { view: 'exam', useTimer: false, timePerQ: 60, onFinish: () => {}, ownerId: null, sessionBudget: false };
+  const props = { view: 'exam', useTimer: false, timePerQ: 60, onFinish, ownerId: null, sessionBudget: false };
   const render = () => { cursor = 0; return useExamSession(props); };
   render().startNewSession([mcq(1), mcq(2), mcq(3), mcq(4)], 0);
   return render;
@@ -80,4 +80,14 @@ test('a move from a stale handler that changed nothing does not leave the studen
   await wait(300);
   await render().nextQ();
   assert.equal(render().currentIdx, at + 1, 'the next tap did not move within 300 ms of the stale move');
+});
+
+test('finishing on the last question goes through within the floor', async () => {
+  let finished = 0;
+  const render = session(() => { finished += 1; });
+  render().jumpToQ(3); // a move: the hold is taken
+  assert.equal(render().currentIdx, 3);
+  // The submit dialog's confirm calls nextQ straight after the key press.
+  await render().nextQ();
+  assert.equal(finished, 1, 'the submit confirm was refused by the move hold');
 });
