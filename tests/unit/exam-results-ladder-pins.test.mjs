@@ -86,3 +86,8 @@ test('the results screen reads the rung off the set and judges it with the app\'
   assert.match(launch, /\.\.\.\(id === 'understand' \? \{ gentle: true \} : \{\}\)/);
   assert.equal(launch.includes('excludeIds'), false, 'the next rung re-tests the same material; only "ต่ออีก" excludes');
 });
+
+test('below the pass line on the same rung, the note sends the student to the misses first', () => {
+  assert.ok(results.includes('`ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% แก้ข้อที่ผิดก่อน แล้วทำขั้นนี้อีกชุด`'));
+  assert.equal(results.includes('ทำขั้นนี้อีกชุดก่อน`'), false, 'the old note is back');
+});
