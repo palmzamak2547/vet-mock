@@ -38,8 +38,8 @@ lint:data guards themselves as child processes.
 
 ## Numbers on 15 Nov 2026 (main 77d2cbe8)
 
-Organised 48.9%, Correct 22.4%, Linked 32.5%, Retrievable 98.7%, Stable 94.9% (one red before the
-first commit was lint:untracked naming these new files), Predictive 1.09x over 45 papers with no
+Organised 48.9%, Correct 22.4%, Linked 32.5%, Retrievable 98.7%, Stable 96.6% (59 guards run, 0 red,
+2 with budget slack; before the first commit lint:untracked was red on these new files), Predictive 1.09x over 45 papers with no
 subject conclusive.
 
 ## Not in this branch

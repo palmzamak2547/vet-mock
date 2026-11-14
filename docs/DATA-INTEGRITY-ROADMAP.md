@@ -266,7 +266,7 @@ shape is pinned by `tests/unit/scorecard.test.mjs`, never the values):
 | Correct | 22.4% | 6,860 keys with no machine-followable primary source (818 slide, 650 lecture moment, 627 reference); 26 open doubts (11 major); 211 held out of every pool |
 | Linked | 32.5% | 3,385 without a wiki article; 2,470 pointers that are page text only; 2,115 with no pointer; 0 broken (1,355 lecture moments, 0 faults) |
 | Retrievable | 98.7% | 2,920 count cells, 0 disagree; 118 questions no topic card opens (hidden topics, no topic) |
-| Stable | 94.9% | 56 guards run green, 2 with slack (`lint:provenance` noSourceType 3015 vs 2978, `lint:questions` surg3 38% vs 36%); 5 need `npm ci`; 1 skipped as slow |
+| Stable | 96.6% | 59 guards run, 0 red, 57 green and tight, 2 with slack (`lint:provenance` noSourceType 3015 vs 2978, `lint:questions` surg3 38% vs 36%); 5 need `npm ci`; 1 skipped as slow |
 | Predictive | 1.09x | 45 papers, 1,204 hidden items; only 135 have any sibling left; first 10 cover 5.1% against 4.7% for a shuffle; 9 papers better, 7 worse, 29 tied; only aquatic-clinic and milk-meat-hygiene have enough evidence, neither significant |
 
 Read the backtest as: there is no evidence yet that the band order beats a shuffle, and the reason
