@@ -23,6 +23,9 @@
 // every page lies inside its edition, the structured cite agrees with the raw
 // text, and the number of page citations still held only as text shrinks.
 //
+// A document one subject owns can also be cited by another: `alsoSubjects` lists those
+// (the neonatal rows moved to Equine Repro on 15 Nov 2026 and still cite Equine Med & Surg decks).
+//
 // Adding a document: count its pages from the file, and give every edition
 // that questions cite its own id. The ids here are the page count, "44p".
 // ============================================================
@@ -146,7 +149,7 @@ export const SOURCE_DOCS = [
   },
   // Equine Med & Surg FINAL sources, 29 ต.ค. 2569: the 2569 library decks by their titles, and the seniors' files by fixed names.
   {
-    slug: 'equine-surgery-anesthesia-2569', subject: 'equine-medicine', title: "Equine surgery & anesthesia 5th year",
+    slug: 'equine-surgery-anesthesia-2569', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "Equine surgery & anesthesia 5th year",
     match: /Equine surgery & anesthesia 5th year/,
     editions: [{ id: '94p', pages: 94 }],
   },
@@ -161,9 +164,25 @@ export const SOURCE_DOCS = [
     editions: [{ id: '58p', pages: 58 }],
   },
   {
-    slug: 'equine-infectious-2569', subject: 'equine-medicine', title: "Eq Infectious Dz and Biosecurity",
+    slug: 'equine-infectious-2569', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "Eq Infectious Dz and Biosecurity",
     match: /Eq Infectious Dz and Biosecurity/,
     editions: [{ id: '83p', pages: 83 }],
+  },
+  {
+    slug: 'equine-dermatology-wound-2569', subject: 'equine-medicine', title: "Equine dermatology and wound management",
+    match: /Equine dermatology and wound management/,
+    editions: [{ id: '95p', pages: 95 }],
+  },
+  // The 2568 decks of the foot and tendon lectures, which the 2569 timetable does not teach again; page counts from the PDFs.
+  {
+    slug: 'equine-foot-2568', subject: 'equine-medicine', title: "Pathologic condition of equine foot",
+    match: /Pathologic condition of equine foot/,
+    editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'equine-tendon-2568', subject: 'equine-medicine', title: "Tendon/Ligament injuries and treatment",
+    match: /Tendon\/Ligament injuries and treatment/,
+    editions: [{ id: '157p', pages: 157 }],
   },
   {
     slug: 'equine-parasites-2569', subject: 'equine-medicine', title: "Equine Parasites",
@@ -211,22 +230,22 @@ export const SOURCE_DOCS = [
     editions: [{ id: '97p', pages: 97 }],
   },
   {
-    slug: 'equine-final-compilation-krob', subject: 'equine-medicine', title: "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ",
+    slug: 'equine-final-compilation-krob', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ",
     match: /ฉบับครบ/,
     editions: [{ id: '13p', pages: 13 }],
   },
   {
-    slug: 'equine-final-summary-v84', subject: 'equine-medicine', title: "สรุปปลายภาค Equine Med Final",
+    slug: 'equine-final-summary-v84', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "สรุปปลายภาค Equine Med Final",
     match: /สรุปปลายภาค Equine Med Final/,
     editions: [{ id: '15p', pages: 15 }],
   },
   {
-    slug: 'equine-neonatal-key-v84', subject: 'equine-medicine', title: "เฉลยพิมพ์ neonatal ของ Vet 84",
+    slug: 'equine-neonatal-key-v84', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "เฉลยพิมพ์ neonatal ของ Vet 84",
     match: /เฉลยพิมพ์ neonatal ของ Vet 84/,
     editions: [{ id: '3p', pages: 3 }],
   },
   {
-    slug: 'equine-neonatal-photos-kku', subject: 'equine-medicine', title: "ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์",
+    slug: 'equine-neonatal-photos-kku', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์",
     match: /ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์/,
     editions: [{ id: '15p', pages: 15 }],
   },
@@ -277,7 +296,7 @@ export const SOURCE_DOCS = [
     editions: [{ id: '4p', pages: 4 }],
   },
   {
-    slug: 'equine-final-recall-6p', subject: 'equine-medicine', title: "บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า",
+    slug: 'equine-final-recall-6p', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า",
     match: /บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า/,
     editions: [{ id: '6p', pages: 6 }],
   },

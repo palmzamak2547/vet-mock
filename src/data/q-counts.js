@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8841;
-export const QB_SOURCE_TOTAL = 9052;
+export const QB_TOTAL = 8860;
+export const QB_SOURCE_TOTAL = 9071;
 export const QB_BLOCKED_TOTAL = 211;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -28,8 +28,8 @@ export const Q_COUNTS_BY_SUBJECT = {
   'engprof': 70,
   'engprof1': 30,
   'epidemiology': 372,
-  'equine-medicine': 594,
-  'equine-repro': 188,
+  'equine-medicine': 559,
+  'equine-repro': 242,
   'exotic': 151,
   'food-industry': 300,
   'food-safety-y4': 31,
@@ -78,8 +78,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'engprof': 70,
   'engprof1': 30,
   'epidemiology': 372,
-  'equine-medicine': 594,
-  'equine-repro': 188,
+  'equine-medicine': 559,
+  'equine-repro': 242,
   'exotic': 108,
   'food-industry': 300,
   'food-safety-y4': 31,
@@ -127,8 +127,8 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 1,
   'epidemiology': 297,
-  'equine-medicine': 372,
-  'equine-repro': 146,
+  'equine-medicine': 318,
+  'equine-repro': 200,
   'exotic': 34,
   'food-industry': 154,
   'food-safety-y4': 31,
@@ -211,8 +211,8 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'comp-repro-clinic': 48,
     'engprof': 1,
     'epidemiology': 280,
-    'equine-medicine': 372,
-    'equine-repro': 82,
+    'equine-medicine': 314,
+    'equine-repro': 136,
     'exotic': 34,
     'food-industry': 30,
     'food-safety-y4': 21,
@@ -272,8 +272,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com2': 39,
     'engprof1': 30,
     'epidemiology': 355,
-    'equine-medicine': 594,
-    'equine-repro': 107,
+    'equine-medicine': 555,
+    'equine-repro': 161,
     'food-industry': 61,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3652,
+    5: 3667,
   },
   '2-mid': {
     1: 297,
@@ -754,27 +754,28 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     'equine-medicine': {
       'equine-anesthesia': 17,
       'equine-colic-bestfit': 48,
-      'equine-colic-surgery': 4,
       'equine-dentistry': 40,
       'equine-derm': 29,
       'equine-gi': 39,
-      'equine-infectious': 1,
+      'equine-hoof': 5,
+      'equine-infectious': 6,
       'equine-intro': 87,
       'equine-lameness': 18,
-      'equine-neonatal': 54,
       'equine-nutrition': 57,
       'equine-ophth': 22,
       'equine-parasites': 75,
       'equine-poa': 35,
+      'equine-pythium': 4,
       'equine-respi': 44,
       'equine-surgery-wound': 24,
+      'equine-tendon': 5,
     },
     'equine-repro': {
       'eqrepro-ai': 11,
       'eqrepro-endometritis': 16,
       'eqrepro-male': 18,
       'eqrepro-postpartum': 11,
-      'eqrepro-pregnancy': 27,
+      'eqrepro-pregnancy': 81,
       'eqrepro-stallion-infect': 16,
       'eqrepro-surgery': 8,
     },
@@ -1829,13 +1830,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'equine-medicine': {
       'equine-anesthesia': 11,
       'equine-colic-bestfit': 13,
-      'equine-colic-surgery': 4,
       'equine-dentistry': 26,
       'equine-gi': 6,
       'equine-infectious': 1,
       'equine-intro': 31,
       'equine-lameness': 18,
-      'equine-neonatal': 54,
       'equine-nutrition': 14,
       'equine-ophth': 17,
       'equine-parasites': 24,
@@ -1847,7 +1846,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'eqrepro-endometritis': 3,
       'eqrepro-male': 18,
       'eqrepro-postpartum': 6,
-      'eqrepro-pregnancy': 18,
+      'eqrepro-pregnancy': 72,
       'eqrepro-stallion-infect': 11,
       'eqrepro-surgery': 8,
     },
@@ -2401,7 +2400,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6262,
+  5: 6281,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2413,7 +2412,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6262,
+  5: 6281,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2681,16 +2680,18 @@ export const Q_COUNTS_BY_TOPIC = {
     "equine-dentistry": 40,
     "equine-derm": 29,
     "equine-gi": 39,
-    "equine-infectious": 1,
+    "equine-hoof": 5,
+    "equine-infectious": 6,
     "equine-intro": 87,
     "equine-lameness": 18,
-    "equine-neonatal": 54,
     "equine-nutrition": 57,
     "equine-ophth": 22,
     "equine-parasites": 75,
     "equine-poa": 35,
+    "equine-pythium": 4,
     "equine-respi": 44,
     "equine-surgery-wound": 24,
+    "equine-tendon": 5,
   },
   "equine-repro": {
     "eqrepro-ai": 11,
@@ -2702,7 +2703,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "eqrepro-male": 18,
     "eqrepro-mare-infect": 5,
     "eqrepro-postpartum": 11,
-    "eqrepro-pregnancy": 27,
+    "eqrepro-pregnancy": 81,
     "eqrepro-stallion-infect": 16,
     "eqrepro-surgery": 8,
   },
@@ -3340,7 +3341,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "equine-infectious": 1,
     "equine-intro": 31,
     "equine-lameness": 18,
-    "equine-neonatal": 54,
     "equine-nutrition": 14,
     "equine-ophth": 17,
     "equine-parasites": 24,
@@ -3357,7 +3357,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "eqrepro-male": 18,
     "eqrepro-mare-infect": 3,
     "eqrepro-postpartum": 6,
-    "eqrepro-pregnancy": 18,
+    "eqrepro-pregnancy": 72,
     "eqrepro-stallion-infect": 11,
     "eqrepro-surgery": 8,
   },
@@ -3738,4 +3738,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-14T06:41:03.955Z
+// Built: 2026-11-14T17:46:57.356Z

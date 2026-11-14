@@ -764,4 +764,875 @@ export const QUESTIONS_Y5_EQUINE_2026_B = [
     predictionTier: 'medium',
     predictionSignals: ['current-lecture'],
   },
+  {
+    "id": 216000,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "พบม้าป่วย African horse sickness (AHS) ในสองฟาร์มที่อยู่ไกลจากพื้นที่ระบาดเกินระยะที่ริ้นบินไปถึงได้เอง ทั้งที่ห้ามเคลื่อนย้ายม้าออกจากพื้นที่ระบาดแล้ว สอบประวัติพบว่าทั้งสองฟาร์มรับหญ้าจากรถขนหญ้าคันเดียวกันที่วิ่งออกมาจากพื้นที่ระบาด มาตรการใดตรงกับเส้นทางแพร่โรคนี้มากที่สุด",
+    "options": [
+      "พ่นยาฆ่าแมลงในรถทุกคันที่ออกจากพื้นที่ระบาด ทั้งในห้องโดยสารและรอบตัวรถ",
+      "จุ่มล้อรถและรองเท้าบูทในน้ำยาฆ่าเชื้อก่อนเข้าออกฟาร์ม แบบเดียวกับการคุม FMD",
+      "ฉีดวัคซีนเชื้อเป็นให้ม้าทุกตัวในสองฟาร์มนั้น รวมทั้งตัวที่ป่วยอยู่แล้ว",
+      "กางมุ้งกันยุงแบบตาข่ายธรรมดาให้ม้าทุกตัวในสองฟาร์มนั้น"
+    ],
+    "answer": 0,
+    "explain": "AHS แพร่ผ่านแมลงพาหะ โดยพาหะหลักคือริ้น (Culicoides) ไม่ได้ติดจากม้าสู่ม้าโดยตรง และไม่ติดไปกับดิน ล้อรถ หรือรองเท้า เมื่อห้ามเคลื่อนย้ายม้าแล้วยังพบม้าป่วยในที่ไกลออกไป เส้นทางที่เหลือคือริ้นที่มีเชื้อติดไปกับยานพาหนะที่ออกจากพื้นที่ระบาด มาตรการที่ตัดเส้นทางนี้ได้คือพ่นยาฆ่าแมลงในรถทุกคันก่อนออกจากพื้นที่ ร่วมกับควบคุมพาหะในพื้นที่ระบาดด้วยมุ้งตาถี่และยาฆ่าแมลง เช่น cypermethrin หรือ etofenprox\n\n❌ ทำไมข้ออื่นผิด\n— จุ่มล้อรถและรองเท้าบูทแบบคุม FMD: ใช้กับเชื้อที่ติดไปกับสิ่งปนเปื้อน แต่ AHS ไม่ได้แพร่ทางล้อหรือรองเท้า จึงไม่ได้ตัดเส้นทางที่ริ้นติดไปกับรถ\n— ฉีดวัคซีนเชื้อเป็นรวมทั้งตัวที่ป่วย: วัคซีน AHS เป็น live attenuated ซึ่งเสี่ยง reversion to virulence และ reassortment กับเชื้อในพื้นที่ จึงฉีดเฉพาะม้าที่ยังไม่ติดเชื้อในเขต protection zone\n— มุ้งกันยุงตาข่ายธรรมดา: ริ้นตัวเล็กจนลอดตาข่ายของมุ้งกันยุงธรรมดาได้ ต้องใช้มุ้งตาถี่ และมาตรการที่ฟาร์มปลายทางไม่ได้ตัดเส้นทางผ่านรถขนหญ้า",
+    "source": "14B7TUfov00 [33:44], [37:14-38:51], [40:35-45:16]; Eq Infectious Dz and Biosecurity หน้า 9, 13, 15",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 9 (Culicoides spp. are the primary vector), 13 (vaccinate non-infected horses in the protection zone; net and insecticide), 15 (net, cypermethrin, etofenprox); 14B7TUfov00 [43:08-45:16] (รถขนหญ้าคันเดียวกันพาริ้นไป แก้ด้วยพ่นยาในรถ ไม่ใช่จุ่มล้อหรือรองเท้าแบบ FMD), [33:44] (มุ้งตาถี่)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity",
+    "tags": [
+      "equine-infectious",
+      "ahs-vector-control"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 9
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 13
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 15
+      }
+    ]
+  },
+  {
+    "id": 216001,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ซื้อม้ากระโดดตัวใหม่จากคอกอื่นในประเทศ ผลตรวจ equine infectious anemia (EIA) ด้วย AGID ก่อนเคลื่อนย้ายเป็นลบ ม้าอ้วนสมบูรณ์ ไม่มีไข้ ไม่ซีด เมื่อม้ามาถึงคอกควรจัดการอย่างไร",
+    "options": [
+      "รวมฝูงได้ทันที เพราะผล AGID ก่อนเคลื่อนย้ายเป็นลบแล้วจึงตัดโรคได้",
+      "กักแยกไว้ก่อน แล้วตรวจ AGID ซ้ำเมื่อพ้นอย่างน้อย 21 วันจึงรวมฝูง",
+      "ตรวจ AGID ซ้ำภายใน 3 วันแรกหลังมาถึง ถ้ายังเป็นลบก็นำเข้ารวมฝูงได้เลย",
+      "ดูสภาพร่างกาย ถ้าไม่ซีดและไม่บวมน้ำก็รวมฝูงได้",
+      "ฉีดวัคซีน EIA ให้ครบชุดก่อน แล้วจึงนำเข้ารวมฝูง"
+    ],
+    "answer": 1,
+    "explain": "AGID ตรวจหาแอนติบอดีต่อเชื้อ EIA ม้าที่เพิ่งติดเชื้อจึงยังให้ผลลบอยู่ช่วงหนึ่ง ต้องรอราว 21 วันขึ้นไปกว่าการติดเชื้อจะตรวจพบได้ (บางตัวนานกว่านั้น) ผลลบก่อนเคลื่อนย้ายครั้งเดียวจึงไม่พอ ม้าใหม่ต้องกักแยกแล้วตรวจซ้ำเมื่อพ้นอย่างน้อย 21 วันก่อนรวมฝูง ม้า EIA ชนิด inapparent ไม่แสดงอาการและดูอ้วนสมบูรณ์ได้ แต่เป็นแหล่งเชื้อให้เหลือบ (Tabanus) และแมลงดูดเลือดนำไปติดตัวอื่น ถ้าผลเป็นบวก EIA เป็นโรคตาม พ.ร.บ.โรคระบาดสัตว์ที่ต้องทำลายม้า\n\n❌ ทำไมข้ออื่นผิด\n— รวมฝูงได้ทันทีเพราะผลก่อนเคลื่อนย้ายเป็นลบ: ม้าอาจติดเชื้อมาไม่นานจนยังตรวจไม่พบ ถ้ารวมฝูงทันที ม้าที่เป็นพาหะจะเป็นแหล่งเชื้อให้ทั้งคอกและงานแข่งที่ไป\n— ตรวจซ้ำภายใน 3 วันแรก: เร็วเกินกว่าที่การติดเชื้อใหม่จะตรวจพบได้ ผลลบช่วงนี้จึงยืนยันอะไรไม่ได้\n— ดูจากสภาพร่างกาย: ม้า EIA ชนิด inapparent ไม่ซีด ไม่บวมน้ำ และดูแข็งแรงได้ ตัดโรคได้ด้วยการตรวจเลือดเท่านั้น\n— ฉีดวัคซีน EIA ก่อนรวมฝูง: การป้องกัน EIA อาศัยการกักโรค ตรวจเลือด และควบคุมแมลง ไม่มีวัคซีน EIA ในโปรแกรมวัคซีนม้าของไทย ซึ่งมี tetanus, Fluvac, rabies และ JE",
+    "source": "14B7TUfov00 [58:19-59:31], [60:47-64:14]; Eq Infectious Dz and Biosecurity หน้า 22-24",
+    "verified": "14B7TUfov00 [61:12-62:31] (AGID ตรวจพบได้หลังโรคดำเนินไป 21 วัน ม้าใหม่กักแล้วตรวจซ้ำที่ 21 วันขึ้นไป), [59:08-59:31] (inapparent carrier ดูอ้วน ไม่มีอาการ ผลบวกต้องทำลายตาม พ.ร.บ.); Eq Infectious Dz and Biosecurity หน้า 22 (acute, chronic, inapparent), 24 (AGID, ELISA, PCR; euthanasia, quarantine, serodiagnosis testing, fly control)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity",
+    "tags": [
+      "equine-infectious",
+      "eia-quarantine-retest"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 22
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 23
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 24
+      }
+    ]
+  },
+  {
+    "id": 216002,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ในวงจรการติดเชื้อ Japanese encephalitis (JE) ม้ามีบทบาทเป็น host แบบใด",
+    "options": [
+      "Amplifying host ที่ไวรัสเพิ่มจำนวนในเลือดสูงจนยุงรับเชื้อต่อได้",
+      "Natural host ที่ติดเชื้อแล้วไม่ป่วย และเป็นแหล่งเชื้อในธรรมชาติ",
+      "Carrier ที่ไม่แสดงอาการ แต่แมลงดูดเลือดนำเชื้อไปติดตัวอื่นได้",
+      "Dead-end host ที่ป่วยและตายได้ แต่ไม่ส่งเชื้อต่อให้ตัวอื่น"
+    ],
+    "answer": 3,
+    "explain": "JE เกิดจาก Japanese encephalitis virus ใน Flavivirus มียุง Culex เป็นพาหะ ไวรัสเพิ่มจำนวนมากในสุกร ซึ่งเป็น amplifier สำคัญที่ยุงดูดเลือดแล้วรับเชื้อต่อได้ ม้าและคนเป็น dead-end host คือติดเชื้อแล้วป่วยทางระบบประสาทและตายได้ แต่ไวรัสในเลือดมีน้อยเกินกว่าที่ยุงจะรับเชื้อต่อ ม้าป่วยจึงไม่ใช่แหล่งแพร่โรค ต่างจาก equine influenza ที่ม้าป่วยแพร่เชื้อต่อได้ เมื่อพบม้ามีอาการทางประสาทต้องมี JE ใน differential diagnosis และถามประวัติวัคซีน JE ก่อน\n\n❌ ทำไมข้ออื่นผิด\n— Amplifying host: เป็นบทบาทของสุกร ไม่ใช่ม้า\n— Natural host ที่ติดเชื้อแล้วไม่ป่วย: เป็นลักษณะของม้าลายใน African horse sickness ส่วนม้าที่ติด JE ป่วยและตายได้\n— Carrier ไม่แสดงอาการที่แมลงนำเชื้อไปต่อ: เป็นลักษณะของ EIA ชนิด inapparent ที่เหลือบดูดเลือดแล้วนำเชื้อไปติดตัวอื่น",
+    "source": "14B7TUfov00 [72:26-73:40], [33:44-34:12], [59:08]; Eq Infectious Dz and Biosecurity หน้า 33",
+    "verified": "14B7TUfov00 [72:26-73:18] (amplifier คือสุกร ม้ากับคนเป็น dead-end host ป่วยแล้วส่งเชื้อต่อไม่ได้ ต่างจาก influenza); Eq Infectious Dz and Biosecurity หน้า 33 (vector Culex spp., important amplifiers pigs)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity",
+    "tags": [
+      "equine-infectious",
+      "je-dead-end-host"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 33
+      }
+    ]
+  },
+  {
+    "id": 216003,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้ามีแผลตะปูตำที่พื้นกีบเมื่อ 10 วันก่อน ตอนนี้ยืนขาแข็งแบบ saw horse หนังตาที่สามเลื่อนออกมาเมื่อถูกกระตุ้น และเกร็งมากขึ้นเมื่อได้ยินเสียงดัง แผนรักษาใดเหมาะสมที่สุด",
+    "options": [
+      "Tetanus toxoid แทน antitoxin ร่วมกับจูงเดินวันละหลายรอบให้กล้ามเนื้อคลายตัว",
+      "Acyclovir ร่วมกับยาลดไข้ และแยกคอกกันการแพร่เชื้อทางละอองฝอย",
+      "Penicillin G ร่วมกับ tetanus antitoxin ยาซึม และคอกมืดเงียบมีวัสดุกันกระแทก",
+      "Flunixin meglumine ร่วมกับเปิดไฟสว่างทั้งคืนเพื่อเฝ้าดูอาการใกล้ชิด"
+    ],
+    "answer": 2,
+    "explain": "อาการชุดนี้คือบาดทะยัก Clostridium tetani เข้าทางแผลตะปูตำที่พื้นกีบแล้วสร้าง tetanus toxin ซึ่งเป็น neurotoxin การรักษาประกอบด้วย penicillin G ซึ่งเป็นยาที่เลือกใช้เพื่อหยุดการเพิ่มจำนวนของเชื้อ tetanus antitoxin เพื่อจับ toxin ที่ยังไม่จับกับเส้นประสาท ยาซึมกลุ่ม acepromazine และยาคลายกล้ามเนื้ออย่าง diazepam (ระวังม้าล้มนอน) และเลี้ยงในคอกที่มืด เงียบ มีวัสดุกันกระแทก ให้สารน้ำ และวางอาหารไว้ที่สูง เพราะเสียง แสง และการสัมผัสทำให้เกร็งมากขึ้น\n\n❌ ทำไมข้ออื่นผิด\n— Tetanus toxoid แทน antitoxin กับจูงเดินหลายรอบ: toxoid เป็นวัคซีนที่ต้องใช้เวลาสร้างภูมิ ไม่ได้จับ toxin ในม้าที่ป่วยแล้ว และการกระตุ้นทำให้เกร็งหนักขึ้น\n— Acyclovir กับแยกคอกกันละอองฝอย: acyclovir ใช้ในโรคจาก equine herpesvirus ส่วนบาดทะยักไม่ได้ติดจากม้าสู่ม้า แต่เข้าทางบาดแผลจากสปอร์ที่อยู่ในดิน\n— Flunixin กับเปิดไฟสว่างทั้งคืน: ไม่ใช่ยาหลักของบาดทะยัก และแสงสว่างกระตุ้นให้กล้ามเนื้อเกร็งหนักขึ้น\n\n💡 Toxoid คือวัคซีนป้องกัน ส่วน antitoxin คือการรักษาม้าที่ป่วยแล้ว",
+    "source": "14B7TUfov00 [82:00-85:03], [89:16-89:40]; Eq Infectious Dz and Biosecurity หน้า 39, 40, 42",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 42 (penicillin G drug of choice, acepromazine, diazepam, tetanus antitoxin, dark quiet padded place, fluids, food at a height), 40 (saw horse, third eyelid protrusion, any stimulus exacerbates); 14B7TUfov00 [84:09-85:03], [89:16-89:40] (toxoid ใช้ก่อนเป็น antitoxin ใช้หลังเป็น)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity",
+    "tags": [
+      "equine-infectious",
+      "tetanus-treatment"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 39
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 40
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 42
+      }
+    ]
+  },
+  {
+    "id": 216004,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้ามีไข้สูง น้ำมูกเป็นหนอง ต่อมน้ำเหลืองใต้คางบวม สงสัย strangles การเก็บตัวอย่างและลำดับการตรวจยืนยันข้อใดถูกต้อง",
+    "options": [
+      "Swab สั้นแบบที่ใช้ในสัตว์เล็กเก็บที่รูจมูก ย้อมสีแล้วเห็น cocci ก็สรุปผลได้ทันที",
+      "Deep nasopharyngeal swab เพาะเชื้อ จำแนกชนิดแบคทีเรีย แล้วยืนยันด้วย PCR",
+      "เจาะเลือดตรวจ AGID ถ้าผลเป็นบวกก็ยืนยันได้ว่าเป็น strangles",
+      "เจาะเลือดทำ Woo's technique ส่องหาเชื้อที่ชั้น buffy coat"
+    ],
+    "answer": 1,
+    "explain": "Strangles เกิดจาก Streptococcus equi subsp. equi การเก็บตัวอย่างต้องใช้ deep nasopharyngeal swab ที่ยาวพอจะเข้าไปถึง nasopharynx เพราะโพรงจมูกม้ายาวมาก swab สั้นแบบสัตว์เล็กเข้าได้แค่รูจมูก จากนั้นเพาะเชื้อ จำแนกชนิดแบคทีเรียให้ได้ถึงชนิด และยืนยันด้วย PCR การย้อมสีเห็น cocci ยังบอกไม่ได้ว่าเป็น S. equi ตัวอย่างอื่นที่ส่งเพาะเชื้อได้คือหนองจากฝีที่ต่อมน้ำเหลืองหรือน้ำล้าง guttural pouch\n\n❌ ทำไมข้ออื่นผิด\n— Swab สั้นที่รูจมูกแล้วสรุปจาก cocci: เก็บไม่ถึงตำแหน่งที่มีเชื้อ และ Streptococcus หลายชนิดย้อมแล้วเห็นเป็น cocci เหมือนกัน\n— AGID: เป็นการตรวจมาตรฐานของ equine infectious anemia ไม่ใช่การยืนยัน strangles\n— Woo's technique: ปั่นเลือดในหลอด capillary แล้วส่องหา Trypanosoma evansi (surra) ที่ชั้น buffy coat",
+    "source": "14B7TUfov00 [90:06-93:54]; Eq Infectious Dz and Biosecurity หน้า 45, 50",
+    "verified": "14B7TUfov00 [91:24-93:28] (deep nasopharyngeal swab, swab สัตว์เล็กเข้าแค่รูจมูก, culture แล้ว bacterial identification แล้ว PCR); Eq Infectious Dz and Biosecurity หน้า 50 (culture of pus, lymph node, throat swabs, throat or guttural pouch washes; PCR)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity",
+    "tags": [
+      "equine-infectious",
+      "strangles-sampling"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 45
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 50
+      }
+    ]
+  },
+  {
+    "id": 216005,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าเลี้ยงปล่อยแปลงที่มีน้ำท่วมขังช่วงหน้าฝน ได้ถ่ายพยาธิด้วย ivermectin สม่ำเสมอ มีแผลที่ขาลุกลามเป็นก้อนเนื้อนูนมีเลือดซึม รักษาแผลตามปกติแล้วไม่ดีขึ้น และในแผลมีก้อนเนื้อตายสีเทาเนื้อแข็งแทรกอยู่ ควรนึกถึงโรคใดมากที่สุด",
+    "options": [
+      "Habronemiasis จากตัวอ่อนพยาธิ Habronema",
+      "Pythiosis จาก Pythium insidiosum",
+      "Sarcoid ชนิด fibroblastic จาก bovine papillomavirus",
+      "Squamous cell carcinoma จากแสง UV",
+      "Exuberant granulation tissue ที่แผลขา"
+    ],
+    "answer": 1,
+    "explain": "Pythiosis เกิดจาก Pythium insidiosum ม้าติดจากการสัมผัสน้ำหรือสิ่งแวดล้อมที่มีเชื้อ เช่น แปลงที่น้ำท่วมขัง รอยโรคเป็นแผลหลุมร่วมกับ granulomatous lesion ที่ผิวหนังและใต้ผิวหนัง เนื้อเยื่อเจริญเกินมีเลือดซึม และรักษาแบบแผลทั่วไปไม่หาย พบบ่อยที่ขา อก และท้อง ลักษณะเด่นคือก้อนเนื้อตายสีเทาเนื้อแข็งในแผลที่เรียกว่า kunkers\n\n❌ ทำไมข้ออื่นผิด\n— Habronemiasis: ตัวอ่อน Habronema ที่แมลงวันนำมาวางบนแผลหรือผิวหนังชื้น เป็นตามฤดูร้อน มักเป็นรอบตา ริมฝีปาก อวัยวะเพศ และปลายขา และตอบสนองต่อ ivermectin ซึ่งม้าตัวนี้ได้รับสม่ำเสมออยู่แล้ว\n— Sarcoid ชนิด fibroblastic: เป็นเนื้องอกผิวหนังที่เป็นก้อนเนื้อมีแผลที่ผิว ไม่ได้สัมพันธ์กับน้ำท่วมขังและไม่มี kunkers\n— Squamous cell carcinoma: มักเกิดที่รอยต่อผิวหนังกับเยื่อเมือก เช่น รอบตา ริมฝีปาก อวัยวะเพศ บนผิวที่ไม่มีสีและโดนแสง UV และไม่มี kunkers\n— Exuberant granulation tissue: เนื้อแกรนูเลชันที่เจริญเกินบนแผลขาซึ่งขยับมาก ไม่มีก้อนเนื้อตายสีเทาแทรกอยู่",
+    "source": "14B7TUfov00 [121:14-122:06]; HGXTKbKbqPA [68:44-69:09], [83:59-84:23]; Eq Infectious Dz and Biosecurity หน้า 67-68; Equine dermatology and wound management หน้า 34-35, 41-42, 45, 76-77",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 67 (contact with infected material, environment), 68 (ulceration, granulomatous lesions, limbs chest abdomen, kunkers); 14B7TUfov00 [121:14-122:06]; HGXTKbKbqPA [83:59-84:23] (pythiosis แผลเรื้อรังจากการสัมผัสสิ่งแวดล้อม เป็น differential ของ granuloma)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythiosis-kunkers"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 67
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 68
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 34
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 35
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 41
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 42
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 45
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 76
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 77
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 34
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 35
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 41
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 42
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 45
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 76
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 77
+      }
+    ]
+  },
+  {
+    "id": 216006,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "ตัดชิ้นเนื้อจากแผลที่สงสัย pythiosis ส่ง histopathology เพื่อหา hyphae ของ Pythium insidiosum ควรขอย้อมพิเศษด้วยวิธีใด",
+    "options": [
+      "Ziehl-Neelsen",
+      "Gram stain",
+      "Giemsa หรือ Wright",
+      "GMS หรือ PAS",
+      "Toluidine blue"
+    ],
+    "answer": 3,
+    "explain": "Hyphae ของ Pythium insidiosum ติดสี H&E ได้ไม่ชัด จึงย้อมพิเศษด้วย Gomori's methenamine silver (GMS) หรือ periodic acid-Schiff (PAS) ซึ่งทำให้ผนังของ hyphae เห็นชัดในชิ้นเนื้อ การยืนยันเชื้อทำต่อด้วยการเพาะแยกเชื้อ immunochromatography test (ICT) และ PCR หรือ DNA sequencing เวลาส่งเพาะเชื้อต้องระบุในใบส่งตรวจว่าให้เพาะแยก Pythium เพราะถ้าเขียนแค่ culture ห้องปฏิบัติการจะเพาะหาแบคทีเรีย\n\n❌ ทำไมข้ออื่นผิด\n— Ziehl-Neelsen: ย้อมหาเชื้อทนกรด (acid-fast) เช่น Mycobacterium\n— Gram stain: ใช้แยกแบคทีเรียแกรมบวกกับแกรมลบ ไม่ใช่วิธีหา hyphae ในเนื้อเยื่อ\n— Giemsa หรือ Wright: ย้อม blood smear หาพยาธิในเม็ดเลือด เช่น Babesia caballi และ Theileria equi\n— Toluidine blue: ย้อมแกรนูลของ mast cell ใช้ดู mast cell tumor",
+    "source": "14B7TUfov00 [122:35-123:27]; Eq Infectious Dz and Biosecurity หน้า 70",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 70 (isolation, culture; histopathological examination with GMS or PAS; ICT; DNA sequencing, PCR); 14B7TUfov00 [123:27] (histopath เพื่อหา hyphae), [122:35-123:00] (ระบุในใบส่งว่าเพาะหาเชื้ออะไร ไม่เช่นนั้นจะได้เพาะแบคทีเรีย)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythiosis-stain"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 70
+      }
+    ]
+  },
+  {
+    "id": 216007,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "แนวทางรักษา pythiosis ที่ขาม้าข้อใดเหมาะสมที่สุด",
+    "options": [
+      "ผ่าตัดเลาะเนื้อเยื่อติดเชื้อออกให้มากที่สุด ร่วมกับ immunotherapy ด้วย PIA",
+      "ป้อน ivermectin 2 ครั้งห่างกัน 3 สัปดาห์ ร่วมกับโรยยาฆ่าแมลงชนิดผงลงในแผล",
+      "ทา imiquimod 5% บนรอยโรคทุกวัน หรือฉีด cisplatin เข้ารอยโรคซ้ำเป็นระยะจนยุบ",
+      "ตัดแต่งเนื้อส่วนเกินออก ทา corticosteroid แล้วพันแผลกดทับไว้"
+    ],
+    "answer": 0,
+    "explain": "Pythiosis รักษาหลักด้วยการผ่าตัดเลาะเนื้อเยื่อที่ติดเชื้อออกให้มากที่สุด ร่วมกับ immunotherapy ด้วย Pythium insidiosum antigen (PIA) และดูแลแผลต่อด้วย povidone iodine ระหว่างทำแผลต้องใส่ถุงมือและ PPE และทำความสะอาดพื้นที่ที่ปนเปื้อนทั้งหมดด้วยน้ำยา hypochlorite\n\n❌ ทำไมข้ออื่นผิด\n— Ivermectin 2 ครั้งกับยาฆ่าแมลงในแผล: เป็นการรักษา habronemiasis เพื่อฆ่าตัวอ่อน Habronema\n— Imiquimod 5% หรือ cisplatin เข้ารอยโรค: เป็นทางเลือกในการรักษา sarcoid\n— ตัดเนื้อส่วนเกิน ทา corticosteroid และพันกดทับ: เป็นการจัดการ exuberant granulation tissue",
+    "source": "14B7TUfov00 [123:27-124:18]; Eq Infectious Dz and Biosecurity หน้า 70; Equine dermatology and wound management หน้า 35, 42, 77",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 70 (surgery; immunotherapy PIA; wound management povidone iodine); 14B7TUfov00 [124:18] (debridement ตัดออกให้เยอะที่สุดแล้ว immunotherapy PIA), [123:27-123:54] (ถุงมือ PPE ทำความสะอาดพื้นที่ปนเปื้อน)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythiosis-treatment"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 70
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 35
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 42
+      },
+      {
+        "doc": "equine-dermatology-wound-2569",
+        "edition": "95p",
+        "page": 77
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 35
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 42
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 77
+      }
+    ]
+  },
+  {
+    "id": 216008,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "Pythium insidiosum ซึ่งเป็นสาเหตุของ pythiosis ในม้า จัดเป็นสิ่งมีชีวิตกลุ่มใด",
+    "options": [
+      "เชื้อราแท้ในกลุ่มเดียวกับ Aspergillus",
+      "แบคทีเรียกลุ่ม actinomycete แบบ Dermatophilus",
+      "Oomycete ที่ใกล้เคียงสาหร่าย ไม่ใช่เชื้อราแท้",
+      "ตัวอ่อนพยาธิตัวกลมที่แมลงวันนำมาวางในแผล"
+    ],
+    "answer": 2,
+    "explain": "Pythium insidiosum เป็น oomycete ซึ่งเป็นสิ่งมีชีวิตที่ใกล้เคียงสาหร่าย ไม่ใช่เชื้อราแท้ แม้จะสร้าง hyphae คล้ายเชื้อราและมักถูกจัดไว้กับโรคจากเชื้อรา ม้าติดจากน้ำและสิ่งแวดล้อมที่มีเชื้อ โรคนี้จึงมีชื่อเรียกว่า swamp cancer หรือ bursatte และการรักษาอาศัยการผ่าตัดร่วมกับ immunotherapy (PIA) ไม่ได้พึ่งยาต้านเชื้อรา\n\n❌ ทำไมข้ออื่นผิด\n— เชื้อราแท้กลุ่มเดียวกับ Aspergillus: Aspergillus เป็นเชื้อราแท้ที่ก่อ guttural pouch mycosis คนละกลุ่มกับ Pythium\n— Actinomycete แบบ Dermatophilus: เป็นแบคทีเรียที่ก่อ dermatophilosis (rain scald) ที่ผิวหนัง\n— ตัวอ่อนพยาธิที่แมลงวันนำมาวาง: เป็นสาเหตุของ habronemiasis (summer sore)",
+    "source": "14B7TUfov00 [121:14-121:40], [125:36]; Eq Infectious Dz and Biosecurity หน้า 66-67, 72",
+    "verified": "14B7TUfov00 [121:14-121:40] (Pythium เป็นพวกสาหร่าย, swamp cancer, ติดจากน้ำเจิ่งนอง), [125:36] (ไม่ใช่เชื้อราแท้); Eq Infectious Dz and Biosecurity หน้า 67 (Pythium insidiosum, bursatte, swamp cancer), 72 (guttural pouch mycosis, Aspergillus spp)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythium-oomycete"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 66
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 67
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 72
+      }
+    ]
+  },
+  {
+    "id": 216009,
+    "subject": "equine-medicine",
+    "topic": "equine-hoof",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าขาหน้าขวาเจ็บเฉียบพลันจนแทบไม่ลงน้ำหนัก หนีบด้วย hoof tester แล้วเจ็บชัดเพียงจุดเดียวที่พื้นกีบ ภาพรังสีไม่พบกระดูกหัก สงสัยฝีใต้พื้นกีบ (subsolar abscess) การรักษาหลักคือข้อใด",
+    "options": [
+      "ให้ยาปฏิชีวนะอย่างเดียวโดยไม่เปิดกีบ แล้วรอให้ฝีแตกออกเองที่ coronary band",
+      "เปิดพื้นกีบตรงจุดที่เจ็บเพื่อระบายหนอง แล้วแช่ ใส่ยา และพันกีบ",
+      "แช่กีบใน copper sulfate ทุกวันจนกว่าม้าจะหายเจ็บ โดยไม่ต้องเปิดกีบ",
+      "ใส่เกือก reverse shoe ยกส้นขึ้น เพื่อลดแรงกดที่ปลายกีบ",
+      "ทำ palmar digital nerve block แล้วให้ม้าออกกำลังตามปกติ"
+    ],
+    "answer": 1,
+    "explain": "ฝีใต้พื้นกีบเป็นสาเหตุที่พบบ่อยมากของขาเจ็บเฉียบพลัน หนองถูกขังอยู่ระหว่างผนังกีบที่แข็งกับ coffin bone จึงขยายตัวไม่ได้ แรงดันทำให้ม้าเจ็บมาก เชื้อเข้าได้จากความสกปรก white line disease, thrush หรือของแหลมแทง เช่น เหยียบตะปูหรือตอกตะปูเกือกผิด การรักษาหลักคือเปิดพื้นกีบตรงจุดที่เจ็บให้หนองระบายออก เมื่อแรงดันหายม้าจะสบายขึ้นเร็ว จากนั้นล้าง แช่ ใส่ยา และพันกีบ และอาจให้ยาปฏิชีวนะกับยาต้านการอักเสบร่วมด้วย\n\n❌ ทำไมข้ออื่นผิด\n— ให้ยาปฏิชีวนะอย่างเดียวรอฝีแตกเอง: หนองที่ไม่ได้ระบายทางพื้นกีบจะหาทางแตกออกด้านบนที่ coronary band ม้าเจ็บนานขึ้นและเนื้อเยื่อเสียหายมากขึ้น\n— แช่ copper sulfate โดยไม่เปิดกีบ: copper sulfate ใช้กับ thrush และทำลายเนื้อเยื่ออ่อน จึงไม่ใช้กับแผลฝีที่เปิดลงถึงเนื้อเยื่อ และไม่ได้ระบายหนอง\n— ใส่ reverse shoe ยกส้น: เป็นเกือกรักษา laminitis ระยะที่อาการทรงตัวแล้ว ไม่ได้ระบายหนอง\n— Palmar digital nerve block แล้วออกกำลัง: nerve block ใช้หาตำแหน่งที่เจ็บ ไม่ใช่การรักษา และฝีที่ยังไม่ได้ระบายจะลุกลามต่อ",
+    "source": "Pathologic condition of equine foot หน้า 25-26",
+    "verified": "Pathologic condition of equine foot หน้า 25 (very common sudden-onset lameness; infection trapped between hard hoof wall and coffin bone), 26 (opened for drainage, soaking, medication, bandaging; antibiotics and anti-inflammatories); lecture recording (สาเหตุ, เปิดระบายแล้วสบายเพราะหมดแรงดัน, ไม่ระบายข้างล่างก็แตกข้างบน; ไม่ใช้ copper กับฝี)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot",
+    "tags": [
+      "equine-hoof",
+      "subsolar-abscess"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 25
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 26
+      }
+    ]
+  },
+  {
+    "id": 216010,
+    "subject": "equine-medicine",
+    "topic": "equine-hoof",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าหลังผ่าตัดขาหน้าซ้าย ควบคุมความเจ็บได้ไม่ดี จึงยืนลงน้ำหนักขาหน้าขวาข้างเดียวเป็นเวลาหลายวัน ขาหน้าขวาเสี่ยงต่อภาวะใดมากที่สุด",
+    "options": [
+      "Supporting limb laminitis จากการรับน้ำหนักขาข้างเดียวนานเกินไป",
+      "Sepsis-related laminitis จาก endotoxin ที่เข้าสู่กระแสเลือด",
+      "Endocrinopathic laminitis จากภาวะ equine metabolic syndrome",
+      "Subsolar abscess จากตะปูเกือกที่ตอกล้ำเข้าไปด้านในของ white line"
+    ],
+    "answer": 0,
+    "explain": "เมื่อม้าเจ็บขาข้างหนึ่งจนไม่ยอมลงน้ำหนัก ขาข้างตรงข้ามต้องรับน้ำหนักแทนต่อเนื่องเป็นเวลานาน lamina ของขาที่รับน้ำหนักจึงล้มเหลวจนเกิด supporting limb laminitis พบบ่อยหลังการผ่าตัดที่จัดการความเจ็บได้ไม่ดี การป้องกันจึงอยู่ที่การคุมความเจ็บให้ม้ายอมลงน้ำหนักขาที่ผ่าตัด และเสริมการรองรับขาข้างที่รับน้ำหนักแทน\n\n❌ ทำไมข้ออื่นผิด\n— Sepsis-related laminitis: มาจากโรคที่ทำให้เกิด sepsis หรือ endotoxemia เช่น กินอาหารข้นเกิน (grain overload) รกค้างจนมดลูกอักเสบหลังคลอด โคลิก หรือลำไส้อักเสบ ไม่ได้เกิดจากการรับน้ำหนักขาข้างเดียว\n— Endocrinopathic laminitis: สัมพันธ์กับ equine metabolic syndrome ซึ่งเป็นภาวะทางต่อมไร้ท่อและเมแทบอลิซึม ไม่เกี่ยวกับการผ่าตัดขาอีกข้าง\n— Subsolar abscess จากตะปูเกือก: เกิดเมื่อเชื้อเข้าทางรูตะปูหรือของแหลม ไม่ได้เกิดจากการลงน้ำหนักมาก",
+    "source": "Pathologic condition of equine foot หน้า 29",
+    "verified": "Pathologic condition of equine foot หน้า 29 (three disease states: sepsis or endotoxemia, endocrinopathic, supporting limb laminitis post surgery); lecture recording (ยืนขาข้างเดียวนาน โดยเฉพาะหลังผ่าตัดที่จัดการความเจ็บไม่ดี)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot",
+    "tags": [
+      "equine-hoof",
+      "supporting-limb-laminitis"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 29
+      }
+    ]
+  },
+  {
+    "id": 216011,
+    "subject": "equine-medicine",
+    "topic": "equine-hoof",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าเริ่มเจ็บกีบขาหน้าทั้งสองข้างเมื่อ 2 วันก่อนหลังเข้าไปกินอาหารข้นปริมาณมาก ถ่ายภาพรังสีด้านข้าง (lateral) พบว่า P3 หมุนลงแล้ว ม้าตัวนี้เป็น laminitis ระยะใด",
+    "options": [
+      "Subclinical laminitis",
+      "Acute laminitis",
+      "Subacute laminitis",
+      "Chronic laminitis"
+    ],
+    "answer": 3,
+    "explain": "ระยะของกีบอักเสบ (laminitis) แบ่งด้วยการเคลื่อนของ P3 (distal phalanx) เป็นหลัก chronic laminitis คือเมื่อ P3 หมุน (rotation) หรือทรุด (sinking) แล้ว ไม่ว่าจะเป็นมานานเท่าใด ม้าตัวนี้จึงเป็น chronic แม้เพิ่งเจ็บได้ 2 วัน เมื่อ lamina อ่อนแอ แรงดึงของ deep digital flexor tendon ในทุกก้าวร่วมกับน้ำหนักตัวทำให้ P3 แยกออกจากผนังกีบแล้วหมุนหรือทรุดลง\n\n❌ ทำไมข้ออื่นผิด\n— Subclinical laminitis: ม้าไม่แสดงอาการเจ็บ เห็นเพียงผนังกีบที่งอกเป็นคลื่นจากการอักเสบเล็กน้อยเป็นช่วงๆ\n— Acute laminitis: ช่วงไม่กี่วันแรก (มักไม่เกิน 3 วัน) ที่ P3 ยังไม่เคลื่อน ภาพรังสีอาจยังปกติแต่หนีบกีบแล้วเจ็บ\n— Subacute laminitis: อาการต่อเนื่องเกิน 3 วันแต่ P3 ยังไม่เคลื่อน\n\n💡 Chronic ดูที่ P3 เคลื่อนแล้ว ไม่ได้ดูที่จำนวนวัน",
+    "source": "Pathologic condition of equine foot หน้า 28, 30",
+    "verified": "Pathologic condition of equine foot หน้า 30 (acute <3 days and subacute >3 days, both without displacement; chronic = distal phalanx displacement regardless of the duration), 28 (DDFT tension with the horse's weight displaces the distal phalanx); lecture recording (chronic คือ bone sinking ลงไปแล้ว; subclinical ผนังกีบเป็นคลื่น)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot",
+    "tags": [
+      "equine-hoof",
+      "laminitis-staging"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 28
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 30
+      }
+    ]
+  },
+  {
+    "id": 216012,
+    "subject": "equine-medicine",
+    "topic": "equine-hoof",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าเข้าไปกินอาหารข้นปริมาณมากเมื่อวาน วันนี้เริ่มเจ็บกีบขาหน้า digital pulse แรง ภาพรังสียังไม่พบ P3 เคลื่อน การจัดการฉุกเฉินข้อใดเหมาะสมที่สุด",
+    "options": [
+      "ใส่เกือกเหล็กแบบ reverse shoe ทันทีเพื่อยกส้น แล้วจูงเดินบนพื้นแข็งวันละหลายรอบ",
+      "แช่กีบในน้ำอุ่นเพื่อขยายหลอดเลือด และจูงเดินออกกำลังวันละหลายรอบ",
+      "ให้ flunixin meglumine แช่กีบในน้ำแข็ง ให้ acepromazine และให้ยืนบนพื้นนุ่ม",
+      "แช่กีบใน copper sulfate แล้วพันกีบ และปล่อยลงแปลงตามปกติ"
+    ],
+    "answer": 2,
+    "explain": "ระยะแรกของกีบอักเสบเป็นภาวะฉุกเฉิน เป้าหมายคือลดการอักเสบของ lamina และกันไม่ให้ P3 เคลื่อน flunixin meglumine เป็น NSAID ที่เลือกใช้เมื่อม้าเสี่ยงหรือมีภาวะ endotoxemia เพราะช่วยลดผลของ endotoxin ด้วย (ระวังใช้มากเกินจนเกิดแผลในกระเพาะ) การแช่กีบในน้ำแข็ง (digital hypothermia) ช่วยปกป้องโครงสร้างของ lamina acepromazine ช่วยเพิ่มการไหลเวียนเลือดที่ปลายขา และให้ม้ายืนบนพื้นนุ่ม ถอดเกือกปกติออก รองด้วยโฟมหนา ลดการเดินบนพื้นแข็งราว 2-3 สัปดาห์ เกือกรักษาจะใส่เมื่ออาการทรงตัว P3 ไม่ทรุดต่อ และม้าหายเจ็บแล้ว\n\n❌ ทำไมข้ออื่นผิด\n— ใส่ reverse shoe ทันทีแล้วเดินบนพื้นแข็ง: เกือกรักษาใช้หลังพ้นช่วงแรกราว 3-4 สัปดาห์ ช่วงแรกต้องถอดเกือกปกติ และพื้นแข็งเพิ่มแรงที่ lamina\n— แช่น้ำอุ่นและจูงเดินหลายรอบ: ช่วงแรกต้องใช้ความเย็นลดการอักเสบ และการเดินเพิ่มแรงที่ lamina ที่อ่อนแอ\n— แช่ copper sulfate แล้วปล่อยแปลง: copper sulfate ใช้รักษา thrush ไม่ได้ลดการอักเสบของ lamina",
+    "source": "Pathologic condition of equine foot หน้า 31-33",
+    "verified": "Pathologic condition of equine foot หน้า 31 (emergency; flunixin drug of choice if systemically ill; acepromazine increases digital blood flow; digital hypothermia), 32 (remove standard shoes, foam pads in the first 2-3 weeks), 33 (therapeutic shoeing after 3-4 weeks); lecture recording",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot",
+    "tags": [
+      "equine-hoof",
+      "laminitis-emergency"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 31
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 32
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 33
+      }
+    ]
+  },
+  {
+    "id": 216013,
+    "subject": "equine-medicine",
+    "topic": "equine-hoof",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าขาหน้ามีรูปกีบแบบ long toe, low heel (underrun heel) ข้อใดอธิบายผลของรูปกีบแบบนี้ได้ถูกต้อง",
+    "options": [
+      "แนวผนังกีบกับ pastern ยังขนานกันดี เพียงพื้นกีบหนาขึ้นเหมือนม้ายืนบนบล็อกไม้",
+      "Coffin bone เอียงปลายลง น้ำหนักเทไปข้างหน้าเหมือนใส่รองเท้าส้นสูง",
+      "ปลายกีบงัดผนังกีบด้านหน้ามากขึ้น น้ำหนักเทไปที่ส้น และม้ายกขาออกได้ช้า",
+      "ผนังกีบด้านหน้าสั้นลง ม้ายกขาออกได้เร็วขึ้น และน้ำหนักย้ายไปที่ปลายกีบ",
+      "Coffin bone ยึดกับผนังกีบแน่นขึ้น จึงลดโอกาสที่ P3 จะหมุนเมื่อเกิด laminitis"
+    ],
+    "answer": 2,
+    "explain": "กีบแบบ long toe, low heel ปลายกีบยื่นยาวไปข้างหน้าขณะที่ส้นต่ำและทรุดลง ปลายกีบที่ยาวทำหน้าที่เหมือนคานงัดผนังกีบด้านหน้า ผนังกีบจึงไม่แข็งแรงและอาจยึดกับ coffin bone ได้ไม่แน่น น้ำหนักเทไปลงที่ส้นมากขึ้น และปลายกีบที่ยาวทำให้ม้ายกขาออกจากพื้นได้ช้า (breakover ช้า) จึงสะดุดง่าย แนวผนังกีบด้านหน้ากับแนวส้นไม่ขนานกันเหมือนกีบปกติ\n\n❌ ทำไมข้ออื่นผิด\n— แนวผนังกีบกับ pastern ขนานกันแต่พื้นกีบหนา: เป็นลักษณะของกีบที่ยาวเกินทั้งกีบ (overgrown hoof) ซึ่ง coffin bone กับผนังกีบยังเรียงตัวกันดี\n— Coffin bone เอียงปลายลงเหมือนใส่รองเท้าส้นสูง: เป็นลักษณะของกีบส้นสูง (high heels)\n— ผนังกีบด้านหน้าสั้นลงและยกขาเร็วขึ้น: กลับด้านกับ long toe ซึ่งปลายกีบยาวขึ้นและยกขาออกได้ช้าลง\n— Coffin bone ยึดกับผนังกีบแน่นขึ้น: ปลายกีบที่ยาวงัดผนังกีบจนการยึดกับ coffin bone อาจไม่แน่น ไม่ได้ช่วยกันกีบอักเสบ",
+    "source": "Pathologic condition of equine foot หน้า 5-9",
+    "verified": "Pathologic condition of equine foot หน้า 6 (long toe: toe has run forward, coffin bone and hoof wall may not be strongly attached, a lot of leverage on the hoof wall), 7 (long toe and under-run heels), 8 (overgrown, coffin bone and wall aligned), 9 (high heels, coffin bone tilted down); lecture recording (underrun heel น้ำหนักลงส้น; ปลายยาว ยกขาได้ช้า สะดุด)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot",
+    "tags": [
+      "equine-hoof",
+      "long-toe-low-heel"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 5
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 6
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 7
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 8
+      },
+      {
+        "doc": "equine-foot-2568",
+        "edition": "34p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 216014,
+    "subject": "equine-medicine",
+    "topic": "equine-tendon",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดถูกต้องเกี่ยวกับตำแหน่งที่พบการบาดเจ็บของเอ็นและ ligament บริเวณขาส่วนล่างของม้า",
+    "options": [
+      "DDFT เป็นเอ็นที่บาดเจ็บบ่อยที่สุดในม้าแข่งเรียบ",
+      "Suspensory ligament ในม้า trotter เป็นที่ขาหน้ามากกว่าขาหลัง",
+      "Suspensory ligament ในม้าแข่งเรียบเป็นที่ขาหลังมากกว่าขาหน้า",
+      "SDFT บาดเจ็บที่ขาหน้ามากกว่าขาหลังอย่างชัดเจน",
+      "Inferior check ligament บาดเจ็บบ่อยกว่า SDFT ในม้าแข่ง"
+    ],
+    "answer": 3,
+    "explain": "เอ็นหลักของขาส่วนล่างตั้งแต่ carpus ลงไปมีสามเส้น คือ superficial digital flexor tendon (SDFT), deep digital flexor tendon (DDFT) และ suspensory ligament ที่บาดเจ็บบ่อยที่สุดคือ SDFT ซึ่งเป็นที่ขาหน้ามากกว่าขาหลังอย่างชัดเจน โดยเฉพาะในม้าแข่งที่วิ่งเร็ว รองลงมาคือ suspensory ligament ซึ่งในม้าแข่งเรียบเป็นที่ขาหน้าเท่ากับหรือมากกว่าขาหลัง แต่ในม้า trotter และม้ากระโดด (show jumper) ที่ใช้ขาหลังดันตัวมาก จะเป็นที่ขาหลังมากกว่า inferior check ligament พบน้อยกว่านั้น และ DDFT พบน้อยมาก\n\n❌ ทำไมข้ออื่นผิด\n— DDFT บาดเจ็บบ่อยที่สุดในม้าแข่งเรียบ: DDFT พบน้อยที่สุดในกลุ่มนี้\n— Suspensory ligament ในม้า trotter เป็นที่ขาหน้ามากกว่า: ม้า trotter ใช้ขาหลังมาก จึงเป็นที่ขาหลังมากกว่า\n— Suspensory ligament ในม้าแข่งเรียบเป็นที่ขาหลังมากกว่า: ในม้าแข่งเรียบเป็นที่ขาหน้าเท่ากับหรือมากกว่าขาหลัง\n— Inferior check ligament บาดเจ็บบ่อยกว่า SDFT: พบน้อยกว่าทั้ง SDFT และ suspensory ligament",
+    "source": "Tendon/Ligament injuries and treatment หน้า 3",
+    "verified": "Tendon/Ligament injuries and treatment หน้า 3 (SDFT Fore >> Hind; suspensory Fore ≥ Hind in flat racehorses, Hind ≥ Fore in trotters and show jumpers; inferior check ligament; DDFT rare); lecture recording",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment",
+    "tags": [
+      "equine-tendon",
+      "tendon-injury-sites"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 216015,
+    "subject": "equine-medicine",
+    "topic": "equine-tendon",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าแข่งมีอาการบวมร้อนด้านหลังกระดูก cannon ขาหน้าหลังซ้อมเมื่อวาน สงสัย SDFT บาดเจ็บเฉียบพลัน ควรทำ ultrasound ครั้งแรกเพื่อประเมินขนาดและตำแหน่งของรอยโรคเมื่อใด",
+    "options": [
+      "ภายใน 24 ชั่วโมงแรก เพราะรอยโรคใหญ่ที่สุดตั้งแต่วันแรก",
+      "วันที่ 2-3 เพราะเป็นช่วงที่อาการบวมขึ้นถึงจุดสูงสุดแล้ว",
+      "ราว 1-2 สัปดาห์ เพราะรอยโรคยังขยายต่อในช่วงแรกหลังบาดเจ็บ",
+      "ราว 3-4 เดือน เพราะต้องรอให้ fibrosis ก่อตัวก่อนจึงเห็นรอยโรค"
+    ],
+    "answer": 2,
+    "explain": "หลังเอ็นฉีก เลือดออกและการอักเสบทำให้รอยโรคขยายต่อไปอีกราว 1-2 สัปดาห์ (7-14 วัน) ก่อนจะทรงตัวและเข้าสู่ระยะซ่อมแซม ultrasound ก่อน 5 วันจึงเชื่อถือไม่ได้ เพราะยังบอกไม่ได้ว่าเสียหายเท่าใด ควรตรวจครั้งแรกราว 1-2 สัปดาห์หลังบาดเจ็บเพื่อดูขนาดและตำแหน่งของรอยโรค แล้วตรวจซ้ำเป็นระยะเพื่อติดตามการหาย\n\n❌ ทำไมข้ออื่นผิด\n— ภายใน 24 ชั่วโมงแรก: รอยโรคยังขยายต่อ ภาพช่วงนี้ประเมินความเสียหายต่ำกว่าความจริงและต้องตรวจซ้ำอยู่ดี\n— วันที่ 2-3: ยังอยู่ในช่วงก่อน 5 วันที่ ultrasound เชื่อถือไม่ได้ และอาการบวมยังเพิ่มขึ้นได้ถึงราววันที่ 5-10\n— ราว 3-4 เดือน: ช้าเกินไปสำหรับการประเมินครั้งแรก เพราะแผนรักษาและการควบคุมการออกกำลังต้องอาศัยผลตรวจตั้งแต่ระยะแรก",
+    "source": "Tendon/Ligament injuries and treatment หน้า 17, 21, 22",
+    "verified": "Tendon/Ligament injuries and treatment หน้า 22 (ultrasound unreliable before 5 days; 7-15 days for initial scans; 3-4 weeks for prognosis), 17 (lesion ↑ for 7-15 days), 21 (swelling max 5-10 days); lecture recording (ก่อน 5 วันเชื่อไม่ได้ แนะนำซาวครั้งแรก 1-2 สัปดาห์; 7-14 วัน)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment",
+    "tags": [
+      "equine-tendon",
+      "ultrasound-timing"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 17
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 21
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 22
+      }
+    ]
+  },
+  {
+    "id": 216016,
+    "subject": "equine-medicine",
+    "topic": "equine-tendon",
+    "year": 5,
+    "type": "mcq",
+    "q": "ผลตรวจ ultrasound ของ SDFT ที่บาดเจ็บเฉียบพลันมาได้ 10 วัน มักพบลักษณะใด",
+    "options": [
+      "เอ็นขยายขนาด มีบริเวณ hypoechoic ถึง anechoic และเส้นใยขาดตอน",
+      "เอ็นขาวกว่าปกติ (hyperechoic) และไม่สม่ำเสมอจาก fibrosis",
+      "มีจุดขาวจัดจาก ectopic mineralisation กระจายแทรกอยู่ในเนื้อเอ็น",
+      "เส้นใยเรียงขนานสม่ำเสมอ echogenicity เท่ากับเอ็นปกติ",
+      "ขอบเอ็นติดแน่นกับเนื้อเยื่อรอบข้างจาก adhesion"
+    ],
+    "answer": 0,
+    "explain": "ระยะ acute ของการบาดเจ็บเอ็น เส้นใยที่ฉีกขาดร่วมกับเลือดและน้ำที่แทรกเข้ามาทำให้เห็นบริเวณ hypoechoic ถึง anechoic (สีดำ) ในเนื้อเอ็น ซึ่งอาจอยู่ตรงกลางเป็น core lesion อยู่ที่ขอบ หรือกระจายทั่วเอ็น เอ็นขยายขนาดจากการบวม และภาพตามยาวเห็นเส้นใยขาดตอน เมื่อเริ่มหาย echogenicity จะเพิ่มขึ้นและเส้นใยเริ่มเรียงต่อกัน ส่วนระยะเรื้อรังจะเห็น fibrosis ที่ขาวกว่าปกติ ectopic mineralisation หรือ adhesion\n\n❌ ทำไมข้ออื่นผิด\n— ขาวกว่าปกติและไม่สม่ำเสมอจาก fibrosis: เป็นภาพของระยะเรื้อรัง\n— จุดขาวจัดจาก ectopic mineralisation: พบในระยะเรื้อรัง\n— เส้นใยเรียงขนานสม่ำเสมอ echogenicity ปกติ: เป็นภาพของเอ็นปกติหรือเอ็นที่หายดีแล้ว\n— ขอบเอ็นติดกับเนื้อเยื่อรอบข้าง: adhesion เป็นภาวะของระยะเรื้อรัง",
+    "source": "Tendon/Ligament injuries and treatment หน้า 27-41",
+    "verified": "Tendon/Ligament injuries and treatment หน้า 28 (acute: increased size, decreased echogenicity), 30-32 (hypo or anechogenic lesion central, peripheral, diffuse), 34-35 (echogenicity and fibre alignment improve with time), 36-41 (chronic: fibrosis, ectopic mineralisation, adhesions); lecture recording",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment",
+    "tags": [
+      "equine-tendon",
+      "ultrasound-acute-lesion"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 27
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 41
+      }
+    ]
+  },
+  {
+    "id": 216017,
+    "subject": "equine-medicine",
+    "topic": "equine-tendon",
+    "year": 5,
+    "type": "mcq",
+    "q": "หลังพ้นระยะ acute ของการบาดเจ็บ SDFT ในม้าแข่ง แผนฟื้นฟูข้อใดเหมาะสมที่สุด",
+    "options": [
+      "พักในแปลงหญ้า 6 เดือนโดยไม่ออกกำลัง แล้วกลับไปซ้อมเต็มที่",
+      "จูงเดินระยะสั้นแล้วเพิ่มทีละขั้น ทำ ultrasound ซ้ำก่อนเพิ่มงานทุกครั้ง",
+      "พักในคอก (box rest) จนหายบวมและคลำไม่เจ็บ แล้วกลับไปซ้อมตามโปรแกรมเดิมทันที",
+      "ซ้อมต่อโดยลดความเร็วลง และใช้การคลำเอ็นประเมินแทน ultrasound"
+    ],
+    "answer": 1,
+    "explain": "หลังระยะ acute เป้าหมายคือกันการฉีกซ้ำ และให้เส้นใย collagen ใหม่เรียงตัวตามแนวยาวของเอ็น ซึ่งต้องอาศัยแรงยืดหดที่พอดี จึงใช้ controlled exercise เริ่มจากจูงเดินระยะสั้นแล้วค่อยๆ เพิ่มระยะเวลาและความเร็วทีละขั้นจาก walk ไป trot และ canter ประคบเย็นต่อหลังออกกำลัง และทำ ultrasound ซ้ำก่อนเพิ่มระดับงานทุกครั้งเพื่อดูว่าเอ็นพร้อมรับงานเพิ่มหรือยัง controlled exercise ได้ผลดีกว่าการปล่อยพักอย่างเดียว การฟื้นตัวใช้เวลาหลายเดือน และรายที่ฉีกมากอาจนานกว่า 1 ปี\n\n❌ ทำไมข้ออื่นผิด\n— พักในแปลง 6 เดือนโดยไม่ออกกำลัง: การพักอย่างเดียวได้ผลด้อยกว่า controlled exercise เพราะเส้นใยใหม่ไม่ได้ถูกจัดเรียงตามแนวแรง และการกลับไปซ้อมเต็มที่ทันทีเสี่ยงฉีกซ้ำ\n— Box rest จนหายบวมแล้วกลับไปซ้อม: box rest ใช้เฉพาะช่วงแรกราว 2 สัปดาห์ ถ้าพักต่อโดยไม่มี controlled exercise เนื้อเยื่อที่ซ่อมจะเป็น scar ที่แข็งแรงน้อย และการหายบวมไม่ได้แปลว่าเอ็นหายแล้ว\n— ซ้อมต่อแต่ลดความเร็วและคลำประเมิน: การตรวจทางคลินิกบอกระดับการหายของเอ็นได้ไม่แม่น ต้องใช้ ultrasound ก่อนเพิ่มงาน และการซ้อมต่อทันทีเสี่ยงฉีกซ้ำ",
+    "source": "Tendon/Ligament injuries and treatment หน้า 22, 111-120",
+    "verified": "Tendon/Ligament injuries and treatment หน้า 114 (subacute: prevent re-injury, promote longitudinal alignment), 115-116 (walk in-hand, continue cold after walk), 118 (controlled exercise superior to field rest alone), 120 (re-scan prior to any increase in exercise), 22 (clinical assessment little accurate); lecture recording",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment",
+    "tags": [
+      "equine-tendon",
+      "controlled-exercise"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 22
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 111
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 112
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 113
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 114
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 115
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 116
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 117
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 118
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 119
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 120
+      }
+    ]
+  },
+  {
+    "id": 216018,
+    "subject": "equine-medicine",
+    "topic": "equine-tendon",
+    "year": 5,
+    "type": "mcq",
+    "q": "เหตุใดเอ็น SDFT ของม้าที่รักษาจนหายแล้วจึงกลับมาฉีกซ้ำได้บ่อย",
+    "options": [
+      "เชื้อแบคทีเรียที่แฝงอยู่ในเนื้อเอ็นกลับมาก่อการอักเสบซ้ำเมื่อม้ากลับไปซ้อม",
+      "เอ็นที่หายแล้วสร้าง type I collagen มากเกินไปจนแข็งและเปราะกว่าเอ็นปกติ",
+      "ยา NSAID ที่ใช้ระหว่างรักษาทำให้เส้นใยเอ็นเสื่อมสภาพถาวรจนรับแรงไม่ได้",
+      "เนื้อเยื่อที่ซ่อมเป็น scar จาก type III collagen ที่เรียงตัวไม่เป็นระเบียบ"
+    ],
+    "answer": 3,
+    "explain": "เอ็นที่บาดเจ็บซ่อมตัวด้วยเนื้อเยื่อใหม่ที่เป็น type III collagen เรียงตัวไม่เป็นระเบียบ แล้วปรับโครงสร้างอย่างช้าๆ ผลคือ scar ที่ยืดหยุ่นและแข็งแรงน้อยกว่าเอ็นเดิมซึ่งเป็น type I collagen เรียงขนานกัน เมื่อม้ากลับไปรับแรงเต็มที่ เอ็นจึงฉีกซ้ำได้ง่าย มักเกิดที่รอยต่อระหว่าง scar กับเอ็นปกติ การฉีกซ้ำพบได้ราว 30-87.5% ยิ่งเส้นใยใหม่เรียงตัวดีและเกิด scar น้อย โอกาสฉีกซ้ำก็ยิ่งลดลง\n\n❌ ทำไมข้ออื่นผิด\n— แบคทีเรียแฝงในเอ็นกลับมาอักเสบ: การบาดเจ็บเอ็นจากการใช้งานเป็นการฉีกขาดของเส้นใยจากแรงซ้ำๆ และการยืดเกิน ไม่ใช่การติดเชื้อ\n— สร้าง type I collagen มากเกินจนเปราะ: เนื้อเยื่อที่ซ่อมมี type III collagen มาก ส่วน type I คือ collagen ของเอ็นปกติ\n— NSAID ทำให้เส้นใยเสื่อมถาวร: NSAID ใช้ลดการอักเสบในระยะ acute การฉีกซ้ำมาจากคุณภาพของเนื้อเยื่อที่ซ่อม ไม่ใช่จากยา",
+    "source": "Tendon/Ligament injuries and treatment หน้า 2, 11, 19, 20, 44",
+    "verified": "Tendon/Ligament injuries and treatment หน้า 19 (immature matrix, type III collagen, poor bundle organisation), 44 (recurrence the rule, mechanical inadequacy, often at scar/tendon interface), 2 (recurrence 30-87.5%), 11 (cyclic trauma, hyperextension); lecture recording (ซ่อมแล้วไม่แข็งแรงเท่าเดิม ฉีกซ้ำง่าย; scar tissue ไม่มีความแข็งแรงและ elasticity)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment",
+    "tags": [
+      "equine-tendon",
+      "tendon-recurrence"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 2
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 11
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 19
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 20
+      },
+      {
+        "doc": "equine-tendon-2568",
+        "edition": "157p",
+        "page": 44
+      }
+    ]
+  },
 ];
