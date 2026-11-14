@@ -1375,7 +1375,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
                 [
                   "1. Sub-clinical (horse sickness fever)",
                   "ไข้ต่ำ มักหายเอง",
-                  "สไลด์ไม่ได้ให้ตัวเลข"
+                  "-"
                 ],
                 [
                   "2. Sub-acute หรือ cardiac form",
@@ -1595,7 +1595,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
                 ],
                 [
                   "**Tetanus antitoxin**",
-                  "สไลด์ไม่ได้ให้รายละเอียด"
+                  "-"
                 ],
                 [
                   "Supportive",
@@ -1603,7 +1603,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
                 ],
                 [
                   "Euthanasia",
-                  "สไลด์ไม่ได้ให้เงื่อนไข"
+                  "-"
                 ]
               ]
             }
@@ -3400,7 +3400,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
               "rows": [
                 [
                   "ความหมาย",
-                  "สไลด์ไม่ได้ให้นิยาม",
+                  "-",
                   "ข้อหนึ่งข้อขึ้นไป **งอหรือเหยียดมากเกิน** เมื่อมองลูกม้าจากด้านข้าง"
                 ],
                 [
@@ -3649,7 +3649,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
                 ],
                 [
                   "**Inferior check ligament**",
-                  "อยู่ในรายการ สไลด์ไม่ได้ให้สัดส่วน"
+                  "-"
                 ],
                 [
                   "**DDFT** (tenosynovitis)",

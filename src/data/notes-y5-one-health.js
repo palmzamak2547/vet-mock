@@ -1824,7 +1824,7 @@ export const NOTES_Y5_ONE_HEALTH = {
                     [
                       "**AquAdvantage salmon**",
                       "ยีน growth hormone จาก **Chinook salmon** ใส่ใน Atlantic salmon ร่วมกับ promoter (สวิตช์เปิด) จาก **ocean pout**",
-                      "สไลด์ไม่ได้ระบุ"
+                      "-"
                     ],
                     [
                       "**GM E. coli ผลิต bST**",
@@ -2116,7 +2116,7 @@ export const NOTES_Y5_ONE_HEALTH = {
                     [
                       "Concern (-)",
                       "ถางป่าและสูญเสียความหลากหลายทางชีวภาพเพิ่มขึ้น (ปลูกพืชหมุนเวียนลดลง, transgene เคลื่อนย้ายมากขึ้น); ก๊าซเรือนกระจกเพิ่มขึ้น",
-                      "สไลด์ไม่ได้ให้"
+                      "-"
                     ]
                   ]
                 }
@@ -2648,7 +2648,7 @@ export const NOTES_Y5_ONE_HEALTH = {
                 [
                   "ระยะกักเก็บ",
                   "**สั้น ~15-20 วัน**",
-                  "ไม่ระบุ",
+                  "-",
                   "**นาน >120 วัน**"
                 ]
               ]
@@ -3689,7 +3689,7 @@ export const NOTES_Y5_ONE_HEALTH = {
                   "rows": [
                     [
                       "1 Sourcing from free stocks",
-                      "ไม่ระบุระดับ"
+                      "-"
                     ],
                     [
                       "2 Pathogen inactivation",
