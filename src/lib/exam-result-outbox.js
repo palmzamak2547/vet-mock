@@ -48,12 +48,16 @@ export function createExamResultOutbox({ snapshot, send, acknowledge, notify = (
         // A conflict has its own words (sent from another tab with other answers: back it up); one
         // refused set says them, more than one the general line.
         const specific = stillHeld === 1 ? held.get(heldNow[0].id) : null;
-        notify(batch.owner, {
-          sending: false,
-          error: stillHeld
+        // A record with no owner at all (an old build) is skipped like another account's, so the
+        // student is told it is there: it is neither sent nor deleted.
+        const ownerless = snapshot().pending.filter((record) => !record.user_id).length;
+        const lines = [
+          stillHeld
             ? specific || `ผลสอบ ${stillHeld} ชุดส่งเข้าบัญชีไม่ได้ เพราะระบบไม่รับชุดนั้น ผลชุดอื่นส่งต่อตามปกติ และคำตอบของชุดนั้นยังอยู่ในประวัติบนเครื่องนี้`
             : null,
-        });
+          ownerless ? `ผลสอบ ${ownerless} ชุดไม่รู้ว่าเป็นของบัญชีไหน จึงยังไม่ได้ส่ง และยังเก็บไว้บนเครื่องนี้` : null,
+        ].filter(Boolean);
+        notify(batch.owner, { sending: false, error: lines.length ? lines.join(' ') : null });
       } catch (error) {
         if (error?.retryAfter > 0) cooldown.set(batch.owner, Date.now() + Math.min(3600, error.retryAfter) * 1000);
         notify(batch.owner, { sending: false, error: error?.message || 'ผลสอบยังรอส่ง ระบบจะลองใหม่เมื่อเชื่อมต่อได้' });
