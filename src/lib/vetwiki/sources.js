@@ -25642,6 +25642,8 @@ export const SOURCES = {
     kind: 'guideline',
     year: 2009,
     url: 'https://www.agriculture.gov.au/sites/default/files/sitecollectiondocuments/ba/memos/2009/Final_prawn_IRA_report_7_Oct_09.pdf',
+    availability: 'verified-online',
+  },
   'web-nutritional-requirements-of-horses-and-other-equids-2026': {
     id: 'web-nutritional-requirements-of-horses-and-other-equids-2026',
     title: 'Nutritional Requirements of Horses and Other Equids',
