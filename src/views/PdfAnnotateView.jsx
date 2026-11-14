@@ -2837,7 +2837,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             style={{
               flex: 1, minWidth: 0, minHeight: 36, padding: '6px 10px',
               border: '1px solid var(--clr-border, #d8d3c4)', borderRadius: 8,
-              background: 'var(--clr-surface, #fff)', color: 'var(--clr-ink)', fontSize: 14,
+              background: 'var(--clr-surface, #fff)', color: 'var(--clr-ink)', fontSize: 16,
             }}
           />
           <button type="submit" className="vmx-btn vmx-btn-sm" disabled={searching || !query.trim()}>

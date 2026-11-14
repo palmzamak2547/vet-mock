@@ -67,7 +67,10 @@ export const NOTE_SOURCES = Object.freeze({
     source('notes-85-poa-clinical.js', 'NOTES_85_POA_CLINICAL', () => import('./notes-85-poa-clinical.js').then((m) => m.NOTES_85_POA_CLINICAL)),
   ],
   'equine-repro': [source('notes-85-equine-repro.js', 'NOTES_85_EQUINE_REPRO', () => import('./notes-85-equine-repro.js').then((m) => m.NOTES_85_EQUINE_REPRO))],
-  'swine-clinic': [source('notes-85-swine-clinic.js', 'NOTES_85_SWINE_CLINIC', () => import('./notes-85-swine-clinic.js').then((m) => m.NOTES_85_SWINE_CLINIC))],
+  'swine-clinic': [
+    source('notes-y5-swine-clinic.js', 'NOTES_Y5_SWINE_CLINIC', () => import('./notes-y5-swine-clinic.js').then((m) => m.NOTES_Y5_SWINE_CLINIC)),
+    source('notes-85-swine-clinic.js', 'NOTES_85_SWINE_CLINIC', () => import('./notes-85-swine-clinic.js').then((m) => m.NOTES_85_SWINE_CLINIC)),
+  ],
 });
 
 export const NOTE_SUBJECT_IDS = Object.freeze(Object.keys(NOTE_SOURCES));

@@ -35,13 +35,13 @@ function MilestoneRow({ m }) {
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline' }}>
-        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
           {KIND_LABEL[m.kind] || m.kind}
         </span>
         <strong style={{ fontSize: 14, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>
           {m.titleTh}
         </strong>
-        <span style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
+        <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
           {fmtThaiRange(m.start, m.end)}
         </span>
       </div>
@@ -82,7 +82,7 @@ function EventRow({ e }) {
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline' }}>
-        <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
           กิจกรรม
         </span>
         <strong style={{ fontSize: 14, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>{e.titleTh}</strong>

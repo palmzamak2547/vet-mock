@@ -427,11 +427,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                     reads as a rendering failure rather than a missing field. */}
                 {/* "TBD" is a placeholder in the data, not a person: no line at all. */}
                 {topicLecturerLabel(activeSubject, t.lecturer) && (
-                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: active ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
                     ผู้สอน: {topicLecturerLabel(activeSubject, t.lecturer).name}
                   </div>
                 )}
-                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: active ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', marginTop: 4 }}>
                   {t.sections.length} ส่วน
                 </div>
               </button>

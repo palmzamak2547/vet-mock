@@ -241,7 +241,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           disabled={!user || posting}
           style={{
             flex: 1, padding: 8, borderRadius: 6,
-            border: '1px solid var(--clr-border)', fontSize: 14,
+            border: '1px solid var(--clr-border)', fontSize: 16,
             fontFamily: 'inherit', resize: 'vertical',
             background: user ? 'var(--clr-bg)' : 'var(--clr-surface-2)',
             color: 'var(--clr-ink)',

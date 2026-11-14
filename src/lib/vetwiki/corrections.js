@@ -1080,40 +1080,13 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 23820212 (doi 10.4142/jvs.2013.14.4.487)"
     }
   ],
-  "equine-medicine--equine-colic-bestfit--approach-classification-decision-tree": [
+  "equine-medicine--equine-neonatal--อายุครรภ์-และนมน้ำเหลืองกับการรับภูมิคุ้มกัน": [
     {
       "severity": "narrows",
-      "lectureSays": "โน้ตเขียนเกณฑ์แยก medical กับ surgical ว่า HR มากกว่า 60 เท่ากับ ผ่า",
-      "evidenceSays": "งาน Surgical and postoperative factors influencing short-term survival of horses following small intestinal resection, PMID 12358046, doi 10.2746/042516402776117700 พบว่า heart rate ตั้งแต่ 60 ครั้งต่อนาที สัมพันธ์กับการไม่รอดชีวิตหลัง small intestinal resection ที่ OR 5.6 (95% CI 1.5-20.6) ร่วมกับ postoperative ileus และการต้อง repeat celiotomy ซึ่งเป็น prognostic indicator ไม่ใช่ข้อบ่งชี้ให้ผ่าตัดโดยลำพัง",
-      "examAdvice": "ถ้าอาจารย์ถามเกณฑ์ส่งผ่าตัด ให้ตอบ HR มากกว่า 60 ตามที่สอน แต่ถ้าโจทย์ถามเรื่อง prognosis ให้ตอบว่า HR ตั้งแต่ 60 สัมพันธ์กับการไม่รอดชีวิต",
-      "sourceRef": "PMID 12358046 (doi 10.2746/042516402776117700)"
-    }
-  ],
-  "equine-medicine--equine-gi--exam-techniques-9-tools": [
-    {
-      "severity": "narrows",
-      "lectureSays": "โน้ตเขียนว่าตอนทำ nasogastric intubation ให้เช็ค reflux โดย มากกว่า 2 ลิตร ถือว่า significant",
-      "evidenceSays": "ตัวเลข 2 ลิตร มาจาก case definition ของ postoperative ileus (POI) ในงาน Evaluation of factors associated with postoperative ileus in horses: 31 cases (1990-1992), PMID 7744649 ซึ่งนิยาม POI ว่า gastric reflux มากกว่า 2 L ร่วมกับ pulse rate ตั้งแต่ 60 ครั้งต่อนาที หรือมีอาการปวดท้อง ไม่ใช่ cut-off ที่ validate ไว้สำหรับตัดสินใจส่งผ่าตัดก่อนผ่า",
-      "examAdvice": "ตอบ มากกว่า 2 ลิตร เท่ากับ significant reflux ตามที่อาจารย์สอน แล้วจำบริบทไว้ว่าเกณฑ์นี้มาจากนิยาม POI หลังผ่าตัดที่ต้องมี pulse หรืออาการปวดร่วมด้วย",
-      "sourceRef": "PMID 7744649"
-    }
-  ],
-  "equine-medicine--equine-neonatal--parturition-in-the-mare-gestation-length": [
-    {
-      "severity": "contradicts",
-      "lectureSays": "โน้ตเขียน gestation length ของ Thoroughbred ว่า 320-360 วัน",
+      "lectureSays": "โน้ตเขียนอายุครรภ์ปกติ 335-342 วัน และน้อยกว่า 320 วันเป็น premature",
       "evidenceSays": "งาน Factors affecting gestation length in the Thoroughbred mare, PMID 12417119, doi 10.1016/s0378-4320(02)00171-9 (n = 433, ระบุวัน ovulation) พบพิสัย 315-388 วัน mean 344.1 บวกลบ 0.49 วัน และลูกม้า viable ตลอดพิสัยนี้ ส่วนงาน Determinants of gestation length in Thoroughbred mares on German stud farms, PMID 29475570, doi 10.1016/j.anireprosci.2018.02.001 พบ 306-390 วัน mean 347.0 บวกลบ 14.4 วัน จาก 16,226 การตั้งท้อง",
-      "examAdvice": "ในข้อสอบให้ตอบ 320-360 วันตามสไลด์ แต่เวลาเจอเคสจริงอย่าฟันธงว่า premature หรือ dysmaturity เพียงเพราะอายุครรภ์หลุดกรอบนี้",
+      "examAdvice": "ในข้อสอบให้ตอบ 335-342 วัน และน้อยกว่า 320 วันเป็น premature ตามสไลด์ แต่เวลาเจอเคสจริงอย่าฟันธงว่า premature หรือ dysmaturity เพียงเพราะอายุครรภ์หลุดกรอบนี้",
       "sourceRef": "PMID 12417119 (doi 10.1016/s0378-4320(02)00171-9)"
-    }
-  ],
-  "equine-medicine--equine-ophth--per-organ-deep-dive": [
-    {
-      "severity": "narrows",
-      "lectureSays": "โน้ตเขียนหัวข้อ uvea ว่า ERU/uveitis มี leptospirosis link โดยไม่ระบุขอบเขตทางภูมิศาสตร์",
-      "evidenceSays": "งาน Analysis of 1840 equine intraocular fluid samples for the presence of anti-Leptospira antibodies and leptospiral DNA, PMID 36006363, doi 10.3390/vetsci9080448 พบใน intraocular sample ของตา ERU มี MAT titre ตั้งแต่ 1:100 ขึ้นไป 83% และตรวจพบ leptospiral DNA ด้วย PCR 72% ขณะที่ตาปกติและ uveitis จากสาเหตุอื่นตรวจไม่พบ antibody เลย แต่ Gilger et al., PMID 18828691, doi 10.2460/ajvr.69.10.1329 ไม่พบ intraocular bacterial DNA และไม่พบความต่างของ titre ระหว่างม้า ERU กับม้าปกติในสหรัฐฯ ตะวันออกเฉียงใต้ ผู้เขียนยังแนะนำให้ใช้ MAT ร่วมกับ ELISA และ PCR จึงจะวินิจฉัยเชื่อถือได้",
-      "examAdvice": "ตอบว่า ERU สัมพันธ์กับ leptospirosis ตามที่อาจารย์สอน แล้วเติมได้ว่าความสัมพันธ์นี้แรงต่างกันตามภูมิภาค ไม่ใช่สาเหตุเดียวทุกที่",
-      "sourceRef": "PMID 36006363 (doi 10.3390/vetsci9080448)"
     }
   ],
   "equine-medicine--equine-poa--pe-lameness-diagnostic-workflow-กรอบ-poa": [
@@ -1134,7 +1107,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 15656504 (doi 10.2746/0425164044848154)"
     }
   ],
-  "equine-medicine--equine-tendon--incidence": [
+  "equine-medicine--equine-tendon--อุบัติการณ์-และเอ็นที่บาดเจ็บบ่อย": [
     {
       "severity": "contradicts",
       "lectureSays": "โน้ตเขียน incidence ของ bowed tendon ว่า 18% (Japan) ถึง 48% (Marr et al. 1993) ของม้าที่อยู่ในการฝึก",

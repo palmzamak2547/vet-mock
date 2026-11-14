@@ -424,7 +424,7 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
                   placeholder="แนะนำตัวสั้น ๆ — อะไรที่อยากให้คนรู้"
                   maxLength={140}
                   rows={2}
-                  style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit', fontSize: 14, padding: 8, border: '1px solid var(--clr-border)', borderRadius: 8, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+                  style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit', fontSize: 16, padding: 8, border: '1px solid var(--clr-border)', borderRadius: 8, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
                 />
                 <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
                   {editBio.length}/140

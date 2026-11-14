@@ -1157,24 +1157,16 @@
       "confidence": "supporting"
     },
     {
-      "questionId": 6631,
-      "sectionId": "equine-medicine--equine-respi--urt-vs-lrt-specific-diseases",
-      "confidence": "supporting"
-    },
-    {
-      "questionId": 6642,
-      "sectionId": "equine-medicine--equine-gi--esophagus-choke",
-      "confidence": "supporting"
-    },
-    {
       "questionId": 6644,
-      "sectionId": "equine-medicine--equine-colic-bestfit--approach-classification-decision-tree",
-      "confidence": "supporting"
+      "sectionId": "equine-medicine--equine-colic-bestfit--colic-คืออะไร-สาเหตุโน้มนำ-และอาการ",
+      "confidence": "supporting",
+      "reason": "the key is heart rate rising with pain; this section lists a raised pulse among colic signs (GI I p.17)"
     },
     {
       "questionId": 6650,
-      "sectionId": "equine-medicine--equine-tendon--incidence",
-      "confidence": "strong"
+      "sectionId": "equine-medicine--equine-tendon--อุบัติการณ์-และเอ็นที่บาดเจ็บบ่อย",
+      "confidence": "strong",
+      "reason": "the key is SDF tendinitis as the \"bowed tendon\"; this section names the term and puts SDFT first among injured structures (p.2-3)"
     },
     {
       "questionId": 6651,
@@ -1183,8 +1175,9 @@
     },
     {
       "questionId": 6701,
-      "sectionId": "equine-medicine--equine-colic-surgery--pre-op-intra-op-pictures-case-slides",
-      "confidence": "strong"
+      "sectionId": "equine-medicine--equine-colic-surgery--เตรียมม้า-ผ่า-colon-และหลังผ่าตัด",
+      "confidence": "supporting",
+      "reason": "the key is dorsal recumbency for colic laparotomy; this section warns about dorsal recumbency during the surgery (Surgery & anesthesia p.42), it does not state the choice as a rule, so supporting, not strong"
     },
     {
       "questionId": 6810,

@@ -341,7 +341,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
               border: '1px solid var(--clr-border)',
               background: 'var(--clr-surface)',
               color: 'var(--clr-ink)',
-              fontSize: 15,
+              fontSize: 16,
             }}
           />
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ minHeight: 44 }} onClick={onClose}>
@@ -551,7 +551,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
                 border: '1px solid var(--clr-border)',
                 background: 'var(--clr-surface)',
                 color: 'var(--clr-ink)',
-                fontSize: 14,
+                fontSize: 16,
                 marginBottom: 8,
               }}
             />
@@ -568,7 +568,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
                 border: '1px solid var(--clr-border)',
                 background: 'var(--clr-surface)',
                 color: 'var(--clr-ink)',
-                fontSize: 14,
+                fontSize: 16,
                 resize: 'vertical',
                 fontFamily: 'inherit',
               }}
