@@ -171,8 +171,8 @@ test('a timed paper whose record cannot be written says so', async ({ page, cont
     };
   });
   await page.locator('.vmx-option').first().click();
-  await expect(page.getByText(/บันทึกคำตอบลงเครื่องไม่สำเร็จ/)).toBeVisible();
-  await expect(page.getByText(/บันทึกคำตอบลงเครื่องไม่สำเร็จ/)).toHaveCount(1);
+  await expect(page.getByText(/บันทึกคำตอบลงเครื่องไม่ได้ \(พื้นที่อาจเต็ม\) อย่าปิดหน้านี้จนกว่าจะส่งชุด/)).toBeVisible();
+  await expect(page.getByText(/บันทึกคำตอบลงเครื่องไม่ได้ \(พื้นที่อาจเต็ม\) อย่าปิดหน้านี้จนกว่าจะส่งชุด/)).toHaveCount(1);
 });
 
 // item 3

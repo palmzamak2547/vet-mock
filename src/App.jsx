@@ -222,7 +222,7 @@ import { deadlineOnWall } from './lib/exam-clock.js';
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
 
 // What the exam says when its own record cannot be written (storage full or blocked).
-const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเครื่องไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม ถ้าปิดหน้านี้ คำตอบชุดนี้อาจหาย';
+const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเครื่องไม่ได้ (พื้นที่อาจเต็ม) อย่าปิดหน้านี้จนกว่าจะส่งชุด';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
 // payload doesn't grow on existing users. Skipped on local hosts: `vite
