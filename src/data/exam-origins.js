@@ -317,6 +317,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "เขียนขึ้นจากสรุปสถานการณ์ rabies ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป bacterial zoonosis ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป SRRT ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสไลด์ angiostrongylosis (Vet 85)": { kind: 'source-doc' },
   "เขียนขึ้นจากสไลด์ animal rabies in Thailand (Vet 85)": { kind: 'source-doc' },

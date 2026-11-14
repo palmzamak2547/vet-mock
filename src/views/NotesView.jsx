@@ -676,7 +676,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
           <SlideFigures sectionId={figSectionId} source={section.source || ''} />
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-              แหล่งที่มา: {section.source}
+              แหล่งที่มา: {section.source.replace(/\s*·\s*/g, ', ')}
             </div>
           )}
         </MotionEnter>

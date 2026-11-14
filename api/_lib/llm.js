@@ -47,6 +47,31 @@ const cut = (s, n = 300) => String(s ?? '').slice(0, n);
 export const ANTHROPIC_MODEL = 'claude-sonnet-5-5';
 export const anthropicModel = (env = process.env) => env.AI_GRADER_MODEL || ANTHROPIC_MODEL;
 
+/**
+ * Does Anthropic still serve the model in use? One GET of /v1/models/<id>
+ * (no token spent), shared by the admin card and the public health answer.
+ * Only a 404 means the id is retired; a key Anthropic refuses is its own
+ * state, and a 429, a 5xx, a timeout or a network error is "unknown": a
+ * brief outage is never reported as a retirement.
+ * @returns {Promise<{ state: 'off'|'served'|'retired'|'rejected'|'unknown', status: number|null, model: string, error?: unknown }>}
+ */
+export async function anthropicModelStatus({ env = process.env, fetchImpl = fetch, timeoutMs = 8000 } = {}) {
+  const model = anthropicModel(env);
+  if (!env.ANTHROPIC_API_KEY) return { state: 'off', status: null, model };
+  try {
+    const res = await fetchImpl(`https://api.anthropic.com/v1/models/${encodeURIComponent(model)}`, {
+      headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    if (res.ok) return { state: 'served', status: res.status, model };
+    if (res.status === 404) return { state: 'retired', status: 404, model };
+    if (res.status === 401 || res.status === 403) return { state: 'rejected', status: res.status, model };
+    return { state: 'unknown', status: res.status, model };
+  } catch (error) {
+    return { state: 'unknown', status: null, model, error };
+  }
+}
+
 // First match wins, so a longer id stands before the id it starts with.
 //   direct   — the fields that make the model answer without a thinking pass.
 //              These routes ask for a short JSON object or a streamed answer

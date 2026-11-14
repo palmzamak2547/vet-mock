@@ -168,6 +168,11 @@ export default async function handler(req, res) {
   // here too, because PostgREST treats a bad JWT as anonymous.
   if (!doc.storage_key) return send(res, 401, { error: 'login_required' });
 
+  // A document held for personal data reaches only the admin, who reviews it
+  // (migration 20261114120000). Signed as restricted material: no cached link
+  // response, and a file the service worker never keeps as a public offline copy.
+  if (doc.held === true) doc = { ...doc, status: 'restricted' };
+
   if (doc.storage_provider !== 'r2') {
     // Supabase-hosted rows are signed in the browser against the user's own
     // session; this endpoint exists for the private object store.

@@ -16,7 +16,7 @@ import { externalCapabilities } from './external-connections.js';
 import { rateLimit } from './rate-limit.js';
 import { presign, tokenKeyEnv } from './r2.js';
 import { voiceConfig, readBalance, budgetVerdict } from './ai/voice.js';
-import { anthropicModel } from './llm.js';
+import { anthropicModelStatus } from './llm.js';
 
 const DAY = 86_400_000;
 const CHECK_MS = 8000;
@@ -111,18 +111,17 @@ const CHECKS = [
       if (!env.ANTHROPIC_API_KEY) return r('off', 'ไม่ได้ตั้ง ANTHROPIC_API_KEY ถ้า DeepSeek ล่ม AI จะไม่มีทางสำรอง');
       // Asks for the model the routes use, not for the list: a key can be
       // fine while the model has been retired, which Anthropic answers with
-      // 404 and which ends the fallback as surely as a dead key.
-      const model = anthropicModel(env);
-      const res = await fetchImpl(`https://api.anthropic.com/v1/models/${encodeURIComponent(model)}`, {
-        headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' }, signal: signal(),
-      });
-      if (res.ok) return r('ok', `คีย์ใช้ได้ และรุ่น ${model} ยังให้บริการ ส่วนยอดเครดิตดูที่ console.anthropic.com`);
-      if (res.status === 404) {
+      // 404 and which ends the fallback as surely as a dead key. The same
+      // check feeds the public health answer (api/_lib/ai/health.js).
+      const { state, status, model, error } = await anthropicModelStatus({ env, fetchImpl, timeoutMs: CHECK_MS });
+      if (state === 'served') return r('ok', `คีย์ใช้ได้ และรุ่น ${model} ยังให้บริการ ส่วนยอดเครดิตดูที่ console.anthropic.com`);
+      if (state === 'retired') {
         return r('down', `Anthropic เลิกให้บริการรุ่น ${model} แล้ว AI จึงไม่มีทางสำรอง`, env.AI_GRADER_MODEL
           ? 'แก้ AI_GRADER_MODEL ใน Vercel เป็นรุ่นปัจจุบัน หรือลบออกเพื่อใช้รุ่นเริ่มต้นของระบบ'
           : 'แก้ ANTHROPIC_MODEL ใน api/_lib/llm.js เป็นรุ่นปัจจุบัน หรือตั้ง AI_GRADER_MODEL ใน Vercel');
       }
-      return r('down', `คีย์ใช้ไม่ได้ (Anthropic ตอบ ${res.status})`);
+      if (status == null) throw error;
+      return r('down', `คีย์ใช้ไม่ได้ (Anthropic ตอบ ${status})`);
     },
   },
   {
