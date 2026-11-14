@@ -27,10 +27,10 @@ Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**,
 
 | | |
 |---|---|
-| Note files | 37 |
-| Topics | 415 |
-| Sections | 4345 |
-| Sections carrying a source locator | 4345 (100%) |
+| Note files | 38 |
+| Topics | 423 |
+| Sections | 4409 |
+| Sections carrying a source locator | 4409 (100%) |
 
 ## Video summaries
 
@@ -44,11 +44,11 @@ Consistency: source banks **9052**, learner-ready **8841**, fail-closed **211**,
 
 | | |
 |---|---|
-| Governed topics | 242 |
-| Governed sections | 2035 |
-| Claims verified against an external source | 3416 |
-| Distinct external sources cited | 2189 |
-| Share of note sections governed | 46.8% |
+| Governed topics | 249 |
+| Governed sections | 2099 |
+| Claims verified against an external source | 3480 |
+| Distinct external sources cited | 2236 |
+| Share of note sections governed | 47.6% |
 
 ## VetWiki coverage of questions
 
@@ -88,7 +88,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | surg1 | 29 | 3 | 3 | 10.3% |
 | surg2 | 18 | 1 | 1 | 5.6% |
 | surg3 | 40 | 0 | 0 | 0.0% |
-| swine-clinic | 258 | 155 | 0 | 60.1% |
+| swine-clinic | 258 | 258 | 0 | 100.0% |
 | swine-herd | 36 | 0 | 0 | 0.0% |
 | swine-repro | 29 | 0 | 0 | 0.0% |
 | vca | 1342 | 88 | 88 | 6.6% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8841 | 5563 | 332 | 62.9% |
+| **All** | 8841 | 5666 | 332 | 64.1% |
