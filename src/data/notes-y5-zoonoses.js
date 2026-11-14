@@ -6601,7 +6601,6 @@ export const NOTES_Y5_ZOONOSES = {
           { bullets: [
             'อาจารย์: **Woraporn Sukhumavasi**, DVM, PhD',
             'Parasitology Unit, Department of Pathology, Faculty of Veterinary Science, Chulalongkorn University',
-            'Email: vetkwan@hotmail.com',
             '⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — ดู "Zoonosis Final Vet82 Myco Protozoa ตรงมาก.pdf"',
           ] },
         ],
