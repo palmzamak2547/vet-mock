@@ -182,7 +182,7 @@ export default function ClozeEditor({
             border: '1px solid var(--clr-border)',
             background: 'var(--clr-surface-2, #f7f6f1)',
             color: 'var(--clr-ink)',
-            fontSize: 15,
+            fontSize: 16,
             fontFamily: 'inherit',
             lineHeight: 1.55,
             resize: 'vertical',
@@ -281,7 +281,7 @@ export default function ClozeEditor({
             border: '1px solid var(--clr-border)',
             background: 'var(--clr-surface, #fff)',
             color: 'var(--clr-ink)',
-            fontSize: 15,
+            fontSize: 16,
             fontFamily: 'inherit',
             boxSizing: 'border-box',
           }}

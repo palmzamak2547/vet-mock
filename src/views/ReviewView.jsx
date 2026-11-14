@@ -95,7 +95,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
           borderRadius: 6,
           border: '1px solid var(--clr-border)',
           fontFamily: 'inherit',
-          fontSize: 14,
+          fontSize: 16,
           lineHeight: 1.5,
           resize: 'vertical',
           background: 'var(--clr-bg)',

@@ -100,7 +100,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
               inputMode="numeric"
               value={inputGoal}
               onChange={(e) => setInputGoal(e.target.value)}
-              style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 14, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+              style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 16, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
             />
             <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={saveGoal}>บันทึก</button>
           </span>
@@ -141,7 +141,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
             onChange={(e) => setTaskInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') addTask(); }}
             placeholder="เพิ่มรายการสิ่งที่ต้องทำ..."
-            style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 14, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+            style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 16, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
           />
           <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={addTask} disabled={!taskInput.trim()}>
             เพิ่ม
