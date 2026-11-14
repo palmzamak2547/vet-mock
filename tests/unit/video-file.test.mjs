@@ -8,6 +8,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import handler, { VIDEO_TTL } from '../../api/video-file.js';
 import { resetChulaGate } from '../../api/_lib/chula-gate.js';
+import { sessionToken } from '../helpers/supabase-jwt.mjs';
 import { VIDEO_REGISTRY } from '../../src/data/video-registry.generated.js';
 
 const withCopy = Object.keys(VIDEO_REGISTRY).find((id) => VIDEO_REGISTRY[id].media);
@@ -38,7 +39,8 @@ const wall = (enforce, byToken) => async (u, init) => {
   if (url.endsWith('/user/tokens/verify')) return { ok: true, status: 200, json: async () => ({ success: true, result: { id: 'token-id', status: 'active' } }) };
   throw new Error(`unrouted ${url}`);
 };
-const STUDENT = 'a'.repeat(40);
+// Shaped like a session token: the gate reads it locally before the database.
+const STUDENT = sessionToken('https://db.example', { sub: 'student-1' });
 
 test('a guest is asked to sign in before any storage call', async () => {
   resetChulaGate();

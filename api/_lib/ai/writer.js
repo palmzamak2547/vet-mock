@@ -153,7 +153,7 @@ async function attempt(provider, { system, messages, maxTokens, temperature, onD
   };
   try {
     const req = provider.request({ system, messages, maxTokens, temperature });
-    const res = await fetchImpl(req.url, { method: 'POST', headers: req.headers, body: JSON.stringify(req.body), signal: ac.signal });
+    const res = await fetchImpl(req.url, { redirect: 'error', method: 'POST', headers: req.headers, body: JSON.stringify(req.body), signal: ac.signal });
     if (!res.ok) {
       const detail = await res.text().catch(() => '');
       console.error('[ai-chat] writer', provider.id, res.status, cut(detail));

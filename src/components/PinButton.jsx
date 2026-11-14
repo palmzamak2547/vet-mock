@@ -31,7 +31,7 @@ import { useMotionFeedback } from './MotionFeedback.jsx';
 // its modal does not take the message with it, and clears itself.
 let statusNode = null;
 let statusTimer = 0;
-export function pinStatusMessage(pinned, label) {
+function pinStatusMessage(pinned, label) {
   const name = String(label || '').trim();
   const short = name.length > 40 ? `${name.slice(0, 40)}…` : name;
   const tail = short ? `: ${short}` : '';

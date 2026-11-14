@@ -8,7 +8,8 @@
 // client (same trust shape as wiki-explain's citations). The client shows
 // the validated plan and the STUDENT confirms before anything runs.
 
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, allowedOrigin, limitCaller } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { buildCatalog, validateAction } from './_lib/agent-actions.js';
 import { requireChula } from './_lib/chula-gate.js';
@@ -64,15 +65,16 @@ export default async function handler(req, res) {
   const gate = await requireChula(req, res);
   if (!gate) return undefined;
 
-  const ip = clientIP(req);
-  const rl = await rateLimit(`agent-action:${ip}`, 30, 60 * 60 * 1000);
+  const rl = await limitCaller(req, gate, 'agent-action', 30, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
   if (!llmConfigured()) {
     return res.status(503).json({ error: 'Agent not configured' });
   }
 
   try {
-    const utterance = String(req.body?.utterance || '').slice(0, MAX_UTTERANCE).trim();
+    const body = readJsonBody(req);
+    if (!body) return sendBadBody(res);
+    const utterance = String(body.utterance || '').slice(0, MAX_UTTERANCE).trim();
     if (!utterance) return res.status(400).json({ error: 'utterance is required' });
 
     const providerBudget = await rateLimit('provider:llm:daily', LLM_DAILY_BUDGET, 24 * 60 * 60 * 1000);
@@ -119,6 +121,7 @@ export default async function handler(req, res) {
     if (/invalid json/i.test(String(err?.message || ''))) {
       return res.status(400).json({ error: 'Invalid JSON body' });
     }
-    return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
+    console.error('[agent-action] unexpected:', String(err?.message || err).slice(0, 300));
+    return res.status(500).json({ error: 'Unexpected error', code: 'unexpected' });
   }
 }

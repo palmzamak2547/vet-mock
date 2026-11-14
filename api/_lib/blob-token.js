@@ -1,3 +1,4 @@
+// @ts-check
 // ============================================================
 // blob-token.js — self-expiring signed links for /api/library-blob.
 // ============================================================
@@ -36,7 +37,16 @@ function macKey(env = process.env) {
   return crypto.createHash('sha256').update(`vetmock-library-blob:${secret}`).digest();
 }
 
-export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env = process.env, now = Date.now() } = {}) {
+// user: the member the link is minted for (api/library-file.js), so the bytes
+// it pulls are budgeted on their account (api/library-blob.js). The link holds
+// a keyed digest of the id, not the id: anyone handed a link can read its
+// payload. A link minted from an open ticket carries none and is budgeted by
+// address.
+/**
+ * @param {{ storage_bucket?: string, storage_key?: string, mime?: string, byte_size?: number | null, status?: string, file_name?: string }} doc
+ * @param {{ ttlSeconds?: number, expiresAtSec?: number | null, env?: Record<string, string | undefined>, now?: number, user?: string | null }} [opts]
+ */
+export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env = process.env, now = Date.now(), user = null } = {}) {
   const key = macKey(env);
   if (!key) return null;
   const payload = JSON.stringify({
@@ -46,10 +56,11 @@ export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env 
     n: doc.byte_size ?? null,
     a: doc.status === 'public' ? 'public' : 'restricted',
     ...(doc.file_name ? { f: doc.file_name } : {}),
+    ...(typeof user === 'string' && user ? { u: crypto.createHmac('sha256', key).update(`member:${user}`).digest('base64url').slice(0, 22) } : {}),
     // A fixed expiry makes the token — and therefore the URL — identical for
     // every mint inside a time window, which is what lets the browser's HTTP
     // cache serve a re-opened document instead of re-streaming it.
-    e: Number.isFinite(expiresAtSec) ? Math.floor(expiresAtSec) : Math.floor(now / 1000) + ttlSeconds,
+    e: typeof expiresAtSec === 'number' && Number.isFinite(expiresAtSec) ? Math.floor(expiresAtSec) : Math.floor(now / 1000) + ttlSeconds,
   });
   const t = b64u(payload);
   const s = b64u(crypto.createHmac('sha256', key).update(t).digest());

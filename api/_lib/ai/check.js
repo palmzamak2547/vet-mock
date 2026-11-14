@@ -94,7 +94,7 @@ const NUMBER_WORDS = {
   single: 1, double: 2, twice: 2, triple: 3, dozen: 12,
 };
 const NUMBER_WORD_RE = new RegExp(`\\b(${Object.keys(NUMBER_WORDS).join('|')})\\b`, 'gi');
-export const withNumberWords = (text) => String(text ?? '').replace(NUMBER_WORD_RE, (w) => `${w} ${NUMBER_WORDS[w.toLowerCase()]} `);
+const withNumberWords = (text) => String(text ?? '').replace(NUMBER_WORD_RE, (w) => `${w} ${NUMBER_WORDS[w.toLowerCase()]} `);
 
 /**
  * @param {string} answer         the text the student saw

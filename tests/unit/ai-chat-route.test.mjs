@@ -125,7 +125,8 @@ test('refusals come before the stream as JSON the page can read', async () => {
 });
 
 test('students on one campus address each have their own limit', async () => {
-  const students = { 'campus.token.a.0123456789abcdef': 'u-campus-a', 'campus.token.b.0123456789abcdef': 'u-campus-b' };
+  const { sessionToken } = await import('../helpers/supabase-jwt.mjs');
+  const students = { [sessionToken('https://x.supabase.co', { sub: 'u-campus-a' })]: 'u-campus-a', [sessionToken('https://x.supabase.co', { sub: 'u-campus-b' })]: 'u-campus-b' };
   const ask = async (token) => {
     const res = fakeRes();
     await handler(fakeReq({ body: { messages: [{ role: 'user', content: 'สวัสดีครับ' }] }, headers: { 'x-vercel-forwarded-for': '161.200.1.1', authorization: `Bearer ${token}` } }), res);

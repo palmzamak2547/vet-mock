@@ -105,6 +105,83 @@ test('a grade survives the junk a model appends after the JSON object', async ()
   assert.equal(res.headers['cache-control'], 'private, no-store');
 });
 
+test('a grade above its maximum or a total that does not add up never reaches the student', async () => {
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const { default: handler } = await import('../../api/grade-summary.js');
+  const text = '{"scores":{"answer":{"earned":9,"justification":"x"},"bonus":{"earned":40,"total":40}},"totalScore":99}';
+  const res = fakeRes();
+  await withFetch(async () => claudeReply(text), () => handler(gradeReq(), res));
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(Object.keys(res.body.scores), ['answer'], 'a category the rubric does not have is dropped');
+  assert.equal(res.body.scores.answer.earned, 2, 'clamped to the rubric maximum');
+  assert.equal(res.body.scores.answer.total, 2, 'the maximum comes from the rubric, not the model');
+  assert.equal(res.body.totalScore, 2, 'recomputed from the parts');
+  for (const bad of ['{"scores":{"answer":{"earned":"lots"}},"totalScore":2}', '{"totalScore":2}', '{"scores":{}}', '[1,2]']) {
+    const r = fakeRes();
+    await withFetch(async () => claudeReply(bad), () => handler(gradeReq(), r));
+    assert.equal(r.statusCode, 502, bad);
+  }
+});
+
+test('a short answer is out of the points its question states; another scale is scaled, a half point kept', async () => {
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const { default: handler } = await import('../../api/grade-summary.js');
+  const { default: written } = await import('../../api/_lib/written-questions.generated.json', { with: { type: 'json' } });
+  const { statedPoints, normalizeGrading } = await import('../../api/_lib/grade-shape.js');
+  // Real items: 209627 and 209545 state 10 points, 209565 states 20.
+  assert.equal(statedPoints(written['209627'].q), 10);
+  assert.equal(statedPoints(written['209545'].q), 10);
+  assert.equal(statedPoints(written['209565'].q), 20);
+  const stated = Object.values(written).filter((q) => q.type !== 'essay' && statedPoints(q.q));
+  assert.ok(stated.length >= 6, `items that state their points: ${stated.length}`);
+  const grade = async (qid, reply) => {
+    const res = fakeRes();
+    let prompt = '';
+    await withFetch(async (url, init) => { prompt = String(init?.body || ''); return claudeReply(reply); },
+      () => handler({ ...gradeReq(), body: { qid, userAnswer: 'An answer.' } }, res));
+    return { res, prompt };
+  };
+  const ten = await grade('209627', '{"scores":{"answer":{"earned":6,"total":10}}}');
+  assert.equal(ten.res.statusCode, 200, JSON.stringify(ten.res.body));
+  assert.deepEqual([ten.res.body.scores.answer.earned, ten.res.body.scores.answer.total, ten.res.body.totalScore], [6, 10, 6], '6 of 10 stays 6/10');
+  assert.match(ten.prompt, /worth 10 points/, 'the grader is told the item\'s points');
+  const scaled = await grade('209627', '{"scores":{"answer":{"earned":1.5,"total":2}}}');
+  assert.equal(scaled.res.body.scores.answer.earned, 7.5, '1.5 of 2 is scaled to 7.5 of 10');
+  const half = normalizeGrading({ scores: { ' Answer ': { earned: 1.5, total: 2 } } }, 'short');
+  assert.equal(half.ok, true, 'a category name differing by case or spacing is matched');
+  assert.equal(half.grading.scores.answer.earned, 1.5, '1.5 of 2 is never shown as 2/2');
+  assert.equal(half.grading.totalScore, 1.5);
+  assert.equal(normalizeGrading({ scores: { answer: { earned: 1.9 } } }, 'short').grading.scores.answer.earned, 1.5, 'cut to the half point below');
+  const caps = normalizeGrading({ scores: { Content: { earned: 6 }, GRAMMAR: { earned: 4 }, 'para_phrase': { earned: 2 } } }, 'essay', { wordCount: 150 });
+  assert.equal(caps.ok, true);
+  assert.equal(caps.grading.totalScore, 12);
+});
+
+test('a question id on the object prototype names no question', async () => {
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const { default: handler } = await import('../../api/grade-summary.js');
+  for (const qid of ['__proto__', 'constructor', 'toString', 'hasOwnProperty']) {
+    const res = fakeRes();
+    let called = false;
+    await withFetch(async () => { called = true; return claudeReply('{}'); }, () => handler({ ...gradeReq(), body: { qid, userAnswer: 'x' } }, res));
+    assert.equal(res.statusCode, 400, qid);
+    assert.equal(called, false, qid);
+  }
+});
+
+test('the essay rubric: scores clamped, the word penalty counted on the server, the total recomputed', async () => {
+  const { normalizeGrading } = await import('../../api/_lib/grade-shape.js');
+  const raw = { scores: { content: { earned: 7.6 }, grammar: { earned: -3 }, paraphrase: { earned: '2' } }, totalScore: 15, wordCountPenalty: { applied: 0 } };
+  const r = normalizeGrading(raw, 'essay', { wordCount: 190, softMax: 180, hardMax: 200 });
+  assert.equal(r.ok, true);
+  assert.deepEqual([r.grading.scores.content.earned, r.grading.scores.grammar.earned, r.grading.scores.paraphrase.earned], [7, 0, 2]);
+  assert.equal(r.grading.wordCountPenalty.applied, 1);
+  assert.equal(r.grading.totalScore, 8);
+  assert.equal(r.grading.maxScore, 15);
+  assert.equal(normalizeGrading({ scores: { content: { earned: 1 }, grammar: { earned: 1 } } }, 'essay').ok, false, 'a missing category is refused');
+  assert.equal(normalizeGrading({ scores: { content: { earned: 0 }, grammar: { earned: 0 }, paraphrase: { earned: 0 } } }, 'essay', { wordCount: 300 }).grading.totalScore, 0, 'never below zero');
+});
+
 test('a reply with no JSON object is a 502 the client can explain, not a 500', async () => {
   process.env.ANTHROPIC_API_KEY = 'test-key';
   const { default: handler } = await import('../../api/grade-summary.js');
@@ -133,7 +210,7 @@ test('grading works with the configured primary provider and no optional provide
   try {
     const { default: handler } = await import('../../api/grade-summary.js');
     const res = fakeRes();
-    await withFetch(async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"totalScore":2,"scores":{}}' } }] }), {
+    await withFetch(async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"totalScore":2,"scores":{"answer":{"earned":2,"total":2}}}' } }] }), {
       headers: { 'content-type': 'application/json' },
     }), () => handler(gradeReq(), res));
     assert.equal(res.statusCode, 200);
@@ -247,14 +324,16 @@ test('the library bytes route refuses one link hammered from one address, not th
     assert.ok(limited, 'one link was streamed 1000 times from one address with no limit');
     assert.equal(served, mod.BLOB_RATE?.max);
     assert.equal(upstreamCalls, served, 'a refused request must not reach storage');
-    assert.equal(limited.body?.reason ?? JSON.parse(limited.body || '{}').reason, 'rate_limited');
+    assert.match(String(limited.headers['content-type']), /text\/html/, 'a page in Thai, not JSON');
     const next = fakeRes(); next.once = () => {};
     await mod.default(req(linkFor('deck-b')), next);
     assert.equal(next.statusCode, 404, 'another deck from the same address keeps its own budget');
   });
   const { readFileSync } = await import('node:fs');
   const src = readFileSync(new URL('../../api/library-blob.js', import.meta.url), 'utf8');
-  assert.match(src, /if \(!limit\.ok && !limit\.unavailable\) return sendRateLimitFailure\(res, limit\);/, 'a limiter outage must not close the library');
+  // A reading surface (AGENTS.md, Library and sync): an outage falls back to
+  // the instance's own budget instead of refusing (api-limits.test.mjs walks it).
+  assert.match(src, /shared\.unavailable \? rateLimitLocal\(/);
 });
 
 // The limit protects the bill, not access: when the shared limiter is down the library still opens.

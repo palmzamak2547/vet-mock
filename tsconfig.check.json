@@ -1,0 +1,23 @@
+{
+  // The type check of plain JavaScript (npm run typecheck, in lint:data).
+  // Only the files listed in scripts/typecheck-files.json are checked, and each
+  // starts with `// @ts-check`; every other file is read for its types only.
+  // No file is compiled: the build stays Vite's.
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "target": "es2022",
+    "lib": ["es2023", "dom", "dom.iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "strict": true,
+    "noImplicitAny": false,
+    "useUnknownInCatchVariables": false,
+    "noFallthroughCasesInSwitch": true
+  }
+}

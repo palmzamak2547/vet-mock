@@ -1,13 +1,17 @@
 // The Chula wall for Vercel functions (api/_lib/chula-gate.js).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { chulaGate, requireChula, resetChulaGate } from '../../api/_lib/chula-gate.js';
+import { API_DIR, apiHandlerNames } from '../helpers/api-handlers.mjs';
+import { sessionToken } from '../helpers/supabase-jwt.mjs';
 
 const env = { VITE_SUPABASE_URL: 'https://x.supabase.co', VITE_SUPABASE_ANON_KEY: 'anon-key-0123456789abcdef' };
-const MEMBER = 'member.token.0123456789abcdef';
-const GMAIL = 'gmail.token.0123456789abcdef';
-const EXPIRED = 'expired.token.0123456789abcdef';
+// Well-formed session tokens: the gate reads them locally before asking the database.
+const MEMBER = sessionToken('https://x.supabase.co', { sub: 'u-member' });
+const GMAIL = sessionToken('https://x.supabase.co', { sub: 'u-gmail' });
+// Well-formed, and refused by the database (a revoked session).
+const EXPIRED = sessionToken('https://x.supabase.co', { sub: 'u-revoked' });
 const req = (token) => ({ headers: token ? { authorization: `Bearer ${token}` } : {} });
 
 function backend(enforce) {
@@ -110,23 +114,36 @@ test('requireChula answers the refusal uncached and returns null', async () => {
 });
 
 test('every function is behind the gate or open on purpose, and a new one must say which', () => {
-  const gated = ['ai-chat', 'ai-transcribe', 'agent-action', 'evidence-pass', 'exam-result', 'external-connect', 'external-connect-start',
-    'fetch-external-doc', 'grade-summary', 'library-file', 'list-external-files', 'mochi-voice', 'race-start', 'ai-voice',
-    'study-coach', 'transcribe-handwriting', 'tts', 'tts-iapp', 'video-file', 'wiki-explain'];
-  for (const name of gated) {
-    const src = readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8');
-    assert.match(src, /await (requireChula|chulaGate)\(req/, `${name} must call the Chula gate`);
+  // The list is the folder (tests/helpers/api-handlers.mjs): a new api/*.js file is checked here the
+  // moment it exists. A handler is gated when it awaits the gate on its request; any other must be
+  // named below with the reason it is open.
+  const OPEN = {
+    'client-diagnostic': 'crash counts, sent before or without a sign-in',
+    'send-feedback': 'the feedback lifeline, which must work for a student the wall refuses',
+    calendar: 'a public calendar feed a phone subscribes to with no session',
+    'library-blob': 'the signed byte link library-file hands out; the signature is the access check',
+    'external-connect-callback': 'the OAuth return, which arrives from the provider without our header',
+    'move-in': 'the old-origin move, run on vetmock.vercel.app before any session exists there',
+    'system-status': "the admin's own probe, which checks the admin itself",
+    playlist: 'public YouTube playlist titles: edge-cached for half an hour, its Data API spend capped daily, and the video page asks ~40 at once',
+  };
+  const src = (name) => readFileSync(`${API_DIR}${name}.js`, 'utf8');
+  const all = apiHandlerNames();
+  assert.ok(all.length >= 28, `handlers found: ${all.length}`);
+  const gated = all.filter((name) => /await (requireChula|chulaGate)\(req/.test(src(name)));
+  for (const name of all) {
+    assert.ok(gated.includes(name) || OPEN[name], `api/${name}.js does not call the Chula gate and is not named as open on purpose: gate it, or add it to OPEN with the reason`);
   }
-  // Open on purpose: crash counts, the feedback lifeline, a public calendar feed,
-  // the signed byte link, the OAuth return, the old-origin move, the admin's own
-  // probe, and public YouTube playlist titles (edge-cached for half an hour, its
-  // Data API spend capped daily, and the video page asks ~40 at once).
-  const open = ['client-diagnostic', 'send-feedback', 'calendar', 'library-blob', 'external-connect-callback', 'move-in', 'system-status', 'playlist'];
-  const all = readdirSync(new URL('../../api/', import.meta.url)).filter((f) => f.endsWith('.js')).map((f) => f.slice(0, -3));
-  assert.deepEqual(all.sort(), [...gated, ...open].sort(), 'every api/*.js is listed as gated or open here');
-  for (const name of open) {
-    assert.doesNotMatch(readFileSync(new URL(`../../api/${name}.js`, import.meta.url), 'utf8'), /chula-gate/, name);
+  // The feedback lifeline asks the gate only who is writing, to count a member
+  // on their own allowance; it never refuses on the gate's answer.
+  const identifiesOnly = new Set(['send-feedback']);
+  for (const name of Object.keys(OPEN)) {
+    assert.ok(all.includes(name), `OPEN names api/${name}.js, which no longer exists`);
+    assert.doesNotMatch(src(name), /requireChula/, `${name} is listed as open but refuses on the gate: drop it from OPEN`);
+    if (!identifiesOnly.has(name)) assert.doesNotMatch(src(name), /chula-gate/, `${name} is listed as open but imports the gate: drop it from OPEN`);
   }
+  const feedback = readFileSync(new URL('../../api/send-feedback.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(feedback, /gate\.(status|body)\b/, 'send-feedback never answers with the gate\'s refusal');
 });
 
 test('an open ticket names one document for a day and nothing else', async () => {

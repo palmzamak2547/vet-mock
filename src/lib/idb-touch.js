@@ -8,7 +8,7 @@
 // counts as new data for the next move. One short value, written in place.
 // ============================================================
 
-export const IDB_TOUCH_KEY = 'vmx-idb-touched';
+const IDB_TOUCH_KEY = 'vmx-idb-touched';
 
 export function touchStudyStores() {
   try {

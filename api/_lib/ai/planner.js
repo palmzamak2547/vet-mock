@@ -26,7 +26,7 @@ import { subjectsInText, resolveSubjectRef } from './subjects.js';
 import { featureLink } from './links.js';
 import { clip } from './text.js';
 
-export const INTENTS = Object.freeze(['answer', 'quiz', 'files', 'action', 'research', 'guide', 'chat']);
+const INTENTS = Object.freeze(['answer', 'quiz', 'files', 'action', 'research', 'guide', 'chat']);
 const ACTION_TYPES = new Set(['practice', 'library', 'wiki', 'feature']);
 const FILE_KIND_IDS = new Set(['any', 'slide', 'handout', 'summary', 'textbook', 'pastpaper', 'guideline']);
 
@@ -191,7 +191,7 @@ export function parsePlan(text, fallback) {
 }
 
 /** The last few turns, clipped, as the planner reads them. */
-export function plannerTranscript(messages, imageText = '') {
+function plannerTranscript(messages, imageText = '') {
   const lines = messages.slice(-6).map((m) => `${m.role === 'user' ? 'student' : 'assistant'}: ${clip(m.content.replace(/\[\d+\]/g, ''), m.role === 'user' ? 800 : 400)}`);
   if (imageText) lines.push(`(the student attached an image; it shows: ${clip(imageText, 500)})`);
   return lines.join('\n');

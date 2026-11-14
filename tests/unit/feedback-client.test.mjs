@@ -37,6 +37,7 @@ function reply(status, body, contentType = 'application/json') {
 
 const ANSWERS = {
   daily_cap: () => reply(429, { error: 'Daily feedback capacity reached', reason: 'daily_cap', retryAfter: 43200 }),
+  daily_mine: () => reply(429, { error: 'Daily feedback limit reached', reason: 'daily_cap', scope: 'caller', retryAfter: 43200 }),
   burst: () => reply(429, { error: 'Too many requests', reason: 'rate_limited', retryAfter: 420 }),
   offline: () => { throw new TypeError('Failed to fetch'); },
   // `vite` / `vite preview` have no serverless runtime: the route is a bare 404.
@@ -175,7 +176,7 @@ async function allThree(respond) {
 test('the client exists and names one sentence per cause', () => {
   assert.ok(client, 'src/lib/feedback-client.js must exist');
   assert.equal(typeof client.sendFeedback, 'function');
-  assert.deepEqual(Object.keys(client.FEEDBACK_MESSAGES).sort(), ['burst', 'daily_cap', 'offline', 'preview', 'server']);
+  assert.deepEqual(Object.keys(client.FEEDBACK_MESSAGES).sort(), ['burst', 'daily_cap', 'daily_mine', 'network_busy', 'offline', 'preview', 'server']);
 });
 
 test('the payload goes out unchanged, as the JSON POST the endpoint reads', async () => {
@@ -195,6 +196,7 @@ test('every answer the endpoint can give maps to its cause, and nothing throws',
   assert.ok(client, 'src/lib/feedback-client.js must exist');
   const cases = [
     [ANSWERS.daily_cap, 429, 'daily_cap'],
+    [ANSWERS.daily_mine, 429, 'daily_mine'],
     [ANSWERS.burst, 429, 'burst'],
     // A 429 without our JSON (the platform's own limiter) is still a burst.
     [() => reply(429, 'Too Many Requests', 'text/plain'), 429, 'burst'],
@@ -232,6 +234,8 @@ test('every sentence is Thai, says what to do next, and never sends the student 
   assert.match(M.daily_cap, /พรุ่งนี้/);
   assert.ok(M.daily_cap.includes(client.FEEDBACK_EMAIL), 'the daily cap needs a way out that does not use the capped endpoint');
   assert.doesNotMatch(M.daily_cap, /สักครู่|ภายหลัง/);
+  assert.match(M.daily_mine, /พรุ่งนี้/);
+  assert.doesNotMatch(M.daily_mine, /สักครู่|10 นาที/, 'a full day is not a wait of minutes');
   // The feedback page posts to the same endpoint, so it is no way out.
   for (const cause of ['daily_cap', 'server']) {
     assert.doesNotMatch(M[cause], /หน้าแจ้งปัญหา|ส่ง Feedback/, `${cause} must not point at a page that fails the same way`);
