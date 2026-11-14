@@ -23,6 +23,7 @@ import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.genera
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
 import { humanSource, momentHref } from '../lib/source-label.js';
 import { citeParts } from '../lib/wrap-cite.js';
+import { cohortIndex, itemCohorts, cohortList } from '../lib/wrap-cohorts.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { keyTerm } from '../lib/wrap-keyline.js';
 import { topicPractice } from '../lib/lecturer-count.js';
@@ -134,6 +135,20 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
       .catch((err) => { if (live) setFailed(err instanceof Error ? err : new Error(String(err))); });
     return () => { live = false; };
   }, [subject, selectedYear, selectedPhase, attempt]);
+
+  // Which senior cohorts sat each past paper the page cites, from the bank's
+  // own recurrence file. It loads beside the page and never before it: the
+  // text reads at once, and the "เคยออก N รุ่น" tags join it when they arrive.
+  // A failed load only leaves the tags out.
+  const [cohorts, setCohorts] = useState(null);
+  useEffect(() => {
+    let live = true;
+    setCohorts(null);
+    import('../data/exam-recurrence.generated.js')
+      .then((m) => { if (live) setCohorts(cohortIndex(m.EXAM_RECURRENCE, m.EXAM_RECURRENCE_CLUSTERS, subject)); })
+      .catch(() => {});
+    return () => { live = false; };
+  }, [subject]);
 
   const decks = useMemo(() => deckIndex(subject, selectedYear, selectedPhase, data?.source?.term), [subject, selectedYear, selectedPhase, data?.source?.term]);
   const covers = LECTURE_COVERS[subject] || {};
@@ -261,6 +276,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               // A list the lecturer numbered is printed as written; a plain one
               // leads each 'Term — explanation' line with the term in bold.
               const numbered = selfNumbered(it.keywords);
+              // History, never a forecast: the cohorts that were asked this
+              // item's cited past papers. No resolved cohort, no tag.
+              const seen = cohorts ? itemCohorts(it, cohorts) : [];
               return (
                 <article key={anchorId(it.topic, n - 1)} id={anchorId(it.topic, n - 1)} className="vmx-wrap-item">
                   <div className="vmx-wrap-item-head">
@@ -269,6 +287,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                       <h3>{it.name}</h3>
                       {it.th && <div className="vmx-wrap-th">{it.th}</div>}
                       {it.agent && <div className="vmx-wrap-agent">{it.agent}</div>}
+                      {seen.length > 0 && (
+                        <div className="vmx-wrap-seen"><b>เคยออก {seen.length} รุ่น</b> <span>({cohortList(seen)})</span></div>
+                      )}
                     </div>
                     {art && <img className="vmx-wrap-cover" src={art.src} alt="" loading="lazy" decoding="async" />}
                   </div>

@@ -2952,6 +2952,9 @@ html.dark .vmx-panic-scrim {
    token: monospace broke it into a ragged column with Thai falling back to
    another face mid-line. */
 .vmx-wrap-agent { margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+/* "เคยออก N รุ่น": how many senior cohorts were asked this item, with which. History, so it reads as a quiet fact, not an alarm. */
+.vmx-wrap-seen { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px; margin-top: 6px; padding: 2px 10px; border-radius: var(--r-pill); background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.vmx-wrap-seen b { font-weight: 700; }
 .vmx-wrap-cover { flex: 0 0 auto; width: 84px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--clr-border); }
 .vmx-wrap-keys { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; }
 .vmx-wrap-key { display: inline-flex; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
