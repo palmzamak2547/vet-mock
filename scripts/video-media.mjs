@@ -63,12 +63,24 @@ export async function putBuffer(env, key, body, type) {
 // Another lane's heavy job (a build, an e2e run) goes first: while its lock
 // is fresh, this run waits between videos (the ledger's one-heavy-job rule).
 const LOCK = process.env.VIDEO_HEAVY_LOCK || 'C:/dev/vetmock-inputs-20261028/HEAVY.lock';
+const isAlive = (pid) => { try { process.kill(pid, 0); return true; } catch (e) { return e.code === 'EPERM'; } };
+/**
+ * Whether a lock's text names a holder this run must wait for. with-heavy-lock.mjs writes its
+ * own pid into the lock and passes it to its command as HEAVY_LOCK_PID: a run wrapped in it
+ * holds the lock itself (on 14 Nov one waited eight hours on its own wrapper), and a holder
+ * that is gone holds nothing. A lock without a pid (an older writer) is judged by its age.
+ */
+export function holderBlocks(text, { ownPid = process.env.HEAVY_LOCK_PID, alive = isAlive } = {}) {
+  const pid = Number(String(text).match(/\bpid=(\d+)/)?.[1]);
+  if (!pid) return true;
+  return String(pid) !== String(ownPid) && alive(pid);
+}
 async function yieldToHeavyJobs() {
   for (let said = false; ; said = true) {
-    let st;
-    try { st = fs.statSync(LOCK); } catch { return; }
-    if (Date.now() - st.mtimeMs > 30 * 60 * 1000) return;
-    if (!said) console.log(`waiting for another lane: ${fs.readFileSync(LOCK, 'utf8').slice(0, 120).trim()}`);
+    let st, text;
+    try { st = fs.statSync(LOCK); text = fs.readFileSync(LOCK, 'utf8'); } catch { return; }
+    if (Date.now() - st.mtimeMs > 30 * 60 * 1000 || !holderBlocks(text)) return;
+    if (!said) console.log(`waiting for another lane: ${text.slice(0, 120).trim()}`);
     await new Promise((r) => setTimeout(r, 60_000));
   }
 }
@@ -194,7 +206,10 @@ async function main() {
       }
       console.log(`${v.id} ${Math.round(body.length / 1e6)} MB, ${durationSec} s, ${frames.frames.length} slides, ${captions}, ${Math.round((Date.now() - t0) / 1000)} s`);
     } catch (e) {
-      own[v.id] = manifest[v.id] = { error: String(e.message || e).slice(0, 300), at: new Date().toISOString() };
+      // The tool's last words say why (a sign-in wall, a removed video); the command line, which
+      // is all the 300 characters of e.message held on 9 Nov when 207 copies failed, does not.
+      const why = String(e.stderr || '').trim().split('\n').filter(Boolean).slice(-2).join(' | ');
+      own[v.id] = manifest[v.id] = { error: (why || String(e.message || e)).slice(0, 300), at: new Date().toISOString() };
       console.error(`${v.id} failed: ${manifest[v.id].error}`);
       if (!keep) fs.rmSync(mp4, { force: true });
     }

@@ -354,6 +354,14 @@ export function unsupportedClaims(summary, evidenceAt, knownTerms = []) {
  * card can stay short without losing them.
  * @returns {{ items: number, covered: Array<{ id, layer }>, missing: string[] }}
  */
+const ch = (n) => String.fromCharCode(n);
+const TONE = `[${ch(0x0e48)}-${ch(0x0e4b)}]`;
+// A PDF's text layer often writes sara am (U+0E33) as nikhahit plus sara aa, the tone mark before
+// or after: "น้ำ" on a card and the same word on a slide failed to match (15 Nov, two marks).
+const SPLIT_AM = new RegExp(`${ch(0x0e4d)}(${TONE}?)${ch(0x0e32)}|(${TONE})${ch(0x0e4d)}${ch(0x0e32)}`, 'g');
+/** Thai text with every split sara am joined again, so both spellings compare equal. */
+export const thaiFold = (text) => String(text || '').replace(SPLIT_AM, (_, a, b) => `${a || b || ''}${ch(0x0e33)}`);
+
 export function coverage(summary, mustCover, { chapters = [], window = 120, pageText = () => '' } = {}) {
   const chapterSpan = new Map(chapters.map((c) => [c.id, c]));
   const candidates = [
@@ -377,7 +385,7 @@ export function coverage(summary, mustCover, { chapters = [], window = 120, page
     // A red mark in Thai ("เขตโรคระบาด", or a list "เขตโรคระบาด, เขตเฝ้าระวังโรค") has no Latin
     // word: it counts when the line says one of its terms.
     const thaiMark = item.kind === 'mark' && String(item.text || '').split(/,\s*/).map((x) => x.trim())
-      .some((x) => /[฀-๿]{2}/.test(x) && String(p.text || '').includes(x));
+      .some((x) => /[฀-๿]{2}/.test(x) && thaiFold(p.text).includes(thaiFold(x)));
     return thaiMark || acronyms.some(token) || words.some((w) => text.includes(w)) || (item.kind === 'number' && numbersIn(item.text).some((n) => numbersIn(p.text).includes(n)));
   };
   const covered = [];
