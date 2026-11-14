@@ -2939,6 +2939,12 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font-size: 14px; text-decoration: none; white-space: nowrap; }
 .vmx-wrap-index a b { font-family: var(--vmx-mono); font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-wrap-index a:hover { border-color: var(--clr-ink); }
+/* The progress strip: the count stays pinned at the strip's start while the chips scroll under it, and the item being read is the dark chip. */
+.vmx-wrap-where { position: sticky; left: 0; z-index: 1; flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 36px; padding: 0 8px 0 0; margin-right: -2px; background: var(--clr-bg); color: var(--clr-ink); font-family: var(--vmx-sans); font-size: 14px; font-weight: 700; letter-spacing: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-wrap-index a { transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
+.vmx-wrap-index a.is-here { background: var(--clr-ink); border-color: var(--clr-ink); color: var(--clr-bg); }
+.vmx-wrap-index a.is-here b { color: var(--clr-bg); }
+@media (prefers-reduced-motion: reduce) { .vmx-wrap-index a { transition: none; } }
 .vmx-wrap-group { margin: 0 0 22px; }
 .vmx-wrap-group-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 10px; }
 .vmx-wrap-group-head h2 { margin: 0; font-size: 17px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }

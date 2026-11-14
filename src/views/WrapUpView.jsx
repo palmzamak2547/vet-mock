@@ -12,7 +12,7 @@
 // same lecturer-practice start the topic screen uses, and "สไลด์ PDF" opens
 // the deck in the reader, so nothing here has a second copy of that logic.
 // ============================================================
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { loadWrapUp, selfNumbered } from '../data/exam-wrapups.js';
 import { lecturerSetIn, FORMAT_LABEL } from '../data/lecturer-sets.js';
@@ -24,6 +24,13 @@ import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/li
 import { humanSource, momentHref } from '../lib/source-label.js';
 import { citeParts } from '../lib/wrap-cite.js';
 import { cohortIndex, itemCohorts, cohortList } from '../lib/wrap-cohorts.js';
+import { READING_BAND, currentItem, progressLabel } from '../lib/wrap-progress.js';
+
+// Motion is decided per effect: a jump or the strip following along is a
+// convenience, so under reduced motion it lands at once instead of gliding.
+const reducedMotion = () => {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
+};
 import NavIcon from '../components/NavIcon.jsx';
 import { keyTerm } from '../lib/wrap-keyline.js';
 import { topicPractice } from '../lib/lecturer-count.js';
@@ -184,9 +191,41 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
     try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
   }, [subject]);
 
+  // Where the student is: the item in the reading band under the sticky
+  // index, reported by an IntersectionObserver as items cross it (never a
+  // scroll listener). Without the observer the strip simply stays on item 1.
+  const [here, setHere] = useState(0);
+  const indexRef = useRef(null);
+  useEffect(() => {
+    setHere(0);
+    if (!data || typeof IntersectionObserver === 'undefined') return undefined;
+    const inBand = new Set();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const n = Number(e.target.dataset.n);
+        if (e.isIntersecting) inBand.add(n); else inBand.delete(n);
+      }
+      setHere((last) => currentItem(inBand, last));
+    }, { rootMargin: READING_BAND, threshold: 0 });
+    document.querySelectorAll('.vmx-wrap-item[data-n]').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [data]);
+  // The strip follows: the marked chip is brought into view inside the strip
+  // only (never the page), and only when it is out of sight.
+  useEffect(() => {
+    const nav = indexRef.current;
+    const chip = nav?.querySelector('[aria-current="location"]');
+    if (!nav || !chip) return;
+    const pinned = nav.querySelector('.vmx-wrap-where')?.offsetWidth || 0;
+    const left = chip.offsetLeft - pinned - 6;
+    const right = chip.offsetLeft + chip.offsetWidth;
+    if (left >= nav.scrollLeft && right <= nav.scrollLeft + nav.clientWidth) return;
+    try { nav.scrollTo({ left: Math.max(0, left), behavior: reducedMotion() ? 'auto' : 'smooth' }); } catch { nav.scrollLeft = Math.max(0, left); }
+  }, [here]);
+
   const jump = (e, id) => {
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
   };
 
   if (failed === 'none') {
@@ -264,9 +303,19 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
         </ul>
       </header>
 
-      <nav className="vmx-wrap-index" aria-label={`สารบัญ ${items.length} ${unit}`}>
+      {/* The index is also the progress strip: "5 จาก 28" stays pinned at its
+          start and the item being read is marked, so a look up says how far
+          the student is and how much is left. */}
+      <nav ref={indexRef} className="vmx-wrap-index" aria-label={`สารบัญ ${items.length} ${unit}`}>
+        <span className="vmx-wrap-where">{progressLabel(here, items.length)}</span>
         {items.map((it, i) => (
-          <a key={anchorId(it.topic, i)} href={`#${anchorId(it.topic, i)}`} onClick={(e) => jump(e, anchorId(it.topic, i))}>
+          <a
+            key={anchorId(it.topic, i)}
+            href={`#${anchorId(it.topic, i)}`}
+            onClick={(e) => jump(e, anchorId(it.topic, i))}
+            className={i === here ? 'is-here' : undefined}
+            aria-current={i === here ? 'location' : undefined}
+          >
             <b>{i + 1}</b> {mode === 'keys' && it.th ? it.th : it.name}
           </a>
         ))}
@@ -302,7 +351,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               // item's cited past papers. No resolved cohort, no tag.
               const seen = cohorts ? itemCohorts(it, cohorts) : [];
               return (
-                <article key={anchorId(it.topic, n - 1)} id={anchorId(it.topic, n - 1)} className="vmx-wrap-item">
+                <article key={anchorId(it.topic, n - 1)} id={anchorId(it.topic, n - 1)} data-n={n - 1} className="vmx-wrap-item">
                   <div className="vmx-wrap-item-head">
                     <span className="vmx-wrap-n" aria-hidden="true">{n}</span>
                     <div className="vmx-wrap-title">
