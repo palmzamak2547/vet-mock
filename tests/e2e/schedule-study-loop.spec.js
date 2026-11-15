@@ -49,7 +49,8 @@ for (const press of [false, true]) {
     try {
       const exam = EXAM_SCHEDULE.y5.find(item => item.term === 'final'
         && Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-final'][item.subject] > 0);
-      await page.goto('/app/schedule');
+      // The page's load event waits for the held banks on Firefox.
+      await page.goto('/app/schedule', { waitUntil: 'domcontentloaded' });
       const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
       await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
       const summary = page.locator('#vmx-config-summary');
