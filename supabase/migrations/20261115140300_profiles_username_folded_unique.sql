@@ -5,9 +5,12 @@
 -- apply it: migrations here are applied by hand, after a second reader. Needs
 -- file 1 (20261115140000_profile_name_rules.sql).
 --
--- APPLY IT ON ITS OWN, OUTSIDE A TRANSACTION. CREATE INDEX CONCURRENTLY cannot
--- run inside one: paste this file alone into the SQL editor, or run it with
--- psql without BEGIN. It builds the index without blocking reads or writes.
+-- SEND EACH STATEMENT ON ITS OWN, OUTSIDE A TRANSACTION. CREATE INDEX
+-- CONCURRENTLY cannot run inside one, and several statements sent together
+-- run as one. In the SQL editor run the CREATE alone, then the check alone;
+-- psql -f without --single-transaction sends them one by one. It builds the
+-- index without blocking reads or writes. A second run after a good one stops
+-- at "already exists", on purpose.
 --
 -- WHAT IT DOES
 --   A unique index on private.compact_name(username): the folded form the app
@@ -15,7 +18,8 @@
 --   src/lib/public-identity.js: NFKC, sara am recomposed, invisible characters
 --   removed, no case, no separators, I l 1 | read as l, O 0 read as o). So
 --   "Ploy", "ploy", "P.loy" and "PIoy" become one name. The exact unique index
---   on username stays.
+--   on username stays. The last statement raises unless the index exists and
+--   pg_index says it is valid and ready.
 --
 -- WHICH LIVE CLIENT CALLS MEET IT
 --   saveIdentity (src/lib/identity-write.js), profiles.update of username: a
@@ -26,13 +30,13 @@
 --   once file 3 is applied: its insert trigger gives the neutral handle to a
 --   new row whose name is taken in this form. Apply file 3 first. No function
 --   the app calls is changed.
---   private.compact_name stays executable by every role on purpose: Postgres
---   checks EXECUTE on an index expression for whoever writes the row.
+--   Postgres checks EXECUTE on an index expression for whoever writes the row;
+--   file 1 grants private.compact_name to authenticated and service_role by
+--   name, so this does not rest on the schema's default privileges.
 --
 -- WHAT IT NEVER TOUCHES
 --   No row is changed or deleted by this file. If two rows are already one
---   name in the folded form, the build fails and leaves no index; nothing
---   else happens.
+--   name in the folded form, the build fails; nothing else happens.
 --
 -- HOW TO COUNT BEFORE APPLYING (counts only)
 --   select count(*) as folded_groups, coalesce(sum(n), 0) as rows_in_groups
@@ -47,12 +51,28 @@
 --     select private.undo_neutral_handle('<user id>');
 --   (it fails while this index stands, since the old name would collide again).
 --
--- IF THE BUILD STOPS HALF WAY
---   A failed CONCURRENTLY build can leave an invalid index behind. Drop it
---   (below) and build again.
+-- IF THE BUILD FAILS OR THE CHECK RAISES
+--   A failed CONCURRENTLY build (for example a colliding rename landing
+--   between the count and the build) leaves an INVALID index that still
+--   refuses some writes. Recover in three steps:
+--     1. drop index concurrently if exists public.profiles_username_folded_key;
+--     2. run the collision count above again, and the pass if it is not 0;
+--     3. run this file again, each statement on its own.
 --
 -- HOW TO TAKE IT BACK
 --   drop index concurrently if exists public.profiles_username_folded_key;
 
-create unique index concurrently if not exists profiles_username_folded_key
+create unique index concurrently profiles_username_folded_key
   on public.profiles (private.compact_name(username));
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_index i
+    where i.indexrelid = to_regclass('public.profiles_username_folded_key')
+      and i.indisvalid and i.indisready
+  ) then
+    raise exception 'profiles_username_folded_key is missing, invalid or not ready: drop it concurrently, count the collisions again, and run this file again';
+  end if;
+end
+$$;

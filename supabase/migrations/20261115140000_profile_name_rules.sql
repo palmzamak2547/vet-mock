@@ -11,11 +11,13 @@
 --                                               'email', 'address' or null
 --     private.public_name_problem(name, email)  why a NEW name is refused, or null
 --     private.compact_name(name)                the form two names are compared in
---     private.made_from_google_name(name, meta) handle_new_user's Google-name handle
+--     private.made_from_google_name(name, meta) a name handle_new_user or ensure_profile
+--                                               made from the Google name
 --     private.neutral_handle()                  a free handle: user_ + 6 letters a to f
 --     private.give_neutral_handle(id, reason)   one account to the handle, recorded
 --     private.undo_neutral_handle(id)           takes one account back
---     private.neutralise_leaking_names()        every leaking name; returns a count
+--     private.neutralise_leaking_names()        every leaking name but an admin's
+--                                               (public.admin_users); returns a count
 --     private.neutralise_folded_collisions()    names alike once folded; returns a count
 --     private.profile_name_undo                 old and new value per change
 --
@@ -31,11 +33,17 @@
 --   no grant to public, anon, authenticated or service_role, and row level
 --   security on with no policy. It is read in the database's SQL editor by the
 --   person who applies these files. Every function that writes is revoked from
---   public, anon and authenticated. private.compact_name stays executable by
---   everyone, on purpose: file 4 indexes it, and Postgres checks EXECUTE on an
---   index expression for whoever writes the row, so a member renaming
---   themselves must be able to run it. It reads nothing and returns a folded
+--   public, anon and authenticated. private.compact_name is granted to
+--   authenticated and service_role by name, on purpose: file 4 indexes it, and
+--   Postgres checks EXECUTE on an index expression for whoever writes the row,
+--   so a member renaming themselves must be able to run it, whatever the
+--   schema's default privileges are. It reads nothing and returns a folded
 --   copy of its argument.
+--
+-- LOCKS
+--   One transaction with lock_timeout 3s (the undo table's foreign key locks
+--   auth.users for a moment). A timeout fails the whole file cleanly, nothing
+--   is left half made, and the file can be run again as it is.
 --
 -- THE RECOGNISER (private.public_name_leak), taken from the app's own guards
 --   'student number'  what shownName (src/lib/public-display.js) draws as an id:
@@ -50,7 +58,10 @@
 --   'email'           the name, trimmed and in lower case, is the part of the
 --                     account's own address before the @ (isAutoName), or that
 --                     part as handle_new_user stores it (only a to z, 0 to 9
---                     and _, at most 25, with its _2 or _<6 hex> suffix).
+--                     and _, at most 25, with its _2 or _<6 hex> suffix), or
+--                     as ensure_profile stores it (every character but a word
+--                     character or Thai turned into _, at most 20, with its
+--                     _<number> suffix).
 --   'address'         an @, http: or https:, or www. in the name (shownName).
 --   A name with digits that is none of these ("ploy55555", "vet86 2567",
 --   "Room 101") is not matched. Digits of scripts other than Latin and Thai are
@@ -74,6 +85,9 @@
 --     drop function if exists private.compact_name(text);
 --     drop table if exists private.profile_name_undo;
 
+begin;
+set local lock_timeout = '3s';
+
 create schema if not exists private;
 
 -- ── The recogniser ───────────────────────────────────────────────────────────────────
@@ -87,7 +101,7 @@ as $$
     -- shownName's form: NFKC, no invisible or bidi characters, one space, trimmed.
     select btrim(regexp_replace(
              regexp_replace(normalize(coalesce(p_name, ''), nfkc),
-               '[\u0001-\u001f\u007f-\u009f­؜᠎​-‏‪-‮⁠-⁯﻿]', '', 'g'),
+               '[\u0001-\u001f\u007f-\u009f\u00ad\u061c\u180e\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]', '', 'g'),
              '\s+', ' ', 'g')) as v
   ), digits as (
     -- Thai digits read as digits, Thai marks dropped, one separator between two digits joined.
@@ -99,8 +113,11 @@ as $$
     select case when position('@' in coalesce(p_email, '')) > 1
              then lower(btrim(split_part(p_email, '@', 1))) else '' end as local
   ), stored as (
-    -- The local part as handle_new_user turns it into a name.
-    select local, left(regexp_replace(local, '[^a-z0-9_]', '', 'g'), 25) as handle from mail
+    -- The local part as handle_new_user turns it into a name, and as ensure_profile does.
+    select local, left(regexp_replace(local, '[^a-z0-9_]', '', 'g'), 25) as handle,
+           case when char_length(local) >= 2
+             then left(regexp_replace(local, '[^\w฀-๿]', '_', 'g'), 20) else '' end as ensured
+    from mail
   )
   select case
     when v = '' then null
@@ -109,6 +126,9 @@ as $$
     when handle <> '' and (lower(v) = handle
       or (left(lower(v), char_length(handle) + 1) = handle || '_'
           and substr(lower(v), char_length(handle) + 2) ~ '^([0-9]{1,2}|[0-9a-f]{6})$')) then 'email'
+    when ensured <> '' and (lower(v) = ensured
+      or (left(lower(v), char_length(ensured) + 1) = ensured || '_'
+          and substr(lower(v), char_length(ensured) + 2) ~ '^[0-9]+$')) then 'email'
     when v ~* '@|https?:|www\.' then 'address'
     else null
   end
@@ -158,15 +178,20 @@ as $$
       lower(btrim(regexp_replace(
         regexp_replace(
           regexp_replace(normalize(coalesce(p_name, ''), nfkc), 'ํ([่-๋]?)า', '\1' || chr(3635), 'g'),
-          '[\u0001-\u001f\u007f-\u009f­؜᠎​-‏‪-‮⁠-⁯﻿]', '', 'g'),
+          '[\u0001-\u001f\u007f-\u009f\u00ad\u061c\u180e\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]', '', 'g'),
         '\s+', ' ', 'g'))),
       '[\s._-]', '', 'g'),
     'i1|0', 'lllo')
 $$;
+-- File 4 indexes it: every role that writes a profile row must be able to run it.
+grant execute on function private.compact_name(text) to authenticated, service_role;
 
 -- ── handle_new_user's Google-name handle (madeFromGoogleName in identity-gate.js) ────
 -- The ASCII letters, digits and _ of the Google name, at most 25, then _2, _3 or
--- _<6 hex> on a collision. A name the student typed (metadata username) is a choice.
+-- _<6 hex> on a collision. And ensure_profile's form, when no username was typed:
+-- the trimmed full name or name with every character but a word character or Thai
+-- turned into _ (the same expression ensure_profile runs), at most 20, then
+-- _<number>. A name the student typed (metadata username) is a choice.
 
 create or replace function private.made_from_google_name(p_name text, p_meta jsonb)
 returns boolean
@@ -175,7 +200,7 @@ set search_path = pg_catalog, pg_temp
 as $$
   select p_name is not null
     and (p_meta ->> 'username') is distinct from p_name
-    and exists (
+    and (exists (
       select 1
       from (values (p_meta ->> 'full_name'), (p_meta ->> 'name')) as s(src),
         lateral (select left(regexp_replace(coalesce(s.src, ''), '[^a-zA-Z0-9_]', '', 'g'), 25) as base) as b
@@ -183,7 +208,18 @@ as $$
         and (p_name = b.base
           or (left(p_name, char_length(b.base) + 1) = b.base || '_'
               and substr(p_name, char_length(b.base) + 2) ~ '^([0-9]{1,2}|[0-9a-f]{6})$'))
-    )
+    ) or (
+      nullif(btrim(p_meta ->> 'username'), '') is null
+      and exists (
+        select 1
+        from (values (p_meta ->> 'full_name'), (p_meta ->> 'name')) as s(src),
+          lateral (select left(regexp_replace(btrim(coalesce(s.src, '')), '[^\w฀-๿]', '_', 'g'), 20) as base) as b
+        where char_length(b.base) >= 2
+          and (p_name = b.base
+            or (left(p_name, char_length(b.base) + 1) = b.base || '_'
+                and substr(p_name, char_length(b.base) + 2) ~ '^[0-9]+$'))
+      )
+    ))
 $$;
 
 -- ── The neutral handle ───────────────────────────────────────────────────────────────
@@ -311,6 +347,7 @@ begin
     from public.profiles p
     left join auth.users u on u.id = p.id
     where private.public_name_leak(p.username, u.email) is not null
+      and not exists (select 1 from public.admin_users a where a.user_id = p.id)
     order by p.created_at nulls last, p.id
   loop
     if private.give_neutral_handle(r.id, r.reason) then
@@ -356,3 +393,5 @@ revoke execute on function private.give_neutral_handle(uuid, text) from public, 
 revoke execute on function private.undo_neutral_handle(uuid) from public, anon, authenticated;
 revoke execute on function private.neutralise_leaking_names() from public, anon, authenticated;
 revoke execute on function private.neutralise_folded_collisions() from public, anon, authenticated;
+
+commit;

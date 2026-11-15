@@ -21,16 +21,24 @@
 --      role keep their own paths, as tr_protect_profile_metrics does.
 --   2. tr_neutral_name_on_insert, BEFORE INSERT on public.profiles: a new row
 --      whose name is a student number, the account's mail local part, an
---      address, handle_new_user's handle of the Google name, or a name another
+--      address, a name handle_new_user or ensure_profile made from the Google
+--      name (private.made_from_google_name), or a name another
 --      member already holds in the folded form (file 4) gets the neutral
 --      handle instead (private.neutral_handle). A name the student typed at
 --      signup (metadata username) that is none of these is kept. This
 --      covers both ways a row is made, handle_new_user and the ensure_profile
 --      RPC, without rewriting either (neither is defined in this repository,
 --      so their live bodies stay as they are). Thai Google names still arrive
---      as user, user_2 and so on, which the app already reads as not chosen.
---   3. profiles_update_own written out with WITH CHECK beside USING. The same
---      rule as before (own row only), so no request changes its outcome.
+--      from handle_new_user as user, user_2 and so on, which the app already
+--      reads as not chosen; from ensure_profile they keep their Thai and are
+--      recognised like any other Google name.
+--   profiles_update_own is not touched: live already has WITH CHECK beside
+--   USING, the same rule (own row only).
+--
+-- LOCKS
+--   One transaction with lock_timeout 3s (CREATE TRIGGER locks profiles for a
+--   moment). A timeout fails the whole file cleanly, nothing is left half
+--   made, and the file can be run again as it is.
 --
 -- WHICH LIVE CLIENT CALLS MEET IT
 --   - saveIdentity (src/lib/identity-write.js): profiles.update of username
@@ -48,7 +56,7 @@
 -- WHAT IT NEVER TOUCHES
 --   No row is changed by applying it; rows already there are not checked
 --   (a name that breaks a rule stays until its student renames). No grant, no
---   other policy, no other trigger.
+--   policy, no other trigger.
 --
 -- HOW TO COUNT BEFORE APPLYING (counts only)
 --   The rows this file changes when applied: 0. Rows whose present name or
@@ -63,7 +71,9 @@
 --   drop trigger if exists tr_neutral_name_on_insert on public.profiles;
 --   drop function if exists private.guard_public_identity();
 --   drop function if exists private.neutral_name_on_insert();
---   The policy is the same rule as before and can stay.
+
+begin;
+set local lock_timeout = '3s';
 
 create or replace function private.guard_public_identity()
 returns trigger
@@ -130,8 +140,4 @@ create trigger tr_neutral_name_on_insert
   before insert on public.profiles
   for each row execute function private.neutral_name_on_insert();
 
-drop policy if exists "profiles_update_own" on public.profiles;
-create policy "profiles_update_own" on public.profiles
-  for update to authenticated
-  using ((select auth.uid()) = id)
-  with check ((select auth.uid()) = id);
+commit;

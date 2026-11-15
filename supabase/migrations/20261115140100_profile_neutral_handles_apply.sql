@@ -16,7 +16,8 @@
 -- WHAT IT DOES
 --   For every profile whose name private.public_name_leak recognises (a
 --   student number, the account's own mail local part, or an address; file 1
---   gives the exact rule), one call to private.give_neutral_handle:
+--   gives the exact rule), except an admin's (public.admin_users), one call to
+--   private.give_neutral_handle:
 --     - the old name, the new handle and the old first-run flag are recorded
 --       in private.profile_name_undo (only the admin can read it);
 --     - profiles.username becomes user_ and six letters from a to f, a name
@@ -50,7 +51,8 @@
 --          count(*) filter (where reason = 'address') as address,
 --          count(*) as accounts
 --   from (select private.public_name_leak(p.username, u.email) as reason
---         from public.profiles p left join auth.users u on u.id = p.id) s
+--         from public.profiles p left join auth.users u on u.id = p.id
+--         where not exists (select 1 from public.admin_users a where a.user_id = p.id)) s
 --   where reason is not null;
 --
 --   About 12 expected (the 15 Nov count used the app's rule; this rule also

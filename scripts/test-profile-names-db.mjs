@@ -88,6 +88,52 @@ const commentSql = (text, start) => {
 const asRow = (query) => json(`select row_to_json(t) from (${query}) t`);
 const HANDLE = /^user_[a-f]{6}$/;
 
+// public.ensure_profile exactly as production defines it (catalog, 15 Nov 2026).
+const ENSURE_PROFILE = String.raw`CREATE OR REPLACE FUNCTION public.ensure_profile()
+ RETURNS void
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public', 'pg_temp'
+AS $function$
+DECLARE
+  uid UUID;
+  uemail TEXT;
+  umeta JSONB;
+  base_username TEXT;
+  final_username TEXT;
+  counter INT := 0;
+BEGIN
+  uid := auth.uid();
+  IF uid IS NULL THEN RETURN; END IF;
+  
+  -- Already has profile?
+  IF EXISTS (SELECT 1 FROM profiles WHERE id = uid) THEN RETURN; END IF;
+  
+  -- Get user info from auth.users
+  SELECT email, raw_user_meta_data INTO uemail, umeta FROM auth.users WHERE id = uid;
+  
+  base_username := COALESCE(
+    NULLIF(TRIM(umeta->>'username'), ''),
+    NULLIF(TRIM(umeta->>'full_name'), ''),
+    NULLIF(TRIM(umeta->>'name'), ''),
+    NULLIF(split_part(uemail, '@', 1), ''),
+    'user_' || substring(uid::TEXT, 1, 8)
+  );
+  base_username := regexp_replace(base_username, '[^\w\u0E00-\u0E7F]', '_', 'g');
+  IF length(base_username) < 2 THEN base_username := 'user_' || substring(uid::TEXT, 1, 8); END IF;
+  IF length(base_username) > 20 THEN base_username := substring(base_username, 1, 20); END IF;
+  
+  final_username := base_username;
+  WHILE EXISTS (SELECT 1 FROM profiles WHERE username = final_username) LOOP
+    counter := counter + 1;
+    final_username := base_username || '_' || counter;
+  END LOOP;
+  
+  INSERT INTO profiles (id, username) VALUES (uid, final_username) ON CONFLICT (id) DO NOTHING;
+  INSERT INTO user_data (user_id) VALUES (uid) ON CONFLICT (user_id) DO NOTHING;
+END;
+$function$`;
+
 const checks = [];
 async function check(name, fn) {
   try { await fn(); checks.push({ name, ok: true }); } catch (error) { checks.push({ name, ok: false, error: String(error.message).slice(0, 900) }); }
@@ -102,6 +148,7 @@ const E = uid(); // digits that are not a student number
 const F = uid(); // digits joined by a space, six in all
 const G = uid(); // someone's ten-digit number on a mail account
 const H = uid(); // the local part as handle_new_user stores it (the dot dropped)
+const I = uid(); // an admin whose name is the admin's own mail local part
 
 try {
   for (const role of ['anon', 'authenticated', 'authenticator', 'supabase_auth_admin']) {
@@ -134,7 +181,10 @@ try {
     alter table public.profiles add constraint profiles_avatar_length_check check (avatar_emoji is null or char_length(avatar_emoji) <= 32) not valid;
     alter table public.profiles enable row level security;
     create policy profiles_select_members on public.profiles for select to authenticated using (true);
-    create policy "profiles_update_own" on public.profiles for update using (auth.uid() = id);
+    create policy "profiles_update_own" on public.profiles for update to authenticated
+      using ((select auth.uid()) = id) with check ((select auth.uid()) = id);
+    create table public.admin_users (user_id uuid primary key references auth.users(id) on delete cascade);
+    create table public.user_data (user_id uuid primary key);
     revoke all on table public.profiles from anon, authenticated;
     grant select (id, username, avatar_emoji, created_at) on table public.profiles to authenticated;
     grant update (username, avatar_emoji) on table public.profiles to authenticated;
@@ -158,6 +208,7 @@ try {
   assert(handleNewUser, 'handle_new_user not found in supabase-schema.sql');
   await run(`${handleNewUser[0]}
     create trigger on_auth_user_created after insert on auth.users for each row execute function public.handle_new_user();`);
+  await run(`${ENSURE_PROFILE};`);
 
   const signUp = (id, email, meta = {}) => run(`insert into auth.users (id, email, raw_user_meta_data) values (${q(id)}, ${q(email)}, ${q(JSON.stringify(meta))}::jsonb);`);
   const setName = (id, name) => run(`update public.profiles set username = ${q(name)} where id = ${q(id)};`);
@@ -180,6 +231,9 @@ try {
   await setName(F, 'vet86 2567');
   await setName(G, '6601234567');
   await setName(H, 'nokp');
+  await signUp(I, 'kru.a@gmail.com', { name: 'ครูเอ' });
+  await setName(I, 'kru.a');
+  await run(`insert into public.admin_users (user_id) values (${q(I)});`);
   await run(`insert into public.shared_questions (group_id, author_id, author_name, data)
     values (gen_random_uuid(), ${q(G)}, '6601234567', '{"q":"x"}'), (gen_random_uuid(), ${q(C)}, 'น้องหมูเด้ง', '{"q":"y"}');`);
 
@@ -205,6 +259,10 @@ try {
     ['SOMCHAI.J', 'Somchai.J@Gmail.com', 'email'],
     ['somchaij', 'somchai.j@gmail.com', 'email'],
     ['somchaij_2', 'somchai.j@gmail.com', 'email'],
+    ['somchai_j', 'somchai.j@gmail.com', 'email'],
+    ['somchai_j_14', 'somchai.j@gmail.com', 'email'],
+    ['Mint_Choc', 'somchai.j@gmail.com', null],
+    ['somchai_jx', 'somchai.j@gmail.com', null],
     ['ploy@home', 'x@gmail.com', 'address'],
     ['www.ploy', 'x@gmail.com', 'address'],
     ['somchai.j', 'other@gmail.com', null],
@@ -229,9 +287,9 @@ try {
 
   await check('the recogniser matches what the app already hides or treats as not chosen', async () => {
     // The app: shownName draws it as "นิสิต", or isAutoName says nobody chose it (bare
-    // digits, the local part). The database adds two forms the app does not know:
-    // handle_new_user's stored local part and a mark hiding a digit run.
-    const extra = new Set(['somchaij', 'somchaij_2', '643่1234567']);
+    // digits, the local part). The database adds forms the app does not know:
+    // the local part as handle_new_user or ensure_profile stores it, and a mark hiding a digit run.
+    const extra = new Set(['somchaij', 'somchaij_2', 'somchai_j', 'somchai_j_14', '643่1234567']);
     const wrong = [];
     for (const [n, e, want] of LEAK_CASES) {
       if (n === null || n === '' || extra.has(n)) continue;
@@ -278,6 +336,8 @@ try {
 
   await check('the count query before file 2 gives counts only, by reason', async () => {
     assert.deepEqual(await asRow(countQuery), { student_number: 2, email: 2, address: 0, accounts: 4 });
+    assert.equal(await run(`select private.public_name_leak(username, 'kru.a@gmail.com') from public.profiles where id = ${q(I)};`), 'email',
+      'the admin\'s name leaks, and is still not counted');
     assert.equal(await run(sharedQuery), '1');
   });
 
@@ -299,6 +359,7 @@ try {
     const { identity_intro_done: _drop, ...keptA } = metaBeforeA;
     assert.deepEqual(metaA, keptA);
     for (const id of [C, D, E, F]) assert.equal(await nameOf(id), before[id]);
+    assert.equal(await nameOf(I), 'kru.a', 'an admin is left out, and the count above left it out too');
     assert.deepEqual(await asRow(countQuery), { student_number: 0, email: 0, address: 0, accounts: 0 });
     assert.equal(await run(`select count(*) from private.profile_name_undo where undone_at is null and reason <> 'collision';`), '4');
     assert.equal(await run(`select string_agg(reason, ',' order by reason) from private.profile_name_undo;`), 'email,email,student number,student number');
@@ -315,7 +376,7 @@ try {
       `select private.public_name_leak('x', 'y')`]) {
       assert.match(await as('authenticated', A, call), /^42501 /, call);
     }
-    assert.match(await as('authenticated', A, 'select id, username from public.profiles'), /^ok 8$/);
+    assert.match(await as('authenticated', A, 'select id, username from public.profiles'), /^ok 9$/);
   });
 
   await check('undo puts back one account, and leaves an account whose student chose a name since', async () => {
@@ -364,6 +425,46 @@ try {
     await run(`delete from auth.users where id in (${Object.values(fresh).map(q).join(', ')});`);
   });
 
+  await check('file 3: what the live ensure_profile writes from a full name or a local part is recognised, a chosen name is not', async () => {
+    const acc = {
+      full: [uid(), 'somchai.jd@gmail.com', { full_name: 'Somchai Jaidee', name: 'Somchai Jaidee' }],
+      thai: [uid(), '6631234597@student.chula.ac.th', { full_name: 'สมหญิง ดีใจ', name: 'สมหญิง ดีใจ' }],
+      local: [uid(), 'mali.w@gmail.com', {}],
+      typed: [uid(), 'sweet.k@gmail.com', { username: 'Kanom Ka', full_name: 'Kanom Ka' }],
+    };
+    const ensure = async (id) => {
+      await run(`delete from public.profiles where id = ${q(id)};`);
+      assert.equal(await as('authenticated', id, 'select public.ensure_profile()'), 'ok 1');
+      return nameOf(id);
+    };
+    const recognised = (name, email, meta) => run(`select (private.public_name_leak(${q(name)}, ${q(email)}) is not null
+      or private.made_from_google_name(${q(name)}, ${q(JSON.stringify(meta))}::jsonb))::text;`);
+    for (const [id, email, meta] of Object.values(acc)) await signUp(id, email, meta);
+    // The forms themselves, as the live function writes them with the insert trigger off.
+    await run('alter table public.profiles disable trigger tr_neutral_name_on_insert;');
+    const written = {};
+    for (const [key, [id]] of Object.entries(acc)) written[key] = await ensure(id);
+    await run('alter table public.profiles enable trigger tr_neutral_name_on_insert;');
+    assert.deepEqual(written, { full: 'Somchai_Jaidee', thai: 'สมหญิง_ดีใจ', local: 'mali_w', typed: 'Kanom_Ka' });
+    for (const key of ['full', 'thai', 'local']) assert.equal(await recognised(written[key], acc[key][1], acc[key][2]), 'true', key);
+    assert.equal(await recognised('Somchai_Jaidee_12', acc.full[1], acc.full[2]), 'true', 'with its collision suffix');
+    assert.equal(await recognised('mali_w_3', acc.local[1], acc.local[2]), 'true', 'with its collision suffix');
+    assert.equal(await recognised('Kanom_Ka', acc.typed[1], acc.typed[2]), 'false', 'a typed username is a choice');
+    for (const chosen of ['Mint_Choc', 'Somchai_J', 'Jaidee_2', 'mali_wan']) {
+      assert.equal(await recognised(chosen, acc.full[1], acc.full[2]), 'false', chosen);
+      assert.equal(await recognised(chosen, acc.local[1], acc.local[2]), 'false', chosen);
+    }
+    // With the trigger on, the live function's rows get the neutral handle; the typed name stays.
+    for (const key of ['full', 'thai', 'local']) assert.match(await ensure(acc[key][0]), HANDLE, key);
+    assert.equal(await ensure(acc.typed[0]), 'Kanom_Ka');
+    await run(`delete from auth.users where id in (${Object.values(acc).map(([id]) => q(id)).join(', ')});`);
+  });
+
+  await check('the four files hold no literal invisible or control character', async () => {
+    const hidden = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f­؜᠎​-‏‪-‮⁠-⁯﻿]/u;
+    for (const [name, text] of Object.entries({ RULES, APPLY, GUARD, INDEX })) assert.doesNotMatch(text, hidden, name);
+  });
+
   await check('file 4: the collision count, the pass that clears it, then the folded unique index', async () => {
     const collisions = commentSql(INDEX, 'select count(*) as folded_groups');
     await run(`update public.profiles set created_at = '2026-09-01' where id = ${q(D)}; update public.profiles set created_at = '2026-10-01' where id = ${q(E)};`);
@@ -378,6 +479,17 @@ try {
     assert.deepEqual(await asRow(collisions), { folded_groups: 0, rows_in_groups: 0 });
     await run(build);
     assert.equal(await run(`select indisvalid::text from pg_index where indexrelid = 'public.profiles_username_folded_key'::regclass;`), 'true');
+    await assert.rejects(run(build), /already exists/, 'a second run stops instead of reporting success');
+    const validity = INDEX.match(/\ndo \$\$[\s\S]+?\n\$\$;/)[0];
+    await run(validity);
+    await run(`update pg_index set indisvalid = false where indexrelid = 'public.profiles_username_folded_key'::regclass;`);
+    await assert.rejects(run(validity), /missing, invalid or not ready/);
+    await run(`update pg_index set indisvalid = true where indexrelid = 'public.profiles_username_folded_key'::regclass;`);
+    await run('drop index public.profiles_username_folded_key;');
+    await assert.rejects(run(validity), /missing, invalid or not ready/);
+    await run(build);
+    // Production's private functions carry no PUBLIC grant: the member must pass on file 1's grant alone.
+    await run('revoke execute on function private.compact_name(text) from public;');
     const rename = (id, name) => as('authenticated', id, `update public.profiles set username = ${q(name)} where id = ${q(id)}`);
     assert.match(await rename(F, 'M.int'), /^23505 /, 'alike once folded to Mint');
     assert.equal(await rename(F, 'Fresh Name'), 'ok 1', 'a member can still rename with the index in place');
@@ -391,4 +503,4 @@ try {
 const failed = checks.filter((c) => !c.ok);
 for (const c of checks) console.log(`${c.ok ? 'ok  ' : 'FAIL'} ${c.name}${c.ok ? '' : `\n     ${c.error}`}`);
 console.log(JSON.stringify({ backend, passed: checks.length - failed.length, failed: failed.length }));
-process.exitCode = failed.length || checks.length < 12 ? 1 : 0;
+process.exitCode = failed.length || checks.length < 14 ? 1 : 0;
