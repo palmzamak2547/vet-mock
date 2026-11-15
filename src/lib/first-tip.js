@@ -2,7 +2,7 @@
 // first-tip.js — one short usage hint per feature, once ever
 // ============================================================
 // A student asked for a small usage hint the first time they open a feature
-// (Library, VetWiki, Notes, Video). Until 5.214 it came back every day and
+// (Library, VetWiki, Notes, Video). Until 5.225 it came back every day and
 // rotated through a list with no end, 17 to 20 percent of the first screen of
 // Notes and VetWiki on every visit. The rule now (AGENTS.md, "Quiet screens"):
 // a hint shows once ever per device, then the how-to guide holds it.
@@ -25,7 +25,7 @@
 // ============================================================
 
 const STORAGE_KEY = 'vmx-first-tip';
-// The daily rotation's counter (until 5.214). Read only as "already seen".
+// The daily rotation's counter (until 5.225). Read only as "already seen".
 const TURN_KEY = 'vmx-first-tip-turn';
 
 const pad2 = (n) => String(n).padStart(2, '0');

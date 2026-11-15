@@ -186,7 +186,7 @@ test('the clock copy says what each clock does', async (t) => {
   view.unmount();
   view = mount(ConfigView, { ...props, mode: 'exam', useTimer: true, availablePool: [] });
   assert.match(textOf(view.tree), /นาฬิกาเดียวทั้งชุด, หมดเวลาคือส่งทั้งชุด/);
-  // Said once, at the switch where the clock is chosen (5.214), never again
+  // Said once, at the switch where the clock is chosen (5.225), never again
   // in the ladder's hint or the start bar's summary; the answer rule once too.
   assert.equal(textOf(view.tree).split('นาฬิกาเดียว').length - 1, 1, 'the clock rule is said more than once');
   assert.equal(textOf(view.tree).split('หมดเวลาคือส่ง').length - 1, 1);

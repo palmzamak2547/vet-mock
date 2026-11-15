@@ -2,7 +2,7 @@ import { test, expect, openHomeModes } from './fixtures.js';
 
 // Quiet screens (AGENTS.md "Quiet screens"): what a student did not come for
 // is either gone or folded into one row. One test per removed or folded
-// thing, each failing on the build before 5.214.
+// thing, each failing on the build before 5.225.
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {

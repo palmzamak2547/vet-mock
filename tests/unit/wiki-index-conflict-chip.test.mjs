@@ -1,6 +1,6 @@
 // A disagreement between the lecture and the evidence is marked ONCE, at the
 // section it concerns (ConflictNote, with both sides and what to write in the
-// exam). Until 5.214 the same 202 points in 91 of 224 topics were also a tag
+// exam). Until 5.225 the same 202 points in 91 of 224 topics were also a tag
 // on every index row, a count on each shelf volume, a "!" in every contents
 // list with a legend to explain it, a cell in the article header, a filter and
 // a footer with its own count and button.

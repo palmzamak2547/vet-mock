@@ -171,7 +171,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // After the last class of the day this is tomorrow's first (dayOffset 1),
   // so the chip does not go dark every evening.
   // A class row prints the course's own name in the app, never the
-  // registrar's capitals cut mid-word with a room code (5.214); a class whose
+  // registrar's capitals cut mid-word with a room code (5.225); a class whose
   // course the app does not know shows no row.
   const nextClassToday = courseNamed(getNextClass(selectedYear));
   const currentClassNow = getCurrentClass(selectedYear);
@@ -287,7 +287,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // What the note lists: the unseen releases, else (reopened from the bottom
   // strip with nothing unread) the newest one.
   const noteReleases = showAnnouncement ? unseenChangelog : (LATEST_CHANGELOG ? [LATEST_CHANGELOG] : []);
-  // Opening the note marks what it shows as seen at that moment (5.214), so
+  // Opening the note marks what it shows as seen at that moment (5.225), so
   // the chip does not come back for those releases however the student
   // leaves (back gesture, a tap elsewhere, no ✕). The list is kept as it was
   // opened, so marking it seen does not change the note under the reader.
@@ -905,7 +905,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         {isScaffoldYear ? (
           <p><strong>{yearMeta.label}</strong> — อยู่ระหว่างจัดเตรียมข้อสอบและเนื้อหา</p>
         ) : null}
-        {/* No "ลองทำ 1 ข้อแรก" line here (5.214): the plan card under it says
+        {/* No "ลองทำ 1 ข้อแรก" line here (5.225): the plan card under it says
             the same thing with its button (NextActionCard). */}
         {/* Permanent tutorial entry — unlike the first-visit banner below,
             this survives exam attempts and dismissal so mid-term newcomers

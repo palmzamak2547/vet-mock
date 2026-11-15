@@ -1,4 +1,4 @@
-// Home's rail (5.214): the tuition countdown is named only in its last 14
+// Home's rail (5.225): the tuition countdown is named only in its last 14
 // days, and a class row prints the course's own name in the app, never the
 // registrar's capitals cut mid-word ("EQUINE MEDICINE AND SU… VET6 807").
 

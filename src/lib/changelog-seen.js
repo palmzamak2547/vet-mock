@@ -95,7 +95,7 @@ export function saveSeen(seen, store) {
   try { storageOf(store)?.setItem(SEEN_KEY, JSON.stringify(capSeen(seen))); } catch { /* storage blocked */ }
 }
 
-// ── Home's update chip (5.214) ───────────────────────────────────────────
+// ── Home's update chip (5.225) ───────────────────────────────────────────
 // Twelve releases shipped on 11 Nov 2026 and the chip, with a count, stayed on
 // Home until the note was opened and closed. Now it is raised only by news a
 // student can use (a change of kind 'feature' or 'content'; a fix never

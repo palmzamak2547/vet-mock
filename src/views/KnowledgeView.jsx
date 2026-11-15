@@ -343,7 +343,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
     setLayoutState(next);
     try { localStorage.setItem('vmx-wiki-layout', next); } catch { /* the choice lasts this visit */ }
   };
-  // No "conflicts only" filter (5.214): a disagreement is marked once, at the
+  // No "conflicts only" filter (5.225): a disagreement is marked once, at the
   // section it concerns, where the student meets it while reading.
   const showShelves = !query && layout === 'shelf';
   // The count is read out once it has settled and typing has paused, not on
@@ -404,7 +404,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         {/* Kept whole: on a phone the line used to end on its last word alone.
             "ความรู้ที่เชื่อมถึงกัน" went: articles do not link across subjects yet. */}
         <p className="vw-tagline"><span>ความรู้ที่บอกได้ว่ามาจากไหน</span></p>
-        {/* No lede and no library counts (5.214): the tagline says what the
+        {/* No lede and no library counts (5.225): the tagline says what the
             lede said, and the search box is what a student came for. */}
         {missing && <p className="vw-missing" role="status">ไม่พบบทความตามลิงก์นี้ ลิงก์อาจเก่าหรือพิมพ์ผิด ค้นหาจากสารบัญด้านล่างได้</p>}
       </header>
@@ -598,7 +598,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
 // The contents: one list for the box in the page, the rail beside it and the
 // phone's sheet. Marked only where something differs from the norm (1,625 of
 // 1,783 sections are checked, so a tick on each was noise); a disagreement
-// with the lecture is marked at its section only (5.214), not here. The
+// with the lecture is marked at its section only (5.225), not here. The
 // section being read carries aria-current and the rail's ink bar.
 function TocList({ sections, active, onJump, long = false, activeRef = null }) {
   return (
@@ -797,7 +797,7 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
             <ConflictNote item={c} />
           </React.Suspense>
         ))}
-        {/* One folded row per section, closed (5.214): where the text came
+        {/* One folded row per section, closed (5.225): where the text came
             from, what it was checked against and the report control were four
             rows under each section. "ที่มา", not "ที่มาในเลกเชอร์": 547 sections
             come from Vet 85 summaries, MSD tables or VetMock's own pages. */}

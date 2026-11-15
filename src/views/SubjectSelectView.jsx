@@ -327,7 +327,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   </div>
                 );
               })()}
-              {/* No grading chip (5.214): weighting, cutoffs and their
+              {/* No grading chip (5.225): weighting, cutoffs and their
                   provenance are on the subject's own screen, in one folded
                   row (TopicSelectView ExamFormatBanner). A picker card says
                   what to open, nothing else. */}

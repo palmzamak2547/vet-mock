@@ -33,7 +33,7 @@ for (const s of [...SUBJECTS, ...Object.values(SUBJECTS_BY_YEAR).flat()]) {
 // topic comes from a senior summary): the same skip signal, so it keeps its mark.
 // "ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา 2569 แต่...ยังนับเป็นเนื้อหาปลายภาค" says the
 // opposite (still on the paper): it changes what to study as much, so since
-// 5.214, when only a caveat stays on the card, it is one too.
+// 5.225, when only a caveat stays on the card, it is one too.
 const OFF_THE_PAPER = /ไม่ออก(?:ข้อ)?สอบ|หลังสอบกลางภาค|ไม่อยู่ในตาราง|ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา/;
 
 // "หลังสอบ" that does NOT describe this cohort's topic. equine-respi is the
@@ -117,7 +117,7 @@ test('UI-14: a neutral note reads upright at 14px (the Thai floor); a caveat rea
   assert.match(css, /\.vmx-topic-note\.is-caveat \{[^}]*color: var\(--clr-ink\);/);
 });
 
-test('5.214: a schedule or provenance note leaves the card for the page\'s one folded row', () => {
+test('5.225: a schedule or provenance note leaves the card for the page\'s one folded row', () => {
   const view = read('src/views/TopicSelectView.jsx');
   // The card draws a note only for a caveat.
   assert.doesNotMatch(view, /\{t\.lecturerNote && !isEmpty && \(/, 'a neutral note is back on the card');

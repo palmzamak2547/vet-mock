@@ -3,7 +3,7 @@
 // ============================================================
 // The rules under test: the first open shows it, and no later open does, on
 // any day; the features never silence each other; a record written under the
-// old daily rule (until 5.214) counts as seen; a broken store never throws;
+// old daily rule (until 5.225) counts as seen; a broken store never throws;
 // dismissing is the same as being shown.
 //
 // Driven against the real module over a minimal stub — the same shape the

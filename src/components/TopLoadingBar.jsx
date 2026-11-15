@@ -146,7 +146,7 @@ export function ViewFallback() {
         <span className="vmx-loading-mark" aria-hidden="true">{showLongHint ? <OptionalFeature><MotionLoader /></OptionalFeature> : '…'}</span>
         <span>กำลังโหลด…</span>
         {showLongHint && <Mochi state="loading" size={32} slot="loading" />}
-        {/* No "first load, next time is faster" line (5.214): it promised
+        {/* No "first load, next time is faster" line (5.225): it promised
             something about the system, not the page the student is waiting for. */}
       </div>
       <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '50%', height: 28, marginBottom: 12 }} />

@@ -59,7 +59,7 @@ test('every wired view greets a first-time student with its own tip', async ({ p
 });
 
 test('a tip seen a week ago stays hidden on all four wired views: a hint shows once ever', async ({ page }) => {
-  // The record a student kept under the old daily rule (until 5.214): the
+  // The record a student kept under the old daily rule (until 5.225): the
   // last day each hint was seen, a week before today, and the rotation count.
   const weekAgo = new Date(Date.parse(PINNED_NOW) - 7 * 864e5).toISOString().slice(0, 10);
   await page.addInitScript((day) => {

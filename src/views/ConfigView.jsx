@@ -566,7 +566,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
             {countPresets.map((n) => (
               <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { questionCountRef.current = n; rememberRow({ numQuestions: n }); setNumQuestions(n); }}>
                 {/* The whole pool is a count with a unit and a meaning, not a
-                    bare "6257" (5.214). */}
+                    bare "6257" (5.225). */}
                 {n === knownAvailableCount && !QCOUNT_PRESETS.includes(n) ? `ทั้งหมด ${n.toLocaleString()} ข้อ` : n}
               </button>
             ))}

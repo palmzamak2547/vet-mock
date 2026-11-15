@@ -43,7 +43,7 @@ export const PRACTICE_SETUP = defineDecision({
     // The order the set really gets: rung 1 asks for the gentle order unless
     // the level pick is on (ConfigView's `gentle`), and says "probably" as the
     // ladder does, since difficulty is mostly a proxy. The why never repeats
-    // the line above it (5.214): the clock and the answer are already there.
+    // the line above it (5.225): the clock and the answer are already there.
     const order = value.pick === 'adaptive' ? 'เลือกข้อตามระดับของคุณ' : 'ข้อที่น่าจะง่ายมาก่อน';
     const base = step === 'timed' ? 'ขั้นใช้ความรู้ ขั้นล่าสุดที่คุณฝึก'
       : s.hasHistory ? `ขั้นทำความเข้าใจ ${order}`

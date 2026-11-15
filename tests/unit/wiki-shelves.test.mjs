@@ -124,7 +124,7 @@ test('the index opens on the shelves: every subject a volume, no library counts,
   const spines = () => findAll(v.tree, (n) => n.type === 'button' && /vw-spine/.test(n.props.className || ''));
   assert.equal(spines().length, SHELF_TOTALS.subjects, 'one volume per subject');
   const text = textOf(v.tree);
-  // The masthead's four library counts went in 5.214: bookkeeping, not study.
+  // The masthead's four library counts went in 5.225: bookkeeping, not study.
   for (const figure of [SHELF_TOTALS.sections, SHELF_TOTALS.claims, SHELF_TOTALS.sources]) {
     assert.ok(!text.includes(figure.toLocaleString('en-US')), `the masthead still shows ${figure}`);
   }
