@@ -42,7 +42,7 @@ export const GUIDE_PATHS = [
     needsQuestions: true,
     steps: [
       {
-        text: 'เปิด {feature:sr-session} แล้วกด {ui:เริ่ม Session}',
+        text: 'เปิด {feature:sr-session} แล้วกด {ui:เริ่มทบทวน}',
         note: 'ตอบตามที่จำได้จริง ข้อที่ยังไม่แม่นจะถูกนัดให้กลับมาเร็วขึ้น',
         go: { feature: 'sr-session' },
         src: ['src/views/SRSessionView.jsx'],

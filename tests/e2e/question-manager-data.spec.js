@@ -67,7 +67,7 @@ test('a newly created custom ID reaches spaced review and keeps its review histo
     localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('all'));
   }, { id: created.id, card });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard .front')).toContainText(created.q);
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).click();
   await page.getByRole('button', { name: /Good/ }).click();
