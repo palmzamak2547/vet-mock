@@ -14,6 +14,7 @@ export const VETWIKI_TOPIC_KEYS = [
   "aquatic-clinic--aqua-fish-diseases",
   "aquatic-clinic--aqua-shrimp-diseases",
   "aquatic-clinic--aqua-aquarium-vet",
+  "aquatic-clinic--aqua-toxicology",
   "aquatic-clinic--aqua-disease-control",
   "avian-medicine--avian-nd",
   "avian-medicine--avian-ib",
