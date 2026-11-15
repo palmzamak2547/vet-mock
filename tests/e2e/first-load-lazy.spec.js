@@ -39,7 +39,10 @@ const seed = (entries) => (values) => { for (const [k, v] of Object.entries(valu
 // Two fresh browsers with the same seed and the same pinned clock: one may fetch the lazy code, one may not.
 async function freshPage(browser, entries, block) {
   const { baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor } = test.info().project.use;
-  const ctx = await browser.newContext({ baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor });
+  // Reduced motion: the wordmark's phrases cycle for as long as the page is open, and the countdown's
+  // number rolls up, so two loads read at any moment differ by where those motions stand. With motion
+  // turned down the app draws them still, and every element is still compared.
+  const ctx = await browser.newContext({ baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor, reducedMotion: 'reduce' });
   await ctx.addInitScript(installPinnedCalendar, { pinned: Date.parse(PINNED_NOW) });
   await ctx.addInitScript(seed(entries), entries);
   const page = await ctx.newPage();
