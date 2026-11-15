@@ -33,7 +33,8 @@ test('an unsized document\'s streamed bytes are counted before the handler resol
     const bytes = new Uint8Array(4096);
     return new Response(new ReadableStream({ pull(c) { c.enqueue(bytes); c.close(); } }, { highWaterMark: 0 }), { status: 200 });
   });
-  const { default: handler } = await import(`../../api/library-blob.js?settle=${Date.now()}`);
+  const { default: handler, setDirectStorage } = await import(`../../api/library-blob.js?settle=${Date.now()}`);
+  setDirectStorage(false); // the REST route, which streams the whole object
   const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
   const token = mintBlobToken({ storage_bucket: 'b', storage_key: 'docs/unsized.pdf', mime: 'application/pdf', byte_size: 0, status: 'public' }, { user: 'settle' });
   const res = new Writable({ write(_c, _e, done) { done(); } });
