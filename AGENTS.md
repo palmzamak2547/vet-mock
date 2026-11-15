@@ -117,6 +117,7 @@ Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
 - **Disjoint file ownership across harnesses.** Check the one claim record (`work/loop-20260930/COORDINATION.md`) and the working tree before touching a file; shared surfaces need explicit hunk ownership. Never stage or commit another lane's files or untracked work — stage exact paths only.
 - **Competing lanes use separate worktrees**, each with its own `npm ci` after lockfile changes (a node_modules junction silently bundles the primary checkout's packages).
 - **Integrate with the checklist**, not from memory: recheck main, build, applicable gates, exact-path staging, one push, verify the live journey, update the claim record.
+- **Several contributors at once, on any machine:** [docs/WORKING-LANES.md](docs/WORKING-LANES.md); GitHub issue #253 is the claim record across machines (read before you start, comment to claim).
 - **Bad commit on main → revert forward.** Never force-push or rewrite history.
 
 ## 🗂️ Where Things Live
