@@ -1,0 +1,63 @@
+/* The paper. Loaded by src/lib/print-document.js the first time a document is
+   printed, so it adds nothing to the first load. Every rule sits under
+   @media print or an element that only exists while printing. */
+@page paper {
+  size: A4;
+  margin: 20mm 18mm 22mm;
+  @top-left { content: var(--vmx-print-head, ""); font: 9pt 'Sarabun', sans-serif; color: #666; }
+  @bottom-left { content: var(--vmx-print-foot, ""); font: 9pt 'Sarabun', sans-serif; color: #666; }
+  @bottom-right { content: counter(page) " / " counter(pages); font: 9pt 'Sarabun', sans-serif; color: #666; }
+}
+
+@media print {
+  html[data-print] body > *:not(.vmx-paper-host) { display: none !important; }
+  html[data-print] body { background: #fff; color: #000; margin: 0; }
+  .vmx-paper-host { display: block !important; }
+  .vmx-paper-host[hidden] { display: block !important; }
+
+  .vmx-paper {
+    page: paper;
+    font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif;
+    font-size: 11pt;
+    line-height: 1.65;
+    letter-spacing: 0;
+    text-align: left;
+    color: #000;
+    background: #fff;
+    orphans: 2;
+    widows: 2;
+  }
+  .vmx-paper h1 { font-size: 18pt; line-height: 1.2; letter-spacing: 0; font-weight: 700; margin: 0 0 1mm; }
+  .vmx-paper header p { margin: 0 0 9mm; font-size: 11pt; color: #444; }
+  .vmx-paper p { margin: 0; }
+
+  .vmx-paper-list { list-style: none; margin: 0; padding: 0; }
+  .vmx-paper-q {
+    display: block;
+    margin: 0 0 6mm 10mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .vmx-paper-q::before { content: attr(data-n) "."; float: left; width: 7mm; margin-left: -10mm; font-weight: 700; text-align: right; }
+  .vmx-paper-stem { white-space: pre-line; overflow-wrap: anywhere; }
+  .vmx-paper-fig { max-width: 100%; max-height: 70mm; margin: 2mm 0; break-inside: avoid; }
+
+  .vmx-paper-opts, .vmx-paper-match ol { list-style: none; margin: 1mm 0 0; padding: 0; }
+  .vmx-paper-opts li, .vmx-paper-match li { position: relative; padding-left: 7mm; overflow-wrap: anywhere; break-inside: avoid; }
+  .vmx-paper-opts li::before, .vmx-paper-match li::before { content: attr(data-letter) "."; position: absolute; left: 0; }
+  .vmx-paper-match { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; }
+
+  .vmx-paper-lines { margin-top: 1mm; }
+  .vmx-paper-lines span { display: block; height: 9mm; border-bottom: 0.3pt solid #999; }
+
+  .vmx-paper-why { margin-top: 1.5mm; font-size: 9.5pt; line-height: 1.6; color: #222; overflow-wrap: anywhere; }
+  .vmx-paper-why b { font-weight: 700; }
+
+  .vmx-paper-answers { break-before: page; }
+  .vmx-paper-key { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
+  .vmx-paper-key th { font-weight: 700; text-align: left; border-bottom: 0.5pt solid #000; padding: 0 0 1.2mm; }
+  .vmx-paper-key td { padding: 1.2mm 0; border-bottom: 0.25pt solid #ccc; }
+  .vmx-paper-key tr { break-inside: avoid; }
+  .vmx-paper-key th:nth-child(odd), .vmx-paper-key td:nth-child(odd) { width: 10mm; }
+  .vmx-paper-key td:nth-child(even) { font-weight: 700; }
+}
