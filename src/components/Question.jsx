@@ -7,8 +7,8 @@ import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
-import RichBlocks from './RichBlocks.jsx';
-import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import RichBlocks, { SplitStem } from './RichBlocks.jsx';
+import { hasTable, splitStem, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
 import { displayStem } from '../lib/match-stem.js';
 import { otherOptionsFold } from '../lib/explain-fold.js';
 import { metaLineCut } from '../lib/meta-line.js';
@@ -176,6 +176,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // still reads the whole stem, so no phrase is marked in one that was shortened.
   const shownStem = displayStem(currentQ);
   const stemShortened = shownStem !== (currentQ?.q || '');
+  // A long stem that ends on its question: the body above, the ask alone as the heading (rich-blocks.js splitStem).
+  const stemShown = english?.q || shownStem;
+  const stemSplit = useMemo(() => splitStem(stemShown), [stemShown]);
   // Main's English version (5.223.0) shows instead of the Thai text; the voice still reads Thai.
   const shownEnglishStem = Boolean(english?.q);
   const shownEnglishOptions = Array.isArray(english?.options);
@@ -503,7 +506,18 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={english?.q || shownStem} subject={currentQ.subject} /></h2>
+      {stemSplit ? (
+        <SplitStem
+          text={stemShown}
+          split={stemSplit}
+          stemRef={stemRef}
+          className={readWhat === 'q' && readKind === 'stem' ? 'is-reading' : ''}
+          renderText={(t) => <TermLinkedRichText text={t} subject={currentQ.subject} />}
+          ask={(content) => <h2 className="vmx-qtext">{content}</h2>}
+        />
+      ) : (
+        <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={stemShown} subject={currentQ.subject} /></h2>
+      )}
       {englishNote && !english && <p className="vmx-en-missing">{englishNote}</p>}
 
       {showNote && (

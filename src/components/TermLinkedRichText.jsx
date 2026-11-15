@@ -53,6 +53,10 @@ function ensureTermStyles() {
   text-underline-offset: 3px;
   /* Inline tap target — extra padding-block gives 44 px effective hit */
   padding: 2px 0;
+  /* A button stays an atomic inline box, so that padding made the line that
+     holds a term 4px taller than the next. The margin gives it back: the hit
+     area keeps its padding and the line keeps its height. */
+  margin: -2px 0;
   /* Prevent iOS double-tap-zoom on rapid taps */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;

@@ -20,7 +20,7 @@ import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
-import RichBlocks from '../components/RichBlocks.jsx';
+import RichBlocks, { StemText } from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
@@ -875,7 +875,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               maxHeight="var(--vmx-sr-figure-max, 320px)"
             />
           )}
-          <div style={{ fontSize: 18 }}><RichText text={displayStem(currentQ)} /></div>
+          <StemText text={displayStem(currentQ)} ask={(content) => <div style={{ fontSize: 18 }}>{content}</div>} />
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">

@@ -43,6 +43,9 @@
   }
   .vmx-paper-q::before { content: attr(data-n) "."; float: left; width: 7mm; margin-left: -10mm; font-weight: 700; text-align: right; }
   .vmx-paper-stem { white-space: pre-line; overflow-wrap: anywhere; }
+  .vmx-paper .vmx-qstem-body { font-size: inherit; line-height: inherit; margin: 0 0 1.5mm; overflow-wrap: anywhere; }
+  .vmx-paper .vmx-rb-p { white-space: pre-line; }
+  .vmx-paper .vmx-rb-p, .vmx-paper .vmx-rb-lead, .vmx-paper .vmx-rb-list { max-width: none; }
   .vmx-paper-fig { max-width: 100%; max-height: 70mm; margin: 2mm 0; break-inside: avoid; }
 
   .vmx-paper-opts, .vmx-paper-match ol { list-style: none; margin: 1mm 0 0; padding: 0; }

@@ -2587,6 +2587,44 @@ html.dark .vmx-panic-scrim {
 .vmx-qsource-toggle svg { flex: 0 0 auto; color: var(--clr-sage-text); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
 
+/* A long stem that ends on its question (rich-blocks.js splitStem): the case
+   above in body type, the ask alone below it as the heading. */
+.vmx-qstem-body { font-size: 16px; font-weight: 400; line-height: 1.65; color: var(--clr-ink); margin: 0 0 16px; }
+.vmx-qstem-ask { font-weight: 600; margin-top: 12px; }
+
+/* Typeset prose (RichBlocks.jsx ProseBlocks): a stem body, an explanation.
+   Blocks sit 0.6em apart instead of an empty line; prose keeps a reading
+   measure on wide screens; a grid of values takes only the width it needs.
+   No cell is coloured: which value is out of range is the student's call. */
+.vmx-rb { container: vmx-rb / inline-size; }
+.vmx-rb > * + * { margin-top: 0.6em; }
+.vmx-rb-p, .vmx-rb-lead, .vmx-rb-list { max-width: 36em; }
+.vmx-rb-lead { margin-bottom: 0.15em; }
+.vmx-rb-lead.is-label { font-weight: 500; }
+.vmx-rb-list { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 0.45em; }
+.vmx-rb-mark.is-num { justify-self: end; font-variant-numeric: tabular-nums; }
+.vmx-rb-pairs, .vmx-rb-results {
+  display: grid; column-gap: 1.25em; width: max-content; max-width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.vmx-rb-pairs { grid-template-columns: minmax(0, max-content) max-content max-content; }
+.vmx-rb-pairs > * { grid-row: var(--r); }
+.vmx-rb-pairs > .vmx-rb-k { grid-column: 1; }
+.vmx-rb-pairs > .vmx-rb-v { grid-column: 2; }
+.vmx-rb-pairs > .vmx-rb-x { grid-column: 3; color: var(--clr-ink-soft); }
+.vmx-rb-pairs.is-kv { grid-template-columns: fit-content(40%) minmax(0, 1fr); width: auto; max-width: 36em; }
+.vmx-rb-results { grid-template-columns: minmax(0, max-content) max-content; }
+@media (max-width: 480px) { .vmx-rb-pairs, .vmx-rb-results { column-gap: 0.8em; } }
+@container vmx-rb (min-width: 42em) {
+  .vmx-rb-pairs.can-split {
+    grid-template-columns: minmax(0, max-content) max-content max-content 1.5em minmax(0, max-content) max-content max-content;
+  }
+  .vmx-rb-pairs.can-split > * { grid-row: var(--r2); }
+  .vmx-rb-pairs.can-split > .vmx-rb-k.is-b { grid-column: 5; }
+  .vmx-rb-pairs.can-split > .vmx-rb-v.is-b { grid-column: 6; }
+  .vmx-rb-pairs.can-split > .vmx-rb-x.is-b { grid-column: 7; }
+}
+
 /* Question figures — real source material with an explicit caption and a
    keyboard-accessible zoom affordance. The control stays visually quiet so
    the clinical/lecture figure remains the focal point. */
@@ -3789,7 +3827,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-bookmark-btn, .vmx-note-btn { min-width: 44px; min-height: 44px; }
 
 /* Long Thai words don't blow the layout */
-.vmx-mode-card .title, .vmx-question-card .vmx-qtext, .vmx-review-q { word-break: break-word; overflow-wrap: anywhere; }
+.vmx-mode-card .title, .vmx-question-card .vmx-qtext, .vmx-question-card .vmx-qstem-body, .vmx-review-q { word-break: break-word; overflow-wrap: anywhere; }
 
 /* Smooth scroll for long modal/sidebar */
 .vmx-modal, .vmx-app { -webkit-overflow-scrolling: touch; }
@@ -5049,7 +5087,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 
 /* What the read-aloud is on: the block (stem, option row, เหตุผล) by an inset
    edge, the phrase being spoken by a CSS highlight. Neither changes a box. */
-.vmx-qtext.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
+.vmx-qtext.is-reading, .vmx-qstem.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
 /* A stem read together with the numbers of its table: the table carries the edge too. */
 .vmx-q-passage-pane.is-reading { box-shadow: -3px 0 0 var(--clr-ocean); }
 .vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
