@@ -229,8 +229,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',    iconName: 'practice', color: 'var(--clr-ink)' },
     { id: 'wrong',      label: 'ผิด',        iconName: 'close',    color: 'var(--clr-rose-text)' },
-    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-sage-text)' },
-    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-gold-text)' },
+    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-right-text)' },
+    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-part-text)' },
     { id: 'skipped',    label: 'ข้าม',       iconName: 'repeat',   color: 'var(--clr-ink-soft)' },
     { id: 'bookmarked', label: 'บันทึกไว้',   iconName: 'bookmark', color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',     iconName: 'note',     color: 'var(--clr-plum-text)' },
@@ -409,7 +409,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   <NavIcon name="star" size={16} filled={bookmarks.includes(q.id)} />
                 </button>
                 <span className={`vmx-review-result ${correct ? 'ok' : (outcome === 'self' || isPartial ? '' : 'no')}`}
-                  style={outcome === 'self' ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : undefined}>
+                  style={outcome === 'self' ? { background: 'var(--clr-part-soft)', color: 'var(--clr-part-text)' } : isPartial ? { background: 'var(--clr-part-soft)', color: 'var(--clr-part-text)' } : undefined}>
                   {!answered ? 'ข้าม' : outcome === 'self' ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
                 </span>
                 {/* A disputed key is named beside the verdict it may have decided. */}

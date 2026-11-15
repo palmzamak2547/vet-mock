@@ -59,7 +59,7 @@
      as text on cream 3.48. #b05555 clears both — 4.91 and 4.64 — so rose
      needs no separate on-colour in light, the way sage does not. */
   --clr-rose: #b05555;
-  --clr-rose-soft: #e8b8b8;
+  --clr-rose-soft: #dea0a0;
   --clr-gold: #b88940;
   --clr-gold-soft: #e8d4a8;
   --clr-ocean: #3d6b82;
@@ -67,13 +67,21 @@
   --clr-border: #d8c9a8;
   --clr-sage-text: #355a39;
   --clr-gold-text: #76511e;
-  --clr-rose-text: #93454b;
+  --clr-rose-text: #6a2c34;
   /* Labels for the accent fills. Gold is the one that cannot serve both
      roles: white on #b88940 is 3.14 and darkening it far enough to carry
      white turns gold into brown, so gold keeps its brightness and takes
      ink instead — 4.89, and dark-on-gold is what a LIVE badge looks like
      anywhere else. */
   --clr-sage-on: #ffffff;
+  /* Verdicts (right, partly right) have their own tokens, which no palette
+     block sets: a right answer is the house sage in every palette.
+     tests/unit/verdict-colours.test.mjs. Wrong answers use --clr-rose,
+     which no palette sets either. */
+  --clr-right: #4a6b4a; --clr-right-text: #355a39; --clr-right-soft: #b8cfa8; --clr-right-on: #ffffff;
+  --clr-part: #b88940; --clr-part-text: #76511e; --clr-part-soft: #e8d4a8;
+  /* Text that sits on --clr-rose-soft (the "ผิด" pill, the wrong answer box, error boxes). */
+  --clr-rose-soft-text: #6a2c34;
   --clr-gold-on: var(--clr-ink);
   --subject-text-mix: 45%;
   --clr-rose-on: #ffffff;
@@ -176,6 +184,9 @@
      page background reads on them (gold 7.98, rose 7.12) where white
      does not. */
   --clr-sage-on: var(--clr-bg);
+  --clr-right: #7ba87b; --clr-right-text: #9bc99b; --clr-right-soft: #34532e; --clr-right-on: var(--clr-bg);
+  --clr-part: #d4a556; --clr-part-text: #e4ba73; --clr-part-soft: #5d492a;
+  --clr-rose-soft-text: #ffd6d6;
   --clr-gold-on: var(--clr-bg);
   --subject-text-mix: 40%;
   --clr-rose-on: var(--clr-bg);
@@ -1844,8 +1855,8 @@ html, body {
 .vmx-aigrade-list { margin-bottom: var(--space-2); }
 .vmx-aigrade-list ul { margin: 4px 0 0; padding-left: 20px; }
 .vmx-aigrade-list li { font-size: 14px; line-height: 1.6; margin: 2px 0; }
-.vmx-aigrade-good .vmx-kicker { color: var(--clr-sage-text); }
-.vmx-aigrade-gap .vmx-kicker { color: var(--clr-gold-text); }
+.vmx-aigrade-good .vmx-kicker { color: var(--clr-right-text); }
+.vmx-aigrade-gap .vmx-kicker { color: var(--clr-part-text); }
 
 /* ── Study coach — three grounded panels ───────────────────────────────
    A wrong answer, a finished session and a summary just read are three
@@ -2171,7 +2182,7 @@ html.dark .vmx-panic-scrim {
 .vmx-pdf-dropzone { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-8) var(--space-4); border: 2px dashed var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); transition: border-color var(--dur-fast), background var(--dur-fast); }
 .vmx-pdf-dropzone[data-dragging] { border-color: var(--clr-sage); background: var(--clr-sage-soft); }
 .vmx-pdf-library-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); color: var(--clr-ink-soft); font-size: var(--text-sm); }
-.vmx-pdf-open-error { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--r-sm); background: var(--clr-rose-soft); color: var(--clr-rose-text); font-size: var(--text-sm); }
+.vmx-pdf-open-error { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--r-sm); background: var(--clr-rose-soft); color: var(--clr-rose-soft-text); font-size: var(--text-sm); }
 /* A shelf deck on its way into the reader: its title, the progress and, on a
    failure, every way to the file, at the top where a phone shows them. */
 .vmx-doc-opening { width: 100%; max-width: 720px; margin: 0 auto; padding: var(--space-2) var(--space-4) var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); }
@@ -2872,15 +2883,15 @@ html.dark .vmx-panic-scrim {
   overflow-wrap: anywhere;
 }
 .vmx-option.is-correct {
-  border-color: var(--clr-sage) !important;
+  border-color: var(--clr-right) !important;
   background: rgba(74, 107, 74, 0.12) !important;
-  box-shadow: 0 0 0 1.5px var(--clr-sage) !important;
+  box-shadow: 0 0 0 1.5px var(--clr-right) !important;
   color: var(--clr-ink) !important;
 }
 .vmx-option.is-correct .vmx-option-letter {
-  background: var(--clr-sage) !important;
-  color: var(--clr-sage-on) !important;
-  border-color: var(--clr-sage) !important;
+  background: var(--clr-right) !important;
+  color: var(--clr-right-on) !important;
+  border-color: var(--clr-right) !important;
 }
 .vmx-option.is-wrong {
   border-color: var(--clr-rose) !important;
@@ -3081,7 +3092,7 @@ html.dark .vmx-panic-scrim {
 .vmx-match-review-row .left { appearance: none; border: 0; background: none; padding: 0; margin: 0; font: inherit; font-size: 14px; line-height: 1.45; color: var(--clr-ink); text-align: left; cursor: pointer; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .vmx-match-review-row .left.is-open { display: block; }
 .vmx-match-review-row .ans { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 4px; font-size: 14px; font-family: var(--vmx-mono); }
-.vmx-match-review-row .ans .ok, .vmx-match-review-row .ans .key { color: var(--clr-sage-text); }
+.vmx-match-review-row .ans .ok, .vmx-match-review-row .ans .key { color: var(--clr-right-text); }
 .vmx-match-review-row .ans .you { color: var(--clr-rose-text); }
 .vmx-explain-acc { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: var(--clr-surface-2); border-left: 3px solid var(--clr-gold); font-size: 14px; line-height: 1.5; }
 .vmx-explain-acc .k { font-weight: 700; color: var(--clr-gold-text); margin-bottom: 4px; }
@@ -3116,7 +3127,7 @@ html.dark .vmx-panic-scrim {
 .vmx-fill-input-wrap { display: flex; align-items: center; gap: 8px; }
 .vmx-fill-input-wrap > .vmx-fill-input { flex: 1 1 auto; min-width: 0; }
 .vmx-fill-mark { flex: none; font-size: 18px; font-weight: 700; line-height: 1; }
-.vmx-fill-mark.is-ok { color: var(--clr-sage-text); }
+.vmx-fill-mark.is-ok { color: var(--clr-right-text); }
 .vmx-fill-mark.is-no { color: var(--clr-rose-text); }
 .vmx-fill-check-hint { font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-fill-key { margin: 0; padding-left: 1.4em; }
@@ -3125,7 +3136,7 @@ html.dark .vmx-panic-scrim {
 .vmx-written-reveal .k .c { font-family: var(--vmx-mono); font-weight: 400; color: var(--clr-ink-soft); margin-left: 6px; }
 .vmx-kw-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .vmx-kw-list li { padding: 3px 10px; border-radius: 999px; font-size: 14px; border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink-soft); }
-.vmx-kw-list li.is-found { border-color: var(--clr-sage); color: var(--clr-sage-text); }
+.vmx-kw-list li.is-found { border-color: var(--clr-right); color: var(--clr-right-text); }
 .vmx-kw-list li.is-missing { border-style: dashed; }
 .vmx-written-reveal-hint { margin-top: 6px; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-written-reveal-model, .vmx-written-reveal-why { margin-top: 10px; }
@@ -3162,7 +3173,7 @@ html.dark .vmx-panic-scrim {
 .vmx-match-dnd-slot.is-drag-over { border-color: var(--clr-gold); background: rgba(184, 137, 64, 0.12); box-shadow: 0 0 0 4px rgba(184, 137, 64, 0.28); transform: scale(1.015); }
 .vmx-match-dnd-slot.filled { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.04); }
 .vmx-match-dnd-slot.empty { border-style: dashed; }
-.vmx-match-dnd-slot.correct { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.08); }
+.vmx-match-dnd-slot.correct { border-color: var(--clr-right); background: rgba(74, 107, 74, 0.08); }
 .vmx-match-dnd-slot.wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.08); }
 
 .vmx-match-dnd-slot-num { width: 24px; height: 24px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); color: var(--clr-ink-soft); font-size: 11px; font-weight: 700; font-family: var(--vmx-mono); display: grid; place-items: center; flex-shrink: 0; }
@@ -3175,7 +3186,7 @@ html.dark .vmx-panic-scrim {
 .vmx-match-dnd-clear:hover { background: var(--clr-rose); color: #fff; }
 
 .vmx-match-dnd-badge { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
-.vmx-match-dnd-badge.ok { background: var(--clr-sage); }
+.vmx-match-dnd-badge.ok { background: var(--clr-right); }
 .vmx-match-dnd-badge.no { background: var(--clr-rose); }
 
 /* Right pool cards */
@@ -3205,8 +3216,8 @@ html.dark .vmx-panic-scrim {
 /* Reveal score banner */
 .vmx-match-dnd-reveal { margin-top: 6px; }
 .vmx-match-reveal-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: 12px; font-size: 14px; flex-wrap: wrap; border: 1.5px solid; }
-.vmx-match-reveal-banner.pass { background: rgba(74, 107, 74, 0.12); border-color: var(--clr-sage); color: var(--clr-sage-text); }
-.vmx-match-reveal-banner.partial { background: rgba(184, 137, 64, 0.12); border-color: var(--clr-gold); color: var(--clr-gold-text); }
+.vmx-match-reveal-banner.pass { background: rgba(74, 107, 74, 0.12); border-color: var(--clr-right); color: var(--clr-right-text); }
+.vmx-match-reveal-banner.partial { background: rgba(184, 137, 64, 0.12); border-color: var(--clr-part); color: var(--clr-part-text); }
 .vmx-match-reveal-banner.fail { background: rgba(194, 109, 109, 0.12); border-color: var(--clr-rose); color: var(--clr-rose-text); }
 .vmx-match-reveal-score { font-weight: 700; font-size: 14px; }
 .vmx-match-reveal-msg { font-size: 14px; opacity: 0.9; }
@@ -3273,9 +3284,9 @@ html.dark .vmx-panic-scrim {
 .vmx-clinical-seal .vmx-seal-title { font-weight: 700; }
 .vmx-clinical-seal .vmx-seal-sub { font-size: 14px; }
 .vmx-clinical-seal.is-pass {
-  color: var(--clr-sage-text);
+  color: var(--clr-right-text);
   background: rgba(74, 107, 74, 0.08);
-  border-color: var(--clr-sage);
+  border-color: var(--clr-right);
 }
 .vmx-clinical-seal.is-review {
   color: var(--clr-rose-text);
@@ -3310,7 +3321,7 @@ html.dark .vmx-panic-scrim {
   border-radius: 999px;
   transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.vmx-benchmark-fill.is-pass { background: var(--clr-sage); }
+.vmx-benchmark-fill.is-pass { background: var(--clr-right); }
 .vmx-benchmark-fill.is-review { background: var(--clr-rose); }
 .vmx-benchmark-target {
   position: absolute;
@@ -3361,7 +3372,7 @@ html.dark .vmx-panic-scrim {
 }
 
 .vmx-score-big { font-family: var(--vmx-display); font-variant-numeric: tabular-nums; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
-.vmx-score-big.pass { color: var(--clr-sage-text); }
+.vmx-score-big.pass { color: var(--clr-right-text); }
 .vmx-score-big.fail { color: var(--clr-rose-text); }
 .vmx-score-label { font-family: inherit; font-size: 14px; color: var(--clr-ink-soft); margin: 8px 0 20px; }
 .vmx-score-frac { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
@@ -3405,7 +3416,7 @@ html.dark .vmx-panic-scrim {
   box-shadow: var(--shadow-workbench, var(--shadow-sm));
 }
 .vmx-review-item.correct {
-  border-color: color-mix(in srgb, var(--clr-sage) 35%, var(--clr-border));
+  border-color: color-mix(in srgb, var(--clr-right) 35%, var(--clr-border));
 }
 .vmx-review-item.wrong {
   border-color: color-mix(in srgb, var(--clr-rose) 35%, var(--clr-border));
@@ -3446,12 +3457,12 @@ html.dark .vmx-panic-scrim {
   background: rgba(194, 109, 109, 0.12); border: 1px solid var(--clr-rose);
 }
 .vmx-review-result.ok {
-  color: var(--clr-sage-text);
-  background: var(--clr-sage-soft);
-  border-color: color-mix(in srgb, var(--clr-sage) 30%, transparent);
+  color: var(--clr-right-text);
+  background: var(--clr-right-soft);
+  border-color: color-mix(in srgb, var(--clr-right) 30%, transparent);
 }
 .vmx-review-result.no {
-  color: var(--clr-rose-text);
+  color: var(--clr-rose-soft-text);
   background: var(--clr-rose-soft);
   border-color: color-mix(in srgb, var(--clr-rose) 30%, transparent);
 }
@@ -3496,18 +3507,18 @@ html.dark .vmx-panic-scrim {
   margin-right: 8px;
 }
 .vmx-review-ans.correct-ans {
-  background: var(--clr-sage-soft);
-  border: 1px solid color-mix(in srgb, var(--clr-sage) 35%, transparent);
+  background: var(--clr-right-soft);
+  border: 1px solid color-mix(in srgb, var(--clr-right) 35%, transparent);
 }
 .vmx-review-ans.correct-ans .k {
-  color: var(--clr-sage-text);
+  color: var(--clr-right-text);
 }
 .vmx-review-ans.wrong-ans {
   background: var(--clr-rose-soft);
   border: 1px solid color-mix(in srgb, var(--clr-rose) 35%, transparent);
 }
 .vmx-review-ans.wrong-ans .k {
-  color: var(--clr-rose-text);
+  color: var(--clr-rose-soft-text);
 }
 .vmx-review-explain {
   margin-top: 12px;
@@ -3549,10 +3560,10 @@ html.dark .vmx-panic-scrim {
 .vmx-sr-btn .sub { font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; font-size: 14px; color: var(--clr-ink-soft); letter-spacing: 0; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
 .vmx-sr-btn.again .label { color: var(--clr-rose-text); }
-.vmx-sr-btn.hard { border-color: var(--clr-gold); }
-.vmx-sr-btn.hard .label { color: var(--clr-gold-text); }
-.vmx-sr-btn.good { border-color: var(--clr-sage); }
-.vmx-sr-btn.good .label { color: var(--clr-sage-text); }
+.vmx-sr-btn.hard { border-color: var(--clr-part); }
+.vmx-sr-btn.hard .label { color: var(--clr-part-text); }
+.vmx-sr-btn.good { border-color: var(--clr-right); }
+.vmx-sr-btn.good .label { color: var(--clr-right-text); }
 .vmx-sr-btn.easy { border-color: var(--clr-ocean); }
 .vmx-sr-btn.easy .label { color: var(--clr-ocean-text); }
 
@@ -4824,8 +4835,6 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 /* ─── Instant feedback (โหมดฝึก — เฉลยทันทีหลังตอบ, v5.29) ───────
    Appended last so the verdict colors win the cascade over
    .vmx-option.selected / .vmx-tf-btn.selected-* defined above. */
-.vmx-option.is-correct { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.12); color: var(--clr-ink); }
-.vmx-option.is-correct .vmx-option-letter { background: var(--clr-sage); border-color: var(--clr-sage); color: var(--clr-sage-on); }
 .vmx-option.is-wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.10); color: var(--clr-ink); }
 .vmx-option.is-wrong .vmx-option-letter { background: var(--clr-rose); border-color: var(--clr-rose); color: var(--clr-rose-on); }
 .vmx-option:disabled, .vmx-option[aria-disabled="true"] { cursor: default; pointer-events: none; }
@@ -4833,9 +4842,9 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
    picked it, and a wrong pick is red. An inset ring alone could not say this,
    because it was sitting on top of a fill that already meant something else. */
 .vmx-tf-btn.reveal-correct {
-  background: var(--clr-sage);
+  background: var(--clr-right);
   color: var(--clr-surface);
-  border-color: var(--clr-sage);
+  border-color: var(--clr-right);
 }
 .vmx-tf-btn.reveal-wrong {
   background: var(--clr-rose);
@@ -4857,7 +4866,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   overflow: hidden;
 }
 .vmx-instant-feedback.is-ok {
-  border-left: 4px solid var(--clr-sage);
+  border-left: 4px solid var(--clr-right);
   background: var(--clr-surface);
 }
 .vmx-instant-feedback.is-no {
@@ -4885,7 +4894,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   letter-spacing: 0.05em;
   margin-bottom: 3px;
 }
-.vmx-instant-feedback.is-ok .vmx-feedback-kicker { color: var(--clr-sage-text); }
+.vmx-instant-feedback.is-ok .vmx-feedback-kicker { color: var(--clr-right-text); }
 .vmx-instant-feedback.is-no .vmx-feedback-kicker { color: var(--clr-rose-text); }
 .vmx-instant-feedback .v {
   font-weight: 700;
@@ -4900,7 +4909,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   padding: 10px 14px;
   border-radius: var(--r-sm);
   background: rgba(74, 107, 74, 0.12);
-  border: 1px solid var(--clr-sage-soft);
+  border: 1px solid color-mix(in srgb, var(--clr-right) 45%, var(--clr-surface));
   color: var(--clr-ink);
   display: flex;
   align-items: baseline;
@@ -4918,7 +4927,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 }
 .vmx-feedback-correct-val {
   font-weight: 600;
-  color: var(--clr-sage-text);
+  color: var(--clr-right-text);
   flex: 1;
   min-width: 0;
 }
@@ -5206,7 +5215,7 @@ html.vmx-read-open body::after { content: ''; display: block; height: var(--vmx-
   background: rgba(74, 107, 74, 0.03);
 }
 .vmx-match-select-row.correct {
-  border-color: var(--clr-sage);
+  border-color: var(--clr-right);
   background: rgba(74, 107, 74, 0.08);
 }
 .vmx-match-select-row.wrong {
@@ -5874,12 +5883,12 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-bench-dial__label { font-size: 14px; font-weight: 700; color: var(--clr-ink); }
 .vmx-bench-dial__value { font-family: var(--vmx-display); font-size: 20px; font-variant-numeric: tabular-nums; }
 .vmx-bench-dial__value--gold { color: var(--clr-gold-text); }
-.vmx-bench-dial__value--hit { color: var(--clr-sage-text); }
+.vmx-bench-dial__value--hit { color: var(--clr-right-text); }
 .vmx-bench-dial__value--miss { color: var(--clr-ocean-text); }
 .vmx-bench-dial__hint { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 
 .vmx-bench-range { width: 100%; height: var(--touch-min); accent-color: var(--clr-gold); cursor: pointer; }
-.vmx-bench-range--hit { accent-color: var(--clr-sage); }
+.vmx-bench-range--hit { accent-color: var(--clr-right); }
 .vmx-bench-range--miss { accent-color: var(--clr-ocean); }
 
 .vmx-bench-sizes { display: flex; flex-direction: column; gap: var(--space-2); }
@@ -5917,7 +5926,7 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-bench-guess__verdict { margin: 0; font-size: 14px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 
-.vmx-bench-hit { color: var(--clr-sage-text); }
+.vmx-bench-hit { color: var(--clr-right-text); }
 .vmx-bench-miss { color: var(--clr-rose-text); }
 
 .vmx-bench-field { margin: 0; display: flex; flex-direction: column; gap: var(--space-3); }
@@ -5932,7 +5941,7 @@ body.vmx-reading .vmx-pdf-body {
   width: 9px; height: 9px; border-radius: 2px; background: var(--clr-rose);
   animation: vmx-bench-pop 260ms ease both; animation-delay: var(--d, 0ms);
 }
-.vmx-bench-dot.is-hit { background: var(--clr-sage); }
+.vmx-bench-dot.is-hit { background: var(--clr-right); }
 @keyframes vmx-bench-pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
 
 /* The 2x2 table is four columns of five-figure numbers inside a side panel.
@@ -5954,7 +5963,7 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-bench-table thead th, .vmx-bench-table tbody th { text-align: left; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-bench-table thead th:not(:first-child) { text-align: right; }
-.vmx-bench-table td.is-hit { color: var(--clr-sage-text); font-weight: 700; }
+.vmx-bench-table td.is-hit { color: var(--clr-right-text); font-weight: 700; }
 .vmx-bench-table td.is-false { color: var(--clr-rose-text); font-weight: 700; }
 .vmx-bench-table td.is-missed { color: var(--clr-plum-text); font-weight: 700; }
 .vmx-bench-table__total td, .vmx-bench-table__total th { border-bottom: 0; color: var(--clr-ink-soft); }
@@ -6122,14 +6131,14 @@ body.vmx-reading .vmx-pdf-body {
 
 .vmx-lesson-compare__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
 .vmx-lesson-compare__side { padding: var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); }
-.vmx-lesson-compare__side.is-good { border-left: 3px solid var(--clr-sage); }
+.vmx-lesson-compare__side.is-good { border-left: 3px solid var(--clr-right); }
 .vmx-lesson-compare__side.is-bad { border-left: 3px solid var(--clr-rose); }
 .vmx-lesson-compare__label { margin: 0 0 var(--space-2); font-weight: 700; color: var(--clr-ink); }
 /* Tone is per ROW. In scenario B the drop in treatment courses is real
    improvement and only the deaths worsened; painting the whole panel red
    would say the opposite of what the slide teaches. */
 .vmx-lesson-compare__after.is-alarm { color: var(--clr-rose-text); font-weight: 700; }
-.vmx-lesson-compare__after.is-good { color: var(--clr-sage-text); font-weight: 700; }
+.vmx-lesson-compare__after.is-good { color: var(--clr-right-text); font-weight: 700; }
 .vmx-lesson-compare .vmx-lesson-table td { font-variant-numeric: tabular-nums; text-align: right; }
 .vmx-lesson-compare .vmx-lesson-table thead th:not(:first-child) { text-align: right; }
 
@@ -6161,18 +6170,18 @@ body.vmx-reading .vmx-pdf-body {
   border: 1px solid var(--clr-border); font-size: 12px; font-weight: 700;
   color: var(--clr-ink-soft);
 }
-.vmx-check__option.is-right { border-color: var(--clr-sage); background: var(--clr-surface); }
-.vmx-check__option.is-right .vmx-check__mark { background: var(--clr-sage); border-color: var(--clr-sage); color: var(--clr-sage-on); }
+.vmx-check__option.is-right { border-color: var(--clr-right); background: var(--clr-surface); }
+.vmx-check__option.is-right .vmx-check__mark { background: var(--clr-right); border-color: var(--clr-right); color: var(--clr-right-on); }
 .vmx-check__option.is-wrong { border-color: var(--clr-rose); }
 .vmx-check__option.is-wrong .vmx-check__mark { background: var(--clr-rose); border-color: var(--clr-rose); color: var(--clr-rose-on); }
 .vmx-check__why {
   padding: var(--space-3) var(--space-4); border-radius: var(--r-md);
-  background: var(--clr-surface); border-left: 3px solid var(--clr-sage);
+  background: var(--clr-surface); border-left: 3px solid var(--clr-right);
   font-size: 14px; line-height: 1.7; color: var(--clr-ink);
 }
 .vmx-check__why.is-wrong { border-left-color: var(--clr-rose); }
 .vmx-check__why p { margin: 0; }
-.vmx-check__verdict { font-weight: 700; color: var(--clr-sage-text); margin-bottom: 2px !important; }
+.vmx-check__verdict { font-weight: 700; color: var(--clr-right-text); margin-bottom: 2px !important; }
 .vmx-check__why.is-wrong .vmx-check__verdict { color: var(--clr-rose-text); }
 
 .vmx-lesson__foot { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; padding-top: var(--space-4); border-top: 1px solid var(--clr-border); }
@@ -7101,7 +7110,7 @@ body.vmx-reading .vmx-pdf-body {
   border: 1px solid var(--clr-rose);
   border-radius: 10px;
   background: var(--clr-rose-soft);
-  color: var(--clr-rose-text);
+  color: var(--clr-rose-soft-text);
   padding: 10px 12px;
   font-size: 14px;
 }
