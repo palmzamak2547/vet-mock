@@ -23,8 +23,8 @@
           "budget": 240800
         },
         "css": {
-          "measured": 46984,
-          "budget": 48400
+          "measured": 49198,
+          "budget": 50700
         }
       },
       "atlas": {
@@ -37,8 +37,8 @@
           "budget": 81400
         },
         "css": {
-          "measured": 50849,
-          "budget": 52400
+          "measured": 52746,
+          "budget": 54400
         }
       },
       "atlasLabels": {

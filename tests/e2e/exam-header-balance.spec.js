@@ -101,3 +101,13 @@ for (const width of [320, 360]) {
     expect(geo.overflow).toBe(false);
   });
 }
+
+// The header's height at 390 px, the most common phone: every pixel it takes is taken from the
+// question. 71 px is the 44 px ไทย/EN row, a 4 px gap and the 23 px row the score slot wraps to
+// (the 111 px right track holds the toggle or the score, not both); one more pixel for
+// engines whose Thai line box runs a pixel taller.
+test('the exam header stays at 71 px (72 at most) at 390px', async ({ page, context }) => {
+  await startAnyExam(page, context, 390);
+  const h = await page.evaluate(() => document.querySelector('.vmx-exam-top').getBoundingClientRect().height);
+  expect(h).toBeLessThanOrEqual(72);
+});
