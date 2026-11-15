@@ -412,7 +412,8 @@ export default function AccountSettingsView({ user, profile = null, goHome, setV
                       {identities.map((i, n) => (
                         <li key={`${i.provider}-${n}`}>
                           {PROVIDER_NAME[i.provider] || i.provider}
-                          {i.email && !isSyntheticLineEmail(i.email) ? <span className="vmx-acct-mail"> {i.email}</span> : null}
+                          {/* The address shows once: a method signed in with the account's own email names only the method. */}
+                          {i.email && !isSyntheticLineEmail(i.email) && i.email.toLowerCase() !== String(email || '').toLowerCase() ? <span className="vmx-acct-mail"> {i.email}</span> : null}
                         </li>
                       ))}
                     </ul>
