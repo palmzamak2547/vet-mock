@@ -236,6 +236,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
 
   // ── Navigation callbacks ────────────────────────────────────────────
   const answerCurrent = useCallback((val) => {
+    // An answer on the question now on screen shows it was seen: the hold (and its floor)
+    // is for a second press that lands before that, so a student who answers and presses
+    // ข้อถัดไป at once moves on. A handler left from another question answers nothing new.
+    if (!staleHandler(currentIdx)) { moveHeldRef.current = false; lastMoveAtRef.current = -Infinity; }
     setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val }));
   }, [questions, currentIdx]);
 

@@ -92,6 +92,18 @@ test('on a slow phone the second tap of a double tap is refused after the old 25
   assert.equal(render().currentIdx, 1, 'tap 2 skipped the question it landed on');
 });
 
+test('answering the new question and pressing next at once moves on', async () => {
+  const render = session();
+  await render().nextQ(); // 0 -> 1, the hold is taken; no frame releases it here
+  assert.equal(render().currentIdx, 1);
+  render().answerCurrent(0); // an answer on question 2: it was seen
+  await render().nextQ();
+  assert.equal(render().currentIdx, 2, 'the press that asks for the next question was swallowed');
+  // The hold is taken again by that move: a second press straight after it is still refused.
+  await render().nextQ();
+  assert.equal(render().currentIdx, 2, 'the double tap after it skipped a question');
+});
+
 test("the per-question clock's own move holds the next tap too", () => {
   const at = HOOK.indexOf('setTimedOutIdx(currentIdx);');
   assert.ok(at > 0);
