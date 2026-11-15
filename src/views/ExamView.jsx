@@ -9,12 +9,26 @@ import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
 import { correctRun } from '../lib/mochi-reactions.js';
 import { preloadMochiRig } from '../components/MochiLive.jsx';
+import { readQuestionLang, writeQuestionLang, loadQuestionTranslations } from '../lib/question-language.js';
 
 export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [confirmExit, setConfirmExit] = useState(false);
+  // ภาษาของโจทย์ (ไทย/EN): ข้อที่มีฉบับแปลจึงเปลี่ยนข้อความ ข้อที่ยังไม่มี
+  // คงฉบับไทยพร้อมโน้ตเงียบ ๆ · preference คงอยู่ข้ามชุด · ฉบับ EN โหลด
+  // เป็น chunk แยกเฉพาะเมื่อสลับเป็น EN เสียงอ่านยังอ่านฉบับไทย
+  // (คลิปอ่านออกเสียงเป็นคลังไทย) — toggle นี้สลับเฉพาะข้อความบนจอ
+  const [lang, setLangState] = useState(readQuestionLang);
+  const [translationsById, setTranslationsById] = useState(null);
+  const setLang = (next) => { setLangState(next); writeQuestionLang(next); };
+  useEffect(() => {
+    if (lang !== 'en' || translationsById) return undefined;
+    let alive = true;
+    loadQuestionTranslations().then((m) => { if (alive) setTranslationsById(m); });
+    return () => { alive = false; };
+  }, [lang, translationsById]);
   // Practice-only instant reveal: ✓/✗ + explanation right after answering.
   // Exam mode always defers feedback to the results/review flow.
   const revealAnswer = mode !== 'exam' && Boolean(instantFeedback);
@@ -139,6 +153,10 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           );
         })()}
         <div className="vmx-exam-top-right">
+        <div className="vmx-lang-toggle" role="group" aria-label="ภาษาของโจทย์และตัวเลือก">
+          <button type="button" className={`vmx-lang-btn${lang === 'th' ? ' is-on' : ''}`} aria-pressed={lang === 'th'} onClick={() => setLang('th')}>ไทย</button>
+          <button type="button" className={`vmx-lang-btn${lang === 'en' ? ' is-on' : ''}`} aria-pressed={lang === 'en'} onClick={() => setLang('en')}>EN</button>
+        </div>
         {useTimer && (
           <ExamClock deadline={questionDeadline} writing={currentQ?.type === 'essay' || currentQ?.type === 'short'} />
         )}
@@ -203,6 +221,8 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         revealAnswer={revealAnswer}
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
+        english={lang === 'en' && translationsById ? (translationsById[String(currentQ.id)] ?? null) : null}
+        englishRequested={lang === 'en' && Boolean(translationsById)}
       />
       </div>
 

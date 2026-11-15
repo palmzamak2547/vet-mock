@@ -371,10 +371,10 @@ export const QB_Y5_FINAL_MIXED = [
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['zoonosis', 'public-health', 'differential'], type: 'mcq',
     q: 'ข้อใดกล่าวถูกต้องเกี่ยวกับ zoonosis',
-    options: ['โรค Trichinellosis มีสัตว์ปีก เช่น นก ไก่ เป็นแหล่งของเชื้อ และทำให้คนป่วยรุนแรง', 'โรคอหิวาต์สุกร (ASF/CSF) ติดต่อสู่คนได้ โดยมีเนื้อสุกรเป็นแหล่งของเชื้อ', 'Sodium carbonate หรือ sodium hydroxide เป็นสารเคมีที่ไม่เหมาะสำหรับใช้ฆ่าเชื้อในการควบคุมโรคปากและเท้าเปื่อย (FMD)', 'โรค Trypanosomiasis (ซึ่งมี tsetse fly เป็นพาหะ) ไม่สามารถเกิดขึ้นในประเทศไทยได้', "Duck plague เป็นไวรัสในเขตร้อน 2499 เกิดจากเชื้อ Herpes virus ก่อให้เกิด diphtheritic esophagitis"],
+    options: ['โรค Trichinellosis มีสัตว์ปีก เช่น นก ไก่ เป็นแหล่งของเชื้อ และทำให้คนป่วยรุนแรง', 'โรคอหิวาต์สุกร (ASF/CSF) ติดต่อสู่คนได้ โดยมีเนื้อสุกรเป็นแหล่งของเชื้อ', 'Sodium carbonate หรือ sodium hydroxide เป็นสารเคมีที่ไม่เหมาะสำหรับใช้ฆ่าเชื้อในการควบคุมโรคปากและเท้าเปื่อย (FMD)', 'โรค Trypanosomiasis (ซึ่งมี tsetse fly เป็นพาหะ) ไม่สามารถเกิดขึ้นในประเทศไทยได้', "Duck plague เป็นไวรัสในเขตร้อน พ.ศ. 2519 (ค.ศ. 1976) เกิดจากเชื้อ Herpes virus ก่อให้เกิด diphtheritic esophagitis"],
     answer: 4,
-    explain: 'Duck plague (DP) = Anatid herpesvirus 1 → diphtheritic membrane + hemorrhage ที่ esophagus + cloaca + intestine\nเกิดในไทยจริง (1976 first reported)\n\n❌ ข้ออื่นผิด\n— Trichinella = สุกร/หมูป่า → คน ไม่ใช่สัตว์ปีก\n— ASF/CSF ไม่ติดคน\n— Sodium hydroxide = useful disinfectant for FMD\n— Trypanosomiasis เกิดในไทยได้ (T. evansi + Trypanosoma surra)',
-    verified: 'สรุป 80 p.9 (Vet 83 marked E + "zoonosis!")' },
+    explain: 'Duck plague (DP) = Anatid herpesvirus 1 → diphtheritic membrane + hemorrhage ที่ esophagus + cloaca + intestine\nเกิดในไทยจริง — ระบาดครั้งแรกของไทย ค.ศ. 1976 (พ.ศ. 2519) รายงานตีพิมพ์ใน Journal of the Thai Veterinary Medical Association (1977) และระบาดในเขตร้อนที่ Tamil Nadu ประเทศอินเดีย เดือนพฤศจิกายน ปีเดียวกัน\n\n❌ ข้ออื่นผิด\n— Trichinella = สุกร/หมูป่า → คน ไม่ใช่สัตว์ปีก\n— ASF/CSF ไม่ติดคน\n— Sodium hydroxide = useful disinfectant for FMD\n— Trypanosomiasis เกิดในไทยได้ (T. evansi + Trypanosoma surra)',
+    verified: 'สรุป 80 p.9 (Vet 83 marked E + "zoonosis!"); 2026-11-15 แก้ปีในตัวเลือกจาก พ.ศ. 2499 เป็น พ.ศ. 2519 (ค.ศ. 1976) ตามหลักฐาน: "The first outbreak of duck plague in Thailand" J Thai Vet Med Assoc 1977;28:61-79 (อ้างใน Wiley Duck Plague chapter 2007) และ Dhama et al. 2017 Vet Q (Tamil Nadu, 1976) — ไม่พบหลักฐานรองรับปี พ.ศ. 2499 (1956)' },
 
   { id: 8032, subject: 'avian-medicine', topic: 'avian-fowl-cholera', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
