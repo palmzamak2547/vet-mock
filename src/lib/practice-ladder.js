@@ -47,7 +47,7 @@ export const LADDER_STEPS = [
   {
     id: 'exam', n: 3, label: 'แบบสอบ', short: 'แบบสอบ',
     count: 50, mode: 'exam', useTimer: true, timePerQ: 60,
-    // The clock rule is said once, at the timer switch (ConfigView, 5.225).
+    // The clock rule is said once, at the timer switch (ConfigView, 5.226).
     hint: 'ชุดยาวแบบข้อสอบจริง',
   },
 ];

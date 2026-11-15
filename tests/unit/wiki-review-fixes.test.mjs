@@ -46,7 +46,7 @@ const byTitle = new Map(listTopics().map((t) => [t.title, t]));
 // The index on its own, so its state (the filter, the view) is real.
 const index = () => mount(WikiIndex, { topics: listRegistry(), onOpen() {}, onOpenSection() {}, goHome() {} });
 
-test('a search lists every hit, and the index has no conflicts filter to cut it (5.225)', async (t) => {
+test('a search lists every hit, and the index has no conflicts filter to cut it (5.226)', async (t) => {
   browser(t);
   const v = index();
   await settle(v);

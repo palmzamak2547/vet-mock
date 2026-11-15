@@ -3,7 +3,7 @@
 // ============================================================
 // Owner review: "เวลาทำอะไรอยู่ฟีเจอร์ไหนอยากให้มีป๊อปอัพแนะนำการใช้งานโผล่ออก
 // มาในครั้งแรกของวัน เช่นเนื้อหาสามารถกดปริ้น pdf file ได้". One short hint
-// the first time a student opens a feature; since 5.225 never again on that
+// the first time a student opens a feature; since 5.226 never again on that
 // device (lib/first-tip.js), and the how-to guide keeps it.
 //
 //   <FeatureTip id="notes" />                    the notes page

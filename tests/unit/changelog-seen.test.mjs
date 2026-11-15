@@ -153,7 +153,7 @@ test('Home keeps the set through changelog-seen.js and no longer reads the old k
   assert.doesNotMatch(src, /vmx-last-seen-changelog/);
 });
 
-// ── The chip (5.225): news only, no count, one Home visit a day ──────────────
+// ── The chip (5.226): news only, no count, one Home visit a day ──────────────
 const { chipDue, isNews, localDay, loadChipDay, saveChipDay, CHIP_DAY_KEY } = await import('../../src/lib/changelog-seen.js');
 const rel = (version, ...kinds) => ({ version, changes: kinds.map((kind) => ({ kind, scope: 'system', title: 't' })) });
 

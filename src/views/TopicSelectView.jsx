@@ -799,7 +799,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // Only a note that changes what to study (curriculum.js marks it
           // 'caveat': off the timetable, not examined, still on the paper)
           // stays on the card, with its warning sign. Schedule and
-          // provenance notes are in the page's one folded row (5.225).
+          // provenance notes are in the page's one folded row (5.226).
           const caveat = t.lecturerNoteKind === 'caveat';
           // The name the lecturer section above uses for the same person;
           // null for TBD, which gets no button at all.
@@ -848,7 +848,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   // ข้อสอบเก่า, the word the question card's source line uses for
                   // the same predicate (isPastPaperQuestion). It read อิงแนวเดิม,
                   // the card chip's word for a wider set, until 5.189.2.
-                  // One figure, said as a sentence (5.225): "36% of these are
+                  // One figure, said as a sentence (5.226): "36% of these are
                   // past-paper questions", with the count in the tooltip.
                   <span className="vmx-topic-past" title={`ข้อสอบเก่า ${ppCount} จาก ${count} ข้อ`}>
                     เป็นข้อสอบเก่า {ppPct}%
@@ -937,7 +937,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       )}
 
       {/* Schedule and provenance notes for the topics on this page, one
-          closed row (5.225); they were a line on 17 of 25 equine cards. */}
+          closed row (5.226); they were a line on 17 of 25 equine cards. */}
       {(() => {
         const notes = topics.filter((t) => hasTopicContent(t) && t.lecturerNote && t.lecturerNoteKind !== 'caveat');
         if (!notes.length) return null;
@@ -1007,7 +1007,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 
 // ─── Exam format: one folded row (shows up when subject has examFormat metadata) ───
 // Weighting, cutoffs and where they came from are bookkeeping a student reads
-// once, so they sit closed (5.225; they were also a chip on 12 of 19 cards in
+// once, so they sit closed (5.226; they were also a chip on 12 of 19 cards in
 // the subject picker until then).
 function ExamFormatBanner({ format, accent }) {
   const items = [];

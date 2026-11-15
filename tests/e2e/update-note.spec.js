@@ -4,7 +4,7 @@ import { truncateThai } from '../../src/lib/thai-text.js';
 import { isNews, CHIP_DAY_KEY } from '../../src/lib/changelog-seen.js';
 
 const SEEN_KEY = 'vmx-seen-changelog';
-// Only news raises the chip (5.225): a release with a feature or content change.
+// Only news raises the chip (5.226): a release with a feature or content change.
 const news = (v) => isNews(CHANGELOG.find((item) => item.version === v));
 
 // Home announces every release this device has not seen, and a first visit has
@@ -121,7 +121,7 @@ test('the ✕ closes the announcement and the bottom strip re-opens the release'
   await expect(notice).toBeFocused();
   // One changelog affordance at a time: the note is open, so the chip is gone.
   await expect(page.getByTitle(entry.headline)).toHaveCount(0);
-  // Opened is seen (5.225): reopening an old note does not make it news again.
+  // Opened is seen (5.226): reopening an old note does not make it news again.
   await expect(stripLink).toHaveText('อัปเดตล่าสุด');
 });
 
@@ -175,7 +175,7 @@ test('a release that merged after a higher number is announced, and then reads a
   await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_KEY)).toContain(entry.version);
 });
 
-// Opening the note is reading it (5.225): the chip does not come back for what
+// Opening the note is reading it (5.226): the chip does not come back for what
 // the note showed, however the student leaves, the next day or a week later.
 test.describe('own clock', () => {
   test.use({ pinCalendar: false });

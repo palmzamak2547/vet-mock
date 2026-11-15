@@ -753,7 +753,7 @@ export function getTopMilestone(now = new Date(), milestones = ACADEMIC_MILESTON
 
 // Home's rail names a window too, but a payment window runs for months and a
 // countdown of 67 days changes nothing a student does today: it is named only
-// in its last PAYMENT_NOTICE_DAYS (5.225). The schedule page lists it always.
+// in its last PAYMENT_NOTICE_DAYS (5.226). The schedule page lists it always.
 export const PAYMENT_NOTICE_DAYS = 14;
 export function getHomeMilestone(now = new Date(), milestones = ACADEMIC_MILESTONES) {
   return getTopMilestone(now, milestones.filter((m) => m.kind !== 'payment'
