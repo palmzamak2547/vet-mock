@@ -108,7 +108,7 @@ test('a lazyOnly module is asked for only from its gate, and the gate only behin
   const picker = readFileSync(join(ROOT, 'src/components/ThemePicker.jsx'), 'utf8');
   const calls = [...picker.matchAll(/.*\bloadMotionSettings\b.*/g)].map((m) => m[0].trim());
   for (const line of calls) {
-    assert.match(line, /^(const loadMotionSettings = |const MotionSettings = lazy\(loadMotionSettings\)|on(PointerEnter|Focus)=\{\(\) => \{ loadMotionSettings\(\))/, `ThemePicker calls the loader at: ${line}`);
+    assert.match(line, /^(const loadMotionSettings = |const MotionSettings = lazyWithRetry\(loadMotionSettings\)|on(PointerEnter|Focus)=\{\(\) => \{ loadMotionSettings\(\))/, `ThemePicker calls the loader at: ${line}`);
   }
 });
 

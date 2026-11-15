@@ -16,6 +16,7 @@
 
 import { authStorageKey, createAuthStorage, hasStoredAuthToken, storedAuthSession as readStoredSession } from './auth-storage.js';
 import { hashToRestore, keepDestination, takeDestination } from './family/return-path.js';
+import { importFresh } from './chunk-error.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -36,7 +37,7 @@ const authStorage = createAuthStorage();
 export function getSupabase() {
   if (!hasSupabase) return Promise.resolve(null);
   if (!_clientPromise) {
-    _clientPromise = import('@supabase/supabase-js').then(({ createClient }) =>
+    _clientPromise = importFresh(() => import('@supabase/supabase-js')).then(({ createClient }) =>
       createClient(url, key, {
         auth: {
           autoRefreshToken: true,

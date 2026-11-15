@@ -178,7 +178,10 @@ export function textOf(node) {
  * the module text that replaces it (JSX allowed; react imports resolve to
  * the fake runtime too).
  */
-export async function loadModule(entry, { stubs = [] } = {}) {
+export async function loadModule(entry, { stubs: given = [] } = {}) {
+  // <OptionalFeature> is an error boundary (a class, which the fake has no
+  // Component for) around Suspense; here it draws its children, as Suspense does.
+  const stubs = [...given, { match: '/OptionalFeature\\.jsx$', contents: 'export default ({ children }) => children;' }];
   const plugin = {
     name: 'fake-react',
     setup(b) {

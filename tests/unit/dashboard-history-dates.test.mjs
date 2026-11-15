@@ -14,6 +14,8 @@ import { yearForSubject } from '../../src/data/curriculum.js';
 const sourceRoot = new URL('../../src/', import.meta.url).href;
 registerHooks({
   load(url, context, nextLoad) {
+    // The failure panel's motion stylesheet is nothing to a test of the charts.
+    if (url.startsWith(sourceRoot) && url.endsWith('.css')) return { format: 'module', shortCircuit: true, source: '' };
     if (url.startsWith(sourceRoot) && url.endsWith('.jsx')) {
       const { code } = transformSync(readFileSync(new URL(url), 'utf8'), {
         loader: 'jsx', jsx: 'automatic', format: 'esm', sourcefile: url,

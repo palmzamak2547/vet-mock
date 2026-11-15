@@ -24,10 +24,10 @@ const css = read('src/styles.css');
 
 test('UI-22: the LecturerSets fallback is a skeleton, not a bare loading line', () => {
   const at = view.search(/<LecturerSets\s/);
-  const suspense = view.lastIndexOf('<Suspense', at);
+  const suspense = view.lastIndexOf('<OptionalFeature', at);
   const opener = view.slice(suspense, at);
   assert.doesNotMatch(opener, /fallback=\{<div className="vmx-lect-intro">กำลังโหลด<\/div>\}/);
-  assert.match(opener, /fallback=\{<LecturerSetsSkeleton count=\{lecturerCount\} \/>\}/);
+  assert.match(opener, /pending=\{<LecturerSetsSkeleton count=\{lecturerCount\} \/>\}/);
 });
 
 test('UI-22: the skeleton reserves one card per lecturer in the set, in the real card classes', () => {

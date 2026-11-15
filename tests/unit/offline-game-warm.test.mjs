@@ -41,7 +41,7 @@ test('the offline game chunk is warmed while the device is online', () => {
 });
 
 test('it is the same module the offline banner opens', () => {
-  assert.match(read(FILE), /OfflineGameView = lazy\(\(\) => import\('\.\.\/views\/OfflineGameView\.jsx'\)\)/);
+  assert.match(read(FILE), /OfflineGameView = lazyWithRetry\(\(\) => import\('\.\.\/views\/OfflineGameView\.jsx'\)\)/);
   assert.match(read('src/App.jsx'), /onOfflineGame=\{\(\) => setView\('offline-game'\)\}/);
   assert.match(read('src/App.jsx'), /view === 'offline-game' && <OfflineGameView/);
 });
