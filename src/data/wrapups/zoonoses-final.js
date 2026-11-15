@@ -1,5 +1,5 @@
 // GENERATED from the authored-and-verified wrap-up JSON (ingest-wrapup-final.mjs)
-// on 2026-11-14, for the 2569-1 year-5 1-final paper. Edit the JSON and
+// on 2026-11-15, for the 2569-1 year-5 1-final paper. Edit the JSON and
 // re-run the ingest, not this file. Every bullet names its source (a recording
 // timestamp, a deck page, or a past-paper item); the ingest refuses one that does not.
 export const WRAPUP = {
@@ -8,7 +8,7 @@ export const WRAPUP = {
     "date": "2026-11-26",
     "time": "13:00-16:00"
   },
-  "intro": "ปลายภาค Zoonoses วันที่ 26 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค ศ.ศุภชัย สอน mycozoonoses (2 ต.ค.) ผศ.ธราดล สอน bacterial zoonoses (30 ต.ค. และ 6 พ.ย.) กับ prion zoonoses (13 พ.ย.) รศ.สหฤทัย สอน epidemiological approach to zoonoses (13 พ.ย.) และคาบ emerging threat (20 พ.ย.) สอนโดยวิทยากรหลายท่าน หน้านี้มีส่วน prion แต่ยังไม่มีส่วน bacterial zoonoses ซึ่งฝึกได้จากข้อสอบเก่าของหัวข้อนั้น ส่วนของคาบ 13 และ 20 พ.ย. เขียนก่อนคลิปของปีนี้เข้า",
+  "intro": "ปลายภาค Zoonoses วันที่ 26 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค ศ.ศุภชัย สอน mycozoonoses (2 ต.ค.) ผศ.ธราดล สอน bacterial zoonoses (30 ต.ค. และ 6 พ.ย.) กับ prion zoonoses (13 พ.ย.) รศ.สหฤทัย สอน epidemiological approach to zoonoses (13 พ.ย.) และคาบ emerging threat (20 พ.ย.) สอนโดยวิทยากรหลายท่าน ส่วน bacterial zoonoses มีเป็นรายการโรคพร้อมหน้าในเดค ยังไม่มีสรุปเป็นข้อ ฝึกได้จากข้อสอบเก่าของหัวข้อนั้น ส่วนของคาบ 13 และ 20 พ.ย. เขียนก่อนคลิปของปีนี้เข้า",
   "groups": [
     {
       "id": "suphachai",
@@ -501,6 +501,37 @@ export const WRAPUP = {
       "format": "all",
       "formatNote": "ยังไม่มีประกาศรูปแบบข้อสอบปลายภาคของส่วนนี้ ข้อสอบเก่าของหัวข้อ prion ในคลังเป็นข้อความถูกผิดเจ็ดข้อ และปรนัยสี่ตัวเลือกสองข้อที่บันทึกจากปลายภาค",
       "items": [
+        {
+          "topic": "zoo-bacterial",
+          "name": "Bacterial zoonoses: รายการโรคและเลขหน้า",
+          "keywords": [
+            "Biological weapons หน้า 6-7",
+            "Anthrax หน้า 8-22",
+            "Melioidosis หน้า 24-32",
+            "Glanders หน้า 33-36",
+            "Plague หน้า 38-44",
+            "Tularemia หน้า 45-46",
+            "Brucellosis หน้า 47-61",
+            "Q fever หน้า 62-67",
+            "Streptococcus suis หน้า 68-72",
+            "Leptospirosis หน้า 74-85",
+            "Lyme disease หน้า 86-88",
+            "Zoonotic tuberculosis หน้า 89-108",
+            "Cat-scratch disease หน้า 109-115",
+            "Psittacosis หน้า 116-119"
+          ],
+          "emphasis": [
+            {
+              "text": "ส่วนนี้ยังไม่มีสรุปเป็นข้อ อ่านแต่ละโรคจากเดคตามหน้าในรายการ และฝึกจากข้อสอบเก่าของหัวข้อนี้",
+              "src": "เดค Bacterial Zoonoses หน้า 6-119"
+            }
+          ],
+          "examined": [],
+          "sources": [
+            "เดค Bacterial Zoonoses ปี 2569 (119 หน้า) หน้า 6-119: ช่วงหน้าของแต่ละโรคตรวจจากหัวหน้าในข้อความที่ export จากคลังวันที่ 15 พ.ย. 2569",
+            "ข้อสอบเก่าของหัวข้อ zoo-bacterial ในคลังใช้ฝึกต่อได้"
+          ]
+        },
         {
           "topic": "zoo-prion",
           "name": "Introduction (Prion diseases)",
