@@ -31,6 +31,7 @@ import { NOTES_Y5_ONE_HEALTH } from '../../data/notes-y5-one-health.js';
 import { NOTES_Y5_FIQC } from '../../data/notes-y5-fiqc.js';
 import { NOTES_Y5_POA } from '../../data/notes-y5-poa.js';
 import { NOTES_Y5_SWINE_CLINIC } from '../../data/notes-y5-swine-clinic.js';
+import { NOTES_Y5_EQUINE_REPRO } from '../../data/notes-y5-equine-repro.js';
 import { NOTES_85_AQUATIC_CLINIC } from '../../data/notes-85-aquatic-clinic.js';
 import { NOTES_85_AVIAN_MEDICINE } from '../../data/notes-85-avian-medicine.js';
 import { NOTES_85_EQUINE_MEDICINE } from '../../data/notes-85-equine-medicine.js';
@@ -47,6 +48,7 @@ import { validateTopic } from './validate.js';
 import { resolveSource } from './sources.js';
 import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary, summarizeProvenance } from './schema.js';
 import { SUBJECTS } from '../../data/curriculum.js';
+import { withoutPlaceholders } from '../../data/note-placeholders.js';
 
 // subject id → its notes module. Mirrors NotesView's NOTES_BY_SUBJECT (kept a
 // local copy rather than refactoring the live, actively-edited NotesView).
@@ -84,6 +86,7 @@ const NOTES_BY_SUBJECT_BASE = {
   'food-industry': NOTES_Y5_FIQC,
   'poa-clinical': NOTES_Y5_POA,
   'swine-clinic': NOTES_Y5_SWINE_CLINIC,
+  'equine-repro': NOTES_Y5_EQUINE_REPRO,
 };
 
 // Fold the Vet 85 summaries in so their topics become governed articles too.
@@ -100,7 +103,7 @@ const NOTES_BY_SUBJECT = (() => {
         ? { ...merged[id], sections: [...(merged[id].sections || []), ...(t.sections || [])] }
         : t;
     }
-    out[k] = merged;
+    out[k] = withoutPlaceholders(merged);
   }
   return out;
 })();

@@ -14,7 +14,7 @@
 // question. A wrong link is worse than none: it teaches the reader that the
 // article is useless.
 //
-// 333 link(s): 222 answer the question directly, 111 give supporting context.
+// 326 link(s): 217 answer the question directly, 109 give supporting context.
 // ============================================================
 
 /** @type {Record<string, {subject: string, topic: string, sectionId: string, confidence: string}>} */
@@ -1902,48 +1902,6 @@ export const QUESTION_LINKS = {
     "topic": "neuro-exam",
     "sectionId": "com3--neuro-exam--spinal-localization",
     "confidence": "supporting"
-  },
-  "105462": {
-    "subject": "equine-repro",
-    "topic": "eqrepro-anatomy-cycle",
-    "sectionId": "equine-repro--eqrepro-anatomy-cycle--แสง-เมลาโทนิน-และการกลับมาเป็นสัด",
-    "confidence": "supporting"
-  },
-  "105471": {
-    "subject": "equine-repro",
-    "topic": "eqrepro-art-female",
-    "sectionId": "equine-repro--eqrepro-art-female--การกระตุ้นตกไข่และการผสมเทียม",
-    "confidence": "strong"
-  },
-  "105477": {
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "sectionId": "equine-medicine--equine-intro--การจับบังคับด้วยยา-chemical-restraint",
-    "confidence": "supporting"
-  },
-  "105478": {
-    "subject": "equine-repro",
-    "topic": "eqrepro-art-female",
-    "sectionId": "equine-repro--eqrepro-art-female--การกระตุ้นตกไข่และการผสมเทียม",
-    "confidence": "strong"
-  },
-  "105488": {
-    "subject": "equine-repro",
-    "topic": "eqrepro-infertility",
-    "sectionId": "equine-repro--eqrepro-infertility--pneumovagina-สาเหตุและการแก้ไข",
-    "confidence": "strong"
-  },
-  "105489": {
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "sectionId": "equine-medicine--equine-intro--การจับบังคับด้วยยา-chemical-restraint",
-    "confidence": "strong"
-  },
-  "105490": {
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "sectionId": "equine-medicine--equine-intro--พฤติกรรมและการมองเห็นของม้า",
-    "confidence": "strong"
   },
   "202189": {
     "subject": "aquatic-clinic",

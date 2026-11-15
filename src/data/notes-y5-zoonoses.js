@@ -3182,7 +3182,7 @@ export const NOTES_Y5_ZOONOSES = {
                     'encode โดย *prnp* gene (prion protein, PrP)',
                     'มี **2 forms**: **normal cellular form (PrP^C)** หรือ **normal neural protein** — alpha helices, soluble และ protease sensitive',
                     '**abnormal scrapie form (PrP^SC)** หรือ **pathogenic protein** — beta sheet, insoluble และ protease resistant',
-                    'พบตามปกติใน cells แต่ PrP^SC proteins พบในปริมาณน้อยมาก (mainly in the central nervous system)',
+                    '**PrP^C** พบตามปกติใน cells (mainly in the central nervous system) ส่วน **PrP^SC** คือรูปผิดปกติที่สะสมใน brain เมื่อเป็นโรค',
                     '**PrP^SC** convert normal **PrP^C** proteins ให้เป็น **infectious form** ได้ โดยการเปลี่ยน **conformation**',
                     '**abnormal folding** ของ normal cellular prion proteins ใน brain นำไปสู่ **brain damage**',
                   ] },
