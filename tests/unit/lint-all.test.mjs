@@ -16,48 +16,56 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolveSteps } from '../../scripts/gate.mjs';
 import { CHAIN, lintSteps } from '../../scripts/lint-all.mjs';
+import { lintDataSteps } from '../../scripts/gate.mjs';
+import { lintListProblems, readLintList } from '../../scripts/lib/lint-list.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const RUNNER = path.join(repo, 'scripts', 'lint-all.mjs');
 const { scripts } = JSON.parse(fs.readFileSync(path.join(repo, 'package.json'), 'utf8'));
 const read = (rel) => fs.readFileSync(path.join(repo, rel), 'utf8').replace(/\r\n/g, '\n');
 
-// ── The real chain ────────────────────────────────────────────────────
-test('the runner reads the chain itself: its steps are the chain split at every &&, in order', () => {
+// ── The real list ─────────────────────────────────────────────────────
+test('the runner reads scripts/lint-data.list: its steps are each listed script resolved, in the list order', () => {
   assert.equal(CHAIN, 'lint:data');
-  const parts = scripts[CHAIN].split(' && ');
-  assert.ok(parts.length >= 10, `the scan finds the chain (${parts.length} parts)`);
-  // Each part on its own, then all of them in a row: what the runner runs must be exactly that.
-  const one = (part) => resolveSteps({ ...scripts, 'one part': part }, 'one part').map((l) => l.command);
-  const steps = lintSteps(scripts);
-  assert.deepEqual(steps.map((l) => l.command), parts.flatMap(one));
+  const names = readLintList(repo);
+  assert.ok(names.length >= 10, `the list names the steps (${names.length})`);
+  const steps = lintSteps(scripts, repo);
+  assert.deepEqual(steps.map((l) => l.command), names.flatMap((n) => resolveSteps(scripts, n)).map((l) => l.command));
   // The same list the local gate runs in its phase A.
-  assert.deepEqual(steps, resolveSteps(scripts, CHAIN));
+  assert.deepEqual(steps, lintDataSteps(scripts, repo));
   for (const step of steps) assert.equal(step.shell, undefined, `${step.label} runs as a plain node command`);
 });
 
+test('the list is well formed: lint:untracked first, the rest sorted, no duplicate, every name a script', () => {
+  assert.deepEqual(lintListProblems(readLintList(repo), scripts), []);
+  // And the check itself catches each mistake.
+  const s = { 'lint:untracked': 'x', 'lint:a': 'x', 'lint:b': 'x' };
+  const problems = (names) => lintListProblems(names, s).join('\n');
+  assert.match(problems(['lint:a', 'lint:untracked']), /first step must be lint:untracked/);
+  assert.match(problems(['lint:untracked', 'lint:b', 'lint:a']), /lint:a is out of alphabetical order/);
+  assert.match(problems(['lint:untracked', 'lint:a', 'lint:a']), /lint:a is listed twice/);
+  assert.match(problems(['lint:untracked', 'lint:zzz']), /lint:zzz is not a script in package\.json/);
+});
+
 test('a step that is itself a chain is split, so its later parts are not hidden either', () => {
-  const labels = lintSteps(scripts).map((l) => l.label);
+  const labels = lintSteps(scripts, repo).map((l) => l.label);
   const inner = scripts['lint:exam-scope'].split(' && ');
-  assert.ok(inner.length > 1, 'lint:exam-scope is the known chain inside the chain');
+  assert.ok(inner.length > 1, 'lint:exam-scope is the known chain inside the list');
   for (let i = 1; i <= inner.length; i += 1) assert.ok(labels.includes(`lint:exam-scope [${i}/${inner.length}]`), `part ${i} of lint:exam-scope has a row of its own`);
-  assert.deepEqual(lintSteps({ 'lint:data': 'npm run a && node z.mjs', a: 'node x.mjs && node y.mjs --check' }).map((l) => l.label), ['a [1/2]', 'a [2/2]', 'lint:data [2/2]']);
 });
 
-test('lint:data keeps its name and stays the chain; lint:data:all is the runner and is not part of it', () => {
+test('lint:data keeps its name and stops at the first failure; lint:data:all runs every step', () => {
   assert.equal(scripts['lint:data:all'], 'node scripts/lint-all.mjs');
-  assert.match(scripts[CHAIN], /^npm run lint:untracked && npm run /);
-  assert.doesNotMatch(scripts[CHAIN], /lint:data:all|lint-all\.mjs/);
+  assert.equal(scripts[CHAIN], 'node scripts/lint-all.mjs --stop');
+  assert.equal(readLintList(repo)[0], 'lint:untracked');
 });
 
-test('Build runs the runner where it ran the chain, also when the unit suite failed', () => {
-  const steps = read('.github/workflows/build.yml').split(/\n\s*- name: /).slice(1);
-  const gates = steps.filter((s) => /run: npm run lint:data\b/.test(s));
-  assert.equal(gates.length, 1, 'one step runs the data lints');
-  assert.match(gates[0], /^\s*run: npm run lint:data:all -- --github --summary="\$GITHUB_STEP_SUMMARY"$/m);
-  // After a failed unit suite the lints still report; only a failed install or a cancelled job stops them.
-  assert.match(gates[0], /^\s*if: \$\{\{ !cancelled\(\) && steps\.install\.outcome == 'success' \}\}$/m);
-  assert.match(steps.find((s) => /run: npm ci\b/.test(s)), /^\s*id: install$/m);
+test('the build job runs every lint step through the push gate, beside the unit suite and before the build', () => {
+  const steps = read('.github/workflows/smoke-e2e.yml').split(/\n\s*- name: /).slice(1);
+  const data = steps.findIndex((s) => /run: node scripts\/push-gate\.mjs --steps=data,unit --github --summary="\$GITHUB_STEP_SUMMARY"/.test(s));
+  const build = steps.findIndex((s) => /run: node scripts\/push-gate\.mjs --steps=build,budget\b/.test(s));
+  assert.ok(data >= 0, 'one step runs the data lints and the unit suite');
+  assert.ok(build > data, 'the build runs after the lints');
 });
 
 // ── A throwaway folder for the end-to-end cases ───────────────────────
@@ -67,7 +75,19 @@ function fixture(chain, files) {
     fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
     fs.writeFileSync(path.join(dir, rel), text);
   };
-  put('package.json', `${JSON.stringify({ type: 'module', scripts: chain }, null, 2)}\n`);
+  // The fixture states its steps as a lint:data chain; the runner reads them from the list file.
+  const scriptsOut = { ...chain };
+  if (typeof chain['lint:data'] === 'string') {
+    const list = chain['lint:data'].split(' && ').map((part, i) => {
+      const call = /^npm run (\S+)$/.exec(part);
+      if (call) return call[1];
+      scriptsOut[`step:${i + 1}`] = part;
+      return `step:${i + 1}`;
+    });
+    delete scriptsOut['lint:data'];
+    put('scripts/lint-data.list', `# fixture\n${list.join('\n')}\n`);
+  }
+  put('package.json', `${JSON.stringify({ type: 'module', scripts: scriptsOut }, null, 2)}\n`);
   for (const [rel, text] of Object.entries(files)) put(rel, text);
   const run = (...args) => spawnSync(process.execPath, [RUNNER, ...args], { cwd: dir, encoding: 'utf8' });
   return { dir, run, done: () => fs.rmSync(dir, { recursive: true, force: true }) };
@@ -167,11 +187,11 @@ test('--full prints everything a failed step printed, unfolded', () => {
   } finally { f.done(); }
 });
 
-test('a chain it cannot read is a failure, never a green run with no steps', () => {
+test('a list it cannot read is a failure, never a green run with no steps', () => {
   const f = fixture({ 'lint:other': 'node scripts/ok.mjs' }, { 'scripts/ok.mjs': OK });
   try {
     const r = f.run();
     assert.equal(r.status, 1, r.stdout + r.stderr);
-    assert.match(r.stderr, /lint:data:all could not run: .*no "lint:data" script/);
+    assert.match(r.stderr, /lint:data:all could not run: .*scripts\/lint-data\.list is missing/);
   } finally { f.done(); }
 });

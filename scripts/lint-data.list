@@ -1,0 +1,81 @@
+# The steps of `npm run lint:data`: one npm script name per line.
+#
+# `npm run lint:data` runs them in this order and stops at the first failure; `npm run lint:data:all`
+# (CI, and `npm run gate:push`) runs every one of them to the end. scripts/lint-all.mjs reads this file,
+# so a new lint is one new line here and one script in package.json.
+#
+# Keep the lines after lint:untracked in alphabetical order: two pull requests that each add a lint
+# then add different lines in different places, and git merges them without a conflict (when this was
+# one line of && in package.json, every such pair conflicted). tests/unit/lint-all.test.mjs fails on an
+# unsorted line, a duplicate, or a name package.json does not define.
+#
+# lint:untracked stays first: one git status that catches a source file only this machine has.
+lint:untracked
+lint:academic-safety
+lint:accent-tokens
+lint:answer-voice
+lint:art
+lint:atlas
+lint:bindings
+lint:brackets
+lint:changelog-latest
+lint:citation-index
+lint:citation-moments
+lint:coherence
+lint:conflict-summary
+lint:css-tokens
+lint:curriculum
+lint:deck-refs
+lint:delivery
+lint:deps
+lint:dupes
+lint:empty-sections
+lint:env
+lint:evidence
+lint:exam-recurrence
+lint:exam-scope
+lint:flag-severity
+lint:garble
+lint:glossary
+lint:glossary-related
+lint:hex-budget
+lint:ids
+lint:instructor-index
+lint:instructor-portraits
+lint:instructors
+lint:media
+lint:mochi
+lint:motion
+lint:notes-registry
+lint:og
+lint:option-letters
+lint:panic-cards
+lint:provenance
+lint:q-counts
+lint:question-difficulty
+lint:question-standard
+lint:question-tables
+lint:question-voice
+lint:questions
+lint:quotes
+lint:registry
+lint:release-number
+lint:share-bank
+lint:shipped-quotes
+lint:source-docs
+lint:source-line
+lint:staged-summaries
+lint:thai-orthography
+lint:ui-copy
+lint:video-corpus
+lint:video-meta
+lint:video-summaries
+lint:voice
+lint:wiki-coverage
+lint:wiki-registry
+lint:wiki-runtime
+lint:wiki-sources
+lint:written-questions
+stats:check
+typecheck
+validate:wiki

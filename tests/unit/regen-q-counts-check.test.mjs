@@ -16,6 +16,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const COUNTS = 'src/data/q-counts.js';
@@ -116,7 +117,7 @@ test('lint:all runs the q-counts check (through lint:data)', () => {
   assert.equal(scripts['lint:q-counts'], 'node scripts/regen-q-counts.mjs --check');
   assert.ok(scripts['lint:all'].split(' && ').includes('npm run lint:data'));
   assert.ok(
-    scripts['lint:data'].split(' && ').includes('npm run lint:q-counts'),
+    lintDataCommands().includes('npm run lint:q-counts'),
     'lint:data must include npm run lint:q-counts',
   );
 });

@@ -37,7 +37,7 @@ name: Dependency updates
 
 on:
   workflow_run:
-    workflows: [Build, Smoke e2e, VCA, Research R parity]
+    workflows: [Smoke e2e, VCA, Research R parity]
     types: [completed]
   schedule:
     - cron: '23 3 * * *' # 10:23 Bangkok
@@ -112,7 +112,7 @@ jobs:
             esac
           done
           if [ "$merged" = 1 ]; then
-            for wf in build.yml smoke-e2e.yml vca.yml research-r-parity.yml ai.yml; do
+            for wf in smoke-e2e.yml vca.yml research-r-parity.yml ai.yml; do
               gh workflow run "$wf" --ref main || { echo "::error::could not start $wf on main"; failed=1; }
             done
           fi

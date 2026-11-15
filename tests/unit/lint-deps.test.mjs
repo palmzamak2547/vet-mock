@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { importsOf, packageOf, lint } from '../../scripts/lint-deps.mjs';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 test('an import names its package; paths, builtins and aliases are not packages', () => {
   assert.equal(packageOf('playwright'), 'playwright');
@@ -35,5 +36,5 @@ test('every app declares what it imports (DEP-2)', () => {
 test('lint:deps runs in lint:data', () => {
   const { scripts } = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(scripts['lint:deps'], 'node scripts/lint-deps.mjs');
-  assert.ok(scripts['lint:data'].split(' && ').includes('npm run lint:deps'));
+  assert.ok(lintDataCommands().includes('npm run lint:deps'));
 });

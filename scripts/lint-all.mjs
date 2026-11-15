@@ -1,5 +1,10 @@
 #!/usr/bin/env node
-// npm run lint:data:all [-- --full] [--github] [--summary=<file>]
+// npm run lint:data:all [-- --full] [--github] [--summary=<file>] [--jobs=N]
+// npm run lint:data      (node scripts/lint-all.mjs --stop: in order, stopping at the first failure)
+//
+// Since 16 Nov 2026 the steps are the names in scripts/lint-data.list (scripts/lib/lint-list.mjs),
+// one per line, so two pull requests that each add a lint no longer edit the same line of
+// package.json. The notes below predate that and say "chain" for that list.
 //
 // Every step of `lint:data`, each on its own and to the end, as one table.
 //
@@ -26,13 +31,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolveSteps, runPool } from './gate.mjs';
+import { readLintList } from './lib/lint-list.mjs';
 
 export const CHAIN = 'lint:data';
 const FIRST_LINES = 10;
 const WIDTH = 160;
 
-/** The chain's steps in its own order: one per command it would run. */
-export const lintSteps = (scripts) => resolveSteps(scripts, CHAIN);
+/** The steps of scripts/lint-data.list in its order: one per command each script would run. */
+export const lintSteps = (scripts, cwd = process.cwd()) => readLintList(cwd).flatMap((name) => resolveSteps(scripts, name));
 
 const seconds = (ms) => (ms / 1000).toFixed(1);
 const ANSI = new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*[A-Za-z]`, 'g');
@@ -59,16 +65,37 @@ function markdown(results, failed, total) {
 }
 
 /** Runs every step and prints the table. Resolves 1 when a step failed, else 0. */
-export async function runAll({ cwd = process.cwd(), print = console.log, full = false, github = false, summary = '' } = {}) {
+export async function runAll({ cwd = process.cwd(), print = console.log, full = false, github = false, summary = '', stop = false, jobs = 1 } = {}) {
   const { scripts } = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
-  const steps = lintSteps(scripts);
-  const pad = Math.max(4, ...steps.map((s) => s.label.length));
-  print(`${CHAIN}:all: the ${steps.length} steps of "${CHAIN}", each on its own and to the end`);
+  const all = lintSteps(scripts, cwd);
+  print(stop
+    ? `${CHAIN}: the ${all.length} steps of scripts/lint-data.list in order, stopping at the first failure`
+    : `${CHAIN}:all: the ${all.length} steps of scripts/lint-data.list, each on its own and to the end${jobs > 1 ? `, ${jobs} at a time` : ''}`);
+  const pad = Math.max(4, ...all.map((s) => s.label.length));
   print('');
   print(`  ${'step'.padEnd(pad)}  result  seconds`);
   const started = Date.now();
-  // One at a time: the rows arrive in the chain's order, and a step can rely on the one before it.
-  const results = await runPool(steps, 1, {
+  // --stop runs one step at a time and ends at the first failure, as the && chain did. Otherwise every step runs;
+  // one at a time by default (the rows arrive in the list's order), N at a time with --jobs (the push gate).
+  let steps = all;
+  if (stop) {
+    steps = [];
+    for (const step of all) {
+      const [r] = await runPool([step], 1, { cwd });
+      steps.push(step);
+      print(`  ${r.label.padEnd(pad)}  ${(r.status === 0 ? 'pass' : 'FAIL').padEnd(6)}  ${seconds(r.ms).padStart(7)}`);
+      if (r.status !== 0) {
+        for (const line of linesOf(r.output).slice(-40)) print(`      | ${cut(line)}`);
+        print('');
+        print(`✘ ${r.label} failed (exit ${r.status}); ${all.length - steps.length} later step(s) not run. npm run lint:data:all runs every step.`);
+        return 1;
+      }
+    }
+    print('');
+    print(`all ${all.length} steps passed in ${seconds(Date.now() - started)} s`);
+    return 0;
+  }
+  const results = await runPool(steps, Math.max(1, jobs), {
     cwd,
     onDone: (r) => {
       print(`  ${r.label.padEnd(pad)}  ${(r.status === 0 ? 'pass' : 'FAIL').padEnd(6)}  ${seconds(r.ms).padStart(7)}`);
@@ -113,7 +140,8 @@ const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPat
 if (isMain) {
   const argv = process.argv.slice(2);
   const summary = argv.find((a) => a.startsWith('--summary='))?.slice('--summary='.length) || '';
-  runAll({ full: argv.includes('--full'), github: argv.includes('--github'), summary }).then((code) => { process.exitCode = code; }, (error) => {
+  const jobs = Number(argv.find((a) => a.startsWith('--jobs='))?.slice('--jobs='.length)) || 1;
+  runAll({ full: argv.includes('--full'), github: argv.includes('--github'), summary, stop: argv.includes('--stop'), jobs }).then((code) => { process.exitCode = code; }, (error) => {
     console.error(`✘ ${CHAIN}:all could not run: ${error.stack || error.message}`);
     process.exitCode = 1;
   });

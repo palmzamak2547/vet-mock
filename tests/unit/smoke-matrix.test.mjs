@@ -10,7 +10,7 @@
 // steps against test:e2e:ci.
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
 const workflow = readFileSync(new URL('../../.github/workflows/smoke-e2e.yml', import.meta.url), 'utf8')
   .replace(/\r\n/g, '\n');
@@ -18,7 +18,8 @@ const workflow = readFileSync(new URL('../../.github/workflows/smoke-e2e.yml', i
 // Top-level jobs: two-space indent under `jobs:`.
 const jobs = Object.fromEntries(
   workflow.split(/\njobs:\n/)[1].split(/\n(?=  [\w-]+:\n)/).map((block) => {
-    const id = /^\s*([\w-]+):/.exec(block)[1];
+    // A block may open with the comment that explains its job.
+    const id = /^ {2}([\w-]+):$/m.exec(block)?.[1] ?? '(comment)';
     return [id, block];
   }),
 );
@@ -41,10 +42,15 @@ test('a draft pull request runs no e2e and no PostgreSQL job, and marking it rea
   assert.match(triggers, /^  push:\n    branches: \[main\]$/m, 'a push to main is untouched');
   // Skipping `changes` skips every job that needs it: the runners and the PostgreSQL job.
   assert.match(jobs.changes, /^    if: \$\{\{ !github\.event\.pull_request\.draft \}\}$/m);
-  for (const id of ['e2e', 'annotation-db']) {
+  for (const id of ['annotation-db', 'unit-clock']) {
     assert.match(jobs[id], /^    needs: changes$/m, `${id} needs changes`);
     assert.match(jobs[id], /^    if: needs\.changes\.outputs\.app == 'true'$/m, `${id} runs only when changes ran and said app`);
   }
+  // The runners and the changed specs need changes too, and wait for its app=true.
+  assert.match(jobs.e2e, /^    needs: \[changes, build, changed-specs\]$/m);
+  assert.match(jobs.e2e, /needs\.changes\.outputs\.app == 'true'/);
+  assert.match(jobs['changed-specs'], /^    needs: \[changes, build\]$/m);
+  assert.match(jobs['changed-specs'], /^    if: needs\.changes\.outputs\.app == 'true' && needs\.changes\.outputs\.specs != ''$/m);
   // A newer push still replaces a pull request's run, and never a main commit's.
   assert.match(workflow, /^  group: smoke-\$\{\{ github\.ref == 'refs\/heads\/main' && github\.sha \|\| github\.ref \}\}$/m);
   assert.match(workflow, /^  cancel-in-progress: \$\{\{ github\.ref != 'refs\/heads\/main' \}\}$/m);
@@ -68,15 +74,16 @@ test('Annotation PostgreSQL lives here, under its required name, and nowhere els
   for (const harness of ['test-annotation-db', 'test-user-data-db', 'test-chula-wall-db', 'test-library-held-db']) {
     assert.match(jobs['annotation-db'], new RegExp(`run: node scripts/${harness}\\.mjs --backend=postgres`));
   }
-  const build = readFileSync(new URL('../../.github/workflows/build.yml', import.meta.url), 'utf8');
-  assert.doesNotMatch(build, /Annotation PostgreSQL$|test-annotation-db/m, 'build.yml no longer runs it, so it cannot report twice');
-  // Build keeps the trigger types a draft push fires (it is the draft's cheap signal) and never
-  // reruns when a draft is marked ready: that commit's build already ran.
-  assert.doesNotMatch(build, /ready_for_review/);
+  // build.yml is gone (16 Nov 2026: its job is the first job here), so it cannot report twice.
+  assert.ok(!existsSync(new URL('../../.github/workflows/build.yml', import.meta.url)));
+  assert.equal((workflow.match(/name: Annotation PostgreSQL$/gm) || []).length, 1);
 });
 
 test('smoke waits for every e2e runner and passes only when all of them passed', () => {
-  assert.match(jobs.smoke, /^    needs: \[changes, e2e\]$/m);
+  assert.match(jobs.smoke, /^    needs: \[changes, build, unit-clock, changed-specs, e2e\]$/m);
+  // And for the clock windows and the changed specs (skipped only when no spec file changed).
+  assert.match(jobs.smoke, /test "\$CLOCK" = "success"/);
+  assert.match(jobs.smoke, /test "\$CHANGED" = "success" \|\| test "\$CHANGED" = "skipped"/);
   // Without always(), a failed runner would SKIP smoke, and a skipped job
   // satisfies a required check.
   assert.match(jobs.smoke, /^    if: always\(\)$/m);
@@ -92,8 +99,7 @@ test('a docs-only pull request skips the e2e runners, and push and dispatch neve
   assert.ok(jobs.changes, 'a job with id changes');
   assert.match(jobs.changes, /github\.event_name \}\}" != pull_request \]; then app=true/);
   assert.match(jobs.changes, /git diff --quiet HEAD\^1 HEAD -- \. ':\(exclude\)docs' ':\(exclude,glob\)\*\.md'; then app=false/);
-  assert.match(jobs.e2e, /^    needs: changes$/m);
-  assert.match(jobs.e2e, /^    if: needs\.changes\.outputs\.app == 'true'$/m);
+  assert.match(jobs.e2e, /needs\.changes\.outputs\.app == 'true'/);
   // The skip is only ever for app=false: a changes job that failed fails smoke.
   assert.match(jobs.smoke, /if \[ "\$APP" = "false" \]; then exit 0; fi/);
 });
@@ -170,4 +176,21 @@ test('the runner list in the header, the matrix and smoke\'s needs agree', () =>
   for (const id of runsE2e) assert.ok(needs.includes(id), `smoke needs ${id}`);
   // The aggregate passes only when the whole matrix passed: a failed or skipped leg fails it.
   assert.match(jobs.smoke, /test "\$RESULT" = "success"/);
+});
+
+// 16 Nov 2026: the build job (the push gate) runs first and the browsers wait for it; the spec files a
+// change adds or changes run on all four engines before the eleven runners. Measured 9-15 Nov: 51 of 84
+// lost rounds were build-job failures or a spec the pull request changed, each found after every runner
+// had started.
+test('the browsers wait for the build job, and for the changed specs when a spec changed', () => {
+  assert.ok(jobs.build, 'the required check build is a job of this workflow');
+  assert.doesNotMatch(jobs.build, /^    needs:/m, 'build waits for nothing');
+  assert.doesNotMatch(jobs.build, /^    if:/m, 'build runs on every event, a draft included');
+  assert.match(jobs.e2e, /^      always\(\) && needs\.changes\.outputs\.app == 'true' && needs\.build\.result == 'success' &&$/m);
+  assert.match(jobs.e2e, /^      \(needs\.changed-specs\.result == 'success' \|\| needs\.changed-specs\.result == 'skipped'\)$/m);
+  assert.match(jobs['changed-specs'], /node scripts\/push-gate\.mjs --steps=specs --projects=\$\{\{ matrix\.project \}\} --base=HEAD\^1/);
+  for (const p of ['chromium-desktop', 'chromium-mobile', 'webkit-mobile', 'firefox-desktop']) {
+    assert.match(jobs['changed-specs'], new RegExp(`project: ${p},`), `changed specs run on ${p}`);
+  }
+  assert.match(jobs.changes, /^      specs: \$\{\{ steps\.diff\.outputs\.specs \}\}$/m);
 });

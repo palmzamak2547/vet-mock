@@ -12,11 +12,14 @@
 # with the failed jobs and their links; while that issue is open, a later red
 # run comments on it instead of opening another. Repository watchers are
 # notified of both. It reruns nothing (main-rerun-once.yml owns Smoke e2e).
+#
+# Build on a main push used to be listed here. Since 16 Nov 2026 the build job is part of Smoke e2e,
+# so a red build on main is rerun once and then reported by main-rerun-once.yml, like any e2e job.
 name: Scheduled red
 
 on:
   workflow_run:
-    workflows: ['Production watch', 'Dependency updates', 'Android app', 'Build']
+    workflows: ['Production watch', 'Dependency updates', 'Android app']
     types: [completed]
 
 permissions:

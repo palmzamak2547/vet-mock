@@ -1,7 +1,8 @@
 # ============================================================
 # Main heals from a flake by itself
 # ============================================================
-# Vercel promotes a main commit only once Build and "Smoke e2e" pass on it. On
+# Vercel promotes a main commit only once build and smoke (both jobs of "Smoke e2e"
+# since 16 Nov 2026, when build.yml joined it) pass on it. On
 # 15 Nov 2026 one WebKit job of "Smoke e2e" stalled on main, the production
 # deployment waited on that check, and nobody was told.
 #
