@@ -1,6 +1,6 @@
 // Code that left the first load (perf-budgets.json lazyOnly) loads only when it is needed, and the first
 // screen is the same whether or not it can load.
-import { test, expect, installPinnedCalendar, PINNED_NOW } from './fixtures.js';
+import { test, expect, PINNED_NOW } from './fixtures.js';
 
 const chunk = (name) => new RegExp(`/assets/${name}-[A-Za-z0-9_-]+\\.js$`);
 const ORIGIN_MOVE = chunk('origin-move');
@@ -22,6 +22,9 @@ async function watch(page, pattern) {
 async function firstScreen(page) {
   await page.locator('#root > *').first().waitFor();
   await page.waitForLoadState('load');
+  // Both pages' clocks are then stopped at the same instant, so the live clocks (the countdown's seconds,
+  // the landing card's timer) read the same in both.
+  await page.clock.pauseAt(Date.parse(PINNED_NOW) + 20_000);
   const read = () => page.locator('#root').evaluate((root) => root.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, ''));
   let last = await read();
   let still = Date.now();
@@ -43,9 +46,10 @@ async function freshPage(browser, entries, block) {
   // number rolls up, so two loads read at any moment differ by where those motions stand. With motion
   // turned down the app draws them still, and every element is still compared.
   const ctx = await browser.newContext({ baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor, reducedMotion: 'reduce' });
-  await ctx.addInitScript(installPinnedCalendar, { pinned: Date.parse(PINNED_NOW) });
   await ctx.addInitScript(seed(entries), entries);
   const page = await ctx.newPage();
+  // The pinned calendar, as a clock the check can stop (firstScreen).
+  await page.clock.install({ time: Date.parse(PINNED_NOW) });
   if (block) await page.route(block, (route) => route.abort());
   return page;
 }
@@ -90,7 +94,10 @@ test('mid-move: the inbox is merged before the app first draws, and nothing is l
   expect(JSON.parse(at.bookmarks).sort()).toEqual([90001, 90002, 90003]);
 });
 
-test('mid-move with the move code unreachable: the app starts and the inbox waits for the next boot', async ({ page, context }) => {
+test('mid-move with the move code unreachable: the app starts and the inbox waits for the next boot', async ({ page, context, browserName }) => {
+  // Playwright's WebKit never fetches again a module that failed once in the page, even after a reload,
+  // so the second boot cannot be shown there; Chromium and Firefox show it.
+  test.skip(browserName === 'webkit', 'WebKit under Playwright keeps a failed module failed across reloads');
   const inbox = JSON.stringify({ fields: { 'vmx-bookmarks': '[90002]' }, owner: null });
   await context.addInitScript(([values, inboxValue]) => {
     if (sessionStorage.getItem('seeded')) return;
