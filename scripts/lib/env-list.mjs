@@ -155,6 +155,8 @@ export const ENV = [
   { name: 'PGUSER', group: 'Tests', need: 'optional', does: 'Postgres user for the VCA community harness; default postgres.' },
   { name: 'VMX_GATE_LOCK', group: 'Tests', need: 'optional', does: 'Moves the local gate\'s e2e lock file.' },
   { name: 'VMX_ROUTE_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out.' },
+  { name: 'VMX_DEFECT_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out.' },
+  { name: 'VMX_DEFECT_OUT', group: 'Tests', need: 'optional', does: 'Folder the defect sweep writes its findings and pictures to; default work/defect-sweep.' },
   { name: 'VCA_BUILD_QUIET', group: 'Tests', need: 'optional', does: '1 is --quiet for vca/scripts/build-bank.mjs.' },
   { name: 'VCA_E2E_PORT', group: 'Tests', need: 'optional', does: 'Port of the VCA e2e server.' },
   { name: 'RESEARCH_BASE_URL', group: 'Tests', need: 'optional', does: 'Runs the Research e2e against another origin.' },

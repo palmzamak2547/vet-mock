@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-129 names, 12 required; 10 more are set by the platform.
+131 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -162,7 +162,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 
 | Name | Need | Runtime | Read in | Without it / what it does |
 |---|---|---|---|---|
-| `PLAYWRIGHT_BASE_URL` | optional | test | `playwright.config.js` | Runs the e2e suite against another origin (test:e2e:prod uses vetmock.com). |
+| `PLAYWRIGHT_BASE_URL` | optional | test, script | `playwright.config.js`, `scripts/defect-sweep.mjs` | Runs the e2e suite against another origin (test:e2e:prod uses vetmock.com). |
 | `PAPER_OUT` | optional | test | `tests/e2e/question-paper.spec.js` | Folder where the question-paper e2e keeps the PDFs it saves, for page pictures. |
 | `VMX_SHOT_DIR` | optional | test | `tests/e2e/library-doc-loading-layout.spec.js` | Folder where the document loading layout e2e keeps a picture of each size it checks. |
 | `VMX_SHOT_TAG` | optional | test | `tests/e2e/library-doc-loading-layout.spec.js` | Prefix of those picture names (before, after); default shot. |
@@ -179,6 +179,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
 | `VMX_GATE_LOCK` | optional | script | `scripts/gate.mjs` | Moves the local gate's e2e lock file. |
 | `VMX_ROUTE_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out. |
+| `VMX_DEFECT_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out. |
+| `VMX_DEFECT_OUT` | optional | script, test | `scripts/defect-sweep.mjs`, `tests/e2e/lib/defects.js` | Folder the defect sweep writes its findings and pictures to; default work/defect-sweep. |
 | `VCA_BUILD_QUIET` | optional | script | `vca/scripts/build-bank.mjs` | 1 is --quiet for vca/scripts/build-bank.mjs. |
 | `VCA_E2E_PORT` | optional | test | `vca/playwright.config.js` | Port of the VCA e2e server. |
 | `RESEARCH_BASE_URL` | optional | test | `research/playwright.config.js`, `research/tests/e2e/research-headers.spec.js` | Runs the Research e2e against another origin. |
