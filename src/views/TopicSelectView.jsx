@@ -551,7 +551,22 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         {/* Interactive lessons belong to their subject, not to the left rail:
             a year-5 module is not a destination a first year should walk past
             on every screen. */}
-        {lessonsForSubject(subject).map((lesson) => (
+        {lessonsForSubject(subject).map((lesson) => (lesson.links ? (
+          // A lesson hosted outside VetMock: one card, one link per module,
+          // each opening the lecturer's page in a new tab.
+          <div key={lesson.id} className="vmx-mode-card vmx-mode-card--links">
+            <div className="icon"><NavIcon name="link" size={20} /></div>
+            <div className="title">{lesson.title}</div>
+            <div className="sub">{lesson.sub}</div>
+            <ul className="vmx-mode-card__links">
+              {lesson.links.map((link) => (
+                <li key={link.url}>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
           <button
             key={lesson.id}
             className="vmx-mode-card"
@@ -561,7 +576,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             <div className="title">{lesson.title}</div>
             <div className="sub">{lesson.sub}</div>
           </button>
-        ))}
+        )))}
       </div>
 
       {subjectMeta?.examFormat && (
