@@ -1610,6 +1610,48 @@
   "model_answer": "เกิดจากเชื้อ Babesia caballi และ Theileria (Babesia) equi ซึ่งติดต่อผ่านเห็บ (tick-borne protozoa) โดยเห็บ 14 ชนิด เช่น Dermacentor, Hyalomma และ Rhipicephalus และติดได้ทางเข็มหรือกระบอกฉีดยาที่ปนเปื้อนและการถ่ายเลือด",
   "rubric": ""
  },
+ "209639": {
+  "type": "short",
+  "q": "vector ของ AHS",
+  "model_answer": "Culicoides spp. (biting midges หรือริ้น) เป็นพาหะนำโรคหลัก โดยเฉพาะ C. imicola และ C. bolitinos",
+  "rubric": ""
+ },
+ "209640": {
+  "type": "short",
+  "q": "reservoirs ของ AHS",
+  "model_answer": "ม้าลาย (zebra) เป็นแหล่งรังโรคตามธรรมชาติ ติดเชื้อได้โดยไม่ป่วยรุนแรง",
+  "rubric": ""
+ },
+ "209641": {
+  "type": "short",
+  "q": "gold standard ของ EIA",
+  "model_answer": "Agar gel immunodiffusion (AGID) หรือ Coggins test",
+  "rubric": ""
+ },
+ "209642": {
+  "type": "short",
+  "q": "EHV ตัวไหนมี neuro",
+  "model_answer": "EHV-1",
+  "rubric": ""
+ },
+ "209643": {
+  "type": "short",
+  "q": "Streptococcus ______ ทำให้เกิด Strangles",
+  "model_answer": "equi (Streptococcus equi)",
+  "rubric": ""
+ },
+ "209644": {
+  "type": "short",
+  "q": "classic signs ของ tetanus ที่ไม่ใช่ stiffness คือ",
+  "model_answer": "Third eyelid protrusion (third eyelid ยื่นออกมาคลุมตา)",
+  "rubric": ""
+ },
+ "209645": {
+  "type": "short",
+  "q": "โรคอะไรที่ต้องระวังเวลาอยู่ใกล้ฟาร์มหมู",
+  "model_answer": "Japanese encephalitis (JE)",
+  "rubric": ""
+ },
  "210027": {
   "type": "short",
   "q": "กรณี Listeria monocytogenes ปนเปื้อนในอาหารพร้อมบริโภค (ready-to-eat foods) การปนเปื้อนนี้มาจากส่วนใดของ One Health ระหว่างสัตว์ คน หรือสิ่งแวดล้อม",

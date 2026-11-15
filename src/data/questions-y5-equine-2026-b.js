@@ -1635,4 +1635,147 @@ export const QUESTIONS_Y5_EQUINE_2026_B = [
       }
     ]
   },
+  {
+    "id": 216019,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "Swamp cancer หรือ bursatte เป็นชื่อเรียกอีกชื่อของโรคใดในม้า",
+    "options": [
+      "Cutaneous habronemiasis",
+      "Dermatophilosis",
+      "Equine pythiosis",
+      "Equine sarcoid"
+    ],
+    "answer": 2,
+    "explain": "Equine pythiosis เกิดจาก Pythium insidiosum มีชื่อเรียกอื่นว่า bursatte หรือ swamp cancer ม้าติดจากการสัมผัสวัสดุหรือสิ่งแวดล้อมที่มีเชื้อ เช่น น้ำเจิ่งนอง\n\nทำไมข้ออื่นผิด\nCutaneous habronemiasis: รอยโรคจากตัวอ่อน Habronema ที่แมลงวันนำมาปล่อยบนผิวหนังที่ชื้นหรือบนแผล\nDermatophilosis: มี 2 กลุ่มอาการ คือ rain scald ที่ลำตัวด้านบน และ mud fever ที่ขาส่วนปลาย\nEquine sarcoid: เนื้องอกผิวหนังที่พบบ่อยที่สุดในม้า สัมพันธ์กับ bovine papillomavirus",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 67; Equine dermatology and wound management หน้า 28, 34 และ 41; 14B7TUfov00 [121:06-121:37]",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 67 (Pythium insidiosum, synonym bursatte or swamp cancer, contact with infected material, environment); 14B7TUfov00 [121:06-121:37] (อีกชื่อคือ swamp cancer ติดจากน้ำเจิ่งนอง); Equine dermatology and wound management หน้า 28 (rain scald, mud fever), 34 (larvae of Habronema spp.), 41 (sarcoid, most common equine neoplasm, BPV)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythiosis-synonym"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 67
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 28
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 34
+      },
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 41
+      }
+    ]
+  },
+  {
+    "id": 216020,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "Clinical characteristics ของ equine pythiosis แบ่งเป็น 3 รูปแบบ (pattern) ได้แก่ข้อใด",
+    "options": [
+      "Acute, chronic และ inapparent",
+      "Acute, chronic และ severe chronic",
+      "Peracute, acute และ subacute",
+      "Cardiac, pulmonary และ mixed"
+    ],
+    "answer": 1,
+    "explain": "รอยโรค equine pythiosis แบ่งตามลักษณะทางคลินิกเป็น acute infection, chronic infection และ severe chronic infection ในประเทศไทยพบได้ทั้งแบบ chronic และ severe chronic\n\nทำไมข้ออื่นผิด\nAcute, chronic และ inapparent: เป็น 3 รูปแบบของ equine infectious anemia\nPeracute, acute และ subacute: เป็นระยะของ equine piroplasmosis ซึ่งมี chronic form เป็นระยะที่ 4\nCardiac, pulmonary และ mixed: เป็นรูปแบบของ African horse sickness",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 12, 22, 64 และ 69; 14B7TUfov00 [122:07]",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 69 (3 patterns: acute, chronic, severe chronic infection), 22 (EIA three forms: acute, chronic, inapparent), 64 (piroplasmosis: peracute, acute, subacute, chronic form), 12 (AHS: sub-clinical, cardiac, pulmonary, mixed form); 14B7TUfov00 [122:07] (ในไทยเจอ chronic กับ severe chronic)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythiosis-patterns"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 69
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 22
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 64
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 216021,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้ามีแผลเรื้อรังที่ขา ผล histopathology พบ hyphae เข้าได้กับ pythiosis วิธีใดใช้ยืนยันชนิดเชื้อว่าเป็น Pythium insidiosum",
+    "options": [
+      "Endoscopic examination",
+      "Card agglutination test",
+      "Giemsa stain ของ blood smear",
+      "DNA sequencing หรือ PCR"
+    ],
+    "answer": 3,
+    "explain": "การวินิจฉัย pythiosis ใช้ isolation และ culture, histopathology ที่ย้อม GMS หรือ PAS เพื่อหา hyphae, immunochromatography test (ICT) และยืนยันชนิดเชื้อด้วย DNA sequencing หรือ PCR\n\nทำไมข้ออื่นผิด\nEndoscopic examination: ใช้วินิจฉัย guttural pouch mycosis\nCard agglutination test: เป็นการตรวจทางซีรัมของ trypanosomiasis\nGiemsa stain ของ blood smear: ใช้หา Babesia caballi และ Theileria equi ในเม็ดเลือดแดงของม้าที่เป็น piroplasmosis",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 62, 63, 65, 70 และ 74; 14B7TUfov00 [123:12-123:43]",
+    "verified": "Eq Infectious Dz and Biosecurity หน้า 70 (isolation, culture, histopathology with GMS or PAS, ICT, DNA sequencing, PCR), 74 (guttural pouch mycosis: endoscopic examination), 62 (trypanosomiasis: card agglutination test), 63 (Babesia caballi, Theileria equi), 65 (piroplasmosis: Giemsa stain); 14B7TUfov00 [123:12-123:43] (ทำ histopath หา hyphae แล้วทำ DNA sequencing ยืนยัน)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis",
+    "tags": [
+      "equine-pythium",
+      "pythiosis-confirmation"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 70
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 74
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 62
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 63
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 65
+      }
+    ]
+  },
 ];

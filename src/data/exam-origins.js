@@ -113,6 +113,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med & Surg final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
   "Equine Med & Surg final Vet 84": { kind: 'paper', cohort: 84, paper: 'final' },
   "Equine Med & Surg final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
+  // The infectious part of the midterm Vet 84 sat (22 Aug 2567 on their timetable sheet, ticked as midterm): ten
+  // fill-in items a Vet 84 student wrote down on the cover page of the midterm summary. 2569 teaches the topic for the final.
+  "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'midterm' },
   "Swine Medicine final Vet 78, Vet 81 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81], paper: 'final' },
   "Swine Medicine final Vet 78, Vet 81, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81, 85], paper: 'final' },
   "Swine Medicine final Vet 80, Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 84], paper: 'final' },
@@ -307,6 +310,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Sx concept (Vet 85) margin marks bandaging as a recurring VCA item": { kind: 'aligned' },
   "Equine Sx concept (Vet 85) margin marks this bandage as a recurring exam item": { kind: 'aligned' },
   "Equine Sx concept (Vet 85) margin notes Robert Jones as the usual VCA item": { kind: 'aligned' },
+  // Vet 85 drew a star beside single statements in their copy of the 2568 dermatology deck, and their final summary
+  // (p. 6) says the dermatology and surgery points were added in the starred slides. A mark, not a paper.
+  "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
 
   // ── source-doc: Names the document the question was written from ──
   // rows that carry a sourceType

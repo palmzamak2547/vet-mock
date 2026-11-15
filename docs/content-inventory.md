@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,883** |
+| **Questions ready for learners** | **8,893** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 212 |
-| Total questions in source banks | 9,095 |
+| Total questions in source banks | 9,105 |
 | Question banks (files) | 107 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 6,304 |
+| — year 5 | 6,314 |
 
-Consistency: source banks **9095**, learner-ready **8883**, fail-closed **212**, registry sums to **9095**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9105**, learner-ready **8893**, fail-closed **212**, registry sums to **9105**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -69,7 +69,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 372 | 355 | 0 | 95.4% |
-| equine-medicine | 559 | 559 | 0 | 100.0% |
+| equine-medicine | 569 | 569 | 0 | 100.0% |
 | equine-repro | 242 | 237 | 0 | 97.9% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 300 | 61 | 0 | 20.3% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8883 | 5738 | 324 | 64.6% |
+| **All** | 8893 | 5748 | 324 | 64.6% |

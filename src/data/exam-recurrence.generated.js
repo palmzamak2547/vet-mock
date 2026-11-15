@@ -1674,7 +1674,7 @@ export const EXAM_RECURRENCE = {
   },
   "equine-medicine": {
     "cohorts": [81, 83, 84, 85],
-    "items": 199,
+    "items": 206,
     "topics": {
       "equine-anesthesia": {
         "cohorts": [83, 85],
@@ -1744,11 +1744,15 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["equine-medicine:209625", "equine-medicine:209626"],
       },
       "equine-infectious": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 1,
-        "sat": {},
+        "cohorts": [84],
+        "first": 84,
+        "last": 84,
+        "items": 8,
+        "sat": {
+          "84": {
+            "midterm": ["equine-medicine:209639", "equine-medicine:209640", "equine-medicine:209641", "equine-medicine:209642", "equine-medicine:209643", "equine-medicine:209644", "equine-medicine:209645"],
+          },
+        },
         "unattributed": ["equine-medicine:209567"],
       },
       "equine-intro": {
