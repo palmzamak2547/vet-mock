@@ -104,14 +104,23 @@ export function safeMessage(message) {
 }
 
 // The first frame in our own bundle: file name, line and column. No origin,
-// no query, no path but assets/.
-const FRAME = /\/assets\/([\w.-]{1,80}\.js)(?:\?[^:\s)]*)?:(\d{1,7}):(\d{1,7})/;
+// no query, no path but assets/. A frame counts as ours only when it is served
+// from this site's own origin under /assets/: a browser extension's script
+// (chrome-extension://, moz-extension://, safari-web-extension://) or another
+// site's script never matches, even when its path also ends in assets/x.js,
+// so the privacy page's "ชื่อไฟล์โค้ดของเว็บ" stays true as written.
+const FRAMES = /\b(https?:\/\/[^/\s()]+)\/assets\/([\w.-]{1,80}\.js)(?:\?[^:\s)]*)?:(\d{1,7}):(\d{1,7})/g;
 const FRAME_STORED = /^assets\/[\w.-]{1,80}\.js:\d{1,7}:\d{1,7}$/;
-export function safeFrame(stack) {
+const PRODUCTION_ORIGINS = ['https://vetmock.com', 'https://www.vetmock.com'];
+export function safeFrame(stack, origin = globalThis.location?.origin) {
   if (typeof stack !== 'string') return '';
   if (FRAME_STORED.test(stack)) return stack;
-  const hit = stack.match(FRAME);
-  return hit ? `assets/${hit[1]}:${hit[2]}:${hit[3]}` : '';
+  const own = new Set(PRODUCTION_ORIGINS);
+  if (typeof origin === 'string' && /^https?:\/\//.test(origin)) own.add(origin);
+  for (const hit of stack.matchAll(FRAMES)) {
+    if (own.has(hit[1])) return `assets/${hit[2]}:${hit[3]}:${hit[4]}`;
+  }
+  return '';
 }
 
 export function diagnosticRecord(error, view, kind = 'error') {

@@ -1573,6 +1573,11 @@ html, body {
 .vmx-subject-card { background: linear-gradient(165deg, color-mix(in srgb, var(--subject-accent, var(--clr-surface-2)) 18%, var(--clr-surface)) 0%, var(--clr-surface) 78%); border-color: color-mix(in srgb, var(--subject-accent, var(--clr-border)) 45%, var(--clr-border)); box-shadow: 0 2px 12px color-mix(in srgb, var(--subject-accent, transparent) 14%, transparent); }
 .vmx-subject-card:hover { border-color: color-mix(in srgb, var(--subject-accent, var(--clr-sage)) 70%, var(--clr-border)); background: linear-gradient(165deg, color-mix(in srgb, var(--subject-accent, var(--clr-surface-2)) 26%, var(--clr-surface)) 0%, var(--clr-surface-2) 78%); }
 .vmx-mode-card:disabled { cursor: not-allowed; }
+.vmx-mode-card--links { cursor: default; grid-column: 1 / -1; }
+.vmx-mode-card--links:hover { border-color: var(--clr-border); background: var(--clr-surface); box-shadow: none; }
+.vmx-mode-card__links { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 2px; }
+.vmx-mode-card__links a { display: flex; align-items: center; padding: 6px 0; min-height: 44px; box-sizing: border-box; font-size: 14px; line-height: 1.4; color: var(--clr-ink); text-decoration: underline; text-underline-offset: 3px; }
+.vmx-mode-card__links a:hover { color: var(--clr-ink); }
 .vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
 .vmx-mode-card .icon, .vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage-text); font-size: 20px; line-height: 1; }
 /* Subject cards are the directory's face — the icon chip leads the card
