@@ -317,8 +317,8 @@ export const QB_COM1 = [
     "explain": "Localization rule (Ettinger):\n• Extrathoracic upper airway (nose/larynx/cervical trachea) → INSPIRATORY effort เด่น (intraluminal pressure ลบช่วง inspire → collapse เพิ่ม)\n• Intrathoracic airway (intrathoracic trachea/bronchi) → EXPIRATORY effort (positive pleural pressure ช่วง expire → ดัน airway collapse)\n• Tracheal collapse classic ตำแหน่ง cervical = inspiratory, thoracic inlet = mixed, intrathoracic = expiratory\n\n💡 หมา toy breed (Pomeranian, Yorkie, Poodle) + goose-honk cough + inspiratory stridor = tracheal collapse cervical\n\n⚠ Note: Q จาก COM 86 #59 ระบุ abdominal push + obstructive pattern → fit obstructive (Hand off exam grade dyspnea)",
     "verified": "Modified Com1 final TJ (Resp Q9 + breathing pattern flowchart) + COM I Final 86 Q59, lecturer ณัฐวรรณ. Note: original question source pdf ระบุ Expiratory ใน TJ key — flag: 'extrathoracic→inspiratory เป็นหลัก แต่ stem 86 มี abdominal push (expiratory effort) อาจ imply intrathoracic หรือ mixed' ดู verified field",
     "flag": {
-      "severity": "minor",
-      "note": "TJ key marks Expiratory dyspnea; classic teaching = extrathoracic→inspiratory; stem hints at obstructive overall. Answer set to inspiratory per breathing-pattern flowchart standard."
+      "severity": "major",
+      "note": "ชีท TJ เฉลย \"Expiratory dyspnea\" — ตามที่สอนกันทั่วไป รอยโรคนอกช่องอกทำให้หายใจเข้าลำบาก และโจทย์ชี้ไปทางการอุดกั้น จึงควรเป็น Inspiratory dyspnea ตาม flowchart รูปแบบการหายใจ"
     }
   },
   {
@@ -672,7 +672,7 @@ export const QB_COM1 = [
     "verified": "Modified Com1 final TJ (Renal Q4) + COM I Final 86 Q33",
     "flag": {
       "severity": "minor",
-      "note": "Original Q stem subtle: hypokalemia is common complication in feline CKD but not universal — wording 'ทุกรายเป็นภาวะหลัก' makes it the 'not a complication' answer per TJ key"
+      "note": "ข้อนี้ต้องอ่านโจทย์ละเอียด ภาวะโพแทสเซียมต่ำพบบ่อยในแมวที่เป็นไตเรื้อรังแต่ไม่ได้พบทุกราย คำว่า 'ทุกรายเป็นภาวะหลัก' จึงทำให้ข้อนี้เป็นคำตอบที่ไม่ใช่ภาวะแทรกซ้อน ตามเฉลยในชีท TJ"
     }
   },
   {

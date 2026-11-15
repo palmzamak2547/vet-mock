@@ -15,12 +15,37 @@ import { readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
 
-test('SmartPassage opens on a new openSignal while rendering, never from an effect', () => {
-  const passage = read('src/components/SmartPassage.jsx');
-  assert.doesNotMatch(passage, /useEffect\(\s*\(\)\s*=>\s*\{[^}]*openSignal[^}]*setOpen\(true\)/, 'opening from an effect is one render too late');
-  assert.match(passage, /if \(openSignal !== seenSignal\) \{\s*setSeenSignal\(openSignal\);\s*if \(openSignal\) setOpen\(true\);\s*\}/);
+test('SmartPassage opens on a new openSignal while rendering, never from an effect', async () => {
+  // Behaviour, not wording: the real component, with effects switched off, so
+  // the only way the table can be back after the new signal is the render itself.
+  const fr = await import('../helpers/fake-react.mjs');
+  const runtime = globalThis.__fakeReact;
+  const realEffect = runtime.useEffect;
+  const realLayout = runtime.useLayoutEffect;
+  runtime.useEffect = () => {};
+  runtime.useLayoutEffect = () => {};
+  try {
+    const { default: SmartPassage } = await fr.loadModule('src/components/SmartPassage.jsx', {
+      stubs: [{ match: '/lib/dialog\\.js$', contents: 'export const confirmDialog = async () => false;' }],
+    });
+    globalThis.localStorage = { getItem: () => null, setItem() {}, removeItem() {} };
+    const text = 'ค่าที่วัดได้\n\n| กลุ่ม | ป่วย |\n|---|---|\n| A | 10 |\n| B | 20 |';
+    const tables = (tree) => fr.findAll(tree, (n) => n.type === 'table').length;
+    const inst = fr.mount(SmartPassage, { text, title: 'ตาราง', openSignal: 0 });
+    assert.ok(tables(inst.tree) > 0, 'open at first');
+    const [toggle] = fr.findAll(inst.tree, (n) => n.type === 'button' && n.props['aria-expanded'] === true);
+    toggle.props.onClick();
+    inst.flush();
+    assert.equal(tables(inst.tree), 0, 'closed by the student');
+    inst.update({ openSignal: 1 });
+    assert.ok(tables(inst.tree) > 0, 'the new signal reopens it in the render that receives it');
+    inst.unmount();
+  } finally {
+    runtime.useEffect = realEffect;
+    runtime.useLayoutEffect = realLayout;
+  }
   // The signal must not sit in any effect's dependency list either: that is the same late open.
-  assert.doesNotMatch(passage, /\},\s*\[[^\]]*\bopenSignal\b[^\]]*\]\)/);
+  assert.doesNotMatch(read('src/components/SmartPassage.jsx'), /\},\s*\[[^\]]*\bopenSignal\b[^\]]*\]\)/);
 });
 
 test('the card scrolls to the passage once, and jumps when the student turned motion down', () => {
