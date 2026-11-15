@@ -63,6 +63,19 @@ test('engine and browser messages keep their shape, with data replaced by a mark
   assert.equal(safeMessage(undefined), '');
   assert.equal(safeFrame('TypeError: x\n    at f (https://vetmock.com/assets/index-Ab12.js?v=1:12:345)'), 'assets/index-Ab12.js:12:345');
   assert.equal(safeFrame('at f (https://evil.example/steal.js:1:2)'), '');
+  // Only this site's own bundle: an extension's frame or another site's script
+  // is dropped even when its path ends in assets/x.js, and the first own frame
+  // below them is the one kept.
+  const extension = 'TypeError: x\n    at e (chrome-extension://abcdefghijklmnop/assets/content-Zz9.js:3:14)';
+  assert.equal(safeFrame(extension), '');
+  assert.equal(safeFrame('at e (moz-extension://1234-5678/assets/inject.js:1:1)'), '');
+  const thirdParty = 'at t (https://cdn.example.com/assets/tracker-Q1.js:7:8)';
+  assert.equal(safeFrame(thirdParty), '');
+  assert.equal(safeFrame(`${extension}\n${thirdParty}\n    at g (https://vetmock.com/assets/index-Ab12.js:40:2)`), 'assets/index-Ab12.js:40:2');
+  // A preview deployment counts its own origin as ours, and no other.
+  const preview = 'https://vet-mock-git-x.vercel.app';
+  assert.equal(safeFrame(`at g (${preview}/assets/index-P.js:1:2)`, preview), 'assets/index-P.js:1:2');
+  assert.equal(safeFrame('at g (https://vet-mock-git-y.vercel.app/assets/index-P.js:1:2)', preview), '');
 });
 
 test('the privacy page names every stored field, and only those', () => {

@@ -24,6 +24,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 import { searchPages, pageTextFromItems } from '../../src/lib/thai-search.js';
+import { RangedPdfSource, rangeableLength, RANGE_CHUNK } from '../../src/lib/pdf-range-source.js';
 
 const SRC = readFileSync(new URL('../../src/views/PdfAnnotateView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
@@ -64,6 +65,10 @@ function reader({ fetch, realRead = false } = {}) {
     loadGenRef: { current: 0 },
     pendingTaskRef: { current: null },
     pendingAbortRef: { current: null },
+    rangedRef: { current: null },
+    // These fakes answer no Accept-Ranges, so every whole-file open here takes
+    // the old whole download (pdf-range-source.test.mjs covers the ranged one).
+    RangedPdfSource, rangeableLength, RANGE_CHUNK,
     AbortController,
     useCallback: (fn) => fn,
     SIZE_WARN_MB: 30,
@@ -87,7 +92,7 @@ function reader({ fetch, realRead = false } = {}) {
     thaiError: (e) => String(e?.message || e),
     mb: (n) => String(n),
   };
-  for (const s of ['Error', 'DownloadProgress', 'Loading', 'LoadingMsg', 'LegacyAvailable', 'Deleted', 'FileHash', 'FileName', 'PageCount', 'StrokesByPage', 'CurrentPage']) {
+  for (const s of ['FileWhole', 'Error', 'DownloadProgress', 'Loading', 'LoadingMsg', 'LegacyAvailable', 'Deleted', 'FileHash', 'FileName', 'PageCount', 'StrokesByPage', 'CurrentPage']) {
     ctx[`set${s}`] = (v) => { state[s] = v; if (s === 'Loading') state.loading.push(v); if (s === 'LoadingMsg') state.messages.push(v); };
   }
   ctx.setPdfDoc = (doc) => { state.PdfDoc = doc; state.published.push(doc.identity); };
