@@ -86,6 +86,168 @@ export function decodeQuizSet(qsetParam) {
   }
 }
 
+// ── The short form: /s/<code> ───────────────────────────────
+// The same set as `?qset=`, packed into bytes so a 10-question set is a link
+// of about 50 characters instead of about 470, and so a chat preview can be
+// drawn by api/s.js from the code alone (no lookup). Layout, version 1:
+//
+//   byte 0   bits 0-3 version (1); bit 4 the set mixes subjects;
+//            bit 5 the sender's picks follow (kept for comparing answers,
+//            never written yet, and refused until a reader understands it);
+//            bits 6-7 zero
+//   varint   how many questions, 1 to SHARE_CODE_MAX_ITEMS
+//   varint   the subject's index in SHARE_SUBJECTS (one subject only)
+//   per item [varint subject index, a mixed set only]
+//            zigzag varint: this id minus the previous one (the first minus 0)
+//   (later)  the picks: 3 bits per question, packed, when bit 5 is set
+//
+// Nothing else is allowed: no trailing bytes, no overlong varint, no repeat
+// of a question, no subject outside the table. Every rule is checked by
+// decodeShareCode, because a code arrives from anyone.
+
+// Index order is the link format: append only, never reorder or remove, or
+// every link made before the change opens other questions.
+export const SHARE_SUBJECTS = Object.freeze([
+  'aquatic-clinic', 'avian-medicine', 'biochem-1', 'cliapprum', 'com1', 'com2', 'com3', 'com4', 'com5',
+  'comp-repro-clinic', 'engprof', 'engprof1', 'epidemiology', 'equine-medicine', 'equine-repro', 'exotic',
+  'food-industry', 'food-safety-y4', 'herd-health-rum', 'livestock-pathology', 'milk-meat-hygiene', 'one-health',
+  'poa-clinical', 'poultry', 'practrum', 'rec-adv-bioscience', 'repro', 'repro-lect', 'ruminant-clinical', 'surg1',
+  'surg2', 'surg3', 'swine-clinic', 'swine-herd', 'swine-repro', 'vca', 'vet-dev-anat', 'vet-histo', 'vet-imaging',
+  'vet-juris', 'vet-neuroanat', 'vet-pharm-2', 'zoonoses',
+]);
+const SUBJECT_INDEX = new Map(SHARE_SUBJECTS.map((s, i) => [s, i]));
+
+export const SHARE_CODE_VERSION = 1;
+export const SHARE_CODE_MAX_ITEMS = MAX_Q;
+// 200 ids from mixed subjects, each a 3-byte gap: about 1,070 characters.
+export const SHARE_CODE_MAX_CHARS = 1200;
+const FLAG_MIXED = 0x10;
+const FLAG_PICKS = 0x20;
+const MAX_ID = 2 ** 31 - 1;
+const BASE64URL = /^[A-Za-z0-9_-]+$/;
+
+function pushVarint(out, n) {
+  let v = n;
+  while (v >= 0x80) { out.push((v % 0x80) | 0x80); v = Math.floor(v / 0x80); }
+  out.push(v);
+}
+const zigzag = (n) => (n >= 0 ? n * 2 : -n * 2 - 1);
+const unzigzag = (z) => (z % 2 === 0 ? z / 2 : -(z + 1) / 2);
+
+function bytesToBase64Url(bytes) {
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return b64UrlEncode(bin);
+}
+
+/** A set as the code of a /s/ link, or '' when nothing in it can travel. */
+export function encodeShareCode(questions) {
+  if (!Array.isArray(questions)) return '';
+  const items = [];
+  const seen = new Set();
+  for (const q of questions) {
+    if (!isShareableQuestion(q)) continue;
+    const s = SUBJECT_INDEX.get(q.subject);
+    const id = Number(q.id);
+    if (s === undefined || !Number.isInteger(id) || id < 1 || id > MAX_ID) continue;
+    const key = `${s}:${id}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    items.push({ s, id });
+    if (items.length === SHARE_CODE_MAX_ITEMS) break;
+  }
+  if (!items.length) return '';
+  const mixed = items.some((it) => it.s !== items[0].s);
+  const out = [SHARE_CODE_VERSION | (mixed ? FLAG_MIXED : 0)];
+  pushVarint(out, items.length);
+  if (!mixed) pushVarint(out, items[0].s);
+  let prev = 0;
+  for (const it of items) {
+    if (mixed) pushVarint(out, it.s);
+    pushVarint(out, zigzag(it.id - prev));
+    prev = it.id;
+  }
+  return bytesToBase64Url(out);
+}
+
+function strictBase64UrlBytes(code) {
+  // A length of 1 mod 4 cannot come from any byte string.
+  if (code.length % 4 === 1) return null;
+  let bin;
+  try { bin = b64UrlDecode(code); } catch { return null; }
+  // Unused low bits of the last character must be zero, or two codes would
+  // name one set and the code would not be canonical.
+  if (b64UrlEncode(bin) !== code) return null;
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+/**
+ * The questions a /s/ code names, as [{ subject, id }], or null for anything
+ * that is not exactly a code this file writes. `has(subject, id)`, when given,
+ * must also say yes for every question (the bank check on the server).
+ */
+export function decodeShareCode(code, { has = null } = {}) {
+  if (typeof code !== 'string' || !code || code.length > SHARE_CODE_MAX_CHARS || !BASE64URL.test(code)) return null;
+  const bytes = strictBase64UrlBytes(code);
+  if (!bytes || bytes.length < 3) return null;
+  let at = 0;
+  const varint = () => {
+    let n = 0;
+    let scale = 1;
+    for (let k = 0; k < 5; k++) {
+      if (at >= bytes.length) return null;
+      const b = bytes[at++];
+      n += (b & 0x7f) * scale;
+      if (b < 0x80) {
+        if (k > 0 && b === 0) return null; // overlong
+        return n;
+      }
+      scale *= 0x80;
+    }
+    return null;
+  };
+  const head = bytes[at++];
+  if ((head & 0x0f) !== SHARE_CODE_VERSION || (head & 0xc0) !== 0 || (head & FLAG_PICKS)) return null;
+  const mixed = Boolean(head & FLAG_MIXED);
+  const count = varint();
+  if (count === null || count < 1 || count > SHARE_CODE_MAX_ITEMS) return null;
+  let subject = null;
+  if (!mixed) {
+    const s = varint();
+    if (s === null || s >= SHARE_SUBJECTS.length) return null;
+    subject = SHARE_SUBJECTS[s];
+  }
+  const out = [];
+  const seen = new Set();
+  let prev = 0;
+  for (let i = 0; i < count; i++) {
+    let subj = subject;
+    if (mixed) {
+      const s = varint();
+      if (s === null || s >= SHARE_SUBJECTS.length) return null;
+      subj = SHARE_SUBJECTS[s];
+    }
+    const z = varint();
+    if (z === null) return null;
+    const id = prev + unzigzag(z);
+    if (!Number.isInteger(id) || id < 1 || id > MAX_ID) return null;
+    const [min, max] = CUSTOM_QUESTION_ID_RANGE;
+    if (id >= min && id <= max) return null;
+    const key = `${subj}:${id}`;
+    if (seen.has(key)) return null;
+    seen.add(key);
+    if (has && !has(subj, id)) return null;
+    out.push({ subject: subj, id });
+    prev = id;
+  }
+  // A mixed flag on a one-subject set is not what this file writes.
+  if (mixed && out.every((q) => q.subject === out[0].subject)) return null;
+  if (at !== bytes.length) return null;
+  return out;
+}
+
 // Build the full URL the user can copy + paste.
 // Round 2B (2026-05-18): optional sender-score + sender-name params
 // so the receiver lands with a "📨 ผู้ส่งได้ X/Y · ดูว่าคุณได้เท่าไหร่"

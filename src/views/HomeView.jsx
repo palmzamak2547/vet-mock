@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
+import { shownName, shownPicture } from '../lib/public-display.js';
+import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
 import { QB, isQBYearLoaded } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
@@ -789,6 +791,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       import('./ExamView.jsx').catch(() => {});
       import('./ResultsView.jsx').catch(() => {});
       import('./ReviewView.jsx').catch(() => {});
+      // Finishing a set or a review card writes its answers through this
+      // module. Never loaded before, a set finished offline could not save
+      // them and asked the student to back the set up (offline audit, 15 Nov).
+      import('../lib/study-event-log.js').catch(() => {});
     };
     const idle = window.requestIdleCallback
       || ((cb) => setTimeout(cb, 1500));
@@ -899,7 +905,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       <div className="vmx-hero vmx-home-hero">
         <h1>
           {user
-            ? <>สวัสดีคุณ <em>{profile?.username || 'นิสิต'}</em></>
+            ? <>สวัสดีคุณ <em>{isAutoName(profile?.username, user?.email, user) ? 'นิสิต' : shownName(profile.username)}</em></>
             : <>พร้อมฝึกสำหรับ <em>{phaseMeta?.short || yearMeta?.label || 'วันนี้'}</em></>}
         </h1>
         {isScaffoldYear ? (

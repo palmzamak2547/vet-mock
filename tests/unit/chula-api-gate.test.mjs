@@ -126,6 +126,7 @@ test('every function is behind the gate or open on purpose, and a new one must s
     'move-in': 'the old-origin move, run on vetmock.vercel.app before any session exists there',
     'system-status': "the admin's own probe, which checks the admin itself",
     playlist: 'public YouTube playlist titles: edge-cached for half an hour, its Data API spend capped daily, and the video page asks ~40 at once',
+    s: 'the preview of a /s/ link, read by chat apps with no session: a subject name, a count and minutes from our own tables, never question text; it opens nothing itself and sends a person on to the app, which keeps its wall',
   };
   const src = (name) => readFileSync(`${API_DIR}${name}.js`, 'utf8');
   const all = apiHandlerNames();
