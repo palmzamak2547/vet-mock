@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { reportFailure } from '../lib/report-failure.js';
 import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase, storedAuthSession, restoreSignInDestination } from '../lib/supabase.js';
 
 // useAuth() — returns { user, profile, setProfile, loading, isSignedIn }.
@@ -129,6 +130,10 @@ export function useAuth() {
           // it holds stays. Only SIGNED_OUT, or a token gone from storage, ends it.
           commitUser(s?.user ?? (event === 'SIGNED_OUT' ? null : storedAuthSession()?.user ?? null));
           if (event === 'USER_UPDATED') setProfileRefresh((n) => n + 1);
+          // Every auth event (a sign-in, a token refresh, a sign-out) tells the
+          // library to forget a refusal it remembered: a member whose request
+          // went out with a stale token must not stay refused until reload.
+          try { window.dispatchEvent(new CustomEvent('vmx-auth-state', { detail: { event } })); } catch { /* no window */ }
         });
         subscriptionRef.current = data.subscription;
         subscribed.current = true;
@@ -196,6 +201,7 @@ export function useAuth() {
     let cancelled = false;
     let attempt = 0;
     let stopWaiting = null;
+    let repaired = false;
     const DELAYS_MS = [0, 100, 300, 800];
     const MAX_ATTEMPTS = DELAYS_MS.length;
 
@@ -242,6 +248,21 @@ export function useAuth() {
 
         if (data) { setProfile(data); return; }
         attempt++;
+      }
+      // Every read answered and the row is not there: the sign-up trigger
+      // (handle_new_user) failed and swallowed it, and nothing else would
+      // ever make the row, so the student stayed นิสิต off every board.
+      // ensure_profile makes it from the account; read once more after.
+      if (!cancelled && !unreachable && !repaired) {
+        repaired = true;
+        try {
+          const supabase = await getSupabase();
+          const { error } = (await supabase?.rpc('ensure_profile')) || {};
+          if (error) throw error;
+          if (!cancelled) return load();
+        } catch (error) {
+          reportFailure('load', { name: 'ProfileRepair', message: error?.code || error?.message || '' });
+        }
       }
       // Reached max attempts → synthesize local profile so the UI
       // never gets stuck on "logged in but no name" forever. A profile

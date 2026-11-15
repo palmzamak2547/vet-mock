@@ -214,6 +214,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-profile-names-db.mjs --backend=postgres
+      - name: Verify the failure record (a failed sign-up is counted, a browser report keeps its scrubbed message, only the admin reads it)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-failure-record-db.mjs --backend=postgres
 
   e2e:
     name: e2e (${{ matrix.label }})

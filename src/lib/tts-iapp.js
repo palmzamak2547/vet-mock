@@ -102,11 +102,14 @@ export async function getIAppAudio({ text, lang = 'th', rate = 1.0 }, signal) {
     clearTimeout(t);
   }
 
-  if (response.status === 503) {
-    // Server has no IAPP_API_KEY set — flip the session flag so we stop
-    // calling it for this page lifetime. Next reload will retry once.
+  if (response.status === 503 || response.status === 402) {
+    // 503: the server has no IAPP_API_KEY. 402: the account is out of
+    // credit (16 times on 15 Nov 2026, every clip trying iApp first and
+    // waiting on it). Either way stop calling it for this page lifetime and
+    // read in Edge straight away; the admin card "ระบบภายนอก" shows the
+    // credit. Next reload will retry once.
     markIAppUnavailable();
-    throw new Error('iapp not configured (503)');
+    throw new Error(`iapp unavailable (${response.status})`);
   }
   if (!response.ok) {
     const errText = await response.text().catch(() => '');

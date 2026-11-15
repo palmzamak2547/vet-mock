@@ -1,6 +1,8 @@
 // Conversations stay on this device (localStorage), at most 40, newest first.
 // Every read and write is guarded: a private window or blocked storage must
-// never break the page, it just forgets.
+// never break the page. A write answers what happened ('ok', 'trimmed' when
+// the oldest chats had to go to make room, 'failed' when nothing was kept),
+// and the page says the last two out loud instead of forgetting quietly.
 
 const KEY = 'vmai-chats-v1';
 const MAX = 40;
@@ -17,25 +19,31 @@ function read() {
 function write(list) {
   try {
     localStorage.setItem(KEY, JSON.stringify(list.slice(0, MAX)));
+    return 'ok';
   } catch {
-    // quota or blocked: drop the oldest half once, then give up quietly
-    try { localStorage.setItem(KEY, JSON.stringify(list.slice(0, Math.floor(MAX / 2)))); } catch { /* forget */ }
+    // quota or blocked: drop the oldest half once
+    try {
+      localStorage.setItem(KEY, JSON.stringify(list.slice(0, Math.floor(MAX / 2))));
+      return list.length > Math.floor(MAX / 2) ? 'trimmed' : 'ok';
+    } catch {
+      return 'failed';
+    }
   }
 }
 
 export const listChats = () => read().sort((a, b) => b.updated - a.updated);
 
 export function saveChat(chat) {
-  if (!chat.messages.length) return;
+  if (!chat.messages.length) return 'ok';
   const list = read().filter((c) => c.id !== chat.id);
   // images are not kept: a base64 photo would fill the quota in a few chats
   const messages = chat.messages.map(({ image, ...m }) => ({ ...m, hadImage: m.hadImage || !!image }));
   list.unshift({ ...chat, messages, updated: Date.now() });
-  write(list);
+  return write(list);
 }
 
 export function deleteChat(id) {
-  write(read().filter((c) => c.id !== id));
+  return write(read().filter((c) => c.id !== id));
 }
 
 export function clearChats() {

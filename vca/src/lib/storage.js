@@ -3,6 +3,21 @@
 
 const memory = new Map();
 
+// Once a write is refused, the page says so (App.jsx): practice still runs from memory, but a
+// student who answered a whole set and reloaded used to find it gone without a word.
+let refused = false;
+const refusedListeners = new Set();
+export const storageRefused = () => refused;
+export function onStorageRefused(listener) {
+  refusedListeners.add(listener);
+  return () => refusedListeners.delete(listener);
+}
+function markRefused() {
+  if (refused) return;
+  refused = true;
+  for (const l of refusedListeners) l();
+}
+
 export function readJSON(key, fallback) {
   try {
     const raw = globalThis.localStorage?.getItem(key);
@@ -16,10 +31,10 @@ export function writeJSON(key, value) {
   memory.set(key, value);
   try {
     globalThis.localStorage?.setItem(key, JSON.stringify(value));
-    return !!globalThis.localStorage;
-  } catch {
-    return false;
-  }
+    if (globalThis.localStorage) return true;
+  } catch { /* full, blocked or a private window: said on screen below */ }
+  markRefused();
+  return false;
 }
 
 export function removeKey(key) {

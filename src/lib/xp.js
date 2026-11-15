@@ -10,6 +10,7 @@
 
 import { dayKey } from './study-day.js';
 import { readStoredJson } from './stored-json.js';
+import { reportFailure } from './report-failure.js';
 
 const STORAGE_KEY = 'vmx-xp';
 const EVENT_NAME = 'vmx-xp-changed';
@@ -60,7 +61,9 @@ export function getXpState() {
 function persist(state) {
   try {
     window.localStorage?.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {}
+  } catch (error) {
+    reportFailure('save', error);
+  }
 }
 
 export function awardXp(amount, reason = 'misc') {

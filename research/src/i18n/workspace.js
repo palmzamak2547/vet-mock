@@ -94,6 +94,7 @@ const ROWS = [
   ['ws.account.signOutKeeps', 'ออกจากระบบแล้ว โปรเจกต์ยังอยู่ในเครื่องนี้ ถ้าจะลบให้ใช้ปุ่มลบด้านล่าง', 'Signing out keeps the projects on this device. To remove them, use the delete button below.'],
   ['ws.account.signedOut', 'ออกจากระบบแล้ว ข้อมูลยังอยู่ในเครื่องนี้', 'Signed out. Your data is still on this device.'],
   ['ws.account.claimed', 'ย้ายโปรเจกต์ที่ทำไว้ก่อนเข้าสู่ระบบมาไว้ในบัญชีนี้แล้ว {n} โปรเจกต์', 'Moved {n} projects you made before signing in into this account'],
+  ['ws.account.claimFailed', 'ย้ายโปรเจกต์ที่ทำไว้ก่อนเข้าสู่ระบบมาไว้ในบัญชีไม่สำเร็จ โปรเจกต์ยังอยู่ครบในเบราว์เซอร์นี้ ย้ายเองได้จากเมนูบัญชี', 'Could not move the projects you made before signing in. They are all still in this browser; move them from the account menu.'],
   ['ws.account.theme', 'สีของหน้าจอ', 'Colour theme'],
   ['ws.account.theme.system', 'ตามเครื่อง', 'Match device'],
   ['ws.account.theme.light', 'สว่าง', 'Light'],

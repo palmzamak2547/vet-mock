@@ -41,6 +41,7 @@ import {
   filterIndexed,
   formatBytes,
   getLibraryCatalogFast,
+  forgetLibraryRefusals,
   groupByYearSubject,
   indexDocs,
   displayDocTitle,
@@ -768,7 +769,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
             <button
               type="button"
               className="vmx-btn vmx-btn-sm"
-              onClick={() => { setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
+              onClick={() => { forgetLibraryRefusals(); setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
             >
               ลองใหม่
             </button>
@@ -791,7 +792,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           <button
             type="button"
             className="vmx-btn vmx-btn-sm"
-            onClick={() => { setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
+            onClick={() => { forgetLibraryRefusals(); setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
           >
             ลองใหม่
           </button>
