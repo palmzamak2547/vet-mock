@@ -13,7 +13,7 @@
 // same staff card as their name on their department's page on vet.chula.ac.th,
 // or on the CULAC staff page. A card was used only when its name matched one
 // profile's nameEn, nameTh or an alias exactly, titles trimmed, and its image
-// was not shared with anyone else (docs/releases/pending/instructor-portraits.md).
+// was not shared with anyone else (docs/releases/5.227.0.md).
 //
 // One line per person below. To take a portrait down: delete its line, run
 //   node scripts/instructor-portraits.mjs --write
