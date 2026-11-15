@@ -116,7 +116,7 @@ as $$
     -- The local part as handle_new_user turns it into a name, and as ensure_profile does.
     select local, left(regexp_replace(local, '[^a-z0-9_]', '', 'g'), 25) as handle,
            case when char_length(local) >= 2
-             then left(regexp_replace(local, '[^\w฀-๿]', '_', 'g'), 20) else '' end as ensured
+             then left(regexp_replace(local, '[^\w\u0E00-\u0E7F]', '_', 'g'), 20) else '' end as ensured
     from mail
   )
   select case
@@ -213,7 +213,7 @@ as $$
       and exists (
         select 1
         from (values (p_meta ->> 'full_name'), (p_meta ->> 'name')) as s(src),
-          lateral (select left(regexp_replace(btrim(coalesce(s.src, '')), '[^\w฀-๿]', '_', 'g'), 20) as base) as b
+          lateral (select left(regexp_replace(btrim(coalesce(s.src, '')), '[^\w\u0E00-\u0E7F]', '_', 'g'), 20) as base) as b
         where char_length(b.base) >= 2
           and (p_name = b.base
             or (left(p_name, char_length(b.base) + 1) = b.base || '_'

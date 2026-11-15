@@ -461,7 +461,7 @@ try {
   });
 
   await check('the four files hold no literal invisible or control character', async () => {
-    const hidden = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f­؜᠎​-‏‪-‮⁠-⁯﻿]/u;
+    const hidden = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\u00ad\u061c\u180e\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff\u0e00\u0e7f]/u;
     for (const [name, text] of Object.entries({ RULES, APPLY, GUARD, INDEX })) assert.doesNotMatch(text, hidden, name);
   });
 
