@@ -1,5 +1,5 @@
 import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { splitBlocks } from '../lib/rich-blocks.js';
+import { blockText, proseBlocks, splitBlocks, splitStem } from '../lib/rich-blocks.js';
 import { RichText } from '../lib/richtext.jsx';
 
 // A cell that holds a figure and no word: a count, a rate, a range, a fraction.
@@ -64,14 +64,129 @@ export function RichTable({ table, labelledBy }) {
   );
 }
 
+// A pairs run this long sits in two columns side by side where the frame is
+// wide enough for both without smaller type (the container query in styles.css).
+const SPLIT_PAIRS = 8;
+
 /**
- * A passage or an explanation: its prose through `renderText`, its tables as
- * tables. A text with no table goes to `renderText` whole, as it always did.
+ * One block of typeset prose (rich-blocks.js proseBlocks). Each line is drawn
+ * from its own parts, so every character of the text is in the page, in
+ * order: the ":" stays after its label, and the "|" before a range is kept
+ * for a screen reader while the column gap stands for it on screen.
+ */
+function ProseBlock({ text, block, renderText }) {
+  const { lines } = block;
+  if (block.type === 'para') return <div className="vmx-rb-p">{renderText(blockText(text, block))}</div>;
+  if (block.type === 'list') {
+    return (
+      <div className="vmx-rb-list">
+        {lines.map(({ start, parts }) => (
+          <Fragment key={start}>
+            <span className={/^\s*\d/.test(parts.marker) ? 'vmx-rb-mark is-num' : 'vmx-rb-mark'}>{parts.indent}{parts.marker}{parts.gap}</span>
+            <span className="vmx-rb-item">{renderText(parts.body)}</span>
+          </Fragment>
+        ))}
+      </div>
+    );
+  }
+  let grid;
+  if (block.type === 'results') {
+    grid = (
+      <div className="vmx-rb-results">
+        {lines.map(({ start, parts }) => (
+          <Fragment key={start}>
+            <span className="vmx-rb-k">{renderText(parts.label + parts.gap)}</span>
+            <span className="vmx-rb-r">{renderText(parts.result + parts.tail)}</span>
+          </Fragment>
+        ))}
+      </div>
+    );
+  } else {
+    const half = Math.ceil(lines.length / 2);
+    const two = block.range && lines.length >= SPLIT_PAIRS;
+    grid = (
+      <div className={`vmx-rb-pairs${block.range ? ' has-range' : ' is-kv'}${two ? ' can-split' : ''}`}>
+        {lines.map(({ start, parts }, r) => {
+          const b = two && r >= half;
+          const at = { '--r': r + 1, '--r2': (b ? r - half : r) + 1 };
+          const side = b ? ' is-b' : '';
+          return (
+            <Fragment key={start}>
+              <span className={`vmx-rb-k${side}`} style={at}>{renderText(parts.label + parts.sep)}</span>
+              <span className={`vmx-rb-v${side}`} style={at}>
+                {renderText(parts.value)}
+                {parts.bar ? <span className="vmx-sr-only">{parts.bar}</span> : null}
+              </span>
+              {block.range ? <span className={`vmx-rb-x${side}`} style={at}>{renderText(parts.range)}</span> : null}
+            </Fragment>
+          );
+        })}
+      </div>
+    );
+  }
+  if (!block.lead) return grid;
+  return (
+    <div className="vmx-rb-group">
+      <div className="vmx-rb-lead">{renderText(block.lead.text)}</div>
+      {grid}
+    </div>
+  );
+}
+
+/** A run of prose as its typed blocks, a gap between them instead of an empty line. */
+export function ProseBlocks({ text, blocks, renderText = (t) => <RichText text={t} /> }) {
+  const str = String(text ?? '');
+  return (
+    <div className="vmx-rb">
+      {blocks.map((block) => <ProseBlock key={block.start} text={str} block={block} renderText={renderText} />)}
+    </div>
+  );
+}
+
+// A run of prose: as it always was when it is one paragraph, typeset otherwise.
+function ProseRun({ text, renderText }) {
+  const blocks = proseBlocks(text);
+  if (blocks.length === 1 && blocks[0].type === 'para') return renderText(text);
+  return <ProseBlocks text={text} blocks={blocks} renderText={renderText} />;
+}
+
+/**
+ * A stem cut by splitStem (rich-blocks.js): the body drawn as blocks, then
+ * the ask alone, in the element the surface uses for its heading. Every
+ * surface that draws a stem with room for a body draws it through this, so
+ * they agree on where the question starts. `stemRef` is the whole stem (the
+ * read-aloud marks words in it by its text, and keeps it in view).
+ */
+export function SplitStem({ text, split, renderText = (t) => <RichText text={t} />, className = '', stemRef, ask }) {
+  return (
+    <div ref={stemRef} className={`vmx-qstem${className ? ` ${className}` : ''}`}>
+      <div className="vmx-qstem-body"><ProseBlocks text={text} blocks={split.body} renderText={renderText} /></div>
+      {ask(renderText(split.askText))}
+    </div>
+  );
+}
+
+/**
+ * A stem on a surface with room for a body (the review list, the spaced
+ * repetition card, the daily question): cut by splitStem into its body and
+ * its ask, or, for every stem that is not cut, `whole` around the text
+ * exactly as the surface drew it before.
+ */
+export function StemText({ text, ask, whole = ask, renderText = (t) => <RichText text={t} />, className = '' }) {
+  const split = useMemo(() => splitStem(text), [text]);
+  if (!split) return whole(renderText(text));
+  return <SplitStem text={text} split={split} renderText={renderText} className={className} ask={ask} />;
+}
+
+/**
+ * A passage or an explanation: its tables as tables, its prose typeset
+ * (paragraphs, lists, label and value runs). A text that is one paragraph
+ * with no table goes to `renderText` whole, as it always did.
  */
 export default function RichBlocks({ text, renderText = (t) => <RichText text={t} /> }) {
   const blocks = useMemo(() => splitBlocks(text), [text]);
-  if (blocks.length === 1 && blocks[0].type === 'text') return renderText(text);
+  if (blocks.length === 1 && blocks[0].type === 'text') return <ProseRun text={text} renderText={renderText} />;
   return blocks.map((b, i) => (b.type === 'table'
     ? <RichTable key={i} table={b} />
-    : <Fragment key={i}>{renderText(b.text)}</Fragment>));
+    : <ProseRun key={i} text={b.text} renderText={renderText} />));
 }

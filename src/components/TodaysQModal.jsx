@@ -14,7 +14,7 @@
 
 import { lazy, Suspense, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
-import RichBlocks from './RichBlocks.jsx';
+import RichBlocks, { StemText } from './RichBlocks.jsx';
 import { isCorrect } from '../hooks/utils.js';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import { recordTodaysQAnswer } from '../lib/daily-q.js';
@@ -86,7 +86,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
         </div>
 
         <div style={{ marginTop: 16, fontSize: 15, lineHeight: 1.6 }}>
-          <RichText text={wholeStem(q)} />
+          <StemText text={wholeStem(q)} ask={(content) => <div className="vmx-qstem-ask">{content}</div>} whole={(content) => content} />
         </div>
 
         <div className="vmx-options" style={{ marginTop: 12 }}>

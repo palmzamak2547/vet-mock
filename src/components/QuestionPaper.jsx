@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { createPortal } from 'react-dom';
+import { StemText } from './RichBlocks.jsx';
 import { SUBJECTS } from '../data/curriculum.js';
 
 // A question set as a printed exam paper. Only the print stylesheet shows it
@@ -102,6 +103,11 @@ function Key({ items }) {
   );
 }
 
+// A long stem prints as the card draws it: its body as blocks, then the ask (RichBlocks.jsx StemText).
+// The paper prints the text as stored, so its blocks hold plain text.
+const plainText = (t) => t;
+const paperStem = (content) => <p className="vmx-paper-stem">{content}</p>;
+
 export default function QuestionPaper({ questions, form }) {
   const { title, subject } = paperTitle(questions);
   const items = questions.map((q, i) => ({ n: i + 1, a: answerOf(q) }));
@@ -115,7 +121,7 @@ export default function QuestionPaper({ questions, form }) {
         <ol className="vmx-paper-list">
           {questions.map((q, i) => (
             <li key={q.id ?? i} className="vmx-paper-q" data-n={i + 1}>
-              <p className="vmx-paper-stem">{q.q}</p>
+              <StemText text={q.q} renderText={plainText} ask={paperStem} />
               {q.image ? <img className="vmx-paper-fig" src={q.image} alt="" /> : null}
               <Body q={q} />
               {form === 'reasons' ? (
