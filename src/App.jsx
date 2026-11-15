@@ -1707,11 +1707,14 @@ export default function App() {
       // finishing the exam (a stray keypress must not end a session).
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
+        // A held key repeats: it moved on, opened the submit dialog and then
+        // confirmed it. Only a fresh press moves on or submits.
+        if (e.repeat) return;
         if (currentIdx < questions.length - 1) nextQ();
         else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request'));
       }
       if (e.key === 'ArrowLeft') prevQ();
-      if (e.key === 'ArrowRight') { if (currentIdx < questions.length - 1) nextQ(); }
+      if (e.key === 'ArrowRight' && !e.repeat) { if (currentIdx < questions.length - 1) nextQ(); }
       if (e.key === 'b' || e.key === 'B') toggleBookmark(q.id);
     };
     window.addEventListener('keydown', handleKey);
@@ -1768,6 +1771,7 @@ export default function App() {
       }
       if (k === 'j' || k === 'J') {
         e.preventDefault();
+        if (e.repeat) return; // a held key must not move on, then submit
         if (currentIdx < questions.length - 1) nextQ(); else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request'));
         return;
       }

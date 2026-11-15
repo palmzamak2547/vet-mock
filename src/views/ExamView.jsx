@@ -294,6 +294,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
                       type="button"
                       className="vmx-btn vmx-btn-primary"
                       onClick={() => { setConfirmSubmit(false); nextQ(); }}
+                      // It takes focus as it opens: a key still held from the press that
+                      // opened the dialog repeats onto it and must not submit the paper.
+                      onKeyDown={(e) => { if (e.repeat && (e.key === 'Enter' || e.key === ' ')) e.preventDefault(); }}
                       style={{ flex: '1 1 140px' }}
                       autoFocus
                     >
