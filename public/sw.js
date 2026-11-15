@@ -657,10 +657,18 @@ async function cacheLoaded(urls) {
     if (url.origin !== self.location.origin || url.search) continue;
     const cache = /^\/assets\/[\w.-]+\.(?:js|css)$/.test(url.pathname) ? assets
       : /^\/fonts\/[\w.-]+\.woff2$/.test(url.pathname) ? runtime : null;
-    if (!cache || await cache.match(url.href).catch(() => undefined)) continue;
+    // ignoreVary: a copy the page's own request already stored (it may carry
+    // headers this list's request lacks) is never replaced.
+    if (!cache || await cache.match(url.href, { ignoreVary: true }).catch(() => undefined)) continue;
     try {
       const res = await fetch(url.href);
-      if (res && res.ok && res.type === 'basic') await cache.put(url.href, res);
+      if (!res || !res.ok || res.type !== 'basic') continue;
+      // The bytes of a hashed file do not vary by request. A "Vary: Origin"
+      // kept here would make the page's own module request (which carries an
+      // Origin this one lacks) miss the copy offline.
+      const headers = new Headers(res.headers);
+      headers.delete('vary');
+      await cache.put(url.href, new Response(await res.arrayBuffer(), { status: res.status, statusText: res.statusText, headers }));
     } catch { /* Best effort: a file not kept is fetched on its next use. */ }
   }
 }

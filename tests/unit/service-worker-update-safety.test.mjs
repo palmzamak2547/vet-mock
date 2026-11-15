@@ -584,3 +584,15 @@ test('files the first visit loaded are kept for the next offline visit', async (
   app.setNetwork(offline);
   assert.equal(await (await app.request('/assets/main-1.js').response).text(), 'bytes of /assets/main-1.js');
 });
+
+// The preview server (and any host) may answer "Vary: Origin". Kept as is, the
+// page's module request, which carries an Origin header, missed the copy
+// offline, and a put replaced the page's own good copy (CI, 15 Nov).
+test('a first-visit file is kept without its Vary header', async () => {
+  const app = worker({ network: async () => response('chunk', { headers: { Vary: 'Origin', 'Content-Type': 'text/javascript' } }) });
+  await app.message({ type: 'CACHE_LOADED', urls: [`${ORIGIN}/assets/main-9.js`] }).settled();
+  const kept = await (await app.caches.open(assetCache)).match('/assets/main-9.js');
+  assert.equal(await kept.text(), 'chunk');
+  assert.equal(kept.headers.get('Vary'), null);
+  assert.equal(kept.headers.get('Content-Type'), 'text/javascript');
+});
