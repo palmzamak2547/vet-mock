@@ -11,6 +11,7 @@
 // ============================================================
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { reportFailure } from '../lib/report-failure.js';
 import { OSCE_CHECKLISTS } from '../data/osce-checklists.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
@@ -25,6 +26,8 @@ function readAttempts() {
   }
 }
 
+// True when the attempt is kept; false when the browser refused, so the
+// result screen can say this round is not in the history.
 function saveAttempt(stationId, score, ms, missedCriticals) {
   try {
     const all = readAttempts();
@@ -33,7 +36,11 @@ function saveAttempt(stationId, score, ms, missedCriticals) {
     while (list.length > 3) list.shift();
     all[stationId] = list;
     window.localStorage.setItem(ATTEMPTS_KEY, JSON.stringify(all));
-  } catch {}
+    return true;
+  } catch (error) {
+    reportFailure('save', error);
+    return false;
+  }
 }
 
 export default function OSCEDrill({ onClose }) {
@@ -51,6 +58,7 @@ export default function OSCEDrill({ onClose }) {
   // first. A click handed to React just before the bell still runs afterwards.
   const gradedRef = useRef(false);
   const [attempts, setAttempts] = useState({});
+  const [notKept, setNotKept] = useState(false);
   const dialogRef = useModalFocus({ onClose });
 
   useEffect(() => { setAttempts(readAttempts()); }, []);
@@ -110,7 +118,7 @@ export default function OSCEDrill({ onClose }) {
       .map((it, i) => ({ ...it, i }))
       .filter((it) => it.weight >= 2 && !checked[it.i])
       .map((it) => it.text);
-    saveAttempt(station.id, score, ms, missedCriticals);
+    setNotKept(!saveAttempt(station.id, score, ms, missedCriticals));
     setAttempts(readAttempts());
   }
 
@@ -232,6 +240,7 @@ export default function OSCEDrill({ onClose }) {
                 <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                   {liveScore >= 70 ? 'ผ่านเกณฑ์ — keep practicing for consistency' : 'ยังไม่ผ่าน — โฟกัส critical steps ก่อน'}
                 </div>
+                {notKept && <div role="alert" style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-rose-text)' }}>รอบนี้ไม่ได้บันทึกไว้ในเครื่อง เบราว์เซอร์นี้เก็บข้อมูลไม่ได้</div>}
                 <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
                   <button type="button" onClick={reset} className="vmx-btn vmx-btn-primary vmx-btn-sm">🔁 ทำซ้ำ station นี้</button>
                   <button type="button" onClick={() => pickStation(null)} className="vmx-btn vmx-btn-ghost vmx-btn-sm">เปลี่ยน station</button>

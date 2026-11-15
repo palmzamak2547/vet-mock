@@ -218,7 +218,10 @@ function Root({ route, owner, user, authError }) {
         // Guest projects move into the account once per browser, at the first sign-in. Later guest
         // projects wait for the student's own button (GuestProjects), so a second account signing in
         // on a shared browser does not take someone else's work.
-        claimOnFirstSignIn(d, owner).then((r) => { if (live && r?.moved) { notify('ws.account.claimed', { n: r.moved }, 'ok'); setVersion((v) => v + 1); } }).catch(() => {});
+        claimOnFirstSignIn(d, owner).then((r) => { if (live && r?.moved) { notify('ws.account.claimed', { n: r.moved }, 'ok'); setVersion((v) => v + 1); } })
+          // Nothing is lost (the projects stay under the guest owner), but the
+          // student must know the move did not happen, and where to retry it.
+          .catch(() => { if (live) notify('ws.account.claimFailed', {}, 'warn'); });
       }
     }).catch((err) => { if (live) setDbError(errorInfo(err)); });
     return () => { live = false; handle?.close?.(); };

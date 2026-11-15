@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { thaiError } from '../../lib/errors.js';
+import { reportFailure } from '../../lib/report-failure.js';
 
 // DICOM Modality (0008,0060) values map into 5 user-facing buckets.
 // X-ray rolls up DX/CR/RG/RF/MG/PX since to a vet student they're
@@ -103,17 +104,19 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         if (err) throw err;
         if (!cancelled) setCases(data || []);
       } catch (e) {
-        // Pre-migration state — table doesn't exist yet — looks the
-        // same to the user as "no public cases". Surface as empty
-        // state, not as an error.
+        // Only a table that does not exist yet (PostgREST PGRST205, Postgres
+        // 42P01) reads as "no public cases". Matching the message hid a
+        // refusal (42501) or a column error that names imaging_cases behind
+        // the same empty shelf, so the student never saw an error or a retry.
         const msg = e?.message || String(e);
-        const isPreMigration = /schema cache|imaging_cases|does not exist|relation .* does not exist/i.test(msg);
+        const isPreMigration = ['PGRST205', '42P01'].includes(String(e?.code || ''));
         if (!cancelled) {
           if (isPreMigration) {
             // eslint-disable-next-line no-console
             console.info('[CaseLibrary] imaging_cases table not yet migrated — showing empty state');
             setCases([]);
           } else {
+            reportFailure('load', e);
             setError(msg);
           }
         }

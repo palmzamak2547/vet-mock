@@ -15,12 +15,13 @@ test('parked sessions are owner-bound and failed completions survive until commi
   assert.equal(clearCompletedExam(storage,'a','other-run'),false);
   assert.equal(clearCompletedExam(storage,'a','run'),true);
 });
-test('diagnostics discard exception text and identifiers; stop prevents further sending', async () => {
+test('diagnostics keep only a scrubbed message, never identifiers; stop prevents further sending', async () => {
   const error={name:'TypeError',message:'secret note and email@example.invalid',stack:'https://host/app?token=private'};
   const record=diagnosticRecord(error,'/app/private-person','render');
-  assert.deepEqual(Object.keys(record).sort(),['category','kind','release','view']);
+  assert.deepEqual(Object.keys(record).sort(),['category','kind','message','release','view']);
+  assert.equal(record.message,'secret note and <mail>');
   assert.equal(record.view,'other');
-  assert.doesNotMatch(JSON.stringify(record),/secret|email|token|private-person/);
+  assert.doesNotMatch(JSON.stringify(record),/example|email@|token|private-person|https/);
   const target=new EventTarget(),sent=[];
   const stop=installClientDiagnostics({target,getView:()=> 'exam',send:value=>sent.push(value)});
   const event=new Event('error');event.error=error;

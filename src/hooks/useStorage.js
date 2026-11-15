@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { readStoredJson } from '../lib/stored-json.js';
+import { reportFailure } from '../lib/report-failure.js';
 
 export const storage = {
   // A missing key, an unreadable value and a stored JSON null all read as the
@@ -11,17 +12,22 @@ export const storage = {
   get(key, fallback) {
     return readStoredJson(key, fallback);
   },
+  // True when the value is kept. False when the browser refused (storage
+  // full, blocked, a private window): the failure is counted for the owner,
+  // and a caller holding the student's own words says so on screen.
   set(key, value) {
-    try { window.localStorage.setItem(key, JSON.stringify(value)); } catch {}
+    try { window.localStorage.setItem(key, JSON.stringify(value)); return true; } catch (error) { reportFailure('save', error); return false; }
   },
   remove(key) {
     try { window.localStorage.removeItem(key); } catch {}
   },
 };
 
-// useLocalStorage — persist state in localStorage
+// useLocalStorage — persist state in localStorage. The third element is
+// false while the latest value could not be kept in this browser.
 export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => storage.get(key, initialValue));
-  useEffect(() => { storage.set(key, value); }, [key, value]);
-  return [value, setValue];
+  const [saved, setSaved] = useState(true);
+  useEffect(() => { setSaved(storage.set(key, value)); }, [key, value]);
+  return [value, setValue, saved];
 }

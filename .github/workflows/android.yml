@@ -21,6 +21,11 @@ on:
       - 'src/lib/native-app.js'
       - 'scripts/app-bundle-manifest.mjs'
       - '.github/workflows/android.yml'
+  # Weekly, so a runner-image or emulator change shows up without a mobile
+  # pull request: it broke unseen between 22 Oct and 14 Nov 2026. A red
+  # scheduled run opens an issue (scheduled-red.yml).
+  schedule:
+    - cron: '17 2 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -92,9 +97,17 @@ jobs:
           profile: pixel_6
           cores: 4
           ram-size: 4096M
+          # Emulator 37.2.13 (build 16740729) died at the first `input swipe` of every
+          # run since 14 Nov 2026 (adb: closed, then port 5554 refused); 37.2.12
+          # (build 16428233) passed on 22 Oct. Move the pin only with a green run.
+          emulator-build: 16428233
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -dns-server 8.8.8.8,1.1.1.1
           script: python3 mobile/scripts/measure.py vetmock-ci.apk measure-out --aab mobile/android/app/build/outputs/bundle/release/app-release.aab --bundletool bundletool.jar
+
+      - name: Keep the emulator's crash data
+        if: failure()
+        run: mkdir -p measure-out && cp /tmp/android-runner/emu-crash-*.db measure-out/ 2>/dev/null || echo "::warning::no emulator crash data"
 
       - name: Numbers in the run summary and on the pull request
         if: always()

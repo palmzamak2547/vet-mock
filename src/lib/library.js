@@ -298,6 +298,20 @@ export function isMissingLibraryTable(err) {
   return err?.code === '42P01' || err?.code === 'PGRST205';
 }
 
+// A refusal from the Chula sign-in wall (42501 chula_member_required, or a
+// token PostgREST will not take) stays a refusal until the account changes.
+// Forgetting it after every failure made a signed-out browser ask again on
+// every render: 744 catalogue and 154 related-document refusals in one hour
+// from one browser on 15 Nov 2026, burying every real error in the logs.
+// vmx-library-auth-changed clears what is remembered.
+export function isAccessRefusal(err) {
+  for (let e = err, depth = 0; e && depth < 3; e = e.cause, depth++) {
+    if (e.code === '42501' || e.code === 'PGRST301' || e.code === 'PGRST302' || e.status === 401) return true;
+    if (/chula_member_required/.test(String(e.message || ''))) return true;
+  }
+  return false;
+}
+
 // One catalog, fetched once per session. Before this, three consumers each
 // pulled the same 1,496 rows independently — LibraryView refetched on every
 // mount (~700 KB and two paged requests), while the AI-search source and the
@@ -334,7 +348,9 @@ export function getLibraryCatalog() {
         return combined;
       })
       .catch((err) => {
-        _catalogPromise = null; // a failed fetch must not poison the session
+        // A failed fetch must not poison the session, but a refusal is an
+        // answer: it is kept until the account changes (isAccessRefusal).
+        if (!isAccessRefusal(err)) _catalogPromise = null;
         throw err;
       });
   }
@@ -486,6 +502,7 @@ if (typeof window !== 'undefined') {
     _catalogEpoch += 1;
     _catalogPromise = null;
     _subjectCounts = null;
+    _related.clear();
     _urlIntent.clear();
   });
   // A guest boot needs no auth SDK, but must revoke a session-only reader's
@@ -1003,7 +1020,12 @@ export function fetchRelatedDocs(targets) {
         out.get(row.target_id).push(row);
       }
       return out;
-    })().catch(() => { _related.delete(key); return new Map(); }));
+    })().catch((error) => {
+      // Related files are an extra under a document: an empty list is right to
+      // show, but only a refusal is kept; anything else is asked again.
+      if (!isAccessRefusal(error)) _related.delete(key);
+      return new Map();
+    }));
   }
   return _related.get(key);
 }

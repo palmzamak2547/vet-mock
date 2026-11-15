@@ -21,6 +21,15 @@ async function must(promise) {
   return data;
 }
 
+// A delete that row security filters to nothing returns no error and no
+// rows: the screen removed the item and it came back on the next load. Read
+// the rows back and call an empty answer what it is.
+async function mustRemove(query) {
+  const rows = await must(query.select('id'));
+  if (!Array.isArray(rows) || rows.length === 0) throw Object.assign(new Error('ลบไม่สำเร็จ รายการนี้ยังอยู่'), { code: 'not-removed' });
+  return rows;
+}
+
 async function uid() {
   const sb = await getClient();
   const { data } = await sb.auth.getSession();
@@ -168,7 +177,7 @@ export const board = {
   },
   async remove(id) {
     const sb = await getClient();
-    await must(sb.from('posts').delete().eq('id', id));
+    await mustRemove(sb.from('posts').delete().eq('id', id));
   },
   async comments(postId) {
     const sb = await getClient();
@@ -180,7 +189,7 @@ export const board = {
   },
   async removeComment(id) {
     const sb = await getClient();
-    await must(sb.from('comments').delete().eq('id', id));
+    await mustRemove(sb.from('comments').delete().eq('id', id));
   },
   async like(target, id, on) {
     const sb = await getClient();
@@ -256,7 +265,7 @@ export const chat = {
   },
   async remove(id) {
     const sb = await getClient();
-    await must(sb.from('messages').delete().eq('id', id));
+    await mustRemove(sb.from('messages').delete().eq('id', id));
   },
   async markRead(roomId) {
     const sb = await getClient();

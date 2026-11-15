@@ -64,3 +64,24 @@ test('no useLocalStorage caller with a non-null default stores null', () => {
   }
   assert.ok(callers >= 10, `found only ${callers} callers`);
 });
+
+test('a refused write answers false and is counted, never dropped in silence', () => {
+  const seen = [];
+  const prior = globalThis.CustomEvent;
+  globalThis.window = {
+    localStorage: { setItem: () => { throw Object.assign(new Error('The quota has been exceeded.'), { name: 'QuotaExceededError' }); }, getItem: () => null, removeItem() {} },
+    dispatchEvent: (e) => { seen.push(e.detail); return true; },
+  };
+  globalThis.CustomEvent ??= class extends Event { constructor(type, init) { super(type); this.detail = init?.detail; } };
+  try {
+    assert.equal(storage.set('vmx-day-tasks', { a: 1 }), false);
+    assert.deepEqual(seen.map((d) => [d.kind, d.name]), [['save', 'QuotaExceededError']]);
+  } finally { delete globalThis.window; globalThis.CustomEvent = prior; }
+  withStore({}, (map) => { assert.equal(storage.set('k', 1), true); assert.equal(map.get('k'), '1'); });
+});
+
+test('the day tasks card says when its list could not be kept', () => {
+  const src = readFileSync(new URL('../../src/components/DailyGoalCard.jsx', import.meta.url), 'utf8');
+  assert.match(src, /\[tasksByDay, setTasksByDay, tasksSaved\] = useLocalStorage/);
+  assert.match(src, /!tasksSaved && \(/);
+});

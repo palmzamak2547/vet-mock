@@ -88,3 +88,5 @@ h1:focus, h1:focus-visible { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: 0s !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
 }
+/* A browser that will not keep practice (lib/storage.js) says so above every page. */
+.storage-off { margin: 12px auto 0; padding: 10px 14px; border-radius: var(--r-md); background: var(--cinn-soft); box-shadow: inset 0 0 0 1px var(--cinn-line); color: var(--ink); font-size: 14px; line-height: 1.5; }
