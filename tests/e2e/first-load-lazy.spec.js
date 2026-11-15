@@ -35,6 +35,10 @@ async function firstScreen(page) {
   const read = () => page.locator('#root').evaluate((root) => {
     const copy = root.cloneNode(true);
     copy.querySelectorAll('.lp-cookie-dock').forEach((el) => el.remove());
+    // The hero card's clock counts seconds since the card appeared (a setInterval, which setFixedTime
+    // keeps running), so it reads how long each load took, not what lazy code drew: 00:02 against 00:04
+    // in a local gate run on 16 Nov. The element stays in the comparison; its digits do not.
+    copy.querySelectorAll('.lp-qcard-clock').forEach((el) => { el.textContent = '--:--'; });
     return copy.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, '');
   });
   let last = await read();

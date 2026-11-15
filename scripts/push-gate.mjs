@@ -3,7 +3,8 @@
 // push-gate.mjs — before a push, what CI's first job would fail on
 // ============================================================
 // npm run gate:push              every step below, then the spec files this branch adds or changes on
-//                                Chromium desktop and WebKit phone. The pre-push hook runs this.
+//                                Chromium desktop and WebKit phone.
+// node scripts/push-gate.mjs --hook   what the pre-push hook runs (hookSteps below)
 // node scripts/push-gate.mjs --steps=data,unit      CI's build job runs the same script, step by step
 //                            --steps=build,budget
 //                            --steps=dist
@@ -44,6 +45,16 @@ import { runAll } from './lint-all.mjs';
 
 export const ALL_STEPS = ['data', 'unit', 'build', 'budget', 'dist', 'specs'];
 export const LOCAL_PROJECTS = ['chromium-desktop', 'webkit-mobile'];
+
+// What the pre-push hook runs (--hook). The whole gate took 588 s on a warm tree on 16 Nov 2026 (data 60,
+// unit 418 beside it, build 73, budget 1, dist 22, specs 75), past the 8 minutes a push can afford before
+// people reach for the bypass. The hook keeps the lints and the unit suite (27 of the 51 rounds a local
+// run would have saved) and, when the branch adds or changes a spec file, the build, budgets, contrast
+// and those specs (the spec needs the build anyway). Without a changed spec the build, budget and dist
+// steps are left to CI's first job, which runs every step of this script. `npm run gate:push` runs all.
+export function hookSteps(cwd, base) {
+  return changedSpecs(cwd, base).length ? [...ALL_STEPS] : ['data', 'unit'];
+}
 
 const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 
@@ -99,14 +110,16 @@ const tail = (s, n = 30) => String(s).trimEnd().split(/\r?\n/).slice(-n).map((l)
 
 export async function runPushGate({ cwd = process.cwd(), argv = [], log = console.log } = {}) {
   const opt = (name) => argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3);
-  const steps = (opt('steps') || ALL_STEPS.join(',')).split(',').map((s) => s.trim()).filter(Boolean);
+  const hook = argv.includes('--hook');
+  const steps = hook ? hookSteps(cwd, opt('base')) : (opt('steps') || ALL_STEPS.join(',')).split(',').map((s) => s.trim()).filter(Boolean);
   for (const s of steps) if (!ALL_STEPS.includes(s)) throw new Error(`unknown step "${s}" (steps: ${ALL_STEPS.join(', ')})`);
   const projects = (opt('projects') || LOCAL_PROJECTS.join(',')).split(',').filter(Boolean);
   const github = argv.includes('--github');
   const summary = opt('summary') || '';
   const ci = !!process.env.CI;
   const jobs = Number(opt('jobs')) || (ci ? 2 : Math.max(1, Math.min(6, Math.floor((os.availableParallelism?.() || 4) / 2))));
-  const whole = ALL_STEPS.every((s) => steps.includes(s));
+  // A green hook run is remembered as well: it ran what the hook runs for this tree.
+  const whole = hook || ALL_STEPS.every((s) => steps.includes(s));
   const tree = (() => { try { return treeOf(cwd); } catch { return ''; } })();
   const clean = (() => { try { return dirtyTracked(cwd).length === 0; } catch { return false; } })();
   const verdicts = [];

@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { ALL_STEPS, changedSpecs } from '../../scripts/push-gate.mjs';
+import { ALL_STEPS, changedSpecs, hookSteps } from '../../scripts/push-gate.mjs';
 import { clockWindows, failuresFromJunit } from '../../scripts/unit-clock-windows.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -54,6 +54,9 @@ test('the changed specs are the spec files added, changed or renamed since the b
     r.git('add', '-A'); r.git('commit', '-qm', 'branch');
     assert.deepEqual(changedSpecs(r.dir, base), ['tests/e2e/edited.spec.js', 'tests/e2e/new.spec.js']);
     assert.deepEqual(changedSpecs(r.dir, 'HEAD'), []);
+    // The hook runs the build, budgets, contrast and specs only when a spec file changed; CI runs them all.
+    assert.deepEqual(hookSteps(r.dir, base), ALL_STEPS);
+    assert.deepEqual(hookSteps(r.dir, 'HEAD'), ['data', 'unit']);
   } finally { r.done(); }
 });
 
@@ -121,6 +124,9 @@ test('the clock windows sit where a test that reads the real clock breaks', () =
   // A failing todo case does not fail `node --test`, so it does not fail a window either.
   const todo = '<testsuites><testcase name="weak" classname="c" file="t/c.test.mjs" failure="no"><skipped type="todo" message="weak on 2026-10-28"/><failure type="testCodeFailure" message="no">x</failure></testcase></testsuites>';
   assert.deepEqual(failuresFromJunit(todo), []);
+  // A raw `>` inside an attribute does not end the tag.
+  const gt = '<testsuites><testcase name="a > b" classname="d" file="t/d.test.mjs" failure="1 -> 2"><failure message="x">y</failure></testcase></testsuites>';
+  assert.deepEqual(failuresFromJunit(gt), [{ file: 't/d.test.mjs', name: 'a > b' }]);
 });
 
 test('the moved clock reads the window, keeps running, and a test that sets its own clock still wins', () => {

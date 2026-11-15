@@ -11,7 +11,8 @@ browser tests that pass only on their retry.
 ## 1. Run the gate before you push (the hook does it for you)
 
 `npm ci` in your worktree installs a pre-push hook (`.githooks/pre-push`, through the `prepare` script).
-Every `git push` then runs `npm run gate:push` first:
+Every `git push` then runs the push gate (`scripts/push-gate.mjs --hook`) first. The whole gate,
+`npm run gate:push`, has these steps:
 
 | step | what | why |
 |---|---|---|
@@ -22,7 +23,15 @@ Every `git push` then runs `npm run gate:push` first:
 | dist | bank chunks and the contrast audits | |
 | specs | every spec file your branch adds or changes, on Chromium desktop and WebKit phone, with one retry and `--fail-on-flaky-tests` | 16 rounds lost to a spec the same pull request changed |
 
-CI's first job (`build`) runs the same script, so a push that passes here passes that job.
+CI's first job (`build`) runs every step of the same script.
+
+What the hook runs: **data and unit** always; **build, budget, dist and specs** only when your branch adds
+or changes a spec file (the specs need the build). The whole gate took **588 s** (9.8 min) on a warm tree
+on 16 Nov 2026: data 60 s with unit 418 s beside it, build 73, budget 1, dist 22, specs 75. A hook that
+long gets bypassed, so without a changed spec the build, budget and dist steps (96 s, the 8 budget
+rounds among them) are left to CI's first job; the lints and the unit suite, 27 of the 51 rounds a local
+run would have saved, stay before the push. Run `npm run gate:push` yourself when you grow a chunk or
+touch the build.
 
 - It tests the working tree, so it refuses to run while a tracked file differs from the commit you push:
   commit or stash first. A tree that already passed is not run again.

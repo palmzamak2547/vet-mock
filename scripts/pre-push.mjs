@@ -52,9 +52,10 @@ async function main() {
     log(`push gate: already green for this tree (${head.slice(0, 10)}), not run again.`);
     return 0;
   }
-  log('push gate: running npm run gate:push before the push (lints, unit, build, budgets, contrast, changed specs).');
+  log('push gate: lints and unit before the push; with a changed spec file also the build, budgets, contrast and those specs.');
+  log('  CI\'s first job runs every step; `npm run gate:push` runs them all here.');
   log('  One-off bypass: VMX_SKIP_GATE=1 git push');
-  return runPushGate({ cwd, argv: [], log });
+  return runPushGate({ cwd, argv: ['--hook'], log });
 }
 
 main().then((code) => { process.exitCode = code; }, (error) => {

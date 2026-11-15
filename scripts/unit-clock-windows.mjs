@@ -48,7 +48,9 @@ export function clockWindows(now = new Date()) {
  */
 export function failuresFromJunit(xml) {
   const out = [];
-  const re = /<testcase\b([^>]*?)(\/>|>([\s\S]*?)<\/testcase>)/g;
+  // An attribute value may hold a raw `>` (the failure message does), so the tag ends at the first `>`
+  // outside quotes.
+  const re = /<testcase\b((?:[^>"]|"[^"]*")*?)(\/>|>([\s\S]*?)<\/testcase>)/g;
   for (const m of xml.matchAll(re)) {
     const body = m[3] || '';
     if (!/<failure\b/.test(body)) continue;
