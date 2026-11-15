@@ -7,12 +7,18 @@
 // verifies the signature and streams the bytes from R2 through the
 // Cloudflare REST API, which the standing account token CAN do.
 //
-// Range is forwarded, but the storage API ignores it and sends the whole
-// object, so every GET pulls it through this function: the bytes are budgeted
-// per member (BLOB_BYTES). A reading surface: when the shared limiter cannot
-// count, this instance's own counter bounds it instead of a refusal.
+// Storage is read through R2's S3 API with a request signed here
+// (api/_lib/r2.js, the standing token's own key pair, as api/video-file.js
+// signs videos), which honours Range: a range reads only its own bytes. When
+// that route cannot be signed, the Cloudflare REST API is the fallback; it
+// ignores Range and sends the object from byte 0, so there a range is cut here
+// and costs every byte up to its end. Either way the bytes are budgeted per
+// member (BLOB_BYTES) by what is read from storage. A reading surface: when the
+// shared limiter cannot count, this instance's own counter bounds it instead of
+// a refusal.
 
 import { verifyBlobToken } from './_lib/blob-token.js';
+import { presign, tokenKeyEnv } from './_lib/r2.js';
 import { rateLimit, rateLimitLocal, clientIP } from './_lib/rate-limit.js';
 import { byteRange } from '../workers/library-archive.js';
 import { Readable } from 'node:stream';
@@ -36,6 +42,10 @@ export const BLOB_RATE = { max: 300, windowMs: 10 * 60 * 1000 };
 // reads the object from byte 0 and an honest count of a seek is most of the
 // object; a byte budget would refuse a student who seeks during a lecture.
 // They keep BLOB_RATE per link. The real fix is a ranged read (see the notes).
+// A document's byte range (the reader drawing page one before the whole file
+// has arrived, 5.238.0) is counted as what this function reads for it: its own
+// bytes through the signed S3 route, every byte from the start of the object
+// to the end of the range through the REST fallback.
 export const BLOB_BYTES = { max: 2 * 1024 ** 3, address: 8 * 1024 ** 3, windowMs: 10 * 60 * 1000 };
 
 // A refusal is read in the deck's own tab, so it is a page in Thai that says
@@ -66,11 +76,38 @@ async function count(key, max, windowMs, by) {
  * nothing for video and audio (exempt, above). A document whose size is not
  * catalogued is counted as it streams instead (countStreamed), so it is never
  * counted as less than it sends; before serving it is counted 1 byte, which
- * refuses it once the budget is already spent.
+ * refuses it once the budget is already spent. A byte range of a catalogued
+ * document counts every byte storage sends to reach its end (storage starts
+ * at byte 0 whatever was asked), never more than the whole object.
  */
-export function bytesPulled(payload, media) {
+export function bytesPulled(payload, media, range = null, { fromStart = true } = {}) {
   if (media) return 0;
-  return Number.isSafeInteger(payload?.n) && payload.n > 0 ? payload.n : 1;
+  const sized = Number.isSafeInteger(payload?.n) && payload.n > 0;
+  if (!sized) return 1;
+  if (range && Number.isSafeInteger(range.offset) && Number.isSafeInteger(range.length)) {
+    return Math.min(payload.n, (fromStart ? range.offset : 0) + range.length);
+  }
+  return payload.n;
+}
+
+// The signed S3 route, or null when it cannot be signed. tokenKeyEnv caches
+// the token's key id for six hours; a failure is remembered for five minutes
+// so a token without that ability does not cost two lookups per request.
+let directDown = 0;
+let directEnabled = true;
+export async function storageUrl(payload, env = process.env) {
+  if (!directEnabled || Date.now() - directDown < 5 * 60 * 1000) return null;
+  const keyed = await tokenKeyEnv(env).catch(() => null);
+  const url = keyed ? presign(payload.k, { method: 'GET', expiresIn: 120, bucket: payload.b, env: keyed }) : null;
+  if (!url) directDown = Date.now();
+  return url;
+}
+/** Tests of the REST fallback turn the signed route off; others turn it on. */
+export function setDirectStorage(on) { directEnabled = on; directDown = 0; }
+
+/** A document whose size is catalogued can be cut by range; its budget is known before serving. */
+export function rangeableDocument(payload, media) {
+  return !media && Number.isSafeInteger(payload?.n) && payload.n > 0;
 }
 
 // Video and audio by the signed mime, or by the extension of the signed storage
@@ -222,11 +259,15 @@ export default async function handler(req, res) {
 
   // Video and audio answer a byte range with 206: Safari on iPhone and iPad
   // plays media only from a server that does (Apple's media guidance), and the
-  // 61 library videos used to come back whole with Accept-Ranges: none. Only
-  // media: a PDF viewer told it may seek would ask for ranges that each pull
-  // the whole object through here (see sliceBody).
+  // 61 library videos used to come back whole with Accept-Ranges: none.
+  // A document whose size is catalogued does too, so the reader can draw page
+  // one from the end of the file (its cross-reference table) while the rest
+  // downloads. Each such range reads the object from byte 0 (see sliceBody)
+  // and is counted that way (bytesPulled), so a range is never cheaper for a
+  // member than what it costs here. A document of unknown size stays whole.
   const media = isMedia(payload);
-  const asksRange = media && req.method === 'GET' && !!req.headers.range;
+  const sizedDoc = rangeableDocument(payload, media);
+  const asksRange = (media || sizedDoc) && req.method === 'GET' && !!req.headers.range;
 
   // The CF REST object API is a management plane: it ignores Range and
   // rejects HEAD (probed live — HEAD came back as an upstream error, and a
@@ -237,7 +278,7 @@ export default async function handler(req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', contentHeaders(payload).type);
     if (Number.isFinite(payload.n) && payload.n > 0) res.setHeader('Content-Length', String(payload.n));
-    res.setHeader('Accept-Ranges', media ? 'bytes' : 'none');
+    res.setHeader('Accept-Ranges', media || sizedDoc ? 'bytes' : 'none');
     res.setHeader('Cache-Control', cacheControl);
     return res.end();
   }
@@ -248,14 +289,23 @@ export default async function handler(req, res) {
   const limit = await count(`library-blob:${who}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs, 1);
   if (!limit.ok) return refuse(res, limit);
   const budget = payload.u ? BLOB_BYTES.max : BLOB_BYTES.address;
-  const charge = bytesPulled(payload, media);
+  // The range as the catalogue measures it, for the count only; the cut below
+  // measures the object itself. A document range this cannot read (several
+  // ranges, a malformed header) is ignored and the whole file answered, as
+  // RFC 9110 asks, instead of a 416 after the whole file was counted.
+  const parsed = sizedDoc && asksRange ? byteRange(req.headers.range, payload.n) : null;
+  const ignoreRange = sizedDoc && asksRange && !parsed;
+  const asked = parsed || null;
+  const wantsRange = asksRange && !ignoreRange;
+  const direct = await storageUrl(payload);
+  const charge = bytesPulled(payload, media, asked, { fromStart: !direct });
   if (charge > 0) {
     const bytes = await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, charge);
     if (!bytes.ok) return refuse(res, bytes);
   }
   // A document of unknown size: what it really sent is counted once it ends,
   // awaited before the handler returns (a frozen function would lose it).
-  const unsized = !media && charge === 1;
+  const unsized = !media && !sizedDoc;
   let streamed = 0;
   const settle = (sent) => { streamed = sent; };
   const settleCount = async () => {
@@ -264,9 +314,10 @@ export default async function handler(req, res) {
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };
-  // A range cut here asks storage for the whole object, so a storage that one
-  // day honours Range cannot have its answer cut a second time.
-  if (req.headers.range && !asksRange) upstreamHeaders.Range = req.headers.range;
+  // A media range cut here asks storage for the whole object, so a storage that
+  // one day honours Range cannot have its answer cut a second time. A document
+  // still forwards it: it is cut below only when storage answers 200 whole.
+  if (req.headers.range && !ignoreRange && !(media && asksRange)) upstreamHeaders.Range = req.headers.range;
 
   const disconnected = new AbortController();
   // This limit covers the upstream HEADERS only. The same signal governs the body
@@ -274,17 +325,38 @@ export default async function handler(req, res) {
   // download while bytes are still moving. The body has its own stall guard below.
   const headersTimeout = setTimeout(() => disconnected.abort(), UPSTREAM_HEADERS_MS);
   res.once('close', () => { clearTimeout(headersTimeout); disconnected.abort(); });
-  let upstream;
+  let upstream = null;
   try {
-    upstream = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${objectPath}`,
-      { method: req.method, headers: upstreamHeaders, redirect: 'error', signal: disconnected.signal },
-    );
+    if (direct) {
+      // The signed URL carries its own authorization; only Range is added.
+      const headers = wantsRange ? { Range: req.headers.range } : {};
+      upstream = await fetch(direct, { method: 'GET', headers, redirect: 'error', signal: disconnected.signal }).catch(() => null);
+      if (upstream && !upstream.ok && upstream.status !== 206 && upstream.status !== 404 && upstream.status !== 416) {
+        // A refused signature or a storage fault: the REST route still reads it.
+        upstream.body?.cancel().catch(() => {});
+        directDown = Date.now();
+        upstream = null;
+      }
+    }
+    if (!upstream) {
+      upstream = await fetch(
+        `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${objectPath}`,
+        { method: req.method, headers: upstreamHeaders, redirect: 'error', signal: disconnected.signal },
+      );
+    }
   } catch {
     res.statusCode = 502;
     return res.end(JSON.stringify({ error: 'storage_unavailable' }));
   } finally {
     clearTimeout(headersTimeout);
+  }
+
+  if (upstream.status === 416) {
+    upstream.body?.cancel().catch(() => {});
+    res.statusCode = 416;
+    res.setHeader('Content-Range', upstream.headers.get('content-range') || `bytes */${payload.n || 0}`);
+    res.setHeader('Cache-Control', 'no-store');
+    return res.end();
   }
 
   if (!upstream.ok && upstream.status !== 206) {
@@ -299,7 +371,14 @@ export default async function handler(req, res) {
   // would cut the wrong bytes under a consistent-looking Content-Range.
   let range = null;
   let total = 0;
-  if (asksRange && upstream.status === 200) {
+  if (wantsRange && upstream.status === 200) {
+    // Counted as the range's own bytes, but storage sent the whole object (the
+    // REST fallback after the signed route failed, or a storage that ignored
+    // Range): the prefix this function now reads is counted too, before it.
+    if (direct && asked && asked.offset > 0) {
+      const extra = await count(`library-blob-bytes:${who}`, budget, BLOB_BYTES.windowMs, Math.min(asked.offset, payload.n));
+      if (!extra.ok) { upstream.body?.cancel().catch(() => {}); return refuse(res, extra); }
+    }
     const stored = (upstream.headers.get('content-encoding') || 'identity') === 'identity' ? Number(upstream.headers.get('content-length')) : NaN;
     total = Number.isSafeInteger(stored) && stored > 0 ? stored : Number(payload.n);
     if (Number.isSafeInteger(total) && total > 0) range = byteRange(req.headers.range, total);
@@ -346,10 +425,10 @@ export default async function handler(req, res) {
     }
     return;
   }
-  // Be honest with PDF viewers: unless upstream really answered a range
-  // (it does not today), advertising ranges would invite seek requests
-  // that each pull the entire object. Media is cut here (above).
-  res.setHeader('Accept-Ranges', media || upstream.headers.get('content-range') ? 'bytes' : 'none');
+  // Ranges are offered where they are cut and counted (above): media and a
+  // document whose size is catalogued. An unsized document says none, so the
+  // reader downloads it whole as before.
+  res.setHeader('Accept-Ranges', media || sizedDoc || upstream.headers.get('content-range') ? 'bytes' : 'none');
 
   if (!upstream.body) return res.end();
 

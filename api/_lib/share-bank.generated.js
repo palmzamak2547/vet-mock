@@ -143,7 +143,7 @@ const NAMES = {
   // end ["zoonoses"]
 };
 
-// [subject, topic, runs of that topic's ids]
+// [subject, topic, that topic's ids as [first, last] runs, a lone id as itself]
 const LEAVES = [
   // ["aquatic-clinic","aqua-amphibian"]
   ["aquatic-clinic","aqua-amphibian",[[202194,202197],[202459,202461],[204018,204020],[204056,204057]]],

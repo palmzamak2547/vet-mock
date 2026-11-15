@@ -44,6 +44,7 @@ const LEAVES = [
  // ["azotemia|universal","vca","ruminant"]
  [693101],
  // end ["azotemia|universal","vca","ruminant"]
+ // end of "azotemia|universal"
  "tachycardia|universal",
  // ["tachycardia|universal","cliapprum","gi-surgery-sawita"]
  [2123],
@@ -111,6 +112,7 @@ const LEAVES = [
  // ["tachycardia|universal","vet-pharm-2","autonomic"]
  [53062],
  // end ["tachycardia|universal","vet-pharm-2","autonomic"]
+ // end of "tachycardia|universal"
  "bradycardia|universal",
  // ["bradycardia|universal","cliapprum","mahahon-cliapprum-anes"]
  [5004],
@@ -169,6 +171,7 @@ const LEAVES = [
  // ["bradycardia|universal","vet-pharm-2","autonomic"]
  [53039,53040,53052,53053,53054,53057],
  // end ["bradycardia|universal","vet-pharm-2","autonomic"]
+ // end of "bradycardia|universal"
  "polyuria|universal",
  // ["polyuria|universal","cliapprum","mahahon-cliapprum-sawita-respi"]
  [5064],
@@ -218,6 +221,7 @@ const LEAVES = [
  // ["polyuria|universal","vet-imaging","mri-basics"]
  [91021],
  // end ["polyuria|universal","vet-imaging","mri-basics"]
+ // end of "polyuria|universal"
  "polydipsia|universal",
  // ["polydipsia|universal","com3","resp-cv-er"]
  [836],
@@ -258,6 +262,7 @@ const LEAVES = [
  // ["polydipsia|universal","vca","exotic"]
  [6104],
  // end ["polydipsia|universal","vca","exotic"]
+ // end of "polydipsia|universal"
  "anorexia|universal",
  // ["anorexia|universal","cliapprum","gi-vdtt"]
  [2129],
@@ -319,6 +324,7 @@ const LEAVES = [
  // ["anorexia|universal","zoonoses","zoo-helminthic"]
  [106139],
  // end ["anorexia|universal","zoonoses","zoo-helminthic"]
+ // end of "anorexia|universal"
  "lethargy|universal",
  // ["lethargy|universal","avian-medicine","avian-myco"]
  [202222],
@@ -401,6 +407,7 @@ const LEAVES = [
  // ["lethargy|universal","zoonoses","zoo-vbz"]
  [106096],
  // end ["lethargy|universal","zoonoses","zoo-vbz"]
+ // end of "lethargy|universal"
  "dyspnea|universal",
  // ["dyspnea|universal","cliapprum","mahahon-cliapprum-givdtt"]
  [5078],
@@ -474,6 +481,7 @@ const LEAVES = [
  // ["dyspnea|universal","vca","swine"]
  [6412],
  // end ["dyspnea|universal","vca","swine"]
+ // end of "dyspnea|universal"
  "cyanosis|universal",
  // ["cyanosis|universal","avian-medicine","avian-myco"]
  [202222],
@@ -517,6 +525,7 @@ const LEAVES = [
  // ["cyanosis|universal","vca","ruminant"]
  [693102],
  // end ["cyanosis|universal","vca","ruminant"]
+ // end of "cyanosis|universal"
  "jaundice|universal",
  // ["jaundice|universal","com4","imha"]
  [1091,1092],
@@ -566,6 +575,7 @@ const LEAVES = [
  // ["jaundice|universal","zoonoses","zoo-vbz"]
  [208039],
  // end ["jaundice|universal","zoonoses","zoo-vbz"]
+ // end of "jaundice|universal"
  "ascites|universal",
  // ["ascites|universal","avian-medicine","avian-ahra-set"]
  [105779],
@@ -618,6 +628,7 @@ const LEAVES = [
  // ["ascites|universal","vca","poultry"]
  [6272,6303],
  // end ["ascites|universal","vca","poultry"]
+ // end of "ascites|universal"
  "edema|universal",
  // ["edema|universal","aquatic-clinic","aqua-fish-diseases"]
  [202157,202158,105900],
@@ -787,6 +798,7 @@ const LEAVES = [
  // ["edema|universal","vet-imaging","mri-basics"]
  [91018,91019],
  // end ["edema|universal","vet-imaging","mri-basics"]
+ // end of "edema|universal"
  "regurgitation|universal",
  // ["regurgitation|universal","cliapprum","mahahon-cliapprum-anes"]
  [5000,5002],
@@ -827,6 +839,7 @@ const LEAVES = [
  // ["regurgitation|universal","vca","exotic"]
  [6140],
  // end ["regurgitation|universal","vca","exotic"]
+ // end of "regurgitation|universal"
  "pyometra|small-animal",
  // ["pyometra|small-animal","com4","immune-drugs"]
  [1039],
@@ -897,6 +910,7 @@ const LEAVES = [
  // ["pyometra|small-animal","vca","theriogenology"]
  [694528],
  // end ["pyometra|small-animal","vca","theriogenology"]
+ // end of "pyometra|small-animal"
  "parvovirus|small-animal",
  // ["parvovirus|small-animal","com3","shock"]
  [1353],
@@ -949,6 +963,7 @@ const LEAVES = [
  // ["parvovirus|small-animal","vca","swine"]
  [692093,692118,693091,693097,694586,694592,694594,694599,6451,694620,694623,694630,694676,694696,6413,6480,6481],
  // end ["parvovirus|small-animal","vca","swine"]
+ // end of "parvovirus|small-animal"
  "fip|small-animal",
  // ["fip|small-animal","com3","uveitis"]
  [94102,94111,94112],
@@ -965,6 +980,7 @@ const LEAVES = [
  // ["fip|small-animal","vca","immunology"]
  [692073],
  // end ["fip|small-animal","vca","immunology"]
+ // end of "fip|small-animal"
  "felv|small-animal",
  // ["felv|small-animal","com3","ataxia-tremor"]
  [1388],
@@ -1005,6 +1021,7 @@ const LEAVES = [
  // ["felv|small-animal","vca","immunology"]
  [692073],
  // end ["felv|small-animal","vca","immunology"]
+ // end of "felv|small-animal"
  "fiv|small-animal",
  // ["fiv|small-animal","com3","uveitis"]
  [94111],
@@ -1039,6 +1056,7 @@ const LEAVES = [
  // ["fiv|small-animal","vca","immunology"]
  [692073,692081],
  // end ["fiv|small-animal","vca","immunology"]
+ // end of "fiv|small-animal"
  "kennel cough|small-animal",
  // ["kennel cough|small-animal","com5","vaccine"]
  [596],
@@ -1049,6 +1067,7 @@ const LEAVES = [
  // ["kennel cough|small-animal","vca","exotic"]
  [6156],
  // end ["kennel cough|small-animal","vca","exotic"]
+ // end of "kennel cough|small-animal"
  "distemper|small-animal",
  // ["distemper|small-animal","com3","seizure"]
  [1320],
@@ -1086,6 +1105,7 @@ const LEAVES = [
  // ["distemper|small-animal","vca","pathology"]
  [693031,693035],
  // end ["distemper|small-animal","vca","pathology"]
+ // end of "distemper|small-animal"
  "hepatic lipidosis|small-animal",
  // ["hepatic lipidosis|small-animal","com3","nutrition"]
  [846,1377],
@@ -1102,6 +1122,7 @@ const LEAVES = [
  // ["hepatic lipidosis|small-animal","vca","exotic"]
  [694052],
  // end ["hepatic lipidosis|small-animal","vca","exotic"]
+ // end of "hepatic lipidosis|small-animal"
  "flutd|small-animal",
  // ["flutd|small-animal","com1","feline-flutd"]
  [90027],
@@ -1118,6 +1139,7 @@ const LEAVES = [
  // ["flutd|small-animal","vca","surgery"]
  [694394],
  // end ["flutd|small-animal","vca","surgery"]
+ // end of "flutd|small-animal"
  "hyperthyroidism|small-animal",
  // ["hyperthyroidism|small-animal","com1","feline-hypertension"]
  [90006],
@@ -1152,6 +1174,7 @@ const LEAVES = [
  // ["hyperthyroidism|small-animal","vet-imaging","ultrasound-basics"]
  [91034],
  // end ["hyperthyroidism|small-animal","vet-imaging","ultrasound-basics"]
+ // end of "hyperthyroidism|small-animal"
  "hypothyroidism|small-animal",
  // ["hypothyroidism|small-animal","com4","derm-allergic"]
  [1155],
@@ -1180,6 +1203,7 @@ const LEAVES = [
  // ["hypothyroidism|small-animal","vca","dogcat"]
  [694556,694557,694558,694561,694564,694565],
  // end ["hypothyroidism|small-animal","vca","dogcat"]
+ // end of "hypothyroidism|small-animal"
  "diabetes mellitus|small-animal",
  // ["diabetes mellitus|small-animal","com4","derm-endocrine"]
  [935],
@@ -1211,6 +1235,7 @@ const LEAVES = [
  // ["diabetes mellitus|small-animal","vet-imaging","ultrasound-basics"]
  [91034],
  // end ["diabetes mellitus|small-animal","vet-imaging","ultrasound-basics"]
+ // end of "diabetes mellitus|small-animal"
  "addison's|small-animal",
  // ["addison's|small-animal","com1","ekg-arrhythmia"]
  [90008],
@@ -1248,6 +1273,7 @@ const LEAVES = [
  // ["addison's|small-animal","vca","pharmacology"]
  [692071],
  // end ["addison's|small-animal","vca","pharmacology"]
+ // end of "addison's|small-animal"
  "cushing's|small-animal",
  // ["cushing's|small-animal","com1","pulmonary-thromboembolism"]
  [90013],
@@ -1309,6 +1335,7 @@ const LEAVES = [
  // ["cushing's|small-animal","vet-imaging","ultrasound-basics"]
  [91034],
  // end ["cushing's|small-animal","vet-imaging","ultrasound-basics"]
+ // end of "cushing's|small-animal"
  "ibd|small-animal",
  // ["ibd|small-animal","com4","derm-nutrition"]
  [950],
@@ -1340,6 +1367,7 @@ const LEAVES = [
  // ["ibd|small-animal","vca","surgery"]
  [694387],
  // end ["ibd|small-animal","vca","surgery"]
+ // end of "ibd|small-animal"
  "enrofloxacin|small-animal",
  // ["enrofloxacin|small-animal","com1","aspiration-pneumonia"]
  [90012],
@@ -1386,6 +1414,7 @@ const LEAVES = [
  // ["enrofloxacin|small-animal","vca","theriogenology"]
  [692053],
  // end ["enrofloxacin|small-animal","vca","theriogenology"]
+ // end of "enrofloxacin|small-animal"
  "doxycycline|small-animal",
  // ["doxycycline|small-animal","com4","derm-autoimmune"]
  [1065],
@@ -1432,6 +1461,7 @@ const LEAVES = [
  // ["doxycycline|small-animal","vca","swine"]
  [6420],
  // end ["doxycycline|small-animal","vca","swine"]
+ // end of "doxycycline|small-animal"
  "metronidazole|small-animal",
  // ["metronidazole|small-animal","com4","derm-fungal"]
  [929],
@@ -1463,6 +1493,7 @@ const LEAVES = [
  // ["metronidazole|small-animal","vca","pharmacology"]
  [692085],
  // end ["metronidazole|small-animal","vca","pharmacology"]
+ // end of "metronidazole|small-animal"
  "prednisolone|small-animal",
  // ["prednisolone|small-animal","com1","feline-asthma"]
  [90014],
@@ -1572,6 +1603,7 @@ const LEAVES = [
  // ["prednisolone|small-animal","vca","pharmacology"]
  [692056,692071,692079,693126,694579],
  // end ["prednisolone|small-animal","vca","pharmacology"]
+ // end of "prednisolone|small-animal"
  "furosemide|small-animal",
  // ["furosemide|small-animal","com1","acute-chf-collapse"]
  [90004],
@@ -1633,6 +1665,7 @@ const LEAVES = [
  // ["furosemide|small-animal","vca","pharmacology"]
  [692056,694581,694583],
  // end ["furosemide|small-animal","vca","pharmacology"]
+ // end of "furosemide|small-animal"
  "pimobendan|small-animal",
  // ["pimobendan|small-animal","com1","acute-chf-collapse"]
  [90004],
@@ -1661,6 +1694,7 @@ const LEAVES = [
  // ["pimobendan|small-animal","vca","pharmacology"]
  [692056],
  // end ["pimobendan|small-animal","vca","pharmacology"]
+ // end of "pimobendan|small-animal"
  "enalapril|small-animal",
  // ["enalapril|small-animal","com1","acute-chf-collapse"]
  [90004],
@@ -1686,6 +1720,7 @@ const LEAVES = [
  // ["enalapril|small-animal","com4","sle"]
  [1070,1097,1098,1099,1102],
  // end ["enalapril|small-animal","com4","sle"]
+ // end of "enalapril|small-animal"
  "marbofloxacin|small-animal",
  // ["marbofloxacin|small-animal","com4","derm-bacterial"]
  [919,1137,1160],
@@ -1693,6 +1728,7 @@ const LEAVES = [
  // ["marbofloxacin|small-animal","vca","dogcat"]
  [692074],
  // end ["marbofloxacin|small-animal","vca","dogcat"]
+ // end of "marbofloxacin|small-animal"
  "clavamox|small-animal",
  // ["clavamox|small-animal","com4","derm-bacterial"]
  [1137],
@@ -1700,6 +1736,7 @@ const LEAVES = [
  // ["clavamox|small-animal","com4","peds-geri"]
  [106],
  // end ["clavamox|small-animal","com4","peds-geri"]
+ // end of "clavamox|small-animal"
  "fenbendazole|small-animal",
  // ["fenbendazole|small-animal","com4","peds-geri"]
  [1130],
@@ -1719,6 +1756,7 @@ const LEAVES = [
  // ["fenbendazole|small-animal","vca","ruminant"]
  [693104],
  // end ["fenbendazole|small-animal","vca","ruminant"]
+ // end of "fenbendazole|small-animal"
  "milbemycin|small-animal",
  // ["milbemycin|small-animal","com4","derm-parasitic"]
  [1139,1141],
@@ -1729,6 +1767,7 @@ const LEAVES = [
  // ["milbemycin|small-animal","vca","dogcat"]
  [694258,694269,694302,7001,7005],
  // end ["milbemycin|small-animal","vca","dogcat"]
+ // end of "milbemycin|small-animal"
  "ivermectin|small-animal",
  // ["ivermectin|small-animal","com4","derm-autoimmune"]
  [1065],
@@ -1760,6 +1799,7 @@ const LEAVES = [
  // ["ivermectin|small-animal","vca","swine"]
  [694638,6402,6404,6471],
  // end ["ivermectin|small-animal","vca","swine"]
+ // end of "ivermectin|small-animal"
  "bun|universal",
  // ["bun|universal","cliapprum","metabolism-nutrition"]
  [2100,2102],
@@ -1815,6 +1855,7 @@ const LEAVES = [
  // ["bun|universal","vca","dogcat"]
  [694211,694303,694525,694563,7045,7141],
  // end ["bun|universal","vca","dogcat"]
+ // end of "bun|universal"
  "creatinine|universal",
  // ["creatinine|universal","com1","aki-stages"]
  [90023],
@@ -1879,6 +1920,7 @@ const LEAVES = [
  // ["creatinine|universal","vca","equine"]
  [694079],
  // end ["creatinine|universal","vca","equine"]
+ // end of "creatinine|universal"
  "alt|universal",
  // ["alt|universal","com3","seizure"]
  [867,1343,1379,1380],
@@ -1913,6 +1955,7 @@ const LEAVES = [
  // ["alt|universal","vca","ruminant"]
  [6823,6833],
  // end ["alt|universal","vca","ruminant"]
+ // end of "alt|universal"
  "alp|universal",
  // ["alp|universal","aquatic-clinic","aqua-fish-biology"]
  [105139],
@@ -1977,6 +2020,7 @@ const LEAVES = [
  // ["alp|universal","vca","ruminant"]
  [6822,6833],
  // end ["alp|universal","vca","ruminant"]
+ // end of "alp|universal"
  "ggt|universal",
  // ["ggt|universal","com4","peds-geri"]
  [1019,1074,102],
@@ -1999,6 +2043,7 @@ const LEAVES = [
  // ["ggt|universal","vca","ruminant"]
  [6823],
  // end ["ggt|universal","vca","ruminant"]
+ // end of "ggt|universal"
  "hematocrit|universal",
  // ["hematocrit|universal","avian-medicine","avian-cia"]
  [107104,107105,109040],
@@ -2090,6 +2135,7 @@ const LEAVES = [
  // ["hematocrit|universal","vca","swine"]
  [694591],
  // end ["hematocrit|universal","vca","swine"]
+ // end of "hematocrit|universal"
  "reticulocyte|universal",
  // ["reticulocyte|universal","com1","anemia-regen-vs-non"]
  [90018],
@@ -2103,6 +2149,7 @@ const LEAVES = [
  // ["reticulocyte|universal","vca","dogcat"]
  [694213],
  // end ["reticulocyte|universal","vca","dogcat"]
+ // end of "reticulocyte|universal"
  "usg|universal",
  // ["usg|universal","com1","feline-flutd"]
  [90027],
@@ -2125,6 +2172,7 @@ const LEAVES = [
  // ["usg|universal","vca","dogcat"]
  [692082,694509,694523,7141],
  // end ["usg|universal","vca","dogcat"]
+ // end of "usg|universal"
  "coombs test|universal",
  // ["coombs test|universal","com4","imha"]
  [985,986,990,1042,1045,1087],
@@ -2144,6 +2192,7 @@ const LEAVES = [
  // ["coombs test|universal","vca","dogcat"]
  [694213,8043],
  // end ["coombs test|universal","vca","dogcat"]
+ // end of "coombs test|universal"
  "e. coli|universal",
  // ["e. coli|universal","avian-medicine","avian-ahra-set"]
  [206101,206021,206025,206026],
@@ -2319,6 +2368,7 @@ const LEAVES = [
  // ["e. coli|universal","zoonoses","zoo-epi-approach"]
  [104010,104015,210531,210546],
  // end ["e. coli|universal","zoonoses","zoo-epi-approach"]
+ // end of "e. coli|universal"
  "salmonella|universal",
  // ["salmonella|universal","avian-medicine","avian-adeno"]
  [109052,109128],
@@ -2506,6 +2556,7 @@ const LEAVES = [
  // ["salmonella|universal","zoonoses","zoo-epi-approach"]
  [104011,210529],
  // end ["salmonella|universal","zoonoses","zoo-epi-approach"]
+ // end of "salmonella|universal"
  "staphylococcus pseudintermedius|small-animal",
  // ["staphylococcus pseudintermedius|small-animal","com4","derm-autoimmune"]
  [1066],
@@ -2522,6 +2573,7 @@ const LEAVES = [
  // ["staphylococcus pseudintermedius|small-animal","vca","dogcat"]
  [694301,694424],
  // end ["staphylococcus pseudintermedius|small-animal","vca","dogcat"]
+ // end of "staphylococcus pseudintermedius|small-animal"
  "pasteurella|universal",
  // ["pasteurella|universal","avian-medicine","avian-coli"]
  [105855],
@@ -2601,6 +2653,7 @@ const LEAVES = [
  // ["pasteurella|universal","vca","swine"]
  [200021,694603,694607,6440,6432,6442],
  // end ["pasteurella|universal","vca","swine"]
+ // end of "pasteurella|universal"
  "bordetella|universal",
  // ["bordetella|universal","avian-medicine","avian-ort"]
  [105819],
@@ -2638,6 +2691,7 @@ const LEAVES = [
  // ["bordetella|universal","vca","swine"]
  [200021,694606,6440,694637,6432,6442],
  // end ["bordetella|universal","vca","swine"]
+ // end of "bordetella|universal"
  "mycoplasma haemofelis|small-animal",
  // ["mycoplasma haemofelis|small-animal","com4","imha"]
  [1086],
@@ -2648,6 +2702,7 @@ const LEAVES = [
  // ["mycoplasma haemofelis|small-animal","vca","dogcat"]
  [694168,8001,8011,7012],
  // end ["mycoplasma haemofelis|small-animal","vca","dogcat"]
+ // end of "mycoplasma haemofelis|small-animal"
  "ehrlichia|small-animal",
  // ["ehrlichia|small-animal","com4","derm-parasitic"]
  [909,910],
@@ -2673,6 +2728,7 @@ const LEAVES = [
  // ["ehrlichia|small-animal","vca","ruminant"]
  [6831],
  // end ["ehrlichia|small-animal","vca","ruminant"]
+ // end of "ehrlichia|small-animal"
  "anaplasma|small-animal",
  // ["anaplasma|small-animal","com4","imha"]
  [1094],
@@ -2689,6 +2745,7 @@ const LEAVES = [
  // ["anaplasma|small-animal","vca","ruminant"]
  [6830,6831],
  // end ["anaplasma|small-animal","vca","ruminant"]
+ // end of "anaplasma|small-animal"
  "babesia|small-animal",
  // ["babesia|small-animal","com1","splenectomy-indication"]
  [90021],
@@ -2717,6 +2774,7 @@ const LEAVES = [
  // ["babesia|small-animal","vca","ruminant"]
  [6830,6831],
  // end ["babesia|small-animal","vca","ruminant"]
+ // end of "babesia|small-animal"
  "cryptosporidium|universal",
  // ["cryptosporidium|universal","com4","peds-geri"]
  [1079],
@@ -2748,6 +2806,7 @@ const LEAVES = [
  // ["cryptosporidium|universal","zoonoses","zoo-protozoal"]
  [208007,208008,208009,208011,208109,208111,208137,208138,106126,106127,106130,106132,106134],
  // end ["cryptosporidium|universal","zoonoses","zoo-protozoal"]
+ // end of "cryptosporidium|universal"
  "giardia|universal",
  // ["giardia|universal","com4","peds-geri"]
  [1079,1127],
@@ -2803,6 +2862,7 @@ const LEAVES = [
  // ["giardia|universal","zoonoses","zoo-protozoal"]
  [208007,208008,208009,208012,208108,208109,208137,208138,106127,106130,106131,106132,106134,106135,106136],
  // end ["giardia|universal","zoonoses","zoo-protozoal"]
+ // end of "giardia|universal"
  "demodex|small-animal",
  // ["demodex|small-animal","com4","derm-allergic"]
  [957,962,963,1117],
@@ -2834,6 +2894,7 @@ const LEAVES = [
  // ["demodex|small-animal","vca","ruminant"]
  [200127],
  // end ["demodex|small-animal","vca","ruminant"]
+ // end of "demodex|small-animal"
  "sarcoptes|small-animal",
  // ["sarcoptes|small-animal","com4","derm-autoimmune"]
  [967],
@@ -2853,6 +2914,7 @@ const LEAVES = [
  // ["sarcoptes|small-animal","vca","swine"]
  [694627,694629],
  // end ["sarcoptes|small-animal","vca","swine"]
+ // end of "sarcoptes|small-animal"
  "notoedres|small-animal",
  // ["notoedres|small-animal","vca","dogcat"]
  [7005],
@@ -2860,6 +2922,7 @@ const LEAVES = [
  // ["notoedres|small-animal","vca","exotic"]
  [694006,6112],
  // end ["notoedres|small-animal","vca","exotic"]
+ // end of "notoedres|small-animal"
  "ampv|avian",
  // ["ampv|avian","avian-medicine","avian-ib"]
  [109050,109130],
@@ -2879,6 +2942,7 @@ const LEAVES = [
  // ["ampv|avian","poultry","uncertain-scope"]
  [1700,1701,1703,1704],
  // end ["ampv|avian","poultry","uncertain-scope"]
+ // end of "ampv|avian"
  "ascites syndrome|avian",
  // ["ascites syndrome|avian","avian-medicine","avian-adeno"]
  [206116],
@@ -2889,6 +2953,7 @@ const LEAVES = [
  // ["ascites syndrome|avian","avian-medicine","avian-goose-parvo"]
  [105776,212517],
  // end ["ascites syndrome|avian","avian-medicine","avian-goose-parvo"]
+ // end of "ascites syndrome|avian"
  "avian influenza|avian",
  // ["avian influenza|avian","avian-medicine","avian-ai"]
  [203012,203014,203015,203016,105857,105858,105859,105861,109022,109028,109044,109068,109070,109076,109080,109116],
@@ -2935,6 +3000,7 @@ const LEAVES = [
  // ["avian influenza|avian","poultry","uncertain-scope"]
  [1703,1715],
  // end ["avian influenza|avian","poultry","uncertain-scope"]
+ // end of "avian influenza|avian"
  "avian reovirus|avian",
  // ["avian reovirus|avian","avian-medicine","avian-ahra-set"]
  [202239,105781,109038],
@@ -2975,6 +3041,7 @@ const LEAVES = [
  // ["avian reovirus|avian","poultry","midterm-disease"]
  [1765],
  // end ["avian reovirus|avian","poultry","midterm-disease"]
+ // end of "avian reovirus|avian"
  "bursa of fabricius|avian",
  // ["bursa of fabricius|avian","avian-medicine","avian-adeno"]
  [202244,206121,105784,206018],
@@ -3039,6 +3106,7 @@ const LEAVES = [
  // ["bursa of fabricius|avian","poultry","physiology"]
  [1760,1761,1762],
  // end ["bursa of fabricius|avian","poultry","physiology"]
+ // end of "bursa of fabricius|avian"
  "chicken infectious anemia|avian",
  // ["chicken infectious anemia|avian","avian-medicine","avian-adeno"]
  [105784,206016],
@@ -3073,6 +3141,7 @@ const LEAVES = [
  // ["chicken infectious anemia|avian","poultry","midterm-disease"]
  [1764,1765],
  // end ["chicken infectious anemia|avian","poultry","midterm-disease"]
+ // end of "chicken infectious anemia|avian"
  "coccidiosis|avian",
  // ["coccidiosis|avian","avian-medicine","avian-ahra-set"]
  [206104,206024],
@@ -3119,6 +3188,7 @@ const LEAVES = [
  // ["coccidiosis|avian","poultry","mahahon-poultry-firstweek"]
  [4027],
  // end ["coccidiosis|avian","poultry","mahahon-poultry-firstweek"]
+ // end of "coccidiosis|avian"
  "crd|avian",
  // ["crd|avian","avian-medicine","avian-ai"]
  [109068,109070],
@@ -3156,6 +3226,7 @@ const LEAVES = [
  // ["crd|avian","poultry","uncertain-scope"]
  [1742,1745],
  // end ["crd|avian","poultry","uncertain-scope"]
+ // end of "crd|avian"
  "fowlpox|avian",
  // ["fowlpox|avian","avian-medicine","avian-ai"]
  [109028,109070],
@@ -3199,6 +3270,7 @@ const LEAVES = [
  // ["fowlpox|avian","poultry","first-week-mortality"]
  [1909],
  // end ["fowlpox|avian","poultry","first-week-mortality"]
+ // end of "fowlpox|avian"
  "ibd|avian",
  // ["ibd|avian","avian-medicine","avian-adeno"]
  [105784],
@@ -3272,6 +3344,7 @@ const LEAVES = [
  // ["ibd|avian","poultry","midterm-disease"]
  [1764,1765],
  // end ["ibd|avian","poultry","midterm-disease"]
+ // end of "ibd|avian"
  "icpi|avian",
  // ["icpi|avian","avian-medicine","avian-nd"]
  [206158,105820,105062,105063,109108],
@@ -3279,6 +3352,7 @@ const LEAVES = [
  // ["icpi|avian","poultry","uncertain-scope"]
  [1717,1718,1720,1722,1723],
  // end ["icpi|avian","poultry","uncertain-scope"]
+ // end of "icpi|avian"
  "ilt|avian",
  // ["ilt|avian","avian-medicine","avian-ai"]
  [105860,109068,109070],
@@ -3310,6 +3384,7 @@ const LEAVES = [
  // ["ilt|avian","poultry","uncertain-scope"]
  [1703],
  // end ["ilt|avian","poultry","uncertain-scope"]
+ // end of "ilt|avian"
  "infectious bronchitis|avian",
  // ["infectious bronchitis|avian","avian-medicine","avian-ai"]
  [105860,109068],
@@ -3344,6 +3419,7 @@ const LEAVES = [
  // ["infectious bronchitis|avian","poultry","uncertain-scope"]
  [1703],
  // end ["infectious bronchitis|avian","poultry","uncertain-scope"]
+ // end of "infectious bronchitis|avian"
  "infectious coryza|avian",
  // ["infectious coryza|avian","avian-medicine","avian-ai"]
  [105860,109068,109070],
@@ -3378,6 +3454,7 @@ const LEAVES = [
  // ["infectious coryza|avian","poultry","uncertain-scope"]
  [1744,1745,1746,1748,1749],
  // end ["infectious coryza|avian","poultry","uncertain-scope"]
+ // end of "infectious coryza|avian"
  "marek's disease|avian",
  // ["marek's disease|avian","avian-medicine","avian-ai"]
  [109068,109070,8029],
@@ -3436,6 +3513,7 @@ const LEAVES = [
  // ["marek's disease|avian","poultry","midterm-disease"]
  [1765],
  // end ["marek's disease|avian","poultry","midterm-disease"]
+ // end of "marek's disease|avian"
  "newcastle disease|avian",
  // ["newcastle disease|avian","avian-medicine","avian-ai"]
  [109068,109070,8029],
@@ -3491,6 +3569,7 @@ const LEAVES = [
  // ["newcastle disease|avian","poultry","uncertain-scope"]
  [1703,1715,1716,1722,1744],
  // end ["newcastle disease|avian","poultry","uncertain-scope"]
+ // end of "newcastle disease|avian"
  "actinobacillus pleuropneumoniae|swine",
  // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-fmd"]
  [105588],
@@ -3504,6 +3583,7 @@ const LEAVES = [
  // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-resp-viral"]
  [8022,8025,8046],
  // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-resp-viral"]
+ // end of "actinobacillus pleuropneumoniae|swine"
  "atrophic rhinitis|swine",
  // ["atrophic rhinitis|swine","swine-clinic","swine-fmd"]
  [105588],
@@ -3520,10 +3600,12 @@ const LEAVES = [
  // ["atrophic rhinitis|swine","swine-clinic","swine-resp-viral"]
  [8025,105609],
  // end ["atrophic rhinitis|swine","swine-clinic","swine-resp-viral"]
+ // end of "atrophic rhinitis|swine"
  "exudative epidermitis|swine",
  // ["exudative epidermitis|swine","swine-clinic","swine-greasypig"]
  [105598,209037,209038,209039,209040,209041,209042,209043,209049,209403],
  // end ["exudative epidermitis|swine","swine-clinic","swine-greasypig"]
+ // end of "exudative epidermitis|swine"
  "ileitis|swine",
  // ["ileitis|swine","swine-clinic","swine-control-dx"]
  [216105],
@@ -3537,6 +3619,7 @@ const LEAVES = [
  // ["ileitis|swine","swine-clinic","swine-pornchalit-set"]
  [202356,105643,209149],
  // end ["ileitis|swine","swine-clinic","swine-pornchalit-set"]
+ // end of "ileitis|swine"
  "mma|swine",
  // ["mma|swine","swine-clinic","swine-repro"]
  [8352,8355,209154,209155,209156],
@@ -3544,6 +3627,7 @@ const LEAVES = [
  // ["mma|swine","swine-repro","mma-syndrome"]
  [91522],
  // end ["mma|swine","swine-repro","mma-syndrome"]
+ // end of "mma|swine"
  "mycoplasma hyopneumoniae|swine",
  // ["mycoplasma hyopneumoniae|swine","swine-clinic","swine-ileitis-bacti"]
  [209162],
@@ -3557,6 +3641,7 @@ const LEAVES = [
  // ["mycoplasma hyopneumoniae|swine","swine-clinic","swine-resp-viral"]
  [8022,8025,8046],
  // end ["mycoplasma hyopneumoniae|swine","swine-clinic","swine-resp-viral"]
+ // end of "mycoplasma hyopneumoniae|swine"
  "pcv2|swine",
  // ["pcv2|swine","swine-clinic","swine-asf"]
  [105591],
@@ -3585,6 +3670,7 @@ const LEAVES = [
  // ["pcv2|swine","swine-clinic","swine-resp-viral"]
  [8026],
  // end ["pcv2|swine","swine-clinic","swine-resp-viral"]
+ // end of "pcv2|swine"
  "ped|swine",
  // ["ped|swine","swine-clinic","swine-cns"]
  [105614],
@@ -3604,6 +3690,7 @@ const LEAVES = [
  // ["ped|swine","swine-herd","swine-dysentery-brachyspira"]
  [92022],
  // end ["ped|swine","swine-herd","swine-dysentery-brachyspira"]
+ // end of "ped|swine"
  "prrs|swine",
  // ["prrs|swine","swine-clinic","swine-asf"]
  [105591,105594],
@@ -3656,10 +3743,12 @@ const LEAVES = [
  // ["prrs|swine","swine-repro","boar-management"]
  [91505],
  // end ["prrs|swine","swine-repro","boar-management"]
+ // end of "prrs|swine"
  "psy|swine",
  // ["psy|swine","swine-herd","psy-calculation"]
  [92007],
  // end ["psy|swine","swine-herd","psy-calculation"]
+ // end of "psy|swine"
  "streptococcus suis|swine",
  // ["streptococcus suis|swine","swine-clinic","swine-pornchalit-set"]
  [202355,202356,8019,8023,202483,202485,105621,105632,105638,105639,8356,8358,209120,209129],
@@ -3670,6 +3759,7 @@ const LEAVES = [
  // ["streptococcus suis|swine","swine-repro","mma-syndrome"]
  [91522],
  // end ["streptococcus suis|swine","swine-repro","mma-syndrome"]
+ // end of "streptococcus suis|swine"
  "swine dysentery|swine",
  // ["swine dysentery|swine","swine-clinic","swine-csf"]
  [8028],
@@ -3686,6 +3776,7 @@ const LEAVES = [
  // ["swine dysentery|swine","swine-repro","boar-management"]
  [91505],
  // end ["swine dysentery|swine","swine-repro","boar-management"]
+ // end of "swine dysentery|swine"
  "tge|swine",
  // ["tge|swine","swine-clinic","swine-cns"]
  [105614],
@@ -3696,6 +3787,7 @@ const LEAVES = [
  // ["tge|swine","swine-clinic","swine-resp-viral"]
  [105608,105613],
  // end ["tge|swine","swine-clinic","swine-resp-viral"]
+ // end of "tge|swine"
  "wsi|swine",
  // ["wsi|swine","swine-herd","sow-feeding-lactation"]
  [92015],
@@ -3709,6 +3801,7 @@ const LEAVES = [
  // ["wsi|swine","swine-repro","returns-to-estrus"]
  [91524],
  // end ["wsi|swine","swine-repro","returns-to-estrus"]
+ // end of "wsi|swine"
  "bcs|ruminant",
  // ["bcs|ruminant","cliapprum","mahahon-cliapprum-givdtt"]
  [5008],
@@ -3731,6 +3824,7 @@ const LEAVES = [
  // ["bcs|ruminant","ruminant-clinical","rum-reproduction"]
  [8310,8311,8312,8313],
  // end ["bcs|ruminant","ruminant-clinical","rum-reproduction"]
+ // end of "bcs|ruminant"
  "bhba|ruminant",
  // ["bhba|ruminant","cliapprum","gi-surgery-sawita"]
  [2122],
@@ -3756,6 +3850,7 @@ const LEAVES = [
  // ["bhba|ruminant","herd-health-rum","urinary-calculi"]
  [94504],
  // end ["bhba|ruminant","herd-health-rum","urinary-calculi"]
+ // end of "bhba|ruminant"
  "bloat|ruminant",
  // ["bloat|ruminant","cliapprum","gi-surgery-sawita"]
  [2117,2121],
@@ -3790,6 +3885,7 @@ const LEAVES = [
  // ["bloat|ruminant","practrum","rumenotomy"]
  [2008,2033,2210],
  // end ["bloat|ruminant","practrum","rumenotomy"]
+ // end of "bloat|ruminant"
  "dmi|ruminant",
  // ["dmi|ruminant","cliapprum","gi-surgery-sawita"]
  [2122,2221],
@@ -3803,6 +3899,7 @@ const LEAVES = [
  // ["dmi|ruminant","practrum","mahahon-practrum-feed"]
  [3015,3019,3049],
  // end ["dmi|ruminant","practrum","mahahon-practrum-feed"]
+ // end of "dmi|ruminant"
  "hardware disease|ruminant",
  // ["hardware disease|ruminant","cliapprum","gi-surgery-sawita"]
  [2119,134,135],
@@ -3819,6 +3916,7 @@ const LEAVES = [
  // ["hardware disease|ruminant","practrum","rumenotomy"]
  [2008,2032,2033,2210],
  // end ["hardware disease|ruminant","practrum","rumenotomy"]
+ // end of "hardware disease|ruminant"
  "ketosis|ruminant",
  // ["ketosis|ruminant","cliapprum","gi-surgery-sawita"]
  [2117,2122],
@@ -3859,6 +3957,7 @@ const LEAVES = [
  // ["ketosis|ruminant","ruminant-clinical","rum-hattakan"]
  [8321],
  // end ["ketosis|ruminant","ruminant-clinical","rum-hattakan"]
+ // end of "ketosis|ruminant"
  "laminitis|ruminant",
  // ["laminitis|ruminant","cliapprum","gi-vdtt"]
  [2129,2131,2133],
@@ -3884,6 +3983,7 @@ const LEAVES = [
  // ["laminitis|ruminant","practrum","hoof-trim"]
  [2018,2020,2042],
  // end ["laminitis|ruminant","practrum","hoof-trim"]
+ // end of "laminitis|ruminant"
  "lda|ruminant",
  // ["lda|ruminant","cliapprum","gi-surgery-sawita"]
  [2116,2117,2122,2123,134,135,138,2221],
@@ -3915,6 +4015,7 @@ const LEAVES = [
  // ["lda|ruminant","practrum","rumenotomy"]
  [2008],
  // end ["lda|ruminant","practrum","rumenotomy"]
+ // end of "lda|ruminant"
  "mastitis|ruminant",
  // ["mastitis|ruminant","cliapprum","gi-surgery-sawita"]
  [2122],
@@ -3973,6 +4074,7 @@ const LEAVES = [
  // ["mastitis|ruminant","ruminant-clinical","rum-mastitis"]
  [8330,8331],
  // end ["mastitis|ruminant","ruminant-clinical","rum-mastitis"]
+ // end of "mastitis|ruminant"
  "metritis|ruminant",
  // ["metritis|ruminant","cliapprum","gi-surgery-sawita"]
  [2122],
@@ -3992,6 +4094,7 @@ const LEAVES = [
  // ["metritis|ruminant","ruminant-clinical","rum-hhm"]
  [8303],
  // end ["metritis|ruminant","ruminant-clinical","rum-hhm"]
+ // end of "metritis|ruminant"
  "milk fever|ruminant",
  // ["milk fever|ruminant","cliapprum","gi-surgery-sawita"]
  [2121,2122],
@@ -4029,6 +4132,7 @@ const LEAVES = [
  // ["milk fever|ruminant","ruminant-clinical","rum-mastitis"]
  [8330],
  // end ["milk fever|ruminant","ruminant-clinical","rum-mastitis"]
+ // end of "milk fever|ruminant"
  "rda|ruminant",
  // ["rda|ruminant","cliapprum","gi-surgery-sawita"]
  [2116,2117,2123,134],
@@ -4048,6 +4152,7 @@ const LEAVES = [
  // ["rda|ruminant","practrum","rumenotomy"]
  [2008],
  // end ["rda|ruminant","practrum","rumenotomy"]
+ // end of "rda|ruminant"
  "retained placenta|ruminant",
  // ["retained placenta|ruminant","cliapprum","gi-surgery-sawita"]
  [2122],
@@ -4064,6 +4169,7 @@ const LEAVES = [
  // ["retained placenta|ruminant","ruminant-clinical","rum-reproduction"]
  [8310],
  // end ["retained placenta|ruminant","ruminant-clinical","rum-reproduction"]
+ // end of "retained placenta|ruminant"
  "sara|ruminant",
  // ["sara|ruminant","cliapprum","gi-surgery-sawita"]
  [2120],
@@ -4098,6 +4204,7 @@ const LEAVES = [
  // ["sara|ruminant","practrum","mahahon-practrum-feed"]
  [3016,3017,3041],
  // end ["sara|ruminant","practrum","mahahon-practrum-feed"]
+ // end of "sara|ruminant"
  "sole ulcer|ruminant",
  // ["sole ulcer|ruminant","cliapprum","hoof-health-fleet"]
  [2126,2128,131],
@@ -4111,6 +4218,7 @@ const LEAVES = [
  // ["sole ulcer|ruminant","practrum","hoof-trim"]
  [2018,2020,2042],
  // end ["sole ulcer|ruminant","practrum","hoof-trim"]
+ // end of "sole ulcer|ruminant"
  "colic|equine",
  // ["colic|equine","equine-medicine","equine-anesthesia"]
  [209577],
@@ -4139,10 +4247,12 @@ const LEAVES = [
  // ["colic|equine","equine-repro","eqrepro-pregnancy"]
  [105568,209543],
  // end ["colic|equine","equine-repro","eqrepro-pregnancy"]
+ // end of "colic|equine"
  "composite colic score|equine",
  // ["composite colic score|equine","equine-medicine","equine-colic-bestfit"]
  [207551,107416,107417,107418,107419,105379,105381],
  // end ["composite colic score|equine","equine-medicine","equine-colic-bestfit"]
+ // end of "composite colic score|equine"
  "ehv-1|equine",
  // ["ehv-1|equine","equine-medicine","equine-infectious"]
  [209642],
@@ -4156,6 +4266,7 @@ const LEAVES = [
  // ["ehv-1|equine","equine-repro","eqrepro-stallion-infect"]
  [105540],
  // end ["ehv-1|equine","equine-repro","eqrepro-stallion-infect"]
+ // end of "ehv-1|equine"
  "eia|equine",
  // ["eia|equine","equine-medicine","equine-infectious"]
  [216001,216002,216004,209567,209641],
@@ -4169,6 +4280,7 @@ const LEAVES = [
  // ["eia|equine","equine-repro","eqrepro-stallion-infect"]
  [105480,105541],
  // end ["eia|equine","equine-repro","eqrepro-stallion-infect"]
+ // end of "eia|equine"
  "endometrial cup|equine",
  // ["endometrial cup|equine","equine-repro","eqrepro-exam-mare"]
  [105515,105520],
@@ -4179,6 +4291,7 @@ const LEAVES = [
  // ["endometrial cup|equine","equine-repro","eqrepro-pregnancy"]
  [105432,105433,105434,105435,105437,105440,105563,105564,105565],
  // end ["endometrial cup|equine","equine-repro","eqrepro-pregnancy"]
+ // end of "endometrial cup|equine"
  "failure of passive transfer|equine",
  // ["failure of passive transfer|equine","equine-repro","eqrepro-postpartum"]
  [105451,105572],
@@ -4186,6 +4299,7 @@ const LEAVES = [
  // ["failure of passive transfer|equine","equine-repro","eqrepro-pregnancy"]
  [209518,209519,209522,209534,209537,209545,209548,209550,209553,209566],
  // end ["failure of passive transfer|equine","equine-repro","eqrepro-pregnancy"]
+ // end of "failure of passive transfer|equine"
  "gastric reflux|equine",
  // ["gastric reflux|equine","equine-medicine","equine-colic-bestfit"]
  [107422,107423,105377,105391],
@@ -4196,6 +4310,7 @@ const LEAVES = [
  // ["gastric reflux|equine","equine-medicine","equine-gi"]
  [207552,107414],
  // end ["gastric reflux|equine","equine-medicine","equine-gi"]
+ // end of "gastric reflux|equine"
  "laminitis|equine",
  // ["laminitis|equine","equine-medicine","equine-anesthesia"]
  [105404],
@@ -4215,6 +4330,7 @@ const LEAVES = [
  // ["laminitis|equine","equine-repro","eqrepro-postpartum"]
  [105446],
  // end ["laminitis|equine","equine-repro","eqrepro-postpartum"]
+ // end of "laminitis|equine"
  "nephrosplenic entrapment|equine",
  // ["nephrosplenic entrapment|equine","equine-medicine","equine-colic-bestfit"]
  [202402,207553,105377,105383,105386,105387],
@@ -4222,6 +4338,7 @@ const LEAVES = [
  // ["nephrosplenic entrapment|equine","equine-medicine","equine-gi"]
  [202058,107411,105363],
  // end ["nephrosplenic entrapment|equine","equine-medicine","equine-gi"]
+ // end of "nephrosplenic entrapment|equine"
  "pelvic flexure impaction|equine",
  // ["pelvic flexure impaction|equine","equine-medicine","equine-colic-bestfit"]
  [202060,202402,202406,105383,105385,105391],
@@ -4232,6 +4349,7 @@ const LEAVES = [
  // ["pelvic flexure impaction|equine","equine-medicine","equine-parasites"]
  [105328],
  // end ["pelvic flexure impaction|equine","equine-medicine","equine-parasites"]
+ // end of "pelvic flexure impaction|equine"
  "pneumovagina|equine",
  // ["pneumovagina|equine","equine-repro","eqrepro-endometritis"]
  [105555],
@@ -4248,14 +4366,17 @@ const LEAVES = [
  // ["pneumovagina|equine","equine-repro","eqrepro-surgery"]
  [105488],
  // end ["pneumovagina|equine","equine-repro","eqrepro-surgery"]
+ // end of "pneumovagina|equine"
  "ppid|equine",
  // ["ppid|equine","equine-medicine","equine-derm"]
  [105252,105253],
  // end ["ppid|equine","equine-medicine","equine-derm"]
+ // end of "ppid|equine"
  "pyometra|equine",
  // ["pyometra|equine","equine-repro","eqrepro-endometritis"]
  [105549,105550,105555,105558],
  // end ["pyometra|equine","equine-repro","eqrepro-endometritis"]
+ // end of "pyometra|equine"
  "sarcoid|equine",
  // ["sarcoid|equine","equine-medicine","equine-derm"]
  [105228,105236,105237,105242,105243,105246,105250],
@@ -4266,6 +4387,7 @@ const LEAVES = [
  // ["sarcoid|equine","equine-medicine","equine-pythium"]
  [216005,216007,216019],
  // end ["sarcoid|equine","equine-medicine","equine-pythium"]
+ // end of "sarcoid|equine"
  "strangles|equine",
  // ["strangles|equine","equine-medicine","equine-infectious"]
  [216004,209643],
@@ -4285,10 +4407,12 @@ const LEAVES = [
  // ["strangles|equine","equine-repro","eqrepro-stallion-infect"]
  [105479,105481,105541],
  // end ["strangles|equine","equine-repro","eqrepro-stallion-infect"]
+ // end of "strangles|equine"
  "uterine edema|equine",
  // ["uterine edema|equine","equine-repro","eqrepro-exam-mare"]
  [202251,207485,207613,207614,207615,207616,207617,207618,105498,105499,105500,105502],
  // end ["uterine edema|equine","equine-repro","eqrepro-exam-mare"]
+ // end of "uterine edema|equine"
  "ante-mortem inspection|public-health",
  // ["ante-mortem inspection|public-health","food-industry","fiqc-intro"]
  [107202],
@@ -4305,6 +4429,7 @@ const LEAVES = [
  // ["ante-mortem inspection|public-health","milk-meat-hygiene","meat-slaughter"]
  [214177],
  // end ["ante-mortem inspection|public-health","milk-meat-hygiene","meat-slaughter"]
+ // end of "ante-mortem inspection|public-health"
  "antibiotic residue|public-health",
  // ["antibiotic residue|public-health","epidemiology","epidem-surveillance"]
  [100018],
@@ -4357,6 +4482,7 @@ const LEAVES = [
  // ["antibiotic residue|public-health","vet-juris","drug-act-2510"]
  [93023],
  // end ["antibiotic residue|public-health","vet-juris","drug-act-2510"]
+ // end of "antibiotic residue|public-health"
  "california mastitis test|public-health",
  // ["california mastitis test|public-health","milk-meat-hygiene","milk-borne-pathogens"]
  [101096],
@@ -4373,6 +4499,7 @@ const LEAVES = [
  // ["california mastitis test|public-health","milk-meat-hygiene","milk-quality-determination"]
  [203002,207110,105702,105703],
  // end ["california mastitis test|public-health","milk-meat-hygiene","milk-quality-determination"]
+ // end of "california mastitis test|public-health"
  "furstenberg's rosette|public-health",
  // ["furstenberg's rosette|public-health","milk-meat-hygiene","milk-overview"]
  [104632],
@@ -4380,6 +4507,7 @@ const LEAVES = [
  // ["furstenberg's rosette|public-health","milk-meat-hygiene","milk-quality-composition"]
  [105644],
  // end ["furstenberg's rosette|public-health","milk-meat-hygiene","milk-quality-composition"]
+ // end of "furstenberg's rosette|public-health"
  "haccp|public-health",
  // ["haccp|public-health","food-industry","fiqc-aquatic"]
  [103013,103014],
@@ -4408,6 +4536,7 @@ const LEAVES = [
  // ["haccp|public-health","zoonoses","zoo-epi-approach"]
  [210500,210506,210512],
  // end ["haccp|public-health","zoonoses","zoo-epi-approach"]
+ // end of "haccp|public-health"
  "incidence|public-health",
  // ["incidence|public-health","epidemiology","epidem-applied-stats"]
  [214623,214628,214640],
@@ -4466,6 +4595,7 @@ const LEAVES = [
  // ["incidence|public-health","zoonoses","zoo-mycoses"]
  [106150,106158],
  // end ["incidence|public-health","zoonoses","zoo-mycoses"]
+ // end of "incidence|public-health"
  "methylene blue reduction test|public-health",
  // ["methylene blue reduction test|public-health","livestock-pathology","lpath-swine-systemic"]
  [8261],
@@ -4485,6 +4615,7 @@ const LEAVES = [
  // ["methylene blue reduction test|public-health","milk-meat-hygiene","milk-raw-std"]
  [207193,207306,106258,101059],
  // end ["methylene blue reduction test|public-health","milk-meat-hygiene","milk-raw-std"]
+ // end of "methylene blue reduction test|public-health"
  "pasteurisation|public-health",
  // ["pasteurisation|public-health","food-industry","fiqc-poultry-export"]
  [106246],
@@ -4546,6 +4677,7 @@ const LEAVES = [
  // ["pasteurisation|public-health","zoonoses","zoo-epi-approach"]
  [210512],
  // end ["pasteurisation|public-health","zoonoses","zoo-epi-approach"]
+ // end of "pasteurisation|public-health"
  "post-mortem inspection|public-health",
  // ["post-mortem inspection|public-health","food-industry","fiqc-slaughter-qc"]
  [202255,207002,207008,207012,207020,207027,207277,207280,109520,109522,109546,109560],
@@ -4565,6 +4697,7 @@ const LEAVES = [
  // ["post-mortem inspection|public-health","zoonoses","zoo-helminthic"]
  [208014],
  // end ["post-mortem inspection|public-health","zoonoses","zoo-helminthic"]
+ // end of "post-mortem inspection|public-health"
  "predictive value|public-health",
  // ["predictive value|public-health","epidemiology","epidem-dx-screening"]
  [214551,214553,214557,214560,214561,214563,213526,213535,213546,213547,213548,213560,107015,107017,107018,107020],
@@ -4578,6 +4711,7 @@ const LEAVES = [
  // ["predictive value|public-health","livestock-pathology","lpath-swine-systemic"]
  [8223],
  // end ["predictive value|public-health","livestock-pathology","lpath-swine-systemic"]
+ // end of "predictive value|public-health"
  "prevalence|public-health",
  // ["prevalence|public-health","epidemiology","epidem-applied-stats"]
  [214623,214640],
@@ -4639,6 +4773,7 @@ const LEAVES = [
  // ["prevalence|public-health","zoonoses","zoo-eid-wildlife"]
  [106054],
  // end ["prevalence|public-health","zoonoses","zoo-eid-wildlife"]
+ // end of "prevalence|public-health"
  "r0|public-health",
  // ["r0|public-health","epidemiology","epidem-disease-transmission"]
  [214523],
@@ -4655,6 +4790,7 @@ const LEAVES = [
  // ["r0|public-health","zoonoses","zoo-outbreak"]
  [208145,208146],
  // end ["r0|public-health","zoonoses","zoo-outbreak"]
+ // end of "r0|public-health"
  "relative risk|public-health",
  // ["relative risk|public-health","epidemiology","epidem-applied-stats"]
  [214623,214624,214630],
@@ -4683,6 +4819,7 @@ const LEAVES = [
  // ["relative risk|public-health","zoonoses","zoo-epi-approach"]
  [104014],
  // end ["relative risk|public-health","zoonoses","zoo-epi-approach"]
+ // end of "relative risk|public-health"
  "odds ratio|public-health",
  // ["odds ratio|public-health","epidemiology","epidem-applied-stats"]
  [214623,214630,214635,214636,214639],
@@ -4705,6 +4842,7 @@ const LEAVES = [
  // ["odds ratio|public-health","zoonoses","zoo-epi-approach"]
  [104014],
  // end ["odds ratio|public-health","zoonoses","zoo-epi-approach"]
+ // end of "odds ratio|public-health"
  "95% ci|public-health",
  // ["95% ci|public-health","epidemiology","epidem-applied-stats"]
  [214626,214629,214630,214641],
@@ -4721,6 +4859,7 @@ const LEAVES = [
  // ["95% ci|public-health","epidemiology","epidem-sample-size"]
  [107028,107029],
  // end ["95% ci|public-health","epidemiology","epidem-sample-size"]
+ // end of "95% ci|public-health"
  "p-value|public-health",
  // ["p-value|public-health","epidemiology","epidem-applied-stats"]
  [214627,214629,214643,213512],
@@ -4737,6 +4876,7 @@ const LEAVES = [
  // ["p-value|public-health","milk-meat-hygiene","milk-cleaning"]
  [214107],
  // end ["p-value|public-health","milk-meat-hygiene","milk-cleaning"]
+ // end of "p-value|public-health"
  "kappa|epidemiology",
  // ["kappa|epidemiology","epidemiology","epidem-dx-screening"]
  [214538,214555,214557],
@@ -4744,6 +4884,7 @@ const LEAVES = [
  // ["kappa|epidemiology","epidemiology","epidem-test-agreement"]
  [214564,214565,107023,107024,107025],
  // end ["kappa|epidemiology","epidemiology","epidem-test-agreement"]
+ // end of "kappa|epidemiology"
  "icc|epidemiology",
  // ["icc|epidemiology","epidemiology","epidem-sample-size"]
  [107039],
@@ -4751,10 +4892,12 @@ const LEAVES = [
  // ["icc|epidemiology","epidemiology","epidem-test-agreement"]
  [107025,107026],
  // end ["icc|epidemiology","epidemiology","epidem-test-agreement"]
+ // end of "icc|epidemiology"
  "design effect|epidemiology",
  // ["design effect|epidemiology","epidemiology","epidem-sample-size"]
  [107038,107039],
  // end ["design effect|epidemiology","epidemiology","epidem-sample-size"]
+ // end of "design effect|epidemiology"
  "reservoir|public-health",
  // ["reservoir|public-health","epidemiology","epidem-basic-concepts"]
  [214516],
@@ -4828,6 +4971,7 @@ const LEAVES = [
  // ["reservoir|public-health","zoonoses","zoo-vbz"]
  [208035,208053],
  // end ["reservoir|public-health","zoonoses","zoo-vbz"]
+ // end of "reservoir|public-health"
  "sensitivity & specificity|public-health",
  // ["sensitivity & specificity|public-health","epidemiology","epidem-causation"]
  [105084,105089],
@@ -4889,6 +5033,7 @@ const LEAVES = [
  // ["sensitivity & specificity|public-health","zoonoses","zoo-epi-approach"]
  [104011],
  // end ["sensitivity & specificity|public-health","zoonoses","zoo-epi-approach"]
+ // end of "sensitivity & specificity|public-health"
  "somatic cell count|public-health",
  // ["somatic cell count|public-health","milk-meat-hygiene","milk-borne-pathogens"]
  [101096],
@@ -4917,6 +5062,7 @@ const LEAVES = [
  // ["somatic cell count|public-health","milk-meat-hygiene","milk-raw-storage"]
  [105689],
  // end ["somatic cell count|public-health","milk-meat-hygiene","milk-raw-storage"]
+ // end of "somatic cell count|public-health"
  "spillover|public-health",
  // ["spillover|public-health","one-health","oh-disease-prevention"]
  [202302,206192,206194],
@@ -4927,6 +5073,7 @@ const LEAVES = [
  // ["spillover|public-health","zoonoses","zoo-eid-wildlife"]
  [106053,106054,106055,106056,210579,210580,210582,210583,210584,210585],
  // end ["spillover|public-health","zoonoses","zoo-eid-wildlife"]
+ // end of "spillover|public-health"
  "total plate count|public-health",
  // ["total plate count|public-health","food-safety-y4","haccp"]
  [92529],
@@ -4955,6 +5102,7 @@ const LEAVES = [
  // ["total plate count|public-health","milk-meat-hygiene","milk-raw-std"]
  [207190,207192,207317,105665,105669,106259,101063,101073],
  // end ["total plate count|public-health","milk-meat-hygiene","milk-raw-std"]
+ // end of "total plate count|public-health"
  "vector|public-health",
  // ["vector|public-health","epidemiology","epidem-basic-concepts"]
  [100015],
@@ -5061,6 +5209,7 @@ const LEAVES = [
  // ["vector|public-health","zoonoses","zoo-vbz"]
  [202008,202011,202012,208041,208042,208053,208054,208103,106094,106095,106099,107614,107615],
  // end ["vector|public-health","zoonoses","zoo-vbz"]
+ // end of "vector|public-health"
  "zoonosis|public-health",
  // ["zoonosis|public-health","epidemiology","epidem-control-prevention"]
  [213540],
@@ -5131,6 +5280,7 @@ const LEAVES = [
  // ["zoonosis|public-health","zoonoses","zoo-vbz"]
  [106099],
  // end ["zoonosis|public-health","zoonoses","zoo-vbz"]
+ // end of "zoonosis|public-health"
  "hepatopancreas|aquatic",
  // ["hepatopancreas|aquatic","aquatic-clinic","aqua-intro-thailand"]
  [105180,105184,105185],
@@ -5141,6 +5291,7 @@ const LEAVES = [
  // ["hepatopancreas|aquatic","aquatic-clinic","aqua-shrimp-immunology"]
  [204005,204006,204007],
  // end ["hepatopancreas|aquatic","aquatic-clinic","aqua-shrimp-immunology"]
+ // end of "hepatopancreas|aquatic"
  "antennal gland|aquatic",
  // ["antennal gland|aquatic","aquatic-clinic","aqua-intro-thailand"]
  [202113,202115],
@@ -5151,6 +5302,7 @@ const LEAVES = [
  // ["antennal gland|aquatic","aquatic-clinic","aqua-shrimp-immunology"]
  [204005,204006,204007],
  // end ["antennal gland|aquatic","aquatic-clinic","aqua-shrimp-immunology"]
+ // end of "antennal gland|aquatic"
  "ehp|aquatic",
  // ["ehp|aquatic","aquatic-clinic","aqua-intro-thailand"]
  [105182,105183,105184,105185,105186,105187,105188],
@@ -5158,6 +5310,7 @@ const LEAVES = [
  // ["ehp|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
  [202175,202176,202177,202179,202181,202428,105907,105909,105910,105913,211097,8056,8057,8059],
  // end ["ehp|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
+ // end of "ehp|aquatic"
  "wssv|aquatic",
  // ["wssv|aquatic","aquatic-clinic","aqua-disease-control"]
  [105884,211066],
@@ -5171,6 +5324,7 @@ const LEAVES = [
  // ["wssv|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
  [202167,202172,202179,202182,105907,105909,105914,8056],
  // end ["wssv|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
+ // end of "wssv|aquatic"
  "imnv|aquatic",
  // ["imnv|aquatic","aquatic-clinic","aqua-disease-control"]
  [105884,105890],
@@ -5181,6 +5335,7 @@ const LEAVES = [
  // ["imnv|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
  [202166,202168,202170,202171,202172,202177,202182,202183,202427,105909,105912,105913,105916,211078,8059],
  // end ["imnv|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
+ // end of "imnv|aquatic"
  "ahpnd|aquatic",
  // ["ahpnd|aquatic","aquatic-clinic","aqua-disease-control"]
  [105124,211043],
@@ -5191,6 +5346,7 @@ const LEAVES = [
  // ["ahpnd|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
  [105907,105908,8056],
  // end ["ahpnd|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
+ // end of "ahpnd|aquatic"
  "yhv|aquatic",
  // ["yhv|aquatic","aquatic-clinic","aqua-disease-control"]
  [105890,105123,211066],
@@ -5201,6 +5357,7 @@ const LEAVES = [
  // ["yhv|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
  [202182,105911,105912],
  // end ["yhv|aquatic","aquatic-clinic","aqua-shrimp-diseases"]
+ // end of "yhv|aquatic"
  "aeromonas|aquatic",
  // ["aeromonas|aquatic","aquatic-clinic","aqua-fish-diseases"]
  [202149,202150,202152,202161,105894,105895,105897,211091],
@@ -5214,6 +5371,7 @@ const LEAVES = [
  // ["aeromonas|aquatic","aquatic-clinic","aqua-ornamental"]
  [204034,204036,204037,204078],
  // end ["aeromonas|aquatic","aquatic-clinic","aqua-ornamental"]
+ // end of "aeromonas|aquatic"
  "edwardsiella|aquatic",
  // ["edwardsiella|aquatic","aquatic-clinic","aqua-fish-diseases"]
  [202151,202152,202161,105894,105896,105897,105901,8055],
@@ -5221,6 +5379,7 @@ const LEAVES = [
  // ["edwardsiella|aquatic","aquatic-clinic","aqua-ornamental"]
  [204034,204037],
  // end ["edwardsiella|aquatic","aquatic-clinic","aqua-ornamental"]
+ // end of "edwardsiella|aquatic"
  "streptococcus|aquatic",
  // ["streptococcus|aquatic","aquatic-clinic","aqua-disease-control"]
  [105123],
@@ -5231,6 +5390,7 @@ const LEAVES = [
  // ["streptococcus|aquatic","aquatic-clinic","aqua-ornamental"]
  [202189,204034,204037,204078],
  // end ["streptococcus|aquatic","aquatic-clinic","aqua-ornamental"]
+ // end of "streptococcus|aquatic"
  "columnaris|aquatic",
  // ["columnaris|aquatic","aquatic-clinic","aqua-fish-diseases"]
  [202149,202155,105894,105895],
@@ -5241,6 +5401,7 @@ const LEAVES = [
  // ["columnaris|aquatic","aquatic-clinic","aqua-ornamental"]
  [204036,204037,204040,204078,204079],
  // end ["columnaris|aquatic","aquatic-clinic","aqua-ornamental"]
+ // end of "columnaris|aquatic"
  "khv|aquatic",
  // ["khv|aquatic","aquatic-clinic","aqua-fish-diseases"]
  [202154,202156,202157,202158,105902,211084,211095,8055,8058],
@@ -5248,6 +5409,7 @@ const LEAVES = [
  // ["khv|aquatic","aquatic-clinic","aqua-ornamental"]
  [202453,204043,204081],
  // end ["khv|aquatic","aquatic-clinic","aqua-ornamental"]
+ // end of "khv|aquatic"
  "ranavirus|aquatic",
  // ["ranavirus|aquatic","aquatic-clinic","aqua-amphibian"]
  [202461],
@@ -5258,6 +5420,7 @@ const LEAVES = [
  // ["ranavirus|aquatic","aquatic-clinic","aqua-frog-diseases"]
  [202190,202192,202193,202474,204055,204015,204016,204017],
  // end ["ranavirus|aquatic","aquatic-clinic","aqua-frog-diseases"]
+ // end of "ranavirus|aquatic"
  "batrachochytrium dendrobatidis|aquatic",
  // ["batrachochytrium dendrobatidis|aquatic","aquatic-clinic","aqua-disease-control"]
  [211000,211009],
@@ -5265,6 +5428,7 @@ const LEAVES = [
  // ["batrachochytrium dendrobatidis|aquatic","aquatic-clinic","aqua-frog-diseases"]
  [202190,202191,202193,204055,204016],
  // end ["batrachochytrium dendrobatidis|aquatic","aquatic-clinic","aqua-frog-diseases"]
+ // end of "batrachochytrium dendrobatidis|aquatic"
  "vibrio|aquatic",
  // ["vibrio|aquatic","aquatic-clinic","aqua-fish-diseases"]
  [202149,202152,202155,105895,105897],
@@ -5281,6 +5445,7 @@ const LEAVES = [
  // ["vibrio|aquatic","aquatic-clinic","aqua-shrimp-immunology"]
  [202422],
  // end ["vibrio|aquatic","aquatic-clinic","aqua-shrimp-immunology"]
+ // end of "vibrio|aquatic"
 ];
 
 export const GLOSSARY_RELATED = {};

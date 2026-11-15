@@ -8,6 +8,10 @@ import { resolve, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { mintBlobToken, verifyBlobToken } from '../../api/_lib/blob-token.js';
 import blobHandler from '../../api/library-blob.js';
+import { setDirectStorage } from '../../api/library-blob.js';
+// These pin the REST route (storage ignores Range); the signed S3 route is
+// tested in library-blob-ranges.test.mjs.
+setDirectStorage(false);
 
 const ORIGIN = 'https://vetmock.test';
 const DOCS = 'vmx-lib-docs-v1', CATALOG = 'vmx-library-catalog-v1';
