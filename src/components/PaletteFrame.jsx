@@ -10,7 +10,8 @@
 // so with a retry. It owns no search of its own.
 // ============================================================
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
+import { PaletteShellContext } from './PaletteShell.jsx';
 import { pointerLauncher } from '../hooks/useModalFocus.js';
 import {
   beginPaletteHandoff, clearPaletteHandoff, peekPaletteHandoff, setPaletteHandoffText,
@@ -43,6 +44,24 @@ export default function PaletteFrame({ onClose, failed = false, onRetry }) {
     if (target?.isConnected) target.focus({ preventScroll: true });
   };
 
+  // Drawn inside the one search dialog (PaletteShell): mark it as the frame while
+  // shown, and let a tap on the dim background close the frame the frame's way.
+  const shell = useContext(PaletteShellContext);
+  const closeRef = useRef(close);
+  closeRef.current = close;
+  const bodyRef = useRef(null);
+  useLayoutEffect(() => {
+    // The dialog is this body's parent in the DOM already; the shell's ref may not be attached yet.
+    const dialog = bodyRef.current?.closest('[data-vmx-modal="true"]');
+    if (!shell || !dialog) return undefined;
+    dialog.setAttribute('data-palette-frame', failed ? 'failed' : 'pending');
+    shell.setCloser(() => closeRef.current());
+    return () => {
+      dialog.removeAttribute('data-palette-frame');
+      shell.setCloser(null);
+    };
+  }, [shell, failed]);
+
   const onKeyDown = (e) => {
     if (e.nativeEvent?.isComposing || e.keyCode === 229) return;
     if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); return; }
@@ -50,24 +69,9 @@ export default function PaletteFrame({ onClose, failed = false, onRetry }) {
     if (e.key === 'Tab' && !failed) e.preventDefault();
   };
 
+  // Keys are handled on a wrapper that draws no box of its own (display: contents).
   return (
-    <div
-      className="vmx-modal-overlay"
-      onClick={close}
-      style={{ alignItems: 'flex-start', paddingTop: 'min(12vh, 90px)', backdropFilter: 'blur(5px)' }}
-    >
-      <div
-        className="vmx-modal"
-        onClick={(e) => e.stopPropagation()}
-        onKeyDown={onKeyDown}
-        style={{ maxWidth: 640, padding: 0, overflow: 'hidden' }}
-        role="dialog"
-        aria-modal="true"
-        tabIndex={-1}
-        data-vmx-modal="true"
-        data-palette-frame={failed ? 'failed' : 'pending'}
-        aria-label="ค้นหาอัจฉริยะ"
-      >
+    <div ref={bodyRef} className="vmx-palette-frame-body" onKeyDown={onKeyDown} style={{ display: 'contents' }}>
         <div className="vmx-omni-topbar" aria-hidden="true" />
         <div style={{
           display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px',
@@ -108,7 +112,6 @@ export default function PaletteFrame({ onClose, failed = false, onRetry }) {
             กำลังเปิดการค้นหา พิมพ์รอไว้ได้เลย
           </p>
         )}
-      </div>
     </div>
   );
 }
