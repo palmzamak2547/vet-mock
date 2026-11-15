@@ -143,7 +143,8 @@ test('a per-question expiry while a clear can still be taken back returns the ma
   // The pane's tools load with the case.
   await expect(page.locator('.vmx-case-tools.is-waiting')).toHaveCount(0);
   const clear = passage.getByRole('button', { name: 'ล้างทั้งหมด', exact: true });
-  if (await clear.isVisible()) {
+  const inPane = await clear.isVisible();
+  if (inPane) {
     await clear.click();
   } else {
     // A phone's pane carries no tools: the sheet does.
@@ -154,7 +155,8 @@ test('a per-question expiry while a clear can still be taken back returns the ma
     await sheet.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
   }
   await expect(passage.locator('mark')).toHaveCount(0);
-  await expect(toast).toContainText('ล้างแล้ว 2 รอย');
+  // The pane clears its highlight and its old pen stroke; the sheet clears what it shows, the highlight.
+  await expect(toast).toContainText(inPane ? 'ล้างแล้ว 2 รอย' : 'ล้างแล้ว 1 รอย');
   await page.clock.setSystemTime(Date.now() + 120_000);
   await page.clock.runFor(1100);
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');

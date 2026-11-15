@@ -500,6 +500,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         title={currentQ.passage_title}
         subject={currentQ.subject}
         ownerId={ownerId}
+        questionKey={compoundId}
         defaultOpen={true}
         openSignal={passageNudge}
         ask={stemSplit ? stemSplit.askText : stemShown}

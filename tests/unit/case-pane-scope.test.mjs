@@ -135,3 +135,21 @@ test('the next account on the device sees none of the last account\'s marks', as
   assert.equal(marks(pane.tree).length, 1, 'u1 again');
   pane.unmount();
 });
+
+test('an undo after a clear ends its way back, so the way back can never take the marks away again', async () => {
+  const values = seeded();
+  const { CasePane } = await setup(values);
+  const pane = await mount(CasePane, props(A));
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.match(textOf(pane.tree), /ล้างแล้ว 2 รอย/);
+  button(pane.tree, 'ย้อนกลับ').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 1);
+  assert.doesNotMatch(textOf(pane.tree), /ล้างแล้ว/, 'the toast is gone');
+  button(pane.tree, 'ย้อนกลับ').props.onClick();   // nothing left to undo
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 1);
+  assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2);
+  pane.unmount();
+});

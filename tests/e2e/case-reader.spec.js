@@ -1,4 +1,4 @@
-// The case reader, slice 1 (work/case-reader/DESIGN.md): the full-screen sheet, the hand and the
+// The case reader, slice 1 (the case reader): the full-screen sheet, the hand and the
 // word-snapping highlighter, at the four sizes the design was drawn at, on question 209588 (an equine
 // case whose findings are in its stem) and on an Epidemiology passage shared by several questions with
 // a table. What a student could lose if any of it were wrong: the place they were reading, a mark (or a
@@ -239,7 +239,7 @@ for (const size of SIZES) {
     await openPinned(page, q);
     const phone = size.width < 768;
     const word = 'ไร่ฝึกสัตวแพทย์';
-    const from = q.passage.indexOf(word) + 2;       // inside the first word
+    const from = q.passage.indexOf(word) + 1;       // inside the first word, on a letter (not a tone mark, which has no width)
     const to = q.passage.indexOf('นครปฐม') + 3;     // inside the last
     let root = PANE;
     if (phone) {
@@ -254,9 +254,21 @@ for (const size of SIZES) {
     await expect(marks.first()).toBeVisible();
     const [range] = await stored(page, q);
     // Whole words: it starts at the start of a word and ends at the end of one, never mid-syllable.
+    // Thai has no spaces, and each engine's own segmenter decides where a word ends (Firefox cuts
+    // จังหวัดนครปฐม where Chromium does not), so the edges are held to the page's own word boundaries.
     const text = q.passage.slice(range[0], range[1]);
-    expect(text.startsWith('ไร่') || text.startsWith('ณ') || text.startsWith('ฝึก')).toBe(true);
-    expect(text.endsWith('นครปฐม')).toBe(true);
+    const bounds = await page.evaluate((t) => {
+      const seg = new Intl.Segmenter('th', { granularity: 'word' });
+      const out = new Set([t.length]);
+      for (const x of seg.segment(t)) out.add(x.index);
+      return [...out];
+    }, q.passage);
+    expect(bounds).toContain(range[0]);
+    expect(bounds).toContain(range[1]);
+    // And it covers the words dragged across: from inside the first to inside the last, both whole.
+    expect(range[0]).toBeLessThanOrEqual(from);
+    expect(range[1]).toBeGreaterThan(to - 1);
+    expect(text).toContain('สัตวแพทย์');
     expect((await marks.allTextContents()).join('')).toBe(text);
 
     // The same range on the other surface.
@@ -446,4 +458,108 @@ test('a finger scrolls and marks nothing, a pen marks, and the finger switch let
   await swipe(sbox.y + sbox.height * 0.7, 150);
   await expect(sheet.locator('mark')).toHaveCount(count);
   expect(await noSideScroll(page)).toBe(true);
+});
+
+// A timed paper on a passage two questions share, resumed from its saved state.
+async function resumePaper(page, { timePerQ = 600, size = { width: 1180, height: 820 } } = {}) {
+  const q = await epidShared();
+  const second = (await questions()).find((x) => x.passage === q.passage && x.id !== q.id);
+  await page.setViewportSize(size);
+  await page.addInitScript(({ questions, timePerQ }) => {
+    if (sessionStorage.getItem('case-paper-fixture')) return;
+    sessionStorage.setItem('case-paper-fixture', '1');
+    localStorage.setItem('vmx-selected-year', '5');
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    const now = Date.now();
+    localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+      ownerId: null, questions, answers: {}, currentIdx: 0, useTimer: true, timePerQ,
+      questionDeadline: now + timePerQ * 1000, examStartTime: now - 5_000, savedAt: now,
+      mode: 'quick', clock: 'per-question', selectedYear: 5,
+    }));
+  }, { questions: [q, second], timePerQ });
+  await page.goto('/app');
+  await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
+  await expect(page.locator('.vmx-exam-top-right .vmx-timer')).toBeVisible();
+  await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
+  return { q, second };
+}
+
+test.describe('with the page clock in the test\'s hand', () => {
+  // page.clock does not stack with the pinned calendar of fixtures.js.
+  test.use({ pinCalendar: false });
+
+  test('a question whose time runs out with the sheet open closes the sheet, and its notice is in view', async ({ page }) => {
+    await resumePaper(page, { timePerQ: 60 });
+    await page.clock.install();
+    await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    const sheet = page.getByRole('dialog');
+    await expect(sheet).toBeVisible();
+    await page.clock.setSystemTime(Date.now() + 120_000);
+    await page.clock.runFor(1100);
+    await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');
+    // The sheet is gone, with the question it was asking; the notice says why the card moved on.
+    await expect(sheet).toHaveCount(0);
+    await expect(page.locator('.vmx-exam-timeout-note')).toBeVisible();
+    await expect(page.locator('.vmx-exam-timeout-note')).toBeInViewport();
+    // Its history entry went with it: Back now is the paper's own Back, not a second close.
+    expect(await page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet))).toBe(false);
+  });
+});
+
+for (const where of ['practice', 'paper']) {
+  test(`Back closes the sheet first and stays in the ${where}`, async ({ page }) => {
+    if (where === 'paper') await resumePaper(page, { size: { width: 820, height: 1180 } });
+    else { await page.setViewportSize({ width: 820, height: 1180 }); await openPinned(page, await byId(209588)); }
+    const url = page.url();
+    await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    const sheet = page.getByRole('dialog');
+    await expect(sheet).toBeVisible();
+    await page.evaluate(() => window.history.back());
+    await expect(sheet).toHaveCount(0);
+    // Still on the card: no leave-the-set dialog, the same address, the same question.
+    await expect(page.locator('.vmx-question-card')).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    expect(page.url()).toBe(url);
+    if (where === 'paper') await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
+    // Closing with its own button takes its history entry with it, so the next Back is the card's own.
+    await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    await expect(sheet).toBeVisible();
+    await sheet.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
+    await expect(sheet).toHaveCount(0);
+    expect(await page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet))).toBe(false);
+    await expect(page.locator('.vmx-question-card')).toBeVisible();
+  });
+}
+
+test('in finger writing, a second finger that lands late still turns the stroke into a scroll', async ({ page, browserName }, info) => {
+  test.skip(browserName !== 'chromium' || !info.project.use.hasTouch, 'touches need a touch device on Chromium');
+  await page.setViewportSize({ width: 390, height: 664 });
+  const q = await byId(209588);
+  await openPinned(page, q);
+  await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+  const sheet = page.getByRole('dialog');
+  await expect(sheet).toBeVisible();
+  await sheet.getByRole('button', { name: /เขียนด้วยนิ้ว/ }).click();
+  const cdp = await page.context().newCDPSession(page);
+  const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts });
+  const scroller = sheet.locator('.vmx-case-sheet-scroll');
+  const before = await scroller.evaluate((el) => el.scrollTop);
+  for (const lateMs of [150, 400]) {
+    const off = await topChar(page, SHEET, (await sheetTop(page)) + 60);
+    const a = await charBox(page, SHEET, off);
+    const x = a.left + 4;
+    const y = a.top + a.height / 2;
+    // One finger lands and moves across the words, as the start of a stroke ...
+    await touch('touchStart', [{ x, y, id: 1 }]);
+    for (let i = 1; i <= 4; i++) await touch('touchMove', [{ x: x + i * 15, y, id: 1 }]);
+    await page.waitForTimeout(lateMs);
+    // ... then the second finger joins, late, and both move up the page.
+    await touch('touchStart', [{ x: x + 60, y, id: 1 }, { x: x + 120, y, id: 2 }]);
+    for (let i = 1; i <= 8; i++) await touch('touchMove', [{ x: x + 60, y: y - i * 20, id: 1 }, { x: x + 120, y: y - i * 20, id: 2 }]);
+    await touch('touchEnd', []);
+    await expect(sheet.locator('mark')).toHaveCount(0);
+    await expect(page.locator('.vmx-case-markbar')).toHaveCount(0);
+  }
+  expect(await scroller.evaluate((el) => el.scrollTop)).toBeGreaterThan(before + 40);
 });

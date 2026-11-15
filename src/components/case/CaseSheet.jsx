@@ -7,13 +7,13 @@ import RichBlocks from '../RichBlocks.jsx';
 import ZoomableImage from '../ZoomableImage.jsx';
 import ExamClock from '../ExamClock.jsx';
 import { useModalFocus } from '../../hooks/useModalFocus.js';
-import { attachCaseSurface, selectedRange, readingPlace, placeDelta } from '../../lib/ink/case-hand.js';
+import { attachCaseSurface, readingPlace, placeDelta, dropEntry } from '../../lib/ink/case-hand.js';
 import '../../styles-case.css';
 
 // ============================================================
 // CaseSheet — the case as a full-screen reading sheet
 // ============================================================
-// work/case-reader/DESIGN.md section 1. A layer over the whole viewport in the
+// The case reader design, section 1. A layer over the whole viewport in the
 // page's own colours, not the browser's Fullscreen API (iPad Safari allows
 // that for video only). Loaded on the first tap of อ่านเต็มจอ, so nothing of
 // it is in the first load or the exam's chunk.
@@ -30,7 +30,7 @@ import '../../styles-case.css';
 export default function CaseSheet({
   text, title, ranges, ask, stemBody, figure, clockDeadline, place, onClose,
   policy, penSeen, coarse, phone, rangeColor, penColor, onColor, onRange, onErase, onRecolor, onPenSeen,
-  canUndo, canRedo, onUndo, onRedo, onClear, toast, onUndoClear,
+  canUndo, canRedo, onUndo, onRedo, onClear, toast, onUndoClear, entry = { on: false },
 }) {
   const scrollRef = useRef(null);
   const textRef = useRef(null);
@@ -47,7 +47,26 @@ export default function CaseSheet({
     const sc = scrollRef.current;
     return sc && textRef.current ? readingPlace(textRef.current, sc.getBoundingClientRect().top) : placeRef.current;
   };
-  const close = () => onClose(here());
+  // Back closes the sheet first, in practice and in a paper, and never leaves the set: the sheet stands on
+  // a history entry of its own, and the popstate that leaves it is the sheet's alone. Its buttons and
+  // Escape go back through that entry, so the browser's history stays as it was before the sheet.
+  const closeRef = useRef(null);
+  closeRef.current = () => onClose(here());
+  useEffect(() => {
+    const onPop = (e) => {
+      if (!entry.on) return;
+      entry.on = false;
+      e.stopImmediatePropagation();
+      closeRef.current();
+    };
+    window.addEventListener('popstate', onPop, true);
+    return () => {
+      window.removeEventListener('popstate', onPop, true);
+      // Closed from the card (another question): take the entry back without the app hearing it.
+      dropEntry(entry);
+    };
+  }, [entry]);
+  const close = () => { if (entry.on) window.history.back(); else closeRef.current(); };
   const dialogRef = useModalFocus({ active: true, onClose: close, initialFocusRef: backRef });
 
   // Open at the pane's character; keep it on top through a rotation or a resize.
@@ -63,10 +82,12 @@ export default function CaseSheet({
     // measuring itself, a rotation) put the same character back on top and never redefine it.
     let reader = false;
     const mine = () => { reader = true; };
+    // Read once the reader stops, not on every frame of a scroll.
     let frame = 0;
     const onScroll = () => {
-      if (!reader || frame) return;
-      frame = requestAnimationFrame(() => { frame = 0; placeRef.current = here(); });
+      if (!reader) return;
+      clearTimeout(frame);
+      frame = setTimeout(() => { placeRef.current = here(); }, 120);
     };
     const kinds = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
     kinds.forEach((k) => sc.addEventListener(k, mine, { passive: true }));
@@ -80,7 +101,7 @@ export default function CaseSheet({
       kinds.forEach((k) => sc.removeEventListener(k, mine));
       sc.removeEventListener('scroll', onScroll);
       ro?.disconnect();
-      cancelAnimationFrame(frame);
+      clearTimeout(frame);
       cancelAnimationFrame(late);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -101,21 +122,13 @@ export default function CaseSheet({
       onRange: (r) => calls.current.onRange(r),
       onErase: (ids) => calls.current.onErase(ids),
       onMarkTap: (id, rect) => setMarkBar({ id, rect }),
+      onPicked: (r) => setPicked(r || null),
       onPenSeen: () => { setWriteSwitch(false); calls.current.onPenSeen(); },
       pen: null,
     });
   }, [policy]);
 
-  // A mouse selection with the highlighter in hand is a highlight; a finger's selection is offered ไฮไลต์.
   const [picked, setPicked] = useState(null);
-  const fromMouse = () => {
-    if (live.current.tool !== 'highlighter') return;
-    const r = selectedRange(textRef.current, text);
-    if (!r) return;
-    onRange(r);
-    window.getSelection?.().removeAllRanges();
-  };
-  const fromFinger = () => { setTimeout(() => setPicked(selectedRange(textRef.current, text)), 0); };
 
   const offersSwitch = coarse && !penSeen;
   const tools = (
@@ -156,7 +169,7 @@ export default function CaseSheet({
       </header>
       <div ref={scrollRef} className="vmx-case-sheet-scroll">
         <div className={`vmx-case-sheet-col is-${writeSwitch ? 'writing' : 'reading'}`}>
-          <div className={`vmx-case-surface is-sheet is-${tool}`} onMouseUp={fromMouse} onTouchEnd={fromFinger}>
+          <div className={`vmx-case-surface is-sheet is-${tool}`}>
             <CaseText ref={textRef} text={text} ranges={ranges} labelledBy={titleId} />
             <div ref={wetRef} className="vmx-case-wet" aria-hidden="true" />
           </div>

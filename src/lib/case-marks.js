@@ -1,7 +1,7 @@
 // ============================================================
 // case-marks.js — the marks a student lays on a case
 // ============================================================
-// The case reader (work/case-reader/DESIGN.md, slice 1): ranges and their
+// The case reader (slice 1 of its design): ranges and their
 // quotes, the undo history, the storage key and the one-time adoption of the
 // marks saved before this release. This is what the pane needs to draw a case
 // with its marks; what a hand needs to make them (the word snap, offsets of a
@@ -61,7 +61,6 @@ export const PEN_COLORS = [
   { id: 'ocean', label: 'น้ำเงิน', value: 'var(--clr-case-ocean)', token: '--clr-case-ocean' },
   { id: 'plum', label: 'ม่วง', value: 'var(--clr-case-plum)', token: '--clr-case-plum' },
 ];
-const LEGACY_RANGE = { yellow: 'lemon', green: 'sky', pink: 'lilac' };
 
 /** A pen colour as the canvas needs it: the token's value now, in this theme. */
 export function penInk(id) {
@@ -86,23 +85,32 @@ const commonTail = (a, b) => { let n = 0; while (n < a.length && n < b.length &&
 const commonHead = (a, b) => { let n = 0; while (n < a.length && n < b.length && a[n] === b[n]) n++; return n; };
 
 /**
- * Where a range sits in `text` now: { start, end }, or null when its words are
- * not in the text (the mark is kept, unseen). The stored offsets win when the
- * text there is still the quote; otherwise every place the quote's words occur
- * is scored by how much of its context matches, then by nearness to the old place.
+ * Where a range sits in `text` now: { start, end }, or null when it cannot be
+ * placed with confidence (the mark is kept, unseen, and nothing done in this
+ * view touches it). The stored offsets win when the text there is still the
+ * quote. A range past the end of `text` belongs to a longer stage of the case
+ * and is not shown here. Otherwise the quote's words are looked for, and a place
+ * counts only where enough of the words around them match too: the same word
+ * elsewhere in the passage is not the place the student marked.
  */
+export const CONTEXT_NEEDED = 8;
 export function placeRange(text, mark) {
   const str = String(text ?? '');
   const { start, end, quote } = mark || {};
   if (!(Number.isInteger(start) && Number.isInteger(end) && end > start)) return null;
-  if (!quote || typeof quote.exact !== 'string' || !quote.exact) {
-    return end <= str.length ? { start, end } : null;
-  }
+  if (end > str.length) return null;
+  if (!quote || typeof quote.exact !== 'string' || !quote.exact) return { start, end };
   if (str.slice(start, end) === quote.exact) return { start, end };
+  const pre = quote.pre || '';
+  const post = quote.post || '';
+  // A quote at the very start or end of its passage has less context to give; ask for what it has.
+  const needed = Math.min(CONTEXT_NEEDED, pre.length + post.length);
   let best = null;
   for (let at = str.indexOf(quote.exact); at >= 0; at = str.indexOf(quote.exact, at + 1)) {
-    const score = commonTail(str.slice(Math.max(0, at - CONTEXT), at), quote.pre || '')
-      + commonHead(str.slice(at + quote.exact.length, at + quote.exact.length + CONTEXT), quote.post || '');
+    const tail = commonTail(str.slice(Math.max(0, at - CONTEXT), at), pre);
+    const head = commonHead(str.slice(at + quote.exact.length, at + quote.exact.length + CONTEXT), post);
+    if (tail + head < needed) continue;
+    const score = tail + head;
     const near = Math.abs(at - start);
     if (!best || score > best.score || (score === best.score && near < best.near)) best = { at, score, near };
   }
@@ -155,30 +163,12 @@ export function makeRange(text, { start, end }, color = 'lemon') {
   return { id: newMarkId(), kind: 'range', style: 'wash', start, end, color, quote: quoteAt(text, start, end) };
 }
 
-/** The marks SmartPassage saved under the passage's own key, in today's form. The old values stay where they are. */
-export function convertLegacy(text, hlRaw, drRaw) {
-  const marks = [];
-  const hl = JSON.parse(hlRaw || '[]');
-  const dr = JSON.parse(drRaw || '[]');
-  if (!Array.isArray(hl) || !Array.isArray(dr)) throw new Error('legacy marks are not lists');
-  for (const h of hl) {
-    if (!(Number.isInteger(h?.start) && Number.isInteger(h?.end) && h.end > h.start)) continue;
-    marks.push({
-      id: `legacy-hl-${String(h.id ?? marks.length)}`, kind: 'range', style: 'wash', start: h.start, end: h.end,
-      color: LEGACY_RANGE[h.color] || 'lemon', quote: quoteAt(text, h.start, h.end),
-    });
-  }
-  dr.forEach((s, i) => {
-    if (!Array.isArray(s?.points)) return;
-    marks.push({ id: `legacy-dr-${i}`, kind: 'px', color: s.color, width: s.width, points: s.points, legacy: 1 });
-  });
-  return marks;
-}
-
 const isRecord = (rec) => Boolean(rec) && Array.isArray(rec.marks);
 
 /**
- * The marks this account keeps on this case, read from `storage`.
+ * The marks this account keeps on this case, read from `storage`. `convert` is
+ * adoptLegacy (ink/case-hand.js), loaded with the case; until it is given, a case
+ * with no record yet is reported as `pending` and nothing is written.
  * { ok: true, marks, adopted } or { ok: false } when storage cannot be read
  * (nothing may then be written over what is there).
  *
@@ -189,7 +179,7 @@ const isRecord = (rec) => Boolean(rec) && Array.isArray(rec.marks);
  * passage's old marks the first time the passage opens; the old keys are
  * never written or removed, so they stay as the backup.
  */
-export function readCaseMarks(storage, { ownerId = null, subject = '', title = '', passage = '' } = {}) {
+export function readCaseMarks(storage, { ownerId = null, subject = '', title = '', passage = '' } = {}, adopt = null) {
   const key = marksStorageKey(ownerId, caseKey({ subject, title, passage }));
   try {
     if (storage.getItem(key) != null) {
@@ -198,21 +188,8 @@ export function readCaseMarks(storage, { ownerId = null, subject = '', title = '
       if (!rec) return { ok: false, key };
       return { ok: true, key, marks: rec.marks.filter((m) => isRange(m) || isPx(m)), adopted: false };
     }
-    let claim = readStoredJson(ADOPT_KEY, null, { storage });
-    const me = ownerId || null;
-    if (!claim || !('owner' in claim)) {
-      claim = { owner: me, at: Date.now() };
-      try { storage.setItem(ADOPT_KEY, JSON.stringify(claim)); } catch { /* read-only storage: adopt nothing */ return { ok: true, key, marks: [], adopted: false }; }
-    }
-    if ((claim.owner || null) !== me) return { ok: true, key, marks: [], adopted: false };
-    const legacy = `vmx-pass-${legacyPassageHash(String(passage))}`;
-    const hl = storage.getItem(`${legacy}-hl`);
-    const dr = storage.getItem(`${legacy}-dr`);
-    if (hl == null && dr == null) return { ok: true, key, marks: [], adopted: false };
-    const marks = convertLegacy(String(passage), hl, dr);
-    // Written at once, so a later clear of this case is not undone by adopting the old keys again.
-    storage.setItem(key, JSON.stringify({ v: 1, marks }));
-    return { ok: true, key, marks, adopted: true };
+    if (!adopt) return { ok: true, key, marks: [], adopted: false, pending: true };
+    return adopt(storage, key, { ownerId, passage });
   } catch {
     return { ok: false, key };
   }

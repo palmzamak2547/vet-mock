@@ -1,4 +1,4 @@
-// The case reader's marks (src/lib/case-marks.js, work/case-reader/DESIGN.md slice 1):
+// The case reader's marks (src/lib/case-marks.js, slice 1):
 // the word snap, quotes that find a range again after its passage was edited, the
 // undo history, and the key that makes marks the property of the account that made them.
 import test from 'node:test';
@@ -9,7 +9,7 @@ import {
   quoteAt, placeRange, resolveRanges, segmentsFor, makeRange, createHistory, applyOp, HISTORY_LIMIT,
 } from '../../src/lib/case-marks.js';
 import { createHandPolicy, PEN_SEEN_KEY } from '../../src/lib/handwriting-pad.js';
-import { snapRange } from '../../src/lib/ink/case-hand.js';
+import { snapRange, adoptLegacy } from '../../src/lib/ink/case-hand.js';
 import { proseBlocks } from '../../src/lib/rich-blocks.js';
 
 const converted = JSON.parse(readFileSync(new URL('../fixtures/converted-passages-5.202.0.json', import.meta.url), 'utf8'));
@@ -73,21 +73,78 @@ test('a range is found again by its quote after the six 5.202.0 passages became 
       if (!r) continue;
       const mark = makeRange(before, r, 'lemon');
       const at = placeRange(after, mark);
-      if (after.includes(mark.quote.exact)) {
-        // Found: on the same words, and the occurrence with the matching context when there are several.
-        assert.ok(at, `not found: ${mark.quote.exact}`);
+      if (at) {
+        // Found: on the same words, with enough of the words around them the same.
         assert.equal(after.slice(at.start, at.end), mark.quote.exact);
         found++;
       } else {
-        // Its words are gone from the text: kept unseen, never dropped.
-        assert.equal(at, null);
+        // Its words, or the words around them, are gone from the text: kept unseen, never dropped.
         const { shown, unplaced } = resolveRanges(after, [mark]);
         assert.deepEqual([shown.length, unplaced.length], [0, 1]);
         kept++;
       }
     }
   }
-  assert.ok(found > 40 && kept > 0, `found ${found}, kept ${kept}`);
+  assert.ok(found > 20 && kept > 0, `found ${found}, kept ${kept}`);
+});
+
+test('a mark is never moved onto the same word elsewhere when nothing around it matches', () => {
+  const stage3 = 'ม้าเดินกะเผลก lameness ที่ขาหน้าซ้าย หลังวิ่ง 2 ชั่วโมง ตรวจพบ lameness grade 3 ที่ขาหลังขวา';
+  const at = stage3.lastIndexOf('lameness');
+  const mark = makeRange(stage3, { start: at, end: at + 8 });
+  // An earlier, shorter stage of the case: the marked words lie past its end. Not shown, not moved.
+  const stage1 = stage3.slice(0, stage3.indexOf('ตรวจพบ'));
+  assert.ok(stage1.includes('lameness'));
+  assert.equal(placeRange(stage1, mark), null);
+  // An edit that took the words around it away: the first "lameness" is not the one the student marked.
+  const edited = `${stage3.slice(0, at)}XXXXXXXXXXXXXX`;
+  assert.equal(placeRange(edited.slice(0, at - 10) + 'ZZZZZZZZZZ lameness QQQQQQQQ', mark), null);
+  const { shown, unplaced } = resolveRanges(stage1, [mark]);
+  assert.deepEqual([shown.length, unplaced.length], [0, 1]);
+});
+
+test('every order of clear, undo, redo and the way back of a clear leaves the marks right', async () => {
+  const { restoreOp } = await import('../../src/lib/ink/case-hand.js');
+  const a = { id: 'a', kind: 'range', start: 0, end: 1 };
+  const b = { id: 'b', kind: 'range', start: 2, end: 3 };
+  // A model of the pane: one history, the toast holding what the clear removed, every other action ending it.
+  const run = (steps) => {
+    const h = createHistory();
+    let marks = [a, b];
+    let toast = null;
+    for (const step of steps) {
+      if (step === 'clear') {
+        const op = { add: [], remove: marks.slice() };
+        marks = applyOp(marks, op); h.push(op); toast = op.remove;
+      } else if (step === 'undo') { marks = h.undo(marks) ?? marks; toast = null; }
+      else if (step === 'redo') { marks = h.redo(marks) ?? marks; toast = null; }
+      else if (step === 'toast') {
+        const op = toast && restoreOp(marks, toast);
+        toast = null;
+        if (op) { marks = applyOp(marks, op); h.push(op); }
+      }
+    }
+    return { marks: marks.map((m) => m.id).sort(), h };
+  };
+  // The reviewer's sequence: clear, the toolbar's undo, then the toast's ย้อนกลับ, then undo again.
+  let r = run(['clear', 'undo', 'toast']);
+  assert.deepEqual(r.marks, ['a', 'b']);
+  assert.deepEqual(run(['clear', 'undo', 'toast', 'undo']).marks, ['a', 'b'], 'the toast did nothing after the undo, and a further undo has nothing left to take back');
+  assert.deepEqual(run(['clear', 'undo', 'toast', 'redo']).marks, [], 'redo clears again');
+  assert.deepEqual(run(['clear', 'toast']).marks, ['a', 'b']);
+  assert.deepEqual(run(['clear', 'toast', 'undo']).marks, [], 'undo takes back the restore');
+  assert.deepEqual(run(['clear', 'toast', 'undo', 'undo']).marks, ['a', 'b'], 'and then the clear');
+  assert.deepEqual(run(['clear', 'toast', 'toast']).marks, ['a', 'b']);
+  assert.deepEqual(run(['clear', 'undo', 'redo', 'toast']).marks, [], 'the toast is gone after redo');
+  assert.deepEqual(run(['clear', 'undo', 'redo', 'undo']).marks, ['a', 'b']);
+  // Whatever the order, no mark appears twice.
+  for (const seq of [['clear', 'toast', 'redo'], ['clear', 'undo', 'toast', 'redo', 'undo'], ['clear', 'toast', 'undo', 'redo']]) {
+    const m = run(seq).marks;
+    assert.equal(new Set(m).size, m.length, seq.join(' '));
+  }
+  // restoreOp counts only what is missing.
+  assert.equal(restoreOp([a, b], [a, b]), null);
+  assert.deepEqual(restoreOp([a], [a, b]).add, [b]);
 });
 
 test('of two places that hold the same words, the quote picks the one with its context', () => {
@@ -202,7 +259,7 @@ test('marks are kept per account and per case, never under the passage alone', (
 test('the account signed in when a case is first shown adopts the old marks, and the next account sees none', () => {
   const s = memory(oldMarks());
   const before = { ...Object.fromEntries(s.values) };
-  const first = readCaseMarks(s, where('u1'));
+  const first = readCaseMarks(s, where('u1'), adoptLegacy);
   assert.equal(first.ok, true);
   assert.equal(first.adopted, true);
   const hl = first.marks.find((m) => m.kind === 'range');
@@ -214,25 +271,25 @@ test('the account signed in when a case is first shown adopts the old marks, and
   for (const k of Object.keys(before)) assert.equal(s.getItem(k), before[k]);
 
   // u1 signs out, u2 signs in on the same device: nothing of u1's.
-  const second = readCaseMarks(s, where('u2'));
+  const second = readCaseMarks(s, where('u2'), adoptLegacy);
   assert.deepEqual([second.ok, second.marks.length, second.adopted], [true, 0, false]);
   // Nor a visitor.
-  assert.equal(readCaseMarks(s, where(null)).marks.length, 0);
+  assert.equal(readCaseMarks(s, where(null), adoptLegacy).marks.length, 0);
   // u1 again: their marks.
-  assert.equal(readCaseMarks(s, where('u1')).marks.length, 2);
+  assert.equal(readCaseMarks(s, where('u1'), adoptLegacy).marks.length, 2);
 });
 
 test('a visitor on the device at first run keeps the old marks as the visitor', () => {
   const s = memory(oldMarks());
-  assert.equal(readCaseMarks(s, where(null)).marks.length, 2);
-  assert.equal(readCaseMarks(s, where('u1')).marks.length, 0);
+  assert.equal(readCaseMarks(s, where(null), adoptLegacy).marks.length, 2);
+  assert.equal(readCaseMarks(s, where('u1'), adoptLegacy).marks.length, 0);
 });
 
 test('adoption happens once: a cleared case stays cleared, and the old keys are never written', () => {
   const s = memory(oldMarks());
-  const got = readCaseMarks(s, where('u1'));
+  const got = readCaseMarks(s, where('u1'), adoptLegacy);
   writeCaseMarks(s, got.key, []);
-  const again = readCaseMarks(s, where('u1'));
+  const again = readCaseMarks(s, where('u1'), adoptLegacy);
   assert.deepEqual([again.marks.length, again.adopted], [0, false]);
   assert.ok(s.getItem(`${legacy}-hl`));
   assert.ok(s.getItem(`${legacy}-dr`));
@@ -241,10 +298,10 @@ test('adoption happens once: a cleared case stays cleared, and the old keys are 
 test('storage that cannot be read gives no marks and nothing to write over', () => {
   const s = memory(oldMarks());
   s.getItem = () => { throw new Error('denied'); };
-  const got = readCaseMarks(s, where('u1'));
+  const got = readCaseMarks(s, where('u1'), adoptLegacy);
   assert.equal(got.ok, false);
   const broken = memory({ ...oldMarks(), [marksStorageKey('u1', caseKey(where('u1')))]: '{' });
-  assert.equal(readCaseMarks(broken, where('u1')).ok, false);
+  assert.equal(readCaseMarks(broken, where('u1'), adoptLegacy).ok, false);
 });
 
 // ── the hand ────────────────────────────────────────────────

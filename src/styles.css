@@ -5128,7 +5128,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-case-swatch.is-lilac { background: var(--clr-case-lilac-dot); }
 .vmx-case-flyout-anchor { position: relative; display: inline-flex; }
 .vmx-case-flyout { position: absolute; top: 100%; left: 0; z-index: var(--z-overlay); display: flex; gap: 2px; padding: 4px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-md); box-shadow: var(--shadow-md); }
-.vmx-case-surface { position: relative; padding: 14px 16px; color: var(--clr-ink); font-size: 16px; line-height: 1.75; touch-action: pan-x pan-y pinch-zoom; }
+.vmx-case-surface { position: relative; padding: 14px 16px; color: var(--clr-ink); font-size: 16px; line-height: 1.75; touch-action: manipulation; }
 .vmx-case-surface.is-pen, .vmx-case-surface.is-eraser { cursor: crosshair; }
 .vmx-case-surface.is-highlighter { cursor: text; }
 .vmx-case-text .vmx-rb-p, .vmx-case-text .vmx-rb-lead { white-space: pre-wrap; }

@@ -5,7 +5,7 @@ import { PEN_COLORS, RANGE_COLORS } from '../../lib/case-marks.js';
 // ============================================================
 // CaseTools — the case reader's tools, in the three places they sit
 // ============================================================
-// work/case-reader/DESIGN.md section 4. One component, three layouts:
+// The case reader design, section 4. One component, three layouts:
 //   row   the pane on a tablet or a desktop, sticky at the top of the pane
 //   rail  the sheet on a tablet or a desktop, floating at the left edge
 //   bar   the sheet on a phone, in place of the bottom nav

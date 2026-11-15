@@ -855,7 +855,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
           {currentQ.passage && (
             <div style={{ textAlign: 'left' }}>
-              <CasePane text={currentQ.passage} title={currentQ.passage_title} subject={currentQ.subject} ownerId={ownerId} ask={currentQ.q || ''} />
+              <CasePane text={currentQ.passage} title={currentQ.passage_title} subject={currentQ.subject} ownerId={ownerId} ask={currentQ.q || ''} questionKey={`${currentQ.subject}:${currentQ.id}`} />
             </div>
           )}
           {/* The figure as the practice card shows it (Question.jsx): one figure

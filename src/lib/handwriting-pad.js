@@ -29,7 +29,7 @@ export function createPointerPolicy() {
 export const PEN_SEEN_KEY = 'vmx-ink-pen-seen';
 
 /**
- * The hand on a reading surface (the case reader, work/case-reader/DESIGN.md
+ * The hand on a reading surface (the case reader design,
  * section 3): a pen always marks with the tool in hand and a finger always
  * moves the page, so there is no mode to switch. A device that never showed
  * a pen gets one switch that lets one finger write. A mouse marks with its

@@ -1,7 +1,7 @@
 // ============================================================
 // ink/case-hand.js — the hand on a case surface (pane and sheet)
 // ============================================================
-// work/case-reader/DESIGN.md sections 2 and 3, slice 1. Framework-free: the
+// The case reader design, sections 2 and 3, slice 1. Framework-free: the
 // pointer loop calls back into React only when a mark is committed or erased,
 // never per pointer move. Slice 2 moves the PDF reader's pointer loop into
 // src/lib/ink/engine.js beside this file and folds this one into it; until
@@ -11,8 +11,10 @@
 // The hand (createHandPolicy, handwriting-pad.js): a pen marks with the tool
 // in hand and a finger moves the page with the browser's own scrolling. With
 // the finger switch on, one finger marks and two fingers scroll; a stroke
-// that a second finger joins within 80 ms is dropped.
+// that a second finger joins, at any moment before it is committed, is dropped.
 // ============================================================
+import { quoteAt, legacyPassageHash, ADOPT_KEY } from '../case-marks.js';
+import { readStoredJson } from '../stored-json.js';
 
 // ── the word snap ───────────────────────────────────────────
 // Thai has no spaces: word boundaries come from the segmenter. A browser
@@ -46,11 +48,21 @@ export function snapRange(text, a, b) {
   let hi = Math.min(str.length, Math.max(a, b));
   if (hi === lo) hi = Math.min(str.length, lo + 1);
   if (hi <= lo) return null;
-  // Segment a window wide enough to hold the words at both edges whole.
-  const segs = words(str, lo - 64, hi + 64).filter((s) => s.end > lo && s.start < hi);
-  if (!segs.some((s) => s.word)) return null;
-  let start = segs[0].word ? segs[0].start : lo;
-  const last = segs[segs.length - 1];
+  // Only the words at the two edges are segmented (64 characters each side of each end), so a drag
+  // across a whole long case costs what a short one does.
+  const over = (s) => s.end > lo && s.start < hi;
+  let first;
+  let last;
+  if (hi - lo <= 128) {
+    const segs = words(str, lo - 64, hi + 64).filter(over);
+    if (!segs.some((x) => x.word)) return null;
+    [first, last] = [segs[0], segs[segs.length - 1]];
+  } else {
+    first = words(str, lo - 64, lo + 64).find(over);
+    last = words(str, hi - 64, hi + 64).filter(over).pop();
+    if (!first || !last) return null;
+  }
+  let start = first.word ? first.start : lo;
   let end = last.word ? last.end : hi;
   while (start < end && /\s/.test(str[start])) start++;
   while (end > start && /\s/.test(str[end - 1])) end--;
@@ -186,9 +198,9 @@ export function placeDelta(root, place, top) {
 }
 
 // ── the hand ────────────────────────────────────────────────
-const SECOND_FINGER_MS = 80;
-const TAP_DWELL_MS = 120;
-const TAP_EM = 0.15;
+// A tap is short and still: under 250 ms and 8 px (a Pencil or a fingertip moves a few pixels as it lands).
+const TAP_MS = 250;
+const TAP_PX = 8;
 
 /** The passage offset under a point inside the text column, or null outside it. */
 export function offsetInColumn(root, x, y) {
@@ -220,7 +232,6 @@ export function attachCaseSurface(root, wet, opts) {
   const fingers = new Map();   // touch pointers while the finger switch is on
   let pan = null;
   let frame = 0;
-  const em = () => parseFloat(getComputedStyle(root).fontSize) || 16;
 
   const clearWet = () => { if (wet) wet.replaceChildren(); };
   const paintWet = (range) => {
@@ -240,9 +251,13 @@ export function attachCaseSurface(root, wet, opts) {
     while (wet.children.length > rects.length) wet.lastChild.remove();
   };
 
+  // The mark under a point, judged by the character's own box: the caret sits between two characters,
+  // so the right half of a mark's last character would otherwise miss it.
   const markAt = (x, y) => {
-    const off = offsetInColumn(root, x, y);
+    let off = offsetInColumn(root, x, y);
     if (off == null) return null;
+    const before = off > 0 ? charBox(root, off - 1) : null;
+    if (before && x >= before.left && x <= before.right && y >= before.top && y <= before.bottom) off -= 1;
     const { ranges } = opts.state();
     const hit = (ranges || []).find((m) => off >= m.start && off < m.end);
     return hit || null;
@@ -292,7 +307,7 @@ export function attachCaseSurface(root, wet, opts) {
     clearWet();
     if (!commit) return;
     const moved = Math.hypot(s.x - s.x0, s.y - s.y0);
-    const tap = moved < TAP_EM * em() && performance.now() - s.t0 < TAP_DWELL_MS;
+    const tap = moved < TAP_PX && performance.now() - s.t0 < TAP_MS;
     if (tap) {
       const m = markAt(s.x0, s.y0);
       if (m) {
@@ -313,7 +328,8 @@ export function attachCaseSurface(root, wet, opts) {
       fingers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (fingers.size >= 2) {
         // A second finger: the page moves. A stroke it joined at once was the start of a scroll.
-        if (stroke && stroke.pointerType === 'touch') end(performance.now() - stroke.t0 > SECOND_FINGER_MS);
+        // A second finger, however late it lands, means the hand is scrolling: the stroke under way is dropped.
+        if (stroke && stroke.pointerType === 'touch') end(false);
         pan = { y: midY() };
         return;
       }
@@ -326,7 +342,8 @@ export function attachCaseSurface(root, wet, opts) {
     if (st.tool === 'pen' && (!st.penEnabled || !opts.pen)) return;
     e.preventDefault();
     try { root.setPointerCapture?.(e.pointerId); } catch { /* synthetic pointer */ }
-    // Off iOS a pen pointer would scroll under pan-x pan-y: this stroke holds the page still.
+    // What keeps a pen from scrolling is the touchstart below, which arrives after this pointerdown
+    // and is cancelled for a stylus; this only holds the surface still for the rest of the stroke.
     if (e.pointerType === 'pen') root.style.touchAction = 'none';
     stroke = {
       id: e.pointerId, pointerType: e.pointerType, tool: st.tool, t0: performance.now(),
@@ -380,6 +397,17 @@ export function attachCaseSurface(root, wet, opts) {
     if (isIOSStylus(e) || (stroke && stroke.pointerType === 'pen')) e.preventDefault();
   };
   const onSelectStart = (e) => { if (stroke) e.preventDefault(); };
+  // A mouse selection with the highlighter in hand is a highlight. A finger's long press keeps the
+  // system's copy and look-up, and is offered ไฮไลต์ beside them (onPicked), once the selection settles.
+  const onMouseUp = () => {
+    const st = opts.state();
+    if (st.tool !== 'highlighter') return;
+    const r = selectedRange(root, st.text);
+    if (!r) return;
+    opts.onRange(r);
+    window.getSelection?.().removeAllRanges();
+  };
+  const onTouchEnd = () => { setTimeout(() => opts.onPicked?.(selectedRange(root, opts.state().text)), 0); };
 
   root.addEventListener('pointerdown', onDown);
   root.addEventListener('pointermove', onMove);
@@ -388,7 +416,11 @@ export function attachCaseSurface(root, wet, opts) {
   root.addEventListener('touchstart', onTouch, { passive: false });
   root.addEventListener('touchmove', onTouch, { passive: false });
   root.addEventListener('selectstart', onSelectStart);
+  root.addEventListener('mouseup', onMouseUp);
+  root.addEventListener('touchend', onTouchEnd);
   return () => {
+    root.removeEventListener('mouseup', onMouseUp);
+    root.removeEventListener('touchend', onTouchEnd);
     end(false);
     root.removeEventListener('pointerdown', onDown);
     root.removeEventListener('pointermove', onMove);
@@ -492,4 +524,109 @@ export function pixelPen({ box, canvas, strokes, color, commit, redraw, newId })
       return strokes().filter((s) => s.points.some(([px, py]) => (px - lx) ** 2 + (py - ly) ** 2 < 14 * 14)).map((s) => s.id);
     },
   };
+}
+
+// ── the pane's side of the sheet and of a clear ─────────────
+
+// The scroller a pane reads in: the pane itself where it scrolls (the sticky column from 1024 px), else the page.
+export function scrollerOf(el) {
+  const pane = el?.closest?.('.vmx-q-passage-pane');
+  if (pane && pane.scrollHeight > pane.clientHeight + 1 && getComputedStyle(pane).overflowY !== 'visible') return pane;
+  return null;
+}
+
+/** The first line a reader of the pane sees: under the pane's top bar, inside the pane where it scrolls. */
+export function paneTop(root, bar) {
+  const sc = scrollerOf(root);
+  return Math.max(sc ? sc.getBoundingClientRect().top : 0, bar?.getBoundingClientRect().bottom ?? 0);
+}
+
+/**
+ * The op that puts back marks a clear removed, counting only those not already
+ * back (the toolbar's undo may have restored them first), or null when there is
+ * nothing to put back. Applying it twice, or after an undo, changes nothing.
+ */
+export function restoreOp(marks, removed) {
+  const have = new Set((marks || []).map((m) => m.id));
+  const add = (removed || []).filter((m) => !have.has(m.id));
+  return add.length ? { add, remove: [] } : null;
+}
+
+/**
+ * The way back from a clear, for a case the card has left: its marks go back under its own key, unless
+ * its record cannot be read, which is never written over.
+ */
+export function restoreElsewhere(storage, key, removed, { readStoredJson, writeCaseMarks, applyOp }) {
+  try {
+    const present = storage.getItem(key) != null;
+    const rec = readStoredJson(key, null, { storage, accept: (r) => Array.isArray(r?.marks) });
+    if (present && !rec) return;
+    const marks = rec ? rec.marks : [];
+    const op = restoreOp(marks, removed);
+    if (op) writeCaseMarks(storage, key, applyOp(marks, op));
+  } catch { /* storage refused: nothing else to do */ }
+}
+
+// ── the marks saved before owner-scoped keys ────────────────
+const LEGACY_RANGE = { yellow: 'lemon', green: 'sky', pink: 'lilac' };
+
+/** The marks SmartPassage saved under the passage's own key, in today's form. The old values stay where they are. */
+export function convertLegacy(text, hlRaw, drRaw) {
+  const marks = [];
+  // Each old key on its own: one that cannot be read is left where it is (the backup) and brings nothing.
+  const list = (raw) => { try { const v = JSON.parse(raw || '[]'); return Array.isArray(v) ? v : []; } catch { return []; } };
+  const hl = list(hlRaw);
+  const dr = list(drRaw);
+  for (const h of hl) {
+    if (!(Number.isInteger(h?.start) && Number.isInteger(h?.end) && h.end > h.start)) continue;
+    marks.push({
+      id: `legacy-hl-${String(h.id ?? marks.length)}`, kind: 'range', style: 'wash', start: h.start, end: h.end,
+      color: LEGACY_RANGE[h.color] || 'lemon', quote: quoteAt(text, h.start, h.end),
+    });
+  }
+  dr.forEach((s, i) => {
+    if (!Array.isArray(s?.points)) return;
+    marks.push({ id: `legacy-dr-${i}`, kind: 'px', color: s.color, width: s.width, points: s.points, legacy: 1 });
+  });
+  return marks;
+}
+
+/**
+ * Takes the sheet's history entry back without the app hearing the popstate (the app reads Back in a
+ * paper as leaving the set). For a sheet closed by the card, not by Back.
+ */
+export function dropEntry(entry) {
+  if (!entry?.on) return;
+  entry.on = false;
+  // Only while the sheet's entry is still the one the page stands on: if the app moved on to a page of
+  // its own (the results), going back would take the student off it.
+  if (!window.history.state?.vmxCaseSheet) return;
+  const swallow = (e) => { e.stopImmediatePropagation(); window.removeEventListener('popstate', swallow, true); };
+  window.addEventListener('popstate', swallow, true);
+  setTimeout(() => window.removeEventListener('popstate', swallow, true), 1000);
+  window.history.back();
+}
+
+/**
+ * The first read of a case with no record (readCaseMarks): the account signed in when a case is first
+ * shown after this release (or the visitor) is recorded once in ADOPT_KEY as the owner of the marks
+ * saved before it; that owner alone gets a copy of a passage's old marks, written at once so a later
+ * clear is not undone by adopting again. The old keys are never written or removed.
+ */
+export function adoptLegacy(storage, key, { ownerId = null, passage = '' }) {
+  let claim = readStoredJson(ADOPT_KEY, null, { storage });
+  const me = ownerId || null;
+  if (!claim || !('owner' in claim)) {
+    claim = { owner: me, at: Date.now() };
+    try { storage.setItem(ADOPT_KEY, JSON.stringify(claim)); } catch { /* read-only storage: adopt nothing */ return { ok: true, key, marks: [], adopted: false }; }
+  }
+  if ((claim.owner || null) !== me) return { ok: true, key, marks: [], adopted: false };
+  const legacy = `vmx-pass-${legacyPassageHash(String(passage))}`;
+  const hl = storage.getItem(`${legacy}-hl`);
+  const dr = storage.getItem(`${legacy}-dr`);
+  if (hl == null && dr == null) return { ok: true, key, marks: [], adopted: false };
+  const marks = convertLegacy(String(passage), hl, dr);
+  // Written at once, so a later clear of this case is not undone by adopting the old keys again.
+  storage.setItem(key, JSON.stringify({ v: 1, marks }));
+  return { ok: true, key, marks, adopted: true };
 }

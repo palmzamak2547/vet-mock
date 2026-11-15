@@ -10,7 +10,7 @@ import {
 } from '../../lib/case-marks.js';
 
 // ============================================================
-// CasePane — a case beside its question (work/case-reader/DESIGN.md)
+// CasePane — a case beside its question (the case reader)
 // ============================================================
 // The pane draws the passage with the typeset blocks (CaseText), holds the
 // student's marks on it and their undo history, and opens the case as a
@@ -30,6 +30,20 @@ import {
 
 // Undo is per case and kept for the page's life, so it survives the card moving to the next part.
 const HISTORIES = new Map();
+
+// What a hand needs, loaded once for the page: the pane asks for it as it draws, and the sheet's
+// opening waits for it, so the reading place is always measured, however slow the network.
+let handLoad = null;
+let handReady = null;
+const handNow = () => handReady;
+const loadHand = () => {
+  if (!handLoad) {
+    handLoad = Promise.all([import('../../lib/ink/case-hand.js'), import('./CaseTools.jsx')])
+      .then(([m, tools]) => { handReady = { ...m, Tools: tools.default, MarkBar: tools.MarkBar, PickBar: tools.PickBar }; return handReady; });
+    handLoad.catch(() => { handLoad = null; });
+  }
+  return handLoad;
+};
 const historyFor = (key) => {
   if (!HISTORIES.has(key)) HISTORIES.set(key, createHistory());
   return HISTORIES.get(key);
@@ -53,16 +67,9 @@ function useMedia(query) {
   return on;
 }
 
-// The scroller a pane reads in: the pane itself where it scrolls (the sticky column from 1024 px), else the page.
-function scrollerOf(el) {
-  const pane = el?.closest?.('.vmx-q-passage-pane');
-  if (pane && pane.scrollHeight > pane.clientHeight + 1 && getComputedStyle(pane).overflowY !== 'visible') return pane;
-  return null;
-}
-
 export default function CasePane({
   text, title, subject = '', ownerId = null, defaultOpen = true, openSignal = 0,
-  ask = '', stemBody = '', figure = null, clockDeadline = null,
+  ask = '', stemBody = '', figure = null, clockDeadline = null, questionKey = '',
 }) {
   const [open, setOpen] = useState(defaultOpen);
   // Another passage is another piece of data: it arrives open, whatever the one before it was left as.
@@ -86,43 +93,55 @@ export default function CasePane({
   // ── the marks of this account on this case ──
   const where = useMemo(() => ({ ownerId: ownerId || null, subject, title: title || '', passage: text || '' }), [ownerId, subject, title, text]);
   const [state, setState] = useState({ key: null, marks: [], ok: false });
+  // Marks that could not be saved stay on screen for this visit, and the pane says so once.
+  const [saveFailed, setSaveFailed] = useState(false);
   const [loadFor, setLoadFor] = useState(null);
-  const sameWhere = loadFor && loadFor.ownerId === where.ownerId && loadFor.subject === where.subject
+  // A case with no record yet is read again the moment the code that adopts old marks has loaded.
+  const handLoaded = handNow();
+  const sameWhere = loadFor && !(state.pending && handLoaded) && loadFor.ownerId === where.ownerId && loadFor.subject === where.subject
     && loadFor.title === where.title && loadFor.passage.slice(0, 200) === where.passage.slice(0, 200);
   if (!sameWhere) {
     // Read during render, so the first paint of a case already holds its marks.
     const s = storage();
-    const got = s ? readCaseMarks(s, where) : { ok: false, key: null };
+    const got = s ? readCaseMarks(s, where, handLoaded?.adoptLegacy) : { ok: false, key: null };
     setLoadFor(where);
-    setState({ key: got.key, marks: got.ok ? got.marks : [], ok: Boolean(got.ok) });
+    setState({ key: got.key, marks: got.ok ? got.marks : [], ok: Boolean(got.ok), pending: Boolean(got.pending) });
+    setSaveFailed(!got.ok && Boolean(got.key));
   }
   const marksRef = useRef(state);
   marksRef.current = state;
   const history = state.key ? historyFor(state.key) : null;
   const [, bump] = useState(0);
 
-  const commit = useCallback((op, { record = true } = {}) => {
+  // A record that could not be read is never written over: marks made then live in memory only.
+  const save = (cur, marks) => {
+    const s = storage();
+    if (!cur.ok || !s || !writeCaseMarks(s, cur.key, marks)) setSaveFailed(true);
+  };
+  // Any other change ends a clear's way back: its marks may be back already, or meant to stay gone.
+  const toastRef = useRef(null);
+  const commit = useCallback((op, { record = true, fromToast = false } = {}) => {
     const cur = marksRef.current;
-    if (!cur.ok || !cur.key) return;
+    if (!cur.key) return;
+    if (!fromToast) dropToast();
     const marks = applyOp(cur.marks, op);
     const next = { ...cur, marks };
     marksRef.current = next;
     setState(next);
-    const s = storage();
-    if (s) writeCaseMarks(s, cur.key, marks);
+    save(cur, marks);
     if (record) historyFor(cur.key).push(op);
     bump((n) => n + 1);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const replaceMarks = useCallback((marks) => {
     const cur = marksRef.current;
-    if (!cur.ok || !cur.key || !marks) return;
+    if (!cur.key || !marks) return;
+    dropToast();
     const next = { ...cur, marks };
     marksRef.current = next;
     setState(next);
-    const s = storage();
-    if (s) writeCaseMarks(s, cur.key, marks);
+    save(cur, marks);
     bump((n) => n + 1);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const undo = () => replaceMarks(history?.undo(marksRef.current.marks));
   const redo = () => replaceMarks(history?.redo(marksRef.current.marks));
 
@@ -132,6 +151,8 @@ export default function CasePane({
   rangesRef.current = ranges;
 
   const addRange = useCallback((range, color) => {
+    // A range already wholly marked adds nothing (a tap that ran a little long would stack a hidden copy).
+    if (rangesRef.current.some((m) => m.start <= range.start && m.end >= range.end)) return;
     commit({ add: [makeRange(text || '', range, color)], remove: [] });
   }, [commit, text]);
   const erase = useCallback((ids) => {
@@ -142,29 +163,38 @@ export default function CasePane({
   // ── clear all, with a way back ──
   const [toast, setToast] = useState(null);
   const toastTimer = useRef(0);
-  const clearAll = () => {
+  toastRef.current = toast;
+  function dropToast() {
+    clearTimeout(toastTimer.current);
+    if (toastRef.current) { toastRef.current = null; setToast(null); }
+  }
+  // Clear removes what this view shows: the marks of another stage of the case, unseen here, stay. The
+  // sheet clears its highlights only, since it does not show the pane's pen strokes.
+  const clearAll = ({ strokesToo = true } = {}) => {
     const cur = marksRef.current;
-    const visible = new Set([...rangesRef.current.map((m) => m.id), ...strokes.map((m) => m.id)]);
+    const visible = new Set([...rangesRef.current.map((m) => m.id), ...(strokesToo ? strokes.map((m) => m.id) : [])]);
     const removed = cur.marks.filter((m) => visible.has(m.id));
     if (!removed.length) return;
     commit({ add: [], remove: removed });
-    clearTimeout(toastTimer.current);
-    setToast({ key: cur.key, removed, n: removed.length });
-    toastTimer.current = setTimeout(() => setToast(null), 8000);
+    const t = { key: cur.key, removed, n: removed.length };
+    toastRef.current = t;
+    setToast(t);
+    toastTimer.current = setTimeout(() => { toastRef.current = null; setToast(null); }, 8000);
   };
   const undoClear = () => {
-    const t = toast;
-    setToast(null);
-    clearTimeout(toastTimer.current);
+    const t = toastRef.current;
+    dropToast();
     if (!t) return;
-    const op = { add: t.removed, remove: [] };
-    if (t.key === marksRef.current.key) { commit(op); return; }
+    const h = handRef.current;
+    if (!h) return;
+    if (t.key === marksRef.current.key) {
+      const op = h.restoreOp(marksRef.current.marks, t.removed);
+      if (op) commit(op, { fromToast: true });
+      return;
+    }
     // The card moved on to another case: the marks go back to the case they came from.
     const s = storage();
-    try {
-      const rec = readStoredJson(t.key, { marks: [] }, { storage: s, accept: (r) => Array.isArray(r?.marks) });
-      writeCaseMarks(s, t.key, applyOp(rec.marks, op));
-    } catch { /* storage refused: nothing else to do */ }
+    if (s) h.restoreElsewhere(s, t.key, t.removed, { readStoredJson, writeCaseMarks, applyOp });
   };
   useEffect(() => () => clearTimeout(toastTimer.current), []);
 
@@ -194,9 +224,7 @@ export default function CasePane({
   handRef.current = hand;
   useEffect(() => {
     let alive = true;
-    Promise.all([import('../../lib/ink/case-hand.js'), import('./CaseTools.jsx')])
-      .then(([m, tools]) => { if (alive) setHand({ ...m, Tools: tools.default, MarkBar: tools.MarkBar, PickBar: tools.PickBar }); })
-      .catch(() => {});
+    loadHand().then((h) => { if (alive) setHand(h); }).catch(() => {});
     return () => { alive = false; };
   }, []);
 
@@ -226,11 +254,12 @@ export default function CasePane({
         penEnabled: true,
         text: live.current.text || '',
         ranges: rangesRef.current,
-        scroller: scrollerOf(box) || window,
+        scroller: hand.scrollerOf(box) || window,
       }),
       onRange: (range) => addRange(range, live.current.rangeColor),
       onErase: erase,
       onMarkTap: (id, rect) => setMarkBar({ id, rect }),
+      onPicked: (r) => setPicked(r || null),
       onPenSeen: () => setPenSeen(true),
       pen: hand.pixelPen({
         box,
@@ -247,17 +276,6 @@ export default function CasePane({
   // A mouse selection with the highlighter in hand is a highlight. A finger's long press keeps the
   // system's copy and look-up, and offers ไฮไลต์ beside them.
   const [picked, setPicked] = useState(null);
-  const fromMouse = () => {
-    if (live.current.tool !== 'highlighter' || live.current.phone) return;
-    const r = hand?.selectedRange(textRef.current, text || '');
-    if (!r) return;
-    addRange(r, live.current.rangeColor);
-    window.getSelection?.().removeAllRanges();
-  };
-  const fromFinger = () => {
-    // The selection settles after the touch ends.
-    setTimeout(() => setPicked(handRef.current?.selectedRange(textRef.current, text || '') || null), 0);
-  };
 
   // ── the sheet ──
   const [Sheet, setSheet] = useState(null);
@@ -265,17 +283,29 @@ export default function CasePane({
   const [sheetFailed, setSheetFailed] = useState(false);
   const opening = useRef(null);
   const topRef = useRef(null);
+  const questionRef = useRef(questionKey);
+  questionRef.current = questionKey;
+  const entry = useRef({});
   const openSheet = () => {
-    const root = textRef.current;
-    const sc = scrollerOf(root);
-    // The first line a reader sees is the one under the pane's top bar.
-    const top = Math.max(sc ? sc.getBoundingClientRect().top : 0, topRef.current?.getBoundingClientRect().bottom ?? 0);
-    opening.current = { place: root && hand ? hand.readingPlace(root, Math.max(top, 0)) : null, scrollY: window.scrollY };
     setSheetFailed(false);
-    if (Sheet) { setSheetOpen(true); return; }
-    import('./CaseSheet.jsx')
-      .then((m) => { setSheet(() => m.default); setSheetOpen(true); })
-      .catch(() => setSheetFailed(true));
+    const scrollY = window.scrollY;
+    const asked = questionRef.current;
+    // The sheet's history entry is made in the tap itself: an entry pushed later, without the tap's
+    // activation, is one WebKit's Back may skip. Back then closes the sheet (CaseSheet).
+    const e = { on: false };
+    try { window.history.pushState({ ...window.history.state, vmxCaseSheet: 1 }, ''); e.on = true; } catch { /* no history */ }
+    entry.current = e;
+    Promise.all([loadHand(), Sheet ? null : import('./CaseSheet.jsx')])
+      .then(([h, m]) => {
+        if (m) setSheet(() => m.default);
+        // The card moved on while the sheet was loading: it opens for nothing.
+        if (questionRef.current !== asked) { h.dropEntry(e); return; }
+        // Measured once both have arrived and nothing has moved: the first line under the pane's top bar.
+        const root = textRef.current;
+        opening.current = { place: root ? h.readingPlace(root, h.paneTop(root, topRef.current)) : null, scrollY };
+        setSheetOpen(true);
+      })
+      .catch(() => { setSheetFailed(true); handNow()?.dropEntry(e); });
   };
   const closeSheet = (place) => {
     setSheetOpen(false);
@@ -284,13 +314,15 @@ export default function CasePane({
     requestAnimationFrame(() => {
       if (back) window.scrollTo(0, back.scrollY);
       const root = textRef.current;
-      const sc = scrollerOf(root);
-      const under = Math.max(sc ? sc.getBoundingClientRect().top : 0, topRef.current?.getBoundingClientRect().bottom ?? 0);
-      if (sc && root && place && handRef.current) sc.scrollTop += handRef.current.placeDelta(root, place, under);
+      const h = handRef.current;
+      const sc = h && root ? h.scrollerOf(root) : null;
+      if (sc && place) sc.scrollTop += h.placeDelta(root, place, h.paneTop(root, topRef.current));
     });
   };
-  // A part with another passage, or none, closes the sheet: the student is on another case.
-  useEffect(() => { setSheetOpen(false); }, [where.passage.slice(0, 200), where.title]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Another question under the sheet closes it, whatever the reason (a timed paper moving on, a
+  // passage shared by several questions, another case): the student sees the card, its notices and
+  // its ask as they are now, never a sheet that changed what it was asking.
+  useEffect(() => { setSheetOpen(false); }, [questionKey, where.passage.slice(0, 200), where.title]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const titleId = useId();
   const isData = hasTable(text || '');
@@ -309,7 +341,7 @@ export default function CasePane({
       canRedo={Boolean(history?.canRedo)}
       onUndo={undo}
       onRedo={redo}
-      onClear={clearAll}
+      onClear={() => clearAll()}
     />
   ) : null;
 
@@ -329,14 +361,13 @@ export default function CasePane({
         </button>
       </div>
       {sheetFailed && <p className="vmx-case-note" role="status">เปิดหน้าอ่านเต็มจอไม่สำเร็จ ลองแตะอีกครั้ง</p>}
+      {saveFailed && <p className="vmx-case-note" role="status">บันทึกรอยบนเคสนี้ลงเครื่องไม่ได้ รอยที่เขียนตอนนี้จะหายเมื่อปิดหน้า</p>}
       {tools}
       </div>
       {open && (
         <div
           ref={surfaceRef}
           className={`vmx-case-surface is-${canMark ? tool : 'read'}`}
-          onMouseUp={fromMouse}
-          onTouchEnd={fromFinger}
         >
           <CaseText ref={textRef} text={text || ''} ranges={ranges} labelledBy={titleId} />
           <div ref={wetRef} className="vmx-case-wet" aria-hidden="true" />
@@ -369,6 +400,7 @@ export default function CasePane({
           clockDeadline={clockDeadline}
           place={opening.current?.place || null}
           onClose={closeSheet}
+          entry={entry.current}
           policy={policy}
           penSeen={penSeen}
           coarse={coarse}
@@ -384,7 +416,7 @@ export default function CasePane({
           canRedo={Boolean(history?.canRedo)}
           onUndo={undo}
           onRedo={redo}
-          onClear={clearAll}
+          onClear={() => clearAll({ strokesToo: false })}
           toast={toast}
           onUndoClear={undoClear}
         />

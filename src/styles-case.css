@@ -4,7 +4,7 @@
    components/case/CaseSheet.jsx, loaded with it on the first tap of
    อ่านเต็มจอ (chunk-scoped). The pane, the tool buttons and the marks
    are in styles.css, since the pane is drawn with the question.
-   Measures from work/case-reader/DESIGN.md section 1:
+   Measures from the case reader design, section 1:
      phone        17 px, 20 px each side, tools in a bar at the bottom
      tablet/desk  18 px, 34 to 36 em, tools in a rail at the left edge  */
 
