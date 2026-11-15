@@ -7,7 +7,7 @@ import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/uti
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
-import RichBlocks from '../components/RichBlocks.jsx';
+import RichBlocks, { StemText } from '../components/RichBlocks.jsx';
 import { hasTable } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
@@ -416,7 +416,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {cautionChipShown(q.flag) && <span className="vmx-review-caution-badge">{CAUTION_CHIP_TEXT}</span>}
               </div>
             </div>
-            <h2 className="vmx-review-q"><RichText text={displayStem(q)} /></h2>
+            <StemText text={displayStem(q)} ask={(content) => <h2 className="vmx-review-q">{content}</h2>} />
 
             {isCorrectCollapsed ? (
               <button

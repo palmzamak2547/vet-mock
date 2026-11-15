@@ -27,7 +27,7 @@ test.beforeAll(async () => {
     // is the path a range-capable deck takes until its first range arrives.
     // ?unsized: no Content-Length, so the reader cannot know a percentage.
     const sized = !req.url.includes('unsized');
-    res.writeHead(200, { 'content-type': 'application/pdf', ...(sized ? { 'content-length': String(TOTAL) } : {}), 'cache-control': 'no-store' });
+    res.writeHead(200, { 'content-type': 'application/pdf', ...(sized ? { 'content-length': String(TOTAL) } : {}), 'cache-control': 'no-store', 'access-control-allow-origin': '*' });
     const head = Buffer.from('%PDF-1.4\n');
     let sent = 0;
     const step = 65536;
@@ -63,21 +63,33 @@ const TITLES = {
 
 // The shelf snapshot answers findLibraryDoc first, so a deck of any shape can
 // be put on this device's shelf without a database (CI builds without one).
-async function shelve(page, { slug, title, ranged, sized = true }) {
+// It is written by an init script in the reader's own document, and every
+// caches.open waits for that write: Playwright's WebKit keeps Cache Storage
+// only for the document that wrote it (measured 15 Nov 2026: put, navigate,
+// match finds nothing), so a snapshot written on an earlier page never reached
+// the reader there and the deck came up "not found", with no download at all.
+// The link names the slow server itself, so the body streams from a real
+// socket on every engine (a plain WebKit fetch from that server streams 1.3 MB
+// in 49 reads before the end, as Chromium does).
+async function openShelved(page, { slug, title, ranged, sized = true }) {
   await page.route(/\/_vercel\/(insights|speed-insights)\/script[^/]*\.js|va\.vercel-scripts\.com\/.*script/,
     (route) => route.fulfill({ contentType: 'application/javascript', body: '' }));
-  await page.route('**/api/library-file?slug=*', (route) => route.fulfill({ json: { url: '/__slow-deck.pdf' } }));
-  await page.route('**/__slow-deck.pdf', (route) => route.continue({ url: `http://127.0.0.1:${port}/deck.pdf${sized ? '' : '?unsized'}` }));
-  await page.goto('/robots.txt');
-  await page.evaluate(async (doc) => {
-    const cache = await caches.open('vmx-library-catalog-v1');
-    await cache.put('/__vmx/library-catalog.json', new Response(JSON.stringify({ at: Date.now(), docs: [doc] }),
-      { headers: { 'content-type': 'application/json' } }));
+  await page.route('**/api/library-file?slug=*', (route) => route.fulfill({ json: { url: `http://127.0.0.1:${port}/deck.pdf${sized ? '' : '?unsized'}` } }));
+  await page.addInitScript((doc) => {
+    if (typeof caches === 'undefined') return;
+    const proto = Object.getPrototypeOf(caches);
+    const open = proto.open;
+    const ready = open.call(caches, 'vmx-library-catalog-v1')
+      .then((cache) => cache.put('/__vmx/library-catalog.json', new Response(JSON.stringify({ at: Date.now(), docs: [doc] }),
+        { headers: { 'content-type': 'application/json' } })))
+      .catch(() => {});
+    proto.open = function openAfterSeed(name) { return ready.then(() => open.call(this, name)); };
   }, {
     id: slug, slug, title, status: 'public', mime: 'application/pdf', storage_provider: 'r2',
     storage_key: `test/${slug}.pdf`, byte_size: TOTAL, page_count: 40, sha256_16: null,
     linearized: false, range_supported: ranged, subject: 'vca', year: 5,
   });
+  await page.goto(`/app/tools/pdf?doc=${slug}`);
 }
 
 // The four boxes that must never share a pixel. The mascot is the paw inside
@@ -134,8 +146,7 @@ for (const path of PATHS) {
     test(`loading a large deck, ${path.name}, ${size.width}x${size.height}: title, mascot, percentage and size never overlap`, async ({ page }, info) => {
       await page.setViewportSize(size);
       const slug = `slow-deck-${path.ranged ? 'range' : 'whole'}`;
-      await shelve(page, { slug, title: size.width > 600 ? TITLES.wide : TITLES.two, ranged: path.ranged });
-      await page.goto(`/app/tools/pdf?doc=${slug}`);
+      await openShelved(page, { slug, title: size.width > 600 ? TITLES.wide : TITLES.two, ranged: path.ranged });
       const status = page.locator('.vmx-document-loading');
       await expect(status).toContainText(/1\.[0-9] \/ 24\.5 MB/, { timeout: 30_000 });
       await expect(status.locator('.vmx-motion-loader.is-measured')).toBeVisible();
@@ -161,11 +172,10 @@ for (const path of PATHS) {
   test(`loading a large deck, ${path.name}: a title of four lines or more, enlarged 125%, still leaves each its own place`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 664 });
     const slug = `slow-deck-long-${path.ranged ? 'range' : 'whole'}`;
-    await shelve(page, { slug, title: TITLES.long, ranged: path.ranged });
     await page.addInitScript(() => {
       document.addEventListener('DOMContentLoaded', () => { document.documentElement.style.zoom = '1.25'; });
     });
-    await page.goto(`/app/tools/pdf?doc=${slug}`);
+    await openShelved(page, { slug, title: TITLES.long, ranged: path.ranged });
     const status = page.locator('.vmx-document-loading');
     await expect(status).toContainText(/1\.[0-9] \/ 24\.5 MB/, { timeout: 30_000 });
     if (process.env.VMX_SHOT_DIR) {
@@ -183,8 +193,7 @@ for (const path of PATHS) {
   test(`loading a deck of unknown size, ${path.name}: title, loader and status never overlap`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 664 });
     const slug = `unsized-deck-${path.ranged ? 'range' : 'whole'}`;
-    await shelve(page, { slug, title: TITLES.two, ranged: path.ranged, sized: false });
-    await page.goto(`/app/tools/pdf?doc=${slug}`);
+    await openShelved(page, { slug, title: TITLES.two, ranged: path.ranged, sized: false });
     const status = page.locator('.vmx-document-loading');
     await expect(status).toContainText(/กำลังโหลด/, { timeout: 30_000 });
     await expect(status.locator('[data-loading-percent]')).toHaveCount(0);
