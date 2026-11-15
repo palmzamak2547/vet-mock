@@ -106,18 +106,23 @@ test('tapping the chip opens the announcement with the whole change list already
   await expect(chip).toHaveCount(0);
 });
 
-test('the ✕ closes the announcement and the bottom strip re-opens the release', async ({ page }) => {
-  const { stripLink, entry } = await announce(page);
+test('the ✕ closes the announcement and the bottom strip opens the newest release', async ({ page }) => {
+  const { stripLink, entry, newest } = await announce(page);
   const notice = page.locator('.vmx-changelog-notice');
   await page.getByTitle(entry.headline).click();
   await page.getByRole('button', { name: 'ปิดประกาศ', exact: true }).click();
   await expect(notice).toHaveCount(0);
   // A read release is no longer new news.
   await expect(stripLink).toHaveText('อัปเดตล่าสุด');
-  // The link itself opens the note again, list expanded, and hands it focus.
+  // With nothing unread the link opens the newest release (HomeView noteReleases), list expanded, and hands
+  // it focus. That is the release just read, unless a release of fixes only came after it: a fix raises no
+  // chip, so `entry` is then the news below it (5.227.1 over 5.226.0 was the first such pair).
+  const latest = CHANGELOG.find((item) => item.version === newest);
+  expect(latest, `the build's newest release ${newest} has a changelog entry`).toBeTruthy();
   await stripLink.click();
   await expect(notice).toBeVisible();
-  await expect(notice.locator('li')).toHaveCount(entry.changes.length);
+  await expect(notice.locator('.vmx-changelog-title')).toHaveText(latest.headline);
+  await expect(notice.locator('li')).toHaveCount(latest.changes.length);
   await expect(notice).toBeFocused();
   // One changelog affordance at a time: the note is open, so the chip is gone.
   await expect(page.getByTitle(entry.headline)).toHaveCount(0);
