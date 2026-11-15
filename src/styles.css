@@ -2436,6 +2436,15 @@ html.dark .vmx-panic-scrim {
 @media (max-width: 379px) {
   .vmx-exam-type-chip { display: none; }
 }
+/* At 360 px and under, ไทย/EN beside the clock is wider than the right track and ran
+   over the position. The exit and the position keep the first row, centred as before,
+   and the language, the clock and the score take a row of their own below. */
+@media (max-width: 360px) {
+  .vmx-exam-top { grid-template-areas: "exit pill ." "right right right"; row-gap: 8px; }
+  .vmx-exam-top-left { grid-area: exit; }
+  .vmx-exam-top > .vmx-progress { grid-area: pill; }
+  .vmx-exam-top-right { grid-area: right; }
+}
 .vmx-progress {
   font-family: var(--vmx-mono);
   font-variant-numeric: tabular-nums;
@@ -9203,15 +9212,17 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   color: var(--clr-ink-soft);
   font: inherit;
   font-size: 14px;
-  padding: 3px 10px;
+  padding: 0 10px;
   border-radius: 999px;
   cursor: pointer;
-  /* A 44 px target without a taller pill or header: 44 wide, and a hit area 7 px above
-     and below the 31 px pill. */
-  position: relative;
+  /* A real 44 px target, as tall as the exit button and the position beside it, and
+     nothing reaches past the button's own edge (STABILITY.md rule 1). */
   min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.vmx-lang-btn::before { content: ''; position: absolute; inset: -7px 0; }
 .vmx-lang-btn.is-on {
   background: var(--clr-surface);
   border-color: var(--clr-sage);

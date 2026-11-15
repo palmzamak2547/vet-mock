@@ -1,7 +1,7 @@
 // The exam header with main's language toggle (5.223.0), after a walk of the live site
 // and the review of pull request 247:
 // - with EN chosen, the line that says Thai is shown once a set, not under every stem;
-// - the ไทย/EN buttons are 44 px targets without a taller pill;
+// - the ไทย/EN buttons are real 44 px targets, on a row of their own at 360 px and under;
 // - the live score keeps its place before the first answer, so the card does not jump
 //   down when that answer lands.
 import test from 'node:test';
@@ -35,13 +35,18 @@ test('the lines are plain Thai with no dash, and the card prints only what the s
   assert.match(read('src/views/ExamView.jsx'), /englishNote=\{lang === 'en' \? englishNoteFor\(questions, currentIdx, translationsById\) : null\}/);
 });
 
-test('the ไทย/EN buttons are 44 px targets: 44 wide, a hit area reaching 45 px on a 31 px pill', () => {
+test('the ไทย/EN buttons are real 44 px targets, with no pseudo-element hit area', () => {
   const css = read('src/styles.css');
   const at = css.indexOf('.vmx-lang-btn {');
   const rule = css.slice(at, css.indexOf('}', at));
   assert.match(rule, /min-width: 44px;/);
-  assert.match(rule, /position: relative;/);
-  assert.match(css, /\.vmx-lang-btn::before \{ content: ''; position: absolute; inset: -7px 0; \}/);
+  assert.match(rule, /min-height: 44px;/);
+  assert.doesNotMatch(css, /\.vmx-lang-btn::(before|after)/);
+});
+
+test('at 360 px and under the language row sits below the exit and the position', () => {
+  const css = read('src/styles.css');
+  assert.match(css, /@media \(max-width: 360px\) \{\n  \.vmx-exam-top \{ grid-template-areas: "exit pill \." "right right right"; row-gap: 8px; \}/);
 });
 
 test('the live score holds its place before the first answer', () => {
