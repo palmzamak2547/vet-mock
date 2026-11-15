@@ -194,9 +194,64 @@ export const ELEVEN_TTS = Object.freeze({
   gen: 'e1',
 });
 
+// The Paxa generation (paxa-tts-flash-v2). Its clips are voiced a sentence at
+// a time (clipSegments below), so a corrected sentence costs one sentence and
+// the same sentence in two questions is one clip. A subject reads in this
+// voice only once every clip of the subject is made: its manifest is
+// { complete, keys }, and until complete is true the subject keeps the voice
+// it had, so a student never hears two voices within one subject.
+export const PAXA_TTS = Object.freeze({
+  provider: 'paxa',
+  model: 'paxa-tts-flash-v2',
+  voice: 'foithong',
+  base: SHARED_TTS.base,
+  gen: 'p1',
+  segmented: true,
+  wholeSubject: true,
+});
+
 // Newest first. A question plays the first generation that has every one of
-// its clips, so one question is never read in two voices.
-export const SHARED_GENS = Object.freeze([ELEVEN_TTS, SHARED_TTS]);
+// its clips, so one question is never read in two voices; a whole-subject
+// generation plays only for a subject it has finished.
+export const SHARED_GENS = Object.freeze([PAXA_TTS, ELEVEN_TTS, SHARED_TTS]);
+
+// A piece of clip text in sentence-sized parts: lines first, then sentences
+// (a full stop, question or exclamation mark before a space), then, for a
+// line still longer than `max`, the last space before it. Parts shorter than
+// `min` join the one before them, so a clip is never a single word. The
+// generator and the page cut the same way; changing this renames every
+// segmented clip.
+export function clipSegments(text, { max = 220, min = 40 } = {}) {
+  const out = [];
+  const push = (s) => {
+    const t = s.trim();
+    if (!t) return;
+    if (out.length && (t.length < min || out[out.length - 1].length < min) && out[out.length - 1].length + 1 + t.length <= max) out[out.length - 1] += ` ${t}`;
+    else out.push(t);
+  };
+  for (const line of String(text || '').split('\n')) {
+    // Sentences end at a mark followed by a space ("2.5 mg" stays whole). A
+    // split with a captured separator, not a lookbehind: WebKit before 16.4
+    // cannot parse one.
+    const bits = line.split(/([.!?]+\s+)/);
+    const sentences = [];
+    for (let i = 0; i < bits.length; i += 2) sentences.push(bits[i] + (bits[i + 1] || ''));
+    for (let s of sentences) {
+      s = s.trim();
+      while (s.length > max) {
+        const cut = s.lastIndexOf(' ', max) > max / 2 ? s.lastIndexOf(' ', max) : max;
+        push(s.slice(0, cut));
+        s = s.slice(cut).trim();
+      }
+      push(s);
+    }
+  }
+  return out;
+}
+
+// What a generation stores for one piece of text: the whole text as one clip,
+// or, segmented, one clip per part.
+export const clipParts = (text, g) => (g?.segmented ? clipSegments(text) : [text]).filter(Boolean);
 
 // 64-bit hex name of a clip: model, voice and the exact text.
 export async function clipKey(text, g = SHARED_TTS) {

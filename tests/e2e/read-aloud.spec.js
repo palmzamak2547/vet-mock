@@ -215,15 +215,53 @@ test('the bar pauses, resumes, changes speed, moves by point and closes', async 
   await page.evaluate(() => window.localStorage.removeItem('vmx-read-aloud-rate'));
 });
 
-test('a subject with no clips reads in the device voice, and says so', async ({ page }) => {
+test('a subject with no clips never goes silent: the device voice reads, or a note says why', async ({ page }) => {
   await openQuestion(page, { clipMs: 1500, noClips: true });
   await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
   const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
   await expect(bar).toBeVisible();
-  await expect(bar.getByRole('status')).toHaveText(/เสียงอ่านของเครื่อง|อ่านออกเสียงไม่ได้ตอนนี้|เครื่องนี้ไม่มีเสียงอ่าน/);
-  // The device voice can only start and stop: no seeking, skipping or speed.
-  await expect(bar.getByRole('button', { name: /^ข้ามไป/ })).toBeDisabled();
-  await expect(bar.getByRole('button', { name: /^ความเร็ว/ })).toBeDisabled();
+  // A test browser may have no Thai voice and no cloud voice (routed away here): then a plain note.
+  await expect(bar.getByRole('status')).toHaveText(/เสียงอ่านของเครื่อง|เครื่องนี้ไม่มีเสียงอ่าน|ต่ออินเทอร์เน็ต/, { timeout: 10_000 });
   await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
   await expect(bar).toHaveCount(0);
+});
+
+test('the device voice has the same controls: play, pause, resume, next point, speed', async ({ page }) => {
+  // A device with one Thai voice; each sentence "speaks" for 700 ms.
+  await page.addInitScript(() => {
+    window.__said = [];
+    const voice = { name: 'Kanya', lang: 'th-TH', voiceURI: 'Kanya', localService: true, default: true };
+    let current = null;
+    const synth = {
+      speak(u) {
+        current = u;
+        window.__said.push({ text: u.text, rate: u.rate });
+        setTimeout(() => { if (current !== u) return; u.onstart?.(); u.t = setTimeout(() => { if (current === u) { current = null; u.onend?.(); } }, 700); }, 5);
+      },
+      cancel() { const u = current; current = null; if (u) { clearTimeout(u.t); u.onerror?.({ error: 'interrupted' }); } },
+      getVoices: () => [voice], pause() {}, resume() {}, speaking: false, pending: false,
+      addEventListener() {}, removeEventListener() {},
+    };
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: () => synth });
+    window.SpeechSynthesisUtterance = function (text) { this.text = text; };
+  });
+  await openQuestion(page, { clipMs: 1500, noClips: true });
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar.getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
+  await expect(page.locator('.vmx-qtext, .vmx-qstem').first()).toHaveClass(/is-reading/);
+  await bar.getByRole('button', { name: 'หยุดชั่วคราว' }).click();
+  await expect(bar.getByRole('status')).toHaveText('หยุดชั่วคราว');
+  const n = await page.evaluate(() => window.__said.length);
+  await page.waitForTimeout(1200);
+  expect(await page.evaluate(() => window.__said.length)).toBe(n);
+  await bar.getByRole('button', { name: 'เล่นต่อ' }).click();
+  await expect(bar.getByRole('button', { name: 'หยุดชั่วคราว' })).toBeVisible();
+  await bar.getByRole('button', { name: /ความเร็ว 1 เท่า/ }).click();
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1).rate)).toBeGreaterThan(1.1);
+  await bar.getByRole('button', { name: 'ข้ามไปจุดถัดไป' }).click();
+  await expect(page.locator('.vmx-option').first()).toHaveClass(/is-reading/);
+  await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
+  await expect(bar).toHaveCount(0);
+  await page.evaluate(() => window.localStorage.removeItem('vmx-read-aloud-rate'));
 });
