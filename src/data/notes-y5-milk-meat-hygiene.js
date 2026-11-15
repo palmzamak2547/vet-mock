@@ -790,7 +790,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             ]
           },
           {
-            "sub": "จุลินทรีย์ที่มีความสำคัญในอุตสาหกรรมนม",
+            "sub": "จุลินทรีย์ที่สำคัญในอุตสาหกรรมนม",
             "body": [
               {
                 "bullets": [
@@ -2449,7 +2449,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     "title": "Seafood: quality changes & spoilage, seafood toxins",
     "lecturer": "สิรวิทย์ ภักดีพาณิชย์กิจ (SP)",
     "icon": "🐟",
-    "summary": "อาหารจากสัตว์น้ำตามสไลด์ Seafood: quality changes & spoilage, seafood toxins ที่สอน 14 ต.ค. 2569 แบ่งเป็น 3 ส่วน คือองค์ประกอบทางเคมีของ seafood (water, protein, non-protein nitrogen compounds, lipid, องค์ประกอบย่อย, dark muscle กับ white muscle), การเปลี่ยนแปลงคุณภาพและการเน่าเสีย (ปัจจัยที่มีผล, rigor mortis, chemical, microbiological และ enzymatic changes, วิธีประเมินความสด 4 กลุ่ม) และ seafood toxins 8 ชนิด ตั้งแต่ ASP, DSP, AZP, PSP, CFP, NSP, puffer fish poisoning จนถึง scombroid fish poisoning พร้อมตารางสรุปท้ายสไลด์",
+    "summary": "อาหารจากสัตว์น้ำ แบ่งเป็น 3 ส่วน คือองค์ประกอบทางเคมีของ seafood (water, protein, non-protein nitrogen compounds, lipid, องค์ประกอบย่อย, dark muscle กับ white muscle), การเปลี่ยนแปลงคุณภาพและการเน่าเสีย (ปัจจัยที่มีผล, rigor mortis, chemical, microbiological และ enzymatic changes, วิธีประเมินความสด 4 กลุ่ม) และ seafood toxins 8 ชนิด ตั้งแต่ ASP, DSP, AZP, PSP, CFP, NSP, puffer fish poisoning จนถึง scombroid fish poisoning พร้อมตารางสรุปท้ายสไลด์",
     "sections": [
       {
         "heading": "Chemical composition of seafood",
@@ -5310,7 +5310,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     "title": "Meat quality and wholesomeness",
     "lecturer": "รุ่งทิพย์ ชวนชื่น (RC)",
     "icon": "✅",
-    "summary": "คุณภาพเนื้อสัตว์และอนามัยเนื้อสัตว์ (wholesomeness) ตามสไลด์ Meat quality and wholesomeness ที่สอน 21 ต.ค. 2569 ไล่จากนิยามเนื้อสด, คุณภาพแบบ functional กับ conformance, postmortem changes และปัจจัยที่มีผล, คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู (PSE, RFN, DFD, halothane gene, RN- gene), ความหมายของ wholesomeness กับ hazards 3 กลุ่ม, FAT-TOM และอุณหภูมิปรุงสุกของ USDA, คุณค่าต่อสุขภาพ, การตรวจเนื้อในสหรัฐอเมริกา, triangle of needs จนถึงการควบคุม hazards ตลอด food chain และ safe handling",
+    "summary": "คุณภาพเนื้อสัตว์และอนามัยเนื้อสัตว์ (wholesomeness) ไล่จากนิยามเนื้อสด, คุณภาพแบบ functional กับ conformance, postmortem changes และปัจจัยที่มีผล, คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู (PSE, RFN, DFD, halothane gene, RN- gene), ความหมายของ wholesomeness กับ hazards 3 กลุ่ม, FAT-TOM และอุณหภูมิปรุงสุกของ USDA, คุณค่าต่อสุขภาพ, การตรวจเนื้อในสหรัฐอเมริกา, triangle of needs จนถึงการควบคุม hazards ตลอด food chain และ safe handling",
     "sections": [
       {
         "heading": "เนื้อสดและคุณภาพเนื้อสัตว์",
@@ -5719,7 +5719,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           {
             "sub": "Triangle of needs",
             "body": [
-              "Consumer perceptions of meat quality เขียนเป็น triangle of needs: ความต้องการพื้นฐานที่ฐานสามเหลี่ยมต้องได้รับการตอบสนองก่อน คุณภาพระดับที่สูงกว่าจึงจะมีความสำคัญ",
+              "Consumer perceptions of meat quality เขียนเป็น triangle of needs: ความต้องการพื้นฐานที่ฐานสามเหลี่ยมต้องได้รับการตอบสนองก่อน คุณภาพระดับที่สูงกว่าจึงจะสำคัญ",
               {
                 "table": {
                   "headers": [
@@ -5823,7 +5823,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     "title": "Application of molecular biology in meat science",
     "lecturer": "รุ่งทิพย์ ชวนชื่น (RC)",
     "icon": "🧬",
-    "summary": "การใช้อณูชีววิทยาใน meat science ตามสไลด์ Application of molecular biology in meat science ที่สอน 21 ต.ค. 2569 มี 2 เรื่องใหญ่ เรื่องแรกคือการปรับปรุงคุณภาพเนื้อของสัตว์ในฟาร์มด้วย genomic technologies (QTL, candidate gene approach, genome scan approach, fine mapping และยีนสำคัญในโค ไก่ สุกร) เรื่องที่สองคือ halal authentication of raw meat ตั้งแต่ความหมายของ halal, halal meat supply chain กับ halal critical control points จนถึงเทคนิคตรวจหาเนื้อสุกร (PCR, ELISA, immunochromatographic assays, FTIR spectroscopy) และตารางสรุปเทคนิคท้ายสไลด์",
+    "summary": "การใช้อณูชีววิทยาใน meat science มี 2 เรื่องใหญ่ เรื่องแรกคือการปรับปรุงคุณภาพเนื้อของสัตว์ในฟาร์มด้วย genomic technologies (QTL, candidate gene approach, genome scan approach, fine mapping และยีนสำคัญในโค ไก่ สุกร) เรื่องที่สองคือ halal authentication of raw meat ตั้งแต่ความหมายของ halal, halal meat supply chain กับ halal critical control points จนถึงเทคนิคตรวจหาเนื้อสุกร (PCR, ELISA, immunochromatographic assays, FTIR spectroscopy) และตารางสรุปเทคนิคท้ายสไลด์",
     "sections": [
       {
         "heading": "Molecular biology, genomic techniques และการปรับปรุงคุณภาพเนื้อ",
@@ -6366,7 +6366,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             ]
           },
           {
-            "callout": "หน้า 5 และ 8 พิมพ์ว่าสัตว์ไวต่อความถี่สูงและให้ลดเสียงมอเตอร์ที่แหลมสูง แต่ในคาบเรียนเสียงมอเตอร์ถูกอธิบายว่าเป็นคลื่นความถี่ต่ำที่สัตว์กลัว สองแหล่งไม่ตรงกัน เนื้อหาข้างบนตามสไลด์",
+            "callout": "หน้า 5 และ 8 พิมพ์ว่าสัตว์ไวต่อความถี่สูงและให้ลดเสียงมอเตอร์ที่แหลมสูง แต่ในคาบเรียนเสียงมอเตอร์ถูกอธิบายว่าเป็นคลื่นความถี่ต่ำที่สัตว์กลัว สองแหล่งไม่ตรงกัน เนื้อหาข้างบนใช้ตามที่พิมพ์",
             "kind": "flag"
           }
         ]
@@ -6751,7 +6751,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         "body": [
           {
             "bullets": [
-              "เป้าหมาย: ทำความสะอาดซากอย่างมีประสิทธิภาพและเตรียมซากสำหรับการลดอุณหภูมิ",
+              "เป้าหมาย: ทำความสะอาดซากและเตรียมซากสำหรับการลดอุณหภูมิ",
               "Manual evisceration station ใช้อุปกรณ์ที่ทำขึ้นเฉพาะงาน (tailor-made)",
               "ระบบอัตโนมัติต้องมีโปรแกรมบำรุงรักษาเชิงป้องกัน (preventive maintenance) เพื่อให้เครื่องทำงานได้ถูกต้อง",
               "ใช้คนเมื่อต้องการเครื่องในสภาพสวย (เครื่องทำให้เครื่องในเละและไส้แตก) เพราะเครื่องในส่งออกมูลค่าสูง หลักๆไปจีน",
@@ -7584,7 +7584,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             ]
           },
           {
-            "callout": "หน้า 6 พิมพ์ว่าตรวจภายใน 24 ชั่วโมงก่อนฆ่า ส่วนในคาบเรียนนับ 24 ชั่วโมงจากเวลาที่สัตว์ถึงโรงฆ่า ถ้าตรวจไม่ทันต้องเริ่มอดอาหารและตรวจใหม่ในอีกวัน เนื้อหาข้างบนตามสไลด์",
+            "callout": "หน้า 6 พิมพ์ว่าตรวจภายใน 24 ชั่วโมงก่อนฆ่า ส่วนในคาบเรียนนับ 24 ชั่วโมงจากเวลาที่สัตว์ถึงโรงฆ่า ถ้าตรวจไม่ทันต้องเริ่มอดอาหารและตรวจใหม่ในอีกวัน เนื้อหาข้างบนใช้ตามที่พิมพ์",
             "kind": "flag"
           }
         ]
@@ -8710,7 +8710,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     "title": "Meat hygiene: pest control",
     "lecturer": "ศุภชัย เนื้อนวลสุวรรณ",
     "icon": "🪲",
-    "summary": "การควบคุมสัตว์รังควาน (pest control) ตามสไลด์ Meat Hygiene: Pest Control ที่สอน 28 ต.ค. 2569 เริ่มจากปัญหาที่ pest ก่อ ชนิดของ pest (rodents, insects, birds) และหลักการควบคุม 4 ข้อ (no food, no habitat, destroy pest, prevention for the advent) แล้วไล่วิธีควบคุมหนู (proofing, baits, rodenticides, traps) การควบคุมแมลงสาบ (aerosols, baits, dusts, traps) จนถึงการควบคุมแมลงด้วย air curtain, strip door curtain, electrocutor, mesh screen และ insecticides",
+    "summary": "การควบคุมสัตว์รังควาน (pest control) เริ่มจากปัญหาที่ pest ก่อ ชนิดของ pest (rodents, insects, birds) และหลักการควบคุม 4 ข้อ (no food, no habitat, destroy pest, prevention for the advent) แล้วไล่วิธีควบคุมหนู (proofing, baits, rodenticides, traps) การควบคุมแมลงสาบ (aerosols, baits, dusts, traps) จนถึงการควบคุมแมลงด้วย air curtain, strip door curtain, electrocutor, mesh screen และ insecticides",
     "sections": [
       {
         "heading": "ปัญหาจาก pest ชนิดของ pest และหลักการควบคุม 4 ข้อ",
@@ -9078,7 +9078,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     "title": "Microbiology of the avian egg",
     "lecturer": "ศุภชัย เนื้อนวลสุวรรณ",
     "icon": "🥚",
-    "summary": "จุลชีววิทยาของไข่ตามสไลด์ Microbiology of the avian egg ที่สอน 28 ต.ค. 2569 เริ่มจากความสำคัญของจุลินทรีย์กับไข่ โครงสร้างของเปลือกไข่ (true layer, pores, shell accessory material, shell membranes) การแบ่งส่วนภายในไข่ (compartmentalization) และการเสียสภาพที่ทำให้ไข่เน่า วิธีรักษาความสด เหตุที่ไข่ถือเป็น aseptically packaged food ทางที่แบคทีเรียเข้าสู่ไข่ 3 ทาง (trans-ovarian, oviducal, trans-shell) กลไกต้านจุลชีพทางกายภาพและเคมี ปัจจัยและการป้องกัน trans-shell transmission การติด Salmonella จนถึงหลักการล้างไข่ 10 ข้อ",
+    "summary": "จุลชีววิทยาของไข่ เริ่มจากความสำคัญของจุลินทรีย์กับไข่ โครงสร้างของเปลือกไข่ (true layer, pores, shell accessory material, shell membranes) การแบ่งส่วนภายในไข่ (compartmentalization) และการเสียสภาพที่ทำให้ไข่เน่า วิธีรักษาความสด เหตุที่ไข่ถือเป็น aseptically packaged food ทางที่แบคทีเรียเข้าสู่ไข่ 3 ทาง (trans-ovarian, oviducal, trans-shell) กลไกต้านจุลชีพทางกายภาพและเคมี ปัจจัยและการป้องกัน trans-shell transmission การติด Salmonella จนถึงหลักการล้างไข่ 10 ข้อ",
     "sections": [
       {
         "heading": "ความสำคัญของจุลินทรีย์กับไข่ และโครงสร้างของไข่",
