@@ -270,7 +270,7 @@ test('the counter is only the pre-release owner\'s: A and B in both orders, and 
   // The owner is recorded once, before any sign-in, from the data store's own key.
   const xp = read('src/lib/xp.js');
   assert.match(xp, /st\.getItem\(COUNTER_OWNER_KEY\) === null/);
-  assert.match(xp, /JSON\.parse\(st\.getItem\('vmx-user-sync-owner-v1'\)/);
+  assert.match(xp, /readStoredJson\('vmx-user-sync-owner-v1'/);
 });
 
 test('the level does not flash on a load: guest, signed in before sync, synced', () => {

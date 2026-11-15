@@ -6,6 +6,7 @@
 // ============================================================
 
 import { XP_AWARDS, getXpState, COUNTER_OWNER_KEY } from './xp.js';
+import { readStoredJson } from './stored-json.js';
 
 /**
  * XP rebuilt from what follows the account: every answer in the synced
@@ -49,10 +50,8 @@ const count = (value) => Math.max(0, Math.floor(Number(value) || 0));
 
 /** The account the sync store holds this device for, or null for a guest. */
 export function deviceAccount(storage = globalThis.localStorage) {
-  try {
-    const v = JSON.parse(read(storage, SYNC_OWNER_KEY) || 'null');
-    return typeof v === 'string' && v && v !== 'anonymous' ? v : null;
-  } catch { return null; }
+  const v = readStoredJson(SYNC_OWNER_KEY, null, { storage, accept: (x) => typeof x === 'string' });
+  return v && v !== 'anonymous' ? v : null;
 }
 
 /** A random id for this browser, made once. */

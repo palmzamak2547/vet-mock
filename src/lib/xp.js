@@ -8,6 +8,7 @@
 // catch around every parse). Writes dispatch `vmx-xp-changed` so the
 // XpChip + QuestsPanel can re-render without polling.
 
+import { readStoredJson } from './stored-json.js';
 const STORAGE_KEY = 'vmx-xp';
 const EVENT_NAME = 'vmx-xp-changed';
 
@@ -72,7 +73,8 @@ export function awardXp(amount, reason = 'misc') {
       const st = window.localStorage;
       // The sync store's owner key (user-data-sync.js); xp-account.js reads it back.
       let uid = null;
-      try { const v = JSON.parse(st.getItem('vmx-user-sync-owner-v1') || 'null'); uid = typeof v === 'string' && v !== 'anonymous' ? v : null; } catch { uid = null; }
+      const v = syncOwner(st);
+      uid = v && v !== 'anonymous' ? v : null;
       if (uid) st.setItem(`vmx-xp-pending:${uid}`, String((Math.floor(Number(st.getItem(`vmx-xp-pending:${uid}`)) || 0)) + safeAmount));
     } catch { /* private mode */ }
   }
@@ -119,11 +121,16 @@ export const XP_EVENT = EVENT_NAME;
 // for when this release first loaded here, recorded once and never moved
 // (xp-account.js reads it). 'none' when the device had no account then.
 export const COUNTER_OWNER_KEY = 'vmx-xp-counter-owner';
+// The sync store's owner (a JSON string), or null when missing or unreadable.
+function syncOwner(storage) {
+  return readStoredJson('vmx-user-sync-owner-v1', null, { storage, accept: (v) => typeof v === 'string' });
+}
 try {
   const st = typeof window !== 'undefined' ? window.localStorage : null;
   if (st && st.getItem(COUNTER_OWNER_KEY) === null) {
     let owner = 'none';
-    try { const v = JSON.parse(st.getItem('vmx-user-sync-owner-v1') || 'null'); if (typeof v === 'string' && v && v !== 'anonymous') owner = v; } catch { /* unreadable: none */ }
+    const v = syncOwner(st);
+    if (v && v !== 'anonymous') owner = v;
     st.setItem(COUNTER_OWNER_KEY, owner);
   }
 } catch { /* private mode */ }
