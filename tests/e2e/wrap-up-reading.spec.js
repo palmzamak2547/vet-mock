@@ -105,10 +105,12 @@ test('a long overview opens folded to two lines, and the first item is on the fi
   expect(folded).toBeLessThanOrEqual(lh * 2 + 2);
   const box = await more.boundingBox();
   expect(box.height).toBeGreaterThanOrEqual(44);
-  // The first section starts on the first screen.
+  // The first section (the first lecturer's part) starts on the first screen, above the bottom bar on a phone.
   const viewport = page.viewportSize();
-  const first = await page.locator('.vmx-wrap-item').first().boundingBox();
-  expect(first.y).toBeLessThan(viewport.height);
+  const bar = page.locator('.vmx-bottom-nav');
+  const floor = (await bar.isVisible()) ? (await bar.boundingBox()).y : viewport.height;
+  const first = await page.locator('.vmx-wrap-group-head').first().boundingBox();
+  expect(first.y + 24).toBeLessThan(floor);
   await more.click();
   await expect(more).toHaveCount(0);
   expect((await intro.boundingBox()).height).toBeGreaterThan(lh * 4);
