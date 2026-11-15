@@ -20,7 +20,7 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import { timeForQuestion, isWritingType } from '../../src/hooks/utils.js';
 import { inflightExamKey, isOwnedExam } from '../../src/lib/exam-recovery.js';
-import { secondsUntilDeadline } from '../../src/lib/exam-clock.js';
+import { secondsUntilDeadline, examNow } from '../../src/lib/exam-clock.js';
 import { resumedDeadline } from '../../src/lib/app-flow.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../../src/lib/study-events.js';
 
@@ -54,7 +54,7 @@ function session({ confirmAnswer = true } = {}) {
     useEffect: () => {},
     timeForQuestion, isWritingType,
     confirmDialog: async (opts) => { asked.push(opts); return confirmAnswer; },
-    inflightExamKey, isOwnedExam, secondsUntilDeadline, resumedDeadline,
+    inflightExamKey, isOwnedExam, secondsUntilDeadline, examNow, resumedDeadline,
     createQuestionTiming, newStudySessionId, validSessionId,
   });
   const useExamSession = vm.runInContext(`${HOOK}\nuseExamSession`, ctx);
@@ -71,7 +71,9 @@ function session({ confirmAnswer = true } = {}) {
 function onQuestion(questions, at, opts) {
   const s = session(opts);
   s.render().startNewSession(questions, 60);
-  s.render({ view: 'exam' }).jumpToQ(at);
+  // Placed on the question directly: a jump is a move, and a move is held
+  // until the next frame paints (useExamSession), which this harness has none of.
+  s.render({ view: 'exam' }).setCurrentIdx(at);
   return { ...s, hook: s.render() };
 }
 

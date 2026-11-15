@@ -343,7 +343,7 @@ test('leaving a set opened from the timer: one tap on the back control leaves th
   await row.click({ timeout: 30_000 });
   await page.waitForFunction(() => history.state?.vmxView === 'exam', null, { timeout: 30_000 });
   await page.goBack();
-  await page.getByRole('button', { name: 'ออกจากชุด', exact: true }).click();
+  await page.getByRole('button', { name: 'เก็บไว้แล้วออก', exact: true }).click();
   await expect(page).toHaveURL(/\/app\/focus$/);
   await page.locator('.vmx-back-bar').getByRole('button').first().click();
   await expect(page).not.toHaveURL(/\/app\/focus$/);

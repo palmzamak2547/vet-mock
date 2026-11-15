@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { displayStem } from '../lib/match-stem.js';
 import '../styles-review.css';
 import DecideLines from '../components/DecideLines.jsx';
 import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
@@ -23,6 +24,7 @@ import RichBlocks from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
+import FlagChip from '../components/FlagChip.jsx';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -734,13 +736,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       ? `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(opt)}`
       : 'คำตอบของข้อนี้ผิดรูปแบบ — แจ้งให้ทีมแก้';
   } else if (currentQ.type === 'tf') {
-    // Visual T/F reveal — green ✓ for true, red ✗ for false
+    // The key of a true/false card: the statement's value, said in words, in a
+    // neutral pill (red here read as "you were wrong").
     answerNode = (
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '6px 16px', borderRadius: 999,
-        background: currentQ.answer ? 'var(--clr-sage-soft)' : 'var(--clr-rose-soft)',
-        color: currentQ.answer ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)',
+        background: 'var(--clr-surface-2)',
+        color: 'var(--clr-ink)',
+        border: '1px solid var(--clr-border)',
         fontWeight: 700,
         fontSize: 18,
       }}>
@@ -871,13 +875,18 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               maxHeight="var(--vmx-sr-figure-max, 320px)"
             />
           )}
-          <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
+          <div style={{ fontSize: 18 }}><RichText text={displayStem(currentQ)} /></div>
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">
             <div className="answer">
               {answerNode || answerText}
             </div>
+            {/* A disputed key (major flag) carries its caution here too: all
+                15 can enter spaced repetition, and the card shows the key. */}
+            {/* Keyed by the card: FlagChip keeps whether it is open, and one opened on a
+                disputed card opened already expanded on the next. */}
+            <FlagChip key={`flag:${currentQ.subject}:${currentQ.id}`} flag={currentQ.flag} revealed />
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage

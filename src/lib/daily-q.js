@@ -33,6 +33,7 @@ import { detectCurrentPhase } from './current-phase.js';
 import { questionInScope, scopeForPhase, topicOnPaper } from './exam-scope.js';
 import { SUBJECT_PAPERS, PAPER_COVERED_YEARS } from '../data/exam-papers.generated.js';
 import { sweepStaleKeys } from './storage-gc.js';
+import { dayKey, dayKeyBefore } from './study-day.js';
 import { isTextOnlyQuestion } from './question-surfaces.js';
 
 export const TODAY_KEY_PREFIX = 'vmx-todays-q-';
@@ -43,9 +44,10 @@ const questionKey = (subject, id) => `${subject}:${String(id)}`;
 const sameQuestion = (record, q) => !!record && !!q
   && record.qSubject === q.subject && String(record.qId) === String(q.id);
 
+// Bangkok's day, the streak's (lib/study-day.js): the device's day moved the
+// daily question hours away from the streak on a phone set to another zone.
 export function todayKey() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  return dayKey(Date.now());
 }
 
 // Simple FNV-1a 32-bit hash — deterministic, no deps, stable across
@@ -251,17 +253,16 @@ export function getDailyQResultForDate(dateStr) {
 // Walks backward from today; stops at the first day with no record.
 export function dailyQStreak() {
   let count = 0;
-  const d = new Date();
+  let key = todayKey();
   for (let i = 0; i < 365; i++) {
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     if (readTodaysQStatus(key).completed) {
       count++;
-      d.setDate(d.getDate() - 1);
+      key = dayKeyBefore(key);
     } else {
       // Allow today itself to be "not yet done" — only the day BEFORE
       // breaks the streak. Skip the first iteration's miss.
       if (i === 0) {
-        d.setDate(d.getDate() - 1);
+        key = dayKeyBefore(key);
         continue;
       }
       break;

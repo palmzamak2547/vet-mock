@@ -1,0 +1,223 @@
+// main.jsx loads origin-move.js only when lib/move-gate.js finds work for it. A gate that says null
+// where the module would have done something would drop a student's move, so every case below is
+// run through both: when the gate says null, the module's three jobs are all no-ops.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  moveWork, dueMoveJobs, startWhenReady, MOVE_JOBS,
+  MOVE_INBOX, MOVE_INBOX_ATTEMPTS, MOVE_RECEIVED, NOTICE_MS, MAX_ATTEMPTS, MOVE_WAIT_MS,
+} from '../../src/lib/move-gate.js';
+import { applyMoveInbox, importMovedRecords, moveNotice, moveGiveUpNotice, runInboxJob, whenNotInSession } from '../../src/lib/origin-move.js';
+
+const store = (entries) => {
+  const m = new Map(Object.entries(entries));
+  return {
+    get length() { return m.size; },
+    key: (i) => [...m.keys()][i] ?? null,
+    getItem: (k) => (m.has(k) ? m.get(k) : null),
+    setItem: (k, v) => { m.set(k, String(v)); },
+    removeItem: (k) => { m.delete(k); },
+  };
+};
+const NOW = 1_800_000_000_000;
+const received = (v) => ({ [MOVE_RECEIVED]: JSON.stringify(v) });
+
+const CASES = [
+  ['a fresh browser', {}, null],
+  ['an inbox waiting', { [MOVE_INBOX]: JSON.stringify({ fields: {} }) }, 'now'],
+  ['an unreadable inbox', { [MOVE_INBOX]: '{oops' }, 'now'],
+  ['records still to import', received({ at: NOW - 1000 }), 'later'],
+  ['imported, notice due', received({ at: NOW - 1000, idbDone: true }), 'later'],
+  ['imported, notice shown', received({ at: NOW - 1000, idbDone: true, shown: true }), null],
+  ['imported, notice too old', received({ at: NOW - NOTICE_MS, idbDone: true }), null],
+  ['imported, notice from the future', received({ at: NOW + 5000, idbDone: true }), null],
+  ['a received record that is not an object', { [MOVE_RECEIVED]: '[1]' }, null],
+  ['an unreadable received record', { [MOVE_RECEIVED]: '{oops' }, null],
+  ['records whose import failed three boots running', received({ at: NOW - NOTICE_MS - 1, attempts: MAX_ATTEMPTS }), null],
+];
+
+// One boot as main.jsx and origin-move.js run it: the gate's answer is taken once; `timedOut` is a boot
+// whose chunk missed MOVE_WAIT_MS (main sets the skip flag), `reloaded` one left before the chunk ran.
+const INBOX = JSON.stringify({ from: 'https://vetmock.vercel.app', owner: null, fields: { 'vmx-bookmarks': '[2]' } });
+function boot(win, { timedOut = false, reloaded = false, merge } = {}) {
+  const due = dueMoveJobs(win, NOW);
+  if (reloaded) return null; // the module never evaluated
+  const run = { __vmxMoveSkip: timedOut, localStorage: win.localStorage };
+  return runInboxJob(run, due, merge);
+}
+
+test('three boots that each time out, then a healthy boot: the inbox merges', () => {
+  const win = { localStorage: store({ [MOVE_INBOX]: INBOX, 'vmx-bookmarks': '[1]' }) };
+  for (let i = 0; i < 3; i++) assert.equal(boot(win, { timedOut: true }), null);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), null, 'a timeout is not a try');
+  assert.equal(moveWork(win, NOW), 'now');
+  assert.equal(boot(win).applied, true);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX), null);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), null);
+  assert.deepEqual(JSON.parse(win.localStorage.getItem('vmx-bookmarks')).sort(), [1, 2]);
+});
+
+test('two reloads during the wait, then a healthy boot: the inbox merges', () => {
+  const win = { localStorage: store({ [MOVE_INBOX]: INBOX, 'vmx-bookmarks': '[1]' }) };
+  boot(win, { reloaded: true });
+  boot(win, { reloaded: true });
+  assert.equal(win.localStorage.getItem(MOVE_INBOX_ATTEMPTS), null, 'a reload is not a try');
+  assert.equal(boot(win).applied, true);
+  assert.equal(win.localStorage.getItem(MOVE_INBOX), null);
+});
+
+test('a merge that does not go through three times says so once, then stops, leaving the inbox', () => {
+  const win = { localStorage: store({ [MOVE_INBOX]: INBOX }) };
+  const refused = () => ({ applied: false });
+  const first = boot(win, { merge: refused });
+  const second = boot(win, { merge: refused });
+  assert.deepEqual([first.gaveUp, first.notice, second.gaveUp, second.notice], [false, undefined, false, undefined]);
+  const third = boot(win, { merge: refused });
+  assert.equal(third.gaveUp, true);
+  assert.match(third.notice.text, /ไม่สำเร็จ/);
+  assert.match(third.notice.text, /ยังอยู่ที่ที่อยู่เดิม/);
+  assert.equal(third.notice.link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
+  assert.equal(moveWork(win, NOW), null, 'the fourth boot does not load the merge, so the notice is not shown again');
+  assert.equal(win.localStorage.getItem(MOVE_INBOX), INBOX, 'the moved data stays in the inbox');
+  // A merge that throws counts as a try too.
+  const thrown = { localStorage: store({ [MOVE_INBOX]: INBOX }) };
+  boot(thrown, { merge: () => { throw new Error('quota'); } });
+  assert.equal(thrown.localStorage.getItem(MOVE_INBOX_ATTEMPTS), '1');
+});
+
+test('two tabs boot together at the count of 2: the first merges, the second finds the inbox gone and neither counts nor tells', () => {
+  const shared = store({ [MOVE_INBOX]: JSON.stringify({ fields: {} }), [MOVE_INBOX_ATTEMPTS]: String(MAX_ATTEMPTS - 1) });
+  const first = { localStorage: shared };
+  const second = { localStorage: shared };
+  const dueFirst = dueMoveJobs(first, NOW);
+  const dueSecond = dueMoveJobs(second, NOW);
+  assert.ok(dueFirst.has('inbox') && dueSecond.has('inbox'), 'both gates saw the inbox');
+  const merged = runInboxJob(first, dueFirst, (s) => { s.removeItem(MOVE_INBOX); return { applied: true }; });
+  assert.equal(merged.applied, true);
+  let calls = 0;
+  const late = runInboxJob(second, dueSecond, () => { calls++; return { applied: false }; });
+  assert.equal(calls, 0, 'no merge runs on an inbox that is gone');
+  assert.equal(late.applied, true);
+  assert.equal(late.gaveUp, false);
+  assert.equal(late.notice, undefined, 'no notice in the second tab');
+  assert.equal(shared.getItem(MOVE_INBOX_ATTEMPTS), null, 'no count left behind');
+});
+
+test('the give-up notice links only to the old address, whatever the inbox names', () => {
+  assert.equal(moveGiveUpNotice(JSON.stringify({ from: 'https://vetmock.vercel.app' })).link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
+  for (const from of [
+    'https://evil.example', 'http://vetmock.vercel.app', 'https://vetmock.vercel.app:8443', 'https://vetmock.vercel.app.',
+    'https://vetmock.vercel.app.evil.example', 'HTTPS://VETMOCK.VERCEL.APP', 'http://localhost:4173',
+    'javascript:alert(1)', 'https://x.example/path', 42, undefined,
+  ]) {
+    assert.equal(moveGiveUpNotice(JSON.stringify({ from })).link.href, 'https://vetmock.vercel.app/?vmx-move=retry', String(from));
+  }
+  assert.equal(moveGiveUpNotice('{oops').link.href, 'https://vetmock.vercel.app/?vmx-move=retry');
+});
+
+test('the give-up notice is held while an exam is on screen and shows once the student is on Home', () => {
+  const win = new EventTarget();
+  const view = (v) => { win.__vmxView = v; win.dispatchEvent(new CustomEvent('vmx-view', { detail: v })); };
+  win.__vmxView = 'exam';
+  let shown = 0;
+  whenNotInSession(win, () => { shown++; });
+  assert.equal(shown, 0, 'held during the exam');
+  view('exam');
+  view('results');
+  assert.equal(shown, 0, 'still held until Home');
+  view('home');
+  assert.equal(shown, 1, 'shown on Home');
+  view('exam');
+  view('home');
+  assert.equal(shown, 1, 'shown once');
+  const onHome = new EventTarget();
+  onHome.__vmxView = 'home';
+  whenNotInSession(onHome, () => { shown++; });
+  assert.equal(shown, 2, 'on Home it shows at once');
+});
+
+test('a record import counts its tries and stops after the last one, leaving the records', async () => {
+  const s = store(received({ at: NOW - 1000 }));
+  let reads = 0;
+  const failing = { storage: s, readInbox: async () => { reads++; throw new Error('idb refused'); } };
+  for (let i = 0; i < MAX_ATTEMPTS; i++) assert.equal((await importMovedRecords(failing)).ok, false);
+  assert.equal(reads, MAX_ATTEMPTS);
+  assert.equal(JSON.parse(s.getItem(MOVE_RECEIVED)).attempts, MAX_ATTEMPTS);
+  assert.equal(dueMoveJobs({ localStorage: s }, NOW).has('records'), false);
+  assert.equal((await importMovedRecords(failing)).gaveUp, true);
+  assert.equal(reads, MAX_ATTEMPTS, 'a fourth boot does not read IndexedDB again');
+});
+
+test('every start-up job has a when and a due test, and the gate answers from the table alone', () => {
+  assert.deepEqual(MOVE_JOBS.map((j) => j.id).sort(), ['inbox', 'note', 'notice', 'records']);
+  for (const job of MOVE_JOBS) {
+    assert.ok(['now', 'later'].includes(job.when), job.id);
+    assert.equal(typeof job.due, 'function', job.id);
+  }
+});
+
+// The boot race: main.jsx starts the app when its waits settle or after MOVE_WAIT_MS, whichever is first.
+function fakeTimer() {
+  const pending = [];
+  return { timer: (fn, ms) => pending.push({ fn, ms }), fire: () => pending.splice(0).forEach((t) => t.fn()), pending };
+}
+
+test('startWhenReady: a chunk that stalls starts the app after the wait, and says it was late', async () => {
+  const t = fakeTimer();
+  let started = 0, late = 0;
+  startWhenReady([new Promise(() => {})], () => { started++; }, { onLate: () => { late++; }, timer: t.timer });
+  await Promise.resolve();
+  assert.equal(started, 0, 'still waiting for the chunk');
+  assert.equal(t.pending[0].ms, MOVE_WAIT_MS);
+  t.fire();
+  assert.equal(started, 1);
+  assert.equal(late, 1);
+});
+
+test('startWhenReady: a chunk in time starts the app once, and the timer that fires later does nothing', async () => {
+  const t = fakeTimer();
+  let started = 0, late = 0;
+  let arrive;
+  startWhenReady([new Promise((r) => { arrive = r; })], () => { started++; }, { onLate: () => { late++; }, timer: t.timer });
+  arrive();
+  await new Promise(setImmediate);
+  assert.equal(started, 1);
+  t.fire();
+  assert.equal(started, 1);
+  assert.equal(late, 0);
+});
+
+test('startWhenReady: nothing to wait for starts at once, with no timer', () => {
+  const t = fakeTimer();
+  let started = 0;
+  startWhenReady([], () => { started++; }, { timer: t.timer });
+  assert.equal(started, 1);
+  assert.equal(t.pending.length, 0);
+});
+
+for (const [name, entries, want] of CASES) {
+  test(`gate: ${name} -> ${want}`, async () => {
+    assert.equal(moveWork({ localStorage: store(entries) }, NOW), want);
+    if (want !== null) return;
+    // The module has nothing to do either.
+    const s = store(entries);
+    assert.equal(applyMoveInbox(s).applied, false);
+    assert.equal(s.getItem(MOVE_INBOX), null);
+    let read = false;
+    const r = await importMovedRecords({ storage: s, readInbox: async () => { read = true; return []; } });
+    assert.equal(read, false, 'no IndexedDB import was due');
+    assert.ok(r.skipped === true || r.gaveUp === true);
+    assert.equal(moveNotice(s, NOW), null);
+  });
+}
+
+test('gate: the old address left a note', () => {
+  assert.equal(moveWork({ localStorage: store({}), __vmxMoveNote: 'VetMock ย้ายไปแล้ว' }, NOW), 'later');
+});
+
+test('gate: storage that throws means no move work, never a crash', () => {
+  const win = {};
+  Object.defineProperty(win, 'localStorage', { get() { throw new Error('denied'); } });
+  assert.equal(moveWork(win, NOW), null);
+  assert.equal(moveWork({ localStorage: { getItem() { throw new Error('denied'); } } }, NOW), null);
+});

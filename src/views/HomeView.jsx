@@ -2314,7 +2314,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               const hasAccData = acc && acc.total >= 5;
               const accPct = hasAccData ? Math.round((acc.correct / acc.total) * 100) : 0;
               const accColor = hasAccData
-                ? (accPct < 60 ? 'var(--clr-rose-text)' : (accPct < 80 ? 'var(--clr-gold-text)' : 'var(--clr-sage-text)'))
+                ? (accPct < 60 ? 'var(--clr-rose-text)' : (accPct < 80 ? 'var(--clr-part-text)' : 'var(--clr-right-text)'))
                 : 'var(--clr-ink-soft)';
               const cov = progressBySubject[s.id];
               const hasCoverage = cov && cov.covered > 0 && cov.total > 0;

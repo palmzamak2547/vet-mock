@@ -6,8 +6,10 @@ import { downloadJSON, subjectText } from '../hooks/utils.js';
 import {
   describeBackupFields,
   parseUserBackup,
+  pendingResultsForBackup,
   userDataPatchFromBackup,
   USER_DATA_IMPORT_MAX_BYTES,
+  progressResetPatch,
 } from '../lib/user-data-schema.js';
 import BackBar from '../components/BackBar.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
@@ -187,7 +189,7 @@ function TrendChart({ days }) {
             <rect
               key={i}
               x={x} y={y} width={barW - 8} height={h}
-              fill={d.pct !== null && d.pct >= 70 ? 'var(--clr-sage)' : d.pct !== null && d.pct >= 50 ? 'var(--clr-gold)' : d.pct !== null ? 'var(--clr-rose)' : 'var(--clr-border)'}
+              fill={d.pct !== null && d.pct >= 70 ? 'var(--clr-right)' : d.pct !== null && d.pct >= 50 ? 'var(--clr-part)' : d.pct !== null ? 'var(--clr-rose)' : 'var(--clr-border)'}
               rx={2}
               opacity={d.total === 0 ? 0.3 : 0.7}
             >
@@ -296,7 +298,7 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null, recoveryArchive = null }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, pendingExamResults = [], restoreUserData, ownerId = null, recoveryArchive = null }) {
   const [archiveBusy, setArchiveBusy] = useState(false);
   const [eventArchiveParts, setEventArchiveParts] = useState([]);
   const mountedRef = useRef(true);
@@ -399,6 +401,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       streakData: streakData || { streak, lastDate: null, freezeUsedAt: null },
       customQuestions,
       readingChecklist,
+      // Finished sets not yet sent to the account; a restore sends them once. Only this account's
+      // sendable ones: a record with no owner (an old build) would be skipped on the way back in.
+      pendingExamResults: pendingResultsForBackup(pendingExamResults, ownerId),
     };
     downloadJSON(data, `vetmock-backup-${fileStamp()}.json`);
   };
@@ -487,8 +492,8 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           return;
         }
 
-        const { data, fields } = parsed;
-        const preview = describeBackupFields(data, fields);
+        const { data, fields, skippedPending } = parsed;
+        const preview = describeBackupFields(data, fields, { ownerId, skippedPending });
         const accepted = await confirmDialog({
           title: 'ตรวจรายการก่อนนำเข้า',
           body: `ข้อมูลที่จะเขียนทับ:\n${preview.map((line) => `• ${line}`).join('\n')}\n\nรายการที่ไม่มีในไฟล์จะคงเดิม`,
@@ -496,7 +501,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           tone: 'danger',
         });
         if (accepted && mountedRef.current) {
-          const result = restoreUserData?.(userDataPatchFromBackup(data));
+          const result = restoreUserData?.((current) => userDataPatchFromBackup(data, { ownerId, current }));
           if (!result?.accepted) {
             alertDialog('นำเข้าไม่สำเร็จ ข้อมูลเดิมยังไม่ถูกเปลี่ยน พื้นที่ในเครื่องอาจเต็มหรือบัญชีมีการเปลี่ยนแปลง กรุณาลองใหม่');
             e.target.value = '';
@@ -584,7 +589,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div className="vmx-stat-lbl">ข้อที่ทำทั้งหมด</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}><DigitRoll value={scopedAnalytics.overallPct} />%</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-right-text)' }}><DigitRoll value={scopedAnalytics.overallPct} />%</div>
               <div className="vmx-stat-lbl">ความแม่นยำรวม</div>
             </div>
             <div className="vmx-stat-card vmx-streak-stat-card">
@@ -830,7 +835,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             confirmLabel: 'ล้างทั้งหมด',
             tone: 'danger',
           })) {
-            const result = restoreUserData?.({ history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null } });
+            const result = restoreUserData?.(progressResetPatch());
             if (!result?.accepted) alertDialog('ล้างข้อมูลไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่');
           }
         }}>ล้างความคืบหน้าหลัก</button>

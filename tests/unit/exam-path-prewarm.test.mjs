@@ -66,7 +66,8 @@ function warmedOnExamStart() {
 // the mascot's 2D picture. A deploy that 404s this chunk costs the student
 // the 3D model, never the score screen. Anything added here must be optional,
 // tap-loaded and behind a local boundary — the tests below hold it to that.
-const OPTIONAL_BEHIND_LOCAL_BOUNDARY = new Set(['components/MascotSquad3DViewer.jsx']);
+// The results page's 3D companion viewer was the one entry; it left the page on 11 Nov 2026.
+const OPTIONAL_BEHIND_LOCAL_BOUNDARY = new Set([]);
 
 test('every lazy chunk on the exam path is warmed before the exam starts', () => {
   const warm = warmedOnExamStart();
