@@ -165,6 +165,23 @@ test('pointed lines are kept only when the copied words stand in them', () => {
   assert.equal(squash('• Co-selection: ยา 1 ชนิด'), 'coselectionยา1ชนิด');
 });
 
+test('a text layer that split a sara am, or printed math letters, still holds the words copied from it', () => {
+  assert.equal(squash('จ านวนคนหรือสัตว์ที่ก าหนด'), squash('จำนวนคนหรือสัตว์ที่กำหนด'));
+  assert.equal(squash('Risk = 𝑎 / (𝑎+𝑏) 𝑥 100'), squash('Risk = a / (a+b) x 100'));
+  const split = { w: 960, h: 540, lines: [[80, 60, 600, 100, 'ความชุก =', 30], [80, 200, 700, 226, 'จ านวนสัตว์ที่เป็นโรค', 20]] };
+  assert.deepEqual(settle({ page: 'P1', lines: [1, 2], quote: 'ความชุก = จำนวนสัตว์ที่เป็นโรค' }, [{ p: { page: split, doc: {} } }]).idx, [0, 1]);
+});
+
+test('a fact broken over many short lines is kept; a long run of long lines is not', () => {
+  const words = ['Data', 'collection', 'Link to', 'Data', 'analysis', 'action', 'Data', 'interpretation', 'Result', 'dissemination'];
+  const short = { w: 960, h: 540, lines: words.map((t, i) => [80, 40 + 40 * i, 300, 70 + 40 * i, t, 20]) };
+  const got = settle({ page: 'P1', lines: words.map((_, i) => i + 1), quote: words.join(' ') }, [{ p: { page: short, doc: {} } }]);
+  assert.deepEqual(got.idx, words.map((_, i) => i), 'ten short lines, 80 letters');
+  const long = { w: 960, h: 540, lines: words.map((t, i) => [80, 40 + 40 * i, 900, 70 + 40 * i, `${t} ${'x'.repeat(60)}`, 20]) };
+  const quote = long.lines.map((l) => l[4]).join(' ');
+  assert.equal(settle({ page: 'P1', lines: words.map((_, i) => i + 1), quote }, [{ p: { page: long, doc: {} } }]), null, 'ten lines of 600 letters is a page, not a fact');
+});
+
 test('the lines the page prints are taken before lines read from its pictures', () => {
   const mixed = { w: 960, h: 540, lines: [
     [80, 60, 600, 100, 'Last-line antibiotics', 30],
