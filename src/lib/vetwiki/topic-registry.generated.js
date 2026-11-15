@@ -1496,7 +1496,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-seafood",
     "title": "Seafood: quality changes & spoilage, seafood toxins",
     "icon": "🐟",
-    "summary": "อาหารจากสัตว์น้ำตามสไลด์ Seafood: quality changes & spoilage, seafood toxins ที่สอน 14 ต.ค. 2569 แบ่งเป็น 3 ส่วน คือองค์ประกอบทางเคมีของ seafood (water, protein, non-protein nitrogen compounds, lipid, องค์ประกอบย่อย, dark muscle กับ white muscle), การเปลี่ยนแปลงคุณภาพและการเน่าเสีย (ปัจจัยที่มีผล, rigor mortis, chemical, microbiological และ enzymatic changes, วิธีประเมินความสด 4 กลุ่ม) และ seafood toxins 8 ชนิด ตั้งแต่ ASP, DSP, AZP, PSP, CFP, NSP, puffer fish poisoning จนถึง scombroid fish poisoning พร้อมตารางสรุปท้ายสไลด์",
+    "summary": "อาหารจากสัตว์น้ำ แบ่งเป็น 3 ส่วน คือองค์ประกอบทางเคมีของ seafood (water, protein, non-protein nitrogen compounds, lipid, องค์ประกอบย่อย, dark muscle กับ white muscle), การเปลี่ยนแปลงคุณภาพและการเน่าเสีย (ปัจจัยที่มีผล, rigor mortis, chemical, microbiological และ enzymatic changes, วิธีประเมินความสด 4 กลุ่ม) และ seafood toxins 8 ชนิด ตั้งแต่ ASP, DSP, AZP, PSP, CFP, NSP, puffer fish poisoning จนถึง scombroid fish poisoning พร้อมตารางสรุปท้ายสไลด์",
     "flagship": false
   },
   {
@@ -1523,7 +1523,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-quality",
     "title": "Meat quality and wholesomeness",
     "icon": "✅",
-    "summary": "คุณภาพเนื้อสัตว์และอนามัยเนื้อสัตว์ (wholesomeness) ตามสไลด์ Meat quality and wholesomeness ที่สอน 21 ต.ค. 2569 ไล่จากนิยามเนื้อสด, คุณภาพแบบ functional กับ conformance, postmortem changes และปัจจัยที่มีผล, คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู (PSE, RFN, DFD, halothane gene, RN- gene), ความหมายของ wholesomeness กับ hazards 3 กลุ่ม, FAT-TOM และอุณหภูมิปรุงสุกของ USDA, คุณค่าต่อสุขภาพ, การตรวจเนื้อในสหรัฐอเมริกา, triangle of needs จนถึงการควบคุม hazards ตลอด food chain และ safe handling",
+    "summary": "คุณภาพเนื้อสัตว์และอนามัยเนื้อสัตว์ (wholesomeness) ไล่จากนิยามเนื้อสด, คุณภาพแบบ functional กับ conformance, postmortem changes และปัจจัยที่มีผล, คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู (PSE, RFN, DFD, halothane gene, RN- gene), ความหมายของ wholesomeness กับ hazards 3 กลุ่ม, FAT-TOM และอุณหภูมิปรุงสุกของ USDA, คุณค่าต่อสุขภาพ, การตรวจเนื้อในสหรัฐอเมริกา, triangle of needs จนถึงการควบคุม hazards ตลอด food chain และ safe handling",
     "flagship": false
   },
   {
@@ -1532,7 +1532,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-molecular",
     "title": "Application of molecular biology in meat science",
     "icon": "🧬",
-    "summary": "การใช้อณูชีววิทยาใน meat science ตามสไลด์ Application of molecular biology in meat science ที่สอน 21 ต.ค. 2569 มี 2 เรื่องใหญ่ เรื่องแรกคือการปรับปรุงคุณภาพเนื้อของสัตว์ในฟาร์มด้วย genomic technologies (QTL, candidate gene approach, genome scan approach, fine mapping และยีนสำคัญในโค ไก่ สุกร) เรื่องที่สองคือ halal authentication of raw meat ตั้งแต่ความหมายของ halal, halal meat supply chain กับ halal critical control points จนถึงเทคนิคตรวจหาเนื้อสุกร (PCR, ELISA, immunochromatographic assays, FTIR spectroscopy) และตารางสรุปเทคนิคท้ายสไลด์",
+    "summary": "การใช้อณูชีววิทยาใน meat science มี 2 เรื่องใหญ่ เรื่องแรกคือการปรับปรุงคุณภาพเนื้อของสัตว์ในฟาร์มด้วย genomic technologies (QTL, candidate gene approach, genome scan approach, fine mapping และยีนสำคัญในโค ไก่ สุกร) เรื่องที่สองคือ halal authentication of raw meat ตั้งแต่ความหมายของ halal, halal meat supply chain กับ halal critical control points จนถึงเทคนิคตรวจหาเนื้อสุกร (PCR, ELISA, immunochromatographic assays, FTIR spectroscopy) และตารางสรุปเทคนิคท้ายสไลด์",
     "flagship": false
   },
   {
@@ -1568,7 +1568,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-pest-control",
     "title": "Meat hygiene: pest control",
     "icon": "🪲",
-    "summary": "การควบคุมสัตว์รังควาน (pest control) ตามสไลด์ Meat Hygiene: Pest Control ที่สอน 28 ต.ค. 2569 เริ่มจากปัญหาที่ pest ก่อ ชนิดของ pest (rodents, insects, birds) และหลักการควบคุม 4 ข้อ (no food, no habitat, destroy pest, prevention for the advent) แล้วไล่วิธีควบคุมหนู (proofing, baits, rodenticides, traps) การควบคุมแมลงสาบ (aerosols, baits, dusts, traps) จนถึงการควบคุมแมลงด้วย air curtain, strip door curtain, electrocutor, mesh screen และ insecticides",
+    "summary": "การควบคุมสัตว์รังควาน (pest control) เริ่มจากปัญหาที่ pest ก่อ ชนิดของ pest (rodents, insects, birds) และหลักการควบคุม 4 ข้อ (no food, no habitat, destroy pest, prevention for the advent) แล้วไล่วิธีควบคุมหนู (proofing, baits, rodenticides, traps) การควบคุมแมลงสาบ (aerosols, baits, dusts, traps) จนถึงการควบคุมแมลงด้วย air curtain, strip door curtain, electrocutor, mesh screen และ insecticides",
     "flagship": false
   },
   {
@@ -1577,7 +1577,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-egg-micro",
     "title": "Microbiology of the avian egg",
     "icon": "🥚",
-    "summary": "จุลชีววิทยาของไข่ตามสไลด์ Microbiology of the avian egg ที่สอน 28 ต.ค. 2569 เริ่มจากความสำคัญของจุลินทรีย์กับไข่ โครงสร้างของเปลือกไข่ (true layer, pores, shell accessory material, shell membranes) การแบ่งส่วนภายในไข่ (compartmentalization) และการเสียสภาพที่ทำให้ไข่เน่า วิธีรักษาความสด เหตุที่ไข่ถือเป็น aseptically packaged food ทางที่แบคทีเรียเข้าสู่ไข่ 3 ทาง (trans-ovarian, oviducal, trans-shell) กลไกต้านจุลชีพทางกายภาพและเคมี ปัจจัยและการป้องกัน trans-shell transmission การติด Salmonella จนถึงหลักการล้างไข่ 10 ข้อ",
+    "summary": "จุลชีววิทยาของไข่ เริ่มจากความสำคัญของจุลินทรีย์กับไข่ โครงสร้างของเปลือกไข่ (true layer, pores, shell accessory material, shell membranes) การแบ่งส่วนภายในไข่ (compartmentalization) และการเสียสภาพที่ทำให้ไข่เน่า วิธีรักษาความสด เหตุที่ไข่ถือเป็น aseptically packaged food ทางที่แบคทีเรียเข้าสู่ไข่ 3 ทาง (trans-ovarian, oviducal, trans-shell) กลไกต้านจุลชีพทางกายภาพและเคมี ปัจจัยและการป้องกัน trans-shell transmission การติด Salmonella จนถึงหลักการล้างไข่ 10 ข้อ",
     "flagship": false
   },
   {
