@@ -9,6 +9,7 @@ import { IconDown, IconWave } from './components/icons.jsx';
 import { Toasts, toast } from './components/ShareMenu.jsx';
 import { chat as callChat, health, warm } from './lib/api.js';
 import { useWall, wall } from './lib/account.js';
+import { TRIAL_NOTE } from './lib/wall.js';
 import { listChats, saveChat, deleteChat, clearChats, newId, titleFor, getPref, setPref } from './lib/store.js';
 import { hasThaiVoice } from './lib/speech.js';
 import { reducedMotion } from './lib/env.js';
@@ -91,6 +92,8 @@ export default function App() {
   // The Chula wall (lib/wall.js): until it opens, a sign-in card over the sea instead of the assistant.
   const gate = useWall();
   const open = gate.gate === 'open';
+  // a visitor on a trial link (lib/pass.js): questions and the microphone, no call, no Chula library
+  const trial = gate.trial;
   const wallRef = useRef(null);
   const openRef = useRef(open);
   openRef.current = open;
@@ -625,24 +628,27 @@ export default function App() {
               ghost={mode === 'landing' && beat >= 0 ? SHOW[beat].ask : null}
               onTyping={(busyBox) => { typing.current = busyBox; }}
               autoFocus={mode === 'landing'}
-              onVoice={startVoice}
-              onVoiceHint={prefetchVoice}
+              onVoice={trial ? undefined : startVoice}
+              onVoiceHint={trial ? undefined : prefetchVoice}
               voiceOff={voiceAvail?.available === false}
             />
             {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
             {mode === 'landing' && (
               <>
-                <button type="button" className="voice-cta" onClick={startVoice} onPointerEnter={prefetchVoice} onFocus={prefetchVoice} onTouchStart={prefetchVoice} disabled={!online}>
-                  <IconWave size={18} />
-                  <span>คุยด้วยเสียงแบบสด</span>
-                  <span className="voice-cta-new">ใหม่</span>
-                </button>
+                {!trial && (
+                  <button type="button" className="voice-cta" onClick={startVoice} onPointerEnter={prefetchVoice} onFocus={prefetchVoice} onTouchStart={prefetchVoice} disabled={!online}>
+                    <IconWave size={18} />
+                    <span>คุยด้วยเสียงแบบสด</span>
+                    <span className="voice-cta-new">ใหม่</span>
+                  </button>
+                )}
                 <ul className="suggest" aria-label="ตัวอย่างคำถาม">
                   {SUGGEST.map((s) => (
                     <li key={s}><button type="button" onClick={() => send(s, null)} disabled={!online}>{s}</button></li>
                   ))}
                 </ul>
                 <p className="dock-note">ทดลองใช้ ตรวจสอบก่อนนำไปใช้กับสัตว์จริง</p>
+                {trial && <p className="dock-note">{TRIAL_NOTE}</p>}
               </>
             )}
           </div>

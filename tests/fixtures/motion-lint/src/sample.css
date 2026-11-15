@@ -1,0 +1,42 @@
+/* Fixture for tests/unit/lint-motion.test.mjs. Each comment names what the line should count. */
+:root { --vm-ease-tap: linear(0, 1); --vm-dur-tap: 491ms; }
+
+/* layout-transition 1, easing-literal 1 (no timing named: the default ease) */
+.a { transition: all 0.15s; }
+/* layout-transition 1, easing-literal 2 */
+.b { transition: width 400ms ease, background 200ms ease-out; }
+/* nothing: compositor properties on tokens */
+.c { transition: transform var(--vm-dur-tap) var(--vm-ease-tap), opacity var(--vm-dur-fade) var(--vm-ease-tap); }
+/* layout-transition 1 (a bare duration means all), easing-literal 1 */
+.d { transition: .2s cubic-bezier(.2, 0, 0, 1); }
+
+/* paint-keyframes 1: background-position */
+@keyframes shine { to { background-position: 200% 0; } }
+/* not paint: transform and opacity */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+/* paint-keyframes 1: a custom property */
+@keyframes spin-var { to { --angle: 360deg; } }
+
+/* infinite-loop 1, easing-literal 1, no-reduced-rule 1 */
+.e { animation: shine 1.4s linear infinite; }
+/* covered by its own rule below; easing-literal 0 */
+.f { animation: rise var(--vm-dur-tap) var(--vm-ease-tap) both; }
+/* covered: the rule below names the keyframes; easing-literal 1 */
+.g { animation: spin-var 2s ease-in-out; }
+/* covered by an ancestor's rule: .h is named below */
+.h > i { animation: rise 300ms var(--vm-ease-tap); }
+/* allowed context: no-preference */
+@media (prefers-reduced-motion: no-preference) { .k { animation: rise var(--vm-dur-tap) var(--vm-ease-tap); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .f { animation: none; }
+  .x { animation-name: spin-var; }
+  .h { display: none; }
+  /* a fallback is not counted: */
+  .z { transition: width 1s; }
+}
+/* blanket-reduced 1, and it covers nothing */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+.s { content: "a { transition: all 1s }"; }

@@ -345,8 +345,8 @@
 /* ── The spring, where the engine can draw it ─────────────── */
 @supports (transition-timing-function: linear(0, 1)) {
   .vmx-id-editor, .vmx-id-pic, .vmx-hub-pic, .vmx-id-step, .vmx-actfig-day rect, .vmx-hub-bar > span, .vmx-hub-saved {
-    transition-duration: 480ms;
-    transition-timing-function: linear(0, 0.053, 0.174, 0.32, 0.467, 0.6, 0.712, 0.802, 0.871, 0.922, 0.958, 0.982, 0.997, 1.005, 1.01, 1.011, 1.011, 1.01, 1.008, 1.006, 1.005, 1.004, 1.002, 1.002, 1);
+    transition-duration: var(--vm-dur-control);
+    transition-timing-function: var(--vm-ease-control);
   }
 }
 
