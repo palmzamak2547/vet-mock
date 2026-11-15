@@ -1238,16 +1238,18 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           {termGlossary && termGlossary.length > 0 && (
             <aside className="vw-glossary" aria-label="ศัพท์เฉพาะทางในบทนี้">
               <h2 className="vw-glossary-title">ศัพท์เฉพาะทางในบทนี้</h2>
-              <table className="vw-glossary-table">
-                <thead>
-                  <tr><th scope="col">ศัพท์</th><th scope="col">คำแปลไทย</th><th scope="col">ความหมายทางเวชศาสตร์</th></tr>
+              {/* The roles keep this a table to screen readers when a phone lays its rows out as
+                  blocks (styles-wiki.css), which drops the native table semantics in some browsers. */}
+              <table className="vw-glossary-table" role="table">
+                <thead role="rowgroup">
+                  <tr role="row"><th scope="col" role="columnheader">ศัพท์</th><th scope="col" role="columnheader">คำแปลไทย</th><th scope="col" role="columnheader">ความหมายทางเวชศาสตร์</th></tr>
                 </thead>
-                <tbody>
+                <tbody role="rowgroup">
                   {termGlossary.map((row) => (
-                    <tr key={row.term}>
-                      <th scope="row">{row.term}</th>
-                      <td>{row.th}</td>
-                      <td>{row.meaning}</td>
+                    <tr key={row.term} role="row">
+                      <th scope="row" role="rowheader">{row.term}</th>
+                      <td role="cell">{row.th}</td>
+                      <td role="cell">{row.meaning}</td>
                     </tr>
                   ))}
                 </tbody>

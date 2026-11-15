@@ -771,8 +771,11 @@
 }
 .vw-glossary-title {
   margin: 0 0 10px;
+  font-family: var(--vw-display);
   font-size: 18px;
-  color: var(--vw-display);
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--clr-ink);
 }
 .vw-glossary-table {
   width: 100%;
@@ -785,7 +788,8 @@
   padding: 8px 10px;
   text-align: left;
   vertical-align: top;
-  color: var(--vw-body);
+  font-family: var(--vw-body);
+  color: var(--clr-ink);
   overflow-wrap: break-word;
   min-width: 5.5em;
 }
@@ -795,4 +799,25 @@
 }
 .vw-glossary-table tbody th[scope="row"] {
   font-weight: 700;
+}
+/* A phone has no room for three columns: each word became its own line. Each term becomes one
+   entry instead (the term, its Thai, then the meaning), and the column heads stay for screen
+   readers only. The roles on the table in KnowledgeView keep it a table to assistive tech. */
+@media (max-width: 640px) {
+  .vw-glossary { padding: 16px; }
+  .vw-glossary-table thead {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+  .vw-glossary-table,
+  .vw-glossary-table tbody,
+  .vw-glossary-table tr,
+  .vw-glossary-table th,
+  .vw-glossary-table td { display: block; }
+  .vw-glossary-table tbody tr { border-top: 1px solid var(--clr-border); padding: 10px 0; }
+  .vw-glossary-table tbody tr:first-child { border-top: none; padding-top: 0; }
+  .vw-glossary-table th,
+  .vw-glossary-table td { border-top: none; padding: 0; min-width: 0; }
+  .vw-glossary-table tbody td:nth-of-type(1) { margin-top: 2px; color: var(--clr-ink-soft); }
+  .vw-glossary-table tbody td:nth-of-type(2) { margin-top: 4px; }
 }
