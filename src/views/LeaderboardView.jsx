@@ -120,7 +120,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
       ) : error ? (
         <StatePanel kind="error" title="โหลดอันดับคะแนนไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : scores.length === 0 ? (
-        <StatePanel art={EMPTY_ART.leaderboard} title="ยังไม่มีคะแนนในปีนี้" body="ทำชุดข้อสอบอย่างน้อย 5 ข้อแล้วส่งผลสำเร็จ คะแนนจะขึ้นที่นี่" />
+        <StatePanel art={EMPTY_ART.leaderboard} title="ยังไม่มีคะแนน" body="ทำชุดข้อสอบอย่างน้อย 5 ข้อแล้วส่งผลสำเร็จ คะแนนจะขึ้นที่นี่" />
       ) : (
         <div>
           {scores.map((r, idx) => (

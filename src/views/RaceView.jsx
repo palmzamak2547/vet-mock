@@ -24,12 +24,24 @@ const resolveRoomQuestions = createRaceQuestionCache();
 // The last room this tab was in. Leaving a running race keeps every answer on
 // the server, and entering the same code again resumes at the same question,
 // so the join box offers that code back (also after a reload for a new build).
+// It is kept with the account it belongs to, and dropped once it can no longer
+// be joined: the student finished that race, or the room is gone. Another
+// account signed in on the same tab is never offered it.
 const LAST_ROOM_KEY = 'vmx-race-last-room';
-function rememberRoom(value) {
-  try { if (value) sessionStorage.setItem(LAST_ROOM_KEY, value); else sessionStorage.removeItem(LAST_ROOM_KEY); } catch { /* storage off */ }
+function rememberRoom(owner, value) {
+  try {
+    if (owner && value) sessionStorage.setItem(LAST_ROOM_KEY, JSON.stringify({ owner, code: value }));
+    else sessionStorage.removeItem(LAST_ROOM_KEY);
+  } catch { /* storage off */ }
 }
-function rememberedRoom() {
-  try { return sessionStorage.getItem(LAST_ROOM_KEY) || ''; } catch { return ''; }
+function forgetRoom() { rememberRoom(null, ''); }
+function rememberedRoom(owner) {
+  try {
+    const kept = JSON.parse(sessionStorage.getItem(LAST_ROOM_KEY) || 'null');
+    if (kept && owner && kept.owner === owner && typeof kept.code === 'string') return kept.code;
+    if (kept) forgetRoom();
+  } catch { forgetRoom(); }
+  return '';
 }
 
 export default function RaceView({ goHome, setView, user, profile }) {
@@ -80,7 +92,10 @@ export default function RaceView({ goHome, setView, user, profile }) {
     // an account has guessed too often (the join counter commits that way).
     // It is a refusal, not a connection problem: say so instead of reading
     // snapshot.started_at off null and telling the student to retry.
-    if (!snapshot) throw new Error(RACE_REFUSALS['Room unavailable']);
+    if (!snapshot) { forgetRoom(); throw new Error(RACE_REFUSALS['Room unavailable']); }
+    // Kept before the questions load, so the reload notice can promise it;
+    // a race this student finished is not offered back.
+    rememberRoom(owner, snapshot.participants?.[owner]?.finished ? '' : snapshot.code);
     let qs = [];
     if (snapshot.started_at) qs = await resolveRoomQuestions(snapshot, QB, loadQBForYear);
     if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
@@ -88,7 +103,6 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const merged = mergeRaceProgress(progressRef.current, snapshot.participants);
     progressRef.current = merged;
     setCode(snapshot.code);
-    rememberRoom(snapshot.code);
     setIsHost(snapshot.host_id === owner);
     setParticipants(merged);
     startedRef.current = !!snapshot.started_at;
@@ -107,9 +121,6 @@ export default function RaceView({ goHome, setView, user, profile }) {
     let alive = true, reading = false;
     const owner = user.id;
     let timer = null;
-    // Questions still missing after a few polls are not a slow bank chunk:
-    // this copy of the app does not have them, so it is another build.
-    let missingPolls = 0;
     const refresh = async () => {
       if (!alive || reading || document.visibilityState === 'hidden') return;
       reading = true;
@@ -124,8 +135,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         if (!alive) return;
         // Another build's questions: a retry gets the same answer, only a
         // fresh page helps. Say that, never "the connection stumbled".
-        missingPolls = failure?.missing ? missingPolls + 1 : 0;
-        if (failure?.stale || missingPolls >= 3) { alive = false; clearInterval(timer); setError(null); setStale(true); return; }
+        if (failure?.stale || failure?.missing) { alive = false; clearInterval(timer); setError(null); setStale(true); return; }
         // The room expired or this account is no longer in it: polling again
         // can never succeed, so say so and stop instead of "retrying" forever.
         if (failure?.refused) { alive = false; clearInterval(timer); roomGone(failure.message); return; }
@@ -143,8 +153,8 @@ export default function RaceView({ goHome, setView, user, profile }) {
   // the guests are told and offered the way back. A running race keeps the
   // refusal as an error line, since the answers already sent stay counted.
   function roomGone(message) {
+    forgetRoom();
     if (startedRef.current) { setError(message); return; }
-    rememberRoom('');
     setError(null);
     setClosed(true);
   }
@@ -158,7 +168,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
   function leaveWaitingRoom() {
     const left = code;
     if (left && user?.id && !startedRef.current) {
-      rememberRoom('');
+      forgetRoom();
       Promise.resolve().then(() => ownedRpc(user.id, 'leave_race', { p_code: left })).catch(() => {});
     }
     backToLobby();
@@ -175,7 +185,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
   // screen to the reload notice instead.
   async function asksForReload(work) {
     try { await work(); }
-    catch (failure) { if (failure?.stale) { setStale(true); return; } throw failure; }
+    catch (failure) { if (failure?.stale || failure?.missing) { setStale(true); return; } throw failure; }
   }
   const createRace = () => act(async () => {
     const owner = user.id;
@@ -185,7 +195,13 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const value = String(input || '').trim().toUpperCase();
     if (!/^[A-F0-9]{6}$/.test(value)) throw new Error('ใส่รหัสห้อง 6 ตัวจากเพื่อน (ห้องเวอร์ชันเก่าต้องสร้างใหม่)');
     const owner = user.id;
-    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: value }, { refusals: RACE_REFUSALS }), owner);
+    try {
+      await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: value }, { refusals: RACE_REFUSALS }), owner);
+    } catch (failure) {
+      // A refused code is not offered again.
+      if (failure?.refused && rememberedRoom(owner) === value) forgetRoom();
+      throw failure;
+    }
   });
   const startRace = () => act(async () => {
     if (!isHost || loadingBank || eligibleQs.length < count) throw new Error('รอโหลดคลัง หรือเลือกจำนวนไม่เกินข้อสอบที่มี');
@@ -241,8 +257,8 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
-        <StatePanel kind="error" title="แอปในเครื่องนี้ยังเป็นรุ่นเก่า"
-          body="ข้อสอบในห้องนี้มาจากรุ่นใหม่กว่า โหลดหน้าใหม่ แล้วกดเข้าห้องเดิมอีกครั้ง รหัสห้องจะใส่ไว้ให้ และคำตอบที่ส่งแล้วยังอยู่"
+        <StatePanel kind="error" title="ข้อสอบในเครื่องนี้ไม่ตรงกับห้อง"
+          body="โหลดหน้าใหม่แล้วเข้าห้องเดิมอีกครั้ง คำตอบที่ส่งแล้วยังอยู่"
           actionLabel="โหลดหน้าใหม่" onAction={() => window.location.reload()} />
       </>
     );
@@ -268,7 +284,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           <button className="vmx-btn vmx-btn-primary" onClick={createRace} disabled={busy} style={{ padding: '14px 20px' }}>
             สร้างห้องแข่งใหม่
           </button>
-          <JoinForm onJoin={joinRace} busy={busy} initial={rememberedRoom()} />
+          <JoinForm onJoin={joinRace} busy={busy} initial={rememberedRoom(user?.id)} />
         </div>
         {error && <div style={{ color: 'var(--clr-rose-text, #c0392b)', fontSize: 14 }}>{error}</div>}
       </>
@@ -387,7 +403,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         </ol>
         <div className="vmx-btn-row" style={{ marginTop: 16 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={() => { rememberRoom(''); setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; startedRef.current = false; }}>แข่งอีกรอบ</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={() => { forgetRoom(); setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; startedRef.current = false; }}>แข่งอีกรอบ</button>
         </div>
       </>
     );
@@ -404,6 +420,13 @@ function JoinForm({ onJoin, busy, initial = '' }) {
         type="text"
         value={val}
         onChange={(e) => setVal(e.target.value.toUpperCase())}
+        /* A code already in the box is selected, so typing or pasting a new
+           one replaces it instead of meeting the six-character limit. */
+        onFocus={(e) => e.target.select?.()}
+        onPaste={(e) => {
+          const pasted = (e.clipboardData?.getData('text') || '').trim().toUpperCase();
+          if (/^[A-F0-9]{6}$/.test(pasted)) { e.preventDefault(); setVal(pasted); }
+        }}
         aria-label="รหัสห้องแข่ง" placeholder="รหัส 6 ตัว เช่น A3C7F2"
         maxLength={6}
         style={{ flex: 1, minWidth: 0, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 16, minHeight: 44 }}

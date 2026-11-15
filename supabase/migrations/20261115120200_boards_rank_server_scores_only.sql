@@ -33,7 +33,7 @@
 --   CREATE POLICY rr_insert_own ON public.race_results FOR INSERT TO authenticated
 --     WITH CHECK (user_id = (SELECT auth.uid()) AND room_id IS NULL);
 --   and re-run the two function bodies from 20260907060250_verified_exam_results.sql
---   (get_leaderboard_by_source) and 20260903000000_global_leaderboard_min_questions.sql
+--   (get_leaderboard_by_source) and 20260907035459_audit_data_integrity.sql
 --   (get_global_leaderboard), which drop the score_source filter added here.
 
 DROP POLICY IF EXISTS rr_insert_own ON public.race_results;

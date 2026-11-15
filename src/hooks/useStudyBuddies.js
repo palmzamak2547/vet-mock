@@ -179,8 +179,11 @@ async function resolveNames(supabase, keys) {
   if (!wanted.length) return;
   for (const k of wanted) asking.add(k);
   try {
-    const { data, error } = await supabase.rpc('buddy_profiles', { p_keys: wanted });
-    if (error) { namesUnavailable = true; return; }
+    const { data, error, status } = await supabase.rpc('buddy_profiles', { p_keys: wanted });
+    // Only a database without the function stops asking; a dropped request
+    // or an expired token (handed back as an error value, not thrown) is
+    // asked again on the next sync.
+    if (error) { if (status === 404 || error.code === 'PGRST202') namesUnavailable = true; return; }
     const next = new Map(names);
     for (const k of wanted) next.set(k, { username: null, avatar: null, at: now });
     for (const row of Array.isArray(data) ? data : []) {

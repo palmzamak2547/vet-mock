@@ -330,7 +330,7 @@ test('names come from buddy_profiles, keyed by the presence key, and a failed lo
 
   const broken = fakeRealtime();
   let calls = 0;
-  broken.sb.rpc = async () => { calls++; return { data: null, error: { message: 'Could not find the function' } }; };
+  broken.sb.rpc = async () => { calls++; return { data: null, status: 404, error: { code: 'PGRST202', message: 'Could not find the function' } }; };
   const mod2 = loadModule(broken);
   const app2 = createHost(() => { mod2.useStudyBuddies({ user: ME, profile: PROFILE, subject: null, view: 'home', qKey: null }); return null; }).mount();
   await settle();
@@ -343,4 +343,23 @@ test('names come from buddy_profiles, keyed by the presence key, and a failed lo
   assert.equal(panel2.result.b.username, null);
   panel2.unmount();
   app2.unmount();
+
+  // A dropped request is not a missing function: the next sync asks again.
+  const flaky = fakeRealtime();
+  let tries = 0;
+  flaky.sb.rpc = async () => (++tries === 1
+    ? { data: null, status: 0, error: { message: 'TypeError: Failed to fetch' } }
+    : { data: [{ key: 'f', username: 'from-server', avatar_emoji: '🦊' }], error: null, status: 200 });
+  const mod3 = loadModule(flaky);
+  const app3 = createHost(() => { mod3.useStudyBuddies({ user: ME, profile: PROFILE, subject: null, view: 'home', qKey: null }); return null; }).mount();
+  await settle();
+  flaky.sync({ me: meOnline, f: classmate() });
+  await settle();
+  flaky.sync({ me: meOnline, f: classmate(), g: classmate() });
+  await settle();
+  const panel3 = createHost(() => mod3.useBuddyPanel()).mount();
+  assert.equal(tries, 2, 'asked again after a dropped request');
+  assert.equal(panel3.result.f.username, 'from-server');
+  panel3.unmount();
+  app3.unmount();
 });

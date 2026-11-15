@@ -48,7 +48,7 @@ export const OG_COVERS = [
     cover: 'คลังโจทย์ ของเรา' },
   { id: 'groups', route: '/app/groups',
     title: 'กลุ่มติว',
-    description: 'แชร์ข้อสอบและอันดับคะแนนกลุ่ม',
+    description: 'อันดับคะแนนของกลุ่ม',
     cover: 'อ่านด้วยกัน ไปได้ไกลกว่า' },
   { id: 'leaderboard-global', route: '/app/leaderboard',
     title: 'อันดับคะแนน',

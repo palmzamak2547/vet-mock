@@ -13,9 +13,10 @@ export async function resolveRaceQuestions(snapshot, bank, loadYear) {
   if (!Array.isArray(qIds) || qIds.length < 5 || qIds.length > 50 || new Set(qIds).size !== qIds.length) throw new Error('ชุดแข่งไม่ถูกต้อง');
   await loadYear(snapshot.year);
   const qs = qIds.map(id => bank.find(q => q.id === id && q.subject === snapshot.subject && q.type === 'mcq'));
-  // Missing questions are first a bank chunk that has not arrived (a
-  // reconnect on a cold cache), so the poll retries; the view treats it as
-  // another build only when it keeps happening.
+  // The year's bank is whole by now (loadYear resolves after every chunk of
+  // the year is merged, and a chunk that fails rejects above), so a question
+  // that is still missing is one this copy of the app does not hold: another
+  // build, like a revision that differs. The view asks for a fresh page.
   if (qs.filter(Boolean).length !== qIds.length) throw Object.assign(new Error('โหลดข้อสอบไม่ครบ กรุณาลองเชื่อมต่อใหม่'), { missing: true });
   if (qs.some(q => snapshot.question_versions?.[q.id] !== questionRevision(q))) throw new RaceBuildMismatch('ข้อสอบในเครื่องนี้เป็นคนละรุ่นกับห้องนี้');
   return qs;

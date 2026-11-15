@@ -48,6 +48,12 @@ test('DA-09: the Groups hero does not promise sharing questions', () => {
   assert.doesNotMatch(hero, /แชร์ข้อสอบ/);
 });
 
+test('DA-09: the palette and the shared-link cover do not promise sharing questions either', () => {
+  for (const file of ['src/lib/feature-registry.js', 'src/data/og-covers.js']) {
+    assert.doesNotMatch(src(file), /แชร์ข้อสอบ/, file);
+  }
+});
+
 test('DA-09: the copy keeps the house rules', () => {
   for (const file of ['src/views/GroupDetailView.jsx', 'src/views/GroupsView.jsx']) {
     const code = src(file);

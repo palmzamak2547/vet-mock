@@ -70,6 +70,14 @@ function browserGlobals() {
 }
 
 const flush = () => new Promise((r) => setTimeout(r, 0));
+const kept = () => JSON.parse(globalThis.sessionStorage.getItem('vmx-race-last-room') || 'null');
+const keep = (owner, code) => globalThis.sessionStorage.setItem('vmx-race-last-room', JSON.stringify({ owner, code }));
+function lobbyFor(t, id, rpc = async () => null) {
+  globalThis.__raceRpc = rpc;
+  const panel = mount(RaceView, { goHome() {}, setView() {}, user: { id }, profile: { username: id } });
+  t.after(() => { panel.unmount(); delete globalThis.__raceRpc; });
+  return panel;
+}
 const person = (idx = 0) => ({ username: 'x', avatar: '🐾', idx, correct: 0, finished: false });
 const lobby = (host) => ({ code: 'ABC123', host_id: host, started_at: null, participants: { me: person(), host: person() } });
 const running = (versions, idx = 0) => ({
@@ -88,22 +96,22 @@ async function openRoom(t, rpc) {
   return panel;
 }
 
-test('a mismatched question set is marked as a build problem; a missing one first as a slow bank', async () => {
+test('a mismatched question set is marked as a build problem, a missing one as missing', async () => {
   await assert.rejects(resolveRaceQuestions(running({}), BANK, async () => {}), (e) => e.stale === true);
   await assert.rejects(resolveRaceQuestions({ ...running(VERSIONS), question_ids: [...IDS.slice(0, 4), 'gone'] }, BANK, async () => {}),
     (e) => e.missing === true && !e.stale);
 });
 
-test('questions still missing after three polls are another build, and the poll stops', async (t) => {
+test('questions this app lacks are another build at once, and the poll stops', async (t) => {
   let polls = 0;
   const panel = await openRoom(t, async (owner, name) => {
     if (name === 'enter_race') return lobby('host');
     polls++;
     return { ...running(VERSIONS), question_ids: [...IDS.slice(0, 4), 'not-in-this-build'] };
   });
-  for (let i = 0; i < 400 && polls < 3; i++) await new Promise((r) => setTimeout(r, 25));
+  for (let i = 0; i < 400 && polls < 1; i++) await new Promise((r) => setTimeout(r, 25));
   await settle(panel);
-  assert.match(textOf(panel.tree), /แอปในเครื่องนี้ยังเป็นรุ่นเก่า/);
+  assert.match(textOf(panel.tree), /ข้อสอบในเครื่องนี้ไม่ตรงกับห้อง/);
   const stopped = polls;
   await new Promise((r) => setTimeout(r, 2300));
   assert.equal(polls, stopped, 'the poll stopped');
@@ -112,7 +120,7 @@ test('questions still missing after three polls are another build, and the poll 
 test('joining a running room from an older app asks for a reload, never a retry', async (t) => {
   const panel = await openRoom(t, async (owner, name) => (name === 'enter_race' ? running({ 'rw-1': 'old' }) : null));
   const shown = textOf(panel.tree);
-  assert.match(shown, /แอปในเครื่องนี้ยังเป็นรุ่นเก่า/, shown);
+  assert.match(shown, /ข้อสอบในเครื่องนี้ไม่ตรงกับห้อง/, shown);
   assert.doesNotMatch(shown, /การเชื่อมต่อสะดุด|กรุณาลองอีกครั้ง/);
   findComponent(panel.tree, 'StatePanel').props.onAction();
   assert.equal(globalThis.__raceReloads, 1, 'the button reloads the page');
@@ -128,7 +136,7 @@ test('a room that starts with questions this app lacks stops the poll and asks f
   for (let i = 0; i < 20 && polls < 1; i++) await flush();
   await settle(panel);
   const shown = textOf(panel.tree);
-  assert.match(shown, /แอปในเครื่องนี้ยังเป็นรุ่นเก่า/, shown);
+  assert.match(shown, /ข้อสอบในเครื่องนี้ไม่ตรงกับห้อง/, shown);
   assert.match(shown, /โหลดหน้าใหม่/);
   assert.doesNotMatch(shown, /การเชื่อมต่อสะดุด/, 'not the connection message');
   assert.equal(polls, 1, 'the poll stopped: a retry gets the same answer');
@@ -144,13 +152,13 @@ test('the exit dialog says the answers are kept and how to come back', async (t)
   assert.match(dialog.body, /ABC123/, 'it names the code to type again');
   assert.doesNotMatch(`${dialog.title} ${dialog.body}`, /หาย/, 'nothing is lost');
   assert.notEqual(dialog.tone, 'danger');
-  assert.equal(globalThis.sessionStorage.getItem('vmx-race-last-room'), 'ABC123', 'the code is kept for the join box');
+  assert.deepEqual(kept(), { owner: 'me', code: 'ABC123' }, 'the code is kept for the join box, with its account');
 });
 
 test('the join box offers the last room back', async (t) => {
   const restore = browserGlobals();
   t.after(restore);
-  globalThis.sessionStorage.setItem('vmx-race-last-room', 'ABC123');
+  keep('me', 'ABC123');
   globalThis.__raceRpc = async () => null;
   const panel = mount(RaceView, { goHome() {}, setView() {}, user: { id: 'me' }, profile: { username: 'me' } });
   t.after(() => { panel.unmount(); delete globalThis.__raceRpc; });
@@ -197,4 +205,59 @@ test('a room closed before its start tells the guest and offers the way back', a
   await settle(panel);
   assert.ok(findComponent(panel.tree, 'JoinForm'), 'the way back is the lobby');
   assert.equal(findComponent(panel.tree, 'JoinForm').props.initial, '', 'the closed room is not offered again');
+});
+
+// ── The remembered code ends with its race, its room and its account ──
+test('a race this student finished is not offered back', async (t) => {
+  const done = { ...running(VERSIONS, 5), participants: { me: { ...person(5), finished: true, duration_ms: 60000 }, host: person() } };
+  const panel = await openRoom(t, async () => done);
+  assert.equal(kept(), null, 'nothing kept once the race is finished');
+  const again = lobbyFor(t, 'me');
+  await settle(again);
+  assert.equal(findComponent(again.tree, 'JoinForm').props.initial, '');
+  assert.ok(panel);
+});
+
+test('a room that is gone is not offered back: refused on join, or expired mid-race', async (t) => {
+  const restore = browserGlobals();
+  t.after(restore);
+  keep('me', 'ABC123');
+  const panel = lobbyFor(t, 'me', async () => { throw Object.assign(new Error('ไม่พบห้องนี้'), { refused: true, serverMessage: 'Room unavailable' }); });
+  await settle(panel);
+  await findComponent(panel.tree, 'JoinForm').props.onJoin('ABC123');
+  await settle(panel);
+  assert.equal(kept(), null, 'a refused join forgets the code');
+  keep('me', 'ABC123');
+  globalThis.__raceRpc = async () => null;
+  await findComponent(panel.tree, 'JoinForm').props.onJoin('ABC123');
+  assert.equal(kept(), null, 'an empty answer forgets it too');
+});
+
+test('a running race whose room expires forgets the code', async (t) => {
+  let polls = 0;
+  await openRoom(t, async (owner, name) => {
+    if (name === 'enter_race') return running(VERSIONS, 1);
+    polls++;
+    throw Object.assign(new Error('ไม่พบห้องนี้'), { refused: true, serverMessage: 'Room unavailable' });
+  });
+  for (let i = 0; i < 200 && polls < 1; i++) await new Promise((r) => setTimeout(r, 25));
+  await flush();
+  assert.equal(kept(), null);
+});
+
+test('another account on the same tab is never offered the code', async (t) => {
+  const restore = browserGlobals();
+  t.after(restore);
+  keep('me', 'ABC123');
+  const panel = lobbyFor(t, 'someone-else');
+  await settle(panel);
+  assert.equal(findComponent(panel.tree, 'JoinForm').props.initial, '');
+  assert.equal(kept(), null, 'and it is dropped');
+});
+
+test('the join box selects what it holds, so a new code replaces it', async () => {
+  const { readFileSync } = await import('node:fs');
+  const form = readFileSync(new URL('../../src/views/RaceView.jsx', import.meta.url), 'utf8').split('function JoinForm')[1];
+  assert.ok(form.includes('onFocus={(e) => e.target.select?.()}'), 'the code in the box is selected on focus');
+  assert.match(form, /onPaste=/);
 });
