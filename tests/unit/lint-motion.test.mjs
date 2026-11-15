@@ -2,8 +2,8 @@
 //
 // The parser is checked on fixtures whose comments say what each line counts
 // (tests/fixtures/motion-lint/src). The ratchet is checked both as functions and end to end:
-// the real script, copied into a throwaway tree, must fail when a count rises, when a count
-// falls without being recorded, and when the budget itself rises above main's.
+// the real script, copied into a throwaway tree, must fail when a count rises and when the
+// budget itself rises above main's, and must pass (saying how to record it) when a count falls.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { spawnSync, execFileSync } from 'node:child_process';
@@ -46,7 +46,7 @@ test('a reduced-motion rule on * covers nothing', () => {
   assert.equal(countMotion({ css: { 'x.css': own } })['x.css']['no-reduced-rule'], undefined);
 });
 
-test('the budget: over fails, under must be recorded, and it never rises above main', () => {
+test('the budget: over fails, under is reported, and it never rises above main', () => {
   const budget = { 'a.css': { 'layout-transition': 2 } };
   assert.deepEqual(compareBudget({ 'a.css': { 'layout-transition': 2 } }, budget), { over: [], under: [], rose: [] });
   assert.equal(compareBudget({ 'a.css': { 'layout-transition': 3 } }, budget).over.length, 1);
@@ -86,11 +86,11 @@ test('the script fails when a count rises and passes at the budget', () => {
   assert.match(r.stderr, /src\/a\.css layout-transition: 2 > budget 1/);
 });
 
-test('the script fails when a count falls until --write records it, and --write never raises', () => {
+test('the script passes when a count falls and says how to record it; --write never raises', () => {
   const { dir, put } = tree({ 'src/a.css': '.a { transition: opacity 1s var(--vm-ease-tap); }', 'docs/motion-budget.json': budgetFile({ 'src/a.css': { 'layout-transition': 1, 'easing-literal': 1 } }) });
   const r = run(dir);
-  assert.equal(r.status, 1);
-  assert.match(r.stderr, /--write/);
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /below the budget; record them with `npm run lint:motion -- --write`/);
   assert.equal(run(dir, '--write').status, 0);
   assert.deepEqual(JSON.parse(fs.readFileSync(path.join(dir, 'docs/motion-budget.json'), 'utf8')).files, {});
   assert.equal(run(dir).status, 0);

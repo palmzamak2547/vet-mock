@@ -246,9 +246,8 @@ export function countMotion({ css, scripts = {} }) {
 
 /**
  * Compare counts with the budget, and the budget with main's.
- * A count over its budget fails; a count under it fails too until the lower number is recorded,
- * so headroom never lets a number creep back. A budget number higher than main's fails: the
- * budget only falls.
+ * `over` and `rose` fail: a count over its budget, a budget number higher than main's. `under`
+ * is reported, not failed: the lower number waits for the next --write to record it.
  * @returns {{ over: string[], under: string[], rose: string[] }}
  */
 export function compareBudget(counts, budget, mainBudget = null) {

@@ -13,8 +13,10 @@
 //
 // The budget only falls:
 //   - a count over its budget fails (move the motion to transform, opacity and the tokens);
-//   - a count under its budget fails until --write records the lower number, so the headroom
-//     cannot be spent again;
+//   - a count under its budget passes and prints how to record it (`npm run lint:motion --
+//     --write`). It does not fail: many branches change stylesheets at once, and making each
+//     rewrite this one file would make it the place they all collide. Whoever records it next
+//     takes the headroom away;
 //   - a file with no row has budget 0;
 //   - a budget number higher than main's (origin/main, fetched by lint:release-number earlier
 //     in lint:data) fails, so a hand edit cannot raise it either. With no main here, or no
@@ -103,10 +105,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     console.error(`lint:motion — ${BUDGET_REL} rose above main's; the budget only falls:`);
     for (const line of rose) console.error(`  ${line}`);
   }
-  if (under.length) {
-    console.error('lint:motion — lower than the budget; record it with `node scripts/lint-motion.mjs --write`:');
-    for (const line of under) console.error(`  ${line}`);
-  }
-  if (over.length || rose.length || under.length) process.exit(1);
+  if (over.length || rose.length) process.exit(1);
   console.log(`lint:motion — OK ${JSON.stringify(total(counts))}${main ? '' : ' (no budget on main to compare with; skipped that check)'}`);
+  if (under.length) console.log(`lint:motion — ${under.length} number(s) below the budget; record them with \`npm run lint:motion -- --write\`.`);
 }
