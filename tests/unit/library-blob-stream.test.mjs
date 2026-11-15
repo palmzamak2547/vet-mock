@@ -4,6 +4,10 @@ import { Writable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 import handler from '../../api/library-blob.js';
 import { mintBlobToken } from '../../api/_lib/blob-token.js';
+import { setDirectStorage } from '../../api/library-blob.js';
+// These pin the REST route (storage ignores Range); the signed S3 route is
+// tested in library-blob-ranges.test.mjs.
+setDirectStorage(false);
 
 function storage(t, fetchImpl, status = 'restricted') {
   const previous = { CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN, R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID };

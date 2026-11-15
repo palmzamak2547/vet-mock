@@ -202,7 +202,7 @@ test('once page one is drawn, and after MAX_RANGES, every request waits for the 
   source.abort(); settled.abort();
 });
 
-test('a download that breaks is finished by range; without ranges the reader is told', async () => {
+test('a download that breaks is picked up once where it stopped, and the waiting request is answered by it', async () => {
   const length = 4 * MB;
   const bytes = fileOf(length);
   const held = heldBody(bytes);
@@ -214,23 +214,71 @@ test('a download that breaks is finished by range; without ranges the reader is 
   transport.requestDataRange(3 * RANGE_CHUNK, 4 * RANGE_CHUNK);
   await tick();
   assert.equal(asked.length, 1, 'only the tail asked for at the start; this one is left to the download');
+  const at = source.streamed;
+  await held.breakNow();
+  await source.done;
+  assert.equal(asked.length, 2);
+  assert.equal(asked[1], `bytes=${at}-${length - 1}`, 'one range from where it stopped to the end');
+  assert.equal(transport.done, true);
+  assert.equal(transport.progressive.reduce((x, y) => x + y, 0), length, 'every byte, once');
+});
+
+test('after a dropped download, page turns do not each become a range (the server would count and read every one)', async () => {
+  // A file of 40 MB or less has no charge cap, so only the limits stop this.
+  const length = 24 * MB;
+  const bytes = fileOf(length);
+  const held = heldBody(bytes);
+  const base = server(bytes);
+  let releaseResume;
+  const resumeHeld = new Promise((r) => { releaseResume = r; });
+  const seen = [];
+  const tailFrom = Math.floor((length - tailBytes(length)) / RANGE_CHUNK) * RANGE_CHUNK;
+  const fetchImpl = async (url, init) => {
+    // The pick-up (to the end, not the tail) is slow, as on a phone that just lost signal.
+    const r = init.headers.Range;
+    seen.push(r);
+    if (r.endsWith('-' + (length - 1)) && r !== 'bytes=' + tailFrom + '-' + (length - 1)) await resumeHeld;
+    return base.fetchImpl(url, init);
+  };
+  const source = new RangedPdfSource({ url: '/doc', response: new Response(held.body), length, fetchImpl });
+  let told = null;
+  source.onFail = (e) => { told = e; };
+  const transport = source.attach(fakeTransport());
+  await held.step(3);
+  source.settle(); // page one is on screen
   await held.breakNow();
   await tick(); await tick();
-  assert.equal(asked.length, 2, 'the waiting request is read by range once the download broke');
-  assert.deepEqual(transport.ranges[0].chunk, bytes.slice(3 * RANGE_CHUNK, 4 * RANGE_CHUNK));
-  await assert.rejects(source.done);
-
-  const held2 = heldBody(bytes);
-  const s2 = new RangedPdfSource({ url: '/doc', response: new Response(held2.body), length, fetchImpl: server(bytes, { answer: 'ignore' }).fetchImpl });
-  let told = null;
-  s2.onFail = (e) => { told = e; };
-  const t2 = s2.attach(fakeTransport());
-  t2.requestDataRange(length - RANGE_CHUNK, length);
+  const before = seen.length;
+  assert.equal(before, 2, 'the tail at the start and one pick-up');
+  // Sixty page turns while the pick-up is on its way.
+  for (let p = 0; p < 60; p++) transport.requestDataRange((2 + p * 0.3) * MB, (2 + p * 0.3) * MB + RANGE_CHUNK);
   await tick(); await tick();
-  await held2.step();
-  await held2.breakNow();
+  assert.equal(seen.length, before, 'no range per page turn');
+  releaseResume();
+  await source.done;
+  assert.equal(transport.done, true);
+  assert.equal(told, null);
+});
+
+test('a download that breaks and cannot be picked up ends the open, and nothing more is fetched', async () => {
+  const length = 4 * MB;
+  const bytes = fileOf(length);
+  const held = heldBody(bytes);
+  const { fetchImpl, asked } = server(bytes, { answer: 'ignore' });
+  const source = new RangedPdfSource({ url: '/doc', response: new Response(held.body), length, fetchImpl });
+  let told = 0;
+  source.onFail = () => { told += 1; };
+  const transport = source.attach(fakeTransport());
+  await tick(); await tick();
+  assert.equal(source.rangeOk, false, 'the tail came back whole: no ranges');
+  await held.step();
+  await held.breakNow();
   await tick();
-  assert.ok(told, 'no ranges and no download: the reader shows the failure instead of a page that never draws');
+  assert.ok(told >= 1, 'the reader shows the failure instead of a page that never draws');
+  const fetched = asked.length;
+  for (let p = 0; p < 20; p++) transport.requestDataRange(2 * MB + p * RANGE_CHUNK, 2 * MB + (p + 1) * RANGE_CHUNK);
+  await tick();
+  assert.equal(asked.length, fetched, 'nothing more is fetched');
 });
 
 test('a download shorter than its length is a failure, not a finished file', async () => {

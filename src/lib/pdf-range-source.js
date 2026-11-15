@@ -34,9 +34,10 @@ export const tailBytes = (length) => Math.min(length, Math.max(512 * 1024, Math.
 // A request elsewhere fetches at least this much.
 export const MID_BLOCK = 128 * 1024;
 // What the ranges of one open may cost the member's byte budget. The server
-// counts a range as every byte from the start of the file to the range's end
-// (storage cannot start in the middle), so a range near the end costs about
-// the whole file. A file the service worker keeps (40 MB or less) is paid for
+// reads storage by range and counts a range as its own bytes, but when that
+// route is down it falls back to a storage API that starts at byte 0 and
+// counts every byte up to the range's end, so a range near the end may cost
+// about the whole file. This counts the worse of the two. A file the service worker keeps (40 MB or less) is paid for
 // once and reopened for nothing; a bigger one is paid again on every open, so
 // its ranges may cost at most three times the file.
 export const KEPT_MAX_BYTES = 40 * 1024 * 1024;
@@ -77,7 +78,7 @@ export function planRange(begin, end, { length, streamed, rate = 0, open = true,
   const plan = begin >= length - tail
     ? { kind: 'fetch', from: Math.min(alignDown(begin), alignDown(length - tail)), to: length }
     : { kind: 'fetch', from: alignDown(begin), to: alignUp(Math.max(end, alignDown(begin) + MID_BLOCK), length) };
-  // The server counts a range as plan.to bytes (see rangeChargeCap).
+  // At worst the server counts a range as plan.to bytes (see rangeChargeCap).
   if (charged + plan.to > rangeChargeCap(length)) return { kind: 'wait' };
   return plan;
 }
@@ -145,34 +146,59 @@ export class RangedPdfSource {
   }
 
   async pump() {
-    const reader = this.response.body.getReader();
     this.startedAt = this.now();
-    try {
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        this.streamed += value.byteLength;
-        this.transport.onDataProgressiveRead(value);
-        this.transport.onDataProgress(this.streamed, this.length);
-      }
-      if (this.streamed !== this.length) throw new Error('short_download');
-      this.transport.onDataProgressiveDone();
-      this.complete = true;
-      this._resolve(this.length);
-    } catch (error) {
-      if (this.aborter.signal.aborted) { this._reject(error); return; }
-      // The download broke. With ranges the rest can still be read; without,
-      // the caller must say the file did not arrive.
-      this.failed = error;
-      this._reject(error);
-      if (this.rangeOk) {
-        this.open = true;
-        this.maxRanges = Infinity;
-        for (const { begin, end } of this.waiting.splice(0)) this.request(begin, end);
-      } else {
+    let body = this.response.body;
+    let resumed = false;
+    for (;;) {
+      try {
+        await this.readAll(body);
+        this.transport.onDataProgressiveDone();
+        this.complete = true;
+        this._resolve(this.length);
+        return;
+      } catch (error) {
+        if (this.aborter.signal.aborted) { this._reject(error); return; }
+        // The download broke. It is picked up ONCE where it stopped, by one
+        // range to the end of the file (counted as those bytes, never more
+        // than a reopen); the range limits stay as they were. If that cannot
+        // be done, nothing more is fetched and the reader says so.
+        if (!resumed && this.rangeOk && this.streamed < this.length) {
+          resumed = true;
+          const rest = await this.resumeBody().catch(() => null);
+          if (rest) { body = rest; continue; }
+        }
+        this.failed = error;
+        this._reject(error);
+        this.waiting.length = 0;
         this.onFail?.(error);
+        return;
       }
     }
+  }
+
+  async readAll(body) {
+    const reader = body.getReader();
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      this.streamed += value.byteLength;
+      this.transport.onDataProgressiveRead(value);
+      this.transport.onDataProgress(this.streamed, this.length);
+    }
+    if (this.streamed !== this.length) throw new Error('short_download');
+  }
+
+  /** The rest of the file from where the download stopped, or a throw. */
+  async resumeBody() {
+    const from = this.streamed;
+    const res = await this.fetchImpl(this.url, { headers: { Range: `bytes=${from}-${this.length - 1}` }, signal: this.aborter.signal });
+    const expected = `bytes ${from}-${this.length - 1}/${this.length}`;
+    if (res.status !== 206 || (res.headers.get('content-range') || '').replace(/\s+/g, ' ').trim() !== expected || !res.body) {
+      res.body?.cancel?.().catch?.(() => {});
+      throw new Error('resume_refused');
+    }
+    this.resumed = true;
+    return res.body;
   }
 
   // Always on a later turn: pdf.js registers the request's reader only after
@@ -191,6 +217,9 @@ export class RangedPdfSource {
       held.pending.then((ok) => { if (ok) this.deliver(begin, end, held); else this.waitOrRetry(begin, end); });
       return;
     }
+    // After a download that could not be picked up again, nothing more is
+    // fetched for this open (a page turn must not become a range each).
+    if (this.failed) { this.onFail?.(this.failed); return; }
     const plan = planRange(begin, end, {
       length: this.length, streamed: this.streamed, rate: this.rate, streaming: !this.failed,
       open: this.open, rangeOk: this.rangeOk, used: this.used, maxRanges: this.maxRanges, charged: this.charged,

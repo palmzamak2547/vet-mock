@@ -6,6 +6,10 @@ import assert from 'node:assert/strict';
 import { limitCaller, rateLimit } from '../../api/_lib/rate-limit.js';
 import { chulaGate, resetChulaGate } from '../../api/_lib/chula-gate.js';
 import { sessionToken } from '../helpers/supabase-jwt.mjs';
+import { setDirectStorage } from '../../api/library-blob.js';
+// These pin the REST route (storage ignores Range); the signed S3 route is
+// tested in library-blob-ranges.test.mjs.
+setDirectStorage(false);
 
 const at = (ip) => ({ headers: { 'x-vercel-forwarded-for': ip } });
 const member = (id) => ({ ok: true, userId: id, member: true });

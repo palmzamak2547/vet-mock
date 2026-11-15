@@ -24,6 +24,10 @@ import { readerTarget, readerUrl, viewForAppPath } from '../../src/lib/view-rout
 import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab, openDocOrOffer, readerPayload, resolveDocUrl } from '../../src/lib/library.js';
 import { vcaLibraryDocs } from '../../src/lib/vca-library.js';
 import { VCA_MATERIALS } from '../../src/data/vca-materials.js';
+import { setDirectStorage } from '../../api/library-blob.js';
+// These pin the REST route (storage ignores Range); the signed S3 route is
+// tested in library-blob-ranges.test.mjs.
+setDirectStorage(false);
 
 test('the reader address names the deck, and a link may ask for a page', () => {
   assert.equal(viewForAppPath('/app/tools/pdf'), 'pdf-annotate');
