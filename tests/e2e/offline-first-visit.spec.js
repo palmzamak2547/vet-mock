@@ -32,11 +32,12 @@ test('one online visit is enough to reopen Home with no connection', async ({ pa
     await page.goto(`${origin}/`);
     await expect(page.locator('#main')).toHaveAttribute('data-view', 'home', { timeout: 30000 });
     await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller), { timeout: 30000 }).toBe(true);
-    // Ready means: every app file this visit loaded is held by the worker.
+    // Ready means: every app file this visit loaded is held by the worker. A copy the
+    // page's own request stored may vary by Origin, which this lookup does not send.
     await expect.poll(() => page.evaluate(async () => {
       const files = performance.getEntriesByType('resource').map(e => new URL(e.name))
         .filter(u => u.origin === location.origin && u.pathname.startsWith('/assets/') && !u.search);
-      const held = await Promise.all(files.map(u => caches.match(u.href)));
+      const held = await Promise.all(files.map(u => caches.match(u.href, { ignoreVary: true })));
       return files.length > 0 && held.every(Boolean);
     }), { timeout: 30000 }).toBe(true);
     connected = false;
