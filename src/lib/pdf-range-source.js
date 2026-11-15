@@ -33,6 +33,14 @@ export const NEAR_SECONDS = 0.6;
 export const tailBytes = (length) => Math.min(length, Math.max(512 * 1024, Math.min(2 * 1024 * 1024, Math.ceil(length * 0.03))));
 // A request elsewhere fetches at least this much.
 export const MID_BLOCK = 128 * 1024;
+// What the ranges of one open may cost the member's byte budget. The server
+// counts a range as every byte from the start of the file to the range's end
+// (storage cannot start in the middle), so a range near the end costs about
+// the whole file. A file the service worker keeps (40 MB or less) is paid for
+// once and reopened for nothing; a bigger one is paid again on every open, so
+// its ranges may cost at most three times the file.
+export const KEPT_MAX_BYTES = 40 * 1024 * 1024;
+export const rangeChargeCap = (length) => (length <= KEPT_MAX_BYTES ? Infinity : 3 * length);
 
 const alignDown = (n) => Math.floor(n / RANGE_CHUNK) * RANGE_CHUNK;
 const alignUp = (n, length) => Math.min(length, Math.ceil(n / RANGE_CHUNK) * RANGE_CHUNK);
@@ -59,18 +67,19 @@ export function rangeableLength(res) {
  * Decides what to do with pdf.js's request for [begin, end).
  * @returns {{ kind: 'wait' } | { kind: 'fetch', from: number, to: number }}
  */
-export function planRange(begin, end, { length, streamed, rate = 0, open = true, rangeOk = true, used = 0, maxRanges = MAX_RANGES, streaming = true }) {
+export function planRange(begin, end, { length, streamed, rate = 0, open = true, rangeOk = true, used = 0, maxRanges = MAX_RANGES, streaming = true, charged = 0 }) {
   if (end <= streamed) return { kind: 'wait' };
   if (!open || !rangeOk || used >= maxRanges) return { kind: 'wait' };
   // A download that broke brings nothing more, so nothing is left to it.
   const soon = streaming ? Math.max(NEAR_BYTES, rate * NEAR_SECONDS) : 0;
   if (end - streamed <= soon) return { kind: 'wait' };
   const tail = tailBytes(length);
-  if (begin >= length - tail) {
-    return { kind: 'fetch', from: Math.min(alignDown(begin), alignDown(length - tail)), to: length };
-  }
-  const from = alignDown(begin);
-  return { kind: 'fetch', from, to: alignUp(Math.max(end, from + MID_BLOCK), length) };
+  const plan = begin >= length - tail
+    ? { kind: 'fetch', from: Math.min(alignDown(begin), alignDown(length - tail)), to: length }
+    : { kind: 'fetch', from: alignDown(begin), to: alignUp(Math.max(end, alignDown(begin) + MID_BLOCK), length) };
+  // The server counts a range as plan.to bytes (see rangeChargeCap).
+  if (charged + plan.to > rangeChargeCap(length)) return { kind: 'wait' };
+  return plan;
 }
 
 /**
@@ -89,6 +98,7 @@ export class RangedPdfSource {
     this.maxRanges = maxRanges;
     this.streamed = 0;
     this.used = 0;
+    this.charged = 0;
     this.open = true;
     this.rangeOk = true;
     this.blocks = []; // { from, to, bytes?: Uint8Array, pending?: Promise }
@@ -114,7 +124,16 @@ export class RangedPdfSource {
     transport.requestDataRange = (begin, end) => this.request(begin, end);
     transport.abort = () => this.abort();
     this.pump();
+    // pdf.js reads the end of a PDF first, always, but only once its worker
+    // has loaded and the trailer has been asked for. Asking now lets the tail
+    // arrive while the worker is still on its way.
+    this.prefetchTail();
     return transport;
+  }
+
+  prefetchTail() {
+    const plan = planRange(this.length - 1, this.length, { length: this.length, streamed: 0, rate: 0, used: this.used, maxRanges: this.maxRanges, charged: this.charged });
+    if (plan.kind === 'fetch') this.startBlock(plan);
   }
 
   /** Page one is on screen: from now on everything waits for the download. */
@@ -174,15 +193,23 @@ export class RangedPdfSource {
     }
     const plan = planRange(begin, end, {
       length: this.length, streamed: this.streamed, rate: this.rate, streaming: !this.failed,
-      open: this.open, rangeOk: this.rangeOk, used: this.used, maxRanges: this.maxRanges,
+      open: this.open, rangeOk: this.rangeOk, used: this.used, maxRanges: this.maxRanges, charged: this.charged,
     });
     if (plan.kind === 'wait') {
-      if (this.failed && !this.rangeOk) this.onFail?.(this.failed);
+      // A broken download brings nothing more: a request no range may answer
+      // will never be answered, and the reader must say so.
+      if (this.failed) { this.onFail?.(this.failed); return; }
       this.waiting.push({ begin, end });
       return;
     }
+    const block = this.startBlock(plan);
+    block.pending.then((ok) => { if (ok) this.deliver(begin, end, block); else this.waitOrRetry(begin, end); });
+  }
+
+  startBlock({ from, to }) {
     this.used += 1;
-    const block = { from: plan.from, to: plan.to };
+    this.charged += to;
+    const block = { from, to };
     block.pending = this.fetchBlock(block).then((bytes) => {
       block.bytes = bytes;
       block.pending = null;
@@ -193,7 +220,7 @@ export class RangedPdfSource {
       return false;
     });
     this.blocks.push(block);
-    block.pending.then((ok) => { if (ok) this.deliver(begin, end, block); else this.waitOrRetry(begin, end); });
+    return block;
   }
 
   waitOrRetry(begin, end) {

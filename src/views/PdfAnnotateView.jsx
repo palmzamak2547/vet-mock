@@ -585,8 +585,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             range: ranged.attach(new pdfjs.PDFDataRangeTransport(length, null, false, null)),
             rangeChunkSize: RANGE_CHUNK,
           });
-          // The download broke and the server cannot finish it by range.
-          ranged.onFail = () => { if (pendingTaskRef.current === task) task.destroy().catch(() => {}); };
+          // The download broke and ranges cannot finish it: before page one the
+          // open fails with its error; after, the reader is asked to reopen.
+          ranged.onFail = () => {
+            if (pendingTaskRef.current === task) task.destroy().catch(() => {});
+            else if (current()) showToast('ไฟล์โหลดไม่ครบ ปิดแล้วเปิดเอกสารนี้อีกครั้ง', 6000);
+          };
           ranged.done.then(() => {
             if (pendingAbortRef.current === download) pendingAbortRef.current = null;
             if (current()) setFileWhole(true);

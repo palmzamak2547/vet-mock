@@ -7,7 +7,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   RangedPdfSource, planRange, rangeableLength, tailBytes,
-  RANGE_CHUNK, MAX_RANGES, NEAR_BYTES, MID_BLOCK,
+  RANGE_CHUNK, MAX_RANGES, NEAR_BYTES, MID_BLOCK, rangeChargeCap,
 } from '../../src/lib/pdf-range-source.js';
 
 const MB = 1024 * 1024;
@@ -42,6 +42,16 @@ test('a request the download will reach soon waits for it; the tail is fetched i
   assert.deepEqual(mid, { kind: 'fetch', from: 10 * MB, to: 10 * MB + MID_BLOCK });
   assert.ok(tailBytes(100 * MB) <= 2 * MB, 'never more than 2 MB of tail');
   assert.equal(tailBytes(100 * 1024), 100 * 1024, 'a small file\'s tail is the file');
+});
+
+test('a file too big to be kept may spend at most three times its size on ranges', () => {
+  const big = 100 * MB;
+  assert.equal(rangeChargeCap(40 * MB), Infinity, 'a kept file is paid for once');
+  assert.equal(rangeChargeCap(big), 3 * big);
+  const far = [80 * MB, 80 * MB + RANGE_CHUNK];
+  assert.equal(planRange(...far, { length: big, streamed: 0, charged: big }).kind, 'fetch', 'tail plus this one fits');
+  assert.deepEqual(planRange(...far, { length: big, streamed: 0, charged: 2.5 * big }), { kind: 'wait' });
+  assert.equal(planRange(MB, MB + RANGE_CHUNK, { length: big, streamed: 0, charged: 2.9 * big }).kind, 'fetch', 'a range near the start costs little and still fits');
 });
 
 test('no range once ranges are off, used up, closed, or refused; a broken download leaves nothing to wait for', () => {
@@ -178,13 +188,17 @@ test('once page one is drawn, and after MAX_RANGES, every request waits for the 
   const transport = source.attach(fakeTransport());
   for (let i = 0; i < MAX_RANGES + 3; i++) transport.requestDataRange((5 + 3 * i) * MB, (5 + 3 * i) * MB + RANGE_CHUNK);
   await tick(); await tick();
-  assert.equal(asked.length, MAX_RANGES);
+  assert.equal(asked.length, MAX_RANGES, 'the tail asked for at the start counts as one');
   const settled = new RangedPdfSource({ url: '/doc', response: new Response(heldBody(bytes).body), length, fetchImpl });
   const t2 = settled.attach(fakeTransport());
   settled.settle();
+  // Its own tail was asked for at the start, before page one.
+  assert.equal(asked.length, MAX_RANGES + 1);
   t2.requestDataRange(length - RANGE_CHUNK, length);
-  await tick();
-  assert.equal(asked.length, MAX_RANGES, 'no range after settle');
+  t2.requestDataRange(20 * MB, 20 * MB + RANGE_CHUNK);
+  await tick(); await tick();
+  assert.equal(asked.length, MAX_RANGES + 1, 'no range after settle; the tail already asked for still answers');
+  assert.equal(t2.ranges.length, 1);
   source.abort(); settled.abort();
 });
 
@@ -199,10 +213,10 @@ test('a download that breaks is finished by range; without ranges the reader is 
   await held.step(2);
   transport.requestDataRange(3 * RANGE_CHUNK, 4 * RANGE_CHUNK);
   await tick();
-  assert.equal(asked.length, 0, 'left to the download');
+  assert.equal(asked.length, 1, 'only the tail asked for at the start; this one is left to the download');
   await held.breakNow();
   await tick(); await tick();
-  assert.equal(asked.length, 1, 'the waiting request is read by range once the download broke');
+  assert.equal(asked.length, 2, 'the waiting request is read by range once the download broke');
   assert.deepEqual(transport.ranges[0].chunk, bytes.slice(3 * RANGE_CHUNK, 4 * RANGE_CHUNK));
   await assert.rejects(source.done);
 

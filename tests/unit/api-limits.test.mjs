@@ -431,10 +431,12 @@ test('budget: a 300 MB video with 20 seeks is never refused by the byte budget; 
     assert.notEqual(res.statusCode, 429, `seek ${s}`);
   }
   // The same pattern on a 300 MB document: 2 GB holds six, the seventh is refused.
+  // Since 5.238.0 a document's range is answered (206), and an open-ended one
+  // still reads, and counts, the whole object.
   const doc = await mediaSetup(t, { size, mime: 'application/pdf', user: 'big-deck' });
   const allowed = Math.floor(doc.BLOB_BYTES.max / size);
   assert.equal(allowed, 6);
-  for (let s = 0; s < allowed; s++) assert.equal((await mediaCall(doc.default, doc.token, { range: `bytes=${s}-` })).statusCode, 200);
+  for (let s = 0; s < allowed; s++) assert.equal((await mediaCall(doc.default, doc.token, { range: `bytes=${s}-` })).statusCode, 206);
   assert.equal((await mediaCall(doc.default, doc.token, { range: 'bytes=0-' })).statusCode, 429);
 });
 
@@ -479,7 +481,8 @@ test('media: a PDF without Range is answered whole as before', async (t) => {
   const res = await mediaCall(handler, token, {});
   assert.equal(res.statusCode, 200);
   assert.equal(res.headers['content-range'], undefined);
-  assert.equal(res.headers['accept-ranges'], 'none');
+  // A catalogued size: the reader may read it by range (5.238.0).
+  assert.equal(res.headers['accept-ranges'], 'bytes');
   assert.equal(bytesPulled({ n: 16 }, false), 16);
 });
 

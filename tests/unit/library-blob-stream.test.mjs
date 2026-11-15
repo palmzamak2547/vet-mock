@@ -134,7 +134,8 @@ test('successful backpressured downloads keep every byte and restricted cache he
   assert.equal(res.headers.get('content-type'), 'application/pdf');
   assert.equal(res.headers.get('content-length'), '6');
   assert.equal(res.headers.get('etag'), '"lecture-v1"');
-  assert.equal(res.headers.get('accept-ranges'), 'none');
+  // A catalogued size: the reader may read it by range (5.238.0).
+  assert.equal(res.headers.get('accept-ranges'), 'bytes');
   assert.equal(res.headers.get('cache-control'), 'no-store');
   assert.equal(res.headers.get('x-vetmock-library-access'), 'restricted');
   assert.match(res.headers.get('content-disposition'), /^inline; filename="lecture.pdf";/);
