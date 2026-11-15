@@ -835,7 +835,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         </div>
       </div>
 
-      <div className="vmx-btn-row" style={{ marginTop: 30, justifyContent: 'center' }}>
+      <div className="vmx-btn-row is-center" style={{ marginTop: 30 }}>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onBack}>
           ← ใช้งานในโหมดผู้เยี่ยมชม
         </button>

@@ -106,7 +106,7 @@ export default function VoiceSettings({ onClose }) {
           onChange={(v) => update({ afterLast: v })}
         />
 
-        <div className="vmx-btn-row" style={{ marginTop: 16, justifyContent: 'space-between', flexWrap: 'wrap' }}>
+        <div className="vmx-btn-row" style={{ marginTop: 16 }}>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reset} type="button">
             ↺ คืนค่าเริ่มต้น
           </button>

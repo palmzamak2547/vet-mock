@@ -96,6 +96,34 @@ patterns can still converge further.
 5. Interactive control → ≥ `--touch-min`, visible focus, non-colour state.
 6. No gradients/glass/glow/emoji-as-icon in the app (marketing `.lp-` excepted).
 
+## Action rows (5.235.0)
+An action row is any place a screen pairs a way back with a primary action,
+or puts a primary action under a form. `.vmx-btn-row` places every one of
+them; a screen never sets its own `justify-content`, `flex-direction` or order
+inline. Measured at four sizes: phone 390 x 664, iPad portrait 820 x 1180,
+iPad landscape 1180 x 820, desktop 1280 x 800 (the owner studies on the iPad
+in landscape; 390 and 1280 alone missed it).
+
+- The way back is first, at the left. The primary action is last, at the
+  right, and ends at the right edge of the content it acts on. A row with a
+  primary action alone puts it at the right; a way back alone stays left.
+- In markup the order is back, then secondary, then primary. Never put the
+  primary first and let CSS move it.
+- On a phone (640 px and under) the row stacks with the primary on top, full
+  width, or (`.is-bar`) stays one line with the back short and the primary
+  taking the rest of the width. The primary is never the leftmost of two.
+- A secondary disclosure (`ปรับเอง`) belongs to the summary it adjusts: it sits
+  inside the summary card, so the screen reads summary, adjust, act. It never
+  sits between the content and the row, and never under the primary as if it
+  were a third button.
+- When the settings above can run longer than one screenful, the row is
+  sticky (`.is-bar` inside `.vmx-config-actions`): it stays at the bottom edge
+  of the content area, above the bottom bar on a phone, on the page's own
+  background. In flow at the end, so it never covers the last setting, and
+  nothing in it changes size when a count arrives (5.227.6).
+- A list of equal choices (Results' secondary ways on, a toolbar) is not an
+  action row: `.is-stack` starts it at the left and keeps DOM order.
+
 ## Guidelines — DO / DON'T
 > Format after styles.refero.design (DESIGN.md written for agents). Every rule
 > below was PAID FOR: it cites the measured incident that earned it. When one

@@ -330,8 +330,8 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           การเชื่อมต่อสะดุดขณะโหลดวิชา {subjectMeta?.name || subject} ข้อมูลเดิมยังอยู่ครบ
         </div>
         <div className="vmx-btn-row">
-          <button className="vmx-btn vmx-btn-primary" onClick={retryLoad}>ลองอีกครั้ง</button>
           <button className="vmx-btn vmx-btn-ghost" onClick={goBack || goHome}>{backLabel === 'เลือกหัวข้ออื่น' ? 'กลับไปเลือกหัวข้อ' : `กลับ${backLabel}`}</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={retryLoad}>ลองอีกครั้ง</button>
         </div>
       </>
     );

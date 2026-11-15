@@ -423,7 +423,7 @@ export default function HighlightToCard() {
                   </select>
                 </label>
 
-                <div className="vmx-btn-row" style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 4 }}>
+                <div className="vmx-btn-row" style={{ marginTop: 4 }}>
                   <button
                     type="button"
                     className="vmx-btn vmx-btn-ghost"
