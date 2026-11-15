@@ -252,7 +252,9 @@ test('the topic screen calls past papers ข้อสอบเก่า, and Rev
   // อิงแนวเดิม on the card is a wider set (marked points and mocks too); the
   // topic screen counts isPastPaperQuestion, which the source line calls ข้อสอบเก่า.
   const topics = readFileSync(new URL('../../src/views/TopicSelectView.jsx', import.meta.url), 'utf8');
-  assert.match(topics, /ข้อสอบเก่า \{ppCount\}\/\{count\}, \{ppPct\}%/);
+  // The chip says the share as a sentence; its title keeps the count (5.214).
+  assert.match(topics, /เป็นข้อสอบเก่า \{ppPct\}%/);
+  assert.match(topics, /title=\{`ข้อสอบเก่า \$\{ppCount\} จาก \$\{count\} ข้อ`\}/);
   assert.doesNotMatch(topics, /อิงแนวเดิม \{ppCount\}/);
   // After a timed paper Review is the only place the full source shows.
   const review = readFileSync(new URL('../../src/views/ReviewView.jsx', import.meta.url), 'utf8');

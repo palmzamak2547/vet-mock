@@ -47,7 +47,8 @@ export const LADDER_STEPS = [
   {
     id: 'exam', n: 3, label: 'แบบสอบ', short: 'แบบสอบ',
     count: 50, mode: 'exam', useTimer: true, timePerQ: 60,
-    hint: 'นาฬิกาเดียวทั้งชุด หมดเวลาคือส่งทั้งชุด เฉลยหลังส่ง',
+    // The clock rule is said once, at the timer switch (ConfigView, 5.214).
+    hint: 'ชุดยาวแบบข้อสอบจริง',
   },
 ];
 

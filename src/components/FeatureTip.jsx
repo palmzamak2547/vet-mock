@@ -1,19 +1,19 @@
 // ============================================================
-// FeatureTip — the once-a-day usage hint itself
+// FeatureTip — the once-ever usage hint itself
 // ============================================================
 // Owner review: "เวลาทำอะไรอยู่ฟีเจอร์ไหนอยากให้มีป๊อปอัพแนะนำการใช้งานโผล่ออก
 // มาในครั้งแรกของวัน เช่นเนื้อหาสามารถกดปริ้น pdf file ได้". One short hint
-// the first time a day a student opens a feature, then quiet for the day.
+// the first time a student opens a feature; since 5.214 never again on that
+// device (lib/first-tip.js), and the how-to guide keeps it.
 //
 //   <FeatureTip id="notes" />                    the notes page
 //   <FeatureTip id="knowledge" surface="article" /> one of two screens sharing an id
 //
 // The words live in data/how-to.js (FEATURE_TIPS), where a unit suite holds
-// every button name they quote to the screen that draws it. A feature may
-// carry several hints: lib/first-tip.js decides whether today is a hint day
-// AND which turn it is, once per id, before anything is drawn, so the hint on
-// screen never changes or vanishes under the reader when the card records
-// itself as seen (React.StrictMode runs that effect twice in development).
+// every button name they quote to the screen that draws it. lib/first-tip.js
+// decides once per id, before anything is drawn, so the hint on screen never
+// vanishes under the reader when the card records itself as seen
+// (React.StrictMode runs that effect twice in development).
 //
 // Accessibility, deliberately:
 //   • No live-region role. The card enters the page already holding its text,
@@ -41,15 +41,14 @@ export default function FeatureTip({ id, surface = null, title: legacyTitle = nu
   const current = decideTip(decision, id);
   if (current !== decision) setDecision(current);
 
-  const tip = pickTip(id, { surface, turn: current.turn });
+  const tip = pickTip(id, { surface });
   // A caller that still passes its own words (an id with no entry in
   // FEATURE_TIPS) keeps working; a hint with nothing to say shows nothing.
   const content = tip || (legacyTitle ? { title: legacyTitle, body: children } : null);
   const shown = current.show && Boolean(content);
 
-  // Being SHOWN is itself the record: the day's hint ends the moment the
-  // student has seen it, exactly like a dismissal. A hint that was not shown
-  // marks nothing, so a screen with no hint does not spend the day.
+  // Being SHOWN is itself the record, exactly like a dismissal. A hint that
+  // was not shown marks nothing.
   useEffect(() => {
     if (shown) markTipSeen(id);
   }, [id, shown]);

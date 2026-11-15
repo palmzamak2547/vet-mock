@@ -30,8 +30,8 @@ async function openNotes(page) {
   await expect(page.locator('.vmx-notes-grid')).toBeVisible();
 }
 
-// Day one shows each feature's FIRST hint (data/how-to.js rotates after
-// that); titles are read from the content so a copy edit cannot strand them.
+// Each feature's one hint (data/how-to.js); titles are read from the content
+// so a copy edit cannot strand them.
 const firstTitle = (id, surface) => FEATURE_TIPS[id].tips.find((t) => !surface || t.surface === surface).title;
 const WIRED_VIEWS = [
   { id: 'library', title: firstTitle('library'), open: openLibrary },
@@ -53,20 +53,22 @@ test('every wired view greets a first-time student with its own tip', async ({ p
   for (const view of WIRED_VIEWS) {
     await view.open(page);
     const tip = page.locator('.vmx-feature-tip');
-    await expect(tip, `${view.id} shows its once-a-day tip`).toHaveCount(1);
+    await expect(tip, `${view.id} shows its first-time tip`).toHaveCount(1);
     await expect(tip).toContainText(view.title);
   }
 });
 
-test('a tip seen today stays hidden on all four wired views', async ({ page }) => {
-  await page.addInitScript((today) => {
-    localStorage.setItem('vmx-first-tip', JSON.stringify({
-      library: today, knowledge: today, notes: today, videos: today,
-    }));
-  }, TODAY);
+test('a tip seen a week ago stays hidden on all four wired views: a hint shows once ever', async ({ page }) => {
+  // The record a student kept under the old daily rule (until 5.214): the
+  // last day each hint was seen, a week before today, and the rotation count.
+  const weekAgo = new Date(Date.parse(PINNED_NOW) - 7 * 864e5).toISOString().slice(0, 10);
+  await page.addInitScript((day) => {
+    localStorage.setItem('vmx-first-tip', JSON.stringify({ library: day, knowledge: day, notes: day }));
+    localStorage.setItem('vmx-first-tip-turn', JSON.stringify({ videos: 2 }));
+  }, weekAgo);
   for (const view of WIRED_VIEWS) {
     await view.open(page);
-    await expect(page.locator('.vmx-feature-tip'), `${view.id} stays quiet once seen today`).toHaveCount(0);
+    await expect(page.locator('.vmx-feature-tip'), `${view.id} came back after a week`).toHaveCount(0);
   }
 });
 

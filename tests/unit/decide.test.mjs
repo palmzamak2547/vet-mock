@@ -68,14 +68,14 @@ test('practice.setup says why in the student\'s situation', () => {
   assert.match(decide('practice.setup', { step: 'understand', hasHistory: true }, memory()).why, /^ขั้นทำความเข้าใจ/);
   assert.match(decide('practice.setup', { step: 'timed' }, memory()).why, /^ขั้นใช้ความรู้/);
   // The house hedge, and the order the set really gets (B9).
-  assert.match(decide('practice.setup', { step: 'understand' }, memory()).why, /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน เห็นเฉลยทุกข้อ$/);
+  assert.match(decide('practice.setup', { step: 'understand' }, memory()).why, /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน$/);
   assert.match(decide('practice.setup', { step: 'understand', pick: 'adaptive', hasHistory: true }, memory()).why, /^ขั้นทำความเข้าใจ เลือกข้อตามระดับของคุณ/);
   // A rung picked by hand and one reached through results read the same and both true (A6).
   assert.match(decide('practice.setup', { step: 'timed' }, memory()).why, /^ขั้นใช้ความรู้ ขั้นล่าสุดที่คุณฝึก/);
   // Timely, with no day count that could disagree with Home's clock (B3, B9).
   for (const days of [0, 1, 3, 14]) {
     const why = decide('practice.setup', { step: 'understand', daysToPaper: days }, memory()).why;
-    assert.match(why, /ใกล้สอบวิชานี้แล้ว ลองขั้นแบบสอบได้ใน "ปรับเอง"$/, `${days}`);
+    assert.match(why, /ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง"$/, `${days}`);
     assert.doesNotMatch(why, /\d+ วัน/);
   }
   assert.doesNotMatch(decide('practice.setup', { step: 'understand', daysToPaper: 30 }, memory()).why, /ใกล้สอบ/);

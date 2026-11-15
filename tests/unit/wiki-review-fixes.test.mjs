@@ -46,33 +46,17 @@ const byTitle = new Map(listTopics().map((t) => [t.title, t]));
 // The index on its own, so its state (the filter, the view) is real.
 const index = () => mount(WikiIndex, { topics: listRegistry(), onOpen() {}, onOpenSection() {}, goHome() {} });
 
-test('the conflicts filter cuts the list, never a search', async (t) => {
+test('a search lists every hit, and the index has no conflicts filter to cut it (5.214)', async (t) => {
   browser(t);
   const v = index();
   await settle(v);
-  const all = rows(v).length;
-  filterButton(v).props.onClick();
-  v.flush();
-  const filtered = rows(v).length;
-  assert.ok(filtered > 0 && filtered < all, `filtered ${filtered} of ${all}`);
+  assert.equal(filterButton(v), undefined, 'the conflicts filter is back on the index');
+  assert.ok(!textOf(v.tree).includes('ดูหัวข้อที่มีจุดเหล่านี้'), 'the footer button is back');
   const search = findAll(v.tree, (n) => n.type === 'input' && n.props.id === 'vw-search')[0];
   search.props.onChange({ target: { value: 'a' } });
   v.flush();
   const hits = titles(v).map((s) => [...byTitle.keys()].find((k) => s.startsWith(k))).filter(Boolean).map((k) => byTitle.get(k));
   assert.ok(hits.some((h) => conflictCountFor(h.subject, h.topic) === 0), 'a search lists topics without a conflict too');
-  assert.equal(filterButton(v), undefined, 'and the filter is not on screen to be undone');
-  v.unmount();
-});
-
-test("the colophon's button lists the conflicts for this visit and keeps the reader's own view", async (t) => {
-  const { stored } = browser(t, { layout: 'shelf' });
-  const v = index();
-  await settle(v);
-  findAll(v.tree, (n) => n.type === 'button' && textOf(n).includes('ดูหัวข้อที่มีจุดเหล่านี้'))[0].props.onClick();
-  v.flush();
-  assert.equal(stored.get('vmx-wiki-layout'), 'shelf', 'the stored choice is not overwritten');
-  assert.equal(filterButton(v).props['aria-pressed'], true);
-  assert.ok(rows(v).length > 0);
   v.unmount();
 });
 

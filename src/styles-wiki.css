@@ -229,6 +229,14 @@
 .vw-table td { padding: 9px 12px; vertical-align: top; border-bottom: 1px solid var(--clr-border); }
 .vw-callout { margin: 0 0 14px; padding: 12px 16px; border-radius: 10px; background: var(--clr-surface-2); }
 .vw-source { margin-top: 6px; font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+/* A section's sources, checks and report control, one folded row (5.214). */
+.vw-refs { margin-top: 8px; }
+.vw-refs > summary { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); list-style: none; }
+.vw-refs > summary::-webkit-details-marker { display: none; }
+.vw-refs > summary::after { content: '▸'; font-size: 12px; }
+.vw-refs[open] > summary::after { content: '▾'; }
+.vw-refs > summary:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; border-radius: 4px; }
+.vw-refs .vw-source { margin-top: 0; }
 
 /* The contents pill: bottom left, out from under the line being read. */
 .vw .vmx-wiki-toc-return { left: max(16px, env(safe-area-inset-left)); transform: none; animation-name: vmx-a2-fade-in; }
@@ -467,17 +475,10 @@
 @media (min-width: 1388px) {
   .vw-grid.has-rail { grid-template-columns: 208px minmax(0, 860px); max-width: 1100px; }
   .vw-grid { max-width: 860px; }
-  /* Header, contents, end and sources keep the 612 px column; the sections
-     reach into the margin, where their evidence stands as a sidenote. */
-  .vw-main > :not(.vmx-reading-effects), .vw-main .vmx-reading-tools { max-width: 612px; }
-  .vw-section { display: grid; grid-template-columns: minmax(0, 612px) 216px; column-gap: 32px; align-items: start; }
-  .vw-section-text, .vw-section-report { grid-column: 1; }
-  .vw-section > .vw-ev { grid-column: 2; grid-row: 1 / span 2; margin-top: 2px; padding-left: 14px; border-left: 1px solid var(--clr-border); }
-  .vw-ev-chips { flex-direction: column; align-items: flex-start; }
-  /* The drawer is wider than the margin: it hangs from the margin's right
-     edge over the text, which a tap asked to see. */
-  .vw-section > .vw-ev .vw-ev-drawer { position: absolute; right: 0; z-index: var(--z-raised); width: 380px; box-shadow: var(--shadow-md); }
-  .vw-section > .vw-ev { position: relative; }
+  /* Everything keeps the 612 px column. A section's evidence stood in the
+     margin as a sidenote until 5.214; it is in the section's folded
+     "แหล่งอ้างอิง" row now, the same at every width. */
+  .vw-main > :not(.vmx-reading-effects), .vw-main .vmx-reading-tools, .vw-section { max-width: 612px; }
 }
 
 /* ── Article: the rail ─────────────────────────────────────────── */

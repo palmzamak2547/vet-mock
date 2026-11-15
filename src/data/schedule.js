@@ -751,6 +751,15 @@ export function getTopMilestone(now = new Date(), milestones = ACADEMIC_MILESTON
   return list.sort((a, b) => (a.daysLeft - b.daysLeft) || (urgencyOf(a) - urgencyOf(b)))[0] || null;
 }
 
+// Home's rail names a window too, but a payment window runs for months and a
+// countdown of 67 days changes nothing a student does today: it is named only
+// in its last PAYMENT_NOTICE_DAYS (5.214). The schedule page lists it always.
+export const PAYMENT_NOTICE_DAYS = 14;
+export function getHomeMilestone(now = new Date(), milestones = ACADEMIC_MILESTONES) {
+  return getTopMilestone(now, milestones.filter((m) => m.kind !== 'payment'
+    || describeMilestone(m, now).daysLeftToEnd <= PAYMENT_NOTICE_DAYS));
+}
+
 // A term's name from its id ('2569-1'), the current term as SEMESTER names it.
 const TERM_NAMES_TH = { 1: 'ภาคการศึกษาต้น', 2: 'ภาคการศึกษาปลาย', 3: 'ภาคฤดูร้อน' };
 export function semesterLabelTh(id) {

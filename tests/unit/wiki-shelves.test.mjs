@@ -99,7 +99,7 @@ test('a spine pulls its volume out and the volume opens a chapter', async () => 
   v.unmount();
 });
 
-test('the index opens on the shelves: every subject a volume, the masthead counted, a book to start from', async (t) => {
+test('the index opens on the shelves: every subject a volume, no library counts, a book to start from', async (t) => {
   const { default: KnowledgeView } = await loadModule('src/views/KnowledgeView.jsx', { stubs: [
     { match: '\\.css$', contents: '' },
     { match: 'Mochi\\.jsx$', contents: 'export default () => null;' },
@@ -124,8 +124,9 @@ test('the index opens on the shelves: every subject a volume, the masthead count
   const spines = () => findAll(v.tree, (n) => n.type === 'button' && /vw-spine/.test(n.props.className || ''));
   assert.equal(spines().length, SHELF_TOTALS.subjects, 'one volume per subject');
   const text = textOf(v.tree);
-  for (const figure of [SHELF_TOTALS.topics, SHELF_TOTALS.sections, SHELF_TOTALS.claims, SHELF_TOTALS.sources]) {
-    assert.ok(text.includes(figure.toLocaleString('en-US')), `the masthead shows ${figure}`);
+  // The masthead's four library counts went in 5.214: bookkeeping, not study.
+  for (const figure of [SHELF_TOTALS.sections, SHELF_TOTALS.claims, SHELF_TOTALS.sources]) {
+    assert.ok(!text.includes(figure.toLocaleString('en-US')), `the masthead still shows ${figure}`);
   }
   assert.match(text, /เริ่มอ่านที่นี่/);
   assert.match(text, /หัวข้อที่มีโจทย์ฝึกมากที่สุดในปี 5/, 'the ranking says its basis');

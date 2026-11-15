@@ -31,7 +31,10 @@ for (const s of [...SUBJECTS, ...Object.values(SUBJECTS_BY_YEAR).flat()]) {
 // A note that says the topic is not on the paper, or not on this one. "ไม่อยู่
 // ในตารางบรรยาย/สอน 2569" says this year's timetable has no such lecture (the
 // topic comes from a senior summary): the same skip signal, so it keeps its mark.
-const OFF_THE_PAPER = /ไม่ออก(?:ข้อ)?สอบ|หลังสอบกลางภาค|ไม่อยู่ในตาราง/;
+// "ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา 2569 แต่...ยังนับเป็นเนื้อหาปลายภาค" says the
+// opposite (still on the paper): it changes what to study as much, so since
+// 5.214, when only a caveat stays on the card, it is one too.
+const OFF_THE_PAPER = /ไม่ออก(?:ข้อ)?สอบ|หลังสอบกลางภาค|ไม่อยู่ในตาราง|ไม่มีคาบหัวข้อนี้ในประมวลรายวิชา/;
 
 // "หลังสอบ" that does NOT describe this cohort's topic. equine-respi is the
 // last lecture BEFORE Vet 86's midterm; the "(Vet 85 เรียนหลังสอบ)" is about
@@ -98,7 +101,7 @@ test('UI-14: the topic card draws the ⚠️ for a caveat only, and a neutral no
   // Exactly one icon, drawn for a caveat only, and hidden from the screen
   // reader, which hears the caveat itself instead.
   assert.equal((view.match(/⚠️/g) || []).length, 1, 'one warning sign in the topic card markup');
-  assert.match(view, /\{caveat && <span aria-hidden="true">⚠️ <\/span>\}/);
+  assert.match(view, /\{caveat && t\.lecturerNote && !isEmpty && \(\s*<span className="vmx-topic-note is-caveat">\s*<span aria-hidden="true">⚠️ <\/span>\{t\.lecturerNote\}/);
   // The note sits inside a button whose aria-label replaces its contents, so
   // a caveat has to be in that label or a screen-reader user never hears
   // "ไม่ออกสอบ".
@@ -112,4 +115,13 @@ test('UI-14: a neutral note reads upright at 14px (the Thai floor); a caveat rea
   assert.match(rule, /font-size: 14px;/);
   assert.doesNotMatch(rule, /font-style: italic/, 'slanted Thai at this size is harder to read');
   assert.match(css, /\.vmx-topic-note\.is-caveat \{[^}]*color: var\(--clr-ink\);/);
+});
+
+test('5.214: a schedule or provenance note leaves the card for the page\'s one folded row', () => {
+  const view = read('src/views/TopicSelectView.jsx');
+  // The card draws a note only for a caveat.
+  assert.doesNotMatch(view, /\{t\.lecturerNote && !isEmpty && \(/, 'a neutral note is back on the card');
+  // Every other note is in one closed row for the page.
+  assert.match(view, /<details className="vmx-topic-prov">\s*<summary>ที่มาและตารางสอนของแต่ละหัวข้อ<\/summary>/);
+  assert.match(view, /t\.lecturerNote && t\.lecturerNoteKind !== 'caveat'/);
 });
