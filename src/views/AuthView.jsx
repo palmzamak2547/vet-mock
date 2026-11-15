@@ -21,7 +21,6 @@ import { STAY_SIGNED_IN_KEY } from '../lib/auth-storage.js';
 import { inAppBrowser, externalUrl, APP_NAMES, signInPlan } from '../lib/inapp.js';
 import { isLiffAvailable } from '../lib/line-liff.js';
 import {
-  deriveUsernameFromEmail,
   sanitizeUsername,
   validateUsername,
   passwordStrength,
@@ -169,7 +168,6 @@ export default function AuthView({ onBack, onSuccess, user }) {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
 
   // ── Smart UX state ──
-  const [usernameTouched, setUsernameTouched] = useState(false);
   // 'idle' | 'invalid' | 'checking' | 'available' | 'taken' | 'unknown'
   const [usernameStatus, setUsernameStatus] = useState('idle');
   const usernameDebounceRef = useRef(null);
@@ -252,23 +250,15 @@ export default function AuthView({ onBack, onSuccess, user }) {
     return () => clearInterval(id);
   }, [rateLimitCountdown]);
 
-  // ── Smart: auto-suggest username from email (signup only) ──
-  // Only fires when the user hasn't manually edited the username yet.
-  // Once they touch it, we stop auto-overwriting their choice.
-  useEffect(() => {
-    if (mode !== 'signup') return;
-    if (usernameTouched) return;
-    const suggested = deriveUsernameFromEmail(email);
-    if (suggested && suggested !== username) setUsername(suggested);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally not depending on `username` to avoid feedback loop
-  }, [email, mode, usernameTouched]);
+  // No username is proposed from the email: its local part is a student
+  // number for a Chula address, and this name is public to every member.
 
   // ── Smart: real-time username availability (debounced 500ms) ──
   useEffect(() => {
     if (mode !== 'signup') return;
 
     // Validate locally first — skip the network call for invalid input
-    const v = validateUsername(username);
+    const v = validateUsername(username, email);
     if (!v.ok) {
       setUsernameStatus(username.length === 0 ? 'idle' : 'invalid');
       return;
@@ -298,6 +288,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) throw new Error('รูปแบบอีเมลไม่ถูกต้อง');
         if (!username.trim()) throw new Error('กรุณาใส่ชื่อ username');
+        { const v = validateUsername(username.trim(), email.trim()); if (!v.ok) throw new Error(`ชื่อผู้ใช้: ${v.reason}`); }
         if (password.length < 8) throw new Error('รหัสผ่านต้องยาว 8 ตัวขึ้นไป');
         const result = await signUpWithEmail(email, password, username.trim());
         // If Supabase returned a session → email confirmation is OFF, user is in.
@@ -654,7 +645,6 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 type="text"
                 value={username}
                 onChange={(e) => {
-                  if (!usernameTouched) setUsernameTouched(true);
                   setUsername(sanitizeUsername(e.target.value));
                 }}
                 placeholder="เช่น vet86_ping"
@@ -663,7 +653,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
               />
               <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', minHeight: 16 }}>
                 {(() => {
-                  const v = validateUsername(username);
+                  const v = validateUsername(username, email);
                   if (username && !v.ok) return `⚠️ ${v.reason}`;
                   if (usernameStatus === 'taken') return 'ชื่อนี้ถูกใช้ไปแล้ว — ลองชื่ออื่น';
                   if (usernameStatus === 'available') return '✓ ชื่อนี้ใช้ได้';

@@ -78,6 +78,15 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "aquatic-clinic--aqua-toxicology",
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "title": "Aquatic toxicology & aquatic animal impact",
+    "icon": "🧪",
+    "summary": "พิษวิทยาทางน้ำ: ความหมายและแหล่งมลพิษ, ระยะของผลพิษตั้งแต่ fate and exposure ถึงผลต่อระบบนิเวศ, ปัจจัย 4 กลุ่มที่ทำให้ความเป็นพิษต่างกัน (สารเคมี, การสัมผัส, น้ำรอบตัว, ตัวสัตว์), กรอบ Adverse Outcome Pathway พร้อมตัวอย่าง endocrine disruptor, สารเคมีตัวเดียวหลายเส้นทางและสารเคมีผสม, biochemical marker 6 กลุ่ม และกรณีศึกษา 2 เรื่อง ตารางสารพิษแต่ละชนิดอยู่ในสไลด์หน้า 24 ถึง 41 และไม่ได้สรุปไว้ในโน้ตนี้",
+    "flagship": false
+  },
+  {
     "id": "aquatic-clinic--aqua-disease-control",
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",

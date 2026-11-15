@@ -322,6 +322,10 @@ export const METADATA_SECTIONS = new Set([
   "equine-medicine--equine-surgery-wound--ประเมิน-เตรียม-สำรวจ-และ-debride-แผล", // Step-by-step wound assessment, preparation, exploration and debridement routine from the deck; no equine page found that states it as written (Merck wound pages found are for small animals only).
   "equine-medicine--equine-surgery-wound--robert-jones-bandage-และ-splints", // Bandage layering and splint material comparison (PVC, wood, fibreglass, commercial) from the deck; no published page found that states it as written.
   "equine-medicine--equine-surgery-wound--stent-abdominal-และ-head-bandages", // Description of tie-over stent, abdominal and head bandage techniques from the deck; no published page found that states it as written.
+  // Aquatic toxicology notes of 2569 (15 Nov 2026): a section that only says where in the deck a table sits
+  // carries no fact to check.
+  "aquatic-clinic--aqua-toxicology--ตารางสารพิษรายชนิด-ดูในสไลด์หน้า-24-ถึง-41", // the section only points to where tables sit in the deck; it states no fact to check
+  "aquatic-clinic--aqua-toxicology--aquatic-toxicology-เป็นศาสตร์สหวิทยาการ", // a diagram of the disciplines the field draws on; it states no single fact a paper reports
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

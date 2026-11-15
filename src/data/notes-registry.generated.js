@@ -48,6 +48,7 @@ export const NOTE_TOPIC_KEYS = new Set([
   "aquatic-clinic/aqua-intro-thailand",
   "aquatic-clinic/aqua-life-support",
   "aquatic-clinic/aqua-shrimp-diseases",
+  "aquatic-clinic/aqua-toxicology",
   "aquatic-clinic/aqua-water-quality",
   "avian-medicine/avian-adeno",
   "avian-medicine/avian-ae",
@@ -390,7 +391,7 @@ export const NOTE_TOPIC_KEYS = new Set([
 
 /** Number of readable note topics per subject. */
 export const NOTE_TOPIC_COUNTS_BY_SUBJECT = Object.freeze({
-  "aquatic-clinic": 9,
+  "aquatic-clinic": 10,
   "avian-medicine": 27,
   "biochem-2": 12,
   "cliapprum": 5,

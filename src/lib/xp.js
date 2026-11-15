@@ -8,6 +8,7 @@
 // catch around every parse). Writes dispatch `vmx-xp-changed` so the
 // XpChip + QuestsPanel can re-render without polling.
 
+import { readStoredJson } from './stored-json.js';
 const STORAGE_KEY = 'vmx-xp';
 const EVENT_NAME = 'vmx-xp-changed';
 
@@ -66,6 +67,17 @@ function persist(state) {
 export function awardXp(amount, reason = 'misc') {
   const safeAmount = Math.max(0, Math.floor(Number(amount) || 0));
   if (safeAmount === 0) return getXpState().totalXp;
+  // Kept per account: a second student on this phone never inherits them.
+  if (String(reason).startsWith('quest')) {
+    try {
+      const st = window.localStorage;
+      // The sync store's owner key (user-data-sync.js); xp-account.js reads it back.
+      let uid = null;
+      const v = syncOwner(st);
+      uid = v && v !== 'anonymous' ? v : null;
+      if (uid) st.setItem(`vmx-xp-pending:${uid}`, String((Math.floor(Number(st.getItem(`vmx-xp-pending:${uid}`)) || 0)) + safeAmount));
+    } catch { /* private mode */ }
+  }
   const cur = getXpState();
   const today = todayKey();
   const next = {
@@ -104,3 +116,21 @@ export function xpForNextLevel(totalXp) {
 }
 
 export const XP_EVENT = EVENT_NAME;
+
+// Whose this device's counter is: the account the sync store held the device
+// for when this release first loaded here, recorded once and never moved
+// (xp-account.js reads it). 'none' when the device had no account then.
+export const COUNTER_OWNER_KEY = 'vmx-xp-counter-owner';
+// The sync store's owner (a JSON string), or null when missing or unreadable.
+function syncOwner(storage) {
+  return readStoredJson('vmx-user-sync-owner-v1', null, { storage, accept: (v) => typeof v === 'string' });
+}
+try {
+  const st = typeof window !== 'undefined' ? window.localStorage : null;
+  if (st && st.getItem(COUNTER_OWNER_KEY) === null) {
+    let owner = 'none';
+    const v = syncOwner(st);
+    if (v && v !== 'anonymous') owner = v;
+    st.setItem(COUNTER_OWNER_KEY, owner);
+  }
+} catch { /* private mode */ }
