@@ -27485,7 +27485,7 @@ export const SOURCES = {
     year: 2012,
     pmid: '21901422',
     url: 'https://pubmed.ncbi.nlm.nih.gov/21901422/',
-    citation: 'Zhao C, Tian F, Yu Y, Luo J, Hu Q, Bequette BJ, et al.. Muscle transcriptomic analyses in Angus cattle with divergent tenderness. Mol Biol Rep. 2012;39(4):4185-93. PMID: 21901422.',
+    citation: 'Zhao C, Tian F, Yu Y, Luo J, Hu Q, Bequette BJ, et al. Muscle transcriptomic analyses in Angus cattle with divergent tenderness. Mol Biol Rep. 2012;39(4):4185-93. PMID: 21901422.',
     availability: 'verified-online',
   },
   'pmid-40477685': {
@@ -27562,7 +27562,7 @@ export const SOURCES = {
     year: 2011,
     pmid: '21183712',
     url: 'https://pubmed.ncbi.nlm.nih.gov/21183712/',
-    citation: 'Vogel KD, Badtram G, Claus JR, Grandin T, Turpin S, Weyker RE, et al.. Head-only followed by cardiac arrest electrical stunning is an effective alternative to head-only electrical stunning in pigs. J Anim Sci. 2011;89(5):1412-8. PMID: 21183712.',
+    citation: 'Vogel KD, Badtram G, Claus JR, Grandin T, Turpin S, Weyker RE, et al. Head-only followed by cardiac arrest electrical stunning is an effective alternative to head-only electrical stunning in pigs. J Anim Sci. 2011;89(5):1412-8. PMID: 21183712.',
     availability: 'verified-online',
   },
   'pmid-20181854': {
