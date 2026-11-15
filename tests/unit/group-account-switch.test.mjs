@@ -254,10 +254,10 @@ test('a member leaves from the foot of the page, after a question, and goes back
 test('the last admin is not offered Leave, only deleting the group, and is told why', async () => {
   const { view, calls } = await detailView();
   assert.equal(button(view.tree, 'ออกจากกลุ่ม'), null, 'the only admin cannot leave');
-  assert.match(textOf(view.tree), /ผู้ดูแลคนเดียว/);
   await button(view.tree, 'ลบกลุ่ม').props.onClick();
   await view.settle();
   assert.equal(calls.confirms.length, 1, 'deleting asks first');
+  assert.match(calls.confirms[0].body, /ผู้ดูแลคนเดียว/, 'and the question says why Leave is not offered');
   assert.deepEqual(calls.deletedGroups, ['g-A']);
   assert.deepEqual(calls.left, []);
 });

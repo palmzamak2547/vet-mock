@@ -109,7 +109,7 @@ export default function GroupDetailView({ group, user, goBack }) {
   };
   const removeGroup = async () => {
     if (leaving || !rule?.canDelete) return;
-    if (!(await confirmDialog({ title: 'ลบกลุ่มนี้?', body: 'สมาชิกทุกคนจะออกจากกลุ่ม และรหัสกลุ่มนี้จะใช้ไม่ได้อีก ย้อนกลับไม่ได้', confirmLabel: 'ลบกลุ่ม', tone: 'danger' }))) return;
+    if (!(await confirmDialog({ title: 'ลบกลุ่มนี้?', body: 'คุณเป็นผู้ดูแลคนเดียวของกลุ่มนี้ จึงออกจากกลุ่มไม่ได้ ลบกลุ่มแล้วสมาชิกทุกคนจะออกจากกลุ่ม และรหัสนี้จะใช้ไม่ได้อีก ย้อนกลับไม่ได้', confirmLabel: 'ลบกลุ่ม', tone: 'danger' }))) return;
     setActionError('');
     setLeaving(true);
     try { await deleteGroup(group.id); goBack(); }
@@ -206,12 +206,7 @@ export default function GroupDetailView({ group, user, goBack }) {
           {rule.canLeave ? (
             <button type="button" className="vmx-btn vmx-btn-ghost" onClick={leave} disabled={leaving}>ออกจากกลุ่ม</button>
           ) : (
-            <>
-              <p style={{ margin: '0 0 10px', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                คุณเป็นผู้ดูแลคนเดียวของกลุ่มนี้ จึงออกจากกลุ่มไม่ได้ ลบกลุ่มทั้งกลุ่มได้
-              </p>
-              <button type="button" className="vmx-btn vmx-btn-ghost" onClick={removeGroup} disabled={leaving}>ลบกลุ่ม</button>
-            </>
+            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={removeGroup} disabled={leaving}>ลบกลุ่ม</button>
           )}
         </section>
       )}
