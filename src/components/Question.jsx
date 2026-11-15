@@ -157,6 +157,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // still reads the whole stem, so no phrase is marked in one that was shortened.
   const shownStem = displayStem(currentQ);
   const stemShortened = shownStem !== (currentQ?.q || '');
+  // Main's English version (5.223.0) shows instead of the Thai text; the voice still reads Thai.
+  const shownEnglishStem = Boolean(english?.q);
+  const shownEnglishOptions = Array.isArray(english?.options);
   // Likewise an explanation laid out as steps: the voice reads the paragraph it was written as.
   const saysParagraph = wholeExplain(currentQ) !== (currentQ?.explain || '');
   // What a job reads: options in the order the student sees them, so
@@ -174,9 +177,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     // The element a piece is read from, for the phrase highlight. An option's row for its label too.
     // A stem read from `say`, or an explanation read from `explainSay`, is not the text on screen, so no
     // phrase is marked in it.
+    // The voice reads Thai: with the English stem or options on screen it marks no phrase in them.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? (saysTable || stemShortened ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
-      : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
+      ? (what === 'q' ? (saysTable || stemShortened || shownEnglishStem ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
+      : (shownEnglishOptions ? null : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null)),
     // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
     block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
       || (kind === 'stem' ? (what === 'q' ? stemRef.current : explainRef.current)
