@@ -46,13 +46,14 @@ export default memo(function PdfPage({
   cursor,
   scrollRoot,
   layer = null, // (w, h) => the lasso, on the one page that has it
+  sizeHint = null, // the document's page 1, which the reader has already asked pdf.js for
 }) {
   const rowRef = useRef(null);
   const baseRef = useRef(null);
   const overlayRef = useRef(null);
   const taskRef = useRef(null);
   const [near, setNear] = useState(false);
-  const [measured, setMeasured] = useState(null); // the pdf.js page, once it has answered
+  const [measured, setMeasured] = useState(null); // { doc, pageNum, page }: the pdf.js page, once it has answered
   const [renderStatus, setRenderStatus] = useState('idle');
   const [renderAttempt, setRenderAttempt] = useState(0);
 
@@ -87,25 +88,37 @@ export default memo(function PdfPage({
   // A row handed another document keeps the page it has until the new one
   // answers, exactly as it kept its old size before, so the column does not
   // collapse to placeholders for the length of a worker round trip.
+  //
+  // With a size hint (page 1, which the reader already holds) a row asks
+  // pdf.js for its own page only once it comes near the viewport, and until
+  // then reserves page 1's size, which is every page's size in a deck. Every
+  // row used to ask on open: a 300-page textbook queued 300 page loads in the
+  // worker ahead of the one page on screen.
+  const hinted = !!sizeHint;
+  const ownPage = measured && measured.doc === pdfDoc && measured.pageNum === pageNum ? measured.page : null;
   useEffect(() => {
+    if (!pdfDoc || ownPage || (hinted && !near)) return undefined;
     let cancelled = false;
     (async () => {
-      if (!pdfDoc) return;
       try {
         const page = await pdfDoc.getPage(pageNum);
-        if (!cancelled) setMeasured(page);
+        if (!cancelled) setMeasured({ doc: pdfDoc, pageNum, page });
       } catch { /* a page that will not measure will not render either */ }
     })();
     return () => { cancelled = true; };
-  }, [pdfDoc, pageNum]);
+  }, [pdfDoc, pageNum, ownPage, hinted, near]);
 
+  const shown = ownPage || sizeHint || measured?.page || null;
   const size = useMemo(() => { // { w, h } in CSS px at this scale
-    if (!measured) return null;
+    if (!shown) return null;
     try {
-      const vp = measured.getViewport({ scale });
+      const vp = shown.getViewport({ scale });
       return { w: Math.floor(vp.width), h: Math.floor(vp.height) };
     } catch { return null; }
-  }, [measured, scale]);
+  }, [shown, scale]);
+  // A page is drawn at its own size only: a row still showing page 1's size
+  // waits for its own page before it renders.
+  const drawSize = hinted && !ownPage ? null : size;
 
   useEffect(() => {
     if (size) onSize?.(pageNum, size);
@@ -113,7 +126,7 @@ export default memo(function PdfPage({
 
   // ── render, and release when far away ────────────────────────────────
   useEffect(() => {
-    if (!pdfDoc || !size) return undefined;
+    if (!pdfDoc || !drawSize) return undefined;
     let cancelled = false;
     const base = baseRef.current;
     const overlay = overlayRef.current;
@@ -133,9 +146,9 @@ export default memo(function PdfPage({
     (async () => {
       try {
         if (taskRef.current) { try { taskRef.current.cancel(); } catch { /* already done */ } taskRef.current = null; }
-        const page = await pdfDoc.getPage(pageNum);
+        const page = ownPage || await pdfDoc.getPage(pageNum);
         if (cancelled) return;
-        const w = size.w; const h = size.h;
+        const w = drawSize.w; const h = drawSize.h;
         base.width = w * dpr; base.height = h * dpr;
         base.style.width = `${w}px`; base.style.height = `${h}px`;
         overlay.width = w * dpr; overlay.height = h * dpr;
@@ -176,15 +189,15 @@ export default memo(function PdfPage({
     // `strokes` is deliberately absent: repainting the ink does not need the
     // page rendered again, and the effect below does it on its own.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfDoc, pageNum, scale, near, size?.w, size?.h, cacheKeyPrefix, renderAttempt]);
+  }, [pdfDoc, pageNum, scale, near, drawSize?.w, drawSize?.h, ownPage, cacheKeyPrefix, renderAttempt]);
 
   // ── ink follows its strokes ──────────────────────────────────────────
   useEffect(() => {
-    if (!near || !size) return;
+    if (!near || !drawSize) return;
     const overlay = overlayRef.current;
     if (!overlay || !overlay.width) return;
     redrawInk(overlay, strokes, inkDpr() * scale);
-  }, [strokes, near, size, scale]);
+  }, [strokes, near, drawSize, scale]);
 
   useEffect(() => {
     registerOverlay?.(pageNum, overlayRef);

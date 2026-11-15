@@ -338,3 +338,88 @@ test('a row handed another document keeps its height until that document answers
     await second.destroy();
   }
 });
+
+// ── opening a long document ──────────────────────────────────────────
+// Every row used to ask pdf.js for its own page the moment the column
+// mounted: a 300-page textbook queued 300 page loads in the worker ahead of
+// the page on screen (audit PF-06). The reader now hands each row page 1,
+// which it already holds; a row reserves that size and asks for its own page
+// only when it comes near the viewport.
+
+// A row with stand-in elements and an IntersectionObserver the test drives.
+function mountRowInView(props) {
+  const rt = hooksRuntime();
+  const observers = [];
+  const el = () => ({ width: 0, height: 0, style: {}, parentElement: null, cancel() {},
+    getContext: () => ({ setTransform() {}, clearRect() {}, drawImage() {} }) });
+  const api = { ...rt.api, useRef(init = null) { const r = rt.api.useRef(init); if (!r.made) { r.made = true; if (r.current === null) r.current = el(); } return r; } };
+  class IntersectionObserver {
+    constructor(cb) { this.cb = cb; observers.push(this); }
+    observe() {} disconnect() {}
+  }
+  const ctx = vm.createContext({ ...api, console, RUNWAY: 1, redrawInk() {}, inkDpr: () => 1, IntersectionObserver });
+  const body = cut(PAGE_SRC, 'export default memo(function PdfPage({', '\n  return (');
+  const Row = vm.runInContext(`(function PdfPage({${body}\n  return { w, h, renderStatus };\n})`, ctx);
+  let current = props;
+  const render = (next = current) => { current = next; rt.begin(); const out = Row(current); rt.flush(); return out; };
+  const settle = async (pending = []) => {
+    let out = render();
+    for (let i = 0; i < 40; i++) {
+      await Promise.allSettled(pending);
+      await tick();
+      if (rt.dirty) { rt.dirty = false; out = render(); }
+    }
+    return out;
+  };
+  const near = async (on, pending) => { for (const o of observers) o.cb([{ isIntersecting: on }]); rt.dirty = true; return settle(pending); };
+  return { render, settle, near };
+}
+
+// pdf.js pages whose raster is a no-op: nothing here has a canvas.
+function countedNoPaint(doc) {
+  const spy = { calls: 0, pending: [] };
+  spy.doc = {
+    numPages: doc.numPages,
+    getPage: (n) => {
+      spy.calls += 1;
+      const p = doc.getPage(n).then((page) => ({ getViewport: (o) => page.getViewport(o), render: () => ({ promise: Promise.resolve(), cancel() {} }) }));
+      spy.pending.push(p);
+      return p;
+    },
+  };
+  return spy;
+}
+
+async function longDeck(n) {
+  const { PDFDocument } = await import('pdf-lib');
+  const pdf = await PDFDocument.create();
+  for (let i = 0; i < n; i++) pdf.addPage(i === n - 1 ? [612, 792] : [960, 540]);
+  return pdf.save();
+}
+
+test('opening a 300-page document asks pdf.js for no page of a row that is not near the screen', async () => {
+  const doc = await openDeck(await longDeck(300));
+  try {
+    const hint = await doc.getPage(1);
+    const spy = countedNoPaint(doc);
+    const rows = [];
+    for (let pageNum = 1; pageNum <= 300; pageNum++) rows.push(mountRowInView({ pdfDoc: spy.doc, pageNum, scale: 0.5, sizeHint: hint }));
+    for (const row of rows) {
+      const out = await row.settle(spy.pending);
+      assert.deepEqual({ w: out.w, h: out.h }, await viewportSize(doc, 1, 0.5), 'a far row did not reserve page 1\'s size');
+    }
+    assert.equal(spy.calls, 0, `${spy.calls} pages were asked of pdf.js on open with none near the screen`);
+    // The rows near the screen ask for their own page, once each, and take its size.
+    for (const row of rows.slice(0, 3)) await row.near(true, spy.pending);
+    assert.equal(spy.calls, 3);
+    const last = rows[299];
+    const out = await last.near(true, spy.pending);
+    assert.deepEqual({ w: out.w, h: out.h }, await viewportSize(doc, 300, 0.5), 'a near row kept page 1\'s size instead of its own');
+    assert.equal(out.renderStatus, 'ready');
+    await last.near(false, spy.pending);
+    await last.near(true, spy.pending);
+    assert.equal(spy.calls, 4, 'a row asked pdf.js for its page again on coming back into view');
+  } finally {
+    await doc.destroy();
+  }
+});
