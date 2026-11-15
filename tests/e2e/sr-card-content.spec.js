@@ -151,13 +151,16 @@ for (const planned of [true, false]) {
       const start = page.getByRole('button', { name: 'เริ่ม Session →', exact: true });
       await expect(summary).toContainText('กำลังนับใบที่ถึงรอบ…');
       await expect(start).toBeEnabled();
-      await page.evaluate(() => document.fonts.ready);
+      // WebKit keeps document.fonts.ready waiting while the held bank request is out: wait a few seconds only, and again after the release.
+      const fontsReady = () => page.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 5000))]));
+      await fontsReady();
       const before = await start.boundingBox();
       bank.release();
       await expect(summary).toContainText(planned ? 'ตั้งไว้แล้ว:' : 'จัดให้แล้ว:');
       const why = page.locator('.vmx-decide-why');
       await expect(why).toContainText(planned ? 'ตามที่คุณตั้งไว้' : 'ใบที่ค้างนานสุดมาก่อน');
       await expect(why.getByRole('button', { name: 'กลับไปใช้ค่าที่จัดให้', exact: true })).toHaveCount(planned ? 1 : 0);
+      await fontsReady();
       const after = await start.boundingBox();
       test.info().annotations.push({ type: 'start-button-shift', description: `top ${(after.y - before.y).toFixed(2)} px, left ${(after.x - before.x).toFixed(2)} px` });
       expect(Math.abs(after.y - before.y), 'the start button moved down or up').toBeLessThanOrEqual(0.5);
