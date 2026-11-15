@@ -221,12 +221,47 @@ const KEY_LINE = /^(\S[^:|\n]{0,39}?)(\s*:\s+)(\S[^|\n]*)$/;
 const RESULT_LINE = /^(\S.{0,59}?)(\s+)(\((?:negative|positive|normal|abnormal|neg|pos|ปกติ|ผิดปกติ|พบ|ไม่พบ|บวก|ลบ|\+|-)\))(\s*)$/i;
 // 1. item, 1) item, ก. item, a) item, - item, • item, — item
 const LIST_LINE = /^(\s*)(\d{1,2}[.)]|[ก-ฮ][.)]|[A-Za-z][.)]|[-•—])(\s+)(\S.*)$/;
+// A number marker may sit on its word ("4.ตรวจ"), as long as no digit follows ("1.5 mg" is a figure).
+const NUMBER_TIGHT = /^(\s*)(\d{1,2}[.)])()([^\s\d].*)$/;
+// The order letters run in. A letter list starts at a, A or ก and goes on in this order: two lines that both
+// open with "C. " (a genus initial, "C. parvum") are not a list.
+const THAI_ORDER = 'กขคงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ';
+const LATIN_ORDER = 'abcdefghijklmnopqrstuvwxyz';
+const ordinal = (marker) => {
+  const m = marker.trim().slice(0, -1);
+  if (/^\d+$/.test(m)) return Number(m);
+  if (/^[A-Za-z]$/.test(m)) return LATIN_ORDER.indexOf(m.toLowerCase());
+  return THAI_ORDER.indexOf(m);
+};
+// A run of numbered or lettered lines is a list only when its markers count on by one (a letter list from its
+// first letter); a run is all or nothing, so a line that breaks the count leaves the whole run as plain lines.
+const inSequence = (lines) => {
+  const first = lines[0].parts.marker;
+  if (/^[-•—]$/.test(first)) return true;
+  const start = ordinal(first);
+  if (start < 0 || (!/^\d/.test(first) && start !== 0)) return false;
+  return lines.every((l, k) => ordinal(l.parts.marker) === start + k);
+};
+// A line that only carries on from the one above ("→ MD ไม่ได้แพร่ ...") never leads a block.
+const CARRIES_ON = /^(?:[→⇒➜➔↳=]|->|=>)/;
 const LEAD_END = /(?:ดังนี้|ดังต่อไปนี้|:)\s*(?:\([^()\n]*\))?\s*$/;
 const LETTER = /[A-Za-zก-ฮ]/;
 const LEAD_SHORT = 32;
 const LEAD_LABEL = 40;
 // A line that asks: it ends in a question mark, or holds a question word.
-const ASKS = /[?？]\s*$|จง|อะไร|ข้อใด|อย่างไร|เท่าไร|เท่าใด|ใด\s*$|ไหน|หรือไม่|ใคร|กี่|ตอบไม่เกิน|\b(?:what|which|how|why|name|list|identify|describe)\b/i;
+// Words are matched as words: จง only as a command (จงระบุ, never จงอาง), a Thai question word only where it ends
+// a word, an English command only where it opens the line ("Problem list: anorexia" does not ask).
+const ASKS = new RegExp([
+  '[?？]\\s*$',
+  '(?:^|\\s)จง(?:ระบุ|เรียง|บอก|อธิบาย|เขียน|ตอบ|หา|คำนวณ|วินิจฉัย|เลือก|ยกตัวอย่าง|เติม|จับคู่|แปลผล|สรุป|เปรียบเทียบ|พิจารณา|วาด)',
+  // Whole words that only ever ask ("ข้อใดถูก" runs on into the next word, as Thai does) ...
+  'อะไร|ข้อใด|อย่างไร|เท่าไร|เท่าใด',
+  // ... and short ones that ask only where they end a word ("ที่ไหนมาก่อน" is narrative).
+  '(?:หรือไม่|ไหน|ใด)(?=\\s|$|[?？)]|บ้าง)',
+  'ตอบไม่เกิน',
+  '\\b(?:what|which|how|why|who|when|where)\\b',
+  '^\\s*(?:name|list|identify|describe|give|state)\\b',
+].join('|'), 'i');
 const ASK_LONGEST = 200;
 const MIN_RUN = { lab: 3, key: 3, result: 2, list: 2 };
 
@@ -240,7 +275,7 @@ const markerKind = (m) => {
 /** What one line reads as, with its parts (joined, they are the line). */
 export function lineShape(text) {
   if (!text.trim()) return { kind: 'blank' };
-  let m = LIST_LINE.exec(text);
+  let m = LIST_LINE.exec(text) || NUMBER_TIGHT.exec(text);
   if (m) return { kind: 'list', run: `list:${markerKind(m[2])}`, parts: { indent: m[1], marker: m[2], gap: m[3], body: m[4] } };
   m = LAB_LINE.exec(text);
   if (m && LETTER.test(m[1])) return { kind: 'lab', run: 'lab', parts: { label: m[1], sep: m[2], value: m[3], bar: m[4], range: m[5] } };
@@ -264,6 +299,15 @@ export function proseBlocks(text) {
   let pos = 0;
   for (const t of str.split('\n')) { lines.push({ text: t, start: pos, end: pos + t.length }); pos += t.length + 1; }
   const shapes = lines.map((l) => lineShape(l.text));
+  // A list run whose markers do not count on is plain lines, every line of it.
+  for (let a = 0; a < lines.length;) {
+    let b = a + 1;
+    if (shapes[a].kind === 'list') while (b < lines.length && shapes[b].run === shapes[a].run) b++;
+    if (shapes[a].kind === 'list' && b - a >= MIN_RUN.list && !inSequence(shapes.slice(a, b))) {
+      for (let k = a; k < b; k++) shapes[k] = { kind: 'text' };
+    }
+    a = b;
+  }
   // How many lines from i on share line i's run.
   const runLen = new Array(lines.length).fill(0);
   for (let i = lines.length - 1; i >= 0; i--) {
@@ -289,7 +333,7 @@ export function proseBlocks(text) {
       if ((block.type === 'pairs' || block.type === 'results') && prev?.type === 'para' && prev.to === i - 1) {
         const above = prev.lines[prev.lines.length - 1];
         const said = above.text.trim();
-        if (said.length <= LEAD_SHORT || LEAD_END.test(said)) {
+        if (!CARRIES_ON.test(said) && (said.length <= LEAD_SHORT || LEAD_END.test(said))) {
           // Only a short label ("Flexion test") is set apart in weight; a sentence that
           // leads in stays regular, so nothing the paper did not emphasise reads as a clue.
           block.lead = { ...above, label: said.length <= LEAD_LABEL };
@@ -338,8 +382,8 @@ export const isTypeset = (text) => {
  * question (a question mark or a question word, in at most 200 characters),
  * that last line is the ask: it alone is the card's heading, and everything
  * above it is the stem body, drawn as blocks. A stem that asks first and
- * gives the case after it, or ends on its data, is not cut: a paragraph of
- * findings must not become the heading. Every other stem gives null and is
+ * gives the case after it (its first line asks too), or ends on its data, is
+ * not cut: a paragraph of findings must not become the heading. Every other stem gives null and is
  * drawn as it always was.
  * { body: blocks, ask: { type: 'ask', start, end, lines }, bodyText, askText }
  */
@@ -353,6 +397,9 @@ export function splitStem(text) {
   if (last.type !== 'para' || !last.lines.length) return null;
   const line = last.lines[last.lines.length - 1];
   if (line.text.trim().length > ASK_LONGEST || !ASKS.test(line.text)) return null;
+  // A stem that asks on its first line too gives its question first: its last line is data, not the ask.
+  const opening = blocks[0].lead || blocks[0].lines[0];
+  if (opening && opening !== line && ASKS.test(opening.text)) return null;
   const body = blocks.slice(0, -1);
   if (last.lines.length > 1) body.push({ ...last, lines: last.lines.slice(0, -1), end: line.start });
   if (!body.length) return null;
