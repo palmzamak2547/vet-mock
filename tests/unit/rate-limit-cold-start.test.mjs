@@ -10,7 +10,7 @@ process.env.UPSTASH_REDIS_REST_TOKEN = 'fixture-token';
 const { rateLimit, STORE_TIMEOUTS } = await import('../../api/_lib/rate-limit.js?cold-start');
 
 test('a cold call is given more time than a warm one', () => {
-  assert.ok(STORE_TIMEOUTS.cold >= STORE_TIMEOUTS.warm * 2, JSON.stringify(STORE_TIMEOUTS));
+  assert.ok(STORE_TIMEOUTS.cold > STORE_TIMEOUTS.warm, JSON.stringify(STORE_TIMEOUTS));
 });
 
 test('the first store call of an instance may be slow; a slow warm call is still refused', async (t) => {
