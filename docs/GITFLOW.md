@@ -53,7 +53,7 @@ and each ran a ~70 min local gate; now:
    commit has no `smoke` result: a skipped `smoke` would pass the required check, and merging right
    after `gh pr ready` could otherwise land before the e2e run had started.
 5. **Merging.** The ruleset on `main` requires those five checks. It no longer requires the branch to be
-   up to date with main, and the Queue workflow (`.github/workflows/queue.yml`) is disabled: its bot
+   up to date with main, and the Queue workflow (deleted; GitHub's merge queue is not offered to a personal repository) used to run: its bot
    updates left runs waiting in `action_required` (#45 waited 215 min). A pull request merges when its
    own checks pass. Rebase, or merge main into the branch, only when GitHub reports a conflict.
 6. **Deploy, then watch main.** The merge is a push to `main`: CI runs again on that SHA and Vercel

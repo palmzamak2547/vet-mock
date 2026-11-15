@@ -59,6 +59,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
+        id: install
         run: npm ci --no-audit --no-fund
 
       - name: Contract tests
@@ -69,8 +70,19 @@ jobs:
       # after it only ever saw freshly written files and could not fail on a
       # stale committed one. None of these steps reads dist/. lint:data starts
       # with lint:untracked and ends with lint:atlas.
+      #
+      # 15 Nov 2026: every step of lint:data runs here, to the end, one at a
+      # time and in the chain's order (scripts/lint-all.mjs reads the chain
+      # from package.json). The chain stops at its first failure, so a red run
+      # named one failing step and hid the rest: on 11 Nov it stopped at step
+      # 33 of 63. The log now holds one table, then everything each failed
+      # step printed; each failure is an annotation, and the run summary lists
+      # them. This step also runs when the unit suite failed, so that run names
+      # its lint failures as well. The build and the gates after it still wait
+      # for both.
       - name: Generated data and content gates
-        run: npm run lint:data
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run lint:data:all -- --github --summary="$GITHUB_STEP_SUMMARY"
 
       - name: Build production bundle
         run: npm run build

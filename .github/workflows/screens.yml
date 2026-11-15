@@ -1,0 +1,85 @@
+# ============================================================
+# Pictures of screens from CI, on demand
+# ============================================================
+# Before and after pictures of a changed screen without building on your own
+# machine. Runs scripts/screen-hunt.mjs (phone 390 x 664, the viewport of the
+# e2e phone, and desktop 1280, light and dark) on a build of the chosen ref and
+# keeps the pictures and the summary as an artifact for 7 days.
+#
+# Start it by hand (Actions, Screens, Run workflow: `only` is an optional part
+# of a screen's name, `ref` a branch or sha) or by putting the label `screens`
+# on a pull request. A pull request without that label never runs it.
+name: Screens
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Only screens whose name contains this text (empty: all)'
+        required: false
+        default: ''
+      ref:
+        description: 'Branch or commit to build (empty: the selected branch)'
+        required: false
+        default: ''
+  pull_request:
+    types: [labeled, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: screens-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  screens:
+    name: screen pictures
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' &&
+       contains(github.event.pull_request.labels.*.name, 'screens') &&
+       (github.event.action != 'labeled' || github.event.label.name == 'screens') &&
+       github.event.pull_request.head.repo.full_name == github.repository)
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref || github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Chromium
+        run: bash scripts/ci-apt-mirrors.sh 300 npx playwright install --with-deps chromium
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Take the pictures
+        env:
+          ONLY: ${{ inputs.only }}
+        run: |
+          if [ -n "$ONLY" ]; then
+            npm run hunt:screens -- --out=hunt-out "--only=$ONLY"
+          else
+            npm run hunt:screens -- --out=hunt-out
+          fi
+
+      - name: Upload the pictures
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: screens
+          path: |
+            hunt-out/shots
+            hunt-out/summary.md
+          retention-days: 7
+          if-no-files-found: warn
