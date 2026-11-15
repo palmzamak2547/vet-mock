@@ -57,6 +57,25 @@ const announceWaitingWorker = (worker) => {
   publishUpdateStatus(window, 'service-worker')
 }
 
+// The first visit's files arrive before any worker controls the page, so the
+// worker never saw them and an offline reload of that visit drew a blank page.
+// Once a worker takes control, name the app files this page already loaded so
+// the worker keeps them (sw.js CACHE_LOADED).
+let loadedFilesReported = false
+const reportLoadedFiles = () => {
+  const worker = navigator.serviceWorker.controller
+  if (loadedFilesReported || !worker || typeof window.performance?.getEntriesByType !== 'function') return
+  const urls = new Set()
+  for (const entry of window.performance.getEntriesByType('resource')) {
+    try {
+      const url = new URL(entry.name)
+      if (url.origin === window.location.origin && /^\/(?:assets|fonts)\//.test(url.pathname)) urls.add(url.href)
+    } catch { /* not a URL */ }
+  }
+  loadedFilesReported = true
+  if (urls.size) worker.postMessage({ type: 'CACHE_LOADED', urls: [...urls] })
+}
+
 window.addEventListener('pagehide', (event) => {
   // BFCache keeps this document alive. A real departure gives the worker a
   // chance to trim old assets after the last window closes, never mid-study.
@@ -75,6 +94,9 @@ window.addEventListener('load', () => {
       .then((regs) => regs.forEach((r) => r.unregister()))
       .catch(() => {})
     return
+  }
+  if (!navigator.serviceWorker.controller) {
+    navigator.serviceWorker.addEventListener('controllerchange', reportLoadedFiles, { once: true })
   }
   navigator.serviceWorker.register('/sw.js').then((reg) => {
     // A worker may already be waiting when this tab opens.

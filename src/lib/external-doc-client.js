@@ -15,6 +15,7 @@
 
 import { getSupabase } from './supabase.js';
 import { safeLinkUrl } from './safe-url.js';
+import { isOfflineAnswer } from './offline-answer.js';
 
 const RECENT_KEY = 'vmx-external-docs-v2:';
 const RECENT_MAX = 8;
@@ -112,6 +113,8 @@ async function request(path, { ownerId = null, signal, body } = {}) {
         body: body === undefined ? undefined : JSON.stringify(body), signal: controller.signal,
       });
       const data = await res.json().catch(() => null);
+      // The worker's offline answer says "Offline", a key no message has.
+      if (isOfflineAnswer(res, data)) return { ok: false, data: null, reason: 'offline' };
       return { ok: res.ok, data, reason: data?.reason || data?.error };
     })();
     return await Promise.race([pending, new Promise((_, reject) => {

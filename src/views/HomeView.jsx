@@ -770,6 +770,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       import('./ExamView.jsx').catch(() => {});
       import('./ResultsView.jsx').catch(() => {});
       import('./ReviewView.jsx').catch(() => {});
+      // Finishing a set or a review card writes its answers through this
+      // module. Never loaded before, a set finished offline could not save
+      // them and asked the student to back the set up (offline audit, 15 Nov).
+      import('../lib/study-event-log.js').catch(() => {});
     };
     const idle = window.requestIdleCallback
       || ((cb) => setTimeout(cb, 1500));
