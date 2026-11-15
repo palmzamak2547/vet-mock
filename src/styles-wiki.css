@@ -761,3 +761,39 @@
 .vw .vmx-related-docs.is-wiki .vmx-related-more { font-family: var(--vw-label); font-size: 14px; }
 .vw .vmx-related-docs.is-wiki .vmx-related-meta { color: var(--clr-ink-soft); }
 .vw .vmx-related-docs.is-wiki .vmx-related-more { padding: 0 4px; }
+
+/* ── กล่อง "ศัพท์เฉพาะทางในบทนี้" ท้ายบท (นำร่อง zoonoses) ── */
+.vw-glossary {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid var(--clr-border);
+  border-radius: 14px;
+  background: var(--clr-surface);
+}
+.vw-glossary-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: var(--vw-display);
+}
+.vw-glossary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.vw-glossary-table th,
+.vw-glossary-table td {
+  border-top: 1px solid var(--clr-border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  color: var(--vw-body);
+  overflow-wrap: break-word;
+  min-width: 5.5em;
+}
+.vw-glossary-table thead th {
+  border-top: none;
+  color: var(--clr-ink-soft);
+}
+.vw-glossary-table tbody th[scope="row"] {
+  font-weight: 700;
+}

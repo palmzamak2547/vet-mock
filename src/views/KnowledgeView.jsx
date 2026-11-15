@@ -32,6 +32,7 @@ import {
 } from '../lib/vetwiki/runtime.js';
 import { articleCitations, citationText, reviewHistory } from '../lib/vetwiki/cite.js';
 import { isTopicRead, setTopicRead, topicProgressKey } from '../lib/study-progress.js';
+import { hasTermGlossary, loadTermGlossary } from '../lib/vetwiki/term-glossary.js';
 import { SectionEvidence, SourceList } from '../components/WikiEvidence.jsx';
 import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
 import { wikiPracticeTarget } from '../lib/vetwiki/practice-target.js';
@@ -901,6 +902,21 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
   }, [knowledge?.title]);
   const sections = knowledge.sections;
 
+  // กล่อง "ศัพท์เฉพาะทางในบทนี้" ท้ายบท — โหลดเฉพาะบทที่มีข้อมูล
+  // (16 บท zoonoses นำร่อง) เป็น chunk แยก บทอื่นไม่จ่ายไบต์นี้
+  const [termGlossary, setTermGlossary] = useState(null);
+  useEffect(() => {
+    if (!current || !hasTermGlossary(current.topic)) {
+      setTermGlossary(null);
+      return undefined;
+    }
+    let alive = true;
+    loadTermGlossary().then((map) => {
+      if (alive) setTermGlossary(map[current.topic] ?? null);
+    });
+    return () => { alive = false; };
+  }, [current?.subject, current?.topic]);
+
   // Sources numbered across the article (lib/vetwiki/cite.js): the chips under
   // each section and the list at the end share the numbers.
   const cites = useMemo(() => articleCitations(sections, resolveSource), [sections]);
@@ -1219,6 +1235,25 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           </ReadingEffects>
 
           <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
+          {termGlossary && termGlossary.length > 0 && (
+            <aside className="vw-glossary" aria-label="ศัพท์เฉพาะทางในบทนี้">
+              <h2 className="vw-glossary-title">ศัพท์เฉพาะทางในบทนี้</h2>
+              <table className="vw-glossary-table">
+                <thead>
+                  <tr><th scope="col">ศัพท์</th><th scope="col">คำแปลไทย</th><th scope="col">ความหมายทางเวชศาสตร์</th></tr>
+                </thead>
+                <tbody>
+                  {termGlossary.map((row) => (
+                    <tr key={row.term}>
+                      <th scope="row">{row.term}</th>
+                      <td>{row.th}</td>
+                      <td>{row.meaning}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </aside>
+          )}
           <ChapterEnd current={current} siblings={siblings} prev={prev} next={next}
             neighbours={neighbours} reading={reading} checklist={checklist} onOpen={onOpen}
             related={<WikiRelatedDocs target={`${current.subject}/${current.topic}`} onOpenDoc={onOpenDoc} />} />

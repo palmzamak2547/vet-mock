@@ -291,7 +291,7 @@ export const NOTES_85_ZOONOSES = {
           {
             "bullets": [
               "prion เป็นโปรตีนที่มี 2 form คือ **normal cellular form (PrPc)** และ **abnormal scrapie form (PrPSc)**",
-              "ปกติทั้งสอง form เจอได้ใน CNS แต่ **PrPSc เจอน้อยมากและอยู่ในรูป inactive**",
+              "ปกติทั้งสอง form เจอได้ใน CNS แต่ **PrPSc เจอน้อยมาก**",
               "**วินิจฉัยจาก histopathology ที่พบ neural vacuolation หรือจากน้ำไขสันหลัง (CSF)**",
               "**ตรวจจาก serology ไม่ได้ เพราะ prion ไม่ทำให้เกิดการสร้าง antibody**",
               "**การทำความสะอาดอุปกรณ์ทางการแพทย์แบบปกติทำลาย prion ไม่ได้**"

@@ -9094,3 +9094,32 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   overflow-wrap: anywhere; white-space: pre-wrap; pointer-events: auto; touch-action: manipulation;
   caret-color: currentColor;
 }
+
+/* ── สลับภาษาโจทย์ (ไทย/EN) — toggle เล็กในแถบบนของชุดข้อสอบ ── */
+.vmx-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 10px;
+}
+.vmx-lang-btn {
+  border: 1px solid var(--clr-border);
+  background: transparent;
+  color: var(--clr-ink-soft);
+  font: inherit;
+  font-size: 14px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.vmx-lang-btn.is-on {
+  background: var(--clr-surface);
+  border-color: var(--clr-sage);
+  color: var(--clr-sage-text);
+  font-weight: 700;
+}
+.vmx-en-missing {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--clr-ink-soft);
+}
