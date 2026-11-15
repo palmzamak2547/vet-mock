@@ -53,14 +53,12 @@ test('the profile hub carries the stats section, the study lists and VetWiki', a
   await openProfileHub(page);
 
   const hub = page.locator('main');
-  await expect(hub.locator('.vmx-hero h1')).toHaveText('โปรไฟล์ ของฉัน');
+  await expect(hub.locator('.vmx-hero h1')).toHaveText('โปรไฟล์');
 
-  // Stats — the streak is read from the saved record, so the tiles show even
-  // for a brand-new browser with no history at all.
-  await expect(hub.getByRole('heading', { name: 'สถิติของฉัน' })).toBeVisible();
-  await expect(hub.getByText('วันต่อเนื่อง')).toBeVisible();
-  await expect(hub.getByText('ข้อวันนี้')).toBeVisible();
-  await expect(hub.getByText('ข้อทั้งหมด')).toBeVisible();
+  // A brand-new browser has no history: the hub names the one next thing to
+  // do instead of a row of zeros, and the progress page stays one tap away.
+  await expect(hub.getByRole('heading', { name: 'เริ่มจากข้อเดียว' })).toBeVisible();
+  await expect(hub.getByRole('button', { name: /^ความคืบหน้าแบบละเอียด/ })).toBeVisible();
 
   // Personal study lists, settings and the app itself.
   await expect(hub.getByRole('heading', { name: 'การเรียนของฉัน' })).toBeVisible();
@@ -85,7 +83,7 @@ test('the hub works signed out and its Back returns to Home', async ({ page }) =
   // A guest gets the invitation and still gets every setting below it. The
   // invite button itself is drawn only where Supabase is configured, so the
   // copy both states carry is what is asserted here.
-  await expect(hub.getByText('กำลังใช้งานแบบไม่เข้าสู่ระบบ')).toBeVisible();
+  await expect(hub.getByRole('heading', { name: 'ใช้งานแบบไม่เข้าสู่ระบบ' })).toBeVisible();
   await expect(hub.getByText(/เก็บความคืบหน้าลงบัญชี/)).toBeVisible();
   await expect(hub.getByRole('heading', { name: 'การตั้งค่า' })).toBeVisible();
   await expect(hub.getByRole('heading', { name: 'แอปของฉัน' })).toBeVisible();

@@ -34,7 +34,7 @@ test('an unchanged payload is not re-sent, except when re-announcing after a bac
 });
 
 test('the update effect depends on the profile fields the panel shows, not the profile object', () => {
-  assert.match(src, /\}, \[user\?\.id, username, avatar, subject, view, qKey\]\);/);
+  assert.match(src, /\}, \[user\?\.id, username, avatar, subject, view, qKey, shown\]\);/);
   assert.doesNotMatch(src, /\}, \[subject, view, qKey, user, profile\]\);/);
   assert.doesNotMatch(src, /\}, \[user, profile, subject, view, qKey\]\);/);
 });

@@ -11,6 +11,7 @@ import {
   NEW_PROFILES,
   POSITION_OVERRIDES,
 } from './instructor-course-teaching.mjs';
+import { applyPortraits } from './instructor-portraits.mjs';
 
 const ROOT = new URL('..', import.meta.url);
 const CACHE_FILE = new URL('data-cache/instructors/research-audit.json', ROOT);
@@ -862,6 +863,9 @@ async function main() {
       topics: unique([...(record.topics || []), ...COURSE_TEACHING[record.slug].topics]),
     } : record))
     .sort((a, b) => a.nameEn.localeCompare(b.nameEn));
+  // Official staff portraits: a pointer only (scripts/instructor-portraits.mjs).
+  const withPortraits = applyPortraits(directory);
+  directory.splice(0, directory.length, ...withPortraits);
 
   const duplicateSlugs = directory.filter((record, index) => directory.findIndex((entry) => entry.slug === record.slug) !== index);
   if (duplicateSlugs.length) throw new Error(`Duplicate slugs: ${duplicateSlugs.map((record) => record.slug).join(', ')}`);

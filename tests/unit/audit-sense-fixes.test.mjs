@@ -337,7 +337,7 @@ test('the signed-in header cannot overflow onto its own controls', () => {
   assert.ok(mobile.includes('text-overflow: ellipsis'), 'the context pills must truncate');
   const menu = src('src/components/UserMenu.jsx');
   assert.ok(menu.includes('className="vmx-usermenu-name"'));
-  assert.ok(menu.includes('aria-label={`บัญชี ${profile.username}`}'),
+  assert.ok(menu.includes('aria-label={`บัญชี ${shownName(profile.username)}`}'),
     'hiding the name visually must not hide it from assistive tech');
 });
 
