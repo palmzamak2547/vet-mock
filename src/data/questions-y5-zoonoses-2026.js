@@ -217,7 +217,7 @@ export const QB_Y5_ZOONOSES_2026 = [
     explain: "verify the diagnosis อยู่ขั้นที่ 3 ขั้นถัดไปคือ construct case definition เพราะต้องรู้ก่อนว่าเป็นโรคอะไรแน่ จึงเขียนนิยามได้ว่าจะนับใครเป็นผู้ป่วย แล้วค่อยเอานิยามนั้นออกไปตามหาผู้ป่วยรายอื่น\n\n❌ ทำไมข้ออื่นผิด\n— \"Establish existence of outbreak\" = ขั้นที่ 2 อยู่ก่อน verify the diagnosis ไม่ใช่หลัง\n— \"Find cases systematically\" = ขั้นที่ 5 ต้องมี case definition ก่อนจึงจะค้นหาผู้ป่วยอย่างเป็นระบบได้\n— \"Implement control measures\" = ขั้นที่ 8 อยู่ปลายทางของการสอบสวน",
     source: 'Epidemiological approach to zoonoses 2026 (SJ)',
     verified: 'Epidemiological approach to zoonoses 2026 (SJ) p.40',
-    tags: ['outbreak-investigation', 'ten-steps', 'sequence'],
+    tags: ['outbreak-investigation', 'ten-steps', 'sequence'], flag: {"severity":"minor","note":"ข้อนี้ใช้รายการสอบสวนการระบาด 10 ขั้นตอน ซึ่งวาง establish existence of outbreak เป็นขั้นที่ 2 verify the diagnosis เป็นขั้นที่ 3 และ construct case definition เป็นขั้นที่ 4 เนื้อหาปีนี้มีอีกรายการหนึ่งในหัวข้อบทเรียนจากการสอบสวนโรคภาคสนาม ซึ่งไม่ได้นับเป็น 10 ขั้น และเรียง verify the disease diagnosis ก่อน confirm the outbreak แล้วจึง establish a case definition ถ้ายึดรายการนั้น ขั้นที่ต่อจาก verify the diagnosis คือการยืนยันว่ามีการระบาด"}
   },
   {
     id: 104013, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
