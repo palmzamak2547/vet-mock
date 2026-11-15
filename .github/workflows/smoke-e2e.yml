@@ -210,6 +210,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-shared-questions-db.mjs --backend=postgres
+      - name: Verify public names (the recogniser, the neutral handle and its undo, the guard, the folded unique index)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-profile-names-db.mjs --backend=postgres
 
   e2e:
     name: e2e (${{ matrix.label }})

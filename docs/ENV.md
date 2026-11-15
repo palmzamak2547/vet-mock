@@ -169,8 +169,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PLAYWRIGHT_CHROMIUM` | optional | test, script | `vca/playwright.config.js`, `vca/scripts/make-icons.mjs`, `vca/scripts/render-og.mjs` | A Chromium binary for the VCA specs and image scripts. |
 | `PERF_BUDGET_CPU` | optional | test | `tests/e2e/perf-budget.spec.js` | CPU slowdown for the perf budget spec. |
 | `UPDATE_PERF_BUDGETS` | optional | test | `tests/e2e/perf-budget.spec.js` | 1 rewrites perf-budgets.json from a fresh measurement. |
-| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +5 | Path of the pglite module the SQL harnesses load. |
-| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +3 | Postgres service container the SQL harnesses use in CI. |
+| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +6 | Path of the pglite module the SQL harnesses load. |
+| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +4 | Postgres service container the SQL harnesses use in CI. |
 | `PG_MODULE` | optional | script | `vca/scripts/test-community-db.mjs` | Path of the pg module the VCA community harness loads. |
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
@@ -207,7 +207,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Read in | Meaning |
 |---|---|---|
 | `CI` | `playwright.config.js`, `research/playwright.config.js`, `scripts/check-ci-graphics.mjs` +1 | set by GitHub Actions; Playwright and a few scripts switch to CI mode |
-| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +3 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
+| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +4 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
 | `GITHUB_STEP_SUMMARY` | `scripts/e2e-durations.mjs`, `scripts/perf-budget.mjs`, `tests/e2e/perf-budget.spec.js` | set by GitHub Actions; perf and e2e duration reports append to it |
 | `NODE_ENV` | `api/_lib/rate-limit.js` | set by Node tooling and Vercel; production makes the rate limiter require Upstash |
 | `PATH` | `scripts/video-asr.py` | the system search path; scripts/video-asr.py adds its CUDA folder |
