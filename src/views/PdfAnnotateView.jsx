@@ -64,6 +64,7 @@ import { makeTextNote, textNoteAt } from '../lib/textnote.js';
 import NotebookShelf from '../components/NotebookShelf.jsx';
 import { buildNotebookPdf, notebookKey, updateNotebook, NOTEBOOK_MAX_PAGES } from '../lib/notebook.js';
 import { selectStrokes, boundsOf, transformStroke } from '../lib/lasso.js';
+import { RangedPdfSource, rangeableLength, RANGE_CHUNK } from '../lib/pdf-range-source.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -313,6 +314,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const loadGenRef = useRef(0);
   const pendingTaskRef = useRef(null);
   const pendingAbortRef = useRef(null);
+  // The ranged source of the document on screen (lib/pdf-range-source.js).
+  const rangedRef = useRef(null);
+  // False while a ranged document's download still runs behind page one.
+  const [fileWhole, setFileWhole] = useState(true);
   const [exporting, setExporting] = useState(null); // null | {done,total}
   // Page text, extracted once per document and reused for every later search.
   // `pending` is the extraction still running, so a second query joins it.
@@ -493,10 +498,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // store keys on, so we never have to download a 200 MB textbook just to
   // learn which strokes belong to it.
   //
-  // Linearized PDFs are handed to pdf.js as a URL and stream by HTTP range —
-  // page 1 paints after ~100 KB instead of after the whole file. Everything
-  // else is fetched whole, because chasing a trailing cross-reference table
-  // over dozens of small ranges is slower than one sequential download.
+  // Linearized PDFs and the VCA archive copies are handed to pdf.js as a URL
+  // and read by HTTP range. Everything else starts one whole download, and
+  // when the server can answer byte ranges, page one is drawn from the bytes
+  // that have arrived plus a few ranges (lib/pdf-range-source.js) while the
+  // rest comes in behind it. Without ranges it is the old whole download.
   const ingestRemote = useCallback(async (asked) => {
     if (!asked?.url && !asked?.resolve && !asked?.bytes && !asked?.fromUrl) return;
     const gen = supersedeOpen();
@@ -533,17 +539,23 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // `bytes`: a document the app made itself (a notebook). Handed over as
       // bytes, never as a blob: URL, because production's CSP (connect-src)
       // does not allow fetching blob: and should not need to.
-      const [pdfjs, url] = await Promise.all([
-        loadPdfjs(),
-        doc.bytes ? Promise.resolve(null) : doc.url ? Promise.resolve(doc.url) : doc.resolve(),
-      ]);
+      // The document request does not wait for the reader's own code: the
+      // download starts the moment the link is in, and pdf.js joins it.
+      const pdfjsReady = loadPdfjs();
+      pdfjsReady.catch(() => {});
+      const url = doc.bytes ? null : doc.url ? doc.url : await doc.resolve();
       if (!current()) return;
       const stream = !doc.bytes && !!(doc.linearized || doc.rangeSupported);
       let task;
+      let ranged = null;
       if (stream) {
+        const pdfjs = await pdfjsReady;
+        if (!current()) return;
         task = pdfjs.getDocument({ url, rangeChunkSize: doc.rangeSupported ? 262144 : 65536,
           ...(doc.rangeSupported ? { disableAutoFetch: true, disableStream: true } : {}) });
       } else if (doc.bytes) {
+        const pdfjs = await pdfjsReady;
+        if (!current()) return;
         task = pdfjs.getDocument({ data: new Uint8Array(doc.bytes) });
       } else {
         // Back, or another document, while this downloads: stop it rather than
@@ -564,27 +576,44 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           }
           throw new Error(`HTTP ${res.status}`);
         }
-        // Read the body as a stream so the wait can be counted out loud.
-        // Exactly one document in the shelf of 1,383 is linearized, so this
-        // branch IS the reader: everyone waits for the whole file before page
-        // one can paint, and half the shelf is over 5 MB. A spinner that says
-        // nothing for fifteen seconds is indistinguishable from a hang — and
-        // a student who cannot tell the difference reloads, which starts the
-        // download again from zero.
-        // Progress from a withdrawn open must not write over the newer one's.
-        const buf = await readWithProgress(res,
-          (msg) => { if (current()) setLoadingMsg(msg); },
-          (pct) => { if (current()) setDownloadProgress(pct); });
-        // Every byte is in; a later open must not abort a request the service
-        // worker may still be writing to its cache.
-        if (pendingAbortRef.current === download) pendingAbortRef.current = null;
-        if (!current()) return;
-        task = pdfjs.getDocument({ data: buf });
+        const length = rangeableLength(res);
+        const pdfjs = await pdfjsReady;
+        if (!current()) { download.abort(); return; }
+        if (length) {
+          ranged = new RangedPdfSource({ url, response: res, length });
+          task = pdfjs.getDocument({
+            range: ranged.attach(new pdfjs.PDFDataRangeTransport(length, null, false, null)),
+            rangeChunkSize: RANGE_CHUNK,
+          });
+          // The download broke and the server cannot finish it by range.
+          ranged.onFail = () => { if (pendingTaskRef.current === task) task.destroy().catch(() => {}); };
+          ranged.done.then(() => {
+            if (pendingAbortRef.current === download) pendingAbortRef.current = null;
+            if (current()) setFileWhole(true);
+          }, () => {});
+        } else {
+          // Read the body as a stream so the wait can be counted out loud.
+          // Exactly one document in the shelf of 1,383 is linearized, so this
+          // branch IS the reader: everyone waits for the whole file before page
+          // one can paint, and half the shelf is over 5 MB. A spinner that says
+          // nothing for fifteen seconds is indistinguishable from a hang — and
+          // a student who cannot tell the difference reloads, which starts the
+          // download again from zero.
+          // Progress from a withdrawn open must not write over the newer one's.
+          const buf = await readWithProgress(res,
+            (msg) => { if (current()) setLoadingMsg(msg); },
+            (pct) => { if (current()) setDownloadProgress(pct); });
+          // Every byte is in; a later open must not abort a request the service
+          // worker may still be writing to its cache.
+          if (pendingAbortRef.current === download) pendingAbortRef.current = null;
+          if (!current()) return;
+          task = pdfjs.getDocument({ data: buf });
+        }
       }
       pendingTaskRef.current = task;
       setLoadingMsg('กำลังแกะ PDF…');
       setDownloadProgress(null);
-      if (stream) {
+      if (stream || ranged) {
         let lastProgressAt = 0;
         task.onProgress = ({ loaded, total }) => {
           if (!current()) return;
@@ -631,7 +660,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // `resolve` is kept so an export after the signed link has expired can
       // mint a fresh one instead of failing with a bare status code.
       if (doc.bytes) sourceRef.current = { kind: 'file', file: new File([doc.bytes], doc.fileName || 'notebook.pdf', { type: 'application/pdf' }) };
-      else sourceRef.current = { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null };
+      // `ready`: the download still running behind page one. An export waits
+      // for it instead of starting a second download of the same bytes.
+      else sourceRef.current = { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null, ready: ranged?.done || null };
+      rangedRef.current = ranged;
+      setFileWhole(!ranged || ranged.complete);
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
@@ -827,6 +860,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const getCachedPage = useCallback((key) => pageCacheRef.current.get(key) || null, []);
 
   const cachePage = useCallback((key, canvas) => {
+    // A page has been drawn: a ranged document stops asking for byte ranges
+    // and leaves every later page to the download behind it.
+    rangedRef.current?.settle();
     if (typeof createImageBitmap !== 'function') return;
     const budget = CACHE_BUDGET_MP();
     // A single page can exceed the whole budget at high zoom on a small
@@ -2843,6 +2879,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           <button type="submit" className="vmx-btn vmx-btn-sm" disabled={searching || !query.trim()}>
             {searching ? 'กำลังค้น…' : 'ค้นหา'}
           </button>
+          {searching && !fileWhole && (
+            <span role="status" style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ไฟล์ยังโหลดไม่ครบ จะค้นได้เมื่อโหลดครบ</span>
+          )}
           <button
             type="button"
             className={`vmx-chip ${onlyMine ? 'active' : ''}`}
