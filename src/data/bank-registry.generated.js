@@ -314,6 +314,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-zoonoses-2026.js', export: 'QB_Y5_ZOONOSES_2026', year: 5, count: 16,
     subjects: ['zoonoses'],
     load: () => import('./questions-y5-zoonoses-2026.js').then((m) => m.QB_Y5_ZOONOSES_2026) },
+  { file: 'questions-y5-zoonoses-final-marked.js', export: 'QUESTIONS_Y5_ZOONOSES_FINAL_MARKED', year: 5, count: 64,
+    subjects: ['zoonoses'],
+    load: () => import('./questions-y5-zoonoses-final-marked.js').then((m) => m.QUESTIONS_Y5_ZOONOSES_FINAL_MARKED) },
   { file: 'questions-y5-zoonoses-final-recall.js', export: 'QUESTIONS_Y5_ZOONOSES_FINAL_RECALL', year: 5, count: 103,
     subjects: ['zoonoses'],
     load: () => import('./questions-y5-zoonoses-final-recall.js').then((m) => m.QUESTIONS_Y5_ZOONOSES_FINAL_RECALL) },
@@ -331,4 +334,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-15T21:02:44.309Z — 107 banks · 9118 Qs
+// Built: 2026-11-15T21:31:33.132Z — 108 banks · 9182 Qs

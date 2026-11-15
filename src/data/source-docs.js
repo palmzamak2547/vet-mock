@@ -715,8 +715,30 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'zoo-epi-summary-vet80', subject: 'zoonoses', title: "zoonoses (สรุปบทเรียนของ Vet 80, ไฟล์ -zoonoses)",
-    match: /สรุปบทเรียน Epidemiological approach to zoonoses ของ Vet 80/i,
+    match: /สรุปบทเรียน Epidemiological approach to zoonoses ของ Vet 80|สรุปบทเรียน Zoonoses ของ Vet 80 \(ไฟล์ -zoonoses\)/i,
     editions: [{ id: '10p', pages: 10 }],
+  },
+  // Zoonoses final, marked points (5.247.0): the 2569 prion and epidemiology handouts, and the Vet 84 copies of
+  // the 2567 bacterial and mycoses decks whose marks the questions record.
+  {
+    slug: 'zoo-prion-2569', subject: 'zoonoses', title: "Prion Diseases",
+    match: /Prion Diseases 2569/i,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  {
+    slug: 'zoo-epi-2569', subject: 'zoonoses', title: "Zoonoses Epidem",
+    match: /Zoonoses Epidem 2569/i,
+    editions: [{ id: '53p', pages: 53 }],
+  },
+  {
+    slug: 'zoo-bacterial-2567-vet84', subject: 'zoonoses', title: "Bacterial Zoonoses 2567 (the Vet 84 copy)",
+    match: /สไลด์ Bacterial_Zoonoses ชุดปี 2567 ของรุ่น 84/i,
+    editions: [{ id: '118p', pages: 118 }],
+  },
+  {
+    slug: 'zoo-mycoses-2567-vet84', subject: 'zoonoses', title: "Z_Mycoses_3_Present 2567 (the Vet 84 copy)",
+    match: /สไลด์ Z_Mycoses_3_Present ชุดปี 2567 ของรุ่น 84/i,
+    editions: [{ id: '87p', pages: 87 }],
   },
   // Equine Repro 2569 decks the final items cite, 31 ต.ค. 2569.
   {

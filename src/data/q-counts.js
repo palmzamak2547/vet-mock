@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8906;
-export const QB_SOURCE_TOTAL = 9118;
+export const QB_TOTAL = 8970;
+export const QB_SOURCE_TOTAL = 9182;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -57,7 +57,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 470,
+  'zoonoses': 534,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -107,7 +107,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 470,
+  'zoonoses': 534,
 };
 
 // What Panic Mode holds per subject: questions from a real paper plus the
@@ -153,7 +153,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
-  'zoonoses': 396,
+  'zoonoses': 460,
 };
 
 // The same count, narrowed to one paper. A Panic card opened with a phase
@@ -196,7 +196,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 950,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
-    'zoonoses': 312,
+    'zoonoses': 321,
   },
   final: {
     'aquatic-clinic': 191,
@@ -236,7 +236,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 146,
+    'zoonoses': 210,
   },
 };
 
@@ -263,7 +263,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 1341,
     'vet-histo': 104,
     'vet-imaging': 5,
-    'zoonoses': 373,
+    'zoonoses': 382,
   },
   '1-final': {
     'aquatic-clinic': 243,
@@ -287,7 +287,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-histo': 104,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 184,
+    'zoonoses': 248,
   },
   '2-mid': {
     'biochem-1': 271,
@@ -347,14 +347,14 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 139,
-    5: 4258,
+    5: 4267,
   },
   '1-final': {
     1: 297,
     2: 104,
     3: 62,
     4: 302,
-    5: 3732,
+    5: 3796,
   },
   '2-mid': {
     1: 297,
@@ -627,8 +627,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-corona': 21,
       'zoo-ebola-nipah': 23,
       'zoo-eid-cuvet': 4,
-      'zoo-eid-wildlife': 19,
-      'zoo-epi-approach': 68,
+      'zoo-eid-wildlife': 23,
+      'zoo-epi-approach': 73,
       'zoo-helminthic': 64,
       'zoo-intro': 21,
       'zoo-outbreak': 12,
@@ -981,11 +981,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'wildlife-act-2562': 5,
     },
     'zoonoses': {
-      'zoo-bacterial': 60,
-      'zoo-eid-wildlife': 19,
-      'zoo-epi-approach': 68,
-      'zoo-mycoses': 24,
-      'zoo-prion': 13,
+      'zoo-bacterial': 102,
+      'zoo-eid-wildlife': 23,
+      'zoo-epi-approach': 73,
+      'zoo-mycoses': 28,
+      'zoo-prion': 22,
     },
   },
   '2-mid': {
@@ -2402,7 +2402,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6327,
+  5: 6391,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2414,7 +2414,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6327,
+  5: 6391,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -3126,17 +3126,17 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "zoonoses": {
     "zoo-ai-basic": 22,
-    "zoo-bacterial": 60,
+    "zoo-bacterial": 102,
     "zoo-corona": 21,
     "zoo-ebola-nipah": 23,
     "zoo-eid-cuvet": 4,
-    "zoo-eid-wildlife": 19,
-    "zoo-epi-approach": 68,
+    "zoo-eid-wildlife": 23,
+    "zoo-epi-approach": 73,
     "zoo-helminthic": 64,
     "zoo-intro": 21,
-    "zoo-mycoses": 24,
+    "zoo-mycoses": 28,
     "zoo-outbreak": 12,
-    "zoo-prion": 13,
+    "zoo-prion": 22,
     "zoo-protozoal": 28,
     "zoo-rabies": 28,
     "zoo-rickettsial": 25,
@@ -3742,4 +3742,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T21:03:06.151Z
+// Built: 2026-11-15T21:31:54.430Z
