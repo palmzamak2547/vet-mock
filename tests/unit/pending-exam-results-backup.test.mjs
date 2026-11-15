@@ -11,7 +11,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseUserBackup, userDataPatchFromBackup, describeBackupFields } from '../../src/lib/user-data-schema.js';
+import { parseUserBackup, userDataPatchFromBackup, describeBackupFields, pendingResultsForBackup } from '../../src/lib/user-data-schema.js';
 import { scoreSubmission } from '../../api/_lib/exam-scoring.js';
 import { questionRevision } from '../../src/lib/study-events.js';
 
@@ -55,10 +55,42 @@ test('a backup with an older format (no outbox) leaves the waiting results alone
   assert.equal('pendingExamResults' in patch, false);
 });
 
-test('a malformed outbox record refuses the file instead of entering the queue', () => {
-  for (const bad of [{ ...result(A), id: 'not-a-uuid' }, { ...result(A), question_ids: 'x' }, { ...result(A), answers: [] }, { ...result(A), user_id: 5 }]) {
-    assert.equal(parseUserBackup(backup({ pendingExamResults: [bad] })).success, false, JSON.stringify(bad));
+test('an outbox record the server cannot take is skipped and counted, and the rest of the file restores', () => {
+  const bad = [{ ...result(A), id: 'not-a-uuid' }, { ...result(A), question_ids: 'x' }, { ...result(A), answers: [] }, { ...result(A), user_id: 5 }];
+  for (const b of bad) {
+    const parsed = parseUserBackup(backup({ pendingExamResults: [b] }));
+    assert.equal(parsed.success, true, `${JSON.stringify(b)}: ${parsed.reason}`);
+    assert.equal(parsed.skippedPending, 1);
+    assert.deepEqual(parsed.data.pendingExamResults, [], 'a skipped record never enters the queue');
   }
+});
+
+test('a backup holding one record with no owner still restores history, notes and bookmarks', () => {
+  const { user_id: _drop, ...ownerless } = result(B);
+  const file = backup({
+    history: [{ date: 1, questionId: 7, subject: 'com5', correct: true }],
+    notes: { 'com5:7': 'จำได้' }, bookmarks: [7],
+    pendingExamResults: [result(A), ownerless],
+  });
+  const parsed = parseUserBackup(file);
+  assert.equal(parsed.success, true, parsed.reason);
+  assert.equal(parsed.skippedPending, 1);
+  const patch = userDataPatchFromBackup(parsed.data, { ownerId: OWNER, current: { pendingExamResults: [] } });
+  assert.equal(patch.history.length, 1);
+  assert.deepEqual(patch.notes, { 'com5:7': 'จำได้' });
+  assert.deepEqual(patch.bookmarks, [7]);
+  assert.deepEqual(patch.pendingExamResults.map((r) => r.id), [A]);
+  const lines = describeBackupFields(parsed.data, parsed.fields, { ownerId: OWNER, skippedPending: parsed.skippedPending });
+  assert.ok(lines.some((l) => /ข้าม 1 ชุดที่ระบบส่งไม่ได้/.test(l)), lines.join(' | '));
+});
+
+test("a backup writes only the signed-in account's sendable waiting results", () => {
+  const { user_id: _drop, ...ownerless } = result(B);
+  const stored = [result(A), ownerless, result(C, OTHER), { ...result(A), id: 'x' }];
+  assert.deepEqual(pendingResultsForBackup(stored, OWNER).map((r) => r.id), [A]);
+  assert.deepEqual(pendingResultsForBackup(stored, null), [], 'signed out, nothing could be sent back');
+  const dash = readFileSync(new URL('../../src/views/DashboardView.jsx', import.meta.url), 'utf8');
+  assert.match(dash, /pendingExamResults: pendingResultsForBackup\(pendingExamResults, ownerId\),/);
 });
 
 test('the same record sent twice is one receipt: its fingerprint comes from the record alone', () => {

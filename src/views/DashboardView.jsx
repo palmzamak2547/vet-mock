@@ -6,6 +6,7 @@ import { downloadJSON, subjectText } from '../hooks/utils.js';
 import {
   describeBackupFields,
   parseUserBackup,
+  pendingResultsForBackup,
   userDataPatchFromBackup,
   USER_DATA_IMPORT_MAX_BYTES,
   progressResetPatch,
@@ -400,8 +401,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       streakData: streakData || { streak, lastDate: null, freezeUsedAt: null },
       customQuestions,
       readingChecklist,
-      // Finished sets not yet sent to the account; a restore sends them once.
-      pendingExamResults,
+      // Finished sets not yet sent to the account; a restore sends them once. Only this account's
+      // sendable ones: a record with no owner (an old build) would be skipped on the way back in.
+      pendingExamResults: pendingResultsForBackup(pendingExamResults, ownerId),
     };
     downloadJSON(data, `vetmock-backup-${fileStamp()}.json`);
   };
@@ -490,8 +492,8 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           return;
         }
 
-        const { data, fields } = parsed;
-        const preview = describeBackupFields(data, fields, { ownerId });
+        const { data, fields, skippedPending } = parsed;
+        const preview = describeBackupFields(data, fields, { ownerId, skippedPending });
         const accepted = await confirmDialog({
           title: 'ตรวจรายการก่อนนำเข้า',
           body: `ข้อมูลที่จะเขียนทับ:\n${preview.map((line) => `• ${line}`).join('\n')}\n\nรายการที่ไม่มีในไฟล์จะคงเดิม`,

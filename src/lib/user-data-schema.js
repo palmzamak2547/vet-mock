@@ -285,10 +285,15 @@ export function parseUserBackup(value) {
       return { success: false, reason: 'พบชื่อช่องข้อมูลที่ไม่ปลอดภัยในไฟล์ backup' };
     }
   }
-  // An answer map read as a record would also accept an array; the server needs an object.
-  if (Array.isArray(value.pendingExamResults)
-    && value.pendingExamResults.some((r) => Array.isArray(r?.answers))) {
-    return { success: false, reason: 'ผลสอบรอส่ง: คำตอบต้องเป็น object' };
+  // A waiting result the outbox could not send (no owner, from an old build; a broken record) is left
+  // out of the restore and counted, never a reason to refuse the file: history, notes and bookmarks
+  // still come back. An answer map read as a record would also accept an array; the server needs an
+  // object, so such a record is left out too.
+  let skippedPending = 0;
+  if (Array.isArray(value.pendingExamResults)) {
+    const kept = value.pendingExamResults.filter(isSendablePendingResult);
+    skippedPending = value.pendingExamResults.length - kept.length;
+    if (skippedPending) value = { ...value, pendingExamResults: kept };
   }
   const result = v.safeParse(backupSchema, value, { abortEarly: true });
   if (!result.success) {
@@ -307,7 +312,20 @@ export function parseUserBackup(value) {
     success: true,
     data: result.output,
     fields: BACKUP_FIELDS.filter((field) => Object.prototype.hasOwnProperty.call(value, field)),
+    skippedPending,
   };
+}
+
+/** A waiting result the outbox can send: the shape the server relies on, with an object of answers. */
+export function isSendablePendingResult(record) {
+  return Boolean(record) && typeof record === 'object' && !Array.isArray(record.answers)
+    && v.is(pendingExamResultSchema, record);
+}
+
+/** What a backup carries of the outbox: the signed-in account's sendable results, nothing else. */
+export function pendingResultsForBackup(list, ownerId) {
+  if (!ownerId || !Array.isArray(list)) return [];
+  return list.filter((r) => isSendablePendingResult(r) && r.user_id === ownerId);
 }
 
 // The outbox records a restore may add: this account's only. The outbox stops at a record of another
@@ -318,14 +336,15 @@ function ownPendingResults(data, ownerId) {
   return { own, others: all.length - own.length };
 }
 
-export function describeBackupFields(data, fields, { ownerId = null } = {}) {
+export function describeBackupFields(data, fields, { ownerId = null, skippedPending = 0 } = {}) {
   const pending = ownPendingResults(data, ownerId);
   const labels = {
     pendingExamResults: () => {
       const skipped = pending.others
         ? ` (ไม่นำเข้า ${ownerId ? `ของบัญชีอื่น ${pending.others} ชุด` : `${pending.others} ชุด เพราะยังไม่ได้เข้าสู่ระบบ`})`
         : '';
-      return `ผลสอบรอส่ง ${pending.own.length} ชุด${skipped}`;
+      const unreadable = skippedPending ? ` ข้าม ${skippedPending} ชุดที่ระบบส่งไม่ได้` : '';
+      return `ผลสอบรอส่ง ${pending.own.length} ชุด${skipped}${unreadable}`;
     },
     bookmarks: () => `ข้อที่บันทึกไว้ ${data.bookmarks.length} ข้อ`,
     history: () => `ประวัติการฝึก ${data.history.length} รายการ`,
