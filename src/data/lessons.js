@@ -23,6 +23,23 @@ export const LESSONS = Object.freeze([
     title: 'สัตวแพทย์ในวันข้างหน้า',
     sub: 'บทเรียน Module 5 พร้อมโจทย์ 22 ข้อ และโต๊ะทดลองผลตรวจ',
   },
+  // Modules 1 to 4 of the same course are interactive pages the lecturer
+  // hosts outside MyCourseVille (MCV lists them as links, with no file to
+  // mirror), so VetMock does not copy them: the card opens the lecturer's own
+  // pages in a new tab. Each URL was opened and answered on 15 Nov 2026.
+  {
+    id: 'epi-fmd-modules',
+    subject: 'epidemiology',
+    year: 5,
+    title: 'FMD Module 1 ถึง 4',
+    sub: 'หน้าเว็บบทเรียนของอาจารย์ผู้สอน เปิดในแท็บใหม่ นอก VetMock',
+    links: [
+      { label: 'Module 1 การทดสอบวินิจฉัย FMD', url: 'https://annthanicha.github.io/Module1-FMD-diagnostic-tests/index.html' },
+      { label: 'Module 2 การวางแผนการศึกษา การสุ่มตัวอย่าง และขนาดตัวอย่าง', url: 'https://annthanicha.github.io/Module2-FMD-Study-design-sampling/index.html' },
+      { label: 'Module 3 การสอบสวนการระบาด', url: 'https://annthanicha.github.io/Module3_FMD_outbreak-investigation/#intro' },
+      { label: 'Module 4 การป้องกัน การเฝ้าระวัง และการควบคุม', url: 'https://annthanicha.github.io/Module-4-FMD-prevention-surveillance-and-control/' },
+    ],
+  },
 ]);
 
 /** The lessons registered for one subject, in listed order. */
