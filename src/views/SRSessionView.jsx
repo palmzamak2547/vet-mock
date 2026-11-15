@@ -886,7 +886,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
             {/* A disputed key (major flag) carries its caution here too: all
                 15 can enter spaced repetition, and the card shows the key. */}
-            <FlagChip flag={currentQ.flag} revealed />
+            {/* Keyed by the card: FlagChip keeps whether it is open, and one opened on a
+                disputed card opened already expanded on the next. */}
+            <FlagChip key={`flag:${currentQ.subject}:${currentQ.id}`} flag={currentQ.flag} revealed />
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage
