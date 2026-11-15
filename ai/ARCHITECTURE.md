@@ -62,8 +62,11 @@ switch at most once a minute. Signing out is at the foot of the history sheet. A
 A trial link (`?pass=<code>`; docs/CHULA-SIGNIN.md, "Trial links") opens the page for a device with
 no account. `lib/pass.js` takes the code out of the address and keeps it (`vmx-ai-pass`); a POST with
 no session carries it as `X-VetMock-Pass` instead of a token (`lib/api.js`); the wall then answers
-`open` with `trial: true`, and the page hides the call button and adds one line under the box. A 401
-`pass_invalid` drops the code and shows the sign-in card with one line. A session always wins: a
+`open` with `trial: true`, and the page adds one line under the box. A pass opens the chat, the
+microphone and the live call (its start, tools and photos carry the code the same way), the call under
+the same caps as a student's, counted per link; it never opens the Chula library or any account data.
+A 401 `pass_invalid`, before or during a call, drops the code, ends the call and shows the sign-in card
+with one line. A session always wins: a
 member's request never carries the code, and the code goes when an account leaves the device.
 
 ## The voice call

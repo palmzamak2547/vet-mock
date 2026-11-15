@@ -10,11 +10,13 @@
 // A good pass makes the caller a guest: the shape the gate gives a guest while
 // the wall is off, with no account and no token, so the library is never read.
 // A pass never outranks a session: a request with a bearer token goes to the
-// gate as before and the header is ignored. Only /api/ai-chat and
-// /api/ai-transcribe read the header; every other function still asks the gate.
+// gate as before and the header is ignored. Only /api/ai-chat,
+// /api/ai-transcribe and /api/ai-voice read the header; every other function
+// still asks the gate.
 //
 // When the database cannot be asked the answer is 503, never an opening. The
 // code is never logged.
+import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
 import { bearerOf } from './chula-gate.js';
 
@@ -30,6 +32,14 @@ export function passOf(req) {
 /** The pass that speaks for this request: none when it carries a session token, which always goes to the gate. */
 export function trialPassOf(req) {
   return bearerOf(req) ? '' : passOf(req);
+}
+
+/**
+ * Who a trial link's requests count as in a limiter: the link itself, never the address, so everyone
+ * sharing one link shares one allowance. A short hash of the code, never the code; never log it.
+ */
+export function passKey(code) {
+  return `pass:${createHash('sha256').update(String(code)).digest('hex').slice(0, 16)}`;
 }
 
 const refuse = (status, error, message) => ({ ok: false, status, body: { error, message } });

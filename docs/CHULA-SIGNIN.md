@@ -214,15 +214,24 @@ What a pass opens:
 |---|---|
 | `POST /api/ai-chat` | answers as a guest, from VetMock's own content; each request uses one of the pass's messages |
 | `POST /api/ai-transcribe` | the microphone's speech to text; checked without counting (the question it becomes is counted) |
+| `POST /api/ai-voice` | the live voice call (start, and a photo into that call); checked without counting, under the same caps as a student's call, counted per link |
+| `POST /api/ai-chat` with `voice` | the call's tools, answered as a guest; each tool call uses one of the pass's messages, as any request to this route does |
+
+The call's caps (the day's sessions, the burst limit, the free restarts, the
+photos a call and the provider balance floor) are the ones a student has, and
+they apply per link: the route counts a trial call as
+`pass:<first 16 hex of the SHA-256 of the code>`, never as the address, so
+everyone who shares one link shares one allowance. The call's tools are counted
+the same way. The code itself is never logged, and neither is that key's
+source.
 
 What it never opens:
 
 - The Chula-only library. The request has no session, so the search goes out
   with the public key and the database refuses it while the wall is on. No
-  answer carries a file, a slide or an open ticket.
-- The voice call: `/api/ai-voice` never reads the header, and the call's tools
-  on `/api/ai-chat` refuse a trial visitor. A call costs per minute and its caps
-  are per account.
+  answer and no tool of the call carries a file, a slide or an open ticket.
+- Any account data: a trial visitor has no account, and a photo pass from one
+  link's call does not open another's.
 - Every other `/api` function, vetmock.com, vca and research: nothing else reads
   the header.
 - Any row. The visitor is `anon` to every policy. No policy, no table in
@@ -234,8 +243,11 @@ How it works:
   starts, keeps it on the device (`vmx-ai-pass`) and sends it as
   `X-VetMock-Pass` on a request that has no session. With the wall on, nobody
   signed in and a code held, the page is open instead of showing the sign-in
-  card; the call button is not shown and one line under the box says what the
-  link covers. A member who opens a trial link stays a member, and the code is
+  card; the call button is shown as for a member, and one line under the box
+  says what the link covers. Every request of a call (its start, its tools, a
+  photo) goes through the same helper and carries the code; a `pass_invalid`
+  during or before a call drops the code, ends the call and shows the sign-in
+  card with its line. A member who opens a trial link stays a member, and the code is
   dropped when an account leaves the device, so a sign-out still lands on the
   sign-in card.
 - `api/_lib/guest-pass.js` reads the header only on a request with no bearer
