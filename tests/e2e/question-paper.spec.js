@@ -11,9 +11,9 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 
 const SUBJECT = 'surg2';
 const MCQ = (i, extra = {}) => ({ id: 70000 + i, subject: SUBJECT, year: 4, type: 'mcq',
-  q: `ข้อ ${i} ภาวะใดต่อไปนี้พบได้บ่อยที่สุดหลังผ่าตัดช่องท้องในสุนัข เมื่อมีการจัดการสารน้ำและการให้ยาแก้ปวดไม่เหมาะสมต่อเนื่องหลายวัน`,
-  options: ['ภาวะขาดน้ำร่วมกับความดันโลหิตต่ำ', 'ภาวะน้ำเกินในปอดจากการให้สารน้ำเร็วเกินไป', 'ภาวะเลือดเป็นกรดจากการเสียไบคาร์บอเนตทางลำไส้', `ภาวะโพแทสเซียมต่ำรหัส${i}`],
-  answer: i % 4, explain: 'เหตุผลสั้นๆ ที่อธิบายว่าทำไมตัวเลือกนี้จึงถูกต้องและตัวเลือกอื่นไม่ใช่', ...extra });
+  q: `s${i}z ข้อ ${i} ภาวะใดต่อไปนี้พบได้บ่อยที่สุดหลังผ่าตัดช่องท้องในสุนัข เมื่อมีการจัดการสารน้ำและการให้ยาแก้ปวดไม่เหมาะสมต่อเนื่องหลายวัน`,
+  options: ['ภาวะขาดน้ำร่วมกับความดันโลหิตต่ำ', 'ภาวะน้ำเกินในปอดจากการให้สารน้ำเร็วเกินไป', 'ภาวะเลือดเป็นกรดจากการเสียไบคาร์บอเนตทางลำไส้', `ภาวะโพแทสเซียมต่ำ o${i}z`],
+  answer: i % 4, explain: 'whyqz เหตุผลสั้นๆ ที่อธิบายว่าทำไมตัวเลือกนี้จึงถูกต้องและตัวเลือกอื่นไม่ใช่', ...extra });
 const QUESTIONS = [
   ...Array.from({ length: 6 }, (_, i) => MCQ(i + 1)),
   { id: 70007, subject: SUBJECT, year: 4, type: 'tf', q: 'การให้สารน้ำเข้าหลอดเลือดดำเร็วเกินไปทำให้เกิดน้ำเกินในปอดได้', answer: true, explain: 'น้ำเกินเกิดเมื่อปริมาณเกินกำลังขับออก' },
@@ -66,18 +66,18 @@ for (const form of ['paper', 'key', 'reasons']) {
     const has = (t, needle) => t.includes(flat(needle));
     expect(pages.length).toBeGreaterThanOrEqual(2);
     expect(pages.length).toBeLessThanOrEqual(form === 'paper' ? 4 : 6);
-    expect(has(pages[0], 'ชุดข้อสอบ')).toBe(true);
+    expect(has(pages[0], 'Vet Surg Lab II')).toBe(true);
     for (const word of ['หน้าแรก', 'ฝึกข้อสอบ', 'เพิ่มข้อสอบ', 'เลือกหลายข้อ']) expect(has(all, word)).toBe(false);
     // every page carries the footer and its page number
     pages.forEach((text, i) => { expect(has(text, 'VetMock')).toBe(true); expect(has(text, `${i + 1} / ${pages.length}`)).toBe(true); });
     // a question's stem and its last option sit on one page
     for (let n = 1; n <= 6; n++) {
-      const at = pages.findIndex(t => has(t, `ข้อ ${n} ภาวะ`));
+      const at = pages.findIndex(t => has(t, `s${n}z`));
       expect(at).toBeGreaterThanOrEqual(0);
-      expect(has(pages[at], `ภาวะโพแทสเซียมต่ำรหัส${n}`)).toBe(true);
+      expect(has(pages[at], `o${n}z`)).toBe(true);
     }
-    if (form === 'key') expect(has(pages[pages.length - 1], 'เฉลย')).toBe(true);
-    expect(has(all, 'เหตุผลสั้นๆ')).toBe(form === 'reasons');
+    if (form === 'key') expect(has(pages[pages.length - 1], 's6z')).toBe(false);
+    expect(has(all, 'whyqz')).toBe(form === 'reasons');
     await page.emulateMedia({ media: 'screen' });
     await page.evaluate(() => window.dispatchEvent(new Event('afterprint')));
     await expect(page.locator('html')).not.toHaveAttribute('data-print', /.*/);
