@@ -285,7 +285,8 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const practiceMinutes = Math.ceil((servedCount * timePerQ) / 60);
   const summary = [
     `${servedCount.toLocaleString()} ข้อ`,
-    !useTimer ? 'ไม่จับเวลา' : isExamMode ? `${examBudgetLabel} นาฬิกาเดียว` : `${timePerQ} วินาทีต่อข้อ (ประมาณ ${practiceMinutes} นาที)`,
+    // The exam clock's rule is said once, at its switch; here only its length.
+    !useTimer ? 'ไม่จับเวลา' : isExamMode ? examBudgetLabel : `${timePerQ} วินาทีต่อข้อ (ประมาณ ${practiceMinutes} นาที)`,
     isExamMode ? 'เฉลยหลังส่ง' : instantFeedback ? 'เฉลยทันทีรายข้อ' : 'เฉลยหลังส่ง',
     ...(panicPending ? ['เรียงตามแนวข้อสอบก่อน'] : []),
   ].join(', ');
@@ -321,7 +322,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const rememberable = compact && Boolean(arrival?.decided) && plainPool;
   const rung = ladderStep(activeStep);
   const lead = !follows ? 'ชุดนี้' : pickedRung || decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว';
-  const why = !follows ? (showLadder ? stepHint : '')
+  // The rung's description is said once: under the chosen step while ปรับเอง is open,
+  // in the summary card only while it is closed.
+  const why = !follows ? (showLadder && !adjusting ? stepHint : '')
     : pickedRung && decision.by !== 'you' ? `ขั้น${rung.label}ที่คุณเลือก` : decision.why;
   const showRestore = compact && rememberable && follows && decision.by === 'you';
   // Back to the rung's own preset (its count, its clock, the answer after
@@ -490,9 +493,11 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                 </optgroup>
               ))}
             </select>
-            <div className="vmx-config-hint">
-              {phaseScope ? `ตัวเลขคือข้อของ${scopeLabel} วิชาที่ไม่มีข้อในช่วงนี้เลือกไม่ได้` : 'เปลี่ยนวิชาได้ที่นี่ โดยไม่ต้องย้อนกลับ'}
-            </div>
+            {phaseScope && (
+              <div className="vmx-config-hint">
+                {`ตัวเลขคือข้อของ${scopeLabel} วิชาที่ไม่มีข้อในช่วงนี้เลือกไม่ได้`}
+              </div>
+            )}
           </div>
         )}
 
@@ -562,7 +567,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
           <div className="vmx-chip-row">
             {countPresets.map((n) => (
               <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { questionCountRef.current = n; rememberRow({ numQuestions: n }); setNumQuestions(n); }}>
-                {n}
+                {/* The whole pool is a count with a unit and a meaning, not a
+                    bare "6257" (5.226). */}
+                {n === knownAvailableCount && !QCOUNT_PRESETS.includes(n) ? `ทั้งหมด ${n.toLocaleString()} ข้อ` : n}
               </button>
             ))}
             <label className="vmx-custom-number">

@@ -59,7 +59,7 @@ test('a topic tap shows what was set up and starts in one tap, the same set as b
   const expected = ladderPreset('understand', { available }).numQuestions;
 
   await expect(page.locator('#vmx-config-summary')).toHaveText(`จัดให้แล้ว: ${expected} ข้อ, ไม่จับเวลา, เฉลยทันทีรายข้อ`);
-  await expect(page.locator('.vmx-decide-why')).toHaveText(/^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน เห็นเฉลยทุกข้อ/);
+  await expect(page.locator('.vmx-decide-why')).toHaveText(/^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน(?: ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง")?$/);
   const adjust = page.getByRole('button', { name: 'ปรับเอง', exact: true });
   await expect(adjust).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ })).toBeHidden();

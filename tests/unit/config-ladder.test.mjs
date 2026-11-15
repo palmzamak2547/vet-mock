@@ -186,6 +186,11 @@ test('the clock copy says what each clock does', async (t) => {
   view.unmount();
   view = mount(ConfigView, { ...props, mode: 'exam', useTimer: true, availablePool: [] });
   assert.match(textOf(view.tree), /นาฬิกาเดียวทั้งชุด, หมดเวลาคือส่งทั้งชุด/);
+  // Said once, at the switch where the clock is chosen (5.226), never again
+  // in the ladder's hint or the start bar's summary; the answer rule once too.
+  assert.equal(textOf(view.tree).split('นาฬิกาเดียว').length - 1, 1, 'the clock rule is said more than once');
+  assert.equal(textOf(view.tree).split('หมดเวลาคือส่ง').length - 1, 1);
+  assert.ok(textOf(view.tree).split('เฉลยหลังส่ง').length - 1 <= 1, '"เฉลยหลังส่ง" more than once');
   assert.doesNotMatch(textOf(view.tree), /เฉลยทันที\s*เปิด/, 'exam mode has no instant feedback switch');
   view.unmount();
 });
@@ -227,7 +232,7 @@ test('a set the app decided: the line and its reason, the start under it, the ro
   assert.equal(region.props.role, 'region');
   assert.equal(region.props.hidden, true);
   assert.equal(ladderSteps(region).length, 3, 'the ladder is inside the region');
-  assert.match(textOf(whyLine(view.tree)), /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน เห็นเฉลยทุกข้อ/, 'the hedge the ladder uses');
+  assert.match(textOf(whyLine(view.tree)), /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน(?: ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง")?$/, 'the hedge the ladder uses, and nothing the line above already says');
   assert.deepEqual(order(view.tree), ['start', 'toggle', 'region'], 'closed: the start right under the line');
   toggle.props.onClick();
   view.flush();
@@ -343,5 +348,23 @@ test('B2: an exam stepping down a rung keeps the rows in view', async (t) => {
   // App applies the rung: the same screen, now a practice set.
   view.update({ mode: 'quick', useTimer: false, numQuestions: 10 });
   assert.equal(adjustRegion(view.tree).props.hidden, false, 'the strip just tapped stays on screen');
+  view.unmount();
+});
+
+test('the rung description is said once: under the step while ปรับเอง is open, in the summary card while it is closed', async (t) => {
+  browser(t);
+  const { props } = baseProps();
+  // A Home card's own timed set: the app did not decide it, so it opens with its rows.
+  const view = mount(ConfigView, { ...props, useTimer: true, numQuestions: 10, subject: 'all' });
+  const rule = 'จับเวลาทีละข้อ หมดเวลาข้อไหนจะไปข้อถัดไปเอง';
+  const times = (tree) => textOf(tree).split(rule).length - 1;
+  assert.equal(adjustToggle(view.tree).props['aria-expanded'], true);
+  assert.equal(times(view.tree), 1, 'open: the description sits under the chosen step only');
+  assert.ok(textOf(findAll(view.tree, (n) => String(n.props?.className || '').includes('vmx-config-ladder-hint'))[0]).includes(rule));
+  assert.match(textOf(whatLine(view.tree)), /^ชุดนี้:/, 'the summary card keeps its first line');
+  adjustToggle(view.tree).props.onClick();
+  view.flush();
+  assert.equal(adjustRegion(view.tree).props.hidden, true);
+  assert.ok(textOf(whyLine(view.tree)).includes(rule), 'closed: the summary card says it, as the rows are out of view');
   view.unmount();
 });
