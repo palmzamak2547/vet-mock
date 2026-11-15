@@ -11,7 +11,14 @@ import { expect, test } from './fixtures.js';
 // The file is served by a small server in this test, because the point is a
 // response that slows to a trickle after its first megabyte: Playwright's own
 // fulfil answers all at once. The page asks its own origin and the request
-// is handed to that server, as library-doc-loading-layout.spec.js does.
+// is handed to that server.
+//
+// Checked on Playwright's WebKit (16 Nov 2026, the owner reads on an iPad):
+// it reads the end of the file by range (one request, bytes 7864320 to the
+// end) and draws page one with about 1 MB of 8 through the whole download,
+// as Chromium does. Its first CI failure was this file's own setup, not the
+// reader: the catalogue copy written on an earlier page was gone (see
+// openDeck), and the handed-over request was refused for want of CORS.
 
 test.use({ serviceWorkers: 'block' });
 
@@ -57,7 +64,21 @@ function fileServer({ ranges }) {
   const state = { wholeSent: 0, rangeRequests: [], release: null };
   const released = new Promise((resolve) => { state.release = resolve; });
   const server = http.createServer(async (req, res) => {
-    const cors = { 'cache-control': 'no-store' };
+    // Playwright's WebKit sends a request whose URL route.continue changed to
+    // the new origin, CORS and all (Chromium keeps it the page's own), so this
+    // server answers as a CORS server would. /api/library-blob is same-origin
+    // in production; these headers only stand in for that.
+    const cors = {
+      'cache-control': 'no-store',
+      'access-control-allow-origin': '*',
+      'access-control-allow-headers': 'range',
+      'access-control-expose-headers': 'accept-ranges, content-range, content-length, content-encoding',
+    };
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, { ...cors, 'access-control-allow-methods': 'GET, HEAD' });
+      res.end();
+      return;
+    }
     const m = /^bytes=(\d+)-(\d+)$/.exec(req.headers.range || '');
     if (ranges && m) {
       const from = Number(m[1]); const to = Math.min(FILE.length - 1, Number(m[2]));
@@ -96,15 +117,23 @@ async function openDeck(page, origin) {
     (route) => route.fulfill({ contentType: 'application/javascript', body: '' }));
   await page.route('**/api/library-file?slug=*', (route) => route.fulfill({ json: { url: '/__speed-deck.pdf' } }));
   await page.route('**/__speed-deck.pdf', (route) => route.continue({ url: `${origin}/deck.pdf` }));
-  await page.goto('/app/tools/pdf');
   // The shelf's own saved copy of the catalogue names the deck, as on a phone
-  // that has opened the library before.
-  await page.evaluate(async ({ slug, size }) => {
-    const cache = await caches.open('vmx-library-catalog-v1');
-    await cache.put('/__vmx/library-catalog.json', new Response(JSON.stringify({ at: Date.now(), docs: [{
-      id: slug, slug, title: 'Speed test deck', status: 'public', storage_provider: 'r2',
-      mime: 'application/pdf', byte_size: size, sha256_16: 'abcdef0123456789', subject: 'epid',
-    }] }), { headers: { 'content-type': 'application/json' } }));
+  // that has opened the library before. It is written by an init script in
+  // the reader's own document, and every caches.open waits for that write:
+  // Playwright's WebKit keeps Cache Storage only for the document that wrote
+  // it, so a copy written on an earlier page never reached the reader there
+  // and the deck was "not found" (library-doc-loading-layout.spec.js).
+  await page.addInitScript(({ slug, size }) => {
+    if (typeof caches === 'undefined') return;
+    const proto = Object.getPrototypeOf(caches);
+    const open = proto.open;
+    const ready = open.call(caches, 'vmx-library-catalog-v1')
+      .then((cache) => cache.put('/__vmx/library-catalog.json', new Response(JSON.stringify({ at: Date.now(), docs: [{
+        id: slug, slug, title: 'Speed test deck', status: 'public', storage_provider: 'r2',
+        mime: 'application/pdf', byte_size: size, sha256_16: 'abcdef0123456789', subject: 'epid',
+      }] }), { headers: { 'content-type': 'application/json' } })))
+      .catch(() => {});
+    proto.open = function openAfterSeed(name) { return ready.then(() => open.call(this, name)); };
   }, { slug: SLUG, size: FILE.length });
   await page.goto(`/app/tools/pdf?doc=${SLUG}`);
 }
