@@ -34,7 +34,10 @@
   .vmx-paper-list { list-style: none; margin: 0; padding: 0; }
   .vmx-paper-q {
     display: block;
-    margin: 0 0 6mm 10mm;
+    margin: 0 0 6mm;
+    padding-left: 10mm;
+    /* clip: Chromium otherwise paints the top of the next question's first line into the bottom margin */
+    clip-path: inset(0);
     break-inside: avoid;
     page-break-inside: avoid;
   }

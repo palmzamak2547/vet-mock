@@ -9109,3 +9109,5 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   font-size: 14px;
   color: var(--clr-ink-soft);
 }
+/* The two lines on every printed page; print-document.js sets them while a document prints. */
+:root { --vmx-print-head: ""; --vmx-print-foot: ""; }
