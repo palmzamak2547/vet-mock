@@ -6,7 +6,8 @@
 // A field joins a list only when nothing in src/, api/, vca/src or ai/src reads it, and
 // tests/unit/strip-unread-fields.test.mjs fails as soon as one of those starts to. Fields the app
 // does read stay, among them verificationSources and sourceDocument (the source chip).
-import { parseAst } from 'rollup/parseAst';
+// Rollup's parser, as Vite re-exports it: the root package declares vite, not rollup (lint:deps).
+import { parseAst } from 'vite';
 
 export const UNREAD_FIELDS = Object.freeze({
   // On a question object (src/data/questions-*.js).
