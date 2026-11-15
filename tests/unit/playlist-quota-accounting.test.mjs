@@ -51,7 +51,7 @@ async function run({ count = 0, unavailableAt = 0 } = {}) {
     end() { return this; },
   };
   try {
-    await handler({ method: 'GET', query: { id: 'PL-quota-audit-123' }, headers: { 'x-vercel-forwarded-for': '192.0.2.55' } }, res);
+    await handler({ method: 'GET', url: '/api/playlist?id=PL-quota-audit-123', headers: { 'x-vercel-forwarded-for': '192.0.2.55' } }, res);
     return { res, events, debits };
   } finally {
     globalThis.fetch = originalFetch;

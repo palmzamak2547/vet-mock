@@ -206,6 +206,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-library-held-db.mjs --backend=postgres
+      - name: Verify a shared question is a question (the shared_questions shape constraint, its count query and validation)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-shared-questions-db.mjs --backend=postgres
 
   e2e:
     name: e2e (${{ matrix.label }})
