@@ -27091,6 +27091,17 @@ export const SOURCES = {
     citation: 'Freuling CM, Müller TF, Mettenleiter TC. Vaccines against pseudorabies virus (PrV). Vet Microbiol. 2017;206:3-9. PMID: 27890448.',
     availability: 'verified-online',
   },
+  'pmid-38713198': {
+    id: 'pmid-38713198',
+    title: 'The dose disrupts the pathway: application of Paracelsus principle to mechanistic toxicology.',
+    organization: 'Toxicological sciences : an official journal of the Society of Toxicology',
+    kind: 'primary-literature',
+    year: 2024,
+    pmid: '38713198',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/38713198/',
+    citation: 'Suvorov A. The dose disrupts the pathway: application of Paracelsus principle to mechanistic toxicology. Toxicol Sci. 2024;200(2):228-234. PMID: 38713198.',
+    availability: 'verified-online',
+  },
   'pmid-21820383': {
     id: 'pmid-21820383',
     title: 'Sublethal responses to ammonia exposure in the endangered delta smelt; Hypomesus transpacificus (Fam. Osmeridae).',

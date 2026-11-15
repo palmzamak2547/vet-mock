@@ -46,8 +46,8 @@ Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**,
 |---|---|
 | Governed topics | 250 |
 | Governed sections | 2114 |
-| Claims verified against an external source | 3492 |
-| Distinct external sources cited | 2246 |
+| Claims verified against an external source | 3493 |
+| Distinct external sources cited | 2247 |
 | Share of note sections governed | 47.8% |
 
 ## VetWiki coverage of questions

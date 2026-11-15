@@ -324,8 +324,7 @@ export const METADATA_SECTIONS = new Set([
   "equine-medicine--equine-surgery-wound--stent-abdominal-และ-head-bandages", // Description of tie-over stent, abdominal and head bandage techniques from the deck; no published page found that states it as written.
   // Aquatic toxicology notes of 2569 (15 Nov 2026): a section that only says where in the deck a table sits
   // carries no fact to check.
-  "aquatic-clinic--aqua-toxicology--ตารางสารพิษทางน้ำ-อยู่ในเด็คหน้า-24-ถึง-41", // the section only points to where tables sit in the deck; it states no fact to check
-  "aquatic-clinic--aqua-toxicology--นิยามของ-aquatic-toxicology", // a framing definition of the field and a diagram of how society responds to toxicants; no open source states it as one checkable fact
+  "aquatic-clinic--aqua-toxicology--ตารางสารพิษรายชนิด-ดูในสไลด์หน้า-24-ถึง-41", // the section only points to where tables sit in the deck; it states no fact to check
   "aquatic-clinic--aqua-toxicology--aquatic-toxicology-เป็นศาสตร์สหวิทยาการ", // a diagram of the disciplines the field draws on; it states no single fact a paper reports
 ]);
 

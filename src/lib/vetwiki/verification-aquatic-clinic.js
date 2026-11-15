@@ -11,6 +11,33 @@
 /** @type {Record<string, Record<string, {claims: object[]}>>} */
 export const AQUATIC_CLINIC_VERIFICATIONS = {
   "aquatic-clinic--aqua-toxicology": {
+    "aquatic-clinic--aqua-toxicology--นิยามของ-aquatic-toxicology": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-toxicology--นิยามของ-aquatic-toxicology--v1",
+          "statement": "หลักของ Paracelsus คือขนาดที่ได้รับ (dose) เป็นตัวกำหนดว่าสารเป็นพิษหรือไม่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38713198",
+              "locator": "abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Arguably the most famous principle of toxicology is \"The dose makes the poison\" formulated by Paracelsus in the 16th century."
+          }
+        }
+      ]
+    },
     "aquatic-clinic--aqua-toxicology--แหล่งมลพิษทางน้ำ": {
       "claims": [
         {
