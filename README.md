@@ -1,38 +1,70 @@
-# 🐾 VetMock — คลังโจทย์ฝึกสัตวแพทย์ จุฬาฯ
+<p align="center">
+  <img src="public/vetmock-logo.svg" alt="VetMock" width="88" height="88">
+</p>
 
-คลังข้อสอบ + ตารางเรียน/ตารางสอบ + สรุปคลิป + VetWiki สำหรับนิสิตสัตวแพทย์
-Made with ♡ by **Vet 86**
+<h1 align="center">VetMock</h1>
 
-🌐 **VetMock:** [vetmock.com](https://vetmock.com)
-🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
-🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
+<p align="center">
+  <b>ซ้อมโจทย์ทีละวิชา ก่อนถึงวันสอบ</b><br>
+  Practice questions, wrap-ups and notes for veterinary students at Chulalongkorn University.
+</p>
 
-**Study source:** v5.149.0 / SW v227, pushed to main 2026-10-20 (the deployed receipt is in docs/LAUNCH_READINESS.md)
-ปกรายวิชา 85 วิชาในหน้าแรกและหน้าเลือกวิชา; สถานะข้อสอบและสรุปยังแสดงตามเนื้อหาที่มีจริง
-หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
-Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
+<p align="center">
+  <a href="https://vetmock.com">vetmock.com</a> &nbsp;|&nbsp; <a href="README.th.md">ภาษาไทย</a> &nbsp;|&nbsp;
+  <a href="https://github.com/palmzamak2547/vet-mock/actions/workflows/build.yml"><img alt="Build" src="https://github.com/palmzamak2547/vet-mock/actions/workflows/build.yml/badge.svg?branch=main"></a>
+</p>
 
-> ตัวเลข content inventory ด้านล่าง auto-generated จาก source จริงด้วย `npm run stats -- --write`
-> ตรวจ drift ด้วย `npm run stats:check`; รายละเอียดเต็มอยู่ที่
-> [`docs/content-inventory.md`](./docs/content-inventory.md)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.webp">
+  <img src="docs/readme/hero-light.webp" alt="The VetMock front page on a desktop and on a phone" width="100%">
+</picture>
 
----
+## What it does
 
-## ⚡ Quick Start
+**Practice with the reason attached.** Pick a subject and a topic, answer, and see the answer with why each option is right or wrong. Sets can be timed, and wrong answers come back for review.
 
-```bash
-npm install
-npm run dev
-# เปิด http://localhost:5173
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/results-dark.webp">
+  <img src="docs/readme/results-light.webp" alt="The result screen after a practice set, with the pass line and a review prompt" width="60%">
+</picture>
 
-**ใช้ได้เลย** ไม่ต้อง setup อะไร (single-player mode ทำงานบน localStorage)
+**A wrap-up before each paper.** Each subject has one page to read before its paper: the points in order, with a board that sets diseases side by side.
 
-อยากได้ multi-player (login, กลุ่มติว, leaderboard, cloud sync) → ดู [`SETUP.md`](./SETUP.md)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/wrapup-dark.webp">
+  <img src="docs/readme/wrapup-light.webp" alt="A wrap-up page for one subject, with a differential board" width="80%">
+</picture>
 
----
+**Notes that show their source.** Every section of a note says where it comes from. The VetWiki turns those notes into articles that can be linked.
 
-## 📊 มีอะไรอยู่ในนี้บ้าง
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/notes-dark.webp">
+  <img src="docs/readme/notes-light.webp" alt="A study note with a table and the source line under it" width="80%">
+</picture>
+
+**Phone first.** Home with the countdown to the next paper, a wrap-up and a note, each built for one hand.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/phone-dark.webp">
+  <img src="docs/readme/phone-light.webp" alt="Home, a wrap-up and a note on a phone" width="100%">
+</picture>
+
+Also in the app: the weekly timetable and exam dates, a document library, lecture clip summaries, spaced review, and sign-in for faculty accounts. Everything except cloud sync works without an account.
+
+## How it is made
+
+<img src="docs/readme/system.svg" alt="Reviewed data and app code pass the pull request checks, then run in the student's browser with Supabase for sign-in and sync" width="100%">
+
+What keeps it correct, each checkable in this repository:
+
+- Every pull request runs the data lints, the unit tests in Bangkok time and UTC, a production build and end-to-end tests on Chromium, Firefox, WebKit and a phone profile ([`.github/workflows`](.github/workflows)).
+- A question that cannot be verified is held back from students and counted separately.
+- Each citation is stored as written and shown in a form a student can read.
+- Contrast, bundle size and the design of each screen have a check or a written gate ([`STABILITY.md`](STABILITY.md), [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md)).
+
+## Numbers
+
+Generated from the source by `npm run stats -- --write`; `npm run stats:check` fails when they drift. Full table: [`docs/content-inventory.md`](docs/content-inventory.md).
 
 <!-- content-stats:start -->
 | | |
@@ -47,191 +79,22 @@ npm run dev
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 <!-- content-stats:end -->
 
-**เทอมปัจจุบัน:** ภาคการศึกษาต้น 2569 — Vet 86 = ชั้นปีที่ 5
-ขึ้นเทอมใหม่และปีการศึกษาใหม่ต้องแก้หลายไฟล์ (`SEMESTER` ใน `src/data/semester.js`,
-`EXAM_SCHEDULE` ใน `src/data/schedule.js`, `examScope` ของหัวข้อ, test ที่ตรึงวันที่ไว้)
-ดูลำดับใน [`docs/HANDOVER.md`](./docs/HANDOVER.md) หัวข้อ "ถ้ามีคนอยากช่วย"
-
----
-
-## ✨ ฟีเจอร์
-
-ฟีเจอร์ลงทะเบียนไว้ที่ `src/lib/feature-registry.js` ซึ่งเป็น single source
-ที่ป้อนทั้งหน้าแรก, ⌘K command palette และปุ่มเครื่องมือลอย
-
-### ฝึก
-- **ฝึกข้อสอบ** เลือกวิชา/หัวข้อ/จำนวน, จับเวลาได้
-- **โหมดสอบ** autosave + resume, ยืนยันก่อนส่ง, แยกคะแนน auto-graded กับข้อเขียน
-- **Spaced Repetition** (SM-2)
-- **Race Mode** แข่งกับเพื่อนแบบ realtime
-- **Review Queue** คิวตรวจข้อที่มีคนส่งเข้ามา
-
-### เรียน
-- **ปกประจำวิชา** ภาพพิมพ์แยกรายวิชาครบปี 1–6 บนการ์ดเลือกวิชา รองรับจอเล็กและโหมดมืด
-- **VetWiki** คลังความรู้ที่บอกที่มาได้ทุก section + ลิงก์ `/wiki/<subject>/<topic>` แชร์ได้
-- **Notes โหลดตามวิชา** Notes และ VetWiki ใช้ source map เดียวกัน ไม่ดาวน์โหลดทุกชั้นปีพร้อมกัน
-- **สรุปคลิป** แยกตามวิชา พร้อมที่มาและตำแหน่งในคลิป
-- **ตารางเรียน & สอบ** ตารางรายสัปดาห์ + countdown + ปฏิทินลงทะเบียน/ชำระเงิน
-- **Reading Checklist**, **Pinboard**, **Notes**, **อาจารย์ผู้สอน**
-
-### ติดตามผล
-- **ความคืบหน้า** dashboard + heatmap + learning curve
-- **สัดส่วนคะแนนรายวิชา**, **Leaderboard**, **Phase Wrapped**
-
-### เครื่องมือ
-เครื่องคิดเลขทางสัตวแพทย์, กระดานวาด, Imaging Practical (ฝึกเร็ว ใช้ง่าย), Imaging Pro (เครื่องมือเต็ม), Image Occlusion,
-PDF + Annotate, Pomodoro, กลุ่มติว, ช่วยเติมเนื้อหา, เพิ่ม/แก้ข้อสอบเอง
-
-### ทั่วทั้งแอป
-PWA + offline (service worker), dark mode + ชุดสีให้เลือก, ⌘K, keyboard shortcuts,
-bottom nav บนมือถือ, import/export JSON ที่ตรวจ schema + แสดงรายการก่อนเขียนทับ,
-cloud sync เมื่อ login
-
----
-
-## 📂 โครงสร้างไฟล์
-
-```
-vet-mock/
-├── src/
-│   ├── App.jsx                     ← view routing (state-based) + shared state
-│   ├── main.jsx
-│   ├── styles.css                  ← design tokens (--vmx-*, --clr-*)
-│   ├── styles-landing.css
-│   ├── data/
-│   │   ├── curriculum.js           ← YEARS + CURRENT_YEAR + SUBJECTS_BY_YEAR
-│   │   ├── schedule.js             ← ตารางเรียน/สอบ/ปฏิทินการศึกษา
-│   │   ├── questions.js            ← lazy Q-bank loader
-│   │   ├── bank-registry.generated.js ← auto-generated (npm run lint:registry)
-│   │   ├── q-counts.js             ← auto-generated counts
-│   │   ├── questions-*.js          ← Q banks
-│   │   ├── notes-*.js              ← study-note sources
-│   │   ├── note-corpus.js           ← shared lazy Notes/VetWiki loader map
-│   │   ├── video-summaries-*.js    ← per-subject video summaries
-│   │   └── changelog.js, videos.js, sources.js, instructors.js, images.js
-│   ├── lib/
-│   │   ├── feature-registry.js     ← single source ของฟีเจอร์ทั้งหมด
-│   │   ├── nav.js                  ← ป้อนทั้ง Sidebar และ BottomNav
-│   │   ├── dialog.js               ← confirm/alert ของแอปเอง (ไม่ใช้ของเบราว์เซอร์)
-│   │   ├── user-data-sync.js       ← local commit + outbox + cloud sync
-│   │   ├── user-data-schema.js     ← Valibot backup/custom-Q validation
-│   │   ├── note-retry.js           ← resume Notes target after chunk retry
-│   │   ├── vetwiki/                ← governed knowledge runtime
-│   │   └── supabase.js, api.js, xp.js, pinboard.js, ...
-│   ├── hooks/                      ← useAuth, useStorage, useExamSession, sm2, ...
-│   ├── components/
-│   └── views/
-├── api/                            ← Vercel functions
-├── scripts/                        ← lint + regen + stats
-├── tests/                          ← unit (node:test) + e2e (Playwright)
-├── docs/                           ← content-inventory, UX audit, design system
-├── research/                       ← VetMock Research บน research.vetmock.com
-└── supabase/migrations/             ← schema source of truth
-```
-
----
-
-## ✅ Gates
-
-ทุก commit ต้องผ่านทั้งหมดนี้:
+## Run it and contribute
 
 ```bash
-npm run gate       # data/unit ใน Bangkok + UTC, build, contrast และ E2E ทั้ง 4 profiles
-npm run stats:check # README/docs inventory ต้องตรงกับ source
-npm audit --audit-level=high
+npm install
+npm run dev        # http://localhost:5173, works on localStorage with no setup
+npm run build      # production build
+npm run test:unit  # the contract tests
+npm run lint:all   # the data and content checks
 ```
 
-gate fail = ห้ามอ้างว่าพร้อม release; `npm run gate:data` ใช้ตรวจ data/unit รอบสั้นได้
-แต่ไม่แทน build, contrast หรือ cross-browser E2E. งานใน `research/` ต้องผ่าน unit/build/E2E
-ของแอปนั้นและ workflow Research R parity ด้วย
-ก่อนเพิ่มข้อสอบ อ่าน [`ADDING-QUESTIONS.md`](./ADDING-QUESTIONS.md) ก่อน
+Accounts, study groups and cloud sync need Supabase: see [`SETUP.md`](SETUP.md). Read [`AGENTS.md`](AGENTS.md) before changing anything; it holds the rules. Work in flight is claimed in [issue #253](https://github.com/palmzamak2547/vet-mock/issues/253). Adding questions: [`ADDING-QUESTIONS.md`](ADDING-QUESTIONS.md).
 
----
+Found a mistake or have an idea? Use the Feedback page in the app or [open an issue](https://github.com/palmzamak2547/vet-mock/issues).
 
-## 💡 วิธีเพิ่มข้อมูลใหม่
+## Credits
 
-### เพิ่มข้อสอบ
-ดู [`ADDING-QUESTIONS.md`](./ADDING-QUESTIONS.md) — ครบตั้งแต่วางไฟล์ จน regen
-registry แล้วรัน gates
+Made by Vet 86. Brand marks on the connected-apps page belong to their owners ([`public/brand/ATTRIBUTION.md`](public/brand/ATTRIBUTION.md)). Type: Sarabun under the SIL Open Font License ([`public/Sarabun/OFL.txt`](public/Sarabun/OFL.txt)) and Fraunces. Motion kit licences: [`docs/licenses`](docs/licenses). The repository has no licence file for its own code or content: ask in an issue before reusing it.
 
-### เพิ่มตารางสอบ
-แก้ `EXAM_SCHEDULE` ใน `src/data/schedule.js` แล้วรัน `npm run regen:exam-papers`
-ทุกแถวของเทอมปัจจุบันต้องมี `term` (แถวที่ไม่มี นับถอยหลังและช่วงสอบจะข้ามไป)
-และแถวของเทอมก่อนต้องเอา `term` ออก ลำดับเต็มอยู่ใน `docs/HANDOVER.md` หัวข้อ "ถ้ามีคนอยากช่วย":
-```js
-{
-  id: 'com5-mid', code: '3107510', subject: 'com5', term: 'midterm',
-  title: 'COM V — Midterm',
-  date: '2026-09-21', time: '08:30-10:30', duration_min: 120,
-  location: 'VET6 807',
-  content: ['หัวข้อที่ออก...'],
-}
-```
-
-### เพิ่มคลิปวิดีโอ
-แก้ `src/data/videos.js`:
-```js
-{
-  subject: 'surg3',
-  topic: 'ESF Technique',
-  url: 'https://www.youtube.com/watch?v=VIDEO_ID',
-  author: 'VetChannel',
-  duration: '10:30',
-  tags: ['ESF', 'orthopedic'],
-}
-```
-
-### เปิดชั้นปีใหม่
-1. เพิ่มวิชาใน `SUBJECTS_BY_YEAR` (`src/data/curriculum.js`)
-2. วาง Q bank แล้วรัน `npm run regen:registry` เพื่อ regen registry
-3. ปลด `scaffold: true` ของปีนั้นใน `YEARS`
-   (`lint:curriculum` จะ fail ถ้าปีมีข้อสอบแล้วแต่ยังติด scaffold หรือกลับกัน)
-
----
-
-## 🚀 Deploy
-
-```bash
-npm run gate
-npm audit --audit-level=high
-git push origin main
-```
-
-Vercel auto-deploys `main`, but a push is not production proof. Wait for the
-exact-SHA GitHub Build + Smoke E2E runs, confirm the Vercel **Production**
-deployment, then verify the entry at `https://vetmock.com` and a changed capability on the
-actual study runtime (`https://vetmock.com`).
-Research has a separate deployment and must be verified on `https://research.vetmock.com`.
-Full checklist: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md#release-gate).
-
-⚠️ ถ้า CSS/JS shape, lazy loading, route หรือ update behavior เปลี่ยน ต้องบัมพ์
-`SW_VERSION` ใน `public/sw.js` ด้วย
-ไม่งั้นเครื่องที่ติดตั้ง PWA ไว้จะค้างที่ bundle เก่า
-
-ดู [`SETUP.md`](./SETUP.md) สำหรับ Supabase + OAuth
-
----
-
-## 📮 Feedback
-
-เจอ bug หรือมีไอเดีย ส่งมาที่ **palmzamak2547@gmail.com**
-หรือใช้ฟอร์มในเว็บ (หน้า Feedback)
-
----
-
-## 🙏 Credits
-
-**ข้อสอบเก่า:**
-- Vet 83 (pployyyn — Repro Lab)
-- Vet 84 (พี่พล, Ping, Sunsun, Saideang, Janny — Surg Lab III)
-- Vet 85 (Kimchii — Repro, COM III, COM IV, Exotic; + Surg Lab II)
-- Vet 86 — ข้อสอบเก็บรวม, COM IV
-
-**Platform:**
-- Made with ♡ by **Vet 86**
-- React + Vite + Supabase
-- ค่าใช้งานจริงขึ้นกับ hosting, storage และบริการที่เปิดใช้; ตรวจ billing ก่อนอ้างค่าใช้จ่าย
-
----
-
-🐾 Chula Vet
+The pictures above are of the running app with test data, refreshed by hand when screens change.
