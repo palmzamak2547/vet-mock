@@ -313,6 +313,12 @@ export const EXAM_ORIGINS = Object.freeze({
   // Vet 85 drew a star beside single statements in their copy of the 2568 dermatology deck, and their final summary
   // (p. 6) says the dermatology and surgery points were added in the starred slides. A mark, not a paper.
   "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
+  // Zoonoses final marked points (5.247.0). "ว่าเคยออก": a mark whose own legend ties it to a cohort's paper (the
+  // Vet 84 bacterial map's "ออกสอบ 84" stars, the Vet 83 notebook's "สอบ vet 83" stars and Vet 84's red stars on it,
+  // Vet 85's post-exam pink notes). "ในสไลด์หรือสรุป": a star, asterisk or "!!!" in a senior's deck or summary with
+  // no such legend. Neither is a paper; the paper is never named because the marks sit in midterm and final folders.
+  "Zoonoses จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Zoonoses จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป": { kind: 'aligned' },
 
   // ── source-doc: Names the document the question was written from ──
   // rows that carry a sourceType
