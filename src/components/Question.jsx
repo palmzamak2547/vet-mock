@@ -11,6 +11,7 @@ import RichBlocks from './RichBlocks.jsx';
 import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
 import { displayStem } from '../lib/match-stem.js';
 import { otherOptionsFold } from '../lib/explain-fold.js';
+import { metaLineCut } from '../lib/meta-line.js';
 import FlagChip from './FlagChip.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
@@ -134,6 +135,24 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // The header line unfolds on a tap, for this question only.
   const [metaOpenFor, setMetaOpenFor] = useState(null);
   const metaOpen = metaOpenFor === compoundId;
+  // The line is a button only while it is cut off (or open, so it can close). Where it
+  // fits, on a phone where it wraps whole or on a wide card, a tap changed nothing on
+  // screen and a screen reader heard "button, collapsed" on every question.
+  const metaRef = useRef(null);
+  const [metaCut, setMetaCut] = useState(false);
+  const MetaLine = metaCut || metaOpen ? 'button' : 'div';
+  const metaProps = MetaLine === 'button'
+    ? { type: 'button', 'aria-expanded': metaOpen, onClick: () => setMetaOpenFor(metaOpen ? null : compoundId) }
+    : {};
+  useEffect(() => {
+    const el = metaRef.current;
+    if (!el) return undefined;
+    const check = () => { if (!el.hasAttribute('data-open')) setMetaCut(metaLineCut(el)); };
+    check();
+    const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(check) : null;
+    ro?.observe(el);
+    return () => ro?.disconnect();
+  }, [compoundId, MetaLine]);
 
   // Reset flag display when navigating to a new Q
   useEffect(() => { setFlagState(readFlags()[compoundId] || null); }, [compoundId]);
@@ -856,7 +875,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         {/* One line that truncates. The full words stay in the tree for a
             screen reader, in the title on hover, and on the line itself
             after a tap, which unfolds it. */}
-        <button type="button" className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} aria-expanded={metaOpen} title={metaTitle} onClick={() => setMetaOpenFor(metaOpen ? null : compoundId)}>
+        <MetaLine ref={metaRef} className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} title={metaTitle} {...metaProps}>
           {(() => {
             const typeLabel = TYPE_LABEL[currentQ.type];
             const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
@@ -890,7 +909,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               อิงแนวเดิม
             </span>
           )}
-        </button>
+        </MetaLine>
 
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
