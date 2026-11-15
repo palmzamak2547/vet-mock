@@ -459,6 +459,12 @@ export const SOURCE_DOCS = [
     match: /โรคทริคิโนซิส \(Trichinosis\)/,
     editions: [{ id: '15p', pages: 15 }],
   },
+  // อ.รุ่งธรรม's 2569 deck for the 6 Nov class (JE, Nipah, greasy pig, Mycoplasma suis, pseudorabies, CSF), MyCourseVille 2026/1, 87 pages.
+  {
+    slug: 'swine-rk-2569', subject: 'swine-clinic', title: 'RK Slide - 6 November',
+    match: /RK Slide - 6 November/,
+    editions: [{ id: '87p', pages: 87 }],
+  },
   // The 2024 Swine Medicine lecture note in the library (335 pages); the 9 Oct 2026 control and diagnosis class teaches from it.
   {
     slug: 'swine-lecture-note-2024', subject: 'swine-clinic', title: 'Lecture note: Swine Medicine 2024',
