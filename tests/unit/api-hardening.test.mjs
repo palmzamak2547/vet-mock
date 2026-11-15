@@ -10,6 +10,10 @@ import assert from 'node:assert/strict';
 
 import { voiceFor, rateStringFor } from '../../api/tts.js';
 import { contentHeaders } from '../../api/library-blob.js';
+import { setDirectStorage } from '../../api/library-blob.js';
+// These pin the REST route (storage ignores Range); the signed S3 route is
+// tested in library-blob-ranges.test.mjs.
+setDirectStorage(false);
 
 // A minimal Vercel-style response object.
 function fakeRes() {

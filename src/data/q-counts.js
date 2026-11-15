@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8903;
-export const QB_SOURCE_TOTAL = 9115;
+export const QB_TOTAL = 8906;
+export const QB_SOURCE_TOTAL = 9118;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -47,7 +47,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 268,
+  'swine-clinic': 271,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 1341,
@@ -97,7 +97,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 268,
+  'swine-clinic': 271,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 1341,
@@ -280,7 +280,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'milk-meat-hygiene': 417,
     'one-health': 119,
     'surg1': 29,
-    'swine-clinic': 174,
+    'swine-clinic': 177,
     'swine-herd': 16,
     'swine-repro': 18,
     'vca': 1341,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3729,
+    5: 3732,
   },
   '2-mid': {
     1: 297,
@@ -878,7 +878,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'swine-pcv2': 15,
       'swine-prv-je': 25,
       'swine-repro': 16,
-      'swine-trichinosis': 5,
+      'swine-trichinosis': 8,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -2402,7 +2402,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6324,
+  5: 6327,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2414,7 +2414,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6324,
+  5: 6327,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2974,7 +2974,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "swine-prv-je": 25,
     "swine-repro": 16,
     "swine-resp-viral": 12,
-    "swine-trichinosis": 5,
+    "swine-trichinosis": 8,
   },
   "swine-herd": {
     "adg-calculation": 1,
@@ -3742,4 +3742,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T19:01:22.633Z
+// Built: 2026-11-15T21:03:06.151Z
