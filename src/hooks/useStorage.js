@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { readStoredJson } from '../lib/stored-json.js';
 import { reportFailure } from '../lib/report-failure.js';
 
@@ -24,10 +24,17 @@ export const storage = {
 };
 
 // useLocalStorage — persist state in localStorage. The third element is
-// false while the latest value could not be kept in this browser.
+// false while a value the student changed could not be kept in this browser
+// (the write on mount is the stored value itself, so its failure says nothing
+// about the student's work and shows nothing).
 export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => storage.get(key, initialValue));
   const [saved, setSaved] = useState(true);
-  useEffect(() => { setSaved(storage.set(key, value)); }, [key, value]);
+  const first = useRef(true);
+  useEffect(() => {
+    const ok = storage.set(key, value);
+    if (first.current) { first.current = false; return; }
+    setSaved(ok);
+  }, [key, value]);
   return [value, setValue, saved];
 }

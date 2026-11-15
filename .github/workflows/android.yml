@@ -97,10 +97,11 @@ jobs:
           profile: pixel_6
           cores: 4
           ram-size: 4096M
-          # Emulator 37.2.13 (build 16740729) died at the first `input swipe` of every
-          # run since 14 Nov 2026 (adb: closed, then port 5554 refused); 37.2.12
-          # (build 16428233) passed on 22 Oct. Move the pin only with a green run.
-          emulator-build: 16428233
+          # The emulator process dies after a few app starts on every run since
+          # 14 Nov 2026 (adb then refuses port 5554). Pinning 37.2.12 (build
+          # 16428233, green on 22 Oct) did not change it, so the cause is the
+          # runner image, not the emulator build. measure.py writes where it
+          # stopped to measure-out/failure.txt and the summary shows it.
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -dns-server 8.8.8.8,1.1.1.1
           script: python3 mobile/scripts/measure.py vetmock-ci.apk measure-out --aab mobile/android/app/build/outputs/bundle/release/app-release.aab --bundletool bundletool.jar
@@ -117,7 +118,13 @@ jobs:
           if [ -f measure-out/results.json ]; then
             python3 mobile/scripts/report.py measure-out/results.json > report.md
           else
-            echo '## Android app on the emulator: no results, see the Measure step' > report.md
+            {
+              echo '## Android app on the emulator: the Measure step failed'
+              echo
+              if [ -f measure-out/failure.txt ]; then echo '```'; cat measure-out/failure.txt; echo '```'; else echo 'measure.py left no failure record: read the Measure step log.'; fi
+              echo
+              echo 'Known since 14 Nov 2026: the emulator process dies after a few app starts (adb then refuses port 5554), on emulator 37.2.12 and 37.2.13 alike. A red scheduled run opens an issue (scheduled-red.yml).'
+            } > report.md
           fi
           cat report.md >> "$GITHUB_STEP_SUMMARY"
           if [ "${{ github.event_name }}" = pull_request ]; then

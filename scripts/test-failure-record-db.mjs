@@ -151,7 +151,9 @@ try {
 
   await check('old rows survive the key change, with an empty message', async () => {
     assert.equal(await run(commentSql('select count(*) as error_rows')), '1');
-    assert.equal(await run(`select message from private.client_error_counts;`), '');
+    // Bracketed: psql -At prints an empty value as an empty line, which the native
+    // adapter drops, so a bare '' read back as null on Postgres and passed on PGlite.
+    assert.equal(await run(`select '[' || message || '|' || frame || ']' from private.client_error_counts;`), '[|]');
     assert.equal(await run(commentSql('select count(*) as setup_failure_rows')), '0');
   });
 
@@ -163,6 +165,13 @@ try {
     assert.equal(await run(`select message from private.client_error_counts where kind = 'save';`), 'The quota has been exceeded.');
     await report({ ...data, message: 'x'.repeat(400) });
     assert.equal(await run(`select max(length(message))::text from private.client_error_counts;`), '160');
+  });
+
+  await check('a frame is kept only as one of our own bundle files with line and column', async () => {
+    const base = { release: '5.239.0', view: 'home', kind: 'error', category: 'TypeError', message: 'Failed to fetch' };
+    await report({ ...base, frame: 'assets/index-Ab12.js:12:345' });
+    await report({ ...base, frame: 'https://vetmock.com/assets/index-Ab12.js?token=abc:1:2' });
+    assert.equal(await run(`select string_agg('[' || frame || ']', ',' order by frame) from private.client_error_counts where message = 'Failed to fetch';`), '[],[assets/index-Ab12.js:12:345]');
   });
 
   await check('a report with a wrong signature is refused', async () => {
@@ -213,4 +222,4 @@ try {
 const failed = checks.filter((c) => !c.ok);
 for (const c of checks) console.log(`${c.ok ? 'ok  ' : 'FAIL'} ${c.name}${c.ok ? '' : `\n     ${c.error}`}`);
 console.log(JSON.stringify({ backend, passed: checks.length - failed.length, failed: failed.length }));
-process.exitCode = failed.length || checks.length < 8 ? 1 : 0;
+process.exitCode = failed.length || checks.length < 9 ? 1 : 0;

@@ -240,7 +240,7 @@ export default function OSCEDrill({ onClose }) {
                 <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                   {liveScore >= 70 ? 'ผ่านเกณฑ์ — keep practicing for consistency' : 'ยังไม่ผ่าน — โฟกัส critical steps ก่อน'}
                 </div>
-                {notKept && <div role="alert" style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-rose-text)' }}>รอบนี้ไม่ได้บันทึกไว้ในเครื่อง เบราว์เซอร์นี้เก็บข้อมูลไม่ได้</div>}
+                {notKept && <div role="alert" style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-rose-text)' }}>รอบนี้ไม่ได้บันทึกไว้ในเครื่อง เบราว์เซอร์นี้เก็บข้อมูลไม่ได้ เปิดการเก็บข้อมูลของเว็บนี้ หรือออกจากโหมดส่วนตัว แล้วฝึกรอบถัดไป</div>}
                 <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
                   <button type="button" onClick={reset} className="vmx-btn vmx-btn-primary vmx-btn-sm">🔁 ทำซ้ำ station นี้</button>
                   <button type="button" onClick={() => pickStation(null)} className="vmx-btn vmx-btn-ghost vmx-btn-sm">เปลี่ยน station</button>

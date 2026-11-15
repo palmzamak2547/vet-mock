@@ -31,9 +31,10 @@ test('the app shell says so above every page when storage is refused', () => {
 
 test('community deletes read their rows back instead of trusting an empty answer', () => {
   const live = src('online/live.js');
-  assert.match(live, /async function mustRemove\(query\)/);
+  assert.match(live, /async function mustRemove\(sb, table, id\)/);
+  assert.match(live, /if \(Array\.isArray\(still\) && still\.length\) throw/, 'only a row still there is a failure');
   for (const table of ['posts', 'comments', 'messages']) {
-    assert.match(live, new RegExp(`mustRemove\\(sb\\.from\\('${table}'\\)\\.delete\\(\\)`), `${table} delete checks its rows`);
+    assert.match(live, new RegExp(`mustRemove\\(sb, '${table}', id\\)`), `${table} delete checks its rows`);
     assert.doesNotMatch(live, new RegExp(`await must\\(sb\\.from\\('${table}'\\)\\.delete\\(\\)`), `${table} delete is not trusted blind`);
   }
 });

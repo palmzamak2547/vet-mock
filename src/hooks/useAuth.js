@@ -130,6 +130,10 @@ export function useAuth() {
           // it holds stays. Only SIGNED_OUT, or a token gone from storage, ends it.
           commitUser(s?.user ?? (event === 'SIGNED_OUT' ? null : storedAuthSession()?.user ?? null));
           if (event === 'USER_UPDATED') setProfileRefresh((n) => n + 1);
+          // Every auth event (a sign-in, a token refresh, a sign-out) tells the
+          // library to forget a refusal it remembered: a member whose request
+          // went out with a stale token must not stay refused until reload.
+          try { window.dispatchEvent(new CustomEvent('vmx-auth-state', { detail: { event } })); } catch { /* no window */ }
         });
         subscriptionRef.current = data.subscription;
         subscribed.current = true;

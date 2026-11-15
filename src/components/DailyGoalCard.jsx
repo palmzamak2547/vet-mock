@@ -147,7 +147,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
 
         {!tasksSaved && (
           <p role="alert" style={{ margin: '0 0 8px', fontSize: 14, color: 'var(--clr-rose-text)' }}>
-            บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลไม่ได้ รายการจะหายเมื่อปิดหน้า
+            บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลไม่ได้ รายการจะหายเมื่อปิดหน้า เปิดการเก็บข้อมูลของเว็บนี้ หรือออกจากโหมดส่วนตัว แล้วเพิ่มอีกครั้ง
           </p>
         )}
         {tasks.length === 0 ? (

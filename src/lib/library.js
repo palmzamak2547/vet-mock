@@ -24,6 +24,7 @@
 // is undefined, so every read goes through optional chaining and the module
 // stays importable outside the bundler.
 import { SUBJECTS } from '../data/curriculum.js';
+import { createRefusalMemory } from './refusal-memory.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc, vcaLibraryDocs } from './vca-library.js';
 import { openSourceDocs, openSourceUrl, withOpenLabels } from './open-sources.js';
@@ -299,11 +300,11 @@ export function isMissingLibraryTable(err) {
 }
 
 // A refusal from the Chula sign-in wall (42501 chula_member_required, or a
-// token PostgREST will not take) stays a refusal until the account changes.
-// Forgetting it after every failure made a signed-out browser ask again on
-// every render: 744 catalogue and 154 related-document refusals in one hour
-// from one browser on 15 Nov 2026, burying every real error in the logs.
-// vmx-library-auth-changed clears what is remembered.
+// token PostgREST will not take). Forgetting it after every failure made a
+// signed-out browser ask again on every render: 744 catalogue and 154
+// related-document refusals in one hour from one browser on 15 Nov 2026. It
+// is remembered only while signed out, for a minute at most, and any auth
+// event or the retry button forgets it (refusal-memory.js).
 export function isAccessRefusal(err) {
   for (let e = err, depth = 0; e && depth < 3; e = e.cause, depth++) {
     if (e.code === '42501' || e.code === 'PGRST301' || e.code === 'PGRST302' || e.status === 401) return true;
@@ -318,6 +319,17 @@ export function isAccessRefusal(err) {
 // subject-count helper kept private caches. One cache means one truth on
 // screen, and the invalidation event clears everyone at once.
 let _catalogPromise = null;
+const _catalogRefusal = createRefusalMemory();
+const _relatedRefusal = createRefusalMemory();
+const _refusedRelated = new Set();
+
+/** Ask again: the retry button, and every auth event. */
+export function forgetLibraryRefusals() {
+  if (_catalogRefusal.forget()) _catalogPromise = null;
+  _relatedRefusal.forget();
+  for (const key of _refusedRelated) _related.delete(key);
+  _refusedRelated.clear();
+}
 // The last rows fetched, with the revision they were fetched at, so a refresh
 // whose revision has not moved reuses them instead of downloading them again.
 // In memory only: a signed-in catalogue carries restricted rows, and the disk
@@ -327,6 +339,7 @@ let _catalogPromise = null;
 let _lastFetch = null; // { revision, result }
 let _catalogEpoch = 0;
 export function getLibraryCatalog() {
+  if (_catalogRefusal.expired()) _catalogPromise = null;
   if (!_catalogPromise) {
     _catalogPromise = Promise.all([
       fetchLibraryDocs().catch((error) => ({ docs: [], configured: false, error })),
@@ -348,9 +361,9 @@ export function getLibraryCatalog() {
         return combined;
       })
       .catch((err) => {
-        // A failed fetch must not poison the session, but a refusal is an
-        // answer: it is kept until the account changes (isAccessRefusal).
-        if (!isAccessRefusal(err)) _catalogPromise = null;
+        // A failed fetch must not poison the session. A refusal to a
+        // signed-out browser is kept for a short while (forgetLibraryRefusals).
+        if (!(isAccessRefusal(err) && _catalogRefusal.remember(_librarySignedIn))) _catalogPromise = null;
         throw err;
       });
   }
@@ -496,6 +509,9 @@ if (typeof window !== 'undefined') {
     event.ports?.[0]?.postMessage({ epoch: _librarySignedIn && state?.signedIn && state.epoch === event.data.epoch ? state.epoch : null });
   });
   window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; _subjectCounts = null; });
+  // A sign-in, a token refresh or any other auth event: a refusal remembered
+  // under the old token is asked again.
+  window.addEventListener('vmx-auth-state', () => forgetLibraryRefusals());
   window.addEventListener('vmx-library-auth-changed', (event) => {
     setLibraryAccess(event.detail?.signedIn === true).catch(() => {});
     _lastFetch = null;
@@ -503,6 +519,9 @@ if (typeof window !== 'undefined') {
     _catalogPromise = null;
     _subjectCounts = null;
     _related.clear();
+    _refusedRelated.clear();
+    _catalogRefusal.forget();
+    _relatedRefusal.forget();
     _urlIntent.clear();
   });
   // A guest boot needs no auth SDK, but must revoke a session-only reader's
@@ -1007,6 +1026,7 @@ export function fetchRelatedDocs(targets) {
   const list = [...new Set((targets || []).filter(Boolean))].sort().slice(0, 200);
   if (!list.length) return Promise.resolve(new Map());
   const key = list.join('|');
+  if (_relatedRefusal.expired()) { for (const k of _refusedRelated) _related.delete(k); _refusedRelated.clear(); }
   if (!_related.has(key)) {
     _related.set(key, (async () => {
       const { hasSupabase, getSupabase } = await import('./supabase.js');
@@ -1023,7 +1043,8 @@ export function fetchRelatedDocs(targets) {
     })().catch((error) => {
       // Related files are an extra under a document: an empty list is right to
       // show, but only a refusal is kept; anything else is asked again.
-      if (!isAccessRefusal(error)) _related.delete(key);
+      if (isAccessRefusal(error) && _relatedRefusal.remember(_librarySignedIn)) _refusedRelated.add(key);
+      else _related.delete(key);
       return new Map();
     }));
   }

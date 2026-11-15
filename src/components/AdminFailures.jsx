@@ -42,7 +42,7 @@ export default function AdminFailures({ tick }) {
     <section id="ad-failures" className="ad-card">
       <div className="ad-card-head">
         <h2>ล้มเหลวใน 24 ชั่วโมง</h2>
-        <p>สิ่งที่พังในเบราว์เซอร์ของนิสิต บัญชีใหม่ที่สร้างโปรไฟล์ไม่สำเร็จ และงานอัตโนมัติทุกตัว ตารางว่างหมายถึงไม่มีอะไรพังจริงๆ ส่วนที่อ่านไม่ได้จะบอกว่าอ่านไม่ได้</p>
+        <p>สิ่งที่พังในเบราว์เซอร์ของนิสิต บัญชีใหม่ที่สร้างโปรไฟล์ไม่สำเร็จ และงานอัตโนมัติทุกตัว จำนวนเป็นค่าต่ำสุด: แต่ละเบราว์เซอร์ส่งได้ 20 รายงานต่อหน้า และแต่ละ IP 50 รายงานต่อวัน (นิสิตที่ใช้เน็ตมหาวิทยาลัยใช้ IP ร่วมกัน) ส่วนที่อ่านไม่ได้จะบอกว่าอ่านไม่ได้</p>
       </div>
 
       {record.loading ? <div className="ad-skeleton" style={{ width: '60%' }} /> : record.missing ? (
@@ -59,13 +59,13 @@ export default function AdminFailures({ tick }) {
           {errors.length > 0 && (
             <div className="ad-tablewrap">
               <table className="ad-table">
-                <thead><tr><th>ชนิด</th><th>หน้า</th><th>ข้อความ</th><th>เวอร์ชัน</th><th className="num">ครั้ง</th><th>ล่าสุด</th></tr></thead>
+                <thead><tr><th>ชนิด</th><th>หน้า</th><th>ข้อความ</th><th>เวอร์ชัน</th><th className="num">ครั้งทั้งวัน</th><th>ล่าสุด</th></tr></thead>
                 <tbody>
                   {errors.map((e, i) => (
                     <tr key={i}>
                       <td>{KIND[e.kind] || e.kind}</td>
                       <td>{e.view}</td>
-                      <td><span className="ad-id">{e.category}</span> {e.message || <span className="ad-muted">ไม่มีข้อความ</span>}</td>
+                      <td><span className="ad-id">{e.category}</span> {e.message || <span className="ad-muted">ไม่มีข้อความ</span>}{e.frame ? <> <span className="ad-id">{e.frame}</span></> : null}</td>
                       <td><span className="ad-id">{e.release}</span></td>
                       <td className="num">{n(e.count)}</td>
                       <td className="num">{fmtWhen(e.last_at)}</td>

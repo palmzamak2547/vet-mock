@@ -18,7 +18,7 @@ test('create, list newest first, rename, pages only grow, remove', () => {
   assert.equal(nb.updateNotebook('a', { title: 'Physio' }, 5).title, 'Physio');
   assert.deepEqual(nb.listNotebooks().map((n) => n.id), ['a', 'b'], 'the edited one comes first');
   assert.equal(nb.removeNotebook('b'), true);
-  assert.equal(nb.removeNotebook('b'), false);
+  assert.equal(nb.removeNotebook('b'), true, 'already gone is removed, not "still there"');
   assert.equal(nb.notebookKey('a'), 'nb:a');
 });
 

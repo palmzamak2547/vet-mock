@@ -8,12 +8,15 @@
 -- installed until admin_failures exists.
 --
 -- WHAT IT ADDS
---   private.client_error_counts.message   the error's message with digits,
---                                         links, mail, quoted text and every
---                                         non-Latin run cut out (scrubMessage in
+--   private.client_error_counts.message   an engine or browser message only,
+--                                         reduced, or a short hash of any other
+--                                         text, never the text (safeMessage in
 --                                         src/lib/client-diagnostics.js, run in
 --                                         the browser and again by the endpoint,
---                                         and cut to 160 here). Part of the key.
+--                                         cut to 160 here). Part of the key.
+--   private.client_error_counts.frame     assets/<bundle>.js:line:column of our
+--                                         own code, or empty; checked here too.
+--                                         Part of the key.
 --   private.client_error_counts.last_at   when the count last grew, so the
 --                                         admin screen can say "last 24 hours".
 --   private.account_setup_failures        one count per day, step and SQLSTATE
@@ -58,8 +61,8 @@
 --   production bodies quoted in scripts/test-failure-record-db.mjs, and
 --   alter table private.client_error_counts drop constraint client_error_counts_pkey,
 --     add primary key (day, release, view, kind, category),
---     drop column message, drop column last_at;
---   (the last step fails if two rows differ only by message: delete the
+--     drop column message, drop column frame, drop column last_at;
+--   (the last step fails if two rows differ only by message or frame: delete the
 --   newer ones first).
 
 begin;
@@ -67,8 +70,9 @@ set local lock_timeout = '3s';
 
 alter table private.client_error_counts add column if not exists message text not null default '';
 alter table private.client_error_counts add column if not exists last_at timestamptz not null default now();
+alter table private.client_error_counts add column if not exists frame text not null default '';
 alter table private.client_error_counts drop constraint if exists client_error_counts_pkey;
-alter table private.client_error_counts add constraint client_error_counts_pkey primary key (day, release, view, kind, category, message);
+alter table private.client_error_counts add constraint client_error_counts_pkey primary key (day, release, view, kind, category, message, frame);
 
 create table if not exists private.account_setup_failures (
   day date not null default current_date,
@@ -110,9 +114,10 @@ BEGIN
     OR length(body::text) > 600 THEN RAISE EXCEPTION 'Invalid report' USING ERRCODE = '42501'; END IF;
   DELETE FROM private.client_error_counts WHERE day < current_date - 14;
   DELETE FROM private.account_setup_failures WHERE day < current_date - 30;
-  INSERT INTO private.client_error_counts AS previous (release, view, kind, category, message)
-    VALUES (left(body->>'release', 20), left(body->>'view', 40), left(body->>'kind', 20), left(body->>'category', 40), left(coalesce(body->>'message', ''), 160))
-    ON CONFLICT (day, release, view, kind, category, message) DO UPDATE SET count = previous.count + 1, last_at = now();
+  INSERT INTO private.client_error_counts AS previous (release, view, kind, category, message, frame)
+    VALUES (left(body->>'release', 20), left(body->>'view', 40), left(body->>'kind', 20), left(body->>'category', 40), left(coalesce(body->>'message', ''), 160),
+      CASE WHEN coalesce(body->>'frame', '') ~ '^assets/[A-Za-z0-9_.-]{1,80}\.js:[0-9]{1,7}:[0-9]{1,7}$' THEN body->>'frame' ELSE '' END)
+    ON CONFLICT (day, release, view, kind, category, message, frame) DO UPDATE SET count = previous.count + 1, last_at = now();
   RETURN jsonb_build_object('ok', true);
 END;
 $$;
@@ -205,7 +210,7 @@ begin
     'since', since,
     'db_jobs', jobs,
     'errors', (select coalesce(jsonb_agg(jsonb_build_object('release', release, 'view', view, 'kind', kind, 'category', category,
-                 'message', message, 'count', count, 'last_at', last_at) order by count desc, last_at desc), '[]'::jsonb)
+                 'message', message, 'frame', frame, 'count', count, 'last_at', last_at) order by count desc, last_at desc), '[]'::jsonb)
                from (select * from private.client_error_counts where last_at >= since order by count desc limit 200) e),
     'setup_failures', (select coalesce(jsonb_agg(jsonb_build_object('day', day, 'step', step, 'sqlstate', sqlstate, 'count', count) order by day desc), '[]'::jsonb)
                        from private.account_setup_failures),

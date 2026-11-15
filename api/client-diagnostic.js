@@ -9,11 +9,12 @@ export default async function handler(req, res) {
   if (req.headers.origin && !allowedOrigin(req)) return res.status(403).json({ error: 'origin_not_allowed' });
   const body = readJsonBody(req);
   if (!body) return sendBadBody(res);
-  if (JSON.stringify(body).length > 768) return res.status(413).end();
+  if (JSON.stringify(body).length > 512) return res.status(413).end();
   const limit = await rateLimit(`client-diagnostic:${clientIP(req)}`, 50, 24 * 60 * 60 * 1000);
   if (!limit.ok) return sendRateLimitFailure(res, limit);
-  // Scrubbed again here: a browser can send anything.
-  const sanitized = diagnosticRecord({ name: body.category, message: body.message }, body.view, body.kind);
+  // The same rule again on arrival: a browser can send anything. Only an
+  // engine message, a hash and one of our own bundle frames get through.
+  const sanitized = diagnosticRecord({ name: body.category, message: body.message, stack: body.frame }, body.view, body.kind);
   try {
     await signedRpc('record_client_diagnostic', 'client-diagnostic', sanitized);
     return res.status(204).end();

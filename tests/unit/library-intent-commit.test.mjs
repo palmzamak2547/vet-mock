@@ -14,6 +14,7 @@ const { default: LibraryView } = await loadModule('src/views/LibraryView.jsx', {
     export const { LIBRARY_KINDS, SEMESTERS, buddhistYear, contentHitRows, docOpenMode, prefetchDocUrl, docTypeLabel,
       displayDocTitle, filterIndexed, markTerms, searchLibraryText, TEXT_SEARCH_MIN, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs, openDocInTab, downloadDocFile, findLibraryDoc, missingDocReason,
       readerPayload, recordRecentDoc, resolveDocUrl, semesterLabel, subjectMeta } = globalThis.__libraryIntentFunctions;
+    export const forgetLibraryRefusals = () => {};
     export const getLibraryCatalogFast = () => {
       globalThis.__libraryIntentCatalogCalls++;
       return { stale: Promise.resolve(null), fresh: Promise.resolve({ docs: [], configured: true }) };

@@ -79,7 +79,8 @@ export function updateNotebook(id, patch, now = Date.now()) {
 export function removeNotebook(id) {
   const list = read();
   const next = list.filter((n) => n.id !== id);
-  if (next.length === list.length) return false;
+  // Already gone (removed in another tab): that is the outcome asked for.
+  if (next.length === list.length) return true;
   return write(next);
 }
 

@@ -641,7 +641,7 @@ export default function App() {
             />
             {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
             {kept === 'failed' && <p className="dock-note" role="alert">เบราว์เซอร์นี้เก็บแชตไว้ไม่ได้ ถ้าปิดหน้านี้ แชตนี้จะหาย</p>}
-            {kept === 'trimmed' && <p className="dock-note" role="status">พื้นที่เก็บในเครื่องเต็ม แชตเก่าครึ่งหนึ่งจึงถูกลบเพื่อเก็บแชตนี้ไว้</p>}
+            {kept === 'trimmed' && <p className="dock-note" role="status">พื้นที่เก็บในเครื่องเต็ม แชตเก่าที่สุดจึงถูกลบเพื่อเก็บแชตนี้ไว้ ลบแชตที่ไม่ใช้แล้วจากรายการเพื่อเพิ่มที่</p>}
             {mode === 'landing' && (
               <>
                 <button type="button" className="voice-cta" onClick={startVoice} onPointerEnter={prefetchVoice} onFocus={prefetchVoice} onTouchStart={prefetchVoice} disabled={!online}>
@@ -675,7 +675,7 @@ export default function App() {
         currentId={chat.id}
         onClose={() => setHistoryOpen(false)}
         onOpen={openChat}
-        onDelete={(id) => { deleteChat(id); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
+        onDelete={(id) => { setKept(deleteChat(id)); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
         onClear={() => { clearChats(); setChats([]); setChat(blank()); setHistoryOpen(false); }}
         account={gate.configured && gate.user ? { email: gate.email, onSignOut: () => { setHistoryOpen(false); wall.signOut(); } } : null}
       />
