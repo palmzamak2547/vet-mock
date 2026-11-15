@@ -28,7 +28,13 @@ async function firstScreen(page) {
   // Both pages' clocks are then stopped at the same instant, so the live clocks (the countdown's seconds,
   // the landing card's timer) read the same in both.
   await page.clock.pauseAt(Date.parse(PINNED_NOW) + 20_000);
-  const read = () => page.locator('#root').evaluate((root) => root.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, ''));
+  // The landing's cookie card is left out: it opens once the nav has scrolled or the hero has left the
+  // view, which WebKit reported on one page and not the other (CI, 15 Nov), and no lazy code draws it.
+  const read = () => page.locator('#root').evaluate((root) => {
+    const copy = root.cloneNode(true);
+    copy.querySelectorAll('.lp-cookie-dock').forEach((el) => el.remove());
+    return copy.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, '');
+  });
   let last = await read();
   let still = Date.now();
   for (const deadline = Date.now() + 15_000; Date.now() < deadline;) {
