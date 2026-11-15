@@ -15,12 +15,22 @@ async function watch(page, pattern) {
   return seen;
 }
 
-// The DOM the first paint shows, with the app's own moving parts (clock text, random keys) left as they are:
-// both loads of a pair run against the same seed, so they draw the same thing.
+// The first screen once it has settled. Both loads of a pair run against the same seed, so they draw the
+// same thing; what moves on its own for a moment (the top loading bar running out, the countdown's number
+// counting up to its value) is waited out, never left out: the DOM is read when it has stopped changing
+// for 800 ms. Read at the load event instead, two loads were caught at different frames of those motions.
 async function firstScreen(page) {
   await page.locator('#root > *').first().waitFor();
   await page.waitForLoadState('load');
-  return page.locator('#root').evaluate((root) => root.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, ''));
+  const read = () => page.locator('#root').evaluate((root) => root.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, ''));
+  let last = await read();
+  let still = Date.now();
+  for (const deadline = Date.now() + 15_000; Date.now() < deadline;) {
+    await page.waitForTimeout(200);
+    const now = await read();
+    if (now !== last) { last = now; still = Date.now(); } else if (Date.now() - still >= 800) return now;
+  }
+  return last;
 }
 
 const RETURNING_Y5 = { 'vmx-selected-year': '5', 'vmx-seen-landing': '1', 'vmx-bookmarks': '[90001]' };
