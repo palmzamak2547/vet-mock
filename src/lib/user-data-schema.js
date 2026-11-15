@@ -357,6 +357,10 @@ export function progressResetPatch() {
 // waiting on this device stays (its copy wins on the same id), and the file's results of this
 // account join it. A result the server already has is harmless to send again: the receipt is keyed
 // by the result's id and acknowledges the same submission (migration 20261011120200).
+/**
+ * @param {any} data -- a backup parseUserBackup has already checked, read field by field
+ * @param {{ ownerId?: string | null, current?: { pendingExamResults?: any[] } | null }} [options] -- the device's outbox records, as stored
+ */
 export function userDataPatchFromBackup(data, { ownerId = null, current = null } = {}) {
   const has = field => Object.prototype.hasOwnProperty.call(data, field);
   const patch = Object.fromEntries(BACKUP_FIELDS
