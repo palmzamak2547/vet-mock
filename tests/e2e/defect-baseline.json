@@ -1,0 +1,17 @@
+{
+  "about": "x",
+  "counts": {
+    "overlap": 999999,
+    "overflow-x": 999999,
+    "clipped": 999999,
+    "off-screen": 999999,
+    "target": 999999,
+    "raw": 999999,
+    "console": 999999,
+    "shift": 999999,
+    "dead": 999999,
+    "stuck": 999999,
+    "contrast": 999999,
+    "focus": 999999
+  }
+}
