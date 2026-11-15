@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-125 names, 12 required; 10 more are set by the platform.
+126 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -162,6 +162,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Need | Runtime | Read in | Without it / what it does |
 |---|---|---|---|---|
 | `PLAYWRIGHT_BASE_URL` | optional | test | `playwright.config.js` | Runs the e2e suite against another origin (test:e2e:prod uses vetmock.com). |
+| `PAPER_OUT` | optional | test | `tests/e2e/question-paper.spec.js` | Folder where the question-paper e2e keeps the PDFs it saves, for page pictures. |
 | `PLAYWRIGHT_PORT` | optional | test | `tests/e2e/local-port.js` | Port of the e2e server; scope it to e2e only. |
 | `PLAYWRIGHT_OUTPUT_DIR` | optional | test | `playwright.config.js`, `research/playwright.config.js` | Where Playwright writes results; default test-results. |
 | `PLAYWRIGHT_JSON_OUTPUT_FILE` | optional | test | `playwright.config.js` | Where CI writes the JSON e2e report; default e2e-results.json. |
