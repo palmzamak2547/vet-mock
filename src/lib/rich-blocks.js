@@ -224,6 +224,7 @@ const LIST_LINE = /^(\s*)(\d{1,2}[.)]|[ก-ฮ][.)]|[A-Za-z][.)]|[-•—])(\s+)
 const LEAD_END = /(?:ดังนี้|ดังต่อไปนี้|:)\s*(?:\([^()\n]*\))?\s*$/;
 const LETTER = /[A-Za-zก-ฮ]/;
 const LEAD_SHORT = 32;
+const LEAD_LABEL = 40;
 // A line that asks: it ends in a question mark, or holds a question word.
 const ASKS = /[?？]\s*$|จง|อะไร|ข้อใด|อย่างไร|เท่าไร|เท่าใด|ใด\s*$|ไหน|หรือไม่|ใคร|กี่|ตอบไม่เกิน|\b(?:what|which|how|why|name|list|identify|describe)\b/i;
 const ASK_LONGEST = 200;
@@ -289,7 +290,9 @@ export function proseBlocks(text) {
         const above = prev.lines[prev.lines.length - 1];
         const said = above.text.trim();
         if (said.length <= LEAD_SHORT || LEAD_END.test(said)) {
-          block.lead = above;
+          // Only a short label ("Flexion test") is set apart in weight; a sentence that
+          // leads in stays regular, so nothing the paper did not emphasise reads as a clue.
+          block.lead = { ...above, label: said.length <= LEAD_LABEL };
           block.from = i - 1;
           prev.lines.pop();
           prev.to = i - 2;

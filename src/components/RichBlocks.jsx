@@ -127,7 +127,7 @@ function ProseBlock({ text, block, renderText }) {
   if (!block.lead) return grid;
   return (
     <div className="vmx-rb-group">
-      <div className="vmx-rb-lead">{renderText(block.lead.text)}</div>
+      <div className={block.lead.label ? 'vmx-rb-lead is-label' : 'vmx-rb-lead'}>{renderText(block.lead.text)}</div>
       {grid}
     </div>
   );

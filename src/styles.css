@@ -2599,7 +2599,8 @@ html.dark .vmx-panic-scrim {
 .vmx-rb { container: vmx-rb / inline-size; }
 .vmx-rb > * + * { margin-top: 0.6em; }
 .vmx-rb-p, .vmx-rb-lead, .vmx-rb-list { max-width: 36em; }
-.vmx-rb-lead { font-weight: 500; margin-bottom: 0.15em; }
+.vmx-rb-lead { margin-bottom: 0.15em; }
+.vmx-rb-lead.is-label { font-weight: 500; }
 .vmx-rb-list { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 0.45em; }
 .vmx-rb-mark.is-num { justify-self: end; font-variant-numeric: tabular-nums; }
 .vmx-rb-pairs, .vmx-rb-results {

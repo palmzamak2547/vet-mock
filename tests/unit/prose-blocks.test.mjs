@@ -159,6 +159,10 @@ test('209588: the leads, three result runs and the ask', () => {
   assert.deepEqual(types(split.body), ['para', 'results', 'results', 'results', 'para']);
   const [, flexion, nerve, joint] = split.body;
   assert.equal(flexion.lead.text, 'Flexion test');
+  // A short label is set apart in weight; a sentence that leads in is not.
+  assert.equal(flexion.lead.label, true);
+  assert.equal(nerve.lead.label, false);
+  assert.equal(joint.lead.label, false);
   assert.deepEqual(flexion.lines.map((l) => l.parts.result), ['(Negative)', '(Negative)', '(Negative)']);
   assert.match(nerve.lead.text, /ได้ผลดังต่อไปนี้$/);
   assert.deepEqual(nerve.lines.map((l) => l.parts.label), ['Palmar digital nerve block', 'Abaxial digital nerve block', 'Low four nerve block']);
@@ -175,6 +179,7 @@ test('209599: the lab values as one pairs block with ranges, under their lead, a
   assert.ok(labs?.range);
   assert.equal(labs.lines.length, 21);
   assert.match(labs.lead.text, /ได้ผลดังต่อไปนี้ \(Parameter: Results \| Range\)$/);
+  assert.equal(labs.lead.label, false);
   assert.deepEqual(labs.lines[0].parts, { label: 'RBC (10⁶/μl)', sep: ': ', value: '5.1', bar: ' | ', range: '6.0–12.0' });
   assert.equal(labs.lines[2].parts.label, 'HCT (%)');
   assert.equal(labs.lines[20].parts.label, 'Phosphorus (mg/dl)');
