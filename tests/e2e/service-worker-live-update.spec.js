@@ -9,6 +9,9 @@ import { UPDATE_UNSAFE_VIEWS as legacyUnsafeViews } from '../fixtures/legacy-upd
 const workerSource = readFileSync(new URL('../../public/sw.js', import.meta.url), 'utf8');
 const lifecycleSource = readFileSync(new URL('../../src/lib/app-lifecycle.js', import.meta.url), 'utf8')
   .replace('import.meta.env?.MODE', '"production"')
+  // The Android-app check is a module of its own (lib/native-detect.js) that this fixture server does not
+  // serve: a browser page is never the app, as tests/unit/app-lifecycle.test.mjs also sets it.
+  .replace("import { IS_APP } from './native-detect.js'", 'const IS_APP = false')
   // Fixture-only scope lets an uncontrolled same-origin document observe the
   // browser's activation boundary without opening another controlled client.
   .replace("register('/sw.js')", "register('/sw.js', { scope: '/app/' })");
