@@ -10,9 +10,9 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8884;
+export const QB_TOTAL = 8883;
 export const QB_SOURCE_TOTAL = 9095;
-export const QB_BLOCKED_TOTAL = 211;
+export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 532,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3691,
+    5: 3690,
   },
   '2-mid': {
     1: 297,
@@ -2402,7 +2402,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6305,
+  5: 6304,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2414,7 +2414,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6305,
+  5: 6304,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -3742,4 +3742,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-14T21:33:58.224Z
+// Built: 2026-11-15T01:33:33.562Z
