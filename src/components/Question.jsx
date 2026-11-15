@@ -71,7 +71,7 @@ const TYPE_LABEL = {
   essay: 'เขียนบรรยาย',
 };
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0 }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishRequested = false }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -427,7 +427,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
+      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={english?.q || currentQ.q} subject={currentQ.subject} /></h2>
+      {englishRequested && !english && <p className="vmx-en-missing">ข้อนี้ยังไม่มีฉบับอังกฤษ — แสดงฉบับไทย</p>}
 
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
@@ -464,6 +465,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             answerCurrent={answerCurrent}
             revealed={mcqRevealed}
             readingOption={readOption}
+            english={english}
           />
           {mcqRevealed && (
             <InstantFeedback
@@ -474,7 +476,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               ok={mcqOk}
               run={answerRun}
               fresh={freshVerdict}
-              correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
+              correctNode={Array.isArray(currentQ.options) && <RichText text={(english && english.options && english.options[currentQ.answer]) || currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
               figure={explainFigure}
               evidence={evidence}
@@ -900,7 +902,7 @@ export function FlagChip({ flag, revealed = false }) {
 }
 
 // ─── MCQ option renderer with stable per-Q shuffle ─────────────────
-function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingOption = -1 }) {
+function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingOption = -1, english = null }) {
   // Recompute permutation only when the question id changes — `useMemo`
   // keeps option order stable across re-renders triggered by note
   // typing, bookmark toggles, timer ticks, etc.
@@ -926,6 +928,9 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
         const originalIdx = displayToOriginal[displayIdx];
         const isSelected = selectedDisplayIdx === displayIdx;
         const isAnswer = originalIdx === currentQ.answer;
+        // ฉบับ EN จับคู่กลับไปยังลำดับเดิมของคลัง (displayToOriginal) —
+        // สลับข้อความได้โดยคง chip และคำตอบที่ถูกเดิมทุกปุ่ม
+        const enText = english && Array.isArray(english.options) ? english.options[originalIdx] : undefined;
         let stateClass = '';
         let chip = String.fromCharCode(65 + displayIdx);
         if (locked) {
@@ -953,7 +958,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
             <div className="vmx-option-indicator">
               <div className="vmx-option-letter">{chip}</div>
             </div>
-            <div className="vmx-option-text"><RichText text={opt} /></div>
+            <div className="vmx-option-text"><RichText text={enText || opt} /></div>
           </button>
         );
       })}

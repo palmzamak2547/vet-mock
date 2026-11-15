@@ -10,6 +10,7 @@ import { EVIDENCE_BASE_URL } from '../chart/rows.js';
 import { currentYear } from './dates.js';
 import { Mark } from './SiteHeader.jsx';
 import { appLinkProps } from './nav.js';
+import { FamilyLinks } from '@vetmock/lib/family/FamilyMenu.jsx';
 
 const VETMOCK = 'https://vetmock.com';
 const COURSE_FIXTURE = 'https://github.com/palmzamak2547/vet-mock/blob/main/research/tests/fixtures/course/epi-course-2026.json';
@@ -86,7 +87,7 @@ export default function SiteFooter() {
         </nav>
         <nav aria-labelledby="rs-f-vetmock" className="rs-l-footer-col">
           <h2 id="rs-f-vetmock" className="rs-l-footer-h">{t('landing.footer.vetmock')}</h2>
-          <a href={`${VETMOCK}/`} rel="noopener">{t('landing.footer.bank')}</a>
+          <FamilyLinks self="research" lang={lang} carryLang={lang} line={false} className="rs-l-footer-family" />
           <a href={`${VETMOCK}/app/privacy`} rel="noopener">{t('landing.footer.privacy')}</a>
           <a href={`${VETMOCK}/app/feedback`} rel="noopener">{t('landing.footer.feedback')}</a>
         </nav>

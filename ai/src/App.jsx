@@ -15,6 +15,7 @@ import { reducedMotion } from './lib/env.js';
 import { voiceSupport, voiceStatus, voiceOffMessage, loadVoiceSdk, preconnectVoice, VOICE_ERRORS } from './lib/voice.js';
 import { voiceSound } from './lib/voice-sound.js';
 import './styles/app.css';
+import { CHOSEN_ATTR, dropVisit } from '../../src/lib/family/family.js';
 
 // The call screen and the voice SDK load on demand, and early: a pointer over the
 // call button, a finger on it or focus fetches both before the tap.
@@ -266,7 +267,15 @@ export default function App() {
     // the browser's bar follows the page's theme, not the system's (both media variants)
     document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.content = THEME_COLOR[theme]; });
   }, [theme]);
-  const toggleTheme = () => setTheme((t) => { const n = t === 'dark' ? 'light' : 'dark'; setPref('vmai-theme', n); return n; });
+  // The student's own pick: saved, and it replaces a theme this visit arrived with from another
+  // VetMock site (theme-boot.js); a chosen theme is what a family link passes along.
+  const toggleTheme = () => setTheme((t) => {
+    const n = t === 'dark' ? 'light' : 'dark';
+    setPref('vmai-theme', n);
+    dropVisit('theme');
+    document.documentElement.setAttribute(CHOSEN_ATTR, n);
+    return n;
+  });
 
   useEffect(() => {
     hasThaiVoice().then(setCanSpeak);

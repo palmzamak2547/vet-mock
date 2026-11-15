@@ -1731,6 +1731,16 @@ html, body {
 /* A note that says the topic is off the paper — the one a student may use to
    skip it this week — keeps its warning sign and reads in full ink. */
 .vmx-topic-note.is-caveat { color: var(--clr-ink); }
+/* Every other topic note: one closed row under the list (5.226). */
+.vmx-topic-prov { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+.vmx-topic-prov > summary { min-height: var(--touch-min, 44px); display: flex; align-items: center; gap: 8px; list-style: none; cursor: pointer; font-weight: 600; color: var(--clr-ink); }
+/* The same open marker as the empty-topics row under it (TopicSelectView): a flex summary draws none of its own. */
+.vmx-topic-prov > summary::-webkit-details-marker { display: none; }
+.vmx-topic-prov > summary::before { content: "\25B8"; }
+.vmx-topic-prov[open] > summary::before { content: "\25BE"; }
+.vmx-topic-prov ul { margin: 0 0 8px; padding-left: 18px; }
+.vmx-topic-prov li { margin-bottom: 6px; overflow-wrap: anywhere; }
+.vmx-topic-prov b { color: var(--clr-ink); font-weight: 600; margin-right: 6px; }
 /* One row of text actions under a hairline, not three bordered boxes inside
    the card. Each stays a 44px target; the lecturer's name may wrap. */
 .vmx-topic-actions {
@@ -3596,7 +3606,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 .vmx-footer-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
   gap: var(--space-6) var(--space-8);
   align-items: start;
 }
@@ -3622,6 +3632,11 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   z-index: 2;
 }
 .vmx-footer a:hover, .vmx-footer .vmx-footer-link:hover { color: var(--clr-ink); text-decoration: underline; }
+/* The other VetMock sites (lib/family), a name over a line each. */
+.vmx-footer-family .vm-family-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.vmx-footer-family .vm-family-row { display: flex; flex-direction: column; align-items: flex-start; text-align: start; min-height: var(--touch-min); justify-content: center; }
+.vmx-footer-family .vm-family-name { font-weight: 600; color: var(--clr-ink); }
+.vmx-footer-family .vm-family-line { font-size: 14px; line-height: 1.5; max-width: 34ch; }
 .vmx-footer-base {
   display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4);
   align-items: center; justify-content: space-between;
@@ -3632,6 +3647,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 @media (max-width: 820px) {
   .vmx-next-actions-layout.has-exam { grid-template-columns: 1fr; }
   .vmx-next-exam { min-height: 84px; }
+}
+
+@media (max-width: 960px) and (min-width: 641px) {
+  .vmx-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 640px) {
@@ -9019,4 +9038,33 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   font-family: "Sarabun", "IBM Plex Sans Thai", system-ui, sans-serif; font-weight: 500;
   overflow-wrap: anywhere; white-space: pre-wrap; pointer-events: auto; touch-action: manipulation;
   caret-color: currentColor;
+}
+
+/* ── สลับภาษาโจทย์ (ไทย/EN) — toggle เล็กในแถบบนของชุดข้อสอบ ── */
+.vmx-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 10px;
+}
+.vmx-lang-btn {
+  border: 1px solid var(--clr-border);
+  background: transparent;
+  color: var(--clr-ink-soft);
+  font: inherit;
+  font-size: 14px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.vmx-lang-btn.is-on {
+  background: var(--clr-surface);
+  border-color: var(--clr-sage);
+  color: var(--clr-sage-text);
+  font-weight: 700;
+}
+.vmx-en-missing {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--clr-ink-soft);
 }

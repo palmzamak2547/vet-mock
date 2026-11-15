@@ -10,12 +10,12 @@
           "index.html"
         ],
         "js": {
-          "measured": 221245,
-          "budget": 227900
+          "measured": 226774,
+          "budget": 233600
         },
         "css": {
-          "measured": 46504,
-          "budget": 47900
+          "measured": 46984,
+          "budget": 48400
         }
       },
       "atlas": {
@@ -24,12 +24,12 @@
           "atlas.html"
         ],
         "js": {
-          "measured": 90701,
-          "budget": 93500
+          "measured": 79008,
+          "budget": 81400
         },
         "css": {
-          "measured": 50369,
-          "budget": 51900
+          "measured": 50849,
+          "budget": 52400
         }
       },
       "atlasLabels": {
@@ -39,8 +39,8 @@
         ],
         "after": "atlas",
         "js": {
-          "measured": 2150,
-          "budget": 2300
+          "measured": 2261,
+          "budget": 2400
         },
         "css": {
           "measured": 399,
@@ -54,8 +54,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 87577,
-          "budget": 90300
+          "measured": 88366,
+          "budget": 91100
         },
         "css": {
           "measured": 0,
@@ -69,8 +69,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 156672,
-          "budget": 161400
+          "measured": 158674,
+          "budget": 163500
         },
         "css": {
           "measured": 0,
@@ -84,8 +84,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 25060,
-          "budget": 25900
+          "measured": 25600,
+          "budget": 26400
         },
         "css": {
           "measured": 0,
@@ -99,8 +99,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 46027,
-          "budget": 47500
+          "measured": 46293,
+          "budget": 47700
         },
         "css": {
           "measured": 0,
@@ -115,12 +115,12 @@
         "after": "firstLoad",
         "note": "5.221.0: js 126,626 B (5.218.0 measurement, 130,500 B budget) to 131,456 B (budget 135,400 B, the rule). The wiki registry data grew with the final-paper notes: Swine 8 topics and 64 sections, One Health 5 topics and 38 sections, Equine Medicine 2 new topics (equine-derm, equine-surgery-wound) with 163 sections written or rewritten; the wiki went from 235 topics and 1,897 sections on origin/main of 15 Nov to 249 and 2,099.",
         "js": {
-          "measured": 131456,
-          "budget": 135400
+          "measured": 132091,
+          "budget": 136100
         },
         "css": {
-          "measured": 11958,
-          "budget": 12400
+          "measured": 12076,
+          "budget": 12500
         }
       },
       "wikiArticle": {
@@ -133,12 +133,12 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 170890,
-          "budget": 176100
+          "measured": 176424,
+          "budget": 181800
         },
         "css": {
-          "measured": 11958,
-          "budget": 12400
+          "measured": 12076,
+          "budget": 12500
         }
       }
     }

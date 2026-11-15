@@ -32,17 +32,18 @@ import {
 } from '../lib/vetwiki/runtime.js';
 import { articleCitations, citationText, reviewHistory } from '../lib/vetwiki/cite.js';
 import { isTopicRead, setTopicRead, topicProgressKey } from '../lib/study-progress.js';
+import { hasTermGlossary, loadTermGlossary } from '../lib/vetwiki/term-glossary.js';
 import { SectionEvidence, SourceList } from '../components/WikiEvidence.jsx';
-import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
 import { wikiPracticeTarget } from '../lib/vetwiki/practice-target.js';
 import { copyText } from '../lib/clipboard.js';
-import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
+import { wikiPath, wikiUrl, parseWikiPath, wikiEntry, WIKI_BASE } from '../lib/vetwiki/url.js';
 import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { fetchRelatedDocs } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
+import { OverlayPending } from '../components/OverlayPending.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
 import Mochi from '../components/Mochi.jsx';
@@ -75,7 +76,6 @@ const inReadingList = (subject, topic) => !!subjectMeta(subject)?.topics?.some((
 // A subject's group in the index, as a place to scroll to.
 const subjectAnchor = (id) => `wiki-subject-${id}`;
 // A topic with a recorded disagreement between the lecture and the evidence.
-const hasConflict = (t) => conflictCountFor(t.subject, t.topic) > 0;
 
 
 // A note's shorthand runs up to 695 characters; the index row keeps about the
@@ -344,19 +344,9 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
     setLayoutState(next);
     try { localStorage.setItem('vmx-wiki-layout', next); } catch { /* the choice lasts this visit */ }
   };
-  const [onlyConflicts, setOnlyConflicts] = useState(false);
-  // The filter belongs to the list; a search lists every hit (its control is
-  // hidden while searching, so it must not quietly cut the results).
-  const filtering = onlyConflicts && !query;
+  // No "conflicts only" filter (5.226): a disagreement is marked once, at the
+  // section it concerns, where the student meets it while reading.
   const showShelves = !query && layout === 'shelf';
-  // "ดูหัวข้อที่มีจุดเหล่านี้" at the foot of the page: the filtered list for
-  // this visit (the reader's own choice of view is not overwritten), with the
-  // filter's control brought into view and focused.
-  const filterRef = useRef(null);
-  const [jumpToFilter, setJumpToFilter] = useState(0);
-  useEffect(() => {
-    if (jumpToFilter) filterRef.current?.focus();
-  }, [jumpToFilter]);
   // The count is read out once it has settled and typing has paused, not on
   // every keystroke (the visible line above it updates at once).
   const [announce, setAnnounce] = useState('');
@@ -390,14 +380,6 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
     const rank = (y) => (y === ownYear ? -100 : -y);
     return [...by.entries()].sort((a, b) => rank(a[0]) - rank(b[0]));
   }, [groups, ownYear]);
-  // "เฉพาะหัวข้อที่มีหลักฐานไม่ตรงกับที่บรรยาย": the list cut to those topics.
-  const listGroups = useMemo(() => (filtering
-    ? yearGroups
-      .map(([y, subjects]) => [y, subjects
-        .map(([id, list]) => [id, list.filter(hasConflict)])
-        .filter(([, list]) => list.length)])
-      .filter(([, subjects]) => subjects.length)
-    : yearGroups), [yearGroups, filtering]);
   const [mapOpen, setMapOpen] = useState(false);
   const shelfYears = useMemo(() => yearGroups.map(([y, subjects]) => [y, subjects.map(([id]) => id)]), [yearGroups]);
   const topicsBySubject = useMemo(() => new Map(groups), [groups]);
@@ -423,18 +405,9 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         {/* Kept whole: on a phone the line used to end on its last word alone.
             "ความรู้ที่เชื่อมถึงกัน" went: articles do not link across subjects yet. */}
         <p className="vw-tagline"><span>ความรู้ที่บอกได้ว่ามาจากไหน</span></p>
-        {/* Says what the data holds: checked points are the key statements of
-            a section, not every sentence in it. */}
-        <p className="vw-lede">
-          ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้วมีแหล่งให้ตามไปอ่าน และหัวข้อย่อยที่ไม่ได้ตรวจทานมีป้ายบอกไว้
-        </p>
+        {/* No lede and no library counts (5.226): the tagline says what the
+            lede said, and the search box is what a student came for. */}
         {missing && <p className="vw-missing" role="status">ไม่พบบทความตามลิงก์นี้ ลิงก์อาจเก่าหรือพิมพ์ผิด ค้นหาจากสารบัญด้านล่างได้</p>}
-        <ul className="vw-totals" aria-label="ในคลังนี้">
-          <li><b>{SHELF_TOTALS.topics.toLocaleString('en-US')}</b>หัวข้อ</li>
-          <li><b>{SHELF_TOTALS.sections.toLocaleString('en-US')}</b>หัวข้อย่อย</li>
-          <li><b>{SHELF_TOTALS.claims.toLocaleString('en-US')}</b>จุดที่ตรวจทานแล้ว</li>
-          <li><b>{SHELF_TOTALS.sources.toLocaleString('en-US')}</b>แหล่งอ้างอิง</li>
-        </ul>
       </header>
 
       <FeatureTip id="knowledge" surface="index" />
@@ -473,11 +446,6 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
             <button type="button" aria-pressed={showShelves} onClick={() => setLayout('shelf')}>ชั้นหนังสือ</button>
             <button type="button" aria-pressed={!showShelves} onClick={() => setLayout('list')}>รายการ</button>
           </div>
-          {!showShelves && (
-            <button type="button" ref={filterRef} className="vw-filter" aria-pressed={onlyConflicts} onClick={() => setOnlyConflicts((v) => !v)}>
-              เฉพาะหัวข้อที่มีหลักฐานไม่ตรงกับที่บรรยาย
-            </button>
-          )}
         </div>
       )}
 
@@ -514,7 +482,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         </div>
       )}
 
-      {!showShelves && listGroups.map(([year, yearList]) => (
+      {!showShelves && yearGroups.map(([year, yearList]) => (
         <React.Fragment key={year}>
           <h2 className="vw-year">
             {year ? `ปี ${year}` : 'วิชาอื่น'}
@@ -524,7 +492,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
             const meta = subjectMeta(subjectId);
             // A subject asked for by name (the search card's VetWiki button)
             // starts open, folded or not; a tap still wins.
-            const open = query || filtering ? true
+            const open = query ? true
               : subjectToggles.has(subjectId) ? subjectToggles.get(subjectId)
               : subjectId === focusSubject || subjectsOpenByDefault;
             const label = (
@@ -539,9 +507,9 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
             return (
               <section key={subjectId} id={subjectAnchor(subjectId)} className="vmx-wiki-subject" style={{ scrollMarginTop: 'var(--space-4)' }}>
                 <h3 className="vmx-wiki-subject-heading">
-                  {/* Searching or filtering, every subject shows its rows, so a
+                  {/* Searching, every subject shows its rows, so a
                       toggle here would do nothing now and fold the subject later. */}
-                  {query || filtering ? <span className="vmx-wiki-subject-row">{label}</span> : (
+                  {query ? <span className="vmx-wiki-subject-row">{label}</span> : (
                     <button
                       type="button"
                       className="vmx-wiki-subject-row vmx-wiki-subject-toggle"
@@ -565,17 +533,6 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
                         <span aria-hidden="true" className="vw-topic-rule" />
                         <span className="vw-topic-text">
                           <span className="vw-topic-title">{keepSilentFinals(t.title)}</span>
-                          {/* Counted from corrections.js, so a row can only claim
-                              a disagreement that is actually written down, in the
-                              article header's own words. */}
-                          {conflictCountFor(t.subject, t.topic) > 0 && (
-                            <span
-                              title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"
-                              className="vw-conflict-chip"
-                            >
-                              หลักฐานไม่ตรงกับที่บรรยาย {conflictCountFor(t.subject, t.topic)} จุด
-                            </span>
-                          )}
                           {t.summary && <span className="vw-topic-summary">{keepSilentFinals(summaryTeaser(t.summary))}</span>}
                         </span>
                       </button>
@@ -612,13 +569,6 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
 
       {!query && (
         <footer className="vw-colophon">
-          <p>
-            <b>หลักฐานไม่ตรงกับที่บรรยาย {SHELF_TOTALS.conflicts.toLocaleString('en-US')} จุด ใน {SHELF_TOTALS.conflictTopics.toLocaleString('en-US')} หัวข้อ</b>
-            {' '}แต่ละจุดแสดงทั้งที่บรรยายสอนและที่แหล่งอ้างอิงพบ พร้อมคำแนะนำเวลาสอบ
-          </p>
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setLayoutState('list'); setOnlyConflicts(true); setJumpToFilter((n) => n + 1); }}>
-            ดูหัวข้อที่มีจุดเหล่านี้
-          </button>
           {SHELF_TOTALS.newestReview && <p className="vw-colophon-date">ตรวจทานครั้งล่าสุด {thaiDay(SHELF_TOTALS.newestReview)}</p>}
           <button type="button" className="vw-tree-door" onClick={() => setMapOpen(true)} aria-haspopup="dialog"
             aria-label="แผนที่ VetWiki ทุกหัวข้อในหน้าเดียว">
@@ -646,14 +596,11 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
 
 // ================= ARTICLE =================
 
-function ConflictLegend() {
-  return <p className="vw-legend"><span className="vw-flag" aria-hidden="true">!</span> คือมีจุดที่หลักฐานไม่ตรงกับที่บรรยาย</p>;
-}
-
 // The contents: one list for the box in the page, the rail beside it and the
 // phone's sheet. Marked only where something differs from the norm (1,625 of
-// 1,783 sections are checked, so a tick on each was noise); the section being
-// read carries aria-current and the rail's ink bar.
+// 1,783 sections are checked, so a tick on each was noise); a disagreement
+// with the lecture is marked at its section only (5.226), not here. The
+// section being read carries aria-current and the rail's ink bar.
 function TocList({ sections, active, onJump, long = false, activeRef = null }) {
   return (
     <ol className={long ? 'is-long' : undefined}>
@@ -667,12 +614,6 @@ function TocList({ sections, active, onJump, long = false, activeRef = null }) {
             onClick={(e) => { e.preventDefault(); onJump(s.id); }}>
             {keepSilentFinals(s.heading)}
           </a>
-          {s.corrections?.length > 0 && (
-            <span className="vw-flag" title="หลักฐานไม่ตรงกับที่บรรยาย">
-              <span aria-hidden="true">!</span>
-              <span className="vmx-sr-only">มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย</span>
-            </span>
-          )}
           {s.reviewStatus === 'metadata' && <span className="vw-meta-tag">{REVIEW_LABEL.metadata.th}</span>}
         </li>
       ))}
@@ -683,7 +624,7 @@ function TocList({ sections, active, onJump, long = false, activeRef = null }) {
 // The phone's contents: the pill opens it over the page, focus starts on the
 // entry being read (in view, though there can be 127), stays inside, and
 // Escape or a tap outside closes it; choosing an entry goes there.
-function TocSheet({ sections, active, conflictCount, onJump, onClose }) {
+function TocSheet({ sections, active, onJump, onClose }) {
   const activeRef = useRef(null);
   const dialogRef = useModalFocus({ onClose, initialFocusRef: activeRef });
   useLayoutEffect(() => {
@@ -703,7 +644,6 @@ function TocSheet({ sections, active, conflictCount, onJump, onClose }) {
           </h2>
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} aria-label="ปิด">✕</button>
         </div>
-        {conflictCount > 0 && <ConflictLegend />}
         <TocList sections={sections} active={active} onJump={onJump} activeRef={activeRef} />
       </div>
     </div>
@@ -853,18 +793,23 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
             neuroanatomy articles were describing structures the
             extracted slides already show. */}
         <SlideFigures sectionId={s.id} source={noteRef?.locator || ''} />
-        {/* "ที่มา", not "ที่มาในเลกเชอร์": 547 sections come from Vet 85
-            summaries, MSD tables or VetMock's own catalog pages. */}
-        {noteRef && <div className="vw-source">ที่มา: {noteRef.locator}</div>}
         {(s.corrections || []).map((c, k) => (
           <React.Suspense key={k} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
             <ConflictNote item={c} />
           </React.Suspense>
         ))}
-      </div>
-      <SectionEvidence chips={chips} onGoToSource={onGoToSource} />
-      <div className="vw-section-report">
-        <ReportConcern topicId={knowledgeId} sectionId={s.id} sectionHeading={s.heading} />
+        {/* One folded row per section, closed (5.226): where the text came
+            from, what it was checked against and the report control were four
+            rows under each section. "ที่มา", not "ที่มาในเลกเชอร์": 547 sections
+            come from Vet 85 summaries, MSD tables or VetMock's own pages. */}
+        <details className="vw-refs">
+          <summary>แหล่งอ้างอิง</summary>
+          {noteRef && <div className="vw-source">ที่มา: {noteRef.locator}</div>}
+          <SectionEvidence chips={chips} onGoToSource={onGoToSource} />
+          <div className="vw-section-report">
+            <ReportConcern topicId={knowledgeId} sectionId={s.id} sectionHeading={s.heading} />
+          </div>
+        </details>
       </div>
     </section>
   );
@@ -900,6 +845,21 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
     if (knowledge?.title && typeof document !== 'undefined') document.title = `${knowledge.title} — VetWiki — VetMock`;
   }, [knowledge?.title]);
   const sections = knowledge.sections;
+
+  // กล่อง "ศัพท์เฉพาะทางในบทนี้" ท้ายบท — โหลดเฉพาะบทที่มีข้อมูล
+  // (16 บท zoonoses นำร่อง) เป็น chunk แยก บทอื่นไม่จ่ายไบต์นี้
+  const [termGlossary, setTermGlossary] = useState(null);
+  useEffect(() => {
+    if (!current || !hasTermGlossary(current.topic)) {
+      setTermGlossary(null);
+      return undefined;
+    }
+    let alive = true;
+    loadTermGlossary().then((map) => {
+      if (alive) setTermGlossary(map[current.topic] ?? null);
+    });
+    return () => { alive = false; };
+  }, [current?.subject, current?.topic]);
 
   // Sources numbered across the article (lib/vetwiki/cite.js): the chips under
   // each section and the list at the end share the numbers.
@@ -1038,10 +998,6 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
     () => sections.reduce((n, s) => n + (s.corrections?.length || 0), 0),
     [sections],
   );
-  const firstConflictId = useMemo(
-    () => sections.find((s) => s.corrections?.length)?.id || '',
-    [sections],
-  );
 
   // One "แชร์" menu in place of three buttons: copy the link, the phone's own
   // share sheet where there is one, and print (where saving a PDF lives).
@@ -1124,9 +1080,9 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
               which would read as "checked and found none"; an article with no
               checked point says so in words instead. */}
           {prov && prov.verifiedClaimCount === 0 && <p className="vw-strip-note">{prov.headline}</p>}
-          {/* Sources and the review date exist only with checked points, so with
-              neither checked points nor conflicts the strip would be an empty box. */}
-          {prov && (prov.verifiedClaimCount > 0 || conflictCount > 0) && (
+          {/* Sources and the review date exist only with checked points, so
+              without them the strip would be an empty box. */}
+          {prov && prov.verifiedClaimCount > 0 && (
             <div className="vw-strip">
               {prov.verifiedClaimCount > 0 && (
                 <button type="button" className="vw-strip-cell" onClick={onShowProv}>
@@ -1139,17 +1095,6 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
                   onClick={(e) => { e.preventDefault(); jumpTo('vw-sources'); }}>
                   <b>{sourceCount.toLocaleString('en-US')}</b>
                   <span>แหล่งอ้างอิง</span>
-                </a>
-              )}
-              {conflictCount > 0 && (
-                <a
-                  href={`#${firstConflictId}`}
-                  className="vw-strip-cell is-conflict"
-                  onClick={(e) => { e.preventDefault(); jumpTo(firstConflictId); }}
-                >
-                  <b aria-hidden="true">{conflictCount}</b>
-                  <span aria-hidden="true">หลักฐานไม่ตรงกับที่บรรยาย</span>
-                  <span className="vmx-sr-only">หลักฐานไม่ตรงกับที่บรรยาย {conflictCount} จุด</span>
                 </a>
               )}
               {lastReviewed && (
@@ -1201,7 +1146,6 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
                     <span aria-hidden="true">{tocOpen ? '▾' : '▸'}</span>
                   </button>
                 </h2>
-                {tocOpen && conflictCount > 0 && <ConflictLegend />}
               </div>
               {tocOpen && <TocList sections={sections} active={active} onJump={jumpTo} long={sections.length > 6} />}
             </nav>
@@ -1219,6 +1163,25 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           </ReadingEffects>
 
           <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
+          {termGlossary && termGlossary.length > 0 && (
+            <aside className="vw-glossary" aria-label="ศัพท์เฉพาะทางในบทนี้">
+              <h2 className="vw-glossary-title">ศัพท์เฉพาะทางในบทนี้</h2>
+              <table className="vw-glossary-table">
+                <thead>
+                  <tr><th scope="col">ศัพท์</th><th scope="col">คำแปลไทย</th><th scope="col">ความหมายทางเวชศาสตร์</th></tr>
+                </thead>
+                <tbody>
+                  {termGlossary.map((row) => (
+                    <tr key={row.term}>
+                      <th scope="row">{row.term}</th>
+                      <td>{row.th}</td>
+                      <td>{row.meaning}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </aside>
+          )}
           <ChapterEnd current={current} siblings={siblings} prev={prev} next={next}
             neighbours={neighbours} reading={reading} checklist={checklist} onOpen={onOpen}
             related={<WikiRelatedDocs target={`${current.subject}/${current.topic}`} onOpenDoc={onOpenDoc} />} />
@@ -1229,7 +1192,6 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
         {hasToc && (
           <nav ref={railRef} className="vw-rail" aria-label="สารบัญ">
             <p className="vw-rail-head">สารบัญ</p>
-            {conflictCount > 0 && <ConflictLegend />}
             <div className="vw-rail-list">
               <span className="vw-rail-track" aria-hidden="true"><span ref={railFillRef} /></span>
               <TocList sections={sections} active={active} onJump={jumpTo} />
@@ -1246,11 +1208,11 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
         </button>
       )}
       {sheetOpen && (
-        <TocSheet sections={sections} active={active} conflictCount={conflictCount}
+        <TocSheet sections={sections} active={active}
           onJump={jumpFromSheet} onClose={() => setSheetOpen(false)} />
       )}
       {cardOpen && (
-        <OptionalFeature label="การ์ดหัวข้อ" onClose={() => setCardOpen(false)}>
+        <OptionalFeature label="การ์ดหัวข้อ" onClose={() => setCardOpen(false)} pending={<OverlayPending label="กำลังเปิดการ์ดหัวข้อ" />}>
           <WikiTopicCard
             subject={current.subject} topic={current.topic} title={knowledge.title}
             subjectName={subjectName(current.subject)} chapter={chapter}
@@ -1291,7 +1253,13 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   // only count when they name the article in the URL.
   const mountedRef = useRef(false);
   // The subject the index was last asked to show ({ subject, nonce }).
-  const [indexFocus, setIndexFocus] = useState(null);
+  // A subject address (/wiki/com5) asks for the index at that subject, and
+  // keeps its address; a fresh request names its own target.
+  const [indexFocus, setIndexFocus] = useState(() => {
+    if (typeof window === 'undefined' || openNonce > actedOnOpenNonce) return null;
+    const entry = wikiEntry(window.location.pathname, topics);
+    return entry.kind === 'subject' ? { subject: entry.subject, nonce: 'address' } : null;
+  });
   const [articleLoad, setArticleLoad] = useState({ id: null, status: 'idle', data: null, error: '' });
 
   const current = openId ? topics.find((t) => t.id === openId) : null;
@@ -1418,10 +1386,21 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   }, [subject, topic, openNonce]);
 
   // Runs after the index has rendered the asked-for subject open.
+  // Entering from a subject address the scroll waits two frames: App's
+  // ViewEntry puts the page at the top one frame after mount, and a scroll
+  // made before that was undone (/wiki/com5 stayed at the top on the build,
+  // 11 Nov 2026).
   useEffect(() => {
-    if (!indexFocus) return;
-    const el = typeof document === 'undefined' ? null : document.getElementById(subjectAnchor(indexFocus.subject));
-    el?.scrollIntoView?.({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+    if (!indexFocus || typeof document === 'undefined') return undefined;
+    const fromAddress = indexFocus.nonce === 'address';
+    const go = () => {
+      const el = document.getElementById(subjectAnchor(indexFocus.subject));
+      el?.scrollIntoView?.({ block: 'start', behavior: fromAddress || motionIsReduced() ? 'auto' : 'smooth' });
+    };
+    if (!fromAddress || typeof requestAnimationFrame !== 'function') { go(); return undefined; }
+    let second = 0;
+    const first = requestAnimationFrame(() => { second = requestAnimationFrame(go); });
+    return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
   }, [indexFocus]);
 
   // Normalise the URL on first paint (e.g. entering from the app's feature
@@ -1430,7 +1409,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   // doing so while this view unmounts would rewrite the destination `/` as
   // `/wiki`, leaving the address bar out of step with the restored app view.
   useEffect(() => {
-    syncUrl(openId, true);
+    if (indexFocus?.nonce !== 'address') syncUrl(openId, true);
     const onPop = () => {
       const { subject: s, topic: t } = parseWikiPath(window.location.pathname);
       const id = s && t ? `${s}--${t}` : null;

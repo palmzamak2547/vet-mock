@@ -25,6 +25,8 @@
 // Receives everything as props from LandingView (single state owner).
 // ============================================================
 
+import { FAMILY_TITLE } from '../../lib/family/family.js';
+import { FamilyLinks } from '../../lib/family/FamilyMenu.jsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Mochi from '../../components/Mochi.jsx';
 import NavIcon from '../../components/NavIcon.jsx';
@@ -1028,6 +1030,20 @@ function YourHome({ p }) {
 // ============================================================
 const SQUAD = ['clover', 'moocha', 'porky', 'oto', 'glidy'].map((k) => SQUAD_MASCOTS[k]).filter(Boolean);
 
+// The other VetMock sites, one name and one sentence each, from the one family list (lib/family).
+// The language on screen goes along to a site that has one.
+function Family({ p }) {
+  const lang = p.lang === 'en' ? 'en' : 'th';
+  return (
+    <section id="family" data-screen-label="Family" className="lp-family" aria-labelledby="lp-family-h">
+      <div className="lp-wrap">
+        <h2 id="lp-family-h" className="lp-h2 lp-reveal">{FAMILY_TITLE[lang]}</h2>
+        <FamilyLinks self="main" lang={lang} carryLang={lang} className="lp-family-list" />
+      </div>
+    </section>
+  );
+}
+
 function FinalCta({ p }) {
   const { t } = p;
   const parts = String(t.ctaPre).split('\n');
@@ -1083,6 +1099,9 @@ function Footer({ p }) {
             <a href="/app/privacy#privacy">{t.footPrivacy}</a>
             {t.footLinks.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
           </nav>
+          <nav className="lp-foot-family" aria-label={FAMILY_TITLE[lang === 'en' ? 'en' : 'th']}>
+            <FamilyLinks self="main" lang={lang} carryLang={lang} line={false} />
+          </nav>
         </div>
         <details className="lp-credits">
           <summary>{t.footCredits}</summary>
@@ -1116,6 +1135,7 @@ export default function LandingBody(p) {
           <More p={p} />
           <Subjects p={p} />
           <YourHome p={p} />
+          <Family p={p} />
           <FinalCta p={p} />
           <Footer p={p} />
         </>
