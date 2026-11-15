@@ -1125,7 +1125,9 @@ export default function App() {
   // give-up notice while a session is on screen, as SyncStatusNotice is held on view 'exam').
   useEffect(() => {
     window.__vmxView = view;
-    try { window.dispatchEvent(new CustomEvent('vmx-view', { detail: view })); } catch { /* old browser */ }
+    try { window.dispatchEvent(new CustomEvent('vmx-view', { detail: view })); } catch {
+      // an old browser without CustomEvent
+    }
   }, [view]);
 
   // Pre-warm the post-exam chunks (ResultsView + ReviewView) the
