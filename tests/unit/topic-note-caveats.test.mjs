@@ -125,3 +125,15 @@ test('5.226: a schedule or provenance note leaves the card for the page\'s one f
   assert.match(view, /<details className="vmx-topic-prov">\s*<summary>ที่มาและตารางสอนของแต่ละหัวข้อ<\/summary>/);
   assert.match(view, /t\.lecturerNote && t\.lecturerNoteKind !== 'caveat'/);
 });
+
+test('the folded notes row carries the same open marker as the empty-topics row under it', () => {
+  // A flex <summary> draws no marker of its own, so the row read as a heading while the row
+  // under it had one (fold review, 15 Nov 2026).
+  const css = read('src/styles.css');
+  const view = read('src/views/TopicSelectView.jsx');
+  assert.match(view, /<details className="vmx-topic-prov">/);
+  assert.match(view, /\{showEmptyTopics \? '▾' : '▸'\}/, 'the empty-topics row draws ▸ closed and ▾ open');
+  assert.match(css, /\.vmx-topic-prov > summary::before \{ content: "\\25B8"; \}/, 'closed: ▸');
+  assert.match(css, /\.vmx-topic-prov\[open\] > summary::before \{ content: "\\25BE"; \}/, 'open: ▾');
+  assert.match(css, /\.vmx-topic-prov > summary::-webkit-details-marker \{ display: none; \}/, 'no second marker in Safari');
+});

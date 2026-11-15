@@ -1733,7 +1733,11 @@ html, body {
 .vmx-topic-note.is-caveat { color: var(--clr-ink); }
 /* Every other topic note: one closed row under the list (5.226). */
 .vmx-topic-prov { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
-.vmx-topic-prov > summary { min-height: var(--touch-min, 44px); display: flex; align-items: center; cursor: pointer; font-weight: 600; color: var(--clr-ink); }
+.vmx-topic-prov > summary { min-height: var(--touch-min, 44px); display: flex; align-items: center; gap: 8px; list-style: none; cursor: pointer; font-weight: 600; color: var(--clr-ink); }
+/* The same open marker as the empty-topics row under it (TopicSelectView): a flex summary draws none of its own. */
+.vmx-topic-prov > summary::-webkit-details-marker { display: none; }
+.vmx-topic-prov > summary::before { content: "\25B8"; }
+.vmx-topic-prov[open] > summary::before { content: "\25BE"; }
 .vmx-topic-prov ul { margin: 0 0 8px; padding-left: 18px; }
 .vmx-topic-prov li { margin-bottom: 6px; overflow-wrap: anywhere; }
 .vmx-topic-prov b { color: var(--clr-ink); font-weight: 600; margin-right: 6px; }

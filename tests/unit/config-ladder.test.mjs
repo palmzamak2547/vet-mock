@@ -350,3 +350,21 @@ test('B2: an exam stepping down a rung keeps the rows in view', async (t) => {
   assert.equal(adjustRegion(view.tree).props.hidden, false, 'the strip just tapped stays on screen');
   view.unmount();
 });
+
+test('the rung description is said once: under the step while ปรับเอง is open, in the summary card while it is closed', async (t) => {
+  browser(t);
+  const { props } = baseProps();
+  // A Home card's own timed set: the app did not decide it, so it opens with its rows.
+  const view = mount(ConfigView, { ...props, useTimer: true, numQuestions: 10, subject: 'all' });
+  const rule = 'จับเวลาทีละข้อ หมดเวลาข้อไหนจะไปข้อถัดไปเอง';
+  const times = (tree) => textOf(tree).split(rule).length - 1;
+  assert.equal(adjustToggle(view.tree).props['aria-expanded'], true);
+  assert.equal(times(view.tree), 1, 'open: the description sits under the chosen step only');
+  assert.ok(textOf(findAll(view.tree, (n) => String(n.props?.className || '').includes('vmx-config-ladder-hint'))[0]).includes(rule));
+  assert.match(textOf(whatLine(view.tree)), /^ชุดนี้:/, 'the summary card keeps its first line');
+  adjustToggle(view.tree).props.onClick();
+  view.flush();
+  assert.equal(adjustRegion(view.tree).props.hidden, true);
+  assert.ok(textOf(whyLine(view.tree)).includes(rule), 'closed: the summary card says it, as the rows are out of view');
+  view.unmount();
+});

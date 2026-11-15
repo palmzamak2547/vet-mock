@@ -322,7 +322,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const rememberable = compact && Boolean(arrival?.decided) && plainPool;
   const rung = ladderStep(activeStep);
   const lead = !follows ? 'ชุดนี้' : pickedRung || decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว';
-  const why = !follows ? (showLadder ? stepHint : '')
+  // The rung's description is said once: under the chosen step while ปรับเอง is open,
+  // in the summary card only while it is closed.
+  const why = !follows ? (showLadder && !adjusting ? stepHint : '')
     : pickedRung && decision.by !== 'you' ? `ขั้น${rung.label}ที่คุณเลือก` : decision.why;
   const showRestore = compact && rememberable && follows && decision.by === 'you';
   // Back to the rung's own preset (its count, its clock, the answer after
