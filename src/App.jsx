@@ -92,6 +92,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 import OptionalFeature from './components/OptionalFeature.jsx';
 // The search box shown while the palette's chunk downloads (and when it fails).
 import PaletteFrame from './components/PaletteFrame.jsx';
+import PaletteShell from './components/PaletteShell.jsx';
 import { clearPaletteHandoff } from './lib/palette-handoff.js';
 
 // Lazy: every screen and heavy modal loads as its own chunk. The
@@ -3541,6 +3542,7 @@ export default function App() {
           closing fully unmounts the modal too (cleaner than leaving
           a hidden overlay in the tree). */}
       {paletteOpen && (
+        <PaletteShell onClose={() => setPaletteOpen(false)}>
         <OptionalFeature
           label="การค้นหา"
           onClose={() => setPaletteOpen(false)}
@@ -3588,6 +3590,7 @@ export default function App() {
             isAdmin={isAdmin}
           />
         </OptionalFeature>
+        </PaletteShell>
       )}
 
       {openInstructor && (

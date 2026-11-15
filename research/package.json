@@ -5,7 +5,7 @@
   "description": "VetMock Research Studio: statistics workspace served on research.vetmock.com",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "vite --port 43110 --strictPort",
