@@ -1,0 +1,228 @@
+{
+  "note": "The patterns lint:voice counts. id is the row in docs/voice-budget.json; re is a regular expression source (flags g and u are always on, add i in flags); groups limits where a pattern is read (all six when absent); hit and pass are sentences the pattern must and must not match, run by tests/unit/lint-voice.test.mjs.",
+  "patterns": [
+    {
+      "id": "long-dash",
+      "name": "a long dash used as a separator",
+      "why": "Thai prose does not use the long dash. A run of them reads as text nobody wrote for the reader.",
+      "rewrite": "a colon after a label, otherwise a space, a comma or two sentences",
+      "re": "(?<=\\S)\\s\\u2014|\\u2014\\s(?=\\S)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "Sporadic — การระบาดที่จำกัดอยู่ในพื้นที่"
+      ],
+      "pass": [
+        "อายุ 5-10 ปี",
+        "pH 7.7–10",
+        "—",
+        "ไม่มี—เลย"
+      ]
+    },
+    {
+      "id": "tham-kan",
+      "name": "ทำการ before a verb",
+      "why": "ทำการ adds nothing to the verb after it; it comes from translating \"perform\".",
+      "rewrite": "the verb alone: ทำการตรวจ is ตรวจ",
+      "re": "ทำการ(ตรวจ|รักษา|วินิจฉัย|ทดสอบ|เก็บ|ให้|ฉีด|ผ่าตัด|ประเมิน|วิเคราะห์|ศึกษา|แก้ไข|บันทึก|เลือก|ส่ง|เปลี่ยน|ลบ|เพิ่ม)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "ควรทำการตรวจเลือดก่อน"
+      ],
+      "pass": [
+        "ทำการ์ดทบทวน",
+        "ทำการบ้าน",
+        "เวลาทำการ"
+      ]
+    },
+    {
+      "id": "mi-khwam",
+      "name": "มีความ before an adjective",
+      "why": "มีความสำคัญ is สำคัญ. The noun form makes a plain statement sound like a report.",
+      "rewrite": "the adjective alone where it is grammatical: มีความจำเป็นต้อง is จำเป็นต้อง",
+      "re": "มีความ(สำคัญ|จำเป็น|เหมาะสม|แม่นยำ|ปลอดภัย|ชัดเจน|ซับซ้อน|หลากหลาย|รุนแรง|เสี่ยง|แตกต่าง)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "ขั้นตอนนี้มีความสำคัญมาก"
+      ],
+      "pass": [
+        "ความสำคัญของโรค"
+      ]
+    },
+    {
+      "id": "essay-connector",
+      "name": "an essay connector",
+      "why": "นอกจากนี้ and อย่างไรก็ตาม open paragraphs in a report. In a note or on a screen they are filler before the fact.",
+      "rewrite": "แต่, และ, ส่วน, or start the sentence at the fact",
+      "re": "(นอกจากนี้|อย่างไรก็ตาม|ยิ่งไปกว่านั้น|กล่าวโดยสรุป|โดยสรุปแล้ว|สรุปได้ว่า|โดยรวมแล้ว|ดังที่กล่าว|ตามที่กล่าว|ในทางกลับกัน)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "นอกจากนี้ยังพบในสุกร"
+      ],
+      "pass": [
+        "นอกจากยานี้แล้ว"
+      ]
+    },
+    {
+      "id": "importance-opener",
+      "name": "an opener that announces importance",
+      "why": "สิ่งสำคัญคือ tells the reader a thing matters instead of saying the thing.",
+      "rewrite": "say the fact first; drop the opener",
+      "re": "(สิ่งสำคัญคือ|ที่สำคัญคือ|ที่น่าสนใจคือ|สิ่งที่ควรทราบ|ควรสังเกตว่า|เป็นที่น่าสังเกต|จุดสำคัญคือ)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "สิ่งสำคัญคือต้องให้สารน้ำก่อน"
+      ],
+      "pass": [
+        "จุดสำคัญของการวินิจฉัย"
+      ]
+    },
+    {
+      "id": "cheer-chat",
+      "name": "a cheering or chatty line",
+      "why": "A tired reader in exam week wants the result and the next step, not a pep talk.",
+      "rewrite": "the number and the next step",
+      "re": "(มาดูกัน|กันเถอะ|ไม่ต้องกังวล|ไม่ต้องห่วง|หวังว่า|ขอให้โชคดี|สู้ ๆ|สู้ๆ|เก่งมาก|ยอดเยี่ยม|เยี่ยมมาก|ได้เลย!|พร้อมแล้ว!)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "สู้ๆ นะ ทุกการฝึกทำให้เก่งขึ้น"
+      ],
+      "pass": [
+        "ทำต่อได้เลย"
+      ]
+    },
+    {
+      "id": "big-word",
+      "name": "a marketing word",
+      "why": "ยกระดับ and ครบวงจร promise without saying what changed.",
+      "rewrite": "say what the thing does",
+      "re": "(ยกระดับ|ปลดล็อก|ไร้รอยต่อ|ล้ำสมัย|ครบวงจร|ทรงพลัง|ขับเคลื่อน|เสริมพลัง|ก้าวไปอีกขั้น|ประสบการณ์การเรียนรู้|อย่างมีประสิทธิภาพ|อัจฉริยะ)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "ยกระดับการเรียนรู้ของคุณ"
+      ],
+      "pass": [
+        "ระดับน้ำตาลในเลือด"
+      ]
+    },
+    {
+      "id": "system-address",
+      "name": "addressing the reader as a system would",
+      "why": "ผู้ใช้งาน and คุณสามารถ are how a manual speaks. Thai drops the subject.",
+      "rewrite": "drop the subject and start with the verb: คุณสามารถเลือกได้ is เลือกได้",
+      "re": "(ผู้ใช้งาน|ผู้ใช้สามารถ|คุณสามารถ|ท่านสามารถ|เราจะมา|ในบทนี้เราจะ|ในส่วนนี้เราจะ)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "คุณสามารถเปลี่ยนได้ในหน้าตั้งค่า"
+      ],
+      "pass": [
+        "ชื่อผู้ใช้"
+      ]
+    },
+    {
+      "id": "points-at-source",
+      "name": "pointing at a slide, a lecturer or a table instead of saying the thing",
+      "why": "The reader cannot open the slide or the table the sentence leans on.",
+      "rewrite": "state the fact; the pointer belongs in the source field",
+      "re": "(ตามสไลด์|จากสไลด์ข้างต้น|ตามที่อาจารย์|อาจารย์กล่าวว่า|ในเด็ค|ดังตาราง|ตามตารางข้างต้น|ตามเฉลย|เฉลยระบุว่า)",
+      "groups": [
+        "interface",
+        "notes",
+        "questions",
+        "wrapups",
+        "changelog"
+      ],
+      "hit": [
+        "ตามสไลด์ระบุว่าต้องฉีดซ้ำ"
+      ],
+      "pass": [
+        "ตารางเปรียบเทียบยา"
+      ]
+    },
+    {
+      "id": "en-ad-word",
+      "name": "an English advertising word",
+      "why": "seamless and robust say nothing a reader can check.",
+      "rewrite": "a plain verb and a fact",
+      "re": "\\b(seamless|seamlessly|leverage|leveraging|robust|comprehensive|cutting-edge|state-of-the-art|game-changer|empower|elevate|streamline|harness|unlock|effortless|supercharge|revolutionize|blazing)\\b",
+      "flags": "i",
+      "groups": [
+        "interface",
+        "changelog",
+        "docs"
+      ],
+      "hit": [
+        "A seamless way to study"
+      ],
+      "pass": [
+        "a plain way to study"
+      ]
+    },
+    {
+      "id": "en-essay",
+      "name": "an English essay phrase",
+      "why": "Moreover and In conclusion are scaffolding around a sentence that can stand alone.",
+      "rewrite": "start at the fact",
+      "re": "(It's worth noting|It is worth noting|In conclusion|Moreover,|Furthermore,|Additionally,|In summary,|\\bdelve|\\btapestry|testament to|plays a crucial role|a wide range of)",
+      "flags": "i",
+      "groups": [
+        "interface",
+        "changelog",
+        "docs"
+      ],
+      "hit": [
+        "Moreover, the lint runs in CI."
+      ],
+      "pass": [
+        "The lint runs in CI."
+      ]
+    }
+  ]
+}

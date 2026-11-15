@@ -311,7 +311,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
           // — the overlay canvas isn't tainted so it always exports.
           draw.toBlob((overlayBlob) => {
             if (!overlayBlob) {
-              alertDialog('บันทึกไม่ได้: ภาพต้นฉบับมีข้อจำกัด CORS — ลองคลิกขวาที่รูปภาพแล้ว Save image แทน');
+              alertDialog('บันทึกไม่ได้: ภาพต้นฉบับมีข้อจำกัด CORS ลองคลิกขวาที่รูปภาพแล้ว Save image แทน');
               return;
             }
             triggerDownload(overlayBlob, `vetmock-overlay-${Date.now()}.png`);

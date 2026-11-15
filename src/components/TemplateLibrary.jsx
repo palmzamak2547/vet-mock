@@ -33,12 +33,12 @@ const TEMPLATES = [
   {
     url: '/templates/dog-heart-anatomy.svg',
     title: 'หัวใจสุนัข 4 ห้อง',
-    subtitle: 'Canine heart — RA/RV/LA/LV',
+    subtitle: 'Canine heart: RA/RV/LA/LV',
     category: '❤️ Cardio',
   },
   {
     url: '/templates/kidney-anatomy.svg',
-    title: 'ไต — sagittal',
+    title: 'ไต: sagittal',
     subtitle: 'Cortex / medulla / pelvis',
     category: '🫘 Renal',
   },
@@ -107,7 +107,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
           </div>
           <h2 id="vmx-template-library-title" style={{ margin: '4px 0 0', fontSize: 20 }}>เลือก template เพื่อวาดทับ</h2>
           <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-            แต่ละ template เป็น outline เปล่า — เปิดในกระดานวาด แล้วทำ label / mark lesion / hatch
+            แต่ละ template เป็น outline เปล่า, เปิดในกระดานวาด แล้วทำ label / mark lesion / hatch
             anatomy ได้ตามต้องการ
           </p>
         </div>

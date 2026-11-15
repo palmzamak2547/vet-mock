@@ -455,7 +455,7 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
               padding: '6px 0',
             }}
           >
-            ✓ รับโบนัสวันนี้แล้ว — กลับมาพรุ่งนี้
+            ✓ รับโบนัสวันนี้แล้ว: กลับมาพรุ่งนี้
           </div>
         )}
       </div>
