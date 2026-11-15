@@ -564,7 +564,8 @@ export async function isUsernameAvailable(username) {
 //
 // Fields:
 //   year (1-6) | cohort ("Vet 86") | avatar_emoji | bio (≤140) |
-//   show_on_leaderboard (bool) | onboarded (bool, set after first
+//   show_on_leaderboard (bool) | show_online (bool, seen online by
+//   classmates) | onboarded (bool, set after first
 //   onboarding flow finishes — used to suppress the modal on returns)
 export async function updateProfileMetadata(metadata) {
   const supabase = await getSupabase();

@@ -10,6 +10,7 @@ import { QB, loadQBForYear } from '../data/questions.js';
 import { SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
+import StatePanel from '../components/StatePanel.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
@@ -18,6 +19,17 @@ import { wholeStem } from '../lib/rich-blocks.js';
 
 // One per page: a remount (leave and rejoin the same room) keeps its list.
 const resolveRoomQuestions = createRaceQuestionCache();
+
+// The last room this tab was in. Leaving a running race keeps every answer on
+// the server, and entering the same code again resumes at the same question,
+// so the join box offers that code back (also after a reload for a new build).
+const LAST_ROOM_KEY = 'vmx-race-last-room';
+function rememberRoom(value) {
+  try { if (value) sessionStorage.setItem(LAST_ROOM_KEY, value); else sessionStorage.removeItem(LAST_ROOM_KEY); } catch { /* storage off */ }
+}
+function rememberedRoom() {
+  try { return sessionStorage.getItem(LAST_ROOM_KEY) || ''; } catch { return ''; }
+}
 
 export default function RaceView({ goHome, setView, user, profile }) {
   const raceSubjectsByYear = YEARS.map(y => ({ year: y.id, label: y.label,
@@ -36,6 +48,11 @@ export default function RaceView({ goHome, setView, user, profile }) {
   const [startedAt, setStartedAt] = useState(0);
   const [endedAt, setEndedAt] = useState(0);
   const [error, setError] = useState(null);
+  // stale: this copy of the app holds other questions than the room (a release
+  // landed meanwhile); only a fresh page fixes it. closed: the room is gone
+  // before it started (the host closed it, or it expired).
+  const [stale, setStale] = useState(false);
+  const [closed, setClosed] = useState(false);
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false);
   const context = useRef({});
@@ -43,6 +60,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
   const [bankTick, setBankTick] = useState(0);
   const [loadingBank, setLoadingBank] = useState(false);
   const progressRef = useRef({});
+  const startedRef = useRef(false);
   useEffect(() => {
     let alive = true;
     setLoadingBank(true);
@@ -69,8 +87,10 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const merged = mergeRaceProgress(progressRef.current, snapshot.participants);
     progressRef.current = merged;
     setCode(snapshot.code);
+    rememberRoom(snapshot.code);
     setIsHost(snapshot.host_id === owner);
     setParticipants(merged);
+    startedRef.current = !!snapshot.started_at;
     if (snapshot.started_at) {
       const me = merged[owner];
       const start = Date.parse(snapshot.started_at);
@@ -86,6 +106,9 @@ export default function RaceView({ goHome, setView, user, profile }) {
     let alive = true, reading = false;
     const owner = user.id;
     let timer = null;
+    // Questions still missing after a few polls are not a slow bank chunk:
+    // this copy of the app does not have them, so it is another build.
+    let missingPolls = 0;
     const refresh = async () => {
       if (!alive || reading || document.visibilityState === 'hidden') return;
       reading = true;
@@ -94,13 +117,17 @@ export default function RaceView({ goHome, setView, user, profile }) {
         if (!alive) return;
         // An empty snapshot means the room is gone for this account: stop
         // polling, as a refusal does below.
-        if (state == null) { alive = false; clearInterval(timer); setError(RACE_REFUSALS['Room unavailable']); return; }
+        if (state == null) { alive = false; clearInterval(timer); roomGone(RACE_REFUSALS['Room unavailable']); return; }
         await applySnapshot(state, owner, code);
       } catch (failure) {
         if (!alive) return;
+        // Another build's questions: a retry gets the same answer, only a
+        // fresh page helps. Say that, never "the connection stumbled".
+        missingPolls = failure?.missing ? missingPolls + 1 : 0;
+        if (failure?.stale || missingPolls >= 3) { alive = false; clearInterval(timer); setError(null); setStale(true); return; }
         // The room expired or this account is no longer in it: polling again
         // can never succeed, so say so and stop instead of "retrying" forever.
-        if (failure?.refused) { alive = false; clearInterval(timer); setError(failure.message); return; }
+        if (failure?.refused) { alive = false; clearInterval(timer); roomGone(failure.message); return; }
         setError('การเชื่อมต่อสะดุด ระบบกำลังลองใหม่ คำตอบที่ส่งสำเร็จยังอยู่');
       }
       finally { reading = false; }
@@ -111,12 +138,43 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return () => { alive = false; clearInterval(timer); window.removeEventListener('online', refresh); document.removeEventListener('visibilitychange', refresh); };
   }, [code, user?.id]);
 
+  // A room that ends before its start was closed by its host (or expired):
+  // the guests are told and offered the way back. A running race keeps the
+  // refusal as an error line, since the answers already sent stay counted.
+  function roomGone(message) {
+    if (startedRef.current) { setError(message); return; }
+    rememberRoom('');
+    setError(null);
+    setClosed(true);
+  }
+  function backToLobby() {
+    setCode(''); setParticipants({}); setIsHost(false); setClosed(false); setStale(false); setError(null);
+    progressRef.current = {}; startedRef.current = false;
+  }
+  // Leaving the waiting room gives the seat back; the host leaving closes the
+  // room, so the guests' next poll says so. Best effort: a missed call only
+  // leaves the seat until the room expires.
+  function leaveWaitingRoom() {
+    const left = code;
+    if (left && user?.id && !startedRef.current) {
+      rememberRoom('');
+      Promise.resolve().then(() => ownedRpc(user.id, 'leave_race', { p_code: left })).catch(() => {});
+    }
+    backToLobby();
+  }
+
   async function act(work) {
     if (busyRef.current) return;
     busyRef.current = true; setBusy(true); setError(null);
-    try { await work(); }
+    try { await asksForReload(work); }
     catch (failure) { setError(thaiError(failure, 'ยังส่งไม่สำเร็จ กรุณาลองอีกครั้ง')); }
     finally { busyRef.current = false; setBusy(false); }
+  }
+  // Another build's questions are not an error to retry: they switch the
+  // screen to the reload notice instead.
+  async function asksForReload(work) {
+    try { await work(); }
+    catch (failure) { if (failure?.stale) { setStale(true); return; } throw failure; }
   }
   const createRace = () => act(async () => {
     const owner = user.id;
@@ -178,6 +236,28 @@ export default function RaceView({ goHome, setView, user, profile }) {
     );
   }
 
+  if (stale) {
+    return (
+      <>
+        <BackBar onBack={goHome} label="หน้าแรก" />
+        <StatePanel kind="error" title="แอปในเครื่องนี้ยังเป็นรุ่นเก่า"
+          body="ข้อสอบในห้องนี้มาจากรุ่นใหม่กว่า โหลดหน้าใหม่ แล้วกดเข้าห้องเดิมอีกครั้ง รหัสห้องจะใส่ไว้ให้ และคำตอบที่ส่งแล้วยังอยู่"
+          actionLabel="โหลดหน้าใหม่" onAction={() => window.location.reload()} />
+      </>
+    );
+  }
+
+  if (closed) {
+    return (
+      <>
+        <BackBar onBack={goHome} label="หน้าแรก" />
+        <StatePanel kind="error" title={`ห้อง ${code} ปิดแล้ว`}
+          body="เจ้าของห้องออกไปก่อนเริ่ม หรือห้องหมดอายุ สร้างห้องใหม่ หรือขอรหัสใหม่จากเพื่อน"
+          actionLabel="กลับไปหน้าแข่ง" onAction={backToLobby} />
+      </>
+    );
+  }
+
   if (phase === 'lobby' && !code) {
     return (
       <>
@@ -185,9 +265,9 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <div className="vmx-hero"><h1>แข่งกับ <em>เพื่อน</em></h1><p>ทำข้อสอบพร้อมกัน สร้างรหัสห้องหรือใส่รหัสจากเพื่อน</p></div>
         <div style={{ display: 'grid', gap: 12, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginBottom: 18 }}>
           <button className="vmx-btn vmx-btn-primary" onClick={createRace} disabled={busy} style={{ padding: '14px 20px' }}>
-            สร้าง Race ใหม่
+            สร้างห้องแข่งใหม่
           </button>
-          <JoinForm onJoin={joinRace} busy={busy} />
+          <JoinForm onJoin={joinRace} busy={busy} initial={rememberedRoom()} />
         </div>
         {error && <div style={{ color: 'var(--clr-rose-text, #c0392b)', fontSize: 14 }}>{error}</div>}
       </>
@@ -198,20 +278,23 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const others = Object.entries(participants).filter(([k]) => k !== user.id);
     return (
       <>
-        <BackBar onBack={() => { setCode(''); setParticipants({}); setIsHost(false); progressRef.current = {}; }} label="กลับ Lobby" />
+        <BackBar onBack={leaveWaitingRoom} label={isHost ? 'ปิดห้อง' : 'ออกจากห้อง'} />
         <div className="vmx-hero"><h1>รหัส <em>ห้องแข่ง</em></h1></div>
         <div style={{ padding: 24, borderRadius: 12, background: 'var(--clr-surface-2)', textAlign: 'center', marginBottom: 16 }}>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
-          <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'var(--vmx-mono)', fontWeight: 700, marginTop: 8, color: 'var(--clr-sage-text)' }}>{code}</div>
-          <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)' }}>ส่ง code นี้ให้เพื่อน, ทุกคนต้องอยู่ในห้องก่อนเริ่ม</div>
+          <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'var(--vmx-mono)', fontWeight: 700, color: 'var(--clr-sage-text)' }}>{code}</div>
+          <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)' }}>ส่งรหัสนี้ให้เพื่อน ทุกคนต้องเข้าห้องก่อนเริ่ม</div>
         </div>
+
+        {!isHost && (
+          <p role="status" style={{ marginBottom: 16, fontSize: 16, textAlign: 'center' }}>รอเจ้าของห้องกดเริ่ม</p>
+        )}
 
         {isHost && (
           <div style={{ marginBottom: 16, padding: 12, borderRadius: 10, border: '1px solid var(--clr-border)' }}>
-            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--vmx-mono)', marginBottom: 8 }}>Host: ตั้งค่า</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--vmx-mono)', marginBottom: 8 }}>ตั้งค่าห้อง</div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
               <label htmlFor="vmx-race-subject" style={{ fontSize: 14 }}>วิชา:</label>
-              <select id="vmx-race-subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}>
+              <select id="vmx-race-subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 16, minHeight: 44 }}>
                 {/* Grouped by year. Flat, this listed every subject in the app
                     together, so a second-year host picking a race scrolled
                     past Year 5 clinical subjects with nothing to say they
@@ -229,7 +312,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
                 // Clamped when the field is left, not on each key: typing 20
                 // passed through 2, which snapped to 5 before the 0 arrived.
                 onChange={(e) => setCountText(e.target.value.replace(/[^0-9]/g, '').slice(0, 2))}
-                onBlur={() => setCountText(String(count))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }} />
+                onBlur={() => setCountText(String(count))} style={{ width: 64, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 16, minHeight: 44 }} />
             </div>
             <button className="vmx-btn vmx-btn-primary" onClick={startRace} disabled={busy || loadingBank || others.length === 0} style={{ width: '100%' }}>
               {others.length === 0 ? '🕐 รอเพื่อนเข้าห้อง…' : `🏁 เริ่ม! (${others.length + 1} คน)`}
@@ -242,7 +325,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           {Object.entries(participants).map(([k, p]) => (
             <li key={k} style={{ padding: '6px 10px', borderRadius: 8, background: 'var(--clr-surface)', display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16 }}>{p.avatar}</span>
-              <span style={{ fontSize: 14, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ', host'}</span>
+              <span style={{ fontSize: 14, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ', เจ้าของห้อง'}</span>
             </li>
           ))}
         </ul>
@@ -261,7 +344,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const q = questions[idx];
     return (
       <>
-        <BackBar onBack={async () => { if (await confirmDialog({ title: 'ออกจาก race?', body: 'คะแนนรอบนี้ของคุณจะหาย', confirmLabel: 'ออก', tone: 'danger' })) goHome(); }} label="ออก" subtitle={`Race ${code}`} />
+        <BackBar onBack={async () => { if (await confirmDialog({ title: 'ออกจากการแข่ง?', body: `คำตอบที่ส่งแล้วยังเก็บไว้ ใส่รหัส ${code} อีกครั้งเพื่อตอบต่อจากข้อเดิม`, confirmLabel: 'ออก' })) goHome(); }} label="ออก" subtitle={`ห้อง ${code}`} />
         <ProgressBars myIdx={idx} myCorrect={correct} mySelf={profile} others={others} total={questions.length} />
         {busy && <p role="status">กำลังบันทึกคำตอบ…</p>}
         {error && <p role="alert" style={{ color: 'var(--clr-rose-text)' }}>{error}</p>}
@@ -287,7 +370,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const allRows = rankRacePlayers(participants);
     return (
       <>
-        <BackBar onBack={goHome} label="หน้าแรก" subtitle={`Race ${code} จบแล้ว`} />
+        <BackBar onBack={goHome} label="หน้าแรก" subtitle={`ห้อง ${code} จบแล้ว`} />
         <div className="vmx-hero"><h1>ผลการ <em>แข่ง</em></h1><p>เวลา: {fmtMs(elapsed)}, ตอบถูก {correct}/{questions.length} ข้อ</p></div>
         <p>เรียงผู้ที่ตอบครบก่อน แล้วเรียงคะแนนเท่ากันด้วยเวลาที่ใช้ สมาชิกที่ยังไม่จบจะแสดงสถานะไว้</p>
         {error && <p role="alert">{error}</p>}
@@ -303,7 +386,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         </ol>
         <div className="vmx-btn-row" style={{ marginTop: 16 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={() => { setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; }}>แข่งอีกรอบ</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={() => { rememberRoom(''); setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; startedRef.current = false; }}>แข่งอีกรอบ</button>
         </div>
       </>
     );
@@ -312,8 +395,8 @@ export default function RaceView({ goHome, setView, user, profile }) {
   return null;
 }
 
-function JoinForm({ onJoin, busy }) {
-  const [val, setVal] = useState('');
+function JoinForm({ onJoin, busy, initial = '' }) {
+  const [val, setVal] = useState(initial);
   return (
     <form onSubmit={(e) => { e.preventDefault(); onJoin(val); }} style={{ display: 'flex', gap: 6, padding: '14px 16px', borderRadius: 10, border: '1px solid var(--clr-border)', alignItems: 'center' }}>
       <input
@@ -322,7 +405,7 @@ function JoinForm({ onJoin, busy }) {
         onChange={(e) => setVal(e.target.value.toUpperCase())}
         aria-label="รหัสห้องแข่ง" placeholder="รหัส 6 ตัว เช่น A3C7F2"
         maxLength={6}
-        style={{ flex: 1, minWidth: 0, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}
+        style={{ flex: 1, minWidth: 0, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 16, minHeight: 44 }}
       />
       <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={busy || !val.trim()}>
         เข้าห้อง

@@ -75,6 +75,9 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
   const [editAvatar, setEditAvatar] = useState(md.avatar_emoji || '🐾');
   const [editBio, setEditBio] = useState(md.bio || '');
   const [editShowLb, setEditShowLb] = useState(md.show_on_leaderboard !== false); // default true
+  // Whether classmates see this student in "เพื่อนร่วมรุ่นที่ออนไลน์" on Home
+  // (useStudyBuddies reads show_online and does not join when it is off).
+  const [editShowOnline, setEditShowOnline] = useState(md.show_online !== false); // default true
 
   if (!user) {
     return (
@@ -111,6 +114,7 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
         avatar_emoji: editAvatar || null,
         bio: (editBio || '').slice(0, 140) || null,
         show_on_leaderboard: editShowLb,
+        show_online: editShowOnline,
       });
       setInfo('✓ บันทึกโปรไฟล์เรียบร้อย — รีเฟรชหน้าเพื่อเห็นผลทุกที่');
       setTimeout(() => { setSection(null); setInfo(''); }, 1800);
@@ -438,6 +442,16 @@ export default function AccountSettingsView({ user, goHome, setView, onSignedOut
                     onChange={(e) => setEditShowLb(e.target.checked)}
                   />
                   แสดงในอันดับคะแนน (ปิดไว้ถ้าอยากเก็บความคืบหน้าเป็นส่วนตัว)
+                </label>
+              </div>
+              <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink)' }}>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={editShowOnline}
+                    onChange={(e) => setEditShowOnline(e.target.checked)}
+                  />
+                  ให้เพื่อนเห็นว่าฉันออนไลน์และกำลังเรียนวิชาอะไร
                 </label>
               </div>
               <div style={{ display: 'flex', gap: 8 }}>

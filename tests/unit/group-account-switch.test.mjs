@@ -28,6 +28,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const { transformWithEsbuild } = await import('vite');
+const { leaveRule } = await import('../../src/lib/group-membership.js');
 
 // ── Harness ────────────────────────────────────────────────────────────────
 const h = (type, props, ...children) => ({ type, props: props || {}, children: children.flat(Infinity) });
@@ -137,20 +138,20 @@ function deferred() {
 const GROUP = { id: 'g-A', name: 'A study group', code: 'AAAAAA', openedBy: 'A' };
 const BOARD = [{ id: 'r1', user_id: 'A', profiles: { username: 'palm' }, mode: 'exam', subject: null, pct: 90, correct: 45, total: 50 }];
 const MEMBERS = [{ id: 'A', username: 'palm', role: 'admin' }, { id: 'M2', username: 'friend', role: 'member' }];
-const QUESTIONS = [{ id: 'q1', author_id: 'M2', author_name: 'friend', data: { subject: 'com5', q: 'Which drug?', tags: [] } }];
 
-async function detailView({ members, questions, board, props = {}, deps = {} } = {}) {
-  const calls = { members: 0, questions: 0, board: 0, deleted: [] };
+async function detailView({ members, board, props = {}, deps = {} } = {}) {
+  const calls = { members: 0, board: 0, left: [], deletedGroups: [], confirms: [] };
   const answer = (spec, fallback) => (typeof spec === 'function' ? spec() : Promise.resolve(spec ?? fallback));
   const make = await loadView('src/views/GroupDetailView.jsx', {
     getGroupMembers: () => { calls.members++; return answer(members, MEMBERS); },
-    getSharedQuestions: () => { calls.questions++; return answer(questions, QUESTIONS); },
     getGroupLeaderboard: () => { calls.board++; return answer(board, BOARD); },
-    deleteSharedQuestion: async (id) => { calls.deleted.push(id); },
+    leaveGroup: async (groupId, userId) => { calls.left.push([groupId, userId]); },
+    deleteGroup: async (groupId) => { calls.deletedGroups.push(groupId); },
+    leaveRule,
     qualifiesForLeaderboard: () => true,
     copyText: async () => ({ ok: true }),
     SUBJECTS: [{ id: 'com5', name: 'Companion V' }],
-    confirmDialog: async () => true,
+    confirmDialog: async (opts) => { calls.confirms.push(opts); return true; },
     alertDialog: () => {},
     thaiError: (e, fallback) => e?.message || fallback,
     ...deps,
@@ -209,18 +210,11 @@ test('PF-20: a failed board is an error, not "nobody has scored yet"', async () 
   assert.doesNotMatch(textOf(view.tree), /ยังไม่มีใครทำข้อสอบในกลุ่มนี้/);
 });
 
-test('PF-20: tab switching and deleting a shared question still work', async () => {
-  let rows = [...QUESTIONS, { id: 'q2', author_id: 'A', author_name: 'palm', data: { subject: 'com5', q: 'Mine to delete', tags: ['x'] } }];
-  const { view, calls } = await detailView({ questions: () => Promise.resolve(rows) });
-  openTab(view, 'ข้อที่แชร์');
-  assert.match(textOf(view.tree), /Which drug\?/);
-  assert.match(textOf(view.tree), /Mine to delete/);
-  const del = find(view.tree, (n) => n.type === 'button' && textOf(n) === '🗑');
-  rows = rows.filter((q) => q.id !== 'q2');
-  await del.props.onClick();
-  await view.settle();
-  assert.deepEqual(calls.deleted, ['q2']);
-  assert.doesNotMatch(textOf(view.tree), /Mine to delete/, 'the deleted row leaves the list');
+test('PF-20: tab switching still works, and the shared-questions tab is gone', async () => {
+  const { view } = await detailView();
+  assert.equal(tabButton(view.tree, 'ข้อที่แชร์'), null, 'no tab for a share action the app never had');
+  openTab(view, '👤 สมาชิก');
+  assert.match(textOf(view.tree), /friend/);
   openTab(view, 'อันดับคะแนน');
   assert.match(textOf(view.tree), /90%/);
 });
@@ -229,20 +223,70 @@ test('PF-20: an answer from a superseded load cannot overwrite a newer one', asy
   const first = deferred();
   const second = deferred();
   const queue = [first, second];
-  const mine = { id: 'q2', author_id: 'A', author_name: 'palm', data: { subject: 'com5', q: 'Mine', tags: [] } };
-  const { view } = await detailView({ board: () => queue.shift().promise, questions: [mine] });
-  // The board's first request is slow. Meanwhile the student deletes a shared
-  // question, which reloads the page and asks for the board again.
-  openTab(view, 'ข้อที่แชร์');
-  const deleting = find(view.tree, (n) => n.type === 'button' && textOf(n) === '🗑').props.onClick();
+  const { view } = await detailView({ board: () => queue.shift().promise });
+  // The board's first request is slow. Meanwhile the page moves to another
+  // of the student's groups, which asks for the board again.
+  view.render({ ...view.props, group: { ...GROUP, id: 'g-A2' } });
   second.resolve([{ ...BOARD[0], pct: 70 }]);
-  await deleting;
   await view.settle();
   first.resolve([{ ...BOARD[0], pct: 10 }]); // the old answer lands last
   await view.settle();
-  openTab(view, 'อันดับคะแนน');
   assert.match(textOf(view.tree), /70%/, 'the newer answer stays');
   assert.doesNotMatch(textOf(view.tree), /10%/, 'the stale answer must not replace it');
+});
+
+// ── Leaving (multiplayer wave): away from the tabs, behind a question, and
+// never the last admin ────────────────────────────────────────────────────
+const button = (tree, label) => find(tree, (n) => n.type === 'button' && textOf(n) === label);
+
+test('a member leaves from the foot of the page, after a question, and goes back to the list', async () => {
+  let back = 0;
+  const { view, calls } = await detailView({ props: { user: { id: 'M2' }, group: { ...GROUP, openedBy: 'M2' }, goBack: () => { back++; } } });
+  assert.equal(button(view.tree, 'ลบกลุ่ม'), null);
+  await button(view.tree, 'ออกจากกลุ่ม').props.onClick();
+  await view.settle();
+  assert.equal(calls.confirms.length, 1, 'leaving asks first');
+  assert.equal(calls.confirms[0].tone, 'danger');
+  assert.deepEqual(calls.left, [['g-A', 'M2']]);
+  assert.equal(back, 1);
+});
+
+test('the last admin is not offered Leave, only deleting the group, and is told why', async () => {
+  const { view, calls } = await detailView();
+  assert.equal(button(view.tree, 'ออกจากกลุ่ม'), null, 'the only admin cannot leave');
+  assert.match(textOf(view.tree), /ผู้ดูแลคนเดียว/);
+  await button(view.tree, 'ลบกลุ่ม').props.onClick();
+  await view.settle();
+  assert.equal(calls.confirms.length, 1, 'deleting asks first');
+  assert.deepEqual(calls.deletedGroups, ['g-A']);
+  assert.deepEqual(calls.left, []);
+});
+
+test('an admin with another admin beside them may leave', async () => {
+  const { view } = await detailView({ members: [{ id: 'A', username: 'palm', role: 'admin' }, { id: 'M2', username: 'friend', role: 'admin' }] });
+  assert.ok(button(view.tree, 'ออกจากกลุ่ม'));
+  assert.equal(button(view.tree, 'ลบกลุ่ม'), null);
+});
+
+test('nothing is offered until the member list has loaded, or when it failed', async () => {
+  const slow = deferred();
+  const { view } = await detailView({ members: () => slow.promise });
+  assert.equal(button(view.tree, 'ออกจากกลุ่ม'), null);
+  assert.equal(button(view.tree, 'ลบกลุ่ม'), null);
+  slow.reject(new Error('offline'));
+  await view.settle();
+  assert.equal(button(view.tree, 'ออกจากกลุ่ม'), null);
+  assert.equal(button(view.tree, 'ลบกลุ่ม'), null);
+});
+
+test('a refused leave stays on the page and says why in the banner', async () => {
+  const { view } = await detailView({
+    props: { user: { id: 'M2' }, group: { ...GROUP, openedBy: 'M2' } },
+    deps: { leaveGroup: async () => { throw new Error('ออกไม่ได้ตอนนี้'); } },
+  });
+  await button(view.tree, 'ออกจากกลุ่ม').props.onClick();
+  await view.settle();
+  assert.match(textOf(view.tree), /ออกไม่ได้ตอนนี้/);
 });
 
 // ── DA-01: a direct switch from account A to account B ────────────────────
@@ -338,5 +382,5 @@ test('DA-01: A\'s group reopened for B after a sign-out in between is not drawn 
   const { view, calls } = await detailView({ props: { user: { id: 'B' }, goBack: () => { back++; } } });
   assert.equal(back, 1);
   assert.ok(!view.frames.some((t) => /AAAAAA|A study group/.test(JSON.stringify(t))));
-  assert.deepEqual([calls.members, calls.questions, calls.board], [0, 0, 0]);
+  assert.deepEqual([calls.members, calls.board], [0, 0]);
 });

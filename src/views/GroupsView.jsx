@@ -1,8 +1,8 @@
 import Mochi from '../components/Mochi.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { thaiError } from '../lib/errors.js';
-import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
-import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { createGroup, joinGroupByCode, getMyGroups } from '../lib/api.js';
+import { alertDialog } from '../lib/dialog.js';
 import StatePanel from '../components/StatePanel.jsx';
 import { EMPTY_ART } from '../data/art.js';
 
@@ -72,7 +72,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       // that lands while the create is out must not be overwritten.
       setGroups((prev) => [...prev, { ...g, role: 'admin' }]);
       setNewName(''); setShowCreate(false);
-      alertDialog(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัส invite: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อ join`);
+      alertDialog(`สร้างกลุ่ม "${g.name}" แล้ว\nรหัสกลุ่ม: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อเข้าร่วม`);
     } catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
     finally { busyRef.current = false; setBusy(false); }
   };
@@ -96,21 +96,16 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
 
   // The group page is told which account opened it, so it can refuse to draw
   // this group (name, invite code) if the session has moved on by then.
+  // Leaving a group lives on the group's own page, at its foot and behind a
+  // question, never beside the button that opens it.
   const openGroup = (g) => { setActiveGroup({ ...g, openedBy: user.id }); setView('group-detail'); };
-
-  const handleLeave = async (groupId) => {
-    if (!(await confirmDialog({ title: 'ออกจากกลุ่มนี้?', confirmLabel: 'ออกจากกลุ่ม', tone: 'danger' }))) return;
-    const owner = user.id;
-    try { await leaveGroup(groupId, owner); if (stillFor(owner)) await load(); }
-    catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
-  };
 
   return (
     <>
       <div className="vmx-hero">
         <Mochi state="hearts" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>กลุ่ม <em>ติว</em></h1>
-        <p>สร้างกลุ่มแล้วส่ง code ให้เพื่อน หรือ join ด้วย code — แข่งคะแนน, เรียนไปด้วยกัน</p>
+        <p>สร้างกลุ่มแล้วส่งรหัสให้เพื่อน หรือเข้าร่วมด้วยรหัสจากเพื่อน แล้วแข่งคะแนนกัน</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 24, justifyContent: 'flex-start' }}>
@@ -137,8 +132,8 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
         <div className="vmx-config-panel">
           <form onSubmit={handleJoin}>
             <div className="vmx-form-group">
-              <label htmlFor="vmx-group-code">รหัส Invite (6 ตัวอักษร)</label>
-              <input id="vmx-group-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="ABC123" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
+              <label htmlFor="vmx-group-code">รหัสกลุ่ม 6 ตัว</label>
+              <input id="vmx-group-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="K7M2QX" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowJoin(false)}>ยกเลิก</button>
@@ -157,7 +152,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       ) : loadError ? (
         <StatePanel kind="error" title="โหลดกลุ่มไม่สำเร็จ" body={loadError} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : shownGroups.length === 0 ? (
-        <StatePanel art={EMPTY_ART.groups} title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือ join ด้วย invite code เพื่อเริ่มติวกับเพื่อน" />
+        <StatePanel art={EMPTY_ART.groups} title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือเข้าร่วมด้วยรหัสจากเพื่อน เพื่อเริ่มติวด้วยกัน" />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {shownGroups.map((g) => (
@@ -168,17 +163,14 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
                   className="vmx-pressable-card"
                   onClick={() => openGroup(g)}
                   style={{ flex: '1 1 220px', padding: 0 }}
-                  aria-label={`เปิดกลุ่ม ${g.name}, code ${g.code}`}
+                  aria-label={`เปิดกลุ่ม ${g.name}, รหัส ${g.code}`}
                 >
                   <h3 style={{ margin: 0 }}>{g.name}</h3>
                   <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                     รหัส: <strong style={{ color: 'var(--clr-gold-text)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 ผู้ดูแล' : 'สมาชิก'}
                   </div>
                 </button>
-                <div style={{ display: 'flex', gap: 6 }}>
-                  <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => openGroup(g)}>เปิด →</button>
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleLeave(g.id)}>ออก</button>
-                </div>
+                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => openGroup(g)}>เปิด →</button>
               </div>
             </div>
           ))}

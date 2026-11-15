@@ -250,7 +250,7 @@ test('the Home panel renders when who is where changes, not when anyone moves a 
   app.unmount();
 });
 
-test('the panel and the chip read what they read before', async () => {
+test('the panel and the chip read the presence map, and never a name from a payload', async () => {
   const { fake, mod, app } = await boot();
   const raw = {
     me: meOnline,
@@ -262,12 +262,13 @@ test('the panel and the chip read what they read before', async () => {
   await settle();
   const panel = createHost(() => mod.useBuddyPanel()).mount();
   // StudyBuddiesPanel reads subject, username and avatar, keyed by user id,
-  // and Home shows it when more than one key is present.
+  // and Home shows it when more than one key is present. The names come only
+  // from the server's lookup (none here), never from what a payload claims.
   assert.deepEqual(Object.keys(panel.result), Object.keys(raw));
   for (const [k, b] of Object.entries(raw)) {
     assert.equal(panel.result[k].subject || '_idle', b.subject || '_idle', `${k} subject`);
-    assert.equal(panel.result[k].username || 'guest', b.username || 'guest', `${k} username`);
-    assert.equal(panel.result[k].avatar || '🐾', b.avatar || '🐾', `${k} avatar`);
+    assert.equal(panel.result[k].username, null, `${k} username is not read from the payload`);
+    assert.equal(panel.result[k].avatar, null, `${k} avatar is not read from the payload`);
   }
   const exam = createHost(({ qKey }) => mod.useBuddyCountOnQ(qKey, ME.id)).mount({ qKey: 'zoonoses:q7' });
   assert.equal(exam.result, mod.countBuddiesOnQ(raw, 'zoonoses:q7', ME.id));
@@ -284,7 +285,7 @@ test('signing out empties the store, and the channel still tracks this student',
   const panel = createHost(() => mod.useBuddyPanel()).mount();
   assert.equal(Object.keys(panel.result).length, 2);
   // The payload the channel carries is unchanged by the store.
-  assert.deepEqual(fake.tracked[0], { username: 'palm', avatar: '🐾', subject: null, view: 'home', qKey: null, joined_at: fake.tracked[0].joined_at });
+  assert.deepEqual(fake.tracked[0], { subject: null, view: 'home', qKey: null, joined_at: fake.tracked[0].joined_at });
   app.rerender();
   app.unmount();
   await settle();
@@ -297,4 +298,49 @@ test('signing out empties the store, and the channel still tracks this student',
   assert.deepEqual(after.result, {});
   after.unmount();
   signedOut.unmount();
+});
+
+// Multiplayer wave (Nov 2026): the names on the panel are the server's.
+test('names come from buddy_profiles, keyed by the presence key, and a failed lookup leaves counts', async () => {
+  const fake = fakeRealtime();
+  const asked = [];
+  fake.sb.rpc = async (name, args) => {
+    asked.push([name, args]);
+    return { data: [{ key: 'b', username: 'bee-from-server', avatar_emoji: '🦊' }], error: null };
+  };
+  const mod = loadModule(fake);
+  const app = createHost(() => { mod.useStudyBuddies({ user: ME, profile: PROFILE, subject: null, view: 'home', qKey: null }); return null; }).mount();
+  await settle();
+  const self = mod.presenceKeyFor(ME.id);
+  fake.sync({ [self]: meOnline, b: classmate({ username: 'impostor', avatar: '👑' }), c: classmate() });
+  await settle();
+  const panel = createHost(() => mod.useBuddyPanel()).mount();
+  assert.deepEqual(Object.keys(panel.result).sort(), ['b', 'c', 'me'], 'this client is filed under its own id');
+  assert.equal(asked.length, 1);
+  assert.equal(asked[0][0], 'buddy_profiles');
+  assert.deepEqual(asked[0][1].p_keys.sort(), ['b', 'c'], 'self is not asked for');
+  assert.equal(panel.result.b.username, 'bee-from-server', 'the server names b, not its payload');
+  assert.equal(panel.result.b.avatar, '🦊');
+  assert.equal(panel.result.c.username, null, 'a key the server leaves out stays nameless');
+  fake.sync({ [self]: meOnline, b: classmate(), c: classmate({ qKey: 'zoonoses:q2' }) });
+  await settle();
+  assert.equal(asked.length, 1, 'known keys are not asked again');
+  panel.unmount();
+  app.unmount();
+
+  const broken = fakeRealtime();
+  let calls = 0;
+  broken.sb.rpc = async () => { calls++; return { data: null, error: { message: 'Could not find the function' } }; };
+  const mod2 = loadModule(broken);
+  const app2 = createHost(() => { mod2.useStudyBuddies({ user: ME, profile: PROFILE, subject: null, view: 'home', qKey: null }); return null; }).mount();
+  await settle();
+  broken.sync({ me: meOnline, b: classmate() });
+  await settle();
+  broken.sync({ me: meOnline, b: classmate(), d: classmate() });
+  await settle();
+  const panel2 = createHost(() => mod2.useBuddyPanel()).mount();
+  assert.equal(calls, 1, 'a database without the lookup is asked once');
+  assert.equal(panel2.result.b.username, null);
+  panel2.unmount();
+  app2.unmount();
 });

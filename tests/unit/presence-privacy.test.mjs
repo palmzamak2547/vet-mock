@@ -112,18 +112,39 @@ test('the key is the same in every tab of one account, so two tabs stay one pers
   assert.equal(a.configs[0].opts.config.presence.key, b.configs[0].opts.config.presence.key);
 });
 
-test('a student who opted out of the leaderboard is published without name or avatar', async () => {
-  for (const flag of [false, 'false', 'off']) {
+// Multiplayer wave (Nov 2026): a phone never publishes a name or an avatar.
+// Presence is written by the client, so a name in it could be anyone's;
+// names now come from the server's profile of each account (buddy_profiles).
+// This replaced the rule above it, which only blanked the name of a student
+// who had turned the leaderboard off.
+test('no student publishes a name or an avatar, whatever their settings', async () => {
+  for (const meta of [undefined, { show_on_leaderboard: true }, { show_on_leaderboard: false }]) {
     const fake = fakeRealtime();
-    loadHook(fake).render({ user: { id: UID, user_metadata: { show_on_leaderboard: flag } }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: 'com5', view: 'home', qKey: null });
+    loadHook(fake).render({ user: { id: UID, user_metadata: meta }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: 'com5', view: 'home', qKey: null });
     await settle(() => fake.tracked.length > 0);
     const [payload] = fake.tracked;
     assert.ok(payload, 'still counted as online');
-    assert.notEqual(payload.username, 'palm', `username published with show_on_leaderboard=${flag}`);
-    assert.notEqual(payload.avatar, '🐶');
+    assert.deepEqual(Object.keys(payload).sort(), ['joined_at', 'qKey', 'subject', 'view']);
+    assert.doesNotMatch(JSON.stringify(fake.tracked), /palm|🐶/);
   }
-  const shown = fakeRealtime();
-  loadHook(shown).render({ user: { id: UID, user_metadata: { show_on_leaderboard: true } }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: null, view: 'home', qKey: null });
-  await settle(() => shown.tracked.length > 0);
-  assert.equal(shown.tracked[0].username, 'palm', 'a student who shows on the board keeps their name');
+});
+
+test('a student who turned off being shown online does not join the channel', async () => {
+  for (const flag of [false, 'false', 'off']) {
+    const fake = fakeRealtime();
+    const { mod, render } = loadHook(fake);
+    render({ user: { id: UID, user_metadata: { show_online: flag } }, profile: { username: 'palm', avatar_emoji: '🐶' }, subject: 'com5', view: 'home', qKey: null });
+    await settle();
+    assert.equal(fake.configs.length, 0, `joined with show_online=${flag}`);
+    assert.equal(fake.tracked.length, 0);
+    assert.deepEqual(mod.useBuddyPanel(), {});
+  }
+});
+
+test('the presence key is the digest the server computes: b- and 16 hex of sha256', async () => {
+  const { createHash } = await import('node:crypto');
+  const fake = fakeRealtime();
+  const { mod } = loadHook(fake);
+  const want = `b-${createHash('sha256').update(`vet-mock-buddies:${UID}`).digest('hex').slice(0, 16)}`;
+  assert.equal(mod.presenceKeyFor(UID), want);
 });
