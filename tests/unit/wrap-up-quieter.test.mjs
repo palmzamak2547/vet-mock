@@ -30,12 +30,23 @@ test('the wrap-up draws its overview through the folding paragraph, for every pa
   assert.doesNotMatch(VIEW, /<p className="vmx-wrap-intro">/, 'no overview drawn whole by hand');
   assert.match(VIEW, /<WrapIntro text=\{shown\.intro\} \/>/);
   assert.match(VIEW, /introFolds\(el\.scrollHeight, parseFloat\(getComputedStyle\(el\)\.lineHeight\)\)/, 'measured, not listed by subject');
-  assert.match(VIEW, /aria-expanded="false" aria-controls="vmx-wrap-intro" onClick=\{\(\) => setOpen\(true\)\}>อ่านต่อ<\/button>/);
+  assert.match(VIEW, /aria-expanded="false" aria-controls="vmx-wrap-intro" onClick=\{openIntro\}>อ่านต่อ<\/button>/);
+  // Pressed, the button leaves and the opened paragraph takes the focus.
+  assert.match(VIEW, /<p ref=\{ref\} id="vmx-wrap-intro" tabIndex=\{-1\}/);
+  assert.match(VIEW, /setOpen\(true\);\n\s*window\.requestAnimationFrame\(\(\) => ref\.current\?\.focus\(\{ preventScroll: true \}\)\);/);
   const folded = CSS.slice(CSS.indexOf('.vmx-wrap-intro.is-folded {'), CSS.indexOf('}', CSS.indexOf('.vmx-wrap-intro.is-folded {')));
   assert.match(folded, /-webkit-line-clamp: 2;/);
   assert.match(folded, /overflow: hidden;/);
   const more = CSS.slice(CSS.indexOf('.vmx-wrap-intro-more {'), CSS.indexOf('}', CSS.indexOf('.vmx-wrap-intro-more {')));
   assert.match(more, /min-height: var\(--touch-min\)/, 'a thumb-sized target');
+});
+
+test('the key to the kinds of line opens on demand, closed by default', () => {
+  assert.match(VIEW, /<details className="vmx-wrap-howto">\n\s*<summary>ความหมายของแต่ละบรรทัด<\/summary>\n\s*<ul className="vmx-wrap-legend"/);
+  assert.doesNotMatch(VIEW, /<details className="vmx-wrap-howto" open/);
+  const at = CSS.indexOf('.vmx-wrap-howto > summary {');
+  assert.notEqual(at, -1);
+  assert.match(CSS.slice(at, CSS.indexOf('}', at)), /min-height: var\(--touch-min\)/);
 });
 
 test('the deck says "think before you open" once, beside the card', () => {

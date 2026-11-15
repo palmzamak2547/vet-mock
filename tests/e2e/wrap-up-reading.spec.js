@@ -63,6 +63,11 @@ test('each kind of line wears its icon beside its label, and the key shows all t
   await expect(item.locator('.vmx-wrap-list-label.is-examined svg')).toHaveCount(1);
   await expect(item.locator('.vmx-wrap-pitfall .vmx-wrap-list-label.is-pitfall svg')).toHaveCount(1);
   await expect(item.locator('.vmx-wrap-list-label.is-pitfall')).toHaveText('ระวังสับสน');
+  // The key opens on demand; open, it shows all three.
+  const key = page.locator('.vmx-wrap-howto');
+  expect(await key.getAttribute('open')).toBeNull();
+  await key.locator('summary').click();
+  await expect(page.locator('.vmx-wrap-legend')).toBeVisible();
   await expect(page.locator('.vmx-wrap-legend svg')).toHaveCount(3);
 });
 
@@ -111,7 +116,12 @@ test('a long overview opens folded to two lines, and the first item is on the fi
   const floor = (await bar.isVisible()) ? (await bar.boundingBox()).y : viewport.height;
   const first = await page.locator('.vmx-wrap-group-head').first().boundingBox();
   expect(first.y + 24).toBeLessThan(floor);
+  // The key to the kinds of line is closed until asked for, behind a thumb-sized summary.
+  await expect(page.locator('.vmx-wrap-legend')).toBeHidden();
+  expect((await page.locator('.vmx-wrap-howto > summary').boundingBox()).height).toBeGreaterThanOrEqual(44);
   await more.click();
   await expect(more).toHaveCount(0);
+  // The keyboard lands on the opened overview, not on the page.
+  await expect(intro).toBeFocused();
   expect((await intro.boundingBox()).height).toBeGreaterThan(lh * 4);
 });

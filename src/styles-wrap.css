@@ -12,8 +12,24 @@
 .vmx-wrap-slide[data-state="wait"] .vmx-wrap-slide-frame { background: var(--clr-surface-2); }
 .vmx-wrap-slide[data-state="failed"] .vmx-wrap-slide-frame, .vmx-wrap-slide[data-state="offline"] .vmx-wrap-slide-frame { cursor: pointer; color: var(--clr-ink-soft); }
 /* The overview folded to two lines (views/WrapUpView.jsx WrapIntro, lib/wrap-intro.js). */
-.vmx-wrap-intro.is-folded { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; margin-bottom: 0; }
-.vmx-wrap-intro-more { appearance: none; min-height: var(--touch-min); margin: 0 0 4px; padding: 0; border: 0; background: none; color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.vmx-wrap-intro-box { position: relative; margin: 0 0 8px; }
+.vmx-wrap-intro-box > .vmx-wrap-intro { margin: 0; }
+/* Folded: room below the second line so the 44 px target centred on it stays inside the box. */
+.vmx-wrap-intro-box.is-folded { padding-bottom: 11px; }
+.vmx-wrap-intro.is-folded { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+/* "อ่านต่อ" at the end of the second line, over a band the height of that line that fades the cut text. */
+.vmx-wrap-intro-more { appearance: none; position: absolute; right: 0; bottom: 0; min-height: var(--touch-min); margin: 0; padding: 0 0 0 36px; border: 0; background: linear-gradient(90deg, transparent, var(--clr-bg) 30px) no-repeat 0 50% / 100% 24px; color: var(--clr-ink); font: inherit; font-size: 14px; line-height: 1.6; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.vmx-wrap-intro:focus { outline: none; }
+.vmx-wrap-intro:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+/* The key to the kinds of line, one tap away (WrapUpView): a 44 px summary, the rows inside unchanged. */
+.vmx-wrap-howto { margin: 0; }
+.vmx-wrap-howto > summary { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch-min); padding: 0; font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); cursor: pointer; list-style: none; }
+.vmx-wrap-howto > summary::-webkit-details-marker { display: none; }
+.vmx-wrap-howto > summary::before { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform 0.15s ease; }
+.vmx-wrap-howto[open] > summary::before { transform: rotate(45deg); }
+.vmx-wrap-howto > summary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+.vmx-wrap-howto[open] > .vmx-wrap-legend { margin-bottom: 6px; }
+@media (prefers-reduced-motion: reduce) { .vmx-wrap-howto > summary::before { transition: none; } }
 .vmx-wrap-intro-more:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
 
 /* The revision deck (components/WrapDeck.jsx): one card per screen, the

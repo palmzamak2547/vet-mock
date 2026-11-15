@@ -76,7 +76,8 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
   await expect(page.getByRole('button', { name: 'เปิดคำตอบ' })).toBeVisible();
   // Thumb-sized controls, measured once the arriving card has settled (it rises in, slightly scaled).
   await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
-  for (const b of [page.getByRole('button', { name: 'เปิดคำตอบ' }), page.locator('.vmx-deck-pile-btn'), heads.first()]) {
+  // The pile is still empty here: its line holds the button's place at the same height.
+  for (const b of [page.getByRole('button', { name: 'เปิดคำตอบ' }), page.locator('.vmx-deck-pile-empty'), heads.first()]) {
     expect((await b.boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
 });
@@ -87,6 +88,9 @@ test('a card marked ต้องทวน comes back in its own round', async ({
   await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'ต้องทวน', exact: true }).click();
   await expect(pileCount(page)).toHaveText('1');
+  // With a card in it the pile is a button, thumb-sized.
+  await expect(page.locator('.vmx-deck-pile-empty')).toHaveCount(0);
+  expect((await page.locator('.vmx-deck-pile-btn').boundingBox()).height).toBeGreaterThanOrEqual(44);
   await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'จำได้' }).click();
 
