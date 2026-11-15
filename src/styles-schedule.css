@@ -135,7 +135,7 @@ div.vmx-sched-class { min-height: var(--touch-min); align-items: center; padding
 .vmx-sched-doc-open:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 
 /* The printable sheet on its way, and the note a tap that could not open it leaves. */
-.vmx-sched-opening { margin: 0; padding: var(--space-2) 14px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); animation: vmx-sched-late 1ms linear 400ms backwards; }
+.vmx-sched-opening { margin: 0; padding: var(--space-2) 14px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 .vmx-sched-fold-body > .vmx-sched-opening { padding-left: 0; padding-right: 0; }
 .vmx-timetable-failed { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0; padding: 10px 14px; background: var(--clr-surface-2); color: var(--clr-ink); font-size: 14px; line-height: 1.6; }
 .vmx-timetable-failed > span { flex: 1 1 20em; min-width: 0; text-wrap: pretty; }
