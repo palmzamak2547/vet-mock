@@ -245,13 +245,13 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-one-health-2026-b.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_B', year: 5, count: 61,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-b.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_B) },
-  { file: 'questions-y5-one-health-2026-c.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_C', year: 5, count: 21,
+  { file: 'questions-y5-one-health-2026-c.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_C', year: 5, count: 30,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-c.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_C) },
   { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 14,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026.js').then((m) => m.QB_Y5_ONE_HEALTH_2026) },
-  { file: 'questions-y5-one-health-final-recall.js', export: 'QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL', year: 5, count: 49,
+  { file: 'questions-y5-one-health-final-recall.js', export: 'QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL', year: 5, count: 50,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-final-recall.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL) },
   { file: 'questions-y5-one-health-pastpaper.js', export: 'QB_Y5_ONE_HEALTH_PASTPAPER', year: 5, count: 3,
@@ -331,4 +331,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-15T13:48:53.136Z — 107 banks · 9105 Qs
+// Built: 2026-11-15T18:00:05.804Z — 107 banks · 9115 Qs
