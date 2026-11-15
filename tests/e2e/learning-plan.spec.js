@@ -76,7 +76,7 @@ test('Home plan and SR agree on paper, due count, private cards, and a bounded s
   await expect(dueCount(page)).toHaveText('3ใบ');
   await page.getByRole('button', { name: 'กลางภาค', exact: true }).click();
   await expect(dueCount(page)).toHaveText('2ใบ');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.getByText(privateCard.front, { exact: true })).toBeVisible();
   await expect(page.locator('.vmx-progress')).toContainText('1 / 2');
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).click();
@@ -114,7 +114,7 @@ test('Home review mode resets old filters and scope chips fit at 320px', async (
     return r.left < -1 || r.right > document.documentElement.clientWidth + 1;
   });
   expect(escapes).toBe(false);
-  const startTop = await page.getByRole('button', { name: 'เริ่ม Session →', exact: true })
+  const startTop = await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true })
     .evaluate(el => el.getBoundingClientRect().top + window.scrollY);
   // Budget allows the SM-2/FSRS scheduler row added with the scheduler
   // preference (2026-10-08); the contract being guarded is that the scope

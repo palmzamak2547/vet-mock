@@ -96,6 +96,21 @@ async function upstashPipeline(commands) {
   return body;
 }
 
+let warming = false;
+/**
+ * Open the connection to the store as the instance starts, so the name lookup
+ * and the TLS handshake run while the caller does other work (the gate) and
+ * the first real limiter call finds the connection ready. One PING, never
+ * awaited, never counted against a limit, never able to fail a request; at
+ * most one in flight, and nothing once the store has answered or when it is
+ * not configured.
+ */
+export function warmStore() {
+  if (!HAS_UPSTASH || storeWarm || warming) return;
+  warming = true;
+  upstashPipeline([['PING']]).catch(() => {}).finally(() => { warming = false; });
+}
+
 async function rateLimitUpstash(key, max, winMs, by = 1) {
   const winSec = Math.ceil(winMs / 1000);
   const k = `rl:${key}`;
