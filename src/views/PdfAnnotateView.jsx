@@ -726,9 +726,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // reader's zoom. Measured from the frame rather than the window because the
   // thumbnail rail takes a slice of it.
   const [fitScale, setFitScale] = useState(1);
-  // Page 1, held for every row of the column: a row far from the screen
-  // reserves its size instead of asking pdf.js for its own page on open.
-  const [firstPage, setFirstPage] = useState(null);
   useLayoutEffect(() => {
     if (!pdfDoc) return undefined;
     let cancelled = false;
@@ -738,7 +735,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       try {
         const page = await pdfDoc.getPage(1);
         if (cancelled) return;
-        setFirstPage((prev) => (prev === page ? prev : page));
         const natural = page.getViewport({ scale: 1 });
         const avail = Math.max(160, wrap.clientWidth - 24);
         const fit = Math.min(2, Math.max(0.4, avail / natural.width));
@@ -2938,7 +2934,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               cursor="crosshair"
               handlers={pageHandlers}
               scrollRoot={wrapperRef}
-              sizeHint={firstPage}
               layer={tapesOn(n).length || tapeDraft?.page === n || textEdit?.page === n || (lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
                 <>
                 {textEdit?.page === n && (
