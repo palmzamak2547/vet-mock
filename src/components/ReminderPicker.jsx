@@ -53,7 +53,8 @@ export function ReminderOffer({ usual = null, className = '', style }) {
       {chosen && chosen !== 'app' && (
         <p className="vmx-reminder-note" role="status">เปิดปฏิทินให้แล้ว กดบันทึกนัดในปฏิทินเพื่อให้เตือน เปลี่ยนเวลาได้ที่หน้าเชื่อมแอป</p>
       )}
-      {!chosen && expanded && <div id={pickerId}><ReminderPicker usual={usual} onChosen={choose} /></div>}
+      {/* Inside the app the picker stays after the choice: its own line says the time the app will remind at. */}
+      {(!chosen || chosen === 'app') && expanded && <div id={pickerId}><ReminderPicker usual={usual} onChosen={choose} /></div>}
     </div>
   );
 }
