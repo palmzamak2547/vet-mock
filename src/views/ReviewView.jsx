@@ -509,7 +509,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <div className="vmx-review-caution" style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink)' }}>
                 <strong>{CAUTION_CHIP_TEXT}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
-                  <div style={{ marginTop: 4, color: 'var(--clr-ink-soft)', overflowWrap: 'anywhere' }}>แหล่งที่มา: {q.flag.sources.join(', ')}</div>
+                  <div style={{ marginTop: 4, color: 'var(--clr-rose-soft-text)', overflowWrap: 'anywhere' }}>แหล่งที่มา: {q.flag.sources.join(', ')}</div>
                 )}
               </div>
             )}
