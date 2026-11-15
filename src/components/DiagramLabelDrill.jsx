@@ -208,8 +208,8 @@ function DrillRunner({ drill, onBack, onClose }) {
               </ul>
             </details>
             <div className="vmx-btn-row" style={{ marginTop: 12 }}>
-              <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setProgress({}); setActiveAnchor(null); setRevealed(false); }}>🔁 ทำซ้ำ</button>
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onBack}>เปลี่ยน diagram</button>
+              <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setProgress({}); setActiveAnchor(null); setRevealed(false); }}>🔁 ทำซ้ำ</button>
             </div>
           </div>
         )}

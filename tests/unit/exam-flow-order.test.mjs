@@ -334,7 +334,7 @@ test('the timer line is unchanged while the pool is still being counted, and for
   assert.equal(configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: null }), '50 นาที');
   assert.equal(configClockLabel({ numQuestions: 0, timePerQ: 60, availablePool: poolOf('swine-clinic') }), '0 นาที');
   assert.equal(configClockLabel({ numQuestions: 1, timePerQ: 45, availablePool: null }), '45 วินาที');
-  assert.ok(CONFIG.includes("{!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'"), 'the timer-off wording moved');
+  assert.ok(CONFIG.includes("{!useTimer ? 'ปิด: ทำได้ตามสบาย ไม่จับเวลา'"), 'the timer-off wording moved');
 });
 
 test('the range hint names the item types that get more time, and only those', () => {

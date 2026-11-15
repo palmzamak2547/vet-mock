@@ -64,7 +64,7 @@ export default function PrivacyView({ goHome, setView, consent, analyticsAllowed
     <h3>การวัดการใช้งานและรายงานปัญหา</h3>
     <p>สถิติการใช้งาน ความเร็วหน้าเว็บ และรายงานข้อผิดพลาดอัตโนมัติทำงานเมื่อคุณอนุญาต analytics เท่านั้น รายงานข้อผิดพลาดเก็บเป็นจำนวนตามรุ่นเว็บ หน้าที่เปิด และประเภทข้อผิดพลาด ไม่ส่งคำตอบ โน้ต อีเมล ข้อความ error เต็ม หรือ URL ที่มีพารามิเตอร์ รายการนับนี้ล้างเมื่อเกิน 14 วันในการรับรายงานครั้งถัดไป</p>
     <p>สถานะ analytics: <strong>{analyticsAllowed ? 'อนุญาตแล้ว' : 'ยังไม่อนุญาต'}</strong> คุณเปลี่ยนการเลือกได้ทันที</p>
-    <div className="vmx-btn-row" style={{ flexWrap: 'wrap' }}>
+    <div className="vmx-btn-row is-stack">
       <button type="button" className="vmx-btn vmx-btn-ghost" aria-pressed={!analyticsAllowed} onClick={() => onConsent('essential')}>{!analyticsAllowed && <span aria-hidden="true">✓ </span>}ใช้เฉพาะที่จำเป็น</button>
       <button type="button" className="vmx-btn vmx-btn-ghost" aria-pressed={Boolean(analyticsAllowed)} onClick={() => onConsent('custom', { analytics: true, personal: false })}>{analyticsAllowed && <span aria-hidden="true">✓ </span>}อนุญาต analytics</button>
     </div>
@@ -72,7 +72,7 @@ export default function PrivacyView({ goHome, setView, consent, analyticsAllowed
     <p>หน้า Dashboard ส่งออกข้อมูลหลัก เครื่องมือในเครื่อง และประวัติคำตอบแบบละเอียดแยกไฟล์ได้ ลายมือ PDF ส่งออกจากหน้าอ่าน PDF การสำรองในเครื่องควรทำก่อนล้างข้อมูลเว็บไซต์หรือเปลี่ยนอุปกรณ์ ข้อมูลที่ยังรอส่งจะไม่ปรากฏในอุปกรณ์อื่น</p>
     <p>ข้อมูลการเรียนในบัญชีเก็บจนคุณลบหรือสั่งลบบัญชี ห้องแข่งมีอายุ 24 ชั่วโมง และล้างห้องหมดอายุเมื่อมีการสร้างห้องใหม่ ผลการแข่งขันยังอยู่ในประวัติจนลบบัญชี การลบบัญชีลบข้อมูลที่ผูกกับบัญชีบนระบบ แต่ไฟล์ที่ดาวน์โหลดและข้อมูลในเบราว์เซอร์อุปกรณ์อื่นยังต้องลบจากอุปกรณ์นั้นเอง ระบบสำรองของผู้ให้บริการอาจยังเก็บข้อมูลตามรอบของผู้ให้บริการ</p>
     <p>หากระบบแจ้งว่าผลการลบไม่ชัดเจน อย่าอาศัยข้อความนั้นเป็นหลักฐานว่าลบครบแล้ว ติดต่อผู้ดูแลเพื่อตรวจสถานะได้</p>
-    <div className="vmx-btn-row" style={{ flexWrap: 'wrap' }}>
+    <div className="vmx-btn-row is-stack">
       <button className="vmx-btn vmx-btn-primary" onClick={() => setView('dashboard')}>จัดการข้อมูลสำรอง</button>
       <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('account-settings')}>ตั้งค่าบัญชี</button>
       <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('feedback')}>ติดต่อผู้ดูแล</button>

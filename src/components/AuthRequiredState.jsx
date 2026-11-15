@@ -15,12 +15,13 @@ export default function AuthRequiredState({ page, onSignIn, onHome }) {
       <p style={{ margin: '0 0 20px', color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         เข้าสู่ระบบเพื่อเปิดข้อมูลกลุ่ม อันดับ และบัญชีและข้อมูล
       </p>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
-        <button type="button" className="vmx-btn vmx-btn-primary" onClick={onSignIn}>
-          เข้าสู่ระบบ
-        </button>
+      {/* The way back first, the sign-in last (docs/DESIGN_SYSTEM.md, Action rows). */}
+      <div className="vmx-btn-row is-center">
         <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onHome}>
           กลับหน้าแรก
+        </button>
+        <button type="button" className="vmx-btn vmx-btn-primary" onClick={onSignIn}>
+          เข้าสู่ระบบ
         </button>
       </div>
     </section>

@@ -2364,7 +2364,15 @@ html.dark .vmx-panic-scrim {
 }
 
 .vmx-btn-sm { padding: 8px 14px; font-size: 14px; min-height: 44px; }
-.vmx-btn-row { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+/* The action row (docs/DESIGN_SYSTEM.md, Action rows): every screen that pairs
+   a way back with a primary action places it here, never inline. The way back
+   is first, at the left; the primary is last and ends at the right edge. A
+   primary alone sits at the right, a way back alone stays left. */
+.vmx-btn-row { display: flex; gap: 10px; justify-content: flex-end; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+.vmx-btn-row:not(.is-stack, .is-center) > :first-child:not(:last-child),
+.vmx-btn-row:not(.is-stack, .is-center) > :only-child:not(.vmx-btn-primary) { margin-right: auto; }
+/* A centred empty state keeps its pair together in the middle, same order. */
+.vmx-btn-row.is-center { justify-content: center; }
 /* A row that is a list rather than a Back/Next pair (Results' secondary
    actions): it starts at the left, and a phone stacks it in DOM order
    instead of reversing it (see the 640px block). */
@@ -3879,6 +3887,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 @media (max-width: 640px) {
   .vmx-btn-row { flex-direction: column-reverse; gap: 10px; }
   .vmx-btn-row .vmx-btn { width: 100%; justify-content: center; }
+  /* .is-bar keeps one line on a phone: the back short at the left, the
+     primary taking the rest of the width to the right edge. */
+  .vmx-btn-row.is-bar { flex-direction: row; flex-wrap: nowrap; }
+  .vmx-btn-row.is-bar .vmx-btn { width: auto; }
   .vmx-mode-grid { grid-template-columns: 1fr; }
   .vmx-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .vmx-tf-row { grid-template-columns: 1fr; }
@@ -7501,15 +7513,27 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-config-note { padding: 10px 12px; border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink); font-size: 14px; line-height: 1.5; }
 .vmx-config-subrow { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--clr-border); }
 .vmx-config-sublabel { font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); margin-bottom: var(--space-2); }
-.vmx-config-actions { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-4); }
+/* The start bar stays in reach at every size: in flow under the summary, and
+   while the rows run past the screen it holds the bottom edge of the content
+   area, above the phone's bottom bar, on the page's own background. In flow at
+   the end, so it never covers the last setting. */
+.vmx-config-actions {
+  position: sticky;
+  bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px));
+  z-index: var(--z-raised);
+  display: flex; flex-direction: column; gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding: var(--space-3) 0;
+  background: var(--clr-bg);
+  box-shadow: 0 -1px 0 var(--clr-border);
+}
+.vmx-config-actions > .vmx-btn-row { margin-top: 0; }
 .vmx-config-summary { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.5; }
-/* Back and start as one row: the start is the wide target (Fitts), the back
-   stays a full 44px control that never wraps. */
-.vmx-config-actions-row { display: flex; align-items: center; gap: var(--space-2); }
+/* The start is the wide target (Fitts); the back stays a full 44px control
+   that never wraps. */
 .vmx-config-back { flex: 0 1 auto; white-space: nowrap; }
 .vmx-config-start { flex: 1 1 auto; }
 @media (min-width: 641px) {
-  .vmx-config-actions { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-4); }
   .vmx-config-start { flex: 0 1 auto; min-width: 240px; }
 }
 @media (max-width: 640px) {
@@ -7517,20 +7541,6 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-config-hero h1 { font-size: 24px; margin-bottom: 2px; }
   .vmx-config-panel { padding: var(--space-4); }
   .vmx-config-row { margin-bottom: 18px; }
-  /* The start bar stays in the thumb's reach: sticky above the bottom nav,
-     a card inside the content column (no bleed, so a wide safe-area inset
-     can never push it sideways). Scrolling to the end puts it back in flow. */
-  .vmx-config-actions {
-    position: sticky;
-    bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 8px);
-    z-index: var(--z-raised);
-    margin-top: var(--space-3);
-    padding: 10px 12px 12px;
-    border: 1px solid var(--clr-border);
-    border-radius: var(--r-lg);
-    background: var(--clr-surface);
-    box-shadow: var(--shadow-md);
-  }
   .vmx-config-summary { font-size: 14px; }
 }
 
@@ -7540,7 +7550,7 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-decide { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); padding: var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
 .vmx-decide-what { margin: 0; font-size: 16px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-decide-why { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
-.vmx-decide .vmx-config-actions-row, .vmx-decide .vmx-btn-row { margin-top: var(--space-2); }
+.vmx-decide .vmx-btn-row { margin-top: var(--space-2); }
 .vmx-decide-toggle { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min); padding: 0 var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; }
 .vmx-decide-toggle::after { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-fast) var(--ease-out); }
 .vmx-decide-toggle[aria-expanded="true"]::after { transform: translateY(2px) rotate(-135deg); }

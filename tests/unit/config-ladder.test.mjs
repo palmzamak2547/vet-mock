@@ -233,7 +233,10 @@ test('a set the app decided: the line and its reason, the start under it, the ro
   assert.equal(region.props.hidden, true);
   assert.equal(ladderSteps(region).length, 3, 'the ladder is inside the region');
   assert.match(textOf(whyLine(view.tree)), /^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน(?: ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง")?$/, 'the hedge the ladder uses, and nothing the line above already says');
-  assert.deepEqual(order(view.tree), ['start', 'toggle', 'region'], 'closed: the start right under the line');
+  // 5.235.0: summary, adjust, act. ปรับเอง sits in the summary card and the start
+  // row comes after it in both states (docs/DESIGN_SYSTEM.md, Action rows).
+  assert.deepEqual(order(view.tree), ['toggle', 'region', 'start'], 'closed: ปรับเอง in the card, the start row under it');
+  assert.equal(findAll(view.tree, (n) => n.props?.className === 'vmx-config-actions').length, 1, 'one start row, drawn in one place');
   toggle.props.onClick();
   view.flush();
   assert.equal(globalThis.localStorage.getItem('vmx-decide:open:config'), '1', 'the open state is kept per device');
