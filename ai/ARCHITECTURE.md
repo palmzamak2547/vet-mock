@@ -15,7 +15,8 @@ ai/                         static Vite app, Vercel project "vetmock-ai", ai.vet
                             speech (th-TH in/out), image (resize before upload), env;
                             the Chula sign-in wall: chula (the rule, a copy of src/lib/chula.js),
                             wall (its state), auth (the one Supabase Auth module, lazy), gis
-                            (Google's own button), account (the page's wall + the API's token), inapp
+                            (Google's own button), account (the page's wall + the API's token), inapp,
+                            pass (a trial link's code on the device)
   src/components/           Composer, Message (answer, sources deck, cards), Chrome
                             (header, history sheet, specimen label, footer), GlyphText
   tests/unit/               node --test, no browser
@@ -57,6 +58,13 @@ button again, no One Tap, then `linkIdentity` with the ID token and a reload); a
 already has its own account is told so with a way to sign in with it. A tab shown again re-asks the
 switch at most once a minute. Signing out is at the foot of the history sheet. A build without
 `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` has no accounts and no wall.
+
+A trial link (`?pass=<code>`; docs/CHULA-SIGNIN.md, "Trial links") opens the page for a device with
+no account. `lib/pass.js` takes the code out of the address and keeps it (`vmx-ai-pass`); a POST with
+no session carries it as `X-VetMock-Pass` instead of a token (`lib/api.js`); the wall then answers
+`open` with `trial: true`, and the page hides the call button and adds one line under the box. A 401
+`pass_invalid` drops the code and shows the sign-in card with one line. A session always wins: a
+member's request never carries the code, and the code goes when an account leaves the device.
 
 ## The voice call
 
