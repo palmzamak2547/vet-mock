@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import DecideLines from '../components/DecideLines.jsx';
 import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
@@ -298,13 +299,21 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         : k === SR_KEYS.yearScope ? yearScope : k === SR_KEYS.phaseScope ? phaseScope : null),
       set() {}, remove() {},
     };
-    const signals = { planSize, dueReviewed: dueReviewedCount, newCount };
+    const counting = !scopeReady || (yearScope === 'all' && allYearsLoad === 'loading');
+    // While counting, the line is drawn hidden with the words the count most
+    // likely brings, so the block already has their height (DecideLines): a
+    // card due, and the bank's unseen cards, which are new and number in the
+    // thousands for a year.
+    const lineReviewed = counting ? Math.max(1, dueReviewedCount) : dueReviewedCount;
+    const lineNew = counting ? Math.max(1000, newCount) : newCount;
+    const signals = { planSize, dueReviewed: lineReviewed, newCount: lineNew };
     const decision = decide(SR_SETUP, signals, rowsIO);
-    const todayCount = sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount);
+    const lineDue = counting ? lineReviewed + lineNew : dueCount;
+    const todayCount = sessionSize === 'all' ? lineDue : Math.min(sessionSize, lineDue);
     // What the session holds, so 25 unseen cards are never announced as 25 due.
     const split = [
-      dueReviewedCount > 0 ? `ค้างทบทวน ${dueReviewedCount.toLocaleString()}` : null,
-      newCount > 0 ? `ใหม่ ${newCount.toLocaleString()}` : null,
+      lineReviewed > 0 ? `ค้างทบทวน ${lineReviewed.toLocaleString()}` : null,
+      lineNew > 0 ? `ใหม่ ${lineNew.toLocaleString()}` : null,
     ].filter(Boolean).join(', ');
     const subjectName = subjectFilter === 'all' ? 'ทุกวิชา' : (SUBJECTS.find((x) => x.id === subjectFilter)?.name || 'วิชาที่เลือกไว้');
     const sessionLine = [
@@ -325,7 +334,17 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       setSavedSize(25);
       globalThis.requestAnimationFrame?.(() => startButtonRef.current?.focus());
     };
-    const counting = !scopeReady || (yearScope === 'all' && allYearsLoad === 'loading');
+    const decidedLine = <><strong>{decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว'}:</strong> {sessionLine}</>;
+    const whyLine = (decision.why || decision.by === 'you') ? (
+      <>
+        {decision.why}
+        {decision.by === 'you' && (
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
+            กลับไปใช้ค่าที่จัดให้
+          </button>
+        )}
+      </>
+    ) : null;
     const startRow = (
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
@@ -350,21 +369,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <section className="vmx-decide" aria-label="รอบทบทวนวันนี้">
           {/* Nothing is claimed before the bank that holds the cards is in: a
               cold visit counted 0 and said nothing was due. */}
-          <p className="vmx-decide-what" id="vmx-srs-summary">
-            {counting ? 'กำลังนับใบที่ถึงรอบ…'
-              : dueCount === 0 ? 'วันนี้ไม่มีใบถึงรอบ'
-                : <><strong>{decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว'}:</strong> {sessionLine}</>}
-          </p>
-          {!counting && dueCount > 0 && (decision.why || decision.by === 'you') && (
-            <p className="vmx-decide-why">
-              {decision.why}
-              {decision.by === 'you' && (
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
-                  กลับไปใช้ค่าที่จัดให้
-                </button>
-              )}
-            </p>
-          )}
+          {counting ? <DecideLines id="vmx-srs-summary" pending="กำลังนับใบที่ถึงรอบ…" what={decidedLine} why={whyLine} />
+            : dueCount === 0 ? <DecideLines id="vmx-srs-summary" what="วันนี้ไม่มีใบถึงรอบ" />
+              : <DecideLines id="vmx-srs-summary" what={decidedLine} why={whyLine} />}
           {yearScope === 'all' && allYearsLoad === 'failed' && (
             <div className="vmx-config-availability" role="status">
               ยังโหลดทุกปีไม่ครบ ตอนนี้มีเฉพาะปีที่โหลดแล้ว{' '}
