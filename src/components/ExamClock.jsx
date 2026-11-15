@@ -17,7 +17,7 @@
 
 import { useEffect, useReducer } from 'react';
 import { fmtTime } from '../hooks/utils.js';
-import { secondsUntilDeadline } from '../lib/exam-clock.js';
+import { secondsUntilDeadline, examNow } from '../lib/exam-clock.js';
 
 export default function ExamClock({ deadline, writing = false }) {
   const [, tick] = useReducer((n) => n + 1, 0);
@@ -25,7 +25,7 @@ export default function ExamClock({ deadline, writing = false }) {
     let timer = null;
     const arm = () => {
       clearTimeout(timer);
-      const left = deadline - Date.now();
+      const left = deadline - examNow();
       // Seconds are shown rounded up, so 0:59 holds from 59.000 s down to
       // 58.001 s and the next change is `left % 1000` ms away.
       if (left > 0) timer = setTimeout(update, left % 1000 || 1000);

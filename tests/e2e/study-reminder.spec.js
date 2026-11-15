@@ -43,6 +43,14 @@ test('the first set of a day offers a daily reminder once; a time fills both cal
   await finishOneSet(page);
   const offer = page.locator('.vmx-reminder-offer');
   await expect(offer).toContainText('ให้ปฏิทินเตือนทำโจทย์ทุกวันไหม');
+  // One row under the score until the times are asked for.
+  expect((await offer.boundingBox()).height).toBeLessThan(140);
+  await expect(offer.getByRole('button', { name: '07:00 น.' })).toHaveCount(0);
+  const opener = offer.getByRole('button', { name: 'เลือกเวลา', exact: true });
+  await expect(opener).toHaveAttribute('aria-expanded', 'false');
+  await opener.click();
+  await expect(opener).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('#' + await opener.getAttribute('aria-controls'))).toBeVisible();
   await offer.getByRole('button', { name: '07:00 น.' }).click();
   await expect(offer.getByRole('button', { name: '07:00 น.' })).toHaveAttribute('aria-pressed', 'true');
   const google = new URL(await offer.getByRole('link', { name: 'Google Calendar' }).getAttribute('href'));
@@ -83,6 +91,7 @@ test('inside the Android app the offer asks the app, and only on a tap', async (
   const offer = page.locator('.vmx-reminder-offer');
   await expect(offer).toContainText('ให้ VetMock เตือนทำโจทย์ทุกวันไหม');
   expect(await page.evaluate(() => window.__asked)).toBe(0);
+  await offer.getByRole('button', { name: 'เลือกเวลา', exact: true }).click();
   await offer.getByRole('button', { name: '07:00 น.' }).click();
   await offer.getByRole('button', { name: 'ให้แอปเตือนเวลา 07:00 น.' }).click();
   await expect(offer).toContainText('แอปจะเตือนทุกวันเวลา 07:00 น.');

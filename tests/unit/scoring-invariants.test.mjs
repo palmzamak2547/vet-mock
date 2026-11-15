@@ -30,12 +30,7 @@ import { loadModule, mount } from '../helpers/fake-react.mjs';
 
 // Known failures on main: { invariant, case, why }. Found 11 Nov 2026; the scoring code is not
 // changed here. Each row is asserted to still fail, so the fix that makes it pass must delete it.
-const KNOWN_FAILURES = [
-  { invariant: 'thai spelling', case: { key: 'น้ำตาล', typed: 'น้ําตาล' },
-    why: 'SARA AM typed as NIKHAHIT + SARA AA looks the same and NFC does not join them, so the key is marked wrong' },
-  { invariant: 'thai spelling', case: { key: 'กิ่ง', typed: 'ก่ิง' },
-    why: 'a tone mark typed before SARA I looks the same; NFC reorders only marks that both have a combining class, so the key is marked wrong' },
-];
+const KNOWN_FAILURES = [];
 
 // ── A PRNG of the test's own (not the app's mulberry32) ──────────────────────────────────────────
 function prng(seed) {

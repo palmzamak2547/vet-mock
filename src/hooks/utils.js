@@ -38,9 +38,22 @@ export const fmtDate = (ts, now = Date.now()) => {
 // One rule for the client and the server: api/_lib/exam-scoring.js imports
 // isCorrect from here, so the leaderboard re-scores with this same code.
 
+// Two Thai spellings that look the same on screen and differ in code points,
+// so a student who typed the key was marked wrong: SARA AM typed as NIKHAHIT
+// plus SARA AA (U+0E4D U+0E32, some keyboards and input methods), with or
+// without a tone mark between or before them; and a tone mark (or the
+// thanthakhat) typed before the vowel above or below the same consonant,
+// which NFC does not reorder because those vowels have no combining class.
+// One fixed form for both, applied to the answer and the key alike: a text
+// that already matched still matches (the same input gives the same output).
+const thaiSpelling = (s) => s
+  .replace(/ํ([่-๋]?)า/g, '$1ำ')
+  .replace(/([่-๋])ํา/g, '$1ำ')
+  .replace(/([่-์])([ัิ-ฺ็])/g, '$2$1');
+
 // Case, spacing, dash style and Thai digits are writing, not knowledge.
-const normFill = (s) => String(s ?? '')
-  .normalize('NFC')
+const normFill = (s) => thaiSpelling(String(s ?? '')
+  .normalize('NFC'))
   .toLowerCase()
   .replace(/[๐-๙]/g, (d) => String(d.charCodeAt(0) - 0x0e50))
   .replace(/[‐-―−]/g, '-')
@@ -195,22 +208,41 @@ function unorderedGroups(q) {
   return groups;
 }
 
-// Each typed answer in a group must match a different key of that group.
-function groupCorrect(q, idx, ua) {
-  const keys = idx.map((i) => ({ i, key: q.blanks[i] }));
-  const taken = new Array(keys.length).fill(false);
-  const place = (a) => {
-    if (a === idx.length) return true;
-    const answer = ua[idx[a]];
-    for (let k = 0; k < keys.length; k++) {
-      if (taken[k] || !blankCorrect(q, keys[k].i, answer, keys[k].key)) continue;
-      taken[k] = true;
-      if (place(a + 1)) return true;
-      taken[k] = false;
+// The best pairing of a group's typed answers with its keys, each key used
+// once (augmenting paths, so it is a maximum pairing). Returns the positions
+// whose answer is paired with a key. Scoring and the marks both read it, so
+// the marks can never disagree with the score.
+function groupPairing(q, idx, ua) {
+  const owner = new Array(idx.length).fill(-1); // key slot -> answer slot
+  const tryPlace = (a, seen) => {
+    for (let k = 0; k < idx.length; k++) {
+      if (seen[k] || !blankCorrect(q, idx[k], ua[idx[a]], q.blanks[idx[k]])) continue;
+      seen[k] = true;
+      if (owner[k] === -1 || tryPlace(owner[k], seen)) { owner[k] = a; return true; }
     }
     return false;
   };
-  return place(0);
+  for (let a = 0; a < idx.length; a++) tryPlace(a, new Array(idx.length).fill(false));
+  return new Set(owner.filter((a) => a !== -1).map((a) => idx[a]));
+}
+
+// Each typed answer in a group must match a different key of that group.
+function groupCorrect(q, idx, ua) {
+  return groupPairing(q, idx, ua).size === idx.length;
+}
+
+// Which typed blanks are right, for the marks beside each blank in practice.
+// Display only: isCorrect below is the score. In an unordered group a blank is
+// right when the best pairing (the one scoring uses) gives it a key.
+export function fillBlankMarks(q, ua) {
+  if (!Array.isArray(q?.blanks)) return [];
+  const answers = Array.isArray(ua) ? ua : [];
+  const marks = q.blanks.map((b, i) => blankCorrect(q, i, answers[i], b));
+  for (const g of unorderedGroups(q)) {
+    const paired = groupPairing(q, g, answers);
+    for (const i of g) marks[i] = paired.has(i);
+  }
+  return marks;
 }
 
 function fillCorrect(q, ua) {
@@ -241,7 +273,7 @@ const THAI_CHAR = /[฀-๿]/;
 const DIGIT = /[0-9]/;
 const LATIN_OR_DIGIT = /[a-z0-9]/;
 function keywordText(s) {
-  return String(s ?? '').toLowerCase()
+  return thaiSpelling(String(s ?? '')).toLowerCase()
     .replace(/[^a-z0-9฀-๿.,\s]/g, ' ')
     .replace(/[.,]/g, (m, at, all) => (DIGIT.test(all[at - 1] || '') && DIGIT.test(all[at + 1] || '') ? m : ' '))
     .replace(/\s+/g, ' ')

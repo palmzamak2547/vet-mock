@@ -1,7 +1,7 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered } from '../hooks/utils.js';
+import { subjectText, isAnswered, isCorrect, fillBlankMarks } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
@@ -9,6 +9,7 @@ import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
 import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { displayStem } from '../lib/match-stem.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -70,6 +71,11 @@ const TYPE_LABEL = {
   short: 'ตอบสั้น',
   essay: 'เขียนบรรยาย',
 };
+
+// Fill-in items checked with ตรวจคำตอบ in practice, by subject:id, for this
+// page load. Outside the component because one instance serves the whole
+// set (ExamView renders the card without a key) and a set may be revisited.
+const FILL_CHECKED = new Set();
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0 }) {
   // A verdict is fresh when this visit to the question began unanswered: the
@@ -142,6 +148,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   };
   // The voice reads `say`: the stem together with the numbers that sit in the passage's table.
   const saysTable = wholeStem(currentQ) !== (currentQ?.q || '');
+  // A matching stem shows without its old drag instruction (lib/match-stem.js); the voice
+  // still reads the whole stem, so no phrase is marked in one that was shortened.
+  const shownStem = displayStem(currentQ);
+  const stemShortened = shownStem !== (currentQ?.q || '');
   // Likewise an explanation laid out as steps: the voice reads the paragraph it was written as.
   const saysParagraph = wholeExplain(currentQ) !== (currentQ?.explain || '');
   // What a job reads: options in the order the student sees them, so
@@ -160,7 +170,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     // A stem read from `say`, or an explanation read from `explainSay`, is not the text on screen, so no
     // phrase is marked in it.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? (saysTable ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
+      ? (what === 'q' ? (saysTable || stemShortened ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
       : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
     // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
     block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
@@ -345,9 +355,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // When `revealAnswer` is on (practice modes only — ExamView never
   // sets it in exam mode), choice questions reveal their verdict the
   // moment they are answered: correct option glows green, a wrong pick
-  // glows red and locks, and q.explain shows inline. Fill/match/short/
-  // essay keep submit-time grading — revealing while half-typing a
-  // blank would just flash misleading ✗ marks.
+  // glows red and locks, and q.explain shows inline. A fill-in item waits
+  // for its ตรวจคำตอบ press (revealing while half-typing a blank would
+  // flash misleading ✗ marks); match and the written kinds have their own
+  // timing (AnswerReveal.jsx).
   const mcqRevealed = Boolean(revealAnswer)
     && currentQ.type === 'mcq'
     && typeof currentAnswer === 'number';
@@ -366,7 +377,27 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const matchFilled = currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0
     && currentAnswer && typeof currentAnswer === 'object'
     && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
-  const keyShown = mcqRevealed || tfRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
+  // A fill-in item is typed, so it is answered when the student says so:
+  // ตรวจคำตอบ, once every blank holds text, in practice only. The check is
+  // kept for this page load (FILL_CHECKED) and locks the blanks, or the key
+  // just read could be typed in and scored as the student's own. Emptied
+  // blanks are a fresh start of the same question (a new set).
+  const fillComplete = currentQ.type === 'fill' && Array.isArray(currentQ.blanks) && currentQ.blanks.length > 0
+    && Array.isArray(currentAnswer) && currentQ.blanks.every((_, i) => String(currentAnswer[i] ?? '').trim().length > 0);
+  if (currentQ.type === 'fill' && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
+  const [fillCheckedNow, setFillCheckedNow] = useState(null);
+  // Fill follows the written answers' timing: with เฉลยหลังส่งทั้งชุด it waits for the review.
+  const fillRow = Boolean(revealAnswer) && writtenTiming === REVEAL_ROW;
+  const fillRevealed = fillRow && fillComplete && FILL_CHECKED.has(compoundId);
+  const fillOk = fillRevealed && isCorrect(currentQ, currentAnswer);
+  const fillMarks = fillRevealed ? fillBlankMarks(currentQ, currentAnswer) : [];
+  const fillRight = fillMarks.filter(Boolean).length;
+  const checkFill = () => {
+    if (!fillRow || !fillComplete) return;
+    FILL_CHECKED.add(compoundId);
+    setFillCheckedNow(compoundId);
+  };
+  const keyShown = mcqRevealed || tfRevealed || fillRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -427,7 +458,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={currentQ.q} subject={currentQ.subject} /></h2>
+      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={shownStem} subject={currentQ.subject} /></h2>
 
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
@@ -543,11 +574,47 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               <label className="vmx-fill-label" htmlFor={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`}>
                 {currentQ.blanks.length > 1 ? `ช่องที่ ${i + 1}` : 'คำตอบ'}
               </label>
-              <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
-                onChange={(e) => { const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
-                placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
+              <div className="vmx-fill-input-wrap">
+                <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
+                  readOnly={fillRevealed}
+                  onChange={(e) => { if (fillRevealed) return; const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' && fillComplete && !fillRevealed && fillRow) { e.preventDefault(); checkFill(); } }}
+                  placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
+                {fillRevealed && (
+                  <span className={`vmx-fill-mark ${fillMarks[i] ? 'is-ok' : 'is-no'}`} role="img" aria-label={fillMarks[i] ? 'ช่องนี้ถูก' : 'ช่องนี้ยังไม่ใช่'}>{fillMarks[i] ? '✓' : '✗'}</span>
+                )}
+              </div>
             </div>
           ))}
+          {revealAnswer && !fillRevealed && (
+            <div className="vmx-written-reveal-bar">
+              <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel={REVEAL_LABELS.writtenRow} endLabel={REVEAL_LABELS.end} />
+              {fillRow && (
+                <button type="button" className="vmx-written-reveal-btn" disabled={!fillComplete} aria-describedby={fillComplete ? undefined : `vmx-fill-hint-${currentQ.subject}-${currentQ.id}`} onClick={checkFill}>ตรวจคำตอบ</button>
+              )}
+              {fillRow && !fillComplete && (
+                <span id={`vmx-fill-hint-${currentQ.subject}-${currentQ.id}`} className="vmx-fill-check-hint">{currentQ.blanks.length > 1 ? 'เติมให้ครบทุกช่องก่อน' : 'พิมพ์คำตอบก่อน'}</span>
+              )}
+            </div>
+          )}
+          {fillRevealed && (
+            <InstantFeedback
+              key={compoundId}
+              ok={fillOk}
+              headline={!fillOk && fillRight > 0 ? `✗ ถูก ${fillRight} จาก ${currentQ.blanks.length} ช่อง ดูเฉลยด้านล่าง` : null}
+              focusOnShow
+              run={answerRun}
+              fresh={fillCheckedNow === compoundId}
+              correctNode={currentQ.blanks.length > 1
+                ? <ol className="vmx-fill-key">{currentQ.blanks.map((b, i) => <li key={i}><RichText text={b} /></li>)}</ol>
+                : <RichText text={currentQ.blanks[0]} />}
+              explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
+              figure={explainFigure}
+              evidence={evidence}
+              subject={currentQ.subject}
+              wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={fillOk} />}
+            />
+          )}
         </div>
       )}
 
@@ -965,7 +1032,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, headline = null, focusOnShow = false, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -977,6 +1044,9 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
   // baseline), and it sat between the tap and the ✓/✗ appearing. An answer
   // revisited later shows everything at once.
   const [rest, setRest] = useState(!isFresh);
+  // A verdict opened by a button that is gone once it opens takes focus itself.
+  const headRef = useRef(null);
+  useEffect(() => { if (focusOnShow && isFresh) headRef.current?.focus?.({ preventScroll: true }); }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once, at the verdict
   useEffect(() => {
     if (isFresh) haptic(reaction.haptic, preferences);
     if (rest) { onShown?.(); return undefined; }
@@ -993,7 +1063,7 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
           {/* The verdict is the headline itself; the mono English kicker that
               sat above it said the same thing a second time in a language the
               card does not otherwise speak. */}
-          <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
+          <div className="v" ref={headRef} tabIndex={focusOnShow ? -1 : undefined} style={focusOnShow ? { outline: 'none' } : undefined}>{headline || (ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง')}</div>
           {/* How many correct in a row ends here, counted from the set's own
               verdicts (lib/mochi-reactions.js correctRun). */}
           {combo && <span className={`vmx-combo-chip${isFresh ? ' is-fresh' : ''}`}>ถูกติดกัน {run} ข้อ</span>}

@@ -40,9 +40,14 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { timeForQuestion, isWritingType } from './utils.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { inflightExamKey, isOwnedExam } from '../lib/exam-recovery.js';
-import { secondsUntilDeadline } from '../lib/exam-clock.js';
+import { secondsUntilDeadline, examNow } from '../lib/exam-clock.js';
 import { resumedDeadline, unsavedResult } from '../lib/app-flow.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/study-events.js';
+
+// The shortest time between two moves of the set (see the move hold below).
+const MOVE_FLOOR_MS = 120;
+// The longest a move holds the next one when no new question was painted.
+const MOVE_HOLD_MAX_MS = 250;
 
 /**
  * @param {object} params
@@ -92,7 +97,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const [examStartTime, setExamStartTime] = useState(null);
   const setTimeLeft = useCallback((seconds) => {
     const duration = Math.max(0, Number(seconds) || 0);
-    setQuestionDeadline(Date.now() + duration * 1000);
+    setQuestionDeadline(examNow() + duration * 1000);
     setTimeUp(duration <= 0);
   }, []);
   // Whether THIS session runs on one clock for the whole set. Held in a ref,
@@ -106,6 +111,44 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   ), [timePerQ]);
   const positionRef = useRef(null);
   positionRef.current = { questions, currentIdx, view };
+
+  // One move at a time. A double tap on ข้อถัดไป took the set from question 1
+  // to question 3: the second tap landed on the next button of a question the
+  // student never saw. A move is held from the tap until the frame after the
+  // one that paints the question it shows, so a second tap, key press, swipe
+  // or map jump in that window is refused. Held only for a move that changes
+  // the question, so nothing is left holding it. A painted frame is not yet a
+  // question seen: the next key pressed twice by the test runner landed after
+  // the paint and still skipped one. So a second move also waits until
+  // MOVE_FLOOR_MS have passed since the first, less than the quickest reaction
+  // to a new question (about 150 to 200 ms), so moving on deliberately, however
+  // fast, is never refused.
+  const moveHeldRef = useRef(false);
+  const lastMoveAtRef = useRef(-Infinity);
+  const moveClock = () => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
+  // The frames release the hold when the question changes. A move that changed
+  // nothing (a stale handler after the clock moved the set on) leaves no
+  // change to release it, so a hold also lapses MOVE_HOLD_MAX_MS after it was
+  // taken: the student is never stuck waiting for the next time-out.
+  const moveRefused = () => {
+    const since = moveClock() - lastMoveAtRef.current;
+    return since < MOVE_FLOOR_MS || (moveHeldRef.current && since < MOVE_HOLD_MAX_MS);
+  };
+  const takeMove = () => {
+    if (moveRefused()) return false;
+    moveHeldRef.current = true;
+    lastMoveAtRef.current = moveClock();
+    return true;
+  };
+  useEffect(() => {
+    if (!moveHeldRef.current) return undefined;
+    if (typeof requestAnimationFrame !== 'function') { moveHeldRef.current = false; return undefined; }
+    let second = 0;
+    const first = requestAnimationFrame(() => { second = requestAnimationFrame(() => { moveHeldRef.current = false; }); });
+    // No release here: the cleanup runs on the very move that took the hold,
+    // before this effect sees it. A later move re-arms the release.
+    return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
+  }, [currentIdx]);
 
   const timedQuestionId = view === 'exam' ? questions[currentIdx]?.id : null;
   useEffect(() => {
@@ -166,7 +209,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     const check = () => {
       clearTimeout(t);
       if (secondsUntilDeadline(questionDeadline) <= 0) { setTimeUp(true); return; }
-      t = setTimeout(check, Math.min(1000, questionDeadline - Date.now()));
+      t = setTimeout(check, Math.min(1000, questionDeadline - examNow()));
     };
     check();
     document.addEventListener('visibilitychange', check);
@@ -187,6 +230,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const nextQ = useCallback(async () => {
     const cur = questions[currentIdx];
     const isLast = currentIdx === questions.length - 1;
+    // The hold is for moves between questions only. On the last question this
+    // call is the submit dialog's confirm, often within the floor of the key
+    // press that opened it; refusing it would close the dialog unsubmitted.
+    if (!isLast && moveRefused()) return;
     // Confirm before skipping a blank short/essay — these take real
     // effort so accidental "Next →" clicks shouldn't lose them. Not on the
     // last question: the only way here is ExamView's submit dialog, which
@@ -210,6 +257,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       }
     }
     if (currentIdx < questions.length - 1) {
+      if (!takeMove()) return;
       const next = questions[currentIdx + 1];
       // The "หมดเวลา" note is for the clock's own move only, never a tap.
       setTimedOutIdx(null);
@@ -226,6 +274,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // Use timeForQuestion so jumping back to an essay restores its
     // 25-min budget instead of shrinking it to the MCQ default.
     if (currentIdx > 0) {
+      if (!takeMove()) return;
       const prev = questions[currentIdx - 1];
       setTimedOutIdx(null);
       setCurrentIdx(currentIdx - 1);
@@ -235,6 +284,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
 
   const jumpToQ = useCallback((idx) => {
     if (idx >= 0 && idx < questions.length) {
+      if (idx !== positionRef.current?.currentIdx && !takeMove()) return;
       setTimedOutIdx(null);
       setCurrentIdx(idx);
       if (!sessionClockRef.current) setTimeLeft(timeForQuestion(questions[idx], timePerQ));
@@ -329,7 +379,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // ran on through it, so an exam paper left for an hour was submitted, with
     // every blank marked, the moment ทำต่อ opened it; the exit dialog had
     // promised the student would come back to the same question.
-    const deadline = resumedDeadline(saved);
+    const deadline = resumedDeadline(saved, examNow());
     if (deadline !== null) {
       setQuestionDeadline(deadline);
       setTimeUp(secondsUntilDeadline(deadline) <= 0);

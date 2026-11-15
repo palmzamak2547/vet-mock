@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { displayStem } from '../lib/match-stem.js';
 import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
@@ -873,7 +874,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               maxHeight="var(--vmx-sr-figure-max, 320px)"
             />
           )}
-          <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
+          <div style={{ fontSize: 18 }}><RichText text={displayStem(currentQ)} /></div>
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">

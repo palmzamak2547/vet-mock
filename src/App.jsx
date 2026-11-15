@@ -218,7 +218,13 @@ import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoa
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
+import { exitSetDialog } from './lib/exit-set.js';
+import { deadlineOnWall } from './lib/exam-clock.js';
+
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
+
+// What the exam says when its own record cannot be written (storage full or blocked).
+const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเครื่องไม่ได้ (พื้นที่อาจเต็ม) อย่าปิดหน้านี้จนกว่าจะส่งชุด';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
 // payload doesn't grow on existing users. Skipped on local hosts: `vite
@@ -943,10 +949,9 @@ export default function App() {
             '',
           );
         } catch {}
+        // The X button's dialog, word for word (lib/exit-set.js).
         confirmDialog({
-          title: 'ออกจากชุดนี้?',
-          body: 'ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้',
-          confirmLabel: 'ออกจากชุด',
+          ...exitSetDialog({ questions: sessionRef.current?.questions, answers: sessionRef.current?.answers, timed: useTimerRef.current }),
           scope: 'exam',
         }).then((leave) => {
           if (!leave) return;
@@ -1164,6 +1169,9 @@ export default function App() {
   // useTimer + timePerQ at construction time.
   const [numQuestions, setNumQuestions] = useState(10);
   const [useTimer, setUseTimer] = useState(true);
+  // For the Back guard's exit dialog, which lives in a listener set up once.
+  const useTimerRef = useRef(useTimer);
+  useTimerRef.current = useTimer;
   const [timePerQ, setTimePerQ] = useState(60);
   // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
   const [questionCategory, setQuestionCategory] = useState('all');
@@ -1455,13 +1463,23 @@ export default function App() {
   const inflightRef = useRef(null);
   const inflightWrittenAtRef = useRef(0);
   const writeInflightRef = useRef(null);
+  const [inflightSaveFailed, setInflightSaveFailed] = useState(false);
   const writeInflight = useCallback(() => {
     const snap = inflightRef.current;
     if (!snap) return;
     try {
-      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionTimes: getQuestionTimes(), savedAt: Date.now() }));
+      // The deadline is kept in the exam's own time (lib/exam-clock.js); the
+      // record stores it on the wall clock, beside savedAt, so a resumed set
+      // gets back exactly what it had left.
+      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionDeadline: deadlineOnWall(snap.questionDeadline), questionTimes: getQuestionTimes(), savedAt: Date.now() }));
       inflightWrittenAtRef.current = Date.now();
-    } catch {}
+      setInflightSaveFailed(false);
+    } catch {
+      // A full or blocked storage drops the set's record: the answers on screen
+      // would not survive the tab being closed. Say so once, where the app says
+      // a local write failed (SyncStatusNotice), until a write succeeds again.
+      setInflightSaveFailed(true);
+    }
   }, [getQuestionTimes]);
   writeInflightRef.current = writeInflight;
   useEffect(() => {
@@ -1488,7 +1506,12 @@ export default function App() {
     // is due it goes just after that paint (rAF runs before it, the timeout
     // after); otherwise half a second later, as before. pagehide and
     // visibilitychange still flush at once.
-    if (Date.now() - inflightWrittenAtRef.current >= 3000) {
+    // In a timed exam every tap is written, not one write in three seconds: a
+    // tab the phone killed half a second after an answer lost that answer
+    // (pagehide never fires on a kill). A typed answer (short, essay, fill)
+    // keeps the throttle, so an essay is not written on every keystroke.
+    const typing = ['short', 'essay', 'fill'].includes(questions[currentIdx]?.type);
+    if ((mode === 'exam' && !typing) || Date.now() - inflightWrittenAtRef.current >= 3000) {
       let soon = 0;
       const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
       return () => { cancelAnimationFrame(frame); clearTimeout(soon); };
@@ -2439,7 +2462,7 @@ export default function App() {
     // hand (see ResultsView's `useEffect` cleanup).
     try {
       window.localStorage?.setItem(inflightExamKey(eventOwner), JSON.stringify({
-        questions, answers, currentIdx, questionDeadline, examStartTime, sessionId: examSessionId,
+        questions, answers, currentIdx, questionDeadline: deadlineOnWall(questionDeadline), examStartTime, sessionId: examSessionId,
         ownerId: eventOwner, questionTimes: getQuestionTimes(), mode, practiceMode, useTimer, timePerQ,
         selectedYear, selectedPhase, submitted: true, submittedAt: completedAt,
         localSaved: saved.accepted, detailsSaved: false, savedAt: Date.now(),
@@ -3270,6 +3293,14 @@ export default function App() {
               dedicated button so a stray tap on the banner text doesn't
               navigate accidentally (used to be a div-wide onClick which
               hijacked any tap, including swipe-to-scroll on iOS). */}
+          {view === 'exam' && inflightSaveFailed && !['LOCAL_READ_FAILED', 'LOCAL_WRITE_FAILED'].includes(userDataSync.error?.code) && (
+            <SyncStatusNotice
+              online={networkOnline}
+              justChanged={false}
+              signedIn={false}
+              sync={{ error: { code: 'LOCAL_WRITE_FAILED', message: INFLIGHT_SAVE_FAILED } }}
+            />
+          )}
           {view !== 'offline-game' && (view !== 'exam' || ['LOCAL_READ_FAILED', 'LOCAL_WRITE_FAILED'].includes(userDataSync.error?.code)) && (
             <SyncStatusNotice
               online={networkOnline}

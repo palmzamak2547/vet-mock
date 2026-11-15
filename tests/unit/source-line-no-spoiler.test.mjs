@@ -264,7 +264,7 @@ test('the question card hands the chip whether the key is on screen, and the dat
   // The two are siblings and must not share a key (tests/unit/jsx-sibling-keys.test.mjs): 5.213.1.
   assert.match(card, /<QSourceChip key=\{`source:\$\{compoundId\}`\} q=\{currentQ\} revealed=\{keyShown\} \/>/);
   assert.match(card, /<FlagChip key=\{`flag:\$\{compoundId\}`\} flag=\{currentQ\.flag\} revealed=\{keyShown\} \/>/);
-  assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
+  assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
   assert.match(pkg.scripts['lint:data'], /npm run lint:source-line/);

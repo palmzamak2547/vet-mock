@@ -3032,8 +3032,12 @@ html.dark .vmx-panic-scrim {
 /* The pad keeps the page still under a pen or a finger. */
 .vmx-hand-pad { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 /* AnswerReveal: when a matching set or a written answer shows เฉลย. */
-.vmx-reveal-toggle { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-.vmx-reveal-toggle button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; padding: 5px 11px; cursor: pointer; }
+/* The switch wraps as a whole: each choice keeps its words together and moves
+   to the next line when it does not fit, at any width and any text size
+   (squeezed it wrapped into a tall blob; held to one line it was cut at a 200%
+   text size). */
+.vmx-reveal-toggle { display: inline-flex; flex-wrap: wrap; flex: none; max-width: 100%; border: 1px solid var(--clr-border); border-radius: 16px; overflow: hidden; margin-top: 6px; }
+.vmx-reveal-toggle button { flex: 1 1 auto; appearance: none; border: 0; border-radius: 16px; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 14px; padding: 5px 11px; cursor: pointer; }
 .vmx-reveal-toggle button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-reveal-toggle button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-match-why { margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
@@ -3079,6 +3083,15 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-written-reveal-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-written-reveal-btn { appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); cursor: pointer; }
+.vmx-written-reveal-btn:disabled { cursor: default; opacity: 0.45; }
+/* A checked fill-in blank: its mark beside it, the colour and the sign both. */
+.vmx-fill-input-wrap { display: flex; align-items: center; gap: 8px; }
+.vmx-fill-input-wrap > .vmx-fill-input { flex: 1 1 auto; min-width: 0; }
+.vmx-fill-mark { flex: none; font-size: 18px; font-weight: 700; line-height: 1; }
+.vmx-fill-mark.is-ok { color: var(--clr-sage-text); }
+.vmx-fill-mark.is-no { color: var(--clr-rose-text); }
+.vmx-fill-check-hint { font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-fill-key { margin: 0; padding-left: 1.4em; }
 .vmx-written-reveal { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }
 .vmx-written-reveal .k { font-weight: 700; color: var(--clr-gold-text); margin-bottom: 4px; }
 .vmx-written-reveal .k .c { font-family: var(--vmx-mono); font-weight: 400; color: var(--clr-ink-soft); margin-left: 6px; }
@@ -3097,7 +3110,7 @@ html.dark .vmx-panic-scrim {
 /* ── Match Drag-Drop (Matching Game Showcase) ───────────────────────── */
 .vmx-match-dnd { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
 .vmx-match-dnd-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.vmx-match-dnd-status { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 240px; }
+.vmx-match-dnd-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex: 1; min-width: min(240px, 100%); }
 .vmx-match-dnd-hint { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.5; }
 .vmx-match-status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-size: 14px; line-height: 1.4; }
 .vmx-match-status-pill.selected { background: rgba(184, 137, 64, 0.14); border: 1px solid var(--clr-gold); color: var(--clr-gold-text); animation: vmx-pulse-subtle 2s infinite ease-in-out; }
@@ -3251,8 +3264,9 @@ html.dark .vmx-panic-scrim {
    Direct clinical comparison against the standard 60% faculty/practice pass line. */
 .vmx-benchmark-container {
   max-width: 320px;
-  /* The flag stands 20 px above the track: 32 leaves it a clear gap under the score line. */
-  margin: 32px auto 6px;
+  /* Room for the flag above the track (one 14 px line), so it never
+     touches the "n / m ถูก" line above it. */
+  margin: 36px auto 6px;
   text-align: left;
 }
 .vmx-benchmark-track {
@@ -3281,7 +3295,10 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-benchmark-flag {
   position: absolute;
+  /* 20 px above the target's top edge (the target overhangs the track by 4 px): with 36 px reserved
+     above the track the flag clears the "n / m ถูก" line by about 12 px. */
   top: -20px;
+  line-height: 1.35;
   transform: translateX(-50%);
   font-family: var(--vmx-mono);
   font-size: 14px;
@@ -3321,6 +3338,8 @@ html.dark .vmx-panic-scrim {
 .vmx-score-label { font-family: inherit; font-size: 14px; color: var(--clr-ink-soft); margin: 8px 0 20px; }
 .vmx-score-frac { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
 .vmx-score-msg { font-family: inherit; font-size: 17px; line-height: 1.55; color: var(--clr-ink-soft); margin-top: 16px; }
+/* The first thing to do after a set, right under the score (ResultsView NextPlayPanel part="primary"). */
+.vmx-results-primary { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 16px auto 0; }
 
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .vmx-stat-card {
@@ -5704,6 +5723,12 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-reminder-offer { display: flex; flex-direction: column; gap: 10px; margin: 0 auto 16px; max-width: 480px; padding: 14px 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
 .vmx-reminder-offer > strong { font-size: 16px; color: var(--clr-ink); }
 .vmx-reminder-offer > .vmx-btn { align-self: flex-start; min-height: 44px; }
+/* The offer is one row until the student asks for the times. */
+.vmx-reminder-offer.is-row { padding: 10px 16px; }
+.vmx-reminder-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.vmx-reminder-row > strong { font-size: 15px; flex: 1 1 12em; color: var(--clr-ink); }
+.vmx-reminder-row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.vmx-reminder-row-actions .vmx-btn { min-height: 44px; }
 .vmx-reminder-picker { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .vmx-reminder-times { display: flex; flex-wrap: wrap; gap: 8px; }
 .vmx-reminder-targets { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -7395,6 +7420,22 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-instant-feedback { font-size: 15px; line-height: 1.65; padding: 14px; }
   .vmx-instant-feedback .w { line-height: 1.65; }
   .vmx-question-card { margin-bottom: 12px; }
+}
+/* Below 280 CSS px (a 375 px phone at 200% zoom is 188): the card's five
+   tools ran off its left edge, the position pill sat over ออก and ข้อถัดไป
+   was cut at the right. The tools wrap in the card's flow, the position
+   takes the header's first row with ออก and the clock on the row below
+   (side by side, ออก and the pill need more than 188 px), and previous and
+   next take a row each. */
+@media (max-width: 279px) {
+  .vmx-question-card { padding: 12px 12px 20px; }
+  .vmx-q-toolbar { position: static; flex-wrap: wrap; justify-content: flex-end; margin-bottom: 10px; }
+  .vmx-exam-top { grid-template-columns: auto 1fr; grid-template-areas: "pill pill" "exit right"; row-gap: 6px; }
+  .vmx-exam-top > .vmx-progress { grid-area: pill; justify-self: center; }
+  .vmx-exam-top-left { grid-area: exit; }
+  .vmx-exam-top-right { grid-area: right; }
+  .vmx-exam-actions { flex-wrap: wrap; }
+  .vmx-exam-actions .vmx-exam-prev, .vmx-exam-actions .vmx-exam-next { flex: 1 1 100%; }
 }
 
 /* The results screen */
