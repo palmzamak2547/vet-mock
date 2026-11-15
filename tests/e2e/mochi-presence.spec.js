@@ -149,7 +149,7 @@ test('greetings settle, reduced motion stays still, and SR reveals preserve the 
   await expect(greeting).not.toHaveClass(/is-reacting/);
   await open(page, '/app/review');
   await expect(page.locator('[data-mochi-slot=review-intro]')).toHaveAttribute('data-mochi-pose', 'read');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('[data-mochi-slot=review-card]')).toHaveAttribute('data-mochi-pose', 'think');
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).click();
   await expect(page.locator('[data-mochi-slot=review-card]')).toHaveAttribute('data-mochi-pose', 'read');

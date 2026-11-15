@@ -136,7 +136,7 @@ test('a failed animation API cannot break the actual navigation action', async (
 
 test('the supplied flip reveals only the actual SR answer after the learner asks', async ({ page }) => {
   await page.goto('/app/review');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard')).toBeVisible({ timeout: 25_000 });
   await expect(page.locator('.vmx-flashcard .back')).toHaveCount(0);
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).press('Enter');

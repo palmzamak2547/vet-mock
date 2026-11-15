@@ -35,7 +35,7 @@ test('a year-5 student resumes a remembered COM IV review and Hard records succe
   // plan for one session (sr.setup reads any other stored size as the default).
   await page.addInitScript(() => sessionStorage.setItem('vmx-sr-plan-size', '1'));
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
-  const start = page.getByRole('button', { name: 'เริ่ม Session →', exact: true });
+  const start = page.getByRole('button', { name: 'เริ่มทบทวน', exact: true });
   await expect(start).toBeEnabled();
   await start.click();
   await expect(page.locator('.vmx-flashcard .front')).toContainText(srQuestion.q);

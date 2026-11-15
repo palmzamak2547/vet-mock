@@ -23,7 +23,7 @@
 // (tests/unit/function-regions.test.mjs).
 // ============================================================
 
-import { allowedOrigin, clientIP, rateLimit, rateRefund, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { allowedOrigin, clientIP, rateLimit, rateRefund, kvGetJSON, kvSetJSON, warmStore } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
 import { trialPassOf, requirePass, passKey } from './_lib/guest-pass.js';
 import {
@@ -90,6 +90,8 @@ async function status(cfg) {
 
 export default async function handler(req, res) {
   const t0 = Date.now();
+  // the store's handshake runs while the gate answers
+  if (req.method === 'POST') warmStore();
   const allowed = allowedOrigin(req);
   const cfg = voiceConfig();
 

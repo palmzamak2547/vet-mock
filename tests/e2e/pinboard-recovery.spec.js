@@ -109,6 +109,6 @@ test('a pending Pinboard clear cancels on browser Back and a fresh keyboard conf
   await expect(confirm).toBeFocused();
   await confirm.press('Enter');
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await expect(page.getByText('ไม่มีรายการบันทึก', { exact: true })).toBeVisible();
+  await expect(page.getByText('ยังไม่มีรายการที่ปักหมุด', { exact: true })).toBeVisible();
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-pinboard')))).toEqual([]);
 });

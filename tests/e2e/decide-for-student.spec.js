@@ -213,7 +213,7 @@ test('the review planner says what today is and starts in one tap', async ({ pag
   await expect(page.locator('.vmx-decide-why')).toHaveText('ใบที่ค้างนานสุดมาก่อน');
   await expect(page.getByRole('button', { name: 'ปรับเอง', exact: true })).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByRole('group', { name: 'จำนวนวันนี้', exact: true })).toBeHidden();
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.getByText(card.front, { exact: true })).toBeVisible({ timeout: 20_000 });
 });
 
