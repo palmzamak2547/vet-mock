@@ -131,7 +131,7 @@ test('the clock windows sit where a test that reads the real clock breaks', () =
 
 test('the moved clock reads the window, keeps running, and a test that sets its own clock still wins', () => {
   const shim = path.join(repo, 'tests/unit/clock-shift.mjs');
-  const code = "const a=Date.now();const d=new Date();const vm=await import('node:vm');const c=vm.createContext({});const inner=vm.runInContext('Date.now()',c);const own=vm.runInContext('Date.now()',vm.createContext({Date:{now:()=>7}}));const fs=await import('node:fs');const os=await import('node:os');const p=os.tmpdir()+'/vetmock-clock-shift-'+process.pid;fs.writeFileSync(p,'x');const age=Date.now()-fs.statSync(p).mtimeMs;const old=new Date(Date.now()-120000);fs.utimesSync(p,old,old);const oldAge=Date.now()-(await fs.promises.stat(p)).mtimeMs;fs.rmSync(p);Date.now=()=>5;console.log(JSON.stringify({a,iso:d.toISOString(),inner,own,age,oldAge,fixed:new Date().getTime(),inst:d instanceof Date,str:typeof Date()}))";
+  const code = "const a=Date.now();const d=new Date();const vm=await import('node:vm');const c=vm.createContext({});const inner=vm.runInContext('Date.now()',c);const own=vm.runInContext('Date.now()',vm.createContext({Date:{now:()=>7}}));const fs=await import('node:fs');const os=await import('node:os');const p=os.tmpdir()+'/vetmock-clock-shift-'+process.pid;fs.writeFileSync(p,'x');const age=Date.now()-fs.statSync(p).mtimeMs;const old=new Date(Date.now()-120000);fs.utimesSync(p,old,old);const oldAge=Date.now()-(await fs.promises.stat(p)).mtimeMs;fs.rmSync(p);const real=globalThis[Symbol.for('vmx.realDateNow')]();Date.now=()=>5;console.log(JSON.stringify({a,iso:d.toISOString(),inner,own,age,oldAge,real,fixed:new Date().getTime(),inst:d instanceof Date,str:typeof Date()}))";
   const out = spawnSync(process.execPath, ['--import', `file://${shim.replace(/\\/g, '/').replace(/^([A-Za-z]):/, '/$1:')}`, '--input-type=module', '-e', code],
     { encoding: 'utf8', env: { ...process.env, VMX_CLOCK_AT: '2026-11-30T17:30:00Z' } });
   assert.equal(out.status, 0, out.stderr);
@@ -144,6 +144,7 @@ test('the moved clock reads the window, keeps running, and a test that sets its 
   assert.equal(r.own, 7, 'a node:vm sandbox handed its own Date keeps it');
   assert.ok(Math.abs(r.age) < 5000, 'a file written now reads as written now');
   assert.ok(Math.abs(r.oldAge - 120000) < 5000, 'a file time set two minutes back reads two minutes old');
+  assert.ok(Math.abs(r.real - Date.now()) < 5000, 'a reminder dated on the real calendar can still read the real clock');
   assert.equal(r.inst, true);
   assert.equal(r.str, 'string');
 });

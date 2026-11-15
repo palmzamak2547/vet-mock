@@ -26,6 +26,10 @@ if (at) {
   Shifted.prototype = Real.prototype;
   Shifted.now = () => realNow() + delta;
   globalThis.Date = Shifted;
+  // Only for a reminder dated on the real calendar (a guard that must fire after a fixed day, such as
+  // question-revision-window.test.mjs): it reads the real clock here. Any other test takes one fixed
+  // instant instead.
+  globalThis[Symbol.for('vmx.realDateNow')] = realNow;
 
   // A context made with node:vm has a Date of its own; move it by the same amount, or a test that hands
   // a timestamp to code running in a sandbox would compare two clocks. A sandbox handed its own Date
