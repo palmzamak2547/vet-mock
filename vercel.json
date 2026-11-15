@@ -510,6 +510,10 @@
     {
       "source": "/app(/.*)?",
       "destination": "/"
+    },
+    {
+      "source": "/s/:code",
+      "destination": "/api/s?code=:code"
     }
   ]
 }
