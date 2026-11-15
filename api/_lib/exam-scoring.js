@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { isCorrect } from '../../src/hooks/utils.js';
-import { questionRevision, validSessionId } from '../../src/lib/study-events.js';
+import { acceptedQuestionRevisions, validSessionId } from '../../src/lib/study-events.js';
 
 export function scoreSubmission(body, catalog) {
   if (!validSessionId(body?.id) || !Array.isArray(body.question_ids) || !body.question_ids.length
@@ -10,7 +10,7 @@ export function scoreSubmission(body, catalog) {
   const ids = body.question_ids.map(String);
   if (new Set(ids).size !== ids.length) throw new Error('duplicate-questions');
   const questions = ids.map(id => catalog.get(id));
-  const verified = questions.every((q, index) => q && body.question_versions?.[ids[index]] === questionRevision(q));
+  const verified = questions.every((q, index) => q && acceptedQuestionRevisions(q).includes(body.question_versions?.[ids[index]]));
   const total = ids.length;
   const claimedCorrect = Number(body.correct);
   if (!verified && (!Number.isInteger(claimedCorrect) || claimedCorrect < 0 || claimedCorrect > total)) throw new Error('invalid-score');

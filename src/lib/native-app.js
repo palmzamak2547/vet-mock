@@ -15,14 +15,16 @@
 //     stays until then, so there is no blank frame), which theme the student
 //     picked (the next launch opens in it) and the next exam (the widget
 //     counts down to it).
-// main.jsx imports it before anything that registers the service worker,
-// which the app does not use: its bundle and updater do that job.
+// main.jsx loads it only when native-detect.js says this is the app, and
+// starts the app after it. The service worker, which the app does not use
+// (its bundle and updater do that job), checks the same IS_APP.
 // ============================================================
 
-const cap = typeof window !== 'undefined' ? window.Capacitor : undefined;
+import { IS_APP } from './native-detect.js';
 
-/** True only inside the Android app. */
-export const IS_APP = Boolean(cap?.isNativePlatform?.() && cap.getPlatform?.() === 'android');
+export { IS_APP };
+
+const cap = typeof window !== 'undefined' ? window.Capacitor : undefined;
 
 const call = (method, options = {}) => cap.nativePromise('VetMock', method, options);
 const quiet = (method, options) => { call(method, options).catch(() => {}); };

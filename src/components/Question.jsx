@@ -1,7 +1,7 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered } from '../hooks/utils.js';
+import { subjectText, isAnswered, isCorrect, fillBlankMarks } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
@@ -9,6 +9,10 @@ import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import RichBlocks from './RichBlocks.jsx';
 import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { displayStem } from '../lib/match-stem.js';
+import { otherOptionsFold } from '../lib/explain-fold.js';
+import { metaLineCut } from '../lib/meta-line.js';
+import FlagChip from './FlagChip.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
@@ -21,7 +25,7 @@ import { unlockAudio } from '../lib/audio-unlock.js';
 import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
 import ReadAloudBar from './ReadAloudBar.jsx';
 import QSourceChip from './QSourceChip.jsx';
-import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, flagChipText, SOURCE_LINE_WAIT } from '../lib/source-line.js';
+import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, cautionChipShown } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
@@ -71,7 +75,12 @@ const TYPE_LABEL = {
   essay: 'เขียนบรรยาย',
 };
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishRequested = false }) {
+// Fill-in items checked with ตรวจคำตอบ in practice, by subject:id, for this
+// page load. Outside the component because one instance serves the whole
+// set (ExamView renders the card without a key) and a set may be revisited.
+const FILL_CHECKED = new Set();
+
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -123,6 +132,27 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // Why the read-aloud could not start at all (its code did not load), { what, text }.
   const [ttsNote, setTtsNote] = useState(null);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
+  // The header line unfolds on a tap, for this question only.
+  const [metaOpenFor, setMetaOpenFor] = useState(null);
+  const metaOpen = metaOpenFor === compoundId;
+  // The line is a button only while it is cut off (or open, so it can close). Where it
+  // fits, on a phone where it wraps whole or on a wide card, a tap changed nothing on
+  // screen and a screen reader heard "button, collapsed" on every question.
+  const metaRef = useRef(null);
+  const [metaCut, setMetaCut] = useState(false);
+  const MetaLine = metaCut || metaOpen ? 'button' : 'div';
+  const metaProps = MetaLine === 'button'
+    ? { type: 'button', 'aria-expanded': metaOpen, onClick: () => setMetaOpenFor(metaOpen ? null : compoundId) }
+    : {};
+  useEffect(() => {
+    const el = metaRef.current;
+    if (!el) return undefined;
+    const check = () => { if (!el.hasAttribute('data-open')) setMetaCut(metaLineCut(el)); };
+    check();
+    const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(check) : null;
+    ro?.observe(el);
+    return () => ro?.disconnect();
+  }, [compoundId, MetaLine]);
 
   // Reset flag display when navigating to a new Q
   useEffect(() => { setFlagState(readFlags()[compoundId] || null); }, [compoundId]);
@@ -142,6 +172,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   };
   // The voice reads `say`: the stem together with the numbers that sit in the passage's table.
   const saysTable = wholeStem(currentQ) !== (currentQ?.q || '');
+  // A matching stem shows without its old drag instruction (lib/match-stem.js); the voice
+  // still reads the whole stem, so no phrase is marked in one that was shortened.
+  const shownStem = displayStem(currentQ);
+  const stemShortened = shownStem !== (currentQ?.q || '');
+  // Main's English version (5.223.0) shows instead of the Thai text; the voice still reads Thai.
+  const shownEnglishStem = Boolean(english?.q);
+  const shownEnglishOptions = Array.isArray(english?.options);
   // Likewise an explanation laid out as steps: the voice reads the paragraph it was written as.
   const saysParagraph = wholeExplain(currentQ) !== (currentQ?.explain || '');
   // What a job reads: options in the order the student sees them, so
@@ -159,9 +196,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     // The element a piece is read from, for the phrase highlight. An option's row for its label too.
     // A stem read from `say`, or an explanation read from `explainSay`, is not the text on screen, so no
     // phrase is marked in it.
+    // The voice reads Thai: with the English stem or options on screen it marks no phrase in them.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? (saysTable ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
-      : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null),
+      ? (what === 'q' ? (saysTable || stemShortened || shownEnglishStem ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
+      : (shownEnglishOptions ? null : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null)),
     // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
     block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
       || (kind === 'stem' ? (what === 'q' ? stemRef.current : explainRef.current)
@@ -330,8 +368,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
     </div>
   ) : null;
+  // The caution chip: a key in dispute (severity major) and nothing else, with
+  // the key and never before it, in whichever reveal the question type has. A
+  // minor flag is a note in the source panel.
+  const cautionChip = cautionChipShown(currentQ.flag)
+    ? <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />
+    : null;
   const writtenRevealPanel = writtenReveal && writtenTiming === REVEAL_ROW && writtenRevealed
-    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} evidence={evidence} />
+    ? <>{cautionChip}<WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} evidence={evidence} /></>
     : null;
 
   // Word count for essay-type writing questions
@@ -345,9 +389,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // When `revealAnswer` is on (practice modes only — ExamView never
   // sets it in exam mode), choice questions reveal their verdict the
   // moment they are answered: correct option glows green, a wrong pick
-  // glows red and locks, and q.explain shows inline. Fill/match/short/
-  // essay keep submit-time grading — revealing while half-typing a
-  // blank would just flash misleading ✗ marks.
+  // glows red and locks, and q.explain shows inline. A fill-in item waits
+  // for its ตรวจคำตอบ press (revealing while half-typing a blank would
+  // flash misleading ✗ marks); match and the written kinds have their own
+  // timing (AnswerReveal.jsx).
   const mcqRevealed = Boolean(revealAnswer)
     && currentQ.type === 'mcq'
     && typeof currentAnswer === 'number';
@@ -366,7 +411,38 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const matchFilled = currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0
     && currentAnswer && typeof currentAnswer === 'object'
     && Object.values(currentAnswer).filter(Boolean).length === currentQ.pairs.length;
-  const keyShown = mcqRevealed || tfRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
+  // A fill-in item is typed, so it is answered when the student says so:
+  // ตรวจคำตอบ, once every blank holds text, in practice only. The check is
+  // kept for this page load (FILL_CHECKED) and locks the blanks, or the key
+  // just read could be typed in and scored as the student's own. Emptied
+  // blanks are a fresh start of the same question (a new set).
+  const fillComplete = currentQ.type === 'fill' && Array.isArray(currentQ.blanks) && currentQ.blanks.length > 0
+    && Array.isArray(currentAnswer) && currentQ.blanks.every((_, i) => String(currentAnswer[i] ?? '').trim().length > 0);
+  if (currentQ.type === 'fill' && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
+  const [fillCheckedNow, setFillCheckedNow] = useState(null);
+  // Fill follows the written answers' timing: with เฉลยหลังส่งทั้งชุด it waits for the review.
+  const fillRow = Boolean(revealAnswer) && writtenTiming === REVEAL_ROW;
+  const fillRevealed = fillRow && fillComplete && FILL_CHECKED.has(compoundId);
+  const fillOk = fillRevealed && isCorrect(currentQ, currentAnswer);
+  const fillMarks = fillRevealed ? fillBlankMarks(currentQ, currentAnswer) : [];
+  const fillRight = fillMarks.filter(Boolean).length;
+  const checkFill = () => {
+    if (!fillRow || !fillComplete) return;
+    FILL_CHECKED.add(compoundId);
+    setFillCheckedNow(compoundId);
+  };
+  const keyShown = mcqRevealed || tfRevealed || fillRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
+  // The header line in words, for the hover title: a held topic stays out
+  // until the key is shown, as on the line itself.
+  const metaTitle = (() => {
+    const subj = SUBJECTS.find((x) => x.id === currentQ.subject);
+    const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+    return [
+      TYPE_LABEL[currentQ.type], subj?.name || currentQ.subject,
+      topic && (keyShown || !holdsTopicChip(currentQ)) ? topicChipText(topic.label) : null,
+      examScopeLabel(scopeOfQuestion(currentQ)), followsExamPattern(currentQ) ? 'อิงแนวเดิม' : null,
+    ].filter(Boolean).join(', ');
+  })();
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -427,18 +503,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={english?.q || currentQ.q} subject={currentQ.subject} /></h2>
-      {englishRequested && !english && <p className="vmx-en-missing">ข้อนี้ยังไม่มีฉบับอังกฤษ — แสดงฉบับไทย</p>}
-
-      {/* Data discrepancy flag — surfaces conflicts between past papers
-          and current lecture content. See vault discrepancies.md +
-          self-optimization rule 1d (hold to facts). */}
-      {/* Its key must differ from every sibling's. It shared `compoundId` with
-          the source line below (5.189.2 to 5.213.0): React then lost track of
-          the chip when the question changed and left it on the card, so every
-          question after a flagged one carried a chip that was not its own.
-          tests/unit/jsx-sibling-keys.test.mjs guards the whole class. */}
-      {currentQ.flag && <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed={keyShown} />}
+      <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={english?.q || shownStem} subject={currentQ.subject} /></h2>
+      {englishNote && !english && <p className="vmx-en-missing">{englishNote}</p>}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -481,6 +547,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               figure={explainFigure}
               evidence={evidence}
               subject={currentQ.subject}
+              foldOtherOptions
+              caution={cautionChip}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
@@ -497,24 +565,41 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           if (currentQ.answer === isAnswer) return 'reveal-correct';
           return currentAnswer === isAnswer ? 'reveal-wrong' : '';
         };
+        // The words carry the choice: no tick or cross in the labels. "✓ True"
+        // and "✗ False" put a tick on the red button and a cross on the green
+        // one whenever the key was False and the pick True, and for a
+        // protanope, or in forced colours, the two fills read the same. After
+        // the key each button says in words what it is, with the marks an MCQ
+        // row gets: ✓ on the key, ✗ on a wrong pick.
+        const tfMark = (value) => {
+          if (!tfRevealed) return null;
+          const isKey = currentQ.answer === value;
+          const picked = currentAnswer === value;
+          if (isKey) return picked ? { mark: '✓ เฉลย, คุณตอบ', said: 'เฉลย และคุณตอบข้อนี้' } : { mark: '✓ เฉลย', said: 'เฉลย' };
+          return picked ? { mark: '✗ คุณตอบ', said: 'คุณตอบข้อนี้ ไม่ใช่เฉลย' } : null;
+        };
         const correctIsTrue = currentQ.answer === true;
         return (
           <>
             <div className="vmx-tf-row" role="group" aria-label="เลือกคำตอบ True หรือ False">
-              <button
-                type="button"
-                aria-pressed={currentAnswer === true}
-                aria-disabled={tfRevealed || undefined}
-                className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''} ${tfClass(true)}`}
-                onClick={() => { if (tfRevealed) return; answerCurrent(true); }}
-              >✓ True</button>
-              <button
-                type="button"
-                aria-pressed={currentAnswer === false}
-                aria-disabled={tfRevealed || undefined}
-                className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''} ${tfClass(false)}`}
-                onClick={() => { if (tfRevealed) return; answerCurrent(false); }}
-              >✗ False</button>
+              {[true, false].map((value) => {
+                const mark = tfMark(value);
+                return (
+                  <button
+                    key={value ? 'true' : 'false'}
+                    type="button"
+                    aria-pressed={currentAnswer === value}
+                    aria-disabled={tfRevealed || undefined}
+                    // Read as a sentence, not "True✓ เฉลย".
+                    aria-label={mark ? `${value ? 'True' : 'False'}, ${mark.said}` : undefined}
+                    className={`vmx-tf-btn ${currentAnswer === value ? (value ? 'selected-true' : 'selected-false') : ''} ${tfClass(value)}`}
+                    onClick={() => { if (tfRevealed) return; answerCurrent(value); }}
+                  >
+                    {value ? 'True' : 'False'}
+                    {mark && <> <span className="vmx-tf-mark">{mark.mark}</span></>}
+                  </button>
+                );
+              })}
             </div>
             {tfRevealed && (
               <InstantFeedback
@@ -522,7 +607,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 ok={tfOk}
                 run={answerRun}
                 fresh={freshVerdict}
-                correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
+                correctNode={<>{correctIsTrue ? 'True' : 'False'}</>}
+                caution={cautionChip}
                 // Say what the statement was even when the student got it
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
                 // are both true at once, and only one of them was on screen.
@@ -545,11 +631,50 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               <label className="vmx-fill-label" htmlFor={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`}>
                 {currentQ.blanks.length > 1 ? `ช่องที่ ${i + 1}` : 'คำตอบ'}
               </label>
-              <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
-                onChange={(e) => { const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
-                placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
+              <div className="vmx-fill-input-wrap">
+                <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
+                  readOnly={fillRevealed}
+                  onChange={(e) => { if (fillRevealed) return; const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' && fillComplete && !fillRevealed && fillRow) { e.preventDefault(); checkFill(); } }}
+                  placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
+                {fillRevealed && (
+                  <span className={`vmx-fill-mark ${fillMarks[i] ? 'is-ok' : 'is-no'}`} role="img" aria-label={fillMarks[i] ? 'ช่องนี้ถูก' : 'ช่องนี้ยังไม่ใช่'}>{fillMarks[i] ? '✓' : '✗'}</span>
+                )}
+              </div>
             </div>
           ))}
+          {revealAnswer && !fillRevealed && (
+            <div className="vmx-written-reveal-bar">
+              <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel={REVEAL_LABELS.writtenRow} endLabel={REVEAL_LABELS.end} />
+              {fillRow && (
+                <button type="button" className="vmx-written-reveal-btn" disabled={!fillComplete} aria-describedby={fillComplete ? undefined : `vmx-fill-hint-${currentQ.subject}-${currentQ.id}`} onClick={checkFill}>ตรวจคำตอบ</button>
+              )}
+              {fillRow && !fillComplete && (
+                <span id={`vmx-fill-hint-${currentQ.subject}-${currentQ.id}`} className="vmx-fill-check-hint">{currentQ.blanks.length > 1 ? 'เติมให้ครบทุกช่องก่อน' : 'พิมพ์คำตอบก่อน'}</span>
+              )}
+            </div>
+          )}
+          {fillRevealed && (
+            <InstantFeedback
+              key={compoundId}
+              ok={fillOk}
+              // Partly right has its own mark and colour, as Review draws it (◐ 2/3): a cross read as all wrong.
+              headline={!fillOk && fillRight > 0 ? `◐ ถูก ${fillRight} จาก ${currentQ.blanks.length} ช่อง ดูเฉลยด้านล่าง` : null}
+              partial={!fillOk && fillRight > 0}
+              focusOnShow
+              caution={cautionChip}
+              run={answerRun}
+              fresh={fillCheckedNow === compoundId}
+              correctNode={currentQ.blanks.length > 1
+                ? <ol className="vmx-fill-key">{currentQ.blanks.map((b, i) => <li key={i}><RichText text={b} /></li>)}</ol>
+                : <RichText text={currentQ.blanks[0]} />}
+              explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
+              figure={explainFigure}
+              evidence={evidence}
+              subject={currentQ.subject}
+              wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={fillOk} />}
+            />
+          )}
         </div>
       )}
 
@@ -559,6 +684,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           currentAnswer={currentAnswer}
           answerCurrent={answerCurrent}
           revealAnswer={revealAnswer}
+          caution={revealAnswer ? cautionChip : null}
         />
       )}
 
@@ -685,98 +811,109 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   return (
     <div className="vmx-question-card">
-      {/* One flex row instead of five independently absolute-positioned
-          buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
-          a 44px pitch — while the 44px WCAG floor made each button 44px wide,
-          so they touched on desktop; and the ≤640px rules moved only the first
-          two to a 40px pitch, leaving the last three overlapping and out of
-          line. Spacing now comes from `gap`, so size and spacing cannot
-          disagree again. */}
-      <div className="vmx-q-toolbar">
-        <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => { setBookmarkPresses((n) => n + 1); toggleBookmark(currentQ.id); }} title="บันทึกข้อนี้ (B)">
-          <NavIcon name="star" size={18} filled={isBookmarked} />
-        </button>
-        <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้">
-          <NavIcon name="note" size={18} filled={Boolean(note)} />
-        </button>
-        {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
-            Click again while speaking to stop. */}
-        <button
-          type="button"
-          aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
-          aria-pressed={isSpeaking}
-          className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
-          onClick={() => speak('q')}
-          onPointerDown={preloadTts}
-          title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
-        >
-          <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
-        </button>
-        {/* Q quality flag — local-only for now (Supabase schema TBD). */}
-        <button
-          type="button"
-          aria-label={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
-          aria-pressed={Boolean(flagState)}
-          className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
-          onClick={toggleFlag}
-          title={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
-        >
-          <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
-        </button>
-        {/* Pin → adds this Q to the personal Pinboard. */}
-        {/* Not `compact`: its 36px inline size sat next to four 44px controls,
-            so the row read as uneven — and 44px is the touch floor anyway.
-            The toolbar's circle class owns its shape, like its four neighbours. */}
-        <PinButton
-          className="vmx-note-btn vmx-pin-btn"
-          type="question"
-          payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
-          label={(currentQ?.q || '').slice(0, 60)}
-        />
+      {/* The header is one row (audit item 7, 11 Nov 2026): the type,
+          subject, topic and paper on one truncating line at the left, the
+          five 44px controls at the right where the thumb finds them. A
+          screen too narrow for both puts the line under the controls, never
+          over them. The controls come first in the DOM, so focus reaches them
+          before the line, as the eye does on a phone. */}
+      <div className="vmx-q-head">
+        {/* One flex row instead of five independently absolute-positioned
+            buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
+            a 44px pitch — while the 44px WCAG floor made each button 44px wide,
+            so they touched on desktop; and the ≤640px rules moved only the first
+            two to a 40px pitch, leaving the last three overlapping and out of
+            line. Spacing now comes from `gap`, so size and spacing cannot
+            disagree again. */}
+        <div className="vmx-q-toolbar">
+          <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => { setBookmarkPresses((n) => n + 1); toggleBookmark(currentQ.id); }} title="บันทึกข้อนี้ (B)">
+            <NavIcon name="star" size={18} filled={isBookmarked} />
+          </button>
+          <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้">
+            <NavIcon name="note" size={18} filled={Boolean(note)} />
+          </button>
+          {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
+              Click again while speaking to stop. */}
+          <button
+            type="button"
+            aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
+            aria-pressed={isSpeaking}
+            className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
+            onClick={() => speak('q')}
+            onPointerDown={preloadTts}
+            title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
+          >
+            <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
+          </button>
+          {/* Q quality flag — local-only for now (Supabase schema TBD). */}
+          <button
+            type="button"
+            aria-label={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+            aria-pressed={Boolean(flagState)}
+            className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
+            onClick={toggleFlag}
+            title={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+          >
+            <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
+          </button>
+          {/* Pin → adds this Q to the personal Pinboard. */}
+          {/* Not `compact`: its 36px inline size sat next to four 44px controls,
+              so the row read as uneven — and 44px is the touch floor anyway.
+              The toolbar's circle class owns its shape, like its four neighbours. */}
+          <PinButton
+            className="vmx-note-btn vmx-pin-btn"
+            type="question"
+            payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
+            label={(currentQ?.q || '').slice(0, 60)}
+          />
+        </div>
+        {/* The type, subject, topic and paper as separate parts of one quiet
+            row — Thai, like the rest of the card, and never uppercased. The
+            hairline between parts is CSS (.vmx-q-meta), so no separator is
+            written into the copy, and the topic's emoji stays on the topic
+            screen where it is the topic's identity, not chrome. */}
+        {/* One line that truncates. The full words stay in the tree for a
+            screen reader, in the title on hover, and on the line itself
+            after a tap, which unfolds it. */}
+        <MetaLine ref={metaRef} className="vmx-qtype-badge vmx-q-meta" data-open={metaOpen || undefined} title={metaTitle} {...metaProps}>
+          {(() => {
+            const typeLabel = TYPE_LABEL[currentQ.type];
+            const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
+            const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+            // Only questions that carry exam-scope metadata say which paper
+            // they belong to; a legacy question says nothing rather than guessing.
+            const paper = examScopeLabel(scopeOfQuestion(currentQ));
+            return (
+              <>
+                {typeLabel && <span>{typeLabel}</span>}
+                <span>{subj?.name || currentQ.subject}</span>
+                {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
+                {/* A label that would name the key waits for it (lib/source-line.js).
+                    It and the line standing in for it share one grid cell, so the
+                    row keeps the size the label needs and nothing moves when it
+                    appears; the hidden one is neither seen nor read aloud. */}
+                {topic && holdsTopicChip(currentQ) && (
+                  <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
+                    <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
+                    <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
+                  </span>
+                )}
+                {paper && <span className="vmx-scope-chip">{paper}</span>}
+              </>
+            );
+          })()}
+          {/* Only where the source line agrees: a sat paper, a marked exam
+              point or a mock, never a row written from a lecture or a summary. */}
+          {followsExamPattern(currentQ) && (
+            <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
+              อิงแนวเดิม
+            </span>
+          )}
+        </MetaLine>
+
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
       <ReadAloudBar jobPrefix={jobPrefix} engine={engine} />
-
-      {/* The type, subject, topic and paper as separate parts of one quiet
-          row — Thai, like the rest of the card, and never uppercased. The
-          hairline between parts is CSS (.vmx-q-meta), so no separator is
-          written into the copy, and the topic's emoji stays on the topic
-          screen where it is the topic's identity, not chrome. */}
-      <div className="vmx-qtype-badge vmx-q-meta">
-        {(() => {
-          const typeLabel = TYPE_LABEL[currentQ.type];
-          const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
-          const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
-          // Only questions that carry exam-scope metadata say which paper
-          // they belong to; a legacy question says nothing rather than guessing.
-          const paper = examScopeLabel(scopeOfQuestion(currentQ));
-          return (
-            <>
-              {typeLabel && <span>{typeLabel}</span>}
-              <span>{subj?.name || currentQ.subject}</span>
-              {topic && !holdsTopicChip(currentQ) && <span style={{ color: subjectText(subj?.color) }}>{topicChipText(topic.label)}</span>}
-              {/* A label that would name the key waits for it (lib/source-line.js).
-                  It and the line standing in for it share one grid cell, so the
-                  row keeps the size the label needs and nothing moves when it
-                  appears; the hidden one is neither seen nor read aloud. */}
-              {topic && holdsTopicChip(currentQ) && (
-                <span className="vmx-q-topic-hold" style={{ color: subjectText(subj?.color) }}>
-                  <span aria-hidden={keyShown ? undefined : true}>{topicChipText(topic.label)}</span>
-                  <span className="vmx-q-topic-wait" aria-hidden={keyShown ? true : undefined}>{TOPIC_CHIP_WAIT}</span>
-                </span>
-              )}
-              {paper && <span className="vmx-scope-chip">{paper}</span>}
-            </>
-          );
-        })()}
-        {/* Only where the source line agrees: a sat paper, a marked exam
-            point or a mock, never a row written from a lecture or a summary. */}
-        {followsExamPattern(currentQ) && (
-          <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
-            อิงแนวเดิม
-          </span>
-        )}
-      </div>
 
       {figureSrc && (
         <ZoomableImage
@@ -817,89 +954,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   );
 }
 
-// ────────────────────────────────────────────────────────────────
-// FlagChip — visual warning that a question has a known data
-// conflict between past paper answer and current lecture content.
-// Severity color: major=rose, minor=gold, unclear=ink-soft.
-// Click expands to show note + sources.
-// ────────────────────────────────────────────────────────────────
-// The chip warns before the answer too, but what it opens waits for the key
-// (5.189.2): a note that says which key the seniors marked, or that the
-// answer "should be InPouch TF-Feline", named the key on 26 of the 94
-// flagged questions, timed papers included. Exported for the leak test.
-export function FlagChip({ flag, revealed = false }) {
-  const [open, setOpen] = useState(false);
-  const expanded = revealed && open;
-  const sev = flag?.severity || 'unclear';
-  // `text` is the accent as TEXT on a 12% tint of itself — the raw accents
-  // read 2.65 there. The -text variants are what that role is for; border
-  // and bg keep the accent, where nothing reads on top of it.
-  const PALETTE = {
-    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)' },
-    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)' },
-    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)' },
-  };
-  // Was `}[sev] || palette.unclear`, reading `palette` inside its own
-  // initializer: any severity in the data that is not one of these three
-  // keys threw "Cannot access 'palette' before initialization" and took
-  // the question card down with it. Nothing in the bank uses a fourth
-  // value today, which is the only reason it never fired.
-  const palette = PALETTE[sev] || PALETTE.unclear;
-
-  return (
-    <div style={{ marginTop: 12 }}>
-      <button
-        type="button"
-        onClick={() => { if (revealed) setOpen((o) => !o); }}
-        aria-expanded={revealed ? open : undefined}
-        aria-disabled={revealed ? undefined : true}
-        data-flag-chip={sev}
-        style={{
-          all: 'unset',
-          cursor: revealed ? 'pointer' : 'default',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 6,
-          padding: '4px 10px',
-          background: palette.bg,
-          border: `1px solid ${palette.border}`,
-          borderRadius: 999,
-          fontSize: 14,
-          color: palette.text,
-        }}
-        title={revealed ? 'ข้อมูลขัดแย้ง — กดดูรายละเอียด' : 'ข้อมูลขัดแย้ง รายละเอียดแสดงหลังเห็นเฉลย'}
-      >
-        {/* One line flag; the severity is the word beside it and the colour. */}
-        <NavIcon name="flag" size={13} filled /> {flagChipText(flag)} {revealed ? (open ? '▾' : '▸') : SOURCE_LINE_WAIT}
-      </button>
-
-      {expanded && (
-        <div style={{
-          marginTop: 8,
-          padding: '12px 14px',
-          background: palette.bg,
-          borderLeft: `3px solid ${palette.border}`,
-          borderRadius: '0 8px 8px 0',
-          fontSize: 14,
-          lineHeight: 1.6,
-          color: 'var(--clr-ink)',
-        }}>
-          <div>{flag.note}</div>
-          {flag.sources?.length > 0 && (
-            <div style={{
-              marginTop: 8,
-              fontSize: 11,
-              fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-ink-soft)',
-            }}>
-              Sources: {flag.sources.join(', ')}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
+// FlagChip lives in its own file so the spaced-repetition card and Review
+// draw the same chip; re-exported here for the leak tests.
+export { FlagChip };
 
 // ─── MCQ option renderer with stable per-Q shuffle ─────────────────
 function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingOption = -1, english = null }) {
@@ -970,7 +1027,8 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+// Exported for the fold tests.
+export function InstantFeedback({ ok, partial = false, headline = null, focusOnShow = false, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false, caution = null }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -982,6 +1040,9 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
   // baseline), and it sat between the tap and the ✓/✗ appearing. An answer
   // revisited later shows everything at once.
   const [rest, setRest] = useState(!isFresh);
+  // A verdict opened by a button that is gone once it opens takes focus itself.
+  const headRef = useRef(null);
+  useEffect(() => { if (focusOnShow && isFresh) headRef.current?.focus?.({ preventScroll: true }); }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once, at the verdict
   useEffect(() => {
     if (isFresh) haptic(reaction.haptic, preferences);
     if (rest) { onShown?.(); return undefined; }
@@ -991,14 +1052,22 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
     return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per revealed answer
   const combo = ok && run >= COMBO_MIN;
+  const linked = (t) => <TermLinkedRichText text={t} subject={subject} />;
+  // Only a correct answer folds the other options' reasons; a miss, or a
+  // reveal without an answer, reads them open as before (lib/explain-fold.js).
+  const fold = ok && foldOtherOptions ? otherOptionsFold(explain) : null;
+  // Read-aloud speaks the whole explanation and marks the words it is on, so
+  // the fold opens when that reading starts; the student closes it again.
+  const foldRef = useRef(null);
+  useEffect(() => { if (reading && foldRef.current) foldRef.current.open = true; }, [reading]);
   return (
-    <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
+    <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : partial ? 'is-part' : 'is-no'}`} role="status">
       <div className="vmx-feedback-header">
         <div className="vmx-feedback-headline">
           {/* The verdict is the headline itself; the mono English kicker that
               sat above it said the same thing a second time in a language the
               card does not otherwise speak. */}
-          <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
+          <div className="v" ref={headRef} tabIndex={focusOnShow ? -1 : undefined} style={focusOnShow ? { outline: 'none' } : undefined}>{headline || (ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง')}</div>
           {/* How many correct in a row ends here, counted from the set's own
               verdicts (lib/mochi-reactions.js correctRun). */}
           {combo && <span className={`vmx-combo-chip${isFresh ? ' is-fresh' : ''}`}>ถูกติดกัน {run} ข้อ</span>}
@@ -1015,10 +1084,30 @@ function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, lis
       {(alwaysShowCorrect || !ok) && correctNode != null && (
         <div className="a"><span className="k">เฉลย</span><div className="vmx-feedback-correct-val">{correctNode}</div></div>
       )}
+      {caution}
       {rest && explain && (
         <div className={`w${reading ? ' is-reading' : ''}`}>
           <div className="vmx-feedback-explain-head"><span className="k">เหตุผล</span>{listen}</div>
-          <div className="vmx-feedback-explain-body" ref={explainRef}><RichBlocks text={explain} renderText={(t) => <TermLinkedRichText text={t} subject={subject} />} /></div>
+          <div className="vmx-feedback-explain-body" ref={explainRef}>
+            {fold ? (
+              <>
+                <RichBlocks text={fold.before.trimEnd()} renderText={linked} />
+                {/* Answered correctly: the other options' reasons wait behind
+                    one row. Native details, so the text stays in the page
+                    (read-aloud marks it, find-in-page reaches it). */}
+                <details className="vmx-other-options" ref={foldRef}>
+                  {/* Its own words, no cross: after a correct answer the heading's ❌ read as a verdict. */}
+                  <summary>ดูว่าทำไมข้ออื่นผิด</summary>
+                  <RichBlocks text={fold.body} renderText={linked} />
+                </details>
+                {/* Trimmed both sides: the blank lines that set the section apart in
+                    the text stood as an empty paragraph above and below the row. */}
+                {fold.after.trim() && <RichBlocks text={fold.after.trimStart()} renderText={linked} />}
+              </>
+            ) : (
+              <RichBlocks text={explain} renderText={linked} />
+            )}
+          </div>
           {listenNote && <p className="vmx-tts-note" role="status">{listenNote}</p>}
         </div>
       )}

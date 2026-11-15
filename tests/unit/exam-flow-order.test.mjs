@@ -30,7 +30,7 @@ import { panicPool } from '../../src/lib/question-metadata.js';
 import * as examPool from '../../src/lib/exam-pool.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../../src/lib/study-events.js';
 import { inflightExamKey, isOwnedExam } from '../../src/lib/exam-recovery.js';
-import { secondsUntilDeadline } from '../../src/lib/exam-clock.js';
+import { secondsUntilDeadline, examNow } from '../../src/lib/exam-clock.js';
 
 const { timeForQuestion, isWritingType } = utils;
 const { buildExamPool } = examPool;
@@ -251,7 +251,7 @@ function hookAt(props) {
     useCallback: (fn) => fn,
     useEffect: () => {},
     timeForQuestion, isWritingType, confirmDialog: async () => true,
-    inflightExamKey, isOwnedExam, secondsUntilDeadline,
+    inflightExamKey, isOwnedExam, secondsUntilDeadline, examNow,
     createQuestionTiming, newStudySessionId, validSessionId,
   });
   return vm.runInContext(`${src}\nuseExamSession`, ctx)(props);

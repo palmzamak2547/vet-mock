@@ -10,6 +10,8 @@ import { assignCustomQuestionIds } from '../lib/custom-question-ids.js';
 import { thaiError } from '../lib/errors.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
+import QuestionPaper, { PAPER_FORMS, paperTitle } from '../components/QuestionPaper.jsx';
+import { printDocument } from '../lib/print-document.js';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, appendQuestions, goHome }) {
   const mountedRef = useRef(true);
@@ -25,6 +27,25 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   const [selectedIds, setSelectedIds] = useState(() => new Set());
   const [lastSelectedId, setLastSelectedId] = useState(null); // for shift-click range
   const [showSubjectPicker, setShowSubjectPicker] = useState(false);
+  // The question set on paper: the choice of form, then the paper itself,
+  // mounted only while the print window is open.
+  const [printSheet, setPrintSheet] = useState(false);
+  const [paperForm, setPaperForm] = useState('paper');
+  const [paper, setPaper] = useState(null);
+  const startPrint = async () => {
+    const chosen = selectedIds.size ? customQuestions.filter(q => selectedIds.has(q.id)) : customQuestions;
+    if (!chosen.length) return;
+    const { title, subject } = paperTitle(chosen);
+    const date = new Date().toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+    setPaper({ questions: chosen, form: paperForm });
+    setPrintSheet(false);
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    try {
+      await printDocument('questions', { head: [title, subject].filter(Boolean).join(' '), foot: `VetMock ${date}` });
+    } finally {
+      if (mountedRef.current) setPaper(null);
+    }
+  };
 
   const clearSelection = () => { setSelectedIds(new Set()); setLastSelectedId(null); };
   const exitSelectMode = () => { setSelectMode(false); clearSelection(); setShowSubjectPicker(false); };
@@ -395,6 +416,12 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           <input type="file" accept=".json" onChange={importCustom} style={{ display: 'none' }} />
         </label>
         {customQuestions.length > 0 && (
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setPrintSheet(v => !v)} aria-expanded={printSheet}
+            style={{ minHeight: 44 }}>
+            พิมพ์ชุดข้อสอบ
+          </button>
+        )}
+        {customQuestions.length > 0 && (
           <button
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={() => selectMode ? exitSelectMode() : setSelectMode(true)}
@@ -405,6 +432,23 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           </button>
         )}
       </div>
+      {printSheet && (
+        <fieldset className="vmx-print-sheet" style={{ border: 0, padding: 0, margin: '0 0 16px' }}>
+          <legend style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>
+            {selectedIds.size ? `พิมพ์ ${selectedIds.size} ข้อที่เลือก` : `พิมพ์ทั้ง ${customQuestions.length} ข้อ`} แล้วเลือกบันทึกเป็น PDF จากหน้าพิมพ์
+          </legend>
+          <div className="vmx-chip-row" role="radiogroup" aria-label="รูปแบบข้อสอบ">
+            {PAPER_FORMS.map(f => (
+              <button key={f.id} type="button" role="radio" aria-checked={paperForm === f.id}
+                className={`vmx-chip${paperForm === f.id ? ' active' : ''}`} onClick={() => setPaperForm(f.id)}>{f.label}</button>
+            ))}
+          </div>
+          <div style={{ marginTop: 12 }}>
+            <button type="button" className="vmx-btn vmx-btn-primary" onClick={startPrint}>พิมพ์</button>
+          </div>
+        </fieldset>
+      )}
+      {paper && <QuestionPaper questions={paper.questions} form={paper.form} />}
       {selectMode && (
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 16, padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 6 }}>
           คลิกที่ข้อเพื่อเลือก, แล้วแถบจะขึ้นด้านล่าง (กด Shift + คลิก เพื่อเลือกหลายข้อพร้อมกัน)

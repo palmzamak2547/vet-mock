@@ -53,7 +53,7 @@ const lockKey = (q) => `${q?.subject || '?'}:${q?.id}`;
 // once) without the student having settled on an option.
 const BROWSE_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown']);
 
-export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, revealAnswer }) {
+export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, revealAnswer, caution = null }) {
   // A printed matching set: `bank` is the answer list in printed order (A, B,
   // C ...) and the items reuse those letters — seven viruses across eighteen
   // statements. So the pool is the bank itself, unshuffled, and a letter is
@@ -235,6 +235,9 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
         </ol>
       )}
 
+      {/* The caution of a disputed key shows with the first key on the board:
+          the whole set revealed, or in เฉลยทีละข้อ the first row that shows its answer. */}
+      {(isRevealed || answered.some((i) => locked.has(i))) && caution}
       <div className="vmx-match-select-grid">
         {currentQ.pairs.map((pair, i) => {
           const val = getVal(i);

@@ -30,12 +30,7 @@ import { loadModule, mount } from '../helpers/fake-react.mjs';
 
 // Known failures on main: { invariant, case, why }. Found 11 Nov 2026; the scoring code is not
 // changed here. Each row is asserted to still fail, so the fix that makes it pass must delete it.
-const KNOWN_FAILURES = [
-  { invariant: 'thai spelling', case: { key: 'น้ำตาล', typed: 'น้ําตาล' },
-    why: 'SARA AM typed as NIKHAHIT + SARA AA looks the same and NFC does not join them, so the key is marked wrong' },
-  { invariant: 'thai spelling', case: { key: 'กิ่ง', typed: 'ก่ิง' },
-    why: 'a tone mark typed before SARA I looks the same; NFC reorders only marks that both have a combining class, so the key is marked wrong' },
-];
+const KNOWN_FAILURES = [];
 
 // ── A PRNG of the test's own (not the app's mulberry32) ──────────────────────────────────────────
 function prng(seed) {
@@ -247,6 +242,13 @@ const inflightRecord = (s, questions) => ({ questions, answers: s.api.answers, c
   examStartTime: Date.now(), sessionId: s.api.sessionId, ownerId: null, mode: 'quick', useTimer: false, timePerQ: 0, clock: 'per-question', savedAt: Date.now() });
 
 test('answering in any order, changing answers and resuming at any point give the same score', async () => {
+  // The session refuses a second move within 120 ms of the first and holds a move for up to 1,000 ms when no frame releases it
+  // (MOVE_FLOOR_MS, MOVE_HOLD_MAX_MS in useExamSession.js), so a double tap cannot skip a question.
+  // Each move in this walk is a separate tap: the session's clock is moved past the hold before it.
+  const realNow = performance.now;
+  let clock = realNow.call(performance);
+  performance.now = () => clock;
+  try {
   for (const seed of SEEDS.slice(0, 80)) {
     const { r, questions, answers: finalSheet } = makePaper(seed, 5 + (seed % 25));
     // A random route to that sheet: each question gets up to two earlier answers (often wrong, some
@@ -286,6 +288,7 @@ test('answering in any order, changing answers and resuming at any point give th
       }
       const [id, value] = plan[step];
       const idx = live.api.questions.findIndex((q) => q.id === id);
+      clock += 1001;
       live.api.jumpToQ(idx);
       live.flush();
       if (value === undefined) {
@@ -297,6 +300,9 @@ test('answering in any order, changing answers and resuming at any point give th
     const got = clientTotal(live.api.questions, live.api.answers);
     if (got !== want) fail('the score moved with the order, a change or a resume', seed, { got, want, resumeAt, steps: plan.length });
     live.unmount();
+  }
+  } finally {
+    performance.now = realNow;
   }
 });
 

@@ -70,3 +70,44 @@ for (const width of [1280, 834, 390]) {
     expect(geo.overflow).toBe(false);
   });
 }
+
+// On a 360 px phone ไทย/EN ran over the position, and its hit area was a ::before that
+// STABILITY.md bans. Each button is now a real 44 px box that touches nothing else.
+for (const width of [320, 360]) {
+  test(`ไทย/EN are 44 px targets clear of the position at ${width}px`, async ({ page, context }) => {
+    await startAnyExam(page, context, width);
+    // A tap on each lands on it. Polled: while the screen's view transition runs, its
+    // overlay owns every point.
+    await expect.poll(() => page.evaluate(() => [...document.querySelectorAll('.vmx-lang-btn')].every((el) => {
+      const r = el.getBoundingClientRect();
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return hit === el || el.contains(hit);
+    }))).toBe(true);
+    const geo = await page.evaluate(() => {
+      const box = (el) => { const r = el.getBoundingClientRect(); return { l: r.left, t: r.top, r: r.right, b: r.bottom, w: r.width, h: r.height }; };
+      const pill = box(document.querySelector('.vmx-progress'));
+      const exit = box(document.querySelector('.vmx-exam-top-left'));
+      const buttons = [...document.querySelectorAll('.vmx-lang-btn')].map(box);
+      return { pill, exit, buttons, overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth };
+    });
+    const apart = (a, b) => a.r <= b.l || b.r <= a.l || a.b <= b.t || b.b <= a.t;
+    expect(geo.buttons).toHaveLength(2);
+    for (const b of geo.buttons) {
+      expect(b.w).toBeGreaterThanOrEqual(44);
+      expect(b.h).toBeGreaterThanOrEqual(44);
+      expect(apart(b, geo.pill)).toBe(true);
+      expect(apart(b, geo.exit)).toBe(true);
+    }
+    expect(geo.overflow).toBe(false);
+  });
+}
+
+// The header's height at 390 px, the most common phone: every pixel it takes is taken from the
+// question. 71 px is the 44 px ไทย/EN row, a 4 px gap and the 23 px row the score slot wraps to
+// (the 111 px right track holds the toggle or the score, not both); one more pixel for
+// engines whose Thai line box runs a pixel taller.
+test('the exam header stays at 71 px (72 at most) at 390px', async ({ page, context }) => {
+  await startAnyExam(page, context, 390);
+  const h = await page.evaluate(() => document.querySelector('.vmx-exam-top').getBoundingClientRect().height);
+  expect(h).toBeLessThanOrEqual(72);
+});

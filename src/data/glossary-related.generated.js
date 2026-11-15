@@ -1915,7 +1915,6 @@ export const GLOSSARY_RELATED = {
   8032,
   8033,
   8046,
-  8047,
   212043,
   8216,
   8224,

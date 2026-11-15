@@ -30,9 +30,9 @@
 
 import { USER_DATA_FIELDS, createUserDataSync, mergeFieldValue } from './user-data-sync.js';
 import { moveBaseKit } from './move-base.js';
+import { MAX_ATTEMPTS, MOVE_INBOX, MOVE_JOBS, MOVE_RECEIVED, NOTICE_MS, dueMoveJobs } from './move-gate.js';
 
-export const MOVE_INBOX = 'vmx-move-inbox';
-export const MOVE_RECEIVED = 'vmx-move-received';
+export { MOVE_INBOX, MOVE_RECEIVED };
 export const MOVE_BASE = 'vmx-move-base';
 const UNREADABLE = 'vmx-move-inbox-unreadable';
 // Key names the sync store writes (user-data-sync.js, user-data-atomic.js),
@@ -41,7 +41,6 @@ const OWNER_KEY = 'vmx-user-sync-owner-v1';
 const V1_DATA = 'vmx-user-data-v1:';
 const V2_DATA = 'vmx-user-data-v2:';
 const GUEST_V2 = `${V2_DATA}anonymous`;
-const NOTICE_MS = 10 * 60 * 1000;
 const KIT = moveBaseKit();
 const FIELD_BY_KEY = new Map(Object.entries(USER_DATA_FIELDS).map(([field, d]) => [d.localKey, field]));
 
@@ -341,6 +340,10 @@ export async function importMovedRecords({
 } = {}) {
   const received = parse(read(storage, MOVE_RECEIVED));
   if (!plain(received) || received.idbDone) return { ok: true, skipped: true };
+  // A fourth boot does not try again (lib/move-gate.js MAX_ATTEMPTS): the records stay in IndexedDB.
+  const tried = Number.isSafeInteger(received.attempts) && received.attempts > 0 ? received.attempts : 0;
+  if (tried >= MAX_ATTEMPTS) return { ok: false, gaveUp: true };
+  try { storage.setItem(MOVE_RECEIVED, JSON.stringify({ ...received, attempts: tried + 1 })); } catch { /* uncounted */ }
   try {
     const entries = await readInbox();
     const of = (db) => entries.filter((e) => e?.record?.db === db && plain(e.record.value)).map((e) => e.record.value);
@@ -369,7 +372,7 @@ export function moveNotice(storage, now = Date.now()) {
 }
 
 // The app's notice card (.vmx-update-notice).
-function noticeCard(doc, text, later) {
+function noticeCard(doc, text, later, { link = null, stay = false } = {}) {
   const box = doc.createElement('div');
   box.className = 'vmx-update-notice';
   box.setAttribute('role', 'status');
@@ -383,9 +386,53 @@ function noticeCard(doc, text, later) {
   close.textContent = '✕';
   close.addEventListener('click', () => box.remove());
   box.appendChild(span);
+  if (link) {
+    const a = doc.createElement('a');
+    a.href = link.href;
+    a.textContent = link.text;
+    box.appendChild(a);
+  }
   box.appendChild(close);
   doc.body.appendChild(box);
-  later(() => box.remove(), 12000);
+  if (!stay) later(() => box.remove(), 12000);
+}
+
+const OLD_ADDRESS = 'https://vetmock.vercel.app';
+
+/** After the last try of a merge that did not go through: what the student is told, and the way back.
+ *  The link goes only to the old address itself: the inbox's `from` is used only when it is exactly it. */
+export function moveGiveUpNotice(inboxRaw) {
+  const from = parse(inboxRaw)?.from;
+  const origin = from === OLD_ADDRESS ? from : OLD_ADDRESS;
+  return {
+    text: 'ย้ายข้อมูลการเรียนจาก vetmock.vercel.app มาที่นี่ไม่สำเร็จ ข้อมูลทั้งหมดยังอยู่ที่ที่อยู่เดิม',
+    link: { href: `${origin}/?vmx-move=retry`, text: 'ลองย้ายอีกครั้ง' },
+  };
+}
+
+// The screens of a running session: the give-up notice is fixed at the bottom of a phone and would cover
+// their controls. App.jsx publishes its view as window.__vmxView and a 'vmx-view' event.
+const SESSION_VIEWS = new Set(['exam', 'sr-session']);
+
+/** Runs `show` once: now unless a session is on screen, else when the student is next on Home. */
+export function whenNotInSession(win, show) {
+  if (!SESSION_VIEWS.has(win.__vmxView)) { show(); return; }
+  const onView = (event) => {
+    if (event?.detail !== 'home') return;
+    win.removeEventListener('vmx-view', onView);
+    show();
+  };
+  win.addEventListener('vmx-view', onView);
+}
+
+/** The inbox job of this boot, when the gate named it and the app waited for it. Returns null when it
+ *  did not run, else the job's result, with the notice to show when that was the last try. */
+export function runInboxJob(win, due, merge = applyMoveInbox) {
+  if (!due.has('inbox') || win.__vmxMoveSkip) return null;
+  const job = MOVE_JOBS.find((j) => j.id === 'inbox');
+  const raw = read(win.localStorage, MOVE_INBOX);
+  const result = job.run(win, merge);
+  return result.gaveUp ? { ...result, notice: moveGiveUpNotice(raw) } : result;
 }
 
 /** The move notice, once. Returns whether shown. */
@@ -411,17 +458,36 @@ export function showOldAddressNote(win, doc, later = (fn, ms) => setTimeout(fn, 
   return true;
 }
 
+// main.jsx imports this only when lib/move-gate.js finds a job due, and this
+// runs exactly the jobs MOVE_JOBS says are due. It may arrive after the page's
+// load event: then the after-load work starts now. With window.__vmxMoveSkip
+// set (the app started without waiting for this file) the inbox is not merged
+// under the running store; it waits for the next boot.
 if (typeof window !== 'undefined') {
-  try { applyMoveInbox(window.localStorage); } catch { /* never block the app */ }
-  window.addEventListener('load', () => {
+  // This boot's answer from main.jsx; read again only if this file was loaded some other way.
+  const due = new Set(Array.isArray(window.__vmxMoveDue) ? window.__vmxMoveDue : dueMoveJobs(window));
+  let inbox = null;
+  try { inbox = runInboxJob(window, due); } catch { /* never block the app */ }
+  const afterLoad = () => {
     const run = () => {
-      importMovedRecords()
+      (due.has('records') ? importMovedRecords() : Promise.resolve())
         .catch(() => {})
         .finally(() => {
-          try { showMoveNotice(document, window.localStorage) || showOldAddressNote(window, document); } catch { /* optional */ }
+          try {
+            // The last try of the merge failed: said once, and it stays until closed.
+            if (inbox?.notice && document.body) {
+              const { text, link } = inbox.notice;
+              whenNotInSession(window, () => noticeCard(document, text, () => {}, { link, stay: true }));
+              return;
+            }
+            if (due.has('notice') && showMoveNotice(document, window.localStorage)) return;
+            if (due.has('note')) showOldAddressNote(window, document);
+          } catch { /* optional */ }
         });
     };
     if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 4000 });
     else setTimeout(run, 1500);
-  }, { once: true });
+  };
+  if (typeof document !== 'undefined' && document.readyState === 'complete') afterLoad();
+  else window.addEventListener('load', afterLoad, { once: true });
 }

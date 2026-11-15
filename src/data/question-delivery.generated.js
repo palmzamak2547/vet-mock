@@ -1053,6 +1053,11 @@ export const BLOCKED_QUESTIONS = [
     "source": "questions-y5-final-mixed.js"
   },
   {
+    "key": "vca:8047",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-y5-final-mixed.js"
+  },
+  {
     "key": "vet-juris:93037",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-vet-juris.js"
@@ -1063,4 +1068,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 211;
+export const BLOCKED_QUESTION_COUNT = 212;

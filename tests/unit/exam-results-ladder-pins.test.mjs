@@ -63,7 +63,8 @@ test('the instant verdict and the results seal speak Thai, with no English kicke
   assert.equal(question.includes("'APPROVED'"), false);
   // The verdict is the Thai headline alone: the Mochi stamp beside it, with
   // its ถูกแล้ว and ลองอีกที label, went in 5.189.2 (Palm: "ดูแปลกตา").
-  assert.match(question, /\{ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\}/);
+  // A partly right fill-in item says how many blanks were right instead (headline).
+  assert.match(question, /\{headline \|\| \(ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\)\}/);
   for (const gone of ["'ลองอีกที'", "'ถูกแล้ว'", 'vmx-mochi-stamp--', 'slot="feedback"']) {
     assert.equal(question.includes(gone), false, `${gone} is back on the verdict`);
   }
@@ -92,4 +93,9 @@ test('the results screen reads the rung off the set and judges it with the app\'
   assert.match(launch, /if \(id === 'exam'\) \{[\s\S]*topic: null/);
   assert.match(launch, /\.\.\.\(id === 'understand' \? \{ gentle: true \} : \{\}\)/);
   assert.equal(launch.includes('excludeIds'), false, 'the next rung re-tests the same material; only "ต่ออีก" excludes');
+});
+
+test('below the pass line on the same rung, the note sends the student to the misses first', () => {
+  assert.ok(results.includes('`ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% แก้ข้อที่ผิดก่อน แล้วทำขั้นนี้อีกชุด`'));
+  assert.equal(results.includes('ทำขั้นนี้อีกชุดก่อน`'), false, 'the old note is back');
 });
