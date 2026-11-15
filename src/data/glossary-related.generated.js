@@ -3397,7 +3397,8 @@ export const GLOSSARY_RELATED = {
   105538,
   105540,
   105569,
-  209560
+  209560,
+  209642
  ],
  "eia|equine": [
   105480,
@@ -3405,9 +3406,11 @@ export const GLOSSARY_RELATED = {
   216001,
   216002,
   216004,
+  216020,
   105273,
   209567,
-  209599
+  209599,
+  209641
  ],
  "endometrial cup|equine": [
   207624,
@@ -3509,6 +3512,7 @@ export const GLOSSARY_RELATED = {
  "sarcoid|equine": [
   216005,
   216007,
+  216019,
   105228,
   105236,
   105237,
@@ -3526,7 +3530,8 @@ export const GLOSSARY_RELATED = {
   105541,
   216004,
   105289,
-  209531
+  209531,
+  209643
  ],
  "uterine edema|equine": [
   202251,

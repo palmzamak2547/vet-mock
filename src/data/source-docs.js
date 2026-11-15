@@ -310,6 +310,12 @@ export const SOURCE_DOCS = [
     match: /สรุป Ekwai \(quine\) ของ Vet 85/,
     editions: [{ id: '19p', pages: 19 }],
   },
+  // The midterm summary in the Vet 84 folder (a Vet 83 sheet with Vet 84's notes), 8 pages by the PDF.
+  {
+    slug: 'equine-mid-summary-v84', subject: 'equine-medicine', title: "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า",
+    match: /สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า/,
+    editions: [{ id: '8p', pages: 8 }],
+  },
   {
     slug: 'com5-final86', subject: 'com5', title: 'COM V FINAL 86',
     match: /\bCOM V FINAL 86\b/,
