@@ -138,12 +138,17 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     const since = moveClock() - lastMoveAtRef.current;
     return since < MOVE_FLOOR_MS || (moveHeldRef.current && since < MOVE_HOLD_MAX_MS);
   };
+  // An answer given on the question now on screen since the last move: that question was seen, so
+  // the press that asks for the next one goes through even inside the hold (nextQ only; a step back
+  // or a map jump still waits for it).
+  const answeredSinceMoveRef = useRef(false);
   const holdMove = () => {
     moveHeldRef.current = true;
     lastMoveAtRef.current = moveClock();
+    answeredSinceMoveRef.current = false;
   };
-  const takeMove = () => {
-    if (moveRefused()) return false;
+  const takeMove = (seen = false) => {
+    if (!seen && moveRefused()) return false;
     holdMove();
     return true;
   };
@@ -238,8 +243,9 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const answerCurrent = useCallback((val) => {
     // An answer on the question now on screen shows it was seen: the hold (and its floor)
     // is for a second press that lands before that, so a student who answers and presses
-    // ข้อถัดไป at once moves on. A handler left from another question answers nothing new.
-    if (!staleHandler(currentIdx)) { moveHeldRef.current = false; lastMoveAtRef.current = -Infinity; }
+    // ข้อถัดไป at once moves on (see answeredSinceMoveRef). A handler left from another
+    // question answers nothing new.
+    if (!staleHandler(currentIdx)) answeredSinceMoveRef.current = true;
     setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val }));
   }, [questions, currentIdx]);
 
@@ -251,7 +257,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // The hold is for moves between questions only. On the last question this
     // call is the submit dialog's confirm, often within the floor of the key
     // press that opened it; refusing it would close the dialog unsubmitted.
-    if (!isLast && moveRefused()) return;
+    const seen = answeredSinceMoveRef.current;
+    if (!isLast && !seen && moveRefused()) return;
     // Confirm before skipping a blank short/essay — these take real
     // effort so accidental "Next →" clicks shouldn't lose them. Not on the
     // last question: the only way here is ExamView's submit dialog, which
@@ -275,7 +282,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       }
     }
     if (currentIdx < questions.length - 1) {
-      if (!takeMove()) return;
+      if (!takeMove(seen)) return;
       const next = questions[currentIdx + 1];
       // The "หมดเวลา" note is for the clock's own move only, never a tap.
       setTimedOutIdx(null);

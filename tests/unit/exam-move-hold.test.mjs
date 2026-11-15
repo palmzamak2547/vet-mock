@@ -97,6 +97,9 @@ test('answering the new question and pressing next at once moves on', async () =
   await render().nextQ(); // 0 -> 1, the hold is taken; no frame releases it here
   assert.equal(render().currentIdx, 1);
   render().answerCurrent(0); // an answer on question 2: it was seen
+  // Only the press that asks for the next question is freed: a step back straight after still waits.
+  render().prevQ();
+  assert.equal(render().currentIdx, 1, 'an answer let a step back through the hold');
   await render().nextQ();
   assert.equal(render().currentIdx, 2, 'the press that asks for the next question was swallowed');
   // The hold is taken again by that move: a second press straight after it is still refused.
