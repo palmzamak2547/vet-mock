@@ -175,6 +175,7 @@ test('every read of a member name or picture in src is drawn through public-disp
     'src/lib/identity-write.js: meta.avatar_emoji': 'the write path',
     'src/lib/identity-write.js: row.username': 'compared in the free-name check, never drawn',
     'src/lib/identity-write.js: destructure': 'saveIdentity\'s own arguments',
+    'src/lib/family/return-path.js: url.username': 'URL user info, not a member',
     'src/lib/safe-url.js: u.username': 'URL user info, not a member',
     'src/lib/safe-url.js: parsed.username': 'URL user info, not a member',
     'src/lib/vca-library.js: url.username': 'URL user info, not a member',
