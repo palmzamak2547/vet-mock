@@ -635,8 +635,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <InstantFeedback
               key={compoundId}
               ok={fillOk}
-              headline={!fillOk && fillRight > 0 ? `✗ ถูก ${fillRight} จาก ${currentQ.blanks.length} ช่อง ดูเฉลยด้านล่าง` : null}
+              // Partly right has its own mark and colour, as Review draws it (◐ 2/3): a cross read as all wrong.
+              headline={!fillOk && fillRight > 0 ? `◐ ถูก ${fillRight} จาก ${currentQ.blanks.length} ช่อง ดูเฉลยด้านล่าง` : null}
+              partial={!fillOk && fillRight > 0}
               focusOnShow
+              caution={cautionChip}
               run={answerRun}
               fresh={fillCheckedNow === compoundId}
               correctNode={currentQ.blanks.length > 1
@@ -1002,7 +1005,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed, readingO
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
 // Exported for the fold tests.
-export function InstantFeedback({ ok, headline = null, focusOnShow = false, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false, caution = null }) {
+export function InstantFeedback({ ok, partial = false, headline = null, focusOnShow = false, run = 0, fresh = false, correctNode, explain, listen = null, listenNote = null, explainRef = null, reading = false, onShown, figure = null, evidence = null, coach, wikiLink, subject, alwaysShowCorrect = false, foldOtherOptions = false, caution = null }) {
   // The panel mounts once per revealed answer; whether that answer was given
   // just now is fixed at mount, so a later re-render cannot replay anything.
   const [isFresh] = useState(fresh);
@@ -1035,7 +1038,7 @@ export function InstantFeedback({ ok, headline = null, focusOnShow = false, run 
   const foldRef = useRef(null);
   useEffect(() => { if (reading && foldRef.current) foldRef.current.open = true; }, [reading]);
   return (
-    <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
+    <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : partial ? 'is-part' : 'is-no'}`} role="status">
       <div className="vmx-feedback-header">
         <div className="vmx-feedback-headline">
           {/* The verdict is the headline itself; the mono English kicker that

@@ -254,7 +254,7 @@ test('the question card hands the chip whether the key is on screen, and the dat
   // The caution chip lives in the verdict panel, which exists only once the key is shown.
   // One chip value, handed to every reveal (multiple choice, true/false, written, match).
   assert.ok(card.includes('const cautionChip = cautionChipShown(currentQ.flag)\n    ? <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />'.replace(/\n/g, card.includes('\r\n') ? '\r\n' : '\n')));
-  assert.equal((card.match(/caution=\{cautionChip\}/g) || []).length, 2, 'both verdict panels');
+  assert.equal((card.match(/caution=\{cautionChip\}/g) || []).length, 3, 'the three verdict panels: choice, true/false, fill-in');
   assert.equal((card.match(/<FlagChip /g) || []).length, 1, 'one place draws the chip');
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
@@ -386,6 +386,11 @@ test('the caution chip shows with the key on every question type that reveals in
   assert.equal(shown(tf, undefined), 0, 'tf before the answer');
   assert.equal(shown(tf, tf.answer), 1, 'tf with the key');
   assert.equal(shown(tf, tf.answer, { practice: false }), 0, 'tf mid-exam');
+  // A fill-in item is checked with ตรวจคำตอบ once every blank holds text.
+  const fill = fixture('fill');
+  assert.equal(shown(fill, fill.blanks.map(String)), 0, 'fill before its check');
+  assert.equal(shown(fill, fill.blanks.map(String), { reveal: true }), 1, 'fill with its key');
+  assert.equal(shown(fill, fill.blanks.map(String), { practice: false }), 0, 'fill mid-exam');
   for (const type of ['short', 'essay']) {
     const q = fixture(type);
     assert.equal(shown(q, 'คำตอบของนิสิต'), 0, `${type} before its เฉลย`);
