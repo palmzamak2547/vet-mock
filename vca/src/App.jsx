@@ -20,6 +20,7 @@ const LOADERS = {
   library: () => import('./pages/Library.jsx'),
   progress: () => import('./pages/Progress.jsx'),
   domain: () => import('./pages/Domain.jsx'),
+  question: () => import('./pages/QuestionPage.jsx'),
   exam: () => import('./pages/Exam.jsx'),
   about: () => import('./pages/About.jsx'),
   notFound: () => import('./pages/NotFound.jsx'),
