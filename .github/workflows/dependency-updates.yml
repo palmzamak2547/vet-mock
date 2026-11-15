@@ -82,6 +82,10 @@ jobs:
         run: |
           set -u
           merged=0
+          # Every ::error:: below also fails the run, so a merge that did not happen
+          # turns the run red (and reaches scheduled-red.yml) instead of a green run
+          # with a line nobody reads.
+          failed=0
           merge() { # number, head sha
             gh pr merge "$1" --squash --match-head-commit "$2" && return 0
             echo "::warning::#$1 was refused a direct merge; turning on auto-merge"
@@ -95,18 +99,21 @@ jobs:
           }
           numbers=$(gh pr list --author 'app/dependabot' --base main --state open --limit 50 --json number --jq '.[].number') || exit 1
           for n in $numbers; do
-            gh pr view "$n" --json author,isDraft,createdAt,commits,headRefOid > "pr-$n.json" || continue
+            if ! gh pr view "$n" --json author,isDraft,createdAt,commits,headRefOid > "pr-$n.json"; then
+              echo "::error::#$n could not be read"; failed=1; continue
+            fi
             if gh pr checks "$n" --required > /dev/null 2>&1; then checks=pass; else checks=wait; fi
             verdict=$(node scripts/dependabot-merge-gate.mjs "pr-$n.json" "$checks")
             echo "#$n $verdict" | tee -a "$GITHUB_STEP_SUMMARY"
             case "$verdict" in
               merge:*)
                 if merge "$n" "$(jq -r .headRefOid "pr-$n.json")"; then merged=1
-                else echo "::error::#$n could not be merged"; fi ;;
+                else echo "::error::#$n could not be merged"; failed=1; fi ;;
             esac
           done
           if [ "$merged" = 1 ]; then
             for wf in build.yml smoke-e2e.yml vca.yml research-r-parity.yml ai.yml; do
-              gh workflow run "$wf" --ref main || echo "::error::could not start $wf on main"
+              gh workflow run "$wf" --ref main || { echo "::error::could not start $wf on main"; failed=1; }
             done
           fi
+          exit "$failed"

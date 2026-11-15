@@ -10,7 +10,7 @@ import { Home } from './pages/Home.jsx';
 import { AccountSheets, ChulaWall, prefetchSignIn, startAccount, startWall, useWall, wall } from './online/index.js';
 import { initMotion, pageReady } from './lib/motion.js';
 import { isRestoring } from './lib/scroll.js';
-import { useActiveSession } from './lib/hooks.js';
+import { useActiveSession, useStorageRefused } from './lib/hooks.js';
 
 const LOADERS = {
   practice: () => import('./pages/Practice.jsx'),
@@ -128,6 +128,7 @@ export function App() {
   // on a first load it must run after useRoute's own effect has started listening, or the new
   // address is never heard and the route stays on /session.
   const session = useActiveSession();
+  const storageOff = useStorageRefused();
   const noSet = route.name === 'session' && !session;
   useEffect(() => {
     if (noSet && window.location.pathname.replace(/\/+$/, '') === '/session') navigate('/practice', { replace: true });
@@ -159,6 +160,11 @@ export function App() {
       <div className="atmos" aria-hidden="true"><span className="atmos-a" /><span className="atmos-b" /></div>
       {!focus && <TopBar route={route} />}
       <main id="main" className="main">
+        {storageOff && (
+          <p className="wrap storage-off" role="alert">
+            เบราว์เซอร์นี้เก็บผลฝึกไว้ไม่ได้ (พื้นที่เต็ม ปิดการเก็บข้อมูล หรือเปิดแบบส่วนตัว) ทำต่อได้ แต่ถ้าปิดหรือโหลดหน้านี้ใหม่ ผลจะหาย
+          </p>
+        )}
         <PageBoundary resetKey={path}>
           <Suspense fallback={<Loading />}>
             <Mounted path={path}>

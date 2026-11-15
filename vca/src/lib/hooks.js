@@ -2,10 +2,13 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { progressStore } from './progress.js';
 import { sessionStore, resultsStore } from './session.js';
 import { localDay } from './dates.js';
+import { onStorageRefused, storageRefused } from './storage.js';
 
 export const useProgress = () => useSyncExternalStore(progressStore.subscribe, progressStore.get, progressStore.get);
 export const useActiveSession = () => useSyncExternalStore(sessionStore.subscribe, sessionStore.get, sessionStore.get);
 export const useResults = () => useSyncExternalStore(resultsStore.subscribe, resultsStore.get, resultsStore.get);
+/** True once this browser refused to keep practice (storage full, blocked, a private window). */
+export const useStorageRefused = () => useSyncExternalStore(onStorageRefused, storageRefused, storageRefused);
 
 /** Re-render every `ms` while `on`; the value is the current time. */
 export function useNow(ms = 1000, on = true) {

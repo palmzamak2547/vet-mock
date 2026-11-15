@@ -171,3 +171,4 @@
 .ad-pn-note { margin: 8px 0 0; padding: 8px 11px; border-radius: 10px; background: var(--clr-surface-2); font-size: 12.5px; line-height: 1.6; color: var(--clr-ink); }
 .ad-pn-note.is-book { background: color-mix(in srgb, var(--clr-ocean) 10%, var(--clr-surface-2)); }
 .ad-pn-note i { font-style: normal; font-family: var(--vmx-mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 5px; }
+.ad-subhead { margin: 18px 0 6px; font-family: var(--vmx-display); font-weight: 600; font-size: 17px; line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); }

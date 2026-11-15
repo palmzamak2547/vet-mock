@@ -312,4 +312,20 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except BaseException as e:  # noqa: BLE001 - written down, then raised again
+        # The job's summary says exactly where it stopped instead of "no results".
+        # A dead emulator shows here as a timeout on the next adb call.
+        import traceback
+        out = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("measure-out")
+        out.mkdir(parents=True, exist_ok=True)
+        frame = traceback.extract_tb(e.__traceback__)
+        where = " > ".join(f"{f.name}:{f.lineno}" for f in frame if f.filename.endswith("measure.py"))
+        try:
+            alive = subprocess.run(["adb", "get-state"], capture_output=True, text=True, timeout=20).stdout.strip() or "no device"
+        except Exception:  # noqa: BLE001 - adb itself hung: the emulator is gone
+            alive = "adb did not answer"
+        lines = [f"{type(e).__name__}: {str(e)[:300]}", f"where: {where}", f"emulator after the failure: {alive}"]
+        (out / "failure.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        raise

@@ -18,7 +18,7 @@ test('create, list newest first, rename, pages only grow, remove', () => {
   assert.equal(nb.updateNotebook('a', { title: 'Physio' }, 5).title, 'Physio');
   assert.deepEqual(nb.listNotebooks().map((n) => n.id), ['a', 'b'], 'the edited one comes first');
   assert.equal(nb.removeNotebook('b'), true);
-  assert.equal(nb.removeNotebook('b'), false);
+  assert.equal(nb.removeNotebook('b'), true, 'already gone is removed, not "still there"');
   assert.equal(nb.notebookKey('a'), 'nb:a');
 });
 
@@ -43,4 +43,19 @@ test('the PDF has the pages asked for', async () => {
   const one = (await nb.buildNotebookPdf({ paper: 'dot', pages: 1 })).length;
   const many = (await nb.buildNotebookPdf({ paper: 'dot', pages: 100 })).length;
   assert.ok(many < one + 100 * 400, `100 dot pages ${many} bytes vs one ${one}`);
+});
+
+test('a refused write is never reported as done (storage full or blocked)', () => {
+  store.clear();
+  nb.createNotebook({ title: 'kept', now: 1, id: 'kept' });
+  const real = globalThis.localStorage.setItem;
+  globalThis.localStorage.setItem = () => { throw Object.assign(new Error('The quota has been exceeded.'), { name: 'QuotaExceededError' }); };
+  try {
+    assert.equal(nb.createNotebook({ title: 'lost', now: 2, id: 'lost' }), null, 'no notebook that vanishes on reload');
+    assert.equal(nb.updateNotebook('kept', { pages: 9 }, 3), null, 'no pages that vanish on reload');
+    assert.equal(nb.removeNotebook('kept'), false, 'no "deleted" for a notebook that comes back');
+  } finally {
+    globalThis.localStorage.setItem = real;
+  }
+  assert.deepEqual(nb.listNotebooks().map((n) => [n.id, n.pages]), [['kept', 4]]);
 });

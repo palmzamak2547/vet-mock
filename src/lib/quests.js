@@ -18,6 +18,7 @@
 import { awardXp, XP_AWARDS } from './xp.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { dayKey, dayKeyBefore } from './study-day.js';
+import { reportFailure } from './report-failure.js';
 
 // Subject-locked quests only make sense for the year that owns the subject —
 // a ปี 3 student handed "ทำ 10 ข้อ COM III" (a year-4/5 subject) gets a daily
@@ -289,7 +290,10 @@ function persist(state) {
     const raw = JSON.stringify(state);
     window.localStorage?.setItem(storageKeyFor(state.date), raw);
     cache = { date: state.date, raw, state };
-  } catch {}
+  } catch (error) {
+    // The day's quests live on in memory for this page; the owner is told.
+    reportFailure('save', error);
+  }
 }
 
 function pruneOldKeys(currentDate) {
