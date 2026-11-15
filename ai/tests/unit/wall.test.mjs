@@ -7,7 +7,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 globalThis.location = { hostname: 'localhost', search: '', origin: 'http://localhost' };
-const { createWall, problemText, PROBLEM_TEXT } = await import('../../src/lib/wall.js');
+const { createWall, problemText, PROBLEM_TEXT, TRIAL_NOTE } = await import('../../src/lib/wall.js');
 const { chat, transcribe, setApiAuth } = await import('../../src/lib/api.js');
 
 // A real Chula identity carries Google's hosted-domain claim; a Gmail one has none.
@@ -608,6 +608,37 @@ test('the microphone sends the code the same way', async () => {
   assert.ok(seen[0][0].endsWith('/api/ai-transcribe'));
   assert.equal(seen[0][1]['X-VetMock-Pass'], CODE);
   assert.equal(seen[0][1].Authorization, undefined);
+});
+
+test('a trial visitor sees the live call, and the note says what the link opens', async () => {
+  assert.equal(TRIAL_NOTE, 'ลิงก์ทดลอง: ถามตอบและคุยด้วยเสียงได้ ไม่รวมคลังเอกสารของจุฬาฯ');
+  const { readFile } = await import('node:fs/promises');
+  const app = await readFile(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  assert.match(app, /onVoice=\{startVoice\}/, 'the composer offers the call to everyone the page is open for');
+  assert.match(app, /onVoiceHint=\{prefetchVoice\}/);
+  assert.doesNotMatch(app, /trial \? undefined|!trial &&/, 'nothing hides the call from a trial visitor');
+  assert.match(app, /className="voice-cta"/);
+  assert.match(app, /gate\.problem === 'trial-ended'\) setVoiceOn\(false\)/, 'a refused link ends an open call');
+  // every request a call makes (start, its tools, a photo) goes through the one helper that adds the code
+  const voice = await readFile(new URL('../../src/lib/voice.js', import.meta.url), 'utf8');
+  const posts = voice.match(/method: 'POST'/g) || [];
+  const helped = voice.match(/authorized\((VOICE_URL|API_URL), \{\s*method: 'POST'/g) || [];
+  assert.ok(posts.length >= 3, 'start, tools and photo');
+  assert.equal(helped.length, posts.length, 'no POST of the call builds its own request');
+});
+
+test('a call\'s start request carries the code like any other', async () => {
+  const p = trialProvider();
+  setApiAuth(p.auth);
+  const { authorized } = await import('../../src/lib/api.js');
+  const seen = [];
+  globalThis.fetch = async (url, init) => { seen.push(init.headers); return Response.json({ error: 'pass_invalid' }, { status: 401 }); };
+  const res = await authorized('/api/ai-voice', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"action":"start"}' });
+  assert.equal(res.status, 401);
+  assert.equal(seen[0]['X-VetMock-Pass'], CODE);
+  assert.equal(seen[0].Authorization, undefined);
+  assert.deepEqual(p.refused, ['pass'], 'a refused code before a call ends the trial as a chat request does');
+  setApiAuth(null);
 });
 
 test('the page and the route together: a refused code moves the page to the sign-in card', async () => {

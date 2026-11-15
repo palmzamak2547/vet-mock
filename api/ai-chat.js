@@ -30,8 +30,8 @@
 // ============================================================
 
 import { allowedOrigin, clientIP, rateLimit } from './_lib/rate-limit.js';
-import { requireChula, SIGNIN_REQUIRED } from './_lib/chula-gate.js';
-import { trialPassOf, requirePass } from './_lib/guest-pass.js';
+import { requireChula } from './_lib/chula-gate.js';
+import { trialPassOf, requirePass, passKey } from './_lib/guest-pass.js';
 import { chatConfig } from './_lib/ai/config.js';
 import { validateChatInput, INPUT_MESSAGES } from './_lib/ai/input.js';
 import { checkLimits, LIMIT_MESSAGES } from './_lib/ai/limits.js';
@@ -124,11 +124,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'input', message: INPUT_MESSAGES.shape });
   }
   // The voice agent's tools (ai/voice-tools.js): one JSON answer, not a stream.
-  // They belong to the call, which a trial link does not open (/api/ai-voice asks the gate).
-  if (body && typeof body === 'object' && body.voice) {
-    if (gate.trial) return res.status(SIGNIN_REQUIRED.status).json(SIGNIN_REQUIRED.body);
-    return voiceTool(req, res, body.voice, gate);
-  }
+  // A trial link's call is answered too, as a guest: no token, so the library is not read, and
+  // each tool call has used one of the link's messages above.
+  if (body && typeof body === 'object' && body.voice) return voiceTool(req, res, body.voice, gate, pass);
   const input = validateChatInput(body);
   if (!input.ok) return res.status(400).json({ error: 'input', message: input.message });
 
@@ -160,13 +158,15 @@ export default async function handler(req, res) {
 }
 
 // A spoken turn waits on this answer, so it never queues behind the chat's
-// budget: its own counter, per student (or address while the wall is off).
-async function voiceTool(req, res, raw, gate) {
+// budget: its own counter, per student, per trial link (as /api/ai-voice counts its call), or per
+// address while the wall is off.
+async function voiceTool(req, res, raw, gate, pass) {
   const input = validateVoiceTool(raw);
   if (!input.ok) return res.status(400).json({ error: 'input', message: VOICE_TOOL_ERRORS.shape });
   warmCorpus();
   const t0 = Date.now();
-  const rl = await rateLimit(`ai-voice:tool:${gate.userId || `ip:${clientIP(req)}`}`, 240, 60 * 60 * 1000);
+  const who = gate.userId || (gate.trial && pass ? passKey(pass) : `ip:${clientIP(req)}`);
+  const rl = await rateLimit(`ai-voice:tool:${who}`, 240, 60 * 60 * 1000);
   if (!rl.ok) {
     if (rl.retryAfter) res.setHeader('Retry-After', String(rl.retryAfter));
     return res.status(rl.unavailable ? 503 : 429).json({ error: 'rate', message: rl.unavailable ? LIMIT_MESSAGES.unavailable : VOICE_TOOL_ERRORS.rate, retryAfter: rl.retryAfter });

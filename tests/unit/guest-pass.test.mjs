@@ -1,16 +1,18 @@
 // Trial links for the assistant (api/_lib/guest-pass.js; docs/CHULA-SIGNIN.md, "Trial links").
 //
 // The header parser, the database call against a stub, and the three routes it
-// concerns with the real handlers: /api/ai-chat and /api/ai-transcribe take a
-// pass from a request with no session and continue as a guest with no token;
+// concerns with the real handlers: /api/ai-chat, /api/ai-transcribe and
+// /api/ai-voice take a pass from a request with no session and continue as a
+// guest with no token, the call counted as the link and never as an address;
 // a session token is judged by the gate as before, whatever header rides with
-// it; /api/ai-voice never reads the header. The database function itself runs
-// on the CI Postgres in scripts/test-chula-wall-db.mjs.
+// it. The database function itself runs on the CI Postgres in
+// scripts/test-chula-wall-db.mjs.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
 
-import { passOf, trialPassOf, usePass, PASS_HEADER } from '../../api/_lib/guest-pass.js';
+import { passOf, trialPassOf, usePass, passKey, PASS_HEADER } from '../../api/_lib/guest-pass.js';
+import { voiceConfig, voiceUserId, resetVoiceCache } from '../../api/_lib/ai/voice.js';
 import { resetChulaGate } from '../../api/_lib/chula-gate.js';
 import { IP_BURST } from '../../api/_lib/ai/config.js';
 import { LIMIT_MESSAGES } from '../../api/_lib/ai/limits.js';
@@ -303,23 +305,99 @@ test('chat: a trial visitor is limited by address, as a guest is', async () => {
   assert.equal(seen.model, IP_BURST.max, 'the refused question reached no model');
 });
 
-test('chat: the call is not opened, so its tools refuse a trial visitor', async () => {
-  const seen = await world({ passes: { [CODE]: 5 } }, async () => {
+test('chat: the call\'s tools answer a trial visitor as a guest, each one a message of the link', async () => {
+  const passes = { [CODE]: 5 };
+  const seen = await world({ passes }, async () => {
     const res = await run(chat, fakeReq({ body: { voice: { op: 'search', query: 'rabies' } }, headers: { [PASS_HEADER]: CODE } }));
-    assert.equal(res.statusCode, 401);
-    assert.equal(res.body.error, 'signin_required');
+    assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+    assert.ok(res.body && typeof res.body === 'object', 'one JSON answer');
+    const spent = await run(chat, fakeReq({ body: { voice: { op: 'search', query: 'rabies' } }, headers: { [PASS_HEADER]: OTHER } }));
+    assert.equal(spent.statusCode, 401);
+    assert.equal(spent.body.error, 'pass_invalid');
   });
-  assert.equal(seen.model, 0);
+  assert.deepEqual(seen.pass, [{ p_code: CODE, p_count: true }, { p_code: OTHER, p_count: true }], 'counted before the body is read');
+  assert.equal(passes[CODE], 4);
+  assert.deepEqual(seen.gate, [], 'no session, so the gate is not asked');
+  for (const call of seen.walled) assert.equal(call.bearer, `Bearer ${ANON}`, 'never with a token');
+  assert.deepEqual(seen.other, []);
+  neverLogged(seen);
 });
 
-test('the voice route never reads the pass: with the wall on it asks for a sign-in', async () => {
-  const seen = await world({ passes: { [CODE]: 5 } }, async () => {
-    const res = await run(voice, fakeReq({ body: { action: 'start' }, headers: { [PASS_HEADER]: CODE } }));
-    assert.equal(res.statusCode, 401);
-    assert.equal(res.body.error, 'signin_required');
+// ── the call ────────────────────────────────────────────────
+const VOICE_ENV = { ELEVENLABS_API_KEY: 'xi-test-key-0123456789', ELEVENLABS_VOICE_AGENT_ID: 'agent_test', AI_VOICE_OFF: undefined, AI_VOICE_USER_SESSIONS: '2' };
+const PROVIDER = (u) => {
+  if (u.includes('/v1/user/subscription')) return Response.json({ character_limit: 141_000, character_count: 1000, next_character_count_reset_unix: 1796529562 });
+  if (u.includes('/conversation/token')) return Response.json({ token: 'tok_0123456789abcdefghij', conversation_id: 'conv_trial01ABCdef' });
+  if (u.includes('/files')) return Response.json({ file_id: 'file_1' });
+  return null;
+};
+async function voiceWorld(opts, fn) {
+  const realFetch = globalThis.fetch;
+  return world({ ...opts, vars: { ...VOICE_ENV, ...(opts.vars || {}) } }, async (seen) => {
+    const inner = globalThis.fetch;
+    seen.provider = [];
+    globalThis.fetch = async (url, init) => {
+      const out = PROVIDER(String(url));
+      if (out) { seen.provider.push(String(url)); return out; }
+      return inner(url, init);
+    };
+    resetVoiceCache();
+    try { await fn(seen); } finally { globalThis.fetch = inner; resetVoiceCache(); }
+  }).finally(() => { globalThis.fetch = realFetch; });
+}
+const start = (headers, ip) => fakeReq({ body: { action: 'start' }, headers, ip });
+
+test('voice: a good pass starts a call, counted as the link and never as an address', async () => {
+  const seen = await voiceWorld({ passes: { [CODE]: 5, [OTHER]: 5 } }, async () => {
+    const cfg = voiceConfig();
+    const first = await run(voice, start({ [PASS_HEADER]: CODE }, '10.79.0.1'));
+    assert.equal(first.statusCode, 200, JSON.stringify(first.body));
+    assert.equal(first.body.user, voiceUserId(passKey(CODE), cfg), 'the call belongs to the link');
+    assert.notEqual(first.body.user, voiceUserId('ip:10.79.0.1', cfg), 'not to the address');
+    assert.match(passKey(CODE), /^pass:[0-9a-f]{16}$/);
+    assert.ok(!passKey(CODE).includes(CODE));
+    // another address on the same link shares its allowance (2 a day here) ...
+    assert.equal((await run(voice, start({ [PASS_HEADER]: CODE }, '10.79.0.2'))).statusCode, 200);
+    const third = await run(voice, start({ [PASS_HEADER]: CODE }, '10.79.0.3'));
+    assert.equal(third.statusCode, 429, 'the link has used the day\'s sessions, from whichever address');
+    assert.equal(third.body.error, 'user');
+    // ... and another link from an address that already called has its own
+    assert.equal((await run(voice, start({ [PASS_HEADER]: OTHER }, '10.79.0.1'))).statusCode, 200);
+    // a photo into the link's call works with its photo pass; another link cannot use that pass
+    const photo = (code) => fakeReq({ body: { action: 'file', conversationId: 'conv_trial01ABCdef', pass: first.body.photos, mediaType: 'image/jpeg', data: Buffer.from('a small jpeg').toString('base64') }, headers: { [PASS_HEADER]: code } });
+    assert.equal((await run(voice, photo(CODE))).statusCode, 200);
+    assert.equal((await run(voice, photo(OTHER))).statusCode, 403, 'another link cannot send into this call');
   });
-  assert.deepEqual(seen.pass, [], 'the pass function is not asked');
-  assert.equal(seen.gate.length, 1, 'the gate is');
+  assert.ok(seen.pass.every((p) => p.p_count === false), 'a call uses none of the link\'s messages');
+  assert.deepEqual(seen.gate, [], 'no session, so the gate is not asked');
+  neverLogged(seen);
+});
+
+test('voice: a refused pass is 401, a token ignores the pass, an unreachable database is 503', async () => {
+  const seen = await voiceWorld({ passes: { [CODE]: 5 } }, async () => {
+    const refused = await run(voice, start({ [PASS_HEADER]: OTHER }));
+    assert.equal(refused.statusCode, 401);
+    assert.deepEqual(refused.body, { error: 'pass_invalid', message: 'ลิงก์ทดลองนี้ใช้ไม่ได้แล้ว' });
+    assert.equal(refused.headers['cache-control'], 'no-store');
+    const gmail = await run(voice, start({ authorization: `Bearer ${GMAIL}`, [PASS_HEADER]: CODE }));
+    assert.equal(gmail.statusCode, 403, 'a good pass does not let a signed-in non-member start a call');
+    assert.equal(gmail.body.error, 'chula_required');
+    const member = await run(voice, start({ authorization: `Bearer ${MEMBER}`, [PASS_HEADER]: CODE }));
+    assert.equal(member.statusCode, 200, JSON.stringify(member.body));
+    assert.equal(member.body.user, voiceUserId('u-member', voiceConfig()), 'a member is counted as the member');
+    const garbage = await run(voice, start({ [PASS_HEADER]: 'x' }));
+    assert.equal(garbage.body.error, 'signin_required', 'a header not shaped like a code is no pass');
+  });
+  assert.deepEqual(seen.pass, [{ p_code: OTHER, p_count: false }], 'the pass is not asked about when a token rides with it');
+  neverLogged(seen);
+
+  const down = await voiceWorld({ passes: { [CODE]: 5 }, passFails: true }, async (s) => {
+    const res = await run(voice, start({ [PASS_HEADER]: CODE }));
+    assert.equal(res.statusCode, 503);
+    assert.equal(res.body.error, 'backend-unavailable');
+    assert.deepEqual(s.provider, [], 'nothing reaches the provider');
+  });
+  neverLogged(down);
 });
 
 test('transcribe: a good pass is checked without counting, a refused one is 401, a token goes to the gate', async () => {
@@ -339,9 +417,9 @@ test('transcribe: a good pass is checked without counting, a refused one is 401,
   neverLogged(seen);
 });
 
-test('only the chat and transcribe preflights allow the pass header', async () => {
+test('the chat, transcribe and voice preflights allow the pass header', async () => {
   const allowed = async (handler) => (await run(handler, fakeReq({ method: 'OPTIONS' }))).headers['access-control-allow-headers'];
   assert.equal(await allowed(chat), 'Content-Type, Authorization, X-VetMock-Pass');
   assert.equal(await allowed(transcribe), 'Content-Type, Authorization, X-VetMock-Pass');
-  assert.equal(await allowed(voice), 'Content-Type, Authorization');
+  assert.equal(await allowed(voice), 'Content-Type, Authorization, X-VetMock-Pass');
 });

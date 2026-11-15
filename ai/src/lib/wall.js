@@ -39,7 +39,7 @@ export const PROBLEM_TEXT = Object.freeze({
 });
 
 /** The one line a visitor on a trial link reads under the composer. */
-export const TRIAL_NOTE = 'ลิงก์ทดลอง: ถามตอบได้ ไม่รวมคลังเอกสารของจุฬาฯ';
+export const TRIAL_NOTE = 'ลิงก์ทดลอง: ถามตอบและคุยด้วยเสียงได้ ไม่รวมคลังเอกสารของจุฬาฯ';
 
 /** The words for a problem; one this table does not name reads as unknown. */
 export const problemText = (kind) => (kind ? PROBLEM_TEXT[kind] || PROBLEM_TEXT.unknown : '');
