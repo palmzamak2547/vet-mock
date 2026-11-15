@@ -17,7 +17,9 @@ import Mochi from './Mochi.jsx';
 // the user is NOT typing in an input/textarea/contenteditable.
 // ============================================================
 
-import { useState, useEffect, useLayoutEffect, useMemo, useRef, useId } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo, useRef, useId, useContext } from 'react';
+// The one search dialog (PaletteShell.jsx): the frame drew into it while this chunk downloaded.
+import { PaletteShellContext } from './PaletteShell.jsx';
 // What the student typed into the frame shown while this chunk downloaded.
 import { peekPaletteHandoff, clearPaletteHandoff } from '../lib/palette-handoff.js';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
@@ -1043,6 +1045,20 @@ export default function CommandPalette({
     active: open, onClose, initialFocusRef: inputRef,
     returnFocusRef: handoff?.returnTarget ? handoffReturnRef : undefined,
   });
+  // Inside the one search dialog, the focus trap and a tap on the dim background
+  // are this palette's from the commit that shows it.
+  const shell = useContext(PaletteShellContext);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  useLayoutEffect(() => {
+    if (!shell) return undefined;
+    // The shell's element, found from this palette's own box: it is in the DOM in this commit even
+    // when the shell mounted in the same commit and its ref is not attached yet.
+    const dialog = inputRef.current?.closest('[data-vmx-modal="true"]');
+    if (dialog) dialogRef.current = dialog;
+    shell.setCloser(() => onCloseRef.current?.());
+    return () => shell.setCloser(null);
+  }, [shell]);
   // Taking over from the frame: focus the box in this commit, caret at the
   // end, so typing goes on without a key lost to the swap.
   useLayoutEffect(() => {
@@ -1561,22 +1577,7 @@ export default function CommandPalette({
   };
 
   return (
-    <div
-      className="vmx-modal-overlay"
-      onClick={onClose}
-      style={{ alignItems: 'flex-start', paddingTop: 'min(12vh, 90px)', backdropFilter: 'blur(5px)' }}
-    >
-      <div
-        ref={dialogRef}
-        className="vmx-modal"
-        onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: 640, padding: 0, overflow: 'hidden' }}
-        role="dialog"
-        aria-modal="true"
-        tabIndex={-1}
-        data-vmx-modal="true"
-        aria-label="ค้นหาอัจฉริยะ"
-      >
+    <PaletteDialog shell={shell} dialogRef={dialogRef} onClose={onClose}>
         <div className="vmx-omni-topbar" aria-hidden="true" />
 
         {/* Search input */}
@@ -1995,6 +1996,32 @@ export default function CommandPalette({
               : 'ค้นวิชา หัวข้อ ข้อสอบ สรุป และคลิป'}
           </span>
         </div>
+    </PaletteDialog>
+  );
+}
+
+// Inside the one search dialog (PaletteShell) the palette draws only its contents;
+// without one (a test mounting it alone) it draws the dialog itself.
+function PaletteDialog({ shell, dialogRef, onClose, children }) {
+  if (shell) return children;
+  return (
+    <div
+      className="vmx-modal-overlay"
+      onClick={onClose}
+      style={{ alignItems: 'flex-start', paddingTop: 'min(12vh, 90px)', backdropFilter: 'blur(5px)' }}
+    >
+      <div
+        ref={dialogRef}
+        className="vmx-modal"
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: 640, padding: 0, overflow: 'hidden' }}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        data-vmx-modal="true"
+        aria-label="ค้นหาอัจฉริยะ"
+      >
+        {children}
       </div>
     </div>
   );

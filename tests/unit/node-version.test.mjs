@@ -1,7 +1,7 @@
 // One Node version, said in one place (docs/HANDOVER.md "เวอร์ชัน Node"):
 // .node-version is what CI and the machines run, every workflow's setup-node
-// asks for the same major, and `engines` is one floor for the four apps that
-// declare it, below or at that version.
+// asks for the same major, and `engines` of the four apps that
+// declare it pins that same major, so the host runs what the checks ran on.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -25,11 +25,13 @@ test('every setup-node step in CI runs the .node-version major', () => {
   assert.ok(found.length >= 1, 'no setup-node step found');
 });
 
-test('the four engines floors are equal and the run version satisfies them', () => {
-  const floors = ['package.json', 'ai/package.json', 'research/package.json', 'vca/package.json']
+test('the four engines pins are equal and name the .node-version major', () => {
+  const pins = ['package.json', 'ai/package.json', 'research/package.json', 'vca/package.json']
     .map((f) => JSON.parse(fs.readFileSync(f, 'utf8')).engines?.node);
-  assert.equal(new Set(floors).size, 1, `engines differ: ${floors.join(', ')}`);
-  const floor = /^>=\s*(\d+)/.exec(floors[0]);
-  assert.ok(floor, `engines is ${floors[0]}, expected a >=N floor`);
-  assert.ok(major >= Number(floor[1]), `Node ${major} is below the floor ${floors[0]}`);
+  assert.equal(new Set(pins).size, 1, `engines differ: ${pins.join(', ')}`);
+  // A floor such as >=20 lets the host pick its newest major: production ran Node 26 for a week
+  // while CI tested 24. A pin makes the host run the version the checks ran on.
+  const pin = /^(\d+)\.x$/.exec(pins[0]);
+  assert.ok(pin, `engines is ${pins[0]}, expected a pin such as ${major}.x`);
+  assert.equal(Number(pin[1]), major, `engines pins Node ${pin[1]}, .node-version says ${major}`);
 });
