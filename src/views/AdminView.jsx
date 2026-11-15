@@ -27,6 +27,7 @@ import { QB_TOTAL, QB_BLOCKED_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUN
 import { CHANGELOG, SCOPE_LABELS } from '../data/changelog-all.js';
 import { hasSupabase } from '../lib/supabase.js';
 import PrivateNotes from '../components/PrivateNotes.jsx';
+import AdminFailures from '../components/AdminFailures.jsx';
 import { examPeriodReport, reportTerm, STATUS_LABEL, STATUS_TODO } from '../lib/exam-period-report.js';
 // The back-office styles travel with this lazy chunk: one account opens
 // this page, so they are not part of the stylesheet every student's boot
@@ -36,7 +37,7 @@ import '../styles-admin.css';
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
 const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
 const SECTIONS = [
-  ['wall', 'กำแพงจุฬา'], ['status', 'ระบบภายนอก'], ['period', 'ช่วงสอบ'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
+  ['wall', 'กำแพงจุฬา'], ['status', 'ระบบภายนอก'], ['failures', 'ล้มเหลว 24 ชม.'], ['period', 'ช่วงสอบ'], ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
   ['content', 'คลัง'], ['community', 'ชุมชน'], ['feedback', 'ระบบแจ้งปัญหา'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
 ];
 const KIND_LABEL = { feature: 'ฟีเจอร์', add: 'เพิ่ม', fix: 'แก้บั๊ก', content: 'เนื้อหา', change: 'ปรับ' };
@@ -618,6 +619,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
 
       <ChulaWall />
       <SystemStatus tick={tick} />
+      <AdminFailures tick={tick} />
 
       {failed && !rangeStatus && !isForbidden(failed) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {failed.message}</p></div>}
       {bankFailed && <div className="ad-card" role="status"><p className="ad-muted">โหลดข้อความโจทย์ไม่ครบ สถิติและโจทย์ที่โหลดได้ยังแสดงตามเดิม ตรวจการเชื่อมต่อแล้วโหลดหน้าใหม่เพื่อลองอีกครั้ง</p><button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reloadBank}>โหลดหน้าใหม่</button></div>}

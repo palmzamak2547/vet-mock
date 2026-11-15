@@ -7,7 +7,9 @@
 import React, { useState } from 'react';
 import NavIcon from './NavIcon.jsx';
 import { PAPERS, createNotebook, listNotebooks, removeNotebook } from '../lib/notebook.js';
-import { confirmDialog } from '../lib/dialog.js';
+import { alertDialog, confirmDialog } from '../lib/dialog.js';
+
+const NOT_SAVED = { title: 'บันทึกไม่สำเร็จ', body: 'เบราว์เซอร์นี้เก็บข้อมูลถาวรไม่ได้ (พื้นที่เต็มหรือปิดการเก็บข้อมูลไว้) ลบไฟล์ที่ไม่ใช้ในคลังเอกสาร หรือเปิดการเก็บข้อมูลของเว็บนี้ แล้วลองอีกครั้ง' };
 
 const fmt = (t) => {
   try { return new Date(t).toLocaleDateString('th-TH', { day: 'numeric', month: 'short' }); } catch { return ''; }
@@ -24,6 +26,7 @@ export default function NotebookShelf({ onOpen }) {
   const create = (e) => {
     e?.preventDefault?.();
     const nb = createNotebook({ title, paper, pages: 4 });
+    if (!nb) { alertDialog(NOT_SAVED); return; }
     setList(listNotebooks());
     setTitle('');
     onOpen(nb);
@@ -37,7 +40,7 @@ export default function NotebookShelf({ onOpen }) {
       tone: 'danger',
     });
     if (!ok) return;
-    removeNotebook(nb.id);
+    if (!removeNotebook(nb.id)) { alertDialog({ ...NOT_SAVED, title: 'ลบไม่สำเร็จ', body: 'สมุดเล่มนี้ยังอยู่ ลองอีกครั้ง' }); return; }
     setLeaving(nb.id);
     setSaid(`ลบสมุด ${nb.title} แล้ว`);
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;

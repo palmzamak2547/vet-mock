@@ -48,10 +48,13 @@ test('the card shows the 26 without the drag clause, and the voice and the answe
   assert.equal(displayStem({ type: 'mcq', q: 'ข้อใด (ลากการ์ดขวาไปวาง)' }), 'ข้อใด (ลากการ์ดขวาไปวาง)');
   assert.equal(displayStem({ type: 'match', q: 'จับคู่ (ลากเส้น)' }), 'จับคู่ (ลากเส้น)');
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
-  assert.match(card, /<TermLinkedRichText text=\{english\?\.q \|\| shownStem\}/, 'the card draws the displayed stem (or its English version, 5.223.0)');
+  assert.match(card, /const stemShown = english\?\.q \|\| shownStem;/, 'the card draws the displayed stem (or its English version, 5.223.0)');
+  // A long stem is cut into its body and its ask from that same text (5.236.0); every other stem draws it whole.
+  assert.match(card, /splitStem\(stemShown\)/);
+  assert.match(card, /<TermLinkedRichText text=\{stemShown\}/);
   for (const [file, name] of [['src/views/ReviewView.jsx', 'q'], ['src/views/SRSessionView.jsx', 'currentQ']]) {
     const src = readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8');
-    assert.ok(src.includes(`<RichText text={displayStem(${name})} />`), `${file} draws the displayed stem`);
+    assert.ok(src.includes(`<StemText text={displayStem(${name})}`), `${file} draws the displayed stem`);
   }
   assert.doesNotMatch(readFileSync(new URL('../../src/lib/rich-blocks.js', import.meta.url), 'utf8'), /displayStem/, 'wholeStem must not read the display');
 });
