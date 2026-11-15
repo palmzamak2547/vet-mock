@@ -10,7 +10,7 @@
 export const EXAM_RECURRENCE = {
   "aquatic-clinic": {
     "cohorts": [80, 83, 84, 85],
-    "items": 184,
+    "items": 186,
     "topics": {
       "aqua-amphibian": {
         "cohorts": [],
@@ -20,12 +20,27 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["aquatic-clinic:202197"],
       },
-      "aqua-conservation": {
+      "aqua-aquarium-vet": {
         "cohorts": [85],
         "first": 85,
         "last": 85,
         "items": 1,
         "sat": {
+          "85": {
+            "final": ["aquatic-clinic:217701"],
+          },
+        },
+        "unattributed": [],
+      },
+      "aqua-conservation": {
+        "cohorts": [80, 85],
+        "first": 80,
+        "last": 85,
+        "items": 2,
+        "sat": {
+          "80": {
+            "midterm": ["aquatic-clinic:217700"],
+          },
           "85": {
             "final": ["aquatic-clinic:211098"],
           },
@@ -2834,7 +2849,7 @@ export const EXAM_RECURRENCE = {
   },
   "one-health": {
     "cohorts": [82, 85],
-    "items": 51,
+    "items": 52,
     "topics": {
       "oh-amr": {
         "cohorts": [82, 85],
@@ -2933,13 +2948,16 @@ export const EXAM_RECURRENCE = {
         "unattributed": [],
       },
       "oh-gmo": {
-        "cohorts": [82],
+        "cohorts": [82, 85],
         "first": 82,
-        "last": 82,
-        "items": 9,
+        "last": 85,
+        "items": 10,
         "sat": {
           "82": {
             "final": ["one-health:210033", "one-health:210034"],
+          },
+          "85": {
+            "final": ["one-health:210049"],
           },
         },
         "unattributed": ["one-health:210029", "one-health:210030", "one-health:210031", "one-health:210032", "one-health:210035", "one-health:210036", "one-health:210037"],

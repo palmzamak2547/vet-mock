@@ -337,17 +337,20 @@ test('a seek within a piece whose download failed plays it from there', async ()
   const options = ['torticollis', 'cyanosis'];
   manifest = await keysOf(stem, options);
   clipMs = 400;
-  failing.add(manifest[0]);
+  // The first row's label fails (a failed first clip hands the question to
+  // the live voices instead, tested in read-aloud-live.test.mjs).
+  failing.add(manifest[1]);
   played.length = 0;
   await eng.start(job('s4', stem, options));
   await until(() => store.readAloud.get().status === 'error');
-  failing.delete(manifest[0]);
-  eng.seek(1.5);
+  assert.deepEqual(played, [manifest[0]]);
+  failing.delete(manifest[1]);
+  eng.seek(2.5); // half a second into the label (the stem is 2 s)
   eng.resume();
-  await until(() => played.length === 1);
-  assert.equal(played[0], manifest[0]);
+  await until(() => played.length === 2);
+  assert.equal(played[1], manifest[1]);
   const t = store.playerElement().currentTime;
-  assert.ok(Math.abs(t - 1.5) < 0.01, `the stem started ${t} s in`);
+  assert.ok(Math.abs(t - 0.5) < 0.01, `the label started ${t} s in`);
   eng.stop();
   clipMs = CLIP_MS;
 });

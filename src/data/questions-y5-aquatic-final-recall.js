@@ -5108,4 +5108,152 @@ export const QUESTIONS_Y5_AQUATIC_FINAL_RECALL = [
       }
     ]
   },
+  {
+    "id": 217700,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "short",
+    "q": "โลมาปากขวดตัวหนึ่งป่วยด้วยปอดอักเสบ (pneumonia) ร่วมกับภาวะโลหิตเป็นพิษ (septicemia) จงเขียนการวินิจฉัยแยกโรค วิธีตรวจร่างกาย และวิธีวินิจฉัยโรค",
+    "keywords": [
+      "Edwardsiella tarda",
+      "Pseudomonas aeruginosa",
+      "Morbillivirus",
+      "อัตราการหายใจ",
+      "ฟังเสียงปอด",
+      "blowhole",
+      "เจาะเลือด",
+      "เพาะเชื้อ",
+      "PCR"
+    ],
+    "model_answer": "การวินิจฉัยแยกโรค: ปอดอักเสบจากแบคทีเรีย เช่น Edwardsiella tarda และ Pseudomonas aeruginosa; Morbillivirus ซึ่งทำให้ปอดอักเสบแบบ bronchopneumonia ร่วมกับภูมิคุ้มกันต่ำ; Mycobacteriosis เช่น Mycobacterium abscessus ที่ทำให้ปอดอักเสบแบบ granuloma เรื้อรัง; Melioidosis จาก Burkholderia pseudomallei ที่ทำให้เกิดฝีในปอด; Erysipelas จาก Erysipelothrix rhusiopathiae ที่ทำให้ septicemia เฉียบพลัน\nการตรวจร่างกาย: นับอัตราการหายใจ (โลมาขนาดเล็กปกติ 2 ถึง 5 ครั้งต่อนาที) ฟังเสียงหายใจ ถ้าเสียงแหบหรือมีเสียงน้ำแปลว่ามีการคั่ง ดมกลิ่นลมหายใจโดยไม่เอาจมูกจ่อเหนือรูหายใจ ดูสิ่งคัดหลั่งที่ blowhole ฟังเสียงปอดด้วยหูฟัง จับชีพจร วัดอุณหภูมิทางทวารด้วยหัววัดแบบยืดหยุ่นลึกราว 20 เซนติเมตร (ปกติราว 36.5 องศาเซลเซียส) และประเมินผิวหนังกับภาวะขาดน้ำ\nการวินิจฉัย: เก็บตัวอย่างลมหายใจโดยถือจานเพาะเชื้อหรือภาชนะเหนือ blowhole รอจังหวะหายใจออก แล้วส่งตรวจเซลล์วิทยา เพาะเชื้อแบคทีเรียและเชื้อรา; เจาะเลือดจากหลอดเลือดดำผิวตื้นที่ครีบหลัง ครีบอก หรือหาง เพื่อตรวจ CBC และค่าเคมีเลือด; ถ้าสงสัยไวรัสใช้ PCR การแยกเชื้อ และจุลพยาธิวิทยาร่วมกับ immunohistochemistry",
+    "explain": "โจทย์แบ่งคะแนนเป็นสามท่อน คือโรคที่ต้องแยก วิธีตรวจร่างกาย และการตรวจทางห้องปฏิบัติการ จึงควรตอบให้ครบทั้งสามท่อน\n\nโรคที่ทำให้ปอดอักเสบในโลมามีทั้งแบคทีเรีย (Edwardsiella tarda, Pseudomonas aeruginosa, Mycobacterium, Burkholderia pseudomallei) และไวรัส (Morbillivirus) ส่วนการตรวจร่างกายของ cetacean ต่างจากสัตว์บกตรงที่ต้องดูการหายใจผ่าน blowhole เป็นหลัก ทั้งอัตรา เสียง กลิ่น และสิ่งคัดหลั่ง ตัวอย่างทางเดินหายใจเก็บได้โดยไม่ต้องสอดอุปกรณ์ แค่รอลมหายใจออกลงบนจานเพาะเชื้อ",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 56, 57, 60, 61, 65, 67, 78, 81, 82, 84 และ 89",
+    "verified": "ข้อเขียนส่วนสัตว์ทะเลเลี้ยงลูกด้วยนม 6 คะแนน ในบันทึกข้อสอบกลางภาค Aquatic Med ของ Vet 80 (ไฟล์ในโฟลเดอร์กลางภาคของ Vet 84) ไม่มีคีย์ของข้อสอบ คำตอบที่จดไว้ด้วยปากกาสีชมพู (morbillivirus, Edwardsiella tarda, Pseudomonas aeruginosa, เก็บตัวอย่างที่ blowhole, เจาะเลือด, ตรวจร่างกาย) ตรงกับคำตอบแบบอย่างที่เขียนจากเอกสารประกอบการสอนปี 2569",
+    "sourceType": "past-paper",
+    "examOrigin": "Aquatic Med midterm Vet 80 บันทึกหลังสอบ",
+    "tags": [
+      "aqua-conservation",
+      "marine-mammals",
+      "pneumonia",
+      "physical-examination",
+      "ข้อเขียน",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 56
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 57
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 60
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 61
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 65
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 67
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 78
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 81
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 82
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 84
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 89
+      }
+    ]
+  },
+  {
+    "id": 217701,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "short",
+    "q": "โรคในฉลามที่พบบ่อยในอควาเรียม ยกตัวอย่างมา 2 โรค",
+    "keywords": [
+      "Vibrio",
+      "ปลิงใส",
+      "monogenean",
+      "คอพอก",
+      "goiter",
+      "ไอโอดีน",
+      "Fusarium",
+      "แผลกดทับ"
+    ],
+    "model_answer": "ตัวอย่างที่ตอบได้ (ตอบสองโรค): หนึ่ง การติดเชื้อแบคทีเรีย Vibrio spp. ซึ่งพบบ่อยที่สุดในปลากระดูกอ่อน ทำให้เยื่อหุ้มสมองอักเสบได้ และมักตามมากับแผลกดทับเมื่อฉลามป่วยแล้วนอนนิ่งที่พื้น สอง ปรสิตกลุ่มปลิงใส (monogeneans) ซึ่งพบบ่อยที่สุดและเป็นปัญหาหลัก แต่รักษาได้ง่าย สาม โรคคอพอก (goiter) จากการขาดไอโอดีน เมื่อใช้โอโซนบำบัดน้ำเกินขนาดจนไอโอดีนถูกดึงออกจากน้ำ แก้ด้วยการผสมโพแทสเซียมไอโอไดด์ในอาหาร สี่ การติดเชื้อรา Fusarium solani ที่ทำให้เกิดตุ่มขาวตามแนว lateral line และมักไม่ตอบสนองต่อการรักษา",
+    "explain": "โจทย์ขอเพียงสองโรค แต่ควรบอกสาเหตุสั้นๆ กำกับไว้ด้วย เพราะฉลามในตู้ป่วยได้ทั้งจากเชื้อและจากการจัดการน้ำ\n\nVibrio และปลิงใสเป็นปัญหาติดเชื้อที่พบบ่อยที่สุด ส่วนคอพอกเป็นตัวอย่างของโรคที่เกิดจากระบบบำบัดน้ำเอง โอโซนออกซิไดซ์สารในน้ำได้แทบทุกชนิด ถ้าใช้มากเกินไปจะดึงไอโอดีนออกจากน้ำจนฉลามขาดไอโอดีน",
+    "source": "ปัญหาของฉลามในอควาเรียม (Shark problems in Aquaria) หน้า 23, 34, 40 และ 45",
+    "verified": "สรุปปลายภาค Aquatic Med Vet 85 หน้า 2 บันทึกหลังสอบ ข้อที่ 1 ใต้ส่วนสัตว์น้ำในสถานแสดง (ข้อเขียน ไม่ได้จดคำตอบ) คำตอบแบบอย่างจากเอกสารเรื่องปัญหาของฉลามในอควาเรียมของผู้สอนส่วนนี้ หน้า 23, 34, 40 และ 45 และคาบวันที่ 20 ต.ค. 2569 คลิป 8efJw7eJlBw นาที 59:47 ถึง 61:46 (โรคแบคทีเรียและแผลกดทับ) และ 83:01 ถึง 84:12 (คอพอกจากโอโซน)",
+    "sourceType": "past-paper",
+    "examOrigin": "Aquatic Med final Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "aqua-aquarium-vet",
+      "sharks",
+      "elasmobranch",
+      "ข้อเขียน",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-shark-problems-2012",
+        "edition": "63p",
+        "page": 23
+      },
+      {
+        "doc": "aqua-shark-problems-2012",
+        "edition": "63p",
+        "page": 34
+      },
+      {
+        "doc": "aqua-shark-problems-2012",
+        "edition": "63p",
+        "page": 40
+      },
+      {
+        "doc": "aqua-shark-problems-2012",
+        "edition": "63p",
+        "page": 45
+      },
+      {
+        "doc": "aqua-final-summary-vet85",
+        "edition": "23p",
+        "page": 2
+      }
+    ]
+  },
 ];

@@ -74,6 +74,22 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "NHUbbZwCJ3M": {
+  "title": "Hatchery vaccination + CPF",
+  "session": "6",
+  "date": "2026-11-10",
+  "durationSec": 11869,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "4ISFo-PV2lc": {
   "title": "หน่วยงาน และองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ มกอช",
   "session": "6",
@@ -2539,6 +2555,41 @@ export const VIDEO_REGISTRY = {
     6420,
     9181,
     "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "jgGGQzDTm4E": {
+  "title": "Introduction + Basic nutrition",
+  "session": "1",
+  "date": "2026-08-06",
+  "durationSec": 12806,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-intro",
+    2700,
+    3900,
+    "high"
+   ],
+   [
+    "equine-nutrition",
+    7080,
+    9300,
+    "high"
+   ],
+   [
+    "equine-nutrition",
+    9780,
+    12360,
+    "high"
    ]
   ],
   "skips": [],

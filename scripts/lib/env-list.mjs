@@ -85,6 +85,7 @@ export const ENV = [
   { name: 'CF_AI_TOKEN', group: 'Voice', need: 'optional', does: 'Cloudflare token with Workers AI (secret) for Whisper transcription. Without it and IAPP_API_KEY, browsers without Web Speech show no microphone.' },
   { name: 'CF_AI_ACCOUNT_ID', group: 'Voice', need: 'optional', does: 'Account for Workers AI; falls back to R2_ACCOUNT_ID, then CF_ACCOUNT_ID.' },
   { name: 'OPENROUTER_API_KEY', group: 'Voice', need: 'optional', does: 'OpenRouter key for the Gemini clip generation in scripts/tts-clips.mjs. Scripts only.' },
+  { name: 'PAXA_API_KEY', group: 'Voice', need: 'optional', does: 'Paxa key (secret) for recorded question clips (scripts/tts-clips.mjs --gen p1). Without it that generation is off; the page never reads it. Scripts only.' },
   { name: 'TTS_KEYS_ENV', group: 'Voice', need: 'optional', does: 'Path of a local env file scripts/tts-clips.mjs reads keys from. Scripts only.' },
 
   // ── Library, R2 and answer evidence ──
