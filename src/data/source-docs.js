@@ -744,6 +744,23 @@ export const SOURCE_DOCS = [
     match: /Conservation Aquatic Animal Management & Medicine[_:] marine mammals \(2026\)/i,
     editions: [{ id: '110p', pages: 110 }],
   },
+  // The 2569 fish and shrimp disease decks (library, 178 and 118 pages) and the shark slides the aquarium lecturer
+  // taught from on 20 Oct 2026 (library, 63 pages; first given at a 2012 conference).
+  {
+    slug: 'aqua-fish-disease-2569', subject: 'aquatic-clinic', title: "Disease in fish culture",
+    match: /Disease in fish culture(?! deck 2024)/,
+    editions: [{ id: '178p', pages: 178 }],
+  },
+  {
+    slug: 'aqua-shrimp-diseases-2569', subject: 'aquatic-clinic', title: "Diseases in shrimp culture",
+    match: /Diseases in shrimp culture/,
+    editions: [{ id: '118p', pages: 118 }],
+  },
+  {
+    slug: 'aqua-shark-problems-2012', subject: 'aquatic-clinic', title: "ปัญหาของฉลามในอควาเรียม (Shark problems in Aquaria)",
+    match: /ปัญหาของฉลามในอควาเรียม \(Shark problems in Aquaria\)/,
+    editions: [{ id: '63p', pages: 63 }],
+  },
   {
     slug: 'aqua-epidemic-act-2569', subject: 'aquatic-clinic', title: "โรคระบาดในสัตว์น้ำตาม พ.ร.บ. โรคระบาดสัตว์ 2558 (เอกสารเสริม)",
     match: /โรคระบาดในสัตว์น้ำตาม พ\.ร\.บ\. โรคระบาดสัตว์ 2558 \(เอกสารเสริม\)(?! deck 2024)/i,
