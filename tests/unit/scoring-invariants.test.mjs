@@ -242,7 +242,7 @@ const inflightRecord = (s, questions) => ({ questions, answers: s.api.answers, c
   examStartTime: Date.now(), sessionId: s.api.sessionId, ownerId: null, mode: 'quick', useTimer: false, timePerQ: 0, clock: 'per-question', savedAt: Date.now() });
 
 test('answering in any order, changing answers and resuming at any point give the same score', async () => {
-  // The session refuses a second move within 120 ms of the first and holds a move for up to 250 ms
+  // The session refuses a second move within 120 ms of the first and holds a move for up to 1,000 ms when no frame releases it
   // (MOVE_FLOOR_MS, MOVE_HOLD_MAX_MS in useExamSession.js), so a double tap cannot skip a question.
   // Each move in this walk is a separate tap: the session's clock is moved past the hold before it.
   const realNow = performance.now;
@@ -288,7 +288,7 @@ test('answering in any order, changing answers and resuming at any point give th
       }
       const [id, value] = plan[step];
       const idx = live.api.questions.findIndex((q) => q.id === id);
-      clock += 251;
+      clock += 1001;
       live.api.jumpToQ(idx);
       live.flush();
       if (value === undefined) {

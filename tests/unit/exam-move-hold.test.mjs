@@ -5,8 +5,8 @@
 // now holds a move until the next question has painted and at least
 // MOVE_FLOOR_MS have passed. A move that changes nothing (a stale nextQ after
 // the clock moved the set on, App.jsx's keyboard handler holding an older
-// closure) has no paint to release it, so a hold also lapses: the next tap
-// must move within 300 ms.
+// closure) is refused by position; a hold no frame released lapses after
+// MOVE_HOLD_MAX_MS.
 //
 // Driven through the real useExamSession source under a stand-in for React
 // whose state persists between renders and whose effects never run, so only
@@ -65,21 +65,38 @@ test('a second move straight after the first is refused', async () => {
   assert.equal(render().currentIdx, 1, 'a second tap, a map jump or a step back moved the set within the hold');
 });
 
-test('a move from a stale handler that changed nothing does not leave the student stuck', async () => {
+test('a handler from the previous question moves nothing, and leaves no hold behind', async () => {
   const render = session();
   const stale = render();
   await stale.nextQ(); // 0 -> 1, the hold is taken
   assert.equal(render().currentIdx, 1);
-  await wait(300);
+  await wait(1100); // past MOVE_HOLD_MAX_MS: no frames run here
   // The clock moved the set on meanwhile, and a handler still holding the
-  // first render's closure fires (it sets index 1 from its own old index, as a
-  // stale nextQ always has; not changed here). The hold must not outlive it.
+  // first render's closure fires. It used to set index 1 again from its own
+  // old index, moving the student back; now it is refused by position.
   render().setCurrentIdx(2);
   await stale.nextQ();
-  const at = render().currentIdx;
-  await wait(300);
+  assert.equal(render().currentIdx, 2, 'a handler from question 1 moved the set');
   await render().nextQ();
-  assert.equal(render().currentIdx, at + 1, 'the next tap did not move within 300 ms of the stale move');
+  assert.equal(render().currentIdx, 3, 'the refused stale call left a hold behind');
+});
+
+test('on a slow phone the second tap of a double tap is refused after the old 250 ms lapse', async () => {
+  const render = session();
+  await render().nextQ(); // tap 1: 0 -> 1, the hold is taken
+  assert.equal(render().currentIdx, 1);
+  // The next question takes 400 ms to draw and no frame has released the hold
+  // yet. Tap 2 waited in the queue and now runs, from the new question's button.
+  await wait(400);
+  await render().nextQ();
+  assert.equal(render().currentIdx, 1, 'tap 2 skipped the question it landed on');
+});
+
+test("the per-question clock's own move holds the next tap too", () => {
+  const at = HOOK.indexOf('setTimedOutIdx(currentIdx);');
+  assert.ok(at > 0);
+  const branch = HOOK.slice(at, HOOK.indexOf('setCurrentIdx((i) => i + 1);', at));
+  assert.match(branch, /holdMove\(\);/, 'the time-out move does not take the hold');
 });
 
 test('finishing on the last question goes through within the floor', async () => {

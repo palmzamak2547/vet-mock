@@ -46,8 +46,10 @@ import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/
 
 // The shortest time between two moves of the set (see the move hold below).
 const MOVE_FLOOR_MS = 120;
-// The longest a move holds the next one when no new question was painted.
-const MOVE_HOLD_MAX_MS = 250;
+// The longest a move holds the next one when no frame has released it: a safety value a
+// render never reaches. A handler left over from the previous question is refused by
+// position instead (nextQ, prevQ), so this limit no longer has to be short.
+const MOVE_HOLD_MAX_MS = 1000;
 
 /**
  * @param {object} params
@@ -126,20 +128,27 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const moveHeldRef = useRef(false);
   const lastMoveAtRef = useRef(-Infinity);
   const moveClock = () => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
-  // The frames release the hold when the question changes. A move that changed
-  // nothing (a stale handler after the clock moved the set on) leaves no
-  // change to release it, so a hold also lapses MOVE_HOLD_MAX_MS after it was
-  // taken: the student is never stuck waiting for the next time-out.
+  // The frames release the hold when the question changes. A handler from the
+  // previous question (the second tap of a double tap that waited behind a slow
+  // render, or a stale handler after the clock moved the set on) is refused by
+  // position in nextQ and prevQ, whatever the time: the 250 ms lapse used to let
+  // it through on a phone whose render took longer than that. The hold still
+  // lapses after MOVE_HOLD_MAX_MS, so a hold no frame released never sticks.
   const moveRefused = () => {
     const since = moveClock() - lastMoveAtRef.current;
     return since < MOVE_FLOOR_MS || (moveHeldRef.current && since < MOVE_HOLD_MAX_MS);
   };
-  const takeMove = () => {
-    if (moveRefused()) return false;
+  const holdMove = () => {
     moveHeldRef.current = true;
     lastMoveAtRef.current = moveClock();
+  };
+  const takeMove = () => {
+    if (moveRefused()) return false;
+    holdMove();
     return true;
   };
+  // A handler made for another question than the one now on screen.
+  const staleHandler = (idx) => positionRef.current?.currentIdx !== idx;
   useEffect(() => {
     if (!moveHeldRef.current) return undefined;
     if (typeof requestAnimationFrame !== 'function') { moveHeldRef.current = false; return undefined; }
@@ -194,6 +203,9 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       if (currentIdx < questions.length - 1) {
         const next = questions[currentIdx + 1];
         setTimedOutIdx(currentIdx);
+        // The clock's own move holds the next one too: a tap already on its way
+        // to ข้อถัดไป would otherwise land on the new question unseen.
+        holdMove();
         setCurrentIdx((i) => i + 1);
         setTimeLeft(timeForQuestion(next, timePerQ));
       } else onFinish?.();
@@ -230,6 +242,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const nextQ = useCallback(async () => {
     const cur = questions[currentIdx];
     const isLast = currentIdx === questions.length - 1;
+    // A handler from the question before this one (see staleHandler) moves nothing.
+    if (staleHandler(currentIdx)) return;
     // The hold is for moves between questions only. On the last question this
     // call is the submit dialog's confirm, often within the floor of the key
     // press that opened it; refusing it would close the dialog unsubmitted.
@@ -273,6 +287,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const prevQ = useCallback(() => {
     // Use timeForQuestion so jumping back to an essay restores its
     // 25-min budget instead of shrinking it to the MCQ default.
+    if (staleHandler(currentIdx)) return;
     if (currentIdx > 0) {
       if (!takeMove()) return;
       const prev = questions[currentIdx - 1];
