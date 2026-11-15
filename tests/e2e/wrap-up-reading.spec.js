@@ -91,3 +91,25 @@ for (const mode of ['full', 'keys']) {
     if (mode === 'keys') await expect(page.locator('.vmx-wrap-cols')).toHaveCount(0);
   });
 }
+
+// The Swine final's overview ran 11 lines on a phone and pushed every item below the first screen. Any overview
+// longer than four lines on screen opens folded to two, with "อ่านต่อ" for the rest (lib/wrap-intro.js).
+test('a long overview opens folded to two lines, and the first item is on the first screen', async ({ page, context }) => {
+  await openSwineFinal(page, context);
+  const intro = page.locator('.vmx-wrap-intro');
+  const more = page.getByRole('button', { name: 'อ่านต่อ', exact: true });
+  await expect(more).toBeVisible();
+  await expect(more).toHaveAttribute('aria-expanded', 'false');
+  const lh = await intro.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
+  const folded = (await intro.boundingBox()).height;
+  expect(folded).toBeLessThanOrEqual(lh * 2 + 2);
+  const box = await more.boundingBox();
+  expect(box.height).toBeGreaterThanOrEqual(44);
+  // The first section starts on the first screen.
+  const viewport = page.viewportSize();
+  const first = await page.locator('.vmx-wrap-item').first().boundingBox();
+  expect(first.y).toBeLessThan(viewport.height);
+  await more.click();
+  await expect(more).toHaveCount(0);
+  expect((await intro.boundingBox()).height).toBeGreaterThan(lh * 4);
+});
