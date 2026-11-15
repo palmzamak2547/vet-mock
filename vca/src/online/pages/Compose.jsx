@@ -10,7 +10,7 @@ import { useTitle } from '../../lib/hooks.js';
 import { DOMAIN_CARDS, CARD_BY_ID } from '../../lib/bank.js';
 import { navigate } from '../../router.js';
 import { JoinPrompt, KindSeg, Soon } from '../ui/bits.jsx';
-import { QuestionPeek } from '../ui/QuestionPeek.jsx';
+import { QuestionPeek } from '../../components/QuestionPeek.jsx';
 import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';

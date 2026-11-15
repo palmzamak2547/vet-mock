@@ -21,6 +21,8 @@ export default defineConfig({
       // Read-only access to the main app. Use sparingly; nothing under ../src is ever modified.
       '@vetmock': repoSrc,
     },
+    // ../src/lib/family's menu is JSX that imports react: resolve it from this app.
+    dedupe: ['react', 'react-dom'],
   },
   server: {
     fs: {

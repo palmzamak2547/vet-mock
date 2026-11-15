@@ -20,7 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SRC = fileURLToPath(new URL('../../src/', import.meta.url));
-const VETMOCK_SHARED = new Set(['lib/richtext.jsx', 'lib/option-shuffle.js']);
+const VETMOCK_SHARED = new Set(['lib/richtext.jsx', 'lib/option-shuffle.js', 'lib/share-link.js', 'lib/family/family.js', 'lib/family/FamilyMenu.jsx', 'lib/family/return-path.js']);
 const PACKAGES = {
   react: 'any',
   'react-dom/client': ['main.jsx'],

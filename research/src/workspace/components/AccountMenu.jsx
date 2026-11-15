@@ -7,6 +7,7 @@ import { AUTH_CONFIGURED, signIn, signOut } from '../../lib/auth/client.js';
 import { storageHealth } from '../../lib/store/health.js';
 import { deleteAllForOwner } from '../../lib/store/projects.js';
 import { readPrefs, writePrefs } from '../../lib/store/prefs.js';
+import { CHOSEN_ATTR, dropVisit } from '../../../../src/lib/family/family.js';
 import { navigate } from '../../router.js';
 import { useWs, errorInfo } from '../ws-context.js';
 import Dialog from './Dialog.jsx';
@@ -38,6 +39,10 @@ export default function AccountMenu({ open, onClose }) {
   const chooseTheme = (v) => {
     setTheme(v);
     writePrefs({ theme: v });
+    // The student's own pick replaces a theme the visit arrived with; 'system' sends none on.
+    dropVisit('theme');
+    if (v === 'light' || v === 'dark') document.documentElement.setAttribute(CHOSEN_ATTR, v);
+    else document.documentElement.removeAttribute(CHOSEN_ATTR);
     applyTheme(v);
   };
 

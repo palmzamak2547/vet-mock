@@ -206,19 +206,20 @@ test('a goal that leans on a feature this year does not have is left out', () =>
   assert.equal(normal.length, GUIDE_PATHS.length, 'a normal year lost a goal');
 });
 
-test('the hints rotate through their own list and honour the surface they are on', () => {
+test('one hint per feature and surface, nothing to rotate through', () => {
+  // A hint shows once ever (lib/first-tip.js), so a second hint on the same
+  // surface could never be seen: it would be dead copy.
   for (const [id, entry] of Object.entries(FEATURE_TIPS)) {
     assert.ok(entry.tips.length >= 1, `${id} has no hint`);
     assert.ok(GUIDE_PATHS.some((p) => p.id === entry.guide), `${id} points at a guide goal that does not exist`);
-    const first = pickTip(id, { turn: 0, surface: entry.tips[0].surface || null });
-    assert.equal(first, entry.tips[0], `${id}: the first day must show the first hint`);
+    const surfaces = entry.tips.map((t) => t.surface || '');
+    assert.equal(new Set(surfaces).size, surfaces.length, `${id} has two hints for one surface`);
+    assert.equal(pickTip(id, { surface: entry.tips[0].surface || null }), entry.tips[0]);
   }
-  const notes = FEATURE_TIPS.notes.tips;
-  assert.equal(pickTip('notes', { turn: notes.length }), notes[0], 'rotation does not wrap');
   const article = FEATURE_TIPS.knowledge.tips.filter((t) => t.surface === 'article');
-  assert.ok(article.length, 'the article page has no hint of its own');
-  assert.equal(pickTip('knowledge', { turn: 0, surface: 'article' }), article[0]);
-  assert.equal(pickTip('missing-id', { turn: 0 }), null);
+  assert.equal(article.length, 1, 'the article page has no hint of its own');
+  assert.equal(pickTip('knowledge', { surface: 'article' }), article[0]);
+  assert.equal(pickTip('missing-id'), null);
 });
 
 test('the notes hint leads with printing to PDF, the owner\'s own example', () => {
@@ -240,7 +241,7 @@ test('every hint id has a mount and every mount has a hint', () => {
   for (const key of mounted.keys()) {
     const [id, surface] = key.split(':');
     assert.ok(FEATURE_TIPS[id], `${mounted.get(key)} mounts a hint "${id}" with no content`);
-    if (surface) assert.ok(pickTip(id, { turn: 0, surface }), `${mounted.get(key)} asks for a ${surface} hint that does not exist`);
+    if (surface) assert.ok(pickTip(id, { surface }), `${mounted.get(key)} asks for a ${surface} hint that does not exist`);
   }
   for (const id of Object.keys(FEATURE_TIPS)) {
     assert.ok([...mounted.keys()].some((k) => k.split(':')[0] === id), `hint "${id}" is written but never mounted`);

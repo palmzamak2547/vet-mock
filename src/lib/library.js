@@ -1144,6 +1144,27 @@ export async function openDocInTab(resolve) {
   }
 }
 
+/** openDocInTab for a tap that has no shelf under it (the search palette).
+ *  When the link cannot be had (blocked tab and a failed lookup together sent
+ *  the student to the shelf without a word), `ask(title)` offers a retry,
+ *  which runs inside that dialog's own tap so a tab may open; declining goes
+ *  to the shelf with the document searched, its card there to tap
+ *  (`toShelf(title)`). The student ends with the document or a card for it.
+ *  @returns {Promise<'opened'|'shelf'>} */
+export async function openDocOrOffer(resolve, { title = '', ask, toShelf, open = openDocInTab }) {
+  for (;;) {
+    try {
+      await open(resolve);
+      return 'opened';
+    } catch {
+      if (!(await ask(title))) {
+        toShelf(title);
+        return 'shelf';
+      }
+    }
+  }
+}
+
 /** Saves a document's file: the library's own blob route names it as an
  *  attachment (?dl=1&name=, the way LecturerSets saves a deck). Any other
  *  link opens here, where the browser's own viewer saves it. */
