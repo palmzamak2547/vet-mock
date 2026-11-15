@@ -157,7 +157,7 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         {/* Another year's set: its date, the counts lecturers announced and their
             formats are that year's, so the year leads the line (lib/current-phase.js). */}
         {set.source?.own === false ? `${termYearLabel(set.source.term)}: ` : ''}
-        {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)]} {thaiDate(set.examDate, set.source?.own === false)} — {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้{set.source?.own === false ? 'ในปีนั้น' : ''}
+        {EXAM_SCOPE_LABEL[scopeForPhase(selectedPhase)]} {thaiDate(set.examDate, set.source?.own === false)} {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้{set.source?.own === false ? 'ในปีนั้น' : ''}
       </p>
       {/* One switch for every format: instantFeedback is what choice and
           true/false read (ExamView revealAnswer), the stored reveal timing is

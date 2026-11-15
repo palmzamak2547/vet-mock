@@ -92,6 +92,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 import OptionalFeature from './components/OptionalFeature.jsx';
 // The search box shown while the palette's chunk downloads (and when it fails).
 import PaletteFrame from './components/PaletteFrame.jsx';
+import PaletteShell from './components/PaletteShell.jsx';
 import { clearPaletteHandoff } from './lib/palette-handoff.js';
 
 // Lazy: every screen and heavy modal loads as its own chunk. The
@@ -108,7 +109,7 @@ import {
   FeedbackView, IgCardStudioView, YearSelectView, LandingView,
   PhaseSelectView, TopicSelectView, NotesView, LibraryView, ChulaGateView, ChulaGateExit,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
-  AccountSettingsView, ProfileView, OfflineGameView, MochiView, PomodoroView,
+  AccountSettingsView, ProfileView, IdentityStep, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
   useIdlePrefetch,
 } from './app/lazy-views.js';
@@ -327,7 +328,7 @@ function ViewEntry({ view, returnScrollRef }) {
 const READER_ORIGINS = new Set(['topic-select', 'wrapup', 'knowledge', 'wiki']);
 
 export default function App() {
-  const { user, profile, loading: authLoading } = useAuth();
+  const { user, profile, setProfile, loading: authLoading } = useAuth();
   // The Chula sign-in wall: until it opens, the app below renders nothing.
   const wall = useChulaWall({ user, loading: authLoading });
 
@@ -1260,6 +1261,10 @@ export default function App() {
   // was detected. Lives in App so HomeView (and any future entry points)
   // can read + handle resume/dismiss without re-querying localStorage.
   const [pendingResume, setPendingResume] = useState(null);
+  // The first-run identity sheet, once closed, stays closed for this page.
+  const [identityClosed, setIdentityClosed] = useState(false);
+  // The first-run step, once on screen, stays until it closes itself (IdentityStep.jsx).
+  const [identityShown, setIdentityShown] = useState(null);
   // 'redo' for a round of the questions whose key the results page just
   // showed. It is review, not a run: no leaderboard row, no personal best.
   const [sessionKind, setSessionKind] = useState('normal');
@@ -3232,6 +3237,17 @@ export default function App() {
       {wall.welcome && user && (
         <Suspense fallback={null}><ChulaGateExit user={user} onDone={wall.doneWelcome} /></Suspense>
       )}
+      {/* Once per account, on Home only: never over an exam, a set, a set
+          waiting to resume, the wall's welcome or the tour. This is the cheap
+          half of the gate, so the first load carries none of it; the step's
+          own chunk applies the whole rule (lib/identity-gate.js). */}
+      {((user && view === 'home' && !pendingResume && !wall.welcome && !tourOpen && !identityClosed
+        && profile?.id === user.id && profile?.created_at && !user.user_metadata?.identity_intro_done)
+        || (user && !identityClosed && identityShown === user.id)) && (
+        <Suspense fallback={null}>
+          <IdentityStep user={user} profile={profile} view={view} onSaved={(next) => setProfile(next)} onClose={() => setIdentityClosed(true)} onShown={() => setIdentityShown(user.id)} />
+        </Suspense>
+      )}
       {/* A pending decision belongs to the view and account that opened it. */}
       <DialogHost scope={view} owner={user?.id ?? null} />
       {/* `is-focus` = the bottom nav is not rendered for this view, so the
@@ -3300,6 +3316,9 @@ export default function App() {
               setPracticeMode={setPracticeMode}
               setMode={setMode}
               streakData={streakData}
+              history={history}
+              srCards={srCards}
+              xpReady={Boolean(user) && ['synced', 'pending'].includes(userDataSync.phase)}
               user={user}
               profile={profile}
               handleSignOut={handleSignOut}
@@ -3384,8 +3403,8 @@ export default function App() {
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
-              {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
-              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
+              {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups'), onEditIdentity: () => setView('profile') }} />}
+              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear, setView }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
               {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} hasHistory={(history?.length || 0) > 0} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
@@ -3438,6 +3457,8 @@ export default function App() {
                   palette={palette}
                   setPalette={setPalette}
                   hasSupabase={hasSupabase}
+                  selectedYear={selectedYear}
+                  onIdentitySaved={(next) => setProfile(next)}
                   openSubject={(id) => { setSubject(id); setTopic(null); setPracticeMode('all'); setView('topic-select'); }}
                 />
               )}
@@ -3447,7 +3468,7 @@ export default function App() {
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView, phaseStatus }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
-              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, setView, onSignedOut: goHome }} />}
+              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, profile, goHome, setView, onSignedOut: goHome, selectedYear, onIdentitySaved: (next) => setProfile(next) }} />}
               {view === 'offline-game' && <OfflineGameView goBack={leaveRestTool} backToRest={restReturn} online={networkOnline} />}
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} onOpenGame={() => setView('offline-game')} />}
               {view === 'pomodoro' && <PomodoroView goHome={leaveRestTool} backToRest={restReturn} />}
@@ -3521,6 +3542,7 @@ export default function App() {
           closing fully unmounts the modal too (cleaner than leaving
           a hidden overlay in the tree). */}
       {paletteOpen && (
+        <PaletteShell onClose={() => setPaletteOpen(false)}>
         <OptionalFeature
           label="การค้นหา"
           onClose={() => setPaletteOpen(false)}
@@ -3568,6 +3590,7 @@ export default function App() {
             isAdmin={isAdmin}
           />
         </OptionalFeature>
+        </PaletteShell>
       )}
 
       {openInstructor && (

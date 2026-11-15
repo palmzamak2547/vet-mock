@@ -53,6 +53,8 @@ export function voiceConfig(env = process.env) {
     off: env.AI_VOICE_OFF === '1',
     sessionSeconds,
     userSessions: Math.floor(num(env.AI_VOICE_USER_SESSIONS, 4, 1, 100)),
+    // a trial link (docs/CHULA-SIGNIN.md "Trial links") is shared by the people it was handed to
+    passSessions: Math.floor(num(env.AI_VOICE_PASS_SESSIONS, 8, 1, 100)),
     floorCredits: num(env.AI_VOICE_FLOOR_CREDITS, 50_000, 0, 1e9),
     creditsPerMinute,
     maxConcurrent: Math.floor(num(env.AI_VOICE_MAX_CONCURRENT, 4, 1, 50)),

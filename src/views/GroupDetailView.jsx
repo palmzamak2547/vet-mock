@@ -1,4 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
+import { shownName, shownPicture } from '../lib/public-display.js';
+import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { getGroupMembers, getGroupLeaderboard, leaveGroup, deleteGroup } from '../lib/api.js';
 import { leaveRule } from '../lib/group-membership.js';
@@ -15,7 +17,7 @@ const SECTIONS = ['members', 'leaderboard'];
 const ALL_PENDING = { members: true, leaderboard: true };
 const NONE_FAILED = { members: '', leaderboard: '' };
 
-export default function GroupDetailView({ group, user, goBack }) {
+export default function GroupDetailView({ group, user, goBack, onEditIdentity = null }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'members'
   const [members, setMembers] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
@@ -89,7 +91,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       alertDialog(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
     } else {
       // Surface the code so the user can long-press to copy manually
-      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ กดค้างที่รหัสนี้แล้วเลือกคัดลอก\n\n${group.code}`);
+      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ กดค้างที่รหัสนี้แล้วเลือกคัดลอก:\n\n${group.code}`);
     }
   };
 
@@ -153,6 +155,7 @@ export default function GroupDetailView({ group, user, goBack }) {
           <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             อันดับจากผลดีที่สุดของสมาชิกแต่ละคนที่ระบบตรวจคะแนนแล้ว (อย่างน้อย 5 ข้อ) สมาชิกที่ปิดการแสดงบนอันดับจะไม่ปรากฏ
           </div>
+          <BoardPresenceNotice user={user} rows={leaderboard} scope="group" onEdit={onEditIdentity} />
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
           ) : (
@@ -164,7 +167,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                      {shownPicture(r.profiles?.avatar_emoji)} {shownName(r.profiles?.username, 'ไม่ระบุชื่อ')}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
@@ -186,9 +189,9 @@ export default function GroupDetailView({ group, user, goBack }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>{shownPicture(m.avatar_emoji)}</div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                {m.username}
+                {shownName(m.username)}
                 {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
               {m.role === 'admin' && <div style={{ fontSize: 14, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 ผู้ดูแล</div>}

@@ -39,9 +39,17 @@ test('every link added by hand says why the section answers the question', () =>
 test("this week's aquatic and equine-repro questions reach an article where one answers them", async () => {
   await loadQB();
   const byId = new Map(QB.map((q) => [String(q.id), q]));
-  for (const id of ['204014', '202191', '202452', '204003', '105488', '105471', '105489', '105490']) {
+  for (const id of ['204014', '202191', '202452', '204003']) {
     const a = articleForQuestion(byId.get(id));
     assert.ok(a?.derived, `${id} opens its judged article`);
+  }
+  // Equine Reproduction has its own notes since 5.227.8: these questions open the article of their own topic,
+  // which answers them, and carry no derived link.
+  for (const id of ['105488', '105471', '105489', '105490']) {
+    const q = byId.get(id);
+    const a = articleForQuestion(q);
+    assert.ok(a && !a.derived && a.topic === q.topic, `${id} opens its own topic's article`);
+    assert.equal(QUESTION_LINKS[id], undefined, `${id} needs no derived link`);
   }
   // A section that says Edwardsiella causes "hole in the head" in catfish must
   // not be offered for Hexamita's hole-in-the-head in cichlids: same words,

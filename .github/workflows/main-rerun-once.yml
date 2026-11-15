@@ -1,0 +1,86 @@
+# ============================================================
+# Main heals from a flake by itself
+# ============================================================
+# Vercel promotes a main commit only once Build and "Smoke e2e" pass on it. On
+# 15 Nov 2026 one WebKit job of "Smoke e2e" stalled on main, the production
+# deployment waited on that check, and nobody was told.
+#
+# When "Smoke e2e" completes with a failure on main at its first attempt, this
+# reruns the failed jobs once. When the second attempt fails as well, it opens
+# one issue titled "main is red: Smoke e2e at <short sha>" listing the failed
+# jobs with links (a second red attempt on the same commit comments on that
+# issue instead of opening another).
+#
+# It never reruns more than once (attempt 2 is never rerun), and it never acts
+# on a pull request's run.
+name: Main rerun once
+
+on:
+  workflow_run:
+    workflows: ['Smoke e2e']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  actions: write
+  issues: write
+  contents: read
+
+jobs:
+  rerun:
+    name: rerun failed jobs once
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Only a failed run of main. Cancelled and skipped runs are left alone.
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.run_attempt == 1
+    steps:
+      - name: Rerun the failed jobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: gh run rerun "$RUN_ID" --failed
+
+  report:
+    name: report a second failure
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.run_attempt >= 2
+    steps:
+      - name: Open or update the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          short="${SHA:0:8}"
+          title="main is red: Smoke e2e at ${short}"
+          # The jobs of the latest attempt that did not pass, each with its link.
+          jobs="$(gh api "repos/${GH_REPO}/actions/runs/${RUN_ID}/jobs?filter=latest&per_page=100" \
+            --jq '.jobs[] | select(.conclusion == "failure" or .conclusion == "timed_out") | "- [" + .name + "](" + .html_url + ")"')"
+          body="Smoke e2e failed on main at ${short} and failed again when its failed jobs were rerun once.
+
+          Run: ${RUN_URL}
+
+          Failed jobs:
+          ${jobs:-"- (none listed: open the run)"}
+
+          Production waits on this check. Fix forward or revert; this workflow does not rerun a second time."
+          number="$(gh issue list --state open --search "\"${title}\" in:title" --json number,title \
+            --jq "[.[] | select(.title == \"${title}\")][0].number // empty")"
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi

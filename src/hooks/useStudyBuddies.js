@@ -5,8 +5,8 @@
 // participant tracks { subject, view, qKey } so the HomeView panel can
 // render "5 คนกำลังเรียน COM V อยู่" links. A phone never sends a name:
 // names come from the server's profile of each account (buddy_profiles,
-// migration 20261115120300), and a student who turned off being shown
-// online does not join at all.
+// migration 20261115120300), and a student who turned the leaderboard off
+// is not published (the channel is joined to listen only).
 //
 // Uses a separate channel ('vet-mock-buddies') so the original count
 // channel stays unchanged. Anonymous users (no Supabase login) DON'T
@@ -95,15 +95,14 @@ const RETRACK_DELAY_MS = 1500;
 // presence here. A public join of the same name lands on a separate topic
 // and sees none of it. Every signed-in classmate still reads what is
 // published, so the payload carries no auth id (the presence key is a digest
-// of it, see presenceKeyFor) and no name or avatar at all.
-//
-// A student may turn off being shown online (account settings, the
-// show_online flag in user_metadata). Such a student does not join the
-// channel, so nobody sees them and they see nobody. The server's name lookup
-// also leaves out anyone who turned off the leaderboard.
+// of it, see presenceKeyFor) and no name or avatar at all. A student who
+// turned the leaderboard off is not published at all: no entry, not in
+// "N คนกำลังทำข้อนี้", no key a classmate could match to them. They still
+// see who else is reading (the channel is joined to listen). The server's
+// name lookup also leaves out anyone who turned off the leaderboard.
 const SHOWN_VALUES = new Set(['true', 't', 'yes', 'y', 'on', '1']);
-export function showsOnline(user) {
-  const flag = user?.user_metadata?.show_online;
+function showsOnLeaderboard(user) {
+  const flag = user?.user_metadata?.show_on_leaderboard;
   if (flag === undefined || flag === null) return true;
   return SHOWN_VALUES.has(String(flag).trim().toLowerCase());
 }
@@ -213,14 +212,21 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
   // re-runs the update effect, which sends nothing when the payload is the same.
   const username = profile?.username || null;
   const avatar = profile?.avatar_emoji || null;
-  const shown = showsOnline(user);
   latestRef.current = { user, username, avatar, subject, view, qKey };
+  // Turning the board off takes this student off the presence list at once.
+  const shown = showsOnLeaderboard(user);
 
   // Send the current presence payload. `force` re-announces even when the
   // payload is unchanged (after the socket was killed in the background).
   const sendPresence = (force = false) => {
     const ch = channelRef.current;
     if (!ch || !latestRef.current.user) return;
+    if (!showsOnLeaderboard(latestRef.current.user)) {
+      // Hidden by choice: leave the presence list if this tab was on it.
+      if (lastSentRef.current) { try { ch.untrack?.(); } catch {} }
+      lastSentRef.current = '';
+      return;
+    }
     const payload = presencePayload({ ...latestRef.current, joinedAt: joinedAtRef.current });
     const key = JSON.stringify(payload);
     if (!force && key === lastSentRef.current) return;
@@ -229,7 +235,7 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
   };
 
   useEffect(() => {
-    if (!hasSupabase || !user || !shown) {
+    if (!hasSupabase || !user) {
       publishPresence(NO_BUDDIES);
       return;
     }
@@ -285,13 +291,13 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
       publishPresence(NO_BUDDIES);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id, shown]);
+  }, [user?.id]);
 
   // Metadata changes (a new question, a new view) coalesce on a short
   // trailing timer, so a fast run through an exam sends one update when the
   // student pauses, not one per question.
   useEffect(() => {
-    if (!user || !shown) return undefined;
+    if (!user) return undefined;
     clearTimeout(retrackTimerRef.current);
     retrackTimerRef.current = setTimeout(() => {
       retrackTimerRef.current = null;
@@ -299,7 +305,24 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
     }, RETRACK_DELAY_MS);
     return () => clearTimeout(retrackTimerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id, username, avatar, subject, view, qKey]);
+  }, [user?.id, username, avatar, subject, view, qKey, shown]);
+
+  // The choice made in another tab reaches this one through the stored
+  // session (auth-js writes it on every update): hidden there, gone here.
+  useEffect(() => {
+    if (!user || typeof window.addEventListener !== 'function') return undefined;
+    const onStorage = (event) => {
+      if (!event?.key || !/^sb-.*-auth-token$/.test(event.key) || !event.newValue) return;
+      let stored = null;
+      try { stored = JSON.parse(event.newValue)?.user || null; } catch { stored = null; }
+      if (!stored || stored.id !== latestRef.current.user?.id) return;
+      latestRef.current = { ...latestRef.current, user: stored };
+      sendPresence(true);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
 
   // iOS Safari (and aggressive battery managers on Android) kill background
   // WebSocket connections. When the tab returns to the foreground our

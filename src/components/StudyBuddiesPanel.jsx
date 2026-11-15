@@ -10,6 +10,7 @@
 // empty card.
 // ============================================================
 
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useMemo } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 
@@ -19,7 +20,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 export function namesLine(list) {
   const named = (list || []).filter((b) => b?.username);
   if (!named.length) return '';
-  const shown = named.slice(0, 3).map((b) => `${b.avatar || '🐾'} ${b.username}`).join(', ');
+  const shown = named.slice(0, 3).map((b) => `${shownPicture(b.avatar)} ${shownName(b.username)}`).join(', ');
   const rest = (list || []).length - Math.min(3, named.length);
   return ` ${shown}${rest > 0 ? ` และอีก ${rest} คน` : ''}`;
 }

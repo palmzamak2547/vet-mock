@@ -40,8 +40,6 @@ export const METADATA_SECTIONS = new Set([
   "repro-lect--exotic-repro--exam-note", // an exam tip from the lecturer
   "exotic--wildlife-career--phd-usa-vs-eu-aus", // education pathways, not veterinary science
   "exotic--wildlife-career--funding-sources", // career funding routes
-  "equine-medicine--equine-poa--poa-infectious-dz-station-final-exam-2-questions", // exam-station logistics
-  "equine-medicine--equine-tumors--cases-02-n-detail-per-tumor-type", // case slides, no extractable claim
   "exotic--field-vet--veterinary-analogy-body-to-ecosystem", // the lecturer's teaching analogy
   "cliapprum--hoof-health-fleet--tli-framework-4-elements", // a framework taught by this lecturer
   "poultry--quality-assurance--bqm-4-มิติ-better-quality-management", // a framework taught by this lecturer
@@ -68,20 +66,8 @@ export const METADATA_SECTIONS = new Set([
   "equine-medicine--equine-lapove--outline-2-parts", // Outline — 2 parts
   "equine-medicine--equine-poa--source-pdf-poa-workflow-snapshots", // Source PDF — POA workflow snapshots
   "equine-medicine--equine-tumors--title-lecturer", // Title + lecturer
-  "milk-meat-hygiene--meat-ante-post-mortem--lecture-identity", // Lecture identity
   "milk-meat-hygiene--meat-cutting-grading--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-egg-micro--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-hygiene-intro--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-microbiology--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-microbiology--lecture-outline-5-main-points", // Lecture outline (5 main points)
-  "milk-meat-hygiene--meat-molecular--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-pest-control--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-quality--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-seafood--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-slaughter--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-storage--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-borne-pathogens--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--milk-cleaning--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-industry-std--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-mastitis--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-microbiology--lecture-identity", // Lecture identity
@@ -326,6 +312,27 @@ export const METADATA_SECTIONS = new Set([
   // carries no fact to check.
   "aquatic-clinic--aqua-toxicology--ตารางสารพิษรายชนิด-ดูในสไลด์หน้า-24-ถึง-41", // the section only points to where tables sit in the deck; it states no fact to check
   "aquatic-clinic--aqua-toxicology--aquatic-toxicology-เป็นศาสตร์สหวิทยาการ", // a diagram of the disciplines the field draws on; it states no single fact a paper reports
+  // Milk and Meat Hygiene notes of 2569 (15 Nov 2026): sections that list what a slide groups together or
+  // describe a class procedure; no paper states them as one fact.
+  "milk-meat-hygiene--milk-cleaning--สารฆ่าเชื้อที่ดี-คุณสมบัติ-13-ข้อ", // ลิสต์คุณสมบัติ 13 ข้อของสารฆ่าเชื้อที่ดีที่สไลด์รวบรวมไว้ ไม่มีแหล่งภายนอกที่ระบุรายการ 13 ข้อนี้ตามลำดับเดียวกัน
+  "milk-meat-hygiene--milk-cleaning--สารทำความสะอาดที่ดี-คุณสมบัติ-13-ข้อ", // ลิสต์คุณสมบัติ 13 ข้อของสารทำความสะอาดที่ดีที่สไลด์รวบรวมไว้ ไม่มีแหล่งภายนอกที่ระบุรายการนี้
+  "milk-meat-hygiene--milk-cleaning--กรอบมาตรฐานที่เกี่ยวกับการทำความสะอาด", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--วัตถุประสงค์ของการทำความสะอาด-และจุลินทรีย์ที่สำคัญ", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--สารเสริมในสูตรทำความสะอาด", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--ชนิดของสารฆ่าเชื้อในโรงงานและตัวเลขที่ใช้", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--ขั้นตอนทำความสะอาดอุปกรณ์-7-ขั้น", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--phenol-coefficient-p-c-นิยามและวิธีคำนวณ", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--meat-hygiene-intro--องค์ประกอบของเนื้อ-เนื้อเยื่อ-และกล้ามเนื้อ-3-ชนิด", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--meat-hygiene-intro--องค์ประกอบทางเคมีของเนื้อ", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--meat-storage--ระยะเวลาเก็บ-เนื้อสดและเนื้อปรุงสุก", // no open source quotable for it found (verifier and integrator searches): Chilled and frozen storage times per meat type come from the US FSIS storage chart; fsis.usda.gov and foodsafety.gov returned HTTP 403 to every fetch, and no other fetchable source states these per-me
+  "milk-meat-hygiene--meat-storage--ระยะเวลาเก็บ-เนื้อ-cured-เนื้อกระป๋อง-และเนื้อแช่แข็ง", // no open source quotable for it found (verifier and integrator searches): Storage times for cured, canned and frozen meat come from the same US FSIS chart (HTTP 403); FAO and Codex give no per-product times for these items.
+  "milk-meat-hygiene--meat-slaughter--แปลนพื้นโรงฆ่า", // Describes the floor plans of specific Thai Department of Livestock Development scheme plants (a 400-pig/day plant, a 10-cattle/day plant): a local plant layout with no checkable outside fact.
+  // Equine Reproduction notes of 2569 (15 Nov 2026): sections that list what a slide groups together or
+  // describe a class procedure; no paper states them as one fact.
+  "equine-repro--eqrepro-stallion-infect--high-กับ-low-fertility-stallion-ดู-pregnancy-rate-ต่อครั้งผสม", // Worked arithmetic example on made-up figures (60% vs 40% per attempt); the section states no external fact beyond the arithmetic
+  "equine-repro--eqrepro-ai--ภาพรวมของ-ai-ในม้า-ขั้นตอน-ข้อดีข้อเสีย-และ-breeding-registry", // no open source quotable for it found (verifier and integrator searches): The Thoroughbred natural-cover registry rule has no quotable source: Jockey Club rule book pages returned a redirect then HTTP 403; no PubMed record states it. The 7-step AI list and pros/cons are a c
+  "equine-repro--eqrepro-ai--insemination-dose-volume-และตัวอย่างคำนวณ", // the one candidate source (PMID 39151810) states its dose only in full text that is not open; no quotable source found
+  "equine-repro--eqrepro-surgery--ขอบเขตของ-reproductive-surgery-ในม้า", // A list of the procedures the slide groups under equine reproductive surgery (female and male); it states no checkable fact beyond the grouping.
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

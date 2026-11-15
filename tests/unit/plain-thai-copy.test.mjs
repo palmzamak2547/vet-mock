@@ -90,6 +90,9 @@ test('a classmate the server does not name is counted in Thai on the buddies lis
   assert.doesNotMatch(read('src/hooks/useStudyBuddies.js'), /'guest'/);
   const panel = read('src/components/StudyBuddiesPanel.jsx');
   assert.ok(panel.includes('และอีก ${rest} คน'), 'unnamed classmates are counted');
+  // shownName (public-display.js) draws a blank name as นิสิต.
+  assert.ok(panel.includes("shownName(b.username)"));
+  assert.match(read('src/lib/public-display.js'), /export const STAND_IN = 'นิสิต';/);
   assert.ok(!panel.includes("|| 'guest'"), 'the panel still falls back to guest');
 });
 

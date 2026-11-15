@@ -589,8 +589,7 @@ export async function isUsernameAvailable(username) {
 //
 // Fields:
 //   year (1-6) | cohort ("Vet 86") | avatar_emoji | bio (≤140) |
-//   show_on_leaderboard (bool) | show_online (bool, seen online by
-//   classmates) | onboarded (bool, set after first
+//   show_on_leaderboard (bool) | onboarded (bool, set after first
 //   onboarding flow finishes — used to suppress the modal on returns)
 export async function updateProfileMetadata(metadata) {
   const supabase = await getSupabase();
@@ -598,29 +597,6 @@ export async function updateProfileMetadata(metadata) {
   const { data, error } = await supabase.auth.updateUser({ data: metadata });
   if (error) throw error;
   notifyAuthChanged();
-  return data;
-}
-
-// ─── Update username (in profiles table) ────────────────────────
-// Username uniqueness is enforced server-side via a unique index. If
-// another user grabs the name between availability check and update,
-// the error is surfaced in Thai.
-export async function updateUsername(newUsername) {
-  const supabase = await getSupabase();
-  if (!supabase) throw new Error('Supabase not configured');
-  const { data: sess } = await supabase.auth.getSession();
-  const userId = sess?.session?.user?.id;
-  if (!userId) throw new Error('ไม่ได้ login อยู่');
-  const { data, error } = await supabase
-    .from('profiles')
-    .update({ username: newUsername })
-    .eq('id', userId)
-    .select('id, username, avatar_emoji, created_at')
-    .single();
-  if (error) throw error;
-  // Mirror to user_metadata so HomeView / UserMenu pick it up without
-  // a profiles re-fetch round-trip.
-  await supabase.auth.updateUser({ data: { username: newUsername } });
   return data;
 }
 

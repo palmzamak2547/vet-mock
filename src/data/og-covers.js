@@ -197,6 +197,14 @@ export const ogImageUrl = (origin, id) => `${origin}/og/${id}.png?v=${OG_IMAGE_V
  */
 export const wikiCoverId = (subject) => `wiki-${subject}`;
 
+/**
+ * A set sent by a /s/ link previews with its subject's cover,
+ * public/og/set-<subject>.png (typographic, drawn by
+ * scripts/render-og-covers.mjs for every subject in SHARE_SUBJECTS). Read by
+ * api/s.js; scripts/lint-og.mjs checks each.
+ */
+export const setCoverId = (subject) => `set-${subject}`;
+
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 

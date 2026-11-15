@@ -95,7 +95,9 @@ export async function setPracticeCount(page, n) {
 export async function openDisclosure(page, name) {
   const toggle = page.getByRole('button', { name, exact: true });
   await expect(toggle).toBeVisible({ timeout: 20_000 });
-  if ((await toggle.getAttribute('aria-expanded')) !== 'true') await toggle.click();
+  // Read and pressed in one step in the page: the config screen can open its own region the moment the
+  // pool's count arrives, and a press sent after a separate read then closed what had just opened.
+  await toggle.evaluate((el) => { if (el.getAttribute('aria-expanded') !== 'true') el.click(); });
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
 }
 

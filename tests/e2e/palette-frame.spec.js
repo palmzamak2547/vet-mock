@@ -38,9 +38,26 @@ test('a slow search chunk shows the box at once and keeps what is typed', async 
   await page.keyboard.type('schedu');
   await expect(box).toHaveValue('schedu');
   expect(asked).toBe(1);
+  // One dialog from the tap to the close: mark the element, and watch every frame and every focus move
+  // until the palette has taken over, so a swap of dialogs or a moment with the focus outside shows.
+  await dialog.evaluate((el) => {
+    el.dataset.probeSame = '1';
+    window.__left = [];
+    const look = () => {
+      const d = document.querySelector('[role="dialog"][aria-label="ค้นหาอัจฉริยะ"]');
+      if (!d || !d.contains(document.activeElement)) window.__left.push(String(document.activeElement?.tagName));
+      if (d && !d.hasAttribute('data-palette-frame')) return;
+      requestAnimationFrame(look);
+    };
+    document.addEventListener('focusout', () => queueMicrotask(() => { const d = document.querySelector('[role="dialog"][aria-label="ค้นหาอัจฉริยะ"]'); if (!d || !d.contains(document.activeElement)) window.__left.push('after focusout: ' + String(document.activeElement?.tagName)); }), true);
+    requestAnimationFrame(look);
+  });
   release();
   // The palette takes over with the same text, focused, and searches it.
   await expect(dialog).not.toHaveAttribute('data-palette-frame', /./, { timeout: 15_000 });
+  // The same dialog element, and the focus never left it.
+  await expect(dialog).toHaveAttribute('data-probe-same', '1');
+  expect(await page.evaluate(() => window.__left)).toEqual([]);
   await expect(box).toHaveValue('schedu');
   await expect(box).toBeFocused();
   await page.keyboard.type('le');

@@ -72,7 +72,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       // that lands while the create is out must not be overwritten.
       setGroups((prev) => [...prev, { ...g, role: 'admin' }]);
       setNewName(''); setShowCreate(false);
-      alertDialog(`สร้างกลุ่ม "${g.name}" แล้ว\nรหัสกลุ่ม: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อเข้าร่วม`);
+      alertDialog(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัสกลุ่ม: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อเข้าร่วมกลุ่ม`);
     } catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
     finally { busyRef.current = false; setBusy(false); }
   };
@@ -105,12 +105,12 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       <div className="vmx-hero">
         <Mochi state="hearts" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>กลุ่ม <em>ติว</em></h1>
-        <p>สร้างกลุ่มแล้วส่งรหัสให้เพื่อน หรือเข้าร่วมด้วยรหัสจากเพื่อน แล้วแข่งคะแนนกัน</p>
+        <p>สร้างกลุ่มแล้วส่งรหัสกลุ่มให้เพื่อน หรือเข้าร่วมด้วยรหัสของเพื่อน แข่งคะแนนและเรียนไปด้วยกัน</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 24, justifyContent: 'flex-start' }}>
         <button className="vmx-btn vmx-btn-primary" onClick={() => { setShowCreate(!showCreate); setShowJoin(false); }}>สร้างกลุ่ม</button>
-        <button className="vmx-btn vmx-btn-ghost" onClick={() => { setShowJoin(!showJoin); setShowCreate(false); }}>🔑 เข้าร่วมด้วยรหัส</button>
+        <button className="vmx-btn vmx-btn-ghost" onClick={() => { setShowJoin(!showJoin); setShowCreate(false); }}>เข้าร่วมด้วยรหัส</button>
       </div>
 
       {showCreate && (
@@ -132,7 +132,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
         <div className="vmx-config-panel">
           <form onSubmit={handleJoin}>
             <div className="vmx-form-group">
-              <label htmlFor="vmx-group-code">รหัสกลุ่ม 6 ตัว</label>
+              <label htmlFor="vmx-group-code">รหัสกลุ่ม (6 ตัวอักษร)</label>
               <input id="vmx-group-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="K7M2QX" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
             </div>
             <div className="vmx-btn-row">
@@ -152,7 +152,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       ) : loadError ? (
         <StatePanel kind="error" title="โหลดกลุ่มไม่สำเร็จ" body={loadError} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : shownGroups.length === 0 ? (
-        <StatePanel art={EMPTY_ART.groups} title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือเข้าร่วมด้วยรหัสจากเพื่อน เพื่อเริ่มติวด้วยกัน" />
+        <StatePanel art={EMPTY_ART.groups} title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือเข้าร่วมด้วยรหัสกลุ่มเพื่อเริ่มติวกับเพื่อน" />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {shownGroups.map((g) => (
@@ -163,7 +163,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
                   className="vmx-pressable-card"
                   onClick={() => openGroup(g)}
                   style={{ flex: '1 1 220px', padding: 0 }}
-                  aria-label={`เปิดกลุ่ม ${g.name}, รหัส ${g.code}`}
+                  aria-label={`เปิดกลุ่ม ${g.name} รหัส ${g.code}`}
                 >
                   <h3 style={{ margin: 0 }}>{g.name}</h3>
                   <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
