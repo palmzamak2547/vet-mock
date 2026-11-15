@@ -71,8 +71,8 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
     : '';
   const say = st.status === 'error' ? st.note
     : st.status === 'loading' ? 'กำลังโหลดเสียง'
-    : st.device ? 'เสียงอ่านของเครื่อง'
     : st.status === 'paused' ? 'หยุดชั่วคราว'
+    : st.device ? 'เสียงอ่านของเครื่อง'
     : '';
   const shown = drag ?? st.time;
   const commit = () => { if (drag != null) { engine?.seek(drag); setDrag(null); } };

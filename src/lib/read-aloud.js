@@ -43,6 +43,11 @@ const OFFLINE_NOTE = 'ต่ออินเทอร์เน็ตแล้ว�
 const noVoiceNote = (lang) => (lang === 'en'
   ? 'เครื่องนี้ไม่มีเสียงอ่านภาษาอังกฤษ ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'
   : 'เครื่องนี้ไม่มีเสียงอ่านภาษาไทย เพิ่มได้ในการตั้งค่าเสียงของเครื่อง หรือต่ออินเทอร์เน็ตแล้วลองอีกครั้ง');
+// The cloud voice answers signed-in Chula accounts only: online, the block is the sign-in.
+const signInNote = (lang) => (lang === 'en'
+  ? 'เครื่องนี้ไม่มีเสียงอ่านภาษาอังกฤษ เข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้เสียงอ่านออนไลน์'
+  : 'เครื่องนี้ไม่มีเสียงอ่านภาษาไทย เพิ่มได้ในการตั้งค่าเสียงของเครื่อง หรือเข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้เสียงอ่านออนไลน์');
+const failNote = (r) => (r.offline || !online() ? OFFLINE_NOTE : cloudRefused ? signInNote(r.live?.lang) : noVoiceNote(r.live?.lang));
 const positions = new Map(); // job id -> { part, t, device }: where a student stopped
 let run = null;              // the job being read, private to this module
 let liveTts = null;          // tts.js, asked for at the tap so a fallback never waits for it
@@ -197,12 +202,15 @@ export function pause() {
 
 export function resume() {
   const r = run;
-  if (!r || !r.plan) return;
+  if (!r) return;
   const status = readAloud.get().status;
   if (status !== 'paused' && status !== 'error') return;
   // A note that nothing can read this question: play starts it again from
-  // its first choice of voice (the network or a voice may be back).
-  if (r.dead) { const job = r.job; stop(); start(job); return; }
+  // its first choice of voice (the network or a voice may be back), also
+  // when it failed before it had any pieces. The student's tap asks the
+  // cloud voice once more (a sign-in since); nothing else re-asks it.
+  if (r.dead) { const job = r.job; cloudRefused = false; stop(); start(job); return; }
+  if (!r.plan) return;
   r.paused = false;
   if (r.gapPending) { r.gapPending = false; afterGap(r); return; }
   // Still downloading the piece: playPart starts it when it arrives.
@@ -415,6 +423,9 @@ async function device(r) {
   const good = live.voice && live.tier !== 'standard';
   const speechOk = typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof SpeechSynthesisUtterance !== 'undefined';
   const first = good && speechOk ? 'speech' : cloudRefused && speechOk && live.voice ? 'speech' : 'cloud';
+  // The cloud voice already refused this visitor and the device has no voice:
+  // say so at once, without asking the cloud again.
+  if (first === 'cloud' && cloudRefused) { dead(r, signInNote(live.lang)); return; }
   r.plan = live.parts.map((p) => ({ ...p, src: first }));
   r.triedCloud = first === 'cloud';
   r.triedSpeech = first === 'speech';
@@ -434,7 +445,11 @@ function speakPart(r, i) {
   if (r.paused) { readAloud.set({ status: 'paused' }); return; }
   const synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
   if (!synth || typeof SpeechSynthesisUtterance === 'undefined') { speechFailed(r, i); return; }
-  cancelDeviceSpeech();
+  // Cancelled only when something is still queued, and a speak() right after
+  // any cancel (a pause, a skip, a new speed) waits a moment: Chrome on
+  // Android has dropped a speak() that comes straight after a cancel().
+  if (synth.speaking || synth.pending) cancelDeviceSpeech();
+  const settle = Date.now() - cancelledAt < SETTLE_MS;
   const u = new SpeechSynthesisUtterance(p.say);
   const v = r.live.voice;
   if (v) { u.voice = v; u.lang = v.lang; } else u.lang = r.live.lang === 'en' ? 'en-US' : 'th-TH';
@@ -442,7 +457,7 @@ function speakPart(r, i) {
   r.utter = u;
   const mine = () => run === r && r.utter === u;
   let started = false;
-  const t0 = Date.now();
+  let t0 = Date.now();
   clearTimeout(r.watch);
   r.watch = setTimeout(() => { if (mine() && !started) { r.utter = null; cancelDeviceSpeech(); speechFailed(r, i); } }, speechWarm ? NO_START_MS : NO_START_FIRST_MS);
   u.onstart = () => {
@@ -472,10 +487,14 @@ function speakPart(r, i) {
     if (e?.error === 'interrupted' || e?.error === 'canceled') return;
     if (!started) speechFailed(r, i); else afterPart(r);
   };
-  synth.speak(u);
+  if (settle) setTimeout(() => { if (mine()) { t0 = Date.now(); synth.speak(u); } }, SETTLE_MS);
+  else synth.speak(u);
 }
 
+const SETTLE_MS = 60;
+let cancelledAt = 0;
 function cancelDeviceSpeech() {
+  cancelledAt = Date.now();
   try { window.speechSynthesis?.cancel(); } catch { /* no speech */ }
 }
 
@@ -489,7 +508,7 @@ function speechFailed(r, i) {
     playPart(r, i, 0);
     return;
   }
-  dead(r, r.offline || !online() ? OFFLINE_NOTE : noVoiceNote(r.live?.lang));
+  dead(r, failNote(r));
 }
 
 // The cloud voice could not give a piece in time: the device's own voice, if
@@ -504,7 +523,7 @@ function cloudFailed(r, i) {
     playPart(r, i, 0);
     return;
   }
-  dead(r, r.offline || !online() ? OFFLINE_NOTE : noVoiceNote(r.live?.lang));
+  dead(r, failNote(r));
 }
 
 // Nothing could read it: say why, keep the bar up until the student closes

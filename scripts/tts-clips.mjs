@@ -21,14 +21,19 @@
 //   node scripts/tts-clips.mjs --gen e1 --year 5 --scope final --explain \
 //     --max-credits 80000 --keep-remaining 10000 [--dry]
 //   node scripts/tts-clips.mjs --gen e1 --year 5 --manifests
-//   node scripts/tts-clips.mjs --gen e1 --year 5 --scope final --explain --align
+//   node scripts/tts-clips.mjs --gen e1 --year 5 --scope final --explain --align \
+//     --keep-remaining 10000
 //   node scripts/tts-clips.mjs --gen p1 --subject swine-clinic --explain --check \
-//     --keep-remaining 500 [--dry] [--publish]
+//     --keep-remaining 500 [--dry] [--publish | --unpublish] [--retry-failed]
 //
+// A paid run (e1, p1, --align) refuses to start without --keep-remaining or
+// --max-credits, and stops when a balance cannot be read.
 // p1 serves a subject only whole: its manifest is { complete, keys }, and
 // complete turns true only with --publish once every clip of the subject is
 // made or listed as failed (work/sound/p1-failed.json), so the page never
-// mixes voices within a subject. --check transcribes each clip whose text
+// mixes voices within a subject. A later run keeps a served subject served
+// while it stays whole; --unpublish takes it back. A clip listed as failed is
+// voiced again only with --retry-failed. --check transcribes each clip whose text
 // holds a digit, a unit or an English or Latin term, and one in ten of the
 // rest, with ElevenLabs Scribe (never past --scribe-floor, default 51,500
 // left), compares the numbers, units and terms with the script, voices a
@@ -72,6 +77,7 @@ import { clipText, clipKey, clipParts, optionLabel, questionLang, SHARED_TTS, EL
 import { wholeExplain, wholeStem } from '../src/lib/rich-blocks.js';
 import { compare, risky } from './lib/tts-check.mjs';
 import { respell } from './lib/tts-respell.mjs';
+import { scribeGate, elevenLeft, paidRunProblem, clipsToMake, wholeSubjectManifest } from './lib/tts-budget.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -95,7 +101,14 @@ const PAXA = G === PAXA_TTS;
 const CHECK = args.includes('--check');
 const PUBLISH = args.includes('--publish');
 const SCRIBE_FLOOR = Number(arg('--scribe-floor')) || 51500;
+const UNPUBLISH = args.includes('--unpublish');
+const RETRY_FAILED = args.includes('--retry-failed'); // voice again the clips that failed their check twice
 if (ALIGN && G !== ELEVEN_TTS) throw new Error('--align is for --gen e1');
+if (PUBLISH && UNPUBLISH) throw new Error('--publish or --unpublish, not both');
+{
+  const problem = paidRunProblem({ paid: G === ELEVEN_TTS || PAXA || ALIGN, maxCredits: MAX_CREDITS, keepRemaining: KEEP_REMAINING, dry: DRY, generating: !MANIFESTS_ONLY });
+  if (problem) throw new Error(problem);
+}
 if (!SUBJECT && !YEAR && !args.includes('--all')) throw new Error('Pass --subject <id>, --year <n> or --all');
 if (SCOPE && !['midterm', 'final'].includes(SCOPE)) throw new Error('--scope is midterm or final');
 
@@ -229,7 +242,11 @@ async function listDone() {
   }
 }
 const { done, timed } = await listDone();
-const todo = MANIFESTS_ONLY || ALIGN ? [] : queue.filter((k) => !done.has(k)).slice(0, LIMIT);
+fs.mkdirSync(path.join(ROOT, 'work', 'sound'), { recursive: true });
+const FAILED_FILE = path.join(ROOT, 'work', 'sound', 'p1-failed.json');
+const failedChecks = new Set((() => { try { return JSON.parse(fs.readFileSync(FAILED_FILE, 'utf8')); } catch { return []; } })());
+// A clip that failed its check twice is voiced again only with --retry-failed.
+const todo = MANIFESTS_ONLY || ALIGN ? [] : clipsToMake(queue, { done, failed: failedChecks, retryFailed: RETRY_FAILED }).slice(0, LIMIT);
 // A clip of more than one line needs its line timings for the read-aloud's
 // highlight: made with the clip from now on, aligned afterwards for older ones.
 const SKIP_FILE = path.join(ROOT, 'work', 'tts-align-unmatched.json');
@@ -264,9 +281,6 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'vmx-tts-'));
 if (KEEP) fs.mkdirSync(KEEP, { recursive: true });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const ELEVEN = G === ELEVEN_TTS || ALIGN;
-fs.mkdirSync(path.join(ROOT, 'work', 'sound'), { recursive: true });
-const FAILED_FILE = path.join(ROOT, 'work', 'sound', 'p1-failed.json');
-const failedChecks = new Set((() => { try { return JSON.parse(fs.readFileSync(FAILED_FILE, 'utf8')); } catch { return []; } })());
 let stopReason = null;
 let spent = 0;     // credits settled, from ElevenLabs' character-cost header
 let reserved = 0;  // credits held for requests in flight
@@ -394,18 +408,23 @@ async function speak(text, key, attempt = 0) {
 function hashText(t) { let h = 2166136261; for (const c of t) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h.toString(16); }
 
 // ---- the check: the clip transcribed back, numbers, units and terms compared
-let scribeLeft = null;
-let scribeSpent = 0;
-let scribeChecks = 0;
+// A balance that cannot be read (a network error, an answer without the
+// numbers) stops the run: no check is bought blind, and the clip is not voiced
+// again for it.
+const scribeBudget = scribeGate({
+  floor: SCRIBE_FLOOR,
+  readBalance: async () => {
+    const r = await fetch('https://api.elevenlabs.io/v1/user/subscription', { headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') }, signal: AbortSignal.timeout(30_000) });
+    if (!r.ok) throw new Error(`subscription ${r.status}`);
+    return elevenLeft(await r.json());
+  },
+});
+const UNREADABLE = Symbol('unreadable');
 async function scribe(bytes, sec) {
   const est = Math.ceil(sec * 0.34) + 2;
-  if (scribeLeft == null || scribeChecks % 40 === 0) {
-    const j = await (await fetch('https://api.elevenlabs.io/v1/user/subscription', { headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') } })).json();
-    scribeLeft = j.character_limit - j.character_count;
-    scribeSpent = 0;
-  }
-  if (scribeLeft - scribeSpent - est < SCRIBE_FLOOR) return null; // no check bought below the floor
-  scribeChecks++;
+  const allowed = await scribeBudget.allow(est);
+  if (allowed === 'unreadable') { stopReason ||= scribeBudget.reason; return UNREADABLE; }
+  if (allowed !== 'ok') return null; // no check bought below the floor
   for (let attempt = 0; attempt < 5; attempt++) {
     const form = new FormData();
     form.append('model_id', 'scribe_v2');
@@ -413,7 +432,7 @@ async function scribe(bytes, sec) {
     form.append('tag_audio_events', 'false');
     form.append('file', new Blob([bytes], { type: 'audio/mp4' }), 'clip.m4a');
     const r = await fetch('https://api.elevenlabs.io/v1/speech-to-text', { method: 'POST', headers: { 'xi-api-key': secret('ELEVENLABS_API_KEY') }, body: form, signal: AbortSignal.timeout(120_000) }).catch(() => null);
-    if (r?.ok) { scribeSpent += Number(r.headers.get('character-cost')) || est; return (await r.json()).text || ''; }
+    if (r?.ok) { scribeBudget.spend(Number(r.headers.get('character-cost')) || est); return (await r.json().catch(() => ({}))).text || ''; }
     if (r && r.status < 500 && r.status !== 429) return null;
     await sleep(2000 * 2 ** attempt);
   }
@@ -508,6 +527,17 @@ async function put(key, buf, type, cache) {
 }
 const IMMUTABLE = 'public, max-age=31536000, immutable';
 const putWords = (key, w) => put(`${G.gen}/${key}.json`, Buffer.from(JSON.stringify({ w })), 'application/json', IMMUTABLE);
+// The served flag of a subject's published whole-subject manifest: true or
+// false, false for none yet (404), null when it could not be read.
+async function publishedFlag(subject) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const r = await fetch(`${G.base}/${G.gen}/m/${encodeURIComponent(subject)}.json?fresh=${Date.now()}`, { signal: AbortSignal.timeout(30_000) }).catch(() => null);
+    if (r?.status === 404) return false;
+    if (r?.ok) { const j = await r.json().catch(() => null); if (j && typeof j === 'object') return j.complete === true; }
+    await sleep(2000 * 2 ** attempt);
+  }
+  return null;
+}
 
 const failed = [];
 let n = 0, aligned = 0, bytesTotal = 0, secTotal = 0;
@@ -526,6 +556,8 @@ async function one(key) {
       let check = 'not sampled';
       if (CHECK && PAXA && (risky(text) || sampled(key))) {
         const heard = await scribe(bytes, sec);
+        // The balance could not be read: the run stops; this clip is left for the next run.
+        if (heard === UNREADABLE) { ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, key, chars: text.length, credits: said.cost, check: 'balance unreadable, not uploaded' }) + '\n'); failed.push(key); return; }
         // A clip that must be checked and could not be is not uploaded: the subject stays
         // unserved until a later run checks it.
         if (heard == null && risky(text)) { ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, key, chars: text.length, credits: said.cost, check: 'not checked, not uploaded' }) + String.fromCharCode(10)); failed.push(key); return; }
@@ -542,6 +574,7 @@ async function one(key) {
       if (said.words) { await putWords(key, said.words); timed.add(key); }
       await put(`${G.gen}/${key}.mp4`, bytes, 'audio/mp4', IMMUTABLE);
       done.add(key); bytesTotal += bytes.length; secTotal += sec;
+      if (failedChecks.delete(key)) fs.writeFileSync(FAILED_FILE, JSON.stringify([...failedChecks], null, 1));
       log.write(JSON.stringify({ key, chars: text.length, sec, bytes: bytes.length, words: said.words?.length || 0, spent }) + '\n');
       if (++n % 50 === 0) console.log(`${n}/${todo.length} ${(bytesTotal / 1e6).toFixed(1)} MB ${(secTotal / 60).toFixed(1)} min, ${spent} credits`);
       return;
@@ -587,7 +620,10 @@ try {
     const have = [...keys].filter((k) => done.has(k) && !failedChecks.has(k)).sort();
     // p1: the subject is served only once every clip is made or failed its check twice, and only with --publish.
     const whole = [...keys].every((k) => done.has(k) || failedChecks.has(k));
-    const body = PAXA ? { complete: PUBLISH && whole, keys: have } : have;
+    // A subject once served stays served (unless --unpublish): its published flag is read first.
+    const wasComplete = PAXA && !PUBLISH && !UNPUBLISH ? await publishedFlag(subject) : null;
+    const body = PAXA ? wholeSubjectManifest({ have, whole, publish: PUBLISH, unpublish: UNPUBLISH, wasComplete }) : have;
+    if (!body) { unwritten.push(`${subject}: its published manifest could not be read`); continue; }
     if (PAXA) console.log(`${subject}: ${have.length}/${keys.size} clips, ${[...keys].filter((k) => failedChecks.has(k)).length} failed their check, ${whole ? 'whole' : 'not whole'}, ${body.complete ? 'served' : 'not served yet'}`);
     try {
       await put(`${G.gen}/m/${encodeURIComponent(subject)}.json`, Buffer.from(JSON.stringify(body)),
@@ -611,6 +647,6 @@ for (const s of subjects) {
 }
 console.log(`generated ${n}, aligned ${aligned}, failed ${failed.length}, ${(bytesTotal / 1e6).toFixed(2)} MB, ${(secTotal / 60).toFixed(1)} min audio`);
 if (ELEVEN || PAXA) { left = null; await readAccount(); console.log(`credits spent ${spent}, account left ${left}`); }
-if (CHECK) console.log(`checks ${scribeChecks}, about ${scribeSpent} Scribe credits since the last balance read`);
+if (CHECK) console.log(`checks ${scribeBudget.checks}, about ${scribeBudget.spent} Scribe credits since the last balance read`);
 if (stopReason) console.log(`stopped: ${stopReason}; ${work.length} clips and ${alignWork.length} alignments left for the next run`);
 if (failed.length) console.log('failed:', failed.map((k) => texts.get(k).slice(0, 60)).join(' | '));

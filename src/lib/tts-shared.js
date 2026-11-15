@@ -11,7 +11,7 @@
 // ============================================================
 
 import { createAudioCache } from './tts-cache.js';
-import { SHARED_GENS, SHARED_TTS, clipKey, clipParts, clipText, clipUrl, manifestUrl, optionLabel } from './tts-text.js';
+import { SHARED_GENS, SHARED_TTS, clipKey, clipParts, clipText, clipUrl, manifestUrl, optionLabel, segmentStarts } from './tts-text.js';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MANIFEST_TIMEOUT_MS = 3000;
@@ -43,7 +43,9 @@ export function loadManifest(subject, g = SHARED_TTS) {
         const keys = Array.isArray(list) ? list : Array.isArray(list?.keys) ? list.keys : null;
         if (!keys) return null;
         const set = new Set(keys);
-        set.complete = Array.isArray(list) || list.complete === true;
+        // A whole-subject generation is complete only where its manifest says
+        // so: a missing one (404, read as []) or a plain list is not.
+        set.complete = g.wholeSubject ? list?.complete === true : keys.length > 0 || list?.complete === true;
         return set;
       })
       .catch(() => null);
@@ -110,12 +112,8 @@ export async function sharedPlan({ stem, options, lang, subject, signal, prefetc
     if (g.wholeSubject && !manifest?.complete) return null;
     const pieces = parts.flatMap((p) => {
       const segs = clipParts(p.text, g);
-      let from = 0;
-      return segs.map((text) => {
-        const item = { ...p, text, full: p.text, from, segs: segs.length };
-        from += (text.match(/S+/g) || []).length;
-        return item;
-      });
+      const starts = segmentStarts(p.text, segs);
+      return segs.map((text, k) => ({ ...p, text, full: p.text, from: starts[k], segs: segs.length }));
     });
     const keys = await Promise.all(pieces.map((p) => clipKey(p.text, g)));
     const plan = pieces.map((p, i) => ({ ...p, key: keys[i], url: clipUrl(keys[i], g), gen: g.gen }));

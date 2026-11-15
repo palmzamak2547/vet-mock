@@ -215,12 +215,35 @@ export const PAXA_TTS = Object.freeze({
 // generation plays only for a subject it has finished.
 export const SHARED_GENS = Object.freeze([PAXA_TTS, ELEVEN_TTS, SHARED_TTS]);
 
+// Thai vowel and tone marks written above or below their consonant, and the
+// vowels written before it: a cut never separates either from its consonant.
+const THAI_MARK = /[ัิ-ฺ็-๎]/;
+const THAI_LEAD = /[เ-ไ]/;
+let thaiWords = null;
+// Where to cut a run longer than max that has no usable space: the last word
+// boundary at or before max (Thai writes no space between words), else the
+// last place that splits no letter from its marks.
+function wordCut(s, max) {
+  try {
+    thaiWords ||= new Intl.Segmenter('th', { granularity: 'word' });
+    let best = 0;
+    for (const { index } of thaiWords.segment(s.slice(0, max + 40))) {
+      if (index > max) break;
+      if (index > 0) best = index;
+    }
+    if (best > 0) return best;
+  } catch { /* no Intl.Segmenter: the rule below */ }
+  let cut = max;
+  while (cut > 1 && (THAI_MARK.test(s[cut]) || THAI_LEAD.test(s[cut - 1]) || /[\uDC00-\uDFFF]/.test(s[cut]))) cut--;
+  return cut;
+}
+
 // A piece of clip text in sentence-sized parts: lines first, then sentences
 // (a full stop, question or exclamation mark before a space), then, for a
-// line still longer than `max`, the last space before it. Parts shorter than
-// `min` join the one before them, so a clip is never a single word. The
-// generator and the page cut the same way; changing this renames every
-// segmented clip.
+// line still longer than `max`, the last space before it, or, with no space
+// in its second half, the last word boundary. Parts shorter than `min` join
+// the one before them, so a clip is never a single word. The generator and
+// the page cut the same way; changing this renames every segmented clip.
 export function clipSegments(text, { max = 220, min = 40 } = {}) {
   const out = [];
   const push = (s) => {
@@ -239,11 +262,38 @@ export function clipSegments(text, { max = 220, min = 40 } = {}) {
     for (let s of sentences) {
       s = s.trim();
       while (s.length > max) {
-        const cut = s.lastIndexOf(' ', max) > max / 2 ? s.lastIndexOf(' ', max) : max;
+        const cut = s.lastIndexOf(' ', max) > max / 2 ? s.lastIndexOf(' ', max) : wordCut(s, max);
         push(s.slice(0, cut));
         s = s.slice(cut).trim();
       }
       push(s);
+    }
+  }
+  return out;
+}
+
+// The word of `full` each part starts in, words being runs of non-space as
+// the highlight counts them: the parts hold the same letters in the same
+// order, only the spaces between them differ. A part cut inside a long Thai
+// run starts in the word the part before it ends in.
+export function segmentStarts(full, segs) {
+  const text = String(full || '');
+  const wordOf = [];
+  let w = -1;
+  for (let i = 0; i < text.length; i++) {
+    if (/\s/.test(text[i])) continue;
+    if (i === 0 || /\s/.test(text[i - 1])) w++;
+    wordOf[i] = w;
+  }
+  const out = [];
+  let pos = 0;
+  for (const seg of segs) {
+    while (pos < text.length && /\s/.test(text[pos])) pos++;
+    out.push(Math.max(0, wordOf[pos] ?? w));
+    for (const c of String(seg)) {
+      if (/\s/.test(c)) continue;
+      while (pos < text.length && /\s/.test(text[pos])) pos++;
+      pos += c.length;
     }
   }
   return out;

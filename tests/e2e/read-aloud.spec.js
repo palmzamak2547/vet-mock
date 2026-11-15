@@ -52,7 +52,7 @@ let explainManifest;
 test.beforeAll(async () => { ({ keys: manifest, explain: explainManifest } = await subjectKeys(SUBJECT)); });
 
 async function openQuestion(page, { clipMs, e1 = [], noClips = false }) {
-  const seen = { clips: [], e1: [], live: 0, manifest: 0 };
+  const seen = { clips: [], e1: [], p1: 0, live: 0, manifest: 0 };
   await page.addInitScript((ms) => {
     try { window.localStorage.setItem('vmx-selected-year', '4'); } catch {}
     window.__plays = 0;
@@ -87,6 +87,12 @@ async function openQuestion(page, { clipMs, e1 = [], noClips = false }) {
   await page.route('https://tts.vetmock.com/**', (route) => {
     const url = route.request().url();
     const ok = { status: 200, headers: { 'access-control-allow-origin': '*' } };
+    // The Paxa generation (p1) has not reached this subject, as on the real
+    // host: no manifest, so the subject keeps the voice it has.
+    if (url.includes('/p1/')) {
+      if (url.endsWith(`/m/${SUBJECT}.json`)) seen.p1 += 1;
+      return route.fulfill({ status: 404, headers: ok.headers, body: 'not found' });
+    }
     if (url.includes('/e1/')) {
       if (url.endsWith(`/m/${SUBJECT}.json`)) return route.fulfill({ ...ok, contentType: 'application/json', body: JSON.stringify(e1) });
       const key = url.match(/([0-9a-f]{16})\.mp4$/)?.[1];
@@ -130,6 +136,7 @@ test('plays the stored clips: stem, then label and option for each row', async (
   expect(seen.clips.every((k) => manifest.includes(k))).toBe(true);
   expect(seen.live).toBe(0);
   expect(seen.manifest).toBe(1);
+  expect(seen.p1).toBe(1);
 
   // A second listen comes from the device's own copy: no new downloads.
   await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
@@ -227,10 +234,14 @@ test('a subject with no clips never goes silent: the device voice reads, or a no
 });
 
 test('the device voice has the same controls: play, pause, resume, next point, speed', async ({ page }) => {
-  // A device with one Thai voice; each sentence "speaks" for 700 ms.
+  // A device with a Thai and an English voice, as an iPad has (the drawn
+  // question can be either language); each sentence "speaks" for 700 ms.
   await page.addInitScript(() => {
     window.__said = [];
-    const voice = { name: 'Kanya', lang: 'th-TH', voiceURI: 'Kanya', localService: true, default: true };
+    const voices = [
+      { name: 'Kanya', lang: 'th-TH', voiceURI: 'Kanya', localService: true, default: true },
+      { name: 'Samantha', lang: 'en-US', voiceURI: 'Samantha', localService: true, default: false },
+    ];
     let current = null;
     const synth = {
       speak(u) {
@@ -239,7 +250,8 @@ test('the device voice has the same controls: play, pause, resume, next point, s
         setTimeout(() => { if (current !== u) return; u.onstart?.(); u.t = setTimeout(() => { if (current === u) { current = null; u.onend?.(); } }, 700); }, 5);
       },
       cancel() { const u = current; current = null; if (u) { clearTimeout(u.t); u.onerror?.({ error: 'interrupted' }); } },
-      getVoices: () => [voice], pause() {}, resume() {}, speaking: false, pending: false,
+      getVoices: () => voices, pause() {}, resume() {},
+      get speaking() { return Boolean(current); }, pending: false,
       addEventListener() {}, removeEventListener() {},
     };
     Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: () => synth });

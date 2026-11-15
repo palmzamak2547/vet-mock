@@ -48,7 +48,7 @@
 // ============================================================
 
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
-import { normalizeSymbols, expandUnits, questionLang, stripForSpeech, clipText, clipSegments, optionLabel } from './tts-text.js';
+import { normalizeSymbols, expandUnits, questionLang, stripForSpeech, clipText, clipSegments, optionLabel, segmentStarts } from './tts-text.js';
 import { sharedPlan, getSharedAudio } from './tts-shared.js';
 import {
   speakViaEdge,
@@ -779,7 +779,7 @@ export async function inspectVoices() {
 // session (Chrome lists them a moment after the page asks).
 const VOICE_WAIT_MS = 1200;
 const LIVE_MAX = 160;
-const sayFor = (text, lang) => (lang === 'th' ? thaiPhoneticTranslit(text) : expandAcronyms(text)).replace(/s+/g, ' ').trim();
+const sayFor = (text, lang) => (lang === 'th' ? thaiPhoneticTranslit(text) : expandAcronyms(text)).replace(/\s+/g, ' ').trim();
 export async function livePlan({ stem, options = [] }) {
   const opts = (options || []).map(String);
   const lang = questionLang(stem, opts);
@@ -793,11 +793,10 @@ export async function livePlan({ stem, options = [] }) {
   const add = (full, kind, option = -1) => {
     if (!full) return;
     const segs = kind === 'label' ? [full] : clipSegments(full, { max: LIVE_MAX, min: 30 });
-    let from = 0;
-    for (const text of segs) {
-      parts.push({ text, say: sayFor(text, lang), kind, option, full, from, segs: segs.length });
-      from += (text.match(/S+/g) || []).length;
-    }
+    const starts = segmentStarts(full, segs);
+    segs.forEach((text, k) => {
+      parts.push({ text, say: sayFor(text, lang), kind, option, full, from: starts[k], segs: segs.length });
+    });
   };
   add(clipText(stem, lang), 'stem');
   opts.forEach((o, i) => {

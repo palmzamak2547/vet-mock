@@ -151,6 +151,42 @@ test('no Thai voice and no cloud voice: a plain note says why and what to do, ne
   eng.stop();
 });
 
+test('signed out with no Thai voice: the note names the sign-in, and the next question does not ask the cloud again', async () => {
+  reset();
+  voices = [samantha];
+  cloud = 'signin';
+  await eng.start(job('c2', 'ข้อใดเป็นสาเหตุของโรค PRRS ในสุกร', ['Arterivirus']));
+  await until(() => store.readAloud.get().status === 'error');
+  assert.match(store.readAloud.get().note, /เข้าสู่ระบบด้วยอีเมลจุฬา/);
+  const asked = cloudAsked.length;
+  await eng.start(job('c3', 'ข้อใดเป็นยาปฏิชีวนะ', ['Amoxicillin']));
+  await until(() => store.readAloud.get().status === 'error' && store.readAloud.get().job?.id === 'c3');
+  assert.equal(cloudAsked.length, asked, 'no second refused request');
+  assert.match(store.readAloud.get().note, /เข้าสู่ระบบด้วยอีเมลจุฬา/);
+  eng.stop();
+});
+
+test('a note given before any piece existed: play still tries again', async () => {
+  reset();
+  // A question with nothing to say (only marks) has no pieces: the note comes first.
+  await eng.start(job('e0', '✅', []));
+  await until(() => store.readAloud.get().status === 'error');
+  const seen = [];
+  const off = store.readAloud.subscribe(() => seen.push(store.readAloud.get().status));
+  eng.resume();
+  await until(() => seen.includes('loading') && store.readAloud.get().status === 'error');
+  off();
+  eng.stop();
+});
+
+test('the device voice is given every letter of an English question', async () => {
+  reset();
+  await eng.start(job('en', 'Which drug is used against Ascaris suum in pigs? Give the dose.', ['Ivermectin', 'Fenbendazole tablets']));
+  await until(() => store.readAloud.get().status === 'idle');
+  const heard = said.map((s) => s.text).join(' | ');
+  for (const w of ['is used', 'Ascaris suum', 'pigs', 'dose', 'Fenbendazole tablets']) assert.ok(heard.includes(w), `"${w}" in ${heard}`);
+});
+
 test('a device that takes the speech and never speaks is found out, and the cloud voice reads instead', async () => {
   reset();
   mute = true; // Kanya is listed, but nothing ever starts
