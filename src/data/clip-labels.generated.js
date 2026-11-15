@@ -576,6 +576,7 @@ export const CLIPS_BY_SUBJECT = {
     "JlF6YXZM490": "19 ส.ค. 2568",
     "Jp0fuXZfNmg": "26 ส.ค. 2568",
     "Md1qQYAH5kU": "5 ส.ค. 2568",
+    "NHUbbZwCJ3M": "10 พ.ย.",
     "NVZopbDW4j8": "5 ส.ค. 2568",
     "R0xTpIvGn98": "18 ส.ค.",
     "RQD-rP8AVFQ": "16 ก.ย. 2568",
