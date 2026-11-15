@@ -7,8 +7,10 @@
 [ -n "$VERCEL_GIT_PREVIOUS_SHA" ] || exit 1
 # A redeploy of the same commit is on purpose (an environment variable changed): build it.
 [ "$VERCEL_GIT_PREVIOUS_SHA" = "$VERCEL_GIT_COMMIT_SHA" ] && exit 1
-# Build when the site changed, or the bank and figures it reads from the main app. A git error
-# (the previous deploy outside the shallow clone) builds instead of failing the deploy.
+# Build when the site changed, or the bank, figures, family list and question links it reads from
+# the main app. A git error (the previous deploy outside the shallow clone) builds instead of
+# failing the deploy.
 git diff --quiet "$VERCEL_GIT_PREVIOUS_SHA" HEAD -- . ':!*.md' ../src/data ../src/lib/question-metadata.js \
-  ../src/lib/option-shuffle.js ../src/lib/richtext.jsx ../public || exit 1
+  ../src/lib/option-shuffle.js ../src/lib/richtext.jsx ../src/lib/family ../src/lib/share-link.js \
+  ../src/lib/custom-question-ids.js ../public || exit 1
 exit 0

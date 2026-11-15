@@ -32,6 +32,9 @@ on:
       - 'src/lib/question-metadata.js'
       - 'src/lib/option-shuffle.js'
       - 'src/lib/richtext.jsx'
+      - 'src/lib/family/**'
+      - 'src/lib/share-link.js'
+      - 'src/lib/custom-question-ids.js'
       - 'public/**'
       - 'supabase/migrations/*vca*'
       - 'supabase/functions/_shared/app-origins.js'
@@ -65,7 +68,7 @@ jobs:
       - id: diff
         run: |
           if [ "${{ github.event_name }}" != pull_request ]; then relevant=true
-          elif git diff --quiet HEAD^1 HEAD -- vca src/data src/lib/question-metadata.js src/lib/option-shuffle.js src/lib/richtext.jsx public 'supabase/migrations/*vca*' supabase/functions/_shared/app-origins.js .github/workflows/vca.yml; then relevant=false
+          elif git diff --quiet HEAD^1 HEAD -- vca src/data src/lib/question-metadata.js src/lib/option-shuffle.js src/lib/richtext.jsx src/lib/family src/lib/share-link.js src/lib/custom-question-ids.js public 'supabase/migrations/*vca*' supabase/functions/_shared/app-origins.js .github/workflows/vca.yml; then relevant=false
           else relevant=true; fi
           echo "relevant=$relevant" | tee -a "$GITHUB_OUTPUT"
 

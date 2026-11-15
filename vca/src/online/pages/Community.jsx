@@ -11,7 +11,7 @@ import { navigate, withQuery } from '../../router.js';
 import { JoinPrompt, KindSeg, Soon } from '../ui/bits.jsx';
 import { PostCard } from '../ui/PostCard.jsx';
 import { askJoin } from '../ui/AccountButton.jsx';
-import { QuestionPeek } from '../ui/QuestionPeek.jsx';
+import { QuestionPeek } from '../../components/QuestionPeek.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';
 import '../community.css';

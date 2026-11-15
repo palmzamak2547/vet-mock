@@ -19,6 +19,7 @@ on:
     branches: [main]
     paths:
       - 'ai/**'
+      - 'src/lib/family/**'
       - 'public/vetmock-logo.svg'
       - 'public/favicon*'
       - 'public/icon-512.png'
@@ -50,7 +51,7 @@ jobs:
       - id: diff
         run: |
           if [ "${{ github.event_name }}" != pull_request ]; then relevant=true
-          elif git diff --quiet HEAD^1 HEAD -- ai public/vetmock-logo.svg 'public/favicon*' public/icon-512.png public/art/mochi-subjects/aquatic.webp .github/workflows/ai.yml; then relevant=false
+          elif git diff --quiet HEAD^1 HEAD -- ai src/lib/family public/vetmock-logo.svg 'public/favicon*' public/icon-512.png public/art/mochi-subjects/aquatic.webp .github/workflows/ai.yml; then relevant=false
           else relevant=true; fi
           echo "relevant=$relevant" | tee -a "$GITHUB_OUTPUT"
 
