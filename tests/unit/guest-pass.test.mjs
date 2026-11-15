@@ -324,7 +324,7 @@ test('chat: the call\'s tools answer a trial visitor as a guest, each one a mess
 });
 
 // ── the call ────────────────────────────────────────────────
-const VOICE_ENV = { ELEVENLABS_API_KEY: 'xi-test-key-0123456789', ELEVENLABS_VOICE_AGENT_ID: 'agent_test', AI_VOICE_OFF: undefined, AI_VOICE_USER_SESSIONS: '2' };
+const VOICE_ENV = { ELEVENLABS_API_KEY: 'xi-test-key-0123456789', ELEVENLABS_VOICE_AGENT_ID: 'agent_test', AI_VOICE_OFF: undefined, AI_VOICE_USER_SESSIONS: '2', AI_VOICE_PASS_SESSIONS: '2' };
 const PROVIDER = (u) => {
   if (u.includes('/v1/user/subscription')) return Response.json({ character_limit: 141_000, character_count: 1000, next_character_count_reset_unix: 1796529562 });
   if (u.includes('/conversation/token')) return Response.json({ token: 'tok_0123456789abcdefghij', conversation_id: 'conv_trial01ABCdef' });

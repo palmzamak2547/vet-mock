@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-124 names, 12 required; 10 more are set by the platform.
+125 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -92,6 +92,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `AI_VOICE_CREDITS_PER_MINUTE` | optional | function | `api/_lib/ai/voice.js` | Credits a call minute is budgeted at; default 600. |
 | `AI_VOICE_SESSION_SECONDS` | optional | function | `api/_lib/ai/voice.js` | Longest call; default 300. |
 | `AI_VOICE_USER_SESSIONS` | optional | function | `api/_lib/ai/voice.js` | Calls a student a Bangkok day; default 4. |
+| `AI_VOICE_PASS_SESSIONS` | optional | function | `api/_lib/ai/voice.js` | Calls a trial link a Bangkok day, shared by everyone who holds the link; default 8. |
 | `AI_VOICE_MAX_CONCURRENT` | optional | function | `api/_lib/ai/voice.js` | Calls at once; default 4. |
 | `GEMINI_API_KEY` | optional | function | `api/_lib/mochi-voice.js`, `api/_lib/system-status.js`, `api/mochi-voice.js` | Gemini key (secret) for Mochi's live voice. Without it that feature stays closed. |
 | `MOCHI_VOICE_OPEN` | optional | function | `api/_lib/mochi-voice.js` | 1 opens Mochi's voice to students; default closed. |

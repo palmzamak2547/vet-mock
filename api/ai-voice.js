@@ -185,18 +185,20 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'rate', message: 'เริ่มคุยถี่เกินไป รอสักครู่แล้วลองใหม่', retryAfter: burst.retryAfter });
   }
   const dayKey = `ai-voice:day:${who}:${day}`;
+  // a student has their own calls a day; a trial link has its own number, shared by its holders
+  const sessionsCap = pass ? cfg.passSessions : cfg.userSessions;
   let left = null;
   if (!retried) {
-    const used = await take(dayKey, cfg.userSessions, toMidnight);
+    const used = await take(dayKey, sessionsCap, toMidnight);
     if (!used.ok) {
       if (used.unavailable) return refuse(res, 503, 'limiter', { retryAfter: used.retryAfter });
       res.setHeader('Retry-After', String(used.retryAfter));
-      return refuse(res, 429, 'user', { retryAfter: used.retryAfter, sessions: cfg.userSessions });
+      return refuse(res, 429, 'user', { retryAfter: used.retryAfter, sessions: sessionsCap });
     }
   }
   // the limiter's own count (null without the shared store: then unknown, never a guess)
   const used = await kv.get(`rl:${dayKey}`);
-  if (Number.isFinite(used)) left = Math.max(0, cfg.userSessions - used);
+  if (Number.isFinite(used)) left = Math.max(0, sessionsCap - used);
 
   const user = voiceUserId(who, cfg);
   let credential;

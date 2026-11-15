@@ -74,6 +74,7 @@ export const ENV = [
   { name: 'AI_VOICE_CREDITS_PER_MINUTE', group: 'Voice', need: 'optional', does: 'Credits a call minute is budgeted at; default 600.' },
   { name: 'AI_VOICE_SESSION_SECONDS', group: 'Voice', need: 'optional', does: 'Longest call; default 300.' },
   { name: 'AI_VOICE_USER_SESSIONS', group: 'Voice', need: 'optional', does: 'Calls a student a Bangkok day; default 4.' },
+  { name: 'AI_VOICE_PASS_SESSIONS', group: 'Voice', need: 'optional', does: 'Calls a trial link a Bangkok day, shared by everyone who holds the link; default 8.' },
   { name: 'AI_VOICE_MAX_CONCURRENT', group: 'Voice', need: 'optional', does: 'Calls at once; default 4.' },
   { name: 'GEMINI_API_KEY', group: 'Voice', need: 'optional', does: 'Gemini key (secret) for Mochi\'s live voice. Without it that feature stays closed.' },
   { name: 'MOCHI_VOICE_OPEN', group: 'Voice', need: 'optional', does: '1 opens Mochi\'s voice to students; default closed.' },
