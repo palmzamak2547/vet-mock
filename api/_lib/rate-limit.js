@@ -45,6 +45,15 @@ const HAS_UPSTASH = !!(UPSTASH_URL && UPSTASH_TOKEN);
 let _loggedBackend = false;
 let lastFailureLog = 0;
 const SHARED_TIMEOUT_MS = 1800;
+// The first call of a fresh instance also pays the name lookup and the TLS
+// handshake to the store. On 15 Nov 2026 the first chat of every new
+// deployment was refused ("shared limiter unavailable") because that call
+// took longer than the 1.8 s a warm one is given. A cold call gets the room
+// it needs; a warm one keeps the short limit, so a store that is really down
+// still fails closed quickly.
+const COLD_TIMEOUT_MS = 6000;
+export const STORE_TIMEOUTS = Object.freeze({ warm: SHARED_TIMEOUT_MS, cold: COLD_TIMEOUT_MS });
+let storeWarm = false;
 
 function unavailable() {
   if (Date.now() - lastFailureLog > 60_000) {
@@ -66,10 +75,12 @@ export function sendRateLimitFailure(res, limit) {
 
 async function upstashPipeline(commands) {
   // Upstash REST pipeline: POST array of commands → array of results.
+  const cold = !storeWarm;
+  const started = Date.now();
   const res = await fetch(`${UPSTASH_URL}/pipeline`, {
     redirect: 'error',
     method: 'POST',
-    signal: AbortSignal.timeout(SHARED_TIMEOUT_MS),
+    signal: AbortSignal.timeout(cold ? COLD_TIMEOUT_MS : SHARED_TIMEOUT_MS),
     headers: {
       'Authorization': `Bearer ${UPSTASH_TOKEN}`,
       'Content-Type': 'application/json',
@@ -77,7 +88,12 @@ async function upstashPipeline(commands) {
     body: JSON.stringify(commands),
   });
   if (!res.ok) throw new Error(`upstash ${res.status}`);
-  return res.json();
+  const body = await res.json();
+  if (cold && !storeWarm) {
+    storeWarm = true;
+    console.log('[rate-limit] first store call of this instance took', Date.now() - started, 'ms');
+  }
+  return body;
 }
 
 async function rateLimitUpstash(key, max, winMs, by = 1) {
