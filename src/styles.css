@@ -1857,7 +1857,12 @@ html, body {
 .vmx-reading-effect-stage { position: absolute; width: 100%; height: min(60vh, 480px); overflow: hidden; pointer-events: none; }
 .vmx-reading-effect-stage canvas { position: absolute; inset: 0; pointer-events: none; }
 .vm-reading-selected { background: var(--clr-sage-soft); box-shadow: inset 3px 0 var(--clr-sage); outline: 1px solid var(--clr-sage); outline-offset: 3px; transition: background var(--dur-fast), outline-color var(--dur-fast); }
-.vmx-document-loading { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.vmx-document-loading { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+/* One status: the percentage leads, the size follows on the same line, and on
+   a narrow or enlarged screen the size wraps under it instead of on it. */
+.vmx-document-loading-status { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; column-gap: var(--space-2); row-gap: var(--space-1); text-align: center; line-height: 1.4; }
+.vmx-document-loading-status b { font-size: var(--text-lg); font-variant-numeric: tabular-nums; color: var(--clr-ink); }
+.vmx-document-loading-status span { font-size: var(--text-sm); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 .vmx-focus-atmosphere { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; pointer-events: none; opacity: .4; }
 .vmx-focus-atmosphere canvas { position: absolute; inset: 0; pointer-events: none; }
 .vmx-focus-scene-picker { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-sm); }

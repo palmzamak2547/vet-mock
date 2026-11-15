@@ -2458,10 +2458,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
                 : <p style={{ margin: 'var(--space-3) 0 0' }}>ตอนนี้เปิดอยู่ในแอป {APP_NAMES[app] || 'อื่น'} กดปุ่มเมนู (⋯ หรือ ⋮) ที่มุมจอ แล้วเลือกเปิดในเบราว์เซอร์</p>)}
             </div>
           ) : (
-            <div className="vmx-document-loading" role="status">
-              <MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" />
-              <span>{loadingMsg || 'กำลังเปิดเอกสาร…'}</span>
-            </div>
+            <DocLoading progress={downloadProgress} text={loadingMsg || 'กำลังเปิดเอกสาร…'} />
           )}
         </div>
         {toast && <Toast text={toast} />}
@@ -2526,7 +2523,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
           {loading && (
             <div style={{ marginTop: 16, textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14 }}>
-              <div className="vmx-document-loading"><MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" /><span>{loadingMsg || 'กำลังประมวลผล…'}</span></div>
+              <DocLoading progress={downloadProgress} text={loadingMsg || 'กำลังประมวลผล…'} />
             </div>
           )}
 
@@ -3080,7 +3077,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           color: '#fff', zIndex: 1000,
         }}>
           <div style={{ background: 'var(--clr-bg, #fff)', color: 'var(--clr-ink)', padding: 16, borderRadius: 8 }}>
-            <div className="vmx-document-loading"><MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" /><span>{loadingMsg || 'กำลังโหลด…'}</span></div>
+            <DocLoading progress={downloadProgress} text={loadingMsg || 'กำลังโหลด…'} />
           </div>
         </div>
       )}
@@ -3140,6 +3137,24 @@ function SyncBadge({ state }) {
   );
 }
 
+// The loading status, shared by every place the reader waits for a file. Each
+// part has its own place in normal flow: the bar (its paw rides inside the
+// bar's own box), then one status line where the percentage leads and the size
+// follows. The percentage is written here, not over the bar, so a long title
+// above or a larger text size can never put two of them on one spot.
+function DocLoading({ progress, text }) {
+  const measured = typeof progress === 'number' && Number.isFinite(progress);
+  return (
+    <div className="vmx-document-loading" role="status">
+      <MotionLoader progress={progress} label="ดาวน์โหลดเอกสาร" />
+      <p className="vmx-document-loading-status">
+        {measured && <b data-loading-percent="">{Math.max(0, Math.min(100, Math.round(progress)))}%</b>}
+        <span data-loading-size="">{text}</span>
+      </p>
+    </div>
+  );
+}
+
 function Toast({ text }) {
   return (
     <div
@@ -3192,7 +3207,7 @@ async function readWithProgress(res, onProgress, onPercent = () => {}) {
         lastPaint = now;
         onPercent(total > 0 ? Math.min(99, (got / total) * 100) : null);
         onProgress(total
-          ? `กำลังโหลด ${mb(got)} / ${mb(total)} MB (${Math.round((got / total) * 100)}%)`
+          ? `กำลังโหลด ${mb(got)} / ${mb(total)} MB`
           : `กำลังโหลด ${mb(got)} MB`);
       }
     }
