@@ -1262,6 +1262,8 @@ export default function App() {
   const [pendingResume, setPendingResume] = useState(null);
   // The first-run identity sheet, once closed, stays closed for this page.
   const [identityClosed, setIdentityClosed] = useState(false);
+  // The first-run step, once on screen, stays until it closes itself (IdentityStep.jsx).
+  const [identityShown, setIdentityShown] = useState(null);
   // 'redo' for a round of the questions whose key the results page just
   // showed. It is review, not a run: no leaderboard row, no personal best.
   const [sessionKind, setSessionKind] = useState('normal');
@@ -3238,10 +3240,11 @@ export default function App() {
           waiting to resume, the wall's welcome or the tour. This is the cheap
           half of the gate, so the first load carries none of it; the step's
           own chunk applies the whole rule (lib/identity-gate.js). */}
-      {user && view === 'home' && !pendingResume && !wall.welcome && !tourOpen && !identityClosed
-        && profile?.id === user.id && profile?.created_at && !user.user_metadata?.identity_intro_done && (
+      {((user && view === 'home' && !pendingResume && !wall.welcome && !tourOpen && !identityClosed
+        && profile?.id === user.id && profile?.created_at && !user.user_metadata?.identity_intro_done)
+        || (user && !identityClosed && identityShown === user.id)) && (
         <Suspense fallback={null}>
-          <IdentityStep user={user} profile={profile} view={view} onSaved={(next) => setProfile(next)} onClose={() => setIdentityClosed(true)} />
+          <IdentityStep user={user} profile={profile} view={view} onSaved={(next) => setProfile(next)} onClose={() => setIdentityClosed(true)} onShown={() => setIdentityShown(user.id)} />
         </Suspense>
       )}
       {/* A pending decision belongs to the view and account that opened it. */}

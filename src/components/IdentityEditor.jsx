@@ -37,6 +37,9 @@ export default function IdentityEditor({
   const [free, setFree] = useState(null); // true | false | null (unknown)
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  // The database's own refusal of the name (taken, or a rule it holds), said
+  // beside the name box until the name changes.
+  const [nameRefused, setNameRefused] = useState('');
   const [surfacesOpen, setSurfacesOpen] = useState(false);
   const inputRef = useRef(null);
 
@@ -58,7 +61,7 @@ export default function IdentityEditor({
     return () => { alive = false; clearTimeout(t); };
   }, [check.ok, check.value, keepName, user?.id]);
 
-  const fieldError = touched && !keepName && !check.ok ? check.reason : free === false || free === 'taken' ? 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น' : free === 'similar' ? 'คล้ายกับชื่อที่มีคนใช้แล้ว ลองชื่ออื่น' : '';
+  const fieldError = nameRefused || (touched && !keepName && !check.ok ? check.reason : free === false || free === 'taken' ? 'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น' : free === 'similar' ? 'คล้ายกับชื่อที่มีคนใช้แล้ว ลองชื่ออื่น' : '');
   const hint = auto && current
     ? `ตอนนี้คือ ${current} ซึ่งระบบตั้งให้`
     : `ไม่เกิน ${NAME_MAX} ตัวอักษร ห้ามอีเมลหรือรหัสนิสิต`;
@@ -68,6 +71,7 @@ export default function IdentityEditor({
     event?.preventDefault();
     setTouched(true);
     setError('');
+    setNameRefused('');
     if (!keepName && !check.ok) { inputRef.current?.focus(); return; }
     if (free === false || free === 'taken' || free === 'similar') { inputRef.current?.focus(); return; }
     if (mode === 'edit' && !changed) { onCancel?.(); return; }
@@ -82,7 +86,8 @@ export default function IdentityEditor({
       const next = result.profile || { ...profile, username: keepName ? current : check.value, avatar_emoji: picture };
       onSaved?.(next, { metaSaved: result.metaSaved, shown });
     } catch (err) {
-      setError(identityWriteError(err));
+      const message = identityWriteError(err);
+      if (!keepName && refusesName(err)) { setNameRefused(message); inputRef.current?.focus(); } else setError(message);
     } finally {
       setSaving(false);
     }
@@ -111,7 +116,7 @@ export default function IdentityEditor({
           id={nameId}
           type="text"
           value={name}
-          onChange={(e) => { setName(e.target.value); setError(''); }}
+          onChange={(e) => { setName(e.target.value); setError(''); setNameRefused(''); }}
           onBlur={() => setTouched(true)}
           placeholder={auto ? 'เช่น ปิง หรือ ping_vet' : ''}
           maxLength={NAME_MAX + 8}
@@ -192,4 +197,10 @@ export default function IdentityEditor({
       </div>
     </form>
   );
+}
+
+/** A refusal that is about the name itself: taken (unique) or a check on the row. */
+function refusesName(err) {
+  const code = err?.code || '';
+  return code === '23505' || code === '23514' || /duplicate key|unique|check constraint/i.test(`${err?.message || ''} ${err?.details || ''}`);
 }

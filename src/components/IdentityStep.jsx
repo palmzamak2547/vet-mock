@@ -9,7 +9,7 @@
 // does not ask again.
 // ============================================================
 
-import { useId, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import IdentityEditor from './IdentityEditor.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { saveIdentity } from '../lib/identity-write.js';
@@ -18,15 +18,23 @@ import '../styles-profile.css';
 
 /** The whole gate, here rather than in App so the first load carries none of
  *  it. App only mounts this on Home with nothing in progress. */
-export default function IdentityStep({ user, profile, view = 'home', onSaved, onClose }) {
+export default function IdentityStep({ user, profile, view = 'home', onSaved, onClose, onShown }) {
+  // Once open, the sheet stays until it closes itself: saving writes
+  // identity_intro_done before the name when the student hides from the
+  // board, and the gate reading that flag must not take the sheet away
+  // while the name write can still be refused.
+  const open = useRef(false);
+  if (open.current) return <IdentitySheet user={user} profile={profile} onSaved={onSaved} onClose={onClose} onShown={onShown} />;
   let seen = false;
   try { seen = introSeen(window.localStorage, user?.id); } catch { seen = false; }
   if (!identityIntroDue({ user, profile, view, seen })) return null;
-  return <IdentitySheet user={user} profile={profile} onSaved={onSaved} onClose={onClose} />;
+  open.current = true;
+  return <IdentitySheet user={user} profile={profile} onSaved={onSaved} onClose={onClose} onShown={onShown} />;
 }
 
-function IdentitySheet({ user, profile, onSaved, onClose }) {
+function IdentitySheet({ user, profile, onSaved, onClose, onShown }) {
   const headingId = useId();
+  useEffect(() => { onShown?.(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const firstRef = useRef(null);
   const done = () => {
     try { markIntroSeen(window.localStorage, user?.id); } catch { /* private mode */ }

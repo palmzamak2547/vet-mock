@@ -31,7 +31,7 @@ const session = (user) => ({
 });
 
 /** Answers the database for one modelled student and records every write. */
-async function modeled(page, context, { metadata = {}, profile = {}, board = null } = {}) {
+async function modeled(page, context, { metadata = {}, profile = {}, board = null, takenName = null } = {}) {
   const state = {
     user: person(metadata),
     profile: { id: '33333333-3333-4333-8333-333333333333', username: 'user_2', avatar_emoji: '🐾', created_at: '2026-01-01T00:00:00Z', ...profile },
@@ -57,6 +57,11 @@ async function modeled(page, context, { metadata = {}, profile = {}, board = nul
     }
     if (url.pathname === '/rest/v1/profiles' && method === 'PATCH') {
       const body = request.postDataJSON() || {};
+      // Another member already holds this name: the database refuses the row (unique index).
+      if (takenName && body.username === takenName) {
+        state.writes.push({ to: 'profiles-refused', body });
+        return route.fulfill({ status: 409, json: { code: '23505', message: 'duplicate key value violates unique constraint "profiles_username_key"', details: null, hint: null } });
+      }
       state.writes.push({ to: 'profiles', body, filter: url.searchParams.get('id') });
       state.profile = { ...state.profile, ...body };
       return route.fulfill({ json: one ? state.profile : [state.profile] });
@@ -150,6 +155,29 @@ test('the first-run step: never the student number, saved to the profile row, th
   await openHub(page);
   await page.getByTestId('hub-identity').click();
   await expect(page.locator('.vmx-hub-id').getByRole('switch', { name: /แสดงบนกระดานอันดับ/ })).not.toBeChecked();
+});
+
+test('a name the database refuses keeps the first-run step open and says why beside the name', async ({ page, context }) => {
+  // Hidden from the board, the metadata (identity_intro_done) is written before
+  // the name: the step must still be there when the name is refused.
+  const state = await modeled(page, context, { takenName: 'หมอปิง' });
+  await open(page, state, '/');
+  const sheet = step(page);
+  await expect(sheet).toBeVisible();
+  const name = sheet.getByRole('textbox', { name: 'ชื่อที่เพื่อนเห็น' });
+  await name.fill('หมอปิง');
+  await sheet.getByRole('switch', { name: /แสดงบนกระดานอันดับ/ }).uncheck();
+  await sheet.getByRole('button', { name: 'บันทึก', exact: true }).click();
+  await expect.poll(() => state.writes.some((w) => w.to === 'profiles-refused')).toBe(true);
+  await expect(sheet).toBeVisible();
+  await expect(name).toHaveAttribute('aria-invalid', 'true');
+  await expect(sheet.locator('.vmx-form-group').getByRole('alert')).toHaveText('ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น');
+  // A new name clears the reason, and saving it closes the step.
+  await name.fill('หมอปิง2');
+  await expect(name).not.toHaveAttribute('aria-invalid', 'true');
+  await sheet.getByRole('button', { name: 'บันทึก', exact: true }).click();
+  await expect(sheet).toHaveCount(0);
+  expect(state.writes.find((w) => w.to === 'profiles').body).toMatchObject({ username: 'หมอปิง2' });
 });
 
 test.describe('a 375x667 phone', () => {
