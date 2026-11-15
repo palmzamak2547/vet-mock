@@ -10,7 +10,7 @@
 # Build when this app changed, the family list it shares (../src/lib/family), or the shared brand
 # files it serves from the main app's public/.
 # A git error (the previous deploy outside the shallow clone) builds instead of failing.
-git diff --quiet "$VERCEL_GIT_PREVIOUS_SHA" HEAD -- . ':!*.md' ':!tests' ../src/lib/family ../public/vetmock-logo.svg \
+git diff --quiet "$VERCEL_GIT_PREVIOUS_SHA" HEAD -- . ':!*.md' ':!tests' ../src/lib/family ../src/lib/stored-json.js ../public/vetmock-logo.svg \
   ../public/favicon.svg ../public/favicon-32.png ../public/favicon.ico ../public/icon-512.png \
   ../public/art/mochi-subjects/aquatic.webp || exit 1
 exit 0

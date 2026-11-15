@@ -50,7 +50,7 @@ const KNOWN = [
   ['src/lib/exam-recovery.js', 3, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/lib/external-doc-client.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/lib/feedback-client.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
-  ['src/lib/first-tip.js', 2, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
+  ['src/lib/first-tip.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/lib/guide-progress.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/lib/id-migration.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/lib/image-occlusion.js', 2, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],

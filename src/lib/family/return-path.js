@@ -6,7 +6,10 @@
 // is trusted only as a relative path on this origin: anything that could leave the origin is
 // refused, whoever wrote it.
 //
-// No imports: every site's boot path may load this file.
+// One import, the app's safe reader for stored JSON, which itself imports nothing: every site's
+// boot path may load this file.
+
+import { readStoredJson } from '../stored-json.js';
 
 const MAX = 2048;
 const MAX_AGE_MS = 15 * 60 * 1000;
@@ -75,14 +78,10 @@ export function keepDestination(key, path, { store = globalThis.sessionStorage, 
 
 /** Take the remembered destination once: a safe path no older than 15 minutes, or null. */
 export function takeDestination(key, { store = globalThis.sessionStorage, now = Date.now() } = {}) {
-  let raw = null;
-  try {
-    raw = store?.getItem(key) ?? null;
-    store?.removeItem(key);
-  } catch { return null; }
-  if (!raw) return null;
-  let v;
-  try { v = JSON.parse(raw); } catch { return null; }
+  if (!store) return null;
+  // A missing, corrupt or null value reads as null; it is taken once either way.
+  const v = readStoredJson(key, null, { storage: store });
+  try { store.removeItem(key); } catch { return null; }
   if (!v || typeof v !== 'object' || typeof v.at !== 'number') return null;
   if (now - v.at > MAX_AGE_MS || now < v.at - 60_000) return null;
   return safeReturnPath(v.path);

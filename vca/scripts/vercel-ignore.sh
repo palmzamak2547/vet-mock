@@ -11,6 +11,6 @@
 # the main app. A git error (the previous deploy outside the shallow clone) builds instead of
 # failing the deploy.
 git diff --quiet "$VERCEL_GIT_PREVIOUS_SHA" HEAD -- . ':!*.md' ../src/data ../src/lib/question-metadata.js \
-  ../src/lib/option-shuffle.js ../src/lib/richtext.jsx ../src/lib/family ../src/lib/share-link.js \
+  ../src/lib/option-shuffle.js ../src/lib/richtext.jsx ../src/lib/family ../src/lib/stored-json.js ../src/lib/share-link.js \
   ../src/lib/custom-question-ids.js ../public || exit 1
 exit 0

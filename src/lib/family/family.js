@@ -14,7 +14,10 @@
 // none: each site marks an explicit or visiting theme on <html data-theme-chosen>, and only that
 // travels (chosenTheme).
 //
-// No imports: the boot path of every site may load this file.
+// One import, the app's safe reader for stored JSON, which itself imports nothing: the boot path
+// of every site may load this file.
+
+import { readStoredJson } from '../stored-json.js';
 
 export const FAMILY = Object.freeze([
   Object.freeze({
@@ -109,7 +112,7 @@ export function chosenTheme(doc = globalThis.document) {
 /** What this visit arrived with: { theme, lang }, each null when nothing valid arrived. */
 export function visitPrefs(store = globalThis.sessionStorage) {
   try {
-    const v = JSON.parse(store?.getItem(VISIT_KEY) || 'null');
+    const v = store ? readStoredJson(VISIT_KEY, null, { storage: store }) : null;
     return { theme: THEMES.has(v?.theme) ? v.theme : null, lang: LANGS.has(v?.lang) ? v.lang : null };
   } catch { return { theme: null, lang: null }; }
 }
