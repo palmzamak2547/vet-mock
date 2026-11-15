@@ -572,7 +572,7 @@ test('the spaced-repetition card shows the caution with its key', () => {
   const sr = readFileSync(new URL('../../src/views/SRSessionView.jsx', import.meta.url), 'utf8');
   assert.match(sr, /import FlagChip from '\.\.\/components\/FlagChip\.jsx';/);
   const back = sr.indexOf('{showAnswer && (');
-  const chip = sr.indexOf('<FlagChip flag={currentQ.flag} revealed />');
+  const chip = sr.indexOf('<FlagChip key={`flag:${currentQ.subject}:${currentQ.id}`} flag={currentQ.flag} revealed />');
   assert.ok(back > 0 && chip > back && chip < sr.indexOf('</MotionEnter>', back), 'the chip is on the answer side of the card');
   // One chip component for the card, Review's caution words and the SR card.
   const card = readFileSync(new URL('../../src/components/Question.jsx', import.meta.url), 'utf8');
